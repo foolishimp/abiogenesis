@@ -15,8 +15,6 @@ from genesis.bind import (
     render_delta,
     run_fd_evaluator,
     select_relevant_contexts,
-    _run_six_modules,
-    _run_check_tags_impl,
 )
 from genesis.manifest import BoundJob, PrecomputedManifest
 
@@ -48,47 +46,40 @@ class TestRunFdEvaluator:
         with pytest.raises(TypeError):
             run_fd_evaluator(ev, {}, tmp_path)
 
-    def test_unknown_evaluator_passes(self, tmp_path):
-        ev = Evaluator("unknown_check", F_D, "desc")
-        passes, detail = run_fd_evaluator(ev, {}, tmp_path)
-        assert passes is True
-        assert "skip" in str(detail)
-
-    def test_six_modules_fails_when_dir_missing(self, tmp_path):
-        ev = Evaluator("six_modules", F_D, "exactly 6 modules")
+    def test_no_command_fails_closed(self, tmp_path):
+        """H1: F_D evaluator with no command must fail closed, not pass."""
+        ev = Evaluator("unknown_check", F_D, "desc")  # command="" by default
         passes, detail = run_fd_evaluator(ev, {}, tmp_path)
         assert passes is False
+        assert "no command" in detail["reason"]
 
-    def test_six_modules_passes_with_correct_files(self, tmp_path):
-        genesis_dir = tmp_path / "builds" / "claude_code" / "code" / "genesis"
-        genesis_dir.mkdir(parents=True)
-        required = ["core", "bind", "schedule", "manifest", "commands", "__main__"]
-        for name in required:
-            (genesis_dir / f"{name}.py").touch()
-        (genesis_dir / "__init__.py").touch()
+    def test_passing_command_returns_true(self, tmp_path):
+        ev = Evaluator("always_pass", F_D, "always passes", command="python -c 'import sys; sys.exit(0)'")
+        passes, detail = run_fd_evaluator(ev, {}, tmp_path)
+        assert passes is True
+        assert detail["returncode"] == 0
 
-        ev = Evaluator("six_modules", F_D, "exactly 6 modules")
+    def test_failing_command_returns_false(self, tmp_path):
+        ev = Evaluator("always_fail", F_D, "always fails", command="python -c 'import sys; sys.exit(1)'")
+        passes, detail = run_fd_evaluator(ev, {}, tmp_path)
+        assert passes is False
+        assert detail["returncode"] == 1
+
+    def test_stdout_captured(self, tmp_path):
+        ev = Evaluator("with_output", F_D, "prints something", command="python -c 'print(\"hello\")'")
+        passes, detail = run_fd_evaluator(ev, {}, tmp_path)
+        assert passes is True
+        assert "hello" in detail["stdout"]
+
+    def test_pythonpath_set_in_env(self, tmp_path):
+        """Subprocess can import from builds/claude_code/code via PYTHONPATH."""
+        code_dir = tmp_path / "builds" / "claude_code" / "code"
+        code_dir.mkdir(parents=True)
+        (code_dir / "mymodule.py").write_text("VALUE = 42\n")
+        ev = Evaluator("import_check", F_D, "can import local module",
+                       command="python -c 'import mymodule; import sys; sys.exit(0 if mymodule.VALUE == 42 else 1)'")
         passes, detail = run_fd_evaluator(ev, {}, tmp_path)
         assert passes is True, detail
-
-    def test_impl_tags_fails_when_untagged(self, tmp_path):
-        code_dir = tmp_path / "builds" / "claude_code" / "code" / "genesis"
-        code_dir.mkdir(parents=True)
-        (code_dir / "core.py").write_text("# no tag here\ndef foo(): pass\n")
-
-        ev = Evaluator("impl_tags", F_D, "all code has Implements: tags")
-        passes, detail = run_fd_evaluator(ev, {}, tmp_path)
-        assert passes is False
-        assert detail["untagged_count"] == 1
-
-    def test_impl_tags_passes_when_all_tagged(self, tmp_path):
-        code_dir = tmp_path / "builds" / "claude_code" / "code" / "genesis"
-        code_dir.mkdir(parents=True)
-        (code_dir / "core.py").write_text("# Implements: REQ-001\ndef foo(): pass\n")
-
-        ev = Evaluator("impl_tags", F_D, "all code has Implements: tags")
-        passes, _ = run_fd_evaluator(ev, {}, tmp_path)
-        assert passes is True
 
 
 # ── bind_fd ───────────────────────────────────────────────────────────────────

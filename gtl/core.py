@@ -232,6 +232,7 @@ class Evaluator:
     name: str
     category: type   # F_D | F_P | F_H
     description: str
+    command: str = ""  # F_D only: shell command the kernel runs; empty = F_P/F_H or misconfigured
 
     def __post_init__(self):
         if self.category not in (F_D, F_P, F_H):

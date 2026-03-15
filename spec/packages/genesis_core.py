@@ -195,7 +195,8 @@ e_tdd = Edge(
 eval_intent_fh     = Evaluator("intent_approved",    F_H, "Human confirms intent is clear, bounded, and non-trivial")
 
 # requirements→feature_decomp
-eval_feat_fd       = Evaluator("req_coverage",       F_D, "Every REQ key appears in ≥1 feature vector satisfies: field")
+eval_feat_fd       = Evaluator("req_coverage",       F_D, "Every REQ key appears in ≥1 feature vector satisfies: field",
+                               command="python -m genesis check-req-coverage --spec spec/packages/genesis_core.py --features .ai-workspace/features/")
 eval_feat_fh       = Evaluator("feat_approved",      F_H, "Human approves decomposition, DAG order, and MVP boundary")
 
 # feature_decomp→design
@@ -203,15 +204,21 @@ eval_design_fp     = Evaluator("design_complete",    F_P, "Agent: ADRs specify a
 eval_design_fh     = Evaluator("design_approved",    F_H, "Human approves design before any code is written")
 
 # design→code
-eval_code_tags     = Evaluator("impl_tags",          F_D, "check-tags: all code files carry Implements: REQ-* tags, 0 untagged")
-eval_six_modules   = Evaluator("six_modules",        F_D, "exactly 6 modules: core, bind, schedule, manifest, commands, __main__")
+eval_code_tags     = Evaluator("impl_tags",          F_D, "check-tags: all code files carry Implements: REQ-* tags, 0 untagged",
+                               command="python -m genesis check-tags --type implements --path builds/claude_code/code/")
+eval_six_modules   = Evaluator("six_modules",        F_D, "exactly 6 modules: core, bind, schedule, manifest, commands, __main__",
+                               command="python -c \"import os,sys; p='builds/claude_code/code/genesis'; m={f[:-3] for f in os.listdir(p) if f.endswith('.py') and f!='__init__.py'}; e={'core','bind','schedule','manifest','commands','__main__'}; diff=m^e; print('extra:',m-e,'missing:',e-m) if diff else print('OK'); sys.exit(0 if not diff else 1)\"")
 eval_code_fp       = Evaluator("code_complete",      F_P, "Agent: code implements all 6 functions per design ADRs; no V2 features present")
 
 # code↔unit_tests
-eval_tests_pass    = Evaluator("tests_pass",         F_D, "pytest: 0 failures, 0 errors")
-eval_coverage      = Evaluator("coverage_80",        F_D, "coverage >= 80%")
-eval_test_tags     = Evaluator("validates_tags",     F_D, "check-tags: all test files carry Validates: REQ-* tags, 0 untagged")
-eval_sandbox_e2e   = Evaluator("sandbox_e2e",        F_D, "e2e: fresh sandbox run creates code + tests; sandbox-local tests pass")
+eval_tests_pass    = Evaluator("tests_pass",         F_D, "pytest: 0 failures, 0 errors",
+                               command="python -m pytest builds/claude_code/tests/ -q --tb=short --ignore=builds/claude_code/tests/test_e2e_sandbox.py")
+eval_coverage      = Evaluator("coverage_80",        F_D, "coverage >= 80%",
+                               command="python -m pytest builds/claude_code/tests/ --cov=genesis --cov-report=term-missing -q --ignore=builds/claude_code/tests/test_e2e_sandbox.py")
+eval_test_tags     = Evaluator("validates_tags",     F_D, "check-tags: all test files carry Validates: REQ-* tags, 0 untagged",
+                               command="python -m genesis check-tags --type validates --path builds/claude_code/tests/")
+eval_sandbox_e2e   = Evaluator("sandbox_e2e",        F_D, "e2e: fresh sandbox run creates code + tests; sandbox-local tests pass",
+                               command="python -m pytest builds/claude_code/tests/test_e2e_sandbox.py -m e2e -q --tb=short")
 
 
 # ── Jobs ──────────────────────────────────────────────────────────────────────

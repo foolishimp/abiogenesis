@@ -79,6 +79,20 @@ Phase 5  Self-hosting                   abiogenesis runs its own code↔tests ed
 Phase 6+ Higher-order functions         V2 and beyond — only after Phase 5
 ```
 
+## V1 Bounded Limitations
+
+These are explicit V1 deferrals, not design gaps:
+
+**Package-snapshot/context-snapshot governance**: The GTL model defines
+`PackageSnapshot`, `package_snapshot_id`, and `context_snapshot_id` for lawful
+replay under a specific package version. V1 does not implement this. Events record
+`event_time`, `event_type`, `data` only. `project()` is deterministic within a
+session; cross-version replay fidelity is a V2 concern.
+
+**GTL is vendored, not published**: `gtl/` is copied from `ai_sdlc_method` at
+`v0.3.0`. Upgrades are deliberate copy-and-commit, not automatic. GTL will be
+published to PyPI in V2.
+
 ## ai_sdlc_method Status
 
 Frozen. Bootstrap compiler and research record only. Not the place where

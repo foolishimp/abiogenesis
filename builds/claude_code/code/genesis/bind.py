@@ -11,6 +11,7 @@ bind_fp  — assembles F_P manifest from pre-computed material. Also F_D.
 """
 from __future__ import annotations
 
+import os
 import subprocess
 from pathlib import Path
 from typing import Any
@@ -21,7 +22,7 @@ from .core import ContextResolver, EventStream, project
 from .manifest import BoundJob, PrecomputedManifest
 
 
-# ── F_D evaluator runners ─────────────────────────────────────────────────────
+# ── F_D evaluator runner ──────────────────────────────────────────────────────
 
 def run_fd_evaluator(
     ev: Evaluator,
@@ -31,185 +32,36 @@ def run_fd_evaluator(
     """
     Run one F_D evaluator. Returns (passes: bool, detail: Any).
 
-    Dispatches by evaluator name. Unknown evaluators are treated as passing
-    (conservative — avoids blocking on evaluators not yet implemented).
+    Dispatches via ev.command — the Package specifies; the kernel runs.
+    Fails closed: an F_D evaluator with no command is a misconfigured Package.
+    PYTHONPATH is set so genesis and gtl packages resolve inside the subprocess.
     """
     if ev.category is not F_D:
         raise TypeError(
             f"run_fd_evaluator called on non-F_D evaluator: {ev.name!r} "
             f"(category={ev.category.__name__})"
         )
+    if not ev.command:
+        return False, {
+            "status": "error",
+            "reason": f"F_D evaluator {ev.name!r} has no command — misconfigured Package",
+        }
 
-    runners = {
-        "impl_tags":       _run_check_tags_impl,
-        "validates_tags":  _run_check_tags_test,
-        "six_modules":     _run_six_modules,
-        "tests_pass":      _run_pytest,
-        "coverage_80":     _run_coverage,
-        "req_coverage":    _run_req_coverage,
-        "sandbox_e2e":     _run_sandbox_e2e,
+    env = {
+        **os.environ,
+        "PYTHONPATH": os.pathsep.join([
+            str(workspace_root / "builds" / "claude_code" / "code"),
+            str(workspace_root),
+            os.environ.get("PYTHONPATH", ""),
+        ]),
     }
-    runner = runners.get(ev.name)
-    if runner is None:
-        return True, {"status": "skip", "reason": f"no runner registered for {ev.name!r}"}
-
-    return runner(ev, current_asset, workspace_root)
-
-
-def _run_check_tags_impl(ev: Evaluator, asset: dict, root: Path) -> tuple[bool, Any]:
-    """Check all code .py files (except __init__.py) carry # Implements: tags."""
-    code_dir = root / "builds" / "claude_code" / "code"
-    if not code_dir.exists():
-        return False, {"status": "fail", "reason": "code dir missing", "untagged": []}
-
-    untagged = []
-    for f in sorted(code_dir.rglob("*.py")):
-        if f.name == "__init__.py":
-            continue
-        if "# Implements:" not in f.read_text(encoding="utf-8"):
-            untagged.append(str(f.relative_to(root)))
-
-    return len(untagged) == 0, {
-        "untagged_count": len(untagged),
-        "untagged": untagged,
-    }
-
-
-def _run_check_tags_test(ev: Evaluator, asset: dict, root: Path) -> tuple[bool, Any]:
-    """Check all test .py files (except __init__.py) carry # Validates: tags."""
-    test_dir = root / "builds" / "claude_code" / "tests"
-    if not test_dir.exists():
-        return False, {"status": "fail", "reason": "tests dir missing", "untagged": []}
-
-    untagged = []
-    for f in sorted(test_dir.rglob("*.py")):
-        if f.name == "__init__.py":
-            continue
-        if "# Validates:" not in f.read_text(encoding="utf-8"):
-            untagged.append(str(f.relative_to(root)))
-
-    return len(untagged) == 0, {
-        "untagged_count": len(untagged),
-        "untagged": untagged,
-    }
-
-
-def _run_six_modules(ev: Evaluator, asset: dict, root: Path) -> tuple[bool, Any]:
-    """Check exactly 6 modules exist in genesis package (excluding __init__)."""
-    required = {"core", "bind", "schedule", "manifest", "commands", "__main__"}
-    genesis_dir = root / "builds" / "claude_code" / "code" / "genesis"
-
-    if not genesis_dir.exists():
-        return False, {"status": "fail", "reason": "genesis package dir missing"}
-
-    found = {f.stem for f in genesis_dir.glob("*.py") if f.stem != "__init__"}
-    missing = required - found
-    extra = found - required
-
-    return len(missing) == 0, {
-        "required": sorted(required),
-        "found": sorted(found),
-        "missing": sorted(missing),
-        "extra": sorted(extra),
-    }
-
-
-def _run_pytest(ev: Evaluator, asset: dict, root: Path) -> tuple[bool, Any]:
-    """Run pytest and check for 0 failures."""
-    test_dir = root / "builds" / "claude_code" / "tests"
-    if not test_dir.exists() or not any(test_dir.rglob("test_*.py")):
-        return False, {"status": "fail", "reason": "no tests found"}
-
     result = subprocess.run(
-        ["python", "-m", "pytest", "builds/claude_code/tests/", "-q", "--tb=short"],
-        capture_output=True, text=True, cwd=root,
+        ev.command, shell=True, cwd=workspace_root,
+        capture_output=True, text=True, env=env,
     )
     return result.returncode == 0, {
         "returncode": result.returncode,
         "stdout": result.stdout[-3000:],
-        "stderr": result.stderr[-500:],
-    }
-
-
-def _run_coverage(ev: Evaluator, asset: dict, root: Path) -> tuple[bool, Any]:
-    """Run pytest with coverage and check >= 80%."""
-    result = subprocess.run(
-        [
-            "python", "-m", "pytest",
-            "builds/claude_code/tests/",
-            "--cov=genesis",
-            "--cov-report=term-missing",
-            "-q",
-        ],
-        capture_output=True, text=True, cwd=root,
-    )
-    output = result.stdout
-    coverage_pct = 0
-    for line in output.splitlines():
-        if "TOTAL" in line:
-            for part in line.split():
-                if part.endswith("%"):
-                    try:
-                        coverage_pct = int(part[:-1])
-                    except ValueError:
-                        pass
-
-    return coverage_pct >= 80, {
-        "coverage_pct": coverage_pct,
-        "output": output[-2000:],
-    }
-
-
-def _run_req_coverage(ev: Evaluator, asset: dict, root: Path) -> tuple[bool, Any]:
-    """
-    Check every REQ-* key in requirements.md appears in ≥1 feature vector satisfies: field.
-
-    Scans specification/requirements.md for REQ-* keys, then scans feature vectors
-    in .ai-workspace/features/ for those keys in their satisfies: fields.
-    """
-    import re
-
-    req_file = root / "specification" / "requirements.md"
-    if not req_file.exists():
-        return False, {"status": "fail", "reason": "specification/requirements.md missing"}
-
-    # Extract all REQ-* keys from requirements doc (section headers like ### REQ-F-CORE-001)
-    req_text = req_file.read_text(encoding="utf-8")
-    all_keys = set(re.findall(r"REQ-[A-Z0-9\-]+", req_text))
-    # Filter to section headers (avoid keys mentioned only in tables/examples)
-    defined_keys = set(re.findall(r"###\s+(REQ-[A-Z0-9\-]+)", req_text))
-    if not defined_keys:
-        defined_keys = all_keys  # fallback
-
-    # Scan feature vectors for satisfies: fields
-    features_dir = root / ".ai-workspace" / "features"
-    covered_keys: set[str] = set()
-    for yml_path in features_dir.rglob("*.yml"):
-        text = yml_path.read_text(encoding="utf-8")
-        covered_keys.update(re.findall(r"REQ-[A-Z0-9\-]+", text))
-
-    uncovered = sorted(defined_keys - covered_keys)
-    passes = len(uncovered) == 0
-    return passes, {
-        "defined_keys": sorted(defined_keys),
-        "covered_count": len(defined_keys - set(uncovered)),
-        "uncovered": uncovered,
-    }
-
-
-def _run_sandbox_e2e(ev: Evaluator, asset: dict, root: Path) -> tuple[bool, Any]:
-    """Run sandbox E2E tests (pytest -m e2e) against the test suite."""
-    test_dir = root / "builds" / "claude_code" / "tests"
-    if not test_dir.exists():
-        return False, {"status": "fail", "reason": "tests dir missing"}
-
-    result = subprocess.run(
-        ["python", "-m", "pytest", "builds/claude_code/tests/", "-m", "e2e", "-q", "--tb=short"],
-        capture_output=True, text=True, cwd=root,
-    )
-    return result.returncode == 0, {
-        "returncode": result.returncode,
-        "stdout": result.stdout[-2000:],
         "stderr": result.stderr[-500:],
     }
 
