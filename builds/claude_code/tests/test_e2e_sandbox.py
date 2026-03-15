@@ -82,7 +82,10 @@ def _make_sandbox_package(workspace: Path):
         using=[op_fp, op_fd],
         context=[ctx],
     )
-    eval_tags = Evaluator("impl_tags", F_D, "all code files carry Implements: tags")
+    eval_tags = Evaluator(
+        "impl_tags", F_D, "all code files carry Implements: tags",
+        command="python -m genesis check-tags --type implements --path code/",
+    )
     eval_fp = Evaluator("code_complete", F_P, "agent: code implements spec")
     job = Job(edge=edge, evaluators=[eval_tags, eval_fp])
     rule = Rule("gate", approve=consensus(1, 1))
@@ -114,11 +117,8 @@ class TestSandboxFullLifecycle:
         """gen_gaps correctly identifies delta > 0 when no code exists."""
         stream = workspace_bootstrap(tmp_path)
         pkg, worker, _ = _make_sandbox_package(tmp_path)
-        scope = Scope(package=pkg, workspace_root=tmp_path)
-
-        with pytest.MonkeyPatch.context() as mp:
-            mp.setattr("genesis.commands._resolve_worker", lambda s: worker)
-            result = gen_gaps(scope, stream)
+        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
+        result = gen_gaps(scope, stream)
 
         assert result["total_delta"] > 0
         assert result["converged"] is False
@@ -129,13 +129,10 @@ class TestSandboxFullLifecycle:
         """gen_iterate correctly dispatches to F_P when code is not complete."""
         stream = workspace_bootstrap(tmp_path)
         pkg, worker, _ = _make_sandbox_package(tmp_path)
-        scope = Scope(package=pkg, workspace_root=tmp_path)
+        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
         dispatched: list[BoundJob] = []
 
-        with pytest.MonkeyPatch.context() as mp:
-            mp.setattr("genesis.commands._resolve_worker", lambda s: worker)
-            result = gen_iterate(scope, stream,
-                                 on_fp_dispatch=dispatched.append)
+        result = gen_iterate(scope, stream, on_fp_dispatch=dispatched.append)
 
         assert result["status"] == "iterated"
         assert len(dispatched) == 1  # F_P was dispatched
@@ -154,12 +151,10 @@ class TestSandboxFullLifecycle:
         """
         stream = workspace_bootstrap(tmp_path)
         pkg, worker, job = _make_sandbox_package(tmp_path)
-        scope = Scope(package=pkg, workspace_root=tmp_path)
+        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
 
         # ── Step 1: gap exists ──
-        with pytest.MonkeyPatch.context() as mp:
-            mp.setattr("genesis.commands._resolve_worker", lambda s: worker)
-            before = gen_gaps(scope, stream)
+        before = gen_gaps(scope, stream)
         assert before["total_delta"] > 0, "Expected gap before code exists"
 
         # ── Step 2: F_P acts — test creates code artifact ──
@@ -171,7 +166,7 @@ class TestSandboxFullLifecycle:
             "    return 'hello from sandbox'\n"
         )
 
-        # F_P records its assessment and engine records convergence
+        # F_P records its assessment — F_D (impl_tags) is validated live by gen_gaps
         emit("fp_assessment", {
             "edge": "design→code",
             "evaluator": "code_complete",
@@ -179,18 +174,9 @@ class TestSandboxFullLifecycle:
             "result": "pass",
             "evidence": "code/impl.py created with Implements tag",
         })
-        emit("edge_converged", {
-            "edge": "design→code",
-            "target": "code",
-            "build": "claude_code",
-            "delta": 0,
-            "evaluators_passed": ["impl_tags", "code_complete"],
-        })
 
-        # ── Step 3: delta = 0 ──
-        with pytest.MonkeyPatch.context() as mp:
-            mp.setattr("genesis.commands._resolve_worker", lambda s: worker)
-            after = gen_gaps(scope, stream)
+        # ── Step 3: delta = 0 — engine freshly evaluates both F_D and F_P ──
+        after = gen_gaps(scope, stream)
 
         assert after["total_delta"] == 0, (
             f"Expected delta=0 after F_P acted, got: {json.dumps(after, indent=2)}"
@@ -201,11 +187,9 @@ class TestSandboxFullLifecycle:
         """Event log contains truthful records of the lifecycle."""
         stream = workspace_bootstrap(tmp_path)
         pkg, worker, _ = _make_sandbox_package(tmp_path)
-        scope = Scope(package=pkg, workspace_root=tmp_path)
+        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
 
-        with pytest.MonkeyPatch.context() as mp:
-            mp.setattr("genesis.commands._resolve_worker", lambda s: worker)
-            gen_iterate(scope, stream)
+        gen_iterate(scope, stream)
 
         events = stream.all_events()
         types = [e["event_type"] for e in events]

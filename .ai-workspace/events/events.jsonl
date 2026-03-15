@@ -8,3 +8,8 @@
 {"event_time": "2026-03-15T04:56:15.489775+00:00", "event_type": "edge_converged", "data": {"edge": "feature_decomp\u2192design", "delta": 0, "phase": "c"}}
 {"event_time": "2026-03-15T04:56:15.489842+00:00", "event_type": "edge_converged", "data": {"edge": "design\u2192code", "delta": 0, "phase": "c"}}
 {"event_time": "2026-03-15T04:56:15.489906+00:00", "event_type": "edge_converged", "data": {"edge": "code\u2194unit_tests", "delta": 0, "phase": "c"}}
+{"event_time": "2026-03-15T05:15:30.030696+00:00", "event_type": "edge_converged", "data": {"edge": "intent\u2192requirements", "target": "requirements", "delta": 0, "certified_by": "gen_gaps"}}
+{"event_time": "2026-03-15T05:15:30.061926+00:00", "event_type": "edge_converged", "data": {"edge": "requirements\u2192feature_decomp", "target": "feature_decomp", "delta": 0, "certified_by": "gen_gaps"}}
+{"event_time": "2026-03-15T05:15:30.062203+00:00", "event_type": "edge_converged", "data": {"edge": "feature_decomp\u2192design", "target": "design", "delta": 0, "certified_by": "gen_gaps"}}
+{"event_time": "2026-03-15T05:15:30.101930+00:00", "event_type": "edge_converged", "data": {"edge": "design\u2192code", "target": "code", "delta": 0, "certified_by": "gen_gaps"}}
+{"event_time": "2026-03-15T05:15:32.276230+00:00", "event_type": "edge_converged", "data": {"edge": "code\u2194unit_tests", "target": "unit_tests", "delta": 0, "certified_by": "gen_gaps"}}

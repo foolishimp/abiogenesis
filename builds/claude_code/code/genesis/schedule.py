@@ -51,14 +51,6 @@ def delta(
 
     events = stream.all_events()
 
-    # Short-circuit: edge already recorded as converged
-    if any(
-        e.get("event_type") == "edge_converged"
-        and e.get("data", {}).get("edge") == job.edge.name
-        for e in events
-    ):
-        return 0.0
-
     source = job.source_type
     source_name = source[0].name if isinstance(source, list) else source.name
     current = project(stream, source_name, "current")

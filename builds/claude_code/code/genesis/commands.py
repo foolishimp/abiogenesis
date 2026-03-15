@@ -81,6 +81,16 @@ def gen_gaps(scope: Scope, stream: EventStream) -> dict:
             "passing": [ev.name for ev in pre.passing_evaluators],
             "delta_summary": pre.delta_summary,
         })
+        # When freshly computed delta=0, record convergence in the event log.
+        # This makes the engine self-certifying: the log records what the engine
+        # actually observed, not what a human inserted out of band.
+        if pre.delta == 0:
+            emit("edge_converged", {
+                "edge": job.edge.name,
+                "target": job.edge.target.name,
+                "delta": 0,
+                "certified_by": "gen_gaps",
+            })
 
     total_delta = sum(r["delta"] for r in results)
     return {

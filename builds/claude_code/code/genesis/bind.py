@@ -11,7 +11,9 @@ bind_fp  — assembles F_P manifest from pre-computed material. Also F_D.
 """
 from __future__ import annotations
 
+import os
 import subprocess
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -46,9 +48,15 @@ def run_fd_evaluator(
             "reason": f"F_D evaluator {ev.name!r} has no command — misconfigured Package",
         }
 
+    # Propagate sys.path as PYTHONPATH so genesis/gtl are importable in subprocesses.
+    env = os.environ.copy()
+    extra = os.pathsep.join(p for p in sys.path if p)
+    existing = env.get("PYTHONPATH", "")
+    env["PYTHONPATH"] = os.pathsep.join(filter(None, [extra, existing]))
+
     result = subprocess.run(
         ev.command, shell=True, cwd=workspace_root,
-        capture_output=True, text=True,
+        capture_output=True, text=True, env=env,
     )
     return result.returncode == 0, {
         "returncode": result.returncode,
@@ -76,25 +84,11 @@ def bind_fd(
     source_name = source[0].name if isinstance(source, list) else source.name
     current = project(stream, source_name, "current")
 
-    # 2. Short-circuit: if edge_converged already recorded, skip F_D evaluators
+    # 2. Run all F_D evaluators — always, unconditionally.
+    # edge_converged events are audit records (emitted by gen_gaps when delta=0),
+    # not gates that bypass evaluation. F_D is deterministic; re-running is cheap
+    # and necessary for live convergence detection.
     all_events = stream.all_events()
-    edge_already_converged = any(
-        e.get("event_type") == "edge_converged"
-        and e.get("data", {}).get("edge") == job.edge.name
-        for e in all_events
-    )
-    if edge_already_converged:
-        return PrecomputedManifest(
-            job=job,
-            current_asset=current,
-            failing_evaluators=[],
-            passing_evaluators=list(job.evaluators),
-            fd_results={},
-            relevant_contexts={},
-            delta_summary="delta = 0 — all evaluators pass (edge_converged recorded)",
-        )
-
-    # 3. Run all F_D evaluators (only if not already converged)
     fd_results: dict[str, Any] = {}
     for ev in job.evaluators:
         if ev.category is F_D:

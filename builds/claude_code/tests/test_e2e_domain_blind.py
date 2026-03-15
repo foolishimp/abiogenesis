@@ -245,16 +245,22 @@ class TestFdOnlyDomainBlind:
         assert any(e["event_type"] == "fd_gap_found" for e in surface.events)
 
     @pytest.mark.bootstrap_state
-    def test_edge_converged_short_circuits_fd(self, tmp_path):
-        """Once edge_converged is in stream, bind_fd returns delta=0 without running commands."""
+    def test_edge_converged_is_audit_record_not_gate(self, tmp_path):
+        """edge_converged in stream is an audit record — F_D evaluators still re-run.
+
+        Convergence is live: bind_fd always re-evaluates F_D commands.
+        A prior edge_converged certificate does not bypass current workspace checks.
+        Regressions (test failures, tag removals) are detected on the next bind_fd call.
+        """
         ws = _make_stream(tmp_path)
         pkg, worker, job, sentinel = _make_fd_only_pkg(tmp_path)
-        ws.append("edge_converged", {"edge": "draft→published"})
+        ws.append("edge_converged", {"edge": "draft→published", "target": "published"})
         from genesis.core import ContextResolver
         resolver = ContextResolver(tmp_path)
         pre = bind_fd(job, ws, resolver, tmp_path)
-        assert pre.failing_evaluators == []
-        assert not sentinel.exists()  # command was NOT run
+        # F_D command WAS re-run — sentinel still does not exist → evaluator fails
+        assert any(ev.name == "file_published" for ev in pre.failing_evaluators)
+        assert sentinel.exists() is False  # sentinel not created — command ran and failed
 
 
 # ── Package 2: F_H gate ───────────────────────────────────────────────────────
