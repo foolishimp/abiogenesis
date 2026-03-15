@@ -35,6 +35,11 @@ class Scope:
     Ambiguous scope fails closed — the command returns an error describing the
     available scopes rather than guessing. See ADR-004.
 
+    worker: the Worker that executes jobs in this scope. When provided, the
+        command layer is fully domain-blind — no spec import occurs. When None,
+        _resolve_worker() falls back to the genesis self-hosting spec import
+        (V1 CLI convenience; remove in V2 — callers should always supply worker).
+
     V1: build is always "claude_code". Multi-tenant deferred to V2.
     """
     package: Package
@@ -42,6 +47,7 @@ class Scope:
     feature: Optional[str] = None     # feature vector ID override (None = all)
     edge: Optional[str] = None        # edge name override (None = topological)
     build: str = "claude_code"
+    worker: Optional[Worker] = None   # explicit worker; None = spec-import fallback
 
 
 # ── gen_gaps — bind_fd over scope ─────────────────────────────────────────────
@@ -214,13 +220,20 @@ def _derive_state(scope: Scope, stream: EventStream) -> dict:
 
 def _resolve_worker(scope: Scope) -> Worker:
     """
-    Resolve the worker for the given scope's build identity.
+    Resolve the worker for the given scope.
 
-    V1: imports worker_claude_code from spec. The spec is always the authority.
-    Raises RuntimeError if spec is not importable.
+    Domain-blind path: if scope.worker is set, return it directly. No imports,
+    no genesis-specific knowledge — the caller supplied the worker.
+
+    Fallback (V1 CLI convenience): if scope.worker is None, import the worker
+    from spec.packages.genesis_core. This is the genesis self-hosting path used
+    by __main__.py. Remove in V2 — callers should always supply scope.worker.
     """
+    if scope.worker is not None:
+        return scope.worker
+
+    # V1 fallback: self-hosting spec import
     import sys
-    # Ensure spec is findable relative to workspace_root
     spec_path = str(scope.workspace_root)
     if spec_path not in sys.path:
         sys.path.insert(0, spec_path)
@@ -232,6 +245,7 @@ def _resolve_worker(scope: Scope) -> Worker:
         raise RuntimeError(
             f"Cannot resolve worker for build {scope.build!r}: "
             f"spec.packages.genesis_core not importable from {scope.workspace_root}. "
+            f"Supply scope.worker explicitly or ensure spec is importable. "
             f"Original error: {exc}"
         ) from exc
 

@@ -207,7 +207,10 @@ def main() -> None:
     from .commands import Scope, gen_gaps, gen_iterate, gen_start
 
     try:
-        from spec.packages.genesis_core import genesis_v1 as package  # type: ignore[import]
+        from spec.packages.genesis_core import (  # type: ignore[import]
+            genesis_v1 as package,
+            worker_claude_code,
+        )
     except ImportError as exc:
         print(
             f"ERROR: cannot import spec.packages.genesis_core from {workspace}.\n"
@@ -222,6 +225,7 @@ def main() -> None:
         workspace_root=workspace,
         feature=getattr(args, "feature", None),
         edge=getattr(args, "edge", None),
+        worker=worker_claude_code,
     )
 
     if args.command == "start":

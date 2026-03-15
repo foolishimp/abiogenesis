@@ -275,9 +275,15 @@ class TestSandboxFullLifecycle:
 # ── Self-hosting gate ─────────────────────────────────────────────────────────
 
 @pytest.mark.e2e
+@pytest.mark.phase_c
 class TestSelfHosting:
     """
-    Phase 5 self-hosting: the genesis engine evaluates its own workspace.
+    Phase C target-state gate: the genesis engine evaluates its own workspace
+    and must report converged=True.
+
+    This test asserts a live workspace property (delta=0 across all edges).
+    It is Phase C work — real state reconciliation, not Phase B kernel proofs.
+    Run only after human F_H approvals and F_P assessments are recorded.
     """
 
     def test_engine_evaluates_own_workspace(self):

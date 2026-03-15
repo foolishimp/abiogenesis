@@ -13,35 +13,53 @@
 Phase B: Domain-blind kernel proof.
 
 Four synthetic packages from entirely unrelated domains prove that the kernel
-(bind_fd, bind_fp, iterate, schedule) dispatches generically — the Package
-specifies everything; the kernel knows nothing about the domain.
+(bind_fd, bind_fp, iterate, schedule) AND the command layer (gen_gaps,
+gen_iterate, gen_start) dispatch generically — the Package and Worker are
+supplied by the caller; the kernel knows nothing about the domain.
+
+Domain-blind path enabled by Scope.worker: when scope.worker is set,
+_resolve_worker() returns it directly with no spec import. Every gen_* test
+below passes worker explicitly — no genesis_core import, no patches.
 
 Domains used (none are genesis/AI):
-  1. fd_only    — "content pipeline": F_D sentinel file check
-  2. fh_gate    — "budget approval":  F_H human sign-off gate
-  3. fp_dispatch — "recipe generator": F_P agent dispatch
-  4. multi_worker — "translation service": two workers, conflict detection
+  1. fd_only       — "content pipeline":    F_D sentinel file check
+  2. fh_gate       — "budget approval":     F_H human sign-off gate
+  3. fp_dispatch   — "recipe generator":    F_P agent dispatch
+  4. multi_worker  — "translation service": two workers, conflict detection
 
-Test lanes:
-  bootstrap_state — Python-object level; no filesystem bootstrap needed
+Test lanes (from pyproject.toml markers):
+  bootstrap_state — EventStream + Python objects; no workspace_bootstrap call
   self_host       — workspace_bootstrap required
 """
 from __future__ import annotations
 
 import pytest
 from pathlib import Path
-from unittest.mock import patch
 
 from gtl.core import (
     Asset, Context, Edge, Evaluator, Job, Operator, Package, Rule, Worker,
     F_D, F_H, F_P, consensus,
 )
 
-from genesis.core import EventStream, workspace_bootstrap
+from genesis.core import EventStream, workspace_bootstrap, init_stream
 from genesis.bind import bind_fd, bind_fp
 from genesis.schedule import delta, iterate, schedule
 from genesis.commands import Scope, gen_gaps, gen_iterate, gen_start
 from genesis.manifest import BoundJob
+
+
+# ── Stream helpers ────────────────────────────────────────────────────────────
+
+def _make_stream(tmp_path: Path) -> EventStream:
+    """
+    Minimal EventStream — no workspace_bootstrap, no directory scaffolding.
+    Calls init_stream() so emit() works for tests that exercise gen_iterate/gen_start.
+    """
+    f = tmp_path / "events.jsonl"
+    f.touch()
+    stream = EventStream(f)
+    init_stream(stream)  # set global _stream so emit() works without workspace_bootstrap
+    return stream
 
 
 # ── Synthetic package builders ────────────────────────────────────────────────
@@ -53,7 +71,7 @@ def _make_fd_only_pkg(workspace_root: Path):
     Domain: content pipeline.
     One edge: draft → published.
     One F_D evaluator: check that 'published.ok' sentinel file exists.
-    Kernel must dispatch the command generically; it does not know what a
+    Kernel dispatches ev.command generically; it does not know what a
     'content pipeline' is.
     """
     sentinel = workspace_root / "published.ok"
@@ -86,7 +104,8 @@ def _make_fh_gate_pkg():
     Domain: budget approval process.
     One edge: proposal → approved_budget.
     One F_H evaluator: finance director must sign off.
-    Kernel must resolve the gate via review_approved event alone.
+    Kernel resolves the gate via review_approved edge name — knows nothing about
+    'budgets'.
     """
     proposal = Asset(name="proposal", id_format="PROP-{SEQ}")
     approved_budget = Asset(name="approved_budget", id_format="BDG-{SEQ}",
@@ -114,7 +133,7 @@ def _make_fp_dispatch_pkg():
     Domain: recipe generator.
     One edge: ingredients → recipe.
     One F_P evaluator: chef agent assesses recipe completeness.
-    Kernel must fire on_fp_dispatch callback; it does not know what a recipe is.
+    Kernel fires on_fp_dispatch callback; it does not know what a 'recipe' is.
     """
     ingredients = Asset(name="ingredients", id_format="ING-{SEQ}")
     recipe = Asset(name="recipe", id_format="REC-{SEQ}", lineage=[ingredients])
@@ -168,12 +187,13 @@ class TestFdOnlyDomainBlind:
     """
     Proves: kernel dispatches ev.command without any domain knowledge.
     The Package declares the check; the kernel runs it generically.
+    gen_* commands use Scope.worker — no spec import occurs.
     """
 
     @pytest.mark.bootstrap_state
     def test_fd_command_executed_generically(self, tmp_path):
         """Kernel runs ev.command via subprocess — no domain knowledge required."""
-        ws = workspace_bootstrap(tmp_path)
+        ws = _make_stream(tmp_path)
         pkg, worker, job, sentinel = _make_fd_only_pkg(tmp_path)
         from genesis.core import ContextResolver
         resolver = ContextResolver(tmp_path)
@@ -183,43 +203,39 @@ class TestFdOnlyDomainBlind:
 
     @pytest.mark.bootstrap_state
     def test_initial_delta_nonzero(self, tmp_path):
-        """gen_gaps shows delta>0 before condition is met."""
-        ws = workspace_bootstrap(tmp_path)
+        """gen_gaps shows delta>0 before condition is met. No _resolve_worker patch."""
+        ws = _make_stream(tmp_path)
         pkg, worker, job, sentinel = _make_fd_only_pkg(tmp_path)
-        scope = Scope(package=pkg, workspace_root=tmp_path)
-        with patch("genesis.commands._resolve_worker", return_value=worker):
-            result = gen_gaps(scope, ws)
+        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
+        result = gen_gaps(scope, ws)
         assert result["total_delta"] > 0
         assert result["converged"] is False
 
     @pytest.mark.bootstrap_state
     def test_delta_zero_after_condition_met(self, tmp_path):
-        """gen_gaps shows delta=0 after the F_D command passes."""
-        ws = workspace_bootstrap(tmp_path)
+        """gen_gaps shows delta=0 after the F_D command passes. No patch."""
+        ws = _make_stream(tmp_path)
         pkg, worker, job, sentinel = _make_fd_only_pkg(tmp_path)
-        # Satisfy the F_D condition
         sentinel.write_text("done")
-        scope = Scope(package=pkg, workspace_root=tmp_path)
-        with patch("genesis.commands._resolve_worker", return_value=worker):
-            result = gen_gaps(scope, ws)
+        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
+        result = gen_gaps(scope, ws)
         assert result["total_delta"] == 0
         assert result["converged"] is True
 
     @pytest.mark.bootstrap_state
     def test_gen_iterate_returns_iterated(self, tmp_path):
-        """gen_iterate processes a domain-blind F_D job."""
-        ws = workspace_bootstrap(tmp_path)
+        """gen_iterate processes a domain-blind F_D job. No patch."""
+        ws = _make_stream(tmp_path)
         pkg, worker, job, sentinel = _make_fd_only_pkg(tmp_path)
-        scope = Scope(package=pkg, workspace_root=tmp_path)
-        with patch("genesis.commands._resolve_worker", return_value=worker):
-            result = gen_iterate(scope, ws)
+        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
+        result = gen_iterate(scope, ws)
         assert result["status"] == "iterated"
         assert result["edge"] == "draft→published"
 
     @pytest.mark.bootstrap_state
     def test_fd_gap_event_in_surface(self, tmp_path):
         """iterate() records fd_gap_found when F_D fails."""
-        ws = workspace_bootstrap(tmp_path)
+        ws = _make_stream(tmp_path)
         pkg, worker, job, sentinel = _make_fd_only_pkg(tmp_path)
         from genesis.core import ContextResolver
         resolver = ContextResolver(tmp_path)
@@ -231,9 +247,8 @@ class TestFdOnlyDomainBlind:
     @pytest.mark.bootstrap_state
     def test_edge_converged_short_circuits_fd(self, tmp_path):
         """Once edge_converged is in stream, bind_fd returns delta=0 without running commands."""
-        ws = workspace_bootstrap(tmp_path)
+        ws = _make_stream(tmp_path)
         pkg, worker, job, sentinel = _make_fd_only_pkg(tmp_path)
-        # Emit edge_converged — sentinel file still absent
         ws.append("edge_converged", {"edge": "draft→published"})
         from genesis.core import ContextResolver
         resolver = ContextResolver(tmp_path)
@@ -246,14 +261,15 @@ class TestFdOnlyDomainBlind:
 
 class TestFhGateDomainBlind:
     """
-    Proves: kernel resolves F_H gates using only the edge name in review_approved.
+    Proves: kernel resolves F_H gates using only edge name in review_approved.
     It does not know what a 'budget approval' is.
+    gen_* commands use Scope.worker — no spec import.
     """
 
     @pytest.mark.bootstrap_state
     def test_fh_gate_blocks_at_delta(self, tmp_path):
         """F_H evaluator contributes delta>0 before review_approved."""
-        ws = workspace_bootstrap(tmp_path)
+        ws = _make_stream(tmp_path)
         pkg, worker, job = _make_fh_gate_pkg()
         from genesis.core import ContextResolver
         resolver = ContextResolver(tmp_path)
@@ -263,9 +279,8 @@ class TestFhGateDomainBlind:
     @pytest.mark.bootstrap_state
     def test_fh_gate_resolved_by_review_approved(self, tmp_path):
         """review_approved event with correct edge name resolves the F_H gate."""
-        ws = workspace_bootstrap(tmp_path)
+        ws = _make_stream(tmp_path)
         pkg, worker, job = _make_fh_gate_pkg()
-        # Kernel only checks edge name — domain content is irrelevant
         ws.append("review_approved", {"edge": "proposal→approved_budget", "actor": "human"})
         from genesis.core import ContextResolver
         resolver = ContextResolver(tmp_path)
@@ -276,7 +291,7 @@ class TestFhGateDomainBlind:
     @pytest.mark.bootstrap_state
     def test_fh_gate_not_resolved_by_wrong_edge(self, tmp_path):
         """review_approved for a different edge does NOT resolve this gate."""
-        ws = workspace_bootstrap(tmp_path)
+        ws = _make_stream(tmp_path)
         pkg, worker, job = _make_fh_gate_pkg()
         ws.append("review_approved", {"edge": "some_other_edge", "actor": "human"})
         from genesis.core import ContextResolver
@@ -287,7 +302,7 @@ class TestFhGateDomainBlind:
     @pytest.mark.bootstrap_state
     def test_fh_pending_event_emitted_by_iterate(self, tmp_path):
         """iterate() emits fh_gate_pending when F_H evaluator is unresolved."""
-        ws = workspace_bootstrap(tmp_path)
+        ws = _make_stream(tmp_path)
         pkg, worker, job = _make_fh_gate_pkg()
         from genesis.core import ContextResolver
         resolver = ContextResolver(tmp_path)
@@ -300,13 +315,12 @@ class TestFhGateDomainBlind:
 
     @pytest.mark.bootstrap_state
     def test_gen_iterate_returns_converged_when_fh_resolved(self, tmp_path):
-        """After review_approved, gen_iterate sees delta=0 and returns converged."""
-        ws = workspace_bootstrap(tmp_path)
+        """After review_approved, gen_iterate sees delta=0. No patch needed."""
+        ws = _make_stream(tmp_path)
         pkg, worker, job = _make_fh_gate_pkg()
         ws.append("review_approved", {"edge": "proposal→approved_budget", "actor": "human"})
-        scope = Scope(package=pkg, workspace_root=tmp_path)
-        with patch("genesis.commands._resolve_worker", return_value=worker):
-            result = gen_iterate(scope, ws)
+        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
+        result = gen_iterate(scope, ws)
         assert result["status"] == "converged"
 
 
@@ -316,12 +330,13 @@ class TestFpDispatchDomainBlind:
     """
     Proves: kernel fires on_fp_dispatch callback generically.
     It does not know what a 'recipe generator' is.
+    gen_* commands use Scope.worker — no spec import.
     """
 
     @pytest.mark.bootstrap_state
     def test_fp_dispatch_callback_fires(self, tmp_path):
         """on_fp_dispatch is called with the BoundJob when F_P evaluator is failing."""
-        ws = workspace_bootstrap(tmp_path)
+        ws = _make_stream(tmp_path)
         pkg, worker, job = _make_fp_dispatch_pkg()
         from genesis.core import ContextResolver
         resolver = ContextResolver(tmp_path)
@@ -335,7 +350,7 @@ class TestFpDispatchDomainBlind:
     @pytest.mark.bootstrap_state
     def test_fp_dispatch_prompt_has_gap_section(self, tmp_path):
         """BoundJob.prompt contains [GAP] section — kernel builds it generically."""
-        ws = workspace_bootstrap(tmp_path)
+        ws = _make_stream(tmp_path)
         pkg, worker, job = _make_fp_dispatch_pkg()
         from genesis.core import ContextResolver
         resolver = ContextResolver(tmp_path)
@@ -347,7 +362,7 @@ class TestFpDispatchDomainBlind:
     @pytest.mark.bootstrap_state
     def test_fp_dispatch_prompt_has_output_contract(self, tmp_path):
         """BoundJob.prompt contains [OUTPUT CONTRACT] with target asset name."""
-        ws = workspace_bootstrap(tmp_path)
+        ws = _make_stream(tmp_path)
         pkg, worker, job = _make_fp_dispatch_pkg()
         from genesis.core import ContextResolver
         resolver = ContextResolver(tmp_path)
@@ -359,7 +374,7 @@ class TestFpDispatchDomainBlind:
     @pytest.mark.bootstrap_state
     def test_fp_assessment_resolves_evaluator(self, tmp_path):
         """fp_assessment event with result=pass resolves the F_P evaluator."""
-        ws = workspace_bootstrap(tmp_path)
+        ws = _make_stream(tmp_path)
         pkg, worker, job = _make_fp_dispatch_pkg()
         ws.append("fp_assessment", {
             "edge": "ingredients→recipe",
@@ -375,7 +390,7 @@ class TestFpDispatchDomainBlind:
     @pytest.mark.bootstrap_state
     def test_fp_dispatched_event_contains_evaluator_names(self, tmp_path):
         """fp_dispatched event surface carries failing evaluator names."""
-        ws = workspace_bootstrap(tmp_path)
+        ws = _make_stream(tmp_path)
         pkg, worker, job = _make_fp_dispatch_pkg()
         from genesis.core import ContextResolver
         resolver = ContextResolver(tmp_path)
@@ -388,13 +403,12 @@ class TestFpDispatchDomainBlind:
 
     @pytest.mark.bootstrap_state
     def test_gen_iterate_calls_on_fp_dispatch(self, tmp_path):
-        """gen_iterate passes on_fp_dispatch through to iterate()."""
-        ws = workspace_bootstrap(tmp_path)
+        """gen_iterate passes on_fp_dispatch through to iterate(). No patch."""
+        ws = _make_stream(tmp_path)
         pkg, worker, job = _make_fp_dispatch_pkg()
-        scope = Scope(package=pkg, workspace_root=tmp_path)
+        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
         dispatched: list[BoundJob] = []
-        with patch("genesis.commands._resolve_worker", return_value=worker):
-            gen_iterate(scope, ws, on_fp_dispatch=lambda b: dispatched.append(b))
+        gen_iterate(scope, ws, on_fp_dispatch=lambda b: dispatched.append(b))
         assert len(dispatched) == 1
 
 
@@ -404,6 +418,7 @@ class TestMultiWorkerSchedule:
     """
     Proves: schedule() partitions workers by write territory alone.
     Domain-blind: it knows nothing about translations, budgets, or code.
+    No stream or workspace needed — pure Python objects.
     """
 
     def test_disjoint_workers_in_single_batch(self):
@@ -420,7 +435,6 @@ class TestMultiWorkerSchedule:
         _, worker_fr, _, worker_fr2, _, _ = _make_multi_worker_pkg()
         batches = schedule([worker_fr, worker_fr2])
         assert len(batches) == 2
-        # Each batch contains exactly one worker
         assert all(len(b) == 1 for b in batches)
 
     def test_no_workers_returns_empty(self):
@@ -440,11 +454,9 @@ class TestMultiWorkerSchedule:
         _, worker_fr, worker_de, worker_fr2, _, _ = _make_multi_worker_pkg()
         batches = schedule([worker_fr, worker_de, worker_fr2])
         assert len(batches) == 2
-        first = batches[0]
-        second = batches[1]
-        assert worker_fr in first
-        assert worker_de in first
-        assert worker_fr2 in second
+        assert worker_fr in batches[0]
+        assert worker_de in batches[0]
+        assert worker_fr2 in batches[1]
 
     def test_conflicts_with_detects_same_write_territory(self):
         """conflicts_with() uses writable_types set intersection — pure type-level."""
@@ -467,8 +479,8 @@ class TestLaneSplit:
     """
     Demonstrates the two test execution lanes.
 
-    bootstrap_state — Python-object level; no workspace I/O needed.
-    self_host       — workspace_bootstrap required; touches filesystem.
+    bootstrap_state — EventStream + Python objects, no workspace_bootstrap.
+    self_host       — workspace_bootstrap required; tests filesystem structure.
     """
 
     @pytest.mark.bootstrap_state
@@ -486,6 +498,21 @@ class TestLaneSplit:
         batches = schedule([worker_fr, worker_de])
         assert batches  # no workspace needed
 
+    @pytest.mark.bootstrap_state
+    def test_scope_worker_bypasses_spec_import(self, tmp_path):
+        """
+        When scope.worker is set, _resolve_worker returns it directly.
+        No spec.packages.genesis_core import occurs — verified by using a
+        non-genesis worker with no genesis spec importable.
+        """
+        ws = _make_stream(tmp_path)
+        pkg, worker, job = _make_fp_dispatch_pkg()
+        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
+        # gen_gaps runs end-to-end via the real command path, no patch
+        result = gen_gaps(scope, ws)
+        assert "gaps" in result
+        assert "total_delta" in result
+
     @pytest.mark.self_host
     def test_workspace_bootstrap_creates_events_file(self, tmp_path):
         """workspace_bootstrap creates the events.jsonl file."""
@@ -497,9 +524,8 @@ class TestLaneSplit:
         """A non-genesis package runs correctly in a bootstrapped workspace."""
         ws = workspace_bootstrap(tmp_path)
         pkg, worker, job = _make_fp_dispatch_pkg()
-        scope = Scope(package=pkg, workspace_root=tmp_path)
+        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
         dispatched: list[BoundJob] = []
-        with patch("genesis.commands._resolve_worker", return_value=worker):
-            result = gen_start(scope, ws, on_fp_dispatch=lambda b: dispatched.append(b))
+        result = gen_start(scope, ws, on_fp_dispatch=lambda b: dispatched.append(b))
         assert result["status"] == "iterated"
         assert len(dispatched) == 1

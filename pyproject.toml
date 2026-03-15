@@ -19,9 +19,10 @@ gen = "genesis.__main__:main"
 testpaths = ["builds/claude_code/tests"]
 pythonpath = ["builds/claude_code/code", ".genesis", "."]
 markers = [
-    "e2e: end-to-end sandbox tests",
-    "self_host: self-hosting bootstrap tests (workspace_bootstrap required)",
-    "bootstrap_state: Python-object level tests, no workspace I/O",
+    "e2e: end-to-end sandbox tests (may invoke Claude API)",
+    "self_host: workspace_bootstrap required; tests the bootstrapped directory structure",
+    "bootstrap_state: lightweight tests using EventStream + Python objects; no workspace_bootstrap",
+    "phase_c: target-state assertions; require real convergence events in events.jsonl",
 ]
 
 [tool.setuptools]
