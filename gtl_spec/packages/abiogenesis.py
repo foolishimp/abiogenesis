@@ -50,7 +50,7 @@ intent_doc = Context(
 
 design_adrs = Context(
     name="design_adrs",
-    locator="workspace://builds/python/design/adrs/",
+    locator="workspace://builds/claude_code/design/adrs/",
     digest="sha256:" + "0" * 64,   # PENDING — written at design edge
 )
 
@@ -59,9 +59,9 @@ design_adrs = Context(
 
 claude_agent  = Operator("claude_agent",  F_P, "agent://claude/genesis")
 human_gate    = Operator("human_gate",    F_H, "fh://single")
-pytest_op     = Operator("pytest",        F_D, "exec://python -m pytest builds/python/tests/ -q")
-check_impl_op = Operator("check_impl",    F_D, "exec://python -m genesis check-tags --type implements --path builds/python/src/")
-check_test_op = Operator("check_test",    F_D, "exec://python -m genesis check-tags --type validates --path builds/python/tests/")
+pytest_op     = Operator("pytest",        F_D, "exec://python -m pytest builds/claude_code/tests/ -q")
+check_impl_op = Operator("check_impl",    F_D, "exec://python -m genesis check-tags --type implements --path builds/claude_code/code/genesis/")
+check_test_op = Operator("check_test",    F_D, "exec://python -m genesis check-tags --type validates --path builds/claude_code/tests/")
 
 
 # ── Rules ─────────────────────────────────────────────────────────────────────
@@ -205,7 +205,7 @@ eval_design_fh = Evaluator(
 eval_impl_tags = Evaluator(
     "impl_tags", F_D,
     "All source files carry at least one # Implements: REQ-* tag, zero untagged",
-    command="python -m genesis check-tags --type implements --path builds/python/src/",
+    command="python -m genesis check-tags --type implements --path builds/claude_code/code/genesis/",
 )
 eval_code_fp = Evaluator(
     "code_complete", F_P,
@@ -216,12 +216,12 @@ eval_code_fp = Evaluator(
 eval_tests_pass = Evaluator(
     "tests_pass", F_D,
     "pytest: zero failures, zero errors",
-    command="python -m pytest builds/python/tests/ -q --tb=short",
+    command="python -m pytest builds/claude_code/tests/ -q --tb=short",
 )
 eval_test_tags = Evaluator(
     "validates_tags", F_D,
     "All test files carry at least one # Validates: REQ-* tag, zero untagged",
-    command="python -m genesis check-tags --type validates --path builds/python/tests/",
+    command="python -m genesis check-tags --type validates --path builds/claude_code/tests/",
 )
 eval_coverage_fp = Evaluator(
     "coverage_complete", F_P,
