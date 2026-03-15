@@ -60,6 +60,14 @@ def _build_parser() -> argparse.ArgumentParser:
     p_tags.add_argument("--path", required=True,
                         help="Directory to scan")
 
+    # ── check-req-coverage ────────────────────────────────────────────────────
+    p_cov = sub.add_parser("check-req-coverage",
+                           help="Verify every REQ-* key in spec appears in a feature vector")
+    p_cov.add_argument("--spec", required=True,
+                       help="Path to spec file to scan for REQ-* keys")
+    p_cov.add_argument("--features", required=True,
+                       help="Directory containing feature vector YAML files")
+
     return parser
 
 
@@ -99,13 +107,59 @@ def _check_tags(tag_type: str, scan_path: str) -> int:
     return 0 if result["passes"] else 1
 
 
+def _check_req_coverage(spec_path: str, features_dir: str) -> int:
+    """
+    Verify every REQ-* key found in the spec file appears in at least one
+    feature vector's satisfies: field.
+
+    Exits 0 if all keys covered, 1 if any gaps exist.
+    Prints a JSON result to stdout.
+    """
+    import re
+
+    spec = Path(spec_path)
+    features = Path(features_dir)
+
+    if not spec.exists():
+        print(json.dumps({"error": f"spec not found: {spec_path}"}), file=sys.stderr)
+        return 1
+    if not features.exists():
+        print(json.dumps({"error": f"features dir not found: {features_dir}"}), file=sys.stderr)
+        return 1
+
+    # Extract REQ-* keys from spec (any occurrence)
+    spec_text = spec.read_text(encoding="utf-8")
+    spec_keys = set(re.findall(r"REQ-[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)*", spec_text))
+
+    # Extract REQ-* keys mentioned in any feature YAML
+    covered_keys: set[str] = set()
+    for yml in features.rglob("*.yml"):
+        text = yml.read_text(encoding="utf-8")
+        covered_keys.update(re.findall(r"REQ-[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)*", text))
+
+    uncovered = sorted(spec_keys - covered_keys)
+    result = {
+        "spec": spec_path,
+        "features_dir": features_dir,
+        "spec_keys": sorted(spec_keys),
+        "covered_count": len(spec_keys) - len(uncovered),
+        "total_count": len(spec_keys),
+        "uncovered": uncovered,
+        "passes": len(uncovered) == 0,
+    }
+    print(json.dumps(result, indent=2))
+    return 0 if result["passes"] else 1
+
+
 def main() -> None:
     parser = _build_parser()
     args = parser.parse_args()
 
-    # check-tags does not need the engine stack
+    # Lightweight commands — no engine stack needed
     if args.command == "check-tags":
         sys.exit(_check_tags(args.type, args.path))
+    if args.command == "check-req-coverage":
+        sys.exit(_check_req_coverage(args.spec, args.features))
 
     # All other commands need the engine
     workspace = Path(getattr(args, "workspace", ".")).resolve()

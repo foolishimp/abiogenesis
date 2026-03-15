@@ -9,7 +9,7 @@ from pathlib import Path
 from io import StringIO
 from unittest.mock import patch
 
-from genesis.__main__ import _build_parser, _check_tags
+from genesis.__main__ import _build_parser, _check_tags, _check_req_coverage
 
 
 # ── _build_parser ─────────────────────────────────────────────────────────────
@@ -60,6 +60,13 @@ class TestBuildParser:
         p = _build_parser()
         args = p.parse_args(["check-tags", "--type", "validates", "--path", "."])
         assert args.type == "validates"
+
+    def test_check_req_coverage_command_exists(self):
+        p = _build_parser()
+        args = p.parse_args(["check-req-coverage", "--spec", "spec.py", "--features", "features/"])
+        assert args.command == "check-req-coverage"
+        assert args.spec == "spec.py"
+        assert args.features == "features/"
 
 
 # ── _check_tags ───────────────────────────────────────────────────────────────
@@ -112,3 +119,75 @@ class TestCheckTags:
         (sub / "deep.py").write_text("# Implements: REQ-001\n")
         rc = _check_tags("implements", str(tmp_path))
         assert rc == 0
+
+
+# ── _check_req_coverage ───────────────────────────────────────────────────────
+
+class TestCheckReqCoverage:
+    def _write_spec(self, path: Path, content: str) -> Path:
+        f = path / "spec.py"
+        f.write_text(content)
+        return f
+
+    def _write_feature(self, features_dir: Path, name: str, satisfies: list[str]) -> None:
+        features_dir.mkdir(parents=True, exist_ok=True)
+        content = f"feature: {name}\nsatisfies: {satisfies}\n"
+        (features_dir / f"{name}.yml").write_text(content)
+
+    def test_missing_spec_returns_1(self, tmp_path, capsys):
+        features = tmp_path / "features"
+        features.mkdir()
+        rc = _check_req_coverage(str(tmp_path / "no_spec.py"), str(features))
+        assert rc == 1
+
+    def test_missing_features_dir_returns_1(self, tmp_path, capsys):
+        spec = self._write_spec(tmp_path, "# REQ-F-CORE-001\n")
+        rc = _check_req_coverage(str(spec), str(tmp_path / "no_features"))
+        assert rc == 1
+
+    def test_all_covered_returns_0(self, tmp_path, capsys):
+        spec = self._write_spec(tmp_path, "# REQ-F-CORE-001 is defined here\n")
+        features = tmp_path / "features"
+        self._write_feature(features, "core", ["REQ-F-CORE-001"])
+        rc = _check_req_coverage(str(spec), str(features))
+        assert rc == 0
+        result = json.loads(capsys.readouterr().out)
+        assert result["passes"] is True
+        assert result["uncovered"] == []
+
+    def test_uncovered_key_returns_1(self, tmp_path, capsys):
+        spec = self._write_spec(tmp_path, "# REQ-F-CORE-001 and REQ-F-BIND-001\n")
+        features = tmp_path / "features"
+        self._write_feature(features, "core", ["REQ-F-CORE-001"])  # BIND not covered
+        rc = _check_req_coverage(str(spec), str(features))
+        assert rc == 1
+        result = json.loads(capsys.readouterr().out)
+        assert result["passes"] is False
+        assert "REQ-F-BIND-001" in result["uncovered"]
+
+    def test_no_req_keys_in_spec_passes(self, tmp_path, capsys):
+        spec = self._write_spec(tmp_path, "# no requirements here\n")
+        features = tmp_path / "features"
+        features.mkdir()
+        rc = _check_req_coverage(str(spec), str(features))
+        assert rc == 0
+
+    def test_recursive_feature_scan(self, tmp_path, capsys):
+        spec = self._write_spec(tmp_path, "# REQ-F-CORE-001\n")
+        features = tmp_path / "features"
+        sub = features / "active"
+        self._write_feature(sub, "core", ["REQ-F-CORE-001"])
+        rc = _check_req_coverage(str(spec), str(features))
+        assert rc == 0
+
+    def test_result_json_structure(self, tmp_path, capsys):
+        spec = self._write_spec(tmp_path, "# REQ-F-CORE-001\n")
+        features = tmp_path / "features"
+        self._write_feature(features, "core", ["REQ-F-CORE-001"])
+        _check_req_coverage(str(spec), str(features))
+        result = json.loads(capsys.readouterr().out)
+        assert "spec_keys" in result
+        assert "covered_count" in result
+        assert "total_count" in result
+        assert "uncovered" in result
+        assert "passes" in result

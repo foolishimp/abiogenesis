@@ -71,13 +71,10 @@ class TestRunFdEvaluator:
         assert passes is True
         assert "hello" in detail["stdout"]
 
-    def test_pythonpath_set_in_env(self, tmp_path):
-        """Subprocess can import from builds/claude_code/code via PYTHONPATH."""
-        code_dir = tmp_path / "builds" / "claude_code" / "code"
-        code_dir.mkdir(parents=True)
-        (code_dir / "mymodule.py").write_text("VALUE = 42\n")
-        ev = Evaluator("import_check", F_D, "can import local module",
-                       command="python -c 'import mymodule; import sys; sys.exit(0 if mymodule.VALUE == 42 else 1)'")
+    def test_installed_packages_importable_in_subprocess(self, tmp_path):
+        """genesis and gtl are importable in subprocess via the installed distribution."""
+        ev = Evaluator("import_check", F_D, "installed packages importable",
+                       command="python -c 'import genesis; import gtl; import sys; sys.exit(0)'")
         passes, detail = run_fd_evaluator(ev, {}, tmp_path)
         assert passes is True, detail
 

@@ -23,5 +23,9 @@ markers = [
     "self_host: self-hosting bootstrap tests",
 ]
 
-[tool.setuptools.packages.find]
-where = ["builds/claude_code/code"]
+[tool.setuptools]
+packages = ["genesis", "gtl"]
+
+[tool.setuptools.package-dir]
+"genesis" = "builds/claude_code/code/genesis"
+"gtl" = "gtl"

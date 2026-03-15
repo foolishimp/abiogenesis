@@ -11,7 +11,6 @@ bind_fp  — assembles F_P manifest from pre-computed material. Also F_D.
 """
 from __future__ import annotations
 
-import os
 import subprocess
 from pathlib import Path
 from typing import Any
@@ -47,17 +46,9 @@ def run_fd_evaluator(
             "reason": f"F_D evaluator {ev.name!r} has no command — misconfigured Package",
         }
 
-    env = {
-        **os.environ,
-        "PYTHONPATH": os.pathsep.join([
-            str(workspace_root / "builds" / "claude_code" / "code"),
-            str(workspace_root),
-            os.environ.get("PYTHONPATH", ""),
-        ]),
-    }
     result = subprocess.run(
         ev.command, shell=True, cwd=workspace_root,
-        capture_output=True, text=True, env=env,
+        capture_output=True, text=True,
     )
     return result.returncode == 0, {
         "returncode": result.returncode,
