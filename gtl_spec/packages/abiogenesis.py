@@ -37,8 +37,8 @@ bootloader = Context(
 )
 
 this_spec = Context(
-    name="genesis_sdlc_spec",
-    locator="workspace://gtl_spec/packages/genesis_sdlc.py",
+    name="abiogenesis_spec",
+    locator="workspace://gtl_spec/packages/abiogenesis.py",
     digest="sha256:" + "0" * 64,   # PENDING — self-referential
 )
 
@@ -180,6 +180,12 @@ eval_req_coverage = Evaluator(
     "Every REQ key in Package.requirements appears in ≥1 feature vector satisfies: field",
     command="python -m genesis check-req-coverage --package gtl_spec.packages.abiogenesis:package --features .ai-workspace/features/",
 )
+eval_decomp_fp = Evaluator(
+    "decomp_complete", F_P,
+    "Construct feature vectors for all uncovered REQ keys — write one .yml per feature to "
+    ".ai-workspace/features/active/ with a satisfies: list covering the assigned REQ-F-* keys. "
+    "Group related keys into cohesive features. Each vector must cover at least one uncovered key.",
+)
 eval_decomp_fh = Evaluator(
     "decomp_approved", F_H,
     "Human approves: feature set is complete, dependency order is correct, MVP boundary is clear",
@@ -226,7 +232,7 @@ eval_coverage_fp = Evaluator(
 # ── Jobs ──────────────────────────────────────────────────────────────────────
 
 job_intent_req  = Job(e_intent_req,  [eval_intent_fh])
-job_req_feat    = Job(e_req_feat,    [eval_req_coverage, eval_decomp_fh])
+job_req_feat    = Job(e_req_feat,    [eval_req_coverage, eval_decomp_fp, eval_decomp_fh])
 job_feat_design = Job(e_feat_design, [eval_design_fp, eval_design_fh])
 job_design_code = Job(e_design_code, [eval_impl_tags, eval_code_fp])
 job_tdd         = Job(e_tdd,         [eval_tests_pass, eval_test_tags, eval_coverage_fp])
