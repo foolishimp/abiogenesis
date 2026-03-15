@@ -1,0 +1,23 @@
+{
+  "name": "genesis",
+  "version": "0.1.0",
+  "description": "abiogenesis GTL engine — minimal 3-command set for bootstrap operation. gen-start (state machine), gen-gaps (convergence state), gen-status (workspace read). V1 only: no consensus, no spawn, no release.",
+  "author": {
+    "name": "foolishimp"
+  },
+  "license": "MIT",
+  "keywords": [
+    "gtl",
+    "genesis",
+    "asset-graph",
+    "iterate",
+    "convergence",
+    "event-sourcing"
+  ],
+  "homepage": "https://github.com/foolishimp/abiogenesis",
+  "commands": [
+    "./plugins/genesis/commands/gen-start.md",
+    "./plugins/genesis/commands/gen-gaps.md",
+    "./plugins/genesis/commands/gen-status.md"
+  ]
+}
