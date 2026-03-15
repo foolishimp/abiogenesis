@@ -7,7 +7,5 @@
       }
     }
   },
-  "enabledPlugins": {
-    "genesis@genesis": true
-  }
+  "enabledPlugins": {}
 }
