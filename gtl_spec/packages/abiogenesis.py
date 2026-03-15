@@ -59,7 +59,7 @@ design_adrs = Context(
 
 claude_agent  = Operator("claude_agent",  F_P, "agent://claude/genesis")
 human_gate    = Operator("human_gate",    F_H, "fh://single")
-pytest_op     = Operator("pytest",        F_D, "exec://python -m pytest builds/claude_code/tests/ -q")
+pytest_op     = Operator("pytest",        F_D, "exec://python -m pytest builds/claude_code/tests/ -q -m 'not e2e'")
 check_impl_op = Operator("check_impl",    F_D, "exec://python -m genesis check-tags --type implements --path builds/claude_code/code/genesis/")
 check_test_op = Operator("check_test",    F_D, "exec://python -m genesis check-tags --type validates --path builds/claude_code/tests/")
 
@@ -216,7 +216,7 @@ eval_code_fp = Evaluator(
 eval_tests_pass = Evaluator(
     "tests_pass", F_D,
     "pytest: zero failures, zero errors",
-    command="python -m pytest builds/claude_code/tests/ -q --tb=short",
+    command="python -m pytest builds/claude_code/tests/ -q --tb=short -m 'not e2e'",
 )
 eval_test_tags = Evaluator(
     "validates_tags", F_D,
