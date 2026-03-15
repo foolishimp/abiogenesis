@@ -13,11 +13,12 @@ Usage:
 
 What it installs:
     .genesis/genesis/       ← the 6-module engine + __init__ + __main__
+    .genesis/gtl/           ← the GTL type system (vendored, self-contained)
     spec/                   ← the GTL spec package (genesis_core.py + __init__)
     spec/GENESIS_BOOTLOADER.md  ← constraint context
 
 The spec/ directory is copied only if it does not already exist in the target.
-The .genesis/genesis/ directory is always replaced (idempotent reinstall).
+The .genesis/genesis/ and .genesis/gtl/ directories are always replaced (idempotent reinstall).
 """
 from __future__ import annotations
 
@@ -60,16 +61,11 @@ output = Asset(name="output", id_format="OUT-{{SEQ}}",  lineage=[spec])
 op = Operator("agent", F_P, "agent://claude/genesis")
 edge = Edge(name="spec→output", source=spec, target=output, using=[op])
 
-eval_ready = Evaluator(
-    "workspace_ready", F_D,
-    "workspace is initialised",
-    command="python -c \\'import sys; sys.exit(0)\\'",
-)
 eval_complete = Evaluator(
     "output_complete", F_P,
     "agent: output satisfies spec",
 )
-job = Job(edge=edge, evaluators=[eval_ready, eval_complete])
+job = Job(edge=edge, evaluators=[eval_complete])
 
 # ── Package + Worker ──────────────────────────────────────────────────────────
 package = Package(
@@ -101,6 +97,12 @@ ENGINE_MODULES = [
     "commands.py",
 ]
 
+# GTL type system modules (relative to abiogenesis project root / gtl/)
+GTL_MODULES = [
+    "__init__.py",
+    "core.py",
+]
+
 # Spec files to install (relative to project root — two levels up from this file)
 SPEC_FILES = [
     "spec/__init__.py",
@@ -119,6 +121,10 @@ def _engine_source() -> Path:
     return Path(__file__).resolve().parent / "genesis"
 
 
+def _gtl_source() -> Path:
+    return _source_root() / "gtl"
+
+
 def install(target: Path, *, verify_only: bool = False,
             slug: str = "project_package") -> dict:
     target = target.resolve()
@@ -130,6 +136,7 @@ def install(target: Path, *, verify_only: bool = False,
         "target": str(target),
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "engine_files": [],
+        "gtl_files": [],
         "spec_files": [],
         "config_file": None,
         "starter_spec": None,
@@ -151,6 +158,25 @@ def install(target: Path, *, verify_only: bool = False,
             continue
         shutil.copy2(src, dst)
         result["engine_files"].append(module)
+
+    # ── Install GTL type system ───────────────────────────────────────────────
+    # Vendored into .genesis/gtl/ so PYTHONPATH=.genesis is fully self-contained.
+    # This ensures the correct gtl version is used regardless of what is installed
+    # in the environment's site-packages.
+    gtl_src = _gtl_source()
+    gtl_dir = target / ".genesis" / "gtl"
+    if gtl_src.resolve() != gtl_dir.resolve():
+        gtl_dir.mkdir(parents=True, exist_ok=True)
+        for module in GTL_MODULES:
+            src = gtl_src / module
+            dst = gtl_dir / module
+            if not src.exists():
+                result["errors"].append(f"Missing GTL module: {src}")
+                continue
+            shutil.copy2(src, dst)
+            result["gtl_files"].append(module)
+    else:
+        result["gtl_files"] = list(GTL_MODULES)
 
     # ── Install spec ──────────────────────────────────────────────────────────
     for rel in SPEC_FILES:
@@ -202,6 +228,12 @@ def _verify(target: Path, result: dict) -> dict:
         if not (genesis_dir / module).exists():
             missing_engine.append(module)
 
+    gtl_dir = target / ".genesis" / "gtl"
+    missing_gtl = []
+    for module in GTL_MODULES:
+        if not (gtl_dir / module).exists():
+            missing_gtl.append(module)
+
     missing_spec = []
     for rel in SPEC_FILES:
         if not (target / rel).exists():
@@ -210,10 +242,12 @@ def _verify(target: Path, result: dict) -> dict:
     config_present = (target / ".genesis" / "genesis.yml").exists()
 
     result["missing_engine"] = missing_engine
+    result["missing_gtl"] = missing_gtl
     result["missing_spec"] = missing_spec
     result["config_present"] = config_present
     result["status"] = (
-        "ok" if not missing_engine and not missing_spec and config_present
+        "ok"
+        if not missing_engine and not missing_gtl and not missing_spec and config_present
         else "incomplete"
     )
     return result
