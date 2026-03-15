@@ -1,0 +1,48 @@
+created: '2026-03-15T08:00:00Z'
+depends_on:
+- REQ-F-CORE
+feature: REQ-F-WKSP
+intent: INT-001
+module: builds/claude_code/code/genesis/schedule.py
+priority: critical
+profile: standard
+requirements:
+- REQ-F-CORE-006
+- REQ-F-WKSP-001
+- REQ-F-WKSP-002
+- REQ-NFR-TEST-001
+- REQ-NFR-E2E-001
+- REQ-NFR-SELF-001
+satisfies:
+- REQ-F-CORE-006
+- REQ-F-WKSP-001
+- REQ-F-WKSP-002
+- REQ-NFR-TEST-001
+- REQ-NFR-E2E-001
+- REQ-NFR-SELF-001
+source: feature_decomposition
+status: not_started
+title: Workspace Projection + schedule() — state from event stream
+trajectory:
+  code:
+    asset: builds/claude_code/code/genesis/schedule.py
+    notes: ''
+    status: not_started
+  design:
+    converged_at: '2026-03-14T18:38:41Z'
+    status: converged
+  design_recommendations:
+    converged_at: '2026-03-14T18:37:14Z'
+    status: converged
+  feature_decomposition:
+    converged_at: '2026-03-14T18:37:07Z'
+    status: converged
+  requirements:
+    converged_at: '2026-03-14T18:28:35Z'
+    status: converged
+  unit_tests:
+    asset: builds/claude_code/tests/test_schedule.py
+    notes: ''
+    status: not_started
+updated: '2026-03-15T08:00:00Z'
+vector_type: feature

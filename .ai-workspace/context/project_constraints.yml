@@ -1,0 +1,33 @@
+project:
+  name: abiogenesis
+  version: "0.0.0"
+  phase: 0
+  doctrine: V1_DOCTRINE.md
+  spec: spec/packages/genesis_core.py
+  package: genesis_v1
+
+bootstrap:
+  compiler: ai_sdlc_method/genesis/v3.1.0
+  source: /Users/jim/src/apps/ai_sdlc_method
+
+builds:
+  - id: claude_code
+    path: builds/claude_code
+    status: not_started
+    worker: claude_code
+
+workspace:
+  event_log: .ai-workspace/events/events.jsonl
+  features: .ai-workspace/features/
+  context: .ai-workspace/context/
+  reviews: .ai-workspace/reviews/
+  comments: .ai-workspace/comments/
+
+constraints:
+  language: python
+  python_version: ">=3.11"
+  test_runner: pytest
+  engine_modules: 6
+  commands: [gen-start, gen-iterate, gen-gaps]
+  single_tenant: true
+  v2_features_allowed: false

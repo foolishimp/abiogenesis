@@ -1,0 +1,17 @@
+{
+  "run_id": "f75e1dcb-24f9-4c70-a554-db83b32b0b32-fp1",
+  "edge": "basis_projections\u2192code",
+  "feature": "REQ-F-BIND",
+  "intent_id": "auto",
+  "iteration": 1,
+  "grain": "iteration",
+  "budget_usd": 0.5,
+  "max_depth": 3,
+  "failures": [
+    "req_tags_in_code"
+  ],
+  "constraints": {},
+  "result_path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/agents/fp_result_f75e1dcb-24f9-4c70-a554-db83b32b0b32-fp1.json",
+  "status": "pending",
+  "source": "edge_runner"
+}

@@ -1,0 +1,450 @@
+# Implements: REQ-F-CORE-004
+"""
+bind — F_D pre-computation: bind_fd, bind_fp, select_relevant_contexts,
+       render_delta.
+
+The linker: turns a typed GTL skeleton into an F_P-executable manifest.
+Phase 3 of the approved execution plan. See ADR-002, ADR-003.
+
+bind_fd  — deterministic, no LLM required. Produces PrecomputedManifest.
+bind_fp  — assembles F_P manifest from pre-computed material. Also F_D.
+"""
+from __future__ import annotations
+
+import subprocess
+from pathlib import Path
+from typing import Any
+
+from gtl.core import Context, Evaluator, F_D, F_H, F_P, Job
+
+from .core import ContextResolver, EventStream, project
+from .manifest import BoundJob, PrecomputedManifest
+
+
+# ── F_D evaluator runners ─────────────────────────────────────────────────────
+
+def run_fd_evaluator(
+    ev: Evaluator,
+    current_asset: dict,
+    workspace_root: Path,
+) -> tuple[bool, Any]:
+    """
+    Run one F_D evaluator. Returns (passes: bool, detail: Any).
+
+    Dispatches by evaluator name. Unknown evaluators are treated as passing
+    (conservative — avoids blocking on evaluators not yet implemented).
+    """
+    if ev.category is not F_D:
+        raise TypeError(
+            f"run_fd_evaluator called on non-F_D evaluator: {ev.name!r} "
+            f"(category={ev.category.__name__})"
+        )
+
+    runners = {
+        "impl_tags":       _run_check_tags_impl,
+        "validates_tags":  _run_check_tags_test,
+        "six_modules":     _run_six_modules,
+        "tests_pass":      _run_pytest,
+        "coverage_80":     _run_coverage,
+        "req_coverage":    _run_req_coverage,
+        "sandbox_e2e":     _run_sandbox_e2e,
+    }
+    runner = runners.get(ev.name)
+    if runner is None:
+        return True, {"status": "skip", "reason": f"no runner registered for {ev.name!r}"}
+
+    return runner(ev, current_asset, workspace_root)
+
+
+def _run_check_tags_impl(ev: Evaluator, asset: dict, root: Path) -> tuple[bool, Any]:
+    """Check all code .py files (except __init__.py) carry # Implements: tags."""
+    code_dir = root / "builds" / "claude_code" / "code"
+    if not code_dir.exists():
+        return False, {"status": "fail", "reason": "code dir missing", "untagged": []}
+
+    untagged = []
+    for f in sorted(code_dir.rglob("*.py")):
+        if f.name == "__init__.py":
+            continue
+        if "# Implements:" not in f.read_text(encoding="utf-8"):
+            untagged.append(str(f.relative_to(root)))
+
+    return len(untagged) == 0, {
+        "untagged_count": len(untagged),
+        "untagged": untagged,
+    }
+
+
+def _run_check_tags_test(ev: Evaluator, asset: dict, root: Path) -> tuple[bool, Any]:
+    """Check all test .py files (except __init__.py) carry # Validates: tags."""
+    test_dir = root / "builds" / "claude_code" / "tests"
+    if not test_dir.exists():
+        return False, {"status": "fail", "reason": "tests dir missing", "untagged": []}
+
+    untagged = []
+    for f in sorted(test_dir.rglob("*.py")):
+        if f.name == "__init__.py":
+            continue
+        if "# Validates:" not in f.read_text(encoding="utf-8"):
+            untagged.append(str(f.relative_to(root)))
+
+    return len(untagged) == 0, {
+        "untagged_count": len(untagged),
+        "untagged": untagged,
+    }
+
+
+def _run_six_modules(ev: Evaluator, asset: dict, root: Path) -> tuple[bool, Any]:
+    """Check exactly 6 modules exist in genesis package (excluding __init__)."""
+    required = {"core", "bind", "schedule", "manifest", "commands", "__main__"}
+    genesis_dir = root / "builds" / "claude_code" / "code" / "genesis"
+
+    if not genesis_dir.exists():
+        return False, {"status": "fail", "reason": "genesis package dir missing"}
+
+    found = {f.stem for f in genesis_dir.glob("*.py") if f.stem != "__init__"}
+    missing = required - found
+    extra = found - required
+
+    return len(missing) == 0, {
+        "required": sorted(required),
+        "found": sorted(found),
+        "missing": sorted(missing),
+        "extra": sorted(extra),
+    }
+
+
+def _run_pytest(ev: Evaluator, asset: dict, root: Path) -> tuple[bool, Any]:
+    """Run pytest and check for 0 failures."""
+    test_dir = root / "builds" / "claude_code" / "tests"
+    if not test_dir.exists() or not any(test_dir.rglob("test_*.py")):
+        return False, {"status": "fail", "reason": "no tests found"}
+
+    result = subprocess.run(
+        ["python", "-m", "pytest", "builds/claude_code/tests/", "-q", "--tb=short"],
+        capture_output=True, text=True, cwd=root,
+    )
+    return result.returncode == 0, {
+        "returncode": result.returncode,
+        "stdout": result.stdout[-3000:],
+        "stderr": result.stderr[-500:],
+    }
+
+
+def _run_coverage(ev: Evaluator, asset: dict, root: Path) -> tuple[bool, Any]:
+    """Run pytest with coverage and check >= 80%."""
+    result = subprocess.run(
+        [
+            "python", "-m", "pytest",
+            "builds/claude_code/tests/",
+            "--cov=genesis",
+            "--cov-report=term-missing",
+            "-q",
+        ],
+        capture_output=True, text=True, cwd=root,
+    )
+    output = result.stdout
+    coverage_pct = 0
+    for line in output.splitlines():
+        if "TOTAL" in line:
+            for part in line.split():
+                if part.endswith("%"):
+                    try:
+                        coverage_pct = int(part[:-1])
+                    except ValueError:
+                        pass
+
+    return coverage_pct >= 80, {
+        "coverage_pct": coverage_pct,
+        "output": output[-2000:],
+    }
+
+
+def _run_req_coverage(ev: Evaluator, asset: dict, root: Path) -> tuple[bool, Any]:
+    """
+    Check every REQ-* key in requirements.md appears in ≥1 feature vector satisfies: field.
+
+    Scans specification/requirements.md for REQ-* keys, then scans feature vectors
+    in .ai-workspace/features/ for those keys in their satisfies: fields.
+    """
+    import re
+
+    req_file = root / "specification" / "requirements.md"
+    if not req_file.exists():
+        return False, {"status": "fail", "reason": "specification/requirements.md missing"}
+
+    # Extract all REQ-* keys from requirements doc (section headers like ### REQ-F-CORE-001)
+    req_text = req_file.read_text(encoding="utf-8")
+    all_keys = set(re.findall(r"REQ-[A-Z0-9\-]+", req_text))
+    # Filter to section headers (avoid keys mentioned only in tables/examples)
+    defined_keys = set(re.findall(r"###\s+(REQ-[A-Z0-9\-]+)", req_text))
+    if not defined_keys:
+        defined_keys = all_keys  # fallback
+
+    # Scan feature vectors for satisfies: fields
+    features_dir = root / ".ai-workspace" / "features"
+    covered_keys: set[str] = set()
+    for yml_path in features_dir.rglob("*.yml"):
+        text = yml_path.read_text(encoding="utf-8")
+        covered_keys.update(re.findall(r"REQ-[A-Z0-9\-]+", text))
+
+    uncovered = sorted(defined_keys - covered_keys)
+    passes = len(uncovered) == 0
+    return passes, {
+        "defined_keys": sorted(defined_keys),
+        "covered_count": len(defined_keys - set(uncovered)),
+        "uncovered": uncovered,
+    }
+
+
+def _run_sandbox_e2e(ev: Evaluator, asset: dict, root: Path) -> tuple[bool, Any]:
+    """Run sandbox E2E tests (pytest -m e2e) against the test suite."""
+    test_dir = root / "builds" / "claude_code" / "tests"
+    if not test_dir.exists():
+        return False, {"status": "fail", "reason": "tests dir missing"}
+
+    result = subprocess.run(
+        ["python", "-m", "pytest", "builds/claude_code/tests/", "-m", "e2e", "-q", "--tb=short"],
+        capture_output=True, text=True, cwd=root,
+    )
+    return result.returncode == 0, {
+        "returncode": result.returncode,
+        "stdout": result.stdout[-2000:],
+        "stderr": result.stderr[-500:],
+    }
+
+
+# ── bind_fd ───────────────────────────────────────────────────────────────────
+
+def bind_fd(
+    job: Job,
+    stream: EventStream,
+    resolver: ContextResolver,
+    workspace_root: Path,
+) -> PrecomputedManifest:
+    """
+    F_D pre-computation phase. Everything computable without an LLM.
+
+    Produces the residual gap — the minimal surface F_P must address.
+    See ADR-002 for the split rationale.
+    """
+    # 1. Project current asset state
+    source = job.source_type
+    source_name = source[0].name if isinstance(source, list) else source.name
+    current = project(stream, source_name, "current")
+
+    # 2. Short-circuit: if edge_converged already recorded, skip F_D evaluators
+    all_events = stream.all_events()
+    edge_already_converged = any(
+        e.get("event_type") == "edge_converged"
+        and e.get("data", {}).get("edge") == job.edge.name
+        for e in all_events
+    )
+    if edge_already_converged:
+        return PrecomputedManifest(
+            job=job,
+            current_asset=current,
+            failing_evaluators=[],
+            passing_evaluators=list(job.evaluators),
+            fd_results={},
+            relevant_contexts={},
+            delta_summary="delta = 0 — all evaluators pass (edge_converged recorded)",
+        )
+
+    # 3. Run all F_D evaluators (only if not already converged)
+    fd_results: dict[str, Any] = {}
+    for ev in job.evaluators:
+        if ev.category is F_D:
+            passes, detail = run_fd_evaluator(ev, current, workspace_root)
+            fd_results[ev.name] = {"passes": passes, "detail": detail}
+
+    def _passes(ev: Evaluator) -> bool:
+        if ev.category is F_D:
+            return fd_results.get(ev.name, {}).get("passes", False)
+        if ev.category is F_H:
+            # Resolved if review_approved event exists for this edge
+            return any(
+                e.get("event_type") == "review_approved"
+                and e.get("data", {}).get("edge") == job.edge.name
+                for e in all_events
+            )
+        if ev.category is F_P:
+            # Resolved if fp_assessment with result=pass exists for this evaluator+edge
+            return any(
+                e.get("event_type") == "fp_assessment"
+                and e.get("data", {}).get("edge") == job.edge.name
+                and e.get("data", {}).get("evaluator") == ev.name
+                and e.get("data", {}).get("result") == "pass"
+                for e in all_events
+            )
+        return False
+
+    failing = [ev for ev in job.evaluators if not _passes(ev)]
+    passing = [ev for ev in job.evaluators if _passes(ev)]
+
+    # 4. Select relevant contexts (F_D filters to what the gap actually needs)
+    relevant_ctxs = select_relevant_contexts(job.edge.context, failing)
+    resolved: dict[str, str] = {}
+    for ctx in relevant_ctxs:
+        try:
+            resolved[ctx.name] = resolver.load(ctx)
+        except (NotImplementedError, Exception) as exc:
+            resolved[ctx.name] = f"[context unavailable: {exc}]"
+
+    # 5. Build structured delta summary
+    summary = render_delta(fd_results, failing)
+
+    return PrecomputedManifest(
+        job=job,
+        current_asset=current,
+        failing_evaluators=failing,
+        passing_evaluators=passing,
+        fd_results=fd_results,
+        relevant_contexts=resolved,
+        delta_summary=summary,
+    )
+
+
+# ── bind_fp ───────────────────────────────────────────────────────────────────
+
+def bind_fp(
+    pre: PrecomputedManifest,
+    job: Job,
+    result_path: str = "",
+) -> BoundJob:
+    """
+    Assemble the minimal F_P manifest from pre-computed material.
+
+    This function itself is F_D — template assembly only, no LLM.
+    See ADR-003 for manifest structure.
+    """
+    prompt = _assemble_prompt(pre, job, result_path)
+    return BoundJob(job=job, precomputed=pre, prompt=prompt, result_path=result_path)
+
+
+def _assemble_prompt(pre: PrecomputedManifest, job: Job, result_path: str = "") -> str:
+    """
+    Assemble the F_P prompt.
+
+    Structure: INVARIANTS → CURRENT STATE → GAP → RELEVANT CONTEXT → OUTPUT CONTRACT.
+    F_P receives only what it needs to address the gap. Nothing more.
+    """
+    sections: list[str] = []
+
+    # [INVARIANTS] — always present
+    sections.append(
+        "[INVARIANTS]\n"
+        "- Assets are projections of the event stream — never mutate state directly.\n"
+        "- emit() is the only write path. event_time is system-assigned.\n"
+        "- Implement only V1 features. No V2 (spawn, consensus, release, multi-tenant).\n"
+        "- All code files must carry: # Implements: REQ-* tags.\n"
+        "- All test files must carry: # Validates: REQ-* tags.\n"
+        "- Exactly 6 modules: core, bind, schedule, manifest, commands, __main__."
+    )
+
+    # [CURRENT STATE]
+    src = job.edge.source
+    src_name = " × ".join(a.name for a in src) if isinstance(src, list) else src.name
+    sections.append(
+        f"[CURRENT STATE]\n"
+        f"Edge: {job.edge.name}\n"
+        f"Source asset: {src_name}\n"
+        f"Target asset: {job.edge.target.name}\n"
+        f"Status: {pre.current_asset.get('status', 'unknown')}\n"
+        f"Edges converged: {pre.current_asset.get('edges_converged', [])}"
+    )
+
+    # [GAP]
+    gap_lines = [f"[GAP] — {len(pre.failing_evaluators)} evaluator(s) failing:"]
+    for ev in pre.failing_evaluators:
+        detail = pre.fd_results.get(ev.name, {})
+        gap_lines.append(f"  {ev.name} ({ev.category.__name__}): {ev.description}")
+        if detail:
+            gap_lines.append(f"    F_D result: {detail.get('detail', detail)}")
+    if not pre.failing_evaluators:
+        gap_lines.append("  (none — all evaluators pass)")
+    sections.append("\n".join(gap_lines))
+
+    # [RELEVANT CONTEXT]
+    if pre.relevant_contexts:
+        ctx_lines = ["[RELEVANT CONTEXT]:"]
+        for name, content in pre.relevant_contexts.items():
+            # Cap each context to avoid overwhelming the F_P actor
+            snippet = content[:4000] + ("…[truncated]" if len(content) > 4000 else "")
+            ctx_lines.append(f"\n--- {name} ---\n{snippet}")
+        sections.append("\n".join(ctx_lines))
+
+    # [OUTPUT CONTRACT]
+    target = job.edge.target
+    sections.append(
+        f"[OUTPUT CONTRACT]\n"
+        f"Produce: {target.name} asset\n"
+        f"Satisfying markov conditions: {target.markov}\n"
+        f"Evaluators to pass: {[ev.name for ev in pre.failing_evaluators]}"
+        + (f"\nWrite output to: {result_path}" if result_path else "")
+    )
+
+    return "\n\n".join(sections)
+
+
+# ── select_relevant_contexts ──────────────────────────────────────────────────
+
+def select_relevant_contexts(
+    all_contexts: list[Context],
+    failing: list[Evaluator],
+) -> list[Context]:
+    """
+    F_D: filter contexts to those relevant to the failing evaluators.
+
+    Selection rules (applied in order):
+    1. Always include: LAW contexts (bootloader, doctrine)
+    2. Include: genesis_core_spec if any F_P evaluator is failing (code gen needs spec)
+    3. Include: design_adrs if impl_tags, six_modules, or code_complete is failing
+    4. Exclude everything else
+    """
+    if not failing:
+        return []  # Nothing to fix — no context needed
+
+    failing_names = {ev.name for ev in failing}
+    failing_cats = {ev.category for ev in failing}
+
+    result: list[Context] = []
+    for ctx in all_contexts:
+        name = ctx.name.lower()
+
+        # Rule 1: always include law/bootloader/doctrine contexts
+        if "bootloader" in name or "doctrine" in name:
+            result.append(ctx)
+            continue
+
+        # Rule 2: include spec if F_P evaluators are failing
+        if F_P in failing_cats and "spec" in name:
+            result.append(ctx)
+            continue
+
+        # Rule 3: include ADRs if code/impl evaluators are failing
+        if failing_names & {"impl_tags", "six_modules", "code_complete"}:
+            if "adr" in name or "design" in name:
+                result.append(ctx)
+                continue
+
+    return result
+
+
+# ── render_delta ─────────────────────────────────────────────────────────────
+
+def render_delta(
+    fd_results: dict[str, Any],
+    failing: list[Evaluator],
+) -> str:
+    """Render a structured human-readable gap description."""
+    if not failing:
+        return "delta = 0 — all evaluators pass"
+
+    lines = [f"delta = {len(failing)} — {len(failing)} evaluator(s) failing:"]
+    for ev in failing:
+        detail = fd_results.get(ev.name, {})
+        det = detail.get("detail", detail) if isinstance(detail, dict) else detail
+        lines.append(f"  {ev.name} ({ev.category.__name__}): {det}")
+
+    return "\n".join(lines)

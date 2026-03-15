@@ -1,0 +1,21 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Build working state — trace surface, not committed
+builds/*/. workspace/iterations/
+builds/*/.workspace/manifests/
+builds/*/.workspace/working_surfaces/
+
+# Bootstrap compiler binaries — installed, not committed
+.genesis/
+
+# Local env
+.env
+.venv/
+venv/

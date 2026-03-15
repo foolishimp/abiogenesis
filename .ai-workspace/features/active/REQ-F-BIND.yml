@@ -1,0 +1,44 @@
+created: '2026-03-15T08:00:00Z'
+depends_on:
+- REQ-F-CORE
+feature: REQ-F-BIND
+intent: INT-001
+module: builds/claude_code/code/genesis/bind.py
+priority: critical
+profile: standard
+requirements:
+- REQ-F-CORE-004
+satisfies:
+- REQ-F-CORE-004
+source: feature_decomposition
+status: not_started
+title: bind_fd + PrecomputedManifest — F_D pre-computation before F_P
+trajectory:
+  basis_projections:
+    converged_at: '2026-03-14T19:01:29Z'
+    status: converged
+  code:
+    asset: builds/claude_code/code/genesis/bind.py
+    notes: ''
+    status: not_started
+  design:
+    converged_at: '2026-03-14T18:38:41Z'
+    status: converged
+  design_recommendations:
+    converged_at: '2026-03-14T18:37:14Z'
+    status: converged
+  feature_decomposition:
+    converged_at: '2026-03-14T18:37:07Z'
+    status: converged
+  module_decomposition:
+    converged_at: '2026-03-14T18:39:24Z'
+    status: converged
+  requirements:
+    converged_at: '2026-03-14T18:28:35Z'
+    status: converged
+  unit_tests:
+    asset: builds/claude_code/tests/test_bind.py
+    notes: ''
+    status: not_started
+updated: '2026-03-15T08:00:00Z'
+vector_type: feature

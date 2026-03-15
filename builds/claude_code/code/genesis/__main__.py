@@ -1,0 +1,154 @@
+# Implements: REQ-F-CMD-001
+# Implements: REQ-F-CMD-002
+# Implements: REQ-F-CMD-003
+"""
+__main__ — CLI entry point for the genesis engine.
+
+Usage:
+  python -m genesis start  [--auto] [--feature F] [--edge E] [--workspace W]
+  python -m genesis iterate [--feature F] [--edge E] [--workspace W]
+  python -m genesis gaps    [--feature F] [--workspace W]
+  python -m genesis check-tags --type implements|validates --path PATH
+
+  gen start ...   (via project.scripts entry point)
+"""
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from pathlib import Path
+
+
+def _build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        prog="genesis",
+        description="Genesis engine — GTL-first AI SDLC V1",
+    )
+    sub = parser.add_subparsers(dest="command", required=True)
+
+    # ── gen start ────────────────────────────────────────────────────────────
+    p_start = sub.add_parser("start", help="Derive state → bind → iterate")
+    p_start.add_argument("--auto", action="store_true",
+                         help="Loop until converged or blocked by F_H gate")
+    p_start.add_argument("--feature", metavar="F",
+                         help="Scope to a specific feature vector ID")
+    p_start.add_argument("--edge", metavar="E",
+                         help="Override edge selection")
+    p_start.add_argument("--workspace", metavar="W", default=".",
+                         help="Workspace root (default: cwd)")
+
+    # ── gen iterate ───────────────────────────────────────────────────────────
+    p_iter = sub.add_parser("iterate", help="Bind one Job → iterate exactly once")
+    p_iter.add_argument("--feature", metavar="F", help="Feature vector ID")
+    p_iter.add_argument("--edge", metavar="E", help="Edge name")
+    p_iter.add_argument("--workspace", metavar="W", default=".",
+                        help="Workspace root (default: cwd)")
+
+    # ── gen gaps ──────────────────────────────────────────────────────────────
+    p_gaps = sub.add_parser("gaps", help="bind_fd over scope → delta summary")
+    p_gaps.add_argument("--feature", metavar="F",
+                        help="Scope to a specific feature vector ID")
+    p_gaps.add_argument("--workspace", metavar="W", default=".",
+                        help="Workspace root (default: cwd)")
+
+    # ── check-tags ────────────────────────────────────────────────────────────
+    p_tags = sub.add_parser("check-tags",
+                            help="Verify Implements:/Validates: tags in source files")
+    p_tags.add_argument("--type", choices=["implements", "validates"], required=True,
+                        help="Tag type to check")
+    p_tags.add_argument("--path", required=True,
+                        help="Directory to scan")
+
+    return parser
+
+
+def _check_tags(tag_type: str, scan_path: str) -> int:
+    """
+    Scan .py files for required tags.
+
+    Implements: checks for '# Implements:'
+    Validates:  checks for '# Validates:'
+
+    Exits 0 if all files are tagged, 1 if any are untagged.
+    Prints untagged file paths to stdout.
+    """
+    tag = "# Implements:" if tag_type == "implements" else "# Validates:"
+    path = Path(scan_path)
+
+    if not path.exists():
+        print(f"ERROR: path does not exist: {path}", file=sys.stderr)
+        return 1
+
+    untagged = []
+    for f in sorted(path.rglob("*.py")):
+        if f.name == "__init__.py":
+            continue
+        if tag not in f.read_text(encoding="utf-8"):
+            untagged.append(str(f))
+
+    result = {
+        "tag": tag,
+        "path": str(path),
+        "scanned": len([f for f in path.rglob("*.py") if f.name != "__init__.py"]),
+        "untagged_count": len(untagged),
+        "untagged": untagged,
+        "passes": len(untagged) == 0,
+    }
+    print(json.dumps(result, indent=2))
+    return 0 if result["passes"] else 1
+
+
+def main() -> None:
+    parser = _build_parser()
+    args = parser.parse_args()
+
+    # check-tags does not need the engine stack
+    if args.command == "check-tags":
+        sys.exit(_check_tags(args.type, args.path))
+
+    # All other commands need the engine
+    workspace = Path(getattr(args, "workspace", ".")).resolve()
+
+    # Ensure spec is importable from workspace root
+    if str(workspace) not in sys.path:
+        sys.path.insert(0, str(workspace))
+
+    from .core import workspace_bootstrap
+    stream = workspace_bootstrap(workspace)
+
+    from .commands import Scope, gen_gaps, gen_iterate, gen_start
+
+    try:
+        from spec.packages.genesis_core import genesis_v1 as package  # type: ignore[import]
+    except ImportError as exc:
+        print(
+            f"ERROR: cannot import spec.packages.genesis_core from {workspace}.\n"
+            f"Run: cd {workspace} && python spec/packages/genesis_core.py\n"
+            f"Original: {exc}",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    scope = Scope(
+        package=package,
+        workspace_root=workspace,
+        feature=getattr(args, "feature", None),
+        edge=getattr(args, "edge", None),
+    )
+
+    if args.command == "start":
+        result = gen_start(scope, stream, auto=getattr(args, "auto", False))
+    elif args.command == "iterate":
+        result = gen_iterate(scope, stream)
+    elif args.command == "gaps":
+        result = gen_gaps(scope, stream)
+    else:
+        parser.print_help()
+        sys.exit(1)
+
+    print(json.dumps(result, indent=2))
+
+
+if __name__ == "__main__":
+    main()

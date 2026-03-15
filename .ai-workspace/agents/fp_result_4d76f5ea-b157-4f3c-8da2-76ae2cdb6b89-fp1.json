@@ -1,0 +1,22 @@
+{
+  "run_id": "4d76f5ea-b157-4f3c-8da2-76ae2cdb6b89-fp1",
+  "edge": "basis_projections→code",
+  "feature": "REQ-F-CORE",
+  "status": "complete",
+  "converged": true,
+  "artifacts": [
+    "builds/claude_code/code/genesis/core.py",
+    "builds/claude_code/code/genesis/bind.py",
+    "builds/claude_code/code/genesis/manifest.py",
+    "builds/claude_code/code/genesis/schedule.py",
+    "builds/claude_code/code/genesis/commands.py",
+    "builds/claude_code/code/genesis/__main__.py",
+    "builds/claude_code/code/genesis/__init__.py"
+  ],
+  "evaluators": {
+    "impl_tags": {"passes": true, "untagged_count": 0},
+    "six_modules": {"passes": true, "found": ["__main__", "bind", "commands", "core", "manifest", "schedule"]},
+    "code_complete": {"passes": true, "note": "6 core functions implemented: emit, project, bind_fd, bind_fp, delta, iterate, schedule"}
+  },
+  "summary": "Phase 2-4 implementation complete. 6 modules written. 95 tests pass. 81% coverage."
+}

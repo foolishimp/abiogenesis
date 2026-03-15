@@ -1,0 +1,49 @@
+created: '2026-03-15T08:00:00Z'
+depends_on: []
+feature: REQ-F-CORE
+intent: INT-001
+module: builds/claude_code/code/genesis/core.py
+priority: critical
+profile: standard
+requirements:
+- REQ-F-CORE-001
+- REQ-F-CORE-002
+- REQ-F-CORE-003
+- REQ-F-CORE-005
+satisfies:
+- REQ-F-CORE-001
+- REQ-F-CORE-002
+- REQ-F-CORE-003
+- REQ-F-CORE-005
+source: feature_decomposition
+status: not_started
+title: Core Engine Functions — iterate, project, emit, delta
+trajectory:
+  basis_projections:
+    converged_at: '2026-03-14T18:39:19Z'
+    status: converged
+  code:
+    asset: builds/claude_code/code/genesis/core.py
+    notes: ''
+    status: not_started
+  design:
+    converged_at: '2026-03-14T18:38:36Z'
+    status: converged
+  design_recommendations:
+    converged_at: '2026-03-14T18:37:14Z'
+    status: converged
+  feature_decomposition:
+    converged_at: '2026-03-14T18:37:07Z'
+    status: converged
+  module_decomposition:
+    converged_at: '2026-03-14T18:38:41Z'
+    status: converged
+  requirements:
+    converged_at: '2026-03-14T18:28:35Z'
+    status: converged
+  unit_tests:
+    asset: builds/claude_code/tests/test_core.py
+    notes: ''
+    status: not_started
+updated: '2026-03-15T08:00:00Z'
+vector_type: feature

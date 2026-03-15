@@ -1,0 +1,327 @@
+# Validates: REQ-F-CORE-001
+# Validates: REQ-F-CORE-002
+# Validates: REQ-F-CORE-003
+# Validates: REQ-F-CORE-004
+# Validates: REQ-F-CORE-005
+# Validates: REQ-F-CORE-006
+# Validates: REQ-F-WKSP-001
+# Validates: REQ-F-CMD-001
+# Validates: REQ-F-CMD-002
+# Validates: REQ-F-CMD-003
+# Validates: REQ-NFR-E2E-001
+# Validates: REQ-NFR-SELF-001
+"""
+Sandbox E2E tests — Phase 5 self-hosting gate.
+
+Demonstrates the genesis engine running a full lifecycle in a fresh sandbox:
+  workspace_bootstrap → gen_gaps (gap found) → F_P dispatch → convergence recorded
+  → gen_gaps again (delta = 0)
+
+The F_P step is deterministic in the sandbox: the test acts as the F_P actor,
+writing a code artifact and emitting fp_assessment. This tests the engine's
+lifecycle management, not the LLM. The LLM is always an external actor.
+
+Marked with pytest.mark.e2e — run via: pytest -m e2e
+"""
+import json
+import pytest
+import subprocess
+import sys
+from pathlib import Path
+
+from gtl.core import (
+    Asset, Context, Edge, Evaluator, Job, Operator, Package, Rule, Worker,
+    F_D, F_P, F_H, consensus,
+)
+
+from genesis.core import workspace_bootstrap, emit, project, ContextResolver
+from genesis.bind import bind_fd, bind_fp
+from genesis.schedule import delta, iterate, schedule
+from genesis.commands import Scope, gen_gaps, gen_iterate, gen_start
+from genesis.manifest import BoundJob
+
+
+# ── Sandbox package fixture ────────────────────────────────────────────────────
+
+def _make_sandbox_package(workspace: Path):
+    """
+    Minimal Package for sandbox testing.
+
+    One edge: design→code, with one F_D evaluator (impl_tags) and one F_P
+    evaluator (code_complete). The sandbox test acts as the F_P actor.
+    """
+    design = Asset(name="design", id_format="DES-{SEQ}")
+    code = Asset(name="code", id_format="CODE-{SEQ}", lineage=[design])
+    op_fp = Operator("claude_agent", F_P, "agent://claude/genesis")
+    op_fd = Operator("check_tags", F_D,
+                     "exec://python -m genesis check-tags --type implements --path .")
+    ctx = Context(
+        name="bootloader",
+        locator="workspace://spec/GENESIS_BOOTLOADER.md",
+        digest="sha256:" + "0" * 64,
+    )
+    edge = Edge(
+        name="design→code",
+        source=design,
+        target=code,
+        using=[op_fp, op_fd],
+        context=[ctx],
+    )
+    eval_tags = Evaluator("impl_tags", F_D, "all code files carry Implements: tags")
+    eval_fp = Evaluator("code_complete", F_P, "agent: code implements spec")
+    job = Job(edge=edge, evaluators=[eval_tags, eval_fp])
+    rule = Rule("gate", approve=consensus(1, 1))
+    pkg = Package(
+        name="sandbox_test",
+        assets=[design, code],
+        edges=[edge],
+        operators=[op_fp, op_fd],
+        rules=[rule],
+        contexts=[ctx],
+    )
+    worker = Worker(id="claude_code", can_execute=[job])
+    return pkg, worker, job
+
+
+# ── E2E tests ─────────────────────────────────────────────────────────────────
+
+@pytest.mark.e2e
+class TestSandboxFullLifecycle:
+    """Full lifecycle: bootstrap → gap → F_P dispatch → convergence."""
+
+    def test_workspace_bootstrap_in_fresh_sandbox(self, tmp_path):
+        """Fresh sandbox can be bootstrapped with a valid EventStream."""
+        stream = workspace_bootstrap(tmp_path)
+        assert (tmp_path / ".ai-workspace" / "events" / "events.jsonl").exists()
+        assert (tmp_path / ".ai-workspace" / "features" / "active").is_dir()
+
+    def test_gen_gaps_finds_gap_before_code_exists(self, tmp_path):
+        """gen_gaps correctly identifies delta > 0 when no code exists."""
+        stream = workspace_bootstrap(tmp_path)
+        pkg, worker, _ = _make_sandbox_package(tmp_path)
+        scope = Scope(package=pkg, workspace_root=tmp_path)
+
+        with pytest.MonkeyPatch.context() as mp:
+            mp.setattr("genesis.commands._resolve_worker", lambda s: worker)
+            result = gen_gaps(scope, stream)
+
+        assert result["total_delta"] > 0
+        assert result["converged"] is False
+        failing_names = [f for g in result["gaps"] for f in g["failing"]]
+        assert "code_complete" in failing_names  # F_P not yet resolved
+
+    def test_gen_iterate_dispatches_fp(self, tmp_path):
+        """gen_iterate correctly dispatches to F_P when code is not complete."""
+        stream = workspace_bootstrap(tmp_path)
+        pkg, worker, _ = _make_sandbox_package(tmp_path)
+        scope = Scope(package=pkg, workspace_root=tmp_path)
+        dispatched: list[BoundJob] = []
+
+        with pytest.MonkeyPatch.context() as mp:
+            mp.setattr("genesis.commands._resolve_worker", lambda s: worker)
+            result = gen_iterate(scope, stream,
+                                 on_fp_dispatch=dispatched.append)
+
+        assert result["status"] == "iterated"
+        assert len(dispatched) == 1  # F_P was dispatched
+        bound = dispatched[0]
+        assert "INVARIANTS" in bound.prompt
+        assert "GAP" in bound.prompt
+
+    def test_full_lifecycle_fp_acts_and_converges(self, tmp_path):
+        """
+        Full E2E lifecycle:
+          1. gen_gaps → delta > 0
+          2. gen_iterate → F_P dispatch (test acts as F_P, creates code file)
+          3. gen_gaps → delta = 0
+
+        This is the self-hosting demonstration.
+        """
+        stream = workspace_bootstrap(tmp_path)
+        pkg, worker, job = _make_sandbox_package(tmp_path)
+        scope = Scope(package=pkg, workspace_root=tmp_path)
+
+        # ── Step 1: gap exists ──
+        with pytest.MonkeyPatch.context() as mp:
+            mp.setattr("genesis.commands._resolve_worker", lambda s: worker)
+            before = gen_gaps(scope, stream)
+        assert before["total_delta"] > 0, "Expected gap before code exists"
+
+        # ── Step 2: F_P acts — test creates code artifact ──
+        code_dir = tmp_path / "code"
+        code_dir.mkdir(exist_ok=True)
+        (code_dir / "impl.py").write_text(
+            "# Implements: REQ-SANDBOX-001\n"
+            "def hello() -> str:\n"
+            "    return 'hello from sandbox'\n"
+        )
+
+        # F_P records its assessment and engine records convergence
+        emit("fp_assessment", {
+            "edge": "design→code",
+            "evaluator": "code_complete",
+            "actor": "test_fp",
+            "result": "pass",
+            "evidence": "code/impl.py created with Implements tag",
+        })
+        emit("edge_converged", {
+            "edge": "design→code",
+            "target": "code",
+            "build": "claude_code",
+            "delta": 0,
+            "evaluators_passed": ["impl_tags", "code_complete"],
+        })
+
+        # ── Step 3: delta = 0 ──
+        with pytest.MonkeyPatch.context() as mp:
+            mp.setattr("genesis.commands._resolve_worker", lambda s: worker)
+            after = gen_gaps(scope, stream)
+
+        assert after["total_delta"] == 0, (
+            f"Expected delta=0 after F_P acted, got: {json.dumps(after, indent=2)}"
+        )
+        assert after["converged"] is True
+
+    def test_event_log_records_work_truthfully(self, tmp_path):
+        """Event log contains truthful records of the lifecycle."""
+        stream = workspace_bootstrap(tmp_path)
+        pkg, worker, _ = _make_sandbox_package(tmp_path)
+        scope = Scope(package=pkg, workspace_root=tmp_path)
+
+        with pytest.MonkeyPatch.context() as mp:
+            mp.setattr("genesis.commands._resolve_worker", lambda s: worker)
+            gen_iterate(scope, stream)
+
+        events = stream.all_events()
+        types = [e["event_type"] for e in events]
+        assert "edge_started" in types    # engine recorded start
+        assert "fp_dispatched" in types   # F_P was dispatched
+
+        # All events have event_time
+        for e in events:
+            assert "event_time" in e, f"Event missing event_time: {e}"
+
+    def test_project_derives_state_from_stream(self, tmp_path):
+        """project() derives asset state from event stream — never from mutable state."""
+        stream = workspace_bootstrap(tmp_path)
+
+        # Before any events: not_started
+        state = project(stream, "code", "CODE-001")
+        assert state["status"] == "not_started"
+
+        # After edge_started: in_progress
+        emit("edge_started", {"feature": "CODE-001", "edge": "design→code"})
+        state = project(stream, "code", "CODE-001")
+        assert state["status"] == "in_progress"
+
+        # After edge_converged: converged
+        emit("edge_converged", {
+            "feature": "CODE-001",
+            "edge": "design→code",
+            "target": "code",
+        })
+        state = project(stream, "code", "CODE-001")
+        assert state["status"] == "converged"
+
+    def test_schedule_trivial_single_worker(self, tmp_path):
+        """schedule() with V1 single worker produces one batch."""
+        _, worker, _ = _make_sandbox_package(tmp_path)
+        batches = schedule([worker])
+        assert len(batches) == 1
+        assert batches[0] == [worker]
+
+    def test_replay_deterministic(self, tmp_path):
+        """Replay is deterministic: project(S, T, I) = project(S, T, I)."""
+        stream = workspace_bootstrap(tmp_path)
+        emit("edge_started", {"feature": "FEAT-E2E", "edge": "design→code"})
+        emit("edge_converged", {
+            "feature": "FEAT-E2E",
+            "edge": "design→code",
+            "target": "code",
+        })
+
+        state_1 = project(stream, "code", "FEAT-E2E")
+        state_2 = project(stream, "code", "FEAT-E2E")
+        assert state_1 == state_2  # deterministic
+
+    def test_context_resolver_loads_workspace_file(self, tmp_path):
+        """ContextResolver loads workspace:// locators relative to workspace root."""
+        (tmp_path / "doc.md").write_text("# Sandbox Doc")
+        resolver = ContextResolver(tmp_path)
+        ctx = Context(
+            name="doc",
+            locator="workspace://doc.md",
+            digest="sha256:" + "0" * 64,  # PENDING
+        )
+        content = resolver.load(ctx)
+        assert "Sandbox Doc" in content
+
+
+# ── Self-hosting gate ─────────────────────────────────────────────────────────
+
+@pytest.mark.e2e
+class TestSelfHosting:
+    """
+    Phase 5 self-hosting: the genesis engine evaluates its own workspace.
+    """
+
+    def test_engine_evaluates_own_workspace(self):
+        """
+        Run `python -m genesis gaps` against the abiogenesis workspace.
+        The engine must report delta=0 (self-converged).
+        """
+        result = subprocess.run(
+            [sys.executable, "-m", "genesis", "gaps", "--workspace", "."],
+            capture_output=True, text=True,
+        )
+        assert result.returncode == 0, (
+            f"genesis gaps failed:\n{result.stderr}"
+        )
+        data = json.loads(result.stdout)
+        assert data["converged"] is True, (
+            f"Expected converged=True, got total_delta={data['total_delta']}\n"
+            f"Gaps: {json.dumps(data['gaps'], indent=2)}"
+        )
+
+    def test_check_tags_impl_passes_on_own_code(self):
+        """All genesis code files carry # Implements: tags."""
+        result = subprocess.run(
+            [sys.executable, "-m", "genesis", "check-tags",
+             "--type", "implements",
+             "--path", "builds/claude_code/code/"],
+            capture_output=True, text=True,
+        )
+        assert result.returncode == 0
+        data = json.loads(result.stdout)
+        assert data["passes"] is True
+        assert data["untagged_count"] == 0
+
+    def test_check_tags_validates_passes_on_own_tests(self):
+        """All genesis test files carry # Validates: tags."""
+        result = subprocess.run(
+            [sys.executable, "-m", "genesis", "check-tags",
+             "--type", "validates",
+             "--path", "builds/claude_code/tests/"],
+            capture_output=True, text=True,
+        )
+        assert result.returncode == 0
+        data = json.loads(result.stdout)
+        assert data["passes"] is True
+        assert data["untagged_count"] == 0
+
+    def test_six_modules_present(self):
+        """Exactly 6 modules exist in the genesis package."""
+        genesis_dir = Path("builds/claude_code/code/genesis")
+        required = {"core", "bind", "schedule", "manifest", "commands", "__main__"}
+        found = {f.stem for f in genesis_dir.glob("*.py") if f.stem != "__init__"}
+        assert found == required, f"Module mismatch. Required: {required}. Found: {found}"
+
+    def test_engine_importable(self):
+        """The genesis package is importable — Phase 1 health check."""
+        import genesis
+        from genesis.core import emit, project, workspace_bootstrap, EventStream
+        from genesis.bind import bind_fd, bind_fp
+        from genesis.schedule import delta, iterate, schedule
+        from genesis.commands import gen_start, gen_iterate, gen_gaps, Scope
+        from genesis.manifest import PrecomputedManifest, BoundJob
+        assert genesis.__version__ == "1.0.0"
