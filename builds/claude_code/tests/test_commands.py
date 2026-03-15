@@ -163,28 +163,62 @@ class TestGenGaps:
         assert result["converged"] is False
 
     def test_emits_edge_converged_when_delta_zero(self, tmp_path):
-        """gen_gaps emits edge_converged with target field when freshly detecting delta=0."""
-        pkg, worker, job = _make_fh_package_and_worker()
+        """gen_gaps emits exactly one edge_converged with required fields on first delta=0."""
+        pkg, worker, _ = _make_fh_package_and_worker()
         stream = _make_stream(tmp_path)
-        # Resolve the F_H gate so delta=0
         stream.append("review_approved", {
-            "edge": "draft→approved",
-            "actor": "human",
-            "evaluator": "sign_off",
+            "edge": "draft→approved", "actor": "human", "evaluator": "sign_off",
         })
         scope = _make_scope(tmp_path, pkg, worker=worker)
         result = gen_gaps(scope, stream)
         assert result["converged"] is True
-        events = stream.all_events()
-        converged_events = [
-            e for e in events
+        certs = [
+            e for e in stream.all_events()
             if e["event_type"] == "edge_converged"
             and e["data"]["edge"] == "draft→approved"
         ]
-        assert len(converged_events) >= 1
-        assert converged_events[-1]["data"]["target"] == "approved"
-        assert converged_events[-1]["data"]["delta"] == 0
-        assert converged_events[-1]["data"]["certified_by"] == "gen_gaps"
+        assert len(certs) == 1
+        assert certs[0]["data"]["target"] == "approved"
+        assert certs[0]["data"]["delta"] == 0
+        assert certs[0]["data"]["certified_by"] == "gen_gaps"
+
+    def test_repeated_gen_gaps_does_not_duplicate_edge_converged(self, tmp_path):
+        """gen_gaps is idempotent: repeated calls on a converged workspace emit only one certificate."""
+        pkg, worker, _ = _make_fh_package_and_worker()
+        stream = _make_stream(tmp_path)
+        stream.append("review_approved", {
+            "edge": "draft→approved", "actor": "human", "evaluator": "sign_off",
+        })
+        scope = _make_scope(tmp_path, pkg, worker=worker)
+        gen_gaps(scope, stream)
+        gen_gaps(scope, stream)
+        gen_gaps(scope, stream)
+        certs = [
+            e for e in stream.all_events()
+            if e["event_type"] == "edge_converged"
+            and e["data"]["edge"] == "draft→approved"
+        ]
+        assert len(certs) == 1  # exactly one, not three
+
+    def test_edge_converged_includes_feature_when_scoped(self, tmp_path):
+        """edge_converged carries feature field when scope.feature is set (enables feature-scoped project())."""
+        pkg, worker, _ = _make_fh_package_and_worker()
+        stream = _make_stream(tmp_path)
+        stream.append("review_approved", {
+            "edge": "draft→approved", "actor": "human", "evaluator": "sign_off",
+        })
+        features_dir = tmp_path / ".ai-workspace" / "features" / "active"
+        features_dir.mkdir(parents=True, exist_ok=True)  # workspace_bootstrap already creates this
+        (features_dir / "FEAT-001.yml").write_text("feature: FEAT-001\n")
+        scope = _make_scope(tmp_path, pkg, worker=worker, feature="FEAT-001")
+        gen_gaps(scope, stream)
+        certs = [
+            e for e in stream.all_events()
+            if e["event_type"] == "edge_converged"
+            and e["data"]["edge"] == "draft→approved"
+        ]
+        assert len(certs) == 1
+        assert certs[0]["data"]["feature"] == "FEAT-001"
 
     def test_no_edge_converged_when_gap_exists(self, tmp_path):
         """gen_gaps does not emit edge_converged when delta > 0."""
@@ -192,8 +226,9 @@ class TestGenGaps:
         stream = _make_stream(tmp_path)
         scope = _make_scope(tmp_path, pkg, worker=worker)
         gen_gaps(scope, stream)
-        events = stream.all_events()
-        assert not any(e["event_type"] == "edge_converged" for e in events)
+        assert not any(
+            e["event_type"] == "edge_converged" for e in stream.all_events()
+        )
 
 
 # ── gen_iterate ───────────────────────────────────────────────────────────────

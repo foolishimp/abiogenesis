@@ -71,6 +71,17 @@ def gen_gaps(scope: Scope, stream: EventStream) -> dict:
             "reason": "no jobs in scope — check --feature and --edge flags",
         }
 
+    # Pre-compute which edges already have a well-formed edge_converged certificate
+    # (one that includes 'target' — the canonical schema). Events without 'target'
+    # (e.g. hand-emitted Phase C entries) do not count: they cannot serve feature-
+    # scoped projection and should be superseded by a properly-formed entry.
+    certified_edges: set[str] = {
+        e["data"]["edge"]
+        for e in stream.all_events()
+        if e.get("event_type") == "edge_converged"
+        and e.get("data", {}).get("target")
+    }
+
     results = []
     for job in jobs:
         pre = bind_fd(job, stream, resolver, scope.workspace_root)
@@ -81,16 +92,21 @@ def gen_gaps(scope: Scope, stream: EventStream) -> dict:
             "passing": [ev.name for ev in pre.passing_evaluators],
             "delta_summary": pre.delta_summary,
         })
-        # When freshly computed delta=0, record convergence in the event log.
-        # This makes the engine self-certifying: the log records what the engine
-        # actually observed, not what a human inserted out of band.
-        if pre.delta == 0:
-            emit("edge_converged", {
+        # Emit edge_converged when freshly confirmed delta=0 and not yet certified.
+        # Idempotent: once a well-formed certificate exists in the log (edge + target),
+        # repeated gen_gaps calls over a converged workspace do not append duplicates.
+        # feature is included so feature-scoped project() calls can match this event.
+        if pre.delta == 0 and job.edge.name not in certified_edges:
+            cert: dict = {
                 "edge": job.edge.name,
                 "target": job.edge.target.name,
                 "delta": 0,
                 "certified_by": "gen_gaps",
-            })
+            }
+            if scope.feature:
+                cert["feature"] = scope.feature
+            emit("edge_converged", cert)
+            certified_edges.add(job.edge.name)  # prevent duplicate within same run
 
     total_delta = sum(r["delta"] for r in results)
     return {
