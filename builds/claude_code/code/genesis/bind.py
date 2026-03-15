@@ -25,6 +25,13 @@ from .manifest import BoundJob, PrecomputedManifest
 
 # ── F_D evaluator runner ──────────────────────────────────────────────────────
 
+# Wall-clock limit for F_D subprocess evaluators.
+# Prevents unbounded hangs from misconfigured commands (e.g. cyclic genesis invocations).
+# Override via FD_TIMEOUT_SECONDS env var for slow environments.
+import os as _os
+FD_TIMEOUT_SECONDS: int = int(_os.environ.get("FD_TIMEOUT_SECONDS", "120"))
+
+
 def run_fd_evaluator(
     ev: Evaluator,
     current_asset: dict,
@@ -54,10 +61,21 @@ def run_fd_evaluator(
     existing = env.get("PYTHONPATH", "")
     env["PYTHONPATH"] = os.pathsep.join(filter(None, [extra, existing]))
 
-    result = subprocess.run(
-        ev.command, shell=True, cwd=workspace_root,
-        capture_output=True, text=True, env=env,
-    )
+    try:
+        result = subprocess.run(
+            ev.command, shell=True, cwd=workspace_root,
+            capture_output=True, text=True, env=env,
+            timeout=FD_TIMEOUT_SECONDS,
+        )
+    except subprocess.TimeoutExpired:
+        return False, {
+            "status": "timeout",
+            "reason": (
+                f"F_D evaluator {ev.name!r} exceeded {FD_TIMEOUT_SECONDS}s wall-clock limit. "
+                "Check that the command is acyclic (does not invoke genesis subcommands) "
+                "and uses -m 'not e2e' if running pytest."
+            ),
+        }
     return result.returncode == 0, {
         "returncode": result.returncode,
         "stdout": result.stdout[-3000:],
