@@ -175,27 +175,36 @@ class TestSelectRelevantContexts:
         result = select_relevant_contexts(ctxs, [])
         assert result == []
 
-    def test_all_contexts_returned_when_any_failing(self):
-        """Any failing evaluator → all edge contexts returned (domain-blind)."""
+    def test_fp_failing_returns_all_contexts(self):
+        """F_P failing → all edge contexts returned (F_P actor needs constraint surface)."""
         ctxs = [self._ctx("alpha"), self._ctx("beta"), self._ctx("gamma")]
         failing = [Evaluator("check", F_P, "needs LLM")]
         result = select_relevant_contexts(ctxs, failing)
         assert len(result) == 3
 
-    def test_fd_failing_also_returns_all_contexts(self):
-        """F_D failing → all contexts returned, not a subset."""
+    def test_fd_only_failing_returns_empty(self):
+        """F_D-only failure → no contexts (F_D re-runs its command, no prompt needed)."""
         ctxs = [self._ctx("law"), self._ctx("config")]
         failing = [Evaluator("file_check", F_D, "file must exist", command="true")]
         result = select_relevant_contexts(ctxs, failing)
-        assert len(result) == 2
+        assert result == []
 
-    def test_fh_failing_returns_all_contexts(self):
-        """F_H failing → all contexts returned."""
+    def test_fh_only_failing_returns_empty(self):
+        """F_H-only failure → no contexts (gate waits for review_approved, no prompt)."""
         ctxs = [self._ctx("criteria")]
         failing = [Evaluator("sign_off", F_H, "human approval")]
         result = select_relevant_contexts(ctxs, failing)
-        assert len(result) == 1
-        assert result[0].name == "criteria"
+        assert result == []
+
+    def test_mixed_fd_fp_returns_all_contexts(self):
+        """F_D + F_P failing → contexts returned (F_P needs them)."""
+        ctxs = [self._ctx("spec"), self._ctx("adr")]
+        failing = [
+            Evaluator("file_check", F_D, "file must exist", command="true"),
+            Evaluator("code_complete", F_P, "needs LLM"),
+        ]
+        result = select_relevant_contexts(ctxs, failing)
+        assert len(result) == 2
 
     def test_empty_contexts_returns_empty_list(self):
         """No edge contexts → empty list regardless of failing evaluators."""

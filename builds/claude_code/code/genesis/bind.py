@@ -233,11 +233,14 @@ def select_relevant_contexts(
     """
     F_D: filter contexts to those relevant to the failing evaluators.
 
-    Domain-blind: when any evaluators are failing, the F_P actor needs the full
-    constraint surface defined on the edge. Return all edge contexts.
-    When nothing is failing, no context is needed.
+    Domain-blind: contexts are only needed when F_P work is required.
+    F_D and F_H failures do not need prompt context — F_D re-runs its command,
+    F_H waits for a review_approved event. Only F_P dispatch consumes context.
     """
     if not failing:
+        return []
+    fp_failing = [ev for ev in failing if ev.category is F_P]
+    if not fp_failing:
         return []
     return list(all_contexts)
 

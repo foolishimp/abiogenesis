@@ -161,7 +161,6 @@ def gen_iterate(
     bound = bind_fp(selected_pre, selected_job)
     stream.append("edge_started", {
         "edge": selected_job.edge.name,
-        "feature": scope.feature or "all",
         "build": scope.build,
     })
 
@@ -230,12 +229,16 @@ def gen_start(
         new_events = stream.all_events()[last_event_count:]
         last_event_count += len(new_events)
 
-        if any(e["event_type"] == "fp_dispatched" for e in new_events):
+        # Stop on any condition that cannot auto-resolve without external input.
+        new_types = {e["event_type"] for e in new_events}
+        if "fp_dispatched" in new_types:
             result["stopped_by"] = "fp_dispatch"
             return result
-
-        if any(e["event_type"] == "fh_gate_pending" for e in new_events):
+        if "fh_gate_pending" in new_types:
             result["stopped_by"] = "fh_gate"
+            return result
+        if "fd_gap_found" in new_types:
+            result["stopped_by"] = "fd_gap"
             return result
 
     result["stopped_by"] = "max_iterations"

@@ -38,6 +38,21 @@ def _make_package_and_worker():
     return pkg, worker, job
 
 
+def _make_fd_only_package_and_worker():
+    """Package + Worker with one always-failing F_D evaluator — no F_P, no F_H."""
+    src = Asset(name="source", id_format="SRC-{SEQ}")
+    tgt = Asset(name="output", id_format="OUT-{SEQ}", lineage=[src])
+    op = Operator("checker", F_D, "exec://false")
+    edge = Edge(name="source→output", source=src, target=tgt, using=[op])
+    job = Job(edge=edge, evaluators=[
+        Evaluator("always_fail", F_D, "sentinel must exist",
+                  command="python -c 'import sys; sys.exit(1)'"),
+    ])
+    pkg = Package(name="fd_pkg", assets=[src, tgt], edges=[edge], operators=[op])
+    worker = Worker(id="checker_worker", can_execute=[job])
+    return pkg, worker, job
+
+
 def _make_fh_package_and_worker():
     """Package + Worker with one F_H evaluator — resolves via review_approved event."""
     src = Asset(name="draft", id_format="DRAFT-{SEQ}")
@@ -296,6 +311,18 @@ class TestGenStart:
         scope = _make_scope(tmp_path, pkg, worker=worker)
         result = gen_start(scope, stream, auto=True)
         assert result["status"] == "converged"
+
+    def test_auto_loop_stops_on_fd_gap(self, tmp_path):
+        """gen_start with auto=True stops after first F_D gap — cannot auto-resolve."""
+        pkg, worker, _ = _make_fd_only_package_and_worker()
+        stream = _make_stream(tmp_path)
+        scope = _make_scope(tmp_path, pkg, worker=worker)
+        result = gen_start(scope, stream, auto=True)
+        assert result.get("auto") is True
+        assert result.get("stopped_by") == "fd_gap"
+        # Only one iteration: edge_started + fd_gap_found, not repeated
+        events = stream.all_events()
+        assert sum(1 for e in events if e["event_type"] == "edge_started") == 1
 
     def test_returns_converged_when_all_evaluators_pass(self, tmp_path):
         """gen_start returns 'converged' when _derive_state finds total_delta=0."""
