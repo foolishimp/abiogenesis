@@ -240,17 +240,21 @@ def _scoped_jobs(scope: Scope, worker: Worker) -> list[Job]:
     """
     Return jobs from worker.can_execute, filtered by scope overrides.
 
-    edge override: exact match on job.edge.name.
-    feature override: validated against feature YAMLs in workspace; fails closed
-    on unknown feature ID. V1 has a single trajectory — a known feature returns
-    all jobs; unknown feature returns empty (caller reports error).
+    edge override: exact match on job.edge.name — narrows which jobs run.
+
+    feature override (V1 behaviour): existence validation only.
+      V1 has a single trajectory — Jobs are not tagged by feature_id.
+      --feature REQ-F-CORE validates that feature exists in the workspace;
+      it does not narrow which jobs run (all 5 jobs cover the single trajectory).
+      Unknown feature ID → empty list (fails closed; caller reports error).
+      Per-job feature routing is a V2 concern when multiple packages coexist.
     """
     jobs = list(worker.can_execute)
 
     if scope.feature:
         known = _known_feature_ids(scope.workspace_root)
         if scope.feature not in known:
-            return []  # fail closed — callers treat empty as error
+            return []  # fail closed — unknown feature
 
     if scope.edge:
         jobs = [j for j in jobs if j.edge.name == scope.edge]

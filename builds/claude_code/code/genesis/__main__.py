@@ -63,8 +63,11 @@ def _build_parser() -> argparse.ArgumentParser:
     # ── check-req-coverage ────────────────────────────────────────────────────
     p_cov = sub.add_parser("check-req-coverage",
                            help="Verify every REQ-* key in spec appears in a feature vector")
-    p_cov.add_argument("--spec", required=True,
-                       help="Path to spec file to scan for REQ-* keys")
+    src = p_cov.add_mutually_exclusive_group(required=True)
+    src.add_argument("--spec",
+                     help="Path to spec file to grep for REQ-* keys (legacy)")
+    src.add_argument("--package", metavar="MODULE:VAR",
+                     help="Import path to a Package object, e.g. spec.packages.genesis_core:genesis_v1")
     p_cov.add_argument("--features", required=True,
                        help="Directory containing feature vector YAML files")
 
@@ -107,31 +110,57 @@ def _check_tags(tag_type: str, scan_path: str) -> int:
     return 0 if result["passes"] else 1
 
 
-def _check_req_coverage(spec_path: str, features_dir: str) -> int:
+def _check_req_coverage(spec_path: str, features_dir: str,
+                        package_ref: str | None = None) -> int:
     """
-    Verify every REQ-* key found in the spec file appears in at least one
-    feature vector's satisfies: field.
+    Verify every REQ-* key in the spec appears in at least one feature vector.
+
+    Two source modes:
+      package_ref  — import MODULE:VAR, read Package.requirements (authoritative)
+      spec_path    — grep the file for REQ-* tokens (legacy / fallback)
 
     Exits 0 if all keys covered, 1 if any gaps exist.
     Prints a JSON result to stdout.
     """
     import re
 
-    spec = Path(spec_path)
     features = Path(features_dir)
-
-    if not spec.exists():
-        print(json.dumps({"error": f"spec not found: {spec_path}"}), file=sys.stderr)
-        return 1
     if not features.exists():
         print(json.dumps({"error": f"features dir not found: {features_dir}"}), file=sys.stderr)
         return 1
 
-    # Extract REQ-* keys from spec (any occurrence)
-    spec_text = spec.read_text(encoding="utf-8")
-    spec_keys = set(re.findall(r"REQ-[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)*", spec_text))
+    # ── Resolve spec_keys ────────────────────────────────────────────────────
+    if package_ref:
+        # Package-authoritative path: MODULE:VAR
+        if ":" not in package_ref:
+            print(json.dumps({"error": f"--package must be MODULE:VAR, got {package_ref!r}"}),
+                  file=sys.stderr)
+            return 1
+        module_name, var_name = package_ref.rsplit(":", 1)
+        try:
+            import importlib
+            mod = importlib.import_module(module_name)
+        except ImportError as exc:
+            print(json.dumps({"error": f"cannot import {module_name}: {exc}"}), file=sys.stderr)
+            return 1
+        pkg = getattr(mod, var_name, None)
+        if pkg is None:
+            print(json.dumps({"error": f"{var_name!r} not found in {module_name}"}),
+                  file=sys.stderr)
+            return 1
+        spec_keys = set(getattr(pkg, "requirements", []))
+        source = f"package:{package_ref}"
+    else:
+        # Grep-based legacy path
+        spec = Path(spec_path)
+        if not spec.exists():
+            print(json.dumps({"error": f"spec not found: {spec_path}"}), file=sys.stderr)
+            return 1
+        spec_text = spec.read_text(encoding="utf-8")
+        spec_keys = set(re.findall(r"REQ-[A-Z][A-Z0-9]*(?:-[A-Z0-9]+)*", spec_text))
+        source = str(spec_path)
 
-    # Extract REQ-* keys mentioned in any feature YAML
+    # ── Scan feature vectors for covered keys ────────────────────────────────
     covered_keys: set[str] = set()
     for yml in features.rglob("*.yml"):
         text = yml.read_text(encoding="utf-8")
@@ -139,7 +168,7 @@ def _check_req_coverage(spec_path: str, features_dir: str) -> int:
 
     uncovered = sorted(spec_keys - covered_keys)
     result = {
-        "spec": spec_path,
+        "spec": source,
         "features_dir": features_dir,
         "spec_keys": sorted(spec_keys),
         "covered_count": len(spec_keys) - len(uncovered),
@@ -159,7 +188,11 @@ def main() -> None:
     if args.command == "check-tags":
         sys.exit(_check_tags(args.type, args.path))
     if args.command == "check-req-coverage":
-        sys.exit(_check_req_coverage(args.spec, args.features))
+        sys.exit(_check_req_coverage(
+            spec_path=args.spec or "",
+            features_dir=args.features,
+            package_ref=getattr(args, "package", None),
+        ))
 
     # All other commands need the engine
     workspace = Path(getattr(args, "workspace", ".")).resolve()

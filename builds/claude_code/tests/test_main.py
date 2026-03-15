@@ -68,6 +68,12 @@ class TestBuildParser:
         assert args.spec == "spec.py"
         assert args.features == "features/"
 
+    def test_check_req_coverage_package_flag(self):
+        p = _build_parser()
+        args = p.parse_args(["check-req-coverage", "--package", "mymod:myvar", "--features", "features/"])
+        assert args.package == "mymod:myvar"
+        assert args.spec is None
+
 
 # ── _check_tags ───────────────────────────────────────────────────────────────
 
@@ -191,3 +197,56 @@ class TestCheckReqCoverage:
         assert "total_count" in result
         assert "uncovered" in result
         assert "passes" in result
+
+    def test_package_ref_covered(self, tmp_path, capsys, monkeypatch):
+        """--package path: Package.requirements is the canonical source."""
+        from unittest.mock import MagicMock
+        import sys
+        pkg = MagicMock()
+        pkg.requirements = ["REQ-F-CORE-001", "REQ-F-BIND-001"]
+        fake_mod = MagicMock()
+        fake_mod.my_pkg = pkg
+        monkeypatch.setitem(sys.modules, "my_spec_mod", fake_mod)
+
+        features = tmp_path / "features"
+        self._write_feature(features, "core", ["REQ-F-CORE-001"])
+        self._write_feature(features, "bind", ["REQ-F-BIND-001"])
+
+        rc = _check_req_coverage("", str(features), package_ref="my_spec_mod:my_pkg")
+        assert rc == 0
+        result = json.loads(capsys.readouterr().out)
+        assert result["passes"] is True
+        assert sorted(result["spec_keys"]) == ["REQ-F-BIND-001", "REQ-F-CORE-001"]
+
+    def test_package_ref_uncovered(self, tmp_path, capsys, monkeypatch):
+        """Package.requirements with a missing key returns rc=1."""
+        from unittest.mock import MagicMock
+        import sys
+        pkg = MagicMock()
+        pkg.requirements = ["REQ-F-CORE-001", "REQ-F-MISSING-001"]
+        fake_mod = MagicMock()
+        fake_mod.my_pkg = pkg
+        monkeypatch.setitem(sys.modules, "my_spec_mod2", fake_mod)
+
+        features = tmp_path / "features"
+        self._write_feature(features, "core", ["REQ-F-CORE-001"])
+
+        rc = _check_req_coverage("", str(features), package_ref="my_spec_mod2:my_pkg")
+        assert rc == 1
+        result = json.loads(capsys.readouterr().out)
+        assert result["passes"] is False
+        assert "REQ-F-MISSING-001" in result["uncovered"]
+
+    def test_package_ref_bad_format_returns_1(self, tmp_path, capsys):
+        """MODULE:VAR format enforced — colon required."""
+        features = tmp_path / "features"
+        features.mkdir()
+        rc = _check_req_coverage("", str(features), package_ref="no_colon_here")
+        assert rc == 1
+
+    def test_package_ref_import_error_returns_1(self, tmp_path, capsys):
+        """Unimportable module returns rc=1."""
+        features = tmp_path / "features"
+        features.mkdir()
+        rc = _check_req_coverage("", str(features), package_ref="no_such_module_xyz:var")
+        assert rc == 1

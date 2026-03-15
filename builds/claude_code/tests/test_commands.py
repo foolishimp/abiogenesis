@@ -99,16 +99,18 @@ class TestScopedJobs:
         jobs = _scoped_jobs(scope, worker)
         assert jobs == []
 
-    def test_known_feature_returns_jobs(self, tmp_path):
-        """G4: known feature ID (present in features YAML dir) returns all jobs."""
+    def test_known_feature_passes_existence_check(self, tmp_path):
+        """G4 V1 semantics: known feature validates existence; all jobs returned
+        (V1 has single trajectory — --feature does not narrow scope, only validates)."""
         pkg, worker, job = _make_package_and_worker()
-        # Create a feature YAML so the feature is "known"
         features_dir = tmp_path / ".ai-workspace" / "features" / "active"
         features_dir.mkdir(parents=True)
         (features_dir / "REQ-F-CORE.yml").write_text("feature: REQ-F-CORE\n")
         scope = _make_scope(tmp_path, pkg, feature="REQ-F-CORE")
         jobs = _scoped_jobs(scope, worker)
+        # All jobs returned — V1 single trajectory, no per-job feature routing
         assert job in jobs
+        assert len(jobs) == len(worker.can_execute)
 
     def test_known_feature_ids_reads_active_and_completed(self, tmp_path):
         """_known_feature_ids reads both active/ and completed/ subdirs."""

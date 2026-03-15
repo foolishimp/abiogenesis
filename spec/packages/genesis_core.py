@@ -196,7 +196,7 @@ eval_intent_fh     = Evaluator("intent_approved",    F_H, "Human confirms intent
 
 # requirements→feature_decomp
 eval_feat_fd       = Evaluator("req_coverage",       F_D, "Every REQ key appears in ≥1 feature vector satisfies: field",
-                               command="python -m genesis check-req-coverage --spec spec/packages/genesis_core.py --features .ai-workspace/features/")
+                               command="python -m genesis check-req-coverage --package spec.packages.genesis_core:genesis_v1 --features .ai-workspace/features/")
 eval_feat_fh       = Evaluator("feat_approved",      F_H, "Human approves decomposition, DAG order, and MVP boundary")
 
 # feature_decomp→design
@@ -249,6 +249,26 @@ genesis_v1 = Package(
     operators=[claude_agent, pytest_op, check_tags_impl, check_tags_test, human_gate],
     rules=[standard_gate],
     contexts=[bootloader, genesis_core_spec, design_adrs, v1_doctrine],
+    requirements=[
+        # Core engine
+        "REQ-F-CORE-001",
+        "REQ-F-CORE-002",
+        "REQ-F-CORE-003",
+        "REQ-F-CORE-004",
+        "REQ-F-CORE-005",
+        "REQ-F-CORE-006",
+        # Commands
+        "REQ-F-CMD-001",
+        "REQ-F-CMD-002",
+        "REQ-F-CMD-003",
+        # Workspace
+        "REQ-F-WKSP-001",
+        "REQ-F-WKSP-002",
+        # Non-functional
+        "REQ-NFR-TEST-001",
+        "REQ-NFR-E2E-001",
+        "REQ-NFR-SELF-001",
+    ],
 )
 
 
