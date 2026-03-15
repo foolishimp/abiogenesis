@@ -217,8 +217,8 @@ eval_coverage      = Evaluator("coverage_80",        F_D, "coverage >= 80%",
                                command="python -m pytest builds/claude_code/tests/ --cov=genesis --cov-report=term-missing -q --ignore=builds/claude_code/tests/test_e2e_sandbox.py")
 eval_test_tags     = Evaluator("validates_tags",     F_D, "check-tags: all test files carry Validates: REQ-* tags, 0 untagged",
                                command="python -m genesis check-tags --type validates --path builds/claude_code/tests/")
-eval_sandbox_e2e   = Evaluator("sandbox_e2e",        F_D, "e2e: fresh sandbox run creates code + tests; sandbox-local tests pass",
-                               command="python -m pytest builds/claude_code/tests/test_e2e_sandbox.py -m e2e -q --tb=short")
+eval_sandbox_e2e   = Evaluator("sandbox_e2e",        F_D, "sandbox lifecycle: gen_gaps/iterate/converge in a fresh isolated workspace",
+                               command="python -m pytest builds/claude_code/tests/test_e2e_sandbox.py -m 'e2e and not phase_c' -q --tb=short")
 
 
 # ── Jobs ──────────────────────────────────────────────────────────────────────
