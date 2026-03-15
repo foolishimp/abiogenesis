@@ -4,8 +4,6 @@
 """Tests for genesis.commands — Scope, gen_gaps, gen_iterate, gen_start."""
 import pytest
 from pathlib import Path
-from unittest.mock import patch, MagicMock
-
 from gtl.core import (
     Asset, Context, Edge, Evaluator, Job, Operator, Package,
     Rule, Worker,
@@ -19,7 +17,7 @@ from genesis.commands import Scope, gen_gaps, gen_iterate, gen_start, _scoped_jo
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
 def _make_package_and_worker():
-    """Minimal Package + Worker for testing commands."""
+    """Minimal Package + Worker for testing commands. One F_P evaluator — always has gap."""
     intent = Asset(name="intent", id_format="INT-{SEQ}")
     code = Asset(name="code", id_format="CODE-{SEQ}")
     op = Operator("claude_agent", F_P, "agent://claude/genesis")
@@ -40,18 +38,30 @@ def _make_package_and_worker():
     return pkg, worker, job
 
 
-def _make_scope(tmp_path: Path, pkg, edge: str = None, feature: str = None) -> Scope:
+def _make_fh_package_and_worker():
+    """Package + Worker with one F_H evaluator — resolves via review_approved event."""
+    src = Asset(name="draft", id_format="DRAFT-{SEQ}")
+    tgt = Asset(name="approved", id_format="APR-{SEQ}", lineage=[src])
+    op = Operator("human", F_H, "fh://single")
+    edge = Edge(name="draft→approved", source=src, target=tgt, using=[op])
+    job = Job(edge=edge, evaluators=[Evaluator("sign_off", F_H, "Human approval")])
+    pkg = Package(name="fh_pkg", assets=[src, tgt], edges=[edge], operators=[op])
+    worker = Worker(id="reviewer", can_execute=[job])
+    return pkg, worker, job
+
+
+def _make_scope(tmp_path: Path, pkg, worker=None, edge: str = None, feature: str = None) -> Scope:
     return Scope(
         package=pkg,
         workspace_root=tmp_path,
         feature=feature,
         edge=edge,
+        worker=worker,
     )
 
 
 def _make_stream(tmp_path: Path) -> EventStream:
-    ws = workspace_bootstrap(tmp_path)
-    return ws
+    return workspace_bootstrap(tmp_path)
 
 
 # ── Scope ─────────────────────────────────────────────────────────────────────
@@ -131,11 +141,8 @@ class TestGenGaps:
     def test_returns_gap_report(self, tmp_path):
         pkg, worker, _ = _make_package_and_worker()
         stream = _make_stream(tmp_path)
-        scope = _make_scope(tmp_path, pkg)
-
-        with patch("genesis.commands._resolve_worker", return_value=worker):
-            result = gen_gaps(scope, stream)
-
+        scope = _make_scope(tmp_path, pkg, worker=worker)
+        result = gen_gaps(scope, stream)
         assert "gaps" in result
         assert "total_delta" in result
         assert result["jobs_considered"] >= 1
@@ -143,23 +150,50 @@ class TestGenGaps:
     def test_empty_scope_returns_error(self, tmp_path):
         pkg, worker, _ = _make_package_and_worker()
         stream = _make_stream(tmp_path)
-        scope = _make_scope(tmp_path, pkg, edge="no→match")
-
-        with patch("genesis.commands._resolve_worker", return_value=worker):
-            result = gen_gaps(scope, stream)
-
+        scope = _make_scope(tmp_path, pkg, worker=worker, edge="no→match")
+        result = gen_gaps(scope, stream)
         assert result["status"] == "error"
 
-    def test_converged_field(self, tmp_path):
+    def test_converged_field_false_when_gap(self, tmp_path):
         pkg, worker, _ = _make_package_and_worker()
         stream = _make_stream(tmp_path)
-        scope = _make_scope(tmp_path, pkg)
-
-        with patch("genesis.commands._resolve_worker", return_value=worker):
-            result = gen_gaps(scope, stream)
-
-        # F_P evaluators make it non-converged
+        scope = _make_scope(tmp_path, pkg, worker=worker)
+        result = gen_gaps(scope, stream)
+        # F_P evaluator unresolved — not converged
         assert result["converged"] is False
+
+    def test_emits_edge_converged_when_delta_zero(self, tmp_path):
+        """gen_gaps emits edge_converged with target field when freshly detecting delta=0."""
+        pkg, worker, job = _make_fh_package_and_worker()
+        stream = _make_stream(tmp_path)
+        # Resolve the F_H gate so delta=0
+        stream.append("review_approved", {
+            "edge": "draft→approved",
+            "actor": "human",
+            "evaluator": "sign_off",
+        })
+        scope = _make_scope(tmp_path, pkg, worker=worker)
+        result = gen_gaps(scope, stream)
+        assert result["converged"] is True
+        events = stream.all_events()
+        converged_events = [
+            e for e in events
+            if e["event_type"] == "edge_converged"
+            and e["data"]["edge"] == "draft→approved"
+        ]
+        assert len(converged_events) >= 1
+        assert converged_events[-1]["data"]["target"] == "approved"
+        assert converged_events[-1]["data"]["delta"] == 0
+        assert converged_events[-1]["data"]["certified_by"] == "gen_gaps"
+
+    def test_no_edge_converged_when_gap_exists(self, tmp_path):
+        """gen_gaps does not emit edge_converged when delta > 0."""
+        pkg, worker, _ = _make_package_and_worker()
+        stream = _make_stream(tmp_path)
+        scope = _make_scope(tmp_path, pkg, worker=worker)
+        gen_gaps(scope, stream)
+        events = stream.all_events()
+        assert not any(e["event_type"] == "edge_converged" for e in events)
 
 
 # ── gen_iterate ───────────────────────────────────────────────────────────────
@@ -168,44 +202,45 @@ class TestGenIterate:
     def test_returns_iterated_status(self, tmp_path):
         pkg, worker, _ = _make_package_and_worker()
         stream = _make_stream(tmp_path)
-        scope = _make_scope(tmp_path, pkg)
-
-        with patch("genesis.commands._resolve_worker", return_value=worker):
-            result = gen_iterate(scope, stream)
-
+        scope = _make_scope(tmp_path, pkg, worker=worker)
+        result = gen_iterate(scope, stream)
         assert result["status"] == "iterated"
 
     def test_nothing_to_do_when_no_jobs(self, tmp_path):
         pkg, worker, _ = _make_package_and_worker()
         stream = _make_stream(tmp_path)
-        scope = _make_scope(tmp_path, pkg, edge="no→match")
-
-        with patch("genesis.commands._resolve_worker", return_value=worker):
-            result = gen_iterate(scope, stream)
-
+        scope = _make_scope(tmp_path, pkg, worker=worker, edge="no→match")
+        result = gen_iterate(scope, stream)
         assert result["status"] == "nothing_to_do"
 
     def test_edge_started_emitted(self, tmp_path):
         pkg, worker, _ = _make_package_and_worker()
         stream = _make_stream(tmp_path)
-        scope = _make_scope(tmp_path, pkg)
-
-        with patch("genesis.commands._resolve_worker", return_value=worker):
-            gen_iterate(scope, stream)
-
+        scope = _make_scope(tmp_path, pkg, worker=worker)
+        gen_iterate(scope, stream)
         events = stream.all_events()
         assert any(e["event_type"] == "edge_started" for e in events)
 
     def test_on_fp_dispatch_called(self, tmp_path):
         pkg, worker, _ = _make_package_and_worker()
         stream = _make_stream(tmp_path)
-        scope = _make_scope(tmp_path, pkg)
+        scope = _make_scope(tmp_path, pkg, worker=worker)
         dispatched = []
-
-        with patch("genesis.commands._resolve_worker", return_value=worker):
-            gen_iterate(scope, stream, on_fp_dispatch=lambda b: dispatched.append(b))
-
+        gen_iterate(scope, stream, on_fp_dispatch=lambda b: dispatched.append(b))
         assert len(dispatched) == 1
+
+    def test_returns_converged_when_all_evaluators_pass(self, tmp_path):
+        """gen_iterate returns 'converged' when no unconverged job is found."""
+        pkg, worker, _ = _make_fh_package_and_worker()
+        stream = _make_stream(tmp_path)
+        stream.append("review_approved", {
+            "edge": "draft→approved",
+            "actor": "human",
+            "evaluator": "sign_off",
+        })
+        scope = _make_scope(tmp_path, pkg, worker=worker)
+        result = gen_iterate(scope, stream)
+        assert result["status"] == "converged"
 
 
 # ── gen_start ─────────────────────────────────────────────────────────────────
@@ -214,29 +249,33 @@ class TestGenStart:
     def test_returns_iterated_when_work_pending(self, tmp_path):
         pkg, worker, _ = _make_package_and_worker()
         stream = _make_stream(tmp_path)
-        scope = _make_scope(tmp_path, pkg)
-
-        with patch("genesis.commands._resolve_worker", return_value=worker):
-            result = gen_start(scope, stream)
-
+        scope = _make_scope(tmp_path, pkg, worker=worker)
+        result = gen_start(scope, stream)
         assert result["status"] == "iterated"
 
     def test_returns_nothing_to_do_when_no_jobs(self, tmp_path):
         pkg, worker, _ = _make_package_and_worker()
         stream = _make_stream(tmp_path)
-        scope = _make_scope(tmp_path, pkg, edge="no→match")
-
-        with patch("genesis.commands._resolve_worker", return_value=worker):
-            result = gen_start(scope, stream)
-
+        scope = _make_scope(tmp_path, pkg, worker=worker, edge="no→match")
+        result = gen_start(scope, stream)
         assert result["status"] == "nothing_to_do"
 
     def test_auto_flag_recorded(self, tmp_path):
         pkg, worker, _ = _make_package_and_worker()
         stream = _make_stream(tmp_path)
-        scope = _make_scope(tmp_path, pkg)
-
-        with patch("genesis.commands._resolve_worker", return_value=worker):
-            result = gen_start(scope, stream, auto=True)
-
+        scope = _make_scope(tmp_path, pkg, worker=worker)
+        result = gen_start(scope, stream, auto=True)
         assert result.get("auto") is True
+
+    def test_returns_converged_when_all_evaluators_pass(self, tmp_path):
+        """gen_start returns 'converged' when _derive_state finds total_delta=0."""
+        pkg, worker, _ = _make_fh_package_and_worker()
+        stream = _make_stream(tmp_path)
+        stream.append("review_approved", {
+            "edge": "draft→approved",
+            "actor": "human",
+            "evaluator": "sign_off",
+        })
+        scope = _make_scope(tmp_path, pkg, worker=worker)
+        result = gen_start(scope, stream)
+        assert result["status"] == "converged"
