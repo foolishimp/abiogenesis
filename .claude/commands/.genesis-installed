@@ -1,3 +1,11 @@
-version: 3.0.11
-installed: 2026-03-14T18:23:24Z
-source: local:/Users/jim/src/apps/ai_sdlc_method
+{
+  "version": "0.1.1",
+  "installed": [
+    "gen-start",
+    "gen-gaps",
+    "gen-status",
+    "gen-iterate",
+    "gen-review"
+  ],
+  "timestamp": "2026-03-15T13:02:06.095015+00:00"
+}
