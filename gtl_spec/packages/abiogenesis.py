@@ -276,6 +276,8 @@ package = Package(
         "REQ-F-COV-001",    # REQ key coverage enforced by check-req-coverage
         # Documentation
         "REQ-F-DOCS-001",   # User guide covers install, first session, operating loop
+        # Evaluator safety
+        "REQ-F-EVAL-001",   # F_D evaluator commands validated at spec load: non-empty, acyclic (no genesis subcommands), pytest uses -m 'not e2e'
     ],
 )
 

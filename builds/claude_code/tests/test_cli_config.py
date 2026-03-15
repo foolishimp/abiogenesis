@@ -1,6 +1,8 @@
 # Validates: REQ-F-CMD-001
 # Validates: REQ-F-CMD-002
 # Validates: REQ-F-CMD-003
+# Validates: REQ-F-BOOT-001
+# Validates: REQ-F-BOOT-002
 """
 Tests for .genesis/genesis.yml config resolution and gen-install.py.
 

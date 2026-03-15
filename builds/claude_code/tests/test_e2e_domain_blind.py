@@ -6,6 +6,8 @@
 # Validates: REQ-F-CORE-006
 # Validates: REQ-F-WKSP-001
 # Validates: REQ-F-CMD-001
+# Validates: REQ-F-GRAPH-001
+# Validates: REQ-F-GRAPH-002
 # Validates: REQ-F-CMD-002
 # Validates: REQ-F-CMD-003
 # Validates: REQ-NFR-TEST-001

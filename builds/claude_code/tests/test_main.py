@@ -1,6 +1,9 @@
 # Validates: REQ-F-CMD-001
 # Validates: REQ-F-CMD-002
 # Validates: REQ-F-CMD-003
+# Validates: REQ-F-TAG-001
+# Validates: REQ-F-TAG-002
+# Validates: REQ-F-COV-001
 """Tests for genesis.__main__ — CLI entry point and check-tags command."""
 import json
 import pytest

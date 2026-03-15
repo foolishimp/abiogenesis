@@ -2,6 +2,7 @@
 # Validates: REQ-F-CORE-005
 # Validates: REQ-F-CORE-006
 # Validates: REQ-F-WKSP-001
+# Validates: REQ-F-GATE-001
 """Tests for genesis.schedule — delta, iterate, schedule."""
 import pytest
 from pathlib import Path

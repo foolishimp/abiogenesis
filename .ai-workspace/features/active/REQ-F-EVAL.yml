@@ -1,0 +1,8 @@
+feature: REQ-F-EVAL
+description: >
+  F_D evaluator command validation — ensures every F_D evaluator command registered in
+  the spec is non-empty, acyclic (does not invoke genesis subcommands), and that pytest
+  commands use -m 'not e2e' to exclude long-running self-host tests.
+satisfies:
+  - REQ-F-EVAL-001
+status: active
