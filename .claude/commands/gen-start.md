@@ -124,9 +124,11 @@ Parse stdout as JSON.
 | Exit | Status | Action |
 |------|--------|--------|
 | 0 | converged / nothing_to_do | Done. Report to user. |
-| 2 | fp_dispatched | MCP dispatch (Step 3) |
-| 3 | fh_required | Surface gate to user. Wait for approval. |
 | 1 | error | Report error. Stop. |
+| 2 | fp_dispatched | MCP dispatch (Step 3) |
+| 3 | fh_gate_pending | F_H evaluation (proxy or wait) |
+| 4 | fd_gap | F_D checks still failing after F_P resolved — Step 4 |
+| 5 | max_iterations | Loop limit hit — report to user, stop |
 
 **Step 3 — MCP dispatch (exit code 2 only)**
 
@@ -139,9 +141,35 @@ Call `mcp__claude-code-runner__claude_code` with:
 - `prompt`: manifest["prompt"]
 - `workFolder`: workspace root
 
-Actor writes result to `manifest["result_path"]`.
+The actor writes its assessment JSON to `manifest["result_path"]`.
+
+**After MCP returns**, the skill reads `result_path` and emits `fp_assessment` for each
+passing evaluator (F_P actors do NOT call emit-event — the skill is the F_D-controlled
+write path per GENESIS_BOOTLOADER §V):
+
+```
+result = read_json(manifest["result_path"])   # {edge, assessments: [{evaluator, result, evidence}]}
+for assessment in result["assessments"]:
+  if assessment["result"] == "pass":
+    PYTHONPATH=.genesis python -m genesis emit-event \
+      --type fp_assessment \
+      --data '{"edge": "{edge}", "evaluator": "{evaluator}", "result": "pass"}'
+```
 
 Go to Step 1.
+
+**Step 4 — fd_gap recovery (exit code 4 only)**
+
+F_D checks are still failing after F_P was previously resolved. The engine stopped to
+avoid looping indefinitely. The skill re-dispatches the F_P actor with updated context
+(the engine rebuilds the manifest with current F_D failure output):
+
+```
+Run Step 1 with --edge {output["edge"]}
+```
+
+If exit is again 4 on the same edge after a second dispatch, stop and surface F_D
+failures to the user. This prevents infinite re-dispatch on broken F_D evaluators.
 
 ## F_H Gate (exit code 3)
 
