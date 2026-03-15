@@ -20,3 +20,7 @@ builds/*/.workspace/working_surfaces/
 .env
 .venv/
 venv/
+
+# Engine runtime artifacts
+.ai-workspace/fp_manifests/
+.ai-workspace/fp_results/
