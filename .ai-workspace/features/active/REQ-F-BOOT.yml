@@ -1,0 +1,40 @@
+created: '2026-03-15T13:51:36Z'
+depends_on: []
+feature: REQ-F-BOOT
+intent: INT-001
+module: builds/claude_code/code/genesis/__main__.py
+priority: high
+profile: standard
+requirements:
+- REQ-F-BOOT-001
+- REQ-F-BOOT-002
+satisfies:
+- REQ-F-BOOT-001
+- REQ-F-BOOT-002
+source: feature_decomposition
+status: not_started
+title: gen-install — bootstrap .genesis/ into target project
+trajectory:
+  basis_projections:
+    status: not_started
+  code:
+    asset: builds/claude_code/code/genesis/__main__.py
+    notes: 'gen-install subcommand: copies engine files into .genesis/, writes genesis.yml
+      resolving Package + Worker from gtl_spec'
+    status: not_started
+  design:
+    status: not_started
+  design_recommendations:
+    status: not_started
+  feature_decomposition:
+    status: not_started
+  module_decomposition:
+    status: not_started
+  requirements:
+    status: not_started
+  unit_tests:
+    asset: builds/claude_code/tests/test_install.py
+    notes: ''
+    status: not_started
+updated: '2026-03-15T13:51:36Z'
+vector_type: feature

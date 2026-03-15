@@ -1,0 +1,40 @@
+created: '2026-03-15T13:51:36Z'
+depends_on:
+- REQ-F-GRAPH
+feature: REQ-F-GATE
+intent: INT-001
+module: builds/claude_code/code/genesis/schedule.py
+priority: high
+profile: standard
+requirements:
+- REQ-F-GATE-001
+satisfies:
+- REQ-F-GATE-001
+source: feature_decomposition
+status: not_started
+title: F_H evaluator gates — spec/design boundary enforcement
+trajectory:
+  basis_projections:
+    status: not_started
+  code:
+    asset: builds/claude_code/code/genesis/schedule.py
+    notes: 'schedule.py iteration loop detects F_H evaluators; pauses and surfaces
+      fh_gate_pending event; resumes only after review_approved event is present in
+      stream; gates intent→req, req→feature_decomp, feature_decomp→design'
+    status: not_started
+  design:
+    status: not_started
+  design_recommendations:
+    status: not_started
+  feature_decomposition:
+    status: not_started
+  module_decomposition:
+    status: not_started
+  requirements:
+    status: not_started
+  unit_tests:
+    asset: builds/claude_code/tests/test_schedule.py
+    notes: ''
+    status: not_started
+updated: '2026-03-15T13:51:36Z'
+vector_type: feature
