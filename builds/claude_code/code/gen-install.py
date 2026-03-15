@@ -30,6 +30,66 @@ from pathlib import Path
 
 VERSION = "1.0.0"
 
+# ── Templates ─────────────────────────────────────────────────────────────────
+
+_CONFIG_TEMPLATE = """\
+# Genesis project config — written by gen-install.py
+# Override per-invocation with: --package MODULE:VAR --worker MODULE:VAR
+package: spec.packages.{slug}:package
+worker:  spec.packages.{slug}:worker
+"""
+
+_STARTER_PACKAGE_TEMPLATE = '''\
+# Implements: REQ-F-PKG-001
+"""
+{slug} — project package for genesis.
+
+Edit assets, edges, and evaluators to match your domain.
+Run: PYTHONPATH=.genesis python -m genesis gaps --workspace .
+"""
+from gtl.core import (
+    Asset, Edge, Evaluator, Job, Operator,
+    Package, Worker, F_D, F_P,
+)
+
+# ── Assets ────────────────────────────────────────────────────────────────────
+spec   = Asset(name="spec",   id_format="SPEC-{{SEQ}}")
+output = Asset(name="output", id_format="OUT-{{SEQ}}",  lineage=[spec])
+
+# ── Edge ──────────────────────────────────────────────────────────────────────
+op = Operator("agent", F_P, "agent://claude/genesis")
+edge = Edge(name="spec→output", source=spec, target=output, using=[op])
+
+eval_ready = Evaluator(
+    "workspace_ready", F_D,
+    "workspace is initialised",
+    command="python -c \\'import sys; sys.exit(0)\\'",
+)
+eval_complete = Evaluator(
+    "output_complete", F_P,
+    "agent: output satisfies spec",
+)
+job = Job(edge=edge, evaluators=[eval_ready, eval_complete])
+
+# ── Package + Worker ──────────────────────────────────────────────────────────
+package = Package(
+    name="{slug}",
+    assets=[spec, output],
+    edges=[edge],
+    operators=[op],
+)
+worker = Worker(id="claude_code", can_execute=[job])
+
+if __name__ == "__main__":
+    import json
+    print(json.dumps({{
+        "package": package.name,
+        "assets": [a.name for a in package.assets],
+        "edges": [e.name for e in package.edges],
+        "worker": worker.id,
+    }}, indent=2))
+'''
+
 # Modules that constitute the engine (relative to this file's directory)
 ENGINE_MODULES = [
     "__init__.py",
@@ -59,7 +119,8 @@ def _engine_source() -> Path:
     return Path(__file__).resolve().parent / "genesis"
 
 
-def install(target: Path, *, verify_only: bool = False) -> dict:
+def install(target: Path, *, verify_only: bool = False,
+            slug: str = "project_package") -> dict:
     target = target.resolve()
     source_root = _source_root()
     engine_src = _engine_source()
@@ -70,6 +131,8 @@ def install(target: Path, *, verify_only: bool = False) -> dict:
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "engine_files": [],
         "spec_files": [],
+        "config_file": None,
+        "starter_spec": None,
         "errors": [],
     }
 
@@ -104,6 +167,27 @@ def install(target: Path, *, verify_only: bool = False) -> dict:
         shutil.copy2(src, dst)
         result["spec_files"].append(rel)
 
+    # ── Write .genesis/genesis.yml ────────────────────────────────────────────
+    # Always written (idempotent reinstall of engine config).
+    # genesis.yml is metadata only — it points to the Package/Worker.
+    # The canonical spec lives in spec/packages/*.py (not overwritten here).
+    config_path = target / ".genesis" / "genesis.yml"
+    config_path.write_text(_CONFIG_TEMPLATE.format(slug=slug), encoding="utf-8")
+    result["config_file"] = ".genesis/genesis.yml"
+
+    # ── Write starter spec ────────────────────────────────────────────────────
+    # Only written if the file does not already exist — never overwrites user edits.
+    spec_pkg_dir = target / "spec" / "packages"
+    spec_pkg_dir.mkdir(parents=True, exist_ok=True)
+    (target / "spec" / "__init__.py").touch()
+    (target / "spec" / "packages" / "__init__.py").touch()
+    starter_path = spec_pkg_dir / f"{slug}.py"
+    if not starter_path.exists():
+        starter_path.write_text(
+            _STARTER_PACKAGE_TEMPLATE.format(slug=slug), encoding="utf-8"
+        )
+        result["starter_spec"] = f"spec/packages/{slug}.py"
+
     # ── Emit install event ────────────────────────────────────────────────────
     _emit_install_event(target, result)
 
@@ -123,9 +207,15 @@ def _verify(target: Path, result: dict) -> dict:
         if not (target / rel).exists():
             missing_spec.append(rel)
 
+    config_present = (target / ".genesis" / "genesis.yml").exists()
+
     result["missing_engine"] = missing_engine
     result["missing_spec"] = missing_spec
-    result["status"] = "ok" if not missing_engine and not missing_spec else "incomplete"
+    result["config_present"] = config_present
+    result["status"] = (
+        "ok" if not missing_engine and not missing_spec and config_present
+        else "incomplete"
+    )
     return result
 
 
@@ -162,14 +252,27 @@ def main() -> None:
         "--verify", action="store_true",
         help="Verify installation only — do not install",
     )
+    parser.add_argument(
+        "--project-slug", metavar="SLUG", default="project_package",
+        help=(
+            "Python identifier used as the starter spec module name and config key. "
+            "Default: project_package. Must be a valid Python identifier."
+        ),
+    )
     args = parser.parse_args()
+
+    slug = args.project_slug
+    if not slug.isidentifier():
+        print(f"ERROR: --project-slug must be a valid Python identifier, got {slug!r}",
+              file=sys.stderr)
+        sys.exit(1)
 
     target = Path(args.target).resolve()
     if not target.is_dir():
         print(f"ERROR: target directory does not exist: {target}", file=sys.stderr)
         sys.exit(1)
 
-    result = install(target, verify_only=args.verify)
+    result = install(target, verify_only=args.verify, slug=slug)
     print(json.dumps(result, indent=2))
     sys.exit(0 if not result.get("errors") and result.get("status") != "incomplete" else 1)
 

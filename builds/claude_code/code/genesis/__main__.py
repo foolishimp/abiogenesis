@@ -52,6 +52,13 @@ def _build_parser() -> argparse.ArgumentParser:
     p_gaps.add_argument("--workspace", metavar="W", default=".",
                         help="Workspace root (default: cwd)")
 
+    # --package / --worker on all three engine commands
+    for p in (p_start, p_iter, p_gaps):
+        p.add_argument("--package", metavar="MODULE:VAR",
+                       help="Package to load (overrides .genesis/genesis.yml)")
+        p.add_argument("--worker", metavar="MODULE:VAR",
+                       help="Worker to load (overrides .genesis/genesis.yml)")
+
     # ── check-tags ────────────────────────────────────────────────────────────
     p_tags = sub.add_parser("check-tags",
                             help="Verify Implements:/Validates: tags in source files")
@@ -180,6 +187,103 @@ def _check_req_coverage(spec_path: str, features_dir: str,
     return 0 if result["passes"] else 1
 
 
+def _load_project_config(workspace: Path) -> dict:
+    """
+    Read .genesis/genesis.yml — simple key: value pairs.
+
+    Returns a dict with 'package' and/or 'worker' keys.
+    Returns empty dict if the file does not exist.
+    """
+    config_path = workspace / ".genesis" / "genesis.yml"
+    if not config_path.exists():
+        return {}
+    config: dict = {}
+    for line in config_path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        if ":" in line:
+            key, _, val = line.partition(":")
+            config[key.strip()] = val.strip()
+    return config
+
+
+def _import_symbol(ref: str, workspace: Path):
+    """
+    Import MODULE:VAR from workspace. Returns the symbol.
+
+    Raises ValueError if ref has no colon.
+    Raises ImportError if the module or variable cannot be found.
+    """
+    if ":" not in ref:
+        raise ValueError(f"Expected MODULE:VAR, got {ref!r}")
+    module_name, _, var_name = ref.partition(":")
+    import importlib
+    try:
+        mod = importlib.import_module(module_name)
+    except ImportError as exc:
+        raise ImportError(f"Cannot import {module_name!r}: {exc}") from exc
+    sym = getattr(mod, var_name, None)
+    if sym is None:
+        raise ImportError(f"{var_name!r} not found in {module_name!r}")
+    return sym
+
+
+def _resolve_package_worker(args, workspace: Path):
+    """
+    Resolve Package and Worker.
+
+    Precedence: --package/--worker flags > .genesis/genesis.yml > error.
+    Validates symbol types. Exits with code 1 on any failure.
+    """
+    pkg_ref = getattr(args, "package", None) or None
+    wrk_ref = getattr(args, "worker", None) or None
+
+    if not pkg_ref or not wrk_ref:
+        config = _load_project_config(workspace)
+        pkg_ref = pkg_ref or config.get("package")
+        wrk_ref = wrk_ref or config.get("worker")
+
+    if not pkg_ref or not wrk_ref:
+        print(
+            "ERROR: no package/worker configured.\n"
+            "  Pass --package MODULE:VAR --worker MODULE:VAR, or\n"
+            "  run gen-install.py to create .genesis/genesis.yml",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    from gtl.core import Package, Worker
+
+    try:
+        package = _import_symbol(pkg_ref, workspace)
+    except (ImportError, ValueError) as exc:
+        print(f"ERROR: --package {pkg_ref!r}: {exc}", file=sys.stderr)
+        sys.exit(1)
+
+    try:
+        worker = _import_symbol(wrk_ref, workspace)
+    except (ImportError, ValueError) as exc:
+        print(f"ERROR: --worker {wrk_ref!r}: {exc}", file=sys.stderr)
+        sys.exit(1)
+
+    if not isinstance(package, Package):
+        print(
+            f"ERROR: {pkg_ref!r} resolved to {type(package).__name__}, expected Package",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    if not isinstance(worker, Worker):
+        print(
+            f"ERROR: {wrk_ref!r} resolved to {type(worker).__name__}, expected Worker",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    return package, worker
+
+
 def main() -> None:
     parser = _build_parser()
     args = parser.parse_args()
@@ -206,26 +310,14 @@ def main() -> None:
 
     from .commands import Scope, gen_gaps, gen_iterate, gen_start
 
-    try:
-        from spec.packages.genesis_core import (  # type: ignore[import]
-            genesis_v1 as package,
-            worker_claude_code,
-        )
-    except ImportError as exc:
-        print(
-            f"ERROR: cannot import spec.packages.genesis_core from {workspace}.\n"
-            f"Run: cd {workspace} && python spec/packages/genesis_core.py\n"
-            f"Original: {exc}",
-            file=sys.stderr,
-        )
-        sys.exit(1)
+    package, worker = _resolve_package_worker(args, workspace)
 
     scope = Scope(
         package=package,
         workspace_root=workspace,
         feature=getattr(args, "feature", None),
         edge=getattr(args, "edge", None),
-        worker=worker_claude_code,
+        worker=worker,
     )
 
     if args.command == "start":

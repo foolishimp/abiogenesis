@@ -271,32 +271,15 @@ def _resolve_worker(scope: Scope) -> Worker:
     """
     Resolve the worker for the given scope.
 
-    Domain-blind path: if scope.worker is set, return it directly. No imports,
-    no genesis-specific knowledge — the caller supplied the worker.
-
-    Fallback (V1 CLI convenience): if scope.worker is None, import the worker
-    from spec.packages.genesis_core. This is the genesis self-hosting path used
-    by __main__.py. Remove in V2 — callers should always supply scope.worker.
+    Domain-blind: scope.worker must be explicitly supplied by the caller.
+    The CLI resolves worker from --worker flag or .genesis/genesis.yml.
     """
-    if scope.worker is not None:
-        return scope.worker
-
-    # V1 fallback: self-hosting spec import
-    import sys
-    spec_path = str(scope.workspace_root)
-    if spec_path not in sys.path:
-        sys.path.insert(0, spec_path)
-
-    try:
-        from spec.packages.genesis_core import worker_claude_code  # type: ignore[import]
-        return worker_claude_code
-    except ImportError as exc:
+    if scope.worker is None:
         raise RuntimeError(
-            f"Cannot resolve worker for build {scope.build!r}: "
-            f"spec.packages.genesis_core not importable from {scope.workspace_root}. "
-            f"Supply scope.worker explicitly or ensure spec is importable. "
-            f"Original error: {exc}"
-        ) from exc
+            "scope.worker is None — supply worker via Scope(worker=...) "
+            "or configure .genesis/genesis.yml (written by gen-install.py)"
+        )
+    return scope.worker
 
 
 def _scoped_jobs(scope: Scope, worker: Worker) -> list[Job]:
