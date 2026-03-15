@@ -21,7 +21,7 @@ satisfies:
 - REQ-NFR-E2E-001
 - REQ-NFR-SELF-001
 source: feature_decomposition
-status: not_started
+status: completed
 title: Workspace Projection + schedule() — state from event stream
 trajectory:
   code:

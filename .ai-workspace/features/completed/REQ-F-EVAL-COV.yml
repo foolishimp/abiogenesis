@@ -1,0 +1,13 @@
+feature: REQ-F-EVAL-COV
+description: >
+  Per-REQ-key deterministic coverage evaluators. Two new F_D evaluators on design→code
+  and code↔unit_tests edges respectively:
+    impl_coverage: for every key in Package.requirements, at least one source file must
+      contain "# Implements: {key}". Pure grep, no LLM.
+    validates_coverage: for every key in Package.requirements, at least one test file must
+      contain "# Validates: {key}". Pure grep, no LLM.
+  These evaluators make spec evolution self-detecting: adding a REQ key immediately causes
+  F_D to fail, which invalidates stale F_P assessments and re-opens the iteration loop.
+satisfies:
+  - REQ-F-EVAL-003
+status: completed

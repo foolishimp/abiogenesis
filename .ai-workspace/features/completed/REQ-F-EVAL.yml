@@ -5,4 +5,4 @@ description: >
   commands use -m 'not e2e' to exclude long-running self-host tests.
 satisfies:
   - REQ-F-EVAL-001
-status: active
+status: completed

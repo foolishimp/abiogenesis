@@ -1,23 +1,23 @@
 created: '2026-03-15T08:00:00Z'
 depends_on:
-- REQ-F-WKSP
-feature: REQ-F-CMD-START
+- REQ-F-CORE
+feature: REQ-F-BIND
 intent: INT-001
-module: builds/claude_code/code/genesis/commands.py
-priority: high
+module: builds/claude_code/code/genesis/bind.py
+priority: critical
 profile: standard
 requirements:
-- REQ-F-CMD-003
+- REQ-F-CORE-004
 satisfies:
-- REQ-F-CMD-003
+- REQ-F-CORE-004
 source: feature_decomposition
-status: not_started
-title: gen-start command — state-driven routing entry point
+status: completed
+title: bind_fd + PrecomputedManifest — F_D pre-computation before F_P
 trajectory:
   basis_projections:
     status: not_started
   code:
-    asset: builds/claude_code/code/genesis/commands.py
+    asset: builds/claude_code/code/genesis/bind.py
     notes: ''
     status: not_started
   design:
@@ -31,7 +31,7 @@ trajectory:
   requirements:
     status: not_started
   unit_tests:
-    asset: builds/claude_code/tests/test_commands.py
+    asset: builds/claude_code/tests/test_bind.py
     notes: ''
     status: not_started
 updated: '2026-03-15T08:00:00Z'

@@ -1,28 +1,23 @@
 created: '2026-03-15T08:00:00Z'
-depends_on: []
-feature: REQ-F-CORE
+depends_on:
+- REQ-F-WKSP
+feature: REQ-F-CMD-GAPS
 intent: INT-001
-module: builds/claude_code/code/genesis/core.py
-priority: critical
+module: builds/claude_code/code/genesis/commands.py
+priority: medium
 profile: standard
 requirements:
-- REQ-F-CORE-001
-- REQ-F-CORE-002
-- REQ-F-CORE-003
-- REQ-F-CORE-005
+- REQ-F-CMD-001
 satisfies:
-- REQ-F-CORE-001
-- REQ-F-CORE-002
-- REQ-F-CORE-003
-- REQ-F-CORE-005
+- REQ-F-CMD-001
 source: feature_decomposition
-status: not_started
-title: Core Engine Functions — iterate, project, emit, delta
+status: completed
+title: gen-gaps command — traceability validation
 trajectory:
   basis_projections:
     status: not_started
   code:
-    asset: builds/claude_code/code/genesis/core.py
+    asset: builds/claude_code/code/genesis/commands.py
     notes: ''
     status: not_started
   design:
@@ -36,7 +31,7 @@ trajectory:
   requirements:
     status: not_started
   unit_tests:
-    asset: builds/claude_code/tests/test_core.py
+    asset: builds/claude_code/tests/test_commands.py
     notes: ''
     status: not_started
 updated: '2026-03-15T08:00:00Z'

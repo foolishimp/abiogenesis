@@ -12,7 +12,7 @@ satisfies:
 - REQ-F-BOOT-001
 - REQ-F-BOOT-002
 source: feature_decomposition
-status: not_started
+status: completed
 title: gen-install — bootstrap .genesis/ into target project
 trajectory:
   basis_projections:

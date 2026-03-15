@@ -1,18 +1,18 @@
 created: '2026-03-15T08:00:00Z'
 depends_on:
-- REQ-F-BIND
-feature: REQ-F-CMD-ITER
+- REQ-F-WKSP
+feature: REQ-F-CMD-START
 intent: INT-001
 module: builds/claude_code/code/genesis/commands.py
 priority: high
 profile: standard
 requirements:
-- REQ-F-CMD-002
+- REQ-F-CMD-003
 satisfies:
-- REQ-F-CMD-002
+- REQ-F-CMD-003
 source: feature_decomposition
-status: not_started
-title: gen-iterate command — universal iteration function
+status: completed
+title: gen-start command — state-driven routing entry point
 trajectory:
   basis_projections:
     status: not_started

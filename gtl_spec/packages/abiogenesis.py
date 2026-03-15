@@ -207,6 +207,11 @@ eval_impl_tags = Evaluator(
     "All source files carry at least one # Implements: REQ-* tag, zero untagged",
     command="python -m genesis check-tags --type implements --path builds/claude_code/code/genesis/",
 )
+eval_impl_coverage = Evaluator(
+    "impl_coverage", F_D,
+    "Every REQ key in Package.requirements appears in ≥1 source file as # Implements: {key}",
+    command="python -m genesis check-impl-coverage --package gtl_spec.packages.abiogenesis:package --path builds/claude_code/code/",
+)
 eval_code_fp = Evaluator(
     "code_complete", F_P,
     "Agent: code implements all features per design ADRs; no V2 features present; importable",
@@ -223,6 +228,11 @@ eval_test_tags = Evaluator(
     "All test files carry at least one # Validates: REQ-* tag, zero untagged",
     command="python -m genesis check-tags --type validates --path builds/claude_code/tests/",
 )
+eval_validates_coverage = Evaluator(
+    "validates_coverage", F_D,
+    "Every REQ key in Package.requirements appears in ≥1 test file as # Validates: {key}",
+    command="python -m genesis check-validates-coverage --package gtl_spec.packages.abiogenesis:package --path builds/claude_code/tests/",
+)
 eval_coverage_fp = Evaluator(
     "coverage_complete", F_P,
     "Agent: test suite covers all features; no REQ key without a corresponding test",
@@ -234,8 +244,8 @@ eval_coverage_fp = Evaluator(
 job_intent_req  = Job(e_intent_req,  [eval_intent_fh])
 job_req_feat    = Job(e_req_feat,    [eval_req_coverage, eval_decomp_fp, eval_decomp_fh])
 job_feat_design = Job(e_feat_design, [eval_design_fp, eval_design_fh])
-job_design_code = Job(e_design_code, [eval_impl_tags, eval_code_fp])
-job_tdd         = Job(e_tdd,         [eval_tests_pass, eval_test_tags, eval_coverage_fp])
+job_design_code = Job(e_design_code, [eval_impl_tags, eval_impl_coverage, eval_code_fp])
+job_tdd         = Job(e_tdd,         [eval_tests_pass, eval_test_tags, eval_validates_coverage, eval_coverage_fp])
 
 
 # ── Worker ────────────────────────────────────────────────────────────────────
@@ -278,6 +288,10 @@ package = Package(
         "REQ-F-DOCS-001",   # User guide covers install, first session, operating loop
         # Evaluator safety
         "REQ-F-EVAL-001",   # F_D evaluator commands validated at spec load: non-empty, acyclic (no genesis subcommands), pytest uses -m 'not e2e'
+        "REQ-F-EVAL-002",   # fp_assessment events are snapshot-bound to Package.requirements hash; bind_fd() invalidates assessments whose snapshot doesn't match current package
+        "REQ-F-EVAL-003",   # F_D evaluators impl_coverage and validates_coverage enforce per-REQ-key presence in # Implements: and # Validates: tags respectively
+        # Feature lifecycle
+        "REQ-F-VIS-001",    # gen-start marks feature vector status=completed when all edges for that feature have delta=0; moves YAML from features/active/ to features/completed/
     ],
 )
 

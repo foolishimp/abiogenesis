@@ -1,4 +1,5 @@
 # Implements: REQ-F-CORE-004
+# Implements: REQ-F-EVAL-002
 """
 bind — F_D pre-computation: bind_fd, bind_fp, select_relevant_contexts,
        render_delta.
@@ -11,6 +12,8 @@ bind_fp  — assembles F_P manifest from pre-computed material. Also F_D.
 """
 from __future__ import annotations
 
+import hashlib
+import json as _json
 import os
 import subprocess
 import sys
@@ -21,6 +24,20 @@ from gtl.core import Context, Evaluator, F_D, F_H, F_P, Job
 
 from .core import ContextResolver, EventStream, project
 from .manifest import BoundJob, PrecomputedManifest
+
+
+# ── spec_hash ─────────────────────────────────────────────────────────────────
+
+def req_hash(requirements: list[str]) -> str:
+    """
+    Compute a stable hash of Package.requirements.
+
+    Used to detect spec evolution: any fp_assessment emitted against a different
+    requirements list is stale and must not contribute to convergence.
+    """
+    return hashlib.sha256(
+        _json.dumps(sorted(requirements)).encode()
+    ).hexdigest()[:16]
 
 
 # ── F_D evaluator runner ──────────────────────────────────────────────────────
@@ -90,6 +107,7 @@ def bind_fd(
     stream: EventStream,
     resolver: ContextResolver,
     workspace_root: Path,
+    spec_hash: str | None = None,
 ) -> PrecomputedManifest:
     """
     F_D pre-computation phase. Everything computable without an LLM.
@@ -125,11 +143,18 @@ def bind_fd(
             )
         if ev.category is F_P:
             # Resolved if fp_assessment with result=pass exists for this evaluator+edge
+            # AND the assessment was emitted against the current spec (spec_hash match).
+            # Assessments with no spec_hash or a different hash are stale — the spec
+            # evolved after they were emitted and they must not contribute to convergence.
             return any(
                 e.get("event_type") == "fp_assessment"
                 and e.get("data", {}).get("edge") == job.edge.name
                 and e.get("data", {}).get("evaluator") == ev.name
                 and e.get("data", {}).get("result") == "pass"
+                and (
+                    spec_hash is None  # caller opted out of snapshot check
+                    or e.get("data", {}).get("spec_hash") == spec_hash
+                )
                 for e in all_events
             )
         return False

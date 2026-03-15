@@ -1,0 +1,9 @@
+feature: REQ-F-VIS
+description: >
+  gen-start feature lifecycle closure — when gen-start finds all edges for a feature
+  have delta=0, it marks the feature vector status=completed and moves the YAML from
+  features/active/ to features/completed/. The worker arrives, finds the work done,
+  closes the ticket.
+satisfies:
+  - REQ-F-VIS-001
+status: completed

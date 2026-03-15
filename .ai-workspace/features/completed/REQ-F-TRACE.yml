@@ -15,7 +15,7 @@ satisfies:
 - REQ-F-TAG-002
 - REQ-F-COV-001
 source: feature_decomposition
-status: not_started
+status: completed
 title: Traceability enforcement — implements/validates tags and REQ coverage
 trajectory:
   basis_projections:

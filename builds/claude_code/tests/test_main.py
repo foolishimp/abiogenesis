@@ -4,6 +4,8 @@
 # Validates: REQ-F-TAG-001
 # Validates: REQ-F-TAG-002
 # Validates: REQ-F-COV-001
+# Validates: REQ-F-EVAL-001
+# Validates: REQ-F-EVAL-003
 """Tests for genesis.__main__ — CLI entry point and check-tags command."""
 import json
 import pytest
@@ -12,7 +14,7 @@ from pathlib import Path
 from io import StringIO
 from unittest.mock import patch
 
-from genesis.__main__ import _build_parser, _check_tags, _check_req_coverage
+from genesis.__main__ import _build_parser, _check_tags, _check_req_coverage, _check_tag_coverage
 
 
 # ── _build_parser ─────────────────────────────────────────────────────────────
@@ -253,3 +255,87 @@ class TestCheckReqCoverage:
         features.mkdir()
         rc = _check_req_coverage("", str(features), package_ref="no_such_module_xyz:var")
         assert rc == 1
+
+
+# ── _check_tag_coverage ───────────────────────────────────────────────────────
+
+class TestCheckTagCoverage:
+    """Tests for check-impl-coverage and check-validates-coverage commands."""
+
+    def _make_pkg(self, monkeypatch, requirements: list[str]) -> str:
+        from unittest.mock import MagicMock
+        pkg = MagicMock()
+        pkg.requirements = requirements
+        mod = MagicMock()
+        mod.pkg = pkg
+        monkeypatch.setitem(sys.modules, "fake_cov_mod", mod)
+        return "fake_cov_mod:pkg"
+
+    def test_all_keys_covered_returns_0(self, tmp_path, capsys, monkeypatch):
+        pkg_ref = self._make_pkg(monkeypatch, ["REQ-F-FOO-001"])
+        (tmp_path / "foo.py").write_text("# Implements: REQ-F-FOO-001\ndef f(): pass\n")
+        rc = _check_tag_coverage("implements", pkg_ref, str(tmp_path))
+        assert rc == 0
+        result = json.loads(capsys.readouterr().out)
+        assert result["passes"] is True
+        assert result["missing"] == []
+
+    def test_missing_key_returns_1(self, tmp_path, capsys, monkeypatch):
+        pkg_ref = self._make_pkg(monkeypatch, ["REQ-F-FOO-001", "REQ-F-BAR-001"])
+        (tmp_path / "foo.py").write_text("# Implements: REQ-F-FOO-001\n")
+        rc = _check_tag_coverage("implements", pkg_ref, str(tmp_path))
+        assert rc == 1
+        result = json.loads(capsys.readouterr().out)
+        assert result["passes"] is False
+        assert "REQ-F-BAR-001" in result["missing"]
+
+    def test_validates_tag_type(self, tmp_path, capsys, monkeypatch):
+        pkg_ref = self._make_pkg(monkeypatch, ["REQ-F-FOO-001"])
+        (tmp_path / "test_foo.py").write_text("# Validates: REQ-F-FOO-001\n")
+        rc = _check_tag_coverage("validates", pkg_ref, str(tmp_path))
+        assert rc == 0
+
+    def test_empty_requirements_passes(self, tmp_path, capsys, monkeypatch):
+        pkg_ref = self._make_pkg(monkeypatch, [])
+        rc = _check_tag_coverage("implements", pkg_ref, str(tmp_path))
+        assert rc == 0
+
+    def test_missing_path_returns_1(self, tmp_path, capsys, monkeypatch):
+        pkg_ref = self._make_pkg(monkeypatch, ["REQ-F-FOO-001"])
+        rc = _check_tag_coverage("implements", pkg_ref, str(tmp_path / "nonexistent"))
+        assert rc == 1
+
+    def test_bad_package_ref_returns_1(self, tmp_path, capsys):
+        rc = _check_tag_coverage("implements", "no_colon", str(tmp_path))
+        assert rc == 1
+
+    def test_init_py_excluded(self, tmp_path, capsys, monkeypatch):
+        """__init__.py not scanned — key in __init__.py only should still fail."""
+        pkg_ref = self._make_pkg(monkeypatch, ["REQ-F-FOO-001"])
+        (tmp_path / "__init__.py").write_text("# Implements: REQ-F-FOO-001\n")
+        rc = _check_tag_coverage("implements", pkg_ref, str(tmp_path))
+        assert rc == 1  # __init__.py excluded, key untagged
+
+    def test_recursive_scan(self, tmp_path, capsys, monkeypatch):
+        pkg_ref = self._make_pkg(monkeypatch, ["REQ-F-FOO-001"])
+        sub = tmp_path / "sub"
+        sub.mkdir()
+        (sub / "deep.py").write_text("# Implements: REQ-F-FOO-001\n")
+        rc = _check_tag_coverage("implements", pkg_ref, str(tmp_path))
+        assert rc == 0
+
+    def test_result_json_structure(self, tmp_path, capsys, monkeypatch):
+        pkg_ref = self._make_pkg(monkeypatch, ["REQ-F-FOO-001"])
+        (tmp_path / "foo.py").write_text("# Implements: REQ-F-FOO-001\n")
+        _check_tag_coverage("implements", pkg_ref, str(tmp_path))
+        result = json.loads(capsys.readouterr().out)
+        for field in ("tag_type", "path", "spec_keys", "tagged_count", "total_count",
+                      "missing", "passes"):
+            assert field in result
+
+    def test_check_tags_subcommand_exists(self):
+        p = _build_parser()
+        args = p.parse_args(["check-impl-coverage", "--package", "m:v", "--path", "."])
+        assert args.command == "check-impl-coverage"
+        args2 = p.parse_args(["check-validates-coverage", "--package", "m:v", "--path", "."])
+        assert args2.command == "check-validates-coverage"

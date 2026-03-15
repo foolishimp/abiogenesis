@@ -14,7 +14,7 @@ requirements:
 satisfies:
 - REQ-F-DOCS-001
 source: feature_decomposition
-status: not_started
+status: completed
 title: User guide — install, first session, operating loop
 trajectory:
   basis_projections:

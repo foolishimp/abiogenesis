@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # Implements: REQ-F-WKSP-001
+# Implements: REQ-F-BOOT-001
+# Implements: REQ-F-BOOT-002
 """
 gen-install.py — Genesis V1.0 installer
 

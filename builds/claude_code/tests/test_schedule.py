@@ -3,6 +3,7 @@
 # Validates: REQ-F-CORE-006
 # Validates: REQ-F-WKSP-001
 # Validates: REQ-F-GATE-001
+# Validates: REQ-F-EVAL-002
 """Tests for genesis.schedule — delta, iterate, schedule."""
 import pytest
 from pathlib import Path
@@ -91,6 +92,56 @@ class TestDelta:
         stream = _make_stream(tmp_path)
         d = delta(job, stream, tmp_path)
         assert d > 0.0
+
+    def test_fp_resolves_with_matching_spec_hash(self, tmp_path):
+        """fp_assessment with matching spec_hash resolves F_P evaluator."""
+        job = _make_job([Evaluator("code_complete", F_P, "LLM check")])
+        stream = _make_stream(tmp_path)
+        stream.append("fp_assessment", {
+            "edge": "design→code",
+            "evaluator": "code_complete",
+            "result": "pass",
+            "spec_hash": "abc123",
+        })
+        d = delta(job, stream, tmp_path, spec_hash="abc123")
+        assert d == 0.0
+
+    def test_fp_stale_with_different_spec_hash(self, tmp_path):
+        """fp_assessment with wrong spec_hash is treated as stale — delta stays > 0."""
+        job = _make_job([Evaluator("code_complete", F_P, "LLM check")])
+        stream = _make_stream(tmp_path)
+        stream.append("fp_assessment", {
+            "edge": "design→code",
+            "evaluator": "code_complete",
+            "result": "pass",
+            "spec_hash": "old_hash",
+        })
+        d = delta(job, stream, tmp_path, spec_hash="new_hash")
+        assert d > 0.0
+
+    def test_fp_stale_without_spec_hash_field(self, tmp_path):
+        """fp_assessment with no spec_hash field is stale when caller provides a hash."""
+        job = _make_job([Evaluator("code_complete", F_P, "LLM check")])
+        stream = _make_stream(tmp_path)
+        stream.append("fp_assessment", {
+            "edge": "design→code",
+            "evaluator": "code_complete",
+            "result": "pass",
+        })
+        d = delta(job, stream, tmp_path, spec_hash="current_hash")
+        assert d > 0.0
+
+    def test_fp_resolves_when_spec_hash_none(self, tmp_path):
+        """spec_hash=None opts out of snapshot check — legacy assessment is valid."""
+        job = _make_job([Evaluator("code_complete", F_P, "LLM check")])
+        stream = _make_stream(tmp_path)
+        stream.append("fp_assessment", {
+            "edge": "design→code",
+            "evaluator": "code_complete",
+            "result": "pass",
+        })
+        d = delta(job, stream, tmp_path, spec_hash=None)
+        assert d == 0.0
 
 
 # ── iterate ───────────────────────────────────────────────────────────────────

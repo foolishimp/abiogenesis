@@ -11,7 +11,7 @@ requirements:
 satisfies:
 - REQ-F-GATE-001
 source: feature_decomposition
-status: not_started
+status: completed
 title: F_H evaluator gates — spec/design boundary enforcement
 trajectory:
   basis_projections:

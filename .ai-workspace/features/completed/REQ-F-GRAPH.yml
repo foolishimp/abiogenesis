@@ -12,7 +12,7 @@ satisfies:
 - REQ-F-GRAPH-001
 - REQ-F-GRAPH-002
 source: feature_decomposition
-status: not_started
+status: completed
 title: GTL Package — 6-asset SDLC graph with markov acceptance criteria
 trajectory:
   basis_projections:
