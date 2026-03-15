@@ -7,9 +7,9 @@ module: builds/claude_code/code/genesis/commands.py
 priority: medium
 profile: standard
 requirements:
-- REQ-F-CMD-003
+- REQ-F-CMD-001
 satisfies:
-- REQ-F-CMD-003
+- REQ-F-CMD-001
 source: feature_decomposition
 status: not_started
 title: gen-gaps command — traceability validation

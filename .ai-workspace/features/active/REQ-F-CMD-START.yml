@@ -7,9 +7,9 @@ module: builds/claude_code/code/genesis/commands.py
 priority: high
 profile: standard
 requirements:
-- REQ-F-CMD-001
+- REQ-F-CMD-003
 satisfies:
-- REQ-F-CMD-001
+- REQ-F-CMD-003
 source: feature_decomposition
 status: not_started
 title: gen-start command — state-driven routing entry point
