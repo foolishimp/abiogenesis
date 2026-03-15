@@ -20,7 +20,8 @@ testpaths = ["builds/claude_code/tests"]
 pythonpath = ["builds/claude_code/code", ".genesis", "."]
 markers = [
     "e2e: end-to-end sandbox tests",
-    "self_host: self-hosting bootstrap tests",
+    "self_host: self-hosting bootstrap tests (workspace_bootstrap required)",
+    "bootstrap_state: Python-object level tests, no workspace I/O",
 ]
 
 [tool.setuptools]
