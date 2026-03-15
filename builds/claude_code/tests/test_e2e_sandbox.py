@@ -24,10 +24,25 @@ lifecycle management, not the LLM. The LLM is always an external actor.
 Marked with pytest.mark.e2e — run via: pytest -m e2e
 """
 import json
+import os
 import pytest
 import subprocess
 import sys
 from pathlib import Path
+
+
+def _subprocess_env() -> dict:
+    """Environment for subprocess genesis invocations: adds PYTHONPATH for engine + spec."""
+    root = Path(__file__).resolve().parent.parent.parent.parent  # abiogenesis root
+    env = os.environ.copy()
+    paths = [
+        str(root / "builds" / "claude_code" / "code"),
+        str(root / ".genesis"),
+        str(root),
+    ]
+    existing = env.get("PYTHONPATH", "")
+    env["PYTHONPATH"] = os.pathsep.join(paths + ([existing] if existing else []))
+    return env
 
 from gtl.core import (
     Asset, Context, Edge, Evaluator, Job, Operator, Package, Rule, Worker,
@@ -272,7 +287,7 @@ class TestSelfHosting:
         """
         result = subprocess.run(
             [sys.executable, "-m", "genesis", "gaps", "--workspace", "."],
-            capture_output=True, text=True,
+            capture_output=True, text=True, env=_subprocess_env(),
         )
         assert result.returncode == 0, (
             f"genesis gaps failed:\n{result.stderr}"
@@ -289,7 +304,7 @@ class TestSelfHosting:
             [sys.executable, "-m", "genesis", "check-tags",
              "--type", "implements",
              "--path", "builds/claude_code/code/"],
-            capture_output=True, text=True,
+            capture_output=True, text=True, env=_subprocess_env(),
         )
         assert result.returncode == 0
         data = json.loads(result.stdout)
@@ -302,7 +317,7 @@ class TestSelfHosting:
             [sys.executable, "-m", "genesis", "check-tags",
              "--type", "validates",
              "--path", "builds/claude_code/tests/"],
-            capture_output=True, text=True,
+            capture_output=True, text=True, env=_subprocess_env(),
         )
         assert result.returncode == 0
         data = json.loads(result.stdout)

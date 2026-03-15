@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Implements: REQ-F-WKSP-001
 """
 gen-install.py — Genesis V1.0 installer
 
@@ -94,6 +95,10 @@ def install(target: Path, *, verify_only: bool = False) -> dict:
         dst = target / rel
         if not src.exists():
             result["errors"].append(f"Missing spec file: {src}")
+            continue
+        if src.resolve() == dst.resolve():
+            # Installing into the source project itself — spec already in place
+            result["spec_files"].append(rel)
             continue
         dst.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src, dst)

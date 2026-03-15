@@ -19,6 +19,7 @@ gen = "genesis.__main__:main"
 
 [tool.pytest.ini_options]
 testpaths = ["builds/claude_code/tests"]
+pythonpath = ["builds/claude_code/code", ".genesis", "."]
 markers = [
     "e2e: end-to-end sandbox tests",
     "self_host: self-hosting bootstrap tests",
