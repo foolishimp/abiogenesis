@@ -24,7 +24,7 @@
 
 ## 1. What Abiogenesis Is
 
-Abiogenesis is a GTL interpreter. GTL (Genesis Template Language) treats software work as a typed directed graph. You define what artifacts exist, how they transform into each other, and what it means for a transformation to be complete. The engine tracks the gap between current state and done.
+Abiogenesis is a GTL interpreter. GTL (Genesis Topology Language) treats software work as a typed directed graph. You define what artifacts exist, how they transform into each other, and what it means for a transformation to be complete. The engine tracks the gap between current state and done.
 
 ### The six types
 
