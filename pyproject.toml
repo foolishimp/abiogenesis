@@ -7,12 +7,10 @@ name = "genesis"
 version = "1.0.0"
 description = "Genesis — GTL-first AI SDLC engine"
 requires-python = ">=3.11"
-dependencies = [
-    # GTL is the constitutional language — evolved in ai_sdlc_method, consumed here.
-    # The CC to our GCC: ai_sdlc_method evolves GTL; abiogenesis builds on it.
-    # Future: publish genesis-gtl to PyPI and pin by version.
-    "genesis-gtl @ file:///Users/jim/src/apps/ai_sdlc_method/imp_codex/code",
-]
+dependencies = []
+# GTL is vendored at abiogenesis/gtl/ (v0.3.0, copied from ai_sdlc_method/imp_codex/code/gtl/).
+# Resolved via pythonpath = ["."] in tool.pytest.ini_options and via PYTHONPATH in runtime.
+# To upgrade: copy gtl/ from ai_sdlc_method again and commit.
 
 [project.scripts]
 gen = "genesis.__main__:main"
