@@ -130,7 +130,7 @@ Expected output (abbreviated):
 
 ### What `PYTHONPATH=.` does
 
-The self-hosting spec lives at `spec/packages/genesis_core.py`. Python needs to find `spec` as a package. `PYTHONPATH=.` adds the abiogenesis root to the module search path so `from spec.packages.genesis_core import ...` resolves correctly.
+The self-hosting spec lives at `gtl_spec/packages/genesis_core.py`. Python needs to find `gtl_spec` as a package. `PYTHONPATH=.` adds the abiogenesis root to the module search path so `from gtl_spec.packages.genesis_core import ...` resolves correctly.
 
 When the engine is installed into another project via `gen-install.py`, the spec lives inside the target project and PYTHONPATH is managed by the bootstrap contract (see §7).
 
@@ -158,8 +158,8 @@ gen gaps --workspace . --feature REQ-F-CORE
 
 # Override package/worker ad hoc
 gen gaps --workspace . \
-    --package spec.packages.my_spec:my_package \
-    --worker  spec.packages.my_spec:my_worker
+    --package gtl_spec.packages.my_spec:my_package \
+    --worker  gtl_spec.packages.my_spec:my_worker
 ```
 
 Output fields:
@@ -236,7 +236,7 @@ A spec is a Python module that exports a `Package` and a `Worker`.
 ### Minimal spec
 
 ```python
-# spec/packages/my_domain.py
+# gtl_spec/packages/my_domain.py
 from gtl.core import (
     Asset, Edge, Evaluator, Job, Operator,
     Package, Worker, F_D, F_P, F_H,
@@ -299,7 +299,7 @@ package = Package(name="sdlc", assets=[intent, req, code, tests],
 worker  = Worker(id="claude_code", can_execute=[job_i2r, job_r2c, job_c2t])
 ```
 
-See `spec/packages/genesis_core.py` for a complete, realistic example.
+See `gtl_spec/packages/genesis_core.py` for a complete, realistic example.
 
 ---
 
@@ -317,13 +317,13 @@ If neither provides a value, the command exits with error.
 ```yaml
 # Genesis project config — written by gen-install.py
 # Override per-invocation with: --package MODULE:VAR --worker MODULE:VAR
-package: spec.packages.my_domain:package
-worker:  spec.packages.my_domain:worker
+package: gtl_spec.packages.my_domain:package
+worker:  gtl_spec.packages.my_domain:worker
 ```
 
 Simple `key: value` pairs. Comments (`#`) and blank lines are ignored.
 
-The config file is always written by `gen-install.py` on install/reinstall. It is engine metadata — safe to overwrite. The actual spec (`spec/packages/*.py`) is user data and is never overwritten by the installer.
+The config file is always written by `gen-install.py` on install/reinstall. It is engine metadata — safe to overwrite. The actual spec (`gtl_spec/packages/*.py`) is user data and is never overwritten by the installer.
 
 ---
 
@@ -340,9 +340,9 @@ python /path/to/abiogenesis/builds/claude_code/code/gen-install.py \
 ### What the installer does
 
 1. Copies `builds/claude_code/code/genesis/` → `<target>/.genesis/genesis/`
-2. Copies `spec/` files (genesis_core.py, bootloader, `__init__` files) → `<target>/spec/`
-3. Writes `<target>/.genesis/genesis.yml` pointing to `spec.packages.my_domain:package/worker`
-4. Writes `<target>/spec/packages/my_domain.py` starter spec — **only if absent** (never clobbers user edits)
+2. Copies `gtl_spec/` files (genesis_core.py, bootloader, `__init__` files) → `<target>/gtl_spec/`
+3. Writes `<target>/.genesis/genesis.yml` pointing to `gtl_spec.packages.my_domain:package/worker`
+4. Writes `<target>/gtl_spec/packages/my_domain.py` starter spec — **only if absent** (never clobbers user edits)
 5. Emits a `genesis_installed` event to `<target>/.ai-workspace/events/events.jsonl`
 
 ### Running after install
@@ -352,7 +352,7 @@ cd /path/to/your/project
 PYTHONPATH=.genesis python -m genesis gaps --workspace .
 ```
 
-`PYTHONPATH=.genesis` makes the engine importable. The engine then imports the spec from the project's own `spec/packages/my_domain.py`.
+`PYTHONPATH=.genesis` makes the engine importable. The engine then imports the spec from the project's own `gtl_spec/packages/my_domain.py`.
 
 ### Verify an existing install
 
@@ -461,7 +461,7 @@ Every REQ key in the spec package should appear in at least one feature vector:
 
 ```bash
 gen check-req-coverage \
-    --package spec.packages.genesis_core:genesis_v1 \
+    --package gtl_spec.packages.genesis_core:genesis_v1 \
     --features .ai-workspace/features/
 ```
 
@@ -471,7 +471,7 @@ Also accepts `--spec path/to/spec.md` for a grep-based scan of a markdown spec f
 
 ## 11. Understanding the Self-Hosting Spec
 
-`spec/packages/genesis_core.py` is the V1 specification written as GTL. It defines:
+`gtl_spec/packages/genesis_core.py` is the V1 specification written as GTL. It defines:
 
 **Assets** (6):
 

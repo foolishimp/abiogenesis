@@ -14,7 +14,7 @@ The bootstrap sequence:
 When self-hosting is confirmed, this package is superseded by genesis_v1
 operating on itself directly.
 """
-from spec.packages.genesis_core import (
+from gtl_spec.packages.genesis_core import (
     genesis_v1,
     worker_claude_code,
     bootloader, v1_doctrine,

@@ -28,8 +28,8 @@ from genesis.core import workspace_bootstrap
 def _subprocess_env(workspace: Path) -> dict:
     root = Path(__file__).resolve().parent.parent.parent.parent
     env = os.environ.copy()
-    # workspace first: lets tests import spec.packages.test_pkg before
-    # the abiogenesis-root spec/ package shadows it.
+    # workspace first: lets tests import gtl_spec.packages.test_pkg before
+    # the abiogenesis-root gtl_spec/ package shadows it.
     paths = [
         str(workspace),
         str(root / "builds" / "claude_code" / "code"),
@@ -41,11 +41,11 @@ def _subprocess_env(workspace: Path) -> dict:
 
 
 def _write_minimal_pkg(workspace: Path, slug: str = "test_pkg") -> Path:
-    """Write a minimal importable Package/Worker module under workspace/spec/packages/."""
-    pkg_dir = workspace / "spec" / "packages"
+    """Write a minimal importable Package/Worker module under workspace/gtl_spec/packages/."""
+    pkg_dir = workspace / "gtl_spec" / "packages"
     pkg_dir.mkdir(parents=True, exist_ok=True)
-    (workspace / "spec" / "__init__.py").touch()
-    (workspace / "spec" / "packages" / "__init__.py").touch()
+    (workspace / "gtl_spec" / "__init__.py").touch()
+    (workspace / "gtl_spec" / "packages" / "__init__.py").touch()
     pkg_file = pkg_dir / f"{slug}.py"
     pkg_file.write_text(
         "from gtl.core import Asset, Edge, Evaluator, Job, Operator, Package, Worker, F_P\n"
@@ -79,19 +79,19 @@ class TestLoadProjectConfig:
     def test_reads_package_and_worker(self, tmp_path):
         (tmp_path / ".genesis").mkdir()
         (tmp_path / ".genesis" / "genesis.yml").write_text(
-            "package: spec.packages.foo:package\n"
-            "worker: spec.packages.foo:worker\n"
+            "package: gtl_spec.packages.foo:package\n"
+            "worker: gtl_spec.packages.foo:worker\n"
         )
         cfg = _load_project_config(tmp_path)
-        assert cfg["package"] == "spec.packages.foo:package"
-        assert cfg["worker"] == "spec.packages.foo:worker"
+        assert cfg["package"] == "gtl_spec.packages.foo:package"
+        assert cfg["worker"] == "gtl_spec.packages.foo:worker"
 
     def test_ignores_comments_and_blank_lines(self, tmp_path):
         (tmp_path / ".genesis").mkdir()
         (tmp_path / ".genesis" / "genesis.yml").write_text(
             "# Genesis project config\n"
             "\n"
-            "package: spec.packages.foo:package\n"
+            "package: gtl_spec.packages.foo:package\n"
         )
         cfg = _load_project_config(tmp_path)
         assert set(cfg.keys()) == {"package"}
@@ -99,12 +99,12 @@ class TestLoadProjectConfig:
     def test_strips_whitespace(self, tmp_path):
         (tmp_path / ".genesis").mkdir()
         (tmp_path / ".genesis" / "genesis.yml").write_text(
-            "package:  spec.packages.foo:package  \n"
-            "worker:   spec.packages.foo:worker   \n"
+            "package:  gtl_spec.packages.foo:package  \n"
+            "worker:   gtl_spec.packages.foo:worker   \n"
         )
         cfg = _load_project_config(tmp_path)
-        assert cfg["package"] == "spec.packages.foo:package"
-        assert cfg["worker"] == "spec.packages.foo:worker"
+        assert cfg["package"] == "gtl_spec.packages.foo:package"
+        assert cfg["worker"] == "gtl_spec.packages.foo:worker"
 
 
 # ── _import_symbol ────────────────────────────────────────────────────────────
@@ -155,8 +155,8 @@ class TestCLIConfigResolution:
         workspace_bootstrap(tmp_path)
         _write_minimal_pkg(tmp_path)
         result = _run_gaps(tmp_path, [
-            "--package", "spec.packages.test_pkg:package",
-            "--worker",  "spec.packages.test_pkg:worker",
+            "--package", "gtl_spec.packages.test_pkg:package",
+            "--worker",  "gtl_spec.packages.test_pkg:worker",
         ])
         assert result.returncode == 0, result.stderr
         data = json.loads(result.stdout)
@@ -168,8 +168,8 @@ class TestCLIConfigResolution:
         _write_minimal_pkg(tmp_path)
         (tmp_path / ".genesis").mkdir(exist_ok=True)
         (tmp_path / ".genesis" / "genesis.yml").write_text(
-            "package: spec.packages.test_pkg:package\n"
-            "worker:  spec.packages.test_pkg:worker\n"
+            "package: gtl_spec.packages.test_pkg:package\n"
+            "worker:  gtl_spec.packages.test_pkg:worker\n"
         )
         result = _run_gaps(tmp_path)
         assert result.returncode == 0, result.stderr
@@ -188,24 +188,24 @@ class TestCLIConfigResolution:
         )
         # Flags override to the real package — should succeed
         result = _run_gaps(tmp_path, [
-            "--package", "spec.packages.test_pkg:package",
-            "--worker",  "spec.packages.test_pkg:worker",
+            "--package", "gtl_spec.packages.test_pkg:package",
+            "--worker",  "gtl_spec.packages.test_pkg:worker",
         ])
         assert result.returncode == 0, result.stderr
 
     def test_wrong_symbol_type_exits_1(self, tmp_path):
         """Symbol that is not a Package → clear error, exit 1."""
         workspace_bootstrap(tmp_path)
-        pkg_dir = tmp_path / "spec" / "packages"
+        pkg_dir = tmp_path / "gtl_spec" / "packages"
         pkg_dir.mkdir(parents=True, exist_ok=True)
-        (tmp_path / "spec" / "__init__.py").touch()
-        (tmp_path / "spec" / "packages" / "__init__.py").touch()
+        (tmp_path / "gtl_spec" / "__init__.py").touch()
+        (tmp_path / "gtl_spec" / "packages" / "__init__.py").touch()
         (pkg_dir / "bad_pkg.py").write_text(
             "package = 'not_a_package'\nworker = 'not_a_worker'\n"
         )
         result = _run_gaps(tmp_path, [
-            "--package", "spec.packages.bad_pkg:package",
-            "--worker",  "spec.packages.bad_pkg:worker",
+            "--package", "gtl_spec.packages.bad_pkg:package",
+            "--worker",  "gtl_spec.packages.bad_pkg:worker",
         ])
         assert result.returncode == 1
         assert "Package" in result.stderr
@@ -248,19 +248,19 @@ class TestGenInstall:
 
     def test_writes_starter_spec(self, tmp_path):
         self._install(tmp_path)
-        starter = tmp_path / "spec" / "packages" / "project_package.py"
+        starter = tmp_path / "gtl_spec" / "packages" / "project_package.py"
         assert starter.exists()
 
     def test_custom_slug(self, tmp_path):
         self._install(tmp_path, ["--project-slug", "my_domain"])
-        assert (tmp_path / "spec" / "packages" / "my_domain.py").exists()
+        assert (tmp_path / "gtl_spec" / "packages" / "my_domain.py").exists()
         config_text = (tmp_path / ".genesis" / "genesis.yml").read_text()
         assert "my_domain" in config_text
 
     def test_reinstall_does_not_clobber_starter_spec(self, tmp_path):
         """Starter spec is user data — reinstall must not overwrite it."""
         self._install(tmp_path)
-        starter = tmp_path / "spec" / "packages" / "project_package.py"
+        starter = tmp_path / "gtl_spec" / "packages" / "project_package.py"
         starter.write_text(starter.read_text() + "\n# user edit\n")
         self._install(tmp_path)
         assert "# user edit" in starter.read_text()
@@ -281,3 +281,55 @@ class TestGenInstall:
         )
         assert result.returncode == 1
         assert "identifier" in result.stderr
+
+    def test_scaffolds_builds_python_dirs(self, tmp_path):
+        """Default install creates builds/python/ scaffold."""
+        self._install(tmp_path)
+        assert (tmp_path / "builds" / "python" / "src").is_dir()
+        assert (tmp_path / "builds" / "python" / "tests").is_dir()
+        assert (tmp_path / "builds" / "python" / "design" / "adrs").is_dir()
+
+    def test_platform_flag_creates_named_dirs(self, tmp_path):
+        """--platform java creates builds/java/ scaffold."""
+        self._install(tmp_path, ["--platform", "java"])
+        assert (tmp_path / "builds" / "java" / "src").is_dir()
+        assert (tmp_path / "builds" / "java" / "tests").is_dir()
+        assert (tmp_path / "builds" / "java" / "design" / "adrs").is_dir()
+        assert not (tmp_path / "builds" / "python").exists()
+
+    def test_genesis_yml_contains_pythonpath(self, tmp_path):
+        """genesis.yml includes pythonpath pointing into builds/<platform>/src."""
+        self._install(tmp_path)
+        text = (tmp_path / ".genesis" / "genesis.yml").read_text()
+        assert "pythonpath" in text
+        assert "builds/python/src" in text
+
+    def test_genesis_yml_platform_pythonpath(self, tmp_path):
+        """--platform go writes builds/go/src into genesis.yml pythonpath."""
+        self._install(tmp_path, ["--platform", "go"])
+        text = (tmp_path / ".genesis" / "genesis.yml").read_text()
+        assert "builds/go/src" in text
+
+    def test_reinstall_does_not_clobber_build_dirs(self, tmp_path):
+        """builds/<platform>/ contents survive reinstall."""
+        self._install(tmp_path)
+        sentinel = tmp_path / "builds" / "python" / "src" / "my_module.py"
+        sentinel.write_text("# user code\n")
+        self._install(tmp_path)
+        assert sentinel.exists()
+        assert "# user code" in sentinel.read_text()
+
+    def test_verify_checks_build_dirs(self, tmp_path):
+        """--verify reports missing_build_dirs when builds/ not present."""
+        self._install(tmp_path)
+        import shutil
+        shutil.rmtree(tmp_path / "builds")
+        result = self._install(tmp_path, ["--verify"])
+        assert result.get("status") == "incomplete"
+        assert len(result.get("missing_build_dirs", [])) > 0
+
+    def test_build_dirs_in_install_result(self, tmp_path):
+        """install() result includes build_dirs list."""
+        result = self._install(tmp_path)
+        assert "build_dirs" in result
+        assert any("builds/python" in d for d in result["build_dirs"])

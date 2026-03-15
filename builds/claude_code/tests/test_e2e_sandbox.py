@@ -32,7 +32,7 @@ from pathlib import Path
 
 
 def _subprocess_env() -> dict:
-    """Environment for subprocess genesis invocations: adds PYTHONPATH for engine + spec."""
+    """Environment for subprocess genesis invocations: adds PYTHONPATH for engine + gtl_spec."""
     root = Path(__file__).resolve().parent.parent.parent.parent  # abiogenesis root
     env = os.environ.copy()
     paths = [
@@ -72,7 +72,7 @@ def _make_sandbox_package(workspace: Path):
                      "exec://python -m genesis check-tags --type implements --path .")
     ctx = Context(
         name="bootloader",
-        locator="workspace://spec/GENESIS_BOOTLOADER.md",
+        locator="workspace://gtl_spec/GENESIS_BOOTLOADER.md",
         digest="sha256:" + "0" * 64,
     )
     edge = Edge(

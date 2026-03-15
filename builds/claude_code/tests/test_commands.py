@@ -24,7 +24,7 @@ def _make_package_and_worker():
     edge = Edge(name="intent→code", source=intent, target=code, using=[op])
     job = Job(edge=edge, evaluators=[Evaluator("code_complete", F_P, "LLM check")])
     rule = Rule("gate", approve=consensus(1, 1))
-    ctx = Context(name="bootloader", locator="workspace://spec/GENESIS_BOOTLOADER.md",
+    ctx = Context(name="bootloader", locator="workspace://gtl_spec/GENESIS_BOOTLOADER.md",
                   digest="sha256:" + "0" * 64)
     pkg = Package(
         name="test_package",

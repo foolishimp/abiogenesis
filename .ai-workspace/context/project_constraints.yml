@@ -3,7 +3,7 @@ project:
   version: "0.0.0"
   phase: 0
   doctrine: V1_DOCTRINE.md
-  spec: spec/packages/genesis_core.py
+  spec: gtl_spec/packages/genesis_core.py
   package: genesis_v1
 
 bootstrap:

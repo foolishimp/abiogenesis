@@ -8,17 +8,22 @@ Installs the Genesis engine into a target project so it can be invoked as:
 
 Usage:
     python gen-install.py --target /path/to/project
-    python gen-install.py --target .                 # current directory
-    python gen-install.py --target . --verify        # verify only
+    python gen-install.py --target .                          # current directory
+    python gen-install.py --target . --verify                 # verify only
+    python gen-install.py --target . --platform java          # non-Python build
 
 What it installs:
-    .genesis/genesis/       ← the 6-module engine + __init__ + __main__
-    .genesis/gtl/           ← the GTL type system (vendored, self-contained)
-    spec/                   ← the GTL spec package (genesis_core.py + __init__)
-    spec/GENESIS_BOOTLOADER.md  ← constraint context
+    .genesis/genesis/           ← the engine modules
+    .genesis/gtl/               ← the GTL type system (vendored, self-contained)
+    gtl_spec/                   ← the GTL spec package (genesis_core.py + __init__)
+    gtl_spec/GENESIS_BOOTLOADER.md
+    builds/<platform>/src/      ← implementation source (empty scaffold)
+    builds/<platform>/tests/    ← test suite (empty scaffold)
+    builds/<platform>/design/adrs/  ← design decisions (empty scaffold)
 
-The spec/ directory is copied only if it does not already exist in the target.
+The gtl_spec/ directory is copied only if it does not already exist in the target.
 The .genesis/genesis/ and .genesis/gtl/ directories are always replaced (idempotent reinstall).
+The builds/<platform>/ directories are created only if they do not already exist.
 """
 from __future__ import annotations
 
@@ -36,14 +41,16 @@ VERSION = "1.0.0"
 _CONFIG_TEMPLATE = """\
 # Genesis project config — written by gen-install.py
 # Override per-invocation with: --package MODULE:VAR --worker MODULE:VAR
-package: spec.packages.{slug}:package
-worker:  spec.packages.{slug}:worker
+package: gtl_spec.packages.{slug}:package
+worker:  gtl_spec.packages.{slug}:worker
+pythonpath:
+  - builds/{platform}/src
 """
 
 _STARTER_PACKAGE_TEMPLATE = '''\
 # Implements: REQ-F-PKG-001
 """
-{slug} — project package for genesis.
+{slug} — project GTL spec for genesis.
 
 Edit assets, edges, and evaluators to match your domain.
 Run: PYTHONPATH=.genesis python -m genesis gaps --workspace .
@@ -105,10 +112,10 @@ GTL_MODULES = [
 
 # Spec files to install (relative to project root — two levels up from this file)
 SPEC_FILES = [
-    "spec/__init__.py",
-    "spec/packages/__init__.py",
-    "spec/packages/genesis_core.py",
-    "spec/GENESIS_BOOTLOADER.md",
+    "gtl_spec/__init__.py",
+    "gtl_spec/packages/__init__.py",
+    "gtl_spec/packages/genesis_core.py",
+    "gtl_spec/GENESIS_BOOTLOADER.md",
 ]
 
 
@@ -126,7 +133,8 @@ def _gtl_source() -> Path:
 
 
 def install(target: Path, *, verify_only: bool = False,
-            slug: str = "project_package") -> dict:
+            slug: str = "project_package",
+            platform: str = "python") -> dict:
     target = target.resolve()
     source_root = _source_root()
     engine_src = _engine_source()
@@ -138,13 +146,14 @@ def install(target: Path, *, verify_only: bool = False,
         "engine_files": [],
         "gtl_files": [],
         "spec_files": [],
+        "build_dirs": [],
         "config_file": None,
         "starter_spec": None,
         "errors": [],
     }
 
     if verify_only:
-        return _verify(target, result)
+        return _verify(target, result, platform=platform)
 
     # ── Install engine ────────────────────────────────────────────────────────
     genesis_dir = target / ".genesis" / "genesis"
@@ -196,23 +205,40 @@ def install(target: Path, *, verify_only: bool = False,
     # ── Write .genesis/genesis.yml ────────────────────────────────────────────
     # Always written (idempotent reinstall of engine config).
     # genesis.yml is metadata only — it points to the Package/Worker.
-    # The canonical spec lives in spec/packages/*.py (not overwritten here).
+    # The canonical spec lives in gtl_spec/packages/*.py (not overwritten here).
     config_path = target / ".genesis" / "genesis.yml"
-    config_path.write_text(_CONFIG_TEMPLATE.format(slug=slug), encoding="utf-8")
+    config_path.write_text(
+        _CONFIG_TEMPLATE.format(slug=slug, platform=platform),
+        encoding="utf-8",
+    )
     result["config_file"] = ".genesis/genesis.yml"
 
     # ── Write starter spec ────────────────────────────────────────────────────
     # Only written if the file does not already exist — never overwrites user edits.
-    spec_pkg_dir = target / "spec" / "packages"
+    spec_pkg_dir = target / "gtl_spec" / "packages"
     spec_pkg_dir.mkdir(parents=True, exist_ok=True)
-    (target / "spec" / "__init__.py").touch()
-    (target / "spec" / "packages" / "__init__.py").touch()
+    (target / "gtl_spec" / "__init__.py").touch()
+    (target / "gtl_spec" / "packages" / "__init__.py").touch()
     starter_path = spec_pkg_dir / f"{slug}.py"
     if not starter_path.exists():
         starter_path.write_text(
-            _STARTER_PACKAGE_TEMPLATE.format(slug=slug), encoding="utf-8"
+            _STARTER_PACKAGE_TEMPLATE.format(slug=slug, platform=platform),
+            encoding="utf-8",
         )
-        result["starter_spec"] = f"spec/packages/{slug}.py"
+        result["starter_spec"] = f"gtl_spec/packages/{slug}.py"
+
+    # ── Scaffold builds/<platform>/ ───────────────────────────────────────────
+    # Created only if they do not already exist — never overwrites user work.
+    build_dirs = [
+        f"builds/{platform}/src",
+        f"builds/{platform}/tests",
+        f"builds/{platform}/design/adrs",
+    ]
+    for rel in build_dirs:
+        d = target / rel
+        if not d.exists():
+            d.mkdir(parents=True, exist_ok=True)
+            result["build_dirs"].append(rel)
 
     # ── Emit install event ────────────────────────────────────────────────────
     _emit_install_event(target, result)
@@ -221,7 +247,7 @@ def install(target: Path, *, verify_only: bool = False,
     return result
 
 
-def _verify(target: Path, result: dict) -> dict:
+def _verify(target: Path, result: dict, platform: str = "python") -> dict:
     genesis_dir = target / ".genesis" / "genesis"
     missing_engine = []
     for module in ENGINE_MODULES:
@@ -241,13 +267,21 @@ def _verify(target: Path, result: dict) -> dict:
 
     config_present = (target / ".genesis" / "genesis.yml").exists()
 
+    missing_build_dirs = []
+    for rel in [f"builds/{platform}/src", f"builds/{platform}/tests",
+                f"builds/{platform}/design/adrs"]:
+        if not (target / rel).exists():
+            missing_build_dirs.append(rel)
+
     result["missing_engine"] = missing_engine
     result["missing_gtl"] = missing_gtl
     result["missing_spec"] = missing_spec
+    result["missing_build_dirs"] = missing_build_dirs
     result["config_present"] = config_present
     result["status"] = (
         "ok"
-        if not missing_engine and not missing_gtl and not missing_spec and config_present
+        if not missing_engine and not missing_gtl and not missing_spec
+        and not missing_build_dirs and config_present
         else "incomplete"
     )
     return result
@@ -266,6 +300,7 @@ def _emit_install_event(target: Path, install_result: dict) -> None:
             "version": VERSION,
             "engine_files": install_result["engine_files"],
             "spec_files": install_result["spec_files"],
+            "build_dirs": install_result["build_dirs"],
             "target": install_result["target"],
         },
     }
@@ -293,6 +328,13 @@ def main() -> None:
             "Default: project_package. Must be a valid Python identifier."
         ),
     )
+    parser.add_argument(
+        "--platform", metavar="PLATFORM", default="python",
+        help=(
+            "Build platform name — used as the builds/<platform>/ directory name. "
+            "Default: python. Examples: java, go, bedrock."
+        ),
+    )
     args = parser.parse_args()
 
     slug = args.project_slug
@@ -306,7 +348,7 @@ def main() -> None:
         print(f"ERROR: target directory does not exist: {target}", file=sys.stderr)
         sys.exit(1)
 
-    result = install(target, verify_only=args.verify, slug=slug)
+    result = install(target, verify_only=args.verify, slug=slug, platform=args.platform)
     print(json.dumps(result, indent=2))
     sys.exit(0 if not result.get("errors") and result.get("status") != "incomplete" else 1)
 

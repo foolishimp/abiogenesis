@@ -108,7 +108,7 @@ abiogenesis/
 ├── gtl/                            # Type system (vendored, v0.3.0)
 │   └── core.py                     #   Asset, Edge, Job, Evaluator, Worker, F_D/F_P/F_H
 │
-├── spec/                           # Self-hosting spec package
+├── gtl_spec/                       # Self-hosting spec package
 │   ├── GENESIS_BOOTLOADER.md       #   LLM constraint context
 │   └── packages/
 │       ├── genesis_core.py         #   V1 Package + Worker (the self-hosting spec)
@@ -173,8 +173,8 @@ python /path/to/abiogenesis/builds/claude_code/code/gen-install.py \
 
 This creates:
 - `.genesis/genesis/` — engine modules
-- `.genesis/genesis.yml` — config pointing to `spec/packages/my_domain:package`
-- `spec/packages/my_domain.py` — starter spec (only if absent — never overwrites)
+- `.genesis/genesis.yml` — config pointing to `gtl_spec/packages/my_domain:package`
+- `gtl_spec/packages/my_domain.py` — starter spec (only if absent — never overwrites)
 
 Then run via:
 
@@ -217,7 +217,7 @@ package = Package(name="my_domain", assets=[spec, output], edges=[edge], operato
 worker  = Worker(id="claude_code", can_execute=[job])
 ```
 
-See `spec/packages/genesis_core.py` for a complete, working example.
+See `gtl_spec/packages/genesis_core.py` for a complete, working example.
 
 ---
 
@@ -248,7 +248,7 @@ gen check-tags --type validates --path builds/claude_code/tests/
 
 # Every REQ key in the spec appears in a feature vector
 gen check-req-coverage \
-    --package spec.packages.genesis_core:genesis_v1 \
+    --package gtl_spec.packages.genesis_core:genesis_v1 \
     --features .ai-workspace/features/
 ```
 
