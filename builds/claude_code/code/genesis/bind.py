@@ -233,39 +233,13 @@ def select_relevant_contexts(
     """
     F_D: filter contexts to those relevant to the failing evaluators.
 
-    Selection rules (applied in order):
-    1. Always include: LAW contexts (bootloader, doctrine)
-    2. Include: genesis_core_spec if any F_P evaluator is failing (code gen needs spec)
-    3. Include: design_adrs if impl_tags, six_modules, or code_complete is failing
-    4. Exclude everything else
+    Domain-blind: when any evaluators are failing, the F_P actor needs the full
+    constraint surface defined on the edge. Return all edge contexts.
+    When nothing is failing, no context is needed.
     """
     if not failing:
-        return []  # Nothing to fix — no context needed
-
-    failing_names = {ev.name for ev in failing}
-    failing_cats = {ev.category for ev in failing}
-
-    result: list[Context] = []
-    for ctx in all_contexts:
-        name = ctx.name.lower()
-
-        # Rule 1: always include law/bootloader/doctrine contexts
-        if "bootloader" in name or "doctrine" in name:
-            result.append(ctx)
-            continue
-
-        # Rule 2: include spec if F_P evaluators are failing
-        if F_P in failing_cats and "spec" in name:
-            result.append(ctx)
-            continue
-
-        # Rule 3: include ADRs if code/impl evaluators are failing
-        if failing_names & {"impl_tags", "six_modules", "code_complete"}:
-            if "adr" in name or "design" in name:
-                result.append(ctx)
-                continue
-
-    return result
+        return []
+    return list(all_contexts)
 
 
 # ── render_delta ─────────────────────────────────────────────────────────────

@@ -41,7 +41,7 @@ from gtl.core import (
     F_D, F_H, F_P, consensus,
 )
 
-from genesis.core import EventStream, workspace_bootstrap, init_stream
+from genesis.core import EventStream, workspace_bootstrap
 from genesis.bind import bind_fd, bind_fp
 from genesis.schedule import delta, iterate, schedule
 from genesis.commands import Scope, gen_gaps, gen_iterate, gen_start
@@ -53,13 +53,11 @@ from genesis.manifest import BoundJob
 def _make_stream(tmp_path: Path) -> EventStream:
     """
     Minimal EventStream — no workspace_bootstrap, no directory scaffolding.
-    Calls init_stream() so emit() works for tests that exercise gen_iterate/gen_start.
+    Commands write through the explicit stream parameter; no global state needed.
     """
     f = tmp_path / "events.jsonl"
     f.touch()
-    stream = EventStream(f)
-    init_stream(stream)  # set global _stream so emit() works without workspace_bootstrap
-    return stream
+    return EventStream(f)
 
 
 # ── Synthetic package builders ────────────────────────────────────────────────

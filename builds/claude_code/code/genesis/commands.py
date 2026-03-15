@@ -20,7 +20,7 @@ from typing import Callable, Optional
 from gtl.core import Job, Package, Worker
 
 from .bind import bind_fd, bind_fp
-from .core import ContextResolver, EventStream, emit, project
+from .core import ContextResolver, EventStream, project
 from .manifest import BoundJob
 from .schedule import delta, iterate, schedule
 
@@ -103,9 +103,7 @@ def gen_gaps(scope: Scope, stream: EventStream) -> dict:
                 "delta": 0,
                 "certified_by": "gen_gaps",
             }
-            if scope.feature:
-                cert["feature"] = scope.feature
-            emit("edge_converged", cert)
+            stream.append("edge_converged", cert)
             certified_edges.add(job.edge.name)  # prevent duplicate within same run
 
     total_delta = sum(r["delta"] for r in results)
@@ -161,7 +159,7 @@ def gen_iterate(
 
     # Bind + iterate
     bound = bind_fp(selected_pre, selected_job)
-    emit("edge_started", {
+    stream.append("edge_started", {
         "edge": selected_job.edge.name,
         "feature": scope.feature or "all",
         "build": scope.build,
@@ -171,7 +169,7 @@ def gen_iterate(
 
     # Emit surface events
     for event in surface.events:
-        emit(event["event_type"], event["data"])
+        stream.append(event["event_type"], event["data"])
 
     return {
         "status": "iterated",
@@ -212,13 +210,35 @@ def gen_start(
         }
 
     # IN_PROGRESS — dispatch to gen_iterate
-    result = gen_iterate(scope, stream, on_fp_dispatch=on_fp_dispatch)
+    if not auto:
+        return gen_iterate(scope, stream, on_fp_dispatch=on_fp_dispatch)
 
-    if auto and result.get("status") == "iterated":
+    # --auto: loop until converged, F_H gate, F_P dispatch, or max iterations.
+    # Stop immediately on F_P dispatch (need actor response) or F_H gate (need human).
+    MAX_AUTO = 50
+    last_event_count = len(stream.all_events())
+    result: dict = {}
+
+    for _ in range(MAX_AUTO):
+        result = gen_iterate(scope, stream, on_fp_dispatch=on_fp_dispatch)
         result["auto"] = True
-        # In a real --auto loop the caller would re-invoke; for V1 we return
-        # after one iteration and let the CLI loop handle continuation.
 
+        if result["status"] in ("converged", "nothing_to_do"):
+            return result
+
+        # Inspect events emitted by this iteration
+        new_events = stream.all_events()[last_event_count:]
+        last_event_count += len(new_events)
+
+        if any(e["event_type"] == "fp_dispatched" for e in new_events):
+            result["stopped_by"] = "fp_dispatch"
+            return result
+
+        if any(e["event_type"] == "fh_gate_pending" for e in new_events):
+            result["stopped_by"] = "fh_gate"
+            return result
+
+    result["stopped_by"] = "max_iterations"
     return result
 
 

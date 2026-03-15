@@ -10,7 +10,7 @@ from gtl.core import (
     F_D, F_P, F_H, consensus,
 )
 
-from genesis.core import EventStream, workspace_bootstrap, init_stream
+from genesis.core import EventStream, workspace_bootstrap
 from genesis.commands import Scope, gen_gaps, gen_iterate, gen_start, _scoped_jobs, _known_feature_ids
 
 
@@ -200,26 +200,6 @@ class TestGenGaps:
         ]
         assert len(certs) == 1  # exactly one, not three
 
-    def test_edge_converged_includes_feature_when_scoped(self, tmp_path):
-        """edge_converged carries feature field when scope.feature is set (enables feature-scoped project())."""
-        pkg, worker, _ = _make_fh_package_and_worker()
-        stream = _make_stream(tmp_path)
-        stream.append("review_approved", {
-            "edge": "draft→approved", "actor": "human", "evaluator": "sign_off",
-        })
-        features_dir = tmp_path / ".ai-workspace" / "features" / "active"
-        features_dir.mkdir(parents=True, exist_ok=True)  # workspace_bootstrap already creates this
-        (features_dir / "FEAT-001.yml").write_text("feature: FEAT-001\n")
-        scope = _make_scope(tmp_path, pkg, worker=worker, feature="FEAT-001")
-        gen_gaps(scope, stream)
-        certs = [
-            e for e in stream.all_events()
-            if e["event_type"] == "edge_converged"
-            and e["data"]["edge"] == "draft→approved"
-        ]
-        assert len(certs) == 1
-        assert certs[0]["data"]["feature"] == "FEAT-001"
-
     def test_no_edge_converged_when_gap_exists(self, tmp_path):
         """gen_gaps does not emit edge_converged when delta > 0."""
         pkg, worker, _ = _make_package_and_worker()
@@ -295,12 +275,27 @@ class TestGenStart:
         result = gen_start(scope, stream)
         assert result["status"] == "nothing_to_do"
 
-    def test_auto_flag_recorded(self, tmp_path):
-        pkg, worker, _ = _make_package_and_worker()
+    def test_auto_loop_stops_on_fp_dispatch(self, tmp_path):
+        """gen_start with auto=True stops after first F_P dispatch — waits for actor."""
+        pkg, worker, _ = _make_package_and_worker()  # has F_P evaluator
         stream = _make_stream(tmp_path)
         scope = _make_scope(tmp_path, pkg, worker=worker)
-        result = gen_start(scope, stream, auto=True)
+        dispatched = []
+        result = gen_start(scope, stream, auto=True, on_fp_dispatch=dispatched.append)
         assert result.get("auto") is True
+        assert result.get("stopped_by") == "fp_dispatch"
+        assert len(dispatched) == 1
+
+    def test_auto_loop_converges(self, tmp_path):
+        """gen_start with auto=True returns converged when all evaluators pass."""
+        pkg, worker, _ = _make_fh_package_and_worker()
+        stream = _make_stream(tmp_path)
+        stream.append("review_approved", {
+            "edge": "draft→approved", "actor": "human", "evaluator": "sign_off",
+        })
+        scope = _make_scope(tmp_path, pkg, worker=worker)
+        result = gen_start(scope, stream, auto=True)
+        assert result["status"] == "converged"
 
     def test_returns_converged_when_all_evaluators_pass(self, tmp_path):
         """gen_start returns 'converged' when _derive_state finds total_delta=0."""

@@ -170,27 +170,38 @@ class TestSelectRelevantContexts:
         return Context(name=name, locator="workspace://x", digest="sha256:" + "0" * 64)
 
     def test_empty_failing_returns_empty(self):
-        ctxs = [self._ctx("bootloader"), self._ctx("genesis_core_spec")]
+        """No evaluators failing → no context needed."""
+        ctxs = [self._ctx("alpha"), self._ctx("beta")]
         result = select_relevant_contexts(ctxs, [])
         assert result == []
 
-    def test_bootloader_always_included(self):
-        ctxs = [self._ctx("bootloader")]
-        failing = [Evaluator("fp", F_P, "needs LLM")]
+    def test_all_contexts_returned_when_any_failing(self):
+        """Any failing evaluator → all edge contexts returned (domain-blind)."""
+        ctxs = [self._ctx("alpha"), self._ctx("beta"), self._ctx("gamma")]
+        failing = [Evaluator("check", F_P, "needs LLM")]
         result = select_relevant_contexts(ctxs, failing)
-        assert any(c.name == "bootloader" for c in result)
+        assert len(result) == 3
 
-    def test_spec_included_for_fp_failing(self):
-        ctxs = [self._ctx("genesis_core_spec")]
-        failing = [Evaluator("code_complete", F_P, "agent checks code")]
+    def test_fd_failing_also_returns_all_contexts(self):
+        """F_D failing → all contexts returned, not a subset."""
+        ctxs = [self._ctx("law"), self._ctx("config")]
+        failing = [Evaluator("file_check", F_D, "file must exist", command="true")]
         result = select_relevant_contexts(ctxs, failing)
-        assert any(c.name == "genesis_core_spec" for c in result)
+        assert len(result) == 2
 
-    def test_design_adrs_included_for_impl_tags(self):
-        ctxs = [self._ctx("design_adrs")]
-        failing = [Evaluator("impl_tags", F_D, "check tags")]
+    def test_fh_failing_returns_all_contexts(self):
+        """F_H failing → all contexts returned."""
+        ctxs = [self._ctx("criteria")]
+        failing = [Evaluator("sign_off", F_H, "human approval")]
         result = select_relevant_contexts(ctxs, failing)
-        assert any(c.name == "design_adrs" for c in result)
+        assert len(result) == 1
+        assert result[0].name == "criteria"
+
+    def test_empty_contexts_returns_empty_list(self):
+        """No edge contexts → empty list regardless of failing evaluators."""
+        failing = [Evaluator("check", F_P, "needs LLM")]
+        result = select_relevant_contexts([], failing)
+        assert result == []
 
 
 # ── render_delta ──────────────────────────────────────────────────────────────
