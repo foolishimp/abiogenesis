@@ -15,27 +15,21 @@ status: not_started
 title: bind_fd + PrecomputedManifest — F_D pre-computation before F_P
 trajectory:
   basis_projections:
-    converged_at: '2026-03-14T19:01:29Z'
-    status: converged
+    status: not_started
   code:
     asset: builds/claude_code/code/genesis/bind.py
     notes: ''
     status: not_started
   design:
-    converged_at: '2026-03-14T18:38:41Z'
-    status: converged
+    status: not_started
   design_recommendations:
-    converged_at: '2026-03-14T18:37:14Z'
-    status: converged
+    status: not_started
   feature_decomposition:
-    converged_at: '2026-03-14T18:37:07Z'
-    status: converged
+    status: not_started
   module_decomposition:
-    converged_at: '2026-03-14T18:39:24Z'
-    status: converged
+    status: not_started
   requirements:
-    converged_at: '2026-03-14T18:28:35Z'
-    status: converged
+    status: not_started
   unit_tests:
     asset: builds/claude_code/tests/test_bind.py
     notes: ''

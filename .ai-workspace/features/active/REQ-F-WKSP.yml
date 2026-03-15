@@ -29,17 +29,13 @@ trajectory:
     notes: ''
     status: not_started
   design:
-    converged_at: '2026-03-14T18:38:41Z'
-    status: converged
+    status: not_started
   design_recommendations:
-    converged_at: '2026-03-14T18:37:14Z'
-    status: converged
+    status: not_started
   feature_decomposition:
-    converged_at: '2026-03-14T18:37:07Z'
-    status: converged
+    status: not_started
   requirements:
-    converged_at: '2026-03-14T18:28:35Z'
-    status: converged
+    status: not_started
   unit_tests:
     asset: builds/claude_code/tests/test_schedule.py
     notes: ''

@@ -241,12 +241,29 @@ def _scoped_jobs(scope: Scope, worker: Worker) -> list[Job]:
     Return jobs from worker.can_execute, filtered by scope overrides.
 
     edge override: exact match on job.edge.name.
-    feature override: V1 — all jobs are included (feature vector routing
-    is a V2 concern; V1 has a single feature trajectory).
+    feature override: validated against feature YAMLs in workspace; fails closed
+    on unknown feature ID. V1 has a single trajectory — a known feature returns
+    all jobs; unknown feature returns empty (caller reports error).
     """
     jobs = list(worker.can_execute)
+
+    if scope.feature:
+        known = _known_feature_ids(scope.workspace_root)
+        if scope.feature not in known:
+            return []  # fail closed — callers treat empty as error
 
     if scope.edge:
         jobs = [j for j in jobs if j.edge.name == scope.edge]
 
     return jobs
+
+
+def _known_feature_ids(workspace_root: Path) -> set[str]:
+    """Return feature IDs from YAML filenames in .ai-workspace/features/."""
+    features_dir = workspace_root / ".ai-workspace" / "features"
+    ids: set[str] = set()
+    for subdir in ("active", "completed"):
+        d = features_dir / subdir
+        if d.exists():
+            ids.update(f.stem for f in d.glob("*.yml"))
+    return ids

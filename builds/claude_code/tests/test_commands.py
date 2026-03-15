@@ -13,7 +13,7 @@ from gtl.core import (
 )
 
 from genesis.core import EventStream, workspace_bootstrap, init_stream
-from genesis.commands import Scope, gen_gaps, gen_iterate, gen_start, _scoped_jobs
+from genesis.commands import Scope, gen_gaps, gen_iterate, gen_start, _scoped_jobs, _known_feature_ids
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -91,6 +91,36 @@ class TestScopedJobs:
         scope = _make_scope(tmp_path, pkg, edge="nonexistent→edge")
         jobs = _scoped_jobs(scope, worker)
         assert jobs == []
+
+    def test_unknown_feature_fails_closed(self, tmp_path):
+        """G4: unknown scope.feature returns empty — fails closed."""
+        pkg, worker, _ = _make_package_and_worker()
+        scope = _make_scope(tmp_path, pkg, feature="REQ-F-UNKNOWN")
+        jobs = _scoped_jobs(scope, worker)
+        assert jobs == []
+
+    def test_known_feature_returns_jobs(self, tmp_path):
+        """G4: known feature ID (present in features YAML dir) returns all jobs."""
+        pkg, worker, job = _make_package_and_worker()
+        # Create a feature YAML so the feature is "known"
+        features_dir = tmp_path / ".ai-workspace" / "features" / "active"
+        features_dir.mkdir(parents=True)
+        (features_dir / "REQ-F-CORE.yml").write_text("feature: REQ-F-CORE\n")
+        scope = _make_scope(tmp_path, pkg, feature="REQ-F-CORE")
+        jobs = _scoped_jobs(scope, worker)
+        assert job in jobs
+
+    def test_known_feature_ids_reads_active_and_completed(self, tmp_path):
+        """_known_feature_ids reads both active/ and completed/ subdirs."""
+        active = tmp_path / ".ai-workspace" / "features" / "active"
+        completed = tmp_path / ".ai-workspace" / "features" / "completed"
+        active.mkdir(parents=True)
+        completed.mkdir(parents=True)
+        (active / "REQ-F-CORE.yml").write_text("")
+        (completed / "REQ-F-BIND.yml").write_text("")
+        ids = _known_feature_ids(tmp_path)
+        assert "REQ-F-CORE" in ids
+        assert "REQ-F-BIND" in ids
 
 
 # ── gen_gaps ──────────────────────────────────────────────────────────────────
