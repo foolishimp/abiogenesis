@@ -1,8 +1,43 @@
 # Abiogenesis
 
-A minimal GTL interpreter. Software work as a typed graph — assets, edges, evaluators, workers — driven by an append-only event stream.
+A minimal interpreter that runs software work as a typed graph. You define what assets exist, how they transform into each other, and what it means for a transformation to be complete. The engine tracks the gap between current state and done.
 
-The engine is self-hosting: it ran itself through design → code → tests and its workspace reports `converged: true`.
+The engine is self-hosting: it ran itself through design → code → tests and its own workspace reports `converged: true`.
+
+---
+
+## Key Concepts
+
+### The six types
+
+| Type | What it is |
+|------|-----------|
+| **Asset** | A typed artifact — spec, code, tests, design, etc. Each asset has a name and an ID format. |
+| **Edge** | A directed transition from one asset type to another. `spec → output` is an edge. |
+| **Evaluator** | A test that decides whether an edge is complete. An edge can have several evaluators. |
+| **Job** | An edge paired with its evaluators. The unit of work the engine schedules. |
+| **Worker** | Declares which jobs an agent or team can execute. |
+| **Package** | A complete graph — all assets, edges, operators, and the workers that can run them. |
+
+### The three evaluator kinds
+
+Every evaluator is one of three kinds. These are the engine's core distinction:
+
+| Kind | Symbol | What it checks | Passes when |
+|------|--------|---------------|-------------|
+| **Deterministic test** | `F_D` | Scripts, test suites, coverage checks, tag counts — anything with a binary pass/fail | The command exits 0 or the check passes |
+| **Agent assessment** | `F_P` | LLM or automated agent judgment — "does this output satisfy the spec?" | An agent records a passing assessment in the event log |
+| **Human approval** | `F_H` | Explicit human sign-off | A `review_approved` event exists for this edge |
+
+The engine always runs deterministic tests (`F_D`) first. Agent assessment (`F_P`) only runs when all deterministic tests pass. Human approval (`F_H`) only runs when agent assessment passes. This ordering prevents agent calls on work that has obvious deterministic failures.
+
+### The event stream
+
+All state lives in `.ai-workspace/events/events.jsonl`, an append-only log. Assets are not stored — they are derived by reading the event stream. If you want to know whether an edge is done, the engine scans the log for a `edge_converged` event.
+
+### Delta
+
+Each edge has a **delta** — the number of evaluators not yet passing. `delta = 0` means the edge is converged. The workspace is converged when every edge has `delta = 0`.
 
 ---
 
@@ -47,7 +82,7 @@ Expected output of `gen gaps`:
 }
 ```
 
-`total_delta: 0` means the workspace is converged — all evaluators pass.
+`total_delta: 0` means all evaluators pass. The workspace is at rest.
 
 ---
 
@@ -109,7 +144,7 @@ abiogenesis/
 
 ### Option A — Install and point at your spec
 
-Install abiogenesis as an editable package, then write a GTL spec and configure it.
+Install abiogenesis as an editable package, write a GTL spec, and configure it.
 
 ```bash
 # In your project
@@ -151,27 +186,32 @@ PYTHONPATH=.genesis python -m genesis gaps --workspace .
 
 ## GTL Primer
 
-A minimal spec has five types:
+A minimal spec defines assets, edges, evaluators, and the worker that can execute them:
 
 ```python
 from gtl.core import Asset, Edge, Evaluator, Job, Operator, Package, Worker, F_D, F_P, F_H
 
-# 1. Assets — the typed nodes
+# Assets — the typed nodes in your graph
 spec   = Asset(name="spec",   id_format="SPEC-{SEQ}")
 output = Asset(name="output", id_format="OUT-{SEQ}", lineage=[spec])
 
-# 2. Operators — who does the work (F_D = deterministic, F_P = agent, F_H = human)
-agent  = Operator("agent", F_P, "agent://claude/genesis")
-tests  = Operator("tests", F_D, "exec://python -m pytest tests/ -q")
+# Operators — who performs the work
+# F_P = agent/LLM, F_D = deterministic script, F_H = human
+agent = Operator("agent", F_P, "agent://claude/genesis")
+tests = Operator("tests", F_D, "exec://python -m pytest tests/ -q")
 
-# 3. Edge — one transition
+# Edge — one transition between asset types
 edge = Edge(name="spec→output", source=spec, target=output, using=[agent])
 
-# 4. Evaluators — convergence tests
-eval_done = Evaluator("output_complete", F_P, "agent: output satisfies spec")
-eval_tests = Evaluator("tests_pass", F_D, "all tests pass", command="python -m pytest tests/ -q")
+# Evaluators — convergence tests for this edge
+eval_done  = Evaluator("output_complete", F_P, "agent: output satisfies spec")
+eval_tests = Evaluator(
+    "tests_pass", F_D,
+    "all unit tests pass",
+    command="python -m pytest tests/ -q",   # F_D evaluators run this command
+)
 
-# 5. Job, Package, Worker
+# Job, Package, Worker
 job     = Job(edge=edge, evaluators=[eval_done, eval_tests])
 package = Package(name="my_domain", assets=[spec, output], edges=[edge], operators=[agent])
 worker  = Worker(id="claude_code", can_execute=[job])
@@ -187,13 +227,13 @@ All state is derived from `.ai-workspace/events/events.jsonl`. The log is append
 
 Key event types:
 
-| Event | When |
-|-------|------|
+| Event | When emitted |
+|-------|-------------|
 | `edge_started` | An iteration begins on an edge |
-| `edge_converged` | An edge reaches delta = 0 |
-| `fp_dispatched` | An F_P (agent) evaluator needs work done |
-| `fh_gate_pending` | An F_H (human) gate is waiting |
-| `fd_gap_found` | A deterministic F_D check failed |
+| `edge_converged` | An edge reaches delta = 0 (all evaluators pass) |
+| `fp_dispatched` | An agent evaluator needs work — the agent should act and record results |
+| `fh_gate_pending` | A human approval gate is waiting |
+| `fd_gap_found` | A deterministic test failed |
 
 ---
 
@@ -223,7 +263,7 @@ pytest
 # Single test module
 pytest builds/claude_code/tests/test_commands.py -v
 
-# Skip e2e tests (no Claude API needed)
+# Skip end-to-end tests (no Claude API needed)
 pytest -m "not e2e"
 ```
 
@@ -231,8 +271,8 @@ pytest -m "not e2e"
 
 ## Current Limitations (V1)
 
-- `--feature` in V1 validates that a feature ID exists in `.ai-workspace/features/` but does not route individual jobs to specific features. Per-job feature routing is V2.
-- `F_P` dispatch emits an event but does not invoke an actual agent — the agent reads the event and acts externally. The fold-back is manual in V1.
+- `--feature` validates that a feature ID exists in `.ai-workspace/features/` but does not route individual jobs to specific features. Per-job feature routing is V2.
+- Agent dispatch (`F_P`) emits an event but does not invoke an agent directly — the agent reads the event and acts externally. The fold-back (recording the result) is manual in V1.
 - Multi-tenant scheduling (multiple workers with conflict detection) is deferred to V2. V1 has a single `claude_code` worker.
 
 ---

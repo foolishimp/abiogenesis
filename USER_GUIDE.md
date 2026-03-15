@@ -24,21 +24,47 @@
 
 ## 1. What Abiogenesis Is
 
-Abiogenesis is a GTL interpreter. GTL (Genesis Template Language) treats software work as a typed directed graph:
+Abiogenesis is a GTL interpreter. GTL (Genesis Template Language) treats software work as a typed directed graph. You define what artifacts exist, how they transform into each other, and what it means for a transformation to be complete. The engine tracks the gap between current state and done.
 
-- **Assets** — typed nodes (spec, code, tests, design, ...)
-- **Edges** — admissible transitions between asset types
-- **Evaluators** — convergence tests that decide whether a transition is complete
-- **Jobs** — an edge paired with its evaluators
-- **Workers** — which jobs a worker can execute
-- **EventStream** — an append-only log; all state is derived from it
+### The six types
+
+| Type | What it is |
+|------|-----------|
+| **Asset** | A typed artifact — spec, code, tests, design, etc. Assets have a name and an ID format like `CODE-{SEQ}`. |
+| **Edge** | A directed transition from one asset type to another. `design → code` is an edge. |
+| **Evaluator** | A test that decides whether an edge is complete. One edge can have several evaluators. |
+| **Job** | An edge paired with its evaluators. The unit of work the engine schedules. |
+| **Worker** | Declares which jobs an agent or team can execute. |
+| **Package** | A complete graph — all assets, edges, operators, and workers bundled together as the spec. |
+
+### The three evaluator kinds
+
+Every evaluator belongs to one of three kinds. This is the engine's core distinction:
+
+| Kind | Symbol | What it checks | Passes when |
+|------|--------|----------------|-------------|
+| **Deterministic test** | `F_D` | Scripts, test suites, coverage checks, file scans — anything with a binary result | The command exits 0 |
+| **Agent assessment** | `F_P` | LLM or automated agent judgment — "does this output satisfy the spec?" | An agent records a passing assessment in the event log |
+| **Human approval** | `F_H` | Explicit human sign-off | A `review_approved` event exists for this edge |
+
+The engine always runs deterministic tests first. Agent assessment only runs when all deterministic tests pass. Human approval only runs when agent assessment passes. This ordering prevents agent calls on work that has obvious deterministic failures.
+
+### Delta and convergence
+
+Each edge has a **delta** — the count of evaluators not yet passing. `delta = 0` means that edge is converged. The workspace is converged when every edge has `delta = 0`.
+
+### The event stream
+
+All state lives in `.ai-workspace/events/events.jsonl`, an append-only log. Assets are not stored as mutable objects — they are derived by reading the event stream. This means any past state is reconstructable by replaying the log.
+
+---
 
 The engine has three operations:
 
 | Operation | What it does |
 |-----------|-------------|
-| `gen gaps` | Runs F_D evaluators across all jobs and reports residual work (delta per edge) |
-| `gen iterate` | Selects the first unconverged job, binds context, dispatches F_P/F_H/F_D |
+| `gen gaps` | Runs deterministic evaluators across all jobs and reports residual work (delta per edge) |
+| `gen iterate` | Selects the first unconverged job, binds context, dispatches to the appropriate evaluator kind |
 | `gen start` | State-machine wrapper over `gen iterate`; `--auto` loops until blocked |
 
 The workspace is converged when every evaluator on every edge reports delta = 0.
@@ -174,9 +200,9 @@ Output fields:
 | `prompt_words` | Size of the F_P prompt (if dispatched) |
 
 What `gen iterate` does internally:
-1. Calls `bind_fd` — runs all F_D evaluators and produces a `PrecomputedManifest`
-2. If delta > 0, calls `bind_fp` — assembles the F_P prompt with relevant context
-3. Calls `iterate` — walks evaluators in order: F_D → F_P → F_H
+1. Runs all deterministic tests (`F_D`) and builds a manifest of what's passing and failing
+2. If delta > 0, assembles an agent prompt with the relevant context documents
+3. Walks evaluators in order: deterministic tests → agent assessment → human approval
 4. Emits events from the working surface into the event log
 
 ### `gen start`
@@ -196,9 +222,9 @@ gen start --workspace . --auto
 | Stop reason | What happened |
 |-------------|--------------|
 | `converged` | All jobs delta = 0 |
-| `stopped_by: fp_dispatch` | An F_P evaluator dispatched — agent needs to act |
-| `stopped_by: fh_gate` | An F_H evaluator is waiting for human approval |
-| `stopped_by: fd_gap` | A deterministic check failed — fix required |
+| `stopped_by: fp_dispatch` | An agent assessment was dispatched — an agent needs to act and record results |
+| `stopped_by: fh_gate` | A human approval gate is waiting |
+| `stopped_by: fd_gap` | A deterministic test failed — code or artifacts need fixing |
 | `stopped_by: max_iterations` | Safety limit of 50 iterations reached |
 
 ---
@@ -240,17 +266,17 @@ package = Package(name="my_domain", assets=[spec, output], edges=[edge], operato
 worker  = Worker(id="claude_code", can_execute=[job])
 ```
 
-### Evaluator types
+### Evaluator kinds
 
-| Type | Symbol | When to use |
+| Kind | Symbol | When to use |
 |------|--------|-------------|
-| `F_D` | Deterministic | Tests, schema checks, tag coverage. Pass/fail. Use `command=` for subprocess execution. |
-| `F_P` | Agent | LLM assessment of quality or correctness. Runs when F_D passes. |
-| `F_H` | Human | Approval gate. Passes when a `review_approved` event exists for this edge. |
+| **Deterministic test** | `F_D` | Test suites, schema checks, tag coverage, file counts — anything with a binary pass/fail. Use `command=` to run a subprocess; exit 0 = pass. |
+| **Agent assessment** | `F_P` | LLM or agent judgment of quality or correctness. Runs only when all deterministic tests pass. |
+| **Human approval** | `F_H` | Explicit sign-off gate. Passes when a `review_approved` event exists for this edge in the event log. |
 
 ### Evaluation order
 
-For each job, evaluators run F_D first, then F_P, then F_H. F_P only runs when F_D is passing. F_H only runs when F_P is passing. This prevents wasting agent calls on work that has deterministic failures.
+For each job, evaluators run in order: deterministic tests first, then agent assessment, then human approval. Agent assessment only runs when all deterministic tests pass. Human approval only runs when agent assessment passes. This prevents wasting agent calls on work that has obvious deterministic failures.
 
 ### Multi-edge graph
 
@@ -460,13 +486,13 @@ Also accepts `--spec path/to/spec.md` for a grep-based scan of a markdown spec f
 
 **Edges** (5):
 
-| Edge | Evaluators |
-|------|-----------|
-| `intent→requirements` | `intent_approved` (F_H) |
-| `requirements→feature_decomp` | `req_coverage` (F_D), `feat_approved` (F_H) |
-| `feature_decomp→design` | `design_complete` (F_P), `design_approved` (F_H) |
-| `design→code` | `impl_tags` (F_D), `six_modules` (F_D), `code_complete` (F_P) |
-| `code↔unit_tests` | `tests_pass` (F_D), `validates_tags` (F_D), `test_complete` (F_P) |
+| Edge | Evaluators | Kind |
+|------|-----------|------|
+| `intent→requirements` | `intent_approved` | Human approval |
+| `requirements→feature_decomp` | `req_coverage`, `feat_approved` | Deterministic test, Human approval |
+| `feature_decomp→design` | `design_complete`, `design_approved` | Agent assessment, Human approval |
+| `design→code` | `impl_tags`, `six_modules`, `code_complete` | Deterministic test, Deterministic test, Agent assessment |
+| `code↔unit_tests` | `tests_pass`, `validates_tags`, `test_complete` | Deterministic test, Deterministic test, Agent assessment |
 
 **Worker**: `worker_claude_code` — can execute all 5 jobs.
 
@@ -480,13 +506,13 @@ The self-hosting workspace is currently converged (`total_delta: 0`). The event 
 
 `--feature REQ-F-CORE-001` validates that the feature ID exists in `.ai-workspace/features/` but does not yet narrow which jobs run. All jobs run regardless of feature scope. Per-job feature routing is V2.
 
-### F_P dispatch is asynchronous
+### Agent dispatch is asynchronous
 
-When an F_P evaluator fires, `gen iterate` emits an `fp_dispatched` event and stops. The agent (Claude, Codex, etc.) reads this event, does the work, and records the result externally. The engine does not invoke the agent directly — the agent invokes the engine. This is intentional: it keeps the engine pure and the agent interaction explicit.
+When an agent assessment evaluator (`F_P`) fires, `gen iterate` emits an `fp_dispatched` event and stops. The agent (Claude, Codex, etc.) reads this event, does the work, and records the result externally. The engine does not invoke the agent directly — the agent invokes the engine. This is intentional: it keeps the engine pure and the agent interaction explicit.
 
-### F_H approval requires a manual event
+### Human approval requires a manual event
 
-To clear an F_H gate, emit a `review_approved` event into the event log manually or via your agent:
+To clear a human approval gate (`F_H`), emit a `review_approved` event into the event log manually or via your agent:
 
 ```json
 {"event_type": "review_approved", "event_time": "...", "data": {"edge": "design→code", "actor": "human"}}
@@ -496,7 +522,7 @@ Once this event exists, `bind_fd` will see the approval and the F_H evaluator wi
 
 ### Single worker
 
-V1 has one worker (`claude_code`). Multi-tenant scheduling with conflict detection is deferred to V2. The `schedule()` function and `Worker.conflicts_with()` are implemented but not exercised in V1 since there is only one worker.
+V1 has one worker (`claude_code`). Multi-tenant scheduling with conflict detection is deferred to V2. The `schedule()` function and `Worker.conflicts_with()` are implemented but only exercised with a single worker in V1.
 
 ### Source layout
 
