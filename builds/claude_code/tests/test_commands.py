@@ -1,6 +1,8 @@
 # Validates: REQ-F-CMD-001
 # Validates: REQ-F-CMD-002
 # Validates: REQ-F-CMD-003
+# Validates: REQ-F-CMD-004
+# Validates: REQ-F-GATE-002
 """Tests for genesis.commands — Scope, gen_gaps, gen_iterate, gen_start."""
 import pytest
 from pathlib import Path
@@ -336,3 +338,112 @@ class TestGenStart:
         scope = _make_scope(tmp_path, pkg, worker=worker)
         result = gen_start(scope, stream)
         assert result["status"] == "converged"
+
+
+# ── REQ-F-GATE-002: F_D blocks F_P manifest production ────────────────────────
+
+class TestFdGateNoManifest:
+    """REQ-F-GATE-002: gen_iterate must not produce an fp_manifest_path when F_D is red."""
+
+    def _make_mixed_fd_fp_package(self):
+        """Package with one always-failing F_D and one F_P evaluator."""
+        src = Asset(name="design", id_format="DES-{SEQ}")
+        tgt = Asset(name="code", id_format="CODE-{SEQ}", lineage=[src])
+        op_fd = Operator("checker", F_D, "exec://false")
+        op_fp = Operator("agent", F_P, "agent://claude/genesis")
+        edge = Edge(name="design→code", source=src, target=tgt, using=[op_fd, op_fp])
+        job = Job(edge=edge, evaluators=[
+            Evaluator("impl_tags", F_D, "tags must exist",
+                      command="python -c 'import sys; sys.exit(1)'"),
+            Evaluator("code_complete", F_P, "agent check"),
+        ])
+        pkg = Package(name="mixed_pkg", assets=[src, tgt], edges=[edge],
+                      operators=[op_fd, op_fp])
+        worker = Worker(id="claude_code", can_execute=[job])
+        return pkg, worker
+
+    def test_no_manifest_when_fd_failing(self, tmp_path):
+        """gen_iterate returns fd_gap without producing fp_manifest_path."""
+        pkg, worker = self._make_mixed_fd_fp_package()
+        stream = workspace_bootstrap(tmp_path)
+        scope = _make_scope(tmp_path, pkg, worker=worker)
+        result = gen_iterate(scope, stream)
+        assert result.get("stopped_by") == "fd_gap"
+        assert "fp_manifest_path" not in result, (
+            "fp_manifest_path must not be present when F_D is failing"
+        )
+
+    def test_no_edge_started_when_fd_blocking_fp(self, tmp_path):
+        """No edge_started event when gen_iterate returns early due to F_D gate."""
+        pkg, worker = self._make_mixed_fd_fp_package()
+        stream = workspace_bootstrap(tmp_path)
+        scope = _make_scope(tmp_path, pkg, worker=worker)
+        gen_iterate(scope, stream)
+        events = stream.all_events()
+        assert not any(e["event_type"] == "edge_started" for e in events)
+
+
+# ── REQ-F-CMD-004: edge_converged deduplication by (edge, feature) ─────────────
+
+class TestEdgeConvergedDedup:
+    """REQ-F-CMD-004: gen_gaps() emits edge_converged per (edge, feature) pair."""
+
+    def _make_fh_converged_package(self):
+        """Package with one F_H evaluator — converged when review_approved event exists."""
+        src = Asset(name="src", id_format="SRC-{SEQ}")
+        tgt = Asset(name="out", id_format="OUT-{SEQ}", lineage=[src])
+        op = Operator("human", F_H, "fh://single")
+        edge = Edge(name="src→out", source=src, target=tgt, using=[op])
+        job = Job(edge=edge, evaluators=[Evaluator("approved", F_H, "human sign-off")])
+        pkg = Package(name="conv_pkg", assets=[src, tgt], edges=[edge], operators=[op])
+        worker = Worker(id="claude_code", can_execute=[job])
+        return pkg, worker
+
+    def _write_feature(self, tmp_path: Path, feature_id: str) -> None:
+        """Create a minimal feature YAML so _known_feature_ids() recognises it."""
+        active = tmp_path / ".ai-workspace" / "features" / "active"
+        active.mkdir(parents=True, exist_ok=True)
+        (active / f"{feature_id}.yml").write_text(
+            f"id: {feature_id}\ntitle: test\nstatus: iterating\nsatisfies: []\n"
+        )
+
+    def test_two_features_get_separate_certificates(self, tmp_path):
+        """Two feature IDs on the same converged edge each get their own certificate."""
+        pkg, worker = self._make_fh_converged_package()
+        stream = workspace_bootstrap(tmp_path)
+        self._write_feature(tmp_path, "FEAT-001")
+        self._write_feature(tmp_path, "FEAT-002")
+        # Single review_approved covers the edge for both features
+        stream.append("review_approved", {"edge": "src→out", "actor": "human"})
+
+        scope_f1 = _make_scope(tmp_path, pkg, worker=worker, feature="FEAT-001")
+        gen_gaps(scope_f1, stream)
+
+        scope_f2 = _make_scope(tmp_path, pkg, worker=worker, feature="FEAT-002")
+        gen_gaps(scope_f2, stream)
+
+        certs = [
+            e for e in stream.all_events()
+            if e["event_type"] == "edge_converged"
+        ]
+        features_certified = {c["data"].get("feature") for c in certs}
+        assert "FEAT-001" in features_certified
+        assert "FEAT-002" in features_certified
+
+    def test_same_feature_not_duplicated(self, tmp_path):
+        """Calling gen_gaps twice for the same feature does not emit duplicate certificates."""
+        pkg, worker = self._make_fh_converged_package()
+        stream = workspace_bootstrap(tmp_path)
+        self._write_feature(tmp_path, "FEAT-001")
+        stream.append("review_approved", {"edge": "src→out", "actor": "human"})
+        scope = _make_scope(tmp_path, pkg, worker=worker, feature="FEAT-001")
+
+        gen_gaps(scope, stream)
+        gen_gaps(scope, stream)
+
+        certs = [
+            e for e in stream.all_events()
+            if e["event_type"] == "edge_converged"
+            and e["data"].get("feature") == "FEAT-001"
+        ]
+        assert len(certs) == 1, "Duplicate certificate emitted for same (edge, feature)"

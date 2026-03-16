@@ -295,9 +295,10 @@ package = Package(
         # Engine correctness (audit 2026-03-16)
         "REQ-F-GATE-002",   # F_D evaluators must all pass before any F_P evaluator is dispatched; F_D must all pass before any F_H gate event is emitted
         "REQ-F-EVAL-004",   # emit-event CLI rejects fp_assessment events that lack a spec_hash matching the current Package.requirements hash
+        "REQ-F-EVAL-005",   # emit() write primitive rejects fp_assessment payloads lacking spec_hash; spec_hash contract enforced at the canonical write path, not only the CLI
         "REQ-F-BIND-001",   # ContextResolver digest mismatch halts execution with exit code 1; engine must not substitute [context unavailable] for integrity failures
-        "REQ-F-CORE-001",   # project() "current" projection observes edge_started events; current state is not stale during active iteration
-        "REQ-F-CMD-004",    # edge_converged certificate emitted by gen_gaps() includes feature field; feature-specific projections observe the certificate
+        "REQ-F-CORE-001",   # project() "current" projection observes edge_started events filtered by target asset type; current state is not stale during active iteration
+        "REQ-F-CMD-004",    # edge_converged certificate emitted by gen_gaps() includes feature field; deduplication is by (edge, feature) pair; feature-specific projections observe the certificate
     ],
 )
 

@@ -2,6 +2,7 @@
 # Validates: REQ-F-CORE-002
 # Validates: REQ-F-CORE-003
 # Validates: REQ-F-CORE-005
+# Validates: REQ-F-EVAL-005
 """Tests for genesis.core — emit, project, EventStream, ContextResolver, workspace_bootstrap."""
 import json
 import pytest
@@ -227,3 +228,38 @@ class TestWorkspaceBootstrap:
         emit("test", {"ok": True})
         events = stream.all_events()
         assert any(e["event_type"] == "test" for e in events)
+
+
+# ── REQ-F-EVAL-005: emit() validates fp_assessment spec_hash ─────────────────
+
+class TestEmitFpAssessmentValidation:
+    """REQ-F-EVAL-005: emit() enforces spec_hash on fp_assessment at the write primitive."""
+
+    def test_fp_assessment_without_spec_hash_raises(self, tmp_path):
+        """emit() must reject fp_assessment events missing spec_hash."""
+        workspace_bootstrap(tmp_path)
+        with pytest.raises(ValueError, match="spec_hash"):
+            emit("fp_assessment", {
+                "edge": "design→code",
+                "evaluator": "code_complete",
+                "result": "pass",
+            })
+
+    def test_fp_assessment_with_spec_hash_succeeds(self, tmp_path):
+        """emit() accepts fp_assessment events that carry spec_hash."""
+        stream = workspace_bootstrap(tmp_path)
+        emit("fp_assessment", {
+            "edge": "design→code",
+            "evaluator": "code_complete",
+            "result": "pass",
+            "spec_hash": "abc123",
+        })
+        events = stream.all_events()
+        assert any(e["event_type"] == "fp_assessment" for e in events)
+
+    def test_other_event_types_not_affected(self, tmp_path):
+        """emit() does not require spec_hash on non-fp_assessment events."""
+        workspace_bootstrap(tmp_path)
+        # Should not raise
+        emit("edge_started", {"edge": "design→code", "build": "claude_code", "target": "code"})
+        emit("review_approved", {"edge": "design→code", "actor": "human"})

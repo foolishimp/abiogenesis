@@ -1,0 +1,14 @@
+id: REQ-F-EVAL-005
+title: emit() validates spec_hash on fp_assessment at write primitive
+status: completed
+satisfies:
+  - REQ-F-EVAL-005
+
+context: |
+  Residual risk from Codex audit round 2 (2026-03-16). REQ-F-EVAL-004 hardened
+  the emit-event CLI but the Python emit() primitive still accepted fp_assessment
+  payloads without spec_hash. In-process callers could write stale assessments that
+  bypass bind_fd() snapshot validation.
+
+  Fix: emit() in core.py now raises ValueError if fp_assessment payload lacks spec_hash.
+  This is implemented and tested. Feature vector created to satisfy req_coverage.
