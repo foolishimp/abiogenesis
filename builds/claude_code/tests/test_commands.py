@@ -382,6 +382,28 @@ class TestFdGateNoManifest:
         events = stream.all_events()
         assert not any(e["event_type"] == "edge_started" for e in events)
 
+    def test_fd_gap_found_emitted_when_fd_blocking_fp(self, tmp_path):
+        """fd_gap_found IS emitted in early return so gen_start auto-loop detects it."""
+        pkg, worker = self._make_mixed_fd_fp_package()
+        stream = workspace_bootstrap(tmp_path)
+        scope = _make_scope(tmp_path, pkg, worker=worker)
+        gen_iterate(scope, stream)
+        events = stream.all_events()
+        assert any(e["event_type"] == "fd_gap_found" for e in events), (
+            "fd_gap_found must be in stream so gen_start(auto=True) stops at fd_gap"
+        )
+
+    def test_gen_start_auto_stops_at_fd_gap_with_mixed_evaluators(self, tmp_path):
+        """gen_start(auto=True) stops with fd_gap when F_D+F_P both failing."""
+        pkg, worker = self._make_mixed_fd_fp_package()
+        stream = workspace_bootstrap(tmp_path)
+        scope = _make_scope(tmp_path, pkg, worker=worker)
+        result = gen_start(scope, stream, auto=True)
+        assert result.get("stopped_by") == "fd_gap", (
+            f"Expected fd_gap, got: {result.get('stopped_by')} — "
+            "auto-loop must not run to max_iterations"
+        )
+
 
 # ── REQ-F-CMD-004: edge_converged deduplication by (edge, feature) ─────────────
 
