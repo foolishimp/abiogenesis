@@ -36,7 +36,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-VERSION = "0.1.4"
+VERSION = "0.1.6"
 
 # ── Templates ─────────────────────────────────────────────────────────────────
 
