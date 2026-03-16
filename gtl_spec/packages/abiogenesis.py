@@ -210,7 +210,7 @@ eval_impl_tags = Evaluator(
 eval_impl_coverage = Evaluator(
     "impl_coverage", F_D,
     "Every REQ key in Package.requirements appears in ≥1 source file as # Implements: {key}",
-    command="python -m genesis check-impl-coverage --package gtl_spec.packages.abiogenesis:package --path builds/claude_code/code/",
+    command="python -m genesis check-impl-coverage --package gtl_spec.packages.abiogenesis:package --path builds/claude_code/",
 )
 eval_code_fp = Evaluator(
     "code_complete", F_P,
@@ -299,6 +299,9 @@ package = Package(
         "REQ-F-BIND-001",   # ContextResolver digest mismatch halts execution with exit code 1; engine must not substitute [context unavailable] for integrity failures
         "REQ-F-CORE-001",   # project() "current" projection observes edge_started events filtered by target asset type; current state is not stale during active iteration
         "REQ-F-CMD-004",    # edge_converged certificate emitted by gen_gaps() includes feature field; deduplication is by (edge, feature) pair; feature-specific projections observe the certificate
+        # Test architecture
+        "REQ-F-TEST-001",   # Primary test surface is command-level integration scenarios: each test exercises F_D→F_P→F_H evaluator chain against a real workspace; unit tests exist only for write-primitive invariants
+        "REQ-F-TEST-002",   # Property invariant tests verify: replay determinism, idempotence of gen_gaps, no duplicate edge_converged certificates, stale spec_hash never converges
     ],
 )
 
