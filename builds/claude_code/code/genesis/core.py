@@ -150,7 +150,10 @@ def project(
         data = event.get("data", {})
         etype = event.get("event_type", "")
 
-        # Match events relevant to this instance
+        # Match events relevant to this instance.
+        # REQ-F-CORE-001: edge_started events must be observed by the "current" projection
+        # so that active iteration is visible; edge_started carries only edge+build, not
+        # target/asset_type, so it needs an explicit relevance rule.
         relevant = (
             data.get("instance_id") == instance_id
             or data.get("feature") == instance_id
@@ -158,6 +161,7 @@ def project(
                 data.get("target", ""),
                 data.get("asset_type", ""),
             ))
+            or (instance_id == "current" and etype == "edge_started")
         )
 
         if not relevant:

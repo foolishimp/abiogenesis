@@ -8,6 +8,10 @@
 # Validates: REQ-F-CMD-001
 # Validates: REQ-F-CMD-002
 # Validates: REQ-F-CMD-003
+# Validates: REQ-F-CMD-004
+# Validates: REQ-F-GATE-002
+# Validates: REQ-F-EVAL-004
+# Validates: REQ-F-BIND-001
 # Validates: REQ-NFR-E2E-001
 # Validates: REQ-NFR-SELF-001
 """
@@ -50,7 +54,7 @@ from gtl.core import (
 )
 
 from genesis.core import workspace_bootstrap, emit, project, ContextResolver
-from genesis.bind import bind_fd, bind_fp
+from genesis.bind import bind_fd, bind_fp, req_hash
 from genesis.schedule import delta, iterate, schedule
 from genesis.commands import Scope, gen_gaps, gen_iterate, gen_start
 from genesis.manifest import BoundJob
@@ -125,17 +129,37 @@ class TestSandboxFullLifecycle:
         failing_names = [f for g in result["gaps"] for f in g["failing"]]
         assert "code_complete" in failing_names  # F_P not yet resolved
 
-    def test_gen_iterate_dispatches_fp(self, tmp_path):
-        """gen_iterate correctly dispatches to F_P when code is not complete."""
+    def test_gen_iterate_gates_fp_when_fd_failing(self, tmp_path):
+        """REQ-F-GATE-002: F_P is NOT dispatched while F_D evaluators are failing."""
         stream = workspace_bootstrap(tmp_path)
         pkg, worker, _ = _make_sandbox_package(tmp_path)
         scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
         dispatched: list[BoundJob] = []
 
+        # No code/ directory → impl_tags (F_D) fails → F_P must not be dispatched
         result = gen_iterate(scope, stream, on_fp_dispatch=dispatched.append)
 
         assert result["status"] == "iterated"
-        assert len(dispatched) == 1  # F_P was dispatched
+        assert len(dispatched) == 0, "F_P must not be dispatched while F_D is failing"
+
+    def test_gen_iterate_dispatches_fp_after_fd_passes(self, tmp_path):
+        """REQ-F-GATE-002: F_P is dispatched once all F_D evaluators pass."""
+        stream = workspace_bootstrap(tmp_path)
+        pkg, worker, _ = _make_sandbox_package(tmp_path)
+        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
+
+        # Create code with impl tag so F_D (impl_tags) passes
+        code_dir = tmp_path / "code"
+        code_dir.mkdir(exist_ok=True)
+        (code_dir / "impl.py").write_text(
+            "# Implements: REQ-SANDBOX-001\ndef hello(): pass\n"
+        )
+
+        dispatched: list[BoundJob] = []
+        result = gen_iterate(scope, stream, on_fp_dispatch=dispatched.append)
+
+        assert result["status"] == "iterated"
+        assert len(dispatched) == 1, "F_P must be dispatched when F_D passes"
         bound = dispatched[0]
         assert "INVARIANTS" in bound.prompt
         assert "GAP" in bound.prompt
@@ -166,13 +190,16 @@ class TestSandboxFullLifecycle:
             "    return 'hello from sandbox'\n"
         )
 
-        # F_P records its assessment — F_D (impl_tags) is validated live by gen_gaps
+        # F_P records its assessment — spec_hash required (REQ-F-EVAL-004) so that
+        # bind_fd() can validate snapshot binding and not count stale assessments.
+        spec_hash = req_hash(pkg.requirements)
         emit("fp_assessment", {
             "edge": "design→code",
             "evaluator": "code_complete",
             "actor": "test_fp",
             "result": "pass",
             "evidence": "code/impl.py created with Implements tag",
+            "spec_hash": spec_hash,
         })
 
         # ── Step 3: delta = 0 — engine freshly evaluates both F_D and F_P ──
@@ -189,12 +216,20 @@ class TestSandboxFullLifecycle:
         pkg, worker, _ = _make_sandbox_package(tmp_path)
         scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
 
+        # REQ-F-GATE-002: F_P is only dispatched after F_D passes.
+        # Create code with impl tag so F_D passes and F_P is dispatched.
+        code_dir = tmp_path / "code"
+        code_dir.mkdir(exist_ok=True)
+        (code_dir / "impl.py").write_text(
+            "# Implements: REQ-SANDBOX-001\ndef hello(): pass\n"
+        )
+
         gen_iterate(scope, stream)
 
         events = stream.all_events()
         types = [e["event_type"] for e in events]
         assert "edge_started" in types    # engine recorded start
-        assert "fp_dispatched" in types   # F_P was dispatched
+        assert "fp_dispatched" in types   # F_P was dispatched (after F_D passed)
 
         # All events have event_time
         for e in events:

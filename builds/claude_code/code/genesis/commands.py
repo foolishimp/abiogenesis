@@ -1,6 +1,7 @@
 # Implements: REQ-F-CMD-001
 # Implements: REQ-F-CMD-002
 # Implements: REQ-F-CMD-003
+# Implements: REQ-F-CMD-004
 # Implements: REQ-F-GRAPH-001
 # Implements: REQ-F-GRAPH-002
 # Implements: REQ-F-EVAL-002
@@ -105,9 +106,13 @@ def gen_gaps(scope: Scope, stream: EventStream) -> dict:
         # repeated gen_gaps calls over a converged workspace do not append duplicates.
         # feature is included so feature-scoped project() calls can match this event.
         if pre.delta == 0 and job.edge.name not in certified_edges:
+            # REQ-F-CMD-004: include feature field so feature-scoped project() calls
+            # can match this certificate; without it, feature projections stay not_started
+            # even after gen_gaps() certifies convergence.
             cert: dict = {
                 "edge": job.edge.name,
                 "target": job.edge.target.name,
+                "feature": scope.feature,
                 "delta": 0,
                 "certified_by": "gen_gaps",
             }

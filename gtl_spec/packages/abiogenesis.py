@@ -292,6 +292,12 @@ package = Package(
         "REQ-F-EVAL-003",   # F_D evaluators impl_coverage and validates_coverage enforce per-REQ-key presence in # Implements: and # Validates: tags respectively
         # Feature lifecycle
         "REQ-F-VIS-001",    # gen-start marks feature vector status=completed when all edges for that feature have delta=0; moves YAML from features/active/ to features/completed/
+        # Engine correctness (audit 2026-03-16)
+        "REQ-F-GATE-002",   # F_D evaluators must all pass before any F_P evaluator is dispatched; F_D must all pass before any F_H gate event is emitted
+        "REQ-F-EVAL-004",   # emit-event CLI rejects fp_assessment events that lack a spec_hash matching the current Package.requirements hash
+        "REQ-F-BIND-001",   # ContextResolver digest mismatch halts execution with exit code 1; engine must not substitute [context unavailable] for integrity failures
+        "REQ-F-CORE-001",   # project() "current" projection observes edge_started events; current state is not stale during active iteration
+        "REQ-F-CMD-004",    # edge_converged certificate emitted by gen_gaps() includes feature field; feature-specific projections observe the certificate
     ],
 )
 

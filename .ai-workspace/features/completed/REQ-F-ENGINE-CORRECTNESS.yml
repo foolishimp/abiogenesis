@@ -1,0 +1,26 @@
+id: REQ-F-ENGINE-CORRECTNESS
+title: Engine correctness fixes — audit 2026-03-16
+status: completed
+satisfies:
+  - REQ-F-GATE-002
+  - REQ-F-EVAL-004
+  - REQ-F-BIND-001
+  - REQ-F-CORE-001
+  - REQ-F-CMD-004
+
+context: |
+  Five correctness defects identified in Codex engine audit (2026-03-16).
+  All are in the abiogenesis engine. One failing test already exists:
+  test_e2e_sandbox.py#L181 — plain emit("fp_assessment") no longer converges
+  because spec_hash is not validated on the emit-event CLI path.
+
+  Fix sites:
+    REQ-F-GATE-002 → schedule.py#L120 (F_P dispatch) and #L134 (F_H gate)
+    REQ-F-EVAL-004 → main.py#L323 (emit-event fp_assessment validation)
+    REQ-F-BIND-001 → bind.py#L169 (exception handler scope — narrow to IO only)
+    REQ-F-CORE-001 → core.py#L153 (relevance check for edge_started in current projection)
+    REQ-F-CMD-004  → commands.py#L107 (add feature field to edge_converged event data)
+
+  All fixes are small and targeted. No interface changes. No new modules.
+  Priority order: EVAL-004 first (failing test), GATE-002 second (safety),
+  BIND-001 third (integrity), CMD-004 and CORE-001 last (visibility).
