@@ -1,19 +1,19 @@
 project:
   name: abiogenesis
-  version: "0.0.0"
-  phase: 0
-  doctrine: V1_DOCTRINE.md
-  spec: gtl_spec/packages/genesis_core.py
-  package: genesis_v1
+  version: "1.0.0"
+  phase: 4
+  doctrine: docs/V1_DOCTRINE.md
+  spec: gtl_spec/packages/abiogenesis.py
+  package: abiogenesis
 
 bootstrap:
-  compiler: ai_sdlc_method/genesis/v3.1.0
-  source: /Users/jim/src/apps/ai_sdlc_method
+  compiler: genesis_sdlc
+  source: /Users/jim/src/apps/genesis_sdlc
 
 builds:
   - id: claude_code
     path: builds/claude_code
-    status: not_started
+    status: complete
     worker: claude_code
 
 workspace:

@@ -10,7 +10,7 @@ specification. No prose requirements pyramid. The type system is the law.
 
 ## Where
 
-`apps/abiogenesis/` — new project, not a branch of `ai_sdlc_method`.
+`apps/abiogenesis/` — standalone project. Installs via `genesis_sdlc`.
 
 ## Success Condition
 
@@ -58,14 +58,7 @@ If any of these appear because "the old system had them," the reset is failing:
 - Spawn / fold-back
 - Telemetry / monitor UI
 - Commands beyond the three above
-- Porting ai_sdlc_method requirements markdown into this project
-
-## The Migration Rule
-
-Re-derive each V1 function from the GTL/engine closure posts in
-`ai_sdlc_method/.ai-workspace/comments/claude/20260315T*.md`.
-
-Do not port `ai_sdlc_method` module by module.
+- Porting requirements from other projects into this project
 
 ## The Build Order
 
@@ -89,11 +82,6 @@ replay under a specific package version. V1 does not implement this. Events reco
 `event_time`, `event_type`, `data` only. `project()` is deterministic within a
 session; cross-version replay fidelity is a V2 concern.
 
-**GTL is vendored, not published**: `gtl/` is copied from `ai_sdlc_method` at
-`v0.3.0`. Upgrades are deliberate copy-and-commit, not automatic. GTL will be
+**GTL is vendored, not published**: `gtl/` is copied from `genesis_sdlc`.
+Upgrades are deliberate copy-and-commit, not automatic. GTL will be
 published to PyPI in V2.
-
-## ai_sdlc_method Status
-
-Frozen. Bootstrap compiler and research record only. Not the place where
-architectural debt is paid down.

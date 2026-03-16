@@ -3,7 +3,7 @@
 abiogenesis_meta — The bootstrap package.
 
 Defines the project that builds genesis_v1 using the bootstrap compiler
-(ai_sdlc_method genesis v3.1.0). This package is the self-referential
+(genesis_sdlc). This package is the self-referential
 surface: genesis building genesis.
 
 The bootstrap sequence:
@@ -29,7 +29,7 @@ from gtl.core import Asset, Edge, Evaluator, Job, Worker, Overlay, Context, Oper
 bootstrap_compiler = Context(
     name="bootstrap_compiler",
     locator="workspace://.genesis/genesis/__main__.py",
-    digest="sha256:" + "0" * 64,   # PENDING — ai_sdlc_method genesis v3.1.0
+    digest="sha256:" + "0" * 64,   # PENDING — genesis_sdlc bootstrap compiler
 )
 
 # ── Bootstrap overlay ─────────────────────────────────────────────────────────

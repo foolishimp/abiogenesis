@@ -3,7 +3,7 @@
     "genesis": {
       "source": {
         "source": "github",
-        "repo": "foolishimp/ai_sdlc_method"
+        "repo": "foolishimp/genesis_sdlc"
       }
     }
   },

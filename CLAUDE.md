@@ -3,33 +3,33 @@
 ## What This Is
 
 A clean, GTL-first implementation of the Genesis engine.
-`spec/packages/genesis_core.py` IS the specification. The type system is the law.
+`gtl_spec/packages/abiogenesis.py` IS the specification. The type system is the law.
 
-**Current phase**: 0 — scaffold complete, build not started.
-**Read before anything**: `V1_DOCTRINE.md`
+**Current phase**: 4 complete — engine built, 244 tests passing, all features converged.
+**Predecessor**: `genesis_sdlc` (the installable SDLC toolkit that installs this engine)
 
 ## Directory Structure
 
 ```
 abiogenesis/
-├── spec/                        # the topology — tech-agnostic formal system
+├── gtl_spec/                    # the topology — tech-agnostic formal system
 │   └── packages/
-│       ├── genesis_core.py      # THE spec — Package definition IS requirements
-│       └── abiogenesis_meta.py  # bootstrap overlay
+│       ├── genesis_core.py      # GTL type system (vendored)
+│       └── abiogenesis.py       # THE spec — Package definition IS requirements
+├── gtl/                         # GTL type system (vendored from genesis_sdlc)
 ├── builds/                      # all projections of the spec
 │   └── claude_code/             # V1 reference build (Claude Code agent)
-│       ├── design/              # ADRs — HOW architecturally
-│       ├── code/                # genesis engine V1 — NOT STARTED
-│       ├── tests/               # engine tests — NOT STARTED
-│       └── .workspace/          # build-local working state (trace surface)
-├── .genesis/                    # bootstrap compiler (ai_sdlc_method v3.1.0)
+│       ├── design/adrs/         # ADRs 001-015 — all accepted
+│       ├── code/genesis/        # genesis engine V1 — 6 modules, complete
+│       └── tests/               # 244 tests, all passing
+├── .genesis/                    # installed genesis_sdlc engine (bootstrap compiler)
 ├── .ai-workspace/               # project authority — shared across all builds
 │   ├── events/events.jsonl      # THE canonical log — all builds emit here
-│   ├── features/                # project feature vectors (build-aware)
+│   ├── features/completed/      # 15 feature vectors, all status: completed
 │   ├── context/                 # shared project contexts
 │   ├── reviews/                 # cross-build proposals and decisions
 │   └── comments/claude/         # design marketplace — claude writes here only
-├── V1_DOCTRINE.md               # one-page mission statement
+├── docs/V1_DOCTRINE.md          # one-page mission statement
 └── CLAUDE.md                    # this file
 ```
 
@@ -40,34 +40,20 @@ abiogenesis/
 - `.ai-workspace/events/events.jsonl` — all agents via `emit()` only, never directly
 - `.ai-workspace/comments/claude/` — claude writes here; never write to other agent dirs
 
-**The migration rule**: Re-derive each function from the design posts in
-`ai_sdlc_method/.ai-workspace/comments/claude/20260315T*.md`.
-Do not port ai_sdlc_method module by module.
-
 **V1 non-goals**: No consensus engine, no spawn/fold-back, no release workflow,
 no observer stack, no commands beyond gen-start/gen-iterate/gen-gaps.
-See `V1_DOCTRINE.md` for the full list.
+See `docs/V1_DOCTRINE.md` for the full list.
 
 ## Setup
 
-GTL is the constitutional language — evolved in `ai_sdlc_method`, consumed here.
-The CC to our GCC: `ai_sdlc_method` evolves GTL; abiogenesis builds on it.
+GTL is vendored into `gtl/` — no separate install needed. The engine runs via:
 
 ```bash
-# Install GTL (once, or after GTL changes in ai_sdlc_method)
-pip install -e ../ai_sdlc_method/imp_codex/code
-
 # Verify the spec is loadable — this is the health check for the project
 cd /Users/jim/src/apps/abiogenesis
-python spec/packages/genesis_core.py
-```
+PYTHONPATH=.genesis python -m genesis gaps
 
-When GTL reaches a stable version, it will be published to PyPI as `genesis-gtl`
-and the path dependency replaced with a version pin.
-
-## Running Tests (Phase 4+)
-
-```bash
+# Run tests
 pytest builds/claude_code/tests/ -v
 pytest builds/claude_code/tests/ -m e2e      # sandbox E2E
 pytest builds/claude_code/tests/ -m self_host # self-hosting gate
@@ -75,14 +61,8 @@ pytest builds/claude_code/tests/ -m self_host # self-hosting gate
 
 ## Design References
 
-All design decisions derive from this post series in ai_sdlc_method:
-`ai_sdlc_method/.ai-workspace/comments/claude/20260315T*.md`
-
-The approved execution plan:
-`ai_sdlc_method/.ai-workspace/comments/claude/20260315T070000_STRATEGY_abiogenesis-approved-execution-plan.md`
-
-Structure resolutions:
-`ai_sdlc_method/.ai-workspace/comments/claude/20260315T080000_STRATEGY_abiogenesis-structure-resolutions.md`
+All architectural decisions are in `builds/claude_code/design/adrs/` (ADRs 001-015, all accepted).
+The spec is `gtl_spec/packages/abiogenesis.py` — 16 REQ keys, 5 edges, all converged.
 
 ---
 
@@ -522,7 +502,7 @@ No feature vector. No iterate() cycle. No human gate. No REQ key traceability re
 
 **V1 single-tenant constraint**: Only the `claude_code` build exists in V1. Do not create `comments/codex/`, `comments/gemini/`, or `comments/bedrock/` directories — they are V2+ concerns. See `V1_DOCTRINE.md` for the complete non-goals list.
 
-**Bootstrap compiler**: The `.genesis/` directory contains the installed bootstrap compiler (ai_sdlc_method genesis engine v3.1.0). It is not committed — it is installed. Do not modify files under `.genesis/`.
+**Bootstrap compiler**: The `.genesis/` directory contains the installed bootstrap compiler (genesis_sdlc). It is not committed — it is installed. Do not modify files under `.genesis/`.
 
 
 
@@ -1071,6 +1051,6 @@ No feature vector. No iterate() cycle. No human gate. No REQ key traceability. O
 
 **V1 single-tenant constraint**: Only the `claude_code` build exists in V1. Do not create `comments/codex/`, `comments/gemini/`, or `comments/bedrock/` directories — they are V2+ concerns. See `V1_DOCTRINE.md` for the complete non-goals list.
 
-**Bootstrap compiler**: The `.genesis/` directory contains the installed bootstrap compiler (ai_sdlc_method genesis engine v3.1.0). It is not committed — it is installed. Do not modify files under `.genesis/`.
+**Bootstrap compiler**: The `.genesis/` directory contains the installed bootstrap compiler (genesis_sdlc). It is not committed — it is installed. Do not modify files under `.genesis/`.
 
 <!-- GENESIS_BOOTLOADER_END -->

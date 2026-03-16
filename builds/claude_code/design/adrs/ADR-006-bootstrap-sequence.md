@@ -25,7 +25,7 @@ V2 features are BLOCKED until Phase 5:
 - Spawn/fold-back lifecycle
 - Observer/sensory stack
 
-The `.genesis/` bootstrap compiler (ai_sdlc_method v3.1.0) manages project state
+The `.genesis/` bootstrap compiler (genesis_sdlc) manages project state
 during Phases 0→4. At Phase 5, it is replaced by the abiogenesis genesis engine itself.
 
 ## Consequences
