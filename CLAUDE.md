@@ -82,11 +82,10 @@ When the user asks to build, fix, or iterate anything, that is `/gen-start` or
 | "review" / "approve" | `/gen-review --feature F` |
 
 
-
 # Genesis Bootloader: LLM Constraint Context for the AI SDLC
 
-**Version**: 3.0.2 + §XXI (abiogenesis local amendment)
-**Purpose**: Minimal sufficient context to constrain an LLM to operate within the AI SDLC Asset Graph Model. This copy lives at `gtl_spec/GENESIS_BOOTLOADER.md` and is authoritative for this project. It includes §XXI — the abiogenesis-specific write territory amendment.
+**Version**: 3.0.2
+**Purpose**: Minimal sufficient context to constrain an LLM to operate within the AI SDLC Asset Graph Model. Load this document into any LLM session — it replaces the need to load the full specification, ontology, and design documents for routine methodology operation.
 
 ---
 
@@ -292,6 +291,8 @@ The `requires_spec_change` field on `intent_raised` routes to one of three outpu
 | **composition_dispatched** | Bounded ambiguity; `requires_spec_change: false` | Named composition dispatched to execution layer — no spec change needed, F_H gate not required |
 | **feature_proposal** | Persistent ambiguity; `requires_spec_change: true` | Enters Draft Features Queue — F_H gate required; spec change, spawning, or human judgment needed |
 
+> **ADR-S-026 (2026-03-08)**: The `composition_dispatched` event carries a **typed composition expression** (`{macro, version, bindings}`) drawn from the named composition library. The gap evaluator calls `emit_event('composition_dispatched', {macro, version, bindings})` via the F_D event logger — it does not write events directly. A dispatch table maps `gap_type` to named composition. `reflex.log` is unchanged. See [ADR-S-026](../adrs/ADR-S-026-named-compositions-and-intent-vectors.md) §3 for the execution contract (macro registry required before zero-interpretation claim holds).
+
 ### Homeostasis: Intent Is Computed
 
 ```
@@ -372,34 +373,50 @@ A convergence event not made visible before the next downstream iteration starts
 A **feature** is a trajectory through the graph:
 
 ```
-Feature F = |req⟩ + |feature_decomp⟩ + |design⟩ + |code⟩ + |unit_tests⟩
+Feature F = |req⟩ + |feature_decomp⟩ + |design⟩ + |module_decomp⟩ + |basis_proj⟩ + |code⟩ + |unit_tests⟩ + |uat_tests⟩ + |cicd⟩ + |telemetry⟩
 ```
 
 The **REQ key** threads from spec to runtime:
 
 ```
-Spec:       REQ-CORE-001 defined
-Design:     Implements: REQ-CORE-001
-Code:       # Implements: REQ-CORE-001
-Tests:      # Validates: REQ-CORE-001
+Spec:       REQ-F-AUTH-001 defined
+Design:     Implements: REQ-F-AUTH-001
+Code:       # Implements: REQ-F-AUTH-001
+Tests:      # Validates: REQ-F-AUTH-001
+Telemetry:  logger.info("login", req="REQ-F-AUTH-001", latency_ms=42)
 ```
 
 Feature vectors have a required `satisfies:` field listing covered REQ-* keys — the mechanism for the coverage projection (§XII).
 
 ---
 
-## XIV. The Genesis V1 Graph (this project's instantiation)
+## XIV. The SDLC Graph (Default Instantiation)
 
 ```
-intent → requirements → feature_decomp → design → code ↔ unit_tests
+Intent → Requirements → Feature Decomp → Design → Module Decomp → Basis Projections → Code ↔ Unit Tests
+                                │              │                                              │
+                                │              └──→ Test Cases → UAT Tests                   ↓
+                                │                                              CI/CD → Running System → Telemetry
+                                └──────────────────────────────── Observer/Evaluator ◄────────────────┘
+                                                                          │
+                                                                     New Intent
 ```
 
-This is the PoC projection of the full SDLC graph, appropriate for V1.
-See `spec/packages/genesis_core.py` — the Package IS this graph, typed and executable.
+**Feature Decomposition is a first-class graph node.** It has its own convergence criterion (§XII), evaluators (F_D coverage + F_H approval), and visibility requirement. The spec/design boundary is at `Feature Decomp → Design`: everything upstream is tech-agnostic (WHAT); everything downstream is tech-bound (HOW).
 
-**The spec/design boundary** is at `feature_decomp → design`:
-- Everything upstream (`intent`, `requirements`, `feature_decomp`) is tech-agnostic WHAT.
-- Everything downstream (`design`, `code`, `unit_tests`) is tech-bound HOW.
+**Intermediate nodes are computational complexity management** — not architectural requirements. Add them when the A→E leap exceeds reliable constructor range.
+
+**The graph is zoomable.** Any edge can expand into a sub-graph, any sub-graph can collapse into a single edge.
+
+```
+Full:      Intent → Req → Feat Decomp → Design → Mod Decomp → Basis Proj → Code ↔ Tests → UAT
+Standard:  Intent → Req → Feat Decomp → Design → Mod Decomp → Basis Proj → Code ↔ Tests
+PoC:       Intent → Req → Feat Decomp → Design → Code ↔ Tests
+Hotfix:                                         → Code ↔ Tests
+```
+
+**Standard profile v2.9 edge chain**:
+`intent → requirements → feature_decomposition → design_recommendations → design → module_decomposition → basis_projections → code ↔ unit_tests`
 
 ---
 
@@ -440,7 +457,11 @@ Code disambiguation feeds back to **Spec** (business gap) or **Design** (tech ga
 
 **Projection validity**: `valid(P) ⟺ ∃ G ⊆ G_full ∧ ∀ edge ∈ G: iterate(edge) defined ∧ evaluators(edge) ≠ ∅ ∧ convergence(edge) defined ∧ context(P) ≠ ∅`
 
-**Observability is constitutive.** The event log, sensory monitors, and feedback loop are methodology constraints, not tooling features.
+**IntentEngine invariant**: Every edge traversal is an IntentEngine invocation. No unobserved computation.
+
+**Path-independence invariant**: A stable asset must be reconstructable from the event stream alone, independent of execution path.
+
+**Observability is constitutive.** The event log, sensory monitors, and feedback loop are methodology constraints, not tooling features. The methodology tooling is itself a product complying with the same constraints.
 
 ---
 
@@ -471,20 +492,52 @@ The `.ai-workspace/` directory is partitioned by agent identity. Violating these
 
 | Territory | Who writes | Rule |
 |-----------|-----------|------|
-| `events/events.jsonl` | All agents via event logger only | **Never write directly.** Call `emit_event(event_type, data)`. Append-only — never modify or delete existing lines. |
+| `events/events.jsonl` | All agents via event logger only | **Never write directly.** Call `emit_event(event_type, data)`. The F_D event logger assigns `event_time`, enforces OL schema, and appends atomically. Append-only — never modify or delete existing lines. |
 | `features/active/*.yml` | Owning agent | State projection — update only the feature you are iterating. |
 | `features/completed/*.yml` | Owning agent | Move from active/ on full convergence. |
-| `comments/claude/` | Claude Code only | Claude writes here. |
+| `comments/claude/` | Claude Code only | Claude writes here. Never write to `comments/codex/`, `comments/gemini/`, or `comments/bedrock/`. |
+| `comments/codex/` | Codex only | Same exclusivity — Claude must not write here. |
+| `comments/gemini/` | Gemini only | Same. |
 | `reviews/pending/PROP-*.yml` | All agents | Proposals written by any agent; human gate resolves. |
 | `reviews/proxy-log/` | Proxy actor only | Written by `--human-proxy` mode before each `review_approved` event. |
 
-**Post naming**: `YYYYMMDDTHHMMSS_CATEGORY_SUBJECT.md`. Categories: `REVIEW`, `STRATEGY`, `GAP`, `SCHEMA`, `HANDOFF`, `MATRIX`. Posts are immutable once written — supersede with a new file, never edit.
+**Post naming**: `YYYYMMDDTHHMMSS_CATEGORY_SUBJECT.md`. Categories: `REVIEW`, `STRATEGY`, `GAP`, `SCHEMA`, `HANDOFF`, `MATRIX`. Each file carries sufficient context for independent evaluation. Posts are immutable once written — supersede with a new file, never edit.
+
+**Invariant**: An agent reading a comment post in another agent's directory does not confer write rights there. Reading is unrestricted; writing is territory-bound.
+
+### Operating Standards
+
+**`.ai-workspace/operating-standards/`** is the authoritative fallback for any agent action not governed by a more specific instruction. Before performing any of the following, load the relevant standard:
+
+| Action | Standard |
+|--------|----------|
+| Writing a comment post (`comments/claude/`) | `operating-standards/CONVENTIONS.md` |
+| Creating or updating a backlog item | `operating-standards/BACKLOG.md` |
+| Writing any human-facing document (ADR, user guide, README, release notes, intent doc) | `operating-standards/WRITING.md` |
+| Writing or updating a user guide | `operating-standards/USER_GUIDE.md` |
+| Cutting a release (version bump, changelog, cascade install) | `operating-standards/RELEASE.md` |
+| Any action not explicitly specified elsewhere | `operating-standards/` — scan for a relevant file |
+
+Operating standards are installed by the methodology layer (e.g. genesis_sdlc) and versioned with it. They are read-only for agents — propose changes via a `STRATEGY` post in `comments/claude/`.
 
 ### Human Proxy Mode (`--human-proxy`)
 
-**Activation constraint**: `--human-proxy` requires `--auto`. Used alone it is an error. Never persisted to workspace state — explicit flag only, per invocation only.
+Human proxy mode allows the LLM to act as an authorised F_H substitute during unattended `--auto` runs. It does not remove the F_H gate — it substitutes the actor.
 
-**Actor field invariant**: Every `review_approved` event must carry `actor` field. Proxy decisions use `actor: "human-proxy"` (never `"human"`, never absent). Human decisions use `actor: "human"`.
+**Activation constraint**: `--human-proxy` requires `--auto`. Used alone it is an error. It is never activated by config, env var, or inference — explicit flag only, per invocation only. It is never persisted to workspace state.
+
+**Proxy evaluation protocol**: At each F_H gate, the proxy:
+1. Loads the candidate artifact and the gate's F_H criteria
+2. Evaluates each required criterion with explicit evidence
+3. Computes the decision: `approved` iff all required criteria pass; `rejected` if any fail
+4. Writes a proxy-log file to `.ai-workspace/reviews/proxy-log/{ISO}_{feature}_{edge}.md` **before** emitting any event
+5. Emits `review_approved{actor: "human-proxy", proxy_log: "{path}"}` on approval
+
+**Rejection halt**: A proxy rejection pauses the auto-loop immediately. The proxy may not re-invoke iterate on the rejected edge in the same session (`rejected_in_session` set is checked). The feature remains `iterating`.
+
+**Actor field invariant**: Every `review_approved` event must carry `actor` field. Proxy decisions use `actor: "human-proxy"` (never `"human"`, never absent). Human decisions use `actor: "human"`. This is the auditability mechanism — the two must never be confused.
+
+**Morning review**: `/gen-status` surfaces proxy decisions made since the last attended session. Humans dismiss with a `Reviewed: {date}` line or override via `/gen-review`. Proxy decisions are provisional — the human is the authority, not the proxy.
 
 ---
 
@@ -492,17 +545,53 @@ The `.ai-workspace/` directory is partitioned by agent identity. Violating these
 
 Bugs during active development do not require a feature vector. The minimum viable artifact is a log entry. Post-mortem determines whether a formal response is warranted.
 
-Fix the bug. Append one `bug_fixed` event with `root_cause: coding_error|design_flaw|unknown`. Post-mortem: `design_flaw` → emit `intent_raised` → homeostatic loop. `coding_error` → discard.
+### Phase 1 — Fix and log (reflex, always)
 
-No feature vector. No iterate() cycle. No human gate. No REQ key traceability required for a bug fix — only the `bug_fixed` event.
+Fix the bug directly. Append one `bug_fixed` event:
+
+```json
+{"event_type": "bug_fixed", "timestamp": "{ISO}", "project": "{name}",
+ "data": {"description": "{what was wrong and what changed}", "file": "{primary file}", "root_cause": "coding_error|design_flaw|unknown"}}
+```
+
+`root_cause` is provisional — post-mortem may reclassify it.
+
+| Value | Meaning |
+|-------|---------|
+| `coding_error` | Typo, wrong variable, obvious local mistake — discard after post-mortem |
+| `design_flaw` | Fix touched interfaces, contracts, or multiple components — escalate |
+| `unknown` | Cause unclear at fix time — investigate before discarding |
+
+### Phase 2 — Post-mortem triage (conscious, on demand)
+
+Run before releases, when a cluster appears, or when `/gen-status --health` surfaces a pattern.
+
+- `design_flaw` or `unknown` resolved to design flaw → emit `intent_raised{signal_source: bug_post_mortem}` → normal homeostatic loop
+- `unknown` resolved to coding error → discard
+- Pattern of `coding_error` in same area → may indicate missing abstraction → emit `intent_raised` for investigation
+
+### What is NOT required for a bug fix
+
+No feature vector. No iterate() cycle. No human gate. No REQ key traceability. Only the `bug_fixed` event is required.
+
+**The gradient test**: A coding error produces delta → 0 locally — the fix restores intended state, no design information generated. A design flaw produces a persistent delta — the symptom is patched but the constraint violation remains. Post-mortem detects which case applies and routes accordingly.
+
+*Reference: [ADR-S-039](../adrs/ADR-S-039-bug-triage-and-post-mortem-escalation.md)*
+
+---
+
+*Foundation: [Constraint-Emergence Ontology](https://github.com/foolishimp/constraint_emergence_ontology)*
+*Formal system: [AI SDLC Asset Graph Model v2.8](AI_SDLC_ASSET_GRAPH_MODEL.md) — four primitives, one operation, event stream substrate*
+*Projections: [Projections and Invariants v1.2](PROJECTIONS_AND_INVARIANTS.md)*
+*Key ADRs: [ADR-S-012](../adrs/ADR-S-012-event-stream-as-formal-model-medium.md) event stream · [ADR-S-013](../adrs/ADR-S-013-completeness-visibility.md) completeness visibility · [ADR-S-016](../adrs/ADR-S-016-invocation-contract.md) invocation contract · [ADR-S-039](../adrs/ADR-S-039-bug-triage-and-post-mortem-escalation.md) bug triage*
 
 ---
 
 ## XXI. Abiogenesis Project — Local Write Territory Amendment
 
-*This section amends §XIX for the abiogenesis project structure.*
+*This section amends §XIX for the abiogenesis project structure. It does not modify the general invariants — it instantiates them for this build.*
 
-**Build territory** (V1 single-tenant):
+**Build territory** (abiogenesis-specific, V1 single-tenant):
 
 | Territory | Who writes | Rule |
 |-----------|-----------|------|
@@ -515,15 +604,10 @@ No feature vector. No iterate() cycle. No human gate. No REQ key traceability re
 | `.ai-workspace/features/` | Claude Code | Feature vectors |
 | `.ai-workspace/reviews/` | All agents | Proposals; human gate resolves |
 
-**Spec is read-only**: `gtl_spec/` is the constitutional source of truth. `genesis_core.py` IS the spec. Claude Code reads spec but never writes to it.
+**Spec is read-only**: `gtl_spec/` is the constitutional source of truth. `genesis_core.py` IS the spec. Claude Code reads `gtl_spec/` but never writes to it — writes go to `builds/claude_code/` only.
 
 **V1 single-tenant constraint**: Only the `claude_code` build exists in V1. Do not create `comments/codex/`, `comments/gemini/`, or `comments/bedrock/` directories — they are V2+ concerns. See `V1_DOCTRINE.md` for the complete non-goals list.
 
 **Bootstrap compiler**: The `.genesis/` directory contains the installed bootstrap compiler (genesis_sdlc). It is not committed — it is installed. Do not modify files under `.genesis/`.
-
-
-
-
----
 
 <!-- GENESIS_BOOTLOADER_END -->
