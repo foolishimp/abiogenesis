@@ -4,6 +4,8 @@
 # Validates: REQ-F-WKSP-001
 # Validates: REQ-F-GATE-001
 # Validates: REQ-F-EVAL-002
+# Validates: REQ-F-PROV-003
+# Validates: REQ-F-PROV-004
 """Tests for genesis.schedule — delta, iterate, schedule."""
 import pytest
 from pathlib import Path
@@ -259,3 +261,85 @@ class TestSchedule:
         batches = schedule(workers)
         all_workers = [w for batch in batches for w in batch]
         assert set(w.id for w in all_workers) == {"w0", "w1", "w2"}
+
+
+# ── delta with workflow_version and carry_forward ─────────────────────────────
+
+class TestDeltaProvenance:
+    """REQ-F-PROV-003/004: delta() respects version-aware F_H gate via carry_forward."""
+
+    def _make_fh_job(self) -> Job:
+        src = Asset(name="requirements", id_format="REQ-{SEQ}")
+        tgt = Asset(name="feature_decomp", id_format="FD-{SEQ}")
+        op = Operator("human_gate", F_H, "fh://single")
+        edge = Edge(name="requirements→feature_decomp", source=src, target=tgt, using=[op])
+        ev = Evaluator("decomp_approved", F_H, "Human approves")
+        return Job(edge=edge, evaluators=[ev])
+
+    def test_fh_resolves_with_matching_workflow_version(self, tmp_path):
+        """review_approved with matching workflow_version → delta = 0.0."""
+        job = self._make_fh_job()
+        stream = _make_stream(tmp_path)
+        stream.append("review_approved", {
+            "edge": "requirements→feature_decomp",
+            "actor": "human",
+            "workflow_version": "genesis_sdlc.standard@0.2.1",
+        })
+        d = delta(
+            job, stream, tmp_path,
+            current_workflow_version="genesis_sdlc.standard@0.2.1",
+        )
+        assert d == 0.0
+
+    def test_fh_fails_with_different_workflow_version(self, tmp_path):
+        """review_approved from a different version → stale, delta > 0."""
+        job = self._make_fh_job()
+        stream = _make_stream(tmp_path)
+        stream.append("review_approved", {
+            "edge": "requirements→feature_decomp",
+            "actor": "human",
+            "workflow_version": "genesis_sdlc.standard@0.1.0",
+        })
+        d = delta(
+            job, stream, tmp_path,
+            current_workflow_version="genesis_sdlc.standard@0.2.1",
+        )
+        assert d > 0.0
+
+    def test_fh_resolves_via_carry_forward(self, tmp_path):
+        """review_approved from old version + matching carry_forward entry → delta = 0.0."""
+        job = self._make_fh_job()
+        stream = _make_stream(tmp_path)
+        stream.append("review_approved", {
+            "edge": "requirements→feature_decomp",
+            "actor": "human",
+            "workflow_version": "genesis_sdlc.standard@0.1.0",
+        })
+        carry_forward = [
+            {"edge": "requirements→feature_decomp", "from_version": "genesis_sdlc.standard@0.1.0"}
+        ]
+        d = delta(
+            job, stream, tmp_path,
+            current_workflow_version="genesis_sdlc.standard@0.2.1",
+            carry_forward=carry_forward,
+        )
+        assert d == 0.0
+
+    def test_fh_still_fails_with_wrong_carry_forward_edge(self, tmp_path):
+        """carry_forward entry for wrong edge does not satisfy the gate."""
+        job = self._make_fh_job()
+        stream = _make_stream(tmp_path)
+        stream.append("review_approved", {
+            "edge": "requirements→feature_decomp",
+            "actor": "human",
+            "workflow_version": "genesis_sdlc.standard@0.1.0",
+        })
+        carry_forward = [
+            {"edge": "other_edge", "from_version": "genesis_sdlc.standard@0.1.0"}
+        ]
+        d = delta(
+            job, stream, tmp_path,
+            current_workflow_version="genesis_sdlc.standard@0.2.1",
+            carry_forward=carry_forward,
+        )
+        assert d > 0.0

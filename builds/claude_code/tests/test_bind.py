@@ -1,4 +1,6 @@
 # Validates: REQ-F-CORE-004
+# Validates: REQ-F-PROV-003
+# Validates: REQ-F-PROV-004
 """Tests for genesis.bind — bind_fd, bind_fp, select_relevant_contexts, render_delta."""
 import pytest
 from pathlib import Path
@@ -11,7 +13,9 @@ from gtl.core import (
 from genesis.core import EventStream, ContextResolver, workspace_bootstrap
 from genesis.bind import (
     bind_fd,
+    bind_fh,
     bind_fp,
+    job_evaluator_hash,
     render_delta,
     run_fd_evaluator,
     select_relevant_contexts,
@@ -226,3 +230,110 @@ class TestRenderDelta:
         result = render_delta({"impl_tags": {"passes": False, "detail": {"untagged": []}}}, failing)
         assert "impl_tags" in result
         assert "delta = 1" in result
+
+
+# ── job_evaluator_hash ────────────────────────────────────────────────────────
+
+def _make_fh_job() -> Job:
+    src = Asset(name="requirements", id_format="REQ-{SEQ}")
+    tgt = Asset(name="feature_decomp", id_format="FD-{SEQ}")
+    op = Operator("human_gate", F_H, "fh://single")
+    edge = Edge(name="requirements→feature_decomp", source=src, target=tgt, using=[op])
+    ev = Evaluator("decomp_approved", F_H, "Human approves")
+    return Job(edge=edge, evaluators=[ev])
+
+
+def _review_event(edge: str, workflow_version: str | None = None) -> dict:
+    data: dict = {"edge": edge, "actor": "human"}
+    if workflow_version is not None:
+        data["workflow_version"] = workflow_version
+    return {"event_type": "review_approved", "data": data}
+
+
+class TestJobEvaluatorHash:
+    def test_hash_is_deterministic(self):
+        job = _make_simple_job([Evaluator("code_complete", F_P, "Agent: code implements spec")])
+        assert job_evaluator_hash(job) == job_evaluator_hash(job)
+
+    def test_different_evaluator_names_give_different_hash(self):
+        job_a = _make_simple_job([Evaluator("ev_a", F_P, "same desc")])
+        job_b = _make_simple_job([Evaluator("ev_b", F_P, "same desc")])
+        assert job_evaluator_hash(job_a) != job_evaluator_hash(job_b)
+
+    def test_different_descriptions_give_different_hash(self):
+        job_a = _make_simple_job([Evaluator("ev", F_P, "description v1")])
+        job_b = _make_simple_job([Evaluator("ev", F_P, "description v2")])
+        assert job_evaluator_hash(job_a) != job_evaluator_hash(job_b)
+
+    def test_different_commands_give_different_hash(self):
+        job_a = _make_simple_job([Evaluator("ev", F_D, "desc", command="pytest -x")])
+        job_b = _make_simple_job([Evaluator("ev", F_D, "desc", command="pytest -v")])
+        assert job_evaluator_hash(job_a) != job_evaluator_hash(job_b)
+
+    def test_hash_is_16_hex_chars(self):
+        job = _make_simple_job()
+        h = job_evaluator_hash(job)
+        assert len(h) == 16
+        assert all(c in "0123456789abcdef" for c in h)
+
+    def test_whitespace_normalized(self):
+        """Extra whitespace in descriptions is collapsed before hashing."""
+        job_a = _make_simple_job([Evaluator("ev", F_P, "word1  word2")])
+        job_b = _make_simple_job([Evaluator("ev", F_P, "word1 word2")])
+        assert job_evaluator_hash(job_a) == job_evaluator_hash(job_b)
+
+
+# ── bind_fh — version-aware F_H gate ─────────────────────────────────────────
+
+class TestBindFhVersionAware:
+    def test_unknown_version_accepts_any_review_approved(self):
+        """Backward compat: "unknown" accepts any review_approved matching edge name."""
+        job = _make_fh_job()
+        events = [_review_event("requirements→feature_decomp")]
+        assert bind_fh(job, events, current_workflow_version="unknown") is True
+
+    def test_unknown_version_rejects_wrong_edge(self):
+        job = _make_fh_job()
+        events = [_review_event("other_edge")]
+        assert bind_fh(job, events, current_workflow_version="unknown") is False
+
+    def test_unknown_version_empty_events_returns_false(self):
+        job = _make_fh_job()
+        assert bind_fh(job, [], current_workflow_version="unknown") is False
+
+    def test_known_version_accepts_matching_version(self):
+        job = _make_fh_job()
+        events = [_review_event("requirements→feature_decomp", "genesis_sdlc.standard@0.2.1")]
+        assert bind_fh(job, events, current_workflow_version="genesis_sdlc.standard@0.2.1") is True
+
+    def test_known_version_rejects_pre_provenance_event(self):
+        """Pre-provenance events have no workflow_version field — must be rejected."""
+        job = _make_fh_job()
+        events = [_review_event("requirements→feature_decomp")]  # no workflow_version in data
+        assert bind_fh(job, events, current_workflow_version="genesis_sdlc.standard@0.2.1") is False
+
+    def test_known_version_rejects_different_version(self):
+        job = _make_fh_job()
+        events = [_review_event("requirements→feature_decomp", "genesis_sdlc.standard@0.1.0")]
+        assert bind_fh(job, events, current_workflow_version="genesis_sdlc.standard@0.2.1") is False
+
+    def test_carry_forward_satisfies_gate(self):
+        """carry_forward entry with matching from_version accepts an older review_approved."""
+        job = _make_fh_job()
+        events = [_review_event("requirements→feature_decomp", "genesis_sdlc.standard@0.1.0")]
+        cf = [{"edge": "requirements→feature_decomp", "from_version": "genesis_sdlc.standard@0.1.0"}]
+        assert bind_fh(job, events, current_workflow_version="genesis_sdlc.standard@0.2.1", carry_forward=cf) is True
+
+    def test_carry_forward_requires_edge_match(self):
+        """carry_forward entry for a different edge does not help."""
+        job = _make_fh_job()
+        events = [_review_event("requirements→feature_decomp", "genesis_sdlc.standard@0.1.0")]
+        cf = [{"edge": "other_edge", "from_version": "genesis_sdlc.standard@0.1.0"}]
+        assert bind_fh(job, events, current_workflow_version="genesis_sdlc.standard@0.2.1", carry_forward=cf) is False
+
+    def test_carry_forward_requires_version_match(self):
+        """carry_forward from_version must match the event's actual workflow_version."""
+        job = _make_fh_job()
+        events = [_review_event("requirements→feature_decomp", "genesis_sdlc.standard@0.1.0")]
+        cf = [{"edge": "requirements→feature_decomp", "from_version": "genesis_sdlc.standard@0.0.1"}]
+        assert bind_fh(job, events, current_workflow_version="genesis_sdlc.standard@0.2.1", carry_forward=cf) is False

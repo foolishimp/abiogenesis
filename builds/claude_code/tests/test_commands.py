@@ -3,7 +3,10 @@
 # Validates: REQ-F-CMD-003
 # Validates: REQ-F-CMD-004
 # Validates: REQ-F-GATE-002
+# Validates: REQ-F-PROV-002
+# Validates: REQ-F-PROV-003
 """Tests for genesis.commands — Scope, gen_gaps, gen_iterate, gen_start."""
+import json
 import pytest
 from pathlib import Path
 from gtl.core import (
@@ -13,7 +16,10 @@ from gtl.core import (
 )
 
 from genesis.core import EventStream, workspace_bootstrap
-from genesis.commands import Scope, gen_gaps, gen_iterate, gen_start, _scoped_jobs, _known_feature_ids
+from genesis.commands import (
+    Scope, gen_gaps, gen_iterate, gen_start, _scoped_jobs, _known_feature_ids,
+    _read_workflow_version, _read_carry_forward,
+)
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -469,3 +475,152 @@ class TestEdgeConvergedDedup:
             and e["data"].get("feature") == "FEAT-001"
         ]
         assert len(certs) == 1, "Duplicate certificate emitted for same (edge, feature)"
+
+
+# ── _read_workflow_version ─────────────────────────────────────────────────────
+
+class TestReadWorkflowVersion:
+    def test_returns_unknown_when_file_absent(self, tmp_path):
+        """No active-workflow.json → 'unknown' (never raises)."""
+        assert _read_workflow_version(tmp_path) == "unknown"
+
+    def test_returns_formatted_string_when_valid(self, tmp_path):
+        active = tmp_path / ".genesis"
+        active.mkdir(parents=True)
+        (active / "active-workflow.json").write_text(
+            json.dumps({"workflow": "genesis_sdlc.standard", "version": "0.2.1"}),
+            encoding="utf-8",
+        )
+        assert _read_workflow_version(tmp_path) == "genesis_sdlc.standard@0.2.1"
+
+    def test_returns_unknown_on_invalid_json(self, tmp_path):
+        active = tmp_path / ".genesis"
+        active.mkdir(parents=True)
+        (active / "active-workflow.json").write_text("not json", encoding="utf-8")
+        assert _read_workflow_version(tmp_path) == "unknown"
+
+    def test_returns_unknown_when_keys_missing(self, tmp_path):
+        active = tmp_path / ".genesis"
+        active.mkdir(parents=True)
+        (active / "active-workflow.json").write_text(
+            json.dumps({"workflow": "genesis_sdlc.standard"}),  # no "version"
+            encoding="utf-8",
+        )
+        assert _read_workflow_version(tmp_path) == "unknown"
+
+    def test_returns_unknown_when_values_not_strings(self, tmp_path):
+        active = tmp_path / ".genesis"
+        active.mkdir(parents=True)
+        (active / "active-workflow.json").write_text(
+            json.dumps({"workflow": "genesis_sdlc.standard", "version": 123}),
+            encoding="utf-8",
+        )
+        assert _read_workflow_version(tmp_path) == "unknown"
+
+
+# ── _read_carry_forward ───────────────────────────────────────────────────────
+
+def _write_manifest(tmp_path: Path, workflow_version: str, carry_forward: list) -> None:
+    """Write a manifest.json at the versioned path matching _read_carry_forward's lookup."""
+    workflow, version = workflow_version.split("@", 1)
+    parts = workflow.split(".", 1)
+    pkg_name = parts[0]
+    variant = parts[1] if len(parts) > 1 else "default"
+    version_dir = "v" + version.replace(".", "_")
+    manifest_dir = (
+        tmp_path / ".genesis" / "workflows" / pkg_name / variant / version_dir
+    )
+    manifest_dir.mkdir(parents=True)
+    (manifest_dir / "manifest.json").write_text(
+        json.dumps({"approved_carry_forward": carry_forward}),
+        encoding="utf-8",
+    )
+
+
+class TestReadCarryForward:
+    def _scope_with_version(self, tmp_path: Path, version: str) -> Scope:
+        """Build a minimal Scope but override workflow_version without reading disk."""
+        pkg, _, _ = _make_package_and_worker()
+        s = Scope(package=pkg, workspace_root=tmp_path)
+        object.__setattr__(s, "workflow_version", version)  # bypass frozen field
+        return s
+
+    def test_returns_empty_when_version_unknown(self, tmp_path):
+        pkg, _, _ = _make_package_and_worker()
+        scope = Scope(package=pkg, workspace_root=tmp_path)
+        # No active-workflow.json → workflow_version == "unknown"
+        assert _read_carry_forward(scope) == []
+
+    def test_reads_manifest_from_correct_versioned_path(self, tmp_path):
+        """Manifest at .genesis/workflows/genesis_sdlc/standard/v0_2_1/manifest.json."""
+        version = "genesis_sdlc.standard@0.2.1"
+        cf_entry = [{"edge": "design→code", "from_version": "genesis_sdlc.standard@0.2.0"}]
+        _write_manifest(tmp_path, version, cf_entry)
+        scope = self._scope_with_version(tmp_path, version)
+        result = _read_carry_forward(scope)
+        assert result == cf_entry
+
+    def test_returns_empty_when_manifest_absent(self, tmp_path):
+        version = "genesis_sdlc.standard@0.2.1"
+        scope = self._scope_with_version(tmp_path, version)
+        assert _read_carry_forward(scope) == []
+
+    def test_returns_empty_when_key_missing_from_manifest(self, tmp_path):
+        version = "genesis_sdlc.standard@0.2.1"
+        workflow, ver = version.split("@", 1)
+        pkg_name, variant = workflow.split(".", 1)
+        version_dir = "v" + ver.replace(".", "_")
+        manifest_dir = tmp_path / ".genesis" / "workflows" / pkg_name / variant / version_dir
+        manifest_dir.mkdir(parents=True)
+        (manifest_dir / "manifest.json").write_text(
+            json.dumps({"other_key": []}), encoding="utf-8"
+        )
+        scope = self._scope_with_version(tmp_path, version)
+        assert _read_carry_forward(scope) == []
+
+
+# ── workflow_version annotation in emitted events ─────────────────────────────
+
+class TestWorkflowVersionAnnotation:
+    """REQ-F-PROV-002: engine-emitted events carry workflow_version."""
+
+    def _install_active_workflow(self, tmp_path: Path, version: str = "0.2.1") -> None:
+        genesis_dir = tmp_path / ".genesis"
+        genesis_dir.mkdir(parents=True, exist_ok=True)
+        (genesis_dir / "active-workflow.json").write_text(
+            json.dumps({"workflow": "genesis_sdlc.standard", "version": version}),
+            encoding="utf-8",
+        )
+
+    def test_edge_converged_carries_workflow_version(self, tmp_path):
+        """gen_gaps emits edge_converged with workflow_version in data (REQ-F-PROV-002)."""
+        self._install_active_workflow(tmp_path)
+        pkg, worker, _ = _make_fh_package_and_worker()
+        stream = workspace_bootstrap(tmp_path)
+        stream.append("review_approved", {
+            "edge": "draft→approved",
+            "actor": "human",
+            "workflow_version": "genesis_sdlc.standard@0.2.1",
+        })
+        scope = _make_scope(tmp_path, pkg, worker=worker)
+        gen_gaps(scope, stream)
+        certs = [
+            e for e in stream.all_events()
+            if e["event_type"] == "edge_converged"
+        ]
+        assert len(certs) == 1
+        assert certs[0]["data"].get("workflow_version") == "genesis_sdlc.standard@0.2.1"
+
+    def test_edge_started_carries_workflow_version(self, tmp_path):
+        """gen_iterate emits edge_started with workflow_version in data (REQ-F-PROV-002)."""
+        self._install_active_workflow(tmp_path)
+        pkg, worker, _ = _make_package_and_worker()
+        stream = workspace_bootstrap(tmp_path)
+        scope = _make_scope(tmp_path, pkg, worker=worker)
+        gen_iterate(scope, stream)
+        started = [
+            e for e in stream.all_events()
+            if e["event_type"] == "edge_started"
+        ]
+        assert len(started) == 1
+        assert started[0]["data"].get("workflow_version") == "genesis_sdlc.standard@0.2.1"
