@@ -49,3 +49,52 @@ The spec is `builds/claude_code/code/gtl_spec/packages/abiogenesis.py` — the G
 7. Specification is authoritative: deleting `builds/claude_code/code/` and regenerating from `specification/` + `builds/claude_code/design/adrs/` produces an equivalent compiler
 
 ---
+
+## INT-002 — Bootloader Documents as Graph Assets
+
+**Date**: 2026-03-21
+**Status**: Draft
+
+### Problem
+
+Bootloader documents (GTL_BOOTLOADER.md in abiogenesis, SDLC_BOOTLOADER.md in genesis_sdlc) are hand-maintained markdown that reference graph types, asset names, edge chains, and evaluator semantics from the codebase — but no F_D evaluator checks them for consistency. When the graph changes, the bootloader drifts silently. This just happened: SDLC_BOOTLOADER.md referenced phantom assets (`basis_projections`, `design_recommendations`, `cicd`, `telemetry`) that never existed in `sdlc_graph.py`. The drift was caught by a human reading diffs, not by the system.
+
+This is structurally identical to untested code: it works until it doesn't, and you find out too late. The bootloader is installed into every dependent project's CLAUDE.md — stale content means every LLM session operates against wrong constraints.
+
+### Value Proposition
+
+Make bootloader documents proper graph assets with F_D evaluators that check consistency against source-of-truth code:
+
+- **GTL_BOOTLOADER.md** checked against `gtl/core.py` type names (Asset, Edge, Evaluator, F_D/F_P/F_H, etc.)
+- **SDLC_BOOTLOADER.md** checked against `sdlc_graph.py` asset names, edge names, and zoom profiles
+
+The bootloader becomes a convergence-tracked artifact: if the graph changes and the bootloader doesn't update, delta > 0 and the system tells you.
+
+### Scope
+
+**In abiogenesis (this project):**
+- New asset: `bootloader_doc` (BOOTDOC-{SEQ}), lineage=[design]
+- New edge: `design→bootloader_doc` with:
+  - F_D evaluator `gtl_type_consistency`: parse type names from `gtl/core.py`, check they appear correctly in GTL_BOOTLOADER.md
+  - F_P evaluator `synthesize_bootloader`: agent renders specification content into bootloader markdown
+- New context: `specification_dir` pointing to the specification/ directory
+- Modified join: the bootloader must be consistent before any downstream gate that installs it (the `code↔unit_tests` edge context already references the bootloader — but now the bootloader itself is convergence-tracked)
+
+**Pattern for genesis_sdlc (downstream — not this project):**
+- Same structure: `design→bootloader_doc` with F_D checking against `sdlc_graph.py`
+- Join at `integration_tests`: sandbox install requires consistent bootloader since `genesis_sdlc.install` copies the bootloader into the target's CLAUDE.md
+
+### Out of Scope
+
+- Auto-generating bootloader content from code (F_P synthesizes, human approves)
+- Changing the GTL_BOOTLOADER.md or SDLC_BOOTLOADER.md content in this intent (content is already correct post v0.5.0 fix)
+- Modifying the install chain (bootloaders are still installed via marker-bounded blocks in CLAUDE.md)
+
+### Success Criteria
+
+1. `gen-gaps` reports `bootloader_doc` as an asset with delta > 0 when GTL_BOOTLOADER.md references a type name not in `gtl/core.py`
+2. Changing a type name in `gtl/core.py` without updating the bootloader causes the F_D evaluator to fail
+3. After the bootloader is updated and F_P assesses it, delta returns to 0
+4. The pattern is replicable: genesis_sdlc can add the same asset type for SDLC_BOOTLOADER.md
+
+---
