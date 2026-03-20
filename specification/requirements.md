@@ -154,15 +154,15 @@ Every engine source file must trace to at least one REQ key.
 Every test file must trace to at least one REQ key.
 
 **Acceptance Criteria**:
-- AC-1: `gen check-tags --type validates --path <tests/>` scans for `# Validates: REQ-*` comments
-- AC-2: Exit 0 if every test file has ≥1 tag; exit 1 otherwise
+- AC-1: `check-tags --type validates` scans test files for `Validates: REQ-*` traceability markers
+- AC-2: Exit 0 if every test module has ≥1 tag; exit 1 otherwise
 
 ### REQ-F-COV-001 — REQ key coverage enforced by check-req-coverage
 
 Every REQ key in the Package must appear in at least one feature vector.
 
 **Acceptance Criteria**:
-- AC-1: `gen check-req-coverage --package <pkg:var> --features <dir/>` loads Package.requirements and scans YAML `satisfies:` lists
+- AC-1: `check-req-coverage` loads Package.requirements and scans feature vector `satisfies:` lists
 - AC-2: Exit 0 if every REQ key appears in ≥1 feature vector; exit 1 with gap list otherwise
 - AC-3: Coverage computable without LLM invocation — pure F_D check
 
@@ -207,18 +207,18 @@ F_P assessments carry a hash of the evaluator specification at the time of asses
 Per-REQ-key traceability from spec through code to tests.
 
 **Acceptance Criteria**:
-- AC-1: `gen check-impl-coverage --package <pkg:var> --path <src/>` verifies every REQ key appears in ≥1 source file as `# Implements: {key}`
-- AC-2: `gen check-validates-coverage --package <pkg:var> --path <tests/>` verifies every REQ key appears in ≥1 test file as `# Validates: {key}`
+- AC-1: `check-impl-coverage` verifies every REQ key appears in ≥1 source file as an `Implements: {key}` traceability marker
+- AC-2: `check-validates-coverage` verifies every REQ key appears in ≥1 test file as a `Validates: {key}` traceability marker
 - AC-3: Both exit 0 on full coverage, exit 1 with gap list
 
-### REQ-F-EVAL-004 — emit-event CLI rejects assessed{kind: fp} without spec_hash
+### REQ-F-EVAL-004 — emit-event rejects assessed{kind: fp} without spec_hash
 
-The CLI governance layer validates prime operator payloads before appending.
+The event emission governance layer validates prime operator payloads before appending.
 
 **Acceptance Criteria**:
-- AC-1: `gen emit-event --type assessed` with `kind: fp` and missing `spec_hash` → rejected with error
-- AC-2: `gen emit-event --type assessed` with `kind: fp` and `result` not in `{pass, fail}` → rejected
-- AC-3: `gen emit-event --type approved` without `kind` field → rejected
+- AC-1: `emit-event --type assessed` with `kind: fp` and missing `spec_hash` → rejected with error
+- AC-2: `emit-event --type assessed` with `kind: fp` and `result` not in `{pass, fail}` → rejected
+- AC-3: `emit-event --type approved` without `kind` field → rejected
 - AC-4: `gen emit-event --type revoked` without `kind`, `edge`, `actor`, or `reason` → rejected
 - AC-5: `gen emit-event --type assessed` with `kind: fh_review` requires `actor` and `reason`
 
@@ -342,7 +342,7 @@ Workers with overlapping write territory must not execute concurrently.
 The primary test surface is command-level integration scenarios. Unit tests supplement these for complex internal modules.
 
 **Acceptance Criteria**:
-- AC-1: Each integration test exercises the full F_D→F_P→F_H evaluator chain against a real workspace (tmp_path)
+- AC-1: Each integration test exercises the full F_D→F_P→F_H evaluator chain against an isolated temporary workspace
 - AC-2: Required integration scenarios: cold start → convergence, resume mid-lifecycle, F_D blocks F_P, spec change invalidates F_P, proxy rejection halts edge, full convergence closes features, replay determinism
 - AC-3: Unit tests cover write-primitive invariants (emit, project, EventStream) and complex internal modules (bind, schedule, commands) where integration tests alone are insufficient to exercise edge cases
 

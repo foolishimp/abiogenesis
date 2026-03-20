@@ -58,6 +58,9 @@ def _make_full_chain_package(workspace_root: Path) -> tuple[Package, Worker]:
     GATE-002 invariant: F_P not dispatched while F_D failing;
                         F_H not gated while F_D or F_P failing.
     """
+    # Ensure context file exists — fail-closed requires it before F_P dispatch.
+    (workspace_root / "spec.md").write_text("# Integration Test Spec\n")
+
     design = Asset(name="design", id_format="DES-{SEQ}")
     code = Asset(name="code", id_format="CODE-{SEQ}", lineage=[design])
 
@@ -107,6 +110,9 @@ def _make_full_chain_package(workspace_root: Path) -> tuple[Package, Worker]:
 
 def _make_fd_fp_package(workspace_root: Path) -> tuple[Package, Worker]:
     """Package with only F_D + F_P (no F_H) — used for gap and dispatch tests."""
+    # Ensure context file exists — fail-closed requires it before F_P dispatch.
+    (workspace_root / "spec.md").write_text("# FD/FP Test Spec\n")
+
     design = Asset(name="design", id_format="DES-{SEQ}")
     code = Asset(name="code", id_format="CODE-{SEQ}", lineage=[design])
     ctx = Context(name="spec", locator="workspace://spec.md", digest="sha256:" + "0" * 64)

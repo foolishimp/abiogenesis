@@ -62,6 +62,13 @@ from genesis.manifest import BoundJob
 
 # ── Sandbox package fixture ────────────────────────────────────────────────────
 
+def _ensure_sandbox_context(workspace: Path) -> None:
+    """Create the bootloader context file that the sandbox package references."""
+    boot_dir = workspace / "gtl_spec"
+    boot_dir.mkdir(parents=True, exist_ok=True)
+    (boot_dir / "GENESIS_BOOTLOADER.md").write_text("# Sandbox Bootloader\n")
+
+
 def _make_sandbox_package(workspace: Path):
     """
     Minimal Package for sandbox testing.
@@ -146,6 +153,7 @@ class TestSandboxFullLifecycle:
         """REQ-F-GATE-002: F_P is dispatched once all F_D evaluators pass."""
         stream = workspace_bootstrap(tmp_path)
         pkg, worker, _ = _make_sandbox_package(tmp_path)
+        _ensure_sandbox_context(tmp_path)
         scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
 
         # Create code with impl tag so F_D (impl_tags) passes
@@ -175,6 +183,7 @@ class TestSandboxFullLifecycle:
         """
         stream = workspace_bootstrap(tmp_path)
         pkg, worker, job = _make_sandbox_package(tmp_path)
+        _ensure_sandbox_context(tmp_path)
         scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
 
         # ── Step 1: gap exists ──
@@ -215,6 +224,7 @@ class TestSandboxFullLifecycle:
         """Event log contains truthful records of the lifecycle."""
         stream = workspace_bootstrap(tmp_path)
         pkg, worker, _ = _make_sandbox_package(tmp_path)
+        _ensure_sandbox_context(tmp_path)
         scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
 
         # REQ-F-GATE-002: F_P is only dispatched after F_D passes.

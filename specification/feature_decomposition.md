@@ -68,7 +68,8 @@ All 12 features are MVP. This is the minimum engine that can run the full asset 
 - Observer stack (dispatch_monitor, intent observer)
 - Multi-tenant scheduling (multiple workers with conflict detection)
 - Per-job feature routing (V1 validates existence only)
-- Bedrock / Gemini / Codex builds
+
+**Note**: The spec is build-neutral — any worker (Claude, Codex, Gemini, Bedrock) can build a conformant engine from this specification. Multi-worker *scheduling* (concurrent workers with conflict detection) is deferred; multi-worker *compatibility* (clean spec-build separation) is a V1 constitutional requirement (INT-003).
 
 ---
 
