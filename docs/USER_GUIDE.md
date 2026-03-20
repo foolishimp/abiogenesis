@@ -90,7 +90,7 @@ pip install -e .
 Two packages are installed:
 
 - **`genesis`** — the engine. Entry point: `gen`. Also available as `python -m genesis`.
-- **`gtl`** — the type system. Vendored at `gtl/core.py`. Import as `from gtl.core import ...`.
+- **`gtl`** — the type system. Vendored at `builds/claude_code/code/gtl/core.py`. Import as `from gtl.core import ...`.
 
 ### Verify the install
 
@@ -128,11 +128,11 @@ Expected output (abbreviated):
 
 `total_delta: 0` and `converged: true` mean every evaluator on every edge passes. The workspace is at rest.
 
-### What `PYTHONPATH=.` does
+### What `PYTHONPATH=.genesis` does
 
-The self-hosting spec lives at `gtl_spec/packages/genesis_core.py`. Python needs to find `gtl_spec` as a package. `PYTHONPATH=.` adds the abiogenesis root to the module search path so `from gtl_spec.packages.genesis_core import ...` resolves correctly.
+The self-hosting spec source lives at `builds/claude_code/code/gtl_spec/packages/genesis_core.py`. At install time, it's copied into `.genesis/gtl_spec/`. The engine resolves `import gtl_spec.packages.genesis_core` via `PYTHONPATH=.genesis`, which adds `.genesis/` to the module search path.
 
-When the engine is installed into another project via `gen-install.py`, the spec lives inside the target project and PYTHONPATH is managed by the bootstrap contract (see §7).
+When the engine is installed into another project via `gen-install.py`, the spec lives inside `<target>/.genesis/gtl_spec/` and PYTHONPATH is managed by the bootstrap contract (see §7).
 
 ---
 
@@ -236,7 +236,7 @@ A spec is a Python module that exports a `Package` and a `Worker`.
 ### Minimal spec
 
 ```python
-# gtl_spec/packages/my_domain.py
+# .genesis/gtl_spec/packages/my_domain.py
 from gtl.core import (
     Asset, Edge, Evaluator, Job, Operator,
     Package, Worker, F_D, F_P, F_H,
@@ -299,7 +299,7 @@ package = Package(name="sdlc", assets=[intent, req, code, tests],
 worker  = Worker(id="claude_code", can_execute=[job_i2r, job_r2c, job_c2t])
 ```
 
-See `gtl_spec/packages/genesis_core.py` for a complete, realistic example.
+See `builds/claude_code/code/gtl_spec/packages/genesis_core.py` for a complete, realistic example.
 
 ---
 
@@ -323,7 +323,7 @@ worker:  gtl_spec.packages.my_domain:worker
 
 Simple `key: value` pairs. Comments (`#`) and blank lines are ignored.
 
-The config file is always written by `gen-install.py` on install/reinstall. It is engine metadata — safe to overwrite. The actual spec (`gtl_spec/packages/*.py`) is user data and is never overwritten by the installer.
+The config file is always written by `gen-install.py` on install/reinstall. It is engine metadata — safe to overwrite. The actual spec (`.genesis/gtl_spec/packages/*.py`) is user data and is never overwritten by the installer.
 
 ---
 
@@ -340,10 +340,11 @@ python /path/to/abiogenesis/builds/claude_code/code/gen-install.py \
 ### What the installer does
 
 1. Copies `builds/claude_code/code/genesis/` → `<target>/.genesis/genesis/`
-2. Copies `gtl_spec/` files (genesis_core.py, bootloader, `__init__` files) → `<target>/gtl_spec/`
-3. Writes `<target>/.genesis/genesis.yml` pointing to `gtl_spec.packages.my_domain:package/worker`
-4. Writes `<target>/gtl_spec/packages/my_domain.py` starter spec — **only if absent** (never clobbers user edits)
-5. Emits a `genesis_installed` event to `<target>/.ai-workspace/events/events.jsonl`
+2. Copies `builds/claude_code/code/gtl/` → `<target>/.genesis/gtl/`
+3. Copies `builds/claude_code/code/gtl_spec/` files (genesis_core.py, bootloader, `__init__` files) → `<target>/.genesis/gtl_spec/`
+4. Writes `<target>/.genesis/genesis.yml` pointing to `gtl_spec.packages.my_domain:package/worker`
+5. Writes `<target>/.genesis/gtl_spec/packages/my_domain.py` starter spec — **only if absent** (never clobbers user edits)
+6. Emits a `genesis_installed` event to `<target>/.ai-workspace/events/events.jsonl`
 
 ### Running after install
 
@@ -352,7 +353,7 @@ cd /path/to/your/project
 PYTHONPATH=.genesis python -m genesis gaps --workspace .
 ```
 
-`PYTHONPATH=.genesis` makes the engine importable. The engine then imports the spec from the project's own `gtl_spec/packages/my_domain.py`.
+`PYTHONPATH=.genesis` makes the engine, GTL type system, and spec all importable from `.genesis/`.
 
 ### Verify an existing install
 
@@ -471,7 +472,7 @@ Also accepts `--spec path/to/spec.md` for a grep-based scan of a markdown spec f
 
 ## 11. Understanding the Self-Hosting Spec
 
-`gtl_spec/packages/genesis_core.py` is the V1 specification written as GTL. It defines:
+`builds/claude_code/code/gtl_spec/packages/genesis_core.py` is the V1 specification written as GTL. It defines:
 
 **Assets** (6):
 

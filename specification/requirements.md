@@ -1,6 +1,6 @@
 # Genesis V1 — Requirements
 
-**Derived from**: `gtl_spec/packages/abiogenesis.py` (the GTL Package IS the requirement registry)
+**Derived from**: `builds/claude_code/code/gtl_spec/packages/abiogenesis.py` (the GTL Package IS the requirement registry)
 **Traces to**: INT-001
 **Status**: Approved
 **Date**: 2026-03-20
@@ -17,8 +17,8 @@ These REQ keys are the traceability thread. Every design ADR, every code file, e
 
 **Acceptance Criteria**:
 - AC-1: `gen-install --target <dir> --project-slug <slug>` creates `.genesis/genesis/` with engine modules
-- AC-2: Creates `.genesis/genesis.yml` pointing to `gtl_spec/packages/<slug>:package`
-- AC-3: Creates `gtl_spec/packages/<slug>.py` starter spec if absent — never overwrites existing
+- AC-2: Creates `.genesis/genesis.yml` pointing to `gtl_spec.packages.<slug>:package`
+- AC-3: Creates `.genesis/gtl_spec/packages/<slug>.py` starter spec if absent — never overwrites existing
 - AC-4: Idempotent — re-running updates engine files, preserves workspace state
 
 ### REQ-F-BOOT-002 — .genesis/genesis.yml config resolves Package/Worker

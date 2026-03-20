@@ -2,7 +2,7 @@
 
 **Traces to**: INT-001
 **Requirements**: specification/requirements.md
-**REQ key registry**: gtl_spec/packages/abiogenesis.py
+**REQ key registry**: builds/claude_code/code/gtl_spec/packages/abiogenesis.py
 **Status**: Approved
 **Date**: 2026-03-20
 
@@ -92,7 +92,7 @@ All modules are under `builds/claude_code/code/genesis/`.
 
 ### REQ-F-GRAPH — SDLC Graph Definition
 
-The GTL Package at `gtl_spec/packages/abiogenesis.py` defines the typed asset graph. This is the constitutional source — all other features implement or enforce what the Package declares.
+The GTL Package at `builds/claude_code/code/gtl_spec/packages/abiogenesis.py` defines the typed asset graph. This is the constitutional source — all other features implement or enforce what the Package declares.
 
 **Key artifacts**: 6 assets with markov conditions, 5 edges with evaluators, 5 operators (1 F_P, 1 F_H, 3 F_D), 4 contexts.
 

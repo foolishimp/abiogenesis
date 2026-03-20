@@ -105,26 +105,25 @@ The `gaps`, `iterate`, and `start` commands all accept `--package MODULE:VAR` an
 
 ```
 abiogenesis/
-├── gtl/                            # Type system (vendored, v0.3.0)
-│   └── core.py                     #   Asset, Edge, Job, Evaluator, Worker, F_D/F_P/F_H
-│
-├── gtl_spec/                       # Self-hosting spec package
-│   ├── GENESIS_BOOTLOADER.md       #   LLM constraint context
-│   └── packages/
-│       ├── genesis_core.py         #   V1 Package + Worker (the self-hosting spec)
-│       └── abiogenesis_meta.py     #   Meta-package
-│
 ├── builds/claude_code/
-│   ├── code/genesis/               # Engine source (6 modules + __main__)
-│   │   ├── core.py                 #   workspace_bootstrap, EventStream, project
-│   │   ├── bind.py                 #   bind_fd, bind_fp, PrecomputedManifest
-│   │   ├── manifest.py             #   BoundJob, prompt construction
-│   │   ├── schedule.py             #   delta, iterate, schedule
-│   │   ├── commands.py             #   gen_gaps, gen_iterate, gen_start, Scope
-│   │   └── __main__.py             #   CLI entry point
-│   ├── code/gen-install.py         # Bootstrap installer for other projects
+│   ├── code/
+│   │   ├── genesis/               # Engine source (6 modules + __main__)
+│   │   │   ├── core.py            #   workspace_bootstrap, EventStream, project
+│   │   │   ├── bind.py            #   bind_fd, bind_fp, PrecomputedManifest
+│   │   │   ├── manifest.py        #   BoundJob, prompt construction
+│   │   │   ├── schedule.py        #   delta, iterate, schedule
+│   │   │   ├── commands.py        #   gen_gaps, gen_iterate, gen_start, Scope
+│   │   │   └── __main__.py        #   CLI entry point
+│   │   ├── gtl/                   # GTL type system (vendored, v0.3.0)
+│   │   │   └── core.py            #   Asset, Edge, Job, Evaluator, Worker, F_D/F_P/F_H
+│   │   ├── gtl_spec/              # Spec package
+│   │   │   ├── GENESIS_BOOTLOADER.md  #   LLM constraint context
+│   │   │   └── packages/
+│   │   │       ├── genesis_core.py    #   V1 Package + Worker (the spec)
+│   │   │       └── abiogenesis.py     #   Project spec for self-hosting
+│   │   └── gen-install.py         # Bootstrap installer for other projects
 │   ├── design/                     # ADRs
-│   └── tests/                      # 183 tests
+│   └── tests/                      # 310+ tests
 │
 ├── .genesis/
 │   ├── genesis/                    # Engine copy for self-hosted invocation
@@ -173,8 +172,9 @@ python /path/to/abiogenesis/builds/claude_code/code/gen-install.py \
 
 This creates:
 - `.genesis/genesis/` — engine modules
-- `.genesis/genesis.yml` — config pointing to `gtl_spec/packages/my_domain:package`
-- `gtl_spec/packages/my_domain.py` — starter spec (only if absent — never overwrites)
+- `.genesis/gtl/` — GTL type system
+- `.genesis/gtl_spec/packages/my_domain.py` — starter spec (only if absent — never overwrites)
+- `.genesis/genesis.yml` — config pointing to `gtl_spec.packages.my_domain:package`
 
 Then run via:
 
@@ -217,7 +217,7 @@ package = Package(name="my_domain", assets=[spec, output], edges=[edge], operato
 worker  = Worker(id="claude_code", can_execute=[job])
 ```
 
-See `gtl_spec/packages/genesis_core.py` for a complete, working example.
+See `builds/claude_code/code/gtl_spec/packages/genesis_core.py` for a complete, working example.
 
 ---
 

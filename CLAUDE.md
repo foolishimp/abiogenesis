@@ -3,7 +3,7 @@
 ## What This Is
 
 A clean, GTL-first implementation of the Genesis engine.
-`gtl_spec/packages/abiogenesis.py` IS the specification. The type system is the law.
+`builds/claude_code/code/gtl_spec/packages/abiogenesis.py` IS the specification. The type system is the law.
 
 **Current phase**: 4 complete — engine built, 244 tests passing, all features converged.
 **Predecessor**: `genesis_sdlc` (the installable SDLC toolkit that installs this engine)
@@ -12,17 +12,19 @@ A clean, GTL-first implementation of the Genesis engine.
 
 ```
 abiogenesis/
-├── gtl_spec/                    # the topology — tech-agnostic formal system
-│   └── packages/
-│       ├── genesis_core.py      # GTL type system (vendored)
-│       └── abiogenesis.py       # THE spec — Package definition IS requirements
-├── gtl/                         # GTL type system (vendored from genesis_sdlc)
 ├── builds/                      # all projections of the spec
 │   └── claude_code/             # V1 reference build (Claude Code agent)
-│       ├── design/adrs/         # ADRs 001-015 — all accepted
-│       ├── code/genesis/        # genesis engine V1 — 6 modules, complete
-│       └── tests/               # 244 tests, all passing
-├── .genesis/                    # installed genesis_sdlc engine (bootstrap compiler)
+│       ├── code/
+│       │   ├── genesis/         # genesis engine V1 — 6 modules, complete
+│       │   ├── gtl/             # GTL type system (vendored)
+│       │   └── gtl_spec/        # spec package
+│       │       └── packages/
+│       │           ├── genesis_core.py   # V1 type definitions
+│       │           └── abiogenesis.py    # THE spec — Package definition IS requirements
+│       ├── design/adrs/         # ADRs 001-016 — all accepted
+│       └── tests/               # 310+ tests
+├── specification/               # axiomatic ontology
+├── .genesis/                    # installed compiler (write-once)
 ├── .ai-workspace/               # project authority — shared across all builds
 │   ├── events/events.jsonl      # THE canonical log — all builds emit here
 │   ├── features/completed/      # 15 feature vectors, all status: completed
@@ -62,7 +64,7 @@ pytest builds/claude_code/tests/ -m self_host # self-hosting gate
 ## Design References
 
 All architectural decisions are in `builds/claude_code/design/adrs/` (ADRs 001-015, all accepted).
-The spec is `gtl_spec/packages/abiogenesis.py` — 16 REQ keys, 5 edges, all converged.
+The spec is `builds/claude_code/code/gtl_spec/packages/abiogenesis.py` — 16 REQ keys, 5 edges, all converged.
 
 ---
 
@@ -604,7 +606,7 @@ No feature vector. No iterate() cycle. No human gate. No REQ key traceability. O
 | `.ai-workspace/features/` | Claude Code | Feature vectors |
 | `.ai-workspace/reviews/` | All agents | Proposals; human gate resolves |
 
-**Spec is read-only**: `gtl_spec/` is the constitutional source of truth. `genesis_core.py` IS the spec. Claude Code reads `gtl_spec/` but never writes to it — writes go to `builds/claude_code/` only.
+**Spec is read-only**: `builds/claude_code/code/gtl_spec/` is the constitutional source of truth. `genesis_core.py` IS the spec. The spec lives alongside the engine in builds/ — it is build source, not a separate territory.
 
 **V1 single-tenant constraint**: Only the `claude_code` build exists in V1. Do not create `comments/codex/`, `comments/gemini/`, or `comments/bedrock/` directories — they are V2+ concerns. See `V1_DOCTRINE.md` for the complete non-goals list.
 

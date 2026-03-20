@@ -30,13 +30,12 @@ from genesis.core import workspace_bootstrap
 def _subprocess_env(workspace: Path) -> dict:
     root = Path(__file__).resolve().parent.parent.parent.parent
     env = os.environ.copy()
-    # .genesis first: lets tests import gtl_spec.packages.test_pkg before
-    # the abiogenesis-root gtl_spec/ package shadows it.
+    # .genesis first: lets tests import gtl_spec.packages.test_pkg from the
+    # workspace before the build source gtl_spec/ is found.
     paths = [
         str(workspace / ".genesis"),
         str(workspace),
         str(root / "builds" / "claude_code" / "code"),
-        str(root),
     ]
     existing = env.get("PYTHONPATH", "")
     env["PYTHONPATH"] = os.pathsep.join(paths + ([existing] if existing else []))

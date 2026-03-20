@@ -82,6 +82,6 @@ replay under a specific package version. V1 does not implement this. Events reco
 `event_time`, `event_type`, `data` only. `project()` is deterministic within a
 session; cross-version replay fidelity is a V2 concern.
 
-**GTL is vendored, not published**: `gtl/` is copied from `genesis_sdlc`.
+**GTL is vendored, not published**: `builds/claude_code/code/gtl/` is copied from `genesis_sdlc`.
 Upgrades are deliberate copy-and-commit, not automatic. GTL will be
 published to PyPI in V2.

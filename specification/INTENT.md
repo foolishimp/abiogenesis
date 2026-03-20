@@ -25,7 +25,7 @@ A clean, GTL-first implementation of Genesis V1.0 — an AI SDLC engine that:
 7. Is built by the current genesis engine using itself as bootstrap compiler (the GCC/C analogy)
 8. Reaches a self-hosting gate: abiogenesis can build itself
 
-The spec is `gtl_spec/packages/abiogenesis.py` — the GTL Package IS the requirement registry. `specification/` provides human-readable requirement descriptions and acceptance criteria for each REQ key registered in the Package.
+The spec is `builds/claude_code/code/gtl_spec/packages/abiogenesis.py` — the GTL Package IS the requirement registry. `specification/` provides human-readable requirement descriptions and acceptance criteria for each REQ key registered in the Package.
 
 ---
 
@@ -40,7 +40,7 @@ The spec is `gtl_spec/packages/abiogenesis.py` — the GTL Package IS the requir
 
 ## Success Criteria
 
-1. Spec loadable: `python gtl_spec/packages/abiogenesis.py` describes the Package correctly
+1. Spec loadable: `python builds/claude_code/code/gtl_spec/packages/abiogenesis.py` describes the Package correctly
 2. Engine runs `gen-start` on a fresh project and produces intent → requirements output
 3. Engine traverses all 5 edges for a test feature vector, producing code + passing tests
 4. All engine modules have unit + integration tests; test suite green

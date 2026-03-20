@@ -36,7 +36,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-VERSION = "0.3.0"
+VERSION = "0.4.0"
 
 # ── Templates ─────────────────────────────────────────────────────────────────
 
@@ -112,8 +112,8 @@ GTL_MODULES = [
     "core.py",
 ]
 
-# Spec files to install (relative to project root — two levels up from this file)
-# Source paths are relative to abiogenesis root; installed under .genesis/gtl_spec/
+# Spec files to install (relative to builds/claude_code/code/)
+# Installed under target/.genesis/gtl_spec/
 SPEC_FILES = [
     "gtl_spec/__init__.py",
     "gtl_spec/packages/__init__.py",
@@ -123,16 +123,21 @@ SPEC_FILES = [
 
 
 def _source_root() -> Path:
-    """Root of the abiogenesis project (two levels up from builds/claude_code/code/)."""
+    """Root of the abiogenesis project (three levels up from builds/claude_code/code/)."""
     return Path(__file__).resolve().parent.parent.parent.parent
 
 
+def _code_root() -> Path:
+    """builds/claude_code/code/ — where engine, gtl, and gtl_spec source live."""
+    return Path(__file__).resolve().parent
+
+
 def _engine_source() -> Path:
-    return Path(__file__).resolve().parent / "genesis"
+    return _code_root() / "genesis"
 
 
 def _gtl_source() -> Path:
-    return _source_root() / "gtl"
+    return _code_root() / "gtl"
 
 
 def install(target: Path, *, verify_only: bool = False,
@@ -191,8 +196,9 @@ def install(target: Path, *, verify_only: bool = False,
         result["gtl_files"] = list(GTL_MODULES)
 
     # ── Install spec under .genesis/ ─────────────────────────────────────────
+    code_root = _code_root()
     for rel in SPEC_FILES:
-        src = source_root / rel
+        src = code_root / rel
         dst = target / ".genesis" / rel
         if not src.exists():
             result["errors"].append(f"Missing spec file: {src}")
@@ -208,7 +214,7 @@ def install(target: Path, *, verify_only: bool = False,
     # ── Write .genesis/genesis.yml ────────────────────────────────────────────
     # Always written (idempotent reinstall of engine config).
     # genesis.yml is metadata only — it points to the Package/Worker.
-    # The canonical spec lives in .genesis/gtl_spec/packages/*.py (not overwritten here).
+    # The canonical spec source lives in builds/claude_code/code/gtl_spec/packages/*.py.
     config_path = target / ".genesis" / "genesis.yml"
     config_path.write_text(
         _CONFIG_TEMPLATE.format(slug=slug, platform=platform),
