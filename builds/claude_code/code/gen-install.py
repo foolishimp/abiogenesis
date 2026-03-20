@@ -221,9 +221,37 @@ def install(target: Path, *, verify_only: bool = False,
     # Always written (idempotent reinstall of engine config).
     # genesis.yml is metadata only — it points to the Package/Worker.
     # The canonical spec source lives in builds/claude_code/code/gtl_spec/packages/*.py.
+    #
+    # Preserve existing pythonpath if genesis.yml already exists — the project
+    # may use a non-default build directory (e.g. builds/claude_code/code vs
+    # builds/python/src).  Only fall back to the template default on fresh install.
     config_path = target / ".genesis" / "genesis.yml"
+    existing_pythonpath = None
+    if config_path.exists():
+        import re as _re_cfg
+        _existing_text = config_path.read_text(encoding="utf-8")
+        _pp_entries = _re_cfg.findall(r"^\s+-\s+(.+)$", _existing_text, _re_cfg.MULTILINE)
+        if _pp_entries:
+            existing_pythonpath = [p.strip() for p in _pp_entries]
+
+    # Determine the correct pythonpath: prefer existing, then auto-detect, then default.
+    if existing_pythonpath:
+        pp_lines = "\n".join(f"  - {p}" for p in existing_pythonpath)
+    else:
+        # Auto-detect: check for builds/{platform}/code (abiogenesis convention)
+        # before falling back to builds/{platform}/src (genesis_sdlc convention).
+        if (target / "builds" / platform / "code").is_dir():
+            pp_lines = f"  - builds/{platform}/code"
+        else:
+            pp_lines = f"  - builds/{platform}/src"
+
     config_path.write_text(
-        _CONFIG_TEMPLATE.format(slug=slug, platform=platform),
+        f"# Genesis project config — written by gen-install.py\n"
+        f"# Override per-invocation with: --package MODULE:VAR --worker MODULE:VAR\n"
+        f"package: gtl_spec.packages.{slug}:package\n"
+        f"worker:  gtl_spec.packages.{slug}:worker\n"
+        f"pythonpath:\n"
+        f"{pp_lines}\n",
         encoding="utf-8",
     )
     result["config_file"] = ".genesis/genesis.yml"

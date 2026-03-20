@@ -3,4 +3,4 @@
 package: gtl_spec.packages.abiogenesis:package
 worker:  gtl_spec.packages.abiogenesis:worker
 pythonpath:
-  - builds/python/src
+  - builds/claude_code/code
