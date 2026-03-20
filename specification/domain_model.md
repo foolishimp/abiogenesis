@@ -175,7 +175,7 @@ The explicit scope for every command invocation.
 | `workspace_root` | `filepath` | required | yes |
 | `feature` | `string?` | `null` | yes |
 | `edge` | `string?` | `null` | yes |
-| `build` | `string` | `"claude_code"` | yes |
+| `build` | `string` | required | yes |
 | `worker` | `Worker?` | `null` | yes |
 | `workflow_version` | `string` | `"unknown"` | **no** — set at construction |
 
@@ -195,7 +195,7 @@ The F_D pre-computation output — everything computable before the LLM sees any
 | `relevant_contexts` | `map[string, string]` | required |
 | `delta_summary` | `string` | required |
 
-Derived: `has_gap: boolean` (any failing), `delta: int` (count of failing).
+Derived: `has_gap: boolean` (any failing), `delta: float` (failing / total evaluators, range [0.0, 1.0]).
 
 ### 2.5 BoundJob
 

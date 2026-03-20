@@ -171,11 +171,11 @@ class TestContextResolver:
         content = resolver.load(ctx)
         assert "ADR" in content
 
-    def test_load_missing_returns_note(self, tmp_path):
+    def test_load_missing_raises(self, tmp_path):
         resolver = ContextResolver(tmp_path)
         ctx = self._pending_ctx("x", "workspace://does/not/exist")
-        content = resolver.load(ctx)
-        assert "not found" in content
+        with pytest.raises(FileNotFoundError, match="Required context not found"):
+            resolver.load(ctx)
 
     def test_unknown_scheme_raises(self, tmp_path):
         resolver = ContextResolver(tmp_path)

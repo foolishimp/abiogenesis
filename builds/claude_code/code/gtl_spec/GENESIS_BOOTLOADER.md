@@ -408,7 +408,7 @@ The `.ai-workspace/` directory is partitioned by agent identity. Violating these
 
 | Territory | Who writes | Rule |
 |-----------|-----------|------|
-| `events/events.jsonl` | All agents via event logger only | **Never write directly.** Call `emit_event(event_type, data)`. The F_D event logger assigns `event_time`, enforces OL schema, and appends atomically. Append-only — never modify or delete existing lines. |
+| `events/events.jsonl` | All agents via event logger only | **Never write directly.** Call `emit_event(event_type, data)`. The F_D event logger assigns `event_time`, enforces prime operator schema, and appends atomically. Append-only — never modify or delete existing lines. |
 | `features/active/*.yml` | Owning agent | State projection — update only the feature you are iterating. |
 | `features/completed/*.yml` | Owning agent | Move from active/ on full convergence. |
 | `comments/claude/` | Claude Code only | Claude writes here. Never write to `comments/codex/`, `comments/gemini/`, or `comments/bedrock/`. |

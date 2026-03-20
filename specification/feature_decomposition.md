@@ -72,23 +72,23 @@ All 12 features are MVP. This is the minimum engine that can run the full asset 
 
 ---
 
-## Module Mapping
+## Capability Mapping
 
-The engine consists of 6 modules. Features map to modules as follows:
+The engine requires 6 capability modules. Features map to capabilities as follows:
 
-| Module | Primary features | Key functions |
-|--------|-----------------|---------------|
-| `core.py` | ENGINE | `emit()`, `project()`, `EventStream`, `ContextResolver`, `workspace_bootstrap()` |
-| `bind.py` | EVAL, EC, PROV | `bind_fd()`, `bind_fp()`, `bind_fh()`, `req_hash()`, `job_evaluator_hash()`, `run_fd_evaluator()` |
-| `schedule.py` | GATE | `delta()`, `iterate()`, `schedule()` |
-| `commands.py` | CMD, VIS | `gen_gaps()`, `gen_iterate()`, `gen_start()`, `Scope`, `_close_completed_features()` |
-| `manifest.py` | EVAL | `PrecomputedManifest`, `BoundJob` dataclasses |
-| `__main__.py` | CMD, EVAL, BOOTDOC | CLI entry point, `_emit_event_cmd()` governance, `check-tags`, `check-*-coverage`, `check-bootloader-consistency` |
+| Capability | Primary features | Key operations |
+|------------|-----------------|----------------|
+| Event & Projection | ENGINE | `emit()`, `project()`, event stream management, context resolution, workspace bootstrap |
+| Evaluator Binding | EVAL, EC, PROV | `bind_fd()`, `bind_fp()`, `bind_fh()`, spec hashing, evaluator execution |
+| Scheduling | GATE | `delta()`, `iterate()`, `schedule()` |
+| Commands | CMD, VIS | `gen_gaps()`, `gen_iterate()`, `gen_start()`, scope management, feature lifecycle |
+| Manifest | EVAL | Pre-computed manifest and bound job data structures |
+| Entry Point | CMD, EVAL, BOOTDOC | CLI dispatch, event emission governance, deterministic check predicates |
 
 **Supplementary**:
-- `gen-install.py` — BOOT feature (standalone installer script)
+- Installer — BOOT feature (bootstraps engine into target project)
 
-All modules are under `builds/claude_code/code/genesis/`.
+Module-to-file mapping is build-specific — see `builds/{platform}/` for concrete layout.
 
 ---
 
@@ -96,7 +96,7 @@ All modules are under `builds/claude_code/code/genesis/`.
 
 ### REQ-F-GRAPH — SDLC Graph Definition
 
-The GTL Package at `builds/claude_code/code/gtl_spec/packages/abiogenesis.py` defines the typed asset graph. This is the constitutional source — all other features implement or enforce what the Package declares.
+The GTL Package (`abiogenesis.py`) defines the typed asset graph. This is the constitutional source — all other features implement or enforce what the Package declares. Concrete path is build-specific.
 
 **Key artifacts**: 6 assets with markov conditions, 5 edges with evaluators, 5 operators (1 F_P, 1 F_H, 3 F_D), 4 contexts.
 

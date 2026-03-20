@@ -1,11 +1,11 @@
 # Genesis V1 — Requirements
 
-**Derived from**: `builds/claude_code/code/gtl_spec/packages/abiogenesis.py` (the GTL Package IS the requirement registry)
+**Derived from**: The GTL Package `abiogenesis.py` (the Package IS the requirement registry — concrete path is build-specific)
 **Traces to**: INT-001
 **Status**: Approved
 **Date**: 2026-03-20
 
-These REQ keys are the traceability thread. Every design ADR, every code file, every test must tag back to these keys. The GTL Package in `abiogenesis.py` is the authoritative key registry — this document provides human-readable descriptions and acceptance criteria for each registered key.
+These REQ keys are the traceability thread. Every design ADR, every code file, every test must tag back to these keys. The GTL Package (`abiogenesis.py`) is the authoritative key registry — this document provides human-readable descriptions and acceptance criteria for each registered key.
 
 ---
 
@@ -13,7 +13,7 @@ These REQ keys are the traceability thread. Every design ADR, every code file, e
 
 ### REQ-F-BOOT-001 — gen-install bootstraps .genesis/ into target project
 
-`gen-install.py` copies the engine into a target project so it can run without an installed package.
+The installer copies the engine into a target project so it can run without an installed package.
 
 **Acceptance Criteria**:
 - AC-1: `gen-install --target <dir> --project-slug <slug>` creates `.genesis/genesis/` with engine modules
@@ -145,8 +145,8 @@ The evaluator ordering invariant prevents wasted work.
 Every engine source file must trace to at least one REQ key.
 
 **Acceptance Criteria**:
-- AC-1: `gen check-tags --type implements --path <src/>` scans for `# Implements: REQ-*` comments
-- AC-2: Exit 0 if every `.py` file (excluding `__init__.py`) has ≥1 tag; exit 1 otherwise
+- AC-1: `check-tags --type implements` scans source files for `Implements: REQ-*` traceability markers
+- AC-2: Exit 0 if every source module (excluding package init files) has ≥1 tag; exit 1 otherwise
 - AC-3: Output is machine-readable (file list with tag status)
 
 ### REQ-F-TAG-002 — Validates: tags enforced on all test files
@@ -187,8 +187,8 @@ F_D evaluators with `command` fields are validated for safety before execution.
 
 **Acceptance Criteria**:
 - AC-1: Non-empty command string required
-- AC-2: Command must not invoke genesis subcommands (acyclic — no engine calling itself)
-- AC-3: pytest commands must include `-m 'not e2e'` to prevent unbounded test runs
+- AC-2: Command must not invoke orchestration subcommands (`start`, `iterate`, `gaps`, `emit-event`) — no control-loop re-entry. Deterministic `check-*` leaf predicates are permitted.
+- AC-3: Test-runner commands must exclude long-running or end-to-end suites to prevent unbounded execution
 
 ### REQ-F-EVAL-002 — assessed{kind: fp} events are snapshot-bound via spec_hash
 
@@ -492,14 +492,14 @@ The bootloader document (GTL_BOOTLOADER.md) becomes a convergence-tracked asset 
 
 ### REQ-F-BOOTDOC-002 — F_D evaluator checks GTL type consistency
 
-A deterministic evaluator parses type names from `gtl/core.py` and checks they appear correctly in GTL_BOOTLOADER.md.
+A deterministic evaluator parses type names from the GTL core module and checks they appear correctly in the GTL bootloader document.
 
 **Acceptance Criteria**:
 - AC-1: `gtl_type_consistency` F_D evaluator exists on the `design→bootloader_doc` edge
-- AC-2: Evaluator extracts exported type names from `gtl/core.py` (Asset, Edge, Evaluator, Job, Operator, Package, Worker, F_D, F_P, F_H, etc.)
-- AC-3: Evaluator checks that each exported type appears in GTL_BOOTLOADER.md
+- AC-2: Evaluator extracts exported type names from the GTL core module (Asset, Edge, Evaluator, Job, Operator, Package, Worker, F_D, F_P, F_H, etc.)
+- AC-3: Evaluator checks that each exported type appears in the GTL bootloader document
 - AC-4: Exit 0 if all types present; exit 1 with gap list if any missing
-- AC-5: Changing a type name in `gtl/core.py` without updating the bootloader causes failure
+- AC-5: Changing a type name in the GTL core module without updating the bootloader causes failure
 
 ### REQ-F-BOOTDOC-003 — Bootloader converges before downstream install gates
 
