@@ -28,4 +28,4 @@ the LLM sees anything. The F_P prompt contains only the residual gap.
 - F_P never receives passing evaluators or irrelevant contexts
 - Bootloader sections are selected, not loaded whole (V1: pragmatic — load full file)
 - `render_delta` output IS the gap report that `/gen-gaps` returns
-- F_H gates are detected at bind_fd time: check event stream for `review_approved`
+- F_H gates are detected at bind_fd time: check event stream for `approved{kind: fh_review}` (holdsAt operative(edge, wv))

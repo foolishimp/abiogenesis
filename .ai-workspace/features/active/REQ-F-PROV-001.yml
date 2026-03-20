@@ -17,14 +17,18 @@ codex_findings_addressed:
   - "Finding 5: emit-event runs pre-stack without Scope; reads active-workflow.json directly using same parse logic as REQ-F-PROV-001 (not scope.workflow_version)"
 
 description: |
-  Engine changes to bind convergence events (fp_assessment, review_approved)
+  Engine changes to bind convergence events (assessed{kind: fp}, approved{kind: fh_review})
   to the workflow version that was active when they were emitted. Without this
   binding, a workflow upgrade that tightens evaluator criteria can silently
   reuse stale convergence evidence.
 
-  These are core engine changes. Backward compatibility is preserved end-to-end:
-  all new provenance behaviour activates only when active-workflow.json is present.
-  Workspaces without this file behave identically to the current engine.
+  NOTE: This feature was originally designed for backward-compatible incremental
+  deployment. The subsequent REQ-F-EC-001 (Event Calculus / prime operator refactor)
+  adopted a clean-start model. Under clean start, the backward-compatibility
+  provisions below (workflow_version="unknown" fallback, req_hash fallback) are
+  retained in code for workspaces without active-workflow.json, but the primary
+  deployment path is clean epoch cutover where all workspaces get fresh event logs
+  and active-workflow.json is always present.
 
   ─────────────────────────────────────────────────────────────
   REQ-F-PROV-001  Engine reads active-workflow.json at startup
@@ -130,7 +134,7 @@ description: |
   ─────────────────────────────────────────────────────────────
   REQ-F-PROV-004  Version-aware F_H approval binding — two paths
   ─────────────────────────────────────────────────────────────
-  Two independent code paths currently resolve review_approved events.
+  Two independent code paths currently resolve approved{kind: fh_review} events.
   Both must be updated consistently.
 
   PATH 1 — bind.py bind_fh() (lines 140-144)
@@ -145,7 +149,7 @@ description: |
 
   Currently:
     approved = any(
-        e.get("event_type") == "review_approved"
+        e.get("event_type") == "approved{kind: fh_review}"
         and e.get("data", {}).get("edge") == job.edge.name
         for e in events
     )
@@ -166,12 +170,12 @@ description: |
   APPROVAL LOGIC (implemented once in bind_fh; schedule delegates to it):
 
   When current_workflow_version == "unknown":
-    Accept any review_approved event matching edge name alone.
+    Accept any approved{kind: fh_review} event matching edge name alone.
     (Full backward compatibility — identical to current behaviour.)
 
   When current_workflow_version != "unknown":
 
-    For each review_approved event matching edge name:
+    For each approved{kind: fh_review} event matching edge name:
 
     Condition A — version match:
       event.data.get("workflow_version") == current_workflow_version
@@ -225,8 +229,8 @@ acceptance_criteria:
   # REQ-F-PROV-002 — annotation on emit
   - event emitted via emit-event contains workflow_version in data dict
   - value equals _read_workflow_version(workspace) at time of emission
-  - annotation is present on review_approved events
-  - annotation is present on fp_assessment events
+  - annotation is present on approved{kind: fh_review} events
+  - annotation is present on assessed{kind: fp} events
   - annotation is present on edge_converged events (all event types)
   - existing required-field validation still passes (annotation added after)
   # _read_workflow_version isolation (shared function)
@@ -251,20 +255,20 @@ acceptance_criteria:
   # spec_hash gate
   - when scope.workflow_version == "unknown": spec_hash = req_hash(requirements)
   - when scope.workflow_version != "unknown": spec_hash = job_evaluator_hash(job)
-  - fp_assessment with stale spec_hash (evaluator changed, workflow_version known):
+  - assessed{kind: fp} with stale spec_hash (evaluator changed, workflow_version known):
     does not satisfy F_P convergence
-  - fp_assessment with matching job_evaluator_hash: satisfies F_P convergence
-  - fp_assessment with req_hash (old format) on workspace with workflow_version "unknown":
+  - assessed{kind: fp} with matching job_evaluator_hash: satisfies F_P convergence
+  - assessed{kind: fp} with req_hash (old format) on workspace with workflow_version "unknown":
     satisfies F_P convergence (backward compat)
 
   # REQ-F-PROV-004 — bind_fh + schedule.delta version check
   # bind_fh path
-  - review_approved matching workflow_version: F_H gate satisfied
-  - review_approved non-matching workflow_version, no carry_forward: NOT satisfied
-  - review_approved non-matching but edge in carry_forward with correct from_version: satisfied
-  - review_approved non-matching, carry_forward present but from_version wrong: NOT satisfied
-  - review_approved no workflow_version field (pre-provenance), current version known: NOT satisfied
-  - when current_workflow_version == "unknown": all review_approved accepted by edge name alone
+  - approved{kind: fh_review} matching workflow_version: F_H gate satisfied
+  - approved{kind: fh_review} non-matching workflow_version, no carry_forward: NOT satisfied
+  - approved{kind: fh_review} non-matching but edge in carry_forward with correct from_version: satisfied
+  - approved{kind: fh_review} non-matching, carry_forward present but from_version wrong: NOT satisfied
+  - approved{kind: fh_review} no workflow_version field (pre-provenance), current version known: NOT satisfied
+  - when current_workflow_version == "unknown": all approved{kind: fh_review} accepted by edge name alone
   - bind_fh(job, events) with no extra args behaves identically to current engine
   # schedule.delta path
   - schedule.delta() F_H check uses bind_fh (no duplicate logic)
@@ -275,7 +279,7 @@ acceptance_criteria:
   # REQ-F-PROV-005 — orphan tolerance comment
   - orphan tolerance comment present in gen_gaps
   - orphan tolerance comment present in gen_iterate
-  - engine does not error on events.jsonl containing review_approved for unknown edge
+  - engine does not error on events.jsonl containing approved{kind: fh_review} for unknown edge
 
   # Regression — no existing behaviour changes when active-workflow.json absent
   - test_bind.py: all existing tests pass without modification
@@ -304,8 +308,8 @@ acceptance_criteria:
   # TestSpecHashGate (new class)
   - test_unknown_workflow_uses_req_hash
   - test_known_workflow_uses_job_evaluator_hash
-  - test_stale_fp_assessment_not_accepted_when_version_known
-  - test_req_hash_format_fp_assessment_accepted_when_version_unknown
+  - test_stale_assessed{kind: fp}_not_accepted_when_version_known
+  - test_req_hash_format_assessed{kind: fp}_accepted_when_version_unknown
 
   # New tests required — test_commands.py additions
   # TestReadWorkflowVersion (new class — unit tests for shared pure function)
@@ -341,7 +345,7 @@ risk: |
 
   Once Part A (genesis_sdlc) installs active-workflow.json, scope.workflow_version
   becomes non-"unknown". At that point, spec_hash switches from req_hash to
-  job_evaluator_hash for all gen_gaps / gen_iterate runs. Any existing fp_assessment
+  job_evaluator_hash for all gen_gaps / gen_iterate runs. Any existing assessed{kind: fp}
   events in the stream carry the old req_hash format. They will no longer match.
   All F_P edges reopen.
 
@@ -357,7 +361,7 @@ risk: |
   it occurs exactly once, at the first gen_gaps run after Part A deploys.
 
   SECONDARY RISK — schedule.py refactor
-  schedule.delta() currently has its own inline review_approved check (lines 70-77).
+  schedule.delta() currently has its own inline approved{kind: fh_review} check (lines 70-77).
   This feature changes it to delegate to bind_fh. The refactor must not change
   the semantics of the delta() return value. The TestScheduleDeltaVersioned tests
   verify this. Specifically: test_no_args_identical_to_current_behaviour must pass

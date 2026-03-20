@@ -52,8 +52,8 @@ def _make_full_chain_package(workspace_root: Path) -> tuple[Package, Worker]:
 
     Edge: design→code
       F_D  impl_tags      — check-tags on code/ (real subprocess, checks real files)
-      F_P  code_complete  — test acts as F_P actor (writes fp_assessment)
-      F_H  design_approved — test acts as F_H actor (emits review_approved)
+      F_P  code_complete  — test acts as F_P actor (writes assessed)
+      F_H  design_approved — test acts as F_H actor (emits approved)
 
     GATE-002 invariant: F_P not dispatched while F_D failing;
                         F_H not gated while F_D or F_P failing.
@@ -166,7 +166,7 @@ class TestFullFdFpFhChain:
         assert "fp_dispatched" not in event_types, (
             "F_P must not be dispatched while F_D is failing (REQ-F-GATE-002)"
         )
-        assert "fd_gap_found" in event_types
+        assert "found" in event_types
 
     def test_fp_dispatched_after_fd_passes(self, tmp_path):
         """F_P dispatched once F_D (impl_tags) passes — all three evaluators in failing list."""
@@ -199,7 +199,8 @@ class TestFullFdFpFhChain:
             "# Implements: REQ-INT-001\ndef main(): pass\n"
         )
         # F_P: act as actor
-        stream.append("fp_assessment", {
+        stream.append("assessed", {
+            "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
@@ -230,7 +231,8 @@ class TestFullFdFpFhChain:
         )
 
         # Step 2: act as F_P
-        stream.append("fp_assessment", {
+        stream.append("assessed", {
+            "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
@@ -238,7 +240,8 @@ class TestFullFdFpFhChain:
         })
 
         # Step 3: act as F_H
-        stream.append("review_approved", {
+        stream.append("approved", {
+            "kind": "fh_review",
             "edge": "design→code",
             "actor": "test_human",
         })
@@ -256,7 +259,7 @@ class TestAutoLoopStopsCorrectly:
         """
         gen_start(auto=True) stops with stopped_by='fd_gap' when both F_D and F_P
         are failing. This is the C1 regression scenario: the auto-loop must detect
-        fd_gap via the fd_gap_found event, not by exhausting MAX_AUTO iterations.
+        fd_gap via the found event, not by exhausting MAX_AUTO iterations.
         """
         stream = workspace_bootstrap(tmp_path)
         pkg, worker = _make_fd_fp_package(tmp_path)
@@ -267,11 +270,11 @@ class TestAutoLoopStopsCorrectly:
 
         assert result.get("stopped_by") == "fd_gap", (
             f"Expected stopped_by='fd_gap', got {result.get('stopped_by')!r}. "
-            "C1 regression: auto-loop must emit fd_gap_found and stop, not hit max_iterations."
+            "C1 regression: auto-loop must emit found event and stop, not hit max_iterations."
         )
         events = stream.all_events()
-        assert any(e["event_type"] == "fd_gap_found" for e in events), (
-            "fd_gap_found must be in event stream when auto-loop stops on fd_gap"
+        assert any(e["event_type"] == "found" for e in events), (
+            "found event must be in event stream when auto-loop stops on fd_gap"
         )
 
     def test_auto_loop_stops_on_fp_dispatch(self, tmp_path):
@@ -302,7 +305,8 @@ class TestAutoLoopStopsCorrectly:
         (tmp_path / "code" / "impl.py").write_text(
             "# Implements: REQ-INT-002\ndef main(): pass\n"
         )
-        stream.append("fp_assessment", {
+        stream.append("assessed", {
+            "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
@@ -317,9 +321,9 @@ class TestAutoLoopStopsCorrectly:
 class TestSpecHashStaleness:
     """Scenario 4: spec change invalidates F_P assessment — REQ-F-EVAL-004."""
 
-    def test_stale_fp_assessment_does_not_converge(self, tmp_path):
+    def test_stale_fp_assessed_does_not_converge(self, tmp_path):
         """
-        An fp_assessment emitted with a different spec_hash does not satisfy
+        An assessed event emitted with a different spec_hash does not satisfy
         bind_fd() — the edge remains unconverged even with code present.
         """
         stream = workspace_bootstrap(tmp_path)
@@ -332,8 +336,9 @@ class TestSpecHashStaleness:
             "# Implements: REQ-INT-002\ndef main(): pass\n"
         )
 
-        # Emit fp_assessment with WRONG spec_hash (simulates stale assessment)
-        stream.append("fp_assessment", {
+        # Emit assessed with WRONG spec_hash (simulates stale assessment)
+        stream.append("assessed", {
+            "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
@@ -349,7 +354,7 @@ class TestSpecHashStaleness:
         assert "code_complete" in failing
 
     def test_correct_spec_hash_converges(self, tmp_path):
-        """Correct spec_hash satisfies bind_fd() — edge converges."""
+        """Correct spec_hash on assessed event satisfies bind_fd() — edge converges."""
         stream = workspace_bootstrap(tmp_path)
         pkg, worker = _make_fd_fp_package(tmp_path)
         scope = _make_scope(tmp_path, pkg, worker)
@@ -359,7 +364,8 @@ class TestSpecHashStaleness:
         (tmp_path / "code" / "impl.py").write_text(
             "# Implements: REQ-INT-002\ndef main(): pass\n"
         )
-        stream.append("fp_assessment", {
+        stream.append("assessed", {
+            "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
@@ -391,7 +397,8 @@ class TestFeatureLifecycle:
         (tmp_path / "code" / "impl.py").write_text(
             "# Implements: REQ-INT-002\ndef main(): pass\n"
         )
-        stream.append("fp_assessment", {
+        stream.append("assessed", {
+            "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
@@ -428,12 +435,13 @@ class TestEdgeConvergedCertificates:
             f"id: {feature_id}\nstatus: active\nsatisfies:\n  - {feature_id}\n"
         )
 
-        # Converge: create code (F_D) and emit fp_assessment (F_P)
+        # Converge: create code (F_D) and emit assessed (F_P)
         (tmp_path / "code").mkdir()
         (tmp_path / "code" / "impl.py").write_text(
             "# Implements: REQ-INT-002\ndef main(): pass\n"
         )
-        stream.append("fp_assessment", {
+        stream.append("assessed", {
+            "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
@@ -463,7 +471,8 @@ class TestEdgeConvergedCertificates:
         (tmp_path / "code" / "impl.py").write_text(
             "# Implements: REQ-INT-002\ndef main(): pass\n"
         )
-        stream.append("fp_assessment", {
+        stream.append("assessed", {
+            "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",

@@ -22,7 +22,7 @@ Demonstrates the genesis engine running a full lifecycle in a fresh sandbox:
   → gen_gaps again (delta = 0)
 
 The F_P step is deterministic in the sandbox: the test acts as the F_P actor,
-writing a code artifact and emitting fp_assessment. This tests the engine's
+writing a code artifact and emitting assessed (kind=fp). This tests the engine's
 lifecycle management, not the LLM. The LLM is always an external actor.
 
 Marked with pytest.mark.e2e — run via: pytest -m e2e
@@ -193,7 +193,8 @@ class TestSandboxFullLifecycle:
         # F_P records its assessment — spec_hash required (REQ-F-EVAL-004) so that
         # bind_fd() can validate snapshot binding and not count stale assessments.
         spec_hash = req_hash(pkg.requirements)
-        emit("fp_assessment", {
+        emit("assessed", {
+            "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "actor": "test_fp",

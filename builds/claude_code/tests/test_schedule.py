@@ -78,7 +78,7 @@ class TestDelta:
     def test_fh_evaluator_zero_after_approval(self, tmp_path):
         job = _make_job([Evaluator("design_approved", F_H, "human gate")])
         stream = _make_stream(tmp_path)
-        stream.append("review_approved", {"edge": "design→code", "actor": "human"})
+        stream.append("approved", {"kind": "fh_review", "edge": "design→code", "actor": "human"})
         d = delta(job, stream, tmp_path)
         assert d == 0.0
 
@@ -96,10 +96,11 @@ class TestDelta:
         assert d > 0.0
 
     def test_fp_resolves_with_matching_spec_hash(self, tmp_path):
-        """fp_assessment with matching spec_hash resolves F_P evaluator."""
+        """assessed(kind=fp) with matching spec_hash resolves F_P evaluator."""
         job = _make_job([Evaluator("code_complete", F_P, "LLM check")])
         stream = _make_stream(tmp_path)
-        stream.append("fp_assessment", {
+        stream.append("assessed", {
+            "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
@@ -109,10 +110,11 @@ class TestDelta:
         assert d == 0.0
 
     def test_fp_stale_with_different_spec_hash(self, tmp_path):
-        """fp_assessment with wrong spec_hash is treated as stale — delta stays > 0."""
+        """assessed(kind=fp) with wrong spec_hash is treated as stale — delta stays > 0."""
         job = _make_job([Evaluator("code_complete", F_P, "LLM check")])
         stream = _make_stream(tmp_path)
-        stream.append("fp_assessment", {
+        stream.append("assessed", {
+            "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
@@ -122,10 +124,11 @@ class TestDelta:
         assert d > 0.0
 
     def test_fp_stale_without_spec_hash_field(self, tmp_path):
-        """fp_assessment with no spec_hash field is stale when caller provides a hash."""
+        """assessed(kind=fp) with no spec_hash field is stale when caller provides a hash."""
         job = _make_job([Evaluator("code_complete", F_P, "LLM check")])
         stream = _make_stream(tmp_path)
-        stream.append("fp_assessment", {
+        stream.append("assessed", {
+            "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
@@ -137,7 +140,8 @@ class TestDelta:
         """spec_hash=None opts out of snapshot check — legacy assessment is valid."""
         job = _make_job([Evaluator("code_complete", F_P, "LLM check")])
         stream = _make_stream(tmp_path)
-        stream.append("fp_assessment", {
+        stream.append("assessed", {
+            "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
@@ -277,10 +281,11 @@ class TestDeltaProvenance:
         return Job(edge=edge, evaluators=[ev])
 
     def test_fh_resolves_with_matching_workflow_version(self, tmp_path):
-        """review_approved with matching workflow_version → delta = 0.0."""
+        """approved(kind=fh_review) with matching workflow_version → delta = 0.0."""
         job = self._make_fh_job()
         stream = _make_stream(tmp_path)
-        stream.append("review_approved", {
+        stream.append("approved", {
+            "kind": "fh_review",
             "edge": "requirements→feature_decomp",
             "actor": "human",
             "workflow_version": "genesis_sdlc.standard@0.2.1",
@@ -292,10 +297,11 @@ class TestDeltaProvenance:
         assert d == 0.0
 
     def test_fh_fails_with_different_workflow_version(self, tmp_path):
-        """review_approved from a different version → stale, delta > 0."""
+        """approved(kind=fh_review) from a different version → stale, delta > 0."""
         job = self._make_fh_job()
         stream = _make_stream(tmp_path)
-        stream.append("review_approved", {
+        stream.append("approved", {
+            "kind": "fh_review",
             "edge": "requirements→feature_decomp",
             "actor": "human",
             "workflow_version": "genesis_sdlc.standard@0.1.0",
@@ -307,10 +313,11 @@ class TestDeltaProvenance:
         assert d > 0.0
 
     def test_fh_resolves_via_carry_forward(self, tmp_path):
-        """review_approved from old version + matching carry_forward entry → delta = 0.0."""
+        """approved(kind=fh_review) from old version + matching carry_forward entry → delta = 0.0."""
         job = self._make_fh_job()
         stream = _make_stream(tmp_path)
-        stream.append("review_approved", {
+        stream.append("approved", {
+            "kind": "fh_review",
             "edge": "requirements→feature_decomp",
             "actor": "human",
             "workflow_version": "genesis_sdlc.standard@0.1.0",
@@ -329,7 +336,8 @@ class TestDeltaProvenance:
         """carry_forward entry for wrong edge does not satisfy the gate."""
         job = self._make_fh_job()
         stream = _make_stream(tmp_path)
-        stream.append("review_approved", {
+        stream.append("approved", {
+            "kind": "fh_review",
             "edge": "requirements→feature_decomp",
             "actor": "human",
             "workflow_version": "genesis_sdlc.standard@0.1.0",

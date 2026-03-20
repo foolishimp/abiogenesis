@@ -62,7 +62,7 @@ def _make_fd_only_package_and_worker():
 
 
 def _make_fh_package_and_worker():
-    """Package + Worker with one F_H evaluator — resolves via review_approved event."""
+    """Package + Worker with one F_H evaluator — resolves via approved event."""
     src = Asset(name="draft", id_format="DRAFT-{SEQ}")
     tgt = Asset(name="approved", id_format="APR-{SEQ}", lineage=[src])
     op = Operator("human", F_H, "fh://single")
@@ -189,8 +189,8 @@ class TestGenGaps:
         """gen_gaps emits exactly one edge_converged with required fields on first delta=0."""
         pkg, worker, _ = _make_fh_package_and_worker()
         stream = _make_stream(tmp_path)
-        stream.append("review_approved", {
-            "edge": "draft→approved", "actor": "human", "evaluator": "sign_off",
+        stream.append("approved", {
+            "kind": "fh_review", "edge": "draft→approved", "actor": "human", "evaluator": "sign_off",
         })
         scope = _make_scope(tmp_path, pkg, worker=worker)
         result = gen_gaps(scope, stream)
@@ -209,8 +209,8 @@ class TestGenGaps:
         """gen_gaps is idempotent: repeated calls on a converged workspace emit only one certificate."""
         pkg, worker, _ = _make_fh_package_and_worker()
         stream = _make_stream(tmp_path)
-        stream.append("review_approved", {
-            "edge": "draft→approved", "actor": "human", "evaluator": "sign_off",
+        stream.append("approved", {
+            "kind": "fh_review", "edge": "draft→approved", "actor": "human", "evaluator": "sign_off",
         })
         scope = _make_scope(tmp_path, pkg, worker=worker)
         gen_gaps(scope, stream)
@@ -271,7 +271,8 @@ class TestGenIterate:
         """gen_iterate returns 'converged' when no unconverged job is found."""
         pkg, worker, _ = _make_fh_package_and_worker()
         stream = _make_stream(tmp_path)
-        stream.append("review_approved", {
+        stream.append("approved", {
+            "kind": "fh_review",
             "edge": "draft→approved",
             "actor": "human",
             "evaluator": "sign_off",
@@ -313,8 +314,8 @@ class TestGenStart:
         """gen_start with auto=True returns converged when all evaluators pass."""
         pkg, worker, _ = _make_fh_package_and_worker()
         stream = _make_stream(tmp_path)
-        stream.append("review_approved", {
-            "edge": "draft→approved", "actor": "human", "evaluator": "sign_off",
+        stream.append("approved", {
+            "kind": "fh_review", "edge": "draft→approved", "actor": "human", "evaluator": "sign_off",
         })
         scope = _make_scope(tmp_path, pkg, worker=worker)
         result = gen_start(scope, stream, auto=True)
@@ -328,7 +329,7 @@ class TestGenStart:
         result = gen_start(scope, stream, auto=True)
         assert result.get("auto") is True
         assert result.get("stopped_by") == "fd_gap"
-        # Only one iteration: edge_started + fd_gap_found, not repeated
+        # Only one iteration: edge_started + found(fd_gap), not repeated
         events = stream.all_events()
         assert sum(1 for e in events if e["event_type"] == "edge_started") == 1
 
@@ -336,7 +337,8 @@ class TestGenStart:
         """gen_start returns 'converged' when _derive_state finds total_delta=0."""
         pkg, worker, _ = _make_fh_package_and_worker()
         stream = _make_stream(tmp_path)
-        stream.append("review_approved", {
+        stream.append("approved", {
+            "kind": "fh_review",
             "edge": "draft→approved",
             "actor": "human",
             "evaluator": "sign_off",
@@ -388,15 +390,15 @@ class TestFdGateNoManifest:
         events = stream.all_events()
         assert not any(e["event_type"] == "edge_started" for e in events)
 
-    def test_fd_gap_found_emitted_when_fd_blocking_fp(self, tmp_path):
-        """fd_gap_found IS emitted in early return so gen_start auto-loop detects it."""
+    def test_found_emitted_when_fd_blocking_fp(self, tmp_path):
+        """found (fd_gap) IS emitted in early return so gen_start auto-loop detects it."""
         pkg, worker = self._make_mixed_fd_fp_package()
         stream = workspace_bootstrap(tmp_path)
         scope = _make_scope(tmp_path, pkg, worker=worker)
         gen_iterate(scope, stream)
         events = stream.all_events()
-        assert any(e["event_type"] == "fd_gap_found" for e in events), (
-            "fd_gap_found must be in stream so gen_start(auto=True) stops at fd_gap"
+        assert any(e["event_type"] == "found" for e in events), (
+            "found (fd_gap) must be in stream so gen_start(auto=True) stops at fd_gap"
         )
 
     def test_gen_start_auto_stops_at_fd_gap_with_mixed_evaluators(self, tmp_path):
@@ -417,7 +419,7 @@ class TestEdgeConvergedDedup:
     """REQ-F-CMD-004: gen_gaps() emits edge_converged per (edge, feature) pair."""
 
     def _make_fh_converged_package(self):
-        """Package with one F_H evaluator — converged when review_approved event exists."""
+        """Package with one F_H evaluator — converged when approved event exists."""
         src = Asset(name="src", id_format="SRC-{SEQ}")
         tgt = Asset(name="out", id_format="OUT-{SEQ}", lineage=[src])
         op = Operator("human", F_H, "fh://single")
@@ -441,8 +443,8 @@ class TestEdgeConvergedDedup:
         stream = workspace_bootstrap(tmp_path)
         self._write_feature(tmp_path, "FEAT-001")
         self._write_feature(tmp_path, "FEAT-002")
-        # Single review_approved covers the edge for both features
-        stream.append("review_approved", {"edge": "src→out", "actor": "human"})
+        # Single approved covers the edge for both features
+        stream.append("approved", {"kind": "fh_review", "edge": "src→out", "actor": "human"})
 
         scope_f1 = _make_scope(tmp_path, pkg, worker=worker, feature="FEAT-001")
         gen_gaps(scope_f1, stream)
@@ -463,7 +465,7 @@ class TestEdgeConvergedDedup:
         pkg, worker = self._make_fh_converged_package()
         stream = workspace_bootstrap(tmp_path)
         self._write_feature(tmp_path, "FEAT-001")
-        stream.append("review_approved", {"edge": "src→out", "actor": "human"})
+        stream.append("approved", {"kind": "fh_review", "edge": "src→out", "actor": "human"})
         scope = _make_scope(tmp_path, pkg, worker=worker, feature="FEAT-001")
 
         gen_gaps(scope, stream)
@@ -597,7 +599,8 @@ class TestWorkflowVersionAnnotation:
         self._install_active_workflow(tmp_path)
         pkg, worker, _ = _make_fh_package_and_worker()
         stream = workspace_bootstrap(tmp_path)
-        stream.append("review_approved", {
+        stream.append("approved", {
+            "kind": "fh_review",
             "edge": "draft→approved",
             "actor": "human",
             "workflow_version": "genesis_sdlc.standard@0.2.1",

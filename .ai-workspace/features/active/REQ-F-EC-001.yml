@@ -1,0 +1,199 @@
+id: REQ-F-EC-001
+title: Event Calculus Foundation — Prime Operators, Fluents, and Convergence Model
+status: implementing
+satisfies:
+  - REQ-F-EC-001
+  - REQ-F-EC-002
+  - REQ-F-EC-003
+  - REQ-F-EC-004
+  - REQ-F-EC-005
+  - REQ-F-EC-006
+
+depends_on:
+  - REQ-F-PROV-001
+
+design_record: ADR-016-prime-operators-event-calculus.md
+
+description: |
+  Ground the engine's convergence projection in Event Calculus with five
+  prime operators. This is a clean-start refactor — no backward compatibility
+  with pre-EC event streams. Old events.jsonl files are archived, not migrated.
+
+  The engine projection layer implements four EC primitives over events.jsonl:
+    happensAt(E, T)      — event E occurred at time T (a line in the log)
+    initiates(E, F, T)   — event E starts fluent F at time T
+    terminates(E, F, T)  — event E ends fluent F at time T
+    holdsAt(F, T)        — fluent F is true at time T (projection query)
+
+  All convergence-gating queries reduce to either a holdsAt projection on
+  one of two fluents, or a live F_D execution. No other convergence model
+  exists.
+
+  ─────────────────────────────────────────────────────────────
+  REQ-F-EC-001  Five prime operators with kind discriminator
+  ─────────────────────────────────────────────────────────────
+  The engine recognises exactly five Tier 1 event types (prime operators).
+  Each carries a kind field that discriminates its specific role:
+
+    found       kind: fd_gap           happensAt only (audit)
+    approved    kind: fh_review        initiates operative(edge, wv)
+    approved    kind: fh_intent        initiates operative(edge, wv)
+    assessed    kind: fp               initiates certified(edge, ev, spec_hash, wv) when result: pass
+    assessed    kind: fh_review        happensAt only (rejection record)
+    revoked     kind: fh_approval      terminates operative(edge, wv)
+    intent_raised  (unchanged)         happensAt only (homeostasis)
+
+  Tier 2 events (edge_started, fp_dispatched, fh_gate_pending, edge_converged)
+  are scheduler bookkeeping — they do not participate in fluent projection.
+
+  Tier 3 events (genesis_installed, bug_fixed, etc.) are lifecycle —
+  infrastructure only.
+
+  ─────────────────────────────────────────────────────────────
+  REQ-F-EC-002  Two fluents — operative and certified
+  ─────────────────────────────────────────────────────────────
+  The projection layer maintains exactly two fluents:
+
+  FLUENT 1: operative(edge, workflow_version)
+    Initiated by:  approved{kind: fh_review | fh_intent, edge: E, wv: W}
+    Terminated by: revoked{kind: fh_approval, edge: E, wv: W}
+    Query:         holdsAt(operative(E, W), now)
+    Implemented:   bind_fh() in bind.py
+
+  FLUENT 2: certified(edge, evaluator, spec_hash, workflow_version)
+    Initiated by:  assessed{kind: fp, result: pass, edge: E, evaluator: V, spec_hash: H}
+    Terminated by: spec_hash mismatch (new spec = different fluent identity)
+    Query:         holdsAt(certified(E, V, H, W), now)
+    Implemented:   _passes() for F_P category in bind_fd()
+
+  No other fluents exist. F_D has no fluent — it re-runs its command live.
+
+  ─────────────────────────────────────────────────────────────
+  REQ-F-EC-003  Three convergence models
+  ─────────────────────────────────────────────────────────────
+  Every evaluator convergence check dispatches by category:
+
+    F_D: Live execution      run_fd_evaluator(ev) → passes (bool)
+    F_H: Fluent projection   holdsAt(operative(edge, wv), now) via bind_fh()
+    F_P: Fluent projection   holdsAt(certified(edge, ev, spec_hash, wv), now) via _passes()
+
+  These are the only three paths in the _passes() function within bind_fd().
+
+  ─────────────────────────────────────────────────────────────
+  REQ-F-EC-004  Revocation — terminates operative
+  ─────────────────────────────────────────────────────────────
+  revoked{kind: fh_approval} terminates the operative fluent.
+
+  Required fields: kind (fh_approval), edge, actor, reason.
+  Scope: edge (exact match or "*" wildcard), workflow_version.
+
+  Revocation is workflow_version-scoped: a revocation from one lens
+  cannot cancel approvals from another. When current_workflow_version
+  is "unknown", revocations match by edge alone (backward compat).
+
+  Projection algorithm:
+    1. Find the latest approved{kind: fh_*, edge: E, wv: W} at time T_a
+    2. If none found: holdsAt = false
+    3. Find any revoked{kind: fh_approval, edge: E or *, wv: W} at T_r > T_a
+    4. If found: holdsAt = false (fluent terminated)
+    5. Otherwise: holdsAt = true
+
+  Re-approval after revocation is valid: a later approved updates T_a,
+  so the earlier revocation no longer postdates it.
+
+  Wildcard: edge="*" terminates operative for all edges under the
+  matching workflow_version.
+
+  ─────────────────────────────────────────────────────────────
+  REQ-F-EC-005  Rejection is not revocation
+  ─────────────────────────────────────────────────────────────
+  assessed{kind: fh_review, result: reject} is a judgment on the current
+  candidate. It is happensAt-only — no fluent change:
+    - Does NOT initiate any fluent (rejection doesn't grant authority)
+    - Does NOT terminate any fluent (nothing was approved to withdraw)
+    - Records the evaluation outcome and reason for audit
+
+  Distinction: rejection says "this candidate doesn't pass."
+  Revocation says "a prior approval is no longer valid."
+
+  assessed{kind: fh_review} must NOT satisfy F_P convergence. The kind
+  field isolates the F_H rejection path from the F_P assessment path.
+
+  ─────────────────────────────────────────────────────────────
+  REQ-F-EC-006  Write-primitive validation for prime operators
+  ─────────────────────────────────────────────────────────────
+  emit() validates prime operators at the write primitive:
+    - approved requires kind field
+    - revoked requires kind field
+    - assessed{kind: fp} requires spec_hash field
+
+  _emit_event_cmd validates full governance schemas:
+    - approved: kind, edge, actor; proxy_log if actor=human-proxy
+    - assessed{kind: fp}: kind, edge, result, evaluator, spec_hash
+    - assessed{kind: fh_review}: kind, edge, result, actor, reason
+    - revoked: kind, edge, actor, reason
+
+  Both write paths enforce validation. Malformed prime events cannot
+  be written to the event log.
+
+acceptance_criteria:
+  # REQ-F-EC-001 — prime operators
+  - emit("approved", {"kind": "fh_review", ...}) succeeds
+  - emit("assessed", {"kind": "fp", ..., "spec_hash": H}) succeeds
+  - emit("revoked", {"kind": "fh_approval", ...}) succeeds
+  - emit("approved", {"edge": "x"}) without kind raises ValueError
+  - emit("revoked", {"edge": "x"}) without kind raises ValueError
+  - emit("assessed", {"kind": "fp", ...}) without spec_hash raises ValueError
+  - "found" events emitted with kind: fd_gap in data
+  - Tier 2 events (edge_started etc.) unchanged
+
+  # REQ-F-EC-002 — two fluents
+  - approved{kind: fh_review} initiates operative: bind_fh returns True
+  - revoked{kind: fh_approval} terminates operative: bind_fh returns False
+  - assessed{kind: fp, result: pass} initiates certified: _passes returns True
+  - assessed{kind: fh_review} does NOT initiate certified: _passes returns False
+  - No fluent for F_D: run_fd_evaluator is called live every iteration
+
+  # REQ-F-EC-003 — three convergence models
+  - F_D evaluator: passes iff command returns exit 0
+  - F_H evaluator: passes iff holdsAt(operative(edge, wv), now)
+  - F_P evaluator: passes iff holdsAt(certified(edge, ev, spec_hash, wv), now)
+  - These are the only three branches in _passes()
+
+  # REQ-F-EC-004 — revocation
+  - Basic: approved then revoked → bind_fh returns False
+  - Re-approval: approved, revoked, approved again → bind_fh returns True
+  - Wildcard: revoked{edge: "*"} terminates operative for any edge
+  - Temporal: revocation predating approval has no effect
+  - Version scoping: revoked with matching workflow_version terminates
+  - Cross-version: revoked from different workflow_version does NOT terminate
+  - Wrong edge: revoked for a different edge does not affect this job
+
+  # REQ-F-EC-005 — rejection is not revocation
+  - assessed{kind: fh_review, result: reject} does not satisfy F_P convergence
+  - assessed{kind: fh_review, result: reject} does not terminate operative fluent
+  - assessed{kind: fh_review, result: reject} is recorded in event log (happensAt)
+
+  # REQ-F-EC-006 — write-primitive validation
+  - emit() rejects approved without kind
+  - emit() rejects revoked without kind
+  - emit() rejects assessed{kind: fp} without spec_hash
+  - _emit_event_cmd rejects revoked without kind, edge, actor, or reason
+  - _emit_event_cmd rejects assessed{kind: fp} without evaluator or spec_hash
+  - _emit_event_cmd rejects assessed{kind: fh_review} without actor or reason
+  - _emit_event_cmd rejects approved without kind
+
+  # Clean start
+  - No backward-compat branches for old event names in source code
+  - No references to review_approved, fp_assessment, fd_gap_found, review_rejected in source
+  - Old events.jsonl archived, not migrated
+
+risk: |
+  CLEAN START: This refactor archives old event logs. All edges reopen.
+  F_P re-assessment and F_H re-approval required after epoch cutover.
+  This is intentional — the old event names are not compatible with EC
+  projection and must not be mixed in the same log.
+
+  DEPENDENT REBUILDS: Downstream projects (genesis-manager, genesis_chat)
+  have runtime code with hardcoded old event names. They must be rebuilt
+  from updated specs after cascade install.

@@ -102,9 +102,9 @@ class TestBindFd:
         assert any(ev.name == "fp_eval" for ev in pre.failing_evaluators)
         assert not any(ev.name == "fp_eval" for ev in pre.passing_evaluators)
 
-    def test_fh_evaluator_passes_with_review_approved(self, tmp_path):
+    def test_fh_evaluator_passes_with_approved(self, tmp_path):
         stream = _make_stream(tmp_path)
-        stream.append("review_approved", {"edge": "design→code", "actor": "human"})
+        stream.append("approved", {"kind": "fh_review", "edge": "design→code", "actor": "human"})
         resolver = ContextResolver(tmp_path)
         job = _make_simple_job([Evaluator("design_approved", F_H, "human gate")])
         pre = bind_fd(job, stream, resolver, tmp_path)
@@ -194,7 +194,7 @@ class TestSelectRelevantContexts:
         assert result == []
 
     def test_fh_only_failing_returns_empty(self):
-        """F_H-only failure → no contexts (gate waits for review_approved, no prompt)."""
+        """F_H-only failure → no contexts (gate waits for approved, no prompt)."""
         ctxs = [self._ctx("criteria")]
         failing = [Evaluator("sign_off", F_H, "human approval")]
         result = select_relevant_contexts(ctxs, failing)
@@ -244,10 +244,10 @@ def _make_fh_job() -> Job:
 
 
 def _review_event(edge: str, workflow_version: str | None = None) -> dict:
-    data: dict = {"edge": edge, "actor": "human"}
+    data: dict = {"kind": "fh_review", "edge": edge, "actor": "human"}
     if workflow_version is not None:
         data["workflow_version"] = workflow_version
-    return {"event_type": "review_approved", "data": data}
+    return {"event_type": "approved", "data": data}
 
 
 class TestJobEvaluatorHash:
@@ -286,8 +286,8 @@ class TestJobEvaluatorHash:
 # ── bind_fh — version-aware F_H gate ─────────────────────────────────────────
 
 class TestBindFhVersionAware:
-    def test_unknown_version_accepts_any_review_approved(self):
-        """Backward compat: "unknown" accepts any review_approved matching edge name."""
+    def test_unknown_version_accepts_any_approved(self):
+        """Backward compat: "unknown" accepts any approved matching edge name."""
         job = _make_fh_job()
         events = [_review_event("requirements→feature_decomp")]
         assert bind_fh(job, events, current_workflow_version="unknown") is True
@@ -318,7 +318,7 @@ class TestBindFhVersionAware:
         assert bind_fh(job, events, current_workflow_version="genesis_sdlc.standard@0.2.1") is False
 
     def test_carry_forward_satisfies_gate(self):
-        """carry_forward entry with matching from_version accepts an older review_approved."""
+        """carry_forward entry with matching from_version accepts an older approved."""
         job = _make_fh_job()
         events = [_review_event("requirements→feature_decomp", "genesis_sdlc.standard@0.1.0")]
         cf = [{"edge": "requirements→feature_decomp", "from_version": "genesis_sdlc.standard@0.1.0"}]
@@ -337,3 +337,111 @@ class TestBindFhVersionAware:
         events = [_review_event("requirements→feature_decomp", "genesis_sdlc.standard@0.1.0")]
         cf = [{"edge": "requirements→feature_decomp", "from_version": "genesis_sdlc.standard@0.0.1"}]
         assert bind_fh(job, events, current_workflow_version="genesis_sdlc.standard@0.2.1", carry_forward=cf) is False
+
+
+# ── revoked operator tests (C2) ──────────────────────────────────────────────
+
+def _revoke_event(edge: str, workflow_version: str | None = None, event_time: str | None = None) -> dict:
+    data: dict = {"kind": "fh_approval", "edge": edge, "actor": "human", "reason": "retracted"}
+    if workflow_version is not None:
+        data["workflow_version"] = workflow_version
+    ev: dict = {"event_type": "revoked", "data": data}
+    if event_time is not None:
+        ev["event_time"] = event_time
+    return ev
+
+
+class TestRevocation:
+    """Event Calculus: revoked{kind: fh_approval} terminates operative(edge, wv)."""
+
+    def test_basic_revocation_terminates_operative(self):
+        """approved then revoked → fluent terminated."""
+        job = _make_fh_job()
+        events = [
+            {**_review_event("requirements→feature_decomp"), "event_time": "2026-01-01T00:00:00"},
+            {**_revoke_event("requirements→feature_decomp"), "event_time": "2026-01-02T00:00:00"},
+        ]
+        assert bind_fh(job, events, current_workflow_version="unknown") is False
+
+    def test_reapproval_after_revocation_restores_fluent(self):
+        """approved → revoked → approved again → fluent restored."""
+        job = _make_fh_job()
+        events = [
+            {**_review_event("requirements→feature_decomp"), "event_time": "2026-01-01T00:00:00"},
+            {**_revoke_event("requirements→feature_decomp"), "event_time": "2026-01-02T00:00:00"},
+            {**_review_event("requirements→feature_decomp"), "event_time": "2026-01-03T00:00:00"},
+        ]
+        assert bind_fh(job, events, current_workflow_version="unknown") is True
+
+    def test_wildcard_revocation(self):
+        """revoked{edge: "*"} terminates operative for any edge."""
+        job = _make_fh_job()
+        events = [
+            {**_review_event("requirements→feature_decomp"), "event_time": "2026-01-01T00:00:00"},
+            {**_revoke_event("*"), "event_time": "2026-01-02T00:00:00"},
+        ]
+        assert bind_fh(job, events, current_workflow_version="unknown") is False
+
+    def test_revocation_predating_approval_has_no_effect(self):
+        """A revocation with an earlier timestamp does not terminate a later approval."""
+        job = _make_fh_job()
+        events = [
+            {**_revoke_event("requirements→feature_decomp"), "event_time": "2026-01-01T00:00:00"},
+            {**_review_event("requirements→feature_decomp"), "event_time": "2026-01-02T00:00:00"},
+        ]
+        assert bind_fh(job, events, current_workflow_version="unknown") is True
+
+    def test_revocation_scoped_by_workflow_version(self):
+        """H4: revoked with matching workflow_version terminates the fluent."""
+        job = _make_fh_job()
+        wv = "genesis_sdlc.standard@0.2.1"
+        events = [
+            {**_review_event("requirements→feature_decomp", wv), "event_time": "2026-01-01T00:00:00"},
+            {**_revoke_event("requirements→feature_decomp", wv), "event_time": "2026-01-02T00:00:00"},
+        ]
+        assert bind_fh(job, events, current_workflow_version=wv) is False
+
+    def test_cross_version_revocation_does_not_terminate(self):
+        """H4: revoked from a different workflow_version does NOT terminate the fluent."""
+        job = _make_fh_job()
+        wv_current = "genesis_sdlc.standard@0.2.1"
+        wv_other = "genesis_sdlc.standard@0.1.0"
+        events = [
+            {**_review_event("requirements→feature_decomp", wv_current), "event_time": "2026-01-01T00:00:00"},
+            {**_revoke_event("requirements→feature_decomp", wv_other), "event_time": "2026-01-02T00:00:00"},
+        ]
+        assert bind_fh(job, events, current_workflow_version=wv_current) is True
+
+    def test_revocation_wrong_edge_ignored(self):
+        """Revocation for a different edge does not affect this job's fluent."""
+        job = _make_fh_job()
+        events = [
+            {**_review_event("requirements→feature_decomp"), "event_time": "2026-01-01T00:00:00"},
+            {**_revoke_event("other_edge"), "event_time": "2026-01-02T00:00:00"},
+        ]
+        assert bind_fh(job, events, current_workflow_version="unknown") is True
+
+
+# ── M1: assessed{kind: fh_review} must not satisfy F_P convergence ───────────
+
+class TestAssessedKindIsolation:
+    """assessed{kind: fh_review} is an F_H event — it must NOT satisfy F_P convergence."""
+
+    def test_fh_review_assessment_does_not_satisfy_fp(self, tmp_path):
+        """An assessed{kind: fh_review} event must not count as F_P convergence."""
+        stream = _make_stream(tmp_path)
+        resolver = ContextResolver(tmp_path)
+        # Emit an assessed event with kind=fh_review (F_H rejection)
+        stream.append("assessed", {
+            "kind": "fh_review",
+            "edge": "design→code",
+            "evaluator": "code_complete",
+            "result": "reject",
+            "actor": "human",
+            "reason": "insufficient",
+        })
+        job = _make_simple_job([Evaluator("code_complete", F_P, "Agent: code implements spec")])
+        pre = bind_fd(job, stream, resolver, tmp_path)
+        # code_complete must still be failing — fh_review does not satisfy F_P
+        assert any(ev.name == "code_complete" for ev in pre.failing_evaluators)
+        assert not any(ev.name == "code_complete" for ev in pre.passing_evaluators)

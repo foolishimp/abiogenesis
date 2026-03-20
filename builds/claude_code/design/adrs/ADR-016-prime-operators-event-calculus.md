@@ -1,0 +1,132 @@
+# ADR-016: Prime Operators and Event Calculus Foundation
+
+**Status**: Accepted
+**Date**: 2026-03-20
+**Supersedes**: Informal event naming in ADR-005, ADR-008, ADR-011
+**Derives from**: 20260320T020432_STRATEGY_prime-operator-refactor-plan.md, Codex reviews on ontology/scope/EC consistency
+
+## Decision
+
+The engine event schema is grounded in Event Calculus with five prime operators and a clean-start migration. All convergence-gating queries are either `holdsAt` projections on two fluents, or live F_D execution.
+
+### Five Prime Operators
+
+| Operator | `kind` discriminator | EC role |
+|----------|---------------------|---------|
+| `found` | `fd_gap` | `happensAt` only — audit record of F_D observation |
+| `approved` | `fh_review`, `fh_intent` | `initiates operative(edge, wv)` |
+| `assessed` | `fp` (pass/fail), `fh_review` (reject) | `initiates certified(edge, ev, spec_hash, wv)` when `kind: fp, result: pass`; `happensAt` only for `fh_review` rejection |
+| `revoked` | `fh_approval` | `terminates operative(edge, wv)` |
+| `intent_raised` | (unchanged) | `happensAt` only — homeostasis signal |
+
+### Two Fluents
+
+| Fluent | Initiated by | Terminated by |
+|--------|-------------|---------------|
+| `operative(edge, wv)` | `approved{kind: fh_review\|fh_intent}` | `revoked{kind: fh_approval}` |
+| `certified(edge, evaluator, spec_hash, wv)` | `assessed{kind: fp, result: pass}` | spec_hash mismatch (new spec = different fluent identity) |
+
+No others. F_D has no fluent — it re-runs its command on every iteration.
+
+### Rename Mapping
+
+| Before | After | Payload change |
+|--------|-------|---------------|
+| `fd_gap_found` | `found` | add `kind: fd_gap` |
+| `review_approved` | `approved` | add `kind: fh_review` |
+| `fp_assessment` | `assessed` | add `kind: fp` |
+| `review_rejected` | `assessed` | `kind: fh_review, result: reject` |
+| *(new)* | `revoked` | `kind: fh_approval` + scope fields |
+| `intent_raised` | `intent_raised` | unchanged |
+
+Tier 2 events (`edge_started`, `fp_dispatched`, `fh_gate_pending`, `edge_converged`) and Tier 3 events (`genesis_installed`, `bug_fixed`, etc.) are unchanged — they do not participate in EC fluent projection.
+
+## Problem
+
+The engine used implementation-specific event names (`review_approved`, `fp_assessment`, `fd_gap_found`) with no formal relationship to the consciousness-loop operators they represent. This caused:
+
+1. **No revocation** — once `review_approved` was emitted, there was no way to withdraw it. The `operative` fluent was initiatable but not terminable.
+2. **Schema collision** — F_H rejection had its own event type (`review_rejected`) rather than being an `assessed` outcome, creating a sixth event type for five logical operators.
+3. **Implicit projection semantics** — the relationship between events and convergence state was scattered across `bind.py`, `schedule.py`, and `commands.py` with no formal model.
+
+## Rationale
+
+Event Calculus provides the formal model:
+
+| EC Primitive | Meaning | Implementation |
+|---|---|---|
+| `happensAt(E, T)` | Event E occurred at time T | Line in `events.jsonl` with `event_type` and `event_time` |
+| `initiates(E, F, T)` | Event E starts fluent F at time T | `approved` initiates `operative`; `assessed{fp, pass}` initiates `certified` |
+| `terminates(E, F, T)` | Event E ends fluent F at time T | `revoked` terminates `operative`; spec_hash change terminates `certified` |
+| `holdsAt(F, T)` | Fluent F is true at time T | Projection query in `bind_fh` and `_passes` |
+
+The rename from implementation names to prime operators is a governance choice for conceptual cleanliness, not an EC requirement. EC lives in the projection rules (`initiates`, `terminates`, `holdsAt`), not in event names. The clean-start assumption eliminates migration cost, making the rename free.
+
+### Three Convergence Models
+
+| Evaluator type | Model | Query |
+|---|---|---|
+| F_D | Live execution | `run_fd_evaluator(ev) → passes` |
+| F_H | Fluent projection | `holdsAt(operative(edge, wv), now)` — implemented in `bind_fh()` |
+| F_P | Fluent projection | `holdsAt(certified(edge, ev, spec_hash, wv), now)` — implemented in `_passes()` |
+
+### F_D is Stateless
+
+F_D evaluators re-run their command on every iteration. `found{kind: fd_gap}` is `happensAt`-only: it records the observation for audit but does not initiate or terminate any fluent and does not gate anything.
+
+### Rejection vs Revocation
+
+`assessed{kind: fh_review, result: reject}` (rejection) is a judgment on the current candidate — "this doesn't pass." It is `happensAt`-only; no fluent change.
+
+`revoked{kind: fh_approval}` (revocation) withdraws previously granted authority — it terminates `operative(edge, wv)`. Different speech act, different EC consequence.
+
+### Revocation Referent Contract
+
+`revoked` terminates a **fluent**, not a specific event:
+
+```
+terminates(revoked{kind: fh_approval, edge: E, wv: W}, operative(E, W), T)
+```
+
+Scope fields: `kind` (required, `fh_approval`), `edge` (required, exact match or `"*"`), `workflow_version` (scoped — revocation from one lens cannot cancel approvals from another), `actor` (required), `reason` (required).
+
+Projection: find latest `approved` at T_a; find any `revoked` at T_r > T_a with matching edge and workflow_version; if found, fluent is terminated.
+
+Re-approval after revocation: a later `approved` updates T_a, so the earlier revocation no longer postdates it.
+
+## Consequences
+
+- Five event types with `kind` discriminator replace seven implementation-specific types
+- All convergence logic reduces to two `holdsAt` queries plus live F_D execution
+- `revoked` enables authority withdrawal — previously impossible
+- Clean start: old `events.jsonl` archived, not rewritten. No backward-compat branches.
+- `emit()` validates prime operators at the write primitive: `approved`/`revoked` require `kind`; `assessed{kind: fp}` requires `spec_hash`
+- `_emit_event_cmd` validates full governance schemas per prime type
+- Tier 2/3 events unchanged — only Tier 1 primes participate in EC projection
+
+### Three-Layer Architecture
+
+```
+Layer 1: Event Calculus    — fluent truth over time (holdsAt, initiates, terminates)
+         + F_D live eval   — stateless re-computation (no fluent)
+Layer 2: Scheduler rules   — which work to dispatch given current convergence state
+Layer 3: Orchestrator      — resource allocation, parallelism, retry policy
+```
+
+Only Layer 1 changed in this refactor.
+
+### Migration
+
+Clean-start epoch cutover per workspace:
+1. Archive `events.jsonl` to `events.pre-v0.4.0.jsonl.archive`
+2. Cascade install new engine + methodology
+3. Fresh event log starts with `genesis_installed` + `workflow_activated`
+4. All edges reopen — F_P re-assessment and F_H re-approval required
+
+### Three-Tier Event Taxonomy
+
+| Tier | Events | EC participation |
+|------|--------|-----------------|
+| 1 — Primes | `found`, `approved`, `assessed`, `revoked`, `intent_raised` | Fluent projection (or `happensAt` audit) |
+| 2 — Control | `edge_started`, `fp_dispatched`, `fh_gate_pending`, `edge_converged` | Scheduler bookkeeping only |
+| 3 — Lifecycle | `genesis_installed`, `genesis_sdlc_released`, `bug_fixed`, etc. | Infrastructure only |

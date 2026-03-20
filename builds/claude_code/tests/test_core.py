@@ -230,36 +230,60 @@ class TestWorkspaceBootstrap:
         assert any(e["event_type"] == "test" for e in events)
 
 
-# ── REQ-F-EVAL-005: emit() validates fp_assessment spec_hash ─────────────────
+# ── REQ-F-EVAL-005: emit() validates assessed/fp spec_hash ───────────────────
 
-class TestEmitFpAssessmentValidation:
-    """REQ-F-EVAL-005: emit() enforces spec_hash on fp_assessment at the write primitive."""
+class TestEmitAssessedValidation:
+    """REQ-F-EVAL-005: emit() enforces spec_hash on assessed(kind=fp) at the write primitive."""
 
-    def test_fp_assessment_without_spec_hash_raises(self, tmp_path):
-        """emit() must reject fp_assessment events missing spec_hash."""
+    def test_assessed_fp_without_spec_hash_raises(self, tmp_path):
+        """emit() must reject assessed(kind=fp) events missing spec_hash."""
         workspace_bootstrap(tmp_path)
         with pytest.raises(ValueError, match="spec_hash"):
-            emit("fp_assessment", {
+            emit("assessed", {
+                "kind": "fp",
                 "edge": "design→code",
                 "evaluator": "code_complete",
                 "result": "pass",
             })
 
-    def test_fp_assessment_with_spec_hash_succeeds(self, tmp_path):
-        """emit() accepts fp_assessment events that carry spec_hash."""
+    def test_assessed_fp_with_spec_hash_succeeds(self, tmp_path):
+        """emit() accepts assessed(kind=fp) events that carry spec_hash."""
         stream = workspace_bootstrap(tmp_path)
-        emit("fp_assessment", {
+        emit("assessed", {
+            "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
             "spec_hash": "abc123",
         })
         events = stream.all_events()
-        assert any(e["event_type"] == "fp_assessment" for e in events)
+        assert any(e["event_type"] == "assessed" for e in events)
 
     def test_other_event_types_not_affected(self, tmp_path):
-        """emit() does not require spec_hash on non-fp_assessment events."""
+        """emit() does not require spec_hash on non-assessed events."""
         workspace_bootstrap(tmp_path)
         # Should not raise
         emit("edge_started", {"edge": "design→code", "build": "claude_code", "target": "code"})
-        emit("review_approved", {"edge": "design→code", "actor": "human"})
+        emit("approved", {"kind": "fh_review", "edge": "design→code", "actor": "human"})
+
+
+class TestEmitPrimeValidation:
+    """H2: emit() validates that approved and revoked events carry 'kind'."""
+
+    def test_approved_without_kind_raises(self, tmp_path):
+        workspace_bootstrap(tmp_path)
+        with pytest.raises(ValueError, match="kind"):
+            emit("approved", {"edge": "design→code", "actor": "human"})
+
+    def test_revoked_without_kind_raises(self, tmp_path):
+        workspace_bootstrap(tmp_path)
+        with pytest.raises(ValueError, match="kind"):
+            emit("revoked", {"edge": "design→code", "actor": "human", "reason": "retracted"})
+
+    def test_approved_with_kind_succeeds(self, tmp_path):
+        workspace_bootstrap(tmp_path)
+        emit("approved", {"kind": "fh_review", "edge": "design→code", "actor": "human"})
+
+    def test_revoked_with_kind_succeeds(self, tmp_path):
+        workspace_bootstrap(tmp_path)
+        emit("revoked", {"kind": "fh_approval", "edge": "design→code", "actor": "human", "reason": "retracted"})

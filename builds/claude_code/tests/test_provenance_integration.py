@@ -15,7 +15,7 @@ against a real workspace, without mocking any engine internals.
   IT-3  Stale F_P (req_hash format) rejected when workflow version is known
   IT-4  F_H approval invalidated when workflow version changes
   IT-5  approved_carry_forward in manifest allows crossing a version boundary
-  IT-6  Pre-provenance review_approved (no workflow_version field) rejected when version known
+  IT-6  Pre-provenance approved (no workflow_version field) rejected when version known
 
 These tests fail until Part B (REQ-F-PROV-001) is implemented. They are the
 acceptance gate, not the unit-test suite.
@@ -148,13 +148,14 @@ class TestBackwardCompat:
         assert scope.workflow_version == "unknown"
 
     def test_fp_old_req_hash_converges_when_version_unknown(self, tmp_path):
-        """Old req_hash format accepted for F_P when workflow_version is 'unknown'."""
+        """Old req_hash format accepted for F_P assessed event when workflow_version is 'unknown'."""
         stream = workspace_bootstrap(tmp_path)
         pkg, worker, _ = _make_fp_package()
         scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
 
         old_hash = req_hash(pkg.requirements)
-        stream.append("fp_assessment", {
+        stream.append("assessed", {
+            "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
@@ -168,19 +169,21 @@ class TestBackwardCompat:
         )
 
     def test_fh_accepted_by_edge_name_when_version_unknown(self, tmp_path):
-        """review_approved accepted by edge name alone when workflow_version is 'unknown'."""
+        """approved accepted by edge name alone when workflow_version is 'unknown'."""
         stream = workspace_bootstrap(tmp_path)
         pkg, worker, job = _make_fh_package()
         scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
 
         old_hash = req_hash(pkg.requirements)
-        stream.append("fp_assessment", {
+        stream.append("assessed", {
+            "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
             "spec_hash": old_hash,
         })
-        stream.append("review_approved", {
+        stream.append("approved", {
+            "kind": "fh_review",
             "edge": "design→code",
             "actor": "test_human",
             # no workflow_version field — pre-provenance format
@@ -188,7 +191,7 @@ class TestBackwardCompat:
 
         result = gen_gaps(scope, stream)
         assert result["converged"] is True, (
-            "Backward compat: review_approved without workflow_version field must be "
+            "Backward compat: approved without workflow_version field must be "
             "accepted by edge name alone when engine workflow_version is unknown"
         )
 
@@ -208,8 +211,8 @@ class TestWorkflowVersionAnnotation:
 
         from genesis.__main__ import _emit_event_cmd
 
-        data = json.dumps({"edge": "design→code", "actor": "test_human"})
-        rc = _emit_event_cmd("review_approved", data, tmp_path)
+        data = json.dumps({"edge": "design→code", "actor": "test_human", "kind": "fh_review"})
+        rc = _emit_event_cmd("approved", data, tmp_path)
         assert rc == 0
 
         events_file = tmp_path / ".ai-workspace" / "events" / "events.jsonl"
@@ -218,8 +221,8 @@ class TestWorkflowVersionAnnotation:
             for line in events_file.read_text().splitlines()
             if line.strip()
         ]
-        review_events = [e for e in events if e["event_type"] == "review_approved"]
-        assert review_events, "review_approved event must be written"
+        review_events = [e for e in events if e["event_type"] == "approved"]
+        assert review_events, "approved event must be written"
         assert review_events[-1]["data"]["workflow_version"] == "genesis_sdlc.standard@0.2.0", (
             "emit-event must annotate workflow_version from active-workflow.json"
         )
@@ -230,8 +233,8 @@ class TestWorkflowVersionAnnotation:
 
         from genesis.__main__ import _emit_event_cmd
 
-        data = json.dumps({"edge": "design→code", "actor": "test_human"})
-        _emit_event_cmd("review_approved", data, tmp_path)
+        data = json.dumps({"edge": "design→code", "actor": "test_human", "kind": "fh_review"})
+        _emit_event_cmd("approved", data, tmp_path)
 
         events_file = tmp_path / ".ai-workspace" / "events" / "events.jsonl"
         events = [
@@ -239,7 +242,7 @@ class TestWorkflowVersionAnnotation:
             for line in events_file.read_text().splitlines()
             if line.strip()
         ]
-        review_events = [e for e in events if e["event_type"] == "review_approved"]
+        review_events = [e for e in events if e["event_type"] == "approved"]
         assert review_events[-1]["data"]["workflow_version"] == "unknown"
 
     def test_emit_event_does_not_require_scope_object(self, tmp_path):
@@ -261,16 +264,94 @@ class TestWorkflowVersionAnnotation:
         )
 
 
+# ── M2: CLI _emit_event_cmd governance validation ────────────────────────────
+
+class TestEmitEventGovernanceValidation:
+    """Governance validation in _emit_event_cmd for prime event types."""
+
+    def test_revoked_requires_kind(self, tmp_path):
+        """revoked without kind is rejected."""
+        workspace_bootstrap(tmp_path)
+        from genesis.__main__ import _emit_event_cmd
+        import json
+        data = json.dumps({"edge": "design→code", "actor": "human", "reason": "retracted"})
+        rc = _emit_event_cmd("revoked", data, tmp_path)
+        assert rc == 1
+
+    def test_revoked_requires_edge(self, tmp_path):
+        """revoked without edge is rejected."""
+        workspace_bootstrap(tmp_path)
+        from genesis.__main__ import _emit_event_cmd
+        import json
+        data = json.dumps({"kind": "fh_approval", "actor": "human", "reason": "retracted"})
+        rc = _emit_event_cmd("revoked", data, tmp_path)
+        assert rc == 1
+
+    def test_revoked_requires_actor(self, tmp_path):
+        """revoked without actor is rejected."""
+        workspace_bootstrap(tmp_path)
+        from genesis.__main__ import _emit_event_cmd
+        import json
+        data = json.dumps({"kind": "fh_approval", "edge": "design→code", "reason": "retracted"})
+        rc = _emit_event_cmd("revoked", data, tmp_path)
+        assert rc == 1
+
+    def test_revoked_requires_reason(self, tmp_path):
+        """revoked without reason is rejected."""
+        workspace_bootstrap(tmp_path)
+        from genesis.__main__ import _emit_event_cmd
+        import json
+        data = json.dumps({"kind": "fh_approval", "edge": "design→code", "actor": "human"})
+        rc = _emit_event_cmd("revoked", data, tmp_path)
+        assert rc == 1
+
+    def test_revoked_valid_payload_succeeds(self, tmp_path):
+        """revoked with all required fields succeeds."""
+        workspace_bootstrap(tmp_path)
+        from genesis.__main__ import _emit_event_cmd
+        import json
+        data = json.dumps({"kind": "fh_approval", "edge": "design→code", "actor": "human", "reason": "retracted"})
+        rc = _emit_event_cmd("revoked", data, tmp_path)
+        assert rc == 0
+
+    def test_approved_without_kind_rejected(self, tmp_path):
+        """approved without kind is rejected."""
+        workspace_bootstrap(tmp_path)
+        from genesis.__main__ import _emit_event_cmd
+        import json
+        data = json.dumps({"edge": "design→code", "actor": "human"})
+        rc = _emit_event_cmd("approved", data, tmp_path)
+        assert rc == 1
+
+    def test_assessed_fp_without_spec_hash_rejected(self, tmp_path):
+        """assessed{kind: fp} without spec_hash is rejected."""
+        workspace_bootstrap(tmp_path)
+        from genesis.__main__ import _emit_event_cmd
+        import json
+        data = json.dumps({"kind": "fp", "edge": "design→code", "result": "pass", "evaluator": "code_complete"})
+        rc = _emit_event_cmd("assessed", data, tmp_path)
+        assert rc == 1
+
+    def test_assessed_fh_review_without_actor_rejected(self, tmp_path):
+        """assessed{kind: fh_review} without actor is rejected."""
+        workspace_bootstrap(tmp_path)
+        from genesis.__main__ import _emit_event_cmd
+        import json
+        data = json.dumps({"kind": "fh_review", "edge": "design→code", "result": "reject"})
+        rc = _emit_event_cmd("assessed", data, tmp_path)
+        assert rc == 1
+
+
 # ── IT-3: Stale F_P rejected ──────────────────────────────────────────────────
 
 class TestStaleFpRejected:
     """
-    IT-3: Old req_hash spec_hash is rejected for F_P when workflow version is known.
-    New job_evaluator_hash is required.
+    IT-3: Old req_hash spec_hash is rejected for F_P assessed events when workflow
+    version is known. New job_evaluator_hash is required.
     """
 
     def test_stale_req_hash_not_accepted_when_version_known(self, tmp_path):
-        """req_hash format fp_assessment does not converge when workflow_version is known."""
+        """req_hash format assessed event does not converge when workflow_version is known."""
         _write_active_workflow(tmp_path, "genesis_sdlc.standard", "0.2.0")
         stream = workspace_bootstrap(tmp_path)
         pkg, worker, _ = _make_fp_package()
@@ -279,7 +360,8 @@ class TestStaleFpRejected:
         assert scope.workflow_version == "genesis_sdlc.standard@0.2.0"
 
         stale_hash = req_hash(pkg.requirements)   # old format
-        stream.append("fp_assessment", {
+        stream.append("assessed", {
+            "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
@@ -295,14 +377,15 @@ class TestStaleFpRejected:
         assert "code_complete" in failing
 
     def test_job_evaluator_hash_accepted_when_version_known(self, tmp_path):
-        """job_evaluator_hash format fp_assessment converges when workflow_version is known."""
+        """job_evaluator_hash format assessed event converges when workflow_version is known."""
         _write_active_workflow(tmp_path, "genesis_sdlc.standard", "0.2.0")
         stream = workspace_bootstrap(tmp_path)
         pkg, worker, job = _make_fp_package()
         scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
 
         new_hash = job_evaluator_hash(job)
-        stream.append("fp_assessment", {
+        stream.append("assessed", {
+            "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
@@ -317,7 +400,7 @@ class TestStaleFpRejected:
 
     def test_changed_evaluator_invalidates_prior_assessment(self, tmp_path):
         """
-        Changing an evaluator changes job_evaluator_hash. Prior fp_assessment
+        Changing an evaluator changes job_evaluator_hash. Prior assessed event
         with old hash becomes stale and does not converge.
         """
         _write_active_workflow(tmp_path, "genesis_sdlc.standard", "0.2.0")
@@ -327,7 +410,8 @@ class TestStaleFpRejected:
 
         # Emit assessment against the ORIGINAL job
         original_hash = job_evaluator_hash(job)
-        stream.append("fp_assessment", {
+        stream.append("assessed", {
+            "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
@@ -350,7 +434,7 @@ class TestStaleFpRejected:
 
         result = gen_gaps(scope2, stream)
         assert result["converged"] is False, (
-            "Prior fp_assessment must not converge after evaluator description changes "
+            "Prior assessed event must not converge after evaluator description changes "
             "(job_evaluator_hash covers description)"
         )
 
@@ -359,25 +443,27 @@ class TestStaleFpRejected:
 
 class TestApprovalVersionBinding:
     """
-    IT-4: review_approved is bound to the workflow version it was emitted under.
+    IT-4: approved event is bound to the workflow version it was emitted under.
     Upgrading the workflow reopens edges that were approved under the prior version.
     """
 
     def test_approval_accepted_when_version_matches(self, tmp_path):
-        """review_approved with matching workflow_version satisfies F_H gate."""
+        """approved with matching workflow_version satisfies F_H gate."""
         _write_active_workflow(tmp_path, "genesis_sdlc.standard", "0.2.0")
         stream = workspace_bootstrap(tmp_path)
         pkg, worker, job = _make_fh_package()
         scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
 
-        stream.append("fp_assessment", {
+        stream.append("assessed", {
+            "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
             "spec_hash": job_evaluator_hash(job),
             "workflow_version": "genesis_sdlc.standard@0.2.0",
         })
-        stream.append("review_approved", {
+        stream.append("approved", {
+            "kind": "fh_review",
             "edge": "design→code",
             "actor": "test_human",
             "workflow_version": "genesis_sdlc.standard@0.2.0",
@@ -387,20 +473,22 @@ class TestApprovalVersionBinding:
         assert result["converged"] is True
 
     def test_approval_rejected_when_version_mismatches(self, tmp_path):
-        """review_approved from old version does not satisfy F_H gate at current version."""
+        """approved from old version does not satisfy F_H gate at current version."""
         _write_active_workflow(tmp_path, "genesis_sdlc.standard", "0.2.0")
         stream = workspace_bootstrap(tmp_path)
         pkg, worker, job = _make_fh_package()
         scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
 
-        stream.append("fp_assessment", {
+        stream.append("assessed", {
+            "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
             "spec_hash": job_evaluator_hash(job),
             "workflow_version": "genesis_sdlc.standard@0.2.0",
         })
-        stream.append("review_approved", {
+        stream.append("approved", {
+            "kind": "fh_review",
             "edge": "design→code",
             "actor": "test_human",
             "workflow_version": "genesis_sdlc.standard@0.1.0",  # prior version
@@ -424,14 +512,16 @@ class TestApprovalVersionBinding:
         pkg, worker, job = _make_fh_package()
         scope_v1 = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
 
-        stream.append("fp_assessment", {
+        stream.append("assessed", {
+            "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
             "spec_hash": job_evaluator_hash(job),
             "workflow_version": "genesis_sdlc.standard@0.1.0",
         })
-        stream.append("review_approved", {
+        stream.append("approved", {
+            "kind": "fh_review",
             "edge": "design→code",
             "actor": "test_human",
             "workflow_version": "genesis_sdlc.standard@0.1.0",
@@ -469,14 +559,16 @@ class TestCarryForward:
         pkg, worker, job = _make_fh_package()
         scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
 
-        stream.append("fp_assessment", {
+        stream.append("assessed", {
+            "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
             "spec_hash": job_evaluator_hash(job),
             "workflow_version": "genesis_sdlc.standard@0.2.0",
         })
-        stream.append("review_approved", {
+        stream.append("approved", {
+            "kind": "fh_review",
             "edge": "design→code",
             "actor": "test_human",
             "workflow_version": "genesis_sdlc.standard@0.1.0",   # prior version
@@ -498,7 +590,8 @@ class TestCarryForward:
         pkg, worker, job = _make_fh_package()
         scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
 
-        stream.append("fp_assessment", {
+        stream.append("assessed", {
+            "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
@@ -506,7 +599,8 @@ class TestCarryForward:
             "workflow_version": "genesis_sdlc.standard@0.2.0",
         })
         # Approval from 0.0.1 — not the carry_forward from_version (0.1.0)
-        stream.append("review_approved", {
+        stream.append("approved", {
+            "kind": "fh_review",
             "edge": "design→code",
             "actor": "test_human",
             "workflow_version": "genesis_sdlc.standard@0.0.1",
@@ -525,14 +619,16 @@ class TestCarryForward:
         pkg, worker, job = _make_fh_package()
         scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
 
-        stream.append("fp_assessment", {
+        stream.append("assessed", {
+            "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
             "spec_hash": job_evaluator_hash(job),
             "workflow_version": "genesis_sdlc.standard@0.2.0",
         })
-        stream.append("review_approved", {
+        stream.append("approved", {
+            "kind": "fh_review",
             "edge": "design→code",
             "actor": "test_human",
             "workflow_version": "genesis_sdlc.standard@0.1.0",
@@ -546,19 +642,20 @@ class TestCarryForward:
 
 class TestPreProvenanceRejection:
     """
-    IT-6: review_approved events with no workflow_version field (pre-provenance,
+    IT-6: approved events with no workflow_version field (pre-provenance,
     emitted before Part B was deployed) are rejected when the engine has a known
     workflow_version. No special-casing or grace period.
     """
 
     def test_pre_provenance_approval_rejected_when_version_known(self, tmp_path):
-        """review_approved without workflow_version field fails when version known."""
+        """approved without workflow_version field fails when version known."""
         _write_active_workflow(tmp_path, "genesis_sdlc.standard", "0.2.0")
         stream = workspace_bootstrap(tmp_path)
         pkg, worker, job = _make_fh_package()
         scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
 
-        stream.append("fp_assessment", {
+        stream.append("assessed", {
+            "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
@@ -566,7 +663,8 @@ class TestPreProvenanceRejection:
             "workflow_version": "genesis_sdlc.standard@0.2.0",
         })
         # Pre-provenance: no workflow_version field on the approval
-        stream.append("review_approved", {
+        stream.append("approved", {
+            "kind": "fh_review",
             "edge": "design→code",
             "actor": "test_human",
             # workflow_version intentionally absent
@@ -574,7 +672,7 @@ class TestPreProvenanceRejection:
 
         result = gen_gaps(scope, stream)
         assert result["converged"] is False, (
-            "Pre-provenance review_approved (no workflow_version) must NOT satisfy "
+            "Pre-provenance approved (no workflow_version) must NOT satisfy "
             "F_H gate when engine has a known workflow_version. "
             "event.data.get('workflow_version') returns None; "
             "None != current_workflow_version → rejected."
@@ -584,7 +682,7 @@ class TestPreProvenanceRejection:
 
     def test_pre_provenance_approval_accepted_when_version_unknown(self, tmp_path):
         """
-        Pre-provenance review_approved is accepted when engine workflow_version is
+        Pre-provenance approved is accepted when engine workflow_version is
         'unknown' (backward compat). Absence of active-workflow.json = old behaviour.
         """
         stream = workspace_bootstrap(tmp_path)
@@ -594,13 +692,15 @@ class TestPreProvenanceRejection:
         assert scope.workflow_version == "unknown"
 
         old_hash = req_hash(pkg.requirements)
-        stream.append("fp_assessment", {
+        stream.append("assessed", {
+            "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
             "spec_hash": old_hash,
         })
-        stream.append("review_approved", {
+        stream.append("approved", {
+            "kind": "fh_review",
             "edge": "design→code",
             "actor": "test_human",
             # no workflow_version field

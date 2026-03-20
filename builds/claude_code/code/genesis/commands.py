@@ -265,11 +265,12 @@ def gen_iterate(
     # REQ-F-GATE-002: do not produce an F_P manifest while F_D is red.
     # The gate is enforced in schedule.iterate() — this layer must not create
     # orphaned manifest files that imply a dispatch will happen when it won't.
-    # Emit fd_gap_found so gen_start(auto=True) event-based detection at
+    # Emit found{kind: fd_gap} so gen_start(auto=True) event-based detection at
     # commands.py#L314 fires correctly — without this event, the auto-loop
     # cannot distinguish "fd_gap" from "no progress" and loops to max_iterations.
     if fd_failing and fp_failing:
-        stream.append("fd_gap_found", {
+        stream.append("found", {
+            "kind": "fd_gap",
             "edge": selected_job.edge.name,
             "failing": [ev.name for ev in fd_failing],
             "delta_summary": selected_pre.delta_summary,
@@ -405,7 +406,7 @@ def gen_start(
         if "fh_gate_pending" in new_types:
             result["stopped_by"] = "fh_gate"
             return result
-        if "fd_gap_found" in new_types:
+        if "found" in new_types:
             result["stopped_by"] = "fd_gap"
             return result
 

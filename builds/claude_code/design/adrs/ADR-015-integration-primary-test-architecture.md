@@ -74,7 +74,7 @@ builds/claude_code/tests/
 | Replay determinism | Append N events; project() twice; assert equal |
 | gen_gaps idempotence | Run gen_gaps twice on converged workspace; assert no new edge_converged events |
 | No duplicate certificates | Run gen_gaps in loop; count edge_converged per (edge, feature); assert ≤ 1 |
-| Stale spec_hash rejection | Emit fp_assessment with wrong spec_hash; run gen_gaps; assert delta > 0 |
+| Stale spec_hash rejection | Emit assessed{kind: fp} with wrong spec_hash; run gen_gaps; assert delta > 0 |
 
 ## Consequences
 

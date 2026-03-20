@@ -104,7 +104,7 @@ def _make_fh_gate_pkg():
     Domain: budget approval process.
     One edge: proposal → approved_budget.
     One F_H evaluator: finance director must sign off.
-    Kernel resolves the gate via review_approved edge name — knows nothing about
+    Kernel resolves the gate via approved (kind=fh_review) edge name — knows nothing about
     'budgets'.
     """
     proposal = Asset(name="proposal", id_format="PROP-{SEQ}")
@@ -234,7 +234,7 @@ class TestFdOnlyDomainBlind:
 
     @pytest.mark.bootstrap_state
     def test_fd_gap_event_in_surface(self, tmp_path):
-        """iterate() records fd_gap_found when F_D fails."""
+        """iterate() records found event when F_D fails."""
         ws = _make_stream(tmp_path)
         pkg, worker, job, sentinel = _make_fd_only_pkg(tmp_path)
         from genesis.core import ContextResolver
@@ -242,7 +242,7 @@ class TestFdOnlyDomainBlind:
         pre = bind_fd(job, ws, resolver, tmp_path)
         bound = bind_fp(pre, job)
         surface = iterate(bound)
-        assert any(e["event_type"] == "fd_gap_found" for e in surface.events)
+        assert any(e["event_type"] == "found" for e in surface.events)
 
     @pytest.mark.bootstrap_state
     def test_edge_converged_is_audit_record_not_gate(self, tmp_path):
@@ -267,14 +267,14 @@ class TestFdOnlyDomainBlind:
 
 class TestFhGateDomainBlind:
     """
-    Proves: kernel resolves F_H gates using only edge name in review_approved.
+    Proves: kernel resolves F_H gates using only edge name in approved (kind=fh_review).
     It does not know what a 'budget approval' is.
     gen_* commands use Scope.worker — no spec import.
     """
 
     @pytest.mark.bootstrap_state
     def test_fh_gate_blocks_at_delta(self, tmp_path):
-        """F_H evaluator contributes delta>0 before review_approved."""
+        """F_H evaluator contributes delta>0 before approved (kind=fh_review)."""
         ws = _make_stream(tmp_path)
         pkg, worker, job = _make_fh_gate_pkg()
         from genesis.core import ContextResolver
@@ -283,11 +283,11 @@ class TestFhGateDomainBlind:
         assert any(ev.name == "budget_signed" for ev in pre.failing_evaluators)
 
     @pytest.mark.bootstrap_state
-    def test_fh_gate_resolved_by_review_approved(self, tmp_path):
-        """review_approved event with correct edge name resolves the F_H gate."""
+    def test_fh_gate_resolved_by_approved(self, tmp_path):
+        """approved (kind=fh_review) event with correct edge name resolves the F_H gate."""
         ws = _make_stream(tmp_path)
         pkg, worker, job = _make_fh_gate_pkg()
-        ws.append("review_approved", {"edge": "proposal→approved_budget", "actor": "human"})
+        ws.append("approved", {"kind": "fh_review", "edge": "proposal→approved_budget", "actor": "human"})
         from genesis.core import ContextResolver
         resolver = ContextResolver(tmp_path)
         pre = bind_fd(job, ws, resolver, tmp_path)
@@ -296,10 +296,10 @@ class TestFhGateDomainBlind:
 
     @pytest.mark.bootstrap_state
     def test_fh_gate_not_resolved_by_wrong_edge(self, tmp_path):
-        """review_approved for a different edge does NOT resolve this gate."""
+        """approved (kind=fh_review) for a different edge does NOT resolve this gate."""
         ws = _make_stream(tmp_path)
         pkg, worker, job = _make_fh_gate_pkg()
-        ws.append("review_approved", {"edge": "some_other_edge", "actor": "human"})
+        ws.append("approved", {"kind": "fh_review", "edge": "some_other_edge", "actor": "human"})
         from genesis.core import ContextResolver
         resolver = ContextResolver(tmp_path)
         pre = bind_fd(job, ws, resolver, tmp_path)
@@ -321,10 +321,10 @@ class TestFhGateDomainBlind:
 
     @pytest.mark.bootstrap_state
     def test_gen_iterate_returns_converged_when_fh_resolved(self, tmp_path):
-        """After review_approved, gen_iterate sees delta=0. No patch needed."""
+        """After approved (kind=fh_review), gen_iterate sees delta=0. No patch needed."""
         ws = _make_stream(tmp_path)
         pkg, worker, job = _make_fh_gate_pkg()
-        ws.append("review_approved", {"edge": "proposal→approved_budget", "actor": "human"})
+        ws.append("approved", {"kind": "fh_review", "edge": "proposal→approved_budget", "actor": "human"})
         scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
         result = gen_iterate(scope, ws)
         assert result["status"] == "converged"
@@ -378,11 +378,12 @@ class TestFpDispatchDomainBlind:
         assert "recipe" in bound.prompt
 
     @pytest.mark.bootstrap_state
-    def test_fp_assessment_resolves_evaluator(self, tmp_path):
-        """fp_assessment event with result=pass resolves the F_P evaluator."""
+    def test_assessed_resolves_evaluator(self, tmp_path):
+        """assessed (kind=fp) event with result=pass resolves the F_P evaluator."""
         ws = _make_stream(tmp_path)
         pkg, worker, job = _make_fp_dispatch_pkg()
-        ws.append("fp_assessment", {
+        ws.append("assessed", {
+            "kind": "fp",
             "edge": "ingredients→recipe",
             "evaluator": "recipe_complete",
             "result": "pass",

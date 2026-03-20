@@ -14,7 +14,7 @@ event stream model and engine behaviour:
   1. Replay determinism — project(S, T, I) is identical for the same stream
   2. gen_gaps idempotence — converged workspace, run twice, no new events
   3. No duplicate edge_converged certificates — (edge, feature) appears exactly once
-  4. Stale spec_hash never converges — wrong hash means fp_assessment is ignored
+  4. Stale spec_hash never converges — wrong hash means assessed (kind=fp) is ignored
 
 Reference: ADR-015-integration-primary-test-architecture.md, §XII, §V.
 """
@@ -78,13 +78,14 @@ def _converged_scope(tmp_path: Path) -> tuple[Scope, "EventStream"]:
     Return a fully converged scope + stream in tmp_path.
 
     F_D passes vacuously (nonexistent_dir → check-tags returns passes=True with 0 files).
-    F_P is resolved by appending an fp_assessment with the correct spec_hash.
+    F_P is resolved by appending an assessed (kind=fp) event with the correct spec_hash.
     """
     pkg, worker = _make_minimal_package()
     stream = workspace_bootstrap(tmp_path)
     spec_hash = req_hash(pkg.requirements)
 
-    stream.append("fp_assessment", {
+    stream.append("assessed", {
+        "kind": "fp",
         "edge": "design→code",
         "evaluator": "code_complete",
         "result": "pass",
@@ -218,7 +219,8 @@ class TestNoDuplicateCertificates:
                 f"id: {feature}\nstatus: active\nsatisfies:\n  - REQ-PROP-001\n"
             )
 
-            stream.append("fp_assessment", {
+            stream.append("assessed", {
+                "kind": "fp",
                 "edge": "design→code",
                 "evaluator": "code_complete",
                 "result": "pass",
@@ -243,19 +245,20 @@ class TestNoDuplicateCertificates:
 
 class TestStaleSpecHashRejection:
     """
-    Property: fp_assessment events with wrong spec_hash never contribute to convergence.
+    Property: assessed (kind=fp) events with wrong spec_hash never contribute to convergence.
     The engine must re-dispatch F_P after spec changes.
     REQ-F-EVAL-002, REQ-F-EVAL-004.
     """
 
     def test_stale_hash_does_not_satisfy_bind_fd(self, tmp_path):
-        """fp_assessment with incorrect spec_hash — edge does not converge."""
+        """assessed (kind=fp) with incorrect spec_hash — edge does not converge."""
         pkg, worker = _make_minimal_package(["REQ-NEW-001"])
         stream = workspace_bootstrap(tmp_path)
         scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
 
-        # Emit fp_assessment with WRONG spec_hash
-        stream.append("fp_assessment", {
+        # Emit assessed (kind=fp) with WRONG spec_hash
+        stream.append("assessed", {
+            "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
@@ -277,7 +280,8 @@ class TestStaleSpecHashRejection:
         scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
 
         # First: stale (wrong hash)
-        stream.append("fp_assessment", {
+        stream.append("assessed", {
+            "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
@@ -286,7 +290,8 @@ class TestStaleSpecHashRejection:
         assert gen_gaps(scope, stream)["converged"] is False
 
         # Then: correct hash
-        stream.append("fp_assessment", {
+        stream.append("assessed", {
+            "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
