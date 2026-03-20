@@ -8,13 +8,14 @@ satisfies:
   - REQ-F-PROV-004
   - REQ-F-PROV-005
 
-codex_review_round: 3
+codex_review_round: 4
 codex_findings_addressed:
   - "Finding 1: hash now includes description; covers F_P/F_H where command is empty"
   - "Finding 2: hash function operates on Job.evaluators not Edge; Edge has no evaluators field"
-  - "Finding 3: spec_hash change gated on workflow_version; backward compat preserved end-to-end"
+  - "Finding 3: spec_hash computation gated on workflow_version"
   - "Finding 4: schedule.py lines 70-77 updated alongside bind.py"
-  - "Finding 5: emit-event runs pre-stack without Scope; reads active-workflow.json directly using same parse logic as REQ-F-PROV-001 (not scope.workflow_version)"
+  - "Finding 5: emit-event runs pre-stack without Scope; reads active-workflow.json directly"
+  - "Round 4: backward-compat language replaced with clean-start reality per REQ-F-EC-001"
 
 description: |
   Engine changes to bind convergence events (assessed{kind: fp}, approved{kind: fh_review})
@@ -171,7 +172,7 @@ description: |
 
   When current_workflow_version == "unknown":
     Accept any approved{kind: fh_review} event matching edge name alone.
-    (Full backward compatibility — identical to current behaviour.)
+    (Unversioned fallback — no active-workflow.json present.)
 
   When current_workflow_version != "unknown":
 
@@ -259,7 +260,7 @@ acceptance_criteria:
     does not satisfy F_P convergence
   - assessed{kind: fp} with matching job_evaluator_hash: satisfies F_P convergence
   - assessed{kind: fp} with req_hash (old format) on workspace with workflow_version "unknown":
-    satisfies F_P convergence (backward compat)
+    satisfies F_P convergence (unversioned fallback)
 
   # REQ-F-PROV-004 — bind_fh + schedule.delta version check
   # bind_fh path

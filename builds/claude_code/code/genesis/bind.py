@@ -37,8 +37,8 @@ def req_hash(requirements: list[str]) -> str:
     Compute a stable hash of Package.requirements.
 
     Deprecated: used only when scope.workflow_version == "unknown" (no active-workflow.json).
-    New code should use job_evaluator_hash(job) instead. Kept for backward compatibility
-    with workspaces that have not yet activated workflow provenance.
+    New code should use job_evaluator_hash(job) instead. Retained as fallback for
+    workspaces without active-workflow.json.
     """
     return hashlib.sha256(
         _json.dumps(sorted(requirements)).encode()
@@ -81,7 +81,7 @@ def bind_fh(
       an approved event initiates it AND no later revoked event terminates it.
 
     When current_workflow_version == "unknown":
-      Accept any approved matching edge name alone (full backward compat).
+      Accept any approved matching edge name alone (no provenance file present).
 
     When current_workflow_version != "unknown":
       Accept only if:
@@ -133,7 +133,7 @@ def bind_fh(
     # Check for terminates: revoked{kind: fh_approval} postdating the approved event.
     # Revocation is scoped by workflow_version — a revocation from one lens cannot
     # cancel approvals from another. When current_workflow_version == "unknown",
-    # revocations match by edge alone (same backward compat as approvals).
+    # revocations match by edge alone (same unversioned fallback as approvals).
     for e in all_events:
         etype = e.get("event_type")
         edata = e.get("data", {})

@@ -45,7 +45,7 @@ Every evaluator belongs to one of three kinds. This is the engine's core distinc
 |------|--------|----------------|-------------|
 | **Deterministic test** | `F_D` | Scripts, test suites, coverage checks, file scans — anything with a binary result | The command exits 0 |
 | **Agent assessment** | `F_P` | LLM or automated agent judgment — "does this output satisfy the spec?" | An agent records a passing assessment in the event log |
-| **Human approval** | `F_H` | Explicit human sign-off | A `review_approved` event exists for this edge |
+| **Human approval** | `F_H` | Explicit human sign-off | `approved{kind: fh_review}` exists and has not been `revoked` |
 
 The engine always runs deterministic tests first. Agent assessment only runs when all deterministic tests pass. Human approval only runs when agent assessment passes. This ordering prevents agent calls on work that has obvious deterministic failures.
 
@@ -272,7 +272,7 @@ worker  = Worker(id="claude_code", can_execute=[job])
 |------|--------|-------------|
 | **Deterministic test** | `F_D` | Test suites, schema checks, tag coverage, file counts — anything with a binary pass/fail. Use `command=` to run a subprocess; exit 0 = pass. |
 | **Agent assessment** | `F_P` | LLM or agent judgment of quality or correctness. Runs only when all deterministic tests pass. |
-| **Human approval** | `F_H` | Explicit sign-off gate. Passes when a `review_approved` event exists for this edge in the event log. |
+| **Human approval** | `F_H` | Explicit sign-off gate. Passes when `approved{kind: fh_review}` exists for this edge and has not been `revoked`. |
 
 ### Evaluation order
 
@@ -421,9 +421,9 @@ gen iterate --workspace .
 tail -5 .ai-workspace/events/events.jsonl
 
 # 4. Respond to what the engine reported
-#    - fd_gap_found  → fix the deterministic failure, then go to step 1
+#    - found{kind: fd_gap}  → fix the deterministic failure, then go to step 1
 #    - fp_dispatched → do the agent work, record the assessment, then go to step 1
-#    - fh_gate_pending → provide human approval (emit review_approved event), then go to step 1
+#    - fh_gate_pending → provide human approval (emit approved{kind: fh_review}), then go to step 1
 
 # 5. Confirm delta dropped
 gen gaps --workspace .
@@ -512,13 +512,15 @@ When an agent assessment evaluator (`F_P`) fires, `gen iterate` emits an `fp_dis
 
 ### Human approval requires a manual event
 
-To clear a human approval gate (`F_H`), emit a `review_approved` event into the event log manually or via your agent:
+To clear a human approval gate (`F_H`), emit an `approved` event via the CLI:
 
-```json
-{"event_type": "review_approved", "event_time": "...", "data": {"edge": "design→code", "actor": "human"}}
+```bash
+PYTHONPATH=.genesis python -m genesis emit-event \
+  --type approved \
+  --data '{"kind": "fh_review", "edge": "design→code", "actor": "human"}'
 ```
 
-Once this event exists, `bind_fd` will see the approval and the F_H evaluator will pass on the next `gen gaps` / `gen iterate` call.
+Once this event exists, `bind_fh` will see the approval (the `operative` fluent is initiated) and the F_H evaluator will pass on the next `gen gaps` / `gen iterate` call. To withdraw an approval, emit `revoked{kind: fh_approval}`.
 
 ### Single worker
 

@@ -10,7 +10,7 @@ Provenance integration tests — REQ-F-PROV-001 through REQ-F-PROV-005.
 Six integration scenarios that exercise the full provenance model end-to-end
 against a real workspace, without mocking any engine internals.
 
-  IT-1  Backward compat: no active-workflow.json → identical to pre-provenance behaviour
+  IT-1  No provenance file: no active-workflow.json → unversioned fallback behaviour
   IT-2  emit-event annotates workflow_version from active-workflow.json (no Scope needed)
   IT-3  Stale F_P (req_hash format) rejected when workflow version is known
   IT-4  F_H approval invalidated when workflow version changes
@@ -132,7 +132,7 @@ def _make_fh_package() -> tuple[Package, Worker, Job]:
     return pkg, worker, job
 
 
-# ── IT-1: Backward compat ─────────────────────────────────────────────────────
+# ── IT-1: No provenance file fallback ─────────────────────────────────────────
 
 class TestBackwardCompat:
     """
@@ -164,7 +164,7 @@ class TestBackwardCompat:
 
         result = gen_gaps(scope, stream)
         assert result["converged"] is True, (
-            "Backward compat: req_hash spec_hash must be accepted when "
+            "No provenance file: req_hash spec_hash must be accepted when "
             "workflow_version is unknown"
         )
 
@@ -191,7 +191,7 @@ class TestBackwardCompat:
 
         result = gen_gaps(scope, stream)
         assert result["converged"] is True, (
-            "Backward compat: approved without workflow_version field must be "
+            "No provenance file: approved without workflow_version field must be "
             "accepted by edge name alone when engine workflow_version is unknown"
         )
 
@@ -683,7 +683,7 @@ class TestPreProvenanceRejection:
     def test_pre_provenance_approval_accepted_when_version_unknown(self, tmp_path):
         """
         Pre-provenance approved is accepted when engine workflow_version is
-        'unknown' (backward compat). Absence of active-workflow.json = old behaviour.
+        'unknown' (no provenance file). Absence of active-workflow.json = unversioned mode.
         """
         stream = workspace_bootstrap(tmp_path)
         pkg, worker, job = _make_fh_package()
@@ -709,5 +709,5 @@ class TestPreProvenanceRejection:
         result = gen_gaps(scope, stream)
         assert result["converged"] is True, (
             "Pre-provenance approval must be accepted when workflow_version is unknown "
-            "(backward compat)"
+            "(no provenance file — unversioned mode)"
         )

@@ -35,5 +35,5 @@ hashlib.sha256(raw.encode()).hexdigest()[:16]
 
 - Changing any evaluator (name, description, command, category) invalidates all prior F_P assessments → engine re-dispatches F_P on the next run.
 - `spec_hash=None` in `bind_fd`/`delta` opts out of snapshot checking (used in unit tests).
-- `req_hash()` is kept (deprecated) for backward compatibility with workspaces without provenance.
+- `req_hash()` is retained (deprecated) as fallback for workspaces without active-workflow.json.
 - Activating provenance (installing `active-workflow.json`) triggers a one-time F_P re-assessment as hash format changes.

@@ -288,14 +288,14 @@ package = Package(
         "REQ-F-DOCS-001",   # User guide covers install, first session, operating loop
         # Evaluator safety
         "REQ-F-EVAL-001",   # F_D evaluator commands validated at spec load: non-empty, acyclic (no genesis subcommands), pytest uses -m 'not e2e'
-        "REQ-F-EVAL-002",   # fp_assessment events are snapshot-bound to Package.requirements hash; bind_fd() invalidates assessments whose snapshot doesn't match current package
+        "REQ-F-EVAL-002",   # assessed{kind: fp} events are snapshot-bound via spec_hash; bind_fd() invalidates assessments whose spec_hash doesn't match current job_evaluator_hash
         "REQ-F-EVAL-003",   # F_D evaluators impl_coverage and validates_coverage enforce per-REQ-key presence in # Implements: and # Validates: tags respectively
         # Feature lifecycle
         "REQ-F-VIS-001",    # gen-start marks feature vector status=completed when all edges for that feature have delta=0; moves YAML from features/active/ to features/completed/
         # Engine correctness (audit 2026-03-16)
         "REQ-F-GATE-002",   # F_D evaluators must all pass before any F_P evaluator is dispatched; F_D must all pass before any F_H gate event is emitted
-        "REQ-F-EVAL-004",   # emit-event CLI rejects fp_assessment events that lack a spec_hash matching the current Package.requirements hash
-        "REQ-F-EVAL-005",   # emit() write primitive rejects fp_assessment payloads lacking spec_hash; spec_hash contract enforced at the canonical write path, not only the CLI
+        "REQ-F-EVAL-004",   # emit-event CLI rejects assessed{kind: fp} events that lack spec_hash; governance validation enforced per prime operator type
+        "REQ-F-EVAL-005",   # emit() write primitive rejects assessed{kind: fp} payloads lacking spec_hash; approved/revoked require kind field
         "REQ-F-BIND-001",   # ContextResolver digest mismatch halts execution with exit code 1; engine must not substitute [context unavailable] for integrity failures
         "REQ-F-CORE-001",   # project() "current" projection observes edge_started events filtered by target asset type; current state is not stale during active iteration
         "REQ-F-CMD-004",    # edge_converged certificate emitted by gen_gaps() includes feature field; deduplication is by (edge, feature) pair; feature-specific projections observe the certificate

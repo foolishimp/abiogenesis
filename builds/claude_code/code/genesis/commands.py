@@ -104,7 +104,7 @@ class Scope:
 
     workflow_version: read from .genesis/active-workflow.json at construction.
         "{workflow}@{version}" when file present and valid; "unknown" otherwise.
-        When "unknown", all provenance behaviour is bypassed for full backward compat.
+        When "unknown", provenance checks are bypassed (no active-workflow.json present).
 
     V1: build is always "claude_code". Multi-tenant deferred to V2.
     """

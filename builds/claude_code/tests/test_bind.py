@@ -287,7 +287,7 @@ class TestJobEvaluatorHash:
 
 class TestBindFhVersionAware:
     def test_unknown_version_accepts_any_approved(self):
-        """Backward compat: "unknown" accepts any approved matching edge name."""
+        """Version "unknown" (no provenance file) accepts any approved matching edge name."""
         job = _make_fh_job()
         events = [_review_event("requirements→feature_decomp")]
         assert bind_fh(job, events, current_workflow_version="unknown") is True

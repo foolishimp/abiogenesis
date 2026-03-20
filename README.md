@@ -27,7 +27,7 @@ Every evaluator is one of three kinds. These are the engine's core distinction:
 |------|--------|---------------|-------------|
 | **Deterministic test** | `F_D` | Scripts, test suites, coverage checks, tag counts — anything with a binary pass/fail | The command exits 0 or the check passes |
 | **Agent assessment** | `F_P` | LLM or automated agent judgment — "does this output satisfy the spec?" | An agent records a passing assessment in the event log |
-| **Human approval** | `F_H` | Explicit human sign-off | A `review_approved` event exists for this edge |
+| **Human approval** | `F_H` | Explicit human sign-off | `holdsAt(operative(edge, wv))` — an `approved` event exists and has not been `revoked` |
 
 The engine always runs deterministic tests (`F_D`) first. Agent assessment (`F_P`) only runs when all deterministic tests pass. Human approval (`F_H`) only runs when agent assessment passes. This ordering prevents agent calls on work that has obvious deterministic failures.
 
@@ -233,7 +233,7 @@ Key event types:
 | `edge_converged` | An edge reaches delta = 0 (all evaluators pass) |
 | `fp_dispatched` | An agent evaluator needs work — the agent should act and record results |
 | `fh_gate_pending` | A human approval gate is waiting |
-| `fd_gap_found` | A deterministic test failed |
+| `found` | A deterministic test failed (`kind: fd_gap` in data) |
 
 ---
 
