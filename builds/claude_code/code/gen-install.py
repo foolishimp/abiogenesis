@@ -38,7 +38,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-VERSION = "0.4.0"
+VERSION = "0.5.0"
 
 # CLAUDE.md markers for idempotent GTL bootloader injection
 _GTL_BOOTLOADER_START = "<!-- GTL_BOOTLOADER_START -->"

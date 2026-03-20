@@ -365,4 +365,4 @@ class TestSelfHosting:
         from genesis.schedule import delta, iterate, schedule
         from genesis.commands import gen_start, gen_iterate, gen_gaps, Scope
         from genesis.manifest import PrecomputedManifest, BoundJob
-        assert genesis.__version__ == "1.0.0"
+        assert genesis.__version__ == "0.5.0"
