@@ -2,7 +2,7 @@
 
 Claude Code build of Genesis V1.0.
 
-**Status**: Phase 4 complete — all ADRs accepted, engine built, 244 tests passing.
+**Status**: Phase 5 — self-hosting, Event Calculus foundation, 277+ tests passing.
 
 ## ADRs (all accepted)
 
@@ -21,5 +21,6 @@ Claude Code build of Genesis V1.0.
 | ADR-011 | Spec-snapshot binding |
 | ADR-012 | Per-REQ-key coverage evaluators |
 | ADR-013 | Feature lifecycle closure |
-| ADR-014 | (see file) |
+| ADR-014 | F_D gates F_P and F_H dispatch |
 | ADR-015 | Integration-primary test architecture |
+| ADR-016 | Prime operators and Event Calculus foundation |

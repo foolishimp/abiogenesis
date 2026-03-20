@@ -2,7 +2,6 @@
 
 **Intent ID**: INT-001
 **Date**: 2026-03-15
-**Priority**: High
 **Status**: Approved
 
 ---
@@ -17,13 +16,16 @@ AI-augmented software development lacks a clean, formal engine. The existing gen
 
 A clean, GTL-first implementation of Genesis V1.0 — an AI SDLC engine that:
 
-1. Implements the 6 core functions (`iterate`, `project`, `emit`, `bind_fd`, `delta`, `schedule`) derived from the GTL formal system
-2. Provides 3 commands (`gen-start`, `gen-iterate`, `gen-gaps`) as named compositions over those functions
-3. Runs the asset graph `intent → requirements → feature_decomp → design → code ↔ unit_tests` for any project
-4. Is built by the current genesis engine using itself as bootstrap compiler (the GCC/C analogy)
-5. Reaches a self-hosting gate: abiogenesis can build itself
+1. Defines the SDLC as a typed asset graph (6 assets, 5 edges) in a GTL Package
+2. Implements the convergence engine: `iterate()` drives candidates toward stability via three evaluator types (F_D deterministic, F_P agent, F_H human)
+3. Grounds convergence projection in Event Calculus: five prime operators (`found`, `approved`, `assessed`, `revoked`, `intent_raised`), two fluents (`operative`, `certified`), three convergence models
+4. Provides commands (`gen-start`, `gen-iterate`, `gen-gaps`) as named compositions over the engine
+5. Enforces traceability from REQ keys through code to tests via tag enforcement
+6. Binds convergence events to workflow provenance (version, spec_hash) to prevent stale assessment reuse
+7. Is built by the current genesis engine using itself as bootstrap compiler (the GCC/C analogy)
+8. Reaches a self-hosting gate: abiogenesis can build itself
 
-The spec is `spec/packages/genesis_core.py` — the GTL Package IS the requirements. No separate requirements document.
+The spec is `gtl_spec/packages/abiogenesis.py` — the GTL Package IS the requirement registry. `specification/` provides human-readable requirement descriptions and acceptance criteria for each REQ key registered in the Package.
 
 ---
 
@@ -38,11 +40,12 @@ The spec is `spec/packages/genesis_core.py` — the GTL Package IS the requireme
 
 ## Success Criteria
 
-- [x] Spec loadable: `python spec/packages/genesis_core.py` describes the Package correctly
-- [ ] Engine runs `gen-start` on a fresh project and produces intent → requirements output
-- [ ] Engine traverses all 5 edges for a test feature vector, producing code + passing tests
-- [ ] All 6 core functions have unit tests, coverage ≥ 80%
-- [ ] Sandbox E2E: fresh sandbox run creates working code+tests
-- [ ] Self-hosting gate: abiogenesis uses genesis to build its next iteration
+- [x] Spec loadable: `python gtl_spec/packages/abiogenesis.py` describes the Package correctly
+- [x] Engine runs `gen-start` on a fresh project and produces intent → requirements output
+- [x] Engine traverses all 5 edges for a test feature vector, producing code + passing tests
+- [x] All engine modules have unit + integration tests; 277+ tests passing
+- [x] Sandbox E2E: fresh sandbox run creates working code+tests
+- [x] Self-hosting gate: abiogenesis uses genesis to build its next iteration
+- [ ] Specification is authoritative: deleting `builds/claude_code/code/` and regenerating from `specification/` + `builds/claude_code/design/adrs/` produces an equivalent compiler
 
 ---

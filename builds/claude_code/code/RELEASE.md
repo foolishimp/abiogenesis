@@ -6,7 +6,7 @@
 |----------|--------|-------------------------------|
 | gen-start, gen-gaps, gen-status | `builds/claude_code/.claude-plugin/plugins/genesis/commands/` | `.claude/commands/` |
 | gen-install.py | `builds/claude_code/code/gen-install.py` | — |
-| Engine (gtl, genesis) | `builds/python/src/` | `.genesis/genesis/`, `.genesis/gtl/` |
+| Engine (gtl, genesis) | `builds/claude_code/code/genesis/` | `.genesis/genesis/`, `.genesis/gtl/` |
 
 ## Command Ownership
 
