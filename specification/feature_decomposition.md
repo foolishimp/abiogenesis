@@ -1,6 +1,6 @@
 # Genesis V1 — Feature Decomposition
 
-**Traces to**: INT-001
+**Traces to**: INT-001, INT-002
 **Requirements**: specification/requirements.md
 **REQ key registry**: builds/claude_code/code/gtl_spec/packages/abiogenesis.py
 **Status**: Approved
@@ -23,6 +23,7 @@
 | REQ-F-TEST | Test Architecture | TEST-001, TEST-002 | CMD | ✓ |
 | REQ-F-EC | Event Calculus Foundation | EC-001..006 | ENGINE, GATE | ✓ |
 | REQ-F-PROV | Workflow Provenance | PROV-001..005 | EC | ✓ |
+| REQ-F-BOOTDOC | Bootloader as Graph Asset | BOOTDOC-001..003 | GRAPH, ENGINE | ✓ |
 
 ---
 
@@ -40,6 +41,8 @@ REQ-F-GRAPH
          └── REQ-F-CMD      (needs EVAL + GATE)
               ├── REQ-F-DOCS    (needs commands to document)
               └── REQ-F-TEST    (needs commands to test)
+
+REQ-F-BOOTDOC                     (depends on GRAPH + ENGINE — new graph asset)
 ```
 
 **Build order** (topological sort):
@@ -50,12 +53,13 @@ REQ-F-GRAPH
 5. REQ-F-PROV (depends on EC)
 6. REQ-F-CMD (depends on EVAL + GATE)
 7. REQ-F-DOCS, REQ-F-TEST (parallel — depend on CMD)
+8. REQ-F-BOOTDOC (depends on GRAPH + ENGINE)
 
 ---
 
 ## MVP Scope
 
-All 11 features are MVP. This is the minimum engine that can run the full asset graph for any project with provenance-aware convergence.
+All 12 features are MVP. This is the minimum engine that can run the full asset graph for any project with provenance-aware convergence.
 
 **Deferred** (V2+):
 - Consensus engine (multi-agent quorum)
@@ -79,7 +83,7 @@ The engine consists of 6 modules. Features map to modules as follows:
 | `schedule.py` | GATE | `delta()`, `iterate()`, `schedule()` |
 | `commands.py` | CMD, VIS | `gen_gaps()`, `gen_iterate()`, `gen_start()`, `Scope`, `_close_completed_features()` |
 | `manifest.py` | EVAL | `PrecomputedManifest`, `BoundJob` dataclasses |
-| `__main__.py` | CMD, EVAL | CLI entry point, `_emit_event_cmd()` governance, `check-tags`, `check-*-coverage` |
+| `__main__.py` | CMD, EVAL, BOOTDOC | CLI entry point, `_emit_event_cmd()` governance, `check-tags`, `check-*-coverage`, `check-bootloader-consistency` |
 
 **Supplementary**:
 - `gen-install.py` — BOOT feature (standalone installer script)
@@ -131,6 +135,12 @@ Three check commands enforce REQ key traceability: `check-tags` (file-level), `c
 ### REQ-F-TEST — Test Architecture
 
 Integration-primary test surface: each test exercises the full evaluator chain against a real workspace. Property invariant tests verify structural guarantees (replay determinism, idempotence, no duplicate certificates, stale hash rejection).
+
+### REQ-F-BOOTDOC — Bootloader as Graph Asset
+
+Makes GTL_BOOTLOADER.md a convergence-tracked graph asset with an F_D evaluator that checks type consistency against `gtl/core.py`. When the type system changes and the bootloader doesn't update, delta > 0 and the system tells you.
+
+**Key artifacts**: `bootloader_doc` asset, `design→bootloader_doc` edge, `gtl_type_consistency` F_D evaluator, `check-bootloader-consistency` command.
 
 ---
 

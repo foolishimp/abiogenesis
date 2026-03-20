@@ -6,6 +6,9 @@
 # Validates: REQ-F-COV-001
 # Validates: REQ-F-EVAL-001
 # Validates: REQ-F-EVAL-003
+# Validates: REQ-F-BOOTDOC-001
+# Validates: REQ-F-BOOTDOC-002
+# Validates: REQ-F-BOOTDOC-003
 """Tests for genesis.__main__ — CLI entry point and check-tags command."""
 import json
 import pytest
@@ -14,7 +17,7 @@ from pathlib import Path
 from io import StringIO
 from unittest.mock import patch
 
-from genesis.__main__ import _build_parser, _check_tags, _check_req_coverage, _check_tag_coverage
+from genesis.__main__ import _build_parser, _check_tags, _check_req_coverage, _check_tag_coverage, _check_bootloader_consistency
 
 
 # ── _build_parser ─────────────────────────────────────────────────────────────
@@ -339,3 +342,43 @@ class TestCheckTagCoverage:
         assert args.command == "check-impl-coverage"
         args2 = p.parse_args(["check-validates-coverage", "--package", "m:v", "--path", "."])
         assert args2.command == "check-validates-coverage"
+
+
+class TestCheckBootloaderConsistency:
+    """Tests for check-bootloader-consistency command."""
+
+    def test_subcommand_exists(self):
+        p = _build_parser()
+        args = p.parse_args(["check-bootloader-consistency",
+                             "--spec-module", "gtl.core",
+                             "--bootloader", "some/file.md"])
+        assert args.command == "check-bootloader-consistency"
+
+    def test_passes_when_all_types_present(self, tmp_path, capsys):
+        boot = tmp_path / "BOOT.md"
+        boot.write_text("Asset Edge Evaluator Context F_D F_H F_P Job Operator Package Rule Worker\n")
+        rc = _check_bootloader_consistency("gtl.core", str(boot))
+        assert rc == 0
+        result = json.loads(capsys.readouterr().out)
+        assert result["passes"] is True
+        assert result["missing"] == []
+
+    def test_fails_when_types_missing(self, tmp_path, capsys):
+        boot = tmp_path / "BOOT.md"
+        boot.write_text("Asset Edge Evaluator\n")  # missing most types
+        rc = _check_bootloader_consistency("gtl.core", str(boot))
+        assert rc == 1
+        result = json.loads(capsys.readouterr().out)
+        assert result["passes"] is False
+        assert "Worker" in result["missing"]
+        assert "Job" in result["missing"]
+
+    def test_missing_bootloader_file(self, capsys):
+        rc = _check_bootloader_consistency("gtl.core", "/nonexistent/BOOT.md")
+        assert rc == 1
+
+    def test_invalid_module(self, tmp_path, capsys):
+        boot = tmp_path / "BOOT.md"
+        boot.write_text("anything\n")
+        rc = _check_bootloader_consistency("nonexistent.module", str(boot))
+        assert rc == 1
