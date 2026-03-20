@@ -2,7 +2,7 @@
 
 Claude Code build of Genesis V1.0.
 
-**Status**: Phase 5 — self-hosting, Event Calculus foundation, 277+ tests passing.
+**Status**: Phase 5 — self-hosting, Event Calculus foundation, 310+ tests passing.
 
 ## ADRs (all accepted)
 

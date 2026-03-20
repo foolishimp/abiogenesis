@@ -268,12 +268,12 @@ The asset projection function derives current state from the event stream.
 
 ### REQ-F-TEST-001 — Integration-primary test surface
 
-The primary test surface is command-level integration scenarios, not unit tests.
+The primary test surface is command-level integration scenarios. Unit tests supplement these for complex internal modules.
 
 **Acceptance Criteria**:
 - AC-1: Each integration test exercises the full F_D→F_P→F_H evaluator chain against a real workspace (tmp_path)
-- AC-2: Required scenarios: cold start → convergence, resume mid-lifecycle, F_D blocks F_P, spec change invalidates F_P, proxy rejection halts edge, full convergence closes features, replay determinism
-- AC-3: Unit tests exist only for write-primitive invariants (emit, project, EventStream)
+- AC-2: Required integration scenarios: cold start → convergence, resume mid-lifecycle, F_D blocks F_P, spec change invalidates F_P, proxy rejection halts edge, full convergence closes features, replay determinism
+- AC-3: Unit tests cover write-primitive invariants (emit, project, EventStream) and complex internal modules (bind, schedule, commands) where integration tests alone are insufficient to exercise edge cases
 
 ### REQ-F-TEST-002 — Property invariant tests
 
@@ -287,9 +287,9 @@ Property-based tests verify structural invariants that must hold regardless of e
 
 ---
 
-## Event Calculus Foundation
+## Event Calculus Foundation (REQ-F-EC-*)
 
-> **Note**: The following requirements (REQ-F-EC-*) describe the Event Calculus model implemented in the engine per ADR-016. They are tracked in `.ai-workspace/features/active/REQ-F-EC-001.yml` and should be registered in the GTL Package requirements list.
+> **Registration gap**: REQ-F-EC-001 through EC-006 are specified here and implemented in the engine per ADR-016, but not yet registered in `gtl_spec/packages/abiogenesis.py:package.requirements`. This registration is required before the next release to close the split between this specification and the Package registry.
 
 ### Five Prime Operators
 

@@ -138,7 +138,7 @@ Integration-primary test surface: each test exercises the full evaluator chain a
 
 These are not standalone features — they are woven across all features:
 
-- **Test coverage**: All modules have integration + property tests; 277+ tests passing
+- **Test coverage**: All modules have integration + unit + property tests; 310+ tests passing
 - **Sandbox E2E**: Fresh sandbox run creates working code+tests (`test_e2e_sandbox.py`)
 - **Self-hosting**: Abiogenesis uses its own engine to build its next iteration
 - **Spec authority**: Deleting code and regenerating from specification/ + design/adrs/ must produce an equivalent compiler

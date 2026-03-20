@@ -19,7 +19,7 @@ genesis_sdlc's installer composes both sets at install time.
 ### Bug in abiogenesis
 
 1. Fix source in `builds/claude_code/.claude-plugin/plugins/genesis/commands/`
-   and/or engine source under `builds/python/src/`
+   and/or engine source under `builds/claude_code/code/genesis/`
 
 2. Bump version in **both**:
    - `builds/claude_code/code/gen-install.py` → `VERSION = "0.1.x"`
