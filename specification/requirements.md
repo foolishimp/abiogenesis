@@ -289,8 +289,6 @@ Property-based tests verify structural invariants that must hold regardless of e
 
 ## Event Calculus Foundation (REQ-F-EC-*)
 
-> **Registration gap**: REQ-F-EC-001 through EC-006 are specified here and implemented in the engine per ADR-016, but not yet registered in `gtl_spec/packages/abiogenesis.py:package.requirements`. This registration is required before the next release to close the split between this specification and the Package registry.
-
 ### Five Prime Operators
 
 The engine uses exactly five prime event types. All other events (edge_started, fp_dispatched, fh_gate_pending, edge_converged) are derived control events, not primes.
@@ -346,6 +344,5 @@ The engine uses exactly five prime event types. All other events (edge_started, 
 | Feature Lifecycle | REQ-F-VIS-001 (1) |
 | Engine Correctness | REQ-F-BIND-001, REQ-F-CORE-001 (2) |
 | Test Architecture | REQ-F-TEST-001, REQ-F-TEST-002 (2) |
-| **Registered in Package** | **24 keys** |
-| Event Calculus (pending registration) | REQ-F-EC-001 through REQ-F-EC-006 (6) |
+| Event Calculus | REQ-F-EC-001 through REQ-F-EC-006 (6) |
 | **Total** | **30 keys** |

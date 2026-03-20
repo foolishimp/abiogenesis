@@ -40,12 +40,12 @@ The spec is `gtl_spec/packages/abiogenesis.py` — the GTL Package IS the requir
 
 ## Success Criteria
 
-- [x] Spec loadable: `python gtl_spec/packages/abiogenesis.py` describes the Package correctly
-- [x] Engine runs `gen-start` on a fresh project and produces intent → requirements output
-- [x] Engine traverses all 5 edges for a test feature vector, producing code + passing tests
-- [x] All engine modules have unit + integration tests; 310+ tests passing
-- [x] Sandbox E2E: fresh sandbox run creates working code+tests
-- [ ] Self-hosting gate: abiogenesis uses genesis to build its next iteration (total_delta=7 — EC epoch cutover pending)
-- [ ] Specification is authoritative: deleting `builds/claude_code/code/` and regenerating from `specification/` + `builds/claude_code/design/adrs/` produces an equivalent compiler
+1. Spec loadable: `python gtl_spec/packages/abiogenesis.py` describes the Package correctly
+2. Engine runs `gen-start` on a fresh project and produces intent → requirements output
+3. Engine traverses all 5 edges for a test feature vector, producing code + passing tests
+4. All engine modules have unit + integration tests; test suite green
+5. Sandbox E2E: fresh sandbox run creates working code+tests
+6. Self-hosting gate: abiogenesis uses genesis to build its next iteration
+7. Specification is authoritative: deleting `builds/claude_code/code/` and regenerating from `specification/` + `builds/claude_code/design/adrs/` produces an equivalent compiler
 
 ---
