@@ -13,8 +13,8 @@ builds/*/. workspace/iterations/
 builds/*/.workspace/manifests/
 builds/*/.workspace/working_surfaces/
 
-# Bootstrap compiler binaries — installed, not committed
-.genesis/
+# Bootstrap compiler — committed until packaged
+# .genesis/
 
 # Local env
 .env
