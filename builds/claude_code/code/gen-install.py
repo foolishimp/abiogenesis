@@ -18,7 +18,8 @@ What it installs:
     .genesis/genesis/           ← the engine modules
     .genesis/gtl/               ← the GTL type system (vendored, self-contained)
     .genesis/gtl_spec/          ← the GTL spec package (genesis_core.py + __init__)
-    .genesis/gtl_spec/GENESIS_BOOTLOADER.md
+    .genesis/gtl_spec/GTL_BOOTLOADER.md
+    CLAUDE.md                   ← GTL bootloader appended (if not already present)
     builds/<platform>/src/      ← implementation source (empty scaffold)
     builds/<platform>/tests/    ← test suite (empty scaffold)
     builds/<platform>/design/adrs/  ← design decisions (empty scaffold)
@@ -31,12 +32,17 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import shutil
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
 VERSION = "0.4.0"
+
+# CLAUDE.md markers for idempotent GTL bootloader injection
+_GTL_BOOTLOADER_START = "<!-- GTL_BOOTLOADER_START -->"
+_GTL_BOOTLOADER_END = "<!-- GTL_BOOTLOADER_END -->"
 
 # ── Templates ─────────────────────────────────────────────────────────────────
 
@@ -118,7 +124,7 @@ SPEC_FILES = [
     "gtl_spec/__init__.py",
     "gtl_spec/packages/__init__.py",
     "gtl_spec/packages/genesis_core.py",
-    "gtl_spec/GENESIS_BOOTLOADER.md",
+    "gtl_spec/GTL_BOOTLOADER.md",
 ]
 
 
@@ -249,6 +255,11 @@ def install(target: Path, *, verify_only: bool = False,
             d.mkdir(parents=True, exist_ok=True)
             result["build_dirs"].append(rel)
 
+    # ── Append GTL bootloader to CLAUDE.md ───────────────────────────────────
+    result["claude_md"] = install_claude_md(target)
+    if result["claude_md"] == "source_missing":
+        result["errors"].append("GTL bootloader source not found: gtl_spec/GTL_BOOTLOADER.md")
+
     # ── Emit install event ────────────────────────────────────────────────────
     _emit_install_event(target, result)
 
@@ -294,6 +305,56 @@ def _verify(target: Path, result: dict, platform: str = "python") -> dict:
         else "incomplete"
     )
     return result
+
+
+def install_claude_md(target: Path) -> str:
+    """Append the GTL bootloader to CLAUDE.md between markers.
+
+    Each GTL Package appends its own bootloader to CLAUDE.md.
+    abiogenesis appends the universal GTL formal system (sections I–XI).
+    Domain packages (e.g. genesis_sdlc) append their own domain bootloader.
+
+    If a legacy monolithic GENESIS_BOOTLOADER block is found, it is removed —
+    the split bootloaders supersede it.
+    """
+    bootloader_path = _code_root() / "gtl_spec" / "GTL_BOOTLOADER.md"
+    if not bootloader_path.exists():
+        return "source_missing"
+
+    bootloader = bootloader_path.read_text(encoding="utf-8")
+    section = f"{_GTL_BOOTLOADER_START}\n{bootloader}\n{_GTL_BOOTLOADER_END}"
+
+    # Legacy markers from the monolithic bootloader
+    _LEGACY_START = "<!-- GENESIS_BOOTLOADER_START -->"
+    _LEGACY_END = "<!-- GENESIS_BOOTLOADER_END -->"
+
+    claude_md = target / "CLAUDE.md"
+    if claude_md.exists():
+        existing = claude_md.read_text(encoding="utf-8")
+
+        # Remove legacy monolithic bootloader if present
+        if _LEGACY_START in existing and _LEGACY_END in existing:
+            legacy_pattern = re.compile(
+                re.escape(_LEGACY_START) + r".*?" + re.escape(_LEGACY_END),
+                re.DOTALL,
+            )
+            existing = legacy_pattern.sub("", existing)
+
+        if _GTL_BOOTLOADER_START in existing:
+            pattern = re.compile(
+                re.escape(_GTL_BOOTLOADER_START) + r".*?" + re.escape(_GTL_BOOTLOADER_END),
+                re.DOTALL,
+            )
+            updated = pattern.sub(section.rstrip(), existing)
+            claude_md.write_text(updated, encoding="utf-8")
+            return "updated"
+        else:
+            with open(claude_md, "w", encoding="utf-8") as f:
+                f.write(existing.rstrip() + f"\n\n{section}\n")
+            return "appended"
+    else:
+        claude_md.write_text(section + "\n", encoding="utf-8")
+        return "created"
 
 
 def _emit_install_event(target: Path, install_result: dict) -> None:

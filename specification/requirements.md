@@ -26,9 +26,18 @@ These REQ keys are the traceability thread. Every design ADR, every code file, e
 The engine reads its Package and Worker from a config file at startup.
 
 **Acceptance Criteria**:
-- AC-1: `genesis.yml` contains `package:` and `worker:` fields as Python import paths (`module:var`)
+- AC-1: `genesis.yml` contains `package:` and `worker:` fields as resolvable symbol references
 - AC-2: Missing `genesis.yml` → informative error, not a crash
-- AC-3: Engine resolves Package and Worker via `importlib` from the path
+- AC-3: Engine resolves Package and Worker dynamically from the import path
+
+### REQ-F-PKG-001 — Starter spec generated for new projects
+
+gen-install creates a starter GTL Package spec so new projects have a working baseline.
+
+**Acceptance Criteria**:
+- AC-1: `gen-install --project-slug <slug>` generates a starter Package definition under `.genesis/gtl_spec/packages/<slug>`
+- AC-2: Starter spec includes: two assets (spec, output), one edge, one evaluator, one worker
+- AC-3: Never overwrites existing spec — only created if absent
 
 ---
 
@@ -64,7 +73,7 @@ Each asset type defines its own stability conditions.
 **Acceptance Criteria**:
 - AC-1: Returns JSON with `total_delta`, `converged`, `jobs_considered`, and per-job `gaps[]`
 - AC-2: Each gap entry contains: `edge`, `delta`, `failing` (evaluator names), `passing`, `delta_summary`
-- AC-3: Runs all F_D evaluators as subprocesses; evaluates F_H via fluent projection; evaluates F_P via assessed event matching
+- AC-3: Executes all F_D evaluators via their command specification; evaluates F_H via fluent projection; evaluates F_P via assessed event matching
 - AC-4: `converged: true` iff `total_delta == 0.0`
 - AC-5: Emits `edge_converged` certificate when a job reaches delta=0 and no certificate exists for that (edge, feature) pair
 
@@ -213,14 +222,14 @@ The CLI governance layer validates prime operator payloads before appending.
 - AC-4: `gen emit-event --type revoked` without `kind`, `edge`, `actor`, or `reason` → rejected
 - AC-5: `gen emit-event --type assessed` with `kind: fh_review` requires `actor` and `reason`
 
-### REQ-F-EVAL-005 — emit() write primitive validates prime operator payloads
+### REQ-F-EVAL-005 — EventStream append validates prime operator payloads
 
-The Python `emit()` function enforces the same prime operator validation as the CLI.
+The event stream write primitive enforces the same prime operator validation as the CLI.
 
 **Acceptance Criteria**:
-- AC-1: `emit("assessed", {"kind": "fp", ...})` without `spec_hash` → raises `ValueError`
-- AC-2: `emit("approved", {...})` without `kind` → raises `ValueError`
-- AC-3: `emit("revoked", {...})` without `kind` → raises `ValueError`
+- AC-1: Appending `assessed{kind: fp}` without `spec_hash` → error
+- AC-2: Appending `approved` without `kind` → error
+- AC-3: Appending `revoked` without `kind` → error
 - AC-4: Valid payloads pass through without error
 
 ---
@@ -236,6 +245,20 @@ When all edges converge for a feature, the feature vector is closed.
 - AC-2: Feature YAML moved from `.ai-workspace/features/active/` to `.ai-workspace/features/completed/`
 - AC-3: `status` field updated to `completed`
 - AC-4: Called only when total delta=0 across all edges
+
+---
+
+## Workspace (REQ-F-WKSP-*)
+
+### REQ-F-WKSP-001 — Workspace bootstrap creates event stream path
+
+The engine initialises the workspace on first use.
+
+**Acceptance Criteria**:
+- AC-1: Creates the event stream storage path if absent (idempotent)
+- AC-2: Binds the module-level event stream so `emit()` becomes available
+- AC-3: Returns a bound EventStream ready for append/read operations
+- AC-4: Safe to call on an existing workspace — never destroys existing events
 
 ---
 
@@ -262,6 +285,54 @@ The asset projection function derives current state from the event stream.
 - AC-4: Projection for instance I never reads events of instance J (isolation)
 - AC-5: Current state is not stale during active iteration — `edge_started` events update the projection
 
+### REQ-F-CORE-002 — Projection determinism invariant
+
+The projection function is a pure function of the event stream.
+
+**Acceptance Criteria**:
+- AC-1: `project(S, T, I) = project(S, T, I)` — same stream, same type, same instance always produces identical output
+- AC-2: No hidden state, caching, or side effects in the projection path
+- AC-3: Property tests verify determinism across randomised event sequences
+
+### REQ-F-CORE-003 — Event stream completeness
+
+All prior asset states are reconstructable from the event stream.
+
+**Acceptance Criteria**:
+- AC-1: Every state-changing operation produces at least one event
+- AC-2: `project(stream[0..k])` reconstructs the asset state at any point k in the stream
+- AC-3: Corrupted event log lines fail visibly — never silently skipped
+
+### REQ-F-CORE-004 — F_D pre-computation produces PrecomputedManifest
+
+The binding phase computes everything possible without an LLM.
+
+**Acceptance Criteria**:
+- AC-1: `bind_fd()` produces a PrecomputedManifest containing: job, current asset state, failing/passing evaluators, F_D results, resolved contexts, and delta summary
+- AC-2: Passing evaluators are excluded from the F_P prompt — they are provably outside the ambiguity bounds
+- AC-3: `bind_fp()` assembles the F_P prompt from the PrecomputedManifest — template assembly only, no LLM invocation
+
+### REQ-F-CORE-005 — ContextResolver loads and verifies context documents
+
+Context documents are loaded by scheme and verified by digest.
+
+**Acceptance Criteria**:
+- AC-1: Supports `workspace://` scheme (resolves relative to workspace root)
+- AC-2: Directory locators recursively collect readable files, prefix each with relative path
+- AC-3: SHA-256 digest verification — mismatch halts execution
+- AC-4: Pending digest (`sha256:0*64`) skips verification
+- AC-5: Unimplemented schemes (V1) degrade gracefully without halting
+
+### REQ-F-CORE-006 — Worker scheduling partitions by write territory
+
+Workers with overlapping write territory must not execute concurrently.
+
+**Acceptance Criteria**:
+- AC-1: `schedule(workers)` returns batches of non-conflicting workers
+- AC-2: Conflict detection is based on `Worker.writable_types` (target asset names)
+- AC-3: Batch i completes before batch i+1 starts
+- AC-4: V1: single worker is trivially `[[worker]]`
+
 ---
 
 ## Test Architecture (REQ-F-TEST-*)
@@ -287,11 +358,69 @@ Property-based tests verify structural invariants that must hold regardless of e
 
 ---
 
+## Workflow Provenance (REQ-F-PROV-*)
+
+### REQ-F-PROV-001 — Workflow version read from active-workflow.json
+
+The engine tracks which workflow version is active for provenance binding.
+
+**Acceptance Criteria**:
+- AC-1: Reads `.genesis/active-workflow.json` at Scope construction
+- AC-2: Returns `"{workflow}@{version}"` when file is valid (e.g., `"genesis_sdlc.standard@0.3.0"`)
+- AC-3: Returns `"unknown"` on any failure (missing file, invalid JSON, non-string values)
+- AC-4: Engine never fails to start due to this file's state
+
+### REQ-F-PROV-002 — Events annotated with workflow_version
+
+Every event carries provenance metadata linking it to the active workflow version.
+
+**Acceptance Criteria**:
+- AC-1: `EventStream.append()` injects `workflow_version` into event data when not `"unknown"`
+- AC-2: Injection uses set-default — never overwrites an explicit value from the caller
+- AC-3: The `emit-event` CLI path also annotates workflow_version independently (pre-stack, no Scope)
+- AC-4: Events emitted when workflow_version is `"unknown"` carry no version annotation
+
+### REQ-F-PROV-003 — job_evaluator_hash replaces req_hash when provenance is present
+
+Spec hash computation is version-aware.
+
+**Acceptance Criteria**:
+- AC-1: When `workflow_version != "unknown"`: `spec_hash = job_evaluator_hash(job)` — hash of all evaluator definitions (name, category, command, description)
+- AC-2: When `workflow_version == "unknown"`: `spec_hash = req_hash(Package.requirements)` — hash of sorted requirement keys (fallback)
+- AC-3: Changing any evaluator definition changes the hash, invalidating prior F_P assessments
+- AC-4: Whitespace differences in evaluator descriptions do not change the hash (normalisation applied)
+
+### REQ-F-PROV-004 — Carry-forward preserves approvals across version upgrades
+
+When a workflow version changes, explicitly listed approvals carry forward without re-approval.
+
+**Acceptance Criteria**:
+- AC-1: Carry-forward list read from `.genesis/workflows/{pkg}/{variant}/{version_dir}/manifest.json`
+- AC-2: Each entry specifies `{edge, from_version}` — the approval from `from_version` is accepted under the current version
+- AC-3: Revocations are scoped by workflow_version — a revocation from one version cannot cancel approvals from another
+- AC-4: When `workflow_version == "unknown"`: no carry-forward (approvals match by edge alone)
+
+### REQ-F-PROV-005 — Orphan tolerance for graph evolution
+
+Events referencing edges not in the current graph are silently ignored, enabling graph evolution without event stream migration.
+
+**Acceptance Criteria**:
+- AC-1: `bind_fh()` and `delta()` skip events referencing edges not in the current job set
+- AC-2: No error or warning emitted for orphan events
+- AC-3: Adding or removing edges from the Package does not require event stream modification
+
+---
+
 ## Event Calculus Foundation (REQ-F-EC-*)
 
-### Five Prime Operators
+### REQ-F-EC-001 — Five prime operators as the basis set
 
-The engine uses exactly five prime event types. All other events (edge_started, fp_dispatched, fh_gate_pending, edge_converged) are derived control events, not primes.
+The engine uses exactly five prime event types. All other events are derived.
+
+**Acceptance Criteria**:
+- AC-1: Exactly five prime types: `found`, `approved`, `assessed`, `revoked`, `intent_raised`
+- AC-2: All other event types (`edge_started`, `fp_dispatched`, `fh_gate_pending`, `edge_converged`) are control events — they do not participate in fluent projection
+- AC-3: Each prime type has a `kind` discriminator that determines its EC role
 
 | Prime | Kind discriminator | EC role |
 |-------|-------------------|---------|
@@ -301,48 +430,70 @@ The engine uses exactly five prime event types. All other events (edge_started, 
 | `revoked` | `fh_approval` | `terminates operative(edge, wv)` |
 | `intent_raised` | — | `happensAt` only — homeostatic signal |
 
-### Two Fluents
+### REQ-F-EC-002 — Two fluents: operative and certified
 
-| Fluent | Initiated by | Terminated by |
-|--------|-------------|---------------|
-| `operative(edge, wv)` | `approved{kind: fh_review\|fh_intent}` | `revoked{kind: fh_approval}` |
-| `certified(edge, evaluator, spec_hash, wv)` | `assessed{kind: fp, result: pass}` | spec_hash mismatch (implicit) |
+Convergence state is modelled as two Event Calculus fluents.
 
-### Three Convergence Models
+**Acceptance Criteria**:
+- AC-1: `operative(edge, wv)` — initiated by `approved{fh_review|fh_intent}`, terminated by `revoked{fh_approval}`
+- AC-2: `certified(edge, evaluator, spec_hash, wv)` — initiated by `assessed{fp, result: pass}`, terminated by spec_hash mismatch (implicit)
+- AC-3: Both fluents are parameterised by workflow_version — approvals from one version do not satisfy another (unless carry-forward, REQ-F-PROV-004)
 
-| Evaluator type | Convergence test | Stateful? |
-|---------------|-----------------|-----------|
-| F_D | Live execution: `run_fd_evaluator(ev) → passes` | No — re-runs every iteration |
-| F_H | Fluent projection: `holdsAt(operative(edge, wv), now)` | Yes — initiated by `approved`, terminated by `revoked` |
-| F_P | Fluent projection: `holdsAt(certified(edge, ev, spec_hash, wv), now)` | Yes — initiated by `assessed{kind: fp, result: pass}`, invalidated by spec_hash mismatch |
+### REQ-F-EC-003 — Three convergence models
 
-### Revocation Contract
+Each evaluator type has a distinct convergence test.
 
-- `revoked{kind: fh_approval}` terminates the `operative` fluent — it does not reference a specific `approved` event
-- Scoped by `edge` and `workflow_version`
-- When `workflow_version == "unknown"`, revocations match by edge alone
-- A revocation that predates all approvals for its edge has no effect
+**Acceptance Criteria**:
+- AC-1: F_D: live execution — re-runs every iteration, stateless
+- AC-2: F_H: fluent projection — `holdsAt(operative(edge, wv), now)`
+- AC-3: F_P: fluent projection — `holdsAt(certified(edge, evaluator, spec_hash, wv), now)`
 
-### Rejection vs Revocation
+### REQ-F-EC-004 — Revocation terminates operative fluent
 
-- **Rejection** (`assessed{kind: fh_review, result: reject}`): judgment on current work. `happensAt` only — no fluent terminated. Proxy rejection halts the auto-loop for that edge in the current session.
-- **Revocation** (`revoked{kind: fh_approval}`): withdrawal of prior authority. `terminates operative(edge, wv)` — the gate reopens and downstream work is blocked until re-approval.
+Revocation withdraws prior approval authority.
+
+**Acceptance Criteria**:
+- AC-1: `revoked{kind: fh_approval}` terminates the `operative` fluent — does not reference a specific `approved` event
+- AC-2: Scoped by `edge` and `workflow_version`
+- AC-3: Wildcard edge (`"*"`) terminates operative for all edges under the matching workflow_version
+- AC-4: When `workflow_version == "unknown"`, revocations match by edge alone
+- AC-5: A revocation that predates all approvals for its edge has no effect
+
+### REQ-F-EC-005 — Rejection is judgment, not revocation
+
+Rejection and revocation are distinct operations with different EC semantics.
+
+**Acceptance Criteria**:
+- AC-1: Rejection (`assessed{kind: fh_review, result: reject}`) is `happensAt` only — no fluent terminated
+- AC-2: Proxy rejection halts the auto-loop for that edge in the current session
+- AC-3: Revocation (`revoked{kind: fh_approval}`) terminates `operative(edge, wv)` — the gate reopens
+
+### REQ-F-EC-006 — assessed{kind: fp} result values
+
+F_P assessment results have defined semantics.
+
+**Acceptance Criteria**:
+- AC-1: `result: "pass"` — evaluator satisfied, `certified` fluent initiated
+- AC-2: `result: "fail"` — evaluator not satisfied, no fluent change, F_P may be re-dispatched
+- AC-3: For `assessed{kind: fh_review}`: `result: "reject"` — human judgment that work is insufficient (see REQ-F-EC-005)
 
 ---
 
 ## Key Counts
 
-| Category | REQ Keys |
-|----------|----------|
-| Bootstrap | REQ-F-BOOT-001, REQ-F-BOOT-002 (2) |
-| SDLC Graph | REQ-F-GRAPH-001, REQ-F-GRAPH-002 (2) |
-| Commands | REQ-F-CMD-001 through REQ-F-CMD-004 (4) |
-| Human Gates | REQ-F-GATE-001, REQ-F-GATE-002 (2) |
-| Traceability | REQ-F-TAG-001, REQ-F-TAG-002, REQ-F-COV-001 (3) |
-| Documentation | REQ-F-DOCS-001 (1) |
-| Evaluator Safety | REQ-F-EVAL-001 through REQ-F-EVAL-005 (5) |
-| Feature Lifecycle | REQ-F-VIS-001 (1) |
-| Engine Correctness | REQ-F-BIND-001, REQ-F-CORE-001 (2) |
-| Test Architecture | REQ-F-TEST-001, REQ-F-TEST-002 (2) |
-| Event Calculus | REQ-F-EC-001 through REQ-F-EC-006 (6) |
-| **Total** | **30 keys** |
+| Category | REQ Keys | Count |
+|----------|----------|-------|
+| Bootstrap | REQ-F-BOOT-001, REQ-F-BOOT-002, REQ-F-PKG-001 | 3 |
+| SDLC Graph | REQ-F-GRAPH-001, REQ-F-GRAPH-002 | 2 |
+| Commands | REQ-F-CMD-001 through REQ-F-CMD-004 | 4 |
+| Human Gates | REQ-F-GATE-001, REQ-F-GATE-002 | 2 |
+| Traceability | REQ-F-TAG-001, REQ-F-TAG-002, REQ-F-COV-001 | 3 |
+| Documentation | REQ-F-DOCS-001 | 1 |
+| Evaluator Safety | REQ-F-EVAL-001 through REQ-F-EVAL-005 | 5 |
+| Feature Lifecycle | REQ-F-VIS-001 | 1 |
+| Workspace | REQ-F-WKSP-001 | 1 |
+| Engine Correctness | REQ-F-BIND-001, REQ-F-CORE-001 through REQ-F-CORE-006 | 7 |
+| Test Architecture | REQ-F-TEST-001, REQ-F-TEST-002 | 2 |
+| Workflow Provenance | REQ-F-PROV-001 through REQ-F-PROV-005 | 5 |
+| Event Calculus | REQ-F-EC-001 through REQ-F-EC-006 | 6 |
+| **Total** | | **42** |
