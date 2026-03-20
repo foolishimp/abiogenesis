@@ -98,3 +98,66 @@ The bootloader becomes a convergence-tracked artifact: if the graph changes and 
 4. The pattern is replicable: genesis_sdlc can add the same asset type for SDLC_BOOTLOADER.md
 
 ---
+
+## INT-003 — Spec-Build Boundary Cleanup for Multi-Worker
+
+**Date**: 2026-03-21
+**Status**: Draft
+
+### Problem
+
+The abiogenesis specification leaks build-specific implementation detail into the constitutional layer. A Codex build from the same spec surfaced 5 material gaps — all stemming from the spec assuming it will be built by Claude Code with Python tooling. This blocks any non-Claude worker from building against the spec.
+
+Specific contradictions and defects:
+
+1. **Tenant identity leak**: `Scope.build` defaults to `"claude_code"` in `domain_model.md` §2.3 and `commands.py`. The spec should be agent-neutral.
+2. **Delta type contradiction**: `domain_model.md:198` defines `delta: int` (count), `convergence_model.md` defines `delta = failing / evaluators` (float). `schedule.py` implements float. The spec disagrees with itself.
+3. **Evaluator safety rule too broad**: REQ-F-EVAL-001 AC-2 says "must not invoke genesis subcommands" but the package already uses `genesis check-tags`, `genesis check-req-coverage`, `genesis check-impl-coverage`, `genesis check-validates-coverage`, `genesis check-bootloader-consistency`. Real invariant: no orchestration re-entry, leaf predicates are fine.
+4. **Context resolution fail-open**: `core.py:262` returns sentinel string `"[directory {path} exists but contains no readable files]"` instead of failing. Missing constitutional context is silently swallowed. Stale locators in the package compound this.
+5. **False OL claim in bootloader**: `GENESIS_BOOTLOADER.md:411` says event logger "enforces OL schema" — there is no OL schema. ADR-005 says "simple JSON." The bootloader text is aspirational language in a constitutional document.
+6. **Feature decomposition hardcodes Python modules**: `feature_decomposition.md` names specific `.py` files and Python module layout. A Codex/Java/Temporal build can't use this.
+7. **Requirements embed CLI syntax**: REQ keys reference `python -m genesis`, `pytest`, and other Claude-build-specific commands as acceptance criteria.
+
+### Value Proposition
+
+Fix all 7 defects so the spec becomes genuinely constitutional — any worker (Claude, Codex, Gemini, Bedrock) can build a conformant engine from the same specification. This is the prerequisite for multi-worker orchestration.
+
+Three-layer architecture:
+- **Layer 1 (Spec)**: GTL Package — assets, edges, evaluator predicates, contexts. Tech-neutral.
+- **Layer 2 (Orchestrator)**: abiogenesis engine — iterate(), schedule(), emit(), event stream. Shared.
+- **Layer 3 (Build)**: Worker bindings, F_D command mappings, build-specific context resolution. Per-supplier.
+
+### Scope
+
+**Fix 1 — Neutral Scope**: Remove `"claude_code"` default from `Scope.build` in domain_model.md and commands.py. Worker resolution moves to build layer.
+
+**Fix 2 — Delta type**: Change `delta: int` to `delta: float` in domain_model.md §2.4. Add explicit `failing_count`, `passing_count`, `evaluator_count` fields.
+
+**Fix 3 — Evaluator boundary**: Rewrite REQ-F-EVAL-001 AC-2: forbid orchestration re-entry (`start`, `iterate`, `gaps`, `emit-event`), allow deterministic `check-*` leaf predicates.
+
+**Fix 4 — Context fail-closed**: Replace sentinel return in `core.py` ContextResolver with hard failure. Emit `found{kind: context_gap}` on missing required context. Fix stale locators in package.
+
+**Fix 5 — Bootloader OL claim**: Change "enforces OL schema" to "enforces prime operator schema" in GENESIS_BOOTLOADER.md.
+
+**Fix 6 — Abstract feature decomposition**: Replace Python-specific module references with abstract capability descriptions. Module mapping moves to builds/.
+
+**Fix 7 — Abstract requirements**: Replace CLI-specific acceptance criteria with behavior-level predicates. Concrete commands are build-specific bindings.
+
+### Out of Scope
+
+- OpenLineage adoption (deferred — add as projection layer when external lineage consumers exist)
+- Multi-worker scheduling implementation (this intent makes it possible, doesn't implement it)
+- AWS deployment (prove locally first)
+- Delta normalization aggregation semantics (fix the type now, revisit `scope_delta` when multi-worker scheduling lands)
+
+### Success Criteria
+
+1. A second builder (Codex) can load the spec and build a conformant engine without encountering Claude-specific assumptions
+2. `domain_model.md` and `convergence_model.md` agree on delta semantics
+3. REQ-F-EVAL-001 permits `check-*` diagnostics, forbids orchestration re-entry
+4. Missing context causes hard failure, not silent substitution
+5. GENESIS_BOOTLOADER.md contains no false claims about event substrate
+6. `feature_decomposition.md` is tech-neutral — no Python module names
+7. Requirements express behavior, not CLI syntax
+
+---
