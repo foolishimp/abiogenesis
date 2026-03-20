@@ -30,9 +30,10 @@ from genesis.core import workspace_bootstrap
 def _subprocess_env(workspace: Path) -> dict:
     root = Path(__file__).resolve().parent.parent.parent.parent
     env = os.environ.copy()
-    # workspace first: lets tests import gtl_spec.packages.test_pkg before
+    # .genesis first: lets tests import gtl_spec.packages.test_pkg before
     # the abiogenesis-root gtl_spec/ package shadows it.
     paths = [
+        str(workspace / ".genesis"),
         str(workspace),
         str(root / "builds" / "claude_code" / "code"),
         str(root),
@@ -43,11 +44,11 @@ def _subprocess_env(workspace: Path) -> dict:
 
 
 def _write_minimal_pkg(workspace: Path, slug: str = "test_pkg") -> Path:
-    """Write a minimal importable Package/Worker module under workspace/gtl_spec/packages/."""
-    pkg_dir = workspace / "gtl_spec" / "packages"
+    """Write a minimal importable Package/Worker module under workspace/.genesis/gtl_spec/packages/."""
+    pkg_dir = workspace / ".genesis" / "gtl_spec" / "packages"
     pkg_dir.mkdir(parents=True, exist_ok=True)
-    (workspace / "gtl_spec" / "__init__.py").touch()
-    (workspace / "gtl_spec" / "packages" / "__init__.py").touch()
+    (workspace / ".genesis" / "gtl_spec" / "__init__.py").touch()
+    (workspace / ".genesis" / "gtl_spec" / "packages" / "__init__.py").touch()
     pkg_file = pkg_dir / f"{slug}.py"
     pkg_file.write_text(
         "from gtl.core import Asset, Edge, Evaluator, Job, Operator, Package, Worker, F_P\n"
@@ -198,10 +199,10 @@ class TestCLIConfigResolution:
     def test_wrong_symbol_type_exits_1(self, tmp_path):
         """Symbol that is not a Package → clear error, exit 1."""
         workspace_bootstrap(tmp_path)
-        pkg_dir = tmp_path / "gtl_spec" / "packages"
+        pkg_dir = tmp_path / ".genesis" / "gtl_spec" / "packages"
         pkg_dir.mkdir(parents=True, exist_ok=True)
-        (tmp_path / "gtl_spec" / "__init__.py").touch()
-        (tmp_path / "gtl_spec" / "packages" / "__init__.py").touch()
+        (tmp_path / ".genesis" / "gtl_spec" / "__init__.py").touch()
+        (tmp_path / ".genesis" / "gtl_spec" / "packages" / "__init__.py").touch()
         (pkg_dir / "bad_pkg.py").write_text(
             "package = 'not_a_package'\nworker = 'not_a_worker'\n"
         )
@@ -250,19 +251,19 @@ class TestGenInstall:
 
     def test_writes_starter_spec(self, tmp_path):
         self._install(tmp_path)
-        starter = tmp_path / "gtl_spec" / "packages" / "project_package.py"
+        starter = tmp_path / ".genesis" / "gtl_spec" / "packages" / "project_package.py"
         assert starter.exists()
 
     def test_custom_slug(self, tmp_path):
         self._install(tmp_path, ["--project-slug", "my_domain"])
-        assert (tmp_path / "gtl_spec" / "packages" / "my_domain.py").exists()
+        assert (tmp_path / ".genesis" / "gtl_spec" / "packages" / "my_domain.py").exists()
         config_text = (tmp_path / ".genesis" / "genesis.yml").read_text()
         assert "my_domain" in config_text
 
     def test_reinstall_does_not_clobber_starter_spec(self, tmp_path):
         """Starter spec is user data — reinstall must not overwrite it."""
         self._install(tmp_path)
-        starter = tmp_path / "gtl_spec" / "packages" / "project_package.py"
+        starter = tmp_path / ".genesis" / "gtl_spec" / "packages" / "project_package.py"
         starter.write_text(starter.read_text() + "\n# user edit\n")
         self._install(tmp_path)
         assert "# user edit" in starter.read_text()

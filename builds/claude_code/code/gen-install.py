@@ -17,13 +17,13 @@ Usage:
 What it installs:
     .genesis/genesis/           ← the engine modules
     .genesis/gtl/               ← the GTL type system (vendored, self-contained)
-    gtl_spec/                   ← the GTL spec package (genesis_core.py + __init__)
-    gtl_spec/GENESIS_BOOTLOADER.md
+    .genesis/gtl_spec/          ← the GTL spec package (genesis_core.py + __init__)
+    .genesis/gtl_spec/GENESIS_BOOTLOADER.md
     builds/<platform>/src/      ← implementation source (empty scaffold)
     builds/<platform>/tests/    ← test suite (empty scaffold)
     builds/<platform>/design/adrs/  ← design decisions (empty scaffold)
 
-The gtl_spec/ directory is copied only if it does not already exist in the target.
+The .genesis/gtl_spec/ directory is copied only if it does not already exist in the target.
 The .genesis/genesis/ and .genesis/gtl/ directories are always replaced (idempotent reinstall).
 The builds/<platform>/ directories are created only if they do not already exist.
 """
@@ -36,7 +36,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-VERSION = "0.2.1"
+VERSION = "0.3.0"
 
 # ── Templates ─────────────────────────────────────────────────────────────────
 
@@ -113,6 +113,7 @@ GTL_MODULES = [
 ]
 
 # Spec files to install (relative to project root — two levels up from this file)
+# Source paths are relative to abiogenesis root; installed under .genesis/gtl_spec/
 SPEC_FILES = [
     "gtl_spec/__init__.py",
     "gtl_spec/packages/__init__.py",
@@ -189,10 +190,10 @@ def install(target: Path, *, verify_only: bool = False,
     else:
         result["gtl_files"] = list(GTL_MODULES)
 
-    # ── Install spec ──────────────────────────────────────────────────────────
+    # ── Install spec under .genesis/ ─────────────────────────────────────────
     for rel in SPEC_FILES:
         src = source_root / rel
-        dst = target / rel
+        dst = target / ".genesis" / rel
         if not src.exists():
             result["errors"].append(f"Missing spec file: {src}")
             continue
@@ -207,7 +208,7 @@ def install(target: Path, *, verify_only: bool = False,
     # ── Write .genesis/genesis.yml ────────────────────────────────────────────
     # Always written (idempotent reinstall of engine config).
     # genesis.yml is metadata only — it points to the Package/Worker.
-    # The canonical spec lives in gtl_spec/packages/*.py (not overwritten here).
+    # The canonical spec lives in .genesis/gtl_spec/packages/*.py (not overwritten here).
     config_path = target / ".genesis" / "genesis.yml"
     config_path.write_text(
         _CONFIG_TEMPLATE.format(slug=slug, platform=platform),
@@ -215,19 +216,19 @@ def install(target: Path, *, verify_only: bool = False,
     )
     result["config_file"] = ".genesis/genesis.yml"
 
-    # ── Write starter spec ────────────────────────────────────────────────────
+    # ── Write starter spec under .genesis/gtl_spec/ ─────────────────────────
     # Only written if the file does not already exist — never overwrites user edits.
-    spec_pkg_dir = target / "gtl_spec" / "packages"
+    spec_pkg_dir = target / ".genesis" / "gtl_spec" / "packages"
     spec_pkg_dir.mkdir(parents=True, exist_ok=True)
-    (target / "gtl_spec" / "__init__.py").touch()
-    (target / "gtl_spec" / "packages" / "__init__.py").touch()
+    (target / ".genesis" / "gtl_spec" / "__init__.py").touch()
+    (target / ".genesis" / "gtl_spec" / "packages" / "__init__.py").touch()
     starter_path = spec_pkg_dir / f"{slug}.py"
     if not starter_path.exists():
         starter_path.write_text(
             _STARTER_PACKAGE_TEMPLATE.format(slug=slug, platform=platform),
             encoding="utf-8",
         )
-        result["starter_spec"] = f"gtl_spec/packages/{slug}.py"
+        result["starter_spec"] = f".genesis/gtl_spec/packages/{slug}.py"
 
     # ── Scaffold builds/<platform>/ ───────────────────────────────────────────
     # Created only if they do not already exist — never overwrites user work.
@@ -264,7 +265,7 @@ def _verify(target: Path, result: dict, platform: str = "python") -> dict:
 
     missing_spec = []
     for rel in SPEC_FILES:
-        if not (target / rel).exists():
+        if not (target / ".genesis" / rel).exists():
             missing_spec.append(rel)
 
     config_present = (target / ".genesis" / "genesis.yml").exists()
