@@ -455,6 +455,7 @@ package = Package(
         "REQ-F-MDECOMP-004", "REQ-F-MDECOMP-005",
         "REQ-F-VAR-001",
         "REQ-F-CUSTODY-001", "REQ-F-CUSTODY-002", "REQ-F-CUSTODY-003",
+        "REQ-F-TERRITORY-001", "REQ-F-TERRITORY-002",
     ],
 )
 
@@ -490,7 +491,7 @@ def instantiate(slug: str, requirements=None):
 
     _this_spec = Context(
         name="sdlc_spec",
-        locator=f"workspace://.genesis/gtl_spec/packages/{slug}.py",
+        locator=f"workspace://.gsdlc/release/gtl_spec/packages/{slug}.py",
         digest="sha256:" + "0" * 64,
     )
 

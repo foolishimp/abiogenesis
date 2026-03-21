@@ -454,13 +454,14 @@ package = Package(
         "REQ-F-MDECOMP-001", "REQ-F-MDECOMP-002", "REQ-F-MDECOMP-003",
         "REQ-F-MDECOMP-004", "REQ-F-MDECOMP-005",
         "REQ-F-VAR-001",
+        "REQ-F-CUSTODY-001", "REQ-F-CUSTODY-002", "REQ-F-CUSTODY-003",
     ],
 )
 
 
 # ── instantiate ───────────────────────────────────────────────────────────────
 
-def instantiate(slug: str):
+def instantiate(slug: str, requirements=None):
     """
     Return (package, worker) customised for the given project slug.
 
@@ -468,6 +469,14 @@ def instantiate(slug: str):
       - req_coverage evaluator command to point at the project's own package
       - sdlc_spec context locator to point at the project's own spec file
       - package name to slug
+      - requirements to project-specific keys (if provided)
+
+    Args:
+        slug: Project identifier used for import paths and config resolution.
+        requirements: Optional list of REQ-* keys for this project. When provided,
+            these replace the workflow's hardcoded keys. When None, defaults to
+            empty list — the workflow's keys are gsdlc's requirements, not the
+            project's.  # Implements: REQ-F-CUSTODY-001
     """
     _eval_req_coverage = Evaluator(
         "req_coverage", F_D,
@@ -494,7 +503,7 @@ def instantiate(slug: str):
         operators=list(package.operators),
         rules=list(package.rules),
         contexts=[_this_spec if c.name == "sdlc_spec" else c for c in package.contexts],
-        requirements=list(package.requirements),
+        requirements=list(requirements) if requirements is not None else [],  # Implements: REQ-F-CUSTODY-001
     )
 
     _worker = Worker(
