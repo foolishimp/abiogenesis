@@ -161,7 +161,9 @@ def install(target: Path, *, verify_only: bool = False,
     # ── Write .genesis/genesis.yml ────────────────────────────────────────────
     # Always written (idempotent reinstall of engine config).
     # genesis.yml is runtime binding only — package/worker references.
-    # pythonpath is NOT written here — domain installers (e.g. gsdlc) own that.
+    # Default binding: genesis_core (installed by ABG, always available).
+    # Domain installers (e.g. gsdlc) override via --project-slug AND
+    # inject pythonpath so the slug module resolves.
     # If pythonpath already exists (written by a domain installer), preserve it.
     config_path = target / ".genesis" / "genesis.yml"
     existing_pythonpath = None
@@ -172,11 +174,16 @@ def install(target: Path, *, verify_only: bool = False,
         if _pp_entries:
             existing_pythonpath = [p.strip() for p in _pp_entries]
 
+    # Binding target: genesis_core if default slug, else domain slug.
+    # genesis_core.py is always installed and exports package/worker.
+    # Custom slugs are only valid when a domain installer follows and
+    # creates the corresponding module + pythonpath.
+    binding = "genesis_core" if slug == "project_package" else slug
     config_text = (
         f"# Genesis project config — written by gen-install.py\n"
         f"# Override per-invocation with: --package MODULE:VAR --worker MODULE:VAR\n"
-        f"package: gtl_spec.packages.{slug}:package\n"
-        f"worker:  gtl_spec.packages.{slug}:worker\n"
+        f"package: gtl_spec.packages.{binding}:package\n"
+        f"worker:  gtl_spec.packages.{binding}:worker\n"
     )
     if existing_pythonpath:
         # Preserve pythonpath written by domain installer (e.g. gsdlc).
