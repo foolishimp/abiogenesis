@@ -9,6 +9,7 @@
 # Validates: REQ-F-CORE-001
 # Validates: REQ-F-CMD-004
 # Validates: REQ-F-VIS-001
+# Validates: REQ-F-EC-004
 """
 Integration workflow tests — REQ-F-TEST-001.
 
@@ -500,3 +501,118 @@ class TestEdgeConvergedCertificates:
 def _make_scope(tmp_path: Path, pkg: Package, worker: Worker,
                 feature: str | None = None) -> Scope:
     return Scope(package=pkg, workspace_root=tmp_path, worker=worker, feature=feature)
+
+
+# ── Revocation cascade regression: REQ-F-EC-004, REQ-F-TEST-001 AC-2 ─────────
+
+class TestRevocationCascadesDelta:
+    """
+    Spec-level bug regression: revoking F_P or F_H assessments from a converged
+    workspace must cascade delta through all downstream edges.
+
+    This tests the self-hosting property: the engine can detect that its own
+    spec changed and its own convergence is now incomplete.
+    """
+
+    def _converge_workspace(self, tmp_path):
+        """Build a converged workspace with F_D + F_P + F_H all passing."""
+        stream = workspace_bootstrap(tmp_path)
+        pkg, worker = _make_full_chain_package(tmp_path)
+        scope = _make_scope(tmp_path, pkg, worker)
+        spec_hash = req_hash(pkg.requirements)
+
+        # Fix F_D
+        (tmp_path / "code").mkdir()
+        (tmp_path / "code" / "impl.py").write_text(
+            "# Implements: REQ-INT-001\ndef main(): pass\n"
+        )
+
+        # Pass F_P
+        stream.append("assessed", {
+            "kind": "fp",
+            "edge": "design→code",
+            "evaluator": "code_complete",
+            "result": "pass",
+            "spec_hash": spec_hash,
+        })
+
+        # Pass F_H
+        stream.append("approved", {
+            "kind": "fh_review",
+            "edge": "design→code",
+            "actor": "test_human",
+        })
+
+        # Verify converged
+        result = gen_gaps(scope, stream)
+        assert result["converged"] is True
+        return stream, scope, pkg
+
+    def test_fp_revocation_cascades_delta(self, tmp_path):
+        """revoked{kind: fp_assessment} on converged workspace → F_P evaluators fail."""
+        stream, scope, pkg = self._converge_workspace(tmp_path)
+
+        # Revoke all F_P assessments
+        stream.append("revoked", {
+            "kind": "fp_assessment",
+            "edge": "*",
+            "actor": "human",
+            "reason": "Spec-level bug fix — force re-evaluation",
+        })
+
+        result = gen_gaps(scope, stream)
+        assert result["converged"] is False
+
+        gap = result["gaps"][0]
+        assert "code_complete" in gap["failing"]
+        # F_H should still be passing — revocation kinds are independent
+        assert "design_approved" not in gap["failing"]
+
+    def test_fh_revocation_cascades_delta(self, tmp_path):
+        """revoked{kind: fh_approval} on converged workspace → F_H evaluators fail."""
+        stream, scope, pkg = self._converge_workspace(tmp_path)
+
+        # Revoke all F_H approvals
+        stream.append("revoked", {
+            "kind": "fh_approval",
+            "edge": "*",
+            "actor": "human",
+            "reason": "Spec-level bug fix — force re-evaluation",
+        })
+
+        result = gen_gaps(scope, stream)
+        assert result["converged"] is False
+
+        gap = result["gaps"][0]
+        assert "design_approved" in gap["failing"]
+        # F_P should still be passing — revocation kinds are independent
+        assert "code_complete" not in gap["failing"]
+
+    def test_both_revocations_cascade_independently(self, tmp_path):
+        """Revoking both F_P and F_H independently produces full delta."""
+        stream, scope, pkg = self._converge_workspace(tmp_path)
+
+        # Revoke F_P
+        stream.append("revoked", {
+            "kind": "fp_assessment",
+            "edge": "*",
+            "actor": "human",
+            "reason": "Full rebuild",
+        })
+
+        # Revoke F_H
+        stream.append("revoked", {
+            "kind": "fh_approval",
+            "edge": "*",
+            "actor": "human",
+            "reason": "Full rebuild",
+        })
+
+        result = gen_gaps(scope, stream)
+        assert result["converged"] is False
+
+        gap = result["gaps"][0]
+        assert "code_complete" in gap["failing"]
+        assert "design_approved" in gap["failing"]
+        # F_D still passes (live re-execution, not event-based)
+        assert "impl_tags" in gap["passing"]

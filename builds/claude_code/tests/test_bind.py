@@ -1,6 +1,9 @@
 # Validates: REQ-F-CORE-004
 # Validates: REQ-F-PROV-003
 # Validates: REQ-F-PROV-004
+# Validates: REQ-F-EC-002
+# Validates: REQ-F-EC-003
+# Validates: REQ-F-EC-004
 """Tests for genesis.bind — bind_fd, bind_fp, select_relevant_contexts, render_delta."""
 import pytest
 from pathlib import Path
@@ -420,6 +423,138 @@ class TestRevocation:
             {**_revoke_event("other_edge"), "event_time": "2026-01-02T00:00:00"},
         ]
         assert bind_fh(job, events, current_workflow_version="unknown") is True
+
+
+# ── Symmetric F_P revocation: revoked{kind: fp_assessment} terminates certified ──
+
+def _make_fp_job() -> Job:
+    src = Asset(name="design", id_format="DES-{SEQ}")
+    tgt = Asset(name="code", id_format="CODE-{SEQ}")
+    op = Operator("claude_agent", F_P, "agent://claude/genesis")
+    edge = Edge(name="design→code", source=src, target=tgt, using=[op])
+    ev = Evaluator("code_complete", F_P, "Agent: code implements spec")
+    return Job(edge=edge, evaluators=[ev])
+
+
+def _assessed_fp_event(edge: str, evaluator: str = "code_complete",
+                       spec_hash: str = "abc123", workflow_version: str | None = None) -> dict:
+    data: dict = {"kind": "fp", "edge": edge, "evaluator": evaluator,
+                  "result": "pass", "spec_hash": spec_hash}
+    if workflow_version is not None:
+        data["workflow_version"] = workflow_version
+    return {"event_type": "assessed", "data": data}
+
+
+def _revoke_fp_event(edge: str, workflow_version: str | None = None,
+                     event_time: str | None = None) -> dict:
+    ev: dict = {"event_type": "revoked", "data": {
+        "kind": "fp_assessment", "edge": edge, "actor": "human",
+        "reason": "Full rebuild requested",
+    }}
+    if workflow_version is not None:
+        ev["data"]["workflow_version"] = workflow_version
+    if event_time is not None:
+        ev["event_time"] = event_time
+    return ev
+
+
+class TestFPRevocation:
+    """Event Calculus: revoked{kind: fp_assessment} terminates certified — symmetric with TestRevocation."""
+
+    # Validates: REQ-F-EC-004
+    # Validates: REQ-F-EC-002
+
+    def test_basic_fp_revocation_terminates_certified(self):
+        """assessed{pass} then revoked{fp_assessment} → fluent terminated."""
+        from genesis.bind import bind_fp_certified
+        job = _make_fp_job()
+        events = [
+            {**_assessed_fp_event("design→code"), "event_time": "2026-01-01T00:00:00"},
+            {**_revoke_fp_event("design→code"), "event_time": "2026-01-02T00:00:00"},
+        ]
+        assert bind_fp_certified(job, job.evaluators[0], events, spec_hash="abc123",
+                                 current_workflow_version="unknown") is False
+
+    def test_reassessment_after_fp_revocation_restores_fluent(self):
+        """assessed → revoked → assessed again → fluent restored."""
+        from genesis.bind import bind_fp_certified
+        job = _make_fp_job()
+        events = [
+            {**_assessed_fp_event("design→code"), "event_time": "2026-01-01T00:00:00"},
+            {**_revoke_fp_event("design→code"), "event_time": "2026-01-02T00:00:00"},
+            {**_assessed_fp_event("design→code"), "event_time": "2026-01-03T00:00:00"},
+        ]
+        assert bind_fp_certified(job, job.evaluators[0], events, spec_hash="abc123",
+                                 current_workflow_version="unknown") is True
+
+    def test_wildcard_fp_revocation(self):
+        """revoked{kind: fp_assessment, edge: "*"} terminates certified for any edge."""
+        from genesis.bind import bind_fp_certified
+        job = _make_fp_job()
+        events = [
+            {**_assessed_fp_event("design→code"), "event_time": "2026-01-01T00:00:00"},
+            {**_revoke_fp_event("*"), "event_time": "2026-01-02T00:00:00"},
+        ]
+        assert bind_fp_certified(job, job.evaluators[0], events, spec_hash="abc123",
+                                 current_workflow_version="unknown") is False
+
+    def test_fp_revocation_predating_assessment_has_no_effect(self):
+        """A revocation with an earlier timestamp does not terminate a later assessment."""
+        from genesis.bind import bind_fp_certified
+        job = _make_fp_job()
+        events = [
+            {**_revoke_fp_event("design→code"), "event_time": "2026-01-01T00:00:00"},
+            {**_assessed_fp_event("design→code"), "event_time": "2026-01-02T00:00:00"},
+        ]
+        assert bind_fp_certified(job, job.evaluators[0], events, spec_hash="abc123",
+                                 current_workflow_version="unknown") is True
+
+    def test_fp_revocation_scoped_by_workflow_version(self):
+        """revoked{fp_assessment} with matching workflow_version terminates the fluent."""
+        from genesis.bind import bind_fp_certified
+        job = _make_fp_job()
+        wv = "genesis_sdlc.standard@0.2.1"
+        events = [
+            {**_assessed_fp_event("design→code", workflow_version=wv), "event_time": "2026-01-01T00:00:00"},
+            {**_revoke_fp_event("design→code", workflow_version=wv), "event_time": "2026-01-02T00:00:00"},
+        ]
+        assert bind_fp_certified(job, job.evaluators[0], events, spec_hash="abc123",
+                                 current_workflow_version=wv) is False
+
+    def test_cross_version_fp_revocation_does_not_terminate(self):
+        """revoked{fp_assessment} from a different workflow_version does NOT terminate."""
+        from genesis.bind import bind_fp_certified
+        job = _make_fp_job()
+        wv_current = "genesis_sdlc.standard@0.2.1"
+        wv_other = "genesis_sdlc.standard@0.1.0"
+        events = [
+            {**_assessed_fp_event("design→code", workflow_version=wv_current), "event_time": "2026-01-01T00:00:00"},
+            {**_revoke_fp_event("design→code", workflow_version=wv_other), "event_time": "2026-01-02T00:00:00"},
+        ]
+        assert bind_fp_certified(job, job.evaluators[0], events, spec_hash="abc123",
+                                 current_workflow_version=wv_current) is True
+
+    def test_fp_revocation_wrong_edge_ignored(self):
+        """Revocation for a different edge does not affect this job's fluent."""
+        from genesis.bind import bind_fp_certified
+        job = _make_fp_job()
+        events = [
+            {**_assessed_fp_event("design→code"), "event_time": "2026-01-01T00:00:00"},
+            {**_revoke_fp_event("other_edge"), "event_time": "2026-01-02T00:00:00"},
+        ]
+        assert bind_fp_certified(job, job.evaluators[0], events, spec_hash="abc123",
+                                 current_workflow_version="unknown") is True
+
+    def test_fh_revocation_does_not_affect_certified(self):
+        """revoked{kind: fh_approval} does NOT terminate certified — the two are independent."""
+        from genesis.bind import bind_fp_certified
+        job = _make_fp_job()
+        events = [
+            {**_assessed_fp_event("design→code"), "event_time": "2026-01-01T00:00:00"},
+            {**_revoke_event("design→code"), "event_time": "2026-01-02T00:00:00"},
+        ]
+        assert bind_fp_certified(job, job.evaluators[0], events, spec_hash="abc123",
+                                 current_workflow_version="unknown") is True
 
 
 # ── M1: assessed{kind: fh_review} must not satisfy F_P convergence ───────────

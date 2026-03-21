@@ -1,9 +1,27 @@
 # CLAUDE.md — abiogenesis
 
-## What This Is
+## What This Is — ABG Kernel Boundary (axiomatic, read this first)
 
-A clean, GTL-first implementation of the Genesis engine.
-`builds/claude_code/code/gtl_spec/packages/abiogenesis.py` IS the specification. The type system is the law.
+**ABG is a minimal standalone kernel.** It contains exactly three things:
+
+| ABG owns | What it is |
+|----------|-----------|
+| `specification/` | Axiomatic ontology — intent, requirements, standards |
+| `builds/` | Implementations (claude_code, codex, etc.) |
+| `gen-install.py` | Installs `.genesis/` into **downstream projects** |
+
+**ABG does NOT own `.genesis/` or `.ai-workspace/`.** These directories appear in this
+repo because **gsdlc installed them back** — the GCC bootstrap: gsdlc uses ABG primitives
+to build products, including ABG itself. They are gsdlc artifacts, not ABG artifacts.
+
+The test: *"Could this work without gsdlc?"* If no → it belongs to gsdlc, not ABG.
+
+**Known boundary leak**: `gen-install.py:388-406` (`_emit_install_event`) creates
+`.ai-workspace/events/` and writes a `genesis_installed` event. This is a workspace
+concern belonging to gsdlc's installer, not the kernel installer. Tracked as a fix item.
+
+`builds/claude_code/code/gtl_spec/packages/abiogenesis.py` IS the specification.
+The type system is the law.
 
 **Current phase**: 4 complete — engine built, 244 tests passing, all features converged.
 **Predecessor**: `genesis_sdlc` (the installable SDLC toolkit that installs this engine)
@@ -11,8 +29,9 @@ A clean, GTL-first implementation of the Genesis engine.
 ## Directory Structure
 
 ```
-abiogenesis/
-├── builds/                      # all projections of the spec
+abiogenesis/                     # ABG kernel repo
+├── specification/               # axiomatic ontology (ABG-owned)
+├── builds/                      # implementations (ABG-owned)
 │   └── claude_code/             # V1 reference build (Claude Code agent)
 │       ├── code/
 │       │   ├── genesis/         # genesis engine V1 — 6 modules, complete
@@ -23,11 +42,11 @@ abiogenesis/
 │       │           └── abiogenesis.py    # THE spec — Package definition IS requirements
 │       ├── design/adrs/         # ADRs 001-016 — all accepted
 │       └── tests/               # 310+ tests
-├── specification/               # axiomatic ontology
-├── .genesis/                    # installed compiler (write-once)
-├── .ai-workspace/               # project authority — shared across all builds
-│   ├── events/events.jsonl      # THE canonical log — all builds emit here
-│   ├── features/completed/      # 15 feature vectors, all status: completed
+├── gen-install.py               # kernel installer (ABG-owned)
+├── .genesis/                    # ⚠ NOT ABG-owned — installed by gsdlc (GCC bootstrap)
+├── .ai-workspace/               # ⚠ NOT ABG-owned — created by gsdlc installer
+│   ├── events/events.jsonl      # canonical log — gsdlc workspace artifact
+│   ├── features/completed/      # feature vectors — gsdlc workspace artifact
 │   ├── context/                 # shared project contexts
 │   ├── reviews/                 # cross-build proposals and decisions
 │   └── comments/claude/         # design marketplace — claude writes here only

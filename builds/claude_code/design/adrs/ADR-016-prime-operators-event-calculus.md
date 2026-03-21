@@ -16,7 +16,7 @@ The engine event schema is grounded in Event Calculus with five prime operators 
 | `found` | `fd_gap` | `happensAt` only — audit record of F_D observation |
 | `approved` | `fh_review`, `fh_intent` | `initiates operative(edge, wv)` |
 | `assessed` | `fp` (pass/fail), `fh_review` (reject) | `initiates certified(edge, ev, spec_hash, wv)` when `kind: fp, result: pass`; `happensAt` only for `fh_review` rejection |
-| `revoked` | `fh_approval` | `terminates operative(edge, wv)` |
+| `revoked` | `fh_approval`, `fp_assessment` | `terminates operative(edge, wv)` or `terminates certified(edge, ev, spec_hash, wv)` |
 | `intent_raised` | (unchanged) | `happensAt` only — homeostasis signal |
 
 ### Two Fluents
@@ -24,9 +24,11 @@ The engine event schema is grounded in Event Calculus with five prime operators 
 | Fluent | Initiated by | Terminated by |
 |--------|-------------|---------------|
 | `operative(edge, wv)` | `approved{kind: fh_review\|fh_intent}` | `revoked{kind: fh_approval}` |
-| `certified(edge, evaluator, spec_hash, wv)` | `assessed{kind: fp, result: pass}` | spec_hash mismatch (new spec = different fluent identity) |
+| `certified(edge, evaluator, spec_hash, wv)` | `assessed{kind: fp, result: pass}` | `revoked{kind: fp_assessment}` or spec_hash mismatch |
 
 No others. F_D has no fluent — it re-runs its command on every iteration.
+
+**Symmetric termination invariant**: Both fluents support explicit event-calculus termination via `revoked`. The F_ algebra requires symmetric `{initiate, terminate, query}` operations across all functor types. Spec_hash mismatch remains as an *additional* termination mechanism for `certified` (identity change invalidates the fluent), but it does not replace explicit revocation.
 
 ### Rename Mapping
 
@@ -36,7 +38,7 @@ No others. F_D has no fluent — it re-runs its command on every iteration.
 | `review_approved` | `approved` | add `kind: fh_review` |
 | `fp_assessment` | `assessed` | add `kind: fp` |
 | `review_rejected` | `assessed` | `kind: fh_review, result: reject` |
-| *(new)* | `revoked` | `kind: fh_approval` + scope fields |
+| *(new)* | `revoked` | `kind: fh_approval` or `kind: fp_assessment` + scope fields |
 | `intent_raised` | `intent_raised` | unchanged |
 
 Tier 2 events (`edge_started`, `fp_dispatched`, `fh_gate_pending`, `edge_converged`) and Tier 3 events (`genesis_installed`, `bug_fixed`, etc.) are unchanged — they do not participate in EC fluent projection.
@@ -57,7 +59,7 @@ Event Calculus provides the formal model:
 |---|---|---|
 | `happensAt(E, T)` | Event E occurred at time T | Line in `events.jsonl` with `event_type` and `event_time` |
 | `initiates(E, F, T)` | Event E starts fluent F at time T | `approved` initiates `operative`; `assessed{fp, pass}` initiates `certified` |
-| `terminates(E, F, T)` | Event E ends fluent F at time T | `revoked` terminates `operative`; spec_hash change terminates `certified` |
+| `terminates(E, F, T)` | Event E ends fluent F at time T | `revoked{fh_approval}` terminates `operative`; `revoked{fp_assessment}` terminates `certified`; spec_hash mismatch also terminates `certified` |
 | `holdsAt(F, T)` | Fluent F is true at time T | Projection query in `bind_fh` and `_passes` |
 
 The rename from implementation names to prime operators is a governance choice for conceptual cleanliness, not an EC requirement. EC lives in the projection rules (`initiates`, `terminates`, `holdsAt`), not in event names. The clean-start assumption eliminates migration cost, making the rename free.
@@ -82,17 +84,24 @@ F_D evaluators re-run their command on every iteration. `found{kind: fd_gap}` is
 
 ### Revocation Referent Contract
 
-`revoked` terminates a **fluent**, not a specific event:
+`revoked` terminates a **fluent**, not a specific event. Two kinds, symmetric across the two fluents:
 
 ```
 terminates(revoked{kind: fh_approval, edge: E, wv: W}, operative(E, W), T)
+terminates(revoked{kind: fp_assessment, edge: E, wv: W}, certified(E, *, *, W), T)
 ```
 
-Scope fields: `kind` (required, `fh_approval`), `edge` (required, exact match or `"*"`), `workflow_version` (scoped — revocation from one lens cannot cancel approvals from another), `actor` (required), `reason` (required).
+**`revoked{kind: fh_approval}`** — terminates `operative`. Scope fields: `kind` (required), `edge` (required, exact match or `"*"`), `workflow_version` (scoped), `actor` (required), `reason` (required).
 
-Projection: find latest `approved` at T_a; find any `revoked` at T_r > T_a with matching edge and workflow_version; if found, fluent is terminated.
+Projection: find latest `approved` at T_a; find any `revoked{kind: fh_approval}` at T_r > T_a with matching edge and workflow_version; if found, fluent is terminated.
 
-Re-approval after revocation: a later `approved` updates T_a, so the earlier revocation no longer postdates it.
+**`revoked{kind: fp_assessment}`** — terminates `certified`. Same scope fields. Projection: find latest `assessed{kind: fp, result: pass}` at T_a for the evaluator; find any `revoked{kind: fp_assessment}` at T_r > T_a with matching edge and workflow_version; if found, fluent is terminated.
+
+The two revocation kinds are independent — revoking `fh_approval` does not affect `certified`, and vice versa. A wildcard `edge: "*"` terminates the target fluent for all edges under the matching workflow_version.
+
+Re-approval/re-assessment after revocation: a later initiating event updates T_a, so the earlier revocation no longer postdates it.
+
+**Symmetric invariant**: The F_ algebra requires that every functor type supports `{initiate, terminate, query}`. Spec_hash mismatch is an *additional* termination path for `certified` (identity-based), not a replacement for explicit event-calculus termination.
 
 ## Consequences
 

@@ -1,0 +1,27 @@
+id: REQ-F-PKG-001
+title: Starter Spec Generated for New Projects
+status: completed
+satisfies:
+  - REQ-F-PKG-001
+
+depends_on:
+  - REQ-F-BOOT-001
+
+design_record: ADR-018-runtime-flow.md
+
+description: |
+  gen-install.py generates a starter GTL Package for new projects.
+  The starter package contains a minimal SDLC graph (design→code edge)
+  with F_D + F_P evaluators, a worker, and a single REQ key. This gives
+  new projects a working spec to iterate from immediately after install.
+
+  Implemented in gen-install.py (_STARTER_PACKAGE_TEMPLATE).
+  Validated by PQ-001 (fresh install creates runnable runtime) and
+  PQ-002 (reinstall does not clobber user-customised starter).
+
+trajectory:
+  requirements: completed
+  feature_decomp: completed
+  design: completed
+  code: completed
+  unit_tests: completed

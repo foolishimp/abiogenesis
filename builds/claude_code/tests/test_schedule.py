@@ -351,3 +351,202 @@ class TestDeltaProvenance:
             carry_forward=carry_forward,
         )
         assert d > 0.0
+
+
+# ── Path-independence: evaluator ordering does not affect delta ──────────────
+
+class TestDeltaPathIndependence:
+    """Bootloader XI path-independence invariant: reordering evaluators within
+    a Job must produce the same delta on the same event stream."""
+
+    def _make_job_with_order(self, evaluators: list) -> Job:
+        """Build a Job with the given evaluators in the given order."""
+        src = Asset(name="design", id_format="DES-{SEQ}")
+        tgt = Asset(name="code", id_format="CODE-{SEQ}")
+        op = Operator("claude_agent", F_P, "agent://claude/genesis")
+        edge = Edge(name="design→code", source=src, target=tgt, using=[op])
+        return Job(edge=edge, evaluators=evaluators)
+
+    def _stream_with_fp_pass(self, tmp_path: Path, evaluator_name: str) -> EventStream:
+        """Stream containing one assessed{fp, pass} event for the given evaluator."""
+        stream = _make_stream(tmp_path)
+        stream.append("assessed", {
+            "kind": "fp",
+            "edge": "design→code",
+            "evaluator": evaluator_name,
+            "result": "pass",
+            "spec_hash": "h1",
+        })
+        return stream
+
+    def test_two_fp_evaluators_reversed(self, tmp_path):
+        """Two F_P evaluators: one resolved, one not. Order must not matter."""
+        ev_a = Evaluator("check_a", F_P, "Agent check A")
+        ev_b = Evaluator("check_b", F_P, "Agent check B")
+
+        # Only check_a is resolved in the stream
+        stream = self._stream_with_fp_pass(tmp_path, "check_a")
+
+        job_ab = self._make_job_with_order([ev_a, ev_b])
+        job_ba = self._make_job_with_order([ev_b, ev_a])
+
+        d_ab = delta(job_ab, stream, tmp_path, spec_hash="h1")
+        d_ba = delta(job_ba, stream, tmp_path, spec_hash="h1")
+
+        assert d_ab == d_ba
+        assert d_ab == 0.5  # 1 of 2 failing
+
+    def test_mixed_fd_fp_fh_all_failing(self, tmp_path):
+        """Mix of F_D, F_P, F_H — all failing. Any order gives delta = 1.0."""
+        ev_fd = Evaluator("file_exists", F_D, "file must exist")
+        ev_fp = Evaluator("code_complete", F_P, "LLM check")
+        ev_fh = Evaluator("human_gate", F_H, "human approval")
+
+        stream = _make_stream(tmp_path)  # empty — nothing resolved
+
+        orderings = [
+            [ev_fd, ev_fp, ev_fh],
+            [ev_fh, ev_fd, ev_fp],
+            [ev_fp, ev_fh, ev_fd],
+            [ev_fh, ev_fp, ev_fd],
+            [ev_fd, ev_fh, ev_fp],
+            [ev_fp, ev_fd, ev_fh],
+        ]
+
+        deltas = []
+        for order in orderings:
+            job = self._make_job_with_order(order)
+            d = delta(job, stream, tmp_path)
+            deltas.append(d)
+
+        # All permutations must produce the same delta
+        assert all(d == deltas[0] for d in deltas), f"deltas differ: {deltas}"
+        assert deltas[0] == 1.0  # all failing
+
+    def test_mixed_fd_fp_fh_partial_convergence(self, tmp_path):
+        """F_P resolved, F_D and F_H failing. Order must not matter."""
+        ev_fd = Evaluator("file_exists", F_D, "file must exist")
+        ev_fp = Evaluator("code_complete", F_P, "LLM check")
+        ev_fh = Evaluator("human_gate", F_H, "human approval")
+
+        stream = _make_stream(tmp_path)
+        # Resolve only the F_P evaluator
+        stream.append("assessed", {
+            "kind": "fp",
+            "edge": "design→code",
+            "evaluator": "code_complete",
+            "result": "pass",
+        })
+
+        orderings = [
+            [ev_fd, ev_fp, ev_fh],
+            [ev_fh, ev_fd, ev_fp],
+            [ev_fp, ev_fh, ev_fd],
+            [ev_fh, ev_fp, ev_fd],
+        ]
+
+        deltas = []
+        for order in orderings:
+            job = self._make_job_with_order(order)
+            d = delta(job, stream, tmp_path, spec_hash=None)
+            deltas.append(d)
+
+        assert all(d == deltas[0] for d in deltas), f"deltas differ: {deltas}"
+        # 2 of 3 failing (F_D no command = fail closed, F_H no approval)
+        assert abs(deltas[0] - 2 / 3) < 1e-9
+
+    def test_mixed_with_fh_approved(self, tmp_path):
+        """F_H approved, F_P resolved, F_D failing. Order must not matter."""
+        ev_fd = Evaluator("file_exists", F_D, "file must exist")
+        ev_fp = Evaluator("code_complete", F_P, "LLM check")
+        ev_fh = Evaluator("human_gate", F_H, "human approval")
+
+        stream = _make_stream(tmp_path)
+        # Resolve F_P
+        stream.append("assessed", {
+            "kind": "fp",
+            "edge": "design→code",
+            "evaluator": "code_complete",
+            "result": "pass",
+        })
+        # Approve F_H
+        stream.append("approved", {
+            "kind": "fh_review",
+            "edge": "design→code",
+            "actor": "human",
+        })
+
+        orderings = [
+            [ev_fd, ev_fp, ev_fh],
+            [ev_fh, ev_fp, ev_fd],
+            [ev_fp, ev_fd, ev_fh],
+        ]
+
+        deltas = []
+        for order in orderings:
+            job = self._make_job_with_order(order)
+            d = delta(job, stream, tmp_path, spec_hash=None)
+            deltas.append(d)
+
+        assert all(d == deltas[0] for d in deltas), f"deltas differ: {deltas}"
+        # Only F_D failing (1 of 3)
+        assert abs(deltas[0] - 1 / 3) < 1e-9
+
+    def test_all_converged_any_order(self, tmp_path):
+        """All evaluators converged — delta = 0.0 regardless of order."""
+        ev_fp = Evaluator("code_complete", F_P, "LLM check")
+        ev_fh = Evaluator("human_gate", F_H, "human approval")
+
+        stream = _make_stream(tmp_path)
+        stream.append("assessed", {
+            "kind": "fp",
+            "edge": "design→code",
+            "evaluator": "code_complete",
+            "result": "pass",
+        })
+        stream.append("approved", {
+            "kind": "fh_review",
+            "edge": "design→code",
+            "actor": "human",
+        })
+
+        job_fp_fh = self._make_job_with_order([ev_fp, ev_fh])
+        job_fh_fp = self._make_job_with_order([ev_fh, ev_fp])
+
+        d1 = delta(job_fp_fh, stream, tmp_path, spec_hash=None)
+        d2 = delta(job_fh_fp, stream, tmp_path, spec_hash=None)
+
+        assert d1 == d2 == 0.0
+
+    def test_multiple_fp_evaluators_shuffled(self, tmp_path):
+        """Four F_P evaluators, two resolved. All 24 permutations give same delta."""
+        import itertools
+
+        evals = [
+            Evaluator("check_a", F_P, "A"),
+            Evaluator("check_b", F_P, "B"),
+            Evaluator("check_c", F_P, "C"),
+            Evaluator("check_d", F_P, "D"),
+        ]
+
+        stream = _make_stream(tmp_path)
+        # Resolve check_a and check_c
+        for name in ("check_a", "check_c"):
+            stream.append("assessed", {
+                "kind": "fp",
+                "edge": "design→code",
+                "evaluator": name,
+                "result": "pass",
+                "spec_hash": "s1",
+            })
+
+        # Test all 24 permutations
+        deltas = []
+        for perm in itertools.permutations(evals):
+            job = self._make_job_with_order(list(perm))
+            d = delta(job, stream, tmp_path, spec_hash="s1")
+            deltas.append(d)
+
+        assert len(deltas) == 24
+        assert all(d == deltas[0] for d in deltas), f"deltas vary across permutations"
+        assert deltas[0] == 0.5  # 2 of 4 failing

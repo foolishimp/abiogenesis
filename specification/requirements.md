@@ -220,6 +220,7 @@ The event emission governance layer validates prime operator payloads before app
 - AC-2: `emit-event --type assessed` with `kind: fp` and `result` not in `{pass, fail}` → rejected
 - AC-3: `emit-event --type approved` without `kind` field → rejected
 - AC-4: `gen emit-event --type revoked` without `kind`, `edge`, `actor`, or `reason` → rejected
+- AC-6: `gen emit-event --type revoked` with `kind` not in `{fh_approval, fp_assessment}` → rejected
 - AC-5: `gen emit-event --type assessed` with `kind: fh_review` requires `actor` and `reason`
 
 ### REQ-F-EVAL-005 — EventStream append validates prime operator payloads
@@ -343,7 +344,7 @@ The primary test surface is command-level integration scenarios. Unit tests supp
 
 **Acceptance Criteria**:
 - AC-1: Each integration test exercises the full F_D→F_P→F_H evaluator chain against an isolated temporary workspace
-- AC-2: Required integration scenarios: cold start → convergence, resume mid-lifecycle, F_D blocks F_P, spec change invalidates F_P, proxy rejection halts edge, full convergence closes features, replay determinism
+- AC-2: Required integration scenarios: cold start → convergence, resume mid-lifecycle, F_D blocks F_P, spec change invalidates F_P, F_P revocation cascades delta through downstream edges, proxy rejection halts edge, full convergence closes features, replay determinism
 - AC-3: Unit tests cover write-primitive invariants (emit, project, EventStream) and complex internal modules (bind, schedule, commands) where integration tests alone are insufficient to exercise edge cases
 
 ### REQ-F-TEST-002 — Property invariant tests
@@ -427,17 +428,18 @@ The engine uses exactly five prime event types. All other events are derived.
 | `found` | `fd_gap` | `happensAt` only — observational record |
 | `approved` | `fh_review`, `fh_intent` | `initiates operative(edge, wv)` |
 | `assessed` | `fp` (pass/fail), `fh_review` (reject) | `initiates certified(edge, ev, spec_hash, wv)` or `happensAt` |
-| `revoked` | `fh_approval` | `terminates operative(edge, wv)` |
+| `revoked` | `fh_approval`, `fp_assessment` | `terminates operative(edge, wv)` or `terminates certified(edge, ev, spec_hash, wv)` |
 | `intent_raised` | — | `happensAt` only — homeostatic signal |
 
 ### REQ-F-EC-002 — Two fluents: operative and certified
 
-Convergence state is modelled as two Event Calculus fluents.
+Convergence state is modelled as two Event Calculus fluents. Both fluents have symmetric initiation and termination operations.
 
 **Acceptance Criteria**:
 - AC-1: `operative(edge, wv)` — initiated by `approved{fh_review|fh_intent}`, terminated by `revoked{fh_approval}`
-- AC-2: `certified(edge, evaluator, spec_hash, wv)` — initiated by `assessed{fp, result: pass}`, terminated by spec_hash mismatch (implicit)
+- AC-2: `certified(edge, evaluator, spec_hash, wv)` — initiated by `assessed{fp, result: pass}`, terminated by `revoked{fp_assessment}` or spec_hash mismatch
 - AC-3: Both fluents are parameterised by workflow_version — approvals from one version do not satisfy another (unless carry-forward, REQ-F-PROV-004)
+- AC-4: Both fluents support explicit event-calculus termination — the F_ algebra requires symmetric `{initiate, terminate, query}` operations across all functor types
 
 ### REQ-F-EC-003 — Three convergence models
 
@@ -448,16 +450,18 @@ Each evaluator type has a distinct convergence test.
 - AC-2: F_H: fluent projection — `holdsAt(operative(edge, wv), now)`
 - AC-3: F_P: fluent projection — `holdsAt(certified(edge, evaluator, spec_hash, wv), now)`
 
-### REQ-F-EC-004 — Revocation terminates operative fluent
+### REQ-F-EC-004 — Revocation terminates fluents symmetrically
 
-Revocation withdraws prior approval authority.
+Revocation withdraws prior convergence authority. Both fluents (`operative` and `certified`) support explicit termination via `revoked` events, preserving the F_ algebra symmetry.
 
 **Acceptance Criteria**:
 - AC-1: `revoked{kind: fh_approval}` terminates the `operative` fluent — does not reference a specific `approved` event
-- AC-2: Scoped by `edge` and `workflow_version`
-- AC-3: Wildcard edge (`"*"`) terminates operative for all edges under the matching workflow_version
-- AC-4: When `workflow_version == "unknown"`, revocations match by edge alone
-- AC-5: A revocation that predates all approvals for its edge has no effect
+- AC-2: `revoked{kind: fp_assessment}` terminates the `certified` fluent — does not reference a specific `assessed` event
+- AC-3: Both are scoped by `edge` and `workflow_version`
+- AC-4: Wildcard edge (`"*"`) terminates the target fluent for all edges under the matching workflow_version
+- AC-5: When `workflow_version == "unknown"`, revocations match by edge alone
+- AC-6: A revocation that predates all initiating events for its edge has no effect
+- AC-7: `revoked{kind: fh_approval}` and `revoked{kind: fp_assessment}` are independent — revoking one does not affect the other
 
 ### REQ-F-EC-005 — Rejection is judgment, not revocation
 

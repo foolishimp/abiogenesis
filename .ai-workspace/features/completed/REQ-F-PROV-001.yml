@@ -1,6 +1,6 @@
 id: REQ-F-PROV-001
 title: Workflow Provenance — Version Binding for Approvals and Assessments
-status: proposed
+status: completed
 satisfies:
   - REQ-F-PROV-001
   - REQ-F-PROV-002

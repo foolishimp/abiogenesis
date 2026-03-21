@@ -2,6 +2,7 @@
 # Validates: REQ-F-CORE-002
 # Validates: REQ-F-CORE-003
 # Validates: REQ-F-CORE-005
+# Validates: REQ-F-EC-001
 # Validates: REQ-F-EVAL-005
 """Tests for genesis.core — emit, project, EventStream, ContextResolver, workspace_bootstrap."""
 import json

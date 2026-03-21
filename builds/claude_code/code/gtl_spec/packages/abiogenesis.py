@@ -32,19 +32,19 @@ from gtl.core import (
 
 bootloader = Context(
     name="bootloader",
-    locator="workspace://gtl_spec/GENESIS_BOOTLOADER.md",
+    locator="workspace://builds/claude_code/code/gtl_spec/GENESIS_BOOTLOADER.md",
     digest="sha256:" + "0" * 64,   # PENDING
 )
 
 this_spec = Context(
     name="abiogenesis_spec",
-    locator="workspace://gtl_spec/packages/abiogenesis.py",
+    locator="workspace://builds/claude_code/code/gtl_spec/packages/abiogenesis.py",
     digest="sha256:" + "0" * 64,   # PENDING — self-referential
 )
 
 intent_doc = Context(
     name="intent",
-    locator="workspace://INTENT.md",
+    locator="workspace://specification/INTENT.md",
     digest="sha256:" + "0" * 64,   # PENDING — written at intent edge
 )
 
@@ -206,7 +206,8 @@ eval_decomp_fp = Evaluator(
     "decomp_complete", F_P,
     "Construct feature vectors for all uncovered REQ keys — write one .yml per feature to "
     ".ai-workspace/features/active/ with a satisfies: list covering the assigned REQ-F-* keys. "
-    "Group related keys into cohesive features. Each vector must cover at least one uncovered key.",
+    "Group related keys into cohesive features. Each vector must cover at least one uncovered key; "
+    "rebuild 2026-03-21 symmetric-revoke",
 )
 eval_decomp_fh = Evaluator(
     "decomp_approved", F_H,
@@ -216,7 +217,8 @@ eval_decomp_fh = Evaluator(
 # feature_decomp→design
 eval_design_fp = Evaluator(
     "design_coherent", F_P,
-    "Agent: ADRs cover all features, tech stack is decided, interfaces are specified, no implementation details have leaked into spec",
+    "Agent: ADRs cover all features, tech stack is decided, interfaces are specified, no implementation details have leaked into spec; "
+    "rebuild 2026-03-21 symmetric-revoke",
 )
 eval_design_fh = Evaluator(
     "design_approved", F_H,
@@ -232,7 +234,8 @@ eval_bootdoc_consistency = Evaluator(
 eval_bootdoc_fp = Evaluator(
     "synthesize_bootloader", F_P,
     "Agent renders specification content into bootloader markdown, ensuring all GTL type names "
-    "and axiom references are consistent with the source code",
+    "and axiom references are consistent with the source code; "
+    "rebuild 2026-03-21 symmetric-revoke",
 )
 
 # design→code
@@ -248,7 +251,8 @@ eval_impl_coverage = Evaluator(
 )
 eval_code_fp = Evaluator(
     "code_complete", F_P,
-    "Agent: code implements all features per design ADRs; no V2 features present; importable",
+    "Agent: code implements all features per design ADRs; no V2 features present; importable; "
+    "rebuild 2026-03-21 symmetric-revoke",
 )
 
 # code↔unit_tests
@@ -269,7 +273,8 @@ eval_validates_coverage = Evaluator(
 )
 eval_coverage_fp = Evaluator(
     "coverage_complete", F_P,
-    "Agent: test suite covers all features; no REQ key without a corresponding test",
+    "Agent: test suite covers all features; no REQ key without a corresponding test; "
+    "rebuild 2026-03-21 symmetric-revoke",
 )
 
 
@@ -306,6 +311,7 @@ package = Package(
         # Bootstrap
         "REQ-F-BOOT-001",   # gen-install bootstraps .genesis/ into target project
         "REQ-F-BOOT-002",   # .genesis/genesis.yml config resolves Package/Worker
+        "REQ-F-PKG-001",    # Starter spec generated for new projects
         # SDLC graph
         "REQ-F-GRAPH-001",  # GTL Package defines 6-asset SDLC graph
         "REQ-F-GRAPH-002",  # Asset.markov conditions are acceptance criteria
@@ -313,8 +319,10 @@ package = Package(
         "REQ-F-CMD-001",    # gen gaps reports delta per edge
         "REQ-F-CMD-002",    # gen iterate runs one bind-and-iterate pass
         "REQ-F-CMD-003",    # gen start --auto loops until blocked
+        "REQ-F-CMD-004",    # edge_converged certificate includes feature field; deduplication by (edge, feature) pair
         # Human gates
         "REQ-F-GATE-001",   # F_H evaluators gate spec/design boundaries
+        "REQ-F-GATE-002",   # F_D must all pass before F_P dispatch; F_D+F_P before F_H
         # Traceability
         "REQ-F-TAG-001",    # Implements: tags enforced on all source files
         "REQ-F-TAG-002",    # Validates: tags enforced on all test files
@@ -322,24 +330,42 @@ package = Package(
         # Documentation
         "REQ-F-DOCS-001",   # User guide covers install, first session, operating loop
         # Evaluator safety
-        "REQ-F-EVAL-001",   # F_D evaluator commands validated at spec load: non-empty, acyclic (no genesis subcommands), pytest uses -m 'not e2e'
-        "REQ-F-EVAL-002",   # assessed{kind: fp} events are snapshot-bound via spec_hash; bind_fd() invalidates assessments whose spec_hash doesn't match current job_evaluator_hash
-        "REQ-F-EVAL-003",   # F_D evaluators impl_coverage and validates_coverage enforce per-REQ-key presence in # Implements: and # Validates: tags respectively
+        "REQ-F-EVAL-001",   # F_D evaluator commands validated at spec load
+        "REQ-F-EVAL-002",   # assessed{kind: fp} snapshot-bound via spec_hash
+        "REQ-F-EVAL-003",   # per-REQ-key impl/validates coverage enforcement
+        "REQ-F-EVAL-004",   # emit-event CLI rejects malformed prime operator payloads
+        "REQ-F-EVAL-005",   # emit() write primitive validates prime operator payloads
         # Feature lifecycle
-        "REQ-F-VIS-001",    # gen-start marks feature vector status=completed when all edges for that feature have delta=0; moves YAML from features/active/ to features/completed/
-        # Engine correctness (audit 2026-03-16)
-        "REQ-F-GATE-002",   # F_D evaluators must all pass before any F_P evaluator is dispatched; F_D must all pass before any F_H gate event is emitted
-        "REQ-F-EVAL-004",   # emit-event CLI rejects assessed{kind: fp} events that lack spec_hash; governance validation enforced per prime operator type
-        "REQ-F-EVAL-005",   # emit() write primitive rejects assessed{kind: fp} payloads lacking spec_hash; approved/revoked require kind field
-        "REQ-F-BIND-001",   # ContextResolver digest mismatch halts execution with exit code 1; engine must not substitute [context unavailable] for integrity failures
-        "REQ-F-CORE-001",   # project() "current" projection observes edge_started events filtered by target asset type; current state is not stale during active iteration
-        "REQ-F-CMD-004",    # edge_converged certificate emitted by gen_gaps() includes feature field; deduplication is by (edge, feature) pair; feature-specific projections observe the certificate
+        "REQ-F-VIS-001",    # gen-start marks completed features and moves them
+        # Workspace
+        "REQ-F-WKSP-001",   # Workspace bootstrap creates event stream path
+        # Engine correctness
+        "REQ-F-BIND-001",   # ContextResolver digest mismatch halts execution
+        "REQ-F-CORE-001",   # project() current projection observes edge_started events
+        "REQ-F-CORE-002",   # Projection determinism invariant
+        "REQ-F-CORE-003",   # Event stream completeness — all prior states reconstructable
+        "REQ-F-CORE-004",   # bind_fd() produces PrecomputedManifest
+        "REQ-F-CORE-005",   # ContextResolver loads and verifies context documents
+        "REQ-F-CORE-006",   # Worker scheduling partitions by write territory
         # Test architecture
-        "REQ-F-TEST-001",   # Primary test surface is command-level integration scenarios: each test exercises F_D→F_P→F_H evaluator chain against a real workspace; unit tests exist only for write-primitive invariants
-        "REQ-F-TEST-002",   # Property invariant tests verify: replay determinism, idempotence of gen_gaps, no duplicate edge_converged certificates, stale spec_hash never converges
+        "REQ-F-TEST-001",   # Integration-primary test surface
+        "REQ-F-TEST-002",   # Property invariant tests
+        # Workflow provenance
+        "REQ-F-PROV-001",   # Workflow version read from active-workflow.json
+        "REQ-F-PROV-002",   # Events annotated with workflow_version
+        "REQ-F-PROV-003",   # job_evaluator_hash replaces req_hash when provenance present
+        "REQ-F-PROV-004",   # Carry-forward preserves approvals across version upgrades
+        "REQ-F-PROV-005",   # Orphan tolerance for graph evolution
+        # Event Calculus foundation
+        "REQ-F-EC-001",     # Five prime operators as basis set
+        "REQ-F-EC-002",     # Two fluents: operative and certified
+        "REQ-F-EC-003",     # Three convergence models (F_D live, F_P/F_H projected)
+        "REQ-F-EC-004",     # Revocation terminates fluents symmetrically
+        "REQ-F-EC-005",     # Rejection is judgment, not revocation
+        "REQ-F-EC-006",     # assessed{kind: fp} result values
         # Bootloader as graph asset (INT-002)
         "REQ-F-BOOTDOC-001",  # bootloader_doc is a graph asset with design lineage
-        "REQ-F-BOOTDOC-002",  # F_D evaluator checks GTL type consistency against gtl/core.py
+        "REQ-F-BOOTDOC-002",  # F_D evaluator checks GTL type consistency
         "REQ-F-BOOTDOC-003",  # Bootloader converges before downstream install gates
     ],
 )
