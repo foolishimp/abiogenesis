@@ -19,4 +19,5 @@ def _load_reqs():
     return reqs
 
 
-package, worker = instantiate(slug="abiogenesis", requirements=_load_reqs())
+package, worker = instantiate(slug="abiogenesis", req_keys=_load_reqs(),
+                             platform="claude_code", src_dir="code")
