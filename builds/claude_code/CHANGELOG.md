@@ -2,8 +2,8 @@
 
 ## [1.0.0-beta] — 2026-03-21
 
-First kernel-qualified release. ABG is the GTL engine kernel — 6 modules, 42 REQ keys,
-55 qualification tests proving the build tree works in isolation.
+First kernel-qualified release. ABG is the GTL engine kernel — 6 modules, 45 REQ keys,
+55 qualification tests proving the installed runtime works.
 
 ### Engine (builds/claude_code/code/)
 
@@ -44,15 +44,16 @@ First kernel-qualified release. ABG is the GTL engine kernel — 6 modules, 42 R
 
 ### Specification (specification/)
 
-- 42 REQ keys across 8 groups: CORE, BIND, EC, PROV, PKG, BOOT, WKSP, TEST
+- 45 REQ keys across 13 groups: CORE, BIND, EC, PROV, PKG, BOOT, BOOTDOC, WKSP, TEST, CMD, COV, EVAL, GATE, GRAPH, TAG, VIS, DOCS
 - Requirements-first development — spec leads, code follows
 
 ### Test Suites (builds/claude_code/tests/)
 
-- **Unit tests**: test_core, test_bind, test_schedule — 384 tests covering all 6 modules
+- **Unit tests**: test_core, test_bind, test_schedule + others — 329 tests covering all 6 modules
 - **Integration workflows**: test_integration_workflows — multi-edge convergence scenarios
 - **Property invariants**: test_property_invariants — determinism, isolation, completeness
-- **Product Qualification (PQ)**: 30 install-first sandbox tests proving the build tree works
+- **E2E sandbox**: test_e2e_sandbox — 15 tests (10 PQ install, 5 self-hosting via .genesis/)
+- **Product Qualification (PQ)**: 30 install-first sandbox tests proving the installed runtime works
   - PQ-001–005: Fresh install, idempotent reinstall, starter package, bootloader injection, workspace bootstrap
   - PQ-101–105: CLI exit codes match skill contract routing table
   - PQ-201–205: Manifest round-trip (structure, prompt, result_path, spec_hash)
