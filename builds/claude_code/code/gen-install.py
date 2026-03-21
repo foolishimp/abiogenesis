@@ -14,19 +14,17 @@ Usage:
     python gen-install.py --target . --verify                 # verify only
     python gen-install.py --target . --platform java          # non-Python build
 
-What it installs:
+What it installs (kernel only — domain packages own everything else):
     .genesis/genesis/           ← the engine modules
     .genesis/gtl/               ← the GTL type system (vendored, self-contained)
     .genesis/gtl_spec/          ← the GTL spec package (genesis_core.py + __init__)
     .genesis/gtl_spec/GTL_BOOTLOADER.md
+    .genesis/genesis.yml        ← runtime binding (package/worker refs, no pythonpath)
     CLAUDE.md                   ← GTL bootloader appended (if not already present)
-    builds/<platform>/src/      ← implementation source (empty scaffold)
-    builds/<platform>/tests/    ← test suite (empty scaffold)
-    builds/<platform>/design/adrs/  ← design decisions (empty scaffold)
 
-The .genesis/gtl_spec/ directory is copied only if it does not already exist in the target.
 The .genesis/genesis/ and .genesis/gtl/ directories are always replaced (idempotent reinstall).
-The builds/<platform>/ directories are created only if they do not already exist.
+Domain installers (e.g. genesis_sdlc) own: builds/ scaffolding, .gsdlc/release/,
+pythonpath in genesis.yml, and the project wrapper.
 """
 from __future__ import annotations
 
@@ -45,61 +43,6 @@ _GTL_BOOTLOADER_START = "<!-- GTL_BOOTLOADER_START -->"
 _GTL_BOOTLOADER_END = "<!-- GTL_BOOTLOADER_END -->"
 
 # ── Templates ─────────────────────────────────────────────────────────────────
-
-_CONFIG_TEMPLATE = """\
-# Genesis project config — written by gen-install.py
-# Override per-invocation with: --package MODULE:VAR --worker MODULE:VAR
-package: gtl_spec.packages.{slug}:package
-worker:  gtl_spec.packages.{slug}:worker
-pythonpath:
-  - builds/{platform}/src
-"""
-
-_STARTER_PACKAGE_TEMPLATE = '''\
-# Implements: REQ-F-PKG-001
-"""
-{slug} — project GTL spec for genesis.
-
-Edit assets, edges, and evaluators to match your domain.
-Run: PYTHONPATH=.genesis python -m genesis gaps --workspace .
-"""
-from gtl.core import (
-    Asset, Edge, Evaluator, Job, Operator,
-    Package, Worker, F_D, F_P,
-)
-
-# ── Assets ────────────────────────────────────────────────────────────────────
-spec   = Asset(name="spec",   id_format="SPEC-{{SEQ}}")
-output = Asset(name="output", id_format="OUT-{{SEQ}}",  lineage=[spec])
-
-# ── Edge ──────────────────────────────────────────────────────────────────────
-op = Operator("agent", F_P, "agent://claude/genesis")
-edge = Edge(name="spec→output", source=spec, target=output, using=[op])
-
-eval_complete = Evaluator(
-    "output_complete", F_P,
-    "agent: output satisfies spec",
-)
-job = Job(edge=edge, evaluators=[eval_complete])
-
-# ── Package + Worker ──────────────────────────────────────────────────────────
-package = Package(
-    name="{slug}",
-    assets=[spec, output],
-    edges=[edge],
-    operators=[op],
-)
-worker = Worker(id="claude_code", can_execute=[job])
-
-if __name__ == "__main__":
-    import json
-    print(json.dumps({{
-        "package": package.name,
-        "assets": [a.name for a in package.assets],
-        "edges": [e.name for e in package.edges],
-        "worker": worker.id,
-    }}, indent=2))
-'''
 
 # Modules that constitute the engine (relative to this file's directory)
 ENGINE_MODULES = [
@@ -160,9 +103,7 @@ def install(target: Path, *, verify_only: bool = False,
         "engine_files": [],
         "gtl_files": [],
         "spec_files": [],
-        "build_dirs": [],
         "config_file": None,
-        "starter_spec": None,
         "errors": [],
     }
 
@@ -219,12 +160,9 @@ def install(target: Path, *, verify_only: bool = False,
 
     # ── Write .genesis/genesis.yml ────────────────────────────────────────────
     # Always written (idempotent reinstall of engine config).
-    # genesis.yml is metadata only — it points to the Package/Worker.
-    # The canonical spec source lives in builds/claude_code/code/gtl_spec/packages/*.py.
-    #
-    # Preserve existing pythonpath if genesis.yml already exists — the project
-    # may use a non-default build directory (e.g. builds/claude_code/code vs
-    # builds/python/src).  Only fall back to the template default on fresh install.
+    # genesis.yml is runtime binding only — package/worker references.
+    # pythonpath is NOT written here — domain installers (e.g. gsdlc) own that.
+    # If pythonpath already exists (written by a domain installer), preserve it.
     config_path = target / ".genesis" / "genesis.yml"
     existing_pythonpath = None
     if config_path.exists():
@@ -234,54 +172,19 @@ def install(target: Path, *, verify_only: bool = False,
         if _pp_entries:
             existing_pythonpath = [p.strip() for p in _pp_entries]
 
-    # Determine the correct pythonpath: prefer existing, then auto-detect, then default.
-    if existing_pythonpath:
-        pp_lines = "\n".join(f"  - {p}" for p in existing_pythonpath)
-    else:
-        # Auto-detect: check for builds/{platform}/code (abiogenesis convention)
-        # before falling back to builds/{platform}/src (genesis_sdlc convention).
-        if (target / "builds" / platform / "code").is_dir():
-            pp_lines = f"  - builds/{platform}/code"
-        else:
-            pp_lines = f"  - builds/{platform}/src"
-
-    config_path.write_text(
+    config_text = (
         f"# Genesis project config — written by gen-install.py\n"
         f"# Override per-invocation with: --package MODULE:VAR --worker MODULE:VAR\n"
         f"package: gtl_spec.packages.{slug}:package\n"
         f"worker:  gtl_spec.packages.{slug}:worker\n"
-        f"pythonpath:\n"
-        f"{pp_lines}\n",
-        encoding="utf-8",
     )
+    if existing_pythonpath:
+        # Preserve pythonpath written by domain installer (e.g. gsdlc).
+        pp_lines = "\n".join(f"  - {p}" for p in existing_pythonpath)
+        config_text += f"pythonpath:\n{pp_lines}\n"
+
+    config_path.write_text(config_text, encoding="utf-8")
     result["config_file"] = ".genesis/genesis.yml"
-
-    # ── Write starter spec under .genesis/gtl_spec/ ─────────────────────────
-    # Only written if the file does not already exist — never overwrites user edits.
-    spec_pkg_dir = target / ".genesis" / "gtl_spec" / "packages"
-    spec_pkg_dir.mkdir(parents=True, exist_ok=True)
-    (target / ".genesis" / "gtl_spec" / "__init__.py").touch()
-    (target / ".genesis" / "gtl_spec" / "packages" / "__init__.py").touch()
-    starter_path = spec_pkg_dir / f"{slug}.py"
-    if not starter_path.exists():
-        starter_path.write_text(
-            _STARTER_PACKAGE_TEMPLATE.format(slug=slug, platform=platform),
-            encoding="utf-8",
-        )
-        result["starter_spec"] = f".genesis/gtl_spec/packages/{slug}.py"
-
-    # ── Scaffold builds/<platform>/ ───────────────────────────────────────────
-    # Created only if they do not already exist — never overwrites user work.
-    build_dirs = [
-        f"builds/{platform}/src",
-        f"builds/{platform}/tests",
-        f"builds/{platform}/design/adrs",
-    ]
-    for rel in build_dirs:
-        d = target / rel
-        if not d.exists():
-            d.mkdir(parents=True, exist_ok=True)
-            result["build_dirs"].append(rel)
 
     # ── Append GTL bootloader to CLAUDE.md ───────────────────────────────────
     result["claude_md"] = install_claude_md(target)
@@ -315,21 +218,14 @@ def _verify(target: Path, result: dict, platform: str = "python") -> dict:
 
     config_present = (target / ".genesis" / "genesis.yml").exists()
 
-    missing_build_dirs = []
-    for rel in [f"builds/{platform}/src", f"builds/{platform}/tests",
-                f"builds/{platform}/design/adrs"]:
-        if not (target / rel).exists():
-            missing_build_dirs.append(rel)
-
     result["missing_engine"] = missing_engine
     result["missing_gtl"] = missing_gtl
     result["missing_spec"] = missing_spec
-    result["missing_build_dirs"] = missing_build_dirs
     result["config_present"] = config_present
     result["status"] = (
         "ok"
         if not missing_engine and not missing_gtl and not missing_spec
-        and not missing_build_dirs and config_present
+        and config_present
         else "incomplete"
     )
     return result
@@ -398,7 +294,6 @@ def _emit_install_event(target: Path, install_result: dict) -> None:
             "version": VERSION,
             "engine_files": install_result["engine_files"],
             "spec_files": install_result["spec_files"],
-            "build_dirs": install_result["build_dirs"],
             "target": install_result["target"],
         },
     }
