@@ -398,10 +398,9 @@ Otherwise: all edge contexts loaded (F_D and F_H don't need prompt context)
 ```
 read_workflow_version(workspace, active_workflow_path?) → string
 
-  3-tier discovery:
+  Discovery:
     1. If active_workflow_path set: {workspace}/{active_workflow_path}
     2. {workspace}/.ai-workspace/runtime/active-workflow.json
-    3. {workspace}/.genesis/active-workflow.json  (legacy fallback)
 
   File format: { "workflow": "genesis_sdlc.standard", "version": "0.3.0" }
   Success → "genesis_sdlc.standard@0.3.0"

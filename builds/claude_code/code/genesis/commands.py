@@ -42,25 +42,30 @@ def _read_workflow_version(workspace: Path, active_workflow_path: str | None = N
 
     When *active_workflow_path* is provided (from genesis.yml runtime contract),
     it is resolved relative to workspace and used as the authoritative location.
-    Otherwise falls back to .ai-workspace/runtime/active-workflow.json (mutable
-    project state), then .genesis/active-workflow.json (legacy compatibility).
+    Otherwise reads .ai-workspace/runtime/active-workflow.json.
 
-    Convention: .genesis/ is immutable installed runtime. Mutable project state
-    (including workflow metadata) lives under .ai-workspace/.
+    .genesis/ is immutable installed runtime — no fallback to it. Mutable state
+    must live under .ai-workspace/.
+
+    If the default path does not exist, creates .ai-workspace/runtime/ and
+    writes a seed file so the location is guaranteed for future writes.
 
     Returns "unknown" on any failure: file absent, invalid JSON, missing keys,
     non-string values. The engine never fails to start due to this file's state.
 
-    Pure function — no Scope dependency. Called by Scope.__post_init__ at
-    engine startup and by _emit_event_cmd at CLI call time (REQ-F-PROV-001/002).
+    Called by Scope.__post_init__ at engine startup and by _emit_event_cmd at
+    CLI call time (REQ-F-PROV-001/002).
     """
     if active_workflow_path:
         active_wf = (workspace / active_workflow_path).resolve()
     else:
-        # Prefer mutable location, fall back to legacy
         active_wf = workspace / ".ai-workspace" / "runtime" / "active-workflow.json"
         if not active_wf.exists():
-            active_wf = workspace / ".genesis" / "active-workflow.json"
+            active_wf.parent.mkdir(parents=True, exist_ok=True)
+            active_wf.write_text(
+                json.dumps({"workflow": None, "version": None}, indent=2),
+                encoding="utf-8",
+            )
     try:
         data = json.loads(active_wf.read_text(encoding="utf-8"))
         workflow = data["workflow"]
@@ -124,7 +129,7 @@ class Scope:
 
     active_workflow_path: relative path to active-workflow.json, read from
         genesis.yml runtime contract. When set, used instead of the default
-        .genesis/active-workflow.json. Domain installers (e.g. gsdlc) write this.
+        .ai-workspace/runtime/active-workflow.json.
 
     workflow_root: relative path to workflow releases base directory, read from
         genesis.yml runtime contract. When set, used instead of .genesis/workflows/.

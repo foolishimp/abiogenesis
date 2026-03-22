@@ -483,8 +483,10 @@ class TestEdgeConvergedDedup:
 
 class TestReadWorkflowVersion:
     def test_returns_unknown_when_file_absent(self, tmp_path):
-        """No active-workflow.json → 'unknown' (never raises)."""
+        """No active-workflow.json → 'unknown' (never raises), but seeds the file."""
         assert _read_workflow_version(tmp_path) == "unknown"
+        seed = tmp_path / ".ai-workspace" / "runtime" / "active-workflow.json"
+        assert seed.exists(), "must create seed file for future writes"
 
     def test_returns_formatted_string_when_valid(self, tmp_path):
         runtime = tmp_path / ".ai-workspace" / "runtime"
@@ -598,8 +600,8 @@ class TestRuntimeContractPaths:
         result = _read_workflow_version(tmp_path, ".gsdlc/release/active-workflow.json")
         assert result == "genesis_sdlc.standard@1.0.0b1"
 
-    def test_read_workflow_version_fallback_to_genesis(self, tmp_path):
-        """Without .ai-workspace/runtime/ or active_workflow_path, falls back to .genesis/ (legacy)."""
+    def test_read_workflow_version_ignores_genesis_dir(self, tmp_path):
+        """active-workflow.json in .genesis/ is NOT read — mutable state does not belong there."""
         genesis_dir = tmp_path / ".genesis"
         genesis_dir.mkdir(parents=True)
         (genesis_dir / "active-workflow.json").write_text(
@@ -607,7 +609,7 @@ class TestRuntimeContractPaths:
             encoding="utf-8",
         )
         result = _read_workflow_version(tmp_path)
-        assert result == "genesis_sdlc.standard@0.2.1"
+        assert result == "unknown"
 
     def test_read_workflow_version_configured_path_not_found(self, tmp_path):
         """Configured path that doesn't exist → 'unknown'."""

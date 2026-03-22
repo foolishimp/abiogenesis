@@ -179,12 +179,11 @@ The explicit scope for every command invocation.
 | `worker` | `Worker?` | `null` | yes |
 | `workflow_version` | `string` | `"unknown"` | **no** — set at construction |
 
-`workflow_version` is populated at construction via 3-tier discovery, never from the caller:
+`workflow_version` is populated at construction, never from the caller:
 1. Explicit `active_workflow_path` from `genesis.yml` (if configured)
-2. `.ai-workspace/runtime/active-workflow.json` (preferred mutable location)
-3. `.genesis/active-workflow.json` (legacy fallback)
+2. `.ai-workspace/runtime/active-workflow.json` (default)
 
-Format: `"{workflow}@{version}"`. Returns `"unknown"` on any error.
+`.genesis/` is immutable installed runtime — mutable state like `active-workflow.json` must live under `.ai-workspace/`. Format: `"{workflow}@{version}"`. Returns `"unknown"` on any error.
 
 ### 2.4 PrecomputedManifest
 
@@ -247,7 +246,7 @@ ContextResolver ──load()──▶ Context ──digest──▶ content veri
 
 Scope ──references──▶ Package, Worker
       ──reads──▶ active-workflow.json → workflow_version
-                 (3-tier: genesis.yml path → .ai-workspace/runtime/ → .genesis/ fallback)
+                 (genesis.yml path → .ai-workspace/runtime/)
 
 PrecomputedManifest ◀── bind_fd() ── Job + EventStream + ContextResolver
 BoundJob ◀── bind_fp() ── PrecomputedManifest

@@ -366,7 +366,7 @@ Property-based tests verify structural invariants that must hold regardless of e
 The engine tracks which workflow version is active for provenance binding.
 
 **Acceptance Criteria**:
-- AC-1: Reads `active-workflow.json` at Scope construction via 3-tier discovery: (1) explicit `active_workflow_path` from genesis.yml, (2) `.ai-workspace/runtime/active-workflow.json`, (3) `.genesis/active-workflow.json` (legacy fallback)
+- AC-1: Reads `active-workflow.json` at Scope construction: (1) explicit `active_workflow_path` from genesis.yml, (2) `.ai-workspace/runtime/active-workflow.json`. No fallback to `.genesis/` — mutable state must not live in the immutable runtime directory
 - AC-2: Returns `"{workflow}@{version}"` when file is valid (e.g., `"genesis_sdlc.standard@0.3.0"`)
 - AC-3: Returns `"unknown"` on any failure (missing file, invalid JSON, non-string values)
 - AC-4: Engine never fails to start due to this file's state
