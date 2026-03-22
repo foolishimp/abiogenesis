@@ -162,6 +162,31 @@ class TestAssetTruth:
             context_content_markers={"standards_policy": "Mandatory Practices"},
         )
 
+    def test_working_surface_evidence(self, run_archive):
+        """WorkingSurface must carry iteration evidence — not just events."""
+        target = _setup(run_archive)
+        # Create artifact so F_D passes and F_P dispatches
+        art = target / _ARTIFACT_PATH
+        art.parent.mkdir(parents=True, exist_ok=True)
+        art.write_text("# Requirements\n")
+        data = run_genesis_json(target, "iterate", archive=run_archive)
+
+        # surface_artifacts must list the manifest and result paths
+        assert "surface_artifacts" in data, \
+            "iterate result must include surface_artifacts"
+        assert len(data["surface_artifacts"]) == 2, \
+            f"expected manifest + result path, got: {data['surface_artifacts']}"
+        assert any("fp_manifests" in a for a in data["surface_artifacts"]), \
+            "surface must carry manifest path"
+        assert any("fp_results" in a for a in data["surface_artifacts"]), \
+            "surface must carry result path"
+
+        # context_consumed must list the contexts read
+        assert "context_consumed" in data, \
+            "iterate result must include context_consumed"
+        assert "standards_policy" in data["context_consumed"], \
+            "context_consumed must include standards_policy"
+
     def test_convergence(self, run_archive):
         target = _setup(run_archive)
         run_full_lifecycle(

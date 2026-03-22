@@ -358,6 +358,8 @@ def gen_iterate(
         "failing_evaluators": [ev.name for ev in selected_pre.failing_evaluators],
         "events_emitted": len(surface.events) + 1,  # +1 for edge_started
         "prompt_words": len(bound.prompt.split()),
+        "surface_artifacts": surface.artifacts,
+        "context_consumed": [c.name for c in surface.context_consumed],
     }
 
     # Write F_P manifest to disk when F_P dispatch is needed.

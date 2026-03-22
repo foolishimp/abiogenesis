@@ -139,6 +139,12 @@ def iterate(
             "event_type": "fp_dispatched",
             "data": fp_dispatch_data,
         })
+        # Iteration evidence: manifest and result paths belong in the surface
+        if bound_job.manifest_id:
+            manifests_dir = ".ai-workspace/fp_manifests"
+            surface.artifacts.append(f"{manifests_dir}/{bound_job.manifest_id}.json")
+        if bound_job.result_path:
+            surface.artifacts.append(bound_job.result_path)
         if on_fp_dispatch is not None:
             on_fp_dispatch(bound_job)
 

@@ -163,6 +163,19 @@ class TestAssetTruth:
             context_content_markers={"testing_standards": "UAT Structure"},
         )
 
+    def test_working_surface_evidence(self, run_archive):
+        """WorkingSurface must carry iteration evidence — not just events."""
+        target = _setup(run_archive)
+        art = target / _ARTIFACT_PATH
+        art.parent.mkdir(parents=True, exist_ok=True)
+        art.write_text("# UAT Tests\n")
+        data = run_genesis_json(target, "iterate", archive=run_archive)
+
+        assert len(data["surface_artifacts"]) == 2
+        assert any("fp_manifests" in a for a in data["surface_artifacts"])
+        assert any("fp_results" in a for a in data["surface_artifacts"])
+        assert "testing_standards" in data["context_consumed"]
+
     def test_convergence(self, run_archive):
         target = _setup(run_archive)
         run_full_lifecycle(

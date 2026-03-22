@@ -214,13 +214,19 @@ A Job with resolved contexts and assembled prompt.
 
 ### 2.6 WorkingSurface
 
-The product of a single iterate() call.
+The authoritative structured side-effect product of a single iterate() call. Three surfaces:
 
-| Field | Type | Default |
-|-------|------|---------|
-| `events` | `list[record]` | `[]` |
-| `artifacts` | `list[string]` | `[]` |
-| `context_consumed` | `list[Context]` | `[]` |
+| Field | Type | Default | Purpose |
+|-------|------|---------|---------|
+| `events` | `list[record]` | `[]` | Control surface — drives the scheduler |
+| `artifacts` | `list[string]` | `[]` | Trace surface — evidence file paths (manifest, result) |
+| `context_consumed` | `list[Context]` | `[]` | Provenance — Contexts read during execution |
+
+When F_P is dispatched, `artifacts` carries:
+- The manifest path (`.ai-workspace/fp_manifests/{manifest_id}.json`)
+- The result path (`.ai-workspace/fp_results/{manifest_id}.json`)
+
+The command layer preserves both `artifacts` and `context_consumed` in its output — these are not dropped.
 
 Derived: `is_auditable() → boolean` — true if events or artifacts present.
 
