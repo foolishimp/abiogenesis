@@ -24,3 +24,6 @@ venv/
 # Engine runtime artifacts
 .ai-workspace/fp_manifests/
 .ai-workspace/fp_results/
+
+# Scenario test run archives — persistent forensic data, not committed
+builds/claude_code/tests/runs/

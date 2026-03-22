@@ -42,7 +42,11 @@ def _read_workflow_version(workspace: Path, active_workflow_path: str | None = N
 
     When *active_workflow_path* is provided (from genesis.yml runtime contract),
     it is resolved relative to workspace and used as the authoritative location.
-    Otherwise falls back to .genesis/active-workflow.json (kernel default).
+    Otherwise falls back to .ai-workspace/runtime/active-workflow.json (mutable
+    project state), then .genesis/active-workflow.json (legacy compatibility).
+
+    Convention: .genesis/ is immutable installed runtime. Mutable project state
+    (including workflow metadata) lives under .ai-workspace/.
 
     Returns "unknown" on any failure: file absent, invalid JSON, missing keys,
     non-string values. The engine never fails to start due to this file's state.
@@ -53,7 +57,10 @@ def _read_workflow_version(workspace: Path, active_workflow_path: str | None = N
     if active_workflow_path:
         active_wf = (workspace / active_workflow_path).resolve()
     else:
-        active_wf = workspace / ".genesis" / "active-workflow.json"
+        # Prefer mutable location, fall back to legacy
+        active_wf = workspace / ".ai-workspace" / "runtime" / "active-workflow.json"
+        if not active_wf.exists():
+            active_wf = workspace / ".genesis" / "active-workflow.json"
     try:
         data = json.loads(active_wf.read_text(encoding="utf-8"))
         workflow = data["workflow"]
@@ -406,6 +413,7 @@ def gen_iterate(
             "prompt": bound.prompt,
             "result_path": result_path,
             "spec_hash": spec_hash,
+            "requirements": scope.package.requirements,
         }
         manifest_file.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
         result["fp_manifest_path"] = str(manifest_file)

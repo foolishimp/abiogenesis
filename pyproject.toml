@@ -17,7 +17,7 @@ gen = "genesis.__main__:main"
 
 [tool.pytest.ini_options]
 testpaths = ["builds/claude_code/tests"]
-pythonpath = ["builds/claude_code/code", ".genesis"]
+pythonpath = ["builds/claude_code/code", ".genesis", "builds/claude_code/tests"]
 markers = [
     "e2e: end-to-end sandbox tests (may invoke Claude API)",
     "self_host: workspace_bootstrap required; tests the bootstrapped directory structure",
