@@ -877,3 +877,134 @@ def assert_failure_inspectable(
 
     assert "scope" in data
     assert "package" in data["scope"]
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Live F_P qualification — real LLM prompt sufficiency testing
+# ══════════════════════════════════════════════════════════════════════════════
+
+@dataclass
+class LiveFpResult:
+    """Result of a single live F_P invocation."""
+    manifest: dict
+    raw_response: str
+    artifact_content: str
+    model: str
+    input_tokens: int
+    output_tokens: int
+    judge_assessments: list[dict]
+    judge_passed: bool
+    gaps_after: dict
+    converged: bool
+
+
+def _get_anthropic_client():
+    """Get Anthropic client. Returns None if no API key available."""
+    try:
+        import anthropic
+        client = anthropic.Anthropic()
+        if not client.api_key:
+            return None
+        return client
+    except Exception:
+        return None
+
+
+def invoke_live_fp(
+    target: Path,
+    *,
+    artifact_path: str,
+    edge_name: str,
+    judge: JudgeFn,
+    archive: Optional[RunArchive] = None,
+    model: str = "claude-sonnet-4-20250514",
+) -> LiveFpResult:
+    """Invoke a real LLM using exactly the F_P dispatch contract ABG produces.
+
+    This is the prompt sufficiency test:
+      1. Run iterate to get the real manifest
+      2. Send the manifest prompt to Claude API — nothing more
+      3. Write the LLM's response as the artifact
+      4. Run the deterministic judge as cross-check
+      5. Ingest via assess-result protocol
+      6. Check gaps for convergence
+
+    The LLM receives ONLY what production guarantees.
+    No hidden side channels. No extra instructions.
+    """
+    client = _get_anthropic_client()
+    assert client is not None, "ANTHROPIC_API_KEY required for live F_P qualification"
+
+    label_prefix = "live-fp"
+
+    # 1. Iterate → manifest
+    iter_result = run_genesis(target, "iterate", archive=archive, label=f"{label_prefix} iterate")
+    assert iter_result.returncode == 0, (
+        f"iterate failed (exit {iter_result.returncode}):\n{iter_result.stderr}"
+    )
+    iter_data = json.loads(iter_result.stdout)
+    assert "fp_manifest_path" in iter_data, "iterate must produce fp_manifest_path"
+
+    manifest_path = Path(iter_data["fp_manifest_path"])
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+
+    # 2. Send exactly the manifest prompt to the LLM — nothing more
+    prompt = manifest["prompt"]
+    response = client.messages.create(
+        model=model,
+        max_tokens=4096,
+        messages=[{"role": "user", "content": prompt}],
+    )
+    raw_response = response.content[0].text
+    input_tokens = response.usage.input_tokens
+    output_tokens = response.usage.output_tokens
+
+    # 3. Write the LLM's response as the artifact
+    art = target / artifact_path
+    art.parent.mkdir(parents=True, exist_ok=True)
+    art.write_text(raw_response, encoding="utf-8")
+
+    # 4. Run the deterministic judge
+    assessments = judge(art, manifest)
+    judge_passed = all(a["result"] == "pass" for a in assessments)
+
+    # 5. Write judge assessments via result_path protocol
+    manifest_id = manifest_path.stem
+    result_file = write_fp_result(
+        target, manifest_id, edge_name, assessments,
+        actor=f"live_fp_{model}",
+    )
+    r = assess_result(target, result_file, archive=archive)
+    assert r.returncode == 0, f"assess-result failed:\n{r.stderr}"
+
+    # 6. Check gaps
+    gaps = run_genesis_json(target, "gaps", archive=archive, label=f"{label_prefix} gaps")
+
+    # Archive the live run evidence
+    if archive:
+        live_dir = archive.artifacts_dir / "live_fp"
+        live_dir.mkdir(parents=True, exist_ok=True)
+        (live_dir / "manifest.json").write_text(
+            json.dumps(manifest, indent=2), encoding="utf-8")
+        (live_dir / "prompt.txt").write_text(prompt, encoding="utf-8")
+        (live_dir / "raw_response.txt").write_text(raw_response, encoding="utf-8")
+        (live_dir / "judge_verdict.json").write_text(json.dumps({
+            "passed": judge_passed,
+            "assessments": assessments,
+            "model": model,
+            "input_tokens": input_tokens,
+            "output_tokens": output_tokens,
+        }, indent=2), encoding="utf-8")
+
+    return LiveFpResult(
+        manifest=manifest,
+        raw_response=raw_response,
+        artifact_content=raw_response,
+        model=model,
+        input_tokens=input_tokens,
+        output_tokens=output_tokens,
+        judge_assessments=assessments,
+        judge_passed=judge_passed,
+        gaps_after=gaps,
+        converged=gaps.get("converged", False),
+    )
