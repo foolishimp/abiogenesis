@@ -122,10 +122,19 @@ def _write_raw_event(target: Path, event_type: str, data: dict) -> None:
 
 
 def _write_test_package(target: Path, package_code: str) -> None:
-    """Replace the installed starter package with a custom test package."""
+    """Write a test domain package and bind genesis.yml to it.
+
+    The kernel installer seeds genesis_core as the default package.
+    Tests define their own domain package — same pattern as GSDLC consuming ABG.
+    """
     pkg_dir = target / ".genesis" / "gtl_spec" / "packages"
     pkg_dir.mkdir(parents=True, exist_ok=True)
     (pkg_dir / "test_pkg.py").write_text(package_code)
+    # Bind genesis.yml to the test package (kernel default is genesis_core)
+    (target / ".genesis" / "genesis.yml").write_text(
+        "package: gtl_spec.packages.test_pkg:package\n"
+        "worker:  gtl_spec.packages.test_pkg:worker\n"
+    )
 
 
 def _read_events(target: Path) -> list[dict]:
@@ -318,15 +327,17 @@ class TestDeploymentQualification:
     """PQ-001 through PQ-004: Prove the installed product exists and is runnable."""
 
     def test_pq001_fresh_install_creates_runnable_runtime(self, tmp_path):
-        """PQ-001: Fresh install creates a self-contained, runnable runtime."""
-        result = _install_sandbox(tmp_path)
+        """PQ-001: Fresh kernel install + domain package creates runnable runtime."""
+        _install_sandbox(tmp_path)
 
-        # Structural assertions
+        # Kernel structural assertions
         assert (tmp_path / ".genesis" / "genesis").is_dir()
         assert (tmp_path / ".genesis" / "gtl").is_dir()
         assert (tmp_path / ".genesis" / "gtl_spec").is_dir()
         assert (tmp_path / ".genesis" / "genesis.yml").is_file()
-        assert (tmp_path / ".genesis" / "gtl_spec" / "packages" / "test_pkg.py").is_file()
+
+        # Domain package written by test (same pattern as GSDLC consuming ABG)
+        _write_test_package(tmp_path, _MINIMAL_PACKAGE)
 
         # Runtime assertion: installed engine runs without import failure
         gaps = _run_genesis(tmp_path, "gaps")
@@ -337,23 +348,28 @@ class TestDeploymentQualification:
         assert "converged" in data
 
     def test_pq002_reinstall_is_idempotent(self, tmp_path):
-        """PQ-002: Reinstall does not clobber user-owned starter package."""
+        """PQ-002: Reinstall does not clobber domain package."""
         _install_sandbox(tmp_path)
+        _write_test_package(tmp_path, _MINIMAL_PACKAGE)
 
-        # Mutate the starter package (simulating user customization)
+        # Mutate the domain package (simulating user customization)
         starter = tmp_path / ".genesis" / "gtl_spec" / "packages" / "test_pkg.py"
         original = starter.read_text()
         starter.write_text("# User customized\n" + original)
 
-        # Reinstall
+        # Reinstall kernel
         _install_sandbox(tmp_path)
 
-        # Starter package must NOT be overwritten
+        # Domain package must NOT be overwritten by kernel reinstall
         content = starter.read_text()
         assert content.startswith("# User customized"), \
-            "Reinstall clobbered user-owned starter package"
+            "Kernel reinstall clobbered domain package"
 
-        # Engine must still be runnable
+        # Engine must still be runnable (re-bind genesis.yml since kernel reset it)
+        (tmp_path / ".genesis" / "genesis.yml").write_text(
+            "package: gtl_spec.packages.test_pkg:package\n"
+            "worker:  gtl_spec.packages.test_pkg:worker\n"
+        )
         gaps = _run_genesis(tmp_path, "gaps")
         assert gaps.returncode == 0
 

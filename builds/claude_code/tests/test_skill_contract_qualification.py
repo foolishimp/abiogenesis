@@ -91,10 +91,19 @@ def _emit_event(target: Path, event_type: str, data: dict) -> subprocess.Complet
 
 
 def _write_test_package(target: Path, package_code: str) -> None:
-    """Replace the installed starter package with a custom test package."""
+    """Write a test domain package and bind genesis.yml to it.
+
+    The kernel installer seeds genesis_core as the default package.
+    Tests define their own domain package — same pattern as GSDLC consuming ABG.
+    """
     pkg_dir = target / ".genesis" / "gtl_spec" / "packages"
     pkg_dir.mkdir(parents=True, exist_ok=True)
     (pkg_dir / "test_pkg.py").write_text(package_code)
+    # Bind genesis.yml to the test package (kernel default is genesis_core)
+    (target / ".genesis" / "genesis.yml").write_text(
+        "package: gtl_spec.packages.test_pkg:package\n"
+        "worker:  gtl_spec.packages.test_pkg:worker\n"
+    )
 
 
 def _compute_spec_hash(target: Path) -> str:

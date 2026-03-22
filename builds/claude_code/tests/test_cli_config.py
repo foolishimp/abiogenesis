@@ -248,93 +248,30 @@ class TestGenInstall:
         assert "package:" in text
         assert "worker:" in text
 
-    def test_writes_starter_spec(self, tmp_path):
+    def test_kernel_does_not_create_starter_spec(self, tmp_path):
+        """Kernel installer does not create starter specs — domain installer owns those."""
         self._install(tmp_path)
         starter = tmp_path / ".genesis" / "gtl_spec" / "packages" / "project_package.py"
-        assert starter.exists()
+        assert not starter.exists(), "Kernel installer must not create starter specs"
 
-    def test_custom_slug(self, tmp_path):
-        self._install(tmp_path, ["--project-slug", "my_domain"])
-        assert (tmp_path / ".genesis" / "gtl_spec" / "packages" / "my_domain.py").exists()
-        config_text = (tmp_path / ".genesis" / "genesis.yml").read_text()
-        assert "my_domain" in config_text
-
-    def test_reinstall_does_not_clobber_starter_spec(self, tmp_path):
-        """Starter spec is user data — reinstall must not overwrite it."""
+    def test_kernel_does_not_scaffold_builds(self, tmp_path):
+        """Kernel installer does not create builds/ — domain installer owns those."""
         self._install(tmp_path)
-        starter = tmp_path / ".genesis" / "gtl_spec" / "packages" / "project_package.py"
-        starter.write_text(starter.read_text() + "\n# user edit\n")
-        self._install(tmp_path)
-        assert "# user edit" in starter.read_text()
+        assert not (tmp_path / "builds").exists(), "Kernel installer must not create builds/"
 
-    def test_reinstall_overwrites_genesis_yml(self, tmp_path):
-        """genesis.yml is engine config — reinstall rewrites it (idempotent)."""
-        self._install(tmp_path)
-        first = (tmp_path / ".genesis" / "genesis.yml").read_text()
-        self._install(tmp_path)
-        second = (tmp_path / ".genesis" / "genesis.yml").read_text()
-        assert first == second
-
-    def test_invalid_slug_exits_1(self, tmp_path):
-        result = subprocess.run(
-            [sys.executable, str(self._installer),
-             "--target", str(tmp_path), "--project-slug", "not-valid!"],
-            capture_output=True, text=True,
-        )
-        assert result.returncode == 1
-        assert "identifier" in result.stderr
-
-    def test_scaffolds_builds_python_dirs(self, tmp_path):
-        """Default install creates builds/python/ scaffold."""
-        self._install(tmp_path)
-        assert (tmp_path / "builds" / "python" / "src").is_dir()
-        assert (tmp_path / "builds" / "python" / "tests").is_dir()
-        assert (tmp_path / "builds" / "python" / "design" / "adrs").is_dir()
-
-    def test_platform_flag_creates_named_dirs(self, tmp_path):
-        """--platform java creates builds/java/ scaffold."""
-        self._install(tmp_path, ["--platform", "java"])
-        assert (tmp_path / "builds" / "java" / "src").is_dir()
-        assert (tmp_path / "builds" / "java" / "tests").is_dir()
-        assert (tmp_path / "builds" / "java" / "design" / "adrs").is_dir()
-        assert not (tmp_path / "builds" / "python").exists()
-
-    def test_genesis_yml_contains_pythonpath(self, tmp_path):
-        """genesis.yml includes pythonpath pointing into builds/<platform>/src."""
+    def test_genesis_yml_seeds_genesis_core(self, tmp_path):
+        """First install seeds genesis.yml with genesis_core as kernel default."""
         self._install(tmp_path)
         text = (tmp_path / ".genesis" / "genesis.yml").read_text()
-        assert "pythonpath" in text
-        assert "builds/python/src" in text
+        assert "genesis_core" in text
 
-    def test_genesis_yml_platform_pythonpath(self, tmp_path):
-        """--platform go writes builds/go/src into genesis.yml pythonpath."""
-        self._install(tmp_path, ["--platform", "go"])
-        text = (tmp_path / ".genesis" / "genesis.yml").read_text()
-        assert "builds/go/src" in text
-
-    def test_reinstall_does_not_clobber_build_dirs(self, tmp_path):
-        """builds/<platform>/ contents survive reinstall."""
+    def test_genesis_yml_not_overwritten_on_reinstall(self, tmp_path):
+        """Reinstall does not overwrite existing genesis.yml."""
         self._install(tmp_path)
-        sentinel = tmp_path / "builds" / "python" / "src" / "my_module.py"
-        sentinel.write_text("# user code\n")
+        yml = tmp_path / ".genesis" / "genesis.yml"
+        yml.write_text("package: gtl_spec.packages.my_domain:package\nworker: gtl_spec.packages.my_domain:worker\n")
         self._install(tmp_path)
-        assert sentinel.exists()
-        assert "# user code" in sentinel.read_text()
-
-    def test_verify_checks_build_dirs(self, tmp_path):
-        """--verify reports missing_build_dirs when builds/ not present."""
-        self._install(tmp_path)
-        import shutil
-        shutil.rmtree(tmp_path / "builds")
-        result = self._install(tmp_path, ["--verify"])
-        assert result.get("status") == "incomplete"
-        assert len(result.get("missing_build_dirs", [])) > 0
-
-    def test_build_dirs_in_install_result(self, tmp_path):
-        """install() result includes build_dirs list."""
-        result = self._install(tmp_path)
-        assert "build_dirs" in result
-        assert any("builds/python" in d for d in result["build_dirs"])
+        assert "my_domain" in yml.read_text(), "Reinstall must not overwrite domain genesis.yml"
 
     def test_claude_md_created_with_gtl_markers(self, tmp_path):
         """Install creates CLAUDE.md with GTL bootloader markers."""
@@ -346,11 +283,12 @@ class TestGenInstall:
         assert "<!-- GTL_BOOTLOADER_END -->" in text
 
     def test_claude_md_contains_gtl_content(self, tmp_path):
-        """GTL bootloader block contains the formal system content."""
+        """GTL bootloader block contains operational context."""
         self._install(tmp_path)
         text = (tmp_path / "CLAUDE.md").read_text()
-        assert "Four Primitives, One Operation" in text
-        assert "Event Stream as Model Substrate" in text
+        assert "Primitives" in text
+        assert "Event Stream" in text
+        assert "Invariants" in text
 
     def test_claude_md_reinstall_updates(self, tmp_path):
         """Reinstall updates the GTL bootloader block."""

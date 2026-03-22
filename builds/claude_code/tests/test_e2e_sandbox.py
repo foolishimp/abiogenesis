@@ -316,10 +316,15 @@ class TestSelfHosting:
     Run only after human F_H approvals and F_P assessments are recorded.
     """
 
+    @pytest.mark.skip(reason="Self-hosting is now a project-level proof — requires ABG domain package (not kernel default)")
     def test_engine_evaluates_own_workspace(self):
         """
         Run `python -m genesis gaps` against the abiogenesis workspace.
         The engine must report delta=0 (self-converged).
+
+        Requires: an abiogenesis domain package installed as a project on
+        top of ABG, same pattern as GSDLC consuming ABG. Currently skipped
+        until the ABG self-hosting project package is defined.
         """
         result = subprocess.run(
             [sys.executable, "-m", "genesis", "gaps", "--workspace", "."],
