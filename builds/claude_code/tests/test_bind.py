@@ -149,10 +149,10 @@ class TestBindFp:
         bound = bind_fp(pre, pre.job)
         assert isinstance(bound, BoundJob)
 
-    def test_prompt_contains_invariants(self, tmp_path):
+    def test_prompt_contains_preconditions(self, tmp_path):
         pre = self._make_pre(tmp_path)
         bound = bind_fp(pre, pre.job)
-        assert "INVARIANTS" in bound.prompt
+        assert "PRECONDITIONS" in bound.prompt
 
     def test_prompt_contains_gap(self, tmp_path):
         pre = self._make_pre(tmp_path)

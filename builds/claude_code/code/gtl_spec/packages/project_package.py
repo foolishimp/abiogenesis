@@ -35,7 +35,7 @@ from gtl.core import (
 
 bootloader = Context(
     name="bootloader",
-    locator="workspace://gtl_spec/GENESIS_BOOTLOADER.md",
+    locator="workspace://gtl_spec/GTL_BOOTLOADER.md",
     digest="sha256:" + "0" * 64,   # PENDING
 )
 

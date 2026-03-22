@@ -66,7 +66,7 @@ def _ensure_sandbox_context(workspace: Path) -> None:
     """Create the bootloader context file that the sandbox package references."""
     boot_dir = workspace / "gtl_spec"
     boot_dir.mkdir(parents=True, exist_ok=True)
-    (boot_dir / "GENESIS_BOOTLOADER.md").write_text("# Sandbox Bootloader\n")
+    (boot_dir / "GTL_BOOTLOADER.md").write_text("# Sandbox Bootloader\n")
 
 
 def _make_sandbox_package(workspace: Path):
@@ -83,7 +83,7 @@ def _make_sandbox_package(workspace: Path):
                      "exec://python -m genesis check-tags --type implements --path .")
     ctx = Context(
         name="bootloader",
-        locator="workspace://gtl_spec/GENESIS_BOOTLOADER.md",
+        locator="workspace://gtl_spec/GTL_BOOTLOADER.md",
         digest="sha256:" + "0" * 64,
     )
     edge = Edge(
@@ -169,7 +169,7 @@ class TestSandboxFullLifecycle:
         assert result["status"] == "iterated"
         assert len(dispatched) == 1, "F_P must be dispatched when F_D passes"
         bound = dispatched[0]
-        assert "INVARIANTS" in bound.prompt
+        assert "PRECONDITIONS" in bound.prompt
         assert "GAP" in bound.prompt
 
     def test_full_lifecycle_fp_acts_and_converges(self, tmp_path):
