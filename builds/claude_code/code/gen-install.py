@@ -158,39 +158,22 @@ def install(target: Path, *, verify_only: bool = False,
         shutil.copy2(src, dst)
         result["spec_files"].append(rel)
 
-    # ── Write .genesis/genesis.yml ────────────────────────────────────────────
-    # Always written (idempotent reinstall of engine config).
-    # genesis.yml is runtime binding only — package/worker references.
-    # Default binding: genesis_core (installed by ABG, always available).
-    # Domain installers (e.g. gsdlc) override via --project-slug AND
-    # inject pythonpath so the slug module resolves.
-    # If pythonpath already exists (written by a domain installer), preserve it.
+    # ── Write .genesis/genesis.yml (kernel default only) ──────────────────────
+    # On first install: seed a minimal kernel default (genesis_core binding).
+    # On reinstall: do not touch — the domain contract at .gsdlc/release/genesis.yml
+    # takes precedence when present, and the kernel default is a compatibility fallback.
+    # ABG does not own package/worker/pythonpath — those are domain-installer artifacts.
     config_path = target / ".genesis" / "genesis.yml"
-    existing_pythonpath = None
-    if config_path.exists():
-        import re as _re_cfg
-        _existing_text = config_path.read_text(encoding="utf-8")
-        _pp_entries = _re_cfg.findall(r"^\s+-\s+(.+)$", _existing_text, _re_cfg.MULTILINE)
-        if _pp_entries:
-            existing_pythonpath = [p.strip() for p in _pp_entries]
 
-    # Binding target: genesis_core if default slug, else domain slug.
-    # genesis_core.py is always installed and exports package/worker.
-    # Custom slugs are only valid when a domain installer follows and
-    # creates the corresponding module + pythonpath.
-    binding = "genesis_core" if slug == "project_package" else slug
-    config_text = (
-        f"# Genesis project config — written by gen-install.py\n"
-        f"# Override per-invocation with: --package MODULE:VAR --worker MODULE:VAR\n"
-        f"package: gtl_spec.packages.{binding}:package\n"
-        f"worker:  gtl_spec.packages.{binding}:worker\n"
-    )
-    if existing_pythonpath:
-        # Preserve pythonpath written by domain installer (e.g. gsdlc).
-        pp_lines = "\n".join(f"  - {p}" for p in existing_pythonpath)
-        config_text += f"pythonpath:\n{pp_lines}\n"
-
-    config_path.write_text(config_text, encoding="utf-8")
+    if not config_path.exists():
+        config_text = (
+            f"# Genesis kernel default — written by gen-install.py\n"
+            f"# Domain installers write the authoritative contract to\n"
+            f"# .gsdlc/release/genesis.yml which takes precedence.\n"
+            f"package: gtl_spec.packages.genesis_core:package\n"
+            f"worker:  gtl_spec.packages.genesis_core:worker\n"
+        )
+        config_path.write_text(config_text, encoding="utf-8")
     result["config_file"] = ".genesis/genesis.yml"
 
     # ── Append GTL bootloader to CLAUDE.md ───────────────────────────────────

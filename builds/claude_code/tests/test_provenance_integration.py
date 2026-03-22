@@ -245,6 +245,43 @@ class TestWorkflowVersionAnnotation:
         review_events = [e for e in events if e["event_type"] == "approved"]
         assert review_events[-1]["data"]["workflow_version"] == "unknown"
 
+    def test_emit_event_reads_configured_active_workflow(self, tmp_path):
+        """emit-event honours active_workflow from genesis.yml runtime contract."""
+        # Write active-workflow.json to the gsdlc release territory (not .genesis/)
+        release_dir = tmp_path / ".gsdlc" / "release"
+        release_dir.mkdir(parents=True)
+        (release_dir / "active-workflow.json").write_text(
+            json.dumps({"workflow": "genesis_sdlc.standard", "version": "1.0.0b1"})
+        )
+        # Write genesis.yml with the runtime contract pointing to the release territory
+        genesis_dir = tmp_path / ".genesis"
+        genesis_dir.mkdir(parents=True, exist_ok=True)
+        (genesis_dir / "genesis.yml").write_text(
+            "package: gtl_spec.packages.test:package\n"
+            "worker: gtl_spec.packages.test:worker\n"
+            "pythonpath:\n  - .gsdlc/release\n"
+            "active_workflow: .gsdlc/release/active-workflow.json\n"
+        )
+        workspace_bootstrap(tmp_path)
+
+        from genesis.__main__ import _emit_event_cmd
+
+        data = json.dumps({"edge": "design→code", "actor": "test_human", "kind": "fh_review"})
+        rc = _emit_event_cmd("approved", data, tmp_path)
+        assert rc == 0
+
+        events_file = tmp_path / ".ai-workspace" / "events" / "events.jsonl"
+        events = [
+            json.loads(line)
+            for line in events_file.read_text().splitlines()
+            if line.strip()
+        ]
+        review_events = [e for e in events if e["event_type"] == "approved"]
+        assert review_events, "approved event must be written"
+        assert review_events[-1]["data"]["workflow_version"] == "genesis_sdlc.standard@1.0.0b1", (
+            "emit-event must read active_workflow from genesis.yml, not .genesis/active-workflow.json"
+        )
+
     def test_emit_event_does_not_require_scope_object(self, tmp_path):
         """_emit_event_cmd takes only (event_type, data_json, workspace) — no Scope."""
         _write_active_workflow(tmp_path, "genesis_sdlc.standard", "0.2.0")

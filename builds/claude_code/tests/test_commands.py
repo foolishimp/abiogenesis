@@ -581,6 +581,91 @@ class TestReadCarryForward:
         assert _read_carry_forward(scope) == []
 
 
+# ── Runtime contract: configured active_workflow and workflow_root ─────────────
+
+class TestRuntimeContractPaths:
+    """Configured paths from genesis.yml override .genesis/ fallback."""
+
+    def test_read_workflow_version_from_configured_path(self, tmp_path):
+        """active_workflow_path overrides .genesis/active-workflow.json."""
+        # Write active-workflow.json to a custom location
+        custom_dir = tmp_path / ".gsdlc" / "release"
+        custom_dir.mkdir(parents=True)
+        (custom_dir / "active-workflow.json").write_text(
+            json.dumps({"workflow": "genesis_sdlc.standard", "version": "1.0.0b1"}),
+            encoding="utf-8",
+        )
+        result = _read_workflow_version(tmp_path, ".gsdlc/release/active-workflow.json")
+        assert result == "genesis_sdlc.standard@1.0.0b1"
+
+    def test_read_workflow_version_fallback_when_no_config(self, tmp_path):
+        """Without active_workflow_path, falls back to .genesis/."""
+        genesis_dir = tmp_path / ".genesis"
+        genesis_dir.mkdir(parents=True)
+        (genesis_dir / "active-workflow.json").write_text(
+            json.dumps({"workflow": "genesis_sdlc.standard", "version": "0.2.1"}),
+            encoding="utf-8",
+        )
+        result = _read_workflow_version(tmp_path)
+        assert result == "genesis_sdlc.standard@0.2.1"
+
+    def test_read_workflow_version_configured_path_not_found(self, tmp_path):
+        """Configured path that doesn't exist → 'unknown'."""
+        result = _read_workflow_version(tmp_path, ".gsdlc/release/active-workflow.json")
+        assert result == "unknown"
+
+    def test_scope_uses_configured_active_workflow_path(self, tmp_path):
+        """Scope.__post_init__ reads from active_workflow_path when set."""
+        custom_dir = tmp_path / ".gsdlc" / "release"
+        custom_dir.mkdir(parents=True)
+        (custom_dir / "active-workflow.json").write_text(
+            json.dumps({"workflow": "genesis_sdlc.standard", "version": "1.0.0b1"}),
+            encoding="utf-8",
+        )
+        pkg, _, worker = _make_package_and_worker()
+        scope = Scope(
+            package=pkg, workspace_root=tmp_path, worker=worker,
+            active_workflow_path=".gsdlc/release/active-workflow.json",
+        )
+        assert scope.workflow_version == "genesis_sdlc.standard@1.0.0b1"
+
+    def test_carry_forward_reads_from_configured_workflow_root(self, tmp_path):
+        """workflow_root overrides .genesis/workflows/ for manifest lookup."""
+        version = "genesis_sdlc.standard@1.0.0b1"
+        cf_entry = [{"edge": "design→code", "from_version": "genesis_sdlc.standard@0.5.0"}]
+
+        # Write manifest to custom workflow root
+        custom_wf = tmp_path / ".gsdlc" / "release" / "workflows"
+        manifest_dir = custom_wf / "genesis_sdlc" / "standard" / "v1_0_0b1"
+        manifest_dir.mkdir(parents=True)
+        (manifest_dir / "manifest.json").write_text(
+            json.dumps({"approved_carry_forward": cf_entry}),
+            encoding="utf-8",
+        )
+
+        pkg, _, worker = _make_package_and_worker()
+        scope = Scope(
+            package=pkg, workspace_root=tmp_path, worker=worker,
+            active_workflow_path=".gsdlc/release/active-workflow.json",
+            workflow_root=".gsdlc/release/workflows",
+        )
+        object.__setattr__(scope, "workflow_version", version)
+        result = _read_carry_forward(scope)
+        assert result == cf_entry
+
+    def test_carry_forward_fallback_to_genesis_workflows(self, tmp_path):
+        """Without workflow_root, falls back to .genesis/workflows/."""
+        version = "genesis_sdlc.standard@0.2.1"
+        cf_entry = [{"edge": "intent→requirements"}]
+        _write_manifest(tmp_path, version, cf_entry)
+
+        pkg, _, worker = _make_package_and_worker()
+        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
+        object.__setattr__(scope, "workflow_version", version)
+        result = _read_carry_forward(scope)
+        assert result == cf_entry
+
+
 # ── workflow_version annotation in emitted events ─────────────────────────────
 
 class TestWorkflowVersionAnnotation:
