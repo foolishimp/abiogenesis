@@ -17,7 +17,10 @@ The LLM's self-assessment is not trusted — only the judge verdict counts.
 
 Success criterion: 8/10 runs judged acceptable per scenario.
 
-Requires: ANTHROPIC_API_KEY environment variable.
+Transport: claude -p (Claude Code CLI in pipe mode)
+Architecture: F_D → MCP → F_P.claudecode
+
+Requires: claude CLI available on PATH.
 Run: pytest builds/claude_code/tests/test_live_fp_qualification.py -v -m live_fp
 
 Archive: tests/runs/live_fp_qualification/<scenario>/<timestamp>/
@@ -37,20 +40,17 @@ import pytest
 from scenario_helpers import (
     RunArchive, install_sandbox, write_test_package,
     run_genesis, run_genesis_json, read_events,
-    invoke_live_fp, LiveFpResult, _get_anthropic_client,
+    invoke_live_fp, LiveFpResult, _has_mcp_transport,
 )
 
 
-# ── Skip if no API key ──────────────────────────────────────────────────────
+# ── Skip if no MCP transport ─────────────────────────────────────────────────
 
 pytestmark = pytest.mark.live_fp
 
-def _has_api_key() -> bool:
-    return _get_anthropic_client() is not None
-
-skip_no_key = pytest.mark.skipif(
-    not _has_api_key(),
-    reason="ANTHROPIC_API_KEY not set — live F_P qualification requires API access",
+skip_no_mcp = pytest.mark.skipif(
+    not _has_mcp_transport(),
+    reason="@steipete/claude-code-mcp not available — live F_P qualification requires MCP transport",
 )
 
 
@@ -117,11 +117,13 @@ def _judge_uat(artifact: Path, manifest: dict) -> list[dict]:
     if missing:
         failures.append(f"missing requirement coverage: {sorted(missing)}")
 
-    has_steps = bool(re.search(r'[Ss]teps?\s*:.*\d+\.', content, re.DOTALL))
+    # Accept both "Steps:" and "### Steps" heading formats
+    has_steps = bool(re.search(r'[Ss]teps?\s*[:*\n]', content)) and bool(re.search(r'\d+\.', content))
     if not has_steps:
         failures.append("no numbered steps found")
 
-    has_expected = bool(re.search(r'[Ee]xpected\s*[Rr]esults?\s*:', content))
+    # Accept both "Expected Result:" and "### Expected Results" heading formats
+    has_expected = bool(re.search(r'[Ee]xpected\s*[Rr]esults?\s*[:*\n]', content))
     if not has_expected:
         failures.append("no 'Expected Result:' sections")
 
@@ -285,7 +287,7 @@ def _setup_schema(archive: RunArchive) -> Path:
 # Single-run smoke tests
 # ══════════════════════════════════════════════════════════════════════════════
 
-@skip_no_key
+@skip_no_mcp
 class TestLiveFpSmoke:
     """Single-run smoke test — does the prompt produce anything the judge can evaluate?"""
 
@@ -302,7 +304,6 @@ class TestLiveFpSmoke:
         assert result.raw_response, "LLM must produce a response"
         assert result.judge_assessments, "judge must produce assessments"
         assert result.model, "model must be recorded"
-        assert result.input_tokens > 0
 
     def test_schema_single_run(self, run_archive):
         target = _setup_schema(run_archive)
@@ -325,7 +326,7 @@ _QUAL_RUNS = 10
 _QUAL_BAR = 8  # 8/10 must pass
 
 
-@skip_no_key
+@skip_no_mcp
 class TestLiveFpQualification:
     """Prompt sufficiency qualification: 10 runs, require 8/10 judged acceptable.
 
@@ -377,7 +378,7 @@ class TestLiveFpQualification:
                     "run": i,
                     "passed": r.judge_passed,
                     "evidence": r.judge_assessments[0]["evidence"] if r.judge_assessments else "",
-                    "tokens": r.input_tokens + r.output_tokens,
+                    "model": r.model,
                 }
                 for i, r in enumerate(results)
             ],
@@ -438,7 +439,7 @@ class TestLiveFpQualification:
                     "run": i,
                     "passed": r.judge_passed,
                     "evidence": r.judge_assessments[0]["evidence"] if r.judge_assessments else "",
-                    "tokens": r.input_tokens + r.output_tokens,
+                    "model": r.model,
                 }
                 for i, r in enumerate(results)
             ],

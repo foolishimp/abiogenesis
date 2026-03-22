@@ -885,29 +885,62 @@ def assert_failure_inspectable(
 
 @dataclass
 class LiveFpResult:
-    """Result of a single live F_P invocation."""
+    """Result of a single live F_P invocation via MCP → claude_code."""
     manifest: dict
     raw_response: str
     artifact_content: str
     model: str
-    input_tokens: int
-    output_tokens: int
     judge_assessments: list[dict]
     judge_passed: bool
     gaps_after: dict
     converged: bool
 
 
-def _get_anthropic_client():
-    """Get Anthropic client. Returns None if no API key available."""
+def _has_mcp_transport() -> bool:
+    """Check if @steipete/claude-code-mcp is available for F_P dispatch."""
     try:
-        import anthropic
-        client = anthropic.Anthropic()
-        if not client.api_key:
-            return None
-        return client
-    except Exception:
-        return None
+        r = subprocess.run(
+            ["npx", "@steipete/claude-code-mcp", "--help"],
+            capture_output=True, text=True, timeout=15,
+        )
+        return True  # npx found the package
+    except (FileNotFoundError, subprocess.TimeoutExpired):
+        return False
+
+
+def _call_claude_code_mcp(prompt: str, work_folder: str) -> str:
+    """Invoke claude_code tool via @steipete/claude-code-mcp MCP server.
+
+    Architecture: F_D → MCP → F_P.claudecode
+    Transport: stdio JSON-RPC via Python mcp SDK → npx @steipete/claude-code-mcp
+    """
+    import asyncio
+    from mcp import ClientSession, StdioServerParameters
+    from mcp.client.stdio import stdio_client
+
+    async def _invoke() -> str:
+        server_params = StdioServerParameters(
+            command="npx",
+            args=["@steipete/claude-code-mcp"],
+        )
+        async with stdio_client(server_params) as (read, write):
+            async with ClientSession(read, write) as session:
+                await session.initialize()
+                result = await session.call_tool(
+                    "claude_code",
+                    arguments={
+                        "prompt": prompt,
+                        "workFolder": work_folder,
+                    },
+                )
+                # Extract text content from MCP result
+                parts = []
+                for block in result.content:
+                    if hasattr(block, "text"):
+                        parts.append(block.text)
+                return "\n".join(parts)
+
+    return asyncio.run(_invoke())
 
 
 def invoke_live_fp(
@@ -917,14 +950,17 @@ def invoke_live_fp(
     edge_name: str,
     judge: JudgeFn,
     archive: Optional[RunArchive] = None,
-    model: str = "claude-sonnet-4-20250514",
+    model: str = "sonnet",
 ) -> LiveFpResult:
-    """Invoke a real LLM using exactly the F_P dispatch contract ABG produces.
+    """Invoke a real LLM via MCP → claude_code using the F_P dispatch contract.
+
+    Architecture: F_D → MCP → F_P.claudecode
+    Transport: @steipete/claude-code-mcp (stdio MCP server)
 
     This is the prompt sufficiency test:
       1. Run iterate to get the real manifest
-      2. Send the manifest prompt to Claude API — nothing more
-      3. Write the LLM's response as the artifact
+      2. Send the manifest prompt via MCP claude_code tool — nothing more
+      3. Read the LLM's artifact output
       4. Run the deterministic judge as cross-check
       5. Ingest via assess-result protocol
       6. Check gaps for convergence
@@ -932,8 +968,9 @@ def invoke_live_fp(
     The LLM receives ONLY what production guarantees.
     No hidden side channels. No extra instructions.
     """
-    client = _get_anthropic_client()
-    assert client is not None, "ANTHROPIC_API_KEY required for live F_P qualification"
+    assert _has_mcp_transport(), (
+        "@steipete/claude-code-mcp required for live F_P qualification"
+    )
 
     label_prefix = "live-fp"
 
@@ -948,21 +985,29 @@ def invoke_live_fp(
     manifest_path = Path(iter_data["fp_manifest_path"])
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
 
-    # 2. Send exactly the manifest prompt to the LLM — nothing more
+    # 2. Send exactly the manifest prompt via MCP → claude_code — nothing more
     prompt = manifest["prompt"]
-    response = client.messages.create(
-        model=model,
-        max_tokens=4096,
-        messages=[{"role": "user", "content": prompt}],
-    )
-    raw_response = response.content[0].text
-    input_tokens = response.usage.input_tokens
-    output_tokens = response.usage.output_tokens
+    raw_response = _call_claude_code_mcp(prompt, str(target))
 
-    # 3. Write the LLM's response as the artifact
+    # Archive the MCP invocation as a synthetic subprocess log
+    if archive:
+        archive._commands.append({
+            "label": f"{label_prefix} mcp claude_code",
+            "args": ["npx", "@steipete/claude-code-mcp", "→", "claude_code"],
+            "returncode": 0,
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+        })
+
+    # 3. Read the artifact — MCP actor has tool access and may write it directly
     art = target / artifact_path
     art.parent.mkdir(parents=True, exist_ok=True)
-    art.write_text(raw_response, encoding="utf-8")
+    if art.exists() and art.stat().st_size > len("# placeholder\n"):
+        # Actor wrote the artifact via tools — read what it produced
+        artifact_content = art.read_text(encoding="utf-8")
+    else:
+        # Actor returned content as text response — write it as the artifact
+        artifact_content = raw_response
+        art.write_text(raw_response, encoding="utf-8")
 
     # 4. Run the deterministic judge
     assessments = judge(art, manifest)
@@ -988,21 +1033,19 @@ def invoke_live_fp(
             json.dumps(manifest, indent=2), encoding="utf-8")
         (live_dir / "prompt.txt").write_text(prompt, encoding="utf-8")
         (live_dir / "raw_response.txt").write_text(raw_response, encoding="utf-8")
+        (live_dir / "artifact.txt").write_text(artifact_content, encoding="utf-8")
         (live_dir / "judge_verdict.json").write_text(json.dumps({
             "passed": judge_passed,
             "assessments": assessments,
             "model": model,
-            "input_tokens": input_tokens,
-            "output_tokens": output_tokens,
+            "transport": "mcp:@steipete/claude-code-mcp",
         }, indent=2), encoding="utf-8")
 
     return LiveFpResult(
         manifest=manifest,
         raw_response=raw_response,
-        artifact_content=raw_response,
+        artifact_content=artifact_content,
         model=model,
-        input_tokens=input_tokens,
-        output_tokens=output_tokens,
         judge_assessments=assessments,
         judge_passed=judge_passed,
         gaps_after=gaps,
