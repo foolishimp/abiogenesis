@@ -37,11 +37,14 @@ from pathlib import Path
 
 import pytest
 
+import re
+
 from scenario_helpers import (
     RunArchive, install_sandbox, write_test_package,
     run_genesis, run_genesis_json, emit_event, read_events, compute_spec_hash,
     dispatch_fp_and_read_manifest, assert_manifest_truth,
     run_full_lifecycle, assert_event_chain, assert_failure_inspectable,
+    run_judged_lifecycle, IterationResult,
 )
 
 
@@ -251,3 +254,157 @@ class TestEventPostmortemTruth:
                    and e.get("data", {}).get("kind") == "fd_gap"]
         assert len(fd_gaps) >= 1
         assert fd_gaps[-1]["data"]["edge"] == _EDGE
+
+
+# ── Deterministic F_P judge ─────────────────────────────────────────────────
+
+def _judge_schema(artifact: Path, manifest: dict) -> list[dict]:
+    """Deterministic judge for design→data_schema.
+
+    Rules (from ADR-001 + naming conventions context):
+      1. Must contain CREATE TABLE statements
+      2. Table names must be snake_case (no camelCase or PascalCase)
+      3. Must have integrity constraints (NOT NULL, PRIMARY KEY, or FOREIGN KEY)
+      4. Must have timestamp columns (created_at / updated_at) per ADR
+      5. Foreign keys named fk_{table}_{column} per ADR
+    """
+    content = artifact.read_text(encoding="utf-8")
+    failures = []
+
+    # Rule 1: CREATE TABLE exists
+    tables = re.findall(r'CREATE\s+TABLE\s+(?:IF\s+NOT\s+EXISTS\s+)?(\w+)', content, re.IGNORECASE)
+    if not tables:
+        failures.append("no CREATE TABLE statements found")
+
+    # Rule 2: snake_case names (reject camelCase)
+    for t in tables:
+        if re.search(r'[A-Z]', t):
+            failures.append(f"table '{t}' not snake_case — violates naming conventions")
+
+    # Rule 3: Integrity constraints
+    has_constraints = bool(re.search(
+        r'(NOT\s+NULL|PRIMARY\s+KEY|FOREIGN\s+KEY|UNIQUE|CHECK\s*\()',
+        content, re.IGNORECASE,
+    ))
+    if not has_constraints:
+        failures.append("no integrity constraints (NOT NULL, PRIMARY KEY, etc.)")
+
+    # Rule 4: Timestamp columns per ADR-001
+    has_timestamps = bool(re.search(r'created_at|updated_at', content, re.IGNORECASE))
+    if not has_timestamps:
+        failures.append("missing created_at/updated_at timestamps (ADR-001 requirement)")
+
+    # Rule 5: FK naming convention (only check if FKs present)
+    fk_constraints = re.findall(r'CONSTRAINT\s+(\w+)\s+FOREIGN\s+KEY', content, re.IGNORECASE)
+    bad_fks = [name for name in fk_constraints if not name.startswith("fk_")]
+    if bad_fks:
+        failures.append(f"foreign keys not named fk_{{table}}_{{column}}: {bad_fks}")
+
+    if failures:
+        return [{
+            "evaluator": _FP_EVAL,
+            "result": "fail",
+            "evidence": "; ".join(failures),
+        }]
+    return [{
+        "evaluator": _FP_EVAL,
+        "result": "pass",
+        "evidence": f"schema has {len(tables)} tables, snake_case naming, "
+                    f"integrity constraints, timestamps present",
+    }]
+
+
+# ── Layered artifacts for multi-iteration ────────────────────────────────────
+
+# Attempt 1: Missing constraints and timestamps
+_SCHEMA_V1 = """\
+CREATE TABLE user_accounts (
+  id SERIAL
+);
+"""
+
+# Attempt 2: Has constraints but CamelCase naming violation
+_SCHEMA_V2 = """\
+CREATE TABLE UserAccounts (
+  id SERIAL PRIMARY KEY,
+  first_name VARCHAR(100) NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+"""
+
+# Attempt 3: Clean — snake_case, constraints, timestamps
+_SCHEMA_V3 = """\
+CREATE TABLE IF NOT EXISTS user_accounts (
+  id SERIAL PRIMARY KEY,
+  first_name VARCHAR(100) NOT NULL,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+"""
+
+
+# ── Real F_P judged convergence ──────────────────────────────────────────────
+
+@pytest.mark.e2e
+class TestRealFpConvergence:
+    """Release-evidence: multi-iteration convergence with a real deterministic judge.
+
+    Three iterations demonstrate iterative refinement:
+      1. No constraints or timestamps → judge rejects
+      2. CamelCase naming violation → judge rejects
+      3. Clean schema with all ADR requirements → judge accepts
+    """
+
+    def test_iterative_convergence(self, run_archive):
+        target = _setup(run_archive)
+        results = run_judged_lifecycle(
+            target,
+            edge_name=_EDGE,
+            fp_evaluator=_FP_EVAL,
+            artifact_path=_ARTIFACT_PATH,
+            artifacts=[_SCHEMA_V1, _SCHEMA_V2, _SCHEMA_V3],
+            judge=_judge_schema,
+            archive=run_archive,
+        )
+
+        # Iteration 1: fails (missing constraints + timestamps)
+        assert not results[0].passed, "iteration 1 must fail: no constraints/timestamps"
+        ev1 = results[0].assessments[0]["evidence"]
+        assert "constraint" in ev1.lower() or "timestamp" in ev1.lower()
+
+        # Iteration 2: fails (naming violation)
+        assert not results[1].passed, "iteration 2 must fail: CamelCase naming"
+        assert "snake_case" in results[1].assessments[0]["evidence"].lower()
+
+        # Iteration 3: passes
+        assert results[2].passed, (
+            f"iteration 3 must pass, got: {results[2].assessments}"
+        )
+        assert results[2].gaps_after["converged"] is True
+
+    def test_archive_explains_each_iteration(self, run_archive):
+        """Postmortem proof: each iteration's judge evidence is in the event log."""
+        target = _setup(run_archive)
+        results = run_judged_lifecycle(
+            target,
+            edge_name=_EDGE,
+            fp_evaluator=_FP_EVAL,
+            artifact_path=_ARTIFACT_PATH,
+            artifacts=[_SCHEMA_V1, _SCHEMA_V2, _SCHEMA_V3],
+            judge=_judge_schema,
+            archive=run_archive,
+        )
+
+        events = read_events(target)
+        assessed = [e for e in events if e["event_type"] == "assessed"]
+        assert len(assessed) >= 3
+
+        # Each has real evidence
+        for a in assessed:
+            assert len(a["data"]["evidence"]) > 0
+
+        # Distinct actors per iteration
+        actors = [a["data"]["actor"] for a in assessed]
+        assert len(set(actors)) == 3

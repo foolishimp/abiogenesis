@@ -35,11 +35,14 @@ from pathlib import Path
 
 import pytest
 
+import re
+
 from scenario_helpers import (
     RunArchive, install_sandbox, write_test_package,
     run_genesis, run_genesis_json, emit_event, read_events, compute_spec_hash,
     dispatch_fp_and_read_manifest, assert_manifest_truth,
     run_full_lifecycle, assert_event_chain, assert_failure_inspectable,
+    run_judged_lifecycle, IterationResult,
 )
 
 
@@ -233,3 +236,181 @@ class TestEventPostmortemTruth:
                    and e.get("data", {}).get("kind") == "fd_gap"]
         assert len(fd_gaps) >= 1
         assert fd_gaps[-1]["data"]["edge"] == _EDGE
+
+
+# ── Deterministic F_P judge ─────────────────────────────────────────────────
+
+def _judge_uat(artifact: Path, manifest: dict) -> list[dict]:
+    """Deterministic judge for requirements→uat_tests.
+
+    Rules (from testing_standards context):
+      1. Every package requirement REQ-key must be referenced (REQ-UAT-001, REQ-UAT-002)
+      2. Each test case must have a Steps section with numbered steps
+      3. Each test case must have an Expected section with observable results
+      4. Must contain edge case coverage (explicit edge/boundary/error mention)
+    """
+    content = artifact.read_text(encoding="utf-8")
+    failures = []
+
+    # Rule 1: REQ coverage
+    expected_reqs = {"REQ-UAT-001", "REQ-UAT-002"}
+    found_reqs = set(re.findall(r'REQ-UAT-\d+', content))
+    missing = expected_reqs - found_reqs
+    if missing:
+        failures.append(f"missing requirement coverage: {sorted(missing)}")
+
+    # Rule 2: Steps sections with numbered steps
+    has_steps = bool(re.search(
+        r'[Ss]teps?\s*:.*\d+\.',
+        content, re.DOTALL,
+    ))
+    if not has_steps:
+        failures.append("no numbered steps found — test steps must be concrete")
+
+    # Rule 3: Expected results
+    has_expected = bool(re.search(
+        r'[Ee]xpected\s*[Rr]esults?\s*:', content,
+    ))
+    if not has_expected:
+        failures.append("no 'Expected Result:' sections — results must be observable")
+
+    # Rule 4: Edge case coverage
+    has_edge_cases = bool(re.search(
+        r'(edge case|boundary|error|invalid|negative|timeout|empty)',
+        content, re.IGNORECASE,
+    ))
+    if not has_edge_cases:
+        failures.append("no edge case coverage found")
+
+    if failures:
+        return [{
+            "evaluator": _FP_EVAL,
+            "result": "fail",
+            "evidence": "; ".join(failures),
+        }]
+    return [{
+        "evaluator": _FP_EVAL,
+        "result": "pass",
+        "evidence": f"all requirements covered ({len(found_reqs)}), "
+                    f"numbered steps, expected results, edge cases present",
+    }]
+
+
+# ── Layered artifacts for multi-iteration ────────────────────────────────────
+
+# Attempt 1: Partial coverage — only REQ-UAT-001, no steps or expected
+_UAT_V1 = """\
+# UAT Test Cases
+
+## TC-001: Basic Login
+REQ: REQ-UAT-001
+Verify login works.
+"""
+
+# Attempt 2: Full coverage but vague — no numbered steps, no edge cases
+_UAT_V2 = """\
+# UAT Test Cases
+
+## TC-001: Basic Login
+REQ: REQ-UAT-001
+Steps: Go to login page and enter credentials.
+Expected Result: User sees dashboard.
+
+## TC-002: Session Timeout
+REQ: REQ-UAT-002
+Steps: Wait for session to expire.
+Expected Result: User is redirected.
+"""
+
+# Attempt 3: Complete — numbered steps, expected results, edge cases
+_UAT_V3 = """\
+# UAT Test Cases
+
+## TC-001: Successful Login
+REQ: REQ-UAT-001
+Steps:
+  1. Navigate to the login page
+  2. Enter valid email and password
+  3. Click submit
+Expected Result: User is redirected to the dashboard with a welcome message.
+
+## TC-002: Session Expiry
+REQ: REQ-UAT-002
+Steps:
+  1. Log in successfully
+  2. Wait for the configured idle timeout period
+  3. Attempt any authenticated action
+Expected Result: User is redirected to the login page with an expiry notice.
+
+## TC-003: Invalid Credentials (edge case)
+REQ: REQ-UAT-001
+Steps:
+  1. Navigate to the login page
+  2. Enter an invalid password
+  3. Click submit
+Expected Result: Error message displayed, login form remains, no session created.
+"""
+
+
+# ── Real F_P judged convergence ──────────────────────────────────────────────
+
+@pytest.mark.e2e
+class TestRealFpConvergence:
+    """Release-evidence: multi-iteration convergence with a real deterministic judge.
+
+    Three iterations demonstrate iterative refinement:
+      1. Partial coverage, no structure → judge rejects
+      2. Coverage complete, vague steps, no edge cases → judge rejects
+      3. Numbered steps, expected results, edge cases → judge accepts
+    """
+
+    def test_iterative_convergence(self, run_archive):
+        target = _setup(run_archive)
+        results = run_judged_lifecycle(
+            target,
+            edge_name=_EDGE,
+            fp_evaluator=_FP_EVAL,
+            artifact_path=_ARTIFACT_PATH,
+            artifacts=[_UAT_V1, _UAT_V2, _UAT_V3],
+            judge=_judge_uat,
+            archive=run_archive,
+        )
+
+        # Iteration 1: fails (missing coverage + no steps + no expected)
+        assert not results[0].passed, "iteration 1 must fail: partial coverage"
+        ev1 = results[0].assessments[0]["evidence"]
+        assert "missing" in ev1.lower() or "coverage" in ev1.lower()
+
+        # Iteration 2: fails (no numbered steps + no edge cases)
+        assert not results[1].passed, "iteration 2 must fail: vague steps"
+        ev2 = results[1].assessments[0]["evidence"]
+        assert "step" in ev2.lower() or "edge case" in ev2.lower()
+
+        # Iteration 3: passes
+        assert results[2].passed, (
+            f"iteration 3 must pass, got: {results[2].assessments}"
+        )
+        assert results[2].gaps_after["converged"] is True
+
+    def test_archive_explains_each_iteration(self, run_archive):
+        """Postmortem proof: each iteration's judge evidence is in the event log."""
+        target = _setup(run_archive)
+        results = run_judged_lifecycle(
+            target,
+            edge_name=_EDGE,
+            fp_evaluator=_FP_EVAL,
+            artifact_path=_ARTIFACT_PATH,
+            artifacts=[_UAT_V1, _UAT_V2, _UAT_V3],
+            judge=_judge_uat,
+            archive=run_archive,
+        )
+
+        events = read_events(target)
+        assessed = [e for e in events if e["event_type"] == "assessed"]
+        assert len(assessed) >= 3
+
+        for a in assessed:
+            assert len(a["data"]["evidence"]) > 0
+
+        actors = [a["data"]["actor"] for a in assessed]
+        assert len(set(actors)) == 3

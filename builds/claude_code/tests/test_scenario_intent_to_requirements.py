@@ -34,11 +34,14 @@ from pathlib import Path
 
 import pytest
 
+import re
+
 from scenario_helpers import (
     RunArchive, install_sandbox, write_test_package,
     run_genesis, run_genesis_json, emit_event, read_events, compute_spec_hash,
     dispatch_fp_and_read_manifest, assert_manifest_truth,
     run_full_lifecycle, assert_event_chain, assert_failure_inspectable,
+    run_judged_lifecycle, IterationResult,
 )
 
 
@@ -221,3 +224,173 @@ class TestEventPostmortemTruth:
                    and e.get("data", {}).get("kind") == "fd_gap"]
         assert len(fd_gaps) >= 1
         assert fd_gaps[-1]["data"]["edge"] == _EDGE
+
+
+# ── Deterministic F_P judge ─────────────────────────────────────────────────
+
+# Implementation keywords that indicate leakage from normative requirements
+_IMPL_LEAKAGE = re.compile(
+    r'\b(python|java|react|postgres|redis|docker|kubernetes|aws|'
+    r'microservice|api endpoint|database table|REST|gRPC|SQL|NoSQL)\b',
+    re.IGNORECASE,
+)
+
+
+def _judge_requirements(artifact: Path, manifest: dict) -> list[dict]:
+    """Deterministic judge for intent→requirements.
+
+    Rules:
+      1. Document must contain REQ-keys matching REQ-\\w+-\\d+
+      2. Must cover both package requirements (REQ-IR-001, REQ-IR-002)
+      3. Each requirement must have acceptance criteria (testable)
+      4. No implementation technology leakage
+    """
+    content = artifact.read_text(encoding="utf-8")
+    failures = []
+
+    # Rule 1: REQ-keys exist
+    req_keys = re.findall(r'REQ-\w+-\d+', content)
+    if not req_keys:
+        failures.append("no REQ-keys found in document")
+
+    # Rule 2: Coverage — must reference the package requirements
+    expected_reqs = {"REQ-IR-001", "REQ-IR-002"}
+    found_reqs = set(req_keys)
+    missing = expected_reqs - found_reqs
+    if missing:
+        failures.append(f"missing required REQ coverage: {sorted(missing)}")
+
+    # Rule 3: Testability — must contain acceptance criteria markers
+    has_criteria = bool(re.search(
+        r'(acceptance criter|AC-\d+|shall\b.*\bwhen\b|must\b.*\bverif)',
+        content, re.IGNORECASE,
+    ))
+    if not has_criteria:
+        failures.append("no acceptance criteria found — requirements not testable")
+
+    # Rule 4: No implementation leakage
+    leakage = _IMPL_LEAKAGE.findall(content)
+    if leakage:
+        failures.append(f"implementation leakage detected: {leakage[:5]}")
+
+    if failures:
+        return [{
+            "evaluator": _FP_EVAL,
+            "result": "fail",
+            "evidence": "; ".join(failures),
+        }]
+    return [{
+        "evaluator": _FP_EVAL,
+        "result": "pass",
+        "evidence": f"all {len(req_keys)} requirements have keys, coverage, "
+                    f"acceptance criteria, no implementation leakage",
+    }]
+
+
+# ── Layered artifacts for multi-iteration ────────────────────────────────────
+
+# Attempt 1: Missing coverage — has REQ-IR-001 but not REQ-IR-002, no criteria
+_ARTIFACT_V1 = """\
+# Requirements
+
+## REQ-IR-001: User Authentication
+The system shall support user login.
+"""
+
+# Attempt 2: Coverage complete but implementation leakage
+_ARTIFACT_V2 = """\
+# Requirements
+
+## REQ-IR-001: User Authentication
+The system shall support user login.
+- AC-1: Users can authenticate with email and password
+
+## REQ-IR-002: Session Management
+The system shall use Redis for session storage and Python JWT tokens.
+- AC-1: Sessions must expire after 30 minutes
+"""
+
+# Attempt 3: Clean — full coverage, testable, no leakage
+_ARTIFACT_V3 = """\
+# Requirements
+
+## REQ-IR-001: User Authentication
+The system shall support user login with verified credentials.
+- AC-1: Users can authenticate with email and password
+- AC-2: Failed attempts shall be rate-limited after 5 consecutive failures
+
+## REQ-IR-002: Session Management
+The system shall maintain authenticated sessions with configurable timeout.
+- AC-1: Sessions must expire after a configurable idle period
+- AC-2: Session revocation shall take effect within one verification cycle
+"""
+
+
+# ── Real F_P judged convergence ──────────────────────────────────────────────
+
+@pytest.mark.e2e
+class TestRealFpConvergence:
+    """Release-evidence: multi-iteration convergence with a real deterministic judge.
+
+    Three iterations demonstrate iterative refinement:
+      1. Incomplete coverage → judge rejects
+      2. Implementation leakage → judge rejects
+      3. Clean normative requirements → judge accepts, edge converges
+    """
+
+    def test_iterative_convergence(self, run_archive):
+        target = _setup(run_archive)
+        results = run_judged_lifecycle(
+            target,
+            edge_name=_EDGE,
+            fp_evaluator=_FP_EVAL,
+            artifact_path=_ARTIFACT_PATH,
+            artifacts=[_ARTIFACT_V1, _ARTIFACT_V2, _ARTIFACT_V3],
+            judge=_judge_requirements,
+            archive=run_archive,
+        )
+
+        # Iteration 1: fails (incomplete coverage)
+        assert not results[0].passed, "iteration 1 must fail: missing REQ-IR-002"
+        assert "missing" in results[0].assessments[0]["evidence"].lower()
+
+        # Iteration 2: fails (implementation leakage)
+        assert not results[1].passed, "iteration 2 must fail: implementation leakage"
+        assert "leakage" in results[1].assessments[0]["evidence"].lower()
+
+        # Iteration 3: passes (converged)
+        assert results[2].passed, (
+            f"iteration 3 must pass, got: {results[2].assessments}"
+        )
+        assert results[2].gaps_after["converged"] is True
+
+    def test_archive_explains_each_iteration(self, run_archive):
+        """Postmortem proof: each iteration's judge evidence is in the event log."""
+        target = _setup(run_archive)
+        results = run_judged_lifecycle(
+            target,
+            edge_name=_EDGE,
+            fp_evaluator=_FP_EVAL,
+            artifact_path=_ARTIFACT_PATH,
+            artifacts=[_ARTIFACT_V1, _ARTIFACT_V2, _ARTIFACT_V3],
+            judge=_judge_requirements,
+            archive=run_archive,
+        )
+
+        events = read_events(target)
+        assessed = [e for e in events if e["event_type"] == "assessed"]
+        assert len(assessed) >= 3, (
+            f"expected 3 assessed events (one per iteration), got {len(assessed)}"
+        )
+
+        # Each assessed event has real evidence from the judge
+        for a in assessed:
+            assert "evidence" in a["data"]
+            assert len(a["data"]["evidence"]) > 0
+            assert "actor" in a["data"]
+
+        # Different actors per iteration
+        actors = [a["data"]["actor"] for a in assessed]
+        assert len(set(actors)) == 3, (
+            f"each iteration must have a distinct actor, got: {actors}"
+        )

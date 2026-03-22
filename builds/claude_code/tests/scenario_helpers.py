@@ -615,6 +615,160 @@ def run_full_lifecycle(
     assert after["converged"] is True
 
 
+# ── Judged lifecycle — real F_P semantic testing ─────────────────────────────
+
+# Judge callable signature:
+#   judge(artifact: Path, manifest: dict) -> list[dict]
+# Each dict: {"evaluator": str, "result": "pass"|"fail", "evidence": str}
+# The judge inspects the actual produced artifact against domain rules.
+# It does NOT simulate — it really checks.
+
+from typing import Callable
+
+JudgeFn = Callable[[Path, dict], list[dict]]
+
+
+@dataclass
+class IterationResult:
+    """One iterate → judge → assess cycle."""
+    iteration: int
+    artifact_path: str
+    manifest_id: str
+    assessments: list[dict]
+    passed: bool
+    gaps_after: dict
+
+
+def run_judged_iteration(
+    target: Path,
+    *,
+    artifact_path: str,
+    artifact_content: str,
+    edge_name: str,
+    judge: JudgeFn,
+    archive: Optional[RunArchive] = None,
+    iteration: int = 1,
+) -> IterationResult:
+    """Single iterate → judge → assess cycle with a real deterministic judge.
+
+    1. Write/overwrite artifact (simulates the F_P actor producing output)
+    2. Run iterate to get the manifest
+    3. Pass the artifact and manifest to the judge
+    4. Write judge assessments via result_path protocol
+    5. Ingest via assess-result
+    6. Read gaps to see if converged
+
+    Returns IterationResult with full detail for archive inspection.
+    """
+    label_prefix = f"iter-{iteration}"
+
+    # 1. Write artifact
+    art = target / artifact_path
+    art.parent.mkdir(parents=True, exist_ok=True)
+    art.write_text(artifact_content, encoding="utf-8")
+
+    # 2. Iterate → manifest
+    iter_result = run_genesis(
+        target, "iterate", archive=archive,
+        label=f"{label_prefix} iterate",
+    )
+    assert iter_result.returncode == 0, (
+        f"iterate failed on iteration {iteration} (exit {iter_result.returncode}):\n"
+        f"{iter_result.stderr}"
+    )
+    iter_data = json.loads(iter_result.stdout)
+    assert "fp_manifest_path" in iter_data, (
+        f"iterate must produce fp_manifest_path on iteration {iteration}"
+    )
+    manifest_path = Path(iter_data["fp_manifest_path"])
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest_id = manifest_path.stem
+
+    # 3. Judge: real inspection of the artifact
+    assessments = judge(art, manifest)
+    assert len(assessments) > 0, "judge must return at least one assessment"
+    for a in assessments:
+        assert "evaluator" in a and "result" in a and "evidence" in a, (
+            f"judge assessment missing required fields: {a}"
+        )
+
+    # 4. Write result via protocol
+    result_file = write_fp_result(
+        target, manifest_id, edge_name, assessments,
+        actor=f"judge_iter{iteration}",
+    )
+
+    # 5. Ingest
+    r = assess_result(target, result_file, archive=archive)
+    assert r.returncode == 0, (
+        f"assess-result failed on iteration {iteration}:\n{r.stderr}"
+    )
+
+    # 6. Gaps
+    gaps = run_genesis_json(
+        target, "gaps", archive=archive,
+        label=f"{label_prefix} gaps",
+    )
+    passed = all(a["result"] == "pass" for a in assessments)
+
+    return IterationResult(
+        iteration=iteration,
+        artifact_path=artifact_path,
+        manifest_id=manifest_id,
+        assessments=assessments,
+        passed=passed,
+        gaps_after=gaps,
+    )
+
+
+def run_judged_lifecycle(
+    target: Path,
+    *,
+    edge_name: str,
+    fp_evaluator: str,
+    artifact_path: str,
+    artifacts: list[str],
+    judge: JudgeFn,
+    archive: Optional[RunArchive] = None,
+) -> list[IterationResult]:
+    """Multi-iteration lifecycle with a real deterministic judge.
+
+    Each entry in `artifacts` is the artifact content for one iteration.
+    The judge inspects each produced artifact and returns real assessments.
+    Earlier iterations should fail; the final iteration should converge.
+
+    Returns the full list of IterationResults for archive/postmortem.
+    """
+    assert len(artifacts) >= 1, "need at least one artifact to iterate"
+
+    # Pre-condition: gap exists
+    before = run_genesis_json(target, "gaps", archive=archive, label="pre-check gaps")
+    assert before["converged"] is False
+    assert before["total_delta"] > 0
+
+    # F_D: create initial artifact so F_D passes (use first artifact)
+    art = target / artifact_path
+    art.parent.mkdir(parents=True, exist_ok=True)
+    art.write_text(artifacts[0], encoding="utf-8")
+
+    results: list[IterationResult] = []
+    for i, content in enumerate(artifacts, start=1):
+        r = run_judged_iteration(
+            target,
+            artifact_path=artifact_path,
+            artifact_content=content,
+            edge_name=edge_name,
+            judge=judge,
+            archive=archive,
+            iteration=i,
+        )
+        results.append(r)
+        if r.gaps_after.get("converged"):
+            break
+
+    return results
+
+
 # ── Event chain / postmortem assertions ──────────────────────────────────────
 
 def assert_event_chain(
