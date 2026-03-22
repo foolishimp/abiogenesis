@@ -179,7 +179,12 @@ The explicit scope for every command invocation.
 | `worker` | `Worker?` | `null` | yes |
 | `workflow_version` | `string` | `"unknown"` | **no** — set at construction |
 
-`workflow_version` is populated from `.genesis/active-workflow.json` at construction, never from the caller. Format: `"{workflow}@{version}"`. Returns `"unknown"` on any error.
+`workflow_version` is populated at construction via 3-tier discovery, never from the caller:
+1. Explicit `active_workflow_path` from `genesis.yml` (if configured)
+2. `.ai-workspace/runtime/active-workflow.json` (preferred mutable location)
+3. `.genesis/active-workflow.json` (legacy fallback)
+
+Format: `"{workflow}@{version}"`. Returns `"unknown"` on any error.
 
 ### 2.4 PrecomputedManifest
 
@@ -241,7 +246,8 @@ EventStream ◀── append() ──▶ event log (backend-specific)
 ContextResolver ──load()──▶ Context ──digest──▶ content verification
 
 Scope ──references──▶ Package, Worker
-      ──reads──▶ .genesis/active-workflow.json → workflow_version
+      ──reads──▶ active-workflow.json → workflow_version
+                 (3-tier: genesis.yml path → .ai-workspace/runtime/ → .genesis/ fallback)
 
 PrecomputedManifest ◀── bind_fd() ── Job + EventStream + ContextResolver
 BoundJob ◀── bind_fp() ── PrecomputedManifest

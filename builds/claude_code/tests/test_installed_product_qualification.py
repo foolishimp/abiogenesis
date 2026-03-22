@@ -791,8 +791,9 @@ class TestStateIntegrity:
         _write_test_package(tmp_path, _MINIMAL_PACKAGE)
 
         # Enable provenance so engine uses job_evaluator_hash
-        awj = tmp_path / ".genesis" / "active-workflow.json"
-        awj.write_text(json.dumps({
+        runtime = tmp_path / ".ai-workspace" / "runtime"
+        runtime.mkdir(parents=True, exist_ok=True)
+        (runtime / "active-workflow.json").write_text(json.dumps({
             "workflow": "test_workflow",
             "version": "1.0.0",
         }))
@@ -1027,9 +1028,12 @@ class TestInstalledProvenance:
 
     def _enable_provenance(self, target: Path, workflow: str = "test_wf",
                            version: str = "1.0.0") -> None:
-        """Install active-workflow.json to activate provenance-aware spec_hash."""
-        awj = target / ".genesis" / "active-workflow.json"
-        awj.write_text(json.dumps({"workflow": workflow, "version": version}))
+        """Install active-workflow.json to .ai-workspace/runtime/ (mutable state)."""
+        runtime = target / ".ai-workspace" / "runtime"
+        runtime.mkdir(parents=True, exist_ok=True)
+        (runtime / "active-workflow.json").write_text(
+            json.dumps({"workflow": workflow, "version": version})
+        )
 
     def test_pq601_workflow_version_mismatch_blocks_approval(self, tmp_path):
         """PQ-601: Approval from one workflow_version does not satisfy another."""

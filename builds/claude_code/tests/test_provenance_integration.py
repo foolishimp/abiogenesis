@@ -45,10 +45,10 @@ from genesis.commands import Scope, gen_gaps
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
 def _write_active_workflow(workspace: Path, workflow: str, version: str) -> None:
-    """Write .genesis/active-workflow.json."""
-    genesis_dir = workspace / ".genesis"
-    genesis_dir.mkdir(parents=True, exist_ok=True)
-    (genesis_dir / "active-workflow.json").write_text(
+    """Write active-workflow.json to .ai-workspace/runtime/ (mutable state)."""
+    runtime_dir = workspace / ".ai-workspace" / "runtime"
+    runtime_dir.mkdir(parents=True, exist_ok=True)
+    (runtime_dir / "active-workflow.json").write_text(
         json.dumps({"workflow": workflow, "version": version})
     )
 

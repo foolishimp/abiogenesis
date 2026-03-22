@@ -396,10 +396,14 @@ Otherwise: all edge contexts loaded (F_D and F_H don't need prompt context)
 ## 10. Workflow Version Resolution
 
 ```
-read_workflow_version(workspace) → string
+read_workflow_version(workspace, active_workflow_path?) → string
 
-  Read: {workspace}/.genesis/active-workflow.json
-    { "workflow": "genesis_sdlc.standard", "version": "0.3.0" }
+  3-tier discovery:
+    1. If active_workflow_path set: {workspace}/{active_workflow_path}
+    2. {workspace}/.ai-workspace/runtime/active-workflow.json
+    3. {workspace}/.genesis/active-workflow.json  (legacy fallback)
+
+  File format: { "workflow": "genesis_sdlc.standard", "version": "0.3.0" }
   Success → "genesis_sdlc.standard@0.3.0"
   Any failure → "unknown"
 ```
@@ -411,7 +415,8 @@ read_carry_forward(scope) → list[{edge, from_version}]
 
   Parse workflow_version: "{pkg}.{variant}@{version}"
   Version dir: "v" + version with dots replaced by underscores
-  Path: {workspace}/.genesis/workflows/{pkg}/{variant}/{version_dir}/manifest.json
+  Path: {workflow_root}/{pkg}/{variant}/{version_dir}/manifest.json
+        (workflow_root defaults to {workspace}/.genesis/workflows)
   Read: data.approved_carry_forward (must be a list)
   Any failure → []
 ```

@@ -366,7 +366,7 @@ Property-based tests verify structural invariants that must hold regardless of e
 The engine tracks which workflow version is active for provenance binding.
 
 **Acceptance Criteria**:
-- AC-1: Reads `.genesis/active-workflow.json` at Scope construction
+- AC-1: Reads `active-workflow.json` at Scope construction via 3-tier discovery: (1) explicit `active_workflow_path` from genesis.yml, (2) `.ai-workspace/runtime/active-workflow.json`, (3) `.genesis/active-workflow.json` (legacy fallback)
 - AC-2: Returns `"{workflow}@{version}"` when file is valid (e.g., `"genesis_sdlc.standard@0.3.0"`)
 - AC-3: Returns `"unknown"` on any failure (missing file, invalid JSON, non-string values)
 - AC-4: Engine never fails to start due to this file's state
@@ -396,7 +396,7 @@ Spec hash computation is version-aware.
 When a workflow version changes, explicitly listed approvals carry forward without re-approval.
 
 **Acceptance Criteria**:
-- AC-1: Carry-forward list read from `.genesis/workflows/{pkg}/{variant}/{version_dir}/manifest.json`
+- AC-1: Carry-forward list read from `{workflow_root}/{pkg}/{variant}/{version_dir}/manifest.json` (workflow_root defaults to `.genesis/workflows`, configurable via genesis.yml)
 - AC-2: Each entry specifies `{edge, from_version}` — the approval from `from_version` is accepted under the current version
 - AC-3: Revocations are scoped by workflow_version — a revocation from one version cannot cancel approvals from another
 - AC-4: When `workflow_version == "unknown"`: no carry-forward (approvals match by edge alone)

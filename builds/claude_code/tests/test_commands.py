@@ -487,33 +487,33 @@ class TestReadWorkflowVersion:
         assert _read_workflow_version(tmp_path) == "unknown"
 
     def test_returns_formatted_string_when_valid(self, tmp_path):
-        active = tmp_path / ".genesis"
-        active.mkdir(parents=True)
-        (active / "active-workflow.json").write_text(
+        runtime = tmp_path / ".ai-workspace" / "runtime"
+        runtime.mkdir(parents=True)
+        (runtime / "active-workflow.json").write_text(
             json.dumps({"workflow": "genesis_sdlc.standard", "version": "0.2.1"}),
             encoding="utf-8",
         )
         assert _read_workflow_version(tmp_path) == "genesis_sdlc.standard@0.2.1"
 
     def test_returns_unknown_on_invalid_json(self, tmp_path):
-        active = tmp_path / ".genesis"
-        active.mkdir(parents=True)
-        (active / "active-workflow.json").write_text("not json", encoding="utf-8")
+        runtime = tmp_path / ".ai-workspace" / "runtime"
+        runtime.mkdir(parents=True)
+        (runtime / "active-workflow.json").write_text("not json", encoding="utf-8")
         assert _read_workflow_version(tmp_path) == "unknown"
 
     def test_returns_unknown_when_keys_missing(self, tmp_path):
-        active = tmp_path / ".genesis"
-        active.mkdir(parents=True)
-        (active / "active-workflow.json").write_text(
+        runtime = tmp_path / ".ai-workspace" / "runtime"
+        runtime.mkdir(parents=True)
+        (runtime / "active-workflow.json").write_text(
             json.dumps({"workflow": "genesis_sdlc.standard"}),  # no "version"
             encoding="utf-8",
         )
         assert _read_workflow_version(tmp_path) == "unknown"
 
     def test_returns_unknown_when_values_not_strings(self, tmp_path):
-        active = tmp_path / ".genesis"
-        active.mkdir(parents=True)
-        (active / "active-workflow.json").write_text(
+        runtime = tmp_path / ".ai-workspace" / "runtime"
+        runtime.mkdir(parents=True)
+        (runtime / "active-workflow.json").write_text(
             json.dumps({"workflow": "genesis_sdlc.standard", "version": 123}),
             encoding="utf-8",
         )
@@ -598,8 +598,8 @@ class TestRuntimeContractPaths:
         result = _read_workflow_version(tmp_path, ".gsdlc/release/active-workflow.json")
         assert result == "genesis_sdlc.standard@1.0.0b1"
 
-    def test_read_workflow_version_fallback_when_no_config(self, tmp_path):
-        """Without active_workflow_path, falls back to .genesis/."""
+    def test_read_workflow_version_fallback_to_genesis(self, tmp_path):
+        """Without .ai-workspace/runtime/ or active_workflow_path, falls back to .genesis/ (legacy)."""
         genesis_dir = tmp_path / ".genesis"
         genesis_dir.mkdir(parents=True)
         (genesis_dir / "active-workflow.json").write_text(
@@ -672,9 +672,9 @@ class TestWorkflowVersionAnnotation:
     """REQ-F-PROV-002: engine-emitted events carry workflow_version."""
 
     def _install_active_workflow(self, tmp_path: Path, version: str = "0.2.1") -> None:
-        genesis_dir = tmp_path / ".genesis"
-        genesis_dir.mkdir(parents=True, exist_ok=True)
-        (genesis_dir / "active-workflow.json").write_text(
+        runtime = tmp_path / ".ai-workspace" / "runtime"
+        runtime.mkdir(parents=True, exist_ok=True)
+        (runtime / "active-workflow.json").write_text(
             json.dumps({"workflow": "genesis_sdlc.standard", "version": version}),
             encoding="utf-8",
         )
