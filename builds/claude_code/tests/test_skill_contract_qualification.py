@@ -93,13 +93,13 @@ def _emit_event(target: Path, event_type: str, data: dict) -> subprocess.Complet
 def _write_test_package(target: Path, package_code: str) -> None:
     """Write a test domain package and bind genesis.yml to it.
 
-    The kernel installer seeds genesis_core as the default package.
-    Tests define their own domain package — same pattern as GSDLC consuming ABG.
+    The kernel installer seeds genesis.yml without a default binding.
+    Tests define their own domain package — same pattern as a domain installer consuming ABG.
     """
     pkg_dir = target / ".genesis" / "gtl_spec" / "packages"
     pkg_dir.mkdir(parents=True, exist_ok=True)
     (pkg_dir / "test_pkg.py").write_text(package_code)
-    # Bind genesis.yml to the test package (kernel default is genesis_core)
+    # Bind genesis.yml to the test package
     (target / ".genesis" / "genesis.yml").write_text(
         "package: gtl_spec.packages.test_pkg:package\n"
         "worker:  gtl_spec.packages.test_pkg:worker\n"
@@ -250,6 +250,8 @@ class TestBootloaderInjection:
     def test_sc003_genesis_yml_skill_fields(self, tmp_path):
         """SC-003: genesis.yml contains package/worker refs the skill needs."""
         _install_sandbox(tmp_path)
+        # Domain installer binds package/worker — kernel default has none
+        _write_test_package(tmp_path, _MINIMAL_PACKAGE)
         yml_path = tmp_path / ".genesis" / "genesis.yml"
         assert yml_path.exists(), ".genesis/genesis.yml must exist"
         import yaml

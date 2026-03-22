@@ -15,16 +15,15 @@ Usage:
     python gen-install.py --target . --platform java          # non-Python build
 
 What it installs (kernel only — domain packages own everything else):
-    .genesis/genesis/           ← the engine modules
+    .genesis/genesis/           ← the engine modules (8 files including fp_dispatch)
     .genesis/gtl/               ← the GTL type system (vendored, self-contained)
-    .genesis/gtl_spec/          ← the GTL spec package (genesis_core.py + __init__)
-    .genesis/gtl_spec/GTL_BOOTLOADER.md
-    .genesis/genesis.yml        ← runtime binding (package/worker refs, no pythonpath)
+    .genesis/genesis.yml        ← bootstrap config (no default binding)
+    .mcp.json                   ← MCP server declaration for F_P dispatch (ADR-020)
     CLAUDE.md                   ← GTL bootloader appended (if not already present)
 
 The .genesis/genesis/ and .genesis/gtl/ directories are always replaced (idempotent reinstall).
-Domain installers (e.g. genesis_sdlc) own: builds/ scaffolding, .gsdlc/release/,
-pythonpath in genesis.yml, and the project wrapper.
+Domain installers own: package/worker binding in genesis.yml, builds/ scaffolding,
+their own spec packages, and the runtime contract.
 """
 from __future__ import annotations
 
@@ -36,7 +35,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-VERSION = "1.0.0-beta"
+VERSION = "1.0.0"
 
 # CLAUDE.md markers for idempotent GTL bootloader injection
 _GTL_BOOTLOADER_START = "<!-- GTL_BOOTLOADER_START -->"
@@ -53,7 +52,21 @@ ENGINE_MODULES = [
     "manifest.py",
     "schedule.py",
     "commands.py",
+    "fp_dispatch.py",
 ]
+
+# MCP server declaration — installed at project root for Claude Code to discover.
+# This is the F_P dispatch transport (ADR-020). Without it, the engine can detect
+# gaps and produce manifests, but cannot dispatch work to an LLM agent.
+MCP_CONFIG = {
+    "mcpServers": {
+        "claude-code-runner": {
+            "type": "stdio",
+            "command": "npx",
+            "args": ["@steipete/claude-code-mcp"],
+        }
+    }
+}
 
 # GTL type system modules (relative to abiogenesis project root / gtl/)
 GTL_MODULES = [
@@ -61,14 +74,11 @@ GTL_MODULES = [
     "core.py",
 ]
 
-# Spec files to install (relative to builds/claude_code/code/)
-# Installed under target/.genesis/gtl_spec/
-SPEC_FILES = [
-    "gtl_spec/__init__.py",
-    "gtl_spec/packages/__init__.py",
-    "gtl_spec/packages/genesis_core.py",
-    "gtl_spec/GTL_BOOTLOADER.md",
-]
+# GTL bootloader source — injected into CLAUDE.md at install time.
+# Not installed as a file — the bootloader lives in CLAUDE.md after install.
+# Domain packages own their own directory structure; the kernel does not
+# scaffold gtl_spec/ in the target.
+_BOOTLOADER_FILE = "gtl_spec/GTL_BOOTLOADER.md"
 
 
 def _source_root() -> Path:
@@ -102,7 +112,6 @@ def install(target: Path, *, verify_only: bool = False,
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "engine_files": [],
         "gtl_files": [],
-        "spec_files": [],
         "config_file": None,
         "errors": [],
     }
@@ -142,36 +151,24 @@ def install(target: Path, *, verify_only: bool = False,
     else:
         result["gtl_files"] = list(GTL_MODULES)
 
-    # ── Install spec under .genesis/ ─────────────────────────────────────────
-    code_root = _code_root()
-    for rel in SPEC_FILES:
-        src = code_root / rel
-        dst = target / ".genesis" / rel
-        if not src.exists():
-            result["errors"].append(f"Missing spec file: {src}")
-            continue
-        if src.resolve() == dst.resolve():
-            # Installing into the source project itself — spec already in place
-            result["spec_files"].append(rel)
-            continue
-        dst.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(src, dst)
-        result["spec_files"].append(rel)
-
     # ── Write .genesis/genesis.yml (kernel default only) ──────────────────────
     # On first install: seed a minimal kernel default (genesis_core binding).
-    # On reinstall: do not touch — the domain contract at .gsdlc/release/genesis.yml
-    # takes precedence when present, and the kernel default is a compatibility fallback.
+    # On reinstall: do not touch — domain installers update this file to set
+    # domain_config, package, worker, pythonpath as needed.
     # ABG does not own package/worker/pythonpath — those are domain-installer artifacts.
     config_path = target / ".genesis" / "genesis.yml"
 
     if not config_path.exists():
         config_text = (
-            f"# Genesis kernel default — written by gen-install.py\n"
-            f"# Domain installers write the authoritative contract to\n"
-            f"# .gsdlc/release/genesis.yml which takes precedence.\n"
-            f"package: gtl_spec.packages.genesis_core:package\n"
-            f"worker:  gtl_spec.packages.genesis_core:worker\n"
+            f"# Genesis kernel default — written by gen-install.py v{VERSION}\n"
+            f"#\n"
+            f"# This file is the engine's bootstrap config. Domain installers\n"
+            f"# set package, worker, and runtime_contract when they install.\n"
+            f"# Without a domain package, the engine has no graph to iterate.\n"
+            f"#\n"
+            f"# runtime_contract: path/to/domain/genesis.yml\n"
+            f"# package: your_domain.package:package\n"
+            f"# worker:  your_domain.package:worker\n"
         )
         config_path.write_text(config_text, encoding="utf-8")
     result["config_file"] = ".genesis/genesis.yml"
@@ -187,6 +184,9 @@ def install(target: Path, *, verify_only: bool = False,
         result.setdefault("migrations", []).append(
             "active-workflow.json: .genesis/ → .ai-workspace/runtime/"
         )
+
+    # ── Install .mcp.json (MCP transport declaration, ADR-020) ─────────────
+    result["mcp"] = _install_mcp_config(target)
 
     # ── Append GTL bootloader to CLAUDE.md ───────────────────────────────────
     result["claude_md"] = install_claude_md(target)
@@ -213,24 +213,103 @@ def _verify(target: Path, result: dict, platform: str = "python") -> dict:
         if not (gtl_dir / module).exists():
             missing_gtl.append(module)
 
-    missing_spec = []
-    for rel in SPEC_FILES:
-        if not (target / ".genesis" / rel).exists():
-            missing_spec.append(rel)
-
     config_present = (target / ".genesis" / "genesis.yml").exists()
+    mcp_present = (target / ".mcp.json").exists()
 
     result["missing_engine"] = missing_engine
     result["missing_gtl"] = missing_gtl
-    result["missing_spec"] = missing_spec
     result["config_present"] = config_present
+    result["mcp_present"] = mcp_present
+    result["mcp_prerequisites"] = _check_mcp_prerequisites()
+
     result["status"] = (
         "ok"
-        if not missing_engine and not missing_gtl and not missing_spec
-        and config_present
+        if not missing_engine and not missing_gtl
+        and config_present and mcp_present
         else "incomplete"
     )
     return result
+
+
+def _install_mcp_config(target: Path) -> dict:
+    """Install or update .mcp.json with the claude-code-runner MCP server.
+
+    The .mcp.json file declares MCP servers for Claude Code to discover.
+    Without it, F_P dispatch cannot work — the engine can detect gaps and
+    produce manifests but has no transport to dispatch work to an LLM agent.
+
+    Idempotent: merges into existing .mcp.json if present, preserving other
+    servers the project may have configured.
+    """
+    mcp_path = target / ".mcp.json"
+    status = {"file": ".mcp.json"}
+
+    if mcp_path.exists():
+        try:
+            existing = json.loads(mcp_path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            existing = {}
+    else:
+        existing = {}
+
+    servers = existing.setdefault("mcpServers", {})
+    if "claude-code-runner" in servers:
+        status["action"] = "already_present"
+    else:
+        servers["claude-code-runner"] = MCP_CONFIG["mcpServers"]["claude-code-runner"]
+        mcp_path.write_text(json.dumps(existing, indent=2) + "\n", encoding="utf-8")
+        status["action"] = "installed"
+
+    # Check MCP prerequisites
+    status["prerequisites"] = _check_mcp_prerequisites()
+    return status
+
+
+def _check_mcp_prerequisites() -> dict:
+    """Check that MCP transport prerequisites are available.
+
+    Returns a dict with availability flags and any warnings.
+    """
+    import subprocess as sp
+
+    prereqs: dict = {"npx": False, "claude_code_mcp": False, "mcp_sdk": False, "warnings": []}
+
+    # Check npx (Node.js)
+    try:
+        sp.run(["npx", "--version"], capture_output=True, text=True, timeout=10)
+        prereqs["npx"] = True
+    except (FileNotFoundError, sp.TimeoutExpired):
+        prereqs["warnings"].append(
+            "npx not found — install Node.js (https://nodejs.org/). "
+            "Required for F_P dispatch via @steipete/claude-code-mcp."
+        )
+
+    # Check @steipete/claude-code-mcp
+    if prereqs["npx"]:
+        try:
+            sp.run(
+                ["npx", "@steipete/claude-code-mcp", "--help"],
+                capture_output=True, text=True, timeout=15,
+            )
+            prereqs["claude_code_mcp"] = True
+        except (FileNotFoundError, sp.TimeoutExpired):
+            prereqs["warnings"].append(
+                "@steipete/claude-code-mcp not found. "
+                "Install with: npm install -g @steipete/claude-code-mcp"
+            )
+
+    # Check Python mcp SDK
+    try:
+        import mcp  # noqa: F401
+        prereqs["mcp_sdk"] = True
+    except ImportError:
+        prereqs["warnings"].append(
+            "Python mcp SDK not found. "
+            "Install with: pip install 'mcp>=1.17.0'"
+        )
+
+    prereqs["ready"] = all([prereqs["npx"], prereqs["claude_code_mcp"], prereqs["mcp_sdk"]])
+    return prereqs
 
 
 def install_claude_md(target: Path) -> str:
@@ -295,7 +374,7 @@ def _emit_install_event(target: Path, install_result: dict) -> None:
         "data": {
             "version": VERSION,
             "engine_files": install_result["engine_files"],
-            "spec_files": install_result["spec_files"],
+            "gtl_files": install_result["gtl_files"],
             "target": install_result["target"],
         },
     }

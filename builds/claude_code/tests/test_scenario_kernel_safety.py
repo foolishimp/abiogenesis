@@ -136,7 +136,8 @@ class TestInstallTruth:
 
         assert (target / ".genesis" / "genesis").is_dir(), "Engine modules missing"
         assert (target / ".genesis" / "gtl").is_dir(), "GTL type system missing"
-        assert (target / ".genesis" / "gtl_spec").is_dir(), "Spec package missing"
+        assert not (target / ".genesis" / "gtl_spec").is_dir(), \
+            "Kernel must not create gtl_spec/ — domain installers own package structure"
         assert (target / ".genesis" / "genesis.yml").is_file(), "Runtime config missing"
         assert (target / ".ai-workspace" / "events" / "events.jsonl").is_file(), \
             "Event log missing"
@@ -147,8 +148,11 @@ class TestInstallTruth:
             "Kernel install must not create builds/"
 
         genesis_yml = (target / ".genesis" / "genesis.yml").read_text()
-        assert "genesis_core" in genesis_yml, \
-            "Kernel default must reference genesis_core"
+        # Kernel default must not bind to any package — domain installer does that
+        for line in genesis_yml.splitlines():
+            stripped = line.strip()
+            if stripped and not stripped.startswith("#"):
+                assert False, f"Kernel default should be all comments, found: {line!r}"
 
         events = read_events(target)
         install_events = [e for e in events if e["event_type"] == "genesis_installed"]

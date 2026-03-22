@@ -113,17 +113,27 @@ def _has_mcp_transport() -> bool:
 
 ## Implementation in abiogenesis
 
-### Live F_P qualification (`scenario_helpers.py`)
+### Single transport module: `genesis/fp_dispatch.py`
 
-`invoke_live_fp()` uses `_call_claude_code_mcp()` to send the manifest prompt via MCP. The actor receives exactly what production guarantees — no hidden side channels.
+The MCP transport is implemented once in `genesis/fp_dispatch.py` — part of the installed engine. Both the engine runtime (`__main__.py`) and the test harness (`scenario_helpers.py`) import from the same module. This guarantees that tests prove the production code path.
 
-Validated: both UAT and schema smoke tests pass via MCP transport (2026-03-22).
+- `has_mcp_transport()` — detects if `@steipete/claude-code-mcp` is available
+- `call_claude_code_mcp(prompt, work_folder)` — invokes the `claude_code` MCP tool
+
+### Installer: `gen-install.py`
+
+The installer:
+- Copies `fp_dispatch.py` into `.genesis/genesis/` alongside the other engine modules
+- Creates `.mcp.json` at the project root (declares the `claude-code-runner` MCP server)
+- Checks MCP prerequisites (npx, `@steipete/claude-code-mcp`, `mcp` Python SDK) and reports warnings
 
 ### Dependencies
 
-- `mcp` Python SDK (pip, v1.17.0+)
-- `@steipete/claude-code-mcp` (npm, v1.10.12+)
+- `mcp` Python SDK (pip, v1.17.0+) — declared in `pyproject.toml`
+- `@steipete/claude-code-mcp` (npm, v1.10.12+) — declared in `.mcp.json`
 - `claude` CLI on PATH
+
+Validated: both UAT and schema live F_P tests pass via MCP transport (2026-03-22, 20/20).
 
 ---
 

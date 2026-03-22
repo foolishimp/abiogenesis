@@ -74,7 +74,7 @@ def _read_carry_forward(scope: "Scope") -> list[dict]:
     Read approved_carry_forward from the variant manifest.json.
 
     Path: {workflow_root}/{pkg}/{variant}/{version}/manifest.json
-    where workflow "genesis_sdlc.standard@0.2.0" → pkg="genesis_sdlc",
+    where workflow "my_domain.standard@0.2.0" → pkg="my_domain",
     variant="standard", version="0.2.0".
 
     When scope.workflow_root is set (from genesis.yml runtime contract), it is

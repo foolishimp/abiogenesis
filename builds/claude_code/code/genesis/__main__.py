@@ -113,7 +113,7 @@ def _build_parser() -> argparse.ArgumentParser:
     src.add_argument("--spec",
                      help="Path to spec file to grep for REQ-* keys (legacy)")
     src.add_argument("--package", metavar="MODULE:VAR",
-                     help="Import path to a Package object, e.g. gtl_spec.packages.genesis_core:genesis_v1")
+                     help="Import path to a Package object, e.g. my_domain.spec:my_package")
     p_cov.add_argument("--features", required=True,
                        help="Directory containing feature vector YAML files")
 
@@ -644,21 +644,27 @@ def _load_project_config(workspace: Path) -> dict:
     """
     Load the project runtime contract.
 
-    Discovery chain (first file found wins):
-      1. .gsdlc/release/genesis.yml   — domain installer contract (authoritative)
-      2. .genesis/genesis.yml          — kernel default (compatibility fallback)
+    Single entry point: .genesis/genesis.yml (written by ABG kernel installer).
+    If the config contains a `runtime_contract` key, that path is read as the
+    authoritative override (domain installer sets this when it installs).
 
-    Domain installers (e.g. gsdlc) write the full contract to .gsdlc/release/.
-    ABG kernel seeds a minimal default in .genesis/ on first install.
-    The domain contract takes precedence when both exist.
+    Discovery chain:
+      1. Read .genesis/genesis.yml
+      2. If it contains runtime_contract: <path>, read that file instead
+      3. Otherwise use the kernel config as-is
+
+    The kernel never hardcodes domain-specific paths. Domain installers
+    set runtime_contract in .genesis/genesis.yml to point to their own contract.
     """
-    # Authoritative: domain installer contract
-    domain_config = workspace / ".gsdlc" / "release" / "genesis.yml"
-    if domain_config.exists():
-        return _parse_yaml_config(domain_config)
+    kernel_config = _parse_yaml_config(workspace / ".genesis" / "genesis.yml")
 
-    # Fallback: kernel default
-    return _parse_yaml_config(workspace / ".genesis" / "genesis.yml")
+    contract_ref = kernel_config.get("runtime_contract")
+    if contract_ref:
+        contract_path = (workspace / contract_ref).resolve()
+        if contract_path.exists():
+            return _parse_yaml_config(contract_path)
+
+    return kernel_config
 
 
 def _import_symbol(ref: str, workspace: Path):

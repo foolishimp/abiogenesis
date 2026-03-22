@@ -4,13 +4,16 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "genesis"
-version = "1.0.0-beta"
+version = "1.0.0"
 description = "Genesis — GTL-first AI SDLC engine"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = [
+    "mcp>=1.17.0",  # MCP Python SDK — F_P dispatch transport (ADR-020)
+]
 # GTL is vendored at builds/claude_code/code/gtl/ (v0.3.0, copied from ai_sdlc_method/imp_codex/code/gtl/).
 # Resolved via pythonpath = ["builds/claude_code/code"] in tool.pytest.ini_options and via PYTHONPATH in runtime.
 # To upgrade: copy gtl/ from ai_sdlc_method again and commit.
+# @steipete/claude-code-mcp (npm) is also required — installed via gen-install.py or npx.
 
 [project.scripts]
 gen = "genesis.__main__:main"

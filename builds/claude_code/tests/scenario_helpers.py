@@ -896,51 +896,13 @@ class LiveFpResult:
     converged: bool
 
 
-def _has_mcp_transport() -> bool:
-    """Check if @steipete/claude-code-mcp is available for F_P dispatch."""
-    try:
-        r = subprocess.run(
-            ["npx", "@steipete/claude-code-mcp", "--help"],
-            capture_output=True, text=True, timeout=15,
-        )
-        return True  # npx found the package
-    except (FileNotFoundError, subprocess.TimeoutExpired):
-        return False
+# MCP transport — single implementation in genesis.fp_dispatch (ADR-020).
+# Tests and production share the same code path.
+from genesis.fp_dispatch import has_mcp_transport, call_claude_code_mcp
 
-
-def _call_claude_code_mcp(prompt: str, work_folder: str) -> str:
-    """Invoke claude_code tool via @steipete/claude-code-mcp MCP server.
-
-    Architecture: F_D → MCP → F_P.claudecode
-    Transport: stdio JSON-RPC via Python mcp SDK → npx @steipete/claude-code-mcp
-    """
-    import asyncio
-    from mcp import ClientSession, StdioServerParameters
-    from mcp.client.stdio import stdio_client
-
-    async def _invoke() -> str:
-        server_params = StdioServerParameters(
-            command="npx",
-            args=["@steipete/claude-code-mcp"],
-        )
-        async with stdio_client(server_params) as (read, write):
-            async with ClientSession(read, write) as session:
-                await session.initialize()
-                result = await session.call_tool(
-                    "claude_code",
-                    arguments={
-                        "prompt": prompt,
-                        "workFolder": work_folder,
-                    },
-                )
-                # Extract text content from MCP result
-                parts = []
-                for block in result.content:
-                    if hasattr(block, "text"):
-                        parts.append(block.text)
-                return "\n".join(parts)
-
-    return asyncio.run(_invoke())
+# Re-export under the old private names for any existing references
+_has_mcp_transport = has_mcp_transport
+_call_claude_code_mcp = call_claude_code_mcp
 
 
 def invoke_live_fp(

@@ -124,13 +124,13 @@ def _write_raw_event(target: Path, event_type: str, data: dict) -> None:
 def _write_test_package(target: Path, package_code: str) -> None:
     """Write a test domain package and bind genesis.yml to it.
 
-    The kernel installer seeds genesis_core as the default package.
-    Tests define their own domain package — same pattern as GSDLC consuming ABG.
+    The kernel installer seeds genesis.yml without a default binding.
+    Tests define their own domain package — same pattern as a domain installer consuming ABG.
     """
     pkg_dir = target / ".genesis" / "gtl_spec" / "packages"
     pkg_dir.mkdir(parents=True, exist_ok=True)
     (pkg_dir / "test_pkg.py").write_text(package_code)
-    # Bind genesis.yml to the test package (kernel default is genesis_core)
+    # Bind genesis.yml to the test package
     (target / ".genesis" / "genesis.yml").write_text(
         "package: gtl_spec.packages.test_pkg:package\n"
         "worker:  gtl_spec.packages.test_pkg:worker\n"
@@ -330,13 +330,14 @@ class TestDeploymentQualification:
         """PQ-001: Fresh kernel install + domain package creates runnable runtime."""
         _install_sandbox(tmp_path)
 
-        # Kernel structural assertions
+        # Kernel structural assertions — kernel installs engine + gtl only
         assert (tmp_path / ".genesis" / "genesis").is_dir()
         assert (tmp_path / ".genesis" / "gtl").is_dir()
-        assert (tmp_path / ".genesis" / "gtl_spec").is_dir()
         assert (tmp_path / ".genesis" / "genesis.yml").is_file()
+        assert not (tmp_path / ".genesis" / "gtl_spec").is_dir(), \
+            "Kernel must not create gtl_spec/ before domain installer"
 
-        # Domain package written by test (same pattern as GSDLC consuming ABG)
+        # Domain package written by test (same pattern as domain installer consuming ABG)
         _write_test_package(tmp_path, _MINIMAL_PACKAGE)
 
         # Runtime assertion: installed engine runs without import failure
@@ -867,6 +868,7 @@ class TestBoundaryDiscipline:
     def test_pq401_installed_runtime_no_build_tree_dependency(self, tmp_path):
         """PQ-401: Installed runtime operates from .genesis/ without build-tree imports."""
         _install_sandbox(tmp_path)
+        _write_test_package(tmp_path, _MINIMAL_PACKAGE)
 
         # Run with ONLY .genesis on PYTHONPATH — no build tree
         env = os.environ.copy()
@@ -889,8 +891,10 @@ class TestBoundaryDiscipline:
         assert genesis_dir.is_dir()
         assert (genesis_dir / "genesis").is_dir()
         assert (genesis_dir / "gtl").is_dir()
-        assert (genesis_dir / "gtl_spec").is_dir()
         assert (genesis_dir / "genesis.yml").is_file()
+        # gtl_spec/ is NOT created by kernel — domain installers own it
+        assert not (genesis_dir / "gtl_spec").is_dir(), \
+            "Kernel must not create gtl_spec/ — domain installers own package structure"
 
         # .ai-workspace/runtime/ must exist (installer seeds it)
         runtime_dir = tmp_path / ".ai-workspace" / "runtime"
@@ -898,8 +902,8 @@ class TestBoundaryDiscipline:
 
         # Verify no unexpected top-level directories beyond declared scope
         top_level = {p.name for p in tmp_path.iterdir()}
-        # installer creates: .genesis, .ai-workspace, builds, CLAUDE.md
-        known = {".genesis", ".ai-workspace", "builds", "CLAUDE.md"}
+        # installer creates: .genesis, .ai-workspace, .mcp.json, builds, CLAUDE.md
+        known = {".genesis", ".ai-workspace", ".mcp.json", "builds", "CLAUDE.md"}
         unexpected = top_level - known
         assert not unexpected, (
             f"Installer created unexpected artifacts: {unexpected}"

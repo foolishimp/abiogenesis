@@ -259,11 +259,15 @@ class TestGenInstall:
         self._install(tmp_path)
         assert not (tmp_path / "builds").exists(), "Kernel installer must not create builds/"
 
-    def test_genesis_yml_seeds_genesis_core(self, tmp_path):
-        """First install seeds genesis.yml with genesis_core as kernel default."""
+    def test_genesis_yml_has_no_default_binding(self, tmp_path):
+        """First install seeds genesis.yml without binding to any package."""
         self._install(tmp_path)
         text = (tmp_path / ".genesis" / "genesis.yml").read_text()
-        assert "genesis_core" in text
+        # package/worker/runtime_contract should all be commented out
+        for line in text.splitlines():
+            stripped = line.strip()
+            if stripped and not stripped.startswith("#"):
+                assert False, f"Kernel default should be all comments, found: {line!r}"
 
     def test_genesis_yml_not_overwritten_on_reinstall(self, tmp_path):
         """Reinstall does not overwrite existing genesis.yml."""
@@ -333,3 +337,51 @@ class TestGenInstall:
         assert result.get("claude_md") != "source_missing", (
             "GTL_BOOTLOADER.md should always be present in the installer distribution"
         )
+
+    def test_installs_mcp_json(self, tmp_path):
+        """Install creates .mcp.json with claude-code-runner server (ADR-020)."""
+        self._install(tmp_path)
+        mcp_json = tmp_path / ".mcp.json"
+        assert mcp_json.exists(), ".mcp.json must be created for F_P dispatch"
+        config = json.loads(mcp_json.read_text())
+        assert "mcpServers" in config
+        assert "claude-code-runner" in config["mcpServers"]
+        server = config["mcpServers"]["claude-code-runner"]
+        assert server["command"] == "npx"
+        assert "@steipete/claude-code-mcp" in server["args"]
+
+    def test_mcp_json_preserves_existing_servers(self, tmp_path):
+        """Installing into a project with existing MCP servers preserves them."""
+        mcp_json = tmp_path / ".mcp.json"
+        mcp_json.write_text(json.dumps({
+            "mcpServers": {
+                "my-server": {"type": "stdio", "command": "my-cmd", "args": []}
+            }
+        }))
+        self._install(tmp_path)
+        config = json.loads(mcp_json.read_text())
+        assert "my-server" in config["mcpServers"], "Existing MCP servers must be preserved"
+        assert "claude-code-runner" in config["mcpServers"]
+
+    def test_mcp_json_idempotent(self, tmp_path):
+        """Reinstall does not duplicate claude-code-runner in .mcp.json."""
+        self._install(tmp_path)
+        result = self._install(tmp_path)
+        mcp = result.get("mcp", {})
+        assert mcp.get("action") == "already_present"
+
+    def test_verify_checks_mcp(self, tmp_path):
+        """--verify reports mcp_present status."""
+        result_before = self._install(tmp_path, extra_args=["--verify"])
+        # First verify before install — .mcp.json doesn't exist
+        assert result_before.get("status") == "incomplete"
+        # Install then verify
+        self._install(tmp_path)
+        result_after = self._install(tmp_path, extra_args=["--verify"])
+        assert result_after.get("mcp_present") is True
+
+    def test_fp_dispatch_module_installed(self, tmp_path):
+        """fp_dispatch.py is installed as part of the engine (ADR-020)."""
+        self._install(tmp_path)
+        fp_dispatch = tmp_path / ".genesis" / "genesis" / "fp_dispatch.py"
+        assert fp_dispatch.exists(), "fp_dispatch.py must be installed for F_P transport"

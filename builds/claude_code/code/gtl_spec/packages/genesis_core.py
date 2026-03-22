@@ -123,7 +123,7 @@ code = Asset(
     lineage=[design],
     markov=[
         "implements_tags_present",
-        "six_modules_only",
+        "engine_modules_complete",
         "no_v2_features",
         "importable",
     ],
@@ -206,9 +206,9 @@ eval_design_fh     = Evaluator("design_approved",    F_H, "Human approves design
 # design→code
 eval_code_tags     = Evaluator("impl_tags",          F_D, "check-tags: all code files carry Implements: REQ-* tags, 0 untagged",
                                command="python -m genesis check-tags --type implements --path builds/claude_code/code/")
-eval_six_modules   = Evaluator("six_modules",        F_D, "exactly 6 modules: core, bind, schedule, manifest, commands, __main__",
-                               command="python -c \"import os,sys; p='builds/claude_code/code/genesis'; m={f[:-3] for f in os.listdir(p) if f.endswith('.py') and f!='__init__.py'}; e={'core','bind','schedule','manifest','commands','__main__'}; diff=m^e; print('extra:',m-e,'missing:',e-m) if diff else print('OK'); sys.exit(0 if not diff else 1)\"")
-eval_code_fp       = Evaluator("code_complete",      F_P, "Agent: code implements all 6 functions per design ADRs; no V2 features present")
+eval_engine_modules = Evaluator("engine_modules",     F_D, "exactly 7 modules: core, bind, schedule, manifest, commands, fp_dispatch, __main__",
+                               command="python -c \"import os,sys; p='builds/claude_code/code/genesis'; m={f[:-3] for f in os.listdir(p) if f.endswith('.py') and f!='__init__.py'}; e={'core','bind','schedule','manifest','commands','fp_dispatch','__main__'}; diff=m^e; print('extra:',m-e,'missing:',e-m) if diff else print('OK'); sys.exit(0 if not diff else 1)\"")
+eval_code_fp       = Evaluator("code_complete",      F_P, "Agent: code implements all modules per design ADRs; no V2 features present")
 
 # code↔unit_tests
 eval_tests_pass    = Evaluator("tests_pass",         F_D, "pytest: 0 failures, 0 errors",
@@ -226,7 +226,7 @@ eval_sandbox_e2e   = Evaluator("sandbox_e2e",        F_D, "sandbox lifecycle: ge
 job_intent_req  = Job(e_intent_req,  [eval_intent_fh])
 job_req_feat    = Job(e_req_feat,    [eval_feat_fd, eval_feat_fh])
 job_feat_design = Job(e_feat_design, [eval_design_fp, eval_design_fh])
-job_design_code = Job(e_design_code, [eval_code_tags, eval_six_modules, eval_code_fp])
+job_design_code = Job(e_design_code, [eval_code_tags, eval_engine_modules, eval_code_fp])
 job_tdd         = Job(e_tdd,         [eval_tests_pass, eval_coverage, eval_test_tags, eval_sandbox_e2e])
 
 

@@ -365,10 +365,10 @@ class TestSelfHosting:
         assert data["passes"] is True
         assert data["untagged_count"] == 0
 
-    def test_six_modules_present(self):
-        """Exactly 6 modules exist in the genesis package."""
+    def test_seven_modules_present(self):
+        """Exactly 7 modules exist in the genesis package."""
         genesis_dir = Path("builds/claude_code/code/genesis")
-        required = {"core", "bind", "schedule", "manifest", "commands", "__main__"}
+        required = {"core", "bind", "schedule", "manifest", "commands", "fp_dispatch", "__main__"}
         found = {f.stem for f in genesis_dir.glob("*.py") if f.stem != "__init__"}
         assert found == required, f"Module mismatch. Required: {required}. Found: {found}"
 
@@ -380,4 +380,5 @@ class TestSelfHosting:
         from genesis.schedule import delta, iterate, schedule
         from genesis.commands import gen_start, gen_iterate, gen_gaps, Scope
         from genesis.manifest import PrecomputedManifest, BoundJob
-        assert genesis.__version__ == "1.0.0-beta"
+        from genesis.fp_dispatch import has_mcp_transport, call_claude_code_mcp
+        assert genesis.__version__ == "1.0.0"
