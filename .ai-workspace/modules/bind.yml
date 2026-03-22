@@ -1,0 +1,21 @@
+id: MOD-BIND
+name: genesis/bind.py
+description: |
+  bind_fd() pre-computation, bind_fp() manifest assembly, F_D/F_P/F_H
+  convergence checks, ContextResolver digest enforcement, spec-hash binding.
+implements_features:
+  - REQ-F-BIND
+  - REQ-F-EVAL-SNAP
+  - REQ-F-EVAL-COV
+  - REQ-F-GATE
+  - REQ-F-ENGINE-CORRECTNESS
+dependencies:
+  - MOD-CORE
+rank: 2
+interfaces:
+  - "bind_fd(job, stream, resolver, workspace_root) → PrecomputedManifest"
+  - "bind_fp(pre, job) → BoundJob"
+  - "bind_fh(job, stream) → bool"
+  - "run_fd_evaluator(evaluator, current, workspace_root) → (bool, dict)"
+source_files:
+  - builds/claude_code/code/genesis/bind.py

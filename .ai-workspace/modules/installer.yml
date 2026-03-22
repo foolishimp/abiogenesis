@@ -1,0 +1,14 @@
+id: MOD-INSTALLER
+name: gen-install.py
+description: |
+  Kernel installer — bootstraps .genesis/ into target projects.
+  Generates genesis.yml config and starter spec.
+implements_features:
+  - REQ-F-BOOT
+dependencies:
+  - MOD-SPEC
+rank: 2
+interfaces:
+  - "gen-install.py TARGET_DIR — install .genesis/ into target"
+source_files:
+  - gen-install.py

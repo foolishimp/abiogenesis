@@ -1,0 +1,20 @@
+id: MOD-TESTS
+name: tests/
+description: |
+  Integration-primary test suite, property-based invariant tests,
+  sandbox E2E tests. Test architecture per ADR-015.
+implements_features:
+  - REQ-F-TEST
+dependencies:
+  - MOD-CORE
+  - MOD-BIND
+  - MOD-SCHEDULE
+  - MOD-COMMANDS
+  - MOD-MAIN
+rank: 6
+interfaces:
+  - "pytest builds/claude_code/tests/ -v"
+  - "pytest builds/claude_code/tests/ -m e2e"
+  - "pytest builds/claude_code/tests/ -m self_host"
+source_files:
+  - builds/claude_code/tests/

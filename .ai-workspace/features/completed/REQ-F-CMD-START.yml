@@ -9,6 +9,7 @@ profile: standard
 requirements:
 - REQ-F-CMD-003
 satisfies:
+- REQ-F-CMD
 - REQ-F-CMD-003
 source: feature_decomposition
 status: completed

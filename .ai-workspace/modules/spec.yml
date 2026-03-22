@@ -1,0 +1,17 @@
+id: MOD-SPEC
+name: gtl_spec/packages
+description: |
+  GTL Package definition — typed asset graph, evaluators, contexts,
+  REQ key registry. The spec IS the requirement source.
+implements_features:
+  - REQ-F-GRAPH
+  - REQ-F-PKG-001
+  - REQ-F-PROV-001
+dependencies: []
+rank: 1
+interfaces:
+  - "package: Package — the abiogenesis GTL Package"
+  - "worker: Worker — the abiogenesis Worker"
+source_files:
+  - builds/claude_code/code/gtl_spec/packages/abiogenesis.py
+  - builds/claude_code/code/gtl_spec/packages/genesis_core.py

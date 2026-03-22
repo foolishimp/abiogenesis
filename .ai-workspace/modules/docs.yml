@@ -1,0 +1,20 @@
+id: MOD-DOCS
+name: docs/
+description: |
+  User guide, V1 doctrine, bootloader documents.
+  Documentation assets per REQ-F-DOCS and REQ-F-BOOTDOC.
+implements_features:
+  - REQ-F-DOCS
+  - REQ-F-BOOTDOC
+dependencies:
+  - MOD-CORE
+  - MOD-COMMANDS
+  - MOD-INSTALLER
+rank: 6
+interfaces:
+  - "docs/USER_GUIDE.md — install, first session, operating loop"
+  - "docs/V1_DOCTRINE.md — one-page mission statement"
+source_files:
+  - docs/USER_GUIDE.md
+  - docs/V1_DOCTRINE.md
+  - builds/claude_code/code/gtl_spec/GENESIS_BOOTLOADER.md

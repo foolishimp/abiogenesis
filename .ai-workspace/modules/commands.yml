@@ -1,0 +1,20 @@
+id: MOD-COMMANDS
+name: genesis/commands.py
+description: |
+  gen-gaps, gen-iterate, gen-start — named compositions over the engine.
+  Feature lifecycle management (active → completed moves).
+implements_features:
+  - REQ-F-CMD-GAPS
+  - REQ-F-CMD-ITER
+  - REQ-F-CMD-START
+dependencies:
+  - MOD-CORE
+  - MOD-BIND
+  - MOD-SCHEDULE
+rank: 4
+interfaces:
+  - "gen_gaps(scope, stream) → dict"
+  - "gen_iterate(scope, stream) → dict"
+  - "gen_start(scope, stream, auto) → dict"
+source_files:
+  - builds/claude_code/code/genesis/commands.py

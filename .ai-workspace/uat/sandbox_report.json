@@ -1,0 +1,38 @@
+{
+  "timestamp": "2026-03-22T02:25:00Z",
+  "all_pass": true,
+  "install_success": true,
+  "tests_run": 14,
+  "tests_passed": 14,
+  "tests_failed": 0,
+  "excluded": ["test_engine_evaluates_own_workspace (self_host marker — separate gate)"],
+  "test_file": "builds/claude_code/tests/test_e2e_sandbox.py",
+  "sections": {
+    "sandbox_full_lifecycle": {
+      "passed": 10,
+      "failed": 0,
+      "tests": [
+        "test_workspace_bootstrap_in_fresh_sandbox",
+        "test_gen_gaps_finds_gap_before_code_exists",
+        "test_gen_iterate_gates_fp_when_fd_failing",
+        "test_gen_iterate_dispatches_fp_after_fd_passes",
+        "test_full_lifecycle_fp_acts_and_converges",
+        "test_event_log_records_work_truthfully",
+        "test_project_derives_state_from_stream",
+        "test_schedule_trivial_single_worker",
+        "test_replay_deterministic",
+        "test_context_resolver_loads_workspace_file"
+      ]
+    },
+    "self_hosting": {
+      "passed": 4,
+      "failed": 0,
+      "tests": [
+        "test_check_tags_impl_passes_on_own_code",
+        "test_check_tags_validates_passes_on_own_tests",
+        "test_six_modules_present",
+        "test_engine_importable"
+      ]
+    }
+  }
+}

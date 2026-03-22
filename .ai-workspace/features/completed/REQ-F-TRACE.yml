@@ -11,6 +11,7 @@ requirements:
 - REQ-F-TAG-002
 - REQ-F-COV-001
 satisfies:
+- REQ-F-TAG
 - REQ-F-TAG-001
 - REQ-F-TAG-002
 - REQ-F-COV-001

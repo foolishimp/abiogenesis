@@ -1,0 +1,27 @@
+created: '2026-03-21T14:30:00Z'
+depends_on:
+  - REQ-F-GRAPH
+  - REQ-F-ENGINE
+feature: REQ-F-BOOTDOC
+intent: INT-002
+module: builds/claude_code/code/genesis/__main__.py
+priority: high
+profile: standard
+requirements:
+  - REQ-F-BOOTDOC-001
+  - REQ-F-BOOTDOC-002
+  - REQ-F-BOOTDOC-003
+satisfies:
+  - REQ-F-BOOTDOC-001
+  - REQ-F-BOOTDOC-002
+  - REQ-F-BOOTDOC-003
+source: feature_decomposition
+status: iterating
+title: Bootloader Documents as Graph Assets — F_D consistency check
+trajectory:
+  design:
+    status: completed
+  code:
+    status: completed
+  unit_tests:
+    status: completed

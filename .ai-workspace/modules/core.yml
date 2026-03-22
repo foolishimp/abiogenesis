@@ -1,0 +1,22 @@
+id: MOD-CORE
+name: genesis/core.py
+description: |
+  Event stream, projection, emit(), workspace_bootstrap, ContextResolver.
+  The foundational substrate — all state derives from the event stream.
+implements_features:
+  - REQ-F-CORE
+  - REQ-F-WKSP
+  - REQ-F-EC-001
+  - REQ-F-EVAL-005
+  - REQ-F-VIS
+dependencies: []
+rank: 1
+interfaces:
+  - "EventStream.open(workspace) → EventStream"
+  - "EventStream.append(event_type, data) → Event"
+  - "emit(event_type, **data) → Event"
+  - "project(stream, asset_type, instance_id) → dict"
+  - "ContextResolver(workspace_root).load(ctx) → str"
+  - "workspace_bootstrap(path) → EventStream"
+source_files:
+  - builds/claude_code/code/genesis/core.py

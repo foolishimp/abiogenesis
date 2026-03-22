@@ -1,5 +1,6 @@
 # Abiogenesis User Guide
 
+**Version**: 1.0.0b1
 **Engine version**: 1.0.0
 **GTL version**: 0.3.0
 
@@ -22,6 +23,7 @@
 
 ---
 
+<!-- Covers: REQ-F-GRAPH-001 REQ-F-GRAPH-002 REQ-F-CORE-001 REQ-F-CORE-002 REQ-F-CORE-003 REQ-F-CORE-004 REQ-F-CORE-005 REQ-F-CORE-006 REQ-F-EC-001 REQ-F-EC-002 REQ-F-EC-003 REQ-F-EC-004 REQ-F-EC-005 REQ-F-EC-006 -->
 ## 1. What Abiogenesis Is
 
 Abiogenesis is a GTL interpreter. GTL (Genesis Topology Language) treats software work as a typed directed graph. You define what artifacts exist, how they transform into each other, and what it means for a transformation to be complete. The engine tracks the gap between current state and done.
@@ -71,6 +73,7 @@ The workspace is converged when every evaluator on every edge reports delta = 0.
 
 ---
 
+<!-- Covers: REQ-F-BOOT-001 REQ-F-BOOT-002 REQ-F-PKG-001 REQ-F-WKSP-001 -->
 ## 2. Installation
 
 ### Requirements
@@ -136,6 +139,7 @@ When the engine is installed into another project via `gen-install.py`, the spec
 
 ---
 
+<!-- Covers: REQ-F-CMD-001 REQ-F-CMD-002 REQ-F-CMD-003 REQ-F-CMD-004 -->
 ## 4. The Three Commands
 
 All commands accept:
@@ -229,6 +233,7 @@ gen start --workspace . --auto
 
 ---
 
+<!-- Covers: REQ-F-EVAL-001 REQ-F-EVAL-002 REQ-F-EVAL-003 REQ-F-EVAL-004 REQ-F-EVAL-005 REQ-F-GATE-001 REQ-F-GATE-002 REQ-F-BIND-001 -->
 ## 5. Writing a GTL Spec
 
 A spec is a Python module that exports a `Package` and a `Worker`.
@@ -327,6 +332,7 @@ The config file is always written by `gen-install.py` on install/reinstall. It i
 
 ---
 
+<!-- Covers: REQ-F-PROV-001 REQ-F-PROV-002 REQ-F-PROV-003 REQ-F-PROV-004 REQ-F-PROV-005 -->
 ## 7. Bootstrap Install for Other Projects
 
 Use this when you want the genesis engine embedded in a project without a pip dependency on abiogenesis.
@@ -406,6 +412,7 @@ Feature YAML files live in `.ai-workspace/features/active/` or `completed/`. A f
 
 ---
 
+<!-- Covers: REQ-F-VIS-001 REQ-F-DOCS-001 -->
 ## 9. The Working Loop
 
 The standard cycle when doing active development:
@@ -434,6 +441,7 @@ The workspace is done when `gen gaps` reports `converged: true` and `total_delta
 
 ---
 
+<!-- Covers: REQ-F-TAG-001 REQ-F-TAG-002 REQ-F-COV-001 REQ-F-TEST-001 REQ-F-TEST-002 -->
 ## 10. Traceability
 
 The engine ships two subcommands for verifying code–spec traceability.
@@ -501,6 +509,7 @@ The self-hosting workspace is currently converged (`total_delta: 0`). The event 
 
 ---
 
+<!-- Covers: REQ-F-BOOTDOC-001 REQ-F-BOOTDOC-002 REQ-F-BOOTDOC-003 -->
 ## 12. Current Limitations
 
 ### V1 scoping

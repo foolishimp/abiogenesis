@@ -1,0 +1,16 @@
+id: MOD-SCHEDULE
+name: genesis/schedule.py
+description: |
+  Job scheduling, delta computation, convergence ordering.
+  Determines which job to iterate next based on evaluator state.
+implements_features:
+  - REQ-F-EVAL
+dependencies:
+  - MOD-CORE
+  - MOD-BIND
+rank: 3
+interfaces:
+  - "schedule(jobs, stream, workspace_root) → (Job, float)"
+  - "delta(job, stream, workspace_root) → float"
+source_files:
+  - builds/claude_code/code/genesis/schedule.py

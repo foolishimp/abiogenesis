@@ -1,0 +1,19 @@
+id: MOD-MAIN
+name: genesis/__main__.py
+description: |
+  CLI entry point, argparse, workspace bootstrap, emit-event CLI,
+  check-tags and check-req-coverage sub-commands.
+implements_features:
+  - REQ-F-TRACE
+  - REQ-F-EVAL-005
+dependencies:
+  - MOD-CORE
+  - MOD-COMMANDS
+rank: 5
+interfaces:
+  - "main() — CLI entry point"
+  - "check-tags --type implements|validates --path PATH"
+  - "check-req-coverage --path PATH"
+  - "emit-event --type TYPE --data JSON"
+source_files:
+  - builds/claude_code/code/genesis/__main__.py
