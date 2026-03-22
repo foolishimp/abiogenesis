@@ -366,10 +366,11 @@ Property-based tests verify structural invariants that must hold regardless of e
 The engine tracks which workflow version is active for provenance binding.
 
 **Acceptance Criteria**:
-- AC-1: Reads `active-workflow.json` at Scope construction: (1) explicit `active_workflow_path` from genesis.yml, (2) `.ai-workspace/runtime/active-workflow.json`. No fallback to `.genesis/` — mutable state must not live in the immutable runtime directory
+- AC-1: Reads `active-workflow.json` at Scope construction: (1) explicit `active_workflow_path` from genesis.yml, (2) `.ai-workspace/runtime/active-workflow.json`. Pure read — no side effects, no fallback to `.genesis/`
 - AC-2: Returns `"{workflow}@{version}"` when file is valid (e.g., `"genesis_sdlc.standard@0.3.0"`)
 - AC-3: Returns `"unknown"` on any failure (missing file, invalid JSON, non-string values)
 - AC-4: Engine never fails to start due to this file's state
+- AC-5: Installer (gen-install.py) creates `.ai-workspace/runtime/` and migrates legacy `.genesis/active-workflow.json` on reinstall
 
 ### REQ-F-PROV-002 — Events annotated with workflow_version
 

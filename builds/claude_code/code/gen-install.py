@@ -176,6 +176,18 @@ def install(target: Path, *, verify_only: bool = False,
         config_path.write_text(config_text, encoding="utf-8")
     result["config_file"] = ".genesis/genesis.yml"
 
+    # ── Ensure .ai-workspace/runtime/ exists + migrate legacy provenance ────
+    runtime_dir = target / ".ai-workspace" / "runtime"
+    runtime_dir.mkdir(parents=True, exist_ok=True)
+    runtime_awj = runtime_dir / "active-workflow.json"
+    legacy_awj = target / ".genesis" / "active-workflow.json"
+    if not runtime_awj.exists() and legacy_awj.exists():
+        # Migrate: legacy .genesis/ → mutable .ai-workspace/runtime/
+        shutil.copy2(legacy_awj, runtime_awj)
+        result.setdefault("migrations", []).append(
+            "active-workflow.json: .genesis/ → .ai-workspace/runtime/"
+        )
+
     # ── Append GTL bootloader to CLAUDE.md ───────────────────────────────────
     result["claude_md"] = install_claude_md(target)
     if result["claude_md"] == "source_missing":

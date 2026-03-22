@@ -483,10 +483,10 @@ class TestEdgeConvergedDedup:
 
 class TestReadWorkflowVersion:
     def test_returns_unknown_when_file_absent(self, tmp_path):
-        """No active-workflow.json → 'unknown' (never raises), but seeds the file."""
+        """No active-workflow.json → 'unknown' (never raises, no side effects)."""
         assert _read_workflow_version(tmp_path) == "unknown"
         seed = tmp_path / ".ai-workspace" / "runtime" / "active-workflow.json"
-        assert seed.exists(), "must create seed file for future writes"
+        assert not seed.exists(), "pure read must not create files"
 
     def test_returns_formatted_string_when_valid(self, tmp_path):
         runtime = tmp_path / ".ai-workspace" / "runtime"

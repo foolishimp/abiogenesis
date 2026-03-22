@@ -892,15 +892,38 @@ class TestBoundaryDiscipline:
         assert (genesis_dir / "gtl_spec").is_dir()
         assert (genesis_dir / "genesis.yml").is_file()
 
+        # .ai-workspace/runtime/ must exist (installer seeds it)
+        runtime_dir = tmp_path / ".ai-workspace" / "runtime"
+        assert runtime_dir.is_dir(), "installer must create .ai-workspace/runtime/"
+
         # Verify no unexpected top-level directories beyond declared scope
         top_level = {p.name for p in tmp_path.iterdir()}
-        # installer creates: .genesis, .ai-workspace (known leak), builds, CLAUDE.md
-        # Everything present should be from a known set
+        # installer creates: .genesis, .ai-workspace, builds, CLAUDE.md
         known = {".genesis", ".ai-workspace", "builds", "CLAUDE.md"}
         unexpected = top_level - known
         assert not unexpected, (
             f"Installer created unexpected artifacts: {unexpected}"
         )
+
+    def test_pq403_reinstall_migrates_legacy_active_workflow(self, tmp_path):
+        """PQ-403: Reinstall migrates .genesis/active-workflow.json → .ai-workspace/runtime/."""
+        _install_sandbox(tmp_path)
+
+        # Simulate legacy workspace: active-workflow.json in .genesis/
+        legacy_awj = tmp_path / ".genesis" / "active-workflow.json"
+        legacy_awj.write_text(json.dumps({
+            "workflow": "genesis_sdlc.standard",
+            "version": "1.0.0",
+        }))
+
+        # Reinstall should migrate
+        _install_sandbox(tmp_path)
+
+        migrated = tmp_path / ".ai-workspace" / "runtime" / "active-workflow.json"
+        assert migrated.exists(), "reinstall must migrate legacy active-workflow.json"
+        data = json.loads(migrated.read_text())
+        assert data["workflow"] == "genesis_sdlc.standard"
+        assert data["version"] == "1.0.0"
 
 
 # ── Group 6: F_P Fail Path ───────────────────────────────────────────────────
