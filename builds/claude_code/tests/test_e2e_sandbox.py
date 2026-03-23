@@ -136,18 +136,19 @@ class TestSandboxFullLifecycle:
         failing_names = [f for g in result["gaps"] for f in g["failing"]]
         assert "code_complete" in failing_names  # F_P not yet resolved
 
-    def test_gen_iterate_gates_fp_when_fd_failing(self, tmp_path):
-        """REQ-F-GATE-002: F_P is NOT dispatched while F_D evaluators are failing."""
+    def test_gen_iterate_escalates_fd_to_fp(self, tmp_path):
+        """REQ-F-GATE-002 (ADR-021): F_D failure escalates to F_P dispatch."""
         stream = workspace_bootstrap(tmp_path)
         pkg, worker, _ = _make_sandbox_package(tmp_path)
+        _ensure_sandbox_context(tmp_path)
         scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
         dispatched: list[BoundJob] = []
 
-        # No code/ directory → impl_tags (F_D) fails → F_P must not be dispatched
+        # No code/ directory → impl_tags (F_D) fails → escalates to F_P
         result = gen_iterate(scope, stream, on_fp_dispatch=dispatched.append)
 
         assert result["status"] == "iterated"
-        assert len(dispatched) == 0, "F_P must not be dispatched while F_D is failing"
+        assert len(dispatched) == 1, "F_D failure must escalate to F_P dispatch"
 
     def test_gen_iterate_dispatches_fp_after_fd_passes(self, tmp_path):
         """REQ-F-GATE-002: F_P is dispatched once all F_D evaluators pass."""

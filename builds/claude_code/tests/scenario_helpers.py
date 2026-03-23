@@ -430,6 +430,9 @@ def write_test_package(target: Path, package_code: str) -> None:
     """
     pkg_dir = target / ".genesis" / "gtl_spec" / "packages"
     pkg_dir.mkdir(parents=True, exist_ok=True)
+    # v1.0.0 installer no longer ships gtl_spec/ — test sandbox must provide __init__.py
+    (target / ".genesis" / "gtl_spec" / "__init__.py").touch()
+    (pkg_dir / "__init__.py").touch()
     (pkg_dir / "test_pkg.py").write_text(package_code)
     (target / ".genesis" / "genesis.yml").write_text(
         "package: gtl_spec.packages.test_pkg:package\n"

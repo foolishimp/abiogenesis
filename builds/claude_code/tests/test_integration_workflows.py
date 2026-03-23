@@ -159,21 +159,25 @@ def _make_scope(tmp_path: Path, pkg: Package, worker: Worker) -> Scope:
 class TestFullFdFpFhChain:
     """Scenario 1: cold start → full F_D → F_P → F_H chain → converged."""
 
-    def test_fd_fails_initially_no_fp_dispatch(self, tmp_path):
-        """F_P must not be dispatched when F_D (impl_tags) is failing — REQ-F-GATE-002."""
+    def test_fd_fails_initially_escalates_to_fp(self, tmp_path):
+        """F_D findings escalate to F_P on cold start — REQ-F-GATE-002 (ADR-021)."""
         stream = workspace_bootstrap(tmp_path)
         pkg, worker = _make_full_chain_package(tmp_path)
         scope = _make_scope(tmp_path, pkg, worker)
 
-        # No code/ directory → F_D fails
+        # No code/ directory → F_D fails → escalates to F_P
         result = gen_iterate(scope, stream)
 
         events = stream.all_events()
         event_types = {e["event_type"] for e in events}
-        assert "fp_dispatched" not in event_types, (
-            "F_P must not be dispatched while F_D is failing (REQ-F-GATE-002)"
+        assert "fp_dispatched" in event_types, (
+            "F_P must be dispatched — F_D findings escalate (REQ-F-GATE-002 ADR-021)"
         )
         assert "found" in event_types
+        found_events = [e for e in events if e["event_type"] == "found"]
+        assert any(e.get("data", {}).get("kind") == "fd_findings" for e in found_events), (
+            "found{kind: fd_findings} must accompany fp_dispatched on escalation"
+        )
 
     def test_fp_dispatched_after_fd_passes(self, tmp_path):
         """F_P dispatched once F_D (impl_tags) passes — all three evaluators in failing list."""
@@ -262,26 +266,30 @@ class TestFullFdFpFhChain:
 class TestAutoLoopStopsCorrectly:
     """Scenario 2+3: gen_start(auto=True) stops at the right boundary conditions."""
 
-    def test_auto_loop_stops_on_fd_gap_mixed_evaluators(self, tmp_path):
+    def test_auto_loop_stops_on_fp_dispatch_mixed_evaluators(self, tmp_path):
         """
-        gen_start(auto=True) stops with stopped_by='fd_gap' when both F_D and F_P
-        are failing. This is the C1 regression scenario: the auto-loop must detect
-        fd_gap via the found event, not by exhausting MAX_AUTO iterations.
+        gen_start(auto=True) stops with stopped_by='fp_dispatch' when both F_D and F_P
+        are failing. ADR-021: F_D findings escalate to F_P, so the auto-loop stops on
+        fp_dispatched, not fd_gap.
         """
         stream = workspace_bootstrap(tmp_path)
         pkg, worker = _make_fd_fp_package(tmp_path)
         scope = _make_scope(tmp_path, pkg, worker)
 
-        # No code/ → F_D fails; F_P has no assessment → also failing
+        # No code/ → F_D fails; F_P has no assessment → also failing → escalation
         result = gen_start(scope, stream, auto=True)
 
-        assert result.get("stopped_by") == "fd_gap", (
-            f"Expected stopped_by='fd_gap', got {result.get('stopped_by')!r}. "
-            "C1 regression: auto-loop must emit found event and stop, not hit max_iterations."
+        assert result.get("stopped_by") == "fp_dispatch", (
+            f"Expected stopped_by='fp_dispatch' (escalation), got {result.get('stopped_by')!r}. "
+            "ADR-021: F_D findings must escalate to F_P dispatch, not block as fd_gap."
         )
         events = stream.all_events()
-        assert any(e["event_type"] == "found" for e in events), (
-            "found event must be in event stream when auto-loop stops on fd_gap"
+        assert any(e["event_type"] == "fp_dispatched" for e in events), (
+            "fp_dispatched must be in event stream when F_D escalates to F_P"
+        )
+        found_events = [e for e in events if e["event_type"] == "found"]
+        assert any(e.get("data", {}).get("kind") == "fd_findings" for e in found_events), (
+            "found{kind: fd_findings} must accompany escalation"
         )
 
     def test_auto_loop_stops_on_fp_dispatch(self, tmp_path):

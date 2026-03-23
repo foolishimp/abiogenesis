@@ -348,10 +348,10 @@ class TestGenStart:
         assert result["status"] == "converged"
 
 
-# ── REQ-F-GATE-002: F_D blocks F_P manifest production ────────────────────────
+# ── REQ-F-GATE-002 (ADR-021): F_D findings escalate to F_P ───────────────────
 
-class TestFdGateNoManifest:
-    """REQ-F-GATE-002: gen_iterate must not produce an fp_manifest_path when F_D is red."""
+class TestFdEscalatesToFp:
+    """REQ-F-GATE-002: F_D findings escalate to F_P on edges with unresolved F_P."""
 
     def _make_mixed_fd_fp_package(self):
         """Package with one always-failing F_D and one F_P evaluator."""
@@ -370,46 +370,92 @@ class TestFdGateNoManifest:
         worker = Worker(id="claude_code", can_execute=[job])
         return pkg, worker
 
-    def test_no_manifest_when_fd_failing(self, tmp_path):
-        """gen_iterate returns fd_gap without producing fp_manifest_path."""
+    def test_manifest_produced_when_fd_and_fp_both_failing(self, tmp_path):
+        """F_D findings escalate: manifest IS produced even when F_D is failing."""
         pkg, worker = self._make_mixed_fd_fp_package()
         stream = workspace_bootstrap(tmp_path)
         scope = _make_scope(tmp_path, pkg, worker=worker)
         result = gen_iterate(scope, stream)
-        assert result.get("stopped_by") == "fd_gap"
-        assert "fp_manifest_path" not in result, (
-            "fp_manifest_path must not be present when F_D is failing"
+        assert "fp_manifest_path" in result, (
+            "fp_manifest_path must be present — F_D findings escalate to F_P"
         )
 
-    def test_no_edge_started_when_fd_blocking_fp(self, tmp_path):
-        """No edge_started event when gen_iterate returns early due to F_D gate."""
+    def test_edge_started_emitted_when_fd_escalates(self, tmp_path):
+        """edge_started IS emitted when F_D escalates to F_P."""
         pkg, worker = self._make_mixed_fd_fp_package()
         stream = workspace_bootstrap(tmp_path)
         scope = _make_scope(tmp_path, pkg, worker=worker)
         gen_iterate(scope, stream)
         events = stream.all_events()
-        assert not any(e["event_type"] == "edge_started" for e in events)
+        assert any(e["event_type"] == "edge_started" for e in events), (
+            "edge_started must be emitted — F_D escalation proceeds to iterate()"
+        )
 
-    def test_found_emitted_when_fd_blocking_fp(self, tmp_path):
-        """found (fd_gap) IS emitted in early return so gen_start auto-loop detects it."""
+    def test_fd_findings_and_fp_dispatched_both_emitted(self, tmp_path):
+        """Both found{kind: fd_findings} and fp_dispatched in the same iteration."""
         pkg, worker = self._make_mixed_fd_fp_package()
         stream = workspace_bootstrap(tmp_path)
         scope = _make_scope(tmp_path, pkg, worker=worker)
         gen_iterate(scope, stream)
         events = stream.all_events()
-        assert any(e["event_type"] == "found" for e in events), (
-            "found (fd_gap) must be in stream so gen_start(auto=True) stops at fd_gap"
+        found_events = [e for e in events if e["event_type"] == "found"]
+        assert any(e.get("data", {}).get("kind") == "fd_findings" for e in found_events), (
+            "found{kind: fd_findings} must be emitted when F_D escalates to F_P"
+        )
+        assert any(e["event_type"] == "fp_dispatched" for e in events), (
+            "fp_dispatched must be emitted — F_D findings escalate"
         )
 
-    def test_gen_start_auto_stops_at_fd_gap_with_mixed_evaluators(self, tmp_path):
-        """gen_start(auto=True) stops with fd_gap when F_D+F_P both failing."""
+    def test_auto_stops_at_fp_dispatch_with_mixed_evaluators(self, tmp_path):
+        """gen_start(auto=True) stops with fp_dispatch when F_D+F_P both failing."""
         pkg, worker = self._make_mixed_fd_fp_package()
         stream = workspace_bootstrap(tmp_path)
         scope = _make_scope(tmp_path, pkg, worker=worker)
         result = gen_start(scope, stream, auto=True)
+        assert result.get("stopped_by") == "fp_dispatch", (
+            f"Expected fp_dispatch (escalation), got: {result.get('stopped_by')} — "
+            "F_D findings must escalate to F_P, not block as fd_gap"
+        )
+
+    def test_fd_gap_when_fp_certified(self, tmp_path):
+        """F_D failing + F_P certified = fd_gap (construction quality problem)."""
+        pkg, worker = self._make_mixed_fd_fp_package()
+        stream = workspace_bootstrap(tmp_path)
+        scope = _make_scope(tmp_path, pkg, worker=worker)
+        # Certify F_P via assessed event
+        from genesis.bind import req_hash
+        spec_hash = req_hash(pkg.requirements)
+        stream.append("assessed", {
+            "kind": "fp",
+            "edge": "design→code",
+            "evaluator": "code_complete",
+            "result": "pass",
+            "spec_hash": spec_hash,
+        })
+        result = gen_start(scope, stream, auto=True)
         assert result.get("stopped_by") == "fd_gap", (
-            f"Expected fd_gap, got: {result.get('stopped_by')} — "
-            "auto-loop must not run to max_iterations"
+            f"Expected fd_gap (construction quality), got: {result.get('stopped_by')}"
+        )
+        events = stream.all_events()
+        found_events = [e for e in events
+                        if e["event_type"] == "found"
+                        and e.get("data", {}).get("kind") == "fd_gap"]
+        assert found_events, "found{kind: fd_gap} must be emitted for construction quality case"
+
+    def test_pending_preserved_when_fd_failing(self, tmp_path):
+        """F_D failing + pending dispatch in flight = pending, no duplicate dispatch."""
+        pkg, worker = self._make_mixed_fd_fp_package()
+        stream = workspace_bootstrap(tmp_path)
+        scope = _make_scope(tmp_path, pkg, worker=worker)
+        # Simulate an existing in-flight dispatch
+        stream.append("fp_dispatched", {
+            "edge": "design→code",
+            "manifest_id": "existing_dispatch_001",
+            "failing_evaluators": ["code_complete"],
+        })
+        result = gen_iterate(scope, stream)
+        assert result["status"] == "pending", (
+            f"Expected pending (dispatch in flight), got: {result['status']}"
         )
 
 

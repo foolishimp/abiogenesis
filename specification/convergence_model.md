@@ -42,15 +42,18 @@ delta(job, stream, workspace_root, spec_hash, wv, carry_forward) → float
 
 ---
 
-## 2. Gate Ordering Invariant
+## 2. Escalation Ordering (ADR-021)
 
-The engine enforces a strict gate ordering: **F_D → F_P → F_H**. Each phase must pass before the next is dispatched.
+The evaluator ladder is capability escalation: **F_D → F_P → F_H**. F_D runs first because deterministic machinery is cheapest; unresolved deterministic deficits escalate to F_P; unresolved judgment escalates to F_H.
 
 ```
 Evaluator State             Engine Action
 ────────────────────────────────────────────────
-F_D failing                 → emit found{fd_gap}; STOP
-                              (F_P is NOT dispatched)
+F_D failing, F_P unresolved → emit found{fd_findings} + fp_dispatched
+                              (F_D findings carried into F_P manifest)
+
+F_D failing, no F_P / F_P   → emit found{fd_gap}; STOP
+  already certified            (terminal — construction quality problem)
 
 F_D passing, F_P failing    → emit fp_dispatched; STOP
                               (F_H is NOT evaluated)
@@ -124,17 +127,15 @@ gen_iterate(scope, stream) → result
 
   if no gap found: return {status: converged}
 
-  // Gate check: F_D blocks F_P
-  if fd_failing AND fp_failing:
-    emit found{kind: fd_gap}
-    return {stopped_by: fd_gap}
-
+  // ADR-021: F_D findings escalate to F_P — no gate check here
   // Bind and iterate
   bound = bind_fp(pre, job, result_path)
   emit edge_started{edge, build, target}
   surface = iterate(bound)
 
-  // Surface produces events based on gate ordering (§2)
+  // Surface produces events based on escalation ordering (§2)
+  // fd_findings + fp_dispatched if F_D failing with unresolved F_P
+  // fd_gap if F_D failing with no F_P or F_P already certified
   emit all surface events to stream
 
   return {status: iterated, edge, delta_before, failing, events_emitted}

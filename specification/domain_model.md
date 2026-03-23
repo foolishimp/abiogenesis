@@ -279,7 +279,7 @@ Every event record:
 
 | Type | Required data fields |
 |------|---------------------|
-| `found` | `kind: "fd_gap"`, `edge`, `failing[]`, `delta_summary` |
+| `found` | `kind: "fd_findings"\|"fd_gap"`, `edge`, `failing[]`, `delta_summary` |
 | `approved` | `kind: "fh_review"|"fh_intent"`, `edge`, `actor: "human"|"human-proxy"` |
 | `assessed` | `kind: "fp"|"fh_review"`, `edge`, `evaluator` (if fp), `result: "pass"|"fail"|"reject"`, `spec_hash` (if fp) |
 | `revoked` | `kind: "fh_approval"`, `edge`, `actor`, `reason` |

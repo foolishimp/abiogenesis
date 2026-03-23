@@ -129,6 +129,9 @@ def _write_test_package(target: Path, package_code: str) -> None:
     """
     pkg_dir = target / ".genesis" / "gtl_spec" / "packages"
     pkg_dir.mkdir(parents=True, exist_ok=True)
+    # v1.0.0 installer no longer ships gtl_spec/ — test sandbox must provide __init__.py
+    (target / ".genesis" / "gtl_spec" / "__init__.py").touch()
+    (pkg_dir / "__init__.py").touch()
     (pkg_dir / "test_pkg.py").write_text(package_code)
     # Bind genesis.yml to the test package
     (target / ".genesis" / "genesis.yml").write_text(
@@ -419,29 +422,30 @@ class TestCoreOperationalFlow:
         failing_names = [f for g in data["gaps"] for f in g["failing"]]
         assert len(failing_names) > 0, "Should report at least one failing evaluator"
 
-    def test_pq102_fd_blocks_fp_dispatch(self, tmp_path):
-        """PQ-102: F_D failure blocks F_P dispatch — no code artifact exists."""
+    def test_pq102_fd_escalates_to_fp_dispatch(self, tmp_path):
+        """PQ-102 (ADR-021): F_D failure escalates to F_P dispatch."""
         _install_sandbox(tmp_path)
         _write_test_package(tmp_path, _MINIMAL_PACKAGE)
 
-        # No code/ directory → F_D (impl_tags) must fail → F_P must not dispatch
+        # No code/ directory → F_D (impl_tags) fails → escalates to F_P
         result = _run_genesis(tmp_path, "iterate")
-        # Exit 4 = fd_gap: F_D evaluators are failing, F_P not dispatched
-        assert result.returncode == 4, (
-            f"Expected exit 4 (fd_gap), got exit {result.returncode}:\n"
+        assert result.returncode == 0, (
+            f"Expected exit 0 (F_P dispatched), got exit {result.returncode}:\n"
             f"stdout: {result.stdout}\nstderr: {result.stderr}"
         )
         data = json.loads(result.stdout)
         assert data["status"] == "iterated", "Expected iterated status"
-        assert data.get("stopped_by") == "fd_gap", \
-            f"Expected stopped_by=fd_gap, got {data.get('stopped_by')}"
-        assert "fp_manifest_path" not in data, \
-            "F_P manifest must not be produced when F_D is failing"
+        assert "fp_manifest_path" in data, \
+            "F_P manifest must be produced when F_D escalates"
 
         events = _read_events(tmp_path)
         event_types = [e["event_type"] for e in events]
-        assert "fp_dispatched" not in event_types, \
-            "fp_dispatched must not appear when F_D is failing"
+        assert "fp_dispatched" in event_types, \
+            "fp_dispatched must appear when F_D escalates to F_P"
+        # fd_findings (not fd_gap) accompanies escalation
+        found_events = [e for e in events if e["event_type"] == "found"]
+        assert any(e.get("data", {}).get("kind") == "fd_findings" for e in found_events), \
+            "F_D escalation must emit found{kind:fd_findings}"
 
     def test_pq103_fp_dispatch_after_fd_passes(self, tmp_path):
         """PQ-103: F_P dispatch occurs once F_D evaluators pass."""

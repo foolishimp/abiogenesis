@@ -98,6 +98,9 @@ def _write_test_package(target: Path, package_code: str) -> None:
     """
     pkg_dir = target / ".genesis" / "gtl_spec" / "packages"
     pkg_dir.mkdir(parents=True, exist_ok=True)
+    # v1.0.0 installer no longer ships gtl_spec/ — test sandbox must provide __init__.py
+    (target / ".genesis" / "gtl_spec" / "__init__.py").touch()
+    (pkg_dir / "__init__.py").touch()
     (pkg_dir / "test_pkg.py").write_text(package_code)
     # Bind genesis.yml to the test package
     (target / ".genesis" / "genesis.yml").write_text(
@@ -358,24 +361,23 @@ class TestExitCodeContract:
                 f"Each criterion must be a non-empty string, got {c!r}"
             )
 
-    def test_sc104_exit4_fd_gap_fields(self, tmp_path):
-        """SC-104: Exit 4 (fd_gap) produces failing evaluator info for the skill."""
+    def test_sc104_fd_escalation_fields(self, tmp_path):
+        """SC-104 (ADR-021): F_D failure escalates to F_P — manifest produced with failing evaluator info."""
         _install_sandbox(tmp_path)
         _write_test_package(tmp_path, _MINIMAL_PACKAGE)
-        # No code file → F_D fails
+        # No code file → F_D fails → escalates to F_P
 
         result = _run_genesis(tmp_path, "iterate")
-        assert result.returncode == 4, (
-            f"Expected exit 4 (fd_gap), got {result.returncode}\n{result.stderr}"
+        assert result.returncode == 0, (
+            f"Expected exit 0 (F_P dispatched), got {result.returncode}\n{result.stderr}"
         )
         data = json.loads(result.stdout)
 
-        assert data.get("stopped_by") == "fd_gap", (
-            f"Exit 4 must have stopped_by=fd_gap, got {data.get('stopped_by')}"
-        )
-        assert "failing_evaluators" in data, "Exit 4 must include failing_evaluators"
+        assert data["status"] == "iterated"
+        assert "failing_evaluators" in data, "Must include failing_evaluators"
         assert len(data["failing_evaluators"]) > 0, "Must have at least one failing evaluator"
-        assert "edge" in data, "Exit 4 must include edge"
+        assert "edge" in data, "Must include edge"
+        assert "fp_manifest_path" in data, "F_P manifest must be produced on escalation"
 
     def test_sc105_exit5_max_iterations_fields(self, tmp_path):
         """SC-105: Exit 5 (max_iterations) produces stopped_by field."""

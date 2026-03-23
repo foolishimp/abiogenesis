@@ -84,9 +84,9 @@ Each asset type defines its own stability conditions.
 **Acceptance Criteria**:
 - AC-1: Selects first unconverged job in topological edge order
 - AC-2: Calls `bind_fd()` to pre-compute all F_D results, F_H gates, and F_P assessments
-- AC-3: Calls `iterate()` which enforces F_D→F_P→F_H ordering (REQ-F-GATE-002)
-- AC-4: On F_D failure: emits `found{kind: fd_gap}` with failing evaluator details, exits code 4
-- AC-5: On F_P needed: emits `fp_dispatched` with failing evaluators and prompt length, writes manifest to `.ai-workspace/fp_manifests/`, exits code 2
+- AC-3: Calls `iterate()` which enforces escalation ordering (REQ-F-GATE-002)
+- AC-4: On F_D failure with unresolved F_P and no pending dispatch: emits `found{kind: fd_findings}` and `fp_dispatched`, writes manifest with `fd_results`. On F_D failure with pending dispatch: returns `pending`. On F_D failure without F_P or with F_P certified: emits `found{kind: fd_gap}`, exits code 4.
+- AC-5: On F_P needed (no F_D failures): emits `fp_dispatched` with failing evaluators and prompt length, writes manifest to `.ai-workspace/fp_manifests/`, exits code 2
 - AC-6: On F_H needed: emits `fh_gate_pending` with evaluator criteria, exits code 3
 - AC-7: Emits `edge_started{edge, build, target}` before iteration
 
@@ -98,7 +98,7 @@ Each asset type defines its own stability conditions.
 - AC-1: Calls `_derive_state()` to determine workspace convergence
 - AC-2: If converged: closes completed features (REQ-F-VIS-001), exits code 0
 - AC-3: If not converged: dispatches `gen_iterate()` for the next job
-- AC-4: `--auto` flag loops up to MAX_AUTO (50) iterations, stopping on: convergence, `fp_dispatched`, `fh_gate_pending`, `found{kind: fd_gap}`, or max iterations
+- AC-4: `--auto` flag loops up to MAX_AUTO (50) iterations, stopping on: convergence, `fp_dispatched` (including escalation from F_D findings), `fh_gate_pending`, `found{kind: fd_gap}` (terminal — no F_P path or F_P certified), `pending` (dispatch in flight), or max iterations
 - AC-5: `--human-proxy` requires `--auto`; performs F_H evaluation per proxy protocol (§XIX of bootloader)
 - AC-6: Exit codes: 0 (converged), 2 (fp_dispatched), 3 (fh_gate_pending), 4 (fd_gap), 5 (max_iterations)
 
@@ -126,15 +126,17 @@ Human approval is required at spec and design boundaries before downstream work 
 - AC-4: F_H gate criteria surfaced verbatim from `Evaluator.description`
 - AC-5: `actor` field mandatory on all `approved` events: `"human"` or `"human-proxy"` — never absent
 
-### REQ-F-GATE-002 — F_D must all pass before F_P dispatch; F_D+F_P before F_H
+### REQ-F-GATE-002 — F_D evaluator findings escalate to F_P; F_D+F_P must pass before F_H
 
-The evaluator ordering invariant prevents wasted work.
+The evaluator ladder is capability escalation: F_D runs first because deterministic machinery is cheapest; unresolved deterministic deficits escalate to F_P; unresolved judgment escalates to F_H. F_D failure is not a gate — it is the trigger for escalation (INT-001).
 
 **Acceptance Criteria**:
-- AC-1: All F_D evaluators must return delta=0 before any `fp_dispatched` event is emitted
-- AC-2: All F_D and F_P evaluators must pass before any `fh_gate_pending` event is emitted
-- AC-3: If F_P has assessed pass but F_D is still failing → exit code 4 (`fd_gap`) — construction quality problem
-- AC-4: Escalation chain enforced: η: F_D → F_P → F_H
+- AC-1: On edges with unresolved F_P evaluators and no pending dispatch: F_D evaluator findings emit `found{kind: fd_findings}` and `fp_dispatched` in the same iteration. F_D findings included in F_P manifest via `fd_results`.
+- AC-2: On edges with unresolved F_P evaluators and an existing pending dispatch: return `status: "pending"` without duplicate dispatch.
+- AC-3: All F_D and F_P evaluators must pass before any `fh_gate_pending` event is emitted.
+- AC-4: F_P certified but F_D still failing → `found{kind: fd_gap}`, exit code 4 — construction quality problem.
+- AC-5: On edges without F_P evaluators: F_D failure → `found{kind: fd_gap}`, terminal.
+- AC-6: Fatal engine errors (context integrity violations, malformed config, runtime failures) propagate as exceptions — not evaluator escalation. Missing upstream artifacts are ordinary unconverged state, not fatal.
 
 ---
 
@@ -344,7 +346,7 @@ The primary test surface is command-level integration scenarios. Unit tests supp
 
 **Acceptance Criteria**:
 - AC-1: Each integration test exercises the full F_D→F_P→F_H evaluator chain against an isolated temporary workspace
-- AC-2: Required integration scenarios: cold start → convergence, resume mid-lifecycle, F_D blocks F_P, spec change invalidates F_P, F_P revocation cascades delta through downstream edges, proxy rejection halts edge, full convergence closes features, replay determinism
+- AC-2: Required integration scenarios: cold start → convergence, resume mid-lifecycle, F_D escalates to F_P (ADR-021), spec change invalidates F_P, F_P revocation cascades delta through downstream edges, proxy rejection halts edge, full convergence closes features, replay determinism
 - AC-3: Unit tests cover write-primitive invariants (emit, project, EventStream) and complex internal modules (bind, schedule, commands) where integration tests alone are insufficient to exercise edge cases
 
 ### REQ-F-TEST-002 — Property invariant tests
@@ -426,7 +428,7 @@ The engine uses exactly five prime event types. All other events are derived.
 
 | Prime | Kind discriminator | EC role |
 |-------|-------------------|---------|
-| `found` | `fd_gap` | `happensAt` only — observational record |
+| `found` | `fd_findings`, `fd_gap` | `happensAt` only — `fd_findings`: F_D findings carried into F_P escalation; `fd_gap`: terminal deterministic gap (no F_P path or F_P certified) |
 | `approved` | `fh_review`, `fh_intent` | `initiates operative(edge, wv)` |
 | `assessed` | `fp` (pass/fail), `fh_review` (reject) | `initiates certified(edge, ev, spec_hash, wv)` or `happensAt` |
 | `revoked` | `fh_approval`, `fp_assessment` | `terminates operative(edge, wv)` or `terminates certified(edge, ev, spec_hash, wv)` |

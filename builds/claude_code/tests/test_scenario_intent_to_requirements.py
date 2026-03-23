@@ -137,11 +137,12 @@ class TestAssetTruth:
         assert "artifact_exists" in gap["failing"]
         assert _FP_EVAL in gap["failing"]
 
-    def test_fd_gates_fp(self, run_archive):
+    def test_fd_escalates_to_fp(self, run_archive):
+        """REQ-F-GATE-002 (ADR-021): F_D failure escalates to F_P dispatch."""
         target = _setup(run_archive)
         result = run_genesis(target, "iterate", archive=run_archive)
-        assert result.returncode == 4
-        assert "fp_manifest_path" not in json.loads(result.stdout)
+        assert result.returncode == 0
+        assert "fp_manifest_path" in json.loads(result.stdout)
 
     def test_manifest_truth(self, run_archive):
         target = _setup(run_archive)
@@ -240,15 +241,16 @@ class TestEventPostmortemTruth:
         assert "result_path" in manifest
         assert "fd_results" in manifest
 
-    def test_fd_gap_event_on_gate(self, run_archive):
+    def test_fd_findings_event_on_escalation(self, run_archive):
+        """REQ-F-GATE-002 (ADR-021): F_D failure emits found{kind:fd_findings} for escalation."""
         target = _setup(run_archive)
         run_genesis(target, "iterate", archive=run_archive)
         events = read_events(target)
-        fd_gaps = [e for e in events
-                   if e["event_type"] == "found"
-                   and e.get("data", {}).get("kind") == "fd_gap"]
-        assert len(fd_gaps) >= 1
-        assert fd_gaps[-1]["data"]["edge"] == _EDGE
+        fd_findings = [e for e in events
+                       if e["event_type"] == "found"
+                       and e.get("data", {}).get("kind") == "fd_findings"]
+        assert len(fd_findings) >= 1, "F_D failure must emit found{kind:fd_findings} event"
+        assert fd_findings[-1]["data"]["edge"] == _EDGE
 
 
 # ── Deterministic F_P judge ─────────────────────────────────────────────────
