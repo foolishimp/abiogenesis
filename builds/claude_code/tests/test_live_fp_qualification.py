@@ -15,22 +15,27 @@ The LLM receives ONLY what production guarantees:
 The deterministic judge from each scenario checks the produced artifact.
 The LLM's self-assessment is not trusted — only the judge verdict counts.
 
-Success criterion: 8/10 runs judged acceptable per scenario.
+Two qualification lanes:
+  Lane 1 (this file): Fresh-sandbox qualification — one sandbox, one dispatch,
+    one verdict. Parametrized, atomic, parallel-safe. This is the release gate.
+    "Does the prompt produce a valid artifact?"
+  Lane 2 (deferred): Entropy campaign — shared sandbox, ordered sequential
+    dispatches, delta trend. Requires artifact fallback removal first.
+    "Does the system converge over accumulated state?"
 
-Transport: claude -p (Claude Code CLI in pipe mode)
-Architecture: F_D → MCP → F_P.claudecode
+Transport: subprocess with env sanitization (ADR-022)
+Architecture: F_D → subprocess → F_P
 
 Requires: claude CLI available on PATH.
 Run: pytest builds/claude_code/tests/test_live_fp_qualification.py -v -m live_fp
 
-Archive: tests/runs/live_fp_qualification/<scenario>/<timestamp>/
+Archive: test_runs/live_fp_qualification/<timestamp_testname>/
   - manifest.json         — what ABG produced
   - prompt.txt            — exact payload sent to the LLM
   - raw_response.txt      — what the LLM returned
   - judge_verdict.json    — deterministic judge result
-  - events.jsonl          — full event chain
+  - events.jsonl          — full event chain (snapshot from shared sandbox)
 """
-import json
 import re
 import textwrap
 from pathlib import Path
@@ -44,13 +49,13 @@ from scenario_helpers import (
 )
 
 
-# ── Skip if no MCP transport ─────────────────────────────────────────────────
+# ── Skip if no agent CLI ─────────────────────────────────────────────────────
 
 pytestmark = pytest.mark.live_fp
 
-skip_no_mcp = pytest.mark.skipif(
+skip_no_agent = pytest.mark.skipif(
     not _has_mcp_transport(),
-    reason="@steipete/claude-code-mcp not available — live F_P qualification requires MCP transport",
+    reason="Claude Code CLI not available — live F_P qualification requires claude on PATH",
 )
 
 
@@ -142,8 +147,8 @@ def _judge_uat(artifact: Path, manifest: dict) -> list[dict]:
                          f"numbered steps, expected results, edge cases present"}]
 
 
-def _setup_uat(archive: RunArchive) -> Path:
-    target = archive.workspace
+def _setup_uat_sandbox(target: Path, archive: RunArchive) -> None:
+    """Install and configure a UAT scenario sandbox. Called once."""
     install_sandbox(target, archive=archive)
     write_test_package(target, _UAT_PACKAGE)
     d = target / "docs"
@@ -160,7 +165,6 @@ def _setup_uat(archive: RunArchive) -> Path:
     out = target / "output"
     out.mkdir(parents=True, exist_ok=True)
     (out / "uat_tests.md").write_text("# placeholder\n")
-    return target
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -255,8 +259,8 @@ def _judge_schema(artifact: Path, manifest: dict) -> list[dict]:
                          f"constraints, timestamps"}]
 
 
-def _setup_schema(archive: RunArchive) -> Path:
-    target = archive.workspace
+def _setup_schema_sandbox(target: Path, archive: RunArchive) -> None:
+    """Install and configure a schema scenario sandbox. Called once."""
     install_sandbox(target, archive=archive)
     write_test_package(target, _SCHEMA_PACKAGE)
     d = target / "docs"
@@ -280,19 +284,19 @@ def _setup_schema(archive: RunArchive) -> Path:
     out = target / "output"
     out.mkdir(parents=True, exist_ok=True)
     (out / "schema.sql").write_text("-- placeholder\n")
-    return target
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# Single-run smoke tests
+# Single-run smoke tests — fresh sandbox per test
 # ══════════════════════════════════════════════════════════════════════════════
 
-@skip_no_mcp
+@skip_no_agent
 class TestLiveFpSmoke:
     """Single-run smoke test — does the prompt produce anything the judge can evaluate?"""
 
     def test_uat_single_run(self, run_archive):
-        target = _setup_uat(run_archive)
+        target = run_archive.workspace
+        _setup_uat_sandbox(target, run_archive)
         result = invoke_live_fp(
             target,
             artifact_path="output/uat_tests.md",
@@ -306,7 +310,8 @@ class TestLiveFpSmoke:
         assert result.model, "model must be recorded"
 
     def test_schema_single_run(self, run_archive):
-        target = _setup_schema(run_archive)
+        target = run_archive.workspace
+        _setup_schema_sandbox(target, run_archive)
         result = invoke_live_fp(
             target,
             artifact_path="output/schema.sql",
@@ -319,186 +324,63 @@ class TestLiveFpSmoke:
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# Qualification runs — success rate tests
+# Lane 1: Fresh-sandbox qualification — release gate
+#
+# Each parametrized run gets its own sandbox. One dispatch, one verdict.
+# Parallel-safe. "Does the prompt produce a valid artifact in isolation?"
+#
+# Lane 2 (entropy campaign — shared sandbox, sequential, delta trend) is
+# deferred until the raw_response→artifact fallback is removed.
 # ══════════════════════════════════════════════════════════════════════════════
 
 _QUAL_RUNS = 10
-_QUAL_BAR = 8  # 8/10 must pass
 
 
-@skip_no_mcp
-class TestLiveFpQualification:
-    """Prompt sufficiency qualification: 10 runs, require 8/10 judged acceptable.
+@skip_no_agent
+class TestUatQualification:
+    """UAT qualification: 10 fresh-sandbox runs. Release gate.
 
-    This is the release evidence test. It proves that the F_P dispatch
-    payload ABG produces is sufficient for a real LLM within tolerance.
+    Each run gets its own sandbox — tests prompt sufficiency in isolation.
     """
 
-    def test_uat_qualification(self, run_archive):
-        """requirements→uat_tests: 10 runs, 8/10 bar."""
-        passed = 0
-        results: list[LiveFpResult] = []
-
-        for i in range(_QUAL_RUNS):
-            target = run_archive.workspace / f"uat_run_{i}"
-            target.mkdir(parents=True, exist_ok=True)
-            sub_archive = RunArchive(
-                run_dir=run_archive.run_dir / f"uat_run_{i}",
-                workspace=target,
-                artifacts_dir=run_archive.run_dir / f"uat_run_{i}" / "artifacts",
-                usecase_id="live_fp_uat",
-                test_name=f"uat_run_{i}",
-                timestamp=run_archive.timestamp,
-            )
-            sub_archive.run_dir.mkdir(parents=True, exist_ok=True)
-            sub_archive.artifacts_dir.mkdir(parents=True, exist_ok=True)
-
-            _setup_uat_in(target, sub_archive)
-            result = invoke_live_fp(
-                target,
-                artifact_path="output/uat_tests.md",
-                edge_name="requirements\u2192uat_tests",
-                judge=_judge_uat,
-                archive=sub_archive,
-            )
-            results.append(result)
-            if result.judge_passed:
-                passed += 1
-            sub_archive.finalize(test_passed=result.judge_passed)
-
-        # Write qualification summary
-        summary = {
-            "scenario": "requirements→uat_tests",
-            "total_runs": _QUAL_RUNS,
-            "passed": passed,
-            "bar": _QUAL_BAR,
-            "qualified": passed >= _QUAL_BAR,
-            "runs": [
-                {
-                    "run": i,
-                    "passed": r.judge_passed,
-                    "evidence": r.judge_assessments[0]["evidence"] if r.judge_assessments else "",
-                    "model": r.model,
-                }
-                for i, r in enumerate(results)
-            ],
-        }
-        (run_archive.artifacts_dir / "uat_qualification.json").write_text(
-            json.dumps(summary, indent=2), encoding="utf-8")
-
-        assert passed >= _QUAL_BAR, (
-            f"UAT qualification failed: {passed}/{_QUAL_RUNS} passed "
-            f"(bar: {_QUAL_BAR}/{_QUAL_RUNS})\n"
-            + "\n".join(
-                f"  run {i}: {'PASS' if r.judge_passed else 'FAIL'} — "
-                f"{r.judge_assessments[0]['evidence'][:80]}"
-                for i, r in enumerate(results)
-            )
+    @pytest.mark.parametrize("run_id", range(_QUAL_RUNS))
+    def test_uat_run(self, run_id, run_archive):
+        """requirements→uat_tests: fresh sandbox, single dispatch."""
+        target = run_archive.workspace
+        _setup_uat_sandbox(target, run_archive)
+        result = invoke_live_fp(
+            target,
+            artifact_path="output/uat_tests.md",
+            edge_name="requirements\u2192uat_tests",
+            judge=_judge_uat,
+            archive=run_archive,
         )
-
-    def test_schema_qualification(self, run_archive):
-        """design→data_schema: 10 runs, 8/10 bar."""
-        passed = 0
-        results: list[LiveFpResult] = []
-
-        for i in range(_QUAL_RUNS):
-            target = run_archive.workspace / f"schema_run_{i}"
-            target.mkdir(parents=True, exist_ok=True)
-            sub_archive = RunArchive(
-                run_dir=run_archive.run_dir / f"schema_run_{i}",
-                workspace=target,
-                artifacts_dir=run_archive.run_dir / f"schema_run_{i}" / "artifacts",
-                usecase_id="live_fp_schema",
-                test_name=f"schema_run_{i}",
-                timestamp=run_archive.timestamp,
-            )
-            sub_archive.run_dir.mkdir(parents=True, exist_ok=True)
-            sub_archive.artifacts_dir.mkdir(parents=True, exist_ok=True)
-
-            _setup_schema_in(target, sub_archive)
-            result = invoke_live_fp(
-                target,
-                artifact_path="output/schema.sql",
-                edge_name="design\u2192data_schema",
-                judge=_judge_schema,
-                archive=sub_archive,
-            )
-            results.append(result)
-            if result.judge_passed:
-                passed += 1
-            sub_archive.finalize(test_passed=result.judge_passed)
-
-        summary = {
-            "scenario": "design→data_schema",
-            "total_runs": _QUAL_RUNS,
-            "passed": passed,
-            "bar": _QUAL_BAR,
-            "qualified": passed >= _QUAL_BAR,
-            "runs": [
-                {
-                    "run": i,
-                    "passed": r.judge_passed,
-                    "evidence": r.judge_assessments[0]["evidence"] if r.judge_assessments else "",
-                    "model": r.model,
-                }
-                for i, r in enumerate(results)
-            ],
-        }
-        (run_archive.artifacts_dir / "schema_qualification.json").write_text(
-            json.dumps(summary, indent=2), encoding="utf-8")
-
-        assert passed >= _QUAL_BAR, (
-            f"Schema qualification failed: {passed}/{_QUAL_RUNS} passed "
-            f"(bar: {_QUAL_BAR}/{_QUAL_RUNS})\n"
-            + "\n".join(
-                f"  run {i}: {'PASS' if r.judge_passed else 'FAIL'} — "
-                f"{r.judge_assessments[0]['evidence'][:80]}"
-                for i, r in enumerate(results)
-            )
+        assert result.judge_passed, (
+            f"run {run_id}: "
+            f"{result.judge_assessments[0]['evidence'] if result.judge_assessments else 'no assessment'}"
         )
 
 
-# ── Setup helpers for qualification (install into pre-created target) ────────
+@skip_no_agent
+class TestSchemaQualification:
+    """Schema qualification: 10 fresh-sandbox runs. Release gate.
 
-def _setup_uat_in(target: Path, archive: RunArchive) -> None:
-    install_sandbox(target, archive=archive)
-    write_test_package(target, _UAT_PACKAGE)
-    d = target / "docs"
-    d.mkdir(parents=True, exist_ok=True)
-    (d / "testing_standards.md").write_text(
-        "# Testing Standards\n\n"
-        "## UAT Structure\n"
-        "- Each test case must reference a REQ-key\n"
-        "- Steps must be concrete and executable\n"
-        "- Expected results must be observable and measurable\n"
-        "- Edge cases must be explicitly covered\n"
-    )
-    out = target / "output"
-    out.mkdir(parents=True, exist_ok=True)
-    (out / "uat_tests.md").write_text("# placeholder\n")
+    Each run gets its own sandbox — tests prompt sufficiency in isolation.
+    """
 
-
-def _setup_schema_in(target: Path, archive: RunArchive) -> None:
-    install_sandbox(target, archive=archive)
-    write_test_package(target, _SCHEMA_PACKAGE)
-    d = target / "docs"
-    d.mkdir(parents=True, exist_ok=True)
-    (d / "adr_001.md").write_text(
-        "# ADR-001: Use PostgreSQL for Primary Store\n\n"
-        "## Decision\n"
-        "PostgreSQL with JSONB columns for flexible metadata.\n\n"
-        "## Constraints\n"
-        "- All tables must have created_at/updated_at timestamps\n"
-        "- Foreign keys must be named fk_{table}_{column}\n"
-        "- Indexes must be named idx_{table}_{column}\n"
-    )
-    (d / "naming_guide.md").write_text(
-        "# Naming Conventions\n\n"
-        "## Database Objects\n"
-        "- Tables: snake_case, plural (e.g. user_accounts)\n"
-        "- Columns: snake_case, singular (e.g. first_name)\n"
-        "- Enums: UPPER_SNAKE_CASE\n"
-    )
-    out = target / "output"
-    out.mkdir(parents=True, exist_ok=True)
-    (out / "schema.sql").write_text("-- placeholder\n")
+    @pytest.mark.parametrize("run_id", range(_QUAL_RUNS))
+    def test_schema_run(self, run_id, run_archive):
+        """design→data_schema: fresh sandbox, single dispatch."""
+        target = run_archive.workspace
+        _setup_schema_sandbox(target, run_archive)
+        result = invoke_live_fp(
+            target,
+            artifact_path="output/schema.sql",
+            edge_name="design\u2192data_schema",
+            judge=_judge_schema,
+            archive=run_archive,
+        )
+        assert result.judge_passed, (
+            f"run {run_id}: "
+            f"{result.judge_assessments[0]['evidence'] if result.judge_assessments else 'no assessment'}"
+        )

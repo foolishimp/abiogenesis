@@ -143,7 +143,7 @@ class TestImportSymbol:
 
 # ── CLI config resolution ─────────────────────────────────────────────────────
 
-@pytest.mark.e2e
+@pytest.mark.integration
 class TestCLIConfigResolution:
     def test_missing_config_exits_1(self, tmp_path):
         """No .genesis/genesis.yml and no flags → exit 1 with clear message."""
@@ -225,7 +225,7 @@ class TestCLIConfigResolution:
 
 # ── gen-install.py ────────────────────────────────────────────────────────────
 
-@pytest.mark.e2e
+@pytest.mark.integration
 class TestGenInstall:
     _installer = (
         Path(__file__).resolve().parent.parent.parent.parent
@@ -338,50 +338,20 @@ class TestGenInstall:
             "GTL_BOOTLOADER.md should always be present in the installer distribution"
         )
 
-    def test_installs_mcp_json(self, tmp_path):
-        """Install creates .mcp.json with claude-code-runner server (ADR-020)."""
+    def test_no_mcp_json_installed(self, tmp_path):
+        """Install does NOT create .mcp.json (ADR-022 — MCP superseded by subprocess)."""
         self._install(tmp_path)
         mcp_json = tmp_path / ".mcp.json"
-        assert mcp_json.exists(), ".mcp.json must be created for F_P dispatch"
-        config = json.loads(mcp_json.read_text())
-        assert "mcpServers" in config
-        assert "claude-code-runner" in config["mcpServers"]
-        server = config["mcpServers"]["claude-code-runner"]
-        assert server["command"] == "npx"
-        assert "@steipete/claude-code-mcp" in server["args"]
+        assert not mcp_json.exists(), ".mcp.json should not be created (ADR-022)"
 
-    def test_mcp_json_preserves_existing_servers(self, tmp_path):
-        """Installing into a project with existing MCP servers preserves them."""
-        mcp_json = tmp_path / ".mcp.json"
-        mcp_json.write_text(json.dumps({
-            "mcpServers": {
-                "my-server": {"type": "stdio", "command": "my-cmd", "args": []}
-            }
-        }))
+    def test_verify_reports_agent_cli(self, tmp_path):
+        """--verify reports agent_cli availability."""
         self._install(tmp_path)
-        config = json.loads(mcp_json.read_text())
-        assert "my-server" in config["mcpServers"], "Existing MCP servers must be preserved"
-        assert "claude-code-runner" in config["mcpServers"]
-
-    def test_mcp_json_idempotent(self, tmp_path):
-        """Reinstall does not duplicate claude-code-runner in .mcp.json."""
-        self._install(tmp_path)
-        result = self._install(tmp_path)
-        mcp = result.get("mcp", {})
-        assert mcp.get("action") == "already_present"
-
-    def test_verify_checks_mcp(self, tmp_path):
-        """--verify reports mcp_present status."""
-        result_before = self._install(tmp_path, extra_args=["--verify"])
-        # First verify before install — .mcp.json doesn't exist
-        assert result_before.get("status") == "incomplete"
-        # Install then verify
-        self._install(tmp_path)
-        result_after = self._install(tmp_path, extra_args=["--verify"])
-        assert result_after.get("mcp_present") is True
+        result = self._install(tmp_path, extra_args=["--verify"])
+        assert "agent_cli" in result, "verify must report agent CLI availability"
 
     def test_fp_dispatch_module_installed(self, tmp_path):
-        """fp_dispatch.py is installed as part of the engine (ADR-020)."""
+        """fp_dispatch.py is installed as part of the engine (ADR-022)."""
         self._install(tmp_path)
         fp_dispatch = tmp_path / ".genesis" / "genesis" / "fp_dispatch.py"
         assert fp_dispatch.exists(), "fp_dispatch.py must be installed for F_P transport"

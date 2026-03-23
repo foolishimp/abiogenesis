@@ -122,7 +122,7 @@ def _setup(archive: RunArchive) -> Path:
 
 # ── Asset truth ──────────────────────────────────────────────────────────────
 
-@pytest.mark.e2e
+@pytest.mark.integration
 class TestAssetTruth:
     """Proof 1: the kernel creates the correct output artifact for this hop."""
 
@@ -202,7 +202,7 @@ class TestAssetTruth:
 
 # ── Event / postmortem truth ─────────────────────────────────────────────────
 
-@pytest.mark.e2e
+@pytest.mark.integration
 class TestEventPostmortemTruth:
     """Proof 2: the audit trail explains what happened and why."""
 
@@ -355,7 +355,7 @@ The system shall maintain authenticated sessions with configurable timeout.
 
 # ── Real F_P judged convergence ──────────────────────────────────────────────
 
-@pytest.mark.e2e
+@pytest.mark.integration
 class TestRealFpConvergence:
     """Release-evidence: multi-iteration convergence with a real deterministic judge.
 

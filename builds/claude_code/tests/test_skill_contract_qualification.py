@@ -219,7 +219,7 @@ _FH_PACKAGE = textwrap.dedent('''\
 
 # ── Group 1: Bootloader Injection ────────────────────────────────────────────
 
-@pytest.mark.e2e
+@pytest.mark.integration
 class TestBootloaderInjection:
     """Prove the installer creates the contract surface the skill layer depends on."""
 
@@ -267,7 +267,7 @@ class TestBootloaderInjection:
 
 # ── Group 2: Exit Code Contract ──────────────────────────────────────────────
 
-@pytest.mark.e2e
+@pytest.mark.integration
 class TestExitCodeContract:
     """Prove each exit code produces the JSON fields the skill routing table expects."""
 
@@ -297,7 +297,7 @@ class TestExitCodeContract:
         )
 
     def test_sc102_exit2_fp_dispatch_fields(self, tmp_path):
-        """SC-102: Exit 2 (fp_dispatched) produces all fields the skill needs for MCP dispatch."""
+        """SC-102: Exit 2 (fp_dispatched) produces all fields the skill needs for F_P dispatch."""
         _install_sandbox(tmp_path)
         _write_test_package(tmp_path, _MINIMAL_PACKAGE)
         _satisfy_fd(tmp_path)
@@ -313,7 +313,7 @@ class TestExitCodeContract:
             f"Exit 2 must have stopped_by=fp_dispatch, got {data.get('stopped_by')}"
         )
         assert "fp_manifest_path" in data, (
-            "Exit 2 must include fp_manifest_path for MCP dispatch"
+            "Exit 2 must include fp_manifest_path for F_P dispatch"
         )
         assert "edge" in data, "Exit 2 must include edge name"
         assert "failing_evaluators" in data, "Exit 2 must include failing_evaluators"
@@ -410,7 +410,7 @@ class TestExitCodeContract:
 
 # ── Group 3: Manifest Round-Trip ─────────────────────────────────────────────
 
-@pytest.mark.e2e
+@pytest.mark.integration
 class TestManifestContract:
     """Prove the F_P manifest file has the structure the skill expects."""
 
@@ -430,7 +430,7 @@ class TestManifestContract:
         assert isinstance(manifest, dict), "Manifest must be a JSON object"
 
     def test_sc202_manifest_required_fields(self, tmp_path):
-        """SC-202: Manifest contains all fields the skill needs for MCP dispatch."""
+        """SC-202: Manifest contains all fields the skill needs for F_P dispatch."""
         _install_sandbox(tmp_path)
         _write_test_package(tmp_path, _MINIMAL_PACKAGE)
         _satisfy_fd(tmp_path)
@@ -499,7 +499,7 @@ class TestManifestContract:
 
 # ── Group 4: Result → Emit Pipeline ─────────────────────────────────────────
 
-@pytest.mark.e2e
+@pytest.mark.integration
 class TestResultEmitPipeline:
     """Prove the skill's result→emit-event pipeline works end to end."""
 
@@ -612,7 +612,7 @@ class TestResultEmitPipeline:
 
 # ── Group 5: F_H Gate Contract ───────────────────────────────────────────────
 
-@pytest.mark.e2e
+@pytest.mark.integration
 class TestFHGateContract:
     """Prove the F_H gate output matches what the skill needs for human/proxy routing."""
 
@@ -712,7 +712,7 @@ class TestFHGateContract:
 
 # ── Group 6: Malformed Skill Behavior Fails Closed ──────────────────────────
 
-@pytest.mark.e2e
+@pytest.mark.integration
 class TestMalformedSkillFailsClosed:
     """Prove that incorrect skill behavior is rejected by the engine."""
 

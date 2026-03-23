@@ -126,7 +126,7 @@ _PKG_INTENT_TO_REQUIREMENTS = textwrap.dedent('''\
 
 # ── Install truth ────────────────────────────────────────────────────────────
 
-@pytest.mark.e2e
+@pytest.mark.integration
 class TestInstallTruth:
     """Kernel install creates minimal sandbox — no domain artifacts smuggled in."""
 
@@ -161,7 +161,7 @@ class TestInstallTruth:
 
 # ── Reinstall safety ─────────────────────────────────────────────────────────
 
-@pytest.mark.e2e
+@pytest.mark.integration
 class TestReinstallSafety:
     """Reinstall ABG preserves domain-owned artifacts and convergence."""
 
@@ -226,7 +226,7 @@ class TestReinstallSafety:
 
 # ── Cross-hop structural properties ──────────────────────────────────────────
 
-@pytest.mark.e2e
+@pytest.mark.integration
 class TestCrossHopProperties:
     """Structural properties that hold across all hops."""
 

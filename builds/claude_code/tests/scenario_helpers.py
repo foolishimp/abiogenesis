@@ -37,7 +37,7 @@ from typing import Optional
 
 
 _INSTALLER = Path(__file__).resolve().parent.parent / "code" / "gen-install.py"
-_RUNS_DIR = Path(__file__).resolve().parent / "runs"
+_RUNS_DIR = Path(__file__).resolve().parent.parent / "test_runs"
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -888,7 +888,7 @@ def assert_failure_inspectable(
 
 @dataclass
 class LiveFpResult:
-    """Result of a single live F_P invocation via MCP → claude_code."""
+    """Result of a single live F_P invocation via subprocess → claude -p."""
     manifest: dict
     raw_response: str
     artifact_content: str
@@ -899,13 +899,13 @@ class LiveFpResult:
     converged: bool
 
 
-# MCP transport — single implementation in genesis.fp_dispatch (ADR-020).
+# Subprocess transport — single implementation in genesis.fp_dispatch (ADR-022).
 # Tests and production share the same code path.
-from genesis.fp_dispatch import has_mcp_transport, call_claude_code_mcp
+from genesis.fp_dispatch import has_agent, call_agent
 
-# Re-export under the old private names for any existing references
-_has_mcp_transport = has_mcp_transport
-_call_claude_code_mcp = call_claude_code_mcp
+# Re-export under legacy names for existing references
+_has_mcp_transport = lambda: has_agent("claude")
+_call_claude_code_mcp = lambda prompt, path: call_agent(prompt, path, agent="claude")
 
 
 def invoke_live_fp(
@@ -917,14 +917,14 @@ def invoke_live_fp(
     archive: Optional[RunArchive] = None,
     model: str = "sonnet",
 ) -> LiveFpResult:
-    """Invoke a real LLM via MCP → claude_code using the F_P dispatch contract.
+    """Invoke a real LLM via subprocess using the F_P dispatch contract.
 
-    Architecture: F_D → MCP → F_P.claudecode
-    Transport: @steipete/claude-code-mcp (stdio MCP server)
+    Architecture: F_D → subprocess → F_P (ADR-022)
+    Transport: claude -p with CLAUDE* env vars stripped
 
     This is the prompt sufficiency test:
       1. Run iterate to get the real manifest
-      2. Send the manifest prompt via MCP claude_code tool — nothing more
+      2. Send the manifest prompt via subprocess — nothing more
       3. Read the LLM's artifact output
       4. Run the deterministic judge as cross-check
       5. Ingest via assess-result protocol
@@ -934,7 +934,7 @@ def invoke_live_fp(
     No hidden side channels. No extra instructions.
     """
     assert _has_mcp_transport(), (
-        "@steipete/claude-code-mcp required for live F_P qualification"
+        "Claude Code CLI required for live F_P qualification"
     )
 
     label_prefix = "live-fp"
@@ -950,20 +950,20 @@ def invoke_live_fp(
     manifest_path = Path(iter_data["fp_manifest_path"])
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
 
-    # 2. Send exactly the manifest prompt via MCP → claude_code — nothing more
+    # 2. Send exactly the manifest prompt via subprocess — nothing more
     prompt = manifest["prompt"]
     raw_response = _call_claude_code_mcp(prompt, str(target))
 
-    # Archive the MCP invocation as a synthetic subprocess log
+    # Archive the subprocess invocation
     if archive:
         archive._commands.append({
-            "label": f"{label_prefix} mcp claude_code",
-            "args": ["npx", "@steipete/claude-code-mcp", "→", "claude_code"],
+            "label": f"{label_prefix} claude -p",
+            "args": ["claude", "-p", "--output-format", "text", "<prompt>"],
             "returncode": 0,
             "timestamp": datetime.now(timezone.utc).isoformat(),
         })
 
-    # 3. Read the artifact — MCP actor has tool access and may write it directly
+    # 3. Read the artifact — agent has tool access and may write it directly
     art = target / artifact_path
     art.parent.mkdir(parents=True, exist_ok=True)
     if art.exists() and art.stat().st_size > len("# placeholder\n"):
@@ -1003,7 +1003,7 @@ def invoke_live_fp(
             "passed": judge_passed,
             "assessments": assessments,
             "model": model,
-            "transport": "mcp:@steipete/claude-code-mcp",
+            "transport": "subprocess:claude-p",
         }, indent=2), encoding="utf-8")
 
     return LiveFpResult(

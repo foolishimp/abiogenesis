@@ -190,7 +190,7 @@ class TestFdOnlyDomainBlind:
     gen_* commands use Scope.worker — no spec import occurs.
     """
 
-    @pytest.mark.bootstrap_state
+    @pytest.mark.integration
     def test_fd_command_executed_generically(self, tmp_path):
         """Kernel runs ev.command via subprocess — no domain knowledge required."""
         ws = _make_stream(tmp_path)
@@ -201,7 +201,7 @@ class TestFdOnlyDomainBlind:
         # Sentinel not yet created → evaluator must fail
         assert any(ev.name == "file_published" for ev in pre.failing_evaluators)
 
-    @pytest.mark.bootstrap_state
+    @pytest.mark.integration
     def test_initial_delta_nonzero(self, tmp_path):
         """gen_gaps shows delta>0 before condition is met. No _resolve_worker patch."""
         ws = _make_stream(tmp_path)
@@ -211,7 +211,7 @@ class TestFdOnlyDomainBlind:
         assert result["total_delta"] > 0
         assert result["converged"] is False
 
-    @pytest.mark.bootstrap_state
+    @pytest.mark.integration
     def test_delta_zero_after_condition_met(self, tmp_path):
         """gen_gaps shows delta=0 after the F_D command passes. No patch."""
         ws = _make_stream(tmp_path)
@@ -222,7 +222,7 @@ class TestFdOnlyDomainBlind:
         assert result["total_delta"] == 0
         assert result["converged"] is True
 
-    @pytest.mark.bootstrap_state
+    @pytest.mark.integration
     def test_gen_iterate_returns_iterated(self, tmp_path):
         """gen_iterate processes a domain-blind F_D job. No patch."""
         ws = _make_stream(tmp_path)
@@ -232,7 +232,7 @@ class TestFdOnlyDomainBlind:
         assert result["status"] == "iterated"
         assert result["edge"] == "draft→published"
 
-    @pytest.mark.bootstrap_state
+    @pytest.mark.integration
     def test_fd_gap_event_in_surface(self, tmp_path):
         """iterate() records found event when F_D fails."""
         ws = _make_stream(tmp_path)
@@ -244,7 +244,7 @@ class TestFdOnlyDomainBlind:
         surface = iterate(bound)
         assert any(e["event_type"] == "found" for e in surface.events)
 
-    @pytest.mark.bootstrap_state
+    @pytest.mark.integration
     def test_edge_converged_is_audit_record_not_gate(self, tmp_path):
         """edge_converged in stream is an audit record — F_D evaluators still re-run.
 
@@ -272,7 +272,7 @@ class TestFhGateDomainBlind:
     gen_* commands use Scope.worker — no spec import.
     """
 
-    @pytest.mark.bootstrap_state
+    @pytest.mark.integration
     def test_fh_gate_blocks_at_delta(self, tmp_path):
         """F_H evaluator contributes delta>0 before approved (kind=fh_review)."""
         ws = _make_stream(tmp_path)
@@ -282,7 +282,7 @@ class TestFhGateDomainBlind:
         pre = bind_fd(job, ws, resolver, tmp_path)
         assert any(ev.name == "budget_signed" for ev in pre.failing_evaluators)
 
-    @pytest.mark.bootstrap_state
+    @pytest.mark.integration
     def test_fh_gate_resolved_by_approved(self, tmp_path):
         """approved (kind=fh_review) event with correct edge name resolves the F_H gate."""
         ws = _make_stream(tmp_path)
@@ -294,7 +294,7 @@ class TestFhGateDomainBlind:
         assert any(ev.name == "budget_signed" for ev in pre.passing_evaluators)
         assert not any(ev.name == "budget_signed" for ev in pre.failing_evaluators)
 
-    @pytest.mark.bootstrap_state
+    @pytest.mark.integration
     def test_fh_gate_not_resolved_by_wrong_edge(self, tmp_path):
         """approved (kind=fh_review) for a different edge does NOT resolve this gate."""
         ws = _make_stream(tmp_path)
@@ -305,7 +305,7 @@ class TestFhGateDomainBlind:
         pre = bind_fd(job, ws, resolver, tmp_path)
         assert any(ev.name == "budget_signed" for ev in pre.failing_evaluators)
 
-    @pytest.mark.bootstrap_state
+    @pytest.mark.integration
     def test_fh_pending_event_emitted_by_iterate(self, tmp_path):
         """iterate() emits fh_gate_pending when F_H evaluator is unresolved."""
         ws = _make_stream(tmp_path)
@@ -319,7 +319,7 @@ class TestFhGateDomainBlind:
         pending = next(e for e in surface.events if e["event_type"] == "fh_gate_pending")
         assert "budget_signed" in pending["data"]["evaluators"]
 
-    @pytest.mark.bootstrap_state
+    @pytest.mark.integration
     def test_gen_iterate_returns_converged_when_fh_resolved(self, tmp_path):
         """After approved (kind=fh_review), gen_iterate sees delta=0. No patch needed."""
         ws = _make_stream(tmp_path)
@@ -339,7 +339,7 @@ class TestFpDispatchDomainBlind:
     gen_* commands use Scope.worker — no spec import.
     """
 
-    @pytest.mark.bootstrap_state
+    @pytest.mark.integration
     def test_fp_dispatch_callback_fires(self, tmp_path):
         """on_fp_dispatch is called with the BoundJob when F_P evaluator is failing."""
         ws = _make_stream(tmp_path)
@@ -353,7 +353,7 @@ class TestFpDispatchDomainBlind:
         assert len(dispatched) == 1
         assert dispatched[0] is bound
 
-    @pytest.mark.bootstrap_state
+    @pytest.mark.integration
     def test_fp_dispatch_prompt_has_gap_section(self, tmp_path):
         """BoundJob.prompt contains [GAP] section — kernel builds it generically."""
         ws = _make_stream(tmp_path)
@@ -365,7 +365,7 @@ class TestFpDispatchDomainBlind:
         assert "[GAP]" in bound.prompt
         assert "recipe_complete" in bound.prompt
 
-    @pytest.mark.bootstrap_state
+    @pytest.mark.integration
     def test_fp_dispatch_prompt_has_output_contract(self, tmp_path):
         """BoundJob.prompt contains [OUTPUT CONTRACT] with target asset name."""
         ws = _make_stream(tmp_path)
@@ -377,7 +377,7 @@ class TestFpDispatchDomainBlind:
         assert "[OUTPUT CONTRACT]" in bound.prompt
         assert "recipe" in bound.prompt
 
-    @pytest.mark.bootstrap_state
+    @pytest.mark.integration
     def test_assessed_resolves_evaluator(self, tmp_path):
         """assessed (kind=fp) event with result=pass resolves the F_P evaluator."""
         ws = _make_stream(tmp_path)
@@ -394,7 +394,7 @@ class TestFpDispatchDomainBlind:
         assert any(ev.name == "recipe_complete" for ev in pre.passing_evaluators)
         assert not any(ev.name == "recipe_complete" for ev in pre.failing_evaluators)
 
-    @pytest.mark.bootstrap_state
+    @pytest.mark.integration
     def test_fp_dispatched_event_contains_evaluator_names(self, tmp_path):
         """fp_dispatched event surface carries failing evaluator names."""
         ws = _make_stream(tmp_path)
@@ -408,7 +408,7 @@ class TestFpDispatchDomainBlind:
         dispatched = next(e for e in surface.events if e["event_type"] == "fp_dispatched")
         assert "recipe_complete" in dispatched["data"]["failing_evaluators"]
 
-    @pytest.mark.bootstrap_state
+    @pytest.mark.integration
     def test_gen_iterate_calls_on_fp_dispatch(self, tmp_path):
         """gen_iterate passes on_fp_dispatch through to iterate(). No patch."""
         ws = _make_stream(tmp_path)
@@ -490,7 +490,7 @@ class TestLaneSplit:
     self_host       — workspace_bootstrap required; tests filesystem structure.
     """
 
-    @pytest.mark.bootstrap_state
+    @pytest.mark.integration
     def test_package_construction_needs_no_workspace(self):
         """GTL Package construction is pure Python — no filesystem required."""
         pkg, worker, job = _make_fh_gate_pkg()
@@ -498,14 +498,14 @@ class TestLaneSplit:
         assert len(worker.can_execute) == 1
         assert job.evaluators[0].category is F_H
 
-    @pytest.mark.bootstrap_state
+    @pytest.mark.integration
     def test_schedule_needs_no_workspace(self):
         """schedule() is a pure function over Worker objects."""
         _, worker_fr, worker_de, _, _, _ = _make_multi_worker_pkg()
         batches = schedule([worker_fr, worker_de])
         assert batches  # no workspace needed
 
-    @pytest.mark.bootstrap_state
+    @pytest.mark.integration
     def test_scope_worker_bypasses_spec_import(self, tmp_path):
         """
         When scope.worker is set, _resolve_worker returns it directly.
@@ -520,13 +520,13 @@ class TestLaneSplit:
         assert "gaps" in result
         assert "total_delta" in result
 
-    @pytest.mark.self_host
+    @pytest.mark.integration
     def test_workspace_bootstrap_creates_events_file(self, tmp_path):
         """workspace_bootstrap creates the events.jsonl file."""
         ws = workspace_bootstrap(tmp_path)
         assert (tmp_path / ".ai-workspace" / "events" / "events.jsonl").exists()
 
-    @pytest.mark.self_host
+    @pytest.mark.integration
     def test_domain_blind_pkg_runs_in_bootstrapped_workspace(self, tmp_path):
         """A non-genesis package runs correctly in a bootstrapped workspace."""
         ws = workspace_bootstrap(tmp_path)

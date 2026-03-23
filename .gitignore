@@ -26,4 +26,4 @@ venv/
 .ai-workspace/fp_results/
 
 # Scenario test run archives — persistent forensic data, not committed
-builds/claude_code/tests/runs/
+builds/claude_code/test_runs/

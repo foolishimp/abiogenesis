@@ -14,7 +14,7 @@ from scenario_helpers import create_run_archive
 
 
 def pytest_configure(config):
-    config.addinivalue_line("markers", "e2e: end-to-end scenario tests")
+    config.addinivalue_line("markers", "integration: integration tests (sandbox + domain-blind + qualification)")
     config.addinivalue_line("markers", "live_fp: live F_P qualification tests (requires ANTHROPIC_API_KEY)")
 
 

@@ -18,7 +18,6 @@ What it installs (kernel only — domain packages own everything else):
     .genesis/genesis/           ← the engine modules (8 files including fp_dispatch)
     .genesis/gtl/               ← the GTL type system (vendored, self-contained)
     .genesis/genesis.yml        ← bootstrap config (no default binding)
-    .mcp.json                   ← MCP server declaration for F_P dispatch (ADR-020)
     CLAUDE.md                   ← GTL bootloader appended (if not already present)
 
 The .genesis/genesis/ and .genesis/gtl/ directories are always replaced (idempotent reinstall).
@@ -35,7 +34,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-VERSION = "1.0.1"
+VERSION = "1.0.3"
 
 # CLAUDE.md markers for idempotent GTL bootloader injection
 _GTL_BOOTLOADER_START = "<!-- GTL_BOOTLOADER_START -->"
@@ -54,19 +53,6 @@ ENGINE_MODULES = [
     "commands.py",
     "fp_dispatch.py",
 ]
-
-# MCP server declaration — installed at project root for Claude Code to discover.
-# This is the F_P dispatch transport (ADR-020). Without it, the engine can detect
-# gaps and produce manifests, but cannot dispatch work to an LLM agent.
-MCP_CONFIG = {
-    "mcpServers": {
-        "claude-code-runner": {
-            "type": "stdio",
-            "command": "npx",
-            "args": ["@steipete/claude-code-mcp"],
-        }
-    }
-}
 
 # GTL type system modules (relative to abiogenesis project root / gtl/)
 GTL_MODULES = [
@@ -185,9 +171,6 @@ def install(target: Path, *, verify_only: bool = False,
             "active-workflow.json: .genesis/ → .ai-workspace/runtime/"
         )
 
-    # ── Install .mcp.json (MCP transport declaration, ADR-020) ─────────────
-    result["mcp"] = _install_mcp_config(target)
-
     # ── Append GTL bootloader to CLAUDE.md ───────────────────────────────────
     result["claude_md"] = install_claude_md(target)
     if result["claude_md"] == "source_missing":
@@ -214,102 +197,20 @@ def _verify(target: Path, result: dict, platform: str = "python") -> dict:
             missing_gtl.append(module)
 
     config_present = (target / ".genesis" / "genesis.yml").exists()
-    mcp_present = (target / ".mcp.json").exists()
+    agent_cli = shutil.which("claude") is not None
 
     result["missing_engine"] = missing_engine
     result["missing_gtl"] = missing_gtl
     result["config_present"] = config_present
-    result["mcp_present"] = mcp_present
-    result["mcp_prerequisites"] = _check_mcp_prerequisites()
+    result["agent_cli"] = agent_cli
 
     result["status"] = (
         "ok"
         if not missing_engine and not missing_gtl
-        and config_present and mcp_present
+        and config_present
         else "incomplete"
     )
     return result
-
-
-def _install_mcp_config(target: Path) -> dict:
-    """Install or update .mcp.json with the claude-code-runner MCP server.
-
-    The .mcp.json file declares MCP servers for Claude Code to discover.
-    Without it, F_P dispatch cannot work — the engine can detect gaps and
-    produce manifests but has no transport to dispatch work to an LLM agent.
-
-    Idempotent: merges into existing .mcp.json if present, preserving other
-    servers the project may have configured.
-    """
-    mcp_path = target / ".mcp.json"
-    status = {"file": ".mcp.json"}
-
-    if mcp_path.exists():
-        try:
-            existing = json.loads(mcp_path.read_text(encoding="utf-8"))
-        except (json.JSONDecodeError, OSError):
-            existing = {}
-    else:
-        existing = {}
-
-    servers = existing.setdefault("mcpServers", {})
-    if "claude-code-runner" in servers:
-        status["action"] = "already_present"
-    else:
-        servers["claude-code-runner"] = MCP_CONFIG["mcpServers"]["claude-code-runner"]
-        mcp_path.write_text(json.dumps(existing, indent=2) + "\n", encoding="utf-8")
-        status["action"] = "installed"
-
-    # Check MCP prerequisites
-    status["prerequisites"] = _check_mcp_prerequisites()
-    return status
-
-
-def _check_mcp_prerequisites() -> dict:
-    """Check that MCP transport prerequisites are available.
-
-    Returns a dict with availability flags and any warnings.
-    """
-    import subprocess as sp
-
-    prereqs: dict = {"npx": False, "claude_code_mcp": False, "mcp_sdk": False, "warnings": []}
-
-    # Check npx (Node.js)
-    try:
-        sp.run(["npx", "--version"], capture_output=True, text=True, timeout=10)
-        prereqs["npx"] = True
-    except (FileNotFoundError, sp.TimeoutExpired):
-        prereqs["warnings"].append(
-            "npx not found — install Node.js (https://nodejs.org/). "
-            "Required for F_P dispatch via @steipete/claude-code-mcp."
-        )
-
-    # Check @steipete/claude-code-mcp
-    if prereqs["npx"]:
-        try:
-            sp.run(
-                ["npx", "@steipete/claude-code-mcp", "--help"],
-                capture_output=True, text=True, timeout=15,
-            )
-            prereqs["claude_code_mcp"] = True
-        except (FileNotFoundError, sp.TimeoutExpired):
-            prereqs["warnings"].append(
-                "@steipete/claude-code-mcp not found. "
-                "Install with: npm install -g @steipete/claude-code-mcp"
-            )
-
-    # Check Python mcp SDK
-    try:
-        import mcp  # noqa: F401
-        prereqs["mcp_sdk"] = True
-    except ImportError:
-        prereqs["warnings"].append(
-            "Python mcp SDK not found. "
-            "Install with: pip install 'mcp>=1.17.0'"
-        )
-
-    prereqs["ready"] = all([prereqs["npx"], prereqs["claude_code_mcp"], prereqs["mcp_sdk"]])
-    return prereqs
 
 
 def install_claude_md(target: Path) -> str:

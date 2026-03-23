@@ -325,7 +325,7 @@ _CONTEXT_PACKAGE = textwrap.dedent('''\
 
 # ── Group 1: Deployment Qualification ─────────────────────────────────────────
 
-@pytest.mark.e2e
+@pytest.mark.integration
 class TestDeploymentQualification:
     """PQ-001 through PQ-004: Prove the installed product exists and is runnable."""
 
@@ -404,7 +404,7 @@ class TestDeploymentQualification:
 
 # ── Group 2: Core Operational Flow ────────────────────────────────────────────
 
-@pytest.mark.e2e
+@pytest.mark.integration
 class TestCoreOperationalFlow:
     """PQ-101 through PQ-105: Prove the deployed kernel works on the happy path."""
 
@@ -543,7 +543,7 @@ class TestCoreOperationalFlow:
 
 # ── Group 3: Failure Semantics ────────────────────────────────────────────────
 
-@pytest.mark.e2e
+@pytest.mark.integration
 class TestFailureSemantics:
     """PQ-201 through PQ-207: Prove the product fails correctly."""
 
@@ -728,7 +728,7 @@ class TestFailureSemantics:
 
 # ── Group 4: State Integrity And Replay ───────────────────────────────────────
 
-@pytest.mark.e2e
+@pytest.mark.integration
 class TestStateIntegrity:
     """PQ-301 through PQ-304: Prove the deployed runtime is deterministic."""
 
@@ -865,7 +865,7 @@ class TestStateIntegrity:
 
 # ── Group 5: Boundary And Installer Discipline ────────────────────────────────
 
-@pytest.mark.e2e
+@pytest.mark.integration
 class TestBoundaryDiscipline:
     """PQ-401 through PQ-402: Prove installer creates correct artifacts."""
 
@@ -906,8 +906,8 @@ class TestBoundaryDiscipline:
 
         # Verify no unexpected top-level directories beyond declared scope
         top_level = {p.name for p in tmp_path.iterdir()}
-        # installer creates: .genesis, .ai-workspace, .mcp.json, builds, CLAUDE.md
-        known = {".genesis", ".ai-workspace", ".mcp.json", "builds", "CLAUDE.md"}
+        # installer creates: .genesis, .ai-workspace, builds, CLAUDE.md
+        known = {".genesis", ".ai-workspace", "builds", "CLAUDE.md"}
         unexpected = top_level - known
         assert not unexpected, (
             f"Installer created unexpected artifacts: {unexpected}"
@@ -936,7 +936,7 @@ class TestBoundaryDiscipline:
 
 # ── Group 6: F_P Fail Path ───────────────────────────────────────────────────
 
-@pytest.mark.e2e
+@pytest.mark.integration
 class TestFpFailPath:
     """PQ-106 through PQ-108: Prove the F_P fail branch works correctly."""
 
@@ -1053,7 +1053,7 @@ class TestFpFailPath:
 
 # ── Group 7: Installed Provenance Scenarios ───────────────────────────────────
 
-@pytest.mark.e2e
+@pytest.mark.integration
 class TestInstalledProvenance:
     """PQ-601 through PQ-605: Prove provenance binding works in the installed runtime."""
 

@@ -25,7 +25,7 @@ The F_P step is deterministic in the sandbox: the test acts as the F_P actor,
 writing a code artifact and emitting assessed (kind=fp). This tests the engine's
 lifecycle management, not the LLM. The LLM is always an external actor.
 
-Marked with pytest.mark.e2e — run via: pytest -m e2e
+Marked with pytest.mark.integration — run via: pytest -m integration
 """
 import json
 import os
@@ -114,7 +114,7 @@ def _make_sandbox_package(workspace: Path):
 
 # ── E2E tests ─────────────────────────────────────────────────────────────────
 
-@pytest.mark.e2e
+@pytest.mark.integration
 class TestSandboxFullLifecycle:
     """Full lifecycle: bootstrap → gap → F_P dispatch → convergence."""
 
@@ -305,8 +305,7 @@ class TestSandboxFullLifecycle:
 
 # ── Self-hosting gate ─────────────────────────────────────────────────────────
 
-@pytest.mark.e2e
-@pytest.mark.phase_c
+@pytest.mark.integration
 class TestSelfHosting:
     """
     Phase C target-state gate: the genesis engine evaluates its own workspace
@@ -382,4 +381,4 @@ class TestSelfHosting:
         from genesis.commands import gen_start, gen_iterate, gen_gaps, Scope
         from genesis.manifest import PrecomputedManifest, BoundJob
         from genesis.fp_dispatch import has_mcp_transport, call_claude_code_mcp
-        assert genesis.__version__ == "1.0.0"
+        assert genesis.__version__ == "1.0.1"

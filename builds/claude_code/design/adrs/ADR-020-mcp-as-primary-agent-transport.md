@@ -1,7 +1,7 @@
 # ADR-020: MCP as Primary Agent Invocation Transport
 
 **Series**: abiogenesis / claude_code build
-**Status**: Accepted
+**Status**: Superseded by ADR-022
 **Date**: 2026-03-22
 **Origin**: Ported from ai_sdlc_method ADR-023 (2026-03-05) — decision was lost during project extraction
 **Scope**: `scenario_helpers.py` (live F_P qualification), `invoke_live_fp()`, future engine F_P dispatch
