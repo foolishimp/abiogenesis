@@ -2,6 +2,7 @@
 
 **Status**: accepted
 **Date**: 2026-03-15
+**Implements**: REQ-F-BIND-001
 **Derives from**: 20260315T050000_STRATEGY_fd-precomputation-attention-minimisation.md
 
 ## Decision

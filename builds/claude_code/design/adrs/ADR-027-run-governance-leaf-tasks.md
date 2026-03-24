@@ -50,7 +50,7 @@ At most one run for a given `(work_key, edge)` is in `dispatched` or `pending` s
 
 Pending state has a maximum duration (timeout) — after which the run transitions to `timed_out` and a new run may be created.
 
-**Supersession**: A `superseded` run is one whose work_key has been re-dispatched before the original run completed. If the original run's result arrives after supersession, it is recorded in the event stream (append-only) but not applied to convergence state. The superseded run's events carry a `superseded_by: run_id` field so replay can distinguish "recorded but not applied" from "applied."
+**Supersession**: A `superseded` run is one whose work_key has been re-dispatched before the original run completed. Supersession is recorded via a `run_superseded` Tier 2 control event (REQ-F-EC-001 AC-2) emitted at the moment the new run is dispatched, carrying `{superseded_run_id, superseded_by: new_run_id, work_key, edge}`. If the superseded run's result arrives later, it is recorded in the event stream (append-only) but not applied to convergence state — replay uses the `run_superseded` event to distinguish "recorded but not applied" from "applied."
 
 ### Retry with bounded backoff (REQ-F-RUN-004)
 
@@ -123,28 +123,36 @@ if attempt_number < max_retries:
 
 ### Leaf task sub-dispatch (REQ-F-LEAF-004)
 
-Leaf tasks use a parent/sub-run identity model. They inherit `work_key` from the parent — they are sub-work, not independent work.
+Leaf tasks use a parent/sub-run identity model:
+
+- **Sub-run identity**: `run_id = "{parent_run_id}/leaf/{task_name}"` — hierarchical, not independent
+- **Inherited work_key**: leaf tasks do NOT carry independent `work_key` — they inherit the parent's work_key. Leaf tasks are sub-work, not independent work
+- **Result flow**: structured JSON validated against `output_schema`, integrated by the parent iterate() into its own working surface — leaf output does not bypass the parent edge's convergence model
+- **Failure handling**: parent receives typed error with failure classification (REQ-F-RUN-002 taxonomy minus `certification_failure`). Parent decides: retry the leaf, fail the iteration, or continue without
+- **Events**: `leaf_task_started`, `leaf_task_completed`, `leaf_task_failed` are Tier 2 control events (REQ-F-EC-001 AC-2), emitted to the parent's event stream with inherited work_key and sub-run identity
 
 ```python
-def dispatch_leaf(task: LeafTask, input_data: dict, parent_run_id: str) -> dict:
+def dispatch_leaf(task: LeafTask, input_data: dict, parent_run_id: str, parent_work_key: str | None) -> dict:
     """Synchronous sub-dispatch within iterate(). Caller blocks until done."""
     sub_run_id = f"{parent_run_id}/leaf/{task.name}"
     validate(input_data, task.input_schema)
-    emit("leaf_task_started", {"task": task.name, "run_id": sub_run_id})
+    emit("leaf_task_started", {
+        "task": task.name, "run_id": sub_run_id, "work_key": parent_work_key,
+    })
     try:
         result = execute_with_timeout(task, input_data, task.timeout_ms)
         validate(result, task.output_schema)
-        emit("leaf_task_completed", {"task": task.name, "run_id": sub_run_id})
+        emit("leaf_task_completed", {
+            "task": task.name, "run_id": sub_run_id, "work_key": parent_work_key,
+        })
         return result
     except LeafTaskError as e:
         emit("leaf_task_failed", {
-            "task": task.name, "run_id": sub_run_id,
+            "task": task.name, "run_id": sub_run_id, "work_key": parent_work_key,
             "failure_class": classify_failure(e),  # transport_failure | no_output | bad_output
         })
         raise  # parent decides: retry, fail iteration, or continue without
 ```
-
-The parent iterate() call integrates the result into its own working surface — leaf output does not bypass the parent edge's convergence model.
 
 ## Consequences
 

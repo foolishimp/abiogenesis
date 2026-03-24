@@ -2,7 +2,7 @@
 
 **Status**: Accepted
 **Date**: 2026-03-24
-**Implements**: REQ-F-WK-004, REQ-F-WK-005, REQ-F-TRAV-002, REQ-F-TRAV-003
+**Implements**: REQ-F-WK-004, REQ-F-WK-005, REQ-F-TRAV-002, REQ-F-TRAV-003, REQ-F-CMD-001, REQ-F-CMD-004
 **Depends on**: ADR-023 (work_key, run_id)
 **Derives from**: INT-004 (Recursive Work Identity and Compositional Graphs)
 

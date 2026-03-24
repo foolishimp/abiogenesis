@@ -2,6 +2,7 @@
 
 **Status**: accepted
 **Date**: 2026-03-15
+**Implements**: REQ-F-CORE-001, REQ-F-CORE-002, REQ-F-CORE-003, REQ-F-WKSP-001
 **Derives from**: 20260315T040000_STRATEGY_gtl-genesis-engine-closure.md (Part 1, §3)
 
 ## Decision

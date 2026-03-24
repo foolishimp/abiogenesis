@@ -2,6 +2,7 @@
 
 **Status**: Accepted
 **Date**: 2026-03-20
+**Implements**: REQ-F-EC-001, REQ-F-EC-002, REQ-F-EC-003, REQ-F-EC-004, REQ-F-EC-005, REQ-F-EC-006, REQ-F-EVAL-004, REQ-F-EVAL-005
 **Supersedes**: Informal event naming in ADR-005, ADR-008, ADR-011
 **Derives from**: 20260320T020432_STRATEGY_prime-operator-refactor-plan.md, Codex reviews on ontology/scope/EC consistency
 
@@ -43,7 +44,7 @@ No others. F_D has no fluent — it re-runs its command on every iteration.
 | *(new)* | `revoked` | `kind: fh_approval` or `kind: fp_assessment` + scope fields |
 | `intent_raised` | `intent_raised` | unchanged |
 
-Tier 2 events (`edge_started`, `fp_dispatched`, `fh_gate_pending`, `edge_converged`, `reset`, `work_spawned`, `zoomed`) and Tier 3 events (`genesis_installed`, `bug_fixed`, etc.) do not participate in EC fluent initiation or termination. `reset` is a Tier 2 control event that creates a certification boundary (ADR-026) — it shadows F_P certifications without terminating fluents.
+Tier 2 events and Tier 3 events do not participate in EC fluent initiation or termination. See the Three-Tier Event Taxonomy below for the full illustrative registry. `reset` is a Tier 2 control event that creates a certification boundary (ADR-026) — it shadows F_P certifications without terminating fluents.
 
 ## Problem
 

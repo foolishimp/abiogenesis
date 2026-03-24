@@ -2,7 +2,7 @@
 
 **Status**: accepted
 **Date**: 2026-03-15
-**Covers**: REQ-F-BOOT-001, REQ-F-BOOT-002
+**Implements**: REQ-F-BOOT-001, REQ-F-BOOT-002, REQ-F-PKG-001
 
 ## Decision
 

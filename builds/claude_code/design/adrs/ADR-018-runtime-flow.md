@@ -1,6 +1,7 @@
 # ADR-018: Runtime Flow — Python Implementation Choices
 
 **Status**: accepted | **Date**: 2026-03-20
+**Implements**: REQ-F-CORE-006, REQ-F-EVAL-001, REQ-F-CMD-002
 **Spec reference**: `specification/convergence_model.md`
 
 The convergence model, state machine, and algorithms are specified in `specification/convergence_model.md`. This ADR records the Python-specific implementation choices for the claude_code build.

@@ -1,32 +1,36 @@
-# ADR-013 — Feature Lifecycle: gen_start Closes Completed Features
+# ADR-013 — Feature Lifecycle: Per-Lineage Completion
 
-**REQ**: REQ-F-VIS-001
-**Status**: Accepted
+**Implements**: REQ-F-VIS-001, REQ-F-CMD-003
+**Status**: Accepted (V2 update: 2026-03-24)
+**Depends on**: ADR-023 (work identity), ADR-024 (work-scoped convergence)
 
 ## Decision
 
-`gen_start()` in `commands.py` calls `_close_completed_features(scope)` immediately when `_derive_state()` returns `converged`. This moves all YAML files from `.ai-workspace/features/active/` to `.ai-workspace/features/completed/` and updates each file's `status` field to `completed`.
+`gen_start()` in `commands.py` calls `_close_completed_features(scope)` after each convergence check. Completion is evaluated **per feature's work_key lineage** using `schedule.delta()` — a feature is closeable when its lineage has delta=0 across all jobs, even if other features remain in progress.
 
 ## Problem
 
-Feature vector `status` fields were set to `not_started` at creation time and never updated. The engine derived convergence from the event stream, but the feature YAML files showed stale metadata. No mechanism existed to close the ticket once work was done.
+V1 closed all active features only when global convergence reached zero. In the V2 work-key model, features have independent work_key lineages. A feature whose lineage is fully converged should close without waiting for unrelated features.
 
 ## Mental Model
 
-The worker arrives, checks delta, finds it zero, closes the ticket. `gen_start` is the active worker — it arrives at the workspace, evaluates all edges, and when it finds total delta=0, it performs the lifecycle transition. The feature vectors move from active to completed.
+Each feature has a work_key lineage (its own work_key plus any children spawned via `work_spawned` events). Completion is the lineage-scoped question: "does `delta(job, work_key=feature_work_key) == 0` hold for every job in the graph?" When yes, that feature vector is closed — regardless of other features' state.
 
 ## Implementation
 
 `_close_completed_features(scope)`:
 - Scans `features/active/*.yml`
-- Replaces `status: not_started | active | iterating` with `status: completed`
-- Moves the file to `features/completed/`
-- `features/completed/` is created if absent
+- For each feature, evaluates convergence per its work_key lineage via `schedule.delta()` (REQ-F-TRAV-002)
+- When a feature's work_key has spawned children (REQ-F-FRAG-004), the feature is closeable only when all descendant work_keys are also converged (fold-back)
+- On closure: replaces `status` with `completed`, moves file to `features/completed/`
 
-Called only when `_derive_state` returns `converged` — not on partial convergence. If any edge has delta>0, features stay active.
+Called after each convergence check — not only at global convergence.
+
+**Degenerate case:** when work_keys are not in use, completion falls back to global delta=0 across all edges (V1 behavior).
 
 ## Consequences
 
-- Feature YAML files are now eventually consistent with the event stream state.
+- Features close independently as their lineages converge — no artificial coupling to unrelated work.
 - `gen_start` is the only path that performs lifecycle closure — `gen_gaps` remains read-only.
-- Multiple active features all move to completed simultaneously when total delta=0, consistent with V1's single-trajectory model.
+- Fold-back ensures features with spawned children don't close prematurely.
+- V1 global-completion behavior is preserved as the degenerate case (no work_keys).

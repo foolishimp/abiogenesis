@@ -1,6 +1,6 @@
 # Bootloader as Graph Asset (REQ-F-BOOTDOC-*)
 
-**Traces to**: INT-001
+**Traces to**: INT-002
 
 ### REQ-F-BOOTDOC-001 — bootloader_doc is a graph asset with design lineage
 
@@ -22,11 +22,12 @@ A deterministic evaluator parses type names from the GTL core module and checks 
 - AC-4: Exit 0 if all types present; exit 1 with gap list if any missing
 - AC-5: Changing a type name in the GTL core module without updating the bootloader causes failure
 
-### REQ-F-BOOTDOC-003 — Bootloader converges before downstream install gates
+### REQ-F-BOOTDOC-003 — Bootloader converges before ABG runtime gates
 
-The bootloader must be consistent before any downstream gate that installs it into dependent projects.
+The bootloader must be consistent before ABG's own edges that depend on it.
 
 **Acceptance Criteria**:
 - AC-1: `bootloader_doc` convergence is checked before `code↔unit_tests` edge proceeds (since tests exercise the bootloader-installed workspace)
 - AC-2: `gen-gaps` reports `bootloader_doc` with delta > 0 when consistency check fails
 - AC-3: After bootloader is updated and F_P assesses it, delta returns to 0
+- AC-4: **Downstream pattern:** domain packages (e.g. genesis_sdlc) replicate this structure for their own bootloader documents — that is a domain-package concern, not an ABG requirement

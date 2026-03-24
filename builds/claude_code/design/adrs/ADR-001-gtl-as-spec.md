@@ -2,6 +2,7 @@
 
 **Status**: accepted
 **Date**: 2026-03-15
+**Implements**: REQ-F-GRAPH-001, REQ-F-GRAPH-002
 **Derives from**: 20260315T020000_STRATEGY_gtl-v03-draft-spec-language.md
 
 ## Decision
