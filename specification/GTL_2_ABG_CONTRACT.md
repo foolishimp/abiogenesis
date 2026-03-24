@@ -20,6 +20,7 @@ This document defines:
 
 ## 1. Position
 
+
 There are two obligations in the GTL 2.x wave:
 
 1. **Forward contract**
