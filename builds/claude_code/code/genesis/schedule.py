@@ -10,6 +10,7 @@
 # Implements: REQ-F-WK-005
 # Implements: REQ-F-FRAG-003
 # Implements: REQ-F-FRAG-004
+# Implements: REQ-F-LEAF-001
 """
 schedule — delta, iterate, schedule, WorkInstance, zoom, spawn, parent_converged.
 
@@ -57,6 +58,249 @@ class WorkInstance:
     job: Job
     work_key: str | None = None
     run_id: str = field(default_factory=lambda: str(uuid.uuid4()))
+
+
+# ── RunState ─────────────────────────────────────────────────────────────────
+
+# Valid run states (ADR-027)
+RUN_STATES = frozenset({
+    "queued", "started", "dispatched", "pending",
+    "assessed", "failed", "timed_out", "superseded",
+})  # No "converged" — convergence is edge-level (delta()==0), not a run state
+
+# Failure classifications (ADR-027 REQ-F-RUN-002)
+FAILURE_CLASSES = frozenset({
+    "transport_failure", "no_output", "bad_output", "certification_failure",
+})
+
+
+@dataclass(frozen=True)
+class RunState:
+    """
+    Derived state of a single run attempt.
+
+    ADR-027 REQ-F-RUN-001: state derived entirely from events — no mutable state.
+    run_state() replays events to produce this.
+    """
+    work_key: str | None
+    run_id: str
+    edge: str
+    state: str  # one of RUN_STATES
+    failure_class: str | None = None
+    attempt_number: int = 1
+    superseded_by: str | None = None
+
+
+# ── LeafTask ────────────────────────────────────────────────────────────────
+
+@dataclass(frozen=True)
+class LeafTask:
+    """
+    Bounded, schema-driven sub-work unit dispatched within iterate().
+
+    ADR-027 REQ-F-LEAF-001: Leaf tasks are subordinate to graph traversal —
+    they execute inside an iterate() call, not as independent graph edges.
+    Schema-driven: input validated before dispatch, output validated after.
+    Bounded: explicit timeout. Toolless by default.
+    """
+    name: str
+    input_schema: dict       # JSON Schema for task input
+    output_schema: dict      # JSON Schema for task output
+    timeout_ms: int = 30_000
+    tools_allowed: bool = False
+
+
+# ── leaf schema validation ──────────────────────────────────────────────────
+
+_JSON_TYPE_MAP = {
+    "string": str,
+    "number": (int, float),
+    "integer": int,
+    "boolean": bool,
+    "array": list,
+    "object": dict,
+    "null": type(None),
+}
+
+
+def validate_leaf_schema(data: dict, schema: dict) -> tuple[bool, str]:
+    """
+    Minimal JSON Schema validation — stdlib only, no jsonschema dependency.
+
+    Checks: required fields present, top-level type matching.
+    Returns (valid, error_message). error_message is "" on success.
+    """
+    if not isinstance(data, dict):
+        return False, f"expected dict, got {type(data).__name__}"
+
+    required = schema.get("required", [])
+    for field_name in required:
+        if field_name not in data:
+            return False, f"missing required field: {field_name}"
+
+    properties = schema.get("properties", {})
+    for field_name, field_schema in properties.items():
+        if field_name not in data:
+            continue
+        expected_type = field_schema.get("type")
+        if expected_type and expected_type in _JSON_TYPE_MAP:
+            py_type = _JSON_TYPE_MAP[expected_type]
+            if not isinstance(data[field_name], py_type):
+                return False, (
+                    f"field {field_name!r}: expected {expected_type}, "
+                    f"got {type(data[field_name]).__name__}"
+                )
+
+    return True, ""
+
+
+def run_state(
+    all_events: list[dict],
+    run_id: str,
+) -> RunState | None:
+    """
+    Derive current RunState for a given run_id by replaying events.
+
+    ADR-027: state derived entirely from events — no mutable state.
+    Returns None if no events reference this run_id.
+
+    Event types consumed:
+      run_started{run_id, work_key, edge, attempt_number?}
+      fp_dispatched{run_id, edge}
+      assessed{run_id, edge}               — terminal success for the run
+      run_failed{run_id, failure_class}     — terminal failure
+      run_timed_out{run_id}                 — terminal timeout
+      run_superseded{superseded_run_id, superseded_by}
+
+    Note: edge_converged is an edge-level certificate emitted by gen_gaps,
+    NOT a run lifecycle event. Runs terminate at assessed/failed/timed_out.
+    Convergence is computed by delta() over the edge, not per-run.
+    """
+    state = None
+    work_key = None
+    edge = None
+    failure_class = None
+    attempt_number = 1
+    superseded_by = None
+
+    for e in all_events:
+        etype = e.get("event_type")
+        edata = e.get("data", {})
+        erun = edata.get("run_id")
+
+        if erun != run_id:
+            # Check supersession — superseded_run_id references a different field
+            if etype == "run_superseded" and edata.get("superseded_run_id") == run_id:
+                state = "superseded"
+                superseded_by = edata.get("superseded_by")
+            continue
+
+        if etype == "run_started":
+            state = "started"
+            work_key = edata.get("work_key", work_key)
+            edge = edata.get("edge", edge)
+            attempt_number = edata.get("attempt_number", attempt_number)
+
+        elif etype == "fp_dispatched":
+            state = "dispatched"
+            edge = edata.get("edge", edge)
+
+        elif etype == "assessed":
+            state = "assessed"
+            edge = edata.get("edge", edge)
+
+        elif etype == "run_failed":
+            state = "failed"
+            failure_class = edata.get("failure_class")
+
+        elif etype == "run_timed_out":
+            state = "timed_out"
+
+    if state is None:
+        return None
+
+    return RunState(
+        work_key=work_key,
+        run_id=run_id,
+        edge=edge or "",
+        state=state,
+        failure_class=failure_class,
+        attempt_number=attempt_number,
+        superseded_by=superseded_by,
+    )
+
+
+def find_pending_run(
+    all_events: list[dict],
+    edge_name: str,
+    *,
+    work_key: str | None = None,
+) -> RunState | None:
+    """
+    Find an active (dispatched/started) run for this (edge, work_key).
+
+    ADR-027 REQ-F-RUN-003: at most one run in dispatched or pending state
+    per (work_key, edge). Returns the RunState if found, None otherwise.
+
+    Replaces _find_pending_dispatch() with full lifecycle awareness.
+    """
+    # Collect run_ids associated with this (edge, work_key)
+    candidate_run_ids: list[str] = []
+    for e in all_events:
+        edata = e.get("data", {})
+        erun = edata.get("run_id")
+        if not erun:
+            continue
+        evt_edge = edata.get("edge")
+        if evt_edge != edge_name:
+            continue
+        # Work-key scoping: exact match required.
+        # Scoped query only sees scoped events with same key.
+        # Global query only sees global (unscoped) events.
+        evt_wk = edata.get("work_key")
+        if work_key is not None:
+            if evt_wk != work_key:
+                continue  # Skip global events AND other-key events
+        elif evt_wk is not None:
+            continue  # Global query — skip scoped events
+        if erun not in candidate_run_ids:
+            candidate_run_ids.append(erun)
+
+    # Check each candidate for dispatched/started state
+    for rid in reversed(candidate_run_ids):  # Most recent first
+        rs = run_state(all_events, rid)
+        if rs is not None and rs.state in ("started", "dispatched"):
+            return rs
+
+    return None
+
+
+def supersede_run(
+    old_run_id: str,
+    new_run_id: str,
+    edge: str,
+    work_key: str | None = None,
+) -> dict:
+    """Construct a run_superseded event for the caller to emit.
+
+    ADR-027 REQ-F-RUN-003: supersession is a Tier 2 control event emitted
+    when a new run is dispatched on the same (edge, work_key) while the
+    old run is still in started/dispatched state.
+
+    Returns the event dict — caller emits via stream.append().
+    Pure function (no side effects).
+    """
+    data: dict = {
+        "superseded_run_id": old_run_id,
+        "superseded_by": new_run_id,
+        "edge": edge,
+    }
+    if work_key is not None:
+        data["work_key"] = work_key
+    return {
+        "event_type": "run_superseded",
+        "data": data,
+    }
 
 
 # ── delta ─────────────────────────────────────────────────────────────────────
@@ -155,6 +399,8 @@ def delta(
 def iterate(
     bound_job: BoundJob,
     on_fp_dispatch: Optional[Callable[[BoundJob], None]] = None,
+    leaf_tasks: Optional[list[LeafTask]] = None,
+    on_leaf_dispatch: Optional[Callable[["LeafTask", dict], tuple[dict | None, str | None]]] = None,
 ) -> WorkingSurface:
     """
     The universal HOF. Domain-blind. Job is the parameter.
@@ -164,6 +410,12 @@ def iterate(
 
     on_fp_dispatch: called when F_P evaluators are failing. Caller decides routing.
     F_H gates: recorded in surface.events as fh_gate_pending.
+
+    leaf_tasks: optional list of LeafTask sub-work units to dispatch before F_P.
+        ADR-027 REQ-F-LEAF-001: subordinate to graph traversal, not independent edges.
+        Degenerate case: None or empty → identical to V1 behavior.
+    on_leaf_dispatch: callback(task, input_data) → (output, failure_class).
+        Caller provides the actual dispatch mechanism. iterate() records events.
     """
     surface = WorkingSurface()
     pre = bound_job.precomputed
@@ -190,6 +442,44 @@ def iterate(
                 "delta_summary": pre.delta_summary,
             },
         })
+
+    # ADR-027 REQ-F-LEAF-001: Dispatch leaf tasks before main F_P, if provided.
+    # Leaf tasks are subordinate — their output feeds the F_P dispatch context.
+    if fp_failing and leaf_tasks and on_leaf_dispatch:
+        run_id = bound_job.manifest_id or "unknown"
+        for task in leaf_tasks:
+            sub_run_id = f"{run_id}/leaf/{task.name}"
+            surface.events.append({
+                "event_type": "leaf_task_started",
+                "data": {
+                    "task": task.name,
+                    "run_id": sub_run_id,
+                    "parent_run_id": run_id,
+                    "edge": job.edge.name,
+                },
+            })
+            output, failure_class = on_leaf_dispatch(task, {})
+            if failure_class is not None:
+                surface.events.append({
+                    "event_type": "leaf_task_failed",
+                    "data": {
+                        "task": task.name,
+                        "run_id": sub_run_id,
+                        "failure_class": failure_class,
+                        "edge": job.edge.name,
+                    },
+                })
+            else:
+                surface.events.append({
+                    "event_type": "leaf_task_completed",
+                    "data": {
+                        "task": task.name,
+                        "run_id": sub_run_id,
+                        "edge": job.edge.name,
+                    },
+                })
+                if output:
+                    surface.artifacts.append(f"leaf:{task.name}")
 
     # Dispatch F_P evaluators — F_D findings escalate, not gate
     if fp_failing:
@@ -346,6 +636,28 @@ def zoom_event(edge: Edge, fragment: Fragment) -> dict:
             "internal_edges": [e.name for e in fragment.edges],
         },
     }
+
+
+def find_fragment_for_edge(package: Package, edge: Edge) -> Fragment | None:
+    """
+    Structural lookup: find a fragment whose ports match the edge.
+
+    ADR-025: zoom is applied at bind time, not spec load. This function
+    determines whether an edge has a compatible fragment by checking port
+    compatibility — fragment inputs ⊆ edge sources, edge target ∈ fragment outputs.
+
+    Returns None if no matching fragment exists (degenerate case: V1 static graph).
+    """
+    edge_sources = edge.source if isinstance(edge.source, list) else [edge.source]
+    edge_source_names = {a.name for a in edge_sources}
+    target_name = edge.target.name
+
+    for frag in package.fragments:
+        frag_input_names = {a.name for a in frag.inputs}
+        frag_output_names = {a.name for a in frag.outputs}
+        if frag_input_names <= edge_source_names and target_name in frag_output_names:
+            return frag
+    return None
 
 
 # ── spawn / fold-back ────────────────────────────────────────────────────────

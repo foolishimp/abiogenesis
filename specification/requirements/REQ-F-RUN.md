@@ -10,7 +10,7 @@ Run governance provides reliable transport for higher-level work. Each attempt (
 Each run (work_key, run_id) has a well-defined state machine.
 
 **Acceptance Criteria**:
-- AC-1: Run states include at minimum: `queued`, `started`, `dispatched`, `pending`, `assessed`, `converged`, `failed`, `timed_out`, `superseded`
+- AC-1: Run states include at minimum: `queued`, `started`, `dispatched`, `pending`, `assessed`, `failed`, `timed_out`, `superseded`. Runs terminate at `assessed` (F_P actor produced a result). Convergence is an edge-level projection computed by `delta()`, not a run lifecycle event — a run may be assessed-pass without the edge converging (e.g., F_D evaluators still fail)
 - AC-2: State transitions are recorded in the event stream — the lifecycle of any run is reconstructable from events
 - AC-3: `run_id` is generated at creation time and immutable — each WorkInstance represents exactly one attempt
 - AC-4: Multiple runs on the same work_key are distinguishable by run_id and ordered by event_time

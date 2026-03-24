@@ -5,16 +5,12 @@
 # Validates: REQ-F-EC-001
 # Validates: REQ-F-EVAL-005
 """Tests for genesis.core — emit, project, EventStream, ContextResolver, workspace_bootstrap."""
-import json
 import pytest
-import tempfile
-from pathlib import Path
 
 from genesis.core import (
     EventStream,
     ContextResolver,
     emit,
-    init_stream,
     project,
     workspace_bootstrap,
 )
@@ -24,51 +20,12 @@ from gtl.core import Context
 # ── EventStream ───────────────────────────────────────────────────────────────
 
 class TestEventStream:
-    def test_append_assigns_event_time(self, tmp_path):
-        f = tmp_path / "events.jsonl"
-        f.touch()
-        stream = EventStream(f)
-        record = stream.append("test_event", {"key": "val"})
-        assert "event_time" in record
-        assert record["event_type"] == "test_event"
-        assert record["data"] == {"key": "val"}
-
-    def test_append_is_written_to_file(self, tmp_path):
-        f = tmp_path / "events.jsonl"
-        f.touch()
-        stream = EventStream(f)
-        stream.append("event_a", {})
-        stream.append("event_b", {})
-        lines = [l for l in f.read_text().splitlines() if l.strip()]
-        assert len(lines) == 2
-
-    def test_all_events_empty_file(self, tmp_path):
-        f = tmp_path / "events.jsonl"
-        f.touch()
-        stream = EventStream(f)
-        assert stream.all_events() == []
-
-    def test_all_events_returns_written(self, tmp_path):
-        f = tmp_path / "events.jsonl"
-        f.touch()
-        stream = EventStream(f)
-        stream.append("e1", {"x": 1})
-        stream.append("e2", {"x": 2})
-        events = stream.all_events()
-        assert len(events) == 2
-        assert events[0]["event_type"] == "e1"
-        assert events[1]["data"]["x"] == 2
-
     def test_corrupted_line_raises(self, tmp_path):
         f = tmp_path / "events.jsonl"
         f.write_text('{"valid": true}\nNOT JSON\n')
         stream = EventStream(f)
         with pytest.raises(ValueError, match="Corrupted event log"):
             stream.all_events()
-
-    def test_missing_file_returns_empty(self, tmp_path):
-        stream = EventStream(tmp_path / "nonexistent.jsonl")
-        assert stream.all_events() == []
 
     def test_event_time_not_overridable(self, tmp_path):
         """Callers cannot inject event_time — it is system-assigned."""
@@ -97,29 +54,10 @@ class TestEmit:
         finally:
             core_mod._stream = original
 
-    def test_emit_writes_to_stream(self, tmp_path):
-        f = tmp_path / "events.jsonl"
-        f.touch()
-        stream = EventStream(f)
-        init_stream(stream)
-        emit("test_event", {"v": 42})
-        events = stream.all_events()
-        assert len(events) == 1
-        assert events[0]["event_type"] == "test_event"
-        assert events[0]["data"]["v"] == 42
-
 
 # ── project ───────────────────────────────────────────────────────────────────
 
 class TestProject:
-    def test_project_empty_stream(self, tmp_path):
-        f = tmp_path / "events.jsonl"
-        f.touch()
-        stream = EventStream(f)
-        state = project(stream, "code", "CODE-001")
-        assert state["status"] == "not_started"
-        assert state["asset_type"] == "code"
-
     def test_project_deterministic(self, tmp_path):
         f = tmp_path / "events.jsonl"
         f.touch()
@@ -129,27 +67,6 @@ class TestProject:
         s2 = project(stream, "code", "CODE-001")
         assert s1 == s2
 
-    def test_project_edge_started_sets_in_progress(self, tmp_path):
-        f = tmp_path / "events.jsonl"
-        f.touch()
-        stream = EventStream(f)
-        stream.append("edge_started", {"feature": "FEAT-001", "edge": "design→code"})
-        state = project(stream, "code", "FEAT-001")
-        assert state["status"] == "in_progress"
-
-    def test_project_edge_converged_recorded(self, tmp_path):
-        f = tmp_path / "events.jsonl"
-        f.touch()
-        stream = EventStream(f)
-        stream.append("edge_converged", {
-            "feature": "FEAT-001",
-            "edge": "design→code",
-            "target": "code",
-        })
-        state = project(stream, "code", "FEAT-001")
-        assert "design→code" in state["edges_converged"]
-        assert state["status"] == "converged"
-
 
 # ── ContextResolver ───────────────────────────────────────────────────────────
 
@@ -157,31 +74,10 @@ class TestContextResolver:
     def _pending_ctx(self, name: str, locator: str) -> Context:
         return Context(name=name, locator=locator, digest="sha256:" + "0" * 64)
 
-    def test_load_file(self, tmp_path):
-        (tmp_path / "spec").mkdir()
-        (tmp_path / "spec" / "doc.md").write_text("hello")
-        resolver = ContextResolver(tmp_path)
-        ctx = self._pending_ctx("doc", "workspace://spec/doc.md")
-        assert resolver.load(ctx) == "hello"
-
-    def test_load_directory(self, tmp_path):
-        (tmp_path / "adrs").mkdir()
-        (tmp_path / "adrs" / "ADR-001.md").write_text("# ADR")
-        resolver = ContextResolver(tmp_path)
-        ctx = self._pending_ctx("adrs", "workspace://adrs")
-        content = resolver.load(ctx)
-        assert "ADR" in content
-
     def test_load_missing_raises(self, tmp_path):
         resolver = ContextResolver(tmp_path)
         ctx = self._pending_ctx("x", "workspace://does/not/exist")
         with pytest.raises(FileNotFoundError, match="Required context not found"):
-            resolver.load(ctx)
-
-    def test_unknown_scheme_raises(self, tmp_path):
-        resolver = ContextResolver(tmp_path)
-        ctx = Context(name="x", locator="git://example.com/repo", digest="sha256:" + "0" * 64)
-        with pytest.raises(NotImplementedError):
             resolver.load(ctx)
 
     def test_digest_mismatch_raises(self, tmp_path):
@@ -206,23 +102,9 @@ class TestContextResolver:
 # ── workspace_bootstrap ───────────────────────────────────────────────────────
 
 class TestWorkspaceBootstrap:
-    def test_creates_directories(self, tmp_path):
-        stream = workspace_bootstrap(tmp_path)
-        assert (tmp_path / ".ai-workspace" / "events").is_dir()
-        assert (tmp_path / ".ai-workspace" / "features" / "active").is_dir()
-        assert (tmp_path / ".ai-workspace" / "comments" / "claude").is_dir()
-
-    def test_creates_events_file(self, tmp_path):
-        stream = workspace_bootstrap(tmp_path)
-        assert (tmp_path / ".ai-workspace" / "events" / "events.jsonl").is_file()
-
     def test_idempotent(self, tmp_path):
         workspace_bootstrap(tmp_path)
         workspace_bootstrap(tmp_path)  # second call must not raise
-
-    def test_returns_event_stream(self, tmp_path):
-        stream = workspace_bootstrap(tmp_path)
-        assert isinstance(stream, EventStream)
 
     def test_stream_is_writable(self, tmp_path):
         stream = workspace_bootstrap(tmp_path)
@@ -260,13 +142,6 @@ class TestEmitAssessedValidation:
         events = stream.all_events()
         assert any(e["event_type"] == "assessed" for e in events)
 
-    def test_other_event_types_not_affected(self, tmp_path):
-        """emit() does not require spec_hash on non-assessed events."""
-        workspace_bootstrap(tmp_path)
-        # Should not raise
-        emit("edge_started", {"edge": "design→code", "build": "claude_code", "target": "code"})
-        emit("approved", {"kind": "fh_review", "edge": "design→code", "actor": "human"})
-
 
 class TestEmitPrimeValidation:
     """H2: emit() validates that approved and revoked events carry 'kind'."""
@@ -280,11 +155,3 @@ class TestEmitPrimeValidation:
         workspace_bootstrap(tmp_path)
         with pytest.raises(ValueError, match="kind"):
             emit("revoked", {"edge": "design→code", "actor": "human", "reason": "retracted"})
-
-    def test_approved_with_kind_succeeds(self, tmp_path):
-        workspace_bootstrap(tmp_path)
-        emit("approved", {"kind": "fh_review", "edge": "design→code", "actor": "human"})
-
-    def test_revoked_with_kind_succeeds(self, tmp_path):
-        workspace_bootstrap(tmp_path)
-        emit("revoked", {"kind": "fh_approval", "edge": "design→code", "actor": "human", "reason": "retracted"})

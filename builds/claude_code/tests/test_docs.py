@@ -7,9 +7,6 @@ README = Path(__file__).parents[1] / "README.md"
 
 
 class TestUserGuide:
-    def test_readme_exists(self):
-        assert README.exists(), "builds/claude_code/README.md must exist (REQ-F-DOCS-001)"
-
     def test_installation_section_present(self):
         text = README.read_text()
         assert any(

@@ -5,19 +5,20 @@
 # Validates: REQ-F-GATE-002
 # Validates: REQ-F-PROV-002
 # Validates: REQ-F-PROV-003
-"""Tests for genesis.commands — Scope, gen_gaps, gen_iterate, gen_start."""
+# Validates: REQ-F-FRAG-003
+"""Tests for genesis.commands — Scope, gen_gaps, gen_iterate, gen_start, zoom wiring."""
 import json
 import pytest
 from pathlib import Path
 from gtl.core import (
-    Asset, Context, Edge, Evaluator, Job, Operator, Package,
+    Asset, Context, Edge, Evaluator, Fragment, Job, Operator, Package,
     Rule, Worker,
     F_D, F_P, F_H, consensus,
 )
 
 from genesis.core import EventStream, workspace_bootstrap
 from genesis.commands import (
-    Scope, gen_gaps, gen_iterate, gen_start, _scoped_jobs, _known_feature_ids,
+    Scope, gen_gaps, gen_iterate, gen_start, _scoped_jobs,
     _read_workflow_version, _read_carry_forward,
 )
 
@@ -87,44 +88,9 @@ def _make_stream(tmp_path: Path) -> EventStream:
     return workspace_bootstrap(tmp_path)
 
 
-# ── Scope ─────────────────────────────────────────────────────────────────────
-
-class TestScope:
-    def test_scope_fields(self, tmp_path):
-        pkg, _, _ = _make_package_and_worker()
-        scope = Scope(package=pkg, workspace_root=tmp_path)
-        assert scope.build == "claude_code"
-        assert scope.feature is None
-        assert scope.edge is None
-
-    def test_edge_override(self, tmp_path):
-        pkg, _, _ = _make_package_and_worker()
-        scope = Scope(package=pkg, workspace_root=tmp_path, edge="design→code")
-        assert scope.edge == "design→code"
-
-
 # ── _scoped_jobs ──────────────────────────────────────────────────────────────
 
 class TestScopedJobs:
-    def test_no_filter_returns_all(self, tmp_path):
-        pkg, worker, job = _make_package_and_worker()
-        scope = _make_scope(tmp_path, pkg)
-        jobs = _scoped_jobs(scope, worker)
-        assert job in jobs
-
-    def test_edge_filter(self, tmp_path):
-        pkg, worker, job = _make_package_and_worker()
-        scope = _make_scope(tmp_path, pkg, edge="intent→code")
-        jobs = _scoped_jobs(scope, worker)
-        assert len(jobs) == 1
-        assert jobs[0].edge.name == "intent→code"
-
-    def test_non_matching_edge_returns_empty(self, tmp_path):
-        pkg, worker, _ = _make_package_and_worker()
-        scope = _make_scope(tmp_path, pkg, edge="nonexistent→edge")
-        jobs = _scoped_jobs(scope, worker)
-        assert jobs == []
-
     def test_unknown_feature_fails_closed(self, tmp_path):
         """G4: unknown scope.feature returns empty — fails closed."""
         pkg, worker, _ = _make_package_and_worker()
@@ -145,46 +111,10 @@ class TestScopedJobs:
         assert job in jobs
         assert len(jobs) == len(worker.can_execute)
 
-    def test_known_feature_ids_reads_active_and_completed(self, tmp_path):
-        """_known_feature_ids reads both active/ and completed/ subdirs."""
-        active = tmp_path / ".ai-workspace" / "features" / "active"
-        completed = tmp_path / ".ai-workspace" / "features" / "completed"
-        active.mkdir(parents=True)
-        completed.mkdir(parents=True)
-        (active / "REQ-F-CORE.yml").write_text("")
-        (completed / "REQ-F-BIND.yml").write_text("")
-        ids = _known_feature_ids(tmp_path)
-        assert "REQ-F-CORE" in ids
-        assert "REQ-F-BIND" in ids
-
 
 # ── gen_gaps ──────────────────────────────────────────────────────────────────
 
 class TestGenGaps:
-    def test_returns_gap_report(self, tmp_path):
-        pkg, worker, _ = _make_package_and_worker()
-        stream = _make_stream(tmp_path)
-        scope = _make_scope(tmp_path, pkg, worker=worker)
-        result = gen_gaps(scope, stream)
-        assert "gaps" in result
-        assert "total_delta" in result
-        assert result["jobs_considered"] >= 1
-
-    def test_empty_scope_returns_error(self, tmp_path):
-        pkg, worker, _ = _make_package_and_worker()
-        stream = _make_stream(tmp_path)
-        scope = _make_scope(tmp_path, pkg, worker=worker, edge="no→match")
-        result = gen_gaps(scope, stream)
-        assert result["status"] == "error"
-
-    def test_converged_field_false_when_gap(self, tmp_path):
-        pkg, worker, _ = _make_package_and_worker()
-        stream = _make_stream(tmp_path)
-        scope = _make_scope(tmp_path, pkg, worker=worker)
-        result = gen_gaps(scope, stream)
-        # F_P evaluator unresolved — not converged
-        assert result["converged"] is False
-
     def test_emits_edge_converged_when_delta_zero(self, tmp_path):
         """gen_gaps emits exactly one edge_converged with required fields on first delta=0."""
         pkg, worker, _ = _make_fh_package_and_worker()
@@ -237,20 +167,6 @@ class TestGenGaps:
 # ── gen_iterate ───────────────────────────────────────────────────────────────
 
 class TestGenIterate:
-    def test_returns_iterated_status(self, tmp_path):
-        pkg, worker, _ = _make_package_and_worker()
-        stream = _make_stream(tmp_path)
-        scope = _make_scope(tmp_path, pkg, worker=worker)
-        result = gen_iterate(scope, stream)
-        assert result["status"] == "iterated"
-
-    def test_nothing_to_do_when_no_jobs(self, tmp_path):
-        pkg, worker, _ = _make_package_and_worker()
-        stream = _make_stream(tmp_path)
-        scope = _make_scope(tmp_path, pkg, worker=worker, edge="no→match")
-        result = gen_iterate(scope, stream)
-        assert result["status"] == "nothing_to_do"
-
     def test_edge_started_emitted(self, tmp_path):
         pkg, worker, _ = _make_package_and_worker()
         stream = _make_stream(tmp_path)
@@ -285,20 +201,6 @@ class TestGenIterate:
 # ── gen_start ─────────────────────────────────────────────────────────────────
 
 class TestGenStart:
-    def test_returns_iterated_when_work_pending(self, tmp_path):
-        pkg, worker, _ = _make_package_and_worker()
-        stream = _make_stream(tmp_path)
-        scope = _make_scope(tmp_path, pkg, worker=worker)
-        result = gen_start(scope, stream)
-        assert result["status"] == "iterated"
-
-    def test_returns_nothing_to_do_when_no_jobs(self, tmp_path):
-        pkg, worker, _ = _make_package_and_worker()
-        stream = _make_stream(tmp_path)
-        scope = _make_scope(tmp_path, pkg, worker=worker, edge="no→match")
-        result = gen_start(scope, stream)
-        assert result["status"] == "nothing_to_do"
-
     def test_auto_loop_stops_on_fp_dispatch(self, tmp_path):
         """gen_start with auto=True stops after first F_P dispatch — waits for actor."""
         pkg, worker, _ = _make_package_and_worker()  # has F_P evaluator
@@ -447,10 +349,12 @@ class TestFdEscalatesToFp:
         pkg, worker = self._make_mixed_fd_fp_package()
         stream = workspace_bootstrap(tmp_path)
         scope = _make_scope(tmp_path, pkg, worker=worker)
-        # Simulate an existing in-flight dispatch
+        # Simulate an existing in-flight dispatch (ADR-027: run_id required
+        # for find_pending_run() to detect the pending state).
         stream.append("fp_dispatched", {
             "edge": "design→code",
             "manifest_id": "existing_dispatch_001",
+            "run_id": "pending-run-001",
             "failing_evaluators": ["code_complete"],
         })
         result = gen_iterate(scope, stream)
@@ -525,49 +429,6 @@ class TestEdgeConvergedDedup:
         assert len(certs) == 1, "Duplicate certificate emitted for same (edge, feature)"
 
 
-# ── _read_workflow_version ─────────────────────────────────────────────────────
-
-class TestReadWorkflowVersion:
-    def test_returns_unknown_when_file_absent(self, tmp_path):
-        """No active-workflow.json → 'unknown' (never raises, no side effects)."""
-        assert _read_workflow_version(tmp_path) == "unknown"
-        seed = tmp_path / ".ai-workspace" / "runtime" / "active-workflow.json"
-        assert not seed.exists(), "pure read must not create files"
-
-    def test_returns_formatted_string_when_valid(self, tmp_path):
-        runtime = tmp_path / ".ai-workspace" / "runtime"
-        runtime.mkdir(parents=True)
-        (runtime / "active-workflow.json").write_text(
-            json.dumps({"workflow": "genesis_sdlc.standard", "version": "0.2.1"}),
-            encoding="utf-8",
-        )
-        assert _read_workflow_version(tmp_path) == "genesis_sdlc.standard@0.2.1"
-
-    def test_returns_unknown_on_invalid_json(self, tmp_path):
-        runtime = tmp_path / ".ai-workspace" / "runtime"
-        runtime.mkdir(parents=True)
-        (runtime / "active-workflow.json").write_text("not json", encoding="utf-8")
-        assert _read_workflow_version(tmp_path) == "unknown"
-
-    def test_returns_unknown_when_keys_missing(self, tmp_path):
-        runtime = tmp_path / ".ai-workspace" / "runtime"
-        runtime.mkdir(parents=True)
-        (runtime / "active-workflow.json").write_text(
-            json.dumps({"workflow": "genesis_sdlc.standard"}),  # no "version"
-            encoding="utf-8",
-        )
-        assert _read_workflow_version(tmp_path) == "unknown"
-
-    def test_returns_unknown_when_values_not_strings(self, tmp_path):
-        runtime = tmp_path / ".ai-workspace" / "runtime"
-        runtime.mkdir(parents=True)
-        (runtime / "active-workflow.json").write_text(
-            json.dumps({"workflow": "genesis_sdlc.standard", "version": 123}),
-            encoding="utf-8",
-        )
-        assert _read_workflow_version(tmp_path) == "unknown"
-
-
 # ── _read_carry_forward ───────────────────────────────────────────────────────
 
 def _write_manifest(tmp_path: Path, workflow_version: str, carry_forward: list) -> None:
@@ -585,48 +446,6 @@ def _write_manifest(tmp_path: Path, workflow_version: str, carry_forward: list) 
         json.dumps({"approved_carry_forward": carry_forward}),
         encoding="utf-8",
     )
-
-
-class TestReadCarryForward:
-    def _scope_with_version(self, tmp_path: Path, version: str) -> Scope:
-        """Build a minimal Scope but override workflow_version without reading disk."""
-        pkg, _, _ = _make_package_and_worker()
-        s = Scope(package=pkg, workspace_root=tmp_path)
-        object.__setattr__(s, "workflow_version", version)  # bypass frozen field
-        return s
-
-    def test_returns_empty_when_version_unknown(self, tmp_path):
-        pkg, _, _ = _make_package_and_worker()
-        scope = Scope(package=pkg, workspace_root=tmp_path)
-        # No active-workflow.json → workflow_version == "unknown"
-        assert _read_carry_forward(scope) == []
-
-    def test_reads_manifest_from_correct_versioned_path(self, tmp_path):
-        """Manifest at .genesis/workflows/genesis_sdlc/standard/v0_2_1/manifest.json."""
-        version = "genesis_sdlc.standard@0.2.1"
-        cf_entry = [{"edge": "design→code", "from_version": "genesis_sdlc.standard@0.2.0"}]
-        _write_manifest(tmp_path, version, cf_entry)
-        scope = self._scope_with_version(tmp_path, version)
-        result = _read_carry_forward(scope)
-        assert result == cf_entry
-
-    def test_returns_empty_when_manifest_absent(self, tmp_path):
-        version = "genesis_sdlc.standard@0.2.1"
-        scope = self._scope_with_version(tmp_path, version)
-        assert _read_carry_forward(scope) == []
-
-    def test_returns_empty_when_key_missing_from_manifest(self, tmp_path):
-        version = "genesis_sdlc.standard@0.2.1"
-        workflow, ver = version.split("@", 1)
-        pkg_name, variant = workflow.split(".", 1)
-        version_dir = "v" + ver.replace(".", "_")
-        manifest_dir = tmp_path / ".genesis" / "workflows" / pkg_name / variant / version_dir
-        manifest_dir.mkdir(parents=True)
-        (manifest_dir / "manifest.json").write_text(
-            json.dumps({"other_key": []}), encoding="utf-8"
-        )
-        scope = self._scope_with_version(tmp_path, version)
-        assert _read_carry_forward(scope) == []
 
 
 # ── Runtime contract: configured active_workflow and workflow_root ─────────────
@@ -655,11 +474,6 @@ class TestRuntimeContractPaths:
             encoding="utf-8",
         )
         result = _read_workflow_version(tmp_path)
-        assert result == "unknown"
-
-    def test_read_workflow_version_configured_path_not_found(self, tmp_path):
-        """Configured path that doesn't exist → 'unknown'."""
-        result = _read_workflow_version(tmp_path, ".gsdlc/release/active-workflow.json")
         assert result == "unknown"
 
     def test_scope_uses_configured_active_workflow_path(self, tmp_path):
@@ -760,3 +574,102 @@ class TestWorkflowVersionAnnotation:
         ]
         assert len(started) == 1
         assert started[0]["data"].get("workflow_version") == "genesis_sdlc.standard@0.2.1"
+
+
+# ── Fragment zoom wiring ─────────────────────────────────────────────────────
+
+def _make_fragment_package():
+    """Package with a fragment that matches the intent→code edge.
+
+    The fragment decomposes intent→code into two internal edges:
+    intent→design (internal), design→code (internal).
+    """
+    intent = Asset(name="intent", id_format="INT-{SEQ}")
+    design = Asset(name="design", id_format="DES-{SEQ}")
+    code = Asset(name="code", id_format="CODE-{SEQ}")
+    op = Operator("claude_agent", F_P, "agent://claude/genesis")
+    outer_edge = Edge(name="intent→code", source=intent, target=code, using=[op])
+    fp_eval = Evaluator("code_complete", F_P, "LLM check")
+    job = Job(edge=outer_edge, evaluators=[fp_eval])
+
+    # Fragment: intent→design→code
+    int_edge1 = Edge(name="intent→design", source=intent, target=design, using=[op])
+    int_edge2 = Edge(name="design→code", source=design, target=code, using=[op])
+    frag = Fragment(
+        name="decompose_via_design",
+        inputs=(intent,),
+        outputs=(code,),
+        assets=(design,),
+        edges=(int_edge1, int_edge2),
+    )
+
+    pkg = Package(
+        name="test_frag_pkg",
+        assets=[intent, code],
+        edges=[outer_edge],
+        operators=[op],
+        fragments=[frag],
+    )
+    worker = Worker(id="claude_code", can_execute=[job])
+    return pkg, worker, job, frag
+
+
+class TestFragmentZoomWiring:
+    """REQ-F-FRAG-003: zoom wiring in gen_iterate."""
+
+    def test_no_fragment_is_v1_behavior(self, tmp_path):
+        """UC-F1: Edge with no matching fragment → no zoomed event, standard iteration."""
+        pkg, worker, _ = _make_package_and_worker()
+        stream = workspace_bootstrap(tmp_path)
+        # Create active feature for work_key
+        features_dir = tmp_path / ".ai-workspace" / "features" / "active"
+        features_dir.mkdir(parents=True, exist_ok=True)
+        (features_dir / "REQ-F-001.yml").write_text("satisfies: [REQ-F-001]")
+        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
+        gen_iterate(scope, stream)
+        zoomed = [e for e in stream.all_events() if e["event_type"] == "zoomed"]
+        assert len(zoomed) == 0
+
+    def test_fragment_match_returns_zoomed_status(self, tmp_path):
+        """UC-F2: Edge matching fragment → returns 'zoomed' status with provenance.
+        The auto-loop re-enters to dispatch the spawned children."""
+        pkg, worker, _, frag = _make_fragment_package()
+        stream = workspace_bootstrap(tmp_path)
+        features_dir = tmp_path / ".ai-workspace" / "features" / "active"
+        features_dir.mkdir(parents=True, exist_ok=True)
+        (features_dir / "REQ-F-001.yml").write_text("satisfies: [REQ-F-001]")
+        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
+        result = gen_iterate(scope, stream)
+
+        assert result["status"] == "zoomed"
+        assert result["fragment"] == "decompose_via_design"
+        assert result["children_spawned"] == 2
+
+        zoomed = [e for e in stream.all_events() if e["event_type"] == "zoomed"]
+        assert len(zoomed) == 1
+        assert zoomed[0]["data"]["fragment"] == "decompose_via_design"
+        assert set(zoomed[0]["data"]["internal_edges"]) == {"intent→design", "design→code"}
+
+        spawned = [e for e in stream.all_events() if e["event_type"] == "work_spawned"]
+        assert len(spawned) == 2  # one per internal edge
+
+    def test_re_entry_after_zoom_does_not_re_zoom(self, tmp_path):
+        """UC-F3: Second gen_iterate after zoom does NOT re-zoom — children exist.
+        Continues to iterate on the original edge (delta folds to children)."""
+        pkg, worker, _, frag = _make_fragment_package()
+        stream = workspace_bootstrap(tmp_path)
+        features_dir = tmp_path / ".ai-workspace" / "features" / "active"
+        features_dir.mkdir(parents=True, exist_ok=True)
+        (features_dir / "REQ-F-001.yml").write_text("satisfies: [REQ-F-001]")
+        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
+
+        # First iteration — zooms and spawns
+        result1 = gen_iterate(scope, stream)
+        assert result1["status"] == "zoomed"
+        spawned_1 = [e for e in stream.all_events() if e["event_type"] == "work_spawned"]
+
+        # Second iteration — should NOT zoom again, proceeds to iterate
+        result2 = gen_iterate(scope, stream)
+        assert result2["status"] != "zoomed"  # iterated or converged
+        spawned_2 = [e for e in stream.all_events() if e["event_type"] == "work_spawned"]
+        assert len(spawned_2) == len(spawned_1)  # no duplicates

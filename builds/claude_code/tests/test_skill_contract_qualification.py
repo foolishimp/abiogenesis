@@ -778,6 +778,6 @@ class TestMalformedSkillFailsClosed:
         assert data2.get("status") == "pending", (
             f"Second dispatch while first in-flight must return pending, got {data2.get('status')}"
         )
-        assert "pending_manifest_id" in data2, (
-            "Pending response must include pending_manifest_id"
+        assert "pending_run_id" in data2, (
+            "Pending response must include pending_run_id"
         )

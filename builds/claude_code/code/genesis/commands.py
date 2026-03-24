@@ -35,7 +35,10 @@ from gtl.core import Job, Package, Worker
 from .bind import bind_fd, bind_fp, bind_fh, find_latest_reset, job_evaluator_hash, req_hash
 from .core import ContextResolver, EventStream, project
 from .manifest import BoundJob
-from .schedule import WorkInstance, delta, iterate, schedule
+from .schedule import (
+    WorkInstance, _discover_children, delta, find_fragment_for_edge,
+    find_pending_run, iterate, schedule, spawn, zoom, zoom_event,
+)
 
 
 # ── Workflow provenance helpers ───────────────────────────────────────────────
@@ -299,6 +302,11 @@ def gen_gaps(scope: Scope, stream: EventStream) -> dict:
                 }
                 if wk is not None:
                     cert["work_key"] = wk
+                # ADR-027: run_id is auto-injected by EventStream if stream.run_id
+                # is set. For gen_gaps, run_id may not be set — that's correct:
+                # edge_converged from gen_gaps is a certification, not a run event.
+                # run_state() should NOT require edge_converged to carry run_id —
+                # convergence is derived from assessed events, not certificates.
                 stream.append("edge_converged", cert)
                 certified_keys.add((job.edge.name, cert_key))
 
@@ -385,6 +393,46 @@ def gen_iterate(
             "reason": "all jobs in scope have delta = 0",
         }
 
+    # ADR-025 REQ-F-FRAG-003: check for fragment zoom before scheduling.
+    # Zoom is applied at bind time — the same Package can be zoomed differently
+    # for different work_keys. When a matching fragment exists, expand the edge
+    # into the fragment's internal structure and spawn child work_keys.
+    # After zoom, return "zoomed" status — the auto-loop re-enters and the
+    # spawned children are picked up by active_work_keys(). The parent's delta
+    # folds back to children via _discover_children().
+    fragment = find_fragment_for_edge(scope.package, selected_wi.job.edge)
+    if fragment is not None and selected_wi.work_key is not None:
+        # Check if already zoomed (children exist) — skip re-zoom
+        existing_children = _discover_children(
+            stream.all_events(), selected_wi.work_key,
+        )
+        if not existing_children:
+            # First time: zoom, emit provenance, spawn children, return
+            zoom(scope.package, selected_wi.job.edge, fragment)
+            ze = zoom_event(selected_wi.job.edge, fragment)
+            stream.append(ze["event_type"], ze["data"])
+
+            for internal_edge in fragment.edges:
+                child_key = spawn(selected_wi.work_key, internal_edge.name)
+                stream.append("work_spawned", {
+                    "parent_key": selected_wi.work_key,
+                    "child_key": child_key,
+                    "fragment": fragment.name,
+                })
+
+            return {
+                "status": "zoomed",
+                "edge": selected_wi.job.edge.name,
+                "fragment": fragment.name,
+                "children_spawned": len(fragment.edges),
+                "reason": (
+                    f"Edge {selected_wi.job.edge.name!r} decomposed via "
+                    f"fragment {fragment.name!r}. Re-enter to dispatch children."
+                ),
+            }
+        # else: children already spawned — parent's delta folds to children.
+        # Iteration continues on the original edge; delta() delegates to children.
+
     # Generate run_id for this attempt (REQ-F-WK-002)
     run_id = scope.run_id or str(uuid.uuid4())
 
@@ -406,16 +454,19 @@ def gen_iterate(
     edge_slug = selected_wi.job.edge.name.replace("→", "_").replace("↔", "_")
     manifest_id = f"{edge_slug}_{ts}"
 
-    # Check for pending F_P dispatch — scoped by (edge, work_key).
-    # Prevents duplicate dispatch while a prior F_P invocation is still in flight.
+    # ADR-027 REQ-F-RUN-003: waiter deduplication — at most one run in
+    # dispatched/started state per (edge, work_key). Uses find_pending_run()
+    # which replays full run lifecycle instead of the V1 manifest_id fluent.
     if fp_failing:
-        pending_id = _find_pending_dispatch(stream, selected_wi.job.edge.name,
-                                            work_key=selected_wi.work_key)
-        if pending_id is not None:
+        pending = find_pending_run(
+            stream.all_events(), selected_wi.job.edge.name,
+            work_key=selected_wi.work_key,
+        )
+        if pending is not None:
             return {
                 "status": "pending",
                 "reason": f"F_P dispatch already in flight for edge {selected_wi.job.edge.name!r}",
-                "pending_manifest_id": pending_id,
+                "pending_run_id": pending.run_id,
                 "edge": selected_wi.job.edge.name,
             }
 
@@ -424,6 +475,16 @@ def gen_iterate(
         fp_results_dir = scope.workspace_root / ".ai-workspace" / "fp_results"
         fp_results_dir.mkdir(parents=True, exist_ok=True)
         result_path = str(fp_results_dir / f"{manifest_id}.json")
+
+    # ADR-027 REQ-F-RUN-001: emit run_started lifecycle event.
+    # This marks the beginning of a run attempt in the event stream.
+    run_started_data: dict = {
+        "edge": selected_wi.job.edge.name,
+        "run_id": run_id,
+    }
+    if selected_wi.work_key is not None:
+        run_started_data["work_key"] = selected_wi.work_key
+    stream.append("run_started", run_started_data)
 
     # Bind + iterate
     bound = bind_fp(selected_pre, selected_wi.job, result_path=result_path)
@@ -450,7 +511,7 @@ def gen_iterate(
         "edge": selected_wi.job.edge.name,
         "delta_before": selected_pre.delta,
         "failing_evaluators": [ev.name for ev in selected_pre.failing_evaluators],
-        "events_emitted": len(surface.events) + 1,  # +1 for edge_started
+        "events_emitted": len(surface.events) + 2,  # +2 for run_started + edge_started
         "prompt_words": len(bound.prompt.split()),
         "surface_artifacts": surface.artifacts,
         "context_consumed": [c.name for c in surface.context_consumed],
@@ -514,6 +575,12 @@ def gen_iterate(
         }
         if selected_wi.work_key is not None:
             manifest["work_key"] = selected_wi.work_key
+        # ADR-025: enrich manifest with fragment structure when zoomed
+        if fragment is not None:
+            manifest["fragment"] = {
+                "name": fragment.name,
+                "internal_edges": [e.name for e in fragment.edges],
+            }
         manifest_file.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
         result["fp_manifest_path"] = str(manifest_file)
 
@@ -640,60 +707,6 @@ def _derive_state(scope: Scope, stream: EventStream) -> dict:
         return {"status": "converged"}
 
     return {"status": "in_progress", "delta": total_delta}
-
-
-# ── pending dispatch fluent ───────────────────────────────────────────────────
-
-def _find_pending_dispatch(stream: EventStream, edge_name: str,
-                           *, work_key: str | None = None) -> Optional[str]:
-    """
-    Check for an outstanding F_P dispatch on this (edge, work_key).
-
-    Returns the manifest_id of the pending dispatch, or None if no dispatch
-    is in flight. A dispatch is pending when an fp_dispatched event exists
-    for this (edge, work_key) with a manifest_id that has no corresponding
-    assessed event.
-
-    Event Calculus:
-      fp_dispatched{manifest_id: M}  initiates  pending(edge, work_key, M)
-      assessed{manifest_id: M}       terminates pending(edge, work_key, M)
-    """
-    all_events = stream.all_events()
-
-    # Collect all manifest_ids dispatched for this (edge, work_key)
-    dispatched_ids: set[str] = set()
-    for e in all_events:
-        if (
-            e.get("event_type") == "fp_dispatched"
-            and e.get("data", {}).get("edge") == edge_name
-            and e.get("data", {}).get("manifest_id")
-        ):
-            # Work-key scoping: match by work_key
-            evt_wk = e.get("data", {}).get("work_key")
-            if work_key is not None:
-                if evt_wk != work_key:
-                    continue
-            else:
-                # V1 global: only match events without work_key
-                if evt_wk is not None:
-                    continue
-            dispatched_ids.add(e["data"]["manifest_id"])
-
-    if not dispatched_ids:
-        return None
-
-    # Remove any that have a matching assessed event
-    for e in all_events:
-        if (
-            e.get("event_type") == "assessed"
-            and e.get("data", {}).get("manifest_id") in dispatched_ids
-        ):
-            dispatched_ids.discard(e["data"]["manifest_id"])
-
-    # Return the first remaining pending dispatch (if any)
-    if dispatched_ids:
-        return next(iter(dispatched_ids))
-    return None
 
 
 # ── internal helpers ──────────────────────────────────────────────────────────

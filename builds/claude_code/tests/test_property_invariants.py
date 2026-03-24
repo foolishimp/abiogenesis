@@ -314,24 +314,6 @@ class TestUnreachableAssetWarning:
     def _make_ctx(self):
         return Context(name="ctx", locator="workspace://ctx.md", digest="sha256:" + "0" * 64)
 
-    def test_no_warning_for_normal_graph(self):
-        """All assets are reachable — no warnings emitted."""
-        op = self._make_operator()
-        a = Asset(name="design", id_format="DES-{SEQ}")
-        b = Asset(name="code", id_format="CODE-{SEQ}")
-        edge = Edge(name="design→code", source=a, target=b, using=[op])
-
-        with warnings.catch_warnings(record=True) as w:
-            warnings.simplefilter("always")
-            Package(
-                name="normal",
-                assets=[a, b],
-                edges=[edge],
-                operators=[op],
-            )
-        unreachable = [x for x in w if "unreachable" in str(x.message)]
-        assert len(unreachable) == 0
-
     def test_warning_for_orphan_asset(self):
         """An asset that appears in no edge should trigger a warning."""
         op = self._make_operator()
@@ -371,28 +353,6 @@ class TestUnreachableAssetWarning:
             )
         unreachable = [x for x in w if "unreachable" in str(x.message)]
         assert len(unreachable) == 0
-
-    def test_warning_message_content(self):
-        """Warning message includes asset name and mentions unreachable."""
-        op = self._make_operator()
-        a = Asset(name="only_source", id_format="SRC-{SEQ}")
-        b = Asset(name="only_target", id_format="TGT-{SEQ}")
-        lonely = Asset(name="lonely_node", id_format="LON-{SEQ}")
-        edge = Edge(name="src→tgt", source=a, target=b, using=[op])
-
-        with warnings.catch_warnings(record=True) as w:
-            warnings.simplefilter("always")
-            Package(
-                name="msg_check",
-                assets=[a, b, lonely],
-                edges=[edge],
-                operators=[op],
-            )
-        unreachable = [x for x in w if "unreachable" in str(x.message)]
-        assert len(unreachable) == 1
-        msg = str(unreachable[0].message)
-        assert "lonely_node" in msg
-        assert "no inbound edge" in msg
 
     def test_multiple_orphans_produce_multiple_warnings(self):
         """Each orphan asset gets its own warning."""

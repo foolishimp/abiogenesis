@@ -23,11 +23,13 @@ This means:
 Each run `(work_key, run_id)` has an explicit state machine:
 
 ```
-queued → started → dispatched → pending → assessed → converged
+queued → started → dispatched → pending → assessed
                                        ↘ failed
                                        ↘ timed_out
                                        ↘ superseded
 ```
+
+Runs terminate at `assessed` — the F_P actor produced a result. **Convergence is an edge-level concept**, not a run lifecycle event. Whether the edge converges after a passing assessment is determined by `delta()` (which checks all evaluators, spec_hash, workflow_version, etc.). A run may be assessed-pass without the edge converging (e.g., F_D evaluators still fail). The `edge_converged` event is emitted by `gen_gaps` as a certification, not by the run state machine.
 
 State transitions are recorded in the event stream. `run_id` is generated at creation time and immutable — each WorkInstance represents exactly one attempt. Multiple runs on the same work_key are distinguishable by run_id and ordered by `event_time` (not by run_id — run_id is an identity, not an ordering criterion).
 
@@ -94,7 +96,7 @@ class RunState:
     work_key: str
     run_id: str
     edge: str
-    state: str  # queued|started|dispatched|pending|assessed|converged|failed|timed_out|superseded
+    state: str  # queued|started|dispatched|pending|assessed|failed|timed_out|superseded
     failure_class: str | None = None  # transport_failure|no_output|bad_output|certification_failure
     attempt_number: int = 1
     superseded_by: str | None = None

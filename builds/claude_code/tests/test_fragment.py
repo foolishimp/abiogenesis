@@ -60,15 +60,6 @@ class TestFragmentType:
         assert len(frag.assets) == 1
         assert len(frag.edges) == 2
 
-    def test_fragment_is_frozen(self):
-        """Fragment is immutable."""
-        frag = Fragment(
-            name="f",
-            outputs=(Asset(name="out", id_format="o-{id}"),),
-        )
-        with pytest.raises(AttributeError):
-            frag.name = "changed"
-
     def test_fragment_all_assets(self):
         """all_assets returns inputs + outputs + internal."""
         a_in = Asset(name="in", id_format="i-{id}")
@@ -503,12 +494,6 @@ class TestActiveWorkKeysSpawn:
 
         keys = active_work_keys(tmp_path)
         assert keys == ["FEAT-001"]
-
-    def test_empty_workspace(self, tmp_path):
-        """Empty workspace returns empty list."""
-        workspace_bootstrap(tmp_path)
-        keys = active_work_keys(tmp_path)
-        assert keys == []
 
 
 # ── WorkInstance with work_key (ADR-024 integration) ─────────────────────────

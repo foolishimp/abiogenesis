@@ -438,10 +438,14 @@ def _assess_result_cmd(result_path: str, workspace: Path) -> int:
     manifest_file = manifests_dir / f"{manifest_id}.json"
 
     spec_hash = ""
+    manifest_run_id = ""
+    manifest_work_key = ""
     if manifest_file.exists():
         try:
             manifest = _json.loads(manifest_file.read_text(encoding="utf-8"))
             spec_hash = manifest.get("spec_hash", "")
+            manifest_run_id = manifest.get("run_id", "")
+            manifest_work_key = manifest.get("work_key", "")
         except _json.JSONDecodeError:
             print(f"WARNING: manifest {manifest_file} is not valid JSON, "
                   "proceeding without spec_hash", file=sys.stderr)
@@ -480,7 +484,7 @@ def _assess_result_cmd(result_path: str, workspace: Path) -> int:
                   f"got {result_val!r}", file=sys.stderr)
             return 1
 
-        event_data = {
+        event_data: dict = {
             "kind": "fp",
             "edge": edge,
             "evaluator": evaluator,
@@ -491,6 +495,12 @@ def _assess_result_cmd(result_path: str, workspace: Path) -> int:
             "manifest_id": manifest_id,
             "workflow_version": workflow_version,
         }
+        # ADR-027: propagate run_id and work_key from manifest for
+        # run lifecycle tracking (run_state() needs run_id on assessed events).
+        if manifest_run_id:
+            event_data["run_id"] = manifest_run_id
+        if manifest_work_key:
+            event_data["work_key"] = manifest_work_key
         event = {
             "event_type": "assessed",
             "event_time": datetime.now(timezone.utc).isoformat(),

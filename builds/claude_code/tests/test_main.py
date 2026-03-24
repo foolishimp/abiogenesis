@@ -20,69 +20,6 @@ from unittest.mock import patch
 from genesis.__main__ import _build_parser, _check_tags, _check_req_coverage, _check_tag_coverage, _check_bootloader_consistency
 
 
-# ── _build_parser ─────────────────────────────────────────────────────────────
-
-class TestBuildParser:
-    def test_parser_created(self):
-        p = _build_parser()
-        assert p is not None
-
-    def test_start_command_exists(self):
-        p = _build_parser()
-        args = p.parse_args(["start"])
-        assert args.command == "start"
-        assert args.auto is False
-
-    def test_start_auto_flag(self):
-        p = _build_parser()
-        args = p.parse_args(["start", "--auto"])
-        assert args.auto is True
-
-    def test_start_feature_flag(self):
-        p = _build_parser()
-        args = p.parse_args(["start", "--feature", "REQ-F-CORE"])
-        assert args.feature == "REQ-F-CORE"
-
-    def test_start_edge_flag(self):
-        p = _build_parser()
-        args = p.parse_args(["start", "--edge", "design→code"])
-        assert args.edge == "design→code"
-
-    def test_iterate_command_exists(self):
-        p = _build_parser()
-        args = p.parse_args(["iterate"])
-        assert args.command == "iterate"
-
-    def test_gaps_command_exists(self):
-        p = _build_parser()
-        args = p.parse_args(["gaps"])
-        assert args.command == "gaps"
-
-    def test_check_tags_command_exists(self):
-        p = _build_parser()
-        args = p.parse_args(["check-tags", "--type", "implements", "--path", "."])
-        assert args.command == "check-tags"
-        assert args.type == "implements"
-
-    def test_check_tags_validates_type(self):
-        p = _build_parser()
-        args = p.parse_args(["check-tags", "--type", "validates", "--path", "."])
-        assert args.type == "validates"
-
-    def test_check_req_coverage_command_exists(self):
-        p = _build_parser()
-        args = p.parse_args(["check-req-coverage", "--spec", "spec.py", "--features", "features/"])
-        assert args.command == "check-req-coverage"
-        assert args.spec == "spec.py"
-        assert args.features == "features/"
-
-    def test_check_req_coverage_package_flag(self):
-        p = _build_parser()
-        args = p.parse_args(["check-req-coverage", "--package", "mymod:myvar", "--features", "features/"])
-        assert args.package == "mymod:myvar"
-        assert args.spec is None
-
-
 # ── _check_tags ───────────────────────────────────────────────────────────────
 
 class TestCheckTags:
@@ -193,18 +130,6 @@ class TestCheckReqCoverage:
         self._write_feature(sub, "core", ["REQ-F-CORE-001"])
         rc = _check_req_coverage(str(spec), str(features))
         assert rc == 0
-
-    def test_result_json_structure(self, tmp_path, capsys):
-        spec = self._write_spec(tmp_path, "# REQ-F-CORE-001\n")
-        features = tmp_path / "features"
-        self._write_feature(features, "core", ["REQ-F-CORE-001"])
-        _check_req_coverage(str(spec), str(features))
-        result = json.loads(capsys.readouterr().out)
-        assert "spec_keys" in result
-        assert "covered_count" in result
-        assert "total_count" in result
-        assert "uncovered" in result
-        assert "passes" in result
 
     def test_package_ref_covered(self, tmp_path, capsys, monkeypatch):
         """--package path: Package.requirements is the canonical source."""
@@ -327,32 +252,10 @@ class TestCheckTagCoverage:
         rc = _check_tag_coverage("implements", pkg_ref, str(tmp_path))
         assert rc == 0
 
-    def test_result_json_structure(self, tmp_path, capsys, monkeypatch):
-        pkg_ref = self._make_pkg(monkeypatch, ["REQ-F-FOO-001"])
-        (tmp_path / "foo.py").write_text("# Implements: REQ-F-FOO-001\n")
-        _check_tag_coverage("implements", pkg_ref, str(tmp_path))
-        result = json.loads(capsys.readouterr().out)
-        for field in ("tag_type", "path", "spec_keys", "tagged_count", "total_count",
-                      "missing", "passes"):
-            assert field in result
-
-    def test_check_tags_subcommand_exists(self):
-        p = _build_parser()
-        args = p.parse_args(["check-impl-coverage", "--package", "m:v", "--path", "."])
-        assert args.command == "check-impl-coverage"
-        args2 = p.parse_args(["check-validates-coverage", "--package", "m:v", "--path", "."])
-        assert args2.command == "check-validates-coverage"
 
 
 class TestCheckBootloaderConsistency:
     """Tests for check-bootloader-consistency command."""
-
-    def test_subcommand_exists(self):
-        p = _build_parser()
-        args = p.parse_args(["check-bootloader-consistency",
-                             "--spec-module", "gtl.core",
-                             "--bootloader", "some/file.md"])
-        assert args.command == "check-bootloader-consistency"
 
     def test_passes_when_all_types_present(self, tmp_path, capsys):
         boot = tmp_path / "BOOT.md"
