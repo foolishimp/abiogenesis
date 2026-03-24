@@ -4,25 +4,28 @@
 """
 gtl.operator_model — Effect and convergence declarations.
 
-Operator, Evaluator, Rule, Consensus, and the F_D/F_P/F_H regime markers.
+V2 domain model: Regime base class, frozen Operator/Evaluator/Rule with
+the accepted field shapes from the constitutional design.
 
 No external dependencies. Dataclasses + stdlib only.
 """
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Optional
 
 
-# ── Functor categories (regime markers) ───────────────────────────────────
+# ── Regime hierarchy ──────────────────────────────────────────────────────
 
-class F_D:
+class Regime:
+    """Base class for evaluation/operator regimes."""
+
+class F_D(Regime):
     """Deterministic — zero ambiguity, pass/fail."""
 
-class F_P:
+class F_P(Regime):
     """Probabilistic — agent/LLM, bounded ambiguity."""
 
-class F_H:
+class F_H(Regime):
     """Human — persistent ambiguity, judgment required."""
 
 
@@ -45,56 +48,57 @@ def consensus(n: int, m: int) -> Consensus:
     return Consensus(n, m)
 
 
-# ── Rule ──────────────────────────────────────────────────────────────────
+# ── Operator (V2) ────────────────────────────────────────────────────────
 
-@dataclass
-class Rule:
-    name: str
-    approve: Consensus
-    dissent: str = "none"
-    provisional: bool = False
-
-    def __post_init__(self):
-        if self.dissent not in ("required", "recorded", "none"):
-            raise ValueError(f"Rule.dissent must be required|recorded|none, got {self.dissent!r}")
-
-
-# ── Operator ──────────────────────────────────────────────────────────────
-
-_OPERATOR_SCHEMES = ("agent://", "exec://", "check://", "metric://", "fh://")
-
-
-@dataclass
+@dataclass(frozen=True)
 class Operator:
+    """
+    Typed effectful action declaration.
+
+    REQ-L-GTL2-OPERATOR-001: frozen, immutable, name/regime/binding/tags.
+    Operators perform work. Realization is plugin-dependent.
+    """
     name: str
-    category: type   # F_D | F_P | F_H
-    uri: str
+    regime: type[Regime] = F_D
+    binding: str = ""            # plugin URI
+    tags: tuple[str, ...] = ()
 
     def __post_init__(self):
-        if self.category not in (F_D, F_P, F_H):
-            raise TypeError(f"Operator.category must be F_D, F_P, or F_H")
-        if not any(self.uri.startswith(s) for s in _OPERATOR_SCHEMES):
-            raise ValueError(
-                f"Operator URI must use a known scheme {_OPERATOR_SCHEMES}: {self.uri!r}"
-            )
+        if not issubclass(self.regime, Regime):
+            raise TypeError(f"Operator.regime must be a Regime subclass, got {self.regime!r}")
 
 
-# ── Evaluator ─────────────────────────────────────────────────────────────
+# ── Evaluator (V2) ───────────────────────────────────────────────────────
 
-@dataclass
+@dataclass(frozen=True)
 class Evaluator:
     """
-    Typed convergence predicate — the stopping condition for iterate().
+    Typed convergence / attestation declaration.
 
-    category determines the evaluation regime: F_D, F_P, F_H.
+    REQ-L-GTL2-EVALUATOR-001: frozen, immutable, name/regime/binding/tags.
+    Evaluators check or attest convergence. Realization is plugin-dependent.
     """
     name: str
-    category: type   # F_D | F_P | F_H
-    description: str
-    command: str = ""
+    regime: type[Regime] = F_D
+    binding: str = ""            # plugin URI
+    tags: tuple[str, ...] = ()
 
     def __post_init__(self):
-        if self.category not in (F_D, F_P, F_H):
-            raise TypeError(
-                f"Evaluator.category must be F_D, F_P, or F_H, got {self.category!r}"
-            )
+        if not issubclass(self.regime, Regime):
+            raise TypeError(f"Evaluator.regime must be a Regime subclass, got {self.regime!r}")
+
+
+# ── Rule (V2) ────────────────────────────────────────────────────────────
+
+@dataclass(frozen=True)
+class Rule:
+    """
+    Declarative constraint — what must hold.
+
+    REQ-L-GTL2-RULE-001: declarative constraint type (consensus, coverage,
+    policy, type-consistency, etc.). Rules are passive.
+    """
+    name: str
+    kind: str = "policy"         # "consensus", "coverage", "policy", etc.
+    config: dict = field(default_factory=dict)
+    tags: tuple[str, ...] = ()

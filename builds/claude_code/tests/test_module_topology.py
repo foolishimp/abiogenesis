@@ -80,26 +80,67 @@ class TestGtlGraphModule:
 # ── gtl.operator_model: F_D, F_P, F_H, Operator, Evaluator, Rule, Consensus ─
 
 class TestGtlOperatorModelModule:
-    """gtl.operator_model must export the evaluator regime types and control declarations."""
+    """gtl.operator_model must export V2 evaluator regime types and control declarations."""
 
-    def test_regime_classes_exist(self):
-        from gtl.operator_model import F_D, F_P, F_H
-        # These are marker classes (regime discriminators)
-        assert F_D is not None
-        assert F_P is not None
-        assert F_H is not None
+    def test_regime_base_class_exists(self):
+        from gtl.operator_model import Regime
+        assert Regime is not None
 
-    def test_operator_exists(self):
+    def test_regime_hierarchy(self):
+        """F_D, F_P, F_H must be subclasses of Regime."""
+        from gtl.operator_model import Regime, F_D, F_P, F_H
+        assert issubclass(F_D, Regime)
+        assert issubclass(F_P, Regime)
+        assert issubclass(F_H, Regime)
+
+    def test_operator_is_frozen(self):
+        """REQ-L-GTL2-OPERATOR-001: frozen, immutable."""
         from gtl.operator_model import Operator
         assert dataclasses.is_dataclass(Operator)
+        assert Operator.__dataclass_params__.frozen
 
-    def test_evaluator_exists(self):
+    def test_operator_v2_fields(self):
+        """REQ-L-GTL2-OPERATOR-001: name, regime, binding, tags."""
+        from gtl.operator_model import Operator
+        fields = {f.name for f in dataclasses.fields(Operator)}
+        for required in ("name", "regime", "binding", "tags"):
+            assert required in fields, f"Operator missing V2 field: {required}"
+        # V1 fields must NOT be present
+        assert "category" not in fields, "Operator still has V1 'category' field"
+        assert "uri" not in fields, "Operator still has V1 'uri' field"
+
+    def test_evaluator_is_frozen(self):
+        """REQ-L-GTL2-EVALUATOR-001: frozen, immutable."""
         from gtl.operator_model import Evaluator
         assert dataclasses.is_dataclass(Evaluator)
+        assert Evaluator.__dataclass_params__.frozen
 
-    def test_rule_exists(self):
+    def test_evaluator_v2_fields(self):
+        """REQ-L-GTL2-EVALUATOR-001: name, regime, binding, tags."""
+        from gtl.operator_model import Evaluator
+        fields = {f.name for f in dataclasses.fields(Evaluator)}
+        for required in ("name", "regime", "binding", "tags"):
+            assert required in fields, f"Evaluator missing V2 field: {required}"
+        # V1 fields must NOT be present
+        assert "category" not in fields, "Evaluator still has V1 'category' field"
+        assert "description" not in fields, "Evaluator still has V1 'description' field"
+        assert "command" not in fields, "Evaluator still has V1 'command' field"
+
+    def test_rule_is_frozen(self):
+        """REQ-L-GTL2-RULE-001: declarative constraint type."""
         from gtl.operator_model import Rule
         assert dataclasses.is_dataclass(Rule)
+        assert Rule.__dataclass_params__.frozen
+
+    def test_rule_v2_fields(self):
+        """REQ-L-GTL2-RULE-001: name, kind, config, tags — not approval-specific."""
+        from gtl.operator_model import Rule
+        fields = {f.name for f in dataclasses.fields(Rule)}
+        for required in ("name", "kind"):
+            assert required in fields, f"Rule missing V2 field: {required}"
+        # V1 approval-specific fields must NOT be present
+        assert "approve" not in fields, "Rule still has V1 'approve' field"
+        assert "dissent" not in fields, "Rule still has V1 'dissent' field"
 
     def test_consensus_exists(self):
         from gtl.operator_model import Consensus

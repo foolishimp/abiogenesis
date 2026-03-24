@@ -341,23 +341,25 @@ class TestSelfHosting:
 
     def test_check_tags_impl_passes_on_own_code(self):
         """All genesis code files carry # Implements: tags."""
+        code_path = str(Path(__file__).resolve().parent.parent / "code")
         result = subprocess.run(
             [sys.executable, "-m", "genesis", "check-tags",
              "--type", "implements",
-             "--path", "builds/claude_code/code/"],
+             "--path", code_path],
             capture_output=True, text=True, env=_subprocess_env(),
         )
-        assert result.returncode == 0
+        assert result.returncode == 0, result.stderr
         data = json.loads(result.stdout)
         assert data["passes"] is True
         assert data["untagged_count"] == 0
 
     def test_check_tags_validates_passes_on_own_tests(self):
         """All genesis test files carry # Validates: tags."""
+        tests_path = str(Path(__file__).resolve().parent)
         result = subprocess.run(
             [sys.executable, "-m", "genesis", "check-tags",
              "--type", "validates",
-             "--path", "builds/claude_code/tests/"],
+             "--path", tests_path],
             capture_output=True, text=True, env=_subprocess_env(),
         )
         assert result.returncode == 0
@@ -365,12 +367,16 @@ class TestSelfHosting:
         assert data["passes"] is True
         assert data["untagged_count"] == 0
 
-    def test_seven_modules_present(self):
-        """Exactly 7 modules exist in the genesis package."""
-        genesis_dir = Path("builds/claude_code/code/genesis")
+    def test_modules_present(self):
+        """All expected modules exist in the genesis package."""
+        genesis_dir = Path(__file__).resolve().parent.parent / "code" / "genesis"
+        # V1 core modules
         required = {"core", "bind", "schedule", "manifest", "commands", "fp_dispatch", "__main__"}
+        # Phase 2 kernel modules (re-export shims during migration)
+        required |= {"events", "projection", "provenance", "correction", "binding",
+                      "lineage", "run", "convergence"}
         found = {f.stem for f in genesis_dir.glob("*.py") if f.stem != "__init__"}
-        assert found == required, f"Module mismatch. Required: {required}. Found: {found}"
+        assert required <= found, f"Missing modules: {required - found}"
 
     def test_engine_importable(self):
         """The genesis package is importable — Phase 1 health check."""
@@ -381,4 +387,4 @@ class TestSelfHosting:
         from genesis.commands import gen_start, gen_iterate, gen_gaps, Scope
         from genesis.manifest import PrecomputedManifest, BoundJob
         from genesis.fp_dispatch import has_mcp_transport, call_claude_code_mcp
-        assert genesis.__version__ == "1.0.1"
+        assert genesis.__version__ == "1.0.3"
