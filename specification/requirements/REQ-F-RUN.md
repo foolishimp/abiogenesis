@@ -34,7 +34,7 @@ The system must not dispatch duplicate work while a prior attempt is in flight.
 - AC-1: At most one run for a given (work_key, edge) is in `dispatched` or `pending` state at any time
 - AC-2: Arrival of a new convergence request while a run is pending returns the pending run_id — no duplicate dispatch
 - AC-3: Pending state has a maximum duration (timeout) — after which the run transitions to `timed_out` and a new run may be created
-- AC-4: A `superseded` run is one whose work_key has been re-dispatched before the original run completed — if the original run's result arrives after supersession, it is recorded in the event stream (append-only) but not applied to convergence state. The superseded run's events carry a `superseded_by: run_id` field so replay can distinguish "recorded but not applied" from "applied"
+- AC-4: A `superseded` run is one whose work_key has been re-dispatched before the original run completed. Supersession is recorded via a `run_superseded` Tier 2 control event (REQ-F-EC-001 AC-2) emitted at the moment the new run is dispatched, carrying `{superseded_run_id, superseded_by: new_run_id, work_key, edge}`. If the superseded run's result arrives later, it is recorded in the event stream (append-only) but not applied to convergence state — replay uses the `run_superseded` event to distinguish "recorded but not applied" from "applied"
 
 ### REQ-F-RUN-004 — Retry grace for transient failures
 

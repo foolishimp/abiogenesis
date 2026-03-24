@@ -122,11 +122,13 @@ Re-approval/re-assessment after revocation: a later initiating event updates T_a
 ```
 Layer 1: Event Calculus    — fluent truth over time (holdsAt, initiates, terminates)
          + F_D live eval   — stateless re-computation (no fluent)
-Layer 2: Scheduler rules   — which work to dispatch given current convergence state
+         + reset boundary  — certification shadowing (ADR-026)
+Layer 2: Scheduler rules   — WorkInstance dispatch, schedule.delta() convergence (ADR-024),
+                             run governance (ADR-027), work-key scoping
 Layer 3: Orchestrator      — resource allocation, parallelism, retry policy
 ```
 
-Only Layer 1 changed in this refactor.
+ADR-016 originally changed only Layer 1. V2 (ADR-023 through ADR-027) extends all three layers while preserving the EC foundation.
 
 ### Migration
 
@@ -141,5 +143,5 @@ Clean-start epoch cutover per workspace:
 | Tier | Events | EC participation |
 |------|--------|-----------------|
 | 1 — Primes | `found`, `approved`, `assessed`, `revoked`, `intent_raised` | Fluent projection (or `happensAt` audit) |
-| 2 — Control | `edge_started`, `fp_dispatched`, `fh_gate_pending`, `edge_converged`, `reset`, `work_spawned`, `zoomed` | Scheduler bookkeeping / certification boundaries |
+| 2 — Control (illustrative, not exhaustive) | **Scheduler:** `edge_started`, `fp_dispatched`, `fh_gate_pending`, `edge_converged`. **Correction:** `reset`. **Refinement:** `work_spawned`, `zoomed`. **Run lifecycle:** `run_queued`, `run_started`, `run_dispatched`, `run_pending`, `run_assessed`, `run_failed`, `run_timed_out`, `run_superseded`. **Leaf lifecycle:** `leaf_task_started`, `leaf_task_completed`, `leaf_task_failed` | Scheduler bookkeeping, certification boundaries, observability — never initiate or terminate fluents |
 | 3 — Lifecycle | `genesis_installed`, `genesis_sdlc_released`, `bug_fixed`, etc. | Infrastructure only |

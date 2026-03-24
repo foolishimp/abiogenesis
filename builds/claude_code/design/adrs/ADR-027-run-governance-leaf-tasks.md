@@ -2,7 +2,7 @@
 
 **Status**: Accepted
 **Date**: 2026-03-24
-**Implements**: REQ-F-RUN-001, REQ-F-RUN-002, REQ-F-RUN-003, REQ-F-RUN-004, REQ-F-LEAF-001, REQ-F-LEAF-002, REQ-F-LEAF-003
+**Implements**: REQ-F-RUN-001, REQ-F-RUN-002, REQ-F-RUN-003, REQ-F-RUN-004, REQ-F-LEAF-001, REQ-F-LEAF-002, REQ-F-LEAF-003, REQ-F-LEAF-004
 **Depends on**: ADR-023 (work identity), ADR-024 (work-scoped convergence)
 **Derives from**: INT-005 (V2 Kernel Evolution: Run Governance and Leaf Tasks)
 
@@ -121,17 +121,30 @@ if attempt_number < max_retries:
     # re-dispatch with backoff
 ```
 
-### Leaf task dispatch (within iterate)
+### Leaf task sub-dispatch (REQ-F-LEAF-004)
+
+Leaf tasks use a parent/sub-run identity model. They inherit `work_key` from the parent — they are sub-work, not independent work.
 
 ```python
-def dispatch_leaf_task(task: LeafTask, input_data: dict, run_id: str) -> dict:
+def dispatch_leaf(task: LeafTask, input_data: dict, parent_run_id: str) -> dict:
+    """Synchronous sub-dispatch within iterate(). Caller blocks until done."""
+    sub_run_id = f"{parent_run_id}/leaf/{task.name}"
     validate(input_data, task.input_schema)
-    emit("leaf_task_started", {"task": task.name, "run_id": run_id})
-    result = execute_with_timeout(task, input_data, task.timeout_ms)
-    validate(result, task.output_schema)
-    emit("leaf_task_completed", {"task": task.name, "run_id": run_id})
-    return result
+    emit("leaf_task_started", {"task": task.name, "run_id": sub_run_id})
+    try:
+        result = execute_with_timeout(task, input_data, task.timeout_ms)
+        validate(result, task.output_schema)
+        emit("leaf_task_completed", {"task": task.name, "run_id": sub_run_id})
+        return result
+    except LeafTaskError as e:
+        emit("leaf_task_failed", {
+            "task": task.name, "run_id": sub_run_id,
+            "failure_class": classify_failure(e),  # transport_failure | no_output | bad_output
+        })
+        raise  # parent decides: retry, fail iteration, or continue without
 ```
+
+The parent iterate() call integrates the result into its own working surface — leaf output does not bypass the parent edge's convergence model.
 
 ## Consequences
 
