@@ -8,7 +8,7 @@ The engine uses exactly five prime event types. All other events are derived.
 
 **Acceptance Criteria**:
 - AC-1: Exactly five prime types: `found`, `approved`, `assessed`, `revoked`, `intent_raised`
-- AC-2: All other event types (`edge_started`, `fp_dispatched`, `fh_gate_pending`, `edge_converged`) are control events — they do not participate in fluent projection
+- AC-2: All other event types (`edge_started`, `fp_dispatched`, `fh_gate_pending`, `edge_converged`, `reset`) are control events — they do not participate in fluent initiation or termination. `reset` creates a certification boundary that shadows prior F_P certifications (REQ-F-CORRECT-002) but does not initiate or terminate any fluent
 - AC-3: Each prime type has a `kind` discriminator that determines its EC role
 
 | Prime | Kind discriminator | EC role |
@@ -27,7 +27,7 @@ Convergence state is modelled as two Event Calculus fluents. Both fluents have s
 
 **Acceptance Criteria**:
 - AC-1: `operative(edge, work_key, wv)` — initiated by `approved{fh_review|fh_intent}`, terminated by `revoked{fh_approval}`
-- AC-2: `certified(edge, work_key, evaluator, spec_hash, wv)` — initiated by `assessed{fp, result: pass}`, terminated by `revoked{fp_assessment}` or spec_hash mismatch
+- AC-2: `certified(edge, work_key, evaluator, spec_hash, wv)` — initiated by `assessed{fp, result: pass}`, terminated by `revoked{fp_assessment}` or spec_hash mismatch. Additionally shadowed (not terminated) by `reset` boundaries (REQ-F-CORRECT-002 AC-3)
 - AC-3: Both fluents are parameterised by workflow_version — approvals from one version do not satisfy another (unless carry-forward, REQ-F-PROV-004)
 - AC-4: Both fluents support explicit event-calculus termination — the F_ algebra requires symmetric `{initiate, terminate, query}` operations across all functor types
 - AC-5: **Degenerate case:** when `work_key` is absent, fluents are scoped by `(edge, wv)` alone. A pass/approval without `work_key` satisfies only global queries, not work-key-scoped queries (REQ-F-WK-003)
@@ -39,7 +39,7 @@ Each evaluator type has a distinct convergence test.
 **Acceptance Criteria**:
 - AC-1: F_D: live execution — re-runs every iteration, stateless
 - AC-2: F_H: fluent projection — `holdsAt(operative(edge, work_key, wv), now)`
-- AC-3: F_P: fluent projection — `holdsAt(certified(edge, work_key, evaluator, spec_hash, wv), now)`
+- AC-3: F_P: fluent projection — `holdsAt(certified(edge, work_key, evaluator, spec_hash, wv), now)`. Projection observes both termination (`revoked`) and shadowing (`reset` boundary) — a certified fluent that predates an applicable reset boundary does not hold (REQ-F-CORRECT-002 AC-3)
 - AC-4: **Degenerate case:** when `work_key` is absent, projection queries match events without `work_key` only
 
 ### REQ-F-EC-004 — Revocation terminates fluents symmetrically
