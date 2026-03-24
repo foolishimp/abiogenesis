@@ -20,4 +20,4 @@ ABG owns event emission. The event stream is the truth substrate for replay and 
 
 **REQ-R-ABG2-EVENTS-003**: The event stream shall carry sufficient structure for replay — any graph application truth must be reconstructable from events alone plus graph declarations.
 
-**REQ-R-ABG2-EVENTS-004**: Events shall carry provenance: spec_hash, workflow_version, work_key, run_id, edge, evaluator, actor.
+**REQ-R-ABG2-EVENTS-004**: All events shall carry common provenance fields: work_key, run_id. Event-specific provenance (spec_hash, workflow_version, edge, evaluator, actor) shall be required only on the event types where they are meaningful.

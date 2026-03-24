@@ -231,7 +231,7 @@ class Graph:
     inputs: tuple[Node[Any], ...]
     outputs: tuple[Node[Any], ...]
     nodes: tuple[Node[Any], ...]
-    edges: tuple[Edge, ...]
+    vectors: tuple[GraphVector, ...]
     contexts: tuple[Context, ...] = ()
     rules: tuple[Rule, ...] = ()
     effects: tuple[Regime, ...] = ()

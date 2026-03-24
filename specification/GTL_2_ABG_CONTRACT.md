@@ -48,7 +48,7 @@ The GTL/ABG 1.0 requirement corpus comprised 22 REQ-F-* families (BOOT, BOOTDOC,
 The live requirement surface is now the 2.0 structure under `requirements/`:
 
 - `requirements/gtl/` — 16 REQ-L-GTL2-* families (language law)
-- `requirements/abg/` — 12 REQ-R-ABG2-* families (target engine surface)
+- `requirements/abg/` — 13 REQ-R-ABG2-* families (target engine surface)
 - `requirements/mapping/` — 3 REQ-M-GTL2-* families (engine mapping)
 - `requirements/product/` — 3 REQ-P-* families (policy/scenarios/libraries)
 
@@ -149,6 +149,7 @@ The contract is about interpreter obligations, not implementation topology.
 | `ABG-CAP-018` | Realize higher-order graph ops | `fan_out`, `fan_in`, `gate`, `promote` | `missing` | Interpret higher-order graph operations as lawful runtime behavior | D |
 | `ABG-CAP-019` | Govern derived graph artifacts | Self-hosting and bootloader surfaces | `partial/good` | Govern derived artifacts and self-description under the same replay/provenance discipline | C |
 | `ABG-CAP-020` | Expose ABG-compatible contract | Engine-independence and mapping law | `missing` | Publish a stable contract that alternate implementations can satisfy | B |
+| `ABG-CAP-021` | Manage agent transport | Subprocess dispatch with environment sanitization | `strong` | Dispatch F_P actors via subprocess transport, sanitize inherited environment, and return structured results | A |
 
 ---
 
@@ -166,6 +167,7 @@ Minimum contract for Wave 1 GTL 2.x:
 - `ABG-CAP-013`
 - `ABG-CAP-014`
 - `ABG-CAP-016`
+- `ABG-CAP-021`
 
 This is enough to say:
 

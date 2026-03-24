@@ -14,9 +14,9 @@ Graph is the one first-class structural type in GTL 2.x. All workflow structure 
 
 ## Acceptance Criteria
 
-**REQ-L-GTL2-GRAPH-001**: `Graph` shall be a frozen, immutable value type with at minimum: name, inputs, outputs, nodes, edges, contexts, rules, effects, tags.
+**REQ-L-GTL2-GRAPH-001**: `Graph` shall be a frozen, immutable value type with at minimum: name, inputs, outputs, nodes, vectors, contexts, rules, effects, tags.
 
-**REQ-L-GTL2-GRAPH-002**: A primitive edge shall be representable as a minimal graph (two nodes, one edge). No separate structural ontology is needed.
+**REQ-L-GTL2-GRAPH-002**: A primitive graph vector (single step between two nodes) shall be representable as a minimal graph. No separate structural ontology is needed.
 
 **REQ-L-GTL2-GRAPH-003**: A multi-step workflow, a subgraph, a reusable workflow, and a refined workflow shall all be expressible as `Graph`. No rival structural type is required.
 
