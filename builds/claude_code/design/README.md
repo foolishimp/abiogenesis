@@ -1,26 +1,23 @@
 # builds/claude_code — Design
 
-Claude Code build of Genesis V1.0.
+Claude Code build — V2 design surface.
 
-**Status**: Phase 5 — self-hosting, Event Calculus foundation, 310+ tests passing.
+## ADRs
 
-## ADRs (all accepted)
+V1 ADRs (001–029) retired. Governing truth now lives in:
 
-| ADR | Topic |
-|-----|-------|
-| ADR-001 | GTL as spec |
-| ADR-002 | bind_fd/fp split |
-| ADR-003 | PrecomputedManifest |
-| ADR-004 | Scope type |
-| ADR-005 | Event stream |
-| ADR-006 | Bootstrap sequence |
-| ADR-007 | gen-install bootstrap command |
-| ADR-008 | F_H gate routing |
-| ADR-009 | Traceability enforcement |
-| ADR-010 | User guide structure |
-| ADR-011 | Spec-snapshot binding |
-| ADR-012 | Per-REQ-key coverage evaluators |
-| ADR-013 | Feature lifecycle closure |
-| ADR-014 | F_D gates F_P and F_H dispatch |
-| ADR-015 | Integration-primary test architecture |
-| ADR-016 | Prime operators and Event Calculus foundation |
+- `specification/GTL_2_CONSTITUTIONAL_DESIGN.md` — language + engine boundary
+- `specification/GTL_2_ABG_CONTRACT.md` — capability contract + 1.0 disposition
+- `specification/requirements/` — 4-layer requirement surface (gtl/abg/mapping/product)
+
+### Surviving V1 ADR
+
+| ADR | Decision | Why it survives |
+|-----|----------|----------------|
+| ADR-022 | Subprocess transport with env sanitization | Implementation decision, engine-agnostic |
+
+New ADRs will be numbered from ADR-030 and implement REQ-L-GTL2-* / REQ-R-ABG2-* keys.
+
+## Traceability
+
+V1 trace matrices retired. New traceability derives from the 2.0 requirement surface.
