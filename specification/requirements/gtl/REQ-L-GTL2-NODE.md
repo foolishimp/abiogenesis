@@ -21,3 +21,5 @@
 **REQ-L-GTL2-NODE-003**: Multiple nodes within the same graph may share the same schema type while remaining distinct nodes.
 
 **REQ-L-GTL2-NODE-004**: The current `Asset` concept shall be reinterpreted as a node payload/schema declaration or domain-specific schema type used by `Node[T]`.
+
+**REQ-L-GTL2-NODE-005**: `Vector[T]` is a schema family usable as a node type parameter (`Node[Vector[T]]`) when the node carries a collection of `T`. It is not a rival structural type — the structural type remains `Graph`, the locus remains `Node`.

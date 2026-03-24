@@ -23,3 +23,5 @@ GTL 2.x supports higher-order graph programming: fan-out, fan-in, gating, and pr
 **REQ-L-GTL2-HOF-004**: `promote(p)` shall lift one representation into another (event to vector, vector to branches, branch outputs to synthesized context).
 
 **REQ-L-GTL2-HOF-005**: All higher-order operations shall preserve interface/type truth.
+
+**REQ-L-GTL2-HOF-006**: Higher-order graph materialization (fan-out, promote) may depend on collection cardinality via `Vector[T]` node schema. `Vector[T]` is the semantic foundation for cardinality-sensitive graph materialization, not a separate structural concept.

@@ -803,8 +803,7 @@ The next constitutional requirement set should be split into four layers.
 ### 14.1 GTL language requirement families
 
 - `REQ-L-GTL2-GRAPH`
-- `REQ-L-GTL2-NODE`
-- `REQ-L-GTL2-VECTOR`
+- `REQ-L-GTL2-NODE` (includes `Vector[T]` as schema family)
 - `REQ-L-GTL2-INTERFACE`
 - `REQ-L-GTL2-OPERATOR`
 - `REQ-L-GTL2-EVALUATOR`
