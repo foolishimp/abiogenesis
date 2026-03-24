@@ -14,7 +14,7 @@ ABG models execution attempts over graph applications with governed lifecycle.
 
 ## Acceptance Criteria
 
-**REQ-R-ABG2-RUN-001**: Run states include at minimum: `queued`, `started`, `dispatched`, `pending`, `assessed`, `failed`, `timed_out`, `superseded`. Runs terminate at `assessed`.
+**REQ-R-ABG2-RUN-001**: Run states include at minimum: `queued`, `started`, `dispatched`, `pending`, `assessed`, `failed`, `timed_out`, `superseded`. Terminal states are `assessed` (successful completion), `failed`, `timed_out`, and `superseded`. Non-terminal states are `queued`, `started`, `dispatched`, `pending`.
 
 **REQ-R-ABG2-RUN-002**: `run_id` is an execution attempt over a graph application. Multiple runs may exist for the same work_key.
 

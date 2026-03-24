@@ -14,7 +14,7 @@ Job and Worker are ABG runtime concepts. They bind GTL graph structure to concre
 
 ## Acceptance Criteria
 
-**REQ-R-ABG2-JOB-WORKER-001**: `Job` is ABG's binding of a GTL graph edge to a schedulable work unit. Job is a runtime concept, not a language type.
+**REQ-R-ABG2-JOB-WORKER-001**: `Job` is ABG's binding of a GTL graph vector (step between typed nodes) to a schedulable work unit. Job is a runtime concept, not a language type.
 
 **REQ-R-ABG2-JOB-WORKER-002**: `Worker` is ABG's model of execution capability. Worker identity and capability matching are engine-owned.
 

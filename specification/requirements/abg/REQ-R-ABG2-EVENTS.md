@@ -16,7 +16,7 @@ ABG owns event emission. The event stream is the truth substrate for replay and 
 
 **REQ-R-ABG2-EVENTS-001**: `emit()` is the only write path. Event stream is append-only. `event_time` is system-assigned at append.
 
-**REQ-R-ABG2-EVENTS-002**: F_P does not call the event logger. F_P produces artifacts; F_D reads them and emits events.
+**REQ-R-ABG2-EVENTS-002**: All events shall enter through the canonical ABG emission contract. No operator or external actor may bypass the engine's event surface to write directly to the event stream.
 
 **REQ-R-ABG2-EVENTS-003**: The event stream shall carry sufficient structure for replay — any graph application truth must be reconstructable from events alone plus graph declarations.
 

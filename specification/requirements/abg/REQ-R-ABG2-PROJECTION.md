@@ -16,6 +16,6 @@ Projection reconstructs current truth from the event stream. It is pure, determi
 
 **REQ-R-ABG2-PROJECTION-001**: `project(EventStream, type, instance_id)` shall be deterministic — same inputs always produce the same result.
 
-**REQ-R-ABG2-PROJECTION-002**: Assets/nodes are projections: `Asset<Tn> := project(EventStream[0..n], asset_type, instance_id)`.
+**REQ-R-ABG2-PROJECTION-002**: Graph node state is a projection: `Node<Tn> := project(EventStream[0..n], node_type, instance_id)`.
 
 **REQ-R-ABG2-PROJECTION-003**: Recovery is replay. No state is lost beyond the current iterate() call.

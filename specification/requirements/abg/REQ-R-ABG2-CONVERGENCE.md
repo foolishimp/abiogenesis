@@ -16,7 +16,7 @@ ABG computes convergence over graph application history. `delta(state, constrain
 
 **REQ-R-ABG2-CONVERGENCE-001**: `delta()` shall compute convergence over graph application history — same computation at every scale (single iteration, edge, feature, production).
 
-**REQ-R-ABG2-CONVERGENCE-002**: Convergence is edge-level (`delta()==0`), not a run lifecycle event. Runs terminate at `assessed`.
+**REQ-R-ABG2-CONVERGENCE-002**: Convergence is edge-level (`delta()==0`), not a run lifecycle event. Runs reach terminal states independently of convergence.
 
 **REQ-R-ABG2-CONVERGENCE-003**: ABG shall execute evaluator bindings to determine whether graph contracts are satisfied, and record attestation.
 
