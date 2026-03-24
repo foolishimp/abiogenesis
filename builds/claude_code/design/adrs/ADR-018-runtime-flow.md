@@ -28,7 +28,7 @@ package, worker = _resolve_package_worker(args, workspace)
 scope = Scope(package, workspace_root, ...)   # reads active-workflow.json
 ```
 
-The ordering matters: sys.path must be configured before importing the Package module. workspace_bootstrap must run before any emit() call. Scope construction reads active-workflow.json, which must exist in .genesis/ (or defaults to "unknown").
+The ordering matters: sys.path must be configured before importing the Package module. workspace_bootstrap must run before any emit() call. Scope construction reads active-workflow.json from `.ai-workspace/runtime/` (or explicit path via genesis.yml), defaulting to `"unknown"` on any failure (REQ-F-PROV-001).
 
 ---
 
@@ -49,7 +49,7 @@ When F_P dispatch is needed, two files are written:
 - **Manifest**: `.ai-workspace/fp_manifests/{edge_slug}_{ts}.json` — contains edge, failing evaluators, assembled prompt, result_path, spec_hash
 - **Result placeholder**: `.ai-workspace/fp_results/{edge_slug}_{ts}.json` — path given to F_P actor for writing assessment output
 
-**Why files**: The F_P actor (Claude Code via MCP) runs in a separate process. The manifest provides the prompt; the result path provides the write-back location. The skill layer bridges the two.
+**Why files**: The F_P actor runs in a subprocess with environment sanitization (ADR-022). The manifest provides the prompt; the result path provides the write-back location. The skill layer bridges the two.
 
 ---
 

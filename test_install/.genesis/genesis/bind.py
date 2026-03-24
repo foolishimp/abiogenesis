@@ -8,7 +8,6 @@
 # Implements: REQ-F-EC-003
 # Implements: REQ-F-EC-004
 # Implements: REQ-F-EC-005
-# Implements: REQ-F-WK-003
 """
 bind — F_D pre-computation: bind_fd, bind_fp, select_relevant_contexts,
        render_delta.
@@ -82,26 +81,20 @@ def bind_fh(
     all_events: list[dict],
     current_workflow_version: str = "unknown",
     carry_forward: list[dict] | None = None,
-    *,
-    work_key: str | None = None,
 ) -> bool:
     """
-    Evaluate holdsAt(operative(edge, work_key, wv), now) for the F_H gate.
+    Evaluate holdsAt(operative(edge, wv), now) for the F_H gate.
 
     Event Calculus semantics:
-      approved{kind: fh_review}  initiates  operative(edge, work_key, wv)
-      approved{kind: fh_intent}  initiates  operative(edge, work_key, wv)
-      revoked{kind: fh_approval} terminates operative(edge, work_key, wv)
+      approved{kind: fh_review}  initiates  operative(edge, wv)
+      approved{kind: fh_intent}  initiates  operative(edge, wv)
+      revoked{kind: fh_approval} terminates operative(edge, wv)
 
-    operative(edge, work_key, wv) holdsAt now iff:
+    operative(edge, wv) holdsAt now iff:
       an approved event initiates it AND no later revoked event terminates it.
 
-    work_key: when provided, only approved events matching this work_key
-    satisfy the fluent. Events without work_key satisfy only global queries.
-    When absent, all approved events for the edge are considered (V1 behaviour).
-
     When current_workflow_version == "unknown":
-      Accept any approved matching (edge, work_key) — no version scoping.
+      Accept any approved matching edge name alone (no provenance file present).
 
     When current_workflow_version != "unknown":
       Accept only if:
@@ -127,17 +120,6 @@ def bind_fh(
         )
 
         if is_approved and edata.get("edge") == job.edge.name:
-            # Work-key scoping (symmetric with project()): when work_key is
-            # provided, skip events with a DIFFERENT work_key. Events without
-            # work_key (V1) are included — they predate work identity.
-            # Global queries (work_key=None) skip events scoped to any work_key.
-            if work_key is not None:
-                event_wk = edata.get("work_key")
-                if event_wk is not None and event_wk != work_key:
-                    continue
-            elif edata.get("work_key") is not None:
-                # Global query: skip events scoped to a specific work_key
-                continue
             if current_workflow_version == "unknown":
                 found_approved = True
                 latest_approved_time = e.get("event_time")
@@ -151,11 +133,9 @@ def bind_fh(
                 latest_approved_time = e.get("event_time")
                 continue
 
-            # Condition B: carry-forward — scoped by (edge, work_key, from_version)
+            # Condition B: carry-forward
             for cf in carry_forward:
-                if (cf.get("edge") == job.edge.name
-                        and cf.get("from_version") == ev_wv
-                        and cf.get("work_key", None) == (work_key or None)):
+                if cf.get("edge") == job.edge.name and cf.get("from_version") == ev_wv:
                     found_approved = True
                     latest_approved_time = e.get("event_time")
                     break
@@ -164,21 +144,15 @@ def bind_fh(
         return False
 
     # Check for terminates: revoked{kind: fh_approval} postdating the approved event.
-    # Revocation is scoped by (edge, work_key, workflow_version). When
-    # current_workflow_version == "unknown", workflow_version scoping is dropped
-    # but work_key scoping is preserved.
+    # Revocation is scoped by workflow_version — a revocation from one lens cannot
+    # cancel approvals from another. When current_workflow_version == "unknown",
+    # revocations match by edge alone (same unversioned fallback as approvals).
     for e in all_events:
         etype = e.get("event_type")
         edata = e.get("data", {})
         if etype == "revoked" and edata.get("kind") == "fh_approval":
             revoked_edge = edata.get("edge")
             if revoked_edge == job.edge.name or revoked_edge == "*":
-                # Work-key scoping on revocation (symmetric with approval matching)
-                rev_wk = edata.get("work_key")
-                if work_key is not None and rev_wk is not None and rev_wk != work_key:
-                    continue  # Different work unit — does not terminate this fluent
-                if work_key is None and rev_wk is not None:
-                    continue  # Global fluent — scoped revocation doesn't apply
                 # Workflow version scoping (symmetric with approval matching)
                 if current_workflow_version != "unknown":
                     rev_wv = edata.get("workflow_version")
@@ -197,22 +171,17 @@ def bind_fp_certified(
     all_events: list[dict],
     spec_hash: str | None = None,
     current_workflow_version: str = "unknown",
-    *,
-    work_key: str | None = None,
 ) -> bool:
     """
-    Evaluate holdsAt(certified(edge, work_key, evaluator, spec_hash, wv), now).
+    Evaluate holdsAt(certified(edge, evaluator, spec_hash, wv), now) for an F_P evaluator.
 
     Event Calculus semantics (symmetric with bind_fh):
-      assessed{kind: fp, result: pass}  initiates  certified(edge, wk, ev, spec_hash, wv)
-      revoked{kind: fp_assessment}      terminates certified(edge, wk, ev, spec_hash, wv)
+      assessed{kind: fp, result: pass}  initiates  certified(edge, ev, spec_hash, wv)
+      revoked{kind: fp_assessment}      terminates certified(edge, ev, spec_hash, wv)
 
-    certified(edge, wk, ev, spec_hash, wv) holdsAt now iff:
+    certified(edge, ev, spec_hash, wv) holdsAt now iff:
       an assessed{pass} event initiates it AND no later revoked{fp_assessment} terminates it,
       AND spec_hash matches (identity-based termination).
-
-    work_key: when provided, only assessed events matching this work_key satisfy
-    the fluent. When absent, V1 global behaviour.
     """
     # Find the latest assessed{kind: fp, result: pass} for this edge+evaluator
     latest_assessed_time = None
@@ -234,15 +203,6 @@ def bind_fp_certified(
             # spec_hash identity check
             if spec_hash is not None and edata.get("spec_hash") != spec_hash:
                 continue  # Different fluent identity — does not initiate
-            # Work-key scoping (symmetric with bind_fh and project()):
-            # skip events with a DIFFERENT work_key. V1 events (no work_key)
-            # are included in scoped queries.
-            if work_key is not None:
-                event_wk = edata.get("work_key")
-                if event_wk is not None and event_wk != work_key:
-                    continue
-            elif edata.get("work_key") is not None:
-                continue  # Global query — skip scoped events
             found_assessed = True
             latest_assessed_time = e.get("event_time")
 
@@ -250,19 +210,13 @@ def bind_fp_certified(
         return False
 
     # Check for terminates: revoked{kind: fp_assessment} postdating the assessed event.
-    # Scoped by (edge, work_key, workflow_version), symmetric with bind_fh.
+    # Symmetric with bind_fh revocation check.
     for e in all_events:
         etype = e.get("event_type")
         edata = e.get("data", {})
         if etype == "revoked" and edata.get("kind") == "fp_assessment":
             revoked_edge = edata.get("edge")
             if revoked_edge == job.edge.name or revoked_edge == "*":
-                # Work-key scoping on revocation (symmetric with bind_fh)
-                rev_wk = edata.get("work_key")
-                if work_key is not None and rev_wk is not None and rev_wk != work_key:
-                    continue
-                if work_key is None and rev_wk is not None:
-                    continue
                 # Workflow version scoping (symmetric with bind_fh)
                 if current_workflow_version != "unknown":
                     rev_wv = edata.get("workflow_version")
@@ -288,8 +242,6 @@ def run_fd_evaluator(
     ev: Evaluator,
     current_asset: dict,
     workspace_root: Path,
-    *,
-    work_key: str | None = None,
 ) -> tuple[bool, Any]:
     """
     Run one F_D evaluator. Returns (passes: bool, detail: Any).
@@ -297,7 +249,6 @@ def run_fd_evaluator(
     Dispatches via ev.command — the Package specifies; the kernel runs.
     Fails closed: an F_D evaluator with no command is a misconfigured Package.
     PYTHONPATH is set so genesis and gtl packages resolve inside the subprocess.
-    WORK_KEY is injected when present so scopeable evaluators can filter.
     """
     if ev.category is not F_D:
         raise TypeError(
@@ -315,9 +266,6 @@ def run_fd_evaluator(
     extra = os.pathsep.join(p for p in sys.path if p)
     existing = env.get("PYTHONPATH", "")
     env["PYTHONPATH"] = os.pathsep.join(filter(None, [extra, existing]))
-    # Inject WORK_KEY so scopeable F_D evaluators can filter by work unit.
-    if work_key is not None:
-        env["WORK_KEY"] = work_key
 
     try:
         result = subprocess.run(
@@ -351,8 +299,6 @@ def bind_fd(
     spec_hash: str | None = None,
     current_workflow_version: str = "unknown",
     carry_forward: list[dict] | None = None,
-    *,
-    work_key: str | None = None,
 ) -> PrecomputedManifest:
     """
     F_D pre-computation phase. Everything computable without an LLM.
@@ -363,7 +309,7 @@ def bind_fd(
     # 1. Project current asset state
     source = job.source_type
     source_name = source[0].name if isinstance(source, list) else source.name
-    current = project(stream, source_name, "current", work_key=work_key)
+    current = project(stream, source_name, "current")
 
     # 2. Run all F_D evaluators — always, unconditionally.
     # edge_converged events are audit records (emitted by gen_gaps when delta=0),
@@ -373,26 +319,20 @@ def bind_fd(
     fd_results: dict[str, Any] = {}
     for ev in job.evaluators:
         if ev.category is F_D:
-            passes, detail = run_fd_evaluator(
-                ev, current, workspace_root, work_key=work_key,
-            )
+            passes, detail = run_fd_evaluator(ev, current, workspace_root)
             fd_results[ev.name] = {"passes": passes, "detail": detail}
 
     def _passes(ev: Evaluator) -> bool:
         if ev.category is F_D:
             return fd_results.get(ev.name, {}).get("passes", False)
         if ev.category is F_H:
-            return bind_fh(
-                job, all_events, current_workflow_version, carry_forward,
-                work_key=work_key,
-            )
+            return bind_fh(job, all_events, current_workflow_version, carry_forward)
         if ev.category is F_P:
-            # EC: holdsAt(certified(edge, work_key, evaluator, spec_hash, wv), now)
+            # EC: holdsAt(certified(edge, evaluator, spec_hash, wv), now)
             # Initiated by assessed{kind: fp, result: pass, spec_hash: H}.
             # Terminated by revoked{kind: fp_assessment} or spec_hash mismatch.
             return bind_fp_certified(
-                job, ev, all_events, spec_hash, current_workflow_version,
-                work_key=work_key,
+                job, ev, all_events, spec_hash, current_workflow_version
             )
         return False
 

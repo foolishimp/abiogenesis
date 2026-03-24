@@ -161,3 +161,96 @@ Three-layer architecture:
 7. Requirements express behavior, not CLI syntax
 
 ---
+
+## INT-004 — Recursive Work Identity and Compositional Graphs
+
+**Date**: 2026-03-24
+**Status**: Draft
+**Derived from**: Codex strategy `20260324T023507_STRATEGY_recursion-not-feature-routing-prime-structured-design.md`
+
+### Problem
+
+The V1 engine simplified work scheduling to `Job = Edge`. The scheduler walks edges, runs global evaluators, and reports convergence per edge. Feature identity appears only as an event annotation — events carry `(edge, feature)`, convergence certificates are keyed on `(edge, feature)`, and `project()` supports feature-scoped projection. But the scheduler creates one job per edge and evaluates convergence globally.
+
+This means:
+1. Adding new feature vectors to a converged workspace produces no delta. The engine reports "converged" even though no code exists for the new features. The spec-tier evaluators (req_coverage, module_coverage) catch coverage gaps, but the code-tier evaluators (impl_tags, tests_pass) check global properties — they cannot distinguish "feature X has code" from "some code exists."
+2. There is no mechanism for recursive refinement. When a coarse edge (`design→code`) needs more structure, the only option is to redesign the entire graph. Zoom — expanding an opaque step into a richer subgraph while preserving the outer contract — is not supported.
+3. Graphs are monolithic. Common patterns (requirements→design, code→test_evidence) must be duplicated in every Package. There is no compositional unit smaller than a full Package.
+
+The original monolith design addressed all three through category-theoretic structure: zoom morphism, spawn/fold-back, graph fragments, named compositions, and child lineage. The split dropped this structural layer, leaving the event model richer than the scheduling model. The events know about work identity; the scheduler doesn't.
+
+### Value Proposition
+
+Restore the missing structural layer without changing the kernel primitive. The transport (`iterate()`) stays small and lawful. The topology (`Job`, `Edge`, `Package`) stays stable. What gets added is:
+
+**1. Routed work identity** — `work_key` and `run_id`
+
+Every unit of work has an immutable identity expressible as a lawful chain:
+
+```
+INT-001 / REQ-042 / build.design / module.auth
+```
+
+The chain IS the identity — no surrogate IDs. `work_key` is stable across time (used for projection and current-state derivation). `run_id` identifies one attempt on that work (used for retries, transactions, audit). The iterate signature becomes:
+
+```python
+iterate(job, work_key, run_id, ...)
+```
+
+Recursion is key refinement: `INT-001/REQ-042/build.design` spawns `INT-001/REQ-042/build.design/module.auth`. Fold-back is projection over descendant keys.
+
+**2. Compositional graph fragments** — `Fragment`
+
+A reusable subgraph unit that introduces assets, edges, and convergence surfaces while preserving interface contracts:
+
+```python
+Fragment(
+    name="code_to_evidence",
+    inputs=[code],           # required input assets
+    outputs=[test_evidence], # produced output assets
+    assets=[...],            # internal assets
+    edges=[...],             # internal edges
+)
+```
+
+Graph functions (`requirements_to_design()`, `code_to_test_evidence()`) are graph-valued — they compose lawfully into larger structures. This is the basis for interface boundaries, delayed specialisation, and interchangeable refinements.
+
+**3. Zoom as lawful local refinement**
+
+A previously opaque edge can be expanded into a richer subgraph:
+
+```
+Coarse:  design → code
+Zoomed:  design → module_decomp → code_units → code
+```
+
+The outer graph still sees input compatible with `design` and output compatible with `code`. The zoomed graph makes explicit additional stages, assets, and convergence surfaces. The kernel doesn't change — refinement is local.
+
+### Scope
+
+**In scope (ABG kernel):**
+- `work_key` as immutable hierarchical identity on `iterate()` and all event emission
+- `run_id` as attempt identity for transaction/retry/audit
+- `Fragment` as a GTL type: reusable compositional subgraph with input/output contracts
+- Zoom operation: expand an edge into a Fragment while preserving the outer contract
+- Spawn/fold-back: create child work_keys, project descendant results into parent
+- Event stream carries `work_key` and `run_id` on all events
+- `project()` supports work_key-scoped projection
+- `delta()` computable per work_key, not just per edge
+- Scheduler creates work instances from (job, work_key) pairs, not just jobs
+
+**Out of scope:**
+- Strong intent engine (dynamic graph realisation from gap analysis) — future; the engine supports the model but the current planner uses a static hand-crafted graph
+- Multi-worker scheduling across work instances — V1 is single worker
+- Package distribution / registry
+- Named compositions beyond Fragment (BROADCAST, FOLD, CONSENSUS, etc. — future)
+
+### Success Criteria
+
+1. `iterate(job, work_key, run_id, ...)` — the kernel accepts work identity without changing the transport primitive
+2. Adding a new feature vector to a converged workspace produces delta > 0 on code-tier edges for that feature's work_key
+3. A Fragment can be defined, composed into a Package, and traversed by the engine
+4. Zooming an edge into a Fragment preserves the outer edge contract — delta on the outer edge reflects delta on the inner subgraph
+5. Events carry `work_key` and `run_id`; `project(stream, asset_type, work_key)` returns work-scoped state
+6. Fold-back: parent work_key convergence is a projection over descendant work_key convergence
+7. The kernel remains small — `iterate()` gains two parameters, not imperative special cases

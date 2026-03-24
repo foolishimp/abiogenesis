@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0b1",
+  "installed": [
+    "gen-start",
+    "gen-gaps",
+    "gen-status",
+    "gen-iterate",
+    "gen-review"
+  ],
+  "timestamp": "2026-03-23T13:45:22.584475+00:00"
+}

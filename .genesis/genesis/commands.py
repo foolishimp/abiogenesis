@@ -8,9 +8,6 @@
 # Implements: REQ-F-VIS-001
 # Implements: REQ-F-PROV-001
 # Implements: REQ-F-PROV-003
-# Implements: REQ-F-WK-001
-# Implements: REQ-F-WK-002
-# Implements: REQ-F-FRAG-004
 """
 commands — gen_start, gen_iterate, gen_gaps, Scope.
 
@@ -24,7 +21,6 @@ primitives. Phase 4 of the approved execution plan. See ADR-004 (Scope).
 from __future__ import annotations
 
 import json
-import uuid
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
@@ -35,7 +31,7 @@ from gtl.core import Job, Package, Worker
 from .bind import bind_fd, bind_fp, bind_fh, job_evaluator_hash, req_hash
 from .core import ContextResolver, EventStream, project
 from .manifest import BoundJob
-from .schedule import WorkInstance, delta, iterate, schedule
+from .schedule import delta, iterate, schedule
 
 
 # ── Workflow provenance helpers ───────────────────────────────────────────────
@@ -144,62 +140,12 @@ class Scope:
     worker: Optional[Worker] = None   # explicit worker; None = spec-import fallback
     active_workflow_path: Optional[str] = None  # runtime contract: path to active-workflow.json
     workflow_root: Optional[str] = None         # runtime contract: base dir for workflow releases
-    work_key: Optional[str] = None    # work identity (ADR-023); None = V1 global
-    run_id: Optional[str] = None      # attempt identity (ADR-023); None = V1 global
     workflow_version: str = field(init=False, default="unknown")
 
     def __post_init__(self) -> None:
         self.workflow_version = _read_workflow_version(
             self.workspace_root, self.active_workflow_path
         )
-
-
-# ── work_key enumeration ────────────────────────────────────────────────────
-
-def active_work_keys(workspace: Path, stream: Optional["EventStream"] = None) -> list[str]:
-    """
-    Enumerate work_keys from active feature vectors and spawned children.
-
-    Sources (in order):
-    1. Active feature YAMLs — V1: work_key == feature_id
-    2. work_spawned events in stream — ADR-025: child work_keys from spawn()
-
-    Returns empty list when no active features exist (V1 degenerate case).
-    """
-    keys: set[str] = set()
-
-    # Source 1: active feature vectors
-    features_dir = workspace / ".ai-workspace" / "features" / "active"
-    if features_dir.exists():
-        keys.update(f.stem for f in features_dir.glob("*.yml"))
-
-    # Source 2: spawned child work_keys from event stream
-    if stream is not None:
-        for e in stream.all_events():
-            if e.get("event_type") == "work_spawned":
-                child_key = e.get("data", {}).get("child_key")
-                if child_key:
-                    keys.add(child_key)
-
-    return sorted(keys)
-
-
-def _resolve_work_keys(scope: "Scope",
-                       stream: Optional["EventStream"] = None) -> list[str]:
-    """
-    Determine active work_keys for this scope.
-
-    Priority:
-    1. scope.work_key set explicitly (CLI override) → [scope.work_key]
-    2. scope.feature set (V1: feature_id IS work_key) → [scope.feature]
-    3. Enumerate from active feature vectors + spawned children
-    4. Empty list → V1 global (no work_key scoping)
-    """
-    if scope.work_key is not None:
-        return [scope.work_key]
-    if scope.feature is not None:
-        return [scope.feature]
-    return active_work_keys(scope.workspace_root, stream)
 
 
 # ── gen_gaps — bind_fd over scope ─────────────────────────────────────────────
@@ -224,77 +170,65 @@ def gen_gaps(scope: Scope, stream: EventStream) -> dict:
             "reason": "no jobs in scope — check --feature and --edge flags",
         }
 
-    # Pre-compute which (edge, work_key) tuples already have a well-formed certificate.
-    # REQ-F-CMD-004: deduplication keyed on (edge, work_key). When work_key is absent,
-    # falls back to (edge, feature) for V1 compatibility.
-    certified_keys: set[tuple] = set()
-    for e in stream.all_events():
-        if e.get("event_type") == "edge_converged" and e.get("data", {}).get("target"):
-            ed = e["data"]
-            # Use work_key if present, else feature (V1 fallback)
-            key = ed.get("work_key", ed.get("feature"))
-            certified_keys.add((ed["edge"], key))
+    # Pre-compute which (edge, feature) pairs already have a well-formed certificate.
+    # REQ-F-CMD-004: deduplication must be keyed on (edge, feature) — not edge alone.
+    # Edge-only deduplication means only the first feature gets a certificate per edge;
+    # subsequent features on the same converged edge never emit their own certificate
+    # and project(stream, target, feature_id) stays not_started.
+    certified_edge_features: set[tuple] = {
+        (e["data"]["edge"], e["data"].get("feature"))
+        for e in stream.all_events()
+        if e.get("event_type") == "edge_converged"
+        and e.get("data", {}).get("target")
+    }
 
     carry_forward = _read_carry_forward(scope)
 
-    # Enumerate work_keys: explicit override, feature-derived, or V1 global [None].
-    work_keys = _resolve_work_keys(scope, stream)
-    work_key_list = work_keys if work_keys else [None]
-
     results = []
     for job in jobs:
+        # Orphan tolerance: events referencing edges not in scope.jobs are
+        # silently ignored. This is the mechanism that allows graph evolution
+        # without event stream migration.
         if scope.workflow_version == "unknown":
             spec_hash = req_hash(scope.package.requirements)
         else:
             spec_hash = job_evaluator_hash(job)
-        for wk in work_key_list:
-            # Set stream identity for any events emitted under this work_key
-            stream.work_key = wk
-            pre = bind_fd(
-                job, stream, resolver, scope.workspace_root,
-                spec_hash=spec_hash,
-                current_workflow_version=scope.workflow_version,
-                carry_forward=carry_forward,
-                work_key=wk,
-            )
-            entry: dict = {
+        pre = bind_fd(
+            job, stream, resolver, scope.workspace_root,
+            spec_hash=spec_hash,
+            current_workflow_version=scope.workflow_version,
+            carry_forward=carry_forward,
+        )
+        results.append({
+            "edge": job.edge.name,
+            "delta": pre.delta,
+            "failing": [ev.name for ev in pre.failing_evaluators],
+            "passing": [ev.name for ev in pre.passing_evaluators],
+            "delta_summary": pre.delta_summary,
+        })
+        # Emit edge_converged when freshly confirmed delta=0 and not yet certified.
+        # Idempotent: once a well-formed certificate exists in the log (edge + target),
+        # repeated gen_gaps calls over a converged workspace do not append duplicates.
+        # feature is included so feature-scoped project() calls can match this event.
+        if pre.delta == 0 and (job.edge.name, scope.feature) not in certified_edge_features:
+            cert: dict = {
                 "edge": job.edge.name,
-                "delta": pre.delta,
-                "failing": [ev.name for ev in pre.failing_evaluators],
-                "passing": [ev.name for ev in pre.passing_evaluators],
-                "delta_summary": pre.delta_summary,
+                "target": job.edge.target.name,
+                "feature": scope.feature,
+                "delta": 0,
+                "certified_by": "gen_gaps",
             }
-            if wk is not None:
-                entry["work_key"] = wk
-            results.append(entry)
-            # Emit edge_converged when freshly confirmed delta=0 and not yet certified.
-            # Idempotent: once a well-formed certificate exists in the log,
-            # repeated gen_gaps calls over a converged workspace do not append duplicates.
-            cert_key = wk if wk is not None else scope.feature
-            if pre.delta == 0 and (job.edge.name, cert_key) not in certified_keys:
-                cert: dict = {
-                    "edge": job.edge.name,
-                    "target": job.edge.target.name,
-                    "feature": wk or scope.feature,
-                    "delta": 0,
-                    "certified_by": "gen_gaps",
-                }
-                if wk is not None:
-                    cert["work_key"] = wk
-                stream.append("edge_converged", cert)
-                certified_keys.add((job.edge.name, cert_key))
+            stream.append("edge_converged", cert)
+            certified_edge_features.add((job.edge.name, scope.feature))
 
     total_delta = sum(r["delta"] for r in results)
-    scope_info: dict = {
-        "package": scope.package.name,
-        "feature": scope.feature,
-        "edge": scope.edge,
-        "build": scope.build,
-    }
-    if work_keys:
-        scope_info["work_keys"] = work_keys
     return {
-        "scope": scope_info,
+        "scope": {
+            "package": scope.package.name,
+            "feature": scope.feature,
+            "edge": scope.edge,
+            "build": scope.build,
+        },
         "jobs_considered": len(results),
         "total_delta": total_delta,
         "converged": total_delta == 0,
@@ -314,7 +248,6 @@ def gen_iterate(
 
     The most important command to keep pure.
     One Job. One Asset. One iterate call.
-    When work_keys are active, selects the first unconverged (job, work_key) pair.
     """
     stream.workflow_version = scope.workflow_version
     resolver = ContextResolver(scope.workspace_root)
@@ -326,53 +259,30 @@ def gen_iterate(
 
     carry_forward = _read_carry_forward(scope)
 
-    # Enumerate work_keys: explicit override, feature-derived, or V1 global [None].
-    work_keys = _resolve_work_keys(scope, stream)
-    work_key_list = work_keys if work_keys else [None]
-
-    # Build WorkInstances — the first-class dispatch unit (ADR-024).
-    # Select the first unconverged instance in topological order.
-    # Uses schedule.delta() for convergence — includes fold-back (REQ-F-FRAG-004).
-    selected_wi: WorkInstance | None = None
+    # Select the first unconverged job in topological order
+    selected_job = None
     selected_pre = None
     for job in jobs:
         if scope.workflow_version == "unknown":
             spec_hash = req_hash(scope.package.requirements)
         else:
             spec_hash = job_evaluator_hash(job)
-        for wk in work_key_list:
-            d = delta(
-                job, stream, scope.workspace_root,
-                spec_hash, scope.workflow_version,
-                carry_forward, work_key=wk,
-            )
-            if d > 0:
-                # Found unconverged work — get the full manifest for dispatch.
-                pre = bind_fd(
-                    job, stream, resolver, scope.workspace_root,
-                    spec_hash=spec_hash,
-                    current_workflow_version=scope.workflow_version,
-                    carry_forward=carry_forward,
-                    work_key=wk,
-                )
-                selected_wi = WorkInstance(job=job, work_key=wk)
-                selected_pre = pre
-                break
-        if selected_wi is not None:
+        pre = bind_fd(
+            job, stream, resolver, scope.workspace_root,
+            spec_hash=spec_hash,
+            current_workflow_version=scope.workflow_version,
+            carry_forward=carry_forward,
+        )
+        if pre.has_gap:
+            selected_job = job
+            selected_pre = pre
             break
 
-    if selected_wi is None:
+    if selected_job is None:
         return {
             "status": "converged",
             "reason": "all jobs in scope have delta = 0",
         }
-
-    # Generate run_id for this attempt (REQ-F-WK-002)
-    run_id = scope.run_id or str(uuid.uuid4())
-
-    # Bind stream identity for events emitted during this iteration
-    stream.work_key = selected_wi.work_key
-    stream.run_id = run_id
 
     # Determine result_path for F_P actor output (written before bind_fp)
     from gtl.core import F_D as _F_D, F_P as _F_P, F_H as _F_H
@@ -385,20 +295,19 @@ def gen_iterate(
     # found{kind: fd_findings} and fp_dispatched when F_D and F_P are both failing.
 
     ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S")
-    edge_slug = selected_wi.job.edge.name.replace("→", "_").replace("↔", "_")
+    edge_slug = selected_job.edge.name.replace("→", "_").replace("↔", "_")
     manifest_id = f"{edge_slug}_{ts}"
 
-    # Check for pending F_P dispatch — scoped by (edge, work_key).
+    # Check for pending F_P dispatch (fp_dispatched without matching assessed).
     # Prevents duplicate dispatch while a prior F_P invocation is still in flight.
     if fp_failing:
-        pending_id = _find_pending_dispatch(stream, selected_wi.job.edge.name,
-                                            work_key=selected_wi.work_key)
+        pending_id = _find_pending_dispatch(stream, selected_job.edge.name)
         if pending_id is not None:
             return {
                 "status": "pending",
-                "reason": f"F_P dispatch already in flight for edge {selected_wi.job.edge.name!r}",
+                "reason": f"F_P dispatch already in flight for edge {selected_job.edge.name!r}",
                 "pending_manifest_id": pending_id,
-                "edge": selected_wi.job.edge.name,
+                "edge": selected_job.edge.name,
             }
 
     result_path = ""
@@ -408,18 +317,15 @@ def gen_iterate(
         result_path = str(fp_results_dir / f"{manifest_id}.json")
 
     # Bind + iterate
-    bound = bind_fp(selected_pre, selected_wi.job, result_path=result_path)
+    bound = bind_fp(selected_pre, selected_job, result_path=result_path)
     bound.manifest_id = manifest_id
     # REQ-F-CORE-001: include target so project() "current" projection can filter
     # edge_started to only the asset type being produced by this edge.
-    edge_started_data: dict = {
-        "edge": selected_wi.job.edge.name,
+    stream.append("edge_started", {
+        "edge": selected_job.edge.name,
         "build": scope.build,
-        "target": selected_wi.job.edge.target.name,
-    }
-    if selected_wi.work_key is not None:
-        edge_started_data["work_key"] = selected_wi.work_key
-    stream.append("edge_started", edge_started_data)
+        "target": selected_job.edge.target.name,
+    })
 
     surface = iterate(bound, on_fp_dispatch=on_fp_dispatch)
 
@@ -429,17 +335,14 @@ def gen_iterate(
 
     result: dict = {
         "status": "iterated",
-        "edge": selected_wi.job.edge.name,
+        "edge": selected_job.edge.name,
         "delta_before": selected_pre.delta,
         "failing_evaluators": [ev.name for ev in selected_pre.failing_evaluators],
         "events_emitted": len(surface.events) + 1,  # +1 for edge_started
         "prompt_words": len(bound.prompt.split()),
         "surface_artifacts": surface.artifacts,
         "context_consumed": [c.name for c in surface.context_consumed],
-        "run_id": run_id,
     }
-    if selected_wi.work_key is not None:
-        result["work_key"] = selected_wi.work_key
 
     # Write F_P manifest to disk when F_P dispatch is needed.
     # The manifest JSON is the authoritative F_P dispatch contract.
@@ -451,7 +354,7 @@ def gen_iterate(
         manifest_file = manifests_dir / f"{manifest_id}.json"
 
         # Source asset(s) — handle product arrows (A × B)
-        src = selected_wi.job.edge.source
+        src = selected_job.edge.source
         if isinstance(src, list):
             source_asset = [a.name for a in src]
             source_markov = {a.name: a.markov for a in src}
@@ -461,7 +364,7 @@ def gen_iterate(
 
         # Context references with locator + digest + resolved content
         contexts = []
-        for ctx in selected_wi.job.edge.context:
+        for ctx in selected_job.edge.context:
             ctx_entry: dict = {
                 "name": ctx.name,
                 "locator": ctx.locator,
@@ -471,13 +374,13 @@ def gen_iterate(
                 ctx_entry["content"] = selected_pre.relevant_contexts[ctx.name]
             contexts.append(ctx_entry)
 
-        manifest: dict = {
+        manifest = {
             "manifest_id": manifest_id,
-            "edge": selected_wi.job.edge.name,
+            "edge": selected_job.edge.name,
             "source_asset": source_asset,
-            "target_asset": selected_wi.job.edge.target.name,
+            "target_asset": selected_job.edge.target.name,
             "source_markov": source_markov,
-            "target_markov": selected_wi.job.edge.target.markov,
+            "target_markov": selected_job.edge.target.markov,
             "failing_evaluators": [
                 {"name": ev.name, "category": ev.category.__name__,
                  "description": ev.description}
@@ -492,17 +395,14 @@ def gen_iterate(
             "result_path": result_path,
             "spec_hash": spec_hash,
             "requirements": scope.package.requirements,
-            "run_id": run_id,
         }
-        if selected_wi.work_key is not None:
-            manifest["work_key"] = selected_wi.work_key
         manifest_file.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
         result["fp_manifest_path"] = str(manifest_file)
 
     # Include F_H gate criteria so skill can evaluate without extra reads.
     if fh_failing:
         result["fh_gate"] = {
-            "edge": selected_wi.job.edge.name,
+            "edge": selected_job.edge.name,
             "evaluators": [ev.name for ev in fh_failing],
             "criteria": [ev.description for ev in fh_failing],
         }
@@ -580,12 +480,8 @@ def gen_start(
 
 
 def _derive_state(scope: Scope, stream: EventStream) -> dict:
-    """
-    Derive project state from workspace. Never stored — always derived.
-
-    Uses schedule.delta() for convergence checking — this includes fold-back
-    for work_keys with spawned children (REQ-F-FRAG-004).
-    """
+    """Derive project state from workspace. Never stored — always derived."""
+    resolver = ContextResolver(scope.workspace_root)
     worker = _resolve_worker(scope)
     jobs = _scoped_jobs(scope, worker)
 
@@ -594,29 +490,19 @@ def _derive_state(scope: Scope, stream: EventStream) -> dict:
 
     carry_forward = _read_carry_forward(scope)
 
-    # Enumerate work_keys: explicit override, feature-derived, or V1 global [None].
-    work_keys = _resolve_work_keys(scope, stream)
-    work_key_list = work_keys if work_keys else [None]
-
-    # Build WorkInstances — the first-class dispatch unit (ADR-024).
-    instances = [
-        WorkInstance(job=job, work_key=wk)
-        for job in jobs
-        for wk in work_key_list
-    ]
-
-    total_delta = 0.0
-    for wi in instances:
+    total_delta = 0
+    for job in jobs:
         if scope.workflow_version == "unknown":
             spec_hash = req_hash(scope.package.requirements)
         else:
-            spec_hash = job_evaluator_hash(wi.job)
-        d = delta(
-            wi.job, stream, scope.workspace_root,
-            spec_hash, scope.workflow_version,
-            carry_forward, work_key=wi.work_key,
+            spec_hash = job_evaluator_hash(job)
+        pre = bind_fd(
+            job, stream, resolver, scope.workspace_root,
+            spec_hash=spec_hash,
+            current_workflow_version=scope.workflow_version,
+            carry_forward=carry_forward,
         )
-        total_delta += d
+        total_delta += pre.delta
 
     if total_delta == 0:
         return {"status": "converged"}
@@ -626,23 +512,21 @@ def _derive_state(scope: Scope, stream: EventStream) -> dict:
 
 # ── pending dispatch fluent ───────────────────────────────────────────────────
 
-def _find_pending_dispatch(stream: EventStream, edge_name: str,
-                           *, work_key: str | None = None) -> Optional[str]:
+def _find_pending_dispatch(stream: EventStream, edge_name: str) -> Optional[str]:
     """
-    Check for an outstanding F_P dispatch on this (edge, work_key).
+    Check for an outstanding F_P dispatch on this edge.
 
     Returns the manifest_id of the pending dispatch, or None if no dispatch
     is in flight. A dispatch is pending when an fp_dispatched event exists
-    for this (edge, work_key) with a manifest_id that has no corresponding
-    assessed event.
+    for this edge with a manifest_id that has no corresponding assessed event.
 
     Event Calculus:
-      fp_dispatched{manifest_id: M}  initiates  pending(edge, work_key, M)
-      assessed{manifest_id: M}       terminates pending(edge, work_key, M)
+      fp_dispatched{manifest_id: M}  initiates  pending(edge, M)
+      assessed{manifest_id: M}       terminates pending(edge, M)
     """
     all_events = stream.all_events()
 
-    # Collect all manifest_ids dispatched for this (edge, work_key)
+    # Collect all manifest_ids dispatched for this edge
     dispatched_ids: set[str] = set()
     for e in all_events:
         if (
@@ -650,15 +534,6 @@ def _find_pending_dispatch(stream: EventStream, edge_name: str,
             and e.get("data", {}).get("edge") == edge_name
             and e.get("data", {}).get("manifest_id")
         ):
-            # Work-key scoping: match by work_key
-            evt_wk = e.get("data", {}).get("work_key")
-            if work_key is not None:
-                if evt_wk != work_key:
-                    continue
-            else:
-                # V1 global: only match events without work_key
-                if evt_wk is not None:
-                    continue
             dispatched_ids.add(e["data"]["manifest_id"])
 
     if not dispatched_ids:

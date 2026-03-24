@@ -2,8 +2,6 @@
 # Implements: REQ-GTL-002
 # Implements: REQ-GTL-003
 # Implements: REQ-GTL-004
-# Implements: REQ-F-FRAG-001
-# Implements: REQ-F-FRAG-002
 """
 GTL constitutional object model — v0.3.0
 
@@ -356,63 +354,6 @@ class IterateProtocol(Protocol):
     ) -> tuple[Asset, WorkingSurface]: ...
 
 
-# ── Fragment ──────────────────────────────────────────────────────────────
-
-@dataclass(frozen=True)
-class Fragment:
-    """
-    Compositional subgraph unit — a reusable piece of graph with typed ports.
-
-    A Fragment is smaller than a Package: it defines a subgraph with explicit
-    input/output contracts. Internal assets and edges are encapsulated — the
-    outer graph sees only the ports.
-
-    inputs:  Assets that must be provided by the outer graph (or a prior Fragment).
-    outputs: Assets that the outer graph can consume (or a subsequent Fragment).
-    assets:  Internal assets — not visible outside the fragment.
-    edges:   Internal edges — carry their own evaluators.
-    contexts: Additional constraint surfaces scoped to this fragment.
-
-    Frozen for consistency with all other GTL types (ADR-017).
-    """
-    name: str
-    inputs: tuple[Asset, ...] = ()
-    outputs: tuple[Asset, ...] = ()
-    assets: tuple[Asset, ...] = ()
-    edges: tuple[Edge, ...] = ()
-    contexts: tuple[Context, ...] = ()
-
-    def __post_init__(self):
-        if not self.outputs:
-            raise ValueError(
-                f"Fragment '{self.name}': must have at least one output"
-            )
-        # Verify internal edges reference only internal or port assets
-        valid_names = (
-            {a.name for a in self.inputs}
-            | {a.name for a in self.outputs}
-            | {a.name for a in self.assets}
-        )
-        for edge in self.edges:
-            sources = edge.source if isinstance(edge.source, list) else [edge.source]
-            for src in sources:
-                if src.name not in valid_names:
-                    raise ValueError(
-                        f"Fragment '{self.name}', edge '{edge.name}': "
-                        f"source '{src.name}' not in fragment scope"
-                    )
-            if edge.target.name not in valid_names:
-                raise ValueError(
-                    f"Fragment '{self.name}', edge '{edge.name}': "
-                    f"target '{edge.target.name}' not in fragment scope"
-                )
-
-    @property
-    def all_assets(self) -> tuple[Asset, ...]:
-        """All assets: inputs + outputs + internal."""
-        return self.inputs + self.outputs + self.assets
-
-
 @dataclass
 class Overlay:
     """
@@ -514,12 +455,9 @@ class Package:
     contexts: list[Context] = field(default_factory=list)
     overlays: list[Overlay] = field(default_factory=list)
     requirements: list[str] = field(default_factory=list)
-    fragments: list[Fragment] = field(default_factory=list)
 
     def __post_init__(self):
         self._validate()
-        if self.fragments:
-            self._validate_composition()
 
     def _validate(self):
         errors = []
@@ -566,83 +504,6 @@ class Package:
                     f"graph root — it may be unreachable",
                     stacklevel=2,
                 )
-
-    def _validate_composition(self):
-        """
-        Validate fragment composition contracts (REQ-F-FRAG-002).
-
-        For each fragment:
-        - Inputs must be satisfied by existing Package assets or prior fragment outputs
-        - The composed graph (package edges + all fragment edges) must be a valid DAG
-        """
-        errors = []
-        # Collect all available asset names from the package level
-        available = {a.name for a in self.assets}
-        for edge in self.edges:
-            # Targets produced by existing edges are available
-            available.add(edge.target.name)
-
-        for frag in self.fragments:
-            # Check inputs are satisfied
-            for inp in frag.inputs:
-                if inp.name not in available:
-                    errors.append(
-                        f"Fragment '{frag.name}': input '{inp.name}' not provided "
-                        f"by package assets or prior fragment outputs"
-                    )
-            # Fragment outputs become available for subsequent fragments
-            for out in frag.outputs:
-                available.add(out.name)
-
-        if errors:
-            raise ValueError(
-                "Fragment composition failed:\n"
-                + "\n".join(f"  - {e}" for e in errors)
-            )
-
-        # Verify composed graph is acyclic (topological sort).
-        # Collect all edges: package + all fragment internals.
-        all_edges = list(self.edges)
-        for frag in self.fragments:
-            all_edges.extend(frag.edges)
-
-        # Build adjacency and in-degree for topological sort
-        nodes: set[str] = set()
-        adj: dict[str, list[str]] = {}
-        in_deg: dict[str, int] = {}
-        for edge in all_edges:
-            sources = edge.source if isinstance(edge.source, list) else [edge.source]
-            tgt = edge.target.name
-            nodes.add(tgt)
-            in_deg.setdefault(tgt, 0)
-            for s in sources:
-                nodes.add(s.name)
-                in_deg.setdefault(s.name, 0)
-                adj.setdefault(s.name, []).append(tgt)
-                in_deg[tgt] = in_deg.get(tgt, 0) + 1
-
-        # Kahn's algorithm — detect cycles
-        # co_evolve edges are bidirectional in structure but NOT cycles:
-        # they represent mutual refinement within a single iterate() call.
-        # Skip cycle detection for co_evolve edges (they're intentional).
-        queue = [n for n in nodes if in_deg.get(n, 0) == 0]
-        visited = 0
-        while queue:
-            node = queue.pop(0)
-            visited += 1
-            for neighbor in adj.get(node, []):
-                in_deg[neighbor] -= 1
-                if in_deg[neighbor] == 0:
-                    queue.append(neighbor)
-
-        if visited < len(nodes):
-            errors.append(
-                "Fragment composition introduces a cycle in the graph"
-            )
-            raise ValueError(
-                "Fragment composition failed:\n"
-                + "\n".join(f"  - {e}" for e in errors)
-            )
 
     def describe(self) -> str:
         lines = [f"Package: {self.name}"]

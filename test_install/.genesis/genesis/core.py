@@ -6,8 +6,6 @@
 # Implements: REQ-F-EC-006
 # Implements: REQ-F-EVAL-005
 # Implements: REQ-F-PROV-002
-# Implements: REQ-F-WK-001
-# Implements: REQ-F-WK-003
 """
 core — substrate functions: emit, project, EventStream, ContextResolver,
        workspace_bootstrap.
@@ -44,8 +42,6 @@ class EventStream:
     def __init__(self, path: Path) -> None:
         self.path = path
         self.workflow_version: str = "unknown"
-        self.work_key: Optional[str] = None
-        self.run_id: Optional[str] = None
 
     @classmethod
     def open(cls, workspace: Path) -> "EventStream":
@@ -63,10 +59,6 @@ class EventStream:
         record_data = {**data}
         if self.workflow_version != "unknown":
             record_data.setdefault("workflow_version", self.workflow_version)
-        if self.work_key is not None:
-            record_data.setdefault("work_key", self.work_key)
-        if self.run_id is not None:
-            record_data.setdefault("run_id", self.run_id)
         record = {
             "event_time": datetime.now(timezone.utc).isoformat(),
             "event_type": event_type,
@@ -179,8 +171,6 @@ def project(
     stream: EventStream,
     asset_type: str,
     instance_id: str,
-    *,
-    work_key: Optional[str] = None,
 ) -> dict:
     """
     Assets are projections, not stored objects.
@@ -190,9 +180,6 @@ def project(
 
     V1: scans all events for the given instance_id and asset_type.
     Returns a state dict with status, edges_converged, and matched events.
-
-    work_key: when provided, filters events to those matching this work_key.
-    When absent, all events are considered (V1 global behaviour).
     """
     events = stream.all_events()
 
@@ -203,20 +190,10 @@ def project(
         "edges_converged": [],
         "event_count": 0,
     }
-    if work_key is not None:
-        state["work_key"] = work_key
 
     for event in events:
         data = event.get("data", {})
         etype = event.get("event_type", "")
-
-        # Work-key scoping: when work_key is provided, skip events that
-        # carry a different work_key. Events without work_key are included
-        # (they predate work identity or are global events).
-        if work_key is not None:
-            event_wk = data.get("work_key")
-            if event_wk is not None and event_wk != work_key:
-                continue
 
         # Match events relevant to this instance.
         # REQ-F-CORE-001: edge_started events must be observed by the "current" projection
