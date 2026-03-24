@@ -1,6 +1,6 @@
 # GTL 2.x -> ABG Contract and GTL 1.0 Disposition
 
-**Status**: Accepted
+**Status**: Active — family-level classification complete, per-key pass pending
 **Date**: 2026-03-24
 **Purpose**: Define the forward GTL 2.x target-engine contract and the backward disposition of the GTL/ABG 1.0 requirement corpus so no prior law remains accidental.
 
@@ -43,37 +43,16 @@ This follows the same method already used elsewhere:
 
 ## 2. Source Set
 
-The GTL/ABG 1.0 requirement files under `requirements/`:
+The GTL/ABG 1.0 requirement corpus comprised 22 REQ-F-* families (BOOT, BOOTDOC, CMD, COMP, CORE, CORRECT, DOCS, EC, EVAL, FRAG, GATE, GRAPH, LEAF, PROV, REFINE, RUN, TAG, TEST, TRAV, VIS, WK, WKSP). These files have been retired from the live tree — git history preserves the full text.
 
-- `REQ-F-BOOT`
-- `REQ-F-BOOTDOC`
-- `REQ-F-CMD`
-- `REQ-F-COMP`
-- `REQ-F-CORE`
-- `REQ-F-CORRECT`
-- `REQ-F-DOCS`
-- `REQ-F-EC`
-- `REQ-F-EVAL`
-- `REQ-F-FRAG`
-- `REQ-F-GATE`
-- `REQ-F-GRAPH`
-- `REQ-F-LEAF`
-- `REQ-F-PROV`
-- `REQ-F-REFINE`
-- `REQ-F-RUN`
-- `REQ-F-TAG`
-- `REQ-F-TEST`
-- `REQ-F-TRAV`
-- `REQ-F-VIS`
-- `REQ-F-WK`
-- `REQ-F-WKSP`
+The live requirement surface is now the 2.0 structure under `requirements/`:
 
-This document operates in two passes:
+- `requirements/gtl/` — 16 REQ-L-GTL2-* families (language law)
+- `requirements/abg/` — 12 REQ-R-ABG2-* families (target engine surface)
+- `requirements/mapping/` — 3 REQ-M-GTL2-* families (engine mapping)
+- `requirements/product/` — 3 REQ-P-* families (policy/scenarios/libraries)
 
-- **family-level classification now**
-- **per-requirement-key classification next**
-
-The final exhaustive migration still has to happen at individual requirement-key granularity.
+Family-level classification of all 22 V1 families is complete (§9 below). The per-requirement-key pass remains a future task — it requires walking each V1 family's individual ACs against their 2.0 homes to confirm no key was silently lost.
 
 ---
 
@@ -267,9 +246,9 @@ It is not the final per-key pass, but it is concrete enough to guide the next wa
 
 | 1.0 family | Provisional classification | 2.0 target | Notes |
 | --- | --- | --- | --- |
-| `REQ-F-BOOT` | `replaced` | `REQ-M-GTL2-MAPPING`, `REQ-P-POLICY`, possibly local ABG implementation requirements | `.genesis/` bootstrapping and starter-spec generation are local implementation/bootstrap concerns, not GTL language law |
+| `REQ-F-BOOT` | `replaced` | `REQ-M-GTL2-MAPPING`, `REQ-P-POLICY` | `.genesis/` bootstrapping and starter-spec generation are implementation/bootstrap concerns covered by mapping and policy layers |
 | `REQ-F-BOOTDOC` | `subsumed` | `REQ-R-ABG2-SELFHOSTING`, `REQ-R-ABG2-PROVENANCE`, `REQ-P-SCENARIOS` | Derived artifact governance survives; wording must move from "graph asset in Package" to graph-first self-hosting law |
-| `REQ-F-CMD` | `replaced` | `REQ-R-ABG2-INTERPRET`, `REQ-R-ABG2-CONVERGENCE`, local CLI/product requirements | Command names and CLI loops are not GTL language law; interpreter obligations survive, CLI specifics should be repriced separately |
+| `REQ-F-CMD` | `replaced` | `REQ-R-ABG2-INTERPRET`, `REQ-R-ABG2-CONVERGENCE`, `REQ-P-POLICY` | Interpreter obligations survive in ABG; CLI command naming and loop behavior is product policy |
 | `REQ-F-COMP` | `replaced` | `REQ-L-GTL2-GRAPHFUNCTION`, `REQ-L-GTL2-COMPOSE`, `REQ-L-GTL2-MODULE` | The capability survives, but "Fragment produces Fragment" wording is replaced by graph-first graph-function law |
 | `REQ-F-CORE` | `replaced` | `REQ-R-ABG2-INTERPRET`, `REQ-R-ABG2-EVENTS`, `REQ-R-ABG2-PROJECTION` | Engine-correctness concerns survive, but they belong to the target engine surface, not GTL ontology |
 | `REQ-F-CORRECT` | `subsumed` | `REQ-R-ABG2-CORRECTION` | Correction/reset remains core interpreter law |
@@ -286,9 +265,9 @@ It is not the final per-key pass, but it is concrete enough to guide the next wa
 | `REQ-F-TAG` | `retired` | methodology/tooling, not GTL/ABG constitutional law | Traceability still matters, but as method/tooling law rather than GTL or ABG semantics |
 | `REQ-F-TEST` | `retired` | methodology/QA discipline | Test architecture should live in methodology and product QA, not in the GTL/ABG constitutional stack |
 | `REQ-F-TRAV` | `subsumed` | `REQ-R-ABG2-INTERPRET`, `REQ-R-ABG2-CONVERGENCE`, `REQ-R-ABG2-LINEAGE` | Traversal law survives as graph interpretation law at the engine surface |
-| `REQ-F-VIS` | `replaced` | `REQ-P-SCENARIOS`, local product/runtime requirements | Feature-closing behavior is product/runtime policy above the core GTL language |
+| `REQ-F-VIS` | `replaced` | `REQ-P-SCENARIOS`, `REQ-P-POLICY` | Feature-closing and visibility behavior is product policy |
 | `REQ-F-WK` | `subsumed` | `REQ-R-ABG2-LINEAGE` | Work identity survives directly as lineage/interpreter law |
-| `REQ-F-WKSP` | `replaced` | `REQ-R-ABG2-EVENTS`, local ABG implementation requirements | Event-stream binding survives; workspace path/bootstrap specifics are implementation-local |
+| `REQ-F-WKSP` | `replaced` | `REQ-R-ABG2-EVENTS`, `REQ-M-GTL2-MAPPING` | Event-stream binding survives in ABG events; workspace path/bootstrap specifics belong to engine mapping |
 
 ---
 

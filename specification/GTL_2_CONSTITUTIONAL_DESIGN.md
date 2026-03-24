@@ -272,25 +272,7 @@ Interface is expressed through designated boundary nodes.
 
 Inputs and outputs are graph roles over nodes, not a rival structural type.
 
-### 5.4 Vector[T]
-
-`Vector[T]` is a schema family used when a node carries a collection of `T`.
-
-It is not a rival structural type.
-
-The structural type is still `Graph`, and the local locus is still `Node[Vector[T]]`.
-
-This is the semantic foundation for:
-
-- `fan_out`
-- `fan_in`
-- `promote`
-
-`Vector[T]` is therefore not a rival structural type.
-
-It is a node schema/payload shape used when graph materialization depends on collection cardinality.
-
-### 5.5 Edge / Vector
+### 5.4 Edge
 
 `Edge` is a directed graph vector between typed nodes.
 
@@ -302,16 +284,14 @@ It is:
 
 Publicly, `edge(a, b, operators=...) -> Graph` can remain as DSL sugar for a primitive graph.
 
-### 5.6 Asset as Schema Payload
+### 5.5 Schema families
 
-The current `Asset` concept is best reinterpreted as:
+`Node[T]` supports schema families as type parameters:
 
-- a node payload/schema declaration
-- or a domain-specific schema type used by `Node[T]`
+- `Vector[T]` — when a node carries a collection of `T`. This is the semantic foundation for `fan_out`, `fan_in`, and `promote`. Graph materialization may depend on collection cardinality. `Vector[T]` is not a rival structural type — the locus is `Node[Vector[T]]`.
+- The current `Asset` concept is best reinterpreted as a node payload/schema declaration or domain-specific schema type used by `Node[T]`. `Asset` should not remain the structural center.
 
-`Asset` should not remain the structural center.
-
-### 5.7 Operator
+### 5.6 Operator
 
 `Operator` is the typed effectful action surface.
 
@@ -334,7 +314,7 @@ Regimes include:
 
 Operators perform work or effectful transitions over graph contracts.
 
-### 5.8 Evaluator
+### 5.7 Evaluator
 
 `Evaluator` is the typed convergence and attestation surface.
 
@@ -376,7 +356,7 @@ So the clean split is:
 - engine plugins provide evaluator bindings/implementations
 - ABG-compatible engines create evaluation instances, attempts, results, and provenance
 
-### 5.9 Rule
+### 5.8 Rule
 
 `Rule` is a declarative constraint or gate.
 
@@ -391,7 +371,7 @@ Rules are passive declarations.
 
 They describe what must hold.
 
-### 5.10 GraphFunction
+### 5.9 GraphFunction
 
 `GraphFunction` is a reusable named workflow abstraction.
 
@@ -435,7 +415,7 @@ The `effects` surface is used for:
 - engine capability matching
 - human-vs-machine workflow visibility
 
-### 5.11 Module
+### 5.10 Module
 
 `Module` is the top-level organizational unit.
 
