@@ -33,4 +33,4 @@ Leaf tasks exist within the iterate loop — they do not replace graph edges or 
 - AC-1: A leaf task is dispatched WITHIN an iterate() call, not as a separate graph edge
 - AC-2: Leaf task output contributes to the parent edge's convergence — it does not produce its own convergence state
 - AC-3: The number of leaf tasks per iterate() call is bounded — no unbounded task spawning within a single iteration
-- AC-4: V1 compatibility: engines without leaf task support continue to use direct F_P dispatch — leaf tasks are additive
+- AC-4: **Degenerate case:** engines without leaf task support use direct F_P dispatch — leaf tasks are additive

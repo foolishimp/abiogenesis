@@ -34,4 +34,4 @@ Fragments are not exotic or one-off — they are ordinary reusable assets that c
 - AC-1: A collection of Fragments can be defined as a library — a named, versioned set of reusable graph functions
 - AC-2: Packages can import Fragments from libraries — composition validation applies across the import boundary
 - AC-3: Fragment libraries follow the same territory rules as other installed assets — they are authored in builds/ and installed into release territory
-- AC-4: V1 compatibility: Packages with no fragment imports continue to work unchanged
+- AC-4: **Degenerate case:** Packages with no fragment imports continue to work unchanged

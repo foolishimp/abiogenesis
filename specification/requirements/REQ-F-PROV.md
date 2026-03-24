@@ -39,9 +39,9 @@ When a workflow version changes, explicitly listed approvals carry forward witho
 
 **Acceptance Criteria**:
 - AC-1: Carry-forward list read from `{workflow_root}/{pkg}/{variant}/{version_dir}/manifest.json` (workflow_root defaults to `.genesis/workflows`, configurable via genesis.yml)
-- AC-2: Each entry specifies `{edge, work_key, from_version}` — the approval from `from_version` is accepted under the current version. When `work_key` is absent, carry-forward matches by `(edge, from_version)` alone (V1 behaviour)
+- AC-2: Each entry specifies `{edge, work_key, from_version}` — the approval from `from_version` is accepted under the current version. **Degenerate case:** when `work_key` is absent, carry-forward matches by `(edge, from_version)` alone
 - AC-3: Revocations are scoped by workflow_version — a revocation from one version cannot cancel approvals from another
-- AC-4: When `workflow_version == "unknown"`: no version-based carry-forward. Approvals are matched directly — by `(edge, work_key)` when work_key is present, by edge alone in the full V1 degenerate case
+- AC-4: **Degenerate case:** when `workflow_version == "unknown"`, no version-based carry-forward. Approvals are matched directly — by `(edge, work_key)` when work_key is present, by edge alone when both are absent
 
 ### REQ-F-PROV-005 — Orphan tolerance for graph evolution
 

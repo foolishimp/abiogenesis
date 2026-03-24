@@ -35,4 +35,4 @@ The complete refinement history — what was zoomed, when, what children were sp
 - AC-3: The effective graph topology at event N is derivable by replaying events [0..N] and applying `zoomed` operations to the base Package
 - AC-4: Zoom operations reference named Fragments with validated interfaces — refinement is structural, not arbitrary graph mutation
 - AC-5: The same Fragment can be zoomed into multiple edges — reuse is ordinary, not exotic
-- AC-6: V1 compatibility: when no refinement events exist, the base Package topology is the effective topology (degenerate case)
+- AC-6: **Degenerate case:** when no refinement events exist, the base Package topology is the effective topology

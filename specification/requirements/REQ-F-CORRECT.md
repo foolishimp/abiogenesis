@@ -3,7 +3,7 @@
 **Traces to**: INT-005
 **Derived from**: V2 Roadmap — Saga compensation notes (semantic correction, not rollback)
 
-Corrective operations must be semantically distinct, scoped to work lineage, and replayable. The current wildcard revocation model collapses administrative reset and semantic correction into a single mechanism. V2 separates them so the event log remains truthful and distributed recovery is lawful.
+Corrective operations are semantically distinct, scoped to work lineage, and replayable. Compensation (targeted revocation within a work_key lineage) and administrative reset (scope-wide re-evaluation) are separate mechanisms — they are never conflated. The event log remains truthful and distributed recovery is lawful.
 
 ### REQ-F-CORRECT-001 — Compensation is scoped to work lineage, not global rollback
 
@@ -33,4 +33,4 @@ Both corrective paths must be reconstructable from the event log with clear sema
 - AC-1: Replay of the event stream correctly distinguishes compensation (targeted revocation + corrective work) from reset (scope-wide re-evaluation)
 - AC-2: No corrective operation destroys event history — the log is append-only through all corrections
 - AC-3: The effective convergence state after any sequence of corrections is derivable by replaying the full event stream — no hidden out-of-band state
-- AC-4: V1 compatibility: existing `revoked{edge: "*"}` events without work_key scoping are interpreted as workspace-scope reset. Concrete-edge `revoked` events without work_key retain their original V1 edge-scoped revocation meaning — they are not promoted to reset
+- AC-4: **Legacy replay shim:** existing `revoked{edge: "*"}` events without work_key scoping are interpreted as workspace-scope reset during replay. Concrete-edge `revoked` events without work_key retain their original edge-scoped revocation meaning — they are not promoted to reset. Neither form is available for new work

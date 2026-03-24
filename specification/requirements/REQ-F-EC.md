@@ -19,7 +19,7 @@ The engine uses exactly five prime event types. All other events are derived.
 | `revoked` | `fh_approval`, `fp_assessment` | `terminates operative(edge, wk, wv)` or `terminates certified(edge, wk, ev, spec_hash, wv)` |
 | `intent_raised` | — | `happensAt` only — homeostatic signal |
 
-`wk` = `work_key`. When `work_key` is absent (V1), fluents are scoped by `(edge, wv)` alone — the degenerate case (REQ-F-WK-003 AC-4).
+`wk` = `work_key`. **Degenerate case:** when `work_key` is absent, fluents are scoped by `(edge, wv)` alone (REQ-F-WK-003 AC-4).
 
 ### REQ-F-EC-002 — Two fluents: operative and certified
 
@@ -30,7 +30,7 @@ Convergence state is modelled as two Event Calculus fluents. Both fluents have s
 - AC-2: `certified(edge, work_key, evaluator, spec_hash, wv)` — initiated by `assessed{fp, result: pass}`, terminated by `revoked{fp_assessment}` or spec_hash mismatch
 - AC-3: Both fluents are parameterised by workflow_version — approvals from one version do not satisfy another (unless carry-forward, REQ-F-PROV-004)
 - AC-4: Both fluents support explicit event-calculus termination — the F_ algebra requires symmetric `{initiate, terminate, query}` operations across all functor types
-- AC-5: When `work_key` is absent, fluents are scoped by `(edge, wv)` alone — V1 degenerate case. A pass/approval without `work_key` satisfies only global queries, not work-key-scoped queries (REQ-F-WK-003)
+- AC-5: **Degenerate case:** when `work_key` is absent, fluents are scoped by `(edge, wv)` alone. A pass/approval without `work_key` satisfies only global queries, not work-key-scoped queries (REQ-F-WK-003)
 
 ### REQ-F-EC-003 — Three convergence models
 
@@ -40,7 +40,7 @@ Each evaluator type has a distinct convergence test.
 - AC-1: F_D: live execution — re-runs every iteration, stateless
 - AC-2: F_H: fluent projection — `holdsAt(operative(edge, work_key, wv), now)`
 - AC-3: F_P: fluent projection — `holdsAt(certified(edge, work_key, evaluator, spec_hash, wv), now)`
-- AC-4: When `work_key` is absent, projection queries match events without `work_key` only (V1 behaviour)
+- AC-4: **Degenerate case:** when `work_key` is absent, projection queries match events without `work_key` only
 
 ### REQ-F-EC-004 — Revocation terminates fluents symmetrically
 
@@ -50,8 +50,8 @@ Revocation withdraws prior convergence authority. Both fluents (`operative` and 
 - AC-1: `revoked{kind: fh_approval}` terminates the `operative` fluent — does not reference a specific `approved` event
 - AC-2: `revoked{kind: fp_assessment}` terminates the `certified` fluent — does not reference a specific `assessed` event
 - AC-3: Both are scoped by `edge`, `work_key` (when present), and `workflow_version`
-- AC-4: **V1 compatibility shim** — Wildcard edge (`"*"`) terminates the target fluent for all edges under the matching workflow_version. This is a legacy convenience, not a constitutional mechanism. V2 corrective operations use lineage-scoped revocation (REQ-F-CORRECT-001) — wildcard is retained only for V1 workspaces that predate work_key scoping
-- AC-5: When `workflow_version == "unknown"`, revocations match by `(edge, work_key)` — workflow_version scoping is dropped but work_key scoping is preserved. Full V1 degenerate case (no work_key AND unknown version) matches by edge alone
+- AC-4: **Legacy replay shim (superseded):** Wildcard edge (`"*"`) terminates the target fluent for all edges. Retained only for replaying existing V1 event streams. Not available for new work — V2 uses lineage-scoped revocation (REQ-F-CORRECT-001)
+- AC-5: **Degenerate case:** when `workflow_version == "unknown"`, revocations match by `(edge, work_key)` — workflow_version scoping is dropped but work_key scoping is preserved. When both `work_key` and `workflow_version` are absent, matching falls back to edge alone
 - AC-6: A revocation that predates all initiating events for its edge has no effect
 - AC-7: `revoked{kind: fh_approval}` and `revoked{kind: fp_assessment}` are independent — revoking one does not affect the other
 

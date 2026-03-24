@@ -27,9 +27,9 @@ The event stream records work identity on all events so state can be projected p
 
 **Acceptance Criteria**:
 - AC-1: `EventStream.append()` includes `work_key` and `run_id` fields when provided
-- AC-2: Events without `work_key` remain valid (backwards compatibility with V1 events)
+- AC-2: **Degenerate case:** events without `work_key` remain valid — they participate in global (unscoped) queries only
 - AC-3: `project(stream, asset_type, work_key)` returns state scoped to that work unit
-- AC-4: `project()` without `work_key` returns global state (V1 behaviour preserved)
+- AC-4: **Degenerate case:** `project()` without `work_key` returns global state
 
 ### REQ-F-WK-004 — delta() computable per work_key
 
@@ -37,7 +37,7 @@ Convergence is measurable per unit of work, not just per edge.
 
 **Acceptance Criteria**:
 - AC-1: `delta(job, work_key)` computes convergence for a specific work unit on a specific edge
-- AC-2: `delta(job)` without work_key computes global edge convergence (V1 behaviour preserved)
+- AC-2: **Degenerate case:** `delta(job)` without work_key computes global edge convergence
 - AC-3: Adding a new feature vector to a converged workspace produces delta > 0 for that feature's work_key on code-tier edges
 - AC-4: `gen-gaps` reports per-work_key delta when work_keys are active
 
@@ -49,4 +49,4 @@ The scheduler generates work instances that pair topology with identity.
 - AC-1: Scheduler enumerates active work_keys (from feature vectors, modules, or explicit scope)
 - AC-2: For each (job, work_key) pair with delta > 0, a work instance is created
 - AC-3: Work instances are processed in topological edge order, respecting work_key dependencies
-- AC-4: V1 behaviour (single global traversal) is the degenerate case where work_key is absent
+- AC-4: **Degenerate case:** single global traversal occurs when work_key is absent — one WorkInstance per job

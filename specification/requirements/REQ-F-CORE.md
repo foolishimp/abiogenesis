@@ -59,7 +59,7 @@ Context documents are loaded by scheme and verified by digest.
 - AC-2: Directory locators recursively collect readable files, prefix each with relative path
 - AC-3: SHA-256 digest verification — mismatch halts execution
 - AC-4: Pending digest (`sha256:0*64`) skips verification
-- AC-5: Unimplemented schemes (V1) degrade gracefully without halting
+- AC-5: **Degenerate case:** unimplemented schemes degrade gracefully without halting
 
 ### REQ-F-CORE-006 — Worker batching partitions by write territory
 
@@ -69,4 +69,4 @@ Workers with overlapping write territory must not execute concurrently. This is 
 - AC-1: `batch_workers(workers)` returns batches of non-conflicting workers
 - AC-2: Conflict detection is based on `Worker.writable_types` (target asset names)
 - AC-3: Batch i completes before batch i+1 starts
-- AC-4: V1: single worker is trivially `[[worker]]`
+- AC-4: **Degenerate case:** single worker is trivially `[[worker]]`

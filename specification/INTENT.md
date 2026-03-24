@@ -50,6 +50,24 @@ The spec is `builds/claude_code/code/gtl_spec/packages/abiogenesis.py` — the G
 
 ---
 
+---
+
+## Constitutional Precedence
+
+Requirements derived from INT-004 and INT-005 (V2) supersede overlapping V1 wording from INT-001. Where V1 and V2 requirements describe the same surface, V2 governs. V1 behaviour is retained **only** as explicitly labeled degenerate cases within V2 requirements:
+
+| Retained degenerate case | Meaning |
+|--------------------------|---------|
+| `work_key` absent | Global traversal — single WorkInstance per job, no work-key scoping |
+| No `work_spawned` events | Static authored graph — no zoom, no fragment refinement |
+| No fragment imports | Monolithic Package — all edges authored directly |
+| No leaf tasks | Direct F_P dispatch — no bounded sub-work |
+| Unscoped V1 events | Visible to global queries, invisible to work-key-scoped queries |
+
+Any V1-only doctrine not listed as a degenerate case is **superseded** and must not be taught as active law. Legacy compatibility shims (e.g., wildcard revocation) are retained for replay of existing event streams but are not available for new work.
+
+---
+
 ## INT-002 — Bootloader Documents as Graph Assets
 
 **Date**: 2026-03-21
