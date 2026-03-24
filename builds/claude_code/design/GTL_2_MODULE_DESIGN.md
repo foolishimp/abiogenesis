@@ -65,7 +65,7 @@ It does not create new constitutional law. It answers:
 | `abg.correction` | Correction and reset | `find_latest_reset()`, certification shadowing | REQ-R-ABG2-CORRECTION |
 | `abg.subwork` | Bounded sub-work realization | `LeafTask`, `validate_leaf_schema()`, `dispatch_leaf()` | REQ-R-ABG2-LEAFTASK |
 | `abg.transport` | Agent transport surface | `AgentResult`, `AgentTransportError`, `dispatch_agent()`, `classify_failure()` | REQ-R-ABG2-TRANSPORT, ADR-022 |
-| `abg.interpret` | Graph interpretation loop | graph materialization, traversal, next-action, substitution orchestration | REQ-R-ABG2-INTERPRET |
+| `abg.interpret` | Graph interpretation loop | graph materialization, traversal, next-action, substitution orchestration, event emission for delegated modules | REQ-R-ABG2-INTERPRET, REQ-R-ABG2-SELECTION-APPLICATION (apply + emit) |
 | `abg.selfhosting` | Derived artifact governance | bootloader consistency checks, drift detection | REQ-R-ABG2-SELFHOSTING |
 
 ### 3.3 ABG application surface
@@ -244,13 +244,17 @@ def identity(interface: tuple[Node, ...]) -> GraphFunction:
 
 ### 4.4 Event delegation pattern
 
-`abg.selection` and `abg.subwork` are pure kernel modules — they return structured values (`SelectionDecision`, leaf task results) but do not emit events themselves. Event emission is delegated to the caller (`abg.interpret` or `abg.services`), which has access to `abg.events`.
+`abg.selection` and `abg.subwork` are pure kernel modules — they return structured values but do not emit events themselves. Event emission is the responsibility of `abg.interpret`, which has access to `abg.events` via its `abg.*` import rule.
+
+`abg.services` does not emit events directly — it orchestrates through `abg.interpret`, which owns the event emission path.
 
 This follows the same principle as the F_P contract: "F_P does not call the event logger. F_P produces artifacts; F_D reads them and emits events."
 
 Concretely:
-- `abg.selection` returns `SelectionDecision` → caller emits `workflow_selected` event
-- `abg.subwork.dispatch_leaf()` returns `(output, failure_class)` → caller emits `leaf_task_started`/`completed`/`failed`
+- `abg.selection` returns `SelectionDecision` → `abg.interpret` emits `workflow_selected` event
+- `abg.subwork.dispatch_leaf()` returns `(output, failure_class)` → `abg.interpret` emits `leaf_task_started`/`completed`/`failed`
+
+**Selection responsibility split**: `abg.selection` owns candidate enumeration and interface validation (REQ-R-ABG2-SELECTION-APPLICATION-001, -003, -004). `abg.interpret` owns lawful application — performing the substitution and emitting the selection provenance event (REQ-R-ABG2-SELECTION-APPLICATION-002).
 
 ---
 
@@ -548,10 +552,10 @@ abg.install         → abg.events, gtl.module_model
 | GTL graph programming | REQ-L-GTL2-GRAPHFUNCTION, REQ-L-GTL2-COMPOSE, REQ-L-GTL2-SUBSTITUTE, REQ-L-GTL2-RECURSE, REQ-L-GTL2-HOF, REQ-L-GTL2-SUBWORK |
 | GTL publication boundary | REQ-L-GTL2-MODULE, REQ-L-GTL2-SELECTION-BOUNDARY, REQ-L-GTL2-ENGINE-INDEPENDENCE |
 | ABG event and replay kernel | REQ-R-ABG2-EVENTS, REQ-R-ABG2-PROJECTION |
-| ABG interpretation kernel | REQ-R-ABG2-INTERPRET, REQ-R-ABG2-CONVERGENCE |
+| ABG interpretation kernel | REQ-R-ABG2-INTERPRET, REQ-R-ABG2-CONVERGENCE, REQ-R-ABG2-SELECTION-APPLICATION (apply + emit) |
 | ABG identity and attempt governance | REQ-R-ABG2-LINEAGE, REQ-R-ABG2-RUN, REQ-R-ABG2-JOB-WORKER |
 | ABG provenance and correction | REQ-R-ABG2-PROVENANCE, REQ-R-ABG2-CORRECTION |
-| ABG selection and subwork | REQ-R-ABG2-SELECTION-APPLICATION, REQ-R-ABG2-LEAFTASK |
+| ABG selection and subwork | REQ-R-ABG2-SELECTION-APPLICATION (enumerate + validate), REQ-R-ABG2-LEAFTASK |
 | ABG transport | REQ-R-ABG2-TRANSPORT |
 | ABG self-hosting | REQ-R-ABG2-SELFHOSTING |
 | Mapping layer | REQ-M-GTL2-MAPPING, REQ-M-GTL2-CAPABILITY, REQ-M-GTL2-PROVENANCE |
