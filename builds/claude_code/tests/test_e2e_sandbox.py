@@ -375,6 +375,8 @@ class TestSelfHosting:
         # Phase 2 kernel modules (re-export shims during migration)
         required |= {"events", "projection", "provenance", "correction", "binding",
                       "lineage", "run", "convergence"}
+        # Phase 3 interpretation and transport modules
+        required |= {"selection", "subwork", "transport", "interpret"}
         found = {f.stem for f in genesis_dir.glob("*.py") if f.stem != "__init__"}
         assert required <= found, f"Missing modules: {required - found}"
 
