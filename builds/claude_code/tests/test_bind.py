@@ -580,3 +580,274 @@ class TestAssessedKindIsolation:
         # code_complete must still be failing — fh_review does not satisfy F_P
         assert any(ev.name == "code_complete" for ev in pre.failing_evaluators)
         assert not any(ev.name == "code_complete" for ev in pre.passing_evaluators)
+
+
+# ── ADR-026: Reset boundary — find_latest_reset ─────────────────────────────
+
+from genesis.bind import find_latest_reset, bind_fp_certified
+
+
+def _reset_event(scope: str, event_time: str,
+                 work_key: str | None = None,
+                 edge: str | None = None) -> dict:
+    """Construct a reset event for testing."""
+    data: dict = {
+        "scope": scope,
+        "actor": "human",
+        "reason": "re-evaluation requested",
+    }
+    if work_key is not None:
+        data["work_key"] = work_key
+    if edge is not None:
+        data["edge"] = edge
+    return {"event_type": "reset", "event_time": event_time, "data": data}
+
+
+class TestFindLatestReset:
+    """ADR-026: find_latest_reset scope containment."""
+
+    def test_no_reset_returns_none(self):
+        events = [_review_event("design→code")]
+        assert find_latest_reset(events, edge="design→code") is None
+
+    def test_workspace_reset_matches_any_query(self):
+        events = [_reset_event("workspace", "2026-01-01T00:00:00")]
+        result = find_latest_reset(events, edge="design→code", work_key="REQ-F-AUTH")
+        assert result is not None
+        assert result["data"]["scope"] == "workspace"
+
+    def test_workspace_reset_matches_global_query(self):
+        events = [_reset_event("workspace", "2026-01-01T00:00:00")]
+        result = find_latest_reset(events, edge="design→code")
+        assert result is not None
+
+    def test_work_key_reset_matches_same_key(self):
+        events = [_reset_event("work_key", "2026-01-01T00:00:00", work_key="REQ-F-AUTH")]
+        result = find_latest_reset(events, edge="design→code", work_key="REQ-F-AUTH")
+        assert result is not None
+
+    def test_work_key_reset_matches_descendant(self):
+        events = [_reset_event("work_key", "2026-01-01T00:00:00", work_key="REQ-F-AUTH")]
+        result = find_latest_reset(events, work_key="REQ-F-AUTH/module.login")
+        assert result is not None
+
+    def test_work_key_reset_does_not_match_sibling(self):
+        events = [_reset_event("work_key", "2026-01-01T00:00:00", work_key="REQ-F-AUTH")]
+        result = find_latest_reset(events, work_key="REQ-F-LOGGING")
+        assert result is None
+
+    def test_work_key_reset_does_not_match_global_query(self):
+        events = [_reset_event("work_key", "2026-01-01T00:00:00", work_key="REQ-F-AUTH")]
+        result = find_latest_reset(events, edge="design→code")
+        assert result is None
+
+    def test_edge_reset_matches_exact_slice(self):
+        events = [_reset_event("edge", "2026-01-01T00:00:00",
+                               work_key="REQ-F-AUTH", edge="design→code")]
+        result = find_latest_reset(events, edge="design→code", work_key="REQ-F-AUTH")
+        assert result is not None
+
+    def test_edge_reset_does_not_match_different_edge(self):
+        events = [_reset_event("edge", "2026-01-01T00:00:00",
+                               work_key="REQ-F-AUTH", edge="design→code")]
+        result = find_latest_reset(events, edge="code→tests", work_key="REQ-F-AUTH")
+        assert result is None
+
+    def test_edge_reset_matches_descendant_work_key(self):
+        events = [_reset_event("edge", "2026-01-01T00:00:00",
+                               work_key="REQ-F-AUTH", edge="design→code")]
+        result = find_latest_reset(events, edge="design→code", work_key="REQ-F-AUTH/module.login")
+        assert result is not None
+
+    def test_latest_wins_among_multiple_resets(self):
+        events = [
+            _reset_event("workspace", "2026-01-01T00:00:00"),
+            _reset_event("workspace", "2026-01-03T00:00:00"),
+            _reset_event("workspace", "2026-01-02T00:00:00"),
+        ]
+        result = find_latest_reset(events, edge="design→code")
+        assert result["event_time"] == "2026-01-03T00:00:00"
+
+    def test_mixed_scopes_latest_wins(self):
+        """If both a workspace reset and an edge reset apply, the latest one wins."""
+        events = [
+            _reset_event("workspace", "2026-01-01T00:00:00"),
+            _reset_event("edge", "2026-01-02T00:00:00",
+                         work_key="REQ-F-AUTH", edge="design→code"),
+        ]
+        result = find_latest_reset(events, edge="design→code", work_key="REQ-F-AUTH")
+        assert result["event_time"] == "2026-01-02T00:00:00"
+        assert result["data"]["scope"] == "edge"
+
+    def test_unknown_scope_ignored(self):
+        events = [{"event_type": "reset", "event_time": "2026-01-01T00:00:00",
+                    "data": {"scope": "galaxy", "actor": "x", "reason": "y"}}]
+        assert find_latest_reset(events) is None
+
+
+# ── ADR-026: Reset boundary — bind_fp_certified shadowing ────────────────────
+
+class TestResetShadowingFP:
+    """ADR-026: reset boundary shadows F_P certifications."""
+
+    # Validates: REQ-F-CORRECT-002
+
+    def test_assessed_before_reset_is_shadowed(self):
+        """assessed{pass} BEFORE reset → certification does not hold."""
+        job = _make_fp_job()
+        events = [
+            {**_assessed_fp_event("design→code"), "event_time": "2026-01-01T00:00:00"},
+            _reset_event("workspace", "2026-01-02T00:00:00"),
+        ]
+        assert bind_fp_certified(job, job.evaluators[0], events, spec_hash="abc123",
+                                 current_workflow_version="unknown") is False
+
+    def test_assessed_after_reset_is_valid(self):
+        """assessed{pass} AFTER reset → certification holds normally."""
+        job = _make_fp_job()
+        events = [
+            _reset_event("workspace", "2026-01-01T00:00:00"),
+            {**_assessed_fp_event("design→code"), "event_time": "2026-01-02T00:00:00"},
+        ]
+        assert bind_fp_certified(job, job.evaluators[0], events, spec_hash="abc123",
+                                 current_workflow_version="unknown") is True
+
+    def test_no_reset_behaves_as_before(self):
+        """Without reset events, bind_fp_certified behaves identically to V1."""
+        job = _make_fp_job()
+        events = [
+            {**_assessed_fp_event("design→code"), "event_time": "2026-01-01T00:00:00"},
+        ]
+        assert bind_fp_certified(job, job.evaluators[0], events, spec_hash="abc123",
+                                 current_workflow_version="unknown") is True
+
+    def test_work_key_scoped_reset_shadows_matching_key(self):
+        """Work_key reset shadows certifications for that key only."""
+        job = _make_fp_job()
+        events = [
+            {**_assessed_fp_event("design→code"), "event_time": "2026-01-01T00:00:00",
+             "data": {**_assessed_fp_event("design→code")["data"], "work_key": "REQ-F-AUTH"}},
+            _reset_event("work_key", "2026-01-02T00:00:00", work_key="REQ-F-AUTH"),
+        ]
+        # Query for REQ-F-AUTH — should be shadowed
+        assert bind_fp_certified(job, job.evaluators[0], events, spec_hash="abc123",
+                                 current_workflow_version="unknown",
+                                 work_key="REQ-F-AUTH") is False
+
+    def test_work_key_scoped_reset_does_not_shadow_sibling(self):
+        """Work_key reset for AUTH does not shadow LOGGING certification."""
+        job = _make_fp_job()
+        events = [
+            {**_assessed_fp_event("design→code"), "event_time": "2026-01-01T00:00:00",
+             "data": {**_assessed_fp_event("design→code")["data"], "work_key": "REQ-F-LOGGING"}},
+            _reset_event("work_key", "2026-01-02T00:00:00", work_key="REQ-F-AUTH"),
+        ]
+        # Query for REQ-F-LOGGING — should NOT be shadowed
+        assert bind_fp_certified(job, job.evaluators[0], events, spec_hash="abc123",
+                                 current_workflow_version="unknown",
+                                 work_key="REQ-F-LOGGING") is True
+
+    def test_reassessment_after_reset_restores_certification(self):
+        """assessed → reset → assessed again → certification restored."""
+        job = _make_fp_job()
+        events = [
+            {**_assessed_fp_event("design→code"), "event_time": "2026-01-01T00:00:00"},
+            _reset_event("workspace", "2026-01-02T00:00:00"),
+            {**_assessed_fp_event("design→code"), "event_time": "2026-01-03T00:00:00"},
+        ]
+        assert bind_fp_certified(job, job.evaluators[0], events, spec_hash="abc123",
+                                 current_workflow_version="unknown") is True
+
+    def test_edge_scoped_reset_shadows_matching_slice(self):
+        """Edge+work_key reset shadows only that specific slice."""
+        job = _make_fp_job()
+        events = [
+            {**_assessed_fp_event("design→code"), "event_time": "2026-01-01T00:00:00",
+             "data": {**_assessed_fp_event("design→code")["data"], "work_key": "REQ-F-AUTH"}},
+            _reset_event("edge", "2026-01-02T00:00:00",
+                         work_key="REQ-F-AUTH", edge="design→code"),
+        ]
+        assert bind_fp_certified(job, job.evaluators[0], events, spec_hash="abc123",
+                                 current_workflow_version="unknown",
+                                 work_key="REQ-F-AUTH") is False
+
+
+# ── ADR-026: Reset does NOT affect F_H ───────────────────────────────────────
+
+class TestResetDoesNotAffectFH:
+    """ADR-026: F_H approvals persist across reset boundaries."""
+
+    # Validates: REQ-F-CORRECT-002
+
+    def test_fh_survives_workspace_reset(self):
+        """approved{fh_review} before workspace reset → operative still holds."""
+        job = _make_fh_job()
+        events = [
+            {**_review_event("requirements→feature_decomp"), "event_time": "2026-01-01T00:00:00"},
+            _reset_event("workspace", "2026-01-02T00:00:00"),
+        ]
+        assert bind_fh(job, events, current_workflow_version="unknown") is True
+
+    def test_fh_survives_work_key_reset(self):
+        """approved{fh_review} before work_key reset → operative still holds."""
+        job = _make_fh_job()
+        events = [
+            {**_review_event("requirements→feature_decomp"), "event_time": "2026-01-01T00:00:00"},
+            _reset_event("work_key", "2026-01-02T00:00:00", work_key="REQ-F-AUTH"),
+        ]
+        assert bind_fh(job, events, current_workflow_version="unknown") is True
+
+    def test_fh_requires_explicit_revocation(self):
+        """Reset alone doesn't terminate F_H — requires revoked{fh_approval}."""
+        job = _make_fh_job()
+        events = [
+            {**_review_event("requirements→feature_decomp"), "event_time": "2026-01-01T00:00:00"},
+            _reset_event("workspace", "2026-01-02T00:00:00"),
+            # This revocation terminates the fluent — NOT the reset
+            {**_revoke_event("requirements→feature_decomp"), "event_time": "2026-01-03T00:00:00"},
+        ]
+        assert bind_fh(job, events, current_workflow_version="unknown") is False
+
+
+# ── ADR-026: emit() validates reset schema ───────────────────────────────────
+
+class TestEmitResetValidation:
+    """ADR-026: emit() enforces reset event schema."""
+
+    def test_reset_without_scope_raises(self, tmp_path):
+        from genesis.core import workspace_bootstrap, emit
+        workspace_bootstrap(tmp_path)
+        with pytest.raises(ValueError, match="scope"):
+            emit("reset", {"actor": "human", "reason": "test"})
+
+    def test_reset_with_invalid_scope_raises(self, tmp_path):
+        from genesis.core import workspace_bootstrap, emit
+        workspace_bootstrap(tmp_path)
+        with pytest.raises(ValueError, match="scope"):
+            emit("reset", {"scope": "galaxy", "actor": "human", "reason": "test"})
+
+    def test_workspace_reset_valid(self, tmp_path):
+        from genesis.core import workspace_bootstrap, emit
+        workspace_bootstrap(tmp_path)
+        # Should not raise
+        emit("reset", {"scope": "workspace", "actor": "human", "reason": "full re-eval"})
+
+    def test_work_key_reset_without_work_key_raises(self, tmp_path):
+        from genesis.core import workspace_bootstrap, emit
+        workspace_bootstrap(tmp_path)
+        with pytest.raises(ValueError, match="work_key"):
+            emit("reset", {"scope": "work_key", "actor": "human", "reason": "test"})
+
+    def test_edge_reset_without_edge_raises(self, tmp_path):
+        from genesis.core import workspace_bootstrap, emit
+        workspace_bootstrap(tmp_path)
+        with pytest.raises(ValueError, match="edge"):
+            emit("reset", {"scope": "edge", "work_key": "REQ-F-AUTH",
+                           "actor": "human", "reason": "test"})
+
+    def test_edge_reset_valid(self, tmp_path):
+        from genesis.core import workspace_bootstrap, emit
+        workspace_bootstrap(tmp_path)
+        # Should not raise
+        emit("reset", {"scope": "edge", "work_key": "REQ-F-AUTH",
+                        "edge": "design→code", "actor": "human", "reason": "test"})

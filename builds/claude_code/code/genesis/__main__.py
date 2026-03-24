@@ -578,6 +578,20 @@ def _emit_event_cmd(event_type: str, data_json: str, workspace: Path) -> int:
         if data.get("kind") not in (None, "fh_approval", "fp_assessment"):
             errors.append(f"revoked 'kind' must be 'fh_approval' or 'fp_assessment', got '{data.get('kind')!s}'")
 
+    if event_type == "reset":
+        if "scope" not in data:
+            errors.append("reset requires 'scope' field (workspace | work_key | edge)")
+        elif data["scope"] not in ("workspace", "work_key", "edge"):
+            errors.append(f"reset 'scope' must be workspace, work_key, or edge, got '{data['scope']}'")
+        else:
+            if data["scope"] in ("work_key", "edge") and "work_key" not in data:
+                errors.append(f"reset with scope='{data['scope']}' requires 'work_key' field")
+            if data["scope"] == "edge" and "edge" not in data:
+                errors.append("reset with scope='edge' requires 'edge' field")
+        for fld in ("actor", "reason"):
+            if fld not in data:
+                errors.append(f"reset requires '{fld}' field")
+
     if errors:
         for msg in errors:
             print(f"ERROR: {msg}", file=sys.stderr)

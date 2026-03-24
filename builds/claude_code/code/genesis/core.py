@@ -166,6 +166,21 @@ def emit(event_type: str, data: dict) -> None:
             f"{event_type} events must include 'kind' field. "
             "Without kind, the event is silently ignored by the projection layer."
         )
+    if event_type == "reset":
+        scope = data.get("scope")
+        if scope not in ("workspace", "work_key", "edge"):
+            raise ValueError(
+                f"reset events must include 'scope' field with value "
+                f"workspace, work_key, or edge — got {scope!r}"
+            )
+        if scope in ("work_key", "edge") and "work_key" not in data:
+            raise ValueError(
+                f"reset with scope={scope!r} requires 'work_key' field"
+            )
+        if scope == "edge" and "edge" not in data:
+            raise ValueError(
+                "reset with scope='edge' requires 'edge' field"
+            )
     # PackageSnapshot carrier enforcement: work events must carry package_snapshot_id
     # so they can be mapped back to the constitutional state that authorized them.
     if event_type in _WORK_EVENT_TYPES and _active_snapshot_id is not None:

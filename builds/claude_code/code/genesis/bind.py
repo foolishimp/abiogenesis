@@ -9,6 +9,9 @@
 # Implements: REQ-F-EC-004
 # Implements: REQ-F-EC-005
 # Implements: REQ-F-WK-003
+# Implements: REQ-F-CORRECT-001
+# Implements: REQ-F-CORRECT-002
+# Implements: REQ-F-CORRECT-003
 """
 bind — F_D pre-computation: bind_fd, bind_fp, select_relevant_contexts,
        render_delta.
@@ -75,6 +78,67 @@ def job_evaluator_hash(job: Job) -> str:
     )
     raw = "\n".join(re.sub(r'\s+', ' ', line.strip()) for line in lines + ctx_lines)
     return hashlib.sha256(raw.encode()).hexdigest()[:16]
+
+
+def find_latest_reset(
+    all_events: list[dict],
+    edge: str | None = None,
+    work_key: str | None = None,
+) -> dict | None:
+    """
+    Find the latest applicable reset event for a given scope query.
+
+    ADR-026 scope containment rules:
+      - Workspace resets (scope="workspace") contain everything
+      - Work_key resets (scope="work_key") contain that lineage and descendants
+      - Edge+work_key resets (scope="edge") contain that specific slice only
+
+    For a query on (edge, work_key), the latest applicable reset is the most
+    recent reset whose scope contains the query.
+
+    Returns the most recent matching reset event, or None if no reset applies.
+    """
+    latest: dict | None = None
+
+    for e in all_events:
+        if e.get("event_type") != "reset":
+            continue
+        edata = e.get("data", {})
+        reset_scope = edata.get("scope")
+
+        if reset_scope == "workspace":
+            # Workspace resets contain everything — always matches
+            pass
+
+        elif reset_scope == "work_key":
+            # Work_key reset: matches if query work_key is same or descendant
+            reset_wk = edata.get("work_key")
+            if reset_wk is None:
+                continue  # Malformed — skip
+            if work_key is None:
+                continue  # Global query doesn't match scoped reset
+            if not (work_key == reset_wk or work_key.startswith(reset_wk + "/")):
+                continue  # Different lineage
+
+        elif reset_scope == "edge":
+            # Edge + work_key reset: matches only that specific slice
+            reset_edge = edata.get("edge")
+            reset_wk = edata.get("work_key")
+            if reset_edge is not None and reset_edge != edge:
+                continue  # Different edge
+            if reset_wk is not None:
+                if work_key is None:
+                    continue  # Global query doesn't match scoped reset
+                if not (work_key == reset_wk or work_key.startswith(reset_wk + "/")):
+                    continue  # Different lineage
+        else:
+            continue  # Unknown scope — skip
+
+        # This reset applies — check if it's the latest
+        if latest is None or e.get("event_time", "") > latest.get("event_time", ""):
+            latest = e
+
+    return latest
 
 
 def bind_fh(
@@ -209,11 +273,20 @@ def bind_fp_certified(
 
     certified(edge, wk, ev, spec_hash, wv) holdsAt now iff:
       an assessed{pass} event initiates it AND no later revoked{fp_assessment} terminates it,
-      AND spec_hash matches (identity-based termination).
+      AND spec_hash matches (identity-based termination),
+      AND the initiating assessed event postdates the latest applicable reset (ADR-026).
+
+    Reset boundary (ADR-026): certifications before the latest applicable reset
+    are shadowed — present in the stream but not counted for convergence.
+    F_H approvals are NOT affected by reset (human judgment persists).
 
     work_key: when provided, only assessed events matching this work_key satisfy
     the fluent. When absent, V1 global behaviour.
     """
+    # ADR-026: Find the latest applicable reset boundary for this scope
+    reset_boundary = find_latest_reset(all_events, edge=job.edge.name, work_key=work_key)
+    reset_time = reset_boundary.get("event_time", "") if reset_boundary else ""
+
     # Find the latest assessed{kind: fp, result: pass} for this edge+evaluator
     latest_assessed_time = None
     found_assessed = False
@@ -243,6 +316,10 @@ def bind_fp_certified(
                     continue
             elif edata.get("work_key") is not None:
                 continue  # Global query — skip scoped events
+            # ADR-026: Reset boundary shadowing — assessed events before the
+            # latest applicable reset are shadowed (present but not counted).
+            if reset_time and e.get("event_time", "") <= reset_time:
+                continue  # Shadowed by reset boundary
             found_assessed = True
             latest_assessed_time = e.get("event_time")
 

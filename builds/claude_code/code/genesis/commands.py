@@ -32,7 +32,7 @@ from typing import Callable, Optional
 
 from gtl.core import Job, Package, Worker
 
-from .bind import bind_fd, bind_fp, bind_fh, job_evaluator_hash, req_hash
+from .bind import bind_fd, bind_fp, bind_fh, find_latest_reset, job_evaluator_hash, req_hash
 from .core import ContextResolver, EventStream, project
 from .manifest import BoundJob
 from .schedule import WorkInstance, delta, iterate, schedule
@@ -227,13 +227,20 @@ def gen_gaps(scope: Scope, stream: EventStream) -> dict:
     # Pre-compute which (edge, work_key) tuples already have a well-formed certificate.
     # REQ-F-CMD-004: deduplication keyed on (edge, work_key). When work_key is absent,
     # falls back to (edge, feature) for V1 compatibility.
+    # ADR-026: certificates predating the latest applicable reset are stale —
+    # they don't satisfy live convergence queries and must be re-earned.
+    all_events = stream.all_events()
     certified_keys: set[tuple] = set()
-    for e in stream.all_events():
+    for e in all_events:
         if e.get("event_type") == "edge_converged" and e.get("data", {}).get("target"):
             ed = e["data"]
             # Use work_key if present, else feature (V1 fallback)
-            key = ed.get("work_key", ed.get("feature"))
-            certified_keys.add((ed["edge"], key))
+            cert_wk = ed.get("work_key", ed.get("feature"))
+            # ADR-026: check if this certificate predates the latest applicable reset
+            reset = find_latest_reset(all_events, edge=ed.get("edge"), work_key=ed.get("work_key"))
+            if reset and e.get("event_time", "") <= reset.get("event_time", ""):
+                continue  # Stale certificate — shadowed by reset boundary
+            certified_keys.add((ed["edge"], cert_wk))
 
     carry_forward = _read_carry_forward(scope)
 
@@ -250,6 +257,16 @@ def gen_gaps(scope: Scope, stream: EventStream) -> dict:
         for wk in work_key_list:
             # Set stream identity for any events emitted under this work_key
             stream.work_key = wk
+            # ADR-024 / REQ-F-TRAV-002: use schedule.delta() as the single
+            # convergence function — not pre.delta (which is just failing evaluator count).
+            d = delta(
+                job, stream, scope.workspace_root,
+                spec_hash=spec_hash,
+                current_workflow_version=scope.workflow_version,
+                carry_forward=carry_forward,
+                work_key=wk,
+            )
+            # bind_fd still needed for evaluator-level detail in gap reports
             pre = bind_fd(
                 job, stream, resolver, scope.workspace_root,
                 spec_hash=spec_hash,
@@ -259,7 +276,7 @@ def gen_gaps(scope: Scope, stream: EventStream) -> dict:
             )
             entry: dict = {
                 "edge": job.edge.name,
-                "delta": pre.delta,
+                "delta": d,
                 "failing": [ev.name for ev in pre.failing_evaluators],
                 "passing": [ev.name for ev in pre.passing_evaluators],
                 "delta_summary": pre.delta_summary,
@@ -270,8 +287,9 @@ def gen_gaps(scope: Scope, stream: EventStream) -> dict:
             # Emit edge_converged when freshly confirmed delta=0 and not yet certified.
             # Idempotent: once a well-formed certificate exists in the log,
             # repeated gen_gaps calls over a converged workspace do not append duplicates.
+            # ADR-026: uses schedule.delta() for convergence truth, not pre.delta.
             cert_key = wk if wk is not None else scope.feature
-            if pre.delta == 0 and (job.edge.name, cert_key) not in certified_keys:
+            if d == 0.0 and (job.edge.name, cert_key) not in certified_keys:
                 cert: dict = {
                     "edge": job.edge.name,
                     "target": job.edge.target.name,
