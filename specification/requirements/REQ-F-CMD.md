@@ -4,12 +4,12 @@
 
 ### REQ-F-CMD-001 — gen gaps reports delta per work instance
 
-`gen-gaps` computes the convergence state of the workspace by running `bind_fd` over all work instances.
+`gen-gaps` computes the convergence state of the workspace by running `schedule.delta()` over all work instances (REQ-F-TRAV-002). `bind_fd()` provides evaluator-level detail for reporting but does not determine convergence.
 
 **Acceptance Criteria**:
 - AC-1: Returns JSON with `total_delta`, `converged`, `jobs_considered`, and per-work-instance `gaps[]`
 - AC-2: Each gap entry contains: `edge`, `work_key` (when present), `delta`, `failing` (evaluator names), `passing`, `delta_summary`
-- AC-3: Executes all F_D evaluators via their command specification; evaluates F_H via fluent projection; evaluates F_P via assessed event matching
+- AC-3: Convergence (`delta`) is computed via `schedule.delta()` — the single convergence function (REQ-F-TRAV-002). `bind_fd()` provides evaluator-level pass/fail detail for the gap report but does not independently compute delta
 - AC-4: `converged: true` iff `total_delta == 0.0`
 - AC-5: Emits `edge_converged` certificate when a work instance reaches delta=0 and no certificate exists for that `(edge, work_key)` tuple
 - AC-6: When no work_keys are active, reports per-edge only (V1 behaviour)

@@ -50,7 +50,7 @@ Revocation withdraws prior convergence authority. Both fluents (`operative` and 
 - AC-1: `revoked{kind: fh_approval}` terminates the `operative` fluent — does not reference a specific `approved` event
 - AC-2: `revoked{kind: fp_assessment}` terminates the `certified` fluent — does not reference a specific `assessed` event
 - AC-3: Both are scoped by `edge`, `work_key` (when present), and `workflow_version`
-- AC-4: Wildcard edge (`"*"`) terminates the target fluent for all edges under the matching workflow_version
+- AC-4: **V1 compatibility shim** — Wildcard edge (`"*"`) terminates the target fluent for all edges under the matching workflow_version. This is a legacy convenience, not a constitutional mechanism. V2 corrective operations use lineage-scoped revocation (REQ-F-CORRECT-001) — wildcard is retained only for V1 workspaces that predate work_key scoping
 - AC-5: When `workflow_version == "unknown"`, revocations match by `(edge, work_key)` — workflow_version scoping is dropped but work_key scoping is preserved. Full V1 degenerate case (no work_key AND unknown version) matches by edge alone
 - AC-6: A revocation that predates all initiating events for its edge has no effect
 - AC-7: `revoked{kind: fh_approval}` and `revoked{kind: fp_assessment}` are independent — revoking one does not affect the other

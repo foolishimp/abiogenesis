@@ -10,7 +10,7 @@ Corrective operations must be semantically distinct, scoped to work lineage, and
 Semantic correction of prior work operates within a work_key lineage — it does not globally invalidate unrelated convergence.
 
 **Acceptance Criteria**:
-- AC-1: A `revoked` event targets a specific (work_key, edge, evaluator) tuple — not a blanket edge invalidation
+- AC-1: A `revoked` event targets a specific fluent instance scoped to a work_key lineage — not a blanket edge invalidation. The target shape matches the EC fluent being terminated: `operative(edge, work_key, wv)` for F_H revocation, `certified(edge, work_key, evaluator, spec_hash, wv)` for F_P revocation (REQ-F-EC-004)
 - AC-2: Revocation within one work_key lineage does not affect convergence of sibling or parent work_keys unless the parent's fold-back projection changes as a result
 - AC-3: Corrective work (new attempts on the same work_key after revocation) is the normal recovery path — not deletion of history
 - AC-4: The event log after correction is truthful: original work, revocation, and corrective work are all visible

@@ -15,7 +15,7 @@ WorkInstance must be the real operational unit across all layers: command select
 - AC-3: Command outputs include `work_key` and `run_id` when present — the dispatch unit is visible in results
 - AC-4: V1 degenerate case: when no work_keys exist, a single WorkInstance with `work_key=None` is created per job
 - AC-5: The GTL iterate contract acknowledges routed work — the constitutional runtime surface reflects `(job, work_key, run_id)` as the unit of traversal, not just `(job, candidate_asset, evaluator_fn)`
-- AC-6: `schedule()` operates on WorkInstances, not just Workers — scheduling means ordering work instances, not just batching workers
+- AC-6: Work-instance scheduling operates on WorkInstances, not just Workers — scheduling means ordering which work to do next. This is distinct from worker batch partitioning (REQ-F-CORE-006), which partitions workers for concurrent safety
 
 ### REQ-F-TRAV-002 — Single convergence law for all paths
 
@@ -35,4 +35,4 @@ Convergence state must be derivable entirely from the event stream — no hidden
 - AC-1: `delta(job, stream, work_key)` produces the same result given the same event stream — pure function of events
 - AC-2: Fold-back convergence discovers children from `work_spawned` events in the stream, not from external state
 - AC-3: Certificate emission (`edge_converged`) is idempotent — repeated computation on the same event stream does not produce duplicate certificates
-- AC-4: V1 events (no work_key) remain visible to scoped queries — no event migration required
+- AC-4: V1 events (no work_key) remain visible to *global* (unscoped) queries — they are not migrated or deleted. However, V1 events do NOT satisfy work-key-scoped queries (REQ-F-EC-002 AC-5) — scoped projection requires matching work_key

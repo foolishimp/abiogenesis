@@ -19,7 +19,7 @@ Each attempt at a unit of work has its own identity for transaction, retry, and 
 **Acceptance Criteria**:
 - AC-1: `run_id` is a unique identifier generated per attempt (e.g., UUID or hash)
 - AC-2: Multiple runs on the same `work_key` produce distinct `run_id` values
-- AC-3: Attempt history for a `work_key` is reconstructable by filtering events on `work_key` and ordering by `run_id`
+- AC-3: Attempt history for a `work_key` is reconstructable by filtering events on `work_key` and ordering by `event_time` — `run_id` is an identity, not an ordering criterion (REQ-F-RUN-001 AC-4)
 
 ### REQ-F-WK-003 — Events carry work_key and run_id
 

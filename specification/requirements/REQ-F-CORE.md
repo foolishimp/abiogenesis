@@ -61,12 +61,12 @@ Context documents are loaded by scheme and verified by digest.
 - AC-4: Pending digest (`sha256:0*64`) skips verification
 - AC-5: Unimplemented schemes (V1) degrade gracefully without halting
 
-### REQ-F-CORE-006 — Worker scheduling partitions by write territory
+### REQ-F-CORE-006 — Worker batching partitions by write territory
 
-Workers with overlapping write territory must not execute concurrently.
+Workers with overlapping write territory must not execute concurrently. This is *batch partitioning* of workers for concurrent safety — distinct from work-instance scheduling (REQ-F-TRAV-001 AC-6), which orders what work to do next.
 
 **Acceptance Criteria**:
-- AC-1: `schedule(workers)` returns batches of non-conflicting workers
+- AC-1: `batch_workers(workers)` returns batches of non-conflicting workers
 - AC-2: Conflict detection is based on `Worker.writable_types` (target asset names)
 - AC-3: Batch i completes before batch i+1 starts
 - AC-4: V1: single worker is trivially `[[worker]]`
