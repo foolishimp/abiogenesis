@@ -46,7 +46,7 @@ All prior asset states are reconstructable from the event stream.
 The binding phase computes everything possible without an LLM.
 
 **Acceptance Criteria**:
-- AC-1: `bind_fd()` produces a PrecomputedManifest containing: job, current asset state, failing/passing evaluators, F_D results, resolved contexts, and delta summary
+- AC-1: `bind_fd()` produces a PrecomputedManifest containing: job, current asset state, failing/passing evaluators, F_D results, and resolved contexts. `bind_fd()` provides evaluator-level detail but does not independently compute convergence delta — that is `schedule.delta()` (REQ-F-TRAV-002)
 - AC-2: Passing evaluators are excluded from the F_P prompt — they are provably outside the ambiguity bounds
 - AC-3: `bind_fp()` assembles the F_P prompt from the PrecomputedManifest — template assembly only, no LLM invocation
 

@@ -8,7 +8,13 @@ The engine uses exactly five prime event types. All other events are derived.
 
 **Acceptance Criteria**:
 - AC-1: Exactly five prime types: `found`, `approved`, `assessed`, `revoked`, `intent_raised`
-- AC-2: All other event types (`edge_started`, `fp_dispatched`, `fh_gate_pending`, `edge_converged`, `reset`) are control events — they do not participate in fluent initiation or termination. `reset` creates a certification boundary that shadows prior F_P certifications (REQ-F-CORRECT-002) but does not initiate or terminate any fluent
+- AC-2: All other event types are **Tier 2 control events** — they do not initiate or terminate fluents. The control-event registry includes (illustrative, not exhaustive):
+  - **Scheduler control:** `edge_started`, `fp_dispatched`, `fh_gate_pending`, `edge_converged`
+  - **Correction control:** `reset` — creates a certification boundary that shadows prior F_P certifications (REQ-F-CORRECT-002)
+  - **Refinement control:** `work_spawned`, `zoomed` — topology provenance (REQ-F-REFINE-001, REQ-F-REFINE-002)
+  - **Run lifecycle:** `run_queued`, `run_started`, `run_dispatched`, `run_pending`, `run_assessed`, `run_failed`, `run_timed_out`, `run_superseded` — inform retry, timeout, and observability (REQ-F-RUN-001). These are strictly observational — they never initiate or terminate fluents
+  - **Leaf task lifecycle:** `leaf_task_started`, `leaf_task_completed`, `leaf_task_failed` — subordinate to run lifecycle (REQ-F-LEAF-002)
+  - New Tier 2 event types may be added without changing the EC foundation — they remain control-only by definition
 - AC-3: Each prime type has a `kind` discriminator that determines its EC role
 
 | Prime | Kind discriminator | EC role |

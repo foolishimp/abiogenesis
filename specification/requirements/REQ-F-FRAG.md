@@ -30,8 +30,8 @@ A coarse edge can be replaced by a richer subgraph while preserving the outer co
 - AC-1: `zoom(edge, fragment)` replaces the edge with the fragment's internal structure
 - AC-2: The fragment's inputs must be compatible with the edge's source assets
 - AC-3: The fragment's outputs must be compatible with the edge's target assets
-- AC-4: Delta on the outer edge is the aggregate delta of the fragment's internal edges
-- AC-5: The zoom operation is recorded in the event stream for provenance
+- AC-4: While zoom is active, the outer edge's convergence is **replaced** by aggregation over the fragment's internal edges. The outer edge's own evaluators are suspended — convergence is determined entirely by the internal edges and their evaluators. `delta(outer_edge)` = aggregate of `delta(internal_edge)` for all internal edges. The outer edge is converged when all internal edges are converged
+- AC-5: The zoom operation is recorded in the event stream as a `zoomed` Tier 2 control event (REQ-F-REFINE-001). The effective graph topology at any event N is derivable by replaying `zoomed` events against the base Package (REQ-F-REFINE-003 AC-3)
 
 ### REQ-F-FRAG-004 — Spawn creates child work_keys; fold-back projects results to parent
 
