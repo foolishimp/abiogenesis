@@ -781,3 +781,70 @@ class TestIterateLeafTaskIntegration:
         assert "fp_dispatched" in event_types
         failed = [e for e in surface.events if e["event_type"] == "leaf_task_failed"][0]
         assert failed["data"]["failure_class"] == "transport_failure"
+
+    def test_iterate_leaf_task_receives_input_data(self, tmp_path):
+        """Leaf task dispatch receives input data from leaf_task_inputs map."""
+        bound = self._make_fp_bound_job(tmp_path)
+        task = LeafTask(
+            name="analyze_spec",
+            input_schema={"type": "object", "required": ["text"]},
+            output_schema={"type": "object"},
+        )
+        received_inputs = []
+
+        def mock_dispatch(t, inp):
+            received_inputs.append(inp)
+            return {"result": "ok"}, None
+
+        surface = iterate(
+            bound,
+            leaf_tasks=[task],
+            on_leaf_dispatch=mock_dispatch,
+            leaf_task_inputs={"analyze_spec": {"text": "hello world"}},
+        )
+        assert len(received_inputs) == 1
+        assert received_inputs[0] == {"text": "hello world"}
+
+    def test_iterate_leaf_task_uses_run_id_not_manifest_id(self, tmp_path):
+        """Leaf task sub-run ID derives from run_id, not manifest_id."""
+        bound = self._make_fp_bound_job(tmp_path)
+        task = LeafTask(
+            name="check_deps",
+            input_schema={"type": "object"},
+            output_schema={"type": "object"},
+        )
+
+        def mock_dispatch(t, inp):
+            return {"ok": True}, None
+
+        surface = iterate(
+            bound,
+            leaf_tasks=[task],
+            on_leaf_dispatch=mock_dispatch,
+            run_id="run-42",
+        )
+        started = [e for e in surface.events if e["event_type"] == "leaf_task_started"][0]
+        assert started["data"]["run_id"] == "run-42/leaf/check_deps"
+        assert started["data"]["parent_run_id"] == "run-42"
+
+    def test_iterate_leaf_task_missing_input_gets_empty_dict(self, tmp_path):
+        """Tasks not in leaf_task_inputs receive empty dict (backward compat)."""
+        bound = self._make_fp_bound_job(tmp_path)
+        task = LeafTask(
+            name="unlisted_task",
+            input_schema={"type": "object"},
+            output_schema={"type": "object"},
+        )
+        received = []
+
+        def mock_dispatch(t, inp):
+            received.append(inp)
+            return {}, None
+
+        surface = iterate(
+            bound,
+            leaf_tasks=[task],
+            on_leaf_dispatch=mock_dispatch,
+            leaf_task_inputs={"other_task": {"data": 1}},
+        )
+        assert received[0] == {}

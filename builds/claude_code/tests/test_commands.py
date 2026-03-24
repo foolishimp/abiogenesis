@@ -655,7 +655,7 @@ class TestFragmentZoomWiring:
 
     def test_re_entry_after_zoom_does_not_re_zoom(self, tmp_path):
         """UC-F3: Second gen_iterate after zoom does NOT re-zoom — children exist.
-        Continues to iterate on the original edge (delta folds to children)."""
+        Iterates a child work_key (not the zoomed parent)."""
         pkg, worker, _, frag = _make_fragment_package()
         stream = workspace_bootstrap(tmp_path)
         features_dir = tmp_path / ".ai-workspace" / "features" / "active"
@@ -668,8 +668,37 @@ class TestFragmentZoomWiring:
         assert result1["status"] == "zoomed"
         spawned_1 = [e for e in stream.all_events() if e["event_type"] == "work_spawned"]
 
-        # Second iteration — should NOT zoom again, proceeds to iterate
+        # Second iteration — should NOT zoom again, iterates a child instead
         result2 = gen_iterate(scope, stream)
         assert result2["status"] != "zoomed"  # iterated or converged
         spawned_2 = [e for e in stream.all_events() if e["event_type"] == "work_spawned"]
         assert len(spawned_2) == len(spawned_1)  # no duplicates
+
+    def test_re_entry_after_zoom_selects_child_work_key(self, tmp_path):
+        """After zoom, re-entry selects a child work_key — not the zoomed parent.
+        This is the core fix for the zoom deadlock: children become executable."""
+        pkg, worker, _, frag = _make_fragment_package()
+        stream = workspace_bootstrap(tmp_path)
+        features_dir = tmp_path / ".ai-workspace" / "features" / "active"
+        features_dir.mkdir(parents=True, exist_ok=True)
+        (features_dir / "REQ-F-001.yml").write_text("satisfies: [REQ-F-001]")
+        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
+
+        # First iteration — zoom
+        result1 = gen_iterate(scope, stream)
+        assert result1["status"] == "zoomed"
+
+        # Collect spawned child keys
+        spawned = [e for e in stream.all_events() if e["event_type"] == "work_spawned"]
+        child_keys = {e["data"]["child_key"] for e in spawned}
+        parent_key = spawned[0]["data"]["parent_key"]
+
+        # Second iteration — must select a child, not the parent
+        result2 = gen_iterate(scope, stream)
+        assert result2["status"] == "iterated"
+        assert "work_key" in result2, "Child iteration must report work_key"
+        assert result2["work_key"] in child_keys, (
+            f"Expected child work_key, got {result2['work_key']!r} "
+            f"(parent={parent_key!r}, children={child_keys})"
+        )
+        assert result2["work_key"] != parent_key

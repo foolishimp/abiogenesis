@@ -401,6 +401,8 @@ def iterate(
     on_fp_dispatch: Optional[Callable[[BoundJob], None]] = None,
     leaf_tasks: Optional[list[LeafTask]] = None,
     on_leaf_dispatch: Optional[Callable[["LeafTask", dict], tuple[dict | None, str | None]]] = None,
+    run_id: Optional[str] = None,
+    leaf_task_inputs: Optional[dict[str, dict]] = None,
 ) -> WorkingSurface:
     """
     The universal HOF. Domain-blind. Job is the parameter.
@@ -416,6 +418,9 @@ def iterate(
         Degenerate case: None or empty → identical to V1 behavior.
     on_leaf_dispatch: callback(task, input_data) → (output, failure_class).
         Caller provides the actual dispatch mechanism. iterate() records events.
+    run_id: parent run_id for leaf task sub-run derivation. Falls back to manifest_id.
+    leaf_task_inputs: mapping of task name → input data dict. Tasks not in the map
+        receive empty dict (backward compat with schema-less tasks).
     """
     surface = WorkingSurface()
     pre = bound_job.precomputed
@@ -446,19 +451,21 @@ def iterate(
     # ADR-027 REQ-F-LEAF-001: Dispatch leaf tasks before main F_P, if provided.
     # Leaf tasks are subordinate — their output feeds the F_P dispatch context.
     if fp_failing and leaf_tasks and on_leaf_dispatch:
-        run_id = bound_job.manifest_id or "unknown"
+        parent_run_id = run_id or bound_job.manifest_id or "unknown"
+        _leaf_inputs = leaf_task_inputs or {}
         for task in leaf_tasks:
-            sub_run_id = f"{run_id}/leaf/{task.name}"
+            sub_run_id = f"{parent_run_id}/leaf/{task.name}"
             surface.events.append({
                 "event_type": "leaf_task_started",
                 "data": {
                     "task": task.name,
                     "run_id": sub_run_id,
-                    "parent_run_id": run_id,
+                    "parent_run_id": parent_run_id,
                     "edge": job.edge.name,
                 },
             })
-            output, failure_class = on_leaf_dispatch(task, {})
+            input_data = _leaf_inputs.get(task.name, {})
+            output, failure_class = on_leaf_dispatch(task, input_data)
             if failure_class is not None:
                 surface.events.append({
                     "event_type": "leaf_task_failed",

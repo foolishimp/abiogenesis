@@ -1,5 +1,4 @@
-# Implements: REQ-L-GTL2-COMPOSE
-# Implements: REQ-L-GTL2-SUBSTITUTE
+# Implements: REQ-L-GTL2-COMPOSE (edge() only; compose/substitute are stubs)
 """
 gtl.algebra — Graph algebra: composition, substitution, DSL sugar.
 

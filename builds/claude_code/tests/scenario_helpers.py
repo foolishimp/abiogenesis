@@ -162,7 +162,7 @@ class RunArchive:
             summary["failing_evaluators"] = [
                 f for g in gaps_data.get("gaps", []) for f in g.get("failing", [])
             ]
-        except (AssertionError, json.JSONDecodeError):
+        except (AssertionError, json.JSONDecodeError, subprocess.TimeoutExpired):
             summary["converged"] = None
             summary["total_delta"] = None
             summary["failing_evaluators"] = []
@@ -268,7 +268,7 @@ def install_sandbox(target: Path, archive: Optional[RunArchive] = None) -> dict:
     """Run gen-install.py into a fresh target directory. Returns installer JSON."""
     result = subprocess.run(
         [sys.executable, str(_INSTALLER), "--target", str(target)],
-        capture_output=True, text=True,
+        capture_output=True, text=True, timeout=60,
     )
     if archive:
         archive.log_subprocess("gen-install.py", result)
@@ -289,13 +289,13 @@ def installed_env(target: Path) -> dict:
 
 def run_genesis(
     target: Path, *args: str, archive: Optional[RunArchive] = None,
-    label: str = "",
+    label: str = "", timeout: int = 60,
 ) -> subprocess.CompletedProcess:
     """Run an installed genesis command as subprocess."""
     result = subprocess.run(
         [sys.executable, "-m", "genesis", *args, "--workspace", str(target)],
         capture_output=True, text=True,
-        env=installed_env(target),
+        env=installed_env(target), timeout=timeout,
     )
     if archive:
         archive.log_subprocess(label or f"genesis {' '.join(args)}", result)
@@ -325,7 +325,7 @@ def emit_event(
          "--data", json.dumps(data),
          "--workspace", str(target)],
         capture_output=True, text=True,
-        env=installed_env(target),
+        env=installed_env(target), timeout=30,
     )
     if archive:
         archive.log_subprocess(f"emit-event {event_type}", result)
@@ -368,7 +368,7 @@ def assess_result(
          "--result", str(result_path),
          "--workspace", str(target)],
         capture_output=True, text=True,
-        env=installed_env(target),
+        env=installed_env(target), timeout=30,
     )
     if archive:
         archive.log_subprocess("assess-result", result)
@@ -413,7 +413,7 @@ def compute_spec_hash(
         """)],
         capture_output=True, text=True,
         cwd=str(target),
-        env=installed_env(target),
+        env=installed_env(target), timeout=30,
     )
     if archive:
         archive.log_subprocess("compute_spec_hash", result)

@@ -377,6 +377,8 @@ class TestSelfHosting:
                       "lineage", "run", "convergence"}
         # Phase 3 interpretation and transport modules
         required |= {"selection", "subwork", "transport", "interpret"}
+        # Phase 4 application surface modules
+        required |= {"services", "cli_adapter", "install", "selfhosting"}
         found = {f.stem for f in genesis_dir.glob("*.py") if f.stem != "__init__"}
         assert required <= found, f"Missing modules: {required - found}"
 

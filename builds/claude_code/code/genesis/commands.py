@@ -356,9 +356,26 @@ def gen_iterate(
     work_keys = _resolve_work_keys(scope, stream)
     work_key_list = work_keys if work_keys else [None]
 
+    # Pre-compute zoom topology from event stream (ADR-025).
+    # zoomed_parents: work_keys that have children from prior zoom — skip in selection.
+    # spawned_children: work_keys that were spawned — don't re-zoom them.
+    all_events_snapshot = stream.all_events()
+    zoomed_parents: set[str] = set()
+    spawned_children: set[str] = set()
+    for e in all_events_snapshot:
+        if e.get("event_type") == "work_spawned":
+            pk = e.get("data", {}).get("parent_key")
+            ck = e.get("data", {}).get("child_key")
+            if pk:
+                zoomed_parents.add(pk)
+            if ck:
+                spawned_children.add(ck)
+
     # Build WorkInstances — the first-class dispatch unit (ADR-024).
     # Select the first unconverged instance in topological order.
     # Uses schedule.delta() for convergence — includes fold-back (REQ-F-FRAG-004).
+    # REQ-F-FRAG-004: zoomed parents are skipped — their children are in
+    # work_key_list and will be selected instead.
     selected_wi: WorkInstance | None = None
     selected_pre = None
     for job in jobs:
@@ -367,6 +384,8 @@ def gen_iterate(
         else:
             spec_hash = job_evaluator_hash(job)
         for wk in work_key_list:
+            if wk is not None and wk in zoomed_parents:
+                continue  # Delegate to children (fold-back)
             d = delta(
                 job, stream, scope.workspace_root,
                 spec_hash, scope.workflow_version,
@@ -400,38 +419,36 @@ def gen_iterate(
     # After zoom, return "zoomed" status — the auto-loop re-enters and the
     # spawned children are picked up by active_work_keys(). The parent's delta
     # folds back to children via _discover_children().
+    # Spawned children are already inside a fragment — don't re-zoom them.
     fragment = find_fragment_for_edge(scope.package, selected_wi.job.edge)
-    if fragment is not None and selected_wi.work_key is not None:
-        # Check if already zoomed (children exist) — skip re-zoom
-        existing_children = _discover_children(
-            stream.all_events(), selected_wi.work_key,
-        )
-        if not existing_children:
-            # First time: zoom, emit provenance, spawn children, return
-            zoom(scope.package, selected_wi.job.edge, fragment)
-            ze = zoom_event(selected_wi.job.edge, fragment)
-            stream.append(ze["event_type"], ze["data"])
+    if (fragment is not None
+            and selected_wi.work_key is not None
+            and selected_wi.work_key not in spawned_children):
+        # First time: zoom, emit provenance, spawn children, return.
+        # Zoomed parents are skipped in the selection loop above, so if we
+        # reach here the work_key has no children yet.
+        zoom(scope.package, selected_wi.job.edge, fragment)
+        ze = zoom_event(selected_wi.job.edge, fragment)
+        stream.append(ze["event_type"], ze["data"])
 
-            for internal_edge in fragment.edges:
-                child_key = spawn(selected_wi.work_key, internal_edge.name)
-                stream.append("work_spawned", {
-                    "parent_key": selected_wi.work_key,
-                    "child_key": child_key,
-                    "fragment": fragment.name,
-                })
-
-            return {
-                "status": "zoomed",
-                "edge": selected_wi.job.edge.name,
+        for internal_edge in fragment.edges:
+            child_key = spawn(selected_wi.work_key, internal_edge.name)
+            stream.append("work_spawned", {
+                "parent_key": selected_wi.work_key,
+                "child_key": child_key,
                 "fragment": fragment.name,
-                "children_spawned": len(fragment.edges),
-                "reason": (
-                    f"Edge {selected_wi.job.edge.name!r} decomposed via "
-                    f"fragment {fragment.name!r}. Re-enter to dispatch children."
-                ),
-            }
-        # else: children already spawned — parent's delta folds to children.
-        # Iteration continues on the original edge; delta() delegates to children.
+            })
+
+        return {
+            "status": "zoomed",
+            "edge": selected_wi.job.edge.name,
+            "fragment": fragment.name,
+            "children_spawned": len(fragment.edges),
+            "reason": (
+                f"Edge {selected_wi.job.edge.name!r} decomposed via "
+                f"fragment {fragment.name!r}. Re-enter to dispatch children."
+            ),
+        }
 
     # Generate run_id for this attempt (REQ-F-WK-002)
     run_id = scope.run_id or str(uuid.uuid4())
@@ -500,7 +517,7 @@ def gen_iterate(
         edge_started_data["work_key"] = selected_wi.work_key
     stream.append("edge_started", edge_started_data)
 
-    surface = iterate(bound, on_fp_dispatch=on_fp_dispatch)
+    surface = iterate(bound, on_fp_dispatch=on_fp_dispatch, run_id=run_id)
 
     # Emit surface events
     for event in surface.events:
