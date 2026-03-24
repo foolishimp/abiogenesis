@@ -2,7 +2,7 @@
 
 **Status**: Accepted
 **Date**: 2026-03-24
-**Implements**: REQ-F-WK-001, REQ-F-WK-002, REQ-F-WK-003
+**Implements**: REQ-F-WK-001, REQ-F-WK-002, REQ-F-WK-003, REQ-F-TRAV-001
 **Derives from**: INT-004 (Recursive Work Identity and Compositional Graphs)
 
 ## Context
@@ -51,7 +51,7 @@ def iterate(job: Job, evaluator_fn, asset_state,
             run_id: str | None = None) -> IterateResult:
 ```
 
-Both parameters are optional. When absent, V1 global behaviour is preserved — this is the degenerate case where work identity is not in use.
+`work_key` and `run_id` are primary structural parameters — not optional annotations. They carry the identity of the work being attempted. The constitutional runtime surface reflects `(job, work_key, run_id)` as the unit of traversal (REQ-F-TRAV-001 AC-5). **Degenerate case:** when absent, a single WorkInstance with `work_key=None` is created per job.
 
 ### EventStream changes
 
@@ -64,7 +64,7 @@ if run_id is not None:
     data.setdefault("run_id", run_id)
 ```
 
-Events without `work_key` remain valid — backwards compatibility with V1 event streams.
+**Degenerate case:** events without `work_key` remain valid — they participate in global (unscoped) queries only.
 
 ### project() overload
 
@@ -76,7 +76,7 @@ project(stream, asset_type, instance_id) -> AssetState
 project(stream, asset_type, work_key) -> AssetState
 ```
 
-When `work_key` is provided, projection filters events to those matching the key. When absent, all events are considered (V1 behaviour).
+When `work_key` is provided, projection filters events to those matching the key. **Degenerate case:** when absent, all events are considered (global projection).
 
 ## Implementation
 
@@ -108,6 +108,7 @@ Ordered by `event_time`. Grouped by `run_id` for per-attempt views.
 ## Consequences
 
 - iterate() gains identity awareness without changing its core loop
-- All existing tests continue to pass (work_key=None is V1)
+- WorkInstance is the end-to-end dispatch unit across command selection, runtime dispatch, and iterate (REQ-F-TRAV-001)
 - Event stream carries richer provenance without schema migration
-- Foundation for ADR-024 (work-scoped convergence) and ADR-025 (fragments)
+- **Degenerate case:** work_key=None preserves global traversal
+- Foundation for ADR-024 (work-scoped convergence), ADR-025 (fragments), ADR-026 (correction law)

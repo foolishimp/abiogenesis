@@ -2,7 +2,7 @@
 
 **Status**: Accepted
 **Date**: 2026-03-24
-**Implements**: REQ-F-WK-004, REQ-F-WK-005
+**Implements**: REQ-F-WK-004, REQ-F-WK-005, REQ-F-TRAV-002, REQ-F-TRAV-003
 **Depends on**: ADR-023 (work_key, run_id)
 **Derives from**: INT-004 (Recursive Work Identity and Compositional Graphs)
 
@@ -29,19 +29,31 @@ When `work_key` is provided:
 
 When `work_key` is absent: global edge convergence (V1 behaviour).
 
-### Work instance generation
+### Single convergence law
 
-The scheduler enumerates active work_keys and pairs them with jobs:
+`schedule.delta()` is the single convergence function — all command paths (`gen_gaps`, `gen_iterate`, `_derive_state`) use it for delta computation (REQ-F-TRAV-002). `bind_fd()` provides evaluator-level pass/fail detail but does not independently compute convergence.
 
 ```python
-def schedule(jobs: list[Job], work_keys: list[str]) -> list[WorkInstance]:
-    instances = []
-    for job in topological_order(jobs):
-        for wk in work_keys:
-            if delta(job, work_key=wk) > 0:
-                instances.append(WorkInstance(job=job, work_key=wk))
-    return instances
+def delta(job: Job, stream: EventStream, workspace_root: Path,
+          spec_hash: str, workflow_version: str, carry_forward: list,
+          *, work_key: str | None = None) -> float:
 ```
+
+`delta()` includes fold-back: when a work_key has spawned children (discovered from `work_spawned` events in the stream), convergence delegates to descendants transparently (REQ-F-TRAV-002 AC-2).
+
+### Work instance generation
+
+All command paths construct `WorkInstance` objects from the (jobs × work_keys) product before any convergence computation (REQ-F-TRAV-001 AC-1):
+
+```python
+instances = [
+    WorkInstance(job=job, work_key=wk)
+    for job in topological_order(jobs)
+    for wk in work_keys
+]
+```
+
+Convergence selection iterates over `WorkInstance` objects, not raw `(job, work_key)` tuples (REQ-F-TRAV-001 AC-2).
 
 `WorkInstance` is a lightweight pairing:
 
@@ -50,7 +62,7 @@ def schedule(jobs: list[Job], work_keys: list[str]) -> list[WorkInstance]:
 class WorkInstance:
     job: Job
     work_key: str
-    run_id: str  # generated at dispatch time
+    run_id: str | None = None  # generated at dispatch time
 ```
 
 ### Work key sources
@@ -98,11 +110,11 @@ Work instances are processed in topological edge order. Within the same edge, wo
 }
 ```
 
-When no work_keys are active, output is V1 format (per-edge only).
+**Degenerate case:** when no work_keys are active, output is per-edge only.
 
-### V1 degenerate case
+### Degenerate case
 
-When `active_work_keys()` returns empty (no feature vectors, or feature vectors without work_key mapping), the scheduler falls back to V1: one work instance per job, no work_key, global delta. All existing behaviour preserved.
+When `active_work_keys()` returns empty, one WorkInstance per job with `work_key=None` is created. Global delta via `schedule.delta()`. All existing behaviour preserved.
 
 ## Implementation
 
@@ -115,11 +127,11 @@ When `active_work_keys()` returns empty (no feature vectors, or feature vectors 
 
 ### schedule.py
 
-New `WorkInstance` dataclass. `schedule()` gains work_key enumeration. `iterate()` receives `work_key` and `run_id` from the `WorkInstance` and threads them through to `EventStream.append()` via ADR-023.
+`WorkInstance` dataclass. `schedule.delta()` is the single convergence function. `iterate()` receives `work_key` and `run_id` from the `WorkInstance` and threads them through to `EventStream.append()` via ADR-023.
 
 ### commands.py
 
-`gen_gaps()` iterates over `(job, work_key)` pairs when work_keys are active. `gen_iterate()` selects the first unconverged `WorkInstance` instead of the first unconverged `Job`.
+All command paths (`gen_gaps`, `gen_iterate`, `_derive_state`) construct `WorkInstance` objects and compute convergence via `schedule.delta()` (REQ-F-TRAV-001, REQ-F-TRAV-002). `bind_fd()` provides evaluator detail for gap reports and F_P manifests but does not independently determine convergence.
 
 ### Evaluator scoping
 
@@ -134,5 +146,5 @@ Global evaluators do not block work-scoped dispatch — if tests_pass is red but
 - Adding a new feature to a converged workspace produces delta > 0 for that feature's work_key
 - gen-gaps reports per-feature convergence, not just per-edge
 - The auto-loop processes work instances in dependency order
-- V1 behaviour is the degenerate case — no migration required
-- Foundation for ADR-025 (spawn creates child work_keys)
+- **Degenerate case:** work_key absent preserves global traversal — no migration required
+- Foundation for ADR-025 (spawn creates child work_keys), ADR-026 (correction law)

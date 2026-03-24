@@ -2,7 +2,7 @@
 
 **Status**: Accepted
 **Date**: 2026-03-24
-**Implements**: REQ-F-FRAG-001, REQ-F-FRAG-002, REQ-F-FRAG-003, REQ-F-FRAG-004
+**Implements**: REQ-F-FRAG-001, REQ-F-FRAG-002, REQ-F-FRAG-003, REQ-F-FRAG-004, REQ-F-COMP-001, REQ-F-COMP-002, REQ-F-COMP-003, REQ-F-REFINE-001, REQ-F-REFINE-002, REQ-F-REFINE-003
 **Depends on**: ADR-023 (work_key), ADR-024 (work-scoped convergence)
 **Derives from**: INT-004 (Recursive Work Identity and Compositional Graphs)
 
@@ -76,7 +76,38 @@ Postconditions:
 
 **Delta aggregation**: `delta(zoomed_edge)` is the sum of `delta(internal_edge)` for all internal edges. The outer edge is converged when all internal edges are converged.
 
-**Provenance**: The zoom operation emits a `zoomed` control event (Tier 2) recording the edge, fragment name, and timestamp. This enables reconstruction of the graph topology at any point in the event stream.
+**Provenance**: The zoom operation emits a `zoomed` control event (Tier 2) through the normal event path, recording edge name, fragment name, and internal edge names (REQ-F-REFINE-001). This is automatic — not a caller responsibility. The graph topology at any point in time is reconstructable by replaying `zoomed` events (REQ-F-REFINE-003 AC-3). Zoom operations reference named Fragments with validated interfaces — refinement is structural, not arbitrary graph mutation (REQ-F-REFINE-003 AC-4).
+
+### Named graph functions (REQ-F-COMP-001)
+
+A graph function is a named, reusable, graph-valued function that produces a Fragment when applied:
+
+```python
+def requirements_to_design() -> Fragment:
+    """Graph function: produces the requirements→design subgraph."""
+    return Fragment(
+        name="requirements_to_design",
+        inputs=(requirements_asset,),
+        outputs=(design_asset,),
+        assets=(...),
+        edges=(...),
+    )
+```
+
+Graph functions have stable names and are registered in the Package or a library. The same graph function can be applied at multiple points in a graph, producing distinct Fragment instances with shared structure. Graph functions compose: the output interface of one can feed the input interface of another (REQ-F-COMP-001 AC-4).
+
+### Graph function interfaces (REQ-F-COMP-002)
+
+Every graph function declares typed input/output interfaces validated at composition time:
+
+- **Input interface**: asset types the function requires from the outer graph
+- **Output interface**: asset types the function produces for the outer graph
+- Interface mismatch is a spec-load-time error (REQ-F-COMP-002 AC-4)
+- Two graph functions with compatible interfaces are substitutable (REQ-F-COMP-002 AC-5)
+
+### Fragment libraries (REQ-F-COMP-003)
+
+A collection of Fragments can be defined as a library — a named, versioned set of reusable graph functions. Packages can import Fragments from libraries with composition validation across the import boundary. Fragment libraries follow the same territory rules as other installed assets. **Degenerate case:** Packages with no fragment imports continue to work unchanged.
 
 ### Spawn and fold-back
 
@@ -118,7 +149,7 @@ emit("work_spawned", {
 })
 ```
 
-`work_spawned` is a Tier 2 control event (like `edge_started`). It does not participate in fluent projection but is essential for reconstructing the work decomposition tree.
+`work_spawned` is a Tier 2 control event emitted through the normal event path as part of the spawn operation (REQ-F-REFINE-002). It does not participate in fluent projection but is essential for reconstructing the work decomposition tree. Child lineage is reconstructable entirely from `work_spawned` events in the stream (REQ-F-REFINE-002 AC-3).
 
 ## Implementation
 
@@ -145,9 +176,9 @@ Zoom is applied at bind time, not at spec load. This allows the same Package to 
 
 `parent_converged()` is called by `delta()` when the work_key has children. This makes fold-back transparent to the rest of the engine.
 
-### V1 compatibility
+### Degenerate case
 
-When `Package.fragments` is empty and no zoom operations are applied, the graph is the static V1 topology. All existing behaviour preserved. Fragment composition is additive.
+When `Package.fragments` is empty and no zoom operations are applied, the graph is the static authored topology. All existing behaviour preserved. Fragment composition is additive.
 
 ## Consequences
 
@@ -156,4 +187,4 @@ When `Package.fragments` is empty and no zoom operations are applied, the graph 
 - Recursive decomposition is event-sourced — spawn/fold-back through the stream, not imperative state
 - Reusable patterns (e.g., `code↔tests` co-evolution) can be defined once as Fragments
 - The GSDLC topology redesign (11 assets, 10 edges) can be expressed as Fragment compositions rather than a monolithic Package change
-- V1 is the degenerate case — empty fragments, no zoom, no spawn
+- **Degenerate case:** empty fragments, no zoom, no spawn — static authored graph

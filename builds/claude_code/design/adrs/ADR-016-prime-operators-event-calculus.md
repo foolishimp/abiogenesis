@@ -14,17 +14,19 @@ The engine event schema is grounded in Event Calculus with five prime operators 
 | Operator | `kind` discriminator | EC role |
 |----------|---------------------|---------|
 | `found` | `fd_gap` | `happensAt` only — audit record of F_D observation |
-| `approved` | `fh_review`, `fh_intent` | `initiates operative(edge, wv)` |
-| `assessed` | `fp` (pass/fail), `fh_review` (reject) | `initiates certified(edge, ev, spec_hash, wv)` when `kind: fp, result: pass`; `happensAt` only for `fh_review` rejection |
-| `revoked` | `fh_approval`, `fp_assessment` | `terminates operative(edge, wv)` or `terminates certified(edge, ev, spec_hash, wv)` |
+| `approved` | `fh_review`, `fh_intent` | `initiates operative(edge, work_key, wv)` |
+| `assessed` | `fp` (pass/fail), `fh_review` (reject) | `initiates certified(edge, work_key, ev, spec_hash, wv)` when `kind: fp, result: pass`; `happensAt` only for `fh_review` rejection |
+| `revoked` | `fh_approval`, `fp_assessment` | `terminates operative(edge, work_key, wv)` or `terminates certified(edge, work_key, ev, spec_hash, wv)` |
 | `intent_raised` | (unchanged) | `happensAt` only — homeostasis signal |
 
 ### Two Fluents
 
-| Fluent | Initiated by | Terminated by |
-|--------|-------------|---------------|
-| `operative(edge, wv)` | `approved{kind: fh_review\|fh_intent}` | `revoked{kind: fh_approval}` |
-| `certified(edge, evaluator, spec_hash, wv)` | `assessed{kind: fp, result: pass}` | `revoked{kind: fp_assessment}` or spec_hash mismatch |
+| Fluent | Initiated by | Terminated by | Shadowed by |
+|--------|-------------|---------------|-------------|
+| `operative(edge, work_key, wv)` | `approved{kind: fh_review\|fh_intent}` | `revoked{kind: fh_approval}` | — (not affected by reset) |
+| `certified(edge, work_key, evaluator, spec_hash, wv)` | `assessed{kind: fp, result: pass}` | `revoked{kind: fp_assessment}` or spec_hash mismatch | `reset` boundary (ADR-026) |
+
+`work_key` is included in both fluents (REQ-F-WK-003). **Degenerate case:** when `work_key` is absent, fluents are scoped by `(edge, wv)` alone.
 
 No others. F_D has no fluent — it re-runs its command on every iteration.
 
@@ -41,7 +43,7 @@ No others. F_D has no fluent — it re-runs its command on every iteration.
 | *(new)* | `revoked` | `kind: fh_approval` or `kind: fp_assessment` + scope fields |
 | `intent_raised` | `intent_raised` | unchanged |
 
-Tier 2 events (`edge_started`, `fp_dispatched`, `fh_gate_pending`, `edge_converged`) and Tier 3 events (`genesis_installed`, `bug_fixed`, etc.) are unchanged — they do not participate in EC fluent projection.
+Tier 2 events (`edge_started`, `fp_dispatched`, `fh_gate_pending`, `edge_converged`, `reset`, `work_spawned`, `zoomed`) and Tier 3 events (`genesis_installed`, `bug_fixed`, etc.) do not participate in EC fluent initiation or termination. `reset` is a Tier 2 control event that creates a certification boundary (ADR-026) — it shadows F_P certifications without terminating fluents.
 
 ## Problem
 
@@ -69,8 +71,8 @@ The rename from implementation names to prime operators is a governance choice f
 | Evaluator type | Model | Query |
 |---|---|---|
 | F_D | Live execution | `run_fd_evaluator(ev) → passes` |
-| F_H | Fluent projection | `holdsAt(operative(edge, wv), now)` — implemented in `bind_fh()` |
-| F_P | Fluent projection | `holdsAt(certified(edge, ev, spec_hash, wv), now)` — implemented in `_passes()` |
+| F_H | Fluent projection | `holdsAt(operative(edge, work_key, wv), now)` — implemented in `bind_fh()` |
+| F_P | Fluent projection | `holdsAt(certified(edge, work_key, ev, spec_hash, wv), now)` — projection observes both `revoked` termination and `reset` boundary shadowing (ADR-026) |
 
 ### F_D is Stateless
 
@@ -87,17 +89,19 @@ F_D evaluators re-run their command on every iteration. `found{kind: fd_gap}` is
 `revoked` terminates a **fluent**, not a specific event. Two kinds, symmetric across the two fluents:
 
 ```
-terminates(revoked{kind: fh_approval, edge: E, wv: W}, operative(E, W), T)
-terminates(revoked{kind: fp_assessment, edge: E, wv: W}, certified(E, *, *, W), T)
+terminates(revoked{kind: fh_approval, edge: E, wk: WK, wv: W}, operative(E, WK, W), T)
+terminates(revoked{kind: fp_assessment, edge: E, wk: WK, wv: W}, certified(E, WK, *, *, W), T)
 ```
 
-**`revoked{kind: fh_approval}`** — terminates `operative`. Scope fields: `kind` (required), `edge` (required, exact match or `"*"`), `workflow_version` (scoped), `actor` (required), `reason` (required).
+**`revoked{kind: fh_approval}`** — terminates `operative`. Scope fields: `kind` (required), `edge` (required), `work_key` (when present), `workflow_version` (scoped), `actor` (required), `reason` (required).
 
-Projection: find latest `approved` at T_a; find any `revoked{kind: fh_approval}` at T_r > T_a with matching edge and workflow_version; if found, fluent is terminated.
+Projection: find latest `approved` at T_a; find any `revoked{kind: fh_approval}` at T_r > T_a with matching edge, work_key, and workflow_version; if found, fluent is terminated.
 
-**`revoked{kind: fp_assessment}`** — terminates `certified`. Same scope fields. Projection: find latest `assessed{kind: fp, result: pass}` at T_a for the evaluator; find any `revoked{kind: fp_assessment}` at T_r > T_a with matching edge and workflow_version; if found, fluent is terminated.
+**`revoked{kind: fp_assessment}`** — terminates `certified`. Same scope fields. Projection: find latest `assessed{kind: fp, result: pass}` at T_a for the evaluator; find any `revoked{kind: fp_assessment}` at T_r > T_a with matching scope; if found, fluent is terminated.
 
-The two revocation kinds are independent — revoking `fh_approval` does not affect `certified`, and vice versa. A wildcard `edge: "*"` terminates the target fluent for all edges under the matching workflow_version.
+The two revocation kinds are independent — revoking `fh_approval` does not affect `certified`, and vice versa.
+
+**Legacy replay shim (superseded):** Wildcard `edge: "*"` was the V1 mechanism for broad revocation. Retained only for replaying existing event streams — not available for new work. V2 uses lineage-scoped compensation (ADR-026, REQ-F-CORRECT-001) or reset boundaries (ADR-026, REQ-F-CORRECT-002).
 
 Re-approval/re-assessment after revocation: a later initiating event updates T_a, so the earlier revocation no longer postdates it.
 
@@ -137,5 +141,5 @@ Clean-start epoch cutover per workspace:
 | Tier | Events | EC participation |
 |------|--------|-----------------|
 | 1 — Primes | `found`, `approved`, `assessed`, `revoked`, `intent_raised` | Fluent projection (or `happensAt` audit) |
-| 2 — Control | `edge_started`, `fp_dispatched`, `fh_gate_pending`, `edge_converged` | Scheduler bookkeeping only |
+| 2 — Control | `edge_started`, `fp_dispatched`, `fh_gate_pending`, `edge_converged`, `reset`, `work_spawned`, `zoomed` | Scheduler bookkeeping / certification boundaries |
 | 3 — Lifecycle | `genesis_installed`, `genesis_sdlc_released`, `bug_fixed`, etc. | Infrastructure only |
