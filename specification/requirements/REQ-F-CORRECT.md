@@ -33,4 +33,4 @@ Both corrective paths must be reconstructable from the event log with clear sema
 - AC-1: Replay of the event stream correctly distinguishes compensation (targeted revocation + corrective work) from reset (scope-wide re-evaluation)
 - AC-2: No corrective operation destroys event history — the log is append-only through all corrections
 - AC-3: The effective convergence state after any sequence of corrections is derivable by replaying the full event stream — no hidden out-of-band state
-- AC-4: V1 compatibility: existing `revoked` events without work_key scoping are interpreted as workspace-scope reset (the V1 degenerate case)
+- AC-4: V1 compatibility: existing `revoked{edge: "*"}` events without work_key scoping are interpreted as workspace-scope reset. Concrete-edge `revoked` events without work_key retain their original V1 edge-scoped revocation meaning — they are not promoted to reset
