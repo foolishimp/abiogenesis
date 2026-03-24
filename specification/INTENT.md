@@ -232,6 +232,9 @@ The outer graph still sees input compatible with `design` and output compatible 
 - `work_key` as immutable hierarchical identity on `iterate()` and all event emission
 - `run_id` as attempt identity for transaction/retry/audit
 - `Fragment` as a GTL type: reusable compositional subgraph with input/output contracts
+- Named graph functions: reusable graph-valued functions with explicit input/output interfaces (e.g., `requirements_to_design()`, `code_to_test_evidence()`)
+- Fragment libraries: ordinary reusable structural assets, catalogued and importable across Packages
+- Composition validation: interface satisfaction, DAG acyclicity, and type compatibility at spec-load time
 - Zoom operation: expand an edge into a Fragment while preserving the outer contract
 - Spawn/fold-back: create child work_keys, project descendant results into parent
 - Event stream carries `work_key` and `run_id` on all events
@@ -243,7 +246,7 @@ The outer graph still sees input compatible with `design` and output compatible 
 - Strong intent engine (dynamic graph realisation from gap analysis) — future; the engine supports the model but the current planner uses a static hand-crafted graph
 - Multi-worker scheduling across work instances — V1 is single worker
 - Package distribution / registry
-- Named compositions beyond Fragment (BROADCAST, FOLD, CONSENSUS, etc. — future)
+- Exotic named compositions (BROADCAST, FOLD, CONSENSUS, etc. — future; graph functions and Fragment libraries are in scope)
 
 ### Success Criteria
 
@@ -254,3 +257,55 @@ The outer graph still sees input compatible with `design` and output compatible 
 5. Events carry `work_key` and `run_id`; `project(stream, asset_type, work_key)` returns work-scoped state
 6. Fold-back: parent work_key convergence is a projection over descendant work_key convergence
 7. The kernel remains small — `iterate()` gains two parameters, not imperative special cases
+
+---
+
+## INT-005 — V2 Kernel Evolution: Run Governance and Leaf Tasks
+
+**Date**: 2026-03-24
+**Status**: Draft
+**Derived from**: Codex strategy `20260324T112920_STRATEGY_recursion-prime-structured-v2-roadmap.md`
+
+### Problem
+
+INT-004 established the structural primitives: work identity, compositional graphs, zoom, spawn, fold-back. But the runtime still lacks two capabilities needed for the system to scale beyond single-shot F_P dispatch:
+
+1. **Run governance is primitive.** Each F_P attempt has only two states: dispatched and assessed. There is no explicit lifecycle model. Transport failures, bad output, and certification failures are not distinguished. No retry semantics. No timeout governance. No pending deduplication beyond a basic fluent check. This means every failure mode is handled ad hoc by the skill/caller rather than constitutionally by the kernel.
+
+2. **No bounded sub-work primitive.** Complex iterate() calls sometimes need narrow helper tasks — structured queries, schema transforms, validation checks — that are smaller than a full F_P dispatch but need more structure than inline code. Without a disciplined leaf-task surface, the engine either over-dispatches (full F_P for trivial work) or under-governs (inline code with no provenance).
+
+### Value Proposition
+
+**Run governance** makes the transport substrate reliable enough for higher-level recursive work. When the system can confidently distinguish "actor crashed" from "actor produced bad code" from "code exists but tests fail," it can make better retry and escalation decisions. This is the foundation for distributed saga-style coordination.
+
+**Leaf tasks** give iterate() a disciplined way to dispatch bounded sub-work without bypassing graph traversal. Schema-driven, toolless by default, explicitly timed, and integrated with run governance. OpenClaw's `llm-task` validates this pattern — structured leaf work within a larger orchestration context.
+
+### Scope
+
+**In scope:**
+- Explicit run lifecycle model: queued → started → dispatched → pending → assessed → converged | failed | timed_out | superseded
+- Failure classification: transport_failure, no_output, bad_output, certification_failure
+- Waiter deduplication: at most one pending dispatch per (work_key, edge)
+- Retry with bounded backoff for transient transport failures
+- Bounded leaf task primitive: schema-driven input/output, explicit timeout, toolless default
+- Leaf task integration with run governance lifecycle
+- Event stream records all lifecycle transitions
+- Corrective operations: compensation (scoped revocation + corrective work) distinguished from administrative reset (scope-wide re-evaluation)
+- Wildcard revocation replaced with work-lineage-scoped correction — event log remains truthful
+
+**Out of scope:**
+- Distributed coordination (saga) — INT-005 makes local law complete; distribution is a separate intent
+- Dynamic graph realisation (intent engine) — INT-004 Phase 6
+- Transport implementation specifics (subprocess, API, MCP) — governed by existing ADR-022
+
+### Success Criteria
+
+1. Every F_P dispatch attempt has a classifiable outcome: success, transport_failure, no_output, bad_output, certification_failure
+2. Transport failures retry automatically up to a configurable bound — no manual re-dispatch for transient errors
+3. Duplicate dispatch on the same (work_key, edge) returns the pending run_id, not a new dispatch
+4. Pending runs time out after a configurable duration — no indefinite wait
+5. A leaf task can be dispatched within iterate() with schema-validated input/output
+6. Leaf task execution is governed by the same run lifecycle as F_P dispatch
+7. All lifecycle transitions are visible in the event stream — the history of any run is reconstructable
+8. Compensation (revocation + corrective work) and reset (scope-wide re-evaluation) are semantically distinct operations in the event stream
+9. No corrective operation destroys event history — the log remains append-only and truthful
