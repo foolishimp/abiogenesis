@@ -1,0 +1,42 @@
+# Implements: REQ-L-GTL2-MODULE
+"""
+gtl.module_model — Publication and import boundary.
+
+Module replaces Package as the named, composable unit of GTL declarations.
+ModuleImport declares cross-module dependencies.
+
+No external dependencies. Dataclasses + stdlib only.
+"""
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+
+from gtl.graph import Graph
+from gtl.operator_model import Operator, Evaluator, Rule
+from gtl.function_model import GraphFunction
+
+
+@dataclass(frozen=True)
+class ModuleImport:
+    """Cross-module import declaration."""
+    source: str              # module name
+    names: tuple[str, ...] = ()  # imported graph function names
+    version: str = ""
+
+
+@dataclass
+class Module:
+    """
+    Publication boundary — the named, composable unit of GTL declarations.
+
+    V2 replacement for Package. Module is a pure declaration boundary;
+    runtime concerns (workers, requirements) belong to ABG.
+    """
+    name: str
+    graphs: tuple[Graph, ...] = ()
+    graph_functions: tuple[GraphFunction, ...] = ()
+    operators: tuple[Operator, ...] = ()
+    evaluators: tuple[Evaluator, ...] = ()
+    rules: tuple[Rule, ...] = ()
+    imports: tuple[ModuleImport, ...] = ()
+    metadata: dict = field(default_factory=dict)
