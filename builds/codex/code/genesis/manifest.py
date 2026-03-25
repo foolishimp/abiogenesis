@@ -6,14 +6,16 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from gtl.core import Evaluator, Job
+from gtl.core import Evaluator
+
+from .runtime_model import ExecutableJob
 
 
 @dataclass(slots=True)
 class PrecomputedManifest:
     """Everything the engine can compute before any F_P dispatch."""
 
-    job: Job
+    executable_job: ExecutableJob
     current_asset: dict
     failing_evaluators: list[Evaluator]
     passing_evaluators: list[Evaluator]
@@ -27,17 +29,20 @@ class PrecomputedManifest:
 
     @property
     def delta(self) -> float:
-        total = len(self.job.evaluators)
+        total = len(self.executable_job.evaluators)
         if total == 0:
             return 0.0
         return len(self.failing_evaluators) / total
 
 
 @dataclass(slots=True)
-class BoundJob:
-    """A job with resolved context and assembled prompt."""
+class PreparedExecution:
+    """Executable job with resolved context and assembled prompt."""
 
-    job: Job
+    executable_job: ExecutableJob
     precomputed: PrecomputedManifest
     prompt: str
     result_path: str = ""
+    worker_id: str | None = None
+    role_id: str | None = None
+    authority_ref: str | None = None

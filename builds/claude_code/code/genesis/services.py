@@ -21,7 +21,7 @@ Three commands as named compositions of core functions. None introduce new
 primitives. See ADR-004 (Scope).
 
   /gen-gaps    = bind_fd over scope → delta_summary fields
-  /gen-iterate = bind one Job → iterate exactly once
+  /gen-iterate = bind one executable job → iterate exactly once
   /gen-start   = derive state → select job → bind → iterate
 """
 from __future__ import annotations
@@ -35,7 +35,7 @@ from typing import Callable, Optional
 
 from gtl.module_model import Module
 
-from .binding import Job, Worker, bind_fd, bind_fp, bind_fh, BoundJob, ContextResolver
+from .binding import ExecutableJob, Worker, bind_fd, bind_fp, bind_fh, BoundJob, ContextResolver
 from .convergence import delta
 from .correction import find_latest_reset
 from .events import EventStream
@@ -43,25 +43,46 @@ from .interpret import iterate, apply_selection
 from .selection import enumerate_candidates, SelectionDecision
 from .lineage import WorkInstance, _discover_children, active_work_keys, spawn
 from .projection import project
-from .provenance import req_hash, job_evaluator_hash, _read_workflow_version
+from .provenance import req_hash, executable_job_hash, job_evaluator_hash, _read_workflow_version
 from .run import find_pending_run
 
 
-# ── module_to_jobs — native V2 job construction ──────────────────────────────
+# ── module_to_executable_jobs — GTL Job → ExecutableJob resolution ────────────
 
-def module_to_jobs(module: Module) -> list[Job]:
+def module_to_executable_jobs(module: Module) -> list[ExecutableJob]:
     """
-    Build Jobs directly from Module's GraphVectors.
+    Resolve Module's GTL Jobs to ExecutableJobs.
 
-    No bridge. No Asset/Edge/Package. Each GraphVector with evaluators
-    produces one Job. This is the native V2 execution path.
+    Each Job's ContractRef is resolved to the corresponding GraphVector by id.
+    Module.jobs must be populated — no auto-derivation.
     """
-    jobs: list[Job] = []
+    if not module.jobs:
+        raise ValueError(
+            f"Module {module.name!r} has no explicit jobs. "
+            f"All modules must declare jobs with ContractRef bindings."
+        )
+
+    vec_by_id: dict[str, "GraphVector"] = {}
     for graph in module.graphs:
         for vec in graph.vectors:
-            if vec.evaluators:
-                jobs.append(Job(vector=vec, evaluators=list(vec.evaluators)))
-    return jobs
+            vec_by_id[vec.id] = vec
+
+    executable_jobs: list[ExecutableJob] = []
+    for gtl_job in module.jobs:
+        for ref in gtl_job.contracts:
+            if ref.kind != "graph_vector":
+                raise ValueError(
+                    f"Unsupported contract kind {ref.kind!r} in job {gtl_job.name!r}. "
+                    f"This build supports 'graph_vector' only."
+                )
+            vec = vec_by_id.get(ref.target_id)
+            if vec is None:
+                raise ValueError(
+                    f"ContractRef target_id {ref.target_id!r} in job {gtl_job.name!r} "
+                    f"does not resolve to any GraphVector in the module."
+                )
+            executable_jobs.append(ExecutableJob(job=gtl_job, vector=vec))
+    return executable_jobs
 
 
 # ── Workflow provenance helpers ───────────────────────────────────────────────
@@ -111,8 +132,8 @@ class Scope:
     Ambiguous scope fails closed — the command returns an error describing the
     available scopes rather than guessing. See ADR-004.
 
-    module: V2 Module — the authoritative entry point. Jobs and Worker are
-        derived directly from Module.graphs[*].vectors via module_to_jobs().
+    module: Module — the authoritative entry point. ExecutableJobs and Worker are
+        derived directly from Module via module_to_executable_jobs().
 
     workflow_version: derived at construction from active-workflow.json.
         "{workflow}@{version}" when file present and valid; "unknown" otherwise.
@@ -122,8 +143,8 @@ class Scope:
     """
     module: Module = None
     workspace_root: Path = field(default_factory=lambda: Path("."))
-    feature: Optional[str] = None     # feature vector ID override (None = all)
-    edge: Optional[str] = None        # edge name override (None = topological)
+    work_key_filter: Optional[str] = None   # work_key scope (CLI --feature normalizes here)
+    edge_filter: Optional[str] = None       # edge name scope (CLI --edge normalizes here)
     build: str = "claude_code"
     worker: Optional[Worker] = None   # explicit worker; None = derived
     active_workflow_path: Optional[str] = None  # runtime contract: path to active-workflow.json
@@ -136,10 +157,12 @@ class Scope:
         if self.module is None:
             raise ValueError("Scope requires a Module.")
 
-        # Native V2: derive Worker from Module's GraphVectors
+        # Derive Worker from Module's jobs/vectors
+        # ADR-030 §5: single-worker build satisfies all declared roles
         if self.worker is None:
-            jobs = module_to_jobs(self.module)
-            self.worker = Worker(id=self.build, can_execute=jobs)
+            jobs = module_to_executable_jobs(self.module)
+            role_ids = tuple(r.id for r in self.module.roles)
+            self.worker = Worker(id=self.build, can_execute=jobs, role_ids=role_ids)
 
         self.workflow_version = _read_workflow_version(
             self.workspace_root, self.active_workflow_path
@@ -158,14 +181,14 @@ def _resolve_work_keys(scope: "Scope",
 
     Priority:
     1. scope.work_key set explicitly (CLI override) → [scope.work_key]
-    2. scope.feature set (feature_id IS work_key) → [scope.feature]
+    2. scope.work_key_filter set (feature_id IS work_key) → [scope.work_key_filter]
     3. Enumerate from active feature vectors + spawned children
     4. Empty list → global scope (no work_key scoping)
     """
     if scope.work_key is not None:
         return [scope.work_key]
-    if scope.feature is not None:
-        return [scope.feature]
+    if scope.work_key_filter is not None:
+        return [scope.work_key_filter]
     return active_work_keys(scope.workspace_root, stream)
 
 
@@ -192,8 +215,7 @@ def gen_gaps(scope: Scope, stream: EventStream) -> dict:
         }
 
     # Pre-compute which (edge, work_key) tuples already have a well-formed certificate.
-    # REQ-F-CMD-004: deduplication keyed on (edge, work_key). When work_key is absent,
-    # falls back to (edge, feature) for fallback compatibility.
+    # REQ-F-CMD-004: deduplication keyed on (edge, work_key).
     # ADR-026: certificates predating the latest applicable reset are stale —
     # they don't satisfy live convergence queries and must be re-earned.
     all_events = stream.all_events()
@@ -201,8 +223,7 @@ def gen_gaps(scope: Scope, stream: EventStream) -> dict:
     for e in all_events:
         if e.get("event_type") == "edge_converged" and e.get("data", {}).get("target"):
             ed = e["data"]
-            # Use work_key if present, else feature (fallback)
-            cert_wk = ed.get("work_key", ed.get("feature"))
+            cert_wk = ed.get("work_key")
             # ADR-026: check if this certificate predates the latest applicable reset
             reset = find_latest_reset(all_events, edge=ed.get("edge"), work_key=ed.get("work_key"))
             if reset and e.get("event_time", "") <= reset.get("event_time", ""):
@@ -255,17 +276,16 @@ def gen_gaps(scope: Scope, stream: EventStream) -> dict:
             # Idempotent: once a well-formed certificate exists in the log,
             # repeated gen_gaps calls over a converged workspace do not append duplicates.
             # ADR-026: uses schedule.delta() for convergence truth, not pre.delta.
-            cert_key = wk if wk is not None else scope.feature
+            cert_key = wk if wk is not None else scope.work_key_filter
             if d == 0.0 and (job.vector.name, cert_key) not in certified_keys:
                 cert: dict = {
                     "edge": job.vector.name,
+                    "vector_id": job.vector.id,
                     "target": job.vector.target.name,
-                    "feature": wk or scope.feature,
+                    "work_key": wk or scope.work_key_filter,
                     "delta": 0,
                     "certified_by": "gen_gaps",
                 }
-                if wk is not None:
-                    cert["work_key"] = wk
                 # ADR-027: run_id is auto-injected by EventStream if stream.run_id
                 # is set. For gen_gaps, run_id may not be set — that's correct:
                 # edge_converged from gen_gaps is a certification, not a run event.
@@ -277,8 +297,8 @@ def gen_gaps(scope: Scope, stream: EventStream) -> dict:
     total_delta = sum(r["delta"] for r in results)
     scope_info: dict = {
         "package": scope.module.name,
-        "feature": scope.feature,
-        "edge": scope.edge,
+        "work_key_filter": scope.work_key_filter,
+        "edge_filter": scope.edge_filter,
         "build": scope.build,
     }
     if work_keys:
@@ -300,7 +320,7 @@ def gen_iterate(
     on_fp_dispatch: Optional[Callable[[BoundJob], None]] = None,
 ) -> dict:
     """
-    /gen-iterate = bind one Job → iterate exactly once.
+    /gen-iterate = bind one executable job → iterate exactly once.
 
     The most important command to keep pure.
     One Job. One Asset. One iterate call.
@@ -343,6 +363,9 @@ def gen_iterate(
     selected_wi: WorkInstance | None = None
     selected_pre = None
     for job in jobs:
+        # ADR-030 §5: conjunctive eligibility — skip jobs this worker cannot realize.
+        if not scope.worker.is_eligible(job):
+            continue
         if scope.workflow_version == "unknown":
             spec_hash = req_hash(scope.module.metadata.get("requirements", []))
         else:
@@ -364,7 +387,7 @@ def gen_iterate(
                     carry_forward=carry_forward,
                     work_key=wk,
                 )
-                selected_wi = WorkInstance(job=job, work_key=wk)
+                selected_wi = WorkInstance(executable_job=job, work_key=wk)
                 selected_pre = pre
                 break
         if selected_wi is not None:
@@ -383,7 +406,7 @@ def gen_iterate(
     # work_key is lineage metadata, not a precondition for lawful application.
     candidates = []
     if scope.module is not None:
-        candidates = enumerate_candidates(scope.module, selected_wi.job.vector.id)
+        candidates = enumerate_candidates(scope.module, selected_wi.executable_job.vector.id)
     if (candidates
             and selected_wi.work_key not in spawned_children):
         # REQ-R-ABG2-SELECTION-APPLICATION-001: enumerate done above.
@@ -391,7 +414,7 @@ def gen_iterate(
         # Single-match auto-select; multi-match would require external input.
         candidate = candidates[0]
         decision = SelectionDecision(
-            contract_id=selected_wi.job.vector.id,
+            contract_id=selected_wi.executable_job.vector.id,
             work_key=selected_wi.work_key or "",
             graph_function=candidate.name,
             selected_by="auto",
@@ -401,7 +424,7 @@ def gen_iterate(
 
         # Delegate to interpret — owns validation, substitute(), event emission.
         sel_result = apply_selection(
-            scope.module, selected_wi.job.vector.id, decision, candidate,
+            scope.module, selected_wi.executable_job.vector.id, decision, candidate,
         )
 
         # Persist substituted topology: rebuild Module with the new graph,
@@ -415,10 +438,34 @@ def gen_iterate(
             sel_result.substituted_graph if g.id == containing_graph_id else g
             for g in scope.module.graphs
         )
+        # Rebuild jobs: keep jobs whose vectors survive; create new jobs
+        # for vectors introduced by the substitution.
+        from gtl.work_model import Job as GtlJob, ContractRef
+        old_vec_ids = {vec.id for g in scope.module.graphs for vec in g.vectors}
+        new_vec_ids = {vec.id for g in updated_graphs for vec in g.vectors}
+        surviving_jobs = tuple(
+            j for j in scope.module.jobs
+            if any(ref.target_id in new_vec_ids for ref in j.contracts)
+        )
+        added_vec_ids = new_vec_ids - old_vec_ids
+        # ADR-030: synthesized jobs inherit the parent job's roles.
+        # The parent is the job that was selected for refinement.
+        parent_roles = selected_wi.executable_job.job.roles
+        new_jobs = tuple(
+            GtlJob(
+                name=vec.name,
+                contracts=(ContractRef(kind="graph_vector", target_id=vec.id),),
+                roles=parent_roles,
+            )
+            for g in updated_graphs for vec in g.vectors
+            if vec.id in added_vec_ids and vec.evaluators
+        )
         updated_module = Module(
             name=scope.module.name,
             graphs=updated_graphs,
             graph_functions=scope.module.graph_functions,
+            jobs=surviving_jobs + new_jobs,
+            roles=scope.module.roles,
             operators=scope.module.operators,
             evaluators=scope.module.evaluators,
             rules=scope.module.rules,
@@ -427,15 +474,16 @@ def gen_iterate(
         )
         scope.module = updated_module
         # Re-derive worker from updated module topology
-        jobs = module_to_jobs(updated_module)
-        scope.worker = Worker(id=scope.build, can_execute=jobs)
+        jobs = module_to_executable_jobs(updated_module)
+        role_ids = tuple(r.id for r in updated_module.roles)
+        scope.worker = Worker(id=scope.build, can_execute=jobs, role_ids=role_ids)
 
         # Emit events from interpret
         for event in sel_result.events:
             stream.append(event["event_type"], event["data"])
 
         # Spawn children from the inner graph vectors
-        contract_edge = selected_wi.job.vector.name
+        contract_edge = selected_wi.executable_job.vector.name
         for vec_name in sel_result.inner_vectors:
             if selected_wi.work_key is not None:
                 child_key = spawn(selected_wi.work_key, vec_name)
@@ -452,11 +500,11 @@ def gen_iterate(
 
         return {
             "status": "selected",
-            "edge": selected_wi.job.vector.name,
+            "edge": selected_wi.executable_job.vector.name,
             "graph_function": sel_result.graph_function,
             "children_spawned": len(sel_result.inner_vectors),
             "reason": (
-                f"Edge {selected_wi.job.vector.name!r} refined via "
+                f"Edge {selected_wi.executable_job.vector.name!r} refined via "
                 f"GraphFunction {sel_result.graph_function!r}. Re-enter to dispatch children."
             ),
         }
@@ -479,7 +527,7 @@ def gen_iterate(
     # found{kind: fd_findings} and fp_dispatched when F_D and F_P are both failing.
 
     ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S")
-    edge_slug = selected_wi.job.vector.name.replace("→", "_").replace("↔", "_")
+    edge_slug = selected_wi.executable_job.vector.name.replace("→", "_").replace("↔", "_")
     manifest_id = f"{edge_slug}_{ts}"
 
     # ADR-027 REQ-F-RUN-003: waiter deduplication — at most one run in
@@ -487,15 +535,15 @@ def gen_iterate(
     # which replays full run lifecycle instead of the manifest_id fluent.
     if fp_failing:
         pending = find_pending_run(
-            stream.all_events(), selected_wi.job.vector.name,
+            stream.all_events(), selected_wi.executable_job.vector.name,
             work_key=selected_wi.work_key,
         )
         if pending is not None:
             return {
                 "status": "pending",
-                "reason": f"F_P dispatch already in flight for edge {selected_wi.job.vector.name!r}",
+                "reason": f"F_P dispatch already in flight for edge {selected_wi.executable_job.vector.name!r}",
                 "pending_run_id": pending.run_id,
-                "edge": selected_wi.job.vector.name,
+                "edge": selected_wi.executable_job.vector.name,
             }
 
     result_path = ""
@@ -504,25 +552,47 @@ def gen_iterate(
         fp_results_dir.mkdir(parents=True, exist_ok=True)
         result_path = str(fp_results_dir / f"{manifest_id}.json")
 
-    # ADR-027 REQ-F-RUN-001: emit run_started lifecycle event.
-    # This marks the beginning of a run attempt in the event stream.
-    run_started_data: dict = {
-        "edge": selected_wi.job.vector.name,
+    # ADR-030 §10: emit run_bound as the authoritative binding event.
+    # run_bound is emitted after worker-role compatibility is validated
+    # and before lifecycle commencement. It is NOT a lifecycle state.
+    run_bound_data: dict = {
+        "edge": selected_wi.executable_job.vector.name,
+        "vector_id": selected_wi.executable_job.vector.id,
         "run_id": run_id,
+        "job_id": selected_wi.executable_job.job.id,
+        "worker_id": scope.worker.id,
+    }
+    if selected_wi.executable_job.job.roles:
+        run_bound_data["role_id"] = selected_wi.executable_job.job.roles[0].id
+    if scope.worker.authority_ref:
+        run_bound_data["authority_ref"] = scope.worker.authority_ref
+    if selected_wi.work_key is not None:
+        run_bound_data["work_key"] = selected_wi.work_key
+    stream.append("run_bound", run_bound_data)
+
+    # ADR-027 REQ-F-RUN-001: emit run_started lifecycle event.
+    # This marks the beginning of execution for an already-bound run.
+    run_started_data: dict = {
+        "edge": selected_wi.executable_job.vector.name,
+        "vector_id": selected_wi.executable_job.vector.id,
+        "run_id": run_id,
+        "job_id": selected_wi.executable_job.job.id,
+        "worker_id": scope.worker.id,
     }
     if selected_wi.work_key is not None:
         run_started_data["work_key"] = selected_wi.work_key
     stream.append("run_started", run_started_data)
 
     # Bind + iterate
-    bound = bind_fp(selected_pre, selected_wi.job, result_path=result_path)
+    bound = bind_fp(selected_pre, selected_wi.executable_job, result_path=result_path)
     bound.manifest_id = manifest_id
     # REQ-F-CORE-001: include target so project() "current" projection can filter
     # edge_started to only the asset type being produced by this edge.
     edge_started_data: dict = {
-        "edge": selected_wi.job.vector.name,
+        "edge": selected_wi.executable_job.vector.name,
+        "vector_id": selected_wi.executable_job.vector.id,
         "build": scope.build,
-        "target": selected_wi.job.vector.target.name,
+        "target": selected_wi.executable_job.vector.target.name,
     }
     if selected_wi.work_key is not None:
         edge_started_data["work_key"] = selected_wi.work_key
@@ -536,10 +606,10 @@ def gen_iterate(
 
     result: dict = {
         "status": "iterated",
-        "edge": selected_wi.job.vector.name,
+        "edge": selected_wi.executable_job.vector.name,
         "delta_before": selected_pre.delta,
         "failing_evaluators": [ev.name for ev in selected_pre.failing_evaluators],
-        "events_emitted": len(surface.events) + 2,  # +2 for run_started + edge_started
+        "events_emitted": len(surface.events) + 3,  # +3 for run_bound + run_started + edge_started
         "prompt_words": len(bound.prompt.split()),
         "surface_artifacts": surface.artifacts,
         "context_consumed": [c.name for c in surface.context_consumed],
@@ -558,7 +628,7 @@ def gen_iterate(
         manifest_file = manifests_dir / f"{manifest_id}.json"
 
         # Source asset(s) — handle product arrows (A × B)
-        src = selected_wi.job.vector.source
+        src = selected_wi.executable_job.vector.source
         if isinstance(src, tuple):
             source_asset = [a.name for a in src]
             source_markov = {a.name: a.markov for a in src}
@@ -568,7 +638,7 @@ def gen_iterate(
 
         # Context references with locator + digest + resolved content
         contexts = []
-        for ctx in selected_wi.job.vector.contexts:
+        for ctx in selected_wi.executable_job.vector.contexts:
             ctx_entry: dict = {
                 "name": ctx.name,
                 "locator": ctx.locator,
@@ -580,11 +650,11 @@ def gen_iterate(
 
         manifest: dict = {
             "manifest_id": manifest_id,
-            "edge": selected_wi.job.vector.name,
+            "edge": selected_wi.executable_job.vector.name,
             "source_asset": source_asset,
-            "target_asset": selected_wi.job.vector.target.name,
+            "target_asset": selected_wi.executable_job.vector.target.name,
             "source_markov": source_markov,
-            "target_markov": selected_wi.job.vector.target.markov,
+            "target_markov": selected_wi.executable_job.vector.target.markov,
             "failing_evaluators": [
                 {"name": ev.name, "regime": ev.regime.__name__,
                  "description": ev.description}
@@ -609,7 +679,7 @@ def gen_iterate(
     # Include F_H gate criteria so skill can evaluate without extra reads.
     if fh_failing:
         result["fh_gate"] = {
-            "edge": selected_wi.job.vector.name,
+            "edge": selected_wi.executable_job.vector.name,
             "evaluators": [ev.name for ev in fh_failing],
             "criteria": [ev.description for ev in fh_failing],
         }
@@ -707,7 +777,7 @@ def _derive_state(scope: Scope, stream: EventStream) -> dict:
 
     # Build WorkInstances — the first-class dispatch unit (ADR-024).
     instances = [
-        WorkInstance(job=job, work_key=wk)
+        WorkInstance(executable_job=job, work_key=wk)
         for job in jobs
         for wk in work_key_list
     ]
@@ -717,9 +787,9 @@ def _derive_state(scope: Scope, stream: EventStream) -> dict:
         if scope.workflow_version == "unknown":
             spec_hash = req_hash(scope.module.metadata.get("requirements", []))
         else:
-            spec_hash = job_evaluator_hash(wi.job)
+            spec_hash = executable_job_hash(wi.executable_job)
         d = delta(
-            wi.job, stream, scope.workspace_root,
+            wi.executable_job, stream, scope.workspace_root,
             spec_hash, scope.workflow_version,
             carry_forward, work_key=wi.work_key,
         )
@@ -762,13 +832,13 @@ def _scoped_jobs(scope: Scope, worker: Worker) -> list[Job]:
     """
     jobs = list(worker.can_execute)
 
-    if scope.feature:
+    if scope.work_key_filter:
         known = _known_feature_ids(scope.workspace_root)
-        if scope.feature not in known:
+        if scope.work_key_filter not in known:
             return []  # fail closed — unknown feature
 
-    if scope.edge:
-        jobs = [j for j in jobs if j.vector.name == scope.edge]
+    if scope.edge_filter:
+        jobs = [j for j in jobs if j.vector.name == scope.edge_filter]
 
     return jobs
 

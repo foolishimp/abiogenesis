@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Date**: 2026-03-25
-**Derives from**: INT-GTL2-001
+**Derives from**: INT-GTL2-001, INT-GTL2-012
 **Supersedes**: (new — retroactive correction to type foundations)
 **Wave**: 0 (foundational — constrains all other language requirements)
 
@@ -26,7 +26,7 @@ GTL types are the objects and morphisms of a workflow category. The same discipl
 
 ## Acceptance Criteria
 
-**REQ-L-GTL2-IDENTITY-001**: Every first-class structural type (`Graph`, `GraphVector`, `Node`, `GraphFunction`) shall carry an opaque identity field (`.id`) that is distinct from its human-readable label (`.name`).
+**REQ-L-GTL2-IDENTITY-001**: Every first-class GTL declaration type (`Graph`, `GraphVector`, `Node`, `GraphFunction`, `Role`, `Job`) shall carry an opaque identity field (`.id`) that is distinct from its human-readable label (`.name`).
 
 **REQ-L-GTL2-IDENTITY-002**: Identity shall be automatically minted at construction. Authors may supply an explicit id but are not required to.
 

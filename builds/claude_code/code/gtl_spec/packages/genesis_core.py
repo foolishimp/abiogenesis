@@ -14,11 +14,12 @@ Built on: imp_codex/code/gtl/core.py v0.3.0
 # V2 structural types
 from gtl.graph import Graph, Node, GraphVector, Context
 from gtl.module_model import Module
+from gtl.work_model import Job, ContractRef, Role
 
 # V2 effect types — native vocabulary
 from gtl.operator_model import (
     Evaluator, Operator, Rule,
-    F_D, F_P, F_H, consensus,
+    F_D, F_P, F_H,
 )
 
 
@@ -76,7 +77,7 @@ human_gate = Operator(
 
 standard_gate = Rule(
     name="standard_gate", kind="gate",
-    config={"approve": consensus(1, 1), "dissent": "recorded"},
+    config={"approve": {"kind": "consensus", "n": 1, "m": 1}, "dissent": "recorded"},
 )
 
 
@@ -124,7 +125,6 @@ eval_sandbox_e2e   = Evaluator("sandbox_e2e",        F_D, "sandbox lifecycle: ge
 
 # ── Graph Vectors (V2 — replace Edges) ───────────────────────────────────────
 # Each vector carries its own operators, evaluators, and contexts.
-# The bridge adapter creates Job/Worker from these automatically.
 
 v_intent_req = GraphVector(
     name="intent→requirements",
@@ -187,11 +187,49 @@ sdlc_graph = Graph(
 )
 
 
+# ── Roles (V2 — semantic capability classes) ─────────────────────────────────
+
+role_constructor = Role(name="constructor", tags=("f_p",))
+
+
+# ── Jobs (V2 — explicit GTL Job per vector) ──────────────────────────────────
+# ADR-030 §3: jobs with F_P evaluators require constructor role;
+# F_H-only or F_D-only jobs explicitly declare roles=().
+
+job_intent_req = Job(
+    name="intent→requirements",
+    contracts=(ContractRef(kind="graph_vector", target_id=v_intent_req.id),),
+    roles=(),  # F_H only
+)
+job_req_feat = Job(
+    name="requirements→feature_decomp",
+    contracts=(ContractRef(kind="graph_vector", target_id=v_req_feat.id),),
+    roles=(),  # F_D + F_H — no construction
+)
+job_feat_design = Job(
+    name="feature_decomp→design",
+    contracts=(ContractRef(kind="graph_vector", target_id=v_feat_design.id),),
+    roles=(role_constructor,),
+)
+job_design_code = Job(
+    name="design→code",
+    contracts=(ContractRef(kind="graph_vector", target_id=v_design_code.id),),
+    roles=(role_constructor,),
+)
+job_tdd = Job(
+    name="code↔unit_tests",
+    contracts=(ContractRef(kind="graph_vector", target_id=v_tdd.id),),
+    roles=(),  # F_D only — no construction
+)
+
+
 # ── Module (V2 — replaces Package) ──────────────────────────────────────────
 
 module = Module(
     name="genesis_v1",
     graphs=(sdlc_graph,),
+    jobs=(job_intent_req, job_req_feat, job_feat_design, job_design_code, job_tdd),
+    roles=(role_constructor,),
     metadata={
         "requirements": [
             # Core engine

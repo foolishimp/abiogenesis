@@ -53,7 +53,8 @@ _PACKAGE = textwrap.dedent('''\
     """Multi-input synthesis: modules and design to code (product arrow)."""
     from gtl.graph import Graph, Node, GraphVector, Context
     from gtl.module_model import Module
-    from gtl.core import Evaluator, Operator, Rule, F_D, F_P, consensus
+    from gtl.work_model import Job, ContractRef
+    from gtl.core import Evaluator, Operator, Rule, F_D, F_P
 
     modules = Node(
         name="modules",
@@ -86,6 +87,7 @@ _PACKAGE = textwrap.dedent('''\
         evaluators=(eval_fd, eval_fp),
         contexts=(ctx_arch,),
     )
+    job = Job(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
     graph = Graph(
         name="modules\\u00d7design\\u2192code",
         inputs=(modules, design), outputs=(code,),
@@ -95,6 +97,7 @@ _PACKAGE = textwrap.dedent('''\
     module = Module(
         name="code_synthesis",
         graphs=(graph,),
+        jobs=(job,),
         metadata={"requirements": ["REQ-CS-001", "REQ-CS-002", "REQ-CS-003"]},
     )
 ''')

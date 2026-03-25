@@ -10,11 +10,11 @@
 | Primitive | What it is |
 |-----------|-----------|
 | **Graph** | Topology of typed nodes with admissible vector transitions |
-| **Iterate** | `iterate(bound_job) → WorkingSurface` — the only operation |
+| **Iterate** | `iterate(bound_job) → WorkSurface` — the only operation |
 | **Evaluators** | Convergence tests: F_D (deterministic), F_P (agent), F_H (human) |
 | **Spec + Context** | Constraint surface — what bounds construction |
 
-GTL types: Module, Graph, Node, GraphVector, Context, Evaluator, Operator, Rule, GraphFunction. Everything else is parameterisation.
+GTL types: Module, Graph, Node, GraphVector, Context, Evaluator, Operator, Rule, GraphFunction, Job, Role, ContractRef. Everything else is parameterisation.
 
 ## Type Surface
 
@@ -24,13 +24,16 @@ GTL types: Module, Graph, Node, GraphVector, Context, Evaluator, Operator, Rule,
 | **Node** | `gtl.graph` | Typed locus with markov conditions |
 | **GraphVector** | `gtl.graph` | Admissible transition between nodes, carries evaluators |
 | **Context** | `gtl.graph` | Externally-located, snapshot-bound constraint dimension |
-| **Module** | `gtl.module_model` | Publication boundary — graphs + functions + metadata |
+| **Module** | `gtl.module_model` | Publication boundary — graphs + functions + jobs + roles + metadata |
 | **GraphFunction** | `gtl.function_model` | Reusable graph template with typed ports |
+| **Job** | `gtl.work_model` | Durable semantic work contract |
+| **Role** | `gtl.work_model` | Semantic capability class for execution/approval |
+| **ContractRef** | `gtl.work_model` | Indirection from Job to a GTL contract (e.g. GraphVector) |
 | **Evaluator** | `gtl.operator_model` | Convergence test (F_D, F_P, or F_H regime) |
 | **Operator** | `gtl.operator_model` | Named capability with regime and binding |
 | **Rule** | `gtl.operator_model` | Declarative constraint with kind + config |
-| **Job** | `genesis.binding` | ABG runtime binding of GraphVector (not a GTL type) |
-| **Worker** | `genesis.binding` | ABG runtime capability model (not a GTL type) |
+| **ExecutableJob** | `genesis.binding` | ABG runtime resolution of a GTL Job to a GraphVector |
+| **Worker** | `genesis.binding` | ABG concrete actor identity with role binding |
 
 ## Evaluators and Escalation
 

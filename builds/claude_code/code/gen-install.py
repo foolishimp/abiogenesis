@@ -34,7 +34,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-VERSION = "1.0.3"
+VERSION = "2.0.0"
 
 # CLAUDE.md markers for idempotent GTL bootloader injection
 _GTL_BOOTLOADER_START = "<!-- GTL_BOOTLOADER_START -->"
@@ -73,6 +73,7 @@ GTL_MODULES = [
     "function_model.py",
     "algebra.py",
     "module_model.py",
+    "work_model.py",
 ]
 
 # GTL bootloader source — injected into CLAUDE.md at install time.

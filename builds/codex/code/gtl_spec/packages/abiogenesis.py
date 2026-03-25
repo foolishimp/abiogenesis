@@ -14,8 +14,6 @@ from gtl.core import (
     Rule,
     Context,
     Evaluator,
-    Job,
-    Worker,
     F_D,
     F_P,
     F_H,
@@ -23,6 +21,8 @@ from gtl.core import (
     OPERATIVE_ON_APPROVED,
     OPERATIVE_ON_APPROVED_NOT_SUPERSEDED,
 )
+from gtl.work_model import ContractRef, Job, Role
+from genesis.runtime_model import ExecutableJob, Worker
 
 
 bootloader = Context(
@@ -277,17 +277,50 @@ eval_coverage_fp = Evaluator(
 )
 
 
-job_intent_req = Job(e_intent_req, [eval_intent_fh])
-job_req_feat = Job(e_req_feat, [eval_req_coverage, eval_decomp_fp, eval_decomp_fh])
-job_feat_design = Job(e_feat_design, [eval_design_fp, eval_design_fh])
-job_design_bootdoc = Job(e_design_bootdoc, [eval_bootdoc_consistency, eval_bootdoc_fp])
-job_design_code = Job(e_design_code, [eval_impl_tags, eval_impl_coverage, eval_code_fp])
-job_tdd = Job(e_tdd, [eval_tests_pass, eval_test_tags, eval_validates_coverage, eval_coverage_fp])
+codex_executor = Role(name="codex_executor", tags=("runtime", "codex"))
 
+job_intent_req = Job(
+    name="intent_to_requirements",
+    contracts=(ContractRef(kind="edge", target_id=e_intent_req.id),),
+    roles=(codex_executor,),
+)
+job_req_feat = Job(
+    name="requirements_to_feature_decomp",
+    contracts=(ContractRef(kind="edge", target_id=e_req_feat.id),),
+    roles=(codex_executor,),
+)
+job_feat_design = Job(
+    name="feature_decomp_to_design",
+    contracts=(ContractRef(kind="edge", target_id=e_feat_design.id),),
+    roles=(codex_executor,),
+)
+job_design_bootdoc = Job(
+    name="design_to_bootloader_doc",
+    contracts=(ContractRef(kind="edge", target_id=e_design_bootdoc.id),),
+    roles=(codex_executor,),
+)
+job_design_code = Job(
+    name="design_to_code",
+    contracts=(ContractRef(kind="edge", target_id=e_design_code.id),),
+    roles=(codex_executor,),
+)
+job_tdd = Job(
+    name="code_to_unit_tests",
+    contracts=(ContractRef(kind="edge", target_id=e_tdd.id),),
+    roles=(codex_executor,),
+)
+
+exec_job_intent_req = ExecutableJob(job=job_intent_req, edge=e_intent_req, evaluators=[eval_intent_fh])
+exec_job_req_feat = ExecutableJob(job=job_req_feat, edge=e_req_feat, evaluators=[eval_req_coverage, eval_decomp_fp, eval_decomp_fh])
+exec_job_feat_design = ExecutableJob(job=job_feat_design, edge=e_feat_design, evaluators=[eval_design_fp, eval_design_fh])
+exec_job_design_bootdoc = ExecutableJob(job=job_design_bootdoc, edge=e_design_bootdoc, evaluators=[eval_bootdoc_consistency, eval_bootdoc_fp])
+exec_job_design_code = ExecutableJob(job=job_design_code, edge=e_design_code, evaluators=[eval_impl_tags, eval_impl_coverage, eval_code_fp])
+exec_job_tdd = ExecutableJob(job=job_tdd, edge=e_tdd, evaluators=[eval_tests_pass, eval_test_tags, eval_validates_coverage, eval_coverage_fp])
 
 worker = Worker(
     id="codex",
-    can_execute=[job_intent_req, job_req_feat, job_feat_design, job_design_bootdoc, job_design_code, job_tdd],
+    can_execute=[exec_job_intent_req, exec_job_req_feat, exec_job_feat_design, exec_job_design_bootdoc, exec_job_design_code, exec_job_tdd],
+    role_ids=(codex_executor.id,),
 )
 
 
@@ -298,6 +331,8 @@ package = Package(
     operators=[codex_agent, human_gate, pytest_op, check_impl_op, check_test_op, check_bootloader_op],
     rules=[standard_gate],
     contexts=[bootloader, this_spec, intent_doc, design_adrs, specification_dir],
+    jobs=[job_intent_req, job_req_feat, job_feat_design, job_design_bootdoc, job_design_code, job_tdd],
+    roles=[codex_executor],
     requirements=[
         "REQ-F-GRAPH-001",
         "REQ-F-GRAPH-002",

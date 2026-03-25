@@ -13,14 +13,14 @@ from typing import Optional
 
 from gtl.operator_model import Evaluator, F_D, F_H, F_P
 
-from .binding import Job, Worker, bind_fh, bind_fp_certified, render_delta, run_fd_evaluator
+from .binding import ExecutableJob, Worker, bind_fh, bind_fp_certified, render_delta, run_fd_evaluator
 from .events import EventStream
 from .lineage import _discover_children
 from .projection import project
 
 
 def delta(
-    job: Job,
+    job: ExecutableJob,
     stream: EventStream,
     workspace_root: Path,
     spec_hash: str | None = None,

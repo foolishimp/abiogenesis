@@ -13,10 +13,11 @@ import subprocess
 import sys
 from pathlib import Path
 
-from gtl.core import Context, Evaluator, F_D, F_H, F_P, Job
+from gtl.core import Context, Evaluator, F_D, F_H, F_P
 
 from .core import ContextResolver, EventStream, project
-from .manifest import BoundJob, PrecomputedManifest
+from .manifest import PrecomputedManifest, PreparedExecution
+from .runtime_model import ExecutableJob
 
 
 def req_hash(requirements: list[str]) -> str:
@@ -24,8 +25,12 @@ def req_hash(requirements: list[str]) -> str:
     return hashlib.sha256(payload).hexdigest()[:16]
 
 
-def job_evaluator_hash(job: Job) -> str:
+def executable_job_hash(job: ExecutableJob) -> str:
     lines = []
+    lines.append(f"job:{job.job.id}")
+    lines.append(f"edge:{job.edge.id}")
+    lines.extend(f"role:{role_id}" for role_id in sorted(job.required_role_ids))
+    lines.extend(f"context:{ctx.digest}" for ctx in sorted(job.edge.context, key=lambda c: c.name))
     for evaluator in job.evaluators:
         line = ":".join(
             [
@@ -76,7 +81,7 @@ def select_relevant_contexts(
 
 
 def bind_fd(
-    job: Job,
+    job: ExecutableJob,
     stream: EventStream,
     resolver: ContextResolver,
     workspace_root: Path,
@@ -126,7 +131,7 @@ def bind_fd(
             resolved[context.name] = f"[context unavailable: {exc}]"
 
     return PrecomputedManifest(
-        job=job,
+        executable_job=job,
         current_asset=current_asset,
         failing_evaluators=failing,
         passing_evaluators=passing,
@@ -136,12 +141,28 @@ def bind_fd(
     )
 
 
-def bind_fp(precomputed: PrecomputedManifest, job: Job, result_path: str = "") -> BoundJob:
+def bind_fp(
+    precomputed: PrecomputedManifest,
+    job: ExecutableJob,
+    result_path: str = "",
+    *,
+    worker_id: str | None = None,
+    role_id: str | None = None,
+    authority_ref: str | None = None,
+) -> PreparedExecution:
     prompt = _render_prompt(precomputed)
-    return BoundJob(job=job, precomputed=precomputed, prompt=prompt, result_path=result_path)
+    return PreparedExecution(
+        executable_job=job,
+        precomputed=precomputed,
+        prompt=prompt,
+        result_path=result_path,
+        worker_id=worker_id,
+        role_id=role_id,
+        authority_ref=authority_ref,
+    )
 
 
-def bind_fh(precomputed: PrecomputedManifest, job: Job) -> dict:
+def bind_fh(precomputed: PrecomputedManifest, job: ExecutableJob) -> dict:
     return {
         "edge": job.edge.name,
         "criteria": [
@@ -172,9 +193,10 @@ def _render_prompt(precomputed: PrecomputedManifest) -> str:
         "OUTPUT CONTRACT",
         json.dumps(
             {
-                "edge": precomputed.job.edge.name,
+                "edge": precomputed.executable_job.edge.name,
+                "job_id": precomputed.executable_job.job.id,
                 "result_path": "write JSON assessment payload",
-                "markov": getattr(precomputed.job.edge.target, "markov", []),
+                "markov": getattr(precomputed.executable_job.edge.target, "markov", []),
             },
             indent=2,
         ),

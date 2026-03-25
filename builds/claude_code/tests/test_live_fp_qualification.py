@@ -74,21 +74,18 @@ skip_no_agent = pytest.mark.skipif(
 
 _UAT_PACKAGE = textwrap.dedent('''\
     """Normative requirements to acceptance test cases."""
-    from gtl.core import (
-        Asset, Context, Edge, Evaluator, Job, Operator,
-        Package, Rule, Worker, F_D, F_P, consensus,
-    )
+    from gtl.graph import Graph, Node, GraphVector, Context
+    from gtl.module_model import Module
+    from gtl.core import Evaluator, Operator, Rule, F_D, F_P
+    from gtl.work_model import Job, ContractRef
 
-    requirements = Asset(
+    requirements = Node(
         name="requirements",
-        id_format="REQ-{SEQ}",
-        markov=["keys_testable", "traceable"],
+        markov=("keys_testable", "traceable"),
     )
-    uat_tests = Asset(
+    uat_tests = Node(
         name="uat_tests",
-        id_format="UAT-{SEQ}",
-        lineage=[requirements],
-        markov=["all_reqs_covered", "steps_executable", "expected_results_defined"],
+        markov=("all_reqs_covered", "steps_executable", "expected_results_defined"),
     )
     ctx_testing = Context(
         name="testing_standards",
@@ -97,26 +94,32 @@ _UAT_PACKAGE = textwrap.dedent('''\
     )
     op_fd = Operator("artifact_check", F_D, "exec://test -f output/uat_tests.md")
     op_fp = Operator("test_agent", F_P, "agent://qa/test_design")
-    edge = Edge(
-        name="requirements\\u2192uat_tests",
-        source=requirements, target=uat_tests,
-        using=[op_fd, op_fp], context=[ctx_testing],
-    )
+
     eval_fd = Evaluator("artifact_exists", F_D,
         "UAT test cases exist at output/uat_tests.md",
         binding="exec://test -f output/uat_tests.md")
     eval_fp = Evaluator("test_coverage", F_P,
         "agent: test cases cover all requirements, steps are executable, expected results defined")
-    job = Job(edge=edge, evaluators=[eval_fd, eval_fp])
-    package = Package(
-        name="uat_design",
-        assets=[requirements, uat_tests], edges=[edge],
-        operators=[op_fd, op_fp],
-        rules=[Rule(name="uat_gate", kind="gate", config={"approve": consensus(1, 1)})],
-        contexts=[ctx_testing],
-        requirements=["REQ-UAT-001", "REQ-UAT-002"],
+
+    vector = GraphVector(
+        name="requirements\\u2192uat_tests",
+        source=requirements, target=uat_tests,
+        operators=(op_fd, op_fp),
+        evaluators=(eval_fd, eval_fp),
+        contexts=(ctx_testing,),
     )
-    worker = Worker(id="test_designer", can_execute=[job])
+    job = Job(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
+    graph = Graph(
+        name="requirements\\u2192uat_tests",
+        inputs=(requirements,), outputs=(uat_tests,),
+        nodes=(requirements, uat_tests), vectors=(vector,),
+    )
+    module = Module(
+        name="uat_design",
+        graphs=(graph,),
+        jobs=(job,),
+        metadata={"requirements": ["REQ-UAT-001", "REQ-UAT-002"]},
+    )
 ''')
 
 
@@ -182,21 +185,18 @@ def _setup_uat_sandbox(target: Path, archive: RunArchive) -> None:
 
 _SCHEMA_PACKAGE = textwrap.dedent('''\
     """Architectural design to structured data schema."""
-    from gtl.core import (
-        Asset, Context, Edge, Evaluator, Job, Operator,
-        Package, Rule, Worker, F_D, F_P, consensus,
-    )
+    from gtl.graph import Graph, Node, GraphVector, Context
+    from gtl.module_model import Module
+    from gtl.core import Evaluator, Operator, Rule, F_D, F_P
+    from gtl.work_model import Job, ContractRef
 
-    design = Asset(
+    design = Node(
         name="design",
-        id_format="DES-{SEQ}",
-        markov=["adrs_recorded", "components_identified", "interfaces_specified"],
+        markov=("adrs_recorded", "components_identified", "interfaces_specified"),
     )
-    data_schema = Asset(
+    data_schema = Node(
         name="data_schema",
-        id_format="SCH-{SEQ}",
-        lineage=[design],
-        markov=["naming_consistent", "constraints_present", "migration_safe"],
+        markov=("naming_consistent", "constraints_present", "migration_safe"),
     )
     ctx_adr = Context(
         name="architecture_decisions",
@@ -210,26 +210,32 @@ _SCHEMA_PACKAGE = textwrap.dedent('''\
     )
     op_fd = Operator("artifact_check", F_D, "exec://test -f output/schema.sql")
     op_fp = Operator("schema_agent", F_P, "agent://data/schema")
-    edge = Edge(
-        name="design\\u2192data_schema",
-        source=design, target=data_schema,
-        using=[op_fd, op_fp], context=[ctx_adr, ctx_naming],
-    )
+
     eval_fd = Evaluator("artifact_exists", F_D,
         "schema artifact exists at output/schema.sql",
         binding="exec://test -f output/schema.sql")
     eval_fp = Evaluator("schema_quality", F_P,
         "agent: schema follows naming conventions, has integrity constraints, is migration-safe")
-    job = Job(edge=edge, evaluators=[eval_fd, eval_fp])
-    package = Package(
-        name="schema_design",
-        assets=[design, data_schema], edges=[edge],
-        operators=[op_fd, op_fp],
-        rules=[Rule(name="schema_gate", kind="gate", config={"approve": consensus(1, 1)})],
-        contexts=[ctx_adr, ctx_naming],
-        requirements=["REQ-DS-001", "REQ-DS-002"],
+
+    vector = GraphVector(
+        name="design\\u2192data_schema",
+        source=design, target=data_schema,
+        operators=(op_fd, op_fp),
+        evaluators=(eval_fd, eval_fp),
+        contexts=(ctx_adr, ctx_naming),
     )
-    worker = Worker(id="schema_designer", can_execute=[job])
+    job = Job(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
+    graph = Graph(
+        name="design\\u2192data_schema",
+        inputs=(design,), outputs=(data_schema,),
+        nodes=(design, data_schema), vectors=(vector,),
+    )
+    module = Module(
+        name="schema_design",
+        graphs=(graph,),
+        jobs=(job,),
+        metadata={"requirements": ["REQ-DS-001", "REQ-DS-002"]},
+    )
 ''')
 
 

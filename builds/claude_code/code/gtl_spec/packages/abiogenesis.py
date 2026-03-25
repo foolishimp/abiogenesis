@@ -20,11 +20,12 @@ and are traced through feature vectors in .ai-workspace/features/.
 # V2 structural types
 from gtl.graph import Graph, Node, GraphVector, Context
 from gtl.module_model import Module
+from gtl.work_model import Job, ContractRef, Role
 
 # V2 effect types — native vocabulary
 from gtl.operator_model import (
     Evaluator, Operator, Rule,
-    F_D, F_P, F_H, consensus,
+    F_D, F_P, F_H,
 )
 
 
@@ -77,7 +78,7 @@ check_bootloader_op = Operator("check_bootloader", F_D, "exec://python -m genesi
 
 standard_gate = Rule(
     name="standard_gate", kind="gate",
-    config={"approve": consensus(1, 1), "dissent": "recorded"},
+    config={"approve": {"kind": "consensus", "n": 1, "m": 1}, "dissent": "recorded"},
 )
 
 
@@ -184,7 +185,6 @@ eval_coverage_fp = Evaluator(
 
 # ── Graph Vectors (V2 — replace Edges) ───────────────────────────────────────
 # Each vector carries its own operators, evaluators, and contexts.
-# The bridge adapter creates Job/Worker from these automatically.
 
 v_intent_req = GraphVector(
     name="intent→requirements",
@@ -256,6 +256,49 @@ sdlc_graph = Graph(
 )
 
 
+# ── Roles (V2 — semantic capability classes) ─────────────────────────────────
+# ADR-030 §3: shipped modules declare explicit Module.roles.
+
+role_constructor = Role(name="constructor", tags=("f_p",))
+
+
+# ── Jobs (V2 — explicit GTL Job per vector) ──────────────────────────────────
+# Each Job binds to its GraphVector via ContractRef. No auto-derivation.
+# ADR-030 §3: jobs with F_P evaluators require constructor role;
+# F_H-only or F_D-only jobs explicitly declare roles=().
+
+job_intent_req = Job(
+    name="intent→requirements",
+    contracts=(ContractRef(kind="graph_vector", target_id=v_intent_req.id),),
+    roles=(),  # F_H only — no construction capability needed
+)
+job_req_feat = Job(
+    name="requirements→feature_decomp",
+    contracts=(ContractRef(kind="graph_vector", target_id=v_req_feat.id),),
+    roles=(role_constructor,),
+)
+job_feat_design = Job(
+    name="feature_decomp→design",
+    contracts=(ContractRef(kind="graph_vector", target_id=v_feat_design.id),),
+    roles=(role_constructor,),
+)
+job_design_bootdoc = Job(
+    name="design→bootloader_doc",
+    contracts=(ContractRef(kind="graph_vector", target_id=v_design_bootdoc.id),),
+    roles=(role_constructor,),
+)
+job_design_code = Job(
+    name="design→code",
+    contracts=(ContractRef(kind="graph_vector", target_id=v_design_code.id),),
+    roles=(role_constructor,),
+)
+job_tdd = Job(
+    name="code↔unit_tests",
+    contracts=(ContractRef(kind="graph_vector", target_id=v_tdd.id),),
+    roles=(role_constructor,),
+)
+
+
 # ── Module (V2 — replaces Package) ──────────────────────────────────────────
 # requirements list is the authoritative REQ key registry for this project.
 # Add keys here as requirements are written; check-req-coverage enforces coverage.
@@ -263,6 +306,8 @@ sdlc_graph = Graph(
 module = Module(
     name="abiogenesis",
     graphs=(sdlc_graph,),
+    jobs=(job_intent_req, job_req_feat, job_feat_design, job_design_bootdoc, job_design_code, job_tdd),
+    roles=(role_constructor,),
     metadata={
         "requirements": [
             # Bootstrap

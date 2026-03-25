@@ -27,7 +27,7 @@ from gtl.function_model import GraphFunction
 from gtl.module_model import Module
 from gtl.algebra import substitute
 
-from .binding import Job, Worker, BoundJob, WorkingSurface
+from .binding import ExecutableJob, Worker, BoundJob, WorkSurface
 from .selection import SelectionDecision, validate_selection
 from .subwork import LeafTask
 
@@ -41,18 +41,18 @@ def iterate(
     on_leaf_dispatch: Optional[Callable[[LeafTask, dict], tuple[dict | None, str | None]]] = None,
     run_id: Optional[str] = None,
     leaf_task_inputs: Optional[dict[str, dict]] = None,
-) -> WorkingSurface:
+) -> WorkSurface:
     """
-    The universal HOF. Domain-blind. Job is the parameter.
+    The universal HOF. Domain-blind. ExecutableJob is the parameter.
 
-    Processes a BoundJob and produces a WorkingSurface.
+    Processes a BoundJob and produces a WorkSurface.
     Does NOT call emit() — the caller (engine) emits from the surface.
     """
-    surface = WorkingSurface()
     pre = bound_job.precomputed
-    job = bound_job.job
+    job = bound_job.executable_job
 
-    surface.context_consumed = list(job.vector.contexts)
+    events: list[dict] = []
+    artifacts: list[str] = []
 
     fd_failing = [ev for ev in pre.failing_evaluators if ev.regime is F_D]
     fp_failing = [ev for ev in pre.failing_evaluators if ev.regime is F_P]
@@ -60,7 +60,7 @@ def iterate(
 
     if fd_failing:
         kind = "fd_findings" if fp_failing else "fd_gap"
-        surface.events.append({
+        events.append({
             "event_type": "found",
             "data": {
                 "kind": kind,
@@ -76,7 +76,7 @@ def iterate(
         _leaf_inputs = leaf_task_inputs or {}
         for task in leaf_tasks:
             sub_run_id = f"{parent_run_id}/leaf/{task.name}"
-            surface.events.append({
+            events.append({
                 "event_type": "leaf_task_started",
                 "data": {
                     "task": task.name,
@@ -88,7 +88,7 @@ def iterate(
             input_data = _leaf_inputs.get(task.name, {})
             output, failure_class = on_leaf_dispatch(task, input_data)
             if failure_class is not None:
-                surface.events.append({
+                events.append({
                     "event_type": "leaf_task_failed",
                     "data": {
                         "task": task.name,
@@ -98,7 +98,7 @@ def iterate(
                     },
                 })
             else:
-                surface.events.append({
+                events.append({
                     "event_type": "leaf_task_completed",
                     "data": {
                         "task": task.name,
@@ -107,30 +107,33 @@ def iterate(
                     },
                 })
                 if output:
-                    surface.artifacts.append(f"leaf:{task.name}")
+                    artifacts.append(f"leaf:{task.name}")
 
     if fp_failing:
         fp_dispatch_data: dict = {
             "edge": job.vector.name,
             "failing_evaluators": [ev.name for ev in fp_failing],
             "prompt_length": len(bound_job.prompt.split()),
+            "job_id": job.job.id,
         }
+        if run_id:
+            fp_dispatch_data["run_id"] = run_id
         if bound_job.manifest_id:
             fp_dispatch_data["manifest_id"] = bound_job.manifest_id
-        surface.events.append({
+        events.append({
             "event_type": "fp_dispatched",
             "data": fp_dispatch_data,
         })
         if bound_job.manifest_id:
             manifests_dir = ".ai-workspace/fp_manifests"
-            surface.artifacts.append(f"{manifests_dir}/{bound_job.manifest_id}.json")
+            artifacts.append(f"{manifests_dir}/{bound_job.manifest_id}.json")
         if bound_job.result_path:
-            surface.artifacts.append(bound_job.result_path)
+            artifacts.append(bound_job.result_path)
         if on_fp_dispatch is not None:
             on_fp_dispatch(bound_job)
 
     if fh_failing and not fd_failing and not fp_failing:
-        surface.events.append({
+        events.append({
             "event_type": "fh_gate_pending",
             "data": {
                 "edge": job.vector.name,
@@ -139,7 +142,11 @@ def iterate(
             },
         })
 
-    return surface
+    return WorkSurface(
+        events=tuple(events),
+        artifacts=tuple(artifacts),
+        context_consumed=tuple(job.vector.contexts),
+    )
 
 
 # ── schedule ──────────────────────────────────────────────────────────────────

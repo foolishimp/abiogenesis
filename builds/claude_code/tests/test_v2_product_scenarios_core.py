@@ -11,7 +11,8 @@ import pytest
 
 from gtl.graph import Graph, Node, GraphVector, Context
 from gtl.module_model import Module
-from gtl.operator_model import Evaluator, Operator, F_D, F_P, F_H, consensus, Rule
+from gtl.operator_model import Evaluator, Operator, F_D, F_P, F_H, Rule
+from gtl.work_model import Job as GtlJob, ContractRef
 
 from genesis.install import workspace_bootstrap
 from genesis.services import Scope, gen_gaps, gen_iterate
@@ -51,9 +52,12 @@ def _make_v2_single_edge_module(workspace_root=None):
         vectors=(vector,),
     )
 
+    job = GtlJob(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
+
     module = Module(
         name="v2_scenario_test",
         graphs=(graph,),
+        jobs=(job,),
     )
 
     return module, eval_tags, eval_fp
@@ -157,7 +161,8 @@ class TestS2FdGapBlocksFalseProgress:
             name="g", inputs=(design,), outputs=(code,),
             nodes=(design, code), vectors=(vector,),
         )
-        module = Module(name="s2_test", graphs=(graph,))
+        job = GtlJob(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
+        module = Module(name="s2_test", graphs=(graph,), jobs=(job,))
 
         stream = workspace_bootstrap(tmp_path)
         scope = Scope(module=module, workspace_root=tmp_path)
@@ -222,7 +227,9 @@ class TestS3MultiEdgeSequentialConvergence:
             nodes=(intent, requirements, code),
             vectors=(v1, v2),
         )
-        return Module(name="s3_test", graphs=(graph,))
+        job1 = GtlJob(name=v1.name, contracts=(ContractRef(kind="graph_vector", target_id=v1.id),))
+        job2 = GtlJob(name=v2.name, contracts=(ContractRef(kind="graph_vector", target_id=v2.id),))
+        return Module(name="s3_test", graphs=(graph,), jobs=(job1, job2,))
 
     def test_initial_gap_spans_both_edges(self, tmp_path):
         """Both edges show positive delta before any work."""
@@ -317,7 +324,8 @@ class TestS4CoEvolveEdge:
             name="tdd", inputs=(code,), outputs=(tests,),
             nodes=(code, tests), vectors=(vector,),
         )
-        module = Module(name="s4_test", graphs=(graph,))
+        job = GtlJob(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
+        module = Module(name="s4_test", graphs=(graph,), jobs=(job,))
 
         # Verify tuple source is preserved
         assert isinstance(vector.source, tuple)
@@ -356,7 +364,7 @@ class TestS5FhGateBlocksThenApprovalConverges:
         approved = Node(name="approved_doc")
 
         eval_fh = Evaluator("sign_off", F_H, "Human approval")
-        gate = Rule(name="standard_gate", kind="gate", config={"approve": consensus(1, 1), "dissent": "recorded"})
+        gate = Rule(name="standard_gate", kind="gate", config={"approve": {"kind": "consensus", "n": 1, "m": 1}, "dissent": "recorded"})
 
         vector = GraphVector(
             name="draft→approved_doc",
@@ -368,7 +376,8 @@ class TestS5FhGateBlocksThenApprovalConverges:
             name="approval", inputs=(draft,), outputs=(approved,),
             nodes=(draft, approved), vectors=(vector,),
         )
-        module = Module(name="s5_test", graphs=(graph,))
+        job = GtlJob(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
+        module = Module(name="s5_test", graphs=(graph,), jobs=(job,))
 
         # Verify rule is carried on the vector
         assert vector.rule is not None
@@ -421,7 +430,8 @@ class TestS6IndependentWorkLines:
             name="g", inputs=(design,), outputs=(code,),
             nodes=(design, code), vectors=(vector,),
         )
-        module = Module(name="s6_test", graphs=(graph,))
+        job = GtlJob(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
+        module = Module(name="s6_test", graphs=(graph,), jobs=(job,))
 
         stream = workspace_bootstrap(tmp_path)
 
@@ -436,7 +446,7 @@ class TestS6IndependentWorkLines:
         )
 
         scope_auth = Scope(
-            module=module, workspace_root=tmp_path, feature="REQ-F-AUTH",
+            module=module, workspace_root=tmp_path, work_key_filter="REQ-F-AUTH",
         )
         spec_hash = req_hash(scope_auth.module.metadata.get("requirements", []))
 
@@ -453,7 +463,7 @@ class TestS6IndependentWorkLines:
 
         # BILLING still open
         scope_billing = Scope(
-            module=module, workspace_root=tmp_path, feature="REQ-F-BILLING",
+            module=module, workspace_root=tmp_path, work_key_filter="REQ-F-BILLING",
         )
         gap_billing = gen_gaps(scope_billing, stream)
         assert gap_billing["total_delta"] > 0
@@ -489,8 +499,10 @@ class TestS7RequirementsPassthrough:
         )
 
         reqs = ["REQ-F-ONE", "REQ-F-TWO", "REQ-F-THREE"]
+        job = GtlJob(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
         module = Module(
             name="s7_test", graphs=(graph,),
+            jobs=(job,),
             metadata={"requirements": reqs},
         )
 
@@ -506,8 +518,10 @@ class TestS7RequirementsPassthrough:
         assert hash_a  # non-empty
 
         # Different requirements → different hash
+        job_b = GtlJob(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
         module_b = Module(
             name="s7_test_b", graphs=(graph,),
+            jobs=(job_b,),
             metadata={"requirements": ["REQ-F-CHANGED"]},
         )
         scope_b = Scope(module=module_b, workspace_root=tmp_path)
@@ -530,8 +544,10 @@ class TestS7RequirementsPassthrough:
             name="g", inputs=(design,), outputs=(code,),
             nodes=(design, code), vectors=(vector,),
         )
+        job = GtlJob(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
         module = Module(
             name="s7_conv", graphs=(graph,),
+            jobs=(job,),
             metadata={"requirements": ["REQ-F-A", "REQ-F-B"]},
         )
 

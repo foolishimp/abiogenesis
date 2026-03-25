@@ -11,7 +11,7 @@ import pytest
 
 from gtl.graph import Graph, Node, GraphVector
 from gtl.module_model import Module
-from genesis.services import module_to_jobs
+from genesis.services import module_to_executable_jobs
 
 
 @pytest.mark.integration
@@ -49,11 +49,11 @@ class TestProjectPackageModule:
 
         assert len(module.metadata["requirements"]) == 17
 
-    def test_module_to_jobs_produces_correct_jobs(self):
-        """module_to_jobs() derives 6 Jobs from 6 vectors with evaluators."""
+    def test_module_to_executable_jobs_produces_correct_jobs(self):
+        """module_to_executable_jobs() derives 6 Jobs from 6 vectors with evaluators."""
         from gtl_spec.packages.project_package import module
 
-        jobs = module_to_jobs(module)
+        jobs = module_to_executable_jobs(module)
         assert len(jobs) == 6
         for job in jobs:
             assert isinstance(job.vector, GraphVector)
@@ -69,10 +69,10 @@ class TestProjectPackageModule:
         assert len(tdd_vec.source) == 2
 
     def test_evaluator_bindings_preserved(self):
-        """Evaluator binding URIs survive module_to_jobs()."""
+        """Evaluator binding URIs survive module_to_executable_jobs()."""
         from gtl_spec.packages.project_package import module
 
-        jobs = module_to_jobs(module)
+        jobs = module_to_executable_jobs(module)
         found = False
         for job in jobs:
             for ev in job.evaluators:
@@ -98,11 +98,11 @@ class TestGenesisCoreModule:
         assert len(module.graphs[0].vectors) == 5
         assert len(module.metadata["requirements"]) == 14
 
-    def test_module_to_jobs(self):
-        """module_to_jobs() derives correct Jobs."""
+    def test_module_to_executable_jobs(self):
+        """module_to_executable_jobs() derives correct Jobs."""
         from gtl_spec.packages.genesis_core import module
 
-        jobs = module_to_jobs(module)
+        jobs = module_to_executable_jobs(module)
         assert len(jobs) == 5
         for job in jobs:
             assert isinstance(job.vector, GraphVector)
@@ -128,11 +128,11 @@ class TestAbiogenesisModule:
         assert len(graph.vectors) == 6
         assert len(module.metadata["requirements"]) == 45
 
-    def test_module_to_jobs(self):
-        """module_to_jobs() derives correct Jobs with bootloader_doc."""
+    def test_module_to_executable_jobs(self):
+        """module_to_executable_jobs() derives correct Jobs with bootloader_doc."""
         from gtl_spec.packages.abiogenesis import module
 
-        jobs = module_to_jobs(module)
+        jobs = module_to_executable_jobs(module)
         assert len(jobs) == 6
         target_names = {j.vector.target.name for j in jobs}
         assert "bootloader_doc" in target_names

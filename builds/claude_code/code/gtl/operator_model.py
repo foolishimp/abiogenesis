@@ -29,25 +29,6 @@ class F_H(Regime):
     """Human — persistent ambiguity, judgment required."""
 
 
-# ── Consensus ─────────────────────────────────────────────────────────────
-
-@dataclass(frozen=True)
-class Consensus:
-    n: int
-    m: int
-
-    def __post_init__(self):
-        if self.n < 1 or self.m < 1 or self.n > self.m:
-            raise ValueError(f"consensus({self.n}/{self.m}): n must be 1..m")
-
-    def __repr__(self):
-        return f"consensus({self.n}/{self.m})"
-
-
-def consensus(n: int, m: int) -> Consensus:
-    return Consensus(n, m)
-
-
 # ── Operator (V2) ────────────────────────────────────────────────────────
 
 @dataclass(frozen=True)

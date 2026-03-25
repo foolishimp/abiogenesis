@@ -3,29 +3,21 @@
 # Implements: REQ-GTL-003
 # Implements: REQ-GTL-004
 """
-GTL constitutional object model — v0.3.0
+GTL constitutional object model for the codex build.
 
 Python library as the authored surface. No custom DSL parser.
 AI assembles packages from this library; humans audit via normalised projections.
 
-v0.3.0 additions (2026-03-15):
-  WorkingSurface, Evaluator, Job, Worker, IterateProtocol — the typed execution model.
-  Job<A,B> is the missing primitive that gives the system worker typing.
-  Worker role = can_execute set — structural, not declarative.
-  IterateProtocol declares the constitutional contract; the engine implements it.
+This module now stays on the GTL side of the split:
 
-v0.2.1 (Codex findings addressed 2026-03-14):
-  1. Context: multi-resolver (git, workspace, event, registry), context_snapshot_id contract
-  2. PackageSnapshot: explicit binding surface added
-  3. Operative: typed, not free string
-  4. Audit surface: topology vs traversal distinction clarified in docstrings
-  5. Mutable defaults: field(default_factory=list) throughout
-
-No external dependencies. Dataclasses + stdlib only.
+- topology and evaluation declarations remain here
+- semantic work declarations are re-exported from `gtl.work_model`
+- executable jobs, workers, and work surfaces live under `genesis.*`
 """
 from __future__ import annotations
 from dataclasses import dataclass, field
-from typing import Callable, Optional, Protocol
+from typing import Optional
+from uuid import uuid4
 
 
 # ── Functor categories ─────────────────────────────────────────────────────
@@ -88,6 +80,10 @@ OPERATIVE_ON_APPROVED_NOT_SUPERSEDED = Operative(approved=True, not_superseded=T
 # Multi-resolver; digest is the constitutional binding; runtime derives context_snapshot_id.
 
 _CONTEXT_SCHEMES = ("git://", "workspace://", "event://", "registry://")
+
+
+def _mint_id(prefix: str) -> str:
+    return f"{prefix}_{uuid4().hex[:12]}"
 
 @dataclass
 class Context:
@@ -164,6 +160,7 @@ class Asset:
     lineage: list[Asset] = field(default_factory=list)
     markov: list[str] = field(default_factory=list)
     operative: Optional[Operative] = None
+    id: str = field(default_factory=lambda: _mint_id("asset"), compare=False)
 
 
 @dataclass
@@ -176,6 +173,7 @@ class Edge:
     rule: Optional[Rule] = None
     context: list[Context] = field(default_factory=list)
     co_evolve: bool = False         # True = both assets mutable in same iterate() call
+    id: str = field(default_factory=lambda: _mint_id("edge"), compare=False)
 
     def __post_init__(self):
         if self.confirm not in ("question", "markov", "hypothesis"):
@@ -186,33 +184,6 @@ class Edge:
             raise ValueError(
                 f"Edge '{self.name}': co_evolve=True requires source to be a list [A, B]"
             )
-
-
-# ── WorkingSurface ─────────────────────────────────────────────────────────
-
-@dataclass
-class WorkingSurface:
-    """
-    Structured side-effect product of every Job execution.
-
-    Two-surface model:
-        events:            control surface — appended to event log, immutable once
-                           written, drives the scheduler.
-        artifacts:         trace surface — evidence file paths. Answers "why did
-                           this converge?" Primary input to Auditor (Scenario 3)
-                           and arbitration comparator (Scenario 2).
-        context_consumed:  provenance — Contexts read during execution.
-                           Enables exact historical replay under the same law.
-
-    is_auditable() invariant: a Job producing no artifacts has no convergence
-    evidence. The richer the surface, the better the arbitration signal.
-    """
-    events: list[dict] = field(default_factory=list)
-    artifacts: list[str] = field(default_factory=list)
-    context_consumed: list[Context] = field(default_factory=list)
-
-    def is_auditable(self) -> bool:
-        return bool(self.artifacts or self.events)
 
 
 # ── Evaluator ──────────────────────────────────────────────────────────────
@@ -227,7 +198,7 @@ class Evaluator:
         F_P — probabilistic: LLM/agent assessment, bounded ambiguity
         F_H — human: judgment gate, persistent ambiguity
 
-    A Job with no Evaluators cannot converge (Bootloader §XVII: evaluators ≠ ∅).
+    An executable job with no Evaluators cannot converge.
     """
     name: str
     category: type   # F_D | F_P | F_H
@@ -239,119 +210,6 @@ class Evaluator:
             raise TypeError(
                 f"Evaluator.category must be F_D, F_P, or F_H, got {self.category!r}"
             )
-
-
-# ── Job ────────────────────────────────────────────────────────────────────
-
-@dataclass
-class Job:
-    """
-    Typed transform — the missing primitive that gives the system worker typing.
-
-    Job<A,B> = execution contract for a graph edge:
-        Asset<A> → (Asset<B>, WorkingSurface)
-
-    The source/target Asset types from the wrapped Edge are the type parameters
-    A and B. The Job type signature IS the worker capability discriminator —
-    a Worker executes this Job iff its signature matches.
-
-    Three scheduling cases derive structurally from Job types:
-        Scenario 1 (multi-stack):  workers have different source/target types → disjoint
-        Scenario 2 (tournament):   workers share the same type → candidate slots differ
-        Scenario 3 (role split):   workers have disjoint target types → all concurrent
-
-    Invariant: evaluators must not be empty (Bootloader §XVII).
-    """
-    edge: Edge
-    evaluators: list[Evaluator] = field(default_factory=list)
-
-    def __post_init__(self):
-        if not self.evaluators:
-            raise ValueError(
-                f"Job '{self.edge.name}': evaluators must not be empty "
-                f"(Bootloader §XVII invariant)"
-            )
-
-    @property
-    def source_type(self) -> Asset | list[Asset]:
-        """Input type A — what this Job reads."""
-        return self.edge.source
-
-    @property
-    def target_type(self) -> Asset:
-        """Output type B — what this Job writes. Uniquely identifies write territory."""
-        return self.edge.target
-
-
-# ── Worker ─────────────────────────────────────────────────────────────────
-
-@dataclass
-class Worker:
-    """
-    Actor defined structurally by its Job type signature.
-
-    Role = can_execute set. No external actor registry or prose write-territory
-    rules needed — the type system enforces capability.
-
-    Scheduling rule:
-        workers with disjoint writable_types run in parallel (safe)
-        workers with overlapping writable_types must serialise (conflict)
-
-    Covers all three scenarios:
-        Scenario 1: different stacks → different target types → no conflict
-        Scenario 2: same Job type → candidate slots separate target types → no conflict
-        Scenario 3: specialised roles → disjoint write sets → all concurrent
-    """
-    id: str
-    can_execute: list[Job] = field(default_factory=list)
-
-    def __post_init__(self):
-        if not self.can_execute:
-            raise ValueError(f"Worker '{self.id}': can_execute must not be empty")
-
-    @property
-    def writable_types(self) -> set[str]:
-        """Target asset type names — this worker's write territory."""
-        return {j.target_type.name for j in self.can_execute}
-
-    @property
-    def readable_types(self) -> set[str]:
-        """Source asset type names — what this worker consumes."""
-        result: set[str] = set()
-        for j in self.can_execute:
-            src = j.source_type
-            if isinstance(src, list):
-                result.update(a.name for a in src)
-            else:
-                result.add(src.name)
-        return result
-
-    def conflicts_with(self, other: Worker) -> bool:
-        """True if serialisation is required — overlapping write territory."""
-        return bool(self.writable_types & other.writable_types)
-
-
-# ── iterate() protocol ─────────────────────────────────────────────────────
-
-class IterateProtocol(Protocol):
-    """
-    Constitutional contract for the universal iteration function.
-
-    GTL declares the signature. The engine (.genesis/) implements it.
-    Job is a parameter — the iterator is domain-blind.
-
-        iterate(job, evaluator_fn, asset) → (Asset<B>, WorkingSurface)
-
-    Loops until evaluator_fn(candidate) is True, accumulating WorkingSurface.
-    The fixed-point combinator over Job × Evaluator.
-    """
-    def __call__(
-        self,
-        job: Job,
-        evaluator_fn: Callable[[Asset], bool],
-        asset: Asset,
-    ) -> tuple[Asset, WorkingSurface]: ...
-
 
 @dataclass
 class Overlay:
@@ -453,6 +311,8 @@ class Package:
     rules: list[Rule] = field(default_factory=list)
     contexts: list[Context] = field(default_factory=list)
     overlays: list[Overlay] = field(default_factory=list)
+    jobs: list["Job"] = field(default_factory=list)
+    roles: list["Role"] = field(default_factory=list)
     requirements: list[str] = field(default_factory=list)
 
     def __post_init__(self):
@@ -575,3 +435,6 @@ class Package:
 
         lines.append("```")
         return "\n".join(lines)
+
+
+from .work_model import Job, Role

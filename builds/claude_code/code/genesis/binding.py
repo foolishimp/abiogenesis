@@ -13,9 +13,9 @@
 # Implements: REQ-F-CORRECT-002
 # Implements: REQ-F-CORRECT-003
 """
-binding — Deterministic precomputation and capability model.
+binding — Executable job resolution, deterministic precomputation, and capability model.
 
-WorkingSurface, Job, Worker, BoundJob, ContextResolver,
+ExecutableJob, WorkSurface, Worker, ContextResolver,
 PrecomputedManifest, bind_fd, bind_fp, bind_fh, bind_fp_certified,
 run_fd_evaluator, select_relevant_contexts, render_delta.
 """
@@ -33,62 +33,68 @@ from typing import Any
 
 from gtl.graph import GraphVector, Node, Context
 from gtl.operator_model import Evaluator, F_D, F_H, F_P
+from gtl.work_model import Job as GtlJob, Role, ContractRef
 
 from .correction import find_latest_reset
 from .events import EventStream
 from .projection import project
 
 
-# ── WorkingSurface ──────────────────────────────────────────────────────────
+# ── WorkSurface ────────────────────────────────────────────────────────────
 
-@dataclass
-class WorkingSurface:
+@dataclass(frozen=True)
+class WorkSurface:
     """
-    Structured side-effect product of every Job execution.
+    Immutable execution dossier — structured side-effect product of execution.
 
     events:            control surface — appended to event log.
     artifacts:         trace surface — evidence file paths.
     context_consumed:  provenance — Contexts read during execution.
     """
-    events: list[dict] = field(default_factory=list)
-    artifacts: list[str] = field(default_factory=list)
-    context_consumed: list[Context] = field(default_factory=list)
+    events: tuple[dict, ...] = ()
+    artifacts: tuple[str, ...] = ()
+    context_consumed: tuple[Context, ...] = ()
 
     def is_auditable(self) -> bool:
         return bool(self.artifacts or self.events)
 
 
-# ── Job ──────────────────────────────────────────────────────────────────────
+# ── ExecutableJob ────────────────────────────────────────────────────────────
 
 @dataclass
-class Job:
+class ExecutableJob:
     """
-    ABG runtime binding of a GraphVector.
+    ABG runtime resolution of a GTL Job to a concrete GraphVector contract.
 
-    Job wraps a V2 GraphVector — the typed transform contract.
-    Source/target are Nodes (V2 loci with markov conditions).
-    The Job type signature is the worker capability discriminator.
+    ExecutableJob wraps a GTL Job and its resolved GraphVector.
+    Source/target are Nodes (typed loci with markov conditions).
+    The type signature is the worker capability discriminator.
 
-    Invariant: evaluators must not be empty (Bootloader §XVII).
+    Invariant: vector.evaluators must not be empty (Bootloader §XVII).
     """
+    job: GtlJob
     vector: GraphVector
-    evaluators: list[Evaluator] = field(default_factory=list)
 
     def __post_init__(self):
-        if not self.evaluators:
+        if not self.vector.evaluators:
             raise ValueError(
-                f"Job '{self.vector.name}': evaluators must not be empty "
+                f"ExecutableJob '{self.vector.name}': evaluators must not be empty "
                 f"(Bootloader §XVII invariant)"
             )
 
     @property
+    def evaluators(self) -> tuple:
+        """Evaluators come from the GraphVector — no duplicate surface."""
+        return self.vector.evaluators
+
+    @property
     def source_type(self) -> Node | tuple[Node, ...]:
-        """Input type — what this Job reads."""
+        """Input type — what this job reads."""
         return self.vector.source
 
     @property
     def target_type(self) -> Node:
-        """Output type — what this Job writes. Uniquely identifies write territory."""
+        """Output type — what this job writes. Uniquely identifies write territory."""
         return self.vector.target
 
 
@@ -97,22 +103,16 @@ class Job:
 @dataclass
 class Worker:
     """
-    Actor defined structurally by its Job type signature.
-
-    Role = can_execute set. No external actor registry or prose write-territory
-    rules needed — the type system enforces capability.
+    Concrete actor identity with executable capability.
 
     Scheduling rule:
         workers with disjoint writable_types run in parallel (safe)
         workers with overlapping writable_types must serialise (conflict)
-
-    Covers all three scenarios:
-        Scenario 1: different stacks → different target types → no conflict
-        Scenario 2: same Job type → candidate slots separate target types → no conflict
-        Scenario 3: specialised roles → disjoint write sets → all concurrent
     """
     id: str
-    can_execute: list[Job] = field(default_factory=list)
+    can_execute: list[ExecutableJob] = field(default_factory=list)
+    role_ids: tuple[str, ...] = ()
+    authority_ref: str | None = None
 
     def __post_init__(self):
         if not self.can_execute:
@@ -138,6 +138,25 @@ class Worker:
     def conflicts_with(self, other: Worker) -> bool:
         """True if serialisation is required — overlapping write territory."""
         return bool(self.writable_types & other.writable_types)
+
+    def is_eligible(self, job: ExecutableJob) -> bool:
+        """
+        ADR-030 §5: conjunctive eligibility.
+
+        A worker may lawfully realize a job only when:
+        1. the ExecutableJob is in can_execute
+        2. the worker satisfies the job's required roles
+        3. authority_ref satisfies external policy (not enforced in this build)
+
+        Returns True if eligible, False otherwise. Fails closed.
+        """
+        if job not in self.can_execute:
+            return False
+        if job.job.roles:
+            required_role_ids = {r.id for r in job.job.roles}
+            if not required_role_ids.issubset(set(self.role_ids)):
+                return False
+        return True
 
 
 # ── ContextResolver ──────────────────────────────────────────────────────────
@@ -235,7 +254,7 @@ class PrecomputedManifest:
 
     passing_evaluators are NEVER included in the F_P prompt.
     """
-    job: Job
+    executable_job: ExecutableJob
     current_asset: dict
     failing_evaluators: list[Evaluator]
     passing_evaluators: list[Evaluator]
@@ -255,8 +274,8 @@ class PrecomputedManifest:
 
 @dataclass
 class BoundJob:
-    """A Job with all Context references resolved."""
-    job: Job
+    """Implementation helper — an executable job with resolved context, ready for F_P dispatch."""
+    executable_job: ExecutableJob
     precomputed: PrecomputedManifest
     prompt: str
     result_path: str = ""
@@ -266,7 +285,7 @@ class BoundJob:
 # ── F_H gate — Event Calculus ────────────────────────────────────────────────
 
 def bind_fh(
-    job: Job,
+    job: ExecutableJob,
     all_events: list[dict],
     current_workflow_version: str = "unknown",
     carry_forward: list[dict] | None = None,
@@ -349,7 +368,7 @@ def bind_fh(
 # ── F_P certification — Event Calculus ───────────────────────────────────────
 
 def bind_fp_certified(
-    job: Job,
+    job: ExecutableJob,
     ev: Evaluator,
     all_events: list[dict],
     spec_hash: str | None = None,
@@ -449,7 +468,7 @@ def run_fd_evaluator(
     if not shell_command:
         return False, {
             "status": "error",
-            "reason": f"F_D evaluator {ev.name!r} has no binding — misconfigured Package",
+            "reason": f"F_D evaluator {ev.name!r} has no binding — misconfigured evaluator",
         }
 
     env = os.environ.copy()
@@ -484,7 +503,7 @@ def run_fd_evaluator(
 # ── bind_fd ───────────────────────────────────────────────────────────────────
 
 def bind_fd(
-    job: Job,
+    job: ExecutableJob,
     stream: EventStream,
     resolver: ContextResolver,
     workspace_root: Path,
@@ -544,7 +563,7 @@ def bind_fd(
     summary = render_delta(fd_results, failing)
 
     return PrecomputedManifest(
-        job=job,
+        executable_job=job,
         current_asset=current,
         failing_evaluators=failing,
         passing_evaluators=passing,
@@ -559,7 +578,7 @@ def bind_fd(
 
 def bind_fp(
     pre: PrecomputedManifest,
-    job: Job,
+    job: ExecutableJob,
     result_path: str = "",
 ) -> BoundJob:
     """
@@ -573,10 +592,10 @@ def bind_fp(
             f"Fix the context locators or provide the missing files before iterating."
         )
     prompt = _assemble_prompt(pre, job, result_path)
-    return BoundJob(job=job, precomputed=pre, prompt=prompt, result_path=result_path)
+    return BoundJob(executable_job=job, precomputed=pre, prompt=prompt, result_path=result_path)
 
 
-def _assemble_prompt(pre: PrecomputedManifest, job: Job, result_path: str = "") -> str:
+def _assemble_prompt(pre: PrecomputedManifest, job: ExecutableJob, result_path: str = "") -> str:
     """Assemble the F_P prompt."""
     sections: list[str] = []
 

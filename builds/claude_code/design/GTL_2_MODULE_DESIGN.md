@@ -1,14 +1,14 @@
 # GTL 2.x / ABG Module Design
 
 **Status**: Accepted
-**Date**: 2026-03-24
-**Purpose**: Translate GTL 2.x constitutional law into concrete module boundaries, detailed domain model, dependency rules, and a current-to-target decomposition plan.
+**Date**: 2026-03-26
+**Purpose**: Translate GTL 2.x constitutional law into concrete module boundaries, detailed domain model, dependency rules, and an implementation-ready module plan for the Claude build.
 
 **Derived from**:
 - [GTL_2_CONSTITUTIONAL_DESIGN.md](../../specification/GTL_2_CONSTITUTIONAL_DESIGN.md)
-- [GTL_2_ABG_CONTRACT.md](../../specification/GTL_2_ABG_CONTRACT.md)
 - [specification/requirements/](../../specification/requirements/)
 - [ADR-022](adrs/ADR-022-subprocess-transport-with-env-sanitization.md)
+- [ADR-030](adrs/ADR-030-job-role-worker-run-binding.md)
 
 ---
 
@@ -23,6 +23,8 @@ It does not create new constitutional law. It answers:
 - what are the detailed types,
 - and how should the current codebase be decomposed?
 
+In this Claude build, the conceptual `abg.*` runtime layer is implemented under the `genesis/*` namespace.
+
 ---
 
 ## 2. Design Rules
@@ -32,9 +34,16 @@ It does not create new constitutional law. It answers:
 3. Product policy and CLI behavior must not leak into GTL core modules.
 4. Transport is replaceable behind an ABG runtime boundary.
 5. `Graph` is public ontology; `GraphVector` is implementation structure.
-6. `Job`, `Worker`, `RunState`, `WorkInstance`, and `LeafTask` are ABG runtime types, not GTL language types.
+6. `Role` and `Job` are GTL declaration types. `Worker`, `ExecutableJob`, `WorkSurface`, `RunState`, and `LeafTask` are ABG runtime types. `WorkInstance` is a helper view over work identity in this build.
 7. Provenance recording is an engine obligation even when the language requires provenance-carrying structure.
 8. Higher-order operations belong to GTL semantics, but their realization belongs to ABG.
+9. `Worker.can_execute` remains the executable capability and scheduling surface in this build; roles are additive, not a replacement.
+10. Evaluator/convergence truth remains on GTL graph contracts. GTL `Job` does not create a second evaluator surface.
+11. If two runtime structures differ only by lifecycle phase, they collapse into one type plus `RunState.state` and immutable `WorkSurface` unless they introduce distinct semantics.
+12. If two public concepts are directly isomorphic, the build keeps one canonical concept and expresses the other as sugar, configuration, or helper structure.
+13. `work_key` is the canonical ABG work identity. `feature` is application-facing sugar over `work_key`.
+14. `vector_id` is the canonical runtime contract handle. `edge` or `vector_name` are readability fields only.
+15. `PrecomputedManifest`, `WorkInstance`, `SelectionResult`, and `AgentResult` are helper shapes unless a requirement explicitly promotes them to public runtime ontology.
 
 ---
 
@@ -45,8 +54,9 @@ It does not create new constitutional law. It answers:
 | Target module | Owns | Primary types / functions | Requirement families |
 | --- | --- | --- | --- |
 | `gtl.graph` | Graph structure | `Graph`, `Node`, `GraphVector`, `Context` | REQ-L-GTL2-GRAPH, REQ-L-GTL2-NODE, REQ-L-GTL2-INTERFACE |
-| `gtl.operator_model` | Effect and convergence declarations | `Operator`, `Evaluator`, `Rule`, `Consensus`, `Regime` (F_D/F_P/F_H) | REQ-L-GTL2-OPERATOR, REQ-L-GTL2-EVALUATOR, REQ-L-GTL2-RULE |
+| `gtl.operator_model` | Effect and convergence declarations | `Operator`, `Evaluator`, `Rule`, `Regime` (F_D/F_P/F_H) | REQ-L-GTL2-OPERATOR, REQ-L-GTL2-EVALUATOR, REQ-L-GTL2-RULE |
 | `gtl.function_model` | Reusable workflow programs | `GraphFunction`, `GraphTemplate` | REQ-L-GTL2-GRAPHFUNCTION |
+| `gtl.work_model` | Semantic work declarations | `ContractRef`, `Role`, `Job` | REQ-L-GTL2-ROLE, REQ-L-GTL2-JOB, REQ-L-GTL2-IDENTITY |
 | `gtl.algebra` | Graph algebra | `compose`, `substitute`, `recurse`, `fan_out`, `fan_in`, `gate`, `promote`, `identity` | REQ-L-GTL2-COMPOSE, REQ-L-GTL2-SUBSTITUTE, REQ-L-GTL2-RECURSE, REQ-L-GTL2-HOF, REQ-L-GTL2-LAWS |
 | `gtl.module_model` | Publication and imports | `Module`, `ModuleImport` | REQ-L-GTL2-MODULE, REQ-L-GTL2-SELECTION-BOUNDARY, REQ-L-GTL2-ENGINE-INDEPENDENCE |
 
@@ -56,15 +66,15 @@ It does not create new constitutional law. It answers:
 | --- | --- | --- | --- |
 | `abg.events` | Append-only event substrate | `EventStream`, `emit()`, event schema helpers | REQ-R-ABG2-EVENTS |
 | `abg.projection` | Pure replay | `project()`, derived truth folds | REQ-R-ABG2-PROJECTION |
-| `abg.binding` | Deterministic precomputation and capability model | `PrecomputedManifest`, `BoundJob`, `Job`, `Worker`, `bind_fd()`, `bind_fp()`, `bind_fh()`, spec hashes | REQ-R-ABG2-INTERPRET, REQ-R-ABG2-PROVENANCE, REQ-R-ABG2-JOB-WORKER |
-| `abg.lineage` | Work identity and parent/child | `WorkInstance`, `spawn()`, `fold_back()`, `_discover_children()`, lineage queries | REQ-R-ABG2-LINEAGE |
+| `abg.binding` | Executable job resolution, deterministic precomputation, worker capability, role binding, immutable execution surfaces | `ExecutableJob`, `WorkSurface`, `Worker`, preparation helpers, `bind_fd()`, `bind_fp()`, `bind_fh()`, executable-job hashes | REQ-R-ABG2-INTERPRET, REQ-R-ABG2-WORKER, REQ-R-ABG2-BINDING, REQ-R-ABG2-PROVENANCE |
+| `abg.lineage` | Work identity and parent/child | `spawn()`, `fold_back()`, `_discover_children()`, lineage queries, work-identity helpers | REQ-R-ABG2-LINEAGE |
 | `abg.run` | Execution attempts | `RunState`, `run_state()`, `find_pending_run()`, `supersede_run()` | REQ-R-ABG2-RUN |
 | `abg.convergence` | Delta and convergence | `delta()`, `parent_converged()`, convergence visibility | REQ-R-ABG2-CONVERGENCE |
 | `abg.selection` | Candidate enumeration and validation | `SelectionDecision`, candidate discovery, selection validation | REQ-R-ABG2-SELECTION-APPLICATION |
-| `abg.provenance` | Spec/workflow/selection provenance | `req_hash()`, `job_evaluator_hash()`, workflow version reads, carry-forward | REQ-R-ABG2-PROVENANCE |
+| `abg.provenance` | Spec/workflow/selection provenance | `req_hash()`, `executable_job_hash()`, workflow version reads, carry-forward | REQ-R-ABG2-PROVENANCE |
 | `abg.correction` | Correction and reset | `find_latest_reset()`, certification shadowing | REQ-R-ABG2-CORRECTION |
 | `abg.subwork` | Bounded sub-work realization | `LeafTask`, `validate_leaf_schema()`, `dispatch_leaf()` | REQ-R-ABG2-LEAFTASK |
-| `abg.transport` | Agent transport surface | `AgentResult`, `AgentTransportError`, `dispatch_agent()`, `classify_failure()` | REQ-R-ABG2-TRANSPORT, ADR-022 |
+| `abg.transport` | Agent transport surface | `AgentTransportError`, `dispatch_agent()`, `classify_failure()`, transport-local result helpers | REQ-R-ABG2-TRANSPORT, ADR-022 |
 | `abg.interpret` | Graph interpretation loop | graph materialization, traversal, next-action, substitution orchestration, event emission for delegated modules | REQ-R-ABG2-INTERPRET, REQ-R-ABG2-SELECTION-APPLICATION (apply + emit) |
 | `abg.selfhosting` | Derived artifact governance | bootloader consistency checks, drift detection | REQ-R-ABG2-SELFHOSTING |
 
@@ -97,7 +107,9 @@ It does not create new constitutional law. It answers:
 class Node(Generic[T]):
     name: str
     schema: type[T] | str    # concrete type or URI; Vector[T] expressed here
+    markov: tuple[str, ...] = ()
     tags: tuple[str, ...] = ()
+    id: str = field(default_factory=_mint_id, compare=False)
 
 @dataclass(frozen=True)
 class GraphVector:
@@ -105,6 +117,7 @@ class GraphVector:
     name: str
     source: Node
     target: Node
+    id: str = field(default_factory=_mint_id, compare=False)
     operators: tuple[Operator, ...] = ()
     evaluators: tuple[Evaluator, ...] = ()
     contexts: tuple[Context, ...] = ()
@@ -125,6 +138,7 @@ class Graph:
     outputs: tuple[Node, ...]
     nodes: tuple[Node, ...]
     vectors: tuple[GraphVector, ...]
+    id: str = field(default_factory=_mint_id, compare=False)
     contexts: tuple[Context, ...] = ()
     rules: tuple[Rule, ...] = ()
     effects: tuple[Regime, ...] = ()
@@ -152,13 +166,9 @@ class Operator:
 class Evaluator:
     name: str
     regime: type[Regime]
+    description: str = ""
     binding: str
     tags: tuple[str, ...] = ()
-
-@dataclass(frozen=True)
-class Consensus:
-    n: int
-    m: int
 
 @dataclass(frozen=True)
 class Rule:
@@ -177,8 +187,33 @@ class GraphFunction:
     inputs: tuple[Node, ...]
     outputs: tuple[Node, ...]
     template: Callable[..., Graph] | str  # callable DSL or serializable graph-template reference
+    id: str = field(default_factory=_mint_id, compare=False)
     effects: tuple[type[Regime], ...] = ()
     tags: tuple[str, ...] = ()
+```
+
+```python
+# gtl.work_model
+
+@dataclass(frozen=True)
+class ContractRef:
+    kind: str                  # current build: "graph_vector"
+    target_id: str
+
+@dataclass(frozen=True)
+class Role:
+    name: str
+    tags: tuple[str, ...] = ()
+    policy_hooks: dict = field(default_factory=dict)
+    id: str = field(default_factory=_mint_id, compare=False)
+
+@dataclass(frozen=True)
+class Job:
+    name: str
+    contracts: tuple[ContractRef, ...]
+    roles: tuple[Role, ...] = ()
+    tags: tuple[str, ...] = ()
+    id: str = field(default_factory=_mint_id, compare=False)
 ```
 
 ```python
@@ -187,7 +222,7 @@ class GraphFunction:
 @dataclass(frozen=True)
 class ModuleImport:
     source: str              # module name
-    names: tuple[str, ...]   # imported graph function names
+    names: tuple[str, ...]   # imported declaration names
     version: str = ""
 
 @dataclass(frozen=True)
@@ -195,6 +230,8 @@ class Module:
     name: str
     graphs: tuple[Graph, ...] = ()
     graph_functions: tuple[GraphFunction, ...] = ()
+    jobs: tuple[Job, ...] = ()
+    roles: tuple[Role, ...] = ()
     operators: tuple[Operator, ...] = ()
     evaluators: tuple[Evaluator, ...] = ()
     rules: tuple[Rule, ...] = ()
@@ -239,8 +276,14 @@ def identity(interface: tuple[Node, ...]) -> GraphFunction:
 
 - `Node[T]` preserves `Generic[T]` parameterization. `Vector[T]` is expressed as `Node[Vector[T]]` via the schema parameter. No separate structural type.
 - `GraphFunction.template` accepts both `Callable[..., Graph]` (Python DSL convenience) and serializable `str` references. The semantic contract is "materializable graph template."
-- `edge()` returns `Graph`, not `Edge`. Edge-as-type is retired from public ontology.
+- `gtl.work_model.Job` is the durable semantic work contract. In this build, `ContractRef(kind=\"graph_vector\")` is the supported steady-state target.
+- Roles are declared on jobs in this build. Direct role attachment on graph contracts is deferred until precedence semantics are ratified.
+- `edge()` returns `Graph`. `GraphVector` remains the internal contract-step record.
 - `GraphVector` is internal — not exported from `gtl.graph.__init__` unless needed by engine internals.
+- `Consensus` is not a GTL type. Consensus thresholds are expressed inline in `Rule.config`.
+- `work_key` is the canonical runtime work identity. `feature` is an application alias over the same identity.
+- `vector_id` is the canonical runtime handle for a contract step. `edge` and `vector_name` are additive readability fields only.
+- `PrecomputedManifest`, `WorkInstance`, `SelectionResult`, and `AgentResult` are helper shapes, not prime public ontology.
 
 ### 4.4 Event delegation pattern
 
@@ -273,7 +316,7 @@ class EventStream:
 # abg.binding
 @dataclass
 class PrecomputedManifest:
-    job: Job
+    executable_job: ExecutableJob
     current_state: dict
     failing_evaluators: list[Evaluator]
     passing_evaluators: list[Evaluator]
@@ -283,17 +326,49 @@ class PrecomputedManifest:
     delta_summary: str
 
 @dataclass
-class BoundJob:
-    job: Job
-    precomputed: PrecomputedManifest
-    prompt: str
-    result_path: str
-    manifest_id: str
+class ExecutableJob:
+    job: gtl.work_model.Job
+    vector: GraphVector
+
+    @property
+    def evaluators(self) -> tuple[Evaluator, ...]:
+        return self.vector.evaluators
+
+    @property
+    def source_type(self) -> Node | tuple[Node, ...]:
+        return self.vector.source
+
+    @property
+    def target_type(self) -> Node:
+        return self.vector.target
+
+@dataclass(frozen=True)
+class WorkSurface:
+    surface_id: str
+    run_id: str | None
+    job_id: str | None
+    worker_id: str | None
+    role_id: str | None
+    stage: str               # prepared|dispatched|pending|assessed|approved|failed|timed_out|superseded
+    context_consumed: tuple[Context, ...] = ()
+    context_emitted: tuple[Context, ...] = ()
+    artifacts: tuple[str, ...] = ()
+    findings: tuple[dict, ...] = ()
+    attestations: tuple[dict, ...] = ()
+    metadata: dict = field(default_factory=dict)
+
+@dataclass
+class Worker:
+    id: str
+    can_execute: list[ExecutableJob]
+    role_ids: tuple[str, ...] = ()
+    authority_ref: str | None = None
 
 # abg.lineage
 @dataclass(frozen=True)
 class WorkInstance:
-    job: Job
+    """Helper view over one work identity before/alongside run realization."""
+    executable_job: ExecutableJob
     work_key: str
     run_id: str
 
@@ -302,7 +377,11 @@ class WorkInstance:
 class RunState:
     work_key: str
     run_id: str
-    contract_id: str
+    job_id: str
+    vector_id: str
+    worker_id: str | None
+    role_id: str | None
+    authority_ref: str | None
     state: str               # queued|started|dispatched|pending|assessed|failed|timed_out|superseded
     failure_class: str
     attempt_number: int
@@ -320,6 +399,7 @@ class LeafTask:
 # abg.transport
 @dataclass
 class AgentResult:
+    """Transport-local helper result — not prime runtime ontology."""
     stdout: str
     stderr: str
     returncode: int
@@ -343,163 +423,82 @@ class SelectionDecision:
 class Scope:
     module_ref: str
     workspace_root: Path
-    feature: str
-    vector_name: str
+    work_key: str
+    vector_id: str
     build: str
     worker_ref: str
     workflow_version: str
-    work_key: str
     run_id: str
 ```
 
-### 5.2 ABG runtime types that move out of GTL
+### 5.2 Canonical ABG runtime types
 
-| Current GTL type | V2 home | Rationale |
+| Runtime type | Module | Rationale |
 | --- | --- | --- |
-| `Job` | `abg.binding` | Runtime scheduling unit, not language type |
-| `Worker` | `abg.binding` | Execution capability model, engine-owned (REQ-R-ABG2-JOB-WORKER) |
-| `WorkingSurface` | `abg.interpret` | Execution trace, not language type |
-| `IterateProtocol` | `abg.interpret` | Engine contract, not language type |
-| `PackageSnapshot` | `abg.provenance` | Runtime binding artifact |
-| `Overlay` | retired | V1 extension mechanism; Module imports replace it |
+| `ExecutableJob` | `abg.binding` | Executable resolution of one GTL job to one graph-vector contract |
+| `Worker` | `abg.binding` | Concrete actor identity with executable capability, role ids, and authority hook |
+| `WorkSurface` | `abg.binding` | Immutable execution dossier, elastic context carrier, and audit surface |
+| `RunState` | `abg.run` | Execution-attempt lifecycle truth |
+| `SelectionDecision` | `abg.selection` | Lawful selection/application decision |
+| `LeafTask` | `abg.subwork` | Bounded delegated sub-work |
+| `Scope` | `abg.services` | Named application/service boundary |
 
-### 5.3 GTL types that are renamed or reinterpreted
+### 5.3 Canonical GTL declaration interpretations
 
-| Current GTL type | V2 type | Module | Change |
+| Concept | GTL surface | Module | Note |
 | --- | --- | --- | --- |
-| `Asset` | `Node` | `gtl.graph` | Reinterpreted as typed graph locus |
-| `Edge` | `GraphVector` | `gtl.graph` (internal) | Demoted from public ontology to implementation record |
-| `Fragment` | retired | — | Transitional abstraction; `Graph` + `substitute()` replaces it |
-| `Package` | `Module` | `gtl.module_model` | Expanded to full publication/import boundary |
-| `Operative` | retired | — | V1 approval vocabulary; `Rule` + `Evaluator` replace it |
+| Structural locus | `Node` | `gtl.graph` | Typed graph-local semantic locus |
+| Minimal contract step | `GraphVector` | `gtl.graph` | Internal adjacency contract; not rival public ontology |
+| Publication boundary | `Module` | `gtl.module_model` | Named, composable declaration boundary |
+| Semantic capability | `Role` | `gtl.work_model` | Language-owned capability class |
+| Semantic work contract | `Job` | `gtl.work_model` | Durable work declaration that binds to GTL contracts |
 
 ---
 
-## 6. Current-to-Target File Decomposition
+## 6. Canonical Claude Build File Ownership
 
-### 6.1 `gtl/core.py` → GTL modules
+### 6.1 GTL language files
 
-| Current definition | Target module | Target type/function |
+| Concrete file | Conceptual module | Owns |
 | --- | --- | --- |
-| `F_D`, `F_P`, `F_H` | `gtl.operator_model` | `Regime` subclasses |
-| `Consensus` | `gtl.operator_model` | `Consensus` |
-| `Operative` | retired | — |
-| `Context` | `gtl.graph` | `Context` |
-| `Rule` | `gtl.operator_model` | `Rule` |
-| `Operator` | `gtl.operator_model` | `Operator` |
-| `Asset` | `gtl.graph` | `Node` (renamed) |
-| `Edge` | `gtl.graph` | `GraphVector` (internal, renamed) |
-| `Evaluator` | `gtl.operator_model` | `Evaluator` |
-| `WorkingSurface` | `abg.interpret` | moved to ABG |
-| `Job` | `abg.binding` | moved to ABG |
-| `Worker` | `abg.binding` | moved to ABG kernel (REQ-R-ABG2-JOB-WORKER) |
-| `IterateProtocol` | `abg.interpret` | moved to ABG |
-| `Fragment` | retired | `Graph` + `substitute()` |
-| `Overlay` | retired | `Module` imports |
-| `PackageSnapshot` | `abg.provenance` | moved to ABG |
-| `Package` | `gtl.module_model` | `Module` (renamed) |
+| `gtl/graph.py` | `gtl.graph` | `Graph`, `Node`, `GraphVector`, `Context` |
+| `gtl/operator_model.py` | `gtl.operator_model` | `Operator`, `Evaluator`, `Rule`, `Regime` |
+| `gtl/function_model.py` | `gtl.function_model` | `GraphFunction`, graph templates |
+| `gtl/work_model.py` | `gtl.work_model` | `ContractRef`, `Role`, `Job` |
+| `gtl/algebra.py` | `gtl.algebra` | compose/substitute/recurse/fan-out/fan-in/gate/promote |
+| `gtl/module_model.py` | `gtl.module_model` | `Module`, `ModuleImport` |
+| `gtl/__init__.py` | public GTL surface | GTL-only exports |
 
-### 6.2 `genesis/core.py` → ABG modules
+### 6.2 ABG kernel files
 
-| Current definition | Target module | Notes |
+| Concrete file | Conceptual module | Owns |
 | --- | --- | --- |
-| `EventStream` | `abg.events` | |
-| `init_stream()` | `abg.events` | |
-| `init_snapshot()` | `abg.provenance` | |
-| `emit()` | `abg.events` | |
-| `project()` | `abg.projection` | |
-| `ContextResolver` | `abg.binding` | Context loading for precomputation |
-| `workspace_bootstrap()` | `abg.install` | |
+| `genesis/binding.py` | `abg.binding` | `ExecutableJob`, `Worker`, `WorkSurface`, `PrecomputedManifest`, precomputation, prompt assembly |
+| `genesis/run.py` | `abg.run` | `RunState`, reducers, pending detection, supersession |
+| `genesis/convergence.py` | `abg.convergence` | delta and parent-convergence truth |
+| `genesis/selection.py` | `abg.selection` | `SelectionDecision`, candidate enumeration, validation |
+| `genesis/provenance.py` | `abg.provenance` | `req_hash()`, `executable_job_hash()`, workflow version reads, carry-forward |
+| `genesis/correction.py` | `abg.correction` | correction and reset helpers |
+| `genesis/subwork.py` | `abg.subwork` | `LeafTask`, schema validation, bounded dispatch |
+| `genesis/fp_dispatch.py` | `abg.transport` | agent dispatch, transport classification, environment sanitization |
+| `genesis/interpret.py` | `abg.interpret` | iterate, schedule, apply-selection, delegated-module event emission |
 
-### 6.3 `genesis/bind.py` → ABG modules
+### 6.3 ABG application and bootstrap files
 
-| Current definition | Target module | Notes |
+| Concrete file | Conceptual module | Owns |
 | --- | --- | --- |
-| `req_hash()` | `abg.provenance` | |
-| `job_evaluator_hash()` | `abg.provenance` | |
-| `find_latest_reset()` | `abg.correction` | |
-| `bind_fh()` | `abg.binding` | |
-| `bind_fp_certified()` | `abg.binding` | |
-| `run_fd_evaluator()` | `abg.binding` | |
-| `bind_fd()` | `abg.binding` | |
-| `bind_fp()` | `abg.binding` | |
-| `_assemble_prompt()` | `abg.binding` | |
-| `select_relevant_contexts()` | `abg.binding` | |
-| `render_delta()` | `abg.convergence` | |
+| `genesis/services.py` | `abg.services` | `Scope`, orchestration, service-level command flows |
+| `genesis/cli_adapter.py` | `abg.cli` | parser, command wiring, traceability command adapters |
+| `genesis/selfhosting.py` | `abg.selfhosting` | bootloader consistency and drift checks |
+| `gen-install.py` | `abg.install` | workspace bootstrap and installer surface |
+| `genesis/__init__.py` | public ABG surface | runtime identity and exported engine surface |
 
-### 6.4 `genesis/schedule.py` → ABG modules
+### 6.4 Authored module and bootloader surfaces
 
-| Current definition | Target module | Notes |
-| --- | --- | --- |
-| `WorkInstance` | `abg.lineage` | |
-| `RunState` | `abg.run` | |
-| `LeafTask` | `abg.subwork` | |
-| `validate_leaf_schema()` | `abg.subwork` | |
-| `run_state()` | `abg.run` | |
-| `find_pending_run()` | `abg.run` | |
-| `supersede_run()` | `abg.run` | |
-| `_discover_children()` | `abg.lineage` | |
-| `delta()` | `abg.convergence` | |
-| `iterate()` | `abg.interpret` | |
-| `schedule()` | `abg.interpret` | |
-| `zoom()` | `abg.interpret` | Applies `substitute()` from `gtl.algebra` |
-| `zoom_event()` | `abg.interpret` | |
-| `find_fragment_for_edge()` | `abg.interpret` | Becomes candidate enumeration |
-| `spawn()` | `abg.lineage` | |
-| `parent_converged()` | `abg.convergence` | |
-
-### 6.5 `genesis/commands.py` → ABG application surface
-
-| Current definition | Target module | Notes |
-| --- | --- | --- |
-| `Scope` | `abg.services` | |
-| `gen_gaps()` | `abg.services` | |
-| `gen_iterate()` | `abg.services` | |
-| `gen_start()` | `abg.services` | |
-| `active_work_keys()` | `abg.lineage` | |
-| `_resolve_work_keys()` | `abg.services` | |
-| `_derive_state()` | `abg.services` | |
-| `_resolve_worker()` | `abg.services` | |
-| `_scoped_jobs()` | `abg.services` | |
-| `_close_completed_features()` | `abg.services` | Product policy |
-| `_known_feature_ids()` | `abg.services` | Product policy |
-| `_read_workflow_version()` | `abg.provenance` | |
-| `_read_carry_forward()` | `abg.provenance` | |
-
-### 6.6 `genesis/fp_dispatch.py` → ABG transport + subwork
-
-| Current definition | Target module | Notes |
-| --- | --- | --- |
-| `AgentTransportError` | `abg.transport` | |
-| `AgentResult` | `abg.transport` | |
-| `has_agent()` | `abg.transport` | |
-| `call_agent()` | `abg.transport` | |
-| `dispatch_agent()` | `abg.transport` | |
-| `classify_failure()` | `abg.transport` | |
-| `dispatch_leaf()` | `abg.subwork` | |
-| `_agent_command()` | `abg.transport` | |
-| `_build_args()` | `abg.transport` | |
-| `_sanitized_env()` | `abg.transport` | |
-| `has_mcp_transport()` | retired | Legacy alias |
-| `call_claude_code_mcp()` | retired | Legacy alias |
-
-### 6.7 `genesis/manifest.py` → ABG binding
-
-| Current definition | Target module | Notes |
-| --- | --- | --- |
-| `PrecomputedManifest` | `abg.binding` | |
-| `BoundJob` | `abg.binding` | |
-
-### 6.8 `genesis/__main__.py` → ABG CLI
-
-| Current definition | Target module | Notes |
-| --- | --- | --- |
-| `_build_parser()` | `abg.cli` | |
-| `_check_tags()` | `abg.cli` | Traceability tooling |
-| `_check_req_coverage()` | `abg.cli` | Traceability tooling |
-| `_check_tag_coverage()` | `abg.cli` | Traceability tooling |
-| `_check_bootloader_consistency()` | `abg.selfhosting` | |
-| `_assess_result_cmd()` | `abg.services` | Event ingestion |
+| Concrete file | Owns |
+| --- | --- |
+| `gtl_spec/packages/*.py` | authored `Module` declarations with explicit graphs, jobs, roles, operators, evaluators, and rules |
+| `gtl_spec/GTL_BOOTLOADER.md` | bootloader-visible V2 type surface and self-hosting expectations |
 
 ---
 
@@ -511,14 +510,15 @@ class Scope:
 gtl.graph           → (stdlib only)
 gtl.operator_model  → (stdlib only)
 gtl.function_model  → gtl.graph, gtl.operator_model
+gtl.work_model      → gtl.graph
 gtl.algebra         → gtl.graph, gtl.operator_model, gtl.function_model
-gtl.module_model    → gtl.graph, gtl.operator_model, gtl.function_model
+gtl.module_model    → gtl.graph, gtl.operator_model, gtl.function_model, gtl.work_model
 
 abg.events          → (stdlib only)
 abg.projection      → abg.events
 abg.provenance      → abg.events
 abg.correction      → abg.events
-abg.binding         → abg.events, abg.projection, abg.provenance, gtl.graph, gtl.operator_model
+abg.binding         → abg.events, abg.projection, abg.provenance, gtl.graph, gtl.operator_model, gtl.work_model
 abg.lineage         → abg.events
 abg.run             → abg.events
 abg.convergence     → abg.events, abg.binding, abg.lineage, abg.run, abg.correction
@@ -550,10 +550,11 @@ abg.install         → abg.events, gtl.module_model
 | GTL graph kernel | REQ-L-GTL2-GRAPH, REQ-L-GTL2-NODE, REQ-L-GTL2-INTERFACE, REQ-L-GTL2-LAWS |
 | GTL control/effect declarations | REQ-L-GTL2-OPERATOR, REQ-L-GTL2-EVALUATOR, REQ-L-GTL2-RULE |
 | GTL graph programming | REQ-L-GTL2-GRAPHFUNCTION, REQ-L-GTL2-COMPOSE, REQ-L-GTL2-SUBSTITUTE, REQ-L-GTL2-RECURSE, REQ-L-GTL2-HOF, REQ-L-GTL2-SUBWORK |
+| GTL work declarations | REQ-L-GTL2-JOB, REQ-L-GTL2-ROLE, REQ-L-GTL2-IDENTITY |
 | GTL publication boundary | REQ-L-GTL2-MODULE, REQ-L-GTL2-SELECTION-BOUNDARY, REQ-L-GTL2-ENGINE-INDEPENDENCE |
 | ABG event and replay kernel | REQ-R-ABG2-EVENTS, REQ-R-ABG2-PROJECTION |
 | ABG interpretation kernel | REQ-R-ABG2-INTERPRET, REQ-R-ABG2-CONVERGENCE, REQ-R-ABG2-SELECTION-APPLICATION (apply + emit) |
-| ABG identity and attempt governance | REQ-R-ABG2-LINEAGE, REQ-R-ABG2-RUN, REQ-R-ABG2-JOB-WORKER |
+| ABG identity and attempt governance | REQ-R-ABG2-LINEAGE, REQ-R-ABG2-RUN, REQ-R-ABG2-WORKER, REQ-R-ABG2-BINDING |
 | ABG provenance and correction | REQ-R-ABG2-PROVENANCE, REQ-R-ABG2-CORRECTION |
 | ABG selection and subwork | REQ-R-ABG2-SELECTION-APPLICATION (enumerate + validate), REQ-R-ABG2-LEAFTASK |
 | ABG transport | REQ-R-ABG2-TRANSPORT |
@@ -563,75 +564,105 @@ abg.install         → abg.events, gtl.module_model
 
 ---
 
-## 9. Decomposition Order
+## 9. Claude Build Alignment Order
 
-### Phase 1: Language kernel split
+### Phase 1: GTL declaration kernel
 
-- Carve `gtl.graph` (Graph, Node, GraphVector, Context)
-- Carve `gtl.operator_model` (Operator, Evaluator, Rule, Regime, Consensus)
-- Carve `gtl.function_model` (GraphFunction)
-- Carve `gtl.module_model` (Module, ModuleImport)
+- establish `gtl.graph` as the structural kernel
+- establish `gtl.operator_model` as the effect/convergence declaration surface
+- establish `gtl.function_model` as the reusable workflow-program surface
+- establish `gtl.work_model` as the semantic work-declaration surface
+- establish `gtl.module_model` as the publication/import boundary
 
-**Outcome**: GTL stops being mixed with runtime types. `Asset` → `Node`, `Edge` → `GraphVector`, `Package` → `Module`, `Fragment` retired.
+**Outcome**: GTL is a pure declaration layer with no runtime ownership leakage.
 
-### Phase 2: Runtime kernel split
+### Phase 2: ABG execution kernel
 
-- Carve `abg.events` (EventStream, emit)
-- Carve `abg.projection` (project)
-- Carve `abg.provenance` (req_hash, job_evaluator_hash, workflow version)
-- Carve `abg.correction` (find_latest_reset)
-- Carve `abg.binding` (bind_fd, bind_fp, bind_fh, PrecomputedManifest, BoundJob)
-- Carve `abg.lineage` (WorkInstance, spawn, _discover_children)
-- Carve `abg.run` (RunState, run_state, find_pending_run, supersede_run)
-- Carve `abg.convergence` (delta, parent_converged, render_delta)
+- establish `abg.events` and `abg.projection` as append-only replay truth
+- establish `abg.binding`, `abg.run`, `abg.lineage`, and `abg.convergence` as execution-attempt governance
+- establish `abg.provenance` and `abg.correction` as runtime truth-maintenance modules
 
-**Outcome**: ABG kernel is explicit and testable by responsibility.
+**Outcome**: the ABG kernel is explicit and testable by responsibility.
 
-### Phase 3: Interpretation and transport split
+### Phase 3: Interpretation, selection, and transport
 
-- Carve `abg.selection` (SelectionDecision, candidate enumeration)
-- Carve `abg.subwork` (LeafTask, validate_leaf_schema, dispatch_leaf)
-- Carve `abg.transport` (AgentResult, dispatch_agent, classify_failure)
-- Carve `abg.interpret` (iterate, schedule, zoom, graph materialization)
+- establish `abg.selection` as lawful candidate enumeration and validation
+- establish `abg.subwork` as bounded delegated work
+- establish `abg.transport` as replaceable agent transport
+- establish `abg.interpret` as the graph-interpretation loop
 
-**Outcome**: Engine surface matches the GTL 2.x contract.
+**Outcome**: engine traversal and delegated realization match the GTL contract.
 
-### Phase 4: App and mapping split
+### Phase 4: Application, self-hosting, and mapping
 
-- Carve `abg.services` (Scope, gen_gaps, gen_iterate, gen_start)
-- Carve `abg.cli` (parser, command wiring)
-- Carve `abg.install` (workspace_bootstrap, installer)
-- Carve `abg.selfhosting` (bootloader consistency)
-- Define `mapping.*` (future — Wave 2+)
+- establish `abg.services` as the service/application orchestration layer
+- establish `abg.cli` as the command adapter only
+- establish `abg.install` as the bootstrap/install surface
+- establish `abg.selfhosting` as the bootloader/drift governance layer
+- establish `mapping.*` as alternate-engine mapping surfaces
 
-**Outcome**: Interfaces and alternate engine mappings cleanly separated from kernel.
+**Outcome**: runtime interfaces and alternate engine mappings remain separated from the kernel.
 
 ---
 
-## 10. Immediate Implementation Guidance
+## 10. Claude Build Conformance
 
-If work starts now, the first concrete refactor is:
+For the Claude build to conform to this module design:
 
-1. **Split `gtl/core.py`** into `gtl/graph.py`, `gtl/operator_model.py`, `gtl/function_model.py`, `gtl/module_model.py`
-2. **Move runtime types out of GTL**: `Job`, `Worker`, `WorkingSurface`, `IterateProtocol`, `PackageSnapshot` → ABG modules
-3. **Rename**: `Asset` → `Node`, `Edge` → `GraphVector`, `Package` → `Module`
-4. **Retire**: `Fragment`, `Overlay`, `Operative`
-5. **Create `gtl/algebra.py`** with `compose`, `substitute`, `edge()` sugar
-6. **Isolate `abg.events`** and `abg.projection`** from `genesis/core.py`
-7. **Isolate `abg.transport`** from `genesis/fp_dispatch.py`
-8. **Keep `abg.services` and `abg.cli`** as thin orchestration layers
-
-This gives the fastest path from current code to a module structure that matches the constitutional design.
+1. `gtl.work_model` defines `ContractRef`, `Role`, and GTL `Job`.
+2. `gtl.module_model.Module` owns explicit `jobs` and `roles`, and `ModuleImport.names` refers to declaration names.
+3. `ExecutableJob` is the only runtime job wrapper; phase-only wrappers do not define runtime ontology.
+4. `Worker` retains `can_execute` and adds `role_ids` plus `authority_ref`.
+5. `Module.jobs` resolve to executable jobs by `GraphVector.id`; unsupported or unresolved contract kinds fail closed.
+6. `WorkSurface` is immutable and carries consumed context, emitted context, artifacts, findings, attestations, and stage-local metadata.
+7. `run_bound` and id-first binding provenance preserve `job_id`, `worker_id`, `role_id`, `authority_ref`, and `vector_id` where useful.
+8. executable-job hashing incorporates GTL job semantics, role semantics, resolved contract identity, evaluator definitions, and bound context digests using a stable serialization.
+9. domain packages publish explicit jobs and roles as part of the authored `Module` surface.
 
 ---
 
-## 11. Bottom Line
+## 11. QA Proof Obligations
+
+The minimum proof lane for this correction is:
+
+1. GTL contract tests for `ContractRef`, `Role`, and `Job`:
+   - frozen
+   - id-bearing
+   - structural equality ignores id
+2. Module tests:
+   - `Module` owns jobs and roles
+   - imported jobs and roles preserve declaration identity and provenance
+3. Resolution tests:
+   - explicit GTL jobs resolve to executable jobs by `GraphVector.id`
+   - unsupported contract kinds fail closed
+   - missing target ids fail closed
+4. Binding tests:
+   - worker lacking required role cannot bind
+   - worker with correct role can bind without losing current `can_execute` semantics
+5. Run/provenance tests:
+   - `run_bound` emitted before realization
+   - `RunState` carries `job_id`, `worker_id`, `role_id`, `authority_ref`
+   - reducer derives `queued` and `pending` when those are the lawful states
+   - duplicate labels with distinct ids do not alias
+6. Regression tests:
+   - worker conflict batching still uses write territory from executable jobs
+   - existing convergence/evaluator behavior remains sourced from graph contracts, not duplicated onto GTL jobs
+7. Work-surface tests:
+   - `WorkSurface` is immutable
+   - `WorkSurface` carries consumed context, emitted context, artifacts, findings, and attestations
+   - phase-only distinctions do not introduce new wrapper types
+
+These obligations define the minimum proof that the Claude build matches the constitutional design.
+
+---
+
+## 12. Bottom Line
 
 The module design is:
 
-- **5 GTL modules** — graph, operator_model, function_model, algebra, module_model
+- **6 GTL modules** — graph, operator_model, function_model, work_model, algebra, module_model
 - **13 ABG kernel modules** — events, projection, binding, lineage, run, convergence, selection, provenance, correction, subwork, transport, interpret, selfhosting
 - **3 ABG app modules** — services, cli, install
 - **3 mapping modules** — capability, adapter, provenance
 
-Every current definition (87 total across 9 files) has an explicit V2 home. Every V2 module traces to requirement families. No orphaned code, no accidental law.
+Every required definition has an explicit V2 home. Every V2 module traces to requirement families. No accidental law, no duplicate ontology.

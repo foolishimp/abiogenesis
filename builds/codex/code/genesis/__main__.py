@@ -299,31 +299,42 @@ def _check_tags(kind: str, path_str: str) -> int:
 
 def _check_bootloader_consistency(spec_module: str, bootloader_path: str) -> int:
     try:
-        module = importlib.import_module(spec_module)
+        importlib.import_module(spec_module)
+        gtl_core = importlib.import_module("gtl.core")
+        gtl_work = importlib.import_module("gtl.work_model")
+        runtime_model = importlib.import_module("genesis.runtime_model")
     except Exception as exc:
         print(json.dumps({"error": f"cannot import {spec_module}: {exc}"}, indent=2))
         return 1
 
-    all_defined = sorted(
-        name
-        for name, obj in inspect.getmembers(module)
-        if inspect.isclass(obj) and obj.__module__ == spec_module and not name.startswith("_")
+    exported = sorted(
+        {
+            name
+            for name, obj in inspect.getmembers(gtl_core)
+            if inspect.isclass(obj) and obj.__module__ == "gtl.core" and name in {
+                "Asset",
+                "Context",
+                "Edge",
+                "Evaluator",
+                "F_D",
+                "F_H",
+                "F_P",
+                "Operator",
+                "Package",
+                "Rule",
+            }
+        }
+        | {
+            name
+            for name, obj in inspect.getmembers(gtl_work)
+            if inspect.isclass(obj) and obj.__module__ == "gtl.work_model" and name in {"ContractRef", "Job", "Role"}
+        }
+        | {
+            name
+            for name, obj in inspect.getmembers(runtime_model)
+            if inspect.isclass(obj) and obj.__module__ == "genesis.runtime_model" and name in {"Worker", "ExecutableJob", "WorkSurface"}
+        }
     )
-    core_types = {
-        "Asset",
-        "Context",
-        "Edge",
-        "Evaluator",
-        "F_D",
-        "F_H",
-        "F_P",
-        "Job",
-        "Operator",
-        "Package",
-        "Rule",
-        "Worker",
-    }
-    exported = [name for name in all_defined if name in core_types]
 
     bootloader = Path(bootloader_path)
     if not bootloader.exists():

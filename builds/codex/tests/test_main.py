@@ -80,3 +80,11 @@ def test_main_resolves_codex_package_and_worker(monkeypatch, tmp_path, capsys):
     assert rc == 0
     result = json.loads(capsys.readouterr().out)
     assert result["status"] == "converged"
+
+
+def test_validate_emit_payload_accepts_run_bound_shape():
+    errors = _validate_emit_payload(
+        "approved",
+        {"kind": "fh_review", "edge": "design→code", "actor": "human"},
+    )
+    assert not errors

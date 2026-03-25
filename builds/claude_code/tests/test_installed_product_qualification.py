@@ -172,8 +172,8 @@ def _compute_spec_hash(target: Path) -> str:
     return result.stdout.strip()
 
 
-def _compute_job_evaluator_hash(target: Path) -> str:
-    """Compute the provenance-aware spec_hash using job_evaluator_hash.
+def _compute_executable_job_hash(target: Path) -> str:
+    """Compute the provenance-aware spec_hash using executable_job_hash.
 
     Used when active-workflow.json exists (workflow_version != "unknown").
     """
@@ -181,17 +181,17 @@ def _compute_job_evaluator_hash(target: Path) -> str:
         [sys.executable, "-c", textwrap.dedent("""\
             import sys
             sys.path.insert(0, '.genesis')
-            from genesis.provenance import job_evaluator_hash
-            from genesis.services import module_to_jobs
+            from genesis.provenance import executable_job_hash
+            from genesis.services import module_to_executable_jobs
             from gtl_spec.packages.test_pkg import module
-            jobs = module_to_jobs(module)
-            print(job_evaluator_hash(jobs[0]))
+            jobs = module_to_executable_jobs(module)
+            print(executable_job_hash(jobs[0]))
         """)],
         capture_output=True, text=True,
         cwd=str(target),
         env=_installed_env(target),
     )
-    assert result.returncode == 0, f"Failed to compute job_evaluator_hash:\n{result.stderr}"
+    assert result.returncode == 0, f"Failed to compute executable_job_hash:\n{result.stderr}"
     return result.stdout.strip()
 
 
@@ -201,7 +201,8 @@ _MINIMAL_PACKAGE = textwrap.dedent('''\
     """Minimal test module for product qualification."""
     from gtl.graph import Graph, Node, GraphVector
     from gtl.module_model import Module
-    from gtl.core import Evaluator, Operator, Rule, F_D, F_P, consensus
+    from gtl.core import Evaluator, Operator, Rule, F_D, F_P
+    from gtl.work_model import Job, ContractRef
 
     design = Node(name="design")
     code = Node(name="code")
@@ -222,6 +223,7 @@ _MINIMAL_PACKAGE = textwrap.dedent('''\
         operators=(op_fp, op_fd),
         evaluators=(eval_tags, eval_fp),
     )
+    job = Job(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
     graph = Graph(
         name="design\\u2192code",
         inputs=(design,), outputs=(code,),
@@ -230,6 +232,7 @@ _MINIMAL_PACKAGE = textwrap.dedent('''\
     module = Module(
         name="test_pkg",
         graphs=(graph,),
+        jobs=(job,),
         metadata={"requirements": ["REQ-TEST-001"]},
     )
 ''')
@@ -238,7 +241,8 @@ _FH_PACKAGE = textwrap.dedent('''\
     """Test module with F_D + F_P + F_H chain for full convergence proof."""
     from gtl.graph import Graph, Node, GraphVector
     from gtl.module_model import Module
-    from gtl.core import Evaluator, Operator, Rule, F_D, F_P, F_H, consensus
+    from gtl.core import Evaluator, Operator, Rule, F_D, F_P, F_H
+    from gtl.work_model import Job, ContractRef
 
     design = Node(name="design")
     code = Node(name="code")
@@ -260,8 +264,9 @@ _FH_PACKAGE = textwrap.dedent('''\
         source=design, target=code,
         operators=(op_fp, op_fd, op_fh),
         evaluators=(eval_tags, eval_fp, eval_fh),
-        rule=Rule(name="standard_gate", kind="gate", config={"approve": consensus(1, 1)}),
+        rule=Rule(name="standard_gate", kind="gate", config={"approve": {"kind": "consensus", "n": 1, "m": 1}}),
     )
+    job = Job(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
     graph = Graph(
         name="design\\u2192code",
         inputs=(design,), outputs=(code,),
@@ -270,6 +275,7 @@ _FH_PACKAGE = textwrap.dedent('''\
     module = Module(
         name="test_pkg",
         graphs=(graph,),
+        jobs=(job,),
         metadata={"requirements": ["REQ-TEST-001"]},
     )
 ''')
@@ -278,7 +284,8 @@ _CONTEXT_PACKAGE = textwrap.dedent('''\
     """Test module with a context reference for fail-closed testing."""
     from gtl.graph import Graph, Node, GraphVector, Context
     from gtl.module_model import Module
-    from gtl.core import Evaluator, Operator, Rule, F_D, F_P, consensus
+    from gtl.core import Evaluator, Operator, Rule, F_D, F_P
+    from gtl.work_model import Job, ContractRef
 
     design = Node(name="design")
     code = Node(name="code")
@@ -300,6 +307,7 @@ _CONTEXT_PACKAGE = textwrap.dedent('''\
         evaluators=(eval_fp,),
         contexts=(ctx,),
     )
+    job = Job(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
     graph = Graph(
         name="design\\u2192code",
         inputs=(design,), outputs=(code,),
@@ -309,6 +317,7 @@ _CONTEXT_PACKAGE = textwrap.dedent('''\
     module = Module(
         name="test_pkg",
         graphs=(graph,),
+        jobs=(job,),
         metadata={"requirements": ["REQ-TEST-001"]},
     )
 ''')
@@ -779,13 +788,13 @@ class TestStateIntegrity:
         """PQ-303: Changing evaluator identity invalidates prior certification.
 
         Requires active-workflow.json to activate provenance-aware spec_hash
-        (job_evaluator_hash). Without it, engine uses req_hash which only
+        (executable_job_hash). Without it, engine uses req_hash which only
         tracks requirement key changes, not evaluator description changes.
         """
         _install_sandbox(tmp_path)
         _write_test_package(tmp_path, _MINIMAL_PACKAGE)
 
-        # Enable provenance so engine uses job_evaluator_hash
+        # Enable provenance so engine uses executable_job_hash
         runtime = tmp_path / ".ai-workspace" / "runtime"
         runtime.mkdir(parents=True, exist_ok=True)
         (runtime / "active-workflow.json").write_text(json.dumps({
@@ -800,8 +809,8 @@ class TestStateIntegrity:
             "# Implements: REQ-TEST-001\ndef hello(): pass\n"
         )
 
-        # Compute job_evaluator_hash (provenance-aware)
-        spec_hash = _compute_job_evaluator_hash(tmp_path)
+        # Compute executable_job_hash (provenance-aware)
+        spec_hash = _compute_executable_job_hash(tmp_path)
         _emit_event(tmp_path, "assessed", {
             "kind": "fp",
             "edge": "design→code",
@@ -817,7 +826,7 @@ class TestStateIntegrity:
         mid_failing = [f for g in mid["gaps"] for f in g["failing"]]
         assert "code_complete" not in mid_failing, "F_P should pass with valid spec_hash"
 
-        # Now change the evaluator description (changes job_evaluator_hash)
+        # Now change the evaluator description (changes executable_job_hash)
         changed_pkg = _MINIMAL_PACKAGE.replace(
             '"agent: code implements design"',
             '"agent: code implements design (v2 updated)"',
@@ -1069,7 +1078,7 @@ class TestInstalledProvenance:
         )
 
         # F_P pass with correct provenance hash
-        spec_hash = _compute_job_evaluator_hash(tmp_path)
+        spec_hash = _compute_executable_job_hash(tmp_path)
         _emit_event(tmp_path, "assessed", {
             "kind": "fp",
             "edge": "design→code",
@@ -1108,7 +1117,7 @@ class TestInstalledProvenance:
             "# Implements: REQ-TEST-001\ndef hello(): pass\n"
         )
 
-        spec_hash = _compute_job_evaluator_hash(tmp_path)
+        spec_hash = _compute_executable_job_hash(tmp_path)
         _emit_event(tmp_path, "assessed", {
             "kind": "fp",
             "edge": "design→code",

@@ -16,6 +16,6 @@ Engines declare capability profiles so GTL programs can determine mapping fideli
 
 **REQ-M-GTL2-CAPABILITY-001**: An ABG-compatible engine shall publish a capability profile declaring which GTL constructs it can interpret.
 
-**REQ-M-GTL2-CAPABILITY-002**: Capability profiles shall align with the ABG-CAP-* capability contract (see GTL_2_ABG_CONTRACT.md §5).
+**REQ-M-GTL2-CAPABILITY-002**: Capability profiles shall align with the active GTL, ABG, and mapping requirement families plus the engine-mapping stance in `GTL_2_CONSTITUTIONAL_DESIGN.md`.
 
 **REQ-M-GTL2-CAPABILITY-003**: GraphFunction effects declarations shall be matchable against engine capability profiles for dispatch validation.

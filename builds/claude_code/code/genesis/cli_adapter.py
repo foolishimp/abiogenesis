@@ -109,9 +109,9 @@ def _build_parser() -> argparse.ArgumentParser:
                            help="Verify every REQ-* key in spec appears in a feature vector")
     src = p_cov.add_mutually_exclusive_group(required=True)
     src.add_argument("--spec",
-                     help="Path to spec file to grep for REQ-* keys (legacy)")
+                     help="Path to spec file to grep for REQ-* keys")
     src.add_argument("--package", metavar="MODULE:VAR",
-                     help="Import path to a Package object, e.g. my_domain.spec:my_package")
+                     help="Import path to a Module object, e.g. my_domain.spec:module")
     p_cov.add_argument("--features", required=True,
                        help="Directory containing feature vector YAML files")
 
@@ -119,7 +119,7 @@ def _build_parser() -> argparse.ArgumentParser:
     p_impl = sub.add_parser("check-impl-coverage",
                             help="Verify every REQ-* key appears in a # Implements: tag")
     p_impl.add_argument("--package", required=True, metavar="MODULE:VAR",
-                        help="Package to load requirements from")
+                        help="Module to load requirements from")
     p_impl.add_argument("--path", required=True,
                         help="Directory to scan for # Implements: tags")
 
@@ -127,7 +127,7 @@ def _build_parser() -> argparse.ArgumentParser:
     p_val = sub.add_parser("check-validates-coverage",
                            help="Verify every REQ-* key appears in a # Validates: tag")
     p_val.add_argument("--package", required=True, metavar="MODULE:VAR",
-                       help="Package to load requirements from")
+                       help="Module to load requirements from")
     p_val.add_argument("--path", required=True,
                        help="Directory to scan for # Validates: tags")
 
@@ -194,7 +194,7 @@ def _check_req_coverage(spec_path: str, features_dir: str,
     Verify every REQ-* key in the spec appears in at least one feature vector.
 
     Two source modes:
-      package_ref  — import MODULE:VAR, read Package.requirements (authoritative)
+      package_ref  — import MODULE:VAR, read Module.metadata["requirements"] (authoritative)
       spec_path    — grep the file for REQ-* tokens (legacy / fallback)
 
     Exits 0 if all keys covered, 1 if any gaps exist.
@@ -209,7 +209,7 @@ def _check_req_coverage(spec_path: str, features_dir: str,
 
     # ── Resolve spec_keys ────────────────────────────────────────────────────
     if package_ref:
-        # Package-authoritative path: MODULE:VAR
+        # Module-authoritative path: MODULE:VAR
         if ":" not in package_ref:
             print(json.dumps({"error": f"--package must be MODULE:VAR, got {package_ref!r}"}),
                   file=sys.stderr)
@@ -264,7 +264,7 @@ def _check_req_coverage(spec_path: str, features_dir: str,
 
 def _check_tag_coverage(tag_type: str, package_ref: str, scan_path: str) -> int:
     """
-    Verify every REQ-* key in Package.requirements appears in at least one file
+    Verify every REQ-* key in Module.metadata["requirements"] appears in at least one file
     with the appropriate tag (# Implements: or # Validates:).
 
     This is the per-key complement to check-tags (which checks file-level presence).
@@ -757,8 +757,8 @@ def main() -> None:
     scope = Scope(
         module=module,
         workspace_root=workspace,
-        feature=getattr(args, "feature", None),
-        edge=getattr(args, "edge", None),
+        work_key_filter=getattr(args, "feature", None),
+        edge_filter=getattr(args, "edge", None),
         active_workflow_path=_config.get("active_workflow"),
         workflow_root=_config.get("workflow_root"),
     )

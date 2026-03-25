@@ -135,7 +135,8 @@ _MINIMAL_PACKAGE = textwrap.dedent('''\
     """Minimal test module: F_D + F_P."""
     from gtl.graph import Graph, Node, GraphVector
     from gtl.module_model import Module
-    from gtl.core import Evaluator, Operator, Rule, F_D, F_P, consensus
+    from gtl.core import Evaluator, Operator, Rule, F_D, F_P
+    from gtl.work_model import Job, ContractRef
 
     design = Node(name="design")
     code = Node(name="code")
@@ -156,6 +157,7 @@ _MINIMAL_PACKAGE = textwrap.dedent('''\
         operators=(op_fp, op_fd),
         evaluators=(eval_tags, eval_fp),
     )
+    job = Job(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
     graph = Graph(
         name="design\\u2192code",
         inputs=(design,), outputs=(code,),
@@ -164,6 +166,7 @@ _MINIMAL_PACKAGE = textwrap.dedent('''\
     module = Module(
         name="test_pkg",
         graphs=(graph,),
+        jobs=(job,),
         metadata={"requirements": ["REQ-TEST-001"]},
     )
 ''')
@@ -172,7 +175,8 @@ _FH_PACKAGE = textwrap.dedent('''\
     """Test module with F_D + F_P + F_H chain."""
     from gtl.graph import Graph, Node, GraphVector
     from gtl.module_model import Module
-    from gtl.core import Evaluator, Operator, Rule, F_D, F_P, F_H, consensus
+    from gtl.core import Evaluator, Operator, Rule, F_D, F_P, F_H
+    from gtl.work_model import Job, ContractRef
 
     design = Node(name="design")
     code = Node(name="code")
@@ -194,8 +198,9 @@ _FH_PACKAGE = textwrap.dedent('''\
         source=design, target=code,
         operators=(op_fp, op_fd, op_fh),
         evaluators=(eval_tags, eval_fp, eval_fh),
-        rule=Rule(name="standard_gate", kind="gate", config={"approve": consensus(1, 1)}),
+        rule=Rule(name="standard_gate", kind="gate", config={"approve": {"kind": "consensus", "n": 1, "m": 1}}),
     )
+    job = Job(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
     graph = Graph(
         name="design\\u2192code",
         inputs=(design,), outputs=(code,),
@@ -204,6 +209,7 @@ _FH_PACKAGE = textwrap.dedent('''\
     module = Module(
         name="test_pkg",
         graphs=(graph,),
+        jobs=(job,),
         metadata={"requirements": ["REQ-TEST-001"]},
     )
 ''')

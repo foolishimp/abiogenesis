@@ -52,7 +52,8 @@ _PACKAGE = textwrap.dedent('''\
     """Normative requirements to acceptance test cases."""
     from gtl.graph import Graph, Node, GraphVector, Context
     from gtl.module_model import Module
-    from gtl.core import Evaluator, Operator, Rule, F_D, F_P, consensus
+    from gtl.work_model import Job, ContractRef
+    from gtl.core import Evaluator, Operator, Rule, F_D, F_P
 
     requirements = Node(
         name="requirements",
@@ -81,6 +82,7 @@ _PACKAGE = textwrap.dedent('''\
         evaluators=(eval_fd, eval_fp),
         contexts=(ctx_testing,),
     )
+    job = Job(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
     graph = Graph(
         name="requirements\\u2192uat_tests",
         inputs=(requirements,), outputs=(uat_tests,),
@@ -90,6 +92,7 @@ _PACKAGE = textwrap.dedent('''\
     module = Module(
         name="uat_design",
         graphs=(graph,),
+        jobs=(job,),
         metadata={"requirements": ["REQ-UAT-001", "REQ-UAT-002"]},
     )
 ''')

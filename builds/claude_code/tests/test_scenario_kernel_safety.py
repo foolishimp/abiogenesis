@@ -33,7 +33,8 @@ _PKG_BRIEF_TO_ARTICLE = textwrap.dedent('''\
     """Content pipeline: brief to article."""
     from gtl.graph import Graph, Node, GraphVector, Context
     from gtl.module_model import Module
-    from gtl.core import Evaluator, Operator, Rule, F_D, F_P, consensus
+    from gtl.work_model import Job, ContractRef
+    from gtl.core import Evaluator, Operator, Rule, F_D, F_P
 
     brief = Node(
         name="brief",
@@ -62,6 +63,7 @@ _PKG_BRIEF_TO_ARTICLE = textwrap.dedent('''\
         evaluators=(eval_fd, eval_fp),
         contexts=(ctx,),
     )
+    job = Job(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
     graph = Graph(
         name="brief\\u2192article",
         inputs=(brief,), outputs=(article,),
@@ -71,6 +73,7 @@ _PKG_BRIEF_TO_ARTICLE = textwrap.dedent('''\
     module = Module(
         name="content_pipeline",
         graphs=(graph,),
+        jobs=(job,),
         metadata={"requirements": ["REQ-CONTENT-001", "REQ-CONTENT-002"]},
     )
 ''')
@@ -79,7 +82,8 @@ _PKG_INTENT_TO_REQUIREMENTS = textwrap.dedent('''\
     """Narrative intent to normative requirements."""
     from gtl.graph import Graph, Node, GraphVector, Context
     from gtl.module_model import Module
-    from gtl.core import Evaluator, Operator, Rule, F_D, F_P, consensus
+    from gtl.work_model import Job, ContractRef
+    from gtl.core import Evaluator, Operator, Rule, F_D, F_P
 
     intent = Node(
         name="intent",
@@ -108,6 +112,7 @@ _PKG_INTENT_TO_REQUIREMENTS = textwrap.dedent('''\
         evaluators=(eval_fd, eval_fp),
         contexts=(ctx_policy,),
     )
+    job = Job(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
     graph = Graph(
         name="intent\\u2192requirements",
         inputs=(intent,), outputs=(requirements,),
@@ -117,6 +122,7 @@ _PKG_INTENT_TO_REQUIREMENTS = textwrap.dedent('''\
     module = Module(
         name="req_analysis",
         graphs=(graph,),
+        jobs=(job,),
         metadata={"requirements": ["REQ-IR-001", "REQ-IR-002"]},
     )
 ''')

@@ -14,13 +14,14 @@ from dataclasses import dataclass, field
 from gtl.graph import Graph
 from gtl.operator_model import Operator, Evaluator, Rule
 from gtl.function_model import GraphFunction
+from gtl.work_model import Job, Role
 
 
 @dataclass(frozen=True)
 class ModuleImport:
     """Cross-module import declaration."""
     source: str              # module name
-    names: tuple[str, ...] = ()  # imported graph function names
+    names: tuple[str, ...] = ()  # imported declaration names
     version: str = ""
 
 
@@ -29,7 +30,7 @@ class Module:
     """
     Publication boundary — the named, composable unit of GTL declarations.
 
-    V2 replacement for Package. Module is a pure declaration boundary;
+    Module is a pure declaration boundary;
     runtime concerns (workers, requirements) belong to ABG.
 
     metadata: mapping visible to policy/evaluator layers
@@ -40,6 +41,8 @@ class Module:
     name: str
     graphs: tuple[Graph, ...] = ()
     graph_functions: tuple[GraphFunction, ...] = ()
+    jobs: tuple[Job, ...] = ()
+    roles: tuple[Role, ...] = ()
     operators: tuple[Operator, ...] = ()
     evaluators: tuple[Evaluator, ...] = ()
     rules: tuple[Rule, ...] = ()

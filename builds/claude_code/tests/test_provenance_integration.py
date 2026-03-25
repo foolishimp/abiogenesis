@@ -35,12 +35,12 @@ import pytest
 from gtl.graph import Graph, Node, GraphVector, Context
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, Operator, F_D, F_P, F_H, Rule
-from gtl.core import consensus
+from gtl.work_model import Job as GtlJob, ContractRef
 
-from genesis.binding import Job, Worker
-from genesis.provenance import req_hash, job_evaluator_hash
+from genesis.binding import ExecutableJob, Worker
+from genesis.provenance import req_hash, executable_job_hash
 from genesis.install import workspace_bootstrap
-from genesis.services import Scope, gen_gaps, module_to_jobs
+from genesis.services import Scope, gen_gaps, module_to_executable_jobs
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -92,6 +92,7 @@ def _make_fp_module() -> Module:
         operators=(op,),
         evaluators=(eval_fp,),
     )
+    job = GtlJob(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
     graph = Graph(
         name="prov_fp_test",
         inputs=(design,), outputs=(code,),
@@ -101,6 +102,7 @@ def _make_fp_module() -> Module:
     return Module(
         name="prov_fp_test",
         graphs=(graph,),
+        jobs=(job,),
         metadata={"requirements": ["REQ-PROV-001"]},
     )
 
@@ -120,6 +122,7 @@ def _make_fh_module() -> Module:
         operators=(op_agent, op_human),
         evaluators=(eval_fp, eval_fh),
     )
+    job = GtlJob(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
     graph = Graph(
         name="prov_fh_test",
         inputs=(design,), outputs=(code,),
@@ -129,13 +132,14 @@ def _make_fh_module() -> Module:
     return Module(
         name="prov_fh_test",
         graphs=(graph,),
+        jobs=(job,),
         metadata={"requirements": ["REQ-PROV-002"]},
     )
 
 
-def _job_from_module(module: Module) -> Job:
+def _job_from_module(module: Module) -> ExecutableJob:
     """Extract the first Job from a Module."""
-    jobs = module_to_jobs(module)
+    jobs = module_to_executable_jobs(module)
     return jobs[0]
 
 
@@ -391,7 +395,7 @@ class TestEmitEventGovernanceValidation:
 class TestStaleFpRejected:
     """
     IT-3: Old req_hash spec_hash is rejected for F_P assessed events when workflow
-    version is known. New job_evaluator_hash is required.
+    version is known. New executable_job_hash is required.
     """
 
     def test_stale_req_hash_not_accepted_when_version_known(self, tmp_path):
@@ -415,20 +419,20 @@ class TestStaleFpRejected:
         result = gen_gaps(scope, stream)
         assert result["converged"] is False, (
             "Old req_hash spec_hash must not satisfy F_P gate when "
-            "workflow_version is known (job_evaluator_hash required)"
+            "workflow_version is known (executable_job_hash required)"
         )
         failing = [f for g in result["gaps"] for f in g["failing"]]
         assert "code_complete" in failing
 
-    def test_job_evaluator_hash_accepted_when_version_known(self, tmp_path):
-        """job_evaluator_hash format assessed event converges when workflow_version is known."""
+    def test_executable_job_hash_accepted_when_version_known(self, tmp_path):
+        """executable_job_hash format assessed event converges when workflow_version is known."""
         _write_active_workflow(tmp_path, "genesis_sdlc.standard", "0.2.0")
         stream = workspace_bootstrap(tmp_path)
         module = _make_fp_module()
         scope = Scope(module=module, workspace_root=tmp_path)
 
         job = _job_from_module(module)
-        new_hash = job_evaluator_hash(job)
+        new_hash = executable_job_hash(job)
         stream.append("assessed", {
             "kind": "fp",
             "edge": "design→code",
@@ -439,13 +443,13 @@ class TestStaleFpRejected:
 
         result = gen_gaps(scope, stream)
         assert result["converged"] is True, (
-            "job_evaluator_hash spec_hash must satisfy F_P gate when "
+            "executable_job_hash spec_hash must satisfy F_P gate when "
             "workflow_version is known"
         )
 
     def test_changed_evaluator_invalidates_prior_assessment(self, tmp_path):
         """
-        Changing an evaluator changes job_evaluator_hash. Prior assessed event
+        Changing an evaluator changes executable_job_hash. Prior assessed event
         with old hash becomes stale and does not converge.
         """
         _write_active_workflow(tmp_path, "genesis_sdlc.standard", "0.2.0")
@@ -456,7 +460,7 @@ class TestStaleFpRejected:
         job = _job_from_module(module)
 
         # Emit assessment against the ORIGINAL job
-        original_hash = job_evaluator_hash(job)
+        original_hash = executable_job_hash(job)
         stream.append("assessed", {
             "kind": "fp",
             "edge": "design→code",
@@ -484,9 +488,11 @@ class TestStaleFpRejected:
             nodes=(design, code),
             vectors=(changed_vec,),
         )
+        changed_job = GtlJob(name=changed_vec.name, contracts=(ContractRef(kind="graph_vector", target_id=changed_vec.id),))
         changed_module = Module(
             name="prov_fp_test",
             graphs=(changed_graph,),
+            jobs=(changed_job,),
             metadata={"requirements": ["REQ-PROV-001"]},
         )
         scope2 = Scope(module=changed_module, workspace_root=tmp_path)
@@ -494,7 +500,7 @@ class TestStaleFpRejected:
         result = gen_gaps(scope2, stream)
         assert result["converged"] is False, (
             "Prior assessed event must not converge after evaluator description changes "
-            "(job_evaluator_hash covers description)"
+            "(executable_job_hash covers description)"
         )
 
 
@@ -519,7 +525,7 @@ class TestApprovalVersionBinding:
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
-            "spec_hash": job_evaluator_hash(job),
+            "spec_hash": executable_job_hash(job),
             "workflow_version": "genesis_sdlc.standard@0.2.0",
         })
         stream.append("approved", {
@@ -545,7 +551,7 @@ class TestApprovalVersionBinding:
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
-            "spec_hash": job_evaluator_hash(job),
+            "spec_hash": executable_job_hash(job),
             "workflow_version": "genesis_sdlc.standard@0.2.0",
         })
         stream.append("approved", {
@@ -579,7 +585,7 @@ class TestApprovalVersionBinding:
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
-            "spec_hash": job_evaluator_hash(job),
+            "spec_hash": executable_job_hash(job),
             "workflow_version": "genesis_sdlc.standard@0.1.0",
         })
         stream.append("approved", {
@@ -627,7 +633,7 @@ class TestCarryForward:
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
-            "spec_hash": job_evaluator_hash(job),
+            "spec_hash": executable_job_hash(job),
             "workflow_version": "genesis_sdlc.standard@0.2.0",
         })
         stream.append("approved", {
@@ -659,7 +665,7 @@ class TestCarryForward:
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
-            "spec_hash": job_evaluator_hash(job),
+            "spec_hash": executable_job_hash(job),
             "workflow_version": "genesis_sdlc.standard@0.2.0",
         })
         # Approval from 0.0.1 — not the carry_forward from_version (0.1.0)
@@ -689,7 +695,7 @@ class TestCarryForward:
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
-            "spec_hash": job_evaluator_hash(job),
+            "spec_hash": executable_job_hash(job),
             "workflow_version": "genesis_sdlc.standard@0.2.0",
         })
         stream.append("approved", {
@@ -725,7 +731,7 @@ class TestPreProvenanceRejection:
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
-            "spec_hash": job_evaluator_hash(job),
+            "spec_hash": executable_job_hash(job),
             "workflow_version": "genesis_sdlc.standard@0.2.0",
         })
         # Pre-provenance: no workflow_version field on the approval

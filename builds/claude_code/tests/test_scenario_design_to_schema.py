@@ -54,7 +54,8 @@ _PACKAGE = textwrap.dedent('''\
     """Architectural design to structured data schema."""
     from gtl.graph import Graph, Node, GraphVector, Context
     from gtl.module_model import Module
-    from gtl.core import Evaluator, Operator, Rule, F_D, F_P, consensus
+    from gtl.work_model import Job, ContractRef
+    from gtl.core import Evaluator, Operator, Rule, F_D, F_P
 
     design = Node(
         name="design",
@@ -88,6 +89,7 @@ _PACKAGE = textwrap.dedent('''\
         evaluators=(eval_fd, eval_fp),
         contexts=(ctx_adr, ctx_naming),
     )
+    job = Job(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
     graph = Graph(
         name="design\\u2192data_schema",
         inputs=(design,), outputs=(data_schema,),
@@ -97,6 +99,7 @@ _PACKAGE = textwrap.dedent('''\
     module = Module(
         name="schema_design",
         graphs=(graph,),
+        jobs=(job,),
         metadata={"requirements": ["REQ-DS-001", "REQ-DS-002"]},
     )
 ''')

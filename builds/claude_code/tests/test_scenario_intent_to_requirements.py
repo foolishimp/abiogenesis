@@ -51,7 +51,8 @@ _PACKAGE = textwrap.dedent('''\
     """Narrative intent to normative requirements."""
     from gtl.graph import Graph, Node, GraphVector, Context
     from gtl.module_model import Module
-    from gtl.core import Evaluator, Operator, Rule, F_D, F_P, consensus
+    from gtl.work_model import Job, ContractRef
+    from gtl.core import Evaluator, Operator, Rule, F_D, F_P
 
     intent = Node(
         name="intent",
@@ -80,6 +81,7 @@ _PACKAGE = textwrap.dedent('''\
         evaluators=(eval_fd, eval_fp),
         contexts=(ctx_policy,),
     )
+    job = Job(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
     graph = Graph(
         name="intent\\u2192requirements",
         inputs=(intent,), outputs=(requirements,),
@@ -89,6 +91,7 @@ _PACKAGE = textwrap.dedent('''\
     module = Module(
         name="req_analysis",
         graphs=(graph,),
+        jobs=(job,),
         metadata={"requirements": ["REQ-IR-001", "REQ-IR-002"]},
     )
 ''')

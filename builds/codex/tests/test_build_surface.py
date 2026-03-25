@@ -15,6 +15,8 @@ def test_codex_package_surface_uses_codex_paths():
     assert abiogenesis_pkg.this_spec.locator == "workspace://builds/codex/code/gtl_spec/packages/abiogenesis.py"
     assert abiogenesis_pkg.design_adrs.locator == "workspace://builds/codex/design/adrs/"
     assert any(job.edge.name == "design→bootloader_doc" for job in abiogenesis_pkg.worker.can_execute)
+    assert abiogenesis_pkg.package.jobs
+    assert abiogenesis_pkg.package.roles
 
 
 def test_genesis_core_surface_uses_codex_paths():

@@ -4,10 +4,10 @@ genesis — GTL-native AI SDLC engine.
 
 Consumes Module, Graph, GraphVector, Node natively.
 
-    binding      — Job, Worker, BoundJob, bind_fd, bind_fp, render_delta
+    binding      — ExecutableJob, Worker, WorkSurface, bind_fd, bind_fp, render_delta
     convergence  — delta, parent_converged
     interpret    — iterate, schedule, apply_selection
-    services     — Scope, module_to_jobs, start, iterate_edge, gaps
+    services     — Scope, module_to_executable_jobs, start, iterate_edge, gaps
     selection    — enumerate_candidates, validate_selection, SelectionDecision
     provenance   — provenance_snapshot
     events       — EventStream, emit

@@ -14,39 +14,47 @@ import json
 import re
 from pathlib import Path
 
-from genesis.binding import Job
+from genesis.binding import ExecutableJob
 
 
 def req_hash(requirements: list[str]) -> str:
     """
-    Compute a stable hash of Package.requirements.
+    Compute a stable hash of Module.metadata["requirements"].
 
-    Deprecated: used only when scope.workflow_version == "unknown".
-    New code should use job_evaluator_hash(job) instead.
+    Fallback: used only when scope.workflow_version == "unknown".
+    New code should use executable_job_hash(job) instead.
     """
     return hashlib.sha256(
         json.dumps(sorted(requirements)).encode()
     ).hexdigest()[:16]
 
 
-def job_evaluator_hash(job: Job) -> str:
+def executable_job_hash(job: ExecutableJob) -> str:
     """
-    Hash of all evaluator definitions and bound context digests on this job.
+    Hash of GTL job identity, role semantics, evaluator definitions,
+    and bound context digests.
 
-    Covers F_D (binding), F_P/F_H (description), name+regime for all
-    evaluators, plus every context digest on the edge.
-    Used as spec_hash when scope.workflow_version != "unknown".
+    Covers: GTL job.name, role names, F_D (binding), F_P/F_H (description),
+    name+regime for all evaluators, plus every context digest on the vector.
+    Uses names (not ids) for cross-process stability — ids are UUID-minted
+    at import time. Used as spec_hash when scope.workflow_version != "unknown".
     """
-    lines = sorted(
+    parts: list[str] = [f"job:{job.job.name}"]
+    parts.extend(sorted(f"role:{r.name}" for r in job.job.roles))
+    parts.extend(sorted(
         f"{ev.name}:{ev.regime.__name__}:{ev.binding}:{ev.description}"
         for ev in job.evaluators
-    )
-    ctx_lines = sorted(
+    ))
+    parts.extend(sorted(
         f"ctx:{ctx.name}:{ctx.digest}"
         for ctx in (job.vector.contexts or [])
-    )
-    raw = "\n".join(re.sub(r'\s+', ' ', line.strip()) for line in lines + ctx_lines)
+    ))
+    raw = "\n".join(re.sub(r'\s+', ' ', line.strip()) for line in parts)
     return hashlib.sha256(raw.encode()).hexdigest()[:16]
+
+
+# Back-compat alias during migration
+job_evaluator_hash = executable_job_hash
 
 
 def _read_workflow_version(workspace: Path, active_workflow_path: str | None = None) -> str:

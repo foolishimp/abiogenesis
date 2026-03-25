@@ -4,65 +4,78 @@
 
 from __future__ import annotations
 
-from gtl.core import F_D, F_H, F_P, Worker, WorkingSurface
+from dataclasses import replace
 
-from .manifest import BoundJob, PrecomputedManifest
+from gtl.core import F_D, F_H, F_P
+
+from .manifest import PrecomputedManifest, PreparedExecution
+from .runtime_model import WorkSurface, Worker
 
 
 def delta(precomputed: PrecomputedManifest) -> float:
     return precomputed.delta
 
 
-def iterate(bound_job: BoundJob) -> WorkingSurface:
+def iterate(bound_job: PreparedExecution) -> WorkSurface:
     pre = bound_job.precomputed
-    surface = WorkingSurface(context_consumed=list(pre.job.edge.context))
+    executable_job = pre.executable_job
+    role_id = executable_job.required_role_ids[0] if executable_job.required_role_ids else None
+    surface = WorkSurface(
+        stage="prepared",
+        job_id=executable_job.job.id,
+        worker_id=bound_job.worker_id,
+        role_id=bound_job.role_id or role_id,
+        authority_ref=bound_job.authority_ref,
+        context_consumed=tuple(executable_job.edge.context),
+    )
     fd_failing = [ev for ev in pre.failing_evaluators if ev.category is F_D]
     fp_failing = [ev for ev in pre.failing_evaluators if ev.category is F_P]
     fh_failing = [ev for ev in pre.failing_evaluators if ev.category is F_H]
 
     if fd_failing:
-        surface.events.append(
+        return surface.at_stage("fd_gap").with_event(
             {
                 "event_type": "found",
                 "data": {
                     "kind": "fd_gap",
-                    "edge": pre.job.edge.name,
+                    "edge": executable_job.edge.name,
+                    "job_id": executable_job.job.id,
                     "failing_evaluators": [ev.name for ev in fd_failing],
                     "delta_summary": pre.delta_summary,
                 },
-            }
+            },
         )
-        return surface
 
     if fp_failing:
-        surface.events.append(
+        surface = surface.at_stage("fp_dispatched").with_event(
             {
                 "event_type": "fp_dispatched",
                 "data": {
-                    "edge": pre.job.edge.name,
+                    "edge": executable_job.edge.name,
+                    "job_id": executable_job.job.id,
                     "failing_evaluators": [ev.name for ev in fp_failing],
                     "prompt_length": len(bound_job.prompt),
                     "result_path": bound_job.result_path,
                 },
-            }
+            },
         )
         if bound_job.result_path:
-            surface.artifacts.append(bound_job.result_path)
+            surface = surface.with_artifact(bound_job.result_path)
         return surface
 
     if fh_failing:
-        surface.events.append(
+        return surface.at_stage("fh_gate_pending").with_event(
             {
                 "event_type": "fh_gate_pending",
                 "data": {
-                    "edge": pre.job.edge.name,
+                    "edge": executable_job.edge.name,
+                    "job_id": executable_job.job.id,
                     "criteria": [ev.description for ev in fh_failing],
                 },
-            }
+            },
         )
-        return surface
 
-    return surface
+    return replace(surface, stage="converged")
 
 
 def schedule(workers: list[Worker]) -> list[list[Worker]]:

@@ -10,8 +10,6 @@ from gtl.core import (
     Rule,
     Context,
     Evaluator,
-    Job,
-    Worker,
     F_D,
     F_P,
     F_H,
@@ -19,6 +17,8 @@ from gtl.core import (
     OPERATIVE_ON_APPROVED,
     OPERATIVE_ON_APPROVED_NOT_SUPERSEDED,
 )
+from gtl.work_model import ContractRef, Job, Role
+from genesis.runtime_model import ExecutableJob, Worker
 
 
 bootloader = Context(
@@ -36,12 +36,6 @@ genesis_core_spec = Context(
 design_adrs = Context(
     name="design_adrs",
     locator="workspace://builds/codex/design/adrs/",
-    digest="sha256:" + "0" * 64,
-)
-
-v1_doctrine = Context(
-    name="v1_doctrine",
-    locator="workspace://docs/V1_DOCTRINE.md",
     digest="sha256:" + "0" * 64,
 )
 
@@ -100,9 +94,9 @@ unit_tests = Asset(
 )
 
 
-e_intent_req = Edge("intent→requirements", intent, requirements, using=[codex_agent, human_gate], rule=standard_gate, context=[bootloader, v1_doctrine])
+e_intent_req = Edge("intent→requirements", intent, requirements, using=[codex_agent, human_gate], rule=standard_gate, context=[bootloader])
 e_req_feat = Edge("requirements→feature_decomp", requirements, feature_decomp, using=[codex_agent, human_gate], rule=standard_gate, context=[bootloader, genesis_core_spec])
-e_feat_design = Edge("feature_decomp→design", feature_decomp, design, using=[codex_agent, human_gate], rule=standard_gate, context=[bootloader, genesis_core_spec, v1_doctrine])
+e_feat_design = Edge("feature_decomp→design", feature_decomp, design, using=[codex_agent, human_gate], rule=standard_gate, context=[bootloader, genesis_core_spec])
 e_design_code = Edge("design→code", design, code, using=[codex_agent, check_tags_impl], context=[bootloader, genesis_core_spec, design_adrs])
 e_tdd = Edge("code↔unit_tests", [code, unit_tests], unit_tests, using=[codex_agent, pytest_op, check_tags_impl, check_tags_test], context=[bootloader, genesis_core_spec, design_adrs], co_evolve=True)
 
@@ -119,14 +113,45 @@ eval_tests_pass = Evaluator("tests_pass", F_D, "pytest reports zero failures and
 eval_test_tags = Evaluator("validates_tags", F_D, "All test files carry Validates traceability markers", command="python -m genesis check-tags --type validates --path builds/codex/tests/")
 
 
-job_intent_req = Job(e_intent_req, [eval_intent_fh])
-job_req_feat = Job(e_req_feat, [eval_feat_fd, eval_feat_fh])
-job_feat_design = Job(e_feat_design, [eval_design_fp, eval_design_fh])
-job_design_code = Job(e_design_code, [eval_code_tags, eval_six_modules, eval_code_fp])
-job_tdd = Job(e_tdd, [eval_tests_pass, eval_test_tags])
+codex_executor = Role(name="codex_executor", tags=("runtime", "codex"))
 
+job_intent_req = Job(
+    name="intent_to_requirements",
+    contracts=(ContractRef(kind="edge", target_id=e_intent_req.id),),
+    roles=(codex_executor,),
+)
+job_req_feat = Job(
+    name="requirements_to_feature_decomp",
+    contracts=(ContractRef(kind="edge", target_id=e_req_feat.id),),
+    roles=(codex_executor,),
+)
+job_feat_design = Job(
+    name="feature_decomp_to_design",
+    contracts=(ContractRef(kind="edge", target_id=e_feat_design.id),),
+    roles=(codex_executor,),
+)
+job_design_code = Job(
+    name="design_to_code",
+    contracts=(ContractRef(kind="edge", target_id=e_design_code.id),),
+    roles=(codex_executor,),
+)
+job_tdd = Job(
+    name="code_to_unit_tests",
+    contracts=(ContractRef(kind="edge", target_id=e_tdd.id),),
+    roles=(codex_executor,),
+)
 
-worker = Worker(id="codex", can_execute=[job_intent_req, job_req_feat, job_feat_design, job_design_code, job_tdd])
+exec_job_intent_req = ExecutableJob(job=job_intent_req, edge=e_intent_req, evaluators=[eval_intent_fh])
+exec_job_req_feat = ExecutableJob(job=job_req_feat, edge=e_req_feat, evaluators=[eval_feat_fd, eval_feat_fh])
+exec_job_feat_design = ExecutableJob(job=job_feat_design, edge=e_feat_design, evaluators=[eval_design_fp, eval_design_fh])
+exec_job_design_code = ExecutableJob(job=job_design_code, edge=e_design_code, evaluators=[eval_code_tags, eval_six_modules, eval_code_fp])
+exec_job_tdd = ExecutableJob(job=job_tdd, edge=e_tdd, evaluators=[eval_tests_pass, eval_test_tags])
+
+worker = Worker(
+    id="codex",
+    can_execute=[exec_job_intent_req, exec_job_req_feat, exec_job_feat_design, exec_job_design_code, exec_job_tdd],
+    role_ids=(codex_executor.id,),
+)
 
 
 package = Package(
@@ -135,7 +160,9 @@ package = Package(
     edges=[e_intent_req, e_req_feat, e_feat_design, e_design_code, e_tdd],
     operators=[codex_agent, pytest_op, check_tags_impl, check_tags_test, human_gate],
     rules=[standard_gate],
-    contexts=[bootloader, genesis_core_spec, design_adrs, v1_doctrine],
+    contexts=[bootloader, genesis_core_spec, design_adrs],
+    jobs=[job_intent_req, job_req_feat, job_feat_design, job_design_code, job_tdd],
+    roles=[codex_executor],
     requirements=[
         "REQ-F-GRAPH-001",
         "REQ-F-CMD-001",

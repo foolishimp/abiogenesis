@@ -1,8 +1,8 @@
 # REQ-L-GTL2-LAWS — Language Laws
 
 **Status**: Active
-**Date**: 2026-03-24
-**Derives from**: INT-GTL2-001 through INT-GTL2-011
+**Date**: 2026-03-25
+**Derives from**: INT-GTL2-001 through INT-GTL2-013
 **Supersedes**: (new — consolidates implicit invariants)
 **Wave**: 1
 
@@ -10,7 +10,7 @@
 
 ## Purpose
 
-The 14 laws that govern GTL 2.x language semantics.
+The 15 laws that govern GTL 2.x language semantics.
 
 ## Acceptance Criteria
 
@@ -41,3 +41,5 @@ The 14 laws that govern GTL 2.x language semantics.
 **REQ-L-GTL2-LAWS-013**: Engine independence — language semantics do not depend on any single engine implementation.
 
 **REQ-L-GTL2-LAWS-014**: Categorical identity — every first-class type carries opaque identity distinct from its label. Operations target by identity, not by name (see REQ-L-GTL2-IDENTITY).
+
+**REQ-L-GTL2-LAWS-015**: Semantic work / execution separation — GTL declares jobs and roles; ABG realizes runs and worker bindings. Authentication and authority resolution remain external.

@@ -1,8 +1,8 @@
 # GTL 2.x Constitutional Design
 
 **Status**: Accepted
-**Date**: 2026-03-24
-**Purpose**: Bring the GTL 2.x intent, domain model, language semantics, interpreter boundary, engine-mapping stance, and fresh requirement structure into one canonical document.
+**Date**: 2026-03-25
+**Purpose**: State the canonical present-tense GTL 2.x design, type model, language semantics, and GTL/ABG boundary as the authoritative design surface.
 
 ---
 
@@ -40,7 +40,7 @@ The irreducible structural type of GTL 2.x is `Graph`.
 
 Everything structural is graph:
 
-- a primitive edge is graph
+- a primitive graph vector is graph
 - a multi-step workflow is graph
 - a subgraph is graph
 - a reusable workflow is graph
@@ -56,13 +56,9 @@ This yields the core simplification:
 - `Operator` is the effectful action surface
 - `Evaluator` is the convergence/attestation surface
 - `GraphFunction` is the reusable workflow/program abstraction
+- `Role` is the semantic capability class
+- `Job` is the durable semantic work contract
 - composition, substitution, recursion, and higher-order operators are graph semantics
-
-Historically, older terms like `Fragment` were useful bootstrap scaffolding during major refactors.
-
-They helped land local refinement before the full graph algebra was explicit.
-
-But they are not the end-state ontology.
 
 ---
 
@@ -192,7 +188,17 @@ GTL 2.x constructs shall be defined so they can be lawfully interpreted by an ev
 
 ### INT-GTL2-011: Clean Re-foundation
 
-GTL 2.x shall be specified as a clean language design rather than as a stack of amendments to older wording.
+GTL 2.x shall be specified as a clean, internally coherent language design with present-tense constitutional wording.
+
+### INT-GTL2-012: Semantic Jobs and Roles
+
+GTL 2.x shall support durable semantic work contracts through `Job` and semantic capability classes through `Role`.
+
+These belong to the language declaration surface, not to one runtime implementation.
+
+### INT-GTL2-013: Worker / Run Realization with External Authority Boundary
+
+ABG shall realize GTL jobs through `Run`, bind concrete `Worker` identities to GTL roles, and preserve external authority hooks without becoming the authentication or authority-resolution system.
 
 ---
 
@@ -232,6 +238,7 @@ class Graph:
     outputs: tuple[Node[Any], ...]
     nodes: tuple[Node[Any], ...]
     vectors: tuple[GraphVector, ...]
+    id: str
     contexts: tuple[Context, ...] = ()
     rules: tuple[Rule, ...] = ()
     effects: tuple[Regime, ...] = ()
@@ -257,13 +264,16 @@ Conceptually:
 class Node(Generic[T]):
     name: str
     schema: type[T] | str
+    id: str
+    markov: tuple[str, ...] = ()
     tags: tuple[str, ...] = ()
 ```
 
 Meaning:
 
-- node identity is graph-local
+- node references are graph-local while object identity remains explicit
 - node type/schema defines the semantic kind that flows there
+- node `markov` carries declared state/acceptance conditions at that locus
 - multiple nodes may share the same schema while remaining distinct nodes
 
 ### 5.3 Interface
@@ -272,13 +282,29 @@ Interface is expressed through designated boundary nodes.
 
 Inputs and outputs are graph roles over nodes, not a rival structural type.
 
-### 5.4 Edge
+### 5.4 GraphVector
 
-`Edge` is a directed graph vector between typed nodes.
+`GraphVector` is a directed graph vector between typed nodes.
+
+Conceptually:
+
+```python
+@dataclass(frozen=True)
+class GraphVector:
+    name: str
+    source: Node[Any] | tuple[Node[Any], ...]
+    target: Node[Any] | tuple[Node[Any], ...]
+    id: str
+    operators: tuple[Operator, ...] = ()
+    evaluators: tuple[Evaluator, ...] = ()
+    contexts: tuple[Context, ...] = ()
+    rule: Rule | None = None
+    tags: tuple[str, ...] = ()
+```
 
 It is:
 
-- a graph-local step
+- a graph-local contract step
 - a minimal graph shape
 - not a rival ontology
 
@@ -289,7 +315,7 @@ Publicly, `edge(a, b, operators=...) -> Graph` can remain as DSL sugar for a pri
 `Node[T]` supports schema families as type parameters:
 
 - `Vector[T]` — when a node carries a collection of `T`. This is the semantic foundation for `fan_out`, `fan_in`, and `promote`. Graph materialization may depend on collection cardinality. `Vector[T]` is not a rival structural type — the locus is `Node[Vector[T]]`.
-- The current `Asset` concept is best reinterpreted as a node payload/schema declaration or domain-specific schema type used by `Node[T]`. `Asset` should not remain the structural center.
+- Asset-style payload schemas are represented through `Node[T]` plus node markov conditions. `Asset` is not a structural center.
 
 ### 5.6 Operator
 
@@ -326,6 +352,7 @@ class Evaluator:
     name: str
     regime: Regime
     binding: str
+    description: str = ""
     tags: tuple[str, ...] = ()
 ```
 
@@ -341,7 +368,7 @@ Evaluators may be:
 - probabilistic assessments
 - human sign-offs
 
-This preserves the distinction that exists in GTL 1.0:
+The constitutional split is:
 
 - `Operator` answers "who/what does work"
 - `Evaluator` answers "what checks or attests convergence"
@@ -360,6 +387,17 @@ So the clean split is:
 
 `Rule` is a declarative constraint or gate.
 
+Conceptually:
+
+```python
+@dataclass(frozen=True)
+class Rule:
+    name: str
+    kind: str = "policy"
+    config: dict[str, Any] = field(default_factory=dict)
+    tags: tuple[str, ...] = ()
+```
+
 Examples:
 
 - consensus thresholds
@@ -370,6 +408,8 @@ Examples:
 Rules are passive declarations.
 
 They describe what must hold.
+
+Gate behavior belongs in `config`, not in Rule-level execution fields.
 
 ### 5.9 GraphFunction
 
@@ -384,6 +424,7 @@ class GraphFunction:
     inputs: tuple[Node[Any], ...]
     outputs: tuple[Node[Any], ...]
     template: Callable[..., Graph] | GraphTemplate
+    id: str
     effects: tuple[Regime, ...] = ()
     tags: tuple[str, ...] = ()
 ```
@@ -415,14 +456,82 @@ The `effects` surface is used for:
 - engine capability matching
 - human-vs-machine workflow visibility
 
-### 5.10 Module
+### 5.10 Role
+
+`Role` is the semantic capability class required to perform, supervise, or approve work.
+
+Conceptually:
+
+```python
+@dataclass(frozen=True)
+class Role:
+    name: str
+    id: str
+    tags: tuple[str, ...] = ()
+    policy_hooks: dict[str, Any] = field(default_factory=dict)
+```
+
+`Role` is not a concrete actor identity.
+
+It expresses semantic capability and approval class in the language.
+
+Authentication and authority resolution remain external to GTL.
+
+### 5.11 Job
+
+`Job` is the durable semantic work contract.
+
+Conceptually:
+
+```python
+@dataclass(frozen=True)
+class Job:
+    name: str
+    id: str
+    contract_refs: tuple[str, ...] = ()
+    roles: tuple[Role, ...] = ()
+    tags: tuple[str, ...] = ()
+```
+
+Semantically, a job is not one run attempt.
+
+It is the named work contract that may be realized many times by an engine.
+
+The exact contract reference form may vary by implementation.
+
+What is constitutional is:
+
+- durable semantic identity
+- reference to GTL work semantics
+- declared role requirements
+
+### 5.12 Module
 
 `Module` is the top-level organizational unit.
+
+Conceptually:
+
+```python
+@dataclass(frozen=True)
+class Module:
+    name: str
+    graphs: tuple[Graph, ...] = ()
+    graph_functions: tuple[GraphFunction, ...] = ()
+    jobs: tuple[Job, ...] = ()
+    roles: tuple[Role, ...] = ()
+    operators: tuple[Operator, ...] = ()
+    evaluators: tuple[Evaluator, ...] = ()
+    rules: tuple[Rule, ...] = ()
+    imports: tuple[str, ...] = ()
+    metadata: dict[str, Any] = field(default_factory=dict)
+```
 
 A module owns:
 
 - graphs
 - graph functions
+- jobs
+- roles
 - operators
 - evaluators
 - rules
@@ -486,6 +595,25 @@ This is the clean answer to leaf-task placement:
 - GTL can express bounded sub-work capability
 - ABG-compatible engines choose how to realize that capability operationally
 
+### 6.9 Execution collapse
+
+ABG execution collapses to lawful iteration over a single contract step.
+
+In the current V2 surface that step is the realized `GraphVector`.
+
+This implies:
+
+- semantic naming belongs to `Job`
+- capability class belongs to `Role`
+- execution identity belongs to `Run`
+- evidence, emitted context, and audit dossier belong to immutable `WorkSurface`
+
+Lifecycle distinctions belong on `Run.state` and corresponding work-surface stage, not in proliferating wrapper types.
+
+If two runtime structures differ only by lifecycle phase, they should collapse into one type plus state unless they introduce new semantics.
+
+If two public concepts are directly isomorphic, the language and runtime keep one canonical concept and express the other as sugar, configuration, or helper structure.
+
 ---
 
 ## 7. Core Operations
@@ -509,12 +637,12 @@ Construct a minimal graph vector from typed node `a` to typed node `b`.
 ### 7.3 Substitute
 
 ```python
-substitute(outer_graph, contract_edge, inner_graph)
+substitute(outer_graph, contract_vector, inner_graph)
 ```
 
 Replace a coarse contract step with a finer graph.
 
-This is the graph-first surface for what older language called `zoom`.
+`contract_vector` is a graph vector contract, not a rival structural type.
 
 ### 7.4 Recurse
 
@@ -548,7 +676,7 @@ gate(g)
 
 Require a gate before continuation or promotion.
 
-Consensus belongs here.
+Consensus belongs here as rule shape, not as rival public ontology.
 
 `gate(...)` is the active combinator that applies rules and/or evaluators to control flow.
 
@@ -589,6 +717,8 @@ Examples:
 11. Separation from strategic choice
 12. Suitability for event-sourced interpretation
 13. Engine independence of language semantics
+14. Categorical identity for first-class declarations
+15. Semantic work / execution separation
 
 ---
 
@@ -636,6 +766,8 @@ It should not silently decide the "best" one.
 - recursion as language capability
 - bounded sub-work declarations
 - higher-order graph operations
+- semantic jobs
+- semantic roles
 - module/library structure
 
 ### ABG owns
@@ -644,14 +776,16 @@ It should not silently decide the "best" one.
 - projection
 - convergence/delta
 - work lineage
+- worker identity
+- worker/role binding
 - run attempts
+- authority references provided by external systems
+- immutable work surfaces carrying execution evidence and emitted context
 - retries
 - correction/reset
 - provenance
 - replay
 - next-action determination
-- Job binding for scheduling
-- Worker identity and execution capability
 - LeafTask runtime dispatch and bounded sub-work execution
 - working surfaces and execution traces
 
@@ -665,6 +799,8 @@ ABG consumes:
 
 - GTL graphs
 - GTL graph functions
+- GTL jobs
+- GTL roles
 - GTL operators
 - GTL rules
 - module declarations
@@ -676,11 +812,13 @@ ABG then:
 2. enumerates lawful candidate graphs if refinement/composition is needed
 3. receives selection from deterministic, probabilistic, human, or business logic
 4. applies substitution/composition
-5. executes operator surfaces
-6. executes evaluator surfaces
-7. emits events
-8. replays truth
-9. computes convergence
+5. binds workers to roles and realizes jobs through runs
+6. executes operator surfaces
+7. executes evaluator surfaces
+8. emits immutable work surfaces carrying execution evidence and promotable context
+9. emits events
+10. replays truth
+11. computes convergence
 
 ABG is the canonical target engine surface because it is explicitly designed around:
 
@@ -730,65 +868,27 @@ The ABG surface is one mapping target family.
 
 Other engines are alternate mapping targets, potentially with reduced fidelity.
 
----
-
-## 13. Current GTL as Partial Projection
-
-Current GTL should be understood as a partial projection of the fuller GTL 2.x algebra.
-
-It already contains:
-
-- typed topology
-- operator regimes
-- rule surfaces
-- recursive and compositional hints
-- the embedded Python form
-
-But it still centers:
-
-- `Asset`
-- `Edge`
-- `Job`
-- `Worker`
-- `Package`
-- runtime-oriented constructs
-
-more than the fuller GTL 2.x algebra does.
-
-A useful rereading of current GTL is:
-
-- `Asset` approximates node schema/type
-- `Edge` approximates primitive graph vector
-- `Package` approximates a graph/module carrier
-- `Evaluator` is a real convergence concept that should survive into GTL 2.x
-- `Job` and `Worker` are ABG/runtime concepts that should move out of the language core
-- runtime-heavy concepts in current GTL belong more naturally to ABG than to the language core
-
-So GTL 2.x is not a repudiation of current GTL.
-
-It is the explicit reconstruction of the fuller model from that partial projection.
-
-In that history, `Fragment` should be read as a successful transitional abstraction:
-
-- useful during bootstrap and major refactor
-- not wrong in context
-- but no longer needed once graph primacy is made explicit
+Engines publish capability profiles against the active requirement families and mapping requirements, not against a separate migration-era capability matrix.
 
 ---
 
-## 14. Requirement Structure
+## 13. Authoritative Alignment
 
-The next constitutional requirement set should be split into four layers.
+This document is the authoritative design statement for GTL 2.x and the GTL/ABG boundary.
 
-### 14.1 GTL language requirement families
+The live requirement surface expresses that design through four active layers.
+
+### 13.1 GTL language requirement families
 
 - `REQ-L-GTL2-GRAPH`
-- `REQ-L-GTL2-NODE` (includes `Vector[T]` as schema family)
+- `REQ-L-GTL2-NODE`
 - `REQ-L-GTL2-INTERFACE`
 - `REQ-L-GTL2-OPERATOR`
 - `REQ-L-GTL2-EVALUATOR`
 - `REQ-L-GTL2-RULE`
 - `REQ-L-GTL2-GRAPHFUNCTION`
+- `REQ-L-GTL2-ROLE`
+- `REQ-L-GTL2-JOB`
 - `REQ-L-GTL2-COMPOSE`
 - `REQ-L-GTL2-SUBSTITUTE`
 - `REQ-L-GTL2-RECURSE`
@@ -796,10 +896,11 @@ The next constitutional requirement set should be split into four layers.
 - `REQ-L-GTL2-HOF`
 - `REQ-L-GTL2-MODULE`
 - `REQ-L-GTL2-SELECTION-BOUNDARY`
+- `REQ-L-GTL2-IDENTITY`
 - `REQ-L-GTL2-LAWS`
 - `REQ-L-GTL2-ENGINE-INDEPENDENCE`
 
-### 14.2 ABG interpreter requirement families
+### 13.2 ABG engine requirement families
 
 - `REQ-R-ABG2-INTERPRET`
 - `REQ-R-ABG2-EVENTS`
@@ -810,17 +911,18 @@ The next constitutional requirement set should be split into four layers.
 - `REQ-R-ABG2-CORRECTION`
 - `REQ-R-ABG2-PROVENANCE`
 - `REQ-R-ABG2-SELECTION-APPLICATION`
-- `REQ-R-ABG2-JOB-WORKER`
+- `REQ-R-ABG2-WORKER`
+- `REQ-R-ABG2-BINDING`
 - `REQ-R-ABG2-LEAFTASK`
 - `REQ-R-ABG2-SELFHOSTING`
 
-### 14.3 Engine-mapping requirement families
+### 13.3 Engine-mapping requirement families
 
 - `REQ-M-GTL2-MAPPING`
 - `REQ-M-GTL2-CAPABILITY`
 - `REQ-M-GTL2-PROVENANCE`
 
-### 14.4 Product/policy/scenario requirement families
+### 13.4 Product and scenario requirement families
 
 - `REQ-P-POLICY`
 - `REQ-P-SCENARIOS`
@@ -828,66 +930,13 @@ The next constitutional requirement set should be split into four layers.
 
 ---
 
-## 15. Recommended First Wave
-
-### GTL first wave
-
-1. `REQ-L-GTL2-GRAPH`
-2. `REQ-L-GTL2-NODE`
-3. `REQ-L-GTL2-INTERFACE`
-4. `REQ-L-GTL2-OPERATOR`
-5. `REQ-L-GTL2-EVALUATOR`
-6. `REQ-L-GTL2-GRAPHFUNCTION`
-7. `REQ-L-GTL2-COMPOSE`
-8. `REQ-L-GTL2-SUBSTITUTE`
-9. `REQ-L-GTL2-LAWS`
-
-### ABG first wave
-
-1. `REQ-R-ABG2-INTERPRET`
-2. `REQ-R-ABG2-EVENTS`
-3. `REQ-R-ABG2-PROJECTION`
-4. `REQ-R-ABG2-CONVERGENCE`
-5. `REQ-R-ABG2-LINEAGE`
-6. `REQ-R-ABG2-SELECTION-APPLICATION`
-7. `REQ-R-ABG2-JOB-WORKER`
-
-This is enough to establish:
-
-- graph-first language law
-- interpreter separation
-- composition/substitution
-- evented replay
-
-before pushing further into recursion, higher-order behavior, self-hosting, and alternate-engine mappings.
-
----
-
-## 16. Fresh Document Stack
-
-Once this document is accepted, the clean next canonical stack is:
-
-1. `GTL_2_INTENT.md`
-2. `GTL_2_DOMAIN_MODEL.md`
-3. `GTL_2_LANGUAGE.md`
-4. `GTL_2_SEMANTICS.md`
-5. `GTL_2_OPERATOR_MODEL.md`
-6. `GTL_2_HIGHER_ORDER_COMPOSITION.md`
-7. `GTL_2_ABG_INTERPRETER_BOUNDARY.md`
-8. `GTL_2_REQUIREMENT_FAMILIES.md`
-9. `GTL_2_MIGRATION.md`
-
-Only the migration document should spend material effort on legacy terminology.
-
----
-
-## 17. Guiding Statement
+## 14. Guiding Statement
 
 GTL 2.x is a graph-first Python DSL/SDK for expressing deterministic, probabilistic, and judgment-bearing workflow programs through graphs, typed nodes, operators, evaluators, graph functions, and higher-order graph composition, with ABG serving as the canonical target engine surface and other engines remaining possible mapping targets.
 
 ---
 
-## 18. Bottom Line
+## 15. Bottom Line
 
 The main simplification is this:
 
@@ -896,12 +945,16 @@ The main simplification is this:
 From that:
 
 - node meaning becomes explicit through `Node[T]`
-- edge becomes a minimal graph vector
+- graph vector becomes the minimal graph contract step
 - reusable workflows become `GraphFunction`
+- durable semantic work becomes `Job`
+- semantic capability becomes `Role`
+- execution attempts become `Run`
+- execution evidence and elastic context collapse into immutable `WorkSurface`
 - refinement becomes substitution
 - recursion becomes graph application over lineage
 - fan-out/fan-in/gate/promote become graph operators
-- ABG becomes the interpreter rather than the language
+- ABG becomes the interpreter and run-time realization rather than the language
 - GTL becomes portable across engines rather than trapped in one runtime
 
 This is the coherent GTL 2.x design.

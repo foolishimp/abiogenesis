@@ -42,15 +42,17 @@ from gtl.graph import Graph, Node, GraphVector
 from gtl.module_model import Module
 from gtl.core import (
     Evaluator, Operator, Rule, Worker,
-    F_D, F_H, F_P, consensus,
+    F_D, F_H, F_P,
 )
 
 from genesis.events import EventStream
 from genesis.install import workspace_bootstrap
-from genesis.binding import Job, bind_fd, bind_fp, BoundJob
+from genesis.binding import ExecutableJob, bind_fd, bind_fp, BoundJob
 from genesis.convergence import delta
 from genesis.interpret import iterate, schedule
 from genesis.services import Scope, gen_gaps, gen_iterate, gen_start
+
+from gtl.work_model import Job as GtlJob, ContractRef
 
 
 # ── Stream helpers ────────────────────────────────────────────────────────────
@@ -102,7 +104,8 @@ def _make_fd_only_pkg(workspace_root: Path):
         nodes=(draft, published), vectors=(vector,),
     )
     module = Module(name="content_pipeline", graphs=(graph,))
-    job = Job(vector=vector, evaluators=[eval_file])
+    gtl_job = GtlJob(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
+    job = ExecutableJob(job=gtl_job, vector=vector)
     worker = Worker(id="publisher", can_execute=[job])
     return module, worker, job, sentinel
 
@@ -120,7 +123,7 @@ def _make_fh_gate_pkg():
     op = Operator("finance_approver", F_H, "fh://single")
     eval_sign = Evaluator("budget_signed", F_H,
                           "Finance director must sign off before funds are released")
-    rule = Rule(name="finance_gate", kind="gate", config={"approve": consensus(1, 1)})
+    rule = Rule(name="finance_gate", kind="gate", config={"approve": {"kind": "consensus", "n": 1, "m": 1}})
     vector = GraphVector(
         name="proposal→approved_budget",
         source=proposal, target=approved_budget,
@@ -134,7 +137,8 @@ def _make_fh_gate_pkg():
         nodes=(proposal, approved_budget), vectors=(vector,),
     )
     module = Module(name="budget_process", graphs=(graph,))
-    job = Job(vector=vector, evaluators=[eval_sign])
+    gtl_job = GtlJob(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
+    job = ExecutableJob(job=gtl_job, vector=vector)
     worker = Worker(id="finance_team", can_execute=[job])
     return module, worker, job
 
@@ -163,7 +167,8 @@ def _make_fp_dispatch_pkg():
         nodes=(ingredients, recipe), vectors=(vector,),
     )
     module = Module(name="recipe_pipeline", graphs=(graph,))
-    job = Job(vector=vector, evaluators=[eval_tasty])
+    gtl_job = GtlJob(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
+    job = ExecutableJob(job=gtl_job, vector=vector)
     worker = Worker(id="chef_ai", can_execute=[job])
     return module, worker, job
 
@@ -199,8 +204,10 @@ def _make_multi_worker_pkg():
         nodes=(source, french, german), vectors=(vec_fr, vec_de),
     )
     module = Module(name="translation_service", graphs=(graph,))
-    job_fr = Job(vector=vec_fr, evaluators=[eval_fr])
-    job_de = Job(vector=vec_de, evaluators=[eval_de])
+    gtl_job_fr = GtlJob(name=vec_fr.name, contracts=(ContractRef(kind="graph_vector", target_id=vec_fr.id),))
+    gtl_job_de = GtlJob(name=vec_de.name, contracts=(ContractRef(kind="graph_vector", target_id=vec_de.id),))
+    job_fr = ExecutableJob(job=gtl_job_fr, vector=vec_fr)
+    job_de = ExecutableJob(job=gtl_job_de, vector=vec_de)
     worker_fr = Worker(id="french_team", can_execute=[job_fr])
     worker_de = Worker(id="german_team", can_execute=[job_de])
     worker_fr2 = Worker(id="french_team_backup", can_execute=[job_fr])  # conflicts with worker_fr

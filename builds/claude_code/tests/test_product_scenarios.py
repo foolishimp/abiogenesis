@@ -29,9 +29,9 @@ from gtl.graph import Graph, Node, GraphVector, Context
 from gtl.module_model import Module
 from gtl.function_model import GraphFunction
 from gtl.operator_model import Evaluator, Operator, F_D, F_P, F_H, Rule
-from gtl.core import consensus
+from gtl.work_model import Job as GtlJob, ContractRef
 
-from genesis.binding import Job, Worker
+from genesis.binding import ExecutableJob, Worker
 from genesis.events import EventStream
 from genesis.install import workspace_bootstrap
 from genesis.provenance import req_hash
@@ -80,9 +80,11 @@ def _make_single_edge_module(
         inputs=(src,), outputs=(tgt,),
         nodes=(src, tgt), vectors=(vec,),
     )
+    job = GtlJob(name=edge_name, contracts=(ContractRef(kind="graph_vector", target_id=vec.id),))
     module = Module(
         name=name,
         graphs=(graph,),
+        jobs=(job,),
         metadata={"requirements": requirements or []},
     )
     return module
@@ -99,8 +101,8 @@ def _spec_hash(module):
 
 def _job_from_module(module):
     """Extract the first Job from a Module (for delta() calls)."""
-    from genesis.services import module_to_jobs
-    jobs = module_to_jobs(module)
+    from genesis.services import module_to_executable_jobs
+    jobs = module_to_executable_jobs(module)
     return jobs[0]
 
 
@@ -267,7 +269,7 @@ class TestScenario5IndependentWorkLines:
         )
 
         # Iterate AUTH
-        scope_auth = _scope(tmp_path, module, feature="REQ-F-AUTH")
+        scope_auth = _scope(tmp_path, module, work_key_filter="REQ-F-AUTH")
         result = gen_iterate(scope_auth, stream)
         auth_run_id = result["run_id"]
 
@@ -429,9 +431,11 @@ class TestScenario8Selection:
             template=_detail,
         )
 
+        job_outer = GtlJob(name=outer_vec.name, contracts=(ContractRef(kind="graph_vector", target_id=outer_vec.id),))
         module = Module(
             name="s8", graphs=(outer_graph,),
             graph_functions=(gf,),
+            jobs=(job_outer,),
             metadata={"requirements": ["REQ-F-COMPLEX"]},
         )
 
@@ -510,8 +514,10 @@ class TestScenario8Selection:
 
         gf = GraphFunction(name="refine", inputs=(a_n,), outputs=(b_n,),
                            template=_inner)
+        job1 = GtlJob(name=vec1.name, contracts=(ContractRef(kind="graph_vector", target_id=vec1.id),))
+        job2 = GtlJob(name=vec2.name, contracts=(ContractRef(kind="graph_vector", target_id=vec2.id),))
         module = Module(name="dup_test", graphs=(graph1, graph2),
-                        graph_functions=(gf,), metadata={"requirements": []})
+                        graph_functions=(gf,), jobs=(job1, job2), metadata={"requirements": []})
 
         stream = _ws(tmp_path, "REQ-DUP")
         scope = Scope(module=module, workspace_root=tmp_path)
@@ -570,8 +576,10 @@ class TestScenario8Selection:
             template=_via_review,
         )
 
+        job_outer = GtlJob(name=outer_vec.name, contracts=(ContractRef(kind="graph_vector", target_id=outer_vec.id),))
         module = Module(
             name="ext", graphs=(outer_graph,), graph_functions=(gf,),
+            jobs=(job_outer,),
             metadata={"requirements": []},
         )
 

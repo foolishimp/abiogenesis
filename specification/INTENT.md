@@ -54,7 +54,7 @@ The spec is `builds/claude_code/code/gtl_spec/packages/abiogenesis.py` — the G
 
 ## Constitutional Precedence
 
-Requirements derived from INT-004 and INT-005 (V2) supersede overlapping V1 wording from INT-001. Where V1 and V2 requirements describe the same surface, V2 governs. V1 behaviour is retained **only** as explicitly labeled degenerate cases within V2 requirements:
+Requirements derived from INT-004 through INT-007 (V2) supersede overlapping V1 wording from INT-001. Where V1 and V2 requirements describe the same surface, V2 governs. V1 behaviour is retained **only** as explicitly labeled degenerate cases within V2 requirements:
 
 | Retained degenerate case | Meaning |
 |--------------------------|---------|
@@ -481,3 +481,73 @@ Replay law: which candidates existed is structural truth, which was chosen is ev
 8. `workflow_selected` event makes selection replayable from the event stream
 9. Higher-order combinators (`fan_out`, `fan_in`, `gate`, `promote`) can express branching, reducing, gating, and promotion patterns
 10. The kernel remains composition-aware and selection-blind — no business priority logic in the engine
+
+---
+
+## INT-007 — V2 Semantic Correction: Job, Role, Worker, and Run
+
+**Date**: 2026-03-25
+**Status**: Draft
+**Derived from**: Product-owner gap analysis of V2 semantic incompleteness, Codex strategy `20260325T183500_STRATEGY_job-role-worker-requirement-cascade.md`
+**Renewal path**: Current V2 spec → gap analysis → this intent correction (per METHODOLOGY.md §Renewal Path)
+
+### Problem
+
+The current V2 requirement surface compresses `Job` and `Worker` too aggressively into runtime scheduling vocabulary. That loses important semantic structure:
+
+1. A durable, semantically meaningful work contract still exists. "End of day liquidity calc" is not merely a queue item or one execution attempt. It is a named work contract that persists across time.
+
+2. Capability class and concrete actor identity are not the same thing. "Code reviewer" or "liquidity calculator" is a semantic role. A specific agent, human approver, or service identity is the concrete worker.
+
+3. Execution instance is distinct from both. One job may accumulate many runs over time. A run is where timing, outcome, retries, supersession, and execution truth live.
+
+4. Authentication and authority resolution are outside the system boundary, but the semantic hooks are not. ABG must accept externally resolved identity/authority inputs and preserve them in provenance without turning GTL/ABG into an IAM system.
+
+The current `REQ-R-ABG2-JOB-WORKER` is therefore constitutionally incomplete. It treats `Job` as a runtime unit and leaves no first-class GTL home for semantic job contracts or capability roles.
+
+### Value Proposition
+
+This correction restores a clean, durable model:
+
+- `Job` in GTL: durable semantic work contract
+- `Role` in GTL: semantic capability class required by a job or graph contract
+- `Worker` in ABG: concrete actor identity
+- `Run` in ABG: one execution instance of a job
+- `Binding` in ABG: `Worker` binds to `Role`; `Run` realizes `Job`
+
+This yields a model that matches real workflow systems without collapsing the language into the engine:
+
+- GTL remains the semantic declaration layer
+- ABG remains the semantic realization/execution layer
+- authentication remains external
+- authority resolution remains external
+- identity and authority hooks remain first-class in provenance
+
+### Scope
+
+**In scope:**
+- GTL first-class declaration of `Role`
+- GTL first-class declaration of `Job`
+- ABG first-class definition of `Worker` as concrete actor identity
+- ABG first-class definition of `Run` as execution instance associated to a job
+- ABG binding semantics: `Worker -> Role`, `Run -> Job`
+- Explicit external boundary for authentication and authority resolution
+- Provenance hooks: `job_id`, `run_id`, `worker_id`, `role`, `authority_ref`
+- Module ownership of jobs and roles alongside graphs and graph functions
+
+**Out of scope:**
+- IAM design
+- authentication protocols
+- session/token/credential handling
+- a full orchestration family (triggers, schedules, KPIs, windows)
+
+This is a V2 semantic correction, not a V2.1 orchestration expansion.
+
+### Success Criteria
+
+1. The live intent and requirement surface distinguishes `Job`, `Role`, `Worker`, and `Run` without overlap or dual authority.
+2. GTL can declare durable semantic jobs and required roles without importing runtime concepts.
+3. ABG can bind concrete workers to roles and preserve that binding in run provenance.
+4. A run is constitutionally defined as one execution instance associated to exactly one job.
+5. Authentication is explicitly out of scope, while `worker_id` and `authority_ref` remain first-class hooks.
+6. No active requirement remains that treats `Job` only as a runtime queue item or collapses `Role` into `Worker`.

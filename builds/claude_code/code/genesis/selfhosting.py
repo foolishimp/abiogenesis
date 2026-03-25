@@ -38,9 +38,9 @@ def _check_bootloader_consistency(spec_module: str, bootloader_path: str) -> int
     )
 
     _CORE_TYPES = {
-        "Context", "Evaluator", "Graph", "GraphVector",
+        "ContractRef", "Context", "Evaluator", "Graph", "GraphVector",
         "F_D", "F_H", "F_P",
-        "GraphFunction", "Module", "Node", "Operator", "Rule",
+        "GraphFunction", "Job", "Module", "Node", "Operator", "Role", "Rule",
     }
     exported = sorted(name for name in all_defined if name in _CORE_TYPES)
 

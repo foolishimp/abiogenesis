@@ -14,10 +14,11 @@ import json
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from gtl.core import F_D, F_H, F_P, Job, Package, Worker
+from gtl.core import F_D, F_H, F_P, Package
 
-from .bind import bind_fd, bind_fp, job_evaluator_hash, req_hash
+from .bind import bind_fd, bind_fp, executable_job_hash, req_hash
 from .core import ContextResolver, EventStream
+from .runtime_model import ExecutableJob, Worker
 from .schedule import iterate
 
 
@@ -57,7 +58,7 @@ def gen_gaps(scope: Scope, stream: EventStream) -> dict:
         spec_hash = (
             req_hash(scope.package.requirements)
             if scope.workflow_version == "unknown"
-            else job_evaluator_hash(job)
+            else executable_job_hash(job)
         )
         pre = bind_fd(
             job,
@@ -115,13 +116,13 @@ def gen_iterate(scope: Scope, stream: EventStream) -> dict:
         return {"status": "nothing_to_do", "reason": "no jobs in scope"}
 
     carry_forward = _read_carry_forward(scope.workspace_root, scope.workflow_version)
-    selected_job: Job | None = None
+    selected_job: ExecutableJob | None = None
     selected_pre = None
     for job in jobs:
         spec_hash = (
             req_hash(scope.package.requirements)
             if scope.workflow_version == "unknown"
-            else job_evaluator_hash(job)
+            else executable_job_hash(job)
         )
         pre = bind_fd(
             job,
@@ -155,7 +156,24 @@ def gen_iterate(scope: Scope, stream: EventStream) -> dict:
         manifest_path = str(manifest_dir / f"{feature_id}_{safe_edge}.json")
         result_path = str(result_dir / f"{feature_id}_{safe_edge}.json")
 
-    bound = bind_fp(selected_pre, selected_job, result_path=result_path)
+    role_id = selected_job.required_role_ids[0] if selected_job.required_role_ids else None
+    if not worker.can_bind(selected_job):
+        return {
+            "status": "error",
+            "reason": "worker lacks required role binding",
+            "job_id": selected_job.job.id,
+            "worker_id": worker.id,
+            "required_role_ids": list(selected_job.required_role_ids),
+        }
+
+    bound = bind_fp(
+        selected_pre,
+        selected_job,
+        result_path=result_path,
+        worker_id=worker.id,
+        role_id=role_id,
+        authority_ref=worker.authority_ref,
+    )
     if manifest_path:
         Path(manifest_path).write_text(
             json.dumps(
@@ -171,6 +189,17 @@ def gen_iterate(scope: Scope, stream: EventStream) -> dict:
             encoding="utf-8",
         )
 
+    stream.append(
+        "run_bound",
+        {
+            "edge": selected_job.edge.name,
+            "job_id": selected_job.job.id,
+            "worker_id": worker.id,
+            "role_id": role_id,
+            "authority_ref": worker.authority_ref,
+            "feature": feature_id,
+        },
+    )
     stream.append(
         "edge_started",
         {
@@ -254,7 +283,7 @@ def _derive_state(scope: Scope, stream: EventStream) -> dict:
         spec_hash = (
             req_hash(scope.package.requirements)
             if scope.workflow_version == "unknown"
-            else job_evaluator_hash(job)
+            else executable_job_hash(job)
         )
         pre = bind_fd(
             job,
@@ -277,10 +306,11 @@ def _resolve_worker(scope: Scope) -> Worker:
     return scope.worker
 
 
-def _scoped_jobs(scope: Scope, worker: Worker) -> list[Job]:
+def _scoped_jobs(scope: Scope, worker: Worker) -> list[ExecutableJob]:
     jobs = list(worker.can_execute)
     if scope.edge:
         jobs = [job for job in jobs if job.edge.name == scope.edge]
+    jobs = [job for job in jobs if worker.can_bind(job)]
     return jobs
 
 

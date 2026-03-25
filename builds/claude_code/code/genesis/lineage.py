@@ -14,7 +14,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
 
-from genesis.binding import Job
+from genesis.binding import ExecutableJob
 
 from .events import EventStream
 
@@ -22,11 +22,11 @@ from .events import EventStream
 @dataclass(frozen=True)
 class WorkInstance:
     """
-    The scheduler's dispatch unit: a (job, work_key) pair with attempt identity.
+    The scheduler's dispatch unit: an (executable_job, work_key) pair with attempt identity.
 
     REQ-F-WK-005: Scheduler creates work instances from (job, work_key) pairs.
     """
-    job: Job
+    executable_job: ExecutableJob
     work_key: str | None = None
     run_id: str = field(default_factory=lambda: str(uuid.uuid4()))
 

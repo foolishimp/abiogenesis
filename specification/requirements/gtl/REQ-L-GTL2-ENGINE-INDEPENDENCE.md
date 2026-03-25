@@ -1,8 +1,8 @@
 # REQ-L-GTL2-ENGINE-INDEPENDENCE — Engine Independence
 
 **Status**: Active
-**Date**: 2026-03-24
-**Derives from**: INT-GTL2-009, INT-GTL2-011
+**Date**: 2026-03-25
+**Derives from**: INT-GTL2-009, INT-GTL2-011, INT-GTL2-012, INT-GTL2-013
 **Supersedes**: (new constraint)
 **Wave**: 1
 
@@ -20,4 +20,4 @@ GTL 2.x is defined independently of any single engine. The language owns structu
 
 **REQ-L-GTL2-ENGINE-INDEPENDENCE-003**: It shall be possible to interpret or map GTL programs onto ABG, Temporal, Prefect, Step Functions, or other runtimes — with full, partial, or capability-profile mappings.
 
-**REQ-L-GTL2-ENGINE-INDEPENDENCE-004**: GTL owns: graph structure, typed nodes, interfaces, operators, evaluators, rules, graph functions, composition, substitution, module structure. ABG owns: events, projection, convergence, lineage, runs, correction, provenance, replay.
+**REQ-L-GTL2-ENGINE-INDEPENDENCE-004**: GTL owns: graph structure, typed nodes, interfaces, operators, evaluators, rules, graph functions, jobs, roles, composition, substitution, module structure. ABG owns: workers, bindings, runs, events, projection, convergence, lineage, correction, provenance, replay, and external identity/authority integration hooks.

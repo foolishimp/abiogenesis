@@ -25,7 +25,7 @@ from pathlib import Path
 from gtl.graph import Graph, Node, GraphVector, Context
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, Operator, F_D, F_P, F_H, Rule
-from gtl.operator_model import consensus
+from gtl.work_model import Job as GtlJob, ContractRef
 
 from genesis.provenance import req_hash
 from genesis.install import workspace_bootstrap
@@ -70,9 +70,11 @@ def _make_minimal_module(requirements: list[str] | None = None) -> Module:
         contexts=(ctx,),
     )
 
+    job = GtlJob(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
     return Module(
         name="property_test",
         graphs=(graph,),
+        jobs=(job,),
         metadata={"requirements": requirements},
     )
 
@@ -195,11 +197,11 @@ class TestNoDuplicateCertificates:
             gen_gaps(scope, stream)
 
         certs = [
-            (e["data"]["edge"], e["data"].get("feature"))
+            (e["data"]["edge"], e["data"].get("work_key"))
             for e in stream.all_events()
             if e["event_type"] == "edge_converged"
         ]
-        # Count per (edge, feature) pair
+        # Count per (edge, work_key) pair
         from collections import Counter
         counts = Counter(certs)
         duplicates = {k: v for k, v in counts.items() if v > 1}
@@ -232,7 +234,7 @@ class TestNoDuplicateCertificates:
             })
             scope = Scope(
                 module=module, workspace_root=ws,
-                feature=feature,
+                work_key_filter=feature,
             )
             gen_gaps(scope, stream)
             gen_gaps(scope, stream)  # second call must not duplicate
@@ -240,7 +242,7 @@ class TestNoDuplicateCertificates:
             certs = [
                 e for e in stream.all_events()
                 if e["event_type"] == "edge_converged"
-                and e["data"].get("feature") == feature
+                and e["data"].get("work_key") == feature
             ]
             assert len(certs) == 1, (
                 f"Feature {feature}: expected 1 edge_converged, got {len(certs)}"

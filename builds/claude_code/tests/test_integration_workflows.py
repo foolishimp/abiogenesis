@@ -37,7 +37,7 @@ import pytest
 from gtl.graph import Graph, Node, GraphVector, Context
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, Operator, F_D, F_P, F_H, Rule
-from gtl.core import consensus
+from gtl.work_model import Job as GtlJob, ContractRef
 
 from genesis.provenance import req_hash
 from genesis.install import workspace_bootstrap
@@ -85,7 +85,7 @@ def _make_full_chain_module(workspace_root: Path) -> Module:
     op_agent = Operator("claude_agent", F_P, "agent://claude/genesis")
     op_check = Operator("check_tags", F_D, "exec://python -m genesis check-tags --type implements --path code/")
     op_human = Operator("human_gate", F_H, "fh://single")
-    rule = Rule(name="gate", kind="gate", config={"approve": consensus(1, 1)})
+    rule = Rule(name="gate", kind="gate", config={"approve": {"kind": "consensus", "n": 1, "m": 1}})
 
     vector = GraphVector(
         name="design→code",
@@ -104,9 +104,11 @@ def _make_full_chain_module(workspace_root: Path) -> Module:
         contexts=(ctx,),
     )
 
+    job = GtlJob(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
     return Module(
         name="integration_test",
         graphs=(graph,),
+        jobs=(job,),
         metadata={"requirements": ["REQ-INT-001"]},
     )
 
@@ -129,7 +131,7 @@ def _make_fd_fp_module(workspace_root: Path) -> Module:
 
     op_agent = Operator("claude_agent", F_P, "agent://claude/genesis")
     op_check = Operator("check_tags", F_D, "exec://python -m genesis check-tags --type implements --path code/")
-    rule = Rule(name="gate", kind="gate", config={"approve": consensus(1, 1)})
+    rule = Rule(name="gate", kind="gate", config={"approve": {"kind": "consensus", "n": 1, "m": 1}})
 
     vector = GraphVector(
         name="design→code",
@@ -148,16 +150,18 @@ def _make_fd_fp_module(workspace_root: Path) -> Module:
         contexts=(ctx,),
     )
 
+    job = GtlJob(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
     return Module(
         name="fd_fp_test",
         graphs=(graph,),
+        jobs=(job,),
         metadata={"requirements": ["REQ-INT-002"]},
     )
 
 
 def _make_scope(tmp_path: Path, module: Module,
-                feature: str | None = None) -> Scope:
-    return Scope(module=module, workspace_root=tmp_path, feature=feature)
+                work_key_filter: str | None = None) -> Scope:
+    return Scope(module=module, workspace_root=tmp_path, work_key_filter=work_key_filter)
 
 
 # ── Workflow tests ─────────────────────────────────────────────────────────────
@@ -469,7 +473,7 @@ class TestEdgeConvergedCertificates:
             "spec_hash": spec_hash,
         })
 
-        scope = _make_scope(tmp_path, module, feature=feature_id)
+        scope = _make_scope(tmp_path, module, work_key_filter=feature_id)
         gen_gaps(scope, stream)
 
         certs = [
@@ -477,8 +481,8 @@ class TestEdgeConvergedCertificates:
             if e["event_type"] == "edge_converged"
         ]
         assert len(certs) == 1, f"Expected 1 edge_converged, got {len(certs)}"
-        assert certs[0]["data"]["feature"] == feature_id, (
-            "edge_converged must include feature field for feature-scoped projections (REQ-F-CMD-004)"
+        assert certs[0]["data"]["work_key"] == feature_id, (
+            "edge_converged must include work_key for work-scoped projections (REQ-F-CMD-004)"
         )
 
     def test_gen_gaps_does_not_duplicate_certificates(self, tmp_path):

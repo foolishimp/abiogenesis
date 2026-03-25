@@ -52,17 +52,19 @@ from gtl.graph import Graph, Node, GraphVector, Context
 from gtl.module_model import Module
 from gtl.core import (
     Evaluator, Operator, Rule, Worker,
-    F_D, F_P, F_H, consensus,
+    F_D, F_P, F_H,
 )
 
 from genesis.install import workspace_bootstrap
 from genesis.events import emit
 from genesis.projection import project
-from genesis.binding import Job, ContextResolver, bind_fd, bind_fp, BoundJob
+from genesis.binding import ExecutableJob, ContextResolver, bind_fd, bind_fp, BoundJob
 from genesis.provenance import req_hash
 from genesis.convergence import delta
 from genesis.interpret import iterate, schedule
 from genesis.services import Scope, gen_gaps, gen_iterate, gen_start
+
+from gtl.work_model import Job as GtlJob, ContractRef
 
 
 # ── Sandbox package fixture ────────────────────────────────────────────────────
@@ -110,7 +112,8 @@ def _make_sandbox_package(workspace: Path):
         contexts=(ctx,),
     )
     module = Module(name="sandbox_test", graphs=(graph,))
-    job = Job(vector=vector, evaluators=[eval_tags, eval_fp])
+    gtl_job = GtlJob(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
+    job = ExecutableJob(job=gtl_job, vector=vector)
     worker = Worker(id="claude_code", can_execute=[job])
     return module, worker, job
 
@@ -259,13 +262,13 @@ class TestSandboxFullLifecycle:
         assert state["status"] == "not_started"
 
         # After edge_started: in_progress
-        emit("edge_started", {"feature": "CODE-001", "edge": "design→code"})
+        emit("edge_started", {"work_key": "CODE-001", "edge": "design→code"})
         state = project(stream, "code", "CODE-001")
         assert state["status"] == "in_progress"
 
         # After edge_converged: converged
         emit("edge_converged", {
-            "feature": "CODE-001",
+            "work_key": "CODE-001",
             "edge": "design→code",
             "target": "code",
         })
@@ -282,9 +285,9 @@ class TestSandboxFullLifecycle:
     def test_replay_deterministic(self, tmp_path):
         """Replay is deterministic: project(S, T, I) = project(S, T, I)."""
         stream = workspace_bootstrap(tmp_path)
-        emit("edge_started", {"feature": "FEAT-E2E", "edge": "design→code"})
+        emit("edge_started", {"work_key": "FEAT-E2E", "edge": "design→code"})
         emit("edge_converged", {
-            "feature": "FEAT-E2E",
+            "work_key": "FEAT-E2E",
             "edge": "design→code",
             "target": "code",
         })

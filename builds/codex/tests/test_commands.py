@@ -5,10 +5,12 @@ from __future__ import annotations
 
 import json
 
-from gtl.core import Asset, Edge, Evaluator, Job, Operator, Package, Worker, F_D, F_P
+from gtl.core import Asset, Edge, Evaluator, Operator, Package, F_D, F_P
+from gtl.work_model import ContractRef, Job, Role
 
 from genesis.commands import Scope, gen_gaps, gen_iterate
 from genesis.core import workspace_bootstrap
+from genesis.runtime_model import ExecutableJob, Worker
 
 
 def _make_package(fp: bool = True) -> tuple[Package, Worker]:
@@ -19,9 +21,11 @@ def _make_package(fp: bool = True) -> tuple[Package, Worker]:
     evaluators = [Evaluator("code_complete", F_P, "needs agent")] if fp else [
         Evaluator("always_ok", F_D, "passes", command="python -c 'import sys; sys.exit(0)'")
     ]
-    job = Job(edge=edge, evaluators=evaluators)
-    worker = Worker(id="codex", can_execute=[job])
-    package = Package(name="codex_pkg", assets=[design, code], edges=[edge], operators=[op])
+    role = Role("codex_executor")
+    job = Job(name="design_to_code", contracts=(ContractRef(kind="edge", target_id=edge.id),), roles=(role,))
+    executable_job = ExecutableJob(job=job, edge=edge, evaluators=evaluators)
+    worker = Worker(id="codex", can_execute=[executable_job], role_ids=(role.id,))
+    package = Package(name="codex_pkg", assets=[design, code], edges=[edge], operators=[op], jobs=[job], roles=[role])
     return package, worker
 
 
@@ -42,6 +46,9 @@ def test_gen_iterate_dispatches_fp_and_writes_manifest(tmp_path):
     result = gen_iterate(scope, stream)
     assert result["status"] == "fp_dispatched"
     assert result["fp_manifest_path"]
+    bound = [event for event in stream.all_events() if event["event_type"] == "run_bound"]
+    assert bound[-1]["data"]["worker_id"] == "codex"
+    assert bound[-1]["data"]["role_id"] == worker.role_ids[0]
 
 
 def test_gen_gaps_emits_edge_certificate_with_feature(tmp_path):
@@ -68,3 +75,12 @@ def test_gen_gaps_does_not_duplicate_edge_certificate(tmp_path):
         event for event in stream.all_events() if event["event_type"] == "edge_converged"
     ]
     assert len(certificates) == 1
+
+
+def test_gen_iterate_fails_closed_when_worker_lacks_required_role(tmp_path):
+    stream = workspace_bootstrap(tmp_path)
+    package, worker = _make_package(fp=True)
+    worker.role_ids = ()
+    scope = Scope(package=package, workspace_root=tmp_path, worker=worker, feature="REQ-F-CMD")
+    result = gen_iterate(scope, stream)
+    assert result["status"] == "nothing_to_do" or result["status"] == "error"

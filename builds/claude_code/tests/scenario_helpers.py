@@ -402,24 +402,24 @@ def compute_spec_hash(
 
     Mirrors commands.py spec_hash selection:
       - workflow_version == "unknown" → req_hash(module.metadata["requirements"])
-      - workflow_version != "unknown" → job_evaluator_hash(job)
+      - workflow_version != "unknown" → executable_job_hash(job)
     """
     result = subprocess.run(
         [sys.executable, "-c", textwrap.dedent("""\
             import json, sys
             from pathlib import Path
             sys.path.insert(0, '.genesis')
-            from genesis.provenance import req_hash, job_evaluator_hash
+            from genesis.provenance import req_hash, executable_job_hash
             from genesis.provenance import _read_workflow_version
-            from genesis.services import module_to_jobs
+            from genesis.services import module_to_executable_jobs
             from gtl_spec.packages.test_pkg import module
 
             wv = _read_workflow_version(Path('.'))
             if wv == 'unknown':
                 print(req_hash(module.metadata.get("requirements", [])))
             else:
-                jobs = module_to_jobs(module)
-                print(job_evaluator_hash(jobs[0]))
+                jobs = module_to_executable_jobs(module)
+                print(executable_job_hash(jobs[0]))
         """)],
         capture_output=True, text=True,
         cwd=str(target),

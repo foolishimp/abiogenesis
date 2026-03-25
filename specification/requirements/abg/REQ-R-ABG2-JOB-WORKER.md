@@ -1,21 +1,23 @@
-# REQ-R-ABG2-JOB-WORKER — Job Binding and Worker Identity
+# REQ-R-ABG2-JOB-WORKER — Superseded by Explicit Job / Role / Worker / Run Split
 
-**Status**: Active
-**Date**: 2026-03-24
+**Status**: Superseded
+**Date**: 2026-03-25
 **Derives from**: INT-GTL2-008
-**Supersedes**: (runtime concepts moved from GTL to ABG)
+**Superseded by**: REQ-L-GTL2-JOB, REQ-L-GTL2-ROLE, REQ-R-ABG2-WORKER, REQ-R-ABG2-BINDING, REQ-R-ABG2-RUN
 **Wave**: 1
 
 ---
 
-## Purpose
+## Disposition
 
-Job and Worker are ABG runtime concepts. They bind GTL graph structure to concrete execution scheduling and capability.
+This requirement compressed semantic `Job`, semantic `Role`, concrete `Worker`, and execution `Run` into a single runtime family.
 
-## Acceptance Criteria
+That formulation is no longer authoritative.
 
-**REQ-R-ABG2-JOB-WORKER-001**: `Job` is ABG's binding of a GTL graph vector (step between typed nodes) to a schedulable work unit. Job is a runtime concept, not a language type.
+Use the split requirement family instead:
 
-**REQ-R-ABG2-JOB-WORKER-002**: `Worker` is ABG's model of execution capability. Worker identity and capability matching are engine-owned.
-
-**REQ-R-ABG2-JOB-WORKER-003**: Job/Worker shall not appear in the GTL language core. They belong to the ABG target engine surface.
+- GTL semantic job contract: `REQ-L-GTL2-JOB`
+- GTL semantic role: `REQ-L-GTL2-ROLE`
+- ABG concrete worker identity: `REQ-R-ABG2-WORKER`
+- ABG worker/role/job realization: `REQ-R-ABG2-BINDING`
+- ABG execution-instance lifecycle: `REQ-R-ABG2-RUN`
