@@ -38,16 +38,19 @@ from __future__ import annotations
 import pytest
 from pathlib import Path
 
+from gtl.graph import Graph, Node, GraphVector
+from gtl.module_model import Module
 from gtl.core import (
-    Asset, Context, Edge, Evaluator, Job, Operator, Package, Rule, Worker,
+    Evaluator, Operator, Rule, Worker,
     F_D, F_H, F_P, consensus,
 )
 
-from genesis.core import EventStream, workspace_bootstrap
-from genesis.bind import bind_fd, bind_fp
-from genesis.schedule import delta, iterate, schedule
-from genesis.commands import Scope, gen_gaps, gen_iterate, gen_start
-from genesis.manifest import BoundJob
+from genesis.events import EventStream
+from genesis.install import workspace_bootstrap
+from genesis.binding import Job, bind_fd, bind_fp, BoundJob
+from genesis.convergence import delta
+from genesis.interpret import iterate, schedule
+from genesis.services import Scope, gen_gaps, gen_iterate, gen_start
 
 
 # ── Stream helpers ────────────────────────────────────────────────────────────
@@ -75,28 +78,33 @@ def _make_fd_only_pkg(workspace_root: Path):
     'content pipeline' is.
     """
     sentinel = workspace_root / "published.ok"
-    draft = Asset(name="draft", id_format="DRAFT-{SEQ}")
-    published = Asset(name="published", id_format="PUB-{SEQ}", lineage=[draft])
+    draft = Node(name="draft")
+    published = Node(name="published")
     op = Operator("content_publisher", F_D,
                   "exec://python -c 'print(\"publish\")'")
-    edge = Edge(name="draft→published", source=draft, target=published, using=[op])
     eval_file = Evaluator(
         "file_published", F_D,
         "published.ok sentinel must exist",
-        command=(
-            f"python -c \"from pathlib import Path; import sys; "
+        binding=(
+            f"exec://python -c \"from pathlib import Path; import sys; "
             f"sys.exit(0 if Path(r'{sentinel}').exists() else 1)\""
         ),
     )
-    job = Job(edge=edge, evaluators=[eval_file])
-    pkg = Package(
-        name="content_pipeline",
-        assets=[draft, published],
-        edges=[edge],
-        operators=[op],
+    vector = GraphVector(
+        name="draft→published",
+        source=draft, target=published,
+        operators=(op,),
+        evaluators=(eval_file,),
     )
+    graph = Graph(
+        name="draft→published",
+        inputs=(draft,), outputs=(published,),
+        nodes=(draft, published), vectors=(vector,),
+    )
+    module = Module(name="content_pipeline", graphs=(graph,))
+    job = Job(vector=vector, evaluators=[eval_file])
     worker = Worker(id="publisher", can_execute=[job])
-    return pkg, worker, job, sentinel
+    return module, worker, job, sentinel
 
 
 def _make_fh_gate_pkg():
@@ -107,25 +115,28 @@ def _make_fh_gate_pkg():
     Kernel resolves the gate via approved (kind=fh_review) edge name — knows nothing about
     'budgets'.
     """
-    proposal = Asset(name="proposal", id_format="PROP-{SEQ}")
-    approved_budget = Asset(name="approved_budget", id_format="BDG-{SEQ}",
-                            lineage=[proposal])
+    proposal = Node(name="proposal")
+    approved_budget = Node(name="approved_budget")
     op = Operator("finance_approver", F_H, "fh://single")
-    edge = Edge(name="proposal→approved_budget",
-                source=proposal, target=approved_budget, using=[op])
     eval_sign = Evaluator("budget_signed", F_H,
                           "Finance director must sign off before funds are released")
-    job = Job(edge=edge, evaluators=[eval_sign])
-    rule = Rule("finance_gate", approve=consensus(1, 1))
-    pkg = Package(
-        name="budget_process",
-        assets=[proposal, approved_budget],
-        edges=[edge],
-        operators=[op],
-        rules=[rule],
+    rule = Rule(name="finance_gate", kind="gate", config={"approve": consensus(1, 1)})
+    vector = GraphVector(
+        name="proposal→approved_budget",
+        source=proposal, target=approved_budget,
+        operators=(op,),
+        evaluators=(eval_sign,),
+        rule=rule,
     )
+    graph = Graph(
+        name="proposal→approved_budget",
+        inputs=(proposal,), outputs=(approved_budget,),
+        nodes=(proposal, approved_budget), vectors=(vector,),
+    )
+    module = Module(name="budget_process", graphs=(graph,))
+    job = Job(vector=vector, evaluators=[eval_sign])
     worker = Worker(id="finance_team", can_execute=[job])
-    return pkg, worker, job
+    return module, worker, job
 
 
 def _make_fp_dispatch_pkg():
@@ -135,21 +146,26 @@ def _make_fp_dispatch_pkg():
     One F_P evaluator: chef agent assesses recipe completeness.
     Kernel fires on_fp_dispatch callback; it does not know what a 'recipe' is.
     """
-    ingredients = Asset(name="ingredients", id_format="ING-{SEQ}")
-    recipe = Asset(name="recipe", id_format="REC-{SEQ}", lineage=[ingredients])
+    ingredients = Node(name="ingredients")
+    recipe = Node(name="recipe")
     op = Operator("chef_agent", F_P, "agent://chef/recipe_gen")
-    edge = Edge(name="ingredients→recipe", source=ingredients, target=recipe, using=[op])
     eval_tasty = Evaluator("recipe_complete", F_P,
                            "Chef agent: recipe covers all required ingredients")
-    job = Job(edge=edge, evaluators=[eval_tasty])
-    pkg = Package(
-        name="recipe_pipeline",
-        assets=[ingredients, recipe],
-        edges=[edge],
-        operators=[op],
+    vector = GraphVector(
+        name="ingredients→recipe",
+        source=ingredients, target=recipe,
+        operators=(op,),
+        evaluators=(eval_tasty,),
     )
+    graph = Graph(
+        name="ingredients→recipe",
+        inputs=(ingredients,), outputs=(recipe,),
+        nodes=(ingredients, recipe), vectors=(vector,),
+    )
+    module = Module(name="recipe_pipeline", graphs=(graph,))
+    job = Job(vector=vector, evaluators=[eval_tasty])
     worker = Worker(id="chef_ai", can_execute=[job])
-    return pkg, worker, job
+    return module, worker, job
 
 
 def _make_multi_worker_pkg():
@@ -159,26 +175,36 @@ def _make_multi_worker_pkg():
     Two non-conflicting workers (disjoint write territories → parallel batch).
     One conflicting worker (same write territory as worker_fr → serial batch).
     """
-    source = Asset(name="source", id_format="SRC-{SEQ}")
-    french = Asset(name="french", id_format="FR-{SEQ}", lineage=[source])
-    german = Asset(name="german", id_format="DE-{SEQ}", lineage=[source])
+    source = Node(name="source")
+    french = Node(name="french")
+    german = Node(name="german")
     op = Operator("translator", F_P, "agent://translator")
-    edge_fr = Edge(name="source→french", source=source, target=french, using=[op])
-    edge_de = Edge(name="source→german", source=source, target=german, using=[op])
     eval_fr = Evaluator("french_complete", F_P, "French translation verified")
     eval_de = Evaluator("german_complete", F_P, "German translation verified")
-    job_fr = Job(edge=edge_fr, evaluators=[eval_fr])
-    job_de = Job(edge=edge_de, evaluators=[eval_de])
+    vec_fr = GraphVector(
+        name="source→french",
+        source=source, target=french,
+        operators=(op,),
+        evaluators=(eval_fr,),
+    )
+    vec_de = GraphVector(
+        name="source→german",
+        source=source, target=german,
+        operators=(op,),
+        evaluators=(eval_de,),
+    )
+    graph = Graph(
+        name="translation",
+        inputs=(source,), outputs=(french, german),
+        nodes=(source, french, german), vectors=(vec_fr, vec_de),
+    )
+    module = Module(name="translation_service", graphs=(graph,))
+    job_fr = Job(vector=vec_fr, evaluators=[eval_fr])
+    job_de = Job(vector=vec_de, evaluators=[eval_de])
     worker_fr = Worker(id="french_team", can_execute=[job_fr])
     worker_de = Worker(id="german_team", can_execute=[job_de])
     worker_fr2 = Worker(id="french_team_backup", can_execute=[job_fr])  # conflicts with worker_fr
-    pkg = Package(
-        name="translation_service",
-        assets=[source, french, german],
-        edges=[edge_fr, edge_de],
-        operators=[op],
-    )
-    return pkg, worker_fr, worker_de, worker_fr2, job_fr, job_de
+    return module, worker_fr, worker_de, worker_fr2, job_fr, job_de
 
 
 # ── Package 1: F_D-only ────────────────────────────────────────────────────────
@@ -194,8 +220,8 @@ class TestFdOnlyDomainBlind:
     def test_fd_command_executed_generically(self, tmp_path):
         """Kernel runs ev.command via subprocess — no domain knowledge required."""
         ws = _make_stream(tmp_path)
-        pkg, worker, job, sentinel = _make_fd_only_pkg(tmp_path)
-        from genesis.core import ContextResolver
+        module, worker, job, sentinel = _make_fd_only_pkg(tmp_path)
+        from genesis.binding import ContextResolver
         resolver = ContextResolver(tmp_path)
         pre = bind_fd(job, ws, resolver, tmp_path)
         # Sentinel not yet created → evaluator must fail
@@ -205,8 +231,8 @@ class TestFdOnlyDomainBlind:
     def test_initial_delta_nonzero(self, tmp_path):
         """gen_gaps shows delta>0 before condition is met. No _resolve_worker patch."""
         ws = _make_stream(tmp_path)
-        pkg, worker, job, sentinel = _make_fd_only_pkg(tmp_path)
-        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
+        module, worker, job, sentinel = _make_fd_only_pkg(tmp_path)
+        scope = Scope(module=module, workspace_root=tmp_path, worker=worker)
         result = gen_gaps(scope, ws)
         assert result["total_delta"] > 0
         assert result["converged"] is False
@@ -215,9 +241,9 @@ class TestFdOnlyDomainBlind:
     def test_delta_zero_after_condition_met(self, tmp_path):
         """gen_gaps shows delta=0 after the F_D command passes. No patch."""
         ws = _make_stream(tmp_path)
-        pkg, worker, job, sentinel = _make_fd_only_pkg(tmp_path)
+        module, worker, job, sentinel = _make_fd_only_pkg(tmp_path)
         sentinel.write_text("done")
-        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
+        scope = Scope(module=module, workspace_root=tmp_path, worker=worker)
         result = gen_gaps(scope, ws)
         assert result["total_delta"] == 0
         assert result["converged"] is True
@@ -226,8 +252,8 @@ class TestFdOnlyDomainBlind:
     def test_gen_iterate_returns_iterated(self, tmp_path):
         """gen_iterate processes a domain-blind F_D job. No patch."""
         ws = _make_stream(tmp_path)
-        pkg, worker, job, sentinel = _make_fd_only_pkg(tmp_path)
-        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
+        module, worker, job, sentinel = _make_fd_only_pkg(tmp_path)
+        scope = Scope(module=module, workspace_root=tmp_path, worker=worker)
         result = gen_iterate(scope, ws)
         assert result["status"] == "iterated"
         assert result["edge"] == "draft→published"
@@ -236,8 +262,8 @@ class TestFdOnlyDomainBlind:
     def test_fd_gap_event_in_surface(self, tmp_path):
         """iterate() records found event when F_D fails."""
         ws = _make_stream(tmp_path)
-        pkg, worker, job, sentinel = _make_fd_only_pkg(tmp_path)
-        from genesis.core import ContextResolver
+        module, worker, job, sentinel = _make_fd_only_pkg(tmp_path)
+        from genesis.binding import ContextResolver
         resolver = ContextResolver(tmp_path)
         pre = bind_fd(job, ws, resolver, tmp_path)
         bound = bind_fp(pre, job)
@@ -253,9 +279,9 @@ class TestFdOnlyDomainBlind:
         Regressions (test failures, tag removals) are detected on the next bind_fd call.
         """
         ws = _make_stream(tmp_path)
-        pkg, worker, job, sentinel = _make_fd_only_pkg(tmp_path)
+        module, worker, job, sentinel = _make_fd_only_pkg(tmp_path)
         ws.append("edge_converged", {"edge": "draft→published", "target": "published"})
-        from genesis.core import ContextResolver
+        from genesis.binding import ContextResolver
         resolver = ContextResolver(tmp_path)
         pre = bind_fd(job, ws, resolver, tmp_path)
         # F_D command WAS re-run — sentinel still does not exist → evaluator fails
@@ -276,8 +302,8 @@ class TestFhGateDomainBlind:
     def test_fh_gate_blocks_at_delta(self, tmp_path):
         """F_H evaluator contributes delta>0 before approved (kind=fh_review)."""
         ws = _make_stream(tmp_path)
-        pkg, worker, job = _make_fh_gate_pkg()
-        from genesis.core import ContextResolver
+        module, worker, job = _make_fh_gate_pkg()
+        from genesis.binding import ContextResolver
         resolver = ContextResolver(tmp_path)
         pre = bind_fd(job, ws, resolver, tmp_path)
         assert any(ev.name == "budget_signed" for ev in pre.failing_evaluators)
@@ -286,9 +312,9 @@ class TestFhGateDomainBlind:
     def test_fh_gate_resolved_by_approved(self, tmp_path):
         """approved (kind=fh_review) event with correct edge name resolves the F_H gate."""
         ws = _make_stream(tmp_path)
-        pkg, worker, job = _make_fh_gate_pkg()
+        module, worker, job = _make_fh_gate_pkg()
         ws.append("approved", {"kind": "fh_review", "edge": "proposal→approved_budget", "actor": "human"})
-        from genesis.core import ContextResolver
+        from genesis.binding import ContextResolver
         resolver = ContextResolver(tmp_path)
         pre = bind_fd(job, ws, resolver, tmp_path)
         assert any(ev.name == "budget_signed" for ev in pre.passing_evaluators)
@@ -298,9 +324,9 @@ class TestFhGateDomainBlind:
     def test_fh_gate_not_resolved_by_wrong_edge(self, tmp_path):
         """approved (kind=fh_review) for a different edge does NOT resolve this gate."""
         ws = _make_stream(tmp_path)
-        pkg, worker, job = _make_fh_gate_pkg()
+        module, worker, job = _make_fh_gate_pkg()
         ws.append("approved", {"kind": "fh_review", "edge": "some_other_edge", "actor": "human"})
-        from genesis.core import ContextResolver
+        from genesis.binding import ContextResolver
         resolver = ContextResolver(tmp_path)
         pre = bind_fd(job, ws, resolver, tmp_path)
         assert any(ev.name == "budget_signed" for ev in pre.failing_evaluators)
@@ -309,8 +335,8 @@ class TestFhGateDomainBlind:
     def test_fh_pending_event_emitted_by_iterate(self, tmp_path):
         """iterate() emits fh_gate_pending when F_H evaluator is unresolved."""
         ws = _make_stream(tmp_path)
-        pkg, worker, job = _make_fh_gate_pkg()
-        from genesis.core import ContextResolver
+        module, worker, job = _make_fh_gate_pkg()
+        from genesis.binding import ContextResolver
         resolver = ContextResolver(tmp_path)
         pre = bind_fd(job, ws, resolver, tmp_path)
         bound = bind_fp(pre, job)
@@ -323,9 +349,9 @@ class TestFhGateDomainBlind:
     def test_gen_iterate_returns_converged_when_fh_resolved(self, tmp_path):
         """After approved (kind=fh_review), gen_iterate sees delta=0. No patch needed."""
         ws = _make_stream(tmp_path)
-        pkg, worker, job = _make_fh_gate_pkg()
+        module, worker, job = _make_fh_gate_pkg()
         ws.append("approved", {"kind": "fh_review", "edge": "proposal→approved_budget", "actor": "human"})
-        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
+        scope = Scope(module=module, workspace_root=tmp_path, worker=worker)
         result = gen_iterate(scope, ws)
         assert result["status"] == "converged"
 
@@ -343,8 +369,8 @@ class TestFpDispatchDomainBlind:
     def test_fp_dispatch_callback_fires(self, tmp_path):
         """on_fp_dispatch is called with the BoundJob when F_P evaluator is failing."""
         ws = _make_stream(tmp_path)
-        pkg, worker, job = _make_fp_dispatch_pkg()
-        from genesis.core import ContextResolver
+        module, worker, job = _make_fp_dispatch_pkg()
+        from genesis.binding import ContextResolver
         resolver = ContextResolver(tmp_path)
         pre = bind_fd(job, ws, resolver, tmp_path)
         bound = bind_fp(pre, job)
@@ -357,8 +383,8 @@ class TestFpDispatchDomainBlind:
     def test_fp_dispatch_prompt_has_gap_section(self, tmp_path):
         """BoundJob.prompt contains [GAP] section — kernel builds it generically."""
         ws = _make_stream(tmp_path)
-        pkg, worker, job = _make_fp_dispatch_pkg()
-        from genesis.core import ContextResolver
+        module, worker, job = _make_fp_dispatch_pkg()
+        from genesis.binding import ContextResolver
         resolver = ContextResolver(tmp_path)
         pre = bind_fd(job, ws, resolver, tmp_path)
         bound = bind_fp(pre, job)
@@ -369,8 +395,8 @@ class TestFpDispatchDomainBlind:
     def test_fp_dispatch_prompt_has_output_contract(self, tmp_path):
         """BoundJob.prompt contains [OUTPUT CONTRACT] with target asset name."""
         ws = _make_stream(tmp_path)
-        pkg, worker, job = _make_fp_dispatch_pkg()
-        from genesis.core import ContextResolver
+        module, worker, job = _make_fp_dispatch_pkg()
+        from genesis.binding import ContextResolver
         resolver = ContextResolver(tmp_path)
         pre = bind_fd(job, ws, resolver, tmp_path)
         bound = bind_fp(pre, job)
@@ -381,14 +407,14 @@ class TestFpDispatchDomainBlind:
     def test_assessed_resolves_evaluator(self, tmp_path):
         """assessed (kind=fp) event with result=pass resolves the F_P evaluator."""
         ws = _make_stream(tmp_path)
-        pkg, worker, job = _make_fp_dispatch_pkg()
+        module, worker, job = _make_fp_dispatch_pkg()
         ws.append("assessed", {
             "kind": "fp",
             "edge": "ingredients→recipe",
             "evaluator": "recipe_complete",
             "result": "pass",
         })
-        from genesis.core import ContextResolver
+        from genesis.binding import ContextResolver
         resolver = ContextResolver(tmp_path)
         pre = bind_fd(job, ws, resolver, tmp_path)
         assert any(ev.name == "recipe_complete" for ev in pre.passing_evaluators)
@@ -398,8 +424,8 @@ class TestFpDispatchDomainBlind:
     def test_fp_dispatched_event_contains_evaluator_names(self, tmp_path):
         """fp_dispatched event surface carries failing evaluator names."""
         ws = _make_stream(tmp_path)
-        pkg, worker, job = _make_fp_dispatch_pkg()
-        from genesis.core import ContextResolver
+        module, worker, job = _make_fp_dispatch_pkg()
+        from genesis.binding import ContextResolver
         resolver = ContextResolver(tmp_path)
         pre = bind_fd(job, ws, resolver, tmp_path)
         bound = bind_fp(pre, job)
@@ -412,8 +438,8 @@ class TestFpDispatchDomainBlind:
     def test_gen_iterate_calls_on_fp_dispatch(self, tmp_path):
         """gen_iterate passes on_fp_dispatch through to iterate(). No patch."""
         ws = _make_stream(tmp_path)
-        pkg, worker, job = _make_fp_dispatch_pkg()
-        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
+        module, worker, job = _make_fp_dispatch_pkg()
+        scope = Scope(module=module, workspace_root=tmp_path, worker=worker)
         dispatched: list[BoundJob] = []
         gen_iterate(scope, ws, on_fp_dispatch=lambda b: dispatched.append(b))
         assert len(dispatched) == 1
@@ -473,7 +499,7 @@ class TestMultiWorkerSchedule:
         assert worker_fr2.conflicts_with(worker_fr)      # symmetric
 
     def test_write_territory_is_target_asset_name(self):
-        """writable_types is derived from Job.edge.target.name — no external config."""
+        """writable_types is derived from Job.vector.target.name — no external config."""
         _, worker_fr, worker_de, _, _, _ = _make_multi_worker_pkg()
         assert "french" in worker_fr.writable_types
         assert "german" in worker_de.writable_types
@@ -493,10 +519,10 @@ class TestLaneSplit:
     @pytest.mark.integration
     def test_package_construction_needs_no_workspace(self):
         """GTL Package construction is pure Python — no filesystem required."""
-        pkg, worker, job = _make_fh_gate_pkg()
-        assert pkg.name == "budget_process"
+        module, worker, job = _make_fh_gate_pkg()
+        assert module.name == "budget_process"
         assert len(worker.can_execute) == 1
-        assert job.evaluators[0].category is F_H
+        assert job.evaluators[0].regime is F_H
 
     @pytest.mark.integration
     def test_schedule_needs_no_workspace(self):
@@ -513,8 +539,8 @@ class TestLaneSplit:
         non-genesis worker with no genesis spec importable.
         """
         ws = _make_stream(tmp_path)
-        pkg, worker, job = _make_fp_dispatch_pkg()
-        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
+        module, worker, job = _make_fp_dispatch_pkg()
+        scope = Scope(module=module, workspace_root=tmp_path, worker=worker)
         # gen_gaps runs end-to-end via the real command path, no patch
         result = gen_gaps(scope, ws)
         assert "gaps" in result
@@ -530,8 +556,8 @@ class TestLaneSplit:
     def test_domain_blind_pkg_runs_in_bootstrapped_workspace(self, tmp_path):
         """A non-genesis package runs correctly in a bootstrapped workspace."""
         ws = workspace_bootstrap(tmp_path)
-        pkg, worker, job = _make_fp_dispatch_pkg()
-        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
+        module, worker, job = _make_fp_dispatch_pkg()
+        scope = Scope(module=module, workspace_root=tmp_path, worker=worker)
         dispatched: list[BoundJob] = []
         result = gen_start(scope, ws, on_fp_dispatch=lambda b: dispatched.append(b))
         assert result["status"] == "iterated"

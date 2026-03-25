@@ -135,8 +135,7 @@ def _write_test_package(target: Path, package_code: str) -> None:
     (pkg_dir / "test_pkg.py").write_text(package_code)
     # Bind genesis.yml to the test package
     (target / ".genesis" / "genesis.yml").write_text(
-        "package: gtl_spec.packages.test_pkg:package\n"
-        "worker:  gtl_spec.packages.test_pkg:worker\n"
+        "module:  gtl_spec.packages.test_pkg:module\n"
     )
 
 
@@ -161,9 +160,9 @@ def _compute_spec_hash(target: Path) -> str:
         [sys.executable, "-c", textwrap.dedent("""\
             import sys
             sys.path.insert(0, '.genesis')
-            from genesis.bind import req_hash
-            from gtl_spec.packages.test_pkg import package
-            print(req_hash(package.requirements))
+            from genesis.provenance import req_hash
+            from gtl_spec.packages.test_pkg import module
+            print(req_hash(module.metadata.get("requirements", [])))
         """)],
         capture_output=True, text=True,
         cwd=str(target),
@@ -182,10 +181,11 @@ def _compute_job_evaluator_hash(target: Path) -> str:
         [sys.executable, "-c", textwrap.dedent("""\
             import sys
             sys.path.insert(0, '.genesis')
-            from genesis.bind import job_evaluator_hash
-            from gtl_spec.packages.test_pkg import worker
-            job = worker.can_execute[0]
-            print(job_evaluator_hash(job))
+            from genesis.provenance import job_evaluator_hash
+            from genesis.services import module_to_jobs
+            from gtl_spec.packages.test_pkg import module
+            jobs = module_to_jobs(module)
+            print(job_evaluator_hash(jobs[0]))
         """)],
         capture_output=True, text=True,
         cwd=str(target),
@@ -198,98 +198,90 @@ def _compute_job_evaluator_hash(target: Path) -> str:
 # ── Minimal test package ──────────────────────────────────────────────────────
 
 _MINIMAL_PACKAGE = textwrap.dedent('''\
-    """Minimal test package for product qualification."""
-    from gtl.core import (
-        Asset, Context, Edge, Evaluator, Job, Operator,
-        Package, Rule, Worker, F_D, F_P, F_H, consensus,
-    )
+    """Minimal test module for product qualification."""
+    from gtl.graph import Graph, Node, GraphVector
+    from gtl.module_model import Module
+    from gtl.core import Evaluator, Operator, Rule, F_D, F_P, consensus
 
-    design = Asset(name="design", id_format="DES-{SEQ}")
-    code = Asset(name="code", id_format="CODE-{SEQ}", lineage=[design])
+    design = Node(name="design")
+    code = Node(name="code")
 
     op_fp = Operator("claude_agent", F_P, "agent://claude/genesis")
     op_fd = Operator("check_tags", F_D,
                      "exec://python -m genesis check-tags --type implements --path .")
 
-    edge = Edge(
-        name="design→code",
-        source=design,
-        target=code,
-        using=[op_fp, op_fd],
-    )
-
     eval_tags = Evaluator(
         "impl_tags", F_D, "all code files carry Implements: tags",
-        command="python -m genesis check-tags --type implements --path code/",
+        binding="exec://python -m genesis check-tags --type implements --path code/",
     )
     eval_fp = Evaluator("code_complete", F_P, "agent: code implements design")
 
-    job = Job(edge=edge, evaluators=[eval_tags, eval_fp])
-    rule = Rule("gate", approve=consensus(1, 1))
-
-    package = Package(
-        name="test_pkg",
-        assets=[design, code],
-        edges=[edge],
-        operators=[op_fp, op_fd],
-        rules=[rule],
-        requirements=["REQ-TEST-001"],
+    vector = GraphVector(
+        name="design\\u2192code",
+        source=design, target=code,
+        operators=(op_fp, op_fd),
+        evaluators=(eval_tags, eval_fp),
     )
-    worker = Worker(id="claude_code", can_execute=[job])
+    graph = Graph(
+        name="design\\u2192code",
+        inputs=(design,), outputs=(code,),
+        nodes=(design, code), vectors=(vector,),
+    )
+    module = Module(
+        name="test_pkg",
+        graphs=(graph,),
+        metadata={"requirements": ["REQ-TEST-001"]},
+    )
 ''')
 
 _FH_PACKAGE = textwrap.dedent('''\
-    """Test package with F_D + F_P + F_H chain for full convergence proof."""
-    from gtl.core import (
-        Asset, Context, Edge, Evaluator, Job, Operator,
-        Package, Rule, Worker, F_D, F_P, F_H, consensus,
-    )
+    """Test module with F_D + F_P + F_H chain for full convergence proof."""
+    from gtl.graph import Graph, Node, GraphVector
+    from gtl.module_model import Module
+    from gtl.core import Evaluator, Operator, Rule, F_D, F_P, F_H, consensus
 
-    design = Asset(name="design", id_format="DES-{SEQ}")
-    code = Asset(name="code", id_format="CODE-{SEQ}", lineage=[design])
+    design = Node(name="design")
+    code = Node(name="code")
 
     op_fp = Operator("claude_agent", F_P, "agent://claude/genesis")
     op_fd = Operator("check_tags", F_D,
                      "exec://python -m genesis check-tags --type implements --path .")
     op_fh = Operator("human_gate", F_H, "fh://review")
 
-    edge = Edge(
-        name="design→code",
-        source=design,
-        target=code,
-        using=[op_fp, op_fd, op_fh],
-    )
-
     eval_tags = Evaluator(
         "impl_tags", F_D, "all code files carry Implements: tags",
-        command="python -m genesis check-tags --type implements --path code/",
+        binding="exec://python -m genesis check-tags --type implements --path code/",
     )
     eval_fp = Evaluator("code_complete", F_P, "agent: code implements design")
     eval_fh = Evaluator("design_approved", F_H, "human approves design→code transition")
 
-    job = Job(edge=edge, evaluators=[eval_tags, eval_fp, eval_fh])
-    rule = Rule("gate", approve=consensus(1, 1))
-
-    package = Package(
-        name="test_pkg",
-        assets=[design, code],
-        edges=[edge],
-        operators=[op_fp, op_fd, op_fh],
-        rules=[rule],
-        requirements=["REQ-TEST-001"],
+    vector = GraphVector(
+        name="design\\u2192code",
+        source=design, target=code,
+        operators=(op_fp, op_fd, op_fh),
+        evaluators=(eval_tags, eval_fp, eval_fh),
+        rule=Rule(name="standard_gate", kind="gate", config={"approve": consensus(1, 1)}),
     )
-    worker = Worker(id="claude_code", can_execute=[job])
+    graph = Graph(
+        name="design\\u2192code",
+        inputs=(design,), outputs=(code,),
+        nodes=(design, code), vectors=(vector,),
+    )
+    module = Module(
+        name="test_pkg",
+        graphs=(graph,),
+        metadata={"requirements": ["REQ-TEST-001"]},
+    )
 ''')
 
 _CONTEXT_PACKAGE = textwrap.dedent('''\
-    """Test package with a context reference for fail-closed testing."""
-    from gtl.core import (
-        Asset, Context, Edge, Evaluator, Job, Operator,
-        Package, Rule, Worker, F_D, F_P, consensus,
-    )
+    """Test module with a context reference for fail-closed testing."""
+    from gtl.graph import Graph, Node, GraphVector, Context
+    from gtl.module_model import Module
+    from gtl.core import Evaluator, Operator, Rule, F_D, F_P, consensus
 
-    design = Asset(name="design", id_format="DES-{SEQ}")
-    code = Asset(name="code", id_format="CODE-{SEQ}", lineage=[design])
+    design = Node(name="design")
+    code = Node(name="code")
 
     ctx = Context(
         name="required_doc",
@@ -298,28 +290,27 @@ _CONTEXT_PACKAGE = textwrap.dedent('''\
     )
 
     op_fp = Operator("claude_agent", F_P, "agent://claude/genesis")
-    edge = Edge(
-        name="design→code",
-        source=design,
-        target=code,
-        using=[op_fp],
-        context=[ctx],
-    )
 
     eval_fp = Evaluator("code_complete", F_P, "agent: code implements design")
-    job = Job(edge=edge, evaluators=[eval_fp])
-    rule = Rule("gate", approve=consensus(1, 1))
 
-    package = Package(
-        name="test_pkg",
-        assets=[design, code],
-        edges=[edge],
-        operators=[op_fp],
-        rules=[rule],
-        contexts=[ctx],
-        requirements=["REQ-TEST-001"],
+    vector = GraphVector(
+        name="design\\u2192code",
+        source=design, target=code,
+        operators=(op_fp,),
+        evaluators=(eval_fp,),
+        contexts=(ctx,),
     )
-    worker = Worker(id="claude_code", can_execute=[job])
+    graph = Graph(
+        name="design\\u2192code",
+        inputs=(design,), outputs=(code,),
+        nodes=(design, code), vectors=(vector,),
+        contexts=(ctx,),
+    )
+    module = Module(
+        name="test_pkg",
+        graphs=(graph,),
+        metadata={"requirements": ["REQ-TEST-001"]},
+    )
 ''')
 
 
@@ -371,8 +362,7 @@ class TestDeploymentQualification:
 
         # Engine must still be runnable (re-bind genesis.yml since kernel reset it)
         (tmp_path / ".genesis" / "genesis.yml").write_text(
-            "package: gtl_spec.packages.test_pkg:package\n"
-            "worker:  gtl_spec.packages.test_pkg:worker\n"
+            "module:  gtl_spec.packages.test_pkg:module\n"
         )
         gaps = _run_genesis(tmp_path, "gaps")
         assert gaps.returncode == 0
@@ -395,7 +385,7 @@ class TestDeploymentQualification:
 
         # Corrupt the package reference
         config = tmp_path / ".genesis" / "genesis.yml"
-        config.write_text("package: nonexistent.module:package\nworker: nonexistent.module:worker\n")
+        config.write_text("module: nonexistent.module:module\n")
 
         result = _run_genesis(tmp_path, "gaps")
         assert result.returncode != 0, "Bad config should fail"

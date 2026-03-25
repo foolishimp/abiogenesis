@@ -4,8 +4,11 @@
 # Validates: REQ-F-WK-004
 # Validates: REQ-F-PROV-004
 # Validates: REQ-F-CORRECT-001
-# Validates: REQ-F-FRAG-003
-# Validates: REQ-F-FRAG-004
+# Validates: REQ-R-ABG2-SELECTION-APPLICATION-001
+# Validates: REQ-R-ABG2-SELECTION-APPLICATION-002
+# Validates: REQ-R-ABG2-SELECTION-APPLICATION-003
+# Validates: REQ-R-ABG2-SELECTION-APPLICATION-004
+# Validates: REQ-L-GTL2-IDENTITY-007
 # Validates: REQ-F-RUN-001
 # Validates: REQ-F-RUN-003
 """
@@ -20,18 +23,21 @@ the real command path (gen_iterate, gen_gaps) with a real event stream.
 import json
 from pathlib import Path
 
-from gtl.core import (
-    Asset, Context, Edge, Evaluator, Fragment, Job, Operator, Package,
-    Rule, Worker,
-    F_D, F_P, F_H, consensus,
-)
+import pytest
 
-from genesis.core import EventStream, workspace_bootstrap
-from genesis.bind import req_hash
-from genesis.commands import Scope, gen_gaps, gen_iterate
-from genesis.schedule import (
-    delta, find_pending_run, run_state, supersede_run,
-)
+from gtl.graph import Graph, Node, GraphVector, Context
+from gtl.module_model import Module
+from gtl.function_model import GraphFunction
+from gtl.operator_model import Evaluator, Operator, F_D, F_P, F_H, Rule
+from gtl.core import consensus
+
+from genesis.binding import Job, Worker
+from genesis.events import EventStream
+from genesis.install import workspace_bootstrap
+from genesis.provenance import req_hash
+from genesis.services import Scope, gen_gaps, gen_iterate, gen_start
+from genesis.convergence import delta
+from genesis.run import find_pending_run, run_state, supersede_run
 
 
 # ── Shared helpers ──────────────────────────────────────────────────────────
@@ -48,13 +54,54 @@ def _ws(tmp_path, feature_id=None):
     return stream
 
 
-def _scope(tmp_path, pkg, worker, **kw):
-    return Scope(package=pkg, workspace_root=tmp_path, worker=worker, **kw)
+def _make_single_edge_module(
+    src_name="design", tgt_name="code",
+    edge_name=None,
+    evaluators=None,
+    operators=None,
+    requirements=None,
+    name="test_module",
+):
+    """Build a minimal V2 Module with one edge."""
+    src = Node(name=src_name)
+    tgt = Node(name=tgt_name)
+    edge_name = edge_name or f"{src_name}→{tgt_name}"
+    evaluators = evaluators or (Evaluator("code_complete", F_P, "check"),)
+    operators = operators or (Operator("agent", F_P, "agent://claude/genesis"),)
+
+    vec = GraphVector(
+        name=edge_name,
+        source=src, target=tgt,
+        operators=operators,
+        evaluators=evaluators,
+    )
+    graph = Graph(
+        name=edge_name,
+        inputs=(src,), outputs=(tgt,),
+        nodes=(src, tgt), vectors=(vec,),
+    )
+    module = Module(
+        name=name,
+        graphs=(graph,),
+        metadata={"requirements": requirements or []},
+    )
+    return module
 
 
-def _spec_hash(pkg):
+def _scope(tmp_path, module, **kw):
+    return Scope(module=module, workspace_root=tmp_path, **kw)
+
+
+def _spec_hash(module):
     """Compute the spec_hash gen_gaps uses for unknown workflow_version."""
-    return req_hash(pkg.requirements)
+    return req_hash(module.metadata.get("requirements", []))
+
+
+def _job_from_module(module):
+    """Extract the first Job from a Module (for delta() calls)."""
+    from genesis.services import module_to_jobs
+    jobs = module_to_jobs(module)
+    return jobs[0]
 
 
 # ── Scenario 1: Single-Edge Happy Path ──────────────────────────────────────
@@ -63,16 +110,10 @@ class TestScenario1SingleEdgeHappyPath:
     """Take one coarse edge from unmet to converged through the normal ABG loop."""
 
     def test_single_edge_converges_after_assessed(self, tmp_path):
-        src = Asset(name="design", id_format="DES-{SEQ}")
-        tgt = Asset(name="code", id_format="CODE-{SEQ}")
-        op = Operator("agent", F_P, "agent://claude/genesis")
-        edge = Edge(name="design→code", source=src, target=tgt, using=[op])
-        job = Job(edge=edge, evaluators=[Evaluator("code_complete", F_P, "check")])
-        pkg = Package(name="s1", assets=[src, tgt], edges=[edge], operators=[op])
-        worker = Worker(id="w", can_execute=[job])
+        module = _make_single_edge_module()
 
         stream = _ws(tmp_path)
-        scope = _scope(tmp_path, pkg, worker)
+        scope = _scope(tmp_path, module)
 
         # Step 1: gen_iterate — emits run_started, edge_started, fp_dispatched
         result = gen_iterate(scope, stream)
@@ -88,7 +129,7 @@ class TestScenario1SingleEdgeHappyPath:
         stream.append("assessed", {
             "edge": "design→code", "run_id": run_id,
             "kind": "fp", "result": "pass", "evaluator": "code_complete",
-            "spec_hash": _spec_hash(pkg),
+            "spec_hash": _spec_hash(module),
         })
 
         # Step 3: gen_gaps confirms convergence
@@ -99,6 +140,7 @@ class TestScenario1SingleEdgeHappyPath:
         assert certs[0]["data"]["edge"] == "design→code"
 
         # Step 4: delta is zero
+        job = _job_from_module(module)
         d = delta(job, stream, tmp_path)
         assert d == 0.0
 
@@ -109,19 +151,17 @@ class TestScenario2FdGapBlocks:
     """Deterministic failures block progress when no F_P remediation exists."""
 
     def test_fd_only_edge_blocks_with_fd_gap(self, tmp_path):
-        src = Asset(name="source", id_format="SRC-{SEQ}")
-        tgt = Asset(name="output", id_format="OUT-{SEQ}", lineage=[src])
-        op = Operator("checker", F_D, "exec://false")
-        edge = Edge(name="source→output", source=src, target=tgt, using=[op])
-        job = Job(edge=edge, evaluators=[
-            Evaluator("always_fail", F_D, "sentinel must exist",
-                      command="python -c 'import sys; sys.exit(1)'"),
-        ])
-        pkg = Package(name="s2", assets=[src, tgt], edges=[edge], operators=[op])
-        worker = Worker(id="w", can_execute=[job])
+        module = _make_single_edge_module(
+            src_name="source", tgt_name="output",
+            evaluators=(
+                Evaluator("always_fail", F_D, "sentinel must exist",
+                          binding="exec://python -c 'import sys; sys.exit(1)'"),
+            ),
+            operators=(Operator("checker", F_D, "exec://false"),),
+        )
 
         stream = _ws(tmp_path)
-        scope = _scope(tmp_path, pkg, worker)
+        scope = _scope(tmp_path, module)
         result = gen_iterate(scope, stream)
 
         events = stream.all_events()
@@ -131,6 +171,7 @@ class TestScenario2FdGapBlocks:
         assert "fp_dispatched" not in types
         assert "edge_converged" not in types
 
+        job = _job_from_module(module)
         d = delta(job, stream, tmp_path)
         assert d > 0
 
@@ -141,22 +182,20 @@ class TestScenario3FdEscalation:
     """F_D findings become the construction surface when F_P path exists."""
 
     def test_fd_findings_escalate_to_fp(self, tmp_path):
-        src = Asset(name="design", id_format="DES-{SEQ}")
-        tgt = Asset(name="code", id_format="CODE-{SEQ}", lineage=[src])
-        op_fd = Operator("checker", F_D, "exec://false")
-        op_fp = Operator("agent", F_P, "agent://claude/genesis")
-        edge = Edge(name="design→code", source=src, target=tgt, using=[op_fd, op_fp])
-        job = Job(edge=edge, evaluators=[
-            Evaluator("impl_tags", F_D, "tags must exist",
-                      command="python -c 'import sys; sys.exit(1)'"),
-            Evaluator("code_complete", F_P, "agent check"),
-        ])
-        pkg = Package(name="s3", assets=[src, tgt], edges=[edge],
-                      operators=[op_fd, op_fp])
-        worker = Worker(id="w", can_execute=[job])
+        module = _make_single_edge_module(
+            evaluators=(
+                Evaluator("impl_tags", F_D, "tags must exist",
+                          binding="exec://python -c 'import sys; sys.exit(1)'"),
+                Evaluator("code_complete", F_P, "agent check"),
+            ),
+            operators=(
+                Operator("checker", F_D, "exec://false"),
+                Operator("agent", F_P, "agent://claude/genesis"),
+            ),
+        )
 
         stream = _ws(tmp_path)
-        scope = _scope(tmp_path, pkg, worker)
+        scope = _scope(tmp_path, module)
         result = gen_iterate(scope, stream)
 
         events = stream.all_events()
@@ -176,18 +215,16 @@ class TestScenario4HumanGate:
     """Human approval remains a first-class gate where required."""
 
     def test_fh_gate_blocks_then_approval_converges(self, tmp_path):
-        src = Asset(name="draft", id_format="DRAFT-{SEQ}")
-        tgt = Asset(name="approved_doc", id_format="APR-{SEQ}", lineage=[src])
-        op = Operator("human", F_H, "fh://single")
-        edge = Edge(name="draft→approved_doc", source=src, target=tgt, using=[op])
-        job = Job(edge=edge, evaluators=[
-            Evaluator("sign_off", F_H, "Human approval"),
-        ])
-        pkg = Package(name="s4", assets=[src, tgt], edges=[edge], operators=[op])
-        worker = Worker(id="reviewer", can_execute=[job])
+        module = _make_single_edge_module(
+            src_name="draft", tgt_name="approved_doc",
+            evaluators=(
+                Evaluator("sign_off", F_H, "Human approval"),
+            ),
+            operators=(Operator("human", F_H, "fh://single"),),
+        )
 
         stream = _ws(tmp_path)
-        scope = _scope(tmp_path, pkg, worker)
+        scope = _scope(tmp_path, module)
 
         # Before approval: F_H gate pending
         result = gen_iterate(scope, stream)
@@ -209,6 +246,7 @@ class TestScenario4HumanGate:
         # Now it converges
         gap_result = gen_gaps(scope, stream)
         assert gap_result["converged"] is True
+        job = _job_from_module(module)
         d = delta(job, stream, tmp_path)
         assert d == 0.0
 
@@ -219,13 +257,7 @@ class TestScenario5IndependentWorkLines:
     """Multiple work lines on the same topology remain independent."""
 
     def test_auth_converges_billing_remains_open(self, tmp_path):
-        src = Asset(name="design", id_format="DES-{SEQ}")
-        tgt = Asset(name="code", id_format="CODE-{SEQ}")
-        op = Operator("agent", F_P, "agent://claude/genesis")
-        edge = Edge(name="design→code", source=src, target=tgt, using=[op])
-        job = Job(edge=edge, evaluators=[Evaluator("code_complete", F_P, "check")])
-        pkg = Package(name="s5", assets=[src, tgt], edges=[edge], operators=[op])
-        worker = Worker(id="w", can_execute=[job])
+        module = _make_single_edge_module()
 
         stream = _ws(tmp_path, "REQ-F-AUTH")
         # Also create BILLING feature
@@ -235,7 +267,7 @@ class TestScenario5IndependentWorkLines:
         )
 
         # Iterate AUTH
-        scope_auth = _scope(tmp_path, pkg, worker, feature="REQ-F-AUTH")
+        scope_auth = _scope(tmp_path, module, feature="REQ-F-AUTH")
         result = gen_iterate(scope_auth, stream)
         auth_run_id = result["run_id"]
 
@@ -243,7 +275,7 @@ class TestScenario5IndependentWorkLines:
         stream.append("assessed", {
             "edge": "design→code", "run_id": auth_run_id,
             "work_key": "REQ-F-AUTH", "kind": "fp", "result": "pass",
-            "evaluator": "code_complete", "spec_hash": _spec_hash(pkg),
+            "evaluator": "code_complete", "spec_hash": _spec_hash(module),
         })
 
         # AUTH converges
@@ -256,6 +288,7 @@ class TestScenario5IndependentWorkLines:
         assert len(auth_certs) == 1
 
         # BILLING still has positive delta
+        job = _job_from_module(module)
         d_billing = delta(job, stream, tmp_path, work_key="REQ-F-BILLING")
         assert d_billing > 0
 
@@ -270,13 +303,7 @@ class TestScenario6WorkflowUpgrade:
     """Workflow upgrades preserve history without silently accepting stale truth."""
 
     def test_spec_hash_change_invalidates_prior_fp(self, tmp_path):
-        src = Asset(name="design", id_format="DES-{SEQ}")
-        tgt = Asset(name="code", id_format="CODE-{SEQ}")
-        op = Operator("agent", F_P, "agent://claude/genesis")
-        edge = Edge(name="design→code", source=src, target=tgt, using=[op])
-        job = Job(edge=edge, evaluators=[Evaluator("code_complete", F_P, "check")])
-        pkg = Package(name="s6", assets=[src, tgt], edges=[edge], operators=[op])
-        worker = Worker(id="w", can_execute=[job])
+        module = _make_single_edge_module()
 
         stream = _ws(tmp_path)
 
@@ -285,6 +312,8 @@ class TestScenario6WorkflowUpgrade:
             "edge": "design→code", "kind": "fp", "result": "pass", "evaluator": "code_complete",
             "spec_hash": "hash_v1",
         })
+
+        job = _job_from_module(module)
 
         # Under v1 hash: converged
         d_v1 = delta(job, stream, tmp_path, spec_hash="hash_v1")
@@ -305,13 +334,8 @@ class TestScenario7Reset:
     """Reset forces re-certification without destroying history."""
 
     def test_scoped_reset_shadows_prior_certification(self, tmp_path):
-        src = Asset(name="design", id_format="DES-{SEQ}")
-        tgt = Asset(name="code", id_format="CODE-{SEQ}")
-        op = Operator("agent", F_P, "agent://claude/genesis")
-        edge = Edge(name="design→code", source=src, target=tgt, using=[op])
-        job = Job(edge=edge, evaluators=[Evaluator("code_complete", F_P, "check")])
-        pkg = Package(name="s7", assets=[src, tgt], edges=[edge], operators=[op])
-        worker = Worker(id="w", can_execute=[job])
+        module = _make_single_edge_module()
+        job = _job_from_module(module)
 
         stream = _ws(tmp_path, "REQ-F-AUTH")
 
@@ -339,12 +363,8 @@ class TestScenario7Reset:
         assert any(e["event_type"] == "reset" for e in all_events)
 
     def test_sibling_work_line_unaffected_by_scoped_reset(self, tmp_path):
-        src = Asset(name="design", id_format="DES-{SEQ}")
-        tgt = Asset(name="code", id_format="CODE-{SEQ}")
-        op = Operator("agent", F_P, "agent://claude/genesis")
-        edge = Edge(name="design→code", source=src, target=tgt, using=[op])
-        job = Job(edge=edge, evaluators=[Evaluator("code_complete", F_P, "check")])
-        pkg = Package(name="s7b", assets=[src, tgt], edges=[edge], operators=[op])
+        module = _make_single_edge_module()
+        job = _job_from_module(module)
 
         stream = _ws(tmp_path)
 
@@ -370,54 +390,214 @@ class TestScenario7Reset:
         assert d_billing == 0.0
 
 
-# ── Scenario 8: Coarse Edge Refined by Zoom ─────────────────────────────────
+# ── Scenario 8: Coarse Edge Refined by Selection+Substitute ──────────────────
 
-class TestScenario8Zoom:
-    """A coarse edge is refined into a richer subgraph via zoom."""
+class TestScenario8Selection:
+    """A coarse edge is refined via V2 GraphFunction selection."""
 
-    def test_zoom_decomposes_edge_and_records_provenance(self, tmp_path):
-        design = Asset(name="design", id_format="DES-{SEQ}")
-        mod = Asset(name="module_decomp", id_format="MOD-{SEQ}")
-        code = Asset(name="code", id_format="CODE-{SEQ}")
-        op = Operator("agent", F_P, "agent://claude/genesis")
-        outer_edge = Edge(name="design→code", source=design, target=code, using=[op])
-        job = Job(edge=outer_edge, evaluators=[
-            Evaluator("code_complete", F_P, "check"),
-        ])
+    def test_selection_refines_edge_and_records_provenance(self, tmp_path):
+        design_n = Node(name="design")
+        mod_n = Node(name="module_decomp")
+        code_n = Node(name="code")
 
-        int_e1 = Edge(name="design→module_decomp", source=design, target=mod, using=[op])
-        int_e2 = Edge(name="module_decomp→code", source=mod, target=code, using=[op])
-        frag = Fragment(
-            name="via_module_decomp",
-            inputs=(design,),
-            outputs=(code,),
-            assets=(mod,),
-            edges=(int_e1, int_e2),
+        outer_vec = GraphVector(
+            name="design→code", source=design_n, target=code_n,
+            evaluators=(Evaluator("code_complete", F_P, "check"),),
+            operators=(Operator("agent", F_P, "agent://claude/genesis"),),
+        )
+        outer_graph = Graph(
+            name="s8", inputs=(design_n,), outputs=(code_n,),
+            nodes=(design_n, code_n), vectors=(outer_vec,),
         )
 
-        pkg = Package(name="s8", assets=[design, code], edges=[outer_edge],
-                      operators=[op], fragments=[frag])
-        worker = Worker(id="w", can_execute=[job])
+        # GraphFunction that refines design→code into design→module_decomp→code
+        eval_fp = Evaluator("code_complete", F_P, "check")
+        def _detail():
+            v1 = GraphVector(name="design→module_decomp", source=design_n, target=mod_n,
+                             evaluators=(eval_fp,))
+            v2 = GraphVector(name="module_decomp→code", source=mod_n, target=code_n,
+                             evaluators=(eval_fp,))
+            return Graph(
+                name="s8",
+                inputs=(design_n,), outputs=(code_n,),
+                nodes=(design_n, mod_n, code_n), vectors=(v1, v2),
+            )
+
+        gf = GraphFunction(
+            name="via_module_decomp",
+            inputs=(design_n,), outputs=(code_n,),
+            template=_detail,
+        )
+
+        module = Module(
+            name="s8", graphs=(outer_graph,),
+            graph_functions=(gf,),
+            metadata={"requirements": ["REQ-F-COMPLEX"]},
+        )
 
         stream = _ws(tmp_path, "REQ-F-COMPLEX")
-        scope = _scope(tmp_path, pkg, worker)
+        scope = Scope(module=module, workspace_root=tmp_path)
 
         result = gen_iterate(scope, stream)
 
-        # Zoom happened
-        assert result["status"] == "zoomed"
-        assert result["fragment"] == "via_module_decomp"
+        # Selection happened
+        assert result["status"] == "selected"
+        assert result["graph_function"] == "via_module_decomp"
 
-        # Provenance recorded
-        zoomed = [e for e in stream.all_events() if e["event_type"] == "zoomed"]
-        assert len(zoomed) == 1
-        assert zoomed[0]["data"]["fragment"] == "via_module_decomp"
+        # Provenance recorded with full fields per REQ-R-ABG2-SELECTION-APPLICATION-003
+        selected = [e for e in stream.all_events() if e["event_type"] == "workflow_selected"]
+        assert len(selected) == 1
+        sel_data = selected[0]["data"]
+        assert sel_data["graph_function"] == "via_module_decomp"
+        assert sel_data["selected_by"] == "auto"
+        assert sel_data["selection_mode"] == "single_match"
+        assert "rationale" in sel_data
+        assert "inner_vectors" in sel_data
+        assert set(sel_data["inner_vectors"]) == {"design→module_decomp", "module_decomp→code"}
+
+        # Substitution applied: scope.module now has the refined graph
+        # The coarse vector "design→code" is replaced by the inner vectors
+        updated_graph = scope.module.graphs[0]
+        updated_vec_names = {v.name for v in updated_graph.vectors}
+        assert "design→code" not in updated_vec_names, "coarse vector must be removed"
+        assert "design→module_decomp" in updated_vec_names, "inner vector must be added"
+        assert "module_decomp→code" in updated_vec_names, "inner vector must be added"
+        # New node 'module_decomp' must be present
+        updated_node_names = {n.name for n in updated_graph.nodes}
+        assert "module_decomp" in updated_node_names
 
         # Children spawned
         spawned = [e for e in stream.all_events() if e["event_type"] == "work_spawned"]
         assert len(spawned) == 2
         child_keys = {e["data"]["child_key"] for e in spawned}
         assert all("REQ-F-COMPLEX/" in ck for ck in child_keys)
+
+    def test_same_label_graphs_do_not_alias(self, tmp_path):
+        """
+        REQ-L-GTL2-IDENTITY-007: same-name graphs with distinct ids don't alias.
+
+        Two graphs share the label "dup" but have auto-minted distinct ids.
+        Selection on graph1's vector replaces only graph1 — graph2 is untouched.
+        """
+        a_n = Node(name="a")
+        b_n = Node(name="b")
+        c_n = Node(name="c")
+        vec1 = GraphVector(
+            name="a→b", source=a_n, target=b_n,
+            evaluators=(Evaluator("e", F_P, "check"),),
+            operators=(Operator("agent", F_P, "agent://claude/genesis"),),
+        )
+        graph1 = Graph(name="dup", inputs=(a_n,), outputs=(b_n,),
+                       nodes=(a_n, b_n), vectors=(vec1,))
+        # graph2 has the same label but different structure and distinct auto-minted id
+        vec2 = GraphVector(
+            name="b→c", source=b_n, target=c_n,
+            evaluators=(Evaluator("e2", F_P, "check"),),
+            operators=(Operator("agent", F_P, "agent://claude/genesis"),),
+        )
+        graph2 = Graph(name="dup", inputs=(b_n,), outputs=(c_n,),
+                       nodes=(b_n, c_n), vectors=(vec2,))
+
+        assert graph1.id != graph2.id, "auto-minted ids must differ"
+
+        eval_fp = Evaluator("e", F_P, "check")
+        def _inner():
+            mid = Node(name="mid")
+            v1 = GraphVector(name="a→mid", source=a_n, target=mid, evaluators=(eval_fp,))
+            v2 = GraphVector(name="mid→b", source=mid, target=b_n, evaluators=(eval_fp,))
+            return Graph(name="dup", inputs=(a_n,), outputs=(b_n,),
+                         nodes=(a_n, mid, b_n), vectors=(v1, v2))
+
+        gf = GraphFunction(name="refine", inputs=(a_n,), outputs=(b_n,),
+                           template=_inner)
+        module = Module(name="dup_test", graphs=(graph1, graph2),
+                        graph_functions=(gf,), metadata={"requirements": []})
+
+        stream = _ws(tmp_path, "REQ-DUP")
+        scope = Scope(module=module, workspace_root=tmp_path)
+
+        result = gen_start(scope, stream)
+        assert result["status"] == "selected"
+
+        # graph1 was replaced (refined), graph2 is untouched
+        updated_module = scope.module
+        assert len(updated_module.graphs) == 2
+        # The substituted graph has a new id (transform → new identity)
+        g1_updated = updated_module.graphs[0]
+        g2_unchanged = updated_module.graphs[1]
+        assert g1_updated.id != graph1.id, "substituted graph gets new id"
+        assert g2_unchanged.id == graph2.id, "graph2 must be untouched"
+        # graph2's vectors are intact
+        assert len(g2_unchanged.vectors) == 1
+        assert g2_unchanged.vectors[0].name == "b→c"
+
+    def test_external_selection_input_accepted(self, tmp_path):
+        """
+        REQ-R-ABG2-SELECTION-APPLICATION-002: accept externally supplied selection.
+
+        Proves apply_selection() accepts a caller-constructed SelectionDecision
+        with arbitrary selected_by/selection_mode — not just the auto path.
+        """
+        from genesis.interpret import apply_selection
+        from genesis.selection import SelectionDecision
+
+        design_n = Node(name="design")
+        review_n = Node(name="review")
+        code_n = Node(name="code")
+
+        outer_vec = GraphVector(
+            name="design→code", source=design_n, target=code_n,
+            evaluators=(Evaluator("code_complete", F_P, "check"),),
+        )
+        outer_graph = Graph(
+            name="ext", inputs=(design_n,), outputs=(code_n,),
+            nodes=(design_n, code_n), vectors=(outer_vec,),
+        )
+
+        eval_fp = Evaluator("review_done", F_P, "check")
+        def _via_review():
+            v1 = GraphVector(name="design→review", source=design_n, target=review_n,
+                             evaluators=(eval_fp,))
+            v2 = GraphVector(name="review→code", source=review_n, target=code_n,
+                             evaluators=(eval_fp,))
+            return Graph(
+                name="ext", inputs=(design_n,), outputs=(code_n,),
+                nodes=(design_n, review_n, code_n), vectors=(v1, v2),
+            )
+
+        gf = GraphFunction(
+            name="via_review", inputs=(design_n,), outputs=(code_n,),
+            template=_via_review,
+        )
+
+        module = Module(
+            name="ext", graphs=(outer_graph,), graph_functions=(gf,),
+            metadata={"requirements": []},
+        )
+
+        # Externally supplied decision — not auto-selected by the engine
+        decision = SelectionDecision(
+            contract_id=outer_vec.id,
+            work_key="EXT-001",
+            graph_function="via_review",
+            selected_by="business_rule",
+            selection_mode="external",
+            rationale="Compliance requires review step",
+        )
+
+        result = apply_selection(module, outer_vec.id, decision, gf)
+
+        # Substitution applied
+        assert "design→code" not in {v.name for v in result.substituted_graph.vectors}
+        assert "design→review" in {v.name for v in result.substituted_graph.vectors}
+        assert "review→code" in {v.name for v in result.substituted_graph.vectors}
+
+        # Provenance carries the external actor and mode
+        sel_event = result.events[0]
+        assert sel_event["data"]["selected_by"] == "business_rule"
+        assert sel_event["data"]["selection_mode"] == "external"
+        assert sel_event["data"]["rationale"] == "Compliance requires review step"
+        assert sel_event["data"]["work_key"] == "EXT-001"
 
 
 # ── Scenario 9: Parent Decomposes and Folds Back ───────────────────────────
@@ -426,12 +606,8 @@ class TestScenario9FoldBack:
     """Parent work only converges when all children converge."""
 
     def test_parent_unconverged_while_child_pending(self, tmp_path):
-        src = Asset(name="design", id_format="DES-{SEQ}")
-        tgt = Asset(name="code", id_format="CODE-{SEQ}")
-        op = Operator("agent", F_P, "agent://claude/genesis")
-        edge = Edge(name="design→code", source=src, target=tgt, using=[op])
-        job = Job(edge=edge, evaluators=[Evaluator("code_complete", F_P, "check")])
-        pkg = Package(name="s9", assets=[src, tgt], edges=[edge], operators=[op])
+        module = _make_single_edge_module()
+        job = _job_from_module(module)
 
         stream = _ws(tmp_path)
 
@@ -439,12 +615,12 @@ class TestScenario9FoldBack:
         stream.append("work_spawned", {
             "parent_key": "REQ-F-AUTH",
             "child_key": "REQ-F-AUTH/login",
-            "fragment": "auth_decomp",
+            "graph_function": "auth_decomp",
         })
         stream.append("work_spawned", {
             "parent_key": "REQ-F-AUTH",
             "child_key": "REQ-F-AUTH/signup",
-            "fragment": "auth_decomp",
+            "graph_function": "auth_decomp",
         })
 
         # Converge login child

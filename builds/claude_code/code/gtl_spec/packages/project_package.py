@@ -1,12 +1,8 @@
 """
-genesis_sdlc — project spec as GTL Package
+genesis_sdlc — project spec as V2 Module
 
-This file IS the spec. The type system is the law.
-
-  Asset.markov     → acceptance criteria for that asset type
-  Job.evaluators   → convergence tests for that edge
-  Edge.context     → constraint surface for that transition
-  Worker           → who executes what
+V2 structure: Module/Graph/Node/GraphVector with V2 effect declarations
+(Evaluator/Operator/Rule from gtl.operator_model).
 
 genesis_sdlc follows the standard SDLC bootstrap graph:
 
@@ -19,13 +15,18 @@ genesis_sdlc depends on abiogenesis (the GTL engine) and is built using it.
 The engine lives at .genesis/genesis/; run as:
     PYTHONPATH=.genesis python -m genesis <command> --workspace .
 
-No separate requirements document. REQ keys emerge from this Package
+No separate requirements document. REQ keys emerge from this Module
 and are traced through feature vectors in .ai-workspace/features/.
 """
-from gtl.core import (
-    Package, Asset, Edge, Operator, Rule, Context, Evaluator, Job, Worker,
+
+# V2 structural types
+from gtl.graph import Graph, Node, GraphVector, Context
+from gtl.module_model import Module
+
+# V2 effect types — native vocabulary
+from gtl.operator_model import (
+    Evaluator, Operator, Rule,
     F_D, F_P, F_H, consensus,
-    OPERATIVE_ON_APPROVED, OPERATIVE_ON_APPROVED_NOT_SUPERSEDED,
 )
 
 
@@ -58,7 +59,7 @@ design_adrs = Context(
 )
 
 
-# ── Operators ─────────────────────────────────────────────────────────────────
+# ── Operators (V2) ────────────────────────────────────────────────────────────
 
 claude_agent  = Operator("claude_agent",  F_P, "agent://claude/genesis")
 human_gate    = Operator("human_gate",    F_H, "fh://single")
@@ -67,125 +68,26 @@ check_impl_op = Operator("check_impl",    F_D, "exec://python -m genesis check-t
 check_test_op = Operator("check_test",    F_D, "exec://python -m genesis check-tags --type validates --path builds/python/tests/")
 
 
-# ── Rules ─────────────────────────────────────────────────────────────────────
+# ── Rules (V2) ───────────────────────────────────────────────────────────────
 
 standard_gate = Rule(
-    "standard_gate", approve=consensus(1, 1), dissent="recorded"
+    name="standard_gate", kind="gate",
+    config={"approve": consensus(1, 1), "dissent": "recorded"},
 )
 
 
-# ── Assets ────────────────────────────────────────────────────────────────────
-# markov conditions ARE the acceptance criteria for each asset type.
+# ── Nodes (V2 — replace Assets) ──────────────────────────────────────────────
 
-intent = Asset(
-    name="intent",
-    id_format="INT-{SEQ}",
-    markov=["problem_stated", "value_proposition_clear", "scope_bounded"],
-)
-
-requirements = Asset(
-    name="requirements",
-    id_format="REQ-{SEQ}",
-    lineage=[intent],
-    markov=["keys_testable", "intent_covered", "no_implementation_details"],
-    operative=OPERATIVE_ON_APPROVED,
-)
-
-feature_decomp = Asset(
-    name="feature_decomp",
-    id_format="FD-{SEQ}",
-    lineage=[requirements],
-    markov=["all_req_keys_covered", "dependency_dag_acyclic", "mvp_boundary_defined"],
-    operative=OPERATIVE_ON_APPROVED,
-)
-
-design = Asset(
-    name="design",
-    id_format="DES-{SEQ}",
-    lineage=[feature_decomp],
-    markov=["adrs_recorded", "tech_stack_decided", "interfaces_specified", "no_implementation_details"],
-    operative=OPERATIVE_ON_APPROVED_NOT_SUPERSEDED,
-)
-
-code = Asset(
-    name="code",
-    id_format="CODE-{SEQ}",
-    lineage=[design],
-    markov=["implements_tags_present", "importable", "no_v2_features"],
-)
-
-unit_tests = Asset(
-    name="unit_tests",
-    id_format="TEST-{SEQ}",
-    lineage=[code],
-    markov=["all_pass", "validates_tags_present"],
-)
-
-uat_tests = Asset(
-    name="uat_tests",
-    id_format="UAT-{SEQ}",
-    lineage=[unit_tests],
-    markov=["sandbox_install_passes", "e2e_scenarios_pass", "accepted_by_human"],
-)
+intent = Node(name="intent")
+requirements = Node(name="requirements")
+feature_decomp = Node(name="feature_decomp")
+design = Node(name="design")
+code = Node(name="code")
+unit_tests = Node(name="unit_tests")
+uat_tests = Node(name="uat_tests")
 
 
-# ── Edges ─────────────────────────────────────────────────────────────────────
-
-e_intent_req = Edge(
-    name="intent→requirements",
-    source=intent,
-    target=requirements,
-    using=[claude_agent, human_gate],
-    rule=standard_gate,
-    context=[bootloader, this_spec],
-)
-
-e_req_feat = Edge(
-    name="requirements→feature_decomp",
-    source=requirements,
-    target=feature_decomp,
-    using=[claude_agent, human_gate],
-    rule=standard_gate,
-    context=[bootloader, this_spec, intent_doc],
-)
-
-e_feat_design = Edge(
-    name="feature_decomp→design",
-    source=feature_decomp,
-    target=design,
-    using=[claude_agent, human_gate],
-    rule=standard_gate,
-    context=[bootloader, this_spec, intent_doc],
-)
-
-e_design_code = Edge(
-    name="design→code",
-    source=design,
-    target=code,
-    using=[claude_agent, check_impl_op],
-    context=[bootloader, this_spec, design_adrs],
-)
-
-e_tdd = Edge(
-    name="code↔unit_tests",
-    source=[code, unit_tests],
-    target=unit_tests,
-    co_evolve=True,
-    using=[claude_agent, pytest_op, check_impl_op, check_test_op],
-    context=[bootloader, this_spec, design_adrs],
-)
-
-e_unit_uat = Edge(
-    name="unit_tests→uat_tests",
-    source=unit_tests,
-    target=uat_tests,
-    using=[claude_agent, human_gate],
-    rule=standard_gate,
-    context=[bootloader, this_spec, design_adrs],
-)
-
-
-# ── Evaluators ────────────────────────────────────────────────────────────────
+# ── Evaluators (V2) ──────────────────────────────────────────────────────────
 
 # intent→requirements
 eval_intent_fh = Evaluator(
@@ -196,8 +98,8 @@ eval_intent_fh = Evaluator(
 # requirements→feature_decomp
 eval_req_coverage = Evaluator(
     "req_coverage", F_D,
-    "Every REQ key in Package.requirements appears in ≥1 feature vector satisfies: field",
-    command="python -m genesis check-req-coverage --package gtl_spec.packages.project_package:package --features .ai-workspace/features/",
+    "Every REQ key in Module.metadata.requirements appears in ≥1 feature vector satisfies: field",
+    binding="exec://python -m genesis check-req-coverage --package gtl_spec.packages.project_package:module --features .ai-workspace/features/",
 )
 eval_decomp_fp = Evaluator(
     "decomp_complete", F_P,
@@ -224,7 +126,7 @@ eval_design_fh = Evaluator(
 eval_impl_tags = Evaluator(
     "impl_tags", F_D,
     "All source files carry at least one # Implements: REQ-* tag, zero untagged",
-    command="python -m genesis check-tags --type implements --path builds/python/src/",
+    binding="exec://python -m genesis check-tags --type implements --path builds/python/src/",
 )
 eval_code_fp = Evaluator(
     "code_complete", F_P,
@@ -235,12 +137,12 @@ eval_code_fp = Evaluator(
 eval_tests_pass = Evaluator(
     "tests_pass", F_D,
     "pytest: zero failures, zero errors (excluding e2e tests — F_D evaluators must be acyclic)",
-    command="python -m pytest builds/python/tests/ -q --tb=short -m 'not e2e'",
+    binding="exec://python -m pytest builds/python/tests/ -q --tb=short -m 'not e2e'",
 )
 eval_test_tags = Evaluator(
     "validates_tags", F_D,
     "All test files carry at least one # Validates: REQ-* tag, zero untagged",
-    command="python -m genesis check-tags --type validates --path builds/python/tests/",
+    binding="exec://python -m genesis check-tags --type validates --path builds/python/tests/",
 )
 eval_coverage_fp = Evaluator(
     "coverage_complete", F_P,
@@ -248,14 +150,11 @@ eval_coverage_fp = Evaluator(
 )
 
 # unit_tests→uat_tests
-# F_D verifier: checks that the F_P actor wrote a structured sandbox report.
-# The report is created by the F_P actor during sandbox installation and e2e run.
-# No genesis subcommands — reads a JSON file. Acyclicity preserved.
 eval_uat_report = Evaluator(
     "uat_sandbox_report", F_D,
     "Sandbox e2e report exists at .ai-workspace/uat/sandbox_report.json with all_pass: true",
-    command=(
-        "python -c \""
+    binding=(
+        "exec://python -c \""
         "import json,sys,pathlib; "
         "r=pathlib.Path('.ai-workspace/uat/sandbox_report.json'); "
         "d=json.loads(r.read_text()) if r.exists() else {}; "
@@ -282,72 +181,126 @@ eval_uat_fh = Evaluator(
 )
 
 
-# ── Jobs ──────────────────────────────────────────────────────────────────────
+# ── Graph Vectors (V2 — replace Edges) ───────────────────────────────────────
+# Each vector carries its own operators, evaluators, and contexts.
+# The bridge adapter creates Job/Worker from these automatically.
 
-job_intent_req  = Job(e_intent_req,  [eval_intent_fh])
-job_req_feat    = Job(e_req_feat,    [eval_req_coverage, eval_decomp_fp, eval_decomp_fh])
-job_feat_design = Job(e_feat_design, [eval_design_fp, eval_design_fh])
-job_design_code = Job(e_design_code, [eval_impl_tags, eval_code_fp])
-job_tdd         = Job(e_tdd,         [eval_tests_pass, eval_test_tags, eval_coverage_fp])
-job_uat         = Job(e_unit_uat,    [eval_uat_report, eval_uat_fp, eval_uat_fh])
+v_intent_req = GraphVector(
+    name="intent→requirements",
+    source=intent,
+    target=requirements,
+    operators=(claude_agent, human_gate),
+    evaluators=(eval_intent_fh,),
+    contexts=(bootloader, this_spec),
+    rule=standard_gate,
+)
 
+v_req_feat = GraphVector(
+    name="requirements→feature_decomp",
+    source=requirements,
+    target=feature_decomp,
+    operators=(claude_agent, human_gate),
+    evaluators=(eval_req_coverage, eval_decomp_fp, eval_decomp_fh),
+    contexts=(bootloader, this_spec, intent_doc),
+    rule=standard_gate,
+)
 
-# ── Worker ────────────────────────────────────────────────────────────────────
+v_feat_design = GraphVector(
+    name="feature_decomp→design",
+    source=feature_decomp,
+    target=design,
+    operators=(claude_agent, human_gate),
+    evaluators=(eval_design_fp, eval_design_fh),
+    contexts=(bootloader, this_spec, intent_doc),
+    rule=standard_gate,
+)
 
-worker = Worker(
-    id="claude_code",
-    can_execute=[job_intent_req, job_req_feat, job_feat_design, job_design_code, job_tdd, job_uat],
+v_design_code = GraphVector(
+    name="design→code",
+    source=design,
+    target=code,
+    operators=(claude_agent, check_impl_op),
+    evaluators=(eval_impl_tags, eval_code_fp),
+    contexts=(bootloader, this_spec, design_adrs),
+)
+
+v_tdd = GraphVector(
+    name="code↔unit_tests",
+    source=(code, unit_tests),
+    target=unit_tests,
+    operators=(claude_agent, pytest_op, check_impl_op, check_test_op),
+    evaluators=(eval_tests_pass, eval_test_tags, eval_coverage_fp),
+    contexts=(bootloader, this_spec, design_adrs),
+)
+
+v_unit_uat = GraphVector(
+    name="unit_tests→uat_tests",
+    source=unit_tests,
+    target=uat_tests,
+    operators=(claude_agent, human_gate),
+    evaluators=(eval_uat_report, eval_uat_fp, eval_uat_fh),
+    contexts=(bootloader, this_spec, design_adrs),
+    rule=standard_gate,
 )
 
 
-# ── Package ───────────────────────────────────────────────────────────────────
+# ── SDLC Graph ───────────────────────────────────────────────────────────────
+
+sdlc_graph = Graph(
+    name="sdlc",
+    inputs=(intent,),
+    outputs=(uat_tests,),
+    nodes=(intent, requirements, feature_decomp, design, code, unit_tests, uat_tests),
+    vectors=(v_intent_req, v_req_feat, v_feat_design, v_design_code, v_tdd, v_unit_uat),
+    contexts=(bootloader, this_spec, intent_doc, design_adrs),
+)
+
+
+# ── Module (V2 — replaces Package) ──────────────────────────────────────────
 # requirements list is the authoritative REQ key registry for this project.
 # Add keys here as requirements are written; check-req-coverage enforces coverage.
 
-package = Package(
+module = Module(
     name="project_package",
-    assets=[intent, requirements, feature_decomp, design, code, unit_tests, uat_tests],
-    edges=[e_intent_req, e_req_feat, e_feat_design, e_design_code, e_tdd, e_unit_uat],
-    operators=[claude_agent, human_gate, pytest_op, check_impl_op, check_test_op],
-    rules=[standard_gate],
-    contexts=[bootloader, this_spec, intent_doc, design_adrs],
-    requirements=[
-        # Bootstrap
-        "REQ-F-BOOT-001",   # gen-install bootstraps .genesis/ into target project
-        "REQ-F-BOOT-002",   # .genesis/genesis.yml config resolves Package/Worker
-        # SDLC graph
-        "REQ-F-GRAPH-001",  # GTL Package defines 7-asset SDLC graph
-        "REQ-F-GRAPH-002",  # Asset.markov conditions are acceptance criteria
-        # Commands
-        "REQ-F-CMD-001",    # gen gaps reports delta per edge
-        "REQ-F-CMD-002",    # gen iterate runs one bind-and-iterate pass
-        "REQ-F-CMD-003",    # gen start --auto loops until blocked
-        # Human gates
-        "REQ-F-GATE-001",   # F_H evaluators gate spec/design boundaries
-        # Traceability
-        "REQ-F-TAG-001",    # Implements: tags enforced on all source files
-        "REQ-F-TAG-002",    # Validates: tags enforced on all test files
-        "REQ-F-COV-001",    # REQ key coverage enforced by check-req-coverage
-        # Documentation
-        "REQ-F-DOCS-001",   # User guide covers install, first session, operating loop
-        # UAT
-        "REQ-F-UAT-001",    # unit_tests→uat_tests edge: sandbox install + e2e proof required to ship
-        # Backlog
-        "REQ-F-BACKLOG-001",  # .ai-workspace/backlog/BL-*.yml schema and directory convention
-        "REQ-F-BACKLOG-002",  # sensory system surfaces ready items in gen gaps/status output
-        "REQ-F-BACKLOG-003",  # gen backlog list — show all items with status
-        "REQ-F-BACKLOG-004",  # gen backlog promote BL-xxx — emit intent_raised, mark promoted
-    ],
+    graphs=(sdlc_graph,),
+    metadata={
+        "requirements": [
+            # Bootstrap
+            "REQ-F-BOOT-001",   # gen-install bootstraps .genesis/ into target project
+            "REQ-F-BOOT-002",   # .genesis/genesis.yml config resolves Package/Worker
+            # SDLC graph
+            "REQ-F-GRAPH-001",  # GTL Package defines 7-asset SDLC graph
+            "REQ-F-GRAPH-002",  # Asset.markov conditions are acceptance criteria
+            # Commands
+            "REQ-F-CMD-001",    # gen gaps reports delta per edge
+            "REQ-F-CMD-002",    # gen iterate runs one bind-and-iterate pass
+            "REQ-F-CMD-003",    # gen start --auto loops until blocked
+            # Human gates
+            "REQ-F-GATE-001",   # F_H evaluators gate spec/design boundaries
+            # Traceability
+            "REQ-F-TAG-001",    # Implements: tags enforced on all source files
+            "REQ-F-TAG-002",    # Validates: tags enforced on all test files
+            "REQ-F-COV-001",    # REQ key coverage enforced by check-req-coverage
+            # Documentation
+            "REQ-F-DOCS-001",   # User guide covers install, first session, operating loop
+            # UAT
+            "REQ-F-UAT-001",    # unit_tests→uat_tests edge: sandbox install + e2e proof required to ship
+            # Backlog
+            "REQ-F-BACKLOG-001",  # .ai-workspace/backlog/BL-*.yml schema and directory convention
+            "REQ-F-BACKLOG-002",  # sensory system surfaces ready items in gen gaps/status output
+            "REQ-F-BACKLOG-003",  # gen backlog list — show all items with status
+            "REQ-F-BACKLOG-004",  # gen backlog promote BL-xxx — emit intent_raised, mark promoted
+        ],
+    },
 )
 
 
 if __name__ == "__main__":
     import json
     print(json.dumps({
-        "package": package.name,
-        "assets": [a.name for a in package.assets],
-        "edges": [e.name for e in package.edges],
-        "jobs": len(worker.can_execute),
-        "worker": worker.id,
-        "requirements": package.requirements,
+        "module": module.name,
+        "graphs": [g.name for g in module.graphs],
+        "nodes": [n.name for n in sdlc_graph.nodes],
+        "vectors": [v.name for v in sdlc_graph.vectors],
+        "requirements": module.metadata["requirements"],
     }, indent=2))

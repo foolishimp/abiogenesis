@@ -23,55 +23,62 @@ from __future__ import annotations
 import warnings
 from pathlib import Path
 
+from gtl.graph import Graph, Node, GraphVector, Context
+from gtl.module_model import Module
+from gtl.operator_model import Evaluator, Operator, F_D, F_P, F_H, Rule
 from gtl.core import (
-    Asset, Context, Edge, Evaluator, Job, Operator, Package, Rule, Worker,
-    F_D, F_P, F_H, consensus,
+    Asset, Edge, Package,
+    consensus,
 )
 
-from genesis.bind import req_hash
-from genesis.core import workspace_bootstrap, project, EventStream
-from genesis.commands import Scope, gen_gaps
+from genesis.provenance import req_hash
+from genesis.install import workspace_bootstrap
+from genesis.projection import project
+from genesis.events import EventStream
+from genesis.services import Scope, gen_gaps
 
 
 # ── Shared fixture ─────────────────────────────────────────────────────────────
 
-def _make_minimal_package(requirements: list[str] | None = None) -> tuple[Package, Worker]:
-    """Minimal F_D + F_P package for property testing (no subprocess commands needed)."""
+def _make_minimal_module(requirements: list[str] | None = None) -> Module:
+    """Minimal F_D + F_P module for property testing (no subprocess commands needed)."""
     requirements = requirements or ["REQ-PROP-001"]
-    design = Asset(name="design", id_format="DES-{SEQ}")
-    code = Asset(name="code", id_format="CODE-{SEQ}", lineage=[design])
+    design = Node(name="design")
+    code = Node(name="code")
     ctx = Context(name="ctx", locator="workspace://ctx.md", digest="sha256:" + "0" * 64)
 
     # F_D: always passes — property tests focus on F_P/spec_hash behaviour, not F_D
     eval_fd = Evaluator(
         "always_pass", F_D,
         "Placeholder F_D — always passes for property testing",
-        command="python -c 'import sys; sys.exit(0)'",
+        binding="exec://python -c 'import sys; sys.exit(0)'",
     )
     eval_fp = Evaluator("code_complete", F_P, "Code implements spec")
 
     op_agent  = Operator("claude_agent", F_P, "agent://claude/genesis")
     op_check  = Operator("always_pass",  F_D, "exec://python -c 'import sys; sys.exit(0)'")
-    rule      = Rule("gate", approve=consensus(1, 1))
-    edge = Edge(
+
+    vector = GraphVector(
         name="design→code",
         source=design, target=code,
-        using=[op_agent, op_check],
-        rule=rule,
-        context=[ctx],
+        operators=(op_agent, op_check),
+        evaluators=(eval_fd, eval_fp),
+        contexts=(ctx,),
     )
-    job = Job(edge=edge, evaluators=[eval_fd, eval_fp])
-    pkg = Package(
+
+    graph = Graph(
         name="property_test",
-        assets=[design, code],
-        edges=[edge],
-        operators=[op_agent, op_check],
-        rules=[rule],
-        contexts=[ctx],
-        requirements=requirements,
+        inputs=(design,), outputs=(code,),
+        nodes=(design, code),
+        vectors=(vector,),
+        contexts=(ctx,),
     )
-    worker = Worker(id="claude_code", can_execute=[job])
-    return pkg, worker
+
+    return Module(
+        name="property_test",
+        graphs=(graph,),
+        metadata={"requirements": requirements},
+    )
 
 
 def _converged_scope(tmp_path: Path) -> tuple[Scope, "EventStream"]:
@@ -81,9 +88,9 @@ def _converged_scope(tmp_path: Path) -> tuple[Scope, "EventStream"]:
     F_D passes vacuously (nonexistent_dir → check-tags returns passes=True with 0 files).
     F_P is resolved by appending an assessed (kind=fp) event with the correct spec_hash.
     """
-    pkg, worker = _make_minimal_package()
+    module = _make_minimal_module()
     stream = workspace_bootstrap(tmp_path)
-    spec_hash = req_hash(pkg.requirements)
+    spec_hash = req_hash(module.metadata["requirements"])
 
     stream.append("assessed", {
         "kind": "fp",
@@ -93,7 +100,7 @@ def _converged_scope(tmp_path: Path) -> tuple[Scope, "EventStream"]:
         "spec_hash": spec_hash,
     })
 
-    scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
+    scope = Scope(module=module, workspace_root=tmp_path)
     return scope, stream
 
 
@@ -206,8 +213,8 @@ class TestNoDuplicateCertificates:
 
     def test_no_duplicate_certificates_across_features(self, tmp_path):
         """Two different features on same edge each get exactly one certificate."""
-        pkg, worker = _make_minimal_package()
-        spec_hash = req_hash(pkg.requirements)
+        module = _make_minimal_module()
+        spec_hash = req_hash(module.metadata["requirements"])
 
         for feature in ("FEAT-A", "FEAT-B"):
             ws = tmp_path / feature
@@ -228,8 +235,8 @@ class TestNoDuplicateCertificates:
                 "spec_hash": spec_hash,
             })
             scope = Scope(
-                package=pkg, workspace_root=ws,
-                worker=worker, feature=feature,
+                module=module, workspace_root=ws,
+                feature=feature,
             )
             gen_gaps(scope, stream)
             gen_gaps(scope, stream)  # second call must not duplicate
@@ -253,9 +260,9 @@ class TestStaleSpecHashRejection:
 
     def test_stale_hash_does_not_satisfy_bind_fd(self, tmp_path):
         """assessed (kind=fp) with incorrect spec_hash — edge does not converge."""
-        pkg, worker = _make_minimal_package(["REQ-NEW-001"])
+        module = _make_minimal_module(["REQ-NEW-001"])
         stream = workspace_bootstrap(tmp_path)
-        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
+        scope = Scope(module=module, workspace_root=tmp_path)
 
         # Emit assessed (kind=fp) with WRONG spec_hash
         stream.append("assessed", {
@@ -275,10 +282,10 @@ class TestStaleSpecHashRejection:
 
     def test_correct_hash_after_stale_converges(self, tmp_path):
         """Correct spec_hash after stale entry: only the correct one converges."""
-        pkg, worker = _make_minimal_package(["REQ-NEW-001"])
-        spec_hash = req_hash(pkg.requirements)
+        module = _make_minimal_module(["REQ-NEW-001"])
+        spec_hash = req_hash(module.metadata["requirements"])
         stream = workspace_bootstrap(tmp_path)
-        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
+        scope = Scope(module=module, workspace_root=tmp_path)
 
         # First: stale (wrong hash)
         stream.append("assessed", {
@@ -306,6 +313,9 @@ class TestUnreachableAssetWarning:
     Property: Package._validate() warns about assets with no inbound edge
     that are not graph roots. An asset that appears in no edge at all is
     unreachable — it cannot be produced or consumed by the graph.
+
+    NOTE: These tests exercise V1 Package validation, not the V2 engine.
+    They remain using V1 types (Asset, Edge, Package) deliberately.
     """
 
     def _make_operator(self):

@@ -34,22 +34,22 @@ from pathlib import Path
 
 import pytest
 
-from gtl.core import (
-    Asset, Context, Edge, Evaluator, Job, Operator, Package, Rule, Worker,
-    F_D, F_P, F_H, consensus,
-    OPERATIVE_ON_APPROVED,
-)
+from gtl.graph import Graph, Node, GraphVector, Context
+from gtl.module_model import Module
+from gtl.operator_model import Evaluator, Operator, F_D, F_P, F_H, Rule
+from gtl.core import consensus
 
-from genesis.bind import req_hash
-from genesis.core import workspace_bootstrap, project
-from genesis.commands import Scope, gen_gaps, gen_iterate, gen_start
+from genesis.provenance import req_hash
+from genesis.install import workspace_bootstrap
+from genesis.projection import project
+from genesis.services import Scope, gen_gaps, gen_iterate, gen_start
 
 
-# ── Package fixture ────────────────────────────────────────────────────────────
+# ── Module fixtures ────────────────────────────────────────────────────────────
 
-def _make_full_chain_package(workspace_root: Path) -> tuple[Package, Worker]:
+def _make_full_chain_module(workspace_root: Path) -> Module:
     """
-    Package with F_D + F_P + F_H evaluators for full lifecycle testing.
+    Module with F_D + F_P + F_H evaluators for full lifecycle testing.
 
     Edge: design→code
       F_D  impl_tags      — check-tags on code/ (real subprocess, checks real files)
@@ -62,8 +62,8 @@ def _make_full_chain_package(workspace_root: Path) -> tuple[Package, Worker]:
     # Ensure context file exists — fail-closed requires it before F_P dispatch.
     (workspace_root / "spec.md").write_text("# Integration Test Spec\n")
 
-    design = Asset(name="design", id_format="DES-{SEQ}")
-    code = Asset(name="code", id_format="CODE-{SEQ}", lineage=[design])
+    design = Node(name="design")
+    code = Node(name="code")
 
     ctx = Context(
         name="spec",
@@ -74,7 +74,7 @@ def _make_full_chain_package(workspace_root: Path) -> tuple[Package, Worker]:
     eval_fd = Evaluator(
         "impl_tags", F_D,
         "All files in code/ must carry # Implements: REQ-INT-001 tag",
-        command="python -m genesis check-tags --type implements --path code/",
+        binding="exec://python -m genesis check-tags --type implements --path code/",
     )
     eval_fp = Evaluator("code_complete", F_P, "Code implements the integration spec")
     eval_fh = Evaluator(
@@ -82,76 +82,82 @@ def _make_full_chain_package(workspace_root: Path) -> tuple[Package, Worker]:
         "Human confirms: code is correct and complete before proceeding",
     )
 
-    op_agent  = Operator("claude_agent", F_P, "agent://claude/genesis")
-    op_check  = Operator("check_tags",   F_D, "exec://python -m genesis check-tags --type implements --path code/")
-    op_human  = Operator("human_gate",   F_H, "fh://single")
-    rule      = Rule("gate", approve=consensus(1, 1))
+    op_agent = Operator("claude_agent", F_P, "agent://claude/genesis")
+    op_check = Operator("check_tags", F_D, "exec://python -m genesis check-tags --type implements --path code/")
+    op_human = Operator("human_gate", F_H, "fh://single")
+    rule = Rule(name="gate", kind="gate", config={"approve": consensus(1, 1)})
 
-    edge = Edge(
+    vector = GraphVector(
         name="design→code",
-        source=design,
-        target=code,
-        using=[op_agent, op_check, op_human],
+        source=design, target=code,
+        operators=(op_agent, op_check, op_human),
+        evaluators=(eval_fd, eval_fp, eval_fh),
+        contexts=(ctx,),
         rule=rule,
-        context=[ctx],
     )
-    job = Job(edge=edge, evaluators=[eval_fd, eval_fp, eval_fh])
-    pkg = Package(
+
+    graph = Graph(
         name="integration_test",
-        assets=[design, code],
-        edges=[edge],
-        operators=[op_agent, op_check, op_human],
-        rules=[rule],
-        contexts=[ctx],
-        requirements=["REQ-INT-001"],
+        inputs=(design,), outputs=(code,),
+        nodes=(design, code),
+        vectors=(vector,),
+        contexts=(ctx,),
     )
-    worker = Worker(id="claude_code", can_execute=[job])
-    return pkg, worker
+
+    return Module(
+        name="integration_test",
+        graphs=(graph,),
+        metadata={"requirements": ["REQ-INT-001"]},
+    )
 
 
-def _make_fd_fp_package(workspace_root: Path) -> tuple[Package, Worker]:
-    """Package with only F_D + F_P (no F_H) — used for gap and dispatch tests."""
+def _make_fd_fp_module(workspace_root: Path) -> Module:
+    """Module with only F_D + F_P (no F_H) — used for gap and dispatch tests."""
     # Ensure context file exists — fail-closed requires it before F_P dispatch.
     (workspace_root / "spec.md").write_text("# FD/FP Test Spec\n")
 
-    design = Asset(name="design", id_format="DES-{SEQ}")
-    code = Asset(name="code", id_format="CODE-{SEQ}", lineage=[design])
+    design = Node(name="design")
+    code = Node(name="code")
     ctx = Context(name="spec", locator="workspace://spec.md", digest="sha256:" + "0" * 64)
 
     eval_fd = Evaluator(
         "impl_tags", F_D,
         "Files in code/ must carry # Implements: tag",
-        command="python -m genesis check-tags --type implements --path code/",
+        binding="exec://python -m genesis check-tags --type implements --path code/",
     )
     eval_fp = Evaluator("code_complete", F_P, "Code implements spec")
 
-    op_agent  = Operator("claude_agent", F_P, "agent://claude/genesis")
-    op_check  = Operator("check_tags",   F_D, "exec://python -m genesis check-tags --type implements --path code/")
-    rule      = Rule("gate", approve=consensus(1, 1))
+    op_agent = Operator("claude_agent", F_P, "agent://claude/genesis")
+    op_check = Operator("check_tags", F_D, "exec://python -m genesis check-tags --type implements --path code/")
+    rule = Rule(name="gate", kind="gate", config={"approve": consensus(1, 1)})
 
-    edge = Edge(
+    vector = GraphVector(
         name="design→code",
         source=design, target=code,
-        using=[op_agent, op_check],
+        operators=(op_agent, op_check),
+        evaluators=(eval_fd, eval_fp),
+        contexts=(ctx,),
         rule=rule,
-        context=[ctx],
     )
-    job = Job(edge=edge, evaluators=[eval_fd, eval_fp])
-    pkg = Package(
+
+    graph = Graph(
         name="fd_fp_test",
-        assets=[design, code],
-        edges=[edge],
-        operators=[op_agent, op_check],
-        rules=[rule],
-        contexts=[ctx],
-        requirements=["REQ-INT-002"],
+        inputs=(design,), outputs=(code,),
+        nodes=(design, code),
+        vectors=(vector,),
+        contexts=(ctx,),
     )
-    worker = Worker(id="claude_code", can_execute=[job])
-    return pkg, worker
+
+    return Module(
+        name="fd_fp_test",
+        graphs=(graph,),
+        metadata={"requirements": ["REQ-INT-002"]},
+    )
 
 
-def _make_scope(tmp_path: Path, pkg: Package, worker: Worker) -> Scope:
-    return Scope(package=pkg, workspace_root=tmp_path, worker=worker)
+def _make_scope(tmp_path: Path, module: Module,
+                feature: str | None = None) -> Scope:
+    return Scope(module=module, workspace_root=tmp_path, feature=feature)
 
 
 # ── Workflow tests ─────────────────────────────────────────────────────────────
@@ -162,8 +168,8 @@ class TestFullFdFpFhChain:
     def test_fd_fails_initially_escalates_to_fp(self, tmp_path):
         """F_D findings escalate to F_P on cold start — REQ-F-GATE-002 (ADR-021)."""
         stream = workspace_bootstrap(tmp_path)
-        pkg, worker = _make_full_chain_package(tmp_path)
-        scope = _make_scope(tmp_path, pkg, worker)
+        module = _make_full_chain_module(tmp_path)
+        scope = _make_scope(tmp_path, module)
 
         # No code/ directory → F_D fails → escalates to F_P
         result = gen_iterate(scope, stream)
@@ -182,8 +188,8 @@ class TestFullFdFpFhChain:
     def test_fp_dispatched_after_fd_passes(self, tmp_path):
         """F_P dispatched once F_D (impl_tags) passes — all three evaluators in failing list."""
         stream = workspace_bootstrap(tmp_path)
-        pkg, worker = _make_full_chain_package(tmp_path)
-        scope = _make_scope(tmp_path, pkg, worker)
+        module = _make_full_chain_module(tmp_path)
+        scope = _make_scope(tmp_path, module)
 
         # Create code/impl.py with Implements tag so F_D passes
         (tmp_path / "code").mkdir()
@@ -200,9 +206,9 @@ class TestFullFdFpFhChain:
     def test_fh_gate_emitted_after_fp_passes(self, tmp_path):
         """F_H gate emitted once F_D + F_P both pass."""
         stream = workspace_bootstrap(tmp_path)
-        pkg, worker = _make_full_chain_package(tmp_path)
-        scope = _make_scope(tmp_path, pkg, worker)
-        spec_hash = req_hash(pkg.requirements)
+        module = _make_full_chain_module(tmp_path)
+        scope = _make_scope(tmp_path, module)
+        spec_hash = req_hash(module.metadata["requirements"])
 
         # F_D: create code
         (tmp_path / "code").mkdir()
@@ -227,9 +233,9 @@ class TestFullFdFpFhChain:
     def test_converged_after_full_chain(self, tmp_path):
         """Full F_D → F_P → F_H chain: cold start to delta=0."""
         stream = workspace_bootstrap(tmp_path)
-        pkg, worker = _make_full_chain_package(tmp_path)
-        scope = _make_scope(tmp_path, pkg, worker)
-        spec_hash = req_hash(pkg.requirements)
+        module = _make_full_chain_module(tmp_path)
+        scope = _make_scope(tmp_path, module)
+        spec_hash = req_hash(module.metadata["requirements"])
 
         # Verify gap exists
         initial = gen_gaps(scope, stream)
@@ -273,8 +279,8 @@ class TestAutoLoopStopsCorrectly:
         fp_dispatched, not fd_gap.
         """
         stream = workspace_bootstrap(tmp_path)
-        pkg, worker = _make_fd_fp_package(tmp_path)
-        scope = _make_scope(tmp_path, pkg, worker)
+        module = _make_fd_fp_module(tmp_path)
+        scope = _make_scope(tmp_path, module)
 
         # No code/ → F_D fails; F_P has no assessment → also failing → escalation
         result = gen_start(scope, stream, auto=True)
@@ -295,8 +301,8 @@ class TestAutoLoopStopsCorrectly:
     def test_auto_loop_stops_on_fp_dispatch(self, tmp_path):
         """gen_start(auto=True) stops on fp_dispatch when F_D passes but F_P pending."""
         stream = workspace_bootstrap(tmp_path)
-        pkg, worker = _make_fd_fp_package(tmp_path)
-        scope = _make_scope(tmp_path, pkg, worker)
+        module = _make_fd_fp_module(tmp_path)
+        scope = _make_scope(tmp_path, module)
 
         # Create code with tag so F_D passes
         (tmp_path / "code").mkdir()
@@ -312,9 +318,9 @@ class TestAutoLoopStopsCorrectly:
     def test_auto_loop_converges_when_all_pass(self, tmp_path):
         """gen_start(auto=True) returns converged when all evaluators pass."""
         stream = workspace_bootstrap(tmp_path)
-        pkg, worker = _make_fd_fp_package(tmp_path)
-        scope = _make_scope(tmp_path, pkg, worker)
-        spec_hash = req_hash(pkg.requirements)
+        module = _make_fd_fp_module(tmp_path)
+        scope = _make_scope(tmp_path, module)
+        spec_hash = req_hash(module.metadata["requirements"])
 
         (tmp_path / "code").mkdir()
         (tmp_path / "code" / "impl.py").write_text(
@@ -342,8 +348,8 @@ class TestSpecHashStaleness:
         bind_fd() — the edge remains unconverged even with code present.
         """
         stream = workspace_bootstrap(tmp_path)
-        pkg, worker = _make_fd_fp_package(tmp_path)
-        scope = _make_scope(tmp_path, pkg, worker)
+        module = _make_fd_fp_module(tmp_path)
+        scope = _make_scope(tmp_path, module)
 
         # Create code (F_D passes)
         (tmp_path / "code").mkdir()
@@ -371,9 +377,9 @@ class TestSpecHashStaleness:
     def test_correct_spec_hash_converges(self, tmp_path):
         """Correct spec_hash on assessed event satisfies bind_fd() — edge converges."""
         stream = workspace_bootstrap(tmp_path)
-        pkg, worker = _make_fd_fp_package(tmp_path)
-        scope = _make_scope(tmp_path, pkg, worker)
-        spec_hash = req_hash(pkg.requirements)
+        module = _make_fd_fp_module(tmp_path)
+        scope = _make_scope(tmp_path, module)
+        spec_hash = req_hash(module.metadata["requirements"])
 
         (tmp_path / "code").mkdir()
         (tmp_path / "code" / "impl.py").write_text(
@@ -397,9 +403,9 @@ class TestFeatureLifecycle:
     def test_convergence_closes_active_feature(self, tmp_path):
         """gen_start closes active features when all edges reach delta=0."""
         stream = workspace_bootstrap(tmp_path)
-        pkg, worker = _make_fd_fp_package(tmp_path)
-        scope = _make_scope(tmp_path, pkg, worker)
-        spec_hash = req_hash(pkg.requirements)
+        module = _make_fd_fp_module(tmp_path)
+        scope = _make_scope(tmp_path, module)
+        spec_hash = req_hash(module.metadata["requirements"])
 
         # Create a feature vector in active/
         active_dir = tmp_path / ".ai-workspace" / "features" / "active"
@@ -439,8 +445,8 @@ class TestEdgeConvergedCertificates:
     def test_edge_converged_includes_feature(self, tmp_path):
         """edge_converged event includes feature field — REQ-F-CMD-004."""
         stream = workspace_bootstrap(tmp_path)
-        pkg, worker = _make_fd_fp_package(tmp_path)
-        spec_hash = req_hash(pkg.requirements)
+        module = _make_fd_fp_module(tmp_path)
+        spec_hash = req_hash(module.metadata["requirements"])
 
         # Create feature YAML so _scoped_jobs validates the feature ID
         feature_id = "REQ-INT-002"
@@ -463,7 +469,7 @@ class TestEdgeConvergedCertificates:
             "spec_hash": spec_hash,
         })
 
-        scope = _make_scope(tmp_path, pkg, worker, feature=feature_id)
+        scope = _make_scope(tmp_path, module, feature=feature_id)
         gen_gaps(scope, stream)
 
         certs = [
@@ -478,9 +484,9 @@ class TestEdgeConvergedCertificates:
     def test_gen_gaps_does_not_duplicate_certificates(self, tmp_path):
         """Running gen_gaps twice on a converged workspace emits no duplicate certificates."""
         stream = workspace_bootstrap(tmp_path)
-        pkg, worker = _make_fd_fp_package(tmp_path)
-        scope = _make_scope(tmp_path, pkg, worker)
-        spec_hash = req_hash(pkg.requirements)
+        module = _make_fd_fp_module(tmp_path)
+        scope = _make_scope(tmp_path, module)
+        spec_hash = req_hash(module.metadata["requirements"])
 
         (tmp_path / "code").mkdir()
         (tmp_path / "code" / "impl.py").write_text(
@@ -506,11 +512,6 @@ class TestEdgeConvergedCertificates:
         )
 
 
-def _make_scope(tmp_path: Path, pkg: Package, worker: Worker,
-                feature: str | None = None) -> Scope:
-    return Scope(package=pkg, workspace_root=tmp_path, worker=worker, feature=feature)
-
-
 # ── Revocation cascade regression: REQ-F-EC-004, REQ-F-TEST-001 AC-2 ─────────
 
 class TestRevocationCascadesDelta:
@@ -525,9 +526,9 @@ class TestRevocationCascadesDelta:
     def _converge_workspace(self, tmp_path):
         """Build a converged workspace with F_D + F_P + F_H all passing."""
         stream = workspace_bootstrap(tmp_path)
-        pkg, worker = _make_full_chain_package(tmp_path)
-        scope = _make_scope(tmp_path, pkg, worker)
-        spec_hash = req_hash(pkg.requirements)
+        module = _make_full_chain_module(tmp_path)
+        scope = _make_scope(tmp_path, module)
+        spec_hash = req_hash(module.metadata["requirements"])
 
         # Fix F_D
         (tmp_path / "code").mkdir()
@@ -554,11 +555,11 @@ class TestRevocationCascadesDelta:
         # Verify converged
         result = gen_gaps(scope, stream)
         assert result["converged"] is True
-        return stream, scope, pkg
+        return stream, scope
 
     def test_fp_revocation_cascades_delta(self, tmp_path):
         """revoked{kind: fp_assessment} on converged workspace → F_P evaluators fail."""
-        stream, scope, pkg = self._converge_workspace(tmp_path)
+        stream, scope = self._converge_workspace(tmp_path)
 
         # Revoke all F_P assessments
         stream.append("revoked", {
@@ -578,7 +579,7 @@ class TestRevocationCascadesDelta:
 
     def test_fh_revocation_cascades_delta(self, tmp_path):
         """revoked{kind: fh_approval} on converged workspace → F_H evaluators fail."""
-        stream, scope, pkg = self._converge_workspace(tmp_path)
+        stream, scope = self._converge_workspace(tmp_path)
 
         # Revoke all F_H approvals
         stream.append("revoked", {
@@ -598,7 +599,7 @@ class TestRevocationCascadesDelta:
 
     def test_both_revocations_cascade_independently(self, tmp_path):
         """Revoking both F_P and F_H independently produces full delta."""
-        stream, scope, pkg = self._converge_workspace(tmp_path)
+        stream, scope = self._converge_workspace(tmp_path)
 
         # Revoke F_P
         stream.append("revoked", {

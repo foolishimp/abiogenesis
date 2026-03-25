@@ -52,21 +52,17 @@ from scenario_helpers import (
 
 _PACKAGE = textwrap.dedent('''\
     """Architectural design to structured data schema."""
-    from gtl.core import (
-        Asset, Context, Edge, Evaluator, Job, Operator,
-        Package, Rule, Worker, F_D, F_P, consensus,
-    )
+    from gtl.graph import Graph, Node, GraphVector, Context
+    from gtl.module_model import Module
+    from gtl.core import Evaluator, Operator, Rule, F_D, F_P, consensus
 
-    design = Asset(
+    design = Node(
         name="design",
-        id_format="DES-{SEQ}",
-        markov=["adrs_recorded", "components_identified", "interfaces_specified"],
+        markov=("adrs_recorded", "components_identified", "interfaces_specified"),
     )
-    data_schema = Asset(
+    data_schema = Node(
         name="data_schema",
-        id_format="SCH-{SEQ}",
-        lineage=[design],
-        markov=["naming_consistent", "constraints_present", "migration_safe"],
+        markov=("naming_consistent", "constraints_present", "migration_safe"),
     )
     ctx_adr = Context(
         name="architecture_decisions",
@@ -80,26 +76,29 @@ _PACKAGE = textwrap.dedent('''\
     )
     op_fd = Operator("artifact_check", F_D, "exec://test -f output/schema.sql")
     op_fp = Operator("schema_agent", F_P, "agent://data/schema")
-    edge = Edge(
-        name="design\\u2192data_schema",
-        source=design, target=data_schema,
-        using=[op_fd, op_fp], context=[ctx_adr, ctx_naming],
-    )
     eval_fd = Evaluator("artifact_exists", F_D,
         "schema artifact exists at output/schema.sql",
-        command="test -f output/schema.sql")
+        binding="exec://test -f output/schema.sql")
     eval_fp = Evaluator("schema_quality", F_P,
         "agent: schema follows naming conventions, has integrity constraints, is migration-safe")
-    job = Job(edge=edge, evaluators=[eval_fd, eval_fp])
-    package = Package(
-        name="schema_design",
-        assets=[design, data_schema], edges=[edge],
-        operators=[op_fd, op_fp],
-        rules=[Rule("schema_gate", approve=consensus(1, 1))],
-        contexts=[ctx_adr, ctx_naming],
-        requirements=["REQ-DS-001", "REQ-DS-002"],
+    vector = GraphVector(
+        name="design\\u2192data_schema",
+        source=design, target=data_schema,
+        operators=(op_fd, op_fp),
+        evaluators=(eval_fd, eval_fp),
+        contexts=(ctx_adr, ctx_naming),
     )
-    worker = Worker(id="schema_designer", can_execute=[job])
+    graph = Graph(
+        name="design\\u2192data_schema",
+        inputs=(design,), outputs=(data_schema,),
+        nodes=(design, data_schema), vectors=(vector,),
+        contexts=(ctx_adr, ctx_naming),
+    )
+    module = Module(
+        name="schema_design",
+        graphs=(graph,),
+        metadata={"requirements": ["REQ-DS-001", "REQ-DS-002"]},
+    )
 ''')
 
 _EDGE = "design→data_schema"

@@ -1,23 +1,28 @@
 # Implements: REQ-CORE-001
 """
-genesis_core — V1.0 specification as GTL Package
+genesis_core — V1.0 specification as V2 Module
 
-This file IS the spec. The type system is the law.
+V2 structure: Module/Graph/Node/GraphVector with V2 effect declarations
+(Evaluator/Operator/Rule from gtl.operator_model).
 
-  Asset.markov     → acceptance criteria for that asset
-  Job.evaluators   → convergence tests for that edge
-  Edge.context     → constraint surface for that transition
-  Worker           → who executes what (write territory by type)
+  Node            → typed asset locus (replaces Asset)
+  GraphVector     → directed step with evaluators (replaces Edge + Job)
+  Graph           → topology of nodes and vectors (replaces Package internals)
+  Module          → publication boundary (replaces Package)
 
-No separate requirements document. REQ keys emerge from this Package.
+No separate requirements document. REQ keys emerge from this Module.
 
 Built on: imp_codex/code/gtl/core.py v0.3.0
 """
-from gtl.core import (
-    Package, Asset, Edge, Operator, Rule, Context, Overlay,
-    Evaluator, Job, Worker,
+
+# V2 structural types
+from gtl.graph import Graph, Node, GraphVector, Context
+from gtl.module_model import Module
+
+# V2 effect types — native vocabulary
+from gtl.operator_model import (
+    Evaluator, Operator, Rule,
     F_D, F_P, F_H, consensus,
-    OPERATIVE_ON_APPROVED, OPERATIVE_ON_APPROVED_NOT_SUPERSEDED,
 )
 
 
@@ -50,7 +55,7 @@ v1_doctrine = Context(
 )
 
 
-# ── Operators ─────────────────────────────────────────────────────────────────
+# ── Operators (V2) ────────────────────────────────────────────────────────────
 
 claude_agent = Operator(
     "claude_agent", F_P, "agent://claude/genesis"
@@ -71,132 +76,32 @@ human_gate = Operator(
 )
 
 
-# ── Rules ─────────────────────────────────────────────────────────────────────
+# ── Rules (V2) ───────────────────────────────────────────────────────────────
 
 standard_gate = Rule(
-    "standard_gate", approve=consensus(1, 1), dissent="recorded"
+    name="standard_gate", kind="gate",
+    config={"approve": consensus(1, 1), "dissent": "recorded"},
 )
 
 
-# ── Assets ────────────────────────────────────────────────────────────────────
-# markov conditions ARE the acceptance criteria.
+# ── Nodes (V2 — replace Assets) ──────────────────────────────────────────────
 
-intent = Asset(
-    name="intent",
-    id_format="INT-{SEQ}",
-    markov=["problem_stated", "value_proposition_clear", "scope_bounded"],
-)
-
-requirements = Asset(
-    name="requirements",
-    id_format="REQ-{SEQ}",
-    lineage=[intent],
-    markov=["keys_testable", "intent_covered", "no_implementation_details"],
-    operative=OPERATIVE_ON_APPROVED,
-)
-
-feature_decomp = Asset(
-    name="feature_decomp",
-    id_format="FD-{SEQ}",
-    lineage=[requirements],
-    markov=["all_req_keys_covered", "dependency_dag_acyclic", "mvp_boundary_defined"],
-    operative=OPERATIVE_ON_APPROVED,
-)
-
-design = Asset(
-    name="design",
-    id_format="DES-{SEQ}",
-    lineage=[feature_decomp],
-    markov=[
-        "adrs_recorded",
-        "six_core_functions_specified",
-        "bind_fd_fp_split_specified",
-        "precomputed_manifest_specified",
-        "scope_type_specified",
-    ],
-    operative=OPERATIVE_ON_APPROVED_NOT_SUPERSEDED,
-)
-
-code = Asset(
-    name="code",
-    id_format="CODE-{SEQ}",
-    lineage=[design],
-    markov=[
-        "implements_tags_present",
-        "engine_modules_complete",
-        "no_v2_features",
-        "importable",
-    ],
-)
-
-unit_tests = Asset(
-    name="unit_tests",
-    id_format="TEST-{SEQ}",
-    lineage=[code],
-    markov=[
-        "all_pass",
-        "coverage_gte_80",
-        "validates_tags_present",
-        "sandbox_e2e_pass",
-    ],
-)
+intent = Node(name="intent")
+requirements = Node(name="requirements")
+feature_decomp = Node(name="feature_decomp")
+design = Node(name="design")
+code = Node(name="code")
+unit_tests = Node(name="unit_tests")
 
 
-# ── Edges ─────────────────────────────────────────────────────────────────────
-
-e_intent_req = Edge(
-    name="intent→requirements",
-    source=intent,
-    target=requirements,
-    using=[claude_agent, human_gate],
-    rule=standard_gate,
-    context=[bootloader, v1_doctrine],
-)
-
-e_req_feat = Edge(
-    name="requirements→feature_decomp",
-    source=requirements,
-    target=feature_decomp,
-    using=[claude_agent, human_gate],
-    rule=standard_gate,
-    context=[bootloader, genesis_core_spec],
-)
-
-e_feat_design = Edge(
-    name="feature_decomp→design",
-    source=feature_decomp,
-    target=design,
-    using=[claude_agent, human_gate],
-    rule=standard_gate,
-    context=[bootloader, genesis_core_spec, v1_doctrine],
-)
-
-e_design_code = Edge(
-    name="design→code",
-    source=design,
-    target=code,
-    using=[claude_agent, check_tags_impl],
-    context=[bootloader, genesis_core_spec, design_adrs],
-)
-
-e_tdd = Edge(
-    name="code↔unit_tests",
-    source=[code, unit_tests],
-    target=unit_tests,
-    co_evolve=True,
-    using=[claude_agent, pytest_op, check_tags_impl, check_tags_test],
-    context=[bootloader, genesis_core_spec, design_adrs],
-)
-
-
-# ── Evaluators ────────────────────────────────────────────────────────────────
+# ── Evaluators (V2) ──────────────────────────────────────────────────────────
 
 # intent→requirements
 eval_intent_fh     = Evaluator("intent_approved",    F_H, "Human confirms intent is clear, bounded, and non-trivial")
 
 # requirements→feature_decomp
 eval_feat_fd       = Evaluator("req_coverage",       F_D, "Every REQ key appears in ≥1 feature vector satisfies: field",
-                               command="python -m genesis check-req-coverage --package gtl_spec.packages.genesis_core:genesis_v1 --features .ai-workspace/features/")
+                               binding="exec://python -m genesis check-req-coverage --package gtl_spec.packages.genesis_core:module --features .ai-workspace/features/")
 eval_feat_fh       = Evaluator("feat_approved",      F_H, "Human approves decomposition, DAG order, and MVP boundary")
 
 # feature_decomp→design
@@ -205,83 +110,123 @@ eval_design_fh     = Evaluator("design_approved",    F_H, "Human approves design
 
 # design→code
 eval_code_tags     = Evaluator("impl_tags",          F_D, "check-tags: all code files carry Implements: REQ-* tags, 0 untagged",
-                               command="python -m genesis check-tags --type implements --path builds/claude_code/code/")
+                               binding="exec://python -m genesis check-tags --type implements --path builds/claude_code/code/")
 eval_engine_modules = Evaluator("engine_modules",     F_D, "exactly 7 modules: core, bind, schedule, manifest, commands, fp_dispatch, __main__",
-                               command="python -c \"import os,sys; p='builds/claude_code/code/genesis'; m={f[:-3] for f in os.listdir(p) if f.endswith('.py') and f!='__init__.py'}; e={'core','bind','schedule','manifest','commands','fp_dispatch','__main__'}; diff=m^e; print('extra:',m-e,'missing:',e-m) if diff else print('OK'); sys.exit(0 if not diff else 1)\"")
+                               binding="exec://python -c \"import os,sys; p='builds/claude_code/code/genesis'; m={f[:-3] for f in os.listdir(p) if f.endswith('.py') and f!='__init__.py'}; e={'core','bind','schedule','manifest','commands','fp_dispatch','__main__'}; diff=m^e; print('extra:',m-e,'missing:',e-m) if diff else print('OK'); sys.exit(0 if not diff else 1)\"")
 eval_code_fp       = Evaluator("code_complete",      F_P, "Agent: code implements all modules per design ADRs; no V2 features present")
 
 # code↔unit_tests
 eval_tests_pass    = Evaluator("tests_pass",         F_D, "pytest: 0 failures, 0 errors",
-                               command="python -m pytest builds/claude_code/tests/ -q --tb=short --ignore=builds/claude_code/tests/test_e2e_sandbox.py")
+                               binding="exec://python -m pytest builds/claude_code/tests/ -q --tb=short --ignore=builds/claude_code/tests/test_e2e_sandbox.py")
 eval_coverage      = Evaluator("coverage_80",        F_D, "coverage >= 80%",
-                               command="python -m pytest builds/claude_code/tests/ --cov=genesis --cov-report=term-missing -q --ignore=builds/claude_code/tests/test_e2e_sandbox.py")
+                               binding="exec://python -m pytest builds/claude_code/tests/ --cov=genesis --cov-report=term-missing -q --ignore=builds/claude_code/tests/test_e2e_sandbox.py")
 eval_test_tags     = Evaluator("validates_tags",     F_D, "check-tags: all test files carry Validates: REQ-* tags, 0 untagged",
-                               command="python -m genesis check-tags --type validates --path builds/claude_code/tests/")
+                               binding="exec://python -m genesis check-tags --type validates --path builds/claude_code/tests/")
 eval_sandbox_e2e   = Evaluator("sandbox_e2e",        F_D, "sandbox lifecycle: gen_gaps/iterate/converge in a fresh isolated workspace",
-                               command="python -m pytest builds/claude_code/tests/test_e2e_sandbox.py -m 'e2e and not phase_c' -q --tb=short")
+                               binding="exec://python -m pytest builds/claude_code/tests/test_e2e_sandbox.py -m 'e2e and not phase_c' -q --tb=short")
 
 
-# ── Jobs ──────────────────────────────────────────────────────────────────────
+# ── Graph Vectors (V2 — replace Edges) ───────────────────────────────────────
+# Each vector carries its own operators, evaluators, and contexts.
+# The bridge adapter creates Job/Worker from these automatically.
 
-job_intent_req  = Job(e_intent_req,  [eval_intent_fh])
-job_req_feat    = Job(e_req_feat,    [eval_feat_fd, eval_feat_fh])
-job_feat_design = Job(e_feat_design, [eval_design_fp, eval_design_fh])
-job_design_code = Job(e_design_code, [eval_code_tags, eval_engine_modules, eval_code_fp])
-job_tdd         = Job(e_tdd,         [eval_tests_pass, eval_coverage, eval_test_tags, eval_sandbox_e2e])
+v_intent_req = GraphVector(
+    name="intent→requirements",
+    source=intent,
+    target=requirements,
+    operators=(claude_agent, human_gate),
+    evaluators=(eval_intent_fh,),
+    contexts=(bootloader, v1_doctrine),
+    rule=standard_gate,
+)
 
+v_req_feat = GraphVector(
+    name="requirements→feature_decomp",
+    source=requirements,
+    target=feature_decomp,
+    operators=(claude_agent, human_gate),
+    evaluators=(eval_feat_fd, eval_feat_fh),
+    contexts=(bootloader, genesis_core_spec),
+    rule=standard_gate,
+)
 
-# ── Worker ────────────────────────────────────────────────────────────────────
-# Single worker for V1. conflicts_with() trivially false.
-# writable_types = {requirements, feature_decomp, design, code, unit_tests}
+v_feat_design = GraphVector(
+    name="feature_decomp→design",
+    source=feature_decomp,
+    target=design,
+    operators=(claude_agent, human_gate),
+    evaluators=(eval_design_fp, eval_design_fh),
+    contexts=(bootloader, genesis_core_spec, v1_doctrine),
+    rule=standard_gate,
+)
 
-worker_claude_code = Worker(
-    id="claude_code",
-    can_execute=[job_intent_req, job_req_feat, job_feat_design, job_design_code, job_tdd],
+v_design_code = GraphVector(
+    name="design→code",
+    source=design,
+    target=code,
+    operators=(claude_agent, check_tags_impl),
+    evaluators=(eval_code_tags, eval_engine_modules, eval_code_fp),
+    contexts=(bootloader, genesis_core_spec, design_adrs),
+)
+
+v_tdd = GraphVector(
+    name="code↔unit_tests",
+    source=(code, unit_tests),
+    target=unit_tests,
+    operators=(claude_agent, pytest_op, check_tags_impl, check_tags_test),
+    evaluators=(eval_tests_pass, eval_coverage, eval_test_tags, eval_sandbox_e2e),
+    contexts=(bootloader, genesis_core_spec, design_adrs),
 )
 
 
-# ── Package ───────────────────────────────────────────────────────────────────
+# ── SDLC Graph ───────────────────────────────────────────────────────────────
 
-genesis_v1 = Package(
+sdlc_graph = Graph(
+    name="sdlc",
+    inputs=(intent,),
+    outputs=(unit_tests,),
+    nodes=(intent, requirements, feature_decomp, design, code, unit_tests),
+    vectors=(v_intent_req, v_req_feat, v_feat_design, v_design_code, v_tdd),
+    contexts=(bootloader, genesis_core_spec, design_adrs, v1_doctrine),
+)
+
+
+# ── Module (V2 — replaces Package) ──────────────────────────────────────────
+
+module = Module(
     name="genesis_v1",
-    assets=[intent, requirements, feature_decomp, design, code, unit_tests],
-    edges=[e_intent_req, e_req_feat, e_feat_design, e_design_code, e_tdd],
-    operators=[claude_agent, pytest_op, check_tags_impl, check_tags_test, human_gate],
-    rules=[standard_gate],
-    contexts=[bootloader, genesis_core_spec, design_adrs, v1_doctrine],
-    requirements=[
-        # Core engine
-        "REQ-F-CORE-001",
-        "REQ-F-CORE-002",
-        "REQ-F-CORE-003",
-        "REQ-F-CORE-004",
-        "REQ-F-CORE-005",
-        "REQ-F-CORE-006",
-        # Commands
-        "REQ-F-CMD-001",
-        "REQ-F-CMD-002",
-        "REQ-F-CMD-003",
-        # Workspace
-        "REQ-F-WKSP-001",
-        "REQ-F-WKSP-002",
-        # Non-functional
-        "REQ-NFR-TEST-001",
-        "REQ-NFR-E2E-001",
-        "REQ-NFR-SELF-001",
-    ],
+    graphs=(sdlc_graph,),
+    metadata={
+        "requirements": [
+            # Core engine
+            "REQ-F-CORE-001",
+            "REQ-F-CORE-002",
+            "REQ-F-CORE-003",
+            "REQ-F-CORE-004",
+            "REQ-F-CORE-005",
+            "REQ-F-CORE-006",
+            # Commands
+            "REQ-F-CMD-001",
+            "REQ-F-CMD-002",
+            "REQ-F-CMD-003",
+            # Workspace
+            "REQ-F-WKSP-001",
+            "REQ-F-WKSP-002",
+            # Non-functional
+            "REQ-NFR-TEST-001",
+            "REQ-NFR-E2E-001",
+            "REQ-NFR-SELF-001",
+        ],
+    },
 )
-
-
-# ── Standard exports ─────────────────────────────────────────────────────────
-# Engine convention: genesis.yml binds to {module}:package and {module}:worker.
-package = genesis_v1
-worker = worker_claude_code
 
 
 if __name__ == "__main__":
-    print(genesis_v1.describe())
-    print()
-    print(f"Worker: {worker_claude_code.id}")
-    print(f"  writable: {worker_claude_code.writable_types}")
-    print(f"  readable: {worker_claude_code.readable_types}")
-    print(f"  jobs: {len(worker_claude_code.can_execute)}")
+    import json
+    print(json.dumps({
+        "module": module.name,
+        "graphs": [g.name for g in module.graphs],
+        "nodes": [n.name for n in sdlc_graph.nodes],
+        "vectors": [v.name for v in sdlc_graph.vectors],
+        "requirements": module.metadata["requirements"],
+    }, indent=2))

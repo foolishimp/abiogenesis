@@ -31,21 +31,17 @@ from scenario_helpers import (
 
 _PKG_BRIEF_TO_ARTICLE = textwrap.dedent('''\
     """Content pipeline: brief to article."""
-    from gtl.core import (
-        Asset, Context, Edge, Evaluator, Job, Operator,
-        Package, Rule, Worker, F_D, F_P, consensus,
-    )
+    from gtl.graph import Graph, Node, GraphVector, Context
+    from gtl.module_model import Module
+    from gtl.core import Evaluator, Operator, Rule, F_D, F_P, consensus
 
-    brief = Asset(
+    brief = Node(
         name="brief",
-        id_format="BRIEF-{SEQ}",
-        markov=["topic_defined", "audience_identified", "scope_bounded"],
+        markov=("topic_defined", "audience_identified", "scope_bounded"),
     )
-    article = Asset(
+    article = Node(
         name="article",
-        id_format="ART-{SEQ}",
-        lineage=[brief],
-        markov=["content_complete", "references_cited", "word_count_met"],
+        markov=("content_complete", "references_cited", "word_count_met"),
     )
     ctx = Context(
         name="writing_methodology",
@@ -54,45 +50,44 @@ _PKG_BRIEF_TO_ARTICLE = textwrap.dedent('''\
     )
     op_fd = Operator("artifact_check", F_D, "exec://test -f output/article.md")
     op_fp = Operator("content_agent", F_P, "agent://content/writer")
-    edge = Edge(
-        name="brief\\u2192article",
-        source=brief, target=article,
-        using=[op_fd, op_fp], context=[ctx],
-    )
     eval_fd = Evaluator("artifact_exists", F_D,
         "output artifact exists at output/article.md",
-        command="test -f output/article.md")
+        binding="exec://test -f output/article.md")
     eval_fp = Evaluator("content_quality", F_P,
         "agent: article content satisfies brief requirements")
-    job = Job(edge=edge, evaluators=[eval_fd, eval_fp])
-    package = Package(
-        name="content_pipeline",
-        assets=[brief, article], edges=[edge],
-        operators=[op_fd, op_fp],
-        rules=[Rule("editorial", approve=consensus(1, 1))],
-        contexts=[ctx],
-        requirements=["REQ-CONTENT-001", "REQ-CONTENT-002"],
+    vector = GraphVector(
+        name="brief\\u2192article",
+        source=brief, target=article,
+        operators=(op_fd, op_fp),
+        evaluators=(eval_fd, eval_fp),
+        contexts=(ctx,),
     )
-    worker = Worker(id="content_writer", can_execute=[job])
+    graph = Graph(
+        name="brief\\u2192article",
+        inputs=(brief,), outputs=(article,),
+        nodes=(brief, article), vectors=(vector,),
+        contexts=(ctx,),
+    )
+    module = Module(
+        name="content_pipeline",
+        graphs=(graph,),
+        metadata={"requirements": ["REQ-CONTENT-001", "REQ-CONTENT-002"]},
+    )
 ''')
 
 _PKG_INTENT_TO_REQUIREMENTS = textwrap.dedent('''\
     """Narrative intent to normative requirements."""
-    from gtl.core import (
-        Asset, Context, Edge, Evaluator, Job, Operator,
-        Package, Rule, Worker, F_D, F_P, consensus,
-    )
+    from gtl.graph import Graph, Node, GraphVector, Context
+    from gtl.module_model import Module
+    from gtl.core import Evaluator, Operator, Rule, F_D, F_P, consensus
 
-    intent = Asset(
+    intent = Node(
         name="intent",
-        id_format="INT-{SEQ}",
-        markov=["problem_stated", "value_proposition_clear", "scope_bounded"],
+        markov=("problem_stated", "value_proposition_clear", "scope_bounded"),
     )
-    requirements = Asset(
+    requirements = Node(
         name="requirements",
-        id_format="REQ-{SEQ}",
-        lineage=[intent],
-        markov=["keys_testable", "intent_covered", "no_implementation_details"],
+        markov=("keys_testable", "intent_covered", "no_implementation_details"),
     )
     ctx_policy = Context(
         name="standards_policy",
@@ -101,26 +96,29 @@ _PKG_INTENT_TO_REQUIREMENTS = textwrap.dedent('''\
     )
     op_fd = Operator("artifact_check", F_D, "exec://test -f output/requirements.md")
     op_fp = Operator("req_analyst", F_P, "agent://analysis/requirements")
-    edge = Edge(
-        name="intent\\u2192requirements",
-        source=intent, target=requirements,
-        using=[op_fd, op_fp], context=[ctx_policy],
-    )
     eval_fd = Evaluator("artifact_exists", F_D,
         "requirements document exists at output/requirements.md",
-        command="test -f output/requirements.md")
+        binding="exec://test -f output/requirements.md")
     eval_fp = Evaluator("req_quality", F_P,
         "agent: requirements are testable, cover intent, contain no implementation details")
-    job = Job(edge=edge, evaluators=[eval_fd, eval_fp])
-    package = Package(
-        name="req_analysis",
-        assets=[intent, requirements], edges=[edge],
-        operators=[op_fd, op_fp],
-        rules=[Rule("req_gate", approve=consensus(1, 1))],
-        contexts=[ctx_policy],
-        requirements=["REQ-IR-001", "REQ-IR-002"],
+    vector = GraphVector(
+        name="intent\\u2192requirements",
+        source=intent, target=requirements,
+        operators=(op_fd, op_fp),
+        evaluators=(eval_fd, eval_fp),
+        contexts=(ctx_policy,),
     )
-    worker = Worker(id="req_analyst", can_execute=[job])
+    graph = Graph(
+        name="intent\\u2192requirements",
+        inputs=(intent,), outputs=(requirements,),
+        nodes=(intent, requirements), vectors=(vector,),
+        contexts=(ctx_policy,),
+    )
+    module = Module(
+        name="req_analysis",
+        graphs=(graph,),
+        metadata={"requirements": ["REQ-IR-001", "REQ-IR-002"]},
+    )
 ''')
 
 

@@ -1,15 +1,21 @@
 # Implements: REQ-F-CORE-001
 """
-genesis — GTL-first AI SDLC engine, V1.
+genesis — GTL-native AI SDLC engine, V2.
 
-Seven modules.
+Consumes Module, Graph, GraphVector, Node natively.
+No V1 bridge in the execution hot path.
 
-    core        — emit, project, EventStream, ContextResolver, workspace_bootstrap
-    bind        — bind_fd, bind_fp, select_relevant_contexts, render_delta
-    manifest    — PrecomputedManifest, BoundJob (dataclasses)
-    schedule    — delta, iterate, schedule
-    commands    — gen_start, gen_iterate, gen_gaps, Scope
-    fp_dispatch — Subprocess transport for F_P actor invocations (ADR-022)
-    __main__    — CLI entry point
+    binding      — Job, Worker, BoundJob, bind_fd, bind_fp, render_delta
+    convergence  — delta, parent_converged
+    interpret    — iterate, schedule, apply_selection
+    services     — Scope, module_to_jobs, start, iterate_edge, gaps
+    selection    — enumerate_candidates, validate_selection, SelectionDecision
+    provenance   — provenance_snapshot
+    events       — EventStream, emit
+    projection   — project
+    fp_dispatch  — Subprocess transport for F_P actor invocations (ADR-022)
+    cli_adapter  — CLI entry point wiring
+    selfhosting  — Bootloader consistency checks
+    __main__     — CLI entry point
 """
-__version__ = "1.0.3"
+__version__ = "2.0.0"

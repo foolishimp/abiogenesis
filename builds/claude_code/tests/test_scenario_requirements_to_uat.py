@@ -50,21 +50,17 @@ from scenario_helpers import (
 
 _PACKAGE = textwrap.dedent('''\
     """Normative requirements to acceptance test cases."""
-    from gtl.core import (
-        Asset, Context, Edge, Evaluator, Job, Operator,
-        Package, Rule, Worker, F_D, F_P, consensus,
-    )
+    from gtl.graph import Graph, Node, GraphVector, Context
+    from gtl.module_model import Module
+    from gtl.core import Evaluator, Operator, Rule, F_D, F_P, consensus
 
-    requirements = Asset(
+    requirements = Node(
         name="requirements",
-        id_format="REQ-{SEQ}",
-        markov=["keys_testable", "traceable"],
+        markov=("keys_testable", "traceable"),
     )
-    uat_tests = Asset(
+    uat_tests = Node(
         name="uat_tests",
-        id_format="UAT-{SEQ}",
-        lineage=[requirements],
-        markov=["all_reqs_covered", "steps_executable", "expected_results_defined"],
+        markov=("all_reqs_covered", "steps_executable", "expected_results_defined"),
     )
     ctx_testing = Context(
         name="testing_standards",
@@ -73,26 +69,29 @@ _PACKAGE = textwrap.dedent('''\
     )
     op_fd = Operator("artifact_check", F_D, "exec://test -f output/uat_tests.md")
     op_fp = Operator("test_agent", F_P, "agent://qa/test_design")
-    edge = Edge(
-        name="requirements\\u2192uat_tests",
-        source=requirements, target=uat_tests,
-        using=[op_fd, op_fp], context=[ctx_testing],
-    )
     eval_fd = Evaluator("artifact_exists", F_D,
         "UAT test cases exist at output/uat_tests.md",
-        command="test -f output/uat_tests.md")
+        binding="exec://test -f output/uat_tests.md")
     eval_fp = Evaluator("test_coverage", F_P,
         "agent: test cases cover all requirements, steps are executable, expected results defined")
-    job = Job(edge=edge, evaluators=[eval_fd, eval_fp])
-    package = Package(
-        name="uat_design",
-        assets=[requirements, uat_tests], edges=[edge],
-        operators=[op_fd, op_fp],
-        rules=[Rule("uat_gate", approve=consensus(1, 1))],
-        contexts=[ctx_testing],
-        requirements=["REQ-UAT-001", "REQ-UAT-002"],
+    vector = GraphVector(
+        name="requirements\\u2192uat_tests",
+        source=requirements, target=uat_tests,
+        operators=(op_fd, op_fp),
+        evaluators=(eval_fd, eval_fp),
+        contexts=(ctx_testing,),
     )
-    worker = Worker(id="test_designer", can_execute=[job])
+    graph = Graph(
+        name="requirements\\u2192uat_tests",
+        inputs=(requirements,), outputs=(uat_tests,),
+        nodes=(requirements, uat_tests), vectors=(vector,),
+        contexts=(ctx_testing,),
+    )
+    module = Module(
+        name="uat_design",
+        graphs=(graph,),
+        metadata={"requirements": ["REQ-UAT-001", "REQ-UAT-002"]},
+    )
 ''')
 
 _EDGE = "requirements→uat_tests"

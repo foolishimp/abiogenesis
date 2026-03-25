@@ -48,16 +48,21 @@ def _subprocess_env() -> dict:
     env["PYTHONPATH"] = os.pathsep.join(paths + ([existing] if existing else []))
     return env
 
+from gtl.graph import Graph, Node, GraphVector, Context
+from gtl.module_model import Module
 from gtl.core import (
-    Asset, Context, Edge, Evaluator, Job, Operator, Package, Rule, Worker,
+    Evaluator, Operator, Rule, Worker,
     F_D, F_P, F_H, consensus,
 )
 
-from genesis.core import workspace_bootstrap, emit, project, ContextResolver
-from genesis.bind import bind_fd, bind_fp, req_hash
-from genesis.schedule import delta, iterate, schedule
-from genesis.commands import Scope, gen_gaps, gen_iterate, gen_start
-from genesis.manifest import BoundJob
+from genesis.install import workspace_bootstrap
+from genesis.events import emit
+from genesis.projection import project
+from genesis.binding import Job, ContextResolver, bind_fd, bind_fp, BoundJob
+from genesis.provenance import req_hash
+from genesis.convergence import delta
+from genesis.interpret import iterate, schedule
+from genesis.services import Scope, gen_gaps, gen_iterate, gen_start
 
 
 # ── Sandbox package fixture ────────────────────────────────────────────────────
@@ -71,13 +76,13 @@ def _ensure_sandbox_context(workspace: Path) -> None:
 
 def _make_sandbox_package(workspace: Path):
     """
-    Minimal Package for sandbox testing.
+    Minimal Module for sandbox testing.
 
     One edge: design→code, with one F_D evaluator (impl_tags) and one F_P
     evaluator (code_complete). The sandbox test acts as the F_P actor.
     """
-    design = Asset(name="design", id_format="DES-{SEQ}")
-    code = Asset(name="code", id_format="CODE-{SEQ}", lineage=[design])
+    design = Node(name="design")
+    code = Node(name="code")
     op_fp = Operator("claude_agent", F_P, "agent://claude/genesis")
     op_fd = Operator("check_tags", F_D,
                      "exec://python -m genesis check-tags --type implements --path .")
@@ -86,30 +91,28 @@ def _make_sandbox_package(workspace: Path):
         locator="workspace://gtl_spec/GTL_BOOTLOADER.md",
         digest="sha256:" + "0" * 64,
     )
-    edge = Edge(
-        name="design→code",
-        source=design,
-        target=code,
-        using=[op_fp, op_fd],
-        context=[ctx],
-    )
     eval_tags = Evaluator(
         "impl_tags", F_D, "all code files carry Implements: tags",
-        command="python -m genesis check-tags --type implements --path code/",
+        binding="exec://python -m genesis check-tags --type implements --path code/",
     )
     eval_fp = Evaluator("code_complete", F_P, "agent: code implements spec")
-    job = Job(edge=edge, evaluators=[eval_tags, eval_fp])
-    rule = Rule("gate", approve=consensus(1, 1))
-    pkg = Package(
-        name="sandbox_test",
-        assets=[design, code],
-        edges=[edge],
-        operators=[op_fp, op_fd],
-        rules=[rule],
-        contexts=[ctx],
+    vector = GraphVector(
+        name="design→code",
+        source=design, target=code,
+        operators=(op_fp, op_fd),
+        evaluators=(eval_tags, eval_fp),
+        contexts=(ctx,),
     )
+    graph = Graph(
+        name="design→code",
+        inputs=(design,), outputs=(code,),
+        nodes=(design, code), vectors=(vector,),
+        contexts=(ctx,),
+    )
+    module = Module(name="sandbox_test", graphs=(graph,))
+    job = Job(vector=vector, evaluators=[eval_tags, eval_fp])
     worker = Worker(id="claude_code", can_execute=[job])
-    return pkg, worker, job
+    return module, worker, job
 
 
 # ── E2E tests ─────────────────────────────────────────────────────────────────
@@ -127,8 +130,8 @@ class TestSandboxFullLifecycle:
     def test_gen_gaps_finds_gap_before_code_exists(self, tmp_path):
         """gen_gaps correctly identifies delta > 0 when no code exists."""
         stream = workspace_bootstrap(tmp_path)
-        pkg, worker, _ = _make_sandbox_package(tmp_path)
-        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
+        module, worker, _ = _make_sandbox_package(tmp_path)
+        scope = Scope(module=module, workspace_root=tmp_path, worker=worker)
         result = gen_gaps(scope, stream)
 
         assert result["total_delta"] > 0
@@ -139,9 +142,9 @@ class TestSandboxFullLifecycle:
     def test_gen_iterate_escalates_fd_to_fp(self, tmp_path):
         """REQ-F-GATE-002 (ADR-021): F_D failure escalates to F_P dispatch."""
         stream = workspace_bootstrap(tmp_path)
-        pkg, worker, _ = _make_sandbox_package(tmp_path)
+        module, worker, _ = _make_sandbox_package(tmp_path)
         _ensure_sandbox_context(tmp_path)
-        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
+        scope = Scope(module=module, workspace_root=tmp_path, worker=worker)
         dispatched: list[BoundJob] = []
 
         # No code/ directory → impl_tags (F_D) fails → escalates to F_P
@@ -153,9 +156,9 @@ class TestSandboxFullLifecycle:
     def test_gen_iterate_dispatches_fp_after_fd_passes(self, tmp_path):
         """REQ-F-GATE-002: F_P is dispatched once all F_D evaluators pass."""
         stream = workspace_bootstrap(tmp_path)
-        pkg, worker, _ = _make_sandbox_package(tmp_path)
+        module, worker, _ = _make_sandbox_package(tmp_path)
         _ensure_sandbox_context(tmp_path)
-        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
+        scope = Scope(module=module, workspace_root=tmp_path, worker=worker)
 
         # Create code with impl tag so F_D (impl_tags) passes
         code_dir = tmp_path / "code"
@@ -183,9 +186,9 @@ class TestSandboxFullLifecycle:
         This is the self-hosting demonstration.
         """
         stream = workspace_bootstrap(tmp_path)
-        pkg, worker, job = _make_sandbox_package(tmp_path)
+        module, worker, job = _make_sandbox_package(tmp_path)
         _ensure_sandbox_context(tmp_path)
-        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
+        scope = Scope(module=module, workspace_root=tmp_path, worker=worker)
 
         # ── Step 1: gap exists ──
         before = gen_gaps(scope, stream)
@@ -202,7 +205,7 @@ class TestSandboxFullLifecycle:
 
         # F_P records its assessment — spec_hash required (REQ-F-EVAL-004) so that
         # bind_fd() can validate snapshot binding and not count stale assessments.
-        spec_hash = req_hash(pkg.requirements)
+        spec_hash = req_hash(module.metadata.get("requirements", []))
         emit("assessed", {
             "kind": "fp",
             "edge": "design→code",
@@ -224,9 +227,9 @@ class TestSandboxFullLifecycle:
     def test_event_log_records_work_truthfully(self, tmp_path):
         """Event log contains truthful records of the lifecycle."""
         stream = workspace_bootstrap(tmp_path)
-        pkg, worker, _ = _make_sandbox_package(tmp_path)
+        module, worker, _ = _make_sandbox_package(tmp_path)
         _ensure_sandbox_context(tmp_path)
-        scope = Scope(package=pkg, workspace_root=tmp_path, worker=worker)
+        scope = Scope(module=module, workspace_root=tmp_path, worker=worker)
 
         # REQ-F-GATE-002: F_P is only dispatched after F_D passes.
         # Create code with impl tag so F_D passes and F_P is dispatched.
@@ -368,27 +371,30 @@ class TestSelfHosting:
         assert data["untagged_count"] == 0
 
     def test_modules_present(self):
-        """All expected modules exist in the genesis package."""
+        """All expected V2 modules exist in the genesis package."""
         genesis_dir = Path(__file__).resolve().parent.parent / "code" / "genesis"
-        # V1 core modules
-        required = {"core", "bind", "schedule", "manifest", "commands", "fp_dispatch", "__main__"}
-        # Phase 2 kernel modules (re-export shims during migration)
-        required |= {"events", "projection", "provenance", "correction", "binding",
-                      "lineage", "run", "convergence"}
-        # Phase 3 interpretation and transport modules
-        required |= {"selection", "subwork", "transport", "interpret"}
-        # Phase 4 application surface modules
-        required |= {"services", "cli_adapter", "install", "selfhosting"}
+        required = {
+            "__main__",
+            # kernel
+            "events", "projection", "provenance", "correction", "binding",
+            "lineage", "run", "convergence",
+            # interpretation and transport
+            "selection", "subwork", "transport", "interpret",
+            # application surface
+            "services", "cli_adapter", "install", "selfhosting",
+        }
         found = {f.stem for f in genesis_dir.glob("*.py") if f.stem != "__init__"}
         assert required <= found, f"Missing modules: {required - found}"
 
     def test_engine_importable(self):
         """The genesis package is importable — Phase 1 health check."""
         import genesis
-        from genesis.core import emit, project, workspace_bootstrap, EventStream
-        from genesis.bind import bind_fd, bind_fp
-        from genesis.schedule import delta, iterate, schedule
-        from genesis.commands import gen_start, gen_iterate, gen_gaps, Scope
-        from genesis.manifest import PrecomputedManifest, BoundJob
-        from genesis.fp_dispatch import has_mcp_transport, call_claude_code_mcp
-        assert genesis.__version__ == "1.0.3"
+        from genesis.events import emit, EventStream
+        from genesis.projection import project
+        from genesis.install import workspace_bootstrap
+        from genesis.binding import bind_fd, bind_fp, PrecomputedManifest, BoundJob
+        from genesis.convergence import delta
+        from genesis.interpret import iterate, schedule
+        from genesis.services import gen_start, gen_iterate, gen_gaps, Scope
+        from genesis.transport import has_agent, call_agent
+        assert genesis.__version__ == "2.0.0"

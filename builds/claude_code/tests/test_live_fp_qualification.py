@@ -2,6 +2,15 @@
 # Validates: REQ-F-EVAL-004
 # Validates: REQ-F-BIND-001
 # Validates: REQ-NFR-E2E-001
+# Validates: REQ-P-QUAL-001
+# Validates: REQ-P-QUAL-002
+# Validates: REQ-P-QUAL-010
+# Validates: REQ-P-QUAL-011
+# Validates: REQ-P-QUAL-013
+# Validates: REQ-P-QUAL-014
+# Validates: REQ-P-QUAL-016
+# Validates: REQ-P-QUAL-021
+# Validates: REQ-P-QUAL-022
 """
 Live F_P Prompt Sufficiency Qualification.
 
@@ -51,7 +60,7 @@ from scenario_helpers import (
 
 # ── Skip if no agent CLI ─────────────────────────────────────────────────────
 
-pytestmark = pytest.mark.live_fp
+pytestmark = [pytest.mark.live_fp, pytest.mark.timeout(600)]
 
 skip_no_agent = pytest.mark.skipif(
     not _has_mcp_transport(),
@@ -95,7 +104,7 @@ _UAT_PACKAGE = textwrap.dedent('''\
     )
     eval_fd = Evaluator("artifact_exists", F_D,
         "UAT test cases exist at output/uat_tests.md",
-        command="test -f output/uat_tests.md")
+        binding="exec://test -f output/uat_tests.md")
     eval_fp = Evaluator("test_coverage", F_P,
         "agent: test cases cover all requirements, steps are executable, expected results defined")
     job = Job(edge=edge, evaluators=[eval_fd, eval_fp])
@@ -103,7 +112,7 @@ _UAT_PACKAGE = textwrap.dedent('''\
         name="uat_design",
         assets=[requirements, uat_tests], edges=[edge],
         operators=[op_fd, op_fp],
-        rules=[Rule("uat_gate", approve=consensus(1, 1))],
+        rules=[Rule(name="uat_gate", kind="gate", config={"approve": consensus(1, 1)})],
         contexts=[ctx_testing],
         requirements=["REQ-UAT-001", "REQ-UAT-002"],
     )
@@ -208,7 +217,7 @@ _SCHEMA_PACKAGE = textwrap.dedent('''\
     )
     eval_fd = Evaluator("artifact_exists", F_D,
         "schema artifact exists at output/schema.sql",
-        command="test -f output/schema.sql")
+        binding="exec://test -f output/schema.sql")
     eval_fp = Evaluator("schema_quality", F_P,
         "agent: schema follows naming conventions, has integrity constraints, is migration-safe")
     job = Job(edge=edge, evaluators=[eval_fd, eval_fp])
@@ -216,7 +225,7 @@ _SCHEMA_PACKAGE = textwrap.dedent('''\
         name="schema_design",
         assets=[design, data_schema], edges=[edge],
         operators=[op_fd, op_fp],
-        rules=[Rule("schema_gate", approve=consensus(1, 1))],
+        rules=[Rule(name="schema_gate", kind="gate", config={"approve": consensus(1, 1)})],
         contexts=[ctx_adr, ctx_naming],
         requirements=["REQ-DS-001", "REQ-DS-002"],
     )

@@ -10,7 +10,7 @@
 
 ## Purpose
 
-The 13 laws that govern GTL 2.x language semantics.
+The 14 laws that govern GTL 2.x language semantics.
 
 ## Acceptance Criteria
 
@@ -39,3 +39,5 @@ The 13 laws that govern GTL 2.x language semantics.
 **REQ-L-GTL2-LAWS-012**: Suitability for event-sourced interpretation — constructs must be lawfully interpretable by an event-sourced runtime.
 
 **REQ-L-GTL2-LAWS-013**: Engine independence — language semantics do not depend on any single engine implementation.
+
+**REQ-L-GTL2-LAWS-014**: Categorical identity — every first-class type carries opaque identity distinct from its label. Operations target by identity, not by name (see REQ-L-GTL2-IDENTITY).

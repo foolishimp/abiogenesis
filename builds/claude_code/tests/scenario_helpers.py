@@ -1,5 +1,13 @@
 # Validates: REQ-F-BOOT-001
 # Validates: REQ-F-PKG-001
+# Validates: REQ-P-QUAL-001
+# Validates: REQ-P-QUAL-003
+# Validates: REQ-P-QUAL-007
+# Validates: REQ-P-QUAL-008
+# Validates: REQ-P-QUAL-009
+# Validates: REQ-P-QUAL-017
+# Validates: REQ-P-QUAL-018
+# Validates: REQ-P-QUAL-023
 """
 Shared kernel infrastructure for disjoint single-hop scenario fixtures.
 
@@ -393,7 +401,7 @@ def compute_spec_hash(
     """Compute the current spec_hash using the same logic as the engine.
 
     Mirrors commands.py spec_hash selection:
-      - workflow_version == "unknown" → req_hash(package.requirements)
+      - workflow_version == "unknown" → req_hash(module.metadata["requirements"])
       - workflow_version != "unknown" → job_evaluator_hash(job)
     """
     result = subprocess.run(
@@ -401,15 +409,17 @@ def compute_spec_hash(
             import json, sys
             from pathlib import Path
             sys.path.insert(0, '.genesis')
-            from genesis.bind import req_hash, job_evaluator_hash
-            from genesis.commands import _read_workflow_version
-            from gtl_spec.packages.test_pkg import package, worker
+            from genesis.provenance import req_hash, job_evaluator_hash
+            from genesis.provenance import _read_workflow_version
+            from genesis.services import module_to_jobs
+            from gtl_spec.packages.test_pkg import module
 
             wv = _read_workflow_version(Path('.'))
             if wv == 'unknown':
-                print(req_hash(package.requirements))
+                print(req_hash(module.metadata.get("requirements", [])))
             else:
-                print(job_evaluator_hash(worker.can_execute[0]))
+                jobs = module_to_jobs(module)
+                print(job_evaluator_hash(jobs[0]))
         """)],
         capture_output=True, text=True,
         cwd=str(target),
@@ -435,8 +445,7 @@ def write_test_package(target: Path, package_code: str) -> None:
     (pkg_dir / "__init__.py").touch()
     (pkg_dir / "test_pkg.py").write_text(package_code)
     (target / ".genesis" / "genesis.yml").write_text(
-        "package: gtl_spec.packages.test_pkg:package\n"
-        "worker:  gtl_spec.packages.test_pkg:worker\n"
+        "module:  gtl_spec.packages.test_pkg:module\n"
         "active_workflow: .ai-workspace/runtime/active-workflow.json\n"
     )
     # Active workflow metadata — mutable runtime state lives under .ai-workspace/
@@ -480,7 +489,7 @@ def assert_manifest_truth(
     assert manifest["target_asset"] == target_asset
     assert len(manifest["failing_evaluators"]) > 0, "Must list failing evaluators"
     for ev in manifest["failing_evaluators"]:
-        assert "name" in ev and "category" in ev and "description" in ev
+        assert "name" in ev and "regime" in ev and "description" in ev
     failing_names = [ev["name"] for ev in manifest["failing_evaluators"]]
     assert fp_evaluator in failing_names, \
         f"F_P evaluator {fp_evaluator!r} must be in failing list, got {failing_names}"
@@ -901,11 +910,29 @@ class LiveFpResult:
 
 # Subprocess transport — single implementation in genesis.fp_dispatch (ADR-022).
 # Tests and production share the same code path.
-from genesis.fp_dispatch import has_agent, call_agent
+from genesis.transport import has_agent, call_agent, AgentTransportError
 
 # Re-export under legacy names for existing references
-_has_mcp_transport = lambda: has_agent("claude")
 _call_claude_code_mcp = lambda prompt, path: call_agent(prompt, path, agent="claude")
+
+
+def _has_mcp_transport() -> bool:
+    """Check if Claude CLI is on PATH and authenticated (readiness probe).
+
+    PATH presence alone is insufficient — the CLI may be present but not
+    authenticated, returning help/login text on stdout. A short probe
+    with a trivial prompt confirms the agent can actually serve requests.
+    """
+    if not has_agent("claude"):
+        return False
+    try:
+        response = call_agent(
+            "Reply with exactly: READY", os.getcwd(),
+            agent="claude", timeout=30,
+        )
+        return "READY" in response
+    except AgentTransportError:
+        return False
 
 
 def invoke_live_fp(
@@ -963,16 +990,16 @@ def invoke_live_fp(
             "timestamp": datetime.now(timezone.utc).isoformat(),
         })
 
-    # 3. Read the artifact — agent has tool access and may write it directly
+    # 3. Read the artifact — agent must write it via tools
     art = target / artifact_path
-    art.parent.mkdir(parents=True, exist_ok=True)
-    if art.exists() and art.stat().st_size > len("# placeholder\n"):
-        # Actor wrote the artifact via tools — read what it produced
-        artifact_content = art.read_text(encoding="utf-8")
-    else:
-        # Actor returned content as text response — write it as the artifact
-        artifact_content = raw_response
-        art.write_text(raw_response, encoding="utf-8")
+    if not art.exists() or art.stat().st_size <= len("# placeholder\n"):
+        raise AssertionError(
+            f"Agent did not write artifact to {artifact_path}. "
+            f"This is a transport/readiness failure, not an artifact quality issue. "
+            f"raw_response length: {len(raw_response)}, "
+            f"first 200 chars: {raw_response[:200]!r}"
+        )
+    artifact_content = art.read_text(encoding="utf-8")
 
     # 4. Run the deterministic judge
     assessments = judge(art, manifest)

@@ -31,29 +31,16 @@ from dataclasses import dataclass, field
 from typing import Callable, Optional, Protocol
 
 
-# ── Functor categories ─────────────────────────────────────────────────────
-
-class F_D:  """Deterministic — zero ambiguity, pass/fail."""
-class F_P:  """Probabilistic — agent/LLM, bounded ambiguity."""
-class F_H:  """Human — persistent ambiguity, judgment required."""
-
-
-# ── Approval vocabulary ────────────────────────────────────────────────────
-
-@dataclass(frozen=True)
-class Consensus:
-    n: int
-    m: int
-
-    def __post_init__(self):
-        if self.n < 1 or self.m < 1 or self.n > self.m:
-            raise ValueError(f"consensus({self.n}/{self.m}): n must be 1..m")
-
-    def __repr__(self):
-        return f"consensus({self.n}/{self.m})"
-
-def consensus(n: int, m: int) -> Consensus:
-    return Consensus(n, m)
+# ── V2 effect types ───────────────────────────────────────────────────────
+# Canonical definitions live in gtl.operator_model (V2). Re-exported here
+# for backward compatibility. V1 field names (category, command, uri,
+# approve, dissent) are dead — use V2 vocabulary (regime, binding, description,
+# kind, config).
+from gtl.operator_model import (  # noqa: F401
+    F_D, F_P, F_H, Regime,
+    Evaluator, Operator, Rule,
+    Consensus, consensus,
+)
 
 
 # ── Operative condition (Finding 3) ────────────────────────────────────────
@@ -122,35 +109,7 @@ class Context:
             )
 
 
-# ── Core constructs ────────────────────────────────────────────────────────
-
-@dataclass
-class Rule:
-    name: str
-    approve: Consensus
-    dissent: str = "none"       # "required" | "recorded" | "none"
-    provisional: bool = False
-
-    def __post_init__(self):
-        if self.dissent not in ("required", "recorded", "none"):
-            raise ValueError(f"Rule.dissent must be required|recorded|none, got {self.dissent!r}")
-
-
-_OPERATOR_SCHEMES = ("agent://", "exec://", "check://", "metric://", "fh://")
-
-@dataclass
-class Operator:
-    name: str
-    category: type              # F_D | F_P | F_H
-    uri: str
-
-    def __post_init__(self):
-        if self.category not in (F_D, F_P, F_H):
-            raise TypeError(f"Operator.category must be F_D, F_P, or F_H")
-        if not any(self.uri.startswith(s) for s in _OPERATOR_SCHEMES):
-            raise ValueError(
-                f"Operator URI must use a known scheme {_OPERATOR_SCHEMES}: {self.uri!r}"
-            )
+# ── V1 types still needed for quarantine period ──────────────────────────
 
 
 @dataclass
@@ -218,120 +177,25 @@ class WorkingSurface:
         return bool(self.artifacts or self.events)
 
 
-# ── Evaluator ──────────────────────────────────────────────────────────────
-
-@dataclass
-class Evaluator:
-    """
-    Typed convergence predicate — the stopping condition for iterate().
-
-    category determines the evaluation regime:
-        F_D — deterministic: computable, pass/fail, no LLM required
-        F_P — probabilistic: LLM/agent assessment, bounded ambiguity
-        F_H — human: judgment gate, persistent ambiguity
-
-    A Job with no Evaluators cannot converge (Bootloader §XVII: evaluators ≠ ∅).
-    """
-    name: str
-    category: type   # F_D | F_P | F_H
-    description: str
-    command: str = ""  # F_D only: shell command the kernel runs; empty = F_P/F_H or misconfigured
-
-    def __post_init__(self):
-        if self.category not in (F_D, F_P, F_H):
-            raise TypeError(
-                f"Evaluator.category must be F_D, F_P, or F_H, got {self.category!r}"
-            )
+    # Evaluator, Operator, Rule are now V2 types from gtl.operator_model
+    # Re-exported above. V1 definitions removed.
 
 
-# ── Job ────────────────────────────────────────────────────────────────────
+# ── Job / Worker ───────────────────────────────────────────────────────────
+# Canonical definitions live in genesis.binding (V2). Re-exported here
+# for backward compatibility via lazy import to avoid circular dependency
+# (genesis.binding imports from gtl.core at module level).
+#
+# Usage: `from gtl.core import Job, Worker` works — Python 3.7+ module
+# __getattr__ fires on first access and caches the result.
 
-@dataclass
-class Job:
-    """
-    Typed transform — the missing primitive that gives the system worker typing.
-
-    Job<A,B> = execution contract for a graph edge:
-        Asset<A> → (Asset<B>, WorkingSurface)
-
-    The source/target Asset types from the wrapped Edge are the type parameters
-    A and B. The Job type signature IS the worker capability discriminator —
-    a Worker executes this Job iff its signature matches.
-
-    Three scheduling cases derive structurally from Job types:
-        Scenario 1 (multi-stack):  workers have different source/target types → disjoint
-        Scenario 2 (tournament):   workers share the same type → candidate slots differ
-        Scenario 3 (role split):   workers have disjoint target types → all concurrent
-
-    Invariant: evaluators must not be empty (Bootloader §XVII).
-    """
-    edge: Edge
-    evaluators: list[Evaluator] = field(default_factory=list)
-
-    def __post_init__(self):
-        if not self.evaluators:
-            raise ValueError(
-                f"Job '{self.edge.name}': evaluators must not be empty "
-                f"(Bootloader §XVII invariant)"
-            )
-
-    @property
-    def source_type(self) -> Asset | list[Asset]:
-        """Input type A — what this Job reads."""
-        return self.edge.source
-
-    @property
-    def target_type(self) -> Asset:
-        """Output type B — what this Job writes. Uniquely identifies write territory."""
-        return self.edge.target
-
-
-# ── Worker ─────────────────────────────────────────────────────────────────
-
-@dataclass
-class Worker:
-    """
-    Actor defined structurally by its Job type signature.
-
-    Role = can_execute set. No external actor registry or prose write-territory
-    rules needed — the type system enforces capability.
-
-    Scheduling rule:
-        workers with disjoint writable_types run in parallel (safe)
-        workers with overlapping writable_types must serialise (conflict)
-
-    Covers all three scenarios:
-        Scenario 1: different stacks → different target types → no conflict
-        Scenario 2: same Job type → candidate slots separate target types → no conflict
-        Scenario 3: specialised roles → disjoint write sets → all concurrent
-    """
-    id: str
-    can_execute: list[Job] = field(default_factory=list)
-
-    def __post_init__(self):
-        if not self.can_execute:
-            raise ValueError(f"Worker '{self.id}': can_execute must not be empty")
-
-    @property
-    def writable_types(self) -> set[str]:
-        """Target asset type names — this worker's write territory."""
-        return {j.target_type.name for j in self.can_execute}
-
-    @property
-    def readable_types(self) -> set[str]:
-        """Source asset type names — what this worker consumes."""
-        result: set[str] = set()
-        for j in self.can_execute:
-            src = j.source_type
-            if isinstance(src, list):
-                result.update(a.name for a in src)
-            else:
-                result.add(src.name)
-        return result
-
-    def conflicts_with(self, other: Worker) -> bool:
-        """True if serialisation is required — overlapping write territory."""
-        return bool(self.writable_types & other.writable_types)
+def __getattr__(name):
+    if name in ("Job", "Worker"):
+        from genesis.binding import Job, Worker
+        globals()["Job"] = Job
+        globals()["Worker"] = Worker
+        return globals()[name]
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
 
 # ── iterate() protocol ─────────────────────────────────────────────────────
@@ -362,6 +226,11 @@ class IterateProtocol(Protocol):
 class Fragment:
     """
     Compositional subgraph unit — a reusable piece of graph with typed ports.
+
+    .. deprecated:: V2
+        Replaced by ``gtl.algebra.compose()`` and ``gtl.algebra.substitute()``
+        operating on ``gtl.graph.Graph`` / ``gtl.function_model.GraphFunction``.
+        Fragment will be removed once selection/application uses the V2 algebra.
 
     A Fragment is smaller than a Package: it defines a subgraph with explicit
     input/output contracts. Internal assets and edges are encapsulated — the
@@ -419,6 +288,11 @@ class Overlay:
     Lawful package extension (add_*) or restriction (restrict_to).
     Both forms require approve — overlay activation is a governance act.
 
+    .. deprecated:: V2
+        Replaced by ``gtl.algebra.compose()`` and ``gtl.algebra.substitute()``
+        operating on ``gtl.module_model.Module``. Overlay will be removed
+        once Module composition supersedes Package overlays.
+
     Restriction overlays ARE profiles. No separate profile mechanism.
     """
     name: str
@@ -450,6 +324,11 @@ class PackageSnapshot:
     Runtime artifact — projection of package-definition events at a point in time.
     Never authored directly in GTL. Produced by the runtime when an overlay is activated
     through the governance pipeline.
+
+    .. deprecated:: V2
+        Coupled to ``Package``. Will be removed when ``Module`` replaces
+        ``Package`` as the publication boundary. Provenance binding in V2
+        uses Module metadata and event-stream projection instead.
 
     Constitutional binding contract:
         Every work event (edge_started, iteration_completed, edge_converged) must carry
@@ -492,6 +371,13 @@ class PackageSnapshot:
 class Package:
     """
     Bounded constitutional world.
+
+    .. deprecated:: V2
+        Legacy V1 type. Replaced by ``gtl.module_model.Module`` in V2.
+        Module is a pure declaration boundary; runtime concerns (workers,
+        requirements) belong to ABG. Package remains for backward compatibility
+        with V1 domain packages and will be removed once all domain packages
+        author Module/Graph/Node directly.
 
     Validated at construction — all invariants enforced immediately.
     Runtime serialises Package + governance event → PackageSnapshot.

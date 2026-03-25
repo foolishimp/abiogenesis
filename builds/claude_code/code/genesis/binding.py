@@ -1,17 +1,665 @@
-# Implements: REQ-R-ABG2-INTERPRET
-# Implements: REQ-R-ABG2-JOB-WORKER
+# Implements: REQ-F-CORE-004
+# Implements: REQ-F-EVAL-002
+# Implements: REQ-F-BIND-001
+# Implements: REQ-F-PROV-003
+# Implements: REQ-F-PROV-004
+# Implements: REQ-F-PROV-005
+# Implements: REQ-F-EC-002
+# Implements: REQ-F-EC-003
+# Implements: REQ-F-EC-004
+# Implements: REQ-F-EC-005
+# Implements: REQ-F-WK-003
+# Implements: REQ-F-CORRECT-001
+# Implements: REQ-F-CORRECT-002
+# Implements: REQ-F-CORRECT-003
 """
-genesis.binding — Deterministic precomputation and capability model.
+binding — Deterministic precomputation and capability model.
 
-Re-exports from genesis.bind, genesis.manifest, genesis.core, and
-gtl.core during Phase 2 migration.
-Target: abg.binding
+ContextResolver, PrecomputedManifest, BoundJob, bind_fd, bind_fp,
+bind_fh, bind_fp_certified, run_fd_evaluator, select_relevant_contexts,
+render_delta.
+
+Extracted from genesis.bind, genesis.manifest, and genesis.core
+as part of V2 module decomposition.
 """
-from genesis.bind import (
-    bind_fd, bind_fp, bind_fh,
-    bind_fp_certified, run_fd_evaluator,
-    select_relevant_contexts,
-)
-from genesis.manifest import PrecomputedManifest, BoundJob
-from genesis.core import ContextResolver
-from gtl.core import Job, Worker
+from __future__ import annotations
+
+import hashlib
+import json as _json
+import os
+import re
+import subprocess
+import sys
+from dataclasses import dataclass, field
+from pathlib import Path
+from typing import Any
+
+from gtl.graph import GraphVector, Node, Context
+from gtl.operator_model import Evaluator, F_D, F_H, F_P
+
+from .correction import find_latest_reset
+from .events import EventStream
+from .projection import project
+
+
+# ── Job ──────────────────────────────────────────────────────────────────────
+
+@dataclass
+class Job:
+    """
+    ABG runtime binding of a GraphVector.
+
+    Job wraps a V2 GraphVector — the typed transform contract.
+    Source/target are Nodes (V2 loci with markov conditions).
+    The Job type signature is the worker capability discriminator.
+
+    Invariant: evaluators must not be empty (Bootloader §XVII).
+    """
+    vector: GraphVector
+    evaluators: list[Evaluator] = field(default_factory=list)
+
+    def __post_init__(self):
+        if not self.evaluators:
+            raise ValueError(
+                f"Job '{self.vector.name}': evaluators must not be empty "
+                f"(Bootloader §XVII invariant)"
+            )
+
+    @property
+    def source_type(self) -> Node | tuple[Node, ...]:
+        """Input type — what this Job reads."""
+        return self.vector.source
+
+    @property
+    def target_type(self) -> Node:
+        """Output type — what this Job writes. Uniquely identifies write territory."""
+        return self.vector.target
+
+
+# ── Worker ───────────────────────────────────────────────────────────────────
+
+@dataclass
+class Worker:
+    """
+    Actor defined structurally by its Job type signature.
+
+    Role = can_execute set. No external actor registry or prose write-territory
+    rules needed — the type system enforces capability.
+
+    Scheduling rule:
+        workers with disjoint writable_types run in parallel (safe)
+        workers with overlapping writable_types must serialise (conflict)
+
+    Covers all three scenarios:
+        Scenario 1: different stacks → different target types → no conflict
+        Scenario 2: same Job type → candidate slots separate target types → no conflict
+        Scenario 3: specialised roles → disjoint write sets → all concurrent
+    """
+    id: str
+    can_execute: list[Job] = field(default_factory=list)
+
+    def __post_init__(self):
+        if not self.can_execute:
+            raise ValueError(f"Worker '{self.id}': can_execute must not be empty")
+
+    @property
+    def writable_types(self) -> set[str]:
+        """Target asset type names — this worker's write territory."""
+        return {j.target_type.name for j in self.can_execute}
+
+    @property
+    def readable_types(self) -> set[str]:
+        """Source asset type names — what this worker consumes."""
+        result: set[str] = set()
+        for j in self.can_execute:
+            src = j.source_type
+            if isinstance(src, tuple):
+                result.update(a.name for a in src)
+            else:
+                result.add(src.name)
+        return result
+
+    def conflicts_with(self, other: Worker) -> bool:
+        """True if serialisation is required — overlapping write territory."""
+        return bool(self.writable_types & other.writable_types)
+
+
+# ── ContextResolver ──────────────────────────────────────────────────────────
+
+class ContextResolver:
+    """
+    Loads Context content by locator scheme + verifies digest.
+
+    Schemes:
+      workspace:// — local file or directory relative to workspace root
+      git://        — NOT IMPLEMENTED in V1
+      event://      — NOT IMPLEMENTED in V1
+      registry://   — NOT IMPLEMENTED in V1
+    """
+
+    def __init__(self, workspace_root: Path) -> None:
+        self.workspace_root = workspace_root
+
+    def load(self, ctx: Context) -> str:
+        """Load context content and verify digest."""
+        scheme = ctx.locator.split("://")[0]
+        dispatch = {
+            "workspace": self._load_workspace,
+            "git":       self._load_git,
+            "event":     self._load_event,
+            "registry":  self._load_registry,
+        }
+        loader = dispatch.get(scheme)
+        if loader is None:
+            raise ValueError(f"Unknown context scheme: {scheme!r} in {ctx.locator!r}")
+
+        content = loader(ctx.locator)
+        self._verify_digest(ctx, content)
+        return content
+
+    def _load_workspace(self, locator: str) -> str:
+        path_str = locator[len("workspace://"):]
+        path = self.workspace_root / path_str
+
+        if path.is_dir():
+            parts: list[str] = []
+            for pattern in ("*.md", "*.py", "*.txt", "*.yml"):
+                for f in sorted(path.rglob(pattern)):
+                    parts.append(f"# {f.relative_to(self.workspace_root)}")
+                    parts.append(f.read_text(encoding="utf-8"))
+                    parts.append("")
+            if not parts:
+                raise FileNotFoundError(
+                    f"Context directory exists but contains no readable files: {path}"
+                )
+            return "\n".join(parts)
+
+        if path.is_file():
+            return path.read_text(encoding="utf-8")
+
+        raise FileNotFoundError(f"Required context not found: {path}")
+
+    def _load_git(self, locator: str) -> str:
+        raise NotImplementedError(
+            f"git:// context loading is not implemented in V1: {locator!r}"
+        )
+
+    def _load_event(self, locator: str) -> str:
+        raise NotImplementedError(
+            f"event:// context loading is not implemented in V1: {locator!r}"
+        )
+
+    def _load_registry(self, locator: str) -> str:
+        raise NotImplementedError(
+            f"registry:// context loading is not implemented in V1: {locator!r}"
+        )
+
+    def _verify_digest(self, ctx: Context, content: str) -> None:
+        """Verify sha256 digest. PENDING digests (all zeros) are skipped."""
+        pending = "sha256:" + "0" * 64
+        if ctx.digest == pending:
+            return
+
+        actual = "sha256:" + hashlib.sha256(content.encode("utf-8")).hexdigest()
+        if actual != ctx.digest:
+            raise ValueError(
+                f"Context digest mismatch for {ctx.name!r}:\n"
+                f"  expected: {ctx.digest}\n"
+                f"  actual:   {actual}\n"
+                "Replay integrity violation — context content has changed."
+            )
+
+
+# ── PrecomputedManifest and BoundJob ─────────────────────────────────────────
+
+@dataclass
+class PrecomputedManifest:
+    """
+    F_D pre-computation output. The residual gap.
+
+    passing_evaluators are NEVER included in the F_P prompt.
+    """
+    job: Job
+    current_asset: dict
+    failing_evaluators: list[Evaluator]
+    passing_evaluators: list[Evaluator]
+    fd_results: dict[str, Any]
+    relevant_contexts: dict[str, str]
+    missing_contexts: list[str] = field(default_factory=list)
+    delta_summary: str = ""
+
+    @property
+    def has_gap(self) -> bool:
+        return bool(self.failing_evaluators)
+
+    @property
+    def delta(self) -> int:
+        return len(self.failing_evaluators)
+
+
+@dataclass
+class BoundJob:
+    """A Job with all Context references resolved."""
+    job: Job
+    precomputed: PrecomputedManifest
+    prompt: str
+    result_path: str = ""
+    manifest_id: str = ""
+
+
+# ── F_H gate — Event Calculus ────────────────────────────────────────────────
+
+def bind_fh(
+    job: Job,
+    all_events: list[dict],
+    current_workflow_version: str = "unknown",
+    carry_forward: list[dict] | None = None,
+    *,
+    work_key: str | None = None,
+) -> bool:
+    """
+    Evaluate holdsAt(operative(edge, work_key, wv), now) for the F_H gate.
+
+    Event Calculus semantics:
+      approved{kind: fh_review}  initiates  operative(edge, work_key, wv)
+      approved{kind: fh_intent}  initiates  operative(edge, work_key, wv)
+      revoked{kind: fh_approval} terminates operative(edge, work_key, wv)
+    """
+    if carry_forward is None:
+        carry_forward = []
+
+    latest_approved_time = None
+    found_approved = False
+
+    for e in all_events:
+        etype = e.get("event_type")
+        edata = e.get("data", {})
+
+        is_approved = (
+            etype == "approved" and edata.get("kind") in ("fh_review", "fh_intent")
+        )
+
+        if is_approved and edata.get("edge") == job.vector.name:
+            if work_key is not None:
+                event_wk = edata.get("work_key")
+                if event_wk is not None and event_wk != work_key:
+                    continue
+            elif edata.get("work_key") is not None:
+                continue
+            if current_workflow_version == "unknown":
+                found_approved = True
+                latest_approved_time = e.get("event_time")
+                continue
+
+            ev_wv = edata.get("workflow_version")
+
+            if ev_wv == current_workflow_version:
+                found_approved = True
+                latest_approved_time = e.get("event_time")
+                continue
+
+            for cf in carry_forward:
+                if (cf.get("edge") == job.vector.name
+                        and cf.get("from_version") == ev_wv
+                        and cf.get("work_key", None) == (work_key or None)):
+                    found_approved = True
+                    latest_approved_time = e.get("event_time")
+                    break
+
+    if not found_approved:
+        return False
+
+    for e in all_events:
+        etype = e.get("event_type")
+        edata = e.get("data", {})
+        if etype == "revoked" and edata.get("kind") == "fh_approval":
+            revoked_edge = edata.get("edge")
+            if revoked_edge == job.vector.name or revoked_edge == "*":
+                rev_wk = edata.get("work_key")
+                if work_key is not None and rev_wk is not None and rev_wk != work_key:
+                    continue
+                if work_key is None and rev_wk is not None:
+                    continue
+                if current_workflow_version != "unknown":
+                    rev_wv = edata.get("workflow_version")
+                    if rev_wv != current_workflow_version:
+                        continue
+                if latest_approved_time is None or e.get("event_time", "") > latest_approved_time:
+                    return False
+
+    return True
+
+
+# ── F_P certification — Event Calculus ───────────────────────────────────────
+
+def bind_fp_certified(
+    job: Job,
+    ev: Evaluator,
+    all_events: list[dict],
+    spec_hash: str | None = None,
+    current_workflow_version: str = "unknown",
+    *,
+    work_key: str | None = None,
+) -> bool:
+    """
+    Evaluate holdsAt(certified(edge, work_key, evaluator, spec_hash, wv), now).
+
+    Reset boundary (ADR-026): certifications before the latest applicable reset
+    are shadowed.
+    """
+    reset_boundary = find_latest_reset(all_events, edge=job.vector.name, work_key=work_key)
+    reset_time = reset_boundary.get("event_time", "") if reset_boundary else ""
+
+    latest_assessed_time = None
+    found_assessed = False
+
+    for e in all_events:
+        etype = e.get("event_type")
+        edata = e.get("data", {})
+
+        is_assessed = (
+            etype == "assessed"
+            and edata.get("kind") == "fp"
+            and edata.get("edge") == job.vector.name
+            and edata.get("evaluator") == ev.name
+            and edata.get("result") == "pass"
+        )
+
+        if is_assessed:
+            if spec_hash is not None and edata.get("spec_hash") != spec_hash:
+                continue
+            if work_key is not None:
+                event_wk = edata.get("work_key")
+                if event_wk is not None and event_wk != work_key:
+                    continue
+            elif edata.get("work_key") is not None:
+                continue
+            if reset_time and e.get("event_time", "") <= reset_time:
+                continue
+            found_assessed = True
+            latest_assessed_time = e.get("event_time")
+
+    if not found_assessed:
+        return False
+
+    for e in all_events:
+        etype = e.get("event_type")
+        edata = e.get("data", {})
+        if etype == "revoked" and edata.get("kind") == "fp_assessment":
+            revoked_edge = edata.get("edge")
+            if revoked_edge == job.vector.name or revoked_edge == "*":
+                rev_wk = edata.get("work_key")
+                if work_key is not None and rev_wk is not None and rev_wk != work_key:
+                    continue
+                if work_key is None and rev_wk is not None:
+                    continue
+                if current_workflow_version != "unknown":
+                    rev_wv = edata.get("workflow_version")
+                    if rev_wv != current_workflow_version:
+                        continue
+                if latest_assessed_time is None or e.get("event_time", "") > latest_assessed_time:
+                    return False
+
+    return True
+
+
+# ── F_D evaluator runner ──────────────────────────────────────────────────────
+
+import os as _os
+FD_TIMEOUT_SECONDS: int = int(_os.environ.get("FD_TIMEOUT_SECONDS", "120"))
+
+
+def run_fd_evaluator(
+    ev: Evaluator,
+    current_asset: dict,
+    workspace_root: Path,
+    *,
+    work_key: str | None = None,
+) -> tuple[bool, Any]:
+    """
+    Run one F_D evaluator. Returns (passes: bool, detail: Any).
+
+    Fails closed: an F_D evaluator with no command is a misconfigured Package.
+    """
+    if ev.regime is not F_D:
+        raise TypeError(
+            f"run_fd_evaluator called on non-F_D evaluator: {ev.name!r} "
+            f"(regime={ev.regime.__name__})"
+        )
+    # Extract shell command from binding URI (ABG runtime concern)
+    shell_command = ev.binding
+    if shell_command.startswith("exec://"):
+        shell_command = shell_command[len("exec://"):]
+    if not shell_command:
+        return False, {
+            "status": "error",
+            "reason": f"F_D evaluator {ev.name!r} has no binding — misconfigured Package",
+        }
+
+    env = os.environ.copy()
+    extra = os.pathsep.join(p for p in sys.path if p)
+    existing = env.get("PYTHONPATH", "")
+    env["PYTHONPATH"] = os.pathsep.join(filter(None, [extra, existing]))
+    if work_key is not None:
+        env["WORK_KEY"] = work_key
+
+    try:
+        result = subprocess.run(
+            shell_command, shell=True, cwd=workspace_root,
+            capture_output=True, text=True, env=env,
+            timeout=FD_TIMEOUT_SECONDS,
+        )
+    except subprocess.TimeoutExpired:
+        return False, {
+            "status": "timeout",
+            "reason": (
+                f"F_D evaluator {ev.name!r} exceeded {FD_TIMEOUT_SECONDS}s wall-clock limit. "
+                "Check that the command does not re-enter orchestration (start/iterate/gaps/emit-event) "
+                "and excludes long-running test suites."
+            ),
+        }
+    return result.returncode == 0, {
+        "returncode": result.returncode,
+        "stdout": result.stdout[-3000:],
+        "stderr": result.stderr[-500:],
+    }
+
+
+# ── bind_fd ───────────────────────────────────────────────────────────────────
+
+def bind_fd(
+    job: Job,
+    stream: EventStream,
+    resolver: ContextResolver,
+    workspace_root: Path,
+    spec_hash: str | None = None,
+    current_workflow_version: str = "unknown",
+    carry_forward: list[dict] | None = None,
+    *,
+    work_key: str | None = None,
+) -> PrecomputedManifest:
+    """
+    F_D pre-computation phase. Everything computable without an LLM.
+    Produces the residual gap — the minimal surface F_P must address.
+    """
+    source = job.source_type
+    source_name = source[0].name if isinstance(source, tuple) else source.name
+    current = project(stream, source_name, "current", work_key=work_key)
+
+    all_events = stream.all_events()
+    fd_results: dict[str, Any] = {}
+    for ev in job.evaluators:
+        if ev.regime is F_D:
+            passes, detail = run_fd_evaluator(
+                ev, current, workspace_root, work_key=work_key,
+            )
+            fd_results[ev.name] = {"passes": passes, "detail": detail}
+
+    def _passes(ev: Evaluator) -> bool:
+        if ev.regime is F_D:
+            return fd_results.get(ev.name, {}).get("passes", False)
+        if ev.regime is F_H:
+            return bind_fh(
+                job, all_events, current_workflow_version, carry_forward,
+                work_key=work_key,
+            )
+        if ev.regime is F_P:
+            return bind_fp_certified(
+                job, ev, all_events, spec_hash, current_workflow_version,
+                work_key=work_key,
+            )
+        return False
+
+    failing = [ev for ev in job.evaluators if not _passes(ev)]
+    passing = [ev for ev in job.evaluators if _passes(ev)]
+
+    relevant_ctxs = select_relevant_contexts(job.vector.contexts, failing)
+    resolved: dict[str, str] = {}
+    _missing_contexts: list[str] = []
+    for ctx in relevant_ctxs:
+        try:
+            resolved[ctx.name] = resolver.load(ctx)
+        except NotImplementedError as exc:
+            resolved[ctx.name] = f"[context unavailable: {exc}]"
+        except FileNotFoundError as exc:
+            resolved[ctx.name] = f"[context not found: {exc}]"
+            _missing_contexts.append(ctx.name)
+
+    summary = render_delta(fd_results, failing)
+
+    return PrecomputedManifest(
+        job=job,
+        current_asset=current,
+        failing_evaluators=failing,
+        passing_evaluators=passing,
+        fd_results=fd_results,
+        relevant_contexts=resolved,
+        missing_contexts=_missing_contexts,
+        delta_summary=summary,
+    )
+
+
+# ── bind_fp ───────────────────────────────────────────────────────────────────
+
+def bind_fp(
+    pre: PrecomputedManifest,
+    job: Job,
+    result_path: str = "",
+) -> BoundJob:
+    """
+    Assemble the minimal F_P manifest from pre-computed material.
+    Raises FileNotFoundError if required context failed to resolve.
+    """
+    if pre.missing_contexts:
+        raise FileNotFoundError(
+            f"Cannot dispatch F_P: required context(s) not found: "
+            f"{', '.join(pre.missing_contexts)}. "
+            f"Fix the context locators or provide the missing files before iterating."
+        )
+    prompt = _assemble_prompt(pre, job, result_path)
+    return BoundJob(job=job, precomputed=pre, prompt=prompt, result_path=result_path)
+
+
+def _assemble_prompt(pre: PrecomputedManifest, job: Job, result_path: str = "") -> str:
+    """Assemble the F_P prompt."""
+    sections: list[str] = []
+
+    src = job.vector.source
+    if isinstance(src, tuple):
+        src_name = " × ".join(a.name for a in src)
+        src_markov = {a.name: a.markov for a in src}
+    else:
+        src_name = src.name
+        src_markov = {src.name: src.markov}
+    precond_lines = [
+        "[PRECONDITIONS] — upstream asset stability (these hold):"
+    ]
+    for name, conditions in src_markov.items():
+        if conditions:
+            precond_lines.append(f"  {name}: {conditions}")
+        else:
+            precond_lines.append(f"  {name}: (no markov conditions)")
+    sections.append("\n".join(precond_lines))
+
+    sections.append(
+        f"[CURRENT STATE]\n"
+        f"Edge: {job.vector.name}\n"
+        f"Source asset: {src_name}\n"
+        f"Target asset: {job.vector.target.name}\n"
+        f"Status: {pre.current_asset.get('status', 'unknown')}\n"
+        f"Edges converged: {pre.current_asset.get('edges_converged', [])}"
+    )
+
+    gap_lines = [f"[GAP] — {len(pre.failing_evaluators)} evaluator(s) failing:"]
+    for ev in pre.failing_evaluators:
+        detail = pre.fd_results.get(ev.name, {})
+        gap_lines.append(f"  {ev.name} ({ev.regime.__name__}): {ev.description}")
+        if detail:
+            gap_lines.append(f"    F_D result: {detail.get('detail', detail)}")
+    if not pre.failing_evaluators:
+        gap_lines.append("  (none — all evaluators pass)")
+    sections.append("\n".join(gap_lines))
+
+    if pre.relevant_contexts:
+        ctx_lines = ["[CONTEXT] — constraint surface for this edge:"]
+        for name, content in pre.relevant_contexts.items():
+            ctx_lines.append(f"\n--- {name} ---\n{content}")
+        sections.append("\n".join(ctx_lines))
+
+    target = job.vector.target
+    fp_failing = [ev for ev in pre.failing_evaluators if ev.regime is F_P]
+    assessment_contract = ""
+    if fp_failing and result_path:
+        ev_assessments = [
+            f'{{"evaluator": "{ev.name}", "result": "pass|fail", "evidence": "..."}}'
+            for ev in fp_failing
+        ]
+        assessment_contract = (
+            f"\n\nWrite assessment JSON to: {result_path}\n"
+            f"Format: {{{{'edge': '{job.vector.name}', 'actor': '<your_agent_id>', 'assessments': [{', '.join(ev_assessments)}]}}}}\n"
+            "The app reads this file and emits assessed events — do NOT call emit-event yourself."
+        )
+
+    sections.append(
+        f"[OUTPUT CONTRACT]\n"
+        f"Produce: {target.name} asset\n"
+        f"Satisfying markov conditions: {target.markov}\n"
+        f"Evaluators to pass: {[ev.name for ev in pre.failing_evaluators]}"
+        + assessment_contract
+    )
+
+    return "\n\n".join(sections)
+
+
+# ── select_relevant_contexts ──────────────────────────────────────────────────
+
+def select_relevant_contexts(
+    all_contexts: list[Context],
+    failing: list[Evaluator],
+) -> list[Context]:
+    """F_D: filter contexts to those relevant to the failing evaluators."""
+    if not failing:
+        return []
+    fp_failing = [ev for ev in failing if ev.regime is F_P]
+    if not fp_failing:
+        return []
+    return list(all_contexts)
+
+
+# ── render_delta ─────────────────────────────────────────────────────────────
+
+def render_delta(
+    fd_results: dict[str, Any],
+    failing: list[Evaluator],
+) -> str:
+    """Render a structured human-readable gap description."""
+    if not failing:
+        return "delta = 0 — all evaluators pass"
+
+    lines = [f"delta = {len(failing)} — {len(failing)} evaluator(s) failing:"]
+    for ev in failing:
+        detail = fd_results.get(ev.name, {})
+        det = detail.get("detail", detail) if isinstance(detail, dict) else detail
+        lines.append(f"  {ev.name} ({ev.regime.__name__}): {det}")
+
+    return "\n".join(lines)

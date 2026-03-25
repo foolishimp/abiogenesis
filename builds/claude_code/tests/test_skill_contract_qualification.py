@@ -104,8 +104,7 @@ def _write_test_package(target: Path, package_code: str) -> None:
     (pkg_dir / "test_pkg.py").write_text(package_code)
     # Bind genesis.yml to the test package
     (target / ".genesis" / "genesis.yml").write_text(
-        "package: gtl_spec.packages.test_pkg:package\n"
-        "worker:  gtl_spec.packages.test_pkg:worker\n"
+        "module:  gtl_spec.packages.test_pkg:module\n"
     )
 
 
@@ -113,7 +112,7 @@ def _compute_spec_hash(target: Path) -> str:
     """Compute spec_hash using installed engine's req_hash (no active-workflow.json)."""
     result = subprocess.run(
         [sys.executable, "-c",
-         "from genesis.bind import req_hash; print(req_hash(['REQ-TEST-001']))"],
+         "from genesis.provenance import req_hash; print(req_hash(['REQ-TEST-001']))"],
         capture_output=True, text=True,
         env=_installed_env(target),
     )
@@ -133,87 +132,80 @@ def _satisfy_fd(target: Path) -> None:
 # ── Test packages ────────────────────────────────────────────────────────────
 
 _MINIMAL_PACKAGE = textwrap.dedent('''\
-    """Minimal test package: F_D + F_P."""
-    from gtl.core import (
-        Asset, Context, Edge, Evaluator, Job, Operator,
-        Package, Rule, Worker, F_D, F_P, F_H, consensus,
-    )
+    """Minimal test module: F_D + F_P."""
+    from gtl.graph import Graph, Node, GraphVector
+    from gtl.module_model import Module
+    from gtl.core import Evaluator, Operator, Rule, F_D, F_P, consensus
 
-    design = Asset(name="design", id_format="DES-{SEQ}")
-    code = Asset(name="code", id_format="CODE-{SEQ}", lineage=[design])
+    design = Node(name="design")
+    code = Node(name="code")
 
     op_fp = Operator("claude_agent", F_P, "agent://claude/genesis")
     op_fd = Operator("check_tags", F_D,
                      "exec://python -m genesis check-tags --type implements --path .")
 
-    edge = Edge(
-        name="design→code",
-        source=design,
-        target=code,
-        using=[op_fp, op_fd],
-    )
-
     eval_tags = Evaluator(
         "impl_tags", F_D, "all code files carry Implements: tags",
-        command="python -m genesis check-tags --type implements --path code/",
+        binding="exec://python -m genesis check-tags --type implements --path code/",
     )
     eval_fp = Evaluator("code_complete", F_P, "agent: code implements design")
 
-    job = Job(edge=edge, evaluators=[eval_tags, eval_fp])
-    rule = Rule("gate", approve=consensus(1, 1))
-
-    package = Package(
-        name="test_pkg",
-        assets=[design, code],
-        edges=[edge],
-        operators=[op_fp, op_fd],
-        rules=[rule],
-        requirements=["REQ-TEST-001"],
+    vector = GraphVector(
+        name="design\\u2192code",
+        source=design, target=code,
+        operators=(op_fp, op_fd),
+        evaluators=(eval_tags, eval_fp),
     )
-    worker = Worker(id="claude_code", can_execute=[job])
+    graph = Graph(
+        name="design\\u2192code",
+        inputs=(design,), outputs=(code,),
+        nodes=(design, code), vectors=(vector,),
+    )
+    module = Module(
+        name="test_pkg",
+        graphs=(graph,),
+        metadata={"requirements": ["REQ-TEST-001"]},
+    )
 ''')
 
 _FH_PACKAGE = textwrap.dedent('''\
-    """Test package with F_D + F_P + F_H chain."""
-    from gtl.core import (
-        Asset, Context, Edge, Evaluator, Job, Operator,
-        Package, Rule, Worker, F_D, F_P, F_H, consensus,
-    )
+    """Test module with F_D + F_P + F_H chain."""
+    from gtl.graph import Graph, Node, GraphVector
+    from gtl.module_model import Module
+    from gtl.core import Evaluator, Operator, Rule, F_D, F_P, F_H, consensus
 
-    design = Asset(name="design", id_format="DES-{SEQ}")
-    code = Asset(name="code", id_format="CODE-{SEQ}", lineage=[design])
+    design = Node(name="design")
+    code = Node(name="code")
 
     op_fp = Operator("claude_agent", F_P, "agent://claude/genesis")
     op_fd = Operator("check_tags", F_D,
                      "exec://python -m genesis check-tags --type implements --path .")
     op_fh = Operator("human_gate", F_H, "fh://review")
 
-    edge = Edge(
-        name="design→code",
-        source=design,
-        target=code,
-        using=[op_fp, op_fd, op_fh],
-    )
-
     eval_tags = Evaluator(
         "impl_tags", F_D, "all code files carry Implements: tags",
-        command="python -m genesis check-tags --type implements --path code/",
+        binding="exec://python -m genesis check-tags --type implements --path code/",
     )
     eval_fp = Evaluator("code_complete", F_P, "agent: code implements design")
     eval_fh = Evaluator("design_approved", F_H, "human approves design→code transition")
 
-    job = Job(edge=edge, evaluators=[eval_tags, eval_fp, eval_fh])
-    rule = Rule("gate", approve=consensus(1, 1))
-
-    package = Package(
-        name="test_pkg",
-        assets=[design, code],
-        edges=[edge],
-        operators=[op_fp, op_fd, op_fh],
-        rules=[rule],
-        requirements=["REQ-TEST-001"],
+    vector = GraphVector(
+        name="design\\u2192code",
+        source=design, target=code,
+        operators=(op_fp, op_fd, op_fh),
+        evaluators=(eval_tags, eval_fp, eval_fh),
+        rule=Rule(name="standard_gate", kind="gate", config={"approve": consensus(1, 1)}),
     )
-    worker = Worker(id="claude_code", can_execute=[job])
+    graph = Graph(
+        name="design\\u2192code",
+        inputs=(design,), outputs=(code,),
+        nodes=(design, code), vectors=(vector,),
+    )
+    module = Module(
+        name="test_pkg",
+        graphs=(graph,),
+        metadata={"requirements": ["REQ-TEST-001"]},
+    )
 ''')
 
 
@@ -259,10 +251,8 @@ class TestBootloaderInjection:
         assert yml_path.exists(), ".genesis/genesis.yml must exist"
         import yaml
         config = yaml.safe_load(yml_path.read_text())
-        assert "package" in config, "genesis.yml must specify package module"
-        assert "worker" in config, "genesis.yml must specify worker module"
-        assert ":package" in config["package"], "package must use module:var format"
-        assert ":worker" in config["worker"], "worker must use module:var format"
+        assert "module" in config, "genesis.yml must specify module"
+        assert ":module" in config["module"], "module must use module:var format"
 
 
 # ── Group 2: Exit Code Contract ──────────────────────────────────────────────
@@ -386,9 +376,10 @@ class TestExitCodeContract:
         # The engine's __main__.py maps stopped_by="max_iterations" → exit 5.
         # We trust kernel PQ for the logic; here we verify the exit code mapping.
         _install_sandbox(tmp_path)
-        # Verify the routing contract exists in the installed engine
-        main_py = tmp_path / ".genesis" / "genesis" / "__main__.py"
-        content = main_py.read_text()
+        # Verify the routing contract exists in the installed engine.
+        # V2: __main__.py is a re-export shim; real code is in cli_adapter.py.
+        cli_adapter_py = tmp_path / ".genesis" / "genesis" / "cli_adapter.py"
+        content = cli_adapter_py.read_text()
         assert '"max_iterations"' in content, (
             "Installed engine must map max_iterations to exit code"
         )

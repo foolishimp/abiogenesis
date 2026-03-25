@@ -51,26 +51,21 @@ from scenario_helpers import (
 
 _PACKAGE = textwrap.dedent('''\
     """Multi-input synthesis: modules and design to code (product arrow)."""
-    from gtl.core import (
-        Asset, Context, Edge, Evaluator, Job, Operator,
-        Package, Rule, Worker, F_D, F_P, consensus,
-    )
+    from gtl.graph import Graph, Node, GraphVector, Context
+    from gtl.module_model import Module
+    from gtl.core import Evaluator, Operator, Rule, F_D, F_P, consensus
 
-    modules = Asset(
+    modules = Node(
         name="modules",
-        id_format="MOD-{SEQ}",
-        markov=["decomposition_complete", "interfaces_defined", "dependencies_acyclic"],
+        markov=("decomposition_complete", "interfaces_defined", "dependencies_acyclic"),
     )
-    design = Asset(
+    design = Node(
         name="design",
-        id_format="DES-{SEQ}",
-        markov=["adrs_recorded", "patterns_selected"],
+        markov=("adrs_recorded", "patterns_selected"),
     )
-    code = Asset(
+    code = Node(
         name="code",
-        id_format="CODE-{SEQ}",
-        lineage=[modules, design],
-        markov=["compiles", "implements_interfaces", "tests_pass"],
+        markov=("compiles", "implements_interfaces", "tests_pass"),
     )
     ctx_arch = Context(
         name="architecture_guide",
@@ -79,26 +74,29 @@ _PACKAGE = textwrap.dedent('''\
     )
     op_fd = Operator("artifact_check", F_D, "exec://test -f output/service.py")
     op_fp = Operator("code_agent", F_P, "agent://code/synthesizer")
-    edge = Edge(
-        name="modules\\u00d7design\\u2192code",
-        source=[modules, design], target=code,
-        using=[op_fd, op_fp], context=[ctx_arch],
-    )
     eval_fd = Evaluator("artifact_exists", F_D,
         "code artifact exists at output/service.py",
-        command="test -f output/service.py")
+        binding="exec://test -f output/service.py")
     eval_fp = Evaluator("code_quality", F_P,
         "agent: code implements module interfaces, follows design patterns, passes tests")
-    job = Job(edge=edge, evaluators=[eval_fd, eval_fp])
-    package = Package(
-        name="code_synthesis",
-        assets=[modules, design, code], edges=[edge],
-        operators=[op_fd, op_fp],
-        rules=[Rule("code_gate", approve=consensus(1, 1))],
-        contexts=[ctx_arch],
-        requirements=["REQ-CS-001", "REQ-CS-002", "REQ-CS-003"],
+    vector = GraphVector(
+        name="modules\\u00d7design\\u2192code",
+        source=(modules, design), target=code,
+        operators=(op_fd, op_fp),
+        evaluators=(eval_fd, eval_fp),
+        contexts=(ctx_arch,),
     )
-    worker = Worker(id="code_synth", can_execute=[job])
+    graph = Graph(
+        name="modules\\u00d7design\\u2192code",
+        inputs=(modules, design), outputs=(code,),
+        nodes=(modules, design, code), vectors=(vector,),
+        contexts=(ctx_arch,),
+    )
+    module = Module(
+        name="code_synthesis",
+        graphs=(graph,),
+        metadata={"requirements": ["REQ-CS-001", "REQ-CS-002", "REQ-CS-003"]},
+    )
 ''')
 
 _EDGE = "modules×design→code"

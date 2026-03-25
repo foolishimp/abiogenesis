@@ -75,11 +75,13 @@ class Evaluator:
     """
     Typed convergence / attestation declaration.
 
-    REQ-L-GTL2-EVALUATOR-001: frozen, immutable, name/regime/binding/tags.
+    REQ-L-GTL2-EVALUATOR-001: frozen, immutable, name/regime/description/binding/tags.
+    REQ-L-GTL2-EVALUATOR-006: description is a human-readable convergence contract.
     Evaluators check or attest convergence. Realization is plugin-dependent.
     """
     name: str
     regime: type[Regime] = F_D
+    description: str = ""        # human-readable convergence contract (NODE-006 pattern)
     binding: str = ""            # plugin URI
     tags: tuple[str, ...] = ()
 
