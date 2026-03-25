@@ -15,12 +15,9 @@
 """
 binding — Deterministic precomputation and capability model.
 
-ContextResolver, PrecomputedManifest, BoundJob, bind_fd, bind_fp,
-bind_fh, bind_fp_certified, run_fd_evaluator, select_relevant_contexts,
-render_delta.
-
-Extracted from genesis.bind, genesis.manifest, and genesis.core
-as part of V2 module decomposition.
+WorkingSurface, Job, Worker, BoundJob, ContextResolver,
+PrecomputedManifest, bind_fd, bind_fp, bind_fh, bind_fp_certified,
+run_fd_evaluator, select_relevant_contexts, render_delta.
 """
 from __future__ import annotations
 
@@ -40,6 +37,25 @@ from gtl.operator_model import Evaluator, F_D, F_H, F_P
 from .correction import find_latest_reset
 from .events import EventStream
 from .projection import project
+
+
+# ── WorkingSurface ──────────────────────────────────────────────────────────
+
+@dataclass
+class WorkingSurface:
+    """
+    Structured side-effect product of every Job execution.
+
+    events:            control surface — appended to event log.
+    artifacts:         trace surface — evidence file paths.
+    context_consumed:  provenance — Contexts read during execution.
+    """
+    events: list[dict] = field(default_factory=list)
+    artifacts: list[str] = field(default_factory=list)
+    context_consumed: list[Context] = field(default_factory=list)
+
+    def is_auditable(self) -> bool:
+        return bool(self.artifacts or self.events)
 
 
 # ── Job ──────────────────────────────────────────────────────────────────────
@@ -132,9 +148,9 @@ class ContextResolver:
 
     Schemes:
       workspace:// — local file or directory relative to workspace root
-      git://        — NOT IMPLEMENTED in V1
-      event://      — NOT IMPLEMENTED in V1
-      registry://   — NOT IMPLEMENTED in V1
+      git://        — NOT YET IMPLEMENTED
+      event://      — NOT YET IMPLEMENTED
+      registry://   — NOT YET IMPLEMENTED
     """
 
     def __init__(self, workspace_root: Path) -> None:
@@ -419,7 +435,7 @@ def run_fd_evaluator(
     """
     Run one F_D evaluator. Returns (passes: bool, detail: Any).
 
-    Fails closed: an F_D evaluator with no command is a misconfigured Package.
+    Fails closed: an F_D evaluator with no binding is a misconfigured evaluator.
     """
     if ev.regime is not F_D:
         raise TypeError(

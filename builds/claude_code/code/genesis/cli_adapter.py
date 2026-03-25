@@ -42,7 +42,7 @@ from pathlib import Path
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="genesis",
-        description="Genesis engine — GTL-first AI SDLC V1",
+        description="Genesis engine — GTL-native V2",
     )
     sub = parser.add_subparsers(dest="command", required=True)
 
@@ -73,14 +73,10 @@ def _build_parser() -> argparse.ArgumentParser:
     p_gaps.add_argument("--workspace", metavar="W", default=".",
                         help="Workspace root (default: cwd)")
 
-    # --module / --package / --worker on all three engine commands
+    # --module on all three engine commands
     for p in (p_start, p_iter, p_gaps):
         p.add_argument("--module", metavar="MODULE:VAR",
-                       help="V2 Module to load (preferred, overrides genesis.yml)")
-        p.add_argument("--package", metavar="MODULE:VAR",
-                       help="V1 Package to load (overrides genesis.yml)")
-        p.add_argument("--worker", metavar="MODULE:VAR",
-                       help="V1 Worker to load (overrides genesis.yml)")
+                       help="Module to load (overrides genesis.yml)")
 
     # ── emit-event ────────────────────────────────────────────────────────────
     p_emit = sub.add_parser("emit-event",

@@ -405,8 +405,7 @@ def gen_iterate(
         )
 
         # Persist substituted topology: rebuild Module with the new graph,
-        # then re-bridge into the V1 runtime (Package/Worker) so subsequent
-        # iterations see the refined topology.
+        # then rebuild Jobs so subsequent iterations see the refined topology.
         # REQ-L-GTL2-IDENTITY-007: target by graph .id, not .name.
         # The containing graph's id is preserved through apply_selection
         # (it finds the graph, then substitute() creates a new graph).

@@ -150,35 +150,9 @@ class Edge:
             )
 
 
-# ── WorkingSurface ─────────────────────────────────────────────────────────
-
-@dataclass
-class WorkingSurface:
-    """
-    Structured side-effect product of every Job execution.
-
-    Two-surface model:
-        events:            control surface — appended to event log, immutable once
-                           written, drives the scheduler.
-        artifacts:         trace surface — evidence file paths. Answers "why did
-                           this converge?" Primary input to Auditor (Scenario 3)
-                           and arbitration comparator (Scenario 2).
-        context_consumed:  provenance — Contexts read during execution.
-                           Enables exact historical replay under the same law.
-
-    is_auditable() invariant: a Job producing no artifacts has no convergence
-    evidence. The richer the surface, the better the arbitration signal.
-    """
-    events: list[dict] = field(default_factory=list)
-    artifacts: list[str] = field(default_factory=list)
-    context_consumed: list[Context] = field(default_factory=list)
-
-    def is_auditable(self) -> bool:
-        return bool(self.artifacts or self.events)
-
-
     # Evaluator, Operator, Rule are now V2 types from gtl.operator_model
     # Re-exported above. V1 definitions removed.
+    # WorkingSurface canonical definition moved to genesis.binding (ABG runtime type).
 
 
 # ── Job / Worker ───────────────────────────────────────────────────────────
@@ -190,10 +164,11 @@ class WorkingSurface:
 # __getattr__ fires on first access and caches the result.
 
 def __getattr__(name):
-    if name in ("Job", "Worker"):
-        from genesis.binding import Job, Worker
+    if name in ("Job", "Worker", "WorkingSurface"):
+        from genesis.binding import Job, Worker, WorkingSurface
         globals()["Job"] = Job
         globals()["Worker"] = Worker
+        globals()["WorkingSurface"] = WorkingSurface
         return globals()[name]
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 

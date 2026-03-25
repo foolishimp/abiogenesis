@@ -21,14 +21,13 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Callable, Optional
 
-from gtl.core import WorkingSurface
 from gtl.operator_model import Evaluator, F_D, F_H, F_P
 from gtl.graph import Graph, GraphVector
 from gtl.function_model import GraphFunction
 from gtl.module_model import Module
 from gtl.algebra import substitute
 
-from .binding import Job, Worker, BoundJob
+from .binding import Job, Worker, BoundJob, WorkingSurface
 from .selection import SelectionDecision, validate_selection
 from .subwork import LeafTask
 

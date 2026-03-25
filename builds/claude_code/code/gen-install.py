@@ -46,18 +46,33 @@ _GTL_BOOTLOADER_END = "<!-- GTL_BOOTLOADER_END -->"
 ENGINE_MODULES = [
     "__init__.py",
     "__main__.py",
-    "core.py",
-    "bind.py",
-    "manifest.py",
-    "schedule.py",
-    "commands.py",
-    "fp_dispatch.py",
+    "events.py",
+    "transport.py",
+    "projection.py",
+    "correction.py",
+    "provenance.py",
+    "run.py",
+    "lineage.py",
+    "subwork.py",
+    "binding.py",
+    "convergence.py",
+    "interpret.py",
+    "selfhosting.py",
+    "install.py",
+    "services.py",
+    "cli_adapter.py",
+    "selection.py",
 ]
 
 # GTL type system modules (relative to abiogenesis project root / gtl/)
 GTL_MODULES = [
     "__init__.py",
     "core.py",
+    "graph.py",
+    "operator_model.py",
+    "function_model.py",
+    "algebra.py",
+    "module_model.py",
 ]
 
 # GTL bootloader source — injected into CLAUDE.md at install time.

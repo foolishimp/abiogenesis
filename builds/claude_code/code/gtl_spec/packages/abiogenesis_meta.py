@@ -1,18 +1,15 @@
 # Implements: REQ-CORE-001
 """
-abiogenesis_meta — The bootstrap package.
+abiogenesis_meta — Legacy V1 bootstrap package.
 
-Defines the project that builds genesis_v1 using the bootstrap compiler
+.. deprecated:: V2
+    This module uses V1 types (Asset, Edge, Overlay) and V1 Package structure.
+    It is retained for bootstrap-phase backward compatibility only.
+    The V2 engine does not use this package in its hot path.
+
+Defines the project that builds genesis using the bootstrap compiler
 (genesis_sdlc). This package is the self-referential
 surface: genesis building genesis.
-
-The bootstrap sequence:
-  Phase 0-1: Bootstrap compiler (v3.1.0) drives this package
-  Phase 2-4: V1 engine progressively takes over
-  Phase 5:   abiogenesis drives its own code↔unit_tests edge → self-hosting confirmed
-
-When self-hosting is confirmed, this package is superseded by genesis_v1
-operating on itself directly.
 """
 from gtl_spec.packages.genesis_core import (
     genesis_v1,
