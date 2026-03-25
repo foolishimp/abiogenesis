@@ -90,7 +90,7 @@ The subprocess model naturally supports multiple agents:
 
 | Agent | Command | Notes |
 |-------|---------|-------|
-| claude | `claude -p --output-format text <prompt>` | Env sanitized (CLAUDE* stripped) |
+| claude | `claude -p --output-format text --permission-mode bypassPermissions <prompt>` | Env sanitized (CLAUDE* stripped), permissions bypassed |
 | codex | `codex -q --full-auto <prompt>` | No sanitization needed |
 | gemini | `gemini -p <prompt>` | No sanitization needed |
 
@@ -126,16 +126,49 @@ The `CLAUDE*` prefix stripping is defensive but relies on undocumented behavior.
 
 ## Implementation
 
-### fp_dispatch.py (engine)
+### transport.py (engine)
 
-Single implementation in `genesis/fp_dispatch.py`:
+Single implementation in `genesis/transport.py` (relocated from `genesis/fp_dispatch.py`):
 
 - `has_agent(agent)` — checks if CLI is on PATH
-- `call_agent(prompt, work_folder, agent=, timeout=)` — subprocess dispatch with env sanitization
+- `call_agent(prompt, work_folder, agent=, timeout=, retries=)` — subprocess dispatch with env sanitization, permission bypass, and retry
+- `dispatch_agent(prompt, work_folder, ...)` — non-throwing variant returning `AgentResult`
+- `classify_failure(result, result_path)` — ADR-027 failure classification
 - `_sanitized_env(agent)` — strips CLAUDE* for claude, passthrough for others
+- `_build_args(agent, prompt)` — builds subprocess args with agent-specific flags
 - `AgentTransportError` — classified failure with `failure_class`
 
 Legacy aliases (`has_mcp_transport`, `call_claude_code_mcp`, `McpTransportError`) preserved for backward compatibility.
+
+### Permission bypass (REQ-P-QUAL-023)
+
+Claude Code's `-p` (pipe) mode applies its default permission model. In test sandboxes and production dispatches where the workspace is a tmp directory or untrusted path, interactive permission dialogs block the subprocess — the agent asks for Write permission instead of writing the artifact.
+
+Fix: `--permission-mode bypassPermissions` in the Claude subprocess args.
+
+```python
+# _build_args for claude agent
+["claude", "-p", "--output-format", "text",
+ "--permission-mode", "bypassPermissions", prompt]
+```
+
+This is safe because:
+- The workspace is an isolated sandbox (tmp_path in tests, scoped workspace in production)
+- The agent's only job is to produce an artifact — it has no access to shared infrastructure
+- The dispatch contract (manifest prompt) constrains what the agent should write
+
+Other agents (codex, gemini) have their own permission models handled by their respective flags (`--full-auto` for codex).
+
+### Retry with backoff (REQ-P-QUAL-024)
+
+Transient transport failures (timeout, nonzero exit from rate limits or temporary unavailability) are retried. Permanent failures (agent not installed) are not.
+
+```
+AGENT_RETRY_COUNT = 2       # up to 2 retries (3 total attempts)
+AGENT_RETRY_BACKOFF = 5     # 5s × attempt number
+```
+
+The retry loop is in `call_agent()`. `dispatch_agent()` (non-throwing) does not retry — the caller owns retry policy.
 
 ### Installer changes needed
 
@@ -144,7 +177,7 @@ Legacy aliases (`has_mcp_transport`, `call_claude_code_mcp`, `McpTransportError`
 
 ### Skill layer changes needed
 
-- `gen-start.md`: Update from `mcp__claude-code-runner__claude_code` to subprocess dispatch via `fp_dispatch.call_agent`.
+- `gen-start.md`: Update from `mcp__claude-code-runner__claude_code` to subprocess dispatch via `transport.call_agent`.
 
 ### Dependencies removed
 

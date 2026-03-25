@@ -1,9 +1,8 @@
 # Implements: REQ-F-CORE-001
 """
-genesis — GTL-native AI SDLC engine, V2.
+genesis — GTL-native AI SDLC engine.
 
 Consumes Module, Graph, GraphVector, Node natively.
-No V1 bridge in the execution hot path.
 
     binding      — Job, Worker, BoundJob, bind_fd, bind_fp, render_delta
     convergence  — delta, parent_converged

@@ -20,16 +20,12 @@ Reference: ADR-015-integration-primary-test-architecture.md, §XII, §V.
 """
 from __future__ import annotations
 
-import warnings
 from pathlib import Path
 
 from gtl.graph import Graph, Node, GraphVector, Context
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, Operator, F_D, F_P, F_H, Rule
-from gtl.core import (
-    Asset, Edge, Package,
-    consensus,
-)
+from gtl.operator_model import consensus
 
 from genesis.provenance import req_hash
 from genesis.install import workspace_bootstrap
@@ -308,81 +304,3 @@ class TestStaleSpecHashRejection:
         assert gen_gaps(scope, stream)["converged"] is True
 
 
-class TestUnreachableAssetWarning:
-    """
-    Property: Package._validate() warns about assets with no inbound edge
-    that are not graph roots. An asset that appears in no edge at all is
-    unreachable — it cannot be produced or consumed by the graph.
-
-    NOTE: These tests exercise V1 Package validation, not the V2 engine.
-    They remain using V1 types (Asset, Edge, Package) deliberately.
-    """
-
-    def _make_operator(self):
-        return Operator("op", F_P, "agent://test/op")
-
-    def _make_ctx(self):
-        return Context(name="ctx", locator="workspace://ctx.md", digest="sha256:" + "0" * 64)
-
-    def test_warning_for_orphan_asset(self):
-        """An asset that appears in no edge should trigger a warning."""
-        op = self._make_operator()
-        a = Asset(name="design", id_format="DES-{SEQ}")
-        b = Asset(name="code", id_format="CODE-{SEQ}")
-        orphan = Asset(name="orphan", id_format="ORP-{SEQ}")
-        edge = Edge(name="design→code", source=a, target=b, using=[op])
-
-        with warnings.catch_warnings(record=True) as w:
-            warnings.simplefilter("always")
-            Package(
-                name="with_orphan",
-                assets=[a, b, orphan],
-                edges=[edge],
-                operators=[op],
-            )
-        unreachable = [x for x in w if "unreachable" in str(x.message)]
-        assert len(unreachable) == 1
-        assert "orphan" in str(unreachable[0].message)
-
-    def test_no_warning_for_graph_root(self):
-        """A source-only asset (graph root) should NOT trigger a warning."""
-        op = self._make_operator()
-        root = Asset(name="intent", id_format="INT-{SEQ}")
-        mid = Asset(name="design", id_format="DES-{SEQ}")
-        leaf = Asset(name="code", id_format="CODE-{SEQ}")
-        e1 = Edge(name="intent→design", source=root, target=mid, using=[op])
-        e2 = Edge(name="design→code", source=mid, target=leaf, using=[op])
-
-        with warnings.catch_warnings(record=True) as w:
-            warnings.simplefilter("always")
-            Package(
-                name="rooted",
-                assets=[root, mid, leaf],
-                edges=[e1, e2],
-                operators=[op],
-            )
-        unreachable = [x for x in w if "unreachable" in str(x.message)]
-        assert len(unreachable) == 0
-
-    def test_multiple_orphans_produce_multiple_warnings(self):
-        """Each orphan asset gets its own warning."""
-        op = self._make_operator()
-        a = Asset(name="source", id_format="SRC-{SEQ}")
-        b = Asset(name="target", id_format="TGT-{SEQ}")
-        orphan1 = Asset(name="orphan_1", id_format="O1-{SEQ}")
-        orphan2 = Asset(name="orphan_2", id_format="O2-{SEQ}")
-        edge = Edge(name="s→t", source=a, target=b, using=[op])
-
-        with warnings.catch_warnings(record=True) as w:
-            warnings.simplefilter("always")
-            Package(
-                name="multi_orphan",
-                assets=[a, b, orphan1, orphan2],
-                edges=[edge],
-                operators=[op],
-            )
-        unreachable = [x for x in w if "unreachable" in str(x.message)]
-        assert len(unreachable) == 2
-        names = {str(x.message) for x in unreachable}
-        assert any("orphan_1" in n for n in names)
-        assert any("orphan_2" in n for n in names)

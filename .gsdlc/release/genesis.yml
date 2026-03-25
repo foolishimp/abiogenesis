@@ -1,7 +1,6 @@
 # Runtime contract — written by genesis_sdlc installer
 # The ABG engine reads this file at startup.
-package: gtl_spec.packages.project_package:package
-worker:  gtl_spec.packages.project_package:worker
+module:  gtl_spec.packages.project_package:module
 pythonpath:
   - .gsdlc/release
 active_workflow: .gsdlc/release/active-workflow.json

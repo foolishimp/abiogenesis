@@ -1,10 +1,42 @@
 # Implements: REQ-F-CORE-001
 """
-genesis.install — Bootstrap and workspace scaffolding.
+install — Bootstrap and workspace scaffolding.
 
-Workspace initialization, event stream creation, directory structure.
-
-Re-exports from genesis.core during Phase 4 migration.
-Target: abg.install
+workspace_bootstrap scaffolds .ai-workspace/ and returns a bound EventStream.
+Extracted from genesis.core as part of V2 module decomposition.
 """
-from genesis.core import workspace_bootstrap
+from __future__ import annotations
+
+from pathlib import Path
+
+from .events import EventStream, init_stream
+
+
+def workspace_bootstrap(path: Path) -> EventStream:
+    """
+    Scaffold the .ai-workspace/ directory structure and return a bound EventStream.
+
+    Idempotent — safe to call on an existing workspace.
+    Binds the module-level stream so emit() becomes available.
+    """
+    ai_ws = path / ".ai-workspace"
+    directories = [
+        ai_ws / "events",
+        ai_ws / "features" / "active",
+        ai_ws / "features" / "completed",
+        ai_ws / "context",
+        ai_ws / "reviews" / "pending",
+        ai_ws / "reviews" / "proxy-log",
+        ai_ws / "comments" / "claude",
+        ai_ws / "agents",
+    ]
+    for d in directories:
+        d.mkdir(parents=True, exist_ok=True)
+
+    events_file = ai_ws / "events" / "events.jsonl"
+    if not events_file.exists():
+        events_file.touch()
+
+    stream = EventStream(events_file)
+    init_stream(stream)
+    return stream

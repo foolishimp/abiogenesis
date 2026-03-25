@@ -1,8 +1,84 @@
-# Implements: REQ-R-ABG2-PROJECTION
+# Implements: REQ-F-CORE-005
+# Implements: REQ-F-WK-003
 """
-genesis.projection — Pure replay: project truth from event stream.
+projection — Pure replay: project truth from event stream.
 
-Re-exports from genesis.core during Phase 2 migration.
-Target: abg.projection
+project(S, T, I) = project(S, T, I) always — deterministic.
+Extracted from genesis.core as part of V2 module decomposition.
 """
-from genesis.core import project
+from __future__ import annotations
+
+from typing import Any, Optional
+
+from .events import EventStream
+
+
+def project(
+    stream: EventStream,
+    asset_type: str,
+    instance_id: str,
+    *,
+    work_key: Optional[str] = None,
+) -> dict:
+    """
+    Assets are projections, not stored objects.
+
+    project(S, T, I) = project(S, T, I) always — deterministic.
+    The current state of any asset is derived here, never from mutable state.
+
+    work_key: when provided, filters events to those matching this work_key.
+    When absent, all events are considered (global scope).
+    """
+    events = stream.all_events()
+
+    state: dict[str, Any] = {
+        "asset_type": asset_type,
+        "instance_id": instance_id,
+        "status": "not_started",
+        "edges_converged": [],
+        "event_count": 0,
+    }
+    if work_key is not None:
+        state["work_key"] = work_key
+
+    for event in events:
+        data = event.get("data", {})
+        etype = event.get("event_type", "")
+
+        # Work-key scoping
+        if work_key is not None:
+            event_wk = data.get("work_key")
+            if event_wk is not None and event_wk != work_key:
+                continue
+
+        relevant = (
+            data.get("instance_id") == instance_id
+            or data.get("feature") == instance_id
+            or (instance_id == "current" and asset_type in (
+                data.get("target", ""),
+                data.get("asset_type", ""),
+            ))
+            or (instance_id == "current" and etype == "edge_started"
+                and data.get("target") == asset_type)
+        )
+
+        if not relevant:
+            continue
+
+        state["event_count"] += 1
+
+        if etype == "edge_started":
+            if state["status"] == "not_started":
+                state["status"] = "in_progress"
+
+        elif etype == "edge_converged":
+            edge_name = data.get("edge", "")
+            if edge_name and edge_name not in state["edges_converged"]:
+                state["edges_converged"].append(edge_name)
+            if data.get("target") == asset_type:
+                state["status"] = "converged"
+
+        elif etype == "project_initialized":
+            state["initialized"] = True
+
+    return state

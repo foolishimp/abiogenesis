@@ -128,8 +128,8 @@ class Scope:
     worker: Optional[Worker] = None   # explicit worker; None = derived
     active_workflow_path: Optional[str] = None  # runtime contract: path to active-workflow.json
     workflow_root: Optional[str] = None         # runtime contract: base dir for workflow releases
-    work_key: Optional[str] = None    # work identity (ADR-023); None = V1 global
-    run_id: Optional[str] = None      # attempt identity (ADR-023); None = V1 global
+    work_key: Optional[str] = None    # work identity (ADR-023); None = global scope
+    run_id: Optional[str] = None      # attempt identity (ADR-023); None = global scope
     workflow_version: str = field(init=False, default="unknown")
 
     def __post_init__(self) -> None:
@@ -158,9 +158,9 @@ def _resolve_work_keys(scope: "Scope",
 
     Priority:
     1. scope.work_key set explicitly (CLI override) → [scope.work_key]
-    2. scope.feature set (V1: feature_id IS work_key) → [scope.feature]
+    2. scope.feature set (feature_id IS work_key) → [scope.feature]
     3. Enumerate from active feature vectors + spawned children
-    4. Empty list → V1 global (no work_key scoping)
+    4. Empty list → global scope (no work_key scoping)
     """
     if scope.work_key is not None:
         return [scope.work_key]
@@ -193,7 +193,7 @@ def gen_gaps(scope: Scope, stream: EventStream) -> dict:
 
     # Pre-compute which (edge, work_key) tuples already have a well-formed certificate.
     # REQ-F-CMD-004: deduplication keyed on (edge, work_key). When work_key is absent,
-    # falls back to (edge, feature) for V1 compatibility.
+    # falls back to (edge, feature) for fallback compatibility.
     # ADR-026: certificates predating the latest applicable reset are stale —
     # they don't satisfy live convergence queries and must be re-earned.
     all_events = stream.all_events()
@@ -201,7 +201,7 @@ def gen_gaps(scope: Scope, stream: EventStream) -> dict:
     for e in all_events:
         if e.get("event_type") == "edge_converged" and e.get("data", {}).get("target"):
             ed = e["data"]
-            # Use work_key if present, else feature (V1 fallback)
+            # Use work_key if present, else feature (fallback)
             cert_wk = ed.get("work_key", ed.get("feature"))
             # ADR-026: check if this certificate predates the latest applicable reset
             reset = find_latest_reset(all_events, edge=ed.get("edge"), work_key=ed.get("work_key"))
@@ -211,7 +211,7 @@ def gen_gaps(scope: Scope, stream: EventStream) -> dict:
 
     carry_forward = _read_carry_forward(scope)
 
-    # Enumerate work_keys: explicit override, feature-derived, or V1 global [None].
+    # Enumerate work_keys: explicit override, feature-derived, or global scope [None].
     work_keys = _resolve_work_keys(scope, stream)
     work_key_list = work_keys if work_keys else [None]
 
@@ -316,7 +316,7 @@ def gen_iterate(
 
     carry_forward = _read_carry_forward(scope)
 
-    # Enumerate work_keys: explicit override, feature-derived, or V1 global [None].
+    # Enumerate work_keys: explicit override, feature-derived, or global scope [None].
     work_keys = _resolve_work_keys(scope, stream)
     work_key_list = work_keys if work_keys else [None]
 
@@ -484,7 +484,7 @@ def gen_iterate(
 
     # ADR-027 REQ-F-RUN-003: waiter deduplication — at most one run in
     # dispatched/started state per (edge, work_key). Uses find_pending_run()
-    # which replays full run lifecycle instead of the V1 manifest_id fluent.
+    # which replays full run lifecycle instead of the manifest_id fluent.
     if fp_failing:
         pending = find_pending_run(
             stream.all_events(), selected_wi.job.vector.name,
@@ -701,7 +701,7 @@ def _derive_state(scope: Scope, stream: EventStream) -> dict:
 
     carry_forward = _read_carry_forward(scope)
 
-    # Enumerate work_keys: explicit override, feature-derived, or V1 global [None].
+    # Enumerate work_keys: explicit override, feature-derived, or global scope [None].
     work_keys = _resolve_work_keys(scope, stream)
     work_key_list = work_keys if work_keys else [None]
 
@@ -754,12 +754,11 @@ def _scoped_jobs(scope: Scope, worker: Worker) -> list[Job]:
 
     edge override: exact match on job.vector.name — narrows which jobs run.
 
-    feature override (V1 behaviour): existence validation only.
-      V1 has a single trajectory — Jobs are not tagged by feature_id.
+    feature override: existence validation only.
+      Single-trajectory scope — Jobs are not tagged by feature_id.
       --feature REQ-F-CORE validates that feature exists in the workspace;
-      it does not narrow which jobs run (all 5 jobs cover the single trajectory).
+      it does not narrow which jobs run (all jobs cover the single trajectory).
       Unknown feature ID → empty list (fails closed; caller reports error).
-      Per-job feature routing is a V2 concern when multiple packages coexist.
     """
     jobs = list(worker.can_execute)
 

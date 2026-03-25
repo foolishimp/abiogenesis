@@ -3,7 +3,7 @@
 # Implements: REQ-F-BOOT-001
 # Implements: REQ-F-BOOT-002
 """
-gen-install.py — Genesis V1.0 installer
+gen-install.py — Genesis installer
 
 Installs the Genesis engine into a target project so it can be invoked as:
     PYTHONPATH=.genesis python -m genesis <command>

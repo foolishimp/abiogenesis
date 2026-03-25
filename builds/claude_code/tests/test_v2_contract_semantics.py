@@ -260,40 +260,14 @@ class TestCategoricalIdentity:
 
 
 @pytest.mark.integration
-class TestLegacyMarkers:
-    def test_package_docstring_marks_legacy(self):
-        from gtl.core import Package
-        assert "deprecated" in Package.__doc__.lower()
-        assert "Module" in Package.__doc__
-
-    def test_job_relocated_to_binding(self):
-        """Job is canonically in genesis.binding, re-exported from gtl.core."""
-        from gtl.core import Job as CoreJob
-        from genesis.binding import Job as BindingJob
-        assert CoreJob is BindingJob, "gtl.core.Job must be genesis.binding.Job"
-
-    def test_worker_relocated_to_binding(self):
-        """Worker is canonically in genesis.binding, re-exported from gtl.core."""
-        from gtl.core import Worker as CoreWorker
-        from genesis.binding import Worker as BindingWorker
-        assert CoreWorker is BindingWorker, "gtl.core.Worker must be genesis.binding.Worker"
-
-    def test_fragment_docstring_marks_replacement(self):
-        from gtl.core import Fragment
-        assert "deprecated" in Fragment.__doc__.lower()
-        assert "compose" in Fragment.__doc__.lower() or "substitute" in Fragment.__doc__.lower()
-
-    def test_overlay_docstring_marks_replacement(self):
-        from gtl.core import Overlay
-        assert "deprecated" in Overlay.__doc__.lower()
-        assert "compose" in Overlay.__doc__.lower() or "substitute" in Overlay.__doc__.lower()
-
-    def test_package_snapshot_docstring_marks_legacy(self):
-        from gtl.core import PackageSnapshot
-        assert "deprecated" in PackageSnapshot.__doc__.lower()
-
-    def test_gtl_init_documents_v2_surface(self):
+class TestPublicSurface:
+    def test_gtl_init_exports_types(self):
         import gtl
-        assert "V2" in gtl.__doc__
         assert "gtl.graph" in gtl.__doc__
         assert "gtl.module_model" in gtl.__doc__
+        # V2 types are the public surface
+        assert hasattr(gtl, "Graph")
+        assert hasattr(gtl, "Node")
+        assert hasattr(gtl, "GraphVector")
+        assert hasattr(gtl, "Module")
+        assert hasattr(gtl, "Evaluator")

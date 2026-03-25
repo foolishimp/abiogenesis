@@ -197,17 +197,17 @@ class ContextResolver:
 
     def _load_git(self, locator: str) -> str:
         raise NotImplementedError(
-            f"git:// context loading is not implemented in V1: {locator!r}"
+            f"git:// context loading is not yet implemented: {locator!r}"
         )
 
     def _load_event(self, locator: str) -> str:
         raise NotImplementedError(
-            f"event:// context loading is not implemented in V1: {locator!r}"
+            f"event:// context loading is not yet implemented: {locator!r}"
         )
 
     def _load_registry(self, locator: str) -> str:
         raise NotImplementedError(
-            f"registry:// context loading is not implemented in V1: {locator!r}"
+            f"registry:// context loading is not yet implemented: {locator!r}"
         )
 
     def _verify_digest(self, ctx: Context, content: str) -> None:

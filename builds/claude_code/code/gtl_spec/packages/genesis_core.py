@@ -1,13 +1,9 @@
 # Implements: REQ-CORE-001
 """
-genesis_core — V1.0 specification as V2 Module
+genesis_core — Core specification as Module.
 
-V2 structure: Module/Graph/Node/GraphVector with V2 effect declarations
+Module/Graph/Node/GraphVector with effect declarations
 (Evaluator/Operator/Rule from gtl.operator_model).
-
-  Node            → typed asset locus (replaces Asset)
-  GraphVector     → directed step with evaluators (replaces Edge + Job)
-  Graph           → topology of nodes and vectors (replaces Package internals)
   Module          → publication boundary (replaces Package)
 
 No separate requirements document. REQ keys emerge from this Module.

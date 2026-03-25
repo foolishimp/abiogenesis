@@ -1,6 +1,7 @@
 # Implements: REQ-L-GTL2-GRAPH
-# Implements: REQ-L-GTL2-NODE
+# Implements: REQ-L-GTL2-NODE (including NODE-003: markov as first-class field)
 # Implements: REQ-L-GTL2-INTERFACE
+# Implements: REQ-L-GTL2-IDENTITY
 """
 gtl.graph — Graph structure primitives.
 
@@ -11,8 +12,14 @@ No external dependencies. Dataclasses + stdlib only.
 """
 from __future__ import annotations
 
+import uuid
 from dataclasses import dataclass, field
 from typing import Any, Optional
+
+
+def _mint_id() -> str:
+    """Auto-mint an opaque identity for a first-class GTL type."""
+    return str(uuid.uuid4())
 
 
 # ── Context ───────────────────────────────────────────────────────────────
@@ -50,10 +57,18 @@ class Node:
 
     schema: type reference or URI string — supports both concrete Python
     types and string references (e.g. "Vector[intent]").
+
+    markov: declarative state/acceptance conditions at this locus
+    (REQ-L-GTL2-NODE-003). Constitutional vocabulary — not runtime metadata.
+
+    id: opaque identity (REQ-L-GTL2-IDENTITY-001). Auto-minted.
+    compare=False: structural equality ignores id (REQ-L-GTL2-IDENTITY-005).
     """
     name: str
     schema: type | str = ""
+    markov: tuple[str, ...] = ()
     tags: tuple[str, ...] = ()
+    id: str = field(default_factory=_mint_id, compare=False)
 
 
 # ── GraphVector (internal adjacency record) ──────────────────────────────
@@ -66,6 +81,9 @@ class GraphVector:
     Represents a directed step between typed nodes, carrying local
     operator/evaluator metadata. Used by the engine for scheduling,
     binding, and substitution.
+
+    id: opaque identity (REQ-L-GTL2-IDENTITY-001). Auto-minted.
+    compare=False: structural equality ignores id (REQ-L-GTL2-IDENTITY-005).
     """
     name: str
     source: Node | tuple[Node, ...] = None  # type: ignore[assignment]
@@ -76,6 +94,7 @@ class GraphVector:
     rule: Any = None
     allows_subwork: bool = False
     tags: tuple[str, ...] = ()
+    id: str = field(default_factory=_mint_id, compare=False)
 
 
 # ── Graph ─────────────────────────────────────────────────────────────────
@@ -90,6 +109,9 @@ class Graph:
 
     REQ-L-GTL2-GRAPH-001: frozen, immutable value type with name, inputs,
     outputs, nodes, vectors, contexts, rules, effects, tags.
+
+    id: opaque identity (REQ-L-GTL2-IDENTITY-001). Auto-minted.
+    compare=False: structural equality ignores id (REQ-L-GTL2-IDENTITY-005).
     """
     name: str
     inputs: tuple[Node, ...] = ()
@@ -100,3 +122,4 @@ class Graph:
     rules: tuple = ()
     effects: tuple = ()
     tags: tuple[str, ...] = ()
+    id: str = field(default_factory=_mint_id, compare=False)

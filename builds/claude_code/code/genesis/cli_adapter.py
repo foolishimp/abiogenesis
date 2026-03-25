@@ -226,9 +226,9 @@ def _check_req_coverage(spec_path: str, features_dir: str,
             print(json.dumps({"error": f"{var_name!r} not found in {module_name}"}),
                   file=sys.stderr)
             return 1
-        # V2 Module: requirements in metadata; V1 Package: requirements attribute
-        reqs = getattr(pkg, "requirements", [])
-        if not reqs and hasattr(pkg, "metadata") and isinstance(pkg.metadata, dict):
+        # Module: requirements in metadata
+        reqs = []
+        if hasattr(pkg, "metadata") and isinstance(pkg.metadata, dict):
             reqs = pkg.metadata.get("requirements", [])
         spec_keys = set(reqs)
         source = f"package:{package_ref}"
@@ -292,9 +292,9 @@ def _check_tag_coverage(tag_type: str, package_ref: str, scan_path: str) -> int:
               file=sys.stderr)
         return 1
 
-    # V2 Module: requirements in metadata; V1 Package: requirements attribute
-    reqs = getattr(pkg, "requirements", [])
-    if not reqs and hasattr(pkg, "metadata") and isinstance(pkg.metadata, dict):
+    # Module: requirements in metadata
+    reqs = []
+    if hasattr(pkg, "metadata") and isinstance(pkg.metadata, dict):
         reqs = pkg.metadata.get("requirements", [])
     req_keys = list(reqs)
     path = Path(scan_path)

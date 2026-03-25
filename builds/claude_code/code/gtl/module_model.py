@@ -24,13 +24,18 @@ class ModuleImport:
     version: str = ""
 
 
-@dataclass
+@dataclass(frozen=True)
 class Module:
     """
     Publication boundary — the named, composable unit of GTL declarations.
 
     V2 replacement for Package. Module is a pure declaration boundary;
     runtime concerns (workers, requirements) belong to ABG.
+
+    metadata: mapping visible to policy/evaluator layers
+    (REQ-L-GTL2-MODULE-001). Attribute binding is frozen; dict contents
+    are conventionally immutable after construction (shallow freeze,
+    matching the accepted design in GTL_2_MODULE_DESIGN.md).
     """
     name: str
     graphs: tuple[Graph, ...] = ()

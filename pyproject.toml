@@ -22,6 +22,8 @@ markers = [
     "integration: integration tests (sandbox + domain-blind + qualification)",
     "live_fp: live F_P qualification tests (requires ANTHROPIC_API_KEY)",
 ]
+timeout = 30
+timeout_method = "signal"
 
 [tool.setuptools]
 packages = ["genesis", "gtl"]

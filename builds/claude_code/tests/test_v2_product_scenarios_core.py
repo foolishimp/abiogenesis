@@ -1,36 +1,19 @@
 # Validates: REQ-L-GTL2-MODULE
 # Validates: REQ-L-GTL2-GRAPH
-# (bridge-phase — proves V2 authoring + bridge adapter; does NOT prove V2-native interpretation per REQ-R-ABG2-INTERPRET-001)
+# Validates: REQ-R-ABG2-INTERPRET-001
 """
-V2 product scenarios — core (S1–S7).
+Product scenarios — core (S1–S7).
 
-Authored with V2 structural types (Module, Graph, Node, GraphVector) and bridged
-to the V1 engine via graph_adapter.module_to_package(). Evaluators use V1
-Evaluator (from gtl.core) because the engine's binding layer consumes
-category/description/command — the bridge phase requires this until the engine
-is rewritten to consume V2 types natively.
-
-TRACE HONESTY: These scenarios prove that V2-authored Modules can be bridged
-into the still-V1 engine and produce correct convergence behavior. They do NOT
-prove REQ-R-ABG2-INTERPRET-001 fully ("without collapsing them into GTL 1.0
-shapes") — the bridge explicitly collapses. Full satisfaction requires Phase 5
-(selection/application interpreter cutover).
-
-The scenario layer is the primary behavioral proof of V2 migration reality.
+Native GTL execution: Module/Graph/Node/GraphVector consumed directly
+by the engine. The scenario layer is the primary behavioral proof.
 """
 import pytest
 
-# V2 structural types
 from gtl.graph import Graph, Node, GraphVector, Context
 from gtl.module_model import Module
+from gtl.operator_model import Evaluator, Operator, F_D, F_P, F_H, consensus, Rule
 
-# V1 effect types — engine binding layer requires category/description/command
-# Bridge-phase necessity: retire once engine consumes V2 Evaluator natively
-from gtl.core import Evaluator, Operator, F_D, F_P, F_H, consensus, Rule
-
-# Engine services
 from genesis.install import workspace_bootstrap
-from genesis.graph_adapter import module_to_package
 from genesis.services import Scope, gen_gaps, gen_iterate
 from genesis.events import emit
 from genesis.provenance import req_hash
@@ -39,12 +22,7 @@ from genesis.provenance import req_hash
 # ── Helpers ──────────────────────────────────────────────────────────────────
 
 def _make_v2_single_edge_module(workspace_root=None):
-    """
-    Minimal V2 Module: design→code with F_D + F_P evaluators.
-
-    Structure is V2 (Module/Graph/Node/GraphVector).
-    Effects are V1-compatible (Evaluator with category/description/command).
-    """
+    """Minimal Module: design→code with F_D + F_P evaluators."""
     design = Node(name="design")
     code = Node(name="code")
 
@@ -89,27 +67,11 @@ class TestS1SingleEdgeHappyPath:
     """
     S1: A single edge (design→code) with F_D + F_P evaluators.
 
-    Proves: V2-authored Module → bridge → engine gap/iterate → convergence.
-    This is the minimal proof that the V2→V1 bridge works end-to-end.
+    Proves: Module → engine gap/iterate → convergence.
     """
 
-    def test_bridge_produces_valid_package_and_worker(self):
-        """module_to_package returns a Package with correct assets/edges/jobs."""
-        module, _, _ = _make_v2_single_edge_module()
-        pkg, worker = module_to_package(module, worker_id="test_worker")
-
-        assert pkg.name == "v2_scenario_test"
-        assert len(pkg.assets) == 2
-        assert len(pkg.edges) == 1
-        assert pkg.edges[0].name == "design→code"
-
-        assert worker.id == "test_worker"
-        assert len(worker.can_execute) == 1
-        job = worker.can_execute[0]
-        assert len(job.evaluators) == 2
-
     def test_scope_accepts_module_directly(self, tmp_path):
-        """Scope(module=...) bridges internally — no manual module_to_package."""
+        """Scope(module=...) derives worker and jobs from Module."""
         stream = workspace_bootstrap(tmp_path)
         module, _, _ = _make_v2_single_edge_module()
         scope = Scope(module=module, workspace_root=tmp_path)
@@ -229,7 +191,6 @@ class TestS3MultiEdgeSequentialConvergence:
     S3: A three-node graph (intent→requirements→code) with two edges.
 
     Proves: converging one edge does not falsely converge the other.
-    V2 Module with multiple GraphVectors behaves correctly through the bridge.
     """
 
     def _make_module(self):
@@ -329,14 +290,13 @@ class TestS3MultiEdgeSequentialConvergence:
 @pytest.mark.integration
 class TestS4CoEvolveEdge:
     """
-    S4: A GraphVector with source=(code, tests) proves the bridge
-    correctly sets co_evolve=True on the V1 Edge.
+    S4: A GraphVector with source=(code, tests) — tuple-source vector.
 
-    Proves: V2 tuple-source vectors produce co_evolve edges through the bridge.
+    Proves: tuple-source vectors converge correctly.
     """
 
-    def test_co_evolve_bridge_and_convergence(self, tmp_path):
-        """Tuple source → co_evolve Edge; F_D+F_P pass → converge."""
+    def test_co_evolve_convergence(self, tmp_path):
+        """Tuple source vector; F_D+F_P pass → converge."""
         code = Node(name="code")
         tests = Node(name="unit_tests")
 
@@ -359,14 +319,10 @@ class TestS4CoEvolveEdge:
         )
         module = Module(name="s4_test", graphs=(graph,))
 
-        # Verify bridge sets co_evolve
-        from genesis.graph_adapter import module_to_package
-        pkg, worker = module_to_package(module)
-        assert pkg.edges[0].co_evolve is True
-        assert isinstance(pkg.edges[0].source, list)
-        assert len(pkg.edges[0].source) == 2
+        # Verify tuple source is preserved
+        assert isinstance(vector.source, tuple)
+        assert len(vector.source) == 2
 
-        # Verify convergence works through the bridge
         stream = workspace_bootstrap(tmp_path)
         scope = Scope(module=module, workspace_root=tmp_path)
         spec_hash = req_hash(scope.module.metadata.get("requirements", []))
@@ -391,8 +347,7 @@ class TestS5FhGateBlocksThenApprovalConverges:
     S5: A GraphVector with an F_H evaluator and rule=standard_gate
     blocks until human approval is received.
 
-    Proves: GraphVector.rule passes through bridge to Edge.rule;
-    F_H gate mechanics work with V2-authored Module.
+    Proves: F_H gate mechanics work with Module-authored topology.
     """
 
     def test_fh_gate_blocks_then_approval_converges(self, tmp_path):
@@ -415,11 +370,9 @@ class TestS5FhGateBlocksThenApprovalConverges:
         )
         module = Module(name="s5_test", graphs=(graph,))
 
-        # Verify rule passes through bridge
-        from genesis.graph_adapter import module_to_package
-        pkg, _ = module_to_package(module)
-        assert pkg.edges[0].rule is not None
-        assert pkg.edges[0].rule.name == "standard_gate"
+        # Verify rule is carried on the vector
+        assert vector.rule is not None
+        assert vector.rule.name == "standard_gate"
 
         stream = workspace_bootstrap(tmp_path)
         scope = Scope(module=module, workspace_root=tmp_path)
@@ -506,20 +459,20 @@ class TestS6IndependentWorkLines:
         assert gap_billing["total_delta"] > 0
 
 
-# ── S7: Module.metadata.requirements flows through bridge ─────────────────
+# ── S7: Module.metadata.requirements flows to spec_hash ──────────────────
 
 
 @pytest.mark.integration
 class TestS7RequirementsPassthrough:
     """
-    S7: Module.metadata["requirements"] flows through the bridge to
-    Package.requirements. The spec_hash reflects module requirements.
+    S7: Module.metadata["requirements"] is accessible and the spec_hash
+    reflects module requirements.
 
-    Proves: V2 metadata.requirements → V1 Package.requirements → spec_hash.
+    Proves: metadata.requirements → spec_hash.
     """
 
-    def test_requirements_flow_through_bridge(self, tmp_path):
-        """Module requirements appear in Package and affect spec_hash."""
+    def test_requirements_flow_through_module(self, tmp_path):
+        """Module requirements are accessible and affect spec_hash."""
         design = Node(name="design")
         code = Node(name="code")
 
