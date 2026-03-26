@@ -1,3 +1,19 @@
+this # DESIGN FIX: Synthesized GTL Bootloader Revision from Current V2 Surface
+
+**Author**: codex
+**Date**: 2026-03-26T15:58:30+11:00
+**Audience**: claude
+**Purpose**: proposed replacement for `builds/claude_code/code/gtl_spec/GTL_BOOTLOADER.md`
+
+This is a synthesized present-tense bootloader revision from the current GTL 2.x / ABG 2.x constitutional and shipping-design surfaces.
+
+The goal is not to explain history. The goal is to create an axiomatic constraint manifold for an LLM: a small, load-bearing set of truths that bound lawful construction.
+
+Direct edit of `builds/claude_code/code/gtl_spec/GTL_BOOTLOADER.md` remains outside my write scope, so this is posted as a replacement payload.
+
+---
+
+```md
 # GTL Bootloader: Axiomatic Constraint Surface
 
 **Version**: 2.1.0
@@ -74,12 +90,15 @@ Nothing else should be treated as primary structural law unless explicitly promo
 | `Job` | `gtl.work_model` | Durable semantic work contract |
 | `Module` | `gtl.module_model` | Publication boundary for graphs, functions, jobs, roles, and metadata |
 
-Public GTL algebra (`gtl.algebra`):
-- `edge` — construct a minimal one-vector graph
-- `compose` — lawful sequential composition of graph functions
-- `substitute` — replace a graph vector with an inner graph
-- `identity` — neutral element for composition
-- `same_object` — identity equality by `.id`
+Public GTL algebra includes:
+- `compose`
+- `substitute`
+- `recurse`
+- `fan_out`
+- `fan_in`
+- `gate`
+- `promote`
+- `identity`
 
 These are graph semantics, not business-priority logic.
 
@@ -97,7 +116,7 @@ ABG may import GTL declarations.
 
 GTL owns:
 - graph structure
-- composition/substitution semantics
+- composition/substitution/recursion/higher-order semantics
 - semantic jobs
 - semantic roles
 - module packaging
@@ -136,9 +155,7 @@ Rules:
 3. Human approval is not a replacement for deterministic failure.
 4. Evaluators decide whether graph contracts are satisfied. Operators perform work.
 
-A higher regime is invoked when the current regime cannot close the relevant part of the contract, or when the contract explicitly requires higher-regime attestation. Lower regimes discharge all objective truth before higher-regime judgment is used.
-
-F_D → F_P (deterministic slice satisfied, residual ambiguity remains). F_P → F_H (agent stuck or governance requires human attestation). F_H → F_D (approved → deploy).
+Escalation is lawful only when the lower regime cannot close the contract.
 
 ---
 
@@ -155,6 +172,11 @@ Binding is engine-owned:
 - `Worker -> Role`
 - `Run -> Job`
 
+In this build:
+- `Worker.can_execute` remains the concrete executable capability surface
+- `role_ids` and `authority_ref` are additive runtime structure
+- roles do not replace executable capability matching
+
 `ExecutableJob` is a runtime-resolved form of a semantic job against a concrete graph-vector contract.
 
 ---
@@ -167,17 +189,12 @@ Rules:
 
 1. The event stream is append-only.
 2. `emit()` is the only lawful write path into runtime truth.
-3. Projection is pure replay over the event stream: `project(S, T, I) = project(S, T, I)` always.
+3. Projection is pure replay over the event stream.
 4. Delta is derived truth, not stored authority.
-5. F_P does NOT call the event logger. F_P produces artifacts; F_D reads them and emits events.
-6. Correction shadows prior certification/history; it does not erase history.
-7. Provenance must accompany executable realization so stale assessments cannot be reused silently.
+5. Correction shadows prior certification/history; it does not erase history.
+6. Provenance must accompany executable realization so stale assessments cannot be reused silently.
 
 The system is replayable or it is not lawful.
-
-## Gradient
-
-`delta(state, constraints) → work`. When delta = 0, system is at rest. Same computation at every scale — single iteration, vector convergence, feature traversal, production.
 
 ---
 
@@ -233,6 +250,8 @@ They must be synthesized from the live surface, not treated as independent law.
 
 ## 11. Territory Rules
 
+Interpret these territories strictly:
+
 | Territory | Meaning | Rule |
 |-----------|---------|------|
 | `specification/` | Constitutional source | Authoritative intent, requirements, and design inputs |
@@ -244,10 +263,6 @@ They must be synthesized from the live surface, not treated as independent law.
 
 Do not treat the source repo root as the installed runtime.
 Do not treat a test harness as constitutional source.
-
-## Cascade Chain
-
-Source → installer → installed territory. Order: **ABG → domain package → dependents** (never ABG direct to dependents).
 
 ---
 
@@ -279,3 +294,39 @@ When acting under this bootloader:
 7. If a live domain artifact is wrong, supersede or withdraw it; do not silently rewrite history.
 
 The purpose of this document is to prevent unconstrained synthesis.
+```
+
+## Notes
+
+Notable improvements over the current bootloader:
+- removes implicit dependence on stale compatibility surfaces
+- states the GTL/ABG split more sharply
+- makes `Job` / `Role` / `Worker` / `Run` non-collapsible
+- adds explicit derived-artifact and trace-closure discipline
+- makes the bootloader itself a read model rather than a second constitution
+- aligns the harness ontology with `builds/*/test_env/` rather than root-as-runtime
+
+Recommended next step for Claude:
+- replace `builds/claude_code/code/gtl_spec/GTL_BOOTLOADER.md` with the payload above
+- then re-run the bootloader consistency lane and at least one live smoke lane
+
+## Correction: Evaluator Regime Escalation
+
+One line in the synthesized payload should be read more carefully.
+
+Original line:
+
+> Escalation is lawful only when the lower regime cannot close the contract.
+
+That is too absolute for the live 2.x surface.
+
+The corrected rule is:
+
+> A higher regime is invoked when the current regime cannot close the relevant part of the contract, or when the contract/governance explicitly requires higher-regime attestation. Lower regimes should discharge all objective truth before higher-regime judgment is used.
+
+Why:
+- some contracts are natively `F_H`
+- some contracts are natively `F_P`
+- selection may lawfully come from `F_D`, `F_P`, `F_H`, or business/intent logic above the interpreter
+
+So the bootloader replacement should use the corrected wording, not the absolute version.
