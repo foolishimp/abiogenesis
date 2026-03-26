@@ -58,12 +58,30 @@ from scenario_helpers import (
 )
 
 
-# ── Skip if no agent CLI ─────────────────────────────────────────────────────
+# ── Opt-in only: skip unless explicitly selected via -m live_fp ──────────────
+# These tests invoke real LLM calls (10-min timeout each). They must never run
+# in default test collection. The conftest.py hook skips all live_fp tests
+# unless -m live_fp is explicitly passed.
+#
+# The skip_no_agent decorator is a LAZY check — it only probes the Claude CLI
+# when tests actually execute (after the conftest hook has already skipped
+# them in default runs). This prevents a 30-second CLI probe at collection.
 
 pytestmark = [pytest.mark.live_fp, pytest.mark.timeout(600)]
 
+_transport_checked = False
+_transport_ok = False
+
+def _lazy_transport_check():
+    """Probe Claude CLI only once, only when actually called."""
+    global _transport_checked, _transport_ok
+    if not _transport_checked:
+        _transport_ok = _has_mcp_transport()
+        _transport_checked = True
+    return _transport_ok
+
 skip_no_agent = pytest.mark.skipif(
-    not _has_mcp_transport(),
+    "not _lazy_transport_check()",
     reason="Claude Code CLI not available — live F_P qualification requires claude on PATH",
 )
 

@@ -20,8 +20,11 @@ testpaths = ["builds/claude_code/tests"]
 pythonpath = ["builds/claude_code/code", ".genesis", "builds/claude_code/tests"]
 markers = [
     "integration: integration tests (sandbox + domain-blind + qualification)",
-    "live_fp: live F_P qualification tests (requires ANTHROPIC_API_KEY)",
+    "live_fp: live F_P qualification tests (requires claude CLI — opt-in only)",
+    "e2e: end-to-end tests (sandbox lifecycle — opt-in only)",
 ]
+# Default: exclude opt-in markers. Override with: pytest -m live_fp
+addopts = "-m 'not live_fp and not e2e'"
 timeout = 30
 timeout_method = "signal"
 
