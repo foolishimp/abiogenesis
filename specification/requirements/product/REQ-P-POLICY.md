@@ -1,6 +1,7 @@
 # REQ-P-POLICY — Product and Runtime Policy
 
 **Status**: Active
+**Category**: Governance
 **Date**: 2026-03-24
 **Derives from**: INT-GTL2-007
 **Supersedes**: REQ-F-BOOT (replaced — policy portions), REQ-F-VIS (replaced)

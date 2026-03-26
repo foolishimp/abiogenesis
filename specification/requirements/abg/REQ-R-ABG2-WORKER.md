@@ -1,6 +1,7 @@
 # REQ-R-ABG2-WORKER — Worker Identity and External Authority Hooks
 
 **Status**: Active
+**Category**: Capability
 **Date**: 2026-03-25
 **Derives from**: INT-GTL2-013
 **Supersedes**: (split from REQ-R-ABG2-JOB-WORKER)

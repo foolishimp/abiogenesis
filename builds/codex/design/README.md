@@ -13,7 +13,6 @@ Governing truth lives in:
 
 | ADR | Decision | Why it survives |
 |-----|----------|----------------|
-| ADR-001 | Codex build realization | Codex-local build identity, paths, and isolation boundary |
 | ADR-002 | Job / Role / Worker split with immutable WorkSurface | Codex-local realization of the V2 work-model correction |
 
 ## Shared duplication
@@ -25,3 +24,5 @@ Where a codex-local ADR conflicts with the duplicated shared design, the codex A
 ## Traceability
 
 Traceability derives from the active 2.x requirement surface.
+Live requirement headers carry `Status` and `Category` metadata per `specification/SPEC_METHOD.md`.
+ADR-002 refines `REQ-L-GTL2-JOB`, `REQ-L-GTL2-ROLE`, `REQ-L-GTL2-IDENTITY`, `REQ-R-ABG2-WORKER`, `REQ-R-ABG2-BINDING`, and `REQ-R-ABG2-RUN` for the codex build.

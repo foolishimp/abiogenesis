@@ -1,6 +1,7 @@
 # REQ-R-ABG2-LINEAGE — Work Identity and Lineage
 
 **Status**: Active
+**Category**: Capability
 **Date**: 2026-03-24
 **Derives from**: INT-GTL2-006, INT-GTL2-010
 **Supersedes**: REQ-F-WK (subsumed), REQ-F-REFINE (replaced — lineage portions), REQ-F-TRAV (subsumed — lineage portions)

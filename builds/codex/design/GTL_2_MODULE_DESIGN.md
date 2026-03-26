@@ -7,7 +7,6 @@
 **Derived from**:
 - [GTL_2_CONSTITUTIONAL_DESIGN.md](../../specification/GTL_2_CONSTITUTIONAL_DESIGN.md)
 - [specification/requirements/](../../specification/requirements/)
-- [ADR-001](adrs/ADR-001-codex-build.md)
 - [ADR-002](adrs/ADR-002-job-role-worker-worksurface.md)
 
 ---
@@ -639,7 +638,7 @@ abg.install         → abg.events, gtl.module_model
 | ABG transport | REQ-R-ABG2-TRANSPORT |
 | ABG self-hosting | REQ-R-ABG2-SELFHOSTING |
 | Mapping layer | REQ-M-GTL2-MAPPING, REQ-M-GTL2-CAPABILITY, REQ-M-GTL2-PROVENANCE |
-| Product layer | REQ-P-POLICY, REQ-P-SCENARIOS, REQ-P-LIBRARIES |
+| Product layer | REQ-P-POLICY, REQ-P-SCENARIOS, REQ-P-QUAL |
 
 ---
 

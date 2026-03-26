@@ -1,5 +1,7 @@
 # ADR-024 — Preserve `markov` as a First-Class V2 Node Field
 
+**Implements**: REQ-L-GTL2-NODE
+
 ## Status
 Accepted
 

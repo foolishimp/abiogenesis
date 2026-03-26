@@ -15,24 +15,8 @@ from scenario_helpers import create_run_archive
 
 def pytest_configure(config):
     config.addinivalue_line("markers", "integration: integration tests (sandbox + domain-blind + qualification)")
-    config.addinivalue_line("markers", "live_fp: live F_P qualification tests (requires claude CLI — opt-in only)")
-    config.addinivalue_line("markers", "e2e: end-to-end tests (sandbox lifecycle — opt-in only)")
-
-
-def pytest_collection_modifyitems(config, items):
-    """Defense-in-depth: skip live_fp tests unless explicitly selected.
-
-    Primary exclusion is via addopts in pyproject.toml. This hook catches
-    cases where someone overrides -m without excluding live_fp.
-    These tests invoke real LLM subprocess calls with 10-minute timeouts.
-    """
-    marker_expr = config.getoption("-m", default="")
-    if "live_fp" in marker_expr:
-        return  # explicitly requested — don't skip
-    skip = pytest.mark.skip(reason="live_fp tests are opt-in only — run with: pytest -m live_fp")
-    for item in items:
-        if "live_fp" in item.keywords:
-            item.add_marker(skip)
+    config.addinivalue_line("markers", "live_fp: live F_P qualification tests (requires claude CLI)")
+    config.addinivalue_line("markers", "e2e: end-to-end tests (sandbox lifecycle)")
 
 
 @pytest.fixture

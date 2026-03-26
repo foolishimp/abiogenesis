@@ -926,7 +926,6 @@ The live requirement surface expresses that design through four active layers.
 
 - `REQ-P-POLICY`
 - `REQ-P-SCENARIOS`
-- `REQ-P-LIBRARIES`
 
 ---
 

@@ -1,6 +1,7 @@
 # REQ-L-GTL2-RECURSE — Recursive Graph Application
 
 **Status**: Active
+**Category**: Capability
 **Date**: 2026-03-24
 **Derives from**: INT-GTL2-006
 **Supersedes**: REQ-F-REFINE (replaced — spawn/fold-back portions)

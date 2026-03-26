@@ -4,6 +4,8 @@
 
 Accepted
 
+**Implements**: REQ-L-GTL2-JOB, REQ-L-GTL2-ROLE, REQ-L-GTL2-IDENTITY, REQ-R-ABG2-WORKER, REQ-R-ABG2-BINDING, REQ-R-ABG2-RUN
+
 ## Context
 
 The codex build still conflates:

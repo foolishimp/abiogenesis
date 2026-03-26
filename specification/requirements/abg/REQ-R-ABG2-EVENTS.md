@@ -1,6 +1,7 @@
 # REQ-R-ABG2-EVENTS — Event Emission and Stream
 
 **Status**: Active
+**Category**: Capability
 **Date**: 2026-03-24
 **Derives from**: INT-GTL2-010
 **Supersedes**: REQ-F-EC (replaced), REQ-F-WKSP (replaced — event-stream portions), REQ-F-CORE (replaced — event portions)

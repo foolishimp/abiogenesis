@@ -1,6 +1,7 @@
 # REQ-L-GTL2-NODE — Typed Loci with Markov Conditions
 
 **Status**: Active
+**Category**: Capability
 **Date**: 2026-03-25
 **Derives from**: INT-GTL2-001, INT-GTL2-004
 **Supersedes**: REQ-F-GRAPH (replaced — Asset concept reinterpreted as node schema/type)

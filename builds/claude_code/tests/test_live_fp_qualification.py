@@ -51,6 +51,8 @@ from pathlib import Path
 
 import pytest
 
+from genesis.transport import has_agent
+
 from scenario_helpers import (
     RunArchive, install_sandbox, write_test_package,
     run_genesis, run_genesis_json, read_events,
@@ -58,32 +60,34 @@ from scenario_helpers import (
 )
 
 
-# ── Opt-in only: skip unless explicitly selected via -m live_fp ──────────────
-# These tests invoke real LLM calls (10-min timeout each). They must never run
-# in default test collection. The conftest.py hook skips all live_fp tests
-# unless -m live_fp is explicitly passed.
+# ── Guard: skip at collection if claude CLI is not on PATH ──────────────────
+# Two-tier readiness check:
+#   1. Collection time (cheap): shutil.which("claude") — is the binary installed?
+#      If not, skip immediately. No subprocess, no hang.
+#   2. Test setup (once per session): _has_mcp_transport() — is it authenticated?
+#      Runs a single "READY" probe before any live test executes.
+#      If it fails, all live tests are skipped with a clear message.
 #
-# The skip_no_agent decorator is a LAZY check — it only probes the Claude CLI
-# when tests actually execute (after the conftest hook has already skipped
-# them in default runs). This prevents a 30-second CLI probe at collection.
+# This keeps the tests visible in default `pytest --co` output (important for
+# auditing coverage) while preventing hangs from import-time subprocess calls.
 
 pytestmark = [pytest.mark.live_fp, pytest.mark.timeout(600)]
 
-_transport_checked = False
-_transport_ok = False
-
-def _lazy_transport_check():
-    """Probe Claude CLI only once, only when actually called."""
-    global _transport_checked, _transport_ok
-    if not _transport_checked:
-        _transport_ok = _has_mcp_transport()
-        _transport_checked = True
-    return _transport_ok
-
+# Tier 1: cheap PATH check at collection time (no subprocess)
 skip_no_agent = pytest.mark.skipif(
-    "not _lazy_transport_check()",
-    reason="Claude Code CLI not available — live F_P qualification requires claude on PATH",
+    not has_agent("claude"),
+    reason="claude CLI not on PATH — install Claude Code to run live F_P qualification",
 )
+
+
+# Tier 2: session-scoped auth probe (runs once before first live test)
+@pytest.fixture(scope="session", autouse=True)
+def _verify_agent_transport():
+    """Probe Claude CLI readiness once per session. Skip all if not authenticated."""
+    if not has_agent("claude"):
+        pytest.skip("claude CLI not on PATH")
+    if not _has_mcp_transport():
+        pytest.skip("claude CLI on PATH but not authenticated — run `claude` to login")
 
 
 # ══════════════════════════════════════════════════════════════════════════════

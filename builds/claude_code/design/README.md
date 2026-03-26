@@ -21,3 +21,4 @@ New ADRs will be numbered from ADR-031 and implement REQ-L-GTL2-* / REQ-R-ABG2-*
 ## Traceability
 
 V1 trace matrices retired. New traceability derives from the 2.0 requirement surface.
+Live requirement headers carry `Status` and `Category` metadata per `specification/SPEC_METHOD.md`.

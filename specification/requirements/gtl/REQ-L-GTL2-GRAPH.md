@@ -1,6 +1,7 @@
 # REQ-L-GTL2-GRAPH — Graph Primacy
 
 **Status**: Active
+**Category**: Capability
 **Date**: 2026-03-24
 **Derives from**: INT-GTL2-001
 **Supersedes**: REQ-F-GRAPH (replaced)

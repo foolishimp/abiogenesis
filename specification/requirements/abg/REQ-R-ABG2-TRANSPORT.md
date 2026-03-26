@@ -1,6 +1,7 @@
 # REQ-R-ABG2-TRANSPORT — Agent Transport
 
 **Status**: Active
+**Category**: Capability
 **Date**: 2026-03-24
 **Derives from**: INT-GTL2-010
 **Supersedes**: ADR-022 (implementation decision, now grounded in 2.x requirement)

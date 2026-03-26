@@ -1,6 +1,7 @@
 # REQ-L-GTL2-EVALUATOR — Evaluators as First-Class Convergence Surfaces
 
 **Status**: Active
+**Category**: Capability
 **Date**: 2026-03-25
 **Derives from**: INT-GTL2-003A
 **Supersedes**: REQ-F-EVAL (replaced — evaluator portions)

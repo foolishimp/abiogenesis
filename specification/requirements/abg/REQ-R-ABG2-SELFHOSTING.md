@@ -1,6 +1,7 @@
 # REQ-R-ABG2-SELFHOSTING — Derived Artifact Governance
 
 **Status**: Active
+**Category**: Governance
 **Date**: 2026-03-24
 **Derives from**: INT-GTL2-008
 **Supersedes**: REQ-F-BOOTDOC (subsumed)

@@ -1,8 +1,9 @@
 # REQ-P-QUAL — Qualification Infrastructure
 
 **Status**: Active
+**Category**: Verification
 **Date**: 2026-03-25
-**Derives from**: INT-005 (run governance, failure classification), METHODOLOGY.md (Verification Layers)
+**Derives from**: INT-005 (run governance, failure classification), SPEC_METHOD.md (Verification Layers)
 **Supersedes**: (none — previously unspecified)
 **Wave**: 2
 

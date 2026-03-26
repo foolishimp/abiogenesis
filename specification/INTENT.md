@@ -335,7 +335,7 @@ INT-004 established the structural primitives: work identity, compositional grap
 **Date**: 2026-03-24
 **Status**: Draft
 **Derived from**: Product scenario gap analysis (20260324T165057_PRODUCT_SCENARIOS_abg-gtl-first-10.md, Scenarios 11–14), Codex proposal (20260324T184835_PROPOSAL_functional-composition-evaluator-selection.md)
-**Renewal path**: Current spec → product-owner scenarios → gap analysis → this intent (per METHODOLOGY.md §Renewal Path)
+**Renewal path**: Current spec → product-owner scenarios → gap analysis → this intent (per SPEC_METHOD.md §Renewal Path)
 
 ### Problem
 
@@ -489,7 +489,7 @@ Replay law: which candidates existed is structural truth, which was chosen is ev
 **Date**: 2026-03-25
 **Status**: Draft
 **Derived from**: Product-owner gap analysis of V2 semantic incompleteness, Codex strategy `20260325T183500_STRATEGY_job-role-worker-requirement-cascade.md`
-**Renewal path**: Current V2 spec → gap analysis → this intent correction (per METHODOLOGY.md §Renewal Path)
+**Renewal path**: Current V2 spec → gap analysis → this intent correction (per SPEC_METHOD.md §Renewal Path)
 
 ### Problem
 

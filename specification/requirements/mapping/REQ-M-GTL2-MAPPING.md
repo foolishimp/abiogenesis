@@ -1,6 +1,7 @@
 # REQ-M-GTL2-MAPPING — Engine Mapping Contract
 
 **Status**: Active
+**Category**: Capability
 **Date**: 2026-03-24
 **Derives from**: INT-GTL2-009
 **Supersedes**: (new layer)

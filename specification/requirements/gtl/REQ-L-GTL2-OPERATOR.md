@@ -1,6 +1,7 @@
 # REQ-L-GTL2-OPERATOR — Operators as First-Class Regimes
 
 **Status**: Active
+**Category**: Capability
 **Date**: 2026-03-24
 **Derives from**: INT-GTL2-003
 **Supersedes**: REQ-F-EVAL (replaced — operator portions)

@@ -560,7 +560,7 @@ abg.install         → abg.events, gtl.module_model
 | ABG transport | REQ-R-ABG2-TRANSPORT |
 | ABG self-hosting | REQ-R-ABG2-SELFHOSTING |
 | Mapping layer | REQ-M-GTL2-MAPPING, REQ-M-GTL2-CAPABILITY, REQ-M-GTL2-PROVENANCE |
-| Product layer | REQ-P-POLICY, REQ-P-SCENARIOS, REQ-P-LIBRARIES |
+| Product layer | REQ-P-POLICY, REQ-P-SCENARIOS, REQ-P-QUAL |
 
 ---
 

@@ -1,6 +1,7 @@
 # REQ-R-ABG2-PROJECTION — Truth Projection
 
 **Status**: Active
+**Category**: Capability
 **Date**: 2026-03-24
 **Derives from**: INT-GTL2-010
 **Supersedes**: REQ-F-EC (replaced — projection portions)

@@ -1,6 +1,7 @@
 # REQ-L-GTL2-IDENTITY — Categorical Identity for First-Class Types
 
 **Status**: Active
+**Category**: Constraint / Guarantee
 **Date**: 2026-03-25
 **Derives from**: INT-GTL2-001, INT-GTL2-012
 **Supersedes**: (new — retroactive correction to type foundations)

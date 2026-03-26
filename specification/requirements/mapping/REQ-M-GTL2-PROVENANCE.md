@@ -1,6 +1,7 @@
 # REQ-M-GTL2-PROVENANCE — Mapping Provenance
 
 **Status**: Active
+**Category**: Constraint / Guarantee
 **Date**: 2026-03-24
 **Derives from**: INT-GTL2-010
 **Supersedes**: (new layer)

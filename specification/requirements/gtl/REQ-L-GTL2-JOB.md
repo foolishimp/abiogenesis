@@ -1,6 +1,7 @@
 # REQ-L-GTL2-JOB — Durable Semantic Work Contracts
 
 **Status**: Active
+**Category**: Capability
 **Date**: 2026-03-25
 **Derives from**: INT-GTL2-012
 **Supersedes**: (new — retroactive V2 semantic correction)

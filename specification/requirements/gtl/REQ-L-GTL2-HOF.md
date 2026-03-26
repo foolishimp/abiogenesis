@@ -1,6 +1,7 @@
 # REQ-L-GTL2-HOF — Higher-Order Graph Operations
 
 **Status**: Active
+**Category**: Capability
 **Date**: 2026-03-24
 **Derives from**: INT-GTL2-006
 **Supersedes**: (new capability)

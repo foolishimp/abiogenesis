@@ -20,10 +20,11 @@ testpaths = ["builds/claude_code/tests"]
 pythonpath = ["builds/claude_code/code", ".genesis", "builds/claude_code/tests"]
 markers = [
     "integration: integration tests (sandbox + domain-blind + qualification)",
-    "live_fp: live F_P qualification tests (requires claude CLI — opt-in only)",
-    "e2e: end-to-end tests (sandbox lifecycle — opt-in only)",
+    "live_fp: live F_P qualification — real LLM calls, ~45min (run: make test-live-fp)",
+    "e2e: end-to-end sandbox lifecycle (run: make test-e2e)",
 ]
-# Default: exclude opt-in markers. Override with: pytest -m live_fp
+# Default lane excludes expensive markers. Named Makefile lanes opt-in.
+# This is not hiding tests — it's separating fast feedback from release gates.
 addopts = "-m 'not live_fp and not e2e'"
 timeout = 30
 timeout_method = "signal"

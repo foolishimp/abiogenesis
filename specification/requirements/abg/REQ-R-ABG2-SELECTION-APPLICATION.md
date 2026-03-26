@@ -1,6 +1,7 @@
 # REQ-R-ABG2-SELECTION-APPLICATION — Selection Application
 
 **Status**: Active
+**Category**: Capability
 **Date**: 2026-03-24
 **Derives from**: INT-GTL2-007, INT-GTL2-008
 **Supersedes**: (new capability)

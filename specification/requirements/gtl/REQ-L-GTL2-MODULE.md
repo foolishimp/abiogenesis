@@ -1,6 +1,7 @@
 # REQ-L-GTL2-MODULE — Module and Library Structure
 
 **Status**: Active
+**Category**: Capability
 **Date**: 2026-03-25
 **Derives from**: INT-GTL2-004, INT-GTL2-009, INT-GTL2-012
 **Supersedes**: REQ-F-GRAPH (replaced — Package portions)
