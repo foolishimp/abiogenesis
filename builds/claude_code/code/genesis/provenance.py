@@ -1,11 +1,8 @@
-# Implements: REQ-F-PROV-003
-# Implements: REQ-F-PROV-004
-# Implements: REQ-F-PROV-005
+# Implements: REQ-R-ABG2-PROVENANCE
 """
 provenance — Spec/workflow/selection provenance.
 
 req_hash, job_evaluator_hash, _read_workflow_version.
-Extracted from genesis.bind and genesis.commands as part of V2 module decomposition.
 """
 from __future__ import annotations
 

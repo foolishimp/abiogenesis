@@ -1,10 +1,8 @@
-# Implements: REQ-F-WK-004
-# Implements: REQ-F-WK-005
+# Implements: REQ-R-ABG2-RUN
 """
 run — Execution attempt governance.
 
 RunState, run_state, find_pending_run, supersede_run.
-Extracted from genesis.schedule as part of V2 module decomposition.
 """
 from __future__ import annotations
 

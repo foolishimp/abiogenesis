@@ -1,11 +1,6 @@
-# Implements: REQ-F-CORE-001
-# Implements: REQ-F-CORE-005
-# Implements: REQ-F-WKSP-001
-# Implements: REQ-F-GATE-001
-# Implements: REQ-F-GATE-002
-# Implements: REQ-F-EVAL-002
-# Implements: REQ-F-LEAF-001
-# Implements: REQ-R-ABG2-SELECTION-APPLICATION-002
+# Implements: REQ-R-ABG2-INTERPRET
+# Implements: REQ-R-ABG2-CONVERGENCE
+# Implements: REQ-R-ABG2-SELECTION-APPLICATION
 """
 interpret — Graph interpretation loop.
 

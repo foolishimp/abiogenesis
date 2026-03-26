@@ -1,5 +1,4 @@
-# Implements: REQ-F-CORE-001
-# Implements: REQ-F-RUN-002
+# Implements: REQ-R-ABG2-TRANSPORT
 # Implements: REQ-P-QUAL-005
 # Implements: REQ-P-QUAL-006
 # Implements: REQ-P-QUAL-012
@@ -8,9 +7,7 @@
 """
 transport — Subprocess transport for F_P actor invocations.
 
-Architecture: F_D → subprocess → agent (ADR-022)
-Extracted from genesis.fp_dispatch as part of V2 module decomposition.
-
+Architecture: F_D → subprocess → agent (ADR-022).
 Supported agents: claude, codex, gemini.
 ADR-027 failure classification: transport_failure, no_output, bad_output.
 """

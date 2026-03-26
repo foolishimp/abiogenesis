@@ -71,7 +71,7 @@ human_gate    = Operator("human_gate",    F_H, "fh://single")
 pytest_op     = Operator("pytest",        F_D, "exec://python -m pytest builds/claude_code/tests/ -q -m 'not e2e'")
 check_impl_op = Operator("check_impl",    F_D, "exec://python -m genesis check-tags --type implements --path builds/claude_code/code/genesis/")
 check_test_op = Operator("check_test",    F_D, "exec://python -m genesis check-tags --type validates --path builds/claude_code/tests/")
-check_bootloader_op = Operator("check_bootloader", F_D, "exec://python -m genesis check-bootloader-consistency --spec-module gtl.core --bootloader .genesis/gtl_spec/GTL_BOOTLOADER.md")
+check_bootloader_op = Operator("check_bootloader", F_D, "exec://python -m genesis check-bootloader-consistency --spec-module gtl --bootloader .genesis/gtl_spec/GTL_BOOTLOADER.md")
 
 
 # ── Rules (V2) ───────────────────────────────────────────────────────────────
@@ -133,8 +133,8 @@ eval_design_fh = Evaluator(
 # design→bootloader_doc
 eval_bootdoc_consistency = Evaluator(
     "gtl_type_consistency", F_D,
-    "All exported type names from gtl/core.py appear in GTL_BOOTLOADER.md",
-    binding="exec://python -m genesis check-bootloader-consistency --spec-module gtl.core --bootloader .genesis/gtl_spec/GTL_BOOTLOADER.md",
+    "All exported type names from the gtl package appear in GTL_BOOTLOADER.md",
+    binding="exec://python -m genesis check-bootloader-consistency --spec-module gtl --bootloader .genesis/gtl_spec/GTL_BOOTLOADER.md",
 )
 eval_bootdoc_fp = Evaluator(
     "synthesize_bootloader", F_P,

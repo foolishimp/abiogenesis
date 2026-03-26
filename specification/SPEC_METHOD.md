@@ -46,9 +46,11 @@ The work is not genuinely spec-driven if any of these fail:
 1. Given intent and requirements, a competent team cannot derive a conformant design.
 2. Given requirements and design, a competent team cannot derive conformant code.
 3. A live requirement has no explicit status, category, or owning design decision.
-4. Code behavior exists without requirement and ADR authority.
-5. A capability claim has no operational evidence.
-6. Drift is discovered, but the constitutional source is not repriced.
+4. A live requirement has no downstream realization or explicit deferment surface.
+5. Code behavior exists without requirement and ADR authority.
+6. A live domain artifact is rewritten in place after becoming part of the live constitutional surface.
+7. A capability claim has no operational evidence.
+8. Drift is discovered, but the constitutional source is not repriced.
 
 ---
 
@@ -193,7 +195,37 @@ What must remain stable is the direction of authority: requirements govern desig
 
 1. Every live requirement family must map to one or more owning ADRs.
 2. Every ADR must ground itself in requirements via an explicit `Implements:` line.
-3. Unowned requirements and ungrounded ADRs are design drift. When that happens, code becomes accidental law.
+3. Every live requirement family must have downstream closure: realized in design/code/tests, or explicitly deferred through an honest deferment surface.
+4. Every shipping code or test behavior must trace back to live requirement and design authority.
+5. Unowned requirements, ungrounded ADRs, deferred requirements without explicit deferment, and code without trace authority are design drift. When that happens, code becomes accidental law.
+
+---
+
+## Trace Closure Rule
+
+Spec-driven development requires constitutional trace closure.
+
+- No live requirement may remain as a free-floating statement of intent. If it is live, it must either:
+  - be realized through the downstream chain, or
+  - be explicitly deferred with an honest surface that records the deferment.
+- No shipping code or tests may exist as ungoverned behavior. If behavior exists, it must trace back out to live requirements and the design decisions that authorize it.
+- No hidden product surface is allowed. Behavior without trace authority is accidental law even if it "works."
+
+Trace closure is stricter than documentation completeness. It is the rule that closes the constitution over realized behavior.
+
+---
+
+## Live Surface Immutability
+
+The project may accumulate multiple live domain surfaces over time. A live surface is versioned constitutional history, not scratch space.
+
+- Engine code, design documents, tests, and tooling may be refactored aggressively while they remain mutable implementation surfaces.
+- Live domain artifacts, once published as live constitutional surfaces, are immutable in place.
+- If a live domain artifact is wrong, the valid actions are:
+  - supersede it with a new version, or
+  - withdraw/delete it from the live surface.
+
+The past is preserved by version control and superseded constitutional artifacts. Spec-driven development does not require shipping compatibility shims forever, but it also does not allow silent mutation of live constitutional history.
 
 ---
 
@@ -234,13 +266,16 @@ In project documents, this classification shall be explicit in requirement heade
 ## Anti-Drift Rules
 
 - If a requirement is active law, it must map to one or more owning ADRs.
+- If a live requirement is not yet realized, it must be explicitly deferred rather than silently orphaned.
 - If an ADR has no requirement grounding, it is design without constitutional authority.
 - If code behavior has no ADR owner, the design has already drifted.
+- If shipping code or tests cannot trace back out to live requirement and design authority, they are ungoverned product surface.
 - If tests validate implementation habit rather than requirement truth, they lock in drift.
 - If events and projection reveal persistent delta, either code is wrong or the requirement/ADR stack is stale.
 - If a capability has requirements and ADRs but no scenario, its operational meaning is unverified — it may be vaporware.
 - If a requirement is treated as a product feature when it is actually a guarantee, governance rule, or verification obligation, the requirement surface has been misclassified.
 - If design cannot be re-derived from requirements, or code cannot be re-derived from requirements plus design, the constitutional chain is broken.
+- If a live constitutional artifact is corrected by in-place mutation rather than supersession or withdrawal, constitutional history has been corrupted.
 - If a real use case reveals a gap not expressible in current requirements, a new intent is needed — not a code hack.
 
 ---
@@ -272,10 +307,10 @@ Each ADR should explicitly include:
 
 | Field | Purpose |
 |-------|---------|
-| `Implements:` | REQ-F-* IDs this ADR makes true |
+| `Implements:` | REQ-* IDs this ADR makes true |
 | `Derives from:` | INT-* or strategy document that motivated the decision |
 | `Supersedes:` | Prior ADR or doctrine this replaces |
-| `Degenerate case:` | When V1 behavior is intentionally retained as a special case of V2 |
+| `Degenerate case:` | When earlier behavior is intentionally retained as a special case of the current surface |
 
 Write ADRs per decision boundary, not per requirement file. The question is: "what design choice makes these ACs true?" That is the ADR boundary.
 
@@ -285,4 +320,4 @@ If a requirement names an operational mechanism, the ADR must name that mechanis
 
 ## Stone Version
 
-Spec-driven development treats specification as constitutional source, not commentary on code. Methodology defines the process constitution. Intent and requirements define the project constitution. Requirements define the full constitutional what: capabilities, guarantees, governance, and verification obligations. ADRs define structural decisions. Scenarios verify operational meaning where capability claims need end-to-end proof. Code realizes decisions. Design must be derivable from intent and requirements; code must be derivable from requirements and design. Iteration is cumulative repricing, not waterfall. Events, projection, and delta reveal drift. Every live requirement family must have ADR ownership and explicit classification. Every ADR must ground itself in requirements. New intent emerges from real use cases hitting the current model — through explicit gap analysis, not ad hoc pressure.
+Spec-driven development treats specification as constitutional source, not commentary on code. Methodology defines the process constitution. Intent and requirements define the project constitution. Requirements define the full constitutional what: capabilities, guarantees, governance, and verification obligations. ADRs define structural decisions. Scenarios verify operational meaning where capability claims need end-to-end proof. Code realizes decisions. Design must be derivable from intent and requirements; code must be derivable from requirements and design. Iteration is cumulative repricing, not waterfall. Events, projection, and delta reveal drift. Every live requirement family must have ADR ownership, explicit classification, and downstream closure or explicit deferment. Every ADR must ground itself in requirements. Shipping behavior must trace back to constitutional authority. Live constitutional surfaces are versioned history and must change by supersession or withdrawal, not silent in-place mutation. New intent emerges from real use cases hitting the current model — through explicit gap analysis, not ad hoc pressure.

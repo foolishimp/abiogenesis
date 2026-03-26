@@ -13,8 +13,8 @@ builds/*/. workspace/iterations/
 builds/*/.workspace/manifests/
 builds/*/.workspace/working_surfaces/
 
-# Bootstrap compiler — committed until packaged
-# .genesis/
+# Installed engine — created by gen-install.py, not committed
+.genesis/
 
 # Local env
 .env
@@ -26,4 +26,4 @@ venv/
 .ai-workspace/fp_results/
 
 # Scenario test run archives — persistent forensic data, not committed
-builds/claude_code/test_runs/
+builds/claude_code/test_env/test_runs/

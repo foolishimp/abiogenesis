@@ -10,17 +10,15 @@
 
 ## Context
 
-### The aliasing problem
+### The identity problem
 
-Phase 5 (selection/application) exposed that `Graph.name` and `GraphVector.name` were serving as both human-readable labels and operational identity handles. This caused:
+`Graph.name` and `GraphVector.name` are human-readable labels. They are not operational identity handles. The runtime needs opaque identity for targeting, replacement, and provenance. Without that split, the following failure modes exist:
 
 1. **Graph replacement by name**: After `substitute()`, `services.py` rebuilt the Module by matching `g.name == substituted_graph.name`. If a Module had two graphs with the same name, the wrong graph could be replaced silently.
 
 2. **Vector targeting by name**: `substitute(outer, "design→code", inner)` targets by vector name. If two vectors in the same graph share a name (structurally impossible today but not prevented by the type system), the wrong vector would be substituted.
 
-3. **Child key aliasing**: Without parent work_key, spawned children used vector names as keys, colliding when the same graph function was applied at multiple sites.
-
-A temporary guard was added (raise on duplicate graph names), but the root cause is that names are not identity.
+3. **Child key aliasing**: spawned children can collide when the same graph function is applied at multiple sites and work identity is label-based.
 
 ### Category-theoretic foundation
 
@@ -65,7 +63,6 @@ This separation is required by REQ-L-GTL2-IDENTITY-005: identity comparison and 
 
 - `.name` remains on all types as a human-readable label for logging, events, and display.
 - Event data (`"edge"` fields) still uses `.name` for readability — but provenance fields carry `.id`.
-- `module_to_package()` bridge ignores `.id` (V1 types have no graph identity concept).
 - All existing tests continue to work — auto-minted ids mean no manual changes needed for construction. Tests that target by name in `substitute()` calls update to target by id.
 
 ### Comparison functions (future)

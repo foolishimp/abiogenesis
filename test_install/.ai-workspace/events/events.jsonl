@@ -1,1 +1,0 @@
-{"event_type": "genesis_installed", "event_time": "2026-03-22T13:11:34.527762+00:00", "data": {"version": "1.0.0-beta", "engine_files": ["__init__.py", "__main__.py", "core.py", "bind.py", "manifest.py", "schedule.py", "commands.py", "fp_dispatch.py"], "gtl_files": ["__init__.py", "core.py"], "target": "/Users/jim/src/apps/abiogenesis/test_install"}}

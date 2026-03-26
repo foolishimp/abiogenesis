@@ -1,10 +1,8 @@
-# Implements: REQ-F-CORE-005
-# Implements: REQ-F-WK-003
+# Implements: REQ-R-ABG2-PROJECTION
 """
 projection — Pure replay: project truth from event stream.
 
 project(S, T, I) = project(S, T, I) always — deterministic.
-Extracted from genesis.core as part of V2 module decomposition.
 """
 from __future__ import annotations
 

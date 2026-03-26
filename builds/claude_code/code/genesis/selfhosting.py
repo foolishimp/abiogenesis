@@ -1,12 +1,8 @@
 # Implements: REQ-R-ABG2-SELFHOSTING
-# Implements: REQ-F-BOOTDOC-001
-# Implements: REQ-F-BOOTDOC-002
-# Implements: REQ-F-BOOTDOC-003
 """
 selfhosting — Derived artifact governance.
 
 Bootloader consistency checks, drift detection.
-Extracted from genesis.__main__ as part of V2 module decomposition.
 """
 from __future__ import annotations
 
@@ -30,12 +26,20 @@ def _check_bootloader_consistency(spec_module: str, bootloader_path: str) -> int
               file=sys.stderr)
         return 1
 
-    all_defined = sorted(
-        name for name, obj in inspect.getmembers(mod)
-        if inspect.isclass(obj)
-        and obj.__module__ == spec_module
-        and not name.startswith("_")
-    )
+    # Use __all__ if the module defines it (e.g. gtl package re-exports);
+    # fall back to __module__ check for leaf modules.
+    if hasattr(mod, "__all__"):
+        all_defined = sorted(
+            name for name in mod.__all__
+            if hasattr(mod, name) and inspect.isclass(getattr(mod, name))
+        )
+    else:
+        all_defined = sorted(
+            name for name, obj in inspect.getmembers(mod)
+            if inspect.isclass(obj)
+            and obj.__module__ == spec_module
+            and not name.startswith("_")
+        )
 
     _CORE_TYPES = {
         "ContractRef", "Context", "Evaluator", "Graph", "GraphVector",

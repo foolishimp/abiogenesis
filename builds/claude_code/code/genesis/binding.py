@@ -1,17 +1,7 @@
-# Implements: REQ-F-CORE-004
-# Implements: REQ-F-EVAL-002
-# Implements: REQ-F-BIND-001
-# Implements: REQ-F-PROV-003
-# Implements: REQ-F-PROV-004
-# Implements: REQ-F-PROV-005
-# Implements: REQ-F-EC-002
-# Implements: REQ-F-EC-003
-# Implements: REQ-F-EC-004
-# Implements: REQ-F-EC-005
-# Implements: REQ-F-WK-003
-# Implements: REQ-F-CORRECT-001
-# Implements: REQ-F-CORRECT-002
-# Implements: REQ-F-CORRECT-003
+# Implements: REQ-R-ABG2-BINDING
+# Implements: REQ-R-ABG2-PROVENANCE
+# Implements: REQ-R-ABG2-CORRECTION
+# Implements: REQ-R-ABG2-CONVERGENCE
 """
 binding — Executable job resolution, deterministic precomputation, and capability model.
 

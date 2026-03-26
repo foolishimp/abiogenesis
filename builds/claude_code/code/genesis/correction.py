@@ -1,10 +1,8 @@
-# Implements: REQ-F-EC-002
-# Implements: REQ-F-EC-003
+# Implements: REQ-R-ABG2-CORRECTION
 """
 correction — Correction and reset.
 
 find_latest_reset implements ADR-026 scope containment rules.
-Extracted from genesis.bind as part of V2 module decomposition.
 """
 from __future__ import annotations
 

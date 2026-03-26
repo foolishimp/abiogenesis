@@ -1,15 +1,5 @@
-# Implements: REQ-F-CMD-001
-# Implements: REQ-F-CMD-002
-# Implements: REQ-F-CMD-003
-# Implements: REQ-F-CMD-004
-# Implements: REQ-F-GRAPH-001
-# Implements: REQ-F-GRAPH-002
-# Implements: REQ-F-EVAL-002
-# Implements: REQ-F-VIS-001
-# Implements: REQ-F-PROV-001
-# Implements: REQ-F-PROV-003
-# Implements: REQ-F-WK-001
-# Implements: REQ-F-WK-002
+# Implements: REQ-R-ABG2-INTERPRET
+# Implements: REQ-R-ABG2-BINDING
 # Implements: REQ-R-ABG2-SELECTION-APPLICATION
 """
 genesis.services — Named app services.

@@ -1,10 +1,8 @@
-# Implements: REQ-F-CORE-006
-# Implements: REQ-F-FRAG-004
+# Implements: REQ-R-ABG2-CONVERGENCE
 """
 convergence — Delta computation and convergence visibility.
 
 delta, parent_converged, render_delta (re-exported from binding).
-Extracted from genesis.schedule as part of V2 module decomposition.
 """
 from __future__ import annotations
 

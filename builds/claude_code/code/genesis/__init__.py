@@ -1,4 +1,4 @@
-# Implements: REQ-F-CORE-001
+# Implements: REQ-R-ABG2-INTERPRET
 """
 genesis — GTL-native AI SDLC engine.
 
@@ -12,7 +12,7 @@ Consumes Module, Graph, GraphVector, Node natively.
     provenance   — provenance_snapshot
     events       — EventStream, emit
     projection   — project
-    fp_dispatch  — Subprocess transport for F_P actor invocations (ADR-022)
+    transport    — Subprocess transport for F_P actor invocations (ADR-022)
     cli_adapter  — CLI entry point wiring
     selfhosting  — Bootloader consistency checks
     __main__     — CLI entry point

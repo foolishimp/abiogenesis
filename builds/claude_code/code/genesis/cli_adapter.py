@@ -1,14 +1,5 @@
-# Implements: REQ-F-CMD-001
-# Implements: REQ-F-CMD-002
-# Implements: REQ-F-CMD-003
-# Implements: REQ-F-TAG-001
-# Implements: REQ-F-TAG-002
-# Implements: REQ-F-COV-001
-# Implements: REQ-F-EVAL-001
-# Implements: REQ-F-EVAL-003
-# Implements: REQ-F-EVAL-004
-# Implements: REQ-F-DOCS-001
-# Implements: REQ-F-PROV-002
+# Implements: REQ-R-ABG2-INTERPRET
+# Implements: REQ-R-ABG2-SELFHOSTING
 """
 genesis.cli_adapter — CLI adapter.
 
@@ -135,7 +126,7 @@ def _build_parser() -> argparse.ArgumentParser:
     p_boot = sub.add_parser("check-bootloader-consistency",
                             help="Verify bootloader doc references all exported types from spec module")
     p_boot.add_argument("--spec-module", required=True,
-                        help="Python module to extract exported type names from (e.g. gtl.core)")
+                        help="Python module to extract exported type names from (e.g. gtl)")
     p_boot.add_argument("--bootloader", required=True,
                         help="Path to bootloader markdown file (relative to workspace)")
 

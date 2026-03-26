@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-# Implements: REQ-F-WKSP-001
-# Implements: REQ-F-BOOT-001
-# Implements: REQ-F-BOOT-002
+# Implements: REQ-R-ABG2-INTERPRET
+# Implements: REQ-R-ABG2-SELFHOSTING
 """
 gen-install.py — Genesis installer
 
@@ -15,7 +14,7 @@ Usage:
     python gen-install.py --target . --platform java          # non-Python build
 
 What it installs (kernel only — domain packages own everything else):
-    .genesis/genesis/           ← the engine modules (8 files including fp_dispatch)
+    .genesis/genesis/           ← the engine modules
     .genesis/gtl/               ← the GTL type system (vendored, self-contained)
     .genesis/genesis.yml        ← bootstrap config (no default binding)
     CLAUDE.md                   ← GTL bootloader appended (if not already present)
@@ -67,7 +66,6 @@ ENGINE_MODULES = [
 # GTL type system modules (relative to abiogenesis project root / gtl/)
 GTL_MODULES = [
     "__init__.py",
-    "core.py",
     "graph.py",
     "operator_model.py",
     "function_model.py",

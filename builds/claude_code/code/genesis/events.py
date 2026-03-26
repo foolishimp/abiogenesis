@@ -1,16 +1,8 @@
-# Implements: REQ-F-CORE-001
-# Implements: REQ-F-CORE-002
-# Implements: REQ-F-CORE-003
-# Implements: REQ-F-EC-001
-# Implements: REQ-F-EC-006
-# Implements: REQ-F-EVAL-005
-# Implements: REQ-F-PROV-002
-# Implements: REQ-F-WK-001
+# Implements: REQ-R-ABG2-EVENTS
 """
 events — EventStream, emit, init_stream, init_snapshot.
 
 Append-only event substrate. The foundational medium.
-Extracted from genesis.core as part of V2 module decomposition.
 
 Rules (ADR-005):
   - emit() is the only write path to events.jsonl

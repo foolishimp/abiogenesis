@@ -5,7 +5,7 @@
 **Date**: 2026-03-23
 **Supersedes**: ADR-020 (MCP as Primary Agent Invocation Transport)
 **Implements**: REQ-R-ABG2-TRANSPORT, REQ-P-QUAL
-**Scope**: `genesis/fp_dispatch.py`, `gen-install.py`, test harness
+**Scope**: `genesis/transport.py`, `gen-install.py`, test harness
 
 ---
 
@@ -95,7 +95,7 @@ The subprocess model naturally supports multiple agents:
 | codex | `codex -q --full-auto <prompt>` | No sanitization needed |
 | gemini | `gemini -p <prompt>` | No sanitization needed |
 
-All agents share the same contract: prompt in, artifacts out, exit code. The Worker declaration in the Package spec selects the agent.
+All agents share the same contract: prompt in, artifacts out, exit code. The runtime binding surface selects the agent.
 
 ### MCP remains for tool plane only
 
@@ -129,7 +129,7 @@ The `CLAUDE*` prefix stripping is defensive but relies on undocumented behavior.
 
 ### transport.py (engine)
 
-Single implementation in `genesis/transport.py` (relocated from `genesis/fp_dispatch.py`):
+Single implementation in `genesis/transport.py`:
 
 - `has_agent(agent)` — checks if CLI is on PATH
 - `call_agent(prompt, work_folder, agent=, timeout=, retries=)` — subprocess dispatch with env sanitization, permission bypass, and retry
@@ -138,8 +138,6 @@ Single implementation in `genesis/transport.py` (relocated from `genesis/fp_disp
 - `_sanitized_env(agent)` — strips CLAUDE* for claude, passthrough for others
 - `_build_args(agent, prompt)` — builds subprocess args with agent-specific flags
 - `AgentTransportError` — classified failure with `failure_class`
-
-Legacy aliases (`has_mcp_transport`, `call_claude_code_mcp`, `McpTransportError`) preserved for backward compatibility.
 
 ### Permission bypass (REQ-P-QUAL-023)
 

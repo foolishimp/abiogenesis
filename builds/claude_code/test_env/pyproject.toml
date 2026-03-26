@@ -1,0 +1,11 @@
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["../code", "tests"]
+markers = [
+    "integration: integration tests (sandbox + domain-blind + qualification)",
+    "live_fp: live F_P qualification — real LLM calls, ~45min (run: ./run_tests live)",
+    "e2e: end-to-end sandbox lifecycle (run: ./run_tests e2e)",
+]
+addopts = "-m 'not live_fp and not e2e'"
+timeout = 30
+timeout_method = "signal"

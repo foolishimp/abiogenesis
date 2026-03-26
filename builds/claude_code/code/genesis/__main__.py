@@ -1,4 +1,4 @@
-# Implements: REQ-F-CMD-001
+# Implements: REQ-R-ABG2-INTERPRET
 """__main__ — Genesis engine entry point."""
 from .cli_adapter import main
 

@@ -4,30 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "genesis"
-version = "1.0.0"
-description = "Genesis — GTL-first AI SDLC engine"
+version = "2.0.0"
+description = "Genesis — GTL-native AI SDLC engine"
 requires-python = ">=3.11"
 dependencies = []
-# GTL is vendored at builds/claude_code/code/gtl/ (v0.3.0, copied from ai_sdlc_method/imp_codex/code/gtl/).
-# Resolved via pythonpath = ["builds/claude_code/code"] in tool.pytest.ini_options and via PYTHONPATH in runtime.
-# To upgrade: copy gtl/ from ai_sdlc_method again and commit.
-
-[project.scripts]
-gen = "genesis.__main__:main"
-
-[tool.pytest.ini_options]
-testpaths = ["builds/claude_code/tests"]
-pythonpath = ["builds/claude_code/code", ".genesis", "builds/claude_code/tests"]
-markers = [
-    "integration: integration tests (sandbox + domain-blind + qualification)",
-    "live_fp: live F_P qualification — real LLM calls, ~45min (run: make test-live-fp)",
-    "e2e: end-to-end sandbox lifecycle (run: make test-e2e)",
-]
-# Default lane excludes expensive markers. Named Makefile lanes opt-in.
-# This is not hiding tests — it's separating fast feedback from release gates.
-addopts = "-m 'not live_fp and not e2e'"
-timeout = 30
-timeout_method = "signal"
 
 [tool.setuptools]
 packages = ["genesis", "gtl"]

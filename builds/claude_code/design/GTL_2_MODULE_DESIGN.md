@@ -86,13 +86,9 @@ In this Claude build, the conceptual `abg.*` runtime layer is implemented under 
 | `abg.cli` | CLI adapter | `_build_parser()`, command wiring, traceability checks | Implementation surface only |
 | `abg.install` | Bootstrap/install | Installer, workspace scaffolding, `workspace_bootstrap()` | Implementation surface only |
 
-### 3.4 Engine mapping layer
+### 3.4 Engine mapping layer (deferred)
 
-| Target module | Owns | Primary types / functions | Requirement families |
-| --- | --- | --- | --- |
-| `mapping.capability` | Capability profiles | Engine capability descriptions | REQ-M-GTL2-CAPABILITY |
-| `mapping.adapter` | Alternate engine mappings | ABG, Temporal, Prefect adapters | REQ-M-GTL2-MAPPING |
-| `mapping.provenance` | Mapping provenance | Engine identity/version/capability tags | REQ-M-GTL2-PROVENANCE |
+Not shipped in ABG 1.0. The mapping layer (capability profiles, alternate engine adapters, mapping provenance) is deferred to a future release. Requirements REQ-M-GTL2-CAPABILITY, REQ-M-GTL2-MAPPING, and REQ-M-GTL2-PROVENANCE remain in the specification as future work.
 
 ---
 
@@ -480,7 +476,7 @@ class Scope:
 | `genesis/provenance.py` | `abg.provenance` | `req_hash()`, `executable_job_hash()`, workflow version reads, carry-forward |
 | `genesis/correction.py` | `abg.correction` | correction and reset helpers |
 | `genesis/subwork.py` | `abg.subwork` | `LeafTask`, schema validation, bounded dispatch |
-| `genesis/fp_dispatch.py` | `abg.transport` | agent dispatch, transport classification, environment sanitization |
+| `genesis/transport.py` | `abg.transport` | agent dispatch, transport classification, environment sanitization |
 | `genesis/interpret.py` | `abg.interpret` | iterate, schedule, apply-selection, delegated-module event emission |
 
 ### 6.3 ABG application and bootstrap files
@@ -564,44 +560,44 @@ abg.install         → abg.events, gtl.module_model
 
 ---
 
-## 9. Claude Build Alignment Order
+## 9. Claude Build Module Structure
 
-### Phase 1: GTL declaration kernel
+### GTL declaration kernel
 
-- establish `gtl.graph` as the structural kernel
-- establish `gtl.operator_model` as the effect/convergence declaration surface
-- establish `gtl.function_model` as the reusable workflow-program surface
-- establish `gtl.work_model` as the semantic work-declaration surface
-- establish `gtl.module_model` as the publication/import boundary
+- `gtl.graph` is the structural kernel
+- `gtl.operator_model` is the effect and convergence declaration surface
+- `gtl.function_model` is the reusable workflow-program surface
+- `gtl.work_model` is the semantic work-declaration surface
+- `gtl.module_model` is the publication and import boundary
 
-**Outcome**: GTL is a pure declaration layer with no runtime ownership leakage.
+**State**: GTL is a pure declaration layer with no runtime ownership leakage.
 
-### Phase 2: ABG execution kernel
+### ABG execution kernel
 
-- establish `abg.events` and `abg.projection` as append-only replay truth
-- establish `abg.binding`, `abg.run`, `abg.lineage`, and `abg.convergence` as execution-attempt governance
-- establish `abg.provenance` and `abg.correction` as runtime truth-maintenance modules
+- `abg.events` and `abg.projection` are append-only replay truth
+- `abg.binding`, `abg.run`, `abg.lineage`, and `abg.convergence` are execution-attempt governance
+- `abg.provenance` and `abg.correction` are runtime truth-maintenance modules
 
-**Outcome**: the ABG kernel is explicit and testable by responsibility.
+**State**: the ABG kernel is explicit and testable by responsibility.
 
-### Phase 3: Interpretation, selection, and transport
+### Interpretation, selection, and transport
 
-- establish `abg.selection` as lawful candidate enumeration and validation
-- establish `abg.subwork` as bounded delegated work
-- establish `abg.transport` as replaceable agent transport
-- establish `abg.interpret` as the graph-interpretation loop
+- `abg.selection` is lawful candidate enumeration and validation
+- `abg.subwork` is bounded delegated work
+- `abg.transport` is the agent transport surface
+- `abg.interpret` is the graph-interpretation loop
 
-**Outcome**: engine traversal and delegated realization match the GTL contract.
+**State**: engine traversal and delegated realization match the GTL contract.
 
-### Phase 4: Application, self-hosting, and mapping
+### Application, self-hosting, and mapping
 
-- establish `abg.services` as the service/application orchestration layer
-- establish `abg.cli` as the command adapter only
-- establish `abg.install` as the bootstrap/install surface
-- establish `abg.selfhosting` as the bootloader/drift governance layer
-- establish `mapping.*` as alternate-engine mapping surfaces
+- `abg.services` is the service and application orchestration layer
+- `abg.cli` is the command adapter only
+- `abg.install` is the bootstrap and install surface
+- `abg.selfhosting` is the bootloader and drift governance layer
+- `mapping.*` is the alternate-engine mapping surface
 
-**Outcome**: runtime interfaces and alternate engine mappings remain separated from the kernel.
+**State**: runtime interfaces and alternate engine mappings remain separated from the kernel.
 
 ---
 

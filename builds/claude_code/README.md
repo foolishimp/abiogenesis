@@ -1,43 +1,56 @@
-# Genesis Engine — V1 Reference Build
+# Genesis Engine — Claude Build
 
-A clean, GTL-first implementation of the Genesis SDLC engine.
+GTL-native AI SDLC engine. ABG 2.x surface using Module, Graph, Node, GraphVector.
+
+## Structure
+
+```
+builds/claude_code/
+├── code/                   ← shipping engine + GTL type system
+│   ├── genesis/            ← engine modules
+│   ├── gtl/                ← GTL 2.x types (Graph, Node, Module, Evaluator, ...)
+│   ├── gtl_spec/           ← domain packages (abiogenesis, project_package)
+│   └── gen-install.py      ← installer
+├── design/                 ← ADRs, module design, bootloader
+├── test_env/               ← test harness (sandboxed from the build)
+│   ├── tests/              ← test source
+│   ├── run_tests           ← test runner (replaces root Makefile)
+│   └── pyproject.toml      ← pytest config
+└── test_runs/              ← persistent run archives (gitignored)
+```
 
 ## Installation
 
-Bootstrap the engine into a target project with `gen-install`:
+Install the engine into a target project:
 
 ```bash
-# From the abiogenesis source directory
 python builds/claude_code/code/gen-install.py --target /path/to/your/project
 ```
 
-This creates `.genesis/` in the target directory containing the engine and a
-`genesis.yml` that resolves the project's GTL Package and Worker.
+This creates `.genesis/` in the target containing the engine, GTL types, and a bootstrap `genesis.yml`.
 
 **Prerequisites**: Python 3.11+, a GTL spec package importable from the target root.
 
-## First Session — Getting Started
+## First Session
 
-After `gen-install`, open the target project and start the SDLC loop:
+After install, open the target project:
 
 ```bash
 cd /path/to/your/project
-
-# 1. Write your intent (what problem are you solving?)
-#    → edit INTENT.md
-
-# 2. Check workspace state
-PYTHONPATH=.genesis python -m genesis gaps
-
-# 3. Start the convergence loop
-PYTHONPATH=.genesis python -m genesis start --auto --human-proxy
+PYTHONPATH=.genesis python -m genesis gaps       # check workspace state
+PYTHONPATH=.genesis python -m genesis start --auto --human-proxy  # drive the loop
 ```
 
-The engine drives: `intent → requirements → feature_decomp → design → code ↔ unit_tests`
+## Testing
 
-At each F_H gate (intent approved, decomp approved, design approved), the engine
-pauses and surfaces the criteria. With `--human-proxy`, Claude evaluates gates
-automatically and writes a proxy-log for your morning review.
+```bash
+cd builds/claude_code/test_env
+./run_tests              # default lane: unit + integration (~60s)
+./run_tests e2e          # sandbox lifecycle (no LLM)
+./run_tests live         # live F_P qualification (~45min, needs claude CLI)
+./run_tests all          # everything
+./run_tests file tests/test_algebra.py   # single file
+```
 
 ## Operating Loop
 
@@ -45,19 +58,7 @@ automatically and writes a proxy-log for your morning review.
 |---------|-------------|
 | `genesis gaps` | Show delta per edge — which evaluators are failing |
 | `genesis start --auto --human-proxy` | Drive the loop from current state to next block |
-| `genesis iterate --edge "E"` | Run one bind-and-iterate pass on a specific edge |
-| `genesis start` (no flags) | Single iteration, stops for human at every gate |
+| `genesis iterate --edge "E"` | One bind-and-iterate pass on a specific edge |
 
-**Typical session**:
-```bash
-# Morning: review proxy decisions from last run
-PYTHONPATH=.genesis python -m genesis gaps
-
-# Drive forward
-PYTHONPATH=.genesis python -m genesis start --auto --human-proxy
-
-# If blocked at fd_gap: fix the deterministic failure, then re-run start
-```
-
-**Event log** at `.ai-workspace/events/events.jsonl` is the authoritative record.
-All state is derived by projecting the log — nothing is stored separately.
+Event log at `.ai-workspace/events/events.jsonl` is the authoritative record.
+All state is derived by projecting the log.

@@ -1,9 +1,8 @@
-# Implements: REQ-F-CORE-001
+# Implements: REQ-R-ABG2-EVENTS
 """
 install — Bootstrap and workspace scaffolding.
 
 workspace_bootstrap scaffolds .ai-workspace/ and returns a bound EventStream.
-Extracted from genesis.core as part of V2 module decomposition.
 """
 from __future__ import annotations
 

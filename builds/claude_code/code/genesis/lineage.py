@@ -1,11 +1,8 @@
-# Implements: REQ-F-WK-001
-# Implements: REQ-F-WK-003
-# Implements: REQ-F-FRAG-004
+# Implements: REQ-R-ABG2-LINEAGE
 """
 lineage — Work identity and parent/child lineage.
 
 WorkInstance, spawn, _discover_children, active_work_keys.
-Extracted from genesis.schedule and genesis.commands as part of V2 module decomposition.
 """
 from __future__ import annotations
 

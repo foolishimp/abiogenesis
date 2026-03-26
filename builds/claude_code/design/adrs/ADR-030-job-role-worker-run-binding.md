@@ -10,7 +10,7 @@
 
 ## Context
 
-The V2 semantic correction split the old monolithic `Job/Worker` surface into:
+The active semantic surface is:
 
 - GTL `Job` as durable semantic work contract
 - GTL `Role` as semantic capability class
@@ -18,12 +18,12 @@ The V2 semantic correction split the old monolithic `Job/Worker` surface into:
 - ABG `Run` as execution attempt
 - ABG `Binding` as `Worker -> Role` and `Run -> Job`
 
-The current Claude build kernel is already V2-native for topology and traversal, but it still has one important pre-correction runtime shape:
+The Claude build kernel uses one executable-contract runtime shape:
 
 - `genesis.binding.Job` is a runtime wrapper over one `GraphVector`
 - `Worker.can_execute` drives capability, scope filtering, write-territory analysis, and conflict scheduling
 
-That runtime shape cannot simply be replaced by a GTL `Job` declaration without losing working engine semantics. At the same time, keeping two unrelated `Job` concepts would reintroduce ontology drift.
+That runtime shape cannot be replaced by a GTL `Job` declaration without losing working engine semantics. At the same time, keeping two unrelated `Job` concepts would reintroduce ontology drift.
 
 The build therefore needs a precise split that:
 
@@ -71,7 +71,7 @@ class Job:
 
 `Role` and `Job` are first-class GTL declarations and therefore carry opaque identity per `REQ-L-GTL2-IDENTITY`.
 
-### 2. The current build supports `GraphVector` as the primary job contract target
+### 2. `GraphVector` is the primary job contract target
 
 `REQ-L-GTL2-JOB-003` allows jobs to reference `Graph`, `GraphFunction`, `GraphVector`, or equivalent contract references.
 
@@ -79,7 +79,7 @@ This build implements:
 
 - `ContractRef.kind == "graph_vector"` as the only supported steady-state contract kind
 
-Deferred, not rejected:
+Not part of this build:
 
 - graph-level jobs
 - graph-function-level jobs
@@ -111,7 +111,7 @@ This avoids unresolved precedence rules between:
 - roles declared on a job
 - roles declared on an underlying graph contract
 
-When direct graph-contract role attachment is later implemented, it must be introduced with an explicit compatibility rule. This ADR does not invent that rule.
+Direct graph-contract role attachment is not part of this build. If it is added later, it must be introduced with an explicit compatibility rule. This ADR does not invent that rule.
 
 Omitted role authorship is not a conformant steady-state module surface.
 

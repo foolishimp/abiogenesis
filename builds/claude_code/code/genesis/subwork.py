@@ -1,13 +1,12 @@
-# Implements: REQ-F-LEAF-001
-# Implements: REQ-F-LEAF-002
+# Implements: REQ-L-GTL2-SUBWORK
+# Implements: REQ-R-ABG2-LEAFTASK
 """
 subwork — Bounded sub-work realization.
 
 LeafTask, validate_leaf_schema, dispatch_leaf.
-Extracted from genesis.schedule and genesis.fp_dispatch as part of V2 module decomposition.
 
 Pure kernel module — dispatch_leaf() returns (output, failure_class).
-Event emission delegated to genesis.interpret (§4.4).
+Event emission delegated to genesis.interpret.
 """
 from __future__ import annotations
 

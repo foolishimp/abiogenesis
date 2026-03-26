@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# Test runner for the Claude shipping build.
+#
+# Usage:
+#   ./run_tests              # default lane: unit + integration (~60s)
+#   ./run_tests e2e          # sandbox lifecycle (no LLM)
+#   ./run_tests live         # live F_P qualification (~45min)
+#   ./run_tests all          # everything including e2e + live
+#   ./run_tests file <path>  # single file, e.g. ./run_tests file tests/test_algebra.py
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
+CODE_DIR="$SCRIPT_DIR/../code"
+TEST_DIR="$SCRIPT_DIR/tests"
+
+export PYTHONPATH="$CODE_DIR:$TEST_DIR${PYTHONPATH:+:$PYTHONPATH}"
+
+PYTEST="python -m pytest --rootdir=$SCRIPT_DIR"
+
+lane="${1:-default}"
+
+case "$lane" in
+  default)
+    $PYTEST "$TEST_DIR" -m 'not live_fp and not e2e' -q --tb=short --timeout=30
+    ;;
+  e2e)
+    $PYTEST "$TEST_DIR" -m e2e -q --tb=short --timeout=30
+    ;;
+  live)
+    $PYTEST "$TEST_DIR" -m live_fp -v --tb=short --timeout=600
+    ;;
+  all)
+    $PYTEST "$TEST_DIR" -v --tb=short --timeout=600
+    ;;
+  file)
+    shift
+    $PYTEST "$@" -v --tb=short
+    ;;
+  *)
+    echo "Unknown lane: $lane"
+    echo "Usage: ./run_tests [default|e2e|live|all|file <path>]"
+    exit 1
+    ;;
+esac
