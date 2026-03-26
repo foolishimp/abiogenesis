@@ -173,17 +173,9 @@ def install(target: Path, *, verify_only: bool = False,
         config_path.write_text(config_text, encoding="utf-8")
     result["config_file"] = ".genesis/genesis.yml"
 
-    # ── Ensure .ai-workspace/runtime/ exists + migrate legacy provenance ────
+    # ── Ensure .ai-workspace/runtime/ exists ────────────────────────────────
     runtime_dir = target / ".ai-workspace" / "runtime"
     runtime_dir.mkdir(parents=True, exist_ok=True)
-    runtime_awj = runtime_dir / "active-workflow.json"
-    legacy_awj = target / ".genesis" / "active-workflow.json"
-    if not runtime_awj.exists() and legacy_awj.exists():
-        # Migrate: legacy .genesis/ → mutable .ai-workspace/runtime/
-        shutil.copy2(legacy_awj, runtime_awj)
-        result.setdefault("migrations", []).append(
-            "active-workflow.json: .genesis/ → .ai-workspace/runtime/"
-        )
 
     # ── Append GTL bootloader to CLAUDE.md ───────────────────────────────────
     result["claude_md"] = install_claude_md(target)
@@ -234,8 +226,7 @@ def install_claude_md(target: Path) -> str:
     abiogenesis appends the universal GTL formal system (sections I–XI).
     Domain packages (e.g. genesis_sdlc) append their own domain bootloader.
 
-    If a legacy monolithic GENESIS_BOOTLOADER block is found, it is removed —
-    the split bootloaders supersede it.
+    Writes the current GTL bootloader section only.
     """
     bootloader_path = _code_root() / "gtl_spec" / "GTL_BOOTLOADER.md"
     if not bootloader_path.exists():
@@ -244,21 +235,9 @@ def install_claude_md(target: Path) -> str:
     bootloader = bootloader_path.read_text(encoding="utf-8")
     section = f"{_GTL_BOOTLOADER_START}\n{bootloader}\n{_GTL_BOOTLOADER_END}"
 
-    # Legacy markers from the monolithic bootloader
-    _LEGACY_START = "<!-- GENESIS_BOOTLOADER_START -->"
-    _LEGACY_END = "<!-- GENESIS_BOOTLOADER_END -->"
-
     claude_md = target / "CLAUDE.md"
     if claude_md.exists():
         existing = claude_md.read_text(encoding="utf-8")
-
-        # Remove legacy monolithic bootloader if present
-        if _LEGACY_START in existing and _LEGACY_END in existing:
-            legacy_pattern = re.compile(
-                re.escape(_LEGACY_START) + r".*?" + re.escape(_LEGACY_END),
-                re.DOTALL,
-            )
-            existing = legacy_pattern.sub("", existing)
 
         if _GTL_BOOTLOADER_START in existing:
             pattern = re.compile(

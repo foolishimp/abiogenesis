@@ -1,87 +1,120 @@
 # Abiogenesis User Guide
 
-**Version**: 1.0.0b1
-**Engine version**: 1.0.0
-**GTL version**: 0.3.0
+**Status**: V2 skeleton
+**Audience**: users running the current GTL 2.x / ABG 2.x Claude build
+**Purpose**: explain the current runtime surface without carrying V1 terminology or deleted compatibility behavior
 
 ---
 
-## Contents
-
-1. [What Abiogenesis Is](#1-what-abiogenesis-is)
-2. [Installation](#2-installation)
-3. [Your First Session](#3-your-first-session)
-4. [The Three Commands](#4-the-three-commands)
-5. [Writing a GTL Spec](#5-writing-a-gtl-spec)
-6. [Config Resolution](#6-config-resolution)
-7. [Bootstrap Install for Other Projects](#7-bootstrap-install-for-other-projects)
-8. [The Workspace](#8-the-workspace)
-9. [The Working Loop](#9-the-working-loop)
-10. [Traceability](#10-traceability)
-11. [Understanding the Self-Hosting Spec](#11-understanding-the-self-hosting-spec)
-12. [Current Limitations](#12-current-limitations)
-
----
-
-<!-- Covers: REQ-F-GRAPH-001 REQ-F-GRAPH-002 REQ-F-CORE-001 REQ-F-CORE-002 REQ-F-CORE-003 REQ-F-CORE-004 REQ-F-CORE-005 REQ-F-CORE-006 REQ-F-EC-001 REQ-F-EC-002 REQ-F-EC-003 REQ-F-EC-004 REQ-F-EC-005 REQ-F-EC-006 -->
 ## 1. What Abiogenesis Is
 
-Abiogenesis is a GTL interpreter. GTL (Genesis Topology Language) treats software work as a typed directed graph. You define what artifacts exist, how they transform into each other, and what it means for a transformation to be complete. The engine tracks the gap between current state and done.
+Abiogenesis is the ABG runtime for GTL.
 
-### The six types
+- **GTL** declares the topology:
+  - typed `Node`s
+  - `GraphVector`s between nodes
+  - `Graph`s
+  - reusable `GraphFunction`s
+  - published `RefinementBoundary` and `CandidateFamily` declarations
+  - `Job`s, `Role`s, `Evaluator`s, `Operator`s, and `Rule`s
+- **ABG** executes that topology through:
+  - an append-only event stream
+  - replay/projection
+  - deterministic convergence
+  - traversal
+  - selection application
+  - correction/reset
+  - provenance
 
-| Type | What it is |
-|------|-----------|
-| **Asset** | A typed artifact — spec, code, tests, design, etc. Assets have a name and an ID format like `CODE-{SEQ}`. |
-| **Edge** | A directed transition from one asset type to another. `design → code` is an edge. |
-| **Evaluator** | A test that decides whether an edge is complete. One edge can have several evaluators. |
-| **Job** | An edge paired with its evaluators. The unit of work the engine schedules. |
-| **Worker** | Declares which jobs an agent or team can execute. |
-| **Package** | A complete graph — all assets, edges, operators, and workers bundled together as the spec. |
+The current build is explicitly V2:
 
-### The three evaluator kinds
+| Old idea | Current surface |
+|---|---|
+| `Asset` | `Node` |
+| `Edge` | `GraphVector` |
+| `Package` | `Module` |
+| hidden overlays / zoom | `CandidateFamily` + explicit `SelectionDecision` |
+| ad hoc refinement | `RefinementBoundary` + lawful `substitute()` |
 
-Every evaluator belongs to one of three kinds. This is the engine's core distinction:
+The important split is:
 
-| Kind | Symbol | What it checks | Passes when |
-|------|--------|----------------|-------------|
-| **Deterministic test** | `F_D` | Scripts, test suites, coverage checks, file scans — anything with a binary result | The command exits 0 |
-| **Agent assessment** | `F_P` | LLM or automated agent judgment — "does this output satisfy the spec?" | An agent records a passing assessment in the event log |
-| **Human approval** | `F_H` | Explicit human sign-off | `approved{kind: fh_review}` exists and has not been `revoked` |
-
-The engine always runs deterministic tests first. Agent assessment only runs when all deterministic tests pass. Human approval only runs when agent assessment passes. This ordering prevents agent calls on work that has obvious deterministic failures.
-
-### Delta and convergence
-
-Each edge has a **delta** — the count of evaluators not yet passing. `delta = 0` means that edge is converged. The workspace is converged when every edge has `delta = 0`.
-
-### The event stream
-
-All state lives in `.ai-workspace/events/events.jsonl`, an append-only log. Assets are not stored as mutable objects — they are derived by reading the event stream. This means any past state is reconstructable by replaying the log.
-
----
-
-The engine has three operations:
-
-| Operation | What it does |
-|-----------|-------------|
-| `gen gaps` | Runs deterministic evaluators across all jobs and reports residual work (delta per edge) |
-| `gen iterate` | Selects the first unconverged job, binds context, dispatches to the appropriate evaluator kind |
-| `gen start` | State-machine wrapper over `gen iterate`; `--auto` loops until blocked |
-
-The workspace is converged when every evaluator on every edge reports delta = 0.
+- **GTL** owns declaration
+- **ABG** owns runtime protocol
 
 ---
 
-<!-- Covers: REQ-F-BOOT-001 REQ-F-BOOT-002 REQ-F-PKG-001 REQ-F-WKSP-001 -->
-## 2. Installation
+## 2. Core Concepts
 
-### Requirements
+### GTL declaration types
 
-- Python 3.11 or later
-- A virtual environment is strongly recommended
+The current authored surface is Python over these modules:
 
-### Steps
+```python
+from gtl.graph import Graph, Node, GraphVector, Context
+from gtl.function_model import GraphFunction, RefinementBoundary, CandidateFamily
+from gtl.operator_model import Operator, Evaluator, Rule, F_D, F_P, F_H
+from gtl.work_model import Job, ContractRef, Role
+from gtl.module_model import Module
+```
+
+The main GTL concepts are:
+
+- `Node`
+  - typed local locus such as `requirements`, `design`, `code`
+- `GraphVector`
+  - internal adjacency record between nodes
+  - carries operators, evaluators, contexts, and optional rule
+- `Graph`
+  - the one first-class structural type
+- `GraphFunction`
+  - reusable graph-valued workflow abstraction
+- `RefinementBoundary`
+  - published lawful refinement/synthesis boundary
+- `CandidateFamily`
+  - published lawful structural alternatives over one outer contract
+- `Module`
+  - publication boundary for graphs, functions, boundaries, families, jobs, roles, rules, metadata
+
+### ABG runtime types
+
+The main runtime types are:
+
+- `Scope`
+  - the first-class command scope
+- `Traversal`
+  - one named traversal attempt over one GTL target boundary
+- `WorkSurface`
+  - immutable execution dossier
+- `EvaluatorOutcome`
+  - one normalized evaluator result
+- `ConvergenceResult`
+  - aggregate convergence truth
+- `SelectionDecision`
+  - explicit, replayable candidate choice
+- `Worker`
+  - concrete runtime actor identity
+
+### Evaluator regimes
+
+Every evaluator belongs to one of three regimes:
+
+| Regime | Meaning | Typical use |
+|---|---|---|
+| `F_D` | Deterministic | tests, schema checks, file checks, trace checks |
+| `F_P` | Probabilistic | agent construction or bounded agent judgment |
+| `F_H` | Human | explicit human judgment or approval |
+
+The runtime escalates in this order:
+
+`F_D -> F_P -> F_H`
+
+Lower regimes should discharge objective truth before higher-regime judgment is used.
+
+---
+
+## 3. Install and Run
+
+### Local editable install
 
 ```bash
 cd /path/to/abiogenesis
@@ -90,452 +123,397 @@ source .venv/bin/activate
 pip install -e .
 ```
 
-Two packages are installed:
-
-- **`genesis`** — the engine. Entry point: `gen`. Also available as `python -m genesis`.
-- **`gtl`** — the type system. Vendored at `builds/claude_code/code/gtl/core.py`. Import as `from gtl.core import ...`.
-
-### Verify the install
+After that you can use either:
 
 ```bash
-gen --help
+gen start --help
 ```
 
-You should see the genesis CLI help with subcommands `gaps`, `iterate`, `start`, `check-tags`, `check-req-coverage`.
+or:
+
+```bash
+python -m genesis start --help
+```
+
+### CLI commands in the current build
+
+The current runtime commands are:
+
+- `gen gaps`
+- `gen iterate`
+- `gen start`
+- `gen assess-result`
+- `gen emit-event`
+- traceability commands such as:
+  - `gen check-tags`
+  - `gen check-req-coverage`
+  - `gen check-impl-coverage`
+  - `gen check-validates-coverage`
+  - `gen check-bootloader-consistency`
+
+The GTL/ABG runtime no longer uses `--package` / `--worker` as the primary user-facing override.
+The current CLI resolves a `Module`, and `Scope` derives a default `Worker` from that module when one is not explicitly injected programmatically.
 
 ---
 
-## 3. Your First Session
+## 4. First Session
 
-Abiogenesis is self-hosting — the engine runs against its own workspace. The repo already contains a converged workspace, so this is a good first sanity check.
+The simplest way to run the engine is against an installed workspace or a workspace with a valid runtime contract.
 
-```bash
-cd /path/to/abiogenesis
-source .venv/bin/activate
-
-# Check current state of the self-hosting workspace
-PYTHONPATH=. gen gaps --workspace .
-```
-
-Expected output (abbreviated):
-
-```json
-{
-  "scope": { "package": "genesis_v1", ... },
-  "jobs_considered": 5,
-  "total_delta": 0,
-  "converged": true,
-  "gaps": [ ... ]
-}
-```
-
-`total_delta: 0` and `converged: true` mean every evaluator on every edge passes. The workspace is at rest.
-
-### What `PYTHONPATH=.genesis` does
-
-The self-hosting spec source lives at `builds/claude_code/code/gtl_spec/packages/genesis_core.py`. At install time, it's copied into `.genesis/gtl_spec/`. The engine resolves `import gtl_spec.packages.genesis_core` via `PYTHONPATH=.genesis`, which adds `.genesis/` to the module search path.
-
-When the engine is installed into another project via `gen-install.py`, the spec lives inside `<target>/.genesis/gtl_spec/` and PYTHONPATH is managed by the bootstrap contract (see §7).
-
----
-
-<!-- Covers: REQ-F-CMD-001 REQ-F-CMD-002 REQ-F-CMD-003 REQ-F-CMD-004 -->
-## 4. The Three Commands
-
-All commands accept:
-
-- `--workspace DIR` — workspace root (default: current directory)
-- `--package MODULE:VAR` — override the Package to load
-- `--worker MODULE:VAR` — override the Worker to load
-
-Without `--package`/`--worker`, the commands read from `.genesis/genesis.yml`.
-
-### `gen gaps`
-
-Computes residual work across the selected scope.
+If the workspace already has a configured module, the basic loop is:
 
 ```bash
 gen gaps --workspace .
-
-# Scope to a specific feature (validates feature exists; does not filter jobs in V1)
-gen gaps --workspace . --feature REQ-F-CORE
-
-# Override package/worker ad hoc
-gen gaps --workspace . \
-    --package gtl_spec.packages.my_spec:my_package \
-    --worker  gtl_spec.packages.my_spec:my_worker
-```
-
-Output fields:
-
-| Field | Meaning |
-|-------|---------|
-| `total_delta` | Sum of delta across all jobs. 0 = converged. |
-| `converged` | `true` when `total_delta == 0` |
-| `jobs_considered` | Number of jobs evaluated |
-| `gaps[].edge` | Edge name |
-| `gaps[].delta` | Residual for this edge (0 = converged) |
-| `gaps[].failing` | Evaluator names not yet passing |
-| `gaps[].passing` | Evaluator names confirmed passing |
-| `gaps[].delta_summary` | Human-readable summary line |
-
-When an edge reaches delta = 0, `gen gaps` emits an `edge_converged` event into the event log (idempotent — only one certificate per edge).
-
-### `gen iterate`
-
-Selects the first unconverged job and runs exactly one bind-and-iterate pass.
-
-```bash
 gen iterate --workspace .
-
-# Target a specific edge
-gen iterate --workspace . --edge "design→code"
-```
-
-Output fields:
-
-| Field | Meaning |
-|-------|---------|
-| `status` | `iterated`, `converged`, or `nothing_to_do` |
-| `edge` | Which edge was selected |
-| `delta_before` | Delta prior to this iteration |
-| `failing_evaluators` | Which evaluators were failing |
-| `events_emitted` | How many events were written |
-| `prompt_words` | Size of the F_P prompt (if dispatched) |
-
-What `gen iterate` does internally:
-1. Runs all deterministic tests (`F_D`) and builds a manifest of what's passing and failing
-2. If delta > 0, assembles an agent prompt with the relevant context documents
-3. Walks evaluators in order: deterministic tests → agent assessment → human approval
-4. Emits events from the working surface into the event log
-
-### `gen start`
-
-State-machine wrapper. Without `--auto`, it behaves identically to `gen iterate`.
-
-```bash
-# Single iteration (equivalent to gen iterate)
-gen start --workspace .
-
-# Auto-loop: keep iterating until blocked
 gen start --workspace . --auto
 ```
 
-`--auto` stops when it encounters any condition that requires external input:
+If you want to bypass the runtime contract and point directly at a module:
 
-| Stop reason | What happened |
-|-------------|--------------|
-| `converged` | All jobs delta = 0 |
-| `stopped_by: fp_dispatch` | An agent assessment was dispatched — an agent needs to act and record results |
-| `stopped_by: fh_gate` | A human approval gate is waiting |
-| `stopped_by: fd_gap` | A deterministic test failed — code or artifacts need fixing |
-| `stopped_by: max_iterations` | Safety limit of 50 iterations reached |
+```bash
+gen gaps --workspace . --module some_python_module:module
+```
+
+### What the commands do
+
+`gen gaps`
+- resolves `Scope`
+- runs deterministic binding over the scoped jobs
+- reports residual work
+- emits `edge_converged` certificates when a scoped edge is freshly confirmed at delta 0
+
+`gen iterate`
+- finds the first unconverged work item in scope
+- constructs a `Traversal`
+- runs `traverse()` exactly once
+
+`gen start`
+- derives state
+- delegates to `gen_iterate`
+- with `--auto`, loops until:
+  - converged
+  - blocked on `F_P`
+  - blocked on `F_H`
+  - blocked on a deterministic gap
+  - max iterations reached
 
 ---
 
-<!-- Covers: REQ-F-EVAL-001 REQ-F-EVAL-002 REQ-F-EVAL-003 REQ-F-EVAL-004 REQ-F-EVAL-005 REQ-F-GATE-001 REQ-F-GATE-002 REQ-F-BIND-001 -->
-## 5. Writing a GTL Spec
+## 5. Runtime Contract and Config Resolution
 
-A spec is a Python module that exports a `Package` and a `Worker`.
+The CLI resolves configuration through the runtime contract chain.
 
-### Minimal spec
+### Resolution order
 
-```python
-# .genesis/gtl_spec/packages/my_domain.py
-from gtl.core import (
-    Asset, Edge, Evaluator, Job, Operator,
-    Package, Worker, F_D, F_P, F_H,
-)
+1. CLI `--module` if supplied
+2. `.genesis/genesis.yml`
+3. if `.genesis/genesis.yml` contains `runtime_contract: <path>`, that file becomes authoritative
 
-# ── Assets ──────────────────────────────────────────────────────────────────
-spec   = Asset(name="spec",   id_format="SPEC-{SEQ}")
-output = Asset(name="output", id_format="OUT-{SEQ}", lineage=[spec])
+The current loader behavior is:
 
-# ── Operator ─────────────────────────────────────────────────────────────────
-agent = Operator("agent", F_P, "agent://claude/genesis")
+- read `.genesis/genesis.yml`
+- if it contains `runtime_contract`, read that file instead
+- use that final config to resolve:
+  - `module`
+  - optional `pythonpath`
+  - optional `active_workflow`
+  - optional `workflow_root`
 
-# ── Edge ─────────────────────────────────────────────────────────────────────
-edge = Edge(name="spec→output", source=spec, target=output, using=[agent])
+### Minimal kernel config
 
-# ── Evaluators ───────────────────────────────────────────────────────────────
-eval_done  = Evaluator("output_complete", F_P, "agent: output satisfies spec")
-eval_tests = Evaluator(
-    "tests_pass", F_D,
-    "all unit tests pass",
-    command="python -m pytest tests/ -q",
-)
-
-# ── Job, Package, Worker ──────────────────────────────────────────────────────
-job     = Job(edge=edge, evaluators=[eval_done, eval_tests])
-package = Package(name="my_domain", assets=[spec, output], edges=[edge], operators=[agent])
-worker  = Worker(id="claude_code", can_execute=[job])
-```
-
-### Evaluator kinds
-
-| Kind | Symbol | When to use |
-|------|--------|-------------|
-| **Deterministic test** | `F_D` | Test suites, schema checks, tag coverage, file counts — anything with a binary pass/fail. Use `command=` to run a subprocess; exit 0 = pass. |
-| **Agent assessment** | `F_P` | LLM or agent judgment of quality or correctness. Runs only when all deterministic tests pass. |
-| **Human approval** | `F_H` | Explicit sign-off gate. Passes when `approved{kind: fh_review}` exists for this edge and has not been `revoked`. |
-
-### Evaluation order
-
-For each job, evaluators run in order: deterministic tests first, then agent assessment, then human approval. Agent assessment only runs when all deterministic tests pass. Human approval only runs when agent assessment passes. This prevents wasting agent calls on work that has obvious deterministic failures.
-
-### Multi-edge graph
-
-A realistic spec has multiple assets and edges forming a DAG:
-
-```python
-intent    = Asset(name="intent",    id_format="INT-{SEQ}")
-req       = Asset(name="req",       id_format="REQ-{SEQ}",  lineage=[intent])
-code      = Asset(name="code",      id_format="CODE-{SEQ}", lineage=[req])
-tests     = Asset(name="tests",     id_format="TEST-{SEQ}", lineage=[code])
-
-edge_i2r  = Edge(name="intent→req",   source=intent, target=req,   using=[agent])
-edge_r2c  = Edge(name="req→code",     source=req,    target=code,  using=[agent])
-edge_c2t  = Edge(name="code↔tests",   source=code,   target=tests, using=[agent])
-
-# ... evaluators and jobs per edge ...
-
-package = Package(name="sdlc", assets=[intent, req, code, tests],
-                  edges=[edge_i2r, edge_r2c, edge_c2t], operators=[agent])
-worker  = Worker(id="claude_code", can_execute=[job_i2r, job_r2c, job_c2t])
-```
-
-See `builds/claude_code/code/gtl_spec/packages/genesis_core.py` for a complete, realistic example.
-
----
-
-## 6. Config Resolution
-
-The engine resolves Package and Worker from one of two sources:
-
-1. **CLI flags** — `--package MODULE:VAR --worker MODULE:VAR` (highest priority)
-2. **`.genesis/genesis.yml`** — read from `<workspace>/.genesis/genesis.yml`
-
-If neither provides a value, the command exits with error.
-
-### `.genesis/genesis.yml` format
+The kernel installer writes only a minimal default:
 
 ```yaml
-# Genesis project config — written by gen-install.py
-# Override per-invocation with: --package MODULE:VAR --worker MODULE:VAR
-package: gtl_spec.packages.my_domain:package
-worker:  gtl_spec.packages.my_domain:worker
+# Genesis kernel default — written by gen-install.py
+# runtime_contract: path/to/domain/genesis.yml
+# module: your_domain.module:module
 ```
 
-Simple `key: value` pairs. Comments (`#`) and blank lines are ignored.
+The kernel does **not** own your domain binding.
+Domain installers or the workspace owner supply the actual runtime contract.
 
-The config file is always written by `gen-install.py` on install/reinstall. It is engine metadata — safe to overwrite. The actual spec (`.genesis/gtl_spec/packages/*.py`) is user data and is never overwritten by the installer.
+### Example domain runtime contract
+
+```yaml
+module: my_domain.spec:module
+pythonpath:
+  - builds/python/src
+active_workflow: .genesis/workflows/my_domain/default/v0_1_0/active-workflow.json
+workflow_root: .genesis/workflows
+```
 
 ---
 
-<!-- Covers: REQ-F-PROV-001 REQ-F-PROV-002 REQ-F-PROV-003 REQ-F-PROV-004 REQ-F-PROV-005 -->
-## 7. Bootstrap Install for Other Projects
+## 6. Writing a Minimal GTL Module
 
-Use this when you want the genesis engine embedded in a project without a pip dependency on abiogenesis.
+The current V2 authored unit is a `Module`, not a `Package`.
+
+Minimal example:
+
+```python
+from gtl.graph import Graph, Node, GraphVector
+from gtl.algebra import deferred_refinement
+from gtl.module_model import Module
+from gtl.operator_model import Operator, Evaluator, F_D, F_P
+from gtl.work_model import ContractRef, Job, Role
+
+
+requirements = Node(name="requirements")
+design = Node(name="design")
+
+agent = Operator("claude_agent", F_P, "agent://claude/genesis")
+
+eval_shape = Evaluator(
+    "design_shape_valid",
+    F_D,
+    "design artifact matches the required structural standard",
+    binding="exec://python checks/check_design.py",
+)
+
+eval_quality = Evaluator(
+    "design_quality",
+    F_P,
+    "agent judges whether the design is coherent and complete",
+)
+
+vector = GraphVector(
+    name="requirements→design",
+    source=requirements,
+    target=design,
+    operators=(agent,),
+    evaluators=(eval_shape, eval_quality),
+)
+
+graph = Graph(
+    name="mini_flow",
+    inputs=(requirements,),
+    outputs=(design,),
+    nodes=(requirements, design),
+    vectors=(vector,),
+)
+
+role_designer = Role(name="designer")
+
+job = Job(
+    name="requirements→design",
+    contracts=(ContractRef(kind="graph_vector", target_id=vector.id),),
+    roles=(role_designer,),
+)
+
+boundary = deferred_refinement(
+    "requirements→design",
+    inputs=(requirements,),
+    outputs=(design,),
+)
+
+module = Module(
+    name="mini_domain",
+    graphs=(graph,),
+    refinement_boundaries=(boundary,),
+    jobs=(job,),
+    roles=(role_designer,),
+)
+```
+
+Important current rules:
+
+- every live `GraphVector` must publish a `RefinementBoundary` or `CandidateFamily`
+- structural alternatives must be published through `CandidateFamily`
+- `Module` is a pure declaration container
+- module-level traversal validation happens in kernel functions such as `validate_module_traversal_surface()` at `Scope` construction, not automatically in `Module.__post_init__`
+
+---
+
+## 7. Installing Into Another Project
+
+Use the kernel installer when you want a self-contained runtime under a target workspace.
 
 ```bash
 python /path/to/abiogenesis/builds/claude_code/code/gen-install.py \
-    --target /path/to/your/project \
-    --project-slug my_domain
+  --target /path/to/project
 ```
 
-### What the installer does
+### What the current installer actually does
 
-1. Copies `builds/claude_code/code/genesis/` → `<target>/.genesis/genesis/`
-2. Copies `builds/claude_code/code/gtl/` → `<target>/.genesis/gtl/`
-3. Copies `builds/claude_code/code/gtl_spec/` files (genesis_core.py, bootloader, `__init__` files) → `<target>/.genesis/gtl_spec/`
-4. Writes `<target>/.genesis/genesis.yml` pointing to `gtl_spec.packages.my_domain:package/worker`
-5. Writes `<target>/.genesis/gtl_spec/packages/my_domain.py` starter spec — **only if absent** (never clobbers user edits)
-6. Emits a `genesis_installed` event to `<target>/.ai-workspace/events/events.jsonl`
+1. copies engine modules into `<target>/.genesis/genesis/`
+2. copies GTL modules into `<target>/.genesis/gtl/`
+3. writes a minimal kernel `.genesis/genesis.yml` if it does not already exist
+4. ensures `<target>/.ai-workspace/runtime/` exists
+5. creates or updates `<target>/CLAUDE.md` with the GTL bootloader block
+6. emits `genesis_installed` into `<target>/.ai-workspace/events/events.jsonl`
 
-### Running after install
+### What it does not do
+
+The current installer does **not**:
+
+- generate a starter domain module
+- copy a domain `gtl_spec` package into the target
+- write a concrete domain `module:` binding for you
+- call `workspace_bootstrap()` as part of installation
+
+That is deliberate. The kernel installer installs the kernel.
+Domain installers own domain runtime contracts and domain package layout.
+
+### Verify an install
 
 ```bash
-cd /path/to/your/project
-PYTHONPATH=.genesis python -m genesis gaps --workspace .
+python /path/to/abiogenesis/builds/claude_code/code/gen-install.py \
+  --target /path/to/project \
+  --verify
 ```
-
-`PYTHONPATH=.genesis` makes the engine, GTL type system, and spec all importable from `.genesis/`.
-
-### Verify an existing install
-
-```bash
-python /path/to/gen-install.py --target /path/to/project --verify
-```
-
-### Reinstall (idempotent)
-
-```bash
-python /path/to/gen-install.py --target /path/to/project
-```
-
-Engine files are always replaced. The starter spec is never replaced. The config file is always replaced (it is engine metadata, not user data).
 
 ---
 
-## 8. The Workspace
+## 8. Workspace Layout
 
-The engine reads and writes `.ai-workspace/` in the workspace root.
+The runtime uses `.ai-workspace/` as evidence and coordination territory.
 
-```
+Typical layout:
+
+```text
 .ai-workspace/
 ├── events/
-│   └── events.jsonl          ← append-only event log (the ground truth)
+│   └── events.jsonl
+├── fp_manifests/
+├── fp_results/
 ├── features/
-│   ├── active/               ← feature vectors currently in-progress (YAML)
-│   └── completed/            ← converged feature vectors (YAML)
+│   ├── active/
+│   └── completed/
 ├── reviews/
-│   └── pending/              ← human review proposals
-└── comments/
-    └── <agent>/              ← per-agent discussion layer
+│   ├── pending/
+│   └── proxy-log/
+├── comments/
+│   └── claude/
+├── agents/
+└── runtime/
 ```
 
-### The event log
+### Important distinction
 
-`events.jsonl` is the substrate. Every event is a JSON line:
+- `genesis_installed` is emitted by the real installer
+- `workspace_bootstrap()` only scaffolds `.ai-workspace/` directories and binds the event stream
 
-```json
-{"event_type": "edge_converged", "event_time": "2026-03-15T...", "data": {"edge": "design→code", "target": "code", "delta": 0}}
-```
+### Event stream
 
-Assets are projections over the event stream — not stored directly. When you ask "has this edge converged?", the engine scans the event log for `edge_converged` events.
+`events.jsonl` is append-only runtime truth.
 
-The event log is append-only. Never edit or delete lines.
+Typical event families:
 
-### Feature vectors
+- installer/runtime:
+  - `genesis_installed`
+  - `run_bound`
+  - `run_started`
+  - `edge_started`
+- convergence:
+  - `found`
+  - `fp_dispatched`
+  - `assessed`
+  - `edge_converged`
+  - `fh_gate_pending`
+- structural evolution:
+  - `workflow_selected`
+  - `work_spawned`
+- correction:
+  - `reset`
 
-Feature YAML files live in `.ai-workspace/features/active/` or `completed/`. A file named `REQ-F-CORE-001.yml` creates a known feature ID. `gen gaps --feature REQ-F-CORE-001` validates that this ID exists (V1 — it does not yet narrow which jobs run).
+Do not edit the event log manually.
 
 ---
 
-<!-- Covers: REQ-F-VIS-001 REQ-F-DOCS-001 -->
 ## 9. The Working Loop
 
-The standard cycle when doing active development:
+The standard loop is:
 
 ```bash
-# 1. See what's left
+# 1. Inspect residual work
 gen gaps --workspace .
 
-# 2. If work is pending, run one iteration
+# 2. Run one traversal step
 gen iterate --workspace .
-# (or: gen start --workspace . --auto to loop until blocked)
 
-# 3. Read what happened
-tail -5 .ai-workspace/events/events.jsonl
+# 3. Or let the state machine loop until blocked
+gen start --workspace . --auto
 
-# 4. Respond to what the engine reported
-#    - found{kind: fd_gap}  → fix the deterministic failure, then go to step 1
-#    - fp_dispatched → do the agent work, record the assessment, then go to step 1
-#    - fh_gate_pending → provide human approval (emit approved{kind: fh_review}), then go to step 1
-
-# 5. Confirm delta dropped
-gen gaps --workspace .
+# 4. Inspect emitted evidence
+tail -20 .ai-workspace/events/events.jsonl
 ```
 
-The workspace is done when `gen gaps` reports `converged: true` and `total_delta: 0`.
+Typical blocking conditions:
+
+- `blocking_reason: fp_dispatch`
+  - an `F_P` manifest was written
+  - an external actor or test harness should produce a result and ingest it with `gen assess-result`
+- `blocking_reason: fh_gate`
+  - an `F_H` gate is pending
+- `blocking_reason: fd_gap`
+  - deterministic failure exists and must be fixed before escalation
+
+The workspace is at rest when `gen gaps` reports:
+
+- `converged: true`
+- `total_delta: 0`
 
 ---
 
-<!-- Covers: REQ-F-TAG-001 REQ-F-TAG-002 REQ-F-COV-001 REQ-F-TEST-001 REQ-F-TEST-002 -->
-## 10. Traceability
+## 10. Traceability and Checks
 
-The engine ships two subcommands for verifying code–spec traceability.
-
-### Check implementation tags
-
-Every non-`__init__` Python file in the engine should carry at least one `# Implements: REQ-*` tag:
+The current build includes traceability utilities:
 
 ```bash
-gen check-tags --type implements --path builds/claude_code/code/
+gen check-tags --type implements --path builds/claude_code/code
+gen check-tags --type validates --path builds/claude_code/test_env/tests
+gen check-req-coverage --package some_module:module --features .ai-workspace/features
+gen check-impl-coverage --package some_module:module --path builds/claude_code/code
+gen check-validates-coverage --package some_module:module --path builds/claude_code/test_env/tests
+gen check-bootloader-consistency --spec-module gtl --bootloader builds/claude_code/code/gtl_spec/GTL_BOOTLOADER.md
 ```
 
-Output is JSON: `{"passes": true, "untagged_count": 0, "untagged": []}` on success.
+Use these to verify:
 
-### Check test tags
-
-Every non-`__init__` test file should carry at least one `# Validates: REQ-*` tag:
-
-```bash
-gen check-tags --type validates --path builds/claude_code/tests/
-```
-
-### Check requirement coverage
-
-Every REQ key in the spec package should appear in at least one feature vector:
-
-```bash
-gen check-req-coverage \
-    --package gtl_spec.packages.genesis_core:genesis_v1 \
-    --features .ai-workspace/features/
-```
-
-Also accepts `--spec path/to/spec.md` for a grep-based scan of a markdown spec file (legacy path).
+- requirement tags exist in code
+- requirement tags exist in tests
+- feature vectors cover published requirements
+- bootloader language is still consistent with the exported GTL surface
 
 ---
 
-## 11. Understanding the Self-Hosting Spec
+## 11. Shipped Examples
 
-`builds/claude_code/code/gtl_spec/packages/genesis_core.py` is the V1 specification written as GTL. It defines:
+Useful examples in this repo:
 
-**Assets** (6):
+- current project module:
+  - [abiogenesis.py](/Users/jim/src/apps/abiogenesis/builds/claude_code/code/gtl_spec/packages/abiogenesis.py)
+- project-package example:
+  - [project_package.py](/Users/jim/src/apps/abiogenesis/builds/claude_code/code/gtl_spec/packages/project_package.py)
+- GTL bootloader source:
+  - [GTL_BOOTLOADER.md](/Users/jim/src/apps/abiogenesis/builds/claude_code/code/gtl_spec/GTL_BOOTLOADER.md)
+- interface contracts:
+  - [GTL_2_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/builds/claude_code/design/GTL_2_INTERFACE_CONTRACTS.md)
+- module design:
+  - [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/builds/claude_code/design/GTL_2_MODULE_DESIGN.md)
 
-| Asset | id_format | Meaning |
-|-------|-----------|---------|
-| `intent` | `INT-{SEQ}` | The goal to build |
-| `requirements` | `REQ-{SEQ}` | Tech-agnostic requirements |
-| `feature_decomp` | `FD-{SEQ}` | Feature breakdown |
-| `design` | `DES-{SEQ}` | Architecture and ADRs |
-| `code` | `CODE-{SEQ}` | Implementation |
-| `unit_tests` | `TEST-{SEQ}` | Test suite |
-
-**Edges** (5):
-
-| Edge | Evaluators | Kind |
-|------|-----------|------|
-| `intent→requirements` | `intent_approved` | Human approval |
-| `requirements→feature_decomp` | `req_coverage`, `feat_approved` | Deterministic test, Human approval |
-| `feature_decomp→design` | `design_complete`, `design_approved` | Agent assessment, Human approval |
-| `design→code` | `impl_tags`, `six_modules`, `code_complete` | Deterministic test, Deterministic test, Agent assessment |
-| `code↔unit_tests` | `tests_pass`, `validates_tags`, `test_complete` | Deterministic test, Deterministic test, Agent assessment |
-
-**Worker**: `worker_claude_code` — can execute all 5 jobs.
-
-The self-hosting workspace is currently converged (`total_delta: 0`). The event log in `.ai-workspace/events/events.jsonl` contains the certificates.
+If you want a realistic V2 module example, start with `abiogenesis.py`, not older V1 package-style examples.
 
 ---
 
-<!-- Covers: REQ-F-BOOTDOC-001 REQ-F-BOOTDOC-002 REQ-F-BOOTDOC-003 -->
 ## 12. Current Limitations
 
-### V1 scoping
+- This guide is intentionally rebuilt as a V2 skeleton.
+  - It is accurate to the current runtime surface, but not yet exhaustive.
+- Real `F_H` infrastructure is not the center of current qualification work.
+  - The runtime supports `F_H`, but most current sunny-day scenario proof is concentrated on `F_D` and `F_P`.
+- Domain installers are still domain-owned.
+  - The kernel installer does not scaffold domain modules for you.
+- The runtime contract is stricter than older docs implied.
+  - explicit `Module`
+  - explicit traversal surface
+  - explicit selection for `CandidateFamily`
+  - explicit domain runtime contract when not using `--module`
 
-`--feature REQ-F-CORE-001` validates that the feature ID exists in `.ai-workspace/features/` but does not yet narrow which jobs run. All jobs run regardless of feature scope. Per-job feature routing is V2.
+When in doubt, prefer:
 
-### Agent dispatch is asynchronous
+1. requirements
+2. accepted design
+3. current code
 
-When an agent assessment evaluator (`F_P`) fires, `gen iterate` emits an `fp_dispatched` event and stops. The agent (Claude, Codex, etc.) reads this event, does the work, and records the result externally. The engine does not invoke the agent directly — the agent invokes the engine. This is intentional: it keeps the engine pure and the agent interaction explicit.
-
-### Human approval requires a manual event
-
-To clear a human approval gate (`F_H`), emit an `approved` event via the CLI:
-
-```bash
-PYTHONPATH=.genesis python -m genesis emit-event \
-  --type approved \
-  --data '{"kind": "fh_review", "edge": "design→code", "actor": "human"}'
-```
-
-Once this event exists, `bind_fh` will see the approval (the `operative` fluent is initiated) and the F_H evaluator will pass on the next `gen gaps` / `gen iterate` call. To withdraw an approval, emit `revoked{kind: fh_approval}`.
-
-### Single worker
-
-V1 has one worker (`claude_code`). Multi-tenant scheduling with conflict detection is deferred to V2. The `schedule()` function and `Worker.conflicts_with()` are implemented but only exercised with a single worker in V1.
-
-### Source layout
-
-The engine source is at `builds/claude_code/code/genesis/` — not `src/genesis/`. The `builds/` prefix reflects the abiogenesis self-hosting structure: the engine is itself a build artifact that the spec describes. A conventional `src/` layout is deferred until the packaging migration is complete.
+over older V1-era prose.

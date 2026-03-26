@@ -87,6 +87,26 @@ This requirement establishes the constitutional rules for the qualification infr
 
 **REQ-P-QUAL-018**: The archive path shall encode **test identity** (scenario name, run ID, timestamp) so that postmortem can correlate a specific test failure to its evidence without grepping.
 
+**REQ-P-QUAL-018A**: Every sandbox-backed scenario or qualification run shall support a **persistent run archive** rooted under a stable, non-temporary test-run directory. Pytest temporary workspaces are execution scratch space; they are not sufficient as the postmortem record.
+
+**REQ-P-QUAL-018B**: A persistent run archive shall preserve the **full sandbox workspace snapshot** needed for replay-free postmortem, including at minimum:
+  - workspace documents and generated artifacts
+  - `.ai-workspace/events/events.jsonl`
+  - `.ai-workspace/fp_manifests/`
+  - `.ai-workspace/fp_results/`
+  - runtime/bootstrap files needed to understand the installed test surface
+
+**REQ-P-QUAL-018C**: A persistent run archive shall also preserve **run metadata and operator-facing summaries**, including at minimum:
+  - a run metadata record (`run.json` or equivalent) containing timestamp, test identity, source commit, interpreter, and invoked commands
+  - a summarized postmortem view (`summary.json` or equivalent) containing convergence state, failing evaluators, and key artifact references
+  - captured subprocess stdout/stderr where subprocess transport or CLI orchestration is involved
+
+**REQ-P-QUAL-018D**: Persistent run archives shall be **immutable and non-overwriting**. Each run receives a new path keyed by scenario/use-case identity plus sortable timestamp; a later run shall not destroy or mutate a prior archive.
+
+**REQ-P-QUAL-018E**: Archive materialization shall occur **before** sandbox cleanup or test fixture teardown. If execution uses temporary directories, the archive copy must be completed before those directories are eligible for deletion.
+
+**REQ-P-QUAL-018F**: The archive structure shall be **scenario-oriented**, not merely test-run-oriented. A postmortem operator shall be able to navigate by use case first, then timestamped run, without requiring pytest internals or temporary-directory names.
+
 ---
 
 ## Live Test Authority

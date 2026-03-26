@@ -22,3 +22,5 @@ The language may expose candidates but shall not embed hidden strategic choice. 
 **REQ-L-GTL2-SELECTION-BOUNDARY-003**: Selection belongs to: deterministic rule execution, probabilistic contextual analysis, human judgment, or business/intent logic above the interpreter.
 
 **REQ-L-GTL2-SELECTION-BOUNDARY-004**: The interpreter may enumerate lawful candidates. It shall not silently decide the "best" one.
+
+**REQ-L-GTL2-SELECTION-BOUNDARY-005**: Candidate families may include named structural profiles, harvest/merge alternatives, or other policy-visible variants for the same contract boundary, provided the boundary remains explicit and strategic choice stays outside the interpreter.

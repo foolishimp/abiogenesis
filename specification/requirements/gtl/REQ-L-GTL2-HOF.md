@@ -11,7 +11,7 @@
 
 ## Purpose
 
-GTL 2.x supports higher-order graph programming: fan-out, fan-in, gating, and promotion.
+GTL 2.x supports higher-order graph programming over graph functions: fan-out, fan-in, gating, and promotion.
 
 ## Acceptance Criteria
 
@@ -26,3 +26,9 @@ GTL 2.x supports higher-order graph programming: fan-out, fan-in, gating, and pr
 **REQ-L-GTL2-HOF-005**: All higher-order operations shall preserve interface/type truth.
 
 **REQ-L-GTL2-HOF-006**: Higher-order graph materialization (fan-out, promote) may depend on collection cardinality via `Vector[T]` node schema. `Vector[T]` is the semantic foundation for cardinality-sensitive graph materialization, not a separate structural concept.
+
+**REQ-L-GTL2-HOF-007**: Higher-order operations shall be lawful graph-function combinators, not hidden planner or interpreter heuristics.
+
+**REQ-L-GTL2-HOF-008**: The same higher-order vector operators may be used to expose explicit evaluator-result vectors or candidate-result vectors over a contract boundary. GTL declares the topology only; domains supply the evaluation or merge semantics.
+
+**REQ-L-GTL2-HOF-009**: A higher-order reduction or harvest boundary shall be able to declare that multiple branch or candidate results are collected for explicit merge, reduction, ranking, or selection by domain-defined logic. GTL declares the boundary and vector shape; it does not own the merge semantics.

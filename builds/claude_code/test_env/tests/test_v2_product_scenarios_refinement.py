@@ -19,7 +19,7 @@ from gtl.graph import Graph, Node, GraphVector
 from gtl.function_model import GraphFunction
 from gtl.module_model import Module
 from gtl.work_model import Job as GtlJob, ContractRef
-from gtl.algebra import edge, compose, substitute, identity
+from gtl.algebra import edge, compose, substitute, identity, deferred_refinement
 
 from gtl.operator_model import Evaluator, F_D, F_P, F_H
 
@@ -259,6 +259,9 @@ class TestS10SpecEvolutionInvalidatesPriorFP:
         job = GtlJob(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
         module_v1 = Module(
             name="s10_test", graphs=(graph,),
+            refinement_boundaries=(
+                deferred_refinement(vector.name, inputs=(design,), outputs=(code,)),
+            ),
             jobs=(job,),
             metadata={"requirements": ["REQ-F-ONE"]},
         )
@@ -280,6 +283,9 @@ class TestS10SpecEvolutionInvalidatesPriorFP:
         # Version 2: add a requirement
         module_v2 = Module(
             name="s10_test", graphs=(graph,),
+            refinement_boundaries=(
+                deferred_refinement(vector.name, inputs=(design,), outputs=(code,)),
+            ),
             jobs=(job,),
             metadata={"requirements": ["REQ-F-ONE", "REQ-F-TWO"]},
         )

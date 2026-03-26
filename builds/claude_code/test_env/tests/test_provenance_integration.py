@@ -32,6 +32,7 @@ from pathlib import Path
 
 import pytest
 
+from gtl.algebra import deferred_refinement
 from gtl.graph import Graph, Node, GraphVector, Context
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, Operator, F_D, F_P, F_H, Rule
@@ -102,6 +103,9 @@ def _make_fp_module() -> Module:
     return Module(
         name="prov_fp_test",
         graphs=(graph,),
+        refinement_boundaries=(
+            deferred_refinement(vector.name, inputs=(design,), outputs=(code,)),
+        ),
         jobs=(job,),
         metadata={"requirements": ["REQ-PROV-001"]},
     )
@@ -132,6 +136,9 @@ def _make_fh_module() -> Module:
     return Module(
         name="prov_fh_test",
         graphs=(graph,),
+        refinement_boundaries=(
+            deferred_refinement(vector.name, inputs=(design,), outputs=(code,)),
+        ),
         jobs=(job,),
         metadata={"requirements": ["REQ-PROV-002"]},
     )
@@ -492,6 +499,9 @@ class TestStaleFpRejected:
         changed_module = Module(
             name="prov_fp_test",
             graphs=(changed_graph,),
+            refinement_boundaries=(
+                deferred_refinement(changed_vec.name, inputs=(design,), outputs=(code,)),
+            ),
             jobs=(changed_job,),
             metadata={"requirements": ["REQ-PROV-001"]},
         )

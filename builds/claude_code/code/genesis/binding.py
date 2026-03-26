@@ -22,6 +22,7 @@ from pathlib import Path
 from typing import Any
 
 from gtl.graph import GraphVector, Node, Context
+from gtl.module_model import Module
 from gtl.operator_model import Evaluator, F_D, F_H, F_P
 from gtl.work_model import Job as GtlJob, Role, ContractRef
 
@@ -40,13 +41,26 @@ class WorkSurface:
     events:            control surface — appended to event log.
     artifacts:         trace surface — evidence file paths.
     context_consumed:  provenance — Contexts read during execution.
+    context_emitted:   provenance — Contexts emitted during execution.
+    findings:          structured findings derived during execution.
+    attestations:      structured attestations derived during execution.
+    metadata:          realized output-side runtime metadata only.
     """
     events: tuple[dict, ...] = ()
     artifacts: tuple[str, ...] = ()
     context_consumed: tuple[Context, ...] = ()
+    context_emitted: tuple[Context, ...] = ()
+    findings: tuple[dict, ...] = ()
+    attestations: tuple[dict, ...] = ()
+    metadata: dict = field(default_factory=dict)
 
     def is_auditable(self) -> bool:
-        return bool(self.artifacts or self.events)
+        return bool(
+            self.artifacts
+            or self.events
+            or self.findings
+            or self.attestations
+        )
 
 
 # ── ExecutableJob ────────────────────────────────────────────────────────────
@@ -86,6 +100,42 @@ class ExecutableJob:
     def target_type(self) -> Node:
         """Output type — what this job writes. Uniquely identifies write territory."""
         return self.vector.target
+
+
+def module_to_executable_jobs(module: Module) -> list[ExecutableJob]:
+    """
+    Resolve Module's GTL Jobs to ExecutableJobs.
+
+    Each Job's ContractRef is resolved to the corresponding GraphVector by id.
+    Module.jobs must be populated — no auto-derivation.
+    """
+    if not module.jobs:
+        raise ValueError(
+            f"Module {module.name!r} has no explicit jobs. "
+            f"All modules must declare jobs with ContractRef bindings."
+        )
+
+    vec_by_id: dict[str, GraphVector] = {}
+    for graph in module.graphs:
+        for vec in graph.vectors:
+            vec_by_id[vec.id] = vec
+
+    executable_jobs: list[ExecutableJob] = []
+    for gtl_job in module.jobs:
+        for ref in gtl_job.contracts:
+            if ref.kind != "graph_vector":
+                raise ValueError(
+                    f"Unsupported contract kind {ref.kind!r} in job {gtl_job.name!r}. "
+                    f"This build supports 'graph_vector' only."
+                )
+            vec = vec_by_id.get(ref.target_id)
+            if vec is None:
+                raise ValueError(
+                    f"ContractRef target_id {ref.target_id!r} in job {gtl_job.name!r} "
+                    f"does not resolve to any GraphVector in the module."
+                )
+            executable_jobs.append(ExecutableJob(job=gtl_job, vector=vec))
+    return executable_jobs
 
 
 # ── Worker ───────────────────────────────────────────────────────────────────

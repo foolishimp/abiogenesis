@@ -1,6 +1,6 @@
 # GTL Bootloader: Axiomatic Constraint Surface
 
-**Version**: 2.1.0
+**Version**: 2.2.0
 **Status**: Present-tense constitutional read model
 **Role**: Constraint manifold for LLM-guided construction over the GTL 2.x / ABG 2.x surface
 
@@ -48,10 +48,12 @@ This build is one realization of that contract.
 5. `Operator` is the effectful action surface.
 6. `Evaluator` is the convergence and attestation surface.
 7. `GraphFunction` is the reusable workflow program abstraction.
-8. `Module` is the publication boundary.
-9. `Job` is the durable semantic work contract.
-10. `Role` is the semantic capability class.
-11. `Worker`, `ExecutableJob`, `WorkSurface`, `RunState`, and `LeafTask` are ABG runtime types, not GTL language types.
+8. `RefinementBoundary` is the explicit lawful refinement/synthesis boundary.
+9. `CandidateFamily` is the explicit lawful structural-alternative family.
+10. `Module` is the publication boundary.
+11. `Job` is the durable semantic work contract.
+12. `Role` is the semantic capability class.
+13. `Traversal`, `ConvergenceResult`, `Worker`, `ExecutableJob`, `WorkSurface`, `RunState`, and `LeafTask` are ABG runtime types, not GTL language types.
 
 Nothing else should be treated as primary structural law unless explicitly promoted by requirements and design.
 
@@ -69,16 +71,25 @@ Nothing else should be treated as primary structural law unless explicitly promo
 | `Evaluator` | `gtl.operator_model` | Convergence/attestation declaration |
 | `Rule` | `gtl.operator_model` | Declarative constraint with kind and config |
 | `GraphFunction` | `gtl.function_model` | Reusable workflow template/program |
+| `RefinementBoundary` | `gtl.function_model` | Published lawful refinement/synthesis boundary |
+| `CandidateFamily` | `gtl.function_model` | Published lawful alternatives over one outer contract |
 | `ContractRef` | `gtl.work_model` | Reference from a semantic job to a GTL contract |
 | `Role` | `gtl.work_model` | Semantic capability class |
 | `Job` | `gtl.work_model` | Durable semantic work contract |
-| `Module` | `gtl.module_model` | Publication boundary for graphs, functions, jobs, roles, and metadata |
+| `Module` | `gtl.module_model` | Publication boundary for graphs, functions, boundaries, families, jobs, roles, and metadata |
 
 Public GTL algebra (`gtl.algebra`):
 - `edge` — construct a minimal one-vector graph
 - `compose` — lawful sequential composition of graph functions
 - `substitute` — replace a graph vector with an inner graph
+- `recurse` — bounded repeated realization under an explicit termination evaluator
+- `fan_out` — explicit vector-boundary expansion
+- `fan_in` — explicit vector-boundary reduction
+- `gate` — declarative evaluation boundary over a function, boundary, or family
+- `promote` — explicit representation lift / join
 - `identity` — neutral element for composition
+- `deferred_refinement` — declare a `RefinementBoundary`
+- `candidate_family` — declare a `CandidateFamily`
 - `same_object` — identity equality by `.id`
 
 These are graph semantics, not business-priority logic.
@@ -98,6 +109,9 @@ ABG may import GTL declarations.
 GTL owns:
 - graph structure
 - composition/substitution semantics
+- higher-order graph algebra
+- refinement boundaries
+- structural alternative families
 - semantic jobs
 - semantic roles
 - module packaging
@@ -108,10 +122,12 @@ ABG owns:
 - append-only events
 - projection
 - convergence
+- traversal
 - lineage
 - worker identity
 - role binding
 - run state
+- lawful selection application
 - transport
 - correction
 - provenance
@@ -148,6 +164,8 @@ Do not collapse these concepts:
 
 - `Job` is the GTL semantic work contract.
 - `Role` is the GTL semantic capability class.
+- `Traversal` is the ABG first-class runtime contract over a target boundary plus explicit evaluator/rule input.
+- `ConvergenceResult` is the ABG aggregate convergence truth for one evaluator or evaluator vector.
 - `Worker` is the ABG concrete actor identity.
 - `Run` is the ABG execution attempt/lifecycle realization.
 
@@ -156,6 +174,7 @@ Binding is engine-owned:
 - `Run -> Job`
 
 `ExecutableJob` is a runtime-resolved form of a semantic job against a concrete graph-vector contract.
+`SelectionDecision` is an explicit ABG decision contract. It is required for `CandidateFamily` traversal and must remain provenance-carrying.
 
 ---
 
@@ -172,6 +191,8 @@ Rules:
 5. F_P does NOT call the event logger. F_P produces artifacts; F_D reads them and emits events.
 6. Correction shadows prior certification/history; it does not erase history.
 7. Provenance must accompany executable realization so stale assessments cannot be reused silently.
+8. Convergence may be over one evaluator or an explicit evaluator-result vector.
+9. Selection may validate and apply only lawful declared alternatives; it must not invent strategy.
 
 The system is replayable or it is not lawful.
 
@@ -186,6 +207,8 @@ The system is replayable or it is not lawful.
 GTL may expose:
 - lawful candidates
 - interface families
+- named `CandidateFamily` declarations
+- named `RefinementBoundary` declarations
 - tags
 - hints
 - graph-function catalogs
@@ -194,6 +217,7 @@ GTL may not hide strategic business choice inside the language or interpreter.
 
 The engine may enumerate lawful options.
 The decision surface must remain explicit and provenance-carrying.
+If a `CandidateFamily` is traversed, the choice must arrive as an explicit `SelectionDecision`.
 
 ---
 

@@ -22,3 +22,7 @@ Rules are declarative constraints. They describe what must hold. Gates apply rul
 **REQ-L-GTL2-RULE-003**: The relationship between Rule, Evaluator, and gate() shall be: Rule = what must hold, Evaluator = mechanism of checking, gate() = graph combinator that blocks or allows continuation.
 
 **REQ-L-GTL2-RULE-004**: Gate behavior (approval mode, dissent handling) shall be expressed via `config`, not as Rule-level fields. ABG-specific gate semantics (consensus thresholds, dissent recording) are runtime interpretation of declarative config, not language-level type structure.
+
+**REQ-L-GTL2-RULE-005**: Rule configuration may declare policy-visible parameters for multi-evaluator or multi-actor gates, including quorum thresholds, ordering, round bounds, or aggregation mode. The meaning of the underlying judgments remains domain-defined.
+
+**REQ-L-GTL2-RULE-006**: Rule configuration may declare profile-selection or harvest-policy parameters visible to evaluators and external consumers. The interpreter may enforce the declared protocol but shall not invent the underlying scoring, merge, or business semantics.

@@ -154,6 +154,10 @@ GTL 2.x shall support reusable named workflow programs through `GraphFunction`.
 
 GTL 2.x shall make lawful composition and lawful substitution native operations.
 
+### INT-GTL2-005A: Deferred Synthesis and Lawful Refinement
+
+GTL 2.x shall be able to declare lawful synthesis/refinement points where externally supplied logic may produce or select an interface-compatible refinement without embedding hidden strategic choice in the interpreter.
+
 ### INT-GTL2-006: Recursion and Higher-Order Graph Programming
 
 GTL 2.x shall support:
@@ -413,7 +417,7 @@ Gate behavior belongs in `config`, not in Rule-level execution fields.
 
 ### 5.9 GraphFunction
 
-`GraphFunction` is a reusable named workflow abstraction.
+`GraphFunction` is the primary reusable GTL compute abstraction.
 
 Conceptually:
 
@@ -429,7 +433,17 @@ class GraphFunction:
     tags: tuple[str, ...] = ()
 ```
 
-Semantically, a graph function is a parameterized graph template.
+Semantically, a graph function is a parameterized graph template with a stable outer contract.
+
+An algebraic reading is:
+
+```text
+GraphFunction : A -> Workflow[B]
+```
+
+This is not a mandatory runtime type.
+
+It means `GraphFunction` is the lawful unit of reuse, composition, refinement, recursion, and higher-order application.
 
 In the embedded Python DSL, that template may be authored as a callable that materializes a graph.
 
@@ -578,11 +592,19 @@ Internal refinement may change structure but must preserve declared outer contra
 
 Named workflows are reusable through graph functions, not through copied structure.
 
-### 6.7 Higher-order legality
+### 6.7 Deferred lawful refinement
+
+Deferred synthesis/refinement may change internal realized structure but must preserve the declared outer contract.
+
+The language may declare that a refinement boundary exists and what contract it must satisfy.
+
+The language shall not hide strategic choice inside the interpreter.
+
+### 6.8 Higher-order legality
 
 Fan-out, fan-in, gate, and promote must preserve interface/type truth.
 
-### 6.8 Bounded sub-work expressibility
+### 6.9 Bounded sub-work expressibility
 
 The language may declare that a graph vector or graph function permits bounded sub-work dispatch.
 
@@ -595,7 +617,7 @@ This is the clean answer to leaf-task placement:
 - GTL can express bounded sub-work capability
 - ABG-compatible engines choose how to realize that capability operationally
 
-### 6.9 Execution collapse
+### 6.10 Execution collapse
 
 ABG execution collapses to lawful iteration over a single contract step.
 
@@ -647,10 +669,20 @@ Replace a coarse contract step with a finer graph.
 ### 7.4 Recurse
 
 ```python
-recurse(graph, lineage)
+recurse(graph_function, termination)
 ```
 
-Express that graph application may induce child graph applications.
+Express that graph-function application may induce child or repeated graph applications under a declared termination contract.
+
+### 7.4A Deferred synthesis / refinement
+
+```text
+deferred_refinement(contract_boundary, constraints, hints?)
+```
+
+Declare that an interface-compatible graph/function may be produced or selected at this boundary and later applied through lawful substitution.
+
+The exact implementation surface is intentionally open.
 
 ### 7.5 Fan-out
 
@@ -890,6 +922,7 @@ The live requirement surface expresses that design through four active layers.
 - `REQ-L-GTL2-ROLE`
 - `REQ-L-GTL2-JOB`
 - `REQ-L-GTL2-COMPOSE`
+- `REQ-L-GTL2-SYNTHESIS`
 - `REQ-L-GTL2-SUBSTITUTE`
 - `REQ-L-GTL2-RECURSE`
 - `REQ-L-GTL2-SUBWORK`

@@ -330,7 +330,7 @@ INT-004 established the structural primitives: work identity, compositional grap
 
 ---
 
-## INT-006 — Functional Composition and Higher-Order Graph Programs
+## INT-006 — GraphFunction Composition, Lawful Refinement, and Higher-Order Graph Programs
 
 **Date**: 2026-03-24
 **Status**: Draft
@@ -339,148 +339,133 @@ INT-004 established the structural primitives: work identity, compositional grap
 
 ### Problem
 
-INT-004 introduced Fragment, zoom, and spawn as structural primitives for compositional graphs. The category-theoretic framing — where graphs are objects and graph functions are morphisms — was always the intended foundation. But the current implementation stops at structural reuse: Fragments are inline data in Package, there is no named graph function concept, no composition operator, no interface equivalence, and no mechanism for evaluator-driven selection among alternatives.
+The current GTL surface has the right nouns but not yet the clearest algebraic center.
 
-Product-owner scenario analysis exposed this gap concretely:
+`GraphFunction`, `compose`, `substitute`, `recurse`, and the higher-order operators currently read as separate capabilities. What is still missing is the explicit statement that they are all consequences of one reusable compute abstraction.
 
-1. **Scenario 11**: A named discovery workflow should be expressible as a first-class graph function, not just "a Python function that happens to return a Fragment." The system should know its name, interface, and effects.
+That gap shows up concretely in authoring:
 
-2. **Scenario 12**: The same graph function should be applicable at multiple sites in the graph with distinct work lineages. Currently possible by accident of structural matching, but not constitutionally guaranteed.
+1. `g1().g2().g3()` must be lawful workflow composition, not ad hoc structural assembly.
+2. A graph function such as `g3 : A -> X` must be allowed to refine internally into `A -> W -> X` while preserving its outer contract to the caller.
+3. Recursion, fan-out, fan-in, gating, and promotion should derive from the same graph-function algebra rather than be treated as unrelated features.
+4. Consumer-specific synthesis and selection must remain outside ABG business logic while still being lawfully declared, applied, and replayed.
 
-3. **Scenario 13**: Two graph functions should compose when the output interface of one satisfies the input interface of the other. No composition operator exists. Manual fragment assembly is the only option.
-
-4. **Scenario 14**: Multiple graph functions with the same interface should be visible as candidates for the same edge. The engine should enumerate candidates; selection belongs to evaluators (F_D rule, F_P analysis, F_H judgment) or to business/intent logic above the engine. The current `find_fragment_for_edge()` returns first-match — selection is implicit and non-replayable.
-
-The missing capability is not a feature — it is the functional core that the category-theoretic framing requires. Without it, GTL is a structural description language but not a functional programming language for workflows.
+Without that center, GTL remains structurally expressive but underspecified as a functional programming language for workflows.
 
 ### Value Proposition
 
-GTL becomes a **functional, interpreted language for composing deterministic, probabilistic, and judgment-bearing programs**:
+GTL becomes a functional, interpreted workflow language whose primary reusable compute unit is `GraphFunction`.
 
-- `GraphFunction` is a typed, named, reusable workflow program with explicit interface
-- `Fragment` is the structural realization (the "compiled" form)
-- ABG is the interpreter / convergence engine
-- Evaluators and business logic remain above the interpreter — they select, the engine composes and applies
+Semantically:
 
-The functional core provides:
-
-**1. Named graph functions with typed interfaces**
-
-```python
-GraphFunction(
-    name="discovery_workflow",
-    inputs=(intent,),
-    outputs=(synthesized_results,),
-    build=...,              # pure: () → Fragment
-    effects=("probabilistic",),
-)
+```text
+GraphFunction : A -> Workflow[B]
 ```
 
-A graph function is not a convenience wrapper. It is the unit of reuse, the unit of interface checking, and the unit of selection.
+This is an algebraic reading, not a mandatory runtime type. It means:
+
+- `GraphFunction` is the reusable workflow program
+- lawful composition is the primary means of building larger workflows
+- lawful substitution/refinement preserves declared outer contracts
+- recursion and higher-order operators are derived from the same center
+- ABG remains the interpreter/runtime, not the owner of business logic
+
+The model provides:
+
+**1. GraphFunction as the primary reusable compute abstraction**
+
+`GraphFunction` is not a helper wrapper around graph construction.
+
+It is:
+- the unit of reuse
+- the unit of interface checking
+- the unit of lawful composition
+- the unit of lawful refinement
 
 **2. Lawful composition**
 
-```
-compose(discovery_workflow, context_synthesis) → larger_workflow
-```
+`g1().g2().g3()` is the normal authoring shape when interfaces align.
 
-Composition law: `left.outputs` satisfies `right.inputs`. The result preserves `left.inputs` and `right.outputs`. Validation at composition time, not runtime.
+Composition laws include:
+- identity
+- associativity as semantic equivalence of outer contract and lawful composition truth
+- contract preservation
+- replayability
 
-Composition invariants:
-- **Associativity**: `compose(compose(f, g), h) ≡ compose(f, compose(g, h))` — grouping doesn't change the outer contract
-- **Identity**: an identity graph function leaves the interface unchanged
-- **Substitutability**: graph functions with equivalent interfaces are interchangeable at the contract boundary
-- **Contract preservation**: composition refines internals but preserves the declared outer interface
-- **Replayability**: composed structure is reconstructable from package truth + emitted events
+**3. Lawful local refinement**
 
-**3. Higher-order combinators**
+If:
 
-Sequential composition alone is insufficient. Workflow programs need:
-
-```
-compose(f, g)    — sequential: output of f feeds input of g
-fan_out(f)       — apply f across a collection/vector
-fan_in(r)        — reduce branch outputs into a synthesized result
-gate(g)          — require a gate/reducer before promotion or continuation
-promote(p)       — lift scalar output into vector/branchable structure
+```text
+g3 : A -> X
 ```
 
-These are structural program combinators, not separate planners. They let GTL express:
+then `g3` may lawfully refine internally into:
 
-```
-intent_event → gate(consensus) → intent_vector
-intent_vector → fan_out(discovery_workflow)
-branch_results → fan_in(synthesize_results)
-synthesized_results → promote(new_context)
+```text
+A -> W -> X
 ```
 
-**4. Composition-aware, selection-blind kernel**
+for example through `g4().g5()`, so long as the caller still sees the same outer `A -> X` contract.
 
-The engine:
-- Knows which graph functions exist (Package catalog)
-- Validates interface compatibility
-- Composes graph functions lawfully
-- Enumerates candidates for an edge (replaces first-match)
-- Applies whichever graph function the evaluator layer selects
+This is lawful substitution, not arbitrary graph mutation.
 
-The engine does NOT:
-- Decide which graph function to use
-- Rank candidates by business priority
-- Apply implicit heuristics
+**4. Traversal remains an ABG runtime concern**
 
-Selection belongs to evaluators:
+The runtime unit is traversal of an invocation, not the algebra itself.
 
-| Regime | Evaluator | Example |
-|--------|-----------|---------|
-| Deterministic rule | F_D | "If work carries `complexity:low`, use `light_discovery_workflow`" |
-| Context analysis | F_P | "Analyze context and choose best-fit workflow" |
-| Stakeholder choice | F_H | "Choose between alternatives for high-risk change" |
+The causal chain is:
 
-The Package may declare metadata (tags, complexity hints, interface-equivalent families) that evaluators consume. The kernel treats this as opaque declarative input — visible for enumeration, ignored for choice.
-
-**5. Selection provenance**
-
-Selection is external but must be replayable:
-
-```
-workflow_selected{edge, work_key, graph_function, selected_by, selection_mode, rationale?}
-zoomed{edge, work_key, graph_function, fragment, internal_edges}
+```text
+Traversal -> GapEvent -> IntentVector -> Gate / Evaluation -> Next lawful action
 ```
 
-Replay law: which candidates existed is structural truth, which was chosen is event truth, which topology was applied is zoom truth.
+GTL declares structure and lawful boundaries.
+ABG realizes traversal, event emission, lineage, and provenance.
+
+ABG also owns the deterministic protocol of gap triggering, escalation, and replayable traceability.
+
+What counts as a gap for a particular contract remains domain-defined through evaluator bindings and domain-specific logic supplied through the GTL declaration surface.
+
+The same protocol must hold whether one evaluator or an explicit evaluator set observes the boundary. A vector of evaluator outcomes may itself be the convergence surface. GTL declares the topology, evaluator hooks, and policy-visible boundaries by which domains plug in their prompts or programs. ABG executes the rounds deterministically and records the trace without owning the domain semantics.
+
+**5. Consumer-pluggable synthesis without business logic in ABG**
+
+When a coarse contract is insufficient, GTL must be able to declare a lawful synthesis/refinement point where consumer logic can produce or select an interface-compatible inner graph.
+
+ABG may host the callback and record provenance.
+ABG must not contain hidden business-choice logic.
 
 ### Scope
 
-**In scope (GTL + ABG kernel):**
-- `GraphFunction` as a first-class GTL type: name, inputs, outputs, build, effects, tags
-- `Package.graph_functions` catalog surface
-- `find_graph_functions_for_edge()` — candidate enumeration (replaces first-match)
-- `compose_graph_functions(left, right)` — sequential composition with interface validation
-- Composition laws: associativity, identity, substitutability, contract preservation, replayability
-- Higher-order combinators: `fan_out`, `fan_in`, `gate`, `promote`
-- Interface equivalence: two graph functions with matching (inputs, outputs) are interchangeable
-- `workflow_selected` Tier 2 control event for selection provenance
-- Zoom/apply operates on selected graph function, not first-match fragment
-- Declarative selection surface in Package (tags, hints) — opaque to kernel, consumed by evaluators
+**In scope (GTL + ABG boundary):**
+- `GraphFunction` as the primary reusable compute abstraction
+- lawful composition with explicit interface validation
+- policy-visible structural parameterization, including named materialization profiles where a domain needs them
+- lawful substitution preserving outer contract
+- bounded recursive graph-function application
+- higher-order graph operators derived from the same graph-function algebra
+- explicit vector/harvest boundaries over evaluator or candidate sets, with domain-defined merge semantics
+- declarative synthesis/refinement points with explicit interface constraints
+- replayable selection/application truth when externally supplied logic chooses or synthesizes a refinement
 
 **Out of scope:**
-- Selection logic in the kernel — selection is evaluator/business concern
-- Dynamic graph realisation (intent engine) — future, uses this infrastructure
-- Distributed coordination — INT-005 + INT-006 make local law complete
-- Package distribution / registry — graph functions are declared in Package, not imported from external registries (yet)
+- business-choice logic embedded in ABG
+- one mandatory implementation shape for synthesis declarations
+- target-engine mapping work beyond ABG 1.0
+- committing the public API to one representation before the design phase closes
 
 ### Success Criteria
 
-1. `GraphFunction` is a GTL type with explicit name, interface (inputs/outputs), and effects declaration
-2. A graph function can be applied at an edge via zoom — the system records which function was applied
-3. The same graph function can be applied at two different sites with independent work lineages
-4. Two graph functions can be composed when left.outputs satisfies right.inputs — the composed result is a valid graph function
-5. Composition validation rejects interface mismatches at composition time, not runtime
-6. `find_graph_functions_for_edge()` returns all compatible candidates, not first-match
-7. Selection is external — the kernel enumerates and validates, evaluators choose
-8. `workflow_selected` event makes selection replayable from the event stream
-9. Higher-order combinators (`fan_out`, `fan_in`, `gate`, `promote`) can express branching, reducing, gating, and promotion patterns
-10. The kernel remains composition-aware and selection-blind — no business priority logic in the engine
+1. `GraphFunction` is treated as the primary reusable GTL compute abstraction with explicit outer interface and declared effects
+2. Sequential graph-function composition is lawful when interfaces align and invalid when they do not
+3. Local refinement preserves the outer contract seen by the caller even when internal structure changes
+4. Recursion is declarable, bounded, and traceable
+5. Higher-order operators preserve interface/type truth and derive from the same compositional center
+6. GTL can declare lawful synthesis/refinement points without embedding business-choice logic in ABG
+7. Selection and refinement remain replayable through structural declarations plus event/provenance truth
+8. One or more evaluators may observe the same contract boundary, producing a replayable convergence vector without moving domain semantics into ABG
+9. Named materialization profiles and explicit harvest boundaries can be declared without moving profile or merge semantics into ABG
 
 ---
 

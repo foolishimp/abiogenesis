@@ -20,7 +20,7 @@ from .transport import dispatch_agent, classify_failure
 @dataclass(frozen=True)
 class LeafTask:
     """
-    Bounded, schema-driven sub-work unit dispatched within iterate().
+    Bounded, schema-driven sub-work unit dispatched within traversal realization.
 
     ADR-027 REQ-F-LEAF-001: Leaf tasks are subordinate to graph traversal.
     Schema-driven: input validated before dispatch, output validated after.
@@ -82,7 +82,7 @@ def dispatch_leaf(
     *,
     agent: str = "claude",
 ) -> tuple[dict | None, str | None]:
-    """Synchronous leaf task sub-dispatch within iterate().
+    """Synchronous leaf task sub-dispatch within traversal realization.
 
     ADR-027 REQ-F-LEAF-002: Bounded, schema-driven sub-work.
     Does NOT emit events — returns data for the caller to emit.

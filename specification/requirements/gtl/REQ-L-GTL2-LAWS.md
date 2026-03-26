@@ -11,7 +11,7 @@
 
 ## Purpose
 
-The 15 laws that govern GTL 2.x language semantics.
+The 16 laws that govern GTL 2.x language semantics.
 
 ## Acceptance Criteria
 
@@ -31,16 +31,18 @@ The 15 laws that govern GTL 2.x language semantics.
 
 **REQ-L-GTL2-LAWS-008**: Contract preservation — refinement may change internals but must preserve the outer contract.
 
-**REQ-L-GTL2-LAWS-009**: Recursion with preserved lineage — recursive graph application preserves explainable work lineage.
+**REQ-L-GTL2-LAWS-009**: Deferred refinement law — declared synthesis/refinement boundaries may change internal realized structure but must preserve the outer contract and keep strategic choice external to the interpreter.
 
-**REQ-L-GTL2-LAWS-010**: Higher-order legality — fan-out, fan-in, gate, and promote must preserve interface/type truth.
+**REQ-L-GTL2-LAWS-010**: Recursion with preserved lineage — recursive graph application preserves explainable work lineage.
 
-**REQ-L-GTL2-LAWS-011**: Separation from strategic choice — the language exposes structure, not hidden selection.
+**REQ-L-GTL2-LAWS-011**: Higher-order legality — fan-out, fan-in, gate, and promote must preserve interface/type truth.
 
-**REQ-L-GTL2-LAWS-012**: Suitability for event-sourced interpretation — constructs must be lawfully interpretable by an event-sourced runtime.
+**REQ-L-GTL2-LAWS-012**: Separation from strategic choice — the language exposes structure, not hidden selection.
 
-**REQ-L-GTL2-LAWS-013**: Engine independence — language semantics do not depend on any single engine implementation.
+**REQ-L-GTL2-LAWS-013**: Suitability for event-sourced interpretation — constructs must be lawfully interpretable by an event-sourced runtime.
 
-**REQ-L-GTL2-LAWS-014**: Categorical identity — every first-class type carries opaque identity distinct from its label. Operations target by identity, not by name (see REQ-L-GTL2-IDENTITY).
+**REQ-L-GTL2-LAWS-014**: Engine independence — language semantics do not depend on any single engine implementation.
 
-**REQ-L-GTL2-LAWS-015**: Semantic work / execution separation — GTL declares jobs and roles; ABG realizes runs and worker bindings. Authentication and authority resolution remain external.
+**REQ-L-GTL2-LAWS-015**: Categorical identity — every first-class type carries opaque identity distinct from its label. Operations target by identity, not by name (see REQ-L-GTL2-IDENTITY).
+
+**REQ-L-GTL2-LAWS-016**: Semantic work / execution separation — GTL declares jobs and roles; ABG realizes runs and worker bindings. Authentication and authority resolution remain external.

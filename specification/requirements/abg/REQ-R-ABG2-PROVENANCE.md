@@ -22,3 +22,9 @@ ABG preserves spec, workflow, version, and selection provenance over graph inter
 **REQ-R-ABG2-PROVENANCE-003**: Selection provenance shall record which candidate was chosen, by which mechanism (F_D/F_P/F_H/business), with rationale.
 
 **REQ-R-ABG2-PROVENANCE-004**: Module/library provenance shall track imported graph functions to their source module.
+
+**REQ-R-ABG2-PROVENANCE-005**: Evaluation provenance shall record per-evaluator identity, regime, and outcome when one evaluator or an evaluator set is applied to a contract boundary, plus any aggregate convergence or gate decision derived from that set.
+
+**REQ-R-ABG2-PROVENANCE-006**: When evaluation or harvest occurs over explicit rounds, candidate sets, or worker/evaluator sets, provenance shall preserve the round identity and the relevant set references needed for replay and audit.
+
+**REQ-R-ABG2-PROVENANCE-007**: When a named structural profile or harvest/merge alternative is selected for a contract boundary, provenance shall record the declared profile/alternative identity, the selecting mechanism, and any rationale supplied by the active evaluator or external selector.

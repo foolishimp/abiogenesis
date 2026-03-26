@@ -23,6 +23,7 @@ and are traced through feature vectors in .ai-workspace/features/.
 from gtl.graph import Graph, Node, GraphVector, Context
 from gtl.module_model import Module
 from gtl.work_model import Job, ContractRef, Role
+from gtl.algebra import deferred_refinement
 
 # V2 effect types — native vocabulary
 from gtl.operator_model import (
@@ -297,6 +298,40 @@ job_unit_uat = Job(
 )
 
 
+# ── Published traversal boundaries ──────────────────────────────────────────
+
+rb_intent_req = deferred_refinement(
+    v_intent_req.name,
+    inputs=(intent,),
+    outputs=(requirements,),
+)
+rb_req_feat = deferred_refinement(
+    v_req_feat.name,
+    inputs=(requirements,),
+    outputs=(feature_decomp,),
+)
+rb_feat_design = deferred_refinement(
+    v_feat_design.name,
+    inputs=(feature_decomp,),
+    outputs=(design,),
+)
+rb_design_code = deferred_refinement(
+    v_design_code.name,
+    inputs=(design,),
+    outputs=(code,),
+)
+rb_tdd = deferred_refinement(
+    v_tdd.name,
+    inputs=(code, unit_tests),
+    outputs=(unit_tests,),
+)
+rb_unit_uat = deferred_refinement(
+    v_unit_uat.name,
+    inputs=(unit_tests,),
+    outputs=(uat_tests,),
+)
+
+
 # ── Module (V2 — replaces Package) ──────────────────────────────────────────
 # requirements list is the authoritative REQ key registry for this project.
 # Add keys here as requirements are written; check-req-coverage enforces coverage.
@@ -304,6 +339,14 @@ job_unit_uat = Job(
 module = Module(
     name="project_package",
     graphs=(sdlc_graph,),
+    refinement_boundaries=(
+        rb_intent_req,
+        rb_req_feat,
+        rb_feat_design,
+        rb_design_code,
+        rb_tdd,
+        rb_unit_uat,
+    ),
     jobs=(job_intent_req, job_req_feat, job_feat_design, job_design_code, job_tdd, job_unit_uat),
     roles=(role_constructor,),
     metadata={

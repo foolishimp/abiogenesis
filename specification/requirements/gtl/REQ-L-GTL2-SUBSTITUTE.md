@@ -22,3 +22,7 @@ Substitution replaces a coarse graph contract step with a finer graph. This is t
 **REQ-L-GTL2-SUBSTITUTE-003**: Substitution shall expose the refined internal structure — inner graph vectors become visible graph structure within the outer graph.
 
 **REQ-L-GTL2-SUBSTITUTE-004**: Substitution shall produce a result graph that carries enough information for an interpreter to record provenance (which contract was refined, by which inner graph). The recording obligation belongs to the engine (see REQ-R-ABG2-PROVENANCE).
+
+**REQ-L-GTL2-SUBSTITUTE-005**: Substitution may apply either a pre-authored inner graph or a runtime-synthesized inner graph, provided the declared outer contract is preserved.
+
+**REQ-L-GTL2-SUBSTITUTE-006**: Substitution shall be local refinement — callers continue to observe the original outer contract boundary even when the internal realized graph changes.

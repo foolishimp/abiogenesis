@@ -23,6 +23,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from gtl.graph import Graph, Node, GraphVector, Context
+from gtl.function_model import RefinementBoundary
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, Operator, F_D, F_P, F_H, Rule
 from gtl.work_model import Job as GtlJob, ContractRef
@@ -71,10 +72,12 @@ def _make_minimal_module(requirements: list[str] | None = None) -> Module:
     )
 
     job = GtlJob(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
+    rb = RefinementBoundary(name=vector.name, inputs=(design,), outputs=(code,))
     return Module(
         name="property_test",
         graphs=(graph,),
         jobs=(job,),
+        refinement_boundaries=(rb,),
         metadata={"requirements": requirements},
     )
 

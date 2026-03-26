@@ -34,7 +34,7 @@ In this Claude build, the conceptual `abg.*` runtime layer is implemented under 
 3. Product policy and CLI behavior must not leak into GTL core modules.
 4. Transport is replaceable behind an ABG runtime boundary.
 5. `Graph` is public ontology; `GraphVector` is implementation structure.
-6. `Role` and `Job` are GTL declaration types. `Worker`, `ExecutableJob`, `WorkSurface`, `RunState`, and `LeafTask` are ABG runtime types. `WorkInstance` is a helper view over work identity in this build.
+6. `Role` and `Job` are GTL declaration types. `Worker`, `ExecutableJob`, `WorkSurface`, `Traversal`, `RunState`, and `LeafTask` are ABG runtime types. `WorkInstance` is a helper view over work identity in this build.
 7. Provenance recording is an engine obligation even when the language requires provenance-carrying structure.
 8. Higher-order operations belong to GTL semantics, but their realization belongs to ABG.
 9. `Worker.can_execute` remains the executable capability and scheduling surface in this build; roles are additive, not a replacement.
@@ -44,6 +44,9 @@ In this Claude build, the conceptual `abg.*` runtime layer is implemented under 
 13. `work_key` is the canonical ABG work identity. `feature` is application-facing sugar over `work_key`.
 14. `vector_id` is the canonical runtime contract handle. `edge` or `vector_name` are readability fields only.
 15. `PrecomputedManifest`, `WorkInstance`, `SelectionResult`, and `AgentResult` are helper shapes unless a requirement explicitly promotes them to public runtime ontology.
+16. Do not solve structural choice with `GraphVector` flags. Guards, synthesis eligibility, harvest mode, profile identity, and similar concerns belong in GTL algebraic declarations, not as ad hoc vector booleans.
+17. Do not treat current code-surface convenience as design law. If the current implementation shape conflicts with the algebraic requirement surface, the design follows the requirements and the implementation must catch up.
+18. Parallel candidate harvest, evaluator multiplicity, and profile selection must be expressed as explicit topological or policy-visible declarations. They must not be inferred from tuple cardinality or hidden interpreter convention.
 
 ---
 
@@ -55,9 +58,9 @@ In this Claude build, the conceptual `abg.*` runtime layer is implemented under 
 | --- | --- | --- | --- |
 | `gtl.graph` | Graph structure | `Graph`, `Node`, `GraphVector`, `Context` | REQ-L-GTL2-GRAPH, REQ-L-GTL2-NODE, REQ-L-GTL2-INTERFACE |
 | `gtl.operator_model` | Effect and convergence declarations | `Operator`, `Evaluator`, `Rule`, `Regime` (F_D/F_P/F_H) | REQ-L-GTL2-OPERATOR, REQ-L-GTL2-EVALUATOR, REQ-L-GTL2-RULE |
-| `gtl.function_model` | Reusable workflow programs | `GraphFunction`, `GraphTemplate` | REQ-L-GTL2-GRAPHFUNCTION |
+| `gtl.function_model` | Reusable workflow programs and structural alternatives | `GraphFunction`, `RefinementBoundary`, `CandidateFamily` | REQ-L-GTL2-GRAPHFUNCTION, REQ-L-GTL2-SYNTHESIS, REQ-L-GTL2-SELECTION-BOUNDARY |
 | `gtl.work_model` | Semantic work declarations | `ContractRef`, `Role`, `Job` | REQ-L-GTL2-ROLE, REQ-L-GTL2-JOB, REQ-L-GTL2-IDENTITY |
-| `gtl.algebra` | Graph algebra | `compose`, `substitute`, `recurse`, `fan_out`, `fan_in`, `gate`, `promote`, `identity` | REQ-L-GTL2-COMPOSE, REQ-L-GTL2-SUBSTITUTE, REQ-L-GTL2-RECURSE, REQ-L-GTL2-HOF, REQ-L-GTL2-LAWS |
+| `gtl.algebra` | Graph algebra | `compose`, `substitute`, `recurse`, `fan_out`, `fan_in`, `gate`, `promote`, `identity`, `deferred_refinement`, `candidate_family` | REQ-L-GTL2-COMPOSE, REQ-L-GTL2-SYNTHESIS, REQ-L-GTL2-SUBSTITUTE, REQ-L-GTL2-RECURSE, REQ-L-GTL2-HOF, REQ-L-GTL2-LAWS |
 | `gtl.module_model` | Publication and imports | `Module`, `ModuleImport` | REQ-L-GTL2-MODULE, REQ-L-GTL2-SELECTION-BOUNDARY, REQ-L-GTL2-ENGINE-INDEPENDENCE |
 
 ### 3.2 ABG engine kernel
@@ -69,13 +72,13 @@ In this Claude build, the conceptual `abg.*` runtime layer is implemented under 
 | `abg.binding` | Executable job resolution, deterministic precomputation, worker capability, role binding, immutable execution surfaces | `ExecutableJob`, `WorkSurface`, `Worker`, preparation helpers, `bind_fd()`, `bind_fp()`, `bind_fh()`, executable-job hashes | REQ-R-ABG2-INTERPRET, REQ-R-ABG2-WORKER, REQ-R-ABG2-BINDING, REQ-R-ABG2-PROVENANCE |
 | `abg.lineage` | Work identity and parent/child | `spawn()`, `fold_back()`, `_discover_children()`, lineage queries, work-identity helpers | REQ-R-ABG2-LINEAGE |
 | `abg.run` | Execution attempts | `RunState`, `run_state()`, `find_pending_run()`, `supersede_run()` | REQ-R-ABG2-RUN |
-| `abg.convergence` | Delta and convergence | `delta()`, `parent_converged()`, convergence visibility | REQ-R-ABG2-CONVERGENCE |
-| `abg.selection` | Candidate enumeration and validation | `SelectionDecision`, candidate discovery, selection validation | REQ-R-ABG2-SELECTION-APPLICATION |
-| `abg.provenance` | Spec/workflow/selection provenance | `req_hash()`, `executable_job_hash()`, workflow version reads, carry-forward | REQ-R-ABG2-PROVENANCE |
+| `abg.convergence` | Delta and convergence | `delta()`, `parent_converged()`, evaluator-vector convergence, round visibility | REQ-R-ABG2-CONVERGENCE |
+| `abg.selection` | Candidate enumeration and validation | `SelectionDecision`, candidate discovery, candidate-family/profile validation | REQ-R-ABG2-SELECTION-APPLICATION |
+| `abg.provenance` | Spec/workflow/selection provenance | `req_hash()`, `executable_job_hash()`, workflow version reads, per-evaluator/aggregate carry-forward | REQ-R-ABG2-PROVENANCE |
 | `abg.correction` | Correction and reset | `find_latest_reset()`, certification shadowing | REQ-R-ABG2-CORRECTION |
 | `abg.subwork` | Bounded sub-work realization | `LeafTask`, `validate_leaf_schema()`, `dispatch_leaf()` | REQ-R-ABG2-LEAFTASK |
 | `abg.transport` | Agent transport surface | `AgentTransportError`, `dispatch_agent()`, `classify_failure()`, transport-local result helpers | REQ-R-ABG2-TRANSPORT, ADR-022 |
-| `abg.interpret` | Graph interpretation loop | graph materialization, traversal, next-action, substitution orchestration, event emission for delegated modules | REQ-R-ABG2-INTERPRET, REQ-R-ABG2-SELECTION-APPLICATION (apply + emit) |
+| `abg.interpret` | Graph interpretation loop | `Traversal`, `traverse()`, graph materialization, next-action, substitution orchestration, event emission for delegated modules | REQ-R-ABG2-INTERPRET, REQ-R-ABG2-SELECTION-APPLICATION (apply + emit) |
 | `abg.selfhosting` | Derived artifact governance | bootloader consistency checks, drift detection | REQ-R-ABG2-SELFHOSTING |
 
 ### 3.3 ABG application surface
@@ -109,7 +112,7 @@ class Node(Generic[T]):
 
 @dataclass(frozen=True)
 class GraphVector:
-    """Internal adjacency record. Not public ontology."""
+    """Internal adjacency record. Not public ontology or policy surface."""
     name: str
     source: Node
     target: Node
@@ -186,7 +189,30 @@ class GraphFunction:
     id: str = field(default_factory=_mint_id, compare=False)
     effects: tuple[type[Regime], ...] = ()
     tags: tuple[str, ...] = ()
+
+@dataclass(frozen=True)
+class RefinementBoundary:
+    """Explicit lawful refinement/synthesis boundary over a stable outer contract."""
+    name: str
+    inputs: tuple[Node, ...]
+    outputs: tuple[Node, ...]
+    id: str = field(default_factory=_mint_id, compare=False)
+    hints: dict = field(default_factory=dict)
+    tags: tuple[str, ...] = ()
+
+@dataclass(frozen=True)
+class CandidateFamily:
+    """Named family of lawful structural alternatives for one outer contract."""
+    name: str
+    inputs: tuple[Node, ...]
+    outputs: tuple[Node, ...]
+    candidates: tuple[GraphFunction, ...]
+    id: str = field(default_factory=_mint_id, compare=False)
+    policy_hints: dict = field(default_factory=dict)
+    tags: tuple[str, ...] = ()
 ```
+
+Deferred synthesis/refinement and structural alternatives are part of the same ownership surface. `RefinementBoundary` and `CandidateFamily` are the preferred design direction because they keep strategic choice outside the interpreter while making the contract boundary explicit. Equivalent representations are only acceptable if they preserve the same algebraic separation.
 
 ```python
 # gtl.work_model
@@ -226,6 +252,8 @@ class Module:
     name: str
     graphs: tuple[Graph, ...] = ()
     graph_functions: tuple[GraphFunction, ...] = ()
+    refinement_boundaries: tuple[RefinementBoundary, ...] = ()
+    candidate_families: tuple[CandidateFamily, ...] = ()
     jobs: tuple[Job, ...] = ()
     roles: tuple[Role, ...] = ()
     operators: tuple[Operator, ...] = ()
@@ -243,35 +271,68 @@ class Module:
 def edge(source: Node, target: Node, *, operators=(), evaluators=(), **kw) -> Graph:
     """Construct a minimal one-vector graph."""
 
-def compose(f: GraphFunction, g: GraphFunction) -> GraphFunction:
-    """Sequential composition when f.outputs satisfy g.inputs."""
+def compose(*functions: GraphFunction) -> GraphFunction:
+    """Variadic left-folded composition when adjacent interfaces align."""
 
 def substitute(outer: Graph, contract_vector: str, inner: Graph) -> Graph:
     """Replace a coarse contract step with an interface-compatible inner graph."""
 
-def recurse(graph: Graph, lineage: str) -> Graph:
-    """Express that graph application may induce child graph applications."""
+def recurse(graph_function: GraphFunction, termination: Evaluator) -> GraphFunction:
+    """Express repeated or child graph-function application under a declared termination contract."""
 
-def fan_out(f: GraphFunction) -> GraphFunction:
-    """Apply f across a Vector[T] input."""
+def fan_out(f: GraphFunction, *, over: Node) -> GraphFunction:
+    """Apply f across an explicit Vector[T] boundary."""
 
-def fan_in(reducer: GraphFunction) -> GraphFunction:
-    """Reduce branch outputs into one synthesized result."""
+def fan_in(reducer: GraphFunction, *, over: Node) -> GraphFunction:
+    """Reduce an explicit vector boundary into one synthesized result."""
 
-def gate(rule: Rule, evaluator: Evaluator | None = None) -> GraphFunction:
-    """Block continuation until rule/evaluator is satisfied."""
+def gate(
+    target: GraphFunction | RefinementBoundary | CandidateFamily,
+    *,
+    rule: Rule,
+    evaluators: tuple[Evaluator, ...],
+) -> GraphFunction:
+    """Block continuation or trigger lawful next action over an explicit boundary."""
 
-def promote(source_schema: str, target_schema: str) -> GraphFunction:
-    """Lift one representation into another."""
+def promote(*, source: Node, to: Node) -> GraphFunction:
+    """Lift or normalize one declared representation boundary into another without changing semantic truth."""
 
 def identity(interface: tuple[Node, ...]) -> GraphFunction:
     """Identity graph function preserving interface."""
+
+def deferred_refinement(
+    name: str,
+    *,
+    inputs: tuple[Node, ...],
+    outputs: tuple[Node, ...],
+    hints: dict | None = None,
+    tags: tuple[str, ...] = (),
+) -> RefinementBoundary:
+    """Declare a lawful refinement/synthesis boundary without embedding strategy."""
+
+def candidate_family(
+    name: str,
+    *,
+    inputs: tuple[Node, ...],
+    outputs: tuple[Node, ...],
+    candidates: tuple[GraphFunction, ...],
+    policy_hints: dict | None = None,
+    tags: tuple[str, ...] = (),
+) -> CandidateFamily:
+    """Declare a named family of lawful alternatives over one contract boundary."""
 ```
 
 ### 4.3 Notes
 
 - `Node[T]` preserves `Generic[T]` parameterization. `Vector[T]` is expressed as `Node[Vector[T]]` via the schema parameter. No separate structural type.
 - `GraphFunction.template` accepts both `Callable[..., Graph]` (Python DSL convenience) and serializable `str` references. The semantic contract is "materializable graph template."
+- Deferred synthesis/refinement is a declared GTL boundary, not imperative runtime mutation. `RefinementBoundary` is the preferred design center because it makes contract truth explicit without introducing vector flags.
+- Named materialization profiles and other lawful structural alternatives are best expressed as `CandidateFamily` over a shared contract boundary. Profile choice is external; GTL only publishes the alternatives.
+- `Module` is the publication surface for `GraphFunction`, `RefinementBoundary`, and `CandidateFamily` declarations. Traversal/refinement topology and alternate structural families must be publishable and importable, not ad hoc helper values hidden in implementation code.
+- `promote` is the explicit representation-lift / join operator in the algebra. It is used when structure must be normalized between fan-out and later reduction or continuation.
+- Harvest is not a separate GTL primitive in the current design. The preferred algebraic shape is explicit `fan_out(...) -> promote(...) -> fan_in(...) -> gate(...)` when a representation lift is needed, not hidden "parallel operator tuple" semantics.
+- `promote(...)` is explicit because representation lifting is part of the algebra, not an incidental side effect of composition. It is the current design home for lawful normalization/join between declared boundaries.
+- `GraphVector` does not carry guard, refinement, harvest, or profile fields. Those concerns belong to `gtl.function_model`, `gtl.algebra`, and policy-visible rule/evaluator declarations.
 - `gtl.work_model.Job` is the durable semantic work contract. In this build, `ContractRef(kind=\"graph_vector\")` is the supported steady-state target.
 - Roles are declared on jobs in this build. Direct role attachment on graph contracts is deferred until precedence semantics are ratified.
 - `edge()` returns `Graph`. `GraphVector` remains the internal contract-step record.
@@ -279,7 +340,7 @@ def identity(interface: tuple[Node, ...]) -> GraphFunction:
 - `Consensus` is not a GTL type. Consensus thresholds are expressed inline in `Rule.config`.
 - `work_key` is the canonical runtime work identity. `feature` is an application alias over the same identity.
 - `vector_id` is the canonical runtime handle for a contract step. `edge` and `vector_name` are additive readability fields only.
-- `PrecomputedManifest`, `WorkInstance`, `SelectionResult`, and `AgentResult` are helper shapes, not prime public ontology.
+- `Traversal` is a first-class ABG runtime contract. `PrecomputedManifest`, `WorkInstance`, `SelectionResult`, and `AgentResult` remain helper shapes, not prime public ontology.
 
 ### 4.4 Event delegation pattern
 
@@ -293,7 +354,11 @@ Concretely:
 - `abg.selection` returns `SelectionDecision` → `abg.interpret` emits `workflow_selected` event
 - `abg.subwork.dispatch_leaf()` returns `(output, failure_class)` → `abg.interpret` emits `leaf_task_started`/`completed`/`failed`
 
-**Selection responsibility split**: `abg.selection` owns candidate enumeration and interface validation (REQ-R-ABG2-SELECTION-APPLICATION-001, -003, -004). `abg.interpret` owns lawful application — performing the substitution and emitting the selection provenance event (REQ-R-ABG2-SELECTION-APPLICATION-002).
+**Selection responsibility split**: `abg.selection` owns candidate enumeration and interface validation (REQ-R-ABG2-SELECTION-APPLICATION-001, -003, -004). Strategic choice remains external and must arrive as an explicit `SelectionDecision`. `abg.interpret` owns lawful application — performing the substitution and emitting the selection provenance event (REQ-R-ABG2-SELECTION-APPLICATION-002).
+
+**Convergence responsibility split**: GTL declares evaluator multiplicity, vector topology, and policy-visible rule parameters. `abg.convergence` executes rounds, ordering, and aggregate convergence deterministically. Domain bindings still define the meaning of the judgments.
+
+**Traversal responsibility split**: `abg.interpret` owns the named `Traversal` contract and the `traverse()` entrypoint. It may materialize graph functions, invoke convergence, and apply lawful selection/refinement, but it does so only through delegated kernel modules and remains the sole event-emission path.
 
 ---
 
@@ -351,7 +416,16 @@ class WorkSurface:
     artifacts: tuple[str, ...] = ()
     findings: tuple[dict, ...] = ()
     attestations: tuple[dict, ...] = ()
-    metadata: dict = field(default_factory=dict)
+    metadata: dict = field(default_factory=dict)  # realized output-side runtime metadata only
+
+@dataclass(frozen=True)
+class Traversal:
+    work_key: str
+    target: GraphFunction | CandidateFamily | RefinementBoundary
+    evaluators: tuple[Evaluator, ...] = ()
+    rule: Rule | None = None
+    selection: SelectionDecision | None = None
+    metadata: dict = field(default_factory=dict)  # input-side runtime metadata only; no hidden strategy
 
 @dataclass
 class Worker:
@@ -435,6 +509,7 @@ class Scope:
 | `Worker` | `abg.binding` | Concrete actor identity with executable capability, role ids, and authority hook |
 | `WorkSurface` | `abg.binding` | Immutable execution dossier, elastic context carrier, and audit surface |
 | `RunState` | `abg.run` | Execution-attempt lifecycle truth |
+| `Traversal` | `abg.interpret` | First-class traversal contract over a target with evaluators and rule |
 | `SelectionDecision` | `abg.selection` | Lawful selection/application decision |
 | `LeafTask` | `abg.subwork` | Bounded delegated sub-work |
 | `Scope` | `abg.services` | Named application/service boundary |
@@ -446,6 +521,7 @@ class Scope:
 | Structural locus | `Node` | `gtl.graph` | Typed graph-local semantic locus |
 | Minimal contract step | `GraphVector` | `gtl.graph` | Internal adjacency contract; not rival public ontology |
 | Publication boundary | `Module` | `gtl.module_model` | Named, composable declaration boundary |
+| Structural alternative family | `CandidateFamily` | `gtl.function_model` + `gtl.module_model` | Named lawful alternatives over one outer contract |
 | Semantic capability | `Role` | `gtl.work_model` | Language-owned capability class |
 | Semantic work contract | `Job` | `gtl.work_model` | Durable work declaration that binds to GTL contracts |
 
@@ -459,10 +535,10 @@ class Scope:
 | --- | --- | --- |
 | `gtl/graph.py` | `gtl.graph` | `Graph`, `Node`, `GraphVector`, `Context` |
 | `gtl/operator_model.py` | `gtl.operator_model` | `Operator`, `Evaluator`, `Rule`, `Regime` |
-| `gtl/function_model.py` | `gtl.function_model` | `GraphFunction`, graph templates |
+| `gtl/function_model.py` | `gtl.function_model` | `GraphFunction`, `RefinementBoundary`, `CandidateFamily` |
 | `gtl/work_model.py` | `gtl.work_model` | `ContractRef`, `Role`, `Job` |
-| `gtl/algebra.py` | `gtl.algebra` | compose/substitute/recurse/fan-out/fan-in/gate/promote |
-| `gtl/module_model.py` | `gtl.module_model` | `Module`, `ModuleImport` |
+| `gtl/algebra.py` | `gtl.algebra` | compose/substitute/recurse/fan-out/fan-in/gate/promote/deferred_refinement/candidate_family |
+| `gtl/module_model.py` | `gtl.module_model` | `Module`, `ModuleImport`, publication of `GraphFunction`, `RefinementBoundary`, and `CandidateFamily` |
 | `gtl/__init__.py` | public GTL surface | GTL-only exports |
 
 ### 6.2 ABG kernel files
@@ -471,13 +547,13 @@ class Scope:
 | --- | --- | --- |
 | `genesis/binding.py` | `abg.binding` | `ExecutableJob`, `Worker`, `WorkSurface`, `PrecomputedManifest`, precomputation, prompt assembly |
 | `genesis/run.py` | `abg.run` | `RunState`, reducers, pending detection, supersession |
-| `genesis/convergence.py` | `abg.convergence` | delta and parent-convergence truth |
-| `genesis/selection.py` | `abg.selection` | `SelectionDecision`, candidate enumeration, validation |
-| `genesis/provenance.py` | `abg.provenance` | `req_hash()`, `executable_job_hash()`, workflow version reads, carry-forward |
+| `genesis/convergence.py` | `abg.convergence` | delta, parent-convergence truth, evaluator-vector aggregation, round handling |
+| `genesis/selection.py` | `abg.selection` | `SelectionDecision`, candidate enumeration, family/profile validation |
+| `genesis/provenance.py` | `abg.provenance` | `req_hash()`, `executable_job_hash()`, workflow version reads, per-evaluator and aggregate carry-forward |
 | `genesis/correction.py` | `abg.correction` | correction and reset helpers |
 | `genesis/subwork.py` | `abg.subwork` | `LeafTask`, schema validation, bounded dispatch |
 | `genesis/transport.py` | `abg.transport` | agent dispatch, transport classification, environment sanitization |
-| `genesis/interpret.py` | `abg.interpret` | iterate, schedule, apply-selection, delegated-module event emission |
+| `genesis/interpret.py` | `abg.interpret` | `Traversal`, `traverse()`, schedule, apply-selection, delegated-module event emission |
 
 ### 6.3 ABG application and bootstrap files
 
@@ -545,7 +621,7 @@ abg.install         → abg.events, gtl.module_model
 | --- | --- |
 | GTL graph kernel | REQ-L-GTL2-GRAPH, REQ-L-GTL2-NODE, REQ-L-GTL2-INTERFACE, REQ-L-GTL2-LAWS |
 | GTL control/effect declarations | REQ-L-GTL2-OPERATOR, REQ-L-GTL2-EVALUATOR, REQ-L-GTL2-RULE |
-| GTL graph programming | REQ-L-GTL2-GRAPHFUNCTION, REQ-L-GTL2-COMPOSE, REQ-L-GTL2-SUBSTITUTE, REQ-L-GTL2-RECURSE, REQ-L-GTL2-HOF, REQ-L-GTL2-SUBWORK |
+| GTL graph programming | REQ-L-GTL2-GRAPHFUNCTION, REQ-L-GTL2-COMPOSE, REQ-L-GTL2-SYNTHESIS, REQ-L-GTL2-SUBSTITUTE, REQ-L-GTL2-RECURSE, REQ-L-GTL2-HOF, REQ-L-GTL2-SUBWORK |
 | GTL work declarations | REQ-L-GTL2-JOB, REQ-L-GTL2-ROLE, REQ-L-GTL2-IDENTITY |
 | GTL publication boundary | REQ-L-GTL2-MODULE, REQ-L-GTL2-SELECTION-BOUNDARY, REQ-L-GTL2-ENGINE-INDEPENDENCE |
 | ABG event and replay kernel | REQ-R-ABG2-EVENTS, REQ-R-ABG2-PROJECTION |
@@ -567,6 +643,7 @@ abg.install         → abg.events, gtl.module_model
 - `gtl.graph` is the structural kernel
 - `gtl.operator_model` is the effect and convergence declaration surface
 - `gtl.function_model` is the reusable workflow-program surface
+- `gtl.function_model` also owns explicit refinement boundaries and named structural alternative families
 - `gtl.work_model` is the semantic work-declaration surface
 - `gtl.module_model` is the publication and import boundary
 
@@ -582,12 +659,13 @@ abg.install         → abg.events, gtl.module_model
 
 ### Interpretation, selection, and transport
 
+- `abg.convergence` owns the deterministic protocol of gap triggering, escalation, and convergence visibility
 - `abg.selection` is lawful candidate enumeration and validation
 - `abg.subwork` is bounded delegated work
 - `abg.transport` is the agent transport surface
 - `abg.interpret` is the graph-interpretation loop
 
-**State**: engine traversal and delegated realization match the GTL contract.
+**State**: engine traversal, evaluator-vector convergence, escalation protocol, and delegated realization match the GTL contract while domain-specific gap semantics remain evaluator-defined.
 
 ### Application, self-hosting, and mapping
 
@@ -606,14 +684,15 @@ abg.install         → abg.events, gtl.module_model
 For the Claude build to conform to this module design:
 
 1. `gtl.work_model` defines `ContractRef`, `Role`, and GTL `Job`.
-2. `gtl.module_model.Module` owns explicit `jobs` and `roles`, and `ModuleImport.names` refers to declaration names.
+2. `gtl.module_model.Module` owns explicit `jobs`, `roles`, and `candidate_families`, and `ModuleImport.names` refers to declaration names.
 3. `ExecutableJob` is the only runtime job wrapper; phase-only wrappers do not define runtime ontology.
 4. `Worker` retains `can_execute` and adds `role_ids` plus `authority_ref`.
 5. `Module.jobs` resolve to executable jobs by `GraphVector.id`; unsupported or unresolved contract kinds fail closed.
 6. `WorkSurface` is immutable and carries consumed context, emitted context, artifacts, findings, attestations, and stage-local metadata.
 7. `run_bound` and id-first binding provenance preserve `job_id`, `worker_id`, `role_id`, `authority_ref`, and `vector_id` where useful.
 8. executable-job hashing incorporates GTL job semantics, role semantics, resolved contract identity, evaluator definitions, and bound context digests using a stable serialization.
-9. domain packages publish explicit jobs and roles as part of the authored `Module` surface.
+9. domain packages publish explicit jobs, roles, and candidate families as part of the authored `Module` surface.
+10. structural alternatives, profiles, and refinement boundaries are declared in GTL surfaces rather than inferred from `GraphVector` flags or operator-tuple conventions.
 
 ---
 
@@ -626,8 +705,8 @@ The minimum proof lane for this correction is:
    - id-bearing
    - structural equality ignores id
 2. Module tests:
-   - `Module` owns jobs and roles
-   - imported jobs and roles preserve declaration identity and provenance
+   - `Module` owns jobs, roles, and candidate families
+   - imported jobs, roles, and candidate families preserve declaration identity and provenance
 3. Resolution tests:
    - explicit GTL jobs resolve to executable jobs by `GraphVector.id`
    - unsupported contract kinds fail closed
@@ -647,6 +726,10 @@ The minimum proof lane for this correction is:
    - `WorkSurface` is immutable
    - `WorkSurface` carries consumed context, emitted context, artifacts, findings, and attestations
    - phase-only distinctions do not introduce new wrapper types
+8. Algebraic boundary tests:
+   - `RefinementBoundary` exposes stable outer contract and carries no hidden selection logic
+   - `CandidateFamily` declares lawful alternatives over a shared boundary
+   - `fan_out -> fan_in -> gate` can express consensus review and harvest without special `GraphVector` flags
 
 These obligations define the minimum proof that the Claude build matches the constitutional design.
 

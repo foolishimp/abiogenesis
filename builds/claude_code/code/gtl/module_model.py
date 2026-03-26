@@ -13,7 +13,7 @@ from dataclasses import dataclass, field
 
 from gtl.graph import Graph
 from gtl.operator_model import Operator, Evaluator, Rule
-from gtl.function_model import GraphFunction
+from gtl.function_model import GraphFunction, RefinementBoundary, CandidateFamily
 from gtl.work_model import Job, Role
 
 
@@ -41,6 +41,8 @@ class Module:
     name: str
     graphs: tuple[Graph, ...] = ()
     graph_functions: tuple[GraphFunction, ...] = ()
+    refinement_boundaries: tuple[RefinementBoundary, ...] = ()
+    candidate_families: tuple[CandidateFamily, ...] = ()
     jobs: tuple[Job, ...] = ()
     roles: tuple[Role, ...] = ()
     operators: tuple[Operator, ...] = ()
