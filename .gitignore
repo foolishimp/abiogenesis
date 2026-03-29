@@ -8,8 +8,13 @@ build/
 .coverage.*
 htmlcov/
 
-# Build working state — trace surface, not committed
-builds/*/. workspace/iterations/
+# Build tenant working state — trace surface, not committed
+build_tenants/*/*/.workspace/iterations/
+build_tenants/*/*/.workspace/manifests/
+build_tenants/*/*/.workspace/working_surfaces/
+
+# Legacy build working state — trace surface, not committed
+builds/*/.workspace/iterations/
 builds/*/.workspace/manifests/
 builds/*/.workspace/working_surfaces/
 
@@ -22,8 +27,12 @@ builds/*/.workspace/working_surfaces/
 venv/
 
 # Engine runtime artifacts
+.ai-workspace/events/events.jsonl
+.ai-workspace/runtime/
 .ai-workspace/fp_manifests/
 .ai-workspace/fp_results/
+.ai-workspace/comments/*/*_DRAFT_*.md
 
 # Scenario test run archives — persistent forensic data, not committed
+build_tenants/*/*/test_env/test_runs/
 builds/claude_code/test_env/test_runs/
