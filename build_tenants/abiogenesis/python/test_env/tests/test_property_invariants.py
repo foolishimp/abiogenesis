@@ -4,6 +4,7 @@
 # Validates: REQ-F-CORE-003
 # Validates: REQ-F-CMD-004
 # Validates: REQ-F-EVAL-002
+# Validates: REQ-R-ABG2-PROJECTION
 """
 Property invariant tests — REQ-F-TEST-002.
 
@@ -307,5 +308,4 @@ class TestStaleSpecHashRejection:
             "spec_hash": spec_hash,
         })
         assert gen_gaps(scope, stream)["converged"] is True
-
 

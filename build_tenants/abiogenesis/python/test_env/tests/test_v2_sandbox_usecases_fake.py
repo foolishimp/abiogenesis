@@ -1,8 +1,14 @@
 # Validates: REQ-L-GTL2-SYNTHESIS
 # Validates: REQ-L-GTL2-SELECTION-BOUNDARY
+# Validates: REQ-L-GTL2-SUBWORK
 # Validates: REQ-R-ABG2-INTERPRET
+# Validates: REQ-R-ABG2-BINDING
+# Validates: REQ-R-ABG2-CORRECTION
+# Validates: REQ-R-ABG2-LEAFTASK
+# Validates: REQ-R-ABG2-LINEAGE
 # Validates: REQ-R-ABG2-SELECTION-APPLICATION
 # Validates: REQ-R-ABG2-CONVERGENCE
+# Validates: REQ-R-ABG2-WORKER
 """
 Sandbox use cases — fake response lane.
 

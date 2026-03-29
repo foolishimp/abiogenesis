@@ -1,7 +1,11 @@
 # Validates: REQ-R-ABG2-SELFHOSTING-002
 from __future__ import annotations
 
+import json
+import os
 import re
+import subprocess
+import sys
 from pathlib import Path
 
 CATEGORY_VALUES = {
@@ -26,6 +30,11 @@ def _repo_root() -> Path:
 REPO_ROOT = _repo_root()
 SPEC_ROOT = REPO_ROOT / "specification"
 REQUIREMENTS_ROOT = SPEC_ROOT / "requirements"
+PYTHON_TENANT_ROOT = REPO_ROOT / "build_tenants" / "abiogenesis" / "python"
+PYTHON_CODE_ROOT = PYTHON_TENANT_ROOT / "code"
+PYTHON_TEST_ROOT = PYTHON_TENANT_ROOT / "test_env" / "tests"
+PYTHON_GTL_ROOT = PYTHON_CODE_ROOT / "gtl"
+PYTHON_GENESIS_ROOT = PYTHON_CODE_ROOT / "genesis"
 PYTHON_DESIGN_ROOT = REPO_ROOT / "build_tenants" / "abiogenesis" / "python" / "design"
 COMMON_DESIGN_ROOT = REPO_ROOT / "build_tenants" / "common" / "design"
 
@@ -74,6 +83,66 @@ def _resolve_links(text: str, base: Path) -> list[Path]:
         else:
             resolved.append((base.parent / target).resolve())
     return resolved
+
+
+def _python_env() -> dict[str, str]:
+    env = os.environ.copy()
+    path_entries = [str(PYTHON_CODE_ROOT), str(PYTHON_TEST_ROOT)]
+    current = env.get("PYTHONPATH")
+    if current:
+        path_entries.append(current)
+    env["PYTHONPATH"] = ":".join(path_entries)
+    return env
+
+
+def _run_genesis_json(*args: str) -> dict[str, object]:
+    completed = subprocess.run(
+        [sys.executable, "-m", "genesis", *args],
+        cwd=REPO_ROOT,
+        env=_python_env(),
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert completed.returncode == 0, (
+        f"genesis {' '.join(args)} failed\n"
+        f"stdout:\n{completed.stdout}\n"
+        f"stderr:\n{completed.stderr}"
+    )
+    try:
+        return json.loads(completed.stdout)
+    except json.JSONDecodeError as exc:
+        raise AssertionError(
+            f"genesis {' '.join(args)} did not return JSON\nstdout:\n{completed.stdout}"
+        ) from exc
+
+
+def _requirement_metadata(path: Path) -> tuple[str | None, str | None]:
+    text = _read(path)
+    return _metadata_value(text, "Status"), _metadata_value(text, "Category")
+
+
+def _active_capability_requirement_families() -> set[str]:
+    families: set[str] = set()
+    for group in ("gtl", "abg"):
+        for path in sorted((REQUIREMENTS_ROOT / group).glob("REQ-*.md")):
+            status, category = _requirement_metadata(path)
+            if status == "Active" and category == "Capability":
+                families.add(path.stem)
+    return families
+
+
+def _tagged_requirement_refs(root: Path, marker: str) -> set[str]:
+    refs: set[str] = set()
+    pattern = re.compile(
+        rf"^\s*#\s*{re.escape(marker)}:\s*(REQ-[A-Z]-[A-Z0-9]+(?:-[A-Z0-9]+)*)",
+        re.MULTILINE,
+    )
+    for path in sorted(root.rglob("*.py")):
+        if path.name == "__init__.py":
+            continue
+        refs.update(pattern.findall(_read(path)))
+    return refs
 
 
 def test_requirement_families_have_method_metadata_and_live_intent_refs() -> None:
@@ -156,6 +225,49 @@ def test_shared_module_surfaces_trace_to_live_requirement_families() -> None:
             assert links, f"{path.name} has no resolvable authority links in its derived-from metadata"
             for link in links:
                 assert link.exists(), f"{path.name} links to missing authority surface {link}"
+
+
+def test_python_tenant_requirement_and_test_coverage_gate_is_green() -> None:
+    checks = (
+        (
+            "check-tags",
+            "--type",
+            "implements",
+            "--path",
+            "build_tenants/abiogenesis/python/code/gtl/",
+        ),
+        (
+            "check-tags",
+            "--type",
+            "implements",
+            "--path",
+            "build_tenants/abiogenesis/python/code/genesis/",
+        ),
+        (
+            "check-tags",
+            "--type",
+            "validates",
+            "--path",
+            "build_tenants/abiogenesis/python/test_env/tests/",
+        ),
+    )
+
+    for command in checks:
+        result = _run_genesis_json(*command)
+        assert result.get("passes") is True, f"coverage gate failed for {' '.join(command)}: {result}"
+
+    families = _active_capability_requirement_families()
+    code_refs = _tagged_requirement_refs(PYTHON_GTL_ROOT, "Implements") | _tagged_requirement_refs(
+        PYTHON_GENESIS_ROOT, "Implements"
+    )
+    test_refs = _tagged_requirement_refs(PYTHON_TEST_ROOT, "Validates")
+
+    missing_impl = sorted(family for family in families if family not in code_refs)
+    missing_validates = sorted(family for family in families if family not in test_refs)
+    assert not missing_impl, f"missing implementation trace coverage for capability families: {missing_impl}"
+    assert not missing_validates, (
+        f"missing test trace coverage for capability families: {missing_validates}"
+    )
 
 
 def test_scenario_design_surfaces_trace_to_intent_and_method() -> None:

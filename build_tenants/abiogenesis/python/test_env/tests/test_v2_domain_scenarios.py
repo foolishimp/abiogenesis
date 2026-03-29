@@ -1,6 +1,8 @@
 # Validates: REQ-L-GTL2-MODULE
 # Validates: REQ-L-GTL2-GRAPH
 # Validates: REQ-L-GTL2-NODE
+# Validates: REQ-L-GTL2-JOB
+# Validates: REQ-L-GTL2-ROLE
 """
 Domain scenarios — validates the real domain package Modules.
 
