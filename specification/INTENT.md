@@ -1,4 +1,4 @@
-# genesis — Intent
+# Abiogenesis — Intent
 
 **Intent ID**: INT-001
 **Date**: 2026-03-15

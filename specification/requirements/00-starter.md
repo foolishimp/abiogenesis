@@ -1,9 +1,13 @@
-# Starter Requirements
+# Starter Surface Retired
 
-**Family**: REQ-PROJ-STARTER-*
-**Status**: Draft
-**Category**: Project
+The original starter placeholder has been superseded.
 
-### REQ-PROJ-STARTER-001 — Replace me
+Abiogenesis now has a real requirement surface under:
 
-Describe the first project-specific requirement.
+- `specification/requirements/gtl/`
+- `specification/requirements/abg/`
+- `specification/requirements/mapping/`
+- `specification/requirements/product/`
+
+This file remains only as a migration marker so older references fail softly during the topology transition.
+It is not a live requirement family and carries no operative REQ authority.

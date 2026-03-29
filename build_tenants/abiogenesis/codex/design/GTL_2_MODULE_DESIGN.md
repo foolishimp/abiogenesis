@@ -2,7 +2,7 @@
 
 **Status**: Accepted
 **Date**: 2026-03-26
-**Purpose**: Translate GTL 2.x constitutional law into concrete module boundaries, detailed domain model, dependency rules, and an implementation-ready module plan for the Codex build. This file is a temporary duplicated shared-build design surface until `build_tenants/common/design/` exists.
+**Purpose**: Translate GTL 2.x constitutional law into concrete module boundaries, detailed domain model, dependency rules, and an implementation-ready module plan for the Codex build. This file remains as a codex-local module-design surface for comparison and migration. Shared tenant-local design now has its own root under `build_tenants/common/design/`, but this document is not promoted there because it is not yet true common law.
 
 **Derived from**:
 - [GTL_2_CONSTITUTIONAL_DESIGN.md](../../specification/GTL_2_CONSTITUTIONAL_DESIGN.md)

@@ -4,6 +4,8 @@ Abiogenesis is the constitutional source for a GTL-native AI SDLC engine.
 
 The repo is organized around spec-driven development:
 - `specification/` is the constitutional source
+- `build_tenants/TENANT_REGISTRY.md` is the canonical tenant registry
+- `build_tenants/common/` is the shared tenant-local realization root
 - `build_tenants/abiogenesis/python/design/` is the shipping design surface for `abg 1.0`
 - `build_tenants/abiogenesis/python/code/` is the shipping Python realization
 - `build_tenants/abiogenesis/python/test_env/` is the shipping Python test harness
@@ -19,6 +21,8 @@ Read these first:
 - [INTENT.md](specification/INTENT.md)
 - [requirements/](specification/requirements/)
 - [GTL_2_CONSTITUTIONAL_DESIGN.md](specification/GTL_2_CONSTITUTIONAL_DESIGN.md)
+- [TENANT_REGISTRY.md](build_tenants/TENANT_REGISTRY.md)
+- [build_tenants/common/design/README.md](build_tenants/common/design/README.md)
 - [build_tenants/abiogenesis/python/design/README.md](build_tenants/abiogenesis/python/design/README.md)
 
 The project method is explicit:

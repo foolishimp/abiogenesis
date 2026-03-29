@@ -1,28 +1,30 @@
 # build_tenants/abiogenesis/codex — Design
 
-Codex build — duplicated V2 design surface.
+Codex build — paused partial alternate realization of abiogenesis.
 
-## ADRs
+## Status
 
-Governing truth lives in:
+This tenant is not the canonical released line.
+It is retained as a paused comparison and migration surface while `build_tenants/abiogenesis/python/` remains the released realization.
 
-- `specification/GTL_2_CONSTITUTIONAL_DESIGN.md` — language + engine boundary
-- `specification/requirements/` — 4-layer requirement surface (gtl/abg/mapping/product)
+## Governing Truth
 
-### Local build ADRs
+Constitutional authority lives in:
 
-| ADR | Decision | Why it survives |
-|-----|----------|----------------|
-| ADR-002 | Job / Role / Worker split with immutable WorkSurface | Codex-local realization of the V2 work-model correction |
+- `specification/INTENT.md`
+- `specification/GTL_2_CONSTITUTIONAL_DESIGN.md`
+- `specification/requirements/`
+- `specification/SPEC_METHOD.md`
 
-## Shared duplication
+## Local Design Surface
 
-`GTL_2_MODULE_DESIGN.md` is temporarily duplicated here from the Claude build so both stacks can work from the same current V2 target shape until `build_tenants/common/design/` exists.
+This tenant keeps local design material only where it materially diverges from the released Python realization or preserves useful comparison history.
 
-Where a codex-local ADR conflicts with the duplicated shared design, the codex ADR controls for the codex build.
+`GTL_2_MODULE_DESIGN.md` remains here as a codex-local working copy for comparison and migration, not as shared tenant law.
+If a design surface becomes genuinely shared across multiple tenants, it should be promoted into `build_tenants/common/design/`.
 
 ## Traceability
 
 Traceability derives from the active 2.x requirement surface.
 Live requirement headers carry `Status` and `Category` metadata per `specification/SPEC_METHOD.md`.
-ADR-002 refines `REQ-L-GTL2-JOB`, `REQ-L-GTL2-ROLE`, `REQ-L-GTL2-IDENTITY`, `REQ-R-ABG2-WORKER`, `REQ-R-ABG2-BINDING`, and `REQ-R-ABG2-RUN` for the codex build.
+ADR-002 refines `REQ-L-GTL2-JOB`, `REQ-L-GTL2-ROLE`, `REQ-L-GTL2-IDENTITY`, `REQ-R-ABG2-WORKER`, `REQ-R-ABG2-BINDING`, and `REQ-R-ABG2-RUN` for the codex realization.
