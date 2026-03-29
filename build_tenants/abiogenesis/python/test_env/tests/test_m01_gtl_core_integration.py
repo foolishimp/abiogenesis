@@ -30,6 +30,7 @@ from gtl.algebra import (
     fan_in,
     fan_out,
     gate,
+    identity,
     promote,
     recurse,
     substitute,
@@ -123,6 +124,61 @@ class TestM01GtlCoreIntegration:
         }
         assert [node.name for node in materialized.nodes].count("design") == 1
 
+    def test_composition_rejects_incompatible_interfaces_and_identity_is_neutral(self) -> None:
+        intent = Node(name="intent", schema="Intent")
+        requirements = Node(name="requirements", schema="Requirements")
+        design = Node(name="design", schema="Design")
+        review = Node(name="review", schema="Review")
+
+        requirements_to_design = _graph_function(
+            "requirements_to_design",
+            inputs=(intent,),
+            outputs=(design,),
+            vectors=(edge(intent, requirements).vectors[0], GraphVector("requirements→design", requirements, design)),
+        )
+        review_gate = _graph_function(
+            "review_gate",
+            inputs=(review,),
+            outputs=(design,),
+            vectors=(GraphVector("review→design", review, design),),
+        )
+
+        with pytest.raises(ValueError, match="not satisfied"):
+            compose(requirements_to_design, review_gate)
+
+        neutral = compose(requirements_to_design, identity((design,)))
+        assert neutral.inputs == requirements_to_design.inputs
+        assert neutral.outputs == requirements_to_design.outputs
+        assert neutral.effects == requirements_to_design.effects
+        assert tuple(sorted(neutral.tags)) == tuple(sorted(requirements_to_design.tags))
+
+    def test_composition_preserves_segment_evaluators_on_materialized_vectors(self) -> None:
+        requirements = Node(name="requirements", schema="Requirements")
+        design = Node(name="design", schema="Design")
+        code = Node(name="code", schema="Code")
+
+        requirements_ok = Evaluator("requirements_ok", F_D, binding="exec://python -c 'import sys; sys.exit(0)'")
+        code_complete = Evaluator("code_complete", F_P, "code satisfies design")
+
+        requirements_to_design = _graph_function(
+            "requirements_to_design",
+            inputs=(requirements,),
+            outputs=(design,),
+            vectors=(GraphVector("requirements→design", requirements, design, evaluators=(requirements_ok,)),),
+        )
+        design_to_code = _graph_function(
+            "design_to_code",
+            inputs=(design,),
+            outputs=(code,),
+            vectors=(GraphVector("design→code", design, code, evaluators=(code_complete,)),),
+        )
+
+        materialized = compose(requirements_to_design, design_to_code).template()
+        vectors = {vector.name: vector for vector in materialized.vectors}
+
+        assert tuple(evaluator.name for evaluator in vectors["requirements→design"].evaluators) == ("requirements_ok",)
+        assert tuple(evaluator.name for evaluator in vectors["design→code"].evaluators) == ("code_complete",)
+
     def test_substitution_rewrites_by_vector_identity_and_mints_new_graph_identity(self) -> None:
         intent = Node(name="intent", schema="Intent")
         requirements = Node(name="requirements", schema="Requirements")
@@ -163,6 +219,53 @@ class TestM01GtlCoreIntegration:
         assert len(surviving) == 1
         assert surviving[0].id == passthrough.id
         assert "substituted:requirements→design" in substituted.tags
+
+    def test_substitution_rejects_incompatible_inner_graph_and_preserves_unrelated_vectors(self) -> None:
+        intent = Node(name="intent", schema="Intent")
+        requirements = Node(name="requirements", schema="Requirements")
+        design = Node(name="design", schema="Design")
+        implementation = Node(name="implementation", schema="Implementation")
+        review = Node(name="review", schema="Review")
+
+        contract = GraphVector(name="requirements→design", source=requirements, target=design)
+        passthrough = GraphVector(name="intent→requirements", source=intent, target=requirements)
+        outer = Graph(
+            name="delivery",
+            inputs=(intent,),
+            outputs=(design,),
+            nodes=(intent, requirements, design),
+            vectors=(passthrough, contract),
+        )
+
+        incompatible = Graph(
+            name="wrong_detail",
+            inputs=(requirements,),
+            outputs=(review,),
+            nodes=(requirements, review),
+            vectors=(),
+        )
+        with pytest.raises(ValueError, match="not in"):
+            substitute(outer, contract.id, incompatible)
+
+        inner = Graph(
+            name="detailed_delivery",
+            inputs=(requirements,),
+            outputs=(design,),
+            nodes=(requirements, implementation, design),
+            vectors=(
+                GraphVector("requirements→implementation", requirements, implementation),
+                GraphVector("implementation→design", implementation, design),
+            ),
+        )
+        substituted = substitute(outer, contract.id, inner)
+
+        assert {vector.name for vector in substituted.vectors} == {
+            "intent→requirements",
+            "requirements→implementation",
+            "implementation→design",
+        }
+        surviving = next(vector for vector in substituted.vectors if vector.name == "intent→requirements")
+        assert surviving.id == passthrough.id
 
     def test_higher_order_programs_preserve_declared_outer_boundaries(self) -> None:
         candidate_branches = Node(name="candidate_branches", schema="Vector[Candidate]")

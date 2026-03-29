@@ -28,17 +28,15 @@ Current reading:
   - `test_m01_gtl_core_integration.py`
   - `test_m02_work_publication_integration.py`
   - `test_m03_engine_kernel_integration.py`
+  - `test_m04_app_bootstrap_integration.py`
   - `test_provenance_integration.py`
-  - `test_transport_contract.py`
   - `test_run_archive.py`
   - `test_v2_sandbox_install.py`
   - `test_v2_sandbox_usecases_fake.py`
   - `test_v2_sandbox_usecases_live.py`
   - `test_v2_usecases_u1_u4.py`
   - `test_spec_method_trace.py`
-- legacy contract/property surfaces to rewrite or retire:
-  - `test_v2_product_scenarios_refinement.py`
-  - `test_property_invariants.py`
+- no remaining legacy unit/property buckets in the canonical python suite after the current cutover
 
 ## GTL Contract Tests
 
@@ -52,11 +50,6 @@ Current reading:
 - Requirements: `REQ-L-GTL2-MODULE`, `REQ-L-GTL2-JOB`, `REQ-L-GTL2-ROLE`, `REQ-L-GTL2-IDENTITY`, `REQ-L-GTL2-SELECTION-BOUNDARY`, `REQ-L-GTL2-ENGINE-INDEPENDENCE`
 - Design: [module_decomp.md](/Users/jim/src/apps/abiogenesis/build_tenants/common/design/module_decomp.md), [qualification_refactor_loop.md](/Users/jim/src/apps/abiogenesis/build_tenants/common/qualification/qualification_refactor_loop.md), [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md), [GTL_2_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md)
 
-### test_v2_product_scenarios_refinement.py
-
-- Requirements: `REQ-L-GTL2-COMPOSE`, `REQ-L-GTL2-SUBSTITUTE`, `REQ-L-GTL2-GRAPHFUNCTION`, `REQ-L-GTL2-MODULE`
-- Design: [GTL_2_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md), [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md)
-
 ## ABG Kernel Integration Tests
 
 ### test_m03_engine_kernel_integration.py
@@ -66,20 +59,15 @@ Current reading:
 
 ## Product and Qualification Tests
 
-### test_property_invariants.py
+### test_m04_app_bootstrap_integration.py
 
-- Requirements: `REQ-F-TEST-002`, `REQ-F-CORE-002`, `REQ-F-CORE-003`, `REQ-F-CMD-004`, `REQ-F-EVAL-002`, `REQ-R-ABG2-PROJECTION`
-- Design: [GTL_2_CONSTITUTIONAL_DESIGN.md](/Users/jim/src/apps/abiogenesis/specification/GTL_2_CONSTITUTIONAL_DESIGN.md), [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md)
+- Requirements: `REQ-P-QUAL-005`, `REQ-P-QUAL-006`, `REQ-P-QUAL-012`, `REQ-P-QUAL-023`, `REQ-P-QUAL-024`
+- Design: [module_decomp.md](/Users/jim/src/apps/abiogenesis/build_tenants/common/design/module_decomp.md), [qualification_refactor_loop.md](/Users/jim/src/apps/abiogenesis/build_tenants/common/qualification/qualification_refactor_loop.md), [ADR-022-subprocess-transport-with-env-sanitization.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/adrs/ADR-022-subprocess-transport-with-env-sanitization.md)
 
 ### test_provenance_integration.py
 
 - Requirements: `REQ-F-PROV-001`, `REQ-F-PROV-002`, `REQ-F-PROV-003`, `REQ-F-PROV-004`, `REQ-F-PROV-005`
 - Design: [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md), [module_decomp.md](/Users/jim/src/apps/abiogenesis/build_tenants/common/design/module_decomp.md)
-
-### test_transport_contract.py
-
-- Requirements: `REQ-P-QUAL-023`, `REQ-P-QUAL-024`, `REQ-P-QUAL-005`, `REQ-P-QUAL-006`
-- Design: [ADR-022-subprocess-transport-with-env-sanitization.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/adrs/ADR-022-subprocess-transport-with-env-sanitization.md), [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md)
 
 ### test_run_archive.py
 

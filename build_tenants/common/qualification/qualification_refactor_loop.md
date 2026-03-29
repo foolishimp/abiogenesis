@@ -42,7 +42,7 @@ These already behave like real integration or scenario surfaces and should ancho
 | `test_m01_gtl_core_integration.py` | `M01-gtl-core` | canonical integration lane for graph algebra, higher-order operators, and structural alternatives |
 | `test_m02_work_publication_integration.py` | `M02-work-publication` | canonical integration lane for authored package publication, jobs, roles, and traversal boundaries |
 | `test_m03_engine_kernel_integration.py` | `M03-engine-kernel` | canonical integration lane for selection, traversal, run/replay, and convergence over real kernel surfaces |
-| `test_transport_contract.py` | `M03-engine-kernel`, `M04-app-bootstrap` | validates subprocess transport and policy boundary rather than isolated helpers |
+| `test_m04_app_bootstrap_integration.py` | `M04-app-bootstrap` | canonical integration lane for subprocess transport policy, retry, timeout, and bootstrap boundary |
 | `test_run_archive.py` | `M05-qualification-scenarios` | validates archive proof surfaces end to end |
 | `test_v2_sandbox_install.py` | `M04-app-bootstrap`, `M05-qualification-scenarios` | checks sandbox install/bootstrap path in a real workspace |
 | `test_v2_sandbox_usecases_fake.py` | `M05-qualification-scenarios` | canonical deterministic scenario ladder |
@@ -50,13 +50,9 @@ These already behave like real integration or scenario surfaces and should ancho
 | `test_v2_usecases_u1_u4.py` | `M03-engine-kernel`, `M05-qualification-scenarios` | user-facing scenario integration over the authored GTL/ABG surface |
 | `test_spec_method_trace.py` | `M05-qualification-scenarios` | constitutional method gate for the migrated project |
 
-### Rewrite Into Module-Aligned Integration Lanes
+### Remaining Rewrite Candidates
 
-These cover real behavior, but their current shape is legacy contract or mixed-style testing rather than module-owned qualification.
-
-| Test file | Target lane | Why rewrite |
-| --- | --- | --- |
-| `test_v2_product_scenarios_refinement.py` | `M01-gtl-core`, `M05-qualification-scenarios` | mixed abstraction level; either absorb into scenario lanes or re-derive from shared qualification law |
+None in the canonical python suite after the current cutover.
 
 ### Retired Legacy ABG Contract Cluster
 
@@ -80,17 +76,32 @@ These were superseded by the new `M01` and `M02` integration lanes and should no
 | `test_v2_contract_semantics.py` | `test_m02_work_publication_integration.py` |
 | `test_v2_domain_scenarios.py` | `test_m02_work_publication_integration.py` |
 
-### Legacy Unit Or Property Surfaces To Retire Or Re-derive
+### Retired Legacy Refinement And Property Cluster
+
+These were absorbed into the module-owned `M01` and `M03` lanes and should not
+return as parallel authority surfaces.
+
+| Retired test file | Replacement lane |
+| --- | --- |
+| `test_v2_product_scenarios_refinement.py` | `test_m01_gtl_core_integration.py`, `test_m03_engine_kernel_integration.py` |
+| `test_property_invariants.py` | `test_m03_engine_kernel_integration.py` |
+
+### Retired Legacy Transport Contract Cluster
+
+These were absorbed into the module-owned `M04` lane and should not return as
+parallel authority surfaces.
+
+| Retired test file | Replacement lane |
+| --- | --- |
+| `test_transport_contract.py` | `test_m04_app_bootstrap_integration.py` |
+
+### Legacy Unit Or Property Surfaces Still To Re-derive
 
 These should not define the long-term canonical qualification shape.
 
 | Test file | Current issue | Refactor direction |
 | --- | --- | --- |
-| `test_algebra.py` | legacy unit-style algebra checks | replace with language-contract integration cases over authored GTL programs |
-| `test_algebra_v2.py` | narrow semantic microtests | fold into `M01-gtl-core` integration lane |
-| `test_gtl_types.py` | type-surface spot checks | re-derive from interface contracts and package publication behavior |
-| `test_v2_product_scenarios_refinement.py` | mixed abstraction level | either absorb into scenario lanes or retire |
-| `test_property_invariants.py` | valuable invariants but still framed as a legacy unit/property bucket | keep only explicit law-level invariants and move them under the kernel integration lane |
+None in the canonical python suite after the current cutover.
 
 ## Wave Rule
 

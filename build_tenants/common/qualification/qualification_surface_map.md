@@ -50,8 +50,8 @@ These remain canonical and tenant-local by design.
 
 | Surface family | Reason |
 | --- | --- |
-| `test_env/tests/test_algebra*.py`, `test_gtl_types.py`, `test_abg_*.py`, `test_property_invariants.py`, `test_provenance_integration.py` | Canonical python contract and deterministic engine qualification |
-| `test_env/tests/test_v2_sandbox_*.py`, `test_v2_usecases_u1_u4.py`, `test_run_archive.py` | Canonical sandbox, archive, and scenario qualification |
+| `test_env/tests/test_m01_*.py`, `test_m02_*.py`, `test_m03_*.py`, `test_m04_*.py`, `test_provenance_integration.py` | Canonical module-aligned python contract and deterministic engine qualification |
+| `test_env/tests/test_v2_sandbox_*.py`, `test_v2_usecases_u1_u4.py`, `test_run_archive.py`, `test_spec_method_trace.py` | Canonical sandbox, archive, scenario, and method qualification |
 | `test_env/tests/helpers_*.py`, `run_archive.py`, `sandbox_runtime.py`, `run_tests` | Python tenant qualification harness support |
 
 ## Codex Comparison Qualification Surfaces

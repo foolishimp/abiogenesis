@@ -29,10 +29,11 @@ from genesis.convergence import convergence_from_precomputed, outcomes_from_prec
 from genesis.events import EventStream
 from genesis.install import workspace_bootstrap
 from genesis.interpret import Traversal, TraversalRuntime, traverse
+from genesis.provenance import req_hash
 from genesis.projection import project
 from genesis.run import find_pending_run, run_state
 from genesis.selection import SelectionDecision, resolve_candidate_family
-from genesis.services import Scope
+from genesis.services import Scope, gen_gaps
 
 
 def _graph_function(name: str, graph: Graph) -> GraphFunction:
@@ -57,6 +58,35 @@ def _precomputed(job, *, failing=(), passing=()) -> PrecomputedManifest:
 
 def _event_types(stream: EventStream) -> list[str]:
     return [event["event_type"] for event in stream.all_events()]
+
+
+def _minimal_property_module(requirements: list[str] | None = None) -> Module:
+    requirements = requirements or ["REQ-M03-PROPERTY-001"]
+    design = Node(name="design", schema="Design")
+    code = Node(name="code", schema="Code")
+    context_ok = Evaluator("context_ok", F_D, binding="exec://python -c 'import sys; sys.exit(0)'")
+    code_complete = Evaluator("code_complete", F_P, "code satisfies current requirements")
+
+    vector = GraphVector(
+        name="design→code",
+        source=design,
+        target=code,
+        evaluators=(context_ok, code_complete),
+    )
+    graph = Graph(
+        name="m03_property",
+        inputs=(design,),
+        outputs=(code,),
+        nodes=(design, code),
+        vectors=(vector,),
+    )
+    return Module(
+        name="m03_property",
+        graphs=(graph,),
+        refinement_boundaries=(RefinementBoundary(name=vector.name, inputs=(design,), outputs=(code,)),),
+        jobs=(Job(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),)),),
+        metadata={"requirements": requirements},
+    )
 
 
 @pytest.mark.integration
@@ -325,3 +355,140 @@ class TestM03EngineKernelIntegration:
 
         outcomes = outcomes_from_precomputed(vector.id, fp_frontier)
         assert [outcome.status for outcome in outcomes] == ["pass", "open"]
+
+    def test_projection_is_replay_deterministic_for_same_stream_state(self, tmp_path: Path) -> None:
+        stream = workspace_bootstrap(tmp_path)
+        stream.append(
+            "edge_started",
+            {
+                "edge": "design→code",
+                "build": "kernel_router",
+                "target": "code",
+            },
+        )
+        stream.append(
+            "edge_converged",
+            {
+                "edge": "design→code",
+                "target": "code",
+                "feature": None,
+                "delta": 0,
+                "certified_by": "gen_gaps",
+            },
+        )
+
+        assert project(stream, "code", "current") == project(stream, "code", "current")
+
+    def test_gen_gaps_is_idempotent_and_feature_certificates_do_not_duplicate(self, tmp_path: Path) -> None:
+        module = _minimal_property_module()
+        spec_hash = req_hash(module.metadata["requirements"])
+
+        for feature in ("FEAT-A", "FEAT-B"):
+            workspace = tmp_path / feature
+            stream = workspace_bootstrap(workspace)
+            active_dir = workspace / ".ai-workspace" / "features" / "active"
+            active_dir.mkdir(parents=True, exist_ok=True)
+            (active_dir / f"{feature}.yml").write_text(
+                f"id: {feature}\nstatus: active\nsatisfies:\n  - REQ-M03-PROPERTY-001\n",
+                encoding="utf-8",
+            )
+            stream.append(
+                "assessed",
+                {
+                    "kind": "fp",
+                    "edge": "design→code",
+                    "evaluator": "code_complete",
+                    "result": "pass",
+                    "spec_hash": spec_hash,
+                },
+            )
+            scope = Scope(module=module, workspace_root=workspace, work_key_filter=feature)
+
+            first = gen_gaps(scope, stream)
+            count_after_first = len(stream.all_events())
+            second = gen_gaps(scope, stream)
+
+            assert first["converged"] is True
+            assert second["converged"] is True
+            assert len(stream.all_events()) == count_after_first
+
+            certificates = [
+                event
+                for event in stream.all_events()
+                if event["event_type"] == "edge_converged"
+                and event["data"].get("work_key") == feature
+            ]
+            assert len(certificates) == 1
+
+    def test_changed_requirements_invalidate_prior_fp_until_current_hash_arrives(self, tmp_path: Path) -> None:
+        module_v1 = _minimal_property_module(["REQ-M03-ONE"])
+        stream = workspace_bootstrap(tmp_path)
+        scope_v1 = Scope(module=module_v1, workspace_root=tmp_path)
+        hash_v1 = req_hash(module_v1.metadata["requirements"])
+
+        stream.append(
+            "assessed",
+            {
+                "kind": "fp",
+                "edge": "design→code",
+                "evaluator": "code_complete",
+                "result": "pass",
+                "spec_hash": hash_v1,
+            },
+        )
+        assert gen_gaps(scope_v1, stream)["converged"] is True
+
+        module_v2 = _minimal_property_module(["REQ-M03-ONE", "REQ-M03-TWO"])
+        scope_v2 = Scope(module=module_v2, workspace_root=tmp_path)
+        hash_v2 = req_hash(module_v2.metadata["requirements"])
+
+        result_v2 = gen_gaps(scope_v2, stream)
+        assert hash_v1 != hash_v2
+        assert result_v2["converged"] is False
+        assert result_v2["total_delta"] > 0
+
+        stream.append(
+            "assessed",
+            {
+                "kind": "fp",
+                "edge": "design→code",
+                "evaluator": "code_complete",
+                "result": "pass",
+                "spec_hash": hash_v2,
+            },
+        )
+        assert gen_gaps(scope_v2, stream)["converged"] is True
+
+    def test_stale_spec_hash_is_rejected_until_current_assessment_exists(self, tmp_path: Path) -> None:
+        module = _minimal_property_module(["REQ-M03-NEW"])
+        stream = workspace_bootstrap(tmp_path)
+        scope = Scope(module=module, workspace_root=tmp_path)
+        expected_hash = req_hash(module.metadata["requirements"])
+
+        stream.append(
+            "assessed",
+            {
+                "kind": "fp",
+                "edge": "design→code",
+                "evaluator": "code_complete",
+                "result": "pass",
+                "spec_hash": "stale_hash",
+            },
+        )
+
+        stale = gen_gaps(scope, stream)
+        assert stale["converged"] is False
+        failing = [evaluator for gap in stale["gaps"] for evaluator in gap["failing"]]
+        assert "code_complete" in failing
+
+        stream.append(
+            "assessed",
+            {
+                "kind": "fp",
+                "edge": "design→code",
+                "evaluator": "code_complete",
+                "result": "pass",
+                "spec_hash": expected_hash,
+            },
+        )
+        assert gen_gaps(scope, stream)["converged"] is True
