@@ -9,6 +9,17 @@ At the current migration stage, most active design authority still lives either 
 
 Promote material into `build_tenants/common/design/` only when it has become true shared realization law across multiple tenants.
 
+## Shared Design Surface Map
+
+The current shared-vs-tenant classification lives in:
+
+- `build_tenants/common/design/design_surface_map.md`
+
+Use that surface to decide whether a design artifact belongs in:
+
+- `build_tenants/common/design/` as shared tenant-local law, or
+- `build_tenants/abiogenesis/<variant>/design/` as tenant-local realization detail
+
 
 ## Shared Module Surfaces
 

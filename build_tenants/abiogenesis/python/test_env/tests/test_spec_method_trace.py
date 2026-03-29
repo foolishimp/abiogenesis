@@ -41,7 +41,11 @@ COMMON_DESIGN_ROOT = REPO_ROOT / "build_tenants" / "common" / "design"
 REQUIREMENT_FILES = sorted(path for path in REQUIREMENTS_ROOT.glob("*/*.md") if path.name.startswith("REQ-"))
 ADR_FILES = sorted(PYTHON_DESIGN_ROOT.glob("adrs/ADR-*.md"))
 STRUCTURAL_DESIGN_FILES = sorted(PYTHON_DESIGN_ROOT.glob("GTL_2_*.md"))
-COMMON_MODULE_SURFACES = [COMMON_DESIGN_ROOT / "module_decomp.md"] + sorted((COMMON_DESIGN_ROOT / "modules").glob("*.yml"))
+COMMON_STRUCTURAL_DESIGN_FILES = [
+    COMMON_DESIGN_ROOT / "module_decomp.md",
+    COMMON_DESIGN_ROOT / "design_surface_map.md",
+]
+COMMON_MODULE_SURFACES = sorted((COMMON_DESIGN_ROOT / "modules").glob("*.yml"))
 SCENARIO_DESIGN_FILES = sorted(PYTHON_DESIGN_ROOT.glob("SCENARIO_V2_*.md")) + [
     PYTHON_DESIGN_ROOT / "GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md"
 ]
@@ -207,24 +211,31 @@ def test_structural_design_docs_trace_to_live_requirement_surfaces() -> None:
             assert _is_known_requirement_ref(ref, families), f"{path.name} references unknown requirement ref {ref}"
 
 
-def test_shared_module_surfaces_trace_to_live_requirement_families() -> None:
+def test_shared_common_design_surfaces_trace_to_live_requirement_families() -> None:
     families = _live_requirement_families()
+
+    for path in COMMON_STRUCTURAL_DESIGN_FILES:
+        assert path.exists(), f"missing shared design surface {path}"
+        text = _read(path)
+        req_refs = REQ_REF_RE.findall(text)
+        assert req_refs, f"{path.name} does not name any live requirement families"
+        for ref in req_refs:
+            assert _is_known_requirement_ref(ref, families), f"{path.name} references unknown requirement ref {ref}"
+
+        derives = _metadata_value(text, "Derived from") or _metadata_value(text, "Derives from")
+        assert derives, f"{path.name} is missing derived-from metadata"
+        links = _resolve_links(derives, path)
+        assert links, f"{path.name} has no resolvable authority links in its derived-from metadata"
+        for link in links:
+            assert link.exists(), f"{path.name} links to missing authority surface {link}"
 
     for path in COMMON_MODULE_SURFACES:
         assert path.exists(), f"missing shared module surface {path}"
         text = _read(path)
         req_refs = REQ_REF_RE.findall(text)
-        assert req_refs or path.name == "module_decomp.md", f"{path.name} does not name any live requirement families"
+        assert req_refs, f"{path.name} does not name any live requirement families"
         for ref in req_refs:
             assert _is_known_requirement_ref(ref, families), f"{path.name} references unknown requirement ref {ref}"
-
-        if path.suffix == ".md":
-            derives = _metadata_value(text, "Derived from") or _metadata_value(text, "Derives from")
-            assert derives, f"{path.name} is missing derived-from metadata"
-            links = _resolve_links(derives, path)
-            assert links, f"{path.name} has no resolvable authority links in its derived-from metadata"
-            for link in links:
-                assert link.exists(), f"{path.name} links to missing authority surface {link}"
 
 
 def test_python_tenant_requirement_and_test_coverage_gate_is_green() -> None:

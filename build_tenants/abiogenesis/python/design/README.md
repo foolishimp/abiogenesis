@@ -6,6 +6,7 @@ Claude Code build — shipping design surface.
 
 Current governing truth lives in:
 
+- `build_tenants/common/design/design_surface_map.md` — current shared-vs-tenant design classification
 - `build_tenants/common/design/module_decomp.md` — shared module schedule and ownership surface
 - `specification/GTL_2_CONSTITUTIONAL_DESIGN.md` — language + engine boundary
 - `specification/requirements/` — 4-layer requirement surface (gtl/abg/mapping/product)
