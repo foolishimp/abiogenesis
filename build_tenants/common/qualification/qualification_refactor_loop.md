@@ -39,6 +39,8 @@ These already behave like real integration or scenario surfaces and should ancho
 | Test file | Module alignment | Reason |
 | --- | --- | --- |
 | `test_provenance_integration.py` | `M03-engine-kernel` | checks live provenance behavior across integrated runtime surfaces |
+| `test_m01_gtl_core_integration.py` | `M01-gtl-core` | canonical integration lane for graph algebra, higher-order operators, and structural alternatives |
+| `test_m02_work_publication_integration.py` | `M02-work-publication` | canonical integration lane for authored package publication, jobs, roles, and traversal boundaries |
 | `test_m03_engine_kernel_integration.py` | `M03-engine-kernel` | canonical integration lane for selection, traversal, run/replay, and convergence over real kernel surfaces |
 | `test_transport_contract.py` | `M03-engine-kernel`, `M04-app-bootstrap` | validates subprocess transport and policy boundary rather than isolated helpers |
 | `test_run_archive.py` | `M05-qualification-scenarios` | validates archive proof surfaces end to end |
@@ -54,8 +56,7 @@ These cover real behavior, but their current shape is legacy contract or mixed-s
 
 | Test file | Target lane | Why rewrite |
 | --- | --- | --- |
-| `test_v2_contract_semantics.py` | `M01-gtl-core`, `M02-work-publication` | mixes semantic law with structural unit assertions |
-| `test_v2_domain_scenarios.py` | `M01-gtl-core`, `M02-work-publication` | better reframed as authored package/publication qualification |
+| `test_v2_product_scenarios_refinement.py` | `M01-gtl-core`, `M05-qualification-scenarios` | mixed abstraction level; either absorb into scenario lanes or re-derive from shared qualification law |
 
 ### Retired Legacy ABG Contract Cluster
 
@@ -66,6 +67,18 @@ These were superseded by `test_m03_engine_kernel_integration.py` and should not 
 | `test_abg_traversal.py` | `test_m03_engine_kernel_integration.py` |
 | `test_abg_selection.py` | `test_m03_engine_kernel_integration.py` |
 | `test_abg_convergence.py` | `test_m03_engine_kernel_integration.py` |
+
+### Retired Legacy GTL And Publication Contract Cluster
+
+These were superseded by the new `M01` and `M02` integration lanes and should not return as parallel authority surfaces.
+
+| Retired test file | Replacement lane |
+| --- | --- |
+| `test_algebra.py` | `test_m01_gtl_core_integration.py` |
+| `test_algebra_v2.py` | `test_m01_gtl_core_integration.py` |
+| `test_gtl_types.py` | `test_m01_gtl_core_integration.py` |
+| `test_v2_contract_semantics.py` | `test_m02_work_publication_integration.py` |
+| `test_v2_domain_scenarios.py` | `test_m02_work_publication_integration.py` |
 
 ### Legacy Unit Or Property Surfaces To Retire Or Re-derive
 

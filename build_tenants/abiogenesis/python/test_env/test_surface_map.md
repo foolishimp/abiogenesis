@@ -25,6 +25,8 @@ The current canonical python test corpus is being refactored toward module-align
 Current reading:
 
 - integration/scenario anchors to keep and build from:
+  - `test_m01_gtl_core_integration.py`
+  - `test_m02_work_publication_integration.py`
   - `test_m03_engine_kernel_integration.py`
   - `test_provenance_integration.py`
   - `test_transport_contract.py`
@@ -35,40 +37,20 @@ Current reading:
   - `test_v2_usecases_u1_u4.py`
   - `test_spec_method_trace.py`
 - legacy contract/property surfaces to rewrite or retire:
-  - `test_algebra.py`
-  - `test_algebra_v2.py`
-  - `test_gtl_types.py`
-  - `test_v2_contract_semantics.py`
-  - `test_v2_domain_scenarios.py`
   - `test_v2_product_scenarios_refinement.py`
   - `test_property_invariants.py`
 
 ## GTL Contract Tests
 
-### test_algebra.py
+### test_m01_gtl_core_integration.py
 
-- Requirements: `REQ-L-GTL2-COMPOSE`, `REQ-L-GTL2-SUBSTITUTE`, `REQ-L-GTL2-GRAPH`, `REQ-L-GTL2-GRAPHFUNCTION`
-- Design: [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md), [GTL_2_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md)
+- Requirements: `REQ-L-GTL2-GRAPH`, `REQ-L-GTL2-NODE`, `REQ-L-GTL2-INTERFACE`, `REQ-L-GTL2-OPERATOR`, `REQ-L-GTL2-EVALUATOR`, `REQ-L-GTL2-RULE`, `REQ-L-GTL2-GRAPHFUNCTION`, `REQ-L-GTL2-COMPOSE`, `REQ-L-GTL2-SUBSTITUTE`, `REQ-L-GTL2-RECURSE`, `REQ-L-GTL2-HOF`, `REQ-L-GTL2-SYNTHESIS`, `REQ-L-GTL2-SELECTION-BOUNDARY`, `REQ-L-GTL2-IDENTITY`
+- Design: [module_decomp.md](/Users/jim/src/apps/abiogenesis/build_tenants/common/design/module_decomp.md), [qualification_refactor_loop.md](/Users/jim/src/apps/abiogenesis/build_tenants/common/qualification/qualification_refactor_loop.md), [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md), [GTL_2_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md)
 
-### test_algebra_v2.py
+### test_m02_work_publication_integration.py
 
-- Requirements: `REQ-L-GTL2-COMPOSE`, `REQ-L-GTL2-RECURSE`, `REQ-L-GTL2-HOF`, `REQ-L-GTL2-SYNTHESIS`, `REQ-L-GTL2-SELECTION-BOUNDARY`
-- Design: [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md), [GTL_2_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md)
-
-### test_gtl_types.py
-
-- Requirements: `REQ-L-GTL2-GRAPHFUNCTION`, `REQ-L-GTL2-SYNTHESIS`, `REQ-L-GTL2-SELECTION-BOUNDARY`
-- Design: [GTL_2_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md), [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md)
-
-### test_v2_contract_semantics.py
-
-- Requirements: `REQ-L-GTL2-MODULE`, `REQ-L-GTL2-COMPOSE`, `REQ-L-GTL2-GRAPH`, `REQ-L-GTL2-IDENTITY`, `REQ-L-GTL2-OPERATOR`, `REQ-L-GTL2-EVALUATOR`, `REQ-L-GTL2-RULE`, `REQ-L-GTL2-NODE`
-- Design: [GTL_2_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md), [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md)
-
-### test_v2_domain_scenarios.py
-
-- Requirements: `REQ-L-GTL2-MODULE`, `REQ-L-GTL2-GRAPH`, `REQ-L-GTL2-NODE`, `REQ-L-GTL2-JOB`, `REQ-L-GTL2-ROLE`
-- Design: [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md), [module_decomp.md](/Users/jim/src/apps/abiogenesis/build_tenants/common/design/module_decomp.md)
+- Requirements: `REQ-L-GTL2-MODULE`, `REQ-L-GTL2-JOB`, `REQ-L-GTL2-ROLE`, `REQ-L-GTL2-IDENTITY`, `REQ-L-GTL2-SELECTION-BOUNDARY`, `REQ-L-GTL2-ENGINE-INDEPENDENCE`
+- Design: [module_decomp.md](/Users/jim/src/apps/abiogenesis/build_tenants/common/design/module_decomp.md), [qualification_refactor_loop.md](/Users/jim/src/apps/abiogenesis/build_tenants/common/qualification/qualification_refactor_loop.md), [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md), [GTL_2_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md)
 
 ### test_v2_product_scenarios_refinement.py
 
