@@ -39,6 +39,7 @@ These already behave like real integration or scenario surfaces and should ancho
 | Test file | Module alignment | Reason |
 | --- | --- | --- |
 | `test_provenance_integration.py` | `M03-engine-kernel` | checks live provenance behavior across integrated runtime surfaces |
+| `test_m03_engine_kernel_integration.py` | `M03-engine-kernel` | canonical integration lane for selection, traversal, run/replay, and convergence over real kernel surfaces |
 | `test_transport_contract.py` | `M03-engine-kernel`, `M04-app-bootstrap` | validates subprocess transport and policy boundary rather than isolated helpers |
 | `test_run_archive.py` | `M05-qualification-scenarios` | validates archive proof surfaces end to end |
 | `test_v2_sandbox_install.py` | `M04-app-bootstrap`, `M05-qualification-scenarios` | checks sandbox install/bootstrap path in a real workspace |
@@ -53,11 +54,18 @@ These cover real behavior, but their current shape is legacy contract or mixed-s
 
 | Test file | Target lane | Why rewrite |
 | --- | --- | --- |
-| `test_abg_traversal.py` | `M03-engine-kernel` integration lane | too narrow and local for the kernel surfaces it claims to cover |
-| `test_abg_selection.py` | `M03-engine-kernel` integration lane | should be folded into a broader selection/provenance lane |
-| `test_abg_convergence.py` | `M03-engine-kernel` integration lane | should be expressed as convergence behavior over real event streams and bindings |
 | `test_v2_contract_semantics.py` | `M01-gtl-core`, `M02-work-publication` | mixes semantic law with structural unit assertions |
 | `test_v2_domain_scenarios.py` | `M01-gtl-core`, `M02-work-publication` | better reframed as authored package/publication qualification |
+
+### Retired Legacy ABG Contract Cluster
+
+These were superseded by `test_m03_engine_kernel_integration.py` and should not return as parallel authority surfaces.
+
+| Retired test file | Replacement lane |
+| --- | --- |
+| `test_abg_traversal.py` | `test_m03_engine_kernel_integration.py` |
+| `test_abg_selection.py` | `test_m03_engine_kernel_integration.py` |
+| `test_abg_convergence.py` | `test_m03_engine_kernel_integration.py` |
 
 ### Legacy Unit Or Property Surfaces To Retire Or Re-derive
 

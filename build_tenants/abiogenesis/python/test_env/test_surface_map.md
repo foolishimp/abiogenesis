@@ -25,6 +25,7 @@ The current canonical python test corpus is being refactored toward module-align
 Current reading:
 
 - integration/scenario anchors to keep and build from:
+  - `test_m03_engine_kernel_integration.py`
   - `test_provenance_integration.py`
   - `test_transport_contract.py`
   - `test_run_archive.py`
@@ -37,9 +38,6 @@ Current reading:
   - `test_algebra.py`
   - `test_algebra_v2.py`
   - `test_gtl_types.py`
-  - `test_abg_traversal.py`
-  - `test_abg_selection.py`
-  - `test_abg_convergence.py`
   - `test_v2_contract_semantics.py`
   - `test_v2_domain_scenarios.py`
   - `test_v2_product_scenarios_refinement.py`
@@ -77,22 +75,12 @@ Current reading:
 - Requirements: `REQ-L-GTL2-COMPOSE`, `REQ-L-GTL2-SUBSTITUTE`, `REQ-L-GTL2-GRAPHFUNCTION`, `REQ-L-GTL2-MODULE`
 - Design: [GTL_2_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md), [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md)
 
-## ABG Contract Tests
+## ABG Kernel Integration Tests
 
-### test_abg_traversal.py
+### test_m03_engine_kernel_integration.py
 
-- Requirements: `REQ-R-ABG2-INTERPRET`, `REQ-R-ABG2-CONVERGENCE`
-- Design: [GTL_2_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md), [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md)
-
-### test_abg_selection.py
-
-- Requirements: `REQ-R-ABG2-SELECTION-APPLICATION`, `REQ-R-ABG2-PROVENANCE`
-- Design: [GTL_2_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md), [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md)
-
-### test_abg_convergence.py
-
-- Requirements: `REQ-R-ABG2-CONVERGENCE`, `REQ-R-ABG2-PROVENANCE`
-- Design: [GTL_2_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md), [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md)
+- Requirements: `REQ-R-ABG2-INTERPRET`, `REQ-R-ABG2-CONVERGENCE`, `REQ-R-ABG2-SELECTION-APPLICATION`, `REQ-R-ABG2-PROVENANCE`, `REQ-R-ABG2-RUN`, `REQ-R-ABG2-PROJECTION`
+- Design: [module_decomp.md](/Users/jim/src/apps/abiogenesis/build_tenants/common/design/module_decomp.md), [qualification_refactor_loop.md](/Users/jim/src/apps/abiogenesis/build_tenants/common/qualification/qualification_refactor_loop.md), [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md), [GTL_2_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md)
 
 ## Product and Qualification Tests
 
