@@ -18,6 +18,33 @@ Every `test_*.py` file under `build_tenants/abiogenesis/python/test_env/tests/` 
 - the live requirement families it validates
 - the governing design surfaces it derives from
 
+## Refactor Review
+
+The current canonical python test corpus is being refactored toward module-aligned qualification lanes under [qualification_refactor_loop.md](/Users/jim/src/apps/abiogenesis/build_tenants/common/qualification/qualification_refactor_loop.md).
+
+Current reading:
+
+- integration/scenario anchors to keep and build from:
+  - `test_provenance_integration.py`
+  - `test_transport_contract.py`
+  - `test_run_archive.py`
+  - `test_v2_sandbox_install.py`
+  - `test_v2_sandbox_usecases_fake.py`
+  - `test_v2_sandbox_usecases_live.py`
+  - `test_v2_usecases_u1_u4.py`
+  - `test_spec_method_trace.py`
+- legacy contract/property surfaces to rewrite or retire:
+  - `test_algebra.py`
+  - `test_algebra_v2.py`
+  - `test_gtl_types.py`
+  - `test_abg_traversal.py`
+  - `test_abg_selection.py`
+  - `test_abg_convergence.py`
+  - `test_v2_contract_semantics.py`
+  - `test_v2_domain_scenarios.py`
+  - `test_v2_product_scenarios_refinement.py`
+  - `test_property_invariants.py`
+
 ## GTL Contract Tests
 
 ### test_algebra.py

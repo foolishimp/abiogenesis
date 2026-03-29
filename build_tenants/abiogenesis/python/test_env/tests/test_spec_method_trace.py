@@ -49,7 +49,10 @@ COMMON_STRUCTURAL_DESIGN_FILES = [
     COMMON_DESIGN_ROOT / "design_surface_map.md",
 ]
 COMMON_MODULE_SURFACES = sorted((COMMON_DESIGN_ROOT / "modules").glob("*.yml"))
-COMMON_QUALIFICATION_FILES = [COMMON_QUALIFICATION_ROOT / "qualification_surface_map.md"]
+COMMON_QUALIFICATION_FILES = [
+    COMMON_QUALIFICATION_ROOT / "qualification_surface_map.md",
+    COMMON_QUALIFICATION_ROOT / "qualification_refactor_loop.md",
+]
 SCENARIO_DESIGN_FILES = sorted(PYTHON_DESIGN_ROOT.glob("SCENARIO_V2_*.md")) + [
     PYTHON_DESIGN_ROOT / "GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md"
 ]

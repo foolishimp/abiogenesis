@@ -15,3 +15,4 @@ Promote material into `build_tenants/common/qualification/` only when it becomes
 The current shared-vs-tenant classification lives in:
 
 - `build_tenants/common/qualification/qualification_surface_map.md`
+- `build_tenants/common/qualification/qualification_refactor_loop.md`
