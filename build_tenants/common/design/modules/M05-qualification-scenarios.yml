@@ -1,0 +1,19 @@
+module: M05-qualification-scenarios
+status: active
+owns:
+  - scenario qualification surfaces
+  - sandbox archive proof and method trace checks
+  - fake and live scenario harnesses
+implements_features:
+  - REQ-P-SCENARIOS
+  - REQ-P-QUAL
+  - REQ-R-ABG2-SELFHOSTING
+primary_surfaces:
+  - build_tenants/abiogenesis/python/design/SCENARIO_V2_INTENT_TO_TAGGED_REQUIREMENTS.md
+  - build_tenants/abiogenesis/python/design/SCENARIO_V2_REQUIREMENTS_TO_UAT.md
+  - build_tenants/abiogenesis/python/design/SCENARIO_V2_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md
+  - build_tenants/abiogenesis/python/design/GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md
+  - build_tenants/abiogenesis/python/test_env/tests/test_spec_method_trace.py
+  - build_tenants/abiogenesis/python/test_env/tests/test_v2_sandbox_usecases_fake.py
+  - build_tenants/abiogenesis/python/test_env/tests/test_v2_sandbox_usecases_live.py
+  - build_tenants/abiogenesis/python/test_env/tests/run_archive.py

@@ -1,0 +1,13 @@
+module: M06-mapping-deferred
+status: deferred
+owns:
+  - alternate engine capability and mapping bridge surfaces
+  - mapping provenance for future runtime families
+implements_features:
+  - REQ-M-GTL2-CAPABILITY
+  - REQ-M-GTL2-MAPPING
+  - REQ-M-GTL2-PROVENANCE
+primary_surfaces:
+  - specification/requirements/mapping/
+notes:
+  - deferred from abg 1.0 shipping line

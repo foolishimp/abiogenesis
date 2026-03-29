@@ -1,0 +1,18 @@
+module: M02-work-publication
+status: active
+owns:
+  - GTL semantic work declarations
+  - module publication boundary
+  - authored package publication surface
+implements_features:
+  - REQ-L-GTL2-JOB
+  - REQ-L-GTL2-ROLE
+  - REQ-L-GTL2-IDENTITY
+  - REQ-L-GTL2-MODULE
+  - REQ-L-GTL2-SELECTION-BOUNDARY
+  - REQ-L-GTL2-ENGINE-INDEPENDENCE
+primary_surfaces:
+  - build_tenants/abiogenesis/python/code/gtl/work_model.py
+  - build_tenants/abiogenesis/python/code/gtl/module_model.py
+  - build_tenants/abiogenesis/python/code/gtl_spec/packages/abiogenesis.py
+  - build_tenants/abiogenesis/python/code/gtl_spec/packages/project_package.py

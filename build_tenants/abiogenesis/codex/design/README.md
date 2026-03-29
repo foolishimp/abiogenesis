@@ -11,6 +11,7 @@ It is retained as a paused comparison and migration surface while `build_tenants
 
 Constitutional authority lives in:
 
+- `build_tenants/common/design/module_decomp.md` — shared module schedule and ownership surface
 - `specification/INTENT.md`
 - `specification/GTL_2_CONSTITUTIONAL_DESIGN.md`
 - `specification/requirements/`

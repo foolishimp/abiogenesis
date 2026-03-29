@@ -1,0 +1,16 @@
+module: M04-app-bootstrap
+status: active
+owns:
+  - app-facing orchestration services
+  - CLI boundary
+  - installer and workspace bootstrap
+  - bootloader carrier and project-facing operations
+implements_features:
+  - REQ-P-POLICY
+  - REQ-P-QUAL
+primary_surfaces:
+  - build_tenants/abiogenesis/python/code/genesis/services.py
+  - build_tenants/abiogenesis/python/code/genesis/cli_adapter.py
+  - build_tenants/abiogenesis/python/code/gen-install.py
+  - build_tenants/abiogenesis/python/code/genesis/install.py
+  - build_tenants/abiogenesis/python/code/gtl_spec/GTL_BOOTLOADER.md

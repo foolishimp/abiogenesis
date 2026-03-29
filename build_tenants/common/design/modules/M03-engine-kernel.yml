@@ -1,0 +1,34 @@
+module: M03-engine-kernel
+status: active
+owns:
+  - ABG kernel runtime and replay model
+  - execution binding, provenance, convergence, selection, transport, and selfhosting
+implements_features:
+  - REQ-R-ABG2-EVENTS
+  - REQ-R-ABG2-PROJECTION
+  - REQ-R-ABG2-BINDING
+  - REQ-R-ABG2-WORKER
+  - REQ-R-ABG2-RUN
+  - REQ-R-ABG2-LINEAGE
+  - REQ-R-ABG2-CONVERGENCE
+  - REQ-R-ABG2-SELECTION-APPLICATION
+  - REQ-R-ABG2-PROVENANCE
+  - REQ-R-ABG2-CORRECTION
+  - REQ-R-ABG2-LEAFTASK
+  - REQ-R-ABG2-TRANSPORT
+  - REQ-R-ABG2-INTERPRET
+  - REQ-R-ABG2-SELFHOSTING
+primary_surfaces:
+  - build_tenants/abiogenesis/python/code/genesis/events.py
+  - build_tenants/abiogenesis/python/code/genesis/projection.py
+  - build_tenants/abiogenesis/python/code/genesis/binding.py
+  - build_tenants/abiogenesis/python/code/genesis/lineage.py
+  - build_tenants/abiogenesis/python/code/genesis/run.py
+  - build_tenants/abiogenesis/python/code/genesis/convergence.py
+  - build_tenants/abiogenesis/python/code/genesis/selection.py
+  - build_tenants/abiogenesis/python/code/genesis/provenance.py
+  - build_tenants/abiogenesis/python/code/genesis/correction.py
+  - build_tenants/abiogenesis/python/code/genesis/subwork.py
+  - build_tenants/abiogenesis/python/code/genesis/transport.py
+  - build_tenants/abiogenesis/python/code/genesis/interpret.py
+  - build_tenants/abiogenesis/python/code/genesis/selfhosting.py
