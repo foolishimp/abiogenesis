@@ -1,62 +1,33 @@
 # /gen-review — Human Evaluator Gate
 
-Explicitly surface a pending F_H gate for human review. Use when you want to
-review a candidate without running the full gen-start loop.
+Surfaces the current F_H gate for explicit approval against the installed workflow.
 
 ## Usage
 
 ```
-/gen-review --feature REQ-F-* [--edge "source→target"]
+/gen-review
 ```
 
 ## Instructions
 
-**Step 1 — Load the gate**
-
-Read the feature vector: `.ai-workspace/features/active/{feature}.yml`
-
-Identify the current edge (or use `--edge` override).
-
-Run the engine to get the current candidate and gate criteria:
+1. Run:
 
 ```bash
-PYTHONPATH=.genesis python -m genesis gaps \
-  --feature {F} --edge {E}
+PYTHONPATH=.gsdlc/release:.genesis python -m genesis gaps --workspace .
 ```
 
-**Step 2 — Present candidate**
+2. Identify the current blocking edge and any `fh_gate_pending` criteria.
 
-```
-REVIEW REQUEST
-==============
-Feature:  {F}
-Edge:     {source}→{target}
+3. Present:
+   - the current edge
+   - the current candidate artifact
+   - the F_H criteria for that edge
+   - the current deterministic status from the gap report
 
-CANDIDATE:
-{the current asset — read from workspace}
+4. On approval, emit:
 
-F_H CRITERIA:
-{list evaluator descriptions for F_H evaluators on this edge}
-
-F_D STATUS:
-  {passing evaluator names} — pass
-  {failing evaluator names} — fail
-```
-
-**Step 3 — Collect decision**
-
-Ask the user: approve or reject?
-
-On **approve**: emit `approved` via the engine and go to Step 1:
 ```bash
-PYTHONPATH=.genesis python -m genesis emit-event \
-  --type approved \
-  --data '{"kind": "fh_review", "feature": "{F}", "edge": "{E}", "actor": "human"}'
+PYTHONPATH=.gsdlc/release:.genesis python -m genesis emit-event --type approved --data '{"kind":"fh_review","edge":"<edge>","actor":"human"}' --workspace .
 ```
 
-On **reject**: emit `assessed` with rejection, stop. Report to user.
-```bash
-PYTHONPATH=.genesis python -m genesis emit-event \
-  --type assessed \
-  --data '{"kind": "fh_review", "result": "reject", "feature": "{F}", "edge": "{E}", "actor": "human", "reason": "{reason}"}'
-```
+5. On rejection, stop and report the rejection reason. Do not invent a pass event.

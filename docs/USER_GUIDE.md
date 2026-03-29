@@ -237,7 +237,7 @@ Domain installers or the workspace owner supply the actual runtime contract.
 ```yaml
 module: my_domain.spec:module
 pythonpath:
-  - builds/python/src
+  - build_tenants/<family>/<variant>/src
 active_workflow: .genesis/workflows/my_domain/default/v0_1_0/active-workflow.json
 workflow_root: .genesis/workflows
 ```
@@ -329,7 +329,7 @@ Important current rules:
 Use the kernel installer when you want a self-contained runtime under a target workspace.
 
 ```bash
-python /path/to/abiogenesis/builds/claude_code/code/gen-install.py \
+python /path/to/abiogenesis/build_tenants/abiogenesis/python/code/gen-install.py \
   --target /path/to/project
 ```
 
@@ -357,7 +357,7 @@ Domain installers own domain runtime contracts and domain package layout.
 ### Verify an install
 
 ```bash
-python /path/to/abiogenesis/builds/claude_code/code/gen-install.py \
+python /path/to/abiogenesis/build_tenants/abiogenesis/python/code/gen-install.py \
   --target /path/to/project \
   --verify
 ```
@@ -460,12 +460,12 @@ The workspace is at rest when `gen gaps` reports:
 The current build includes traceability utilities:
 
 ```bash
-gen check-tags --type implements --path builds/claude_code/code
-gen check-tags --type validates --path builds/claude_code/test_env/tests
+gen check-tags --type implements --path build_tenants/abiogenesis/python/code
+gen check-tags --type validates --path build_tenants/abiogenesis/python/test_env/tests
 gen check-req-coverage --package some_module:module --features .ai-workspace/features
-gen check-impl-coverage --package some_module:module --path builds/claude_code/code
-gen check-validates-coverage --package some_module:module --path builds/claude_code/test_env/tests
-gen check-bootloader-consistency --spec-module gtl --bootloader builds/claude_code/code/gtl_spec/GTL_BOOTLOADER.md
+gen check-impl-coverage --package some_module:module --path build_tenants/abiogenesis/python/code
+gen check-validates-coverage --package some_module:module --path build_tenants/abiogenesis/python/test_env/tests
+gen check-bootloader-consistency --spec-module gtl --bootloader build_tenants/abiogenesis/python/code/gtl_spec/GTL_BOOTLOADER.md
 ```
 
 Use these to verify:
@@ -482,15 +482,15 @@ Use these to verify:
 Useful examples in this repo:
 
 - current project module:
-  - [abiogenesis.py](/Users/jim/src/apps/abiogenesis/builds/claude_code/code/gtl_spec/packages/abiogenesis.py)
+  - [abiogenesis.py](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/code/gtl_spec/packages/abiogenesis.py)
 - project-package example:
-  - [project_package.py](/Users/jim/src/apps/abiogenesis/builds/claude_code/code/gtl_spec/packages/project_package.py)
+  - [project_package.py](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/code/gtl_spec/packages/project_package.py)
 - GTL bootloader source:
-  - [GTL_BOOTLOADER.md](/Users/jim/src/apps/abiogenesis/builds/claude_code/code/gtl_spec/GTL_BOOTLOADER.md)
+  - [GTL_BOOTLOADER.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/code/gtl_spec/GTL_BOOTLOADER.md)
 - interface contracts:
-  - [GTL_2_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/builds/claude_code/design/GTL_2_INTERFACE_CONTRACTS.md)
+  - [GTL_2_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md)
 - module design:
-  - [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/builds/claude_code/design/GTL_2_MODULE_DESIGN.md)
+  - [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md)
 
 If you want a realistic V2 module example, start with `abiogenesis.py`, not older V1 package-style examples.
 

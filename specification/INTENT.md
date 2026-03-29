@@ -25,7 +25,7 @@ A clean, GTL-first implementation of abiogenesis as a Genesis 2.x engine — an 
 7. Is built by the current genesis engine using itself as bootstrap compiler (the GCC/C analogy)
 8. Reaches a self-hosting gate: abiogenesis can build itself
 
-The authored domain surface is `builds/claude_code/code/gtl_spec/packages/abiogenesis.py` — the GTL Module is the shipping domain declaration. `specification/` provides the constitutional intent, requirement, and design surfaces that govern it.
+The authored domain surface is `build_tenants/abiogenesis/python/code/gtl_spec/packages/abiogenesis.py` — the GTL Module is the shipping domain declaration. `specification/` provides the constitutional intent, requirement, and design surfaces that govern it.
 
 ---
 
@@ -40,13 +40,13 @@ The authored domain surface is `builds/claude_code/code/gtl_spec/packages/abioge
 
 ## Success Criteria
 
-1. Spec loadable: `python builds/claude_code/code/gtl_spec/packages/abiogenesis.py` describes the Module correctly
+1. Spec loadable: `python build_tenants/abiogenesis/python/code/gtl_spec/packages/abiogenesis.py` describes the Module correctly
 2. Engine runs `gen-start` on a fresh project and produces intent → requirements output
 3. Engine traverses all 5 edges for a test feature vector, producing code + passing tests
 4. All engine modules have unit + integration tests; test suite green
 5. Sandbox E2E: fresh sandbox run creates working code+tests
 6. Self-hosting gate: abiogenesis uses genesis to build its next iteration
-7. Specification is authoritative: deleting `builds/claude_code/code/` and regenerating from `specification/` + `builds/claude_code/design/adrs/` produces an equivalent compiler
+7. Specification is authoritative: deleting `build_tenants/abiogenesis/python/code/` and regenerating from `specification/` + `build_tenants/abiogenesis/python/design/adrs/` produces an equivalent compiler
 
 ---
 
@@ -157,7 +157,7 @@ Three-layer architecture:
 
 **Fix 5 — Bootloader OL claim**: Change "enforces OL schema" to "enforces prime operator schema" in GENESIS_BOOTLOADER.md.
 
-**Fix 6 — Abstract feature decomposition**: Replace Python-specific module references with abstract capability descriptions. Module mapping moves to builds/.
+**Fix 6 — Abstract feature decomposition**: Replace Python-specific module references with abstract capability descriptions. Module mapping moves to build_tenants/.
 
 **Fix 7 — Abstract requirements**: Replace CLI-specific acceptance criteria with behavior-level predicates. Concrete commands are build-specific bindings.
 

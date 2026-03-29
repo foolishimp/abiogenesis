@@ -4,9 +4,9 @@ Abiogenesis is the constitutional source for a GTL-native AI SDLC engine.
 
 The repo is organized around spec-driven development:
 - `specification/` is the constitutional source
-- `builds/claude_code/design/` is the shipping design surface for `abg 1.0`
-- `builds/claude_code/code/` is the shipping Claude build
-- `builds/claude_code/test_env/` is the shipping Claude test harness
+- `build_tenants/abiogenesis/python/design/` is the shipping design surface for `abg 1.0`
+- `build_tenants/abiogenesis/python/code/` is the shipping Python realization
+- `build_tenants/abiogenesis/python/test_env/` is the shipping Python test harness
 
 The active engine and language surface is 2.x:
 - GTL: `Module`, `Graph`, `Node`, `GraphVector`, `Context`, `Job`, `Role`
@@ -19,7 +19,7 @@ Read these first:
 - [INTENT.md](specification/INTENT.md)
 - [requirements/](specification/requirements/)
 - [GTL_2_CONSTITUTIONAL_DESIGN.md](specification/GTL_2_CONSTITUTIONAL_DESIGN.md)
-- [builds/claude_code/design/README.md](builds/claude_code/design/README.md)
+- [build_tenants/abiogenesis/python/design/README.md](build_tenants/abiogenesis/python/design/README.md)
 
 The project method is explicit:
 - requirements are the constitutional `what`
@@ -35,21 +35,21 @@ The project method is explicit:
 Relevant directories:
 
 ```text
-builds/claude_code/
+build_tenants/abiogenesis/python/
 ├── code/         shipping engine + GTL types + domain packages
 ├── design/       shipping design / ADR surface
 ├── test_env/     shipping test harness
 └── test_runs/    persistent test archives
 ```
 
-`builds/codex/` is non-shipping and is not part of the 1.0 publish gate.
+`build_tenants/abiogenesis/codex/` is non-shipping, partial, and not part of the 1.0 publish gate.
 
 ## Test Harness
 
 The canonical Claude harness is:
 
 ```bash
-cd builds/claude_code/test_env
+cd build_tenants/abiogenesis/python/test_env
 ./run_tests
 ./run_tests e2e
 ./run_tests live
@@ -63,7 +63,7 @@ The repo root is not the active test bed.
 The Claude build installer lives at:
 
 ```bash
-python builds/claude_code/code/gen-install.py --target /path/to/project
+python build_tenants/abiogenesis/python/code/gen-install.py --target /path/to/project
 ```
 
 That installs a `.genesis/` runtime into the target project. The root repo itself is not the installed runtime.

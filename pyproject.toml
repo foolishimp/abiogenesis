@@ -13,5 +13,5 @@ dependencies = []
 packages = ["genesis", "gtl"]
 
 [tool.setuptools.package-dir]
-"genesis" = "builds/claude_code/code/genesis"
-"gtl" = "builds/claude_code/code/gtl"
+"genesis" = "build_tenants/abiogenesis/python/code/genesis"
+"gtl" = "build_tenants/abiogenesis/python/code/gtl"

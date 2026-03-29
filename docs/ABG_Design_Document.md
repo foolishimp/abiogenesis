@@ -1066,7 +1066,7 @@ flowchart TD
 
     subgraph Authored["Authored Territories (editable)"]
         SPEC["specification/\nIntent, requirements, standards"]
-        BUILDS["builds/\nImplementation, tests, design"]
+        BUILDS["build_tenants/\nImplementation, tests, design"]
     end
 
     subgraph Runtime["Runtime Territory"]
@@ -1085,7 +1085,7 @@ flowchart TD
 | `.genesis/` | ABG installer only | Never edit directly -- updated only by installer |
 | `domain/release/` | Domain package installer only | Never edit directly |
 | `specification/` | Human | Editable -- intent, requirements, standards |
-| `builds/` | Human + agents | Editable -- implementation, tests, design |
+| `build_tenants/` | Human + agents | Editable -- implementation, tests, design |
 | `.ai-workspace/` | Engine + agents via `emit()` | Events append-only; features/reviews territory-partitioned |
 
 ---

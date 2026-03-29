@@ -17,10 +17,11 @@ PYTHONPATH=.genesis python -m genesis gaps --workspace .
 ```
 abiogenesis/
 ├── specification/                     ← axiomatic ontology (intent, requirements, standards)
-├── builds/python/
-│   ├── src/                           ← implementation source
-│   └── tests/                         ← test suite
-├── design/adrs/                       ← architecture decision records
+├── build_tenants/<family>/<variant>/
+│   ├── code/                          ← implementation source
+│   ├── design/                        ← tenant-local design / ADR surface
+│   └── test_env/                      ← tenant-local verification harness
+├── build_tenants/common/              ← shared realization law across tenants
 ├── docs/                              ← user-facing documentation
 ├── .genesis/                          ← ABG kernel (immutable, owned by abiogenesis)
 │   ├── genesis/                       ← engine modules
@@ -52,185 +53,331 @@ PYTHONPATH=.genesis python -m genesis gaps  --workspace .
 ---
 
 <!-- GTL_BOOTLOADER_START -->
-# GTL Bootloader: Universal Constraint Context
+# GTL Bootloader: Axiomatic Constraint Surface
 
-**Version**: 2.0.0
-**Domain-agnostic.** Domain packages (SDLC, data pipeline, etc.) extend this — they do not replace it.
+**Version**: 2.2.0
+**Status**: Present-tense constitutional read model
+**Role**: Constraint manifold for LLM-guided construction over the GTL 2.x / ABG 2.x surface
+
+This document is not a tutorial.
+It is a compact statement of the live structural truths that bound lawful work.
+
+If code, prompts, comments, or stale compatibility surfaces disagree with this document, the live constitutional source wins:
+- intent
+- requirements
+- design
+- then code
+
+No earlier vocabulary is normative here unless explicitly retained by the live surface.
 
 ---
 
-## Primitives
+## 1. Core Position
 
-| Primitive | What it is |
-|-----------|-----------|
-| **Graph** | Topology of typed nodes with admissible vector transitions |
-| **Iterate** | `iterate(bound_job) → WorkSurface` — the only operation |
-| **Evaluators** | Convergence tests: F_D (deterministic), F_P (agent), F_H (human) |
-| **Spec + Context** | Constraint surface — what bounds construction |
+GTL is the language surface.
+ABG is the canonical interpreter/runtime surface for GTL.
 
-GTL types: Module, Graph, Node, GraphVector, Context, Evaluator, Operator, Rule, GraphFunction, Job, Role, ContractRef. Everything else is parameterisation.
+GTL is:
+- graph-first
+- composition-first
+- recursion-capable
+- higher-order
+- engine-agnostic
 
-## Type Surface
+ABG is:
+- the canonical target engine contract for GTL programs
+- event-sourced
+- replay-based
+- provenance-carrying
 
-| Type | Module | What it is |
-|------|--------|-----------|
-| **Graph** | `gtl.graph` | Named topology of nodes and vectors |
-| **Node** | `gtl.graph` | Typed locus with markov conditions |
-| **GraphVector** | `gtl.graph` | Admissible transition between nodes, carries evaluators |
-| **Context** | `gtl.graph` | Externally-located, snapshot-bound constraint dimension |
-| **Module** | `gtl.module_model` | Publication boundary — graphs + functions + jobs + roles + metadata |
-| **GraphFunction** | `gtl.function_model` | Reusable graph template with typed ports |
-| **Job** | `gtl.work_model` | Durable semantic work contract |
-| **Role** | `gtl.work_model` | Semantic capability class for execution/approval |
-| **ContractRef** | `gtl.work_model` | Indirection from Job to a GTL contract (e.g. GraphVector) |
-| **Evaluator** | `gtl.operator_model` | Convergence test (F_D, F_P, or F_H regime) |
-| **Operator** | `gtl.operator_model` | Named capability with regime and binding |
-| **Rule** | `gtl.operator_model` | Declarative constraint with kind + config |
-| **ExecutableJob** | `genesis.binding` | ABG runtime resolution of a GTL Job to a GraphVector |
-| **Worker** | `genesis.binding` | ABG concrete actor identity with role binding |
+This build is one realization of that contract.
 
-## Evaluators and Escalation
+---
 
-| Evaluator | Regime | What it does |
-|-----------|--------|-------------|
-| **F_D** | Zero ambiguity | Pass/fail — tests, schema checks, tag verification |
-| **F_P** | Bounded ambiguity | Agent disambiguates — gap analysis, code generation |
-| **F_H** | Persistent ambiguity | Human judgment — approval, rejection |
+## 2. Structural Axioms
 
-Escalation: F_D → F_P (deterministic blocked). F_P → F_H (agent stuck). F_H → F_D (approved → deploy).
+1. `Graph` is the one first-class structural type.
+2. `Node` is the typed local locus of graph meaning.
+3. `GraphVector` is the admissible transition structure between nodes. It is not a rival ontology to graph; it is the internal graph-vector form.
+4. `Context` is an externally located, snapshot-bound constraint dimension.
+5. `Operator` is the effectful action surface.
+6. `Evaluator` is the convergence and attestation surface.
+7. `GraphFunction` is the reusable workflow program abstraction.
+8. `RefinementBoundary` is the explicit lawful refinement/synthesis boundary.
+9. `CandidateFamily` is the explicit lawful structural-alternative family.
+10. `Module` is the publication boundary.
+11. `Job` is the durable semantic work contract.
+12. `Role` is the semantic capability class.
+13. `Traversal`, `ConvergenceResult`, `Worker`, `ExecutableJob`, `WorkSurface`, `RunState`, and `LeafTask` are ABG runtime types, not GTL language types.
 
-## Event Stream
+Nothing else should be treated as primary structural law unless explicitly promoted by requirements and design.
 
-- Nodes are projections: `project(EventStream[0..n], node_type, instance_id)`
-- **Determinism**: `project(S, T, I) = project(S, T, I)` always.
-- **emit() is the only write path.** event_time is system-assigned at append.
-- **F_P does NOT call the event logger.** F_P produces artifacts; F_D reads them and emits events.
-- Recovery is replay. No state lost beyond current iterate() call.
+---
+
+## 3. GTL Type Surface
+
+| Type | Module | Meaning |
+|------|--------|---------|
+| `Graph` | `gtl.graph` | Named topology of nodes and graph vectors |
+| `Node` | `gtl.graph` | Typed locus with declared markov conditions |
+| `GraphVector` | `gtl.graph` | Admissible transition contract between nodes |
+| `Context` | `gtl.graph` | Snapshot-bound external constraint |
+| `Operator` | `gtl.operator_model` | Named capability with regime and binding |
+| `Evaluator` | `gtl.operator_model` | Convergence/attestation declaration |
+| `Rule` | `gtl.operator_model` | Declarative constraint with kind and config |
+| `GraphFunction` | `gtl.function_model` | Reusable workflow template/program |
+| `RefinementBoundary` | `gtl.function_model` | Published lawful refinement/synthesis boundary |
+| `CandidateFamily` | `gtl.function_model` | Published lawful alternatives over one outer contract |
+| `ContractRef` | `gtl.work_model` | Reference from a semantic job to a GTL contract |
+| `Role` | `gtl.work_model` | Semantic capability class |
+| `Job` | `gtl.work_model` | Durable semantic work contract |
+| `Module` | `gtl.module_model` | Publication boundary for graphs, functions, boundaries, families, jobs, roles, and metadata |
+
+Public GTL algebra (`gtl.algebra`):
+- `edge` — construct a minimal one-vector graph
+- `compose` — lawful sequential composition of graph functions
+- `substitute` — replace a graph vector with an inner graph
+- `recurse` — bounded repeated realization under an explicit termination evaluator
+- `fan_out` — explicit vector-boundary expansion
+- `fan_in` — explicit vector-boundary reduction
+- `gate` — declarative evaluation boundary over a function, boundary, or family
+- `promote` — explicit representation lift / join
+- `identity` — neutral element for composition
+- `deferred_refinement` — declare a `RefinementBoundary`
+- `candidate_family` — declare a `CandidateFamily`
+- `same_object` — identity equality by `.id`
+
+These are graph semantics, not business-priority logic.
+
+---
+
+## 4. GTL / ABG Boundary
+
+The language/runtime split is strict:
+
+- GTL declares structure, semantics, and lawful contracts.
+- ABG realizes traversal, replay, binding, execution, correction, transport, provenance, and self-hosting.
+
+GTL must not import ABG runtime modules.
+ABG may import GTL declarations.
+
+GTL owns:
+- graph structure
+- composition/substitution semantics
+- higher-order graph algebra
+- refinement boundaries
+- structural alternative families
+- semantic jobs
+- semantic roles
+- module packaging
+- selection boundary
+- engine independence
+
+ABG owns:
+- append-only events
+- projection
+- convergence
+- traversal
+- lineage
+- worker identity
+- role binding
+- run state
+- lawful selection application
+- transport
+- correction
+- provenance
+- self-hosting/drift governance
+
+---
+
+## 5. Evaluator Regimes
+
+Three evaluator regimes exist:
+
+| Regime | Meaning | Role |
+|--------|---------|------|
+| `F_D` | Deterministic | Objective checks, schema checks, tests, hash/trace/provenance checks |
+| `F_P` | Probabilistic | Agent disambiguation and bounded construction |
+| `F_H` | Human | Human judgment, approval, escalation, or rejection |
+
+Rules:
+
+1. Deterministic proof precedes probabilistic judgment wherever applicable.
+2. Agent output is not constitutional truth by itself.
+3. Human approval is not a replacement for deterministic failure.
+4. Evaluators decide whether graph contracts are satisfied. Operators perform work.
+
+A higher regime is invoked when the current regime cannot close the relevant part of the contract, or when the contract explicitly requires higher-regime attestation. Lower regimes discharge all objective truth before higher-regime judgment is used.
+
+F_D → F_P (deterministic slice satisfied, residual ambiguity remains). F_P → F_H (agent stuck or governance requires human attestation). F_H → F_D (approved → deploy).
+
+---
+
+## 6. Job, Role, Worker, Run
+
+Do not collapse these concepts:
+
+- `Job` is the GTL semantic work contract.
+- `Role` is the GTL semantic capability class.
+- `Traversal` is the ABG first-class runtime contract over a target boundary plus explicit evaluator/rule input.
+- `ConvergenceResult` is the ABG aggregate convergence truth for one evaluator or evaluator vector.
+- `Worker` is the ABG concrete actor identity.
+- `Run` is the ABG execution attempt/lifecycle realization.
+
+Binding is engine-owned:
+- `Worker -> Role`
+- `Run -> Job`
+
+`ExecutableJob` is a runtime-resolved form of a semantic job against a concrete graph-vector contract.
+`SelectionDecision` is an explicit ABG decision contract. It is required for `CandidateFamily` traversal and must remain provenance-carrying.
+
+---
+
+## 7. Event, Replay, Projection, Delta
+
+ABG is event-sourced.
+
+Rules:
+
+1. The event stream is append-only.
+2. `emit()` is the only lawful write path into runtime truth.
+3. Projection is pure replay over the event stream: `project(S, T, I) = project(S, T, I)` always.
+4. Delta is derived truth, not stored authority.
+5. F_P does NOT call the event logger. F_P produces artifacts; F_D reads them and emits events.
+6. Correction shadows prior certification/history; it does not erase history.
+7. Provenance must accompany executable realization so stale assessments cannot be reused silently.
+8. Convergence may be over one evaluator or an explicit evaluator-result vector.
+9. Selection may validate and apply only lawful declared alternatives; it must not invent strategy.
+
+The system is replayable or it is not lawful.
 
 ## Gradient
 
 `delta(state, constraints) → work`. When delta = 0, system is at rest. Same computation at every scale — single iteration, vector convergence, feature traversal, production.
 
-## Territories
+---
 
-| Territory | What | Rule |
-|-----------|------|------|
-| `.genesis/` | ABG engine (installed) | **Never edit directly.** Updated only by ABG installer. |
-| `<domain>/release/` | Domain package (installed) | **Never edit directly.** Updated only by domain installer. |
-| `specification/` | Authored spec | Editable — intent, requirements, standards. |
-| `builds/` | Authored source | Editable — implementation, tests, design. |
-| `.ai-workspace/` | Runtime state | Events, features, comments — territory-partitioned by agent. |
+## 8. Selection Boundary
+
+GTL may expose:
+- lawful candidates
+- interface families
+- named `CandidateFamily` declarations
+- named `RefinementBoundary` declarations
+- tags
+- hints
+- graph-function catalogs
+
+GTL may not hide strategic business choice inside the language or interpreter.
+
+The engine may enumerate lawful options.
+The decision surface must remain explicit and provenance-carrying.
+If a `CandidateFamily` is traversed, the choice must arrive as an explicit `SelectionDecision`.
+
+---
+
+## 9. Transport and Dispatch
+
+Transport is an ABG runtime concern.
+
+The authoritative dispatch contract is the manifest/work surface, not an informal prompt.
+
+Rules:
+
+1. The manifest carries structured execution truth.
+2. Prompt text is transport convenience, not sole authority.
+3. Transport failures are classified and surfaced as runtime truth.
+4. Agent transport is replaceable behind the ABG transport boundary.
+
+No agent-specific shell surface is constitutional law.
+
+---
+
+## 10. Self-Hosting and Derived Artifacts
+
+Bootloaders, manifests, and related derived artifacts are not outside the system.
+
+They are governed artifacts and must remain under:
+- convergence
+- provenance
+- replay suitability
+- drift detection
+
+If a derived artifact drifts from the live structural surface, that drift must be visible.
+
+Derived artifacts are read models, not constitutional source.
+They must be synthesized from the live surface, not treated as independent law.
+
+---
+
+## 11. Territory Rules
+
+| Territory | Meaning | Rule |
+|-----------|---------|------|
+| `specification/` | Constitutional source | Authoritative intent, requirements, and design inputs |
+| `build_tenants/<family>/<variant>/design/` | Shipping design surfaces | Structural bridge between requirements and code |
+| `build_tenants/<family>/<variant>/code/` | Mutable implementation surfaces | Realization of the current build |
+| `build_tenants/<family>/<variant>/test_env/` | Execution harness | Verification bed owned by that build |
+| `.genesis/` in a target project | Installed runtime | Never treated as authored source |
+| `.ai-workspace/` | Runtime evidence and agent territory | Events, comments, reviews, archives |
+
+Do not treat the source repo root as the installed runtime.
+Do not treat a test harness as constitutional source.
 
 ## Cascade Chain
 
 Source → installer → installed territory. Order: **ABG → domain package → dependents** (never ABG direct to dependents).
 
-## F_P Dispatch Contract
+---
 
-The manifest JSON at `fp_manifest_path` is the authoritative dispatch contract. It carries structured fields (source/target nodes, markov conditions, evaluators, contexts, delta). The prompt field is a human-readable render. CLAUDE.md is transport convenience — the manifest must be sufficient alone.
+## 12. Hard Prohibitions
 
-## Invariants
+Do not infer or invent:
 
-| Invariant | What breaks if absent |
-|-----------|----------------------|
-| Graph with typed vector transitions | No structure — ad hoc work |
-| Iterate loop producing events | No quality signal — one-shot |
-| At least one evaluator per vector | No stopping condition |
-| Spec + Context bounds construction | Degeneracy, hallucination |
-| Event stream — append-only, no timestamp override | No replay, no recovery |
-| Completeness visibility before downstream | Silent convergence — untrusted |
+- a second rival structural ontology to graph
+- hidden business-priority logic inside GTL
+- code authority without requirement/design trace
+- compatibility shims as primary truth
+- silent mutation of live domain history
+- derived-artifact authority over constitutional source
+
+If a surface cannot be traced back to live constitutional authority, it is accidental law.
+
+---
+
+## 13. Construction Heuristic for LLMs
+
+When acting under this bootloader:
+
+1. Start from live requirements and design, not stale code precedent.
+2. Preserve the GTL / ABG boundary.
+3. Use the smallest lawful concept that satisfies the requirement.
+4. Prefer present-tense current-surface assertions over migration narration.
+5. Treat missing traceability as a defect, not as permission to improvise.
+6. If a live requirement is not yet realized, represent it as explicit deferment rather than silent omission.
+7. If a live domain artifact is wrong, supersede or withdraw it; do not silently rewrite history.
+
+The purpose of this document is to prevent unconstrained synthesis.
 
 <!-- GTL_BOOTLOADER_END -->
 
 ---
 
 <!-- SDLC_BOOTLOADER_START -->
-## Operating protocol
+The installed genesis_sdlc release is active.
+Read workspace://.gsdlc/release/SDLC_BOOTLOADER.md first, then follow its referenced docs.
 
-**Always route user intent through commands — never do work directly.**
-When the user asks to build, fix, or iterate anything, that is `/gen-start` or
-`/gen-iterate`. Direct edits bypass the F_D evaluation chain and nothing is traced.
+Installed axioms:
+- Specification defines project truth; design surfaces define realization.
+- `workspace://build_tenants/TENANT_REGISTRY.md` is the canonical registry of tenant families, variants, and activity state.
+- The only lawful operative path is the resolved runtime at workspace://.ai-workspace/runtime/resolved-runtime.json.
+- One edge traversal binds one role and one worker assignment.
+- Backend identity is derived from worker assignment, not selected independently.
+- Managed methodology surfaces live under workspace://.gsdlc/release/; project-owned surfaces live under workspace://specification/, workspace://build_tenants/, and workspace://docs/.
+- Runtime/session state lives under workspace://.ai-workspace/runtime/; when it differs from release defaults, the resolved runtime wins.
 
-| Intent | Command |
-|--------|---------|
-| "go" / "next" / "build X" / "fix Y" | `/gen-start --auto --human-proxy` |
-| "one step" / "iterate edge E" | `/gen-iterate --feature F --edge E` |
-| "what's broken" / "gaps" / "coverage" | `/gen-gaps` |
-| "status" / "where am I" | `/gen-status` |
-| "review" / "approve" | `/gen-review --feature F` |
-
-
-# SDLC Bootloader: AI SDLC Instantiation of the GTL Formal System
-
-**Version**: 1.1.1
-**Requires**: GTL Bootloader (universal axioms)
-
----
-
-## SDLC Graph
-
-```
-intent → requirements → feature_decomp → design → module_decomp → code ↔ unit_tests
-                                                                        │
-                                                                        ↓
-                                                 uat_tests ← user_guide ← integration_tests
-```
-
-Spec/design boundary at `feature_decomp → design`. Upstream = WHAT (tech-agnostic). Downstream = HOW (tech-bound).
-
-## Feature Vectors
-
-A feature is a trajectory through the graph. REQ keys thread from spec to runtime:
-
-```
-Spec: REQ-F-AUTH-001 → Design: Implements: REQ-F-AUTH-001 → Code: # Implements: → Tests: # Validates:
-```
-
-Feature vectors have `satisfies:` listing covered REQ keys — the coverage projection mechanism.
-
-## Completeness Visibility
-
-Computable at any point without LLM:
-- **Coverage**: every REQ-* in at least one feature's `satisfies:` field
-- **Convergence visibility**: iteration summary (after each iterate), edge convergence (delta=0), feature completion (all edges converged)
-
-A convergence event not made visible before downstream proceeds is a spec violation.
-
-## Profiles
-
-| Profile | When | Graph |
-|---------|------|-------|
-| **standard** | Normal feature work | Core edges + decomposition |
-| **poc** | Proof of concept | Core edges, decomp collapsed |
-| **hotfix** | Emergency fix | Direct → code ↔ tests |
-| **minimal** | Trivial change | Single edge |
-
-## Agent Write Territory (hard constraint)
-
-| Territory | Who writes | Rule |
-|-----------|-----------|------|
-| `events/events.jsonl` | All agents via `emit_event()` only | **Never write directly.** Append-only. |
-| `features/active/*.yml` | Owning agent | Update only your feature. |
-| `comments/claude/` | Claude Code only | Never write to other agents' directories. |
-| `comments/codex/` | Codex only | Same exclusivity. |
-| `reviews/pending/` | All agents | Proposals; human gate resolves. |
-| `reviews/proxy-log/` | Proxy actor only | Written before each `review_approved`. |
-
-Post naming: `YYYYMMDDTHHMMSS_CATEGORY_SUBJECT.md`. Categories: `REVIEW`, `STRATEGY`, `GAP`, `SCHEMA`, `HANDOFF`, `MATRIX`. Immutable once written — supersede with new file.
-
-## Operating Standards
-
-Load from `.gsdlc/release/operating-standards/` before: writing posts (`CONVENTIONS.md`), backlog items (`BACKLOG.md`), human-facing docs (`WRITING.md`), user guides (`USER_GUIDE.md`), releases (`RELEASE.md`).
-
-## Human Proxy Mode
-
-- `--human-proxy` requires `--auto`. Explicit flag only, never persisted.
-- Proxy writes proxy-log before emitting `review_approved{actor: "human-proxy"}`.
-- Rejection halts auto-loop immediately. No retry in same session.
-- `/gen-status` surfaces proxy decisions for morning review.
-
-## Bug Triage
-
-Fix directly. Emit `bug_fixed` event with `root_cause: coding_error|design_flaw|unknown`. No feature vector, no iterate cycle, no human gate required. Post-mortem determines escalation.
-
+Default role assignments for this install:
+- `constructor` -> `claude_code`
+- `implementer` -> `claude_code`
 <!-- SDLC_BOOTLOADER_END -->
+

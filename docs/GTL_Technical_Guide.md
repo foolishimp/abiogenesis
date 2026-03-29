@@ -101,7 +101,7 @@ Context binds external information into the graph with a stable content hash:
 ```python
 bootloader = Context(
     name="bootloader",
-    locator="workspace://builds/claude_code/code/gtl_spec/GTL_BOOTLOADER.md",
+    locator="workspace://build_tenants/abiogenesis/python/code/gtl_spec/GTL_BOOTLOADER.md",
     digest="sha256:" + "0" * 64,
 )
 ```
@@ -194,7 +194,7 @@ Evaluator declares a convergence predicate. Operators *do* work; evaluators *che
 eval_tests_pass = Evaluator(
     "tests_pass", F_D,
     "pytest: zero failures, zero errors",
-    binding="exec://python -m pytest builds/claude_code/tests/ -q --tb=short",
+    binding="exec://python -m pytest build_tenants/abiogenesis/python/test_env/tests/ -q --tb=short",
 )
 
 eval_code_fp = Evaluator(
@@ -717,7 +717,7 @@ intent -> requirements -> feature_decomp -> design -> code <-> unit_tests
 # 1. Contexts -- external constraint surfaces
 bootloader = Context(
     name="bootloader",
-    locator="workspace://builds/claude_code/code/gtl_spec/GTL_BOOTLOADER.md",
+    locator="workspace://build_tenants/abiogenesis/python/code/gtl_spec/GTL_BOOTLOADER.md",
     digest="sha256:" + "0" * 64,
 )
 
@@ -733,7 +733,7 @@ code = Node(name="code")
 eval_tests_pass = Evaluator(
     "tests_pass", F_D,
     "pytest: zero failures, zero errors",
-    binding="exec://python -m pytest builds/claude_code/tests/ -q --tb=short",
+    binding="exec://python -m pytest build_tenants/abiogenesis/python/test_env/tests/ -q --tb=short",
 )
 eval_code_fp = Evaluator(
     "code_complete", F_P,
