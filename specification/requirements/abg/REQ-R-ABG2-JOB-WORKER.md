@@ -1,6 +1,7 @@
 # REQ-R-ABG2-JOB-WORKER — Superseded by Explicit Job / Role / Worker / Run Split
 
 **Status**: Superseded
+**Category**: Capability
 **Date**: 2026-03-25
 **Derives from**: INT-GTL2-008
 **Superseded by**: REQ-L-GTL2-JOB, REQ-L-GTL2-ROLE, REQ-R-ABG2-WORKER, REQ-R-ABG2-BINDING, REQ-R-ABG2-RUN

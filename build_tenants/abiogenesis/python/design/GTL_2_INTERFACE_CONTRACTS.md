@@ -6,8 +6,8 @@
 
 **Derived from**:
 - [GTL_2_MODULE_DESIGN.md](./GTL_2_MODULE_DESIGN.md)
-- [GTL_2_CONSTITUTIONAL_DESIGN.md](../../specification/GTL_2_CONSTITUTIONAL_DESIGN.md)
-- [specification/requirements/](../../specification/requirements/)
+- [GTL_2_CONSTITUTIONAL_DESIGN.md](../../../../specification/GTL_2_CONSTITUTIONAL_DESIGN.md)
+- [specification/requirements/](../../../../specification/requirements/)
 
 **Primary requirement anchors**:
 - `REQ-L-GTL2-GRAPHFUNCTION`

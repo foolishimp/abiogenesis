@@ -5,8 +5,8 @@
 **Purpose**: Translate GTL 2.x constitutional law into concrete module boundaries, detailed domain model, dependency rules, and an implementation-ready module plan for the Claude build.
 
 **Derived from**:
-- [GTL_2_CONSTITUTIONAL_DESIGN.md](../../specification/GTL_2_CONSTITUTIONAL_DESIGN.md)
-- [specification/requirements/](../../specification/requirements/)
+- [GTL_2_CONSTITUTIONAL_DESIGN.md](../../../../specification/GTL_2_CONSTITUTIONAL_DESIGN.md)
+- [specification/requirements/](../../../../specification/requirements/)
 - [ADR-022](adrs/ADR-022-subprocess-transport-with-env-sanitization.md)
 - [ADR-030](adrs/ADR-030-job-role-worker-run-binding.md)
 

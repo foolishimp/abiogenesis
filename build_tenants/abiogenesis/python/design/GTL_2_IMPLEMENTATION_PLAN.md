@@ -5,10 +5,10 @@
 **Purpose**: Convert the current constitutional/design/interface stack into a concrete implementation target for the Claude build, while explicitly rejecting the prior half-solutions that would reintroduce debt.
 
 **Derived from**:
-- [GTL_2_CONSTITUTIONAL_DESIGN.md](../../specification/GTL_2_CONSTITUTIONAL_DESIGN.md)
+- [GTL_2_CONSTITUTIONAL_DESIGN.md](../../../../specification/GTL_2_CONSTITUTIONAL_DESIGN.md)
 - [GTL_2_MODULE_DESIGN.md](./GTL_2_MODULE_DESIGN.md)
 - [GTL_2_INTERFACE_CONTRACTS.md](./GTL_2_INTERFACE_CONTRACTS.md)
-- [specification/requirements/](../../specification/requirements/)
+- [specification/requirements/](../../../../specification/requirements/)
 
 ---
 
