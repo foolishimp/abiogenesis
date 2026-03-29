@@ -1,0 +1,117 @@
+# Abiogenesis Python Test Surface Map
+
+**Status**: Active
+**Date**: 2026-03-29
+**Derived from**: [REQ-P-QUAL.md](/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-QUAL.md), [REQ-P-SCENARIOS.md](/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-SCENARIOS.md), [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md), [GTL_2_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md), [GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md), [qualification_surface_map.md](/Users/jim/src/apps/abiogenesis/build_tenants/common/qualification/qualification_surface_map.md)
+
+## Purpose
+
+Review and trace the canonical `abiogenesis/python` test surface from live requirements through design authority into executable tests.
+
+This document is structural only.
+It does not change what runs.
+
+## Rule
+
+Every `test_*.py` file under `build_tenants/abiogenesis/python/test_env/tests/` shall appear here with:
+
+- the live requirement families it validates
+- the governing design surfaces it derives from
+
+## GTL Contract Tests
+
+### test_algebra.py
+
+- Requirements: `REQ-L-GTL2-COMPOSE`, `REQ-L-GTL2-SUBSTITUTE`, `REQ-L-GTL2-GRAPH`, `REQ-L-GTL2-GRAPHFUNCTION`
+- Design: [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md), [GTL_2_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md)
+
+### test_algebra_v2.py
+
+- Requirements: `REQ-L-GTL2-COMPOSE`, `REQ-L-GTL2-RECURSE`, `REQ-L-GTL2-HOF`, `REQ-L-GTL2-SYNTHESIS`, `REQ-L-GTL2-SELECTION-BOUNDARY`
+- Design: [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md), [GTL_2_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md)
+
+### test_gtl_types.py
+
+- Requirements: `REQ-L-GTL2-GRAPHFUNCTION`, `REQ-L-GTL2-SYNTHESIS`, `REQ-L-GTL2-SELECTION-BOUNDARY`
+- Design: [GTL_2_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md), [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md)
+
+### test_v2_contract_semantics.py
+
+- Requirements: `REQ-L-GTL2-MODULE`, `REQ-L-GTL2-COMPOSE`, `REQ-L-GTL2-GRAPH`, `REQ-L-GTL2-IDENTITY`, `REQ-L-GTL2-OPERATOR`, `REQ-L-GTL2-EVALUATOR`, `REQ-L-GTL2-RULE`, `REQ-L-GTL2-NODE`
+- Design: [GTL_2_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md), [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md)
+
+### test_v2_domain_scenarios.py
+
+- Requirements: `REQ-L-GTL2-MODULE`, `REQ-L-GTL2-GRAPH`, `REQ-L-GTL2-NODE`, `REQ-L-GTL2-JOB`, `REQ-L-GTL2-ROLE`
+- Design: [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md), [module_decomp.md](/Users/jim/src/apps/abiogenesis/build_tenants/common/design/module_decomp.md)
+
+### test_v2_product_scenarios_refinement.py
+
+- Requirements: `REQ-L-GTL2-COMPOSE`, `REQ-L-GTL2-SUBSTITUTE`, `REQ-L-GTL2-GRAPHFUNCTION`, `REQ-L-GTL2-MODULE`
+- Design: [GTL_2_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md), [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md)
+
+## ABG Contract Tests
+
+### test_abg_traversal.py
+
+- Requirements: `REQ-R-ABG2-INTERPRET`, `REQ-R-ABG2-CONVERGENCE`
+- Design: [GTL_2_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md), [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md)
+
+### test_abg_selection.py
+
+- Requirements: `REQ-R-ABG2-SELECTION-APPLICATION`, `REQ-R-ABG2-PROVENANCE`
+- Design: [GTL_2_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md), [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md)
+
+### test_abg_convergence.py
+
+- Requirements: `REQ-R-ABG2-CONVERGENCE`, `REQ-R-ABG2-PROVENANCE`
+- Design: [GTL_2_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md), [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md)
+
+## Product and Qualification Tests
+
+### test_property_invariants.py
+
+- Requirements: `REQ-F-TEST-002`, `REQ-F-CORE-002`, `REQ-F-CORE-003`, `REQ-F-CMD-004`, `REQ-F-EVAL-002`, `REQ-R-ABG2-PROJECTION`
+- Design: [GTL_2_CONSTITUTIONAL_DESIGN.md](/Users/jim/src/apps/abiogenesis/specification/GTL_2_CONSTITUTIONAL_DESIGN.md), [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md)
+
+### test_provenance_integration.py
+
+- Requirements: `REQ-F-PROV-001`, `REQ-F-PROV-002`, `REQ-F-PROV-003`, `REQ-F-PROV-004`, `REQ-F-PROV-005`
+- Design: [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md), [module_decomp.md](/Users/jim/src/apps/abiogenesis/build_tenants/common/design/module_decomp.md)
+
+### test_transport_contract.py
+
+- Requirements: `REQ-P-QUAL-023`, `REQ-P-QUAL-024`, `REQ-P-QUAL-005`, `REQ-P-QUAL-006`
+- Design: [ADR-022-subprocess-transport-with-env-sanitization.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/adrs/ADR-022-subprocess-transport-with-env-sanitization.md), [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md)
+
+### test_run_archive.py
+
+- Requirements: `REQ-P-QUAL-018A`, `REQ-P-QUAL-018B`, `REQ-P-QUAL-018C`, `REQ-P-QUAL-018D`, `REQ-P-QUAL-018E`, `REQ-P-QUAL-018F`
+- Design: [GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md), [qualification_surface_map.md](/Users/jim/src/apps/abiogenesis/build_tenants/common/qualification/qualification_surface_map.md)
+
+### test_spec_method_trace.py
+
+- Requirements: `REQ-R-ABG2-SELFHOSTING-002`
+- Design: [module_decomp.md](/Users/jim/src/apps/abiogenesis/build_tenants/common/design/module_decomp.md), [design_surface_map.md](/Users/jim/src/apps/abiogenesis/build_tenants/common/design/design_surface_map.md), [qualification_surface_map.md](/Users/jim/src/apps/abiogenesis/build_tenants/common/qualification/qualification_surface_map.md)
+
+## Sandbox and Scenario Tests
+
+### test_v2_sandbox_install.py
+
+- Requirements: `REQ-R-ABG2-EVENTS`, `REQ-R-ABG2-INTERPRET`
+- Design: [GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md), [SCENARIO_V2_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/SCENARIO_V2_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md)
+
+### test_v2_sandbox_usecases_fake.py
+
+- Requirements: `REQ-L-GTL2-SYNTHESIS`, `REQ-L-GTL2-SELECTION-BOUNDARY`, `REQ-L-GTL2-SUBWORK`, `REQ-R-ABG2-INTERPRET`, `REQ-R-ABG2-BINDING`, `REQ-R-ABG2-CORRECTION`, `REQ-R-ABG2-LEAFTASK`, `REQ-R-ABG2-LINEAGE`, `REQ-R-ABG2-SELECTION-APPLICATION`, `REQ-R-ABG2-CONVERGENCE`, `REQ-R-ABG2-WORKER`
+- Design: [GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md), [SCENARIO_V2_INTENT_TO_TAGGED_REQUIREMENTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/SCENARIO_V2_INTENT_TO_TAGGED_REQUIREMENTS.md), [SCENARIO_V2_REQUIREMENTS_TO_UAT.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/SCENARIO_V2_REQUIREMENTS_TO_UAT.md), [SCENARIO_V2_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/SCENARIO_V2_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md)
+
+### test_v2_sandbox_usecases_live.py
+
+- Requirements: `REQ-R-ABG2-TRANSPORT`, `REQ-R-ABG2-INTERPRET`
+- Design: [GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md), [SCENARIO_V2_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/SCENARIO_V2_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md)
+
+### test_v2_usecases_u1_u4.py
+
+- Requirements: `REQ-L-GTL2-GRAPHFUNCTION`, `REQ-L-GTL2-SYNTHESIS`, `REQ-L-GTL2-SELECTION-BOUNDARY`, `REQ-L-GTL2-HOF`, `REQ-R-ABG2-INTERPRET`, `REQ-R-ABG2-CONVERGENCE`, `REQ-R-ABG2-SELECTION-APPLICATION`
+- Design: [GTL_2_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md), [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md)

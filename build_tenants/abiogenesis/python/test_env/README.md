@@ -16,6 +16,7 @@ Qualification authority lives in:
 This root currently contains:
 
 - `tests/` — canonical deterministic, sandbox, scenario, and trace tests
+- `test_surface_map.md` — canonical review-and-trace map from tests to requirements and design
 - `run_tests` — tenant-local convenience runner
 - `test_runs/` — persistent archived qualification runs
 - `test_install/` — local inspection install root

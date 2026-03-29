@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import importlib
 import os
 import re
 import subprocess
@@ -32,6 +33,7 @@ SPEC_ROOT = REPO_ROOT / "specification"
 REQUIREMENTS_ROOT = SPEC_ROOT / "requirements"
 PYTHON_TENANT_ROOT = REPO_ROOT / "build_tenants" / "abiogenesis" / "python"
 PYTHON_CODE_ROOT = PYTHON_TENANT_ROOT / "code"
+PYTHON_TEST_SURFACE_MAP = PYTHON_TENANT_ROOT / "test_env" / "test_surface_map.md"
 PYTHON_TEST_ROOT = PYTHON_TENANT_ROOT / "test_env" / "tests"
 PYTHON_GTL_ROOT = PYTHON_CODE_ROOT / "gtl"
 PYTHON_GENESIS_ROOT = PYTHON_CODE_ROOT / "genesis"
@@ -75,8 +77,23 @@ def _live_requirement_families() -> set[str]:
     return {path.stem for path in REQUIREMENT_FILES}
 
 
+def _package_requirement_keys() -> set[str]:
+    module = importlib.import_module("gtl_spec.packages.abiogenesis")
+    requirements = getattr(module.module, "metadata", {}).get("requirements", [])
+    return set(requirements)
+
+
 def _is_known_requirement_ref(ref: str, families: set[str]) -> bool:
     return any(ref == family or ref.startswith(f"{family}-") for family in families)
+
+
+def _section_covers_requirement_ref(ref: str, section_refs: set[str]) -> bool:
+    return any(
+        ref == section_ref
+        or ref.startswith(f"{section_ref}-")
+        or section_ref.startswith(f"{ref}-")
+        for section_ref in section_refs
+    )
 
 
 def _resolve_links(text: str, base: Path) -> list[Path]:
@@ -149,6 +166,15 @@ def _tagged_requirement_refs(root: Path, marker: str) -> set[str]:
             continue
         refs.update(pattern.findall(_read(path)))
     return refs
+
+
+def _test_surface_map_sections() -> dict[str, str]:
+    text = _read(PYTHON_TEST_SURFACE_MAP)
+    parts = re.split(r"^### (test_[^\n]+\.py)\s*$", text, flags=re.MULTILINE)
+    sections: dict[str, str] = {}
+    for i in range(1, len(parts), 2):
+        sections[parts[i].strip()] = parts[i + 1]
+    return sections
 
 
 def test_requirement_families_have_method_metadata_and_live_intent_refs() -> None:
@@ -257,6 +283,36 @@ def test_shared_common_qualification_surfaces_trace_to_live_requirement_families
         assert links, f"{path.name} has no resolvable authority links in its derived-from metadata"
         for link in links:
             assert link.exists(), f"{path.name} links to missing authority surface {link}"
+
+
+def test_python_test_surface_map_covers_existing_tests_with_requirement_and_design_trace() -> None:
+    families = _live_requirement_families()
+    known_refs = families | _package_requirement_keys()
+    sections = _test_surface_map_sections()
+    test_files = sorted(path for path in PYTHON_TEST_ROOT.glob("test_*.py"))
+
+    assert PYTHON_TEST_SURFACE_MAP.exists(), f"missing test surface map {PYTHON_TEST_SURFACE_MAP}"
+    assert len(sections) == len(test_files), "test surface map does not cover the full python test corpus"
+
+    for path in test_files:
+        section = sections.get(path.name)
+        assert section is not None, f"{path.name} is missing from test surface map"
+
+        section_req_refs = set(REQ_REF_RE.findall(section))
+        assert section_req_refs, f"{path.name} has no requirement trace in test surface map"
+        for ref in section_req_refs:
+            assert _is_known_requirement_ref(ref, known_refs), (
+                f"{path.name} references unknown requirement ref {ref} in test surface map"
+            )
+
+        links = _resolve_links(section, PYTHON_TEST_SURFACE_MAP)
+        assert links, f"{path.name} has no design links in test surface map"
+        for link in links:
+            assert link.exists(), f"{path.name} links to missing design surface {link}"
+
+        file_validates = set(re.findall(r"^#\s*Validates:\s*(REQ-[A-Z]-[A-Z0-9]+(?:-[A-Z0-9]+)*)", _read(path), re.MULTILINE))
+        missing = sorted(ref for ref in file_validates if not _section_covers_requirement_ref(ref, section_req_refs))
+        assert not missing, f"{path.name} is missing validated requirement refs in test surface map: {missing}"
 
 
 def test_python_tenant_requirement_and_test_coverage_gate_is_green() -> None:

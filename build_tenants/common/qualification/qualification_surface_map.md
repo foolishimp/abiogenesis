@@ -32,6 +32,7 @@ These surfaces currently govern the released python qualification story but are 
 | Surface | Current location | Why not yet promoted |
 | --- | --- | --- |
 | `GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md` | `build_tenants/abiogenesis/python/design/` | Canonical qualification ladder, but still written around the python tenant's active sandbox and scenario corpus |
+| `test_surface_map.md` | `build_tenants/abiogenesis/python/test_env/` | Canonical reviewed trace map for the python tenant test corpus |
 | `test_spec_method_trace.py` | `build_tenants/abiogenesis/python/test_env/tests/` | Current repo-level constitutional trace gate for the canonical tenant |
 | `run_archive.py` and `sandbox_runtime.py` | `build_tenants/abiogenesis/python/test_env/tests/` | Canonical sandbox/archive harness, not yet exercised unchanged by another active tenant |
 
