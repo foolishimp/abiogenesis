@@ -13,7 +13,7 @@
 
 This requirement compressed semantic `Job`, semantic `Role`, concrete `Worker`, and execution `Run` into a single runtime family.
 
-That formulation is no longer authoritative.
+Its authority is replaced by the split requirement family below.
 
 Use the split requirement family instead:
 

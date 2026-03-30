@@ -1,6 +1,6 @@
 # Starter Surface Retired
 
-The original starter placeholder has been superseded.
+The starter placeholder is retired.
 
 Abiogenesis now has a real requirement surface under:
 
@@ -9,5 +9,5 @@ Abiogenesis now has a real requirement surface under:
 - `specification/requirements/mapping/`
 - `specification/requirements/product/`
 
-This file remains only as a migration marker so older references fail softly during the topology transition.
+This file remains only as a compatibility marker so older references fail softly during topology changes.
 It is not a live requirement family and carries no operative REQ authority.

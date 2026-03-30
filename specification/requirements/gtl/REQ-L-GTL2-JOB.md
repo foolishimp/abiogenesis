@@ -4,7 +4,7 @@
 **Category**: Capability
 **Date**: 2026-03-25
 **Derives from**: INT-GTL2-012
-**Supersedes**: (new — retroactive V2 semantic correction)
+**Supersedes**: (new)
 **Wave**: 2
 
 ---
@@ -31,4 +31,4 @@ A job is not a queue item or a single execution attempt. It is the named work co
 
 **REQ-L-GTL2-JOB-007**: GTL job declarations shall remain engine-independent. They must be mappable onto ABG and other runtimes without redefining the semantic contract.
 
-**REQ-L-GTL2-JOB-008**: Scheduling, triggers, KPIs, and other orchestration concerns may be layered onto jobs later, but the absence of those declarations does not negate job semantics in V2.
+**REQ-L-GTL2-JOB-008**: Scheduling, triggers, KPIs, and other orchestration concerns may be layered onto jobs later, but the absence of those declarations does not negate job semantics.

@@ -8,7 +8,7 @@
 
 ## The Problem
 
-AI-augmented software development lacks a clean, formal engine. The existing genesis engine (ai_sdlc_method v3.1.0) evolved organically — it works, but it is not GTL-first, it carries accumulated legacy, and it cannot be re-derived from first principles. There is no reference implementation that demonstrates the full AI SDLC asset graph from intent through to code+tests using the GTL type system as the constitutional language.
+AI-augmented software development requires a clean, formal engine. The available genesis engine (ai_sdlc_method v3.1.0) is effective, but it is not GTL-first and it cannot be re-derived from first principles. There is no reference implementation that demonstrates the full AI SDLC asset graph from intent through to code+tests using the GTL type system as the constitutional language.
 
 ---
 
@@ -22,7 +22,7 @@ A clean, GTL-first implementation of abiogenesis as a Genesis 2.x engine — an 
 4. Provides commands (`gen-start`, `gen-iterate`, `gen-gaps`) as named compositions over the engine
 5. Enforces traceability from REQ keys through code to tests via tag enforcement
 6. Binds convergence events to workflow provenance (version, spec_hash) to prevent stale assessment reuse
-7. Is built by the current genesis engine using itself as bootstrap compiler (the GCC/C analogy)
+7. Is built by the genesis engine using itself as bootstrap compiler (the GCC/C analogy)
 8. Reaches a self-hosting gate: abiogenesis can build itself
 
 The authored domain surface is `build_tenants/abiogenesis/python/code/gtl_spec/packages/abiogenesis.py` — the GTL Module is the shipping domain declaration. `specification/` provides the constitutional intent, requirement, and design surfaces that govern it.
@@ -32,7 +32,7 @@ The authored domain surface is `build_tenants/abiogenesis/python/code/gtl_spec/p
 ## Business Value
 
 - **Proof of concept for GTL**: demonstrates that a complex system (the genesis engine itself) can be formally specified as a GTL Module and then built from that spec
-- **Bootstrap independence**: once self-hosting, abiogenesis no longer depends on ai_sdlc_method for its own development
+- **Bootstrap independence**: once self-hosting, abiogenesis depends on its own constitutional surface and bootstrap compiler for further development
 - **Reference implementation**: every future genesis build (Codex, Gemini, Bedrock, Java, Temporal) derives from this clean topology
 - **GCC analogy materialised**: GTL = C, ai_sdlc_method = GCC 1.0, abiogenesis = GCC 1.1 — the language bootstraps its own compiler
 
@@ -52,9 +52,11 @@ The authored domain surface is `build_tenants/abiogenesis/python/code/gtl_spec/p
 
 ---
 
-## Constitutional Precedence
+## Constitutional Consistency
 
-Requirements derived from INT-004 through INT-007 (V2) supersede overlapping V1 wording from INT-001. Where V1 and V2 requirements describe the same surface, V2 governs. V1 behaviour is retained **only** as explicitly labeled degenerate cases within V2 requirements:
+Active requirements are present-tense constitutional truth. Overlap or conflict between active requirements is illegal and must be resolved in the corpus itself rather than arbitrated by generation labels or historical wording.
+
+Legacy behavior is retained only where it is explicitly declared as compatibility or replay law:
 
 | Retained degenerate case | Meaning |
 |--------------------------|---------|
@@ -62,9 +64,9 @@ Requirements derived from INT-004 through INT-007 (V2) supersede overlapping V1 
 | No `work_spawned` events | Static authored graph — no zoom, no fragment refinement |
 | No fragment imports | Monolithic Package — all edges authored directly |
 | No leaf tasks | Direct F_P dispatch — no bounded sub-work |
-| Unscoped V1 events | Visible to global queries, invisible to work-key-scoped queries |
+| Unscoped legacy events | Visible to global queries, invisible to work-key-scoped queries |
 
-Any V1-only doctrine not listed as a degenerate case is **superseded** and must not be taught as active law. Legacy compatibility shims (e.g., wildcard revocation) are retained for replay of existing event streams but are not available for new work.
+Any historical doctrine not listed as explicit compatibility law is not active law. Legacy compatibility shims (e.g., wildcard revocation) are retained for replay of existing event streams but are not available for new work.
 
 ---
 
@@ -75,7 +77,7 @@ Any V1-only doctrine not listed as a degenerate case is **superseded** and must 
 
 ### Problem
 
-Bootloader documents (GTL_BOOTLOADER.md in abiogenesis, SDLC_BOOTLOADER.md in genesis_sdlc) are hand-maintained markdown that reference graph types, node names, vector chains, and evaluator semantics from the codebase — but no F_D evaluator checks them for consistency. When the graph changes, the bootloader drifts silently. This just happened: SDLC_BOOTLOADER.md referenced phantom nodes (`basis_projections`, `design_recommendations`, `cicd`, `telemetry`) that never existed in `sdlc_graph.py`. The drift was caught by a human reading diffs, not by the system.
+Bootloader documents (GTL_BOOTLOADER.md in abiogenesis, SDLC_BOOTLOADER.md in genesis_sdlc) are hand-maintained markdown that reference graph types, node names, vector chains, and evaluator semantics from the codebase, but no F_D evaluator checks them for consistency. When the graph changes, the bootloader can drift silently.
 
 This is structurally identical to untested code: it works until it doesn't, and you find out too late. The bootloader is consumed by downstream assistant sessions — stale content means those sessions operate against wrong constraints.
 
@@ -124,7 +126,7 @@ The bootloader becomes a convergence-tracked artifact: if the graph changes and 
 
 ### Problem
 
-The abiogenesis specification leaks build-specific implementation detail into the constitutional layer. A Codex build from the same spec surfaced 5 material gaps — all stemming from the spec assuming it will be built by Claude Code with Python tooling. This blocks any non-Claude worker from building against the spec.
+The abiogenesis specification must not leak build-specific implementation detail into the constitutional layer. Worker-specific assumptions prevent conformant builds across different workers and runtimes.
 
 Specific contradictions and defects:
 
@@ -138,7 +140,7 @@ Specific contradictions and defects:
 
 ### Value Proposition
 
-Fix all 7 defects so the spec becomes genuinely constitutional — any worker (Claude, Codex, Gemini, Bedrock) can build a conformant engine from the same specification. This is the prerequisite for multi-worker orchestration.
+Remove these defects so the specification remains constitutional and any worker (Claude, Codex, Gemini, Bedrock) can build a conformant engine from the same specification. This is a prerequisite for multi-worker orchestration.
 
 Three-layer architecture:
 - **Layer 1 (Spec)**: GTL Package — assets, edges, evaluator predicates, contexts. Tech-neutral.
@@ -188,14 +190,12 @@ Three-layer architecture:
 
 ### Problem
 
-The V1 engine simplified work scheduling to `Job = Edge`. The scheduler walks edges, runs global evaluators, and reports convergence per edge. Feature identity appears only as an event annotation — events carry `(edge, feature)`, convergence certificates are keyed on `(edge, feature)`, and `project()` supports feature-scoped projection. But the scheduler creates one job per edge and evaluates convergence globally.
+The system requires work identity, recursive refinement, and compositional graph structure as first-class law.
 
-This means:
-1. Adding new feature vectors to a converged workspace produces no delta. The engine reports "converged" even though no code exists for the new features. The spec-tier evaluators (req_coverage, module_coverage) catch coverage gaps, but the code-tier evaluators (impl_tags, tests_pass) check global properties — they cannot distinguish "feature X has code" from "some code exists."
-2. There is no mechanism for recursive refinement. When a coarse edge (`design→code`) needs more structure, the only option is to redesign the entire graph. Zoom — expanding an opaque step into a richer subgraph while preserving the outer contract — is not supported.
-3. Graphs are monolithic. Common patterns (requirements→design, code→test_evidence) must be duplicated in every Package. There is no compositional unit smaller than a full Package.
-
-The original monolith design addressed all three through category-theoretic structure: zoom morphism, spawn/fold-back, graph fragments, named compositions, and child lineage. The split dropped this structural layer, leaving the event model richer than the scheduling model. The events know about work identity; the scheduler doesn't.
+Without that structure:
+1. Convergence cannot be scoped to a durable work contract. New feature vectors can exist without producing delta on the specific work they require.
+2. Coarse boundaries such as `design→code` cannot be lawfully refined into richer inner structure while preserving their outer contract.
+3. Common workflow patterns such as `requirements→design` and `code→test_evidence` cannot be reused as compositional units.
 
 ### Value Proposition
 
@@ -261,10 +261,10 @@ The outer graph still sees input compatible with `design` and output compatible 
 - Scheduler creates work instances from (job, work_key) pairs, not just jobs
 
 **Out of scope:**
-- Strong intent engine (dynamic graph realisation from gap analysis) — future; the engine supports the model but the current planner uses a static hand-crafted graph
-- Multi-worker scheduling across work instances — V1 is single worker
+- Strong intent engine (dynamic graph realisation from gap analysis)
+- Multi-worker scheduling across work instances beyond the single-worker case
 - Package distribution / registry
-- Exotic named compositions (BROADCAST, FOLD, CONSENSUS, etc. — future; graph functions and Fragment libraries are in scope)
+- Exotic named compositions (BROADCAST, FOLD, CONSENSUS, etc.); graph functions and Fragment libraries are in scope
 
 ### Success Criteria
 
@@ -278,7 +278,7 @@ The outer graph still sees input compatible with `design` and output compatible 
 
 ---
 
-## INT-005 — V2 Kernel Evolution: Run Governance and Leaf Tasks
+## INT-005 — Run Governance and Leaf Tasks
 
 **Date**: 2026-03-24
 **Status**: Draft
@@ -286,7 +286,7 @@ The outer graph still sees input compatible with `design` and output compatible 
 
 ### Problem
 
-INT-004 established the structural primitives: work identity, compositional graphs, zoom, spawn, fold-back. But the runtime still lacks two capabilities needed for the system to scale beyond single-shot F_P dispatch:
+The runtime requires two additional capabilities to scale beyond single-shot F_P dispatch:
 
 1. **Run governance is primitive.** Each F_P attempt has only two states: dispatched and assessed. There is no explicit lifecycle model. Transport failures, bad output, and certification failures are not distinguished. No retry semantics. No timeout governance. No pending deduplication beyond a basic fluent check. This means every failure mode is handled ad hoc by the skill/caller rather than constitutionally by the kernel.
 
@@ -312,8 +312,8 @@ INT-004 established the structural primitives: work identity, compositional grap
 - Wildcard revocation replaced with work-lineage-scoped correction — event log remains truthful
 
 **Out of scope:**
-- Distributed coordination (saga) — INT-005 makes local law complete; distribution is a separate intent
-- Dynamic graph realisation (intent engine) — INT-004 Phase 6
+- Distributed coordination (saga) beyond local run governance
+- Dynamic graph realisation (intent engine)
 - Transport implementation specifics (subprocess, API, MCP) — governed by existing ADR-022
 
 ### Success Criteria
@@ -335,13 +335,12 @@ INT-004 established the structural primitives: work identity, compositional grap
 **Date**: 2026-03-24
 **Status**: Draft
 **Derived from**: Product scenario gap analysis (20260324T165057_PRODUCT_SCENARIOS_abg-gtl-first-10.md, Scenarios 11–14), Codex proposal (20260324T184835_PROPOSAL_functional-composition-evaluator-selection.md)
-**Renewal path**: Current spec → product-owner scenarios → gap analysis → this intent (per SPEC_METHOD.md §Renewal Path)
 
 ### Problem
 
-The current GTL surface has the right nouns but not yet the clearest algebraic center.
+GTL requires one clear algebraic center for reusable workflow computation.
 
-`GraphFunction`, `compose`, `substitute`, `recurse`, and the higher-order operators currently read as separate capabilities. What is still missing is the explicit statement that they are all consequences of one reusable compute abstraction.
+`GraphFunction`, `compose`, `substitute`, `recurse`, and the higher-order operators must all be understood as consequences of one reusable compute abstraction.
 
 That gap shows up concretely in authoring:
 
@@ -352,7 +351,7 @@ That gap shows up concretely in authoring:
 
 Without that center, GTL remains structurally expressive but underspecified as a functional programming language for workflows.
 
-There is also a second gap now visible from the `gsdlc` side: `GraphFunction` exists constitutionally, but publication, materialization, and runtime provenance are still not first-class obligations. The live stacks mostly operate on already materialized graphs and vectors. That leaves the higher-order V2 promise only partially completed.
+Published graph functions, lawful materialization, and runtime provenance are part of that center. A graph function is first-class only when it is discoverable, materializable from declared inputs and profiles, and preserved in runtime provenance together with any graph-derived companion bundles.
 
 ### Value Proposition
 
@@ -440,7 +439,7 @@ ABG must not contain hidden business-choice logic.
 
 **6. First-class publication and materialization**
 
-V2 is not complete merely because `GraphFunction` exists as a type. It becomes first-class only when:
+`GraphFunction` is first-class only when:
 
 - modules publish graph functions as discoverable reusable surfaces
 - graph functions materialize lawfully from declared authority inputs and profiles
@@ -487,16 +486,17 @@ V2 is not complete merely because `GraphFunction` exists as a type. It becomes f
 
 ---
 
-## INT-007 — V2 Semantic Correction: Job, Role, Worker, and Run
+## INT-007 — Semantic Separation of Job, Role, Worker, and Run
 
 **Date**: 2026-03-25
 **Status**: Approved
-**Derived from**: Product-owner gap analysis of V2 semantic incompleteness, Codex strategy `20260325T183500_STRATEGY_job-role-worker-requirement-cascade.md`
-**Renewal path**: Current V2 spec → gap analysis → this intent correction (per SPEC_METHOD.md §Renewal Path)
+**Derived from**: Product-owner gap analysis of job/role/worker/run semantics, Codex strategy `20260325T183500_STRATEGY_job-role-worker-requirement-cascade.md`
 
 ### Problem
 
-The current V2 requirement surface compresses `Job` and `Worker` too aggressively into runtime scheduling vocabulary. That loses important semantic structure:
+The system requires a clean separation between semantic work contracts, semantic capability classes, concrete actor identities, and execution instances.
+
+Without that separation:
 
 1. A durable, semantically meaningful work contract still exists. "End of day liquidity calc" is not merely a queue item or one execution attempt. It is a named work contract that persists across time.
 
@@ -506,11 +506,11 @@ The current V2 requirement surface compresses `Job` and `Worker` too aggressivel
 
 4. Authentication and authority resolution are outside the system boundary, but the semantic hooks are not. ABG must accept externally resolved identity/authority inputs and preserve them in provenance without turning GTL/ABG into an IAM system.
 
-The current `REQ-R-ABG2-JOB-WORKER` is therefore constitutionally incomplete. It treats `Job` as a runtime unit and leaves no first-class GTL home for semantic job contracts or capability roles.
+Without that separation, provenance loses semantic clarity and the language/engine boundary becomes unstable.
 
 ### Value Proposition
 
-This correction restores a clean, durable model:
+The model is:
 
 - `Job` in GTL: durable semantic work contract
 - `Role` in GTL: semantic capability class required by a job or graph contract
@@ -544,7 +544,7 @@ This yields a model that matches real workflow systems without collapsing the la
 - session/token/credential handling
 - a full orchestration family (triggers, schedules, KPIs, windows)
 
-This is a V2 semantic correction, not a V2.1 orchestration expansion.
+This intent defines the semantic separation itself, not a broader orchestration expansion.
 
 ### Success Criteria
 

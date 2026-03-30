@@ -4,7 +4,7 @@
 **Category**: Constraint / Guarantee
 **Date**: 2026-03-25
 **Derives from**: INT-GTL2-001, INT-GTL2-012
-**Supersedes**: (new — retroactive correction to type foundations)
+**Supersedes**: (new)
 **Wave**: 0 (foundational — constrains all other language requirements)
 
 ---
@@ -13,7 +13,7 @@
 
 Every first-class GTL type shall carry an opaque identity distinct from its human-readable label. Identity determines when two values refer to the same object versus structurally equivalent but distinct objects. Without this, operations that target, replace, or record provenance of objects degenerate into label-matching, which aliases under renaming, duplication, or repeated application.
 
-This requirement exists because the original GTL 2.x type definitions used `.name` as both label and identity handle, which caused aliasing bugs in substitution targeting and graph replacement during Phase 5 implementation.
+Identity must remain distinct from labels so substitution targeting, graph replacement, and provenance do not alias under renaming, duplication, or repeated application.
 
 ## Foundations
 

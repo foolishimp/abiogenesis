@@ -37,6 +37,6 @@ A node carries:
 
 **REQ-L-GTL2-NODE-007**: Any lawful GTL→ABG interpretation, bridge, or mapping layer shall preserve declared node `markov` conditions without semantic loss.
 
-**REQ-L-GTL2-NODE-008**: During V1→V2 migration, any compatibility bridge from `Node` to legacy `Asset` shall map `Node.markov` to `Asset.markov` exactly.
+**REQ-L-GTL2-NODE-008**: Any compatibility bridge from `Node` to legacy `Asset` shall map `Node.markov` to `Asset.markov` exactly.
 
-**REQ-L-GTL2-NODE-009**: The V1 `Asset` concept is reinterpreted in V2 as `Node[T]` plus its declared schema/type and markov conditions.
+**REQ-L-GTL2-NODE-009**: The legacy `Asset` concept is interpreted as `Node[T]` plus its declared schema/type and markov conditions.
