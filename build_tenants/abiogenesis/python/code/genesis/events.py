@@ -45,6 +45,7 @@ class EventStream:
     def open(cls, workspace: Path) -> "EventStream":
         """Open (or create) the canonical event log for a workspace."""
         events_path = workspace / ".ai-workspace" / "events" / "events.jsonl"
+        events_path.parent.mkdir(parents=True, exist_ok=True)
         return cls(events_path)
 
     def append(
@@ -121,6 +122,7 @@ _active_snapshot_id: Optional[str] = None
 _WORK_EVENT_TYPES = frozenset({
     "edge_started", "edge_converged", "assessed", "approved", "revoked",
 })
+_USE_ACTIVE_SNAPSHOT = object()
 
 
 def init_stream(stream: EventStream) -> None:
@@ -135,7 +137,14 @@ def init_snapshot(snapshot_id: str) -> None:
     _active_snapshot_id = snapshot_id
 
 
-def emit(event_type: str, data: dict) -> None:
+def emit(
+    event_type: str,
+    data: dict,
+    *,
+    stream: EventStream | None = None,
+    context: EventContext | None = None,
+    package_snapshot_id: object | str | None = _USE_ACTIVE_SNAPSHOT,
+) -> None:
     """
     F_D event logger. The ONLY admissible write to events.jsonl.
 
@@ -145,40 +154,49 @@ def emit(event_type: str, data: dict) -> None:
     REQ-F-EVAL-005: assessed{kind: fp} events must carry spec_hash.
     Prime event validation: approved and revoked must carry kind.
 
-    Raises RuntimeError if workspace_bootstrap() has not been called.
+    Optional explicit stream/context support pre-stack command surfaces while
+    preserving emit() as the single lawful write path.
+
+    Raises RuntimeError if no stream is available.
     Raises ValueError if a prime event payload fails validation.
     """
-    if _stream is None:
+    active_stream = stream or _stream
+    if active_stream is None:
         raise RuntimeError(
-            "emit() called before workspace_bootstrap(). "
-            "Call workspace_bootstrap(path) first to initialise the stream."
+            "emit() called without an active EventStream. "
+            "Call workspace_bootstrap(path) first or pass stream=..."
         )
-    if event_type == "assessed" and data.get("kind") == "fp" and "spec_hash" not in data:
+    payload = dict(data)
+    if event_type == "assessed" and payload.get("kind") == "fp" and "spec_hash" not in payload:
         raise ValueError(
             "assessed{kind: fp} events must include 'spec_hash'. "
             "Use bind.req_hash(package.requirements) to compute it."
         )
-    if event_type in ("approved", "revoked") and "kind" not in data:
+    if event_type in ("approved", "revoked") and "kind" not in payload:
         raise ValueError(
             f"{event_type} events must include 'kind' field. "
             "Without kind, the event is silently ignored by the projection layer."
         )
     if event_type == "reset":
-        scope = data.get("scope")
+        scope = payload.get("scope")
         if scope not in ("workspace", "work_key", "edge"):
             raise ValueError(
                 f"reset events must include 'scope' field with value "
                 f"workspace, work_key, or edge — got {scope!r}"
             )
-        if scope in ("work_key", "edge") and "work_key" not in data:
+        if scope in ("work_key", "edge") and "work_key" not in payload:
             raise ValueError(
                 f"reset with scope={scope!r} requires 'work_key' field"
             )
-        if scope == "edge" and "edge" not in data:
+        if scope == "edge" and "edge" not in payload:
             raise ValueError(
                 "reset with scope='edge' requires 'edge' field"
             )
-    # PackageSnapshot carrier enforcement
-    if event_type in _WORK_EVENT_TYPES and _active_snapshot_id is not None:
-        data.setdefault("package_snapshot_id", _active_snapshot_id)
-    _stream.append(event_type, data)
+    snapshot_id = (
+        _active_snapshot_id
+        if package_snapshot_id is _USE_ACTIVE_SNAPSHOT
+        else package_snapshot_id
+    )
+    if event_type in _WORK_EVENT_TYPES and snapshot_id is not None:
+        payload.setdefault("package_snapshot_id", snapshot_id)
+    active_stream.append(event_type, payload, context=context)

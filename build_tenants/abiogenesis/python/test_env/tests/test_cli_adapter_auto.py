@@ -1,6 +1,8 @@
 # Validates: REQ-R-ABG2-INTERPRET
 # Validates: REQ-R-ABG2-SELFHOSTING
 # Validates: REQ-R-ABG2-WORKER
+# Validates: REQ-R-ABG2-EVENTS
+# Validates: REQ-P-POLICY-001
 from __future__ import annotations
 
 import json
@@ -328,3 +330,215 @@ def test_main_routes_start_auto_human_proxy_through_cli_auto_loop(
     assert called["auto_workspace"] == tmp_path
     assert called["auto_mod_ref"] == "demo.module:module"
     assert called["auto_human_proxy"] is True
+
+
+def test_emit_workspace_event_uses_canonical_emit_with_explicit_event_context(
+    monkeypatch,
+    tmp_path: Path,
+):
+    captured: dict[str, object] = {}
+
+    def fake_emit(event_type, data, *, stream=None, context=None, package_snapshot_id=None):
+        captured["event_type"] = event_type
+        captured["data"] = data
+        captured["stream"] = stream
+        captured["context"] = context
+        captured["package_snapshot_id"] = package_snapshot_id
+
+    monkeypatch.setattr("genesis.events.emit", fake_emit)
+
+    cli_adapter._emit_workspace_event(
+        tmp_path,
+        "approved",
+        {"kind": "fh_review", "edge": "design→review", "actor": "human"},
+        workflow_version="demo.workflow@1.1.0",
+        work_key="REQ-1",
+        run_id="run-123",
+    )
+
+    assert captured["event_type"] == "approved"
+    assert captured["data"] == {
+        "kind": "fh_review",
+        "edge": "design→review",
+        "actor": "human",
+    }
+    assert captured["stream"].path == tmp_path / ".ai-workspace" / "events" / "events.jsonl"
+    assert captured["context"] == genesis_events.EventContext(
+        workflow_version="demo.workflow@1.1.0",
+        work_key="REQ-1",
+        run_id="run-123",
+    )
+    assert captured["package_snapshot_id"] is None
+
+
+def test_emit_event_cmd_routes_through_workspace_event_helper(
+    monkeypatch,
+    tmp_path: Path,
+):
+    runtime_dir = tmp_path / ".ai-workspace" / "runtime"
+    runtime_dir.mkdir(parents=True, exist_ok=True)
+    (runtime_dir / "active-workflow.json").write_text(
+        json.dumps({"workflow": "demo.workflow", "version": "1.1.0"}),
+        encoding="utf-8",
+    )
+
+    calls: list[dict[str, object]] = []
+
+    def fake_emit_workspace_event(
+        workspace,
+        event_type,
+        data,
+        *,
+        workflow_version="unknown",
+        work_key=None,
+        run_id=None,
+    ):
+        calls.append(
+            {
+                "workspace": workspace,
+                "event_type": event_type,
+                "data": dict(data),
+                "workflow_version": workflow_version,
+                "work_key": work_key,
+                "run_id": run_id,
+            }
+        )
+
+    monkeypatch.setattr(cli_adapter, "_emit_workspace_event", fake_emit_workspace_event)
+
+    rc = cli_adapter._emit_event_cmd(
+        "approved",
+        json.dumps({"kind": "fh_review", "edge": "design→review", "actor": "human"}),
+        tmp_path,
+    )
+
+    assert rc == 0
+    assert calls == [
+        {
+            "workspace": tmp_path,
+            "event_type": "approved",
+            "data": {
+                "kind": "fh_review",
+                "edge": "design→review",
+                "actor": "human",
+                "workflow_version": "demo.workflow@1.1.0",
+            },
+            "workflow_version": "demo.workflow@1.1.0",
+            "work_key": None,
+            "run_id": None,
+        }
+    ]
+
+
+def test_assess_result_cmd_routes_manifest_provenance_through_workspace_event_helper(
+    monkeypatch,
+    tmp_path: Path,
+):
+    runtime_dir = tmp_path / ".ai-workspace" / "runtime"
+    runtime_dir.mkdir(parents=True, exist_ok=True)
+    (runtime_dir / "active-workflow.json").write_text(
+        json.dumps({"workflow": "demo.workflow", "version": "1.1.0"}),
+        encoding="utf-8",
+    )
+
+    result_path = tmp_path / "judge-result.json"
+    result_path.write_text(
+        json.dumps(
+            {
+                "edge": "design→code",
+                "actor": "codex",
+                "assessments": [
+                    {
+                        "evaluator": "code_complete",
+                        "result": "pass",
+                        "evidence": "all checks pass",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    manifests_dir = tmp_path / ".ai-workspace" / "fp_manifests"
+    manifests_dir.mkdir(parents=True, exist_ok=True)
+    (manifests_dir / "judge-result.json").write_text(
+        json.dumps(
+            {
+                "spec_hash": "abc123",
+                "run_id": "run-42",
+                "work_key": "REQ-7/design→code",
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    calls: list[dict[str, object]] = []
+
+    def fake_emit_workspace_event(
+        workspace,
+        event_type,
+        data,
+        *,
+        workflow_version="unknown",
+        work_key=None,
+        run_id=None,
+    ):
+        calls.append(
+            {
+                "workspace": workspace,
+                "event_type": event_type,
+                "data": dict(data),
+                "workflow_version": workflow_version,
+                "work_key": work_key,
+                "run_id": run_id,
+            }
+        )
+
+    monkeypatch.setattr(cli_adapter, "_emit_workspace_event", fake_emit_workspace_event)
+
+    rc = cli_adapter._assess_result_cmd(str(result_path), tmp_path)
+
+    assert rc == 0
+    assert calls == [
+        {
+            "workspace": tmp_path,
+            "event_type": "assessed",
+            "data": {
+                "kind": "fp",
+                "edge": "design→code",
+                "evaluator": "code_complete",
+                "result": "pass",
+                "evidence": "all checks pass",
+                "actor": "codex",
+                "spec_hash": "abc123",
+                "manifest_id": "judge-result",
+                "workflow_version": "demo.workflow@1.1.0",
+            },
+            "workflow_version": "demo.workflow@1.1.0",
+            "work_key": "REQ-7/design→code",
+            "run_id": "run-42",
+        }
+    ]
+
+
+def test_gen_start_auto_remains_one_step_engine_progression(monkeypatch):
+    calls = {"derive": 0, "iterate": 0}
+
+    def fake_derive_state(scope, stream):
+        calls["derive"] += 1
+        return {"status": "in_progress", "delta": 1.0}
+
+    def fake_gen_iterate(scope, stream, on_fp_dispatch=None):
+        calls["iterate"] += 1
+        return {"status": "pending", "blocking_reason": "fp_dispatch"}
+
+    monkeypatch.setattr(services, "_derive_state", fake_derive_state)
+    monkeypatch.setattr(services, "gen_iterate", fake_gen_iterate)
+
+    result = services.gen_start(object(), object(), auto=True)
+
+    assert result == {
+        "status": "pending",
+        "blocking_reason": "fp_dispatch",
+        "auto": True,
+    }
+    assert calls == {"derive": 1, "iterate": 1}

@@ -317,7 +317,6 @@ def _assess_result_cmd(result_path: str, workspace: Path) -> int:
     Callable by both the skill layer (gen-start.md) and the test harness.
     """
     import json as _json
-    from datetime import datetime, timezone
 
     from .provenance import _read_workflow_version
 
@@ -380,11 +379,8 @@ def _assess_result_cmd(result_path: str, workspace: Path) -> int:
         workspace, _config.get("active_workflow")
     )
 
-    # Emit one assessed event per assessment entry
-    events_dir = workspace / ".ai-workspace" / "events"
-    events_dir.mkdir(parents=True, exist_ok=True)
-    events_file = events_dir / "events.jsonl"
-
+    # Emit one assessed event per assessment entry through the canonical
+    # kernel write path with explicit manifest-derived provenance.
     emitted = []
     for assessment in assessments:
         evaluator = assessment.get("evaluator")
@@ -411,19 +407,14 @@ def _assess_result_cmd(result_path: str, workspace: Path) -> int:
             "manifest_id": manifest_id,
             "workflow_version": workflow_version,
         }
-        # ADR-027: propagate run_id and work_key from manifest for
-        # run lifecycle tracking (run_state() needs run_id on assessed events).
-        if manifest_run_id:
-            event_data["run_id"] = manifest_run_id
-        if manifest_work_key:
-            event_data["work_key"] = manifest_work_key
-        event = {
-            "event_type": "assessed",
-            "event_time": datetime.now(timezone.utc).isoformat(),
-            "data": event_data,
-        }
-        with events_file.open("a", encoding="utf-8") as f:
-            f.write(_json.dumps(event) + "\n")
+        _emit_workspace_event(
+            workspace,
+            "assessed",
+            event_data,
+            workflow_version=workflow_version,
+            work_key=manifest_work_key or None,
+            run_id=manifest_run_id or None,
+        )
         emitted.append({"evaluator": evaluator, "result": result_val})
 
     output = {
@@ -455,7 +446,6 @@ def _emit_event_cmd(event_type: str, data_json: str, workspace: Path) -> int:
       revoked   — requires: kind (fh_approval), edge, actor, reason
     """
     import json as _json
-    from datetime import datetime, timezone
 
     from .provenance import _read_workflow_version
 
@@ -527,20 +517,18 @@ def _emit_event_cmd(event_type: str, data_json: str, workspace: Path) -> int:
     # Reads the file directly — emit-event runs pre-stack without a Scope object.
     # Honour the runtime contract: if genesis.yml declares active_workflow, use it.
     _config = _load_project_config(workspace)
-    data["workflow_version"] = _read_workflow_version(
+    workflow_version = _read_workflow_version(
         workspace, _config.get("active_workflow")
     )
-
-    events_dir = workspace / ".ai-workspace" / "events"
-    events_dir.mkdir(parents=True, exist_ok=True)
-    event = {
-        "event_type": event_type,
-        "event_time": datetime.now(timezone.utc).isoformat(),
-        "data": data,
-    }
-    events_file = events_dir / "events.jsonl"
-    with events_file.open("a", encoding="utf-8") as f:
-        f.write(_json.dumps(event) + "\n")
+    data["workflow_version"] = workflow_version
+    _emit_workspace_event(
+        workspace,
+        event_type,
+        data,
+        workflow_version=workflow_version,
+        work_key=data.get("work_key") if isinstance(data.get("work_key"), str) else None,
+        run_id=data.get("run_id") if isinstance(data.get("run_id"), str) else None,
+    )
 
     print(_json.dumps({"status": "ok", "event_type": event_type}))
     return 0
@@ -605,6 +593,36 @@ def _load_project_config(workspace: Path) -> dict:
             return _parse_yaml_config(contract_path)
 
     return kernel_config
+
+
+def _emit_workspace_event(
+    workspace: Path,
+    event_type: str,
+    data: dict,
+    *,
+    workflow_version: str = "unknown",
+    work_key: str | None = None,
+    run_id: str | None = None,
+) -> None:
+    """
+    Route app-level event commands through the canonical ABG emission surface.
+
+    CLI commands may validate and annotate payloads, but they do not append to
+    the event log directly.
+    """
+    from .events import EventContext, EventStream, emit
+
+    emit(
+        event_type,
+        data,
+        stream=EventStream.open(workspace),
+        context=EventContext(
+            workflow_version=workflow_version,
+            work_key=work_key,
+            run_id=run_id,
+        ),
+        package_snapshot_id=None,
+    )
 
 
 def _import_symbol(ref: str, workspace: Path):

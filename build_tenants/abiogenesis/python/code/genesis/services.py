@@ -458,10 +458,10 @@ def gen_start(
     on_fp_dispatch: Optional[Callable[[BoundJob], WorkSurface | None]] = None,
 ) -> dict:
     """
-    /gen-start = derive state → select job → traverse.
+    /gen-start = derive state → select job → traverse exactly once.
 
-    State machine: reads workspace, selects the next unconverged job,
-    delegates to gen_iterate. In --auto mode, loops until converged or blocked.
+    Product-layer auto orchestration lives above the engine. The `auto` flag is
+    retained only as a compatibility marker for callers still passing it.
     """
     state = _derive_state(scope, stream)
 
@@ -478,30 +478,10 @@ def gen_start(
             "reason": state.get("reason", ""),
         }
 
-    # IN_PROGRESS — dispatch to gen_iterate
-    if not auto:
-        return gen_iterate(scope, stream, on_fp_dispatch=on_fp_dispatch)
-
-    # --auto: loop until converged, blocked, or max iterations.
-    # Stopping conditions come from the typed traversal result, not raw event scans.
-    MAX_AUTO = 50
-    result: dict = {}
-
-    for _ in range(MAX_AUTO):
-        result = gen_iterate(scope, stream, on_fp_dispatch=on_fp_dispatch)
+    result = gen_iterate(scope, stream, on_fp_dispatch=on_fp_dispatch)
+    if auto:
+        result = dict(result)
         result["auto"] = True
-
-        if result["status"] in ("converged", "nothing_to_do", "pending"):
-            if result.get("blocking_reason"):
-                result["stopped_by"] = result["blocking_reason"]
-            return result
-
-        blocking_reason = result.get("blocking_reason")
-        if blocking_reason is not None:
-            result["stopped_by"] = blocking_reason
-            return result
-
-    result["stopped_by"] = "max_iterations"
     return result
 
 

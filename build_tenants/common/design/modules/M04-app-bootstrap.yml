@@ -3,6 +3,7 @@ status: active
 owns:
   - app-facing orchestration services
   - CLI boundary
+  - CLI event/assessment ingress over the canonical kernel emission surface
   - installer and workspace bootstrap
   - bootloader carrier and project-facing operations
   - hook-driven auto loop for `start --auto`
@@ -15,7 +16,12 @@ implements_features:
 interfaces:
   - genesis start --auto
   - genesis start --auto --human-proxy
+  - genesis emit-event
+  - genesis assess-result
   - _run_start_auto(scope, stream, workspace, mod_ref, human_proxy)
+  - _emit_workspace_event(workspace, event_type, data, workflow_version, work_key, run_id)
+  - _emit_event_cmd(event_type, data_json, workspace)
+  - _assess_result_cmd(result_path, workspace)
   - _resolve_runtime_hook(mod_ref, hook_name)
   - _emit_human_proxy_approval(workspace, edge)
   - _resolve_configured_worker(config, workspace)
@@ -30,6 +36,7 @@ primary_surfaces:
 invariants:
   - services.gen_start() remains one-step engine progression and does not absorb app-owned orchestration policy
   - CLI orchestration may loop, proxy approvals, and resolve hooks, but it must not redefine GTL or ABG kernel semantics
+  - CLI event and assessment commands may validate and annotate payloads, but they shall still route through the canonical ABG emit surface rather than append directly to the event log
   - runtime identity and configured worker resolution are explicit inputs, not hidden build defaults
   - when runtime build identity is absent, the app layer preserves the kernel's neutral compatibility projection rather than reintroducing a tool-specific default
 composes_with:
@@ -43,6 +50,7 @@ test_obligations:
 notes:
   - `services.gen_start()` remains the engine-facing one-step progression surface
   - CLI auto mode is a higher-order orchestration layer above one-step progression
+  - CLI event ingress remains app-owned, but event persistence is kernel-owned through `genesis.events.emit()`
   - Runtime-specific `F_P` and `F_H` handling enters through optional hooks resolved from the installed module surface rather than hardcoded backend branches in the CLI
   - runtime contract worker identity is first-class input; the CLI must not silently replace it with a build default
   - absent explicit runtime build identity, the compatibility `build` projection resolves through engine/worker runtime truth rather than a historical `claude_code` fallback
