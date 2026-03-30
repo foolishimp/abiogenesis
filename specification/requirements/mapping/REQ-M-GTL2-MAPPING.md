@@ -24,3 +24,5 @@ Define how GTL programs map onto engine surfaces. ABG is canonical; other engine
 **REQ-M-GTL2-MAPPING-004**: When GTL programs publish graph functions, canonical engine mapping shall define how those graph functions are materialized into executable graph surfaces before execution or evaluation binding.
 
 **REQ-M-GTL2-MAPPING-005**: The mapping layer may expose graph-derived companion bundles, such as selected subgraphs or evaluator bundles, so long as those bundles remain traceable to the published graph-function and do not replace graph as language-level truth.
+
+**REQ-M-GTL2-MAPPING-006**: When a refined or realized graph-function boundary declares deterministic proof surfaces, canonical engine mapping shall support derivation of the corresponding evaluator bundle from the same materialization/refinement truth used to realize that boundary.

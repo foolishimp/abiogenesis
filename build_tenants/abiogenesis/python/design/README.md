@@ -14,6 +14,20 @@ Current governing truth lives in:
 - `GTL_2_INTERFACE_CONTRACTS.md` — concrete interfaces for tests and code derivation
 - `GTL_2_IMPLEMENTATION_PLAN.md` — implementation target, rejected shapes, and delivery order
 
+For the current 1.1 line, the key design shift is that published `GraphFunction` surfaces, canonical graph-function materialization, graph-derived companion bundles, and their provenance are explicit design responsibilities rather than deferred or hidden inside traversal helpers.
+
+## Functional Design Stance
+
+The implementation target is Python with Scala-style discipline:
+
+- immutable value types for prime GTL and ABG kernel surfaces
+- functional core, explicit-effect shell
+- symbolic publication and replayable materialization rather than ambient closures
+- explicit lineage and provenance on every zoom/materialize/fold-back step
+- recursive refinement as lawful substitution over stable outer contracts, not interpreter mutation
+
+If a proposed implementation shape would feel natural only in a mutable service object, it is probably the wrong shape for this line.
+
 ### Current ADRs
 
 | ADR | Decision | Why it exists |

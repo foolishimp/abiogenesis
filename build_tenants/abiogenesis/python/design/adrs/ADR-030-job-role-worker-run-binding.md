@@ -47,6 +47,13 @@ It owns three declaration types:
 
 ```python
 @dataclass(frozen=True)
+class Attr:
+    key: str
+    value: str
+
+type Attrs = tuple[Attr, ...]
+
+@dataclass(frozen=True)
 class ContractRef:
     kind: str                  # current build: "graph_vector"
     target_id: str             # identity of the referenced GTL contract
@@ -56,7 +63,7 @@ class ContractRef:
 class Role:
     name: str
     tags: tuple[str, ...] = ()
-    policy_hooks: dict = field(default_factory=dict)
+    policy_hooks: Attrs = ()
     id: str = field(default_factory=_mint_id, compare=False)
 
 

@@ -19,7 +19,7 @@ GraphFunction is the primary reusable GTL compute abstraction — a named workfl
 
 **REQ-L-GTL2-GRAPHFUNCTION-002**: A graph function shall have an explicit typed outer interface (input/output nodes). It materializes a `Graph` and remains the reference contract boundary for callers.
 
-**REQ-L-GTL2-GRAPHFUNCTION-003**: The template may be authored as a callable (Python DSL convenience) or as a serializable graph-template representation. The semantic contract is "materializable graph template," not "arbitrary Python behavior."
+**REQ-L-GTL2-GRAPHFUNCTION-003**: The template shall be represented as replayable publication truth: a symbolic template reference and/or equivalent serializable graph-template representation. Interpreter-local callable resolution may exist as implementation convenience, but it is not the published graph-function contract.
 
 **REQ-L-GTL2-GRAPHFUNCTION-004**: Graph materialization may depend on parameters: input cardinality, selected workflow family, policy-visible structural parameters.
 
@@ -42,3 +42,5 @@ GraphFunction is the primary reusable GTL compute abstraction — a named workfl
 **REQ-L-GTL2-GRAPHFUNCTION-013**: Graph-derived companion bundles, such as selected subgraphs, evaluator bundles, or profile manifests, may be derived from a published graph function so long as graph remains the primary structural output and the derivation preserves replayable provenance.
 
 **REQ-L-GTL2-GRAPHFUNCTION-014**: A graph function may be cached or reused across executions only when the cache identity is derived from its declared materialization inputs, profiles, and graph-function identity rather than from opaque ambient process state.
+
+**REQ-L-GTL2-GRAPHFUNCTION-015**: When a realized or refined graph-function boundary declares deterministic proof surfaces, a replayable evaluator bundle shall be derivable from that same materialization/refinement truth rather than from hidden interpreter-local state.

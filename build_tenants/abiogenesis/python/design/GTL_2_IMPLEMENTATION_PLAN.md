@@ -28,6 +28,7 @@ The current direction is explicit:
 - GTL stays algebraic and declarative
 - ABG stays deterministic, replayable, and provenance-owning
 - domains own prompts, programs, metrics, merge logic, and refinement logic
+- the implementation target is Python with Scala-style discipline: immutable value records, pure transforms where possible, and explicit-effect interpreters at the shell
 
 ---
 
@@ -86,6 +87,41 @@ Replacement:
 - `deferred_refinement(...)`
 - `candidate_family(...)`
 - `fan_out(...) -> promote(...) -> fan_in(...) -> gate(...)`
+
+### 3.6 Anonymous Closures as Published Graph Truth
+
+Rejected:
+
+- published `GraphFunction.template` values that exist only as anonymous runtime closures
+- publication surfaces that require ambient module state to explain what was materialized
+
+Reason:
+
+- replay and provenance require stable symbolic identity
+- recursive zoom/materialize/fold-back needs the same published truth at every depth
+- hidden closures resist law testing, cache identity, and import-time inspection
+
+Replacement:
+
+- symbolic `TemplateRef` publication
+- interpreter-edge resolution of that symbolic reference
+
+### 3.7 Dict-Shaped Prime Control Surfaces
+
+Rejected:
+
+- generic `dict` bags as the prime representation for graph-function parameters, traversal control, or materialization metadata
+
+Reason:
+
+- weakens inspection and law testing
+- encourages hidden strategy and imperative mutation
+- breaks the “Python, but it should feel like a Scala library” standard
+
+Replacement:
+
+- immutable named records and ordered attributes for prime public surfaces
+- pragmatic dictionaries only inside helper/internal shapes, never as graph/materialization/traversal truth
 
 ### 3.2 Metadata-As-Strategy
 
@@ -185,6 +221,14 @@ These live in different layers on purpose:
 This is the correct asymmetry.
 
 We do **not** unify them into one mega-type.
+
+The functional reading is the point:
+
+- GTL declares recursive structure and lawful substitution points
+- ABG materializes and traverses values
+- effects remain at the interpreter edge
+
+That is the implementation bar for this line.
 
 ---
 

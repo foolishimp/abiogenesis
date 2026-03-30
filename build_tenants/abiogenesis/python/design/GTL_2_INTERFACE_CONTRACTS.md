@@ -15,6 +15,8 @@
 - `REQ-L-GTL2-SELECTION-BOUNDARY`
 - `REQ-L-GTL2-HOF`
 - `REQ-L-GTL2-RULE`
+- `REQ-M-GTL2-MAPPING`
+- `REQ-M-GTL2-PROVENANCE`
 - `REQ-R-ABG2-CONVERGENCE`
 - `REQ-R-ABG2-SELECTION-APPLICATION`
 - `REQ-R-ABG2-PROVENANCE`
@@ -39,6 +41,7 @@ For this cluster, the design choices are now:
 - deferred refinement is a first-class `RefinementBoundary`
 - lawful structural alternatives are a first-class `CandidateFamily`
 - `Module` publishes `GraphFunction` and `CandidateFamily`
+- canonical graph-function materialization is an explicit ABG contract, not a hidden interpret helper
 - harvest is expressed as `fan_out -> fan_in -> gate`, not as special `GraphVector` flags
 
 ---
@@ -51,6 +54,9 @@ For this cluster, the design choices are now:
 4. ABG executes deterministic protocol and provenance.
 5. Domain bindings own prompt/program logic, metric logic, merge logic, and refinement logic.
 6. Any ambiguity resolved here is resolved in favor of algebraic declaration over current-code convenience.
+7. Prime interface types are immutable value records. Generic `dict` bags are not a lawful control plane for graph, traversal, or materialization truth.
+8. Python implementation follows Scala-style discipline: algebraic data first, interpreter effects second.
+9. Recursive zoom, materialization, and fold-back must remain replayable value transformations with explicit lineage and provenance.
 
 ---
 
@@ -60,11 +66,24 @@ For this cluster, the design choices are now:
 
 ```python
 @dataclass(frozen=True)
+class Attr:
+    key: str
+    value: str
+
+@dataclass(frozen=True)
+class TemplateRef:
+    kind: str                # python_ref | serialized
+    ref: str                 # package.module:callable or URI
+    version: str | None = None
+
+type Attrs = tuple[Attr, ...]
+
+@dataclass(frozen=True)
 class GraphFunction:
     name: str
     inputs: tuple[Node, ...]
     outputs: tuple[Node, ...]
-    template: Callable[..., Graph] | str
+    template: TemplateRef
     id: str = field(default_factory=_mint_id, compare=False)
     effects: tuple[type[Regime], ...] = ()
     tags: tuple[str, ...] = ()
@@ -73,7 +92,8 @@ class GraphFunction:
 **Contract**
 - Immutable and hashable by structural fields except `id`.
 - `inputs` and `outputs` are the outer contract seen by callers.
-- `template` must materialize a lawful `Graph`.
+- `template` is a replayable symbolic materializer reference. The interpreter may resolve it into executable code, but publication truth is the `TemplateRef`, not an anonymous closure.
+- materialization inputs, selected profile, and structural parameters must remain externally visible through published module surfaces and runtime materialization records.
 - A materialized graph must preserve the declared outer contract:
   - graph inputs == declared inputs
   - graph outputs == declared outputs
@@ -82,7 +102,7 @@ class GraphFunction:
 
 **Fail closed**
 - If the materialized graph does not preserve the declared outer contract, materialization fails.
-- If `template` is a callable, it is still constrained by the same contract; it is not arbitrary behavior.
+- If a `TemplateRef` cannot be resolved lawfully by the interpreter, materialization fails.
 
 **Unit-test obligations**
 - immutability
@@ -99,14 +119,14 @@ class RefinementBoundary:
     inputs: tuple[Node, ...]
     outputs: tuple[Node, ...]
     id: str = field(default_factory=_mint_id, compare=False)
-    hints: dict = field(default_factory=dict)
+    hints: Attrs = ()
     tags: tuple[str, ...] = ()
 ```
 
 **Contract**
 - Declares a lawful synthesis/refinement point over a stable outer contract.
 - Does not contain executable selection or synthesis logic.
-- `hints` may carry policy-visible or capability-visible metadata only.
+- `hints` may carry policy-visible or capability-visible attributes only.
 - Any graph/function later applied through this boundary must satisfy the declared `inputs` and `outputs`.
 
 **Fail closed**
@@ -127,7 +147,7 @@ class CandidateFamily:
     outputs: tuple[Node, ...]
     candidates: tuple[GraphFunction, ...]
     id: str = field(default_factory=_mint_id, compare=False)
-    policy_hints: dict = field(default_factory=dict)
+    policy_hints: Attrs = ()
     tags: tuple[str, ...] = ()
 ```
 
@@ -135,7 +155,7 @@ class CandidateFamily:
 - Declares a named family of lawful alternatives over one outer contract.
 - Every candidate must have exactly the declared `inputs` and `outputs`.
 - Candidate order is preserved and publishable.
-- `policy_hints` are visible to evaluators and external consumers but do not choose a candidate.
+- `policy_hints` are visible immutable attributes for evaluators and external consumers but do not choose a candidate.
 
 **Fail closed**
 - Empty candidate families are invalid.
@@ -162,7 +182,7 @@ class Module:
     evaluators: tuple[Evaluator, ...] = ()
     rules: tuple[Rule, ...] = ()
     imports: tuple[ModuleImport, ...] = ()
-    metadata: dict = field(default_factory=dict)
+    metadata: Attrs = ()
 ```
 
 **Contract**
@@ -331,7 +351,7 @@ def deferred_refinement(
     *,
     inputs: tuple[Node, ...],
     outputs: tuple[Node, ...],
-    hints: dict | None = None,
+    hints: Attrs = (),
     tags: tuple[str, ...] = (),
 ) -> RefinementBoundary
 ```
@@ -349,7 +369,7 @@ def candidate_family(
     inputs: tuple[Node, ...],
     outputs: tuple[Node, ...],
     candidates: tuple[GraphFunction, ...],
-    policy_hints: dict | None = None,
+    policy_hints: Attrs = (),
     tags: tuple[str, ...] = (),
 ) -> CandidateFamily
 ```
@@ -377,7 +397,7 @@ class Traversal:
     evaluators: tuple[Evaluator, ...] = ()
     rule: Rule | None = None
     selection: SelectionDecision | None = None
-    metadata: dict = field(default_factory=dict)
+    metadata: Attrs = ()
 ```
 
 **Contract**
@@ -386,7 +406,7 @@ class Traversal:
 - `selection` is required when `target` is a `CandidateFamily`, and invalid otherwise.
 - `evaluators` is an explicit evaluator vector for this traversal boundary.
 - `rule` is policy-visible aggregation/governance input, not hidden business logic.
-- `metadata` is visible input-side runtime metadata only; it must not carry hidden strategy.
+- `metadata` is visible input-side runtime attributes only; it must not carry hidden strategy.
 - `Traversal.metadata` and `WorkSurface.metadata` are not the same field semantically:
   - `Traversal.metadata` expresses declared runtime input/control context
   - `WorkSurface.metadata` expresses realized execution state and emitted facts
@@ -420,6 +440,7 @@ def traverse(
 - Owns one deterministic traversal attempt over the named boundary.
 - May materialize a `GraphFunction`, realize a `RefinementBoundary`, or apply a lawful selection from a `CandidateFamily` only through delegated modules.
 - Delegates:
+  - graph-function materialization and graph-derived bundle derivation to `abg.materialization`
   - convergence aggregation to `abg.convergence`
   - selection validation to `abg.selection`
   - provenance carry-forward to `abg.provenance`
@@ -432,7 +453,107 @@ def traverse(
 - delegated module returns an unlawful result
 - event emission would misrepresent delegated truth
 
-### 5.3 `abg.convergence.EvaluatorOutcome`
+### 5.3 `abg.materialization.MaterializationRequest`
+
+```python
+@dataclass(frozen=True)
+class MaterializationRequest:
+    module_name: str
+    graph_function_id: str
+    input_refs: tuple[str, ...] = ()
+    profile: str | None = None
+    parameters: Attrs = ()
+```
+
+**Contract**
+- Names one explicit request to realize one published graph function for canonical engine execution.
+- `graph_function_id` must resolve through the published module surface.
+- `profile` and `parameters` are policy-visible. They must not be inferred from ambient interpreter state.
+- `parameters` must be lawful for the published graph-function/materialization surface.
+
+**Fail closed**
+- unknown module or graph-function identity
+- undeclared profile
+- undeclared structural parameter
+- hidden strategy encoded in the request
+
+### 5.4 `abg.materialization.MaterializationRecord`
+
+```python
+@dataclass(frozen=True)
+class MaterializationRecord:
+    materialization_id: str
+    module_name: str
+    graph_function_id: str
+    graph_id: str
+    profile: str | None = None
+    parameters: Attrs = ()
+    input_refs: tuple[str, ...] = ()
+    bundle_ids: tuple[str, ...] = ()
+```
+
+**Contract**
+- Records one lawful canonical-engine realization of one published graph function.
+- Preserves replayable identity for:
+  - graph function
+  - selected profile
+  - declared structural parameters
+  - resulting graph
+- `materialization_id` is the canonical provenance handle for downstream binding and bundle derivation.
+
+### 5.5 `abg.materialization.materialize_graph_function(...)`
+
+```python
+def materialize_graph_function(
+    request: MaterializationRequest,
+    *,
+    module: Module,
+) -> MaterializationRecord
+```
+
+**Contract**
+- Materializes a published graph function into one lawful executable graph surface for the canonical engine.
+- Fails closed when the request is not declared by the published module surface.
+- Preserves the outer contract of the targeted graph function.
+- Emits no events directly; event emission remains the responsibility of `abg.interpret`.
+
+### 5.6 `abg.materialization.CompanionBundle`
+
+```python
+@dataclass(frozen=True)
+class CompanionBundle:
+    bundle_id: str
+    kind: str
+    materialization_id: str
+    payload_ref: str
+```
+
+**Contract**
+- Represents a graph-derived companion bundle such as:
+  - selected subgraph
+  - evaluator bundle
+  - profile manifest
+- Does not replace graph as primary structural truth.
+- Must preserve derivation back to one `MaterializationRecord`.
+- The evaluator-bundle case is a first-class consequence of refined structure, not an implementation afterthought.
+
+### 5.7 `abg.materialization.derive_bundle(...)`
+
+```python
+def derive_bundle(
+    record: MaterializationRecord,
+    *,
+    kind: str,
+) -> CompanionBundle
+```
+
+**Contract**
+- Derives one graph-derived companion bundle from one canonical materialization record.
+- `kind="evaluator_bundle"` is the canonical path when refined structure declares deterministic proof surfaces for the realized boundary.
+- Fails closed on unsupported bundle kinds.
+- Preserves replayable derivation to the originating materialization.
+
+### 5.8 `abg.convergence.EvaluatorOutcome`
 
 ```python
 @dataclass(frozen=True)
@@ -450,7 +571,7 @@ class EvaluatorOutcome:
 - One outcome per evaluator invocation over one contract boundary in one round.
 - Carries no domain semantics beyond normalized status.
 
-### 5.4 `abg.convergence.ConvergenceResult`
+### 5.9 `abg.convergence.ConvergenceResult`
 
 ```python
 @dataclass(frozen=True)
@@ -468,7 +589,7 @@ class ConvergenceResult:
 - `aggregate_state` is determined from declared rule/evaluator surface, never hidden domain logic.
 - `next_action` is protocol output, not business logic.
 
-### 5.5 `abg.convergence.delta(...)`
+### 5.10 `abg.convergence.delta(...)`
 
 ```python
 def delta(
@@ -490,7 +611,7 @@ def delta(
 - mixed `contract_id`
 - invalid or contradictory rule config
 
-### 5.6 `abg.selection.SelectionDecision`
+### 5.11 `abg.selection.SelectionDecision`
 
 ```python
 @dataclass(frozen=True)
@@ -507,7 +628,7 @@ class SelectionDecision:
 - Records an externally made choice that has been validated as lawful.
 - Does not imply ABG made the strategic choice.
 
-### 5.7 `abg.selection.enumerate_candidates(...)`
+### 5.12 `abg.selection.enumerate_candidates(...)`
 
 ```python
 def enumerate_candidates(family: CandidateFamily) -> tuple[GraphFunction, ...]
@@ -517,7 +638,7 @@ def enumerate_candidates(family: CandidateFamily) -> tuple[GraphFunction, ...]
 - Returns family candidates in declared order.
 - Performs no ranking or filtering beyond lawful family membership.
 
-### 5.8 `abg.selection.accept_selection(...)`
+### 5.13 `abg.selection.accept_selection(...)`
 
 ```python
 def accept_selection(
@@ -545,7 +666,24 @@ def accept_selection(
 
 ## 6. Provenance Contracts
 
-### 6.1 Evaluation provenance
+### 6.1 Materialization provenance
+
+For one canonical graph-function materialization, the runtime must preserve:
+
+- published graph-function identity
+- selected profile
+- declared structural parameters
+- resulting graph identity
+- materialization identity
+
+This is the runtime consequence of:
+- `REQ-L-GTL2-GRAPHFUNCTION-011`
+- `REQ-L-GTL2-GRAPHFUNCTION-012`
+- `REQ-M-GTL2-MAPPING-004`
+- `REQ-M-GTL2-PROVENANCE-003`
+- `REQ-R-ABG2-PROVENANCE-008`
+
+### 6.2 Evaluation provenance
 
 For one evaluator or evaluator set on one contract boundary, the runtime must preserve:
 
@@ -560,7 +698,7 @@ This is the runtime consequence of:
 - `REQ-R-ABG2-PROVENANCE-005`
 - `REQ-R-ABG2-PROVENANCE-006`
 
-### 6.2 Selection and profile provenance
+### 6.3 Selection and profile provenance
 
 When a `CandidateFamily` alternative or named profile is selected, the runtime must preserve:
 
@@ -573,7 +711,24 @@ This is the runtime consequence of:
 - `REQ-R-ABG2-PROVENANCE-003`
 - `REQ-R-ABG2-PROVENANCE-007`
 
-### 6.3 Refinement provenance
+### 6.4 Graph-derived bundle provenance
+
+When a selected subgraph, evaluator bundle, or profile manifest is derived from one canonical graph-function materialization, the runtime must preserve:
+
+- bundle identity
+- bundle kind
+- originating materialization identity
+- originating graph-function identity
+
+For the evaluator-bundle case, provenance must also remain sufficient to answer which refined structure or realized boundary justified the deterministic evaluator set.
+
+This is the runtime consequence of:
+- `REQ-L-GTL2-GRAPHFUNCTION-013`
+- `REQ-M-GTL2-MAPPING-005`
+- `REQ-M-GTL2-PROVENANCE-004`
+- `REQ-R-ABG2-PROVENANCE-009`
+
+### 6.5 Refinement provenance
 
 When a `RefinementBoundary` is realized, the runtime must preserve:
 
@@ -613,16 +768,21 @@ At minimum, unit tests derived from this document should prove:
 6. `candidate_family` rejects mixed-contract candidates.
 7. `promote` preserves declared representation truth and fails closed on incompatible boundaries.
 8. `Traversal` is immutable, preserves its target boundary, and carries only explicit evaluator/rule inputs.
-9. `traverse` delegates convergence/selection/provenance rather than inventing strategy locally.
+9. `traverse` delegates materialization/convergence/selection/provenance rather than inventing strategy locally.
 10. `Traversal.metadata` and `WorkSurface.metadata` remain semantically distinct, with only explicit carry-forward.
 11. `enumerate_candidates` preserves declared order and performs no ranking.
 12. `accept_selection` validates membership and returns lawful `SelectionDecision`.
 13. `delta` aggregates evaluator vectors from declared rule config rather than hardcoded all-pass behavior.
-14. provenance helpers can represent:
+14. `MaterializationRequest` and `MaterializationRecord` preserve explicit graph-function/profile/parameter truth.
+15. `derive_bundle` preserves derivation back to one materialization record.
+16. `derive_bundle(kind="evaluator_bundle")` is replayable from refined structure and does not require interpreter-local hidden state.
+17. provenance helpers can represent:
    - per-evaluator outcomes
    - aggregate convergence
    - selected profile/candidate
    - applied refinement
+   - graph-function materialization
+   - graph-derived companion bundles
 
 ---
 

@@ -1,13 +1,13 @@
 module: M06-mapping-deferred
 status: deferred
 owns:
-  - alternate engine capability and mapping bridge surfaces
-  - mapping provenance for future runtime families
+  - alternate engine capability profiles
+  - alternate runtime-family mapping bridge surfaces beyond canonical ABG
 implements_features:
   - REQ-M-GTL2-CAPABILITY
-  - REQ-M-GTL2-MAPPING
-  - REQ-M-GTL2-PROVENANCE
 primary_surfaces:
   - specification/requirements/mapping/
 notes:
-  - deferred from abg 1.0 shipping line
+  - canonical ABG graph-function materialization and provenance are owned by M03-engine-kernel
+  - stack- or memory-derived deterministic evaluator refinement may later extend the canonical kernel, but alternate runtime-family mapping is not the place for canonical ABG evaluator-bundle derivation
+  - alternate runtime-family mapping remains deferred from the 1.0 and 1.1 shipping lines

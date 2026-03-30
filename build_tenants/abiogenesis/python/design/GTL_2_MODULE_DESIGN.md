@@ -47,6 +47,12 @@ In this Claude build, the conceptual `abg.*` runtime layer is implemented under 
 16. Do not solve structural choice with `GraphVector` flags. Guards, synthesis eligibility, harvest mode, profile identity, and similar concerns belong in GTL algebraic declarations, not as ad hoc vector booleans.
 17. Do not treat current code-surface convenience as design law. If the current implementation shape conflicts with the algebraic requirement surface, the design follows the requirements and the implementation must catch up.
 18. Parallel candidate harvest, evaluator multiplicity, and profile selection must be expressed as explicit topological or policy-visible declarations. They must not be inferred from tuple cardinality or hidden interpreter convention.
+19. Published graph functions, canonical materialization, and graph-derived companion bundles are first-class design surfaces. They must not be hidden inside traversal helpers or deferred into alternate-engine mapping.
+20. Prime GTL and ABG kernel surfaces are immutable value types. Mutation belongs only to effect interpreters and event stores, never to graph, materialization, or provenance declarations.
+21. The build follows a functional-core, explicit-effect-shell discipline. Composition, substitution, recursion, materialization, and convergence operate over values; file I/O, transport, subprocess, and event emission remain interpreter-edge effects.
+22. Published graph functions must resolve through replayable symbolic materializer references. Anonymous closures, ambient module state, and hidden interpreter capture are not lawful publication surfaces.
+23. Prime public interfaces use named records and ordered attributes rather than generic `dict` bags. Helper shapes may remain pragmatic, but graph/materialization/traversal truth must stay typed and inspectable.
+24. Recursive refinement is lawful only when each zoom/materialize/fold-back step preserves the outer contract and emits replayable provenance linking parent, child, and derived evaluator truth.
 
 ---
 
@@ -74,6 +80,7 @@ In this Claude build, the conceptual `abg.*` runtime layer is implemented under 
 | `abg.run` | Execution attempts | `RunState`, `run_state()`, `find_pending_run()`, `supersede_run()` | REQ-R-ABG2-RUN |
 | `abg.convergence` | Delta and convergence | `delta()`, `parent_converged()`, evaluator-vector convergence, round visibility | REQ-R-ABG2-CONVERGENCE |
 | `abg.selection` | Candidate enumeration and validation | `SelectionDecision`, candidate discovery, candidate-family/profile validation | REQ-R-ABG2-SELECTION-APPLICATION |
+| `abg.materialization` | Canonical graph-function realization and graph-derived companion bundles | `MaterializationRequest`, `MaterializationRecord`, `CompanionBundle`, `materialize_graph_function()`, `derive_bundle()` | REQ-L-GTL2-GRAPHFUNCTION, REQ-M-GTL2-MAPPING, REQ-M-GTL2-PROVENANCE, REQ-R-ABG2-PROVENANCE |
 | `abg.provenance` | Spec/workflow/selection provenance | `req_hash()`, `executable_job_hash()`, workflow version reads, per-evaluator/aggregate carry-forward | REQ-R-ABG2-PROVENANCE |
 | `abg.correction` | Correction and reset | `find_latest_reset()`, certification shadowing | REQ-R-ABG2-CORRECTION |
 | `abg.subwork` | Bounded sub-work realization | `LeafTask`, `validate_leaf_schema()`, `dispatch_leaf()` | REQ-R-ABG2-LEAFTASK |
@@ -89,9 +96,11 @@ In this Claude build, the conceptual `abg.*` runtime layer is implemented under 
 | `abg.cli` | CLI adapter | `_build_parser()`, command wiring, traceability checks | Implementation surface only |
 | `abg.install` | Bootstrap/install | Installer, workspace scaffolding, `workspace_bootstrap()` | Implementation surface only |
 
-### 3.4 Engine mapping layer (deferred)
+### 3.4 Engine mapping layer
 
-Not shipped in ABG 1.0. The mapping layer (capability profiles, alternate engine adapters, mapping provenance) is deferred to a future release. Requirements REQ-M-GTL2-CAPABILITY, REQ-M-GTL2-MAPPING, and REQ-M-GTL2-PROVENANCE remain in the specification as future work.
+Canonical engine mapping of published graph functions into executable graph surfaces is part of the ABG kernel. `abg.materialization` owns lawful materialization and graph-derived companion bundle derivation for the canonical engine. `abg.provenance` owns replayable recording of graph-function identity, materialization identity, and bundle derivation truth.
+
+Alternate runtime families remain deferred. Capability profiles, alternate engine adapters, and non-ABG mapping surfaces stay outside the ABG 1.1 shipping line until those runtimes are intentionally designed.
 
 ---
 
@@ -100,6 +109,22 @@ Not shipped in ABG 1.0. The mapping layer (capability profiles, alternate engine
 ### 4.1 Types
 
 ```python
+# design-level immutable helpers
+
+@dataclass(frozen=True)
+class Attr:
+    key: str
+    value: str
+
+@dataclass(frozen=True)
+class TemplateRef:
+    kind: str                # python_ref | serialized
+    ref: str                 # package.module:callable or URI
+    version: str | None = None
+
+type Attrs = tuple[Attr, ...]
+type BundleKind = Literal["selected_subgraph", "evaluator_bundle", "profile_manifest"]
+
 # gtl.graph
 
 @dataclass(frozen=True)
@@ -173,7 +198,7 @@ class Evaluator:
 class Rule:
     name: str
     kind: str                # "consensus", "coverage", "policy", etc.
-    config: dict = field(default_factory=dict)
+    config: Attrs = ()
     tags: tuple[str, ...] = ()
 ```
 
@@ -185,7 +210,7 @@ class GraphFunction:
     name: str
     inputs: tuple[Node, ...]
     outputs: tuple[Node, ...]
-    template: Callable[..., Graph] | str  # callable DSL or serializable graph-template reference
+    template: TemplateRef
     id: str = field(default_factory=_mint_id, compare=False)
     effects: tuple[type[Regime], ...] = ()
     tags: tuple[str, ...] = ()
@@ -197,7 +222,7 @@ class RefinementBoundary:
     inputs: tuple[Node, ...]
     outputs: tuple[Node, ...]
     id: str = field(default_factory=_mint_id, compare=False)
-    hints: dict = field(default_factory=dict)
+    hints: Attrs = ()
     tags: tuple[str, ...] = ()
 
 @dataclass(frozen=True)
@@ -208,8 +233,38 @@ class CandidateFamily:
     outputs: tuple[Node, ...]
     candidates: tuple[GraphFunction, ...]
     id: str = field(default_factory=_mint_id, compare=False)
-    policy_hints: dict = field(default_factory=dict)
+    policy_hints: Attrs = ()
     tags: tuple[str, ...] = ()
+```
+
+```python
+# abg.materialization
+
+@dataclass(frozen=True)
+class MaterializationRequest:
+    module_name: str
+    graph_function_id: str
+    input_refs: tuple[str, ...] = ()
+    profile: str | None = None
+    parameters: Attrs = ()
+
+@dataclass(frozen=True)
+class MaterializationRecord:
+    materialization_id: str
+    module_name: str
+    graph_function_id: str
+    graph_id: str
+    profile: str | None = None
+    parameters: Attrs = ()
+    input_refs: tuple[str, ...] = ()
+    bundle_ids: tuple[str, ...] = ()
+
+@dataclass(frozen=True)
+class CompanionBundle:
+    bundle_id: str
+    kind: BundleKind
+    materialization_id: str
+    payload_ref: str
 ```
 
 Deferred synthesis/refinement and structural alternatives are part of the same ownership surface. `RefinementBoundary` and `CandidateFamily` are the preferred design direction because they keep strategic choice outside the interpreter while making the contract boundary explicit. Equivalent representations are only acceptable if they preserve the same algebraic separation.
@@ -226,7 +281,7 @@ class ContractRef:
 class Role:
     name: str
     tags: tuple[str, ...] = ()
-    policy_hooks: dict = field(default_factory=dict)
+    policy_hooks: Attrs = ()
     id: str = field(default_factory=_mint_id, compare=False)
 
 @dataclass(frozen=True)
@@ -260,7 +315,7 @@ class Module:
     evaluators: tuple[Evaluator, ...] = ()
     rules: tuple[Rule, ...] = ()
     imports: tuple[ModuleImport, ...] = ()
-    metadata: dict = field(default_factory=dict)
+    metadata: Attrs = ()
 ```
 
 ### 4.2 DSL sugar
@@ -305,7 +360,7 @@ def deferred_refinement(
     *,
     inputs: tuple[Node, ...],
     outputs: tuple[Node, ...],
-    hints: dict | None = None,
+    hints: Attrs = (),
     tags: tuple[str, ...] = (),
 ) -> RefinementBoundary:
     """Declare a lawful refinement/synthesis boundary without embedding strategy."""
@@ -316,7 +371,7 @@ def candidate_family(
     inputs: tuple[Node, ...],
     outputs: tuple[Node, ...],
     candidates: tuple[GraphFunction, ...],
-    policy_hints: dict | None = None,
+    policy_hints: Attrs = (),
     tags: tuple[str, ...] = (),
 ) -> CandidateFamily:
     """Declare a named family of lawful alternatives over one contract boundary."""
@@ -325,10 +380,15 @@ def candidate_family(
 ### 4.3 Notes
 
 - `Node[T]` preserves `Generic[T]` parameterization. `Vector[T]` is expressed as `Node[Vector[T]]` via the schema parameter. No separate structural type.
-- `GraphFunction.template` accepts both `Callable[..., Graph]` (Python DSL convenience) and serializable `str` references. The semantic contract is "materializable graph template."
+- Prime graph/materialization surfaces use immutable record types even in Python. The implementation target is Python with Scala-style algebraic discipline, not Python convenience objects with hidden mutable payloads.
+- `GraphFunction.template` is a replayable `TemplateRef`, not an anonymous runtime closure. The Python implementation may resolve a `python_ref` to a callable at the interpreter edge, but publication truth remains symbolic and inspectable.
+- Canonical engine materialization is a first-class runtime step owned by `abg.materialization`, not an implicit side effect of `abg.interpret`.
 - Deferred synthesis/refinement is a declared GTL boundary, not imperative runtime mutation. `RefinementBoundary` is the preferred design center because it makes contract truth explicit without introducing vector flags.
 - Named materialization profiles and other lawful structural alternatives are best expressed as `CandidateFamily` over a shared contract boundary. Profile choice is external; GTL only publishes the alternatives.
+- Policy-visible structural parameters for materialization are carried through immutable `MaterializationRequest.parameters` attributes and must be declared by the publishing module surface rather than inferred from ambient interpreter state.
 - `Module` is the publication surface for `GraphFunction`, `RefinementBoundary`, and `CandidateFamily` declarations. Traversal/refinement topology and alternate structural families must be publishable and importable, not ad hoc helper values hidden in implementation code.
+- Graph-derived companion bundles are lawful only when they preserve replayable provenance back to a published graph-function materialization.
+- Recursive zoom/materialize/fold-back must remain a value transformation sequence. Parent traversal chooses lawful next action, child materialization/refinement produces new immutable records, and fold-back re-enters convergence with explicit lineage and provenance rather than in-place graph mutation.
 - `promote` is the explicit representation-lift / join operator in the algebra. It is used when structure must be normalized between fan-out and later reduction or continuation.
 - Harvest is not a separate GTL primitive in the current design. The preferred algebraic shape is explicit `fan_out(...) -> promote(...) -> fan_in(...) -> gate(...)` when a representation lift is needed, not hidden "parallel operator tuple" semantics.
 - `promote(...)` is explicit because representation lifting is part of the algebra, not an incidental side effect of composition. It is the current design home for lawful normalization/join between declared boundaries.
@@ -358,7 +418,7 @@ Concretely:
 
 **Convergence responsibility split**: GTL declares evaluator multiplicity, vector topology, and policy-visible rule parameters. `abg.convergence` executes rounds, ordering, and aggregate convergence deterministically. Domain bindings still define the meaning of the judgments.
 
-**Traversal responsibility split**: `abg.interpret` owns the named `Traversal` contract and the `traverse()` entrypoint. It may materialize graph functions, invoke convergence, and apply lawful selection/refinement, but it does so only through delegated kernel modules and remains the sole event-emission path.
+**Traversal responsibility split**: `abg.interpret` owns the named `Traversal` contract and the `traverse()` entrypoint. It may invoke graph-function materialization, convergence, and lawful selection/refinement, but it does so only through delegated kernel modules and remains the sole event-emission path.
 
 ---
 
@@ -414,9 +474,9 @@ class WorkSurface:
     context_consumed: tuple[Context, ...] = ()
     context_emitted: tuple[Context, ...] = ()
     artifacts: tuple[str, ...] = ()
-    findings: tuple[dict, ...] = ()
-    attestations: tuple[dict, ...] = ()
-    metadata: dict = field(default_factory=dict)  # realized output-side runtime metadata only
+    findings: Attrs = ()
+    attestations: Attrs = ()
+    metadata: Attrs = ()  # realized output-side runtime metadata only
 
 @dataclass(frozen=True)
 class Traversal:
@@ -425,7 +485,7 @@ class Traversal:
     evaluators: tuple[Evaluator, ...] = ()
     rule: Rule | None = None
     selection: SelectionDecision | None = None
-    metadata: dict = field(default_factory=dict)  # input-side runtime metadata only; no hidden strategy
+    metadata: Attrs = ()  # input-side runtime metadata only; no hidden strategy
 
 @dataclass
 class Worker:
@@ -551,6 +611,7 @@ class Scope:
 | `genesis/run.py` | `abg.run` | `RunState`, reducers, pending detection, supersession |
 | `genesis/convergence.py` | `abg.convergence` | delta, parent-convergence truth, evaluator-vector aggregation, round handling |
 | `genesis/selection.py` | `abg.selection` | `SelectionDecision`, candidate enumeration, family/profile validation |
+| `genesis/materialization.py` | `abg.materialization` | `MaterializationRequest`, `MaterializationRecord`, `CompanionBundle`, canonical graph-function materialization, companion-bundle derivation |
 | `genesis/provenance.py` | `abg.provenance` | `req_hash()`, `executable_job_hash()`, workflow version reads, per-evaluator and aggregate carry-forward |
 | `genesis/correction.py` | `abg.correction` | correction and reset helpers |
 | `genesis/subwork.py` | `abg.subwork` | `LeafTask`, schema validation, bounded dispatch |
@@ -599,6 +660,7 @@ abg.lineage         → abg.events
 abg.run             → abg.events
 abg.convergence     → abg.events, abg.binding, abg.lineage, abg.run, abg.correction
 abg.selection       → gtl.graph, gtl.function_model, gtl.module_model  # returns SelectionDecision; caller emits events
+abg.materialization → gtl.graph, gtl.function_model, gtl.module_model, abg.provenance
 abg.subwork         → abg.transport                                   # returns (output, failure_class); caller emits events
 abg.transport       → (stdlib + subprocess only)
 abg.interpret       → abg.*, gtl.*, (except abg.services, abg.cli, abg.install)
@@ -630,12 +692,13 @@ abg.install         → abg.events, gtl.module_model
 | GTL publication boundary | REQ-L-GTL2-MODULE, REQ-L-GTL2-SELECTION-BOUNDARY, REQ-L-GTL2-ENGINE-INDEPENDENCE |
 | ABG event and replay kernel | REQ-R-ABG2-EVENTS, REQ-R-ABG2-PROJECTION |
 | ABG interpretation kernel | REQ-R-ABG2-INTERPRET, REQ-R-ABG2-CONVERGENCE, REQ-R-ABG2-SELECTION-APPLICATION (apply + emit) |
+| ABG materialization kernel | REQ-L-GTL2-GRAPHFUNCTION, REQ-M-GTL2-MAPPING, REQ-M-GTL2-PROVENANCE, REQ-R-ABG2-PROVENANCE |
 | ABG identity and attempt governance | REQ-R-ABG2-LINEAGE, REQ-R-ABG2-RUN, REQ-R-ABG2-WORKER, REQ-R-ABG2-BINDING |
 | ABG provenance and correction | REQ-R-ABG2-PROVENANCE, REQ-R-ABG2-CORRECTION |
 | ABG selection and subwork | REQ-R-ABG2-SELECTION-APPLICATION (enumerate + validate), REQ-R-ABG2-LEAFTASK |
 | ABG transport | REQ-R-ABG2-TRANSPORT |
 | ABG self-hosting | REQ-R-ABG2-SELFHOSTING |
-| Mapping layer | REQ-M-GTL2-MAPPING, REQ-M-GTL2-CAPABILITY, REQ-M-GTL2-PROVENANCE |
+| Alternate runtime mapping layer | REQ-M-GTL2-CAPABILITY |
 | Product layer | REQ-P-POLICY, REQ-P-SCENARIOS, REQ-P-QUAL |
 
 ---
@@ -657,6 +720,7 @@ abg.install         → abg.events, gtl.module_model
 
 - `abg.events` and `abg.projection` are append-only replay truth
 - `abg.binding`, `abg.run`, `abg.lineage`, and `abg.convergence` are execution-attempt governance
+- `abg.materialization` is canonical graph-function realization and graph-derived companion-bundle derivation
 - `abg.provenance` and `abg.correction` are runtime truth-maintenance modules
 
 **State**: the ABG kernel is explicit and testable by responsibility.
@@ -697,6 +761,9 @@ For the Claude build to conform to this module design:
 8. executable-job hashing incorporates GTL job semantics, role semantics, resolved contract identity, evaluator definitions, and bound context digests using a stable serialization.
 9. domain packages publish explicit jobs, roles, and candidate families as part of the authored `Module` surface.
 10. structural alternatives, profiles, and refinement boundaries are declared in GTL surfaces rather than inferred from `GraphVector` flags or operator-tuple conventions.
+11. canonical execution of a published graph function passes through `MaterializationRequest` and yields a replayable `MaterializationRecord`.
+12. graph-derived companion bundles preserve derivation back to one materialization record and do not replace graph as primary structural truth.
+13. when refined structure declares deterministic proof surfaces, evaluator bundles are derived from the same replayable materialization/refinement chain rather than from interpreter-local hidden state.
 
 ---
 
@@ -734,6 +801,11 @@ The minimum proof lane for this correction is:
    - `RefinementBoundary` exposes stable outer contract and carries no hidden selection logic
    - `CandidateFamily` declares lawful alternatives over a shared boundary
    - `fan_out -> fan_in -> gate` can express consensus review and harvest without special `GraphVector` flags
+9. Materialization tests:
+   - published graph functions materialize through an explicit request/record surface
+   - materialization fails closed on undeclared profile or structural parameter use
+   - graph-derived companion bundles preserve derivation to one materialization record
+   - evaluator-bundle derivation is replayable from refined structure and does not depend on ambient interpreter state
 
 These obligations define the minimum proof that the Claude build matches the constitutional design.
 
@@ -744,8 +816,8 @@ These obligations define the minimum proof that the Claude build matches the con
 The module design is:
 
 - **6 GTL modules** — graph, operator_model, function_model, work_model, algebra, module_model
-- **13 ABG kernel modules** — events, projection, binding, lineage, run, convergence, selection, provenance, correction, subwork, transport, interpret, selfhosting
+- **14 ABG kernel modules** — events, projection, binding, lineage, run, convergence, selection, materialization, provenance, correction, subwork, transport, interpret, selfhosting
 - **3 ABG app modules** — services, cli, install
-- **3 mapping modules** — capability, adapter, provenance
+- **3 mapping modules** — capability, adapter, provenance for alternate runtime families
 
 Every required definition has an explicit V2 home. Every V2 module traces to requirement families. No accidental law, no duplicate ontology.

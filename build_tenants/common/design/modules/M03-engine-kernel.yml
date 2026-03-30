@@ -2,7 +2,9 @@ module: M03-engine-kernel
 status: active
 owns:
   - ABG kernel runtime and replay model
-  - execution binding, provenance, convergence, selection, transport, and selfhosting
+  - execution binding, canonical graph-function materialization, provenance, convergence, selection, transport, and selfhosting
+  - recursive zoom/materialize/fold-back protocol over stable outer contracts
+  - graph-derived evaluator-bundle derivation from refined structure
 implements_features:
   - REQ-R-ABG2-EVENTS
   - REQ-R-ABG2-PROJECTION
@@ -18,6 +20,8 @@ implements_features:
   - REQ-R-ABG2-TRANSPORT
   - REQ-R-ABG2-INTERPRET
   - REQ-R-ABG2-SELFHOSTING
+  - REQ-M-GTL2-MAPPING
+  - REQ-M-GTL2-PROVENANCE
 primary_surfaces:
   - build_tenants/abiogenesis/python/code/genesis/events.py
   - build_tenants/abiogenesis/python/code/genesis/projection.py
@@ -32,3 +36,8 @@ primary_surfaces:
   - build_tenants/abiogenesis/python/code/genesis/transport.py
   - build_tenants/abiogenesis/python/code/genesis/interpret.py
   - build_tenants/abiogenesis/python/code/genesis/selfhosting.py
+notes:
+  - canonical ABG graph-function materialization and graph-derived companion bundle derivation are kernel-owned design obligations for the 1.1 line
+  - kernel materialization and traversal should read as a functional core with explicit interpreter-edge effects; event emission, transport, and subprocess remain outside the pure materialization/convergence kernels
+  - recursive refinement is lawful only when parent contract, child materialization, derived evaluator bundle, and fold-back provenance remain replayable end to end
+  - extraction into a dedicated `genesis/materialization.py` surface is preferred when implementation begins
