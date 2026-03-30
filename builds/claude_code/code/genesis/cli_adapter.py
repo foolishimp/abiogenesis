@@ -674,9 +674,7 @@ def _run_start_auto(scope, stream, *, workspace: Path, mod_ref: str | None, huma
         if human_proxy:
             result["human_proxy"] = True
 
-        if result["status"] in ("converged", "nothing_to_do", "pending"):
-            if result.get("blocking_reason"):
-                result["stopped_by"] = result["blocking_reason"]
+        if result["status"] in ("converged", "nothing_to_do"):
             return result
 
         blocking_reason = result.get("blocking_reason")
@@ -701,6 +699,11 @@ def _run_start_auto(scope, stream, *, workspace: Path, mod_ref: str | None, huma
                     continue
             _emit_human_proxy_approval(workspace, edge)
             continue
+
+        if result["status"] == "pending":
+            if blocking_reason:
+                result["stopped_by"] = blocking_reason
+            return result
 
         if blocking_reason is not None:
             result["stopped_by"] = blocking_reason
