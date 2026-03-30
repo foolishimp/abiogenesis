@@ -133,7 +133,11 @@ class Scope:
             initial_build = None if self.worker is not None and self.build == "claude_code" else self.build
             self.runtime_identity = RuntimeIdentity(build_id=initial_build)
         else:
-            if self.runtime_identity.build_id is None and self.build:
+            if (
+                self.runtime_identity.build_id is None
+                and self.build
+                and not (self.worker is not None and self.build == "claude_code")
+            ):
                 self.runtime_identity = RuntimeIdentity(
                     engine_id=self.runtime_identity.engine_id,
                     build_id=self.build,

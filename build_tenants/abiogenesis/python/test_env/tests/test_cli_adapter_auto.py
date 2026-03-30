@@ -195,6 +195,27 @@ def test_scope_reports_bound_worker_identity_when_no_runtime_build_is_declared(t
     assert result["scope"]["runtime_identity"]["authority_ref"] == "runtime://role-dispatch"
 
 
+def test_scope_does_not_reinject_legacy_build_default_when_runtime_identity_is_partial(tmp_path: Path):
+    module = _runtime_contract_module()
+    worker = Worker(
+        id="gsdlc_router",
+        can_execute=module_to_executable_jobs(module),
+        authority_ref="runtime://role-dispatch",
+    )
+    scope = services.Scope(
+        module=module,
+        workspace_root=tmp_path,
+        worker=worker,
+        runtime_identity=cli_adapter._resolve_runtime_identity({}, worker),
+    )
+
+    result = services.gen_gaps(scope, genesis_install.workspace_bootstrap(tmp_path))
+
+    assert result["scope"]["build"] == "gsdlc_router"
+    assert result["scope"]["runtime_identity"]["build_id"] == "gsdlc_router"
+    assert result["scope"]["runtime_identity"]["worker_id"] == "gsdlc_router"
+
+
 def test_main_gaps_uses_configured_worker_and_runtime_identity_from_runtime_contract(
     monkeypatch,
     tmp_path: Path,
