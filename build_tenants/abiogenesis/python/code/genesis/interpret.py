@@ -36,6 +36,7 @@ from .binding import (
     module_to_executable_jobs,
 )
 from .events import EventStream
+from .identity import RuntimeIdentity
 from .selection import (
     SelectionDecision,
     accept_selection,
@@ -100,6 +101,7 @@ class TraversalRuntime:
     stream: EventStream
     worker: Worker
     spec_hash: str
+    runtime_identity: RuntimeIdentity | None = None
     build: str = "claude_code"
     work_key: str | None = None
     workflow_version: str = "unknown"
@@ -108,6 +110,21 @@ class TraversalRuntime:
     on_leaf_dispatch: Optional[Callable[[LeafTask, dict], tuple[dict | None, str | None]]] = None
     leaf_task_inputs: dict[str, dict] = field(default_factory=dict)
     run_id: Optional[str] = None
+
+    def __post_init__(self) -> None:
+        if self.runtime_identity is None:
+            initial_build = None if self.worker is not None and self.build == "claude_code" else self.build
+            self.runtime_identity = RuntimeIdentity(build_id=initial_build)
+        elif self.runtime_identity.build_id is None and self.build:
+            self.runtime_identity = RuntimeIdentity(
+                engine_id=self.runtime_identity.engine_id,
+                build_id=self.build,
+                worker_id=self.runtime_identity.worker_id,
+                backend_id=self.runtime_identity.backend_id,
+                authority_ref=self.runtime_identity.authority_ref,
+            )
+        self.runtime_identity = self.runtime_identity.bind_worker(self.worker)
+        self.build = self.runtime_identity.legacy_build_id()
 
 
 @dataclass(frozen=True)
@@ -228,9 +245,10 @@ def _selection_outcome(
         metadata=runtime.module.metadata,
     )
     updated_worker = Worker(
-        id=runtime.build,
+        id=runtime.worker.id,
         can_execute=module_to_executable_jobs(updated_module),
         role_ids=tuple(r.id for r in updated_module.roles),
+        authority_ref=runtime.worker.authority_ref,
     )
 
     stream_events: list[dict] = list(sel_result.events)
@@ -378,9 +396,12 @@ def _iterated_outcome(
     edge_started_data: dict = {
         "edge": vector.name,
         "vector_id": vector.id,
-        "build": runtime.build,
+        "build": runtime.runtime_identity.legacy_build_id(),
+        "worker_id": runtime.worker.id,
         "target": vector.target.name,
     }
+    if runtime.runtime_identity.backend_id:
+        edge_started_data["backend_id"] = runtime.runtime_identity.backend_id
     if runtime.work_key is not None:
         edge_started_data["work_key"] = runtime.work_key
     runtime.stream.append("edge_started", edge_started_data)

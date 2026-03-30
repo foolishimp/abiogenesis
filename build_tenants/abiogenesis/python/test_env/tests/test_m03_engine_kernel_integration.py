@@ -24,7 +24,8 @@ from gtl.module_model import Module
 from gtl.operator_model import Evaluator, F_D, F_P, Rule
 from gtl.work_model import ContractRef, Job, Role
 
-from genesis.binding import PrecomputedManifest, WorkSurface, module_to_executable_jobs
+from genesis.binding import PrecomputedManifest, WorkSurface, Worker, module_to_executable_jobs
+from genesis.identity import RuntimeIdentity
 from genesis.convergence import convergence_from_precomputed, outcomes_from_precomputed
 from genesis.events import EventStream
 from genesis.install import workspace_bootstrap
@@ -146,7 +147,19 @@ class TestM03EngineKernelIntegration:
             metadata={"requirements": ["REQ-M03-SELECT-001"]},
         )
 
-        scope = Scope(module=module, workspace_root=tmp_path, build="kernel_router")
+        router_worker = Worker(
+            id="gsdlc_router",
+            can_execute=module_to_executable_jobs(module),
+            role_ids=(constructor.id,),
+            authority_ref="runtime://role-dispatch",
+        )
+        scope = Scope(
+            module=module,
+            workspace_root=tmp_path,
+            build="kernel_router",
+            runtime_identity=RuntimeIdentity(build_id="codex", backend_id="codex_cli"),
+            worker=router_worker,
+        )
         stream = workspace_bootstrap(tmp_path)
         executable_job = module_to_executable_jobs(module)[0]
         runtime = TraversalRuntime(
@@ -157,6 +170,7 @@ class TestM03EngineKernelIntegration:
             stream=stream,
             worker=scope.worker,
             spec_hash="spec-m03-selection",
+            runtime_identity=scope.runtime_identity,
             build=scope.build,
             work_key=outer.id,
         )
@@ -184,6 +198,10 @@ class TestM03EngineKernelIntegration:
         assert outcome.result["status"] == "selected"
         assert outcome.result["graph_function"] == "mvp_profile"
         assert outcome.updated_module is not None
+        assert outcome.updated_worker is not None
+        assert scope.build == "codex"
+        assert outcome.updated_worker.id == "gsdlc_router"
+        assert outcome.updated_worker.authority_ref == "runtime://role-dispatch"
 
         updated_vectors = {
             vector.name

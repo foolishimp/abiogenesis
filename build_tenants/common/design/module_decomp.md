@@ -36,3 +36,4 @@ It extracts the shared module ownership shape from the current GTL 2.x / ABG des
 - The module schedule is shared tenant-local design law because the same conceptual stack currently governs both the canonical Python realization and the paused Codex comparison line.
 - Tenant-specific divergence remains documented in the concrete tenant design roots.
 - `M04-app-bootstrap` owns the app-level auto loop. The design assumption is that `gen_start()` remains one-step engine progression, while `cli_adapter` owns the iterative `--auto` orchestration, optional runtime hook dispatch for `F_P`, and proxy approval handling for `F_H`.
+- `M04-app-bootstrap` also owns runtime identity projection and configured worker resolution from the runtime contract. Worker, build, backend, and authority provenance must stay explicit rather than collapsing into one default build label.

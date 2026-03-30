@@ -46,6 +46,7 @@ ENGINE_MODULES = [
     "__init__.py",
     "__main__.py",
     "events.py",
+    "identity.py",
     "transport.py",
     "projection.py",
     "correction.py",
@@ -169,6 +170,9 @@ def install(target: Path, *, verify_only: bool = False,
             f"# runtime_contract: path/to/domain/genesis.yml\n"
             f"# package: your_domain.package:package\n"
             f"# worker:  your_domain.package:worker\n"
+            f"# runtime_build: codex\n"
+            f"# runtime_backend: codex_cli\n"
+            f"# runtime_authority_ref: runtime://role-dispatch\n"
         )
         config_path.write_text(config_text, encoding="utf-8")
     result["config_file"] = ".genesis/genesis.yml"

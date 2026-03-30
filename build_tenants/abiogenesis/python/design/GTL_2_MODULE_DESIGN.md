@@ -495,7 +495,8 @@ class Scope:
     workspace_root: Path
     work_key: str
     vector_id: str
-    build: str
+    build: str  # legacy projection only
+    runtime_identity: RuntimeIdentity
     worker_ref: str
     workflow_version: str
     run_id: str
@@ -507,6 +508,7 @@ class Scope:
 | --- | --- | --- |
 | `ExecutableJob` | `abg.binding` | Executable resolution of one GTL job to one graph-vector contract |
 | `Worker` | `abg.binding` | Concrete actor identity with executable capability, role ids, and authority hook |
+| `RuntimeIdentity` | `abg.identity` | Structured engine/build/worker/backend provenance for one runtime scope |
 | `WorkSurface` | `abg.binding` | Immutable execution dossier, elastic context carrier, and audit surface |
 | `RunState` | `abg.run` | Execution-attempt lifecycle truth |
 | `Traversal` | `abg.interpret` | First-class traversal contract over a target with evaluators and rule |
@@ -559,6 +561,7 @@ class Scope:
 
 | Concrete file | Conceptual module | Owns |
 | --- | --- | --- |
+| `genesis/identity.py` | `abg.identity` | `RuntimeIdentity`, legacy build projection, worker-bound runtime provenance |
 | `genesis/services.py` | `abg.services` | `Scope`, orchestration, service-level command flows |
 | `genesis/cli_adapter.py` | `abg.cli` | parser, command wiring, traceability command adapters |
 | `genesis/selfhosting.py` | `abg.selfhosting` | bootloader consistency and drift checks |
@@ -587,6 +590,7 @@ gtl.algebra         → gtl.graph, gtl.operator_model, gtl.function_model
 gtl.module_model    → gtl.graph, gtl.operator_model, gtl.function_model, gtl.work_model
 
 abg.events          → (stdlib only)
+abg.identity        → (stdlib only)
 abg.projection      → abg.events
 abg.provenance      → abg.events
 abg.correction      → abg.events
@@ -600,8 +604,8 @@ abg.transport       → (stdlib + subprocess only)
 abg.interpret       → abg.*, gtl.*, (except abg.services, abg.cli, abg.install)
 abg.selfhosting     → abg.events, abg.binding, gtl.graph
 
-abg.services        → abg.interpret, abg.convergence, abg.provenance
-abg.cli             → abg.services, abg.install
+abg.services        → abg.identity, abg.interpret, abg.convergence, abg.provenance
+abg.cli             → abg.identity, abg.services, abg.install
 abg.install         → abg.events, gtl.module_model
 ```
 

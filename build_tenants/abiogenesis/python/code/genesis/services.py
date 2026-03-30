@@ -36,6 +36,7 @@ from .binding import (
 from .convergence import convergence_from_precomputed, outcomes_from_precomputed, unresolved_fraction
 from .correction import find_latest_reset
 from .events import EventStream
+from .identity import RuntimeIdentity
 from .interpret import (
     Traversal,
     TraversalRuntime,
@@ -105,13 +106,16 @@ class Scope:
         "{workflow}@{version}" when file present and valid; "unknown" otherwise.
         When "unknown", provenance checks are bypassed.
 
-    Build identifier is build-layer specific. This Claude Code build defaults to "claude_code".
+    Runtime identity is distinct from worker binding. `build` is kept only as a
+    legacy compatibility projection for older surfaces that still print one
+    build string.
     """
     module: Module = None
     workspace_root: Path = field(default_factory=lambda: Path("."))
     work_key_filter: Optional[str] = None   # work_key scope (CLI --feature normalizes here)
     edge_filter: Optional[str] = None       # edge name scope (CLI --edge normalizes here)
     build: str = "claude_code"
+    runtime_identity: Optional[RuntimeIdentity] = None
     worker: Optional[Worker] = None   # explicit worker; None = derived
     active_workflow_path: Optional[str] = None  # runtime contract: path to active-workflow.json
     workflow_root: Optional[str] = None         # runtime contract: base dir for workflow releases
@@ -125,12 +129,33 @@ class Scope:
         validate_module_selection_surface(self.module)
         validate_module_traversal_surface(self.module)
 
+        if self.runtime_identity is None:
+            initial_build = None if self.worker is not None and self.build == "claude_code" else self.build
+            self.runtime_identity = RuntimeIdentity(build_id=initial_build)
+        else:
+            if self.runtime_identity.build_id is None and self.build:
+                self.runtime_identity = RuntimeIdentity(
+                    engine_id=self.runtime_identity.engine_id,
+                    build_id=self.build,
+                    worker_id=self.runtime_identity.worker_id,
+                    backend_id=self.runtime_identity.backend_id,
+                    authority_ref=self.runtime_identity.authority_ref,
+                )
+
         # Derive Worker from Module's jobs/vectors
-        # ADR-030 §5: single-worker build satisfies all declared roles
+        # ADR-030 §5: a single resolved worker may satisfy all declared roles.
         if self.worker is None:
             jobs = module_to_executable_jobs(self.module)
             role_ids = tuple(r.id for r in self.module.roles)
-            self.worker = Worker(id=self.build, can_execute=jobs, role_ids=role_ids)
+            self.worker = Worker(
+                id=self.runtime_identity.worker_id or self.runtime_identity.legacy_build_id(),
+                can_execute=jobs,
+                role_ids=role_ids,
+                authority_ref=self.runtime_identity.authority_ref,
+            )
+
+        self.runtime_identity = self.runtime_identity.bind_worker(self.worker)
+        self.build = self.runtime_identity.legacy_build_id()
 
         self.workflow_version = _read_workflow_version(
             self.workspace_root, self.active_workflow_path
@@ -276,7 +301,8 @@ def gen_gaps(scope: Scope, stream: EventStream) -> dict:
         "package": scope.module.name,
         "work_key_filter": scope.work_key_filter,
         "edge_filter": scope.edge_filter,
-        "build": scope.build,
+        "build": scope.runtime_identity.legacy_build_id(),
+        "runtime_identity": scope.runtime_identity.as_dict(),
     }
     if work_keys:
         scope_info["work_keys"] = work_keys
@@ -401,6 +427,7 @@ def gen_iterate(
         stream=stream,
         worker=scope.worker,
         spec_hash=selected_spec_hash,
+        runtime_identity=scope.runtime_identity,
         build=scope.build,
         work_key=selected_wi.work_key,
         workflow_version=scope.workflow_version,

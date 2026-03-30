@@ -62,8 +62,8 @@ Current reading:
 
 ### test_cli_adapter_auto.py
 
-- Requirements: `REQ-R-ABG2-INTERPRET`, `REQ-R-ABG2-SELFHOSTING`
-- Design: [module_decomp.md](../../../common/design/module_decomp.md), [README.md](../design/README.md)
+- Requirements: `REQ-R-ABG2-INTERPRET`, `REQ-R-ABG2-SELFHOSTING`, `REQ-R-ABG2-WORKER`
+- Design: [module_decomp.md](../../../common/design/module_decomp.md), [README.md](../design/README.md), [ADR-031-runtime-identity-and-configured-worker.md](../design/adrs/ADR-031-runtime-identity-and-configured-worker.md)
 
 ### test_m04_app_bootstrap_integration.py
 

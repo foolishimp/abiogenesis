@@ -22,8 +22,9 @@ Current governing truth lives in:
 | ADR-023 | Graph and vector identity via opaque ids | Operational identity is distinct from labels |
 | ADR-024 | Markov as a first-class node field | Node-owned declared conditions remain in the GTL surface |
 | ADR-030 | Semantic Job/Role in GTL, ExecutableJob/Binding in ABG | Shipping work-model split for the Claude build |
+| ADR-031 | Runtime identity and configured worker resolution | Keep engine/build/worker/backend provenance explicit and stop collapsing worker truth into a stale build default |
 
-New ADRs will be numbered from ADR-031 and implement REQ-L-GTL2-* / REQ-R-ABG2-* keys.
+New ADRs will be numbered from ADR-032 and implement REQ-L-GTL2-* / REQ-R-ABG2-* keys.
 
 ## Traceability
 
@@ -45,6 +46,15 @@ That means `start --auto` is not a hidden engine mode. It is a CLI-owned loop th
 - invoke optional runtime hooks exported by the installed module surface for project-specific `F_P` dispatch or `F_H` approval behavior
 
 This keeps the engine core smaller and makes the app bootstrap seam explicit in module ownership.
+
+## Runtime Identity Assumption
+
+`ABG 1.1` no longer treats one build string as the whole runtime identity.
+
+- `Worker` remains the concrete execution actor
+- runtime identity may also declare engine, build, backend, and authority provenance
+- `Scope` and `TraversalRuntime` preserve that structured identity
+- CLI/runtime bootstrap resolves the configured `worker:` from the runtime contract instead of silently manufacturing one from a default build name
 
 ## Baseline Scenarios
 

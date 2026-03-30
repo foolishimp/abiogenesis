@@ -8,6 +8,7 @@ owns:
   - hook-driven auto loop for `start --auto`
   - proxy approval handling for `--human-proxy`
   - optional runtime hook seam for `F_P` dispatch and `F_H` approval
+  - runtime identity projection and configured worker resolution from the runtime contract
 implements_features:
   - REQ-P-POLICY
   - REQ-P-QUAL
@@ -17,7 +18,10 @@ interfaces:
   - _run_start_auto(scope, stream, workspace, mod_ref, human_proxy)
   - _resolve_runtime_hook(mod_ref, hook_name)
   - _emit_human_proxy_approval(workspace, edge)
+  - _resolve_configured_worker(config, workspace)
+  - _resolve_runtime_identity(config, worker)
 primary_surfaces:
+  - build_tenants/abiogenesis/python/code/genesis/identity.py
   - build_tenants/abiogenesis/python/code/genesis/services.py
   - build_tenants/abiogenesis/python/code/genesis/cli_adapter.py
   - build_tenants/abiogenesis/python/code/gen-install.py
@@ -27,3 +31,4 @@ notes:
   - `services.gen_start()` remains the engine-facing one-step progression surface
   - CLI auto mode is a higher-order orchestration layer above one-step progression
   - Runtime-specific `F_P` and `F_H` handling enters through optional hooks resolved from the installed module surface rather than hardcoded backend branches in the CLI
+  - runtime contract worker identity is first-class input; the CLI must not silently replace it with a build default

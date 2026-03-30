@@ -1,13 +1,92 @@
 # Validates: REQ-R-ABG2-INTERPRET
 # Validates: REQ-R-ABG2-SELFHOSTING
+# Validates: REQ-R-ABG2-WORKER
 from __future__ import annotations
 
+import json
+import textwrap
 from pathlib import Path
 
+from gtl.algebra import deferred_refinement
+from gtl.graph import Graph, GraphVector, Node
+from gtl.module_model import Module
+from gtl.operator_model import Evaluator, F_P
+from gtl.work_model import ContractRef, Job
+
+from genesis.binding import Worker, module_to_executable_jobs
 from genesis import cli_adapter
 from genesis import events as genesis_events
 from genesis import install as genesis_install
 from genesis import services
+
+
+def _runtime_contract_module() -> Module:
+    requirements = ["REQ-RUNTIME-IDENTITY-001"]
+    design = Node(name="design", schema="Design")
+    code = Node(name="code", schema="Code")
+    code_complete = Evaluator("code_complete", F_P, "code satisfies the design contract")
+    vector = GraphVector(
+        name="design→code",
+        source=design,
+        target=code,
+        evaluators=(code_complete,),
+    )
+    graph = Graph(
+        name="runtime_identity_contract",
+        inputs=(design,),
+        outputs=(code,),
+        nodes=(design, code),
+        vectors=(vector,),
+    )
+    return Module(
+        name="runtime_identity_contract",
+        graphs=(graph,),
+        refinement_boundaries=(deferred_refinement(vector.name, inputs=(design,), outputs=(code,)),),
+        jobs=(Job(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),)),),
+        metadata={"requirements": requirements},
+    )
+
+
+def _runtime_contract_module_source() -> str:
+    return textwrap.dedent(
+        """\
+        from gtl.algebra import deferred_refinement
+        from gtl.graph import Graph, GraphVector, Node
+        from gtl.module_model import Module
+        from gtl.operator_model import Evaluator, F_P
+        from gtl.work_model import ContractRef, Job
+        from genesis.binding import Worker, module_to_executable_jobs
+
+        design = Node(name="design", schema="Design")
+        code = Node(name="code", schema="Code")
+        code_complete = Evaluator("code_complete", F_P, "code satisfies the design contract")
+        vector = GraphVector(
+            name="design→code",
+            source=design,
+            target=code,
+            evaluators=(code_complete,),
+        )
+        graph = Graph(
+            name="runtime_identity_contract",
+            inputs=(design,),
+            outputs=(code,),
+            nodes=(design, code),
+            vectors=(vector,),
+        )
+        module = Module(
+            name="runtime_identity_contract",
+            graphs=(graph,),
+            refinement_boundaries=(deferred_refinement(vector.name, inputs=(design,), outputs=(code,)),),
+            jobs=(Job(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),)),),
+            metadata={"requirements": ["REQ-RUNTIME-IDENTITY-001"]},
+        )
+        worker = Worker(
+            id="gsdlc_router",
+            can_execute=module_to_executable_jobs(module),
+            authority_ref="runtime://role-dispatch",
+        )
+        """
+    )
 
 
 def test_run_start_auto_invokes_fp_dispatch_hook_and_retries(monkeypatch, tmp_path: Path):
@@ -98,6 +177,61 @@ def test_run_start_auto_human_proxy_handles_fh_gate_and_retries(monkeypatch, tmp
     assert result["auto"] is True
     assert result["human_proxy"] is True
     assert approvals == ["design→review"]
+
+
+def test_scope_reports_bound_worker_identity_when_no_runtime_build_is_declared(tmp_path: Path):
+    module = _runtime_contract_module()
+    worker = Worker(
+        id="gsdlc_router",
+        can_execute=module_to_executable_jobs(module),
+        authority_ref="runtime://role-dispatch",
+    )
+    scope = services.Scope(module=module, workspace_root=tmp_path, worker=worker)
+
+    result = services.gen_gaps(scope, genesis_install.workspace_bootstrap(tmp_path))
+
+    assert result["scope"]["build"] == "gsdlc_router"
+    assert result["scope"]["runtime_identity"]["worker_id"] == "gsdlc_router"
+    assert result["scope"]["runtime_identity"]["authority_ref"] == "runtime://role-dispatch"
+
+
+def test_main_gaps_uses_configured_worker_and_runtime_identity_from_runtime_contract(
+    monkeypatch,
+    tmp_path: Path,
+    capsys,
+):
+    (tmp_path / ".genesis").mkdir(parents=True, exist_ok=True)
+    (tmp_path / "demo_runtime.py").write_text(_runtime_contract_module_source(), encoding="utf-8")
+    (tmp_path / ".genesis" / "genesis.yml").write_text(
+        "runtime_contract: runtime.yml\n",
+        encoding="utf-8",
+    )
+    (tmp_path / "runtime.yml").write_text(
+        "\n".join(
+            (
+                "module: demo_runtime:module",
+                "worker: demo_runtime:worker",
+                "runtime_build: codex",
+                "runtime_backend: codex_cli",
+                "runtime_authority_ref: runtime://role-dispatch",
+            )
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(
+        "sys.argv",
+        ["genesis", "gaps", "--workspace", str(tmp_path)],
+    )
+
+    cli_adapter.main()
+
+    output = json.loads(capsys.readouterr().out)
+    assert output["scope"]["build"] == "codex"
+    assert output["scope"]["runtime_identity"]["engine_id"] == "genesis"
+    assert output["scope"]["runtime_identity"]["worker_id"] == "gsdlc_router"
+    assert output["scope"]["runtime_identity"]["backend_id"] == "codex_cli"
+    assert output["scope"]["runtime_identity"]["authority_ref"] == "runtime://role-dispatch"
 
 
 def test_main_routes_start_auto_human_proxy_through_cli_auto_loop(

@@ -640,6 +640,42 @@ def _resolve_runtime_hook(mod_ref: str | None, hook_name: str):
     return hook if callable(hook) else None
 
 
+def _resolve_configured_worker(config: dict, workspace: Path):
+    """Resolve the configured Worker from the runtime contract when declared."""
+    worker_ref = config.get("worker")
+    if not isinstance(worker_ref, str) or ":" not in worker_ref:
+        return None
+    try:
+        worker = _import_symbol(worker_ref, workspace)
+    except (ImportError, ValueError):
+        return None
+
+    from .binding import Worker
+
+    return worker if isinstance(worker, Worker) else None
+
+
+def _resolve_runtime_identity(config: dict, worker=None):
+    """Resolve the structured runtime identity from flat runtime-contract fields."""
+    from .identity import RuntimeIdentity
+
+    def _read(*keys: str) -> str | None:
+        for key in keys:
+            value = config.get(key)
+            if isinstance(value, str) and value:
+                return value
+        return None
+
+    identity = RuntimeIdentity(
+        engine_id=_read("runtime_engine", "engine") or "genesis",
+        build_id=_read("runtime_build", "build"),
+        worker_id=_read("runtime_worker_id"),
+        backend_id=_read("runtime_backend", "backend"),
+        authority_ref=_read("runtime_authority_ref", "authority_ref"),
+    )
+    return identity.bind_worker(worker)
+
+
 def _emit_human_proxy_approval(workspace: Path, edge: str) -> None:
     reviews_dir = workspace / ".ai-workspace" / "reviews"
     reviews_dir.mkdir(parents=True, exist_ok=True)
@@ -818,12 +854,15 @@ def main() -> None:
 
     mod_ref = getattr(args, "module", None) or _config.get("module")
     module = _resolve_module(args, workspace)
+    configured_worker = _resolve_configured_worker(_config, workspace)
 
     scope = Scope(
         module=module,
         workspace_root=workspace,
         work_key_filter=getattr(args, "feature", None),
         edge_filter=getattr(args, "edge", None),
+        runtime_identity=_resolve_runtime_identity(_config, configured_worker),
+        worker=configured_worker,
         active_workflow_path=_config.get("active_workflow"),
         workflow_root=_config.get("workflow_root"),
     )
