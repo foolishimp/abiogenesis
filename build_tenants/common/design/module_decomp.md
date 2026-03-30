@@ -10,6 +10,13 @@ This is the explicit module schedule surface for abiogenesis under the gsdlc met
 
 It does not replace the deeper tenant design documents.
 It extracts the shared module ownership shape from the current GTL 2.x / ABG design so the project has a navigable `design/modules/` layer between requirements and code.
+At this level, modules are the common source of truth for:
+
+- detailed public interfaces
+- composition boundaries
+- capability ownership
+- decoupling rules
+- unit-test derivation targets
 
 ## Design Rules
 
@@ -20,6 +27,7 @@ It extracts the shared module ownership shape from the current GTL 2.x / ABG des
 - Module decomposition is structural guidance for derivation and ownership; it does not create new runtime behavior.
 - The implementation target is Python with Scala-style discipline: immutable value types, symbolic publication, functional core, and explicit effect interpreters at the shell.
 - Recursive graph-function zoom/materialize/fold-back must remain lawful value transformation with explicit lineage and provenance, not interpreter-side mutation.
+- `design/modules/` is the common derivation layer for code and unit tests. If module specs are too weak to derive tests without invention, the module layer is not complete.
 
 ## Module Schedule
 
@@ -36,7 +44,8 @@ It extracts the shared module ownership shape from the current GTL 2.x / ABG des
 
 - `M03-engine-kernel` owns canonical ABG graph-function materialization and graph-derived bundle provenance.
 - `M03-engine-kernel` also owns recursive zoom/materialize/fold-back protocol, including evaluator-bundle derivation from refined structure when the refined boundary declares deterministic proof surfaces.
-- `M06-mapping-deferred` applies only to alternate runtime families and is not part of the released `abg 1.0` shipping surface.
+- `M01-gtl-core`, `M02-work-publication`, and `M03-engine-kernel` are the prime derivation modules for the current code wave. Their interfaces, invariants, and test obligations must be explicit enough that implementation does not invent semantics.
+- `M06-mapping-deferred` applies only to alternate runtime families and is not part of the `abg 1.1` shipping surface.
 - The module schedule is shared tenant-local design law because the same conceptual stack currently governs both the canonical Python realization and the paused Codex comparison line.
 - Tenant-specific divergence remains documented in the concrete tenant design roots.
 - `M04-app-bootstrap` owns the app-level auto loop. The design assumption is that `gen_start()` remains one-step engine progression, while `cli_adapter` owns the iterative `--auto` orchestration, optional runtime hook dispatch for `F_P`, and proxy approval handling for `F_H`.

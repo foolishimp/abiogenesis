@@ -6,7 +6,7 @@
 
 ## Purpose
 
-Make the current shared-vs-tenant design boundary explicit during the `abiogenesis` migration to `gsdlc 1.0`.
+Make the current shared-vs-tenant design boundary explicit for the `abiogenesis 1.1` line.
 
 This document is structural only.
 It does not change runtime behavior, installer output, or product semantics.
@@ -16,6 +16,7 @@ It does not change runtime behavior, installer output, or product semantics.
 - `specification/` remains constitutional truth.
 - `build_tenants/common/design/` holds tenant-local design law that is genuinely shared across realizations.
 - `build_tenants/abiogenesis/<variant>/design/` holds realization-specific design detail, qualification material, and migration-local working surfaces.
+- `build_tenants/common/design/modules/` is the common source of truth for module interfaces, composition boundaries, capability ownership, and unit-test derivation targets.
 - Promote a surface to `common` only when:
   - it is written generically enough to govern more than one realization, and
   - its authority no longer depends on one tenant's local implementation wording.
@@ -25,7 +26,7 @@ It does not change runtime behavior, installer output, or product semantics.
 | Surface | Status | Why it is shared |
 | --- | --- | --- |
 | `build_tenants/common/design/module_decomp.md` | Active | Shared module ownership and decomposition for the current `abiogenesis` stack |
-| `build_tenants/common/design/modules/` | Active | Shared module-level requirement ownership and primary surface map |
+| `build_tenants/common/design/modules/` | Active | Shared module-level interfaces, invariants, composition boundaries, and primary surface map |
 
 These surfaces are already shared law for:
 
@@ -35,9 +36,15 @@ These surfaces are already shared law for:
 - `REQ-P-QUAL`
 - `REQ-M-GTL2-MAPPING`
 
+They are also the common derivation layer for:
+
+- code ownership
+- unit-test obligations
+- capability review above the tenant-specific implementation details
+
 ## Canonical Shared-Candidate Surfaces Still Held In Python
 
-These are currently treated as the canonical detailed design read for the released Python realization, but are not yet promoted into `common`.
+These are currently treated as the canonical detailed design read for the Python realization, but are not yet promoted into `common`.
 
 | Surface | Current location | Why not yet promoted |
 | --- | --- | --- |
@@ -76,3 +83,9 @@ During this migration phase:
 - prefer explicit classification over premature movement
 - move a surface only when its shared authority is clear
 - keep behavior stable while the design boundary is normalized
+
+For the current 1.1 line, this means:
+
+- requirements remain constitutional truth
+- `design/modules/` is the common interface/composition source of truth
+- tenant design documents remain the deeper realization read for code shape and ADR-backed implementation detail

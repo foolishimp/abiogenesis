@@ -19,6 +19,26 @@ primary_surfaces:
   - build_tenants/abiogenesis/python/code/gtl/module_model.py
   - build_tenants/abiogenesis/python/code/gtl_spec/packages/abiogenesis.py
   - build_tenants/abiogenesis/python/code/gtl_spec/packages/project_package.py
+interfaces:
+  - ContractRef
+  - Role
+  - Job
+  - ModuleImport
+  - Module
+  - published module declaration identities
+invariants:
+  - published graph functions remain inspectable through symbolic references and explicit outer contracts
+  - module publication preserves declaration identity across import and reuse
+  - publication metadata is visibility surface only and not a hidden strategic control plane
+  - semantic work declarations remain distinct from runtime execution wrappers
+composes_with:
+  - M01-gtl-core provides the declaration types and algebraic surfaces being published
+  - M03-engine-kernel consumes published module truth for materialization, binding, and provenance
+  - M04-app-bootstrap loads installed module surfaces without rewriting publication truth
+test_obligations:
+  - module publication tests preserve graph-function, job, and role identity through import
+  - publication tests fail closed on undeclared or ambiguous declaration references
+  - module surfaces expose enough metadata for replayable materialization without ambient module-state capture
 notes:
   - published graph functions must remain inspectable through symbolic references and explicit outer contracts rather than anonymous closures or ambient interpreter state
   - publication metadata is visibility surface only; strategic choice remains in explicit algebraic declarations and external selection

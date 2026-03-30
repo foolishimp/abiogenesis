@@ -23,3 +23,41 @@ primary_surfaces:
   - build_tenants/abiogenesis/python/code/gtl/operator_model.py
   - build_tenants/abiogenesis/python/code/gtl/function_model.py
   - build_tenants/abiogenesis/python/code/gtl/algebra.py
+interfaces:
+  - Node[T]
+  - GraphVector
+  - Context
+  - Graph
+  - Regime, F_D, F_P, F_H
+  - Operator
+  - Evaluator
+  - Rule
+  - GraphFunction
+  - RefinementBoundary
+  - CandidateFamily
+  - compose(*functions)
+  - substitute(outer, contract_vector, inner)
+  - recurse(graph_function, termination)
+  - fan_out(f, over)
+  - fan_in(reducer, over)
+  - gate(target, rule, evaluators)
+  - promote(source, to)
+  - identity(interface)
+  - deferred_refinement(...)
+  - candidate_family(...)
+invariants:
+  - prime GTL declaration types are immutable value records
+  - GraphVector is internal adjacency truth and not a policy surface
+  - GraphFunction outer contracts remain stable across composition, substitution, and recursion
+  - graph-function publication truth is symbolic and replayable rather than anonymous runtime closure state
+  - algebraic operators may change realized structure but must preserve declared outer contract where the law requires it
+  - GTL core does not depend on ABG runtime types or interpreter state
+composes_with:
+  - M02-work-publication publishes GTL declarations for import and reuse
+  - M03-engine-kernel materializes and interprets GTL declarations without redefining their semantics
+test_obligations:
+  - structural law tests for immutable value semantics and stable equality behavior
+  - composition law tests for interface preservation and fail-closed mismatch handling
+  - substitution law tests for outer-boundary preservation and refined-structure exposure
+  - recursion law tests for bounded recursion and lineage-preserving outer-contract stability
+  - higher-order operator tests for explicit `over` boundaries and no hidden strategy in GTL core

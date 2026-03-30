@@ -36,6 +36,44 @@ primary_surfaces:
   - build_tenants/abiogenesis/python/code/genesis/transport.py
   - build_tenants/abiogenesis/python/code/genesis/interpret.py
   - build_tenants/abiogenesis/python/code/genesis/selfhosting.py
+  - build_tenants/abiogenesis/python/code/genesis/materialization.py
+interfaces:
+  - EventStream
+  - project(...)
+  - ExecutableJob
+  - WorkSurface
+  - Worker
+  - RunState
+  - delta(contract_id, outcomes, rule)
+  - SelectionDecision
+  - accept_selection(...)
+  - enumerate_candidates(...)
+  - MaterializationRequest
+  - MaterializationRecord
+  - CompanionBundle
+  - materialize_graph_function(request, module)
+  - derive_bundle(record, kind)
+  - Traversal
+  - traverse(traversal, surface)
+  - spawn(...)
+  - fold_back(...)
+invariants:
+  - canonical materialization, convergence, and provenance are functional-core value transformations with explicit interpreter-edge effects only
+  - materialization fails closed on undeclared graph-function identity, profile, or structural parameter, and on outer-contract violation
+  - recursive zoom/materialize/fold-back preserves outer contract, lineage, and replayable provenance end to end
+  - graph-derived evaluator bundles come from refined or realized structure rather than hidden interpreter-local strategy
+  - graph remains primary structural truth even when selected subgraphs or evaluator bundles are derived
+composes_with:
+  - M01-gtl-core supplies the declared graph, algebra, and evaluation surfaces being interpreted
+  - M02-work-publication supplies the published module and graph-function truth being materialized
+  - M04-app-bootstrap owns command orchestration, runtime hook loading, and other app-edge effects above the kernel
+  - M05-qualification-scenarios proves replay, refinement, and convergence behavior against scenario harnesses
+test_obligations:
+  - explicit request/record materialization tests with replayable provenance
+  - fail-closed tests for undeclared graph-function ids, profiles, parameters, and outer-contract violations
+  - traversal tests for delegated materialization, convergence, selection, and provenance rather than hidden local strategy
+  - refinement tests for parent/child lineage, lawful fold-back, and refined evaluator-bundle derivation
+  - provenance tests that preserve graph-function, materialization, bundle, and refined-boundary identity across execution
 notes:
   - canonical ABG graph-function materialization and graph-derived companion bundle derivation are kernel-owned design obligations for the 1.1 line
   - kernel materialization and traversal should read as a functional core with explicit interpreter-edge effects; event emission, transport, and subprocess remain outside the pure materialization/convergence kernels

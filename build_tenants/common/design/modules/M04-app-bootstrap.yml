@@ -27,6 +27,18 @@ primary_surfaces:
   - build_tenants/abiogenesis/python/code/gen-install.py
   - build_tenants/abiogenesis/python/code/genesis/install.py
   - build_tenants/abiogenesis/python/code/gtl_spec/GTL_BOOTLOADER.md
+invariants:
+  - services.gen_start() remains one-step engine progression and does not absorb app-owned orchestration policy
+  - CLI orchestration may loop, proxy approvals, and resolve hooks, but it must not redefine GTL or ABG kernel semantics
+  - runtime identity and configured worker resolution are explicit inputs, not hidden build defaults
+composes_with:
+  - M03-engine-kernel provides the one-step engine progression and runtime truth being orchestrated
+  - M02-work-publication provides installed module surfaces and optional runtime hooks
+  - M05-qualification-scenarios proves the auto/proxy loop against fake and live scenario harnesses
+test_obligations:
+  - CLI auto-loop regression tests for repeated fp-dispatch and human-proxy approval flow
+  - runtime identity projection tests that preserve worker/build/backend/authority truth
+  - installer/bootstrap tests that keep orchestration separate from kernel semantics
 notes:
   - `services.gen_start()` remains the engine-facing one-step progression surface
   - CLI auto mode is a higher-order orchestration layer above one-step progression

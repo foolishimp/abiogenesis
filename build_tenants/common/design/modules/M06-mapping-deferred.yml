@@ -7,6 +7,17 @@ implements_features:
   - REQ-M-GTL2-CAPABILITY
 primary_surfaces:
   - specification/requirements/mapping/
+interfaces:
+  - alternate engine capability profiles
+  - alternate runtime-family mapping contracts
+invariants:
+  - canonical ABG materialization, evaluator-bundle derivation, and provenance do not move into alternate mapping while ABG remains the canonical engine
+  - alternate mappings may extend capability understanding, but they must not redefine GTL language truth
+composes_with:
+  - M01-gtl-core remains the language surface being mapped
+  - M03-engine-kernel remains the canonical engine implementation
+test_obligations:
+  - deferred-only: no shipping-line tests until an alternate runtime family is intentionally activated
 notes:
   - canonical ABG graph-function materialization and provenance are owned by M03-engine-kernel
   - stack- or memory-derived deterministic evaluator refinement may later extend the canonical kernel, but alternate runtime-family mapping is not the place for canonical ABG evaluator-bundle derivation

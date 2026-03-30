@@ -17,3 +17,20 @@ primary_surfaces:
   - build_tenants/abiogenesis/python/test_env/tests/test_v2_sandbox_usecases_fake.py
   - build_tenants/abiogenesis/python/test_env/tests/test_v2_sandbox_usecases_live.py
   - build_tenants/abiogenesis/python/test_env/tests/run_archive.py
+interfaces:
+  - method trace gate
+  - fake-lane scenario harness
+  - live-lane scenario harness
+  - postmortem archive runner
+invariants:
+  - qualification scenarios exercise constitutional and module truth without inventing separate runtime semantics
+  - fake and live harnesses preserve the same interface and provenance expectations
+  - archive outputs remain durable qualification artifacts rather than disposable test output
+composes_with:
+  - M01-gtl-core provides the algebraic surfaces under test
+  - M03-engine-kernel provides the runtime behavior under test
+  - M04-app-bootstrap provides command and orchestration behavior for live/fake scenario entrypoints
+test_obligations:
+  - method-trace gates over constitutional and design surfaces
+  - scenario tests for recursive refinement, materialization provenance, and convergence behavior as the line evolves
+  - archive tests for durable postmortem output shape
