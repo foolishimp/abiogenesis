@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Date**: 2026-03-29
-**Derived from**: [GTL_2_CONSTITUTIONAL_DESIGN.md](/Users/jim/src/apps/abiogenesis/specification/GTL_2_CONSTITUTIONAL_DESIGN.md), [specification/requirements/](/Users/jim/src/apps/abiogenesis/specification/requirements/), [build_tenants/common/design/module_decomp.md](/Users/jim/src/apps/abiogenesis/build_tenants/common/design/module_decomp.md), [build_tenants/abiogenesis/python/design/README.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/README.md), [build_tenants/abiogenesis/codex/design/README.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/codex/design/README.md)
+**Derived from**: [GTL_2_CONSTITUTIONAL_DESIGN.md](../../../specification/GTL_2_CONSTITUTIONAL_DESIGN.md), [specification/requirements/](../../../specification/requirements/), [build_tenants/common/design/module_decomp.md](./module_decomp.md), [build_tenants/abiogenesis/python/design/README.md](../../abiogenesis/python/design/README.md), [build_tenants/abiogenesis/codex/design/README.md](../../abiogenesis/codex/design/README.md)
 
 ## Purpose
 

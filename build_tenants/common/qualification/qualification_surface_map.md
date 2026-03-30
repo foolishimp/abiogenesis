@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Date**: 2026-03-29
-**Derived from**: [REQ-P-QUAL.md](/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-QUAL.md), [REQ-P-SCENARIOS.md](/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-SCENARIOS.md), [GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md), [build_tenants/abiogenesis/python/test_env/README.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/test_env/README.md), [build_tenants/abiogenesis/codex/tests/README.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/codex/tests/README.md), [qualification_refactor_loop.md](/Users/jim/src/apps/abiogenesis/build_tenants/common/qualification/qualification_refactor_loop.md)
+**Derived from**: [REQ-P-QUAL.md](../../../specification/requirements/product/REQ-P-QUAL.md), [REQ-P-SCENARIOS.md](../../../specification/requirements/product/REQ-P-SCENARIOS.md), [GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md](../../abiogenesis/python/design/GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md), [build_tenants/abiogenesis/python/test_env/README.md](../../abiogenesis/python/test_env/README.md), [build_tenants/abiogenesis/codex/tests/README.md](../../abiogenesis/codex/tests/README.md), [qualification_refactor_loop.md](./qualification_refactor_loop.md)
 
 ## Purpose
 

@@ -5,12 +5,25 @@ owns:
   - CLI boundary
   - installer and workspace bootstrap
   - bootloader carrier and project-facing operations
+  - hook-driven auto loop for `start --auto`
+  - proxy approval handling for `--human-proxy`
+  - optional runtime hook seam for `F_P` dispatch and `F_H` approval
 implements_features:
   - REQ-P-POLICY
   - REQ-P-QUAL
+interfaces:
+  - genesis start --auto
+  - genesis start --auto --human-proxy
+  - _run_start_auto(scope, stream, workspace, mod_ref, human_proxy)
+  - _resolve_runtime_hook(mod_ref, hook_name)
+  - _emit_human_proxy_approval(workspace, edge)
 primary_surfaces:
   - build_tenants/abiogenesis/python/code/genesis/services.py
   - build_tenants/abiogenesis/python/code/genesis/cli_adapter.py
   - build_tenants/abiogenesis/python/code/gen-install.py
   - build_tenants/abiogenesis/python/code/genesis/install.py
   - build_tenants/abiogenesis/python/code/gtl_spec/GTL_BOOTLOADER.md
+notes:
+  - `services.gen_start()` remains the engine-facing one-step progression surface
+  - CLI auto mode is a higher-order orchestration layer above one-step progression
+  - Runtime-specific `F_P` and `F_H` handling enters through optional hooks resolved from the installed module surface rather than hardcoded backend branches in the CLI

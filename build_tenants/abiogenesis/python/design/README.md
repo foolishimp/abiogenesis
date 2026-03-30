@@ -31,6 +31,21 @@ Traceability derives from the active 2.x requirement surface.
 Live requirement headers carry `Status` and `Category` metadata per `specification/SPEC_METHOD.md`.
 The shipping verification harness is downstream of this design surface in `build_tenants/abiogenesis/python/test_env/`.
 
+## App Bootstrap Assumption
+
+`ABG 1.1` keeps a clean split between:
+
+- one-step engine progression in `services.gen_start()`
+- app-level auto orchestration in `genesis/cli_adapter.py`
+
+That means `start --auto` is not a hidden engine mode. It is a CLI-owned loop that may:
+
+- continue through repeated `fp_dispatch`
+- proxy `fh_gate` approvals when `--human-proxy` is selected
+- invoke optional runtime hooks exported by the installed module surface for project-specific `F_P` dispatch or `F_H` approval behavior
+
+This keeps the engine core smaller and makes the app bootstrap seam explicit in module ownership.
+
 ## Baseline Scenarios
 
 The canonical toy scenarios for rebuilding and pressure-testing the engine are:

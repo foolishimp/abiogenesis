@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Date**: 2026-03-29
-**Derived from**: [REQ-P-QUAL.md](/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-QUAL.md), [REQ-P-SCENARIOS.md](/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-SCENARIOS.md), [module_decomp.md](/Users/jim/src/apps/abiogenesis/build_tenants/common/design/module_decomp.md), [qualification_surface_map.md](/Users/jim/src/apps/abiogenesis/build_tenants/common/qualification/qualification_surface_map.md), [test_surface_map.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/test_env/test_surface_map.md)
+**Derived from**: [REQ-P-QUAL.md](../../../specification/requirements/product/REQ-P-QUAL.md), [REQ-P-SCENARIOS.md](../../../specification/requirements/product/REQ-P-SCENARIOS.md), [module_decomp.md](../design/module_decomp.md), [qualification_surface_map.md](./qualification_surface_map.md), [test_surface_map.md](../../abiogenesis/python/test_env/test_surface_map.md)
 
 ## Purpose
 
