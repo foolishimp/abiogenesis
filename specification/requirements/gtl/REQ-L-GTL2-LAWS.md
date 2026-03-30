@@ -11,7 +11,7 @@
 
 ## Purpose
 
-The 16 laws that govern GTL 2.x language semantics.
+The 18 laws that govern GTL 2.x language semantics.
 
 ## Acceptance Criteria
 
@@ -46,3 +46,7 @@ The 16 laws that govern GTL 2.x language semantics.
 **REQ-L-GTL2-LAWS-015**: Categorical identity — every first-class type carries opaque identity distinct from its label. Operations target by identity, not by name (see REQ-L-GTL2-IDENTITY).
 
 **REQ-L-GTL2-LAWS-016**: Semantic work / execution separation — GTL declares jobs and roles; ABG realizes runs and worker bindings. Authentication and authority resolution remain external.
+
+**REQ-L-GTL2-LAWS-017**: Graph-function publication and materialization law — published graph functions remain first-class reusable declarations, and their realized graphs derive from declared inputs, profiles, and policy-visible structural parameters rather than from ambient hidden state.
+
+**REQ-L-GTL2-LAWS-018**: Graph-derived provenance law — when graph-derived companion bundles are produced from a published graph function, the derivation preserves replayable provenance back to the graph-function identity and materialization inputs.

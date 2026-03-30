@@ -71,7 +71,7 @@ Any V1-only doctrine not listed as a degenerate case is **superseded** and must 
 ## INT-002 — Bootloader Documents as Graph Artifacts
 
 **Date**: 2026-03-21
-**Status**: Draft
+**Status**: Approved
 
 ### Problem
 
@@ -120,7 +120,7 @@ The bootloader becomes a convergence-tracked artifact: if the graph changes and 
 ## INT-003 — Spec-Build Boundary Cleanup for Multi-Worker
 
 **Date**: 2026-03-21
-**Status**: Draft
+**Status**: Approved
 
 ### Problem
 
@@ -183,7 +183,7 @@ Three-layer architecture:
 ## INT-004 — Recursive Work Identity and Compositional Graphs
 
 **Date**: 2026-03-24
-**Status**: Draft
+**Status**: Approved
 **Derived from**: Codex strategy `20260324T023507_STRATEGY_recursion-not-feature-routing-prime-structured-design.md`
 
 ### Problem
@@ -352,6 +352,8 @@ That gap shows up concretely in authoring:
 
 Without that center, GTL remains structurally expressive but underspecified as a functional programming language for workflows.
 
+There is also a second gap now visible from the `gsdlc` side: `GraphFunction` exists constitutionally, but publication, materialization, and runtime provenance are still not first-class obligations. The live stacks mostly operate on already materialized graphs and vectors. That leaves the higher-order V2 promise only partially completed.
+
 ### Value Proposition
 
 GTL becomes a functional, interpreted workflow language whose primary reusable compute unit is `GraphFunction`.
@@ -436,12 +438,25 @@ When a coarse contract is insufficient, GTL must be able to declare a lawful syn
 ABG may host the callback and record provenance.
 ABG must not contain hidden business-choice logic.
 
+**6. First-class publication and materialization**
+
+V2 is not complete merely because `GraphFunction` exists as a type. It becomes first-class only when:
+
+- modules publish graph functions as discoverable reusable surfaces
+- graph functions materialize lawfully from declared authority inputs and profiles
+- engines preserve graph-function and materialization provenance at runtime
+- graph-derived companion bundles such as target subgraphs or evaluator bundles can be derived from the same published graph-function truth without displacing graph as the primary structural type
+
 ### Scope
 
 **In scope (GTL + ABG boundary):**
 - `GraphFunction` as the primary reusable compute abstraction
 - lawful composition with explicit interface validation
 - policy-visible structural parameterization, including named materialization profiles where a domain needs them
+- first-class publication of graph functions from modules and imported libraries
+- lawful graph-function materialization from declared inputs, profiles, and policy-visible structural parameters
+- runtime-visible graph-function and materialization provenance
+- graph-derived companion bundles, such as selected subgraphs or evaluator bundles, derived from published graph-function truth
 - lawful substitution preserving outer contract
 - bounded recursive graph-function application
 - higher-order graph operators derived from the same graph-function algebra
@@ -466,13 +481,16 @@ ABG must not contain hidden business-choice logic.
 7. Selection and refinement remain replayable through structural declarations plus event/provenance truth
 8. One or more evaluators may observe the same contract boundary, producing a replayable convergence vector without moving domain semantics into ABG
 9. Named materialization profiles and explicit harvest boundaries can be declared without moving profile or merge semantics into ABG
+10. Published graph functions are discoverable and importable as first-class reusable surfaces
+11. Graph-function materialization is replayable from declared inputs, profiles, and provenance truth rather than ambient interpreter state
+12. Runtime provenance can answer which published graph function and which materialization produced the graph or graph-derived bundle that ABG executed
 
 ---
 
 ## INT-007 — V2 Semantic Correction: Job, Role, Worker, and Run
 
 **Date**: 2026-03-25
-**Status**: Draft
+**Status**: Approved
 **Derived from**: Product-owner gap analysis of V2 semantic incompleteness, Codex strategy `20260325T183500_STRATEGY_job-role-worker-requirement-cascade.md`
 **Renewal path**: Current V2 spec → gap analysis → this intent correction (per SPEC_METHOD.md §Renewal Path)
 

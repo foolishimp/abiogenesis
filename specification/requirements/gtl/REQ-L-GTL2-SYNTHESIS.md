@@ -28,3 +28,5 @@ GTL may declare lawful synthesis/refinement points where consumer logic can prod
 **REQ-L-GTL2-SYNTHESIS-006**: Deferred synthesis/refinement shall carry enough structural truth that an interpreter can record replayable provenance for which boundary was refined and what graph/function was applied. The recording obligation belongs to the engine.
 
 **REQ-L-GTL2-SYNTHESIS-007**: A synthesis/refinement boundary may be triggered by evaluator outcomes or aggregate convergence results declared through GTL/domain surfaces. GTL declares the boundary and trigger visibility; ABG executes the protocol; the engine does not invent the trigger semantics.
+
+**REQ-L-GTL2-SYNTHESIS-008**: When a synthesis/refinement boundary materializes a graph function or a graph-derived companion bundle, the boundary shall preserve the published graph-function identity and the declared materialization profile or inputs used to derive that result.

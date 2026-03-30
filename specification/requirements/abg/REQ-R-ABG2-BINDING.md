@@ -31,3 +31,5 @@ The binding rule is:
 **REQ-R-ABG2-BINDING-005**: Authentication and authority resolution are external. ABG consumes resolved identity/authority inputs and records them; it does not implement those systems.
 
 **REQ-R-ABG2-BINDING-006**: Binding provenance shall be replayable from engine truth.
+
+**REQ-R-ABG2-BINDING-007**: When ABG realizes work over a graph materialized from a published graph function, the binding surface shall preserve the graph-function and materialization references associated to the executable graph/job boundary.

@@ -28,3 +28,7 @@ ABG preserves spec, workflow, version, and selection provenance over graph inter
 **REQ-R-ABG2-PROVENANCE-006**: When evaluation or harvest occurs over explicit rounds, candidate sets, or worker/evaluator sets, provenance shall preserve the round identity and the relevant set references needed for replay and audit.
 
 **REQ-R-ABG2-PROVENANCE-007**: When a named structural profile or harvest/merge alternative is selected for a contract boundary, provenance shall record the declared profile/alternative identity, the selecting mechanism, and any rationale supplied by the active evaluator or external selector.
+
+**REQ-R-ABG2-PROVENANCE-008**: When execution or convergence operates on a graph materialized from a published graph function, provenance shall record the graph-function identity and the materialization identity or equivalent declared input/profile references needed for replay.
+
+**REQ-R-ABG2-PROVENANCE-009**: When ABG executes or evaluates a graph-derived companion bundle such as a selected subgraph or evaluator bundle, provenance shall preserve the derivation chain back to the graph-function materialization that produced that bundle.

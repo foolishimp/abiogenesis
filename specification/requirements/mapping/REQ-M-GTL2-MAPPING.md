@@ -20,3 +20,7 @@ Define how GTL programs map onto engine surfaces. ABG is canonical; other engine
 **REQ-M-GTL2-MAPPING-002**: Other engines (Temporal, Prefect, Step Functions) may serve as alternate mapping targets with full, partial, or capability-profile mappings.
 
 **REQ-M-GTL2-MAPPING-003**: The mapping layer shall preserve GTL semantics — engine-specific behavior shall not alter language-level truth.
+
+**REQ-M-GTL2-MAPPING-004**: When GTL programs publish graph functions, canonical engine mapping shall define how those graph functions are materialized into executable graph surfaces before execution or evaluation binding.
+
+**REQ-M-GTL2-MAPPING-005**: The mapping layer may expose graph-derived companion bundles, such as selected subgraphs or evaluator bundles, so long as those bundles remain traceable to the published graph-function and do not replace graph as language-level truth.

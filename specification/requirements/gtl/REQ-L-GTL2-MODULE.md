@@ -20,3 +20,5 @@ Module is the top-level organizational unit. Modules may be published as reusabl
 **REQ-L-GTL2-MODULE-002**: Modules may be published as reusable workflow libraries. Imported graph functions, jobs, and roles must preserve interface truth, declared role semantics, and module provenance.
 
 **REQ-L-GTL2-MODULE-003**: The current `Package` concept is subsumed by `Module` as the graph/module carrier.
+
+**REQ-L-GTL2-MODULE-004**: When a module publishes graph functions, their identities, outer contracts, and materialization-visible metadata shall remain inspectable to importing consumers rather than collapsing into anonymous realized graphs.
