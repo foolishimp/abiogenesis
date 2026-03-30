@@ -49,9 +49,11 @@ It owns three declaration types:
 @dataclass(frozen=True)
 class Attr:
     key: str
-    value: str
+    value: Any
 
-type Attrs = tuple[Attr, ...]
+@dataclass(frozen=True)
+class Attrs(Mapping[str, Any]):
+    entries: tuple[Attr, ...] = ()
 
 @dataclass(frozen=True)
 class ContractRef:

@@ -15,10 +15,10 @@ implements_features:
   - REQ-L-GTL2-SELECTION-BOUNDARY
   - REQ-L-GTL2-ENGINE-INDEPENDENCE
 primary_surfaces:
-  - build_tenants/abiogenesis/python/code/gtl/work_model.py
-  - build_tenants/abiogenesis/python/code/gtl/module_model.py
-  - build_tenants/abiogenesis/python/code/gtl_spec/packages/abiogenesis.py
-  - build_tenants/abiogenesis/python/code/gtl_spec/packages/project_package.py
+  - gtl.work_model
+  - gtl.module_model
+  - gtl_spec.packages.abiogenesis
+  - gtl_spec.packages.project_package
 interfaces:
   - ContractRef
   - Role

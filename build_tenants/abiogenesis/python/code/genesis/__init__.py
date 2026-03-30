@@ -9,6 +9,7 @@ Consumes Module, Graph, GraphVector, Node natively.
     interpret    — Traversal, traverse, schedule, apply_selection
     services     — Scope, module_to_executable_jobs, start, iterate_edge, gaps
     selection    — enumerate_candidates, validate_selection, SelectionDecision
+    materialization — explicit graph-function materialization and derived companion bundles
     provenance   — provenance_snapshot
     events       — EventStream, emit
     projection   — project

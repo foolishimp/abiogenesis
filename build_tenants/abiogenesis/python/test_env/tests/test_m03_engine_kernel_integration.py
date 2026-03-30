@@ -21,7 +21,7 @@ import pytest
 from gtl.function_model import CandidateFamily, GraphFunction, RefinementBoundary
 from gtl.graph import Graph, GraphVector, Node
 from gtl.module_model import Module
-from gtl.operator_model import Evaluator, F_D, F_P, Rule
+from gtl.operator_model import Evaluator, F_D, F_H, F_P, Rule
 from gtl.work_model import ContractRef, Job, Role
 
 from genesis.binding import PrecomputedManifest, WorkSurface, Worker, module_to_executable_jobs
@@ -30,6 +30,13 @@ from genesis.convergence import convergence_from_precomputed, outcomes_from_prec
 from genesis.events import EventStream
 from genesis.install import workspace_bootstrap
 from genesis.interpret import Traversal, TraversalRuntime, traverse
+from genesis.materialization import (
+    CompanionBundle,
+    MaterializationRecord,
+    MaterializationRequest,
+    derive_bundle,
+    materialize_graph_function,
+)
 from genesis.provenance import req_hash
 from genesis.projection import project
 from genesis.run import find_pending_run, run_state
@@ -38,12 +45,7 @@ from genesis.services import Scope, gen_gaps
 
 
 def _graph_function(name: str, graph: Graph) -> GraphFunction:
-    return GraphFunction(
-        name=name,
-        inputs=graph.inputs,
-        outputs=graph.outputs,
-        template=lambda graph=graph: graph,
-    )
+    return GraphFunction.from_graph(name=name, graph=graph)
 
 
 def _precomputed(job, *, failing=(), passing=()) -> PrecomputedManifest:
@@ -214,12 +216,72 @@ class TestM03EngineKernelIntegration:
         workflow_selected = next(event for event in events if event["event_type"] == "workflow_selected")
         assert workflow_selected["data"]["graph_function"] == "mvp_profile"
         assert workflow_selected["data"]["work_key"] == outer.id
+        assert workflow_selected["data"]["materialization_id"] == outcome.result["materialization_id"]
+        assert workflow_selected["data"]["evaluator_bundle"] == ["profile_review"]
 
         spawned = [event for event in events if event["event_type"] == "work_spawned"]
         assert {event["data"]["child_key"] for event in spawned} == {
             f"{outer.id}/design→prototype",
             f"{outer.id}/prototype→code",
         }
+
+    def test_materialization_kernel_records_replayable_identity_and_derived_bundles(self) -> None:
+        design = Node(name="design", schema="DesignDoc")
+        code = Node(name="code", schema="Code")
+        quality_gate = Evaluator("quality_gate", F_D, binding="exec://python -c 'import sys; sys.exit(0)'")
+        review = Evaluator("review", F_P, "review closes the remaining ambiguity")
+        graph = Graph(
+            name="delivery_profile",
+            inputs=(design,),
+            outputs=(code,),
+            nodes=(design, code),
+            vectors=(GraphVector("design→code", design, code, evaluators=(quality_gate, review)),),
+        )
+        function = _graph_function("delivery_profile", graph)
+        module = Module(
+            name="m03_materialization",
+            graph_functions=(function,),
+        )
+
+        request = MaterializationRequest(graph_function="delivery_profile")
+        record = materialize_graph_function(request, module)
+        selected_subgraph = derive_bundle(record, "selected_subgraph")
+        evaluator_bundle = derive_bundle(record, "evaluator_bundle")
+        profile_manifest = derive_bundle(record, "profile_manifest")
+
+        assert isinstance(record, MaterializationRecord)
+        assert record.graph == graph
+        assert record.graph_function == "delivery_profile"
+        assert record.template_kind == "inline_graph"
+        assert record.parameters == request.parameters
+        assert isinstance(selected_subgraph, CompanionBundle)
+        assert selected_subgraph.values["vectors"] == ("design→code",)
+        assert evaluator_bundle.values["evaluators"] == ("quality_gate", "review")
+        assert profile_manifest.values["template_ref"] == function.template.ref
+
+    def test_materialization_kernel_fails_closed_on_undeclared_profiles_and_parameters(self) -> None:
+        design = Node(name="design", schema="DesignDoc")
+        code = Node(name="code", schema="Code")
+        graph = Graph(
+            name="delivery_profile",
+            inputs=(design,),
+            outputs=(code,),
+            nodes=(design, code),
+            vectors=(GraphVector("design→code", design, code),),
+        )
+        function = _graph_function("delivery_profile", graph)
+        module = Module(name="m03_materialization", graph_functions=(function,))
+
+        with pytest.raises(ValueError, match="profiles are not yet declared"):
+            materialize_graph_function(
+                MaterializationRequest(graph_function="delivery_profile", profile="dev"),
+                module,
+            )
+        with pytest.raises(ValueError, match="structural parameters are not yet declared"):
+            materialize_graph_function(
+                MaterializationRequest(graph_function="delivery_profile", parameters={"mode": "strict"}),
+                module,
+            )
 
     def test_iterated_traversal_emits_run_binding_dispatch_and_replay_state(self, tmp_path: Path) -> None:
         raw_contract = Node(name="raw_contract", schema="ContractInput")
@@ -279,6 +341,7 @@ class TestM03EngineKernelIntegration:
             spec_hash="spec-m03-iterate",
             build=scope.build,
             work_key=vector.id,
+            workflow_version="m03.test@1.1.0",
             run_id="run-m03-fp",
         )
 
@@ -299,6 +362,10 @@ class TestM03EngineKernelIntegration:
 
         event_types = _event_types(stream)
         assert event_types[:4] == ["run_bound", "run_started", "edge_started", "fp_dispatched"]
+        for event in stream.all_events():
+            assert event["data"]["workflow_version"] == "m03.test@1.1.0"
+            assert event["data"]["work_key"] == vector.id
+            assert event["data"]["run_id"] == "run-m03-fp"
 
         pending = find_pending_run(stream.all_events(), vector.name, work_key=vector.id)
         assert pending is not None
@@ -326,11 +393,12 @@ class TestM03EngineKernelIntegration:
         code = Node(name="code", schema="Code")
         fd_gate = Evaluator("fd_gate", F_D, binding="exec://python -c 'import sys; sys.exit(0)'")
         fp_judge = Evaluator("fp_judge", F_P, "agent review closes the remaining delta")
+        fh_review = Evaluator("fh_review", F_H, "human review closes the remaining delta")
         vector = GraphVector(
             name="design→code",
             source=design,
             target=code,
-            evaluators=(fd_gate, fp_judge),
+            evaluators=(fd_gate, fp_judge, fh_review),
         )
         graph = Graph(
             name="m03_convergence",
@@ -354,7 +422,7 @@ class TestM03EngineKernelIntegration:
         fd_frontier = _precomputed(
             executable_job,
             failing=(fd_gate,),
-            passing=(fp_judge,),
+            passing=(fp_judge, fh_review),
         )
         fd_result = convergence_from_precomputed(vector.id, fd_frontier)
         assert fd_result.aggregate_state == "open"
@@ -364,15 +432,15 @@ class TestM03EngineKernelIntegration:
         fp_frontier = _precomputed(
             executable_job,
             failing=(fp_judge,),
-            passing=(fd_gate,),
+            passing=(fd_gate, fh_review),
         )
         fp_result = convergence_from_precomputed(vector.id, fp_frontier)
         assert fp_result.aggregate_state == "open"
-        assert fp_result.next_action == "continue"
-        assert fp_result.next_regime is None
+        assert fp_result.next_action == "escalate"
+        assert fp_result.next_regime is F_H
 
         outcomes = outcomes_from_precomputed(vector.id, fp_frontier)
-        assert [outcome.status for outcome in outcomes] == ["pass", "open"]
+        assert [outcome.status for outcome in outcomes] == ["pass", "open", "pass"]
 
     def test_projection_is_replay_deterministic_for_same_stream_state(self, tmp_path: Path) -> None:
         stream = workspace_bootstrap(tmp_path)

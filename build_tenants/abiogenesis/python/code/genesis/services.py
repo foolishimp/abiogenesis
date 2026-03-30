@@ -35,7 +35,7 @@ from .binding import (
 )
 from .convergence import convergence_from_precomputed, outcomes_from_precomputed, unresolved_fraction
 from .correction import find_latest_reset
-from .events import EventStream
+from .events import EventContext, EventStream
 from .identity import RuntimeIdentity
 from .interpret import (
     Traversal,
@@ -43,7 +43,7 @@ from .interpret import (
     traverse,
 )
 from .lineage import WorkInstance, _discover_children, active_work_keys
-from .provenance import req_hash, executable_job_hash, job_evaluator_hash, _read_workflow_version
+from .provenance import _read_workflow_version, spec_hash_for
 from .selection import (
     resolve_candidate_family,
     resolve_refinement_boundary,
@@ -215,7 +215,6 @@ def gen_gaps(scope: Scope, stream: EventStream) -> dict:
 
     Returns: jobs considered, failing evaluators per job, total delta.
     """
-    stream.workflow_version = scope.workflow_version
     resolver = ContextResolver(scope.workspace_root)
     worker = _resolve_worker(scope)
     jobs = _scoped_jobs(scope, worker)
@@ -251,15 +250,14 @@ def gen_gaps(scope: Scope, stream: EventStream) -> dict:
 
     results = []
     for job in jobs:
-        if scope.workflow_version == "unknown":
-            spec_hash = req_hash(scope.module.metadata.get("requirements", []))
-        else:
-            spec_hash = job_evaluator_hash(job)
+        spec_hash = spec_hash_for(
+            workflow_version=scope.workflow_version,
+            executable_job=job,
+            requirements=scope.module.metadata.get("requirements", ()),
+        )
         for wk in work_key_list:
             if not _work_key_matches_job(wk, job):
                 continue
-            # Set stream identity for any events emitted under this work_key
-            stream.work_key = wk
             pre = bind_fd(
                 job, stream, resolver, scope.workspace_root,
                 spec_hash=spec_hash,
@@ -292,12 +290,17 @@ def gen_gaps(scope: Scope, stream: EventStream) -> dict:
                     "delta": 0,
                     "certified_by": "gen_gaps",
                 }
-                # ADR-027: run_id is auto-injected by EventStream if stream.run_id
-                # is set. For gen_gaps, run_id may not be set — that's correct:
                 # edge_converged from gen_gaps is a certification, not a run event.
-                # run_state() should NOT require edge_converged to carry run_id —
-                # convergence is derived from assessed events, not certificates.
-                stream.append("edge_converged", cert)
+                # We propagate workflow/work_key context explicitly, but do not attach
+                # a run_id because convergence certificates are not run lifecycle events.
+                stream.append(
+                    "edge_converged",
+                    cert,
+                    context=EventContext(
+                        workflow_version=scope.workflow_version,
+                        work_key=wk,
+                    ),
+                )
                 certified_keys.add((job.vector.name, cert_key))
 
     total_delta = sum(r["delta"] for r in results)
@@ -333,7 +336,6 @@ def gen_iterate(
     One Job. One Asset. One iterate call.
     When work_keys are active, selects the first unconverged (job, work_key) pair.
     """
-    stream.workflow_version = scope.workflow_version
     resolver = ContextResolver(scope.workspace_root)
     worker = _resolve_worker(scope)
     jobs = _scoped_jobs(scope, worker)
@@ -375,10 +377,11 @@ def gen_iterate(
         # ADR-030 §5: conjunctive eligibility — skip jobs this worker cannot realize.
         if not scope.worker.is_eligible(job):
             continue
-        if scope.workflow_version == "unknown":
-            spec_hash = req_hash(scope.module.metadata.get("requirements", []))
-        else:
-            spec_hash = job_evaluator_hash(job)
+        spec_hash = spec_hash_for(
+            workflow_version=scope.workflow_version,
+            executable_job=job,
+            requirements=scope.module.metadata.get("requirements", ()),
+        )
         for wk in work_key_list:
             if not _work_key_matches_job(wk, job):
                 continue
@@ -533,10 +536,11 @@ def _derive_state(scope: Scope, stream: EventStream) -> dict:
 
     total_delta = 0.0
     for wi in instances:
-        if scope.workflow_version == "unknown":
-            spec_hash = req_hash(scope.module.metadata.get("requirements", []))
-        else:
-            spec_hash = executable_job_hash(wi.executable_job)
+        spec_hash = spec_hash_for(
+            workflow_version=scope.workflow_version,
+            executable_job=wi.executable_job,
+            requirements=scope.module.metadata.get("requirements", ()),
+        )
         pre = bind_fd(
             wi.executable_job,
             stream,
@@ -574,7 +578,7 @@ def _resolve_worker(scope: Scope) -> Worker:
     return scope.worker
 
 
-def _scoped_jobs(scope: Scope, worker: Worker) -> list[Job]:
+def _scoped_jobs(scope: Scope, worker: Worker) -> list[ExecutableJob]:
     """
     Return jobs from worker.can_execute, filtered by scope overrides.
 

@@ -36,13 +36,7 @@ from genesis.services import Scope
 
 
 def _graph_function(name: str, graph: Graph, *, tags: tuple[str, ...] = ()) -> GraphFunction:
-    return GraphFunction(
-        name=name,
-        inputs=graph.inputs,
-        outputs=graph.outputs,
-        template=lambda graph=graph: graph,
-        tags=tags,
-    )
+    return GraphFunction.from_graph(name=name, graph=graph, tags=tags)
 
 
 def _precomputed(job, *, failing=(), passing=()) -> PrecomputedManifest:

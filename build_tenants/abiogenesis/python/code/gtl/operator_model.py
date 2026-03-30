@@ -13,6 +13,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
+from gtl.graph import Attrs
+
 
 # ── Regime hierarchy ──────────────────────────────────────────────────────
 
@@ -83,5 +85,8 @@ class Rule:
     """
     name: str
     kind: str = "policy"         # "consensus", "coverage", "policy", etc.
-    config: dict = field(default_factory=dict)
+    config: Attrs = field(default_factory=Attrs)
     tags: tuple[str, ...] = ()
+
+    def __post_init__(self):
+        object.__setattr__(self, "config", Attrs.coerce(self.config))

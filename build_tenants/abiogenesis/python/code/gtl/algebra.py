@@ -13,8 +13,8 @@ Pure functions over GTL graph types. No engine/runtime dependency.
 """
 from __future__ import annotations
 
-from gtl.graph import Graph, Node, GraphVector
-from gtl.function_model import GraphFunction, RefinementBoundary, CandidateFamily
+from gtl.graph import Attrs, Graph, Node, GraphVector, node_contract_key
+from gtl.function_model import CandidateFamily, GraphFunction, RefinementBoundary, TemplateRef
 from gtl.operator_model import Evaluator, Rule
 
 
@@ -39,6 +39,37 @@ def _is_vector_boundary(node: Node) -> bool:
     return isinstance(schema, str) and schema.strip().startswith("Vector[") and schema.strip().endswith("]")
 
 
+def _merge_attrs(*values: Attrs) -> Attrs:
+    merged: dict[str, object] = {}
+    for attrs in values:
+        for key, value in attrs.items():
+            if key in merged and merged[key] != value:
+                raise ValueError(f"Conflicting structured declaration for {key!r}")
+            merged[key] = value
+    return Attrs.coerce(merged)
+
+
+def _node_contract_map(nodes: tuple[Node, ...]) -> dict[str, tuple[str, str, tuple[str, ...]]]:
+    return {node.name: node_contract_key(node) for node in nodes}
+
+
+def _evaluator_decl(evaluator: Evaluator) -> dict[str, object]:
+    return {
+        "name": evaluator.name,
+        "regime": evaluator.regime.__name__,
+        "binding": evaluator.binding,
+        "description": evaluator.description,
+    }
+
+
+def _rule_decl(rule: Rule) -> dict[str, object]:
+    return {
+        "name": rule.name,
+        "kind": rule.kind,
+        "config": rule.config.to_dict(),
+    }
+
+
 def edge(source: Node, target: Node, *, operators=(), evaluators=(), **kw) -> Graph:
     """Construct a minimal one-vector graph (DSL sugar)."""
     vector = GraphVector(
@@ -60,9 +91,7 @@ def edge(source: Node, target: Node, *, operators=(), evaluators=(), **kw) -> Gr
 
 def _materialize(gf: GraphFunction) -> Graph:
     """Materialize a GraphFunction's template into a Graph."""
-    if callable(gf.template):
-        return gf.template()
-    raise ValueError(f"Cannot materialize non-callable template: {gf.template!r}")
+    return gf.materialize()
 
 
 # ── Composition ──────────────────────────────────────────────────────────────
@@ -70,51 +99,60 @@ def _materialize(gf: GraphFunction) -> Graph:
 
 def _compose_pair(f: GraphFunction, g: GraphFunction) -> GraphFunction:
     """Binary composition: f;g where f.outputs satisfy g.inputs."""
-    f_output_names = {n.name for n in f.outputs}
-    g_input_names = {n.name for n in g.inputs}
+    f_output_contracts = _node_contract_map(f.outputs)
+    g_input_contracts = _node_contract_map(g.inputs)
 
-    missing = g_input_names - f_output_names
+    missing = set(g_input_contracts) - set(f_output_contracts)
     if missing:
         raise ValueError(
             f"compose({f.name}, {g.name}): g.inputs not satisfied by f.outputs — "
             f"missing: {sorted(missing)}"
         )
+    mismatched = sorted(
+        name
+        for name, contract in g_input_contracts.items()
+        if f_output_contracts.get(name) != contract
+    )
+    if mismatched:
+        raise ValueError(
+            f"compose({f.name}, {g.name}): g.inputs not structurally satisfied by f.outputs — "
+            f"mismatched: {mismatched}"
+        )
 
-    g_output_names = {n.name for n in g.outputs}
-    pass_throughs = g_input_names & g_output_names
-    duplicates = (f_output_names & g_output_names) - pass_throughs
+    g_output_contracts = _node_contract_map(g.outputs)
+    pass_throughs = set(g_input_contracts) & set(g_output_contracts)
+    duplicates = (set(f_output_contracts) & set(g_output_contracts)) - pass_throughs
     if duplicates:
         raise ValueError(
             f"compose({f.name}, {g.name}): duplicate output names: {sorted(duplicates)}"
         )
 
-    if callable(f.template) and callable(g.template):
-        _f, _g = f, g
-
-        def _composed_template() -> Graph:
-            fg = _materialize(_f)
-            gg = _materialize(_g)
-            node_map = {n.name: n for n in fg.nodes}
-            for n in gg.nodes:
-                if n.name not in node_map:
-                    node_map[n.name] = n
-            all_vectors = fg.vectors + gg.vectors
-            ctx_map = {c.name: c for c in fg.contexts}
-            for c in gg.contexts:
-                if c.name not in ctx_map:
-                    ctx_map[c.name] = c
-            return Graph(
-                name=f"{_f.name};{_g.name}",
+    try:
+        fg = _materialize(f)
+        gg = _materialize(g)
+    except ValueError:
+        template = TemplateRef.symbolic(f"compose:{f.template.ref};{g.template.ref}")
+    else:
+        node_map = {n.name: n for n in fg.nodes}
+        for n in gg.nodes:
+            if n.name not in node_map:
+                node_map[n.name] = n
+        all_vectors = fg.vectors + gg.vectors
+        ctx_map = {c.name: c for c in fg.contexts}
+        for c in gg.contexts:
+            if c.name not in ctx_map:
+                ctx_map[c.name] = c
+        template = TemplateRef.inline_graph(
+            Graph(
+                name=f"{f.name};{g.name}",
                 inputs=fg.inputs,
                 outputs=gg.outputs,
                 nodes=tuple(node_map.values()),
                 vectors=tuple(all_vectors),
                 contexts=tuple(ctx_map.values()),
-            )
-
-        template = _composed_template
-    else:
-        template = f"{f.name};{g.name}"
+            ),
+            ref=f"compose:{f.name};{g.name}",
+        )
 
     return GraphFunction(
         name=f"{f.name};{g.name}",
@@ -122,6 +160,7 @@ def _compose_pair(f: GraphFunction, g: GraphFunction) -> GraphFunction:
         outputs=g.outputs,
         template=template,
         effects=_stable_union(f.effects, g.effects),
+        declarations=_merge_attrs(f.declarations, g.declarations),
         tags=_stable_union(f.tags, g.tags),
     )
 
@@ -160,26 +199,28 @@ def substitute(outer: Graph, contract_vector: str, inner: Graph) -> Graph:
             f"substitute(): vector {contract_vector!r} not found in graph {outer.name!r}"
         )
 
+    inner_input_contracts = {
+        node_contract_key(node)
+        for node in inner.inputs
+    }
     if isinstance(target_vec.source, tuple):
-        vec_source_names = {n.name for n in target_vec.source}
+        vec_source_contracts = {node_contract_key(node) for node in target_vec.source}
     elif target_vec.source is not None:
-        vec_source_names = {target_vec.source.name}
+        vec_source_contracts = {node_contract_key(target_vec.source)}
     else:
-        vec_source_names = set()
-
-    inner_input_names = {n.name for n in inner.inputs}
-    if not inner_input_names <= vec_source_names:
+        vec_source_contracts = set()
+    if not inner_input_contracts <= vec_source_contracts:
         raise ValueError(
-            f"substitute(): inner.inputs {sorted(inner_input_names)} not subset of "
-            f"vector source {sorted(vec_source_names)}"
+            f"substitute(): inner.inputs {sorted(inner_input_contracts)!r} not subset of "
+            f"vector source {sorted(vec_source_contracts)!r}"
         )
 
-    inner_output_names = {n.name for n in inner.outputs}
-    vec_target_name = target_vec.target.name if target_vec.target else ""
-    if vec_target_name and vec_target_name not in inner_output_names:
+    inner_output_contracts = {node_contract_key(node) for node in inner.outputs}
+    vec_target_contract = node_contract_key(target_vec.target) if target_vec.target else None
+    if vec_target_contract is not None and vec_target_contract not in inner_output_contracts:
         raise ValueError(
-            f"substitute(): vector target {vec_target_name!r} not in "
-            f"inner.outputs {sorted(inner_output_names)}"
+            f"substitute(): vector target {vec_target_contract!r} not in "
+            f"inner.outputs {sorted(inner_output_contracts)!r}"
         )
 
     merged_vectors_list = []
@@ -238,6 +279,10 @@ def recurse(graph_function: GraphFunction, termination: Evaluator) -> GraphFunct
         outputs=graph_function.outputs,
         template=graph_function.template,
         effects=graph_function.effects,
+        declarations=_merge_attrs(
+            graph_function.declarations,
+            Attrs.coerce({"recursion": {"termination": _evaluator_decl(termination)}}),
+        ),
         tags=_stable_union(graph_function.tags, (f"termination:{termination.name}",)),
     )
 
@@ -262,6 +307,7 @@ def fan_out(f: GraphFunction, *, over: Node) -> GraphFunction:
         outputs=(over,),
         template=f.template,
         effects=f.effects,
+        declarations=f.declarations,
         tags=_stable_union(f.tags, (f"over:{over.name}",)),
     )
 
@@ -282,6 +328,7 @@ def fan_in(reducer: GraphFunction, *, over: Node) -> GraphFunction:
         outputs=reducer.outputs,
         template=reducer.template,
         effects=reducer.effects,
+        declarations=reducer.declarations,
         tags=_stable_union(reducer.tags, (f"over:{over.name}",)),
     )
 
@@ -302,6 +349,7 @@ def gate(
         raise ValueError("gate() requires at least one evaluator")
 
     target_effects = target.effects if isinstance(target, GraphFunction) else ()
+    target_declarations = target.declarations if isinstance(target, GraphFunction) else Attrs()
     target_tags = target.tags if hasattr(target, "tags") else ()
 
     return GraphFunction(
@@ -309,6 +357,19 @@ def gate(
         inputs=target.inputs,
         outputs=target.outputs,
         effects=target_effects,
+        declarations=_merge_attrs(
+            target_declarations,
+            Attrs.coerce(
+                {
+                    "gate": {
+                        "target": target.name,
+                        "target_kind": type(target).__name__,
+                        "rule": _rule_decl(rule),
+                        "evaluators": tuple(_evaluator_decl(evaluator) for evaluator in evaluators),
+                    }
+                }
+            ),
+        ),
         tags=_stable_union(target_tags, (f"rule:{rule.name}",)),
     )
 
@@ -336,7 +397,7 @@ def deferred_refinement(
     *,
     inputs: tuple[Node, ...],
     outputs: tuple[Node, ...],
-    hints: dict | None = None,
+    hints=None,
     tags: tuple[str, ...] = (),
 ) -> RefinementBoundary:
     """Declare a lawful refinement/synthesis boundary without embedding strategy."""
@@ -355,7 +416,7 @@ def candidate_family(
     inputs: tuple[Node, ...],
     outputs: tuple[Node, ...],
     candidates: tuple[GraphFunction, ...],
-    policy_hints: dict | None = None,
+    policy_hints=None,
     tags: tuple[str, ...] = (),
 ) -> CandidateFamily:
     """Declare a named family of lawful alternatives over one contract boundary.

@@ -15,13 +15,13 @@ from __future__ import annotations
 
 import json
 import uuid
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Callable, Optional
 
 from gtl.operator_model import Evaluator, Rule, F_D, F_H, F_P
-from gtl.graph import Graph, GraphVector
+from gtl.graph import Attrs, Graph, GraphVector
 from gtl.function_model import GraphFunction, RefinementBoundary, CandidateFamily
 from gtl.module_model import Module
 from gtl.algebra import substitute
@@ -35,8 +35,9 @@ from .binding import (
     bind_fp,
     module_to_executable_jobs,
 )
-from .events import EventStream
+from .events import EventContext, EventStream
 from .identity import RuntimeIdentity
+from .materialization import MaterializationRequest, derive_bundle, materialize_graph_function
 from .selection import (
     SelectionDecision,
     accept_selection,
@@ -60,9 +61,10 @@ class Traversal:
     evaluators: tuple[Evaluator, ...] = ()
     rule: Rule | None = None
     selection: SelectionDecision | None = None
-    metadata: dict = field(default_factory=dict)
+    metadata: Attrs = field(default_factory=Attrs)
 
     def __post_init__(self) -> None:
+        object.__setattr__(self, "metadata", Attrs.coerce(self.metadata))
         if not self.work_key:
             raise ValueError("Traversal.work_key must be non-empty")
         forbidden = {
@@ -157,9 +159,22 @@ def _boundary_inputs(vector: GraphVector) -> tuple:
     return vector.source if isinstance(vector.source, tuple) else (vector.source,)
 
 
-def _append_events(stream: EventStream, events: tuple[dict, ...] | list[dict]) -> None:
+def _event_context(runtime: TraversalRuntime, *, run_id: str | None = None) -> EventContext:
+    return EventContext(
+        workflow_version=runtime.workflow_version,
+        work_key=runtime.work_key,
+        run_id=run_id,
+    )
+
+
+def _append_events(
+    stream: EventStream,
+    events: tuple[dict, ...] | list[dict],
+    *,
+    context: EventContext | None = None,
+) -> None:
     for event in events:
-        stream.append(event["event_type"], event["data"])
+        stream.append(event["event_type"], event["data"], context=context)
 
 
 def _selection_outcome(
@@ -234,19 +249,10 @@ def _selection_outcome(
                         roles=parent_roles,
                     )
                 )
-    updated_module = Module(
-        name=runtime.module.name,
+    updated_module = replace(
+        runtime.module,
         graphs=updated_graphs,
-        graph_functions=runtime.module.graph_functions,
-        refinement_boundaries=runtime.module.refinement_boundaries,
-        candidate_families=runtime.module.candidate_families,
         jobs=tuple(ordered_jobs),
-        roles=runtime.module.roles,
-        operators=runtime.module.operators,
-        evaluators=runtime.module.evaluators,
-        rules=runtime.module.rules,
-        imports=runtime.module.imports,
-        metadata=runtime.module.metadata,
     )
     updated_worker = Worker(
         id=runtime.worker.id,
@@ -271,12 +277,13 @@ def _selection_outcome(
             },
         })
 
-    _append_events(runtime.stream, stream_events)
+    _append_events(runtime.stream, stream_events, context=_event_context(runtime))
 
     result = {
         "status": "selected",
         "edge": contract_edge,
         "graph_function": sel_result.graph_function,
+        "materialization_id": sel_result.materialization_id,
         "children_spawned": len(sel_result.inner_vectors),
         "reason": (
             f"Edge {contract_edge!r} refined via "
@@ -288,6 +295,8 @@ def _selection_outcome(
     next_metadata["traversal_outcome"] = {
         "status": "selected",
         "graph_function": sel_result.graph_function,
+        "materialization_id": sel_result.materialization_id,
+        "evaluator_bundle": sel_result.evaluator_bundle,
         "children_spawned": len(sel_result.inner_vectors),
     }
     return TraversalOutcome(
@@ -320,12 +329,10 @@ def _iterated_outcome(
 
     run_id = runtime.run_id or str(uuid.uuid4())
 
-    runtime.stream.work_key = runtime.work_key
-    runtime.stream.run_id = run_id
-
     ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S")
     edge_slug = vector.name.replace("→", "_").replace("↔", "_")
     manifest_id = f"{edge_slug}_{ts}"
+    event_context = _event_context(runtime, run_id=run_id)
 
     from .run import find_pending_run
 
@@ -381,7 +388,7 @@ def _iterated_outcome(
         run_bound_data["authority_ref"] = runtime.worker.authority_ref
     if runtime.work_key is not None:
         run_bound_data["work_key"] = runtime.work_key
-    runtime.stream.append("run_bound", run_bound_data)
+    runtime.stream.append("run_bound", run_bound_data, context=event_context)
 
     run_started_data: dict = {
         "edge": vector.name,
@@ -392,7 +399,7 @@ def _iterated_outcome(
     }
     if runtime.work_key is not None:
         run_started_data["work_key"] = runtime.work_key
-    runtime.stream.append("run_started", run_started_data)
+    runtime.stream.append("run_started", run_started_data, context=event_context)
 
     bound = bind_fp(pre, runtime.executable_job, result_path=result_path)
     bound.manifest_id = manifest_id
@@ -408,7 +415,7 @@ def _iterated_outcome(
         edge_started_data["backend_id"] = runtime.runtime_identity.backend_id
     if runtime.work_key is not None:
         edge_started_data["work_key"] = runtime.work_key
-    runtime.stream.append("edge_started", edge_started_data)
+    runtime.stream.append("edge_started", edge_started_data, context=event_context)
 
     iter_surface = _realize_iteration(
         bound,
@@ -418,7 +425,7 @@ def _iterated_outcome(
         leaf_task_inputs=runtime.leaf_task_inputs,
         run_id=run_id,
     )
-    _append_events(runtime.stream, iter_surface.events)
+    _append_events(runtime.stream, iter_surface.events, context=event_context)
 
     result: dict = {
         "status": "iterated",
@@ -477,6 +484,7 @@ def _iterated_outcome(
             ],
             "fd_results": pre.fd_results,
             "delta": pre.delta,
+            "unresolved_count": pre.unresolved_count,
             "delta_summary": pre.delta_summary,
             "contexts": contexts,
             "current_asset": pre.current_asset,
@@ -717,9 +725,11 @@ def schedule(workers: list[Worker]) -> list[list[Worker]]:
 class SelectionResult:
     """Outcome of apply_selection — the substituted graph and provenance."""
     graph_function: str
+    materialization_id: str
     substituted_graph: Graph
     containing_graph_id: str  # REQ-L-GTL2-IDENTITY-007: id of the graph being replaced
     inner_vectors: list[str]
+    evaluator_bundle: tuple[str, ...]
     events: list[dict]
 
 
@@ -772,12 +782,13 @@ def apply_selection(
             f"satisfy contract for vector id {vector_id!r}"
         )
 
-    # Materialize the candidate's inner graph
-    if not callable(candidate.template):
-        raise ValueError(
-            f"apply_selection: candidate {candidate.name!r} template is not callable"
-        )
-    inner_graph = candidate.template()
+    # Materialize the candidate's inner graph via the canonical kernel seam.
+    record = materialize_graph_function(
+        MaterializationRequest(graph_function=candidate.name),
+        module,
+    )
+    inner_graph = record.graph
+    evaluator_bundle = derive_bundle(record, "evaluator_bundle")
 
     # Apply substitute() by vector id (REQ-L-GTL2-IDENTITY-006)
     substituted = substitute(containing_graph, target_vec.id, inner_graph)
@@ -793,14 +804,18 @@ def apply_selection(
             "selection_mode": decision.selection_mode,
             "rationale": decision.rationale,
             "work_key": decision.work_key,
+            "materialization_id": record.materialization_id,
             "inner_vectors": inner_vector_names,
+            "evaluator_bundle": evaluator_bundle.values.get("evaluators", ()),
         },
     }]
 
     return SelectionResult(
         graph_function=decision.graph_function,
+        materialization_id=record.materialization_id,
         substituted_graph=substituted,
         containing_graph_id=containing_graph.id,
         inner_vectors=inner_vector_names,
+        evaluator_bundle=tuple(evaluator_bundle.values.get("evaluators", ())),
         events=events,
     )

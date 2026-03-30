@@ -35,8 +35,8 @@ from gtl.algebra import (
     recurse,
     substitute,
 )
-from gtl.function_model import GraphFunction
-from gtl.graph import Context, Graph, GraphVector, Node
+from gtl.function_model import GraphFunction, TemplateRef
+from gtl.graph import Attrs, Context, Graph, GraphVector, Node
 from gtl.operator_model import Evaluator, F_D, F_P, Rule
 
 
@@ -58,11 +58,11 @@ def _graph_function(
         vectors=vectors,
         contexts=contexts,
     )
-    return GraphFunction(
+    return GraphFunction.from_graph(
         name=name,
+        graph=graph,
         inputs=inputs,
         outputs=outputs,
-        template=lambda graph=graph: graph,
         effects=effects,
         tags=tags,
     )
@@ -110,7 +110,7 @@ class TestM01GtlCoreIntegration:
         )
 
         program = compose(requirements_to_design, design_to_code)
-        materialized = program.template()
+        materialized = program.materialize()
 
         assert program.inputs == (intent,)
         assert program.outputs == (code,)
@@ -123,12 +123,14 @@ class TestM01GtlCoreIntegration:
             "design→code",
         }
         assert [node.name for node in materialized.nodes].count("design") == 1
+        assert isinstance(program.template, TemplateRef)
+        assert program.template.kind == "inline_graph"
 
     def test_composition_rejects_incompatible_interfaces_and_identity_is_neutral(self) -> None:
         intent = Node(name="intent", schema="Intent")
         requirements = Node(name="requirements", schema="Requirements")
         design = Node(name="design", schema="Design")
-        review = Node(name="review", schema="Review")
+        mismatched_design = Node(name="design", schema="Review")
 
         requirements_to_design = _graph_function(
             "requirements_to_design",
@@ -138,12 +140,12 @@ class TestM01GtlCoreIntegration:
         )
         review_gate = _graph_function(
             "review_gate",
-            inputs=(review,),
+            inputs=(mismatched_design,),
             outputs=(design,),
-            vectors=(GraphVector("review→design", review, design),),
+            vectors=(GraphVector("design_review→design", mismatched_design, design),),
         )
 
-        with pytest.raises(ValueError, match="not satisfied"):
+        with pytest.raises(ValueError, match="structurally satisfied"):
             compose(requirements_to_design, review_gate)
 
         neutral = compose(requirements_to_design, identity((design,)))
@@ -173,7 +175,7 @@ class TestM01GtlCoreIntegration:
             vectors=(GraphVector("design→code", design, code, evaluators=(code_complete,)),),
         )
 
-        materialized = compose(requirements_to_design, design_to_code).template()
+        materialized = compose(requirements_to_design, design_to_code).materialize()
         vectors = {vector.name: vector for vector in materialized.vectors}
 
         assert tuple(evaluator.name for evaluator in vectors["requirements→design"].evaluators) == ("requirements_ok",)
@@ -307,6 +309,8 @@ class TestM01GtlCoreIntegration:
         assert "rule:harvest_gate" in harvest_program.tags
         assert "worker_pass" in harvest_program.effects
         assert "reduce" in harvest_program.effects
+        assert harvest_program.declarations["gate"]["rule"]["name"] == "harvest_gate"
+        assert harvest_program.declarations["gate"]["evaluators"][0]["name"] == "harvest_acceptance"
 
     def test_structural_alternatives_are_explicit_and_fail_closed(self) -> None:
         design = Node(name="design", schema="Design")
@@ -332,6 +336,7 @@ class TestM01GtlCoreIntegration:
         assert recursive.inputs == direct.inputs
         assert recursive.outputs == direct.outputs
         assert "termination:done" in recursive.tags
+        assert recursive.declarations["recursion"]["termination"]["name"] == "done"
 
         boundary = deferred_refinement(
             "design→code",
@@ -370,3 +375,53 @@ class TestM01GtlCoreIntegration:
                     ),
                 ),
             )
+
+    def test_public_gtl_metadata_surfaces_are_immutable_mappings(self) -> None:
+        design = Node(name="design", schema="Design")
+        code = Node(name="code", schema="Code")
+
+        direct = _graph_function(
+            "direct_profile",
+            inputs=(design,),
+            outputs=(code,),
+        )
+        boundary = deferred_refinement(
+            "design→code",
+            inputs=(design,),
+            outputs=(code,),
+            hints={"family": "delivery.profiles"},
+        )
+        family = candidate_family(
+            "design→code_profiles",
+            inputs=(design,),
+            outputs=(code,),
+            candidates=(direct,),
+            policy_hints={"default": "direct_profile"},
+        )
+
+        assert isinstance(boundary.hints, Attrs)
+        assert boundary.hints["family"] == "delivery.profiles"
+        assert isinstance(family.policy_hints, Attrs)
+        assert family.policy_hints["default"] == "direct_profile"
+
+    def test_callable_templates_are_coerced_into_inline_template_refs(self) -> None:
+        design = Node(name="design", schema="Design")
+        code = Node(name="code", schema="Code")
+        graph = Graph(
+            name="design_to_code",
+            inputs=(design,),
+            outputs=(code,),
+            nodes=(design, code),
+            vectors=(GraphVector("design→code", design, code),),
+        )
+
+        function = GraphFunction(
+            name="design_to_code",
+            inputs=(design,),
+            outputs=(code,),
+            template=lambda graph=graph: graph,
+        )
+
+        assert isinstance(function.template, TemplateRef)
+        assert function.template.kind == "inline_graph"
+        assert function.materialize() == graph

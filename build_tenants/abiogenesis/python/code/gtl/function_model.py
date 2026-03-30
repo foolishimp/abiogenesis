@@ -13,10 +13,68 @@ No external dependencies. Dataclasses + stdlib only.
 """
 from __future__ import annotations
 
+from collections.abc import Callable
 from dataclasses import dataclass, field
-from typing import Any, Callable
+from typing import Any
 
-from gtl.graph import Graph, Node, _mint_id
+from gtl.graph import Attrs, Graph, Node, _mint_id, interface_contract
+
+
+@dataclass(frozen=True)
+class TemplateRef:
+    """
+    Replayable template reference for graph-function publication truth.
+
+    inline_graph: embeds one immutable graph value for direct GTL tests and
+    purely declarative composition. symbolic: stable named reference resolved
+    later by an interpreter/materializer.
+    """
+    kind: str
+    ref: str
+    graph: Graph | None = None
+    version: str | None = None
+
+    @classmethod
+    def inline_graph(cls, graph: Graph, *, ref: str = "") -> "TemplateRef":
+        return cls(kind="inline_graph", ref=ref or graph.name, graph=graph)
+
+    @classmethod
+    def symbolic(cls, ref: str, *, version: str | None = None) -> "TemplateRef":
+        if not ref:
+            raise ValueError("TemplateRef.symbolic() requires a non-empty ref")
+        return cls(kind="symbolic", ref=ref, version=version)
+
+    def __post_init__(self) -> None:
+        if self.kind == "inline_graph":
+            if self.graph is None:
+                raise ValueError("TemplateRef(kind='inline_graph') requires graph")
+        elif self.kind == "symbolic":
+            if self.graph is not None:
+                raise ValueError("TemplateRef(kind='symbolic') must not embed graph")
+        else:
+            raise ValueError(f"Unsupported TemplateRef.kind: {self.kind!r}")
+
+    def materialize(self) -> Graph:
+        if self.kind == "inline_graph" and self.graph is not None:
+            return self.graph
+        raise ValueError(f"TemplateRef {self.ref!r} is symbolic and not directly materializable")
+
+
+def _coerce_template(template: Any, *, name: str) -> TemplateRef:
+    if isinstance(template, TemplateRef):
+        return template
+    if isinstance(template, Graph):
+        return TemplateRef.inline_graph(template, ref=f"inline:{name}")
+    if isinstance(template, str):
+        return TemplateRef.symbolic(template or f"symbolic:{name}")
+    if callable(template):
+        graph = template()
+        if not isinstance(graph, Graph):
+            raise TypeError(
+                f"GraphFunction({name!r}) callable template must materialize Graph, got {type(graph)!r}"
+            )
+        return TemplateRef.inline_graph(graph, ref=f"inline:{name}")
+    raise TypeError(f"Unsupported GraphFunction.template: {template!r}")
 
 
 @dataclass(frozen=True)
@@ -24,8 +82,9 @@ class GraphFunction:
     """
     Reusable named workflow abstraction — materializable graph template.
 
-    template: callable (Python DSL convenience) or serializable graph-template
-    reference (str). The semantic contract is "materializable graph template."
+    template: replayable template reference. Raw callables are coerced at
+    construction into inline graph references and do not remain the published
+    surface.
 
     id: opaque identity (REQ-L-GTL2-IDENTITY-001). Auto-minted.
     compare=False: structural equality ignores id (REQ-L-GTL2-IDENTITY-005).
@@ -33,10 +92,80 @@ class GraphFunction:
     name: str
     inputs: tuple[Node, ...] = ()
     outputs: tuple[Node, ...] = ()
-    template: Callable[..., Graph] | str = ""
+    template: TemplateRef | Graph | str | Callable[[], Graph] = ""
     effects: tuple = ()
+    declarations: Attrs = field(default_factory=Attrs)
     tags: tuple[str, ...] = ()
     id: str = field(default_factory=_mint_id, compare=False)
+
+    @classmethod
+    def from_graph(
+        cls,
+        *,
+        name: str,
+        graph: Graph,
+        inputs: tuple[Node, ...] = (),
+        outputs: tuple[Node, ...] = (),
+        effects: tuple = (),
+        declarations: Attrs = Attrs(),
+        tags: tuple[str, ...] = (),
+    ) -> "GraphFunction":
+        return cls(
+            name=name,
+            inputs=inputs or graph.inputs,
+            outputs=outputs or graph.outputs,
+            template=TemplateRef.inline_graph(graph, ref=f"inline:{name}"),
+            effects=effects,
+            declarations=declarations,
+            tags=tags,
+        )
+
+    @classmethod
+    def symbolic(
+        cls,
+        *,
+        name: str,
+        ref: str,
+        inputs: tuple[Node, ...] = (),
+        outputs: tuple[Node, ...] = (),
+        effects: tuple = (),
+        declarations: Attrs = Attrs(),
+        tags: tuple[str, ...] = (),
+        version: str | None = None,
+    ) -> "GraphFunction":
+        return cls(
+            name=name,
+            inputs=inputs,
+            outputs=outputs,
+            template=TemplateRef.symbolic(ref, version=version),
+            effects=effects,
+            declarations=declarations,
+            tags=tags,
+        )
+
+    def __post_init__(self) -> None:
+        template = _coerce_template(self.template, name=self.name)
+        object.__setattr__(self, "template", template)
+        object.__setattr__(self, "declarations", Attrs.coerce(self.declarations))
+        if template.kind == "inline_graph":
+            self._validate_outer_contract(template.graph)
+
+    def _validate_outer_contract(self, graph: Graph | None) -> None:
+        if graph is None:
+            return
+        if interface_contract(graph.inputs) != interface_contract(self.inputs):
+            raise ValueError(
+                f"GraphFunction({self.name!r}) inline graph inputs do not preserve outer contract"
+            )
+        if interface_contract(graph.outputs) != interface_contract(self.outputs):
+            raise ValueError(
+                f"GraphFunction({self.name!r}) inline graph outputs do not preserve outer contract"
+            )
+
+    def materialize(self) -> Graph:
+        graph = self.template.materialize()
+        self._validate_outer_contract(graph)
+        return graph
 
 
 @dataclass(frozen=True)
@@ -54,9 +183,12 @@ class RefinementBoundary:
     name: str
     inputs: tuple[Node, ...] = ()
     outputs: tuple[Node, ...] = ()
-    hints: dict = field(default_factory=dict)
+    hints: Attrs = field(default_factory=Attrs)
     tags: tuple[str, ...] = ()
     id: str = field(default_factory=_mint_id, compare=False)
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "hints", Attrs.coerce(self.hints))
 
 
 @dataclass(frozen=True)
@@ -77,23 +209,24 @@ class CandidateFamily:
     inputs: tuple[Node, ...] = ()
     outputs: tuple[Node, ...] = ()
     candidates: tuple[GraphFunction, ...] = ()
-    policy_hints: dict = field(default_factory=dict)
+    policy_hints: Attrs = field(default_factory=Attrs)
     tags: tuple[str, ...] = ()
     id: str = field(default_factory=_mint_id, compare=False)
 
     def __post_init__(self):
+        object.__setattr__(self, "policy_hints", Attrs.coerce(self.policy_hints))
         if not self.candidates:
             raise ValueError(
                 f"CandidateFamily({self.name!r}): empty candidates"
             )
-        family_in = {n.name for n in self.inputs}
-        family_out = {n.name for n in self.outputs}
+        family_in = interface_contract(self.inputs)
+        family_out = interface_contract(self.outputs)
         for c in self.candidates:
-            c_in = {n.name for n in c.inputs}
-            c_out = {n.name for n in c.outputs}
+            c_in = interface_contract(c.inputs)
+            c_out = interface_contract(c.outputs)
             if c_in != family_in or c_out != family_out:
                 raise ValueError(
                     f"CandidateFamily({self.name!r}): candidate {c.name!r} "
-                    f"contract ({sorted(c_in)}->{sorted(c_out)}) does not match "
-                    f"family contract ({sorted(family_in)}->{sorted(family_out)})"
+                    f"contract ({c_in!r}->{c_out!r}) does not match "
+                    f"family contract ({family_in!r}->{family_out!r})"
                 )

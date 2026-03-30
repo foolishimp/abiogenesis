@@ -862,13 +862,7 @@ def gsdlc_lite_module(workspace: Path) -> Module:
 
 
 def _graph_function(name: str, graph: Graph, *, tags: tuple[str, ...] = ()) -> GraphFunction:
-    return GraphFunction(
-        name=name,
-        inputs=graph.inputs,
-        outputs=graph.outputs,
-        template=lambda graph=graph: graph,
-        tags=tags,
-    )
+    return GraphFunction.from_graph(name=name, graph=graph, tags=tags)
 
 
 def gsdlc_lite_zoom_module(workspace: Path) -> Module:

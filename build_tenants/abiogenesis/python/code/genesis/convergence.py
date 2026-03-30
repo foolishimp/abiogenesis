@@ -141,12 +141,13 @@ def convergence_from_precomputed(
             round_index=round_index,
         )
     if F_P in failing_regimes:
+        next_regime = F_H if any(ev.regime is F_H for ev in precomputed.executable_job.evaluators) else None
         return ConvergenceResult(
             contract_id=contract_id,
             outcomes=outcomes,
             aggregate_state="open",
-            next_action="continue",
-            next_regime=None,
+            next_action="escalate" if next_regime is not None else "continue",
+            next_regime=next_regime,
             round_index=round_index,
         )
     return ConvergenceResult(
@@ -287,8 +288,7 @@ def parent_converged(
     """
     Check if a parent work_key is converged by checking all descendants.
 
-    REQ-F-FRAG-004 AC-3/AC-4: parent convergence is a projection
-    over all descendant convergence.
+    Parent convergence is a projection over descendant convergence.
     """
     events = stream.all_events()
     child_keys = _discover_children(events, parent_key)

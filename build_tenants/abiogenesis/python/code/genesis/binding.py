@@ -19,10 +19,11 @@ import re
 import subprocess
 import sys
 from dataclasses import dataclass, field
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
-from gtl.graph import GraphVector, Node, Context
+from gtl.graph import Attrs, GraphVector, Node, Context
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, F_D, F_H, F_P
 from gtl.work_model import Job as GtlJob, Role, ContractRef
@@ -53,7 +54,10 @@ class WorkSurface:
     context_emitted: tuple[Context, ...] = ()
     findings: tuple[dict, ...] = ()
     attestations: tuple[dict, ...] = ()
-    metadata: dict = field(default_factory=dict)
+    metadata: Attrs = field(default_factory=Attrs)
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "metadata", Attrs.coerce(self.metadata))
 
     def is_auditable(self) -> bool:
         return bool(
@@ -309,8 +313,15 @@ class PrecomputedManifest:
         return bool(self.failing_evaluators)
 
     @property
-    def delta(self) -> int:
+    def unresolved_count(self) -> int:
         return len(self.failing_evaluators)
+
+    @property
+    def delta(self) -> float:
+        total = len(self.executable_job.evaluators)
+        if total == 0:
+            return 0.0
+        return self.unresolved_count / total
 
 
 @dataclass
@@ -321,6 +332,16 @@ class BoundJob:
     prompt: str
     result_path: str = ""
     manifest_id: str = ""
+
+
+def _event_time_value(event: dict) -> datetime | None:
+    raw = event.get("event_time")
+    if not isinstance(raw, str) or not raw:
+        return None
+    try:
+        return datetime.fromisoformat(raw)
+    except ValueError:
+        return None
 
 
 # ── F_H gate — Event Calculus ────────────────────────────────────────────────
@@ -344,7 +365,7 @@ def bind_fh(
     if carry_forward is None:
         carry_forward = []
 
-    latest_approved_time = None
+    latest_approved_time: datetime | None = None
     found_approved = False
 
     for e in all_events:
@@ -364,14 +385,14 @@ def bind_fh(
                 continue
             if current_workflow_version == "unknown":
                 found_approved = True
-                latest_approved_time = e.get("event_time")
+                latest_approved_time = _event_time_value(e)
                 continue
 
             ev_wv = edata.get("workflow_version")
 
             if ev_wv == current_workflow_version:
                 found_approved = True
-                latest_approved_time = e.get("event_time")
+                latest_approved_time = _event_time_value(e)
                 continue
 
             for cf in carry_forward:
@@ -379,7 +400,7 @@ def bind_fh(
                         and cf.get("from_version") == ev_wv
                         and cf.get("work_key", None) == (work_key or None)):
                     found_approved = True
-                    latest_approved_time = e.get("event_time")
+                    latest_approved_time = _event_time_value(e)
                     break
 
     if not found_approved:
@@ -400,7 +421,8 @@ def bind_fh(
                     rev_wv = edata.get("workflow_version")
                     if rev_wv != current_workflow_version:
                         continue
-                if latest_approved_time is None or e.get("event_time", "") > latest_approved_time:
+                event_time = _event_time_value(e)
+                if latest_approved_time is None or (event_time is not None and event_time > latest_approved_time):
                     return False
 
     return True
@@ -424,9 +446,9 @@ def bind_fp_certified(
     are shadowed.
     """
     reset_boundary = find_latest_reset(all_events, edge=job.vector.name, work_key=work_key)
-    reset_time = reset_boundary.get("event_time", "") if reset_boundary else ""
+    reset_time = _event_time_value(reset_boundary) if reset_boundary else None
 
-    latest_assessed_time = None
+    latest_assessed_time: datetime | None = None
     found_assessed = False
 
     for e in all_events:
@@ -450,10 +472,11 @@ def bind_fp_certified(
                     continue
             elif edata.get("work_key") is not None:
                 continue
-            if reset_time and e.get("event_time", "") <= reset_time:
+            event_time = _event_time_value(e)
+            if reset_time is not None and event_time is not None and event_time <= reset_time:
                 continue
             found_assessed = True
-            latest_assessed_time = e.get("event_time")
+            latest_assessed_time = event_time
 
     if not found_assessed:
         return False
@@ -473,7 +496,8 @@ def bind_fp_certified(
                     rev_wv = edata.get("workflow_version")
                     if rev_wv != current_workflow_version:
                         continue
-                if latest_assessed_time is None or e.get("event_time", "") > latest_assessed_time:
+                event_time = _event_time_value(e)
+                if latest_assessed_time is None or (event_time is not None and event_time > latest_assessed_time):
                     return False
 
     return True
@@ -481,8 +505,7 @@ def bind_fp_certified(
 
 # ── F_D evaluator runner ──────────────────────────────────────────────────────
 
-import os as _os
-FD_TIMEOUT_SECONDS: int = int(_os.environ.get("FD_TIMEOUT_SECONDS", "120"))
+FD_TIMEOUT_SECONDS: int = int(os.environ.get("FD_TIMEOUT_SECONDS", "120"))
 
 
 def run_fd_evaluator(

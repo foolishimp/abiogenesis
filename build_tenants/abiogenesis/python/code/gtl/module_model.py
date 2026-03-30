@@ -11,7 +11,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
-from gtl.graph import Graph
+from gtl.graph import Attrs, Graph
 from gtl.operator_model import Operator, Evaluator, Rule
 from gtl.function_model import GraphFunction, RefinementBoundary, CandidateFamily
 from gtl.work_model import Job, Role
@@ -33,10 +33,8 @@ class Module:
     Module is a pure declaration boundary;
     runtime concerns (workers, requirements) belong to ABG.
 
-    metadata: mapping visible to policy/evaluator layers
-    (REQ-L-GTL2-MODULE-001). Attribute binding is frozen; dict contents
-    are conventionally immutable after construction (shallow freeze,
-    matching the accepted design in GTL_2_MODULE_DESIGN.md).
+    metadata: immutable mapping visible to policy/evaluator layers
+    (REQ-L-GTL2-MODULE-001).
     """
     name: str
     graphs: tuple[Graph, ...] = ()
@@ -49,4 +47,7 @@ class Module:
     evaluators: tuple[Evaluator, ...] = ()
     rules: tuple[Rule, ...] = ()
     imports: tuple[ModuleImport, ...] = ()
-    metadata: dict = field(default_factory=dict)
+    metadata: Attrs = field(default_factory=Attrs)
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "metadata", Attrs.coerce(self.metadata))

@@ -12,7 +12,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from gtl.graph import GraphVector
+from gtl.graph import GraphVector, interface_contract, node_contract_key
 from gtl.function_model import GraphFunction, RefinementBoundary, CandidateFamily
 from gtl.module_model import Module
 
@@ -28,25 +28,13 @@ class SelectionDecision:
     rationale: str = ""
 
 
-def _vector_source_names(vector: GraphVector) -> set[str]:
-    """Extract source node names from a vector (handles tuple sources)."""
-    if isinstance(vector.source, tuple):
-        return {n.name for n in vector.source}
-    elif vector.source is not None:
-        return {vector.source.name}
-    return set()
-
-
-def _vector_contract(vector: GraphVector) -> tuple[tuple[str, ...], tuple[str, ...]]:
+def _vector_contract(vector: GraphVector) -> tuple[tuple[tuple[str, str, tuple[str, ...]], ...], tuple[tuple[str, str, tuple[str, ...]], ...]]:
     source = vector.source if isinstance(vector.source, tuple) else (vector.source,)
-    return tuple(n.name for n in source), (vector.target.name,) if vector.target else ()
+    return interface_contract(source), interface_contract((vector.target,)) if vector.target else ()
 
 
 def _graph_function_contract(function: GraphFunction) -> tuple[tuple[str, ...], tuple[str, ...]]:
-    return (
-        tuple(node.name for node in function.inputs),
-        tuple(node.name for node in function.outputs),
-    )
+    return interface_contract(function.inputs), interface_contract(function.outputs)
 
 
 def validate_module_selection_surface(module: Module) -> None:
@@ -57,10 +45,7 @@ def validate_module_selection_surface(module: Module) -> None:
     must not infer selection topology from raw graph_functions.
     """
     family_contracts = {
-        (
-            tuple(node.name for node in family.inputs),
-            tuple(node.name for node in family.outputs),
-        )
+        (interface_contract(family.inputs), interface_contract(family.outputs))
         for family in module.candidate_families
     }
 
@@ -110,8 +95,8 @@ def resolve_refinement_boundary(
         boundary
         for boundary in module.refinement_boundaries
         if boundary.name == target_vec.name
-        and tuple(n.name for n in boundary.inputs) == vec_inputs
-        and tuple(n.name for n in boundary.outputs) == vec_outputs
+        and interface_contract(boundary.inputs) == vec_inputs
+        and interface_contract(boundary.outputs) == vec_outputs
     )
     if len(declared) > 1:
         raise ValueError(
@@ -163,8 +148,8 @@ def resolve_candidate_family(
     declared = tuple(
         family
         for family in module.candidate_families
-        if tuple(n.name for n in family.inputs) == vec_inputs
-        and tuple(n.name for n in family.outputs) == vec_outputs
+        if interface_contract(family.inputs) == vec_inputs
+        and interface_contract(family.outputs) == vec_outputs
     )
     if len(declared) > 1:
         raise ValueError(
@@ -194,13 +179,16 @@ def validate_selection(
     if decision.contract_id != vector.id:
         return False
 
-    vec_source_names = _vector_source_names(vector)
-    vec_target_name = vector.target.name if vector.target else ""
+    if isinstance(vector.source, tuple):
+        vec_source_contracts = {node_contract_key(node) for node in vector.source}
+    else:
+        vec_source_contracts = {node_contract_key(vector.source)}
+    vec_target_contract = node_contract_key(vector.target)
 
-    gf_input_names = {n.name for n in candidate.inputs}
-    gf_output_names = {n.name for n in candidate.outputs}
+    gf_input_contracts = {node_contract_key(node) for node in candidate.inputs}
+    gf_output_contracts = {node_contract_key(node) for node in candidate.outputs}
 
-    return gf_input_names <= vec_source_names and vec_target_name in gf_output_names
+    return gf_input_contracts <= vec_source_contracts and vec_target_contract in gf_output_contracts
 
 
 # ── V2 CandidateFamily-based selection ───────────────────────────────────────
@@ -236,10 +224,10 @@ def accept_selection(
         )
 
     # Interface check — candidate must satisfy family contract
-    family_in = {n.name for n in family.inputs}
-    family_out = {n.name for n in family.outputs}
-    cand_in = {n.name for n in candidate.inputs}
-    cand_out = {n.name for n in candidate.outputs}
+    family_in = interface_contract(family.inputs)
+    family_out = interface_contract(family.outputs)
+    cand_in = interface_contract(candidate.inputs)
+    cand_out = interface_contract(candidate.outputs)
     if cand_in != family_in or cand_out != family_out:
         raise ValueError(
             f"accept_selection(): candidate {candidate.name!r} interface "

@@ -12,6 +12,7 @@ Rules (ADR-005):
 from __future__ import annotations
 
 import json
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Optional
@@ -19,19 +20,26 @@ from typing import Any, Optional
 
 # ── EventStream ──────────────────────────────────────────────────────────────
 
+
+@dataclass(frozen=True)
+class EventContext:
+    """Explicit event annotation context for runtime provenance surfaces."""
+    workflow_version: str = "unknown"
+    work_key: Optional[str] = None
+    run_id: Optional[str] = None
+
+
 class EventStream:
     """
     Append-only event log. The foundational medium.
 
     Assets are projections of this stream — never stored objects.
     System assigns event_time at append — no caller can override it.
+    Runtime provenance is supplied explicitly per append via EventContext.
     """
 
     def __init__(self, path: Path) -> None:
         self.path = path
-        self.workflow_version: str = "unknown"
-        self.work_key: Optional[str] = None
-        self.run_id: Optional[str] = None
 
     @classmethod
     def open(cls, workspace: Path) -> "EventStream":
@@ -39,7 +47,13 @@ class EventStream:
         events_path = workspace / ".ai-workspace" / "events" / "events.jsonl"
         return cls(events_path)
 
-    def append(self, event_type: str, data: dict) -> dict:
+    def append(
+        self,
+        event_type: str,
+        data: dict,
+        *,
+        context: EventContext | None = None,
+    ) -> dict:
         """
         Write one event. Returns the written record.
 
@@ -47,12 +61,13 @@ class EventStream:
         Business times (effective_at, completed_at) live in data.
         """
         record_data = {**data}
-        if self.workflow_version != "unknown":
-            record_data.setdefault("workflow_version", self.workflow_version)
-        if self.work_key is not None:
-            record_data.setdefault("work_key", self.work_key)
-        if self.run_id is not None:
-            record_data.setdefault("run_id", self.run_id)
+        if context is not None:
+            if context.workflow_version != "unknown":
+                record_data.setdefault("workflow_version", context.workflow_version)
+            if context.work_key is not None:
+                record_data.setdefault("work_key", context.work_key)
+            if context.run_id is not None:
+                record_data.setdefault("run_id", context.run_id)
         record = {
             "event_time": datetime.now(timezone.utc).isoformat(),
             "event_type": event_type,

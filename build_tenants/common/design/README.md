@@ -1,13 +1,13 @@
 # Common Tenant Design
 
-This directory is reserved for shared tenant-local design law.
+This directory is reserved for shared capability design law.
 
-At the current migration stage, most active design authority still lives either in:
+Most active design authority lives either in:
 
 - `specification/` for constitutional language and engine law, or
-- the concrete tenant design surfaces under `build_tenants/abiogenesis/<variant>/design/`
+- realization-specific design roots outside `common`
 
-Promote material into `build_tenants/common/design/` only when it has become true shared realization law across multiple tenants.
+Promote material into `build_tenants/common/design/` only when it has become true shared realization law across multiple realizations.
 
 ## Shared Design Surface Map
 
@@ -17,8 +17,8 @@ The current shared-vs-tenant classification lives in:
 
 Use that surface to decide whether a design artifact belongs in:
 
-- `build_tenants/common/design/` as shared tenant-local law, or
-- `build_tenants/abiogenesis/<variant>/design/` as tenant-local realization detail
+- `build_tenants/common/design/` as shared capability law, or
+- a realization-specific design root as local implementation detail
 
 
 ## Shared Module Surfaces

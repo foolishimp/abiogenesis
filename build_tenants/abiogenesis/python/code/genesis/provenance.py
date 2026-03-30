@@ -2,13 +2,14 @@
 """
 provenance — Spec/workflow/selection provenance.
 
-req_hash, job_evaluator_hash, _read_workflow_version.
+req_hash, executable_job_hash, spec_hash_for, _read_workflow_version.
 """
 from __future__ import annotations
 
 import hashlib
 import json
 import re
+from collections.abc import Iterable
 from pathlib import Path
 
 from genesis.binding import ExecutableJob
@@ -52,6 +53,23 @@ def executable_job_hash(job: ExecutableJob) -> str:
 
 # Back-compat alias during migration
 job_evaluator_hash = executable_job_hash
+
+
+def spec_hash_for(
+    *,
+    workflow_version: str,
+    executable_job: ExecutableJob,
+    requirements: Iterable[str] = (),
+) -> str:
+    """
+    Canonical spec-hash policy for command/runtime surfaces.
+
+    Unversioned workspaces retain the legacy requirements hash. Versioned
+    workspaces use the executable-job structural hash.
+    """
+    if workflow_version == "unknown":
+        return req_hash(list(requirements))
+    return executable_job_hash(executable_job)
 
 
 def _read_workflow_version(workspace: Path, active_workflow_path: str | None = None) -> str:

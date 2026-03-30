@@ -68,15 +68,18 @@ For this cluster, the design choices are now:
 @dataclass(frozen=True)
 class Attr:
     key: str
-    value: str
+    value: Any
 
 @dataclass(frozen=True)
 class TemplateRef:
-    kind: str                # python_ref | serialized
-    ref: str                 # package.module:callable or URI
+    kind: str                # inline_graph | symbolic
+    ref: str
+    graph: Graph | None = None
     version: str | None = None
 
-type Attrs = tuple[Attr, ...]
+@dataclass(frozen=True)
+class Attrs(Mapping[str, Any]):
+    entries: tuple[Attr, ...] = ()
 
 @dataclass(frozen=True)
 class GraphFunction:
@@ -86,29 +89,34 @@ class GraphFunction:
     template: TemplateRef
     id: str = field(default_factory=_mint_id, compare=False)
     effects: tuple[type[Regime], ...] = ()
+    declarations: Attrs = ()
     tags: tuple[str, ...] = ()
 ```
 
 **Contract**
 - Immutable and hashable by structural fields except `id`.
 - `inputs` and `outputs` are the outer contract seen by callers.
-- `template` is a replayable symbolic materializer reference. The interpreter may resolve it into executable code, but publication truth is the `TemplateRef`, not an anonymous closure.
+- `template` is a replayable materializer reference. Publication truth is the `TemplateRef`, not an anonymous closure.
+- `TemplateRef(kind="inline_graph")` embeds one immutable graph value for direct GTL composition and test-time materialization.
+- `TemplateRef(kind="symbolic")` names a stable symbolic reference resolved later by the materializer/interpreter.
 - materialization inputs, selected profile, and structural parameters must remain externally visible through published module surfaces and runtime materialization records.
+- The outer contract is structural: node name, schema, and markov conditions all participate in compatibility checks.
 - A materialized graph must preserve the declared outer contract:
-  - graph inputs == declared inputs
-  - graph outputs == declared outputs
+  - graph inputs == declared inputs structurally
+  - graph outputs == declared outputs structurally
 - `effects` are policy-visible and composition-visible.
+- `declarations` carries structured higher-order semantics that must remain inspectable after composition, recursion, or gating.
 - `tags` are descriptive only; they do not carry hidden control semantics.
 
 **Fail closed**
 - If the materialized graph does not preserve the declared outer contract, materialization fails.
-- If a `TemplateRef` cannot be resolved lawfully by the interpreter, materialization fails.
+- If a symbolic `TemplateRef` cannot be resolved lawfully by the materializer/interpreter, materialization fails.
 
 **Unit-test obligations**
 - immutability
 - structural equality ignores `id`
 - materialization preserves outer interface
-- `effects` and `tags` are stable under round-trip construction
+- `effects`, `declarations`, and `tags` are stable under round-trip construction
 
 ### 3.2 `gtl.function_model.RefinementBoundary`
 
@@ -210,10 +218,12 @@ def compose(*functions: GraphFunction) -> GraphFunction
 - Evaluates as a left-fold:
   - `compose(f1, f2, f3)` == `compose(compose(f1, f2), f3)`
 - For each adjacent pair, `outputs(left)` must satisfy `inputs(right)`.
+- Adjacent interface satisfaction is structural, not name-only: matching requires name, schema, and markov compatibility.
 - Returns a new `GraphFunction` with:
   - `inputs = first.inputs`
   - `outputs = last.outputs`
   - `effects = stable left-to-right union of all effects`
+  - `declarations = stable left-to-right merge of structured declarations`
   - `tags = stable left-to-right union of all tags`
 
 **Fail closed**
@@ -266,6 +276,7 @@ def recurse(graph_function: GraphFunction, termination: Evaluator) -> GraphFunct
 - Returns a graph function with the same outer contract as `graph_function`.
 - Recursive or repeated realization must remain bounded by `termination`.
 - Recursion does not change the caller-visible outer interface.
+- The returned graph function preserves structured recursion truth describing the termination evaluator.
 
 ### 4.5 `fan_out(f, *, over)`
 
@@ -311,6 +322,7 @@ def gate(
   - a `RefinementBoundary`
   - a `CandidateFamily`
 - The returned graph function preserves the outer contract of `target`.
+- The returned graph function preserves structured gate truth describing the rule and evaluator boundary.
 - `gate` does not choose a candidate, invent a refinement, or define domain pass/fail semantics.
 
 **Fail closed**
@@ -458,16 +470,14 @@ def traverse(
 ```python
 @dataclass(frozen=True)
 class MaterializationRequest:
-    module_name: str
-    graph_function_id: str
-    input_refs: tuple[str, ...] = ()
+    graph_function: str
     profile: str | None = None
     parameters: Attrs = ()
 ```
 
 **Contract**
 - Names one explicit request to realize one published graph function for canonical engine execution.
-- `graph_function_id` must resolve through the published module surface.
+- `graph_function` must resolve uniquely through the published module surface.
 - `profile` and `parameters` are policy-visible. They must not be inferred from ambient interpreter state.
 - `parameters` must be lawful for the published graph-function/materialization surface.
 
@@ -483,22 +493,24 @@ class MaterializationRequest:
 @dataclass(frozen=True)
 class MaterializationRecord:
     materialization_id: str
-    module_name: str
+    module: str
+    graph_function: str
     graph_function_id: str
-    graph_id: str
+    template_kind: str
+    template_ref: str
     profile: str | None = None
     parameters: Attrs = ()
-    input_refs: tuple[str, ...] = ()
-    bundle_ids: tuple[str, ...] = ()
+    graph: Graph
 ```
 
 **Contract**
 - Records one lawful canonical-engine realization of one published graph function.
 - Preserves replayable identity for:
   - graph function
+  - template kind/reference
   - selected profile
   - declared structural parameters
-  - resulting graph
+  - resulting graph value
 - `materialization_id` is the canonical provenance handle for downstream binding and bundle derivation.
 
 ### 5.5 `abg.materialization.materialize_graph_function(...)`
@@ -506,7 +518,6 @@ class MaterializationRecord:
 ```python
 def materialize_graph_function(
     request: MaterializationRequest,
-    *,
     module: Module,
 ) -> MaterializationRecord
 ```
@@ -522,10 +533,9 @@ def materialize_graph_function(
 ```python
 @dataclass(frozen=True)
 class CompanionBundle:
-    bundle_id: str
     kind: str
     materialization_id: str
-    payload_ref: str
+    values: Attrs = ()
 ```
 
 **Contract**
@@ -535,6 +545,7 @@ class CompanionBundle:
   - profile manifest
 - Does not replace graph as primary structural truth.
 - Must preserve derivation back to one `MaterializationRecord`.
+- Values are immutable, policy-visible runtime metadata only.
 - The evaluator-bundle case is a first-class consequence of refined structure, not an implementation afterthought.
 
 ### 5.7 `abg.materialization.derive_bundle(...)`
@@ -542,7 +553,6 @@ class CompanionBundle:
 ```python
 def derive_bundle(
     record: MaterializationRecord,
-    *,
     kind: str,
 ) -> CompanionBundle
 ```

@@ -13,8 +13,9 @@ No external dependencies. Dataclasses + stdlib only.
 from __future__ import annotations
 
 import uuid
+from collections.abc import Iterable, Iterator, Mapping
 from dataclasses import dataclass, field
-from typing import Any, Optional
+from typing import Any
 
 
 def _mint_id() -> str:
@@ -22,12 +23,103 @@ def _mint_id() -> str:
     return str(uuid.uuid4())
 
 
+def _schema_key(schema: type | str) -> str:
+    """Render one schema reference into a stable structural key."""
+    if isinstance(schema, str):
+        return schema
+    module = getattr(schema, "__module__", "")
+    qualname = getattr(schema, "__qualname__", getattr(schema, "__name__", repr(schema)))
+    return f"{module}.{qualname}" if module else qualname
+
+
+@dataclass(frozen=True)
+class Attr:
+    """Immutable key/value attribute for public GTL metadata surfaces."""
+    key: str
+    value: Any
+
+
+def _coerce_attr_entries(value: Any) -> tuple[Attr, ...]:
+    if value is None:
+        return ()
+    if isinstance(value, Attrs):
+        return value.entries
+    if isinstance(value, Mapping):
+        return tuple(Attr(str(k), v) for k, v in value.items())
+    if isinstance(value, tuple):
+        entries = value
+    elif isinstance(value, Iterable) and not isinstance(value, (str, bytes)):
+        entries = tuple(value)
+    else:
+        raise TypeError(f"Cannot coerce {value!r} into Attrs")
+
+    coerced: list[Attr] = []
+    for item in entries:
+        if isinstance(item, Attr):
+            coerced.append(item)
+        elif isinstance(item, tuple) and len(item) == 2:
+            key, attr_value = item
+            coerced.append(Attr(str(key), attr_value))
+        else:
+            raise TypeError(f"Invalid Attr entry: {item!r}")
+    return tuple(coerced)
+
+
+@dataclass(frozen=True)
+class Attrs(Mapping[str, Any]):
+    """Immutable ordered mapping for prime GTL metadata/config surfaces."""
+    entries: tuple[Attr, ...] = ()
+
+    def __post_init__(self) -> None:
+        coerced = _coerce_attr_entries(self.entries)
+        seen: set[str] = set()
+        for entry in coerced:
+            if entry.key in seen:
+                raise ValueError(f"Duplicate Attr key: {entry.key!r}")
+            seen.add(entry.key)
+        object.__setattr__(self, "entries", coerced)
+
+    @classmethod
+    def coerce(cls, value: Any) -> "Attrs":
+        if isinstance(value, cls):
+            return value
+        return cls(entries=_coerce_attr_entries(value))
+
+    def __getitem__(self, key: str) -> Any:
+        for entry in self.entries:
+            if entry.key == key:
+                return entry.value
+        raise KeyError(key)
+
+    def __iter__(self) -> Iterator[str]:
+        for entry in self.entries:
+            yield entry.key
+
+    def __len__(self) -> int:
+        return len(self.entries)
+
+    def items(self) -> tuple[tuple[str, Any], ...]:
+        return tuple((entry.key, entry.value) for entry in self.entries)
+
+    def values(self) -> tuple[Any, ...]:
+        return tuple(entry.value for entry in self.entries)
+
+    def get(self, key: str, default: Any = None) -> Any:
+        try:
+            return self[key]
+        except KeyError:
+            return default
+
+    def to_dict(self) -> dict[str, Any]:
+        return dict(self.items())
+
+
 # ── Context ───────────────────────────────────────────────────────────────
 
 _CONTEXT_SCHEMES = ("git://", "workspace://", "event://", "registry://")
 
 
-@dataclass
+@dataclass(frozen=True)
 class Context:
     """
     Externally-located, snapshot-bound constraint dimension.
@@ -71,6 +163,16 @@ class Node:
     id: str = field(default_factory=_mint_id, compare=False)
 
 
+def node_contract_key(node: Node) -> tuple[str, str, tuple[str, ...]]:
+    """Stable structural contract key for interface matching."""
+    return (node.name, _schema_key(node.schema), tuple(node.markov))
+
+
+def interface_contract(nodes: tuple[Node, ...]) -> tuple[tuple[str, str, tuple[str, ...]], ...]:
+    """Stable structural contract for an ordered node interface."""
+    return tuple(node_contract_key(node) for node in nodes)
+
+
 # ── GraphVector (internal adjacency record) ──────────────────────────────
 
 @dataclass(frozen=True)
@@ -95,6 +197,17 @@ class GraphVector:
     allows_subwork: bool = False
     tags: tuple[str, ...] = ()
     id: str = field(default_factory=_mint_id, compare=False)
+
+    def __post_init__(self) -> None:
+        if self.source is None:
+            raise ValueError(f"GraphVector({self.name!r}) requires a non-empty source")
+        if isinstance(self.source, tuple):
+            if not self.source:
+                raise ValueError(f"GraphVector({self.name!r}) requires at least one source node")
+            if any(node is None for node in self.source):
+                raise ValueError(f"GraphVector({self.name!r}) source tuple must not contain None")
+        if self.target is None:
+            raise ValueError(f"GraphVector({self.name!r}) requires a target node")
 
 
 # ── Graph ─────────────────────────────────────────────────────────────────

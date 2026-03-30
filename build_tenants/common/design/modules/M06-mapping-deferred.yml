@@ -6,7 +6,7 @@ owns:
 implements_features:
   - REQ-M-GTL2-CAPABILITY
 primary_surfaces:
-  - specification/requirements/mapping/
+  - specification.requirements.mapping
 interfaces:
   - alternate engine capability profiles
   - alternate runtime-family mapping contracts
@@ -21,4 +21,4 @@ test_obligations:
 notes:
   - canonical ABG graph-function materialization and provenance are owned by M03-engine-kernel
   - stack- or memory-derived deterministic evaluator refinement may later extend the canonical kernel, but alternate runtime-family mapping is not the place for canonical ABG evaluator-bundle derivation
-  - alternate runtime-family mapping remains deferred from the 1.0 and 1.1 shipping lines
+  - alternate runtime-family mapping remains deferred until an alternate runtime family is intentionally activated

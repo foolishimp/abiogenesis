@@ -14,7 +14,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
-from gtl.graph import _mint_id
+from gtl.graph import Attrs, _mint_id
 
 
 # ── ContractRef ──────────────────────────────────────────────────────────
@@ -44,8 +44,11 @@ class Role:
     """
     name: str
     tags: tuple[str, ...] = ()
-    policy_hooks: dict = field(default_factory=dict)
+    policy_hooks: Attrs = field(default_factory=Attrs)
     id: str = field(default_factory=_mint_id, compare=False)
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "policy_hooks", Attrs.coerce(self.policy_hooks))
 
 
 # ── Job ──────────────────────────────────────────────────────────────────

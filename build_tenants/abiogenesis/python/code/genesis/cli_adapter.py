@@ -28,6 +28,7 @@ import argparse
 import importlib
 import json
 import sys
+from collections.abc import Mapping
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -209,7 +210,7 @@ def _check_req_coverage(package_ref: str, features_dir: str) -> int:
               file=sys.stderr)
         return 1
     reqs = []
-    if hasattr(pkg, "metadata") and isinstance(pkg.metadata, dict):
+    if hasattr(pkg, "metadata") and isinstance(pkg.metadata, Mapping):
         reqs = pkg.metadata.get("requirements", [])
     spec_keys = set(reqs)
     source = f"package:{package_ref}"
@@ -266,7 +267,7 @@ def _check_tag_coverage(tag_type: str, package_ref: str, scan_path: str) -> int:
 
     # Module: requirements in metadata
     reqs = []
-    if hasattr(pkg, "metadata") and isinstance(pkg.metadata, dict):
+    if hasattr(pkg, "metadata") and isinstance(pkg.metadata, Mapping):
         reqs = pkg.metadata.get("requirements", [])
     req_keys = list(reqs)
     path = Path(scan_path)

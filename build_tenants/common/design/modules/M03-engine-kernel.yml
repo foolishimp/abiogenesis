@@ -23,21 +23,22 @@ implements_features:
   - REQ-M-GTL2-MAPPING
   - REQ-M-GTL2-PROVENANCE
 primary_surfaces:
-  - build_tenants/abiogenesis/python/code/genesis/events.py
-  - build_tenants/abiogenesis/python/code/genesis/projection.py
-  - build_tenants/abiogenesis/python/code/genesis/binding.py
-  - build_tenants/abiogenesis/python/code/genesis/lineage.py
-  - build_tenants/abiogenesis/python/code/genesis/run.py
-  - build_tenants/abiogenesis/python/code/genesis/convergence.py
-  - build_tenants/abiogenesis/python/code/genesis/selection.py
-  - build_tenants/abiogenesis/python/code/genesis/provenance.py
-  - build_tenants/abiogenesis/python/code/genesis/correction.py
-  - build_tenants/abiogenesis/python/code/genesis/subwork.py
-  - build_tenants/abiogenesis/python/code/genesis/transport.py
-  - build_tenants/abiogenesis/python/code/genesis/interpret.py
-  - build_tenants/abiogenesis/python/code/genesis/selfhosting.py
-  - build_tenants/abiogenesis/python/code/genesis/materialization.py
+  - genesis.events
+  - genesis.projection
+  - genesis.binding
+  - genesis.lineage
+  - genesis.run
+  - genesis.convergence
+  - genesis.selection
+  - genesis.provenance
+  - genesis.correction
+  - genesis.subwork
+  - genesis.transport
+  - genesis.interpret
+  - genesis.selfhosting
+  - genesis.materialization
 interfaces:
+  - EventContext
   - EventStream
   - project(...)
   - ExecutableJob
@@ -63,6 +64,7 @@ invariants:
   - recursive zoom/materialize/fold-back preserves outer contract, lineage, and replayable provenance end to end
   - graph-derived evaluator bundles come from refined or realized structure rather than hidden interpreter-local strategy
   - graph remains primary structural truth even when selected subgraphs or evaluator bundles are derived
+  - workflow version, work key, and run id enter event emission through explicit event-context values rather than mutable hidden stream state
 composes_with:
   - M01-gtl-core supplies the declared graph, algebra, and evaluation surfaces being interpreted
   - M02-work-publication supplies the published module and graph-function truth being materialized
@@ -72,10 +74,11 @@ test_obligations:
   - explicit request/record materialization tests with replayable provenance
   - fail-closed tests for undeclared graph-function ids, profiles, parameters, and outer-contract violations
   - traversal tests for delegated materialization, convergence, selection, and provenance rather than hidden local strategy
+  - event-context tests for explicit workflow/work/run provenance without stream-local mutation
   - refinement tests for parent/child lineage, lawful fold-back, and refined evaluator-bundle derivation
   - provenance tests that preserve graph-function, materialization, bundle, and refined-boundary identity across execution
 notes:
   - canonical ABG graph-function materialization and graph-derived companion bundle derivation are kernel-owned design obligations for the 1.1 line
   - kernel materialization and traversal should read as a functional core with explicit interpreter-edge effects; event emission, transport, and subprocess remain outside the pure materialization/convergence kernels
   - recursive refinement is lawful only when parent contract, child materialization, derived evaluator bundle, and fold-back provenance remain replayable end to end
-  - extraction into a dedicated `genesis/materialization.py` surface is preferred when implementation begins
+  - the dedicated `genesis.materialization` surface is the canonical kernel seam for explicit graph-function materialization and companion-bundle derivation

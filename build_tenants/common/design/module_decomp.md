@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Date**: 2026-03-29
-**Derived from**: [GTL_2_CONSTITUTIONAL_DESIGN.md](/Users/jim/src/apps/abiogenesis/specification/GTL_2_CONSTITUTIONAL_DESIGN.md), [specification/requirements/](/Users/jim/src/apps/abiogenesis/specification/requirements/), [build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md)
+**Derived from**: [GTL_2_CONSTITUTIONAL_DESIGN.md](/Users/jim/src/apps/abiogenesis/specification/GTL_2_CONSTITUTIONAL_DESIGN.md), [specification/requirements/](/Users/jim/src/apps/abiogenesis/specification/requirements/)
 
 ## Position
 
@@ -21,9 +21,7 @@ At this level, modules are the common source of truth for:
 ## Design Rules
 
 - `specification/` remains constitutional truth.
-- `build_tenants/common/design/` may hold shared tenant-local design law when it is genuinely common across realizations.
-- `build_tenants/abiogenesis/python/` remains the canonical released realization.
-- `build_tenants/abiogenesis/codex/` remains a paused comparison realization.
+- `build_tenants/common/design/` holds shared capability law that is genuinely common across realizations.
 - Module decomposition is structural guidance for derivation and ownership; it does not create new runtime behavior.
 - The implementation target is Python with Scala-style discipline: immutable value types, symbolic publication, functional core, and explicit effect interpreters at the shell.
 - Recursive graph-function zoom/materialize/fold-back must remain lawful value transformation with explicit lineage and provenance, not interpreter-side mutation.
@@ -45,9 +43,7 @@ At this level, modules are the common source of truth for:
 - `M03-engine-kernel` owns canonical ABG graph-function materialization and graph-derived bundle provenance.
 - `M03-engine-kernel` also owns recursive zoom/materialize/fold-back protocol, including evaluator-bundle derivation from refined structure when the refined boundary declares deterministic proof surfaces.
 - `M01-gtl-core`, `M02-work-publication`, and `M03-engine-kernel` are the prime derivation modules for the current code wave. Their interfaces, invariants, and test obligations must be explicit enough that implementation does not invent semantics.
-- `M06-mapping-deferred` applies only to alternate runtime families and is not part of the `abg 1.1` shipping surface.
-- The module schedule is shared tenant-local design law because the same conceptual stack currently governs both the canonical Python realization and the paused Codex comparison line.
-- Tenant-specific divergence remains documented in the concrete tenant design roots.
+- `M06-mapping-deferred` applies only to alternate runtime families and is not part of the canonical engine kernel.
 - `M04-app-bootstrap` owns the app-level auto loop. The design assumption is that `gen_start()` remains one-step engine progression, while `cli_adapter` owns the iterative `--auto` orchestration, optional runtime hook dispatch for `F_P`, and proxy approval handling for `F_H`.
 - `M04-app-bootstrap` also owns runtime identity projection and configured worker resolution from the runtime contract. Worker, build, backend, and authority provenance must stay explicit rather than collapsing into one default build label.
 - `M02-work-publication` owns symbolic graph-function publication. Published graph-function truth must be inspectable and replayable without depending on anonymous closures or ambient module state.

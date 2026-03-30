@@ -53,6 +53,8 @@ In this Claude build, the conceptual `abg.*` runtime layer is implemented under 
 22. Published graph functions must resolve through replayable symbolic materializer references. Anonymous closures, ambient module state, and hidden interpreter capture are not lawful publication surfaces.
 23. Prime public interfaces use named records and ordered attributes rather than generic `dict` bags. Helper shapes may remain pragmatic, but graph/materialization/traversal truth must stay typed and inspectable.
 24. Recursive refinement is lawful only when each zoom/materialize/fold-back step preserves the outer contract and emits replayable provenance linking parent, child, and derived evaluator truth.
+25. Interface satisfaction is structural. Node name, schema, and markov conditions participate in composition, substitution, selection, and materialization checks.
+26. Event provenance context is explicit. Workflow version, work key, and run id are carried through event-context values, not mutable hidden stream state.
 
 ---
 
@@ -73,7 +75,7 @@ In this Claude build, the conceptual `abg.*` runtime layer is implemented under 
 
 | Target module | Owns | Primary types / functions | Requirement families |
 | --- | --- | --- | --- |
-| `abg.events` | Append-only event substrate | `EventStream`, `emit()`, event schema helpers | REQ-R-ABG2-EVENTS |
+| `abg.events` | Append-only event substrate | `EventStream`, `EventContext`, `emit()`, event schema helpers | REQ-R-ABG2-EVENTS |
 | `abg.projection` | Pure replay | `project()`, derived truth folds | REQ-R-ABG2-PROJECTION |
 | `abg.binding` | Executable job resolution, deterministic precomputation, worker capability, role binding, immutable execution surfaces | `ExecutableJob`, `WorkSurface`, `Worker`, preparation helpers, `bind_fd()`, `bind_fp()`, `bind_fh()`, executable-job hashes | REQ-R-ABG2-INTERPRET, REQ-R-ABG2-WORKER, REQ-R-ABG2-BINDING, REQ-R-ABG2-PROVENANCE |
 | `abg.lineage` | Work identity and parent/child | `spawn()`, `fold_back()`, `_discover_children()`, lineage queries, work-identity helpers | REQ-R-ABG2-LINEAGE |
@@ -81,7 +83,7 @@ In this Claude build, the conceptual `abg.*` runtime layer is implemented under 
 | `abg.convergence` | Delta and convergence | `delta()`, `parent_converged()`, evaluator-vector convergence, round visibility | REQ-R-ABG2-CONVERGENCE |
 | `abg.selection` | Candidate enumeration and validation | `SelectionDecision`, candidate discovery, candidate-family/profile validation | REQ-R-ABG2-SELECTION-APPLICATION |
 | `abg.materialization` | Canonical graph-function realization and graph-derived companion bundles | `MaterializationRequest`, `MaterializationRecord`, `CompanionBundle`, `materialize_graph_function()`, `derive_bundle()` | REQ-L-GTL2-GRAPHFUNCTION, REQ-M-GTL2-MAPPING, REQ-M-GTL2-PROVENANCE, REQ-R-ABG2-PROVENANCE |
-| `abg.provenance` | Spec/workflow/selection provenance | `req_hash()`, `executable_job_hash()`, workflow version reads, per-evaluator/aggregate carry-forward | REQ-R-ABG2-PROVENANCE |
+| `abg.provenance` | Spec/workflow/selection provenance | `req_hash()`, `executable_job_hash()`, `spec_hash_for()`, workflow version reads, per-evaluator/aggregate carry-forward | REQ-R-ABG2-PROVENANCE |
 | `abg.correction` | Correction and reset | `find_latest_reset()`, certification shadowing | REQ-R-ABG2-CORRECTION |
 | `abg.subwork` | Bounded sub-work realization | `LeafTask`, `validate_leaf_schema()`, `dispatch_leaf()` | REQ-R-ABG2-LEAFTASK |
 | `abg.transport` | Agent transport surface | `AgentTransportError`, `dispatch_agent()`, `classify_failure()`, transport-local result helpers | REQ-R-ABG2-TRANSPORT, ADR-022 |
@@ -114,15 +116,18 @@ Alternate runtime families remain deferred. Capability profiles, alternate engin
 @dataclass(frozen=True)
 class Attr:
     key: str
-    value: str
+    value: Any
 
 @dataclass(frozen=True)
 class TemplateRef:
-    kind: str                # python_ref | serialized
-    ref: str                 # package.module:callable or URI
+    kind: str                # inline_graph | symbolic
+    ref: str
+    graph: Graph | None = None
     version: str | None = None
 
-type Attrs = tuple[Attr, ...]
+@dataclass(frozen=True)
+class Attrs(Mapping[str, Any]):
+    entries: tuple[Attr, ...] = ()
 type BundleKind = Literal["selected_subgraph", "evaluator_bundle", "profile_manifest"]
 
 # gtl.graph
@@ -213,6 +218,7 @@ class GraphFunction:
     template: TemplateRef
     id: str = field(default_factory=_mint_id, compare=False)
     effects: tuple[type[Regime], ...] = ()
+    declarations: Attrs = ()
     tags: tuple[str, ...] = ()
 
 @dataclass(frozen=True)
@@ -242,29 +248,27 @@ class CandidateFamily:
 
 @dataclass(frozen=True)
 class MaterializationRequest:
-    module_name: str
-    graph_function_id: str
-    input_refs: tuple[str, ...] = ()
+    graph_function: str
     profile: str | None = None
     parameters: Attrs = ()
 
 @dataclass(frozen=True)
 class MaterializationRecord:
     materialization_id: str
-    module_name: str
+    module: str
+    graph_function: str
     graph_function_id: str
-    graph_id: str
+    template_kind: str
+    template_ref: str
     profile: str | None = None
     parameters: Attrs = ()
-    input_refs: tuple[str, ...] = ()
-    bundle_ids: tuple[str, ...] = ()
+    graph: Graph
 
 @dataclass(frozen=True)
 class CompanionBundle:
-    bundle_id: str
     kind: BundleKind
     materialization_id: str
-    payload_ref: str
+    values: Attrs = ()
 ```
 
 Deferred synthesis/refinement and structural alternatives are part of the same ownership surface. `RefinementBoundary` and `CandidateFamily` are the preferred design direction because they keep strategic choice outside the interpreter while making the contract boundary explicit. Equivalent representations are only acceptable if they preserve the same algebraic separation.
@@ -381,8 +385,10 @@ def candidate_family(
 
 - `Node[T]` preserves `Generic[T]` parameterization. `Vector[T]` is expressed as `Node[Vector[T]]` via the schema parameter. No separate structural type.
 - Prime graph/materialization surfaces use immutable record types even in Python. The implementation target is Python with Scala-style algebraic discipline, not Python convenience objects with hidden mutable payloads.
-- `GraphFunction.template` is a replayable `TemplateRef`, not an anonymous runtime closure. The Python implementation may resolve a `python_ref` to a callable at the interpreter edge, but publication truth remains symbolic and inspectable.
+- `GraphFunction.template` is a replayable `TemplateRef`, not an anonymous runtime closure. `inline_graph` supports direct algebraic composition and tests; `symbolic` defers realization to the materializer/interpreter while keeping publication truth inspectable.
+- `GraphFunction.declarations` is the structured higher-order companion to the outer contract. Recursion and gating preserve inspectable declaration truth there rather than collapsing to tags alone.
 - Canonical engine materialization is a first-class runtime step owned by `abg.materialization`, not an implicit side effect of `abg.interpret`.
+- Interface compatibility is structural by node name, schema, and markov conditions; name-only matching is not lawful composition or selection.
 - Deferred synthesis/refinement is a declared GTL boundary, not imperative runtime mutation. `RefinementBoundary` is the preferred design center because it makes contract truth explicit without introducing vector flags.
 - Named materialization profiles and other lawful structural alternatives are best expressed as `CandidateFamily` over a shared contract boundary. Profile choice is external; GTL only publishes the alternatives.
 - Policy-visible structural parameters for materialization are carried through immutable `MaterializationRequest.parameters` attributes and must be declared by the publishing module surface rather than inferred from ambient interpreter state.
@@ -401,6 +407,7 @@ def candidate_family(
 - `work_key` is the canonical runtime work identity. `feature` is an application alias over the same identity.
 - `vector_id` is the canonical runtime handle for a contract step. `edge` and `vector_name` are additive readability fields only.
 - `Traversal` is a first-class ABG runtime contract. `PrecomputedManifest`, `WorkInstance`, `SelectionResult`, and `AgentResult` remain helper shapes, not prime public ontology.
+- Event emission remains an interpreter-edge effect, but the provenance context for that emission is explicit through `EventContext`, not mutable stream-local state.
 
 ### 4.4 Event delegation pattern
 
@@ -428,22 +435,28 @@ Concretely:
 
 ```python
 # abg.events
+@dataclass(frozen=True)
+class EventContext:
+    workflow_version: str = "unknown"
+    work_key: str | None = None
+    run_id: str | None = None
+
 class EventStream:
     path: Path
-    workflow_version: str
-    work_key: str
-    run_id: str
+    # append(event_type, data, *, context=None)
 
 # abg.binding
 @dataclass
 class PrecomputedManifest:
     executable_job: ExecutableJob
-    current_state: dict
+    current_asset: dict
     failing_evaluators: list[Evaluator]
     passing_evaluators: list[Evaluator]
     fd_results: dict
     relevant_contexts: dict
     missing_contexts: list[str]
+    unresolved_count: int
+    delta: float
     delta_summary: str
 
 @dataclass

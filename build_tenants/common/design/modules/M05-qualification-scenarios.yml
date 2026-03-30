@@ -9,14 +9,14 @@ implements_features:
   - REQ-P-QUAL
   - REQ-R-ABG2-SELFHOSTING
 primary_surfaces:
-  - build_tenants/abiogenesis/python/design/SCENARIO_V2_INTENT_TO_TAGGED_REQUIREMENTS.md
-  - build_tenants/abiogenesis/python/design/SCENARIO_V2_REQUIREMENTS_TO_UAT.md
-  - build_tenants/abiogenesis/python/design/SCENARIO_V2_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md
-  - build_tenants/abiogenesis/python/design/GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md
-  - build_tenants/abiogenesis/python/test_env/tests/test_spec_method_trace.py
-  - build_tenants/abiogenesis/python/test_env/tests/test_v2_sandbox_usecases_fake.py
-  - build_tenants/abiogenesis/python/test_env/tests/test_v2_sandbox_usecases_live.py
-  - build_tenants/abiogenesis/python/test_env/tests/run_archive.py
+  - qualification.method_trace
+  - qualification.fake_lane
+  - qualification.live_lane
+  - qualification.run_archive
+  - scenario.intent_to_tagged_requirements
+  - scenario.requirements_to_uat
+  - scenario.gsdlc_lite_requirements_design_code
+  - qualification.ladder
 interfaces:
   - method trace gate
   - fake-lane scenario harness

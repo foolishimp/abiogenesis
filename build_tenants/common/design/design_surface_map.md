@@ -1,34 +1,39 @@
-# Abiogenesis Shared Design Surface Map
+# Abiogenesis Common Design Surface Map
 
 **Status**: Active
-**Date**: 2026-03-29
-**Derived from**: [GTL_2_CONSTITUTIONAL_DESIGN.md](../../../specification/GTL_2_CONSTITUTIONAL_DESIGN.md), [specification/requirements/](../../../specification/requirements/), [build_tenants/common/design/module_decomp.md](./module_decomp.md), [build_tenants/abiogenesis/python/design/README.md](../../abiogenesis/python/design/README.md), [build_tenants/abiogenesis/codex/design/README.md](../../abiogenesis/codex/design/README.md)
+**Date**: 2026-03-31
+**Derived from**: [GTL_2_CONSTITUTIONAL_DESIGN.md](../../../specification/GTL_2_CONSTITUTIONAL_DESIGN.md), [specification/requirements/](../../../specification/requirements/), [build_tenants/common/design/module_decomp.md](./module_decomp.md)
 
 ## Purpose
 
-Make the current shared-vs-tenant design boundary explicit for the `abiogenesis 1.1` line.
+Define the authority boundary for common design surfaces.
 
 This document is structural only.
-It does not change runtime behavior, installer output, or product semantics.
+It does not change runtime behavior or product semantics.
 
 ## Classification Rules
 
 - `specification/` remains constitutional truth.
-- `build_tenants/common/design/` holds tenant-local design law that is genuinely shared across realizations.
-- `build_tenants/abiogenesis/<variant>/design/` holds realization-specific design detail, qualification material, and migration-local working surfaces.
+- `build_tenants/common/design/` holds shared capability law that is written generically enough to govern more than one realization.
 - `build_tenants/common/design/modules/` is the common source of truth for module interfaces, composition boundaries, capability ownership, and unit-test derivation targets.
-- Promote a surface to `common` only when:
-  - it is written generically enough to govern more than one realization, and
-  - its authority no longer depends on one tenant's local implementation wording.
+- Common design surfaces may reference constitutional truth upward, but they must not depend on downstream tenant realization details.
+- Promote a surface into `common` only when its authority no longer depends on one tenant's local implementation wording.
 
-## Current Shared Tenant-Local Design Law
+## Active Common Design Law
 
-| Surface | Status | Why it is shared |
+| Surface | Status | Authority |
 | --- | --- | --- |
-| `build_tenants/common/design/module_decomp.md` | Active | Shared module ownership and decomposition for the current `abiogenesis` stack |
-| `build_tenants/common/design/modules/` | Active | Shared module-level interfaces, invariants, composition boundaries, and primary surface map |
+| `build_tenants/common/design/module_decomp.md` | Active | Shared module ownership, composition, and derivation rules |
+| `build_tenants/common/design/modules/` | Active | Shared module-level interfaces, invariants, composition boundaries, and test obligations |
+| `build_tenants/common/design/README.md` | Active | Common-design placement and boundary guidance |
 
-These surfaces are already shared law for:
+These surfaces are the common derivation layer for:
+
+- code ownership
+- unit-test obligations
+- capability review above realization-specific implementation detail
+
+They currently govern shared design truth for:
 
 - `REQ-L-GTL2-MODULE`
 - `REQ-L-GTL2-ENGINE-INDEPENDENCE`
@@ -36,56 +41,14 @@ These surfaces are already shared law for:
 - `REQ-P-QUAL`
 - `REQ-M-GTL2-MAPPING`
 
-They are also the common derivation layer for:
+## Placement Rule
 
-- code ownership
-- unit-test obligations
-- capability review above the tenant-specific implementation details
+Keep a design surface in a realization-specific root when:
 
-## Canonical Shared-Candidate Surfaces Still Held In Python
+- it binds abstract module law to concrete implementation files, or
+- it records realization-specific ADRs, scenarios, or qualification detail
 
-These are currently treated as the canonical detailed design read for the Python realization, but are not yet promoted into `common`.
+Promote a design surface to `common` when:
 
-| Surface | Current location | Why not yet promoted |
-| --- | --- | --- |
-| `GTL_2_MODULE_DESIGN.md` | `build_tenants/abiogenesis/python/design/` | Still written as the python build's detailed decomposition and ADR-dependent implementation read |
-| `GTL_2_INTERFACE_CONTRACTS.md` | `build_tenants/abiogenesis/python/design/` | Current test/code derivation surface for the python tenant; not yet exercised as unchanged law by another active tenant |
-
-Promotion trigger:
-
-- a second active realization consumes the same surface unchanged, or
-- the surface is rewritten to remove python-specific realization framing while preserving authority.
-
-## Python-Tenant Realization Surfaces
-
-These remain tenant-local by design.
-
-| Surface family | Reason |
-| --- | --- |
-| `GTL_2_IMPLEMENTATION_PLAN.md` | Implementation-target read for the canonical python realization |
-| `SCENARIO_V2_*.md` | Python tenant sandbox and qualification scenarios |
-| `GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md` | Python tenant qualification ladder |
-| `adrs/ADR-022`, `ADR-023`, `ADR-024`, `ADR-030` | Python realization decisions and shipping runtime details |
-
-## Codex Comparison Surfaces
-
-These remain local to the paused comparison tenant.
-
-| Surface family | Reason |
-| --- | --- |
-| `build_tenants/abiogenesis/codex/design/GTL_2_MODULE_DESIGN.md` | Historical comparison and migration reference, not shared law |
-| `build_tenants/abiogenesis/codex/design/adrs/ADR-002-job-role-worker-worksurface.md` | Codex-local design decision surface |
-
-## Migration Rule
-
-During this migration phase:
-
-- prefer explicit classification over premature movement
-- move a surface only when its shared authority is clear
-- keep behavior stable while the design boundary is normalized
-
-For the current 1.1 line, this means:
-
-- requirements remain constitutional truth
-- `design/modules/` is the common interface/composition source of truth
-- tenant design documents remain the deeper realization read for code shape and ADR-backed implementation detail
+- it can be stated without tenant-specific implementation references, and
+- the same wording remains authoritative across realizations
