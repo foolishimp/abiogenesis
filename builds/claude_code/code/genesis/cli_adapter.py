@@ -25,8 +25,10 @@ Exit codes for start/iterate:
 from __future__ import annotations
 
 import argparse
+import importlib
 import json
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 
@@ -625,6 +627,96 @@ def _import_symbol(ref: str, workspace: Path):
     return sym
 
 
+def _resolve_runtime_hook(mod_ref: str | None, hook_name: str):
+    """Resolve an optional runtime hook from the module that exports the GTL Module."""
+    if not mod_ref or ":" not in mod_ref:
+        return None
+    module_name, _, _ = mod_ref.partition(":")
+    try:
+        mod = importlib.import_module(module_name)
+    except ImportError:
+        return None
+    hook = getattr(mod, hook_name, None)
+    return hook if callable(hook) else None
+
+
+def _emit_human_proxy_approval(workspace: Path, edge: str) -> None:
+    reviews_dir = workspace / ".ai-workspace" / "reviews"
+    reviews_dir.mkdir(parents=True, exist_ok=True)
+    proxy_log = reviews_dir / "human_proxy.log"
+    with proxy_log.open("a", encoding="utf-8") as handle:
+        handle.write(f"{datetime.now(timezone.utc).isoformat()} approved {edge}\n")
+
+    payload = {
+        "kind": "fh_review",
+        "edge": edge,
+        "actor": "human-proxy",
+        "proxy_log": str(proxy_log),
+    }
+    rc = _emit_event_cmd("approved", json.dumps(payload), workspace)
+    if rc != 0:
+        raise RuntimeError(f"human proxy approval failed for edge {edge!r}")
+
+
+def _run_start_auto(scope, stream, *, workspace: Path, mod_ref: str | None, human_proxy: bool) -> dict:
+    """CLI-side auto loop that can use optional project hooks for F_P and F_H handling."""
+    from .services import gen_start
+
+    auto_fp_dispatch = _resolve_runtime_hook(mod_ref, "auto_fp_dispatch")
+    auto_fh_approve = _resolve_runtime_hook(mod_ref, "auto_fh_approve")
+
+    max_auto = 50
+    result: dict = {}
+
+    for _ in range(max_auto):
+        result = gen_start(scope, stream, auto=False)
+        result["auto"] = True
+        if human_proxy:
+            result["human_proxy"] = True
+
+        if result["status"] in ("converged", "nothing_to_do", "pending"):
+            if result.get("blocking_reason"):
+                result["stopped_by"] = result["blocking_reason"]
+            return result
+
+        blocking_reason = result.get("blocking_reason")
+        if blocking_reason == "fp_dispatch" and auto_fp_dispatch is not None:
+            handled = bool(auto_fp_dispatch(result, workspace))
+            if handled:
+                continue
+            result["stopped_by"] = "fp_dispatch"
+            result["auto_fp_dispatch_available"] = True
+            result["auto_fp_dispatch_handled"] = False
+            return result
+
+        if blocking_reason == "fh_gate" and human_proxy:
+            edge = str(result.get("edge") or result.get("fh_gate", {}).get("edge") or "").strip()
+            if not edge:
+                result["stopped_by"] = "fh_gate"
+                result["human_proxy_error"] = "missing edge for fh_gate approval"
+                return result
+            if auto_fh_approve is not None:
+                handled = bool(auto_fh_approve(result, workspace))
+                if handled:
+                    continue
+            _emit_human_proxy_approval(workspace, edge)
+            continue
+
+        if blocking_reason is not None:
+            result["stopped_by"] = blocking_reason
+            if blocking_reason == "fp_dispatch":
+                result["auto_fp_dispatch_available"] = auto_fp_dispatch is not None
+            if blocking_reason == "fh_gate":
+                result["auto_fh_approve_available"] = auto_fh_approve is not None
+            return result
+
+    result["auto"] = True
+    if human_proxy:
+        result["human_proxy"] = True
+    result["stopped_by"] = "max_iterations"
+    return result
+
+
 def _resolve_module(args, workspace: Path):
     """
     Resolve Module from --module flag or runtime contract (genesis.yml).
@@ -721,6 +813,7 @@ def main() -> None:
 
     from .services import Scope, gen_gaps, gen_iterate, gen_start
 
+    mod_ref = getattr(args, "module", None) or _config.get("module")
     module = _resolve_module(args, workspace)
 
     scope = Scope(
@@ -739,10 +832,18 @@ def main() -> None:
 
     if args.command == "start":
         human_proxy = getattr(args, "human_proxy", False)
-        result = gen_start(scope, stream, auto=getattr(args, "auto", False))
-        # Surface proxy mode so the skill can confirm its operating context
-        if human_proxy:
-            result["human_proxy"] = True
+        if getattr(args, "auto", False):
+            result = _run_start_auto(
+                scope,
+                stream,
+                workspace=workspace,
+                mod_ref=mod_ref,
+                human_proxy=human_proxy,
+            )
+        else:
+            result = gen_start(scope, stream, auto=False)
+            if human_proxy:
+                result["human_proxy"] = True
     elif args.command == "iterate":
         result = gen_iterate(scope, stream)
     elif args.command == "gaps":
