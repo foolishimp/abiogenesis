@@ -114,7 +114,7 @@ class Scope:
     workspace_root: Path = field(default_factory=lambda: Path("."))
     work_key_filter: Optional[str] = None   # work_key scope (CLI --feature normalizes here)
     edge_filter: Optional[str] = None       # edge name scope (CLI --edge normalizes here)
-    build: str = "claude_code"
+    build: str | None = None
     runtime_identity: Optional[RuntimeIdentity] = None
     worker: Optional[Worker] = None   # explicit worker; None = derived
     active_workflow_path: Optional[str] = None  # runtime contract: path to active-workflow.json
@@ -130,13 +130,11 @@ class Scope:
         validate_module_traversal_surface(self.module)
 
         if self.runtime_identity is None:
-            initial_build = None if self.worker is not None and self.build == "claude_code" else self.build
-            self.runtime_identity = RuntimeIdentity(build_id=initial_build)
+            self.runtime_identity = RuntimeIdentity(build_id=self.build)
         else:
             if (
                 self.runtime_identity.build_id is None
                 and self.build
-                and not (self.worker is not None and self.build == "claude_code")
             ):
                 self.runtime_identity = RuntimeIdentity(
                     engine_id=self.runtime_identity.engine_id,
@@ -327,7 +325,7 @@ def gen_gaps(scope: Scope, stream: EventStream) -> dict:
 def gen_iterate(
     scope: Scope,
     stream: EventStream,
-    on_fp_dispatch: Optional[Callable[[BoundJob], None]] = None,
+    on_fp_dispatch: Optional[Callable[[BoundJob], WorkSurface | None]] = None,
 ) -> dict:
     """
     /gen-iterate = bind one executable job → iterate exactly once.
@@ -457,7 +455,7 @@ def gen_start(
     scope: Scope,
     stream: EventStream,
     auto: bool = False,
-    on_fp_dispatch: Optional[Callable[[BoundJob], None]] = None,
+    on_fp_dispatch: Optional[Callable[[BoundJob], WorkSurface | None]] = None,
 ) -> dict:
     """
     /gen-start = derive state → select job → traverse.

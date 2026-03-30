@@ -55,9 +55,12 @@ interfaces:
   - materialize_graph_function(request, module)
   - derive_bundle(record, kind)
   - Traversal
+  - TraversalOutcome
   - traverse(traversal, surface)
   - spawn(...)
   - fold_back(...)
+  - _bootloader_consistency_report(spec_module, bootloader_path)
+  - _check_bootloader_consistency(spec_module, bootloader_path)
 invariants:
   - canonical materialization, convergence, and provenance are functional-core value transformations with explicit interpreter-edge effects only
   - materialization fails closed on undeclared graph-function identity, profile, or structural parameter, and on outer-contract violation
@@ -65,6 +68,9 @@ invariants:
   - graph-derived evaluator bundles come from refined or realized structure rather than hidden interpreter-local strategy
   - graph remains primary structural truth even when selected subgraphs or evaluator bundles are derived
   - workflow version, work key, and run id enter event emission through explicit event-context values rather than mutable hidden stream state
+  - compatibility build projection is neutral and resolves through runtime identity as build_id -> worker_id -> engine_id rather than through a hardcoded tool default
+  - effect-edge F_P dispatch may contribute explicit WorkSurface fragments, but transport details remain outside the pure traversal/materialization kernels
+  - selfhosting drift checks are structural: exported GTL surface, bootloader type table, and evaluator-regime declarations must agree
 composes_with:
   - M01-gtl-core supplies the declared graph, algebra, and evaluation surfaces being interpreted
   - M02-work-publication supplies the published module and graph-function truth being materialized
@@ -74,9 +80,11 @@ test_obligations:
   - explicit request/record materialization tests with replayable provenance
   - fail-closed tests for undeclared graph-function ids, profiles, parameters, and outer-contract violations
   - traversal tests for delegated materialization, convergence, selection, and provenance rather than hidden local strategy
+  - traversal tests for explicit WorkSurface contributions from effect-edge F_P dispatch without hidden runtime mutation
   - event-context tests for explicit workflow/work/run provenance without stream-local mutation
   - refinement tests for parent/child lineage, lawful fold-back, and refined evaluator-bundle derivation
   - provenance tests that preserve graph-function, materialization, bundle, and refined-boundary identity across execution
+  - structural selfhosting tests that fail when bootloader sections drift from the exported GTL surface even if names still appear elsewhere in the document
 notes:
   - canonical ABG graph-function materialization and graph-derived companion bundle derivation are kernel-owned design obligations for the 1.1 line
   - kernel materialization and traversal should read as a functional core with explicit interpreter-edge effects; event emission, transport, and subprocess remain outside the pure materialization/convergence kernels

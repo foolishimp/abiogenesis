@@ -210,16 +210,6 @@ def classify_failure(
 
     return None
 
-
-def call_claude_code_mcp(
-    prompt: str,
-    work_folder: str,
-    *,
-    timeout: int = AGENT_CALL_TIMEOUT,
-) -> str:
-    return call_agent(prompt, work_folder, agent="claude", timeout=timeout)
-
-
 def _agent_command(agent: str) -> str:
     """Map agent identifier to CLI command."""
     commands = {

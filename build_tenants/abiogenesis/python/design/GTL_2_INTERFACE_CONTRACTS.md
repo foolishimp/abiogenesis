@@ -441,11 +441,19 @@ class Traversal:
 ### 5.2 `abg.interpret.traverse(...)`
 
 ```python
+@dataclass(frozen=True)
+class TraversalOutcome:
+    surface: WorkSurface
+    result: dict
+    updated_module: Module | None = None
+    updated_worker: Worker | None = None
+
 def traverse(
     traversal: Traversal,
     *,
+    runtime: TraversalRuntime,
     surface: WorkSurface,
-) -> WorkSurface
+) -> TraversalOutcome
 ```
 
 **Contract**
@@ -457,8 +465,9 @@ def traverse(
   - selection validation to `abg.selection`
   - provenance carry-forward to `abg.provenance`
 - Owns event emission for delegated results.
-- Returns the next immutable `WorkSurface` and does not invent domain semantics.
+- Returns a `TraversalOutcome` carrying the next immutable `WorkSurface`, plus refined module/worker surfaces when the traversal materially rewrites the executable topology.
 - Returned `WorkSurface.metadata` is output-side realized metadata; it may include explicit carry-forward from `Traversal.metadata`, but it must not silently inherit hidden control strategy.
+- Effect-edge dispatch helpers may contribute explicit `WorkSurface` fragments, but they may not mutate runtime truth behind the traversal surface.
 
 **Fail closed**
 - target/surface contract mismatch

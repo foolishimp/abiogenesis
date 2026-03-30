@@ -55,7 +55,7 @@ Current reading:
 
 ### test_m03_engine_kernel_integration.py
 
-- Requirements: `REQ-R-ABG2-INTERPRET`, `REQ-R-ABG2-CONVERGENCE`, `REQ-R-ABG2-SELECTION-APPLICATION`, `REQ-R-ABG2-PROVENANCE`, `REQ-R-ABG2-RUN`, `REQ-R-ABG2-PROJECTION`
+- Requirements: `REQ-R-ABG2-INTERPRET`, `REQ-R-ABG2-CONVERGENCE`, `REQ-R-ABG2-SELECTION-APPLICATION`, `REQ-R-ABG2-PROVENANCE`, `REQ-R-ABG2-RUN`, `REQ-R-ABG2-PROJECTION`, `REQ-R-ABG2-SELFHOSTING`
 - Design: [module_decomp.md](../../../common/design/module_decomp.md), [qualification_refactor_loop.md](../../../common/qualification/qualification_refactor_loop.md), [GTL_2_MODULE_DESIGN.md](../design/GTL_2_MODULE_DESIGN.md), [GTL_2_INTERFACE_CONTRACTS.md](../design/GTL_2_INTERFACE_CONTRACTS.md)
 
 ## Product and Qualification Tests

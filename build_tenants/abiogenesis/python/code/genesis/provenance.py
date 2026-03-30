@@ -51,7 +51,7 @@ def executable_job_hash(job: ExecutableJob) -> str:
     return hashlib.sha256(raw.encode()).hexdigest()[:16]
 
 
-# Back-compat alias during migration
+# Compatibility alias for older callers that still use the historical name.
 job_evaluator_hash = executable_job_hash
 
 

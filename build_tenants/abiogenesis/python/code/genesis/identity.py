@@ -6,7 +6,7 @@ identity — runtime identity and provenance projection.
 ABG accepts worker identity as externally resolved input, but the surrounding
 app/runtime stack may also declare engine/build/backend identity. This module
 keeps those surfaces explicit so reporting and event provenance do not collapse
-back to one stale legacy build string.
+back to one opaque compatibility label.
 """
 from __future__ import annotations
 
@@ -40,7 +40,7 @@ class RuntimeIdentity:
 
     def legacy_build_id(self) -> str:
         """Compatibility projection for legacy ABG surfaces that still name build."""
-        return self.build_id or self.worker_id or "claude_code"
+        return self.build_id or self.worker_id or self.engine_id
 
     def as_dict(self) -> dict[str, str]:
         result = {

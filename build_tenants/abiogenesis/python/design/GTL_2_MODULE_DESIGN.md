@@ -478,17 +478,12 @@ class ExecutableJob:
 
 @dataclass(frozen=True)
 class WorkSurface:
-    surface_id: str
-    run_id: str | None
-    job_id: str | None
-    worker_id: str | None
-    role_id: str | None
-    stage: str               # prepared|dispatched|pending|assessed|approved|failed|timed_out|superseded
+    events: tuple[dict, ...] = ()
+    artifacts: tuple[str, ...] = ()
     context_consumed: tuple[Context, ...] = ()
     context_emitted: tuple[Context, ...] = ()
-    artifacts: tuple[str, ...] = ()
-    findings: Attrs = ()
-    attestations: Attrs = ()
+    findings: tuple[dict, ...] = ()
+    attestations: tuple[dict, ...] = ()
     metadata: Attrs = ()  # realized output-side runtime metadata only
 
 @dataclass(frozen=True)
@@ -506,6 +501,16 @@ class Worker:
     can_execute: list[ExecutableJob]
     role_ids: tuple[str, ...] = ()
     authority_ref: str | None = None
+
+@dataclass(frozen=True)
+class RuntimeIdentity:
+    engine_id: str = "genesis"
+    build_id: str | None = None
+    worker_id: str | None = None
+    backend_id: str | None = None
+    authority_ref: str | None = None
+
+    # compatibility projection: build_id -> worker_id -> engine_id
 
 # abg.lineage
 @dataclass(frozen=True)
@@ -564,15 +569,34 @@ class SelectionDecision:
 # abg.services
 @dataclass
 class Scope:
-    module_ref: str
+    module: Module
     workspace_root: Path
-    work_key: str
-    vector_id: str
-    build: str  # legacy projection only
-    runtime_identity: RuntimeIdentity
-    worker_ref: str
-    workflow_version: str
-    run_id: str
+    work_key_filter: str | None = None
+    edge_filter: str | None = None
+    build: str | None = None  # compatibility projection only
+    runtime_identity: RuntimeIdentity | None = None
+    worker: Worker | None = None
+    workflow_version: str = "unknown"
+
+# abg.interpret
+@dataclass
+class TraversalRuntime:
+    module: Module
+    executable_job: ExecutableJob
+    precomputed: PrecomputedManifest
+    workspace_root: Path
+    stream: EventStream
+    worker: Worker
+    spec_hash: str
+    runtime_identity: RuntimeIdentity | None = None
+    build: str | None = None
+
+@dataclass(frozen=True)
+class TraversalOutcome:
+    surface: WorkSurface
+    result: dict
+    updated_module: Module | None = None
+    updated_worker: Worker | None = None
 ```
 
 ### 5.2 Canonical ABG runtime types
@@ -581,10 +605,11 @@ class Scope:
 | --- | --- | --- |
 | `ExecutableJob` | `abg.binding` | Executable resolution of one GTL job to one graph-vector contract |
 | `Worker` | `abg.binding` | Concrete actor identity with executable capability, role ids, and authority hook |
-| `RuntimeIdentity` | `abg.identity` | Structured engine/build/worker/backend provenance for one runtime scope |
+| `RuntimeIdentity` | `abg.identity` | Structured engine/build/worker/backend provenance for one runtime scope, with compatibility projection `build_id -> worker_id -> engine_id` |
 | `WorkSurface` | `abg.binding` | Immutable execution dossier, elastic context carrier, and audit surface |
 | `RunState` | `abg.run` | Execution-attempt lifecycle truth |
 | `Traversal` | `abg.interpret` | First-class traversal contract over a target with evaluators and rule |
+| `TraversalOutcome` | `abg.interpret` | Immutable result of one traversal attempt, including updated module/worker when refinement occurs |
 | `SelectionDecision` | `abg.selection` | Lawful selection/application decision |
 | `LeafTask` | `abg.subwork` | Bounded delegated sub-work |
 | `Scope` | `abg.services` | Named application/service boundary |
@@ -635,10 +660,10 @@ class Scope:
 
 | Concrete file | Conceptual module | Owns |
 | --- | --- | --- |
-| `genesis/identity.py` | `abg.identity` | `RuntimeIdentity`, legacy build projection, worker-bound runtime provenance |
+| `genesis/identity.py` | `abg.identity` | `RuntimeIdentity`, neutral compatibility build projection, worker-bound runtime provenance |
 | `genesis/services.py` | `abg.services` | `Scope`, orchestration, service-level command flows |
 | `genesis/cli_adapter.py` | `abg.cli` | parser, command wiring, traceability command adapters |
-| `genesis/selfhosting.py` | `abg.selfhosting` | bootloader consistency and drift checks |
+| `genesis/selfhosting.py` | `abg.selfhosting` | structural bootloader consistency and drift checks over exported GTL surface |
 | `gen-install.py` | `abg.install` | workspace bootstrap and installer surface |
 | `genesis/__init__.py` | public ABG surface | runtime identity and exported engine surface |
 

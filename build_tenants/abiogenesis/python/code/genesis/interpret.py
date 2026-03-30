@@ -104,10 +104,10 @@ class TraversalRuntime:
     worker: Worker
     spec_hash: str
     runtime_identity: RuntimeIdentity | None = None
-    build: str = "claude_code"
+    build: str | None = None
     work_key: str | None = None
     workflow_version: str = "unknown"
-    on_fp_dispatch: Optional[Callable[[BoundJob], None]] = None
+    on_fp_dispatch: Optional[Callable[[BoundJob], WorkSurface | None]] = None
     leaf_tasks: tuple[LeafTask, ...] = ()
     on_leaf_dispatch: Optional[Callable[[LeafTask, dict], tuple[dict | None, str | None]]] = None
     leaf_task_inputs: dict[str, dict] = field(default_factory=dict)
@@ -115,12 +115,10 @@ class TraversalRuntime:
 
     def __post_init__(self) -> None:
         if self.runtime_identity is None:
-            initial_build = None if self.worker is not None and self.build == "claude_code" else self.build
-            self.runtime_identity = RuntimeIdentity(build_id=initial_build)
+            self.runtime_identity = RuntimeIdentity(build_id=self.build)
         elif (
             self.runtime_identity.build_id is None
             and self.build
-            and not (self.worker is not None and self.build == "claude_code")
         ):
             self.runtime_identity = RuntimeIdentity(
                 engine_id=self.runtime_identity.engine_id,
@@ -583,7 +581,7 @@ def traverse(
 
 def _realize_iteration(
     bound_job: BoundJob,
-    on_fp_dispatch: Optional[Callable[[BoundJob], None]] = None,
+    on_fp_dispatch: Optional[Callable[[BoundJob], WorkSurface | None]] = None,
     leaf_tasks: Optional[list[LeafTask]] = None,
     on_leaf_dispatch: Optional[Callable[[LeafTask, dict], tuple[dict | None, str | None]]] = None,
     run_id: Optional[str] = None,
@@ -653,6 +651,8 @@ def _realize_iteration(
                 if output:
                     artifacts.append(f"leaf:{task.name}")
 
+    dispatch_surface = WorkSurface()
+
     if fp_failing:
         fp_dispatch_data: dict = {
             "edge": job.vector.name,
@@ -674,7 +674,7 @@ def _realize_iteration(
         if bound_job.result_path:
             artifacts.append(bound_job.result_path)
         if on_fp_dispatch is not None:
-            on_fp_dispatch(bound_job)
+            dispatch_surface = on_fp_dispatch(bound_job) or WorkSurface()
 
     if fh_failing and not fd_failing and not fp_failing:
         events.append({
@@ -687,9 +687,18 @@ def _realize_iteration(
         })
 
     return WorkSurface(
-        events=tuple(events),
-        artifacts=tuple(artifacts),
-        context_consumed=tuple(job.vector.contexts),
+        events=tuple(events) + dispatch_surface.events,
+        artifacts=tuple(artifacts) + dispatch_surface.artifacts,
+        context_consumed=tuple(job.vector.contexts) + dispatch_surface.context_consumed,
+        context_emitted=dispatch_surface.context_emitted,
+        findings=dispatch_surface.findings,
+        attestations=dispatch_surface.attestations,
+        metadata=Attrs.coerce(
+            {
+                **WorkSurface().metadata.to_dict(),
+                **dispatch_surface.metadata.to_dict(),
+            }
+        ),
     )
 
 

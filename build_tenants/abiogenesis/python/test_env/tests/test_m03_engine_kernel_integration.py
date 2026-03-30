@@ -4,6 +4,7 @@
 # Validates: REQ-R-ABG2-PROVENANCE
 # Validates: REQ-R-ABG2-RUN
 # Validates: REQ-R-ABG2-PROJECTION
+# Validates: REQ-R-ABG2-SELFHOSTING
 """
 M03 engine-kernel integration lane.
 
@@ -41,7 +42,16 @@ from genesis.provenance import req_hash
 from genesis.projection import project
 from genesis.run import find_pending_run, run_state
 from genesis.selection import SelectionDecision, resolve_candidate_family
+from genesis.selfhosting import _bootloader_consistency_report
 from genesis.services import Scope, gen_gaps
+
+
+BOOTLOADER_PATH = (
+    Path(__file__).resolve().parents[2]
+    / "code"
+    / "gtl_spec"
+    / "GTL_BOOTLOADER.md"
+)
 
 
 def _graph_function(name: str, graph: Graph) -> GraphFunction:
@@ -282,6 +292,81 @@ class TestM03EngineKernelIntegration:
                 MaterializationRequest(graph_function="delivery_profile", parameters={"mode": "strict"}),
                 module,
             )
+
+    def test_fp_dispatch_callback_can_return_structured_work_surface(self, tmp_path: Path) -> None:
+        module = _minimal_property_module(["REQ-M03-DISPATCH-001"])
+        executable_job = module_to_executable_jobs(module)[0]
+        fp_evaluator = next(
+            evaluator for evaluator in executable_job.vector.evaluators if evaluator.regime is F_P
+        )
+        stream = workspace_bootstrap(tmp_path)
+
+        runtime = TraversalRuntime(
+            module=module,
+            executable_job=executable_job,
+            precomputed=_precomputed(executable_job, failing=(fp_evaluator,)),
+            workspace_root=tmp_path,
+            stream=stream,
+            worker=Worker(id="router", can_execute=[executable_job]),
+            spec_hash="spec-m03-dispatch",
+            on_fp_dispatch=lambda _bound_job: WorkSurface(
+                events=(
+                    {
+                        "event_type": "run_failed",
+                        "data": {
+                            "edge": executable_job.vector.name,
+                            "failure_class": "transport_failure",
+                        },
+                    },
+                ),
+                artifacts=("dispatch/report.json",),
+                findings=({"kind": "transport_failure"},),
+                metadata={"dispatch_failure": "transport_failure"},
+            ),
+        )
+
+        outcome = traverse(
+            Traversal(
+                work_key=executable_job.vector.id,
+                target=module.refinement_boundaries[0],
+                evaluators=executable_job.vector.evaluators,
+            ),
+            runtime=runtime,
+            surface=WorkSurface(),
+        )
+
+        event_types = [event["event_type"] for event in outcome.surface.events]
+        assert event_types == ["fp_dispatched", "run_failed"]
+        assert "dispatch/report.json" in outcome.surface.artifacts
+        assert any(artifact.endswith(".json") for artifact in outcome.surface.artifacts)
+        assert outcome.surface.findings == ({"kind": "transport_failure"},)
+        assert outcome.surface.metadata["dispatch_failure"] == "transport_failure"
+
+    def test_bootloader_consistency_uses_structural_axioms_and_type_surface(self) -> None:
+        report = _bootloader_consistency_report("gtl", str(BOOTLOADER_PATH))
+
+        assert report["passes"] is True
+        assert report["missing_axioms"] == []
+        assert report["missing_type_surface"] == []
+        assert report["missing_regimes"] == []
+        assert report["module_mismatches"] == []
+
+    def test_bootloader_consistency_detects_missing_type_surface_row_even_when_name_still_appears(
+        self,
+        tmp_path: Path,
+    ) -> None:
+        bootloader = BOOTLOADER_PATH.read_text(encoding="utf-8")
+        broken_bootloader = bootloader.replace(
+            "| `GraphFunction` | `gtl.function_model` | Reusable workflow template/program |\n",
+            "",
+        )
+        broken_path = tmp_path / "GTL_BOOTLOADER.md"
+        broken_path.write_text(broken_bootloader, encoding="utf-8")
+
+        report = _bootloader_consistency_report("gtl", str(broken_path))
+
+        assert report["passes"] is False
+        assert "GraphFunction" in report["missing_type_surface"]
 
     def test_iterated_traversal_emits_run_binding_dispatch_and_replay_state(self, tmp_path: Path) -> None:
         raw_contract = Node(name="raw_contract", schema="ContractInput")

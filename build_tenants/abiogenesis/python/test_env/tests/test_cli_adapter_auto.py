@@ -195,6 +195,18 @@ def test_scope_reports_bound_worker_identity_when_no_runtime_build_is_declared(t
     assert result["scope"]["runtime_identity"]["authority_ref"] == "runtime://role-dispatch"
 
 
+def test_scope_uses_engine_identity_when_no_runtime_build_or_worker_is_declared(tmp_path: Path):
+    module = _runtime_contract_module()
+    scope = services.Scope(module=module, workspace_root=tmp_path)
+
+    result = services.gen_gaps(scope, genesis_install.workspace_bootstrap(tmp_path))
+
+    assert result["scope"]["build"] == "genesis"
+    assert result["scope"]["runtime_identity"]["engine_id"] == "genesis"
+    assert result["scope"]["runtime_identity"]["build_id"] == "genesis"
+    assert result["scope"]["runtime_identity"]["worker_id"] == "genesis"
+
+
 def test_scope_does_not_reinject_legacy_build_default_when_runtime_identity_is_partial(tmp_path: Path):
     module = _runtime_contract_module()
     worker = Worker(
