@@ -5,6 +5,8 @@ from __future__ import annotations
 from pathlib import Path
 
 from genesis import cli_adapter
+from genesis import events as genesis_events
+from genesis import install as genesis_install
 from genesis import services
 
 
@@ -96,3 +98,66 @@ def test_run_start_auto_human_proxy_handles_fh_gate_and_retries(monkeypatch, tmp
     assert result["auto"] is True
     assert result["human_proxy"] is True
     assert approvals == ["design→review"]
+
+
+def test_main_routes_start_auto_human_proxy_through_cli_auto_loop(
+    monkeypatch,
+    tmp_path: Path,
+    capsys,
+):
+    class FakeModule:
+        name = "demo_module"
+
+    class FakeScope:
+        def __init__(self, **kwargs):
+            self.module = kwargs["module"]
+            self.workflow_version = "demo-workflow@1.1.0"
+
+    called: dict[str, object] = {}
+
+    def fake_workspace_bootstrap(workspace):
+        called["workspace_bootstrap"] = workspace
+        return object()
+
+    def fake_load_project_config(workspace):
+        called["config_workspace"] = workspace
+        return {"module": "demo.module:module", "pythonpath": []}
+
+    def fake_resolve_module(args, workspace):
+        called["resolved_workspace"] = workspace
+        return FakeModule()
+
+    def fake_run_start_auto(scope, stream, *, workspace, mod_ref, human_proxy):
+        called["auto_scope"] = scope
+        called["auto_stream"] = stream
+        called["auto_workspace"] = workspace
+        called["auto_mod_ref"] = mod_ref
+        called["auto_human_proxy"] = human_proxy
+        return {"status": "converged", "message": "ok", "auto": True, "human_proxy": True}
+
+    def fail_gen_start(*args, **kwargs):
+        raise AssertionError("main() should not call gen_start(auto=True) directly")
+
+    monkeypatch.setattr(cli_adapter, "_load_project_config", fake_load_project_config)
+    monkeypatch.setattr(cli_adapter, "_resolve_module", fake_resolve_module)
+    monkeypatch.setattr(cli_adapter, "_run_start_auto", fake_run_start_auto)
+    monkeypatch.setattr(genesis_install, "workspace_bootstrap", fake_workspace_bootstrap)
+    monkeypatch.setattr(services, "Scope", FakeScope)
+    monkeypatch.setattr(services, "gen_start", fail_gen_start)
+    monkeypatch.setattr(
+        genesis_events,
+        "init_snapshot",
+        lambda snapshot_id: called.setdefault("snapshot_id", snapshot_id),
+    )
+    monkeypatch.setattr(
+        "sys.argv",
+        ["genesis", "start", "--auto", "--human-proxy", "--workspace", str(tmp_path)],
+    )
+
+    cli_adapter.main()
+
+    output = capsys.readouterr().out
+    assert "\"status\": \"converged\"" in output
+    assert called["auto_workspace"] == tmp_path
+    assert called["auto_mod_ref"] == "demo.module:module"
+    assert called["auto_human_proxy"] is True
