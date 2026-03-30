@@ -78,7 +78,7 @@ In this Claude build, the conceptual `abg.*` runtime layer is implemented under 
 | `abg.events` | Append-only event substrate | `EventStream`, `EventContext`, `emit()`, event schema helpers | REQ-R-ABG2-EVENTS |
 | `abg.projection` | Pure replay | `project()`, derived truth folds | REQ-R-ABG2-PROJECTION |
 | `abg.binding` | Executable job resolution, deterministic precomputation, worker capability, role binding, immutable execution surfaces | `ExecutableJob`, `WorkSurface`, `Worker`, preparation helpers, `bind_fd()`, `bind_fp()`, `bind_fh()`, executable-job hashes | REQ-R-ABG2-INTERPRET, REQ-R-ABG2-WORKER, REQ-R-ABG2-BINDING, REQ-R-ABG2-PROVENANCE |
-| `abg.lineage` | Work identity and parent/child | `spawn()`, `fold_back()`, `_discover_children()`, lineage queries, work-identity helpers | REQ-R-ABG2-LINEAGE |
+| `abg.lineage` | Work identity and parent/child | `spawn()`, `discover_children()`, lineage queries, work-identity helpers | REQ-R-ABG2-LINEAGE |
 | `abg.run` | Execution attempts | `RunState`, `run_state()`, `find_pending_run()`, `supersede_run()` | REQ-R-ABG2-RUN |
 | `abg.convergence` | Delta and convergence | `delta()`, `parent_converged()`, evaluator-vector convergence, round visibility | REQ-R-ABG2-CONVERGENCE |
 | `abg.selection` | Candidate enumeration and validation | `SelectionDecision`, candidate discovery, candidate-family/profile validation | REQ-R-ABG2-SELECTION-APPLICATION |
@@ -517,23 +517,24 @@ class RuntimeIdentity:
 class WorkInstance:
     """Helper view over one work identity before/alongside run realization."""
     executable_job: ExecutableJob
-    work_key: str
-    run_id: str
+    work_key: str | None = None
+    run_id: str = field(default_factory=lambda: str(uuid.uuid4()))
 
 # abg.run
 @dataclass(frozen=True)
 class RunState:
-    work_key: str
+    work_key: str | None
     run_id: str
-    job_id: str
-    vector_id: str
-    worker_id: str | None
-    role_id: str | None
-    authority_ref: str | None
+    edge: str
     state: str               # queued|started|dispatched|pending|assessed|failed|timed_out|superseded
-    failure_class: str
-    attempt_number: int
-    superseded_by: str
+    vector_id: str | None = None
+    job_id: str | None = None
+    worker_id: str | None = None
+    role_id: str | None = None
+    authority_ref: str | None = None
+    failure_class: str | None = None
+    attempt_number: int = 1
+    superseded_by: str | None = None
 
 # abg.subwork
 @dataclass(frozen=True)
@@ -694,7 +695,7 @@ abg.projection      → abg.events
 abg.provenance      → abg.events
 abg.correction      → abg.events
 abg.binding         → abg.events, abg.projection, abg.provenance, gtl.graph, gtl.operator_model, gtl.work_model
-abg.lineage         → abg.events
+abg.lineage         → abg.events, abg.binding
 abg.run             → abg.events
 abg.convergence     → abg.events, abg.binding, abg.lineage, abg.run, abg.correction
 abg.selection       → gtl.graph, gtl.function_model, gtl.module_model  # returns SelectionDecision; caller emits events

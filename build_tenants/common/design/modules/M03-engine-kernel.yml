@@ -56,9 +56,10 @@ interfaces:
   - derive_bundle(record, kind)
   - Traversal
   - TraversalOutcome
-  - traverse(traversal, surface)
+  - traverse(traversal, runtime, surface)
   - spawn(...)
-  - fold_back(...)
+  - discover_children(...)
+  - parent_converged(...)
   - _bootloader_consistency_report(spec_module, bootloader_path)
   - _check_bootloader_consistency(spec_module, bootloader_path)
 invariants:
