@@ -47,6 +47,8 @@ test_obligations:
   - CLI auto-loop regression tests for repeated fp-dispatch and human-proxy approval flow
   - runtime identity projection tests that preserve worker/build/backend/authority truth
   - installer/bootstrap tests that keep orchestration separate from kernel semantics
+  - installer completeness tests that prove every declared genesis runtime module is present in the installed `.genesis/genesis/` surface
+  - installed-runtime smoke tests that invoke `python -m genesis` from `PYTHONPATH=<workspace>/.genesis` rather than only through source imports
 notes:
   - `services.gen_start()` remains the engine-facing one-step progression surface
   - CLI auto mode is a higher-order orchestration layer above one-step progression

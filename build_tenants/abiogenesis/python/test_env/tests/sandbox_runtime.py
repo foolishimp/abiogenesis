@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -36,3 +37,31 @@ def install_real_sandbox(target: Path, *, archive: RunArchive | None = None) -> 
             installer_target=payload.get("target"),
         )
     return payload
+
+
+def installed_env(workspace: Path) -> dict[str, str]:
+    env = os.environ.copy()
+    existing = env.get("PYTHONPATH", "")
+    env["PYTHONPATH"] = os.pathsep.join(
+        [str(workspace / ".genesis")] + ([existing] if existing else [])
+    )
+    return env
+
+
+def run_installed_genesis(
+    workspace: Path,
+    *args: str,
+    archive: RunArchive | None = None,
+    label: str | None = None,
+) -> subprocess.CompletedProcess[str]:
+    result = subprocess.run(
+        [sys.executable, "-m", "genesis", *args, "--workspace", str(workspace)],
+        cwd=str(workspace),
+        env=installed_env(workspace),
+        capture_output=True,
+        text=True,
+        timeout=60,
+    )
+    if archive is not None:
+        archive.log_subprocess(label or f"installed genesis {' '.join(args)}", result)
+    return result

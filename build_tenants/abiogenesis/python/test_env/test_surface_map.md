@@ -90,7 +90,7 @@ Current reading:
 ### test_v2_sandbox_install.py
 
 - Requirements: `REQ-R-ABG2-EVENTS`, `REQ-R-ABG2-INTERPRET`
-- Design: [GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md](../design/GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md), [SCENARIO_V2_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md](../design/SCENARIO_V2_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md)
+- Design: [README.md](../design/README.md), [GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md](../design/GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md), [SCENARIO_V2_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md](../design/SCENARIO_V2_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md), [M04-app-bootstrap.yml](../../../common/design/modules/M04-app-bootstrap.yml)
 
 ### test_v2_sandbox_usecases_fake.py
 
