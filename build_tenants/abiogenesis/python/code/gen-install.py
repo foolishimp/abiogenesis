@@ -56,6 +56,7 @@ ENGINE_MODULES = [
     "subwork.py",
     "binding.py",
     "convergence.py",
+    "materialization.py",
     "interpret.py",
     "selfhosting.py",
     "install.py",
