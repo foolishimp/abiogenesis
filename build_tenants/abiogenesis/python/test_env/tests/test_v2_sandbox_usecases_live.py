@@ -24,6 +24,7 @@ from genesis.cli_adapter import _assess_result_cmd
 from genesis.binding import PrecomputedManifest, WorkSurface, module_to_executable_jobs
 from genesis.install import workspace_bootstrap
 from genesis.interpret import Traversal, TraversalRuntime, traverse
+from genesis.projection import project
 from genesis.selection import SelectionDecision
 from genesis.services import Scope, gen_gaps, gen_iterate
 from genesis.transport import call_agent, has_agent
@@ -508,12 +509,13 @@ def test_gsdlc_lite_zoom_design_live_qualification(run_archive):
         surface=WorkSurface(),
     )
     assert selected.result["status"] == "selected"
-    assert selected.updated_module is not None
+    frame_state = project(stream, "frame", selected.result["frame_id"])
+    assert frame_state["status"] == "open"
 
     active_scope = Scope(
-        module=selected.updated_module,
+        module=module,
         workspace_root=workspace,
-        worker=selected.updated_worker,
+        worker=scope.worker,
     )
 
     zoom_steps = (

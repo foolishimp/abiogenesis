@@ -37,27 +37,94 @@ def _graph_function_contract(function: GraphFunction) -> tuple[tuple[str, ...], 
     return interface_contract(function.inputs), interface_contract(function.outputs)
 
 
-def validate_module_selection_surface(module: Module) -> None:
-    """Fail closed when a module hides structural alternatives outside CandidateFamily.
+def _resolve_vector(
+    vectors: tuple[GraphVector, ...],
+    vector_id: str,
+) -> GraphVector | None:
+    for vector in vectors:
+        if vector.id == vector_id:
+            return vector
+    return None
+
+
+def resolve_surface_refinement_boundary(
+    *,
+    vectors: tuple[GraphVector, ...],
+    refinement_boundaries: tuple[RefinementBoundary, ...],
+    vector_id: str,
+) -> RefinementBoundary | None:
+    """Resolve one published refinement boundary from any lawful traversal surface."""
+    target_vec = _resolve_vector(vectors, vector_id)
+    if target_vec is None:
+        return None
+
+    vec_inputs, vec_outputs = _vector_contract(target_vec)
+    declared = tuple(
+        boundary
+        for boundary in refinement_boundaries
+        if boundary.name == target_vec.name
+        and interface_contract(boundary.inputs) == vec_inputs
+        and interface_contract(boundary.outputs) == vec_outputs
+    )
+    if len(declared) > 1:
+        raise ValueError(
+            f"resolve_surface_refinement_boundary(): ambiguous published refinement boundaries "
+            f"for vector {vector_id!r}"
+        )
+    return declared[0] if declared else None
+
+
+def resolve_surface_candidate_family(
+    *,
+    vectors: tuple[GraphVector, ...],
+    candidate_families: tuple[CandidateFamily, ...],
+    vector_id: str,
+) -> CandidateFamily | None:
+    """Resolve one published candidate family from any lawful traversal surface."""
+    target_vec = _resolve_vector(vectors, vector_id)
+    if target_vec is None:
+        return None
+
+    vec_inputs, vec_outputs = _vector_contract(target_vec)
+    declared = tuple(
+        family
+        for family in candidate_families
+        if interface_contract(family.inputs) == vec_inputs
+        and interface_contract(family.outputs) == vec_outputs
+    )
+    if len(declared) > 1:
+        raise ValueError(
+            f"resolve_surface_candidate_family(): ambiguous declared candidate families "
+            f"for vector {vector_id!r}"
+        )
+    return declared[0] if declared else None
+
+
+def validate_selection_surface(
+    *,
+    vectors: tuple[GraphVector, ...],
+    graph_functions: tuple[GraphFunction, ...],
+    candidate_families: tuple[CandidateFamily, ...],
+) -> None:
+    """Fail closed when a traversal surface hides structural alternatives outside CandidateFamily.
 
     If a GraphFunction matches the outer contract of a live GraphVector, that
-    alternative must be published through Module.candidate_families. The engine
-    must not infer selection topology from raw graph_functions.
+    alternative must be published through CandidateFamily. The engine must not
+    infer selection topology from raw graph_functions.
     """
     family_contracts = {
         (interface_contract(family.inputs), interface_contract(family.outputs))
-        for family in module.candidate_families
+        for family in candidate_families
     }
 
     vector_contracts = {
         _vector_contract(vector)
-        for graph in module.graphs
-        for vector in graph.vectors
+        for vector in vectors
     }
 
     hidden_contracts = {
         _graph_function_contract(function)
-        for function in module.graph_functions
+        for function in graph_functions
         if _graph_function_contract(function) in vector_contracts
         and _graph_function_contract(function) not in family_contracts
     }
@@ -67,10 +134,19 @@ def validate_module_selection_surface(module: Module) -> None:
             for inputs, outputs in sorted(hidden_contracts)
         )
         raise ValueError(
-            "validate_module_selection_surface(): graph_functions matching live "
-            f"vector contracts must be published via Module.candidate_families; "
+            "validate_selection_surface(): graph_functions matching live "
+            f"vector contracts must be published via CandidateFamily; "
             f"hidden contracts: {rendered}"
         )
+
+
+def validate_module_selection_surface(module: Module) -> None:
+    """Fail closed when a module hides structural alternatives outside CandidateFamily."""
+    validate_selection_surface(
+        vectors=tuple(vector for graph in module.graphs for vector in graph.vectors),
+        graph_functions=module.graph_functions,
+        candidate_families=module.candidate_families,
+    )
 
 
 def resolve_refinement_boundary(
@@ -78,49 +154,49 @@ def resolve_refinement_boundary(
     vector_id: str,
 ) -> RefinementBoundary | None:
     """Resolve the published refinement boundary for a live vector."""
-    target_vec = None
-    for graph in module.graphs:
-        for vec in graph.vectors:
-            if vec.id == vector_id:
-                target_vec = vec
-                break
-        if target_vec is not None:
-            break
-
-    if target_vec is None:
-        return None
-
-    vec_inputs, vec_outputs = _vector_contract(target_vec)
-    declared = tuple(
-        boundary
-        for boundary in module.refinement_boundaries
-        if boundary.name == target_vec.name
-        and interface_contract(boundary.inputs) == vec_inputs
-        and interface_contract(boundary.outputs) == vec_outputs
+    return resolve_surface_refinement_boundary(
+        vectors=tuple(vector for graph in module.graphs for vector in graph.vectors),
+        refinement_boundaries=module.refinement_boundaries,
+        vector_id=vector_id,
     )
-    if len(declared) > 1:
+
+
+def validate_traversal_surface(
+    *,
+    vectors: tuple[GraphVector, ...],
+    refinement_boundaries: tuple[RefinementBoundary, ...],
+    candidate_families: tuple[CandidateFamily, ...],
+) -> None:
+    """Fail closed when a live vector has no published traversal target."""
+    missing: list[str] = []
+    for vector in vectors:
+        if (
+            resolve_surface_refinement_boundary(
+                vectors=vectors,
+                refinement_boundaries=refinement_boundaries,
+                vector_id=vector.id,
+            ) is None
+            and resolve_surface_candidate_family(
+                vectors=vectors,
+                candidate_families=candidate_families,
+                vector_id=vector.id,
+            ) is None
+        ):
+            missing.append(vector.name)
+    if missing:
         raise ValueError(
-            f"resolve_refinement_boundary(): ambiguous published refinement boundaries "
-            f"for vector {vector_id!r}"
+            "validate_traversal_surface(): every live graph vector must publish "
+            f"a RefinementBoundary or CandidateFamily; missing: {sorted(missing)}"
         )
-    return declared[0] if declared else None
 
 
 def validate_module_traversal_surface(module: Module) -> None:
     """Fail closed when a live vector has no published traversal target."""
-    missing: list[str] = []
-    for graph in module.graphs:
-        for vector in graph.vectors:
-            if (
-                resolve_refinement_boundary(module, vector.id) is None
-                and resolve_candidate_family(module, vector.id) is None
-            ):
-                missing.append(vector.name)
-    if missing:
-        raise ValueError(
-            "validate_module_traversal_surface(): every live graph vector must publish "
-            f"a RefinementBoundary or CandidateFamily; missing: {sorted(missing)}"
-        )
+    validate_traversal_surface(
+        vectors=tuple(vector for graph in module.graphs for vector in graph.vectors),
+        refinement_boundaries=module.refinement_boundaries,
+        candidate_families=module.candidate_families,
+    )
 
 
 def resolve_candidate_family(
@@ -132,33 +208,11 @@ def resolve_candidate_family(
     Returns one explicitly declared Module.candidate_families match, or None.
     Fails closed on ambiguous declared families.
     """
-    target_vec = None
-    for graph in module.graphs:
-        for vec in graph.vectors:
-            if vec.id == vector_id:
-                target_vec = vec
-                break
-        if target_vec is not None:
-            break
-
-    if target_vec is None:
-        return None
-
-    vec_inputs, vec_outputs = _vector_contract(target_vec)
-    declared = tuple(
-        family
-        for family in module.candidate_families
-        if interface_contract(family.inputs) == vec_inputs
-        and interface_contract(family.outputs) == vec_outputs
+    return resolve_surface_candidate_family(
+        vectors=tuple(vector for graph in module.graphs for vector in graph.vectors),
+        candidate_families=module.candidate_families,
+        vector_id=vector_id,
     )
-    if len(declared) > 1:
-        raise ValueError(
-            f"resolve_candidate_family(): ambiguous declared candidate families "
-            f"for vector {vector_id!r}"
-        )
-    if declared:
-        return declared[0]
-    return None
 
 
 def validate_selection(

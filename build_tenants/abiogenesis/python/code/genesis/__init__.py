@@ -19,4 +19,4 @@ Consumes Module, Graph, GraphVector, Node natively.
     selfhosting  — Bootloader consistency checks
     __main__     — CLI entry point
 """
-__version__ = "1.1.0"
+__version__ = "2.0.0"

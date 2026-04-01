@@ -13,11 +13,13 @@
 - `REQ-L-GTL2-GRAPHFUNCTION`
 - `REQ-L-GTL2-SYNTHESIS`
 - `REQ-L-GTL2-SELECTION-BOUNDARY`
+- `REQ-L-GTL2-RECURSE`
 - `REQ-L-GTL2-HOF`
 - `REQ-L-GTL2-RULE`
 - `REQ-M-GTL2-MAPPING`
 - `REQ-M-GTL2-PROVENANCE`
 - `REQ-R-ABG2-CONVERGENCE`
+- `REQ-R-ABG2-INTERPRET`
 - `REQ-R-ABG2-SELECTION-APPLICATION`
 - `REQ-R-ABG2-PROVENANCE`
 
@@ -256,6 +258,7 @@ def substitute(outer: Graph, contract_vector: str, inner: Graph) -> Graph
 - `inner` must preserve the outer contract of the replaced vector.
 - The result graph must expose the refined inner structure.
 - The outer graph’s boundary remains unchanged.
+- This is graph algebra and projection truth. It is not, by itself, the default runtime meaning of graph-function selection.
 
 **Fail closed**
 - unknown `contract_vector`
@@ -266,19 +269,52 @@ def substitute(outer: Graph, contract_vector: str, inner: Graph) -> Graph
 - refined structure exposed
 - provenance-relevant metadata remains derivable
 
-### 4.4 `recurse(graph_function, termination)`
+### 4.4 `recurse(graph_function, termination, *, foldback)`
 
 ```python
-def recurse(graph_function: GraphFunction, termination: Evaluator) -> GraphFunction
+def recurse(
+    graph_function: GraphFunction,
+    termination: Evaluator,
+    *,
+    foldback: Attrs | dict[str, object],
+) -> GraphFunction
 ```
 
 **Contract**
 - Returns a graph function with the same outer contract as `graph_function`.
 - Recursive or repeated realization must remain bounded by `termination`.
+- `foldback` must declare how child return truth lawfully re-binds into the
+  parent contract.
+- `foldback.requires_parent_evaluation` must be `True`; child closure alone
+  cannot certify the parent.
 - Recursion does not change the caller-visible outer interface.
-- The returned graph function preserves structured recursion truth describing the termination evaluator.
+- The returned graph function preserves structured recursion truth describing
+  the termination evaluator and fold-back contract.
+- The published recursive declaration must be sufficient for a continuation-
+  driven interpreter to suspend/resume recursion and enforce fold-back barriers
+  without inventing hidden recursion policy.
+- ABG realizes recursion as invocation-local child lineage and fold-back, not as automatic publication of inner vectors into module-global traversal.
 
-### 4.5 `fan_out(f, *, over)`
+### 4.5 `InvocationFrame` runtime note
+
+`substitute(...)` and `recurse(...)` define lawful graph truth. In the ABG runtime, the default application shape is an invocation frame:
+
+- selection opens a frame over the published outer boundary
+- inner vectors become frame-local executable steps
+- already-realized frame-local executable vectors are lawful operative traversal truth and do not require synthesized local refinement wrappers
+- child work is addressed through lineage keys
+- canonical ABG realization is tail-loop recursion over explicit continuation
+  plus child-frontier truth, not ambient call-stack state
+- next recursive advancement is owned by an explicit interpreter cursor over
+  active frames, derived from causal frame/state events rather than repeated
+  scheduler scans
+- suspension/resume may serialize continuation state, but those checkpoints are
+  cache aids over authoritative causal event/history truth
+- fold-back closes the child frame, re-binds the parent boundary, and requires
+  parent re-evaluation before convergence can be certified
+- the published module carrier remains stable unless a separate compile/export path publishes a new graph
+
+### 4.6 `fan_out(f, *, over)`
 
 ```python
 def fan_out(f: GraphFunction, *, over: Node) -> GraphFunction
@@ -293,7 +329,7 @@ def fan_out(f: GraphFunction, *, over: Node) -> GraphFunction
 **Design note**
 - Exact derived output-node naming is implementation-defined, but schema/interface truth is not.
 
-### 4.6 `fan_in(reducer, *, over)`
+### 4.7 `fan_in(reducer, *, over)`
 
 ```python
 def fan_in(reducer: GraphFunction, *, over: Node) -> GraphFunction
@@ -304,7 +340,7 @@ def fan_in(reducer: GraphFunction, *, over: Node) -> GraphFunction
 - `over` must denote the vector boundary being reduced.
 - Returns a graph function that consumes the explicit vector boundary and produces the reducer output contract.
 
-### 4.7 `gate(target, *, rule, evaluators)`
+### 4.8 `gate(target, *, rule, evaluators)`
 
 ```python
 def gate(
@@ -329,7 +365,7 @@ def gate(
 - empty evaluator tuple is invalid
 - target with no explicit outer contract is invalid
 
-### 4.8 `promote(*, source, to)`
+### 4.9 `promote(*, source, to)`
 
 ```python
 def promote(*, source: Node, to: Node) -> GraphFunction
@@ -355,7 +391,7 @@ def promote(*, source: Node, to: Node) -> GraphFunction
 - no semantic-identity drift across the lift
 - fail-closed on incompatible boundary pairs
 
-### 4.9 `deferred_refinement(...)`
+### 4.10 `deferred_refinement(...)`
 
 ```python
 def deferred_refinement(
@@ -372,7 +408,7 @@ def deferred_refinement(
 - Constructs a `RefinementBoundary` and nothing more.
 - No callback, binding, or strategy may be embedded here.
 
-### 4.10 `candidate_family(...)`
+### 4.11 `candidate_family(...)`
 
 ```python
 def candidate_family(
@@ -405,7 +441,7 @@ These are runtime contracts for the current ABG execution surface.
 @dataclass(frozen=True)
 class Traversal:
     work_key: str
-    target: GraphFunction | CandidateFamily | RefinementBoundary
+    target: GraphFunction | CandidateFamily | RefinementBoundary | GraphVector
     evaluators: tuple[Evaluator, ...] = ()
     rule: Rule | None = None
     selection: SelectionDecision | None = None
@@ -414,7 +450,7 @@ class Traversal:
 
 **Contract**
 - Names one runtime traversal attempt over one GTL contract boundary.
-- `target` may be a `GraphFunction`, `CandidateFamily`, or `RefinementBoundary`.
+- `target` may be a `GraphFunction`, `CandidateFamily`, `RefinementBoundary`, or an already-realized operative `GraphVector`.
 - `selection` is required when `target` is a `CandidateFamily`, and invalid otherwise.
 - `evaluators` is an explicit evaluator vector for this traversal boundary.
 - `rule` is policy-visible aggregation/governance input, not hidden business logic.
@@ -445,8 +481,6 @@ class Traversal:
 class TraversalOutcome:
     surface: WorkSurface
     result: dict
-    updated_module: Module | None = None
-    updated_worker: Worker | None = None
 
 def traverse(
     traversal: Traversal,
@@ -465,7 +499,8 @@ def traverse(
   - selection validation to `abg.selection`
   - provenance carry-forward to `abg.provenance`
 - Owns event emission for delegated results.
-- Returns a `TraversalOutcome` carrying the next immutable `WorkSurface`, plus refined module/worker surfaces when the traversal materially rewrites the executable topology.
+- Returns a `TraversalOutcome` carrying the next immutable `WorkSurface` plus structured result facts for the named traversal attempt.
+- Recursive locality, invocation lineage, and fold-back state are represented through emitted events and frame projections, not by rewriting module or worker surfaces in the return contract.
 - Returned `WorkSurface.metadata` is output-side realized metadata; it may include explicit carry-forward from `Traversal.metadata`, but it must not silently inherit hidden control strategy.
 - Effect-edge dispatch helpers may contribute explicit `WorkSurface` fragments, but they may not mutate runtime truth behind the traversal surface.
 

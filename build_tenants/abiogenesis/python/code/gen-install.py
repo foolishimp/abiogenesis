@@ -33,7 +33,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-VERSION = "1.1.0"
+VERSION = "2.0.0"
 
 # CLAUDE.md markers for idempotent GTL bootloader injection
 _GTL_BOOTLOADER_START = "<!-- GTL_BOOTLOADER_START -->"
@@ -57,6 +57,7 @@ ENGINE_MODULES = [
     "binding.py",
     "convergence.py",
     "materialization.py",
+    "frames.py",
     "interpret.py",
     "selfhosting.py",
     "install.py",

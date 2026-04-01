@@ -332,11 +332,33 @@ class TestM01GtlCoreIntegration:
             effects=("staged",),
         )
 
-        recursive = recurse(direct, recurse_done)
+        recursive = recurse(
+            direct,
+            recurse_done,
+            foldback={
+                "binding": "outer_contract",
+                "mode": "rebind",
+                "requires_parent_evaluation": True,
+            },
+        )
         assert recursive.inputs == direct.inputs
         assert recursive.outputs == direct.outputs
         assert "termination:done" in recursive.tags
+        assert "foldback:outer_contract" in recursive.tags
         assert recursive.declarations["recursion"]["termination"]["name"] == "done"
+        assert recursive.declarations["recursion"]["foldback"]["binding"] == "outer_contract"
+        assert recursive.declarations["recursion"]["foldback"]["requires_parent_evaluation"] is True
+
+        with pytest.raises(ValueError, match="requires_parent_evaluation"):
+            recurse(
+                direct,
+                recurse_done,
+                foldback={
+                    "binding": "outer_contract",
+                    "mode": "rebind",
+                    "requires_parent_evaluation": False,
+                },
+            )
 
         boundary = deferred_refinement(
             "design→code",

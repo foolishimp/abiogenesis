@@ -20,3 +20,5 @@ ABG supports correction and reset by shadowing certifications while preserving t
 **REQ-R-ABG2-CORRECTION-002**: Reset does not damage structure. It shadows certifications so truth after a boundary is re-evaluated.
 
 **REQ-R-ABG2-CORRECTION-003**: Correction provenance shall be recorded — what was corrected, by whom, with what boundary.
+
+**REQ-R-ABG2-CORRECTION-004**: For recursive invocation state, reset/correction shall invalidate any older frame progress, fold-back result, parent rebind result, and resumable checkpoint contained by the reset boundary. Reopened execution must not treat stale recursive events as current truth.

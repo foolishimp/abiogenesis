@@ -27,6 +27,11 @@ def project(
     work_key: when provided, filters events to those matching this work_key.
     When absent, all events are considered (global scope).
     """
+    if asset_type == "frame":
+        from .frames import project_frame
+
+        return project_frame(stream, instance_id)
+
     events = stream.all_events()
 
     state: dict[str, Any] = {

@@ -449,7 +449,7 @@ flowchart TD
         GT["gate(target, rule=, evaluators=)"]
         PR["promote(source=A, to=B)"]
         ID["identity(interface)"]
-        RC["recurse(f, termination=evaluator)"]
+        RC["recurse(f, termination=evaluator,\nfoldback=rebind_contract)"]
     end
 
     subgraph Refinement["Deferred Refinement"]

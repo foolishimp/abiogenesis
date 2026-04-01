@@ -18,10 +18,29 @@ from pathlib import Path
 
 import pytest
 
+from gtl.algebra import candidate_family, deferred_refinement
+from gtl.function_model import GraphFunction, TemplateRef
+from gtl.graph import Graph, GraphVector, Node
 from gtl.module_model import Module
+from gtl.operator_model import Evaluator, F_D
+from gtl.work_model import ContractRef, Job
 
-from genesis.binding import module_to_executable_jobs
-from genesis.selection import resolve_refinement_boundary
+from genesis.binding import ExecutableJob, module_to_executable_jobs
+from genesis.frames import (
+    build_frame_traversal_surface,
+    build_frame_traversal_surface_from_graph_function,
+    open_invocation_frame,
+    resolve_frame_candidate_family,
+    resolve_frame_refinement_boundary,
+    validate_frame_selection_surface,
+    validate_frame_traversal_surface,
+)
+from genesis.selection import (
+    resolve_refinement_boundary,
+    resolve_surface_candidate_family,
+    validate_selection_surface,
+    validate_traversal_surface,
+)
 from genesis.services import Scope
 
 
@@ -31,6 +50,199 @@ def _package_source(module_name: str) -> str:
 
 @pytest.mark.integration
 class TestM02WorkPublicationIntegration:
+    def test_frame_traversal_surface_prefers_local_truth_then_imported_truth_and_allows_direct_vector_execution(self) -> None:
+        design = Node(name="design", schema="Design")
+        code = Node(name="code", schema="Code")
+        vector = GraphVector("design→code", design, code)
+
+        local = GraphFunction(
+            name="local_profile",
+            inputs=(design,),
+            outputs=(code,),
+            template=TemplateRef.symbolic("local_profile"),
+        )
+        imported = GraphFunction(
+            name="imported_profile",
+            inputs=(design,),
+            outputs=(code,),
+            template=TemplateRef.symbolic("imported_profile"),
+        )
+        local_family = candidate_family(
+            "local_profiles",
+            inputs=(design,),
+            outputs=(code,),
+            candidates=(local,),
+        )
+        imported_family = candidate_family(
+            "imported_profiles",
+            inputs=(design,),
+            outputs=(code,),
+            candidates=(imported,),
+        )
+        local_boundary = deferred_refinement("design→code", inputs=(design,), outputs=(code,))
+        imported_boundary = deferred_refinement("design→code", inputs=(design,), outputs=(code,))
+
+        hidden_surface = build_frame_traversal_surface(
+            vectors=(vector,),
+            local_graph_functions=(local,),
+        )
+        with pytest.raises(ValueError, match="hidden contracts"):
+            validate_frame_selection_surface(hidden_surface)
+
+        missing_surface = build_frame_traversal_surface(vectors=(vector,))
+        validate_frame_traversal_surface(missing_surface, vector_id=vector.id)
+        assert resolve_frame_candidate_family(missing_surface, vector.id) is None
+        assert resolve_frame_refinement_boundary(missing_surface, vector.id) is None
+
+        surface = build_frame_traversal_surface(
+            vectors=(vector,),
+            local_candidate_families=(local_family,),
+            local_refinement_boundaries=(local_boundary,),
+            imported_candidate_families=(imported_family,),
+            imported_refinement_boundaries=(imported_boundary,),
+        )
+        validate_frame_traversal_surface(surface, vector_id=vector.id)
+        assert resolve_frame_candidate_family(surface, vector.id) == local_family
+        assert resolve_frame_refinement_boundary(surface, vector.id) == local_boundary
+
+        imported_only = build_frame_traversal_surface(
+            vectors=(vector,),
+            imported_candidate_families=(imported_family,),
+            imported_refinement_boundaries=(imported_boundary,),
+        )
+        assert resolve_frame_candidate_family(imported_only, vector.id) == imported_family
+        assert resolve_frame_refinement_boundary(imported_only, vector.id) == imported_boundary
+
+    def test_frame_traversal_surface_builder_does_not_synthesize_implicit_boundaries(self) -> None:
+        design = Node(name="design", schema="Design")
+        code = Node(name="code", schema="Code")
+        vector = GraphVector("design→code", design, code)
+        candidate = GraphFunction.from_graph(
+            name="direct_profile",
+            graph=Graph(
+                name="direct_profile",
+                inputs=(design,),
+                outputs=(code,),
+                nodes=(design, code),
+                vectors=(vector,),
+            ),
+        )
+
+        surface = build_frame_traversal_surface_from_graph_function(
+            candidate,
+            vectors=(vector,),
+        )
+
+        validate_frame_traversal_surface(surface, vector_id=vector.id)
+        assert surface.local_refinement_boundaries == ()
+        assert resolve_frame_candidate_family(surface, vector.id) is None
+        assert resolve_frame_refinement_boundary(surface, vector.id) is None
+
+    def test_invocation_frames_keep_stable_lineage_but_mint_fresh_attempt_identity(self) -> None:
+        design = Node(name="design", schema="Design")
+        code = Node(name="code", schema="Code")
+        prototype = Node(name="prototype", schema="Prototype")
+        fd_ok = Evaluator("fd_ok", F_D, binding="exec://python -c 'import sys; sys.exit(0)'")
+        outer = GraphVector("design→code", design, code, evaluators=(fd_ok,))
+        inner = GraphVector("design→prototype", design, prototype, evaluators=(fd_ok,))
+
+        parent_job = ExecutableJob(
+            job=Job(
+                name=outer.name,
+                contracts=(ContractRef(kind="graph_vector", target_id=outer.id),),
+            ),
+            vector=outer,
+        )
+
+        first = open_invocation_frame(
+            parent_job=parent_job,
+            parent_key=outer.id,
+            parent_vector_id=outer.id,
+            parent_vector=outer,
+            parent_edge=outer.name,
+            parent_target=outer.target.name,
+            graph_function="profile",
+            materialization_id="materialization-1",
+            graph_name="profile_graph",
+            inner_vectors=(inner,),
+            traversal_surface=build_frame_traversal_surface(vectors=(inner,)),
+        )
+        second = open_invocation_frame(
+            parent_job=parent_job,
+            parent_key=outer.id,
+            parent_vector_id=outer.id,
+            parent_vector=outer,
+            parent_edge=outer.name,
+            parent_target=outer.target.name,
+            graph_function="profile",
+            materialization_id="materialization-1",
+            graph_name="profile_graph",
+            inner_vectors=(inner,),
+            traversal_surface=build_frame_traversal_surface(vectors=(inner,)),
+        )
+
+        assert first.frame_lineage_id == second.frame_lineage_id
+        assert first.frame_attempt_id != second.frame_attempt_id
+        assert first.frame_id == first.frame_attempt_id
+        assert second.frame_id == second.frame_attempt_id
+        assert first.steps[0].frame_id == first.frame_attempt_id
+        assert second.steps[0].frame_id == second.frame_attempt_id
+
+    def test_frame_local_publication_surfaces_fail_closed_on_hidden_or_missing_alternatives(self) -> None:
+        design = Node(name="design", schema="Design")
+        code = Node(name="code", schema="Code")
+        implementation = Node(name="implementation", schema="Implementation")
+        vector = GraphVector("design→code", design, code)
+
+        direct = GraphFunction(
+            name="direct_profile",
+            inputs=(design,),
+            outputs=(code,),
+            template=TemplateRef.inline_graph(
+                Graph(
+                    name="direct_profile",
+                    inputs=(design,),
+                    outputs=(code,),
+                    nodes=(design, code),
+                    vectors=(vector,),
+                ),
+                ref="direct_profile",
+            ),
+        )
+
+        with pytest.raises(ValueError, match="hidden contracts"):
+            validate_selection_surface(
+                vectors=(vector,),
+                graph_functions=(direct,),
+                candidate_families=(),
+            )
+
+        with pytest.raises(ValueError, match="must publish"):
+            validate_traversal_surface(
+                vectors=(vector,),
+                refinement_boundaries=(),
+                candidate_families=(),
+            )
+
+        family = candidate_family(
+            "design→code_profiles",
+            inputs=(design,),
+            outputs=(code,),
+            candidates=(direct,),
+        )
+        assert resolve_surface_candidate_family(
+            vectors=(vector,),
+            candidate_families=(family,),
+            vector_id=vector.id,
+        ) == family
+
+        with pytest.raises(ValueError, match="ambiguous declared candidate families"):
+            resolve_surface_candidate_family(
+                vectors=(vector,),
+                candidate_families=(family, family),
+                vector_id=vector.id,
+            )
+
     def test_project_package_publishes_complete_jobs_roles_and_traversal_boundaries(self, tmp_path: Path) -> None:
         from gtl_spec.packages.project_package import module
 

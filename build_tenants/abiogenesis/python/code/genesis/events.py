@@ -40,6 +40,8 @@ class EventStream:
 
     def __init__(self, path: Path) -> None:
         self.path = path
+        self._events_cache: list[dict] | None = None
+        self._events_cache_stat: tuple[int, int] | None = None
 
     @classmethod
     def open(cls, workspace: Path) -> "EventStream":
@@ -61,6 +63,15 @@ class EventStream:
         event_time is assigned from the system clock — not from the caller.
         Business times (effective_at, completed_at) live in data.
         """
+        if self._events_cache is not None:
+            try:
+                stat = self.path.stat()
+                current_stat = (stat.st_mtime_ns, stat.st_size)
+            except FileNotFoundError:
+                current_stat = None
+            if current_stat != self._events_cache_stat:
+                self._events_cache = None
+                self._events_cache_stat = None
         record_data = {**data}
         if context is not None:
             if context.workflow_version != "unknown":
@@ -76,6 +87,13 @@ class EventStream:
         }
         with self.path.open("a", encoding="utf-8") as f:
             f.write(json.dumps(record) + "\n")
+        if self._events_cache is not None:
+            self._events_cache.append(json.loads(json.dumps(record)))
+            try:
+                stat = self.path.stat()
+                self._events_cache_stat = (stat.st_mtime_ns, stat.st_size)
+            except FileNotFoundError:
+                self._events_cache_stat = None
         return record
 
     def all_events(self) -> list[dict]:
@@ -86,7 +104,20 @@ class EventStream:
         silently skipped. Replay integrity depends on every line being valid.
         """
         if not self.path.exists():
+            self._events_cache = []
+            self._events_cache_stat = None
             return []
+
+        try:
+            stat = self.path.stat()
+            current_stat = (stat.st_mtime_ns, stat.st_size)
+        except FileNotFoundError:
+            self._events_cache = []
+            self._events_cache_stat = None
+            return []
+
+        if self._events_cache is not None and self._events_cache_stat == current_stat:
+            return self._events_cache
 
         events: list[dict] = []
         with self.path.open(encoding="utf-8") as f:
@@ -102,7 +133,9 @@ class EventStream:
                         f"  line: {line!r}\n"
                         "Replay is not possible until the corrupted line is repaired."
                     ) from exc
-        return events
+        self._events_cache = events
+        self._events_cache_stat = current_stat
+        return self._events_cache
 
     def replay(self, asset_type: str, instance_id: str) -> dict:
         """Reconstruct asset state from the event stream. Convenience wrapper."""

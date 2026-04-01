@@ -87,7 +87,7 @@ In this Claude build, the conceptual `abg.*` runtime layer is implemented under 
 | `abg.correction` | Correction and reset | `find_latest_reset()`, certification shadowing | REQ-R-ABG2-CORRECTION |
 | `abg.subwork` | Bounded sub-work realization | `LeafTask`, `validate_leaf_schema()`, `dispatch_leaf()` | REQ-R-ABG2-LEAFTASK |
 | `abg.transport` | Agent transport surface | `AgentTransportError`, `dispatch_agent()`, `classify_failure()`, transport-local result helpers | REQ-R-ABG2-TRANSPORT, ADR-022 |
-| `abg.interpret` | Graph interpretation loop | `Traversal`, `traverse()`, graph materialization, next-action, substitution orchestration, event emission for delegated modules | REQ-R-ABG2-INTERPRET, REQ-R-ABG2-SELECTION-APPLICATION (apply + emit) |
+| `abg.interpret` | Graph interpretation loop | `Traversal`, `traverse()`, recursive continuation/frontier orchestration, suspend/resume, next-action, event emission for delegated modules | REQ-R-ABG2-INTERPRET, REQ-R-ABG2-SELECTION-APPLICATION (apply + emit) |
 | `abg.selfhosting` | Derived artifact governance | bootloader consistency checks, drift detection | REQ-R-ABG2-SELFHOSTING |
 
 ### 3.3 ABG application surface
@@ -102,7 +102,7 @@ In this Claude build, the conceptual `abg.*` runtime layer is implemented under 
 
 Canonical engine mapping of published graph functions into executable graph surfaces is part of the ABG kernel. `abg.materialization` owns lawful materialization and graph-derived companion bundle derivation for the canonical engine. `abg.provenance` owns replayable recording of graph-function identity, materialization identity, and bundle derivation truth.
 
-Alternate runtime families remain deferred. Capability profiles, alternate engine adapters, and non-ABG mapping surfaces stay outside the ABG 1.1 shipping line until those runtimes are intentionally designed.
+Alternate runtime families remain deferred. Capability profiles, alternate engine adapters, and non-ABG mapping surfaces stay outside the ABG 2.0 shipping line until those runtimes are intentionally designed.
 
 ---
 
@@ -336,8 +336,13 @@ def compose(*functions: GraphFunction) -> GraphFunction:
 def substitute(outer: Graph, contract_vector: str, inner: Graph) -> Graph:
     """Replace a coarse contract step with an interface-compatible inner graph."""
 
-def recurse(graph_function: GraphFunction, termination: Evaluator) -> GraphFunction:
-    """Express repeated or child graph-function application under a declared termination contract."""
+def recurse(
+    graph_function: GraphFunction,
+    termination: Evaluator,
+    *,
+    foldback: Attrs | dict[str, object],
+) -> GraphFunction:
+    """Express repeated or child graph-function application under declared termination and fold-back contracts."""
 
 def fan_out(f: GraphFunction, *, over: Node) -> GraphFunction:
     """Apply f across an explicit Vector[T] boundary."""
@@ -394,7 +399,12 @@ def candidate_family(
 - Policy-visible structural parameters for materialization are carried through immutable `MaterializationRequest.parameters` attributes and must be declared by the publishing module surface rather than inferred from ambient interpreter state.
 - `Module` is the publication surface for `GraphFunction`, `RefinementBoundary`, and `CandidateFamily` declarations. Traversal/refinement topology and alternate structural families must be publishable and importable, not ad hoc helper values hidden in implementation code.
 - Graph-derived companion bundles are lawful only when they preserve replayable provenance back to a published graph-function materialization.
-- Recursive zoom/materialize/fold-back must remain a value transformation sequence. Parent traversal chooses lawful next action, child materialization/refinement produces new immutable records, and fold-back re-enters convergence with explicit lineage and provenance rather than in-place graph mutation.
+- Recursive zoom/materialize/fold-back must remain a value transformation sequence. Parent traversal chooses lawful next action, child materialization/refinement produces frame-local immutable records, and fold-back re-enters convergence through declared parent rebind plus parent re-evaluation rather than in-place graph or module mutation.
+- Recursive interpretation is a continuation-driven control surface. The prime runtime shape is an explicit frame stack plus child frontier and fold-back barrier, not repeated whole-workspace scans as the semantic recursion carrier.
+- Tail recursion changes the orchestration layer, not the declared compute substrate. Child work may still execute in parallel or on distributed bindings; the continuation/frontier model coordinates that work without collapsing it into serial hidden interpreter flow.
+- Frame-local traversal surfaces must obey the same fail-closed publication law as module surfaces for structural alternatives. Hidden or ambiguous recursive alternatives are not lawful merely because they are local. Already-realized frame-local executable vectors are lawful operative traversal truth and do not require synthesized local `RefinementBoundary` wrappers.
+- Recursive frame identity must distinguish stable structural lineage from current-attempt identity. Reset/retry reopens a fresh attempt rather than reusing the active attempt handle.
+- Serialized checkpoints or continuation snapshots are resumability aids only. Authoritative recursive truth remains the causal event/history plus declared recursion contracts.
 - `promote` is the explicit representation-lift / join operator in the algebra. It is used when structure must be normalized between fan-out and later reduction or continuation.
 - Harvest is not a separate GTL primitive in the current design. The preferred algebraic shape is explicit `fan_out(...) -> promote(...) -> fan_in(...) -> gate(...)` when a representation lift is needed, not hidden "parallel operator tuple" semantics.
 - `promote(...)` is explicit because representation lifting is part of the algebra, not an incidental side effect of composition. It is the current design home for lawful normalization/join between declared boundaries.
@@ -421,11 +431,13 @@ Concretely:
 - `abg.selection` returns `SelectionDecision` → `abg.interpret` emits `workflow_selected` event
 - `abg.subwork.dispatch_leaf()` returns `(output, failure_class)` → `abg.interpret` emits `leaf_task_started`/`completed`/`failed`
 
-**Selection responsibility split**: `abg.selection` owns candidate enumeration and interface validation (REQ-R-ABG2-SELECTION-APPLICATION-001, -003, -004). Strategic choice remains external and must arrive as an explicit `SelectionDecision`. `abg.interpret` owns lawful application — performing the substitution and emitting the selection provenance event (REQ-R-ABG2-SELECTION-APPLICATION-002).
+**Selection responsibility split**: `abg.selection` owns candidate enumeration and interface validation (REQ-R-ABG2-SELECTION-APPLICATION-001, -003, -004), including fail-closed validation of frame-local publication surfaces when recursion introduces nested alternatives. Strategic choice remains external and must arrive as an explicit `SelectionDecision`. `abg.interpret` owns lawful application — opening an invocation frame, emitting selection provenance, and carrying child lineage/fold-back through runtime events (REQ-R-ABG2-SELECTION-APPLICATION-002).
 
 **Convergence responsibility split**: GTL declares evaluator multiplicity, vector topology, and policy-visible rule parameters. `abg.convergence` executes rounds, ordering, and aggregate convergence deterministically. Domain bindings still define the meaning of the judgments.
 
-**Traversal responsibility split**: `abg.interpret` owns the named `Traversal` contract and the `traverse()` entrypoint. It may invoke graph-function materialization, convergence, and lawful selection/refinement, but it does so only through delegated kernel modules and remains the sole event-emission path.
+**Traversal responsibility split**: `abg.interpret` owns the named `Traversal` contract and the `traverse()` entrypoint. It may invoke graph-function materialization, convergence, lawful selection/refinement, and frame-local child execution, but it does so only through delegated kernel modules and remains the sole event-emission path.
+
+**Recursive control responsibility split**: `abg.interpret` owns continuation/frontier state, fold-back barrier evaluation, and suspend/resume for recursive execution (REQ-R-ABG2-INTERPRET-006, -009, -010, -011, -012). `abg.services` may invoke the interpreter, but service entrypoints are not the semantic owner of recursive progress.
 
 ---
 
@@ -489,11 +501,58 @@ class WorkSurface:
 @dataclass(frozen=True)
 class Traversal:
     work_key: str
-    target: GraphFunction | CandidateFamily | RefinementBoundary
+    target: GraphFunction | CandidateFamily | RefinementBoundary | GraphVector
     evaluators: tuple[Evaluator, ...] = ()
     rule: Rule | None = None
     selection: SelectionDecision | None = None
     metadata: Attrs = ()  # input-side runtime metadata only; no hidden strategy
+
+@dataclass(frozen=True)
+class FrameStep:
+    frame_id: str
+    parent_key: str
+    child_key: str
+    executable_job: ExecutableJob
+
+@dataclass(frozen=True)
+class InvocationFrame:
+    frame_id: str
+    frame_lineage_id: str
+    frame_attempt_id: str
+    parent_key: str
+    parent_vector_id: str
+    parent_vector: GraphVector
+    parent_edge: str
+    parent_target: str
+    graph_function: str
+    materialization_id: str
+    graph_name: str
+    evaluator_bundle: tuple[str, ...]
+    steps: tuple[FrameStep, ...]
+    traversal_surface: FrameTraversalSurface | None = None
+    graph_function_recursion: Attrs = ()
+
+@dataclass(frozen=True)
+class RecursiveContinuation:
+    frame_attempt_id: str
+    phase: str               # opened|advancing|waiting_on_children|foldback_pending|parent_eval_pending|suspended|closed
+    active_child_key: str | None = None
+    next_step_index: int = 0
+
+@dataclass(frozen=True)
+class ChildFrontier:
+    pending_child_keys: tuple[str, ...] = ()
+    completed_child_keys: tuple[str, ...] = ()
+    blocked_on: tuple[str, ...] = ()  # external or distributed obligations
+
+@dataclass(frozen=True)
+class RecursiveInterpreterState:
+    root_frame_id: str
+    stack: tuple[InvocationFrame, ...]
+    continuation: RecursiveContinuation
+    frontier: ChildFrontier
+    checkpoint_id: str | None = None
+    suspended: bool = False
 
 @dataclass
 class Worker:
@@ -596,11 +655,57 @@ class TraversalRuntime:
 class TraversalOutcome:
     surface: WorkSurface
     result: dict
-    updated_module: Module | None = None
-    updated_worker: Worker | None = None
 ```
 
-### 5.2 Canonical ABG runtime types
+### 5.2 Recursive Operational Contract
+
+The canonical ABG realization of graph-function recursion is tail-loop
+recursion over explicit continuation and child-frontier state.
+
+This is an ABG design contract, not a GTL language-wide mandate. GTL stays
+engine-independent; ABG fixes the operational realization so alternate ABG
+implementations do not silently drift into incompatible recursive semantics.
+
+**Operational characteristics**
+
+- Recursive next-action is carried by explicit continuation/frontier state, not
+  by ambient Python stack frames or repeated whole-workspace scans.
+- The interpreter advances recursion through an explicit current-frame cursor
+  over active recursive frames; that cursor/order state is derived from causal
+  frame events and is not a second truth surface.
+- Recursive control-state growth is bounded by the explicit frame stack and
+  continuation records rather than interpreter call-stack depth.
+- Recursive execution is resumable and distributable: continuation/frontier
+  state may be handed to another coordinator without changing the declared graph
+  contract.
+- Child work may remain parallel or distributed. Tail-loop recursion governs
+  orchestration and fold-back barriers; it does not require serial execution of
+  child compute.
+- Authoritative recursive truth remains causal event/history plus declared
+  recursion contracts. Serialized checkpoints or snapshots are resumability
+  aids, not a second truth surface.
+
+**Canonical artifacts**
+
+- Structural runtime artifacts:
+  `InvocationFrame`, `FrameStep`, `RecursiveContinuation`, `ChildFrontier`,
+  `RecursiveInterpreterState`, `RecursiveMachineControl`
+- Recursive lifecycle events:
+  `frame_opened`, `frame_step_started`, `frame_step_completed`,
+  `frame_foldback`, `frame_rebound`, `frame_closed`
+- Resumability artifacts:
+  continuation/frontier checkpoints or equivalent resumable records, provided
+  they remain derived from authoritative causal truth
+
+**Portability rule**
+
+An alternate ABG implementation, including an AWS-native realization, may use
+different storage or scheduler primitives, but it shall preserve the same
+operational characteristics and expose equivalent recursive artifacts and
+provenance surfaces. Equivalent projections are acceptable; silent semantic
+substitution is not.
+
+### 5.3 Canonical ABG runtime types
 
 | Runtime type | Module | Rationale |
 | --- | --- | --- |
@@ -610,12 +715,16 @@ class TraversalOutcome:
 | `WorkSurface` | `abg.binding` | Immutable execution dossier, elastic context carrier, and audit surface |
 | `RunState` | `abg.run` | Execution-attempt lifecycle truth |
 | `Traversal` | `abg.interpret` | First-class traversal contract over a target with evaluators and rule |
-| `TraversalOutcome` | `abg.interpret` | Immutable result of one traversal attempt, including updated module/worker when refinement occurs |
+| `TraversalOutcome` | `abg.interpret` | Immutable result of one traversal attempt over one operative traversal target |
+| `RecursiveContinuation` | `abg.interpret` | Explicit recursive next-action state for tail-loop interpretation |
+| `ChildFrontier` | `abg.interpret` | Explicit child obligation set for parallel/distributed recursive work |
+| `RecursiveInterpreterState` | `abg.interpret` | Resumable recursive machine state over frame stack, continuation, and frontier |
+| `RecursiveMachineControl` | `abg.interpret` | Interpreter-owned active-frame order and current recursive cursor, derived from authoritative frame events |
 | `SelectionDecision` | `abg.selection` | Lawful selection/application decision |
 | `LeafTask` | `abg.subwork` | Bounded delegated sub-work |
 | `Scope` | `abg.services` | Named application/service boundary |
 
-### 5.3 Canonical GTL declaration interpretations
+### 5.4 Canonical GTL declaration interpretations
 
 | Concept | GTL surface | Module | Note |
 | --- | --- | --- | --- |

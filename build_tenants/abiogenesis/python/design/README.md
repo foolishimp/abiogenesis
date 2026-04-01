@@ -14,7 +14,7 @@ Current governing truth lives in:
 - `GTL_2_INTERFACE_CONTRACTS.md` — concrete interfaces for tests and code derivation
 - `GTL_2_IMPLEMENTATION_PLAN.md` — implementation target, rejected shapes, and delivery order
 
-For the current 1.1 line, the key design shift is that published `GraphFunction` surfaces, canonical graph-function materialization, graph-derived companion bundles, and their provenance are explicit design responsibilities rather than deferred or hidden inside traversal helpers.
+For the current 2.0 line, the key design shift is that published `GraphFunction` surfaces, canonical graph-function materialization, graph-derived companion bundles, recursive invocation frames, and their provenance are explicit design responsibilities rather than deferred or hidden inside traversal helpers.
 
 ## Functional Design Stance
 
@@ -24,7 +24,8 @@ The implementation target is Python with Scala-style discipline:
 - functional core, explicit-effect shell
 - symbolic publication and replayable materialization rather than ambient closures
 - explicit lineage and provenance on every zoom/materialize/fold-back step
-- recursive refinement as lawful substitution over stable outer contracts, not interpreter mutation
+- recursive refinement as invocation-local frame execution over stable outer contracts
+- algebraic substitution reserved for graph/projection/export truth, not default runtime module mutation
 
 If a proposed implementation shape would feel natural only in a mutable service object, it is probably the wrong shape for this line.
 
@@ -48,7 +49,7 @@ The shipping verification harness is downstream of this design surface in `build
 
 ## App Bootstrap Assumption
 
-`ABG 1.1` keeps a clean split between:
+`ABG 2.0` keeps a clean split between:
 
 - one-step engine progression in `services.gen_start()`
 - app-level auto orchestration in `genesis/cli_adapter.py`
@@ -63,7 +64,7 @@ This keeps the engine core smaller and makes the app bootstrap seam explicit in 
 
 ## Runtime Identity Assumption
 
-`ABG 1.1` no longer treats one build string as the whole runtime identity.
+`ABG 2.0` no longer treats one build string as the whole runtime identity.
 
 - `Worker` remains the concrete execution actor
 - runtime identity may also declare engine, build, backend, and authority provenance
@@ -87,7 +88,7 @@ Together they define the current sandbox qualification ladder for:
 - deterministic standards checking at each boundary
 - fake-lane versus live-lane parity
 - stepwise scenario growth without changing the underlying engine contract
-- one explicit `ABG 1.0` sunny-day ladder for `gsdlc_lite`
+- one explicit historical sunny-day ladder for `gsdlc_lite`
 
 ## Postmortem Archive Direction
 

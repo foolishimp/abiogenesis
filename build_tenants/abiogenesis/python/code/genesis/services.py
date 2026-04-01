@@ -26,27 +26,21 @@ from gtl.module_model import Module
 from .binding import (
     ExecutableJob,
     Worker,
-    bind_fd,
-    bind_fh,
     BoundJob,
-    ContextResolver,
     WorkSurface,
     module_to_executable_jobs,
 )
-from .convergence import convergence_from_precomputed, outcomes_from_precomputed, unresolved_fraction
-from .correction import find_latest_reset
-from .events import EventContext, EventStream
+from .events import EventStream
 from .identity import RuntimeIdentity
 from .interpret import (
-    Traversal,
-    TraversalRuntime,
+    derive_operational_gaps,
+    derive_operational_state,
+    plan_next_traversal,
     traverse,
 )
-from .lineage import WorkInstance, _discover_children, active_work_keys
-from .provenance import _read_workflow_version, spec_hash_for
+from .lineage import _discover_children, active_work_keys
+from .provenance import _read_workflow_version
 from .selection import (
-    resolve_candidate_family,
-    resolve_refinement_boundary,
     validate_module_selection_surface,
     validate_module_traversal_surface,
 )
@@ -187,21 +181,6 @@ def _resolve_work_keys(scope: "Scope",
     return active_work_keys(scope.workspace_root, stream)
 
 
-def _work_key_matches_job(work_key: str | None, job: ExecutableJob) -> bool:
-    """
-    Return True when a work_key lawfully scopes to the given executable job.
-
-    Spawned child work uses `parent_key/<edge-name>` and must only bind to the
-    executable job for that edge. Global/feature keys keep the broader scope.
-    """
-    if work_key is None:
-        return True
-    segment = work_key.rsplit("/", 1)[-1]
-    if "→" in segment or "↔" in segment:
-        return segment == job.vector.name
-    return True
-
-
 # ── gen_gaps — bind_fd over scope ─────────────────────────────────────────────
 
 def gen_gaps(scope: Scope, stream: EventStream) -> dict:
@@ -213,111 +192,21 @@ def gen_gaps(scope: Scope, stream: EventStream) -> dict:
 
     Returns: jobs considered, failing evaluators per job, total delta.
     """
-    resolver = ContextResolver(scope.workspace_root)
     worker = _resolve_worker(scope)
-    jobs = _scoped_jobs(scope, worker)
-
-    if not jobs:
-        return {
-            "status": "error",
-            "reason": "no jobs in scope — check --feature and --edge flags",
-        }
-
-    # Pre-compute which (edge, work_key) tuples already have a well-formed certificate.
-    # REQ-F-CMD-004: deduplication keyed on (edge, work_key).
-    # ADR-026: certificates predating the latest applicable reset are stale —
-    # they don't satisfy live convergence queries and must be re-earned.
-    all_events = stream.all_events()
-    certified_keys: set[tuple] = set()
-    for e in all_events:
-        if e.get("event_type") == "edge_converged" and e.get("data", {}).get("target"):
-            ed = e["data"]
-            cert_wk = ed.get("work_key")
-            # ADR-026: check if this certificate predates the latest applicable reset
-            reset = find_latest_reset(all_events, edge=ed.get("edge"), work_key=ed.get("work_key"))
-            if reset and e.get("event_time", "") <= reset.get("event_time", ""):
-                continue  # Stale certificate — shadowed by reset boundary
-            certified_keys.add((ed["edge"], cert_wk))
-
-    carry_forward = _read_carry_forward(scope)
-    resolver = ContextResolver(scope.workspace_root)
-
-    # Enumerate work_keys: explicit override, feature-derived, or global scope [None].
-    work_keys = _resolve_work_keys(scope, stream)
-    work_key_list = work_keys if work_keys else [None]
-
-    results = []
-    for job in jobs:
-        spec_hash = spec_hash_for(
-            workflow_version=scope.workflow_version,
-            executable_job=job,
-            requirements=scope.module.metadata.get("requirements", ()),
-        )
-        for wk in work_key_list:
-            if not _work_key_matches_job(wk, job):
-                continue
-            pre = bind_fd(
-                job, stream, resolver, scope.workspace_root,
-                spec_hash=spec_hash,
-                current_workflow_version=scope.workflow_version,
-                carry_forward=carry_forward,
-                work_key=wk,
-            )
-            outcomes = outcomes_from_precomputed(job.vector.id, pre)
-            d = unresolved_fraction(outcomes)
-            entry: dict = {
-                "edge": job.vector.name,
-                "delta": d,
-                "failing": [ev.name for ev in pre.failing_evaluators],
-                "passing": [ev.name for ev in pre.passing_evaluators],
-                "delta_summary": pre.delta_summary,
-            }
-            if wk is not None:
-                entry["work_key"] = wk
-            results.append(entry)
-            # Emit edge_converged when freshly confirmed delta=0 and not yet certified.
-            # Idempotent: once a well-formed certificate exists in the log,
-            # repeated gen_gaps calls over a converged workspace do not append duplicates.
-            cert_key = wk if wk is not None else scope.work_key_filter
-            if d == 0.0 and (job.vector.name, cert_key) not in certified_keys:
-                cert: dict = {
-                    "edge": job.vector.name,
-                    "vector_id": job.vector.id,
-                    "target": job.vector.target.name,
-                    "work_key": wk or scope.work_key_filter,
-                    "delta": 0,
-                    "certified_by": "gen_gaps",
-                }
-                # edge_converged from gen_gaps is a certification, not a run event.
-                # We propagate workflow/work_key context explicitly, but do not attach
-                # a run_id because convergence certificates are not run lifecycle events.
-                stream.append(
-                    "edge_converged",
-                    cert,
-                    context=EventContext(
-                        workflow_version=scope.workflow_version,
-                        work_key=wk,
-                    ),
-                )
-                certified_keys.add((job.vector.name, cert_key))
-
-    total_delta = sum(r["delta"] for r in results)
-    scope_info: dict = {
-        "package": scope.module.name,
-        "work_key_filter": scope.work_key_filter,
-        "edge_filter": scope.edge_filter,
-        "build": scope.runtime_identity.legacy_build_id(),
-        "runtime_identity": scope.runtime_identity.as_dict(),
-    }
-    if work_keys:
-        scope_info["work_keys"] = work_keys
-    return {
-        "scope": scope_info,
-        "jobs_considered": len(results),
-        "total_delta": total_delta,
-        "converged": total_delta == 0,
-        "gaps": results,
-    }
+    return derive_operational_gaps(
+        module=scope.module,
+        workspace_root=scope.workspace_root,
+        stream=stream,
+        worker=worker,
+        jobs=_scoped_jobs(scope, worker),
+        work_keys=tuple(_resolve_work_keys(scope, stream)),
+        requirements=scope.module.metadata.get("requirements", ()),
+        workflow_version=scope.workflow_version,
+        runtime_identity=scope.runtime_identity,
+        edge_filter=scope.edge_filter,
+        work_key_filter=scope.work_key_filter,
+        carry_forward=_read_carry_forward(scope),
+    )
 
 
 # ── gen_iterate — bind + iterate once ─────────────────────────────────────────
@@ -334,117 +223,31 @@ def gen_iterate(
     One Job. One Asset. One iterate call.
     When work_keys are active, selects the first unconverged (job, work_key) pair.
     """
-    resolver = ContextResolver(scope.workspace_root)
     worker = _resolve_worker(scope)
     jobs = _scoped_jobs(scope, worker)
 
     if not jobs:
         return {"status": "nothing_to_do", "reason": "no jobs in scope"}
 
-    carry_forward = _read_carry_forward(scope)
-    resolver = ContextResolver(scope.workspace_root)
-
-    # Enumerate work_keys: explicit override, feature-derived, or global scope [None].
-    work_keys = _resolve_work_keys(scope, stream)
-    work_key_list = work_keys if work_keys else [None]
-
-    # Pre-compute selection topology from event stream (ADR-025).
-    # refined_parents: work_keys that have children from prior selection — skip.
-    # spawned_children: work_keys that were spawned — don't re-select them.
-    all_events_snapshot = stream.all_events()
-    refined_parents: set[str] = set()
-    spawned_children: set[str] = set()
-    for e in all_events_snapshot:
-        if e.get("event_type") == "work_spawned":
-            pk = e.get("data", {}).get("parent_key")
-            ck = e.get("data", {}).get("child_key")
-            if pk:
-                refined_parents.add(pk)
-            if ck:
-                spawned_children.add(ck)
-
-    # Build WorkInstances — the first-class dispatch unit (ADR-024).
-    # Select the first unconverged instance in topological order.
-    # Uses typed convergence over the precomputed contract boundary.
-    # Refined parents are skipped — their children are in
-    # work_key_list and will be selected instead.
-    selected_wi: WorkInstance | None = None
-    selected_pre = None
-    selected_spec_hash = ""
-    for job in jobs:
-        # ADR-030 §5: conjunctive eligibility — skip jobs this worker cannot realize.
-        if not scope.worker.is_eligible(job):
-            continue
-        spec_hash = spec_hash_for(
-            workflow_version=scope.workflow_version,
-            executable_job=job,
-            requirements=scope.module.metadata.get("requirements", ()),
-        )
-        for wk in work_key_list:
-            if not _work_key_matches_job(wk, job):
-                continue
-            if wk is not None and wk in refined_parents:
-                continue  # Delegate to children (fold-back)
-            pre = bind_fd(
-                job, stream, resolver, scope.workspace_root,
-                spec_hash=spec_hash,
-                current_workflow_version=scope.workflow_version,
-                carry_forward=carry_forward,
-                work_key=wk,
-            )
-            conv = convergence_from_precomputed(job.vector.id, pre)
-            if conv.aggregate_state != "closed":
-                selected_wi = WorkInstance(executable_job=job, work_key=wk)
-                selected_pre = pre
-                selected_spec_hash = spec_hash
-                break
-        if selected_wi is not None:
-            break
-
-    if selected_wi is None:
-        return {
-            "status": "converged",
-            "reason": "all jobs in scope have delta = 0",
-        }
-
-    family = resolve_candidate_family(scope.module, selected_wi.executable_job.vector.id)
-    boundary = resolve_refinement_boundary(scope.module, selected_wi.executable_job.vector.id)
-    if family is None and boundary is None:
-        raise ValueError(
-            "gen_iterate(): no published traversal target for "
-            f"vector {selected_wi.executable_job.vector.name!r}"
-        )
-    if family is not None and boundary is None:
-        raise ValueError(
-            "gen_iterate(): CandidateFamily traversal requires an explicit "
-            f"SelectionDecision for vector {selected_wi.executable_job.vector.name!r}"
-        )
-    traversal = Traversal(
-        work_key=selected_wi.work_key or selected_wi.executable_job.vector.id,
-        target=boundary or family,
-        evaluators=selected_wi.executable_job.vector.evaluators,
-    )
-    runtime = TraversalRuntime(
+    plan = plan_next_traversal(
         module=scope.module,
-        executable_job=selected_wi.executable_job,
-        precomputed=selected_pre,
         workspace_root=scope.workspace_root,
         stream=stream,
-        worker=scope.worker,
-        spec_hash=selected_spec_hash,
+        worker=worker,
+        jobs=jobs,
+        work_keys=tuple(_resolve_work_keys(scope, stream)),
+        requirements=scope.module.metadata.get("requirements", ()),
+        workflow_version=scope.workflow_version,
         runtime_identity=scope.runtime_identity,
         build=scope.build,
-        work_key=selected_wi.work_key,
-        workflow_version=scope.workflow_version,
+        edge_filter=scope.edge_filter,
         on_fp_dispatch=on_fp_dispatch,
         run_id=scope.run_id,
+        carry_forward=_read_carry_forward(scope),
     )
-    outcome = traverse(traversal, runtime=runtime, surface=WorkSurface())
-
-    if outcome.updated_module is not None:
-        scope.module = outcome.updated_module
-    if outcome.updated_worker is not None:
-        scope.worker = outcome.updated_worker
+    if plan.traversal is None or plan.runtime is None:
+        return dict(plan.result)
+    outcome = traverse(plan.traversal, runtime=plan.runtime, surface=WorkSurface())
 
     return outcome.result
 
@@ -492,51 +295,17 @@ def _derive_state(scope: Scope, stream: EventStream) -> dict:
     Uses typed convergence checking over precomputed manifests.
     """
     worker = _resolve_worker(scope)
-    jobs = _scoped_jobs(scope, worker)
-
-    if not jobs:
-        return {"status": "nothing_to_do", "reason": "no jobs in scope"}
-
-    carry_forward = _read_carry_forward(scope)
-    resolver = ContextResolver(scope.workspace_root)
-
-    # Enumerate work_keys: explicit override, feature-derived, or global scope [None].
-    work_keys = _resolve_work_keys(scope, stream)
-    work_key_list = work_keys if work_keys else [None]
-
-    # Build WorkInstances — the first-class dispatch unit (ADR-024).
-    instances = [
-        WorkInstance(executable_job=job, work_key=wk)
-        for job in jobs
-        for wk in work_key_list
-        if _work_key_matches_job(wk, job)
-    ]
-
-    total_delta = 0.0
-    for wi in instances:
-        spec_hash = spec_hash_for(
-            workflow_version=scope.workflow_version,
-            executable_job=wi.executable_job,
-            requirements=scope.module.metadata.get("requirements", ()),
-        )
-        pre = bind_fd(
-            wi.executable_job,
-            stream,
-            resolver,
-            scope.workspace_root,
-            spec_hash=spec_hash,
-            current_workflow_version=scope.workflow_version,
-            carry_forward=carry_forward,
-            work_key=wi.work_key,
-        )
-        total_delta += unresolved_fraction(
-            outcomes_from_precomputed(wi.executable_job.vector.id, pre)
-        )
-
-    if total_delta == 0:
-        return {"status": "converged"}
-
-    return {"status": "in_progress", "delta": total_delta}
+    return derive_operational_state(
+        workspace_root=scope.workspace_root,
+        stream=stream,
+        worker=worker,
+        jobs=_scoped_jobs(scope, worker),
+        work_keys=tuple(_resolve_work_keys(scope, stream)),
+        requirements=scope.module.metadata.get("requirements", ()),
+        workflow_version=scope.workflow_version,
+        edge_filter=scope.edge_filter,
+        carry_forward=_read_carry_forward(scope),
+    )
 
 
 # ── internal helpers ──────────────────────────────────────────────────────────

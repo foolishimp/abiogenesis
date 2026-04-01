@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "genesis"
-version = "1.1.0"
+version = "2.0.0"
 description = "Genesis — GTL-native AI SDLC engine"
 requires-python = ">=3.11"
 dependencies = []

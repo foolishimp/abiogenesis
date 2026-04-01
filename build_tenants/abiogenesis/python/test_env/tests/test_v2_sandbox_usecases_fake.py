@@ -34,6 +34,7 @@ from genesis.binding import PrecomputedManifest, WorkSurface, Worker, module_to_
 from genesis.events import emit
 from genesis.install import workspace_bootstrap
 from genesis.interpret import Traversal, TraversalRuntime, traverse
+from genesis.projection import project
 from genesis.provenance import req_hash
 from genesis.selection import SelectionDecision, resolve_refinement_boundary
 from genesis.services import Scope, gen_gaps, gen_iterate
@@ -409,13 +410,14 @@ class TestV2SandboxUsecasesFake:
 
         selected = traverse(traversal, runtime=runtime, surface=WorkSurface())
         assert selected.result["status"] == "selected"
-        assert selected.updated_module is not None
         assert any(event["event_type"] == "work_spawned" for event in selected.surface.events)
+        frame_state = project(stream, "frame", selected.result["frame_id"])
+        assert frame_state["status"] == "open"
 
         next_scope = Scope(
-            module=selected.updated_module,
+            module=module,
             workspace_root=workspace,
-            worker=selected.updated_worker,
+            worker=scope.worker,
         )
         next_result = gen_iterate(next_scope, stream)
 
@@ -1006,26 +1008,25 @@ class TestV2SandboxUsecasesFake:
 
         selected = traverse(traversal, runtime=runtime, surface=WorkSurface())
         assert selected.result["status"] == "selected"
-        assert selected.updated_module is not None
         spawned = [event for event in selected.surface.events if event["event_type"] == "work_spawned"]
         assert len(spawned) == 4
-
-        updated_vectors = {
-            vector.name
-            for graph in selected.updated_module.graphs
-            for vector in graph.vectors
+        frame_state = project(stream, "frame", selected.result["frame_id"])
+        assert {step["edge"] for step in frame_state["child_steps"]} == {
+            "requirements→decomposition",
+            "decomposition→dependency_chain",
+            "dependency_chain→sequencing",
+            "sequencing→design",
         }
-        assert "requirements→decomposition" in updated_vectors
-        assert "decomposition→dependency_chain" in updated_vectors
-        assert "dependency_chain→sequencing" in updated_vectors
-        assert "sequencing→design" in updated_vectors
-        assert "design→code" in updated_vectors
-        assert "requirements→design" not in updated_vectors
+        assert {
+            vector.name
+            for graph in module.graphs
+            for vector in graph.vectors
+        } == {"requirements→design", "design→code"}
 
         next_scope = Scope(
-            module=selected.updated_module,
+            module=module,
             workspace_root=workspace,
-            worker=selected.updated_worker,
+            worker=scope.worker,
         )
         next_result = gen_iterate(next_scope, stream)
         assert next_result["status"] == "iterated"

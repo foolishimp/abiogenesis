@@ -1,5 +1,45 @@
 # Changelog
 
+## [2.0.0] — 2026-04-02
+
+First full GTL/ABG 2.0 release. This line completes the recursive runtime rewrite:
+stable outer module publication, invocation-local recursive frames, explicit fold-back
+law, tail-loop recursive machine control, compressed install-time GTL bootstrap, and
+present-state consistency across requirements, design, code, installer, and tests.
+
+### Highlights
+
+- GTL recursion is now declared with explicit termination and fold-back contract.
+- ABG recursive execution is invocation-local and frame-contained; recursive selection
+  no longer rewrites the published module.
+- Parent convergence now requires lawful rebind and parent re-evaluation; child closure
+  no longer auto-certifies the parent.
+- Recursive machine control now uses explicit continuation/frontier state and
+  current-frame cursor ownership for next-action truth.
+- Frame-local publication and materialization are fail-closed and no longer rely on
+  synthetic traversal boundaries or globalized recursion law.
+- Reset/reopen now mints fresh frame-attempt identity and treats checkpoints as
+  resumability aids rather than authoritative truth.
+- Installer ships a compressed precreated GTL bootstrap into `CLAUDE.md` and verifies
+  self-hosting consistency against the live GTL export surface.
+
+### Qualification
+
+- Full suite: `115 passed, 5 deselected`
+- Clean install/UAT verified in `build_tenants/abiogenesis/python/test_env/test_install`
+- Bootloader self-hosting checks pass
+
+### Active Release Surfaces
+
+- `pyproject.toml`
+- `build_tenants/abiogenesis/python/code/gen-install.py`
+- `build_tenants/abiogenesis/python/code/genesis/__init__.py`
+- `build_tenants/abiogenesis/python/code/gtl_spec/GTL_BOOTLOADER.md`
+- `build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md`
+- `build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md`
+- `specification/requirements/gtl/REQ-L-GTL2-RECURSE.md`
+- `specification/requirements/abg/REQ-R-ABG2-INTERPRET.md`
+
 ## [1.0.0-beta] — 2026-03-21
 
 First kernel-qualified release. ABG is the GTL engine kernel — 6 modules, 45 REQ keys,

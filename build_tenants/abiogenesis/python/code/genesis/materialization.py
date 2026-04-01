@@ -65,8 +65,18 @@ class CompanionBundle:
         object.__setattr__(self, "values", Attrs.coerce(self.values))
 
 
-def _resolve_graph_function(module: Module, name: str) -> GraphFunction:
-    matches = tuple(gf for gf in module.graph_functions if gf.name == name)
+def _resolve_graph_function(
+    module: Module,
+    name: str,
+    *,
+    published_graph_functions: tuple[GraphFunction, ...] = (),
+) -> GraphFunction:
+    by_id: dict[str, GraphFunction] = {}
+    for graph_function in published_graph_functions + tuple(module.graph_functions):
+        if graph_function.name != name:
+            continue
+        by_id[graph_function.id] = graph_function
+    matches = tuple(by_id.values())
     if len(matches) != 1:
         raise ValueError(
             f"materialize_graph_function(): graph function {name!r} is not uniquely published "
@@ -75,14 +85,23 @@ def _resolve_graph_function(module: Module, name: str) -> GraphFunction:
     return matches[0]
 
 
-def materialize_graph_function(request: MaterializationRequest, module: Module) -> MaterializationRecord:
+def materialize_graph_function(
+    request: MaterializationRequest,
+    module: Module,
+    *,
+    published_graph_functions: tuple[GraphFunction, ...] = (),
+) -> MaterializationRecord:
     """
     Materialize one published GraphFunction from explicit request/module truth.
 
     Current kernel law is fail-closed on undeclared profiles or structural
     parameters because those surfaces are not yet published by GTL.
     """
-    graph_function = _resolve_graph_function(module, request.graph_function)
+    graph_function = _resolve_graph_function(
+        module,
+        request.graph_function,
+        published_graph_functions=published_graph_functions,
+    )
     if request.profile is not None:
         raise ValueError(
             "materialize_graph_function(): profiles are not yet declared for canonical GTL publication"

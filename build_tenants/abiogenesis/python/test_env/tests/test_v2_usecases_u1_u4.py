@@ -31,6 +31,7 @@ from genesis.binding import PrecomputedManifest, WorkSurface, module_to_executab
 from genesis.convergence import EvaluatorOutcome, delta
 from genesis.install import workspace_bootstrap
 from genesis.interpret import Traversal, TraversalRuntime, traverse
+from genesis.projection import project
 from genesis.selection import SelectionDecision, resolve_candidate_family, resolve_refinement_boundary
 from genesis.services import Scope
 
@@ -171,15 +172,17 @@ class TestU1MaterializationProfiles:
 
         assert outcome.result["status"] == "selected"
         assert outcome.result["graph_function"] == "mvp_profile"
-        assert outcome.updated_module is not None
-        updated_vectors = {
+        assert {
             vector.name
-            for graph in outcome.updated_module.graphs
+            for graph in module.graphs
             for vector in graph.vectors
+        } == {"design→code"}
+        frame_state = project(stream, "frame", outcome.result["frame_id"])
+        assert frame_state["status"] == "open"
+        assert {step["edge"] for step in frame_state["child_steps"]} == {
+            "design→prototype",
+            "prototype→code",
         }
-        assert "design→prototype" in updated_vectors
-        assert "prototype→code" in updated_vectors
-        assert "design→code" not in updated_vectors
 
 
 @pytest.mark.integration

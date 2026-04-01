@@ -1,14 +1,22 @@
 # GTL Technical Guide
 
-**Version**: 2.0 (GTL 2.x / ABG V2)
+**Version**: 2.x / current recursive-frame model
 
 ---
 
 ## Introduction
 
-GTL (Genesis Topology Language) is a Python object model for defining governed work graphs. A GTL system declares typed nodes, transitions between those nodes, operators for performing work, evaluation criteria for checking convergence, governance rules, and semantic work contracts. ABG (Abiogenesis) is the engine that interprets those declarations at runtime.
+GTL (**Genesis Topology Language**) is the declaration layer for governed work
+graphs. ABG (**Abiogenesis**) is the runtime that interprets those declarations.
 
-The authored surface is Python. Modules are written with imports from five GTL packages:
+GTL is designed for a world where workers are not automatically trusted. That
+matters most when the worker is an AI agent, but the language is broader than
+"AI workflow." GTL makes the structure, contracts, alternatives, evaluation,
+and governance of work explicit. ABG then executes that structure as
+event-sourced runtime truth with replay, correction, lineage, and convergence.
+
+The authored surface is Python. Modules are written with imports from the GTL
+packages:
 
 ```python
 from gtl.graph import Graph, Node, GraphVector, Context
@@ -18,85 +26,128 @@ from gtl.work_model import Job, ContractRef, Role
 from gtl.module_model import Module
 ```
 
-GTL 2.x replaces V1 terminology: `Node` replaces `Asset`, `GraphVector` replaces `Edge`, `Module` replaces `Package`, `Graph` is the one first-class structural type.
+GTL 2.x also replaces earlier V1 terminology:
+
+| Older term | Current term |
+|---|---|
+| `Asset` | `Node` |
+| `Edge` | `GraphVector` |
+| `Package` | `Module` |
+| hidden zoom/overlay | `CandidateFamily` + explicit `SelectionDecision` |
+
+The most important shift in the current model is this:
+
+- `GraphFunction` is no longer best thought of as a graph-returning template
+- it is a published reusable workflow program with an explicit outer contract
+- recursive application is now understood as local frame execution over a
+  stable outer boundary, not global macro expansion of inner vectors
 
 ## GTL In One Page
 
-GTL models work as typed transitions between typed nodes within a graph.
+GTL models work as typed transitions between typed states inside a graph.
 
-A **Node** is a typed local locus such as `requirements`, `design`, `code`, or `unit_tests`.
+- A **Node** is a typed local locus such as `requirements`, `design`, `code`,
+  or `unit_tests`.
+- A **GraphVector** is one boundary from source state to target state. It may
+  declare operators, evaluators, contexts, and an optional rule.
+- A **Graph** is the one first-class structural type: typed states plus lawful
+  boundaries between them.
+- An **Operator** performs work.
+- An **Evaluator** judges whether the target contract converged.
+- A **GraphFunction** publishes a reusable workflow program with an outer
+  interface.
+- A **CandidateFamily** publishes multiple lawful graph-function alternatives
+  over one outer contract.
+- A **Module** publishes the complete declaration surface: graphs, functions,
+  boundaries, families, jobs, roles, rules, and metadata.
 
-A **GraphVector** is an internal adjacency record between nodes. It carries:
-- source and target nodes
-- operators (effectful actions)
-- evaluators (convergence predicates)
-- contexts (external constraint dimensions)
-- an optional governance rule
+The three regimes apply to both operators and evaluators:
 
-**Operators** run in one of three regimes:
-- `F_D`: deterministic checks (tests, schema validation)
-- `F_P`: probabilistic or agentic work (LLM-driven construction)
-- `F_H`: human judgment (approval gates)
+- `F_D`: `Functor_Deterministic`
+- `F_P`: `Functor_Probabilistic`
+- `F_H`: `Functor_Human`
 
-**Evaluators** define the stopping conditions for work on a vector. **Jobs** bind vectors to semantic work contracts. **Roles** declare the capability classes needed to perform the work.
+Those are not just labels. They define the ambiguity class of the work and the
+intended escalation order:
 
-A **Module** publishes the complete set of declarations: graphs, functions, boundaries, families, jobs, roles, and metadata. Module is the compilation unit.
+`F_D -> F_P -> F_H`
 
-The result is a single typed system that describes:
-- what can be produced (graph topology)
-- how it can be produced (operators and graph functions)
-- what evidence is required (evaluators)
-- who or what can perform the work (roles and jobs)
-- how completion is assessed (convergence via delta)
-- where structural alternatives exist (candidate families)
+If you need one sentence:
+
+> GTL is a typed algebra for declaring workflow structure, structural
+> alternatives, refinement, and recursion under explicit evaluation and
+> governance.
 
 ## What Problem GTL Solves
 
-Most workflow definitions split across several surfaces:
+Most workflow systems split the problem across too many surfaces:
+
 - topology in diagrams or YAML
-- acceptance criteria in prose
 - execution logic in code
-- approval rules in documentation or process
+- acceptance criteria in prose
+- approvals in process documents
+- structural alternatives in tribal knowledge
 
 GTL keeps those concerns in one typed model.
 
-A GTL definition gives an engine enough information to answer:
-- what nodes exist in this domain
-- which transitions are legal
-- what context a transition depends on
-- which checks are deterministic
-- where judgment is required
-- what structural alternatives are available and how they are selected
+The deeper problem GTL addresses is trust.
 
-This makes the module reviewable before execution and auditable during execution.
+Traditional workflow systems largely assume:
 
----
+```text
+task ran -> output exists -> proceed
+```
+
+That is acceptable when the worker is deterministic and trusted.
+
+It breaks when the worker can be:
+
+- probabilistic
+- partially correct
+- structurally creative
+- plausible but wrong
+
+So GTL starts from a different rule:
+
+> work is not done because a worker ran  
+> work is done because the declared contract converged
+
+This makes the declaration reviewable before execution and the runtime auditable
+during execution.
 
 ## Core Types
 
 ### Regimes: `F_D`, `F_P`, `F_H`
 
-The regime hierarchy classifies all operations by their ambiguity level:
+The three regimes classify the ambiguity class of work.
 
 ```python
-class Regime:
-    """Base class for evaluation/operator regimes."""
-
 class F_D(Regime):
-    """Deterministic -- zero ambiguity, pass/fail."""
+    """Functor_Deterministic"""
 
 class F_P(Regime):
-    """Probabilistic -- agent/LLM, bounded ambiguity."""
+    """Functor_Probabilistic"""
 
 class F_H(Regime):
-    """Human -- persistent ambiguity, judgment required."""
+    """Functor_Human"""
 ```
 
-Escalation follows `F_D -> F_P -> F_H`. When deterministic checks are blocked, work escalates to an agent. When the agent is stuck, work escalates to a human.
+In plain language:
+
+- `F_D` is for deterministic execution or proof
+- `F_P` is for bounded agentic or probabilistic work
+- `F_H` is for irreducible human action or judgment
+
+Examples:
+
+- `F_D`: compiler, tests, schema validation, deterministic Spark transform
+- `F_P`: generate a candidate design, assess a narrative, propose a mapping
+- `F_H`: approval, adjudication, external business action
 
 ### `Context`
 
-Context binds external information into the graph with a stable content hash:
+`Context` binds external information into the graph with a stable locator and
+digest.
 
 ```python
 bootloader = Context(
@@ -106,893 +157,648 @@ bootloader = Context(
 )
 ```
 
-`locator` uses a known URI scheme (`workspace://`, `git://`, `event://`, `registry://`). `digest` is a `sha256:` content hash -- the constitutional binding for replay determinism.
+Contexts are how declarations bind to external constraint surfaces without
+turning the graph into opaque code.
 
 ### `Node`
 
-Node is the typed local locus within a graph. Replaces V1 `Asset`.
+`Node` is the typed local locus of workflow state.
 
 ```python
-@dataclass(frozen=True)
-class Node:
-    name: str
-    schema: type | str = ""
-    markov: tuple[str, ...] = ()
-    tags: tuple[str, ...] = ()
-    id: str = field(default_factory=_mint_id, compare=False)
+requirements = Node(
+    name="requirements",
+    schema="Requirements",
+    markov=("complete", "traced"),
+)
 ```
 
-`markov` declares the acceptance conditions that make an instance reusable without re-reading its full construction history. `id` is an opaque UUID4 auto-minted at construction; structural equality ignores it (`compare=False`).
+Important points:
 
-```python
-design = Node(name="design")
-code = Node(name="code")
-candidate_branches = Node(name="candidate_branches", schema="Vector[Candidate]")
-```
+- a node is not just a label
+- it can declare a schema
+- it can declare markov conditions that define reusable state assumptions
 
-Nodes with `schema="Vector[...]"` declare explicit vector boundaries used by higher-order operators like `fan_out` and `fan_in`.
+Examples of nodes:
+
+- `intent`
+- `requirements`
+- `design`
+- `code`
+- `unit_tests`
 
 ### `GraphVector`
 
-GraphVector is the internal adjacency record. Replaces V1 `Edge`.
+`GraphVector` is the internal adjacency record between nodes.
+
+It carries:
+
+- source node or source node tuple
+- target node
+- operators
+- evaluators
+- contexts
+- optional rule
+
+Example:
 
 ```python
-@dataclass(frozen=True)
-class GraphVector:
-    name: str
-    source: Node | tuple[Node, ...] = None
-    target: Node = None
-    operators: tuple = ()
-    evaluators: tuple = ()
-    contexts: tuple[Context, ...] = ()
-    rule: Any = None
-    allows_subwork: bool = False
-    tags: tuple[str, ...] = ()
-    id: str = field(default_factory=_mint_id, compare=False)
-```
-
-A vector can have multiple source nodes (co-evolution):
-
-```python
-# Unary: design -> code
 v_design_code = GraphVector(
-    name="design->code",
+    name="design→code",
     source=design,
     target=code,
-    operators=(claude_agent, check_impl_op),
-    evaluators=(eval_impl_tags, eval_code_fp),
+    operators=(claude_agent,),
+    evaluators=(tests_pass, code_complete),
     contexts=(bootloader, design_adrs),
 )
-
-# Co-evolution: (code, unit_tests) -> unit_tests
-v_tdd = GraphVector(
-    name="code<->unit_tests",
-    source=(code, unit_tests),
-    target=unit_tests,
-    operators=(claude_agent, pytest_op),
-    evaluators=(eval_tests_pass, eval_coverage_fp),
-)
 ```
+
+This is the main unit of workflow law.
 
 ### `Operator`
 
-Operator declares an effectful action with a regime and binding URI:
+An operator performs effectful work.
+
+Examples:
 
 ```python
+spark_transform = Operator("spark_transform", F_D, "exec://spark-submit job.py")
 claude_agent = Operator("claude_agent", F_P, "agent://claude/genesis")
-pytest_op = Operator("pytest", F_D, "exec://python -m pytest tests/ -q")
 human_gate = Operator("human_gate", F_H, "fh://single")
 ```
 
-URI families: `agent://`, `exec://`, `check://`, `metric://`, `fh://`.
+Operators are about transformation, not judgment.
 
 ### `Evaluator`
 
-Evaluator declares a convergence predicate. Operators *do* work; evaluators *check* work.
+An evaluator decides whether the target contract converged.
+
+Examples:
 
 ```python
-eval_tests_pass = Evaluator(
-    "tests_pass", F_D,
+tests_pass = Evaluator(
+    "tests_pass",
+    F_D,
     "pytest: zero failures, zero errors",
-    binding="exec://python -m pytest build_tenants/abiogenesis/python/test_env/tests/ -q --tb=short",
+    binding="exec://python -m pytest -q",
 )
 
-eval_code_fp = Evaluator(
-    "code_complete", F_P,
-    "Agent: code implements all features per design ADRs",
+code_complete = Evaluator(
+    "code_complete",
+    F_P,
+    "Agent judges implementation completeness",
 )
 
-eval_design_fh = Evaluator(
-    "design_approved", F_H,
-    "Human approves design before any code is written",
+design_approved = Evaluator(
+    "design_approved",
+    F_H,
+    "Human approves design before implementation",
 )
 ```
 
-The `description` field is a human-readable convergence contract. `binding` is an optional plugin URI for deterministic evaluators.
+Operators do work.
+Evaluators judge work.
+
+That separation is constitutional.
 
 ### `Rule`
 
-Rule declares a passive constraint:
+A rule is a passive governance declaration attached to a boundary.
+
+Examples:
 
 ```python
-standard_gate = Rule(
-    name="standard_gate",
-    kind="gate",
-    config={"approve": {"kind": "consensus", "n": 1, "m": 1}, "dissent": "recorded"},
+consensus_gate = Rule(
+    name="consensus_gate",
+    kind="consensus",
+    config={"quorum": 3},
 )
-
-harvest_gate = Rule(name="harvest_gate", kind="consensus", config={"quorum": 1})
 ```
 
-Rules are declarative -- they define *what must hold*, not *how to enforce it*. The engine's `delta()` function reads Rule.config for quorum thresholds.
+Rules define what must hold, not the runtime mechanism for making it hold.
 
 ### `Graph`
 
-Graph is the one first-class structural type. All workflow structure is graph.
+`Graph` is the one first-class structural type.
 
-```python
-@dataclass(frozen=True)
-class Graph:
-    name: str
-    inputs: tuple[Node, ...] = ()
-    outputs: tuple[Node, ...] = ()
-    nodes: tuple[Node, ...] = ()
-    vectors: tuple[GraphVector, ...] = ()
-    contexts: tuple[Context, ...] = ()
-    rules: tuple = ()
-    effects: tuple = ()
-    tags: tuple[str, ...] = ()
-    id: str = field(default_factory=_mint_id, compare=False)
-```
+A graph contains:
 
-A primitive single-vector transition, a multi-step workflow, a subgraph, and a reusable workflow template are all `Graph`. There is no separate Workflow or Pipeline type.
+- inputs
+- outputs
+- nodes
+- vectors
+- contexts
+- rules
+- effects
+- tags
 
-```python
-sdlc_graph = Graph(
-    name="sdlc",
-    inputs=(intent,),
-    outputs=(unit_tests, bootloader_doc),
-    nodes=(intent, requirements, feature_decomp, design, code, unit_tests, bootloader_doc),
-    vectors=(v_intent_req, v_req_feat, v_feat_design, v_design_bootdoc, v_design_code, v_tdd),
-    contexts=(bootloader, this_spec, intent_doc, design_adrs, specification_dir),
-)
-```
+There is no separate "workflow" or "pipeline" type above graph.
 
 ### `GraphFunction`
 
-GraphFunction is the reusable named workflow abstraction -- a materializable graph template:
+`GraphFunction` is the main reusable compute abstraction in GTL.
 
-```python
-@dataclass(frozen=True)
-class GraphFunction:
-    name: str
-    inputs: tuple[Node, ...] = ()
-    outputs: tuple[Node, ...] = ()
-    template: Callable[..., Graph] | str = ""
-    effects: tuple = ()
-    tags: tuple[str, ...] = ()
-    id: str = field(default_factory=_mint_id, compare=False)
-```
+The weak explanation is:
 
-`template` is either a callable that returns a `Graph` (Python DSL convenience) or a serializable string reference. GraphFunctions participate in algebra operations (compose, substitute) and are the candidates within CandidateFamilies.
+> reusable graph template
+
+The stronger and current explanation is:
+
+> reusable workflow program with an explicit outer contract and a lawful path
+> to runtime realization
+
+That is the important 1.1.1-era meaning.
 
 ### `RefinementBoundary`
 
-RefinementBoundary declares a lawful synthesis/refinement point. It says "here is where an interface-compatible inner graph can be produced" without embedding any selection or synthesis logic:
+`RefinementBoundary` publishes that a vector may be refined lawfully.
 
-```python
-rb_design_code = deferred_refinement(
-    "design->code",
-    inputs=(design,),
-    outputs=(code,),
-)
-```
+It says:
 
-Every live GraphVector in a Module must publish either a RefinementBoundary or a CandidateFamily. This is enforced by `validate_module_traversal_surface()`, an explicit kernel function called at `Scope` construction -- not automatically at `Module` construction. Module itself is a pure data type with no `__post_init__` validation.
+- this outer boundary exists
+- there is a lawful refinement point here
 
 ### `CandidateFamily`
 
-CandidateFamily declares a named family of lawful structural alternatives for one outer contract:
+`CandidateFamily` publishes multiple lawful `GraphFunction` alternatives over
+one outer contract.
 
-```python
-profiles = candidate_family(
-    "design->code_profiles",
-    inputs=(design,),
-    outputs=(code,),
-    candidates=(steelthread, mvp, optimal),
-    policy_hints={"profiles": ("steelthread", "mvp", "optimal")},
-)
-```
+Examples:
 
-Validation rules (enforced at construction):
-- Candidates must be non-empty
-- Every candidate must share the family's declared inputs/outputs contract
-- Selection requires an explicit `SelectionDecision` -- no auto-selection
+- fast profile
+- careful profile
+- tenant-specific profile
+- jurisdiction-specific profile
 
-### `ContractRef`, `Role`, `Job`
+The language publishes alternatives. It does not silently choose one.
 
-These are semantic work declarations:
+### `Job`, `ContractRef`, and `Role`
 
-```python
-# ContractRef: indirection from Job to the GTL contract it binds
-ref = ContractRef(kind="graph_vector", target_id=vector.id)
+These are the GTL work-declaration surfaces.
 
-# Role: semantic capability class
-role_constructor = Role(name="constructor", tags=("f_p",))
+- `ContractRef` points a job at a semantic GTL contract
+- `Job` declares durable semantic work
+- `Role` declares the capability class needed to perform that work
 
-# Job: durable semantic work contract
-job_design_code = Job(
-    name="design->code",
-    contracts=(ContractRef(kind="graph_vector", target_id=v_design_code.id),),
-    roles=(role_constructor,),
-)
-```
-
-Jobs reference GraphVectors by `.id` via ContractRef. Roles declare what capability is needed (construction, review, approval). Jobs with F_P evaluators typically require a constructor role.
+These belong to GTL declaration, not ABG runtime implementation.
 
 ### `Module`
 
-Module is the publication boundary -- the named, composable unit of GTL declarations. Replaces V1 `Package`.
+`Module` is the publication boundary.
 
-```python
-@dataclass(frozen=True)
-class Module:
-    name: str
-    graphs: tuple[Graph, ...] = ()
-    graph_functions: tuple[GraphFunction, ...] = ()
-    refinement_boundaries: tuple[RefinementBoundary, ...] = ()
-    candidate_families: tuple[CandidateFamily, ...] = ()
-    jobs: tuple[Job, ...] = ()
-    roles: tuple[Role, ...] = ()
-    operators: tuple[Operator, ...] = ()
-    evaluators: tuple[Evaluator, ...] = ()
-    rules: tuple[Rule, ...] = ()
-    imports: tuple[ModuleImport, ...] = ()
-    metadata: dict = field(default_factory=dict)
+It is the named container for:
+
+- graphs
+- graph functions
+- refinement boundaries
+- candidate families
+- jobs
+- roles
+- metadata
+
+If GTL is the language, `Module` is the published unit of that language.
+
+### Domain model view
+
+```mermaid
+flowchart LR
+    N["Node"] --> V["GraphVector"]
+    V --> G["Graph"]
+    O["Operator"] --> V
+    E["Evaluator"] --> V
+    R["Rule"] --> V
+    G --> M["Module"]
+    GF["GraphFunction"] --> M
+    RB["RefinementBoundary"] --> M
+    CF["CandidateFamily"] --> M
+    J["Job"] --> CR["ContractRef"]
+    CR --> V
+    Role["Role"] --> J
+    J --> M
 ```
-
-`metadata` carries domain-specific declarations visible to policy and evaluator layers. The `requirements` key is the authoritative REQ key registry:
-
-```python
-module = Module(
-    name="abiogenesis",
-    graphs=(sdlc_graph,),
-    refinement_boundaries=(rb_intent_req, rb_req_feat, ...),
-    jobs=(job_intent_req, job_req_feat, ...),
-    roles=(role_constructor,),
-    metadata={
-        "requirements": [
-            "REQ-F-BOOT-001",
-            "REQ-F-GRAPH-001",
-            "REQ-F-CMD-001",
-            ...
-        ],
-    },
-)
-```
-
-### Categorical Identity
-
-Every first-class GTL type (Node, GraphVector, Graph, GraphFunction, RefinementBoundary, CandidateFamily, Role, Job) has an opaque `.id` field:
-
-- Auto-minted as UUID4 at construction
-- `compare=False`: structural equality ignores identity
-- Operations target by `.id`, not by `.name`
-- `.name` is a human-readable label; `.id` is the stable reference
-
-```python
-from gtl.algebra import same_object
-
-# Identity comparison by .id
-assert same_object(node_a, node_a)      # same object
-assert not same_object(node_a, node_b)  # different objects, even if same name
-```
-
-The `substitute()` algebra operation targets vectors by `.id`. `ContractRef.target_id` binds jobs to vectors by `.id`. This prevents name collisions during graph composition and substitution.
-
----
 
 ## Graph Algebra
 
-GTL provides pure functions over graph types for composition, substitution, recursion, and higher-order operations. All algebra functions live in `gtl.algebra` and have no engine/runtime dependency.
+GTL matters because workflow structure can be transformed lawfully.
 
-### `compose()` -- Sequential Composition
+The main algebraic operations are:
 
-Variadic left-folded composition. `f.outputs` must satisfy `g.inputs`:
+- `edge`
+- `compose`
+- `substitute`
+- `recurse`
+- `fan_out`
+- `fan_in`
+- `gate`
+- `promote`
 
-```python
-from gtl.algebra import compose
+These are not convenience helpers. They are the legal ways to reuse, refine,
+and lift workflow structure.
 
-harvest = compose(
-    fan_out(worker_branch, over=candidate_branches),
-    promote(source=candidate_branches, to=judgment_vector),
-    gate(
-        fan_in(harvest_reducer, over=judgment_vector),
-        rule=harvest_gate,
-        evaluators=(judge,),
-    ),
-)
-```
+### `edge`
 
-Composition is associative: `compose(f, g, h) == compose(compose(f, g), h)`.
+The primitive boundary constructor.
 
-The composed result is a new GraphFunction whose inputs come from the first function and outputs come from the last. When both templates are callable, the composed template merges nodes and vectors from both graphs.
+Think:
 
-### `substitute()` -- Contract-Preserving Refinement
+- create one lawful transformation boundary between two typed states
 
-Replace a coarse contract vector with an interface-compatible inner graph:
+### `compose`
 
-```python
-from gtl.algebra import substitute
-
-refined = substitute(outer_graph, target_vector.id, inner_graph)
-```
-
-`substitute()` targets by vector `.id` (no name fallback). It validates:
-- `inner.inputs` are a subset of the vector's source nodes
-- `inner.outputs` contain the vector's target node
-- The outer graph's inputs/outputs are preserved
-
-The result is a new Graph with the target vector replaced by the inner graph's vectors, plus any new nodes and contexts merged in. A `substituted:{vector_name}` tag is appended.
-
-### `identity()` -- Neutral Element
+Sequential composition of graph functions.
 
 ```python
-from gtl.algebra import identity
-
-id_fn = identity(interface=(design, code))
+pipeline = compose(requirements_to_design, design_to_code)
 ```
 
-Returns a GraphFunction that passes through its interface unchanged. Neutral element under composition.
+This is only legal when:
 
-### `recurse()` -- Bounded Repetition
+- the output contract of the first satisfies the input contract of the second
 
-```python
-from gtl.algebra import recurse
+`compose` preserves lawful chaining and outer interface coherence.
 
-iterate_until_stable = recurse(refine_fn, termination=convergence_check)
+### `substitute`
+
+Replace a coarse boundary with a finer graph while preserving the outer
+contract.
+
+Example:
+
+```text
+requirements -> production
 ```
 
-Returns a GraphFunction with the same outer contract, annotated with a `termination:{evaluator_name}` tag. Recursion is bounded by the termination evaluator. The engine (ABG) owns the execution loop.
+can refine internally into:
 
-### Higher-Order Operators
-
-#### `fan_out()` -- Parallel Distribution
-
-Apply a function across an explicit Vector boundary:
-
-```python
-candidate_branches = Node(name="candidate_branches", schema="Vector[Candidate]")
-worker_branch = GraphFunction(name="worker_branch", inputs=(candidate_branches,), ...)
-
-distributed = fan_out(worker_branch, over=candidate_branches)
+```text
+requirements -> design -> code -> tests -> production
 ```
 
-`over` must declare an explicit `Vector[...]` schema. No hidden inference of cardinality.
+without changing what the caller sees.
 
-#### `fan_in()` -- Reduction
+`substitute` is still a real GTL algebra operation.
+What changed is the runtime interpretation of recursive application.
 
-Reduce an explicit vector boundary into one synthesized result:
+### `recurse`
 
-```python
-judgment_vector = Node(name="judgment_vector", schema="Vector[Judgment]")
-selected_candidate = Node(name="selected_candidate", schema="Candidate")
-harvest_reducer = GraphFunction(
-    name="harvest_reducer",
-    inputs=(judgment_vector,),
-    outputs=(selected_candidate,),
-    template="harvest_reducer_template",
-)
+Declare recursive or repeated graph-function application under:
 
-reduced = fan_in(harvest_reducer, over=judgment_vector)
+- a declared termination contract
+- a declared fold-back contract
+
+The outer interface remains stable.
+The recursion is explicit and bounded.
+
+### `fan_out`
+
+Apply a workflow program over a collection boundary.
+
+Think:
+
+- parallel lawful application over each element of a vectorized surface
+
+### `fan_in`
+
+Reduce a collection boundary back down.
+
+Think:
+
+- merge, reduce, rank, or select from a declared vector result
+
+### `gate`
+
+Attach explicit rule and evaluator obligations to a boundary.
+
+Think:
+
+- continuation is governed, not assumed
+
+### `promote`
+
+Lift one representational boundary into another.
+
+Think:
+
+- a declared representation change, not an implicit coercion
+
+### Higher-order example
+
+```mermaid
+flowchart LR
+    A["candidate_branches"] --> B["fan_out(worker_branch)"]
+    B --> C["promote(...)"]
+    C --> D["fan_in(harvest_reducer)"]
+    D --> E["gate(rule + evaluators)"]
+    E --> F["selected_candidate"]
 ```
-
-#### `gate()` -- Conditional Continuation
-
-Block continuation behind a rule and evaluators:
-
-```python
-gated = gate(
-    fan_in(harvest_reducer, over=judgment_vector),
-    rule=Rule(name="harvest_gate", kind="consensus", config={"quorum": 1}),
-    evaluators=(judge,),
-)
-```
-
-`gate()` accepts GraphFunction, RefinementBoundary, or CandidateFamily as targets. It does not choose candidates, invent refinements, or define pass/fail semantics -- it only blocks.
-
-#### `promote()` -- Representation Lifting
-
-Lift one declared representation boundary into another:
-
-```python
-lifted = promote(source=candidate_branches, to=judgment_vector)
-```
-
-Both arguments are mandatory. Promote does not change semantic truth -- only the declared representation boundary for later algebraic steps.
-
-### Synthesis and Selection Sugar
-
-#### `deferred_refinement()`
-
-Convenience for constructing a `RefinementBoundary`:
-
-```python
-boundary = deferred_refinement(
-    "raw_contract->discovered_context",
-    inputs=(raw_contract,),
-    outputs=(discovered_context,),
-    hints={"use_case": "gap_triggered_context_discovery"},
-)
-```
-
-#### `candidate_family()`
-
-Convenience for constructing a `CandidateFamily` with contract validation:
-
-```python
-family = candidate_family(
-    "design->code_profiles",
-    inputs=(design,),
-    outputs=(code,),
-    candidates=(steelthread, mvp, optimal),
-    policy_hints={"profiles": ("steelthread", "mvp", "optimal")},
-)
-```
-
-#### `edge()` -- DSL Sugar
-
-Construct a minimal one-vector graph:
-
-```python
-from gtl.algebra import edge
-
-g = edge(source_node, target_node, operators=(op,), evaluators=(ev,))
-```
-
----
 
 ## ABG Engine Types
 
-ABG (Abiogenesis) is the runtime engine that interprets GTL declarations. GTL owns declaration (structure, types, laws); ABG owns runtime (events, projection, convergence, traversal, binding).
+ABG is the runtime layer that interprets GTL declarations.
 
-### Convergence: `EvaluatorOutcome`, `ConvergenceResult`, `delta()`
+The main runtime shapes to understand are:
 
-ABG computes convergence deterministically from typed evaluator outcomes:
+### `Scope`
 
-```python
-from genesis.convergence import EvaluatorOutcome, ConvergenceResult, delta
+The first-class command scope.
 
-@dataclass(frozen=True)
-class EvaluatorOutcome:
-    contract_id: str
-    evaluator_name: str
-    regime: type[Regime]               # F_D, F_P, or F_H
-    status: Literal["pass", "fail", "open", "error"]
-    round_index: int
-    rationale: str = ""
-```
+It binds:
 
-`delta()` aggregates outcomes into a convergence result:
+- workspace
+- module
+- worker
+- workflow identity
+- filters such as work key or edge
 
-```python
-result = delta(
-    "contract-u3",
-    outcomes=(
-        EvaluatorOutcome("contract-u3", "judge_1", F_P, "pass", 0),
-        EvaluatorOutcome("contract-u3", "judge_2", F_P, "pass", 0),
-        EvaluatorOutcome("contract-u3", "judge_3", F_P, "pass", 0),
-        EvaluatorOutcome("contract-u3", "judge_4", F_P, "fail", 0),
-        EvaluatorOutcome("contract-u3", "judge_5", F_P, "fail", 0),
-    ),
-    rule=Rule(name="consensus_gate", kind="consensus", config={"quorum": 4}),
-)
+### `Traversal`
 
-assert result.aggregate_state == "open"      # 3/5 passes, quorum is 4
-assert result.next_action == "repeat_round"  # quorum not met, try again
-```
+One named traversal attempt over one GTL target boundary.
 
-`ConvergenceResult` carries the aggregate state, next action, escalation target, and all individual outcomes. When `delta = 0` (all evaluators pass), the system is at rest.
+Its target may be:
 
-Escalation policy:
-- `F_D` fails -> escalate to `F_P` (if available on this vector)
-- `F_P` fails -> escalate to `F_H`
-- `F_H` approves -> return to `F_D` (approved -> deploy)
+- a `RefinementBoundary`
+- a `CandidateFamily`
+- a `GraphVector`
 
-### Traversal: `Traversal`, `TraversalRuntime`, `traverse()`
+### `WorkSurface`
 
-Traversal is the first-class ABG runtime traversal contract:
+Immutable execution dossier carrying:
 
-```python
-from genesis.interpret import Traversal, TraversalRuntime, TraversalOutcome, traverse
+- events
+- artifacts
+- contexts
+- findings
+- attestations
+- metadata
 
-@dataclass(frozen=True)
-class Traversal:
-    work_key: str
-    target: GraphFunction | CandidateFamily | RefinementBoundary
-    evaluators: tuple[Evaluator, ...] = ()
-    rule: Rule | None = None
-    selection: SelectionDecision | None = None
-    metadata: dict = field(default_factory=dict)
-```
+### `SelectionDecision`
 
-Invariants enforced at construction:
-- `work_key` must be non-empty
-- `metadata` must not carry hidden strategy keys (e.g., `"strategy"`, `"candidate_choice"`)
-- `selection` is only valid when `target` is a `CandidateFamily`
-- A `CandidateFamily` target requires an explicit `SelectionDecision`
+Explicit, replayable candidate choice.
 
-`TraversalRuntime` carries the execution context:
+This is important because GTL publishes alternatives, but ABG must not invent
+hidden strategy.
 
-```python
-runtime = TraversalRuntime(
-    module=module,
-    executable_job=executable_job,
-    precomputed=precomputed_manifest,
-    workspace_root=tmp_path,
-    stream=event_stream,
-    worker=worker,
-    spec_hash="spec-u1",
-    work_key="FEAT-AUTH-001",  # work identity (feature, spawned child, etc.)
-)
-```
+### `Worker`
 
-Note: `work_key` is the canonical work identity -- typically a feature ID (`"FEAT-AUTH-001"`) or a spawned child key (`"FEAT-AUTH-001/design->code/mvp_profile/design->prototype"`). It is distinct from `vector.id`, which is the opaque contract handle for algebra and binding operations. The two are never interchangeable.
+Concrete runtime actor identity and capability binding.
 
-`traverse()` dispatches based on target type:
-- **CandidateFamily target**: validates the selection, materializes the candidate, calls `substitute()`, spawns child work items, emits `workflow_selected` events
-- **RefinementBoundary target**: runs the iteration loop (bind F_D -> dispatch F_P -> gate F_H)
+### Recursive frame runtime
 
-```python
-outcome = traverse(traversal, runtime=runtime, surface=WorkSurface())
+The current recursive model also uses invocation frames with:
 
-assert outcome.result["status"] in ("selected", "iterated", "pending")
-assert outcome.surface.events  # events emitted during traversal
-```
+- parent work identity
+- frame-local vectors
+- frame-local traversal surface
+- child lineage keys
+- fold-back and rebound events
 
-### Selection: `SelectionDecision`
-
-Selection is explicit and replayable:
-
-```python
-from genesis.selection import SelectionDecision
-
-decision = SelectionDecision(
-    contract_id=vector.id,          # opaque contract handle (vector .id)
-    work_key="FEAT-AUTH-001",       # work identity (feature, spawned child, etc.)
-    graph_function="mvp_profile",
-    selected_by="test_policy",
-    selection_mode="explicit",
-    rationale="materialize mvp profile for current contract",
-)
-```
-
-`contract_id` references the GraphVector being refined (by `.id`). `work_key` identifies the unit of work this selection belongs to (feature, spawned child, etc.). These are distinct identities serving different roles in the runtime.
-
-No auto-selection. The engine does not choose candidates -- an external policy or human provides the `SelectionDecision`, and the engine validates and applies it. This is a constitutional design choice: the language declares alternatives, the engine validates choices, but neither decides.
-
----
+This is the current lawful runtime interpretation of recursive graph execution.
 
 ## Event Stream
 
-Node state is derived by projection over an append-only event stream:
+ABG is event-sourced.
 
+That means runtime truth is derived from the event stream rather than from
+hidden mutable orchestration state.
+
+The event stream is the basis for:
+
+- projection
+- lineage
+- convergence
+- correction
+- replay
+
+Typical event families include:
+
+- run lifecycle events
+- workflow selection events
+- frame events
+- convergence events
+- correction/reset events
+
+For recursion specifically, the important events are:
+
+- `workflow_selected`
+- `frame_opened`
+- `work_spawned`
+- `frame_step_completed`
+- `frame_foldback`
+- `frame_rebound`
+- `frame_closed`
+
+This is what makes recursive execution inspectable and replayable.
+
+### Recursive runtime flow
+
+```mermaid
+flowchart TD
+    A["Outer boundary discovered"] --> B{"CandidateFamily selected?"}
+    B -->|No| C["Iterate outer boundary normally"]
+    B -->|Yes| D["Materialize GraphFunction"]
+    D --> E["Build frame-local traversal surface"]
+    E --> F["Validate frame-local publication"]
+    F --> G["Open invocation frame"]
+    G --> H["Run child vectors inside frame"]
+    H --> I{"All child steps closed?"}
+    I -->|No| H
+    I -->|Yes| J{"Termination contract satisfied?"}
+    J -->|No| H
+    J -->|Yes| K["Emit fold-back and rebound"]
+    K --> L["Re-enter stable outer boundary"]
+    L --> M["Re-evaluate parent contract"]
 ```
-State<Tn> := project(EventStream[0..n], node_type, instance_id)
-```
-
-- **Determinism**: `project(S, T, I) = project(S, T, I)` always (same stream, same type, same instance produces identical projection)
-- **`emit()` is the only write path**. `event_time` is system-assigned at append.
-- **F_P does NOT call the event logger**. F_P produces artifacts; F_D reads them and emits events.
-- Recovery is replay. No state lost beyond the current `traverse()` call.
-
-Key event types:
-- `genesis_installed` -- emitted by the installer (`gen-install.py`), not by `workspace_bootstrap()`
-- `edge_started` -- traversal begins on a vector
-- `run_bound` -- worker bound to a job
-- `fp_dispatched` -- F_P evaluator dispatched
-- `assessed{kind: fp}` -- F_P result recorded (snapshot-bound via `spec_hash`)
-- `edge_converged` -- vector converged (delta = 0)
-- `workflow_selected` -- candidate selection applied
-- `work_spawned` -- child work items created from selection
-
----
 
 ## Real Domain Example: SDLC
 
-The `abiogenesis` project spec (`gtl_spec/packages/abiogenesis.py`) demonstrates a complete V2 module for software delivery:
+A familiar GTL domain is the software development lifecycle itself.
 
-### Graph Topology
+You might declare nodes such as:
 
-```
-intent -> requirements -> feature_decomp -> design -> code <-> unit_tests
-                                                  \-> bootloader_doc
-```
+- `intent`
+- `requirements`
+- `feature_decomp`
+- `design`
+- `code`
+- `unit_tests`
 
-7 nodes, 6 vectors, 5 contexts, 6 operators, 15 evaluators across three regimes.
+and vectors such as:
 
-### Declaration Pattern
+- `intent→requirements`
+- `requirements→feature_decomp`
+- `feature_decomp→design`
+- `design→code`
+- `code↔unit_tests`
 
-```python
-# 1. Contexts -- external constraint surfaces
-bootloader = Context(
-    name="bootloader",
-    locator="workspace://build_tenants/abiogenesis/python/code/gtl_spec/GTL_BOOTLOADER.md",
-    digest="sha256:" + "0" * 64,
-)
+This is a good example because it shows:
 
-# 2. Operators -- effectful actions
-claude_agent = Operator("claude_agent", F_P, "agent://claude/genesis")
-pytest_op = Operator("pytest", F_D, "exec://python -m pytest tests/ -q")
-
-# 3. Nodes -- typed loci
-intent = Node(name="intent")
-code = Node(name="code")
-
-# 4. Evaluators -- convergence predicates (one per check)
-eval_tests_pass = Evaluator(
-    "tests_pass", F_D,
-    "pytest: zero failures, zero errors",
-    binding="exec://python -m pytest build_tenants/abiogenesis/python/test_env/tests/ -q --tb=short",
-)
-eval_code_fp = Evaluator(
-    "code_complete", F_P,
-    "Agent: code implements all features per design ADRs",
-)
-
-# 5. Vectors -- transitions with local metadata
-v_design_code = GraphVector(
-    name="design->code",
-    source=design,
-    target=code,
-    operators=(claude_agent, check_impl_op),
-    evaluators=(eval_impl_tags, eval_impl_coverage, eval_code_fp),
-    contexts=(bootloader, this_spec, design_adrs),
-)
-
-# 6. Graph -- the complete topology
-sdlc_graph = Graph(
-    name="sdlc",
-    inputs=(intent,),
-    outputs=(unit_tests, bootloader_doc),
-    nodes=(intent, requirements, feature_decomp, design, code, unit_tests, bootloader_doc),
-    vectors=(v_intent_req, v_req_feat, v_feat_design, v_design_bootdoc, v_design_code, v_tdd),
-    contexts=(bootloader, this_spec, intent_doc, design_adrs, specification_dir),
-)
-
-# 7. Roles -- semantic capability classes
-role_constructor = Role(name="constructor", tags=("f_p",))
-
-# 8. Jobs -- one per vector, bound via ContractRef
-job_design_code = Job(
-    name="design->code",
-    contracts=(ContractRef(kind="graph_vector", target_id=v_design_code.id),),
-    roles=(role_constructor,),
-)
-
-# 9. Refinement boundaries (or CandidateFamily -- each vector needs one or the other)
-rb_design_code = deferred_refinement(
-    "design->code",
-    inputs=(design,),
-    outputs=(code,),
-)
-
-# 10. Module -- the publication unit
-module = Module(
-    name="abiogenesis",
-    graphs=(sdlc_graph,),
-    refinement_boundaries=(rb_intent_req, rb_req_feat, ...),
-    jobs=(job_intent_req, job_req_feat, ...),
-    roles=(role_constructor,),
-    metadata={"requirements": ["REQ-F-BOOT-001", "REQ-F-GRAPH-001", ...]},
-)
-```
-
----
+- typed workflow states
+- convergence conditions
+- deterministic and probabilistic work mixed together
+- structural refinement where needed
 
 ## Use Case Patterns
 
-### U1: Materialization Profiles (CandidateFamily + SelectionDecision)
+Several recurring patterns matter.
 
-When multiple implementation strategies exist for a single contract, declare them as a CandidateFamily:
+### Straight deterministic path
 
-```python
-steelthread = GraphFunction("steelthread_profile", ...)
-mvp = GraphFunction("mvp_profile", ...)
-optimal = GraphFunction("optimal_profile", ...)
+Use when:
 
-profiles = candidate_family(
-    "design->code_profiles",
-    inputs=(design,),
-    outputs=(code,),
-    candidates=(steelthread, mvp, optimal),
-    policy_hints={"profiles": ("steelthread", "mvp", "optimal")},
-)
+- transformation logic is already known
+- execution should be repeatable
+- proof can be deterministic
 
-# Traversal requires explicit selection
-traversal = Traversal(
-    work_key="FEAT-AUTH-001",       # work identity
-    target=profiles,
-    selection=SelectionDecision(
-        contract_id=vector.id,      # contract handle (vector .id)
-        work_key="FEAT-AUTH-001",   # work identity
-        graph_function="mvp_profile",
-        selected_by="test_policy",
-        selection_mode="explicit",
-        rationale="materialize mvp profile for current contract",
-    ),
-    evaluators=vector.evaluators,
-)
+### Probabilistic construction under deterministic evaluation
 
-outcome = traverse(traversal, runtime=runtime, surface=WorkSurface())
-assert outcome.result["status"] == "selected"
-assert outcome.result["graph_function"] == "mvp_profile"
-```
+Use when:
 
-After selection, `substitute()` replaces the coarse vector with the candidate's inner graph. The module is updated with new vectors and jobs for the child work items.
+- the worker constructs output probabilistically
+- deterministic checks can still verify the result
 
-### U2: Gap-Triggered Refinement (RefinementBoundary)
+This is common for code generation, mapping generation, and draft design work.
 
-When the iteration path is not a structural choice but a discovery process:
+### Consensus or gated evaluation
 
-```python
-boundary = deferred_refinement(
-    "raw_contract->discovered_context",
-    inputs=(raw_contract,),
-    outputs=(discovered_context,),
-    hints={"use_case": "gap_triggered_context_discovery"},
-)
+Use when:
 
-traversal = Traversal(
-    work_key="FEAT-DISCOVERY-001",  # work identity
-    target=boundary,
-    evaluators=vector.evaluators,
-)
+- several judgments must be aggregated
+- policy requires quorum or consensus
 
-outcome = traverse(traversal, runtime=runtime, surface=WorkSurface())
-assert outcome.result["status"] == "iterated"
-assert outcome.result["blocking_reason"] == "fp_dispatch"
-```
+This is where `gate(...)` and vectorized evaluation patterns matter.
 
-The engine runs the iteration loop: bind F_D, discover gaps, dispatch F_P for construction. No selection decision needed.
+### Recursive refinement
 
-### U3: Consensus-Gated Review (Multi-Judge Convergence)
+Use when:
 
-Multiple F_P judges assess the same contract boundary with a quorum rule:
+- the outer contract is stable
+- a chosen graph function needs internal decomposition
+- inner workflow should remain local to that invocation
 
-```python
-rule = Rule(name="consensus_gate", kind="consensus", config={"quorum": 4})
-outcomes = (
-    EvaluatorOutcome("contract-u3", "judge_1", F_P, "pass", 0),
-    EvaluatorOutcome("contract-u3", "judge_2", F_P, "pass", 0),
-    EvaluatorOutcome("contract-u3", "judge_3", F_P, "pass", 0),
-    EvaluatorOutcome("contract-u3", "judge_4", F_P, "fail", 0),
-    EvaluatorOutcome("contract-u3", "judge_5", F_P, "fail", 0),
-)
+This is now the correct recursion pattern.
 
-result = delta("contract-u3", outcomes, rule=rule)
-assert result.aggregate_state == "open"       # 3/5, need 4
-assert result.next_action == "repeat_round"
-```
+### Structural alternatives
 
-### U4: Parallel Worker Harvest (fan_out -> promote -> fan_in -> gate)
+Use when:
 
-Explicit parallel topology using higher-order operators:
+- the same outer contract has several lawful internal realizations
 
-```python
-candidate_branches = Node(name="candidate_branches", schema="Vector[Candidate]")
-judgment_vector = Node(name="judgment_vector", schema="Vector[Judgment]")
-selected_candidate = Node(name="selected_candidate", schema="Candidate")
-
-harvest = compose(
-    fan_out(worker_branch, over=candidate_branches),
-    promote(source=candidate_branches, to=judgment_vector),
-    gate(
-        fan_in(harvest_reducer, over=judgment_vector),
-        rule=Rule(name="harvest_gate", kind="consensus", config={"quorum": 1}),
-        evaluators=(judge,),
-    ),
-)
-
-assert harvest.inputs == (candidate_branches,)
-assert harvest.outputs == (selected_candidate,)
-assert "over:candidate_branches" in harvest.tags
-assert "rule:harvest_gate" in harvest.tags
-```
-
----
+That is what `CandidateFamily` is for.
 
 ## GTL/ABG Boundary
 
-GTL and ABG have a strict separation of concerns:
+The separation of concerns is strict.
 
-| Concern | Owner | Examples |
-|---------|-------|---------|
-| Structure declaration | GTL | Graph, Node, GraphVector, Module |
-| Function abstraction | GTL | GraphFunction, CandidateFamily, algebra |
-| Convergence declaration | GTL | Evaluator, Rule |
-| Work declaration | GTL | Job, Role, ContractRef |
-| Traversal execution | ABG | traverse(), TraversalRuntime |
-| Delta computation | ABG | delta(), EvaluatorOutcome, ConvergenceResult |
-| Selection application | ABG | apply_selection(), validate_selection() |
-| Event emission | ABG | EventStream, emit() |
-| Projection | ABG | project() |
-| Binding | ABG | bind_fd(), bind_fp(), PrecomputedManifest |
+| Responsibility | Owner |
+|---|---|
+| structure declaration | GTL |
+| reusable workflow programs | GTL |
+| lawful structural alternatives | GTL |
+| operator/evaluator/rule declaration | GTL |
+| semantic work declaration | GTL |
+| event storage and replay | ABG |
+| traversal execution | ABG |
+| convergence protocol | ABG |
+| correction/reset | ABG |
+| provenance and runtime identity | ABG |
 
-GTL types have no runtime dependency. ABG types import GTL types but not the reverse.
+Important rule:
 
----
+- GTL types have no runtime dependency
+- ABG may import GTL declaration types
+- GTL may not depend on ABG runtime types
 
 ## Validation Rules
 
-Validation is split across two enforcement sites:
+The current model depends on fail-closed validation.
 
-**Constructor-enforced** (fail at instantiation via `__post_init__`):
+Important examples:
 
-1. `Context.digest` must start with `sha256:`
-2. `Context.locator` must use a known URI scheme (`workspace://`, `git://`, `event://`, `registry://`)
-3. `Operator.regime` and `Evaluator.regime` must be `Regime` subclasses (`F_D`, `F_P`, or `F_H`)
-4. `CandidateFamily.candidates` must be non-empty
-5. `CandidateFamily` candidates must share the family's declared inputs/outputs contract
-6. `Traversal.work_key` must be non-empty
-7. `Traversal.metadata` must not carry hidden strategy keys
-8. `Traversal.selection` is only valid when `target` is a `CandidateFamily`
-9. `Traversal` over `CandidateFamily` requires an explicit `SelectionDecision`
+### Interface validity
 
-**Kernel-function-enforced** (fail when explicitly called, e.g., at `Scope` construction):
+Composition and refinement must respect declared input/output contracts.
 
-10. `validate_module_traversal_surface()`: every live GraphVector must publish a RefinementBoundary or CandidateFamily
-11. `validate_module_selection_surface()`: GraphFunctions matching live vector contracts must be published via CandidateFamily (no hidden alternatives)
+### Published alternatives
 
-**Call-site-enforced** (fail when the operation is invoked):
+If structural alternatives exist over a live boundary, they must be published
+through `CandidateFamily`. Hidden alternatives are not lawful.
 
-12. `delta()` rejects empty outcomes or mixed `contract_id` values
-13. `substitute()` validates interface compatibility (inner inputs subset of source, inner outputs contain target)
-14. `fan_out()` and `fan_in()` require explicit `Vector[...]` schema on the `over` node
+### Frame-local publication
 
-Note: `Module` itself has no `__post_init__` -- it is a pure frozen data container. The module-level surface checks (10, 11) are enforced by `Scope.__post_init__()` in `genesis.services`, not by Module construction. Instantiating a Module with missing boundaries will succeed; binding it into a Scope will fail.
+Recursive frame-local alternatives must also fail closed.
 
----
+The runtime now enforces this before frame opening.
+
+### Traversal truth
+
+Every live vector in a traversal surface must resolve to lawful published
+traversal truth.
+
+### Parent certification
+
+Child closure alone must not certify the parent.
+
+### Termination
+
+Declared recursive termination must be satisfied before fold-back closure.
 
 ## Language Laws
 
-GTL 2.x is governed by 16 constitutional laws (from the GTL 2 Constitutional Design):
+The current GTL/ABG model depends on a small number of high-level laws.
 
-1. **Graph Primacy**: Graph is the one first-class structural type
-2. **Typed Node Law**: Node[T] carries its declared schema, markov conditions, and identity
-3. **Interface Law**: Every structural type has inputs/outputs; compatibility is checked at algebra boundaries
-4. **Operator/Evaluator Separation**: Operators perform work; evaluators check work. Never conflated.
-5. **Composition Associativity**: `compose(f, g, h) == compose(compose(f, g), h)`
-6. **Identity Function**: `identity()` is the neutral element under composition
-7. **Substitutability**: `substitute(outer, contract_vector, inner)` preserves outer contract
-8. **Contract Preservation**: Algebra operations never violate declared input/output contracts
-9. **Deferred Refinement**: RefinementBoundary declares lawful synthesis without embedding strategy
-10. **Recursion With Lineage**: `recurse()` is bounded by a declared termination evaluator
-11. **Higher-Order Legality**: fan_out/fan_in/gate/promote are lawful under explicit boundaries only
-12. **Separation From Strategy**: Language declares alternatives; engine validates choices; neither decides
-13. **Event-Sourced Suitability**: Assets are projections of append-only event streams
-14. **Engine Independence**: GTL types have no runtime dependency; algebra is pure
-15. **Categorical Identity**: Every first-class type has opaque `.id` distinct from `.name`
-16. **Semantic/Execution Separation**: Module is a pure declaration boundary; runtime concerns belong to ABG
+### 1. Typed structure law
 
----
+Work is declared as typed states and typed transitions.
+
+### 2. Separation law
+
+Operators perform work. Evaluators judge work.
+
+### 3. Publication law
+
+Structural alternatives must be published explicitly.
+
+### 4. Outer-contract stability law
+
+Refinement and recursion preserve the outer contract.
+
+### 5. Local recursion law
+
+Recursive application is invocation-local, not automatic module-global
+topology mutation.
+
+### 6. Parent re-evaluation law
+
+Child closure does not certify the parent directly.
+
+### 7. Engine-independence law
+
+GTL declaration is pure and independent of runtime ownership.
 
 ## Runtime Boundary
 
-The boundary between authored model and runtime state matters for replay and audit.
+The current runtime position is:
 
-**Authored in Python** (GTL):
-- Module structure (graphs, nodes, vectors)
-- Graph functions, refinement boundaries, candidate families
-- Operators, evaluators, rules
-- Contexts with digest bindings
-- Jobs, roles, contract references
+- the macro/globalization problems are resolved
+- recursive locality is real
+- frame-local publication fails closed
+- declared recursion termination is operative
+- open recursive frames block false convergence reporting
 
-**Derived at runtime** (ABG):
-- Event stream (append-only)
-- Traversal outcomes
-- Convergence results (delta computations)
-- Selection results and substituted graphs
-- F_P dispatch manifests
-- Precomputed manifests (bind_fd results)
-- Worker scheduling batches
+What is still future work:
+
+- the final tail-loop recursive interpreter stack
+
+The current runtime still uses the event-driven frame progression model rather
+than the final tail-loop machine. That means the recursive semantics are now
+correct for the current tranche, but the interpreter shape is not yet the final
+one.
+
+### Bottom line
+
+If you need one technical summary:
+
+> GTL declares typed workflow structure, reusable workflow programs, lawful
+> alternatives, and recursive refinement. ABG interprets those declarations as
+> event-sourced runtime truth. Recursive application now executes through local
+> invocation frames over stable outer contracts rather than through global macro
+> expansion.

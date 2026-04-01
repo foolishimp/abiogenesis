@@ -16,14 +16,15 @@ genesis_sdlc's installer composes both sets at install time.
 
 ## Fix → Release → Install Cascade
 
-### Bug in abiogenesis
+### Release in abiogenesis
 
 1. Fix source in `build_tenants/abiogenesis/python/.claude-plugin/plugins/genesis/commands/`
    and/or engine source under `build_tenants/abiogenesis/python/code/genesis/`
 
-2. Bump version in **both**:
-   - `build_tenants/abiogenesis/python/code/gen-install.py` → `VERSION = "0.1.x"`
-   - `pyproject.toml` → `version = "0.1.x"`
+2. Bump version in **all active version surfaces**:
+   - `build_tenants/abiogenesis/python/code/gen-install.py` → `VERSION = "2.x.y"`
+   - `build_tenants/abiogenesis/python/code/genesis/__init__.py` → `__version__ = "2.x.y"`
+   - `pyproject.toml` → `version = "2.x.y"`
 
 3. Commit source changes in abiogenesis
 
@@ -56,6 +57,7 @@ Bump locations:
 | Repo | File | Field |
 |------|------|-------|
 | abiogenesis | `build_tenants/abiogenesis/python/code/gen-install.py` | `VERSION` |
+| abiogenesis | `build_tenants/abiogenesis/python/code/genesis/__init__.py` | `__version__` |
 | abiogenesis | `pyproject.toml` | `version` |
 | genesis_sdlc | `build_tenants/<family>/<variant>/src/genesis_sdlc/install.py` | `VERSION` |
 | genesis_sdlc | `build_tenants/<family>/<variant>/pyproject.toml` | `version` |

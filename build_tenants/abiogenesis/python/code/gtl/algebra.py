@@ -62,6 +62,36 @@ def _evaluator_decl(evaluator: Evaluator) -> dict[str, object]:
     }
 
 
+def _foldback_decl(foldback: Attrs | dict[str, object]) -> Attrs:
+    attrs = Attrs.coerce(foldback)
+    mode = attrs.get("mode", "rebind")
+    binding = attrs.get("binding")
+    if mode != "rebind":
+        raise ValueError(
+            "recurse(..., foldback=...): foldback.mode must be 'rebind'"
+        )
+    if not binding:
+        raise ValueError(
+            "recurse(..., foldback=...): foldback.binding is required"
+        )
+    if attrs.get("requires_parent_evaluation") is not True:
+        raise ValueError(
+            "recurse(..., foldback=...): foldback.requires_parent_evaluation must be True"
+        )
+    return Attrs.coerce(
+        {
+            "mode": mode,
+            "binding": binding,
+            "requires_parent_evaluation": True,
+            **{
+                key: value
+                for key, value in attrs.items()
+                if key not in {"mode", "binding", "requires_parent_evaluation"}
+            },
+        }
+    )
+
+
 def _rule_decl(rule: Rule) -> dict[str, object]:
     return {
         "name": rule.name,
@@ -267,12 +297,20 @@ def identity(interface: tuple[Node, ...]) -> GraphFunction:
 # ── Recursion ────────────────────────────────────────────────────────────────
 
 
-def recurse(graph_function: GraphFunction, termination: Evaluator) -> GraphFunction:
-    """Express repeated graph-function application under a declared termination.
+def recurse(
+    graph_function: GraphFunction,
+    termination: Evaluator,
+    *,
+    foldback: Attrs | dict[str, object],
+) -> GraphFunction:
+    """Express repeated graph-function application under declared recursion law.
 
     Returns a GraphFunction with the same outer contract. Recursion is
-    bounded by the termination evaluator. ABG owns the execution loop.
+    bounded by the termination evaluator, and fold-back must declare how child
+    return material lawfully re-binds into the parent contract. ABG owns the
+    execution loop.
     """
+    foldback_decl = _foldback_decl(foldback)
     return GraphFunction(
         name=f"recurse({graph_function.name})",
         inputs=graph_function.inputs,
@@ -281,9 +319,19 @@ def recurse(graph_function: GraphFunction, termination: Evaluator) -> GraphFunct
         effects=graph_function.effects,
         declarations=_merge_attrs(
             graph_function.declarations,
-            Attrs.coerce({"recursion": {"termination": _evaluator_decl(termination)}}),
+            Attrs.coerce(
+                {
+                    "recursion": {
+                        "termination": _evaluator_decl(termination),
+                        "foldback": foldback_decl,
+                    }
+                }
+            ),
         ),
-        tags=_stable_union(graph_function.tags, (f"termination:{termination.name}",)),
+        tags=_stable_union(
+            graph_function.tags,
+            (f"termination:{termination.name}", f"foldback:{foldback_decl['binding']}"),
+        ),
     )
 
 

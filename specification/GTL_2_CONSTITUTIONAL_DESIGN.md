@@ -669,10 +669,13 @@ Replace a coarse contract step with a finer graph.
 ### 7.4 Recurse
 
 ```python
-recurse(graph_function, termination)
+recurse(graph_function, termination, *, foldback)
 ```
 
-Express that graph-function application may induce child or repeated graph applications under a declared termination contract.
+Express that graph-function application may induce child or repeated graph
+applications under a declared termination contract and a declared fold-back
+contract. Fold-back law must identify parent rebind semantics and require
+parent re-evaluation rather than direct inheritance from child closure.
 
 ### 7.4A Deferred synthesis / refinement
 

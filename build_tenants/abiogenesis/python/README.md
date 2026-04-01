@@ -1,4 +1,4 @@
-# Genesis Engine — Claude Build
+# Genesis Engine — ABG 2.0
 
 GTL-native AI SDLC engine. ABG 2.x surface using Module, Graph, Node, GraphVector.
 
@@ -27,9 +27,10 @@ Install the engine into a target project:
 python build_tenants/abiogenesis/python/code/gen-install.py --target /path/to/your/project
 ```
 
-This creates `.genesis/` in the target containing the engine, GTL types, and a bootstrap `genesis.yml`.
+This installs `.genesis/` in the target containing the engine, GTL types, and a bootstrap `genesis.yml`.
+It also injects the precreated GTL bootstrap into `CLAUDE.md` between GTL markers.
 
-**Prerequisites**: Python 3.11+, a GTL spec package importable from the target root.
+**Prerequisites**: Python 3.11+, a GTL spec package importable from the target root, and an existing target directory.
 
 ## First Session
 

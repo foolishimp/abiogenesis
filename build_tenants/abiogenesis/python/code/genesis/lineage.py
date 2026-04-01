@@ -69,6 +69,9 @@ def active_work_keys(workspace: Path, stream: Optional[EventStream] = None) -> l
 
     if stream is not None:
         for e in stream.all_events():
+            event_work_key = e.get("data", {}).get("work_key")
+            if event_work_key:
+                keys.add(event_work_key)
             if e.get("event_type") == "work_spawned":
                 child_key = e.get("data", {}).get("child_key")
                 if child_key:
