@@ -23,6 +23,8 @@ class RuntimeIdentity:
     worker_id: str | None = None
     backend_id: str | None = None
     authority_ref: str | None = None
+    assignment_source: str | None = None
+    resolved_runtime_ref: str | None = None
 
     def bind_worker(self, worker: Any) -> "RuntimeIdentity":
         """Return a worker-bound identity without discarding explicit fields."""
@@ -36,6 +38,8 @@ class RuntimeIdentity:
             worker_id=worker_id,
             backend_id=self.backend_id,
             authority_ref=authority_ref,
+            assignment_source=self.assignment_source,
+            resolved_runtime_ref=self.resolved_runtime_ref,
         )
 
     def legacy_build_id(self) -> str:
@@ -53,4 +57,8 @@ class RuntimeIdentity:
             result["backend_id"] = self.backend_id
         if self.authority_ref:
             result["authority_ref"] = self.authority_ref
+        if self.assignment_source:
+            result["assignment_source"] = self.assignment_source
+        if self.resolved_runtime_ref:
+            result["resolved_runtime_ref"] = self.resolved_runtime_ref
         return result

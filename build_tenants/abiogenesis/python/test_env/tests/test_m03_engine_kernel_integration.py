@@ -2173,6 +2173,130 @@ class TestM03EngineKernelIntegration:
 
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         assert manifest["run_id"] == "run-m03-fp"
+
+    def test_iterated_traversal_preserves_router_and_selected_execution_identity(self, tmp_path: Path) -> None:
+        raw_contract = Node(name="raw_contract", schema="ContractInput")
+        discovered_context = Node(name="discovered_context", schema="DesignContext")
+        constructor = Role(name="constructor")
+        context_ok = Evaluator("context_ok", F_D, binding="exec://python -c 'import sys; sys.exit(0)'")
+        context_sufficient = Evaluator("context_sufficient", F_P, "context is sufficient to proceed")
+
+        vector = GraphVector(
+            name="raw_contract→discovered_context",
+            source=raw_contract,
+            target=discovered_context,
+            evaluators=(context_ok, context_sufficient),
+        )
+        graph = Graph(
+            name="m03_router_dispatch",
+            inputs=(raw_contract,),
+            outputs=(discovered_context,),
+            nodes=(raw_contract, discovered_context),
+            vectors=(vector,),
+        )
+        boundary = RefinementBoundary(
+            name=vector.name,
+            inputs=(raw_contract,),
+            outputs=(discovered_context,),
+        )
+        job = Job(
+            name=vector.name,
+            contracts=(ContractRef(kind="graph_vector", target_id=vector.id),),
+            roles=(constructor,),
+        )
+        module = Module(
+            name="m03_router_dispatch",
+            graphs=(graph,),
+            refinement_boundaries=(boundary,),
+            jobs=(job,),
+            roles=(constructor,),
+            metadata={"requirements": ["REQ-R-ABG2-BINDING-006"]},
+        )
+
+        router_worker = Worker(
+            id="abiogenesis_python_router",
+            can_execute=module_to_executable_jobs(module),
+            role_ids=(constructor.id,),
+            authority_ref="runtime://role-dispatch",
+        )
+        stream = workspace_bootstrap(tmp_path)
+        executable_job = module_to_executable_jobs(module)[0]
+        runtime = TraversalRuntime(
+            module=module,
+            executable_job=executable_job,
+            precomputed=_precomputed(
+                executable_job,
+                failing=(context_sufficient,),
+                passing=(context_ok,),
+            ),
+            workspace_root=tmp_path,
+            stream=stream,
+            worker=router_worker,
+            spec_hash="spec-m03-router-dispatch",
+            runtime_identity=RuntimeIdentity(
+                build_id="abiogenesis_python_router",
+                worker_id="codex",
+                backend_id="codex",
+                authority_ref="runtime://role-dispatch",
+                assignment_source="runtime://session-override/constructor",
+                resolved_runtime_ref="runtime://resolved/constructor/codex",
+            ),
+            work_key=vector.id,
+            workflow_version="m03.test@2.0.0",
+            run_id="run-m03-router-dispatch",
+        )
+
+        outcome = traverse(
+            Traversal(
+                work_key=vector.id,
+                target=boundary,
+                evaluators=vector.evaluators,
+            ),
+            runtime=runtime,
+            surface=WorkSurface(),
+        )
+
+        assert outcome.result["status"] == "iterated"
+        events = stream.all_events()
+        relevant = [
+            event for event in events
+            if event["event_type"] in {"run_bound", "run_started", "edge_started", "fp_dispatched"}
+        ]
+        assert [event["event_type"] for event in relevant] == [
+            "run_bound",
+            "run_started",
+            "edge_started",
+            "fp_dispatched",
+        ]
+        for event in relevant:
+            data = event["data"]
+            assert data["worker_id"] == "abiogenesis_python_router"
+            assert data["selected_worker_id"] == "codex"
+            assert data["selected_backend"] == "codex"
+            assert data["backend_id"] == "codex"
+            assert data["role_id"] == constructor.id
+            assert data["authority_ref"] == "runtime://role-dispatch"
+            assert data["assignment_source"] == "runtime://session-override/constructor"
+            assert data["resolved_runtime_ref"] == "runtime://resolved/constructor/codex"
+
+        manifest_path = Path(outcome.result["fp_manifest_path"])
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        assert manifest["worker_id"] == "abiogenesis_python_router"
+        assert manifest["selected_worker_id"] == "codex"
+        assert manifest["selected_backend"] == "codex"
+        assert manifest["backend_id"] == "codex"
+        assert manifest["role_id"] == constructor.id
+        assert manifest["authority_ref"] == "runtime://role-dispatch"
+        assert manifest["assignment_source"] == "runtime://session-override/constructor"
+        assert manifest["resolved_runtime_ref"] == "runtime://resolved/constructor/codex"
+
+        derived_run = run_state(events, "run-m03-router-dispatch")
+        assert derived_run is not None
+        assert derived_run.worker_id == "abiogenesis_python_router"
+        assert derived_run.selected_worker_id == "codex"
+        assert derived_run.selected_backend == "codex"
+        assert derived_run.assignment_source == "runtime://session-override/constructor"
+        assert derived_run.resolved_runtime_ref == "runtime://resolved/constructor/codex"
         assert manifest["work_key"] == vector.id
         assert manifest["edge"] == vector.name
 

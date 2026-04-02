@@ -447,6 +447,9 @@ def test_assess_result_cmd_routes_manifest_provenance_through_workspace_event_he
             {
                 "edge": "design→code",
                 "actor": "codex",
+                "worker_id": "codex",
+                "backend": "codex_cli",
+                "role_id": "constructor",
                 "assessments": [
                     {
                         "evaluator": "code_complete",
@@ -466,6 +469,9 @@ def test_assess_result_cmd_routes_manifest_provenance_through_workspace_event_he
                 "spec_hash": "abc123",
                 "run_id": "run-42",
                 "work_key": "REQ-7/design→code",
+                "authority_ref": "runtime://role-dispatch",
+                "assignment_source": "runtime://session-override/constructor",
+                "resolved_runtime_ref": "runtime://resolved/constructor/codex",
             }
         ),
         encoding="utf-8",
@@ -512,6 +518,13 @@ def test_assess_result_cmd_routes_manifest_provenance_through_workspace_event_he
                 "spec_hash": "abc123",
                 "manifest_id": "judge-result",
                 "workflow_version": "demo.workflow@2.0.0",
+                "selected_worker_id": "codex",
+                "backend_id": "codex_cli",
+                "selected_backend": "codex_cli",
+                "role_id": "constructor",
+                "authority_ref": "runtime://role-dispatch",
+                "assignment_source": "runtime://session-override/constructor",
+                "resolved_runtime_ref": "runtime://resolved/constructor/codex",
             },
             "workflow_version": "demo.workflow@2.0.0",
             "work_key": "REQ-7/design→code",

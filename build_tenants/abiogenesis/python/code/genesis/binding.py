@@ -332,6 +332,13 @@ class BoundJob:
     prompt: str
     result_path: str = ""
     manifest_id: str = ""
+    worker_id: str = ""
+    role_id: str = ""
+    authority_ref: str = ""
+    selected_worker_id: str = ""
+    selected_backend: str = ""
+    assignment_source: str = ""
+    resolved_runtime_ref: str = ""
 
 
 def _event_time_value(event: dict) -> datetime | None:

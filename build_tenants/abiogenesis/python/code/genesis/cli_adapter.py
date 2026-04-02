@@ -355,12 +355,13 @@ def _assess_result_cmd(result_path: str, workspace: Path) -> int:
     spec_hash = ""
     manifest_run_id = ""
     manifest_work_key = ""
+    manifest_data: dict[str, object] = {}
     if manifest_file.exists():
         try:
-            manifest = _json.loads(manifest_file.read_text(encoding="utf-8"))
-            spec_hash = manifest.get("spec_hash", "")
-            manifest_run_id = manifest.get("run_id", "")
-            manifest_work_key = manifest.get("work_key", "")
+            manifest_data = _json.loads(manifest_file.read_text(encoding="utf-8"))
+            spec_hash = manifest_data.get("spec_hash", "")
+            manifest_run_id = manifest_data.get("run_id", "")
+            manifest_work_key = manifest_data.get("work_key", "")
         except _json.JSONDecodeError:
             print(f"WARNING: manifest {manifest_file} is not valid JSON, "
                   "proceeding without spec_hash", file=sys.stderr)
@@ -372,6 +373,39 @@ def _assess_result_cmd(result_path: str, workspace: Path) -> int:
         print("ERROR: spec_hash is required for assessed{kind: fp} events "
               "but could not be resolved from manifest", file=sys.stderr)
         return 1
+
+    def _read_provenance(*values: object) -> str:
+        for value in values:
+            if isinstance(value, str) and value:
+                return value
+        return ""
+
+    selected_worker_id = _read_provenance(
+        result_data.get("selected_worker_id"),
+        result_data.get("worker_id"),
+        manifest_data.get("selected_worker_id"),
+        manifest_data.get("worker_id"),
+    )
+    selected_backend = _read_provenance(
+        result_data.get("selected_backend"),
+        result_data.get("backend"),
+        result_data.get("backend_id"),
+        manifest_data.get("selected_backend"),
+        manifest_data.get("backend_id"),
+    )
+    role_id = _read_provenance(result_data.get("role_id"), manifest_data.get("role_id"))
+    authority_ref = _read_provenance(
+        result_data.get("authority_ref"),
+        manifest_data.get("authority_ref"),
+    )
+    assignment_source = _read_provenance(
+        result_data.get("assignment_source"),
+        manifest_data.get("assignment_source"),
+    )
+    resolved_runtime_ref = _read_provenance(
+        result_data.get("resolved_runtime_ref"),
+        manifest_data.get("resolved_runtime_ref"),
+    )
 
     # Resolve workflow_version
     _config = _load_project_config(workspace)
@@ -407,6 +441,19 @@ def _assess_result_cmd(result_path: str, workspace: Path) -> int:
             "manifest_id": manifest_id,
             "workflow_version": workflow_version,
         }
+        if selected_worker_id:
+            event_data["selected_worker_id"] = selected_worker_id
+        if selected_backend:
+            event_data["backend_id"] = selected_backend
+            event_data["selected_backend"] = selected_backend
+        if role_id:
+            event_data["role_id"] = role_id
+        if authority_ref:
+            event_data["authority_ref"] = authority_ref
+        if assignment_source:
+            event_data["assignment_source"] = assignment_source
+        if resolved_runtime_ref:
+            event_data["resolved_runtime_ref"] = resolved_runtime_ref
         _emit_workspace_event(
             workspace,
             "assessed",
@@ -691,6 +738,8 @@ def _resolve_runtime_identity(config: dict, worker=None):
         worker_id=_read("runtime_worker_id"),
         backend_id=_read("runtime_backend", "backend"),
         authority_ref=_read("runtime_authority_ref", "authority_ref"),
+        assignment_source=_read("runtime_assignment_source", "assignment_source"),
+        resolved_runtime_ref=_read("runtime_resolved_runtime_ref", "resolved_runtime_ref"),
     )
     return identity.bind_worker(worker)
 

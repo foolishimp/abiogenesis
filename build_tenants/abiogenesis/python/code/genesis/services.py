@@ -136,6 +136,8 @@ class Scope:
                     worker_id=self.runtime_identity.worker_id,
                     backend_id=self.runtime_identity.backend_id,
                     authority_ref=self.runtime_identity.authority_ref,
+                    assignment_source=self.runtime_identity.assignment_source,
+                    resolved_runtime_ref=self.runtime_identity.resolved_runtime_ref,
                 )
 
         # Derive Worker from Module's jobs/vectors

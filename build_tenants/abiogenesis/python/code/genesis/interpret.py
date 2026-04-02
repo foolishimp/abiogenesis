@@ -157,6 +157,8 @@ class TraversalRuntime:
                 worker_id=self.runtime_identity.worker_id,
                 backend_id=self.runtime_identity.backend_id,
                 authority_ref=self.runtime_identity.authority_ref,
+                assignment_source=self.runtime_identity.assignment_source,
+                resolved_runtime_ref=self.runtime_identity.resolved_runtime_ref,
             )
         self.runtime_identity = self.runtime_identity.bind_worker(self.worker)
         self.build = self.runtime_identity.legacy_build_id()
@@ -174,6 +176,24 @@ class TraversalPlan:
     traversal: Traversal | None = None
     runtime: TraversalRuntime | None = None
     result: dict = field(default_factory=dict)
+
+
+def _attach_execution_binding_provenance(
+    data: dict,
+    *,
+    runtime_identity: RuntimeIdentity,
+    worker: Worker,
+) -> None:
+    """Preserve selected execution identity without overwriting router truth."""
+    if runtime_identity.worker_id and runtime_identity.worker_id != worker.id:
+        data["selected_worker_id"] = runtime_identity.worker_id
+    if runtime_identity.backend_id:
+        data.setdefault("backend_id", runtime_identity.backend_id)
+        data["selected_backend"] = runtime_identity.backend_id
+    if runtime_identity.assignment_source:
+        data["assignment_source"] = runtime_identity.assignment_source
+    if runtime_identity.resolved_runtime_ref:
+        data["resolved_runtime_ref"] = runtime_identity.resolved_runtime_ref
 
 
 @dataclass(frozen=True)
@@ -1303,6 +1323,11 @@ def _iterated_outcome(
         run_bound_data["authority_ref"] = runtime.worker.authority_ref
     if runtime.work_key is not None:
         run_bound_data["work_key"] = runtime.work_key
+    _attach_execution_binding_provenance(
+        run_bound_data,
+        runtime_identity=runtime.runtime_identity,
+        worker=runtime.worker,
+    )
     runtime.stream.append("run_bound", run_bound_data, context=event_context)
 
     run_started_data: dict = {
@@ -1314,10 +1339,32 @@ def _iterated_outcome(
     }
     if runtime.work_key is not None:
         run_started_data["work_key"] = runtime.work_key
+    if runtime.executable_job.job.roles:
+        run_started_data["role_id"] = runtime.executable_job.job.roles[0].id
+    if runtime.worker.authority_ref:
+        run_started_data["authority_ref"] = runtime.worker.authority_ref
+    _attach_execution_binding_provenance(
+        run_started_data,
+        runtime_identity=runtime.runtime_identity,
+        worker=runtime.worker,
+    )
     runtime.stream.append("run_started", run_started_data, context=event_context)
 
     bound = bind_fp(pre, runtime.executable_job, result_path=result_path)
     bound.manifest_id = manifest_id
+    bound.worker_id = runtime.worker.id
+    if runtime.executable_job.job.roles:
+        bound.role_id = runtime.executable_job.job.roles[0].id
+    if runtime.worker.authority_ref:
+        bound.authority_ref = runtime.worker.authority_ref
+    if runtime.runtime_identity.worker_id and runtime.runtime_identity.worker_id != runtime.worker.id:
+        bound.selected_worker_id = runtime.runtime_identity.worker_id
+    if runtime.runtime_identity.backend_id:
+        bound.selected_backend = runtime.runtime_identity.backend_id
+    if runtime.runtime_identity.assignment_source:
+        bound.assignment_source = runtime.runtime_identity.assignment_source
+    if runtime.runtime_identity.resolved_runtime_ref:
+        bound.resolved_runtime_ref = runtime.runtime_identity.resolved_runtime_ref
 
     edge_started_data: dict = {
         "edge": vector.name,
@@ -1330,6 +1377,15 @@ def _iterated_outcome(
         edge_started_data["backend_id"] = runtime.runtime_identity.backend_id
     if runtime.work_key is not None:
         edge_started_data["work_key"] = runtime.work_key
+    if runtime.executable_job.job.roles:
+        edge_started_data["role_id"] = runtime.executable_job.job.roles[0].id
+    if runtime.worker.authority_ref:
+        edge_started_data["authority_ref"] = runtime.worker.authority_ref
+    _attach_execution_binding_provenance(
+        edge_started_data,
+        runtime_identity=runtime.runtime_identity,
+        worker=runtime.worker,
+    )
     runtime.stream.append("edge_started", edge_started_data, context=event_context)
     if active_frame is not None:
         frame, step = active_frame
@@ -1443,9 +1499,19 @@ def _iterated_outcome(
             "spec_hash": runtime.spec_hash,
             "requirements": runtime.module.metadata.get("requirements", []),
             "run_id": run_id,
+            "worker_id": runtime.worker.id,
         }
         if runtime.work_key is not None:
             manifest["work_key"] = runtime.work_key
+        if runtime.executable_job.job.roles:
+            manifest["role_id"] = runtime.executable_job.job.roles[0].id
+        if runtime.worker.authority_ref:
+            manifest["authority_ref"] = runtime.worker.authority_ref
+        _attach_execution_binding_provenance(
+            manifest,
+            runtime_identity=runtime.runtime_identity,
+            worker=runtime.worker,
+        )
         manifest_file.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
         result["fp_manifest_path"] = str(manifest_file)
 
@@ -1927,10 +1993,25 @@ def _realize_iteration(
             "prompt_length": len(bound_job.prompt),
             "job_id": job.job.id,
         }
+        if bound_job.worker_id:
+            fp_dispatch_data["worker_id"] = bound_job.worker_id
         if run_id:
             fp_dispatch_data["run_id"] = run_id
         if bound_job.manifest_id:
             fp_dispatch_data["manifest_id"] = bound_job.manifest_id
+        if bound_job.role_id:
+            fp_dispatch_data["role_id"] = bound_job.role_id
+        if bound_job.authority_ref:
+            fp_dispatch_data["authority_ref"] = bound_job.authority_ref
+        if bound_job.selected_worker_id:
+            fp_dispatch_data["selected_worker_id"] = bound_job.selected_worker_id
+        if bound_job.selected_backend:
+            fp_dispatch_data["backend_id"] = bound_job.selected_backend
+            fp_dispatch_data["selected_backend"] = bound_job.selected_backend
+        if bound_job.assignment_source:
+            fp_dispatch_data["assignment_source"] = bound_job.assignment_source
+        if bound_job.resolved_runtime_ref:
+            fp_dispatch_data["resolved_runtime_ref"] = bound_job.resolved_runtime_ref
         events.append({
             "event_type": "fp_dispatched",
             "data": fp_dispatch_data,

@@ -38,6 +38,10 @@ class RunState:
     worker_id: str | None = None        # bound worker (REQ-R-ABG2-RUN-007)
     role_id: str | None = None          # bound role (REQ-R-ABG2-RUN-007)
     authority_ref: str | None = None    # external authority (REQ-R-ABG2-RUN-008)
+    selected_worker_id: str | None = None
+    selected_backend: str | None = None
+    assignment_source: str | None = None
+    resolved_runtime_ref: str | None = None
     failure_class: str | None = None
     attempt_number: int = 1
     superseded_by: str | None = None
@@ -60,6 +64,10 @@ def run_state(
     worker_id = None
     role_id = None
     authority_ref = None
+    selected_worker_id = None
+    selected_backend = None
+    assignment_source = None
+    resolved_runtime_ref = None
     failure_class = None
     attempt_number = 1
     superseded_by = None
@@ -86,6 +94,10 @@ def run_state(
             worker_id = edata.get("worker_id", worker_id)
             role_id = edata.get("role_id", role_id)
             authority_ref = edata.get("authority_ref", authority_ref)
+            selected_worker_id = edata.get("selected_worker_id", selected_worker_id)
+            selected_backend = edata.get("selected_backend", edata.get("backend_id", selected_backend))
+            assignment_source = edata.get("assignment_source", assignment_source)
+            resolved_runtime_ref = edata.get("resolved_runtime_ref", resolved_runtime_ref)
 
         elif etype == "run_queued":
             # ADR-030 §10: transport-separated runtimes emit run_queued.
@@ -109,14 +121,32 @@ def run_state(
             # but run_bound is authoritative when present.
             job_id = edata.get("job_id", job_id)
             worker_id = edata.get("worker_id", worker_id)
+            role_id = edata.get("role_id", role_id)
+            authority_ref = edata.get("authority_ref", authority_ref)
+            selected_worker_id = edata.get("selected_worker_id", selected_worker_id)
+            selected_backend = edata.get("selected_backend", edata.get("backend_id", selected_backend))
+            assignment_source = edata.get("assignment_source", assignment_source)
+            resolved_runtime_ref = edata.get("resolved_runtime_ref", resolved_runtime_ref)
 
         elif etype == "fp_dispatched":
             state = "dispatched"
             edge = edata.get("edge", edge)
+            role_id = edata.get("role_id", role_id)
+            authority_ref = edata.get("authority_ref", authority_ref)
+            selected_worker_id = edata.get("selected_worker_id", selected_worker_id)
+            selected_backend = edata.get("selected_backend", edata.get("backend_id", selected_backend))
+            assignment_source = edata.get("assignment_source", assignment_source)
+            resolved_runtime_ref = edata.get("resolved_runtime_ref", resolved_runtime_ref)
 
         elif etype == "assessed":
             state = "assessed"
             edge = edata.get("edge", edge)
+            role_id = edata.get("role_id", role_id)
+            authority_ref = edata.get("authority_ref", authority_ref)
+            selected_worker_id = edata.get("selected_worker_id", selected_worker_id)
+            selected_backend = edata.get("selected_backend", edata.get("backend_id", selected_backend))
+            assignment_source = edata.get("assignment_source", assignment_source)
+            resolved_runtime_ref = edata.get("resolved_runtime_ref", resolved_runtime_ref)
 
         elif etype == "run_failed":
             state = "failed"
@@ -138,6 +168,10 @@ def run_state(
         worker_id=worker_id,
         role_id=role_id,
         authority_ref=authority_ref,
+        selected_worker_id=selected_worker_id,
+        selected_backend=selected_backend,
+        assignment_source=assignment_source,
+        resolved_runtime_ref=resolved_runtime_ref,
         failure_class=failure_class,
         attempt_number=attempt_number,
         superseded_by=superseded_by,
