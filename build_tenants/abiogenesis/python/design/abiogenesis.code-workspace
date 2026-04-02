@@ -1,0 +1,43 @@
+{
+	"folders": [
+		{
+			"path": "../../../.."
+		},
+		{
+			"path": "../../../../../genesis_sdlc"
+		},
+		{
+			"path": "../../../../../gen_enterprise_arch"
+		},
+		{
+			"path": "../../../../../genesis-manager"
+		},
+		{
+			"path": "../../../../../genesis_forum"
+		},
+		{
+			"path": "../../../../../genesis_chat"
+		},
+		{
+			"path": "../../../../../openclaw-studio"
+		},
+		{
+			"path": "../../../../../openclaw"
+		},
+		{
+			"path": "../../../../../constraint_emergence_ontology"
+		},
+		{
+			"path": "../../../../../genesis_manager"
+		},
+		{
+			"path": "../../../../../ai_sdlc_examples"
+		}
+	],
+	"settings": {
+		"git.ignoreLimitWarning": true,
+		"files.watcherExclude": {
+			"**/target": true
+		}
+	}
+}

@@ -13,6 +13,7 @@ Current governing truth lives in:
 - `GTL_2_MODULE_DESIGN.md` — module ownership and runtime/language split
 - `GTL_2_INTERFACE_CONTRACTS.md` — concrete interfaces for tests and code derivation
 - `GTL_2_IMPLEMENTATION_PLAN.md` — implementation target, rejected shapes, and delivery order
+- `GTL_ABG_LLM_GUIDE_DOMAIN_WORKFLOWS.md` — agent-facing guide for authoring domain workflows like GSDLC
 
 For the current 2.0 line, the key design shift is that published `GraphFunction` surfaces, canonical graph-function materialization, graph-derived companion bundles, recursive invocation frames, and their provenance are explicit design responsibilities rather than deferred or hidden inside traversal helpers.
 
