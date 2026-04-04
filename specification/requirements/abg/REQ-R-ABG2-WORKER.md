@@ -4,7 +4,6 @@
 **Category**: Capability
 **Date**: 2026-03-25
 **Derives from**: INT-GTL2-013
-**Supersedes**: (split from REQ-R-ABG2-JOB-WORKER)
 **Wave**: 2
 
 ---

@@ -4,7 +4,6 @@
 **Category**: Capability
 **Date**: 2026-03-26
 **Derives from**: INT-GTL2-005A, INT-GTL2-007
-**Supersedes**: (new capability)
 **Wave**: 2
 
 ---

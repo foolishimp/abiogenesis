@@ -1,6 +1,6 @@
 # GTL Technical Guide
 
-**Version**: 2.x / current recursive-frame model
+**Version**: current recursive-frame model
 
 ---
 
@@ -25,15 +25,6 @@ from gtl.operator_model import Operator, Evaluator, Rule, F_D, F_P, F_H
 from gtl.work_model import Job, ContractRef, Role
 from gtl.module_model import Module
 ```
-
-GTL 2.x also replaces earlier V1 terminology:
-
-| Older term | Current term |
-|---|---|
-| `Asset` | `Node` |
-| `Edge` | `GraphVector` |
-| `Package` | `Module` |
-| hidden zoom/overlay | `CandidateFamily` + explicit `SelectionDecision` |
 
 The most important shift in the current model is this:
 

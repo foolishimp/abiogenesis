@@ -18,7 +18,7 @@ from .lineage import _discover_children
 from .projection import project
 
 
-# ── V2 Protocol Types ────────────────────────────────────────────────────────
+# ── Protocol Types ───────────────────────────────────────────────────────────
 
 
 @dataclass(frozen=True)
@@ -160,7 +160,7 @@ def convergence_from_precomputed(
     )
 
 
-# ── V2 delta (vector-capable) ────────────────────────────────────────────────
+# ── Delta (vector-capable) ───────────────────────────────────────────────────
 
 
 def delta(

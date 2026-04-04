@@ -1,0 +1,20 @@
+feature: gtl-language-core
+title: GTL language core
+status: completed
+satisfies:
+  - REQ-L-GTL2-GRAPH
+  - REQ-L-GTL2-NODE
+  - REQ-L-GTL2-INTERFACE
+  - REQ-L-GTL2-OPERATOR
+  - REQ-L-GTL2-EVALUATOR
+  - REQ-L-GTL2-RULE
+  - REQ-L-GTL2-GRAPHFUNCTION
+  - REQ-L-GTL2-COMPOSE
+  - REQ-L-GTL2-SUBSTITUTE
+  - REQ-L-GTL2-RECURSE
+  - REQ-L-GTL2-HOF
+  - REQ-L-GTL2-SYNTHESIS
+  - REQ-L-GTL2-SELECTION-BOUNDARY
+  - REQ-L-GTL2-IDENTITY
+notes:
+  - Current GTL graph language and higher-order operator surface for the abiogenesis packages.

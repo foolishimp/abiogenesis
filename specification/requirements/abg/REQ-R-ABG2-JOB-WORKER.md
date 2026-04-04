@@ -1,24 +1,21 @@
-# REQ-R-ABG2-JOB-WORKER — Superseded by Explicit Job / Role / Worker / Run Split
+# REQ-R-ABG2-JOB-WORKER — Semantic Work and Execution Separation
 
-**Status**: Superseded
-**Category**: Capability
+**Status**: Active
+**Category**: Constraint / Guarantee
 **Date**: 2026-03-25
 **Derives from**: INT-GTL2-008
-**Superseded by**: REQ-L-GTL2-JOB, REQ-L-GTL2-ROLE, REQ-R-ABG2-WORKER, REQ-R-ABG2-BINDING, REQ-R-ABG2-RUN
-**Wave**: 1
+**Wave**: 2
 
 ---
 
-## Disposition
+## Purpose
 
-This requirement compressed semantic `Job`, semantic `Role`, concrete `Worker`, and execution `Run` into a single runtime family.
+Semantic GTL work declarations and concrete ABG execution surfaces remain distinct. GTL owns `Job` and `Role`. ABG owns `Worker`, binding, and `Run`.
 
-Its authority is replaced by the split requirement family below.
+## Acceptance Criteria
 
-Use the split requirement family instead:
+**REQ-R-ABG2-JOB-WORKER-001**: Semantic `Job`, semantic `Role`, concrete `Worker`, and execution `Run` shall remain distinct surfaces.
 
-- GTL semantic job contract: `REQ-L-GTL2-JOB`
-- GTL semantic role: `REQ-L-GTL2-ROLE`
-- ABG concrete worker identity: `REQ-R-ABG2-WORKER`
-- ABG worker/role/job realization: `REQ-R-ABG2-BINDING`
-- ABG execution-instance lifecycle: `REQ-R-ABG2-RUN`
+**REQ-R-ABG2-JOB-WORKER-002**: GTL shall own semantic job and role law. ABG shall own worker binding and run lifecycle law.
+
+**REQ-R-ABG2-JOB-WORKER-003**: Binding and replay surfaces shall preserve the distinction between semantic work declarations and concrete execution identity.

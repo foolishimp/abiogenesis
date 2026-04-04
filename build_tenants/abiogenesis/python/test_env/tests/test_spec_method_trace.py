@@ -53,8 +53,8 @@ COMMON_QUALIFICATION_FILES = [
     COMMON_QUALIFICATION_ROOT / "qualification_surface_map.md",
     COMMON_QUALIFICATION_ROOT / "qualification_refactor_loop.md",
 ]
-SCENARIO_DESIGN_FILES = sorted(PYTHON_DESIGN_ROOT.glob("SCENARIO_V2_*.md")) + [
-    PYTHON_DESIGN_ROOT / "GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md"
+SCENARIO_DESIGN_FILES = sorted(PYTHON_DESIGN_ROOT.glob("SCENARIO_*.md")) + [
+    PYTHON_DESIGN_ROOT / "GSDLC_LITE_QUALIFICATION_LADDER.md"
 ]
 
 
@@ -372,7 +372,7 @@ def test_scenario_design_surfaces_trace_to_intent_and_method() -> None:
         for link in links:
             assert link.exists(), f"{path.name} links to missing authority surface {link}"
 
-        if path.name.startswith("SCENARIO_V2_"):
+        if path.name.startswith("SCENARIO_"):
             assert "INTENT.md" in derives, f"{path.name} must derive from INTENT.md"
             assert "SPEC_METHOD.md" in derives, f"{path.name} must derive from SPEC_METHOD.md"
         assert "REQ-" in text or "requirements ->" in text or "intent ->" in text, (

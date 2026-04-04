@@ -14,7 +14,7 @@ Use the references at the end to load more detail from the installed runtime or,
 Precedence:
 - source truth is `intent -> requirements -> design -> code`
 - this bootstrap is a constrained read model over that truth
-- if stale code comments or legacy notes disagree, the live constitutional/design surface wins
+- if stale code comments or non-constitutional notes disagree, the live constitutional/design surface wins
 
 ## 1. Core Position
 

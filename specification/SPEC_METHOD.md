@@ -215,51 +215,30 @@ Trace closure is stricter than documentation completeness. It is the rule that c
 
 ---
 
-## Live Surface Immutability
+## Live Surface Currency
 
-The project may accumulate multiple live domain surfaces over time. A live surface is versioned constitutional history, not scratch space.
+The live surface is the current constitutional truth.
 
-- Engine code, design documents, tests, and tooling may be refactored aggressively while they remain mutable implementation surfaces.
-- Live domain artifacts, once published as live constitutional surfaces, are immutable in place.
-- If a live domain artifact is wrong, the valid actions are:
-  - supersede it with a new version, or
-  - withdraw/delete it from the live surface.
-
-The past is preserved by version control and superseded constitutional artifacts. Spec-driven development does not require shipping compatibility shims forever, but it also does not allow silent mutation of live constitutional history.
-
----
-
-## Legacy Classification Rule
-
-Every inherited or legacy requirement must be classified as one of:
-
-| Classification | Meaning | Action |
-|---------------|---------|--------|
-| **Replaced by V2** | Ownership moves to an existing V2 ADR | Add Implements/Supersedes to the V2 ADR |
-| **Still needed** | Remains live constitutional law | Must have an owning ADR — write or update one |
-| **Orphaned** | No longer part of the intended system | Remove or explicitly supersede |
-
-Nothing live may remain unclassified.
+- Active artifacts are edited until they state current truth directly.
+- If a surface no longer belongs in the live corpus, remove it.
+- Do not preserve chronology inside the live artifact.
+- Version control preserves chronology. The live corpus preserves current law.
 
 ---
 
 ## Requirement Classification Rules
 
-Every live requirement family must be classified on two independent axes:
+Every live requirement family must be classified by requirement category:
 
-1. **Lifecycle status**
-   - Replaced by V2
-   - Still needed
-   - Orphaned
-2. **Requirement category**
+1. **Requirement category**
    - Capability
    - Constraint / Guarantee
    - Governance
    - Verification
 
-These axes answer different questions. Lifecycle status says whether the requirement still belongs in the constitution. Requirement category says what kind of project truth it asserts. A live requirement is incomplete if either axis is missing.
+Category says what kind of project truth the requirement asserts. A live requirement is incomplete if category is missing.
 
-In project documents, this classification shall be explicit in requirement header metadata. `Status` carries lifecycle status. `Category` carries the requirement kind.
+In project documents, this classification shall be explicit in requirement header metadata. `Status` marks whether the artifact is live. `Category` marks the requirement kind.
 
 ---
 
@@ -275,7 +254,7 @@ In project documents, this classification shall be explicit in requirement heade
 - If a capability has requirements and ADRs but no scenario, its operational meaning is unverified — it may be vaporware.
 - If a requirement is treated as a product feature when it is actually a guarantee, governance rule, or verification obligation, the requirement surface has been misclassified.
 - If design cannot be re-derived from requirements, or code cannot be re-derived from requirements plus design, the constitutional chain is broken.
-- If a live constitutional artifact is corrected by in-place mutation rather than supersession or withdrawal, constitutional history has been corrupted.
+- If a live constitutional artifact preserves outdated doctrine instead of stating current truth directly, the corpus is carrying drift.
 - If a real use case reveals a gap not expressible in current requirements, a new intent is needed — not a code hack.
 
 ---
@@ -309,7 +288,6 @@ Each ADR should explicitly include:
 |-------|---------|
 | `Implements:` | REQ-* IDs this ADR makes true |
 | `Derives from:` | INT-* or strategy document that motivated the decision |
-| `Supersedes:` | Prior ADR or doctrine this replaces |
 | `Degenerate case:` | When earlier behavior is intentionally retained as a special case of the current surface |
 
 Write ADRs per decision boundary, not per requirement file. The question is: "what design choice makes these ACs true?" That is the ADR boundary.
@@ -320,4 +298,4 @@ If a requirement names an operational mechanism, the ADR must name that mechanis
 
 ## Stone Version
 
-Spec-driven development treats specification as constitutional source, not commentary on code. Methodology defines the process constitution. Intent and requirements define the project constitution. Requirements define the full constitutional what: capabilities, guarantees, governance, and verification obligations. ADRs define structural decisions. Scenarios verify operational meaning where capability claims need end-to-end proof. Code realizes decisions. Design must be derivable from intent and requirements; code must be derivable from requirements and design. Iteration is cumulative repricing, not waterfall. Events, projection, and delta reveal drift. Every live requirement family must have ADR ownership, explicit classification, and downstream closure or explicit deferment. Every ADR must ground itself in requirements. Shipping behavior must trace back to constitutional authority. Live constitutional surfaces are versioned history and must change by supersession or withdrawal, not silent in-place mutation. New intent emerges from real use cases hitting the current model — through explicit gap analysis, not ad hoc pressure.
+Spec-driven development treats specification as constitutional source, not commentary on code. Methodology defines the process constitution. Intent and requirements define the project constitution. Requirements define the full constitutional what: capabilities, guarantees, governance, and verification obligations. ADRs define structural decisions. Scenarios verify operational meaning where capability claims need end-to-end proof. Code realizes decisions. Design must be derivable from intent and requirements; code must be derivable from requirements and design. Iteration is cumulative repricing, not waterfall. Events, projection, and delta reveal drift. Every live requirement family must have ADR ownership, explicit classification, and downstream closure or explicit deferment. Every ADR must ground itself in requirements. Shipping behavior must trace back to constitutional authority. The live corpus states current truth directly; version control preserves chronology. New intent emerges from real use cases hitting the current model — through explicit gap analysis, not ad hoc pressure.

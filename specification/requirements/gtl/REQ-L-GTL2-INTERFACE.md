@@ -4,7 +4,6 @@
 **Category**: Constraint / Guarantee
 **Date**: 2026-03-24
 **Derives from**: INT-GTL2-005
-**Supersedes**: REQ-F-GRAPH (replaced — interface portions)
 **Wave**: 1
 
 ---

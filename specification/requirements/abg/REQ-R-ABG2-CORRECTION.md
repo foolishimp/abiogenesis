@@ -4,7 +4,6 @@
 **Category**: Capability
 **Date**: 2026-03-24
 **Derives from**: INT-GTL2-010
-**Supersedes**: REQ-F-CORRECT (subsumed)
 **Wave**: 2
 
 ---

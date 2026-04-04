@@ -1,11 +1,6 @@
-# Implements: REQ-F-TEST-001
-# Validates: REQ-F-PROV-001
-# Validates: REQ-F-PROV-002
-# Validates: REQ-F-PROV-003
-# Validates: REQ-F-PROV-004
-# Validates: REQ-F-PROV-005
+# Validates: REQ-R-ABG2-PROVENANCE
 """
-Provenance integration tests — REQ-F-PROV-001 through REQ-F-PROV-005.
+Provenance integration tests for the active runtime provenance surface.
 
 Six integration scenarios that exercise the full provenance model end-to-end
 against a real workspace, without mocking any engine internals.
@@ -17,8 +12,7 @@ against a real workspace, without mocking any engine internals.
   IT-5  approved_carry_forward in manifest allows crossing a version boundary
   IT-6  Pre-provenance approved (no workflow_version field) rejected when version known
 
-These tests fail until Part B (REQ-F-PROV-001) is implemented. They are the
-acceptance gate, not the unit-test suite.
+These tests are integration acceptance gates, not unit-test-only checks.
 
 NOTE: _write_manifest uses the path convention:
   .genesis/workflows/{pkg}/{variant}/{version}/manifest.json

@@ -4,7 +4,6 @@
 **Category**: Constraint / Guarantee
 **Date**: 2026-03-25
 **Derives from**: INT-GTL2-001 through INT-GTL2-013
-**Supersedes**: (new — consolidates implicit invariants)
 **Wave**: 1
 
 ---

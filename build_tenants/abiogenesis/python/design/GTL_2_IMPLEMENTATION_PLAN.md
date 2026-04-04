@@ -2,7 +2,7 @@
 
 **Status**: Accepted for implementation
 **Date**: 2026-03-26
-**Purpose**: Convert the current constitutional/design/interface stack into a concrete implementation target for the Claude build, while explicitly rejecting the prior half-solutions that would reintroduce debt.
+**Purpose**: Convert the current constitutional/design/interface stack into a concrete implementation target for the Claude build, while explicitly rejecting shapes that would reintroduce debt.
 
 **Derived from**:
 - [GTL_2_CONSTITUTIONAL_DESIGN.md](../../../../specification/GTL_2_CONSTITUTIONAL_DESIGN.md)
@@ -18,7 +18,7 @@ This document is not a new design layer.
 
 It is the implementation-facing read of the already accepted design. Its job is to:
 
-- pressure-test prior design instincts against the current requirements
+- pressure-test candidate design instincts against the current requirements
 - state which shapes are rejected
 - state which module interfaces are now the implementation target
 - define the delivery order for tests and code
@@ -36,7 +36,7 @@ The current direction is explicit:
 
 The current algebraic direction survives pressure-testing.
 
-The prior convenience shapes do not.
+Convenience shapes that reintroduce debt do not.
 
 The main implementation lesson is:
 

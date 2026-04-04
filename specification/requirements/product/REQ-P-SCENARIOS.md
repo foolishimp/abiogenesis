@@ -4,7 +4,6 @@
 **Category**: Verification
 **Date**: 2026-03-24
 **Derives from**: SPEC_METHOD.md (Verification Layers)
-**Supersedes**: REQ-F-VIS (replaced — scenario portions), REQ-F-BOOTDOC (subsumed — scenario portions)
 **Wave**: 1
 
 ---

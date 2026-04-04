@@ -4,7 +4,6 @@
 **Category**: Governance
 **Date**: 2026-03-24
 **Derives from**: INT-GTL2-008
-**Supersedes**: REQ-F-BOOTDOC (subsumed)
 **Wave**: 2
 
 ---

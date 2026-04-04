@@ -4,7 +4,6 @@
 **Category**: Constraint / Guarantee
 **Date**: 2026-03-25
 **Derives from**: INT-GTL2-001, INT-GTL2-012
-**Supersedes**: (new)
 **Wave**: 0 (foundational — constrains all other language requirements)
 
 ---

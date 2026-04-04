@@ -1,5 +1,6 @@
 # Implements: REQ-R-ABG2-INTERPRET
 # Implements: REQ-R-ABG2-SELFHOSTING
+# Implements: REQ-P-POLICY
 """
 genesis.cli_adapter — CLI adapter.
 
@@ -36,7 +37,7 @@ from pathlib import Path
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="genesis",
-        description="Genesis engine — GTL-native V2",
+        description="Genesis engine — GTL-native runtime",
     )
     sub = parser.add_subparsers(dest="command", required=True)
 

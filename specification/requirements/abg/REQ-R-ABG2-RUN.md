@@ -4,7 +4,6 @@
 **Category**: Governance
 **Date**: 2026-03-25
 **Derives from**: INT-GTL2-010, INT-GTL2-013
-**Supersedes**: REQ-F-RUN (subsumed)
 **Wave**: 2
 
 ---

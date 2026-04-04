@@ -1,0 +1,17 @@
+feature: abg-run-and-event-kernel
+title: ABG run and event kernel
+status: completed
+satisfies:
+  - REQ-R-ABG2-JOB-WORKER
+  - REQ-R-ABG2-BINDING
+  - REQ-R-ABG2-WORKER
+  - REQ-R-ABG2-PROVENANCE
+  - REQ-R-ABG2-CORRECTION
+  - REQ-R-ABG2-CONVERGENCE
+  - REQ-R-ABG2-EVENTS
+  - REQ-R-ABG2-LINEAGE
+  - REQ-R-ABG2-PROJECTION
+  - REQ-R-ABG2-SELECTION-APPLICATION
+  - REQ-R-ABG2-RUN
+notes:
+  - Canonical run algebra, event emission, replay, projection, and worker-binding surfaces.

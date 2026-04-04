@@ -4,7 +4,6 @@
 **Category**: Capability
 **Date**: 2026-03-24
 **Derives from**: INT-GTL2-003
-**Supersedes**: REQ-F-EVAL (replaced — operator portions)
 **Wave**: 1
 
 ---

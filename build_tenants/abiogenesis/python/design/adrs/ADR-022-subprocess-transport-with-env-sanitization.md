@@ -3,7 +3,6 @@
 **Series**: abiogenesis / claude_code build
 **Status**: Accepted
 **Date**: 2026-03-23
-**Supersedes**: ADR-020 (MCP as Primary Agent Invocation Transport)
 **Implements**: REQ-R-ABG2-TRANSPORT, REQ-P-QUAL
 **Scope**: `genesis/transport.py`, `gen-install.py`, test harness
 

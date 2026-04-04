@@ -4,15 +4,13 @@
 **Category**: Capability
 **Date**: 2026-03-24
 **Derives from**: INT-GTL2-005
-**Supersedes**: REQ-F-REFINE (replaced), REQ-F-FRAG (replaced)
 **Wave**: 1
 
 ---
 
 ## Purpose
 
-Substitution replaces a coarse graph contract step with a finer graph. This is
-the graph-first surface for what older language called `zoom`.
+Substitution replaces a coarse graph contract step with a finer graph.
 
 Substitution is algebraic graph truth. Runtime graph-function invocation may
 project or inspect substituted structure without publishing that structure as

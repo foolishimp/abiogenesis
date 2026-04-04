@@ -1,7 +1,7 @@
 # Validates: REQ-R-ABG2-TRANSPORT
 # Validates: REQ-R-ABG2-INTERPRET
 """
-Sandbox use cases — live transport lane.
+Sandbox use cases — live transport qualification lane.
 
 These are opt-in qualification tests. They reuse the real sandbox/bootstrap and
 manifest production path, then hand the prompt to a real agent transport.

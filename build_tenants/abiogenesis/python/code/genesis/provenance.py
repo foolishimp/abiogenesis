@@ -51,10 +51,6 @@ def executable_job_hash(job: ExecutableJob) -> str:
     return hashlib.sha256(raw.encode()).hexdigest()[:16]
 
 
-# Compatibility alias for older callers that still use the historical name.
-job_evaluator_hash = executable_job_hash
-
-
 def spec_hash_for(
     *,
     workflow_version: str,
@@ -64,8 +60,8 @@ def spec_hash_for(
     """
     Canonical spec-hash policy for command/runtime surfaces.
 
-    Unversioned workspaces retain the legacy requirements hash. Versioned
-    workspaces use the executable-job structural hash.
+    Workspaces without a declared workflow version use the requirements hash.
+    Versioned workspaces use the executable-job structural hash.
     """
     if workflow_version == "unknown":
         return req_hash(list(requirements))

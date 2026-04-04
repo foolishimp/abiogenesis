@@ -1,6 +1,6 @@
 # Scenario — Intent List to Tagged Requirements
 
-**Scenario ID**: SCN-V2-I2R-001  
+**Scenario ID**: SCN-I2R-001  
 **Status**: Baseline  
 **Category**: Capability Scenario  
 **Date**: 2026-03-27  

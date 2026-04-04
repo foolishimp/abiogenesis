@@ -4,7 +4,6 @@
 **Category**: Constraint / Guarantee
 **Date**: 2026-03-24
 **Derives from**: INT-GTL2-007
-**Supersedes**: (new constraint)
 **Wave**: 1
 
 ---

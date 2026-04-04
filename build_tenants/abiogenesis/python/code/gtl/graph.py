@@ -140,12 +140,12 @@ class Context:
             )
 
 
-# ── Node (V2 name for Asset) ─────────────────────────────────────────────
+# ── Node ─────────────────────────────────────────────────────────────────
 
 @dataclass(frozen=True)
 class Node:
     """
-    Typed local locus within a graph. V2 replacement for Asset.
+    Typed local locus within a graph.
 
     schema: type reference or URI string — supports both concrete Python
     types and string references (e.g. "Vector[intent]").

@@ -4,11 +4,12 @@
 # Validates: REQ-L-GTL2-IDENTITY
 # Validates: REQ-L-GTL2-SELECTION-BOUNDARY
 # Validates: REQ-L-GTL2-ENGINE-INDEPENDENCE
+# Validates: REQ-R-ABG2-JOB-WORKER
 """
 M02 work-publication integration lane.
 
-This replaces the legacy publication/type contract cluster with checks over the
-real authored package modules and their published job/role/traversal surfaces.
+This lane exercises the authored package modules and their published
+job/role/traversal surfaces.
 """
 from __future__ import annotations
 

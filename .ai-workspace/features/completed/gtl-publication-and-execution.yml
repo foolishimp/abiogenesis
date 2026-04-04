@@ -1,0 +1,11 @@
+feature: gtl-publication-and-execution
+title: GTL publication and execution surfaces
+status: completed
+satisfies:
+  - REQ-L-GTL2-MODULE
+  - REQ-L-GTL2-JOB
+  - REQ-L-GTL2-ROLE
+  - REQ-L-GTL2-ENGINE-INDEPENDENCE
+  - REQ-L-GTL2-SUBWORK
+notes:
+  - Current publication, role, and execution-boundary surfaces for authored GTL modules.

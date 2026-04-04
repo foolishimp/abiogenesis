@@ -15,7 +15,7 @@ Current governing truth lives in:
 - `GTL_2_IMPLEMENTATION_PLAN.md` — implementation target, rejected shapes, and delivery order
 - `GTL_ABG_LLM_GUIDE_DOMAIN_WORKFLOWS.md` — agent-facing guide for authoring domain workflows like GSDLC
 
-For the current 2.0 line, the key design shift is that published `GraphFunction` surfaces, canonical graph-function materialization, graph-derived companion bundles, recursive invocation frames, and their provenance are explicit design responsibilities rather than deferred or hidden inside traversal helpers.
+For the current line, published `GraphFunction` surfaces, canonical graph-function materialization, graph-derived companion bundles, recursive invocation frames, and their provenance are explicit design responsibilities rather than deferred or hidden inside traversal helpers.
 
 ## Functional Design Stance
 
@@ -50,7 +50,7 @@ The shipping verification harness is downstream of this design surface in `build
 
 ## App Bootstrap Assumption
 
-`ABG 2.0` keeps a clean split between:
+ABG keeps a clean split between:
 
 - one-step engine progression in `services.gen_start()`
 - app-level auto orchestration in `genesis/cli_adapter.py`
@@ -65,7 +65,7 @@ This keeps the engine core smaller and makes the app bootstrap seam explicit in 
 
 ## Runtime Identity Assumption
 
-`ABG 2.0` no longer treats one build string as the whole runtime identity.
+ABG treats runtime identity as a structured surface rather than collapsing it to one build string.
 
 - `Worker` remains the concrete execution actor
 - runtime identity may also declare engine, build, worker, backend, authority,
@@ -77,10 +77,10 @@ This keeps the engine core smaller and makes the app bootstrap seam explicit in 
 
 The canonical toy scenarios for rebuilding and pressure-testing the engine are:
 
-- [SCENARIO_V2_INTENT_TO_TAGGED_REQUIREMENTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/SCENARIO_V2_INTENT_TO_TAGGED_REQUIREMENTS.md)
-- [SCENARIO_V2_REQUIREMENTS_TO_UAT.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/SCENARIO_V2_REQUIREMENTS_TO_UAT.md)
-- [SCENARIO_V2_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/SCENARIO_V2_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md)
-- [GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md)
+- [SCENARIO_INTENT_TO_TAGGED_REQUIREMENTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/SCENARIO_INTENT_TO_TAGGED_REQUIREMENTS.md)
+- [SCENARIO_REQUIREMENTS_TO_UAT.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/SCENARIO_REQUIREMENTS_TO_UAT.md)
+- [SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md)
+- [GSDLC_LITE_QUALIFICATION_LADDER.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GSDLC_LITE_QUALIFICATION_LADDER.md)
 
 Together they define the current sandbox qualification ladder for:
 
@@ -90,13 +90,13 @@ Together they define the current sandbox qualification ladder for:
 - deterministic standards checking at each boundary
 - fake-lane versus live-lane parity
 - stepwise scenario growth without changing the underlying engine contract
-- one explicit historical sunny-day ladder for `gsdlc_lite`
+- one explicit sunny-day ladder for `gsdlc_lite`
 
 ## Postmortem Archive Direction
 
 Persistent sandbox archives are part of the live qualification and scenario surface, not a disposable test convenience.
 
-The old deleted scenario harness proved a useful archive shape:
+The archive shape is:
 
 - `test_runs/<usecase_id>/<timestamp_testname>/workspace`
 - `run.json`
@@ -109,4 +109,4 @@ The governing authority for restoring that behavior is now:
 
 - [REQ-P-QUAL.md](/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-QUAL.md)
 
-Implementation should recover the durable postmortem properties of that archive shape without reviving unrelated legacy scenario helpers wholesale.
+Implementation should preserve the durable postmortem properties of that archive shape.

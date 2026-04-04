@@ -1,0 +1,10 @@
+feature: abg-execution-surfaces
+title: ABG execution surfaces
+status: completed
+satisfies:
+  - REQ-R-ABG2-LEAFTASK
+  - REQ-R-ABG2-TRANSPORT
+  - REQ-R-ABG2-INTERPRET
+  - REQ-R-ABG2-SELFHOSTING
+notes:
+  - Canonical execution, traversal, transport, and selfhosting surfaces for the current ABG runtime.

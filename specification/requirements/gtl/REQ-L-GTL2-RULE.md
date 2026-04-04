@@ -4,7 +4,6 @@
 **Category**: Capability
 **Date**: 2026-03-25
 **Derives from**: INT-GTL2-006, INT-GTL2-007
-**Supersedes**: REQ-F-GATE (subsumed)
 **Wave**: 2
 
 ---

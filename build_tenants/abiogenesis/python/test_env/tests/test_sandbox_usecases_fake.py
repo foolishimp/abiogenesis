@@ -219,7 +219,7 @@ def _u1_profiles_module() -> Module:
 
 
 @pytest.mark.integration
-class TestV2SandboxUsecasesFake:
+class TestSandboxUsecasesFake:
     @pytest.mark.usecase_id("intent_to_requirements")
     def test_intent_list_to_tagged_requirements_converges_over_real_sandbox(self, run_archive):
         workspace = run_archive.workspace

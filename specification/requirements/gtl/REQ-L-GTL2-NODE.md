@@ -4,7 +4,6 @@
 **Category**: Capability
 **Date**: 2026-03-25
 **Derives from**: INT-GTL2-001, INT-GTL2-004
-**Supersedes**: REQ-F-GRAPH (replaced — Asset concept reinterpreted as node schema/type)
 **Wave**: 1
 
 ---
@@ -19,7 +18,7 @@ A node carries:
 - optional markov conditions describing the declared state conditions that hold at that locus
 - tags/annotations
 
-`markov` is constitutional vocabulary and survives into GTL 2.x. It is not a legacy-only field and it is not engine-owned prompt metadata.
+`markov` is constitutional vocabulary. It is not engine-owned prompt metadata.
 
 ## Acceptance Criteria
 
@@ -37,6 +36,6 @@ A node carries:
 
 **REQ-L-GTL2-NODE-007**: Any lawful GTL→ABG interpretation, bridge, or mapping layer shall preserve declared node `markov` conditions without semantic loss.
 
-**REQ-L-GTL2-NODE-008**: Any compatibility bridge from `Node` to legacy `Asset` shall map `Node.markov` to `Asset.markov` exactly.
+**REQ-L-GTL2-NODE-008**: Any lawful GTL interpretation, serialization surface, or package surface that reifies `Node` shall preserve `Node.markov` exactly.
 
-**REQ-L-GTL2-NODE-009**: The legacy `Asset` concept is interpreted as `Node[T]` plus its declared schema/type and markov conditions.
+**REQ-L-GTL2-NODE-009**: `Node[T]` carries declared schema/type and markov conditions as one typed declaration surface.

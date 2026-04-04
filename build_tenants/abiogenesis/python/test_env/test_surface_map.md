@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Date**: 2026-03-29
-**Derived from**: [REQ-P-QUAL.md](../../../../specification/requirements/product/REQ-P-QUAL.md), [REQ-P-SCENARIOS.md](../../../../specification/requirements/product/REQ-P-SCENARIOS.md), [GTL_2_MODULE_DESIGN.md](../design/GTL_2_MODULE_DESIGN.md), [GTL_2_INTERFACE_CONTRACTS.md](../design/GTL_2_INTERFACE_CONTRACTS.md), [GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md](../design/GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md), [qualification_surface_map.md](../../../common/qualification/qualification_surface_map.md)
+**Derived from**: [REQ-P-QUAL.md](../../../../specification/requirements/product/REQ-P-QUAL.md), [REQ-P-SCENARIOS.md](../../../../specification/requirements/product/REQ-P-SCENARIOS.md), [GTL_2_MODULE_DESIGN.md](../design/GTL_2_MODULE_DESIGN.md), [GTL_2_INTERFACE_CONTRACTS.md](../design/GTL_2_INTERFACE_CONTRACTS.md), [GSDLC_LITE_QUALIFICATION_LADDER.md](../design/GSDLC_LITE_QUALIFICATION_LADDER.md), [qualification_surface_map.md](../../../common/qualification/qualification_surface_map.md)
 
 ## Purpose
 
@@ -32,12 +32,12 @@ Current reading:
   - `test_m04_app_bootstrap_integration.py`
   - `test_provenance_integration.py`
   - `test_run_archive.py`
-  - `test_v2_sandbox_install.py`
-  - `test_v2_sandbox_usecases_fake.py`
-  - `test_v2_sandbox_usecases_live.py`
-  - `test_v2_usecases_u1_u4.py`
+  - `test_sandbox_install.py`
+  - `test_sandbox_usecases_fake.py`
+  - `test_sandbox_usecases_live.py`
+  - `test_usecases_u1_u4.py`
   - `test_spec_method_trace.py`
-- no remaining legacy unit/property buckets in the canonical python suite after the current cutover
+- no remaining redundant unit/property buckets in the canonical python suite after the current cutover
 
 ## GTL Contract Tests
 
@@ -48,14 +48,14 @@ Current reading:
 
 ### test_m02_work_publication_integration.py
 
-- Requirements: `REQ-L-GTL2-MODULE`, `REQ-L-GTL2-JOB`, `REQ-L-GTL2-ROLE`, `REQ-L-GTL2-IDENTITY`, `REQ-L-GTL2-SELECTION-BOUNDARY`, `REQ-L-GTL2-ENGINE-INDEPENDENCE`
+- Requirements: `REQ-L-GTL2-MODULE`, `REQ-L-GTL2-JOB`, `REQ-L-GTL2-ROLE`, `REQ-L-GTL2-IDENTITY`, `REQ-L-GTL2-SELECTION-BOUNDARY`, `REQ-L-GTL2-ENGINE-INDEPENDENCE`, `REQ-R-ABG2-JOB-WORKER`
 - Design: [module_decomp.md](../../../common/design/module_decomp.md), [qualification_refactor_loop.md](../../../common/qualification/qualification_refactor_loop.md), [GTL_2_MODULE_DESIGN.md](../design/GTL_2_MODULE_DESIGN.md), [GTL_2_INTERFACE_CONTRACTS.md](../design/GTL_2_INTERFACE_CONTRACTS.md)
 
 ## ABG Kernel Integration Tests
 
 ### test_m03_engine_kernel_integration.py
 
-- Requirements: `REQ-R-ABG2-INTERPRET`, `REQ-R-ABG2-CONVERGENCE`, `REQ-R-ABG2-SELECTION-APPLICATION`, `REQ-R-ABG2-PROVENANCE`, `REQ-R-ABG2-RUN`, `REQ-R-ABG2-PROJECTION`, `REQ-R-ABG2-SELFHOSTING`
+- Requirements: `REQ-R-ABG2-INTERPRET`, `REQ-R-ABG2-CONVERGENCE`, `REQ-R-ABG2-SELECTION-APPLICATION`, `REQ-R-ABG2-PROVENANCE`, `REQ-R-ABG2-RUN`, `REQ-R-ABG2-PROJECTION`, `REQ-R-ABG2-SELFHOSTING`, `REQ-M-GTL2-MAPPING`
 - Design: [module_decomp.md](../../../common/design/module_decomp.md), [qualification_refactor_loop.md](../../../common/qualification/qualification_refactor_loop.md), [GTL_2_MODULE_DESIGN.md](../design/GTL_2_MODULE_DESIGN.md), [GTL_2_INTERFACE_CONTRACTS.md](../design/GTL_2_INTERFACE_CONTRACTS.md)
 
 ## Product and Qualification Tests
@@ -72,13 +72,13 @@ Current reading:
 
 ### test_provenance_integration.py
 
-- Requirements: `REQ-F-PROV-001`, `REQ-F-PROV-002`, `REQ-F-PROV-003`, `REQ-F-PROV-004`, `REQ-F-PROV-005`
+- Requirements: `REQ-R-ABG2-PROVENANCE`
 - Design: [GTL_2_MODULE_DESIGN.md](../design/GTL_2_MODULE_DESIGN.md), [module_decomp.md](../../../common/design/module_decomp.md)
 
 ### test_run_archive.py
 
 - Requirements: `REQ-P-QUAL-018A`, `REQ-P-QUAL-018B`, `REQ-P-QUAL-018C`, `REQ-P-QUAL-018D`, `REQ-P-QUAL-018E`, `REQ-P-QUAL-018F`
-- Design: [GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md](../design/GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md), [qualification_surface_map.md](../../../common/qualification/qualification_surface_map.md)
+- Design: [GSDLC_LITE_QUALIFICATION_LADDER.md](../design/GSDLC_LITE_QUALIFICATION_LADDER.md), [qualification_surface_map.md](../../../common/qualification/qualification_surface_map.md)
 
 ### test_spec_method_trace.py
 
@@ -87,22 +87,22 @@ Current reading:
 
 ## Sandbox and Scenario Tests
 
-### test_v2_sandbox_install.py
+### test_sandbox_install.py
 
 - Requirements: `REQ-R-ABG2-EVENTS`, `REQ-R-ABG2-INTERPRET`
-- Design: [README.md](../design/README.md), [GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md](../design/GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md), [SCENARIO_V2_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md](../design/SCENARIO_V2_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md), [M04-app-bootstrap.yml](../../../common/design/modules/M04-app-bootstrap.yml)
+- Design: [README.md](../design/README.md), [GSDLC_LITE_QUALIFICATION_LADDER.md](../design/GSDLC_LITE_QUALIFICATION_LADDER.md), [SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md](../design/SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md), [M04-app-bootstrap.yml](../../../common/design/modules/M04-app-bootstrap.yml)
 
-### test_v2_sandbox_usecases_fake.py
+### test_sandbox_usecases_fake.py
 
 - Requirements: `REQ-L-GTL2-SYNTHESIS`, `REQ-L-GTL2-SELECTION-BOUNDARY`, `REQ-L-GTL2-SUBWORK`, `REQ-R-ABG2-INTERPRET`, `REQ-R-ABG2-BINDING`, `REQ-R-ABG2-CORRECTION`, `REQ-R-ABG2-LEAFTASK`, `REQ-R-ABG2-LINEAGE`, `REQ-R-ABG2-SELECTION-APPLICATION`, `REQ-R-ABG2-CONVERGENCE`, `REQ-R-ABG2-WORKER`
-- Design: [GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md](../design/GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md), [SCENARIO_V2_INTENT_TO_TAGGED_REQUIREMENTS.md](../design/SCENARIO_V2_INTENT_TO_TAGGED_REQUIREMENTS.md), [SCENARIO_V2_REQUIREMENTS_TO_UAT.md](../design/SCENARIO_V2_REQUIREMENTS_TO_UAT.md), [SCENARIO_V2_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md](../design/SCENARIO_V2_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md)
+- Design: [GSDLC_LITE_QUALIFICATION_LADDER.md](../design/GSDLC_LITE_QUALIFICATION_LADDER.md), [SCENARIO_INTENT_TO_TAGGED_REQUIREMENTS.md](../design/SCENARIO_INTENT_TO_TAGGED_REQUIREMENTS.md), [SCENARIO_REQUIREMENTS_TO_UAT.md](../design/SCENARIO_REQUIREMENTS_TO_UAT.md), [SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md](../design/SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md)
 
-### test_v2_sandbox_usecases_live.py
+### test_sandbox_usecases_live.py
 
 - Requirements: `REQ-R-ABG2-TRANSPORT`, `REQ-R-ABG2-INTERPRET`
-- Design: [GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md](../design/GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md), [SCENARIO_V2_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md](../design/SCENARIO_V2_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md)
+- Design: [GSDLC_LITE_QUALIFICATION_LADDER.md](../design/GSDLC_LITE_QUALIFICATION_LADDER.md), [SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md](../design/SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md)
 
-### test_v2_usecases_u1_u4.py
+### test_usecases_u1_u4.py
 
 - Requirements: `REQ-L-GTL2-GRAPHFUNCTION`, `REQ-L-GTL2-SYNTHESIS`, `REQ-L-GTL2-SELECTION-BOUNDARY`, `REQ-L-GTL2-HOF`, `REQ-R-ABG2-INTERPRET`, `REQ-R-ABG2-CONVERGENCE`, `REQ-R-ABG2-SELECTION-APPLICATION`
 - Design: [GTL_2_INTERFACE_CONTRACTS.md](../design/GTL_2_INTERFACE_CONTRACTS.md), [GTL_2_MODULE_DESIGN.md](../design/GTL_2_MODULE_DESIGN.md)

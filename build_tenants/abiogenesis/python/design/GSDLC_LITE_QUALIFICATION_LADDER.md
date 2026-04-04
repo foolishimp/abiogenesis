@@ -1,15 +1,15 @@
-# GSDLC Lite — ABG 1.0 Qualification Ladder
+# GSDLC Lite — Qualification Ladder
 
 **Status**: Active  
 **Category**: Qualification Design  
 **Date**: 2026-03-27  
-**Derives from**: [SCENARIO_V2_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/SCENARIO_V2_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md), [GTL_2_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md), [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md)
+**Derives from**: [SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md), [GTL_2_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md), [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md)
 
 ---
 
 ## Purpose
 
-Define the single canonical sunny-day qualification ladder for `ABG 1.0`.
+Define the single canonical sunny-day qualification ladder for the current ABG runtime.
 
 This ladder is intentionally compositional:
 
@@ -18,11 +18,11 @@ This ladder is intentionally compositional:
 - one durable archive shape
 - one growing chain of capabilities
 
-Release rule:
+Qualification rule:
 
-> Every major `ABG 1.0` feature must appear in at least one successful composed sandbox run, or remain explicitly deferred from `1.0`.
+> Every major current-runtime feature must appear in at least one successful composed sandbox run, or remain explicitly deferred from the ladder.
 
-`F_H` interaction is deferred from the sunny-day `1.0` ladder. `1.0` qualification is centered on `F_D` and `F_P`.
+`F_H` interaction is deferred from the sunny-day ladder. Qualification is centered on `F_D` and `F_P`.
 
 ---
 
@@ -43,15 +43,15 @@ These are already exercised in the canonical sandbox family:
 
 Current canonical proofs:
 
-- [SCENARIO_V2_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/SCENARIO_V2_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md)
-- [SCENARIO_V2_INTENT_TO_TAGGED_REQUIREMENTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/SCENARIO_V2_INTENT_TO_TAGGED_REQUIREMENTS.md)
-- [SCENARIO_V2_REQUIREMENTS_TO_UAT.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/SCENARIO_V2_REQUIREMENTS_TO_UAT.md)
+- [SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md)
+- [SCENARIO_INTENT_TO_TAGGED_REQUIREMENTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/SCENARIO_INTENT_TO_TAGGED_REQUIREMENTS.md)
+- [SCENARIO_REQUIREMENTS_TO_UAT.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/SCENARIO_REQUIREMENTS_TO_UAT.md)
 
 ---
 
-## Mandatory 1.0 Ladder
+## Mandatory Ladder
 
-The following features must be represented in the `gsdlc_lite` ladder before `ABG 1.0` release.
+The following features must be represented in the `gsdlc_lite` ladder before release.
 
 ### Stage 0 — Current Baseline
 
@@ -99,7 +99,7 @@ The following features must be represented in the `gsdlc_lite` ladder before `AB
 **Why it matters**:
 
 - single-judge `F_P` is already proved
-- `1.0` still needs a sunny-day composed path with multiple `F_P` evaluators over one edge
+- the runtime still needs a sunny-day composed path with multiple `F_P` evaluators over one edge
 
 **Sunny-day proof**:
 
@@ -184,7 +184,7 @@ The following features must be represented in the `gsdlc_lite` ladder before `AB
 **Why it matters**:
 
 - current sandbox assumes one worker identity
-- `1.0` still needs a composed proof that role eligibility influences lawful dispatch
+- the runtime still needs a composed proof that role eligibility influences lawful dispatch
 
 **Sunny-day proof**:
 
@@ -211,7 +211,7 @@ The following features must be represented in the `gsdlc_lite` ladder before `AB
 **Why it matters**:
 
 - current live lane proves happy path
-- `1.0` still needs one composed failure-and-recovery proof
+- the ladder still needs one composed failure-and-recovery proof
 
 **Sunny-day proof**:
 
@@ -228,9 +228,9 @@ The following features must be represented in the `gsdlc_lite` ladder before `AB
 
 ---
 
-## Deferred From 1.0 Sunny-Day Ladder
+## Deferred From Sunny-Day Ladder
 
-These may remain covered by collective tests or design-level traceability, but do not block the canonical `1.0` ladder:
+These may remain covered by collective tests or design-level traceability, but do not block the canonical ladder:
 
 1. real `F_H` human interaction infrastructure
 2. selfhosting drift as part of the main sandbox story
@@ -256,7 +256,7 @@ They should remain supported by collective/kernel tests unless the canonical lad
 
 ## Implementation Order
 
-Recommended order for `ABG 1.0` completion:
+Recommended order for ladder completion:
 
 1. transport failure/retry
 
@@ -272,7 +272,7 @@ This order is deliberate:
 
 The ladder is complete only when:
 
-1. every non-deferred `ABG 1.0` feature appears in at least one successful fake-lane sandbox run
+1. every non-deferred ladder feature appears in at least one successful fake-lane sandbox run
 2. every transport-sensitive feature appears in at least one successful live-lane sandbox run
 3. each run leaves a durable archive under `test_runs/`
 4. the event log is sufficient to reconstruct lineage, convergence, and replay truth without inference

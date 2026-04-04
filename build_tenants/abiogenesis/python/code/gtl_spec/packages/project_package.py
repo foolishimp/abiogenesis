@@ -1,8 +1,5 @@
 """
-genesis_sdlc — project spec as V2 Module
-
-V2 structure: Module/Graph/Node/GraphVector with V2 effect declarations
-(Evaluator/Operator/Rule from gtl.operator_model).
+genesis_sdlc — project spec as a GTL Module
 
 genesis_sdlc follows the standard SDLC bootstrap graph:
 
@@ -19,13 +16,11 @@ No separate requirements document. REQ keys emerge from this Module
 and are traced through feature vectors in .ai-workspace/features/.
 """
 
-# V2 structural types
 from gtl.graph import Graph, Node, GraphVector, Context
 from gtl.module_model import Module
 from gtl.work_model import Job, ContractRef, Role
 from gtl.algebra import deferred_refinement
 
-# V2 effect types — native vocabulary
 from gtl.operator_model import (
     Evaluator, Operator, Rule,
     F_D, F_P, F_H,
@@ -61,7 +56,7 @@ design_adrs = Context(
 )
 
 
-# ── Operators (V2) ────────────────────────────────────────────────────────────
+# ── Operators ────────────────────────────────────────────────────────────────
 
 claude_agent  = Operator("claude_agent",  F_P, "agent://claude/genesis")
 human_gate    = Operator("human_gate",    F_H, "fh://single")
@@ -70,7 +65,7 @@ check_impl_op = Operator("check_impl",    F_D, "exec://python -m genesis check-t
 check_test_op = Operator("check_test",    F_D, "exec://python -m genesis check-tags --type validates --path build_tenants/<family>/<variant>/tests/")
 
 
-# ── Rules (V2) ───────────────────────────────────────────────────────────────
+# ── Rules ───────────────────────────────────────────────────────────────────
 
 standard_gate = Rule(
     name="standard_gate", kind="gate",
@@ -78,7 +73,7 @@ standard_gate = Rule(
 )
 
 
-# ── Nodes (V2 — replace Assets) ──────────────────────────────────────────────
+# ── Nodes ───────────────────────────────────────────────────────────────────
 
 intent = Node(name="intent")
 requirements = Node(name="requirements")
@@ -89,7 +84,7 @@ unit_tests = Node(name="unit_tests")
 uat_tests = Node(name="uat_tests")
 
 
-# ── Evaluators (V2) ──────────────────────────────────────────────────────────
+# ── Evaluators ──────────────────────────────────────────────────────────────
 
 # intent→requirements
 eval_intent_fh = Evaluator(
@@ -106,7 +101,7 @@ eval_req_coverage = Evaluator(
 eval_decomp_fp = Evaluator(
     "decomp_complete", F_P,
     "Construct feature vectors for all uncovered REQ keys — write one .yml per feature to "
-    ".ai-workspace/features/active/ with a satisfies: list covering the assigned REQ-F-* keys. "
+    ".ai-workspace/features/active/ with a satisfies: list covering the assigned REQ-* keys. "
     "Group related keys into cohesive features. Each vector must cover at least one uncovered key.",
 )
 eval_decomp_fh = Evaluator(
@@ -132,7 +127,7 @@ eval_impl_tags = Evaluator(
 )
 eval_code_fp = Evaluator(
     "code_complete", F_P,
-    "Agent: code implements all features per design ADRs; no V2 features present; importable",
+    "Agent: code implements all features per design ADRs and remains importable.",
 )
 
 # code↔unit_tests
@@ -183,7 +178,7 @@ eval_uat_fh = Evaluator(
 )
 
 
-# ── Graph Vectors (V2 — replace Edges) ───────────────────────────────────────
+# ── Graph Vectors ────────────────────────────────────────────────────────────
 # Each vector carries its own operators, evaluators, and contexts.
 
 v_intent_req = GraphVector(
@@ -257,12 +252,12 @@ sdlc_graph = Graph(
 )
 
 
-# ── Roles (V2 — semantic capability classes) ─────────────────────────────────
+# ── Roles (semantic capability classes) ──────────────────────────────────────
 
 role_constructor = Role(name="constructor", tags=("f_p",))
 
 
-# ── Jobs (V2 — explicit GTL Job per vector) ──────────────────────────────────
+# ── Jobs (explicit GTL Job per vector) ───────────────────────────────────────
 # ADR-030 §3: jobs with F_P evaluators require constructor role;
 # F_H-only or F_D-only jobs explicitly declare roles=().
 
@@ -332,7 +327,7 @@ rb_unit_uat = deferred_refinement(
 )
 
 
-# ── Module (V2 — replaces Package) ──────────────────────────────────────────
+# ── Module ──────────────────────────────────────────────────────────────────
 # requirements list is the authoritative REQ key registry for this project.
 # Add keys here as requirements are written; check-req-coverage enforces coverage.
 
@@ -351,31 +346,9 @@ module = Module(
     roles=(role_constructor,),
     metadata={
         "requirements": [
-            # Bootstrap
-            "REQ-F-BOOT-001",   # gen-install bootstraps .genesis/ into target project
-            "REQ-F-BOOT-002",   # .genesis/genesis.yml config resolves Package/Worker
-            # SDLC graph
-            "REQ-F-GRAPH-001",  # GTL Package defines 7-asset SDLC graph
-            "REQ-F-GRAPH-002",  # Asset.markov conditions are acceptance criteria
-            # Commands
-            "REQ-F-CMD-001",    # gen gaps reports delta per edge
-            "REQ-F-CMD-002",    # gen iterate runs one bind-and-iterate pass
-            "REQ-F-CMD-003",    # gen start --auto loops until blocked
-            # Human gates
-            "REQ-F-GATE-001",   # F_H evaluators gate spec/design boundaries
-            # Traceability
-            "REQ-F-TAG-001",    # Implements: tags enforced on all source files
-            "REQ-F-TAG-002",    # Validates: tags enforced on all test files
-            "REQ-F-COV-001",    # REQ key coverage enforced by check-req-coverage
-            # Documentation
-            "REQ-F-DOCS-001",   # User guide covers install, first session, operating loop
-            # UAT
-            "REQ-F-UAT-001",    # unit_tests→uat_tests edge: sandbox install + e2e proof required to ship
-            # Backlog
-            "REQ-F-BACKLOG-001",  # .ai-workspace/backlog/BL-*.yml schema and directory convention
-            "REQ-F-BACKLOG-002",  # sensory system surfaces ready items in gen gaps/status output
-            "REQ-F-BACKLOG-003",  # gen backlog list — show all items with status
-            "REQ-F-BACKLOG-004",  # gen backlog promote BL-xxx — emit intent_raised, mark promoted
+            "REQ-P-POLICY",
+            "REQ-P-SCENARIOS",
+            "REQ-P-QUAL",
         ],
     },
 )

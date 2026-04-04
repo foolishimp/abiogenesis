@@ -1,6 +1,6 @@
 # Scenario — Requirements to UAT
 
-**Scenario ID**: SCN-V2-R2U-001  
+**Scenario ID**: SCN-R2U-001  
 **Status**: Baseline  
 **Category**: Capability Scenario  
 **Date**: 2026-03-27  

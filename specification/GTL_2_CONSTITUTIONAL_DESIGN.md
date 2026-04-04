@@ -621,7 +621,7 @@ This is the clean answer to leaf-task placement:
 
 ABG execution collapses to lawful iteration over a single contract step.
 
-In the current V2 surface that step is the realized `GraphVector`.
+In the current surface that step is the realized `GraphVector`.
 
 This implies:
 

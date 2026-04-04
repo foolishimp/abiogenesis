@@ -4,7 +4,7 @@
 """
 gtl.operator_model — Effect and convergence declarations.
 
-V2 domain model: Regime base class, frozen Operator/Evaluator/Rule with
+Domain model: Regime base class, frozen Operator/Evaluator/Rule with
 the accepted field shapes from the constitutional design.
 
 No external dependencies. Dataclasses + stdlib only.
@@ -31,7 +31,7 @@ class F_H(Regime):
     """Human — persistent ambiguity, judgment required."""
 
 
-# ── Operator (V2) ────────────────────────────────────────────────────────
+# ── Operator ─────────────────────────────────────────────────────────────
 
 @dataclass(frozen=True)
 class Operator:
@@ -51,7 +51,7 @@ class Operator:
             raise TypeError(f"Operator.regime must be a Regime subclass, got {self.regime!r}")
 
 
-# ── Evaluator (V2) ───────────────────────────────────────────────────────
+# ── Evaluator ────────────────────────────────────────────────────────────
 
 @dataclass(frozen=True)
 class Evaluator:
@@ -73,7 +73,7 @@ class Evaluator:
             raise TypeError(f"Evaluator.regime must be a Regime subclass, got {self.regime!r}")
 
 
-# ── Rule (V2) ────────────────────────────────────────────────────────────
+# ── Rule ─────────────────────────────────────────────────────────────────
 
 @dataclass(frozen=True)
 class Rule:

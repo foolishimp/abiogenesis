@@ -2,8 +2,8 @@
 
 **Status**: current recursive-frame model
 **Audience**: users authoring or running GTL/ABG modules today
-**Purpose**: explain how to use the current GTL 2.x / ABG 2.x surface without
-carrying stale V1 terminology or deleted macro-style refinement behavior
+**Purpose**: explain how to use the current GTL / ABG surface without
+carrying stale terminology or deleted macro-style refinement behavior
 
 ---
 
@@ -34,7 +34,7 @@ The clean split is:
   - correction/reset
   - lineage and provenance
 
-The current build is not the old "task ran, so proceed" model. It is built for
+This build is not a "task ran, so proceed" model. It is built for
 workflows where the worker may be deterministic, probabilistic, or human, and
 where output existence alone is not enough to claim success.
 
@@ -479,7 +479,7 @@ usually one of:
 
 ## 6. Writing a Minimal GTL Module
 
-The authored unit is `Module`, not the older `Package`.
+The authored unit is `Module`.
 
 Here is a minimal current example:
 
@@ -858,10 +858,9 @@ The most useful tests for understanding the current model are:
 - recursive runtime semantics:
   - `/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/test_env/tests/test_m03_engine_kernel_integration.py`
 - broader usecase flows:
-  - `/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/test_env/tests/test_v2_usecases_u1_u4.py`
+  - `/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/test_env/tests/test_usecases_u1_u4.py`
 
-If you want a realistic current module, start with `abiogenesis.py`, not older
-V1-era surfaces.
+If you want a realistic current module, start with `abiogenesis.py`.
 
 ---
 
@@ -876,14 +875,9 @@ V1-era surfaces.
   - domain installers still own domain runtime contracts and domain package layout
 - The portable invocation is still source-first or installed-kernel-first.
   - this guide assumes `python -m genesis`, not a universal packaged `gen` binary
-- Older prose may still mention `Asset`, `Edge`, `Package`, or hidden zoom-style
-  refinement.
-  - prefer current code, current tests, and the current docs over older V1 text
-
 When in doubt, trust this order:
 
 1. current requirements
 2. current accepted design
 3. current code
 4. current tests
-5. older prose

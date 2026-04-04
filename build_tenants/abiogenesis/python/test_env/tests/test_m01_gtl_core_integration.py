@@ -15,8 +15,8 @@
 """
 M01 GTL-core integration lane.
 
-This replaces the legacy algebra/type/contract microtests with integration checks
-over real GTL graph programs, higher-order operators, and structural alternatives.
+This lane exercises real GTL graph programs, higher-order operators, and
+structural alternatives.
 """
 from __future__ import annotations
 

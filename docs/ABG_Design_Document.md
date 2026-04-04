@@ -1,8 +1,8 @@
 # ABG Design Document
 
-**Version**: 2.0
+**Version**: current
 **Date**: 2026-03-27
-**Purpose**: Human review document for the abiogenesis V2 constitutional design
+**Purpose**: Human review document for the abiogenesis constitutional design
 **Scope**: Requirements, accepted design implementations, domain models, engine sequencing, algorithmic choices
 
 ---
@@ -11,18 +11,18 @@
 
 ABG is an event-sourced convergence engine over a typed GTL graph. It drives candidates toward stability through three evaluator regimes (deterministic, agent, human), records all state transitions in an append-only event stream, and derives truth by projection -- never by mutable state.
 
-V2 replaces the V1 type system entirely:
+The core type surface is:
 
-| V1 | V2 | Change |
-|----|-----|--------|
-| Package | Module | Publication boundary with explicit jobs, roles, metadata |
-| Asset | Node | Typed local locus with markov conditions |
-| Edge | GraphVector | Internal adjacency record carrying operators, evaluators, contexts |
-| Fragment, zoom | GraphFunction, substitute() | Algebraic composition via graph algebra |
-| Worker(can_execute) | Worker derived from Module | Worker resolved from Module.jobs + Module.roles |
-| Job(edge=) | Job(contracts=(ContractRef,)) | Jobs reference vectors by opaque .id |
-| Overlay | CandidateFamily + SelectionDecision | Explicit structural alternatives with explicit selection |
-| consensus() | Rule(kind="consensus", config={"quorum": N}) | Declarative constraint type |
+| Surface | Meaning |
+|----|--------|
+| Module | Publication boundary with explicit jobs, roles, and metadata |
+| Node | Typed local locus with markov conditions |
+| GraphVector | Internal adjacency record carrying operators, evaluators, and contexts |
+| GraphFunction + `substitute()` | Algebraic composition and refinement |
+| Worker | Concrete execution actor resolved against module publication |
+| Job + `ContractRef` | Semantic work contract over published vectors |
+| CandidateFamily + SelectionDecision | Explicit structural alternatives with explicit selection |
+| Rule | Declarative constraint type |
 
 The kernel stays small. Complexity is pushed into lawful structure (GTL algebra) rather than ad hoc imperative exceptions.
 
@@ -47,17 +47,17 @@ Every link is load-bearing. A break at any link creates accidental law.
 
 | Concern | Requirement families | Design owner |
 |---|---|---|
-| GTL graph, nodes, module | GRAPH, BOOTDOC, CORE | ADR-001, ADR-025, ADR-028 |
-| Event calculus and convergence | EC, EVAL | ADR-016 |
-| Work identity and traversal | WK, TRAV, CMD, VIS | ADR-023, ADR-024, ADR-013 |
-| Graph algebra and selection | COMPOSE, SELECTION-BOUNDARY, SYNTHESIS | ADR-025, ADR-030 |
-| Correction semantics | CORRECT | ADR-026 |
-| Run governance and leaf tasks | RUN, LEAF | ADR-027 |
-| Workflow provenance | PROV | ADR-029 |
-| Bootstrap/install substrate | BOOT, PKG, WKSP | ADR-005, ADR-006, ADR-007, ADR-018 |
-| Binding and manifest surfaces | BIND, CORE-004/005 | ADR-002, ADR-003 |
-| Projection model | CORE-001/002/003 | ADR-005 |
-| Snapshot-bound F_P | EVAL-002/003 | ADR-011, ADR-012 |
+| GTL graph, nodes, module | REQ-L-GTL2-GRAPH, REQ-L-GTL2-NODE, REQ-L-GTL2-MODULE | ADR-023, ADR-030 |
+| Event law and convergence | REQ-R-ABG2-EVENTS, REQ-R-ABG2-CONVERGENCE | ADR-022 |
+| Work identity and traversal | REQ-L-GTL2-JOB, REQ-L-GTL2-ROLE, REQ-R-ABG2-WORKER, REQ-R-ABG2-INTERPRET | ADR-030, ADR-031 |
+| Graph algebra and selection | REQ-L-GTL2-COMPOSE, REQ-L-GTL2-SELECTION-BOUNDARY, REQ-L-GTL2-SYNTHESIS, REQ-R-ABG2-SELECTION-APPLICATION | ADR-023, ADR-030 |
+| Correction semantics | REQ-R-ABG2-CORRECTION | ADR-022 |
+| Run governance and leaf tasks | REQ-R-ABG2-RUN, REQ-R-ABG2-LEAFTASK | ADR-022 |
+| Workflow provenance | REQ-R-ABG2-PROVENANCE | ADR-031 |
+| Bootstrap/install substrate | REQ-P-POLICY, REQ-P-QUAL, REQ-R-ABG2-SELFHOSTING | ADR-022, ADR-031 |
+| Binding and manifest surfaces | REQ-R-ABG2-BINDING, REQ-R-ABG2-PROVENANCE | ADR-030, ADR-031 |
+| Projection model | REQ-R-ABG2-PROJECTION | ADR-031 |
+| Snapshot-bound F_P | REQ-R-ABG2-PROVENANCE, REQ-R-ABG2-RUN | ADR-031 |
 
 ### Semantic Ownership Map
 
@@ -68,7 +68,7 @@ Every link is load-bearing. A break at any link creates accidental law.
 | Traversal orchestration | `abg.interpret` | Produces facts and requests emission; does not own append semantics |
 | Substrate classification | `abg.transport` | Owns `transport_failure`, `no_output`, `contract_failure` substrate/payload classification |
 | CLI/control-plane policy projection | product policy + `abg.cli` | Must project from canonical ABG truth and not invent a parallel lifecycle story |
-| Consumer read models | `abg.binding`, `abg.services`, `abg.subwork` | Must consume the new center and not preserve superseded categories locally |
+| Consumer read models | `abg.binding`, `abg.services`, `abg.subwork` | Must consume the canonical center and not preserve superseded categories locally |
 
 ---
 
@@ -379,7 +379,7 @@ flowchart TD
 | F_H | Fluent projection | `holdsAt(operative(edge, work_key, wv), now)` -- via `bind_fh()` |
 | F_P | Fluent projection + reset boundary | `holdsAt(certified(edge, work_key, ev, spec_hash, wv), now)` -- via `bind_fp_certified()` |
 
-**V2 delta function:**
+**Typed delta function:**
 
 `delta()` in `genesis.convergence` aggregates typed `EvaluatorOutcome` values into a `ConvergenceResult`:
 
@@ -432,14 +432,14 @@ flowchart TD
 **Key design choices:**
 - `active-workflow.json` is the single source of workflow version truth -- read at Scope construction, `"unknown"` on any failure
 - `workflow_version` is auto-injected into events via set-default -- never overwrites explicit values
-- `executable_job_hash(job)` is the primary spec identity under provenance -- covers GTL job name, role names, evaluator definitions (binding+description+regime), and context digests. Changing any of these invalidates prior F_P assessments
+- `executable_job_hash(job)` is the primary spec identity under provenance -- covers GTL job name, role names, evaluator definitions (binding+description+regime), and context digests. Changing any of these invalidates mismatched F_P assessments
 - `req_hash(requirements)` is the degenerate fallback when `workflow_version == "unknown"`
 - Carry-forward is explicit and manifest-driven -- the workflow author decides what survives version transitions
 - Orphan events (referencing removed vectors) are silently ignored -- graph evolution is non-destructive
 
 ### 3.5 Graph Algebra and Selection Model
 
-V2 graph evolution uses algebraic composition. `substitute()` replaces coarse vectors with interface-compatible inner graphs. `CandidateFamily` declares alternatives; `SelectionDecision` makes explicit choices.
+Graph evolution uses algebraic composition. `substitute()` replaces coarse vectors with interface-compatible inner graphs. `CandidateFamily` declares alternatives; `SelectionDecision` makes explicit choices.
 
 ```mermaid
 flowchart TD
@@ -950,9 +950,9 @@ flowchart TD
 
 ## 6. Algorithmic Choices
 
-### 6.1 V2 Delta -- Typed Convergence
+### 6.1 Typed Convergence
 
-The V2 delta function operates on typed `EvaluatorOutcome` values:
+The delta function operates on typed `EvaluatorOutcome` values:
 
 ```python
 def delta(

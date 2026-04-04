@@ -1,6 +1,6 @@
 # Scenario — GSDLC Lite: Requirements to Design to Code
 
-**Scenario ID**: SCN-V2-GSDLCLITE-001  
+**Scenario ID**: SCN-GSDLCLITE-001  
 **Status**: Baseline  
 **Category**: Capability Scenario  
 **Date**: 2026-03-27  
@@ -245,6 +245,6 @@ It is the preferred place to grow:
 - alternate code candidates with explicit selection
 - downstream layering into tests, UAT, or packaging
 
-The governing `ABG 1.0` release layering for this scenario now lives in:
+The governing qualification layering for this scenario now lives in:
 
-- [GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GSDLC_LITE_ABG_1_0_QUALIFICATION_LADDER.md)
+- [GSDLC_LITE_QUALIFICATION_LADDER.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GSDLC_LITE_QUALIFICATION_LADDER.md)

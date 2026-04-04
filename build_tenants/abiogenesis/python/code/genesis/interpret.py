@@ -77,7 +77,7 @@ from .selection import (
 from .subwork import LeafTask
 
 
-# ── V2 Traversal ─────────────────────────────────────────────────────────────
+# ── Traversal ────────────────────────────────────────────────────────────────
 
 
 @dataclass(frozen=True)

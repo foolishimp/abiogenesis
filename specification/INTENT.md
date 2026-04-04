@@ -54,19 +54,17 @@ The authored domain surface is `build_tenants/abiogenesis/python/code/gtl_spec/p
 
 ## Constitutional Consistency
 
-Active requirements are present-tense constitutional truth. Overlap or conflict between active requirements is illegal and must be resolved in the corpus itself rather than arbitrated by generation labels or historical wording.
+Active requirements are present-tense constitutional truth. Overlap or conflict between active requirements is illegal and must be resolved in the corpus itself.
 
-Legacy behavior is retained only where it is explicitly declared as compatibility or replay law:
+Current degenerate cases are explicit law:
 
-| Retained degenerate case | Meaning |
+| Declared degenerate case | Meaning |
 |--------------------------|---------|
 | `work_key` absent | Global traversal — single WorkInstance per job, no work-key scoping |
 | No `work_spawned` events | Static authored graph — no zoom, no fragment refinement |
 | No fragment imports | Monolithic Package — all edges authored directly |
 | No leaf tasks | Direct F_P dispatch — no bounded sub-work |
-| Unscoped legacy events | Visible to global queries, invisible to work-key-scoped queries |
-
-Any historical doctrine not listed as explicit compatibility law is not active law. Legacy compatibility shims (e.g., wildcard revocation) are retained for replay of existing event streams but are not available for new work.
+| Events without `work_key` | Visible to global queries, invisible to work-key-scoped queries |
 
 ---
 
@@ -132,7 +130,7 @@ Specific contradictions and defects:
 
 1. **Tenant identity leak**: `Scope.build` defaults to `"claude_code"` in `domain_model.md` §2.3 and `commands.py`. The spec should be agent-neutral.
 2. **Delta type contradiction**: `domain_model.md:198` defines `delta: int` (count), `convergence_model.md` defines `delta = failing / evaluators` (float). `schedule.py` implements float. The spec disagrees with itself.
-3. **Evaluator safety rule too broad**: REQ-F-EVAL-001 AC-2 says "must not invoke genesis subcommands" but the package already uses `genesis check-tags`, `genesis check-req-coverage`, `genesis check-impl-coverage`, `genesis check-validates-coverage`, `genesis check-bootloader-consistency`. Real invariant: no orchestration re-entry, leaf predicates are fine.
+3. **Evaluator safety rule too broad**: the evaluator boundary must forbid orchestration re-entry while still allowing deterministic `check-*` leaf predicates.
 4. **Context resolution fail-open**: `core.py:262` returns sentinel string `"[directory {path} exists but contains no readable files]"` instead of failing. Missing constitutional context is silently swallowed. Stale locators in the package compound this.
 5. **False OL claim in bootloader**: `GENESIS_BOOTLOADER.md:411` says event logger "enforces OL schema" — there is no OL schema. ADR-005 says "simple JSON." The bootloader text is aspirational language in a constitutional document.
 6. **Feature decomposition hardcodes Python modules**: `feature_decomposition.md` names specific `.py` files and Python module layout. A Codex/Java/Temporal build can't use this.
@@ -153,7 +151,7 @@ Three-layer architecture:
 
 **Fix 2 — Delta type**: Change `delta: int` to `delta: float` in domain_model.md §2.4. Add explicit `failing_count`, `passing_count`, `evaluator_count` fields.
 
-**Fix 3 — Evaluator boundary**: Rewrite REQ-F-EVAL-001 AC-2: forbid orchestration re-entry (`start`, `iterate`, `gaps`, `emit-event`), allow deterministic `check-*` leaf predicates.
+**Fix 3 — Evaluator boundary**: Forbid orchestration re-entry (`start`, `iterate`, `gaps`, `emit-event`), allow deterministic `check-*` leaf predicates.
 
 **Fix 4 — Context fail-closed**: Replace sentinel return in `core.py` ContextResolver with hard failure. Emit `found{kind: context_gap}` on missing required context. Fix stale locators in package.
 
@@ -174,7 +172,7 @@ Three-layer architecture:
 
 1. A second builder (Codex) can load the spec and build a conformant engine without encountering Claude-specific assumptions
 2. `domain_model.md` and `convergence_model.md` agree on delta semantics
-3. REQ-F-EVAL-001 permits `check-*` diagnostics, forbids orchestration re-entry
+3. Evaluator law permits `check-*` diagnostics and forbids orchestration re-entry
 4. Missing context causes hard failure, not silent substitution
 5. GENESIS_BOOTLOADER.md contains no false claims about event substrate
 6. `feature_decomposition.md` is tech-neutral — no Python module names
@@ -290,7 +288,7 @@ The runtime requires two additional capabilities to scale beyond single-shot F_P
 
 1. **Run governance still has more than one semantic center.** The runtime now contains pieces of a richer lifecycle model, but active intent, requirements, design, and implementation still teach overlapping doctrines. Successful certification, failed certification, substrate failure, and control-plane handling are not all projected from one canonical algebra. Event ownership is also split between the declared `emit()` boundary and traversal-local write behavior. As long as those parallel centers remain, the runtime can drift back toward partial or boolean semantics even after local refactors.
 
-2. **Leaf-task and control-plane surfaces inherit the same split doctrine.** Bounded sub-work and auto-loop control already exist as surfaces, but they still depend on the old mixed taxonomy and caller-local summaries. Without one algebraic center, leaf dispatch and CLI policy can reintroduce the very compromise the core is trying to remove.
+2. **Leaf-task and control-plane surfaces inherit the same split doctrine.** Bounded sub-work and auto-loop control already exist as surfaces, but they still depend on mixed caller-local taxonomy and summaries. Without one algebraic center, leaf dispatch and CLI policy can reintroduce the very compromise the core is trying to remove.
 
 ### Value Proposition
 
@@ -311,7 +309,7 @@ The runtime requires two additional capabilities to scale beyond single-shot F_P
 - One lawful event-emission boundary: `emit()`; storage append remains internal to the event substrate
 - CLI/control-plane outputs as product-policy projections over canonical run truth, not as independent boolean lifecycle stories
 - Corrective operations: compensation (scoped revocation + corrective work) distinguished from administrative reset (scope-wide re-evaluation)
-- Wildcard revocation replaced with work-lineage-scoped correction — event log remains truthful
+- Work-lineage-scoped correction — event log remains truthful
 
 **Out of scope:**
 - Distributed coordination (saga) beyond local run governance
@@ -468,7 +466,7 @@ ABG must not contain hidden business-choice logic.
 **Out of scope:**
 - business-choice logic embedded in ABG
 - one mandatory implementation shape for synthesis declarations
-- target-engine mapping work beyond ABG 1.0
+- target-engine mapping work beyond the current ABG runtime
 - committing the public API to one representation before the design phase closes
 
 ### Success Criteria

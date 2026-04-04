@@ -4,7 +4,6 @@
 **Category**: Capability
 **Date**: 2026-03-24
 **Derives from**: INT-GTL2-005
-**Supersedes**: REQ-F-COMP (replaced)
 **Wave**: 1
 
 ---

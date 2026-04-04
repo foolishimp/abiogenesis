@@ -6,7 +6,7 @@
 # Validates: REQ-R-ABG2-CONVERGENCE
 # Validates: REQ-R-ABG2-SELECTION-APPLICATION
 """
-Requirements-driven U1-U4 use cases over the V2 GTL/ABG surface.
+Requirements-driven U1-U4 use cases over the current GTL/ABG surface.
 
 U1: materialization profiles use explicit CandidateFamily plus explicit SelectionDecision.
 U2: gap-triggered discovery runs through a published RefinementBoundary.

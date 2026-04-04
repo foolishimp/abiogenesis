@@ -1,8 +1,8 @@
-# Validates: REQ-F-BOOT-001
+# Validates: REQ-P-QUAL
 """
-Pytest conftest for the retained V2 test suite.
+Pytest conftest for the current test suite.
 
-Shared markers plus the V2 persistent run archive fixture for sandbox-backed
+Shared markers plus the persistent run archive fixture for sandbox-backed
 scenario and qualification tests.
 """
 import pytest

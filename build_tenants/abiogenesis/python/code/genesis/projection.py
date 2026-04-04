@@ -57,7 +57,6 @@ def project(
         relevant = (
             data.get("instance_id") == instance_id
             or data.get("work_key") == instance_id
-            or data.get("feature") == instance_id  # backward-compat: pre-v1.0 events
             or (instance_id == "current" and asset_type in (
                 data.get("target", ""),
                 data.get("asset_type", ""),

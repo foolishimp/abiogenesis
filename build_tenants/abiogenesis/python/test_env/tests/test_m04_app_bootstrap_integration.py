@@ -6,8 +6,8 @@
 """
 M04 app-bootstrap integration lane.
 
-This replaces the legacy transport helper microtests with boundary checks over
-the public transport and bootstrap surfaces used by the canonical python tenant.
+This lane exercises the public transport and bootstrap surfaces used by the
+canonical python tenant.
 """
 from __future__ import annotations
 

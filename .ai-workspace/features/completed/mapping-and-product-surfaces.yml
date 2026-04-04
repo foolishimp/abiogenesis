@@ -1,0 +1,10 @@
+feature: mapping-and-product-surfaces
+title: Mapping and product surfaces
+status: completed
+satisfies:
+  - REQ-M-GTL2-MAPPING
+  - REQ-P-POLICY
+  - REQ-P-SCENARIOS
+  - REQ-P-QUAL
+notes:
+  - Current mapping, policy, scenario, and qualification surfaces used by the abiogenesis packages.

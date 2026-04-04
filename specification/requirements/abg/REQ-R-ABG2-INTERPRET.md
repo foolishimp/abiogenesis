@@ -4,7 +4,6 @@
 **Category**: Capability
 **Date**: 2026-03-25
 **Derives from**: INT-GTL2-008, INT-GTL2-012, INT-GTL2-013
-**Supersedes**: REQ-F-CORE (replaced), REQ-F-CMD (replaced — interpreter portions), REQ-F-TRAV (subsumed)
 **Wave**: 1
 
 ---

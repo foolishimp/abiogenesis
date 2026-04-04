@@ -1,7 +1,7 @@
 # Validates: REQ-R-ABG2-EVENTS
 # Validates: REQ-R-ABG2-INTERPRET
 """
-Sandbox install tests for the V2 runtime.
+Sandbox install tests for the current runtime.
 
 These tests validate the real bootstrap surface used by the retained suite:
 `gen-install.py`, the installed `.genesis` runtime, and `workspace_bootstrap()`.
@@ -65,7 +65,7 @@ def _router_dispatch_module_source() -> str:
 
 
 @pytest.mark.integration
-class TestV2SandboxInstall:
+class TestSandboxInstall:
     @pytest.mark.usecase_id("sandbox_install")
     def test_real_install_copies_complete_engine_runtime(self, run_archive):
         workspace = run_archive.workspace

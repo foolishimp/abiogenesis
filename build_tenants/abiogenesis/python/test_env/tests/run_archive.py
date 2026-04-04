@@ -1,4 +1,5 @@
-# Validates: REQ-F-TEST-001
+# Implements: REQ-P-QUAL
+# Validates: REQ-P-QUAL
 from __future__ import annotations
 
 import json

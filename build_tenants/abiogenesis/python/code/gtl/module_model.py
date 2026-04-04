@@ -1,8 +1,9 @@
+# Implements: REQ-L-GTL2-ENGINE-INDEPENDENCE
 # Implements: REQ-L-GTL2-MODULE
 """
 gtl.module_model — Publication and import boundary.
 
-Module replaces Package as the named, composable unit of GTL declarations.
+Module is the named, composable unit of GTL declarations.
 ModuleImport declares cross-module dependencies.
 
 No external dependencies. Dataclasses + stdlib only.

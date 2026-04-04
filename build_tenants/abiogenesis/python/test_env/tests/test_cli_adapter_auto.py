@@ -2,6 +2,7 @@
 # Validates: REQ-R-ABG2-SELFHOSTING
 # Validates: REQ-R-ABG2-WORKER
 # Validates: REQ-R-ABG2-EVENTS
+# Validates: REQ-P-POLICY
 # Validates: REQ-P-POLICY-001
 from __future__ import annotations
 
@@ -248,7 +249,7 @@ def test_scope_uses_engine_identity_when_no_runtime_build_or_worker_is_declared(
     assert "build_id" not in runtime_identity
 
 
-def test_scope_does_not_reinject_legacy_build_default_when_runtime_identity_is_partial(tmp_path: Path):
+def test_scope_does_not_reinject_build_default_when_runtime_identity_is_partial(tmp_path: Path):
     module = _runtime_contract_module()
     worker = Worker(
         id="gsdlc_router",
@@ -291,12 +292,12 @@ def test_resolve_runtime_identity_reads_runtime_prefixed_keys_only():
             "runtime_authority_ref": "runtime://role-dispatch",
             "runtime_assignment_source": "runtime://session-override/constructor",
             "runtime_resolved_runtime_ref": "runtime://resolved/constructor/codex",
-            "engine": "legacy-engine",
-            "build": "legacy-build",
-            "backend": "legacy-backend",
-            "authority_ref": "runtime://legacy-authority",
-            "assignment_source": "runtime://legacy-assignment",
-            "resolved_runtime_ref": "runtime://legacy-resolved",
+            "engine": "ignored-engine",
+            "build": "ignored-build",
+            "backend": "ignored-backend",
+            "authority_ref": "runtime://ignored-authority",
+            "assignment_source": "runtime://ignored-assignment",
+            "resolved_runtime_ref": "runtime://ignored-resolved",
         }
     )
 
@@ -309,15 +310,15 @@ def test_resolve_runtime_identity_reads_runtime_prefixed_keys_only():
     assert identity.resolved_runtime_ref == "runtime://resolved/constructor/codex"
 
 
-def test_resolve_runtime_identity_ignores_legacy_unprefixed_keys():
+def test_resolve_runtime_identity_ignores_unprefixed_keys():
     identity = cli_adapter._resolve_runtime_identity(
         {
-            "engine": "legacy-engine",
-            "build": "legacy-build",
-            "backend": "legacy-backend",
-            "authority_ref": "runtime://legacy-authority",
-            "assignment_source": "runtime://legacy-assignment",
-            "resolved_runtime_ref": "runtime://legacy-resolved",
+            "engine": "ignored-engine",
+            "build": "ignored-build",
+            "backend": "ignored-backend",
+            "authority_ref": "runtime://ignored-authority",
+            "assignment_source": "runtime://ignored-assignment",
+            "resolved_runtime_ref": "runtime://ignored-resolved",
         }
     )
 
@@ -633,7 +634,7 @@ def test_assess_result_cmd_routes_manifest_provenance_through_workspace_event_he
     ]
 
 
-def test_assess_result_cmd_ignores_legacy_backend_field(monkeypatch, tmp_path: Path):
+def test_assess_result_cmd_ignores_unprefixed_backend_field(monkeypatch, tmp_path: Path):
     runtime_dir = tmp_path / ".ai-workspace" / "runtime"
     runtime_dir.mkdir(parents=True, exist_ok=True)
     (runtime_dir / "active-workflow.json").write_text(
@@ -648,7 +649,7 @@ def test_assess_result_cmd_ignores_legacy_backend_field(monkeypatch, tmp_path: P
                 "edge": "design→code",
                 "actor": "codex",
                 "worker_id": "codex",
-                "backend": "legacy-codex-cli",
+                "backend": "ignored-codex-cli",
                 "role_id": "constructor",
                 "assessments": [
                     {

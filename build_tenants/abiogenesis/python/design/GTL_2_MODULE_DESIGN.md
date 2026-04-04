@@ -102,7 +102,7 @@ In this Claude build, the conceptual `abg.*` runtime layer is implemented under 
 
 Canonical engine mapping of published graph functions into executable graph surfaces is part of the ABG kernel. `abg.materialization` owns lawful materialization and graph-derived companion bundle derivation for the canonical engine. `abg.provenance` owns replayable recording of graph-function identity, materialization identity, and bundle derivation truth.
 
-Alternate runtime families remain deferred. Capability profiles, alternate engine adapters, and non-ABG mapping surfaces stay outside the ABG 2.0 shipping line until those runtimes are intentionally designed.
+Alternate runtime families remain deferred. Capability profiles, alternate engine adapters, and non-ABG mapping surfaces stay outside the current ABG runtime until those runtimes are intentionally designed.
 
 ### 3.5 Semantic Ownership Map
 
@@ -802,7 +802,7 @@ substitution is not.
 | Concrete file | Owns |
 | --- | --- |
 | `gtl_spec/packages/*.py` | authored `Module` declarations with explicit graphs, jobs, roles, operators, evaluators, and rules |
-| `gtl_spec/GTL_BOOTLOADER.md` | bootloader-visible V2 type surface and self-hosting expectations |
+| `gtl_spec/GTL_BOOTLOADER.md` | bootloader-visible type surface and self-hosting expectations |
 
 ---
 
@@ -988,4 +988,4 @@ The module design is:
 - **3 ABG app modules** — services, cli, install
 - **3 mapping modules** — capability, adapter, provenance for alternate runtime families
 
-Every required definition has an explicit V2 home. Every V2 module traces to requirement families. No accidental law, no duplicate ontology.
+Every required definition has an explicit home. Every module traces to requirement families. No accidental law, no duplicate ontology.

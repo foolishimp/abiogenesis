@@ -5,12 +5,11 @@
 # Validates: REQ-R-ABG2-RUN
 # Validates: REQ-R-ABG2-PROJECTION
 # Validates: REQ-R-ABG2-SELFHOSTING
+# Validates: REQ-M-GTL2-MAPPING
 """
 M03 engine-kernel integration lane.
 
-This replaces the legacy test_abg_{traversal,selection,convergence}.py cluster
-with integration checks over real GTL/ABG module, runtime, event, and replay
-surfaces.
+This lane exercises real GTL/ABG module, runtime, event, and replay surfaces.
 
 Recursive clause anchors:
 - `REQ-R-ABG2-INTERPRET-010`: hidden/local publication fail-closed and lawful

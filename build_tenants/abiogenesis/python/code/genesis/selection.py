@@ -6,7 +6,7 @@ Pure kernel module — returns SelectionDecision values.
 Event emission delegated to interpret.apply_selection()
 (per GTL_2_MODULE_DESIGN §4.4).
 
-No side effects, no events, no I/O. Pure functions over V2 types.
+No side effects, no events, no I/O. Pure functions over current GTL types.
 """
 from __future__ import annotations
 
@@ -245,7 +245,7 @@ def validate_selection(
     return gf_input_contracts <= vec_source_contracts and vec_target_contract in gf_output_contracts
 
 
-# ── V2 CandidateFamily-based selection ───────────────────────────────────────
+# ── CandidateFamily-based selection ──────────────────────────────────────────
 
 
 def enumerate_candidates(
