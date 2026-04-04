@@ -38,7 +38,7 @@ from gtl.work_model import ContractRef, Job, Role
 from genesis.binding import PrecomputedManifest, WorkSurface, Worker, module_to_executable_jobs
 from genesis.identity import RuntimeIdentity
 from genesis.convergence import convergence_from_precomputed, outcomes_from_precomputed
-from genesis.events import EventContext, EventStream
+from genesis.events import EventContext, EventStream, emit
 from genesis.frames import deserialize_frame, find_active_frame, resolve_frame_candidate_family
 from genesis.install import workspace_bootstrap
 from genesis.interpret import (
@@ -57,7 +57,7 @@ from genesis.materialization import (
 )
 from genesis.provenance import req_hash, spec_hash_for
 from genesis.projection import project
-from genesis.run import find_pending_run, run_state
+from genesis.run import find_pending_run, run_state, supersede_run
 from genesis.selection import SelectionDecision, resolve_candidate_family
 from genesis.selfhosting import _bootloader_consistency_report
 from genesis.services import Scope, gen_gaps, gen_iterate
@@ -2299,6 +2299,92 @@ class TestM03EngineKernelIntegration:
         assert derived_run.resolved_runtime_ref == "runtime://resolved/constructor/codex"
         assert manifest["work_key"] == vector.id
         assert manifest["edge"] == vector.name
+
+    def test_run_state_projects_fp_assessment_to_canonical_terminal_truth(self, tmp_path: Path) -> None:
+        stream = workspace_bootstrap(tmp_path)
+
+        emit(
+            "run_started",
+            {"edge": "design→code", "run_id": "run-pass", "work_key": "WK-1"},
+            stream=stream,
+        )
+        emit(
+            "assessed",
+            {
+                "kind": "fp",
+                "edge": "design→code",
+                "run_id": "run-pass",
+                "evaluator": "fp_eval",
+                "result": "pass",
+                "spec_hash": "spec-pass",
+            },
+            stream=stream,
+        )
+
+        passed = run_state(stream.all_events(), "run-pass")
+        assert passed is not None
+        assert passed.state == "assessed_pass"
+        assert passed.failure_class is None
+
+        emit(
+            "run_started",
+            {"edge": "design→code", "run_id": "run-fail", "work_key": "WK-2"},
+            stream=stream,
+        )
+        emit(
+            "assessed",
+            {
+                "kind": "fp",
+                "edge": "design→code",
+                "run_id": "run-fail",
+                "evaluator": "fp_eval",
+                "result": "fail",
+                "spec_hash": "spec-fail",
+            },
+            stream=stream,
+        )
+
+        failed = run_state(stream.all_events(), "run-fail")
+        assert failed is not None
+        assert failed.state == "failed"
+        assert failed.failure_class == "certification_failure"
+
+    def test_run_state_replays_timeout_and_supersession_as_first_class_terminal_truth(self, tmp_path: Path) -> None:
+        stream = workspace_bootstrap(tmp_path)
+
+        emit(
+            "run_started",
+            {"edge": "design→code", "run_id": "run-timeout", "work_key": "WK-timeout"},
+            stream=stream,
+        )
+        emit(
+            "run_timed_out",
+            {"edge": "design→code", "run_id": "run-timeout", "work_key": "WK-timeout"},
+            stream=stream,
+        )
+
+        timed_out = run_state(stream.all_events(), "run-timeout")
+        assert timed_out is not None
+        assert timed_out.state == "timed_out"
+        assert timed_out.failure_class is None
+
+        emit(
+            "run_started",
+            {"edge": "design→code", "run_id": "run-old", "work_key": "WK-supersede"},
+            stream=stream,
+        )
+        emit(
+            "run_started",
+            {"edge": "design→code", "run_id": "run-new", "work_key": "WK-supersede"},
+            stream=stream,
+        )
+        superseded = supersede_run("run-old", "run-new", "design→code", work_key="WK-supersede")
+        emit(superseded["event_type"], superseded["data"], stream=stream)
+
+        replayed = run_state(stream.all_events(), "run-old")
+        assert replayed is not None
+        assert replayed.state == "superseded"
+        assert replayed.superseded_by == "run-new"
 
     def test_precomputed_kernel_convergence_preserves_declared_regime_frontier(self, tmp_path: Path) -> None:
         design = Node(name="design", schema="DesignDoc")

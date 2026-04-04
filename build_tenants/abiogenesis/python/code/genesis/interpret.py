@@ -8,8 +8,8 @@ iterate, schedule, apply_selection.
 
 apply_selection owns lawful application of a SelectionDecision:
 validate interface, open an invocation frame, emit workflow_selected.
-Per GTL_2_MODULE_DESIGN §4.4, interpret owns event emission — selection
-and subwork are pure kernel modules that return values.
+Traversal orchestrates evaluation and requests event emission through
+genesis.events.emit(); selection and subwork remain pure kernel modules.
 """
 from __future__ import annotations
 
@@ -38,7 +38,7 @@ from .binding import (
 )
 from .convergence import convergence_from_precomputed, outcomes_from_precomputed, unresolved_fraction
 from .correction import find_latest_reset
-from .events import EventContext, EventStream
+from .events import EventContext, EventStream, emit
 from .frames import (
     FoldBackOutcome,
     InvocationFrame,
@@ -830,7 +830,8 @@ def derive_operational_gaps(
 
             cert_key = work_key if work_key is not None else work_key_filter
             if delta == 0.0 and (job.vector.name, cert_key) not in certified_keys:
-                stream.append(
+                _emit_event(
+                    stream,
                     "edge_converged",
                     {
                         "edge": job.vector.name,
@@ -960,6 +961,16 @@ def _event_context(runtime: TraversalRuntime, *, run_id: str | None = None) -> E
     )
 
 
+def _emit_event(
+    stream: EventStream,
+    event_type: str,
+    data: dict,
+    *,
+    context: EventContext | None = None,
+) -> None:
+    emit(event_type, data, stream=stream, context=context)
+
+
 def _append_events(
     stream: EventStream,
     events: tuple[dict, ...] | list[dict],
@@ -967,7 +978,7 @@ def _append_events(
     context: EventContext | None = None,
 ) -> None:
     for event in events:
-        stream.append(event["event_type"], event["data"], context=context)
+        _emit_event(stream, event["event_type"], event["data"], context=context)
 
 
 def _append_recursive_state(
@@ -979,7 +990,7 @@ def _append_recursive_state(
 ) -> None:
     if prior_state is not None and prior_state == state:
         return
-    stream.append("frame_state_updated", frame_state_updated_event(state)["data"], context=context)
+    _emit_event(stream, "frame_state_updated", frame_state_updated_event(state)["data"], context=context)
 
 
 def _current_certified_keys(all_events: list[dict]) -> set[tuple[str, str | None]]:
@@ -1328,7 +1339,7 @@ def _iterated_outcome(
         runtime_identity=runtime.runtime_identity,
         worker=runtime.worker,
     )
-    runtime.stream.append("run_bound", run_bound_data, context=event_context)
+    _emit_event(runtime.stream, "run_bound", run_bound_data, context=event_context)
 
     run_started_data: dict = {
         "edge": vector.name,
@@ -1348,7 +1359,7 @@ def _iterated_outcome(
         runtime_identity=runtime.runtime_identity,
         worker=runtime.worker,
     )
-    runtime.stream.append("run_started", run_started_data, context=event_context)
+    _emit_event(runtime.stream, "run_started", run_started_data, context=event_context)
 
     bound = bind_fp(pre, runtime.executable_job, result_path=result_path)
     bound.manifest_id = manifest_id
@@ -1386,10 +1397,11 @@ def _iterated_outcome(
         runtime_identity=runtime.runtime_identity,
         worker=runtime.worker,
     )
-    runtime.stream.append("edge_started", edge_started_data, context=event_context)
+    _emit_event(runtime.stream, "edge_started", edge_started_data, context=event_context)
     if active_frame is not None:
         frame, step = active_frame
-        runtime.stream.append(
+        _emit_event(
+            runtime.stream,
             "frame_step_started",
             frame_step_started_event(frame, step, run_id=run_id)["data"],
             context=event_context,
@@ -1413,7 +1425,8 @@ def _iterated_outcome(
             prior_state=prior_state,
         )
         if blocking_reason is not None and not (prior_state and prior_state.suspended):
-            runtime.stream.append(
+            _emit_event(
+                runtime.stream,
                 "frame_suspended",
                 frame_suspended_event(
                     frame,
@@ -1643,7 +1656,8 @@ def _advance_current_recursive_state(
         if conv.aggregate_state != "closed":
             continue
         if cert_key not in execution_index.certified_keys:
-            stream.append(
+            _emit_event(
+                stream,
                 "edge_converged",
                 {
                     "edge": step.edge,
@@ -1661,7 +1675,8 @@ def _advance_current_recursive_state(
             execution_index.certified_keys.add(cert_key)
             progressed = True
         if step_key not in execution_index.completed_steps:
-            stream.append(
+            _emit_event(
+                stream,
                 "frame_step_completed",
                 frame_step_completed_event(frame, step)["data"],
                 context=EventContext(
@@ -1713,7 +1728,8 @@ def _advance_current_recursive_state(
             prior_state=state,
         )
         if state.suspended and not next_state.suspended:
-            stream.append(
+            _emit_event(
+                stream,
                 "frame_resumed",
                 frame_resumed_event(
                     frame,
@@ -1762,7 +1778,8 @@ def _advance_current_recursive_state(
             prior_state=state,
         )
         if state.suspended:
-            stream.append(
+            _emit_event(
+                stream,
                 "frame_resumed",
                 frame_resumed_event(
                     frame,
@@ -1798,7 +1815,8 @@ def _advance_current_recursive_state(
         prior_state=state,
     )
     if state.suspended:
-        stream.append(
+        _emit_event(
+            stream,
             "frame_resumed",
             frame_resumed_event(
                 frame,
@@ -1810,7 +1828,8 @@ def _advance_current_recursive_state(
                 work_key=frame.parent_key,
             ),
         )
-    stream.append(
+    _emit_event(
+        stream,
         "frame_foldback",
         frame_foldback_event(frame)["data"],
         context=EventContext(
@@ -1820,7 +1839,8 @@ def _advance_current_recursive_state(
     )
     if frame.frame_id not in execution_index.rebound_frames:
         rebound = _resolve_foldback_result(frame)
-        stream.append(
+        _emit_event(
+            stream,
             "frame_rebound",
             frame_rebound_event(frame, rebound)["data"],
             context=EventContext(
@@ -1829,7 +1849,8 @@ def _advance_current_recursive_state(
             ),
         )
         execution_index.rebound_frames.add(frame.frame_id)
-    stream.append(
+    _emit_event(
+        stream,
         "frame_closed",
         frame_closed_event(frame)["data"],
         context=EventContext(

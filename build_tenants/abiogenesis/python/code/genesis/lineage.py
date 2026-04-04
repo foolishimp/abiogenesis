@@ -21,7 +21,7 @@ class WorkInstance:
     """
     The scheduler's dispatch unit: an (executable_job, work_key) pair with attempt identity.
 
-    REQ-F-WK-005: Scheduler creates work instances from (job, work_key) pairs.
+    Scheduler creates work instances from `(job, work_key)` pairs.
     """
     executable_job: ExecutableJob
     work_key: str | None = None

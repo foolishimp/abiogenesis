@@ -270,7 +270,7 @@ High-level meanings:
 - `start --auto`
   - loops until convergence or a blocking condition is reached
 - `assess-result`
-  - ingests an `F_P` result JSON and emits assessed events
+  - ingests an `F_P` result JSON and emits evaluator-fact `assessed` events through the kernel emission boundary
 - `emit-event`
   - appends one event to the event stream
 
@@ -689,6 +689,11 @@ Do not edit it manually.
   - `frame_closed`
 - correction
   - `reset`
+
+`assessed` is an evaluator fact event, not the successful terminal run-state
+name. In the cutover model, successful terminal run truth projects to
+`assessed_pass`, while failed F_P assessment projects to failed run truth with
+`failure_class=certification_failure`.
 
 ### What recursion means for workspace truth
 

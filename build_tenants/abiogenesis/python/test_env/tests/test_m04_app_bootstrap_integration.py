@@ -107,7 +107,23 @@ class TestM04AppBootstrapIntegration:
         assert classify_failure(dispatch, str(result_path)) == "no_output"
 
         result_path.write_text("{bad json", encoding="utf-8")
-        assert classify_failure(dispatch, str(result_path)) == "bad_output"
+        assert classify_failure(dispatch, str(result_path)) == "contract_failure"
+
+        result_path.write_text("{}", encoding="utf-8")
+        assert classify_failure(
+            dispatch,
+            str(result_path),
+            payload_validator=lambda payload: isinstance(payload, dict) and "required_field" in payload,
+        ) == "contract_failure"
+
+        result_path.write_text("{}", encoding="utf-8")
+        crashed_with_artifact = AgentResult(
+            stdout="artifact still written",
+            stderr="boom",
+            returncode=9,
+            agent="claude",
+        )
+        assert classify_failure(crashed_with_artifact, str(result_path)) == "transport_failure"
 
         timed_out = AgentResult(stdout="", stderr="", returncode=-1, agent="claude", timed_out=True)
         assert classify_failure(timed_out) == "transport_failure"

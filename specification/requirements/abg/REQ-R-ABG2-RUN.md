@@ -11,11 +11,11 @@
 
 ## Purpose
 
-ABG models execution attempts over GTL job realizations with governed lifecycle.
+ABG models execution attempts over GTL job realizations with a total, typed, replay-derived lifecycle algebra.
 
 ## Acceptance Criteria
 
-**REQ-R-ABG2-RUN-001**: Run states include at minimum: `queued`, `started`, `dispatched`, `pending`, `assessed`, `failed`, `timed_out`, `superseded`. Terminal states are `assessed` (successful completion), `failed`, `timed_out`, and `superseded`. Non-terminal states are `queued`, `started`, `dispatched`, `pending`.
+**REQ-R-ABG2-RUN-001**: Run states include at minimum: `queued`, `started`, `dispatched`, `pending`, `assessed_pass`, `failed`, `timed_out`, `superseded`. Terminal states are `assessed_pass`, `failed`, `timed_out`, and `superseded`. Non-terminal states are `queued`, `started`, `dispatched`, and `pending`.
 
 **REQ-R-ABG2-RUN-002**: `run_id` is an execution attempt over a GTL job realization. Multiple runs may exist for the same job and work_key.
 
@@ -30,3 +30,7 @@ ABG models execution attempts over GTL job realizations with governed lifecycle.
 **REQ-R-ABG2-RUN-007**: When a run is bound to a worker, ABG shall preserve the bound `worker_id` and `role` as part of run or binding provenance.
 
 **REQ-R-ABG2-RUN-008**: When external policy systems provide an authority reference, ABG shall preserve that `authority_ref` with the run or binding record without becoming the authority-resolution system.
+
+**REQ-R-ABG2-RUN-009**: `assessed{kind: fp, result: pass}` is an evaluator fact that projects to successful terminal run truth `assessed_pass`. `assessed{kind: fp, result: fail}` shall not project to successful terminal truth; it shall project to failed run truth with `failure_class=certification_failure`.
+
+**REQ-R-ABG2-RUN-010**: Canonical lifecycle projection shall be owned centrally. Consumers may read projected run truth, but they shall not define parallel lifecycle summaries that contradict the central run algebra.

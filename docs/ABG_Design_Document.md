@@ -59,6 +59,17 @@ Every link is load-bearing. A break at any link creates accidental law.
 | Projection model | CORE-001/002/003 | ADR-005 |
 | Snapshot-bound F_P | EVAL-002/003 | ADR-011, ADR-012 |
 
+### Semantic Ownership Map
+
+| Responsibility | Owning surface | Notes |
+|---|---|---|
+| Canonical run algebra and replay projection | `abg.run` | One owner of successful, failed, timeout, and supersession truth |
+| Canonical event-emission law | `abg.events` | `emit()` is the only lawful write boundary |
+| Traversal orchestration | `abg.interpret` | Produces facts and requests emission; does not own append semantics |
+| Substrate classification | `abg.transport` | Owns `transport_failure`, `no_output`, `contract_failure` substrate/payload classification |
+| CLI/control-plane policy projection | product policy + `abg.cli` | Must project from canonical ABG truth and not invent a parallel lifecycle story |
+| Consumer read models | `abg.binding`, `abg.services`, `abg.subwork` | Must consume the new center and not preserve superseded categories locally |
+
 ---
 
 ## 3. Domain Models
@@ -337,7 +348,7 @@ flowchart TD
         C1["Scheduler: edge_started, fp_dispatched,\nfh_gate_pending, edge_converged"]
         C2["Correction: reset"]
         C3["Selection: workflow_selected, work_spawned"]
-        C4["Run lifecycle: run_bound, run_started,\nrun_superseded"]
+        C4["Run lifecycle: run_bound, run_started,\nrun_pending, run_failed,\nrun_timed_out, run_superseded"]
         C5["Leaf lifecycle: leaf_task_started,\nleaf_task_completed, leaf_task_failed"]
     end
 
@@ -478,9 +489,11 @@ stateDiagram-v2
     queued --> started : run_started
     started --> dispatched : fp_dispatched
     dispatched --> pending
+    dispatched --> failed : run_failed
+    dispatched --> timed_out : run_timed_out
     dispatched --> superseded : run_superseded
-    pending --> assessed
-    assessed --> converged
+    pending --> assessed_pass
+    assessed_pass --> converged
     pending --> timed_out
     pending --> failed
     pending --> superseded : run_superseded
@@ -505,13 +518,17 @@ class RunState:
     superseded_by: str | None
 ```
 
+`assessed` remains an evaluator fact event. It is not the successful terminal run
+state. Successful terminal projection is `assessed_pass`. Failed F_P assessment
+projects to `failed` with `failure_class=certification_failure`.
+
 **Failure taxonomy:**
 
 | Classification | Meaning | Retry eligible |
 |---|---|---|
 | `transport_failure` | Actor unreachable, timeout, crash | Yes -- automatic, bounded backoff |
 | `no_output` | Actor returned empty/invalid response | Yes -- with different parameters |
-| `bad_output` | Structurally invalid assessment | No -- requires diagnosis |
+| `contract_failure` | Malformed or schema-invalid result artifact | No -- requires diagnosis |
 | `certification_failure` | Output exists but F_D still fails | No -- construction quality problem |
 
 **Leaf task sub-dispatch:**
@@ -700,7 +717,7 @@ sequenceDiagram
     "prompt": "...",
     "result_path": ".ai-workspace/fp_results/...",
     "spec_hash": "a1b2c3d4e5f6a7b8",
-    "requirements": ["REQ-F-BOOT-001", ...],
+    "requirements": ["REQ-R-ABG2-BINDING-006", ...],
     "run_id": "...",
     "work_key": "FEAT-001"
 }
@@ -825,22 +842,23 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    E["stream.append(event_type, data)"] --> TS["System-assign event_time\n(UTC ISO format)"]
+    E["emit(event_type, data, context)"] --> TS["System-assign event_time\n(UTC ISO format)"]
     TS --> WV{"workflow_version\nknown?"}
     WV -->|yes| AN["Inject workflow_version\n(set-default, never overwrite)"]
     WV -->|no| SK["Skip annotation"]
-    AN --> WKI{"work_key / run_id\nset on stream?"}
+    AN --> WKI{"work_key / run_id\npresent in event context?"}
     WKI -->|yes| INJ["Auto-inject work_key, run_id\n(set-default)"]
     WKI -->|no| SK2["Skip"]
-    INJ --> AP["Append to events.jsonl"]
+    INJ --> AP["EventStream.append() internal write"]
     SK --> AP
     SK2 --> AP
 ```
 
-**EventStream.append() contract:**
+**emit() contract:**
 - `event_time` is always system-assigned (UTC ISO)
-- `workflow_version`, `work_key`, `run_id` are injected via `setdefault()` when set on the stream object -- never overwrite explicit values
+- `workflow_version`, `work_key`, `run_id` are injected from explicit event context with `setdefault()` semantics
 - Corrupted log lines fail visibly -- no silent skipping during replay
+- `EventStream.append()` is storage substrate internal to the event module, not a second public emission contract
 
 ### 5.2 Context Resolution Flow
 
@@ -1102,7 +1120,7 @@ ABG engine modules and their responsibilities:
 | `gtl.work_model` | ContractRef, Role, Job | gtl.graph |
 | `gtl.module_model` | Module, ModuleImport | all gtl.* |
 | `gtl.algebra` | compose, substitute, identity, recurse, HOF, sugar | gtl.graph, gtl.function_model |
-| `genesis.events` | EventStream, append-only log | stdlib only |
+| `genesis.events` | emit(), typed event construction, EventStream append-only substrate | stdlib only |
 | `genesis.projection` | project() -- deterministic replay | genesis.events |
 | `genesis.correction` | find_latest_reset() | stdlib only |
 | `genesis.provenance` | req_hash, executable_job_hash, workflow_version | genesis.binding |
@@ -1111,11 +1129,11 @@ ABG engine modules and their responsibilities:
 | `genesis.selection` | SelectionDecision, validate/resolve/enumerate | gtl.*, no runtime deps |
 | `genesis.interpret` | Traversal, TraversalRuntime, traverse(), apply_selection(), schedule() | all genesis.* |
 | `genesis.lineage` | WorkInstance, spawn, discover_children, active_work_keys | genesis.binding, genesis.events |
-| `genesis.run` | RunState, run_state, find_pending_run | stdlib only |
+| `genesis.run` | RunState, lifecycle algebra, replay projection, pending-run discovery | genesis.events |
 | `genesis.subwork` | LeafTask, dispatch_leaf, validate_leaf_schema | genesis.transport |
 | `genesis.services` | Scope, gen_gaps, gen_iterate, gen_start | all genesis.* |
 
-**Dependency rule:** GTL types have no runtime dependency. `genesis.selection` is a pure kernel module (no side effects, no events, no I/O). Event emission is concentrated in `genesis.interpret` (per GTL_2_MODULE_DESIGN SS4.4).
+**Dependency rule:** GTL types have no runtime dependency. `genesis.selection` is a pure kernel module (no side effects, no events, no I/O). Event emission is concentrated in `genesis.events`; `genesis.interpret` requests emission through that boundary and `genesis.run` projects lifecycle truth from the resulting stream.
 
 ---
 
@@ -1124,7 +1142,7 @@ ABG engine modules and their responsibilities:
 For human design review, the highest-value questions are:
 
 1. **Is Module now truly the authoritative entry point?** -- Worker, ExecutableJobs, and validation surfaces all derive from Module at Scope construction
-2. **Is the GTL/ABG boundary clean?** -- GTL types have no runtime dependency; algebra is pure; selection.py returns values, interpret.py emits events
+2. **Is the GTL/ABG boundary clean?** -- GTL types have no runtime dependency; algebra is pure; selection.py returns values, interpret.py orchestrates, genesis.events emits, genesis.run projects
 3. **Does CandidateFamily + SelectionDecision eliminate hidden strategy?** -- No auto-selection, no implicit inference of alternatives. validate_module_selection_surface() fails closed on hidden contracts
 4. **Does categorical identity (.id) prevent name collision?** -- substitute() and ContractRef operate by .id; composition creates fresh ids
 5. **Is the event model cleanly three-tiered?** -- Only five primes participate in fluent projection; everything else is Tier 2/3

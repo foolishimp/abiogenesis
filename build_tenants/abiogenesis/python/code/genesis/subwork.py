@@ -6,7 +6,7 @@ subwork — Bounded sub-work realization.
 LeafTask, validate_leaf_schema, dispatch_leaf.
 
 Pure kernel module — dispatch_leaf() returns (output, failure_class).
-Event emission delegated to genesis.interpret.
+Event emission delegated to genesis.events via genesis.interpret.
 """
 from __future__ import annotations
 
@@ -22,8 +22,8 @@ class LeafTask:
     """
     Bounded, schema-driven sub-work unit dispatched within traversal realization.
 
-    ADR-027 REQ-F-LEAF-001: Leaf tasks are subordinate to graph traversal.
-    Schema-driven: input validated before dispatch, output validated after.
+    Leaf tasks are subordinate to graph traversal.
+    Schema-driven: input is validated before dispatch and output at the transport boundary.
     """
     name: str
     input_schema: dict
@@ -84,7 +84,7 @@ def dispatch_leaf(
 ) -> tuple[dict | None, str | None]:
     """Synchronous leaf task sub-dispatch within traversal realization.
 
-    ADR-027 REQ-F-LEAF-002: Bounded, schema-driven sub-work.
+    Bounded, schema-driven sub-work.
     Does NOT emit events — returns data for the caller to emit.
 
     Returns:
@@ -95,7 +95,7 @@ def dispatch_leaf(
 
     valid, err = validate_leaf_schema(input_data, task.input_schema)
     if not valid:
-        return None, "bad_output"
+        return None, "contract_failure"
 
     result_dir = Path(work_folder) / ".ai-workspace" / "leaf_results"
     result_dir.mkdir(parents=True, exist_ok=True)
@@ -116,17 +116,21 @@ def dispatch_leaf(
     timeout_s = max(1, task.timeout_ms // 1000)
     result = dispatch_agent(prompt, work_folder, agent=agent, timeout=timeout_s)
 
-    failure = classify_failure(result, result_path=result_path)
+    failure = classify_failure(
+        result,
+        result_path=result_path,
+        payload_validator=lambda payload: validate_leaf_schema(payload, task.output_schema)[0],
+    )
     if failure is not None:
         return None, failure
 
     try:
         output = json.loads(Path(result_path).read_text(encoding="utf-8"))
     except (json.JSONDecodeError, OSError):
-        return None, "bad_output"
+        return None, "contract_failure"
 
     valid, err = validate_leaf_schema(output, task.output_schema)
     if not valid:
-        return None, "bad_output"
+        return None, "contract_failure"
 
     return output, None

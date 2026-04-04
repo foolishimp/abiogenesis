@@ -80,6 +80,34 @@ class TestV2SandboxInstall:
         run_archive.update_summary(installed_module_count=len(installed_modules))
 
     @pytest.mark.usecase_id("sandbox_install")
+    def test_runtime_source_keeps_emit_as_only_write_boundary_and_removes_drift_names(self, run_archive):
+        workspace = run_archive.workspace
+        install_real_sandbox(workspace, archive=run_archive)
+
+        source_root = Path(__file__).resolve().parents[2] / "code" / "genesis"
+        append_offenders: list[str] = []
+        drift_offenders: list[str] = []
+        forbidden_terms = (
+            "bad" + "_output",
+            "auto_fp_dispatch_" + "handled",
+            "auto_fp_dispatch_" + "available",
+            "auto_fh_approve_" + "available",
+        )
+
+        for path in sorted(source_root.glob("*.py")):
+            text = path.read_text(encoding="utf-8")
+            if path.name != "events.py":
+                for lineno, line in enumerate(text.splitlines(), 1):
+                    if "runtime.stream.append(" in line or "stream.append(" in line:
+                        append_offenders.append(f"{path.name}:{lineno}:{line.strip()}")
+            for term in forbidden_terms:
+                if term in text:
+                    drift_offenders.append(f"{path.name}:{term}")
+
+        assert append_offenders == [], append_offenders
+        assert drift_offenders == [], drift_offenders
+
+    @pytest.mark.usecase_id("sandbox_install")
     def test_installed_runtime_can_execute_emit_event_from_workspace(self, run_archive):
         workspace = run_archive.workspace
         install_real_sandbox(workspace, archive=run_archive)

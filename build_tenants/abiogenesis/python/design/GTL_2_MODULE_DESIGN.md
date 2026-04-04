@@ -75,11 +75,11 @@ In this Claude build, the conceptual `abg.*` runtime layer is implemented under 
 
 | Target module | Owns | Primary types / functions | Requirement families |
 | --- | --- | --- | --- |
-| `abg.events` | Append-only event substrate | `EventStream`, `EventContext`, `emit()`, event schema helpers | REQ-R-ABG2-EVENTS |
+| `abg.events` | Canonical event-emission boundary and append-only substrate | `EventStream`, `EventContext`, `emit()`, lifecycle/frame schema helpers | REQ-R-ABG2-EVENTS |
 | `abg.projection` | Pure replay | `project()`, derived truth folds | REQ-R-ABG2-PROJECTION |
 | `abg.binding` | Executable job resolution, deterministic precomputation, worker capability, role binding, immutable execution surfaces | `ExecutableJob`, `WorkSurface`, `Worker`, preparation helpers, `bind_fd()`, `bind_fp()`, `bind_fh()`, executable-job hashes | REQ-R-ABG2-INTERPRET, REQ-R-ABG2-WORKER, REQ-R-ABG2-BINDING, REQ-R-ABG2-PROVENANCE |
 | `abg.lineage` | Work identity and parent/child | `spawn()`, `discover_children()`, lineage queries, work-identity helpers | REQ-R-ABG2-LINEAGE |
-| `abg.run` | Execution attempts | `RunState`, `run_state()`, `find_pending_run()`, `supersede_run()` | REQ-R-ABG2-RUN |
+| `abg.run` | Canonical run algebra and lifecycle projection | `RunState`, projection helpers, lifecycle transition helpers, `find_pending_run()`, `supersede_run()` | REQ-R-ABG2-RUN |
 | `abg.convergence` | Delta and convergence | `delta()`, `parent_converged()`, evaluator-vector convergence, round visibility | REQ-R-ABG2-CONVERGENCE |
 | `abg.selection` | Candidate enumeration and validation | `SelectionDecision`, candidate discovery, candidate-family/profile validation | REQ-R-ABG2-SELECTION-APPLICATION |
 | `abg.materialization` | Canonical graph-function realization and graph-derived companion bundles | `MaterializationRequest`, `MaterializationRecord`, `CompanionBundle`, `materialize_graph_function()`, `derive_bundle()` | REQ-L-GTL2-GRAPHFUNCTION, REQ-M-GTL2-MAPPING, REQ-M-GTL2-PROVENANCE, REQ-R-ABG2-PROVENANCE |
@@ -87,7 +87,7 @@ In this Claude build, the conceptual `abg.*` runtime layer is implemented under 
 | `abg.correction` | Correction and reset | `find_latest_reset()`, certification shadowing | REQ-R-ABG2-CORRECTION |
 | `abg.subwork` | Bounded sub-work realization | `LeafTask`, `validate_leaf_schema()`, `dispatch_leaf()` | REQ-R-ABG2-LEAFTASK |
 | `abg.transport` | Agent transport surface | `AgentTransportError`, `dispatch_agent()`, `classify_failure()`, transport-local result helpers | REQ-R-ABG2-TRANSPORT, ADR-022 |
-| `abg.interpret` | Graph interpretation loop | `Traversal`, `traverse()`, recursive continuation/frontier orchestration, suspend/resume, next-action, event emission for delegated modules | REQ-R-ABG2-INTERPRET, REQ-R-ABG2-SELECTION-APPLICATION (apply + emit) |
+| `abg.interpret` | Graph interpretation loop | `Traversal`, `traverse()`, recursive continuation/frontier orchestration, suspend/resume, next-action, fact production for delegated modules via `abg.events` | REQ-R-ABG2-INTERPRET, REQ-R-ABG2-SELECTION-APPLICATION (apply + emit) |
 | `abg.selfhosting` | Derived artifact governance | bootloader consistency checks, drift detection | REQ-R-ABG2-SELFHOSTING |
 
 ### 3.3 ABG application surface
@@ -103,6 +103,17 @@ In this Claude build, the conceptual `abg.*` runtime layer is implemented under 
 Canonical engine mapping of published graph functions into executable graph surfaces is part of the ABG kernel. `abg.materialization` owns lawful materialization and graph-derived companion bundle derivation for the canonical engine. `abg.provenance` owns replayable recording of graph-function identity, materialization identity, and bundle derivation truth.
 
 Alternate runtime families remain deferred. Capability profiles, alternate engine adapters, and non-ABG mapping surfaces stay outside the ABG 2.0 shipping line until those runtimes are intentionally designed.
+
+### 3.5 Semantic Ownership Map
+
+| Responsibility | Owning module | Consumers / non-owners |
+| --- | --- | --- |
+| Canonical run algebra and replay projection | `abg.run` | `abg.interpret`, `abg.services`, `abg.cli`, `abg.binding` consume projected truth |
+| Lawful event emission and event payload validation | `abg.events` | `abg.interpret`, `abg.services`, `abg.cli`, recursive helpers request emission through helpers only |
+| Substrate and payload-contract classification | `abg.transport` | `abg.subwork`, `abg.interpret`, qualification surfaces consume the classifications |
+| Traversal orchestration and recursive progress | `abg.interpret` | does not own alternate lifecycle or append semantics |
+| CLI/control-plane reporting and loop behavior | `abg.cli` plus product policy surfaces | must project from canonical ABG truth and may not redefine it |
+| Consumer read models over evaluator/run truth | `abg.binding`, `abg.services`, `abg.subwork` | must conform to the run/events center and not preserve superseded semantics locally |
 
 ---
 
@@ -421,21 +432,28 @@ def candidate_family(
 
 ### 4.4 Event delegation pattern
 
-`abg.selection` and `abg.subwork` are pure kernel modules — they return structured values but do not emit events themselves. Event emission is the responsibility of `abg.interpret`, which has access to `abg.events` via its `abg.*` import rule.
+`abg.selection` and `abg.subwork` are pure kernel modules — they return structured values but do not emit events themselves.
 
-`abg.services` does not emit events directly — it orchestrates through `abg.interpret`, which owns the event emission path.
+`abg.events` owns the canonical emission boundary. Other modules may construct
+facts and request emission, but they do not own append semantics.
+
+`abg.interpret` owns traversal facts and recursive progress, not the event store.
+It emits only by calling `abg.events` helpers.
+
+`abg.services` and `abg.cli` do not emit directly to storage. They orchestrate
+through the canonical `abg.events` boundary.
 
 This follows the same principle as the F_P contract: "F_P does not call the event logger. F_P produces artifacts; F_D reads them and emits events."
 
 Concretely:
-- `abg.selection` returns `SelectionDecision` → `abg.interpret` emits `workflow_selected` event
-- `abg.subwork.dispatch_leaf()` returns `(output, failure_class)` → `abg.interpret` emits `leaf_task_started`/`completed`/`failed`
+- `abg.selection` returns `SelectionDecision` → `abg.interpret` requests `abg.events` to emit `workflow_selected`
+- `abg.subwork.dispatch_leaf()` returns `(output, failure_class)` → `abg.interpret` requests `abg.events` to emit `leaf_task_started`/`completed`/`failed`
 
 **Selection responsibility split**: `abg.selection` owns candidate enumeration and interface validation (REQ-R-ABG2-SELECTION-APPLICATION-001, -003, -004), including fail-closed validation of frame-local publication surfaces when recursion introduces nested alternatives. Strategic choice remains external and must arrive as an explicit `SelectionDecision`. `abg.interpret` owns lawful application — opening an invocation frame, emitting selection provenance, and carrying child lineage/fold-back through runtime events (REQ-R-ABG2-SELECTION-APPLICATION-002).
 
 **Convergence responsibility split**: GTL declares evaluator multiplicity, vector topology, and policy-visible rule parameters. `abg.convergence` executes rounds, ordering, and aggregate convergence deterministically. Domain bindings still define the meaning of the judgments.
 
-**Traversal responsibility split**: `abg.interpret` owns the named `Traversal` contract and the `traverse()` entrypoint. It may invoke graph-function materialization, convergence, lawful selection/refinement, and frame-local child execution, but it does so only through delegated kernel modules and remains the sole event-emission path.
+**Traversal responsibility split**: `abg.interpret` owns the named `Traversal` contract and the `traverse()` entrypoint. It may invoke graph-function materialization, convergence, lawful selection/refinement, and frame-local child execution, but it does so only through delegated kernel modules and canonical `abg.events` helpers. It is not a second event-emission owner.
 
 **Recursive control responsibility split**: `abg.interpret` owns continuation/frontier state, fold-back barrier evaluation, and suspend/resume for recursive execution (REQ-R-ABG2-INTERPRET-006, -009, -010, -011, -012). `abg.services` may invoke the interpreter, but service entrypoints are not the semantic owner of recursive progress.
 
@@ -585,7 +603,7 @@ class RunState:
     work_key: str | None
     run_id: str
     edge: str
-    state: str               # queued|started|dispatched|pending|assessed|failed|timed_out|superseded
+    state: str               # queued|started|dispatched|pending|assessed_pass|failed|timed_out|superseded
     vector_id: str | None = None
     job_id: str | None = None
     worker_id: str | None = None

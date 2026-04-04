@@ -184,7 +184,7 @@ def emit(
     event_time is assigned from the system clock — no caller can pass it.
     F_P constructs content; the F_D engine calls emit(). Never the reverse.
 
-    REQ-F-EVAL-005: assessed{kind: fp} events must carry spec_hash.
+    `assessed{kind: fp}` events must carry `spec_hash`.
     Prime event validation: approved and revoked must carry kind.
 
     Optional explicit stream/context support pre-stack command surfaces while

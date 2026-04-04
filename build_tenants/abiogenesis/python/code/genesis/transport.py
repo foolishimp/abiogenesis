@@ -9,7 +9,7 @@ transport — Subprocess transport for F_P actor invocations.
 
 Architecture: F_D → subprocess → agent (ADR-022).
 Supported agents: claude, codex, gemini.
-ADR-027 failure classification: transport_failure, no_output, bad_output.
+ADR-027 failure classification: transport_failure, no_output, contract_failure.
 """
 from __future__ import annotations
 
@@ -19,6 +19,7 @@ import shutil
 import subprocess
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any, Callable
 
 
 AGENT_CALL_TIMEOUT = 300
@@ -138,7 +139,7 @@ def dispatch_agent(
     """Invoke an agent subprocess and return the full result.
 
     Unlike call_agent(), this never raises — all outcomes are captured in AgentResult.
-    ADR-027 REQ-F-RUN-002: dispatch primitive for run governance.
+    The caller can then classify substrate and payload-contract failure explicitly.
     """
     cmd = _agent_command(agent)
     if not shutil.which(cmd):
@@ -180,20 +181,22 @@ def dispatch_agent(
 def classify_failure(
     result: AgentResult,
     result_path: str | None = None,
+    *,
+    payload_validator: Callable[[Any], bool] | None = None,
 ) -> str | None:
-    """Classify an agent invocation failure per ADR-027 REQ-F-RUN-002.
+    """Classify an agent invocation failure at the transport boundary.
 
     Returns None on success, or one of:
-      transport_failure, no_output, bad_output
+      transport_failure, no_output, contract_failure
     """
     if result.timed_out:
         return "transport_failure"
 
-    if result.returncode != 0 and not result.stdout.strip():
+    if result.returncode != 0:
         return "transport_failure"
 
     if not result_path:
-        return "transport_failure" if result.returncode != 0 else None
+        return None
 
     try:
         path = Path(result_path)
@@ -202,9 +205,11 @@ def classify_failure(
         content = path.read_text(encoding="utf-8").strip()
         if not content:
             return "no_output"
-        json.loads(content)
+        payload = json.loads(content)
+        if payload_validator is not None and not payload_validator(payload):
+            return "contract_failure"
     except json.JSONDecodeError:
-        return "bad_output"
+        return "contract_failure"
     except OSError:
         return "no_output"
 

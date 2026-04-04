@@ -9,15 +9,15 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 
-# Valid run states (ADR-027)
+# Canonical run states projected from the event stream.
 RUN_STATES = frozenset({
     "queued", "started", "dispatched", "pending",
-    "assessed", "failed", "timed_out", "superseded",
+    "assessed_pass", "failed", "timed_out", "superseded",
 })
 
-# Failure classifications (ADR-027 REQ-F-RUN-002)
+# Canonical failure classifications projected from the event stream.
 FAILURE_CLASSES = frozenset({
-    "transport_failure", "no_output", "bad_output", "certification_failure",
+    "transport_failure", "no_output", "contract_failure", "certification_failure",
 })
 
 
@@ -26,8 +26,8 @@ class RunState:
     """
     Derived state of a single run attempt.
 
-    ADR-027 REQ-F-RUN-001: state derived entirely from events — no mutable state.
-    ADR-030: extended with binding identity fields.
+    State is derived entirely from events; no mutable runtime shadow state exists.
+    Binding identity fields remain replay-visible when present in the stream.
     """
     work_key: str | None
     run_id: str
@@ -45,6 +45,22 @@ class RunState:
     failure_class: str | None = None
     attempt_number: int = 1
     superseded_by: str | None = None
+
+
+def _project_assessment(
+    data: dict,
+    current_state: str | None,
+    current_failure_class: str | None,
+) -> tuple[str | None, str | None]:
+    """Project an evaluator fact into canonical run truth when it is F_P-shaped."""
+    if data.get("kind") != "fp":
+        return current_state, current_failure_class
+    result = data.get("result")
+    if result == "pass":
+        return "assessed_pass", None
+    if result == "fail":
+        return "failed", "certification_failure"
+    return current_state, current_failure_class
 
 
 def run_state(
@@ -117,8 +133,8 @@ def run_state(
             work_key = edata.get("work_key", work_key)
             edge = edata.get("edge", edge)
             attempt_number = edata.get("attempt_number", attempt_number)
-            # run_started may carry identity fields for backwards compat,
-            # but run_bound is authoritative when present.
+            # run_bound is authoritative when present; run_started may still
+            # carry identity fields as event-local provenance.
             job_id = edata.get("job_id", job_id)
             worker_id = edata.get("worker_id", worker_id)
             role_id = edata.get("role_id", role_id)
@@ -139,7 +155,6 @@ def run_state(
             resolved_runtime_ref = edata.get("resolved_runtime_ref", resolved_runtime_ref)
 
         elif etype == "assessed":
-            state = "assessed"
             edge = edata.get("edge", edge)
             role_id = edata.get("role_id", role_id)
             authority_ref = edata.get("authority_ref", authority_ref)
@@ -147,13 +162,15 @@ def run_state(
             selected_backend = edata.get("selected_backend", edata.get("backend_id", selected_backend))
             assignment_source = edata.get("assignment_source", assignment_source)
             resolved_runtime_ref = edata.get("resolved_runtime_ref", resolved_runtime_ref)
+            state, failure_class = _project_assessment(edata, state, failure_class)
 
         elif etype == "run_failed":
             state = "failed"
-            failure_class = edata.get("failure_class")
+            failure_class = edata.get("failure_class", failure_class)
 
         elif etype == "run_timed_out":
             state = "timed_out"
+            failure_class = None
 
     if state is None:
         return None
@@ -187,8 +204,7 @@ def find_pending_run(
     """
     Find an active (queued/pending/started/dispatched) run for this (edge, work_key).
 
-    ADR-027 REQ-F-RUN-003: at most one run in an active state
-    per (work_key, edge).
+    At most one run may remain active per (work_key, edge) after replay.
     """
     candidate_run_ids: list[str] = []
     for e in all_events:

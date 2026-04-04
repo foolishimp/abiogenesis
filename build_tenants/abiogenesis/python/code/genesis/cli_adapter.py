@@ -522,7 +522,7 @@ def _emit_event_cmd(event_type: str, data_json: str, workspace: Path) -> int:
                 errors.append(f"assessed requires '{fld}' field")
         kind = data.get("kind")
         if kind == "fp":
-            # REQ-F-EVAL-004: spec_hash required so bind_fd() can validate snapshot.
+            # spec_hash is required so bind_fd() can validate the active requirements snapshot.
             for fld in ("evaluator", "spec_hash"):
                 if fld not in data:
                     errors.append(f"assessed{{kind: fp}} requires '{fld}' field")
@@ -560,7 +560,7 @@ def _emit_event_cmd(event_type: str, data_json: str, workspace: Path) -> int:
             print(f"ERROR: {msg}", file=sys.stderr)
         return 1
 
-    # Annotate workflow_version from active-workflow.json (REQ-F-PROV-002).
+    # Annotate workflow_version from active-workflow.json.
     # Reads the file directly — emit-event runs pre-stack without a Scope object.
     # Honour the runtime contract: if genesis.yml declares active_workflow, use it.
     _config = _load_project_config(workspace)
@@ -787,8 +787,6 @@ def _run_start_auto(scope, stream, *, workspace: Path, mod_ref: str | None, huma
             if handled:
                 continue
             result["stopped_by"] = "fp_dispatch"
-            result["auto_fp_dispatch_available"] = True
-            result["auto_fp_dispatch_handled"] = False
             return result
 
         if blocking_reason == "fh_gate" and human_proxy:
@@ -811,10 +809,6 @@ def _run_start_auto(scope, stream, *, workspace: Path, mod_ref: str | None, huma
 
         if blocking_reason is not None:
             result["stopped_by"] = blocking_reason
-            if blocking_reason == "fp_dispatch":
-                result["auto_fp_dispatch_available"] = auto_fp_dispatch is not None
-            if blocking_reason == "fh_gate":
-                result["auto_fh_approve_available"] = auto_fh_approve is not None
             return result
 
     result["auto"] = True

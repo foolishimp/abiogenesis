@@ -28,7 +28,7 @@ ABG now treats runtime identity as a first-class surface.
   - `worker_id`
   - `backend_id`
   - `authority_ref`
-- `build` remains only a legacy compatibility projection for older surfaces that still print one build string.
+- `build` remains a reporting projection only; canonical runtime identity stays in the structured fields above.
 - the CLI resolves the configured `worker:` symbol from the runtime contract and passes it explicitly into `Scope`.
 - `Scope` and `TraversalRuntime` bind structured runtime identity to the resolved worker before reporting or dispatch.
 - worker id is no longer re-synthesized from the legacy build string during traversal rewrites.

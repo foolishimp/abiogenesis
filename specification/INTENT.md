@@ -281,33 +281,35 @@ The outer graph still sees input compatible with `design` and output compatible 
 ## INT-005 — Run Governance and Leaf Tasks
 
 **Date**: 2026-03-24
-**Status**: Draft
+**Status**: Approved
 **Derived from**: Codex strategy `20260324T112920_STRATEGY_recursion-prime-structured-v2-roadmap.md`
 
 ### Problem
 
 The runtime requires two additional capabilities to scale beyond single-shot F_P dispatch:
 
-1. **Run governance is primitive.** Each F_P attempt has only two states: dispatched and assessed. There is no explicit lifecycle model. Transport failures, bad output, and certification failures are not distinguished. No retry semantics. No timeout governance. No pending deduplication beyond a basic fluent check. This means every failure mode is handled ad hoc by the skill/caller rather than constitutionally by the kernel.
+1. **Run governance still has more than one semantic center.** The runtime now contains pieces of a richer lifecycle model, but active intent, requirements, design, and implementation still teach overlapping doctrines. Successful certification, failed certification, substrate failure, and control-plane handling are not all projected from one canonical algebra. Event ownership is also split between the declared `emit()` boundary and traversal-local write behavior. As long as those parallel centers remain, the runtime can drift back toward partial or boolean semantics even after local refactors.
 
-2. **No bounded sub-work primitive.** Complex iterate() calls sometimes need narrow helper tasks — structured queries, schema transforms, validation checks — that are smaller than a full F_P dispatch but need more structure than inline code. Without a disciplined leaf-task surface, the engine either over-dispatches (full F_P for trivial work) or under-governs (inline code with no provenance).
+2. **Leaf-task and control-plane surfaces inherit the same split doctrine.** Bounded sub-work and auto-loop control already exist as surfaces, but they still depend on the old mixed taxonomy and caller-local summaries. Without one algebraic center, leaf dispatch and CLI policy can reintroduce the very compromise the core is trying to remove.
 
 ### Value Proposition
 
-**Run governance** makes the transport substrate reliable enough for higher-level recursive work. When the system can confidently distinguish "actor crashed" from "actor produced bad code" from "code exists but tests fail," it can make better retry and escalation decisions. This is the foundation for distributed saga-style coordination.
+**Run governance** becomes a total algebraic core instead of a collection of partial conventions. When the system can project truthful run state from one canonical center, it can distinguish substrate failure, missing output, contract failure, and failed certification without forcing callers to reinterpret events locally. That makes retry, supersession, recursion, and operator reporting lawful instead of ad hoc.
 
-**Leaf tasks** give iterate() a disciplined way to dispatch bounded sub-work without bypassing graph traversal. Schema-driven, toolless by default, explicitly timed, and integrated with run governance. OpenClaw's `llm-task` validates this pattern — structured leaf work within a larger orchestration context.
+**Leaf tasks** remain a disciplined bounded sub-work primitive, but they now inherit the same failure algebra and event-emission boundary as parent F_P dispatch. This keeps the kernel small while removing the semantic debt that previously let helper surfaces drift away from the core.
 
 ### Scope
 
 **In scope:**
-- Explicit run lifecycle model: queued → started → dispatched → pending → assessed | failed | timed_out | superseded (convergence is edge-level via delta, not a run state)
-- Failure classification: transport_failure, no_output, bad_output, certification_failure
+- Explicit total run lifecycle model with terminal states `assessed_pass`, `failed`, `timed_out`, `superseded` and non-terminal states `queued`, `started`, `dispatched`, `pending`
+- Failure classification: `transport_failure`, `no_output`, `contract_failure`, `certification_failure`
 - Waiter deduplication: at most one pending dispatch per (work_key, edge)
 - Retry with bounded backoff for transient transport failures
 - Bounded leaf task primitive: schema-driven input/output, explicit timeout, toolless default
-- Leaf task integration with run governance lifecycle
-- Event stream records all lifecycle transitions
+- Leaf task integration with the same run-governance failure algebra and emission boundary
+- Event stream records all lifecycle transitions and evaluator facts without collapsing them into one undifferentiated success/failure state
+- One lawful event-emission boundary: `emit()`; storage append remains internal to the event substrate
+- CLI/control-plane outputs as product-policy projections over canonical run truth, not as independent boolean lifecycle stories
 - Corrective operations: compensation (scoped revocation + corrective work) distinguished from administrative reset (scope-wide re-evaluation)
 - Wildcard revocation replaced with work-lineage-scoped correction — event log remains truthful
 
@@ -318,14 +320,14 @@ The runtime requires two additional capabilities to scale beyond single-shot F_P
 
 ### Success Criteria
 
-1. Every F_P dispatch attempt has a classifiable outcome: success, transport_failure, no_output, bad_output, certification_failure
-2. Transport failures retry automatically up to a configurable bound — no manual re-dispatch for transient errors
-3. Duplicate dispatch on the same (work_key, edge) returns the pending run_id, not a new dispatch
-4. Pending runs time out after a configurable duration — no indefinite wait
-5. A leaf task can be dispatched within iterate() with schema-validated input/output
-6. Leaf task execution is governed by the same run lifecycle as F_P dispatch
+1. Successful F_P certification projects to `assessed_pass`, not generic `assessed`
+2. Failed F_P certification projects to `failed(certification_failure)`, not successful terminal truth
+3. Subprocess timeout, crash, or nonzero exit always classify as `transport_failure` even if an artifact exists
+4. Duplicate dispatch on the same `(work_key, edge)` returns the pending `run_id`, not a new dispatch
+5. A leaf task can be dispatched within `iterate()` with schema-validated input/output and the same failure algebra as parent dispatch
+6. No handled failed dispatch can surface as "not handled" in the control plane
 7. All lifecycle transitions are visible in the event stream — the history of any run is reconstructable
-8. Compensation (revocation + corrective work) and reset (scope-wide re-evaluation) are semantically distinct operations in the event stream
+8. Compensation and reset remain semantically distinct operations in the event stream
 9. No corrective operation destroys event history — the log remains append-only and truthful
 
 ---

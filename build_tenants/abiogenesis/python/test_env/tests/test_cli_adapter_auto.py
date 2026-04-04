@@ -137,6 +137,41 @@ def test_run_start_auto_invokes_fp_dispatch_hook_and_retries(monkeypatch, tmp_pa
     assert hook_calls == [("requirements→design", tmp_path)]
 
 
+def test_run_start_auto_reports_fp_dispatch_without_shadow_booleans(monkeypatch, tmp_path: Path):
+    def fake_gen_start(scope, stream, auto=False):
+        assert auto is False
+        return {
+            "status": "pending",
+            "blocking_reason": "fp_dispatch",
+            "edge": "requirements→design",
+        }
+
+    def fake_fp_dispatch(result, workspace):
+        return False
+
+    def fake_resolve(mod_ref, hook_name):
+        if hook_name == "auto_fp_dispatch":
+            return fake_fp_dispatch
+        return None
+
+    monkeypatch.setattr(services, "gen_start", fake_gen_start)
+    monkeypatch.setattr(cli_adapter, "_resolve_runtime_hook", fake_resolve)
+
+    result = cli_adapter._run_start_auto(
+        object(),
+        object(),
+        workspace=tmp_path,
+        mod_ref="demo.module:module",
+        human_proxy=False,
+    )
+
+    fp_dispatch_available = "auto_fp_dispatch_" + "available"
+    fp_dispatch_handled = "auto_fp_dispatch_" + "handled"
+    assert result["stopped_by"] == "fp_dispatch"
+    assert fp_dispatch_available not in result
+    assert fp_dispatch_handled not in result
+
+
 def test_run_start_auto_human_proxy_handles_fh_gate_and_retries(monkeypatch, tmp_path: Path):
     results = iter(
         (

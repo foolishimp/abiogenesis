@@ -100,9 +100,8 @@ class Scope:
         "{workflow}@{version}" when file present and valid; "unknown" otherwise.
         When "unknown", provenance checks are bypassed.
 
-    Runtime identity is distinct from worker binding. `build` is kept only as a
-    legacy compatibility projection for older surfaces that still print one
-    build string.
+    Runtime identity is distinct from worker binding. `build` remains an
+    explicit reporting projection, not the canonical worker/role/binding truth.
     """
     module: Module = None
     workspace_root: Path = field(default_factory=lambda: Path("."))
@@ -266,7 +265,7 @@ def gen_start(
     /gen-start = derive state → select job → traverse exactly once.
 
     Product-layer auto orchestration lives above the engine. The `auto` flag is
-    retained only as a compatibility marker for callers still passing it.
+    a caller hint for projection and does not change ABG runtime semantics.
     """
     state = _derive_state(scope, stream)
 
@@ -335,7 +334,7 @@ def _scoped_jobs(scope: Scope, worker: Worker) -> list[ExecutableJob]:
 
     feature override: existence validation only.
       Single-trajectory scope — Jobs are not tagged by feature_id.
-      --feature REQ-F-CORE validates that feature exists in the workspace;
+      --feature FEAT-CORE validates that feature exists in the workspace;
       it does not narrow which jobs run (all jobs cover the single trajectory).
       Unknown feature ID → empty list (fails closed; caller reports error).
     """

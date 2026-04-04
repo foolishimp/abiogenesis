@@ -124,6 +124,11 @@ constituent layers:
 | `Mapping` | faithful bridge from GTL to runtime realization | ad hoc semantic rewrite |
 | `Product` | policy, qualification, scenarios, release shape, goals | hidden kernel semantics |
 
+Within that boundary, ABG owns canonical run algebra, failure classification,
+and event-emission law. Product policy, including CLI auto-loop behavior and
+operator-facing summaries, must be projections over ABG truth rather than a
+second semantic center.
+
 The product boundary also separates abiogenesis from its downstream consumers:
 
 - abiogenesis owns the GTL + ABG product
