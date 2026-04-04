@@ -147,21 +147,10 @@ class TraversalRuntime:
     def __post_init__(self) -> None:
         if self.runtime_identity is None:
             self.runtime_identity = RuntimeIdentity(build_id=self.build)
-        elif (
-            self.runtime_identity.build_id is None
-            and self.build
-        ):
-            self.runtime_identity = RuntimeIdentity(
-                engine_id=self.runtime_identity.engine_id,
-                build_id=self.build,
-                worker_id=self.runtime_identity.worker_id,
-                backend_id=self.runtime_identity.backend_id,
-                authority_ref=self.runtime_identity.authority_ref,
-                assignment_source=self.runtime_identity.assignment_source,
-                resolved_runtime_ref=self.runtime_identity.resolved_runtime_ref,
-            )
+        else:
+            self.runtime_identity = self.runtime_identity.with_report_build_id(self.build)
         self.runtime_identity = self.runtime_identity.bind_worker(self.worker)
-        self.build = self.runtime_identity.legacy_build_id()
+        self.build = self.runtime_identity.report_build_id()
 
 
 @dataclass(frozen=True)
@@ -853,7 +842,7 @@ def derive_operational_gaps(
         "package": module.name,
         "work_key_filter": work_key_filter,
         "edge_filter": edge_filter,
-        "build": runtime_identity.legacy_build_id() if runtime_identity else None,
+        "build": runtime_identity.build_id if runtime_identity else None,
         "runtime_identity": runtime_identity.as_dict() if runtime_identity else {},
     }
     if work_keys:
@@ -1380,10 +1369,11 @@ def _iterated_outcome(
     edge_started_data: dict = {
         "edge": vector.name,
         "vector_id": vector.id,
-        "build": runtime.runtime_identity.legacy_build_id(),
         "worker_id": runtime.worker.id,
         "target": vector.target.name,
     }
+    if runtime.runtime_identity.build_id:
+        edge_started_data["build"] = runtime.runtime_identity.build_id
     if runtime.runtime_identity.backend_id:
         edge_started_data["backend_id"] = runtime.runtime_identity.backend_id
     if runtime.work_key is not None:

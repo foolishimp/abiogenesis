@@ -26,3 +26,5 @@ A worker may be an agent, a human, a service, or another concrete execution iden
 **REQ-R-ABG2-WORKER-004**: ABG shall accept and preserve an external authority reference or equivalent authority hook associated with the worker when provided.
 
 **REQ-R-ABG2-WORKER-005**: Worker identity is distinct from role, job, and run. A worker may realize many runs over time and may bind to different roles where lawful.
+
+**REQ-R-ABG2-WORKER-006**: Reporting metadata such as `build` or `build_id` shall not be treated as a substitute for worker identity. When ABG must derive a default worker, that derivation shall remain distinct from any reporting projection.

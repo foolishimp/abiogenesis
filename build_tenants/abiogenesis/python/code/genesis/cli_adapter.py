@@ -388,7 +388,6 @@ def _assess_result_cmd(result_path: str, workspace: Path) -> int:
     )
     selected_backend = _read_provenance(
         result_data.get("selected_backend"),
-        result_data.get("backend"),
         result_data.get("backend_id"),
         manifest_data.get("selected_backend"),
         manifest_data.get("backend_id"),
@@ -725,21 +724,20 @@ def _resolve_runtime_identity(config: dict, worker=None):
     """Resolve the structured runtime identity from flat runtime-contract fields."""
     from .identity import RuntimeIdentity
 
-    def _read(*keys: str) -> str | None:
-        for key in keys:
-            value = config.get(key)
-            if isinstance(value, str) and value:
-                return value
+    def _read(key: str) -> str | None:
+        value = config.get(key)
+        if isinstance(value, str) and value:
+            return value
         return None
 
     identity = RuntimeIdentity(
-        engine_id=_read("runtime_engine", "engine") or "genesis",
-        build_id=_read("runtime_build", "build"),
+        engine_id=_read("runtime_engine") or "genesis",
+        build_id=_read("runtime_build"),
         worker_id=_read("runtime_worker_id"),
-        backend_id=_read("runtime_backend", "backend"),
-        authority_ref=_read("runtime_authority_ref", "authority_ref"),
-        assignment_source=_read("runtime_assignment_source", "assignment_source"),
-        resolved_runtime_ref=_read("runtime_resolved_runtime_ref", "resolved_runtime_ref"),
+        backend_id=_read("runtime_backend"),
+        authority_ref=_read("runtime_authority_ref"),
+        assignment_source=_read("runtime_assignment_source"),
+        resolved_runtime_ref=_read("runtime_resolved_runtime_ref"),
     )
     return identity.bind_worker(worker)
 

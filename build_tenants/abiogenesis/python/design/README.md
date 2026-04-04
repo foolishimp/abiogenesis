@@ -68,7 +68,8 @@ This keeps the engine core smaller and makes the app bootstrap seam explicit in 
 `ABG 2.0` no longer treats one build string as the whole runtime identity.
 
 - `Worker` remains the concrete execution actor
-- runtime identity may also declare engine, build, backend, and authority provenance
+- runtime identity may also declare engine, build, worker, backend, authority,
+  assignment, and resolved-runtime provenance
 - `Scope` and `TraversalRuntime` preserve that structured identity
 - CLI/runtime bootstrap resolves the configured `worker:` from the runtime contract instead of silently manufacturing one from a default build name
 

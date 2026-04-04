@@ -28,10 +28,18 @@ ABG now treats runtime identity as a first-class surface.
   - `worker_id`
   - `backend_id`
   - `authority_ref`
-- `build` remains a reporting projection only; canonical runtime identity stays in the structured fields above.
+  - `assignment_source`
+  - `resolved_runtime_ref`
+- `build` remains a reporting projection only and mirrors explicit `build_id` when declared.
+- `build` is not synthesized from `worker_id` or `engine_id`.
+- when no explicit worker binding is supplied, default worker derivation uses
+  canonical execution identity (`runtime_identity.worker_id` or `engine_id`)
+  and does not consult reporting metadata.
 - the CLI resolves the configured `worker:` symbol from the runtime contract and passes it explicitly into `Scope`.
+- the CLI resolves structured runtime identity from the canonical `runtime_*`
+  contract keys rather than from legacy flat aliases.
 - `Scope` and `TraversalRuntime` bind structured runtime identity to the resolved worker before reporting or dispatch.
-- worker id is no longer re-synthesized from the legacy build string during traversal rewrites.
+- worker id is no longer re-synthesized from a build fallback during traversal rewrites.
 
 ## Consequences
 
@@ -40,12 +48,12 @@ ABG now treats runtime identity as a first-class surface.
 - ABG now conforms to `REQ-R-ABG2-WORKER-003` and `REQ-R-ABG2-WORKER-005` more truthfully.
 - runtime identity, worker identity, and backend identity can stay distinct in reporting and provenance.
 - external control planes can supply worker truth without monkey-patching `Scope`.
-- `genesis gaps` stops reporting a stale build default when a configured worker/router is present.
+- `genesis gaps` stops reporting a stale build default when no explicit build metadata was declared.
 
 ### Negative
 
 - runtime contract authors now have one more explicit surface to understand.
-- legacy callers that only inspect `scope.build` still receive a compatibility projection rather than the full runtime story.
+- callers that relied on synthesized `scope.build` must switch to canonical runtime identity or declare `runtime_build` explicitly.
 
 ## Non-Goals
 

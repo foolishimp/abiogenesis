@@ -76,6 +76,9 @@ It owns the runtime truth for:
 - replayable provenance over execution and runtime identity
 - transport and self-hosting execution behavior
 
+Runtime identity in ABG remains structured. Reporting projections such as
+`build` must not overwrite canonical worker/backend/authority truth.
+
 ABG does not own business policy, hidden domain logic, or the semantic
 definition of GTL itself.
 

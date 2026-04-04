@@ -100,8 +100,8 @@ class Scope:
         "{workflow}@{version}" when file present and valid; "unknown" otherwise.
         When "unknown", provenance checks are bypassed.
 
-    Runtime identity is distinct from worker binding. `build` remains an
-    explicit reporting projection, not the canonical worker/role/binding truth.
+    Runtime identity is distinct from worker binding. `build` remains nullable
+    reporting metadata, not canonical worker/role/binding truth.
     """
     module: Module = None
     workspace_root: Path = field(default_factory=lambda: Path("."))
@@ -125,19 +125,7 @@ class Scope:
         if self.runtime_identity is None:
             self.runtime_identity = RuntimeIdentity(build_id=self.build)
         else:
-            if (
-                self.runtime_identity.build_id is None
-                and self.build
-            ):
-                self.runtime_identity = RuntimeIdentity(
-                    engine_id=self.runtime_identity.engine_id,
-                    build_id=self.build,
-                    worker_id=self.runtime_identity.worker_id,
-                    backend_id=self.runtime_identity.backend_id,
-                    authority_ref=self.runtime_identity.authority_ref,
-                    assignment_source=self.runtime_identity.assignment_source,
-                    resolved_runtime_ref=self.runtime_identity.resolved_runtime_ref,
-                )
+            self.runtime_identity = self.runtime_identity.with_report_build_id(self.build)
 
         # Derive Worker from Module's jobs/vectors
         # ADR-030 §5: a single resolved worker may satisfy all declared roles.
@@ -145,14 +133,14 @@ class Scope:
             jobs = module_to_executable_jobs(self.module)
             role_ids = tuple(r.id for r in self.module.roles)
             self.worker = Worker(
-                id=self.runtime_identity.worker_id or self.runtime_identity.legacy_build_id(),
+                id=self.runtime_identity.worker_id or self.runtime_identity.engine_id,
                 can_execute=jobs,
                 role_ids=role_ids,
                 authority_ref=self.runtime_identity.authority_ref,
             )
 
         self.runtime_identity = self.runtime_identity.bind_worker(self.worker)
-        self.build = self.runtime_identity.legacy_build_id()
+        self.build = self.runtime_identity.report_build_id()
 
         self.workflow_version = _read_workflow_version(
             self.workspace_root, self.active_workflow_path

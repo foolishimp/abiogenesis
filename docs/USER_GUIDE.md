@@ -429,9 +429,14 @@ The current CLI reads these fields when present:
   - active workflow JSON used in workflow-version/provenance resolution
 - `workflow_root`
   - base directory for workflow manifests
+- `runtime_engine`
+- `runtime_worker_id`
 - `runtime_build`
+  - optional reporting alias only; does not replace `runtime_worker_id`
 - `runtime_backend`
 - `runtime_authority_ref`
+- `runtime_assignment_source`
+- `runtime_resolved_runtime_ref`
 
 ### Minimal kernel config
 
@@ -456,6 +461,8 @@ workflow_root: .genesis/workflows
 runtime_build: codex
 runtime_backend: codex_cli
 runtime_authority_ref: runtime://role-dispatch
+runtime_assignment_source: runtime://session-override/constructor
+runtime_resolved_runtime_ref: runtime://resolved/constructor/codex
 ```
 
 ### Practical rule

@@ -9,6 +9,8 @@ import json
 import textwrap
 from pathlib import Path
 
+import pytest
+
 from gtl.algebra import deferred_refinement
 from gtl.graph import Graph, GraphVector, Node
 from gtl.module_model import Module
@@ -18,6 +20,7 @@ from gtl.work_model import ContractRef, Job
 from genesis.binding import Worker, module_to_executable_jobs
 from genesis import cli_adapter
 from genesis import events as genesis_events
+from genesis.identity import RuntimeIdentity
 from genesis import install as genesis_install
 from genesis import services
 
@@ -227,7 +230,7 @@ def test_scope_reports_bound_worker_identity_when_no_runtime_build_is_declared(t
 
     result = services.gen_gaps(scope, genesis_install.workspace_bootstrap(tmp_path))
 
-    assert result["scope"]["build"] == "gsdlc_router"
+    assert result["scope"]["build"] is None
     assert result["scope"]["runtime_identity"]["worker_id"] == "gsdlc_router"
     assert result["scope"]["runtime_identity"]["authority_ref"] == "runtime://role-dispatch"
 
@@ -237,11 +240,12 @@ def test_scope_uses_engine_identity_when_no_runtime_build_or_worker_is_declared(
     scope = services.Scope(module=module, workspace_root=tmp_path)
 
     result = services.gen_gaps(scope, genesis_install.workspace_bootstrap(tmp_path))
+    runtime_identity = result["scope"]["runtime_identity"]
 
-    assert result["scope"]["build"] == "genesis"
-    assert result["scope"]["runtime_identity"]["engine_id"] == "genesis"
-    assert result["scope"]["runtime_identity"]["build_id"] == "genesis"
-    assert result["scope"]["runtime_identity"]["worker_id"] == "genesis"
+    assert result["scope"]["build"] is None
+    assert runtime_identity["engine_id"] == "genesis"
+    assert runtime_identity["worker_id"] == runtime_identity["engine_id"]
+    assert "build_id" not in runtime_identity
 
 
 def test_scope_does_not_reinject_legacy_build_default_when_runtime_identity_is_partial(tmp_path: Path):
@@ -260,9 +264,70 @@ def test_scope_does_not_reinject_legacy_build_default_when_runtime_identity_is_p
 
     result = services.gen_gaps(scope, genesis_install.workspace_bootstrap(tmp_path))
 
-    assert result["scope"]["build"] == "gsdlc_router"
-    assert result["scope"]["runtime_identity"]["build_id"] == "gsdlc_router"
+    assert result["scope"]["build"] is None
+    assert "build_id" not in result["scope"]["runtime_identity"]
     assert result["scope"]["runtime_identity"]["worker_id"] == "gsdlc_router"
+
+
+def test_scope_rejects_conflicting_runtime_build_inputs(tmp_path: Path):
+    module = _runtime_contract_module()
+
+    with pytest.raises(ValueError, match="build_id"):
+        services.Scope(
+            module=module,
+            workspace_root=tmp_path,
+            build="router-build",
+            runtime_identity=RuntimeIdentity(build_id="declared-build"),
+        )
+
+
+def test_resolve_runtime_identity_reads_runtime_prefixed_keys_only():
+    identity = cli_adapter._resolve_runtime_identity(
+        {
+            "runtime_engine": "codex-kernel",
+            "runtime_build": "codex",
+            "runtime_worker_id": "gsdlc_router",
+            "runtime_backend": "codex_cli",
+            "runtime_authority_ref": "runtime://role-dispatch",
+            "runtime_assignment_source": "runtime://session-override/constructor",
+            "runtime_resolved_runtime_ref": "runtime://resolved/constructor/codex",
+            "engine": "legacy-engine",
+            "build": "legacy-build",
+            "backend": "legacy-backend",
+            "authority_ref": "runtime://legacy-authority",
+            "assignment_source": "runtime://legacy-assignment",
+            "resolved_runtime_ref": "runtime://legacy-resolved",
+        }
+    )
+
+    assert identity.engine_id == "codex-kernel"
+    assert identity.build_id == "codex"
+    assert identity.worker_id == "gsdlc_router"
+    assert identity.backend_id == "codex_cli"
+    assert identity.authority_ref == "runtime://role-dispatch"
+    assert identity.assignment_source == "runtime://session-override/constructor"
+    assert identity.resolved_runtime_ref == "runtime://resolved/constructor/codex"
+
+
+def test_resolve_runtime_identity_ignores_legacy_unprefixed_keys():
+    identity = cli_adapter._resolve_runtime_identity(
+        {
+            "engine": "legacy-engine",
+            "build": "legacy-build",
+            "backend": "legacy-backend",
+            "authority_ref": "runtime://legacy-authority",
+            "assignment_source": "runtime://legacy-assignment",
+            "resolved_runtime_ref": "runtime://legacy-resolved",
+        }
+    )
+
+    assert identity.engine_id == "genesis"
+    assert identity.build_id is None
+    assert identity.worker_id is None
+    assert identity.backend_id is None
+    assert identity.authority_ref is None
+    assert identity.assignment_source is None
+    assert identity.resolved_runtime_ref is None
 
 
 def test_main_gaps_uses_configured_worker_and_runtime_identity_from_runtime_contract(
@@ -483,7 +548,7 @@ def test_assess_result_cmd_routes_manifest_provenance_through_workspace_event_he
                 "edge": "design→code",
                 "actor": "codex",
                 "worker_id": "codex",
-                "backend": "codex_cli",
+                "backend_id": "codex_cli",
                 "role_id": "constructor",
                 "assessments": [
                     {
@@ -566,6 +631,73 @@ def test_assess_result_cmd_routes_manifest_provenance_through_workspace_event_he
             "run_id": "run-42",
         }
     ]
+
+
+def test_assess_result_cmd_ignores_legacy_backend_field(monkeypatch, tmp_path: Path):
+    runtime_dir = tmp_path / ".ai-workspace" / "runtime"
+    runtime_dir.mkdir(parents=True, exist_ok=True)
+    (runtime_dir / "active-workflow.json").write_text(
+        json.dumps({"workflow": "demo.workflow", "version": "2.0.0"}),
+        encoding="utf-8",
+    )
+
+    result_path = tmp_path / "judge-result.json"
+    result_path.write_text(
+        json.dumps(
+            {
+                "edge": "design→code",
+                "actor": "codex",
+                "worker_id": "codex",
+                "backend": "legacy-codex-cli",
+                "role_id": "constructor",
+                "assessments": [
+                    {
+                        "evaluator": "code_complete",
+                        "result": "pass",
+                        "evidence": "all checks pass",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    manifests_dir = tmp_path / ".ai-workspace" / "fp_manifests"
+    manifests_dir.mkdir(parents=True, exist_ok=True)
+    (manifests_dir / "judge-result.json").write_text(
+        json.dumps({"spec_hash": "abc123"}),
+        encoding="utf-8",
+    )
+
+    calls: list[dict[str, object]] = []
+
+    def fake_emit_workspace_event(
+        workspace,
+        event_type,
+        data,
+        *,
+        workflow_version="unknown",
+        work_key=None,
+        run_id=None,
+    ):
+        calls.append(
+            {
+                "workspace": workspace,
+                "event_type": event_type,
+                "data": dict(data),
+                "workflow_version": workflow_version,
+                "work_key": work_key,
+                "run_id": run_id,
+            }
+        )
+
+    monkeypatch.setattr(cli_adapter, "_emit_workspace_event", fake_emit_workspace_event)
+
+    rc = cli_adapter._assess_result_cmd(str(result_path), tmp_path)
+
+    assert rc == 0
+    assert calls[0]["data"]["selected_worker_id"] == "codex"
+    assert "backend_id" not in calls[0]["data"]
+    assert "selected_backend" not in calls[0]["data"]
 
 
 def test_gen_start_auto_remains_one_step_engine_progression(monkeypatch):

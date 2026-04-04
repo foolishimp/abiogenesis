@@ -586,8 +586,10 @@ class RuntimeIdentity:
     worker_id: str | None = None
     backend_id: str | None = None
     authority_ref: str | None = None
+    assignment_source: str | None = None
+    resolved_runtime_ref: str | None = None
 
-    # compatibility projection: build_id -> worker_id -> engine_id
+    # reporting projection only: build <- explicit build_id
 
 # abg.lineage
 @dataclass(frozen=True)
@@ -651,9 +653,9 @@ class Scope:
     workspace_root: Path
     work_key_filter: str | None = None
     edge_filter: str | None = None
-    build: str | None = None  # compatibility projection only
+    build: str | None = None  # explicit reporting projection only
     runtime_identity: RuntimeIdentity | None = None
-    worker: Worker | None = None
+    worker: Worker | None = None  # default derives from canonical runtime identity, never from build
     workflow_version: str = "unknown"
 
 # abg.interpret
@@ -729,7 +731,7 @@ substitution is not.
 | --- | --- | --- |
 | `ExecutableJob` | `abg.binding` | Executable resolution of one GTL job to one graph-vector contract |
 | `Worker` | `abg.binding` | Concrete actor identity with executable capability, role ids, and authority hook |
-| `RuntimeIdentity` | `abg.identity` | Structured engine/build/worker/backend provenance for one runtime scope, with compatibility projection `build_id -> worker_id -> engine_id` |
+| `RuntimeIdentity` | `abg.identity` | Structured engine/build/worker/backend/authority/runtime provenance for one runtime scope; `build_id` is optional reporting metadata only |
 | `WorkSurface` | `abg.binding` | Immutable execution dossier, elastic context carrier, and audit surface |
 | `RunState` | `abg.run` | Execution-attempt lifecycle truth |
 | `Traversal` | `abg.interpret` | First-class traversal contract over a target with evaluators and rule |
@@ -788,7 +790,7 @@ substitution is not.
 
 | Concrete file | Conceptual module | Owns |
 | --- | --- | --- |
-| `genesis/identity.py` | `abg.identity` | `RuntimeIdentity`, neutral compatibility build projection, worker-bound runtime provenance |
+| `genesis/identity.py` | `abg.identity` | `RuntimeIdentity`, explicit build reporting projection, worker-bound runtime provenance including authority/assignment/runtime refs |
 | `genesis/services.py` | `abg.services` | `Scope`, orchestration, service-level command flows |
 | `genesis/cli_adapter.py` | `abg.cli` | parser, command wiring, traceability command adapters |
 | `genesis/selfhosting.py` | `abg.selfhosting` | structural bootloader consistency and drift checks over exported GTL surface |

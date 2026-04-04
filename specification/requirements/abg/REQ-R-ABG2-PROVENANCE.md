@@ -32,3 +32,5 @@ ABG preserves spec, workflow, version, and selection provenance over graph inter
 **REQ-R-ABG2-PROVENANCE-008**: When execution or convergence operates on a graph materialized from a published graph function, provenance shall record the graph-function identity and the materialization identity or equivalent declared input/profile references needed for replay.
 
 **REQ-R-ABG2-PROVENANCE-009**: When ABG executes or evaluates a graph-derived companion bundle such as a selected subgraph or evaluator bundle, provenance shall preserve the derivation chain back to the graph-function materialization that produced that bundle. For evaluator bundles, provenance shall also preserve the refined or realized boundary that justified the deterministic evaluator set.
+
+**REQ-R-ABG2-PROVENANCE-010**: Runtime identity provenance shall preserve canonical structured runtime identity (`engine_id`, `worker_id`, `backend_id`, `authority_ref`, `assignment_source`, `resolved_runtime_ref`) independently of reporting metadata. `build_id` is optional declared reporting metadata and shall not be synthesized from `worker_id` or `engine_id`.

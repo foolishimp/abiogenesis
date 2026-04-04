@@ -228,7 +228,7 @@ class TestV2SandboxInstall:
                     "edge": "design→code",
                     "actor": "live_fp_judge",
                     "worker_id": "codex",
-                    "backend": "codex",
+                    "backend_id": "codex",
                     "role_id": manifest["role_id"],
                     "assignment_source": "runtime://session-override/constructor",
                     "resolved_runtime_ref": "runtime://resolved/constructor/codex",

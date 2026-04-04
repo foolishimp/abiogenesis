@@ -237,7 +237,6 @@ class TestM03EngineKernelIntegration:
         scope = Scope(
             module=module,
             workspace_root=tmp_path,
-            build="kernel_router",
             runtime_identity=RuntimeIdentity(build_id="codex", backend_id="codex_cli"),
             worker=router_worker,
         )
@@ -2299,6 +2298,96 @@ class TestM03EngineKernelIntegration:
         assert derived_run.resolved_runtime_ref == "runtime://resolved/constructor/codex"
         assert manifest["work_key"] == vector.id
         assert manifest["edge"] == vector.name
+
+    def test_iterated_traversal_does_not_synthesize_build_when_runtime_build_is_undeclared(self, tmp_path: Path) -> None:
+        raw_contract = Node(name="raw_contract", schema="ContractInput")
+        discovered_context = Node(name="discovered_context", schema="DesignContext")
+        constructor = Role(name="constructor")
+        context_ok = Evaluator("context_ok", F_D, binding="exec://python -c 'import sys; sys.exit(0)'")
+        context_sufficient = Evaluator("context_sufficient", F_P, "context is sufficient to proceed")
+
+        vector = GraphVector(
+            name="raw_contract→discovered_context",
+            source=raw_contract,
+            target=discovered_context,
+            evaluators=(context_ok, context_sufficient),
+        )
+        graph = Graph(
+            name="m03_router_dispatch_no_build",
+            inputs=(raw_contract,),
+            outputs=(discovered_context,),
+            nodes=(raw_contract, discovered_context),
+            vectors=(vector,),
+        )
+        boundary = RefinementBoundary(
+            name=vector.name,
+            inputs=(raw_contract,),
+            outputs=(discovered_context,),
+        )
+        job = Job(
+            name=vector.name,
+            contracts=(ContractRef(kind="graph_vector", target_id=vector.id),),
+            roles=(constructor,),
+        )
+        module = Module(
+            name="m03_router_dispatch_no_build",
+            graphs=(graph,),
+            refinement_boundaries=(boundary,),
+            jobs=(job,),
+            roles=(constructor,),
+            metadata={"requirements": ["REQ-R-ABG2-BINDING-006"]},
+        )
+
+        router_worker = Worker(
+            id="abiogenesis_python_router",
+            can_execute=module_to_executable_jobs(module),
+            role_ids=(constructor.id,),
+            authority_ref="runtime://role-dispatch",
+        )
+        stream = workspace_bootstrap(tmp_path)
+        executable_job = module_to_executable_jobs(module)[0]
+        runtime = TraversalRuntime(
+            module=module,
+            executable_job=executable_job,
+            precomputed=_precomputed(
+                executable_job,
+                failing=(context_sufficient,),
+                passing=(context_ok,),
+            ),
+            workspace_root=tmp_path,
+            stream=stream,
+            worker=router_worker,
+            spec_hash="spec-m03-router-no-build",
+            runtime_identity=RuntimeIdentity(
+                worker_id="codex",
+                backend_id="codex",
+                authority_ref="runtime://role-dispatch",
+                assignment_source="runtime://session-override/constructor",
+                resolved_runtime_ref="runtime://resolved/constructor/codex",
+            ),
+            work_key=vector.id,
+            workflow_version="m03.test@2.0.0",
+            run_id="run-m03-router-no-build",
+        )
+
+        outcome = traverse(
+            Traversal(
+                work_key=vector.id,
+                target=boundary,
+                evaluators=vector.evaluators,
+            ),
+            runtime=runtime,
+            surface=WorkSurface(),
+        )
+
+        assert outcome.result["status"] == "iterated"
+        edge_started = next(
+            event["data"]
+            for event in stream.all_events()
+            if event["event_type"] == "edge_started"
+        )
+        assert edge_started["worker_id"] == "abiogenesis_python_router"
+        assert "build" not in edge_started
 
     def test_run_state_projects_fp_assessment_to_canonical_terminal_truth(self, tmp_path: Path) -> None:
         stream = workspace_bootstrap(tmp_path)
