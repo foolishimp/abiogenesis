@@ -4,7 +4,7 @@
 **Status**: Baseline  
 **Category**: Capability Scenario  
 **Date**: 2026-03-27  
-**Derives from**: [INTENT.md](/Users/jim/src/apps/abiogenesis/specification/INTENT.md), [SPEC_METHOD.md](/Users/jim/src/apps/abiogenesis/specification/SPEC_METHOD.md)  
+**Derives from**: [INTENT.md](/Users/jim/src/apps/abiogenesis/specification/INTENT.md), [/Users/jim/src/apps/genesis_sdlc/specification/standards/SPEC_METHOD.md](/Users/jim/src/apps/genesis_sdlc/specification/standards/SPEC_METHOD.md)  
 **Governs**: fake-lane and live-lane sandbox qualification for a minimal `requirements -> uat_tests` flow
 
 ---

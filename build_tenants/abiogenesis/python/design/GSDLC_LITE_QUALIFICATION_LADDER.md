@@ -3,7 +3,7 @@
 **Status**: Active  
 **Category**: Qualification Design  
 **Date**: 2026-03-27  
-**Derives from**: [SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md), [GTL_2_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md), [GTL_2_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md)
+**Derives from**: [SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md), [GTL_3_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_3_INTERFACE_CONTRACTS.md), [GTL_3_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_3_MODULE_DESIGN.md)
 
 ---
 
@@ -243,12 +243,12 @@ These may remain covered by collective tests or design-level traceability, but d
 
 These still need tests, but do not need to become separate sandbox stories:
 
-1. `REQ-L-GTL2-INTERFACE`
-2. `REQ-L-GTL2-JOB`
-3. `REQ-L-GTL2-ROLE`
-4. `REQ-R-ABG2-PROJECTION`
-5. `REQ-R-ABG2-RUN`
-6. `REQ-R-ABG2-SELFHOSTING`
+1. `REQ-L-GTL3-INTERFACE`
+2. `REQ-L-GTL3-JOB`
+3. `REQ-L-GTL3-ROLE`
+4. `REQ-R-ABG3-PROJECTION`
+5. `REQ-R-ABG3-RUN`
+6. `REQ-R-ABG3-SELFHOSTING`
 
 They should remain supported by collective/kernel tests unless the canonical ladder naturally pulls them in.
 

@@ -4,12 +4,12 @@ This directory already contains the live abiogenesis requirement surface.
 
 The active requirement families are grouped by constitutional domain:
 
-- `gtl/` — GTL 2.x language and graph law
+- `gtl/` — GTL 3 language and graph law
 - `abg/` — Abiogenesis engine/runtime law
 - `mapping/` — GTL-to-runtime mapping and provenance law
 - `product/` — product policy, qualification, and scenario law
 
-Use `specification/SPEC_METHOD.md` as the project process constitution when writing or revising these files.
+Use [/Users/jim/src/apps/genesis_sdlc/specification/standards/SPEC_METHOD.md](/Users/jim/src/apps/genesis_sdlc/specification/standards/SPEC_METHOD.md) as the process constitution when writing or revising these files.
 
 ## Rules
 

@@ -1,9 +1,9 @@
-# Implements: REQ-R-ABG2-JOB-WORKER
-# Implements: REQ-R-ABG2-BINDING
-# Implements: REQ-R-ABG2-WORKER
-# Implements: REQ-R-ABG2-PROVENANCE
-# Implements: REQ-R-ABG2-CORRECTION
-# Implements: REQ-R-ABG2-CONVERGENCE
+# Implements: REQ-R-ABG3-JOB-WORKER
+# Implements: REQ-R-ABG3-BINDING
+# Implements: REQ-R-ABG3-WORKER
+# Implements: REQ-R-ABG3-PROVENANCE
+# Implements: REQ-R-ABG3-CORRECTION
+# Implements: REQ-R-ABG3-CONVERGENCE
 """
 binding — Executable job resolution, deterministic precomputation, and capability model.
 
@@ -24,6 +24,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from gtl.function_model import GraphFunction
 from gtl.graph import Attrs, GraphVector, Node, Context
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, F_D, F_H, F_P
@@ -31,6 +32,7 @@ from gtl.work_model import Job as GtlJob, Role, ContractRef
 
 from .correction import find_latest_reset
 from .events import EventStream
+from .materialization import MaterializationRequest, materialize_graph_function
 from .projection import project
 
 
@@ -74,15 +76,18 @@ class WorkSurface:
 @dataclass
 class ExecutableJob:
     """
-    ABG runtime resolution of a GTL Job to a concrete GraphVector contract.
+    ABG runtime realization of a GTL Job over one internal GraphVector.
 
-    ExecutableJob wraps a GTL Job and its resolved GraphVector.
+    Public semantic work binds published GraphFunction carriers.
+    The runtime materializes that graph function, then traverses internal vectors.
     Source/target are Nodes (typed loci with markov conditions).
     The type signature is the worker capability discriminator.
 
     Invariant: vector.evaluators must not be empty (Bootloader §XVII).
     """
     job: GtlJob
+    graph_function: GraphFunction | None
+    materialization_id: str | None
     vector: GraphVector
 
     def __post_init__(self):
@@ -91,6 +96,21 @@ class ExecutableJob:
                 f"ExecutableJob '{self.vector.name}': evaluators must not be empty "
                 f"(Bootloader §XVII invariant)"
             )
+        if self.job.contracts:
+            if any(ref.kind != "graph_function" for ref in self.job.contracts):
+                raise ValueError(
+                    "ExecutableJob requires GTL job contracts over published graph functions"
+                )
+            if self.graph_function is None:
+                raise ValueError(
+                    "ExecutableJob with GTL job contracts requires a resolved GraphFunction carrier"
+                )
+            contract_ids = {ref.target_id for ref in self.job.contracts}
+            if self.graph_function.id not in contract_ids:
+                raise ValueError(
+                    f"ExecutableJob graph function {self.graph_function.name!r} is not bound by job "
+                    f"{self.job.name!r}"
+                )
 
     @property
     def evaluators(self) -> tuple:
@@ -112,7 +132,9 @@ def module_to_executable_jobs(module: Module) -> list[ExecutableJob]:
     """
     Resolve Module's GTL Jobs to ExecutableJobs.
 
-    Each Job's ContractRef is resolved to the corresponding GraphVector by id.
+    Each Job's ContractRef is resolved to a published GraphFunction by id.
+    The GraphFunction is materialized and each realized GraphVector becomes one
+    executable internal traversal boundary.
     Module.jobs must be populated — no auto-derivation.
     """
     if not module.jobs:
@@ -121,26 +143,38 @@ def module_to_executable_jobs(module: Module) -> list[ExecutableJob]:
             f"All modules must declare jobs with ContractRef bindings."
         )
 
-    vec_by_id: dict[str, GraphVector] = {}
-    for graph in module.graphs:
-        for vec in graph.vectors:
-            vec_by_id[vec.id] = vec
+    gf_by_id: dict[str, GraphFunction] = {}
+    for graph_function in module.graph_functions:
+        gf_by_id[graph_function.id] = graph_function
 
     executable_jobs: list[ExecutableJob] = []
     for gtl_job in module.jobs:
         for ref in gtl_job.contracts:
-            if ref.kind != "graph_vector":
+            if ref.kind != "graph_function":
                 raise ValueError(
                     f"Unsupported contract kind {ref.kind!r} in job {gtl_job.name!r}. "
-                    f"This build supports 'graph_vector' only."
+                    "This build supports 'graph_function' only."
                 )
-            vec = vec_by_id.get(ref.target_id)
-            if vec is None:
+            graph_function = gf_by_id.get(ref.target_id)
+            if graph_function is None:
                 raise ValueError(
                     f"ContractRef target_id {ref.target_id!r} in job {gtl_job.name!r} "
-                    f"does not resolve to any GraphVector in the module."
+                    f"does not resolve to any published GraphFunction in the module."
                 )
-            executable_jobs.append(ExecutableJob(job=gtl_job, vector=vec))
+            record = materialize_graph_function(
+                MaterializationRequest(graph_function=graph_function.name),
+                module,
+                published_graph_functions=(graph_function,),
+            )
+            for vector in record.graph.vectors:
+                executable_jobs.append(
+                    ExecutableJob(
+                        job=gtl_job,
+                        graph_function=graph_function,
+                        materialization_id=record.materialization_id,
+                        vector=vector,
+                    )
+                )
     return executable_jobs
 
 

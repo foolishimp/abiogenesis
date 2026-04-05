@@ -1,4 +1,4 @@
-# Implements: REQ-R-ABG2-INTERPRET
+# Implements: REQ-R-ABG3-INTERPRET
 """__main__ — Genesis engine entry point."""
 from .cli_adapter import main
 

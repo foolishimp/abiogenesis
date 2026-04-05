@@ -1,6 +1,6 @@
-# Implements: REQ-R-ABG2-INTERPRET
-# Implements: REQ-R-ABG2-BINDING
-# Implements: REQ-R-ABG2-SELECTION-APPLICATION
+# Implements: REQ-R-ABG3-INTERPRET
+# Implements: REQ-R-ABG3-BINDING
+# Implements: REQ-R-ABG3-SELECTION-APPLICATION
 """
 genesis.services — Named app services.
 
@@ -127,7 +127,7 @@ class Scope:
         else:
             self.runtime_identity = self.runtime_identity.with_report_build_id(self.build)
 
-        # Derive Worker from Module's jobs/vectors
+        # Derive Worker from Module's graph-function-bound jobs.
         # ADR-030 §5: a single resolved worker may satisfy all declared roles.
         if self.worker is None:
             jobs = module_to_executable_jobs(self.module)

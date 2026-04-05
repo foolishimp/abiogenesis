@@ -1,17 +1,21 @@
-# Validates: REQ-L-GTL2-GRAPH
-# Validates: REQ-L-GTL2-NODE
-# Validates: REQ-L-GTL2-INTERFACE
-# Validates: REQ-L-GTL2-OPERATOR
-# Validates: REQ-L-GTL2-EVALUATOR
-# Validates: REQ-L-GTL2-RULE
-# Validates: REQ-L-GTL2-GRAPHFUNCTION
-# Validates: REQ-L-GTL2-COMPOSE
-# Validates: REQ-L-GTL2-SUBSTITUTE
-# Validates: REQ-L-GTL2-RECURSE
-# Validates: REQ-L-GTL2-HOF
-# Validates: REQ-L-GTL2-SYNTHESIS
-# Validates: REQ-L-GTL2-SELECTION-BOUNDARY
-# Validates: REQ-L-GTL2-IDENTITY
+# Validates: REQ-L-GTL3-ATTRS
+# Validates: REQ-L-GTL3-CONTEXT
+# Validates: REQ-L-GTL3-GRAPH
+# Validates: REQ-L-GTL3-NODE
+# Validates: REQ-L-GTL3-GRAPHVECTOR
+# Validates: REQ-L-GTL3-INTERFACE
+# Validates: REQ-L-GTL3-OPERATOR
+# Validates: REQ-L-GTL3-EVALUATOR
+# Validates: REQ-L-GTL3-RULE
+# Validates: REQ-L-GTL3-GRAPHFUNCTION
+# Validates: REQ-L-GTL3-COMPOSE
+# Validates: REQ-L-GTL3-SUBSTITUTE
+# Validates: REQ-L-GTL3-RECURSE
+# Validates: REQ-L-GTL3-HOF
+# Validates: REQ-L-GTL3-LAWS
+# Validates: REQ-L-GTL3-SYNTHESIS
+# Validates: REQ-L-GTL3-SELECTION-BOUNDARY
+# Validates: REQ-L-GTL3-IDENTITY
 """
 M01 GTL-core integration lane.
 
@@ -37,7 +41,9 @@ from gtl.algebra import (
 )
 from gtl.function_model import GraphFunction, TemplateRef
 from gtl.graph import Attrs, Context, Graph, GraphVector, Node
+from gtl.module_model import Module
 from gtl.operator_model import Evaluator, F_D, F_P, Rule
+from gtl.work_model import ContractRef, Job, Role
 
 
 def _graph_function(
@@ -70,6 +76,46 @@ def _graph_function(
 
 @pytest.mark.integration
 class TestM01GtlCoreIntegration:
+    def test_graph_vectors_keep_contexts_and_declarations_as_visible_gtl_surfaces(self) -> None:
+        intent = Node(name="intent", schema="Intent")
+        code = Node(name="code", schema="Code")
+        spec = Context(
+            name="spec",
+            locator="workspace://specification/",
+            digest="sha256:" + "9" * 64,
+        )
+        vector = GraphVector(
+            "intent→code",
+            intent,
+            code,
+            contexts=(spec,),
+            declarations={
+                "dispatch_hook": "abg.dispatch.default",
+                "closure_hook": "abg.closure.default",
+            },
+        )
+        program = GraphFunction.from_graph(
+            name="intent_to_code",
+            graph=Graph(
+                name="intent_to_code",
+                inputs=(intent,),
+                outputs=(code,),
+                nodes=(intent, code),
+                vectors=(vector,),
+                contexts=(spec,),
+            ),
+            declarations={"evaluation_hook": "abg.evaluate.default"},
+        )
+
+        materialized = program.materialize()
+        materialized_vector = materialized.vectors[0]
+
+        assert isinstance(materialized_vector.declarations, Attrs)
+        assert materialized_vector.declarations["dispatch_hook"] == "abg.dispatch.default"
+        assert materialized_vector.declarations["closure_hook"] == "abg.closure.default"
+        assert materialized_vector.contexts == (spec,)
+        assert program.declarations["evaluation_hook"] == "abg.evaluate.default"
+
     def test_composition_materializes_one_graph_program_with_merged_contexts_and_vectors(self) -> None:
         intent = Node(name="intent", schema="Intent")
         requirements = Node(name="requirements", schema="Requirements")
@@ -425,6 +471,94 @@ class TestM01GtlCoreIntegration:
         assert boundary.hints["family"] == "delivery.profiles"
         assert isinstance(family.policy_hints, Attrs)
         assert family.policy_hints["default"] == "direct_profile"
+
+    def test_attrs_fail_closed_on_non_replayable_values(self) -> None:
+        with pytest.raises(TypeError, match="replayable declaration data"):
+            Attrs.coerce({"dispatch": object()})
+
+        with pytest.raises(TypeError, match="string mapping keys"):
+            Attrs.coerce({"dispatch": {1: "abg.dispatch.default"}})
+
+    def test_semantic_work_contracts_fail_closed_on_invalid_or_duplicate_contracts(self) -> None:
+        with pytest.raises(ValueError, match="must be 'graph_function'"):
+            ContractRef(kind="graph_vector", target_id="vector-001")
+
+        with pytest.raises(ValueError, match="must be non-empty"):
+            ContractRef(kind="graph_function", target_id="")
+
+        design = Node(name="design", schema="Design")
+        code = Node(name="code", schema="Code")
+        direct = _graph_function(
+            "direct_profile",
+            inputs=(design,),
+            outputs=(code,),
+        )
+        ref = ContractRef(kind="graph_function", target_id=direct.id)
+        constructor = Role(name="constructor")
+
+        with pytest.raises(ValueError, match="duplicate contract ref"):
+            Job(name="design→code", contracts=(ref, ref))
+
+        with pytest.raises(ValueError, match="duplicate role requirement"):
+            Job(name="design→code", contracts=(ref,), roles=(constructor, constructor))
+
+    def test_module_publication_fails_closed_on_broken_callable_catalog(self) -> None:
+        design = Node(name="design", schema="Design")
+        code = Node(name="code", schema="Code")
+
+        direct = _graph_function(
+            "direct_profile",
+            inputs=(design,),
+            outputs=(code,),
+        )
+        alternate = _graph_function(
+            "alternate_profile",
+            inputs=(design,),
+            outputs=(code,),
+        )
+
+        with pytest.raises(ValueError, match="without any graph_function contract"):
+            Module(
+                name="broken_jobs",
+                graph_functions=(direct,),
+                jobs=(Job(name="design→code"),),
+            )
+
+        with pytest.raises(ValueError, match="targets unpublished graph function id"):
+            Module(
+                name="broken_target",
+                graph_functions=(direct,),
+                jobs=(
+                    Job(
+                        name="design→code",
+                        contracts=(ContractRef(kind="graph_function", target_id=alternate.id),),
+                    ),
+                ),
+            )
+
+        family = candidate_family(
+            "design_profiles",
+            inputs=(design,),
+            outputs=(code,),
+            candidates=(direct, alternate),
+        )
+        with pytest.raises(ValueError, match="includes unpublished graph function"):
+            Module(
+                name="broken_family",
+                graph_functions=(direct,),
+                candidate_families=(family,),
+            )
+
+        duplicate_name = _graph_function(
+            "direct_profile",
+            inputs=(design,),
+            outputs=(code,),
+        )
+        with pytest.raises(ValueError, match="duplicate graph_function name"):
+            Module(
+                name="duplicate_carriers",
+                graph_functions=(direct, duplicate_name),
+            )
 
     def test_callable_templates_are_coerced_into_inline_template_refs(self) -> None:
         design = Node(name="design", schema="Design")

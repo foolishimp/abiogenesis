@@ -1,6 +1,6 @@
-# Implements: REQ-L-GTL2-OPERATOR
-# Implements: REQ-L-GTL2-EVALUATOR
-# Implements: REQ-L-GTL2-RULE
+# Implements: REQ-L-GTL3-OPERATOR
+# Implements: REQ-L-GTL3-EVALUATOR
+# Implements: REQ-L-GTL3-RULE
 """
 gtl.operator_model — Effect and convergence declarations.
 
@@ -38,7 +38,6 @@ class Operator:
     """
     Typed effectful action declaration.
 
-    REQ-L-GTL2-OPERATOR-001: frozen, immutable, name/regime/binding/tags.
     Operators perform work. Realization is plugin-dependent.
     """
     name: str
@@ -58,8 +57,6 @@ class Evaluator:
     """
     Typed convergence / attestation declaration.
 
-    REQ-L-GTL2-EVALUATOR-001: frozen, immutable, name/regime/description/binding/tags.
-    REQ-L-GTL2-EVALUATOR-006: description is a human-readable convergence contract.
     Evaluators check or attest convergence. Realization is plugin-dependent.
     """
     name: str
@@ -80,8 +77,8 @@ class Rule:
     """
     Declarative constraint — what must hold.
 
-    REQ-L-GTL2-RULE-001: declarative constraint type (consensus, coverage,
-    policy, type-consistency, etc.). Rules are passive.
+    Declarative constraint type (consensus, coverage, policy,
+    type-consistency, and similar). Rules are passive.
     """
     name: str
     kind: str = "policy"         # "consensus", "coverage", "policy", etc.

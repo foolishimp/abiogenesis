@@ -16,6 +16,7 @@ No separate requirements document. REQ keys emerge from this Module
 and are traced through feature vectors in .ai-workspace/features/.
 """
 
+from gtl.function_model import GraphFunction
 from gtl.graph import Graph, Node, GraphVector, Context
 from gtl.module_model import Module
 from gtl.work_model import Job, ContractRef, Role
@@ -252,43 +253,66 @@ sdlc_graph = Graph(
 )
 
 
+def _graph_function_for_vector(vector: GraphVector) -> GraphFunction:
+    source = vector.source if isinstance(vector.source, tuple) else (vector.source,)
+    return GraphFunction.from_graph(
+        name=vector.name,
+        graph=Graph(
+            name=f"{vector.name}_workflow",
+            inputs=source,
+            outputs=(vector.target,),
+            nodes=tuple(dict.fromkeys((*source, vector.target))),
+            vectors=(vector,),
+            contexts=vector.contexts,
+        ),
+    )
+
+
+gf_intent_req = _graph_function_for_vector(v_intent_req)
+gf_req_feat = _graph_function_for_vector(v_req_feat)
+gf_feat_design = _graph_function_for_vector(v_feat_design)
+gf_design_code = _graph_function_for_vector(v_design_code)
+gf_tdd = _graph_function_for_vector(v_tdd)
+gf_unit_uat = _graph_function_for_vector(v_unit_uat)
+
+
 # ── Roles (semantic capability classes) ──────────────────────────────────────
 
 role_constructor = Role(name="constructor", tags=("f_p",))
 
 
-# ── Jobs (explicit GTL Job per vector) ───────────────────────────────────────
+# ── Jobs (explicit GTL Job per graph function) ───────────────────────────────
 # ADR-030 §3: jobs with F_P evaluators require constructor role;
 # F_H-only or F_D-only jobs explicitly declare roles=().
 
 job_intent_req = Job(
     name="intent→requirements",
-    contracts=(ContractRef(kind="graph_vector", target_id=v_intent_req.id),),
+    contracts=(ContractRef(kind="graph_function", target_id=gf_intent_req.id),),
     roles=(),  # F_H only
 )
 job_req_feat = Job(
     name="requirements→feature_decomp",
-    contracts=(ContractRef(kind="graph_vector", target_id=v_req_feat.id),),
+    contracts=(ContractRef(kind="graph_function", target_id=gf_req_feat.id),),
     roles=(role_constructor,),
 )
 job_feat_design = Job(
     name="feature_decomp→design",
-    contracts=(ContractRef(kind="graph_vector", target_id=v_feat_design.id),),
+    contracts=(ContractRef(kind="graph_function", target_id=gf_feat_design.id),),
     roles=(role_constructor,),
 )
 job_design_code = Job(
     name="design→code",
-    contracts=(ContractRef(kind="graph_vector", target_id=v_design_code.id),),
+    contracts=(ContractRef(kind="graph_function", target_id=gf_design_code.id),),
     roles=(role_constructor,),
 )
 job_tdd = Job(
     name="code↔unit_tests",
-    contracts=(ContractRef(kind="graph_vector", target_id=v_tdd.id),),
+    contracts=(ContractRef(kind="graph_function", target_id=gf_tdd.id),),
     roles=(role_constructor,),
 )
 job_unit_uat = Job(
     name="unit_tests→uat_tests",
-    contracts=(ContractRef(kind="graph_vector", target_id=v_unit_uat.id),),
+    contracts=(ContractRef(kind="graph_function", target_id=gf_unit_uat.id),),
     roles=(role_constructor,),
 )
 
@@ -334,6 +358,14 @@ rb_unit_uat = deferred_refinement(
 module = Module(
     name="project_package",
     graphs=(sdlc_graph,),
+    graph_functions=(
+        gf_intent_req,
+        gf_req_feat,
+        gf_feat_design,
+        gf_design_code,
+        gf_tdd,
+        gf_unit_uat,
+    ),
     refinement_boundaries=(
         rb_intent_req,
         rb_req_feat,

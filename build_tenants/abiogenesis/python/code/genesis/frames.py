@@ -1,7 +1,7 @@
-# Implements: REQ-R-ABG2-INTERPRET
-# Implements: REQ-R-ABG2-LINEAGE
-# Implements: REQ-R-ABG2-CORRECTION
-# Implements: REQ-R-ABG2-PROJECTION
+# Implements: REQ-R-ABG3-INTERPRET
+# Implements: REQ-R-ABG3-LINEAGE
+# Implements: REQ-R-ABG3-CORRECTION
+# Implements: REQ-R-ABG3-PROJECTION
 """
 frames — Invocation-frame runtime for local graph-function execution.
 
@@ -18,9 +18,9 @@ from typing import Any
 
 from gtl.function_model import CandidateFamily, GraphFunction, RefinementBoundary
 from gtl.graph import Attrs, Context, Graph, GraphVector, Node, _schema_key
-from gtl.operator_model import Evaluator, F_D, F_H, F_P, Rule
+from gtl.operator_model import Evaluator, F_D, F_H, F_P, Operator, Rule
 from gtl.module_model import Module
-from gtl.work_model import ContractRef, Job, Role
+from gtl.work_model import Job, Role
 
 from .binding import ExecutableJob
 from .correction import find_latest_reset
@@ -240,6 +240,25 @@ def _deserialize_evaluator(data: dict[str, Any]) -> Evaluator:
         name=data["name"],
         regime=regime,
         description=data.get("description", ""),
+        binding=data.get("binding", ""),
+        tags=tuple(data.get("tags", ())),
+    )
+
+
+def _serialize_operator(operator: Operator) -> dict[str, Any]:
+    return {
+        "name": operator.name,
+        "regime": operator.regime.__name__,
+        "binding": operator.binding,
+        "tags": list(operator.tags),
+    }
+
+
+def _deserialize_operator(data: dict[str, Any]) -> Operator:
+    regime = _REGIME_BY_NAME[data.get("regime", "F_D")]
+    return Operator(
+        name=data["name"],
+        regime=regime,
         binding=data.get("binding", ""),
         tags=tuple(data.get("tags", ())),
     )
@@ -579,10 +598,12 @@ def _serialize_vector(vector: GraphVector) -> dict[str, Any]:
         "name": vector.name,
         "sources": [_serialize_node(node) for node in sources],
         "target": _serialize_node(vector.target),
+        "operators": [_serialize_operator(operator) for operator in vector.operators],
         "evaluators": [_serialize_evaluator(evaluator) for evaluator in vector.evaluators],
         "contexts": [_serialize_context(ctx) for ctx in vector.contexts],
         "rule": _serialize_rule(vector.rule),
         "allows_subwork": vector.allows_subwork,
+        "declarations": _jsonable(vector.declarations),
         "tags": list(vector.tags),
     }
 
@@ -598,10 +619,12 @@ def _deserialize_vector(data: dict[str, Any]) -> GraphVector:
         name=data["name"],
         source=source,
         target=_deserialize_node(data["target"]),
+        operators=tuple(_deserialize_operator(item) for item in data.get("operators", ())),
         evaluators=tuple(_deserialize_evaluator(item) for item in data.get("evaluators", ())),
         contexts=tuple(_deserialize_context(item) for item in data.get("contexts", ())),
         rule=_deserialize_rule(data.get("rule")),
         allows_subwork=bool(data.get("allows_subwork", False)),
+        declarations=Attrs.coerce(_from_jsonable(data.get("declarations", {}))),
         tags=tuple(data.get("tags", ())),
         id=data["id"],
     )
@@ -964,7 +987,6 @@ def open_invocation_frame(
         )
         child_job = Job(
             name=vector.name,
-            contracts=(ContractRef(kind="graph_vector", target_id=vector.id),),
             roles=parent_job.job.roles,
             id=job_id,
         )
@@ -973,7 +995,12 @@ def open_invocation_frame(
                 frame_id=frame_attempt_id,
                 parent_key=parent_key,
                 child_key=child_key,
-                executable_job=ExecutableJob(job=child_job, vector=vector),
+                executable_job=ExecutableJob(
+                    job=child_job,
+                    graph_function=None,
+                    materialization_id=materialization_id,
+                    vector=vector,
+                ),
             )
         )
     return InvocationFrame(
@@ -1033,7 +1060,6 @@ def deserialize_frame(data: dict[str, Any]) -> InvocationFrame:
         roles = tuple(_deserialize_role(role_data) for role_data in item.get("roles", ()))
         job = Job(
             name=item.get("job_name", vector.name),
-            contracts=(ContractRef(kind="graph_vector", target_id=vector.id),),
             roles=roles,
             id=item["job_id"],
         )
@@ -1042,7 +1068,12 @@ def deserialize_frame(data: dict[str, Any]) -> InvocationFrame:
                 frame_id=frame_id,
                 parent_key=parent_key,
                 child_key=item["child_key"],
-                executable_job=ExecutableJob(job=job, vector=vector),
+                executable_job=ExecutableJob(
+                    job=job,
+                    graph_function=None,
+                    materialization_id=data.get("materialization_id"),
+                    vector=vector,
+                ),
             )
         )
     return InvocationFrame(

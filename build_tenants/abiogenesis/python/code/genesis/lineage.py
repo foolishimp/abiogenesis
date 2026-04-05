@@ -1,4 +1,4 @@
-# Implements: REQ-R-ABG2-LINEAGE
+# Implements: REQ-R-ABG3-LINEAGE
 """
 lineage — Work identity and parent/child lineage.
 

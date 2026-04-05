@@ -1,31 +1,39 @@
-# ABG Requirement Families
+# ABG 3 Requirement Families
 
 This domain owns the constitutional runtime law for the Abiogenesis engine.
 
-Use these families for eventing, projection, execution binding, run identity, provenance, convergence, transport, interpretation, self-hosting, and related engine behavior.
+Use these families for event truth, replay/projection, graph-function-first
+execution, runtime aggregates, policy/default law, provenance, transport, and
+related engine behavior.
 
 ## Scope
 
 - append-only event substrate
-- projection and current-state derivation
-- worker and binding law
-- run, lineage, selection, and convergence semantics
-- transport, correction, and self-hosting behavior
+- replay-derived fluent and projection law
+- graph-function-first execution entry
+- runtime aggregates: run, graph call, frame, continuation
+- worker/binding/runtime identity
+- evaluation, proof, closure, and fallback law
+- correction, supersession, and self-hosting behavior
 
 ## Families
 
-- `REQ-R-ABG2-EVENTS.md`
-- `REQ-R-ABG2-PROJECTION.md`
-- `REQ-R-ABG2-BINDING.md`
-- `REQ-R-ABG2-WORKER.md`
-- `REQ-R-ABG2-JOB-WORKER.md`
-- `REQ-R-ABG2-LINEAGE.md`
-- `REQ-R-ABG2-RUN.md`
-- `REQ-R-ABG2-CONVERGENCE.md`
-- `REQ-R-ABG2-SELECTION-APPLICATION.md`
-- `REQ-R-ABG2-PROVENANCE.md`
-- `REQ-R-ABG2-CORRECTION.md`
-- `REQ-R-ABG2-LEAFTASK.md`
-- `REQ-R-ABG2-TRANSPORT.md`
-- `REQ-R-ABG2-INTERPRET.md`
-- `REQ-R-ABG2-SELFHOSTING.md`
+- `REQ-R-ABG3-EVENTS.md`
+- `REQ-R-ABG3-PROJECTION.md`
+- `REQ-R-ABG3-BINDING.md`
+- `REQ-R-ABG3-WORKER.md`
+- `REQ-R-ABG3-JOB-WORKER.md`
+- `REQ-R-ABG3-LINEAGE.md`
+- `REQ-R-ABG3-RUN.md`
+- `REQ-R-ABG3-GRAPHCALL.md`
+- `REQ-R-ABG3-FRAME.md`
+- `REQ-R-ABG3-CONTINUATION.md`
+- `REQ-R-ABG3-CONVERGENCE.md`
+- `REQ-R-ABG3-POLICY.md`
+- `REQ-R-ABG3-SELECTION-APPLICATION.md`
+- `REQ-R-ABG3-LEAFTASK.md`
+- `REQ-R-ABG3-PROVENANCE.md`
+- `REQ-R-ABG3-CORRECTION.md`
+- `REQ-R-ABG3-TRANSPORT.md`
+- `REQ-R-ABG3-INTERPRET.md`
+- `REQ-R-ABG3-SELFHOSTING.md`

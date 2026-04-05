@@ -1,6 +1,6 @@
-# Implements: REQ-R-ABG2-INTERPRET
-# Implements: REQ-R-ABG2-CONVERGENCE
-# Implements: REQ-R-ABG2-SELECTION-APPLICATION
+# Implements: REQ-R-ABG3-INTERPRET
+# Implements: REQ-R-ABG3-CONVERGENCE
+# Implements: REQ-R-ABG3-SELECTION-APPLICATION
 """
 interpret — Graph interpretation loop.
 
@@ -24,7 +24,7 @@ from gtl.operator_model import Evaluator, Rule, F_D, F_H, F_P
 from gtl.graph import Attrs, GraphVector
 from gtl.function_model import GraphFunction, RefinementBoundary, CandidateFamily
 from gtl.module_model import Module
-from gtl.work_model import ContractRef, Job
+from gtl.work_model import Job
 
 from .binding import (
     ExecutableJob,
@@ -1098,8 +1098,9 @@ def _parent_termination_job(module: Module, frame: InvocationFrame, termination:
     return ExecutableJob(
         job=Job(
             name=parent_vector.name,
-            contracts=(ContractRef(kind="graph_vector", target_id=parent_vector.id),),
         ),
+        graph_function=None,
+        materialization_id=frame.materialization_id,
         vector=termination_vector,
     )
 
@@ -2111,18 +2112,18 @@ def apply_selection(
     """
     Lawful application of a SelectionDecision.
 
-    REQ-R-ABG2-SELECTION-APPLICATION-002: accept external selection, apply it.
-    REQ-R-ABG2-SELECTION-APPLICATION-003: record provenance via workflow_selected.
-    REQ-R-ABG2-SELECTION-APPLICATION-004: validate interface before application.
+    REQ-R-ABG3-SELECTION-APPLICATION-002: accept external selection, apply it.
+    REQ-R-ABG3-SELECTION-APPLICATION-003: record provenance via workflow_selected.
+    REQ-R-ABG3-SELECTION-APPLICATION-004: validate interface before application.
 
-    Per GTL_2_MODULE_DESIGN §4.4: interpret owns event emission.
+    Per GTL_3_MODULE_DESIGN: interpret owns event emission.
     selection.py is pure — it returns values. This function emits events.
 
     Returns SelectionResult with a frame-local invocation plan.
     """
     target_vec = executable_job.vector
 
-    # REQ-R-ABG2-SELECTION-APPLICATION-004: validate before application
+    # REQ-R-ABG3-SELECTION-APPLICATION-004: validate before application
     if not validate_selection(decision, candidate, target_vec):
         raise ValueError(
             f"apply_selection: selection {decision.graph_function!r} does not "
@@ -2160,7 +2161,7 @@ def apply_selection(
         traversal_surface=traversal_surface,
     )
 
-    # REQ-R-ABG2-SELECTION-APPLICATION-003: provenance event
+    # REQ-R-ABG3-SELECTION-APPLICATION-003: provenance event
     inner_vector_names = [step.edge for step in frame.steps]
     initial_state = recursive_state_for_frame(
         frame,

@@ -1,5 +1,5 @@
-# Implements: REQ-R-ABG2-WORKER
-# Implements: REQ-R-ABG2-PROVENANCE
+# Implements: REQ-R-ABG3-WORKER
+# Implements: REQ-R-ABG3-PROVENANCE
 """
 identity — runtime identity and provenance projection.
 

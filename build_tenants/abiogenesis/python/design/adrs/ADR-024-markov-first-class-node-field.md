@@ -1,6 +1,6 @@
 # ADR-024 — Markov as a First-Class Node Field
 
-**Implements**: REQ-L-GTL2-NODE
+**Implements**: REQ-L-GTL3-NODE
 
 ## Status
 Accepted

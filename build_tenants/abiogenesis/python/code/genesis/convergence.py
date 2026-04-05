@@ -1,4 +1,4 @@
-# Implements: REQ-R-ABG2-CONVERGENCE
+# Implements: REQ-R-ABG3-CONVERGENCE
 """
 convergence — Delta computation and convergence visibility.
 
@@ -26,7 +26,7 @@ class EvaluatorOutcome:
     """One outcome per evaluator invocation over one contract boundary in one round.
 
     Carries no domain semantics beyond normalized status.
-    REQ-R-ABG2-PROVENANCE-005: per-evaluator identity, regime, and outcome.
+    REQ-R-ABG3-PROVENANCE-001: per-evaluator identity, regime, and outcome.
     """
     contract_id: str
     evaluator_name: str
@@ -43,8 +43,8 @@ class ConvergenceResult:
 
     aggregate_state is determined from declared rule/evaluator surface,
     never hidden domain logic.
-    REQ-R-ABG2-CONVERGENCE-007: vector convergence support.
-    REQ-R-ABG2-CONVERGENCE-008: declared ordering and escalation policy.
+    REQ-R-ABG3-CONVERGENCE-001: vector convergence support.
+    REQ-R-ABG3-CONVERGENCE-002: declared ordering and escalation policy.
     """
     contract_id: str
     outcomes: tuple[EvaluatorOutcome, ...]

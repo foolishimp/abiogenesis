@@ -14,7 +14,7 @@ AI-augmented software development requires a clean, formal engine. The available
 
 ## What We Want
 
-A clean, GTL-first implementation of abiogenesis as a Genesis 2.x engine — an AI SDLC engine that:
+A clean, GTL-first implementation of abiogenesis as the reference GTL + ABG engine — an AI SDLC engine that:
 
 1. Defines the SDLC as a typed workflow graph (6 nodes, 5 vectors) in a GTL Module
 2. Implements the convergence engine: `iterate()` drives candidates toward stability via three evaluator types (F_D deterministic, F_P agent, F_H human)
@@ -83,7 +83,7 @@ This is structurally identical to untested code: it works until it doesn't, and 
 
 Make bootloader documents proper graph artifacts with F_D evaluators that check consistency against source-of-truth code:
 
-- **GTL_BOOTLOADER.md** checked against the live GTL 2.x type surface (`Graph`, `Node`, `GraphVector`, `Module`, `Job`, `Role`, `Operator`, `Evaluator`, `Rule`, `F_D`, `F_P`, `F_H`)
+- **GTL_BOOTLOADER.md** checked against the live GTL 3 type surface (`Graph`, `Node`, `GraphVector`, `Module`, `Job`, `Role`, `Operator`, `Evaluator`, `Rule`, `F_D`, `F_P`, `F_H`)
 - **SDLC_BOOTLOADER.md** checked against `sdlc_graph.py` node names, vector names, and refinement profiles
 
 The bootloader becomes a convergence-tracked artifact: if the graph changes and the bootloader doesn't update, delta > 0 and the system tells you.
@@ -93,7 +93,7 @@ The bootloader becomes a convergence-tracked artifact: if the graph changes and 
 **In abiogenesis (this project):**
 - New node: `bootloader_doc`
 - New vector: `design→bootloader_doc` with:
-  - F_D evaluator `gtl_type_consistency`: parse type names from the live GTL 2.x surface, check they appear correctly in GTL_BOOTLOADER.md
+  - F_D evaluator `gtl_type_consistency`: parse type names from the live GTL 3 surface, check they appear correctly in GTL_BOOTLOADER.md
   - F_P evaluator `synthesize_bootloader`: agent renders specification content into bootloader markdown
 - New context: `specification_dir` pointing to the specification/ directory
 - Modified join: the bootloader must be consistent before any downstream gate that installs it (the `code↔unit_tests` edge context already references the bootloader — but now the bootloader itself is convergence-tracked)
@@ -110,8 +110,8 @@ The bootloader becomes a convergence-tracked artifact: if the graph changes and 
 
 ### Success Criteria
 
-1. `gen-gaps` reports `bootloader_doc` as a node with delta > 0 when GTL_BOOTLOADER.md references a type name not in the live GTL 2.x surface
-2. Changing an exported GTL 2.x type without updating the bootloader causes the F_D evaluator to fail
+1. `gen-gaps` reports `bootloader_doc` as a node with delta > 0 when GTL_BOOTLOADER.md references a type name not in the live GTL 3 surface
+2. Changing an exported GTL 3 type without updating the bootloader causes the F_D evaluator to fail
 3. After the bootloader is updated and F_P assesses it, delta returns to 0
 4. The pattern is replicable: genesis_sdlc can add the same asset type for SDLC_BOOTLOADER.md
 

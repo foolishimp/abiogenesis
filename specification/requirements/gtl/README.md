@@ -1,36 +1,47 @@
 # GTL Requirement Families
 
-This domain owns the constitutional language and graph law for GTL 2.x.
+This domain owns the constitutional language and graph law for GTL 3.
 
-Use these families for semantic truth about graphs, nodes, roles, jobs, operators, algebra, and publication boundaries.
+GTL is an LLM-first, graph-first, algebraic governance control language with
+Python-native declarative syntax.
+
+Use these families for semantic truth about language identity, attrs, contexts,
+graphs, graph vectors, graph functions, hook surfaces, semantic work
+declarations, algebra, publication boundaries, and the GTL/ABG boundary.
 
 ## Scope
 
-- graph structure and ontology
-- operators, evaluators, and rules
-- semantic work declarations
-- algebraic composition and higher-order graph structure
-- module publication and engine-independence boundaries
+- language identity, declarative form, attrs, contexts, and engine boundary
+- graph structure, typed loci, interfaces, graph vectors, and identities
+- operators, evaluators, rules, and governance hook surfaces
+- graph functions, selection boundaries, synthesis, and bounded sub-work
+- algebraic composition, substitution, recursion, and higher-order graph
+  operations
+- semantic work declarations and module publication boundaries
 
 ## Families
 
-- `REQ-L-GTL2-GRAPH.md`
-- `REQ-L-GTL2-NODE.md`
-- `REQ-L-GTL2-INTERFACE.md`
-- `REQ-L-GTL2-OPERATOR.md`
-- `REQ-L-GTL2-EVALUATOR.md`
-- `REQ-L-GTL2-RULE.md`
-- `REQ-L-GTL2-GRAPHFUNCTION.md`
-- `REQ-L-GTL2-ROLE.md`
-- `REQ-L-GTL2-JOB.md`
-- `REQ-L-GTL2-IDENTITY.md`
-- `REQ-L-GTL2-COMPOSE.md`
-- `REQ-L-GTL2-SUBSTITUTE.md`
-- `REQ-L-GTL2-RECURSE.md`
-- `REQ-L-GTL2-HOF.md`
-- `REQ-L-GTL2-LAWS.md`
-- `REQ-L-GTL2-MODULE.md`
-- `REQ-L-GTL2-SELECTION-BOUNDARY.md`
-- `REQ-L-GTL2-ENGINE-INDEPENDENCE.md`
-- `REQ-L-GTL2-SUBWORK.md`
-- `REQ-L-GTL2-SYNTHESIS.md`
+- `REQ-L-GTL3-LANGUAGE.md`
+- `REQ-L-GTL3-ATTRS.md`
+- `REQ-L-GTL3-CONTEXT.md`
+- `REQ-L-GTL3-GRAPH.md`
+- `REQ-L-GTL3-NODE.md`
+- `REQ-L-GTL3-GRAPHVECTOR.md`
+- `REQ-L-GTL3-INTERFACE.md`
+- `REQ-L-GTL3-OPERATOR.md`
+- `REQ-L-GTL3-EVALUATOR.md`
+- `REQ-L-GTL3-RULE.md`
+- `REQ-L-GTL3-GRAPHFUNCTION.md`
+- `REQ-L-GTL3-HOOKS.md`
+- `REQ-L-GTL3-ROLE.md`
+- `REQ-L-GTL3-JOB.md`
+- `REQ-L-GTL3-IDENTITY.md`
+- `REQ-L-GTL3-COMPOSE.md`
+- `REQ-L-GTL3-SUBSTITUTE.md`
+- `REQ-L-GTL3-RECURSE.md`
+- `REQ-L-GTL3-HOF.md`
+- `REQ-L-GTL3-LAWS.md`
+- `REQ-L-GTL3-MODULE.md`
+- `REQ-L-GTL3-SELECTION-BOUNDARY.md`
+- `REQ-L-GTL3-SUBWORK.md`
+- `REQ-L-GTL3-SYNTHESIS.md`

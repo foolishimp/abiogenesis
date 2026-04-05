@@ -1,4 +1,4 @@
-# Implements: REQ-R-ABG2-INTERPRET
+# Implements: REQ-R-ABG3-INTERPRET
 """
 genesis — GTL-native AI SDLC engine.
 

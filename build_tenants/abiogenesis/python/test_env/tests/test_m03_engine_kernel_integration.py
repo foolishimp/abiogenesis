@@ -74,6 +74,21 @@ def _graph_function(name: str, graph: Graph) -> GraphFunction:
     return GraphFunction.from_graph(name=name, graph=graph)
 
 
+def _graph_function_for_vector(vector: GraphVector) -> GraphFunction:
+    source = vector.source if isinstance(vector.source, tuple) else (vector.source,)
+    return GraphFunction.from_graph(
+        name=vector.name,
+        graph=Graph(
+            name=f"{vector.name}_workflow",
+            inputs=source,
+            outputs=(vector.target,),
+            nodes=tuple(dict.fromkeys((*source, vector.target))),
+            vectors=(vector,),
+            contexts=vector.contexts,
+        ),
+    )
+
+
 def _precomputed(job, *, failing=(), passing=()) -> PrecomputedManifest:
     return PrecomputedManifest(
         executable_job=job,
@@ -161,11 +176,13 @@ def _minimal_property_module(requirements: list[str] | None = None) -> Module:
         nodes=(design, code),
         vectors=(vector,),
     )
+    graph_function = _graph_function_for_vector(vector)
     return Module(
         name="m03_property",
         graphs=(graph,),
+        graph_functions=(graph_function,),
         refinement_boundaries=(RefinementBoundary(name=vector.name, inputs=(design,), outputs=(code,)),),
-        jobs=(Job(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),)),),
+        jobs=(Job(name=vector.name, contracts=(ContractRef(kind="graph_function", target_id=graph_function.id),)),),
         metadata={"requirements": requirements},
     )
 
@@ -212,15 +229,16 @@ class TestM03EngineKernelIntegration:
             outputs=(code,),
             candidates=(candidate,),
         )
+        outer_profile = _graph_function(outer.name, outer_graph)
         job = Job(
             name=outer.name,
-            contracts=(ContractRef(kind="graph_vector", target_id=outer.id),),
+            contracts=(ContractRef(kind="graph_function", target_id=outer_profile.id),),
             roles=(constructor,),
         )
         module = Module(
             name="m03_selection",
             graphs=(outer_graph,),
-            graph_functions=(candidate,),
+            graph_functions=(outer_profile, candidate),
             candidate_families=(family,),
             jobs=(job,),
             roles=(constructor,),
@@ -356,6 +374,7 @@ class TestM03EngineKernelIntegration:
             outputs=(code,),
             candidates=(candidate,),
         )
+        outer_profile = _graph_function_for_vector(outer)
         module = Module(
             name="m03_interpreter_planning",
             graphs=(
@@ -367,9 +386,9 @@ class TestM03EngineKernelIntegration:
                     vectors=(outer,),
                 ),
             ),
-            graph_functions=(candidate,),
+            graph_functions=(outer_profile, candidate),
             candidate_families=(family,),
-            jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_vector", target_id=outer.id),)),),
+            jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_function", target_id=outer_profile.id),)),),
             metadata={"requirements": ["REQ-M03-PLAN-001"]},
         )
         scope = Scope(module=module, workspace_root=tmp_path)
@@ -463,6 +482,7 @@ class TestM03EngineKernelIntegration:
             outputs=(code,),
             candidates=(candidate,),
         )
+        outer_profile = _graph_function_for_vector(outer)
         module = Module(
             name="m03_interpreter_gap_report",
             graphs=(
@@ -474,9 +494,9 @@ class TestM03EngineKernelIntegration:
                     vectors=(outer,),
                 ),
             ),
-            graph_functions=(candidate,),
+            graph_functions=(outer_profile, candidate),
             candidate_families=(family,),
-            jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_vector", target_id=outer.id),)),),
+            jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_function", target_id=outer_profile.id),)),),
             metadata={"requirements": ["REQ-M03-GAPS-001"]},
         )
         scope = Scope(module=module, workspace_root=tmp_path)
@@ -571,6 +591,7 @@ class TestM03EngineKernelIntegration:
             outputs=(code,),
             candidates=(candidate,),
         )
+        outer_profile = _graph_function_for_vector(outer)
         module = Module(
             name="m03_interpreter_blocked_continuation",
             graphs=(
@@ -582,9 +603,9 @@ class TestM03EngineKernelIntegration:
                     vectors=(outer,),
                 ),
             ),
-            graph_functions=(candidate,),
+            graph_functions=(outer_profile, candidate),
             candidate_families=(family,),
-            jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_vector", target_id=outer.id),)),),
+            jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_function", target_id=outer_profile.id),)),),
             metadata={"requirements": ["REQ-M03-PLAN-002"]},
         )
         scope = Scope(module=module, workspace_root=tmp_path)
@@ -692,6 +713,7 @@ class TestM03EngineKernelIntegration:
             outputs=(code,),
             candidates=(blocking_candidate, complete_candidate),
         )
+        outer_profile = _graph_function_for_vector(outer)
         module = Module(
             name="m03_recursive_cursor_rotation",
             graphs=(
@@ -703,9 +725,9 @@ class TestM03EngineKernelIntegration:
                     vectors=(outer,),
                 ),
             ),
-            graph_functions=(blocking_candidate, complete_candidate),
+            graph_functions=(outer_profile, blocking_candidate, complete_candidate),
             candidate_families=(family,),
-            jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_vector", target_id=outer.id),)),),
+            jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_function", target_id=outer_profile.id),)),),
             metadata={"requirements": ["REQ-M03-PLAN-003"]},
         )
         scope = Scope(module=module, workspace_root=tmp_path)
@@ -818,6 +840,7 @@ class TestM03EngineKernelIntegration:
             outputs=(code,),
             candidates=(selected_candidate,),
         )
+        outer_profile = _graph_function_for_vector(outer)
         module = Module(
             name="m03_hidden_frame_selection_surface",
             graphs=(
@@ -829,9 +852,9 @@ class TestM03EngineKernelIntegration:
                     vectors=(outer,),
                 ),
             ),
-            graph_functions=(selected_candidate, hidden_local),
+            graph_functions=(outer_profile, selected_candidate, hidden_local),
             candidate_families=(family,),
-            jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_vector", target_id=outer.id),)),),
+            jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_function", target_id=outer_profile.id),)),),
             metadata={"requirements": ["REQ-M03-HIDDEN-FRAME-SELECTION-001"]},
         )
         scope = Scope(module=module, workspace_root=tmp_path)
@@ -902,6 +925,7 @@ class TestM03EngineKernelIntegration:
             outputs=(code,),
             candidates=(candidate,),
         )
+        outer_profile = _graph_function_for_vector(outer)
         module = Module(
             name="m03_frame_foldback",
             graphs=(
@@ -913,9 +937,9 @@ class TestM03EngineKernelIntegration:
                     vectors=(outer,),
                 ),
             ),
-            graph_functions=(candidate,),
+            graph_functions=(outer_profile, candidate),
             candidate_families=(family,),
-            jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_vector", target_id=outer.id),)),),
+            jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_function", target_id=outer_profile.id),)),),
             metadata={"requirements": ["REQ-M03-FOLDBACK-001"]},
         )
         scope = Scope(module=module, workspace_root=tmp_path)
@@ -1020,6 +1044,7 @@ class TestM03EngineKernelIntegration:
             outputs=(code,),
             candidates=(candidate,),
         )
+        outer_profile = _graph_function_for_vector(outer)
         module = Module(
             name="m03_recursive_suspend_resume",
             graphs=(
@@ -1031,9 +1056,9 @@ class TestM03EngineKernelIntegration:
                     vectors=(outer,),
                 ),
             ),
-            graph_functions=(candidate,),
+            graph_functions=(outer_profile, candidate),
             candidate_families=(family,),
-            jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_vector", target_id=outer.id),)),),
+            jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_function", target_id=outer_profile.id),)),),
             metadata={"requirements": ["REQ-M03-SUSPEND-001"]},
         )
         scope = Scope(module=module, workspace_root=tmp_path)
@@ -1171,6 +1196,7 @@ class TestM03EngineKernelIntegration:
             outputs=(code,),
             candidates=(recursive_candidate,),
         )
+        outer_profile = _graph_function_for_vector(outer)
         module = Module(
             name="m03_recursive_termination_gate",
             graphs=(
@@ -1182,9 +1208,9 @@ class TestM03EngineKernelIntegration:
                     vectors=(outer,),
                 ),
             ),
-            graph_functions=(recursive_candidate,),
+            graph_functions=(outer_profile, recursive_candidate),
             candidate_families=(family,),
-            jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_vector", target_id=outer.id),)),),
+            jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_function", target_id=outer_profile.id),)),),
             metadata={"requirements": ["REQ-M03-TERMINATION-001"]},
         )
         scope = Scope(module=module, workspace_root=tmp_path)
@@ -1306,6 +1332,7 @@ class TestM03EngineKernelIntegration:
             outputs=(code,),
             candidates=(candidate,),
         )
+        outer_profile = _graph_function_for_vector(outer)
         module = Module(
             name="m03_frame_reset",
             graphs=(
@@ -1317,9 +1344,9 @@ class TestM03EngineKernelIntegration:
                     vectors=(outer,),
                 ),
             ),
-            graph_functions=(candidate,),
+            graph_functions=(outer_profile, candidate),
             candidate_families=(family,),
-            jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_vector", target_id=outer.id),)),),
+            jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_function", target_id=outer_profile.id),)),),
             metadata={"requirements": ["REQ-M03-RESET-001"]},
         )
         scope = Scope(module=module, workspace_root=tmp_path)
@@ -1441,6 +1468,7 @@ class TestM03EngineKernelIntegration:
             outputs=(code,),
             candidates=(recursive_candidate,),
         )
+        outer_profile = _graph_function_for_vector(outer)
         module = Module(
             name="m03_recursive_foldback_decl",
             graphs=(
@@ -1452,9 +1480,9 @@ class TestM03EngineKernelIntegration:
                     vectors=(outer,),
                 ),
             ),
-            graph_functions=(recursive_candidate,),
+            graph_functions=(outer_profile, recursive_candidate),
             candidate_families=(family,),
-            jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_vector", target_id=outer.id),)),),
+            jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_function", target_id=outer_profile.id),)),),
             metadata={"requirements": ["REQ-M03-RECURSE-001"]},
         )
         scope = Scope(module=module, workspace_root=tmp_path)
@@ -1577,6 +1605,7 @@ class TestM03EngineKernelIntegration:
             outputs=(code,),
             candidates=(outer_profile,),
         )
+        outer_carrier = _graph_function_for_vector(outer)
         module = Module(
             name="m03_frame_local_recursive_decl",
             graphs=(
@@ -1588,9 +1617,9 @@ class TestM03EngineKernelIntegration:
                     vectors=(outer,),
                 ),
             ),
-            graph_functions=(outer_profile,),
+            graph_functions=(outer_carrier, outer_profile),
             candidate_families=(outer_family,),
-            jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_vector", target_id=outer.id),)),),
+            jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_function", target_id=outer_carrier.id),)),),
             metadata={"requirements": ["REQ-M03-RECURSE-LOCAL-001"]},
         )
         scope = Scope(module=module, workspace_root=tmp_path)
@@ -1734,6 +1763,7 @@ class TestM03EngineKernelIntegration:
             candidates=(recursive_profile,),
         )
 
+        outer_carrier = _graph_function_for_vector(outer)
         module = Module(
             name="m03_nested_frame_local_selection",
             graphs=(
@@ -1745,9 +1775,9 @@ class TestM03EngineKernelIntegration:
                     vectors=(outer,),
                 ),
             ),
-            graph_functions=(recursive_profile,),
+            graph_functions=(outer_carrier, recursive_profile),
             candidate_families=(outer_family,),
-            jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_vector", target_id=outer.id),)),),
+            jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_function", target_id=outer_carrier.id),)),),
             metadata={"requirements": ["REQ-M03-NESTED-001"]},
         )
         scope = Scope(module=module, workspace_root=tmp_path)
@@ -1850,6 +1880,7 @@ class TestM03EngineKernelIntegration:
             outputs=(code,),
             candidates=(root_candidate,),
         )
+        outer_profile = _graph_function_for_vector(outer)
         module = Module(
             name=f"m03_recursive_depth_{depth}",
             graphs=(
@@ -1861,9 +1892,9 @@ class TestM03EngineKernelIntegration:
                     vectors=(outer,),
                 ),
             ),
-            graph_functions=(root_candidate,),
+            graph_functions=(outer_profile, root_candidate),
             candidate_families=(outer_family,),
-            jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_vector", target_id=outer.id),)),),
+            jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_function", target_id=outer_profile.id),)),),
             metadata={"requirements": [f"REQ-M03-DEPTH-{depth:03d}"]},
         )
         scope = Scope(module=module, workspace_root=tmp_path)
@@ -2089,6 +2120,7 @@ class TestM03EngineKernelIntegration:
             nodes=(raw_contract, discovered_context),
             vectors=(vector,),
         )
+        graph_function = _graph_function_for_vector(vector)
         boundary = RefinementBoundary(
             name=vector.name,
             inputs=(raw_contract,),
@@ -2096,12 +2128,13 @@ class TestM03EngineKernelIntegration:
         )
         job = Job(
             name=vector.name,
-            contracts=(ContractRef(kind="graph_vector", target_id=vector.id),),
+            contracts=(ContractRef(kind="graph_function", target_id=graph_function.id),),
             roles=(constructor,),
         )
         module = Module(
             name="m03_iterate",
             graphs=(graph,),
+            graph_functions=(graph_function,),
             refinement_boundaries=(boundary,),
             jobs=(job,),
             roles=(constructor,),
@@ -2192,6 +2225,7 @@ class TestM03EngineKernelIntegration:
             nodes=(raw_contract, discovered_context),
             vectors=(vector,),
         )
+        graph_function = _graph_function_for_vector(vector)
         boundary = RefinementBoundary(
             name=vector.name,
             inputs=(raw_contract,),
@@ -2199,12 +2233,13 @@ class TestM03EngineKernelIntegration:
         )
         job = Job(
             name=vector.name,
-            contracts=(ContractRef(kind="graph_vector", target_id=vector.id),),
+            contracts=(ContractRef(kind="graph_function", target_id=graph_function.id),),
             roles=(constructor,),
         )
         module = Module(
             name="m03_router_dispatch",
             graphs=(graph,),
+            graph_functions=(graph_function,),
             refinement_boundaries=(boundary,),
             jobs=(job,),
             roles=(constructor,),
@@ -2318,6 +2353,7 @@ class TestM03EngineKernelIntegration:
             nodes=(raw_contract, discovered_context),
             vectors=(vector,),
         )
+        graph_function = _graph_function_for_vector(vector)
         boundary = RefinementBoundary(
             name=vector.name,
             inputs=(raw_contract,),
@@ -2325,12 +2361,13 @@ class TestM03EngineKernelIntegration:
         )
         job = Job(
             name=vector.name,
-            contracts=(ContractRef(kind="graph_vector", target_id=vector.id),),
+            contracts=(ContractRef(kind="graph_function", target_id=graph_function.id),),
             roles=(constructor,),
         )
         module = Module(
             name="m03_router_dispatch_no_build",
             graphs=(graph,),
+            graph_functions=(graph_function,),
             refinement_boundaries=(boundary,),
             jobs=(job,),
             roles=(constructor,),
@@ -2493,13 +2530,15 @@ class TestM03EngineKernelIntegration:
             nodes=(design, code),
             vectors=(vector,),
         )
+        graph_function = _graph_function_for_vector(vector)
         job = Job(
             name=vector.name,
-            contracts=(ContractRef(kind="graph_vector", target_id=vector.id),),
+            contracts=(ContractRef(kind="graph_function", target_id=graph_function.id),),
         )
         module = Module(
             name="m03_convergence",
             graphs=(graph,),
+            graph_functions=(graph_function,),
             jobs=(job,),
             metadata={"requirements": ["REQ-M03-CONVERGENCE-001"]},
         )

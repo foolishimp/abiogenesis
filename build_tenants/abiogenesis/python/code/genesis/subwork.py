@@ -1,5 +1,5 @@
-# Implements: REQ-L-GTL2-SUBWORK
-# Implements: REQ-R-ABG2-LEAFTASK
+# Implements: REQ-L-GTL3-SUBWORK
+# Implements: REQ-R-ABG3-LEAFTASK
 """
 subwork — Bounded sub-work realization.
 

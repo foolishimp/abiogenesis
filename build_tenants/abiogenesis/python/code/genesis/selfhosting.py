@@ -1,4 +1,4 @@
-# Implements: REQ-R-ABG2-SELFHOSTING
+# Implements: REQ-R-ABG3-SELFHOSTING
 """
 selfhosting — Derived artifact governance.
 

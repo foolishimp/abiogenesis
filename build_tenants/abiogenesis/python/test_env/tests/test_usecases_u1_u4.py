@@ -1,7 +1,7 @@
-# Validates: REQ-L-GTL2-GRAPHFUNCTION
-# Validates: REQ-L-GTL2-SYNTHESIS
-# Validates: REQ-L-GTL2-SELECTION-BOUNDARY
-# Validates: REQ-L-GTL2-HOF
+# Validates: REQ-L-GTL3-GRAPHFUNCTION
+# Validates: REQ-L-GTL3-SYNTHESIS
+# Validates: REQ-L-GTL3-SELECTION-BOUNDARY
+# Validates: REQ-L-GTL3-HOF
 # Validates: REQ-R-ABG2-INTERPRET
 # Validates: REQ-R-ABG2-CONVERGENCE
 # Validates: REQ-R-ABG2-SELECTION-APPLICATION
@@ -126,14 +126,15 @@ class TestU1MaterializationProfiles:
             policy_hints={"profiles": ("steelthread", "mvp", "optimal")},
             tags=("materialization_profiles",),
         )
+        outer_profile = _graph_function(outer.name, outer_graph)
         job = Job(
             name=outer.name,
-            contracts=(ContractRef(kind="graph_vector", target_id=outer.id),),
+            contracts=(ContractRef(kind="graph_function", target_id=outer_profile.id),),
         )
         module = Module(
             name="u1_profiles",
             graphs=(outer_graph,),
-            graph_functions=(steelthread, mvp, optimal),
+            graph_functions=(outer_profile, steelthread, mvp, optimal),
             candidate_families=(profiles,),
             jobs=(job,),
             metadata={"requirements": ["REQ-U1-001"]},
@@ -211,13 +212,15 @@ class TestU2GapTriggeredRefinement:
             outputs=(discovered_context,),
             hints={"use_case": "gap_triggered_context_discovery"},
         )
+        graph_function = _graph_function(vector.name, graph)
         job = Job(
             name=vector.name,
-            contracts=(ContractRef(kind="graph_vector", target_id=vector.id),),
+            contracts=(ContractRef(kind="graph_function", target_id=graph_function.id),),
         )
         module = Module(
             name="u2_discovery",
             graphs=(graph,),
+            graph_functions=(graph_function,),
             refinement_boundaries=(boundary,),
             jobs=(job,),
             metadata={"requirements": ["REQ-U2-001"]},

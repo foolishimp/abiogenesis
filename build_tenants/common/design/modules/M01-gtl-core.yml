@@ -4,20 +4,27 @@ owns:
   - GTL graph structure and ontology
   - operators, evaluators, rules, and algebraic graph programming
 implements_features:
-  - REQ-L-GTL2-GRAPH
-  - REQ-L-GTL2-NODE
-  - REQ-L-GTL2-INTERFACE
-  - REQ-L-GTL2-OPERATOR
-  - REQ-L-GTL2-EVALUATOR
-  - REQ-L-GTL2-RULE
-  - REQ-L-GTL2-GRAPHFUNCTION
-  - REQ-L-GTL2-COMPOSE
-  - REQ-L-GTL2-SUBSTITUTE
-  - REQ-L-GTL2-RECURSE
-  - REQ-L-GTL2-HOF
-  - REQ-L-GTL2-LAWS
-  - REQ-L-GTL2-SUBWORK
-  - REQ-L-GTL2-SYNTHESIS
+  - REQ-L-GTL3-LANGUAGE
+  - REQ-L-GTL3-ATTRS
+  - REQ-L-GTL3-CONTEXT
+  - REQ-L-GTL3-GRAPH
+  - REQ-L-GTL3-NODE
+  - REQ-L-GTL3-GRAPHVECTOR
+  - REQ-L-GTL3-INTERFACE
+  - REQ-L-GTL3-OPERATOR
+  - REQ-L-GTL3-EVALUATOR
+  - REQ-L-GTL3-RULE
+  - REQ-L-GTL3-GRAPHFUNCTION
+  - REQ-L-GTL3-HOOKS
+  - REQ-L-GTL3-COMPOSE
+  - REQ-L-GTL3-SUBSTITUTE
+  - REQ-L-GTL3-RECURSE
+  - REQ-L-GTL3-HOF
+  - REQ-L-GTL3-LAWS
+  - REQ-L-GTL3-SUBWORK
+  - REQ-L-GTL3-SYNTHESIS
+  - REQ-L-GTL3-SELECTION-BOUNDARY
+  - REQ-L-GTL3-IDENTITY
 primary_surfaces:
   - gtl.graph
   - gtl.operator_model
@@ -47,11 +54,11 @@ interfaces:
   - candidate_family(...)
 invariants:
   - prime GTL declaration types are immutable value records
-  - GraphVector is internal adjacency truth and not a policy surface
+  - GraphVector is internal adjacency truth and a transition-governance declaration surface
   - GraphFunction outer contracts remain stable across composition, substitution, and recursion
   - interface satisfaction is structural over node name, schema, and markov conditions rather than name-only matching
   - graph-function publication truth is symbolic and replayable rather than anonymous runtime closure state
-  - structured higher-order semantics such as recursion termination and gate obligations remain inspectable on GraphFunction declarations
+  - structured higher-order semantics such as recursion termination, gate obligations, and governance hook attachment remain inspectable on GTL declarations
   - algebraic operators may change realized structure but must preserve declared outer contract where the law requires it
   - GTL core does not depend on ABG runtime types or interpreter state
 composes_with:

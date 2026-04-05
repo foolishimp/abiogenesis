@@ -1,4 +1,4 @@
-# Implements: REQ-R-ABG2-PROJECTION
+# Implements: REQ-R-ABG3-PROJECTION
 """
 projection — Pure replay: project truth from event stream.
 
@@ -31,6 +31,18 @@ def project(
         from .frames import project_frame
 
         return project_frame(stream, instance_id)
+    if asset_type == "run":
+        from .run import project_run
+
+        return project_run(stream.all_events(), instance_id)
+    if asset_type == "graph_call":
+        from .graph_call import project_graph_call
+
+        return project_graph_call(stream.all_events(), instance_id)
+    if asset_type == "continuation":
+        from .continuation import project_continuation
+
+        return project_continuation(stream.all_events(), instance_id)
 
     events = stream.all_events()
 

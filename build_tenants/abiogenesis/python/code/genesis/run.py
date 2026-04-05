@@ -1,4 +1,4 @@
-# Implements: REQ-R-ABG2-RUN
+# Implements: REQ-R-ABG3-RUN
 """
 run — Execution attempt governance.
 
@@ -7,6 +7,13 @@ RunState, run_state, find_pending_run, supersede_run.
 from __future__ import annotations
 
 from dataclasses import dataclass
+
+
+def _event_value(event: dict, key: str):
+    value = event.get(key)
+    if value is not None:
+        return value
+    return event.get("data", {}).get(key)
 
 
 # Canonical run states projected from the event stream.
@@ -33,11 +40,11 @@ class RunState:
     run_id: str
     edge: str
     state: str  # one of RUN_STATES
-    vector_id: str | None = None         # operational handle (REQ-L-GTL2-IDENTITY)
-    job_id: str | None = None           # GTL job identity (REQ-R-ABG2-RUN-006)
-    worker_id: str | None = None        # bound worker (REQ-R-ABG2-RUN-007)
-    role_id: str | None = None          # bound role (REQ-R-ABG2-RUN-007)
-    authority_ref: str | None = None    # external authority (REQ-R-ABG2-RUN-008)
+    vector_id: str | None = None         # operational handle (REQ-L-GTL3-IDENTITY)
+    job_id: str | None = None           # GTL job identity (REQ-R-ABG3-RUN-001)
+    worker_id: str | None = None        # bound worker/runtime provenance
+    role_id: str | None = None          # bound role/runtime provenance
+    authority_ref: str | None = None    # external authority/runtime provenance
     selected_worker_id: str | None = None
     selected_backend: str | None = None
     assignment_source: str | None = None
@@ -91,82 +98,82 @@ def run_state(
     for e in all_events:
         etype = e.get("event_type")
         edata = e.get("data", {})
-        erun = edata.get("run_id")
+        erun = _event_value(e, "run_id")
 
         if erun != run_id:
-            if etype == "run_superseded" and edata.get("superseded_run_id") == run_id:
+            if etype == "run_superseded" and _event_value(e, "superseded_run_id") == run_id:
                 state = "superseded"
-                superseded_by = edata.get("superseded_by")
+                superseded_by = _event_value(e, "superseded_by")
             continue
 
         if etype == "run_bound":
             # ADR-030 §10: run_bound is the authoritative binding event.
             # It carries the full binding identity but does NOT change
             # lifecycle state — it is a binding fact, not a state.
-            work_key = edata.get("work_key", work_key)
-            edge = edata.get("edge", edge)
-            vector_id = edata.get("vector_id", vector_id)
-            job_id = edata.get("job_id", job_id)
-            worker_id = edata.get("worker_id", worker_id)
-            role_id = edata.get("role_id", role_id)
-            authority_ref = edata.get("authority_ref", authority_ref)
-            selected_worker_id = edata.get("selected_worker_id", selected_worker_id)
-            selected_backend = edata.get("selected_backend", edata.get("backend_id", selected_backend))
-            assignment_source = edata.get("assignment_source", assignment_source)
-            resolved_runtime_ref = edata.get("resolved_runtime_ref", resolved_runtime_ref)
+            work_key = _event_value(e, "work_key") or work_key
+            edge = _event_value(e, "edge") or edge
+            vector_id = _event_value(e, "vector_id") or vector_id
+            job_id = _event_value(e, "job_id") or job_id
+            worker_id = _event_value(e, "worker_id") or worker_id
+            role_id = _event_value(e, "role_id") or role_id
+            authority_ref = _event_value(e, "authority_ref") or authority_ref
+            selected_worker_id = _event_value(e, "selected_worker_id") or selected_worker_id
+            selected_backend = _event_value(e, "selected_backend") or _event_value(e, "backend_id") or selected_backend
+            assignment_source = _event_value(e, "assignment_source") or assignment_source
+            resolved_runtime_ref = _event_value(e, "resolved_runtime_ref") or resolved_runtime_ref
 
         elif etype == "run_queued":
             # ADR-030 §10: transport-separated runtimes emit run_queued.
             # Local inline runtimes skip directly to run_started.
             state = "queued"
-            work_key = edata.get("work_key", work_key)
-            edge = edata.get("edge", edge)
+            work_key = _event_value(e, "work_key") or work_key
+            edge = _event_value(e, "edge") or edge
 
         elif etype == "run_pending":
             # ADR-030 §10: run accepted by scheduler, awaiting start.
             state = "pending"
-            work_key = edata.get("work_key", work_key)
-            edge = edata.get("edge", edge)
+            work_key = _event_value(e, "work_key") or work_key
+            edge = _event_value(e, "edge") or edge
 
         elif etype == "run_started":
             state = "started"
-            work_key = edata.get("work_key", work_key)
-            edge = edata.get("edge", edge)
-            attempt_number = edata.get("attempt_number", attempt_number)
+            work_key = _event_value(e, "work_key") or work_key
+            edge = _event_value(e, "edge") or edge
+            attempt_number = _event_value(e, "attempt_number") or attempt_number
             # run_bound is authoritative when present; run_started may still
             # carry identity fields as event-local provenance.
-            job_id = edata.get("job_id", job_id)
-            worker_id = edata.get("worker_id", worker_id)
-            role_id = edata.get("role_id", role_id)
-            authority_ref = edata.get("authority_ref", authority_ref)
-            selected_worker_id = edata.get("selected_worker_id", selected_worker_id)
-            selected_backend = edata.get("selected_backend", edata.get("backend_id", selected_backend))
-            assignment_source = edata.get("assignment_source", assignment_source)
-            resolved_runtime_ref = edata.get("resolved_runtime_ref", resolved_runtime_ref)
+            job_id = _event_value(e, "job_id") or job_id
+            worker_id = _event_value(e, "worker_id") or worker_id
+            role_id = _event_value(e, "role_id") or role_id
+            authority_ref = _event_value(e, "authority_ref") or authority_ref
+            selected_worker_id = _event_value(e, "selected_worker_id") or selected_worker_id
+            selected_backend = _event_value(e, "selected_backend") or _event_value(e, "backend_id") or selected_backend
+            assignment_source = _event_value(e, "assignment_source") or assignment_source
+            resolved_runtime_ref = _event_value(e, "resolved_runtime_ref") or resolved_runtime_ref
 
         elif etype == "fp_dispatched":
             state = "dispatched"
-            edge = edata.get("edge", edge)
-            role_id = edata.get("role_id", role_id)
-            authority_ref = edata.get("authority_ref", authority_ref)
-            selected_worker_id = edata.get("selected_worker_id", selected_worker_id)
-            selected_backend = edata.get("selected_backend", edata.get("backend_id", selected_backend))
-            assignment_source = edata.get("assignment_source", assignment_source)
-            resolved_runtime_ref = edata.get("resolved_runtime_ref", resolved_runtime_ref)
+            edge = _event_value(e, "edge") or edge
+            role_id = _event_value(e, "role_id") or role_id
+            authority_ref = _event_value(e, "authority_ref") or authority_ref
+            selected_worker_id = _event_value(e, "selected_worker_id") or selected_worker_id
+            selected_backend = _event_value(e, "selected_backend") or _event_value(e, "backend_id") or selected_backend
+            assignment_source = _event_value(e, "assignment_source") or assignment_source
+            resolved_runtime_ref = _event_value(e, "resolved_runtime_ref") or resolved_runtime_ref
 
         elif etype == "assessed":
-            edge = edata.get("edge", edge)
-            role_id = edata.get("role_id", role_id)
-            authority_ref = edata.get("authority_ref", authority_ref)
-            selected_worker_id = edata.get("selected_worker_id", selected_worker_id)
-            selected_backend = edata.get("selected_backend", edata.get("backend_id", selected_backend))
-            assignment_source = edata.get("assignment_source", assignment_source)
-            resolved_runtime_ref = edata.get("resolved_runtime_ref", resolved_runtime_ref)
+            edge = _event_value(e, "edge") or edge
+            role_id = _event_value(e, "role_id") or role_id
+            authority_ref = _event_value(e, "authority_ref") or authority_ref
+            selected_worker_id = _event_value(e, "selected_worker_id") or selected_worker_id
+            selected_backend = _event_value(e, "selected_backend") or _event_value(e, "backend_id") or selected_backend
+            assignment_source = _event_value(e, "assignment_source") or assignment_source
+            resolved_runtime_ref = _event_value(e, "resolved_runtime_ref") or resolved_runtime_ref
             state, failure_class = _project_assessment(edata, state, failure_class)
 
         elif etype == "run_failed":
             state = "failed"
-            failure_class = edata.get("failure_class", failure_class)
+            failure_class = _event_value(e, "failure_class") or failure_class
 
         elif etype == "run_timed_out":
             state = "timed_out"
@@ -193,6 +200,39 @@ def run_state(
         attempt_number=attempt_number,
         superseded_by=superseded_by,
     )
+
+
+def project_run(all_events: list[dict], run_id: str) -> dict:
+    state = run_state(all_events, run_id)
+    if state is None:
+        return {
+            "asset_type": "run",
+            "instance_id": run_id,
+            "status": "not_started",
+            "event_count": 0,
+        }
+    projected = {
+        "asset_type": "run",
+        "instance_id": run_id,
+        "status": state.state,
+        "work_key": state.work_key,
+        "run_id": state.run_id,
+        "edge": state.edge,
+        "vector_id": state.vector_id,
+        "job_id": state.job_id,
+        "worker_id": state.worker_id,
+        "role_id": state.role_id,
+        "authority_ref": state.authority_ref,
+        "selected_worker_id": state.selected_worker_id,
+        "selected_backend": state.selected_backend,
+        "assignment_source": state.assignment_source,
+        "resolved_runtime_ref": state.resolved_runtime_ref,
+        "failure_class": state.failure_class,
+        "attempt_number": state.attempt_number,
+        "superseded_by": state.superseded_by,
+    }
+    projected["event_count"] = sum(1 for event in all_events if _event_value(event, "run_id") == run_id)
+    return projected
 
 
 def find_pending_run(

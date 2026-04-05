@@ -3,7 +3,7 @@
 **Series**: abiogenesis / claude_code build
 **Status**: Accepted
 **Date**: 2026-03-23
-**Implements**: REQ-R-ABG2-TRANSPORT, REQ-P-QUAL
+**Implements**: REQ-R-ABG3-TRANSPORT, REQ-P-QUAL
 **Scope**: `genesis/transport.py`, `gen-install.py`, test harness
 
 ---

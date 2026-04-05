@@ -1,10 +1,10 @@
-# Implements: REQ-R-ABG2-SELECTION-APPLICATION
+# Implements: REQ-R-ABG3-SELECTION-APPLICATION
 """
 genesis.selection — Candidate enumeration and validation.
 
 Pure kernel module — returns SelectionDecision values.
 Event emission delegated to interpret.apply_selection()
-(per GTL_2_MODULE_DESIGN §4.4).
+(per GTL_3_MODULE_DESIGN).
 
 No side effects, no events, no I/O. Pure functions over current GTL types.
 """
@@ -105,12 +105,17 @@ def validate_selection_surface(
     vectors: tuple[GraphVector, ...],
     graph_functions: tuple[GraphFunction, ...],
     candidate_families: tuple[CandidateFamily, ...],
+    callable_carrier_ids: frozenset[str] = frozenset(),
 ) -> None:
     """Fail closed when a traversal surface hides structural alternatives outside CandidateFamily.
 
     If a GraphFunction matches the outer contract of a live GraphVector, that
     alternative must be published through CandidateFamily. The engine must not
     infer selection topology from raw graph_functions.
+
+    Public callable carrier graph functions already bound by GTL semantic jobs
+    are excluded from this hidden-alternative check. They are callable carriers,
+    not undeclared selection alternatives.
     """
     family_contracts = {
         (interface_contract(family.inputs), interface_contract(family.outputs))
@@ -125,6 +130,7 @@ def validate_selection_surface(
     hidden_contracts = {
         _graph_function_contract(function)
         for function in graph_functions
+        if function.id not in callable_carrier_ids
         if _graph_function_contract(function) in vector_contracts
         and _graph_function_contract(function) not in family_contracts
     }
@@ -142,10 +148,17 @@ def validate_selection_surface(
 
 def validate_module_selection_surface(module: Module) -> None:
     """Fail closed when a module hides structural alternatives outside CandidateFamily."""
+    callable_carrier_ids = frozenset(
+        ref.target_id
+        for job in module.jobs
+        for ref in job.contracts
+        if ref.kind == "graph_function"
+    )
     validate_selection_surface(
         vectors=tuple(vector for graph in module.graphs for vector in graph.vectors),
         graph_functions=module.graph_functions,
         candidate_families=module.candidate_families,
+        callable_carrier_ids=callable_carrier_ids,
     )
 
 
@@ -225,7 +238,7 @@ def validate_selection(
 
     Checks:
     - decision.graph_function matches candidate.name
-    - decision.contract_id matches vector.id (REQ-L-GTL2-IDENTITY-006)
+    - decision.contract_id matches vector.id (REQ-L-GTL3-IDENTITY-006)
     - candidate interface satisfies vector (same rules as enumerate_candidates)
     """
     if decision.graph_function != candidate.name:
@@ -267,8 +280,8 @@ def accept_selection(
 ) -> SelectionDecision:
     """Validate that candidate belongs to family and satisfies the family contract.
 
-    REQ-R-ABG2-SELECTION-APPLICATION-003: validate interface compatibility.
-    REQ-R-ABG2-SELECTION-APPLICATION-004: validate family membership.
+    REQ-R-ABG3-SELECTION-APPLICATION-003: validate interface compatibility.
+    REQ-R-ABG3-SELECTION-APPLICATION-005: validate family membership.
     """
     # Membership check — by identity
     if not any(c.id == candidate.id for c in family.candidates):

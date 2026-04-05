@@ -844,13 +844,16 @@ def gsdlc_lite_module(workspace: Path) -> Module:
         nodes=(requirements, design, code),
         vectors=(req_to_design, design_to_code),
     )
+    gf_req_to_design = _graph_function_for_vector(req_to_design)
+    gf_design_to_code = _graph_function_for_vector(design_to_code)
     jobs = (
-        Job(name=req_to_design.name, contracts=(ContractRef(kind="graph_vector", target_id=req_to_design.id),)),
-        Job(name=design_to_code.name, contracts=(ContractRef(kind="graph_vector", target_id=design_to_code.id),)),
+        Job(name=req_to_design.name, contracts=(ContractRef(kind="graph_function", target_id=gf_req_to_design.id),)),
+        Job(name=design_to_code.name, contracts=(ContractRef(kind="graph_function", target_id=gf_design_to_code.id),)),
     )
     return Module(
         name="gsdlc_lite_delivery",
         graphs=(graph,),
+        graph_functions=(gf_req_to_design, gf_design_to_code),
         refinement_boundaries=(
             deferred_refinement(req_to_design.name, inputs=(requirements,), outputs=(design,)),
             deferred_refinement(design_to_code.name, inputs=(design,), outputs=(code,)),
@@ -864,6 +867,21 @@ def gsdlc_lite_module(workspace: Path) -> Module:
 
 def _graph_function(name: str, graph: Graph, *, tags: tuple[str, ...] = ()) -> GraphFunction:
     return GraphFunction.from_graph(name=name, graph=graph, tags=tags)
+
+
+def _graph_function_for_vector(vector: GraphVector) -> GraphFunction:
+    source = vector.source if isinstance(vector.source, tuple) else (vector.source,)
+    return GraphFunction.from_graph(
+        name=vector.name,
+        graph=Graph(
+            name=f"{vector.name}_workflow",
+            inputs=source,
+            outputs=(vector.target,),
+            nodes=tuple(dict.fromkeys((*source, vector.target))),
+            vectors=(vector,),
+            contexts=vector.contexts,
+        ),
+    )
 
 
 def gsdlc_lite_zoom_module(workspace: Path) -> Module:
@@ -1092,14 +1110,15 @@ def gsdlc_lite_zoom_module(workspace: Path) -> Module:
         tags=("zoom_selection",),
     )
 
+    design_to_code_graph_function = _graph_function_for_vector(design_to_code)
     jobs = (
-        Job(name=outer_req_to_design.name, contracts=(ContractRef(kind="graph_vector", target_id=outer_req_to_design.id),)),
-        Job(name=design_to_code.name, contracts=(ContractRef(kind="graph_vector", target_id=design_to_code.id),)),
+        Job(name=outer_req_to_design.name, contracts=(ContractRef(kind="graph_function", target_id=direct_profile.id),)),
+        Job(name=design_to_code.name, contracts=(ContractRef(kind="graph_function", target_id=design_to_code_graph_function.id),)),
     )
     return Module(
         name="gsdlc_lite_zoom_delivery",
         graphs=(outer_graph,),
-        graph_functions=(direct_profile, zoomed_profile),
+        graph_functions=(direct_profile, zoomed_profile, design_to_code_graph_function),
         candidate_families=(design_family,),
         refinement_boundaries=(
             deferred_refinement(REQ_TO_DECOMPOSITION_EDGE, inputs=(requirements,), outputs=(decomposition,)),
@@ -1284,14 +1303,18 @@ def gsdlc_lite_review_module(workspace: Path) -> Module:
         nodes=(requirements, design, design_review, code),
         vectors=(req_to_design, design_to_review, review_to_code),
     )
+    gf_req_to_design = _graph_function_for_vector(req_to_design)
+    gf_design_to_review = _graph_function_for_vector(design_to_review)
+    gf_review_to_code = _graph_function_for_vector(review_to_code)
     jobs = (
-        Job(name=req_to_design.name, contracts=(ContractRef(kind="graph_vector", target_id=req_to_design.id),)),
-        Job(name=design_to_review.name, contracts=(ContractRef(kind="graph_vector", target_id=design_to_review.id),)),
-        Job(name=review_to_code.name, contracts=(ContractRef(kind="graph_vector", target_id=review_to_code.id),)),
+        Job(name=req_to_design.name, contracts=(ContractRef(kind="graph_function", target_id=gf_req_to_design.id),)),
+        Job(name=design_to_review.name, contracts=(ContractRef(kind="graph_function", target_id=gf_design_to_review.id),)),
+        Job(name=review_to_code.name, contracts=(ContractRef(kind="graph_function", target_id=gf_review_to_code.id),)),
     )
     return Module(
         name="gsdlc_lite_review_delivery",
         graphs=(graph,),
+        graph_functions=(gf_req_to_design, gf_design_to_review, gf_review_to_code),
         refinement_boundaries=(
             deferred_refinement(req_to_design.name, inputs=(requirements,), outputs=(design,)),
             deferred_refinement(design_to_review.name, inputs=(design,), outputs=(design_review,)),
@@ -1328,20 +1351,21 @@ def gsdlc_lite_role_module(workspace: Path) -> Module:
     coder = Role(name="coder", tags=("phase:code",))
 
     req_to_design, design_to_review, review_to_code = base.graphs[0].vectors
+    graph_function_by_name = {graph_function.name: graph_function for graph_function in base.graph_functions}
     jobs = (
         Job(
             name=req_to_design.name,
-            contracts=(ContractRef(kind="graph_vector", target_id=req_to_design.id),),
+            contracts=(ContractRef(kind="graph_function", target_id=graph_function_by_name[req_to_design.name].id),),
             roles=(designer,),
         ),
         Job(
             name=design_to_review.name,
-            contracts=(ContractRef(kind="graph_vector", target_id=design_to_review.id),),
+            contracts=(ContractRef(kind="graph_function", target_id=graph_function_by_name[design_to_review.name].id),),
             roles=(reviewer,),
         ),
         Job(
             name=review_to_code.name,
-            contracts=(ContractRef(kind="graph_vector", target_id=review_to_code.id),),
+            contracts=(ContractRef(kind="graph_function", target_id=graph_function_by_name[review_to_code.name].id),),
             roles=(coder,),
         ),
     )

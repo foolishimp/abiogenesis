@@ -1,4 +1,4 @@
-# Implements: REQ-R-ABG2-PROVENANCE
+# Implements: REQ-R-ABG3-PROVENANCE
 """
 provenance — Spec/workflow/selection provenance.
 
@@ -38,6 +38,8 @@ def executable_job_hash(job: ExecutableJob) -> str:
     at import time. Used as spec_hash when scope.workflow_version != "unknown".
     """
     parts: list[str] = [f"job:{job.job.name}"]
+    if job.graph_function is not None:
+        parts.append(f"graph_function:{job.graph_function.name}")
     parts.extend(sorted(f"role:{r.name}" for r in job.job.roles))
     parts.extend(sorted(
         f"{ev.name}:{ev.regime.__name__}:{ev.binding}:{ev.description}"

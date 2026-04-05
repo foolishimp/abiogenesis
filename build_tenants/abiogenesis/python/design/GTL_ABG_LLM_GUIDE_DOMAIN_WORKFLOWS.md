@@ -292,18 +292,18 @@ When writing GTL/ABG domain workflow code:
 ## 10. Where To Read Next
 
 Core GTL requirements:
-- `workspace://specification/requirements/gtl/REQ-L-GTL2-GRAPHFUNCTION.md`
-- `workspace://specification/requirements/gtl/REQ-L-GTL2-RECURSE.md`
-- `workspace://specification/requirements/gtl/REQ-L-GTL2-SUBSTITUTE.md`
+- `workspace://specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md`
+- `workspace://specification/requirements/gtl/REQ-L-GTL3-RECURSE.md`
+- `workspace://specification/requirements/gtl/REQ-L-GTL3-SUBSTITUTE.md`
 
 Core ABG requirements:
-- `workspace://specification/requirements/abg/REQ-R-ABG2-INTERPRET.md`
-- `workspace://specification/requirements/abg/REQ-R-ABG2-SELECTION-APPLICATION.md`
-- `workspace://specification/requirements/abg/REQ-R-ABG2-LINEAGE.md`
+- `workspace://specification/requirements/abg/REQ-R-ABG3-INTERPRET.md`
+- `workspace://specification/requirements/abg/REQ-R-ABG3-SELECTION-APPLICATION.md`
+- `workspace://specification/requirements/abg/REQ-R-ABG3-LINEAGE.md`
 
 Design surfaces:
-- `workspace://build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md`
-- `workspace://build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md`
+- `workspace://build_tenants/abiogenesis/python/design/GTL_3_INTERFACE_CONTRACTS.md`
+- `workspace://build_tenants/abiogenesis/python/design/GTL_3_MODULE_DESIGN.md`
 
 Runtime/code examples:
 - `workspace://build_tenants/abiogenesis/python/code/gtl/algebra.py`

@@ -1,6 +1,6 @@
-# Validates: REQ-L-GTL2-SYNTHESIS
-# Validates: REQ-L-GTL2-SELECTION-BOUNDARY
-# Validates: REQ-L-GTL2-SUBWORK
+# Validates: REQ-L-GTL3-SYNTHESIS
+# Validates: REQ-L-GTL3-SELECTION-BOUNDARY
+# Validates: REQ-L-GTL3-SUBWORK
 # Validates: REQ-R-ABG2-INTERPRET
 # Validates: REQ-R-ABG2-BINDING
 # Validates: REQ-R-ABG2-CORRECTION
@@ -93,6 +93,20 @@ def _graph_function(name: str, graph: Graph, *, tags: tuple[str, ...] = ()) -> G
     return GraphFunction.from_graph(name=name, graph=graph, tags=tags)
 
 
+def _graph_function_for_vector(vector: GraphVector) -> GraphFunction:
+    source = vector.source if isinstance(vector.source, tuple) else (vector.source,)
+    return GraphFunction.from_graph(
+        name=vector.name,
+        graph=Graph(
+            name=f"{vector.name}_workflow",
+            inputs=source,
+            outputs=(vector.target,),
+            nodes=tuple(dict.fromkeys((*source, vector.target))),
+            vectors=(vector,),
+        ),
+    )
+
+
 def _precomputed(job, *, failing=(), passing=()) -> PrecomputedManifest:
     return PrecomputedManifest(
         executable_job=job,
@@ -128,13 +142,15 @@ def _u2_discovery_module() -> Module:
         outputs=(discovered_context,),
         hints={"use_case": "gap_triggered_context_discovery"},
     )
+    graph_function = _graph_function_for_vector(vector)
     job = Job(
         name=vector.name,
-        contracts=(ContractRef(kind="graph_vector", target_id=vector.id),),
+        contracts=(ContractRef(kind="graph_function", target_id=graph_function.id),),
     )
     return Module(
         name="u2_discovery",
         graphs=(graph,),
+        graph_functions=(graph_function,),
         refinement_boundaries=(boundary,),
         jobs=(job,),
         metadata={"requirements": ["REQ-U2-001"]},
@@ -198,14 +214,15 @@ def _u1_profiles_module() -> Module:
         candidates=(mvp, optimal),
         policy_hints={"profiles": ("mvp", "optimal")},
     )
+    outer_profile = _graph_function(outer.name, outer_graph)
     job = Job(
         name=outer.name,
-        contracts=(ContractRef(kind="graph_vector", target_id=outer.id),),
+        contracts=(ContractRef(kind="graph_function", target_id=outer_profile.id),),
     )
     return Module(
         name="u1_profiles",
         graphs=(outer_graph,),
-        graph_functions=(mvp, optimal),
+        graph_functions=(outer_profile, mvp, optimal),
         candidate_families=(profiles,),
         refinement_boundaries=(
             deferred_refinement("design→prototype", inputs=(design,), outputs=(prototype,)),

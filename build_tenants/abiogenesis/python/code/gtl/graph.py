@@ -1,7 +1,10 @@
-# Implements: REQ-L-GTL2-GRAPH
-# Implements: REQ-L-GTL2-NODE (including NODE-003: markov as first-class field)
-# Implements: REQ-L-GTL2-INTERFACE
-# Implements: REQ-L-GTL2-IDENTITY
+# Implements: REQ-L-GTL3-ATTRS
+# Implements: REQ-L-GTL3-CONTEXT
+# Implements: REQ-L-GTL3-GRAPH
+# Implements: REQ-L-GTL3-NODE
+# Implements: REQ-L-GTL3-GRAPHVECTOR
+# Implements: REQ-L-GTL3-INTERFACE
+# Implements: REQ-L-GTL3-IDENTITY
 """
 gtl.graph — Graph structure primitives.
 
@@ -37,6 +40,50 @@ class Attr:
     """Immutable key/value attribute for public GTL metadata surfaces."""
     key: str
     value: Any
+
+
+_REPLAYABLE_SCALAR_TYPES = (str, int, float, bool, type(None))
+_REPLAYABLE_GTL_DECL_TYPES = {
+    ("gtl.graph", "Node"),
+    ("gtl.graph", "GraphVector"),
+    ("gtl.function_model", "GraphFunction"),
+    ("gtl.function_model", "RefinementBoundary"),
+    ("gtl.function_model", "CandidateFamily"),
+}
+
+
+def _is_replayable_gtl_decl(value: Any) -> bool:
+    value_type = type(value)
+    return (value_type.__module__, value_type.__name__) in _REPLAYABLE_GTL_DECL_TYPES
+
+
+def _validate_attr_value(value: Any, *, path: str) -> None:
+    if isinstance(value, _REPLAYABLE_SCALAR_TYPES):
+        return
+    if isinstance(value, Attrs):
+        for entry in value.entries:
+            _validate_attr_value(entry.value, path=f"{path}.{entry.key}")
+        return
+    if _is_replayable_gtl_decl(value):
+        return
+    if isinstance(value, Mapping):
+        for key, item in value.items():
+            if not isinstance(key, str):
+                raise TypeError(f"Attrs values require string mapping keys at {path}, got {key!r}")
+            _validate_attr_value(item, path=f"{path}.{key}")
+        return
+    if isinstance(value, tuple):
+        for index, item in enumerate(value):
+            _validate_attr_value(item, path=f"{path}[{index}]")
+        return
+    if isinstance(value, list):
+        for index, item in enumerate(value):
+            _validate_attr_value(item, path=f"{path}[{index}]")
+        return
+    raise TypeError(
+        f"Attrs values must be replayable declaration data at {path}; "
+        f"got {type(value).__module__}.{type(value).__name__}"
+    )
 
 
 def _coerce_attr_entries(value: Any) -> tuple[Attr, ...]:
@@ -77,6 +124,7 @@ class Attrs(Mapping[str, Any]):
             if entry.key in seen:
                 raise ValueError(f"Duplicate Attr key: {entry.key!r}")
             seen.add(entry.key)
+            _validate_attr_value(entry.value, path=entry.key)
         object.__setattr__(self, "entries", coerced)
 
     @classmethod
@@ -150,11 +198,11 @@ class Node:
     schema: type reference or URI string — supports both concrete Python
     types and string references (e.g. "Vector[intent]").
 
-    markov: declarative state/acceptance conditions at this locus
-    (REQ-L-GTL2-NODE-003). Constitutional vocabulary — not runtime metadata.
+    markov: declarative state/acceptance conditions at this locus.
+    Constitutional vocabulary, not runtime metadata.
 
-    id: opaque identity (REQ-L-GTL2-IDENTITY-001). Auto-minted.
-    compare=False: structural equality ignores id (REQ-L-GTL2-IDENTITY-005).
+    id: opaque identity. Auto-minted.
+    compare=False: structural equality ignores id.
     """
     name: str
     schema: type | str = ""
@@ -178,14 +226,14 @@ def interface_contract(nodes: tuple[Node, ...]) -> tuple[tuple[str, str, tuple[s
 @dataclass(frozen=True)
 class GraphVector:
     """
-    Internal adjacency record. Not public ontology.
+    Internal adjacency record and invariant traversal declaration surface.
 
     Represents a directed step between typed nodes, carrying local
-    operator/evaluator metadata. Used by the engine for scheduling,
-    binding, and substitution.
+    operator/evaluator metadata and transition-governance declarations.
+    Used by the engine for scheduling, binding, substitution, and replay.
 
-    id: opaque identity (REQ-L-GTL2-IDENTITY-001). Auto-minted.
-    compare=False: structural equality ignores id (REQ-L-GTL2-IDENTITY-005).
+    id: opaque identity. Auto-minted.
+    compare=False: structural equality ignores id.
     """
     name: str
     source: Node | tuple[Node, ...] = None  # type: ignore[assignment]
@@ -195,6 +243,7 @@ class GraphVector:
     contexts: tuple[Context, ...] = ()
     rule: Any = None
     allows_subwork: bool = False
+    declarations: Attrs = field(default_factory=Attrs)
     tags: tuple[str, ...] = ()
     id: str = field(default_factory=_mint_id, compare=False)
 
@@ -208,6 +257,7 @@ class GraphVector:
                 raise ValueError(f"GraphVector({self.name!r}) source tuple must not contain None")
         if self.target is None:
             raise ValueError(f"GraphVector({self.name!r}) requires a target node")
+        object.__setattr__(self, "declarations", Attrs.coerce(self.declarations))
 
 
 # ── Graph ─────────────────────────────────────────────────────────────────
@@ -215,16 +265,16 @@ class GraphVector:
 @dataclass(frozen=True)
 class Graph:
     """
-    The one first-class structural type in GTL 2.x.
+    The one first-class structural type in GTL 3.
 
     All workflow structure is graph: a primitive edge, a multi-step workflow,
     a subgraph, a reusable workflow, a refined workflow.
 
-    REQ-L-GTL2-GRAPH-001: frozen, immutable value type with name, inputs,
-    outputs, nodes, vectors, contexts, rules, effects, tags.
+    Frozen, immutable value type with name, inputs, outputs, nodes, vectors,
+    contexts, rules, effects, and tags.
 
-    id: opaque identity (REQ-L-GTL2-IDENTITY-001). Auto-minted.
-    compare=False: structural equality ignores id (REQ-L-GTL2-IDENTITY-005).
+    id: opaque identity. Auto-minted.
+    compare=False: structural equality ignores id.
     """
     name: str
     inputs: tuple[Node, ...] = ()

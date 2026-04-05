@@ -15,6 +15,7 @@ No separate requirements document. REQ keys emerge from this Module
 and are traced through feature vectors in .ai-workspace/features/.
 """
 
+from gtl.function_model import GraphFunction
 from gtl.graph import Graph, Node, GraphVector, Context
 from gtl.module_model import Module
 from gtl.work_model import Job, ContractRef, Role
@@ -248,45 +249,68 @@ sdlc_graph = Graph(
 )
 
 
+def _graph_function_for_vector(vector: GraphVector) -> GraphFunction:
+    source = vector.source if isinstance(vector.source, tuple) else (vector.source,)
+    return GraphFunction.from_graph(
+        name=vector.name,
+        graph=Graph(
+            name=f"{vector.name}_workflow",
+            inputs=source,
+            outputs=(vector.target,),
+            nodes=tuple(dict.fromkeys((*source, vector.target))),
+            vectors=(vector,),
+            contexts=vector.contexts,
+        ),
+    )
+
+
+gf_intent_req = _graph_function_for_vector(v_intent_req)
+gf_req_feat = _graph_function_for_vector(v_req_feat)
+gf_feat_design = _graph_function_for_vector(v_feat_design)
+gf_design_bootdoc = _graph_function_for_vector(v_design_bootdoc)
+gf_design_code = _graph_function_for_vector(v_design_code)
+gf_tdd = _graph_function_for_vector(v_tdd)
+
+
 # ── Roles (semantic capability classes) ──────────────────────────────────────
 # ADR-030 §3: shipped modules declare explicit Module.roles.
 
 role_constructor = Role(name="constructor", tags=("f_p",))
 
 
-# ── Jobs (explicit GTL Job per vector) ───────────────────────────────────────
-# Each Job binds to its GraphVector via ContractRef. No auto-derivation.
+# ── Jobs (explicit GTL Job per graph function) ───────────────────────────────
+# Each Job binds to one published GraphFunction via ContractRef. No auto-derivation.
 # ADR-030 §3: jobs with F_P evaluators require constructor role;
 # F_H-only or F_D-only jobs explicitly declare roles=().
 
 job_intent_req = Job(
     name="intent→requirements",
-    contracts=(ContractRef(kind="graph_vector", target_id=v_intent_req.id),),
+    contracts=(ContractRef(kind="graph_function", target_id=gf_intent_req.id),),
     roles=(),  # F_H only — no construction capability needed
 )
 job_req_feat = Job(
     name="requirements→feature_decomp",
-    contracts=(ContractRef(kind="graph_vector", target_id=v_req_feat.id),),
+    contracts=(ContractRef(kind="graph_function", target_id=gf_req_feat.id),),
     roles=(role_constructor,),
 )
 job_feat_design = Job(
     name="feature_decomp→design",
-    contracts=(ContractRef(kind="graph_vector", target_id=v_feat_design.id),),
+    contracts=(ContractRef(kind="graph_function", target_id=gf_feat_design.id),),
     roles=(role_constructor,),
 )
 job_design_bootdoc = Job(
     name="design→bootloader_doc",
-    contracts=(ContractRef(kind="graph_vector", target_id=v_design_bootdoc.id),),
+    contracts=(ContractRef(kind="graph_function", target_id=gf_design_bootdoc.id),),
     roles=(role_constructor,),
 )
 job_design_code = Job(
     name="design→code",
-    contracts=(ContractRef(kind="graph_vector", target_id=v_design_code.id),),
+    contracts=(ContractRef(kind="graph_function", target_id=gf_design_code.id),),
     roles=(role_constructor,),
 )
 job_tdd = Job(
     name="code↔unit_tests",
-    contracts=(ContractRef(kind="graph_vector", target_id=v_tdd.id),),
+    contracts=(ContractRef(kind="graph_function", target_id=gf_tdd.id),),
     roles=(role_constructor,),
 )
 
@@ -332,6 +356,14 @@ rb_tdd = deferred_refinement(
 module = Module(
     name="abiogenesis",
     graphs=(sdlc_graph,),
+    graph_functions=(
+        gf_intent_req,
+        gf_req_feat,
+        gf_feat_design,
+        gf_design_bootdoc,
+        gf_design_code,
+        gf_tdd,
+    ),
     refinement_boundaries=(
         rb_intent_req,
         rb_req_feat,
@@ -344,40 +376,49 @@ module = Module(
     roles=(role_constructor,),
     metadata={
         "requirements": [
-            "REQ-L-GTL2-GRAPH",
-            "REQ-L-GTL2-NODE",
-            "REQ-L-GTL2-INTERFACE",
-            "REQ-L-GTL2-OPERATOR",
-            "REQ-L-GTL2-EVALUATOR",
-            "REQ-L-GTL2-RULE",
-            "REQ-L-GTL2-GRAPHFUNCTION",
-            "REQ-L-GTL2-COMPOSE",
-            "REQ-L-GTL2-SUBSTITUTE",
-            "REQ-L-GTL2-RECURSE",
-            "REQ-L-GTL2-HOF",
-            "REQ-L-GTL2-SYNTHESIS",
-            "REQ-L-GTL2-SELECTION-BOUNDARY",
-            "REQ-L-GTL2-IDENTITY",
-            "REQ-L-GTL2-MODULE",
-            "REQ-L-GTL2-JOB",
-            "REQ-L-GTL2-ROLE",
-            "REQ-L-GTL2-ENGINE-INDEPENDENCE",
-            "REQ-L-GTL2-SUBWORK",
-            "REQ-R-ABG2-JOB-WORKER",
-            "REQ-R-ABG2-BINDING",
-            "REQ-R-ABG2-WORKER",
-            "REQ-R-ABG2-PROVENANCE",
-            "REQ-R-ABG2-CORRECTION",
-            "REQ-R-ABG2-CONVERGENCE",
-            "REQ-R-ABG2-EVENTS",
-            "REQ-R-ABG2-LINEAGE",
-            "REQ-R-ABG2-PROJECTION",
-            "REQ-R-ABG2-SELECTION-APPLICATION",
-            "REQ-R-ABG2-RUN",
-            "REQ-R-ABG2-LEAFTASK",
-            "REQ-R-ABG2-TRANSPORT",
-            "REQ-R-ABG2-INTERPRET",
-            "REQ-R-ABG2-SELFHOSTING",
+            "REQ-L-GTL3-LANGUAGE",
+            "REQ-L-GTL3-ATTRS",
+            "REQ-L-GTL3-CONTEXT",
+            "REQ-L-GTL3-GRAPH",
+            "REQ-L-GTL3-NODE",
+            "REQ-L-GTL3-GRAPHVECTOR",
+            "REQ-L-GTL3-INTERFACE",
+            "REQ-L-GTL3-OPERATOR",
+            "REQ-L-GTL3-EVALUATOR",
+            "REQ-L-GTL3-RULE",
+            "REQ-L-GTL3-GRAPHFUNCTION",
+            "REQ-L-GTL3-HOOKS",
+            "REQ-L-GTL3-COMPOSE",
+            "REQ-L-GTL3-SUBSTITUTE",
+            "REQ-L-GTL3-RECURSE",
+            "REQ-L-GTL3-HOF",
+            "REQ-L-GTL3-LAWS",
+            "REQ-L-GTL3-SYNTHESIS",
+            "REQ-L-GTL3-SELECTION-BOUNDARY",
+            "REQ-L-GTL3-IDENTITY",
+            "REQ-L-GTL3-MODULE",
+            "REQ-L-GTL3-JOB",
+            "REQ-L-GTL3-ROLE",
+            "REQ-L-GTL3-SUBWORK",
+            "REQ-R-ABG3-JOB-WORKER",
+            "REQ-R-ABG3-BINDING",
+            "REQ-R-ABG3-WORKER",
+            "REQ-R-ABG3-PROVENANCE",
+            "REQ-R-ABG3-CORRECTION",
+            "REQ-R-ABG3-CONVERGENCE",
+            "REQ-R-ABG3-EVENTS",
+            "REQ-R-ABG3-LINEAGE",
+            "REQ-R-ABG3-PROJECTION",
+            "REQ-R-ABG3-SELECTION-APPLICATION",
+            "REQ-R-ABG3-RUN",
+            "REQ-R-ABG3-GRAPHCALL",
+            "REQ-R-ABG3-FRAME",
+            "REQ-R-ABG3-CONTINUATION",
+            "REQ-R-ABG3-LEAFTASK",
+            "REQ-R-ABG3-POLICY",
+            "REQ-R-ABG3-TRANSPORT",
+            "REQ-R-ABG3-INTERPRET",
+            "REQ-R-ABG3-SELFHOSTING",
             "REQ-M-GTL2-MAPPING",
             "REQ-P-POLICY",
             "REQ-P-SCENARIOS",

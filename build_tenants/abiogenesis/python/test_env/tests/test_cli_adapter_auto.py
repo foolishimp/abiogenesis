@@ -13,6 +13,7 @@ from pathlib import Path
 import pytest
 
 from gtl.algebra import deferred_refinement
+from gtl.function_model import GraphFunction
 from gtl.graph import Graph, GraphVector, Node
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, F_P
@@ -44,11 +45,13 @@ def _runtime_contract_module() -> Module:
         nodes=(design, code),
         vectors=(vector,),
     )
+    graph_function = GraphFunction.from_graph(name=vector.name, graph=graph)
     return Module(
         name="runtime_identity_contract",
         graphs=(graph,),
+        graph_functions=(graph_function,),
         refinement_boundaries=(deferred_refinement(vector.name, inputs=(design,), outputs=(code,)),),
-        jobs=(Job(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),)),),
+        jobs=(Job(name=vector.name, contracts=(ContractRef(kind="graph_function", target_id=graph_function.id),)),),
         metadata={"requirements": requirements},
     )
 
@@ -57,6 +60,7 @@ def _runtime_contract_module_source() -> str:
     return textwrap.dedent(
         """\
         from gtl.algebra import deferred_refinement
+        from gtl.function_model import GraphFunction
         from gtl.graph import Graph, GraphVector, Node
         from gtl.module_model import Module
         from gtl.operator_model import Evaluator, F_P
@@ -79,11 +83,13 @@ def _runtime_contract_module_source() -> str:
             nodes=(design, code),
             vectors=(vector,),
         )
+        graph_function = GraphFunction.from_graph(name=vector.name, graph=graph)
         module = Module(
             name="runtime_identity_contract",
             graphs=(graph,),
+            graph_functions=(graph_function,),
             refinement_boundaries=(deferred_refinement(vector.name, inputs=(design,), outputs=(code,)),),
-            jobs=(Job(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),)),),
+            jobs=(Job(name=vector.name, contracts=(ContractRef(kind="graph_function", target_id=graph_function.id),)),),
             metadata={"requirements": ["REQ-RUNTIME-IDENTITY-001"]},
         )
         worker = Worker(

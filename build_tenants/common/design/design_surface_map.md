@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Date**: 2026-03-31
-**Derived from**: [GTL_2_CONSTITUTIONAL_DESIGN.md](../../../specification/GTL_2_CONSTITUTIONAL_DESIGN.md), [specification/requirements/](../../../specification/requirements/), [build_tenants/common/design/module_decomp.md](./module_decomp.md)
+**Derived from**: [GTL_3_CONSTITUTIONAL_DESIGN.md](../../../specification/GTL_3_CONSTITUTIONAL_DESIGN.md), [specification/requirements/](../../../specification/requirements/), [build_tenants/common/design/module_decomp.md](./module_decomp.md)
 
 ## Purpose
 
@@ -35,8 +35,8 @@ These surfaces are the common derivation layer for:
 
 They currently govern shared design truth for:
 
-- `REQ-L-GTL2-MODULE`
-- `REQ-L-GTL2-ENGINE-INDEPENDENCE`
+- `REQ-L-GTL3-LANGUAGE`
+- `REQ-L-GTL3-MODULE`
 - `REQ-R-ABG2-SELFHOSTING`
 - `REQ-P-QUAL`
 - `REQ-M-GTL2-MAPPING`

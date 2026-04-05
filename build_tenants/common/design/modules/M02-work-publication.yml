@@ -7,13 +7,12 @@ owns:
   - graph-function discoverability and materialization-visible publication metadata
   - symbolic and replayable graph-function publication truth
 implements_features:
-  - REQ-L-GTL2-JOB
-  - REQ-L-GTL2-ROLE
-  - REQ-L-GTL2-IDENTITY
-  - REQ-L-GTL2-MODULE
-  - REQ-L-GTL2-GRAPHFUNCTION
-  - REQ-L-GTL2-SELECTION-BOUNDARY
-  - REQ-L-GTL2-ENGINE-INDEPENDENCE
+  - REQ-L-GTL3-JOB
+  - REQ-L-GTL3-ROLE
+  - REQ-L-GTL3-IDENTITY
+  - REQ-L-GTL3-MODULE
+  - REQ-L-GTL3-GRAPHFUNCTION
+  - REQ-L-GTL3-SELECTION-BOUNDARY
 primary_surfaces:
   - gtl.work_model
   - gtl.module_model

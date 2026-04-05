@@ -27,6 +27,7 @@ from pathlib import Path
 import pytest
 
 from gtl.algebra import deferred_refinement
+from gtl.function_model import GraphFunction
 from gtl.graph import Graph, Node, GraphVector, Context
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, Operator, F_D, F_P, F_H, Rule
@@ -87,16 +88,18 @@ def _make_fp_module() -> Module:
         operators=(op,),
         evaluators=(eval_fp,),
     )
-    job = GtlJob(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
     graph = Graph(
         name="prov_fp_test",
         inputs=(design,), outputs=(code,),
         nodes=(design, code),
         vectors=(vector,),
     )
+    graph_function = GraphFunction.from_graph(name=vector.name, graph=graph)
+    job = GtlJob(name=vector.name, contracts=(ContractRef(kind="graph_function", target_id=graph_function.id),))
     return Module(
         name="prov_fp_test",
         graphs=(graph,),
+        graph_functions=(graph_function,),
         refinement_boundaries=(
             deferred_refinement(vector.name, inputs=(design,), outputs=(code,)),
         ),
@@ -120,16 +123,18 @@ def _make_fh_module() -> Module:
         operators=(op_agent, op_human),
         evaluators=(eval_fp, eval_fh),
     )
-    job = GtlJob(name=vector.name, contracts=(ContractRef(kind="graph_vector", target_id=vector.id),))
     graph = Graph(
         name="prov_fh_test",
         inputs=(design,), outputs=(code,),
         nodes=(design, code),
         vectors=(vector,),
     )
+    graph_function = GraphFunction.from_graph(name=vector.name, graph=graph)
+    job = GtlJob(name=vector.name, contracts=(ContractRef(kind="graph_function", target_id=graph_function.id),))
     return Module(
         name="prov_fh_test",
         graphs=(graph,),
+        graph_functions=(graph_function,),
         refinement_boundaries=(
             deferred_refinement(vector.name, inputs=(design,), outputs=(code,)),
         ),
@@ -489,10 +494,15 @@ class TestStaleFpRejected:
             nodes=(design, code),
             vectors=(changed_vec,),
         )
-        changed_job = GtlJob(name=changed_vec.name, contracts=(ContractRef(kind="graph_vector", target_id=changed_vec.id),))
+        changed_graph_function = GraphFunction.from_graph(name=changed_vec.name, graph=changed_graph)
+        changed_job = GtlJob(
+            name=changed_vec.name,
+            contracts=(ContractRef(kind="graph_function", target_id=changed_graph_function.id),),
+        )
         changed_module = Module(
             name="prov_fp_test",
             graphs=(changed_graph,),
+            graph_functions=(changed_graph_function,),
             refinement_boundaries=(
                 deferred_refinement(changed_vec.name, inputs=(design,), outputs=(code,)),
             ),

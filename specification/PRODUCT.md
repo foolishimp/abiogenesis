@@ -32,8 +32,9 @@ framing, and goal-setting above that requirement split.
 
 Abiogenesis is the reference product that ships:
 
-- `GTL 2.x` as the declaration language for graph-native workflows
-- `ABG 2.x` as the canonical interpreter, binding, and execution runtime for GTL
+- `GTL 3` as the declaration language for graph-native workflows
+- `ABG 3` as the canonical interpreter, binding, execution, and runtime-truth
+  substrate for GTL
 - mapping and provenance law that preserves the GTL to runtime boundary
 - product-layer policy, qualification, and scenario surfaces that make the
   system operationally provable

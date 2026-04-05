@@ -11,6 +11,7 @@ import textwrap
 from pathlib import Path
 
 from gtl.algebra import deferred_refinement
+from gtl.function_model import GraphFunction
 from gtl.graph import Context, Graph, GraphVector, Node
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, Operator, F_D, F_P
@@ -25,6 +26,21 @@ MODULE_REQUIREMENTS = ("REQ-R2U-001", "REQ-R2U-002", "REQ-R2U-003")
 
 def sha256(text: str) -> str:
     return "sha256:" + hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def _graph_function_for_vector(vector: GraphVector) -> GraphFunction:
+    source = vector.source if isinstance(vector.source, tuple) else (vector.source,)
+    return GraphFunction.from_graph(
+        name=vector.name,
+        graph=Graph(
+            name=f"{vector.name}_workflow",
+            inputs=source,
+            outputs=(vector.target,),
+            nodes=tuple(dict.fromkeys((*source, vector.target))),
+            vectors=(vector,),
+            contexts=vector.contexts,
+        ),
+    )
 
 
 def uat_checker_script() -> str:
@@ -334,13 +350,15 @@ def requirements_uat_module(workspace: Path) -> Module:
         nodes=(requirements, uat_tests),
         vectors=(vector,),
     )
+    graph_function = _graph_function_for_vector(vector)
     job = Job(
         name=vector.name,
-        contracts=(ContractRef(kind="graph_vector", target_id=vector.id),),
+        contracts=(ContractRef(kind="graph_function", target_id=graph_function.id),),
     )
     return Module(
         name="requirements_uat_delivery",
         graphs=(graph,),
+        graph_functions=(graph_function,),
         refinement_boundaries=(
             deferred_refinement(vector.name, inputs=(requirements,), outputs=(uat_tests,)),
         ),

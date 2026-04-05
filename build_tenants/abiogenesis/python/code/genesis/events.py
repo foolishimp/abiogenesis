@@ -1,4 +1,4 @@
-# Implements: REQ-R-ABG2-EVENTS
+# Implements: REQ-R-ABG3-EVENTS
 """
 events — EventStream, emit, init_stream, init_snapshot.
 
@@ -12,6 +12,7 @@ Rules (ADR-005):
 from __future__ import annotations
 
 import json
+import uuid
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -27,6 +28,17 @@ class EventContext:
     workflow_version: str = "unknown"
     work_key: Optional[str] = None
     run_id: Optional[str] = None
+    aggregate_type: Optional[str] = None
+    aggregate_id: Optional[str] = None
+    parent_aggregate_id: Optional[str] = None
+    causation_event_id: Optional[str] = None
+    correlation_id: Optional[str] = None
+    job_id: Optional[str] = None
+    graph_function_id: Optional[str] = None
+    materialization_id: Optional[str] = None
+    frame_attempt_id: Optional[str] = None
+    frame_lineage_id: Optional[str] = None
+    vector_id: Optional[str] = None
 
 
 class EventStream:
@@ -80,9 +92,45 @@ class EventStream:
                 record_data.setdefault("work_key", context.work_key)
             if context.run_id is not None:
                 record_data.setdefault("run_id", context.run_id)
+            if context.job_id is not None:
+                record_data.setdefault("job_id", context.job_id)
+            if context.graph_function_id is not None:
+                record_data.setdefault("graph_function_id", context.graph_function_id)
+            if context.materialization_id is not None:
+                record_data.setdefault("materialization_id", context.materialization_id)
+            if context.frame_attempt_id is not None:
+                record_data.setdefault("frame_attempt_id", context.frame_attempt_id)
+            if context.frame_lineage_id is not None:
+                record_data.setdefault("frame_lineage_id", context.frame_lineage_id)
+            if context.vector_id is not None:
+                record_data.setdefault("vector_id", context.vector_id)
+
+        def _top_level(name: str) -> Any:
+            explicit = data.get(name)
+            if explicit is not None:
+                return explicit
+            if context is None:
+                return None
+            return getattr(context, name)
+
         record = {
+            "event_id": uuid.uuid4().hex,
             "event_time": datetime.now(timezone.utc).isoformat(),
             "event_type": event_type,
+            "aggregate_type": _top_level("aggregate_type"),
+            "aggregate_id": _top_level("aggregate_id"),
+            "parent_aggregate_id": _top_level("parent_aggregate_id"),
+            "causation_event_id": _top_level("causation_event_id"),
+            "correlation_id": _top_level("correlation_id"),
+            "workflow_version": _top_level("workflow_version") or record_data.get("workflow_version", "unknown"),
+            "work_key": _top_level("work_key"),
+            "run_id": _top_level("run_id"),
+            "job_id": _top_level("job_id"),
+            "graph_function_id": _top_level("graph_function_id"),
+            "materialization_id": _top_level("materialization_id"),
+            "frame_attempt_id": _top_level("frame_attempt_id"),
+            "frame_lineage_id": _top_level("frame_lineage_id"),
+            "vector_id": _top_level("vector_id"),
             "data": record_data,
         }
         with self.path.open("a", encoding="utf-8") as f:

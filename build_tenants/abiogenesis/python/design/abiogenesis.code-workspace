@@ -32,6 +32,9 @@
 		},
 		{
 			"path": "../../../../../ai_sdlc_examples"
+		},
+		{
+			"path": "../../../../../jodd"
 		}
 	],
 	"settings": {

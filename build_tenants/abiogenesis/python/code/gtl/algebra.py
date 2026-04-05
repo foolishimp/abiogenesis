@@ -1,10 +1,12 @@
-# Implements: REQ-L-GTL2-COMPOSE
-# Implements: REQ-L-GTL2-SUBSTITUTE
-# Implements: REQ-L-GTL2-RECURSE
-# Implements: REQ-L-GTL2-HOF
-# Implements: REQ-L-GTL2-SYNTHESIS
-# Implements: REQ-L-GTL2-SELECTION-BOUNDARY
-# Implements: REQ-L-GTL2-IDENTITY
+# Implements: REQ-L-GTL3-COMPOSE
+# Implements: REQ-L-GTL3-SUBSTITUTE
+# Implements: REQ-L-GTL3-RECURSE
+# Implements: REQ-L-GTL3-HOF
+# Implements: REQ-L-GTL3-HOOKS
+# Implements: REQ-L-GTL3-SYNTHESIS
+# Implements: REQ-L-GTL3-SELECTION-BOUNDARY
+# Implements: REQ-L-GTL3-LAWS
+# Implements: REQ-L-GTL3-IDENTITY
 """
 gtl.algebra — Graph algebra: composition, substitution, identity,
               higher-order operators, and DSL sugar.
@@ -19,7 +21,7 @@ from gtl.operator_model import Evaluator, Rule
 
 
 def same_object(a, b) -> bool:
-    """Identity equality — same .id (REQ-L-GTL2-IDENTITY-005)."""
+    """Identity equality — same .id."""
     return a.id == b.id
 
 
@@ -216,7 +218,7 @@ def compose(*functions: GraphFunction) -> GraphFunction:
 def substitute(outer: Graph, contract_vector: str, inner: Graph) -> Graph:
     """Replace a coarse contract vector with an interface-compatible inner graph.
 
-    contract_vector: the .id of the target vector (REQ-L-GTL2-IDENTITY-006).
+    contract_vector: the .id of the target vector.
     Id-only — no name fallback.
     """
     target_vec = None

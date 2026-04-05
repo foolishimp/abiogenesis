@@ -15,7 +15,8 @@ CATEGORY_VALUES = {
     "Governance",
     "Verification",
 }
-INTENT_REF_RE = re.compile(r"\bINT(?:-GTL2)?-\d{3}[A-Z]?\b")
+LIVE_INTENT_REF_RE = re.compile(r"\bINT-\d{3}[A-Z]?\b")
+LEGACY_INTENT_REF_RE = re.compile(r"\bINT-GTL2-\d{3}[A-Z]?\b")
 REQ_REF_RE = re.compile(r"\bREQ-[A-Z]-[A-Z0-9]+(?:-[A-Z0-9]+)*\b")
 LINK_RE = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 
@@ -38,12 +39,14 @@ PYTHON_TEST_ROOT = PYTHON_TENANT_ROOT / "test_env" / "tests"
 PYTHON_GTL_ROOT = PYTHON_CODE_ROOT / "gtl"
 PYTHON_GENESIS_ROOT = PYTHON_CODE_ROOT / "genesis"
 PYTHON_DESIGN_ROOT = REPO_ROOT / "build_tenants" / "abiogenesis" / "python" / "design"
+SPEC_SCENARIO_ROOT = SPEC_ROOT / "scenarios"
 COMMON_DESIGN_ROOT = REPO_ROOT / "build_tenants" / "common" / "design"
 COMMON_QUALIFICATION_ROOT = REPO_ROOT / "build_tenants" / "common" / "qualification"
+CANONICAL_SPEC_METHOD = Path("/Users/jim/src/apps/genesis_sdlc/specification/standards/SPEC_METHOD.md")
 
 REQUIREMENT_FILES = sorted(path for path in REQUIREMENTS_ROOT.glob("*/*.md") if path.name.startswith("REQ-"))
 ADR_FILES = sorted(PYTHON_DESIGN_ROOT.glob("adrs/ADR-*.md"))
-STRUCTURAL_DESIGN_FILES = sorted(PYTHON_DESIGN_ROOT.glob("GTL_2_*.md"))
+STRUCTURAL_DESIGN_FILES = sorted(PYTHON_DESIGN_ROOT.glob("GTL_3_*.md"))
 COMMON_STRUCTURAL_DESIGN_FILES = [
     COMMON_DESIGN_ROOT / "module_decomp.md",
     COMMON_DESIGN_ROOT / "design_surface_map.md",
@@ -56,6 +59,21 @@ COMMON_QUALIFICATION_FILES = [
 SCENARIO_DESIGN_FILES = sorted(PYTHON_DESIGN_ROOT.glob("SCENARIO_*.md")) + [
     PYTHON_DESIGN_ROOT / "GSDLC_LITE_QUALIFICATION_LADDER.md"
 ]
+SPEC_SCENARIO_FILES = sorted(
+    path for path in SPEC_SCENARIO_ROOT.glob("*.md") if path.name not in {"README.md", "TESTCASE_AUTHORITY.md"}
+)
+TESTCASE_AUTHORITY_FILE = SPEC_SCENARIO_ROOT / "TESTCASE_AUTHORITY.md"
+ACTIVE_GTL_READMODEL_FILES = [
+    SPEC_ROOT / "PRODUCT.md",
+    SPEC_ROOT / "INTENT.md",
+    REQUIREMENTS_ROOT / "README.md",
+    PYTHON_CODE_ROOT / "gtl_spec" / "GTL_BOOTLOADER.md",
+]
+STALE_GTL_READMODEL_MARKERS = (
+    "GTL 2.x",
+    "Genesis 2.x",
+    "INT-GTL2-",
+)
 
 
 def _read(path: Path) -> str:
@@ -71,8 +89,8 @@ def _metadata_value(text: str, label: str) -> str | None:
 
 def _known_intent_ids() -> set[str]:
     ids: set[str] = set()
-    for path in (SPEC_ROOT / "INTENT.md", SPEC_ROOT / "GTL_2_CONSTITUTIONAL_DESIGN.md"):
-        ids.update(INTENT_REF_RE.findall(_read(path)))
+    for path in (SPEC_ROOT / "INTENT.md",):
+        ids.update(LIVE_INTENT_REF_RE.findall(_read(path)))
     return ids
 
 
@@ -196,14 +214,31 @@ def test_requirement_families_have_method_metadata_and_live_intent_refs() -> Non
         assert date, f"{path.name} is missing **Date** metadata"
         assert derives, f"{path.name} is missing **Derives from** metadata"
 
-        intent_refs = INTENT_REF_RE.findall(derives)
-        assert intent_refs or "SPEC_METHOD.md" in derives, (
+        live_intent_refs = LIVE_INTENT_REF_RE.findall(derives)
+        legacy_intent_refs = LEGACY_INTENT_REF_RE.findall(derives)
+        assert live_intent_refs or legacy_intent_refs or "SPEC_METHOD.md" in derives, (
             f"{path.name} derives from neither a live intent id nor SPEC_METHOD authority"
         )
-        for ref in intent_refs:
+        if path.parent.name == "gtl":
+            assert not legacy_intent_refs, (
+                f"{path.name} still derives from stale GTL2 intent lineage: {legacy_intent_refs}"
+            )
+        for ref in live_intent_refs:
             assert ref in known_intents, f"{path.name} derives from unknown intent id {ref}"
         if "SPEC_METHOD.md" in derives:
-            assert (SPEC_ROOT / "SPEC_METHOD.md").is_file(), "SPEC_METHOD.md missing from specification root"
+            links = _resolve_links(derives, path)
+            assert any(link == CANONICAL_SPEC_METHOD and link.exists() for link in links), (
+                f"{path.name} does not resolve the canonical SPEC_METHOD authority"
+            )
+
+
+def test_active_gtl_read_model_surfaces_are_gtl3_present_tense() -> None:
+    for path in ACTIVE_GTL_READMODEL_FILES:
+        assert path.exists(), f"missing active GTL read-model surface {path}"
+        text = _read(path)
+        assert "GTL 3" in text, f"{path.name} does not state GTL 3 present-tense authority"
+        for marker in STALE_GTL_READMODEL_MARKERS:
+            assert marker not in text, f"{path.name} still exposes stale GTL read-model marker {marker!r}"
 
 
 def test_adrs_implement_live_requirement_families() -> None:
@@ -218,6 +253,33 @@ def test_adrs_implement_live_requirement_families() -> None:
         assert refs, f"{path.name} does not name any live requirement authority in **Implements**"
         for ref in refs:
             assert _is_known_requirement_ref(ref, families), f"{path.name} implements unknown requirement ref {ref}"
+
+
+def test_gtl_testcase_authority_covers_live_gtl_requirement_families() -> None:
+    assert SPEC_SCENARIO_ROOT.exists(), f"missing GTL testcase-authority root {SPEC_SCENARIO_ROOT}"
+    assert TESTCASE_AUTHORITY_FILE.exists(), f"missing testcase authority file {TESTCASE_AUTHORITY_FILE}"
+
+    authority_text = _read(TESTCASE_AUTHORITY_FILE)
+    gtl_families = {path.stem for path in sorted((REQUIREMENTS_ROOT / "gtl").glob("REQ-*.md"))}
+    assert gtl_families, "no GTL requirement families discovered"
+
+    for family in sorted(gtl_families):
+        assert family in authority_text, f"{family} missing from GTL testcase authority matrix"
+
+    known_refs = _live_requirement_families()
+    for path in SPEC_SCENARIO_FILES:
+        text = _read(path)
+        derives = _metadata_value(text, "Derives from")
+        assert derives, f"{path.name} is missing **Derives from** metadata"
+        links = _resolve_links(derives, path)
+        assert links, f"{path.name} has no resolvable authority links in its derives-from metadata"
+        for link in links:
+            assert link.exists(), f"{path.name} links to missing authority surface {link}"
+
+        refs = set(REQ_REF_RE.findall(text))
+        assert refs, f"{path.name} does not name any GTL requirement authority"
+        for ref in refs:
+            assert _is_known_requirement_ref(ref, known_refs), f"{path.name} references unknown requirement ref {ref}"
 
 
 def test_structural_design_docs_trace_to_live_requirement_surfaces() -> None:

@@ -3,7 +3,7 @@
 **Series**: abiogenesis / claude_code build
 **Status**: Accepted
 **Date**: 2026-03-30
-**Implements**: REQ-R-ABG2-WORKER, REQ-R-ABG2-PROVENANCE
+**Implements**: REQ-R-ABG3-WORKER, REQ-R-ABG3-PROVENANCE
 **Scope**: `genesis/identity.py`, `genesis/services.py`, `genesis/interpret.py`, `genesis/cli_adapter.py`, `gen-install.py`
 
 ## Context
@@ -45,7 +45,7 @@ ABG now treats runtime identity as a first-class surface.
 
 ### Positive
 
-- ABG now conforms to `REQ-R-ABG2-WORKER-003` and `REQ-R-ABG2-WORKER-005` more truthfully.
+- ABG now conforms to `REQ-R-ABG3-WORKER-003` and `REQ-R-ABG3-WORKER-005` more truthfully.
 - runtime identity, worker identity, and backend identity can stay distinct in reporting and provenance.
 - external control planes can supply worker truth without monkey-patching `Scope`.
 - `genesis gaps` stops reporting a stale build default when no explicit build metadata was declared.

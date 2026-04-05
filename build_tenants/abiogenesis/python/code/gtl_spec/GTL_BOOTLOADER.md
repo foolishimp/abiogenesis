@@ -1,8 +1,8 @@
 # GTL Bootloader: Axiomatic Constraint Surface
 
-**Version**: 2.3.0
+**Version**: 3.0.0
 **Status**: Compressed install-time bootstrap
-**Role**: Minimal ontology and operating constraints for GTL 2.x / ABG 2.x work
+**Role**: Minimal ontology and operating constraints for GTL 3 / ABG 3 work
 
 This is the precreated bootstrap the installer injects into `CLAUDE.md`.
 It is intentionally compressed.
@@ -41,7 +41,7 @@ Recursive selection opens invocation-local frames; it does not rewrite global mo
 
 1. `Graph` is the one first-class structural type.
 2. `Node` is the typed local locus of graph meaning.
-3. `GraphVector` is the admissible transition contract between nodes.
+3. `GraphVector` is the internal admissible transition contract between nodes.
 4. `Context` is an externally located, snapshot-bound constraint dimension.
 5. `Operator` is the effectful action surface.
 6. `Evaluator` is the convergence and attestation surface.
@@ -49,7 +49,7 @@ Recursive selection opens invocation-local frames; it does not rewrite global mo
 8. `RefinementBoundary` is the explicit lawful refinement or synthesis boundary.
 9. `CandidateFamily` is the explicit lawful structural-alternative family.
 10. `Module` is the publication boundary.
-11. `Job` is the durable semantic work contract.
+11. `Job` is the durable semantic work contract over published graph functions.
 12. `Role` is the semantic capability class.
 
 ABG runtime types such as `Traversal`, `ConvergenceResult`, `Worker`, `Run`, `SelectionDecision`, `RecursiveContinuation`, `ChildFrontier`, and `RecursiveMachineControl` are interpreter/runtime artifacts, not rival GTL language ontology.
@@ -68,7 +68,7 @@ ABG runtime types such as `Traversal`, `ConvergenceResult`, `Worker`, `Run`, `Se
 | `GraphFunction` | `gtl.function_model` | Reusable workflow template or program |
 | `RefinementBoundary` | `gtl.function_model` | Published lawful refinement boundary |
 | `CandidateFamily` | `gtl.function_model` | Published lawful alternatives over one outer contract |
-| `ContractRef` | `gtl.work_model` | Reference from a semantic job to a GTL contract |
+| `ContractRef` | `gtl.work_model` | Reference from a semantic job to a published graph-function contract |
 | `Role` | `gtl.work_model` | Semantic capability class |
 | `Job` | `gtl.work_model` | Durable semantic work contract |
 | `Module` | `gtl.module_model` | Publication boundary for GTL artifacts |
@@ -99,6 +99,8 @@ GTL declares:
 - roles
 - module publication
 - recursion law: declared termination plus declared fold-back contract
+- semantic jobs over published graph functions, with graph vectors retained as
+  internal realized traversal structure
 
 ABG realizes:
 - traversal
@@ -175,8 +177,8 @@ If this workspace also contains the source repo, read for more detail:
 - `workspace://specification/INTENT.md`
 - `workspace://specification/requirements/gtl/`
 - `workspace://specification/requirements/abg/`
-- `workspace://build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md`
-- `workspace://build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md`
+- `workspace://build_tenants/abiogenesis/python/design/GTL_3_INTERFACE_CONTRACTS.md`
+- `workspace://build_tenants/abiogenesis/python/design/GTL_3_MODULE_DESIGN.md`
 
 ## 9. LLM Operating Rule
 

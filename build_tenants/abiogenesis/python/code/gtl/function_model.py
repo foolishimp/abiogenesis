@@ -1,7 +1,8 @@
-# Implements: REQ-L-GTL2-GRAPHFUNCTION
-# Implements: REQ-L-GTL2-SYNTHESIS
-# Implements: REQ-L-GTL2-SELECTION-BOUNDARY
-# Implements: REQ-L-GTL2-IDENTITY
+# Implements: REQ-L-GTL3-GRAPHFUNCTION
+# Implements: REQ-L-GTL3-HOOKS
+# Implements: REQ-L-GTL3-SYNTHESIS
+# Implements: REQ-L-GTL3-SELECTION-BOUNDARY
+# Implements: REQ-L-GTL3-IDENTITY
 """
 gtl.function_model — Reusable workflow programs and structural alternatives.
 
@@ -86,8 +87,8 @@ class GraphFunction:
     construction into inline graph references and do not remain the published
     surface.
 
-    id: opaque identity (REQ-L-GTL2-IDENTITY-001). Auto-minted.
-    compare=False: structural equality ignores id (REQ-L-GTL2-IDENTITY-005).
+    id: opaque identity. Auto-minted.
+    compare=False: structural equality ignores id.
     """
     name: str
     inputs: tuple[Node, ...] = ()
@@ -177,8 +178,7 @@ class RefinementBoundary:
     interface-compatible inner graph. Contains no executable selection
     or synthesis logic.
 
-    REQ-L-GTL2-SYNTHESIS-001: declarative surface for deferred synthesis.
-    REQ-L-GTL2-SYNTHESIS-002: interface and contract obligations specified.
+    Declarative surface for deferred synthesis over a stable outer contract.
     """
     name: str
     inputs: tuple[Node, ...] = ()
@@ -202,8 +202,7 @@ class CandidateFamily:
 
     Fail-closed: empty candidates or contract mismatch raises at construction.
 
-    REQ-L-GTL2-SELECTION-BOUNDARY: explicit structural alternatives.
-    REQ-L-GTL2-SYNTHESIS-005: multiple lawful candidates without deciding.
+    Explicit structural alternatives without hidden choice.
     """
     name: str
     inputs: tuple[Node, ...] = ()

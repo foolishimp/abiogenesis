@@ -3,7 +3,7 @@
 **Series**: abiogenesis / claude_code build
 **Status**: Proposed
 **Date**: 2026-03-25
-**Implements**: REQ-L-GTL2-IDENTITY
+**Implements**: REQ-L-GTL3-IDENTITY
 **Scope**: `gtl/graph.py`, `gtl/algebra.py`, `gtl/function_model.py`, `genesis/services.py`, `genesis/selection.py`, `genesis/interpret.py`
 
 ---
@@ -22,7 +22,7 @@
 
 ### Category-theoretic foundation
 
-REQ-L-GTL2-IDENTITY establishes that GTL types are objects and morphisms in a workflow category. Identity must be independent of labelling. The requirement specifies opaque `.id` fields, identity preservation rules, and separation of identity from comparison.
+REQ-L-GTL3-IDENTITY establishes that GTL types are objects and morphisms in a workflow category. Identity must be independent of labelling. The requirement specifies opaque `.id` fields, identity preservation rules, and separation of identity from comparison.
 
 ## Decision
 
@@ -32,10 +32,10 @@ Add a `uuid4`-based `.id` field to `Graph`, `GraphVector`, `Node`, and `GraphFun
 
 The `.id` field is declared with `compare=False`. This means:
 
-- **Structural equality** (`==`) is unchanged — two Graphs with the same structure are equal regardless of `.id`. This preserves the frozen value-type semantics established by REQ-L-GTL2-GRAPH-001.
+- **Structural equality** (`==`) is unchanged — two Graphs with the same structure are equal regardless of `.id`. This preserves the frozen value-type semantics established by REQ-L-GTL3-GRAPH-001.
 - **Object identity** (`same_object(a, b)`) is a separate function that compares `.id` fields explicitly. This is the handle used by substitution targeting and module replacement.
 
-This separation is required by REQ-L-GTL2-IDENTITY-005: identity comparison and structural comparison are distinct operations. Hardening `.id` into `__eq__` would break every existing equality assertion and conflate two intentionally separate concepts.
+This separation is required by REQ-L-GTL3-IDENTITY-005: identity comparison and structural comparison are distinct operations. Hardening `.id` into `__eq__` would break every existing equality assertion and conflate two intentionally separate concepts.
 
 ### Identity preservation rules
 
@@ -67,7 +67,7 @@ This separation is required by REQ-L-GTL2-IDENTITY-005: identity comparison and 
 
 ### Comparison functions (future)
 
-REQ-L-GTL2-IDENTITY-005 specifies `same_object`, `same_structure`, `isomorphic`, `derived_from`. These are not implemented in this ADR — they will be added when needed. The `.id` field is sufficient to support `same_object`; the others require additional infrastructure.
+REQ-L-GTL3-IDENTITY-005 specifies `same_object`, `same_structure`, `isomorphic`, `derived_from`. These are not implemented in this ADR. The `.id` field is sufficient to support `same_object`; the others require additional infrastructure.
 
 ## Consequences
 

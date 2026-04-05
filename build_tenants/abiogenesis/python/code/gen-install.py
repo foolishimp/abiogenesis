@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-# Implements: REQ-R-ABG2-INTERPRET
-# Implements: REQ-R-ABG2-SELFHOSTING
+# Implements: REQ-R-ABG3-INTERPRET
+# Implements: REQ-R-ABG3-SELFHOSTING
 """
 gen-install.py — Genesis installer
 

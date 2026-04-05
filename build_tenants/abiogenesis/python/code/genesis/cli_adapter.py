@@ -1,5 +1,5 @@
-# Implements: REQ-R-ABG2-INTERPRET
-# Implements: REQ-R-ABG2-SELFHOSTING
+# Implements: REQ-R-ABG3-INTERPRET
+# Implements: REQ-R-ABG3-SELFHOSTING
 # Implements: REQ-P-POLICY
 """
 genesis.cli_adapter — CLI adapter.
