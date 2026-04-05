@@ -381,7 +381,7 @@ def test_main_routes_start_auto_human_proxy_through_cli_auto_loop(
     class FakeScope:
         def __init__(self, **kwargs):
             self.module = kwargs["module"]
-            self.workflow_version = "demo-workflow@2.0.0"
+            self.workflow_version = "demo-workflow@3.0.0"
 
     called: dict[str, object] = {}
 
@@ -452,7 +452,7 @@ def test_emit_workspace_event_uses_canonical_emit_with_explicit_event_context(
         tmp_path,
         "approved",
         {"kind": "fh_review", "edge": "design→review", "actor": "human"},
-        workflow_version="demo.workflow@2.0.0",
+        workflow_version="demo.workflow@3.0.0",
         work_key="REQ-1",
         run_id="run-123",
     )
@@ -465,7 +465,7 @@ def test_emit_workspace_event_uses_canonical_emit_with_explicit_event_context(
     }
     assert captured["stream"].path == tmp_path / ".ai-workspace" / "events" / "events.jsonl"
     assert captured["context"] == genesis_events.EventContext(
-        workflow_version="demo.workflow@2.0.0",
+        workflow_version="demo.workflow@3.0.0",
         work_key="REQ-1",
         run_id="run-123",
     )
@@ -479,7 +479,7 @@ def test_emit_event_cmd_routes_through_workspace_event_helper(
     runtime_dir = tmp_path / ".ai-workspace" / "runtime"
     runtime_dir.mkdir(parents=True, exist_ok=True)
     (runtime_dir / "active-workflow.json").write_text(
-        json.dumps({"workflow": "demo.workflow", "version": "2.0.0"}),
+        json.dumps({"workflow": "demo.workflow", "version": "3.0.0"}),
         encoding="utf-8",
     )
 
@@ -522,9 +522,9 @@ def test_emit_event_cmd_routes_through_workspace_event_helper(
                 "kind": "fh_review",
                 "edge": "design→review",
                 "actor": "human",
-                "workflow_version": "demo.workflow@2.0.0",
+                "workflow_version": "demo.workflow@3.0.0",
             },
-            "workflow_version": "demo.workflow@2.0.0",
+            "workflow_version": "demo.workflow@3.0.0",
             "work_key": None,
             "run_id": None,
         }
@@ -538,7 +538,7 @@ def test_assess_result_cmd_routes_manifest_provenance_through_workspace_event_he
     runtime_dir = tmp_path / ".ai-workspace" / "runtime"
     runtime_dir.mkdir(parents=True, exist_ok=True)
     (runtime_dir / "active-workflow.json").write_text(
-        json.dumps({"workflow": "demo.workflow", "version": "2.0.0"}),
+        json.dumps({"workflow": "demo.workflow", "version": "3.0.0"}),
         encoding="utf-8",
     )
 
@@ -623,7 +623,7 @@ def test_assess_result_cmd_routes_manifest_provenance_through_workspace_event_he
             "actor": "codex",
             "spec_hash": "abc123",
             "manifest_id": "judge-result",
-            "workflow_version": "demo.workflow@2.0.0",
+            "workflow_version": "demo.workflow@3.0.0",
             "selected_worker_id": "codex",
             "backend_id": "codex_cli",
             "selected_backend": "codex_cli",
@@ -632,7 +632,7 @@ def test_assess_result_cmd_routes_manifest_provenance_through_workspace_event_he
             "assignment_source": "runtime://session-override/constructor",
             "resolved_runtime_ref": "runtime://resolved/constructor/codex",
         },
-        "workflow_version": "demo.workflow@2.0.0",
+        "workflow_version": "demo.workflow@3.0.0",
         "work_key": "REQ-7/design→code",
         "run_id": "run-42",
     }
@@ -642,7 +642,7 @@ def test_assess_result_cmd_ignores_unprefixed_backend_field(monkeypatch, tmp_pat
     runtime_dir = tmp_path / ".ai-workspace" / "runtime"
     runtime_dir.mkdir(parents=True, exist_ok=True)
     (runtime_dir / "active-workflow.json").write_text(
-        json.dumps({"workflow": "demo.workflow", "version": "2.0.0"}),
+        json.dumps({"workflow": "demo.workflow", "version": "3.0.0"}),
         encoding="utf-8",
     )
 

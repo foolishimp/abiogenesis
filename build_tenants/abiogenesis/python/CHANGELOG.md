@@ -2,7 +2,7 @@
 
 ## [Unreleased] — 2026-04-04
 
-Current testing line after `2.0.0`. Commit `29cf345` dehistorizes the live GTL/ABG
+Current testing line after the prior stable cut. Commit `29cf345` dehistorizes the live GTL/ABG
 surface so another LLM or tool should constrain itself to present-tense authorities
 only. `git` is the history surface; active specification, design, code, tests, and
 feature inventory now state only current truth.
@@ -36,7 +36,7 @@ feature inventory now state only current truth.
 - `build_tenants/abiogenesis/python/code/genesis/projection.py` no longer accepts the
   older compatibility path that matched instance identity through the flat `feature`
   field. Live consumers should project against the current identity fields only.
-- Runtime-identity and semantic-center behavior from the earlier 2.0 refactor remains
+- Runtime-identity and semantic-center behavior from the earlier semantic-center refactor remains
   the governing contract. This check-in mostly removes alternate naming, versioned
   surface labels, and historical wording that could cause an LLM to drift back to
   superseded constraints.

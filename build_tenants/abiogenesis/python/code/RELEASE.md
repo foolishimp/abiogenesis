@@ -22,9 +22,9 @@ genesis_sdlc's installer composes both sets at install time.
    and/or engine source under `build_tenants/abiogenesis/python/code/genesis/`
 
 2. Bump version in **all active version surfaces**:
-   - `build_tenants/abiogenesis/python/code/gen-install.py` → `VERSION = "2.x.y"`
-   - `build_tenants/abiogenesis/python/code/genesis/__init__.py` → `__version__ = "2.x.y"`
-   - `pyproject.toml` → `version = "2.x.y"`
+   - `build_tenants/abiogenesis/python/code/gen-install.py` → `VERSION = "3.x.y"`
+   - `build_tenants/abiogenesis/python/code/genesis/__init__.py` → `__version__ = "3.x.y"`
+   - `pyproject.toml` → `version = "3.x.y"`
 
 3. Commit source changes in abiogenesis
 

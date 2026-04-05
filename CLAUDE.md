@@ -52,7 +52,7 @@ PYTHONPATH=.genesis python -m genesis gaps  --workspace .
 <!-- GTL_BOOTLOADER_START -->
 # GTL Bootloader: Axiomatic Constraint Surface
 
-**Version**: 2.2.0
+**Version**: 3.0.0
 **Status**: Present-tense constitutional read model
 **Role**: Constraint manifold for LLM-guided construction over the GTL 3 / ABG 3 surface
 

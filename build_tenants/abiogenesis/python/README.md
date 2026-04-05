@@ -1,6 +1,6 @@
-# Genesis Engine — ABG 2.0
+# Genesis Engine — ABG 3.0
 
-GTL-native AI SDLC engine. ABG 2.x surface using Module, Graph, Node, GraphVector.
+GTL-native AI SDLC engine. ABG 3 surface using Module, Graph, Node, GraphVector, GraphFunction, and GraphCall.
 
 ## Structure
 
@@ -8,7 +8,7 @@ GTL-native AI SDLC engine. ABG 2.x surface using Module, Graph, Node, GraphVecto
 build_tenants/abiogenesis/python/
 ├── code/                   ← shipping engine + GTL type system
 │   ├── genesis/            ← engine modules
-│   ├── gtl/                ← GTL 2.x types (Graph, Node, Module, Evaluator, ...)
+│   ├── gtl/                ← GTL 3 types (Graph, Node, Module, Evaluator, ...)
 │   ├── gtl_spec/           ← domain packages (abiogenesis, project_package)
 │   └── gen-install.py      ← installer
 ├── design/                 ← ADRs, module design, bootloader

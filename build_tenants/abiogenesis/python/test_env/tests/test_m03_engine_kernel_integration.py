@@ -2339,7 +2339,7 @@ class TestM03EngineKernelIntegration:
             spec_hash="spec-m03-iterate",
             build=scope.build,
             work_key=vector.id,
-            workflow_version="m03.test@2.0.0",
+            workflow_version="m03.test@3.0.0",
             run_id="run-m03-fp",
         )
 
@@ -2361,7 +2361,7 @@ class TestM03EngineKernelIntegration:
         event_types = _event_types(stream)
         assert event_types[:5] == ["run_bound", "run_started", "graph_call_opened", "vector_started", "fp_dispatched"]
         for event in stream.all_events():
-            assert event["data"]["workflow_version"] == "m03.test@2.0.0"
+            assert event["data"]["workflow_version"] == "m03.test@3.0.0"
             assert event["data"]["work_key"] == vector.id
             assert event["data"]["run_id"] == "run-m03-fp"
 
@@ -2388,7 +2388,7 @@ class TestM03EngineKernelIntegration:
         assert manifest["graph_function_id"] == executable_job.graph_function.id
         assert manifest["materialization_id"] == executable_job.materialization_id
         assert manifest["vector_id"] == executable_job.vector.id
-        assert manifest["workflow_version"] == "m03.test@2.0.0"
+        assert manifest["workflow_version"] == "m03.test@3.0.0"
         assert manifest["resolved_policy_bundle_ref"] == "genesis.policy_defaults:broad_fp_first_bundle"
         assert manifest["resolved_policy"]["dispatch"]["ref"] == (
             "genesis.dispatch_runtime:dispatch_bound_manifest_via_transport"
@@ -2445,7 +2445,7 @@ class TestM03EngineKernelIntegration:
             worker=Worker(id="router", can_execute=[executable_job]),
             spec_hash="spec-m03-deterministic-call",
             work_key=vector.id,
-            workflow_version="m03.test@2.0.0",
+            workflow_version="m03.test@3.0.0",
             run_id="run-m03-deterministic",
         )
 
@@ -2548,7 +2548,7 @@ class TestM03EngineKernelIntegration:
                 resolved_runtime_ref="runtime://resolved/constructor/codex",
             ),
             work_key=vector.id,
-            workflow_version="m03.test@2.0.0",
+            workflow_version="m03.test@3.0.0",
             run_id="run-m03-router-dispatch",
         )
 
@@ -2681,7 +2681,7 @@ class TestM03EngineKernelIntegration:
                 resolved_runtime_ref="runtime://resolved/constructor/codex",
             ),
             work_key=vector.id,
-            workflow_version="m03.test@2.0.0",
+            workflow_version="m03.test@3.0.0",
             run_id="run-m03-router-no-build",
         )
 

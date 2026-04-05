@@ -34,7 +34,7 @@ The authored domain surface is `build_tenants/abiogenesis/python/code/gtl_spec/p
 - **Proof of concept for GTL**: demonstrates that a complex system (the genesis engine itself) can be formally specified as a GTL Module and then built from that spec
 - **Bootstrap independence**: once self-hosting, abiogenesis depends on its own constitutional surface and bootstrap compiler for further development
 - **Reference implementation**: every future genesis build (Codex, Gemini, Bedrock, Java, Temporal) derives from this clean topology
-- **GCC analogy materialised**: GTL = C, ai_sdlc_method = GCC 1.0, abiogenesis = GCC 2.0 — the language bootstraps its own compiler
+- **GCC analogy materialised**: GTL is the language, ai_sdlc_method is the earlier compiler lineage, and abiogenesis is the self-hosting compiler/runtime line
 
 ---
 
