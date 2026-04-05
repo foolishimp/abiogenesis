@@ -56,6 +56,11 @@ COMMON_QUALIFICATION_FILES = [
     COMMON_QUALIFICATION_ROOT / "qualification_surface_map.md",
     COMMON_QUALIFICATION_ROOT / "qualification_refactor_loop.md",
 ]
+EXPLICIT_TEST_TRACE_FAMILIES = {
+    "REQ-L-GTL3-HOOKS",
+    "REQ-R-ABG3-POLICY",
+    "REQ-M-GTL3-PROVENANCE",
+}
 SCENARIO_DESIGN_FILES = sorted(PYTHON_DESIGN_ROOT.glob("SCENARIO_*.md")) + [
     PYTHON_DESIGN_ROOT / "GSDLC_LITE_QUALIFICATION_LADDER.md"
 ]
@@ -249,6 +254,15 @@ def _test_surface_map_sections() -> dict[str, str]:
     for i in range(1, len(parts), 2):
         sections[parts[i].strip()] = parts[i + 1]
     return sections
+
+
+def _file_validates_map() -> dict[str, set[str]]:
+    validates: dict[str, set[str]] = {}
+    for path in sorted(PYTHON_TEST_ROOT.glob("test_*.py")):
+        validates[path.name] = set(
+            re.findall(r"^#\s*Validates:\s*(REQ-[A-Z]-[A-Z0-9]+(?:-[A-Z0-9]+)*)", _read(path), re.MULTILINE)
+        )
+    return validates
 
 
 def test_requirement_families_have_method_metadata_and_live_intent_refs() -> None:
@@ -449,6 +463,23 @@ def test_python_test_surface_map_covers_existing_tests_with_requirement_and_desi
         file_validates = set(re.findall(r"^#\s*Validates:\s*(REQ-[A-Z]-[A-Z0-9]+(?:-[A-Z0-9]+)*)", _read(path), re.MULTILINE))
         missing = sorted(ref for ref in file_validates if not _section_covers_requirement_ref(ref, section_req_refs))
         assert not missing, f"{path.name} is missing validated requirement refs in test surface map: {missing}"
+
+
+def test_explicit_hook_policy_and_mapping_families_are_traced_in_canonical_tests() -> None:
+    sections = _test_surface_map_sections()
+    file_validates = _file_validates_map()
+
+    section_refs: set[str] = set()
+    for section in sections.values():
+        section_refs.update(REQ_REF_RE.findall(section))
+
+    validate_refs: set[str] = set()
+    for refs in file_validates.values():
+        validate_refs.update(refs)
+
+    for family in sorted(EXPLICIT_TEST_TRACE_FAMILIES):
+        assert family in section_refs, f"{family} is missing from the canonical test surface map"
+        assert family in validate_refs, f"{family} is missing from canonical test file Validates tags"
 
 
 def test_python_tenant_requirement_and_test_coverage_gate_is_green() -> None:

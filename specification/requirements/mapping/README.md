@@ -12,6 +12,9 @@ Use these families where the project needs explicit mapping, capability, or prov
 
 ## Families
 
-- `REQ-M-GTL3-CAPABILITY.md`
 - `REQ-M-GTL3-MAPPING.md`
 - `REQ-M-GTL3-PROVENANCE.md`
+
+Deferred alternate-runtime family:
+
+- `REQ-M-GTL3-CAPABILITY.md`

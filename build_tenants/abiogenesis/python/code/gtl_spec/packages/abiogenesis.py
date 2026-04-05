@@ -420,6 +420,7 @@ module = Module(
             "REQ-R-ABG3-INTERPRET",
             "REQ-R-ABG3-SELFHOSTING",
             "REQ-M-GTL3-MAPPING",
+            "REQ-M-GTL3-PROVENANCE",
             "REQ-P-POLICY",
             "REQ-P-SCENARIOS",
             "REQ-P-QUAL",

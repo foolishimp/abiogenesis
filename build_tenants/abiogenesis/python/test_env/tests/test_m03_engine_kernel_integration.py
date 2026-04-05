@@ -1,11 +1,13 @@
 # Validates: REQ-R-ABG3-INTERPRET
 # Validates: REQ-R-ABG3-CONVERGENCE
 # Validates: REQ-R-ABG3-SELECTION-APPLICATION
+# Validates: REQ-R-ABG3-POLICY
 # Validates: REQ-R-ABG3-PROVENANCE
 # Validates: REQ-R-ABG3-RUN
 # Validates: REQ-R-ABG3-PROJECTION
 # Validates: REQ-R-ABG3-SELFHOSTING
 # Validates: REQ-M-GTL3-MAPPING
+# Validates: REQ-M-GTL3-PROVENANCE
 """
 M03 engine-kernel integration lane.
 
@@ -53,6 +55,7 @@ from genesis.materialization import (
     derive_bundle,
     materialize_graph_function,
 )
+from genesis.policy import resolve_policy_bundle
 from genesis.provenance import req_hash, spec_hash_for
 from genesis.projection import project
 from genesis.run import find_pending_run, run_state, supersede_run
@@ -275,6 +278,115 @@ def _minimal_property_module(requirements: list[str] | None = None) -> Module:
 
 @pytest.mark.integration
 class TestM03EngineKernelIntegration:
+    def test_policy_resolution_honours_declared_hook_precedence_and_remains_replayable(self, tmp_path: Path) -> None:
+        design = Node(name="design", schema="Design")
+        code = Node(name="code", schema="Code")
+        constructor = Role(
+            name="constructor",
+            policy_hooks={
+                "dispatch": {
+                    "ref": "genesis.dispatch_runtime:dispatch_bound_manifest_via_transport",
+                    "config": {"source": "role"},
+                }
+            },
+        )
+        vector = GraphVector(
+            name="design→code",
+            source=design,
+            target=code,
+            declarations={
+                "proof": {
+                    "ref": "genesis.policy_defaults:proof_recheck_after_fp",
+                    "config": {"source": "vector"},
+                }
+            },
+        )
+        graph = Graph(
+            name="m03_policy_resolution",
+            inputs=(design,),
+            outputs=(code,),
+            nodes=(design, code),
+            vectors=(vector,),
+        )
+        graph_function = GraphFunction.from_graph(
+            name="m03_policy_resolution",
+            graph=graph,
+            declarations={
+                "closure": {
+                    "ref": "genesis.policy_defaults:closure_require_resolution_or_fh",
+                    "config": {"source": "graph_function"},
+                },
+            },
+        )
+        family = CandidateFamily(
+            name="m03_policy_family",
+            inputs=(design,),
+            outputs=(code,),
+            candidates=(graph_function,),
+            policy_hints={
+                "evaluation": {
+                    "ref": "genesis.policy_defaults:evaluation_declared_then_generic",
+                    "config": {"source": "candidate_family"},
+                }
+            },
+        )
+
+        resolved = resolve_policy_bundle(
+            vector=vector,
+            graph_function=graph_function,
+            roles=(constructor,),
+            candidate_family=family,
+        )
+
+        assert resolved["resolved_policy_bundle_ref"] == "genesis.policy_defaults:broad_fp_first_bundle"
+        assert resolved["evaluation"]["ref"] == "genesis.policy_defaults:evaluation_declared_then_generic"
+        assert resolved["sources"]["evaluation"] == "candidate_family.policy_hints"
+        assert resolved["dispatch"]["ref"] == "genesis.dispatch_runtime:dispatch_bound_manifest_via_transport"
+        assert resolved["sources"]["dispatch"] == "role.policy_hooks[0]"
+        assert resolved["proof"]["ref"] == "genesis.policy_defaults:proof_recheck_after_fp"
+        assert resolved["sources"]["proof"] == "graph_vector.declarations"
+        assert resolved["closure"]["ref"] == "genesis.policy_defaults:closure_require_resolution_or_fh"
+        assert resolved["sources"]["closure"] == "graph_function.declarations"
+
+    def test_mapping_provenance_bundle_preserves_graph_function_materialization_identity(self) -> None:
+        requirements = Node(name="requirements", schema="Requirements")
+        design = Node(name="design", schema="Design")
+        vector = GraphVector(
+            name="requirements→design",
+            source=requirements,
+            target=design,
+        )
+        graph = Graph(
+            name="m03_mapping_provenance",
+            inputs=(requirements,),
+            outputs=(design,),
+            nodes=(requirements, design),
+            vectors=(vector,),
+        )
+        graph_function = GraphFunction.from_graph(
+            name="m03_mapping_provenance",
+            graph=graph,
+            effects=("derive_design",),
+        )
+        module = Module(
+            name="m03_mapping_provenance",
+            graphs=(graph,),
+            graph_functions=(graph_function,),
+            metadata={"requirements": ["REQ-M03-MAPPING-PROV-001"]},
+        )
+
+        record = materialize_graph_function(
+            MaterializationRequest(graph_function=graph_function.name),
+            module,
+            published_graph_functions=(graph_function,),
+        )
+        bundle = derive_bundle(record, "profile_manifest")
+
+        assert bundle.kind == "profile_manifest"
+        assert bundle.materialization_id == record.materialization_id
+        assert bundle.values["graph_function"] == graph_function.name
+        assert bundle.values["profile"] is None
+        assert bundle.values["parameters"] == {}
     def test_candidate_family_selection_opens_frame_and_spawns_child_lineage(self, tmp_path: Path) -> None:
         design = Node(name="design", schema="DesignDoc")
         prototype = Node(name="prototype", schema="Prototype")

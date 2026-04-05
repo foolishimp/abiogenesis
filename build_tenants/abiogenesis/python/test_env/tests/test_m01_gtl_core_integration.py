@@ -8,6 +8,7 @@
 # Validates: REQ-L-GTL3-EVALUATOR
 # Validates: REQ-L-GTL3-RULE
 # Validates: REQ-L-GTL3-GRAPHFUNCTION
+# Validates: REQ-L-GTL3-HOOKS
 # Validates: REQ-L-GTL3-COMPOSE
 # Validates: REQ-L-GTL3-SUBSTITUTE
 # Validates: REQ-L-GTL3-RECURSE
@@ -115,6 +116,91 @@ class TestM01GtlCoreIntegration:
         assert materialized_vector.declarations["closure_hook"] == "abg.closure.default"
         assert materialized_vector.contexts == (spec,)
         assert program.declarations["evaluation_hook"] == "abg.evaluate.default"
+
+    def test_governance_hook_surfaces_remain_visible_across_gtl_publication_carriers(self) -> None:
+        intent = Node(name="intent", schema="Intent")
+        code = Node(name="code", schema="Code")
+        constructor = Role(
+            name="constructor",
+            policy_hooks={
+                "policy_bundle": {
+                    "ref": "genesis.policy_defaults:broad_fp_first_bundle",
+                    "config": {},
+                }
+            },
+        )
+        vector = GraphVector(
+            "intent→code",
+            intent,
+            code,
+            declarations={
+                "dispatch": {
+                    "ref": "genesis.dispatch_runtime:dispatch_bound_manifest_via_transport",
+                    "config": {},
+                }
+            },
+        )
+        direct = GraphFunction.from_graph(
+            name="direct_path",
+            graph=Graph(
+                name="direct_path",
+                inputs=(intent,),
+                outputs=(code,),
+                nodes=(intent, code),
+                vectors=(vector,),
+            ),
+            declarations={
+                "evaluation": {
+                    "ref": "genesis.policy_defaults:evaluation_declared_then_generic",
+                    "config": {},
+                }
+            },
+        )
+        staged = GraphFunction.from_graph(
+            name="staged_path",
+            graph=Graph(
+                name="staged_path",
+                inputs=(intent,),
+                outputs=(code,),
+                nodes=(intent, code),
+                vectors=(vector,),
+            ),
+            declarations={
+                "closure": {
+                    "ref": "genesis.policy_defaults:closure_require_resolution_or_fh",
+                    "config": {},
+                }
+            },
+        )
+        family = candidate_family(
+            "delivery_family",
+            inputs=(intent,),
+            outputs=(code,),
+            candidates=(direct, staged),
+            policy_hints={
+                "proof": {
+                    "ref": "genesis.policy_defaults:proof_recheck_after_fp",
+                    "config": {},
+                }
+            },
+        )
+
+        assert isinstance(direct.declarations, Attrs)
+        assert direct.declarations["evaluation"]["ref"] == (
+            "genesis.policy_defaults:evaluation_declared_then_generic"
+        )
+        assert isinstance(vector.declarations, Attrs)
+        assert vector.declarations["dispatch"]["ref"] == (
+            "genesis.dispatch_runtime:dispatch_bound_manifest_via_transport"
+        )
+        assert isinstance(constructor.policy_hooks, Attrs)
+        assert constructor.policy_hooks["policy_bundle"]["ref"] == (
+            "genesis.policy_defaults:broad_fp_first_bundle"
+        )
+        assert isinstance(family.policy_hints, Attrs)
+        assert family.policy_hints["proof"]["ref"] == (
+            "genesis.policy_defaults:proof_recheck_after_fp"
+        )
 
     def test_composition_materializes_one_graph_program_with_merged_contexts_and_vectors(self) -> None:
         intent = Node(name="intent", schema="Intent")

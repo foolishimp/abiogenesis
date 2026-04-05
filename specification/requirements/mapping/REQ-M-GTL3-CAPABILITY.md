@@ -1,6 +1,6 @@
 # REQ-M-GTL3-CAPABILITY — Engine Capability Profiles
 
-**Status**: Active
+**Status**: Deferred
 **Category**: Capability
 **Date**: 2026-04-05
 **Derives from**: INT-006
@@ -11,6 +11,15 @@
 ## Purpose
 
 Engines declare capability profiles so GTL programs can determine mapping fidelity.
+
+## Deferred Scope
+
+This family is deferred for alternate-runtime mapping lines outside the
+canonical ABG 3 engine.
+
+The current canonical ABG 3 line preserves mapping truth through
+`REQ-M-GTL3-MAPPING` and `REQ-M-GTL3-PROVENANCE`. It does not yet publish a
+separate engine capability-profile surface as active constitutional runtime law.
 
 ## Acceptance Criteria
 

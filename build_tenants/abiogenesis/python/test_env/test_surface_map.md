@@ -44,7 +44,7 @@ Current reading:
 
 ### test_m01_gtl_core_integration.py
 
-- Requirements: `REQ-L-GTL3-LANGUAGE`, `REQ-L-GTL3-ATTRS`, `REQ-L-GTL3-CONTEXT`, `REQ-L-GTL3-GRAPH`, `REQ-L-GTL3-NODE`, `REQ-L-GTL3-GRAPHVECTOR`, `REQ-L-GTL3-INTERFACE`, `REQ-L-GTL3-OPERATOR`, `REQ-L-GTL3-EVALUATOR`, `REQ-L-GTL3-RULE`, `REQ-L-GTL3-GRAPHFUNCTION`, `REQ-L-GTL3-COMPOSE`, `REQ-L-GTL3-SUBSTITUTE`, `REQ-L-GTL3-RECURSE`, `REQ-L-GTL3-HOF`, `REQ-L-GTL3-LAWS`, `REQ-L-GTL3-SYNTHESIS`, `REQ-L-GTL3-SELECTION-BOUNDARY`, `REQ-L-GTL3-IDENTITY`
+- Requirements: `REQ-L-GTL3-LANGUAGE`, `REQ-L-GTL3-ATTRS`, `REQ-L-GTL3-CONTEXT`, `REQ-L-GTL3-GRAPH`, `REQ-L-GTL3-NODE`, `REQ-L-GTL3-GRAPHVECTOR`, `REQ-L-GTL3-INTERFACE`, `REQ-L-GTL3-OPERATOR`, `REQ-L-GTL3-EVALUATOR`, `REQ-L-GTL3-RULE`, `REQ-L-GTL3-GRAPHFUNCTION`, `REQ-L-GTL3-HOOKS`, `REQ-L-GTL3-COMPOSE`, `REQ-L-GTL3-SUBSTITUTE`, `REQ-L-GTL3-RECURSE`, `REQ-L-GTL3-HOF`, `REQ-L-GTL3-LAWS`, `REQ-L-GTL3-SYNTHESIS`, `REQ-L-GTL3-SELECTION-BOUNDARY`, `REQ-L-GTL3-IDENTITY`
 - Design: [module_decomp.md](../../../common/design/module_decomp.md), [qualification_refactor_loop.md](../../../common/qualification/qualification_refactor_loop.md), [GTL_3_MODULE_DESIGN.md](../design/GTL_3_MODULE_DESIGN.md), [GTL_3_INTERFACE_CONTRACTS.md](../design/GTL_3_INTERFACE_CONTRACTS.md), [03-graph-function-algebra.md](../../../../specification/scenarios/03-graph-function-algebra.md)
 
 ### test_m02_work_publication_integration.py
@@ -61,7 +61,7 @@ Current reading:
 
 ### test_m03_engine_kernel_integration.py
 
-- Requirements: `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-CONVERGENCE`, `REQ-R-ABG3-SELECTION-APPLICATION`, `REQ-R-ABG3-PROVENANCE`, `REQ-R-ABG3-RUN`, `REQ-R-ABG3-PROJECTION`, `REQ-R-ABG3-SELFHOSTING`, `REQ-M-GTL3-MAPPING`
+- Requirements: `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-CONVERGENCE`, `REQ-R-ABG3-SELECTION-APPLICATION`, `REQ-R-ABG3-POLICY`, `REQ-R-ABG3-PROVENANCE`, `REQ-R-ABG3-RUN`, `REQ-R-ABG3-PROJECTION`, `REQ-R-ABG3-SELFHOSTING`, `REQ-M-GTL3-MAPPING`, `REQ-M-GTL3-PROVENANCE`
 - Design: [module_decomp.md](../../../common/design/module_decomp.md), [qualification_refactor_loop.md](../../../common/qualification/qualification_refactor_loop.md), [GTL_3_MODULE_DESIGN.md](../design/GTL_3_MODULE_DESIGN.md), [GTL_3_INTERFACE_CONTRACTS.md](../design/GTL_3_INTERFACE_CONTRACTS.md)
 
 ## Product and Qualification Tests
@@ -78,7 +78,7 @@ Current reading:
 
 ### test_provenance_integration.py
 
-- Requirements: `REQ-R-ABG3-PROVENANCE`
+- Requirements: `REQ-R-ABG3-PROVENANCE`, `REQ-M-GTL3-PROVENANCE`
 - Design: [GTL_3_MODULE_DESIGN.md](../design/GTL_3_MODULE_DESIGN.md), [module_decomp.md](../../../common/design/module_decomp.md)
 
 ### test_run_archive.py
