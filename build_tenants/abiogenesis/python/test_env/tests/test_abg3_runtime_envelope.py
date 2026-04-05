@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import json
 
-from genesis.dispatch_runtime import dispatch_bound_manifest_via_transport
+from genesis.dispatch_runtime import auto_dispatch_from_result, dispatch_bound_manifest_via_transport
 from genesis.events import EventContext, EventStream, emit
 from genesis.projection import project
 from genesis.run import run_state
@@ -254,21 +254,122 @@ def test_dispatch_runtime_ingests_result_and_closes_graph_call(monkeypatch, tmp_
 
     assert summary["status"] == "ok"
     assert summary["call_id"] == "call-manifest-2"
-    assert summary["events_emitted"] == 1
+    assert summary["events_emitted"] == 5
 
     stream = EventStream.open(tmp_path)
-    event_types = [event["event_type"] for event in stream.all_events()]
+    events = stream.all_events()
+    event_types = [event["event_type"] for event in events]
     assert event_types == [
         "graph_call_opened",
         "worker_turn_started",
         "worker_turn_completed",
         "assessed",
+        "proof_passed",
+        "closure_passed",
         "graph_call_closed",
+        "run_completed",
     ]
+    aggregate_types = {event["event_type"]: event["aggregate_type"] for event in events}
+    assert aggregate_types["assessed"] == "graph_call"
+    assert aggregate_types["proof_passed"] == "graph_call"
+    assert aggregate_types["closure_passed"] == "graph_call"
+    assert aggregate_types["graph_call_closed"] == "graph_call"
+    assert aggregate_types["run_completed"] == "run"
 
     graph_call = project(stream, "graph_call", "call-manifest-2")
     assert graph_call["status"] == "closed"
     assert graph_call["graph_function_id"] == "gf-2"
 
     run = project(stream, "run", "run-2")
-    assert run["status"] == "assessed_pass"
+    assert run["status"] == "completed"
+
+
+def test_auto_dispatch_missing_manifest_path_emits_fail_closed_runtime_truth(tmp_path):
+    summary = auto_dispatch_from_result(
+        {
+            "status": "iterated",
+            "blocking_reason": "fp_dispatch",
+            "run_id": "run-defect",
+            "call_id": "call-defect",
+            "edge": "design→code",
+        },
+        tmp_path,
+        config={"runtime_backend": "codex_cli"},
+    )
+
+    assert summary["status"] == "error"
+    assert summary["failure_class"] == "policy_config_defect"
+
+    stream = EventStream.open(tmp_path)
+    assert [event["event_type"] for event in stream.all_events()] == [
+        "graph_call_opened",
+        "graph_call_failed",
+        "run_failed",
+    ]
+
+
+def test_successful_ingest_resolves_preexisting_open_continuation(monkeypatch, tmp_path):
+    results_dir = tmp_path / ".ai-workspace" / "fp_results"
+    results_dir.mkdir(parents=True, exist_ok=True)
+    result_path = results_dir / "manifest-3.json"
+    result_path.write_text(
+        json.dumps(
+            {
+                "edge": "design→code",
+                "actor": "codex",
+                "assessments": [
+                    {
+                        "evaluator": "code_complete",
+                        "result": "pass",
+                        "evidence": "ok",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    stream = EventStream.open(tmp_path)
+    emit(
+        "continuation_opened",
+        {
+            "continuation_id": "cont-open",
+            "continuation_kind": "retry",
+            "call_id": "call-manifest-3",
+        },
+        stream=stream,
+        context=EventContext(
+            run_id="run-3",
+            aggregate_type="continuation",
+            aggregate_id="cont-open",
+        ),
+    )
+    manifest = {
+        "manifest_id": "manifest-3",
+        "call_id": "call-manifest-3",
+        "edge": "design→code",
+        "run_id": "run-3",
+        "work_key": "wk-3",
+        "workflow_version": "wf-3",
+        "graph_function_id": "gf-3",
+        "materialization_id": "mat-3",
+        "vector_id": "vec-3",
+        "job_id": "job-3",
+        "prompt": "write code",
+        "result_path": str(result_path),
+        "spec_hash": "spec-3",
+    }
+
+    def fake_dispatch_agent(prompt, work_folder, *, agent="claude", timeout=300):
+        return AgentResult(stdout="ok", stderr="", returncode=0, agent=agent)
+
+    monkeypatch.setattr("genesis.dispatch_runtime.dispatch_agent", fake_dispatch_agent)
+
+    summary = dispatch_bound_manifest_via_transport(
+        manifest,
+        tmp_path,
+        config={"runtime_backend": "codex_cli"},
+    )
+
+    assert summary["status"] == "ok"
+    continuation = project(EventStream.open(tmp_path), "continuation", "cont-open")
+    assert continuation["status"] == "resolved"

@@ -133,7 +133,6 @@ def test_run_start_auto_invokes_engine_dispatch_and_retries(monkeypatch, tmp_pat
         object(),
         object(),
         workspace=tmp_path,
-        mod_ref="demo.module:module",
         config={"runtime_backend": "codex_cli"},
         human_proxy=False,
     )
@@ -169,7 +168,6 @@ def test_run_start_auto_surfaces_engine_dispatch_failure_without_shadow_booleans
         object(),
         object(),
         workspace=tmp_path,
-        mod_ref="demo.module:module",
         config={"runtime_backend": "codex_cli"},
         human_proxy=False,
     )
@@ -202,21 +200,16 @@ def test_run_start_auto_human_proxy_handles_fh_gate_and_retries(monkeypatch, tmp
         assert auto is False
         return next(results)
 
-    def fake_resolve(mod_ref, hook_name):
-        return None
-
     def fake_emit_human_proxy_approval(workspace, edge):
         approvals.append(edge)
 
     monkeypatch.setattr(services, "gen_start", fake_gen_start)
-    monkeypatch.setattr(cli_adapter, "_resolve_runtime_hook", fake_resolve)
     monkeypatch.setattr(cli_adapter, "_emit_human_proxy_approval", fake_emit_human_proxy_approval)
 
     result = cli_adapter._run_start_auto(
         object(),
         object(),
         workspace=tmp_path,
-        mod_ref="demo.module:module",
         config={},
         human_proxy=True,
     )
@@ -404,11 +397,10 @@ def test_main_routes_start_auto_human_proxy_through_cli_auto_loop(
         called["resolved_workspace"] = workspace
         return FakeModule()
 
-    def fake_run_start_auto(scope, stream, *, workspace, mod_ref, config, human_proxy):
+    def fake_run_start_auto(scope, stream, *, workspace, config, human_proxy):
         called["auto_scope"] = scope
         called["auto_stream"] = stream
         called["auto_workspace"] = workspace
-        called["auto_mod_ref"] = mod_ref
         called["auto_config"] = config
         called["auto_human_proxy"] = human_proxy
         return {"status": "converged", "message": "ok", "auto": True, "human_proxy": True}
@@ -437,7 +429,6 @@ def test_main_routes_start_auto_human_proxy_through_cli_auto_loop(
     output = capsys.readouterr().out
     assert "\"status\": \"converged\"" in output
     assert called["auto_workspace"] == tmp_path
-    assert called["auto_mod_ref"] == "demo.module:module"
     assert called["auto_config"] == {"module": "demo.module:module", "pythonpath": []}
     assert called["auto_human_proxy"] is True
 
@@ -614,33 +605,37 @@ def test_assess_result_cmd_routes_manifest_provenance_through_workspace_event_he
     rc = cli_adapter._assess_result_cmd(str(result_path), tmp_path)
 
     assert rc == 0
-    assert calls == [
-        {
-            "workspace": tmp_path,
-            "event_type": "assessed",
-            "data": {
-                "kind": "fp",
-                "edge": "design→code",
-                "evaluator": "code_complete",
-                "result": "pass",
-                "evidence": "all checks pass",
-                "actor": "codex",
-                "spec_hash": "abc123",
-                "manifest_id": "judge-result",
-                "workflow_version": "demo.workflow@2.0.0",
-                "selected_worker_id": "codex",
-                "backend_id": "codex_cli",
-                "selected_backend": "codex_cli",
-                "role_id": "constructor",
-                "authority_ref": "runtime://role-dispatch",
-                "assignment_source": "runtime://session-override/constructor",
-                "resolved_runtime_ref": "runtime://resolved/constructor/codex",
-            },
-            "workflow_version": "demo.workflow@2.0.0",
-            "work_key": "REQ-7/design→code",
-            "run_id": "run-42",
-        }
+    assert [call["event_type"] for call in calls] == [
+        "assessed",
+        "proof_passed",
+        "closure_passed",
+        "run_completed",
     ]
+    assert calls[0] == {
+        "workspace": tmp_path,
+        "event_type": "assessed",
+        "data": {
+            "kind": "fp",
+            "edge": "design→code",
+            "evaluator": "code_complete",
+            "result": "pass",
+            "evidence": "all checks pass",
+            "actor": "codex",
+            "spec_hash": "abc123",
+            "manifest_id": "judge-result",
+            "workflow_version": "demo.workflow@2.0.0",
+            "selected_worker_id": "codex",
+            "backend_id": "codex_cli",
+            "selected_backend": "codex_cli",
+            "role_id": "constructor",
+            "authority_ref": "runtime://role-dispatch",
+            "assignment_source": "runtime://session-override/constructor",
+            "resolved_runtime_ref": "runtime://resolved/constructor/codex",
+        },
+        "workflow_version": "demo.workflow@2.0.0",
+        "work_key": "REQ-7/design→code",
+        "run_id": "run-42",
+    }
 
 
 def test_assess_result_cmd_ignores_unprefixed_backend_field(monkeypatch, tmp_path: Path):
@@ -717,7 +712,7 @@ def test_gen_start_auto_remains_one_step_engine_progression(monkeypatch):
         calls["derive"] += 1
         return {"status": "in_progress", "delta": 1.0}
 
-    def fake_gen_iterate(scope, stream, on_fp_dispatch=None):
+    def fake_gen_iterate(scope, stream):
         calls["iterate"] += 1
         return {"status": "pending", "blocking_reason": "fp_dispatch"}
 

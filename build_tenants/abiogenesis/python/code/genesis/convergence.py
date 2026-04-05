@@ -15,6 +15,8 @@ from gtl.operator_model import Evaluator, Regime, Rule, F_D, F_H, F_P
 from .binding import ContextResolver, PrecomputedManifest, bind_fd
 from .events import EventStream
 from .lineage import _discover_children
+from .policy import materialize_policy_concern, resolve_policy_bundle
+from .policy_defaults import broad_fp_first_bundle
 from .projection import project
 
 
@@ -54,15 +56,47 @@ class ConvergenceResult:
     round_index: int
 
 
-# ── Regime ordering for escalation ───────────────────────────────────────────
+_REGIME_BY_NAME = {
+    "F_D": F_D,
+    "F_P": F_P,
+    "F_H": F_H,
+}
 
-_REGIME_ORDER = {F_D: 0, F_P: 1, F_H: 2}
-_REGIME_ESCALATION = {F_D: F_P, F_P: F_H}
+
+def _escalation_behavior(precomputed: PrecomputedManifest) -> dict[str, object]:
+    policy = resolve_policy_bundle(
+        vector=precomputed.executable_job.vector,
+        graph_function=precomputed.executable_job.graph_function,
+        roles=precomputed.executable_job.job.roles,
+    )
+    return materialize_policy_concern(policy, "escalation")
 
 
-def _next_regime(current: type[Regime]) -> type[Regime] | None:
-    """Return the next escalation regime, or None if already at F_H."""
-    return _REGIME_ESCALATION.get(current)
+def _regime_order_map(escalation_behavior: dict[str, object]) -> dict[type[Regime], int]:
+    configured = escalation_behavior.get("regime_order", ("F_D", "F_P", "F_H"))
+    order: dict[type[Regime], int] = {}
+    if isinstance(configured, (tuple, list)):
+        for index, name in enumerate(configured):
+            regime = _REGIME_BY_NAME.get(str(name))
+            if regime is not None:
+                order[regime] = index
+    if not order:
+        order = {F_D: 0, F_P: 1, F_H: 2}
+    return order
+
+
+def _transition_for(
+    escalation_behavior: dict[str, object],
+    key: str,
+    current: type[Regime],
+) -> type[Regime] | None:
+    transitions = escalation_behavior.get(key, {})
+    if not isinstance(transitions, dict):
+        return None
+    target_name = transitions.get(current.__name__)
+    if target_name is None:
+        return None
+    return _REGIME_BY_NAME.get(str(target_name))
 
 
 def outcomes_from_precomputed(
@@ -118,6 +152,7 @@ def convergence_from_precomputed(
     typed evaluator outcomes as the canonical assessment surface.
     """
     outcomes = outcomes_from_precomputed(contract_id, precomputed, round_index=round_index)
+    escalation_behavior = _escalation_behavior(precomputed)
     failing = precomputed.failing_evaluators
     if not failing:
         return ConvergenceResult(
@@ -131,22 +166,34 @@ def convergence_from_precomputed(
 
     failing_regimes = {ev.regime for ev in failing}
     if F_D in failing_regimes:
-        next_regime = F_P if any(ev.regime is F_P for ev in precomputed.executable_job.evaluators) else None
+        next_regime = _transition_for(escalation_behavior, "fail_transition", F_D)
+        action_with_transition = str(
+            escalation_behavior.get("fd_fail_with_transition_action", "continue")
+        )
+        action_without_transition = str(
+            escalation_behavior.get("fd_fail_without_transition_action", "fail")
+        )
         return ConvergenceResult(
             contract_id=contract_id,
             outcomes=outcomes,
             aggregate_state="open",
-            next_action="continue" if next_regime is not None else "fail",
+            next_action=action_with_transition if next_regime is not None else action_without_transition,
             next_regime=next_regime,
             round_index=round_index,
         )
     if F_P in failing_regimes:
-        next_regime = F_H if any(ev.regime is F_H for ev in precomputed.executable_job.evaluators) else None
+        next_regime = _transition_for(escalation_behavior, "open_transition", F_P)
+        action_with_transition = str(
+            escalation_behavior.get("fp_open_with_transition_action", "escalate")
+        )
+        action_without_transition = str(
+            escalation_behavior.get("fp_open_without_transition_action", "continue")
+        )
         return ConvergenceResult(
             contract_id=contract_id,
             outcomes=outcomes,
             aggregate_state="open",
-            next_action="escalate" if next_regime is not None else "continue",
+            next_action=action_with_transition if next_regime is not None else action_without_transition,
             next_regime=next_regime,
             round_index=round_index,
         )
@@ -187,6 +234,11 @@ def delta(
             )
 
     round_index = max(o.round_index for o in outcomes)
+    escalation_behavior = materialize_policy_concern(
+        broad_fp_first_bundle({}),
+        "escalation",
+    )
+    regime_order = _regime_order_map(escalation_behavior)
 
     # Error propagation
     errors = [o for o in outcomes if o.status == "error"]
@@ -228,8 +280,8 @@ def delta(
     # Check if escalation is needed (open status at a regime with higher available)
     open_outcomes = [o for o in outcomes if o.status == "open"]
     if open_outcomes:
-        highest_open = max(open_outcomes, key=lambda o: _REGIME_ORDER.get(o.regime, 0))
-        next_r = _next_regime(highest_open.regime)
+        highest_open = max(open_outcomes, key=lambda o: regime_order.get(o.regime, 0))
+        next_r = _transition_for(escalation_behavior, "open_transition", highest_open.regime)
         if next_r is not None:
             return ConvergenceResult(
                 contract_id=contract_id,
@@ -241,7 +293,7 @@ def delta(
             )
 
     # Quorum not met, no escalation possible — repeat round if rule allows
-    if rule and rule.config.get("quorum"):
+    if rule and rule.config.get("quorum") and escalation_behavior.get("repeat_round_on_quorum_open", True):
         return ConvergenceResult(
             contract_id=contract_id,
             outcomes=outcomes,
@@ -254,8 +306,8 @@ def delta(
     # Default: open, escalate to next regime if any non-pass exists
     failing = [o for o in outcomes if o.status == "fail"]
     if failing:
-        highest_fail = max(failing, key=lambda o: _REGIME_ORDER.get(o.regime, 0))
-        next_r = _next_regime(highest_fail.regime)
+        highest_fail = max(failing, key=lambda o: regime_order.get(o.regime, 0))
+        next_r = _transition_for(escalation_behavior, "fail_transition", highest_fail.regime)
         if next_r is not None:
             return ConvergenceResult(
                 contract_id=contract_id,

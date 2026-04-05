@@ -19,12 +19,19 @@ def _event_value(event: dict, key: str):
 # Canonical run states projected from the event stream.
 RUN_STATES = frozenset({
     "queued", "started", "dispatched", "pending",
-    "assessed_pass", "failed", "timed_out", "superseded",
+    "completed", "failed", "timed_out", "superseded",
 })
 
 # Canonical failure classifications projected from the event stream.
 FAILURE_CLASSES = frozenset({
-    "transport_failure", "no_output", "contract_failure", "certification_failure",
+    "transport_failure",
+    "no_output",
+    "contract_failure",
+    "certification_failure",
+    "policy_config_defect",
+    "runtime_defect",
+    "proof_failure",
+    "probabilistic_non_convergence",
 })
 
 
@@ -59,14 +66,7 @@ def _project_assessment(
     current_state: str | None,
     current_failure_class: str | None,
 ) -> tuple[str | None, str | None]:
-    """Project an evaluator fact into canonical run truth when it is F_P-shaped."""
-    if data.get("kind") != "fp":
-        return current_state, current_failure_class
-    result = data.get("result")
-    if result == "pass":
-        return "assessed_pass", None
-    if result == "fail":
-        return "failed", "certification_failure"
+    """Assessed facts are evidence inputs, not terminal run truth."""
     return current_state, current_failure_class
 
 
@@ -170,6 +170,9 @@ def run_state(
             assignment_source = _event_value(e, "assignment_source") or assignment_source
             resolved_runtime_ref = _event_value(e, "resolved_runtime_ref") or resolved_runtime_ref
             state, failure_class = _project_assessment(edata, state, failure_class)
+
+        elif etype == "run_completed":
+            state = "completed"
 
         elif etype == "run_failed":
             state = "failed"

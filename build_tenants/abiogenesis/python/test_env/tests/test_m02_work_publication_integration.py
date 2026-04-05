@@ -176,6 +176,7 @@ class TestM02WorkPublicationIntegration:
         )
 
         first = open_invocation_frame(
+            call_id="call-profile-1",
             parent_job=parent_job,
             parent_key=outer.id,
             parent_vector_id=outer.id,
@@ -189,6 +190,7 @@ class TestM02WorkPublicationIntegration:
             traversal_surface=build_frame_traversal_surface(vectors=(inner,)),
         )
         second = open_invocation_frame(
+            call_id="call-profile-2",
             parent_job=parent_job,
             parent_key=outer.id,
             parent_vector_id=outer.id,

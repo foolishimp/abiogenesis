@@ -19,17 +19,16 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Callable, Optional
+from typing import Optional
 
 from gtl.module_model import Module
 
 from .binding import (
     ExecutableJob,
     Worker,
-    BoundJob,
-    WorkSurface,
     module_to_executable_jobs,
 )
+from .binding import WorkSurface
 from .events import EventStream
 from .identity import RuntimeIdentity
 from .interpret import (
@@ -204,7 +203,6 @@ def gen_gaps(scope: Scope, stream: EventStream) -> dict:
 def gen_iterate(
     scope: Scope,
     stream: EventStream,
-    on_fp_dispatch: Optional[Callable[[BoundJob], WorkSurface | None]] = None,
 ) -> dict:
     """
     /gen-iterate = bind one executable job → iterate exactly once.
@@ -231,7 +229,6 @@ def gen_iterate(
         runtime_identity=scope.runtime_identity,
         build=scope.build,
         edge_filter=scope.edge_filter,
-        on_fp_dispatch=on_fp_dispatch,
         run_id=scope.run_id,
         runtime_config=scope.runtime_config,
         carry_forward=_read_carry_forward(scope),
@@ -249,7 +246,6 @@ def gen_start(
     scope: Scope,
     stream: EventStream,
     auto: bool = False,
-    on_fp_dispatch: Optional[Callable[[BoundJob], WorkSurface | None]] = None,
 ) -> dict:
     """
     /gen-start = derive state → select job → traverse exactly once.
@@ -272,7 +268,7 @@ def gen_start(
             "reason": state.get("reason", ""),
         }
 
-    result = gen_iterate(scope, stream, on_fp_dispatch=on_fp_dispatch)
+    result = gen_iterate(scope, stream)
     if auto:
         result = dict(result)
         result["auto"] = True

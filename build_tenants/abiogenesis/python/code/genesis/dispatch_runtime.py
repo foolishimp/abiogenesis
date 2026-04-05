@@ -120,6 +120,130 @@ def _run_failure_event_data(
     return data
 
 
+def _call_event_exists(stream: EventStream, call_id: str, event_type: str) -> bool:
+    for event in stream.all_events():
+        if event.get("event_type") != event_type:
+            continue
+        if event.get("aggregate_id") == call_id:
+            return True
+        if event.get("data", {}).get("call_id") == call_id:
+            return True
+    return False
+
+
+def _ensure_graph_call_opened(
+    stream: EventStream,
+    manifest: Mapping[str, Any],
+    *,
+    call_id: str,
+    run_id: str | None,
+) -> None:
+    if _call_event_exists(stream, call_id, "graph_call_opened"):
+        return
+    emit(
+        "graph_call_opened",
+        {
+            "call_id": call_id,
+            "edge": manifest.get("edge"),
+            "manifest_id": manifest.get("manifest_id"),
+        },
+        stream=stream,
+        context=_event_context_for_manifest(
+            manifest,
+            aggregate_type="graph_call",
+            aggregate_id=call_id,
+            parent_aggregate_id=run_id,
+        ),
+    )
+
+
+def _emit_fail_closed_defect(
+    stream: EventStream,
+    manifest: Mapping[str, Any],
+    *,
+    failure_class: str,
+    reason: str,
+    call_id: str | None,
+    run_id: str | None,
+) -> dict[str, Any]:
+    causation_event_id: str | None = None
+    terminal_graph_call = bool(manifest.get("graph_call_terminal_on_result", True))
+    if call_id and terminal_graph_call:
+        _ensure_graph_call_opened(stream, manifest, call_id=call_id, run_id=run_id)
+        graph_call_failed = emit(
+            "graph_call_failed",
+            {
+                "call_id": call_id,
+                "edge": manifest.get("edge"),
+                "failure_class": failure_class,
+                "reason": reason,
+            },
+            stream=stream,
+            context=_event_context_for_manifest(
+                manifest,
+                aggregate_type="graph_call",
+                aggregate_id=call_id,
+                parent_aggregate_id=run_id,
+            ),
+        )
+        causation_event_id = graph_call_failed["event_id"]
+    if run_id:
+        emit(
+            "run_failed",
+            _run_failure_event_data(
+                manifest,
+                failure_class=failure_class,
+                call_id=call_id or "",
+            ) | {"reason": reason},
+            stream=stream,
+            context=_event_context_for_manifest(
+                manifest,
+                aggregate_type="run",
+                aggregate_id=run_id,
+                causation_event_id=causation_event_id,
+            ),
+        )
+    return {
+        "status": "error",
+        "stopped_by": "fp_runtime_failure",
+        "failure_class": failure_class,
+        "reason": reason,
+        "call_id": call_id,
+    }
+
+
+def _emit_result_defect(
+    result: Mapping[str, Any],
+    workspace: Path,
+    *,
+    failure_class: str,
+    reason: str,
+) -> dict[str, Any]:
+    stream = EventStream.open(workspace)
+    run_id = result.get("run_id") if isinstance(result.get("run_id"), str) else None
+    call_id = result.get("call_id") if isinstance(result.get("call_id"), str) else None
+    manifest: dict[str, Any] = {
+        "workflow_version": result.get("workflow_version", "unknown"),
+        "work_key": result.get("work_key"),
+        "run_id": run_id,
+        "job_id": result.get("job_id"),
+        "graph_function_id": result.get("graph_function_id"),
+        "materialization_id": result.get("materialization_id"),
+        "vector_id": result.get("vector_id"),
+        "edge": result.get("edge"),
+        "manifest_id": result.get("manifest_id"),
+        "call_id": call_id,
+    }
+    return _emit_fail_closed_defect(
+        stream,
+        manifest,
+        failure_class=failure_class,
+        reason=reason,
+        call_id=call_id,
+        run_id=run_id,
+    )
+
+
 def dispatch_bound_manifest_via_transport(
     manifest: Mapping[str, Any],
     workspace: Path,
@@ -141,16 +265,6 @@ def dispatch_bound_manifest_via_transport(
     if not isinstance(result_path, str) or not result_path:
         raise ValueError("manifest must declare non-empty result_path")
 
-    agent = _dispatch_agent_id(manifest_map, config)
-    if not agent:
-        failure_class = "policy_config_defect"
-        return {
-            "status": "error",
-            "stopped_by": "fp_runtime_failure",
-            "failure_class": failure_class,
-            "reason": "no dispatch agent/backend could be resolved from manifest or runtime config",
-        }
-
     hook_config_map = _mapping(hook_config)
     timeout = hook_config_map.get("timeout")
     if not isinstance(timeout, int) or timeout <= 0:
@@ -161,21 +275,23 @@ def dispatch_bound_manifest_via_transport(
     manifest_map["call_id"] = call_id
     run_id = manifest_map.get("run_id") if isinstance(manifest_map.get("run_id"), str) else None
 
+    agent = _dispatch_agent_id(manifest_map, config)
+    if not agent:
+        return _emit_fail_closed_defect(
+            stream,
+            manifest_map,
+            failure_class="policy_config_defect",
+            reason="no dispatch agent/backend could be resolved from manifest or runtime config",
+            call_id=call_id,
+            run_id=run_id,
+        )
+
+    _ensure_graph_call_opened(stream, manifest_map, call_id=call_id, run_id=run_id)
     call_context = _event_context_for_manifest(
         manifest_map,
         aggregate_type="graph_call",
         aggregate_id=call_id,
         parent_aggregate_id=run_id,
-    )
-    emit(
-        "graph_call_opened",
-        {
-            "call_id": call_id,
-            "edge": manifest_map.get("edge"),
-            "manifest_id": manifest_id,
-        },
-        stream=stream,
-        context=call_context,
     )
     emit(
         "worker_turn_started",
@@ -295,20 +411,9 @@ def dispatch_bound_manifest_via_transport(
             else None
         ),
     )
-    emit(
-        "graph_call_closed",
-        {
-            "call_id": call_id,
-            "edge": manifest_map.get("edge"),
-            "manifest_id": manifest_id,
-        },
-        stream=stream,
-        context=call_context,
-    )
     summary = dict(ingest_summary)
     summary.update(
         {
-            "status": "ok",
             "call_id": call_id,
             "agent": agent,
         }
@@ -327,20 +432,20 @@ def auto_dispatch_from_result(
     """
     manifest_path_value = result.get("fp_manifest_path")
     if not isinstance(manifest_path_value, str) or not manifest_path_value:
-        return {
-            "status": "error",
-            "stopped_by": "fp_runtime_failure",
-            "failure_class": "policy_config_defect",
-            "reason": "pending F_P result is missing fp_manifest_path",
-        }
+        return _emit_result_defect(
+            result,
+            workspace,
+            failure_class="policy_config_defect",
+            reason="pending F_P result is missing fp_manifest_path",
+        )
     manifest_path = Path(manifest_path_value)
     if not manifest_path.exists():
-        return {
-            "status": "error",
-            "stopped_by": "fp_runtime_failure",
-            "failure_class": "policy_config_defect",
-            "reason": f"manifest does not exist: {manifest_path}",
-        }
+        return _emit_result_defect(
+            result,
+            workspace,
+            failure_class="policy_config_defect",
+            reason=f"manifest does not exist: {manifest_path}",
+        )
 
     manifest = _read_json(manifest_path, label=f"manifest file {manifest_path}")
     resolved_policy = manifest.get("resolved_policy")
@@ -350,32 +455,38 @@ def auto_dispatch_from_result(
         resolved_policy = resolve_policy_bundle(runtime_config=config)
     dispatch_policy = resolved_policy.get("dispatch")
     if not isinstance(dispatch_policy, Mapping):
-        return {
-            "status": "error",
-            "stopped_by": "fp_runtime_failure",
-            "failure_class": "policy_config_defect",
-            "reason": "resolved policy is missing dispatch concern",
-        }
+        return _emit_fail_closed_defect(
+            EventStream.open(workspace),
+            manifest,
+            failure_class="policy_config_defect",
+            reason="resolved policy is missing dispatch concern",
+            call_id=manifest.get("call_id") if isinstance(manifest.get("call_id"), str) else None,
+            run_id=manifest.get("run_id") if isinstance(manifest.get("run_id"), str) else None,
+        )
 
     dispatch_ref = dispatch_policy.get("ref")
     if not isinstance(dispatch_ref, str) or not dispatch_ref:
-        return {
-            "status": "error",
-            "stopped_by": "fp_runtime_failure",
-            "failure_class": "policy_config_defect",
-            "reason": "dispatch policy must declare a non-empty ref",
-        }
+        return _emit_fail_closed_defect(
+            EventStream.open(workspace),
+            manifest,
+            failure_class="policy_config_defect",
+            reason="dispatch policy must declare a non-empty ref",
+            call_id=manifest.get("call_id") if isinstance(manifest.get("call_id"), str) else None,
+            run_id=manifest.get("run_id") if isinstance(manifest.get("run_id"), str) else None,
+        )
 
     from .policy import _import_ref  # local import to avoid cycle at module import time
 
     dispatch_fn = _import_ref(dispatch_ref)
     if not callable(dispatch_fn):
-        return {
-            "status": "error",
-            "stopped_by": "fp_runtime_failure",
-            "failure_class": "policy_config_defect",
-            "reason": f"dispatch ref {dispatch_ref!r} did not resolve to a callable",
-        }
+        return _emit_fail_closed_defect(
+            EventStream.open(workspace),
+            manifest,
+            failure_class="policy_config_defect",
+            reason=f"dispatch ref {dispatch_ref!r} did not resolve to a callable",
+            call_id=manifest.get("call_id") if isinstance(manifest.get("call_id"), str) else None,
+            run_id=manifest.get("run_id") if isinstance(manifest.get("run_id"), str) else None,
+        )
     return dispatch_fn(
         manifest,
         workspace,

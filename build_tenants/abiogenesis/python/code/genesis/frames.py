@@ -865,6 +865,7 @@ class InvocationFrame:
     frame_id: str
     frame_lineage_id: str
     frame_attempt_id: str
+    call_id: str
     parent_key: str
     parent_vector_id: str
     parent_vector: GraphVector
@@ -945,6 +946,7 @@ def recursive_state_for_frame(
 
 def open_invocation_frame(
     *,
+    call_id: str,
     parent_job: ExecutableJob,
     parent_key: str,
     parent_vector_id: str,
@@ -1007,6 +1009,7 @@ def open_invocation_frame(
         frame_id=frame_attempt_id,
         frame_lineage_id=frame_lineage_id,
         frame_attempt_id=frame_attempt_id,
+        call_id=call_id,
         parent_key=parent_key,
         parent_vector_id=parent_vector_id,
         parent_vector=parent_vector,
@@ -1027,6 +1030,7 @@ def serialize_frame(frame: InvocationFrame) -> dict[str, Any]:
         "frame_id": frame.frame_id,
         "frame_lineage_id": frame.frame_lineage_id,
         "frame_attempt_id": frame.frame_attempt_id,
+        "call_id": frame.call_id,
         "parent_key": frame.parent_key,
         "parent_vector_id": frame.parent_vector_id,
         "parent_vector": _serialize_vector(frame.parent_vector),
@@ -1080,6 +1084,7 @@ def deserialize_frame(data: dict[str, Any]) -> InvocationFrame:
         frame_id=frame_id,
         frame_lineage_id=data.get("frame_lineage_id", frame_id),
         frame_attempt_id=data.get("frame_attempt_id", frame_id),
+        call_id=data.get("call_id", ""),
         parent_key=parent_key,
         parent_vector_id=data["parent_vector_id"],
         parent_vector=_deserialize_vector(data["parent_vector"]),
@@ -1173,6 +1178,7 @@ def frame_spawn_events(frame: InvocationFrame) -> list[dict[str, Any]]:
         {
             "event_type": "work_spawned",
             "data": {
+                "call_id": frame.call_id,
                 "frame_id": frame.frame_id,
                 "frame_lineage_id": frame.frame_lineage_id,
                 "frame_attempt_id": frame.frame_attempt_id,
@@ -1188,6 +1194,7 @@ def frame_spawn_events(frame: InvocationFrame) -> list[dict[str, Any]]:
 
 def frame_step_started_event(frame: InvocationFrame, step: FrameStep, *, run_id: str | None = None) -> dict[str, Any]:
     data: dict[str, Any] = {
+        "call_id": frame.call_id,
         "frame_id": frame.frame_id,
         "frame_lineage_id": frame.frame_lineage_id,
         "frame_attempt_id": frame.frame_attempt_id,
@@ -1208,6 +1215,7 @@ def frame_step_completed_event(frame: InvocationFrame, step: FrameStep) -> dict[
     return {
         "event_type": "frame_step_completed",
         "data": {
+            "call_id": frame.call_id,
             "frame_id": frame.frame_id,
             "frame_lineage_id": frame.frame_lineage_id,
             "frame_attempt_id": frame.frame_attempt_id,
@@ -1233,6 +1241,7 @@ def frame_suspended_event(
     reason: str | None = None,
 ) -> dict[str, Any]:
     data: dict[str, Any] = {
+        "call_id": frame.call_id,
         "frame_id": frame.frame_id,
         "frame_lineage_id": frame.frame_lineage_id,
         "frame_attempt_id": frame.frame_attempt_id,
@@ -1259,6 +1268,7 @@ def frame_resumed_event(
     reason: str | None = None,
 ) -> dict[str, Any]:
     data: dict[str, Any] = {
+        "call_id": frame.call_id,
         "frame_id": frame.frame_id,
         "frame_lineage_id": frame.frame_lineage_id,
         "frame_attempt_id": frame.frame_attempt_id,
@@ -1282,6 +1292,7 @@ def frame_foldback_event(frame: InvocationFrame) -> dict[str, Any]:
     return {
         "event_type": "frame_foldback",
         "data": {
+            "call_id": frame.call_id,
             "frame_id": frame.frame_id,
             "frame_lineage_id": frame.frame_lineage_id,
             "frame_attempt_id": frame.frame_attempt_id,
@@ -1295,6 +1306,7 @@ def frame_foldback_event(frame: InvocationFrame) -> dict[str, Any]:
 
 def frame_rebound_event(frame: InvocationFrame, result: ParentRebindResult | None = None) -> dict[str, Any]:
     payload = {
+        "call_id": frame.call_id,
         "frame_id": frame.frame_id,
         "frame_lineage_id": frame.frame_lineage_id,
         "frame_attempt_id": frame.frame_attempt_id,
@@ -1319,9 +1331,11 @@ def frame_closed_event(frame: InvocationFrame) -> dict[str, Any]:
     return {
         "event_type": "frame_closed",
         "data": {
+            "call_id": frame.call_id,
             "frame_id": frame.frame_id,
             "frame_lineage_id": frame.frame_lineage_id,
             "frame_attempt_id": frame.frame_attempt_id,
+            "call_id": frame.call_id,
             "parent_key": frame.parent_key,
             "edge": frame.parent_edge,
             "target": frame.parent_target,
@@ -1619,6 +1633,7 @@ def project_frame_events(events: list[dict], frame_id: str) -> dict[str, Any]:
             "event_count": 0,
             "frame_lineage_id": frame.frame_lineage_id,
             "frame_attempt_id": frame.frame_attempt_id,
+            "call_id": frame.call_id,
             "parent_key": frame.parent_key,
             "parent_edge": frame.parent_edge,
             "graph_function": frame.graph_function,
@@ -1679,6 +1694,7 @@ def project_frame_events(events: list[dict], frame_id: str) -> dict[str, Any]:
         "event_count": event_count,
         "frame_lineage_id": frame.frame_lineage_id,
         "frame_attempt_id": frame.frame_attempt_id,
+        "call_id": frame.call_id,
         "parent_key": frame.parent_key,
         "parent_edge": frame.parent_edge,
         "graph_function": frame.graph_function,

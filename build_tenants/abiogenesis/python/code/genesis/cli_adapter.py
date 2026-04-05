@@ -26,7 +26,6 @@ Exit codes for start/iterate:
 from __future__ import annotations
 
 import argparse
-import importlib
 import json
 import sys
 from collections.abc import Mapping
@@ -552,19 +551,6 @@ def _import_symbol(ref: str, workspace: Path):
     return sym
 
 
-def _resolve_runtime_hook(mod_ref: str | None, hook_name: str):
-    """Resolve an optional runtime hook from the module that exports the GTL Module."""
-    if not mod_ref or ":" not in mod_ref:
-        return None
-    module_name, _, _ = mod_ref.partition(":")
-    try:
-        mod = importlib.import_module(module_name)
-    except ImportError:
-        return None
-    hook = getattr(mod, hook_name, None)
-    return hook if callable(hook) else None
-
-
 def _resolve_configured_worker(config: dict, workspace: Path):
     """Resolve the configured Worker from the runtime contract when declared."""
     worker_ref = config.get("worker")
@@ -625,15 +611,12 @@ def _run_start_auto(
     stream,
     *,
     workspace: Path,
-    mod_ref: str | None,
     config: dict | None,
     human_proxy: bool,
 ) -> dict:
-    """CLI-side auto loop with engine-owned F_P dispatch and optional F_H proxy handling."""
+    """CLI-side auto loop with engine-owned F_P dispatch and CLI-owned F_H proxy handling."""
     from .dispatch_runtime import auto_dispatch_from_result
     from .services import gen_start
-
-    auto_fh_approve = _resolve_runtime_hook(mod_ref, "auto_fh_approve")
 
     max_auto = 50
     result: dict = {}
@@ -666,10 +649,6 @@ def _run_start_auto(
                 result["stopped_by"] = "fh_gate"
                 result["human_proxy_error"] = "missing edge for fh_gate approval"
                 return result
-            if auto_fh_approve is not None:
-                handled = bool(auto_fh_approve(result, workspace))
-                if handled:
-                    continue
             _emit_human_proxy_approval(workspace, edge)
             continue
 
@@ -785,7 +764,6 @@ def main() -> None:
 
     from .services import Scope, gen_gaps, gen_iterate, gen_start
 
-    mod_ref = getattr(args, "module", None) or _config.get("module")
     module = _resolve_module(args, workspace)
     configured_worker = _resolve_configured_worker(_config, workspace)
 
@@ -813,7 +791,6 @@ def main() -> None:
                 scope,
                 stream,
                 workspace=workspace,
-                mod_ref=mod_ref,
                 config=_config,
                 human_proxy=human_proxy,
             )

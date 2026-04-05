@@ -1,5 +1,56 @@
 # Changelog
 
+## [Unreleased] — 2026-04-04
+
+Current testing line after `2.0.0`. Commit `29cf345` dehistorizes the live GTL/ABG
+surface so another LLM or tool should constrain itself to present-tense authorities
+only. `git` is the history surface; active specification, design, code, tests, and
+feature inventory now state only current truth.
+
+### LLM / Tooling Impact
+
+- Use current requirement families only: `REQ-L-*`, `REQ-R-*`, `REQ-M-*`, and
+  `REQ-P-*`. Do not rely on `REQ-F-*` as a live coverage or feature-inventory surface.
+- Use current scenario and qualification names in
+  `build_tenants/abiogenesis/python/design/`:
+  `SCENARIO_INTENT_TO_TAGGED_REQUIREMENTS.md`,
+  `SCENARIO_REQUIREMENTS_TO_UAT.md`,
+  `SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md`, and
+  `GSDLC_LITE_QUALIFICATION_LADDER.md`.
+- Use current sandbox test names in
+  `build_tenants/abiogenesis/python/test_env/tests/`:
+  `test_sandbox_install.py`,
+  `test_sandbox_usecases_fake.py`,
+  `test_sandbox_usecases_live.py`, and
+  `test_usecases_u1_u4.py`.
+- Treat the current feature inventory in `.ai-workspace/features/completed/` as the
+  active package/coverage surface:
+  `abg-execution-surfaces.yml`,
+  `abg-run-and-event-kernel.yml`,
+  `gtl-language-core.yml`,
+  `gtl-publication-and-execution.yml`, and
+  `mapping-and-product-surfaces.yml`.
+
+### Interface Impact
+
+- `build_tenants/abiogenesis/python/code/genesis/projection.py` no longer accepts the
+  older compatibility path that matched instance identity through the flat `feature`
+  field. Live consumers should project against the current identity fields only.
+- Runtime-identity and semantic-center behavior from the earlier 2.0 refactor remains
+  the governing contract. This check-in mostly removes alternate naming, versioned
+  surface labels, and historical wording that could cause an LLM to drift back to
+  superseded constraints.
+- Non-working surfaces such as archives and work notes are not part of the live
+  authority stack and should not be used as semantic inputs.
+
+### Qualification
+
+- `check-req-coverage` passes for `gtl_spec.packages.abiogenesis:module`
+- `check-req-coverage` passes for `gtl_spec.packages.project_package:module`
+- `check-impl-coverage` passes for `gtl_spec.packages.abiogenesis:module`
+- `check-validates-coverage` passes for `gtl_spec.packages.abiogenesis:module`
+- Full tenant suite: `126 passed, 5 deselected`
+
 ## [2.0.0] — 2026-04-02
 
 First full GTL/ABG 2.0 release. This line completes the recursive runtime rewrite:

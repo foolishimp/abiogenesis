@@ -62,9 +62,18 @@ def evaluation_declared_then_generic(config: Mapping[str, Any] | None = None) ->
 
 def escalation_fp_first(config: Mapping[str, Any] | None = None) -> dict[str, Any]:
     """Reference escalation/default ordering surface for ABG3."""
+    config_map = _mapping(config)
     return {
         "mode": "fp_first_then_fh",
-        "config": _mapping(config),
+        "config": config_map,
+        "regime_order": tuple(config_map.get("regime_order", ("F_D", "F_P", "F_H"))),
+        "open_transition": dict(config_map.get("open_transition", {"F_D": "F_P", "F_P": "F_H"})),
+        "fail_transition": dict(config_map.get("fail_transition", {"F_D": "F_P", "F_P": "F_H"})),
+        "fd_fail_with_transition_action": config_map.get("fd_fail_with_transition_action", "continue"),
+        "fd_fail_without_transition_action": config_map.get("fd_fail_without_transition_action", "fail"),
+        "fp_open_with_transition_action": config_map.get("fp_open_with_transition_action", "escalate"),
+        "fp_open_without_transition_action": config_map.get("fp_open_without_transition_action", "continue"),
+        "repeat_round_on_quorum_open": bool(config_map.get("repeat_round_on_quorum_open", True)),
     }
 
 

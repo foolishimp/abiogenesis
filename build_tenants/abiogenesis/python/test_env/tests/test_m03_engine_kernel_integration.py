@@ -103,6 +103,93 @@ def _event_types(stream: EventStream) -> list[str]:
     return [event["event_type"] for event in stream.all_events()]
 
 
+def _emit_successful_fp_completion(
+    stream: EventStream,
+    *,
+    workflow_version: str,
+    edge: str,
+    evaluator: str,
+    spec_hash: str,
+    run_id: str,
+    work_key: str | None = None,
+    call_id: str | None = None,
+    frame=None,
+    close_graph_call: bool = False,
+) -> None:
+    context = EventContext(
+        workflow_version=workflow_version,
+        work_key=work_key,
+        run_id=run_id,
+        call_id=call_id,
+        frame_attempt_id=frame.frame_attempt_id if frame is not None else None,
+        frame_lineage_id=frame.frame_lineage_id if frame is not None else None,
+    )
+    emit(
+        "assessed",
+        {
+            "kind": "fp",
+            "edge": edge,
+            "evaluator": evaluator,
+            "result": "pass",
+            "spec_hash": spec_hash,
+        },
+        stream=stream,
+        context=context,
+    )
+    emit(
+        "proof_passed",
+        {
+            "call_id": call_id,
+            "edge": edge,
+        },
+        stream=stream,
+        context=context,
+    )
+    emit(
+        "closure_passed",
+        {
+            "call_id": call_id,
+            "edge": edge,
+        },
+        stream=stream,
+        context=context,
+    )
+    if close_graph_call and call_id:
+        emit(
+            "graph_call_closed",
+            {
+                "call_id": call_id,
+                "edge": edge,
+            },
+            stream=stream,
+            context=EventContext(
+                workflow_version=workflow_version,
+                work_key=work_key,
+                run_id=run_id,
+                aggregate_type="graph_call",
+                aggregate_id=call_id,
+                parent_aggregate_id=run_id,
+                call_id=call_id,
+            ),
+        )
+    emit(
+        "run_completed",
+        {
+            "call_id": call_id,
+            "edge": edge,
+        },
+        stream=stream,
+        context=EventContext(
+            workflow_version=workflow_version,
+            work_key=work_key,
+            run_id=run_id,
+            aggregate_type="run",
+            aggregate_id=run_id,
+            call_id=call_id,
+        ),
+    )
+
+
 def _recursive_candidate_chain(
     *,
     depth: int,
@@ -1107,25 +1194,21 @@ class TestM03EngineKernelIntegration:
 
         active = find_active_frame(stream.all_events(), f"{outer.id}/design→prototype")
         assert active is not None
-        _, step = active
-        stream.append(
-            "assessed",
-            {
-                "kind": "fp",
-                "edge": step.edge,
-                "evaluator": "child_review",
-                "result": "pass",
-                "spec_hash": spec_hash_for(
-                    workflow_version=scope.workflow_version,
-                    executable_job=step.executable_job,
-                    requirements=module.metadata["requirements"],
-                ),
-                "work_key": step.child_key,
-            },
-            context=EventContext(
+        frame, step = active
+        _emit_successful_fp_completion(
+            stream,
+            workflow_version=scope.workflow_version,
+            edge=step.edge,
+            evaluator="child_review",
+            spec_hash=spec_hash_for(
                 workflow_version=scope.workflow_version,
-                work_key=step.child_key,
+                executable_job=step.executable_job,
+                requirements=module.metadata["requirements"],
             ),
+            run_id=first_iterate["run_id"],
+            work_key=step.child_key,
+            call_id=frame.call_id,
+            frame=frame,
         )
 
         second_iterate = gen_iterate(scope, stream)
@@ -2024,7 +2107,7 @@ class TestM03EngineKernelIntegration:
                 module,
             )
 
-    def test_fp_dispatch_callback_can_return_structured_work_surface(self, tmp_path: Path) -> None:
+    def test_fp_dispatch_runtime_surface_is_manifest_and_result_artifacts_only(self, tmp_path: Path) -> None:
         module = _minimal_property_module(["REQ-M03-DISPATCH-001"])
         executable_job = module_to_executable_jobs(module)[0]
         fp_evaluator = next(
@@ -2040,20 +2123,6 @@ class TestM03EngineKernelIntegration:
             stream=stream,
             worker=Worker(id="router", can_execute=[executable_job]),
             spec_hash="spec-m03-dispatch",
-            on_fp_dispatch=lambda _bound_job: WorkSurface(
-                events=(
-                    {
-                        "event_type": "run_failed",
-                        "data": {
-                            "edge": executable_job.vector.name,
-                            "failure_class": "transport_failure",
-                        },
-                    },
-                ),
-                artifacts=("dispatch/report.json",),
-                findings=({"kind": "transport_failure"},),
-                metadata={"dispatch_failure": "transport_failure"},
-            ),
         )
 
         outcome = traverse(
@@ -2067,11 +2136,10 @@ class TestM03EngineKernelIntegration:
         )
 
         event_types = [event["event_type"] for event in outcome.surface.events]
-        assert event_types == ["fp_dispatched", "run_failed"]
-        assert "dispatch/report.json" in outcome.surface.artifacts
+        assert event_types == ["fp_dispatched"]
         assert any(artifact.endswith(".json") for artifact in outcome.surface.artifacts)
-        assert outcome.surface.findings == ({"kind": "transport_failure"},)
-        assert outcome.surface.metadata["dispatch_failure"] == "transport_failure"
+        assert outcome.surface.findings == ()
+        assert "dispatch_failure" not in outcome.surface.metadata
 
     def test_bootloader_consistency_uses_structural_axioms_and_type_surface(self) -> None:
         report = _bootloader_consistency_report("gtl", str(BOOTLOADER_PATH))
@@ -2179,7 +2247,7 @@ class TestM03EngineKernelIntegration:
         assert manifest_path.exists()
 
         event_types = _event_types(stream)
-        assert event_types[:4] == ["run_bound", "run_started", "edge_started", "fp_dispatched"]
+        assert event_types[:5] == ["run_bound", "run_started", "graph_call_opened", "edge_started", "fp_dispatched"]
         for event in stream.all_events():
             assert event["data"]["workflow_version"] == "m03.test@2.0.0"
             assert event["data"]["work_key"] == vector.id
@@ -2213,6 +2281,90 @@ class TestM03EngineKernelIntegration:
         assert manifest["resolved_policy"]["dispatch"]["ref"] == (
             "genesis.dispatch_runtime:dispatch_bound_manifest_via_transport"
         )
+
+    def test_deterministic_traversal_emits_callable_lifecycle_and_run_completion(self, tmp_path: Path) -> None:
+        design = Node(name="design", schema="DesignDoc")
+        code = Node(name="code", schema="Code")
+        fd_ok = Evaluator(
+            "fd_ok",
+            F_D,
+            binding="exec://python -c 'import sys; sys.exit(0)'",
+        )
+        vector = GraphVector(
+            name="design→code",
+            source=design,
+            target=code,
+            evaluators=(fd_ok,),
+        )
+        graph = Graph(
+            name="m03_deterministic_call",
+            inputs=(design,),
+            outputs=(code,),
+            nodes=(design, code),
+            vectors=(vector,),
+        )
+        graph_function = _graph_function_for_vector(vector)
+        boundary = RefinementBoundary(
+            name=vector.name,
+            inputs=(design,),
+            outputs=(code,),
+        )
+        job = Job(
+            name=vector.name,
+            contracts=(ContractRef(kind="graph_function", target_id=graph_function.id),),
+        )
+        module = Module(
+            name="m03_deterministic_call",
+            graphs=(graph,),
+            graph_functions=(graph_function,),
+            refinement_boundaries=(boundary,),
+            jobs=(job,),
+            metadata={"requirements": ["REQ-M03-DETERMINISTIC-CALL-001"]},
+        )
+
+        stream = workspace_bootstrap(tmp_path)
+        executable_job = module_to_executable_jobs(module)[0]
+        runtime = TraversalRuntime(
+            module=module,
+            executable_job=executable_job,
+            precomputed=_precomputed(executable_job, passing=(fd_ok,)),
+            workspace_root=tmp_path,
+            stream=stream,
+            worker=Worker(id="router", can_execute=[executable_job]),
+            spec_hash="spec-m03-deterministic-call",
+            work_key=vector.id,
+            workflow_version="m03.test@2.0.0",
+            run_id="run-m03-deterministic",
+        )
+
+        outcome = traverse(
+            Traversal(
+                work_key=vector.id,
+                target=boundary,
+                evaluators=vector.evaluators,
+            ),
+            runtime=runtime,
+            surface=WorkSurface(),
+        )
+
+        assert outcome.result["status"] == "iterated"
+        events = stream.all_events()
+        assert [event["event_type"] for event in events] == [
+            "run_bound",
+            "run_started",
+            "graph_call_opened",
+            "edge_started",
+            "proof_passed",
+            "closure_passed",
+            "graph_call_closed",
+            "run_completed",
+        ]
+        call_id = next(event["data"]["call_id"] for event in events if event["event_type"] == "graph_call_opened")
+        edge_started = next(event for event in events if event["event_type"] == "edge_started")
+        assert edge_started["aggregate_type"] == "graph_call"
+        assert edge_started["aggregate_id"] == call_id
+        assert project(stream, "graph_call", call_id)["status"] == "closed"
+        assert project(stream, "run", "run-m03-deterministic")["status"] == "completed"
 
     def test_iterated_traversal_preserves_router_and_selected_execution_identity(self, tmp_path: Path) -> None:
         raw_contract = Node(name="raw_contract", schema="ContractInput")
@@ -2448,22 +2600,11 @@ class TestM03EngineKernelIntegration:
             {"edge": "design→code", "run_id": "run-pass", "work_key": "WK-1"},
             stream=stream,
         )
-        emit(
-            "assessed",
-            {
-                "kind": "fp",
-                "edge": "design→code",
-                "run_id": "run-pass",
-                "evaluator": "fp_eval",
-                "result": "pass",
-                "spec_hash": "spec-pass",
-            },
-            stream=stream,
-        )
+        emit("run_completed", {"edge": "design→code", "run_id": "run-pass"}, stream=stream)
 
         passed = run_state(stream.all_events(), "run-pass")
         assert passed is not None
-        assert passed.state == "assessed_pass"
+        assert passed.state == "completed"
         assert passed.failure_class is None
 
         emit(
@@ -2471,23 +2612,12 @@ class TestM03EngineKernelIntegration:
             {"edge": "design→code", "run_id": "run-fail", "work_key": "WK-2"},
             stream=stream,
         )
-        emit(
-            "assessed",
-            {
-                "kind": "fp",
-                "edge": "design→code",
-                "run_id": "run-fail",
-                "evaluator": "fp_eval",
-                "result": "fail",
-                "spec_hash": "spec-fail",
-            },
-            stream=stream,
-        )
+        emit("run_failed", {"run_id": "run-fail", "failure_class": "proof_failure"}, stream=stream)
 
         failed = run_state(stream.all_events(), "run-fail")
         assert failed is not None
         assert failed.state == "failed"
-        assert failed.failure_class == "certification_failure"
+        assert failed.failure_class == "proof_failure"
 
     def test_run_state_replays_timeout_and_supersession_as_first_class_terminal_truth(self, tmp_path: Path) -> None:
         stream = workspace_bootstrap(tmp_path)

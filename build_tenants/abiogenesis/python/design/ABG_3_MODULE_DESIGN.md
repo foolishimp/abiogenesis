@@ -59,19 +59,18 @@ The current ABG 2 line already has the right primitives:
 - the engine already preserves GTL declarations through frame and publication
   serialization.
 
-But the current runtime seam is still split in the wrong place:
+The ABG 3 cut removes those seams directly:
 
-- convergence regime progression is still encoded directly in Python constants
-  in `genesis.convergence`
-- `genesis.interpret` still accepts `on_fp_dispatch` runtime injection
-- `genesis.cli_adapter` still imports optional project hooks like
-  `auto_fp_dispatch` and `auto_fh_approve`
-- the result-file protocol is still closed partly at the app edge rather than
-  entirely inside the engine
+- convergence regime progression is driven by ABG policy/default law rather
+  than hidden runtime constants
+- `genesis.interpret` no longer accepts runtime callback injection at the F_P
+  seam
+- `genesis.cli_adapter` no longer imports project dispatch/approval hooks to
+  define runtime law
+- the result-file protocol is engine-owned, with CLI `assess-result` reduced to
+  a thin ingress wrapper over engine ingest
 
-That leaves ABG with partial governance, but not full runtime ownership.
-
-ABG 3 exists to finish that cut.
+That is the point of ABG 3: full runtime ownership without a shadow runtime.
 
 ---
 
@@ -117,10 +116,10 @@ flowchart LR
 
 | Concern | ABG 2 behavior | Problem |
 | --- | --- | --- |
-| Default regime progression | Encoded by `_REGIME_ORDER` and `_REGIME_ESCALATION` in `genesis.convergence` | The engine has defaults, but not configured default bundles |
-| F_P dispatch seam | `interpret._realize_iteration()` calls optional `on_fp_dispatch` | Runtime truth leaves the engine at the critical seam |
-| Auto orchestration | `cli_adapter._run_start_auto()` imports `auto_fp_dispatch` and `auto_fh_approve` | CLI/app bootstrap is still runtime law, not just control-plane projection |
-| Result closure | `result_path` and `_assess_result_cmd()` close the loop outside the core runtime | Assessment/proof closure is split across engine and app edge |
+| Default regime progression | Encoded by ABG3 policy/default law in `genesis.convergence` | Defaults are explicit, configured, and replay-visible rather than hidden constants |
+| F_P dispatch seam | `interpret._realize_iteration()` emits the dispatch fact and stops | Runtime truth remains in the engine at the critical seam |
+| Auto orchestration | `cli_adapter._run_start_auto()` calls engine-owned dispatch runtime and optional CLI proxy approval only | CLI/app bootstrap no longer defines runtime law |
+| Result closure | `result_path` is ingested by engine-owned `result_ingest`; `_assess_result_cmd()` is a thin wrapper | Assessment/proof closure is no longer split across engine and app edge |
 | External policy | `Worker.is_eligible()` preserves `authority_ref` but does not enforce policy hooks | GTL hook surfaces exist, but ABG does not yet consume them deeply |
 
 ---
@@ -504,8 +503,8 @@ flowchart LR
 
 | Module | ABG 2 role | ABG 3 impact | Size |
 | --- | --- | --- | --- |
-| `genesis.convergence` | computes aggregate state with hardcoded regime order and escalation | consume `ResolvedEvaluationPlan` and `ResolvedEscalationPlan`; remove semantic dependence on `_REGIME_ORDER` and `_REGIME_ESCALATION` as the source of policy truth | High |
-| `genesis.interpret` | plans traversal, emits runtime facts, optionally calls `on_fp_dispatch` | plan and execute from graph-function job entry, resolve policy after graph-function identity is known, materialize internal graph structure, call engine dispatch runtime, emit policy-resolution and closure facts, and stop accepting runtime callback injection as the semantic carrier | High |
+| `genesis.convergence` | computes aggregate state from typed outcomes | consume ABG3 policy/default law and remove hidden semantic dependence on hardcoded regime tables | High |
+| `genesis.interpret` | plans traversal and emits runtime facts | plan and execute from graph-function job entry, resolve policy after graph-function identity is known, materialize internal graph structure, emit policy-resolution and closure facts, and stop accepting runtime callback injection as the semantic carrier | High |
 | `genesis.binding` | resolves jobs, workers, deterministic precompute, prompt assembly | resolve semantic jobs against published graph functions first, then materialize internal graph structure for executable traversal, use role policy hooks during eligibility and binding, and attach resolved policy provenance to bound jobs/manifests | High |
 | `genesis.transport` | subprocess invocation plus failure classification | remain substrate-only and reusable, but become subordinate to engine dispatch runtime rather than app hooks | Medium |
 | `genesis.run` | projects lifecycle from stream | keep one canonical run algebra; add projection support for retry scheduling and richer dispatch/result facts if needed | Medium |

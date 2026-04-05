@@ -41,31 +41,6 @@ _GTL_BOOTLOADER_END = "<!-- GTL_BOOTLOADER_END -->"
 
 # ── Templates ─────────────────────────────────────────────────────────────────
 
-# Modules that constitute the engine (relative to this file's directory)
-ENGINE_MODULES = [
-    "__init__.py",
-    "__main__.py",
-    "events.py",
-    "identity.py",
-    "transport.py",
-    "projection.py",
-    "correction.py",
-    "provenance.py",
-    "run.py",
-    "lineage.py",
-    "subwork.py",
-    "binding.py",
-    "convergence.py",
-    "materialization.py",
-    "frames.py",
-    "interpret.py",
-    "selfhosting.py",
-    "install.py",
-    "services.py",
-    "cli_adapter.py",
-    "selection.py",
-]
-
 # GTL type system modules (relative to abiogenesis project root / gtl/)
 GTL_MODULES = [
     "__init__.py",
@@ -102,6 +77,11 @@ def _gtl_source() -> Path:
     return _code_root() / "gtl"
 
 
+def _engine_modules() -> list[str]:
+    """Return the full installed engine surface from source truth."""
+    return sorted(path.name for path in _engine_source().glob("*.py"))
+
+
 def install(target: Path, *, verify_only: bool = False,
             slug: str = "project_package",
             platform: str = "python") -> dict:
@@ -126,7 +106,8 @@ def install(target: Path, *, verify_only: bool = False,
     genesis_dir = target / ".genesis" / "genesis"
     genesis_dir.mkdir(parents=True, exist_ok=True)
 
-    for module in ENGINE_MODULES:
+    engine_modules = _engine_modules()
+    for module in engine_modules:
         src = engine_src / module
         dst = genesis_dir / module
         if not src.exists():
@@ -198,7 +179,7 @@ def install(target: Path, *, verify_only: bool = False,
 def _verify(target: Path, result: dict, platform: str = "python") -> dict:
     genesis_dir = target / ".genesis" / "genesis"
     missing_engine = []
-    for module in ENGINE_MODULES:
+    for module in _engine_modules():
         if not (genesis_dir / module).exists():
             missing_engine.append(module)
 

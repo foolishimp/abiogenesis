@@ -36,9 +36,89 @@ class EventContext:
     job_id: Optional[str] = None
     graph_function_id: Optional[str] = None
     materialization_id: Optional[str] = None
+    call_id: Optional[str] = None
     frame_attempt_id: Optional[str] = None
     frame_lineage_id: Optional[str] = None
     vector_id: Optional[str] = None
+
+
+_VECTOR_LOCAL_EVENT_TYPES = frozenset(
+    {
+        "edge_started",
+        "edge_converged",
+        "fp_dispatched",
+        "fh_gate_pending",
+        "found",
+        "assessed",
+        "proof_passed",
+        "proof_failed",
+        "closure_passed",
+        "closure_failed",
+    }
+)
+
+_FRAME_EVENT_TYPES = frozenset(
+    {
+        "frame_opened",
+        "frame_step_started",
+        "frame_step_completed",
+        "frame_state_updated",
+        "frame_suspended",
+        "frame_resumed",
+        "frame_foldback",
+        "frame_rebound",
+        "frame_closed",
+        "work_spawned",
+    }
+)
+
+
+def _event_value(data: dict[str, Any], key: str) -> Any:
+    return data.get(key)
+
+
+def _infer_aggregate_identity(
+    event_type: str,
+    data: dict[str, Any],
+    *,
+    context: EventContext | None = None,
+) -> tuple[str | None, str | None, str | None]:
+    aggregate_type = context.aggregate_type if context is not None else None
+    aggregate_id = context.aggregate_id if context is not None else None
+    parent_aggregate_id = context.parent_aggregate_id if context is not None else None
+    if aggregate_type is not None and aggregate_id is not None:
+        return aggregate_type, aggregate_id, parent_aggregate_id
+
+    run_id = _event_value(data, "run_id")
+    call_id = _event_value(data, "call_id")
+    continuation_id = _event_value(data, "continuation_id")
+    frame_attempt_id = _event_value(data, "frame_attempt_id") or _event_value(data, "frame_id")
+
+    if continuation_id and event_type.startswith("continuation_"):
+        return "continuation", str(continuation_id), parent_aggregate_id or (str(run_id) if run_id else None)
+
+    if frame_attempt_id and (
+        event_type in _FRAME_EVENT_TYPES
+        or (event_type in _VECTOR_LOCAL_EVENT_TYPES and _event_value(data, "frame_attempt_id") is not None)
+    ):
+        parent = parent_aggregate_id
+        if parent is None and call_id:
+            parent = str(call_id)
+        elif parent is None and run_id:
+            parent = str(run_id)
+        return "frame", str(frame_attempt_id), parent
+
+    if run_id and (event_type == "run_bound" or event_type.startswith("run_")):
+        return "run", str(run_id), parent_aggregate_id
+
+    if call_id and (
+        event_type.startswith("graph_call_")
+        or event_type.startswith("worker_turn_")
+        or event_type in _VECTOR_LOCAL_EVENT_TYPES
+    ):
+        return "graph_call", str(call_id), parent_aggregate_id or (str(run_id) if run_id else None)
+
+    return aggregate_type, aggregate_id, parent_aggregate_id
 
 
 class EventStream:
@@ -98,6 +178,8 @@ class EventStream:
                 record_data.setdefault("graph_function_id", context.graph_function_id)
             if context.materialization_id is not None:
                 record_data.setdefault("materialization_id", context.materialization_id)
+            if context.call_id is not None:
+                record_data.setdefault("call_id", context.call_id)
             if context.frame_attempt_id is not None:
                 record_data.setdefault("frame_attempt_id", context.frame_attempt_id)
             if context.frame_lineage_id is not None:
@@ -113,13 +195,19 @@ class EventStream:
                 return None
             return getattr(context, name)
 
+        inferred_type, inferred_id, inferred_parent = _infer_aggregate_identity(
+            event_type,
+            record_data,
+            context=context,
+        )
+
         record = {
             "event_id": uuid.uuid4().hex,
             "event_time": datetime.now(timezone.utc).isoformat(),
             "event_type": event_type,
-            "aggregate_type": _top_level("aggregate_type"),
-            "aggregate_id": _top_level("aggregate_id"),
-            "parent_aggregate_id": _top_level("parent_aggregate_id"),
+            "aggregate_type": _top_level("aggregate_type") or inferred_type,
+            "aggregate_id": _top_level("aggregate_id") or inferred_id,
+            "parent_aggregate_id": _top_level("parent_aggregate_id") or inferred_parent,
             "causation_event_id": _top_level("causation_event_id"),
             "correlation_id": _top_level("correlation_id"),
             "workflow_version": _top_level("workflow_version") or record_data.get("workflow_version", "unknown"),

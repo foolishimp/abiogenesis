@@ -43,6 +43,27 @@ def _import_ref(ref: str) -> Any:
         raise ValueError(f"Hook reference {ref!r} does not resolve to a symbol") from exc
 
 
+def materialize_policy_concern(
+    policy_bundle: Mapping[str, Any],
+    concern: str,
+) -> dict[str, Any]:
+    """Resolve one concern ref/config into executable behavior metadata."""
+    concern_spec = policy_bundle.get(concern)
+    if not isinstance(concern_spec, Mapping):
+        raise ValueError(f"Resolved policy bundle is missing concern {concern!r}")
+    spec = _normalize_spec(concern_spec, concern=concern, source="resolved_policy")
+    target = _import_ref(spec["ref"])
+    materialized = target(spec.get("config", {})) if callable(target) else target
+    if not isinstance(materialized, Mapping):
+        raise ValueError(
+            f"Resolved policy concern {concern!r} from {spec['ref']!r} must materialize to a mapping"
+        )
+    result = dict(materialized)
+    result.setdefault("ref", spec["ref"])
+    result.setdefault("config", dict(spec.get("config", {})))
+    return result
+
+
 def _normalize_spec(
     value: Any,
     *,

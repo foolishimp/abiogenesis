@@ -41,10 +41,10 @@ def install_real_sandbox(target: Path, *, archive: RunArchive | None = None) -> 
 
 def installed_env(workspace: Path) -> dict[str, str]:
     env = os.environ.copy()
-    existing = env.get("PYTHONPATH", "")
-    env["PYTHONPATH"] = os.pathsep.join(
-        [str(workspace / ".genesis")] + ([existing] if existing else [])
-    )
+    # Installed-runtime lanes must be hermetic: source-tree imports are not
+    # allowed to leak into the installed engine process.
+    env["PYTHONPATH"] = str(workspace / ".genesis")
+    env.pop("PYTEST_CURRENT_TEST", None)
     return env
 
 
