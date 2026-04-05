@@ -573,7 +573,7 @@ For recursion specifically, the important events are:
 - `frame_opened`
 - `work_spawned`
 - `frame_step_completed`
-- `frame_foldback`
+- `foldback_opened`
 - `frame_rebound`
 - `frame_closed`
 

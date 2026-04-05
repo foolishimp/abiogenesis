@@ -99,11 +99,16 @@ def run_state(
         etype = e.get("event_type")
         edata = e.get("data", {})
         erun = _event_value(e, "run_id")
+        superseded_run_id = _event_value(e, "superseded_run_id")
+
+        if etype == "run_superseded" and (superseded_run_id == run_id or erun == run_id):
+            state = "superseded"
+            superseded_by = _event_value(e, "superseded_by")
+            edge = _event_value(e, "edge") or edge
+            work_key = _event_value(e, "work_key") or work_key
+            continue
 
         if erun != run_id:
-            if etype == "run_superseded" and _event_value(e, "superseded_run_id") == run_id:
-                state = "superseded"
-                superseded_by = _event_value(e, "superseded_by")
             continue
 
         if etype == "run_bound":
@@ -172,13 +177,19 @@ def run_state(
             state, failure_class = _project_assessment(edata, state, failure_class)
 
         elif etype == "run_completed":
+            work_key = _event_value(e, "work_key") or work_key
+            edge = _event_value(e, "edge") or edge
             state = "completed"
 
         elif etype == "run_failed":
+            work_key = _event_value(e, "work_key") or work_key
+            edge = _event_value(e, "edge") or edge
             state = "failed"
             failure_class = _event_value(e, "failure_class") or failure_class
 
         elif etype == "run_timed_out":
+            work_key = _event_value(e, "work_key") or work_key
+            edge = _event_value(e, "edge") or edge
             state = "timed_out"
             failure_class = None
 

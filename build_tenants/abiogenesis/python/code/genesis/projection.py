@@ -73,7 +73,7 @@ def project(
                 data.get("target", ""),
                 data.get("asset_type", ""),
             ))
-            or (instance_id == "current" and etype == "edge_started"
+            or (instance_id == "current" and etype == "vector_started"
                 and data.get("target") == asset_type)
         )
 
@@ -82,7 +82,7 @@ def project(
 
         state["event_count"] += 1
 
-        if etype == "edge_started":
+        if etype == "vector_started":
             if state["status"] == "not_started":
                 state["status"] = "in_progress"
 

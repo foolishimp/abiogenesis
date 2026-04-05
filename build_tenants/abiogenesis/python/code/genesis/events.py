@@ -44,7 +44,7 @@ class EventContext:
 
 _VECTOR_LOCAL_EVENT_TYPES = frozenset(
     {
-        "edge_started",
+        "vector_started",
         "edge_converged",
         "fp_dispatched",
         "fh_gate_pending",
@@ -65,7 +65,7 @@ _FRAME_EVENT_TYPES = frozenset(
         "frame_state_updated",
         "frame_suspended",
         "frame_resumed",
-        "frame_foldback",
+        "foldback_opened",
         "frame_rebound",
         "frame_closed",
         "work_spawned",
@@ -289,7 +289,7 @@ _active_snapshot_id: Optional[str] = None
 
 # Work event types that must carry package_snapshot_id (PackageSnapshot.work_binding).
 _WORK_EVENT_TYPES = frozenset({
-    "edge_started", "edge_converged", "assessed", "approved", "revoked",
+    "vector_started", "edge_converged", "assessed", "approved", "revoked",
 })
 _USE_ACTIVE_SNAPSHOT = object()
 
@@ -369,4 +369,9 @@ def emit(
     )
     if event_type in _WORK_EVENT_TYPES and snapshot_id is not None:
         payload.setdefault("package_snapshot_id", snapshot_id)
-    return active_stream.append(event_type, payload, context=context)
+    record = active_stream.append(event_type, payload, context=context)
+    if event_type == "reset":
+        from .correction import emit_reset_followups
+
+        emit_reset_followups(active_stream, record)
+    return record

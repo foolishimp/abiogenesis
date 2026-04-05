@@ -95,7 +95,7 @@ Current reading:
 
 ### test_sandbox_install.py
 
-- Requirements: `REQ-R-ABG3-EVENTS`, `REQ-R-ABG3-INTERPRET`
+- Requirements: `REQ-R-ABG3-EVENTS`, `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-CORRECTION`, `REQ-R-ABG3-CONTINUATION`, `REQ-R-ABG3-RUN`
 - Design: [README.md](../design/README.md), [GSDLC_LITE_QUALIFICATION_LADDER.md](../design/GSDLC_LITE_QUALIFICATION_LADDER.md), [SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md](../design/SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md), [M04-app-bootstrap.yml](../../../common/design/modules/M04-app-bootstrap.yml)
 
 ### test_sandbox_usecases_fake.py

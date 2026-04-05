@@ -48,7 +48,7 @@ from .frames import (
     build_frame_traversal_surface_from_graph_function,
     current_recursive_state,
     frame_closed_event,
-    frame_foldback_event,
+    foldback_opened_event,
     frame_opened_event,
     frame_rebound_event,
     frame_resumed_event,
@@ -1532,28 +1532,28 @@ def _iterated_outcome(
     if runtime.runtime_identity.resolved_runtime_ref:
         bound.resolved_runtime_ref = runtime.runtime_identity.resolved_runtime_ref
 
-    edge_started_data: dict = {
+    vector_started_data: dict = {
         "edge": vector.name,
         "vector_id": vector.id,
         "worker_id": runtime.worker.id,
         "target": vector.target.name,
     }
     if runtime.runtime_identity.build_id:
-        edge_started_data["build"] = runtime.runtime_identity.build_id
+        vector_started_data["build"] = runtime.runtime_identity.build_id
     if runtime.runtime_identity.backend_id:
-        edge_started_data["backend_id"] = runtime.runtime_identity.backend_id
+        vector_started_data["backend_id"] = runtime.runtime_identity.backend_id
     if runtime.work_key is not None:
-        edge_started_data["work_key"] = runtime.work_key
+        vector_started_data["work_key"] = runtime.work_key
     if runtime.executable_job.job.roles:
-        edge_started_data["role_id"] = runtime.executable_job.job.roles[0].id
+        vector_started_data["role_id"] = runtime.executable_job.job.roles[0].id
     if runtime.worker.authority_ref:
-        edge_started_data["authority_ref"] = runtime.worker.authority_ref
+        vector_started_data["authority_ref"] = runtime.worker.authority_ref
     _attach_execution_binding_provenance(
-        edge_started_data,
+        vector_started_data,
         runtime_identity=runtime.runtime_identity,
         worker=runtime.worker,
     )
-    _emit_event(runtime.stream, "edge_started", edge_started_data, context=event_context)
+    _emit_event(runtime.stream, "vector_started", vector_started_data, context=event_context)
     if active_frame is not None:
         frame, step = active_frame
         _emit_event(
@@ -2075,8 +2075,8 @@ def _advance_current_recursive_state(
         )
     _emit_event(
         stream,
-        "frame_foldback",
-        frame_foldback_event(frame)["data"],
+        "foldback_opened",
+        foldback_opened_event(frame)["data"],
         context=EventContext(
             workflow_version=workflow_version,
             work_key=frame.parent_key,

@@ -69,6 +69,10 @@ ACTIVE_GTL_READMODEL_FILES = [
     REQUIREMENTS_ROOT / "README.md",
     PYTHON_CODE_ROOT / "gtl_spec" / "GTL_BOOTLOADER.md",
 ]
+ACTIVE_REPO_INSTRUCTION_FILES = [
+    REPO_ROOT / "AGENTS.md",
+    REPO_ROOT / "CLAUDE.md",
+]
 STALE_GTL_READMODEL_MARKERS = (
     "GTL " + "2.x",
     "Genesis " + "2.x",
@@ -94,6 +98,8 @@ ONTOLOGY_SWEEP_MARKERS = (
 ONTOLOGY_SWEEP_SUFFIXES = {".md", ".py", ".yml", ".yaml", ".json", ".txt"}
 ONTOLOGY_SWEEP_ROOTS = (
     REPO_ROOT / "README.md",
+    REPO_ROOT / "AGENTS.md",
+    REPO_ROOT / "CLAUDE.md",
     SPEC_ROOT,
     REPO_ROOT / "docs",
     COMMON_DESIGN_ROOT,
@@ -292,6 +298,18 @@ def test_repo_has_no_stale_gtl_abg_ontology_markers() -> None:
             if marker in text:
                 offenders.append(f"{path.relative_to(REPO_ROOT)} -> {marker!r}")
     assert not offenders, "stale ontology markers remain:\n" + "\n".join(offenders)
+
+
+def test_repo_root_instruction_files_have_no_dead_bootstrap_guidance() -> None:
+    stale_markers = (
+        ".gsdlc/release/",
+        "workspace://.gsdlc/release/SDLC_BOOTLOADER.md",
+    )
+    for path in ACTIVE_REPO_INSTRUCTION_FILES:
+        assert path.exists(), f"missing active repo instruction surface {path}"
+        text = _read(path)
+        for marker in stale_markers:
+            assert marker not in text, f"{path.name} still exposes dead bootstrap marker {marker!r}"
 
 
 def test_adrs_implement_live_requirement_families() -> None:

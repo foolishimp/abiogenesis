@@ -975,7 +975,7 @@ class TestM03EngineKernelIntegration:
                 surface=WorkSurface(),
             )
 
-    def test_frame_foldback_rebinds_parent_without_auto_certifying_parent(self, tmp_path: Path) -> None:
+    def test_foldback_opened_rebinds_parent_without_auto_certifying_parent(self, tmp_path: Path) -> None:
         design = Node(name="design", schema="DesignDoc")
         prototype = Node(name="prototype", schema="Prototype")
         code = Node(name="code", schema="Code")
@@ -1013,7 +1013,7 @@ class TestM03EngineKernelIntegration:
         )
         outer_profile = _graph_function_for_vector(outer)
         module = Module(
-            name="m03_frame_foldback",
+            name="m03_foldback_opened",
             graphs=(
                 Graph(
                     name="delivery",
@@ -1068,7 +1068,7 @@ class TestM03EngineKernelIntegration:
         assert gaps["total_delta"] == 0
 
         events = stream.all_events()
-        assert not any(event["event_type"] == "frame_foldback" for event in events)
+        assert not any(event["event_type"] == "foldback_opened" for event in events)
         assert not any(event["event_type"] == "frame_rebound" for event in events)
         assert not any(event["event_type"] == "frame_closed" for event in events)
         assert not any(
@@ -1088,7 +1088,7 @@ class TestM03EngineKernelIntegration:
         assert after["rebound"] is True
         assert {step["status"] for step in after["child_steps"]} == {"converged"}
         events = stream.all_events()
-        assert any(event["event_type"] == "frame_foldback" for event in events)
+        assert any(event["event_type"] == "foldback_opened" for event in events)
         assert any(event["event_type"] == "frame_rebound" for event in events)
         assert any(event["event_type"] == "frame_closed" for event in events)
 
@@ -1330,7 +1330,7 @@ class TestM03EngineKernelIntegration:
         first_gaps = gen_gaps(scope, stream)
         assert first_gaps["converged"] is False
         first_events = stream.all_events()
-        assert not any(event["event_type"] == "frame_foldback" for event in first_events)
+        assert not any(event["event_type"] == "foldback_opened" for event in first_events)
         assert not any(event["event_type"] == "frame_rebound" for event in first_events)
         assert not any(event["event_type"] == "frame_closed" for event in first_events)
         first_frame = project(stream, "frame", frame_id)
@@ -1364,7 +1364,7 @@ class TestM03EngineKernelIntegration:
         assert second_iterate["edge"] == "design→code"
         assert second_iterate["blocking_reason"] == "fp_dispatch"
         second_events = stream.all_events()
-        assert any(event["event_type"] == "frame_foldback" for event in second_events)
+        assert any(event["event_type"] == "foldback_opened" for event in second_events)
         assert any(event["event_type"] == "frame_rebound" for event in second_events)
         assert any(event["event_type"] == "frame_closed" for event in second_events)
         rebound = next(
@@ -2247,7 +2247,7 @@ class TestM03EngineKernelIntegration:
         assert manifest_path.exists()
 
         event_types = _event_types(stream)
-        assert event_types[:5] == ["run_bound", "run_started", "graph_call_opened", "edge_started", "fp_dispatched"]
+        assert event_types[:5] == ["run_bound", "run_started", "graph_call_opened", "vector_started", "fp_dispatched"]
         for event in stream.all_events():
             assert event["data"]["workflow_version"] == "m03.test@2.0.0"
             assert event["data"]["work_key"] == vector.id
@@ -2353,16 +2353,16 @@ class TestM03EngineKernelIntegration:
             "run_bound",
             "run_started",
             "graph_call_opened",
-            "edge_started",
+            "vector_started",
             "proof_passed",
             "closure_passed",
             "graph_call_closed",
             "run_completed",
         ]
         call_id = next(event["data"]["call_id"] for event in events if event["event_type"] == "graph_call_opened")
-        edge_started = next(event for event in events if event["event_type"] == "edge_started")
-        assert edge_started["aggregate_type"] == "graph_call"
-        assert edge_started["aggregate_id"] == call_id
+        vector_started = next(event for event in events if event["event_type"] == "vector_started")
+        assert vector_started["aggregate_type"] == "graph_call"
+        assert vector_started["aggregate_id"] == call_id
         assert project(stream, "graph_call", call_id)["status"] == "closed"
         assert project(stream, "run", "run-m03-deterministic")["status"] == "completed"
 
@@ -2454,12 +2454,12 @@ class TestM03EngineKernelIntegration:
         events = stream.all_events()
         relevant = [
             event for event in events
-            if event["event_type"] in {"run_bound", "run_started", "edge_started", "fp_dispatched"}
+            if event["event_type"] in {"run_bound", "run_started", "vector_started", "fp_dispatched"}
         ]
         assert [event["event_type"] for event in relevant] == [
             "run_bound",
             "run_started",
-            "edge_started",
+            "vector_started",
             "fp_dispatched",
         ]
         for event in relevant:
@@ -2584,13 +2584,13 @@ class TestM03EngineKernelIntegration:
         )
 
         assert outcome.result["status"] == "iterated"
-        edge_started = next(
+        vector_started = next(
             event["data"]
             for event in stream.all_events()
-            if event["event_type"] == "edge_started"
+            if event["event_type"] == "vector_started"
         )
-        assert edge_started["worker_id"] == "abiogenesis_python_router"
-        assert "build" not in edge_started
+        assert vector_started["worker_id"] == "abiogenesis_python_router"
+        assert "build" not in vector_started
 
     def test_run_state_projects_fp_assessment_to_canonical_terminal_truth(self, tmp_path: Path) -> None:
         stream = workspace_bootstrap(tmp_path)
@@ -2715,7 +2715,7 @@ class TestM03EngineKernelIntegration:
     def test_projection_is_replay_deterministic_for_same_stream_state(self, tmp_path: Path) -> None:
         stream = workspace_bootstrap(tmp_path)
         stream.append(
-            "edge_started",
+            "vector_started",
             {
                 "edge": "design→code",
                 "build": "kernel_router",

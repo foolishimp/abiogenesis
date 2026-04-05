@@ -99,7 +99,7 @@ First kernel-qualified release. ABG is the GTL engine kernel — 6 modules, 45 R
 ### Engine (build_tenants/abiogenesis/python/code/)
 
 **Event Calculus foundation** (REQ-F-EC-*)
-- Five prime operators: `assessed`, `approved`, `revoked`, `edge_started`, `edge_converged`
+- Five prime operators: `assessed`, `approved`, `revoked`, `vector_started`, `edge_converged`
 - Two fluents: `convergence_status`, `approval_status` — derived from event stream projection
 - `emit()` validates prime operator schemas at the write primitive (spec_hash on assessed/fp, kind on approved/revoked)
 - Fail-closed context resolution — missing context raises FileNotFoundError, never silently degrades

@@ -27,9 +27,6 @@ abiogenesis/
 │   ├── genesis/                       ← engine modules
 │   ├── gtl/                           ← GTL type system
 │   └── genesis.yml                    ← bootstrap config → runtime_contract
-├── .gsdlc/release/                    ← gsdlc methodology release (immutable between releases)
-│   ├── workflows/genesis_sdlc/        ← versioned release snapshots
-│   └── gtl_spec/packages/project_package.py    ← generated workflow wrapper (system-owned)
 └── .ai-workspace/                     ← runtime state (events, features, reviews)
 ```
 
@@ -57,7 +54,7 @@ PYTHONPATH=.genesis python -m genesis gaps  --workspace .
 
 **Version**: 2.2.0
 **Status**: Present-tense constitutional read model
-**Role**: Constraint manifold for LLM-guided construction over the GTL 2.x / ABG 2.x surface
+**Role**: Constraint manifold for LLM-guided construction over the GTL 3 / ABG 3 surface
 
 This document is not a tutorial.
 It is a compact statement of the live structural truths that bound lawful work.
@@ -364,8 +361,16 @@ The purpose of this document is to prevent unconstrained synthesis.
 ---
 
 <!-- SDLC_BOOTLOADER_START -->
-The installed genesis_sdlc release is active.
-Read workspace://.gsdlc/release/SDLC_BOOTLOADER.md first, then follow its referenced docs.
+The canonical method authority is `/Users/jim/src/apps/genesis_sdlc/specification/standards/SPEC_METHOD.md`.
+Read the live project-owned constitutional surfaces first:
+- `workspace://README.md`
+- `workspace://specification/INTENT.md`
+- `workspace://specification/requirements/`
+- `workspace://specification/GTL_3_CONSTITUTIONAL_DESIGN.md`
+- `workspace://specification/ABG_3_CONSTITUTIONAL_DESIGN.md`
+- `workspace://build_tenants/common/design/README.md`
+- `workspace://build_tenants/abiogenesis/python/design/README.md`
+- `workspace://build_tenants/abiogenesis/python/code/gtl_spec/GTL_BOOTLOADER.md`
 
 Installed axioms:
 - Specification defines project truth; design surfaces define realization.
@@ -373,11 +378,10 @@ Installed axioms:
 - The only lawful operative path is the resolved runtime at workspace://.ai-workspace/runtime/resolved-runtime.json.
 - One edge traversal binds one role and one worker assignment.
 - Backend identity is derived from worker assignment, not selected independently.
-- Managed methodology surfaces live under workspace://.gsdlc/release/; project-owned surfaces live under workspace://specification/, workspace://build_tenants/, and workspace://docs/.
+- Project-owned live surfaces live under workspace://specification/, workspace://build_tenants/, and workspace://docs/.
 - Runtime/session state lives under workspace://.ai-workspace/runtime/; when it differs from release defaults, the resolved runtime wins.
 
 Default role assignments for this install:
 - `constructor` -> `claude_code`
 - `implementer` -> `claude_code`
 <!-- SDLC_BOOTLOADER_END -->
-

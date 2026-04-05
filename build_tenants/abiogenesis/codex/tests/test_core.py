@@ -21,9 +21,9 @@ def test_emit_requires_initialised_stream(monkeypatch):
         core.emit("found", {"kind": "fd_gap"})
 
 
-def test_project_current_observes_edge_started(tmp_path):
+def test_project_current_observes_vector_started(tmp_path):
     stream = core.workspace_bootstrap(tmp_path)
-    stream.append("edge_started", {"edge": "design→code", "target": "code"})
+    stream.append("vector_started", {"edge": "design→code", "target": "code"})
     state = core.project(stream, "code", "current")
     assert state["status"] == "in_progress"
 

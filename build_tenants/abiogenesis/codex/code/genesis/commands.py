@@ -201,7 +201,7 @@ def gen_iterate(scope: Scope, stream: EventStream) -> dict:
         },
     )
     stream.append(
-        "edge_started",
+        "vector_started",
         {
             "edge": selected_job.edge.name,
             "build": scope.build,

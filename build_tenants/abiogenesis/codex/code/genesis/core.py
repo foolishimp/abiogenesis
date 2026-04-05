@@ -99,7 +99,7 @@ def project(stream: EventStream, asset_type: str, instance_id: str) -> dict:
             )
             or (
                 instance_id == "current"
-                and event_type == "edge_started"
+                and event_type == "vector_started"
                 and data.get("target") == asset_type
             )
         )
@@ -108,7 +108,7 @@ def project(stream: EventStream, asset_type: str, instance_id: str) -> dict:
         state["event_count"] += 1
         if event_type == "project_initialized":
             state["initialized"] = True
-        elif event_type == "edge_started" and state["status"] == "not_started":
+        elif event_type == "vector_started" and state["status"] == "not_started":
             state["status"] = "in_progress"
         elif event_type == "edge_converged":
             edge = data.get("edge")

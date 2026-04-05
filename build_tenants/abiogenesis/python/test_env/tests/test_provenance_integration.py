@@ -264,20 +264,20 @@ class TestWorkflowVersionAnnotation:
 
     def test_emit_event_reads_configured_active_workflow(self, tmp_path):
         """emit-event honours active_workflow from genesis.yml runtime contract."""
-        # Write active-workflow.json to the gsdlc release territory (not .genesis/)
-        release_dir = tmp_path / ".gsdlc" / "release"
-        release_dir.mkdir(parents=True)
-        (release_dir / "active-workflow.json").write_text(
-            json.dumps({"workflow": "genesis_sdlc.standard", "version": "1.0.0b1"})
+        # Write active-workflow.json to a project-owned configured runtime-contract path.
+        workflow_dir = tmp_path / ".genesis" / "workflows" / "abiogenesis" / "standard" / "v1_0_0b1"
+        workflow_dir.mkdir(parents=True, exist_ok=True)
+        (workflow_dir / "active-workflow.json").write_text(
+            json.dumps({"workflow": "abiogenesis.standard", "version": "1.0.0b1"})
         )
-        # Write genesis.yml with the runtime contract pointing to the release territory
+        # Write genesis.yml with the runtime contract pointing to that configured path.
         genesis_dir = tmp_path / ".genesis"
         genesis_dir.mkdir(parents=True, exist_ok=True)
         (genesis_dir / "genesis.yml").write_text(
             "package: gtl_spec.packages.test:package\n"
             "worker: gtl_spec.packages.test:worker\n"
-            "pythonpath:\n  - .gsdlc/release\n"
-            "active_workflow: .gsdlc/release/active-workflow.json\n"
+            "pythonpath:\n  - .genesis/workflows/abiogenesis/standard/v1_0_0b1\n"
+            "active_workflow: .genesis/workflows/abiogenesis/standard/v1_0_0b1/active-workflow.json\n"
         )
         workspace_bootstrap(tmp_path)
 
@@ -295,8 +295,9 @@ class TestWorkflowVersionAnnotation:
         ]
         review_events = [e for e in events if e["event_type"] == "approved"]
         assert review_events, "approved event must be written"
-        assert review_events[-1]["data"]["workflow_version"] == "genesis_sdlc.standard@1.0.0b1", (
-            "emit-event must read active_workflow from genesis.yml, not .genesis/active-workflow.json"
+        assert review_events[-1]["data"]["workflow_version"] == "abiogenesis.standard@1.0.0b1", (
+            "emit-event must read active_workflow from genesis.yml, not the default "
+            ".ai-workspace/runtime/active-workflow.json"
         )
 
     def test_emit_event_does_not_require_scope_object(self, tmp_path):

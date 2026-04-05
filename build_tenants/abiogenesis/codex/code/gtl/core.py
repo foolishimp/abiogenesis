@@ -250,7 +250,7 @@ class PackageSnapshot:
     through the governance pipeline.
 
     Constitutional binding contract:
-        Every work event (edge_started, iteration_completed, edge_converged) must carry
+        Every work event (vector_started, iteration_completed, edge_converged) must carry
         package_snapshot_id. This is non-optional. It is the mechanism by which exact
         historical replay under the correct law is possible.
 

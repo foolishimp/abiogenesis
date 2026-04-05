@@ -391,7 +391,7 @@ def dispatch_bound_manifest_via_transport(
         }
 
     emit(
-        "worker_turn_completed",
+        "worker_turn_succeeded",
         {
             "call_id": call_id,
             "edge": manifest_map.get("edge"),

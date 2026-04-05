@@ -17,7 +17,7 @@ def test_run_archive_finalize_writes_postmortem_shape():
     events_dir = archive.workspace / ".ai-workspace" / "events"
     events_dir.mkdir(parents=True, exist_ok=True)
     (events_dir / "events.jsonl").write_text(
-        json.dumps({"event_type": "edge_started", "data": {"edge": "a→b"}}) + "\n",
+        json.dumps({"event_type": "vector_started", "data": {"edge": "a→b"}}) + "\n",
         encoding="utf-8",
     )
 

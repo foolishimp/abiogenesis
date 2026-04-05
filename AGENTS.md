@@ -12,8 +12,16 @@
 - More specific `AGENTS.md` files (for example under `./build_tenants/abiogenesis/codex`) may further restrict behavior.
 
 <!-- SDLC_BOOTLOADER_START -->
-The installed genesis_sdlc release is active.
-Read workspace://.gsdlc/release/SDLC_BOOTLOADER.md first, then follow its referenced docs.
+The canonical method authority is `/Users/jim/src/apps/genesis_sdlc/specification/standards/SPEC_METHOD.md`.
+Read the live project-owned constitutional surfaces first:
+- `workspace://README.md`
+- `workspace://specification/INTENT.md`
+- `workspace://specification/requirements/`
+- `workspace://specification/GTL_3_CONSTITUTIONAL_DESIGN.md`
+- `workspace://specification/ABG_3_CONSTITUTIONAL_DESIGN.md`
+- `workspace://build_tenants/common/design/README.md`
+- `workspace://build_tenants/abiogenesis/python/design/README.md`
+- `workspace://build_tenants/abiogenesis/python/code/gtl_spec/GTL_BOOTLOADER.md`
 
 Installed axioms:
 - Specification defines project truth; design surfaces define realization.
@@ -21,7 +29,7 @@ Installed axioms:
 - The only lawful operative path is the resolved runtime at workspace://.ai-workspace/runtime/resolved-runtime.json.
 - One edge traversal binds one role and one worker assignment.
 - Backend identity is derived from worker assignment, not selected independently.
-- Managed methodology surfaces live under workspace://.gsdlc/release/; project-owned surfaces live under workspace://specification/, workspace://build_tenants/, and workspace://docs/.
+- Project-owned live surfaces live under workspace://specification/, workspace://build_tenants/, and workspace://docs/.
 - Runtime/session state lives under workspace://.ai-workspace/runtime/; when it differs from release defaults, the resolved runtime wins.
 
 Default role assignments for this install:

@@ -262,7 +262,7 @@ def test_dispatch_runtime_ingests_result_and_closes_graph_call(monkeypatch, tmp_
     assert event_types == [
         "graph_call_opened",
         "worker_turn_started",
-        "worker_turn_completed",
+        "worker_turn_succeeded",
         "assessed",
         "proof_passed",
         "closure_passed",
@@ -373,3 +373,109 @@ def test_successful_ingest_resolves_preexisting_open_continuation(monkeypatch, t
     assert summary["status"] == "ok"
     continuation = project(EventStream.open(tmp_path), "continuation", "cont-open")
     assert continuation["status"] == "resolved"
+
+
+def test_reset_emits_supersession_truth_for_active_run_scope(tmp_path):
+    stream = EventStream.open(tmp_path)
+
+    emit(
+        "run_started",
+        {"edge": "design→code", "run_id": "run-old", "work_key": "wk-reset"},
+        stream=stream,
+    )
+    emit(
+        "continuation_opened",
+        {
+            "continuation_id": "cont-reset",
+            "continuation_kind": "retry",
+            "call_id": "call-old",
+        },
+        stream=stream,
+        context=EventContext(
+            work_key="wk-reset",
+            run_id="run-old",
+            aggregate_type="continuation",
+            aggregate_id="cont-reset",
+            call_id="call-old",
+        ),
+    )
+
+    emit(
+        "reset",
+        {
+            "scope": "work_key",
+            "work_key": "wk-reset",
+            "actor": "tester",
+            "reason": "restart corrected execution",
+        },
+        stream=stream,
+    )
+
+    events = stream.all_events()
+    assert [event["event_type"] for event in events] == [
+        "run_started",
+        "continuation_opened",
+        "reset",
+        "continuation_superseded",
+        "run_superseded",
+    ]
+
+    continuation = project(stream, "continuation", "cont-reset")
+    assert continuation["status"] == "superseded"
+
+    run = project(stream, "run", "run-old")
+    assert run["status"] == "superseded"
+    assert run["superseded_by"].startswith("reset:")
+
+
+def test_reset_emits_abandonment_truth_for_open_continuation_after_terminal_run(tmp_path):
+    stream = EventStream.open(tmp_path)
+
+    emit(
+        "run_failed",
+        {
+            "edge": "design→code",
+            "run_id": "run-terminal",
+            "work_key": "wk-terminal",
+            "failure_class": "proof_failure",
+        },
+        stream=stream,
+    )
+    emit(
+        "continuation_opened",
+        {
+            "continuation_id": "cont-terminal",
+            "continuation_kind": "repair",
+            "call_id": "call-terminal",
+        },
+        stream=stream,
+        context=EventContext(
+            work_key="wk-terminal",
+            run_id="run-terminal",
+            aggregate_type="continuation",
+            aggregate_id="cont-terminal",
+            call_id="call-terminal",
+        ),
+    )
+
+    emit(
+        "reset",
+        {
+            "scope": "work_key",
+            "work_key": "wk-terminal",
+            "actor": "tester",
+            "reason": "discard stale repair obligation",
+        },
+        stream=stream,
+    )
+
+    events = stream.all_events()
+    assert [event["event_type"] for event in events] == [
+        "run_failed",
+        "continuation_opened",
+        "reset",
+        "continuation_abandoned",
+    ]
+
+    continuation = project(stream, "continuation", "cont-terminal")
+    assert continuation["status"] == "abandoned"

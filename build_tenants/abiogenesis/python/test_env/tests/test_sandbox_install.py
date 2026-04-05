@@ -1,5 +1,8 @@
 # Validates: REQ-R-ABG3-EVENTS
 # Validates: REQ-R-ABG3-INTERPRET
+# Validates: REQ-R-ABG3-CORRECTION
+# Validates: REQ-R-ABG3-CONTINUATION
+# Validates: REQ-R-ABG3-RUN
 """
 Sandbox install tests for the current runtime.
 
@@ -16,6 +19,7 @@ import pytest
 
 from genesis.events import EventStream, emit
 from genesis.install import workspace_bootstrap
+from genesis.projection import project
 from sandbox_runtime import install_real_sandbox, run_installed_genesis
 
 
@@ -265,11 +269,11 @@ class TestSandboxInstall:
         provenance_events = {
             event["event_type"]: event["data"]
             for event in events
-            if event["event_type"] in {"run_bound", "run_started", "edge_started", "fp_dispatched", "assessed"}
+            if event["event_type"] in {"run_bound", "run_started", "vector_started", "fp_dispatched", "assessed"}
         }
-        assert set(provenance_events) == {"run_bound", "run_started", "edge_started", "fp_dispatched", "assessed"}
+        assert set(provenance_events) == {"run_bound", "run_started", "vector_started", "fp_dispatched", "assessed"}
 
-        for event_type in ("run_bound", "run_started", "edge_started", "fp_dispatched", "assessed"):
+        for event_type in ("run_bound", "run_started", "vector_started", "fp_dispatched", "assessed"):
             data = provenance_events[event_type]
             assert data["role_id"] == manifest["role_id"]
             assert data["selected_worker_id"] == "codex"
@@ -279,12 +283,183 @@ class TestSandboxInstall:
 
         assert provenance_events["run_bound"]["worker_id"] == "abiogenesis_python_router"
         assert provenance_events["run_bound"]["authority_ref"] == "runtime://role-dispatch"
-        assert provenance_events["edge_started"]["worker_id"] == "abiogenesis_python_router"
-        assert provenance_events["edge_started"]["build"] == "abiogenesis_python_router"
+        assert provenance_events["vector_started"]["worker_id"] == "abiogenesis_python_router"
+        assert provenance_events["vector_started"]["build"] == "abiogenesis_python_router"
         assert provenance_events["assessed"]["actor"] == "live_fp_judge"
         run_archive.update_summary(
             selected_worker="codex",
             selected_backend="codex",
             router_worker="abiogenesis_python_router",
             provenance_event_types=sorted(provenance_events),
+        )
+
+    @pytest.mark.usecase_id("sandbox_install")
+    def test_installed_runtime_reset_audit_supersedes_active_run_post_mortem(self, run_archive):
+        workspace = run_archive.workspace
+        install_real_sandbox(workspace, archive=run_archive)
+        (workspace / "demo_runtime.py").write_text(_router_dispatch_module_source(), encoding="utf-8")
+        (workspace / ".genesis" / "genesis.yml").write_text(
+            "runtime_contract: runtime.yml\n",
+            encoding="utf-8",
+        )
+        (workspace / "runtime.yml").write_text(
+            "\n".join(
+                (
+                    "module: demo_runtime:module",
+                    "worker: demo_runtime:worker",
+                    "runtime_build: abiogenesis_python_router",
+                    "runtime_worker_id: codex",
+                    "runtime_backend: codex",
+                    "runtime_authority_ref: runtime://role-dispatch",
+                    "runtime_assignment_source: runtime://session-override/constructor",
+                    "runtime_resolved_runtime_ref: runtime://resolved/constructor/codex",
+                )
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+
+        iterate = run_installed_genesis(
+            workspace,
+            "iterate",
+            archive=run_archive,
+            label="installed genesis iterate reset-audit",
+        )
+        assert iterate.returncode == 0, iterate.stderr
+        iterate_payload = json.loads(iterate.stdout)
+        manifest = json.loads(Path(iterate_payload["fp_manifest_path"]).read_text(encoding="utf-8"))
+        reset = run_installed_genesis(
+            workspace,
+            "emit-event",
+            "--type",
+            "reset",
+            "--data",
+            json.dumps(
+                {
+                    "scope": "workspace",
+                    "actor": "tester",
+                    "reason": "restart corrected execution",
+                }
+            ),
+            archive=run_archive,
+            label="installed genesis reset active run",
+        )
+        assert reset.returncode == 0, reset.stderr
+
+        stream = EventStream.open(workspace)
+        events = stream.all_events()
+        event_types = [event["event_type"] for event in events]
+        assert event_types[-2:] == ["reset", "run_superseded"]
+
+        superseded = events[-1]
+        assert superseded["event_type"] == "run_superseded"
+        assert superseded["data"]["superseded_run_id"] == manifest["run_id"]
+        assert superseded["data"]["superseded_by"].startswith("reset:")
+
+        run_projection = project(stream, "run", manifest["run_id"])
+        assert run_projection["status"] == "superseded"
+        run_archive.update_summary(
+            reset_run_id=manifest["run_id"],
+            reset_terminal_event=superseded["event_type"],
+            reset_terminal_status=run_projection["status"],
+        )
+
+    @pytest.mark.usecase_id("sandbox_install")
+    def test_installed_runtime_reset_audit_abandons_open_continuation_post_mortem(self, run_archive):
+        workspace = run_archive.workspace
+        install_real_sandbox(workspace, archive=run_archive)
+        (workspace / "demo_runtime.py").write_text(_router_dispatch_module_source(), encoding="utf-8")
+        (workspace / ".genesis" / "genesis.yml").write_text(
+            "runtime_contract: runtime.yml\n",
+            encoding="utf-8",
+        )
+        (workspace / "runtime.yml").write_text(
+            "\n".join(
+                (
+                    "module: demo_runtime:module",
+                    "worker: demo_runtime:worker",
+                    "runtime_build: abiogenesis_python_router",
+                    "runtime_worker_id: codex",
+                    "runtime_backend: codex",
+                    "runtime_authority_ref: runtime://role-dispatch",
+                )
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+
+        iterate = run_installed_genesis(
+            workspace,
+            "iterate",
+            archive=run_archive,
+            label="installed genesis iterate continuation-audit",
+        )
+        assert iterate.returncode == 0, iterate.stderr
+        iterate_payload = json.loads(iterate.stdout)
+        manifest = json.loads(Path(iterate_payload["fp_manifest_path"]).read_text(encoding="utf-8"))
+        result_path = Path(manifest["result_path"])
+        result_path.write_text(
+            json.dumps(
+                {
+                    "edge": manifest["edge"],
+                    "actor": "live_fp_judge",
+                    "assessments": [
+                        {
+                            "evaluator": "code_complete",
+                            "result": "fail",
+                            "evidence": "returned code does not satisfy the contract",
+                        }
+                    ],
+                }
+            ),
+            encoding="utf-8",
+        )
+
+        assessed = run_installed_genesis(
+            workspace,
+            "assess-result",
+            "--result",
+            str(result_path),
+            archive=run_archive,
+            label="installed genesis assess-result continuation-audit",
+        )
+        assert assessed.returncode == 0, assessed.stderr
+
+        pre_reset_events = EventStream.open(workspace).all_events()
+        continuation_id = next(
+            event["data"]["continuation_id"]
+            for event in reversed(pre_reset_events)
+            if event["event_type"] == "continuation_opened"
+        )
+
+        reset = run_installed_genesis(
+            workspace,
+            "emit-event",
+            "--type",
+            "reset",
+            "--data",
+            json.dumps(
+                {
+                    "scope": "workspace",
+                    "actor": "tester",
+                    "reason": "discard stale repair obligation",
+                }
+            ),
+            archive=run_archive,
+            label="installed genesis reset continuation-audit",
+        )
+        assert reset.returncode == 0, reset.stderr
+
+        stream = EventStream.open(workspace)
+        events = stream.all_events()
+        assert events[-2]["event_type"] == "reset"
+        assert events[-1]["event_type"] == "continuation_abandoned"
+        assert events[-1]["data"]["continuation_id"] == continuation_id
+
+        continuation_projection = project(stream, "continuation", continuation_id)
+        assert continuation_projection["status"] == "abandoned"
+        run_archive.update_summary(
+            abandoned_continuation_id=continuation_id,
+            continuation_terminal_event=events[-1]["event_type"],
+            continuation_terminal_status=continuation_projection["status"],
         )

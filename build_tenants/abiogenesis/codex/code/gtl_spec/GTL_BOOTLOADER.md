@@ -43,4 +43,4 @@ Prime operators:
 - `revoked`
 - `intent_raised`
 
-Control events such as `edge_started`, `fp_dispatched`, `fh_gate_pending`, and `edge_converged` describe orchestration state but are not prime operators.
+Control events such as `vector_started`, `fp_dispatched`, `fh_gate_pending`, and `edge_converged` describe orchestration state but are not prime operators.

@@ -687,12 +687,12 @@ Do not edit it manually.
   - `run_bound`
   - `run_started`
   - `graph_call_opened`
-  - `edge_started`
+  - `vector_started`
 - convergence
   - `found`
   - `fp_dispatched`
   - `worker_turn_started`
-  - `worker_turn_completed`
+  - `worker_turn_succeeded`
   - `assessed`
   - `proof_passed`
   - `closure_passed`
@@ -704,7 +704,7 @@ Do not edit it manually.
   - `workflow_selected`
   - `frame_opened`
   - `frame_step_started`
-  - `frame_foldback`
+  - `foldback_opened`
   - `frame_rebound`
   - `frame_closed`
 - correction

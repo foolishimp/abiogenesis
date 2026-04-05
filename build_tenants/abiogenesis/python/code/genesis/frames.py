@@ -1288,9 +1288,9 @@ def frame_resumed_event(
     }
 
 
-def frame_foldback_event(frame: InvocationFrame) -> dict[str, Any]:
+def foldback_opened_event(frame: InvocationFrame) -> dict[str, Any]:
     return {
-        "event_type": "frame_foldback",
+        "event_type": "foldback_opened",
         "data": {
             "call_id": frame.call_id,
             "frame_id": frame.frame_id,
