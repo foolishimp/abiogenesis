@@ -1,10 +1,10 @@
-# Validates: REQ-R-ABG2-INTERPRET
-# Validates: REQ-R-ABG2-CONVERGENCE
-# Validates: REQ-R-ABG2-SELECTION-APPLICATION
-# Validates: REQ-R-ABG2-PROVENANCE
-# Validates: REQ-R-ABG2-RUN
-# Validates: REQ-R-ABG2-PROJECTION
-# Validates: REQ-R-ABG2-SELFHOSTING
+# Validates: REQ-R-ABG3-INTERPRET
+# Validates: REQ-R-ABG3-CONVERGENCE
+# Validates: REQ-R-ABG3-SELECTION-APPLICATION
+# Validates: REQ-R-ABG3-PROVENANCE
+# Validates: REQ-R-ABG3-RUN
+# Validates: REQ-R-ABG3-PROJECTION
+# Validates: REQ-R-ABG3-SELFHOSTING
 # Validates: REQ-M-GTL2-MAPPING
 """
 M03 engine-kernel integration lane.
@@ -12,13 +12,12 @@ M03 engine-kernel integration lane.
 This lane exercises real GTL/ABG module, runtime, event, and replay surfaces.
 
 Recursive clause anchors:
-- `REQ-R-ABG2-INTERPRET-010`: hidden/local publication fail-closed and lawful
-  direct frame-local vector traversal
-- `REQ-R-ABG2-INTERPRET-011`: blocked continuation planning, current-frame
-  cursor rotation, termination-gated fold-back, and suspend/resume over
-  explicit continuation/frontier state
-- `REQ-R-ABG2-INTERPRET-012`: checkpoint non-authority and fresh frame-attempt
-  identity after reset/reopen
+- hidden/local publication remains fail-closed while direct frame-local vector
+  traversal stays lawful under graph-function-first runtime entry
+- blocked continuation, current-frame cursor rotation, termination-gated
+  fold-back, and suspend/resume remain explicit frame/runtime truth
+- checkpoint state remains non-authoritative and reset/reopen mints fresh
+  frame-attempt identity
 """
 from __future__ import annotations
 
@@ -662,7 +661,7 @@ class TestM03EngineKernelIntegration:
         assert plan.traversal.work_key == f"{outer.id}/design→prototype"
         assert plan.runtime.executable_job.vector.name == "design→prototype"
 
-    # Clause anchor: REQ-R-ABG2-INTERPRET-011
+    # Clause anchor: explicit frame/runtime continuation truth
     def test_interpreter_rotates_recursive_cursor_after_current_frame_closes(self, tmp_path: Path) -> None:
         design = Node(name="design", schema="DesignDoc")
         prototype = Node(name="prototype", schema="Prototype")
@@ -797,7 +796,7 @@ class TestM03EngineKernelIntegration:
         assert project(stream, "frame", b_frame_id)["status"] == "closed"
         assert project(stream, "frame", a_frame_id)["status"] == "open"
 
-    # Clause anchor: REQ-R-ABG2-INTERPRET-010
+    # Clause anchor: fail-closed hidden publication with lawful direct frame traversal
     def test_selection_fails_closed_on_hidden_frame_local_alternatives(self, tmp_path: Path) -> None:
         design = Node(name="design", schema="DesignDoc")
         code = Node(name="code", schema="Code")
@@ -1006,7 +1005,7 @@ class TestM03EngineKernelIntegration:
         assert any(event["event_type"] == "frame_rebound" for event in events)
         assert any(event["event_type"] == "frame_closed" for event in events)
 
-    # Clause anchors: REQ-R-ABG2-INTERPRET-011, REQ-R-ABG2-INTERPRET-012
+    # Clause anchors: explicit frame/runtime continuation truth and checkpoint non-authority
     def test_recursive_frame_emits_suspend_and_resume_events(self, tmp_path: Path) -> None:
         design = Node(name="design", schema="DesignDoc")
         prototype = Node(name="prototype", schema="Prototype")
@@ -1142,7 +1141,7 @@ class TestM03EngineKernelIntegration:
         assert resumed["data"]["checkpoint_id"] == suspended["data"]["checkpoint_id"]
         assert project(stream, "frame", selected.result["frame_id"])["suspended"] is False
 
-    # Clause anchor: REQ-R-ABG2-INTERPRET-011
+    # Clause anchor: explicit frame/runtime continuation truth
     def test_recursive_frame_waits_for_declared_termination_before_foldback(self, tmp_path: Path) -> None:
         design = Node(name="design", schema="DesignDoc")
         prototype = Node(name="prototype", schema="Prototype")
@@ -1300,7 +1299,7 @@ class TestM03EngineKernelIntegration:
             f"{outer.id}/prototype→code",
         }
 
-    # Clause anchor: REQ-R-ABG2-INTERPRET-012
+    # Clause anchor: checkpoint non-authority with fresh frame-attempt identity
     def test_reset_invalidates_stale_frame_attempt_and_reopen_mints_fresh_attempt(self, tmp_path: Path) -> None:
         design = Node(name="design", schema="DesignDoc")
         prototype = Node(name="prototype", schema="Prototype")
@@ -2204,6 +2203,16 @@ class TestM03EngineKernelIntegration:
 
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         assert manifest["run_id"] == "run-m03-fp"
+        assert manifest["call_id"].startswith("call-")
+        assert manifest["job_id"] == executable_job.job.id
+        assert manifest["graph_function_id"] == executable_job.graph_function.id
+        assert manifest["materialization_id"] == executable_job.materialization_id
+        assert manifest["vector_id"] == executable_job.vector.id
+        assert manifest["workflow_version"] == "m03.test@2.0.0"
+        assert manifest["resolved_policy_bundle_ref"] == "genesis.policy_defaults:broad_fp_first_bundle"
+        assert manifest["resolved_policy"]["dispatch"]["ref"] == (
+            "genesis.dispatch_runtime:dispatch_bound_manifest_via_transport"
+        )
 
     def test_iterated_traversal_preserves_router_and_selected_execution_identity(self, tmp_path: Path) -> None:
         raw_contract = Node(name="raw_contract", schema="ContractInput")
@@ -2243,7 +2252,7 @@ class TestM03EngineKernelIntegration:
             refinement_boundaries=(boundary,),
             jobs=(job,),
             roles=(constructor,),
-            metadata={"requirements": ["REQ-R-ABG2-BINDING-006"]},
+            metadata={"requirements": ["REQ-R-ABG3-BINDING-006"]},
         )
 
         router_worker = Worker(
@@ -2322,6 +2331,12 @@ class TestM03EngineKernelIntegration:
         assert manifest["authority_ref"] == "runtime://role-dispatch"
         assert manifest["assignment_source"] == "runtime://session-override/constructor"
         assert manifest["resolved_runtime_ref"] == "runtime://resolved/constructor/codex"
+        assert manifest["graph_function_id"] == executable_job.graph_function.id
+        assert manifest["materialization_id"] == executable_job.materialization_id
+        assert manifest["resolved_policy_bundle_ref"] == "genesis.policy_defaults:broad_fp_first_bundle"
+        assert manifest["resolved_policy"]["dispatch"]["ref"] == (
+            "genesis.dispatch_runtime:dispatch_bound_manifest_via_transport"
+        )
 
         derived_run = run_state(events, "run-m03-router-dispatch")
         assert derived_run is not None
@@ -2371,7 +2386,7 @@ class TestM03EngineKernelIntegration:
             refinement_boundaries=(boundary,),
             jobs=(job,),
             roles=(constructor,),
-            metadata={"requirements": ["REQ-R-ABG2-BINDING-006"]},
+            metadata={"requirements": ["REQ-R-ABG3-BINDING-006"]},
         )
 
         router_worker = Worker(

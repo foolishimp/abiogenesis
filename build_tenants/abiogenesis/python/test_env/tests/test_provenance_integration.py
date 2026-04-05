@@ -1,4 +1,4 @@
-# Validates: REQ-R-ABG2-PROVENANCE
+# Validates: REQ-R-ABG3-PROVENANCE
 """
 Provenance integration tests for the active runtime provenance surface.
 

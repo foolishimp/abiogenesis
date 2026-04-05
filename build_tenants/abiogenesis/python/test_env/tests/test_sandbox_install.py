@@ -1,5 +1,5 @@
-# Validates: REQ-R-ABG2-EVENTS
-# Validates: REQ-R-ABG2-INTERPRET
+# Validates: REQ-R-ABG3-EVENTS
+# Validates: REQ-R-ABG3-INTERPRET
 """
 Sandbox install tests for the current runtime.
 
@@ -55,7 +55,7 @@ def _router_dispatch_module_source() -> str:
             refinement_boundaries=(deferred_refinement(vector.name, inputs=(design,), outputs=(code,)),),
             jobs=(Job(name=vector.name, contracts=(ContractRef(kind="graph_function", target_id=graph_function.id),), roles=(constructor,)),),
             roles=(constructor,),
-            metadata={"requirements": ["REQ-R-ABG2-BINDING-006", "REQ-R-ABG2-EVENTS-003"]},
+            metadata={"requirements": ["REQ-R-ABG3-BINDING-006", "REQ-R-ABG3-EVENTS-003"]},
         )
         worker = Worker(
             id="abiogenesis_python_router",

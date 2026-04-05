@@ -1,7 +1,7 @@
 # Abiogenesis Python Test Surface Map
 
 **Status**: Active
-**Date**: 2026-03-29
+**Date**: 2026-04-05
 **Derived from**: [REQ-P-QUAL.md](../../../../specification/requirements/product/REQ-P-QUAL.md), [REQ-P-SCENARIOS.md](../../../../specification/requirements/product/REQ-P-SCENARIOS.md), [GTL_3_MODULE_DESIGN.md](../design/GTL_3_MODULE_DESIGN.md), [GTL_3_INTERFACE_CONTRACTS.md](../design/GTL_3_INTERFACE_CONTRACTS.md), [GSDLC_LITE_QUALIFICATION_LADDER.md](../design/GSDLC_LITE_QUALIFICATION_LADDER.md), [qualification_surface_map.md](../../../common/qualification/qualification_surface_map.md)
 
 ## Purpose
@@ -25,6 +25,7 @@ The current canonical python test corpus is being refactored toward module-align
 Current reading:
 
 - integration/scenario anchors to keep and build from:
+  - `test_abg3_runtime_envelope.py`
   - `test_cli_adapter_auto.py`
   - `test_m01_gtl_core_integration.py`
   - `test_m02_work_publication_integration.py`
@@ -48,21 +49,26 @@ Current reading:
 
 ### test_m02_work_publication_integration.py
 
-- Requirements: `REQ-L-GTL3-MODULE`, `REQ-L-GTL3-JOB`, `REQ-L-GTL3-ROLE`, `REQ-L-GTL3-IDENTITY`, `REQ-L-GTL3-SELECTION-BOUNDARY`, `REQ-R-ABG2-JOB-WORKER`
+- Requirements: `REQ-L-GTL3-MODULE`, `REQ-L-GTL3-JOB`, `REQ-L-GTL3-ROLE`, `REQ-L-GTL3-IDENTITY`, `REQ-L-GTL3-SELECTION-BOUNDARY`, `REQ-R-ABG3-JOB-WORKER`
 - Design: [module_decomp.md](../../../common/design/module_decomp.md), [qualification_refactor_loop.md](../../../common/qualification/qualification_refactor_loop.md), [GTL_3_MODULE_DESIGN.md](../design/GTL_3_MODULE_DESIGN.md), [GTL_3_INTERFACE_CONTRACTS.md](../design/GTL_3_INTERFACE_CONTRACTS.md), [04-publication-and-semantic-work.md](../../../../specification/scenarios/04-publication-and-semantic-work.md)
 
 ## ABG Kernel Integration Tests
 
+### test_abg3_runtime_envelope.py
+
+- Requirements: `REQ-R-ABG3-EVENTS`, `REQ-R-ABG3-PROJECTION`, `REQ-R-ABG3-RUN`, `REQ-R-ABG3-GRAPHCALL`, `REQ-R-ABG3-FRAME`, `REQ-R-ABG3-CONTINUATION`
+- Design: [README.md](../design/README.md), [ABG_3_MODULE_DESIGN.md](../design/ABG_3_MODULE_DESIGN.md), [05-runtime-aggregates-and-event-truth.md](../../../../specification/scenarios/05-runtime-aggregates-and-event-truth.md)
+
 ### test_m03_engine_kernel_integration.py
 
-- Requirements: `REQ-R-ABG2-INTERPRET`, `REQ-R-ABG2-CONVERGENCE`, `REQ-R-ABG2-SELECTION-APPLICATION`, `REQ-R-ABG2-PROVENANCE`, `REQ-R-ABG2-RUN`, `REQ-R-ABG2-PROJECTION`, `REQ-R-ABG2-SELFHOSTING`, `REQ-M-GTL2-MAPPING`
+- Requirements: `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-CONVERGENCE`, `REQ-R-ABG3-SELECTION-APPLICATION`, `REQ-R-ABG3-PROVENANCE`, `REQ-R-ABG3-RUN`, `REQ-R-ABG3-PROJECTION`, `REQ-R-ABG3-SELFHOSTING`, `REQ-M-GTL2-MAPPING`
 - Design: [module_decomp.md](../../../common/design/module_decomp.md), [qualification_refactor_loop.md](../../../common/qualification/qualification_refactor_loop.md), [GTL_3_MODULE_DESIGN.md](../design/GTL_3_MODULE_DESIGN.md), [GTL_3_INTERFACE_CONTRACTS.md](../design/GTL_3_INTERFACE_CONTRACTS.md)
 
 ## Product and Qualification Tests
 
 ### test_cli_adapter_auto.py
 
-- Requirements: `REQ-R-ABG2-EVENTS`, `REQ-R-ABG2-INTERPRET`, `REQ-R-ABG2-SELFHOSTING`, `REQ-R-ABG2-WORKER`, `REQ-P-POLICY-001`
+- Requirements: `REQ-R-ABG3-EVENTS`, `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-SELFHOSTING`, `REQ-R-ABG3-WORKER`, `REQ-P-POLICY-001`
 - Design: [module_decomp.md](../../../common/design/module_decomp.md), [README.md](../design/README.md), [M04-app-bootstrap.yml](../../../common/design/modules/M04-app-bootstrap.yml), [ADR-031-runtime-identity-and-configured-worker.md](../design/adrs/ADR-031-runtime-identity-and-configured-worker.md)
 
 ### test_m04_app_bootstrap_integration.py
@@ -72,7 +78,7 @@ Current reading:
 
 ### test_provenance_integration.py
 
-- Requirements: `REQ-R-ABG2-PROVENANCE`
+- Requirements: `REQ-R-ABG3-PROVENANCE`
 - Design: [GTL_3_MODULE_DESIGN.md](../design/GTL_3_MODULE_DESIGN.md), [module_decomp.md](../../../common/design/module_decomp.md)
 
 ### test_run_archive.py
@@ -82,27 +88,27 @@ Current reading:
 
 ### test_spec_method_trace.py
 
-- Requirements: `REQ-R-ABG2-SELFHOSTING-002`
+- Requirements: `REQ-R-ABG3-SELFHOSTING-002`
 - Design: [module_decomp.md](../../../common/design/module_decomp.md), [design_surface_map.md](../../../common/design/design_surface_map.md), [qualification_surface_map.md](../../../common/qualification/qualification_surface_map.md)
 
 ## Sandbox and Scenario Tests
 
 ### test_sandbox_install.py
 
-- Requirements: `REQ-R-ABG2-EVENTS`, `REQ-R-ABG2-INTERPRET`
+- Requirements: `REQ-R-ABG3-EVENTS`, `REQ-R-ABG3-INTERPRET`
 - Design: [README.md](../design/README.md), [GSDLC_LITE_QUALIFICATION_LADDER.md](../design/GSDLC_LITE_QUALIFICATION_LADDER.md), [SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md](../design/SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md), [M04-app-bootstrap.yml](../../../common/design/modules/M04-app-bootstrap.yml)
 
 ### test_sandbox_usecases_fake.py
 
-- Requirements: `REQ-L-GTL3-SYNTHESIS`, `REQ-L-GTL3-SELECTION-BOUNDARY`, `REQ-L-GTL3-SUBWORK`, `REQ-R-ABG2-INTERPRET`, `REQ-R-ABG2-BINDING`, `REQ-R-ABG2-CORRECTION`, `REQ-R-ABG2-LEAFTASK`, `REQ-R-ABG2-LINEAGE`, `REQ-R-ABG2-SELECTION-APPLICATION`, `REQ-R-ABG2-CONVERGENCE`, `REQ-R-ABG2-WORKER`
+- Requirements: `REQ-L-GTL3-SYNTHESIS`, `REQ-L-GTL3-SELECTION-BOUNDARY`, `REQ-L-GTL3-SUBWORK`, `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-BINDING`, `REQ-R-ABG3-CORRECTION`, `REQ-R-ABG3-LEAFTASK`, `REQ-R-ABG3-LINEAGE`, `REQ-R-ABG3-SELECTION-APPLICATION`, `REQ-R-ABG3-CONVERGENCE`, `REQ-R-ABG3-WORKER`
 - Design: [GSDLC_LITE_QUALIFICATION_LADDER.md](../design/GSDLC_LITE_QUALIFICATION_LADDER.md), [SCENARIO_INTENT_TO_TAGGED_REQUIREMENTS.md](../design/SCENARIO_INTENT_TO_TAGGED_REQUIREMENTS.md), [SCENARIO_REQUIREMENTS_TO_UAT.md](../design/SCENARIO_REQUIREMENTS_TO_UAT.md), [SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md](../design/SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md)
 
 ### test_sandbox_usecases_live.py
 
-- Requirements: `REQ-R-ABG2-TRANSPORT`, `REQ-R-ABG2-INTERPRET`
+- Requirements: `REQ-R-ABG3-TRANSPORT`, `REQ-R-ABG3-INTERPRET`
 - Design: [GSDLC_LITE_QUALIFICATION_LADDER.md](../design/GSDLC_LITE_QUALIFICATION_LADDER.md), [SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md](../design/SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md)
 
 ### test_usecases_u1_u4.py
 
-- Requirements: `REQ-L-GTL3-GRAPHFUNCTION`, `REQ-L-GTL3-SYNTHESIS`, `REQ-L-GTL3-SELECTION-BOUNDARY`, `REQ-L-GTL3-HOF`, `REQ-R-ABG2-INTERPRET`, `REQ-R-ABG2-CONVERGENCE`, `REQ-R-ABG2-SELECTION-APPLICATION`
+- Requirements: `REQ-L-GTL3-GRAPHFUNCTION`, `REQ-L-GTL3-SYNTHESIS`, `REQ-L-GTL3-SELECTION-BOUNDARY`, `REQ-L-GTL3-HOF`, `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-CONVERGENCE`, `REQ-R-ABG3-SELECTION-APPLICATION`
 - Design: [GTL_3_INTERFACE_CONTRACTS.md](../design/GTL_3_INTERFACE_CONTRACTS.md), [GTL_3_MODULE_DESIGN.md](../design/GTL_3_MODULE_DESIGN.md), [03-graph-function-algebra.md](../../../../specification/scenarios/03-graph-function-algebra.md)

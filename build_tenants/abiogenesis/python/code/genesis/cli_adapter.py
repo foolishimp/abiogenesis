@@ -317,163 +317,22 @@ def _assess_result_cmd(result_path: str, workspace: Path) -> int:
 
     Callable by both the skill layer (gen-start.md) and the test harness.
     """
-    import json as _json
-
-    from .provenance import _read_workflow_version
-
-    rpath = Path(result_path)
-    if not rpath.exists():
-        print(f"ERROR: result file not found: {rpath}", file=sys.stderr)
-        return 1
+    from .result_ingest import ingest_fp_result
 
     try:
-        result_data = _json.loads(rpath.read_text(encoding="utf-8"))
-    except _json.JSONDecodeError as exc:
-        print(f"ERROR: result file is not valid JSON: {exc}", file=sys.stderr)
-        return 1
-
-    # Validate result structure
-    edge = result_data.get("edge")
-    actor = result_data.get("actor", "")
-    assessments = result_data.get("assessments")
-    if not edge:
-        print("ERROR: result file missing 'edge' field", file=sys.stderr)
-        return 1
-    if not actor:
-        print("ERROR: result file missing 'actor' field", file=sys.stderr)
-        return 1
-    if not isinstance(assessments, list) or not assessments:
-        print("ERROR: result file missing or empty 'assessments' array", file=sys.stderr)
-        return 1
-
-    # Resolve manifest for provenance — manifest_id is embedded in the result filename
-    # Result file: fp_results/<manifest_id>.json
-    # Manifest file: fp_manifests/<manifest_id>.json
-    manifest_id = rpath.stem
-    manifests_dir = workspace / ".ai-workspace" / "fp_manifests"
-    manifest_file = manifests_dir / f"{manifest_id}.json"
-
-    spec_hash = ""
-    manifest_run_id = ""
-    manifest_work_key = ""
-    manifest_data: dict[str, object] = {}
-    if manifest_file.exists():
-        try:
-            manifest_data = _json.loads(manifest_file.read_text(encoding="utf-8"))
-            spec_hash = manifest_data.get("spec_hash", "")
-            manifest_run_id = manifest_data.get("run_id", "")
-            manifest_work_key = manifest_data.get("work_key", "")
-        except _json.JSONDecodeError:
-            print(f"WARNING: manifest {manifest_file} is not valid JSON, "
-                  "proceeding without spec_hash", file=sys.stderr)
-    else:
-        print(f"WARNING: no matching manifest found at {manifest_file}, "
-              "proceeding without spec_hash", file=sys.stderr)
-
-    if not spec_hash:
-        print("ERROR: spec_hash is required for assessed{kind: fp} events "
-              "but could not be resolved from manifest", file=sys.stderr)
-        return 1
-
-    def _read_provenance(*values: object) -> str:
-        for value in values:
-            if isinstance(value, str) and value:
-                return value
-        return ""
-
-    selected_worker_id = _read_provenance(
-        result_data.get("selected_worker_id"),
-        result_data.get("worker_id"),
-        manifest_data.get("selected_worker_id"),
-        manifest_data.get("worker_id"),
-    )
-    selected_backend = _read_provenance(
-        result_data.get("selected_backend"),
-        result_data.get("backend_id"),
-        manifest_data.get("selected_backend"),
-        manifest_data.get("backend_id"),
-    )
-    role_id = _read_provenance(result_data.get("role_id"), manifest_data.get("role_id"))
-    authority_ref = _read_provenance(
-        result_data.get("authority_ref"),
-        manifest_data.get("authority_ref"),
-    )
-    assignment_source = _read_provenance(
-        result_data.get("assignment_source"),
-        manifest_data.get("assignment_source"),
-    )
-    resolved_runtime_ref = _read_provenance(
-        result_data.get("resolved_runtime_ref"),
-        manifest_data.get("resolved_runtime_ref"),
-    )
-
-    # Resolve workflow_version
-    _config = _load_project_config(workspace)
-    workflow_version = _read_workflow_version(
-        workspace, _config.get("active_workflow")
-    )
-
-    # Emit one assessed event per assessment entry through the canonical
-    # kernel write path with explicit manifest-derived provenance.
-    emitted = []
-    for assessment in assessments:
-        evaluator = assessment.get("evaluator")
-        result_val = assessment.get("result")
-        evidence = assessment.get("evidence", "")
-
-        if not evaluator:
-            print("ERROR: assessment entry missing 'evaluator' field",
-                  file=sys.stderr)
-            return 1
-        if result_val not in ("pass", "fail"):
-            print(f"ERROR: assessment 'result' must be 'pass' or 'fail', "
-                  f"got {result_val!r}", file=sys.stderr)
-            return 1
-
-        event_data: dict = {
-            "kind": "fp",
-            "edge": edge,
-            "evaluator": evaluator,
-            "result": result_val,
-            "evidence": evidence,
-            "actor": actor,
-            "spec_hash": spec_hash,
-            "manifest_id": manifest_id,
-            "workflow_version": workflow_version,
-        }
-        if selected_worker_id:
-            event_data["selected_worker_id"] = selected_worker_id
-        if selected_backend:
-            event_data["backend_id"] = selected_backend
-            event_data["selected_backend"] = selected_backend
-        if role_id:
-            event_data["role_id"] = role_id
-        if authority_ref:
-            event_data["authority_ref"] = authority_ref
-        if assignment_source:
-            event_data["assignment_source"] = assignment_source
-        if resolved_runtime_ref:
-            event_data["resolved_runtime_ref"] = resolved_runtime_ref
-        _emit_workspace_event(
+        summary = ingest_fp_result(
+            result_path,
             workspace,
-            "assessed",
-            event_data,
-            workflow_version=workflow_version,
-            work_key=manifest_work_key or None,
-            run_id=manifest_run_id or None,
+            active_workflow_path=_load_project_config(workspace).get("active_workflow"),
+            emit_event=_emit_workspace_event,
         )
-        emitted.append({"evaluator": evaluator, "result": result_val})
+    except ValueError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 1
 
-    output = {
-        "status": "ok",
-        "command": "assess-result",
-        "result_path": result_path,
-        "manifest_id": manifest_id,
-        "spec_hash": spec_hash,
-        "events_emitted": len(emitted),
-        "assessments": emitted,
-    }
-    print(_json.dumps(output, indent=2))
+    output = dict(summary)
+    output["command"] = "assess-result"
+    print(json.dumps(output, indent=2))
     return 0
 
 
@@ -761,11 +620,19 @@ def _emit_human_proxy_approval(workspace: Path, edge: str) -> None:
         raise RuntimeError(f"human proxy approval failed for edge {edge!r}")
 
 
-def _run_start_auto(scope, stream, *, workspace: Path, mod_ref: str | None, human_proxy: bool) -> dict:
-    """CLI-side auto loop that can use optional project hooks for F_P and F_H handling."""
+def _run_start_auto(
+    scope,
+    stream,
+    *,
+    workspace: Path,
+    mod_ref: str | None,
+    config: dict | None,
+    human_proxy: bool,
+) -> dict:
+    """CLI-side auto loop with engine-owned F_P dispatch and optional F_H proxy handling."""
+    from .dispatch_runtime import auto_dispatch_from_result
     from .services import gen_start
 
-    auto_fp_dispatch = _resolve_runtime_hook(mod_ref, "auto_fp_dispatch")
     auto_fh_approve = _resolve_runtime_hook(mod_ref, "auto_fh_approve")
 
     max_auto = 50
@@ -781,11 +648,16 @@ def _run_start_auto(scope, stream, *, workspace: Path, mod_ref: str | None, huma
             return result
 
         blocking_reason = result.get("blocking_reason")
-        if blocking_reason == "fp_dispatch" and auto_fp_dispatch is not None:
-            handled = bool(auto_fp_dispatch(result, workspace))
-            if handled:
+        if blocking_reason == "fp_dispatch":
+            dispatch_result = auto_dispatch_from_result(
+                result,
+                workspace,
+                config=config or {},
+            )
+            if dispatch_result.get("status") == "ok":
                 continue
-            result["stopped_by"] = "fp_dispatch"
+            result.update(dispatch_result)
+            result["stopped_by"] = dispatch_result.get("stopped_by", "fp_runtime_failure")
             return result
 
         if blocking_reason == "fh_gate" and human_proxy:
@@ -926,6 +798,7 @@ def main() -> None:
         worker=configured_worker,
         active_workflow_path=_config.get("active_workflow"),
         workflow_root=_config.get("workflow_root"),
+        runtime_config=_config,
     )
 
     # Bind active snapshot so work events carry package_snapshot_id.
@@ -941,6 +814,7 @@ def main() -> None:
                 stream,
                 workspace=workspace,
                 mod_ref=mod_ref,
+                config=_config,
                 human_proxy=human_proxy,
             )
         else:
@@ -975,3 +849,5 @@ def main() -> None:
         sys.exit(4)
     if stopped_by == "max_iterations":
         sys.exit(5)
+    if result.get("status") == "error":
+        sys.exit(1)

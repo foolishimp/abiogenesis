@@ -2,9 +2,9 @@
 # Validates: REQ-L-GTL3-SYNTHESIS
 # Validates: REQ-L-GTL3-SELECTION-BOUNDARY
 # Validates: REQ-L-GTL3-HOF
-# Validates: REQ-R-ABG2-INTERPRET
-# Validates: REQ-R-ABG2-CONVERGENCE
-# Validates: REQ-R-ABG2-SELECTION-APPLICATION
+# Validates: REQ-R-ABG3-INTERPRET
+# Validates: REQ-R-ABG3-CONVERGENCE
+# Validates: REQ-R-ABG3-SELECTION-APPLICATION
 """
 Requirements-driven U1-U4 use cases over the current GTL/ABG surface.
 

@@ -1,7 +1,7 @@
-# Validates: REQ-R-ABG2-INTERPRET
-# Validates: REQ-R-ABG2-SELFHOSTING
-# Validates: REQ-R-ABG2-WORKER
-# Validates: REQ-R-ABG2-EVENTS
+# Validates: REQ-R-ABG3-INTERPRET
+# Validates: REQ-R-ABG3-SELFHOSTING
+# Validates: REQ-R-ABG3-WORKER
+# Validates: REQ-R-ABG3-EVENTS
 # Validates: REQ-P-POLICY
 # Validates: REQ-P-POLICY-001
 from __future__ import annotations
@@ -101,7 +101,7 @@ def _runtime_contract_module_source() -> str:
     )
 
 
-def test_run_start_auto_invokes_fp_dispatch_hook_and_retries(monkeypatch, tmp_path: Path):
+def test_run_start_auto_invokes_engine_dispatch_and_retries(monkeypatch, tmp_path: Path):
     results = iter(
         (
             {
@@ -116,38 +116,37 @@ def test_run_start_auto_invokes_fp_dispatch_hook_and_retries(monkeypatch, tmp_pa
             },
         )
     )
-    hook_calls: list[tuple[str, Path]] = []
+    dispatch_calls: list[tuple[str, Path, str]] = []
 
     def fake_gen_start(scope, stream, auto=False):
         assert auto is False
         return next(results)
 
-    def fake_fp_dispatch(result, workspace):
-        hook_calls.append((result["edge"], workspace))
-        return True
-
-    def fake_resolve(mod_ref, hook_name):
-        if hook_name == "auto_fp_dispatch":
-            return fake_fp_dispatch
-        return None
+    def fake_auto_dispatch(result, workspace, *, config=None):
+        dispatch_calls.append((result["edge"], workspace, config["runtime_backend"]))
+        return {"status": "ok"}
 
     monkeypatch.setattr(services, "gen_start", fake_gen_start)
-    monkeypatch.setattr(cli_adapter, "_resolve_runtime_hook", fake_resolve)
+    monkeypatch.setattr("genesis.dispatch_runtime.auto_dispatch_from_result", fake_auto_dispatch)
 
     result = cli_adapter._run_start_auto(
         object(),
         object(),
         workspace=tmp_path,
         mod_ref="demo.module:module",
+        config={"runtime_backend": "codex_cli"},
         human_proxy=False,
     )
 
     assert result["status"] == "converged"
     assert result["auto"] is True
-    assert hook_calls == [("requirements→design", tmp_path)]
+    assert dispatch_calls == [("requirements→design", tmp_path, "codex_cli")]
 
 
-def test_run_start_auto_reports_fp_dispatch_without_shadow_booleans(monkeypatch, tmp_path: Path):
+def test_run_start_auto_surfaces_engine_dispatch_failure_without_shadow_booleans(
+    monkeypatch,
+    tmp_path: Path,
+):
     def fake_gen_start(scope, stream, auto=False):
         assert auto is False
         return {
@@ -156,28 +155,29 @@ def test_run_start_auto_reports_fp_dispatch_without_shadow_booleans(monkeypatch,
             "edge": "requirements→design",
         }
 
-    def fake_fp_dispatch(result, workspace):
-        return False
-
-    def fake_resolve(mod_ref, hook_name):
-        if hook_name == "auto_fp_dispatch":
-            return fake_fp_dispatch
-        return None
+    def fake_auto_dispatch(result, workspace, *, config=None):
+        return {
+            "status": "error",
+            "stopped_by": "fp_runtime_failure",
+            "failure_class": "transport_failure",
+        }
 
     monkeypatch.setattr(services, "gen_start", fake_gen_start)
-    monkeypatch.setattr(cli_adapter, "_resolve_runtime_hook", fake_resolve)
+    monkeypatch.setattr("genesis.dispatch_runtime.auto_dispatch_from_result", fake_auto_dispatch)
 
     result = cli_adapter._run_start_auto(
         object(),
         object(),
         workspace=tmp_path,
         mod_ref="demo.module:module",
+        config={"runtime_backend": "codex_cli"},
         human_proxy=False,
     )
 
     fp_dispatch_available = "auto_fp_dispatch_" + "available"
     fp_dispatch_handled = "auto_fp_dispatch_" + "handled"
-    assert result["stopped_by"] == "fp_dispatch"
+    assert result["stopped_by"] == "fp_runtime_failure"
+    assert result["failure_class"] == "transport_failure"
     assert fp_dispatch_available not in result
     assert fp_dispatch_handled not in result
 
@@ -217,6 +217,7 @@ def test_run_start_auto_human_proxy_handles_fh_gate_and_retries(monkeypatch, tmp
         object(),
         workspace=tmp_path,
         mod_ref="demo.module:module",
+        config={},
         human_proxy=True,
     )
 
@@ -403,11 +404,12 @@ def test_main_routes_start_auto_human_proxy_through_cli_auto_loop(
         called["resolved_workspace"] = workspace
         return FakeModule()
 
-    def fake_run_start_auto(scope, stream, *, workspace, mod_ref, human_proxy):
+    def fake_run_start_auto(scope, stream, *, workspace, mod_ref, config, human_proxy):
         called["auto_scope"] = scope
         called["auto_stream"] = stream
         called["auto_workspace"] = workspace
         called["auto_mod_ref"] = mod_ref
+        called["auto_config"] = config
         called["auto_human_proxy"] = human_proxy
         return {"status": "converged", "message": "ok", "auto": True, "human_proxy": True}
 
@@ -436,6 +438,7 @@ def test_main_routes_start_auto_human_proxy_through_cli_auto_loop(
     assert "\"status\": \"converged\"" in output
     assert called["auto_workspace"] == tmp_path
     assert called["auto_mod_ref"] == "demo.module:module"
+    assert called["auto_config"] == {"module": "demo.module:module", "pythonpath": []}
     assert called["auto_human_proxy"] is True
 
 

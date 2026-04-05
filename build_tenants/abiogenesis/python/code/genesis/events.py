@@ -225,7 +225,7 @@ def emit(
     stream: EventStream | None = None,
     context: EventContext | None = None,
     package_snapshot_id: object | str | None = _USE_ACTIVE_SNAPSHOT,
-) -> None:
+) -> dict:
     """
     F_D event logger. The ONLY admissible write to events.jsonl.
 
@@ -240,6 +240,7 @@ def emit(
 
     Raises RuntimeError if no stream is available.
     Raises ValueError if a prime event payload fails validation.
+    Returns the written event record.
     """
     active_stream = stream or _stream
     if active_stream is None:
@@ -280,4 +281,4 @@ def emit(
     )
     if event_type in _WORK_EVENT_TYPES and snapshot_id is not None:
         payload.setdefault("package_snapshot_id", snapshot_id)
-    active_stream.append(event_type, payload, context=context)
+    return active_stream.append(event_type, payload, context=context)

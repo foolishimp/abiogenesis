@@ -114,6 +114,7 @@ class Scope:
     workflow_root: Optional[str] = None         # runtime contract: base dir for workflow releases
     work_key: Optional[str] = None    # work identity (ADR-023); None = global scope
     run_id: Optional[str] = None      # attempt identity (ADR-023); None = global scope
+    runtime_config: dict = field(default_factory=dict)
     workflow_version: str = field(init=False, default="unknown")
 
     def __post_init__(self) -> None:
@@ -232,6 +233,7 @@ def gen_iterate(
         edge_filter=scope.edge_filter,
         on_fp_dispatch=on_fp_dispatch,
         run_id=scope.run_id,
+        runtime_config=scope.runtime_config,
         carry_forward=_read_carry_forward(scope),
     )
     if plan.traversal is None or plan.runtime is None:

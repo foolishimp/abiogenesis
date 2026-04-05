@@ -1,5 +1,5 @@
-# Validates: REQ-R-ABG2-TRANSPORT
-# Validates: REQ-R-ABG2-INTERPRET
+# Validates: REQ-R-ABG3-TRANSPORT
+# Validates: REQ-R-ABG3-INTERPRET
 """
 Sandbox use cases — live transport qualification lane.
 

@@ -66,6 +66,7 @@ from .frames import (
 )
 from .identity import RuntimeIdentity
 from .materialization import MaterializationRequest, derive_bundle, materialize_graph_function
+from .policy import resolve_policy_bundle
 from .provenance import spec_hash_for
 from .selection import (
     SelectionDecision,
@@ -143,6 +144,8 @@ class TraversalRuntime:
     on_leaf_dispatch: Optional[Callable[[LeafTask, dict], tuple[dict | None, str | None]]] = None
     leaf_task_inputs: dict[str, dict] = field(default_factory=dict)
     run_id: Optional[str] = None
+    runtime_config: dict = field(default_factory=dict)
+    resolved_policy: dict = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         if self.runtime_identity is None:
@@ -594,6 +597,7 @@ def plan_next_traversal(
     edge_filter: str | None = None,
     on_fp_dispatch: Optional[Callable[[BoundJob], WorkSurface | None]] = None,
     run_id: Optional[str] = None,
+    runtime_config: dict | None = None,
     carry_forward: list[dict] | None = None,
 ) -> TraversalPlan:
     """Interpreter-owned next traversal planning.
@@ -733,6 +737,13 @@ def plan_next_traversal(
         target=traversal_target,
         evaluators=selected_job.vector.evaluators,
     )
+    resolved_policy = resolve_policy_bundle(
+        vector=selected_job.vector,
+        graph_function=selected_job.graph_function,
+        roles=selected_job.job.roles,
+        candidate_family=family,
+        runtime_config=runtime_config or {},
+    )
     runtime = TraversalRuntime(
         module=module,
         executable_job=selected_job,
@@ -747,6 +758,8 @@ def plan_next_traversal(
         workflow_version=workflow_version,
         on_fp_dispatch=on_fp_dispatch,
         run_id=run_id,
+        runtime_config=dict(runtime_config or {}),
+        resolved_policy=resolved_policy,
     )
     return TraversalPlan(traversal=traversal, runtime=runtime, result={"status": "planned"})
 
@@ -947,6 +960,14 @@ def _event_context(runtime: TraversalRuntime, *, run_id: str | None = None) -> E
         workflow_version=runtime.workflow_version,
         work_key=runtime.work_key,
         run_id=run_id,
+        job_id=runtime.executable_job.job.id,
+        graph_function_id=(
+            runtime.executable_job.graph_function.id
+            if runtime.executable_job.graph_function is not None
+            else None
+        ),
+        materialization_id=runtime.executable_job.materialization_id,
+        vector_id=runtime.executable_job.vector.id,
     )
 
 
@@ -1235,6 +1256,13 @@ def _iterated_outcome(
     runtime: TraversalRuntime,
 ) -> TraversalOutcome:
     vector = runtime.executable_job.vector
+    if not runtime.resolved_policy:
+        runtime.resolved_policy = resolve_policy_bundle(
+            vector=runtime.executable_job.vector,
+            graph_function=runtime.executable_job.graph_function,
+            roles=runtime.executable_job.job.roles,
+            runtime_config=runtime.runtime_config,
+        )
     pre = runtime.precomputed
     blocking_reason = _blocking_reason(pre)
 
@@ -1477,9 +1505,19 @@ def _iterated_outcome(
                 ctx_entry["content"] = pre.relevant_contexts[ctx.name]
             contexts.append(ctx_entry)
 
+        call_id = f"call-{manifest_id}"
         manifest: dict = {
             "manifest_id": manifest_id,
+            "call_id": call_id,
             "edge": vector.name,
+            "vector_id": vector.id,
+            "job_id": runtime.executable_job.job.id,
+            "graph_function_id": (
+                runtime.executable_job.graph_function.id
+                if runtime.executable_job.graph_function is not None
+                else ""
+            ),
+            "materialization_id": runtime.executable_job.materialization_id or "",
             "source_asset": source_asset,
             "target_asset": vector.target.name,
             "source_markov": source_markov,
@@ -1502,8 +1540,11 @@ def _iterated_outcome(
             "result_path": result_path,
             "spec_hash": runtime.spec_hash,
             "requirements": runtime.module.metadata.get("requirements", []),
+            "workflow_version": runtime.workflow_version,
             "run_id": run_id,
             "worker_id": runtime.worker.id,
+            "resolved_policy_bundle_ref": runtime.resolved_policy.get("resolved_policy_bundle_ref", ""),
+            "resolved_policy": runtime.resolved_policy,
         }
         if runtime.work_key is not None:
             manifest["work_key"] = runtime.work_key

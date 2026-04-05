@@ -1,4 +1,4 @@
-# Validates: REQ-R-ABG2-SELFHOSTING-002
+# Validates: REQ-R-ABG3-SELFHOSTING-002
 from __future__ import annotations
 
 import json

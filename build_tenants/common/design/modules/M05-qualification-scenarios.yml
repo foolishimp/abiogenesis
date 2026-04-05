@@ -7,7 +7,7 @@ owns:
 implements_features:
   - REQ-P-SCENARIOS
   - REQ-P-QUAL
-  - REQ-R-ABG2-SELFHOSTING
+  - REQ-R-ABG3-SELFHOSTING
 primary_surfaces:
   - qualification.method_trace
   - qualification.fake_lane

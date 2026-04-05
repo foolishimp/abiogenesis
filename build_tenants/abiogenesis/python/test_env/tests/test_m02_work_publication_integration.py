@@ -3,7 +3,7 @@
 # Validates: REQ-L-GTL3-ROLE
 # Validates: REQ-L-GTL3-IDENTITY
 # Validates: REQ-L-GTL3-SELECTION-BOUNDARY
-# Validates: REQ-R-ABG2-JOB-WORKER
+# Validates: REQ-R-ABG3-JOB-WORKER
 """
 M02 work-publication integration lane.
 
