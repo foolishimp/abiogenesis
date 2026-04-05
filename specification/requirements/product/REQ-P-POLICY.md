@@ -3,8 +3,8 @@
 **Status**: Active
 **Category**: Governance
 **Date**: 2026-03-24
-**Derives from**: INT-GTL2-007
-**Wave**: 2
+**Derives from**: INT-005
+**Wave**: 3
 
 ---
 

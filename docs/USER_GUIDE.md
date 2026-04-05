@@ -529,11 +529,16 @@ graph = Graph(
     vectors=(vector,),
 )
 
+requirements_to_design = GraphFunction.from_graph(
+    name="requirements→design",
+    graph=graph,
+)
+
 designer = Role(name="designer")
 
 job = Job(
     name="requirements→design",
-    contracts=(ContractRef(kind="graph_vector", target_id=vector.id),),
+    contracts=(ContractRef(kind="graph_function", target_id=requirements_to_design.id),),
     roles=(designer,),
 )
 
@@ -546,6 +551,7 @@ boundary = deferred_refinement(
 module = Module(
     name="mini_domain",
     graphs=(graph,),
+    graph_functions=(requirements_to_design,),
     refinement_boundaries=(boundary,),
     jobs=(job,),
     roles=(designer,),
@@ -556,8 +562,8 @@ module = Module(
 
 - every live `GraphVector` must have a lawful traversal witness
   - `RefinementBoundary` or `CandidateFamily`
-- `Module` is a declaration container
-  - runtime validation happens in ABG, not by magic inside `Module`
+- `Module` is a declaration container with fail-closed publication integrity checks
+  - GTL validates publication truth; ABG validates runtime execution truth
 - `Operator` and `Evaluator` are different things
   - do not use evaluators as disguised operators
 - if you want structural alternatives, publish a `CandidateFamily`
@@ -680,11 +686,18 @@ Do not edit it manually.
   - `genesis_installed`
   - `run_bound`
   - `run_started`
+  - `graph_call_opened`
   - `edge_started`
 - convergence
   - `found`
   - `fp_dispatched`
+  - `worker_turn_started`
+  - `worker_turn_completed`
   - `assessed`
+  - `proof_passed`
+  - `closure_passed`
+  - `graph_call_closed`
+  - `run_completed`
   - `edge_converged`
   - `fh_gate_pending`
 - selection/recursion
@@ -698,9 +711,9 @@ Do not edit it manually.
   - `reset`
 
 `assessed` is an evaluator fact event, not the successful terminal run-state
-name. In the cutover model, successful terminal run truth projects to
-`assessed_pass`, while failed F_P assessment projects to failed run truth with
-`failure_class=certification_failure`.
+name. In the current model, successful terminal run truth projects to
+`run_completed` after proof and closure, while failed F_P assessment projects to
+failed run truth with `failure_class=certification_failure`.
 
 ### What recursion means for workspace truth
 
@@ -848,8 +861,8 @@ Useful examples in this repo:
 - GTL bootloader:
   - `/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/code/gtl_spec/GTL_BOOTLOADER.md`
 - interface/design surfaces:
-  - `/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md`
-  - `/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md`
+  - `/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_3_INTERFACE_CONTRACTS.md`
+  - `/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_3_MODULE_DESIGN.md`
 
 The most useful tests for understanding the current model are:
 

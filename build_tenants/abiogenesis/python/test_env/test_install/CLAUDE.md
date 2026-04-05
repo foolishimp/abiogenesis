@@ -3,7 +3,7 @@
 
 **Version**: 2.3.0
 **Status**: Compressed install-time bootstrap
-**Role**: Minimal ontology and operating constraints for GTL 2.x / ABG 2.x work
+**Role**: Minimal ontology and operating constraints for GTL 3 / ABG 3 work
 
 This is the precreated bootstrap the installer injects into `CLAUDE.md`.
 It is intentionally compressed.
@@ -176,8 +176,8 @@ If this workspace also contains the source repo, read for more detail:
 - `workspace://specification/INTENT.md`
 - `workspace://specification/requirements/gtl/`
 - `workspace://specification/requirements/abg/`
-- `workspace://build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md`
-- `workspace://build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md`
+- `workspace://build_tenants/abiogenesis/python/design/GTL_3_INTERFACE_CONTRACTS.md`
+- `workspace://build_tenants/abiogenesis/python/design/GTL_3_MODULE_DESIGN.md`
 
 ## 9. LLM Operating Rule
 

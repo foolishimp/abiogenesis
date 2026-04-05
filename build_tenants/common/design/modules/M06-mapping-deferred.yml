@@ -4,7 +4,7 @@ owns:
   - alternate engine capability profiles
   - alternate runtime-family mapping bridge surfaces beyond canonical ABG
 implements_features:
-  - REQ-M-GTL2-CAPABILITY
+  - REQ-M-GTL3-CAPABILITY
 primary_surfaces:
   - specification.requirements.mapping
 interfaces:

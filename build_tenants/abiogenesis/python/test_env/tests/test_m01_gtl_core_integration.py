@@ -481,7 +481,7 @@ class TestM01GtlCoreIntegration:
 
     def test_semantic_work_contracts_fail_closed_on_invalid_or_duplicate_contracts(self) -> None:
         with pytest.raises(ValueError, match="must be 'graph_function'"):
-            ContractRef(kind="graph_vector", target_id="vector-001")
+            ContractRef(kind="unsupported_contract", target_id="target-001")
 
         with pytest.raises(ValueError, match="must be non-empty"):
             ContractRef(kind="graph_function", target_id="")

@@ -12,6 +12,6 @@ Use these families where the project needs explicit mapping, capability, or prov
 
 ## Families
 
-- `REQ-M-GTL2-CAPABILITY.md`
-- `REQ-M-GTL2-MAPPING.md`
-- `REQ-M-GTL2-PROVENANCE.md`
+- `REQ-M-GTL3-CAPABILITY.md`
+- `REQ-M-GTL3-MAPPING.md`
+- `REQ-M-GTL3-PROVENANCE.md`

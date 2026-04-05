@@ -1,8 +1,0 @@
-# genesis_sdlc runtime contract
-module: gtl_spec.packages.abiogenesis:package
-package: gtl_spec.packages.abiogenesis:package
-worker: gtl_spec.packages.abiogenesis:worker
-pythonpath:
-  - .gsdlc/release
-active_workflow: .gsdlc/release/active-workflow.json
-workflow_root: .gsdlc/release/workflows

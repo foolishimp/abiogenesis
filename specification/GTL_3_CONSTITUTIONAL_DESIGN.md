@@ -20,16 +20,16 @@ Python-native declarative syntax.
 It is graph-function-first, composition-first, recursion-capable, higher-order,
 engine-agnostic, and governance-visible without tactic prescription.
 
-GTL remains declaration law.
+GTL is declaration law.
 
-ABG-compatible engines remain lawful interpreters and enforcers of that
+ABG-compatible engines are lawful interpreters and enforcers of that
 declared law.
 
 ---
 
 ## 2. Core Thesis
 
-The irreducible structural type of GTL 3 remains `Graph`.
+The irreducible structural type of GTL 3 is `Graph`.
 
 Everything structural is graph:
 
@@ -124,7 +124,7 @@ All workflow structure is graph.
 ### 5.2 Interface Truth
 
 Composition, substitution, and recursion are lawful only when declared outer
-contracts remain satisfied.
+contracts are satisfied.
 
 ### 5.3 Separation Of Work And Convergence
 
@@ -200,7 +200,7 @@ It binds:
 - `locator`
 - `digest`
 
-Context remains language-owned declaration truth, not an engine-owned event.
+Context is language-owned declaration truth, not an engine-owned event.
 
 ### 6.3 Node
 
@@ -221,7 +221,7 @@ class Node:
 `Node.markov` carries declared state, outcome, or acceptance conditions at that
 locus.
 
-This remains the primary language surface for invariant state declaration.
+This is the primary language surface for invariant state declaration.
 
 ### 6.4 GraphVector
 
@@ -236,7 +236,7 @@ Jobs and other public semantic work-entry surfaces do not target bare
 `GraphVector` declarations.
 
 Every operative transition boundary is owned by one or more published
-`GraphFunction` surfaces, and vectors remain internal realized structure within
+`GraphFunction` surfaces, and vectors are internal realized structure within
 those graph-function carriers.
 
 Current live shape:
@@ -256,7 +256,7 @@ class GraphVector:
     id: str = field(default_factory=_mint_id, compare=False)
 ```
 
-GTL 3 preserves this shape and adds one new constitutional surface:
+This is the canonical shape, with one additional constitutional surface:
 
 ```python
 declarations: Attrs = field(default_factory=Attrs)
@@ -283,16 +283,15 @@ This is part of the GTL 3 constitutional type model.
 - `rule` and `allows_subwork` express local constraint and bounded-subwork
   visibility
 
-GTL 3 does not remove those surfaces.
+Those surfaces are part of the GTL 3 type model.
 
-It reframes them as part of a richer transition-governance declaration model,
-where `allows_subwork` remains the simple present-tense capability flag and
-`GraphVector.declarations` becomes the structured carrier for more explicit
+`allows_subwork` is the simple present-tense capability flag and
+`GraphVector.declarations` is the structured carrier for more explicit
 dispatch, proof, and closure law.
 
 ### 6.5 Graph
 
-`Graph` remains the one first-class structural type.
+`Graph` is the one first-class structural type.
 
 Canonical shape:
 
@@ -321,19 +320,19 @@ Graph declares:
 
 ### 6.6 Schema Families
 
-`Node.schema` continues to support both concrete type references and symbolic
+`Node.schema` supports both concrete type references and symbolic
 schema names.
 
-`Vector[T]` remains the semantic foundation for cardinality-sensitive graph
+`Vector[T]` is the semantic foundation for cardinality-sensitive graph
 materialization.
 
-Asset-like state is still represented through `Node` plus `markov`.
+Asset-like state is represented through `Node` plus `markov`.
 
 There is no rival asset ontology at the language center.
 
 ### 6.7 Regimes, Operator, Evaluator, Rule
 
-The regime family remains:
+The regime family is:
 
 - `F_D`
 - `F_P`
@@ -365,7 +364,7 @@ class Rule:
     tags: tuple[str, ...] = ()
 ```
 
-The constitutional split remains:
+The constitutional split is:
 
 - `Operator` = who/what does work
 - `Evaluator` = who/what checks or attests convergence
@@ -386,7 +385,7 @@ This is canonical in GTL 3.
 
 ### 6.9 GraphFunction
 
-`GraphFunction` remains the primary reusable GTL compute abstraction.
+`GraphFunction` is the primary reusable GTL compute abstraction.
 
 It is the sole public named callable carrier in GTL 3.
 
@@ -405,7 +404,7 @@ class GraphFunction:
     id: str = field(default_factory=_mint_id, compare=False)
 ```
 
-GTL 3 preserves this shape and makes one semantic strengthening:
+This is the canonical shape, with one semantic strengthening:
 
 `GraphFunction.declarations` is no longer merely a convenient metadata escape
 hatch. It is the canonical policy-visible declaration surface for graph-function
@@ -420,14 +419,13 @@ entries for:
 - frame-local publication surfaces and other graph-function-local declaration
   data
 
-These declarations remain declarative. They do not prescribe tactics.
+These declarations are declarative. They do not prescribe tactics.
 
-The graph-function model also establishes three important truths that
-GTL 3 keeps explicit:
+The graph-function model also establishes these important truths:
 
 1. Construction-time coercion:
    `Graph`, `str`, and callable templates are coerced into `TemplateRef` so the
-   published graph-function surface remains replayable publication truth.
+   published graph-function surface is replayable publication truth.
 2. Outer-contract validation:
    when the template is `inline_graph`, the materialized graph must preserve the
    declared `inputs` and `outputs` contract.
@@ -449,12 +447,12 @@ That third point matters for rewrite authority:
 - `gate(...)` writes explicit `gate` declarations containing target, rule, and
   evaluator bundle visibility
 
-GTL 3 therefore strengthens an existing design direction rather than inventing
-an unrelated policy layer.
+GTL 3 states hook-visible governance as part of language truth without
+inventing an unrelated policy layer.
 
 ### 6.10 RefinementBoundary
 
-`RefinementBoundary` remains the declarative surface for lawful deferred
+`RefinementBoundary` is the declarative surface for lawful deferred
 synthesis/refinement over a stable outer contract.
 
 Canonical shape:
@@ -472,7 +470,7 @@ class RefinementBoundary:
 
 ### 6.11 CandidateFamily
 
-`CandidateFamily` remains the declarative surface for explicit lawful structural
+`CandidateFamily` is the declarative surface for explicit lawful structural
 alternatives without hidden choice.
 
 Canonical shape:
@@ -505,9 +503,9 @@ class Role:
     id: str = field(default_factory=_mint_id, compare=False)
 ```
 
-`Role` remains distinct from `Worker`.
+`Role` is distinct from `Worker`.
 
-`Role.policy_hooks` remains the policy-visible declaration input for external
+`Role.policy_hooks` is the policy-visible declaration input for external
 policy resolution.
 
 ### 6.13 ContractRef
@@ -528,13 +526,13 @@ is:
 
 - `graph_function`
 
-`ContractRef` remains an indirection shape rather than a direct embedded link,
+`ContractRef` is an indirection shape rather than a direct embedded link,
 but GTL 3 does not treat internal `graph_vector` boundaries as public semantic
 work targets.
 
 ### 6.14 Job
 
-`Job` remains the durable semantic work contract.
+`Job` is the durable semantic work contract.
 
 Canonical shape:
 
@@ -548,7 +546,7 @@ class Job:
     id: str = field(default_factory=_mint_id, compare=False)
 ```
 
-GTL 3 preserves that shape and clarifies:
+This is the canonical shape. GTL 3 clarifies:
 
 - `Job` names durable semantic work
 - `Job` binds one or more published `GraphFunction` carriers by identity
@@ -561,7 +559,7 @@ graph-function carrier as the public work-entry surface.
 
 ### 6.15 ModuleImport And Module
 
-`ModuleImport` and `Module` remain the publication boundary for GTL
+`ModuleImport` and `Module` are the publication boundary for GTL
 declarations.
 
 Current live shape:
@@ -684,7 +682,7 @@ constructive problem.
 
 ## 9. Core Operations
 
-GTL 3 preserves the current algebraic operations:
+The algebraic operations are:
 
 - `edge(a, b, operators=...) -> Graph`
 - `compose(f, g, ...)`
@@ -698,7 +696,7 @@ GTL 3 preserves the current algebraic operations:
 - `deferred_refinement(...)`
 - `candidate_family(...)`
 
-These remain language operations.
+These are language operations.
 
 ABG-compatible engines may interpret their results, but the interpreter does
 not own their semantics.
@@ -803,14 +801,14 @@ GTL 3 therefore adds these constitutional expectations:
    closure hooks without naming concrete workers or transports.
 3. Role surfaces can attach policy hooks that ABG may consume during authority,
    eligibility, assignment, or approval resolution.
-4. Hook references and opaque configuration remain inspectable and replayable.
+4. Hook references and opaque configuration are inspectable and replayable.
 5. GTL does not define a dedicated policy semantic language beyond these hook
    attachment surfaces.
 
 These additions are not anti-agentic.
 
 They are the language surfaces that let powerful agentic coders operate under
-declared law while ABG preserves replayable fact truth.
+declared law while ABG enforces replayable fact truth.
 
 ---
 
@@ -838,7 +836,7 @@ that declared truth.
 
 ## 15. Bottom Line
 
-The simplification remains:
+The simplification is:
 
 **everything structural is graph.**
 

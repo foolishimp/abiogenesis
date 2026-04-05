@@ -53,7 +53,7 @@ feature inventory now state only current truth.
 
 ## [2.0.0] — 2026-04-02
 
-First full GTL/ABG 2.0 release. This line completes the recursive runtime rewrite:
+First full prior kernel release. This line completes the recursive runtime rewrite:
 stable outer module publication, invocation-local recursive frames, explicit fold-back
 law, tail-loop recursive machine control, compressed install-time GTL bootstrap, and
 present-state consistency across requirements, design, code, installer, and tests.
@@ -86,10 +86,10 @@ present-state consistency across requirements, design, code, installer, and test
 - `build_tenants/abiogenesis/python/code/gen-install.py`
 - `build_tenants/abiogenesis/python/code/genesis/__init__.py`
 - `build_tenants/abiogenesis/python/code/gtl_spec/GTL_BOOTLOADER.md`
-- `build_tenants/abiogenesis/python/design/GTL_2_MODULE_DESIGN.md`
-- `build_tenants/abiogenesis/python/design/GTL_2_INTERFACE_CONTRACTS.md`
-- `specification/requirements/gtl/REQ-L-GTL2-RECURSE.md`
-- `specification/requirements/abg/REQ-R-ABG2-INTERPRET.md`
+- `build_tenants/abiogenesis/python/design/GTL_3_MODULE_DESIGN.md`
+- `build_tenants/abiogenesis/python/design/GTL_3_INTERFACE_CONTRACTS.md`
+- `specification/requirements/gtl/REQ-L-GTL3-RECURSE.md`
+- `specification/requirements/abg/REQ-R-ABG3-INTERPRET.md`
 
 ## [1.0.0-beta] — 2026-03-21
 

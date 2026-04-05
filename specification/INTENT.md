@@ -299,7 +299,7 @@ The runtime requires two additional capabilities to scale beyond single-shot F_P
 ### Scope
 
 **In scope:**
-- Explicit total run lifecycle model with terminal states `assessed_pass`, `failed`, `timed_out`, `superseded` and non-terminal states `queued`, `started`, `dispatched`, `pending`
+- Explicit total run lifecycle model with terminal states `completed`, `failed`, `timed_out`, `superseded` and non-terminal states `queued`, `started`, `dispatched`, `pending`
 - Failure classification: `transport_failure`, `no_output`, `contract_failure`, `certification_failure`
 - Waiter deduplication: at most one pending dispatch per (work_key, edge)
 - Retry with bounded backoff for transient transport failures
@@ -318,7 +318,7 @@ The runtime requires two additional capabilities to scale beyond single-shot F_P
 
 ### Success Criteria
 
-1. Successful F_P certification projects to `assessed_pass`, not generic `assessed`
+1. Successful F_P certification projects to `run_completed` after assessment, proof, and closure, not generic `assessed`
 2. Failed F_P certification projects to `failed(certification_failure)`, not successful terminal truth
 3. Subprocess timeout, crash, or nonzero exit always classify as `transport_failure` even if an artifact exists
 4. Duplicate dispatch on the same `(work_key, edge)` returns the pending `run_id`, not a new dispatch

@@ -6,21 +6,22 @@ The repo is organized around spec-driven development:
 - `specification/` is the constitutional source
 - `build_tenants/TENANT_REGISTRY.md` is the canonical tenant registry
 - `build_tenants/common/` is the shared tenant-local realization root
-- `build_tenants/abiogenesis/python/design/` is the shipping design surface for `abg 1.0`
+- `build_tenants/abiogenesis/python/design/` is the shipping design surface for the current GTL 3 / ABG 3 line
 - `build_tenants/abiogenesis/python/code/` is the shipping Python realization
 - `build_tenants/abiogenesis/python/test_env/` is the shipping Python test harness
 
-The active engine and language surface is 2.x:
+The active engine and language surface is GTL 3 / ABG 3:
 - GTL: `Module`, `Graph`, `Node`, `GraphVector`, `Context`, `Job`, `Role`
-- ABG: interpreter, event stream, projection, convergence, binding, run, transport, provenance
+- ABG: interpreter, event stream, projection, convergence, binding, run, graph call, continuation, transport, provenance
 
 ## Source of Truth
 
 Read these first:
-- [SPEC_METHOD.md](specification/SPEC_METHOD.md)
+- [SPEC_METHOD.md](/Users/jim/src/apps/genesis_sdlc/specification/standards/SPEC_METHOD.md)
 - [INTENT.md](specification/INTENT.md)
 - [requirements/](specification/requirements/)
-- [GTL_2_CONSTITUTIONAL_DESIGN.md](specification/GTL_2_CONSTITUTIONAL_DESIGN.md)
+- [GTL_3_CONSTITUTIONAL_DESIGN.md](specification/GTL_3_CONSTITUTIONAL_DESIGN.md)
+- [ABG_3_CONSTITUTIONAL_DESIGN.md](specification/ABG_3_CONSTITUTIONAL_DESIGN.md)
 - [TENANT_REGISTRY.md](build_tenants/TENANT_REGISTRY.md)
 - [build_tenants/common/design/README.md](build_tenants/common/design/README.md)
 - [build_tenants/abiogenesis/python/design/README.md](build_tenants/abiogenesis/python/design/README.md)
@@ -34,7 +35,7 @@ The project method is explicit:
 
 ## Shipping Surface
 
-`abg 1.0` ships the Claude build only.
+The current shipping line is the Python realization under `build_tenants/abiogenesis/python/`.
 
 Relevant directories:
 
@@ -46,7 +47,7 @@ build_tenants/abiogenesis/python/
 └── test_runs/    persistent test archives
 ```
 
-`build_tenants/abiogenesis/codex/` is non-shipping, partial, and not part of the 1.0 publish gate.
+`build_tenants/abiogenesis/codex/` is non-shipping and not part of the canonical publish gate.
 
 ## Test Harness
 

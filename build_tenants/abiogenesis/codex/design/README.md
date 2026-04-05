@@ -14,19 +14,18 @@ Constitutional authority lives in:
 - `build_tenants/common/design/design_surface_map.md` — current shared-vs-tenant design classification
 - `build_tenants/common/design/module_decomp.md` — shared module schedule and ownership surface
 - `specification/INTENT.md`
-- `specification/GTL_2_CONSTITUTIONAL_DESIGN.md`
+- `specification/GTL_3_CONSTITUTIONAL_DESIGN.md`
+- `specification/ABG_3_CONSTITUTIONAL_DESIGN.md`
 - `specification/requirements/`
-- `specification/SPEC_METHOD.md`
+- `/Users/jim/src/apps/genesis_sdlc/specification/standards/SPEC_METHOD.md`
 
 ## Local Design Surface
 
-This tenant keeps local design material only where it materially diverges from the released Python realization or preserves useful comparison history.
-
-`GTL_2_MODULE_DESIGN.md` remains here as a codex-local working copy for comparison and migration, not as shared tenant law.
-If a design surface becomes genuinely shared across multiple tenants, it should be promoted into `build_tenants/common/design/`.
+This tenant no longer carries an independent design line.
+Only codex-local surfaces that remain live and non-duplicative should stay here.
+Any stale tenant-local doctrine should be deleted rather than preserved as rival truth.
 
 ## Traceability
 
-Traceability derives from the active 2.x requirement surface.
-Live requirement headers carry `Status` and `Category` metadata per `specification/SPEC_METHOD.md`.
-ADR-002 refines `REQ-L-GTL2-JOB`, `REQ-L-GTL2-ROLE`, `REQ-L-GTL2-IDENTITY`, `REQ-R-ABG2-WORKER`, `REQ-R-ABG2-BINDING`, and `REQ-R-ABG2-RUN` for the codex realization.
+Traceability derives from the active GTL 3 / ABG 3 requirement surface.
+Live requirement headers carry `Status` and `Category` metadata per the canonical SPEC_METHOD.

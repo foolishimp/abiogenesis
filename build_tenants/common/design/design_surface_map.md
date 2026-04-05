@@ -39,7 +39,7 @@ They currently govern shared design truth for:
 - `REQ-L-GTL3-MODULE`
 - `REQ-R-ABG3-SELFHOSTING`
 - `REQ-P-QUAL`
-- `REQ-M-GTL2-MAPPING`
+- `REQ-M-GTL3-MAPPING`
 
 ## Placement Rule
 

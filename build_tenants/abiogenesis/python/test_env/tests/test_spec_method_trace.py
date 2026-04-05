@@ -16,7 +16,7 @@ CATEGORY_VALUES = {
     "Verification",
 }
 LIVE_INTENT_REF_RE = re.compile(r"\bINT-\d{3}[A-Z]?\b")
-LEGACY_INTENT_REF_RE = re.compile(r"\bINT-GTL2-\d{3}[A-Z]?\b")
+ANY_INTENT_REF_RE = re.compile(r"\bINT(?:-[A-Z0-9]+)?-\d{3}[A-Z]?\b")
 REQ_REF_RE = re.compile(r"\bREQ-[A-Z]-[A-Z0-9]+(?:-[A-Z0-9]+)*\b")
 LINK_RE = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 
@@ -70,14 +70,61 @@ ACTIVE_GTL_READMODEL_FILES = [
     PYTHON_CODE_ROOT / "gtl_spec" / "GTL_BOOTLOADER.md",
 ]
 STALE_GTL_READMODEL_MARKERS = (
-    "GTL 2.x",
-    "Genesis 2.x",
-    "INT-GTL2-",
+    "GTL " + "2.x",
+    "Genesis " + "2.x",
+    "INT-" + "GTL" + "2-",
+    "GTL_" + "2_",
+    "ABG " + "2",
+    "ABG" + "2",
+)
+ONTOLOGY_SWEEP_MARKERS = (
+    "GTL " + "2.x",
+    "Genesis " + "2.x",
+    "INT-" + "GTL" + "2-",
+    "REQ-M-" + "GTL" + "2",
+    "REQ-R-" + "ABG" + "2",
+    "REQ-L-" + "GTL" + "2",
+    "GTL_" + "2_",
+    "ABG " + "2",
+    "ABG" + "2",
+    "assessed_" + "pass",
+    'ContractRef(kind="graph_' + 'vector"',
+    "ContractRef(kind='graph_" + "vector'",
+)
+ONTOLOGY_SWEEP_SUFFIXES = {".md", ".py", ".yml", ".yaml", ".json", ".txt"}
+ONTOLOGY_SWEEP_ROOTS = (
+    REPO_ROOT / "README.md",
+    SPEC_ROOT,
+    REPO_ROOT / "docs",
+    COMMON_DESIGN_ROOT,
+    PYTHON_DESIGN_ROOT,
+    PYTHON_CODE_ROOT,
+    PYTHON_TENANT_ROOT / "test_env",
+    REPO_ROOT / "build_tenants" / "abiogenesis" / "codex" / "design",
 )
 
 
 def _read(path: Path) -> str:
     return path.read_text(encoding="utf-8")
+
+
+def _ontology_sweep_files() -> list[Path]:
+    files: list[Path] = []
+    for root in ONTOLOGY_SWEEP_ROOTS:
+        if root.is_file():
+            files.append(root)
+            continue
+        for path in root.rglob("*"):
+            if not path.is_file():
+                continue
+            if any(part in {".git", ".gsdlc", "__pycache__", ".ai-workspace", ".genesis"} for part in path.parts):
+                continue
+            if "test_runs" in path.parts:
+                continue
+            if path.suffix.lower() not in ONTOLOGY_SWEEP_SUFFIXES:
+                continue
+            files.append(path)
+    return sorted(files)
 
 
 def _metadata_value(text: str, label: str) -> str | None:
@@ -215,15 +262,11 @@ def test_requirement_families_have_method_metadata_and_live_intent_refs() -> Non
         assert derives, f"{path.name} is missing **Derives from** metadata"
 
         live_intent_refs = LIVE_INTENT_REF_RE.findall(derives)
-        legacy_intent_refs = LEGACY_INTENT_REF_RE.findall(derives)
-        assert live_intent_refs or legacy_intent_refs or "SPEC_METHOD.md" in derives, (
+        intent_refs = ANY_INTENT_REF_RE.findall(derives)
+        assert live_intent_refs or intent_refs or "SPEC_METHOD.md" in derives, (
             f"{path.name} derives from neither a live intent id nor SPEC_METHOD authority"
         )
-        if path.parent.name == "gtl":
-            assert not legacy_intent_refs, (
-                f"{path.name} still derives from stale GTL2 intent lineage: {legacy_intent_refs}"
-            )
-        for ref in live_intent_refs:
+        for ref in intent_refs:
             assert ref in known_intents, f"{path.name} derives from unknown intent id {ref}"
         if "SPEC_METHOD.md" in derives:
             links = _resolve_links(derives, path)
@@ -239,6 +282,16 @@ def test_active_gtl_read_model_surfaces_are_gtl3_present_tense() -> None:
         assert "GTL 3" in text, f"{path.name} does not state GTL 3 present-tense authority"
         for marker in STALE_GTL_READMODEL_MARKERS:
             assert marker not in text, f"{path.name} still exposes stale GTL read-model marker {marker!r}"
+
+
+def test_repo_has_no_stale_gtl_abg_ontology_markers() -> None:
+    offenders: list[str] = []
+    for path in _ontology_sweep_files():
+        text = _read(path)
+        for marker in ONTOLOGY_SWEEP_MARKERS:
+            if marker in text:
+                offenders.append(f"{path.relative_to(REPO_ROOT)} -> {marker!r}")
+    assert not offenders, "stale ontology markers remain:\n" + "\n".join(offenders)
 
 
 def test_adrs_implement_live_requirement_families() -> None:

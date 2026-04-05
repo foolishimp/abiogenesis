@@ -1,6 +1,6 @@
 # Implements: REQ-R-ABG3-INTERPRET
 # Implements: REQ-R-ABG3-PROVENANCE
-# Implements: REQ-M-GTL2-MAPPING
+# Implements: REQ-M-GTL3-MAPPING
 """
 materialization — Canonical ABG graph-function materialization kernel.
 

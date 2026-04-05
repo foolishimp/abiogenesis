@@ -25,8 +25,8 @@ implements_features:
   - REQ-R-ABG3-TRANSPORT
   - REQ-R-ABG3-INTERPRET
   - REQ-R-ABG3-SELFHOSTING
-  - REQ-M-GTL2-MAPPING
-  - REQ-M-GTL2-PROVENANCE
+  - REQ-M-GTL3-MAPPING
+  - REQ-M-GTL3-PROVENANCE
 primary_surfaces:
   - genesis.events
   - genesis.projection
@@ -80,7 +80,7 @@ invariants:
 composes_with:
   - M01-gtl-core supplies the declared graph, algebra, and evaluation surfaces being interpreted
   - M02-work-publication supplies the published module and graph-function truth being materialized
-  - M04-app-bootstrap owns command orchestration, runtime hook loading, and other app-edge effects above the kernel
+  - M04-app-bootstrap owns command orchestration and other app-edge effects above the kernel
   - M05-qualification-scenarios proves replay, refinement, and convergence behavior against scenario harnesses
 test_obligations:
   - explicit request/record materialization tests with replayable provenance

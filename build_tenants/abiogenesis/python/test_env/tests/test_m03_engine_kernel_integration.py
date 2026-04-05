@@ -5,7 +5,7 @@
 # Validates: REQ-R-ABG3-RUN
 # Validates: REQ-R-ABG3-PROJECTION
 # Validates: REQ-R-ABG3-SELFHOSTING
-# Validates: REQ-M-GTL2-MAPPING
+# Validates: REQ-M-GTL3-MAPPING
 """
 M03 engine-kernel integration lane.
 

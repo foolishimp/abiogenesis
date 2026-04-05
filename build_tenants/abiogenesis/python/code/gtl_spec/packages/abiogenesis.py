@@ -419,7 +419,7 @@ module = Module(
             "REQ-R-ABG3-TRANSPORT",
             "REQ-R-ABG3-INTERPRET",
             "REQ-R-ABG3-SELFHOSTING",
-            "REQ-M-GTL2-MAPPING",
+            "REQ-M-GTL3-MAPPING",
             "REQ-P-POLICY",
             "REQ-P-SCENARIOS",
             "REQ-P-QUAL",

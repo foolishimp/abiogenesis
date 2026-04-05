@@ -23,9 +23,9 @@ ABG is event-calculus-capable:
 - fluents are replay-derived runtime truth
 - projections answer what holds from event truth alone
 
-GTL remains declared law.
+GTL is declared law.
 
-ABG remains the lawful interpreter, enforcer, fact emitter, and projector of
+ABG is the lawful interpreter, enforcer, fact emitter, and projector of
 that declared law.
 
 ---
@@ -38,7 +38,7 @@ The simplification of ABG 3 is:
 - runtime truth is event-first
 - durable runtime state is fluent-first
 - event emission is substrate-owned
-- product policy remains above the engine
+- product policy is above the engine
 
 The irreducible runtime facts of ABG 3 are not:
 
@@ -125,12 +125,12 @@ ABG does not write fluent state as a rival authority surface.
 Public semantic work enters the runtime through published `GraphFunction`
 carriers bound by GTL `Job` contracts.
 
-### 5.4 Vector-Local Truth Remains Necessary
+### 5.4 Vector-Local Truth Is Necessary
 
-`GraphVector` remains the internal invariant-boundary carrier for local
+`GraphVector` is the internal invariant-boundary carrier for local
 evaluation, proof, closure, and traversal facts.
 
-Vector-local truth remains necessary.
+Vector-local truth is necessary.
 
 It is not sufficient by itself to describe callable-level or recursive-level
 open work.
@@ -173,7 +173,7 @@ The event model must be rich enough to answer:
 - what happened
 - what now holds
 - what no longer holds
-- what still remains open
+- what is open
 
 without hidden controller memory.
 
@@ -194,7 +194,7 @@ ABG consumes:
 - `Context`
 - GTL hook/config declaration surfaces
 
-These remain GTL-owned.
+These are GTL-owned.
 
 ### 6.2 Engine-Owned Runtime Types
 
@@ -260,7 +260,7 @@ Canonical runtime identity:
 
 `frame_attempt_id` identifies one runtime frame attempt.
 
-`frame_lineage_id` preserves lineage across reopening or retry of the same
+`frame_lineage_id` carries lineage across reopening or retry of the same
 recursive invocation boundary.
 
 In-memory `Frame` objects are caches or projections over event truth.
@@ -313,7 +313,7 @@ Lawful kinds may include:
 - `correction`
 - `compensation`
 
-`Continuation` records what remains open under runtime law.
+`Continuation` records what is open under runtime law.
 
 It is not constitutional intent, goal, product strategy, hidden task queue, or
 planner-authored next action.
@@ -322,7 +322,7 @@ planner-authored next action.
 
 It does not survive into a replacement run as the same aggregate.
 
-If an unresolved condition remains relevant after retry, correction, or
+If an unresolved condition is relevant after retry, correction, or
 supersession, ABG must terminate the old continuation by authoritative event
 truth and open a new continuation in the new run with explicit causal linkage.
 
@@ -379,7 +379,7 @@ class EventEnvelope:
 
 The constitutional rules are:
 
-1. `emit()` remains the only lawful write path.
+1. `emit()` is the only lawful write path.
 2. `event_id` is engine-assigned and immutable.
 3. `event_time` is system-assigned and immutable.
 4. aggregate identity and causal/correlation identity must be carried
@@ -395,7 +395,7 @@ Canonical aggregate types are:
 - `continuation`
 
 Vector-local traversal facts may be emitted against `graph_call` or `frame`
-aggregates so long as `vector_id` remains explicit.
+aggregates so long as `vector_id` is explicit.
 
 The canonical rule is nearest-enclosing ownership:
 
@@ -473,7 +473,7 @@ In particular:
 
 - a state snapshot event must not be the only evidence that a frame, call, or
   continuation is open or closed
-- lifecycle open/close/fail/rebound events remain primary truth
+- lifecycle open/close/fail/rebound events are primary truth
 
 ---
 
@@ -544,14 +544,14 @@ At minimum, ABG 3 must make these states impossible by lawful replay:
 
 ### 9.5 Replay Rule
 
-If replay cannot determine what still holds from event truth alone, the event
+If replay cannot determine what holds from event truth alone, the event
 model is constitutionally incomplete.
 
 ---
 
 ## 10. Projection Law
 
-Projection remains replay-derived.
+Projection is replay-derived.
 
 Projection does not overwrite runtime truth.
 
@@ -607,10 +607,10 @@ The constitutional broad default is:
 1. run declared deterministic proof/evaluation first when available
 2. run generic deterministic proof/evaluation when declared custom logic is
    absent but generic engine checks are available
-3. if deterministic handling is absent or remains open, fall forward to
+3. if deterministic handling is absent or unresolved, fall forward to
    governed `F_P`
 4. re-run proof and closure after `F_P` returns
-5. escalate to `F_H` only when resolved escalation policy still requires it
+5. escalate to `F_H` only when resolved escalation policy requires it
 
 ### 11.4 Fail-Closed Distinction
 
@@ -667,7 +667,7 @@ After an `F_P` boundary is reached, ABG owns:
 - retry/correction continuation opening
 - authoritative fact emission for every stage
 
-The CLI may still:
+The CLI may:
 
 - present
 - proxy
@@ -731,7 +731,7 @@ post-dispatch runtime fact emission.
 
 ## 16. Bottom Line
 
-The simplification remains:
+The simplification is:
 
 **GTL declares law; ABG emits and enforces runtime truth.**
 

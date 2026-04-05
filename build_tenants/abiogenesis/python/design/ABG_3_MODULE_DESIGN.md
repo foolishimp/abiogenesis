@@ -50,7 +50,7 @@ surfaces.
 
 ## 2. Why ABG 3 Exists
 
-The current ABG 2 line already has the right primitives:
+The prior runtime line already has the right primitives:
 
 - GTL 3 exposes hook attachment points on graph-function, graph-vector, role,
   and candidate-family surfaces.
@@ -95,9 +95,9 @@ That is the point of ABG 3: full runtime ownership without a shadow runtime.
 
 ---
 
-## 4. ABG 2 Baseline And Pressure Points
+## 4. Legacy Baseline And Pressure Points
 
-### 4.1 Current ABG 2 Shape
+### 4.1 Current Legacy Shape
 
 ```mermaid
 flowchart LR
@@ -114,7 +114,7 @@ flowchart LR
 
 ### 4.2 What Is Wrong With That Shape
 
-| Concern | ABG 2 behavior | Problem |
+| Concern | Legacy behavior | Problem |
 | --- | --- | --- |
 | Default regime progression | Encoded by ABG3 policy/default law in `genesis.convergence` | Defaults are explicit, configured, and replay-visible rather than hidden constants |
 | F_P dispatch seam | `interpret._realize_iteration()` emits the dispatch fact and stops | Runtime truth remains in the engine at the critical seam |
@@ -415,11 +415,11 @@ sequenceDiagram
 
 ---
 
-## 9. ABG 2 To ABG 3 Contrast
+## 9. Legacy To ABG 3 Contrast
 
 ```mermaid
 flowchart LR
-    subgraph ABG2["ABG 2"]
+    subgraph LEGACY["Legacy Runtime"]
         A1["GTL declarations"] --> A2["interpret + convergence"]
         A2 --> A3["hardcoded regime defaults"]
         A2 --> A4["fp_dispatched manifest"]
@@ -442,7 +442,7 @@ flowchart LR
 
 ### 9.1 Summary Table
 
-| Concern | ABG 2 | ABG 3 |
+| Concern | Legacy | ABG 3 |
 | --- | --- | --- |
 | Default behavior | inline constants and interpreter branches | configured default bundle refs |
 | F_P seam | optional project runtime hook | engine-owned dispatch runtime |
@@ -501,7 +501,7 @@ flowchart LR
 
 ### 10.3 Existing Module Changes
 
-| Module | ABG 2 role | ABG 3 impact | Size |
+| Module | Legacy role | ABG 3 impact | Size |
 | --- | --- | --- | --- |
 | `genesis.convergence` | computes aggregate state from typed outcomes | consume ABG3 policy/default law and remove hidden semantic dependence on hardcoded regime tables | High |
 | `genesis.interpret` | plans traversal and emits runtime facts | plan and execute from graph-function job entry, resolve policy after graph-function identity is known, materialize internal graph structure, emit policy-resolution and closure facts, and stop accepting runtime callback injection as the semantic carrier | High |

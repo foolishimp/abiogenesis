@@ -61,7 +61,7 @@ Current reading:
 
 ### test_m03_engine_kernel_integration.py
 
-- Requirements: `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-CONVERGENCE`, `REQ-R-ABG3-SELECTION-APPLICATION`, `REQ-R-ABG3-PROVENANCE`, `REQ-R-ABG3-RUN`, `REQ-R-ABG3-PROJECTION`, `REQ-R-ABG3-SELFHOSTING`, `REQ-M-GTL2-MAPPING`
+- Requirements: `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-CONVERGENCE`, `REQ-R-ABG3-SELECTION-APPLICATION`, `REQ-R-ABG3-PROVENANCE`, `REQ-R-ABG3-RUN`, `REQ-R-ABG3-PROJECTION`, `REQ-R-ABG3-SELFHOSTING`, `REQ-M-GTL3-MAPPING`
 - Design: [module_decomp.md](../../../common/design/module_decomp.md), [qualification_refactor_loop.md](../../../common/qualification/qualification_refactor_loop.md), [GTL_3_MODULE_DESIGN.md](../design/GTL_3_MODULE_DESIGN.md), [GTL_3_INTERFACE_CONTRACTS.md](../design/GTL_3_INTERFACE_CONTRACTS.md)
 
 ## Product and Qualification Tests
