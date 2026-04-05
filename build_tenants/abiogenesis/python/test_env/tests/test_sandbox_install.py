@@ -87,6 +87,83 @@ class TestSandboxInstall:
         run_archive.update_summary(installed_module_count=len(installed_modules))
 
     @pytest.mark.usecase_id("sandbox_install")
+    def test_install_creates_full_ai_workspace_skeleton_before_runtime_bootstrap(self, run_archive):
+        workspace = run_archive.workspace
+        install_real_sandbox(workspace, archive=run_archive)
+
+        assert (workspace / ".ai-workspace" / "events" / "events.jsonl").is_file()
+        assert (workspace / ".ai-workspace" / "features" / "active").is_dir()
+        assert (workspace / ".ai-workspace" / "features" / "completed").is_dir()
+        assert (workspace / ".ai-workspace" / "context").is_dir()
+        assert (workspace / ".ai-workspace" / "reviews" / "pending").is_dir()
+        assert (workspace / ".ai-workspace" / "reviews" / "proxy-log").is_dir()
+        assert (workspace / ".ai-workspace" / "comments" / "claude").is_dir()
+        assert (workspace / ".ai-workspace" / "agents").is_dir()
+        assert (workspace / ".ai-workspace" / "runtime").is_dir()
+        run_archive.update_summary(workspace_skeleton="installed")
+
+    @pytest.mark.usecase_id("sandbox_install")
+    def test_install_vendors_builder_docs_and_full_standards_tree(self, run_archive):
+        workspace = run_archive.workspace
+        install_payload = install_real_sandbox(workspace, archive=run_archive)
+        docs_root = workspace / ".genesis" / "docs"
+        agents_text = (workspace / "AGENTS.md").read_text(encoding="utf-8")
+        claude_text = (workspace / "CLAUDE.md").read_text(encoding="utf-8")
+
+        assert (docs_root / "README.md").is_file()
+        assert (docs_root / "LLM_GTL_APP_BUILDER_GUIDE.md").is_file()
+        assert (docs_root / "GTL_Technical_Guide.md").is_file()
+        assert (docs_root / "USER_GUIDE.md").is_file()
+        assert (docs_root / "GTL_BOOTLOADER.md").is_file()
+        assert (docs_root / "standards" / "SPEC_METHOD.md").is_file()
+        assert (docs_root / "standards" / "WRITING_GUIDE.md").is_file()
+        assert (docs_root / "standards" / "templates" / "requirements" / "STARTER_REQUIREMENTS_TEMPLATE.md").is_file()
+        assert "workspace://.genesis/docs/LLM_GTL_APP_BUILDER_GUIDE.md" in agents_text
+        assert "workspace://.genesis/docs/standards/SPEC_METHOD.md" in agents_text
+        assert "workspace://.genesis/docs/LLM_GTL_APP_BUILDER_GUIDE.md" in claude_text
+        assert "workspace://.genesis/docs/standards/SPEC_METHOD.md" in claude_text
+        assert install_payload["agents_md"] in {"created", "updated", "appended"}
+        assert install_payload["claude_md"] in {"created", "updated", "appended"}
+        assert "LLM_GTL_APP_BUILDER_GUIDE.md" in install_payload["docs_files"]
+        assert "GTL_BOOTLOADER.md" in install_payload["docs_files"]
+        assert install_payload["standards_file_count"] > 0
+        run_archive.update_summary(
+            installed_docs=len(install_payload["docs_files"]),
+            installed_standards_files=install_payload["standards_file_count"],
+        )
+
+    @pytest.mark.usecase_id("sandbox_install")
+    def test_install_seeds_project_owned_spec_and_tenant_templates(self, run_archive):
+        workspace = run_archive.workspace
+        install_payload = install_real_sandbox(workspace, archive=run_archive)
+
+        assert (workspace / "README.md").is_file()
+        assert not (workspace / "specification" / "standards").exists()
+        assert (workspace / "specification" / "INTENT.md").is_file()
+        assert (workspace / "specification" / "PRODUCT.md").is_file()
+        assert (workspace / "specification" / "GOALS.md").is_file()
+        assert (workspace / "specification" / "requirements" / "README.md").is_file()
+        assert (workspace / "specification" / "requirements" / "00-starter.md").is_file()
+        assert (workspace / "docs" / "README.md").is_file()
+        assert (workspace / "build_tenants" / "TENANT_REGISTRY.md").is_file()
+        assert (workspace / "build_tenants" / "common" / "README.md").is_file()
+        assert (workspace / "build_tenants" / "common" / "design" / "README.md").is_file()
+        assert (workspace / "build_tenants" / "project_package" / "python" / "README.md").is_file()
+        assert (workspace / "build_tenants" / "project_package" / "python" / "design" / "README.md").is_file()
+        assert (workspace / "build_tenants" / "project_package" / "python" / "design" / "fp" / "INTENT.md").is_file()
+
+        registry_text = (workspace / "build_tenants" / "TENANT_REGISTRY.md").read_text(encoding="utf-8")
+        starter_req_text = (workspace / "specification" / "requirements" / "00-starter.md").read_text(encoding="utf-8")
+        intent_text = (workspace / "specification" / "INTENT.md").read_text(encoding="utf-8")
+        readme_text = (workspace / "README.md").read_text(encoding="utf-8")
+        assert "build_tenants/project_package/python/" in registry_text
+        assert "REQ-PROJECT_PACKAGE-STARTER-001" in starter_req_text
+        assert ".genesis/docs/standards/SPEC_METHOD.md" in readme_text
+        assert ".genesis/docs/standards/" in intent_text
+        assert install_payload["scaffolded_files"]
+        run_archive.update_summary(scaffolded_files=len(install_payload["scaffolded_files"]))
+
+    @pytest.mark.usecase_id("sandbox_install")
     def test_runtime_source_keeps_emit_as_only_write_boundary_and_removes_drift_names(self, run_archive):
         workspace = run_archive.workspace
         install_real_sandbox(workspace, archive=run_archive)

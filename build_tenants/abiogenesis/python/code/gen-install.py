@@ -16,7 +16,13 @@ Usage:
 What it installs (kernel only — domain packages own everything else):
     .genesis/genesis/           ← the engine modules
     .genesis/gtl/               ← the GTL type system (vendored, self-contained)
+    .genesis/docs/              ← installed builder/reference docs and standards
+    specification/              ← project-owned constitutional surfaces
+    build_tenants/              ← project-owned realization roots
+    docs/                       ← project-owned supporting docs
     .genesis/genesis.yml        ← bootstrap config (no default binding)
+    .ai-workspace/              ← initial runtime/audit workspace skeleton
+    AGENTS.md                   ← GTL bootloader appended (if not already present)
     CLAUDE.md                   ← GTL bootloader appended (if not already present)
 
 The .genesis/genesis/ and .genesis/gtl/ directories are always replaced (idempotent reinstall).
@@ -35,7 +41,7 @@ from pathlib import Path
 
 VERSION = "3.0.0"
 
-# CLAUDE.md markers for idempotent GTL bootloader injection
+# Instruction-file markers for idempotent GTL bootloader injection
 _GTL_BOOTLOADER_START = "<!-- GTL_BOOTLOADER_START -->"
 _GTL_BOOTLOADER_END = "<!-- GTL_BOOTLOADER_END -->"
 
@@ -52,11 +58,18 @@ GTL_MODULES = [
     "work_model.py",
 ]
 
-# GTL bootloader source — injected into CLAUDE.md at install time.
-# Not installed as a file — the bootloader lives in CLAUDE.md after install.
+# GTL bootloader source — installed as a file under .genesis/docs/ and also
+# injected into CLAUDE.md at install time.
 # Domain packages own their own directory structure; the kernel does not
 # scaffold gtl_spec/ in the target.
 _BOOTLOADER_FILE = "gtl_spec/GTL_BOOTLOADER.md"
+
+_INSTALL_DOC_FILES = [
+    "README.md",
+    "LLM_GTL_APP_BUILDER_GUIDE.md",
+    "GTL_Technical_Guide.md",
+    "USER_GUIDE.md",
+]
 
 
 def _source_root() -> Path:
@@ -77,6 +90,18 @@ def _gtl_source() -> Path:
     return _code_root() / "gtl"
 
 
+def _docs_source() -> Path:
+    return _source_root() / "docs"
+
+
+def _standards_source() -> Path:
+    return _source_root().parent / "genesis_sdlc" / "specification" / "standards"
+
+
+def _templates_source() -> Path:
+    return _standards_source() / "templates"
+
+
 def _engine_modules() -> list[str]:
     """Return the full installed engine surface from source truth."""
     return sorted(path.name for path in _engine_source().glob("*.py"))
@@ -95,6 +120,9 @@ def install(target: Path, *, verify_only: bool = False,
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "engine_files": [],
         "gtl_files": [],
+        "docs_files": [],
+        "standards_file_count": 0,
+        "scaffolded_files": [],
         "config_file": None,
         "errors": [],
     }
@@ -160,13 +188,23 @@ def install(target: Path, *, verify_only: bool = False,
         config_path.write_text(config_text, encoding="utf-8")
     result["config_file"] = ".genesis/genesis.yml"
 
+    # ── Scaffold initial .ai-workspace/ structure ───────────────────────────
+    _scaffold_ai_workspace(target)
+
     # ── Ensure .ai-workspace/runtime/ exists ────────────────────────────────
     runtime_dir = target / ".ai-workspace" / "runtime"
     runtime_dir.mkdir(parents=True, exist_ok=True)
 
-    # ── Append GTL bootloader to CLAUDE.md ───────────────────────────────────
+    # ── Install docs and standards ──────────────────────────────────────────
+    _install_docs(target, result)
+
+    # ── Seed project-owned scaffold ────────────────────────────────────────
+    _scaffold_project(target, result, slug=slug, platform=platform)
+
+    # ── Append GTL bootloader to AGENTS.md / CLAUDE.md ──────────────────────
+    result["agents_md"] = install_agents_md(target)
     result["claude_md"] = install_claude_md(target)
-    if result["claude_md"] == "source_missing":
+    if result["agents_md"] == "source_missing" or result["claude_md"] == "source_missing":
         result["errors"].append("GTL bootloader source not found: gtl_spec/GTL_BOOTLOADER.md")
 
     # ── Emit install event ────────────────────────────────────────────────────
@@ -194,24 +232,253 @@ def _verify(target: Path, result: dict, platform: str = "python") -> dict:
 
     result["missing_engine"] = missing_engine
     result["missing_gtl"] = missing_gtl
+    missing_docs = []
+    docs_dir = target / ".genesis" / "docs"
+    for filename in _INSTALL_DOC_FILES:
+        if not (docs_dir / filename).exists():
+            missing_docs.append(filename)
+    if not (docs_dir / "GTL_BOOTLOADER.md").exists():
+        missing_docs.append("GTL_BOOTLOADER.md")
+    standards_present = (docs_dir / "standards" / "SPEC_METHOD.md").exists()
+    agents_present = (target / "AGENTS.md").exists()
+    claude_present = (target / "CLAUDE.md").exists()
+    result["missing_docs"] = missing_docs
+    result["standards_present"] = standards_present
+    result["agents_present"] = agents_present
+    result["claude_present"] = claude_present
     result["config_present"] = config_present
     result["agent_cli"] = agent_cli
 
     result["status"] = (
         "ok"
-        if not missing_engine and not missing_gtl
+        if not missing_engine and not missing_gtl and not missing_docs and standards_present
+        and agents_present and claude_present
         and config_present
         else "incomplete"
     )
     return result
 
 
-def install_claude_md(target: Path) -> str:
-    """Append the GTL bootloader to CLAUDE.md between markers.
+def _scaffold_ai_workspace(target: Path) -> None:
+    """Create the initial .ai-workspace/ skeleton without changing runtime behavior."""
+    ai_ws = target / ".ai-workspace"
+    directories = [
+        ai_ws / "events",
+        ai_ws / "features" / "active",
+        ai_ws / "features" / "completed",
+        ai_ws / "context",
+        ai_ws / "reviews" / "pending",
+        ai_ws / "reviews" / "proxy-log",
+        ai_ws / "comments" / "claude",
+        ai_ws / "agents",
+    ]
+    for directory in directories:
+        directory.mkdir(parents=True, exist_ok=True)
 
-    Each GTL Package appends its own bootloader to CLAUDE.md.
-    abiogenesis appends the universal GTL formal system (sections I–XI).
-    Domain packages (e.g. genesis_sdlc) append their own domain bootloader.
+
+def _slug_family(slug: str) -> str:
+    return slug.upper()
+
+
+def _write_if_missing(path: Path, text: str, result: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if path.exists():
+        return
+    path.write_text(text, encoding="utf-8")
+    result["scaffolded_files"].append(str(path))
+
+
+def _copy_file_if_missing(src: Path, dst: Path, result: dict) -> None:
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    if dst.exists():
+        return
+    shutil.copy2(src, dst)
+    result["scaffolded_files"].append(str(dst))
+
+
+def _template_text(rel_path: str) -> str:
+    return (_templates_source() / rel_path).read_text(encoding="utf-8")
+
+
+def _method_surface_text(text: str) -> str:
+    text = text.replace(
+        "project-owned method surfaces under `specification/standards/`",
+        "installed method surfaces under `.genesis/docs/standards/`",
+    )
+    text = text.replace("`specification/standards/`", "`.genesis/docs/standards/`")
+    return text
+
+
+def _root_readme_text(project_name: str, slug: str, platform: str) -> str:
+    return (
+        f"# {project_name}\n\n"
+        "This is a GTL/ABG project scaffold.\n\n"
+        "Start with these surfaces:\n\n"
+        "- `AGENTS.md`\n"
+        "- `CLAUDE.md`\n"
+        "- `.genesis/docs/standards/SPEC_METHOD.md`\n"
+        "- `specification/INTENT.md`\n"
+        "- `specification/PRODUCT.md`\n"
+        "- `specification/GOALS.md`\n"
+        "- `specification/requirements/`\n"
+        f"- `build_tenants/{slug}/{platform}/`\n"
+        "- `.genesis/docs/LLM_GTL_APP_BUILDER_GUIDE.md`\n"
+    )
+
+
+def _tenant_registry_text(slug: str, platform: str) -> str:
+    return (
+        "# Tenant Registry\n\n"
+        "`build_tenants/` is the project-owned realization root beneath the shared project specification.\n\n"
+        "Use it for one-to-many independent implementations of the same constitutional `specification/`.\n\n"
+        "This file is the canonical registry surface for the project's build tenants.\n\n"
+        "The constitutional `specification/` surface is singleton project truth.\n\n"
+        "`build_tenants/` is many-valued realization structure beneath that truth.\n\n"
+        "## Structure\n\n"
+        "- `common/` holds shared realization/design law adopted across more than one tenant.\n"
+        "- `<family>/<variant>/` holds one concrete tenant realization.\n\n"
+        "## Registry\n\n"
+        "Suggested lifecycle states include:\n\n"
+        "- `Planned`\n"
+        "- `In Development`\n"
+        "- `Paused`\n"
+        "- `Released`\n"
+        "- `Deprecated`\n\n"
+        "| Entry | Kind | Path | Status | Notes |\n"
+        "| --- | --- | --- | --- | --- |\n"
+        "| `common` | shared root | `build_tenants/common/` | Active | Shared realization law across tenants |\n"
+        f"| `{slug}/{platform}` | variant | `build_tenants/{slug}/{platform}/` | Planned | Starter tenant scaffold seeded by installer |\n"
+    )
+
+
+def _requirements_text(slug: str) -> str:
+    family = _slug_family(slug)
+    text = _template_text("requirements/STARTER_REQUIREMENTS_TEMPLATE.md")
+    text = text.replace("REQ-PROJ-STARTER-*", f"REQ-{family}-STARTER-*")
+    text = text.replace("REQ-PROJ-STARTER-001", f"REQ-{family}-STARTER-001")
+    return text
+
+
+def _edge_override_text(slug: str, platform: str) -> str:
+    text = _template_text("build_tenants/variant/design/fp/edge-overrides/EDGE_OVERRIDE_TEMPLATE.json")
+    return text.replace("build_tenants/<techlabel>/design/README.md", f"build_tenants/{slug}/{platform}/design/README.md")
+
+
+def _scaffold_project(target: Path, result: dict, *, slug: str, platform: str) -> None:
+    project_name = target.name
+    _write_if_missing(target / "README.md", _root_readme_text(project_name, slug, platform), result)
+    _write_if_missing(
+        target / "specification" / "INTENT.md",
+        _method_surface_text(_template_text("INTENT_TEMPLATE.md")).replace("# Project Intent", f"# {project_name} Intent"),
+        result,
+    )
+    _write_if_missing(
+        target / "specification" / "PRODUCT.md",
+        _method_surface_text(_template_text("PRODUCT_TEMPLATE.md")).replace("# Project Product", f"# {project_name} Product"),
+        result,
+    )
+    _write_if_missing(
+        target / "specification" / "GOALS.md",
+        _method_surface_text(_template_text("GOALS_TEMPLATE.md")).replace("# Project Goals", f"# {project_name} Goals"),
+        result,
+    )
+    _write_if_missing(
+        target / "specification" / "requirements" / "README.md",
+        _method_surface_text(_template_text("requirements/README_TEMPLATE.md")),
+        result,
+    )
+    _write_if_missing(
+        target / "specification" / "requirements" / "00-starter.md",
+        _requirements_text(slug),
+        result,
+    )
+    _write_if_missing(
+        target / "docs" / "README.md",
+        _template_text("docs/README_TEMPLATE.md"),
+        result,
+    )
+    _write_if_missing(
+        target / "build_tenants" / "TENANT_REGISTRY.md",
+        _tenant_registry_text(slug, platform),
+        result,
+    )
+    _write_if_missing(
+        target / "build_tenants" / "common" / "README.md",
+        _template_text("build_tenants/common/README_TEMPLATE.md"),
+        result,
+    )
+    _write_if_missing(
+        target / "build_tenants" / "common" / "design" / "README.md",
+        _template_text("build_tenants/common/design/README_TEMPLATE.md"),
+        result,
+    )
+    tenant_root = target / "build_tenants" / slug / platform
+    _write_if_missing(
+        tenant_root / "README.md",
+        _template_text("build_tenants/variant/README_TEMPLATE.md"),
+        result,
+    )
+    _write_if_missing(
+        tenant_root / "design" / "README.md",
+        _method_surface_text(_template_text("build_tenants/variant/design/README_TEMPLATE.md")),
+        result,
+    )
+    _write_if_missing(
+        tenant_root / "design" / "fp" / "README.md",
+        _template_text("build_tenants/variant/design/fp/README_TEMPLATE.md"),
+        result,
+    )
+    _write_if_missing(
+        tenant_root / "design" / "fp" / "INTENT.md",
+        _template_text("build_tenants/variant/design/fp/INTENT_TEMPLATE.md"),
+        result,
+    )
+    _write_if_missing(
+        tenant_root / "design" / "fp" / "edge-overrides" / "README.md",
+        _template_text("build_tenants/variant/design/fp/edge-overrides/README_TEMPLATE.md"),
+        result,
+    )
+    _write_if_missing(
+        tenant_root / "design" / "fp" / "edge-overrides" / "EDGE_OVERRIDE_TEMPLATE.json",
+        _edge_override_text(slug, platform),
+        result,
+    )
+
+
+def _install_docs(target: Path, result: dict) -> None:
+    docs_src = _docs_source()
+    docs_dir = target / ".genesis" / "docs"
+    docs_dir.mkdir(parents=True, exist_ok=True)
+
+    for filename in _INSTALL_DOC_FILES:
+        src = docs_src / filename
+        dst = docs_dir / filename
+        if not src.exists():
+            result["errors"].append(f"Missing docs source: {src}")
+            continue
+        shutil.copy2(src, dst)
+        result["docs_files"].append(filename)
+
+    bootloader_src = _code_root() / _BOOTLOADER_FILE
+    bootloader_dst = docs_dir / "GTL_BOOTLOADER.md"
+    if not bootloader_src.exists():
+        result["errors"].append(f"Missing GTL bootloader source: {bootloader_src}")
+    else:
+        shutil.copy2(bootloader_src, bootloader_dst)
+        result["docs_files"].append("GTL_BOOTLOADER.md")
+
+    standards_src = _standards_source()
+    standards_dst = docs_dir / "standards"
+    if not standards_src.exists():
+        result["errors"].append(f"Missing standards source: {standards_src}")
+        return
+
+    shutil.copytree(standards_src, standards_dst, dirs_exist_ok=True)
+    result["standards_file_count"] = sum(1 for path in standards_dst.rglob("*") if path.is_file())
+
+
+def _install_instruction_bootloader(target: Path, filename: str) -> str:
+    """Append the GTL bootloader to one instruction file between markers.
 
     Writes the current GTL bootloader section only.
     """
@@ -222,9 +489,9 @@ def install_claude_md(target: Path) -> str:
     bootloader = bootloader_path.read_text(encoding="utf-8")
     section = f"{_GTL_BOOTLOADER_START}\n{bootloader}\n{_GTL_BOOTLOADER_END}"
 
-    claude_md = target / "CLAUDE.md"
-    if claude_md.exists():
-        existing = claude_md.read_text(encoding="utf-8")
+    instruction_file = target / filename
+    if instruction_file.exists():
+        existing = instruction_file.read_text(encoding="utf-8")
 
         if _GTL_BOOTLOADER_START in existing:
             pattern = re.compile(
@@ -232,15 +499,23 @@ def install_claude_md(target: Path) -> str:
                 re.DOTALL,
             )
             updated = pattern.sub(section.rstrip(), existing)
-            claude_md.write_text(updated, encoding="utf-8")
+            instruction_file.write_text(updated, encoding="utf-8")
             return "updated"
         else:
-            with open(claude_md, "w", encoding="utf-8") as f:
+            with open(instruction_file, "w", encoding="utf-8") as f:
                 f.write(existing.rstrip() + f"\n\n{section}\n")
             return "appended"
     else:
-        claude_md.write_text(section + "\n", encoding="utf-8")
+        instruction_file.write_text(section + "\n", encoding="utf-8")
         return "created"
+
+
+def install_agents_md(target: Path) -> str:
+    return _install_instruction_bootloader(target, "AGENTS.md")
+
+
+def install_claude_md(target: Path) -> str:
+    return _install_instruction_bootloader(target, "CLAUDE.md")
 
 
 def _emit_install_event(target: Path, install_result: dict) -> None:
