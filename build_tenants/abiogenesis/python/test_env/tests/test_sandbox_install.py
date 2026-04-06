@@ -151,15 +151,24 @@ class TestSandboxInstall:
         assert (workspace / "build_tenants" / "project_package" / "python" / "README.md").is_file()
         assert (workspace / "build_tenants" / "project_package" / "python" / "design" / "README.md").is_file()
         assert (workspace / "build_tenants" / "project_package" / "python" / "design" / "fp" / "INTENT.md").is_file()
+        assert (workspace / "build_tenants" / "project_package" / "python" / "code" / "README.md").is_file()
+        assert (workspace / "build_tenants" / "project_package" / "python" / "code" / "__init__.py").is_file()
+        assert (workspace / "build_tenants" / "project_package" / "python" / "code" / "app_bootstrap.py").is_file()
 
         registry_text = (workspace / "build_tenants" / "TENANT_REGISTRY.md").read_text(encoding="utf-8")
         starter_req_text = (workspace / "specification" / "requirements" / "00-starter.md").read_text(encoding="utf-8")
         intent_text = (workspace / "specification" / "INTENT.md").read_text(encoding="utf-8")
         readme_text = (workspace / "README.md").read_text(encoding="utf-8")
+        app_bootstrap_text = (workspace / "build_tenants" / "project_package" / "python" / "code" / "app_bootstrap.py").read_text(encoding="utf-8")
         assert "build_tenants/project_package/python/" in registry_text
         assert "REQ-PROJECT_PACKAGE-STARTER-001" in starter_req_text
         assert ".genesis/docs/standards/SPEC_METHOD.md" in readme_text
         assert ".genesis/docs/standards/" in intent_text
+        assert "def bootstrap(" in app_bootstrap_text
+        assert "def initialize(" in app_bootstrap_text
+        assert "def gaps(" in app_bootstrap_text
+        assert "def iterate(" in app_bootstrap_text
+        assert "def start(" in app_bootstrap_text
         assert install_payload["scaffolded_files"]
         run_archive.update_summary(scaffolded_files=len(install_payload["scaffolded_files"]))
 

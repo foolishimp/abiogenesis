@@ -306,6 +306,10 @@ def _method_surface_text(text: str) -> str:
         "installed method surfaces under `.genesis/docs/standards/`",
     )
     text = text.replace("`specification/standards/`", "`.genesis/docs/standards/`")
+    text = text.replace(
+        "`specification/standards/templates/",
+        "`.genesis/docs/standards/templates/",
+    )
     return text
 
 
@@ -362,6 +366,107 @@ def _requirements_text(slug: str) -> str:
 def _edge_override_text(slug: str, platform: str) -> str:
     text = _template_text("build_tenants/variant/design/fp/edge-overrides/EDGE_OVERRIDE_TEMPLATE.json")
     return text.replace("build_tenants/<techlabel>/design/README.md", f"build_tenants/{slug}/{platform}/design/README.md")
+
+
+def _tenant_code_readme_text(slug: str, platform: str) -> str:
+    return (
+        "# Tenant Code\n\n"
+        "This folder holds example app-owned bootstrap code.\n\n"
+        "It is not part of GTL or ABG core.\n\n"
+        "Use it as a starting point for:\n\n"
+        "- app bootstrap\n"
+        "- app initialization\n"
+        "- binding a published GTL `Module`\n"
+        "- running graph-function work through ABG services\n"
+    )
+
+
+def _tenant_code_init_text() -> str:
+    return (
+        '"""Starter tenant code surface."""\n'
+        "\n"
+        "from .app_bootstrap import AppConfig, GraphFunctionApp, bootstrap, initialize, gaps, iterate, start\n"
+    )
+
+
+def _tenant_app_bootstrap_text() -> str:
+    return '''"""Example app-owned bootstrap and initialization surface.
+
+This file is a starting example. It is not part of GTL or ABG core.
+
+Use it to keep app bootstrap and runtime binding explicit:
+
+- bootstrap creates the app configuration boundary
+- initialize binds a published GTL module to the ABG runtime
+- gaps / iterate / start expose the engine through app-owned functions
+"""
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+from pathlib import Path
+from typing import Any
+
+from gtl.module_model import Module
+
+from genesis.binding import Worker
+from genesis.events import EventStream
+from genesis.install import workspace_bootstrap
+from genesis.services import Scope, gen_gaps, gen_iterate, gen_start
+
+
+@dataclass(frozen=True)
+class AppConfig:
+    workspace_root: Path
+    runtime_config: dict[str, Any] = field(default_factory=dict)
+    build: str | None = None
+
+
+@dataclass
+class GraphFunctionApp:
+    config: AppConfig
+    module: Module
+    stream: EventStream
+    worker: Worker | None = None
+
+    def scope(self) -> Scope:
+        return Scope(
+            module=self.module,
+            workspace_root=self.config.workspace_root,
+            build=self.config.build,
+            worker=self.worker,
+            runtime_config=self.config.runtime_config,
+        )
+
+
+def bootstrap(
+    *,
+    workspace_root: str | Path = ".",
+    runtime_config: dict[str, Any] | None = None,
+    build: str | None = None,
+) -> AppConfig:
+    return AppConfig(
+        workspace_root=Path(workspace_root).resolve(),
+        runtime_config=dict(runtime_config or {}),
+        build=build,
+    )
+
+
+def initialize(module: Module, config: AppConfig, *, worker: Worker | None = None) -> GraphFunctionApp:
+    stream = workspace_bootstrap(config.workspace_root)
+    return GraphFunctionApp(config=config, module=module, stream=stream, worker=worker)
+
+
+def gaps(app: GraphFunctionApp) -> dict:
+    return gen_gaps(app.scope(), app.stream)
+
+
+def iterate(app: GraphFunctionApp) -> dict:
+    return gen_iterate(app.scope(), app.stream)
+
+
+def start(app: GraphFunctionApp, *, auto: bool = False) -> dict:
+    return gen_start(app.scope(), app.stream, auto=auto)
+'''
 
 
 def _scaffold_project(target: Path, result: dict, *, slug: str, platform: str) -> None:
@@ -441,6 +546,21 @@ def _scaffold_project(target: Path, result: dict, *, slug: str, platform: str) -
     _write_if_missing(
         tenant_root / "design" / "fp" / "edge-overrides" / "EDGE_OVERRIDE_TEMPLATE.json",
         _edge_override_text(slug, platform),
+        result,
+    )
+    _write_if_missing(
+        tenant_root / "code" / "README.md",
+        _tenant_code_readme_text(slug, platform),
+        result,
+    )
+    _write_if_missing(
+        tenant_root / "code" / "__init__.py",
+        _tenant_code_init_text(),
+        result,
+    )
+    _write_if_missing(
+        tenant_root / "code" / "app_bootstrap.py",
+        _tenant_app_bootstrap_text(),
         result,
     )
 
