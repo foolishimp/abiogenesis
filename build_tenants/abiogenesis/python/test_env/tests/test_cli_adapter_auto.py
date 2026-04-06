@@ -290,6 +290,16 @@ def test_scope_rejects_conflicting_runtime_build_inputs(tmp_path: Path):
         )
 
 
+def test_gen_start_uses_scope_module_when_deriving_operational_state(tmp_path: Path):
+    module = _runtime_contract_module()
+    stream = genesis_install.workspace_bootstrap(tmp_path)
+    scope = services.Scope(module=module, workspace_root=tmp_path)
+
+    result = services.gen_start(scope, stream)
+
+    assert result["status"] in {"iterated", "queued", "needs_selection", "converged", "dispatched"}
+
+
 def test_resolve_runtime_identity_reads_runtime_prefixed_keys_only():
     identity = cli_adapter._resolve_runtime_identity(
         {

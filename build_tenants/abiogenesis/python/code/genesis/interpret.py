@@ -916,6 +916,7 @@ def derive_operational_state(
     *,
     workspace_root: Path,
     stream: EventStream,
+    module: Module,
     worker: Worker,
     jobs: tuple[ExecutableJob, ...] | list[ExecutableJob],
     work_keys: tuple[str, ...] | list[str],

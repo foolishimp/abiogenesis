@@ -287,6 +287,7 @@ def _derive_state(scope: Scope, stream: EventStream) -> dict:
     return derive_operational_state(
         workspace_root=scope.workspace_root,
         stream=stream,
+        module=scope.module,
         worker=worker,
         jobs=_scoped_jobs(scope, worker),
         work_keys=tuple(_resolve_work_keys(scope, stream)),
