@@ -17,7 +17,8 @@ Constitutional authority lives in:
 - `specification/GTL_3_CONSTITUTIONAL_DESIGN.md`
 - `specification/ABG_3_CONSTITUTIONAL_DESIGN.md`
 - `specification/requirements/`
-- `/Users/jim/src/apps/genesis_sdlc/specification/standards/SPEC_METHOD.md`
+- `https://github.com/foolishimp/specification_methodology`
+- `/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md`
 
 ## Local Design Surface
 

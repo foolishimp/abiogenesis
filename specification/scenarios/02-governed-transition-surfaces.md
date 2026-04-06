@@ -2,7 +2,7 @@
 
 **Validates**: REQ-L-GTL3-OPERATOR, REQ-L-GTL3-EVALUATOR, REQ-L-GTL3-RULE, REQ-L-GTL3-HOOKS, REQ-L-GTL3-SUBWORK
 
-**Derives from**: [/Users/jim/src/apps/genesis_sdlc/specification/standards/SPEC_METHOD.md](/Users/jim/src/apps/genesis_sdlc/specification/standards/SPEC_METHOD.md), [INTENT.md](../INTENT.md) INT-001, [GTL_3_CONSTITUTIONAL_DESIGN.md](../GTL_3_CONSTITUTIONAL_DESIGN.md)
+**Derives from**: [/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [INTENT.md](../INTENT.md) INT-001, [GTL_3_CONSTITUTIONAL_DESIGN.md](../GTL_3_CONSTITUTIONAL_DESIGN.md)
 
 **Purpose**: Prove that GTL 3 exposes governed transition surfaces for work,
 convergence, constraints, hook attachment, and bounded sub-work without

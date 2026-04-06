@@ -19,7 +19,7 @@ from pathlib import Path
 import pytest
 
 from gtl.algebra import candidate_family, deferred_refinement
-from gtl.function_model import GraphFunction, TemplateRef
+from gtl.function_model import EnvRef, GraphFunction, TemplateRef
 from gtl.graph import Graph, GraphVector, Node
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, F_D, Operator
@@ -52,6 +52,31 @@ def _package_source(module_name: str) -> str:
 
 @pytest.mark.integration
 class TestM02WorkPublicationIntegration:
+    def test_scope_rejects_job_bound_public_carrier_without_published_materialized_vectors(self, tmp_path: Path) -> None:
+        design = Node(name="design", schema="Design")
+        code = Node(name="code", schema="Code")
+        vector = GraphVector("design→code", design, code)
+        carrier = GraphFunction.from_graph(
+            name="design_profile",
+            graph=Graph(
+                name="design_profile",
+                inputs=(design,),
+                outputs=(code,),
+                nodes=(design, code),
+                vectors=(vector,),
+            ),
+            environment=EnvRef.from_contract(requires=(design,), provides=(code,)),
+        )
+        module = Module(
+            name="m02_missing_module_graphs",
+            graph_functions=(carrier,),
+            refinement_boundaries=(deferred_refinement("design→code", inputs=(design,), outputs=(code,)),),
+            jobs=(Job(name="design→code", contracts=(ContractRef(kind="graph_function", target_id=carrier.id),)),),
+        )
+
+        with pytest.raises(ValueError, match="must publish their materialized vectors through Module.graphs"):
+            Scope(module=module, workspace_root=tmp_path)
+
     def test_frame_traversal_surface_prefers_local_truth_then_imported_truth_and_allows_direct_vector_execution(self) -> None:
         design = Node(name="design", schema="Design")
         code = Node(name="code", schema="Code")
@@ -61,12 +86,14 @@ class TestM02WorkPublicationIntegration:
             name="local_profile",
             inputs=(design,),
             outputs=(code,),
+            environment=EnvRef.from_contract(requires=(design,), provides=(code,)),
             template=TemplateRef.symbolic("local_profile"),
         )
         imported = GraphFunction(
             name="imported_profile",
             inputs=(design,),
             outputs=(code,),
+            environment=EnvRef.from_contract(requires=(design,), provides=(code,)),
             template=TemplateRef.symbolic("imported_profile"),
         )
         local_family = candidate_family(
@@ -128,6 +155,7 @@ class TestM02WorkPublicationIntegration:
                 nodes=(design, code),
                 vectors=(vector,),
             ),
+            environment=EnvRef.from_contract(requires=(design,), provides=(code,)),
         )
 
         surface = build_frame_traversal_surface_from_graph_function(
@@ -226,6 +254,7 @@ class TestM02WorkPublicationIntegration:
             name="direct_profile",
             inputs=(design,),
             outputs=(code,),
+            environment=EnvRef.from_contract(requires=(design,), provides=(code,)),
             template=TemplateRef.inline_graph(
                 Graph(
                     name="direct_profile",

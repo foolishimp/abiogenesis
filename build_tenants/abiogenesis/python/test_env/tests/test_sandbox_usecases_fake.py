@@ -1,5 +1,6 @@
 # Validates: REQ-L-GTL3-SYNTHESIS
 # Validates: REQ-L-GTL3-SELECTION-BOUNDARY
+# Validates: REQ-L-GTL3-COMPOSE
 # Validates: REQ-L-GTL3-SUBWORK
 # Validates: REQ-R-ABG3-INTERPRET
 # Validates: REQ-R-ABG3-BINDING
@@ -23,8 +24,8 @@ from pathlib import Path
 
 import pytest
 
-from gtl.algebra import candidate_family, deferred_refinement
-from gtl.function_model import GraphFunction
+from gtl.algebra import candidate_family, compose, deferred_refinement, graph_function_for_vector
+from gtl.function_model import EnvRef, GraphFunction
 from gtl.graph import Graph, GraphVector, Node
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, F_P
@@ -68,13 +69,16 @@ from helpers_gsdlc_lite import (
     DESIGN_ARTIFACT_PATH as GL_DESIGN_ARTIFACT_PATH,
     DESIGN_TO_CODE_EDGE as GL_DESIGN_TO_CODE_EDGE,
     decomposition_artifact as gsdlc_decomposition_artifact,
+    dependency_chain_artifact as gsdlc_dependency_chain_artifact,
     DEPENDENCY_CHAIN_ARTIFACT_PATH as GL_DEPENDENCY_CHAIN_ARTIFACT_PATH,
+    DEPENDENCY_TO_SEQUENCING_EDGE as GL_DEPENDENCY_TO_SEQUENCING_EDGE,
     REQ_TO_DESIGN_EDGE as GL_REQ_TO_DESIGN_EDGE,
     REQ_TO_DECOMPOSITION_EDGE as GL_REQ_TO_DECOMPOSITION_EDGE,
     REVIEW_TO_CODE_EDGE as GL_REVIEW_TO_CODE_EDGE,
     code_artifact as gsdlc_code_artifact,
     design_review_artifact as gsdlc_design_review_artifact,
     design_artifact as gsdlc_design_artifact,
+    sequencing_artifact as gsdlc_sequencing_artifact,
     gsdlc_lite_module,
     gsdlc_lite_role_module,
     gsdlc_lite_review_module,
@@ -84,27 +88,24 @@ from helpers_gsdlc_lite import (
     run_code_standard_check,
     run_design_standard_check,
     run_design_review_standard_check,
+    SEQUENCING_ARTIFACT_PATH as GL_SEQUENCING_ARTIFACT_PATH,
+    SEQUENCING_TO_DESIGN_EDGE as GL_SEQUENCING_TO_DESIGN_EDGE,
     gsdlc_lite_zoom_module,
     write_result_file as write_gsdlc_result_file,
 )
 
 
 def _graph_function(name: str, graph: Graph, *, tags: tuple[str, ...] = ()) -> GraphFunction:
-    return GraphFunction.from_graph(name=name, graph=graph, tags=tags)
+    return GraphFunction.from_graph(
+        name=name,
+        graph=graph,
+        environment=EnvRef.from_contract(requires=graph.inputs, provides=graph.outputs),
+        tags=tags,
+    )
 
 
 def _graph_function_for_vector(vector: GraphVector) -> GraphFunction:
-    source = vector.source if isinstance(vector.source, tuple) else (vector.source,)
-    return GraphFunction.from_graph(
-        name=vector.name,
-        graph=Graph(
-            name=f"{vector.name}_workflow",
-            inputs=source,
-            outputs=(vector.target,),
-            nodes=tuple(dict.fromkeys((*source, vector.target))),
-            vectors=(vector,),
-        ),
-    )
+    return graph_function_for_vector(vector)
 
 
 def _precomputed(job, *, failing=(), passing=()) -> PrecomputedManifest:
@@ -155,6 +156,179 @@ def _u2_discovery_module() -> Module:
         jobs=(job,),
         metadata={"requirements": ["REQ-U2-001"]},
     )
+
+
+def _write_fake_result_file(result_path: Path, *, edge: str, actor: str) -> None:
+    result_path.parent.mkdir(parents=True, exist_ok=True)
+    result_path.write_text(
+        json.dumps(
+            {
+                "edge": edge,
+                "actor": actor,
+                "assessments": [
+                    {
+                        "evaluator": "env_progress",
+                        "result": "pass",
+                        "evidence": f"{edge} advanced under cumulative environment law",
+                    }
+                ],
+            },
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+
+
+def _u5_cumulative_environment_module() -> Module:
+    input_set = Node(name="input_set", schema="InputSet")
+    requirements = Node(name="requirements", schema="RequirementsSurface")
+    design = Node(name="design", schema="DesignSurface")
+    code = Node(name="code", schema="CodeSurface")
+    env_progress = Evaluator("env_progress", F_P, "cumulative environment has advanced lawfully")
+
+    capture_requirements = graph_function_for_vector(
+        GraphVector(
+            name="input_set→requirements",
+            source=input_set,
+            target=requirements,
+            evaluators=(env_progress,),
+        )
+    )
+    synthesize_design = GraphFunction.from_graph(
+        name="requirements_to_design",
+        graph=Graph(
+            name="requirements_to_design",
+            inputs=(input_set, requirements),
+            outputs=(design,),
+            nodes=(input_set, requirements, design),
+            vectors=(
+                GraphVector(
+                    "requirements→design",
+                    (input_set, requirements),
+                    design,
+                    evaluators=(env_progress,),
+                ),
+            ),
+        ),
+        environment=EnvRef.from_contract(
+            requires=(input_set, requirements),
+            provides=(design,),
+        ),
+    )
+    implement_code = GraphFunction.from_graph(
+        name="design_to_code",
+        graph=Graph(
+            name="design_to_code",
+            inputs=(input_set, requirements, design),
+            outputs=(code,),
+            nodes=(input_set, requirements, design, code),
+            vectors=(
+                GraphVector(
+                    "design→code",
+                    (input_set, requirements, design),
+                    code,
+                    evaluators=(env_progress,),
+                ),
+            ),
+        ),
+        environment=EnvRef.from_contract(
+            requires=(input_set, requirements, design),
+            provides=(code,),
+        ),
+    )
+    executive = compose(capture_requirements, synthesize_design, implement_code)
+    executive_graph = executive.materialize()
+
+    return Module(
+        name="u5_cumulative_environment",
+        graphs=(executive_graph,),
+        graph_functions=(executive,),
+        refinement_boundaries=(
+            deferred_refinement(
+                "input_set→requirements",
+                inputs=(input_set,),
+                outputs=(requirements,),
+            ),
+            deferred_refinement(
+                "requirements→design",
+                inputs=(input_set, requirements),
+                outputs=(design,),
+            ),
+            deferred_refinement(
+                "design→code",
+                inputs=(input_set, requirements, design),
+                outputs=(code,),
+            ),
+        ),
+        jobs=(
+            Job(
+                name="bootstrap_release",
+                contracts=(ContractRef(kind="graph_function", target_id=executive.id),),
+            ),
+        ),
+        metadata={"requirements": ["REQ-U5-001"]},
+    )
+
+
+@pytest.mark.integration
+class TestU5CumulativeEnvironment:
+    @pytest.mark.usecase_id("cumulative_env_exec")
+    def test_cumulative_environment_executive_converges_over_real_sandbox(self, run_archive):
+        workspace = run_archive.workspace
+        install_real_sandbox(workspace, archive=run_archive)
+        stream = workspace_bootstrap(workspace)
+        module = _u5_cumulative_environment_module()
+        scope = Scope(module=module, workspace_root=workspace)
+
+        executive = module.graph_functions[0]
+        assert tuple(node.name for node in executive.environment.requires) == ("input_set",)
+        assert tuple(node.name for node in executive.environment.carries) == (
+            "input_set",
+            "requirements",
+            "design",
+            "code",
+        )
+
+        from genesis.cli_adapter import _assess_result_cmd
+
+        artifact_paths = (
+            workspace / "output" / "requirements.md",
+            workspace / "output" / "design.md",
+            workspace / "output" / "service.py",
+        )
+        expected_edges = (
+            "input_set→requirements",
+            "requirements→design",
+            "design→code",
+        )
+        observed_edges: list[str] = []
+
+        for artifact_path, expected_edge in zip(artifact_paths, expected_edges, strict=True):
+            result = gen_iterate(scope, stream)
+            assert result["status"] == "iterated"
+            assert result["blocking_reason"] == "fp_dispatch"
+            manifest = json.loads(Path(result["fp_manifest_path"]).read_text(encoding="utf-8"))
+            observed_edges.append(manifest["edge"])
+            assert manifest["edge"] == expected_edge
+            artifact_path.parent.mkdir(parents=True, exist_ok=True)
+            artifact_path.write_text(f"# {expected_edge}\n", encoding="utf-8")
+            _write_fake_result_file(
+                Path(manifest["result_path"]),
+                edge=manifest["edge"],
+                actor="fake_cumulative_env_worker",
+            )
+            assert _assess_result_cmd(manifest["result_path"], workspace) == 0
+
+        final_gaps = gen_gaps(scope, stream)
+        assert observed_edges == list(expected_edges)
+        assert final_gaps["converged"] is True
+        assert final_gaps["total_delta"] == 0
+        run_archive.update_summary(
+            lane="fake",
+            use_case="cumulative_env_exec",
+            observed_edges=observed_edges,
+            converged=True,
+        )
 
 
 def _u1_profiles_module() -> Module:
@@ -1081,4 +1255,145 @@ class TestSandboxUsecasesFake:
             children_spawned=len(spawned),
             next_edge=next_manifest["edge"],
             following_edge=next_next_manifest["edge"],
+        )
+
+    @pytest.mark.usecase_id("gsdlc_lite_zoom")
+    def test_zoomed_design_selection_rebinds_parent_and_converges_design_lane(self, run_archive):
+        workspace = run_archive.workspace
+        install_real_sandbox(workspace, archive=run_archive)
+        stream = workspace_bootstrap(workspace)
+        module = gsdlc_lite_zoom_module(workspace)
+        scope = Scope(module=module, workspace_root=workspace)
+        run_archive.note(
+            "scenario",
+            lane="fake",
+            edge=GL_REQ_TO_DESIGN_EDGE,
+            selection="zoomed_design_profile",
+            route="child_chain_then_parent_rebind",
+        )
+
+        executable_job = module_to_executable_jobs(module)[0]
+        runtime = TraversalRuntime(
+            module=module,
+            executable_job=executable_job,
+            precomputed=_precomputed(executable_job),
+            workspace_root=workspace,
+            stream=stream,
+            worker=scope.worker,
+            spec_hash="spec-gsdlc-zoom-rebind",
+            work_key=executable_job.vector.id,
+        )
+        selected = traverse(
+            Traversal(
+                work_key=executable_job.vector.id,
+                target=module.candidate_families[0],
+                selection=SelectionDecision(
+                    contract_id=executable_job.vector.id,
+                    work_key=executable_job.vector.id,
+                    graph_function="zoomed_design_profile",
+                    selected_by="test_policy",
+                    selection_mode="explicit",
+                    rationale="exercise recursive zoomed chain through parent rebound",
+                ),
+                evaluators=executable_job.vector.evaluators,
+            ),
+            runtime=runtime,
+            surface=WorkSurface(),
+        )
+        assert selected.result["status"] == "selected"
+        frame_id = selected.result["frame_id"]
+
+        steps = (
+            (
+                GL_REQ_TO_DECOMPOSITION_EDGE,
+                GL_DECOMPOSITION_ARTIFACT_PATH,
+                gsdlc_decomposition_artifact(),
+            ),
+            (
+                GL_DECOMPOSITION_TO_DEPENDENCY_EDGE,
+                GL_DEPENDENCY_CHAIN_ARTIFACT_PATH,
+                gsdlc_dependency_chain_artifact(),
+            ),
+            (
+                GL_DEPENDENCY_TO_SEQUENCING_EDGE,
+                GL_SEQUENCING_ARTIFACT_PATH,
+                gsdlc_sequencing_artifact(),
+            ),
+            (
+                GL_SEQUENCING_TO_DESIGN_EDGE,
+                GL_DESIGN_ARTIFACT_PATH,
+                gsdlc_design_artifact(),
+            ),
+        )
+
+        from genesis.cli_adapter import _assess_result_cmd
+
+        for edge_name, artifact_relpath, artifact_text in steps:
+            result = gen_iterate(scope, stream)
+            assert result["status"] == "iterated"
+            assert result["blocking_reason"] == "fp_dispatch"
+            manifest = json.loads(Path(result["fp_manifest_path"]).read_text(encoding="utf-8"))
+            assert manifest["edge"] == edge_name
+            (workspace / artifact_relpath).write_text(artifact_text, encoding="utf-8")
+            write_gsdlc_result_file(
+                Path(manifest["result_path"]),
+                edge=edge_name,
+                actor="fake_zoom_judge",
+                assessments=[{
+                    "evaluator": "zoom_progress",
+                    "result": "pass",
+                    "evidence": f"{artifact_relpath.name} updated with non-empty content",
+                }],
+            )
+            assert _assess_result_cmd(manifest["result_path"], workspace) == 0
+
+        before_rebind = gen_gaps(scope, stream)
+        assert before_rebind["total_delta"] == 0
+        assert before_rebind["open_frames"] == 1
+        assert before_rebind["converged"] is False
+        assert project(stream, "frame", frame_id)["status"] == "open"
+
+        rebound = gen_iterate(scope, stream)
+        assert rebound["status"] == "iterated"
+        assert rebound["edge"] == GL_REQ_TO_DESIGN_EDGE
+        assert rebound["blocking_reason"] == "fp_dispatch"
+        rebound_events = [event["event_type"] for event in stream.all_events()]
+        assert "foldback_opened" in rebound_events
+        assert "frame_rebound" in rebound_events
+        assert "frame_closed" in rebound_events
+
+        design_check = run_design_standard_check(workspace)
+        assert design_check.returncode == 0, design_check.stderr or design_check.stdout
+        design_assessments = judge_design_quality(workspace / GL_DESIGN_ARTIFACT_PATH)
+        assert all(a["result"] == "pass" for a in design_assessments), design_assessments[0]["evidence"]
+        rebound_manifest = json.loads(Path(rebound["fp_manifest_path"]).read_text(encoding="utf-8"))
+        write_gsdlc_result_file(
+            Path(rebound_manifest["result_path"]),
+            edge=GL_REQ_TO_DESIGN_EDGE,
+            actor="fake_zoom_parent_judge",
+            assessments=[{
+                "evaluator": "zoom_progress",
+                "result": "pass",
+                "evidence": design_assessments[0]["evidence"],
+            }],
+        )
+        assert _assess_result_cmd(rebound_manifest["result_path"], workspace) == 0
+
+        design_scope = Scope(
+            module=module,
+            workspace_root=workspace,
+            worker=scope.worker,
+            edge_filter=GL_REQ_TO_DESIGN_EDGE,
+        )
+        final_gaps = gen_gaps(design_scope, stream)
+        assert final_gaps["converged"] is True
+        assert final_gaps["total_delta"] == 0
+        assert final_gaps["open_frames"] == 0
+        assert project(stream, "frame", frame_id)["status"] == "closed"
+        run_archive.update_summary(
+            lane="fake",
+            selection="zoomed_design_profile",
+            parent_manifest_id=rebound_manifest["manifest_id"],
+            converged=True,
+            total_delta=0,
         )

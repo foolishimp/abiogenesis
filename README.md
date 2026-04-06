@@ -17,7 +17,8 @@ The active engine and language surface is GTL 3 / ABG 3:
 ## Source of Truth
 
 Read these first:
-- [SPEC_METHOD.md](/Users/jim/src/apps/genesis_sdlc/specification/standards/SPEC_METHOD.md)
+- Public methodology master: `https://github.com/foolishimp/specification_methodology`
+- Local installer source in this checkout: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md)
 - [INTENT.md](specification/INTENT.md)
 - [requirements/](specification/requirements/)
 - [GTL_3_CONSTITUTIONAL_DESIGN.md](specification/GTL_3_CONSTITUTIONAL_DESIGN.md)

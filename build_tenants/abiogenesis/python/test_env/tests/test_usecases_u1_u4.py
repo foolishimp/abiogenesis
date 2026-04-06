@@ -21,7 +21,7 @@ from pathlib import Path
 import pytest
 
 from gtl.algebra import candidate_family, compose, deferred_refinement, fan_in, fan_out, gate, promote
-from gtl.function_model import GraphFunction
+from gtl.function_model import EnvRef, GraphFunction
 from gtl.graph import Graph, GraphVector, Node
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, Rule, F_P
@@ -37,7 +37,12 @@ from genesis.services import Scope
 
 
 def _graph_function(name: str, graph: Graph, *, tags: tuple[str, ...] = ()) -> GraphFunction:
-    return GraphFunction.from_graph(name=name, graph=graph, tags=tags)
+    return GraphFunction.from_graph(
+        name=name,
+        graph=graph,
+        environment=EnvRef.from_contract(requires=graph.inputs, provides=graph.outputs),
+        tags=tags,
+    )
 
 
 def _precomputed(job, *, failing=(), passing=()) -> PrecomputedManifest:
@@ -290,12 +295,20 @@ class TestU4ParallelWorkerHarvest:
             name="worker_branch",
             inputs=(candidate_branches,),
             outputs=(candidate_branches,),
+            environment=EnvRef.from_contract(
+                requires=(candidate_branches,),
+                provides=(candidate_branches,),
+            ),
             template="worker_branch_template",
         )
         harvest_reducer = GraphFunction(
             name="harvest_reducer",
             inputs=(judgment_vector,),
             outputs=(selected_candidate,),
+            environment=EnvRef.from_contract(
+                requires=(judgment_vector,),
+                provides=(selected_candidate,),
+            ),
             template="harvest_reducer_template",
         )
         judge = Evaluator("harvest_acceptance", F_P, "harvest satisfies declared policy")

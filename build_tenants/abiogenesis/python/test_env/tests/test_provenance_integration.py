@@ -28,7 +28,7 @@ from pathlib import Path
 import pytest
 
 from gtl.algebra import deferred_refinement
-from gtl.function_model import GraphFunction
+from gtl.function_model import EnvRef, GraphFunction
 from gtl.graph import Graph, Node, GraphVector, Context
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, Operator, F_D, F_P, F_H, Rule
@@ -95,7 +95,11 @@ def _make_fp_module() -> Module:
         nodes=(design, code),
         vectors=(vector,),
     )
-    graph_function = GraphFunction.from_graph(name=vector.name, graph=graph)
+    graph_function = GraphFunction.from_graph(
+        name=vector.name,
+        graph=graph,
+        environment=EnvRef.from_contract(requires=(design,), provides=(code,)),
+    )
     job = GtlJob(name=vector.name, contracts=(ContractRef(kind="graph_function", target_id=graph_function.id),))
     return Module(
         name="prov_fp_test",
@@ -130,7 +134,11 @@ def _make_fh_module() -> Module:
         nodes=(design, code),
         vectors=(vector,),
     )
-    graph_function = GraphFunction.from_graph(name=vector.name, graph=graph)
+    graph_function = GraphFunction.from_graph(
+        name=vector.name,
+        graph=graph,
+        environment=EnvRef.from_contract(requires=(design,), provides=(code,)),
+    )
     job = GtlJob(name=vector.name, contracts=(ContractRef(kind="graph_function", target_id=graph_function.id),))
     return Module(
         name="prov_fh_test",
@@ -496,7 +504,11 @@ class TestStaleFpRejected:
             nodes=(design, code),
             vectors=(changed_vec,),
         )
-        changed_graph_function = GraphFunction.from_graph(name=changed_vec.name, graph=changed_graph)
+        changed_graph_function = GraphFunction.from_graph(
+            name=changed_vec.name,
+            graph=changed_graph,
+            environment=EnvRef.from_contract(requires=(design,), provides=(code,)),
+        )
         changed_job = GtlJob(
             name=changed_vec.name,
             contracts=(ContractRef(kind="graph_function", target_id=changed_graph_function.id),),
@@ -517,6 +529,79 @@ class TestStaleFpRejected:
         assert result["converged"] is False, (
             "Prior assessed event must not converge after evaluator description changes "
             "(executable_job_hash covers description)"
+        )
+
+    def test_changed_environment_invalidates_prior_assessment(self, tmp_path):
+        """
+        Changing the cumulative environment contract changes executable_job_hash.
+        Prior assessed event with the old environment becomes stale.
+        """
+        _write_active_workflow(tmp_path, "genesis_sdlc.standard", "0.2.0")
+        stream = workspace_bootstrap(tmp_path)
+        module = _make_fp_module()
+        scope = Scope(module=module, workspace_root=tmp_path)
+
+        job = _job_from_module(module)
+        original_hash = executable_job_hash(job)
+        stream.append("assessed", {
+            "kind": "fp",
+            "edge": "design→code",
+            "evaluator": "code_complete",
+            "result": "pass",
+            "spec_hash": original_hash,
+        })
+        assert gen_gaps(scope, stream)["converged"] is True
+
+        design = Node(name="design")
+        code = Node(name="code")
+        carried_requirements = Node(name="requirements_context")
+        code_complete = Evaluator(
+            "code_complete", F_P, "Code implements the spec"
+        )
+        op = Operator("claude_agent", F_P, "agent://claude/genesis")
+        vec = GraphVector(
+            name="design→code",
+            source=design, target=code,
+            operators=(op,),
+            evaluators=(code_complete,),
+        )
+        graph = Graph(
+            name="prov_fp_test",
+            inputs=(design,), outputs=(code,),
+            nodes=(design, code),
+            vectors=(vec,),
+        )
+        changed_graph_function = GraphFunction.from_graph(
+            name=vec.name,
+            graph=graph,
+            environment=EnvRef.from_contract(
+                requires=(design,),
+                provides=(code,),
+                carries=(design, carried_requirements, code),
+            ),
+        )
+        changed_job = GtlJob(
+            name=vec.name,
+            contracts=(ContractRef(kind="graph_function", target_id=changed_graph_function.id),),
+        )
+        changed_module = Module(
+            name="prov_fp_test",
+            graphs=(graph,),
+            graph_functions=(changed_graph_function,),
+            refinement_boundaries=(
+                deferred_refinement(vec.name, inputs=(design,), outputs=(code,)),
+            ),
+            jobs=(changed_job,),
+            metadata={"requirements": ["REQ-PROV-001"]},
+        )
+        changed_scope = Scope(module=changed_module, workspace_root=tmp_path)
+
+        changed_hash = executable_job_hash(_job_from_module(changed_module))
+        assert changed_hash != original_hash
+        result = gen_gaps(changed_scope, stream)
+        assert result["converged"] is False, (
+            "Prior assessed event must not converge after the cumulative environment "
+            "contract changes"
         )
 
 

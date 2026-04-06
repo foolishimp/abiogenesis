@@ -9,7 +9,7 @@ The active requirement families are grouped by constitutional domain:
 - `mapping/` — GTL-to-runtime mapping and provenance law
 - `product/` — product policy, qualification, and scenario law
 
-Use [/Users/jim/src/apps/genesis_sdlc/specification/standards/SPEC_METHOD.md](/Users/jim/src/apps/genesis_sdlc/specification/standards/SPEC_METHOD.md) as the process constitution when writing or revising these files.
+Use [/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md) as the process constitution when writing or revising these files.
 
 ## Rules
 

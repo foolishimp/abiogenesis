@@ -13,7 +13,7 @@ from pathlib import Path
 import pytest
 
 from gtl.algebra import deferred_refinement
-from gtl.function_model import GraphFunction
+from gtl.function_model import EnvRef, GraphFunction
 from gtl.graph import Graph, GraphVector, Node
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, F_P
@@ -45,7 +45,11 @@ def _runtime_contract_module() -> Module:
         nodes=(design, code),
         vectors=(vector,),
     )
-    graph_function = GraphFunction.from_graph(name=vector.name, graph=graph)
+    graph_function = GraphFunction.from_graph(
+        name=vector.name,
+        graph=graph,
+        environment=EnvRef.from_contract(requires=(design,), provides=(code,)),
+    )
     return Module(
         name="runtime_identity_contract",
         graphs=(graph,),
@@ -60,7 +64,7 @@ def _runtime_contract_module_source() -> str:
     return textwrap.dedent(
         """\
         from gtl.algebra import deferred_refinement
-        from gtl.function_model import GraphFunction
+        from gtl.function_model import EnvRef, GraphFunction
         from gtl.graph import Graph, GraphVector, Node
         from gtl.module_model import Module
         from gtl.operator_model import Evaluator, F_P
@@ -83,7 +87,11 @@ def _runtime_contract_module_source() -> str:
             nodes=(design, code),
             vectors=(vector,),
         )
-        graph_function = GraphFunction.from_graph(name=vector.name, graph=graph)
+        graph_function = GraphFunction.from_graph(
+            name=vector.name,
+            graph=graph,
+            environment=EnvRef.from_contract(requires=(design,), provides=(code,)),
+        )
         module = Module(
             name="runtime_identity_contract",
             graphs=(graph,),

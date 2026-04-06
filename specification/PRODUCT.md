@@ -193,7 +193,9 @@ intent, requirement, design, code, and evidence surfaces.
 
 ### Active Goals
 
-No active product goals have been written in this surface yet.
+| Goal ID | Scope | Goal | Success Signal | Proving Surface | Status |
+| --- | --- | --- | --- | --- | --- |
+| `GOAL-001` | `GTL` + `ABG` + `Mapping` | Make cumulative environment an executable runtime law over real composed and recursive carriers, not only a static GTL contract. | ABG resolves per-boundary environment truth, late steps can read carried bindings from earlier steps, and missing internally produced bindings block dispatch rather than converging or silently running. | `test_m03_engine_kernel_integration.py`, `test_sandbox_usecases_fake.py`, `test_sandbox_usecases_live.py`, downstream `gsdlc_lite` proving routes | Active |
 
 ### Goal Template
 

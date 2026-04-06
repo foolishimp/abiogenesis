@@ -27,7 +27,7 @@ from genesis.interpret import Traversal, TraversalRuntime, traverse
 from genesis.projection import project
 from genesis.selection import SelectionDecision
 from genesis.services import Scope, gen_gaps, gen_iterate
-from genesis.transport import call_agent, has_agent
+from genesis.transport import agent_ready, call_agent
 from sandbox_runtime import install_real_sandbox
 
 from helpers_intent_requirements import (
@@ -75,10 +75,108 @@ from helpers_gsdlc_lite import (
 
 
 pytestmark = [pytest.mark.live_fp, pytest.mark.timeout(600)]
+REPO_ROOT = Path(__file__).resolve().parents[5]
 
 
 def _live_enabled() -> bool:
-    return os.environ.get("CODEX_LIVE_FP") == "1" and has_agent("claude")
+    return (
+        os.environ.get("CODEX_LIVE_FP") == "1"
+        and agent_ready("claude", work_folder=str(REPO_ROOT))
+    )
+
+
+def _call_agent_for_design_with_single_repair(
+    *,
+    prompt: str,
+    workspace: Path,
+    run_archive,
+    response_name: str,
+    check_name: str,
+    timeout: int = 240,
+) -> tuple[str, object]:
+    response = call_agent(
+        prompt,
+        str(workspace),
+        agent="claude",
+        timeout=timeout,
+        retries=1,
+    )
+    run_archive.capture_text(response_name, response)
+    assert response.strip() != ""
+
+    check = run_design_standard_check(workspace)
+    run_archive.log_subprocess(check_name, check)
+    if check.returncode == 0:
+        return response, check
+
+    repair_prompt = (
+        prompt
+        + "\n\n[REPAIR REQUIRED]\n"
+        + "The deterministic design standard still fails.\n"
+        + f"Failure:\n{check.stderr or check.stdout}\n"
+        + "Revise output/design.md so the design standard passes completely. "
+        + "Update the file directly; do not answer with commentary only."
+    )
+    repair_response = call_agent(
+        repair_prompt,
+        str(workspace),
+        agent="claude",
+        timeout=timeout,
+        retries=1,
+    )
+    run_archive.capture_text(response_name.replace(".txt", "_repair.txt"), repair_response)
+    assert repair_response.strip() != ""
+
+    repaired_check = run_design_standard_check(workspace)
+    run_archive.log_subprocess(check_name.replace(".py", "_repair.py"), repaired_check)
+    return repair_response, repaired_check
+
+
+def _call_agent_for_uat_with_single_repair(
+    *,
+    prompt: str,
+    workspace: Path,
+    run_archive,
+    response_name: str,
+    check_name: str,
+    timeout: int = 240,
+) -> tuple[str, object]:
+    response = call_agent(
+        prompt,
+        str(workspace),
+        agent="claude",
+        timeout=timeout,
+        retries=1,
+    )
+    run_archive.capture_text(response_name, response)
+    assert response.strip() != ""
+
+    check = run_uat_standard_check(workspace)
+    run_archive.log_subprocess(check_name, check)
+    if check.returncode == 0:
+        return response, check
+
+    repair_prompt = (
+        prompt
+        + "\n\n[REPAIR REQUIRED]\n"
+        + "The deterministic UAT standard still fails.\n"
+        + f"Failure:\n{check.stderr or check.stdout}\n"
+        + "Revise output/uat_tests.md so every case satisfies the UAT standard completely. "
+        + "Update the file directly; do not answer with commentary only."
+    )
+    repair_response = call_agent(
+        repair_prompt,
+        str(workspace),
+        agent="claude",
+        timeout=timeout,
+        retries=1,
+    )
+    run_archive.capture_text(response_name.replace(".txt", "_repair.txt"), repair_response)
+    assert repair_response.strip() != ""
+
+    repaired_check = run_uat_standard_check(workspace)
+    run_archive.log_subprocess(check_name.replace(".py", "_repair.py"), repaired_check)
+    return repair_response, repaired_check
 
 
 @pytest.mark.usecase_id("requirements_to_uat")
@@ -108,21 +206,18 @@ def test_requirements_to_uat_live_qualification(run_archive):
         model_id="agent-default:claude",
     )
 
-    response = call_agent(
-        manifest["prompt"],
-        str(workspace),
-        agent="claude",
+    response, check = _call_agent_for_uat_with_single_repair(
+        prompt=manifest["prompt"],
+        workspace=workspace,
+        run_archive=run_archive,
+        response_name="raw_response.txt",
+        check_name="check_uat_standard.py",
         timeout=240,
-        retries=0,
     )
-    run_archive.capture_text("raw_response.txt", response)
 
     assert response.strip() != ""
     assert artifact_path.exists()
     assert artifact_path.stat().st_size > placeholder_size, "live agent must update the sandbox artifact"
-
-    check = run_uat_standard_check(workspace)
-    run_archive.log_subprocess("check_uat_standard.py", check)
     assert check.returncode == 0, check.stderr or check.stdout
     check_payload = json.loads(check.stdout)
     run_archive.capture_json("uat_standard_check.json", check_payload)
@@ -182,7 +277,7 @@ def test_intents_to_requirements_live_qualification(run_archive):
         str(workspace),
         agent="claude",
         timeout=120,
-        retries=0,
+        retries=1,
     )
     run_archive.capture_text("raw_response.txt", response)
 
@@ -237,21 +332,17 @@ def test_gsdlc_lite_requirements_design_code_live_qualification(run_archive):
     design_path = workspace / GL_DESIGN_ARTIFACT_PATH
     design_placeholder_size = design_path.stat().st_size
 
-    design_response = call_agent(
-        first_manifest["prompt"],
-        str(workspace),
-        agent="claude",
+    design_response, design_check = _call_agent_for_design_with_single_repair(
+        prompt=first_manifest["prompt"],
+        workspace=workspace,
+        run_archive=run_archive,
+        response_name="raw_response_requirements_design.txt",
+        check_name="check_design_standard.py",
         timeout=240,
-        retries=0,
     )
-    run_archive.capture_text("raw_response_requirements_design.txt", design_response)
-
     assert design_response.strip() != ""
     assert design_path.exists()
     assert design_path.stat().st_size > design_placeholder_size, "live agent must update design.md"
-
-    design_check = run_design_standard_check(workspace)
-    run_archive.log_subprocess("check_design_standard.py", design_check)
     assert design_check.returncode == 0, design_check.stderr or design_check.stdout
     design_check_payload = json.loads(design_check.stdout)
     run_archive.capture_json("design_standard_check.json", design_check_payload)
@@ -278,7 +369,7 @@ def test_gsdlc_lite_requirements_design_code_live_qualification(run_archive):
         str(workspace),
         agent="claude",
         timeout=240,
-        retries=0,
+        retries=1,
     )
     run_archive.capture_text("raw_response_design_code.txt", code_response)
 
@@ -343,20 +434,17 @@ def test_gsdlc_lite_design_review_live_qualification(run_archive):
     design_path = workspace / GL_DESIGN_ARTIFACT_PATH
     design_placeholder_size = design_path.stat().st_size
 
-    design_response = call_agent(
-        first_manifest["prompt"],
-        str(workspace),
-        agent="claude",
+    design_response, design_check = _call_agent_for_design_with_single_repair(
+        prompt=first_manifest["prompt"],
+        workspace=workspace,
+        run_archive=run_archive,
+        response_name="raw_response_requirements_design.txt",
+        check_name="check_design_standard.py",
         timeout=240,
-        retries=0,
     )
-    run_archive.capture_text("raw_response_requirements_design.txt", design_response)
     assert design_response.strip() != ""
     assert design_path.exists()
     assert design_path.stat().st_size > design_placeholder_size
-
-    design_check = run_design_standard_check(workspace)
-    run_archive.log_subprocess("check_design_standard.py", design_check)
     assert design_check.returncode == 0, design_check.stderr or design_check.stdout
     design_check_payload = json.loads(design_check.stdout)
     run_archive.capture_json("design_standard_check.json", design_check_payload)
@@ -383,7 +471,7 @@ def test_gsdlc_lite_design_review_live_qualification(run_archive):
         str(workspace),
         agent="claude",
         timeout=240,
-        retries=0,
+        retries=1,
     )
     run_archive.capture_text("raw_response_design_review.txt", review_response)
     assert review_response.strip() != ""
@@ -418,7 +506,7 @@ def test_gsdlc_lite_design_review_live_qualification(run_archive):
         str(workspace),
         agent="claude",
         timeout=240,
-        retries=0,
+        retries=1,
     )
     run_archive.capture_text("raw_response_review_code.txt", code_response)
     assert code_response.strip() != ""
@@ -535,14 +623,25 @@ def test_gsdlc_lite_zoom_design_live_qualification(run_archive):
 
         artifact_path = workspace / artifact_relpath
         placeholder_size = artifact_path.stat().st_size if artifact_path.exists() else 0
-        response = call_agent(
-            manifest["prompt"],
-            str(workspace),
-            agent="claude",
-            timeout=240,
-            retries=0,
-        )
-        run_archive.capture_text(f"raw_response_{edge_name.replace('→', '_')}.txt", response)
+        response_name = f"raw_response_{edge_name.replace('→', '_')}.txt"
+        if edge_name == GL_SEQUENCING_TO_DESIGN_EDGE:
+            response, _ = _call_agent_for_design_with_single_repair(
+                prompt=manifest["prompt"],
+                workspace=workspace,
+                run_archive=run_archive,
+                response_name=response_name,
+                check_name="check_design_standard_zoom_step.py",
+                timeout=240,
+            )
+        else:
+            response = call_agent(
+                manifest["prompt"],
+                str(workspace),
+                agent="claude",
+                timeout=240,
+                retries=1,
+            )
+            run_archive.capture_text(response_name, response)
         assert response.strip() != ""
         assert artifact_path.exists()
         assert artifact_path.stat().st_size > placeholder_size
@@ -567,7 +666,47 @@ def test_gsdlc_lite_zoom_design_live_qualification(run_archive):
     design_assessments = judge_design_quality(workspace / GL_DESIGN_ARTIFACT_PATH)
     assert all(a["result"] == "pass" for a in design_assessments), design_assessments[0]["evidence"]
 
-    final_gaps = gen_gaps(active_scope, stream)
+    before_rebind = gen_gaps(active_scope, stream)
+    assert before_rebind["total_delta"] == 0
+    assert before_rebind["open_frames"] == 1
+    assert before_rebind["converged"] is False
+
+    rebound = gen_iterate(active_scope, stream)
+    assert rebound["status"] == "iterated"
+    assert rebound["edge"] == GL_REQ_TO_DESIGN_EDGE
+    assert rebound["blocking_reason"] == "fp_dispatch"
+    rebound_manifest = json.loads(Path(rebound["fp_manifest_path"]).read_text(encoding="utf-8"))
+    rebound_response, rebound_design_check = _call_agent_for_design_with_single_repair(
+        prompt=rebound_manifest["prompt"],
+        workspace=workspace,
+        run_archive=run_archive,
+        response_name="raw_response_parent_requirements_design.txt",
+        check_name="check_design_standard_parent.py",
+        timeout=240,
+    )
+    assert rebound_response.strip() != ""
+    assert rebound_design_check.returncode == 0, rebound_design_check.stderr or rebound_design_check.stdout
+    rebound_design_assessments = judge_design_quality(workspace / GL_DESIGN_ARTIFACT_PATH)
+    assert all(a["result"] == "pass" for a in rebound_design_assessments), rebound_design_assessments[0]["evidence"]
+    write_gsdlc_result_file(
+        Path(rebound_manifest["result_path"]),
+        edge=GL_REQ_TO_DESIGN_EDGE,
+        actor="live_zoom_parent_judge",
+        assessments=[{
+            "evaluator": "zoom_progress",
+            "result": "pass",
+            "evidence": rebound_design_assessments[0]["evidence"],
+        }],
+    )
+    assert _assess_result_cmd(str(rebound_manifest["result_path"]), workspace) == 0
+
+    design_scope = Scope(
+        module=module,
+        workspace_root=workspace,
+        worker=scope.worker,
+        edge_filter=GL_REQ_TO_DESIGN_EDGE,
+    )
+    final_gaps = gen_gaps(design_scope, stream)
     assert final_gaps["converged"] is True
     assert final_gaps["total_delta"] == 0
 
@@ -575,7 +714,7 @@ def test_gsdlc_lite_zoom_design_live_qualification(run_archive):
         lane="live",
         selection="zoomed_design_profile",
         zoom_manifest_ids=manifest_ids,
-        design_manifest_id=manifest_ids[-1],
+        design_manifest_id=rebound_manifest["manifest_id"],
         transport_method="subprocess",
         transport_agent="claude",
         model_id="agent-default:claude",

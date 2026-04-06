@@ -42,7 +42,7 @@ PYTHON_DESIGN_ROOT = REPO_ROOT / "build_tenants" / "abiogenesis" / "python" / "d
 SPEC_SCENARIO_ROOT = SPEC_ROOT / "scenarios"
 COMMON_DESIGN_ROOT = REPO_ROOT / "build_tenants" / "common" / "design"
 COMMON_QUALIFICATION_ROOT = REPO_ROOT / "build_tenants" / "common" / "qualification"
-CANONICAL_SPEC_METHOD = Path("/Users/jim/src/apps/genesis_sdlc/specification/standards/SPEC_METHOD.md")
+CANONICAL_SPEC_METHOD = Path("/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md")
 
 REQUIREMENT_FILES = sorted(path for path in REQUIREMENTS_ROOT.glob("*/*.md") if path.name.startswith("REQ-"))
 ADR_FILES = sorted(PYTHON_DESIGN_ROOT.glob("adrs/ADR-*.md"))

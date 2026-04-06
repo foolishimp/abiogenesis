@@ -35,12 +35,13 @@ from gtl.algebra import (
     fan_in,
     fan_out,
     gate,
+    graph_function_for_vector,
     identity,
     promote,
     recurse,
     substitute,
 )
-from gtl.function_model import GraphFunction, TemplateRef
+from gtl.function_model import EnvRef, GraphFunction, TemplateRef
 from gtl.graph import Attrs, Context, Graph, GraphVector, Node
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, F_D, F_P, Rule
@@ -70,6 +71,7 @@ def _graph_function(
         graph=graph,
         inputs=inputs,
         outputs=outputs,
+        environment=EnvRef.from_contract(requires=inputs, provides=outputs),
         effects=effects,
         tags=tags,
     )
@@ -105,6 +107,7 @@ class TestM01GtlCoreIntegration:
                 vectors=(vector,),
                 contexts=(spec,),
             ),
+            environment=EnvRef.from_contract(requires=(intent,), provides=(code,)),
             declarations={"evaluation_hook": "abg.evaluate.default"},
         )
 
@@ -149,6 +152,7 @@ class TestM01GtlCoreIntegration:
                 nodes=(intent, code),
                 vectors=(vector,),
             ),
+            environment=EnvRef.from_contract(requires=(intent,), provides=(code,)),
             declarations={
                 "evaluation": {
                     "ref": "genesis.policy_defaults:evaluation_declared_then_generic",
@@ -165,6 +169,7 @@ class TestM01GtlCoreIntegration:
                 nodes=(intent, code),
                 vectors=(vector,),
             ),
+            environment=EnvRef.from_contract(requires=(intent,), provides=(code,)),
             declarations={
                 "closure": {
                     "ref": "genesis.policy_defaults:closure_require_resolution_or_fh",
@@ -313,6 +318,169 @@ class TestM01GtlCoreIntegration:
         assert tuple(evaluator.name for evaluator in vectors["requirements→design"].evaluators) == ("requirements_ok",)
         assert tuple(evaluator.name for evaluator in vectors["design→code"].evaluators) == ("code_complete",)
 
+    def test_graph_function_for_vector_publishes_one_vector_as_a_public_carrier(self) -> None:
+        design = Node(name="design", schema="Design")
+        review = Node(name="review", schema="Review")
+        design_surface = Context(
+            name="design_surface",
+            locator="workspace://design.md",
+            digest="sha256:" + "8" * 64,
+        )
+        review_gate = Rule(name="review_gate", kind="gate", config={"approve": {"kind": "consensus", "n": 1, "m": 1}})
+        review_ok = Evaluator("review_ok", F_P, "review satisfies declared standard")
+        vector = GraphVector(
+            "design→review",
+            design,
+            review,
+            evaluators=(review_ok,),
+            contexts=(design_surface,),
+            rule=review_gate,
+        )
+
+        carrier = graph_function_for_vector(vector, tags=("public-carrier",))
+        materialized = carrier.materialize()
+
+        assert carrier.name == "design→review"
+        assert carrier.inputs == (design,)
+        assert carrier.outputs == (review,)
+        assert carrier.tags == ("public-carrier",)
+        assert materialized.inputs == (design,)
+        assert materialized.outputs == (review,)
+        assert materialized.contexts == (design_surface,)
+        assert materialized.rules == (review_gate,)
+        assert materialized.vectors == (vector,)
+
+    def test_composition_uses_cumulative_environment_closure_across_multiple_steps(self) -> None:
+        input_set = Node(name="input_set", schema="InputSet")
+        requirements = Node(name="requirements", schema="Requirements")
+        design = Node(name="design", schema="Design")
+        code = Node(name="code", schema="Code")
+
+        capture_requirements = graph_function_for_vector(
+            GraphVector("input_set→requirements", input_set, requirements),
+        )
+        synthesize_design = GraphFunction.from_graph(
+            name="requirements_to_design",
+            graph=Graph(
+                name="requirements_to_design",
+                inputs=(input_set, requirements),
+                outputs=(design,),
+                nodes=(input_set, requirements, design),
+                vectors=(GraphVector("requirements→design", (input_set, requirements), design),),
+            ),
+            environment=EnvRef.from_contract(
+                requires=(input_set, requirements),
+                provides=(design,),
+            ),
+        )
+        implement_code = GraphFunction.from_graph(
+            name="design_to_code",
+            graph=Graph(
+                name="design_to_code",
+                inputs=(requirements, design),
+                outputs=(code,),
+                nodes=(requirements, design, code),
+                vectors=(GraphVector("design→code", (requirements, design), code),),
+            ),
+            environment=EnvRef.from_contract(
+                requires=(requirements, design),
+                provides=(code,),
+            ),
+        )
+
+        executive = compose(capture_requirements, synthesize_design, implement_code)
+        materialized = executive.materialize()
+        environment = executive.environment
+
+        assert executive.inputs == (input_set,)
+        assert executive.outputs == (code,)
+        assert tuple(node.name for node in environment.requires) == ("input_set",)
+        assert tuple(node.name for node in environment.provides) == (
+            "requirements",
+            "design",
+            "code",
+        )
+        assert tuple(node.name for node in environment.carries) == (
+            "input_set",
+            "requirements",
+            "design",
+            "code",
+        )
+        assert materialized.inputs == (input_set,)
+        assert materialized.outputs == (code,)
+        assert {vector.name for vector in materialized.vectors} == {
+            "input_set→requirements",
+            "requirements→design",
+            "design→code",
+        }
+
+    def test_composition_rejects_requirements_missing_from_the_cumulative_environment(self) -> None:
+        input_set = Node(name="input_set", schema="InputSet")
+        requirements = Node(name="requirements", schema="Requirements")
+        design = Node(name="design", schema="Design")
+        review = Node(name="review", schema="Review")
+
+        capture_requirements = graph_function_for_vector(
+            GraphVector("input_set→requirements", input_set, requirements),
+        )
+        review_gate = GraphFunction.from_graph(
+            name="review_gate",
+            graph=Graph(
+                name="review_gate",
+                inputs=(requirements, review),
+                outputs=(design,),
+                nodes=(requirements, review, design),
+                vectors=(GraphVector("requirements+review→design", (requirements, review), design),),
+            ),
+            environment=EnvRef.from_contract(
+                requires=(requirements, review),
+                provides=(design,),
+            ),
+        )
+
+        with pytest.raises(ValueError, match="available environment"):
+            compose(capture_requirements, review_gate)
+
+    def test_composition_rejects_conflicting_provided_binding_in_carried_environment(self) -> None:
+        input_set = Node(name="input_set", schema="InputSet")
+        requirements = Node(name="requirements", schema="Requirements")
+        design = Node(name="design", schema="Design")
+
+        capture_requirements = graph_function_for_vector(
+            GraphVector("input_set→requirements", input_set, requirements),
+        )
+        synthesize_design = GraphFunction.from_graph(
+            name="requirements_to_design",
+            graph=Graph(
+                name="requirements_to_design",
+                inputs=(input_set, requirements),
+                outputs=(design,),
+                nodes=(input_set, requirements, design),
+                vectors=(GraphVector("requirements→design", (input_set, requirements), design),),
+            ),
+            environment=EnvRef.from_contract(
+                requires=(input_set, requirements),
+                provides=(design,),
+            ),
+        )
+        conflicting_design = GraphFunction.from_graph(
+            name="redesign",
+            graph=Graph(
+                name="redesign",
+                inputs=(input_set, requirements),
+                outputs=(design,),
+                nodes=(input_set, requirements, design),
+                vectors=(GraphVector("requirements→revised_design", (input_set, requirements), design),),
+            ),
+            environment=EnvRef.from_contract(
+                requires=(input_set, requirements),
+                provides=(design,),
+            ),
+        )
+
+        with pytest.raises(ValueError, match="duplicate output names"):
+            compose(capture_requirements, synthesize_design, conflicting_design)
+
     def test_substitution_rewrites_by_vector_identity_and_mints_new_graph_identity(self) -> None:
         intent = Node(name="intent", schema="Intent")
         requirements = Node(name="requirements", schema="Requirements")
@@ -410,6 +578,10 @@ class TestM01GtlCoreIntegration:
             name="worker_branch",
             inputs=(candidate_branches,),
             outputs=(candidate_branches,),
+            environment=EnvRef.from_contract(
+                requires=(candidate_branches,),
+                provides=(candidate_branches,),
+            ),
             template="worker_branch_template",
             effects=("worker_pass",),
         )
@@ -417,6 +589,10 @@ class TestM01GtlCoreIntegration:
             name="harvest_reducer",
             inputs=(judgment_vector,),
             outputs=(selected_candidate,),
+            environment=EnvRef.from_contract(
+                requires=(judgment_vector,),
+                provides=(selected_candidate,),
+            ),
             template="harvest_reducer_template",
             effects=("reduce",),
         )
@@ -529,6 +705,72 @@ class TestM01GtlCoreIntegration:
                     ),
                 ),
             )
+
+    def test_recurse_preserves_cumulative_environment_for_composed_chain(self) -> None:
+        input_set = Node(name="input_set", schema="InputSet")
+        requirements = Node(name="requirements", schema="Requirements")
+        design = Node(name="design", schema="Design")
+        code = Node(name="code", schema="Code")
+        recurse_done = Evaluator("done", F_D, binding="exec://python -c 'import sys; sys.exit(0)'")
+
+        capture_requirements = graph_function_for_vector(
+            GraphVector("input_set→requirements", input_set, requirements),
+        )
+        synthesize_design = GraphFunction.from_graph(
+            name="requirements_to_design",
+            graph=Graph(
+                name="requirements_to_design",
+                inputs=(input_set, requirements),
+                outputs=(design,),
+                nodes=(input_set, requirements, design),
+                vectors=(GraphVector("requirements→design", (input_set, requirements), design),),
+            ),
+            environment=EnvRef.from_contract(
+                requires=(input_set, requirements),
+                provides=(design,),
+            ),
+        )
+        implement_code = GraphFunction.from_graph(
+            name="design_to_code",
+            graph=Graph(
+                name="design_to_code",
+                inputs=(input_set, requirements, design),
+                outputs=(code,),
+                nodes=(input_set, requirements, design, code),
+                vectors=(GraphVector("design→code", (input_set, requirements, design), code),),
+            ),
+            environment=EnvRef.from_contract(
+                requires=(input_set, requirements, design),
+                provides=(code,),
+            ),
+        )
+
+        recursive = recurse(
+            compose(capture_requirements, synthesize_design, implement_code),
+            recurse_done,
+            foldback={
+                "binding": "outer_contract",
+                "mode": "rebind",
+                "requires_parent_evaluation": True,
+            },
+        )
+
+        assert recursive.inputs == (input_set,)
+        assert recursive.outputs == (code,)
+        assert tuple(node.name for node in recursive.environment.requires) == ("input_set",)
+        assert tuple(node.name for node in recursive.environment.carries) == (
+            "input_set",
+            "requirements",
+            "design",
+            "code",
+        )
+        assert recursive.declarations["recursion"]["termination"]["name"] == "done"
+        assert recursive.declarations["recursion"]["foldback"]["binding"] == "outer_contract"
+        assert {vector.name for vector in recursive.materialize().vectors} == {
+            "input_set→requirements",
+            "requirements→design",
+            "design→code",
+        }
 
     def test_public_gtl_metadata_surfaces_are_immutable_mappings(self) -> None:
         design = Node(name="design", schema="Design")
@@ -661,6 +903,7 @@ class TestM01GtlCoreIntegration:
             name="design_to_code",
             inputs=(design,),
             outputs=(code,),
+            environment=EnvRef.from_contract(requires=(design,), provides=(code,)),
             template=lambda graph=graph: graph,
         )
 

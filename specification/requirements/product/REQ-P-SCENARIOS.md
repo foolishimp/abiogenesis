@@ -3,7 +3,7 @@
 **Status**: Active
 **Category**: Verification
 **Date**: 2026-03-24
-**Derives from**: [/Users/jim/src/apps/genesis_sdlc/specification/standards/SPEC_METHOD.md](/Users/jim/src/apps/genesis_sdlc/specification/standards/SPEC_METHOD.md) (Verification Layers)
+**Derives from**: [/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md) (Verification Layers)
 **Wave**: 1
 
 ---

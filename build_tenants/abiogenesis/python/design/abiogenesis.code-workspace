@@ -10,15 +10,6 @@
 			"path": "../../../../../gen_enterprise_arch"
 		},
 		{
-			"path": "../../../../../genesis-manager"
-		},
-		{
-			"path": "../../../../../genesis_forum"
-		},
-		{
-			"path": "../../../../../genesis_chat"
-		},
-		{
 			"path": "../../../../../openclaw-studio"
 		},
 		{
@@ -38,6 +29,12 @@
 		},
 		{
 			"path": "../../../../../my_first_gtl_app"
+		},
+		{
+			"path": "../../../../../specification_methodology"
+		},
+		{
+			"path": "../../../../../ai_sdlc_method"
 		}
 	],
 	"settings": {

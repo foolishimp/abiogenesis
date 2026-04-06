@@ -95,7 +95,9 @@ def _docs_source() -> Path:
 
 
 def _standards_source() -> Path:
-    return _source_root().parent / "genesis_sdlc" / "specification" / "standards"
+    # Install from the local checked-out methodology repository.
+    # Public master: https://github.com/foolishimp/specification_methodology
+    return _source_root().parent / "specification_methodology" / "specification" / "standards"
 
 
 def _templates_source() -> Path:
@@ -317,6 +319,7 @@ def _root_readme_text(project_name: str, slug: str, platform: str) -> str:
     return (
         f"# {project_name}\n\n"
         "This is a GTL/ABG project scaffold.\n\n"
+        "Methodology master: `https://github.com/foolishimp/specification_methodology`\n\n"
         "Start with these surfaces:\n\n"
         "- `AGENTS.md`\n"
         "- `CLAUDE.md`\n"

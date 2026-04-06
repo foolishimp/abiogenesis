@@ -27,6 +27,7 @@ The implementation target is Python with Scala-style discipline:
 - immutable value types for prime GTL and ABG kernel surfaces
 - functional core, explicit-effect shell
 - symbolic publication and replayable materialization rather than ambient closures
+- graph functions operate over explicit immutable cumulative environment contracts rather than immediate output piping
 - explicit lineage and provenance on every zoom/materialize/fold-back step
 - recursive refinement as invocation-local frame execution over stable outer contracts
 - algebraic substitution reserved for graph/projection/export truth, not default runtime module mutation
@@ -42,6 +43,7 @@ If a proposed implementation shape would feel natural only in a mutable service 
 | ADR-024 | Markov as a first-class node field | Node-owned declared conditions remain in the GTL surface |
 | ADR-030 | Semantic Job/Role in GTL, ExecutableJob/Binding in ABG | Governs GF-first public job entry and internal vector-based execution binding |
 | ADR-031 | Runtime identity and configured worker resolution | Keeps engine/build/worker/backend provenance explicit and distinct from reporting metadata |
+| ADR-032 | Cumulative environment graph functions and disjoint-write scheduling | Governs cumulative composition, public carrier publication, and conservative parallel batching |
 
 New ADRs will implement active `REQ-L-GTL3-*` and `REQ-R-ABG3-*` keys.
 
@@ -49,7 +51,7 @@ New ADRs will implement active `REQ-L-GTL3-*` and `REQ-R-ABG3-*` keys.
 
 Traceability derives from the active GTL 3 / ABG 3 requirement surface plus the
 live testcase-authority surfaces under `specification/scenarios/`.
-Live requirement headers carry `Status` and `Category` metadata per [/Users/jim/src/apps/genesis_sdlc/specification/standards/SPEC_METHOD.md](/Users/jim/src/apps/genesis_sdlc/specification/standards/SPEC_METHOD.md).
+Live requirement headers carry `Status` and `Category` metadata per [/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md).
 The shipping verification harness is downstream of this design surface in `build_tenants/abiogenesis/python/test_env/`.
 
 ## App Bootstrap Assumption

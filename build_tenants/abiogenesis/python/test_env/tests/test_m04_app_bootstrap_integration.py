@@ -20,16 +20,93 @@ from genesis.transport import (
     AGENT_RETRY_BACKOFF,
     AGENT_RETRY_COUNT,
     AGENT_CALL_TIMEOUT,
+    AGENT_PROBE_EXPECTED_RESPONSE,
+    AGENT_PROBE_PROMPT,
+    AGENT_PROBE_TIMEOUT,
     AgentResult,
     AgentTransportError,
+    agent_ready,
     call_agent,
     classify_failure,
+    clear_agent_ready_cache,
     dispatch_agent,
+    probe_agent,
 )
 
 
 @pytest.mark.integration
 class TestM04AppBootstrapIntegration:
+    @patch("genesis.transport.shutil.which", return_value="/usr/bin/claude")
+    @patch("genesis.transport.subprocess.run")
+    def test_probe_agent_uses_machine_contract_and_requested_timeout(self, mock_run, _which, tmp_path):
+        mock_run.return_value = MagicMock(
+            returncode=0,
+            stdout=AGENT_PROBE_EXPECTED_RESPONSE + "\n",
+            stderr="",
+        )
+
+        result = probe_agent("claude", work_folder=str(tmp_path))
+
+        assert result.success is True
+        call = mock_run.call_args
+        args = call.args[0]
+        assert args[:2] == ["claude", "-p"]
+        assert args[-1] == AGENT_PROBE_PROMPT
+        assert call.kwargs["cwd"] == str(tmp_path)
+        assert call.kwargs["timeout"] == AGENT_PROBE_TIMEOUT
+
+    @patch("genesis.transport.shutil.which", return_value="/usr/bin/claude")
+    @patch("genesis.transport.subprocess.run")
+    def test_probe_agent_rejects_non_contract_output(self, mock_run, _which, tmp_path):
+        mock_run.return_value = MagicMock(
+            returncode=0,
+            stdout="Here is a detailed transport analysis",
+            stderr="",
+        )
+
+        result = probe_agent("claude", work_folder=str(tmp_path))
+
+        assert result.success is False
+        assert result.returncode == -1
+        assert "probe contract violated" in result.stderr
+
+    @patch("genesis.transport.probe_agent")
+    def test_agent_ready_caches_success_only(self, mock_probe, tmp_path):
+        clear_agent_ready_cache()
+        mock_probe.return_value = AgentResult(
+            stdout=AGENT_PROBE_EXPECTED_RESPONSE,
+            stderr="",
+            returncode=0,
+            agent="claude",
+        )
+
+        assert agent_ready("claude", work_folder=str(tmp_path)) is True
+        assert agent_ready("claude", work_folder=str(tmp_path)) is True
+        assert mock_probe.call_count == 1
+
+    @patch("genesis.transport.probe_agent")
+    def test_agent_ready_does_not_cache_failures(self, mock_probe, tmp_path):
+        clear_agent_ready_cache()
+        mock_probe.side_effect = [
+            AgentResult(
+                stdout="",
+                stderr="timeout",
+                returncode=-1,
+                agent="claude",
+                timed_out=True,
+            ),
+            AgentResult(
+                stdout=AGENT_PROBE_EXPECTED_RESPONSE,
+                stderr="",
+                returncode=0,
+                agent="claude",
+            ),
+        ]
+
+        assert agent_ready("claude", work_folder=str(tmp_path)) is False
+        assert agent_ready("claude", work_folder=str(tmp_path)) is True
+        assert mock_probe.call_count == 2
+
     @patch("genesis.transport.shutil.which", return_value="/usr/bin/claude")
     @patch("genesis.transport.subprocess.run")
     def test_call_agent_dispatches_claude_with_capability_grant_and_sanitized_env(self, mock_run, _which, tmp_path):

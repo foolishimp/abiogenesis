@@ -2,8 +2,8 @@
 
 **Status**: Active
 **Category**: Capability
-**Date**: 2026-04-05
-**Derives from**: [/Users/jim/src/apps/genesis_sdlc/specification/standards/SPEC_METHOD.md](/Users/jim/src/apps/genesis_sdlc/specification/standards/SPEC_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [GTL_3_CONSTITUTIONAL_DESIGN.md](../../GTL_3_CONSTITUTIONAL_DESIGN.md)
+**Date**: 2026-04-06
+**Derives from**: [/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [GTL_3_CONSTITUTIONAL_DESIGN.md](../../GTL_3_CONSTITUTIONAL_DESIGN.md)
 
 ---
 
@@ -14,9 +14,9 @@ contract boundary for lawful workflow reuse.
 
 ## Acceptance Criteria
 
-**REQ-L-GTL3-GRAPHFUNCTION-001**: `GraphFunction` shall be a frozen, immutable type with at minimum: `name`, `inputs`, `outputs`, `template`, `effects`, `declarations`, and `tags`.
+**REQ-L-GTL3-GRAPHFUNCTION-001**: `GraphFunction` shall be a frozen, immutable type with at minimum: `name`, `environment`, `inputs`, `outputs`, `template`, `effects`, `declarations`, and `tags`.
 
-**REQ-L-GTL3-GRAPHFUNCTION-002**: A graph function shall have an explicit typed outer interface. It materializes a `Graph`, remains the reference contract boundary for callers, and is the sole public named callable workflow carrier of GTL 3.
+**REQ-L-GTL3-GRAPHFUNCTION-002**: A graph function shall have an explicit typed outer interface and an explicit cumulative environment contract. It materializes a `Graph`, remains the reference contract boundary for callers, and is the sole public named callable workflow carrier of GTL 3.
 
 **REQ-L-GTL3-GRAPHFUNCTION-003**: The template shall be represented as replayable publication truth. Interpreter-local callable resolution may exist as implementation convenience, but it is not the published graph-function contract.
 
@@ -43,3 +43,9 @@ contract boundary for lawful workflow reuse.
 **REQ-L-GTL3-GRAPHFUNCTION-014**: Published graph functions shall be the callable work-entry surface for semantic jobs and other public execution entry points. Bare internal graph vectors are not public callable carriers.
 
 **REQ-L-GTL3-GRAPHFUNCTION-015**: A graph function may realize one or more internal `GraphVector` boundaries, but those realized vectors remain internal structural truth beneath the published graph-function carrier.
+
+**REQ-L-GTL3-GRAPHFUNCTION-016**: `GraphFunction.environment` shall be an explicit immutable cumulative environment reference with `requires`, `provides`, and `carries` surfaces.
+
+**REQ-L-GTL3-GRAPHFUNCTION-017**: `GraphFunction.inputs` shall match `environment.requires`, and `GraphFunction.outputs` shall be represented in `environment.provides`.
+
+**REQ-L-GTL3-GRAPHFUNCTION-018**: `environment.carries` shall represent the cumulative typed bindings available after lawful execution of the graph function, including required bindings preserved from upstream and newly provided bindings emitted by the function.

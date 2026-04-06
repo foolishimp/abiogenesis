@@ -26,6 +26,12 @@ from typing import Any, Callable
 AGENT_CALL_TIMEOUT = 300
 AGENT_RETRY_COUNT = 2
 AGENT_RETRY_BACKOFF = 5  # seconds
+AGENT_PROBE_TIMEOUT = 60
+AGENT_PROBE_EXPECTED_RESPONSE = "ABG_READY"
+AGENT_PROBE_PROMPT = (
+    "Return exactly this token on one line: ABG_READY. "
+    "Do not inspect the workspace. Do not analyze files. Do not add commentary."
+)
 
 
 class AgentTransportError(Exception):
@@ -60,6 +66,106 @@ def has_agent(agent: str = "claude") -> bool:
 
 def has_mcp_transport() -> bool:
     return has_agent("claude")
+
+
+def _format_transport_output(result: subprocess.CompletedProcess[str]) -> str:
+    stdout = result.stdout[:500].strip()
+    stderr = result.stderr[:500].strip()
+    parts: list[str] = []
+    if stdout:
+        parts.append(f"stdout: {stdout}")
+    if stderr:
+        parts.append(f"stderr: {stderr}")
+    return "\n".join(parts)
+
+
+def probe_agent(
+    agent: str = "claude",
+    *,
+    work_folder: str | None = None,
+    timeout: int = AGENT_PROBE_TIMEOUT,
+) -> AgentResult:
+    """
+    Probe whether an installed agent is authenticated and callable.
+
+    This is used by opt-in live qualification to skip cleanly when the CLI is
+    present but not actually usable, for example when the user is logged out.
+    The probe prompt must stay trivial so workspace bootloaders do not turn the
+    readiness check into a substantive project task.
+    """
+    cmd = _agent_command(agent)
+    if not shutil.which(cmd):
+        return AgentResult(
+            stdout="",
+            stderr=f"Agent '{agent}' not found (command: {cmd}). Install it or check PATH.",
+            returncode=-1,
+            agent=agent,
+        )
+
+    args = _build_args(agent, AGENT_PROBE_PROMPT)
+    env = _sanitized_env(agent)
+
+    try:
+        result = subprocess.run(
+            args,
+            cwd=work_folder or os.getcwd(),
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+            env=env,
+        )
+        if result.returncode == 0 and result.stdout.strip() != AGENT_PROBE_EXPECTED_RESPONSE:
+            return AgentResult(
+                stdout=result.stdout,
+                stderr=(
+                    "Agent probe contract violated. "
+                    f"Expected exact response {AGENT_PROBE_EXPECTED_RESPONSE!r}."
+                ),
+                returncode=-1,
+                agent=agent,
+            )
+        return AgentResult(
+            stdout=result.stdout,
+            stderr=result.stderr,
+            returncode=result.returncode,
+            agent=agent,
+        )
+    except subprocess.TimeoutExpired:
+        return AgentResult(
+            stdout="",
+            stderr=f"Agent '{agent}' probe timed out after {timeout}s.",
+            returncode=-1,
+            agent=agent,
+            timed_out=True,
+        )
+
+
+_AGENT_READY_CACHE: dict[tuple[str, str], bool] = {}
+
+
+def clear_agent_ready_cache() -> None:
+    _AGENT_READY_CACHE.clear()
+
+
+def agent_ready(agent: str = "claude", *, work_folder: str | None = None) -> bool:
+    """
+    Return whether the agent is callable in the requested workspace.
+
+    Successful probes are cached per `(agent, workspace)` to avoid repeated
+    subprocess startup during live test discovery. Failures are not cached so a
+    transient timeout or a newly repaired login state can recover immediately.
+    """
+    cache_key = (agent, work_folder or os.getcwd())
+    cached = _AGENT_READY_CACHE.get(cache_key)
+    if cached is True:
+        return True
+
+    ready = probe_agent(agent, work_folder=work_folder).success
+    if ready:
+        _AGENT_READY_CACHE[cache_key] = True
+    else:
+        _AGENT_READY_CACHE.pop(cache_key, None)
+    return ready
 
 
 def call_agent(
@@ -120,7 +226,11 @@ def call_agent(
             last_error = AgentTransportError(
                 f"Agent '{agent}' exited with code {result.returncode} "
                 f"in {work_folder} (attempt {attempt + 1}/{1 + retries})."
-                f"\nstderr: {result.stderr[:500]}",
+                + (
+                    "\n" + _format_transport_output(result)
+                    if _format_transport_output(result)
+                    else ""
+                ),
                 failure_class="transport_failure",
             )
             continue

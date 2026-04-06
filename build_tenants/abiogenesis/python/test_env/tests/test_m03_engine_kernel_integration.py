@@ -6,6 +6,8 @@
 # Validates: REQ-R-ABG3-RUN
 # Validates: REQ-R-ABG3-PROJECTION
 # Validates: REQ-R-ABG3-SELFHOSTING
+# Validates: REQ-R-ABG3-BINDING
+# Validates: REQ-R-ABG3-WORKER
 # Validates: REQ-M-GTL3-MAPPING
 # Validates: REQ-M-GTL3-PROVENANCE
 """
@@ -24,18 +26,28 @@ Recursive clause anchors:
 from __future__ import annotations
 
 import json
+from itertools import combinations, product
 from pathlib import Path
 
 import pytest
 
-from gtl.algebra import recurse
-from gtl.function_model import CandidateFamily, GraphFunction, RefinementBoundary
+from gtl.algebra import compose, graph_function_for_vector, recurse
+from gtl.function_model import CandidateFamily, EnvRef, GraphFunction, RefinementBoundary
 from gtl.graph import Graph, GraphVector, Node
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, F_D, F_H, F_P, Rule
 from gtl.work_model import ContractRef, Job, Role
 
-from genesis.binding import PrecomputedManifest, WorkSurface, Worker, module_to_executable_jobs
+from genesis.binding import (
+    ContextResolver,
+    ExecutableJob,
+    PrecomputedManifest,
+    WorkSurface,
+    Worker,
+    bind_fd,
+    bind_fp,
+    module_to_executable_jobs,
+)
 from genesis.identity import RuntimeIdentity
 from genesis.convergence import convergence_from_precomputed, outcomes_from_precomputed
 from genesis.events import EventContext, EventStream, emit
@@ -46,6 +58,7 @@ from genesis.interpret import (
     TraversalRuntime,
     derive_operational_gaps,
     plan_next_traversal,
+    schedule,
     traverse,
 )
 from genesis.materialization import (
@@ -73,22 +86,15 @@ BOOTLOADER_PATH = (
 
 
 def _graph_function(name: str, graph: Graph) -> GraphFunction:
-    return GraphFunction.from_graph(name=name, graph=graph)
+    return GraphFunction.from_graph(
+        name=name,
+        graph=graph,
+        environment=EnvRef.from_contract(requires=graph.inputs, provides=graph.outputs),
+    )
 
 
 def _graph_function_for_vector(vector: GraphVector) -> GraphFunction:
-    source = vector.source if isinstance(vector.source, tuple) else (vector.source,)
-    return GraphFunction.from_graph(
-        name=vector.name,
-        graph=Graph(
-            name=f"{vector.name}_workflow",
-            inputs=source,
-            outputs=(vector.target,),
-            nodes=tuple(dict.fromkeys((*source, vector.target))),
-            vectors=(vector,),
-            contexts=vector.contexts,
-        ),
-    )
+    return graph_function_for_vector(vector)
 
 
 def _precomputed(job, *, failing=(), passing=()) -> PrecomputedManifest:
@@ -100,6 +106,37 @@ def _precomputed(job, *, failing=(), passing=()) -> PrecomputedManifest:
         fd_results={},
         relevant_contexts={},
     )
+
+
+def _worker_for_write_territory(worker_id: str, targets: tuple[str, ...]) -> Worker:
+    shared_input = Node(name="shared_input", schema="SharedInput")
+    executable_jobs: list[ExecutableJob] = []
+    for index, target_name in enumerate(targets):
+        target = Node(name=target_name, schema=f"{target_name.title()}Artifact")
+        evaluator = Evaluator(
+            f"{target_name}_ready",
+            F_P,
+            f"{target_name} output is ready",
+        )
+        vector = GraphVector(
+            name=f"{worker_id}:{target_name}",
+            source=shared_input,
+            target=target,
+            evaluators=(evaluator,),
+        )
+        graph_function = graph_function_for_vector(vector)
+        executable_jobs.append(
+            ExecutableJob(
+                job=Job(
+                    name=vector.name,
+                    contracts=(ContractRef(kind="graph_function", target_id=graph_function.id),),
+                ),
+                graph_function=graph_function,
+                materialization_id=f"materialization:{worker_id}:{index}",
+                vector=vector,
+            )
+        )
+    return Worker(id=worker_id, can_execute=executable_jobs)
 
 
 def _event_types(stream: EventStream) -> list[str]:
@@ -213,6 +250,7 @@ def _recursive_candidate_chain(
             nodes=(design, code),
             vectors=(GraphVector("design→code", design, code, evaluators=(evaluator,)),),
         ),
+        environment=EnvRef.from_contract(requires=(design,), provides=(code,)),
     )
     candidates.append(next_candidate)
 
@@ -232,6 +270,7 @@ def _recursive_candidate_chain(
                 nodes=(design, code),
                 vectors=(GraphVector("design→code", design, code, evaluators=(evaluator,)),),
             ),
+            environment=EnvRef.from_contract(requires=(design,), provides=(code,)),
             declarations={
                 "frame_local_surface": {
                     "candidate_families": (local_family,),
@@ -276,8 +315,327 @@ def _minimal_property_module(requirements: list[str] | None = None) -> Module:
     )
 
 
+def _composed_cumulative_environment_module() -> Module:
+    input_set = Node(name="input_set", schema="InputSet")
+    requirements = Node(name="requirements", schema="RequirementsSurface")
+    design = Node(name="design", schema="DesignSurface")
+    code = Node(name="code", schema="CodeSurface")
+
+    requirements_ready = Evaluator(
+        "requirements_ready",
+        F_P,
+        "requirements surface satisfies current contract",
+    )
+    design_ready = Evaluator(
+        "design_ready",
+        F_P,
+        "design surface satisfies current contract",
+    )
+    code_ready = Evaluator(
+        "code_ready",
+        F_P,
+        "code surface satisfies current contract",
+    )
+
+    capture_requirements = graph_function_for_vector(
+        GraphVector(
+            "input_set→requirements",
+            input_set,
+            requirements,
+            evaluators=(requirements_ready,),
+        ),
+    )
+    synthesize_design = GraphFunction.from_graph(
+        name="requirements_to_design",
+        graph=Graph(
+            name="requirements_to_design",
+            inputs=(input_set, requirements),
+            outputs=(design,),
+            nodes=(input_set, requirements, design),
+            vectors=(
+                GraphVector(
+                    "requirements→design",
+                    (input_set, requirements),
+                    design,
+                    evaluators=(design_ready,),
+                ),
+            ),
+        ),
+        environment=EnvRef.from_contract(
+            requires=(input_set, requirements),
+            provides=(design,),
+        ),
+    )
+    implement_code = GraphFunction.from_graph(
+        name="design_to_code",
+        graph=Graph(
+            name="design_to_code",
+            inputs=(input_set, requirements, design),
+            outputs=(code,),
+            nodes=(input_set, requirements, design, code),
+            vectors=(
+                GraphVector(
+                    "design→code",
+                    (input_set, requirements, design),
+                    code,
+                    evaluators=(code_ready,),
+                ),
+            ),
+        ),
+        environment=EnvRef.from_contract(
+            requires=(input_set, requirements, design),
+            provides=(code,),
+        ),
+    )
+    executive = compose(capture_requirements, synthesize_design, implement_code)
+    materialized = executive.materialize()
+    boundaries = tuple(
+        RefinementBoundary(
+            name=vector.name,
+            inputs=vector.source if isinstance(vector.source, tuple) else (vector.source,),
+            outputs=(vector.target,),
+        )
+        for vector in materialized.vectors
+    )
+    return Module(
+        name="m03_cumulative_environment_runtime",
+        graphs=(materialized,),
+        graph_functions=(executive,),
+        refinement_boundaries=boundaries,
+        jobs=(
+            Job(
+                name="cumulative_environment_executive",
+                contracts=(ContractRef(kind="graph_function", target_id=executive.id),),
+            ),
+        ),
+        metadata={"requirements": ["REQ-M03-CUMULATIVE-ENV-001"]},
+    )
+
+
+def _emit_edge_converged(
+    stream: EventStream,
+    *,
+    workflow_version: str,
+    job: ExecutableJob,
+    work_key: str | None = None,
+) -> None:
+    emit(
+        "edge_converged",
+        {
+            "edge": job.vector.name,
+            "vector_id": job.vector.id,
+            "target": job.vector.target.name,
+            "delta": 0,
+            "certified_by": "test_runtime_environment",
+        },
+        stream=stream,
+        context=EventContext(
+            workflow_version=workflow_version,
+            work_key=work_key,
+        ),
+    )
+
+
+def _converge_fp_edge(
+    *,
+    stream: EventStream,
+    workflow_version: str,
+    job: ExecutableJob,
+    requirements: list[str],
+    work_key: str | None = None,
+) -> None:
+    spec_hash = spec_hash_for(
+        workflow_version=workflow_version,
+        executable_job=job,
+        requirements=requirements,
+    )
+    _emit_successful_fp_completion(
+        stream,
+        workflow_version=workflow_version,
+        edge=job.vector.name,
+        evaluator=job.vector.evaluators[0].name,
+        spec_hash=spec_hash,
+        run_id=f"run:{job.vector.name}",
+        work_key=work_key,
+    )
+    _emit_edge_converged(
+        stream,
+        workflow_version=workflow_version,
+        job=job,
+        work_key=work_key,
+    )
+
+
 @pytest.mark.integration
 class TestM03EngineKernelIntegration:
+    @pytest.mark.parametrize(
+        "territories",
+        tuple(
+            product(
+                (("design",), ("code",), ("review",), ("design", "code")),
+                repeat=3,
+            )
+        ),
+    )
+    def test_schedule_batches_workers_only_when_write_territory_is_disjoint(
+        self,
+        territories: tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]],
+    ) -> None:
+        workers = [
+            _worker_for_write_territory(f"worker_{index}", territory)
+            for index, territory in enumerate(territories)
+        ]
+
+        batches = schedule(workers)
+        flattened_ids = [worker.id for batch in batches for worker in batch]
+
+        assert sorted(flattened_ids) == sorted(worker.id for worker in workers)
+        for batch in batches:
+            for left, right in combinations(batch, 2):
+                assert left.readable_types == {"shared_input"}
+                assert right.readable_types == {"shared_input"}
+                assert not left.conflicts_with(right)
+
+        if all(not left.conflicts_with(right) for left, right in combinations(workers, 2)):
+            assert len(batches) == 1
+
+    def test_bind_fd_blocks_dispatch_until_internal_carried_bindings_exist(self, tmp_path: Path) -> None:
+        module = _composed_cumulative_environment_module()
+        resolver = ContextResolver(tmp_path)
+        stream = workspace_bootstrap(tmp_path)
+        jobs = {
+            job.vector.name: job
+            for job in module_to_executable_jobs(module)
+        }
+        code_job = jobs["design→code"]
+
+        blocked = bind_fd(
+            code_job,
+            stream,
+            resolver,
+            tmp_path,
+            module=module,
+        )
+
+        assert blocked.resolved_environment.ready is False
+        assert blocked.resolved_environment.missing_required == ("requirements", "design")
+        assert any(
+            binding.node.name == "input_set" and binding.display_status == "external_authority"
+            for binding in blocked.resolved_environment.bindings
+        )
+        with pytest.raises(ValueError, match="runtime environment unresolved"):
+            bind_fp(blocked, code_job)
+
+        _emit_edge_converged(
+            stream,
+            workflow_version="unknown",
+            job=jobs["input_set→requirements"],
+        )
+        _emit_edge_converged(
+            stream,
+            workflow_version="unknown",
+            job=jobs["requirements→design"],
+        )
+
+        ready = bind_fd(
+            code_job,
+            stream,
+            resolver,
+            tmp_path,
+            module=module,
+        )
+
+        assert ready.resolved_environment.ready is True
+        bound = bind_fp(ready, code_job, result_path="tmp/result.json")
+        assert "[ENVIRONMENT]" in bound.prompt
+        assert "[EXECUTION RULES]" in bound.prompt
+        assert "requirements [required]" in bound.prompt
+        assert "design [required]" in bound.prompt
+        assert "input_set [required]" in bound.prompt
+
+    def test_plan_next_traversal_skips_blocked_late_step_until_carried_environment_exists(
+        self,
+        tmp_path: Path,
+    ) -> None:
+        module = _composed_cumulative_environment_module()
+        scope = Scope(module=module, workspace_root=tmp_path)
+        stream = workspace_bootstrap(tmp_path)
+        jobs = {
+            job.vector.name: job
+            for job in module_to_executable_jobs(module)
+        }
+
+        initial_gaps = gen_gaps(scope, stream)
+        initial_by_edge = {entry["edge"]: entry for entry in initial_gaps["gaps"]}
+        assert initial_by_edge["input_set→requirements"]["environment_ready"] is True
+        assert initial_by_edge["requirements→design"]["missing_required_bindings"] == ["requirements"]
+        assert initial_by_edge["design→code"]["missing_required_bindings"] == ["requirements", "design"]
+        assert initial_gaps["converged"] is False
+
+        first_plan = plan_next_traversal(
+            module=module,
+            workspace_root=tmp_path,
+            stream=stream,
+            worker=scope.worker,
+            jobs=tuple(scope.worker.can_execute),
+            work_keys=(),
+            requirements=module.metadata["requirements"],
+            workflow_version=scope.workflow_version,
+            runtime_identity=scope.runtime_identity,
+            build=scope.build,
+        )
+        assert first_plan.runtime is not None
+        assert first_plan.runtime.executable_job.vector.name == "input_set→requirements"
+
+        _converge_fp_edge(
+            stream=stream,
+            workflow_version=scope.workflow_version,
+            job=jobs["input_set→requirements"],
+            requirements=module.metadata["requirements"],
+        )
+
+        second_plan = plan_next_traversal(
+            module=module,
+            workspace_root=tmp_path,
+            stream=stream,
+            worker=scope.worker,
+            jobs=tuple(scope.worker.can_execute),
+            work_keys=(),
+            requirements=module.metadata["requirements"],
+            workflow_version=scope.workflow_version,
+            runtime_identity=scope.runtime_identity,
+            build=scope.build,
+        )
+        assert second_plan.runtime is not None
+        assert second_plan.runtime.executable_job.vector.name == "requirements→design"
+
+        mid_gaps = gen_gaps(scope, stream)
+        mid_by_edge = {entry["edge"]: entry for entry in mid_gaps["gaps"]}
+        assert mid_by_edge["requirements→design"]["environment_ready"] is True
+        assert mid_by_edge["design→code"]["missing_required_bindings"] == ["design"]
+
+        _converge_fp_edge(
+            stream=stream,
+            workflow_version=scope.workflow_version,
+            job=jobs["requirements→design"],
+            requirements=module.metadata["requirements"],
+        )
+
+        third_plan = plan_next_traversal(
+            module=module,
+            workspace_root=tmp_path,
+            stream=stream,
+            worker=scope.worker,
+            jobs=tuple(scope.worker.can_execute),
+            work_keys=(),
+            requirements=module.metadata["requirements"],
+            workflow_version=scope.workflow_version,
+            runtime_identity=scope.runtime_identity,
+            build=scope.build,
+        )
+        assert third_plan.runtime is not None
+        assert third_plan.runtime.executable_job.vector.name == "design→code"
+
     def test_policy_resolution_honours_declared_hook_precedence_and_remains_replayable(self, tmp_path: Path) -> None:
         design = Node(name="design", schema="Design")
         code = Node(name="code", schema="Code")
@@ -311,6 +669,7 @@ class TestM03EngineKernelIntegration:
         graph_function = GraphFunction.from_graph(
             name="m03_policy_resolution",
             graph=graph,
+            environment=EnvRef.from_contract(requires=(design,), provides=(code,)),
             declarations={
                 "closure": {
                     "ref": "genesis.policy_defaults:closure_require_resolution_or_fh",
@@ -366,6 +725,7 @@ class TestM03EngineKernelIntegration:
         graph_function = GraphFunction.from_graph(
             name="m03_mapping_provenance",
             graph=graph,
+            environment=EnvRef.from_contract(requires=(requirements,), provides=(design,)),
             effects=("derive_design",),
         )
         module = Module(
@@ -1026,6 +1386,7 @@ class TestM03EngineKernelIntegration:
                 nodes=(design, code),
                 vectors=(GraphVector("design→code", design, code, evaluators=(review,)),),
             ),
+            environment=EnvRef.from_contract(requires=(design,), provides=(code,)),
             declarations={
                 "frame_local_surface": {
                     "graph_functions": (hidden_local,),
@@ -1612,6 +1973,171 @@ class TestM03EngineKernelIntegration:
         assert second_state["frame_lineage_id"] == stale_state["frame_lineage_id"]
         assert second_state["frame_attempt_id"] != stale_state["frame_attempt_id"]
 
+    def test_recursive_composed_cumulative_environment_chain_opens_composed_child_route(self, tmp_path: Path) -> None:
+        input_set = Node(name="input_set", schema="InputSet")
+        requirements = Node(name="requirements", schema="RequirementsSurface")
+        design = Node(name="design", schema="DesignSurface")
+        code = Node(name="code", schema="CodeSurface")
+        fd_ok = Evaluator(
+            "fd_ok",
+            F_D,
+            binding="exec://python -c 'import sys; sys.exit(0)'",
+        )
+        termination_ready = Evaluator(
+            "done",
+            F_D,
+            binding="exec://python -c 'import sys; sys.exit(1)'",
+        )
+        outer_review = Evaluator("profile_review", F_P, "profile satisfies current contract")
+
+        outer = GraphVector(
+            name="input_set→code",
+            source=input_set,
+            target=code,
+            evaluators=(outer_review,),
+        )
+        capture_requirements = graph_function_for_vector(
+            GraphVector(
+                name="input_set→requirements",
+                source=input_set,
+                target=requirements,
+                evaluators=(fd_ok,),
+            )
+        )
+        synthesize_design = GraphFunction.from_graph(
+            name="requirements_to_design",
+            graph=Graph(
+                name="requirements_to_design",
+                inputs=(input_set, requirements),
+                outputs=(design,),
+                nodes=(input_set, requirements, design),
+                vectors=(
+                    GraphVector(
+                        "requirements→design",
+                        (input_set, requirements),
+                        design,
+                        evaluators=(fd_ok,),
+                    ),
+                ),
+            ),
+            environment=EnvRef.from_contract(
+                requires=(input_set, requirements),
+                provides=(design,),
+            ),
+        )
+        implement_code = GraphFunction.from_graph(
+            name="design_to_code",
+            graph=Graph(
+                name="design_to_code",
+                inputs=(input_set, requirements, design),
+                outputs=(code,),
+                nodes=(input_set, requirements, design, code),
+                vectors=(
+                    GraphVector(
+                        "design→code",
+                        (input_set, requirements, design),
+                        code,
+                        evaluators=(fd_ok,),
+                    ),
+                ),
+            ),
+            environment=EnvRef.from_contract(
+                requires=(input_set, requirements, design),
+                provides=(code,),
+            ),
+        )
+        recursive_candidate = recurse(
+            compose(capture_requirements, synthesize_design, implement_code),
+            termination_ready,
+            foldback={
+                "binding": "outer_contract",
+                "mode": "rebind",
+                "requires_parent_evaluation": True,
+            },
+        )
+        family = CandidateFamily(
+            name="input_set→code_profiles",
+            inputs=(input_set,),
+            outputs=(code,),
+            candidates=(recursive_candidate,),
+        )
+        outer_profile = _graph_function_for_vector(outer)
+        module = Module(
+            name="m03_recursive_cumulative_chain",
+            graphs=(
+                Graph(
+                    name="delivery",
+                    inputs=(input_set,),
+                    outputs=(code,),
+                    nodes=(input_set, code),
+                    vectors=(outer,),
+                ),
+            ),
+            graph_functions=(outer_profile, recursive_candidate),
+            candidate_families=(family,),
+            jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_function", target_id=outer_profile.id),)),),
+            metadata={"requirements": ["REQ-M03-RECURSIVE-CUMULATIVE-001"]},
+        )
+        scope = Scope(module=module, workspace_root=tmp_path)
+        stream = workspace_bootstrap(tmp_path)
+        executable_job = module_to_executable_jobs(module)[0]
+
+        selected = traverse(
+            Traversal(
+                work_key=outer.id,
+                target=family,
+                selection=SelectionDecision(
+                    contract_id=outer.id,
+                    work_key=outer.id,
+                    graph_function=recursive_candidate.name,
+                    selected_by="test_policy",
+                    selection_mode="explicit",
+                    rationale="exercise recursive carrier over cumulative composition chain",
+                ),
+                evaluators=outer.evaluators,
+            ),
+            runtime=TraversalRuntime(
+                module=module,
+                executable_job=executable_job,
+                precomputed=_precomputed(executable_job),
+                workspace_root=tmp_path,
+                stream=stream,
+                worker=scope.worker,
+                spec_hash="spec-m03-recursive-cumulative",
+                work_key=outer.id,
+            ),
+            surface=WorkSurface(),
+        )
+
+        frame_id = selected.result["frame_id"]
+        first_frame = project(stream, "frame", frame_id)
+        assert first_frame["status"] == "open"
+        assert {step["edge"] for step in first_frame["child_steps"]} == {
+            "input_set→requirements",
+            "requirements→design",
+            "design→code",
+        }
+        assert set(first_frame["frontier"]["pending_child_keys"]) == {
+            f"{outer.id}/input_set→requirements",
+            f"{outer.id}/requirements→design",
+            f"{outer.id}/design→code",
+        }
+
+        first_iterate = gen_iterate(scope, stream)
+        assert first_iterate["status"] == "in_progress"
+        assert first_iterate["open_frames"] == 1
+        pending_frame = project(stream, "frame", frame_id)
+        assert pending_frame["continuation"]["phase"] == "foldback_pending"
+        assert pending_frame["frontier"]["pending_child_keys"] == []
+        assert set(pending_frame["frontier"]["completed_child_keys"]) == {
+            f"{outer.id}/input_set→requirements",
+            f"{outer.id}/requirements→design",
+            f"{outer.id}/design→code",
+        }
+
+        second_gaps = gen_gaps(scope, stream)
+        assert second_gaps["converged"] is False
+
     def test_frame_rebound_uses_declared_recursive_foldback_binding(self, tmp_path: Path) -> None:
         design = Node(name="design", schema="DesignDoc")
         prototype = Node(name="prototype", schema="Prototype")
@@ -1787,6 +2313,7 @@ class TestM03EngineKernelIntegration:
                 nodes=(design, code),
                 vectors=(GraphVector("design→code", design, code, evaluators=(review,)),),
             ),
+            environment=EnvRef.from_contract(requires=(design,), provides=(code,)),
             declarations={
                 "frame_local_surface": {
                     "candidate_families": (local_family,),
@@ -1944,6 +2471,7 @@ class TestM03EngineKernelIntegration:
         recursive_profile = GraphFunction.from_graph(
             name=recursive_profile.name,
             graph=recursive_profile.materialize(),
+            environment=EnvRef.from_contract(requires=(design,), provides=(code,)),
             declarations={
                 "frame_local_surface": {
                     "candidate_families": (local_family,),

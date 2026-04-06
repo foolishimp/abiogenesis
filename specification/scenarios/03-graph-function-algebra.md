@@ -2,7 +2,7 @@
 
 **Validates**: REQ-L-GTL3-GRAPHFUNCTION, REQ-L-GTL3-COMPOSE, REQ-L-GTL3-SUBSTITUTE, REQ-L-GTL3-RECURSE, REQ-L-GTL3-HOF, REQ-L-GTL3-LAWS, REQ-L-GTL3-SELECTION-BOUNDARY, REQ-L-GTL3-SYNTHESIS
 
-**Derives from**: [/Users/jim/src/apps/genesis_sdlc/specification/standards/SPEC_METHOD.md](/Users/jim/src/apps/genesis_sdlc/specification/standards/SPEC_METHOD.md), [INTENT.md](../INTENT.md) INT-001, [GTL_3_CONSTITUTIONAL_DESIGN.md](../GTL_3_CONSTITUTIONAL_DESIGN.md)
+**Derives from**: [/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [INTENT.md](../INTENT.md) INT-001, [GTL_3_CONSTITUTIONAL_DESIGN.md](../GTL_3_CONSTITUTIONAL_DESIGN.md)
 
 **Purpose**: Prove that GTL 3 realizes reusable workflow programs through graph
 functions, lawful algebra, recursive declarations, and explicit structural

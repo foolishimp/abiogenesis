@@ -361,7 +361,8 @@ The purpose of this document is to prevent unconstrained synthesis.
 ---
 
 <!-- SDLC_BOOTLOADER_START -->
-The canonical method authority is `/Users/jim/src/apps/genesis_sdlc/specification/standards/SPEC_METHOD.md`.
+The public master methodology repository is `https://github.com/foolishimp/specification_methodology`.
+For this local checkout, the installer and trace surface use `/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md`.
 Read the live project-owned constitutional surfaces first:
 - `workspace://README.md`
 - `workspace://specification/INTENT.md`

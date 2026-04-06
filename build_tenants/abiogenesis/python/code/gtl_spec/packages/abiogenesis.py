@@ -19,7 +19,7 @@ from gtl.function_model import GraphFunction
 from gtl.graph import Graph, Node, GraphVector, Context
 from gtl.module_model import Module
 from gtl.work_model import Job, ContractRef, Role
-from gtl.algebra import deferred_refinement
+from gtl.algebra import deferred_refinement, graph_function_for_vector
 
 from gtl.operator_model import (
     Evaluator, Operator, Rule,
@@ -248,28 +248,12 @@ sdlc_graph = Graph(
     contexts=(bootloader, this_spec, intent_doc, design_adrs, specification_dir),
 )
 
-
-def _graph_function_for_vector(vector: GraphVector) -> GraphFunction:
-    source = vector.source if isinstance(vector.source, tuple) else (vector.source,)
-    return GraphFunction.from_graph(
-        name=vector.name,
-        graph=Graph(
-            name=f"{vector.name}_workflow",
-            inputs=source,
-            outputs=(vector.target,),
-            nodes=tuple(dict.fromkeys((*source, vector.target))),
-            vectors=(vector,),
-            contexts=vector.contexts,
-        ),
-    )
-
-
-gf_intent_req = _graph_function_for_vector(v_intent_req)
-gf_req_feat = _graph_function_for_vector(v_req_feat)
-gf_feat_design = _graph_function_for_vector(v_feat_design)
-gf_design_bootdoc = _graph_function_for_vector(v_design_bootdoc)
-gf_design_code = _graph_function_for_vector(v_design_code)
-gf_tdd = _graph_function_for_vector(v_tdd)
+gf_intent_req = graph_function_for_vector(v_intent_req)
+gf_req_feat = graph_function_for_vector(v_req_feat)
+gf_feat_design = graph_function_for_vector(v_feat_design)
+gf_design_bootdoc = graph_function_for_vector(v_design_bootdoc)
+gf_design_code = graph_function_for_vector(v_design_code)
+gf_tdd = graph_function_for_vector(v_tdd)
 
 
 # ── Roles (semantic capability classes) ──────────────────────────────────────

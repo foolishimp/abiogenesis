@@ -10,8 +10,8 @@ import sys
 import textwrap
 from pathlib import Path
 
-from gtl.algebra import deferred_refinement
-from gtl.function_model import GraphFunction
+from gtl.algebra import deferred_refinement, graph_function_for_vector
+from gtl.function_model import EnvRef, GraphFunction
 from gtl.graph import Context, Graph, GraphVector, Node
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, Operator, F_D, F_P
@@ -866,22 +866,16 @@ def gsdlc_lite_module(workspace: Path) -> Module:
 
 
 def _graph_function(name: str, graph: Graph, *, tags: tuple[str, ...] = ()) -> GraphFunction:
-    return GraphFunction.from_graph(name=name, graph=graph, tags=tags)
+    return GraphFunction.from_graph(
+        name=name,
+        graph=graph,
+        environment=EnvRef.from_contract(requires=graph.inputs, provides=graph.outputs),
+        tags=tags,
+    )
 
 
 def _graph_function_for_vector(vector: GraphVector) -> GraphFunction:
-    source = vector.source if isinstance(vector.source, tuple) else (vector.source,)
-    return GraphFunction.from_graph(
-        name=vector.name,
-        graph=Graph(
-            name=f"{vector.name}_workflow",
-            inputs=source,
-            outputs=(vector.target,),
-            nodes=tuple(dict.fromkeys((*source, vector.target))),
-            vectors=(vector,),
-            contexts=vector.contexts,
-        ),
-    )
+    return graph_function_for_vector(vector)
 
 
 def gsdlc_lite_zoom_module(workspace: Path) -> Module:
