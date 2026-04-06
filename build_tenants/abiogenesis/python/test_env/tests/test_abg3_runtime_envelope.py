@@ -166,7 +166,7 @@ def test_dispatch_runtime_emits_failure_graph_call_and_continuation(monkeypatch,
         "spec_hash": "spec-1",
     }
 
-    def fake_dispatch_agent(prompt, work_folder, *, agent="claude", timeout=300):
+    def fake_dispatch_agent(prompt, work_folder, *, agent="claude", timeout=300, config=None):
         return AgentResult(stdout="", stderr="boom", returncode=1, agent=agent)
 
     monkeypatch.setattr("genesis.dispatch_runtime.dispatch_agent", fake_dispatch_agent)
@@ -205,6 +205,95 @@ def test_dispatch_runtime_emits_failure_graph_call_and_continuation(monkeypatch,
     assert run["failure_class"] == "transport_failure"
 
 
+def test_dispatch_runtime_forwards_local_transport_contract_config(monkeypatch, tmp_path):
+    results_dir = tmp_path / ".ai-workspace" / "fp_results"
+    results_dir.mkdir(parents=True, exist_ok=True)
+    result_path = results_dir / "manifest-forward.json"
+    result_path.write_text(
+        json.dumps(
+            {
+                "edge": "design→code",
+                "actor": "codex",
+                "assessments": [
+                    {
+                        "evaluator": "code_complete",
+                        "result": "pass",
+                        "evidence": "ok",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    manifest = {
+        "manifest_id": "manifest-forward",
+        "call_id": "call-manifest-forward",
+        "edge": "design→code",
+        "run_id": "run-forward",
+        "workflow_version": "wf-forward",
+        "graph_function_id": "gf-forward",
+        "materialization_id": "mat-forward",
+        "vector_id": "vec-forward",
+        "job_id": "job-forward",
+        "prompt": "write code",
+        "result_path": str(result_path),
+        "spec_hash": "spec-forward",
+    }
+    forwarded: dict[str, object] = {}
+
+    def fake_dispatch_agent(prompt, work_folder, *, agent="claude", timeout=300, config=None):
+        forwarded["agent"] = agent
+        forwarded["timeout"] = timeout
+        forwarded["config"] = config
+        return AgentResult(stdout="ok", stderr="", returncode=0, agent=agent)
+
+    monkeypatch.setattr("genesis.dispatch_runtime.dispatch_agent", fake_dispatch_agent)
+
+    config = {
+        "runtime_backend": "codex_cli",
+        "transport_contract": "local_transport_contract.json",
+    }
+    summary = dispatch_bound_manifest_via_transport(
+        manifest,
+        tmp_path,
+        config=config,
+    )
+
+    assert summary["status"] == "ok"
+    assert forwarded["agent"] == "codex"
+    assert forwarded["timeout"] == 300
+    assert forwarded["config"] == config
+
+
+def test_dispatch_runtime_classifies_missing_local_transport_contract_as_policy_config_defect(tmp_path):
+    manifest = {
+        "manifest_id": "manifest-missing-contract",
+        "call_id": "call-missing-contract",
+        "edge": "design→code",
+        "run_id": "run-missing-contract",
+        "workflow_version": "wf-missing-contract",
+        "graph_function_id": "gf-missing-contract",
+        "materialization_id": "mat-missing-contract",
+        "vector_id": "vec-missing-contract",
+        "job_id": "job-missing-contract",
+        "prompt": "write code",
+        "result_path": str(tmp_path / ".ai-workspace" / "fp_results" / "manifest-missing-contract.json"),
+        "spec_hash": "spec-missing-contract",
+    }
+
+    summary = dispatch_bound_manifest_via_transport(
+        manifest,
+        tmp_path,
+        config={
+            "runtime_backend": "codex_cli",
+            "transport_contract": "missing_transport_contract.json",
+        },
+    )
+
+    assert summary["status"] == "error"
+    assert summary["failure_class"] == "policy_config_defect"
+
+
 def test_dispatch_runtime_ingests_result_and_closes_graph_call(monkeypatch, tmp_path):
     results_dir = tmp_path / ".ai-workspace" / "fp_results"
     results_dir.mkdir(parents=True, exist_ok=True)
@@ -241,7 +330,7 @@ def test_dispatch_runtime_ingests_result_and_closes_graph_call(monkeypatch, tmp_
         "spec_hash": "spec-2",
     }
 
-    def fake_dispatch_agent(prompt, work_folder, *, agent="claude", timeout=300):
+    def fake_dispatch_agent(prompt, work_folder, *, agent="claude", timeout=300, config=None):
         return AgentResult(stdout="ok", stderr="", returncode=0, agent=agent)
 
     monkeypatch.setattr("genesis.dispatch_runtime.dispatch_agent", fake_dispatch_agent)
@@ -359,7 +448,7 @@ def test_successful_ingest_resolves_preexisting_open_continuation(monkeypatch, t
         "spec_hash": "spec-3",
     }
 
-    def fake_dispatch_agent(prompt, work_folder, *, agent="claude", timeout=300):
+    def fake_dispatch_agent(prompt, work_folder, *, agent="claude", timeout=300, config=None):
         return AgentResult(stdout="ok", stderr="", returncode=0, agent=agent)
 
     monkeypatch.setattr("genesis.dispatch_runtime.dispatch_agent", fake_dispatch_agent)

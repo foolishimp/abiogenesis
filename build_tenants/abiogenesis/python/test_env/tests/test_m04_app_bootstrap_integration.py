@@ -11,6 +11,7 @@ canonical python tenant.
 """
 from __future__ import annotations
 
+import json
 import subprocess
 from unittest.mock import MagicMock, patch
 
@@ -149,7 +150,7 @@ class TestM04AppBootstrapIntegration:
         assert args[-1] == "prompt"
 
     @patch("genesis.transport.shutil.which", return_value="/usr/bin/codex")
-    @patch("genesis.transport._codex_output_file")
+    @patch("genesis.transport._agent_output_file")
     @patch("genesis.transport.subprocess.run")
     def test_call_agent_uses_codex_exec_contract_and_reads_last_message(
         self,
@@ -175,7 +176,7 @@ class TestM04AppBootstrapIntegration:
         assert args[-1] == "prompt"
 
     @patch("genesis.transport.shutil.which", return_value="/usr/bin/codex")
-    @patch("genesis.transport._codex_output_file")
+    @patch("genesis.transport._agent_output_file")
     @patch("genesis.transport.subprocess.run")
     def test_probe_agent_accepts_codex_last_message_contract(
         self,
@@ -199,6 +200,83 @@ class TestM04AppBootstrapIntegration:
         args = mock_run.call_args.args[0]
         assert args[:4] == ["codex", "exec", "--full-auto", "--skip-git-repo-check"]
         assert args[-1] == AGENT_PROBE_PROMPT
+
+    @patch("genesis.transport.shutil.which", return_value="/usr/bin/codex-next")
+    @patch("genesis.transport._agent_output_file")
+    @patch("genesis.transport.subprocess.run")
+    def test_call_agent_uses_local_transport_contract_override_file(
+        self,
+        mock_run,
+        mock_output_file,
+        _which,
+        tmp_path,
+    ):
+        output_path = tmp_path / "codex-custom.txt"
+        mock_output_file.return_value = output_path
+        contract_path = tmp_path / "transport_contract.json"
+        contract_path.write_text(
+            json.dumps(
+                {
+                    "codex": {
+                        "command": "codex-next",
+                        "args": ["exec", "--fast", "-o", "{output_path}", "{prompt}"],
+                        "call_timeout": 123,
+                    }
+                }
+            ),
+            encoding="utf-8",
+        )
+
+        def _fake_run(args, **kwargs):
+            output_path.write_text("artifact body", encoding="utf-8")
+            assert kwargs["timeout"] == 123
+            return MagicMock(returncode=0, stdout="wrapper output", stderr="")
+
+        mock_run.side_effect = _fake_run
+
+        result = call_agent(
+            "prompt",
+            str(tmp_path),
+            agent="codex",
+            retries=0,
+            config={"transport_contract": str(contract_path)},
+        )
+
+        assert result == "artifact body"
+        args = mock_run.call_args.args[0]
+        assert args == [
+            "codex-next",
+            "exec",
+            "--fast",
+            "-o",
+            str(output_path),
+            "prompt",
+        ]
+
+    def test_call_agent_fails_closed_on_malformed_local_transport_contract(self, tmp_path):
+        contract_path = tmp_path / "transport_contract.json"
+        contract_path.write_text("{bad json", encoding="utf-8")
+
+        with pytest.raises(AgentTransportError, match="transport_contract file"):
+            call_agent(
+                "prompt",
+                str(tmp_path),
+                agent="codex",
+                retries=0,
+                config={"transport_contract": str(contract_path)},
+            )
+
+    def test_dispatch_agent_surfaces_local_transport_contract_defect(self, tmp_path):
+        result = dispatch_agent(
+            "prompt",
+            str(tmp_path),
+            agent="codex",
+            config={"transport_contract": str(tmp_path / "missing_transport_contract.json")},
+        )
+
+        assert result.success is False
+        assert result.returncode == -1
+        assert "transport_contract file" in result.stderr
 
     @patch("genesis.transport.shutil.which", return_value="/usr/bin/claude")
     @patch("genesis.transport.subprocess.run")

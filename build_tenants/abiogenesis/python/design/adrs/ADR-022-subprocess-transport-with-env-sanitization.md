@@ -91,10 +91,23 @@ The subprocess model naturally supports multiple agents:
 | Agent | Command | Notes |
 |-------|---------|-------|
 | claude | `claude -p --output-format text --permission-mode bypassPermissions <prompt>` | Env sanitized (CLAUDE* stripped), permissions bypassed |
-| codex | `codex -q --full-auto <prompt>` | No sanitization needed |
+| codex | `codex exec --full-auto --skip-git-repo-check -o <output_path> <prompt>` | Last assistant message captured from output file |
 | gemini | `gemini -p <prompt>` | No sanitization needed |
 
 All agents share the same contract: prompt in, artifacts out, exit code. The runtime binding surface selects the agent.
+
+### Local transport-contract override
+
+The product owns default subprocess contracts for supported agents, but the
+exact CLI contract is treated as fragile runtime substrate, not stable product
+law. A workspace/runtime contract may therefore point to a local JSON transport
+contract override that replaces command, argument template, output mode, probe
+prompt/expectation, timeout, retry budget, and environment sanitization rules
+per agent.
+
+Malformed or unreadable local overrides fail closed as configuration defects.
+They do not silently fall back to defaults when an override was explicitly
+requested.
 
 ### MCP remains for tool plane only
 
@@ -134,8 +147,9 @@ Single implementation in `genesis/transport.py`:
 - `call_agent(prompt, work_folder, agent=, timeout=, retries=)` — subprocess dispatch with env sanitization, permission bypass, and retry
 - `dispatch_agent(prompt, work_folder, ...)` — non-throwing variant returning `AgentResult`
 - `classify_failure(result, result_path)` — ADR-027 failure classification
-- `_sanitized_env(agent)` — strips CLAUDE* for claude, passthrough for others
-- `_build_args(agent, prompt)` — builds subprocess args with agent-specific flags
+- `_resolve_agent_contract(agent, config, work_folder)` — resolves default or local override contract
+- `_sanitized_env(agent)` — strips configured env prefixes for the resolved contract
+- `_build_args(agent, prompt)` — builds subprocess args from the resolved contract template
 - `AgentTransportError` — classified failure with `failure_class`
 
 ### Permission bypass (REQ-P-QUAL-023)

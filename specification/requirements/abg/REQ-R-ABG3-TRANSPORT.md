@@ -23,3 +23,7 @@ product-local imperative code.
 **REQ-R-ABG3-TRANSPORT-004**: Missing, empty, malformed, or contract-invalid payload artifacts shall classify distinctly from transport/runtime defects.
 
 **REQ-R-ABG3-TRANSPORT-005**: Certification or proof failure after constructive work shall remain downstream proof/closure truth, not transport truth.
+
+**REQ-R-ABG3-TRANSPORT-006**: Agent CLI invocation contracts shall be owned by ABG but locally overrideable through runtime configuration so workspace/runtime-specific transport drift does not require product code changes.
+
+**REQ-R-ABG3-TRANSPORT-007**: Malformed or unreadable local transport-contract overrides shall fail closed as runtime/policy configuration defects rather than silently falling back to embedded defaults.

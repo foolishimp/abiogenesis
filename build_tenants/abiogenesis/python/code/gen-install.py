@@ -185,6 +185,7 @@ def install(target: Path, *, verify_only: bool = False,
             f"# worker:  your_domain.package:worker\n"
             f"# runtime_build: codex\n"
             f"# runtime_backend: codex_cli\n"
+            f"# transport_contract: path/to/transport_contract.json\n"
             f"# runtime_authority_ref: runtime://role-dispatch\n"
         )
         config_path.write_text(config_text, encoding="utf-8")
