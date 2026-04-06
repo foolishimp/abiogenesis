@@ -18,6 +18,7 @@ import json
 import os
 import shutil
 import subprocess
+import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable
@@ -79,6 +80,67 @@ def _format_transport_output(result: subprocess.CompletedProcess[str]) -> str:
     return "\n".join(parts)
 
 
+def _codex_output_file() -> Path:
+    handle = tempfile.NamedTemporaryFile(prefix="abg_codex_", suffix=".txt", delete=False)
+    handle.close()
+    return Path(handle.name)
+
+
+def _read_optional_output(path: Path) -> str:
+    try:
+        return path.read_text(encoding="utf-8")
+    except OSError:
+        return ""
+
+
+def _run_agent_subprocess(
+    *,
+    agent: str,
+    prompt: str,
+    cwd: str,
+    timeout: int,
+    env: dict[str, str],
+) -> AgentResult:
+    output_path: Path | None = None
+    try:
+        if agent == "codex":
+            output_path = _codex_output_file()
+        args = _build_args(agent, prompt, output_path=output_path)
+        result = subprocess.run(
+            args,
+            cwd=cwd,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+            env=env,
+        )
+        stdout = result.stdout
+        if output_path is not None:
+            captured = _read_optional_output(output_path).strip()
+            if captured:
+                stdout = captured
+        return AgentResult(
+            stdout=stdout,
+            stderr=result.stderr,
+            returncode=result.returncode,
+            agent=agent,
+        )
+    except subprocess.TimeoutExpired:
+        return AgentResult(
+            stdout="",
+            stderr=f"Agent '{agent}' timed out after {timeout}s.",
+            returncode=-1,
+            agent=agent,
+            timed_out=True,
+        )
+    finally:
+        if output_path is not None:
+            try:
+                output_path.unlink()
+            except OSError:
+                pass
+
+
 def probe_agent(
     agent: str = "claude",
     *,
@@ -102,42 +164,28 @@ def probe_agent(
             agent=agent,
         )
 
-    args = _build_args(agent, AGENT_PROBE_PROMPT)
     env = _sanitized_env(agent)
-
-    try:
-        result = subprocess.run(
-            args,
-            cwd=work_folder or os.getcwd(),
-            capture_output=True,
-            text=True,
-            timeout=timeout,
-            env=env,
-        )
-        if result.returncode == 0 and result.stdout.strip() != AGENT_PROBE_EXPECTED_RESPONSE:
-            return AgentResult(
-                stdout=result.stdout,
-                stderr=(
-                    "Agent probe contract violated. "
-                    f"Expected exact response {AGENT_PROBE_EXPECTED_RESPONSE!r}."
-                ),
-                returncode=-1,
-                agent=agent,
-            )
+    result = _run_agent_subprocess(
+        agent=agent,
+        prompt=AGENT_PROBE_PROMPT,
+        cwd=work_folder or os.getcwd(),
+        timeout=timeout,
+        env=env,
+    )
+    if result.timed_out:
+        result.stderr = f"Agent '{agent}' probe timed out after {timeout}s."
+        return result
+    if result.returncode == 0 and result.stdout.strip() != AGENT_PROBE_EXPECTED_RESPONSE:
         return AgentResult(
             stdout=result.stdout,
-            stderr=result.stderr,
-            returncode=result.returncode,
-            agent=agent,
-        )
-    except subprocess.TimeoutExpired:
-        return AgentResult(
-            stdout="",
-            stderr=f"Agent '{agent}' probe timed out after {timeout}s.",
+            stderr=(
+                "Agent probe contract violated. "
+                f"Expected exact response {AGENT_PROBE_EXPECTED_RESPONSE!r}."
+            ),
             returncode=-1,
             agent=agent,
-            timed_out=True,
         )
+    return result
 
 
 _AGENT_READY_CACHE: dict[tuple[str, str], bool] = {}
@@ -195,7 +243,6 @@ def call_agent(
             failure_class="transport_failure",
         )
 
-    args = _build_args(agent, prompt)
     env = _sanitized_env(agent)
 
     last_error: AgentTransportError | None = None
@@ -204,22 +251,19 @@ def call_agent(
             import time
             time.sleep(AGENT_RETRY_BACKOFF * attempt)
 
-        try:
-            result = subprocess.run(
-                args,
-                cwd=work_folder,
-                capture_output=True,
-                text=True,
-                timeout=timeout,
-                env=env,
-            )
-        except subprocess.TimeoutExpired as exc:
+        result = _run_agent_subprocess(
+            agent=agent,
+            prompt=prompt,
+            cwd=work_folder,
+            timeout=timeout,
+            env=env,
+        )
+        if result.timed_out:
             last_error = AgentTransportError(
                 f"Agent '{agent}' timed out after {timeout}s in {work_folder} "
                 f"(attempt {attempt + 1}/{1 + retries}).",
                 failure_class="transport_failure",
             )
-            last_error.__cause__ = exc
             continue
 
         if result.returncode != 0:
@@ -227,8 +271,16 @@ def call_agent(
                 f"Agent '{agent}' exited with code {result.returncode} "
                 f"in {work_folder} (attempt {attempt + 1}/{1 + retries})."
                 + (
-                    "\n" + _format_transport_output(result)
-                    if _format_transport_output(result)
+                    "\n"
+                    + "\n".join(
+                        part
+                        for part in (
+                            f"stdout: {result.stdout[:500].strip()}" if result.stdout.strip() else "",
+                            f"stderr: {result.stderr[:500].strip()}" if result.stderr.strip() else "",
+                        )
+                        if part
+                    )
+                    if (result.stdout.strip() or result.stderr.strip())
                     else ""
                 ),
                 failure_class="transport_failure",
@@ -261,32 +313,17 @@ def dispatch_agent(
             agent=agent,
         )
 
-    args = _build_args(agent, prompt)
     env = _sanitized_env(agent)
-
-    try:
-        result = subprocess.run(
-            args,
-            cwd=work_folder,
-            capture_output=True,
-            text=True,
-            timeout=timeout,
-            env=env,
-        )
-        return AgentResult(
-            stdout=result.stdout,
-            stderr=result.stderr,
-            returncode=result.returncode,
-            agent=agent,
-        )
-    except subprocess.TimeoutExpired:
-        return AgentResult(
-            stdout="",
-            stderr=f"Agent '{agent}' timed out after {timeout}s in {work_folder}.",
-            returncode=-1,
-            agent=agent,
-            timed_out=True,
-        )
+    result = _run_agent_subprocess(
+        agent=agent,
+        prompt=prompt,
+        cwd=work_folder,
+        timeout=timeout,
+        env=env,
+    )
+    if result.timed_out:
+        result.stderr = f"Agent '{agent}' timed out after {timeout}s in {work_folder}."
+    return result
 
 
 def classify_failure(
@@ -338,7 +375,7 @@ def _agent_command(agent: str) -> str:
     return commands[agent]
 
 
-def _build_args(agent: str, prompt: str) -> list[str]:
+def _build_args(agent: str, prompt: str, *, output_path: Path | None = None) -> list[str]:
     """Build the subprocess argument list for the given agent.
 
     REQ-P-QUAL-023: agent subprocess must have sufficient permissions to
@@ -354,7 +391,17 @@ def _build_args(agent: str, prompt: str) -> list[str]:
             prompt,
         ]
     elif agent == "codex":
-        return ["codex", "-q", "--full-auto", prompt]
+        if output_path is None:
+            raise ValueError("Codex transport requires an output_path")
+        return [
+            "codex",
+            "exec",
+            "--full-auto",
+            "--skip-git-repo-check",
+            "-o",
+            str(output_path),
+            prompt,
+        ]
     elif agent == "gemini":
         return ["gemini", "-p", prompt]
     else:

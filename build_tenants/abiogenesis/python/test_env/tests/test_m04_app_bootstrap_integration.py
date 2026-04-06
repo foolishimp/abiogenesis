@@ -133,7 +133,6 @@ class TestM04AppBootstrapIntegration:
     @pytest.mark.parametrize(
         ("agent", "expected_flags"),
         (
-            ("codex", ("codex", "-q", "--full-auto")),
             ("gemini", ("gemini", "-p")),
         ),
     )
@@ -148,6 +147,58 @@ class TestM04AppBootstrapIntegration:
 
         assert tuple(args[: len(expected_flags)]) == expected_flags
         assert args[-1] == "prompt"
+
+    @patch("genesis.transport.shutil.which", return_value="/usr/bin/codex")
+    @patch("genesis.transport._codex_output_file")
+    @patch("genesis.transport.subprocess.run")
+    def test_call_agent_uses_codex_exec_contract_and_reads_last_message(
+        self,
+        mock_run,
+        mock_output_file,
+        _which,
+        tmp_path,
+    ):
+        output_path = tmp_path / "codex-last-message.txt"
+        mock_output_file.return_value = output_path
+
+        def _fake_run(args, **kwargs):
+            output_path.write_text("artifact body", encoding="utf-8")
+            return MagicMock(returncode=0, stdout="wrapper output", stderr="")
+
+        mock_run.side_effect = _fake_run
+
+        assert call_agent("prompt", str(tmp_path), agent="codex", retries=0) == "artifact body"
+        args = mock_run.call_args.args[0]
+
+        assert args[:4] == ["codex", "exec", "--full-auto", "--skip-git-repo-check"]
+        assert "-o" in args
+        assert args[-1] == "prompt"
+
+    @patch("genesis.transport.shutil.which", return_value="/usr/bin/codex")
+    @patch("genesis.transport._codex_output_file")
+    @patch("genesis.transport.subprocess.run")
+    def test_probe_agent_accepts_codex_last_message_contract(
+        self,
+        mock_run,
+        mock_output_file,
+        _which,
+        tmp_path,
+    ):
+        output_path = tmp_path / "codex-probe.txt"
+        mock_output_file.return_value = output_path
+
+        def _fake_run(args, **kwargs):
+            output_path.write_text(AGENT_PROBE_EXPECTED_RESPONSE, encoding="utf-8")
+            return MagicMock(returncode=0, stdout="wrapper output", stderr="")
+
+        mock_run.side_effect = _fake_run
+
+        result = probe_agent("codex", work_folder=str(tmp_path))
+
+        assert result.success is True
+        args = mock_run.call_args.args[0]
+        assert args[:4] == ["codex", "exec", "--full-auto", "--skip-git-repo-check"]
+        assert args[-1] == AGENT_PROBE_PROMPT
 
     @patch("genesis.transport.shutil.which", return_value="/usr/bin/claude")
     @patch("genesis.transport.subprocess.run")
