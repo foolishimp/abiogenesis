@@ -18,9 +18,9 @@ from pathlib import Path
 
 import pytest
 
-from gtl.algebra import candidate_family, deferred_refinement
+from gtl.algebra import candidate_family, compose, deferred_refinement, recurse
 from gtl.function_model import EnvRef, GraphFunction, TemplateRef
-from gtl.graph import Graph, GraphVector, Node
+from gtl.graph import Attrs, Graph, GraphVector, Node
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, F_D, Operator
 from gtl.work_model import ContractRef, Job
@@ -141,6 +141,117 @@ class TestM02WorkPublicationIntegration:
         )
         assert resolve_frame_candidate_family(imported_only, vector.id) == imported_family
         assert resolve_frame_refinement_boundary(imported_only, vector.id) == imported_boundary
+
+    def test_job_bound_symbolic_composed_carrier_materializes_against_published_module_truth(self, tmp_path: Path) -> None:
+        design = Node(name="design", schema="Design")
+        review = Node(name="review_assessment", schema="ReviewAssessment")
+        decision = Node(name="consensus_decision", schema="ConsensusDecision")
+        reviewed = Node(name="reviewed_design", schema="ReviewedDesign")
+
+        review_eval = Evaluator("review_ready", F_D, "review surface present")
+        decision_eval = Evaluator("decision_ready", F_D, "decision surface present")
+        apply_eval = Evaluator("reviewed_design_ready", F_D, "reviewed design present")
+        terminate = Evaluator("consensus_terminated", F_D, "consensus round may stop")
+
+        review_round = GraphFunction.from_graph(
+            name="review_design_assessment_round",
+            graph=Graph(
+                name="review_design_assessment_round_graph",
+                inputs=(design,),
+                outputs=(review,),
+                nodes=(design, review),
+                vectors=(GraphVector("review_design_assessment_round", design, review, evaluators=(review_eval,)),),
+            ),
+            environment=EnvRef.from_contract(requires=(design,), provides=(review,)),
+            declarations=Attrs.coerce({"selection_visible": False}),
+        )
+        reduce_round = GraphFunction.from_graph(
+            name="reduce_design_consensus_decision",
+            graph=Graph(
+                name="reduce_design_consensus_decision_graph",
+                inputs=(review,),
+                outputs=(decision,),
+                nodes=(review, decision),
+                vectors=(GraphVector("reduce_design_consensus_decision", review, decision, evaluators=(decision_eval,)),),
+            ),
+            environment=EnvRef.from_contract(requires=(review,), provides=(decision,)),
+            declarations=Attrs.coerce({"selection_visible": False}),
+        )
+        apply_round = GraphFunction.from_graph(
+            name="apply_design_consensus_decision",
+            graph=Graph(
+                name="apply_design_consensus_decision_graph",
+                inputs=(design, decision),
+                outputs=(reviewed,),
+                nodes=(design, decision, reviewed),
+                vectors=(GraphVector("apply_design_consensus_decision", (design, decision), reviewed, evaluators=(apply_eval,)),),
+            ),
+            environment=EnvRef.from_contract(requires=(design, decision), provides=(reviewed,)),
+            declarations=Attrs.coerce({"selection_visible": False}),
+        )
+
+        symbolic_review = GraphFunction(
+            name="review_design_assessment_round",
+            inputs=(design,),
+            outputs=(review,),
+            environment=EnvRef.from_contract(requires=(design,), provides=(review,)),
+            template=TemplateRef.symbolic("review_design_assessment_round"),
+        )
+        symbolic_reduce = GraphFunction(
+            name="reduce_design_consensus_decision",
+            inputs=(review,),
+            outputs=(decision,),
+            environment=EnvRef.from_contract(requires=(review,), provides=(decision,)),
+            template=TemplateRef.symbolic("reduce_design_consensus_decision"),
+        )
+        symbolic_apply = GraphFunction(
+            name="apply_design_consensus_decision",
+            inputs=(design, decision),
+            outputs=(reviewed,),
+            environment=EnvRef.from_contract(requires=(design, decision), provides=(reviewed,)),
+            template=TemplateRef.symbolic("apply_design_consensus_decision"),
+        )
+        symbolic_library = recurse(
+            compose(symbolic_review, symbolic_reduce, symbolic_apply),
+            terminate,
+            foldback={"mode": "rebind", "binding": "reviewed_design", "requires_parent_evaluation": True},
+        )
+        compiled_library = recurse(
+            compose(review_round, reduce_round, apply_round),
+            terminate,
+            foldback={"mode": "rebind", "binding": "reviewed_design", "requires_parent_evaluation": True},
+        )
+
+        module = Module(
+            name="m02_symbolic_consensus_module",
+            graphs=(compiled_library.materialize(),),
+            graph_functions=(symbolic_library, review_round, reduce_round, apply_round),
+            refinement_boundaries=tuple(
+                deferred_refinement(
+                    vector.name,
+                    inputs=vector.source if isinstance(vector.source, tuple) else (vector.source,),
+                    outputs=(vector.target,),
+                )
+                for vector in compiled_library.materialize().vectors
+            ),
+            jobs=(Job(name="review_design_by_consensus", contracts=(ContractRef(kind="graph_function", target_id=symbolic_library.id),)),),
+            evaluators=(review_eval, decision_eval, apply_eval, terminate),
+        )
+
+        executable_jobs = module_to_executable_jobs(module)
+
+        assert [job.vector.name for job in executable_jobs] == [
+            "review_design_assessment_round",
+            "reduce_design_consensus_decision",
+            "apply_design_consensus_decision",
+        ]
+        assert {job.graph_function.name for job in executable_jobs} == {symbolic_library.name}
+        scope = Scope(module=module, workspace_root=tmp_path, build="symbolic_consensus")
+        assert [job.vector.name for job in scope.worker.can_execute] == [
+            "review_design_assessment_round",
+            "reduce_design_consensus_decision",
+            "apply_design_consensus_decision",
+        ]
 
     def test_frame_traversal_surface_builder_does_not_synthesize_implicit_boundaries(self) -> None:
         design = Node(name="design", schema="Design")
