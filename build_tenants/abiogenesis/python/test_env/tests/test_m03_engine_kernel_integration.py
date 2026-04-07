@@ -26,6 +26,7 @@ Recursive clause anchors:
 from __future__ import annotations
 
 import json
+import sys
 from itertools import combinations, product
 from pathlib import Path
 
@@ -552,6 +553,155 @@ class TestM03EngineKernelIntegration:
         assert "requirements [required]" in bound.prompt
         assert "design [required]" in bound.prompt
         assert "input_set [required]" in bound.prompt
+
+    def test_bind_fp_surfaces_target_binding_from_domain_query_runtime_config(
+        self,
+        tmp_path: Path,
+    ) -> None:
+        module = _composed_cumulative_environment_module()
+        stream = workspace_bootstrap(tmp_path)
+        resolver = ContextResolver(tmp_path)
+        jobs = {
+            job.vector.name: job
+            for job in module_to_executable_jobs(module)
+        }
+        code_job = jobs["design→code"]
+
+        _emit_edge_converged(
+            stream,
+            workflow_version="unknown",
+            job=jobs["input_set→requirements"],
+        )
+        _emit_edge_converged(
+            stream,
+            workflow_version="unknown",
+            job=jobs["requirements→design"],
+        )
+
+        ready = bind_fd(
+            code_job,
+            stream,
+            resolver,
+            tmp_path,
+            module=module,
+        )
+        query_module = tmp_path / "asset_query_fixture.py"
+        query_module.write_text(
+            """
+import json
+
+print(json.dumps({
+    "assets": [
+        {
+            "asset_id": "input_set",
+            "uri": "file://specification",
+            "metadata": {"relative_path": "specification", "path_kind": "directory", "exists": "true"},
+            "checkpoint": {"exists": True, "path_kind": "directory"},
+        },
+        {
+            "asset_id": "requirements",
+            "uri": "file://specification/requirements.md",
+            "metadata": {"relative_path": "specification/requirements.md", "path_kind": "file", "exists": "true"},
+            "checkpoint": {"exists": True, "path_kind": "file"},
+        },
+        {
+            "asset_id": "design",
+            "uri": "file://build/generated/design.md",
+            "metadata": {"relative_path": "build/generated/design.md", "path_kind": "file", "exists": "true"},
+            "checkpoint": {"exists": True, "path_kind": "file"},
+        },
+        {
+            "asset_id": "code",
+            "uri": "file://build/generated/code",
+            "metadata": {"relative_path": "build/generated/code", "path_kind": "directory", "exists": "false"},
+            "checkpoint": {"exists": False, "path_kind": "directory"},
+        },
+    ]
+}))
+            """.strip(),
+            encoding="utf-8",
+        )
+
+        bound = bind_fp(
+            ready,
+            code_job,
+            result_path="tmp/result.json",
+            workspace_root=tmp_path,
+            runtime_config={"domain_package": "asset_query_fixture"},
+        )
+
+        assert "[TARGET BINDING]" in bound.prompt
+        assert "relative_path: build/generated/code" in bound.prompt
+        assert "path=build/generated/design.md" in bound.prompt
+        assert bound.target_asset_binding == {
+            "asset_id": "code",
+            "uri": "file://build/generated/code",
+            "relative_path": "build/generated/code",
+            "path_kind": "directory",
+            "exists": False,
+            "binding_source": "runtime_config.domain_package",
+        }
+        assert bound.environment_asset_bindings["design"]["relative_path"] == "build/generated/design.md"
+
+    def test_bind_fp_fails_closed_when_explicit_asset_binding_contract_omits_target(
+        self,
+        tmp_path: Path,
+    ) -> None:
+        module = _composed_cumulative_environment_module()
+        stream = workspace_bootstrap(tmp_path)
+        resolver = ContextResolver(tmp_path)
+        jobs = {
+            job.vector.name: job
+            for job in module_to_executable_jobs(module)
+        }
+        code_job = jobs["design→code"]
+
+        _emit_edge_converged(
+            stream,
+            workflow_version="unknown",
+            job=jobs["input_set→requirements"],
+        )
+        _emit_edge_converged(
+            stream,
+            workflow_version="unknown",
+            job=jobs["requirements→design"],
+        )
+
+        ready = bind_fd(
+            code_job,
+            stream,
+            resolver,
+            tmp_path,
+            module=module,
+        )
+        query_script = tmp_path / "asset_query_contract.py"
+        query_script.write_text(
+            """
+import json
+
+print(json.dumps({
+    "assets": [
+        {"asset_id": "design", "uri": "file://build/generated/design.md"},
+        {"asset_id": "requirements", "uri": "file://specification/requirements.md"},
+    ]
+}))
+            """.strip(),
+            encoding="utf-8",
+        )
+
+        with pytest.raises(ValueError, match="target asset binding"):
+            bind_fp(
+                ready,
+                code_job,
+                result_path="tmp/result.json",
+                workspace_root=tmp_path,
+                runtime_config={
+                    "asset_binding_contract": {
+                        "command": [sys.executable, str(query_script)],
+                        "timeout_seconds": 5,
+                    }
+                },
+            )
 
     def test_plan_next_traversal_skips_blocked_late_step_until_carried_environment_exists(
         self,

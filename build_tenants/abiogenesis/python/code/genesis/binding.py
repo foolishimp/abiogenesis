@@ -17,6 +17,7 @@ import hashlib
 import json as _json
 import os
 import re
+import shlex
 import subprocess
 import sys
 from dataclasses import dataclass, field
@@ -389,6 +390,193 @@ class ResolvedEnvironment:
         return lines
 
 
+@dataclass(frozen=True)
+class TargetAssetBinding:
+    """Concrete workspace binding for a named asset/node when discoverable."""
+
+    asset_id: str
+    uri: str
+    relative_path: str | None = None
+    path_kind: str | None = None
+    exists: bool | None = None
+    binding_source: str = "workspace_asset_query"
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "asset_id": self.asset_id,
+            "uri": self.uri,
+            "relative_path": self.relative_path,
+            "path_kind": self.path_kind,
+            "exists": self.exists,
+            "binding_source": self.binding_source,
+        }
+
+
+ASSET_BINDING_QUERY_TIMEOUT_SECONDS: int = int(
+    os.environ.get("ASSET_BINDING_QUERY_TIMEOUT_SECONDS", "15")
+)
+
+
+def _coerce_command_tokens(raw: Any, *, label: str) -> list[str]:
+    if isinstance(raw, str):
+        tokens = shlex.split(raw)
+    elif isinstance(raw, (list, tuple)) and all(isinstance(token, str) for token in raw):
+        tokens = list(raw)
+    else:
+        raise ValueError(f"{label} must be a shell-like string or list[str]")
+    if not tokens:
+        raise ValueError(f"{label} must not be empty")
+    return tokens
+
+
+def _dig_path(payload: Any, dotted_path: str) -> Any:
+    current = payload
+    for segment in dotted_path.split("."):
+        if not isinstance(current, dict) or segment not in current:
+            return None
+        current = current[segment]
+    return current
+
+
+def _coerce_boolish(value: Any) -> bool | None:
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        lowered = value.strip().lower()
+        if lowered in {"true", "1", "yes"}:
+            return True
+        if lowered in {"false", "0", "no"}:
+            return False
+    return None
+
+
+def _asset_binding_query_contract(runtime_config: dict[str, Any] | None) -> tuple[dict[str, Any] | None, bool]:
+    """Return a resolved asset-binding query contract and whether it was explicit."""
+    config = dict(runtime_config or {})
+    explicit = config.get("asset_binding_contract")
+    if explicit is not None:
+        if not isinstance(explicit, dict):
+            raise ValueError("runtime_config.asset_binding_contract must be a mapping")
+        contract = dict(explicit)
+        contract["command"] = _coerce_command_tokens(
+            contract.get("command"),
+            label="runtime_config.asset_binding_contract.command",
+        )
+        contract.setdefault("assets_key", "assets")
+        contract.setdefault("asset_id_key", "asset_id")
+        contract.setdefault("uri_key", "uri")
+        contract.setdefault("relative_path_key", "metadata.relative_path")
+        contract.setdefault("path_kind_key", "checkpoint.path_kind")
+        contract.setdefault("exists_key", "checkpoint.exists")
+        contract.setdefault("timeout_seconds", ASSET_BINDING_QUERY_TIMEOUT_SECONDS)
+        contract.setdefault("binding_source", "runtime_config.asset_binding_contract")
+        return contract, True
+
+    domain_package = config.get("domain_package")
+    if not isinstance(domain_package, str) or not domain_package.strip():
+        return None, False
+    return (
+        {
+            "command": [
+                sys.executable,
+                "-m",
+                domain_package.strip(),
+                "query-domain",
+                "--workspace",
+                ".",
+            ],
+            "assets_key": "assets",
+            "asset_id_key": "asset_id",
+            "uri_key": "uri",
+            "relative_path_key": "metadata.relative_path",
+            "path_kind_key": "checkpoint.path_kind",
+            "exists_key": "checkpoint.exists",
+            "timeout_seconds": ASSET_BINDING_QUERY_TIMEOUT_SECONDS,
+            "binding_source": "runtime_config.domain_package",
+        },
+        False,
+    )
+
+
+def resolve_workspace_asset_bindings(
+    *,
+    workspace_root: Path | None,
+    runtime_config: dict[str, Any] | None = None,
+) -> dict[str, TargetAssetBinding]:
+    """
+    Resolve concrete asset bindings from an optional workspace asset query surface.
+
+    When runtime_config provides an explicit asset_binding_contract, failures are
+    configuration defects and must fail closed. When only a default domain_package
+    query is available, discovery remains best-effort.
+    """
+    contract, explicit = _asset_binding_query_contract(runtime_config)
+    if contract is None:
+        return {}
+    if workspace_root is None:
+        if explicit:
+            raise ValueError(
+                "runtime_config.asset_binding_contract requires a workspace_root"
+            )
+        return {}
+
+    timeout = contract.get("timeout_seconds", ASSET_BINDING_QUERY_TIMEOUT_SECONDS)
+    try:
+        result = subprocess.run(
+            contract["command"],
+            cwd=workspace_root,
+            capture_output=True,
+            text=True,
+            timeout=float(timeout),
+        )
+    except (OSError, subprocess.TimeoutExpired) as exc:
+        if explicit:
+            raise ValueError(
+                f"workspace asset query failed: {exc}"
+            ) from exc
+        return {}
+
+    if result.returncode != 0:
+        if explicit:
+            detail = result.stderr.strip() or result.stdout.strip() or f"returncode={result.returncode}"
+            raise ValueError(f"workspace asset query failed: {detail}")
+        return {}
+
+    try:
+        payload = _json.loads(result.stdout)
+    except _json.JSONDecodeError as exc:
+        if explicit:
+            raise ValueError("workspace asset query did not return valid JSON") from exc
+        return {}
+
+    assets = _dig_path(payload, str(contract["assets_key"]))
+    if not isinstance(assets, list):
+        if explicit:
+            raise ValueError("workspace asset query JSON must expose a list at assets_key")
+        return {}
+
+    resolved: dict[str, TargetAssetBinding] = {}
+    for entry in assets:
+        if not isinstance(entry, dict):
+            continue
+        asset_id = _dig_path(entry, str(contract["asset_id_key"]))
+        uri = _dig_path(entry, str(contract["uri_key"]))
+        if not isinstance(asset_id, str) or not asset_id or not isinstance(uri, str) or not uri:
+            continue
+        relative_path = _dig_path(entry, str(contract["relative_path_key"]))
+        path_kind = _dig_path(entry, str(contract["path_kind_key"]))
+        exists = _coerce_boolish(_dig_path(entry, str(contract["exists_key"])))
+        resolved[asset_id] = TargetAssetBinding(
+            asset_id=asset_id,
+            uri=uri,
+            relative_path=relative_path if isinstance(relative_path, str) and relative_path else None,
+            path_kind=path_kind if isinstance(path_kind, str) and path_kind else None,
+            exists=exists,
+            binding_source=str(contract["binding_source"]),
+        )
+    return resolved
+
+
 def _source_nodes(source: Node | tuple[Node, ...]) -> tuple[Node, ...]:
     return source if isinstance(source, tuple) else (source,)
 
@@ -546,6 +734,8 @@ class BoundJob:
     selected_backend: str = ""
     assignment_source: str = ""
     resolved_runtime_ref: str = ""
+    target_asset_binding: dict[str, Any] | None = None
+    environment_asset_bindings: dict[str, dict[str, Any]] = field(default_factory=dict)
 
 
 def _event_time_value(event: dict) -> datetime | None:
@@ -872,6 +1062,9 @@ def bind_fp(
     pre: PrecomputedManifest,
     job: ExecutableJob,
     result_path: str = "",
+    *,
+    workspace_root: Path | None = None,
+    runtime_config: dict[str, Any] | None = None,
 ) -> BoundJob:
     """
     Assemble the minimal F_P manifest from pre-computed material.
@@ -889,13 +1082,52 @@ def bind_fp(
             "Cannot dispatch F_P: runtime environment unresolved: "
             + "; ".join(details)
         )
-    prompt = _assemble_prompt(pre, job, result_path)
-    return BoundJob(executable_job=job, precomputed=pre, prompt=prompt, result_path=result_path)
+    asset_bindings = resolve_workspace_asset_bindings(
+        workspace_root=workspace_root,
+        runtime_config=runtime_config,
+    )
+    target_binding = asset_bindings.get(job.vector.target.name)
+    if asset_bindings and target_binding is None:
+        raise ValueError(
+            f"Cannot dispatch F_P: target asset binding for {job.vector.target.name!r} "
+            "is not present in the workspace asset query surface."
+        )
+    prompt = _assemble_prompt(
+        pre,
+        job,
+        result_path,
+        asset_bindings=asset_bindings,
+        target_binding=target_binding,
+    )
+    environment_names = {
+        env_binding.node.name
+        for env_binding in pre.resolved_environment.bindings
+    }
+    return BoundJob(
+        executable_job=job,
+        precomputed=pre,
+        prompt=prompt,
+        result_path=result_path,
+        target_asset_binding=None if target_binding is None else target_binding.to_dict(),
+        environment_asset_bindings={
+            name: binding.to_dict()
+            for name, binding in asset_bindings.items()
+            if name in environment_names
+        },
+    )
 
 
-def _assemble_prompt(pre: PrecomputedManifest, job: ExecutableJob, result_path: str = "") -> str:
+def _assemble_prompt(
+    pre: PrecomputedManifest,
+    job: ExecutableJob,
+    result_path: str = "",
+    *,
+    asset_bindings: dict[str, TargetAssetBinding] | None = None,
+    target_binding: TargetAssetBinding | None = None,
+) -> str:
     """Assemble the F_P prompt."""
     sections: list[str] = []
+    asset_bindings = asset_bindings or {}
 
     src = job.vector.source
     if isinstance(src, tuple):
@@ -978,9 +1210,24 @@ def _assemble_prompt(pre: PrecomputedManifest, job: ExecutableJob, result_path: 
                 if binding.produced_within_carrier
                 else "external_entry"
             )
+            asset_binding = asset_bindings.get(binding.node.name)
+            location_suffix = ""
+            if asset_binding is not None:
+                location_parts = []
+                if asset_binding.relative_path:
+                    location_parts.append(f"path={asset_binding.relative_path}")
+                if asset_binding.path_kind:
+                    location_parts.append(f"kind={asset_binding.path_kind}")
+                if asset_binding.exists is not None:
+                    location_parts.append(f"exists={str(asset_binding.exists).lower()}")
+                if asset_binding.uri:
+                    location_parts.append(f"uri={asset_binding.uri}")
+                if location_parts:
+                    location_suffix = " " + " ".join(location_parts)
             env_lines.append(
                 f"  {binding.node.name} [{', '.join(roles)}] "
                 f"schema={binding.node.schema!r} status={binding.display_status} origin={origin}"
+                f"{location_suffix}"
             )
         if not pre.resolved_environment.ready:
             env_lines.extend(
@@ -988,6 +1235,20 @@ def _assemble_prompt(pre: PrecomputedManifest, job: ExecutableJob, result_path: 
                 for line in pre.resolved_environment.summary_lines()
             )
         sections.append("\n".join(env_lines))
+
+    if target_binding is not None:
+        target_lines = [
+            "[TARGET BINDING] — concrete workspace destination for the produced asset:",
+            f"  asset_id: {target_binding.asset_id}",
+            f"  uri: {target_binding.uri}",
+        ]
+        if target_binding.relative_path:
+            target_lines.append(f"  relative_path: {target_binding.relative_path}")
+        if target_binding.path_kind:
+            target_lines.append(f"  path_kind: {target_binding.path_kind}")
+        if target_binding.exists is not None:
+            target_lines.append(f"  exists: {str(target_binding.exists).lower()}")
+        sections.append("\n".join(target_lines))
 
     target = job.vector.target
     fp_failing = [ev for ev in pre.failing_evaluators if ev.regime is F_P]
