@@ -1,3 +1,4 @@
+# Validates: REQ-L-GTL3-LANGUAGE
 # Validates: REQ-L-GTL3-ATTRS
 # Validates: REQ-L-GTL3-CONTEXT
 # Validates: REQ-L-GTL3-GRAPH
@@ -42,7 +43,7 @@ from gtl.algebra import (
     substitute,
 )
 from gtl.function_model import EnvRef, GraphFunction, TemplateRef
-from gtl.graph import Attrs, Context, Graph, GraphVector, Node
+from gtl.graph import Attrs, Context, Graph, GraphVector, Node, node_contract_key
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, F_D, F_P, Rule
 from gtl.work_model import ContractRef, Job, Role
@@ -79,6 +80,53 @@ def _graph_function(
 
 @pytest.mark.integration
 class TestM01GtlCoreIntegration:
+    def test_node_asset_surface_is_part_of_the_visible_interface_contract(self) -> None:
+        module_design = Node(name="module_design", schema="ModuleDesign")
+        schema = Node(name="schema", schema="Schema")
+        code_with_schema = Node(
+            name="code",
+            schema="Code",
+            asset_surface={
+                "kind": "implementation_code",
+                "required_contexts": ("module_design", "schema"),
+                "standards_refs": ("code_standard",),
+                "output_contract_refs": ("code_output_contract",),
+            },
+        )
+        code_without_schema = Node(
+            name="code",
+            schema="Code",
+            asset_surface={
+                "kind": "implementation_code",
+                "required_contexts": ("module_design",),
+                "standards_refs": ("code_standard",),
+                "output_contract_refs": ("code_output_contract",),
+            },
+        )
+
+        vector = GraphVector("design→code", (module_design, schema), code_with_schema)
+        function = GraphFunction.from_graph(
+            name="design_to_code",
+            graph=Graph(
+                name="design_to_code",
+                inputs=(module_design, schema),
+                outputs=(code_with_schema,),
+                nodes=(module_design, schema, code_with_schema),
+                vectors=(vector,),
+            ),
+            environment=EnvRef.from_contract(
+                requires=(module_design, schema),
+                provides=(code_with_schema,),
+            ),
+        )
+
+        assert node_contract_key(code_with_schema) != node_contract_key(code_without_schema)
+        materialized_output = function.materialize().outputs[0]
+        assert materialized_output.asset_surface.kind == "implementation_code"
+        assert materialized_output.asset_surface.required_contexts == ("module_design", "schema")
+        assert materialized_output.asset_surface.standards_refs == ("code_standard",)
+        assert materialized_output.asset_surface.output_contract_refs == ("code_output_contract",)
+
     def test_graph_vectors_keep_contexts_and_declarations_as_visible_gtl_surfaces(self) -> None:
         intent = Node(name="intent", schema="Intent")
         code = Node(name="code", schema="Code")

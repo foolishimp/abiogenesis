@@ -26,7 +26,7 @@ from pathlib import Path
 from typing import Any
 
 from gtl.function_model import GraphFunction
-from gtl.graph import Attrs, Graph, GraphVector, Node, Context, node_contract_key
+from gtl.graph import Attrs, Graph, GraphVector, Node, Context, node_contract_key, _schema_key
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, F_D, F_H, F_P
 from gtl.work_model import Job as GtlJob, Role, ContractRef
@@ -365,6 +365,7 @@ class ResolvedEnvironment:
     carries: tuple[Node, ...] = ()
     bindings: tuple[ResolvedEnvironmentBinding, ...] = ()
     missing_required: tuple[str, ...] = ()
+    missing_asset_surface_contexts: tuple[str, ...] = ()
     conflicting_contracts: tuple[str, ...] = ()
 
     @classmethod
@@ -373,7 +374,11 @@ class ResolvedEnvironment:
 
     @property
     def ready(self) -> bool:
-        return not self.missing_required and not self.conflicting_contracts
+        return (
+            not self.missing_required
+            and not self.missing_asset_surface_contexts
+            and not self.conflicting_contracts
+        )
 
     def summary_lines(self) -> list[str]:
         lines: list[str] = []
@@ -381,6 +386,11 @@ class ResolvedEnvironment:
             lines.append(
                 "missing internally produced required bindings: "
                 + ", ".join(self.missing_required)
+            )
+        if self.missing_asset_surface_contexts:
+            lines.append(
+                "target asset_surface requires undeclared carried contexts: "
+                + ", ".join(self.missing_asset_surface_contexts)
             )
         if self.conflicting_contracts:
             lines.append(
@@ -622,14 +632,28 @@ def resolve_runtime_environment(
     the live vector boundary. Required bindings produced inside the same carrier
     must be replay-visible before dispatch.
     """
-    requires = _source_nodes(job.vector.source)
+    requires = list(_source_nodes(job.vector.source))
     provides = (job.vector.target,)
     published_carries = (
         job.graph_function.environment.carries
         if job.graph_function is not None
         else ()
     )
-    carries = _stable_node_union(published_carries, requires, provides)
+    carries = _stable_node_union(published_carries, tuple(requires), provides)
+    carry_nodes_by_name = {node.name: node for node in carries}
+
+    missing_asset_surface_contexts: list[str] = []
+    required_names = {node.name for node in requires}
+    for context_name in job.vector.target.asset_surface.required_contexts:
+        context_node = carry_nodes_by_name.get(context_name)
+        if context_node is None:
+            if context_name not in missing_asset_surface_contexts:
+                missing_asset_surface_contexts.append(context_name)
+            continue
+        if context_name not in required_names:
+            requires.append(context_node)
+            required_names.add(context_name)
+    requires = tuple(requires)
 
     contract_by_name: dict[str, tuple[str, str, tuple[str, ...]]] = {}
     conflicting_contracts: list[str] = []
@@ -651,7 +675,6 @@ def resolve_runtime_environment(
 
     bindings: list[ResolvedEnvironmentBinding] = []
     binding_by_name: dict[str, ResolvedEnvironmentBinding] = {}
-    required_names = {node.name for node in requires}
     provided_names = {node.name for node in provides}
     for node in carries:
         if node.name in binding_by_name:
@@ -680,6 +703,7 @@ def resolve_runtime_environment(
         carries=carries,
         bindings=tuple(bindings),
         missing_required=missing_required,
+        missing_asset_surface_contexts=tuple(missing_asset_surface_contexts),
         conflicting_contracts=tuple(conflicting_contracts),
     )
 
@@ -736,6 +760,21 @@ class BoundJob:
     resolved_runtime_ref: str = ""
     target_asset_binding: dict[str, Any] | None = None
     environment_asset_bindings: dict[str, dict[str, Any]] = field(default_factory=dict)
+    target_asset_surface: dict[str, Any] | None = None
+    environment_asset_surfaces: dict[str, dict[str, Any]] = field(default_factory=dict)
+
+
+def _asset_surface_summary(node: Node) -> dict[str, Any] | None:
+    surface = node.asset_surface
+    if not surface.declared:
+        return None
+    return {
+        "kind": surface.kind,
+        "schema": _schema_key(node.schema),
+        "required_contexts": list(surface.required_contexts),
+        "standards_refs": list(surface.standards_refs),
+        "output_contract_refs": list(surface.output_contract_refs),
+    }
 
 
 def _event_time_value(event: dict) -> datetime | None:
@@ -1114,6 +1153,12 @@ def bind_fp(
             for name, binding in asset_bindings.items()
             if name in environment_names
         },
+        target_asset_surface=_asset_surface_summary(job.vector.target),
+        environment_asset_surfaces={
+            binding.node.name: summary
+            for binding in pre.resolved_environment.bindings
+            if (summary := _asset_surface_summary(binding.node)) is not None
+        },
     )
 
 
@@ -1189,10 +1234,17 @@ def _assemble_prompt(
             ctx_lines.append(f"\n--- {name} ---\n{content}")
         sections.append("\n".join(ctx_lines))
 
+    target = job.vector.target
     mandatory_contexts = tuple(
-        name
-        for name in pre.relevant_contexts
-        if "standard" in name or "output_contract" in name or "contract" in name
+        dict.fromkeys(
+            list(
+                name
+                for name in pre.relevant_contexts
+                if "standard" in name or "output_contract" in name or "contract" in name
+            )
+            + list(target.asset_surface.standards_refs)
+            + list(target.asset_surface.output_contract_refs)
+        )
     )
 
     if pre.resolved_environment.bindings:
@@ -1210,6 +1262,9 @@ def _assemble_prompt(
                 if binding.produced_within_carrier
                 else "external_entry"
             )
+            asset_kind_suffix = ""
+            if binding.node.asset_surface.kind:
+                asset_kind_suffix = f" asset_kind={binding.node.asset_surface.kind}"
             asset_binding = asset_bindings.get(binding.node.name)
             location_suffix = ""
             if asset_binding is not None:
@@ -1227,7 +1282,7 @@ def _assemble_prompt(
             env_lines.append(
                 f"  {binding.node.name} [{', '.join(roles)}] "
                 f"schema={binding.node.schema!r} status={binding.display_status} origin={origin}"
-                f"{location_suffix}"
+                f"{asset_kind_suffix}{location_suffix}"
             )
         if not pre.resolved_environment.ready:
             env_lines.extend(
@@ -1235,6 +1290,27 @@ def _assemble_prompt(
                 for line in pre.resolved_environment.summary_lines()
             )
         sections.append("\n".join(env_lines))
+
+    if target.asset_surface.declared:
+        asset_surface_lines = [
+            "[ASSET SURFACE] — declared target asset contract:",
+            f"  kind: {target.asset_surface.kind or '(unspecified)'}",
+            f"  schema: {_schema_key(target.schema)}",
+        ]
+        if target.asset_surface.required_contexts:
+            asset_surface_lines.append(
+                "  required_contexts: " + ", ".join(target.asset_surface.required_contexts)
+            )
+        if target.asset_surface.standards_refs:
+            asset_surface_lines.append(
+                "  standards_refs: " + ", ".join(target.asset_surface.standards_refs)
+            )
+        if target.asset_surface.output_contract_refs:
+            asset_surface_lines.append(
+                "  output_contract_refs: "
+                + ", ".join(target.asset_surface.output_contract_refs)
+            )
+        sections.append("\n".join(asset_surface_lines))
 
     if target_binding is not None:
         target_lines = [
@@ -1250,7 +1326,6 @@ def _assemble_prompt(
             target_lines.append(f"  exists: {str(target_binding.exists).lower()}")
         sections.append("\n".join(target_lines))
 
-    target = job.vector.target
     fp_failing = [ev for ev in pre.failing_evaluators if ev.regime is F_P]
     assessment_contract = ""
     if fp_failing and result_path:

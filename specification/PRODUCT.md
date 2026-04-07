@@ -196,6 +196,7 @@ intent, requirement, design, code, and evidence surfaces.
 | Goal ID | Scope | Goal | Success Signal | Proving Surface | Status |
 | --- | --- | --- | --- | --- | --- |
 | `GOAL-001` | `GTL` + `ABG` + `Mapping` | Make cumulative environment an executable runtime law over real composed and recursive carriers, not only a static GTL contract. | ABG resolves per-boundary environment truth, late steps can read carried bindings from earlier steps, and missing internally produced bindings block dispatch rather than converging or silently running. | `test_m03_engine_kernel_integration.py`, `test_sandbox_usecases_fake.py`, `test_sandbox_usecases_live.py`, downstream `gsdlc_lite` proving routes | Active |
+| `GOAL-002` | `GTL` + `ABG` + `Mapping` | Make typed asset surfaces operationally real at GTL boundaries and ABG bind time, so higher-order graph functions can consume returned assets by declared contract rather than by ad hoc path lore. | GTL nodes or graph-function boundaries can declare `asset_surface` truth for asset kind/schema, required carried contexts, and standards or output-contract refs; ABG resolves concrete bindings, specializes prompts and checks from that declaration, records source binding and producer provenance, and blocks dispatch when the declared asset contract is unresolved. | `test_m01_gtl_core_integration.py`, `test_m03_engine_kernel_integration.py`, `test_sandbox_usecases_fake.py`, downstream proving in `odd_method` and imported-workspace routes such as `data_mapper.*` | Active |
 
 ### Goal Template
 

@@ -1802,6 +1802,8 @@ def _iterated_outcome(
             "result_path": result_path,
             "target_asset_binding": bound.target_asset_binding,
             "environment_asset_bindings": bound.environment_asset_bindings,
+            "target_asset_surface": bound.target_asset_surface,
+            "environment_asset_surfaces": bound.environment_asset_surfaces,
             "spec_hash": runtime.spec_hash,
             "requirements": runtime.module.metadata.get("requirements", []),
             "workflow_version": runtime.workflow_version,

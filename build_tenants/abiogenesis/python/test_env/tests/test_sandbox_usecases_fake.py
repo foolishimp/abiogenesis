@@ -158,7 +158,13 @@ def _u2_discovery_module() -> Module:
     )
 
 
-def _write_fake_result_file(result_path: Path, *, edge: str, actor: str) -> None:
+def _write_fake_result_file(
+    result_path: Path,
+    *,
+    edge: str,
+    actor: str,
+    evaluator: str = "env_progress",
+) -> None:
     result_path.parent.mkdir(parents=True, exist_ok=True)
     result_path.write_text(
         json.dumps(
@@ -167,7 +173,7 @@ def _write_fake_result_file(result_path: Path, *, edge: str, actor: str) -> None
                 "actor": actor,
                 "assessments": [
                     {
-                        "evaluator": "env_progress",
+                        "evaluator": evaluator,
                         "result": "pass",
                         "evidence": f"{edge} advanced under cumulative environment law",
                     }
@@ -409,6 +415,203 @@ def _u1_profiles_module() -> Module:
     )
 
 
+def _u6_schema_zoom_module() -> Module:
+    design = Node(name="design", schema="DesignSurface")
+    schema_poc = Node(name="schema_poc", schema="SchemaDiscoveryPoc")
+    schema_plan = Node(name="schema_plan", schema="SchemaPlan")
+    schema = Node(name="schema", schema="SchemaSurface")
+    schema_progress = Evaluator("schema_progress", F_P, "schema satisfies the current design contract")
+
+    outer = GraphVector(
+        name="design→schema",
+        source=design,
+        target=schema,
+        evaluators=(schema_progress,),
+    )
+    outer_graph = Graph(
+        name="schema_delivery",
+        inputs=(design,),
+        outputs=(schema,),
+        nodes=(design, schema),
+        vectors=(outer,),
+    )
+
+    discovery = _graph_function(
+        "graphfunction.discovery",
+        Graph(
+            name="schema_discovery_profile",
+            inputs=(design,),
+            outputs=(schema,),
+            nodes=(design, schema_poc, schema),
+            vectors=(
+                GraphVector("design→schema_poc", design, schema_poc, evaluators=(schema_progress,)),
+                GraphVector("schema_poc→schema", schema_poc, schema, evaluators=(schema_progress,)),
+            ),
+        ),
+        tags=("profile:discovery",),
+    )
+    sdlc = _graph_function(
+        "graphfunction.sdlc",
+        Graph(
+            name="schema_sdlc_profile",
+            inputs=(design,),
+            outputs=(schema,),
+            nodes=(design, schema_plan, schema),
+            vectors=(
+                GraphVector("design→schema_plan", design, schema_plan, evaluators=(schema_progress,)),
+                GraphVector("schema_plan→schema", schema_plan, schema, evaluators=(schema_progress,)),
+            ),
+        ),
+        tags=("profile:sdlc",),
+    )
+
+    profiles = candidate_family(
+        "design→schema_profiles",
+        inputs=(design,),
+        outputs=(schema,),
+        candidates=(discovery, sdlc),
+        policy_hints={"profiles": ("graphfunction.discovery", "graphfunction.sdlc")},
+    )
+    outer_profile = _graph_function(outer.name, outer_graph)
+    job = Job(
+        name=outer.name,
+        contracts=(ContractRef(kind="graph_function", target_id=outer_profile.id),),
+    )
+    return Module(
+        name="u6_schema_zoom",
+        graphs=(outer_graph,),
+        graph_functions=(outer_profile, discovery, sdlc),
+        candidate_families=(profiles,),
+        refinement_boundaries=(
+            deferred_refinement("design→schema_poc", inputs=(design,), outputs=(schema_poc,)),
+            deferred_refinement("schema_poc→schema", inputs=(schema_poc,), outputs=(schema,)),
+            deferred_refinement("design→schema_plan", inputs=(design,), outputs=(schema_plan,)),
+            deferred_refinement("schema_plan→schema", inputs=(schema_plan,), outputs=(schema,)),
+        ),
+        jobs=(job,),
+        metadata={"requirements": ["REQ-U6-001"]},
+    )
+
+
+def _u7_schema_discovery_feeds_code_module() -> Module:
+    design = Node(name="design", schema="DesignSurface")
+    schema_poc = Node(name="schema_poc", schema="SchemaDiscoveryPoc")
+    schema_plan = Node(name="schema_plan", schema="SchemaPlan")
+    schema = Node(
+        name="schema",
+        schema="SchemaSurface",
+        asset_surface={"kind": "data_schema"},
+    )
+    code = Node(
+        name="code",
+        schema="CodeSurface",
+        asset_surface={
+            "kind": "implementation_code",
+            "required_contexts": ("schema",),
+            "standards_refs": ("implementation_standard",),
+            "output_contract_refs": ("implementation_output_contract",),
+        },
+    )
+    schema_progress = Evaluator("schema_progress", F_P, "schema satisfies the current design contract")
+    code_progress = Evaluator("code_progress", F_P, "code satisfies the current design contract")
+
+    outer = GraphVector(
+        name="design→schema",
+        source=design,
+        target=schema,
+        evaluators=(schema_progress,),
+    )
+    outer_graph = Graph(
+        name="schema_delivery_for_code",
+        inputs=(design,),
+        outputs=(schema,),
+        nodes=(design, schema),
+        vectors=(outer,),
+    )
+
+    discovery = _graph_function(
+        "graphfunction.discovery",
+        Graph(
+            name="schema_discovery_profile_for_code",
+            inputs=(design,),
+            outputs=(schema,),
+            nodes=(design, schema_poc, schema),
+            vectors=(
+                GraphVector("design→schema_poc", design, schema_poc, evaluators=(schema_progress,)),
+                GraphVector("schema_poc→schema", schema_poc, schema, evaluators=(schema_progress,)),
+            ),
+        ),
+        tags=("profile:discovery",),
+    )
+    sdlc = _graph_function(
+        "graphfunction.sdlc",
+        Graph(
+            name="schema_sdlc_profile_for_code",
+            inputs=(design,),
+            outputs=(schema,),
+            nodes=(design, schema_plan, schema),
+            vectors=(
+                GraphVector("design→schema_plan", design, schema_plan, evaluators=(schema_progress,)),
+                GraphVector("schema_plan→schema", schema_plan, schema, evaluators=(schema_progress,)),
+            ),
+        ),
+        tags=("profile:sdlc",),
+    )
+    profiles = candidate_family(
+        "design→schema_profiles_for_code",
+        inputs=(design,),
+        outputs=(schema,),
+        candidates=(discovery, sdlc),
+        policy_hints={"profiles": ("graphfunction.discovery", "graphfunction.sdlc")},
+    )
+    schema_profile = _graph_function(outer.name, outer_graph)
+    implement_code = GraphFunction.from_graph(
+        name="schema_to_code",
+        graph=Graph(
+            name="schema_to_code",
+            inputs=(design, schema),
+            outputs=(code,),
+            nodes=(design, schema, code),
+            vectors=(
+                GraphVector(
+                    "design→code",
+                    design,
+                    code,
+                    evaluators=(code_progress,),
+                ),
+            ),
+        ),
+        environment=EnvRef.from_contract(
+            requires=(design, schema),
+            provides=(code,),
+        ),
+    )
+    executive = compose(schema_profile, implement_code)
+    materialized = executive.materialize()
+    boundaries = tuple(
+        deferred_refinement(
+            vector.name,
+            inputs=vector.source if isinstance(vector.source, tuple) else (vector.source,),
+            outputs=(vector.target,),
+        )
+        for vector in materialized.vectors
+        if vector.name != "design→schema"
+    )
+    job = Job(
+        name="schema_discovery_feeds_code",
+        contracts=(ContractRef(kind="graph_function", target_id=executive.id),),
+    )
+    return Module(
+        name="u7_schema_discovery_feeds_code",
+        graphs=(materialized,),
+        graph_functions=(executive, schema_profile, discovery, sdlc, implement_code),
+        candidate_families=(profiles,),
+        refinement_boundaries=boundaries,
+        jobs=(job,),
+        metadata={"requirements": ["REQ-U7-001"]},
+    )
+
+
 @pytest.mark.integration
 class TestSandboxUsecasesFake:
     @pytest.mark.usecase_id("intent_to_requirements")
@@ -619,6 +822,273 @@ class TestSandboxUsecasesFake:
             lane="fake",
             status=next_result["status"],
             blocking_reason=next_result["blocking_reason"],
+        )
+
+    @pytest.mark.usecase_id("u6_schema_zoom")
+    def test_design_to_schema_zoom_selects_discovery_route_and_rebinds_parent(self, run_archive):
+        workspace = run_archive.workspace
+        install_real_sandbox(workspace, archive=run_archive)
+        stream = workspace_bootstrap(workspace)
+        module = _u6_schema_zoom_module()
+        scope = Scope(module=module, workspace_root=workspace)
+        run_archive.note(
+            "scenario",
+            lane="fake",
+            edge="design→schema",
+            selection="graphfunction.discovery",
+            route="design_to_schema_poc_then_foldback",
+        )
+        assert any(event["event_type"] == "genesis_installed" for event in stream.all_events())
+
+        executable_job = module_to_executable_jobs(module)[0]
+        runtime = TraversalRuntime(
+            module=module,
+            executable_job=executable_job,
+            precomputed=_precomputed(executable_job),
+            workspace_root=workspace,
+            stream=stream,
+            worker=scope.worker,
+            spec_hash="spec-u6",
+            work_key=executable_job.vector.id,
+        )
+        selected = traverse(
+            Traversal(
+                work_key=executable_job.vector.id,
+                target=module.candidate_families[0],
+                selection=SelectionDecision(
+                    contract_id=executable_job.vector.id,
+                    work_key=executable_job.vector.id,
+                    graph_function="graphfunction.discovery",
+                    selected_by="test_policy",
+                    selection_mode="explicit",
+                    rationale="schema is missing so zoom into a PoC-style discovery route",
+                ),
+                evaluators=executable_job.vector.evaluators,
+            ),
+            runtime=runtime,
+            surface=WorkSurface(),
+        )
+        assert selected.result["status"] == "selected"
+        frame_id = selected.result["frame_id"]
+        frame_id = selected.result["frame_id"]
+        family = module.candidate_families[0]
+        assert [candidate.name for candidate in family.candidates] == [
+            "graphfunction.discovery",
+            "graphfunction.sdlc",
+        ]
+        assert any(event["event_type"] == "work_spawned" for event in selected.surface.events)
+
+        steps = (
+            (
+                "design→schema_poc",
+                Path("docs/60-generated-schema-poc.md"),
+                "# Generated Schema PoC\n\nA focused discovery route established the first schema hypothesis.\n",
+            ),
+            (
+                "schema_poc→schema",
+                Path("docs/60-generated-schema.md"),
+                "# Generated Schema\n\nThe discovery route delivered a typed schema surface back to the parent design lane.\n",
+            ),
+        )
+
+        from genesis.cli_adapter import _assess_result_cmd
+
+        for edge_name, artifact_relpath, artifact_text in steps:
+            result = gen_iterate(scope, stream)
+            assert result["status"] == "iterated"
+            assert result["blocking_reason"] == "fp_dispatch"
+            manifest = json.loads(Path(result["fp_manifest_path"]).read_text(encoding="utf-8"))
+            assert manifest["edge"] == edge_name
+            artifact_path = workspace / artifact_relpath
+            artifact_path.parent.mkdir(parents=True, exist_ok=True)
+            artifact_path.write_text(artifact_text, encoding="utf-8")
+            _write_fake_result_file(
+                Path(manifest["result_path"]),
+                edge=edge_name,
+                actor="fake_schema_child_judge",
+                evaluator="schema_progress",
+            )
+            assert _assess_result_cmd(manifest["result_path"], workspace) == 0
+
+        before_rebind = gen_gaps(scope, stream)
+        assert before_rebind["total_delta"] == 0
+        assert before_rebind["open_frames"] == 1
+        assert before_rebind["converged"] is False
+        assert project(stream, "frame", frame_id)["status"] == "open"
+
+        rebound = gen_iterate(scope, stream)
+        assert rebound["status"] == "iterated"
+        assert rebound["edge"] == "design→schema"
+        assert rebound["blocking_reason"] == "fp_dispatch"
+        rebound_events = [event["event_type"] for event in stream.all_events()]
+        assert "foldback_opened" in rebound_events
+        assert "frame_rebound" in rebound_events
+        assert "frame_closed" in rebound_events
+
+        schema_artifact = workspace / "docs" / "60-generated-schema.md"
+        assert schema_artifact.read_text(encoding="utf-8").startswith("# Generated Schema")
+        rebound_manifest = json.loads(Path(rebound["fp_manifest_path"]).read_text(encoding="utf-8"))
+        _write_fake_result_file(
+            Path(rebound_manifest["result_path"]),
+            edge="design→schema",
+            actor="fake_schema_parent_judge",
+            evaluator="schema_progress",
+        )
+        assert _assess_result_cmd(rebound_manifest["result_path"], workspace) == 0
+
+        after = gen_gaps(scope, stream)
+        assert after["converged"] is True
+
+    @pytest.mark.usecase_id("u7_asset_surface_downstream_consumption")
+    def test_discovered_schema_asset_surface_unblocks_downstream_code_edge(self, run_archive):
+        workspace = run_archive.workspace
+        install_real_sandbox(workspace, archive=run_archive)
+        stream = workspace_bootstrap(workspace)
+        module = _u7_schema_discovery_feeds_code_module()
+        scope = Scope(module=module, workspace_root=workspace)
+        run_archive.note(
+            "scenario",
+            lane="fake",
+            edge="design→schema",
+            selection="graphfunction.discovery",
+            route="schema_discovery_then_code_via_asset_surface",
+        )
+
+        initial = gen_gaps(scope, stream)
+        initial_by_edge = {entry["edge"]: entry for entry in initial["gaps"]}
+        assert initial_by_edge["design→code"]["missing_required_bindings"] == ["schema"]
+
+        executable_job = module_to_executable_jobs(module)[0]
+        runtime = TraversalRuntime(
+            module=module,
+            executable_job=executable_job,
+            precomputed=_precomputed(executable_job),
+            workspace_root=workspace,
+            stream=stream,
+            worker=scope.worker,
+            spec_hash="spec-u7",
+            work_key=executable_job.vector.id,
+        )
+        selected = traverse(
+            Traversal(
+                work_key=executable_job.vector.id,
+                target=module.candidate_families[0],
+                selection=SelectionDecision(
+                    contract_id=executable_job.vector.id,
+                    work_key=executable_job.vector.id,
+                    graph_function="graphfunction.discovery",
+                    selected_by="test_policy",
+                    selection_mode="explicit",
+                    rationale="schema must be discovered before code can lawfully open",
+                ),
+                evaluators=executable_job.vector.evaluators,
+            ),
+            runtime=runtime,
+            surface=WorkSurface(),
+        )
+        assert selected.result["status"] == "selected"
+        frame_id = selected.result["frame_id"]
+
+        from genesis.cli_adapter import _assess_result_cmd
+
+        child_steps = (
+            (
+                "design→schema_poc",
+                Path("docs/70-generated-schema-poc.md"),
+                "# Generated Schema PoC\n\nDiscovery established a candidate schema from the design input.\n",
+            ),
+            (
+                "schema_poc→schema",
+                Path("docs/70-generated-schema.md"),
+                "# Generated Schema\n\nDiscovery returned a typed schema surface consumable by downstream code work.\n",
+            ),
+        )
+        for edge_name, artifact_relpath, artifact_text in child_steps:
+            result = gen_iterate(scope, stream)
+            assert result["status"] == "iterated"
+            assert result["blocking_reason"] == "fp_dispatch"
+            manifest = json.loads(Path(result["fp_manifest_path"]).read_text(encoding="utf-8"))
+            assert manifest["edge"] == edge_name
+            artifact_path = workspace / artifact_relpath
+            artifact_path.parent.mkdir(parents=True, exist_ok=True)
+            artifact_path.write_text(artifact_text, encoding="utf-8")
+            _write_fake_result_file(
+                Path(manifest["result_path"]),
+                edge=edge_name,
+                actor="fake_schema_child_judge",
+                evaluator="schema_progress",
+            )
+            assert _assess_result_cmd(manifest["result_path"], workspace) == 0
+
+        rebound = gen_iterate(scope, stream)
+        assert rebound["status"] == "iterated"
+        assert rebound["edge"] == "design→schema"
+        assert rebound["blocking_reason"] == "fp_dispatch"
+        rebound_manifest = json.loads(Path(rebound["fp_manifest_path"]).read_text(encoding="utf-8"))
+        _write_fake_result_file(
+            Path(rebound_manifest["result_path"]),
+            edge="design→schema",
+            actor="fake_schema_parent_judge",
+            evaluator="schema_progress",
+        )
+        assert _assess_result_cmd(rebound_manifest["result_path"], workspace) == 0
+
+        code_iter = gen_iterate(scope, stream)
+        assert code_iter["status"] == "iterated"
+        assert code_iter["edge"] == "design→code"
+        assert code_iter["blocking_reason"] == "fp_dispatch"
+        code_manifest = json.loads(Path(code_iter["fp_manifest_path"]).read_text(encoding="utf-8"))
+        assert code_manifest["target_asset_surface"] == {
+            "kind": "implementation_code",
+            "schema": "CodeSurface",
+            "required_contexts": ["schema"],
+            "standards_refs": ["implementation_standard"],
+            "output_contract_refs": ["implementation_output_contract"],
+        }
+        assert code_manifest["environment_asset_surfaces"]["schema"] == {
+            "kind": "data_schema",
+            "schema": "SchemaSurface",
+            "required_contexts": [],
+            "standards_refs": [],
+            "output_contract_refs": [],
+        }
+        assert "[ASSET SURFACE]" in code_manifest["prompt"]
+        assert "required_contexts: schema" in code_manifest["prompt"]
+        assert "kind: implementation_code" in code_manifest["prompt"]
+        assert "schema [required]" in code_manifest["prompt"]
+        assert "Mandatory contexts for this edge: implementation_standard, implementation_output_contract" in code_manifest["prompt"]
+
+        code_artifact = workspace / "docs" / "70-generated-code.md"
+        code_artifact.write_text(
+            "# Generated Code\n\nThe downstream code lane opened only after the schema surface became carried runtime truth.\n",
+            encoding="utf-8",
+        )
+        _write_fake_result_file(
+            Path(code_manifest["result_path"]),
+            edge="design→code",
+            actor="fake_code_judge",
+            evaluator="code_progress",
+        )
+        assert _assess_result_cmd(code_manifest["result_path"], workspace) == 0
+
+        final_gaps = gen_gaps(scope, stream)
+        assert final_gaps["converged"] is True
+        assert final_gaps["total_delta"] == 0
+        run_archive.update_summary(
+            lane="fake",
+            selection="graphfunction.discovery",
+            converged=True,
+            total_delta=0,
+            terminal_edge="design→code",
+        )
+        assert final_gaps["open_frames"] == 0
+        assert project(stream, "frame", frame_id)["status"] == "closed"
+        run_archive.update_summary(
+            lane="fake",
+            converged=True,
+            total_delta=0,
+            selection="graphfunction.discovery",
+            child_edges=["design→schema_poc", "schema_poc→schema"],
         )
 
     @pytest.mark.usecase_id("gsdlc_lite")

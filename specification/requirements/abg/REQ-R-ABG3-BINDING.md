@@ -35,3 +35,7 @@ runtime execution aggregates.
 **REQ-R-ABG3-BINDING-010**: Binding shall preserve the distinction between external entry bindings and internally produced carried bindings so downstream realization can read cumulative upstream truth without inventing hidden ambient state.
 
 **REQ-R-ABG3-BINDING-011**: ABG shall fail closed on structurally conflicting carried binding contracts and shall not dispatch proof/production work when required internally produced bindings are absent from the resolved runtime environment.
+
+**REQ-R-ABG3-BINDING-012**: When a target node declares `asset_surface.required_contexts`, ABG binding shall treat those named carried bindings as part of the executable runtime boundary for that traversal and shall fail closed when they are absent from the published carrier environment.
+
+**REQ-R-ABG3-BINDING-013**: ABG bind-time prompt and manifest surfaces shall preserve declared target and environment `asset_surface` truth so proof/production work can specialize against asset kind, required carried contexts, and declared standards or output-contract references.

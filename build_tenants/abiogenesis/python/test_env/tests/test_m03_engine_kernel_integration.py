@@ -413,6 +413,166 @@ def _composed_cumulative_environment_module() -> Module:
     )
 
 
+def _asset_surface_prompt_module() -> Module:
+    input_set = Node(name="input_set", schema="InputSet")
+    requirements = Node(name="requirements", schema="RequirementsSurface")
+    design = Node(name="design", schema="DesignSurface")
+    code = Node(
+        name="code",
+        schema="CodeSurface",
+        asset_surface={
+            "kind": "implementation_code",
+            "required_contexts": ("requirements",),
+            "standards_refs": ("implementation_standard",),
+            "output_contract_refs": ("implementation_output_contract",),
+        },
+    )
+
+    requirements_ready = Evaluator(
+        "requirements_ready",
+        F_P,
+        "requirements surface satisfies current contract",
+    )
+    design_ready = Evaluator(
+        "design_ready",
+        F_P,
+        "design surface satisfies current contract",
+    )
+    code_ready = Evaluator(
+        "code_ready",
+        F_P,
+        "code surface satisfies current contract",
+    )
+
+    capture_requirements = graph_function_for_vector(
+        GraphVector(
+            "input_set→requirements",
+            input_set,
+            requirements,
+            evaluators=(requirements_ready,),
+        ),
+    )
+    synthesize_design = GraphFunction.from_graph(
+        name="requirements_to_design_asset_surface",
+        graph=Graph(
+            name="requirements_to_design_asset_surface",
+            inputs=(input_set, requirements),
+            outputs=(design,),
+            nodes=(input_set, requirements, design),
+            vectors=(
+                GraphVector(
+                    "requirements→design",
+                    (input_set, requirements),
+                    design,
+                    evaluators=(design_ready,),
+                ),
+            ),
+        ),
+        environment=EnvRef.from_contract(
+            requires=(input_set, requirements),
+            provides=(design,),
+        ),
+    )
+    implement_code = GraphFunction.from_graph(
+        name="design_to_code_asset_surface",
+        graph=Graph(
+            name="design_to_code_asset_surface",
+            inputs=(input_set, design),
+            outputs=(code,),
+            nodes=(input_set, requirements, design, code),
+            vectors=(
+                GraphVector(
+                    "design→code",
+                    (input_set, design),
+                    code,
+                    evaluators=(code_ready,),
+                ),
+            ),
+        ),
+        environment=EnvRef.from_contract(
+            requires=(input_set, design),
+            provides=(code,),
+        ),
+    )
+    executive = compose(capture_requirements, synthesize_design, implement_code)
+    materialized = executive.materialize()
+    boundaries = tuple(
+        RefinementBoundary(
+            name=vector.name,
+            inputs=vector.source if isinstance(vector.source, tuple) else (vector.source,),
+            outputs=(vector.target,),
+        )
+        for vector in materialized.vectors
+    )
+    return Module(
+        name="m03_asset_surface_prompt",
+        graphs=(materialized,),
+        graph_functions=(executive,),
+        refinement_boundaries=boundaries,
+        jobs=(
+            Job(
+                name="asset_surface_prompt_executive",
+                contracts=(ContractRef(kind="graph_function", target_id=executive.id),),
+            ),
+        ),
+        metadata={"requirements": ["REQ-M03-ASSET-SURFACE-001"]},
+    )
+
+
+def _asset_surface_missing_context_module() -> Module:
+    design = Node(name="design", schema="DesignSurface")
+    code = Node(
+        name="code",
+        schema="CodeSurface",
+        asset_surface={
+            "kind": "implementation_code",
+            "required_contexts": ("schema",),
+        },
+    )
+    code_ready = Evaluator(
+        "code_ready",
+        F_P,
+        "code surface satisfies current contract",
+    )
+    code_program = GraphFunction.from_graph(
+        name="design_to_code_missing_asset_surface_context",
+        graph=Graph(
+            name="design_to_code_missing_asset_surface_context",
+            inputs=(design,),
+            outputs=(code,),
+            nodes=(design, code),
+            vectors=(
+                GraphVector(
+                    "design→code",
+                    design,
+                    code,
+                    evaluators=(code_ready,),
+                ),
+            ),
+        ),
+        environment=EnvRef.from_contract(
+            requires=(design,),
+            provides=(code,),
+        ),
+    )
+    materialized = code_program.materialize()
+    return Module(
+        name="m03_asset_surface_missing_context",
+        graphs=(materialized,),
+        graph_functions=(code_program,),
+        refinement_boundaries=(
+            RefinementBoundary(name="design→code", inputs=(design,), outputs=(code,)),
+        ),
+        jobs=(
+            Job(
+                name="asset_surface_missing_context_job",
+                contracts=(ContractRef(kind="graph_function", target_id=code_program.id),),
+            ),
+        ),
+        metadata={"requirements": ["REQ-M03-ASSET-SURFACE-002"]},
+    )
+
+
 def _emit_edge_converged(
     stream: EventStream,
     *,
@@ -642,6 +802,88 @@ print(json.dumps({
             "binding_source": "runtime_config.domain_package",
         }
         assert bound.environment_asset_bindings["design"]["relative_path"] == "build/generated/design.md"
+
+    def test_bind_fp_surfaces_declared_target_asset_surface_in_prompt_and_manifest(
+        self,
+        tmp_path: Path,
+    ) -> None:
+        module = _asset_surface_prompt_module()
+        stream = workspace_bootstrap(tmp_path)
+        resolver = ContextResolver(tmp_path)
+        jobs = {
+            job.vector.name: job
+            for job in module_to_executable_jobs(module)
+        }
+        code_job = jobs["design→code"]
+
+        _emit_edge_converged(
+            stream,
+            workflow_version="unknown",
+            job=jobs["input_set→requirements"],
+        )
+        _emit_edge_converged(
+            stream,
+            workflow_version="unknown",
+            job=jobs["requirements→design"],
+        )
+
+        ready = bind_fd(
+            code_job,
+            stream,
+            resolver,
+            tmp_path,
+            module=module,
+        )
+
+        assert ready.resolved_environment.ready is True
+        assert "requirements" in {
+            binding.node.name
+            for binding in ready.resolved_environment.bindings
+            if binding.required
+        }
+
+        bound = bind_fp(
+            ready,
+            code_job,
+            result_path="tmp/result.json",
+            workspace_root=tmp_path,
+        )
+
+        assert "[ASSET SURFACE]" in bound.prompt
+        assert "kind: implementation_code" in bound.prompt
+        assert "required_contexts: requirements" in bound.prompt
+        assert "standards_refs: implementation_standard" in bound.prompt
+        assert "output_contract_refs: implementation_output_contract" in bound.prompt
+        assert "Mandatory contexts for this edge: implementation_standard, implementation_output_contract" in bound.prompt
+        assert bound.target_asset_surface == {
+            "kind": "implementation_code",
+            "schema": "CodeSurface",
+            "required_contexts": ["requirements"],
+            "standards_refs": ["implementation_standard"],
+            "output_contract_refs": ["implementation_output_contract"],
+        }
+
+    def test_bind_fd_blocks_dispatch_when_target_asset_surface_requires_undeclared_carried_context(
+        self,
+        tmp_path: Path,
+    ) -> None:
+        module = _asset_surface_missing_context_module()
+        resolver = ContextResolver(tmp_path)
+        stream = workspace_bootstrap(tmp_path)
+        code_job = next(iter(module_to_executable_jobs(module)))
+
+        blocked = bind_fd(
+            code_job,
+            stream,
+            resolver,
+            tmp_path,
+            module=module,
+        )
+
+        assert blocked.resolved_environment.ready is False
+        assert blocked.resolved_environment.missing_asset_surface_contexts == ("schema",)
+        with pytest.raises(ValueError, match="runtime environment unresolved"):
+            bind_fp(blocked, code_job)
 
     def test_bind_fp_fails_closed_when_explicit_asset_binding_contract_omits_target(
         self,

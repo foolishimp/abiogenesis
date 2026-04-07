@@ -1,4 +1,4 @@
-# REQ-L-GTL3-NODE — Typed Loci With Markov Conditions
+# REQ-L-GTL3-NODE — Typed Loci With Markov And Asset Surface Declarations
 
 **Status**: Active
 **Category**: Capability
@@ -9,8 +9,8 @@
 
 ## Purpose
 
-Define `Node` as the typed local locus of graph meaning and invariant state in
-GTL 3.
+Define `Node` as the typed local locus of graph meaning, invariant state, and
+asset-surface declaration in GTL 3.
 
 ## Acceptance Criteria
 
@@ -29,3 +29,9 @@ GTL 3.
 **REQ-L-GTL3-NODE-007**: `Node.schema` shall support both concrete type references and symbolic schema names, including vectorized boundaries such as `Vector[T]`.
 
 **REQ-L-GTL3-NODE-008**: Any lawful GTL interpretation, serialization surface, or GTL to ABG bridge shall preserve node schema and markov conditions without semantic loss.
+
+**REQ-L-GTL3-NODE-009**: A node may declare an `asset_surface` describing the intended asset kind/schema role at that locus, required carried contexts, and standards or output-contract references associated to production of that asset.
+
+**REQ-L-GTL3-NODE-010**: `asset_surface` belongs to GTL declaration truth, not ABG runtime invention. ABG may resolve, project, or validate it, but shall not invent missing `asset_surface` law at runtime.
+
+**REQ-L-GTL3-NODE-011**: Any lawful GTL interpretation, serialization surface, or GTL to ABG bridge shall preserve declared `asset_surface` contract without semantic loss.

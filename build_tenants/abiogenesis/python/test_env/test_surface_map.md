@@ -45,7 +45,7 @@ Current reading:
 ### test_m01_gtl_core_integration.py
 
 - Requirements: `REQ-L-GTL3-LANGUAGE`, `REQ-L-GTL3-ATTRS`, `REQ-L-GTL3-CONTEXT`, `REQ-L-GTL3-GRAPH`, `REQ-L-GTL3-NODE`, `REQ-L-GTL3-GRAPHVECTOR`, `REQ-L-GTL3-INTERFACE`, `REQ-L-GTL3-OPERATOR`, `REQ-L-GTL3-EVALUATOR`, `REQ-L-GTL3-RULE`, `REQ-L-GTL3-GRAPHFUNCTION`, `REQ-L-GTL3-HOOKS`, `REQ-L-GTL3-COMPOSE`, `REQ-L-GTL3-SUBSTITUTE`, `REQ-L-GTL3-RECURSE`, `REQ-L-GTL3-HOF`, `REQ-L-GTL3-LAWS`, `REQ-L-GTL3-SYNTHESIS`, `REQ-L-GTL3-SELECTION-BOUNDARY`, `REQ-L-GTL3-IDENTITY`
-- Design: [module_decomp.md](../../../common/design/module_decomp.md), [qualification_refactor_loop.md](../../../common/qualification/qualification_refactor_loop.md), [GTL_3_MODULE_DESIGN.md](../design/GTL_3_MODULE_DESIGN.md), [GTL_3_INTERFACE_CONTRACTS.md](../design/GTL_3_INTERFACE_CONTRACTS.md), [03-graph-function-algebra.md](../../../../specification/scenarios/03-graph-function-algebra.md)
+- Design: [module_decomp.md](../../../common/design/module_decomp.md), [qualification_refactor_loop.md](../../../common/qualification/qualification_refactor_loop.md), [GTL_3_MODULE_DESIGN.md](../design/GTL_3_MODULE_DESIGN.md), [GTL_3_INTERFACE_CONTRACTS.md](../design/GTL_3_INTERFACE_CONTRACTS.md), [01-language-primitives-and-traversal.md](../../../../specification/scenarios/01-language-primitives-and-traversal.md), [02-governed-transition-surfaces.md](../../../../specification/scenarios/02-governed-transition-surfaces.md), [03-graph-function-algebra.md](../../../../specification/scenarios/03-graph-function-algebra.md)
 
 ### test_m02_work_publication_integration.py
 
@@ -62,7 +62,7 @@ Current reading:
 ### test_m03_engine_kernel_integration.py
 
 - Requirements: `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-CONVERGENCE`, `REQ-R-ABG3-SELECTION-APPLICATION`, `REQ-R-ABG3-POLICY`, `REQ-R-ABG3-PROVENANCE`, `REQ-R-ABG3-RUN`, `REQ-R-ABG3-PROJECTION`, `REQ-R-ABG3-SELFHOSTING`, `REQ-R-ABG3-BINDING`, `REQ-R-ABG3-WORKER`, `REQ-M-GTL3-MAPPING`, `REQ-M-GTL3-PROVENANCE`
-- Design: [module_decomp.md](../../../common/design/module_decomp.md), [qualification_refactor_loop.md](../../../common/qualification/qualification_refactor_loop.md), [GTL_3_MODULE_DESIGN.md](../design/GTL_3_MODULE_DESIGN.md), [GTL_3_INTERFACE_CONTRACTS.md](../design/GTL_3_INTERFACE_CONTRACTS.md)
+- Design: [module_decomp.md](../../../common/design/module_decomp.md), [qualification_refactor_loop.md](../../../common/qualification/qualification_refactor_loop.md), [GTL_3_MODULE_DESIGN.md](../design/GTL_3_MODULE_DESIGN.md), [GTL_3_INTERFACE_CONTRACTS.md](../design/GTL_3_INTERFACE_CONTRACTS.md), [05-runtime-aggregates-and-event-truth.md](../../../../specification/scenarios/05-runtime-aggregates-and-event-truth.md), [06-replay-lineage-and-correction.md](../../../../specification/scenarios/06-replay-lineage-and-correction.md), [07-governed-probabilistic-runtime.md](../../../../specification/scenarios/07-governed-probabilistic-runtime.md), [08-derived-artifact-governance.md](../../../../specification/scenarios/08-derived-artifact-governance.md)
 
 ## Product and Qualification Tests
 
@@ -88,8 +88,8 @@ Current reading:
 
 ### test_spec_method_trace.py
 
-- Requirements: `REQ-R-ABG3-SELFHOSTING-002`
-- Design: [module_decomp.md](../../../common/design/module_decomp.md), [design_surface_map.md](../../../common/design/design_surface_map.md), [qualification_surface_map.md](../../../common/qualification/qualification_surface_map.md)
+- Requirements: `REQ-P-SCENARIOS`, `REQ-R-ABG3-SELFHOSTING-002`
+- Design: [module_decomp.md](../../../common/design/module_decomp.md), [design_surface_map.md](../../../common/design/design_surface_map.md), [qualification_surface_map.md](../../../common/qualification/qualification_surface_map.md), [TESTCASE_AUTHORITY.md](../../../../specification/scenarios/TESTCASE_AUTHORITY.md)
 
 ## Sandbox and Scenario Tests
 

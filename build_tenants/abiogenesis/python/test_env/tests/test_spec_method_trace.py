@@ -1,4 +1,5 @@
 # Validates: REQ-R-ABG3-SELFHOSTING-002
+# Validates: REQ-P-SCENARIOS
 from __future__ import annotations
 
 import json
@@ -60,6 +61,7 @@ EXPLICIT_TEST_TRACE_FAMILIES = {
     "REQ-L-GTL3-HOOKS",
     "REQ-R-ABG3-POLICY",
     "REQ-M-GTL3-PROVENANCE",
+    "REQ-P-SCENARIOS",
 }
 SCENARIO_DESIGN_FILES = sorted(PYTHON_DESIGN_ROOT.glob("SCENARIO_*.md")) + [
     PYTHON_DESIGN_ROOT / "GSDLC_LITE_QUALIFICATION_LADDER.md"
@@ -267,10 +269,41 @@ def _test_surface_map_sections() -> dict[str, str]:
 def _file_validates_map() -> dict[str, set[str]]:
     validates: dict[str, set[str]] = {}
     for path in sorted(PYTHON_TEST_ROOT.glob("test_*.py")):
-        validates[path.name] = set(
-            re.findall(r"^#\s*Validates:\s*(REQ-[A-Z]-[A-Z0-9]+(?:-[A-Z0-9]+)*)", _read(path), re.MULTILINE)
-        )
+        validates[path.name] = _validated_requirement_refs(path)
     return validates
+
+
+def _validated_requirement_refs(path: Path) -> set[str]:
+    refs: set[str] = set()
+    for line in re.findall(r"^#\s*Validates:\s*(.+)$", _read(path), re.MULTILINE):
+        refs.update(REQ_REF_RE.findall(line))
+    return refs
+
+
+def _testcase_authority_rows() -> list[tuple[str, str, str]]:
+    rows: list[tuple[str, str, str]] = []
+    for line in _read(TESTCASE_AUTHORITY_FILE).splitlines():
+        if not line.startswith("| `REQ"):
+            continue
+        parts = [part.strip() for part in line.strip("|").split("|")]
+        if len(parts) != 3:
+            continue
+        rows.append((parts[0], parts[1], parts[2]))
+    return rows
+
+
+def _testcase_authority_family_refs() -> set[str]:
+    refs: set[str] = set()
+    for families_cell, _, _ in _testcase_authority_rows():
+        refs.update(REQ_REF_RE.findall(families_cell))
+    return refs
+
+
+def _testcase_authority_surface_names() -> set[str]:
+    surfaces: set[str] = set()
+    for _, authority_cell, _ in _testcase_authority_rows():
+        surfaces.update(re.findall(r"`([^`]+\.md)`", authority_cell))
+    return surfaces
 
 
 def test_requirement_families_have_method_metadata_and_live_intent_refs() -> None:
@@ -375,6 +408,27 @@ def test_gtl_testcase_authority_covers_live_gtl_requirement_families() -> None:
             assert _is_known_requirement_ref(ref, known_refs), f"{path.name} references unknown requirement ref {ref}"
 
 
+def test_testcase_authority_families_have_canonical_test_validators() -> None:
+    validate_refs: set[str] = set()
+    for refs in _file_validates_map().values():
+        validate_refs.update(refs)
+
+    missing = sorted(family for family in _testcase_authority_family_refs() if family not in validate_refs)
+    assert not missing, (
+        "testcase authority families are missing canonical test validators: "
+        + ", ".join(missing)
+    )
+
+
+def test_testcase_authority_surfaces_are_linked_from_canonical_test_surface_map() -> None:
+    linked_names = {link.name for link in _resolve_links(_read(PYTHON_TEST_SURFACE_MAP), PYTHON_TEST_SURFACE_MAP)}
+    missing = sorted(name for name in _testcase_authority_surface_names() if name not in linked_names)
+    assert not missing, (
+        "testcase authority surfaces are not linked from the canonical test surface map: "
+        + ", ".join(missing)
+    )
+
+
 def test_structural_design_docs_trace_to_live_requirement_surfaces() -> None:
     families = _live_requirement_families()
 
@@ -468,7 +522,7 @@ def test_python_test_surface_map_covers_existing_tests_with_requirement_and_desi
         for link in links:
             assert link.exists(), f"{path.name} links to missing design surface {link}"
 
-        file_validates = set(re.findall(r"^#\s*Validates:\s*(REQ-[A-Z]-[A-Z0-9]+(?:-[A-Z0-9]+)*)", _read(path), re.MULTILINE))
+        file_validates = _validated_requirement_refs(path)
         missing = sorted(ref for ref in file_validates if not _section_covers_requirement_ref(ref, section_req_refs))
         assert not missing, f"{path.name} is missing validated requirement refs in test surface map: {missing}"
 
