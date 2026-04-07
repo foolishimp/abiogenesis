@@ -20,8 +20,9 @@ resolve one continuation from emitted runtime facts.
 - entry path: public semantic work enters through `Job -> GraphFunction`
 - binding path: ABG resolves a runtime environment snapshot, preserves the
   distinction between external entry bindings and internally carried bindings,
-  and fails closed when a target asset contract requires undeclared carried
-  context
+  widens the live executable boundary invocation-locally when a target
+  `asset_surface` requires already-declared carried context, and fails closed
+  when a target asset contract requires undeclared carried context
 - aggregate path: `Run`, `GraphCall`, `Frame`, and `Continuation` open and
   close by authoritative events
 - vector path: vector-local facts attach to the nearest enclosing runtime
@@ -34,7 +35,9 @@ resolve one continuation from emitted runtime facts.
 1. runtime truth is reconstructable from event emission alone
 2. `GraphCall` is the public callable runtime aggregate
 3. binding truth includes a replay-visible runtime environment snapshot rather
-   than hidden ambient state
+   than hidden ambient state, including explicit visibility into the effective
+   required boundary merged from vector source and target `asset_surface`
+   declarations
 4. recursive execution uses explicit frame truth rather than hidden stack state
 5. continuations record run-local open obligation truth, not a hidden task
    queue

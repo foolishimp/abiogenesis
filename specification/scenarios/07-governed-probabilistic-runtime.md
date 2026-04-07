@@ -31,7 +31,8 @@ dispatch manifests.
   defects rather than silently drifting runtime behavior
 - provenance path: bind-time manifests preserve materialization/mapping truth
   plus declared target and carried `asset_surface` contracts surfaced into
-  probabilistic work packets
+  probabilistic work packets, together with the explicit invocation-local merge
+  that forms the effective required boundary for that dispatch
 - negative path: ABG does not observe or encode internal tactic or
   chain-of-thought inside probabilistic workers
 

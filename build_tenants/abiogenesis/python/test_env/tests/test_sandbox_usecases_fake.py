@@ -1052,10 +1052,19 @@ class TestSandboxUsecasesFake:
             "standards_refs": [],
             "output_contract_refs": [],
         }
+        assert code_manifest["runtime_environment_contract"] == {
+            "vector_source_required_contexts": ["design"],
+            "asset_surface_required_contexts": ["schema"],
+            "asset_surface_injected_required_contexts": ["schema"],
+            "effective_required_contexts": ["design", "schema"],
+        }
         assert "[ASSET SURFACE]" in code_manifest["prompt"]
+        assert "[REQUIRED BOUNDARY]" in code_manifest["prompt"]
         assert "required_contexts: schema" in code_manifest["prompt"]
+        assert "asset_surface_injected_required_contexts: schema" in code_manifest["prompt"]
         assert "kind: implementation_code" in code_manifest["prompt"]
         assert "schema [required]" in code_manifest["prompt"]
+        assert "required_via=asset_surface" in code_manifest["prompt"]
         assert "Mandatory contexts for this edge: implementation_standard, implementation_output_contract" in code_manifest["prompt"]
 
         code_artifact = workspace / "docs" / "70-generated-code.md"

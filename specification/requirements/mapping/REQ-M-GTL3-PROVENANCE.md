@@ -23,3 +23,5 @@ When GTL programs are mapped onto an engine, provenance records which engine, ve
 **REQ-M-GTL3-PROVENANCE-004**: When a graph-derived companion bundle such as a selected subgraph or evaluator bundle is produced for engine execution, mapping provenance shall preserve its derivation back to the graph-function materialization that produced it.
 
 **REQ-M-GTL3-PROVENANCE-005**: When GTL node declarations include `asset_surface`, mapping provenance shall preserve the declared target and carried asset-surface contracts surfaced into bind-time manifests or runtime execution packets so downstream replay can determine which typed asset contract governed production.
+
+**REQ-M-GTL3-PROVENANCE-006**: When ABG merges vector-source required bindings with target `asset_surface.required_contexts` to form the effective executable boundary for one invocation, mapping provenance shall preserve that merge as invocation-local runtime truth, including enough distinction to tell which required bindings came from the vector source and which came from the asset-surface declaration.

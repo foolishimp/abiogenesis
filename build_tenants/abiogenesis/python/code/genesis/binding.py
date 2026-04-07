@@ -343,6 +343,7 @@ class ResolvedEnvironmentBinding:
     required: bool = False
     provided: bool = False
     produced_within_carrier: bool = False
+    required_sources: tuple[str, ...] = ()
 
     @property
     def display_status(self) -> str:
@@ -364,6 +365,9 @@ class ResolvedEnvironment:
     provides: tuple[Node, ...] = ()
     carries: tuple[Node, ...] = ()
     bindings: tuple[ResolvedEnvironmentBinding, ...] = ()
+    vector_source_required_contexts: tuple[str, ...] = ()
+    asset_surface_required_contexts: tuple[str, ...] = ()
+    asset_surface_injected_required_contexts: tuple[str, ...] = ()
     missing_required: tuple[str, ...] = ()
     missing_asset_surface_contexts: tuple[str, ...] = ()
     conflicting_contracts: tuple[str, ...] = ()
@@ -382,6 +386,11 @@ class ResolvedEnvironment:
 
     def summary_lines(self) -> list[str]:
         lines: list[str] = []
+        if self.asset_surface_injected_required_contexts:
+            lines.append(
+                "effective runtime boundary includes asset_surface-injected required bindings: "
+                + ", ".join(self.asset_surface_injected_required_contexts)
+            )
         if self.missing_required:
             lines.append(
                 "missing internally produced required bindings: "
@@ -633,6 +642,7 @@ def resolve_runtime_environment(
     must be replay-visible before dispatch.
     """
     requires = list(_source_nodes(job.vector.source))
+    vector_source_required_contexts = tuple(node.name for node in requires)
     provides = (job.vector.target,)
     published_carries = (
         job.graph_function.environment.carries
@@ -643,8 +653,12 @@ def resolve_runtime_environment(
     carry_nodes_by_name = {node.name: node for node in carries}
 
     missing_asset_surface_contexts: list[str] = []
+    asset_surface_required_contexts: list[str] = []
+    asset_surface_injected_required_contexts: list[str] = []
     required_names = {node.name for node in requires}
     for context_name in job.vector.target.asset_surface.required_contexts:
+        if context_name not in asset_surface_required_contexts:
+            asset_surface_required_contexts.append(context_name)
         context_node = carry_nodes_by_name.get(context_name)
         if context_node is None:
             if context_name not in missing_asset_surface_contexts:
@@ -653,6 +667,7 @@ def resolve_runtime_environment(
         if context_name not in required_names:
             requires.append(context_node)
             required_names.add(context_name)
+            asset_surface_injected_required_contexts.append(context_name)
     requires = tuple(requires)
 
     contract_by_name: dict[str, tuple[str, str, tuple[str, ...]]] = {}
@@ -685,6 +700,14 @@ def resolve_runtime_environment(
             required=node.name in required_names,
             provided=node.name in provided_names,
             produced_within_carrier=node.name in produced_within_carrier,
+            required_sources=tuple(
+                source
+                for source, enabled in (
+                    ("vector_source", node.name in vector_source_required_contexts),
+                    ("asset_surface", node.name in asset_surface_required_contexts),
+                )
+                if enabled
+            ),
         )
         bindings.append(binding)
         binding_by_name[node.name] = binding
@@ -702,6 +725,9 @@ def resolve_runtime_environment(
         provides=provides,
         carries=carries,
         bindings=tuple(bindings),
+        vector_source_required_contexts=vector_source_required_contexts,
+        asset_surface_required_contexts=tuple(asset_surface_required_contexts),
+        asset_surface_injected_required_contexts=tuple(asset_surface_injected_required_contexts),
         missing_required=missing_required,
         missing_asset_surface_contexts=tuple(missing_asset_surface_contexts),
         conflicting_contracts=tuple(conflicting_contracts),
@@ -762,6 +788,7 @@ class BoundJob:
     environment_asset_bindings: dict[str, dict[str, Any]] = field(default_factory=dict)
     target_asset_surface: dict[str, Any] | None = None
     environment_asset_surfaces: dict[str, dict[str, Any]] = field(default_factory=dict)
+    runtime_environment_contract: dict[str, Any] = field(default_factory=dict)
 
 
 def _asset_surface_summary(node: Node) -> dict[str, Any] | None:
@@ -774,6 +801,25 @@ def _asset_surface_summary(node: Node) -> dict[str, Any] | None:
         "required_contexts": list(surface.required_contexts),
         "standards_refs": list(surface.standards_refs),
         "output_contract_refs": list(surface.output_contract_refs),
+    }
+
+
+def _runtime_environment_contract_summary(
+    resolved_environment: ResolvedEnvironment,
+) -> dict[str, Any]:
+    return {
+        "vector_source_required_contexts": list(
+            resolved_environment.vector_source_required_contexts
+        ),
+        "asset_surface_required_contexts": list(
+            resolved_environment.asset_surface_required_contexts
+        ),
+        "asset_surface_injected_required_contexts": list(
+            resolved_environment.asset_surface_injected_required_contexts
+        ),
+        "effective_required_contexts": [
+            node.name for node in resolved_environment.requires
+        ],
     }
 
 
@@ -1159,6 +1205,9 @@ def bind_fp(
             for binding in pre.resolved_environment.bindings
             if (summary := _asset_surface_summary(binding.node)) is not None
         },
+        runtime_environment_contract=_runtime_environment_contract_summary(
+            pre.resolved_environment
+        ),
     )
 
 
@@ -1262,6 +1311,11 @@ def _assemble_prompt(
                 if binding.produced_within_carrier
                 else "external_entry"
             )
+            required_via_suffix = ""
+            if binding.required_sources:
+                required_via_suffix = (
+                    " required_via=" + "+".join(binding.required_sources)
+                )
             asset_kind_suffix = ""
             if binding.node.asset_surface.kind:
                 asset_kind_suffix = f" asset_kind={binding.node.asset_surface.kind}"
@@ -1282,7 +1336,7 @@ def _assemble_prompt(
             env_lines.append(
                 f"  {binding.node.name} [{', '.join(roles)}] "
                 f"schema={binding.node.schema!r} status={binding.display_status} origin={origin}"
-                f"{asset_kind_suffix}{location_suffix}"
+                f"{required_via_suffix}{asset_kind_suffix}{location_suffix}"
             )
         if not pre.resolved_environment.ready:
             env_lines.extend(
@@ -1290,6 +1344,33 @@ def _assemble_prompt(
                 for line in pre.resolved_environment.summary_lines()
             )
         sections.append("\n".join(env_lines))
+
+    contract_summary = _runtime_environment_contract_summary(pre.resolved_environment)
+    boundary_lines = [
+        "[REQUIRED BOUNDARY] — invocation-local effective required bindings for this edge:",
+        "  vector_source_required_contexts: "
+        + (
+            ", ".join(contract_summary["vector_source_required_contexts"])
+            or "(none)"
+        ),
+        "  asset_surface_required_contexts: "
+        + (
+            ", ".join(contract_summary["asset_surface_required_contexts"])
+            or "(none)"
+        ),
+        "  asset_surface_injected_required_contexts: "
+        + (
+            ", ".join(contract_summary["asset_surface_injected_required_contexts"])
+            or "(none)"
+        ),
+        "  effective_required_contexts: "
+        + (
+            ", ".join(contract_summary["effective_required_contexts"])
+            or "(none)"
+        ),
+        "  note: this merge is invocation-local runtime interpretation, not a rewrite of published GTL module topology.",
+    ]
+    sections.append("\n".join(boundary_lines))
 
     if target.asset_surface.declared:
         asset_surface_lines = [

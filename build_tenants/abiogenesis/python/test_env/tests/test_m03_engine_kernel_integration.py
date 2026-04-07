@@ -841,6 +841,17 @@ print(json.dumps({
             for binding in ready.resolved_environment.bindings
             if binding.required
         }
+        assert ready.resolved_environment.vector_source_required_contexts == ("input_set", "design")
+        assert ready.resolved_environment.asset_surface_required_contexts == ("requirements",)
+        assert ready.resolved_environment.asset_surface_injected_required_contexts == ("requirements",)
+        required_sources_by_name = {
+            binding.node.name: binding.required_sources
+            for binding in ready.resolved_environment.bindings
+            if binding.required
+        }
+        assert required_sources_by_name["input_set"] == ("vector_source",)
+        assert required_sources_by_name["design"] == ("vector_source",)
+        assert required_sources_by_name["requirements"] == ("asset_surface",)
 
         bound = bind_fp(
             ready,
@@ -855,12 +866,25 @@ print(json.dumps({
         assert "standards_refs: implementation_standard" in bound.prompt
         assert "output_contract_refs: implementation_output_contract" in bound.prompt
         assert "Mandatory contexts for this edge: implementation_standard, implementation_output_contract" in bound.prompt
+        assert "[REQUIRED BOUNDARY]" in bound.prompt
+        assert "vector_source_required_contexts: input_set, design" in bound.prompt
+        assert "asset_surface_required_contexts: requirements" in bound.prompt
+        assert "asset_surface_injected_required_contexts: requirements" in bound.prompt
+        assert "effective_required_contexts: input_set, design, requirements" in bound.prompt
+        assert "required_via=vector_source" in bound.prompt
+        assert "required_via=asset_surface" in bound.prompt
         assert bound.target_asset_surface == {
             "kind": "implementation_code",
             "schema": "CodeSurface",
             "required_contexts": ["requirements"],
             "standards_refs": ["implementation_standard"],
             "output_contract_refs": ["implementation_output_contract"],
+        }
+        assert bound.runtime_environment_contract == {
+            "vector_source_required_contexts": ["input_set", "design"],
+            "asset_surface_required_contexts": ["requirements"],
+            "asset_surface_injected_required_contexts": ["requirements"],
+            "effective_required_contexts": ["input_set", "design", "requirements"],
         }
 
     def test_bind_fd_blocks_dispatch_when_target_asset_surface_requires_undeclared_carried_context(
@@ -884,6 +908,73 @@ print(json.dumps({
         assert blocked.resolved_environment.missing_asset_surface_contexts == ("schema",)
         with pytest.raises(ValueError, match="runtime environment unresolved"):
             bind_fp(blocked, code_job)
+
+    def test_traverse_manifest_and_fp_dispatch_event_surface_effective_required_boundary_merge(
+        self,
+        tmp_path: Path,
+    ) -> None:
+        module = _asset_surface_prompt_module()
+        stream = workspace_bootstrap(tmp_path)
+        resolver = ContextResolver(tmp_path)
+        jobs = {
+            job.vector.name: job
+            for job in module_to_executable_jobs(module)
+        }
+        code_job = jobs["design→code"]
+
+        _emit_edge_converged(
+            stream,
+            workflow_version="m03.asset_surface@1.0.0",
+            job=jobs["input_set→requirements"],
+        )
+        _emit_edge_converged(
+            stream,
+            workflow_version="m03.asset_surface@1.0.0",
+            job=jobs["requirements→design"],
+        )
+
+        ready = bind_fd(
+            code_job,
+            stream,
+            resolver,
+            tmp_path,
+            module=module,
+        )
+        runtime = TraversalRuntime(
+            module=module,
+            executable_job=code_job,
+            precomputed=ready,
+            workspace_root=tmp_path,
+            stream=stream,
+            worker=Worker(id="router", can_execute=[code_job]),
+            spec_hash="spec-m03-asset-surface-boundary",
+            workflow_version="m03.asset_surface@1.0.0",
+        )
+
+        outcome = traverse(
+            Traversal(
+                work_key=code_job.vector.id,
+                target=module.refinement_boundaries[-1],
+                evaluators=code_job.vector.evaluators,
+            ),
+            runtime=runtime,
+            surface=WorkSurface(),
+        )
+
+        assert outcome.result["status"] == "iterated"
+        manifest_path = Path(outcome.result["fp_manifest_path"])
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        assert manifest["runtime_environment_contract"] == {
+            "vector_source_required_contexts": ["input_set", "design"],
+            "asset_surface_required_contexts": ["requirements"],
+            "asset_surface_injected_required_contexts": ["requirements"],
+            "effective_required_contexts": ["input_set", "design", "requirements"],
+        }
+        fp_dispatched = next(
+            event for event in outcome.surface.events
+            if event["event_type"] == "fp_dispatched"
+        )
+        assert fp_dispatched["data"]["runtime_environment_contract"] == manifest["runtime_environment_contract"]
 
     def test_bind_fp_fails_closed_when_explicit_asset_binding_contract_omits_target(
         self,

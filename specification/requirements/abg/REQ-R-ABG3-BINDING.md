@@ -39,3 +39,5 @@ runtime execution aggregates.
 **REQ-R-ABG3-BINDING-012**: When a target node declares `asset_surface.required_contexts`, ABG binding shall treat those named carried bindings as part of the executable runtime boundary for that traversal and shall fail closed when they are absent from the published carrier environment.
 
 **REQ-R-ABG3-BINDING-013**: ABG bind-time prompt and manifest surfaces shall preserve declared target and environment `asset_surface` truth so proof/production work can specialize against asset kind, required carried contexts, and declared standards or output-contract references.
+
+**REQ-R-ABG3-BINDING-014**: When ABG widens one live vector boundary with target `asset_surface.required_contexts`, that merge shall be explicit and invocation-local. It shall not rewrite published GTL module topology, and bind-time prompt, manifest, and runtime event surfaces shall preserve the vector-source required bindings, the asset-surface-required bindings, and the effective merged required boundary distinctly enough for replay and post-mortem audit.
