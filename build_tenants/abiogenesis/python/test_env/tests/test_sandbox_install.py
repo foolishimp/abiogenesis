@@ -120,12 +120,17 @@ class TestSandboxInstall:
         assert (docs_root / "USER_GUIDE.md").is_file()
         assert (docs_root / "GTL_BOOTLOADER.md").is_file()
         assert (docs_root / "standards" / "SPEC_METHOD.md").is_file()
+        assert (docs_root / "standards" / "POSTING_GUIDE.md").is_file()
         assert (docs_root / "standards" / "WRITING_GUIDE.md").is_file()
         assert (docs_root / "standards" / "templates" / "requirements" / "STARTER_REQUIREMENTS_TEMPLATE.md").is_file()
         assert "workspace://.genesis/docs/LLM_GTL_APP_BUILDER_GUIDE.md" in agents_text
         assert "workspace://.genesis/docs/standards/SPEC_METHOD.md" in agents_text
+        assert "workspace://.genesis/docs/standards/POSTING_GUIDE.md" in agents_text
+        assert "workspace://.ai-workspace/comments/README.md" in agents_text
         assert "workspace://.genesis/docs/LLM_GTL_APP_BUILDER_GUIDE.md" in claude_text
         assert "workspace://.genesis/docs/standards/SPEC_METHOD.md" in claude_text
+        assert "workspace://.genesis/docs/standards/POSTING_GUIDE.md" in claude_text
+        assert "workspace://.ai-workspace/comments/README.md" in claude_text
         assert install_payload["agents_md"] in {"created", "updated", "appended"}
         assert install_payload["claude_md"] in {"created", "updated", "appended"}
         assert "LLM_GTL_APP_BUILDER_GUIDE.md" in install_payload["docs_files"]
