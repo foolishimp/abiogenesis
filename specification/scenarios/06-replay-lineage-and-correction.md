@@ -1,6 +1,6 @@
 # Scenario Bundle - Replay, Lineage, And Correction
 
-**Validates**: REQ-R-ABG3-PROJECTION, REQ-R-ABG3-LINEAGE, REQ-R-ABG3-PROVENANCE, REQ-R-ABG3-CORRECTION
+**Validates**: REQ-R-ABG3-PROJECTION, REQ-R-ABG3-LINEAGE, REQ-R-ABG3-PROVENANCE, REQ-R-ABG3-CORRECTION, REQ-R-ABG3-RETRY
 
 **Derives from**: [/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [INTENT.md](../INTENT.md) INT-001, [ABG_3_CONSTITUTIONAL_DESIGN.md](../ABG_3_CONSTITUTIONAL_DESIGN.md)
 
@@ -27,6 +27,8 @@ rebound, continuation opening, correction, and replacement run supersession.
 
 1. replay alone determines what currently holds
 2. retries mint fresh attempt identities without losing lawful lineage
-3. stale progress is never treated as current truth after correction
-4. cross-run carry-forward uses closed-old/open-new continuation truth with
+3. retry prompt and manifest truth are rebuilt from current state rather than
+   reused stale controller state
+4. stale progress is never treated as current truth after correction or retry
+5. cross-run carry-forward uses closed-old/open-new continuation truth with
    explicit causal linkage

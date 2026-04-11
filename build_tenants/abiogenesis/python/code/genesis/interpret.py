@@ -1508,7 +1508,7 @@ def _iterated_outcome(
     fp_failing = [ev for ev in pre.failing_evaluators if ev.regime is F_P]
     fh_failing = [ev for ev in pre.failing_evaluators if ev.regime is F_H]
 
-    ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S")
+    ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
     edge_slug = vector.name.replace("→", "_").replace("↔", "_")
     manifest_id = f"{edge_slug}_{ts}"
     active_frame = _active_frame_for_runtime(runtime)

@@ -239,6 +239,13 @@ It is not identical to the GTL `GraphFunction` declaration itself.
 Each retry, reopen, or replacement callable attempt is a new `GraphCall` with
 its own `call_id`.
 
+Retry must not reuse stale prompt or manifest truth as current callable truth.
+
+Prior graph-call artifacts remain replay-visible evidence only.
+
+Fresh retry attempts must derive their manifest and prompt from current runtime
+and workspace state.
+
 ABG 3 does not define a separate graph-call lineage aggregate.
 
 Cross-call relation is carried by causal/correlation identity in event truth,
@@ -325,6 +332,12 @@ It does not survive into a replacement run as the same aggregate.
 If an unresolved condition is relevant after retry, correction, or
 supersession, ABG must terminate the old continuation by authoritative event
 truth and open a new continuation in the new run with explicit causal linkage.
+
+Retry control itself remains substrate-owned.
+
+Domain products may refine retry behavior through declared GTL and policy
+surfaces, but they must not replace substrate retry truth with a shadow
+controller.
 
 ---
 

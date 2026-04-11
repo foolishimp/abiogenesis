@@ -506,6 +506,54 @@ def ingest_fp_result(
                 )
                 emitted_count += 1
                 latest_event_id = found_event.get("event_id")
+                if call_id and graph_call_terminal:
+                    graph_call_failed = _event_writer(
+                        workspace,
+                        emit_event,
+                        "graph_call_failed",
+                        {
+                            "call_id": call_id,
+                            "edge": result_data["edge"],
+                            "failure_class": "certification_failure",
+                            "manifest_id": manifest_id,
+                        },
+                        workflow_version=workflow_version,
+                        work_key=manifest_work_key or None,
+                        run_id=manifest_run_id or None,
+                        aggregate_type="graph_call",
+                        aggregate_id=call_id,
+                        parent_aggregate_id=manifest_run_id or None,
+                        causation_event_id=latest_event_id,
+                        job_id=job_id or None,
+                        graph_function_id=graph_function_id or None,
+                        materialization_id=materialization_id or None,
+                        call_id=call_id,
+                        vector_id=vector_id or None,
+                    )
+                    emitted_count += 1
+                    latest_event_id = graph_call_failed.get("event_id")
+                if manifest_run_id:
+                    _event_writer(
+                        workspace,
+                        emit_event,
+                        "run_completed",
+                        {
+                            "call_id": call_id or None,
+                            "edge": result_data["edge"],
+                        },
+                        workflow_version=workflow_version,
+                        work_key=manifest_work_key or None,
+                        run_id=manifest_run_id,
+                        aggregate_type="run",
+                        aggregate_id=manifest_run_id,
+                        causation_event_id=latest_event_id,
+                        job_id=job_id or None,
+                        graph_function_id=graph_function_id or None,
+                        materialization_id=materialization_id or None,
+                        call_id=call_id or None,
+                        vector_id=vector_id or None,
+                    )
+                    emitted_count += 1
                 return {
                     "status": "pending",
                     "result_path": str(result_file),

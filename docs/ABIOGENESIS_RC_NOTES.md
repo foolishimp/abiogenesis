@@ -61,6 +61,33 @@ That means:
 - the runtime now surfaces that state back out as `fd_gap`
 - instead of reporting `probabilistic_non_convergence` / `fp_runtime_failure`
 
+### Retry Attempts Now Rebind Current Truth
+
+The current RC makes retry attempts current-state-derived rather than stale
+manifest replay.
+
+That means:
+
+- retryable attempts now mint fresh manifest identity at finer than one-second
+  resolution
+- retry prompts are rebuilt from current workspace and runtime state rather than
+  redispatching an old prompt
+- the generic prompt now instructs the actor to inspect the current target
+  asset, determine realized progress, identify the remaining gap, and continue
+  from present state
+
+### Stopped `fd_gap` Attempts Now Terminalize Prior Run And GraphCall Truth
+
+The current RC no longer leaves a retryable stopped attempt looking live in run
+and graph-call projection.
+
+That means:
+
+- unresolved deterministic closure after `F_D -> F_P` still stops as `fd_gap`
+- but the stopped bounded attempt now emits terminal graph-call and run truth
+- later retries therefore open fresh attempt identity instead of reusing a
+  stale in-flight manifest
+
 ## Current Known Limitation
 
 ### Downstream Consumers Must Refactor To The Released Boundary
@@ -77,13 +104,27 @@ That means:
 - downstream green status is a separate refactor/proof wave, not part of this
   ABG RC note itself
 
+### Structured Deterministic Repair Evidence Remains Domain-Owned
+
+This RC makes retry prompts fresh and current-state-derived, but it does not
+invent domain-specific repair hints where a domain evaluator emits no structured
+detail.
+
+That means:
+
+- ABG now carries generic retry law and fresh prompt truth
+- richer missing-item or repair-target evidence still belongs to the domain
+  evaluator surface
+- downstream domains such as `odd_method` may still improve their evaluator
+  output independently of this RC
+
 ## Current Verification Footer
 
 The current release-candidate proving footer is:
 
-- `258 passed`
+- `259 passed`
 - `5 deselected`
-- `24.75s`
+- `22.78s`
 
 from:
 

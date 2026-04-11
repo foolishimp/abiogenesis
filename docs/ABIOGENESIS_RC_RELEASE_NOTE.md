@@ -16,12 +16,21 @@ runtime-boundary hardening wave.
   requirement truth so stale probabilistic assessments reopen correctly
 - post-continuation closure now surfaces unresolved deterministic gaps back out
   as `fd_gap` instead of misclassifying them as generic runtime failure
+- retryable same-edge attempts now mint fresh manifest identity and fresh
+  current-state prompt truth instead of redispatching stale manifests
+- `fd_gap`-stopped attempts now terminalize prior graph-call and run truth so a
+  later retry opens a fresh attempt
+- generic prompt preamble now instructs the actor to inspect the current target
+  asset, determine realized progress, identify the remaining gap, and continue
+  from present state
 - regression coverage for:
   - provenance hard-fail on missing or malformed workflow metadata
   - install/bootstrap provenance readiness
   - stale event rejection under the stronger versioned runtime identity
   - workflow-version-bearing approval and runtime ingestion semantics
   - unresolved deterministic failure after `F_D -> F_P` continuation
+  - fresh retry manifest identity and prompt regeneration from current state
+  - terminalized retryable `fd_gap` attempts that no longer remain falsely live
 
 ## Framework Position
 
@@ -48,14 +57,14 @@ Targeted proof lanes:
 - `python -m pytest build_tenants/abiogenesis/python/test_env/tests/test_abg3_runtime_envelope.py -q`
 - result: `13 passed`
 
+- `python -m pytest build_tenants/abiogenesis/python/test_env/tests/test_m03_engine_kernel_integration.py -q -k 'iterated_traversal_emits_run_binding_dispatch_and_replay_state or bind_fp_surfaces_target_asset_binding_prompt_from_query_runtime_asset_bindings or retry_after_terminal_run_mints_fresh_manifest_with_current_binding_truth'`
+- result: `2 passed`
+
 - `python -m pytest build_tenants/abiogenesis/python/test_env/tests/test_m02_work_publication_integration.py -q`
 - result: `10 passed`
 
 - `python -m pytest build_tenants/abiogenesis/python/test_env/tests/test_usecases_u1_u4.py -q`
 - result: `4 passed`
-
-- `python -m pytest build_tenants/abiogenesis/python/test_env/tests/test_m03_engine_kernel_integration.py -q`
-- result: `108 passed`
 
 - `python -m pytest build_tenants/abiogenesis/python/test_env/tests/test_sandbox_usecases_fake.py -q`
 - result: `14 passed`
@@ -63,7 +72,7 @@ Targeted proof lanes:
 Full framework suite:
 
 - `python -m pytest build_tenants/abiogenesis/python/test_env/tests -q`
-- result: `258 passed, 5 deselected in 24.75s`
+- result: `259 passed, 5 deselected in 22.78s`
 
 ## Known RC Limitation
 

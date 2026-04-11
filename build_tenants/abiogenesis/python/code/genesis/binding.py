@@ -1304,6 +1304,32 @@ def _assemble_prompt(
         f"Edges converged: {pre.current_asset.get('edges_converged', [])}"
     )
 
+    target_binding_lines = [
+        "[WORKING METHOD] — current-state-first execution is mandatory:",
+    ]
+    if target_binding is not None:
+        relative_path = target_binding.relative_path
+        if isinstance(relative_path, str) and relative_path:
+            target_binding_lines.append(
+                f"  1. Inspect the current target asset state at {relative_path} before making changes."
+            )
+        else:
+            target_binding_lines.append(
+                "  1. Inspect the current target asset state in the bound workspace location before making changes."
+            )
+    else:
+        target_binding_lines.append(
+            "  1. Inspect the current target asset state in workspace before making changes."
+        )
+    target_binding_lines.extend(
+        [
+            "  2. Determine what is already realized and what remains unresolved.",
+            "  3. Treat the current workspace state as truth; prior manifests and prior prompts are historical evidence only.",
+            "  4. Continue construction from the present state and reduce the unresolved gap before assessment.",
+        ]
+    )
+    sections.append("\n".join(target_binding_lines))
+
     gap_lines = [f"[GAP] — {len(pre.failing_evaluators)} evaluator(s) failing:"]
     for ev in pre.failing_evaluators:
         detail = pre.fd_results.get(ev.name, {})

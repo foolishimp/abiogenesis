@@ -1,4 +1,4 @@
-# Validates: REQ-R-ABG3-EVENTS, REQ-R-ABG3-PROJECTION, REQ-R-ABG3-RUN, REQ-R-ABG3-GRAPHCALL, REQ-R-ABG3-FRAME, REQ-R-ABG3-CONTINUATION
+# Validates: REQ-R-ABG3-EVENTS, REQ-R-ABG3-PROJECTION, REQ-R-ABG3-RUN, REQ-R-ABG3-GRAPHCALL, REQ-R-ABG3-FRAME, REQ-R-ABG3-CONTINUATION, REQ-R-ABG3-RETRY
 from __future__ import annotations
 
 import json
@@ -583,10 +583,18 @@ def test_ingest_fd_gap_after_fp_returns_pending_not_runtime_failure(monkeypatch,
         "proof_passed",
         "closure_failed",
         "found",
+        "graph_call_failed",
+        "run_completed",
     ]
     found = events[-1]
-    assert found["data"]["kind"] == "fd_gap"
-    assert found["data"]["failing"] == ["code_traceability_present"]
+    assert events[3]["data"]["kind"] == "fd_gap"
+    assert events[3]["data"]["failing"] == ["code_traceability_present"]
+    assert events[4]["data"]["failure_class"] == "certification_failure"
+    graph_call = project(EventStream.open(tmp_path), "graph_call", "call-fd-gap")
+    run = project(EventStream.open(tmp_path), "run", "run-fd-gap")
+    assert graph_call["status"] == "failed"
+    assert graph_call["failure_class"] == "certification_failure"
+    assert run["status"] == "completed"
 
 
 def test_reset_emits_supersession_truth_for_active_run_scope(tmp_path):

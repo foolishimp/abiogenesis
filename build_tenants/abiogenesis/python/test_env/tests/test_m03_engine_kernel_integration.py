@@ -4,6 +4,7 @@
 # Validates: REQ-R-ABG3-POLICY
 # Validates: REQ-R-ABG3-PROVENANCE
 # Validates: REQ-R-ABG3-RUN
+# Validates: REQ-R-ABG3-RETRY
 # Validates: REQ-R-ABG3-PROJECTION
 # Validates: REQ-R-ABG3-SELFHOSTING
 # Validates: REQ-R-ABG3-BINDING
@@ -794,6 +795,9 @@ print(json.dumps({
         )
 
         assert "[TARGET BINDING]" in bound.prompt
+        assert "[WORKING METHOD]" in bound.prompt
+        assert "Inspect the current target asset state at build/generated/code before making changes." in bound.prompt
+        assert "Treat the current workspace state as truth; prior manifests and prior prompts are historical evidence only." in bound.prompt
         assert "relative_path: build/generated/code" in bound.prompt
         assert "path=build/generated/design.md" in bound.prompt
         assert bound.target_asset_binding == {
@@ -3709,6 +3713,203 @@ print(json.dumps({
         assert resumed_outcome.result["pending_run_id"] == "run-m03-fp"
         assert resumed_outcome.result["manifest_id"] == manifest_path.stem
         assert resumed_outcome.result["fp_manifest_path"] == str(manifest_path)
+
+    def test_retry_after_terminal_run_mints_fresh_manifest_with_current_binding_truth(self, tmp_path: Path) -> None:
+        raw_contract = Node(name="raw_contract", schema="ContractInput")
+        discovered_context = Node(
+            name="discovered_context",
+            schema="DesignContext",
+            asset_surface={
+                "kind": "design_context",
+                "output_contract_refs": ("context_output_contract",),
+            },
+        )
+        constructor = Role(name="constructor")
+        context_ok = Evaluator("context_ok", F_D, binding="exec://python -c 'import sys; sys.exit(0)'")
+        context_sufficient = Evaluator("context_sufficient", F_P, "context is sufficient to proceed")
+
+        vector = GraphVector(
+            name="raw_contract→discovered_context",
+            source=raw_contract,
+            target=discovered_context,
+            evaluators=(context_ok, context_sufficient),
+        )
+        graph = Graph(
+            name="m03_retry_refresh",
+            inputs=(raw_contract,),
+            outputs=(discovered_context,),
+            nodes=(raw_contract, discovered_context),
+            vectors=(vector,),
+        )
+        graph_function = _graph_function_for_vector(vector)
+        boundary = RefinementBoundary(
+            name=vector.name,
+            inputs=(raw_contract,),
+            outputs=(discovered_context,),
+        )
+        job = Job(
+            name=vector.name,
+            contracts=(ContractRef(kind="graph_function", target_id=graph_function.id),),
+            roles=(constructor,),
+        )
+        module = Module(
+            name="m03_retry_refresh",
+            graphs=(graph,),
+            graph_functions=(graph_function,),
+            refinement_boundaries=(boundary,),
+            jobs=(job,),
+            roles=(constructor,),
+            metadata={"requirements": ["REQ-M03-RETRY-001"]},
+        )
+
+        stream = workspace_bootstrap(tmp_path)
+        scope = Scope(module=module, workspace_root=tmp_path, build="kernel_router")
+        scope.worker.authority_ref = "module://M03-engine-kernel"
+        executable_job = module_to_executable_jobs(module)[0]
+
+        query_script = tmp_path / "asset_query_retry_contract.py"
+        query_script.write_text(
+            """
+import json
+
+print(json.dumps({
+    "assets": [
+        {
+            "asset_id": "discovered_context",
+            "uri": "file://build/generated/context.md",
+            "metadata": {"relative_path": "build/generated/context.md", "path_kind": "file", "exists": "false"},
+            "checkpoint": {"exists": False, "path_kind": "file"},
+        }
+    ]
+}))
+            """.strip(),
+            encoding="utf-8",
+        )
+
+        first_runtime = TraversalRuntime(
+            module=module,
+            executable_job=executable_job,
+            precomputed=_precomputed(
+                executable_job,
+                failing=(context_sufficient,),
+                passing=(context_ok,),
+            ),
+            workspace_root=tmp_path,
+            stream=stream,
+            worker=scope.worker,
+            spec_hash="spec-m03-retry-refresh",
+            build=scope.build,
+            work_key=vector.id,
+            workflow_version="m03.test@3.0.0",
+            run_id="run-m03-retry-old",
+            runtime_config={
+                "asset_binding_contract": {
+                    "command": [sys.executable, str(query_script)],
+                    "timeout_seconds": 5,
+                }
+            },
+        )
+
+        first_outcome = traverse(
+            Traversal(
+                work_key=vector.id,
+                target=boundary,
+                evaluators=vector.evaluators,
+            ),
+            runtime=first_runtime,
+            surface=WorkSurface(),
+        )
+
+        assert first_outcome.result["status"] == "iterated"
+        first_manifest_path = Path(first_outcome.result["fp_manifest_path"])
+        first_manifest = json.loads(first_manifest_path.read_text(encoding="utf-8"))
+        assert first_manifest["target_asset_binding"]["exists"] is False
+
+        emit(
+            "graph_call_failed",
+            {
+                "call_id": first_manifest["call_id"],
+                "edge": vector.name,
+                "failure_class": "certification_failure",
+            },
+            stream=stream,
+        )
+        emit(
+            "run_completed",
+            {
+                "run_id": "run-m03-retry-old",
+                "work_key": vector.id,
+                "edge": vector.name,
+                "call_id": first_manifest["call_id"],
+            },
+            stream=stream,
+        )
+
+        target_path = tmp_path / "build" / "generated" / "context.md"
+        target_path.parent.mkdir(parents=True, exist_ok=True)
+        target_path.write_text("current context", encoding="utf-8")
+        query_script.write_text(
+            """
+import json
+
+print(json.dumps({
+    "assets": [
+        {
+            "asset_id": "discovered_context",
+            "uri": "file://build/generated/context.md",
+            "metadata": {"relative_path": "build/generated/context.md", "path_kind": "file", "exists": "true"},
+            "checkpoint": {"exists": True, "path_kind": "file"},
+        }
+    ]
+}))
+            """.strip(),
+            encoding="utf-8",
+        )
+
+        second_runtime = TraversalRuntime(
+            module=module,
+            executable_job=executable_job,
+            precomputed=_precomputed(
+                executable_job,
+                failing=(context_sufficient,),
+                passing=(context_ok,),
+            ),
+            workspace_root=tmp_path,
+            stream=stream,
+            worker=scope.worker,
+            spec_hash="spec-m03-retry-refresh",
+            build=scope.build,
+            work_key=vector.id,
+            workflow_version="m03.test@3.0.0",
+            runtime_config={
+                "asset_binding_contract": {
+                    "command": [sys.executable, str(query_script)],
+                    "timeout_seconds": 5,
+                }
+            },
+        )
+
+        second_outcome = traverse(
+            Traversal(
+                work_key=vector.id,
+                target=boundary,
+                evaluators=vector.evaluators,
+            ),
+            runtime=second_runtime,
+            surface=WorkSurface(),
+        )
+
+        assert second_outcome.result["status"] == "iterated"
+        second_manifest_path = Path(second_outcome.result["fp_manifest_path"])
+        second_manifest = json.loads(second_manifest_path.read_text(encoding="utf-8"))
+
+        assert second_manifest_path != first_manifest_path
+        assert second_manifest["manifest_id"] != first_manifest["manifest_id"]
+        assert second_manifest["run_id"] != first_manifest["run_id"]
+        assert second_manifest["call_id"] != first_manifest["call_id"]
+        assert second_manifest["target_asset_binding"]["exists"] is True
+        assert "Inspect the current target asset state at build/generated/context.md before making changes." in second_manifest["prompt"]
+        assert "exists: true" in second_manifest["prompt"]
 
     def test_deterministic_traversal_emits_callable_lifecycle_and_run_completion(self, tmp_path: Path) -> None:
         design = Node(name="design", schema="DesignDoc")
