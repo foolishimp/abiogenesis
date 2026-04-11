@@ -7,6 +7,7 @@ from genesis.dispatch_runtime import auto_dispatch_from_result, dispatch_bound_m
 from genesis.events import EventContext, EventStream, emit
 from genesis.install import workspace_bootstrap
 from genesis.projection import project
+from genesis.result_ingest import ingest_fp_result
 from genesis.run import run_state
 from genesis.transport import AgentResult
 
@@ -518,6 +519,74 @@ def test_successful_ingest_resolves_preexisting_open_continuation(monkeypatch, t
     assert summary["status"] == "ok"
     continuation = project(EventStream.open(tmp_path), "continuation", "cont-open")
     assert continuation["status"] == "resolved"
+
+
+def test_ingest_fd_gap_after_fp_returns_pending_not_runtime_failure(monkeypatch, tmp_path):
+    workspace_bootstrap(tmp_path)
+    results_dir = tmp_path / ".ai-workspace" / "fp_results"
+    results_dir.mkdir(parents=True, exist_ok=True)
+    result_path = results_dir / "manifest-fd-gap.json"
+    result_path.write_text(
+        json.dumps(
+            {
+                "edge": "design→code",
+                "actor": "codex",
+                "assessments": [
+                    {
+                        "evaluator": "code_traceability_present",
+                        "result": "pass",
+                        "evidence": "constructor attempted repair",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    manifest = {
+        "manifest_id": "manifest-fd-gap",
+        "call_id": "call-fd-gap",
+        "edge": "design→code",
+        "run_id": "run-fd-gap",
+        "work_key": "wk-fd-gap",
+        "workflow_version": "wf-fd-gap",
+        "graph_function_id": "gf-fd-gap",
+        "materialization_id": "mat-fd-gap",
+        "vector_id": "vec-fd-gap",
+        "job_id": "job-fd-gap",
+        "prompt": "repair code",
+        "result_path": str(result_path),
+        "spec_hash": "spec-fd-gap",
+        "delta_summary": "delta = 1 — 1 evaluator failing: code_traceability_present",
+    }
+
+    monkeypatch.setattr(
+        "genesis.result_ingest._rerun_manifest_fd_failures",
+        lambda workspace, manifest, work_key=None: {
+            "passed": False,
+            "failures": [{"name": "code_traceability_present"}],
+        },
+    )
+    monkeypatch.setattr(
+        "genesis.result_ingest._target_binding_materialization",
+        lambda workspace, manifest: {"passed": True, "reason": "resolved"},
+    )
+
+    summary = ingest_fp_result(result_path, tmp_path, manifest_data=manifest)
+
+    assert summary["status"] == "pending"
+    assert summary["blocking_reason"] == "fd_gap"
+    assert summary["stopped_by"] == "fd_gap"
+
+    events = EventStream.open(tmp_path).all_events()
+    assert [event["event_type"] for event in events] == [
+        "assessed",
+        "proof_passed",
+        "closure_failed",
+        "found",
+    ]
+    found = events[-1]
+    assert found["data"]["kind"] == "fd_gap"
+    assert found["data"]["failing"] == ["code_traceability_present"]
 
 
 def test_reset_emits_supersession_truth_for_active_run_scope(tmp_path):

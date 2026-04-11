@@ -14,11 +14,14 @@ runtime-boundary hardening wave.
   workflow-version identity
 - runtime `spec_hash` now binds workflow version, executable-job structure, and
   requirement truth so stale probabilistic assessments reopen correctly
+- post-continuation closure now surfaces unresolved deterministic gaps back out
+  as `fd_gap` instead of misclassifying them as generic runtime failure
 - regression coverage for:
   - provenance hard-fail on missing or malformed workflow metadata
   - install/bootstrap provenance readiness
   - stale event rejection under the stronger versioned runtime identity
   - workflow-version-bearing approval and runtime ingestion semantics
+  - unresolved deterministic failure after `F_D -> F_P` continuation
 
 ## Framework Position
 
@@ -43,7 +46,7 @@ Targeted proof lanes:
 - result: `18 passed`
 
 - `python -m pytest build_tenants/abiogenesis/python/test_env/tests/test_abg3_runtime_envelope.py -q`
-- result: `12 passed`
+- result: `13 passed`
 
 - `python -m pytest build_tenants/abiogenesis/python/test_env/tests/test_m02_work_publication_integration.py -q`
 - result: `10 passed`
@@ -60,7 +63,7 @@ Targeted proof lanes:
 Full framework suite:
 
 - `python -m pytest build_tenants/abiogenesis/python/test_env/tests -q`
-- result: `257 passed, 5 deselected in 24.43s`
+- result: `258 passed, 5 deselected in 24.75s`
 
 ## Known RC Limitation
 

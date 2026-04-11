@@ -476,6 +476,48 @@ def ingest_fp_result(
             emitted_count += 1
             latest_event_id = closure_event.get("event_id")
 
+            if closure_reason == "fd_failures_unresolved_after_fp":
+                found_event = _event_writer(
+                    workspace,
+                    emit_event,
+                    "found",
+                    {
+                        "kind": "fd_gap",
+                        "edge": result_data["edge"],
+                        "failing": [
+                            failure.get("name")
+                            for failure in fd_recheck_decision.get("failures", [])
+                            if isinstance(failure, Mapping) and isinstance(failure.get("name"), str)
+                        ],
+                        "delta_summary": manifest.get("delta_summary", ""),
+                    },
+                    workflow_version=workflow_version,
+                    work_key=manifest_work_key or None,
+                    run_id=manifest_run_id or None,
+                    aggregate_type="graph_call" if call_id else ("run" if manifest_run_id else None),
+                    aggregate_id=call_id or (manifest_run_id or None),
+                    parent_aggregate_id=(manifest_run_id or None) if call_id else None,
+                    causation_event_id=latest_event_id,
+                    job_id=job_id or None,
+                    graph_function_id=graph_function_id or None,
+                    materialization_id=materialization_id or None,
+                    call_id=call_id or None,
+                    vector_id=vector_id or None,
+                )
+                emitted_count += 1
+                latest_event_id = found_event.get("event_id")
+                return {
+                    "status": "pending",
+                    "result_path": str(result_file),
+                    "manifest_id": manifest_id,
+                    "spec_hash": spec_hash,
+                    "workflow_version": workflow_version,
+                    "events_emitted": emitted_count,
+                    "assessments": emitted,
+                    "blocking_reason": "fd_gap",
+                    "stopped_by": "fd_gap",
+                }
+
             graph_call_failed = None
             if call_id and graph_call_terminal:
                 graph_call_failed = _event_writer(

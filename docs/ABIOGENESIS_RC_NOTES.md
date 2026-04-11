@@ -47,6 +47,20 @@ That means:
 - stale probabilistic assessments reopen when active workflow or requirements
   truth changes
 
+### Unresolved Post-Continuation Deterministic Gaps Surface As `fd_gap`
+
+The current RC keeps `F_D -> F_P` continuation lawful, but it no longer
+misclassifies an unresolved deterministic gap as a generic runtime failure
+after the constructive turn returns.
+
+That means:
+
+- when a constructive continuation finishes and closure reruns the declared
+  deterministic checks
+- and those deterministic checks are still the active blocker
+- the runtime now surfaces that state back out as `fd_gap`
+- instead of reporting `probabilistic_non_convergence` / `fp_runtime_failure`
+
 ## Current Known Limitation
 
 ### Downstream Consumers Must Refactor To The Released Boundary
@@ -67,9 +81,9 @@ That means:
 
 The current release-candidate proving footer is:
 
-- `257 passed`
+- `258 passed`
 - `5 deselected`
-- `24.43s`
+- `24.75s`
 
 from:
 
