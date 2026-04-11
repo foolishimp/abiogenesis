@@ -267,9 +267,10 @@ def test_scope_reports_bound_worker_identity_when_no_runtime_build_is_declared(t
         can_execute=module_to_executable_jobs(module),
         authority_ref="runtime://role-dispatch",
     )
+    stream = genesis_install.workspace_bootstrap(tmp_path)
     scope = services.Scope(module=module, workspace_root=tmp_path, worker=worker)
 
-    result = services.gen_gaps(scope, genesis_install.workspace_bootstrap(tmp_path))
+    result = services.gen_gaps(scope, stream)
 
     assert result["scope"]["build"] is None
     assert result["scope"]["runtime_identity"]["worker_id"] == "gsdlc_router"
@@ -278,9 +279,10 @@ def test_scope_reports_bound_worker_identity_when_no_runtime_build_is_declared(t
 
 def test_scope_uses_engine_identity_when_no_runtime_build_or_worker_is_declared(tmp_path: Path):
     module = _runtime_contract_module()
+    stream = genesis_install.workspace_bootstrap(tmp_path)
     scope = services.Scope(module=module, workspace_root=tmp_path)
 
-    result = services.gen_gaps(scope, genesis_install.workspace_bootstrap(tmp_path))
+    result = services.gen_gaps(scope, stream)
     runtime_identity = result["scope"]["runtime_identity"]
 
     assert result["scope"]["build"] is None
@@ -296,6 +298,7 @@ def test_scope_does_not_reinject_build_default_when_runtime_identity_is_partial(
         can_execute=module_to_executable_jobs(module),
         authority_ref="runtime://role-dispatch",
     )
+    stream = genesis_install.workspace_bootstrap(tmp_path)
     scope = services.Scope(
         module=module,
         workspace_root=tmp_path,
@@ -303,7 +306,7 @@ def test_scope_does_not_reinject_build_default_when_runtime_identity_is_partial(
         runtime_identity=cli_adapter._resolve_runtime_identity({}, worker),
     )
 
-    result = services.gen_gaps(scope, genesis_install.workspace_bootstrap(tmp_path))
+    result = services.gen_gaps(scope, stream)
 
     assert result["scope"]["build"] is None
     assert "build_id" not in result["scope"]["runtime_identity"]

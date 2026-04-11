@@ -37,6 +37,7 @@ from genesis.frames import (
     validate_frame_selection_surface,
     validate_frame_traversal_surface,
 )
+from genesis.install import workspace_bootstrap
 from genesis.selection import (
     resolve_refinement_boundary,
     resolve_surface_candidate_family,
@@ -246,6 +247,7 @@ class TestM02WorkPublicationIntegration:
             "apply_design_consensus_decision",
         ]
         assert {job.graph_function.name for job in executable_jobs} == {symbolic_library.name}
+        workspace_bootstrap(tmp_path)
         scope = Scope(module=module, workspace_root=tmp_path, build="symbolic_consensus")
         assert [job.vector.name for job in scope.worker.can_execute] == [
             "review_design_assessment_round",
@@ -443,6 +445,7 @@ class TestM02WorkPublicationIntegration:
             else:
                 assert gtl_job.roles == ()
 
+        workspace_bootstrap(tmp_path)
         scope = Scope(module=module, workspace_root=tmp_path, build="publication_router")
         assert len(scope.worker.can_execute) == len(graph.vectors)
         assert constructor.id in scope.worker.role_ids
@@ -464,6 +467,7 @@ class TestM02WorkPublicationIntegration:
         target_names = {job.vector.target.name for job in executable_jobs}
         assert "bootloader_doc" in target_names
 
+        workspace_bootstrap(tmp_path)
         scope = Scope(module=module, workspace_root=tmp_path, build="publication_router")
         assert len(scope.worker.can_execute) == len(graph.vectors)
 

@@ -263,7 +263,7 @@ def _verify(target: Path, result: dict, platform: str = "python") -> dict:
 
 
 def _scaffold_ai_workspace(target: Path) -> None:
-    """Create the initial .ai-workspace/ skeleton without changing runtime behavior."""
+    """Create the initial .ai-workspace/ skeleton with versioned runtime provenance."""
     ai_ws = target / ".ai-workspace"
     directories = [
         ai_ws / "events",
@@ -274,9 +274,23 @@ def _scaffold_ai_workspace(target: Path) -> None:
         ai_ws / "reviews" / "proxy-log",
         ai_ws / "comments" / "claude",
         ai_ws / "agents",
+        ai_ws / "runtime",
     ]
     for directory in directories:
         directory.mkdir(parents=True, exist_ok=True)
+    active_workflow = ai_ws / "runtime" / "active-workflow.json"
+    if not active_workflow.exists():
+        active_workflow.write_text(
+            json.dumps(
+                {
+                    "workflow": "abiogenesis.standard",
+                    "version": VERSION,
+                },
+                indent=2,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
 
 
 def _slug_family(slug: str) -> str:

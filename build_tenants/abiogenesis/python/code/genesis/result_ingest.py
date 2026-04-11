@@ -304,10 +304,11 @@ def ingest_fp_result(
     manifest_work_key = manifest.get("work_key") if isinstance(manifest.get("work_key"), str) else ""
     call_id = manifest.get("call_id") if isinstance(manifest.get("call_id"), str) and manifest.get("call_id") else ""
     graph_call_terminal = bool(manifest.get("graph_call_terminal_on_result", True))
-    workflow_version = _read_provenance(
-        manifest.get("workflow_version"),
-        _read_workflow_version(workspace, active_workflow_path),
-    ) or "unknown"
+    workflow_version = _read_provenance(manifest.get("workflow_version"))
+    if not workflow_version:
+        workflow_version = _read_workflow_version(workspace, active_workflow_path)
+    if not workflow_version:
+        raise ValueError("workflow_version provenance missing from manifest and active workflow metadata")
     graph_function_id = _read_provenance(manifest.get("graph_function_id"))
     materialization_id = _read_provenance(manifest.get("materialization_id"))
     vector_id = _read_provenance(manifest.get("vector_id"))

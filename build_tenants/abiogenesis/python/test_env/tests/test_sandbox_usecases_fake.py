@@ -36,7 +36,7 @@ from genesis.events import emit
 from genesis.install import workspace_bootstrap
 from genesis.interpret import Traversal, TraversalRuntime, traverse
 from genesis.projection import project
-from genesis.provenance import req_hash
+from genesis.provenance import spec_hash_for
 from genesis.selection import SelectionDecision, resolve_refinement_boundary
 from genesis.services import Scope, gen_gaps, gen_iterate
 from genesis.subwork import LeafTask
@@ -747,7 +747,11 @@ class TestSandboxUsecasesFake:
         assert result["blocking_reason"] == "fp_dispatch"
         assert Path(result["fp_manifest_path"]).is_file()
 
-        spec_hash = req_hash(module.metadata["requirements"])
+        spec_hash = spec_hash_for(
+            workflow_version=scope.workflow_version,
+            executable_job=module_to_executable_jobs(module)[0],
+            requirements=module.metadata["requirements"],
+        )
         emit(
             "assessed",
             {
@@ -1564,7 +1568,11 @@ class TestSandboxUsecasesFake:
             workspace_root=workspace,
             stream=stream,
             worker=scope.worker,
-            spec_hash=req_hash(module.metadata.get("requirements", [])),
+            spec_hash=spec_hash_for(
+                workflow_version=scope.workflow_version,
+                executable_job=executable_job,
+                requirements=module.metadata.get("requirements", []),
+            ),
             leaf_tasks=(
                 LeafTask(
                     name="service_signature",

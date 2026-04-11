@@ -934,13 +934,7 @@ def bind_fh(
                     continue
             elif edata.get("work_key") is not None:
                 continue
-            if current_workflow_version == "unknown":
-                found_approved = True
-                latest_approved_time = _event_time_value(e)
-                continue
-
             ev_wv = edata.get("workflow_version")
-
             if ev_wv == current_workflow_version:
                 found_approved = True
                 latest_approved_time = _event_time_value(e)
@@ -968,10 +962,9 @@ def bind_fh(
                     continue
                 if work_key is None and rev_wk is not None:
                     continue
-                if current_workflow_version != "unknown":
-                    rev_wv = edata.get("workflow_version")
-                    if rev_wv != current_workflow_version:
-                        continue
+                rev_wv = edata.get("workflow_version")
+                if rev_wv != current_workflow_version:
+                    continue
                 event_time = _event_time_value(e)
                 if latest_approved_time is None or (event_time is not None and event_time > latest_approved_time):
                     return False

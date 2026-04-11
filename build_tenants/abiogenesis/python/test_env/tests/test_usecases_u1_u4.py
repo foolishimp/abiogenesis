@@ -145,10 +145,10 @@ class TestU1MaterializationProfiles:
             metadata={"requirements": ["REQ-U1-001"]},
         )
 
+        stream = workspace_bootstrap(tmp_path)
         scope = Scope(module=module, workspace_root=tmp_path)
         assert resolve_candidate_family(scope.module, outer.id) == profiles
 
-        stream = workspace_bootstrap(tmp_path)
         executable_job = module_to_executable_jobs(module)[0]
         runtime = TraversalRuntime(
             module=module,
@@ -231,10 +231,10 @@ class TestU2GapTriggeredRefinement:
             metadata={"requirements": ["REQ-U2-001"]},
         )
 
+        stream = workspace_bootstrap(tmp_path)
         scope = Scope(module=module, workspace_root=tmp_path)
         assert resolve_refinement_boundary(scope.module, vector.id) == boundary
 
-        stream = workspace_bootstrap(tmp_path)
         executable_job = module_to_executable_jobs(module)[0]
         runtime = TraversalRuntime(
             module=module,

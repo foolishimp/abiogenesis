@@ -152,6 +152,10 @@ class TraversalRuntime:
     resolved_policy: dict = field(default_factory=dict)
 
     def __post_init__(self) -> None:
+        if not self.workflow_version or self.workflow_version == "unknown":
+            from .provenance import _read_workflow_version
+
+            self.workflow_version = _read_workflow_version(self.workspace_root)
         if self.runtime_identity is None:
             self.runtime_identity = RuntimeIdentity(build_id=self.build)
         else:

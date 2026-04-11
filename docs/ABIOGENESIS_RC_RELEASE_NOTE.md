@@ -1,67 +1,76 @@
 # abiogenesis RC Release Note
 
-This release candidate closes the current `abiogenesis` substrate-strengthening
-wave around policy-governed `F_D` continuation, runtime manifest continuity,
-asset-binding-driven dispatch, and stricter post-F_P closure truth.
+This release candidate closes the current `abiogenesis` provenance and
+runtime-boundary hardening wave.
 
 ## What Shipped
 
-- policy-governed selected-edge `F_D -> F_P` continuation
-- preservation of explicit fail-closed `F_D` semantics where policy or
-  structural law requires it
-- stronger F_P manifest continuity:
-  - `manifest_id` tracked in run state
-  - pending-run recovery can derive manifest path from `manifest_id`
-- stronger workspace asset-binding query handling:
-  - asset binding contracts may be supplied as mapping or JSON object string
-  - runtime `pythonpath` entries are admitted into the asset-binding query
-    environment
-- stronger post-F_P closure truth:
-  - target binding materialization is checked before closure passes
-  - manifest-declared deterministic failures are rerun before closure passes
+- install/bootstrap now seeds provenance-ready workflow metadata by construction
+- governed runtime no longer accepts `"unknown"` as a steady-state provenance
+  mode
+- missing or malformed workflow metadata now fails closed at runtime and CLI
+  boundaries
+- `F_H` approval binding no longer accepts bare edge-name approvals without
+  workflow-version identity
+- runtime `spec_hash` now binds workflow version, executable-job structure, and
+  requirement truth so stale probabilistic assessments reopen correctly
 - regression coverage for:
-  - `F_D -> F_P` continuation
-  - explicit `F_D` hard-stop override
-  - mixed `F_D + F_P` precedence under hard-stop policy
-  - auto-loop continuation after an unblocked iteration
+  - provenance hard-fail on missing or malformed workflow metadata
+  - install/bootstrap provenance readiness
+  - stale event rejection under the stronger versioned runtime identity
+  - workflow-version-bearing approval and runtime ingestion semantics
 
 ## Framework Position
 
-This RC restores the intended generic builder stance:
+This RC hardens the ABG runtime boundary:
 
-- `F_D` provides deterministic structure, findings, and fail-closed protection
-  for real structural prerequisites
-- `F_P` remains the normal constructive regime for generic untuned domains
-- declared escalation policy determines whether selected-edge `F_D` findings are
-  carried into `F_P`, escalated to `F_H`, or hard-stopped
-
-In other words, the substrate no longer sole-arbitrates generic constructive
-work through `F_D` by default.
+- governed runtime must be provenance-ready by construction
+- removed fallback modes are interface cuts, not hidden compatibility surfaces
+- downstream consumers must refactor to the released boundary through install
+  composition, not by source-runtime mirroring
 
 ## Verification
 
-Targeted regression lanes:
+Targeted proof lanes:
+
+- `python -m pytest build_tenants/abiogenesis/python/test_env/tests/test_provenance_integration.py -q`
+- result: `28 passed`
+
+- `python -m pytest build_tenants/abiogenesis/python/test_env/tests/test_sandbox_install.py -q`
+- result: `12 passed`
 
 - `python -m pytest build_tenants/abiogenesis/python/test_env/tests/test_cli_adapter_auto.py -q`
 - result: `18 passed`
 
-- `python -m pytest build_tenants/abiogenesis/python/test_env/tests/test_m03_engine_kernel_integration.py -q -k 'fd_failure or fd_hard_stop or policy_resolution_honours_declared_hook_precedence'`
-- result: `4 passed, 104 deselected`
+- `python -m pytest build_tenants/abiogenesis/python/test_env/tests/test_abg3_runtime_envelope.py -q`
+- result: `12 passed`
+
+- `python -m pytest build_tenants/abiogenesis/python/test_env/tests/test_m02_work_publication_integration.py -q`
+- result: `10 passed`
+
+- `python -m pytest build_tenants/abiogenesis/python/test_env/tests/test_usecases_u1_u4.py -q`
+- result: `4 passed`
+
+- `python -m pytest build_tenants/abiogenesis/python/test_env/tests/test_m03_engine_kernel_integration.py -q`
+- result: `108 passed`
+
+- `python -m pytest build_tenants/abiogenesis/python/test_env/tests/test_sandbox_usecases_fake.py -q`
+- result: `14 passed`
 
 Full framework suite:
 
 - `python -m pytest build_tenants/abiogenesis/python/test_env/tests -q`
-- result: `256 passed, 5 deselected in 23.95s`
+- result: `257 passed, 5 deselected in 24.43s`
 
 ## Known RC Limitation
 
-Downstream source-workspace mirrors such as vendored `.genesis` trees are not
-the release boundary.
+This RC does not make downstream consumers green by compatibility restoration.
 
 The canonical release path remains:
 
 1. cut the `abiogenesis` RC
 2. propagate through installer into downstream consumers
-3. prove the downstream evidence workspaces from that installed RC
+3. refactor downstream consumers to the released boundary
+4. prove the downstream evidence workspaces from that installed RC
 
 This is documented in [ABIOGENESIS_RC_NOTES.md](/Users/jim/src/apps/abiogenesis/docs/ABIOGENESIS_RC_NOTES.md).

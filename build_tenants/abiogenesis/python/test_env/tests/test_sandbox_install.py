@@ -17,6 +17,7 @@ from pathlib import Path
 
 import pytest
 
+from genesis import __version__ as GENESIS_VERSION
 from genesis.events import EventStream, emit
 from genesis.install import workspace_bootstrap
 from genesis.projection import project
@@ -104,6 +105,13 @@ class TestSandboxInstall:
         assert (workspace / ".ai-workspace" / "comments" / "claude").is_dir()
         assert (workspace / ".ai-workspace" / "agents").is_dir()
         assert (workspace / ".ai-workspace" / "runtime").is_dir()
+        active_workflow = json.loads(
+            (workspace / ".ai-workspace" / "runtime" / "active-workflow.json").read_text(encoding="utf-8")
+        )
+        assert active_workflow == {
+            "workflow": "abiogenesis.standard",
+            "version": GENESIS_VERSION,
+        }
         run_archive.update_summary(workspace_skeleton="installed")
 
     @pytest.mark.usecase_id("sandbox_install")
@@ -238,6 +246,7 @@ class TestSandboxInstall:
         ]
         assert events[-1]["event_type"] == "approved"
         assert events[-1]["data"]["kind"] == "fh_review"
+        assert events[-1]["data"]["workflow_version"] == f"abiogenesis.standard@{GENESIS_VERSION}"
         run_archive.update_summary(installed_runtime_event_count=len(events))
 
     @pytest.mark.usecase_id("sandbox_install")
@@ -254,6 +263,11 @@ class TestSandboxInstall:
         assert (workspace / ".ai-workspace" / "context").is_dir()
         assert (workspace / ".ai-workspace" / "reviews" / "pending").is_dir()
         assert (workspace / ".ai-workspace" / "comments" / "claude").is_dir()
+        active_workflow = json.loads(
+            (workspace / ".ai-workspace" / "runtime" / "active-workflow.json").read_text(encoding="utf-8")
+        )
+        assert active_workflow["workflow"] == "abiogenesis.standard"
+        assert active_workflow["version"] == GENESIS_VERSION
         assert any(event["event_type"] == "genesis_installed" for event in stream.all_events())
         run_archive.update_summary(operation="workspace_bootstrap", event_stream_bound=True)
 

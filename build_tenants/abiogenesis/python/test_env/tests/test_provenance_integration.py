@@ -6,12 +6,12 @@ Provenance integration tests for the active runtime provenance surface.
 Six integration scenarios that exercise the full provenance model end-to-end
 against a real workspace, without mocking any engine internals.
 
-  IT-1  No provenance file: no active-workflow.json → unversioned fallback behaviour
+  IT-1  Bootstrap seeds active-workflow.json → versioned runtime by construction
   IT-2  emit-event annotates workflow_version from active-workflow.json (no Scope needed)
   IT-3  Stale F_P (req_hash format) rejected when workflow version is known
   IT-4  F_H approval invalidated when workflow version changes
   IT-5  approved_carry_forward in manifest allows crossing a version boundary
-  IT-6  Pre-provenance approved (no workflow_version field) rejected when version known
+  IT-6  Pre-provenance approved (no workflow_version field) is always rejected
 
 These tests are integration acceptance gates, not unit-test-only checks.
 
@@ -34,8 +34,9 @@ from gtl.module_model import Module
 from gtl.operator_model import Evaluator, Operator, F_D, F_P, F_H, Rule
 from gtl.work_model import Job as GtlJob, ContractRef
 
+from genesis import __version__ as GENESIS_VERSION
 from genesis.binding import ExecutableJob, Worker
-from genesis.provenance import req_hash, executable_job_hash
+from genesis.provenance import WorkflowVersionError, executable_job_hash, req_hash, spec_hash_for
 from genesis.install import workspace_bootstrap
 from genesis.services import Scope, gen_gaps, module_to_executable_jobs
 
@@ -158,23 +159,43 @@ def _job_from_module(module: Module) -> ExecutableJob:
     return jobs[0]
 
 
-# ── IT-1: No provenance file fallback ─────────────────────────────────────────
+def _current_spec_hash(module: Module, workflow_version: str) -> str:
+    """Return the canonical runtime spec-hash for a module under a workflow version."""
+    return spec_hash_for(
+        workflow_version=workflow_version,
+        executable_job=_job_from_module(module),
+        requirements=module.metadata.get("requirements", ()),
+    )
 
-class TestBackwardCompat:
+
+# ── IT-1: Bootstrap provenance by construction ───────────────────────────────
+
+class TestBootstrapProvenance:
     """
-    IT-1: No active-workflow.json present → engine behaviour identical to
-    pre-provenance. All existing convergence semantics preserved.
+    IT-1: workspace_bootstrap seeds active-workflow.json so runtime provenance is
+    versioned by construction. Missing metadata is a defect, not a fallback mode.
     """
 
-    def test_scope_workflow_version_unknown_without_file(self, tmp_path):
-        """scope.workflow_version == 'unknown' when active-workflow.json absent."""
+    def test_workspace_bootstrap_seeds_default_workflow_version(self, tmp_path):
+        """workspace_bootstrap seeds abiogenesis.standard@<engine version> by default."""
         workspace_bootstrap(tmp_path)
         module = _make_fp_module()
         scope = Scope(module=module, workspace_root=tmp_path)
-        assert scope.workflow_version == "unknown"
 
-    def test_fp_old_req_hash_converges_when_version_unknown(self, tmp_path):
-        """Old req_hash format accepted for F_P assessed event when workflow_version is 'unknown'."""
+        assert scope.workflow_version == f"abiogenesis.standard@{GENESIS_VERSION}"
+
+    def test_scope_fails_closed_when_active_workflow_metadata_missing(self, tmp_path):
+        """Scope construction fails closed if active-workflow.json is removed or absent."""
+        workspace_bootstrap(tmp_path)
+        active_workflow = tmp_path / ".ai-workspace" / "runtime" / "active-workflow.json"
+        active_workflow.unlink()
+
+        module = _make_fp_module()
+        with pytest.raises(WorkflowVersionError, match="active workflow metadata missing"):
+            Scope(module=module, workspace_root=tmp_path)
+
+    def test_fp_old_req_hash_rejected_under_seeded_runtime_provenance(self, tmp_path):
+        """Old req_hash format is rejected even on the default bootstrapped runtime."""
         stream = workspace_bootstrap(tmp_path)
         module = _make_fp_module()
         scope = Scope(module=module, workspace_root=tmp_path)
@@ -189,37 +210,30 @@ class TestBackwardCompat:
         })
 
         result = gen_gaps(scope, stream)
-        assert result["converged"] is True, (
-            "No provenance file: req_hash spec_hash must be accepted when "
-            "workflow_version is unknown"
-        )
+        assert result["converged"] is False
 
-    def test_fh_accepted_by_edge_name_when_version_unknown(self, tmp_path):
-        """approved accepted by edge name alone when workflow_version is 'unknown'."""
+    def test_fh_requires_versioned_approval_under_seeded_runtime_provenance(self, tmp_path):
+        """Bare edge-name approvals do not satisfy F_H on the default bootstrapped runtime."""
         stream = workspace_bootstrap(tmp_path)
         module = _make_fh_module()
         scope = Scope(module=module, workspace_root=tmp_path)
 
-        old_hash = req_hash(module.metadata["requirements"])
         stream.append("assessed", {
             "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
-            "spec_hash": old_hash,
+            "spec_hash": _current_spec_hash(module, scope.workflow_version),
+            "workflow_version": scope.workflow_version,
         })
         stream.append("approved", {
             "kind": "fh_review",
             "edge": "design→code",
             "actor": "test_human",
-            # no workflow_version field — pre-provenance format
         })
 
         result = gen_gaps(scope, stream)
-        assert result["converged"] is True, (
-            "No provenance file: approved without workflow_version field must be "
-            "accepted by edge name alone when engine workflow_version is unknown"
-        )
+        assert result["converged"] is False
 
 
 # ── IT-2: Annotation ──────────────────────────────────────────────────────────
@@ -253,14 +267,16 @@ class TestWorkflowVersionAnnotation:
             "emit-event must annotate workflow_version from active-workflow.json"
         )
 
-    def test_emit_event_annotates_unknown_when_file_absent(self, tmp_path):
-        """Events written via emit-event carry workflow_version='unknown' when file absent."""
+    def test_emit_event_fails_closed_when_active_workflow_metadata_missing(self, tmp_path):
+        """emit-event fails closed if active-workflow.json is missing."""
         workspace_bootstrap(tmp_path)
+        (tmp_path / ".ai-workspace" / "runtime" / "active-workflow.json").unlink()
 
         from genesis.cli_adapter import _emit_event_cmd
 
         data = json.dumps({"edge": "design→code", "actor": "test_human", "kind": "fh_review"})
-        _emit_event_cmd("approved", data, tmp_path)
+        rc = _emit_event_cmd("approved", data, tmp_path)
+        assert rc == 1
 
         events_file = tmp_path / ".ai-workspace" / "events" / "events.jsonl"
         events = [
@@ -269,7 +285,7 @@ class TestWorkflowVersionAnnotation:
             if line.strip()
         ]
         review_events = [e for e in events if e["event_type"] == "approved"]
-        assert review_events[-1]["data"]["workflow_version"] == "unknown"
+        assert review_events == []
 
     def test_emit_event_reads_configured_active_workflow(self, tmp_path):
         """emit-event honours active_workflow from genesis.yml runtime contract."""
@@ -435,7 +451,7 @@ class TestStaleFpRejected:
         result = gen_gaps(scope, stream)
         assert result["converged"] is False, (
             "Old req_hash spec_hash must not satisfy F_P gate when "
-            "workflow_version is known (executable_job_hash required)"
+            "workflow_version is known (canonical versioned spec_hash required)"
         )
         failing = [f for g in result["gaps"] for f in g["failing"]]
         assert "code_complete" in failing
@@ -447,8 +463,7 @@ class TestStaleFpRejected:
         module = _make_fp_module()
         scope = Scope(module=module, workspace_root=tmp_path)
 
-        job = _job_from_module(module)
-        new_hash = executable_job_hash(job)
+        new_hash = _current_spec_hash(module, scope.workflow_version)
         stream.append("assessed", {
             "kind": "fp",
             "edge": "design→code",
@@ -459,7 +474,7 @@ class TestStaleFpRejected:
 
         result = gen_gaps(scope, stream)
         assert result["converged"] is True, (
-            "executable_job_hash spec_hash must satisfy F_P gate when "
+            "canonical versioned spec_hash must satisfy F_P gate when "
             "workflow_version is known"
         )
 
@@ -473,10 +488,8 @@ class TestStaleFpRejected:
         module = _make_fp_module()
         scope = Scope(module=module, workspace_root=tmp_path)
 
-        job = _job_from_module(module)
-
         # Emit assessment against the ORIGINAL job
-        original_hash = executable_job_hash(job)
+        original_hash = _current_spec_hash(module, scope.workflow_version)
         stream.append("assessed", {
             "kind": "fp",
             "edge": "design→code",
@@ -541,8 +554,7 @@ class TestStaleFpRejected:
         module = _make_fp_module()
         scope = Scope(module=module, workspace_root=tmp_path)
 
-        job = _job_from_module(module)
-        original_hash = executable_job_hash(job)
+        original_hash = _current_spec_hash(module, scope.workflow_version)
         stream.append("assessed", {
             "kind": "fp",
             "edge": "design→code",
@@ -596,7 +608,7 @@ class TestStaleFpRejected:
         )
         changed_scope = Scope(module=changed_module, workspace_root=tmp_path)
 
-        changed_hash = executable_job_hash(_job_from_module(changed_module))
+        changed_hash = _current_spec_hash(changed_module, changed_scope.workflow_version)
         assert changed_hash != original_hash
         result = gen_gaps(changed_scope, stream)
         assert result["converged"] is False, (
@@ -620,13 +632,12 @@ class TestApprovalVersionBinding:
         module = _make_fh_module()
         scope = Scope(module=module, workspace_root=tmp_path)
 
-        job = _job_from_module(module)
         stream.append("assessed", {
             "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
-            "spec_hash": executable_job_hash(job),
+            "spec_hash": _current_spec_hash(module, scope.workflow_version),
             "workflow_version": "genesis_sdlc.standard@0.2.0",
         })
         stream.append("approved", {
@@ -646,13 +657,12 @@ class TestApprovalVersionBinding:
         module = _make_fh_module()
         scope = Scope(module=module, workspace_root=tmp_path)
 
-        job = _job_from_module(module)
         stream.append("assessed", {
             "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
-            "spec_hash": executable_job_hash(job),
+            "spec_hash": _current_spec_hash(module, scope.workflow_version),
             "workflow_version": "genesis_sdlc.standard@0.2.0",
         })
         stream.append("approved", {
@@ -680,13 +690,12 @@ class TestApprovalVersionBinding:
         module = _make_fh_module()
         scope_v1 = Scope(module=module, workspace_root=tmp_path)
 
-        job = _job_from_module(module)
         stream.append("assessed", {
             "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
-            "spec_hash": executable_job_hash(job),
+            "spec_hash": _current_spec_hash(module, scope_v1.workflow_version),
             "workflow_version": "genesis_sdlc.standard@0.1.0",
         })
         stream.append("approved", {
@@ -728,13 +737,12 @@ class TestCarryForward:
         module = _make_fh_module()
         scope = Scope(module=module, workspace_root=tmp_path)
 
-        job = _job_from_module(module)
         stream.append("assessed", {
             "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
-            "spec_hash": executable_job_hash(job),
+            "spec_hash": _current_spec_hash(module, scope.workflow_version),
             "workflow_version": "genesis_sdlc.standard@0.2.0",
         })
         stream.append("approved", {
@@ -760,13 +768,12 @@ class TestCarryForward:
         module = _make_fh_module()
         scope = Scope(module=module, workspace_root=tmp_path)
 
-        job = _job_from_module(module)
         stream.append("assessed", {
             "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
-            "spec_hash": executable_job_hash(job),
+            "spec_hash": _current_spec_hash(module, scope.workflow_version),
             "workflow_version": "genesis_sdlc.standard@0.2.0",
         })
         # Approval from 0.0.1 — not the carry_forward from_version (0.1.0)
@@ -790,13 +797,12 @@ class TestCarryForward:
         module = _make_fh_module()
         scope = Scope(module=module, workspace_root=tmp_path)
 
-        job = _job_from_module(module)
         stream.append("assessed", {
             "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
-            "spec_hash": executable_job_hash(job),
+            "spec_hash": _current_spec_hash(module, scope.workflow_version),
             "workflow_version": "genesis_sdlc.standard@0.2.0",
         })
         stream.append("approved", {
@@ -815,8 +821,8 @@ class TestCarryForward:
 class TestPreProvenanceRejection:
     """
     IT-6: approved events with no workflow_version field (pre-provenance,
-    emitted before Part B was deployed) are rejected when the engine has a known
-    workflow_version. No special-casing or grace period.
+    emitted before Part B was deployed) are rejected. No special-casing,
+    no grace period, and no unversioned runtime mode.
     """
 
     def test_pre_provenance_approval_rejected_when_version_known(self, tmp_path):
@@ -826,13 +832,12 @@ class TestPreProvenanceRejection:
         module = _make_fh_module()
         scope = Scope(module=module, workspace_root=tmp_path)
 
-        job = _job_from_module(module)
         stream.append("assessed", {
             "kind": "fp",
             "edge": "design→code",
             "evaluator": "code_complete",
             "result": "pass",
-            "spec_hash": executable_job_hash(job),
+            "spec_hash": _current_spec_hash(module, scope.workflow_version),
             "workflow_version": "genesis_sdlc.standard@0.2.0",
         })
         # Pre-provenance: no workflow_version field on the approval
@@ -853,34 +858,13 @@ class TestPreProvenanceRejection:
         failing = [f for g in result["gaps"] for f in g["failing"]]
         assert "design_approved" in failing
 
-    def test_pre_provenance_approval_accepted_when_version_unknown(self, tmp_path):
+    def test_pre_provenance_approval_rejected_when_runtime_metadata_missing(self, tmp_path):
         """
-        Pre-provenance approved is accepted when engine workflow_version is
-        'unknown' (no provenance file). Absence of active-workflow.json = unversioned mode.
+        Removing active-workflow.json is a runtime defect, not an unversioned mode.
         """
-        stream = workspace_bootstrap(tmp_path)
+        workspace_bootstrap(tmp_path)
+        (tmp_path / ".ai-workspace" / "runtime" / "active-workflow.json").unlink()
+
         module = _make_fh_module()
-        scope = Scope(module=module, workspace_root=tmp_path)
-
-        assert scope.workflow_version == "unknown"
-
-        old_hash = req_hash(module.metadata["requirements"])
-        stream.append("assessed", {
-            "kind": "fp",
-            "edge": "design→code",
-            "evaluator": "code_complete",
-            "result": "pass",
-            "spec_hash": old_hash,
-        })
-        stream.append("approved", {
-            "kind": "fh_review",
-            "edge": "design→code",
-            "actor": "test_human",
-            # no workflow_version field
-        })
-
-        result = gen_gaps(scope, stream)
-        assert result["converged"] is True, (
-            "Pre-provenance approval must be accepted when workflow_version is unknown "
-            "(no provenance file — unversioned mode)"
-        )
+        with pytest.raises(WorkflowVersionError, match="active workflow metadata missing"):
+            Scope(module=module, workspace_root=tmp_path)

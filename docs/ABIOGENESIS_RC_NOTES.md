@@ -5,68 +5,71 @@ for the current `abiogenesis` wave.
 
 ## Accepted Framework Behavior
 
-### Policy-Governed `F_D -> F_P` Continuation
+### Provenance-Ready Runtime Is Now Mandatory
 
-The current RC restores the intended substrate rule that selected-edge `F_D`
-findings do not hard-stop generic constructive traversal by default.
-
-That means:
-
-- selected-edge `F_D` now consults the resolved escalation policy
-- when the declared policy carries `F_D -> F_P`, the runtime dispatches `F_P`
-  rather than returning `fd_gap`
-- explicit fail-closed policy still yields `fd_gap`
-- explicit hard-stop `F_D` also overrides concurrent `F_P` failure
-
-This is a substrate correction, not a domain-local repricing.
-
-### `F_P` Dispatch May Now Carry Deterministic Repair Pressure
-
-The current RC allows `F_P` dispatch to be opened from carryable `F_D`
-findings, not only from explicit failing `F_P` evaluators.
+The current RC removes `"unknown"` as a lawful governed-runtime provenance
+mode.
 
 That means:
 
-- the generated F_P manifest may list deterministic findings in
-  `failing_evaluators`
-- the prompt and result contract still require the agent to clear those
-  deterministic findings before treating the edge as done
-- the runtime still rechecks closure from workspace truth after result ingest
+- governed runtime initialization now requires valid workflow metadata
+- missing or malformed active-workflow metadata is a runtime defect, not a
+  compatibility fallback
+- CLI and runtime entry points fail closed when provenance metadata is absent
+  or invalid
 
-This preserves deterministic truth while allowing self-healing iteration.
+This is an interface cut in the substrate runtime boundary, not a downstream
+compatibility feature.
 
-### Manifest And Run Continuity Are Stronger
+### Install And Bootstrap Seed Workflow Truth By Construction
 
-The current RC now keeps stronger continuity over pending F_P runs.
+The current RC treats provenance readiness as part of the install/bootstrap
+contract.
 
-That includes:
+That means:
 
-- deriving manifest path from `manifest_id` when the result lacks
-  `fp_manifest_path`
-- persisting `manifest_id` into run-state truth
-- allowing resumed traversal to rediscover the same pending manifest
+- install/bootstrap writes active workflow metadata into the runtime surface
+- fresh installed workspaces start provenance-ready rather than degrading at
+  first use
+- runtime truth now assumes versioned workflow metadata exists because install
+  guarantees it
 
-This reduces runtime drift between dispatch, pending-run discovery, and replay.
+### Approval And Runtime Identity Are Versioned More Strictly
+
+The current RC strengthens the identity carried by runtime approvals and
+probabilistic assessment reuse.
+
+That means:
+
+- bare edge-name `F_H` approvals no longer authorize governed traversal
+- runtime `spec_hash` now binds workflow version, executable-job structure, and
+  requirement truth
+- stale probabilistic assessments reopen when active workflow or requirements
+  truth changes
 
 ## Current Known Limitation
 
-### Source-Workspace Mirror Still Requires Installer Propagation
+### Downstream Consumers Must Refactor To The Released Boundary
 
-`abiogenesis` remains the canonical engine source.
+This RC does not provide a backward-compatibility shim for removed provenance
+fallback behavior.
 
-Downstream `.genesis` trees must still be refreshed by installer/release
-propagation before they should be treated as released runtime truth.
+That means:
 
-Direct local mirror edits may be useful for source-workspace development, but
-they are not themselves the release path.
+- downstream consumers such as `odd_method` must consume this RC through their
+  installer path
+- downstream `.genesis` truth is refreshed by install, not by manual source
+  mirroring
+- downstream green status is a separate refactor/proof wave, not part of this
+  ABG RC note itself
 
 ## Current Verification Footer
 
 The current release-candidate proving footer is:
 
-- `256 passed`
+- `257 passed`
 - `5 deselected`
-- `23.95s`
+- `24.43s`
 
 from:
 

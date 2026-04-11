@@ -5,6 +5,7 @@ import json
 
 from genesis.dispatch_runtime import auto_dispatch_from_result, dispatch_bound_manifest_via_transport
 from genesis.events import EventContext, EventStream, emit
+from genesis.install import workspace_bootstrap
 from genesis.projection import project
 from genesis.run import run_state
 from genesis.transport import AgentResult
@@ -206,6 +207,7 @@ def test_dispatch_runtime_emits_failure_graph_call_and_continuation(monkeypatch,
 
 
 def test_dispatch_runtime_forwards_local_transport_contract_config(monkeypatch, tmp_path):
+    workspace_bootstrap(tmp_path)
     results_dir = tmp_path / ".ai-workspace" / "fp_results"
     results_dir.mkdir(parents=True, exist_ok=True)
     result_path = results_dir / "manifest-forward.json"
@@ -295,6 +297,7 @@ def test_dispatch_runtime_classifies_missing_local_transport_contract_as_policy_
 
 
 def test_dispatch_runtime_ingests_result_and_closes_graph_call(monkeypatch, tmp_path):
+    workspace_bootstrap(tmp_path)
     results_dir = tmp_path / ".ai-workspace" / "fp_results"
     results_dir.mkdir(parents=True, exist_ok=True)
     result_path = results_dir / "manifest-2.json"
@@ -450,6 +453,7 @@ def test_auto_dispatch_derives_manifest_path_from_manifest_id(tmp_path, monkeypa
 
 
 def test_successful_ingest_resolves_preexisting_open_continuation(monkeypatch, tmp_path):
+    workspace_bootstrap(tmp_path)
     results_dir = tmp_path / ".ai-workspace" / "fp_results"
     results_dir.mkdir(parents=True, exist_ok=True)
     result_path = results_dir / "manifest-3.json"

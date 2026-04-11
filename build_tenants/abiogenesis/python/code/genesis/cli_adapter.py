@@ -352,7 +352,7 @@ def _emit_event_cmd(event_type: str, data_json: str, workspace: Path) -> int:
     """
     import json as _json
 
-    from .provenance import _read_workflow_version
+    from .provenance import WorkflowVersionError, _read_workflow_version
 
     try:
         data = _json.loads(data_json)
@@ -422,9 +422,13 @@ def _emit_event_cmd(event_type: str, data_json: str, workspace: Path) -> int:
     # Reads the file directly — emit-event runs pre-stack without a Scope object.
     # Honour the runtime contract: if genesis.yml declares active_workflow, use it.
     _config = _load_project_config(workspace)
-    workflow_version = _read_workflow_version(
-        workspace, _config.get("active_workflow")
-    )
+    try:
+        workflow_version = _read_workflow_version(
+            workspace, _config.get("active_workflow")
+        )
+    except WorkflowVersionError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 1
     data["workflow_version"] = workflow_version
     _emit_workspace_event(
         workspace,
@@ -760,24 +764,33 @@ def main() -> None:
             sys.path.insert(0, _extra_path)
 
     from .install import workspace_bootstrap
-    stream = workspace_bootstrap(workspace)
-
+    from .provenance import WorkflowVersionError
     from .services import Scope, gen_gaps, gen_iterate, gen_start
+
+    try:
+        stream = workspace_bootstrap(workspace)
+    except WorkflowVersionError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        sys.exit(1)
 
     module = _resolve_module(args, workspace)
     configured_worker = _resolve_configured_worker(_config, workspace)
 
-    scope = Scope(
-        module=module,
-        workspace_root=workspace,
-        work_key_filter=getattr(args, "feature", None),
-        edge_filter=getattr(args, "edge", None),
-        runtime_identity=_resolve_runtime_identity(_config, configured_worker),
-        worker=configured_worker,
-        active_workflow_path=_config.get("active_workflow"),
-        workflow_root=_config.get("workflow_root"),
-        runtime_config=_config,
-    )
+    try:
+        scope = Scope(
+            module=module,
+            workspace_root=workspace,
+            work_key_filter=getattr(args, "feature", None),
+            edge_filter=getattr(args, "edge", None),
+            runtime_identity=_resolve_runtime_identity(_config, configured_worker),
+            worker=configured_worker,
+            active_workflow_path=_config.get("active_workflow"),
+            workflow_root=_config.get("workflow_root"),
+            runtime_config=_config,
+        )
+    except WorkflowVersionError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        sys.exit(1)
 
     # Bind active snapshot so work events carry package_snapshot_id.
     from .events import init_snapshot

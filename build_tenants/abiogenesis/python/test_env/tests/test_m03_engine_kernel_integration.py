@@ -39,6 +39,7 @@ from gtl.module_model import Module
 from gtl.operator_model import Evaluator, F_D, F_H, F_P, Rule
 from gtl.work_model import ContractRef, Job, Role
 
+from genesis import __version__ as GENESIS_VERSION
 from genesis.binding import (
     ContextResolver,
     ExecutableJob,
@@ -580,6 +581,8 @@ def _emit_edge_converged(
     job: ExecutableJob,
     work_key: str | None = None,
 ) -> None:
+    if workflow_version == "unknown":
+        workflow_version = f"abiogenesis.standard@{GENESIS_VERSION}"
     emit(
         "edge_converged",
         {
@@ -1041,8 +1044,8 @@ print(json.dumps({
         tmp_path: Path,
     ) -> None:
         module = _composed_cumulative_environment_module()
-        scope = Scope(module=module, workspace_root=tmp_path)
         stream = workspace_bootstrap(tmp_path)
+        scope = Scope(module=module, workspace_root=tmp_path)
         jobs = {
             job.vector.name: job
             for job in module_to_executable_jobs(module)
@@ -1561,6 +1564,7 @@ print(json.dumps({
             role_ids=(constructor.id,),
             authority_ref="runtime://role-dispatch",
         )
+        stream = workspace_bootstrap(tmp_path)
         scope = Scope(
             module=module,
             workspace_root=tmp_path,
@@ -1701,8 +1705,8 @@ print(json.dumps({
             jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_function", target_id=outer_profile.id),)),),
             metadata={"requirements": ["REQ-M03-PLAN-001"]},
         )
-        scope = Scope(module=module, workspace_root=tmp_path)
         stream = workspace_bootstrap(tmp_path)
+        scope = Scope(module=module, workspace_root=tmp_path)
         executable_job = module_to_executable_jobs(module)[0]
 
         traverse(
@@ -1809,8 +1813,8 @@ print(json.dumps({
             jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_function", target_id=outer_profile.id),)),),
             metadata={"requirements": ["REQ-M03-GAPS-001"]},
         )
-        scope = Scope(module=module, workspace_root=tmp_path)
         stream = workspace_bootstrap(tmp_path)
+        scope = Scope(module=module, workspace_root=tmp_path)
         executable_job = module_to_executable_jobs(module)[0]
 
         selected = traverse(
@@ -1918,8 +1922,8 @@ print(json.dumps({
             jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_function", target_id=outer_profile.id),)),),
             metadata={"requirements": ["REQ-M03-PLAN-002"]},
         )
-        scope = Scope(module=module, workspace_root=tmp_path)
         stream = workspace_bootstrap(tmp_path)
+        scope = Scope(module=module, workspace_root=tmp_path)
         executable_job = module_to_executable_jobs(module)[0]
 
         traverse(
@@ -2040,8 +2044,8 @@ print(json.dumps({
             jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_function", target_id=outer_profile.id),)),),
             metadata={"requirements": ["REQ-M03-PLAN-003"]},
         )
-        scope = Scope(module=module, workspace_root=tmp_path)
         stream = workspace_bootstrap(tmp_path)
+        scope = Scope(module=module, workspace_root=tmp_path)
         executable_job = module_to_executable_jobs(module)[0]
 
         for work_key, candidate_name in (
@@ -2168,8 +2172,8 @@ print(json.dumps({
             jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_function", target_id=outer_profile.id),)),),
             metadata={"requirements": ["REQ-M03-HIDDEN-FRAME-SELECTION-001"]},
         )
-        scope = Scope(module=module, workspace_root=tmp_path)
         stream = workspace_bootstrap(tmp_path)
+        scope = Scope(module=module, workspace_root=tmp_path)
         executable_job = module_to_executable_jobs(module)[0]
 
         with pytest.raises(ValueError, match="hidden contracts"):
@@ -2253,8 +2257,8 @@ print(json.dumps({
             jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_function", target_id=outer_profile.id),)),),
             metadata={"requirements": ["REQ-M03-FOLDBACK-001"]},
         )
-        scope = Scope(module=module, workspace_root=tmp_path)
         stream = workspace_bootstrap(tmp_path)
+        scope = Scope(module=module, workspace_root=tmp_path)
         executable_job = module_to_executable_jobs(module)[0]
 
         selected = traverse(
@@ -2372,8 +2376,8 @@ print(json.dumps({
             jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_function", target_id=outer_profile.id),)),),
             metadata={"requirements": ["REQ-M03-SUSPEND-001"]},
         )
-        scope = Scope(module=module, workspace_root=tmp_path)
         stream = workspace_bootstrap(tmp_path)
+        scope = Scope(module=module, workspace_root=tmp_path)
         executable_job = module_to_executable_jobs(module)[0]
 
         selected = traverse(
@@ -2520,8 +2524,8 @@ print(json.dumps({
             jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_function", target_id=outer_profile.id),)),),
             metadata={"requirements": ["REQ-M03-TERMINATION-001"]},
         )
-        scope = Scope(module=module, workspace_root=tmp_path)
         stream = workspace_bootstrap(tmp_path)
+        scope = Scope(module=module, workspace_root=tmp_path)
         executable_job = module_to_executable_jobs(module)[0]
 
         selected = traverse(
@@ -2656,8 +2660,8 @@ print(json.dumps({
             jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_function", target_id=outer_profile.id),)),),
             metadata={"requirements": ["REQ-M03-RESET-001"]},
         )
-        scope = Scope(module=module, workspace_root=tmp_path)
         stream = workspace_bootstrap(tmp_path)
+        scope = Scope(module=module, workspace_root=tmp_path)
         executable_job = module_to_executable_jobs(module)[0]
 
         traversal = Traversal(
@@ -2830,8 +2834,8 @@ print(json.dumps({
             jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_function", target_id=outer_profile.id),)),),
             metadata={"requirements": ["REQ-M03-RECURSIVE-CUMULATIVE-001"]},
         )
-        scope = Scope(module=module, workspace_root=tmp_path)
         stream = workspace_bootstrap(tmp_path)
+        scope = Scope(module=module, workspace_root=tmp_path)
         executable_job = module_to_executable_jobs(module)[0]
 
         selected = traverse(
@@ -2957,8 +2961,8 @@ print(json.dumps({
             jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_function", target_id=outer_profile.id),)),),
             metadata={"requirements": ["REQ-M03-RECURSE-001"]},
         )
-        scope = Scope(module=module, workspace_root=tmp_path)
         stream = workspace_bootstrap(tmp_path)
+        scope = Scope(module=module, workspace_root=tmp_path)
         executable_job = module_to_executable_jobs(module)[0]
 
         selected = traverse(
@@ -3095,8 +3099,8 @@ print(json.dumps({
             jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_function", target_id=outer_carrier.id),)),),
             metadata={"requirements": ["REQ-M03-RECURSE-LOCAL-001"]},
         )
-        scope = Scope(module=module, workspace_root=tmp_path)
         stream = workspace_bootstrap(tmp_path)
+        scope = Scope(module=module, workspace_root=tmp_path)
         executable_job = module_to_executable_jobs(module)[0]
 
         first = traverse(
@@ -3254,8 +3258,8 @@ print(json.dumps({
             jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_function", target_id=outer_carrier.id),)),),
             metadata={"requirements": ["REQ-M03-NESTED-001"]},
         )
-        scope = Scope(module=module, workspace_root=tmp_path)
         stream = workspace_bootstrap(tmp_path)
+        scope = Scope(module=module, workspace_root=tmp_path)
         executable_job = module_to_executable_jobs(module)[0]
 
         first = traverse(
@@ -3371,8 +3375,8 @@ print(json.dumps({
             jobs=(Job(name=outer.name, contracts=(ContractRef(kind="graph_function", target_id=outer_profile.id),)),),
             metadata={"requirements": [f"REQ-M03-DEPTH-{depth:03d}"]},
         )
-        scope = Scope(module=module, workspace_root=tmp_path)
         stream = workspace_bootstrap(tmp_path)
+        scope = Scope(module=module, workspace_root=tmp_path)
         executable_job = module_to_executable_jobs(module)[0]
 
         current_work_key = outer.id
@@ -3600,10 +3604,9 @@ print(json.dumps({
             metadata={"requirements": ["REQ-M03-ITERATE-001"]},
         )
 
+        stream = workspace_bootstrap(tmp_path)
         scope = Scope(module=module, workspace_root=tmp_path, build="kernel_router")
         scope.worker.authority_ref = "module://M03-engine-kernel"
-
-        stream = workspace_bootstrap(tmp_path)
         executable_job = module_to_executable_jobs(module)[0]
         runtime = TraversalRuntime(
             module=module,
@@ -4162,11 +4165,16 @@ print(json.dumps({
 
     def test_gen_gaps_is_idempotent_and_feature_certificates_do_not_duplicate(self, tmp_path: Path) -> None:
         module = _minimal_property_module()
-        spec_hash = req_hash(module.metadata["requirements"])
 
         for feature in ("FEAT-A", "FEAT-B"):
             workspace = tmp_path / feature
             stream = workspace_bootstrap(workspace)
+            scope = Scope(module=module, workspace_root=workspace, work_key_filter=feature)
+            spec_hash = spec_hash_for(
+                workflow_version=scope.workflow_version,
+                executable_job=module_to_executable_jobs(module)[0],
+                requirements=module.metadata["requirements"],
+            )
             active_dir = workspace / ".ai-workspace" / "features" / "active"
             active_dir.mkdir(parents=True, exist_ok=True)
             (active_dir / f"{feature}.yml").write_text(
@@ -4183,7 +4191,6 @@ print(json.dumps({
                     "spec_hash": spec_hash,
                 },
             )
-            scope = Scope(module=module, workspace_root=workspace, work_key_filter=feature)
 
             first = gen_gaps(scope, stream)
             count_after_first = len(stream.all_events())
@@ -4205,7 +4212,11 @@ print(json.dumps({
         module_v1 = _minimal_property_module(["REQ-M03-ONE"])
         stream = workspace_bootstrap(tmp_path)
         scope_v1 = Scope(module=module_v1, workspace_root=tmp_path)
-        hash_v1 = req_hash(module_v1.metadata["requirements"])
+        hash_v1 = spec_hash_for(
+            workflow_version=scope_v1.workflow_version,
+            executable_job=module_to_executable_jobs(module_v1)[0],
+            requirements=module_v1.metadata["requirements"],
+        )
 
         stream.append(
             "assessed",
@@ -4221,7 +4232,11 @@ print(json.dumps({
 
         module_v2 = _minimal_property_module(["REQ-M03-ONE", "REQ-M03-TWO"])
         scope_v2 = Scope(module=module_v2, workspace_root=tmp_path)
-        hash_v2 = req_hash(module_v2.metadata["requirements"])
+        hash_v2 = spec_hash_for(
+            workflow_version=scope_v2.workflow_version,
+            executable_job=module_to_executable_jobs(module_v2)[0],
+            requirements=module_v2.metadata["requirements"],
+        )
 
         result_v2 = gen_gaps(scope_v2, stream)
         assert hash_v1 != hash_v2
@@ -4244,7 +4259,11 @@ print(json.dumps({
         module = _minimal_property_module(["REQ-M03-NEW"])
         stream = workspace_bootstrap(tmp_path)
         scope = Scope(module=module, workspace_root=tmp_path)
-        expected_hash = req_hash(module.metadata["requirements"])
+        expected_hash = spec_hash_for(
+            workflow_version=scope.workflow_version,
+            executable_job=module_to_executable_jobs(module)[0],
+            requirements=module.metadata["requirements"],
+        )
 
         stream.append(
             "assessed",
