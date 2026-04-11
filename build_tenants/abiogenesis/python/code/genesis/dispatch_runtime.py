@@ -432,14 +432,20 @@ def auto_dispatch_from_result(
     Resolve the dispatch policy for one pending F_P manifest and execute it.
     """
     manifest_path_value = result.get("fp_manifest_path")
-    if not isinstance(manifest_path_value, str) or not manifest_path_value:
+    manifest_path: Path | None = None
+    if isinstance(manifest_path_value, str) and manifest_path_value:
+        manifest_path = Path(manifest_path_value)
+    else:
+        manifest_id = result.get("manifest_id")
+        if isinstance(manifest_id, str) and manifest_id:
+            manifest_path = workspace / ".ai-workspace" / "fp_manifests" / f"{manifest_id}.json"
+    if manifest_path is None:
         return _emit_result_defect(
             result,
             workspace,
             failure_class="policy_config_defect",
             reason="pending F_P result is missing fp_manifest_path",
         )
-    manifest_path = Path(manifest_path_value)
     if not manifest_path.exists():
         return _emit_result_defect(
             result,

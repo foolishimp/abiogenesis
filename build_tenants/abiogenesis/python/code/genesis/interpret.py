@@ -974,16 +974,29 @@ def derive_operational_state(
     }
 
 
-def _blocking_reason(pre: PrecomputedManifest) -> str | None:
+def _blocking_reason(
+    pre: PrecomputedManifest,
+    *,
+    resolved_policy: dict | None = None,
+    runtime_config: dict | None = None,
+) -> str | None:
     """Return the typed blocking reason for one precomputed traversal state."""
+    if any(ev.regime is F_D for ev in pre.failing_evaluators):
+        conv = convergence_from_precomputed(
+            pre.executable_job.vector.id,
+            pre,
+            resolved_policy=resolved_policy,
+            runtime_config=runtime_config,
+        )
+        if conv.next_regime is F_P and conv.next_action in ("continue", "escalate"):
+            return "fp_dispatch"
+        if conv.next_regime is F_H and conv.next_action in ("continue", "escalate"):
+            return "fh_gate"
+        return "fd_gap"
     if any(ev.regime is F_P for ev in pre.failing_evaluators):
         return "fp_dispatch"
-    if any(ev.regime is F_H for ev in pre.failing_evaluators) and not any(
-        ev.regime in (F_D, F_P) for ev in pre.failing_evaluators
-    ):
+    if any(ev.regime is F_H for ev in pre.failing_evaluators):
         return "fh_gate"
-    if any(ev.regime is F_D for ev in pre.failing_evaluators):
-        return "fd_gap"
     return None
 
 
@@ -1481,7 +1494,11 @@ def _iterated_outcome(
             runtime_config=runtime.runtime_config,
         )
     pre = runtime.precomputed
-    blocking_reason = _blocking_reason(pre)
+    blocking_reason = _blocking_reason(
+        pre,
+        resolved_policy=runtime.resolved_policy,
+        runtime_config=runtime.runtime_config,
+    )
 
     fd_failing = [ev for ev in pre.failing_evaluators if ev.regime is F_D]
     fp_failing = [ev for ev in pre.failing_evaluators if ev.regime is F_P]
@@ -1494,13 +1511,24 @@ def _iterated_outcome(
 
     from .run import find_pending_run
 
-    if fp_failing:
+    dispatch_requires_fp = blocking_reason == "fp_dispatch"
+
+    if dispatch_requires_fp:
         pending = find_pending_run(
             runtime.stream.all_events(),
             vector.name,
             work_key=runtime.work_key,
         )
         if pending is not None:
+            manifest_path = None
+            if pending.manifest_id:
+                candidate = (
+                    runtime.workspace_root
+                    / ".ai-workspace"
+                    / "fp_manifests"
+                    / f"{pending.manifest_id}.json"
+                )
+                manifest_path = str(candidate)
             if active_frame is not None:
                 frame, step = active_frame
                 pending_context = _event_context(
@@ -1533,12 +1561,20 @@ def _iterated_outcome(
                 "edge": vector.name,
                 "blocking_reason": "fp_dispatch",
             }
+            if pending.manifest_id:
+                result["manifest_id"] = pending.manifest_id
+            if manifest_path is not None:
+                result["fp_manifest_path"] = manifest_path
             next_metadata = dict(surface.metadata)
             next_metadata["traversal_outcome"] = {
                 "status": "pending",
                 "pending_run_id": pending.run_id,
                 "blocking_reason": "fp_dispatch",
             }
+            if pending.manifest_id:
+                next_metadata["traversal_outcome"]["manifest_id"] = pending.manifest_id
+            if manifest_path is not None:
+                next_metadata["traversal_outcome"]["fp_manifest_path"] = manifest_path
             return TraversalOutcome(
                 surface=WorkSurface(
                     events=surface.events,
@@ -1556,7 +1592,7 @@ def _iterated_outcome(
     event_context = _event_context(runtime, run_id=run_id, active_frame=active_frame)
 
     result_path = ""
-    if fp_failing:
+    if dispatch_requires_fp:
         fp_results_dir = runtime.workspace_root / ".ai-workspace" / "fp_results"
         fp_results_dir.mkdir(parents=True, exist_ok=True)
         result_path = str(fp_results_dir / f"{manifest_id}.json")
@@ -1645,6 +1681,7 @@ def _iterated_outcome(
 
     iter_surface = _realize_iteration(
         bound,
+        blocking_reason=blocking_reason,
         leaf_tasks=list(runtime.leaf_tasks) if runtime.leaf_tasks else None,
         on_leaf_dispatch=runtime.on_leaf_dispatch,
         leaf_task_inputs=runtime.leaf_task_inputs,
@@ -1744,7 +1781,7 @@ def _iterated_outcome(
             ),
         )
 
-    if fp_failing:
+    if dispatch_requires_fp:
         manifests_dir = runtime.workspace_root / ".ai-workspace" / "fp_manifests"
         manifests_dir.mkdir(parents=True, exist_ok=True)
         manifest_file = manifests_dir / f"{manifest_id}.json"
@@ -1790,7 +1827,15 @@ def _iterated_outcome(
                     "regime": ev.regime.__name__,
                     "description": ev.description,
                 }
-                for ev in fp_failing
+                for ev in pre.failing_evaluators
+            ],
+            "fd_failures": [
+                {
+                    "name": ev.name,
+                    "binding": ev.binding,
+                    "description": ev.description,
+                }
+                for ev in fd_failing
             ],
             "fd_results": pre.fd_results,
             "delta": pre.delta,
@@ -2237,6 +2282,8 @@ def traverse(
 
 def _realize_iteration(
     bound_job: BoundJob,
+    *,
+    blocking_reason: str | None = None,
     leaf_tasks: Optional[list[LeafTask]] = None,
     on_leaf_dispatch: Optional[Callable[[LeafTask, dict], tuple[dict | None, str | None]]] = None,
     run_id: Optional[str] = None,
@@ -2257,7 +2304,7 @@ def _realize_iteration(
     fh_failing = [ev for ev in pre.failing_evaluators if ev.regime is F_H]
 
     if fd_failing:
-        kind = "fd_findings" if fp_failing else "fd_gap"
+        kind = "fd_findings" if fp_failing or blocking_reason == "fp_dispatch" else "fd_gap"
         events.append({
             "event_type": "found",
             "data": {

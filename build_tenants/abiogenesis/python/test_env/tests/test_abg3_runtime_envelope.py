@@ -397,6 +397,58 @@ def test_auto_dispatch_missing_manifest_path_emits_fail_closed_runtime_truth(tmp
     ]
 
 
+def test_auto_dispatch_derives_manifest_path_from_manifest_id(tmp_path, monkeypatch):
+    manifests_dir = tmp_path / ".ai-workspace" / "fp_manifests"
+    manifests_dir.mkdir(parents=True, exist_ok=True)
+    manifest_path = manifests_dir / "manifest-derive.json"
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "manifest_id": "manifest-derive",
+                "call_id": "call-manifest-derive",
+                "edge": "design→code",
+                "run_id": "run-manifest-derive",
+                "graph_function_id": "gf-manifest-derive",
+                "failing_evaluators": [
+                    {
+                        "name": "code_complete",
+                        "regime": "F_P",
+                        "description": "code satisfies the design contract",
+                    }
+                ],
+                "result_path": str(tmp_path / ".ai-workspace" / "fp_results" / "manifest-derive.json"),
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    def fake_dispatch(manifest, workspace, *, config=None, hook_config=None):
+        assert manifest["manifest_id"] == "manifest-derive"
+        assert workspace == tmp_path
+        return {"status": "ok", "call_id": manifest["call_id"], "events_emitted": 0}
+
+    monkeypatch.setattr(
+        "genesis.dispatch_runtime.dispatch_bound_manifest_via_transport",
+        fake_dispatch,
+    )
+
+    summary = auto_dispatch_from_result(
+        {
+            "status": "pending",
+            "blocking_reason": "fp_dispatch",
+            "manifest_id": "manifest-derive",
+            "run_id": "run-manifest-derive",
+            "call_id": "call-manifest-derive",
+            "edge": "design→code",
+        },
+        tmp_path,
+        config={"runtime_backend": "codex_cli"},
+    )
+
+    assert summary["status"] == "ok"
+    assert summary["call_id"] == "call-manifest-derive"
+
+
 def test_successful_ingest_resolves_preexisting_open_continuation(monkeypatch, tmp_path):
     results_dir = tmp_path / ".ai-workspace" / "fp_results"
     results_dir.mkdir(parents=True, exist_ok=True)

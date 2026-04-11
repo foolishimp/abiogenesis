@@ -1190,6 +1190,275 @@ print(json.dumps({
         assert resolved["closure"]["ref"] == "genesis.policy_defaults:closure_require_resolution_or_fh"
         assert resolved["sources"]["closure"] == "graph_function.declarations"
 
+    def test_selected_edge_fd_failure_dispatches_fp_when_declared_policy_allows_continuation(
+        self,
+        tmp_path: Path,
+    ) -> None:
+        design = Node(name="design", schema="Design")
+        code = Node(name="code", schema="Code")
+        fd_gap = Evaluator(
+            "fd_gap",
+            F_D,
+            binding="exec://python -c 'import sys; sys.exit(1)'",
+        )
+        constructor = Role(
+            name="constructor",
+            policy_hooks={
+                "escalation": {
+                    "ref": "genesis.policy_defaults:escalation_fp_first",
+                    "config": {
+                        "fail_transition": {"F_D": "F_P", "F_P": "F_H"},
+                        "fd_fail_with_transition_action": "continue",
+                    },
+                }
+            },
+        )
+        vector = GraphVector(
+            name="design→code",
+            source=design,
+            target=code,
+            evaluators=(fd_gap,),
+        )
+        graph = Graph(
+            name="m03_fd_to_fp_dispatch",
+            inputs=(design,),
+            outputs=(code,),
+            nodes=(design, code),
+            vectors=(vector,),
+        )
+        graph_function = _graph_function_for_vector(vector)
+        module = Module(
+            name="m03_fd_to_fp_dispatch",
+            graphs=(graph,),
+            graph_functions=(graph_function,),
+            jobs=(
+                Job(
+                    name=vector.name,
+                    contracts=(ContractRef(kind="graph_function", target_id=graph_function.id),),
+                    roles=(constructor,),
+                ),
+            ),
+            metadata={"requirements": ["REQ-M03-FD-CONTINUE-001"]},
+        )
+        stream = workspace_bootstrap(tmp_path)
+        executable_job = module_to_executable_jobs(module)[0]
+        worker = Worker(
+            id="constructor_worker",
+            can_execute=(executable_job,),
+            role_ids=(constructor.id,),
+            authority_ref="runtime://role-dispatch",
+        )
+        resolved_policy = resolve_policy_bundle(
+            vector=vector,
+            graph_function=graph_function,
+            roles=(constructor,),
+        )
+
+        outcome = traverse(
+            Traversal(
+                work_key=vector.id,
+                target=graph_function,
+                evaluators=vector.evaluators,
+            ),
+            runtime=TraversalRuntime(
+                module=module,
+                executable_job=executable_job,
+                precomputed=_precomputed(executable_job, failing=(fd_gap,)),
+                workspace_root=tmp_path,
+                stream=stream,
+                worker=worker,
+                spec_hash="spec-m03-fd-continue",
+                resolved_policy=resolved_policy,
+            ),
+            surface=WorkSurface(),
+        )
+
+        assert outcome.result["status"] == "iterated"
+        assert outcome.result["blocking_reason"] == "fp_dispatch"
+        manifest_path = Path(outcome.result["fp_manifest_path"])
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        assert manifest["result_path"]
+        assert [entry["name"] for entry in manifest["failing_evaluators"]] == ["fd_gap"]
+        found = next(event for event in outcome.surface.events if event["event_type"] == "found")
+        assert found["data"]["kind"] == "fd_findings"
+
+    def test_selected_edge_fd_failure_hard_stops_when_declared_policy_removes_transition(
+        self,
+        tmp_path: Path,
+    ) -> None:
+        design = Node(name="design", schema="Design")
+        code = Node(name="code", schema="Code")
+        fd_gap = Evaluator(
+            "fd_gap",
+            F_D,
+            binding="exec://python -c 'import sys; sys.exit(1)'",
+        )
+        constructor = Role(
+            name="constructor",
+            policy_hooks={
+                "escalation": {
+                    "ref": "genesis.policy_defaults:escalation_fp_first",
+                    "config": {
+                        "fail_transition": {},
+                        "fd_fail_without_transition_action": "fail",
+                    },
+                }
+            },
+        )
+        vector = GraphVector(
+            name="design→code",
+            source=design,
+            target=code,
+            evaluators=(fd_gap,),
+        )
+        graph = Graph(
+            name="m03_fd_hard_stop",
+            inputs=(design,),
+            outputs=(code,),
+            nodes=(design, code),
+            vectors=(vector,),
+        )
+        graph_function = _graph_function_for_vector(vector)
+        module = Module(
+            name="m03_fd_hard_stop",
+            graphs=(graph,),
+            graph_functions=(graph_function,),
+            jobs=(
+                Job(
+                    name=vector.name,
+                    contracts=(ContractRef(kind="graph_function", target_id=graph_function.id),),
+                    roles=(constructor,),
+                ),
+            ),
+            metadata={"requirements": ["REQ-M03-FD-HARDSTOP-001"]},
+        )
+        stream = workspace_bootstrap(tmp_path)
+        executable_job = module_to_executable_jobs(module)[0]
+        worker = Worker(
+            id="constructor_worker",
+            can_execute=(executable_job,),
+            role_ids=(constructor.id,),
+            authority_ref="runtime://role-dispatch",
+        )
+        resolved_policy = resolve_policy_bundle(
+            vector=vector,
+            graph_function=graph_function,
+            roles=(constructor,),
+        )
+
+        outcome = traverse(
+            Traversal(
+                work_key=vector.id,
+                target=graph_function,
+                evaluators=vector.evaluators,
+            ),
+            runtime=TraversalRuntime(
+                module=module,
+                executable_job=executable_job,
+                precomputed=_precomputed(executable_job, failing=(fd_gap,)),
+                workspace_root=tmp_path,
+                stream=stream,
+                worker=worker,
+                spec_hash="spec-m03-fd-hard-stop",
+                resolved_policy=resolved_policy,
+            ),
+            surface=WorkSurface(),
+        )
+
+        assert outcome.result["status"] == "iterated"
+        assert outcome.result["blocking_reason"] == "fd_gap"
+        assert "fp_manifest_path" not in outcome.result
+        found = next(event for event in outcome.surface.events if event["event_type"] == "found")
+        assert found["data"]["kind"] == "fd_gap"
+
+    def test_declared_fd_hard_stop_overrides_concurrent_fp_failure(
+        self,
+        tmp_path: Path,
+    ) -> None:
+        design = Node(name="design", schema="Design")
+        code = Node(name="code", schema="Code")
+        fd_gap = Evaluator(
+            "fd_gap",
+            F_D,
+            binding="exec://python -c 'import sys; sys.exit(1)'",
+        )
+        fp_review = Evaluator("fp_review", F_P, "review and refine code")
+        constructor = Role(
+            name="constructor",
+            policy_hooks={
+                "escalation": {
+                    "ref": "genesis.policy_defaults:escalation_fp_first",
+                    "config": {
+                        "fail_transition": {},
+                        "fd_fail_without_transition_action": "fail",
+                    },
+                }
+            },
+        )
+        vector = GraphVector(
+            name="design→code",
+            source=design,
+            target=code,
+            evaluators=(fd_gap, fp_review),
+        )
+        graph = Graph(
+            name="m03_fd_override_mixed",
+            inputs=(design,),
+            outputs=(code,),
+            nodes=(design, code),
+            vectors=(vector,),
+        )
+        graph_function = _graph_function_for_vector(vector)
+        module = Module(
+            name="m03_fd_override_mixed",
+            graphs=(graph,),
+            graph_functions=(graph_function,),
+            jobs=(
+                Job(
+                    name=vector.name,
+                    contracts=(ContractRef(kind="graph_function", target_id=graph_function.id),),
+                    roles=(constructor,),
+                ),
+            ),
+            metadata={"requirements": ["REQ-M03-FD-HARDSTOP-002"]},
+        )
+        stream = workspace_bootstrap(tmp_path)
+        executable_job = module_to_executable_jobs(module)[0]
+        worker = Worker(
+            id="constructor_worker",
+            can_execute=(executable_job,),
+            role_ids=(constructor.id,),
+            authority_ref="runtime://role-dispatch",
+        )
+        resolved_policy = resolve_policy_bundle(
+            vector=vector,
+            graph_function=graph_function,
+            roles=(constructor,),
+        )
+
+        outcome = traverse(
+            Traversal(
+                work_key=vector.id,
+                target=graph_function,
+                evaluators=vector.evaluators,
+            ),
+            runtime=TraversalRuntime(
+                module=module,
+                executable_job=executable_job,
+                precomputed=_precomputed(executable_job, failing=(fd_gap, fp_review)),
+                workspace_root=tmp_path,
+                stream=stream,
+                worker=worker,
+                spec_hash="spec-m03-fd-override-mixed",
+                resolved_policy=resolved_policy,
+            ),
+            surface=WorkSurface(),
+        )
+
+        assert outcome.result["status"] == "iterated"
+        assert outcome.result["blocking_reason"] == "fd_gap"
+        assert "fp_manifest_path" not in outcome.result
+
     def test_mapping_provenance_bundle_preserves_graph_function_materialization_identity(self) -> None:
         requirements = Node(name="requirements", schema="Requirements")
         design = Node(name="design", schema="Design")
@@ -3380,6 +3649,7 @@ print(json.dumps({
         assert pending is not None
         assert pending.run_id == "run-m03-fp"
         assert pending.state == "dispatched"
+        assert pending.manifest_id == manifest_path.stem
 
         derived_run = run_state(stream.all_events(), "run-m03-fp")
         assert derived_run is not None
@@ -3387,6 +3657,7 @@ print(json.dumps({
         assert derived_run.role_id == constructor.id
         assert derived_run.authority_ref == "module://M03-engine-kernel"
         assert derived_run.work_key == vector.id
+        assert derived_run.manifest_id == manifest_path.stem
 
         projected = project(stream, discovered_context.name, "current", work_key=vector.id)
         assert projected["status"] == "in_progress"
@@ -3404,6 +3675,37 @@ print(json.dumps({
         assert manifest["resolved_policy"]["dispatch"]["ref"] == (
             "genesis.dispatch_runtime:dispatch_bound_manifest_via_transport"
         )
+
+        resumed_runtime = TraversalRuntime(
+            module=module,
+            executable_job=executable_job,
+            precomputed=_precomputed(
+                executable_job,
+                failing=(context_sufficient,),
+                passing=(context_ok,),
+            ),
+            workspace_root=tmp_path,
+            stream=stream,
+            worker=scope.worker,
+            spec_hash="spec-m03-iterate",
+            build=scope.build,
+            work_key=vector.id,
+            workflow_version="m03.test@3.0.0",
+        )
+        resumed_outcome = traverse(
+            Traversal(
+                work_key=vector.id,
+                target=boundary,
+                evaluators=vector.evaluators,
+            ),
+            runtime=resumed_runtime,
+            surface=WorkSurface(),
+        )
+
+        assert resumed_outcome.result["status"] == "pending"
+        assert resumed_outcome.result["pending_run_id"] == "run-m03-fp"
+        assert resumed_outcome.result["manifest_id"] == manifest_path.stem
+        assert resumed_outcome.result["fp_manifest_path"] == str(manifest_path)
 
     def test_deterministic_traversal_emits_callable_lifecycle_and_run_completion(self, tmp_path: Path) -> None:
         design = Node(name="design", schema="DesignDoc")

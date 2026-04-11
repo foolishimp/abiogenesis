@@ -1,40 +1,36 @@
 {
 	"folders": [
 		{
+			"name": "abiogenesis",
 			"path": "../../../.."
 		},
 		{
-			"path": "../../../../../genesis_sdlc"
-		},
-		{
-			"path": "../../../../../gen_enterprise_arch"
-		},
-		{
-			"path": "../../../../../openclaw-studio"
-		},
-		{
-			"path": "../../../../../openclaw"
-		},
-		{
-			"path": "../../../../../constraint_emergence_ontology"
-		},
-		{
-			"path": "../../../../../genesis_manager"
-		},
-		{
-			"path": "../../../../../ai_sdlc_examples"
-		},
-		{
+			"name": "odd_method",
 			"path": "../../../../../odd_method"
 		},
 		{
-			"path": "../../../../../my_first_gtl_app"
+			"name": "ai_sdlc_examples",
+			"path": "../../../../../ai_sdlc_examples"
 		},
 		{
+			"name": "specification_methodology",
 			"path": "../../../../../specification_methodology"
 		},
 		{
-			"path": "../../../../../ai_sdlc_method"
+			"name": "constraint_emergence_ontology",
+			"path": "../../../../../constraint_emergence_ontology"
+		},
+		{
+			"name": "openclaw-studio",
+			"path": "../../../../../openclaw-studio"
+		},
+		{
+			"name": "genesis_manager",
+			"path": "../../../../../genesis_manager"
+		},
+		{
+			"name": "openclaw",
+			"path": "../../../../../openclaw"
 		}
 	],
 	"settings": {

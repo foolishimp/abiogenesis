@@ -448,6 +448,63 @@ def _coerce_command_tokens(raw: Any, *, label: str) -> list[str]:
     return tokens
 
 
+def _coerce_mapping_or_json_object(raw: Any, *, label: str) -> dict[str, Any]:
+    if isinstance(raw, dict):
+        return dict(raw)
+    if not isinstance(raw, str) or not raw.strip():
+        raise ValueError(f"{label} must be a mapping or JSON object string")
+    source = raw.strip()
+    if not source.startswith("{"):
+        raise ValueError(f"{label} string must be a JSON object")
+    try:
+        loaded = _json.loads(source)
+    except _json.JSONDecodeError as exc:
+        raise ValueError(f"{label} JSON string is invalid: {exc}") from exc
+    if not isinstance(loaded, dict):
+        raise ValueError(f"{label} JSON string must decode to an object")
+    return dict(loaded)
+
+
+def _runtime_pythonpath_entries(
+    runtime_config: dict[str, Any] | None,
+    *,
+    workspace_root: Path | None,
+) -> list[str]:
+    if workspace_root is None:
+        return []
+    raw = dict(runtime_config or {}).get("pythonpath")
+    if isinstance(raw, str):
+        values = [raw]
+    elif isinstance(raw, (list, tuple)):
+        values = [item for item in raw if isinstance(item, str)]
+    else:
+        values = []
+    entries: list[str] = []
+    for value in values:
+        stripped = value.strip()
+        if not stripped:
+            continue
+        path = Path(stripped)
+        if not path.is_absolute():
+            path = (workspace_root / path).resolve()
+        entries.append(str(path))
+    return entries
+
+
+def _workspace_command_env(
+    *,
+    runtime_config: dict[str, Any] | None,
+    workspace_root: Path | None,
+) -> dict[str, str]:
+    env = os.environ.copy()
+    extra = os.pathsep.join(
+        _runtime_pythonpath_entries(runtime_config, workspace_root=workspace_root)
+    )
+    existing = env.get("PYTHONPATH", "")
+    env["PYTHONPATH"] = os.pathsep.join(filter(None, [extra, existing]))
+    return env
+
+
 def _dig_path(payload: Any, dotted_path: str) -> Any:
     current = payload
     for segment in dotted_path.split("."):
@@ -474,9 +531,10 @@ def _asset_binding_query_contract(runtime_config: dict[str, Any] | None) -> tupl
     config = dict(runtime_config or {})
     explicit = config.get("asset_binding_contract")
     if explicit is not None:
-        if not isinstance(explicit, dict):
-            raise ValueError("runtime_config.asset_binding_contract must be a mapping")
-        contract = dict(explicit)
+        contract = _coerce_mapping_or_json_object(
+            explicit,
+            label="runtime_config.asset_binding_contract",
+        )
         contract["command"] = _coerce_command_tokens(
             contract.get("command"),
             label="runtime_config.asset_binding_contract.command",
@@ -546,6 +604,10 @@ def resolve_workspace_asset_bindings(
             cwd=workspace_root,
             capture_output=True,
             text=True,
+            env=_workspace_command_env(
+                runtime_config=runtime_config,
+                workspace_root=workspace_root,
+            ),
             timeout=float(timeout),
         )
     except (OSError, subprocess.TimeoutExpired) as exc:
@@ -1407,12 +1469,12 @@ def _assemble_prompt(
             target_lines.append(f"  exists: {str(target_binding.exists).lower()}")
         sections.append("\n".join(target_lines))
 
-    fp_failing = [ev for ev in pre.failing_evaluators if ev.regime is F_P]
+    dispatch_assessments = list(pre.failing_evaluators) if result_path else []
     assessment_contract = ""
-    if fp_failing and result_path:
+    if dispatch_assessments and result_path:
         ev_assessments = [
             f'{{"evaluator": "{ev.name}", "result": "pass|fail", "evidence": "..."}}'
-            for ev in fp_failing
+            for ev in dispatch_assessments
         ]
         assessment_contract = (
             f"\n\nWrite assessment JSON to: {result_path}\n"

@@ -228,6 +228,38 @@ def test_run_start_auto_human_proxy_handles_fh_gate_and_retries(monkeypatch, tmp
     assert approvals == ["design→review"]
 
 
+def test_run_start_auto_continues_after_unblocked_iteration(monkeypatch, tmp_path: Path):
+    results = iter(
+        (
+            {
+                "status": "iterated",
+                "edge": "design→code",
+            },
+            {
+                "status": "converged",
+                "message": "done",
+            },
+        )
+    )
+
+    def fake_gen_start(scope, stream, auto=False):
+        assert auto is False
+        return next(results)
+
+    monkeypatch.setattr(services, "gen_start", fake_gen_start)
+
+    result = cli_adapter._run_start_auto(
+        object(),
+        object(),
+        workspace=tmp_path,
+        config={},
+        human_proxy=False,
+    )
+
+    assert result["status"] == "converged"
+    assert result["auto"] is True
+
+
 def test_scope_reports_bound_worker_identity_when_no_runtime_build_is_declared(tmp_path: Path):
     module = _runtime_contract_module()
     worker = Worker(

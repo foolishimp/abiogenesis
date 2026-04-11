@@ -56,6 +56,7 @@ class RunState:
     selected_backend: str | None = None
     assignment_source: str | None = None
     resolved_runtime_ref: str | None = None
+    manifest_id: str | None = None
     failure_class: str | None = None
     attempt_number: int = 1
     superseded_by: str | None = None
@@ -91,6 +92,7 @@ def run_state(
     selected_backend = None
     assignment_source = None
     resolved_runtime_ref = None
+    manifest_id = None
     failure_class = None
     attempt_number = 1
     superseded_by = None
@@ -159,6 +161,7 @@ def run_state(
         elif etype == "fp_dispatched":
             state = "dispatched"
             edge = _event_value(e, "edge") or edge
+            manifest_id = _event_value(e, "manifest_id") or manifest_id
             role_id = _event_value(e, "role_id") or role_id
             authority_ref = _event_value(e, "authority_ref") or authority_ref
             selected_worker_id = _event_value(e, "selected_worker_id") or selected_worker_id
@@ -210,6 +213,7 @@ def run_state(
         selected_backend=selected_backend,
         assignment_source=assignment_source,
         resolved_runtime_ref=resolved_runtime_ref,
+        manifest_id=manifest_id,
         failure_class=failure_class,
         attempt_number=attempt_number,
         superseded_by=superseded_by,
@@ -241,6 +245,7 @@ def project_run(all_events: list[dict], run_id: str) -> dict:
         "selected_backend": state.selected_backend,
         "assignment_source": state.assignment_source,
         "resolved_runtime_ref": state.resolved_runtime_ref,
+        "manifest_id": state.manifest_id,
         "failure_class": state.failure_class,
         "attempt_number": state.attempt_number,
         "superseded_by": state.superseded_by,
