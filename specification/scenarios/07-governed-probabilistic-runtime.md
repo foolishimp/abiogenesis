@@ -50,3 +50,6 @@ dispatch manifests.
 7. unresolved deterministic observer findings after successful constructive
    work surface as runtime fact truth for downstream handling unless declared
    hard-stop policy or blocker-class closure still applies
+8. unresolved non-blocking post-transform observer truth yields to the next
+   lawful observer or routing layer rather than failing or immediately
+   redispatching the same constructive lane

@@ -23,3 +23,5 @@ events.
 **REQ-R-ABG3-CONTINUATION-004**: If unresolved work remains relevant after retry, correction, or supersession, ABG shall terminate the old continuation by authoritative event truth and open a new continuation in the new run with explicit causal linkage.
 
 **REQ-R-ABG3-CONTINUATION-005**: Authoritative continuation lifecycle shall include at minimum open, resolved, superseded, and abandoned termination truth.
+
+**REQ-R-ABG3-CONTINUATION-006**: Yielded post-dispatch handoff may open continuation truth for observer, routing, or approval-bearing next action, but that continuation shall remain runtime-open obligation truth rather than constitutional intent.

@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 
+from genesis import cli_adapter, services
 from genesis.dispatch_runtime import auto_dispatch_from_result, dispatch_bound_manifest_via_transport
 from genesis.events import EventContext, EventStream, emit
 from genesis.install import workspace_bootstrap
@@ -573,9 +574,11 @@ def test_ingest_post_transform_fd_findings_emit_found_without_stopping_closure(m
 
     summary = ingest_fp_result(result_path, tmp_path, manifest_data=manifest)
 
-    assert summary["status"] == "ok"
-    assert "blocking_reason" not in summary
-    assert "stopped_by" not in summary
+    assert summary["status"] == "yield"
+    assert summary["handoff_kind"] == "observer_handoff"
+    assert summary["handoff_reason"] == "fd_findings"
+    assert summary["stopped_by"] == "yield"
+    assert summary["continuation_id"]
 
     events = EventStream.open(tmp_path).all_events()
     assert [event["event_type"] for event in events] == [
@@ -584,14 +587,167 @@ def test_ingest_post_transform_fd_findings_emit_found_without_stopping_closure(m
         "found",
         "closure_passed",
         "graph_call_closed",
-        "run_completed",
+        "continuation_opened",
+        "run_yielded",
     ]
-    assert events[2]["data"]["kind"] == "fd_gap"
+    assert events[2]["data"]["kind"] == "fd_findings"
     assert events[2]["data"]["failing"] == ["code_traceability_present"]
     graph_call = project(EventStream.open(tmp_path), "graph_call", "call-fd-gap")
     run = project(EventStream.open(tmp_path), "run", "run-fd-gap")
+    continuation = project(EventStream.open(tmp_path), "continuation", summary["continuation_id"])
     assert graph_call["status"] == "closed"
-    assert run["status"] == "completed"
+    assert run["status"] == "yielded"
+    assert continuation["status"] == "open"
+    assert continuation["continuation_kind"] == "observer_handoff"
+
+
+def test_yielded_ingest_resolves_preexisting_open_continuation(monkeypatch, tmp_path):
+    workspace_bootstrap(tmp_path)
+    results_dir = tmp_path / ".ai-workspace" / "fp_results"
+    results_dir.mkdir(parents=True, exist_ok=True)
+    result_path = results_dir / "manifest-yield-resolve.json"
+    result_path.write_text(
+        json.dumps(
+            {
+                "edge": "design→code",
+                "actor": "codex",
+                "assessments": [
+                    {
+                        "evaluator": "code_traceability_present",
+                        "result": "pass",
+                        "evidence": "constructor attempted repair",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    stream = EventStream.open(tmp_path)
+    emit(
+        "continuation_opened",
+        {
+            "continuation_id": "cont-stale",
+            "continuation_kind": "retry",
+            "call_id": "call-yield-resolve",
+        },
+        stream=stream,
+        context=EventContext(
+            run_id="run-yield-resolve",
+            aggregate_type="continuation",
+            aggregate_id="cont-stale",
+            call_id="call-yield-resolve",
+        ),
+    )
+    manifest = {
+        "manifest_id": "manifest-yield-resolve",
+        "call_id": "call-yield-resolve",
+        "edge": "design→code",
+        "run_id": "run-yield-resolve",
+        "work_key": "wk-yield-resolve",
+        "workflow_version": "wf-yield-resolve",
+        "graph_function_id": "gf-yield-resolve",
+        "materialization_id": "mat-yield-resolve",
+        "vector_id": "vec-yield-resolve",
+        "job_id": "job-yield-resolve",
+        "prompt": "repair code",
+        "result_path": str(result_path),
+        "spec_hash": "spec-yield-resolve",
+        "delta_summary": "delta = 1 — 1 evaluator failing: code_traceability_present",
+    }
+
+    monkeypatch.setattr(
+        "genesis.result_ingest._rerun_manifest_fd_failures",
+        lambda workspace, manifest, work_key=None: {
+            "passed": False,
+            "failures": [{"name": "code_traceability_present"}],
+        },
+    )
+    monkeypatch.setattr(
+        "genesis.result_ingest._target_binding_materialization",
+        lambda workspace, manifest: {"passed": True, "reason": "resolved"},
+    )
+
+    summary = ingest_fp_result(result_path, tmp_path, manifest_data=manifest)
+
+    assert summary["status"] == "yield"
+    events = EventStream.open(tmp_path).all_events()
+    assert [event["event_type"] for event in events] == [
+        "continuation_opened",
+        "assessed",
+        "proof_passed",
+        "found",
+        "closure_passed",
+        "graph_call_closed",
+        "continuation_resolved",
+        "continuation_opened",
+        "run_yielded",
+    ]
+    stale = project(EventStream.open(tmp_path), "continuation", "cont-stale")
+    new_continuation = project(EventStream.open(tmp_path), "continuation", summary["continuation_id"])
+    assert stale["status"] == "resolved"
+    assert new_continuation["status"] == "open"
+    assert new_continuation["continuation_kind"] == "observer_handoff"
+
+
+def test_ingest_post_transform_fd_findings_use_same_kind_as_traversal_seam(monkeypatch, tmp_path):
+    workspace_bootstrap(tmp_path)
+    results_dir = tmp_path / ".ai-workspace" / "fp_results"
+    results_dir.mkdir(parents=True, exist_ok=True)
+    result_path = results_dir / "manifest-taxonomy.json"
+    result_path.write_text(
+        json.dumps(
+            {
+                "edge": "design→code",
+                "actor": "codex",
+                "assessments": [
+                    {
+                        "evaluator": "code_traceability_present",
+                        "result": "pass",
+                        "evidence": "constructor attempted repair",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    manifest = {
+        "manifest_id": "manifest-taxonomy",
+        "call_id": "call-taxonomy",
+        "edge": "design→code",
+        "run_id": "run-taxonomy",
+        "work_key": "wk-taxonomy",
+        "workflow_version": "wf-taxonomy",
+        "graph_function_id": "gf-taxonomy",
+        "materialization_id": "mat-taxonomy",
+        "vector_id": "vec-taxonomy",
+        "job_id": "job-taxonomy",
+        "prompt": "repair code",
+        "result_path": str(result_path),
+        "spec_hash": "spec-taxonomy",
+        "delta_summary": "delta = 1 — 1 evaluator failing: code_traceability_present",
+    }
+
+    monkeypatch.setattr(
+        "genesis.result_ingest._rerun_manifest_fd_failures",
+        lambda workspace, manifest, work_key=None: {
+            "passed": False,
+            "failures": [{"name": "code_traceability_present"}],
+        },
+    )
+    monkeypatch.setattr(
+        "genesis.result_ingest._target_binding_materialization",
+        lambda workspace, manifest: {"passed": True, "reason": "resolved"},
+    )
+
+    summary = ingest_fp_result(result_path, tmp_path, manifest_data=manifest)
+
+    assert summary["status"] == "yield"
+    found = next(
+        event
+        for event in EventStream.open(tmp_path).all_events()
+        if event["event_type"] == "found"
+    )
+    assert found["data"]["kind"] == "fd_findings"
 
 
 def test_ingest_target_binding_failure_still_blocks_after_proof(monkeypatch, tmp_path):
@@ -663,8 +819,88 @@ def test_ingest_target_binding_failure_still_blocks_after_proof(monkeypatch, tmp
         "continuation_opened",
         "run_failed",
     ]
-    assert events[2]["data"]["kind"] == "fd_gap"
+    assert events[2]["data"]["kind"] == "fd_findings"
     assert events[3]["data"]["policy_reason"] == "target_binding_not_materialized"
+
+
+def test_run_projection_accepts_yielded_runtime_truth(tmp_path):
+    stream = EventStream.open(tmp_path)
+
+    emit(
+        "run_started",
+        {"edge": "design→code"},
+        stream=stream,
+        context=EventContext(
+            workflow_version="wf-yield",
+            work_key="wk-yield",
+            run_id="run-yield",
+            job_id="job-yield",
+        ),
+    )
+    emit(
+        "run_yielded",
+        {
+            "edge": "design→code",
+            "continuation_id": "cont-yield",
+            "handoff_kind": "observer_handoff",
+            "handoff_reason": "fd_findings",
+        },
+        stream=stream,
+        context=EventContext(
+            workflow_version="wf-yield",
+            work_key="wk-yield",
+            run_id="run-yield",
+            job_id="job-yield",
+        ),
+    )
+
+    state = run_state(stream.all_events(), "run-yield")
+    assert state is not None
+    assert state.state == "yielded"
+
+    projected = project(stream, "run", "run-yield")
+    assert projected["status"] == "yielded"
+    assert projected["job_id"] == "job-yield"
+
+
+def test_run_start_auto_yields_without_immediate_redispatch(monkeypatch, tmp_path):
+    gen_start_calls: list[int] = []
+
+    def fake_gen_start(scope, stream, auto=False):
+        assert auto is False
+        gen_start_calls.append(1)
+        return {
+            "status": "pending",
+            "blocking_reason": "fp_dispatch",
+            "edge": "requirements→design",
+            "fp_manifest_path": str(tmp_path / "manifest.json"),
+        }
+
+    def fake_auto_dispatch(result, workspace, *, config=None):
+        return {
+            "status": "yield",
+            "stopped_by": "yield",
+            "handoff_kind": "observer_handoff",
+            "handoff_reason": "fd_findings",
+            "continuation_id": "cont-yield",
+        }
+
+    monkeypatch.setattr(services, "gen_start", fake_gen_start)
+    monkeypatch.setattr("genesis.dispatch_runtime.auto_dispatch_from_result", fake_auto_dispatch)
+
+    result = cli_adapter._run_start_auto(
+        object(),
+        object(),
+        workspace=tmp_path,
+        config={"runtime_backend": "codex_cli"},
+        human_proxy=False,
+    )
+
+    assert gen_start_calls == [1]
+    assert result["status"] == "yield"
+    assert result["stopped_by"] == "yield"
+    assert result["handoff_kind"] == "observer_handoff"
+    assert result["handoff_reason"] == "fd_findings"
 
 
 def test_reset_emits_supersession_truth_for_active_run_scope(tmp_path):

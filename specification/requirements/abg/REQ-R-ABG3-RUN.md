@@ -24,3 +24,5 @@ Define `Run` as one engine-owned execution attempt over GTL semantic work.
 **REQ-R-ABG3-RUN-005**: Run truth shall remain distinct from convergence truth. A run may terminate independently of whether a particular boundary converged.
 
 **REQ-R-ABG3-RUN-006**: Run terminalization shall remain replay-visible through authoritative lifecycle events rather than hidden controller memory.
+
+**REQ-R-ABG3-RUN-007**: If a constructive turn closes its callable boundary but must hand off unresolved non-blocking observer truth to the next lawful observer or routing layer, ABG shall project that run as yielded rather than completed.

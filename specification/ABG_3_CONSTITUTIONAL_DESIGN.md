@@ -166,6 +166,16 @@ Runtime-open obligation truth derived from events is `Continuation` truth.
 
 It is not constitutional `Intent` truth.
 
+### 5.8a Yielded Handoff Over Flattened Success
+
+When constructive work has advanced the asset but observer truth remains
+non-blockingly unresolved, ABG should yield to the next lawful observer or
+routing layer.
+
+That yielded handoff is neither terminal failure nor plain success.
+
+It is runtime-owned handoff truth over the newly updated asset state.
+
 ### 5.9 Event-Calculus Completeness
 
 The event model must be rich enough to answer:
@@ -206,6 +216,7 @@ ABG owns:
 - `Frame`
 - vector-local traversal facts
 - `Continuation`
+- yielded post-dispatch handoff truth
 - projections and replay-derived fluents
 - workers, backends, and concrete binding/runtime identity
 

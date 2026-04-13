@@ -26,3 +26,5 @@ Define the ABG 3 event substrate as the only written runtime truth surface.
 **REQ-R-ABG3-EVENTS-006**: Lifecycle open/close/fail/rebound events shall remain authoritative truth. Snapshot or checkpoint events may assist replay but shall not replace authoritative lifecycle facts.
 
 **REQ-R-ABG3-EVENTS-007**: ABG shall observe process-boundary runtime facts only. It shall not constitutionalize internal chain-of-thought, hidden tactic steps, or private decomposition inside probabilistic workers.
+
+**REQ-R-ABG3-EVENTS-008**: When ABG yields on unresolved non-blocking post-transform observer truth, the yielded handoff and its causing observer facts shall be emitted as authoritative event truth rather than inferred from absence of terminal failure.

@@ -243,8 +243,9 @@ The broad default bundle should mean:
    F_P.
 4. Re-run post-transform proof and blocker-class closure checks on the
    returned result, while publishing unresolved deterministic observer findings
-   as runtime fact truth instead of promoting them back into blocking closure
-   by default.
+   as runtime fact truth and yielding to the next lawful observer or routing
+   layer instead of promoting them back into blocking closure or flattening
+   them into plain success by default.
 5. Escalate to F_H only when the resolved escalation policy still says the
    contract remains unresolved or approval-bearing.
 

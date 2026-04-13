@@ -19,7 +19,7 @@ def _event_value(event: dict, key: str):
 # Canonical run states projected from the event stream.
 RUN_STATES = frozenset({
     "queued", "started", "dispatched", "pending",
-    "completed", "failed", "timed_out", "superseded",
+    "yielded", "completed", "failed", "timed_out", "superseded",
 })
 
 # Canonical failure classifications projected from the event stream.
@@ -183,6 +183,11 @@ def run_state(
             work_key = _event_value(e, "work_key") or work_key
             edge = _event_value(e, "edge") or edge
             state = "completed"
+
+        elif etype == "run_yielded":
+            work_key = _event_value(e, "work_key") or work_key
+            edge = _event_value(e, "edge") or edge
+            state = "yielded"
 
         elif etype == "run_failed":
             work_key = _event_value(e, "work_key") or work_key

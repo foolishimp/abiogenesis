@@ -27,3 +27,5 @@ event-authoritative aggregates.
 **REQ-R-ABG3-INTERPRET-006**: Post-dispatch runtime truth, including readiness, worker turn invocation, failure classification, proof re-entry, closure re-entry, and continuation opening, shall be engine-owned.
 
 **REQ-R-ABG3-INTERPRET-007**: ABG shall fail closed on undeclared graph-function identity, undeclared profile, undeclared structural parameter, materialization output that violates the published outer contract, or unresolved runtime law.
+
+**REQ-R-ABG3-INTERPRET-008**: Post-dispatch observer truth that is non-blocking but unresolved shall yield to the next lawful observer or routing layer rather than immediately redispatching the same constructive lane by default.

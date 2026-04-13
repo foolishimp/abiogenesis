@@ -29,3 +29,5 @@ fallback law.
 **REQ-R-ABG3-CONVERGENCE-007**: ABG shall preserve lawful declared pre-dispatch deterministic hard-stop policy when resolved transition law explicitly removes constructive continuation.
 
 **REQ-R-ABG3-CONVERGENCE-008**: ABG shall distinguish at minimum runtime defect, policy/config defect, probabilistic non-convergence, proof failure after constructive work, post-transform observer incompleteness, and superseded or abandoned work.
+
+**REQ-R-ABG3-CONVERGENCE-009**: When constructive work has materially advanced the boundary but non-blocking post-transform observer truth remains unresolved, ABG shall surface that outcome as yielded handoff truth rather than flattening it into terminal success or blocker-class failure.

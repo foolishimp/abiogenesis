@@ -643,6 +643,10 @@ def _run_start_auto(
             )
             if dispatch_result.get("status") == "ok":
                 continue
+            if dispatch_result.get("status") == "yield":
+                result.update(dispatch_result)
+                result["stopped_by"] = dispatch_result.get("stopped_by", "yield")
+                return result
             result.update(dispatch_result)
             result["stopped_by"] = dispatch_result.get("stopped_by", "fp_runtime_failure")
             return result
@@ -828,6 +832,7 @@ def main() -> None:
     #   3 — fh_gate_pending (F_H evaluation required; fh_gate.criteria in output)
     #   4 — fd_gap (declared deterministic hard stop before constructive transition)
     #   5 — max_iterations (auto-loop limit hit without convergence)
+    #   6 — yield (constructive turn advanced the asset and yielded handoff truth)
     #
     # IMPORTANT: exit 0 means ONLY converged/nothing_to_do — never a blocked run.
     stopped_by = result.get("stopped_by", "")
@@ -839,5 +844,7 @@ def main() -> None:
         sys.exit(4)
     if stopped_by == "max_iterations":
         sys.exit(5)
+    if stopped_by == "yield":
+        sys.exit(6)
     if result.get("status") == "error":
         sys.exit(1)

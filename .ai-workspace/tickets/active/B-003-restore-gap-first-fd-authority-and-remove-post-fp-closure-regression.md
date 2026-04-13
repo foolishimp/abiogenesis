@@ -15,7 +15,7 @@
 - repriced_from: runtime_hardening
 - repriced_to: requirement_and_design_root_cause
 - affected_boundary: ABG post-dispatch convergence, closure, and downstream gap authority
-- lawful_re_entry: ABG convergence requirements, constitutional/module design surfaces, then runtime result-ingest implementation
+- lawful_re_entry: ABG convergence requirements, constitutional/module design surfaces, product policy surface for auto-loop behavior, then runtime result-ingest and CLI implementation
 - downstream_proof_span: odd_method T-004 gap train, installed `data_mapper.test31` traversal, and ABG runtime proving lanes
 
 ## Context
@@ -222,6 +222,67 @@ The missing clarifications are:
    stop constructive traversal.
 5. Transformation does not own stopping authority merely because it just ran.
 
+## Truth And Handoff Taxonomy
+
+This bug now carries a stronger taxonomy because the earlier fix removed the
+wrong hard stop but still left room for the wrong handoff shape.
+
+ABG needs to keep these truths distinct:
+
+- `asset_truth`
+  - the stateful asset under construction
+  - this is the primary truth after a constructive turn
+- `observer_truth`
+  - what `F_D`, `F_P`, and `F_H` observe about that asset state
+  - this is where incompleteness, contradiction, or approval pressure is
+    classified
+- `event_truth`
+  - why control moved, what was observed, and what authority acted
+  - this is the runtime forensic and coordination surface
+- `routing_truth`
+  - who acts next and under what lawful regime
+  - this is continuation, intent, transition, or approval-bearing next action
+
+The critical invariant is:
+
+- transformation updates `asset_truth`
+- observers produce `observer_truth` over that updated asset
+- events record the handoff over that observed asset
+- routing decides who acts next
+
+Transformation does not decide closure simply because it just ran.
+
+## Yield Semantics
+
+For non-blocking unresolved post-transform observer truth, ABG should use
+`yield` semantics.
+
+`yield` means:
+
+- the constructive turn materially advanced the asset as far as it could
+- the updated asset is now the authoritative state
+- new observer truth exists over that updated asset
+- control must hand off before immediate redispatch of the same constructive
+  lane
+
+`yield` is not:
+
+- `fail`
+  - blocker-class condition; runtime cannot lawfully continue
+- `continue`
+  - same control lane may lawfully keep traversing immediately with no
+    intermediate handoff
+
+So for this bug, the correct runtime meaning is:
+
+- unresolved post-transform `F_D` for ordinary constructive incompleteness must
+  `yield`
+- it must not hard-stop traversal
+- it must not be flattened into plain `ok` plus immediate redispatch under
+  `start --auto`
+
+This is the missing state between fail-closed and blindly continue-open.
+
 Those points need to be made explicit in requirement and design language so a
 later refactor cannot lawfully reintroduce this behavior.
 
@@ -253,6 +314,119 @@ For the purposes of this ticket, ABG should distinguish at least:
 This ticket does not need to finalize every downstream domain taxonomy, but ABG
 must explicitly stop treating unresolved post-transform `F_D` as if it were
 always a blocking closure class.
+
+## Current Additional Drift To Correct
+
+The first repricing removed the wrong hard stop, but the bug is not complete
+until ABG also fixes the handoff seam.
+
+The remaining drift is:
+
+1. unresolved post-transform `F_D` can currently return plain `status = ok`
+2. `start --auto` can treat that as immediate redispatch
+3. event taxonomy still splits the same non-blocking deterministic class across
+   `fd_findings` and `fd_gap`
+
+That shape is still wrong because it:
+
+- hides the intended `yield` seam
+- duplicates `F_D` meaning across two event kinds
+- amplifies confusion between observer truth and routing truth
+
+The fix therefore has to include:
+
+- one consistent event classification for non-blocking deterministic findings
+- one explicit yielded handoff state for unresolved post-transform observer
+  truth
+- one `start --auto` behavior that yields to the next observer/routing layer
+  instead of failing or blindly redispatching
+
+## Impact By Stratum
+
+This ticket now needs an explicit impact statement so future repricing does not
+push `yield` into the wrong layer.
+
+### GTL impact
+
+`yield` is not a GTL language change.
+
+This ticket must not introduce:
+
+- a new GTL type
+- a new GTL graph or vector primitive
+- a new GTL algebra operator
+- a GTL language keyword
+- GTL-owned semantic vocabulary for post-dispatch pacing
+
+GTL remains the declaration surface for:
+
+- structure
+- contracts
+- graph functions
+- graph vectors
+- hook attachment points
+- semantic work surfaces
+
+ABG remains the interpreter that assigns runtime meaning to those declarations.
+
+So the GTL-side impact of this ticket should be:
+
+- none constitutionally
+- at most, clearer commentary that engines may interpret declared hook surfaces
+  with yielded handoff semantics at runtime
+
+### ABG impact
+
+`yield` is an ABG runtime outcome and handoff state.
+
+ABG already contains an internal yielding concept in the recursive machine.
+What is missing is a surfaced post-dispatch yielded seam.
+
+This ticket therefore changes ABG at these layers:
+
+- convergence/runtime meaning
+  - complete the runtime outcome lattice:
+    - `fail`
+    - `yield`
+    - `ok`
+- result ingestion
+  - unresolved non-blocking post-transform observer truth must return yielded
+    handoff semantics, not plain `ok`
+- event taxonomy
+  - one consistent event classification for the same non-blocking deterministic
+    observer class across traversal seam and post-transform replay
+- continuation/handoff truth
+  - yielded post-transform observer truth must remain visible as a lawful
+    handoff seam rather than being flattened into terminal success
+
+### Product-layer impact
+
+The product/CLI layer is affected because `start --auto` is above the
+constitutional GTL/ABG stack but consumes ABG summaries.
+
+So the product-layer impact is real but narrow:
+
+- product policy must honor yielded ABG handoff truth
+- CLI auto-loop behavior must not treat yielded post-transform observer truth as
+  immediate license to redispatch the same constructive lane
+- product summaries must project yielded handoff truth faithfully rather than
+  inventing a contradictory lifecycle boolean
+
+This means the product layer must be repriced where needed, but `yield` still
+remains ABG-owned rather than becoming product-owned or GTL-owned semantics.
+
+### Narrow-first adoption rule
+
+This ticket should keep `yield` narrow first.
+
+The first lawful implementation scope is:
+
+1. surfaced post-dispatch yielded handoff in ABG
+2. consistent event taxonomy for the affected non-blocking observer class
+3. product auto-loop honoring that yielded handoff
+
+This ticket does not require widening `yield` into every convergence or algebra
+surface unless later proof shows the same seam exists elsewhere.
 
 ## Current Blast Radius
 
@@ -296,6 +470,13 @@ alone:
    pre-dispatch hard-stop policy?
 7. What downstream evidence proves the bug today?
 8. What downstream run should prove the fix after repricing?
+9. What does `yield` mean in this runtime, and why is it distinct from `fail`
+   and `continue`?
+10. Why is `asset_truth` primary after a constructive turn, and how do
+    observer truth, event truth, and routing truth relate to it?
+11. Why does `yield` belong to ABG and not GTL?
+12. What product-layer behavior must change to honor yielded handoff truth
+    without creating a second truth surface?
 
 ## Task List
 
@@ -315,15 +496,25 @@ alone:
 - [x] Keep deterministic post-transform observations available as emitted fact truth for downstream gap/continuation/intent handling.
 - [x] Prove that unresolved deterministic incompleteness now surfaces into the gap train rather than `closure_failed -> fd_gap -> stop`.
 - [x] Prove that genuine malformed/config/safety defects still fail closed.
+- [ ] Reprice requirement and design text so non-blocking unresolved post-transform observer truth is expressed as `yield`, not plain success and not failure.
+- [ ] Confirm GTL language and hook surfaces remain unchanged by this fix, and record that `yield` is ABG-owned runtime meaning rather than GTL law.
+- [ ] Reprice product policy / CLI behavior so `start --auto` honors yielded handoff truth without creating a second lifecycle truth surface.
+- [ ] Introduce one explicit yielded handoff result for unresolved post-transform observer truth in `build_tenants/abiogenesis/python/code/genesis/result_ingest.py`.
+- [ ] Make `build_tenants/abiogenesis/python/code/genesis/cli_adapter.py` treat yielded post-transform observer truth as a handoff seam rather than immediate redispatch under `start --auto`.
+- [ ] Unify event taxonomy so the same non-blocking deterministic observer class uses one `found.kind` across traversal seam and post-transform replay.
+- [ ] Add regression tests that fail on redispatch-loop behavior and fail on taxonomy drift for the same non-blocking deterministic class.
 - [ ] Re-run downstream installed proof on `data_mapper.test31` and confirm the previous stop signature no longer halts constructive execution.
 
 ## Proof Shape
 
 The completed fix should let a reviewer inspect:
 
+- the GTL no-impact statement
 - the repriced requirement clause
 - the repriced constitutional/module design clauses
+- the repriced product policy / CLI clause
 - the runtime diff removing post-transform `F_D` stop authority
+- the runtime diff introducing yielded handoff semantics
 - the downstream event stream before/after comparison
 
 The minimum downstream proof should show:
@@ -331,6 +522,17 @@ The minimum downstream proof should show:
 - before: `proof_passed -> closure_failed -> found(fd_gap) -> stop`
 - after: `proof_passed` plus gap/intent-compatible observation without
   traversal-stopping closure for the same class of incompleteness
+
+The completed fix should also show:
+
+- unresolved post-transform observer truth yields rather than fails or blindly
+  continues
+- `start --auto` does not redispatch the same constructive lane immediately on
+  yielded post-transform observer truth
+- the same non-blocking deterministic class uses one event kind at both the
+  traversal seam and post-transform replay
+- GTL declarations, graph-function publication, and graph/vector language
+  surfaces remain unchanged by the fix
 
 and separately:
 
@@ -350,6 +552,14 @@ This ticket does not attempt to:
 - ABG requirement and design surfaces explicitly distinguish post-transform observer truth from blocking closure truth.
 - Post-transform `F_D` reruns no longer stop ordinary constructive traversal.
 - Unresolved deterministic incompleteness after `F_P` becomes gap/continuation/intent-compatible fact truth rather than immediate terminal closure.
+- Unresolved non-blocking post-transform observer truth yields to the next
+  observer/routing layer rather than failing or blindly redispatching.
+- ABG uses one consistent event classification for the same non-blocking
+  deterministic observer class across traversal seam and post-transform replay.
+- GTL language, graph, graph-function, and hook declaration surfaces remain
+  constitutionally unchanged by this fix.
+- Product-layer auto-loop behavior honors yielded handoff truth without
+  creating a second truth surface that contradicts ABG runtime truth.
 - Safety, configuration, and integrity defects still fail closed.
 - Downstream `odd_method` gap/intent control remains the authority for ordinary constructive incompleteness.
 - `data_mapper.test31` no longer stops at `fd_failures_unresolved_after_fp` for paperwork-style upstream incompleteness such as generated-surface contract markers.
@@ -358,7 +568,9 @@ This ticket does not attempt to:
 
 - standard: `/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md`
 - standard: `/Users/jim/src/apps/specification_methodology/specification/standards/TICKET_METHOD.md`
+- GTL requirement: `/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-LANGUAGE.md`
 - requirement: `/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-CONVERGENCE.md`
+- product requirement: `/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-POLICY.md`
 - design: `/Users/jim/src/apps/abiogenesis/specification/ABG_3_CONSTITUTIONAL_DESIGN.md`
 - design: `/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/ABG_3_MODULE_DESIGN.md`
 - runtime: `/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/code/genesis/result_ingest.py`
