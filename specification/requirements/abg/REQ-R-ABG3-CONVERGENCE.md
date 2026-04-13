@@ -22,6 +22,10 @@ fallback law.
 
 **REQ-R-ABG3-CONVERGENCE-004**: Deterministic paths that are invalid, contradictory, malformed, or engine-erroring shall fail closed rather than silently falling forward to `F_P`.
 
-**REQ-R-ABG3-CONVERGENCE-005**: After constructive `F_P` work returns, ABG shall re-run proof and closure before terminal success or further escalation.
+**REQ-R-ABG3-CONVERGENCE-005**: After constructive `F_P` work returns, ABG shall re-run post-transform proof and blocker-class closure checks before terminal success or further escalation.
 
-**REQ-R-ABG3-CONVERGENCE-006**: ABG shall distinguish at minimum runtime defect, policy/config defect, probabilistic non-convergence, proof failure after constructive work, and superseded or abandoned work.
+**REQ-R-ABG3-CONVERGENCE-006**: Unresolved deterministic observer findings after constructive work shall be emitted as runtime fact truth and shall not by default regain traversal-stopping authority; they shall feed downstream gap, continuation, intent, or other declared observation surfaces.
+
+**REQ-R-ABG3-CONVERGENCE-007**: ABG shall preserve lawful declared pre-dispatch deterministic hard-stop policy when resolved transition law explicitly removes constructive continuation.
+
+**REQ-R-ABG3-CONVERGENCE-008**: ABG shall distinguish at minimum runtime defect, policy/config defect, probabilistic non-convergence, proof failure after constructive work, post-transform observer incompleteness, and superseded or abandoned work.

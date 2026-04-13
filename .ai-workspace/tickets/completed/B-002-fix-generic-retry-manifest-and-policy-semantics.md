@@ -3,11 +3,12 @@
 - id: B-002
 - title: Fix generic retry manifest and policy semantics for ABG edge traversal
 - type: bug
-- status: active
+- status: completed
 - goal: runtime-retry-governance
 - priority: critical
 - created_at: 2026-04-12
 - updated_at: 2026-04-12
+- completed_at: 2026-04-12
 - dependencies: B-001
 
 ## Triage
@@ -139,11 +140,15 @@ Completed in `abiogenesis`:
   state
 - ABG proof lanes and full suite are green at `259 passed, 5 deselected`
 
-Still open:
+Follow-on enhancement work:
 
-- richer structured deterministic repair evidence remains domain-owned work
-- downstream live proof still needs to be replayed through `odd_method`
-  installer composition and compared against `test27`
+- richer structured deterministic repair evidence
+- progress/stationarity fact model
+- retry vs lawful re-entry vs replacement taxonomy
+- compact/reference-first prompt composition
+
+Those are now carried by
+[`T-003-enhance-abg-repair-signal-and-control-plane.md`](/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-003-enhance-abg-repair-signal-and-control-plane.md).
 
 ## Acceptance
 
@@ -158,6 +163,14 @@ Still open:
 - domains can override retry behavior only through declared GTL/policy surfaces
 - installed downstream proof shows retry behavior consistent with the repriced
   requirement set
+
+## Closure
+
+Closed on 2026-04-12.
+
+The bug-specific retry-manifest and stale-prompt semantics are fixed in ABG.
+The remaining work exposed by `test28` is enhancement work, not unresolved bug
+scope, and is tracked under `T-003`.
 
 ## Links
 

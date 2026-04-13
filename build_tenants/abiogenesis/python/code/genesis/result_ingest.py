@@ -424,17 +424,45 @@ def ingest_fp_result(
         emitted_count += 1
         latest_event_id = proof_event.get("event_id")
 
-        closure_config = closure_policy.get("config", {})
-        closure_passed = not (isinstance(closure_config, Mapping) and bool(closure_config.get("force_fail")))
-        closure_reason = "forced_closure_failure" if not closure_passed else "resolved_without_fh"
         fd_recheck_decision = _rerun_manifest_fd_failures(
             workspace,
             manifest,
             work_key=manifest_work_key or None,
         )
         if not fd_recheck_decision["passed"]:
-            closure_passed = False
-            closure_reason = "fd_failures_unresolved_after_fp"
+            found_event = _event_writer(
+                workspace,
+                emit_event,
+                "found",
+                {
+                    "kind": "fd_gap",
+                    "edge": result_data["edge"],
+                    "failing": [
+                        failure.get("name")
+                        for failure in fd_recheck_decision.get("failures", [])
+                        if isinstance(failure, Mapping) and isinstance(failure.get("name"), str)
+                    ],
+                    "delta_summary": manifest.get("delta_summary", ""),
+                },
+                workflow_version=workflow_version,
+                work_key=manifest_work_key or None,
+                run_id=manifest_run_id or None,
+                aggregate_type="graph_call" if call_id else ("run" if manifest_run_id else None),
+                aggregate_id=call_id or (manifest_run_id or None),
+                parent_aggregate_id=(manifest_run_id or None) if call_id else None,
+                causation_event_id=latest_event_id,
+                job_id=job_id or None,
+                graph_function_id=graph_function_id or None,
+                materialization_id=materialization_id or None,
+                call_id=call_id or None,
+                vector_id=vector_id or None,
+            )
+            emitted_count += 1
+            latest_event_id = found_event.get("event_id")
+
+        closure_config = closure_policy.get("config", {})
+        closure_passed = not (isinstance(closure_config, Mapping) and bool(closure_config.get("force_fail")))
+        closure_reason = "forced_closure_failure" if not closure_passed else "resolved_without_fh"
         target_binding_decision = _target_binding_materialization(workspace, manifest)
         if not target_binding_decision["passed"]:
             closure_passed = False
@@ -475,96 +503,6 @@ def ingest_fp_result(
             )
             emitted_count += 1
             latest_event_id = closure_event.get("event_id")
-
-            if closure_reason == "fd_failures_unresolved_after_fp":
-                found_event = _event_writer(
-                    workspace,
-                    emit_event,
-                    "found",
-                    {
-                        "kind": "fd_gap",
-                        "edge": result_data["edge"],
-                        "failing": [
-                            failure.get("name")
-                            for failure in fd_recheck_decision.get("failures", [])
-                            if isinstance(failure, Mapping) and isinstance(failure.get("name"), str)
-                        ],
-                        "delta_summary": manifest.get("delta_summary", ""),
-                    },
-                    workflow_version=workflow_version,
-                    work_key=manifest_work_key or None,
-                    run_id=manifest_run_id or None,
-                    aggregate_type="graph_call" if call_id else ("run" if manifest_run_id else None),
-                    aggregate_id=call_id or (manifest_run_id or None),
-                    parent_aggregate_id=(manifest_run_id or None) if call_id else None,
-                    causation_event_id=latest_event_id,
-                    job_id=job_id or None,
-                    graph_function_id=graph_function_id or None,
-                    materialization_id=materialization_id or None,
-                    call_id=call_id or None,
-                    vector_id=vector_id or None,
-                )
-                emitted_count += 1
-                latest_event_id = found_event.get("event_id")
-                if call_id and graph_call_terminal:
-                    graph_call_failed = _event_writer(
-                        workspace,
-                        emit_event,
-                        "graph_call_failed",
-                        {
-                            "call_id": call_id,
-                            "edge": result_data["edge"],
-                            "failure_class": "certification_failure",
-                            "manifest_id": manifest_id,
-                        },
-                        workflow_version=workflow_version,
-                        work_key=manifest_work_key or None,
-                        run_id=manifest_run_id or None,
-                        aggregate_type="graph_call",
-                        aggregate_id=call_id,
-                        parent_aggregate_id=manifest_run_id or None,
-                        causation_event_id=latest_event_id,
-                        job_id=job_id or None,
-                        graph_function_id=graph_function_id or None,
-                        materialization_id=materialization_id or None,
-                        call_id=call_id,
-                        vector_id=vector_id or None,
-                    )
-                    emitted_count += 1
-                    latest_event_id = graph_call_failed.get("event_id")
-                if manifest_run_id:
-                    _event_writer(
-                        workspace,
-                        emit_event,
-                        "run_completed",
-                        {
-                            "call_id": call_id or None,
-                            "edge": result_data["edge"],
-                        },
-                        workflow_version=workflow_version,
-                        work_key=manifest_work_key or None,
-                        run_id=manifest_run_id,
-                        aggregate_type="run",
-                        aggregate_id=manifest_run_id,
-                        causation_event_id=latest_event_id,
-                        job_id=job_id or None,
-                        graph_function_id=graph_function_id or None,
-                        materialization_id=materialization_id or None,
-                        call_id=call_id or None,
-                        vector_id=vector_id or None,
-                    )
-                    emitted_count += 1
-                return {
-                    "status": "pending",
-                    "result_path": str(result_file),
-                    "manifest_id": manifest_id,
-                    "spec_hash": spec_hash,
-                    "workflow_version": workflow_version,
-                    "events_emitted": emitted_count,
-                    "assessments": emitted,
-                    "blocking_reason": "fd_gap",
-                    "stopped_by": "fd_gap",
-                }
 
             graph_call_failed = None
             if call_id and graph_call_terminal:

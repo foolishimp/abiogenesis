@@ -826,7 +826,7 @@ def main() -> None:
     #   1 — error (already exited above)
     #   2 — fp_dispatched (F_P actor required; fp_manifest_path in output)
     #   3 — fh_gate_pending (F_H evaluation required; fh_gate.criteria in output)
-    #   4 — fd_gap (deterministic checks still failing after F_P resolved)
+    #   4 — fd_gap (declared deterministic hard stop before constructive transition)
     #   5 — max_iterations (auto-loop limit hit without convergence)
     #
     # IMPORTANT: exit 0 means ONLY converged/nothing_to_do — never a blocked run.

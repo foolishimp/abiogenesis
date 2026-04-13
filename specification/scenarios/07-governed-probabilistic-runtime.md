@@ -47,3 +47,6 @@ dispatch manifests.
    than hardcoded engine drift
 5. bounded subordinate subwork stays schema-driven and replay-visible
 6. all post-dispatch fact truth is engine-owned
+7. unresolved deterministic observer findings after successful constructive
+   work surface as runtime fact truth for downstream handling unless declared
+   hard-stop policy or blocker-class closure still applies

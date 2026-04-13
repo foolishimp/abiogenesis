@@ -241,7 +241,10 @@ The broad default bundle should mean:
    absent but generic engine checks are available.
 3. If deterministic handling is missing, open, or failing, dispatch governed
    F_P.
-4. Re-run proof and closure checks on the returned result.
+4. Re-run post-transform proof and blocker-class closure checks on the
+   returned result, while publishing unresolved deterministic observer findings
+   as runtime fact truth instead of promoting them back into blocking closure
+   by default.
 5. Escalate to F_H only when the resolved escalation policy still says the
    contract remains unresolved or approval-bearing.
 

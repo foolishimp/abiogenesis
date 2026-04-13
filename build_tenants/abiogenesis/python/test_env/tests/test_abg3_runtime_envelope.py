@@ -521,7 +521,7 @@ def test_successful_ingest_resolves_preexisting_open_continuation(monkeypatch, t
     assert continuation["status"] == "resolved"
 
 
-def test_ingest_fd_gap_after_fp_returns_pending_not_runtime_failure(monkeypatch, tmp_path):
+def test_ingest_post_transform_fd_findings_emit_found_without_stopping_closure(monkeypatch, tmp_path):
     workspace_bootstrap(tmp_path)
     results_dir = tmp_path / ".ai-workspace" / "fp_results"
     results_dir.mkdir(parents=True, exist_ok=True)
@@ -573,28 +573,98 @@ def test_ingest_fd_gap_after_fp_returns_pending_not_runtime_failure(monkeypatch,
 
     summary = ingest_fp_result(result_path, tmp_path, manifest_data=manifest)
 
-    assert summary["status"] == "pending"
-    assert summary["blocking_reason"] == "fd_gap"
-    assert summary["stopped_by"] == "fd_gap"
+    assert summary["status"] == "ok"
+    assert "blocking_reason" not in summary
+    assert "stopped_by" not in summary
 
     events = EventStream.open(tmp_path).all_events()
     assert [event["event_type"] for event in events] == [
         "assessed",
         "proof_passed",
-        "closure_failed",
         "found",
-        "graph_call_failed",
+        "closure_passed",
+        "graph_call_closed",
         "run_completed",
     ]
-    found = events[-1]
-    assert events[3]["data"]["kind"] == "fd_gap"
-    assert events[3]["data"]["failing"] == ["code_traceability_present"]
-    assert events[4]["data"]["failure_class"] == "certification_failure"
+    assert events[2]["data"]["kind"] == "fd_gap"
+    assert events[2]["data"]["failing"] == ["code_traceability_present"]
     graph_call = project(EventStream.open(tmp_path), "graph_call", "call-fd-gap")
     run = project(EventStream.open(tmp_path), "run", "run-fd-gap")
-    assert graph_call["status"] == "failed"
-    assert graph_call["failure_class"] == "certification_failure"
+    assert graph_call["status"] == "closed"
     assert run["status"] == "completed"
+
+
+def test_ingest_target_binding_failure_still_blocks_after_proof(monkeypatch, tmp_path):
+    workspace_bootstrap(tmp_path)
+    results_dir = tmp_path / ".ai-workspace" / "fp_results"
+    results_dir.mkdir(parents=True, exist_ok=True)
+    result_path = results_dir / "manifest-target-binding.json"
+    result_path.write_text(
+        json.dumps(
+            {
+                "edge": "design→code",
+                "actor": "codex",
+                "assessments": [
+                    {
+                        "evaluator": "code_traceability_present",
+                        "result": "pass",
+                        "evidence": "constructor returned code",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    manifest = {
+        "manifest_id": "manifest-target-binding",
+        "call_id": "call-target-binding",
+        "edge": "design→code",
+        "run_id": "run-target-binding",
+        "work_key": "wk-target-binding",
+        "workflow_version": "wf-target-binding",
+        "graph_function_id": "gf-target-binding",
+        "materialization_id": "mat-target-binding",
+        "vector_id": "vec-target-binding",
+        "job_id": "job-target-binding",
+        "prompt": "repair code",
+        "result_path": str(result_path),
+        "spec_hash": "spec-target-binding",
+        "delta_summary": "delta = 1 — 1 evaluator failing: code_traceability_present",
+    }
+
+    monkeypatch.setattr(
+        "genesis.result_ingest._rerun_manifest_fd_failures",
+        lambda workspace, manifest, work_key=None: {
+            "passed": False,
+            "failures": [{"name": "code_traceability_present"}],
+        },
+    )
+    monkeypatch.setattr(
+        "genesis.result_ingest._target_binding_materialization",
+        lambda workspace, manifest: {
+            "passed": False,
+            "reason": "target_binding_not_materialized",
+            "relative_path": "build/code.py",
+        },
+    )
+
+    summary = ingest_fp_result(result_path, tmp_path, manifest_data=manifest)
+
+    assert summary["status"] == "error"
+    assert summary["failure_class"] == "probabilistic_non_convergence"
+
+    events = EventStream.open(tmp_path).all_events()
+    assert [event["event_type"] for event in events] == [
+        "assessed",
+        "proof_passed",
+        "found",
+        "closure_failed",
+        "graph_call_failed",
+        "continuation_opened",
+        "run_failed",
+    ]
+    assert events[2]["data"]["kind"] == "fd_gap"
+    assert events[3]["data"]["policy_reason"] == "target_binding_not_materialized"
 
 
 def test_reset_emits_supersession_truth_for_active_run_scope(tmp_path):

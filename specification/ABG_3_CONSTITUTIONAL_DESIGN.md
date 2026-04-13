@@ -622,7 +622,9 @@ The constitutional broad default is:
    absent but generic engine checks are available
 3. if deterministic handling is absent or unresolved, fall forward to
    governed `F_P`
-4. re-run proof and closure after `F_P` returns
+4. re-run post-transform proof and blocker-class closure after `F_P` returns,
+   while emitting unresolved deterministic observer findings as runtime fact
+   truth rather than promoting them back into blocking closure by default
 5. escalate to `F_H` only when resolved escalation policy requires it
 
 ### 11.4 Fail-Closed Distinction
@@ -638,6 +640,8 @@ ABG distinguishes:
   - lawful fall forward to governed `F_P`
 - deterministic path invalid, contradictory, malformed, or engine-erroring
   - fail closed and emit failure fact truth
+- deterministic path explicitly hard-stopped by resolved transition policy
+  - fail closed according to declared policy and emit failure fact truth
 
 That distinction is constitutional.
 
@@ -655,8 +659,13 @@ ABG 3 distinguishes at minimum:
   - governed `F_P` work returned without resolving required closure
   - may open continuation truth according to resolved policy
 - proof failure after constructive work
-  - constructive work returned, but proof or closure did not hold
+  - constructive work returned, but blocker-class proof or closure did not hold
   - emits proof/closure failure truth and may open continuation truth
+- post-transform observer incompleteness
+  - constructive work returned, and deterministic observer replay still found
+    unresolved ordinary incompleteness
+  - emits runtime fact truth for downstream gap/continuation/intent handling
+  - does not by default stop constructive traversal
 - superseded or abandoned work
   - work was lawfully replaced, withdrawn, or left non-operative by later
     authoritative events

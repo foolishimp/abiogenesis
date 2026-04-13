@@ -3,11 +3,12 @@
 - id: B-001
 - title: Reprice ABG provenance and runtime-boundary hardening wave
 - type: bug
-- status: active
+- status: completed
 - goal: runtime-boundary-hardening
 - priority: critical
 - created_at: 2026-04-11
 - updated_at: 2026-04-11
+- completed_at: 2026-04-12
 
 ## Triage
 
@@ -52,18 +53,18 @@ That means:
 
 ## Current State
 
-Done in source, not yet released:
+Done and released:
 
 - fail-closed provenance/runtime work is implemented in `abiogenesis`
 - installer/bootstrap now seeds workflow metadata by construction
-- the updated `abiogenesis` automated suite is green
+- unresolved deterministic gaps after constructive continuation now surface back
+  out as `fd_gap`
+- the updated `abiogenesis` automated suite is green at `258 passed, 5 deselected`
+- the released ABG boundary is at commit `9bcc8f2`
 
-Not done:
+Still open:
 
-- ABI RC note/release note update for this interface cut
-- ABI RC commit for this wave
-- downstream propagation into `odd_method` through sandbox/install composition
-- downstream `odd_method` refactor and proof
+- downstream proof beyond the `odd_method` automated suite
 - fresh `data_mapper.test27` proving run
 
 ## Task List
@@ -73,12 +74,12 @@ Not done:
 - [x] Seed provenance-ready workflow metadata during install/bootstrap.
 - [x] Strengthen runtime `spec_hash` so stale probabilistic assessments are invalidated by active workflow and requirement truth.
 - [ ] Define the explicit ABG downstream dependency contract that `odd_method` may rely on after install.
-- [ ] Update `abiogenesis` RC notes and release note to call out the interface cut and no-compatibility decision.
-- [ ] Commit the `abiogenesis` RC wave after the note update.
-- [ ] Refactor `odd_method` to consume the released ABG contract through sandbox/install composition only.
-- [ ] Run the downstream `odd_method` proof lanes from sandbox installs that pull the released ABG RC dependency.
-- [ ] Refresh any required downstream `.genesis` only by installer execution, not by direct source mirroring.
-- [ ] Run the full `odd_method` suite against the installed ABG RC and close resulting downstream refactor gaps.
+- [x] Update `abiogenesis` RC notes and release note to call out the interface cut and no-compatibility decision.
+- [x] Commit the `abiogenesis` RC wave after the note update.
+- [x] Refactor `odd_method` to consume the released ABG contract through sandbox/install composition only.
+- [x] Run the downstream `odd_method` proof lanes from sandbox installs that pull the released ABG RC dependency.
+- [x] Refresh any required downstream `.genesis` only by installer execution, not by direct source mirroring.
+- [x] Run the full `odd_method` suite against the installed ABG RC and close resulting downstream refactor gaps.
 - [ ] Update `odd_method` RC notes and release note for the downstream refactor wave.
 - [ ] Commit the `odd_method` RC wave.
 - [ ] Create fresh `data_mapper.test27` from template, install the released `odd_method` RC, and run the proving traversal.
@@ -95,6 +96,15 @@ Not done:
 - downstream proof is established from installed sandbox/runtime truth, not
   source-vendored `.genesis`
 - fresh `test27` evidence proves the repriced wave on a downstream consumer
+
+## Closure
+
+Closed on 2026-04-12.
+
+The ABG provenance/runtime boundary cut was delivered and consumed downstream
+through install composition. The remaining active platform work has moved on to
+generic repair/control-plane enhancement under
+[`T-003-enhance-abg-repair-signal-and-control-plane.md`](/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-003-enhance-abg-repair-signal-and-control-plane.md).
 
 ## Links
 
