@@ -19,6 +19,9 @@
 		{
 			"name": "constraint_emergence_ontology",
 			"path": "../../../../../constraint_emergence_ontology"
+		},
+		{
+			"path": "../../../../../ai_sdlc_method"
 		}
 	],
 	"settings": {
