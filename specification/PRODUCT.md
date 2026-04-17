@@ -39,7 +39,7 @@ Abiogenesis is the reference product that ships:
 - product-layer policy, qualification, and scenario surfaces that make the
   system operationally provable
 
-The product is not a downstream domain workflow such as `genesis_sdlc`.
+The product is not a downstream domain workflow.
 Downstream products are consumers and proving domains for GTL + ABG. They are
 not the GTL + ABG product itself.
 
@@ -156,7 +156,7 @@ Today that means:
 
 - the canonical released realization is `build_tenants/abiogenesis/python/`
 - `build_tenants/abiogenesis/codex/` remains a paused alternate realization
-- downstream proving domains such as `genesis_sdlc` are important evidence
+- downstream proving domains are important evidence
   surfaces, but they are not the GTL + ABG product definition
 
 ---

@@ -23,3 +23,7 @@ default bundles.
 **REQ-R-ABG3-POLICY-004**: Domain users shall be able to copy, edit, and reference default bundles from their own GTL/ABG surfaces.
 
 **REQ-R-ABG3-POLICY-005**: ABG shall fail closed on unresolved hook references, malformed config, or illegal resolved policy bundles.
+
+**REQ-R-ABG3-POLICY-006**: ABG shall publish supervised probabilistic dispatch as a first-class runtime capability. It remains automated runtime truth, not disguised human review.
+
+**REQ-R-ABG3-POLICY-007**: ABG may also publish a root-level supervision mode over `start --auto` for run-wide observation and recovery, but that control plane shall remain distinct from per-edge dispatch capability.

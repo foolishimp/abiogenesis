@@ -1133,7 +1133,7 @@ print(json.dumps({
             name="constructor",
             policy_hooks={
                 "dispatch": {
-                    "ref": "genesis.dispatch_runtime:dispatch_bound_manifest_via_transport",
+                    "ref": "genesis.dispatch_runtime:dispatch_bound_manifest_via_supervised_transport",
                     "config": {"source": "role"},
                 }
             },
@@ -1190,7 +1190,7 @@ print(json.dumps({
         assert resolved["resolved_policy_bundle_ref"] == "genesis.policy_defaults:broad_fp_first_bundle"
         assert resolved["evaluation"]["ref"] == "genesis.policy_defaults:evaluation_declared_then_generic"
         assert resolved["sources"]["evaluation"] == "candidate_family.policy_hints"
-        assert resolved["dispatch"]["ref"] == "genesis.dispatch_runtime:dispatch_bound_manifest_via_transport"
+        assert resolved["dispatch"]["ref"] == "genesis.dispatch_runtime:dispatch_bound_manifest_via_supervised_transport"
         assert resolved["sources"]["dispatch"] == "role.policy_hooks[0]"
         assert resolved["proof"]["ref"] == "genesis.policy_defaults:proof_recheck_after_fp"
         assert resolved["sources"]["proof"] == "graph_vector.declarations"
@@ -3680,7 +3680,7 @@ print(json.dumps({
         assert manifest["workflow_version"] == "m03.test@3.0.0"
         assert manifest["resolved_policy_bundle_ref"] == "genesis.policy_defaults:broad_fp_first_bundle"
         assert manifest["resolved_policy"]["dispatch"]["ref"] == (
-            "genesis.dispatch_runtime:dispatch_bound_manifest_via_transport"
+            "genesis.dispatch_runtime:dispatch_bound_manifest_via_supervised_transport"
         )
 
         resumed_runtime = TraversalRuntime(
@@ -4116,7 +4116,7 @@ print(json.dumps({
         assert manifest["materialization_id"] == executable_job.materialization_id
         assert manifest["resolved_policy_bundle_ref"] == "genesis.policy_defaults:broad_fp_first_bundle"
         assert manifest["resolved_policy"]["dispatch"]["ref"] == (
-            "genesis.dispatch_runtime:dispatch_bound_manifest_via_transport"
+            "genesis.dispatch_runtime:dispatch_bound_manifest_via_supervised_transport"
         )
 
         derived_run = run_state(events, "run-m03-router-dispatch")

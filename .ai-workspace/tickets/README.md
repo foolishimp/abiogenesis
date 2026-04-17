@@ -41,6 +41,7 @@ Those belong elsewhere:
 
 Within this repo:
 
+- `.ai-workspace/tickets/backlog/` is the authority for deferred but durable tickets
 - `.ai-workspace/tickets/active/` is the authority for currently active tickets
 - `.ai-workspace/tickets/completed/` is the authority for completed tickets
 
@@ -50,6 +51,19 @@ If a generated board or summary is added later, it is a projection only and not
 the source of truth.
 
 ## Folder Semantics
+
+### `backlog/`
+
+Tickets in `backlog/` are durable but not currently pulled into the active wave.
+
+They may be:
+
+- deferred behind more valuable work
+- waiting on proving evidence from another product
+- acknowledged future features
+- acknowledged bugs that are real but not current-slice priorities
+
+Backlog tickets are still authority. They are not comments or ideas.
 
 ### `active/`
 
@@ -155,6 +169,7 @@ rg -n "B-001|T-003" .ai-workspace/tickets
 
 When in doubt:
 
+- put deferred but durable work in `backlog/`
 - put active work in `active/`
 - move closed work to `completed/`
 - put discussion in `.ai-workspace/comments/`

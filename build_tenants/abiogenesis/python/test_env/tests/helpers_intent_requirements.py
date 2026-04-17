@@ -57,7 +57,7 @@ def requirements_checker_script() -> str:
 
             content = artifact.read_text(encoding="utf-8")
 
-            family_ids = re.findall(r"^# (REQ-[A-Z0-9-]+)\\b", content, re.MULTILINE)
+            family_ids = re.findall(r"^## (REQ-[A-Z0-9-]+)\\b", content, re.MULTILINE)
             if not family_ids:
                 print("no requirement families found", file=sys.stderr)
                 return 1
@@ -66,16 +66,16 @@ def requirements_checker_script() -> str:
                 return 1
 
             for family_id in family_ids:
-                marker = f"# {family_id}"
+                marker = f"## {family_id}"
                 start = content.find(marker)
-                end = content.find("\\n# ", start + 1)
+                end = content.find("\\n## ", start + 1)
                 section = content[start:] if end == -1 else content[start:end]
-                for header in ("**Status**:", "**Category**:", "**Date**:", "**Derives from**:"):
+                for header in ("| Status |", "| Category |", "| Date |", "| Derives from |"):
                     if header not in section:
                         print(f"{family_id} missing header {header}", file=sys.stderr)
                         return 1
 
-                category_match = re.search(r"\\*\\*Category\\*\\*:\\s*(.+)", section)
+                category_match = re.search(r"\\| Category \\|\\s*(.+?)\\s*\\|", section)
                 if not category_match:
                     print(f"{family_id} missing category value", file=sys.stderr)
                     return 1
@@ -88,7 +88,7 @@ def requirements_checker_script() -> str:
                     )
                     return 1
 
-                derives_match = re.search(r"\\*\\*Derives from\\*\\*:\\s*(.+)", section)
+                derives_match = re.search(r"\\| Derives from \\|\\s*(.+?)\\s*\\|", section)
                 if not derives_match:
                     print(f"{family_id} missing derives-from value", file=sys.stderr)
                     return 1
@@ -109,14 +109,14 @@ def requirements_checker_script() -> str:
                     return 1
 
                 family_ac_ids = re.findall(
-                    rf"\\*\\*({re.escape(family_id)}-\\d{{3}})\\*\\*:",
+                    rf"\\*\\*({re.escape(family_id)}-AC-\\d{{2}})\\*\\*",
                     section,
                 )
                 if not family_ac_ids:
                     print(f"{family_id} has no family-scoped acceptance criteria", file=sys.stderr)
                     return 1
 
-            ac_ids = re.findall(r"\\*\\*(REQ-[A-Z0-9-]+-\\d{3})\\*\\*:", content)
+            ac_ids = re.findall(r"\\*\\*(REQ-[A-Z0-9-]+-AC-\\d{2})\\*\\*", content)
             if not ac_ids:
                 print("no acceptance criteria ids found", file=sys.stderr)
                 return 1
@@ -124,7 +124,7 @@ def requirements_checker_script() -> str:
                 print("duplicate acceptance criterion ids", file=sys.stderr)
                 return 1
 
-            derives = re.findall(r"\\*\\*Derives from\\*\\*:\\s*(.+)", content)
+            derives = re.findall(r"\\| Derives from \\|\\s*(.+?)\\s*\\|", content)
             if not derives:
                 print("no derives-from metadata found", file=sys.stderr)
                 return 1
@@ -147,30 +147,34 @@ def requirements_checker_script() -> str:
 def intent_requirements_artifact() -> str:
     return textwrap.dedent(
         """\
-        # REQ-PROJ-001 — Project Lifecycle
+        ## REQ-PROJ-001 Project Lifecycle
 
-        **Status**: Draft
-        **Category**: Capability
-        **Date**: 2026-03-27
-        **Derives from**: intent-001, intent-002, intent-003, intent-005
+        | Field | Value |
+        |-------|-------|
+        | Status | Draft |
+        | Category | Capability |
+        | Date | 2026-03-27 |
+        | Derives from | intent-001, intent-002, intent-003, intent-005 |
 
-        ## Acceptance Criteria
+        ### Acceptance Criteria
 
-        **REQ-PROJ-001-001**: The system shall allow users to create and save projects.
-        **REQ-PROJ-001-002**: The system shall allow users to assign owners to projects.
-        **REQ-PROJ-001-003**: The system shall allow users to archive projects without deleting history.
-        **REQ-PROJ-001-004**: Archived projects shall remain searchable in read-only mode.
+        - **REQ-PROJ-001-AC-01** — The system shall allow users to create and save projects.
+        - **REQ-PROJ-001-AC-02** — The system shall allow users to assign owners to projects.
+        - **REQ-PROJ-001-AC-03** — The system shall allow users to archive projects without deleting history.
+        - **REQ-PROJ-001-AC-04** — Archived projects shall remain searchable in read-only mode.
 
-        # REQ-PROJ-002 — Project Audit Trail
+        ## REQ-PROJ-002 Project Audit Trail
 
-        **Status**: Draft
-        **Category**: Governance
-        **Date**: 2026-03-27
-        **Derives from**: intent-004
+        | Field | Value |
+        |-------|-------|
+        | Status | Draft |
+        | Category | Governance |
+        | Date | 2026-03-27 |
+        | Derives from | intent-004 |
 
-        ## Acceptance Criteria
+        ### Acceptance Criteria
 
-        **REQ-PROJ-002-001**: The system shall record an audit trail for project changes.
+        - **REQ-PROJ-002-AC-01** — The system shall record an audit trail for project changes.
         """
     )
 
@@ -184,7 +188,7 @@ def judge_intent_traceability(artifact: Path) -> list[dict]:
     if missing:
         failures.append(f"missing intent traceability: {missing}")
 
-    family_ids = set(re.findall(r"^# (REQ-[A-Z0-9-]+)\b", content, re.MULTILINE))
+    family_ids = set(re.findall(r"^## (REQ-[A-Z0-9-]+)\b", content, re.MULTILINE))
     if not family_ids:
         failures.append("no tagged requirement families found")
 
@@ -263,6 +267,11 @@ def write_intent_requirements_workspace(workspace: Path, *, placeholder: str = "
         - Acceptance criterion ids must be unique.
         - Every requirement family must trace to one or more source intents using only intent-001 through intent-005.
         - Requirements remain implementation-neutral.
+
+        Format:
+        - Each requirement family is a level-2 heading: ## REQ-NNN Title
+        - Metadata is a markdown table with rows: Status, Category, Date, Derives from
+        - Each acceptance criterion is a bullet: - **REQ-NNN-AC-NN** — description
         """
     )
     output_contract_text = textwrap.dedent(
@@ -273,9 +282,11 @@ def write_intent_requirements_workspace(workspace: Path, *, placeholder: str = "
 
         Requirements:
         - Produce one or more requirement families with REQ-* identifiers.
-        - Include Status, Category, Date, and Derives from headers for each family.
+        - Use a level-2 heading for each family: ## REQ-NNN Title
+        - Include a markdown table with Status, Category, Date, and Derives from rows for each family.
         - Use only these categories: Capability, Constraint / Guarantee, Governance, Verification.
-        - Include uniquely tagged acceptance criteria under each family.
+        - Include uniquely tagged acceptance criteria under each family as bullet items.
+        - Format each AC as: - **REQ-NNN-AC-NN** — description (two-digit AC number, dash separator)
         - Every acceptance criterion id must use its parent family id as prefix.
         - Ensure the source intents intent-001 through intent-005 are traceable.
         - Keep the artifact implementation-neutral.

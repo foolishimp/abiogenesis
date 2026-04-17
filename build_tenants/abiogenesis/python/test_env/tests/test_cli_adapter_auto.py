@@ -260,6 +260,70 @@ def test_run_start_auto_continues_after_unblocked_iteration(monkeypatch, tmp_pat
     assert result["auto"] is True
 
 
+def test_run_start_auto_supervised_retries_after_transport_failure_with_valid_artifact(
+    monkeypatch,
+    tmp_path: Path,
+):
+    calls = iter(
+        (
+            {
+                "status": "error",
+                "failure_class": "transport_failure",
+            },
+            {
+                "status": "converged",
+                "message": "recovered",
+            },
+        )
+    )
+
+    def fake_run_start_auto(scope, stream, *, workspace, config, human_proxy):
+        return next(calls)
+
+    statuses = iter(
+        (
+            {"result_artifact_valid": True, "live_state": "active"},
+            {"result_artifact_valid": True, "live_state": "completed"},
+        )
+    )
+
+    monkeypatch.setattr(cli_adapter, "_run_start_auto", fake_run_start_auto)
+    monkeypatch.setattr(
+        "genesis.live_status.project_live_run_status",
+        lambda workspace, run_id=None: next(statuses),
+    )
+
+    result = cli_adapter._run_start_auto_supervised(
+        object(),
+        object(),
+        workspace=tmp_path,
+        config={"runtime_backend": "codex_cli"},
+        human_proxy=False,
+    )
+
+    assert result["status"] == "converged"
+    assert result["root_supervision"] is True
+    assert result["resumed_after_transport_failure"] is True
+
+
+def test_run_status_cmd_prints_live_projection(capsys, monkeypatch, tmp_path: Path):
+    monkeypatch.setattr(
+        "genesis.live_status.project_live_run_status",
+        lambda workspace, run_id=None: {
+            "asset_type": "run_status",
+            "run_id": run_id or "run-1",
+            "live_state": "active",
+        },
+    )
+
+    rc = cli_adapter._run_status_cmd(tmp_path, "run-1")
+
+    assert rc == 0
+    captured = json.loads(capsys.readouterr().out)
+    assert captured["asset_type"] == "run_status"
+    assert captured["run_id"] == "run-1"
+
+
 def test_scope_reports_bound_worker_identity_when_no_runtime_build_is_declared(tmp_path: Path):
     module = _runtime_contract_module()
     worker = Worker(

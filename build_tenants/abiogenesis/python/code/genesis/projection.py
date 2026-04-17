@@ -43,6 +43,10 @@ def project(
         from .continuation import project_continuation
 
         return project_continuation(stream.all_events(), instance_id)
+    if asset_type == "run_status":
+        from .live_status import project_live_run_status
+
+        return project_live_run_status(stream.path.parent.parent.parent, run_id=instance_id)
 
     events = stream.all_events()
 

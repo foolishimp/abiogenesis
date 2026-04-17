@@ -176,6 +176,18 @@ That yielded handoff is neither terminal failure nor plain success.
 
 It is runtime-owned handoff truth over the newly updated asset state.
 
+### 5.8b Supervised Probabilistic Dispatch And Root Supervision
+
+ABG may publish supervised probabilistic dispatch as a first-class runtime
+capability for long-running constructive work.
+
+That supervised capability remains automated runtime truth. It is not ordinary
+`F_H`.
+
+ABG may also publish root-level run supervision over `start --auto` so
+operators can recover, resume, and inspect live state without reinterpreting
+raw event logs or private controller memory.
+
 ### 5.9 Event-Calculus Completeness
 
 The event model must be rich enough to answer:
@@ -184,6 +196,7 @@ The event model must be rich enough to answer:
 - what now holds
 - what no longer holds
 - what is open
+- what is currently active versus stalled
 
 without hidden controller memory.
 

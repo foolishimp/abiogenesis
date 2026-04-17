@@ -94,7 +94,10 @@ def design_checker_script() -> str:
                     print(f"design missing header {header}", file=sys.stderr)
                     return 1
 
-            component_count = len(re.findall(r"^### Component:", design_text, re.MULTILINE))
+            comp_start = design_text.find("## Components")
+            comp_end = design_text.find("\\n## ", comp_start + 1)
+            comp_section = design_text[comp_start:] if comp_end == -1 else design_text[comp_start:comp_end]
+            component_count = len(re.findall(r"^- \\*\\*\\w", comp_section, re.MULTILINE))
             if component_count < 2:
                 print("design must declare at least two components", file=sys.stderr)
                 return 1
@@ -265,13 +268,8 @@ def design_artifact() -> str:
 
         ## Components
 
-        ### Component: ProjectService
-        - Owns project creation, archival, and search orchestration.
-        - Enforces owner assignment and read-only behavior for archived projects.
-
-        ### Component: ProjectStore
-        - Persists project records and archived status.
-        - Supports read-only retrieval for archived projects.
+        - **ProjectService** — owns project creation, archival, and search orchestration. Enforces owner assignment and read-only behavior for archived projects.
+        - **ProjectStore** — persists project records and archived status. Supports read-only retrieval for archived projects.
 
         ## Interfaces
 
@@ -427,7 +425,10 @@ def judge_design_quality(artifact: Path) -> list[dict]:
         if header not in content:
             failures.append(f"design missing {header} section")
 
-    if len(re.findall(r"^### Component:", content, re.MULTILINE)) < 2:
+    comp_start = content.find("## Components")
+    comp_end = content.find("\n## ", comp_start + 1)
+    comp_section = content[comp_start:] if comp_end == -1 else content[comp_start:comp_end]
+    if len(re.findall(r"^- \*\*\w", comp_section, re.MULTILINE)) < 2:
         failures.append("design does not declare multiple components")
 
     if "ProjectService -> ProjectStore" not in content:
@@ -678,7 +679,7 @@ def write_gsdlc_lite_workspace(
 
         Requirements:
         - Include sections titled Components, Interfaces, Decomposition, Dependency Chain, Sequencing, and Traceability.
-        - Declare at least two components.
+        - Declare at least two components as bullet items under ## Components: - **Name** — description
         - Include create_project, archive_project, and search_projects interfaces.
         - Declare the ProjectService -> ProjectStore dependency chain.
         - Include at least three ordered decomposition/sequencing steps.

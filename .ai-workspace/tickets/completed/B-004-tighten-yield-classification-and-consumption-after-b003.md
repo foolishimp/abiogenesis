@@ -3,7 +3,7 @@
 - id: B-004
 - title: Tighten yield classification and consumption after B-003
 - type: backlog
-- status: active
+- status: completed
 - goal: runtime-convergence-governance
 - priority: high
 - created_at: 2026-04-13

@@ -28,3 +28,5 @@ Define the ABG 3 event substrate as the only written runtime truth surface.
 **REQ-R-ABG3-EVENTS-007**: ABG shall observe process-boundary runtime facts only. It shall not constitutionalize internal chain-of-thought, hidden tactic steps, or private decomposition inside probabilistic workers.
 
 **REQ-R-ABG3-EVENTS-008**: When ABG yields on unresolved non-blocking post-transform observer truth, the yielded handoff and its causing observer facts shall be emitted as authoritative event truth rather than inferred from absence of terminal failure.
+
+**REQ-R-ABG3-EVENTS-009**: Long-running supervised dispatch shall emit enough progress, artifact-observation, stall, salvage, and terminal facts that operator-grade live status can be replay-projected without hidden controller memory.

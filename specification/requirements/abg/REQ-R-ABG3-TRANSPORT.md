@@ -18,7 +18,7 @@ product-local imperative code.
 
 **REQ-R-ABG3-TRANSPORT-002**: Transport shall return structured substrate output sufficient to classify runtime defect, transport failure, payload-contract failure, or timeout without parsing agent internals as domain truth.
 
-**REQ-R-ABG3-TRANSPORT-003**: Timeout, crash, nonzero exit, or equivalent subprocess failure shall remain substrate/runtime failure truth even if a result artifact exists.
+**REQ-R-ABG3-TRANSPORT-003**: Timeout, crash, nonzero exit, or equivalent subprocess failure shall remain substrate/runtime failure truth unless ABG can deterministically validate and ingest a preserved authoritative result artifact for the same boundary.
 
 **REQ-R-ABG3-TRANSPORT-004**: Missing, empty, malformed, or contract-invalid payload artifacts shall classify distinctly from transport/runtime defects.
 
@@ -27,3 +27,7 @@ product-local imperative code.
 **REQ-R-ABG3-TRANSPORT-006**: Agent CLI invocation contracts shall be owned by ABG but locally overrideable through runtime configuration so workspace/runtime-specific transport drift does not require product code changes.
 
 **REQ-R-ABG3-TRANSPORT-007**: Malformed or unreadable local transport-contract overrides shall fail closed as runtime/policy configuration defects rather than silently falling back to embedded defaults.
+
+**REQ-R-ABG3-TRANSPORT-008**: Long-running `F_P` dispatch shall be governed by a progress lease over explicit observable facts such as result-artifact updates, bounded heartbeat/progress events, or equivalent declared liveness surfaces. Elapsed wall-clock alone is not sufficient runtime truth for long constructive work.
+
+**REQ-R-ABG3-TRANSPORT-009**: ABG shall observe `result_path` as a live writeback surface during supervised dispatch. Detection of a valid artifact before subprocess termination shall be replay-visible and available to closure/recovery logic without inventing new semantic truth.

@@ -132,6 +132,19 @@ def _target_binding_materialization(workspace: Path, manifest: Mapping[str, Any]
     }
 
 
+def _fd_recheck_should_yield(decision: Mapping[str, Any]) -> bool:
+    failures = decision.get("failures")
+    if not isinstance(failures, list) or not failures:
+        return False
+    for failure in failures:
+        if not isinstance(failure, Mapping):
+            return False
+        reason = failure.get("reason")
+        if reason != "fd_still_failing":
+            return False
+    return True
+
+
 def _rerun_manifest_fd_failures(
     workspace: Path,
     manifest: Mapping[str, Any],
@@ -469,7 +482,9 @@ def ingest_fp_result(
             manifest,
             work_key=manifest_work_key or None,
         )
-        yielded_post_transform = not fd_recheck_decision["passed"]
+        yielded_post_transform = (
+            not fd_recheck_decision["passed"] and _fd_recheck_should_yield(fd_recheck_decision)
+        )
         if yielded_post_transform:
             found_event = _event_writer(
                 workspace,
@@ -524,6 +539,18 @@ def ingest_fp_result(
                     for failure in fd_recheck_decision["failures"]
                     if isinstance(failure, Mapping) and isinstance(failure.get("name"), str)
                 ]
+                closure_event_data["fd_failure_reasons"] = [
+                    failure.get("reason")
+                    for failure in fd_recheck_decision["failures"]
+                    if isinstance(failure, Mapping) and isinstance(failure.get("reason"), str)
+                ]
+            if (
+                isinstance(fd_recheck_decision.get("failures"), list)
+                and fd_recheck_decision["failures"]
+                and not yielded_post_transform
+                and closure_reason == "resolved_without_fh"
+            ):
+                closure_event_data["policy_reason"] = "post_transform_observer_runtime_defect"
             closure_event = _event_writer(
                 workspace,
                 emit_event,
@@ -704,6 +731,10 @@ def ingest_fp_result(
                     "continuation_kind": "observer_handoff",
                     "call_id": call_id or None,
                     "caused_by_event_id": latest_event_id,
+                    "job_id": job_id or None,
+                    "graph_function_id": graph_function_id or None,
+                    "materialization_id": materialization_id or None,
+                    "vector_id": vector_id or None,
                 },
                 workflow_version=workflow_version,
                 work_key=manifest_work_key or None,
@@ -728,6 +759,10 @@ def ingest_fp_result(
                         "continuation_id": continuation_id,
                         "handoff_kind": "observer_handoff",
                         "handoff_reason": "fd_findings",
+                        "job_id": job_id or None,
+                        "graph_function_id": graph_function_id or None,
+                        "materialization_id": materialization_id or None,
+                        "vector_id": vector_id or None,
                     },
                     workflow_version=workflow_version,
                     work_key=manifest_work_key or None,

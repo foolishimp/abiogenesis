@@ -30,7 +30,7 @@ This requirement establishes the constitutional rules for the qualification infr
 
 **REQ-P-QUAL-004**: Each failure class in the INT-005 taxonomy (`transport_failure`, `no_output`, `contract_failure`, `certification_failure`) shall produce a **distinct, diagnosable signal** in test output. A test observer shall be able to determine the failure class from the test output alone, without reading source code.
 
-**REQ-P-QUAL-005**: Transport failures (nonzero exit, timeout, crash) shall **raise or fail immediately** with the transport error. They shall not be masked as artifact quality failures, silently converted to empty output, or treated as success because an artifact happens to exist.
+**REQ-P-QUAL-005**: Transport failures (nonzero exit, timeout, crash) shall remain **diagnosable transport truth**. They shall not be masked as artifact quality failures or silently converted to empty output. A preserved artifact may only rescue the turn when ABG deterministically validates it as the authoritative result for that boundary; mere artifact presence is insufficient.
 
 **REQ-P-QUAL-006**: The `call_agent()` throwing transport layer shall treat a nonzero exit code as an error. Returning stdout from a failed process conflates success and failure.
 

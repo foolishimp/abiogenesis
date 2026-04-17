@@ -17,7 +17,7 @@ These tests are integration acceptance gates, not unit-test-only checks.
 
 NOTE: _write_manifest uses the path convention:
   .genesis/workflows/{pkg}/{variant}/{version}/manifest.json
-where workflow "genesis_sdlc.standard@0.2.0" → pkg="genesis_sdlc", variant="standard",
+where workflow "abiogenesis.standard@0.2.0" → pkg="abiogenesis", variant="standard",
 version="0.2.0". Adjust path if implementation uses a different convention (e.g. v0_2_0).
 """
 from __future__ import annotations
@@ -60,11 +60,11 @@ def _write_manifest(
     """
     Write manifest.json at the path the commands layer discovers.
 
-    workflow_version "genesis_sdlc.standard@0.2.0"
-      → .genesis/workflows/genesis_sdlc/standard/0.2.0/manifest.json
+    workflow_version "abiogenesis.standard@0.2.0"
+      → .genesis/workflows/abiogenesis/standard/0.2.0/manifest.json
     """
     workflow, version = workflow_version.split("@", 1)
-    parts = workflow.split(".", 1)          # ["genesis_sdlc", "standard"]
+    parts = workflow.split(".", 1)          # ["abiogenesis", "standard"]
     pkg_name = parts[0]
     variant = parts[1] if len(parts) > 1 else "default"
     version_dir = "v" + version.replace(".", "_")
@@ -246,7 +246,7 @@ class TestWorkflowVersionAnnotation:
 
     def test_emit_event_annotates_workflow_version_from_file(self, tmp_path):
         """Events written via emit-event carry workflow_version from active-workflow.json."""
-        _write_active_workflow(tmp_path, "genesis_sdlc.standard", "0.2.0")
+        _write_active_workflow(tmp_path, "abiogenesis.standard", "0.2.0")
         workspace_bootstrap(tmp_path)
 
         from genesis.cli_adapter import _emit_event_cmd
@@ -263,7 +263,7 @@ class TestWorkflowVersionAnnotation:
         ]
         review_events = [e for e in events if e["event_type"] == "approved"]
         assert review_events, "approved event must be written"
-        assert review_events[-1]["data"]["workflow_version"] == "genesis_sdlc.standard@0.2.0", (
+        assert review_events[-1]["data"]["workflow_version"] == "abiogenesis.standard@0.2.0", (
             "emit-event must annotate workflow_version from active-workflow.json"
         )
 
@@ -327,7 +327,7 @@ class TestWorkflowVersionAnnotation:
 
     def test_emit_event_does_not_require_scope_object(self, tmp_path):
         """_emit_event_cmd takes only (event_type, data_json, workspace) — no Scope."""
-        _write_active_workflow(tmp_path, "genesis_sdlc.standard", "0.2.0")
+        _write_active_workflow(tmp_path, "abiogenesis.standard", "0.2.0")
         workspace_bootstrap(tmp_path)
 
         from genesis.cli_adapter import _emit_event_cmd
@@ -432,12 +432,12 @@ class TestStaleFpRejected:
 
     def test_stale_req_hash_not_accepted_when_version_known(self, tmp_path):
         """req_hash format assessed event does not converge when workflow_version is known."""
-        _write_active_workflow(tmp_path, "genesis_sdlc.standard", "0.2.0")
+        _write_active_workflow(tmp_path, "abiogenesis.standard", "0.2.0")
         stream = workspace_bootstrap(tmp_path)
         module = _make_fp_module()
         scope = Scope(module=module, workspace_root=tmp_path)
 
-        assert scope.workflow_version == "genesis_sdlc.standard@0.2.0"
+        assert scope.workflow_version == "abiogenesis.standard@0.2.0"
 
         stale_hash = req_hash(module.metadata["requirements"])   # old format
         stream.append("assessed", {
@@ -458,7 +458,7 @@ class TestStaleFpRejected:
 
     def test_executable_job_hash_accepted_when_version_known(self, tmp_path):
         """executable_job_hash format assessed event converges when workflow_version is known."""
-        _write_active_workflow(tmp_path, "genesis_sdlc.standard", "0.2.0")
+        _write_active_workflow(tmp_path, "abiogenesis.standard", "0.2.0")
         stream = workspace_bootstrap(tmp_path)
         module = _make_fp_module()
         scope = Scope(module=module, workspace_root=tmp_path)
@@ -483,7 +483,7 @@ class TestStaleFpRejected:
         Changing an evaluator changes executable_job_hash. Prior assessed event
         with old hash becomes stale and does not converge.
         """
-        _write_active_workflow(tmp_path, "genesis_sdlc.standard", "0.2.0")
+        _write_active_workflow(tmp_path, "abiogenesis.standard", "0.2.0")
         stream = workspace_bootstrap(tmp_path)
         module = _make_fp_module()
         scope = Scope(module=module, workspace_root=tmp_path)
@@ -549,7 +549,7 @@ class TestStaleFpRejected:
         Changing the cumulative environment contract changes executable_job_hash.
         Prior assessed event with the old environment becomes stale.
         """
-        _write_active_workflow(tmp_path, "genesis_sdlc.standard", "0.2.0")
+        _write_active_workflow(tmp_path, "abiogenesis.standard", "0.2.0")
         stream = workspace_bootstrap(tmp_path)
         module = _make_fp_module()
         scope = Scope(module=module, workspace_root=tmp_path)
@@ -627,7 +627,7 @@ class TestApprovalVersionBinding:
 
     def test_approval_accepted_when_version_matches(self, tmp_path):
         """approved with matching workflow_version satisfies F_H gate."""
-        _write_active_workflow(tmp_path, "genesis_sdlc.standard", "0.2.0")
+        _write_active_workflow(tmp_path, "abiogenesis.standard", "0.2.0")
         stream = workspace_bootstrap(tmp_path)
         module = _make_fh_module()
         scope = Scope(module=module, workspace_root=tmp_path)
@@ -638,13 +638,13 @@ class TestApprovalVersionBinding:
             "evaluator": "code_complete",
             "result": "pass",
             "spec_hash": _current_spec_hash(module, scope.workflow_version),
-            "workflow_version": "genesis_sdlc.standard@0.2.0",
+            "workflow_version": "abiogenesis.standard@0.2.0",
         })
         stream.append("approved", {
             "kind": "fh_review",
             "edge": "design→code",
             "actor": "test_human",
-            "workflow_version": "genesis_sdlc.standard@0.2.0",
+            "workflow_version": "abiogenesis.standard@0.2.0",
         })
 
         result = gen_gaps(scope, stream)
@@ -652,7 +652,7 @@ class TestApprovalVersionBinding:
 
     def test_approval_rejected_when_version_mismatches(self, tmp_path):
         """approved from old version does not satisfy F_H gate at current version."""
-        _write_active_workflow(tmp_path, "genesis_sdlc.standard", "0.2.0")
+        _write_active_workflow(tmp_path, "abiogenesis.standard", "0.2.0")
         stream = workspace_bootstrap(tmp_path)
         module = _make_fh_module()
         scope = Scope(module=module, workspace_root=tmp_path)
@@ -663,13 +663,13 @@ class TestApprovalVersionBinding:
             "evaluator": "code_complete",
             "result": "pass",
             "spec_hash": _current_spec_hash(module, scope.workflow_version),
-            "workflow_version": "genesis_sdlc.standard@0.2.0",
+            "workflow_version": "abiogenesis.standard@0.2.0",
         })
         stream.append("approved", {
             "kind": "fh_review",
             "edge": "design→code",
             "actor": "test_human",
-            "workflow_version": "genesis_sdlc.standard@0.1.0",  # prior version
+            "workflow_version": "abiogenesis.standard@0.1.0",  # prior version
         })
 
         result = gen_gaps(scope, stream)
@@ -685,7 +685,7 @@ class TestApprovalVersionBinding:
         edge reopens because approval was for 0.1.0.
         """
         # Phase 1: converge at 0.1.0
-        _write_active_workflow(tmp_path, "genesis_sdlc.standard", "0.1.0")
+        _write_active_workflow(tmp_path, "abiogenesis.standard", "0.1.0")
         stream = workspace_bootstrap(tmp_path)
         module = _make_fh_module()
         scope_v1 = Scope(module=module, workspace_root=tmp_path)
@@ -696,20 +696,20 @@ class TestApprovalVersionBinding:
             "evaluator": "code_complete",
             "result": "pass",
             "spec_hash": _current_spec_hash(module, scope_v1.workflow_version),
-            "workflow_version": "genesis_sdlc.standard@0.1.0",
+            "workflow_version": "abiogenesis.standard@0.1.0",
         })
         stream.append("approved", {
             "kind": "fh_review",
             "edge": "design→code",
             "actor": "test_human",
-            "workflow_version": "genesis_sdlc.standard@0.1.0",
+            "workflow_version": "abiogenesis.standard@0.1.0",
         })
 
         result_v1 = gen_gaps(scope_v1, stream)
         assert result_v1["converged"] is True, "Precondition: must be converged at 0.1.0"
 
         # Phase 2: upgrade to 0.2.0 — rewrite active-workflow.json
-        _write_active_workflow(tmp_path, "genesis_sdlc.standard", "0.2.0")
+        _write_active_workflow(tmp_path, "abiogenesis.standard", "0.2.0")
         scope_v2 = Scope(module=module, workspace_root=tmp_path)
 
         result_v2 = gen_gaps(scope_v2, stream)
@@ -729,9 +729,9 @@ class TestCarryForward:
 
     def test_carry_forward_allows_prior_version_approval(self, tmp_path):
         """Approval at 0.1.0 satisfies F_H gate at 0.2.0 when manifest declares carry-forward."""
-        _write_active_workflow(tmp_path, "genesis_sdlc.standard", "0.2.0")
-        _write_manifest(tmp_path, "genesis_sdlc.standard@0.2.0", carry_forward=[
-            {"edge": "design→code", "from_version": "genesis_sdlc.standard@0.1.0"},
+        _write_active_workflow(tmp_path, "abiogenesis.standard", "0.2.0")
+        _write_manifest(tmp_path, "abiogenesis.standard@0.2.0", carry_forward=[
+            {"edge": "design→code", "from_version": "abiogenesis.standard@0.1.0"},
         ])
         stream = workspace_bootstrap(tmp_path)
         module = _make_fh_module()
@@ -743,13 +743,13 @@ class TestCarryForward:
             "evaluator": "code_complete",
             "result": "pass",
             "spec_hash": _current_spec_hash(module, scope.workflow_version),
-            "workflow_version": "genesis_sdlc.standard@0.2.0",
+            "workflow_version": "abiogenesis.standard@0.2.0",
         })
         stream.append("approved", {
             "kind": "fh_review",
             "edge": "design→code",
             "actor": "test_human",
-            "workflow_version": "genesis_sdlc.standard@0.1.0",   # prior version
+            "workflow_version": "abiogenesis.standard@0.1.0",   # prior version
         })
 
         result = gen_gaps(scope, stream)
@@ -760,9 +760,9 @@ class TestCarryForward:
 
     def test_carry_forward_wrong_from_version_fails(self, tmp_path):
         """Carry-forward requires exact from_version match — wrong version still fails."""
-        _write_active_workflow(tmp_path, "genesis_sdlc.standard", "0.2.0")
-        _write_manifest(tmp_path, "genesis_sdlc.standard@0.2.0", carry_forward=[
-            {"edge": "design→code", "from_version": "genesis_sdlc.standard@0.1.0"},
+        _write_active_workflow(tmp_path, "abiogenesis.standard", "0.2.0")
+        _write_manifest(tmp_path, "abiogenesis.standard@0.2.0", carry_forward=[
+            {"edge": "design→code", "from_version": "abiogenesis.standard@0.1.0"},
         ])
         stream = workspace_bootstrap(tmp_path)
         module = _make_fh_module()
@@ -774,14 +774,14 @@ class TestCarryForward:
             "evaluator": "code_complete",
             "result": "pass",
             "spec_hash": _current_spec_hash(module, scope.workflow_version),
-            "workflow_version": "genesis_sdlc.standard@0.2.0",
+            "workflow_version": "abiogenesis.standard@0.2.0",
         })
         # Approval from 0.0.1 — not the carry_forward from_version (0.1.0)
         stream.append("approved", {
             "kind": "fh_review",
             "edge": "design→code",
             "actor": "test_human",
-            "workflow_version": "genesis_sdlc.standard@0.0.1",
+            "workflow_version": "abiogenesis.standard@0.0.1",
         })
 
         result = gen_gaps(scope, stream)
@@ -791,8 +791,8 @@ class TestCarryForward:
 
     def test_no_carry_forward_in_manifest_fails(self, tmp_path):
         """Manifest without approved_carry_forward still rejects prior-version approval."""
-        _write_active_workflow(tmp_path, "genesis_sdlc.standard", "0.2.0")
-        _write_manifest(tmp_path, "genesis_sdlc.standard@0.2.0", carry_forward=[])
+        _write_active_workflow(tmp_path, "abiogenesis.standard", "0.2.0")
+        _write_manifest(tmp_path, "abiogenesis.standard@0.2.0", carry_forward=[])
         stream = workspace_bootstrap(tmp_path)
         module = _make_fh_module()
         scope = Scope(module=module, workspace_root=tmp_path)
@@ -803,13 +803,13 @@ class TestCarryForward:
             "evaluator": "code_complete",
             "result": "pass",
             "spec_hash": _current_spec_hash(module, scope.workflow_version),
-            "workflow_version": "genesis_sdlc.standard@0.2.0",
+            "workflow_version": "abiogenesis.standard@0.2.0",
         })
         stream.append("approved", {
             "kind": "fh_review",
             "edge": "design→code",
             "actor": "test_human",
-            "workflow_version": "genesis_sdlc.standard@0.1.0",
+            "workflow_version": "abiogenesis.standard@0.1.0",
         })
 
         result = gen_gaps(scope, stream)
@@ -827,7 +827,7 @@ class TestPreProvenanceRejection:
 
     def test_pre_provenance_approval_rejected_when_version_known(self, tmp_path):
         """approved without workflow_version field fails when version known."""
-        _write_active_workflow(tmp_path, "genesis_sdlc.standard", "0.2.0")
+        _write_active_workflow(tmp_path, "abiogenesis.standard", "0.2.0")
         stream = workspace_bootstrap(tmp_path)
         module = _make_fh_module()
         scope = Scope(module=module, workspace_root=tmp_path)
@@ -838,7 +838,7 @@ class TestPreProvenanceRejection:
             "evaluator": "code_complete",
             "result": "pass",
             "spec_hash": _current_spec_hash(module, scope.workflow_version),
-            "workflow_version": "genesis_sdlc.standard@0.2.0",
+            "workflow_version": "abiogenesis.standard@0.2.0",
         })
         # Pre-provenance: no workflow_version field on the approval
         stream.append("approved", {

@@ -3,7 +3,7 @@
 - id: B-003
 - title: Restore gap-first F_D authority and remove post-F_P closure regression
 - type: bug
-- status: active
+- status: completed
 - goal: runtime-convergence-governance
 - priority: critical
 - created_at: 2026-04-13

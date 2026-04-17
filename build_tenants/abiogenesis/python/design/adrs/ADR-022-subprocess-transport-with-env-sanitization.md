@@ -84,6 +84,11 @@ def _sanitized_env(agent):
     return env
 ```
 
+Supervised long-running dispatch may bind those subprocesses to a real PTY
+session instead of plain captured pipes when the agent CLI is terminal-native.
+In that mode ABG still treats the result artifact as authority; the terminal is
+an observability and liveness surface, not semantic truth.
+
 ### Multi-agent support
 
 The subprocess model naturally supports multiple agents:
@@ -101,9 +106,9 @@ All agents share the same contract: prompt in, artifacts out, exit code. The run
 The product owns default subprocess contracts for supported agents, but the
 exact CLI contract is treated as fragile runtime substrate, not stable product
 law. A workspace/runtime contract may therefore point to a local JSON transport
-contract override that replaces command, argument template, output mode, probe
-prompt/expectation, timeout, retry budget, and environment sanitization rules
-per agent.
+contract override that replaces command, argument template, output mode,
+terminal mode, probe prompt/expectation, timeout, retry budget, and
+environment sanitization rules per agent.
 
 Malformed or unreadable local overrides fail closed as configuration defects.
 They do not silently fall back to defaults when an override was explicitly
@@ -119,7 +124,7 @@ ADR-020 raised five structural problems with subprocess dispatch:
 
 1. **Cold start per call** — True. Accepted. Each invocation spawns a new process. For F_P work units (seconds to minutes of LLM work), cold start is negligible.
 
-2. **Output buffering is opaque** — True. Accepted. We don't need liveness detection; we have a timeout. If the agent doesn't return within the timeout, it's a transport_failure.
+2. **Output buffering is opaque** — Partially accepted. Raw wall-clock timeout is no longer sufficient for long constructive work. ABG now governs dispatch with a progress lease over observable runtime facts such as result-artifact updates and explicit progress events.
 
 3. **No session continuity** — True. Accepted. Each F_P invocation is independent by design (iterate model). Context is carried in the manifest prompt, not agent memory.
 
@@ -131,7 +136,7 @@ ADR-020 raised five structural problems with subprocess dispatch:
 
 The `CLAUDE*` prefix stripping is defensive but relies on undocumented behavior. If Anthropic changes the nesting guard mechanism:
 
-- **Worst case**: subprocess hangs → `TimeoutExpired` → `AgentTransportError` with `failure_class="transport_failure"`. The failure is classified and retryable, not silent.
+- **Worst case**: subprocess becomes inactive and no valid result artifact is observed before the progress lease expires. ABG then classifies the turn as `transport_failure`. If a valid preserved result artifact is already available, ABG may salvage and ingest it rather than flattening the turn into failure.
 - **Detection**: Any live F_P test that hangs will surface the regression immediately.
 - **Mitigation path**: Claude Agent SDK streaming sessions (documented, stable API) as the future transport when it matures.
 
@@ -146,7 +151,7 @@ Single implementation in `genesis/transport.py`:
 - `has_agent(agent)` — checks if CLI is on PATH
 - `call_agent(prompt, work_folder, agent=, timeout=, retries=)` — subprocess dispatch with env sanitization, permission bypass, and retry
 - `dispatch_agent(prompt, work_folder, ...)` — non-throwing variant returning `AgentResult`
-- `classify_failure(result, result_path)` — ADR-027 failure classification
+- `classify_failure(result, result_path)` — ADR-027 failure classification plus preserved-artifact validation
 - `_resolve_agent_contract(agent, config, work_folder)` — resolves default or local override contract
 - `_sanitized_env(agent)` — strips configured env prefixes for the resolved contract
 - `_build_args(agent, prompt)` — builds subprocess args from the resolved contract template

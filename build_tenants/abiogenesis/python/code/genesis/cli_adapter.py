@@ -11,6 +11,7 @@ Usage:
   python -m genesis start  [--auto] [--human-proxy] [--feature F] [--edge E] [--workspace W]
   python -m genesis iterate [--feature F] [--edge E] [--workspace W]
   python -m genesis gaps    [--feature F] [--workspace W]
+  python -m genesis run-status [--run-id RUN] [--workspace W]
   python -m genesis assess-result --result PATH [--workspace W]
   python -m genesis emit-event --type TYPE [--data JSON] [--workspace W]
   python -m genesis check-tags --type implements|validates --path PATH
@@ -46,6 +47,8 @@ def _build_parser() -> argparse.ArgumentParser:
                          help="Loop until converged or blocked by F_H gate")
     p_start.add_argument("--human-proxy", action="store_true",
                          help="Allow F_H gates to be evaluated by proxy (requires --auto)")
+    p_start.add_argument("--supervised-root", action="store_true",
+                         help="Run start --auto under root supervision with live recovery/status projection")
     p_start.add_argument("--feature", metavar="F",
                          help="Scope to a specific feature vector ID")
     p_start.add_argument("--edge", metavar="E",
@@ -71,6 +74,13 @@ def _build_parser() -> argparse.ArgumentParser:
     for p in (p_start, p_iter, p_gaps):
         p.add_argument("--module", metavar="MODULE:VAR",
                        help="Module to load (overrides genesis.yml)")
+
+    # ── gen run-status ───────────────────────────────────────────────────────
+    p_status = sub.add_parser("run-status", help="Project live operator-grade run status")
+    p_status.add_argument("--run-id", metavar="RUN",
+                          help="Specific run id to inspect (defaults to latest run in workspace)")
+    p_status.add_argument("--workspace", metavar="W", default=".",
+                          help="Workspace root (default: cwd)")
 
     # ── emit-event ────────────────────────────────────────────────────────────
     p_emit = sub.add_parser("emit-event",
@@ -534,6 +544,14 @@ def _emit_workspace_event(
     )
 
 
+def _run_status_cmd(workspace: Path, run_id: str | None) -> int:
+    from .live_status import project_live_run_status
+
+    status = project_live_run_status(workspace, run_id=run_id)
+    print(json.dumps(status, indent=2))
+    return 0
+
+
 def _import_symbol(ref: str, workspace: Path):
     """
     Import MODULE:VAR from workspace. Returns the symbol.
@@ -676,6 +694,47 @@ def _run_start_auto(
     return result
 
 
+def _run_start_auto_supervised(
+    scope,
+    stream,
+    *,
+    workspace: Path,
+    config: dict | None,
+    human_proxy: bool,
+) -> dict:
+    from .live_status import project_live_run_status
+
+    result = _run_start_auto(
+        scope,
+        stream,
+        workspace=workspace,
+        config=config,
+        human_proxy=human_proxy,
+    )
+    result["root_supervision"] = True
+    result["live_status"] = project_live_run_status(workspace)
+
+    if (
+        result.get("status") == "error"
+        and result.get("failure_class") == "transport_failure"
+        and isinstance(result.get("live_status"), Mapping)
+        and result["live_status"].get("result_artifact_valid") is True
+    ):
+        resumed = _run_start_auto(
+            scope,
+            stream,
+            workspace=workspace,
+            config=config,
+            human_proxy=human_proxy,
+        )
+        resumed["root_supervision"] = True
+        resumed["resumed_after_transport_failure"] = True
+        resumed["live_status"] = project_live_run_status(workspace)
+        return resumed
+
+    return result
+
+
 def _resolve_module(args, workspace: Path):
     """
     Resolve Module from --module flag or runtime contract (genesis.yml).
@@ -746,6 +805,9 @@ def main() -> None:
     if args.command == "emit-event":
         workspace = Path(args.workspace).resolve()
         sys.exit(_emit_event_cmd(args.type, args.data, workspace))
+    if args.command == "run-status":
+        workspace = Path(args.workspace).resolve()
+        sys.exit(_run_status_cmd(workspace, getattr(args, "run_id", None)))
 
     # --human-proxy requires --auto
     if getattr(args, "human_proxy", False) and not getattr(args, "auto", False):
@@ -804,13 +866,22 @@ def main() -> None:
     if args.command == "start":
         human_proxy = getattr(args, "human_proxy", False)
         if getattr(args, "auto", False):
-            result = _run_start_auto(
-                scope,
-                stream,
-                workspace=workspace,
-                config=_config,
-                human_proxy=human_proxy,
-            )
+            if getattr(args, "supervised_root", False):
+                result = _run_start_auto_supervised(
+                    scope,
+                    stream,
+                    workspace=workspace,
+                    config=_config,
+                    human_proxy=human_proxy,
+                )
+            else:
+                result = _run_start_auto(
+                    scope,
+                    stream,
+                    workspace=workspace,
+                    config=_config,
+                    human_proxy=human_proxy,
+                )
         else:
             result = gen_start(scope, stream, auto=False)
             if human_proxy:

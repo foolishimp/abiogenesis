@@ -1,6 +1,6 @@
 # GTL Bootloader: Axiomatic Constraint Surface
 
-**Version**: 3.0.0
+**Version**: 3.1.0
 **Status**: Compressed install-time bootstrap
 **Role**: Minimal ontology and operating constraints for GTL 3 / ABG 3 work
 

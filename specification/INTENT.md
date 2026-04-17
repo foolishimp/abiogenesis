@@ -8,7 +8,12 @@
 
 ## The Problem
 
-AI-augmented software development requires a clean, formal engine. The available genesis engine (ai_sdlc_method v3.1.0) is effective, but it is not GTL-first and it cannot be re-derived from first principles. There is no reference implementation that demonstrates the full AI SDLC asset graph from intent through to code+tests using the GTL type system as the constitutional language.
+AI-augmented software development requires a clean, formal engine. The earlier
+AI SDLC engine lineage (`ai_sdlc_method` v3.1.0) is effective, but it is not
+GTL-first and it cannot be re-derived from first principles. There is no
+reference implementation that demonstrates the full AI SDLC asset graph from
+intent through to code+tests using the GTL type system as the constitutional
+language.
 
 ---
 
@@ -22,7 +27,7 @@ A clean, GTL-first implementation of abiogenesis as the reference GTL + ABG engi
 4. Provides commands (`gen-start`, `gen-iterate`, `gen-gaps`) as named compositions over the engine
 5. Enforces traceability from REQ keys through code to tests via tag enforcement
 6. Binds convergence events to workflow provenance (version, spec_hash) to prevent stale assessment reuse
-7. Is built by the genesis engine using itself as bootstrap compiler (the GCC/C analogy)
+7. Is built by the abiogenesis engine using itself as bootstrap compiler (the GCC/C analogy)
 8. Reaches a self-hosting gate: abiogenesis can build itself
 
 The authored domain surface is `build_tenants/abiogenesis/python/code/gtl_spec/packages/abiogenesis.py` — the GTL Module is the shipping domain declaration. `specification/` provides the constitutional intent, requirement, and design surfaces that govern it.
@@ -31,9 +36,9 @@ The authored domain surface is `build_tenants/abiogenesis/python/code/gtl_spec/p
 
 ## Business Value
 
-- **Proof of concept for GTL**: demonstrates that a complex system (the genesis engine itself) can be formally specified as a GTL Module and then built from that spec
+- **Proof of concept for GTL**: demonstrates that a complex system (the abiogenesis engine itself) can be formally specified as a GTL Module and then built from that spec
 - **Bootstrap independence**: once self-hosting, abiogenesis depends on its own constitutional surface and bootstrap compiler for further development
-- **Reference implementation**: every future genesis build (Codex, Gemini, Bedrock, Java, Temporal) derives from this clean topology
+- **Reference implementation**: every future GTL + ABG build (Codex, Gemini, Bedrock, Java, Temporal) derives from this clean topology
 - **GCC analogy materialised**: GTL is the language, ai_sdlc_method is the earlier compiler lineage, and abiogenesis is the self-hosting compiler/runtime line
 
 ---
@@ -45,7 +50,7 @@ The authored domain surface is `build_tenants/abiogenesis/python/code/gtl_spec/p
 3. Engine traverses all 5 edges for a test feature vector, producing code + passing tests
 4. All engine modules have unit + integration tests; test suite green
 5. Sandbox E2E: fresh sandbox run creates working code+tests
-6. Self-hosting gate: abiogenesis uses genesis to build its next iteration
+6. Self-hosting gate: abiogenesis uses abiogenesis to build its next iteration
 7. Specification is authoritative: deleting `build_tenants/abiogenesis/python/code/` and regenerating from `specification/` + `build_tenants/abiogenesis/python/design/adrs/` produces an equivalent compiler
 
 ---
@@ -75,7 +80,11 @@ Current degenerate cases are explicit law:
 
 ### Problem
 
-Bootloader documents (GTL_BOOTLOADER.md in abiogenesis, SDLC_BOOTLOADER.md in genesis_sdlc) are hand-maintained markdown that reference graph types, node names, vector chains, and evaluator semantics from the codebase, but no F_D evaluator checks them for consistency. When the graph changes, the bootloader can drift silently.
+Bootloader documents such as GTL_BOOTLOADER.md and downstream domain
+bootloader surfaces are hand-maintained markdown that reference graph types,
+node names, vector chains, and evaluator semantics from the codebase, but no
+F_D evaluator checks them for consistency. When the graph changes, the
+bootloader can drift silently.
 
 This is structurally identical to untested code: it works until it doesn't, and you find out too late. The bootloader is consumed by downstream assistant sessions — stale content means those sessions operate against wrong constraints.
 
@@ -84,7 +93,7 @@ This is structurally identical to untested code: it works until it doesn't, and 
 Make bootloader documents proper graph artifacts with F_D evaluators that check consistency against source-of-truth code:
 
 - **GTL_BOOTLOADER.md** checked against the live GTL 3 type surface (`Graph`, `Node`, `GraphVector`, `Module`, `Job`, `Role`, `Operator`, `Evaluator`, `Rule`, `F_D`, `F_P`, `F_H`)
-- **SDLC_BOOTLOADER.md** checked against `sdlc_graph.py` node names, vector names, and refinement profiles
+- **Downstream bootloader surfaces** checked against their live node names, vector names, and refinement profiles
 
 The bootloader becomes a convergence-tracked artifact: if the graph changes and the bootloader doesn't update, delta > 0 and the system tells you.
 
@@ -98,14 +107,14 @@ The bootloader becomes a convergence-tracked artifact: if the graph changes and 
 - New context: `specification_dir` pointing to the specification/ directory
 - Modified join: the bootloader must be consistent before any downstream gate that installs it (the `code↔unit_tests` edge context already references the bootloader — but now the bootloader itself is convergence-tracked)
 
-**Pattern for genesis_sdlc (downstream — not this project):**
-- Same structure: `design→bootloader_doc` with F_D checking against `sdlc_graph.py`
-- Join at `integration_tests`: sandbox install requires consistent bootloader since `genesis_sdlc.install` copies the bootloader into the target's CLAUDE.md
+**Pattern for downstream domain installers (not this project):**
+- Same structure: `design→bootloader_doc` with F_D checking against the live downstream graph surface
+- Join at `integration_tests`: sandbox install requires consistent bootloader when the downstream installer copies that bootloader into the target's `CLAUDE.md`
 
 ### Out of Scope
 
 - Auto-generating bootloader content from code (F_P synthesizes, human approves)
-- Changing the GTL_BOOTLOADER.md or SDLC_BOOTLOADER.md content in this intent (content is already correct post v0.5.0 fix)
+- Changing the GTL_BOOTLOADER.md or downstream bootloader content in this intent (content is already correct post v0.5.0 fix)
 - Modifying the install chain (bootloaders are still installed via marker-bounded blocks in CLAUDE.md)
 
 ### Success Criteria
@@ -113,7 +122,7 @@ The bootloader becomes a convergence-tracked artifact: if the graph changes and 
 1. `gen-gaps` reports `bootloader_doc` as a node with delta > 0 when GTL_BOOTLOADER.md references a type name not in the live GTL 3 surface
 2. Changing an exported GTL 3 type without updating the bootloader causes the F_D evaluator to fail
 3. After the bootloader is updated and F_P assesses it, delta returns to 0
-4. The pattern is replicable: genesis_sdlc can add the same asset type for SDLC_BOOTLOADER.md
+4. The pattern is replicable: downstream products can add the same asset type for their own bootloader surfaces
 
 ---
 
@@ -301,6 +310,8 @@ The runtime requires two additional capabilities to scale beyond single-shot F_P
 **In scope:**
 - Explicit total run lifecycle model with terminal states `completed`, `failed`, `timed_out`, `superseded` and non-terminal states `queued`, `started`, `dispatched`, `pending`
 - Failure classification: `transport_failure`, `no_output`, `contract_failure`, `certification_failure`
+- Live run status projection over engine event truth plus declared artifact surfaces
+- Supervised probabilistic dispatch and supervised root control as published ABG capabilities for long-running constructive work
 - Waiter deduplication: at most one pending dispatch per (work_key, edge)
 - Retry with bounded backoff for transient transport failures
 - Bounded leaf task primitive: schema-driven input/output, explicit timeout, toolless default
@@ -320,13 +331,15 @@ The runtime requires two additional capabilities to scale beyond single-shot F_P
 
 1. Successful F_P certification projects to `run_completed` after assessment, proof, and closure, not generic `assessed`
 2. Failed F_P certification projects to `failed(certification_failure)`, not successful terminal truth
-3. Subprocess timeout, crash, or nonzero exit always classify as `transport_failure` even if an artifact exists
-4. Duplicate dispatch on the same `(work_key, edge)` returns the pending `run_id`, not a new dispatch
-5. A leaf task can be dispatched within `iterate()` with schema-validated input/output and the same failure algebra as parent dispatch
-6. No handled failed dispatch can surface as "not handled" in the control plane
-7. All lifecycle transitions are visible in the event stream — the history of any run is reconstructable
-8. Compensation and reset remain semantically distinct operations in the event stream
-9. No corrective operation destroys event history — the log remains append-only and truthful
+3. Subprocess timeout, crash, or nonzero exit classify as `transport_failure` unless ABG can deterministically validate and ingest a preserved authoritative result artifact for the same boundary
+4. Long-running constructive work is governed by a progress lease over observable runtime facts, not by wall-clock alone
+5. Operators can inspect live state without tailing raw event logs
+6. Duplicate dispatch on the same `(work_key, edge)` returns the pending `run_id`, not a new dispatch
+7. A leaf task can be dispatched within `iterate()` with schema-validated input/output and the same failure algebra as parent dispatch
+8. No handled failed dispatch can surface as "not handled" in the control plane
+9. All lifecycle transitions are visible in the event stream — the history of any run is reconstructable
+10. Compensation and reset remain semantically distinct operations in the event stream
+11. No corrective operation destroys event history — the log remains append-only and truthful
 
 ---
 

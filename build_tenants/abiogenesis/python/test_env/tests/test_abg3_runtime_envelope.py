@@ -2,15 +2,17 @@
 from __future__ import annotations
 
 import json
+import sys
 
 from genesis import cli_adapter, services
 from genesis.dispatch_runtime import auto_dispatch_from_result, dispatch_bound_manifest_via_transport
 from genesis.events import EventContext, EventStream, emit
+from genesis.live_status import project_live_run_status
 from genesis.install import workspace_bootstrap
 from genesis.projection import project
 from genesis.result_ingest import ingest_fp_result
 from genesis.run import run_state
-from genesis.transport import AgentResult
+from genesis.transport import AgentCliContract, AgentResult, dispatch_agent_supervised
 
 
 def test_event_envelope_carries_top_level_runtime_refs(tmp_path):
@@ -169,10 +171,10 @@ def test_dispatch_runtime_emits_failure_graph_call_and_continuation(monkeypatch,
         "spec_hash": "spec-1",
     }
 
-    def fake_dispatch_agent(prompt, work_folder, *, agent="claude", timeout=300, config=None):
+    def fake_dispatch_agent(prompt, work_folder, *, agent="claude", timeout=300, config=None, **kwargs):
         return AgentResult(stdout="", stderr="boom", returncode=1, agent=agent)
 
-    monkeypatch.setattr("genesis.dispatch_runtime.dispatch_agent", fake_dispatch_agent)
+    monkeypatch.setattr("genesis.dispatch_runtime.dispatch_agent_supervised", fake_dispatch_agent)
 
     summary = dispatch_bound_manifest_via_transport(
         manifest,
@@ -245,13 +247,14 @@ def test_dispatch_runtime_forwards_local_transport_contract_config(monkeypatch, 
     }
     forwarded: dict[str, object] = {}
 
-    def fake_dispatch_agent(prompt, work_folder, *, agent="claude", timeout=300, config=None):
+    def fake_dispatch_agent(prompt, work_folder, *, agent="claude", timeout=300, config=None, **kwargs):
         forwarded["agent"] = agent
         forwarded["timeout"] = timeout
         forwarded["config"] = config
+        forwarded["manifest"] = kwargs.get("manifest")
         return AgentResult(stdout="ok", stderr="", returncode=0, agent=agent)
 
-    monkeypatch.setattr("genesis.dispatch_runtime.dispatch_agent", fake_dispatch_agent)
+    monkeypatch.setattr("genesis.dispatch_runtime.dispatch_agent_supervised", fake_dispatch_agent)
 
     config = {
         "runtime_backend": "codex_cli",
@@ -267,6 +270,7 @@ def test_dispatch_runtime_forwards_local_transport_contract_config(monkeypatch, 
     assert forwarded["agent"] == "codex"
     assert forwarded["timeout"] == 300
     assert forwarded["config"] == config
+    assert forwarded["manifest"]["manifest_id"] == "manifest-forward"
 
 
 def test_dispatch_runtime_classifies_missing_local_transport_contract_as_policy_config_defect(tmp_path):
@@ -335,10 +339,10 @@ def test_dispatch_runtime_ingests_result_and_closes_graph_call(monkeypatch, tmp_
         "spec_hash": "spec-2",
     }
 
-    def fake_dispatch_agent(prompt, work_folder, *, agent="claude", timeout=300, config=None):
+    def fake_dispatch_agent(prompt, work_folder, *, agent="claude", timeout=300, config=None, **kwargs):
         return AgentResult(stdout="ok", stderr="", returncode=0, agent=agent)
 
-    monkeypatch.setattr("genesis.dispatch_runtime.dispatch_agent", fake_dispatch_agent)
+    monkeypatch.setattr("genesis.dispatch_runtime.dispatch_agent_supervised", fake_dispatch_agent)
 
     summary = dispatch_bound_manifest_via_transport(
         manifest,
@@ -433,7 +437,7 @@ def test_auto_dispatch_derives_manifest_path_from_manifest_id(tmp_path, monkeypa
         return {"status": "ok", "call_id": manifest["call_id"], "events_emitted": 0}
 
     monkeypatch.setattr(
-        "genesis.dispatch_runtime.dispatch_bound_manifest_via_transport",
+        "genesis.dispatch_runtime.dispatch_bound_manifest_via_supervised_transport",
         fake_dispatch,
     )
 
@@ -506,10 +510,10 @@ def test_successful_ingest_resolves_preexisting_open_continuation(monkeypatch, t
         "spec_hash": "spec-3",
     }
 
-    def fake_dispatch_agent(prompt, work_folder, *, agent="claude", timeout=300, config=None):
+    def fake_dispatch_agent(prompt, work_folder, *, agent="claude", timeout=300, config=None, **kwargs):
         return AgentResult(stdout="ok", stderr="", returncode=0, agent=agent)
 
-    monkeypatch.setattr("genesis.dispatch_runtime.dispatch_agent", fake_dispatch_agent)
+    monkeypatch.setattr("genesis.dispatch_runtime.dispatch_agent_supervised", fake_dispatch_agent)
 
     summary = dispatch_bound_manifest_via_transport(
         manifest,
@@ -564,7 +568,7 @@ def test_ingest_post_transform_fd_findings_emit_found_without_stopping_closure(m
         "genesis.result_ingest._rerun_manifest_fd_failures",
         lambda workspace, manifest, work_key=None: {
             "passed": False,
-            "failures": [{"name": "code_traceability_present"}],
+            "failures": [{"name": "code_traceability_present", "reason": "fd_still_failing"}],
         },
     )
     monkeypatch.setattr(
@@ -659,7 +663,7 @@ def test_yielded_ingest_resolves_preexisting_open_continuation(monkeypatch, tmp_
         "genesis.result_ingest._rerun_manifest_fd_failures",
         lambda workspace, manifest, work_key=None: {
             "passed": False,
-            "failures": [{"name": "code_traceability_present"}],
+            "failures": [{"name": "code_traceability_present", "reason": "fd_still_failing"}],
         },
     )
     monkeypatch.setattr(
@@ -731,7 +735,7 @@ def test_ingest_post_transform_fd_findings_use_same_kind_as_traversal_seam(monke
         "genesis.result_ingest._rerun_manifest_fd_failures",
         lambda workspace, manifest, work_key=None: {
             "passed": False,
-            "failures": [{"name": "code_traceability_present"}],
+            "failures": [{"name": "code_traceability_present", "reason": "fd_still_failing"}],
         },
     )
     monkeypatch.setattr(
@@ -792,7 +796,7 @@ def test_ingest_target_binding_failure_still_blocks_after_proof(monkeypatch, tmp
         "genesis.result_ingest._rerun_manifest_fd_failures",
         lambda workspace, manifest, work_key=None: {
             "passed": False,
-            "failures": [{"name": "code_traceability_present"}],
+            "failures": [{"name": "code_traceability_present", "reason": "fd_still_failing"}],
         },
     )
     monkeypatch.setattr(
@@ -901,6 +905,325 @@ def test_run_start_auto_yields_without_immediate_redispatch(monkeypatch, tmp_pat
     assert result["stopped_by"] == "yield"
     assert result["handoff_kind"] == "observer_handoff"
     assert result["handoff_reason"] == "fd_findings"
+
+
+def test_dispatch_runtime_salvages_timed_out_transport_when_valid_result_exists(monkeypatch, tmp_path):
+    workspace_bootstrap(tmp_path)
+    results_dir = tmp_path / ".ai-workspace" / "fp_results"
+    results_dir.mkdir(parents=True, exist_ok=True)
+    result_path = results_dir / "manifest-salvage.json"
+    result_path.write_text(
+        json.dumps(
+            {
+                "edge": "design→code",
+                "actor": "codex",
+                "assessments": [
+                    {
+                        "evaluator": "code_complete",
+                        "result": "pass",
+                        "evidence": "artifact already persisted",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    manifest = {
+        "manifest_id": "manifest-salvage",
+        "call_id": "call-salvage",
+        "edge": "design→code",
+        "run_id": "run-salvage",
+        "work_key": "wk-salvage",
+        "workflow_version": "wf-salvage",
+        "graph_function_id": "gf-salvage",
+        "materialization_id": "mat-salvage",
+        "vector_id": "vec-salvage",
+        "job_id": "job-salvage",
+        "prompt": "write code",
+        "result_path": str(result_path),
+        "spec_hash": "spec-salvage",
+        "failing_evaluators": [{"name": "code_complete"}],
+    }
+
+    def fake_dispatch_agent(prompt, work_folder, *, agent="claude", timeout=300, config=None, **kwargs):
+        return AgentResult(
+            stdout="",
+            stderr="timed out",
+            returncode=-1,
+            agent=agent,
+            timed_out=True,
+            failure_class="transport_failure",
+        )
+
+    monkeypatch.setattr("genesis.dispatch_runtime.dispatch_agent_supervised", fake_dispatch_agent)
+
+    summary = dispatch_bound_manifest_via_transport(
+        manifest,
+        tmp_path,
+        config={"runtime_backend": "codex_cli"},
+    )
+
+    assert summary["status"] == "ok"
+    assert summary["salvage_mode"] == "transport_failure_preserved_artifact"
+    event_types = [event["event_type"] for event in EventStream.open(tmp_path).all_events()]
+    assert event_types == [
+        "graph_call_opened",
+        "worker_turn_started",
+        "worker_turn_salvaged",
+        "assessed",
+        "proof_passed",
+        "closure_passed",
+        "graph_call_closed",
+        "run_completed",
+    ]
+
+
+def test_auto_dispatch_reuses_preserved_result_without_redispatch(monkeypatch, tmp_path):
+    workspace_bootstrap(tmp_path)
+    manifests_dir = tmp_path / ".ai-workspace" / "fp_manifests"
+    manifests_dir.mkdir(parents=True, exist_ok=True)
+    results_dir = tmp_path / ".ai-workspace" / "fp_results"
+    results_dir.mkdir(parents=True, exist_ok=True)
+    result_path = results_dir / "manifest-reuse.json"
+    result_path.write_text(
+        json.dumps(
+            {
+                "edge": "design→code",
+                "actor": "codex",
+                "assessments": [
+                    {
+                        "evaluator": "code_complete",
+                        "result": "pass",
+                        "evidence": "already assessed",
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    manifest_path = manifests_dir / "manifest-reuse.json"
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "manifest_id": "manifest-reuse",
+                "call_id": "call-reuse",
+                "edge": "design→code",
+                "run_id": "run-reuse",
+                "work_key": "wk-reuse",
+                "workflow_version": "wf-reuse",
+                "graph_function_id": "gf-reuse",
+                "materialization_id": "mat-reuse",
+                "vector_id": "vec-reuse",
+                "job_id": "job-reuse",
+                "prompt": "write code",
+                "result_path": str(result_path),
+                "spec_hash": "spec-reuse",
+                "failing_evaluators": [{"name": "code_complete"}],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    def fail_dispatch(*args, **kwargs):
+        raise AssertionError("redispatch should not occur when a valid preserved result exists")
+
+    monkeypatch.setattr(
+        "genesis.dispatch_runtime.dispatch_bound_manifest_via_supervised_transport",
+        fail_dispatch,
+    )
+
+    summary = auto_dispatch_from_result(
+        {
+            "status": "pending",
+            "blocking_reason": "fp_dispatch",
+            "manifest_id": "manifest-reuse",
+            "run_id": "run-reuse",
+            "call_id": "call-reuse",
+            "edge": "design→code",
+        },
+        tmp_path,
+        config={"runtime_backend": "codex_cli"},
+    )
+
+    assert summary["status"] == "ok"
+    assert summary["salvage_mode"] == "idempotent_reentry"
+
+
+def test_live_run_status_reports_active_edge_and_artifact_state(tmp_path):
+    workspace_bootstrap(tmp_path)
+    manifests_dir = tmp_path / ".ai-workspace" / "fp_manifests"
+    manifests_dir.mkdir(parents=True, exist_ok=True)
+    results_dir = tmp_path / ".ai-workspace" / "fp_results"
+    results_dir.mkdir(parents=True, exist_ok=True)
+    manifest_id = "manifest-status"
+    manifest_path = manifests_dir / f"{manifest_id}.json"
+    result_path = results_dir / f"{manifest_id}.json"
+    result_path.write_text(
+        json.dumps(
+            {
+                "edge": "design→code",
+                "actor": "codex",
+                "assessments": [
+                    {"evaluator": "code_complete", "result": "pass", "evidence": "ok"}
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "manifest_id": manifest_id,
+                "call_id": "call-status",
+                "edge": "design→code",
+                "run_id": "run-status",
+                "result_path": str(result_path),
+                "failing_evaluators": [{"name": "code_complete"}],
+                "resolved_policy": {
+                    "dispatch": {
+                        "ref": "genesis.dispatch_runtime:dispatch_bound_manifest_via_supervised_transport",
+                        "config": {"timeout": 300, "mode": "supervised"},
+                    }
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    stream = EventStream.open(tmp_path)
+    emit(
+        "run_started",
+        {"edge": "design→code"},
+        stream=stream,
+        context=EventContext(run_id="run-status", work_key="wk-status"),
+    )
+    emit(
+        "graph_call_opened",
+        {"call_id": "call-status", "edge": "design→code", "manifest_id": manifest_id},
+        stream=stream,
+        context=EventContext(run_id="run-status", aggregate_type="graph_call", aggregate_id="call-status"),
+    )
+    emit(
+        "worker_turn_started",
+        {"call_id": "call-status", "edge": "design→code", "dispatch_mode": "supervised"},
+        stream=stream,
+        context=EventContext(run_id="run-status", aggregate_type="graph_call", aggregate_id="call-status"),
+    )
+
+    status = project_live_run_status(tmp_path, run_id="run-status")
+
+    assert status["live_state"] == "active"
+    assert status["active_edge"] == "design→code"
+    assert status["active_call_id"] == "call-status"
+    assert status["dispatch_mode"] == "supervised"
+    assert status["result_artifact_valid"] is True
+
+
+def test_dispatch_agent_supervised_pty_observes_terminal_progress_and_artifact(monkeypatch, tmp_path):
+    script_path = tmp_path / "fake_terminal_agent.py"
+    script_path.write_text(
+        "\n".join(
+            [
+                "from pathlib import Path",
+                "import json",
+                "import sys",
+                "import time",
+                "result_path = Path(sys.argv[1])",
+                "print('agent-start', flush=True)",
+                "time.sleep(0.05)",
+                "result_path.write_text(json.dumps({",
+                "    'edge': 'design→code',",
+                "    'actor': 'claude',",
+                "    'assessments': [{'evaluator': 'code_complete', 'result': 'pass', 'evidence': 'ok'}],",
+                "}), encoding='utf-8')",
+                "print('agent-finished', flush=True)",
+                "time.sleep(0.05)",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    result_path = tmp_path / "terminal-result.json"
+    manifest = {
+        "edge": "design→code",
+        "failing_evaluators": [{"name": "code_complete"}],
+    }
+    progress_events: list[str] = []
+
+    def fake_contract(agent, *, config=None, work_folder=None):
+        return AgentCliContract(
+            command=sys.executable,
+            args_template=(str(script_path), "{prompt}"),
+            terminal_mode="pty",
+        )
+
+    monkeypatch.setattr("genesis.transport._resolve_agent_contract", fake_contract)
+
+    result = dispatch_agent_supervised(
+        str(result_path),
+        str(tmp_path),
+        agent="claude",
+        result_path=str(result_path),
+        payload_validator=lambda payload: isinstance(payload, dict),
+        manifest=manifest,
+        progress_callback=lambda data: progress_events.append(str(data.get("event_type"))),
+    )
+
+    assert result.timed_out is False
+    assert result.artifact_observed_live is True
+    assert result.supervision_mode == "supervised_terminal"
+    assert "worker_turn_progress" in progress_events
+    assert "result_artifact_observed" in progress_events
+
+
+def test_dispatch_agent_supervised_pty_ignores_progress_callback_exceptions(monkeypatch, tmp_path):
+    script_path = tmp_path / "fake_terminal_agent_exn.py"
+    script_path.write_text(
+        "\n".join(
+            [
+                "from pathlib import Path",
+                "import json",
+                "import sys",
+                "result_path = Path(sys.argv[1])",
+                "print('agent-start', flush=True)",
+                "result_path.write_text(json.dumps({",
+                "    'edge': 'design→code',",
+                "    'actor': 'claude',",
+                "    'assessments': [{'evaluator': 'code_complete', 'result': 'pass', 'evidence': 'ok'}],",
+                "}), encoding='utf-8')",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    result_path = tmp_path / "terminal-callback-result.json"
+    manifest = {
+        "edge": "design→code",
+        "failing_evaluators": [{"name": "code_complete"}],
+    }
+
+    def fake_contract(agent, *, config=None, work_folder=None):
+        return AgentCliContract(
+            command=sys.executable,
+            args_template=(str(script_path), "{prompt}"),
+            terminal_mode="pty",
+        )
+
+    def bad_callback(data):
+        raise RuntimeError(f"unexpected progress callback payload: {data!r}")
+
+    monkeypatch.setattr("genesis.transport._resolve_agent_contract", fake_contract)
+
+    result = dispatch_agent_supervised(
+        str(result_path),
+        str(tmp_path),
+        agent="claude",
+        result_path=str(result_path),
+        payload_validator=lambda payload: isinstance(payload, dict),
+        manifest=manifest,
+        progress_callback=bad_callback,
+    )
+
+    assert result.timed_out is False
+    assert result.artifact_observed_live is True
+    assert result.supervision_mode == "supervised_terminal"
 
 
 def test_reset_emits_supersession_truth_for_active_run_scope(tmp_path):

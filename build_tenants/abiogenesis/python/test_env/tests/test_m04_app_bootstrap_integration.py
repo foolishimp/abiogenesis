@@ -113,7 +113,14 @@ class TestM04AppBootstrapIntegration:
     def test_call_agent_dispatches_claude_with_capability_grant_and_sanitized_env(self, mock_run, _which, tmp_path):
         mock_run.return_value = MagicMock(returncode=0, stdout="artifact body", stderr="")
 
-        with patch.dict("os.environ", {"CLAUDE_CODE_SSE_PORT": "1234", "PATH": "/usr/bin"}):
+        with patch.dict(
+            "os.environ",
+            {
+                "CLAUDE_CODE_SSE_PORT": "1234",
+                "CLAUDE_CODE_OAUTH_TOKEN": "token-123",
+                "PATH": "/usr/bin",
+            },
+        ):
             result = call_agent("render artifact", str(tmp_path), agent="claude", retries=0)
 
         assert result == "artifact body"
@@ -129,6 +136,7 @@ class TestM04AppBootstrapIntegration:
         assert "bypassPermissions" in args
         assert args[-1] == "render artifact"
         assert "CLAUDE_CODE_SSE_PORT" not in env
+        assert env["CLAUDE_CODE_OAUTH_TOKEN"] == "token-123"
         assert env["PATH"] == "/usr/bin"
 
     @pytest.mark.parametrize(

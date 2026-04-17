@@ -1,14 +1,14 @@
 """
-genesis_sdlc — project spec as a GTL Module
+project_package — project spec as a GTL Module
 
-genesis_sdlc follows the standard SDLC bootstrap graph:
+This package follows the standard SDLC bootstrap graph:
 
     intent → requirements → feature_decomp → design → code ↔ unit_tests → uat_tests
 
 UAT is constitutional: shipping requires sandbox e2e proof, not unit tests alone.
 F_D evaluators must be acyclic — never invoke genesis subcommands from pytest.
 
-genesis_sdlc depends on abiogenesis (the GTL engine) and is built using it.
+The project package depends on abiogenesis (the GTL + ABG engine) and is built using it.
 The engine lives at .genesis/genesis/; run as:
     PYTHONPATH=.genesis python -m genesis <command> --workspace .
 
@@ -39,8 +39,8 @@ bootloader = Context(
 )
 
 this_spec = Context(
-    name="genesis_sdlc_spec",
-    locator="workspace://gtl_spec/packages/genesis_sdlc.py",
+    name="project_package_spec",
+    locator="workspace://gtl_spec/packages/project_package.py",
     digest="sha256:" + "0" * 64,   # PENDING — self-referential
 )
 
@@ -163,7 +163,7 @@ eval_uat_report = Evaluator(
 eval_uat_fp = Evaluator(
     "uat_e2e_passed", F_P,
     "Install into a fresh sandbox: "
-    "python build_tenants/<family>/<variant>/src/genesis_sdlc/install.py --target /tmp/uat_sandbox_{timestamp} --project-slug {slug}. "
+    "python build_tenants/abiogenesis/python/code/gen-install.py --target /tmp/uat_sandbox_{timestamp} --project-slug {slug}. "
     "Then run e2e tests in that sandbox: "
     "PYTHONPATH=.genesis python -m pytest build_tenants/<family>/<variant>/tests/ -m e2e -q. "
     "Write a structured report to .ai-workspace/uat/sandbox_report.json: "

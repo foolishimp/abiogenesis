@@ -21,6 +21,7 @@ RUN_STATES = frozenset({
     "queued", "started", "dispatched", "pending",
     "yielded", "completed", "failed", "timed_out", "superseded",
 })
+ACTIVE_RUN_STATES = frozenset({"queued", "pending", "started", "dispatched", "yielded"})
 
 # Canonical failure classifications projected from the event stream.
 FAILURE_CLASSES = frozenset({
@@ -266,7 +267,7 @@ def find_pending_run(
     work_key: str | None = None,
 ) -> RunState | None:
     """
-    Find an active (queued/pending/started/dispatched) run for this (edge, work_key).
+    Find an active (queued/pending/started/dispatched/yielded) run for this (edge, work_key).
 
     At most one run may remain active per (work_key, edge) after replay.
     """
@@ -290,7 +291,7 @@ def find_pending_run(
 
     for rid in reversed(candidate_run_ids):
         rs = run_state(all_events, rid)
-        if rs is not None and rs.state in ("queued", "pending", "started", "dispatched"):
+        if rs is not None and rs.state in ACTIVE_RUN_STATES:
             return rs
 
     return None

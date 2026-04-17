@@ -186,7 +186,7 @@ class TestM01GtlCoreIntegration:
             code,
             declarations={
                 "dispatch": {
-                    "ref": "genesis.dispatch_runtime:dispatch_bound_manifest_via_transport",
+                    "ref": "genesis.dispatch_runtime:dispatch_bound_manifest_via_supervised_transport",
                     "config": {},
                 }
             },
@@ -244,7 +244,7 @@ class TestM01GtlCoreIntegration:
         )
         assert isinstance(vector.declarations, Attrs)
         assert vector.declarations["dispatch"]["ref"] == (
-            "genesis.dispatch_runtime:dispatch_bound_manifest_via_transport"
+            "genesis.dispatch_runtime:dispatch_bound_manifest_via_supervised_transport"
         )
         assert isinstance(constructor.policy_hooks, Attrs)
         assert constructor.policy_hooks["policy_bundle"]["ref"] == (

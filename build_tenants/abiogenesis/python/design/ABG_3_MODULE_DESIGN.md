@@ -119,7 +119,7 @@ flowchart LR
 | Default regime progression | Encoded by ABG3 policy/default law in `genesis.convergence` | Defaults are explicit, configured, and replay-visible rather than hidden constants |
 | F_P dispatch seam | `interpret._realize_iteration()` emits the dispatch fact and stops | Runtime truth remains in the engine at the critical seam |
 | Auto orchestration | `cli_adapter._run_start_auto()` calls engine-owned dispatch runtime and optional CLI proxy approval only | CLI/app bootstrap no longer defines runtime law |
-| Result closure | `result_path` is ingested by engine-owned `result_ingest`; `_assess_result_cmd()` is a thin wrapper | Assessment/proof closure is no longer split across engine and app edge |
+| Result closure | `result_path` is observed as a live writeback surface and ingested by engine-owned `result_ingest`; `_assess_result_cmd()` is a thin wrapper | Assessment/proof closure is no longer split across engine and app edge, and preserved valid artifacts can be recovered lawfully |
 | External policy | `Worker.is_eligible()` preserves `authority_ref` but does not enforce policy hooks | GTL hook surfaces exist, but ABG does not yet consume them deeply |
 
 ---
