@@ -28,6 +28,11 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable
 
+from .result_ingest import (
+    fulfillment_assessment_identity_issues,
+    normalize_fp_result_payload,
+)
+
 
 AGENT_CALL_TIMEOUT = 300
 AGENT_RETRY_COUNT = 2
@@ -98,8 +103,8 @@ class ArtifactObservation:
             self.mtime_ns,
             tuple(
                 sorted(
-                    assessment.get("evaluator", "")
-                    for assessment in self.payload.get("assessments", [])
+                    assessment.get("id", "")
+                    for assessment in self.payload.get("fulfillment_assessments", [])
                 )
             )
             if isinstance(self.payload, Mapping)
@@ -198,6 +203,7 @@ _DEFAULT_AGENT_CONTRACTS: dict[str, AgentCliContract] = {
         command="codex",
         args_template=(
             "exec",
+            "--ephemeral",
             "--full-auto",
             "--skip-git-repo-check",
             "-o",
@@ -515,6 +521,17 @@ def inspect_result_artifact(
             size=stat.st_size,
             mtime_ns=stat.st_mtime_ns,
         )
+    try:
+        payload_map = normalize_fp_result_payload(payload_map)
+    except ValueError as exc:
+        return ArtifactObservation(
+            status="invalid_payload",
+            path=str(path),
+            failure_class="contract_failure",
+            detail=str(exc),
+            size=stat.st_size,
+            mtime_ns=stat.st_mtime_ns,
+        )
 
     manifest_map = dict(manifest) if isinstance(manifest, Mapping) else {}
     expected_edge = manifest_map.get("edge")
@@ -533,33 +550,13 @@ def inspect_result_artifact(
                 mtime_ns=stat.st_mtime_ns,
             )
 
-    expected_evaluators: list[str] = []
-    raw_expected = manifest_map.get("failing_evaluators")
-    if isinstance(raw_expected, list):
-        for entry in raw_expected:
-            if isinstance(entry, str) and entry:
-                expected_evaluators.append(entry)
-            elif isinstance(entry, Mapping):
-                name = entry.get("name")
-                if isinstance(name, str) and name:
-                    expected_evaluators.append(name)
-
-    assessments = payload_map.get("assessments")
-    observed_evaluators = set()
-    if isinstance(assessments, list):
-        for assessment in assessments:
-            if isinstance(assessment, Mapping):
-                evaluator = assessment.get("evaluator")
-                if isinstance(evaluator, str) and evaluator:
-                    observed_evaluators.add(evaluator)
-
-    missing = sorted(set(expected_evaluators) - observed_evaluators)
-    if missing:
+    identity_issues = fulfillment_assessment_identity_issues(payload_map, manifest_map)
+    if identity_issues:
         return ArtifactObservation(
-            status="missing_evaluators",
+            status="fulfillment_identity_mismatch",
             path=str(path),
             failure_class="contract_failure",
-            detail=f"missing declared evaluator results: {', '.join(missing)}",
+            detail="; ".join(identity_issues),
             size=stat.st_size,
             mtime_ns=stat.st_mtime_ns,
         )
@@ -1467,4 +1464,17 @@ def _sanitized_env(
         for key in list(env):
             if key.startswith(prefix):
                 del env[key]
+    if agent == "codex" and not env.get("CODEX_HOME"):
+        codex_home = Path(tempfile.gettempdir()) / "abg_codex_home"
+        codex_home.mkdir(parents=True, exist_ok=True)
+        source_home = Path.home() / ".codex"
+        for filename in ("auth.json", "config.toml", "installation_id"):
+            source = source_home / filename
+            target = codex_home / filename
+            if source.exists() and not target.exists():
+                try:
+                    shutil.copy2(source, target)
+                except OSError:
+                    pass
+        env["CODEX_HOME"] = str(codex_home)
     return env
