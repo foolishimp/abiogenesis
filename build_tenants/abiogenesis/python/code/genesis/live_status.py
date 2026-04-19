@@ -108,6 +108,22 @@ def _latest_manifest_id(
     return None
 
 
+def _latest_proof_identity_event(
+    events: list[dict[str, Any]],
+    *,
+    run_id: str,
+    call_id: str | None,
+) -> dict[str, Any] | None:
+    for event in reversed(events):
+        if event.get("event_type") not in {"fp_dispatched", "proof_failed", "proof_passed"}:
+            continue
+        if _event_value(event, "run_id") == run_id:
+            return event
+        if call_id is not None and _event_value(event, "call_id") == call_id:
+            return event
+    return None
+
+
 def _read_manifest(workspace: Path, manifest_id: str | None) -> dict[str, Any]:
     if not isinstance(manifest_id, str) or not manifest_id:
         return {}
@@ -199,6 +215,11 @@ def project_live_run_status(
         run_id=resolved_run_id,
         call_id=call_id,
     )
+    proof_identity_event = _latest_proof_identity_event(
+        events,
+        run_id=resolved_run_id,
+        call_id=call_id,
+    )
     manifest = _read_manifest(workspace, manifest_id if isinstance(manifest_id, str) else None)
     latest_ledger_event = latest_fp_assessed_event(
         events,
@@ -250,9 +271,16 @@ def project_live_run_status(
         workspace,
         edge=edge if isinstance(edge, str) else None,
         work_key=run_projection.get("work_key") if isinstance(run_projection.get("work_key"), str) else None,
-        spec_hash=manifest.get("spec_hash") if isinstance(manifest.get("spec_hash"), str) else None,
-        workflow_version=manifest.get("workflow_version") if isinstance(manifest.get("workflow_version"), str) else None,
-        manifest_id=manifest_id if isinstance(manifest_id, str) else None,
+        spec_hash=(
+            _event_value(proof_identity_event, "spec_hash")
+            if isinstance(proof_identity_event, Mapping)
+            else None
+        ),
+        workflow_version=(
+            _event_value(proof_identity_event, "workflow_version")
+            if isinstance(proof_identity_event, Mapping)
+            else None
+        ),
         runtime_config=runtime_config,
         all_events=events,
     )

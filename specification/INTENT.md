@@ -24,7 +24,7 @@ A clean, GTL-first implementation of abiogenesis as the reference GTL + ABG engi
 1. Defines the SDLC as a typed workflow graph (6 nodes, 5 vectors) in a GTL Module
 2. Implements the convergence engine: `iterate()` drives candidates toward stability via three evaluator types (F_D deterministic, F_P agent, F_H human)
 3. Grounds runtime truth in Event Calculus over authoritative events, runtime aggregates (`Run`, `GraphCall`, `Frame`, `Continuation`), and replay-derived fluents and projections
-4. Provides commands (`gen-start`, `gen-iterate`, `gen-gaps`) as named compositions over the engine
+4. Provides public named operator compositions `gen-start` and `gen-gaps` over the engine, with `gen-start` expressed through `scope + target + until` and lower-level traversal primitives such as `iterate()` remaining below that public operator surface
 5. Enforces traceability from REQ keys through code to tests via tag enforcement
 6. Binds convergence events to workflow provenance (version, spec_hash) to prevent stale assessment reuse
 7. Is built by the abiogenesis engine using itself as bootstrap compiler (the GCC/C analogy)

@@ -8,17 +8,22 @@ Parser construction, command wiring, traceability checks.
 Named cli_adapter to avoid collision with stdlib cli modules.
 
 Usage:
-  python -m genesis start  [--auto] [--human-proxy] [--feature F] [--edge E] [--workspace W]
-  python -m genesis iterate [--feature F] [--edge E] [--workspace W]
-  python -m genesis gaps    [--feature F] [--workspace W]
-  python -m genesis run-status [--run-id RUN] [--workspace W]
+  python -m genesis start --scope SCOPE --target next --until MODE [--fh-mode MODE] [--root-mode MODE] [--workspace W]
+  python -m genesis gaps  --scope SCOPE [--workspace W]
   python -m genesis assess-result --result PATH [--workspace W]
   python -m genesis emit-event --type TYPE [--data JSON] [--workspace W]
   python -m genesis check-tags --type implements|validates --path PATH
 
   gen start ...   (via project.scripts entry point)
 
-Exit codes for start/iterate:
+This adapter binds the public named operator compositions:
+  start → gen-start
+  gaps  → gen-gaps
+
+Lower-level traversal and status commands may still exist as internal or
+diagnostic hooks, but they are not part of the public human workflow.
+
+Exit codes for advancement / traversal commands:
   0 — converged or nothing_to_do
   1 — error
   2 — fp_dispatched (F_P actor required; fp_manifest_path in output)
@@ -38,36 +43,62 @@ from pathlib import Path
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="genesis",
-        description="Genesis engine — GTL-native runtime",
+        description="Genesis engine — GTL-native runtime. CLI bindings for the public named compositions gen-start and gen-gaps.",
+        usage="genesis <command> [...]",
     )
-    sub = parser.add_subparsers(dest="command", required=True)
+    sub = parser.add_subparsers(dest="command", required=True, metavar="command")
 
     # ── gen start ────────────────────────────────────────────────────────────
-    p_start = sub.add_parser("start", help="Derive state → bind → iterate")
-    p_start.add_argument("--auto", action="store_true",
-                         help="Loop until converged or blocked by F_H gate")
-    p_start.add_argument("--human-proxy", action="store_true",
-                         help="Allow F_H gates to be evaluated by proxy (requires --auto)")
-    p_start.add_argument("--supervised-root", action="store_true",
-                         help="Run start --auto under root supervision with live recovery/status projection")
-    p_start.add_argument("--feature", metavar="F",
-                         help="Scope to a specific feature vector ID")
-    p_start.add_argument("--edge", metavar="E",
-                         help="Override edge selection")
+    p_start = sub.add_parser("start", help="Public advancement command")
+    p_start.add_argument(
+        "--scope",
+        required=True,
+        metavar="SCOPE",
+        help="Traversal scope selector: workspace or work_key:<id>",
+    )
+    p_start.add_argument(
+        "--target",
+        required=True,
+        metavar="TARGET",
+        help="Public target selector: next, graph_function:<published_handle>, or asset:<published_handle> when the runtime publishes an operator asset registry",
+    )
+    p_start.add_argument(
+        "--until",
+        required=True,
+        choices=["first_traversal", "blocked", "converged"],
+        help="Canonical stop contract for gen-start",
+    )
+    p_start.add_argument(
+        "--fh-mode",
+        default="direct",
+        choices=["direct", "human-proxy"],
+        help="Binding for public fh_mode control family (direct|human-proxy); lawful only with --until converged",
+    )
+    p_start.add_argument(
+        "--root-mode",
+        default="direct",
+        choices=["direct", "supervised"],
+        help="Binding for public root_mode control family (direct|supervised); lawful only with --until converged",
+    )
     p_start.add_argument("--workspace", metavar="W", default=".",
                          help="Workspace root (default: cwd)")
 
     # ── gen iterate ───────────────────────────────────────────────────────────
-    p_iter = sub.add_parser("iterate", help="Bind one Job → iterate exactly once")
-    p_iter.add_argument("--feature", metavar="F", help="Feature vector ID")
+    p_iter = sub.add_parser(
+        "iterate",
+        help="Internal traversal primitive",
+        description="Internal traversal primitive. Not part of the public operator workflow.",
+    )
+    p_iter.add_argument("--scope", metavar="SCOPE", default="workspace",
+                        help="Diagnostic scope selector: workspace or work_key:<id>")
     p_iter.add_argument("--edge", metavar="E", help="Edge name")
     p_iter.add_argument("--workspace", metavar="W", default=".",
                         help="Workspace root (default: cwd)")
 
     # ── gen gaps ──────────────────────────────────────────────────────────────
-    p_gaps = sub.add_parser("gaps", help="bind_fd over scope → delta summary")
-    p_gaps.add_argument("--feature", metavar="F",
-                        help="Scope to a specific feature vector ID")
+    p_gaps = sub.add_parser("gaps", help="Public observation command")
+    p_gaps.add_argument("--scope", required=True, metavar="SCOPE",
+                        help="Observation scope selector: workspace or work_key:<id>")
     p_gaps.add_argument("--workspace", metavar="W", default=".",
                         help="Workspace root (default: cwd)")
 
@@ -77,7 +108,11 @@ def _build_parser() -> argparse.ArgumentParser:
                        help="Module to load (overrides genesis.yml)")
 
     # ── gen run-status ───────────────────────────────────────────────────────
-    p_status = sub.add_parser("run-status", help="Project live operator-grade run status")
+    p_status = sub.add_parser(
+        "run-status",
+        help="Diagnostic run-status projection",
+        description="Diagnostic run-status projection. Not part of the public operator workflow.",
+    )
     p_status.add_argument("--run-id", metavar="RUN",
                           help="Specific run id to inspect (defaults to latest run in workspace)")
     p_status.add_argument("--workspace", metavar="W", default=".",
@@ -117,6 +152,11 @@ def _build_parser() -> argparse.ArgumentParser:
     p_cov.add_argument("--features", required=True,
                        help="Directory containing feature vector YAML files")
 
+    hidden_top_level = {"iterate", "run-status"}
+    sub._choices_actions = [
+        action for action in sub._choices_actions if getattr(action, "dest", None) not in hidden_top_level
+    ]
+
     # ── check-impl-coverage ───────────────────────────────────────────────────
     p_impl = sub.add_parser("check-impl-coverage",
                             help="Verify every REQ-* key appears in a # Implements: tag")
@@ -142,6 +182,56 @@ def _build_parser() -> argparse.ArgumentParser:
                         help="Path to bootloader markdown file (relative to workspace)")
 
     return parser
+
+
+def _parse_scope_selector(raw: str):
+    from .services import ScopeSelector
+
+    value = (raw or "").strip()
+    if value == "workspace":
+        return ScopeSelector(kind="workspace")
+    prefix = "work_key:"
+    if value.startswith(prefix):
+        work_key = value[len(prefix):].strip()
+        if work_key:
+            return ScopeSelector(kind="work_key", work_key=work_key)
+    raise ValueError("scope must be 'workspace' or 'work_key:<id>'")
+
+
+def _project_stop_predicate(result: Mapping[str, object]) -> str | None:
+    value = result.get("stop_predicate")
+    if isinstance(value, str):
+        return value
+    blocking_reason = result.get("blocking_reason")
+    if blocking_reason == "fp_dispatch":
+        return "dispatch_required"
+    if blocking_reason == "fh_gate":
+        return "human_gate_required"
+    if blocking_reason == "fd_gap":
+        return "gap_stop"
+    if result.get("stopped_by") == "yield":
+        return "yielded"
+    status = result.get("status")
+    if status == "converged":
+        return "converged"
+    if status in {"iterated", "in_progress", "queued", "needs_selection", "dispatched"}:
+        return "traversal_applied"
+    if status == "nothing_to_do":
+        return "gap_stop"
+    return None
+
+
+def _stopped_by_for_stop_predicate(stop_predicate: str | None) -> str | None:
+    mapping = {
+        "dispatch_required": "fp_dispatch",
+        "human_gate_required": "fh_gate",
+        "gap_stop": "fd_gap",
+        "yielded": "yield",
+        "proof_hold": "proof_hold",
+        "converged": None,
+        "traversal_applied": None,
+    }
+    return mapping.get(stop_predicate)
 
 
 def _check_tags(tag_type: str, scan_path: str) -> int:
@@ -644,46 +734,79 @@ def _emit_human_proxy_approval(workspace: Path, edge: str) -> None:
         raise RuntimeError(f"human proxy approval failed for edge {edge!r}")
 
 
-def _run_start_auto(
-    scope,
+def _run_start_until_blocked(
+    intent,
     stream,
     *,
-    workspace: Path,
-    config: dict | None,
-    human_proxy: bool,
+    max_iterations: int = 50,
 ) -> dict:
-    """CLI-side auto loop with engine-owned F_P dispatch and CLI-owned F_H proxy handling."""
-    from .dispatch_runtime import auto_dispatch_from_result
-    from .proof_hold import project_proof_hold
     from .services import gen_start
 
-    max_auto = 50
     result: dict = {}
 
-    for _ in range(max_auto):
-        result = gen_start(scope, stream, auto=False)
-        result["auto"] = True
-        if human_proxy:
-            result["human_proxy"] = True
+    for _ in range(max_iterations):
+        result = gen_start(intent, stream)
 
         if result["status"] in ("converged", "nothing_to_do"):
             return result
 
-        blocking_reason = result.get("blocking_reason")
-        if blocking_reason == "fp_dispatch":
+        stop_predicate = _project_stop_predicate(result)
+        if stop_predicate == "traversal_applied":
+            continue
+
+        stopped_by = _stopped_by_for_stop_predicate(stop_predicate)
+        if stopped_by is not None:
+            result["stopped_by"] = stopped_by
+        return result
+
+    result["stopped_by"] = "max_iterations"
+    return result
+
+
+def _run_start_until_converged(
+    intent,
+    stream,
+    *,
+    workspace: Path,
+    config: dict | None,
+    fh_mode: str,
+) -> dict:
+    """Control-plane convergence loop over the canonical start request."""
+    from .dispatch_runtime import auto_dispatch_from_result
+    from .proof_hold import project_proof_hold
+    from .services import gen_start
+
+    max_iterations = 50
+    result: dict = {}
+
+    for _ in range(max_iterations):
+        result = gen_start(intent, stream)
+        result["fh_mode"] = fh_mode
+
+        if result["status"] in ("converged", "nothing_to_do"):
+            return result
+
+        stop_predicate = _project_stop_predicate(result)
+        if stop_predicate == "traversal_applied":
+            continue
+        if stop_predicate == "dispatch_required":
             proof_hold = project_proof_hold(
                 workspace,
                 edge=result.get("edge") if isinstance(result.get("edge"), str) else None,
                 work_key=result.get("work_key") if isinstance(result.get("work_key"), str) else None,
-                spec_hash=None,
-                workflow_version=None,
-                manifest_id=result.get("manifest_id") if isinstance(result.get("manifest_id"), str) else None,
+                spec_hash=result.get("spec_hash") if isinstance(result.get("spec_hash"), str) else None,
+                workflow_version=(
+                    result.get("workflow_version")
+                    if isinstance(result.get("workflow_version"), str)
+                    else None
+                ),
                 runtime_config=config,
             )
             if proof_hold.get("held"):
                 result["status"] = "pending"
                 result["proof_hold"] = proof_hold
                 result["proof_hold_active"] = True
+                result["stop_predicate"] = "proof_hold"
                 result["stopped_by"] = "proof_hold"
                 return result
             dispatch_result = auto_dispatch_from_result(
@@ -693,15 +816,14 @@ def _run_start_auto(
             )
             if dispatch_result.get("status") == "ok":
                 continue
+            result.update(dispatch_result)
             if dispatch_result.get("status") == "yield":
-                result.update(dispatch_result)
+                result["stop_predicate"] = "yielded"
                 result["stopped_by"] = dispatch_result.get("stopped_by", "yield")
                 return result
-            result.update(dispatch_result)
             result["stopped_by"] = dispatch_result.get("stopped_by", "fp_runtime_failure")
             return result
-
-        if blocking_reason == "fh_gate" and human_proxy:
+        if stop_predicate == "human_gate_required" and fh_mode == "human-proxy":
             edge = str(result.get("edge") or result.get("fh_gate", {}).get("edge") or "").strip()
             if not edge:
                 result["stopped_by"] = "fh_gate"
@@ -710,18 +832,12 @@ def _run_start_auto(
             _emit_human_proxy_approval(workspace, edge)
             continue
 
-        if result["status"] == "pending":
-            if blocking_reason:
-                result["stopped_by"] = blocking_reason
-            return result
+        stopped_by = _stopped_by_for_stop_predicate(stop_predicate)
+        if stopped_by is not None:
+            result["stopped_by"] = stopped_by
+        return result
 
-        if blocking_reason is not None:
-            result["stopped_by"] = blocking_reason
-            return result
-
-    result["auto"] = True
-    if human_proxy:
-        result["human_proxy"] = True
+    result["fh_mode"] = fh_mode
     result["stopped_by"] = "max_iterations"
     return result
 
@@ -782,22 +898,22 @@ def _attach_pending_recovery_contract(result: Mapping[str, object], workspace: P
     return enriched
 
 
-def _run_start_auto_supervised(
-    scope,
+def _run_start_until_converged_supervised(
+    intent,
     stream,
     *,
     workspace: Path,
     config: dict | None,
-    human_proxy: bool,
+    fh_mode: str,
 ) -> dict:
     from .live_status import project_live_run_status
 
-    result = _run_start_auto(
-        scope,
+    result = _run_start_until_converged(
+        intent,
         stream,
         workspace=workspace,
         config=config,
-        human_proxy=human_proxy,
+        fh_mode=fh_mode,
     )
     result["root_supervision"] = True
     result["live_status"] = project_live_run_status(workspace, runtime_config=config)
@@ -808,12 +924,12 @@ def _run_start_auto_supervised(
         and isinstance(result.get("live_status"), Mapping)
         and result["live_status"].get("result_artifact_valid") is True
     ):
-        resumed = _run_start_auto(
-            scope,
+        resumed = _run_start_until_converged(
+            intent,
             stream,
             workspace=workspace,
             config=config,
-            human_proxy=human_proxy,
+            fh_mode=fh_mode,
         )
         resumed["root_supervision"] = True
         resumed["resumed_after_transport_failure"] = True
@@ -897,12 +1013,6 @@ def main() -> None:
         workspace = Path(args.workspace).resolve()
         sys.exit(_run_status_cmd(workspace, getattr(args, "run_id", None)))
 
-    # --human-proxy requires --auto
-    if getattr(args, "human_proxy", False) and not getattr(args, "auto", False):
-        print(json.dumps({"status": "error",
-                          "reason": "--human-proxy requires --auto"}))
-        sys.exit(1)
-
     # All other commands need the engine
     workspace = Path(getattr(args, "workspace", ".")).resolve()
 
@@ -919,7 +1029,15 @@ def main() -> None:
 
     from .install import workspace_bootstrap
     from .provenance import WorkflowVersionError
-    from .services import Scope, gen_gaps, gen_iterate, gen_start
+    from .services import (
+        Scope,
+        ScopeSelector,
+        StartIntent,
+        gen_gaps,
+        gen_iterate,
+        gen_start,
+        resolve_start_target,
+    )
 
     try:
         stream = workspace_bootstrap(workspace)
@@ -930,12 +1048,20 @@ def main() -> None:
     module = _resolve_module(args, workspace)
     configured_worker = _resolve_configured_worker(_config, workspace)
 
+    scope_selector = ScopeSelector(kind="workspace")
+    if args.command in {"start", "iterate", "gaps"}:
+        try:
+            scope_selector = _parse_scope_selector(getattr(args, "scope", "workspace"))
+        except ValueError as exc:
+            print(json.dumps({"status": "error", "reason": str(exc)}))
+            sys.exit(1)
+
     try:
         scope = Scope(
             module=module,
             workspace_root=workspace,
-            work_key_filter=getattr(args, "feature", None),
-            edge_filter=getattr(args, "edge", None),
+            selector=scope_selector,
+            diagnostic_edge_override=getattr(args, "edge", None),
             runtime_identity=_resolve_runtime_identity(_config, configured_worker),
             worker=configured_worker,
             active_workflow_path=_config.get("active_workflow"),
@@ -952,28 +1078,61 @@ def main() -> None:
     init_snapshot(snapshot_id)
 
     if args.command == "start":
-        human_proxy = getattr(args, "human_proxy", False)
-        if getattr(args, "auto", False):
-            if getattr(args, "supervised_root", False):
-                result = _run_start_auto_supervised(
-                    scope,
+        try:
+            resolved_target = resolve_start_target(
+                module,
+                args.target,
+                workspace_root=workspace,
+                runtime_config=_config,
+            )
+        except ValueError as exc:
+            print(json.dumps({"status": "error", "reason": str(exc)}))
+            sys.exit(1)
+        intent = StartIntent(
+            scope=scope,
+            target=resolved_target,
+            until=args.until,
+        )
+        fh_mode = args.fh_mode
+        root_mode = args.root_mode
+        if intent.until != "converged" and fh_mode != "direct":
+            print(json.dumps({
+                "status": "error",
+                "reason": "--fh-mode is only lawful when --until converged",
+            }))
+            sys.exit(1)
+        if intent.until != "converged" and root_mode != "direct":
+            print(json.dumps({
+                "status": "error",
+                "reason": "--root-mode is only lawful when --until converged",
+            }))
+            sys.exit(1)
+
+        if intent.until == "converged":
+            if root_mode == "supervised":
+                result = _run_start_until_converged_supervised(
+                    intent,
                     stream,
                     workspace=workspace,
                     config=_config,
-                    human_proxy=human_proxy,
+                    fh_mode=fh_mode,
                 )
             else:
-                result = _run_start_auto(
-                    scope,
+                result = _run_start_until_converged(
+                    intent,
                     stream,
                     workspace=workspace,
                     config=_config,
-                    human_proxy=human_proxy,
+                    fh_mode=fh_mode,
                 )
+            result["root_mode"] = root_mode
         else:
-            result = gen_start(scope, stream, auto=False)
-            if human_proxy:
-                result["human_proxy"] = True
+            if intent.until == "blocked":
+                result = _run_start_until_blocked(intent, stream)
+            else:
+                result = gen_start(intent, stream)
+            result["root_mode"] = root_mode
+            result["fh_mode"] = fh_mode
     elif args.command == "iterate":
         result = gen_iterate(scope, stream)
     elif args.command == "gaps":

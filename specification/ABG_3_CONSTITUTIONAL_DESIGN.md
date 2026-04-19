@@ -184,7 +184,7 @@ capability for long-running constructive work.
 That supervised capability remains automated runtime truth. It is not ordinary
 `F_H`.
 
-ABG may also publish root-level run supervision over `start --auto` so
+ABG may also publish root-level run supervision around `gen-start` so
 operators can recover, resume, and inspect live state without reinterpreting
 raw event logs or private controller memory.
 

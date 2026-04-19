@@ -1,26 +1,36 @@
-# B-018 `start --auto` Needs Persisted Proof-Hold Policy Over Proof-Failed Identities
+# B-018 `gen-start` Needs Persisted Proof-Hold Policy Over Proof-Failed Identities
 
 - id: B-018
-- title: Publish product-layer proof-hold truth for repeated proof failure on one work identity so `start --auto`, `gaps`, and `run-status` stop telling different stories
+- title: Publish product-layer proof-hold truth for repeated proof failure on one work identity so `gen-start`, `gen-gaps`, and live run status stop telling different stories
 - type: bug
-- status: backlog
+- status: completed
 - goal: scheduler-operability
-- change_intent: Treat repeated proof failure as a replay-derived product-layer control-plane projection over canonical `proof_failed` and explicit control events, governed by one resolved hold-policy source, so one work identity can enter a held state that survives process restart and is consumed consistently by `start --auto`, `gaps`, and `run-status` without becoming a rival ABG run lifecycle.
+- change_intent: Treat repeated proof failure as a replay-derived product-layer control-plane projection over canonical `proof_failed` and explicit control events, governed by one resolved hold-policy source, so one work identity can enter a held state that survives process restart and is consumed consistently by `gen-start`, `gen-gaps`, and live run status without becoming a rival ABG run lifecycle.
 - change_class: requirement_reprice
 - re_entry_point: requirements
 - priority: high
-- intake_source: `data_mapper.test35` forensic run 2026-04-19; `derive_test_run_archive_surface` reached 7 proof failures under `start --auto` with no held state or operator-visible stop truth
+- intake_source: `data_mapper.test35` forensic run 2026-04-19; `derive_test_run_archive_surface` reached 7 proof failures under repeated advancement control with no held state or operator-visible stop truth
 - dependencies: none
-- affected_boundary: product policy requirements, CLI auto loop in `cli_adapter.py`, run/control-plane projections, operator override semantics
+- affected_boundary: product policy requirements, `gen-start` control modes in `cli_adapter.py`, run/control-plane projections, operator override semantics
 - triaged_at: 2026-04-19
 - created_at: 2026-04-19
+- activated_at: 2026-04-19
+- completed_at: 2026-04-19
 - updated_at: 2026-04-19
+- authoritative_contract: replay-derived product-layer `proof_hold` projection keyed by `edge + work_key + spec_hash + workflow_version`, consumed consistently by `gen-start`, `gen-gaps`, and live run status
+- superseded_surface: loop-local retry behavior, controller-local proof-failure memory, and pending-work stories that lack durable held-state truth
+- closure_law: one work identity becomes held only by replay over canonical `proof_failed` / `proof_passed` / scoped `reset` events under one resolved hold policy, and every consumer reports that same held truth
+- producer_set: `result_ingest.py`, `fulfillment_followups.py`, `events.py` scoped `reset`, `proof_hold.py`
+- consumer_set: `cli_adapter.py`, `interpret.py`, `live_status.py`
+- derived_projections: CLI held-stop payloads, `gen-gaps` held explanations, live run-status held projection
+- old_path_classification: loop-local retry counters=`remove`; controller-local hold memory=`remove`; scoped `reset` clear path=`re-authorize`
 
 ## Context
 
-`start --auto` is product-layer control-plane behavior, not ABG interpreter law.
+`gen-start` control modes are product-layer control-plane behavior, not ABG
+interpreter law.
 
-The current auto loop already has a global iteration ceiling, but it has no
+The current convergence control already has a global iteration ceiling, but it has no
 authoritative hold policy for repeated proof failure on one work identity.
 
 In `data_mapper.test35`, `derive_test_run_archive_surface` produced 7
@@ -35,8 +45,8 @@ control-plane story instead of becoming one operator-facing state.
 
 ## Problem Statement
 
-`start --auto` currently treats repeated `proof_failed` lifecycle on one work
-identity as ordinary pending work. That is too weak.
+`gen-start` convergence control currently treats repeated `proof_failed`
+lifecycle on one work identity as ordinary pending work. That is too weak.
 
 The missing truth is not a new interpreter lifecycle. It is a product-layer
 control-plane projection derived from canonical ABG events plus explicit
@@ -57,12 +67,11 @@ Without that state:
    resolved policy must govern at minimum:
    - failure threshold
    - whether hold is enabled
-   - whether explicit operator clear is allowed
    The source of truth is product policy. If runtime config or per-edge policy
    later specialize it, they must resolve into that one product-consumed policy
    surface rather than becoming CLI-local or controller-local truth. The
    threshold `N` is therefore read from one resolved product-policy surface,
-   not inferred ad hoc by the auto loop
+   not inferred ad hoc by the control loop
 3. Key the held identity on the same current-truth dimensions already used for
    published fulfillment state:
    - `edge`
@@ -85,10 +94,10 @@ Without that state:
    - `reason`
    - `work_key` when scope is `work_key` or `edge`
    - `edge` when scope is `edge`
-7. Keep canonical run truth unchanged. `run-status` may report hold, but
+7. Keep canonical run truth unchanged. Live run status may report hold, but
    `proof_hold` must project alongside run truth rather than overwrite the ABG
    run algebra
-8. Make `start --auto`, `gaps`, and `run-status` consume that same held truth
+8. Make `gen-start`, `gen-gaps`, and live run status consume that same held truth
 9. Keep yielded handoff separate. `yielded` remains runtime-owned handoff truth,
    not proof-hold
 
@@ -98,9 +107,9 @@ Without that state:
   state that survives process restart
 - N is read from one resolved product-layer hold policy, not guessed by the
   CLI loop
-- `start --auto` does not redispatch a held identity unless a lawful clear or
+- `gen-start` does not redispatch a held identity unless a lawful clear or
   override path occurs
-- `gaps` and `run-status` project the same held truth
+- `gen-gaps` and live run status project the same held truth
 - the held truth is replay-derived from canonical events and does not become a
   rival mutable run-state store
 - the held state is cleared only by proof success, identity supersession, or

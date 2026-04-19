@@ -3,7 +3,7 @@
 - id: T-007
 - title: Govern core interface migrations with an inside-out no-bridge protocol
 - type: feature
-- status: active
+- status: completed
 - goal: core-interface-migration-governance
 - change_intent: Standardize ABIogenesis core interface refactors under an inside-out migration protocol so substrate changes migrate all producers, consumers, projections, and proof lanes to one authoritative contract before closure.
 - change_class: design_reframe
@@ -13,7 +13,7 @@
 - affected_boundary: all core ABG interface families including fulfillment truth, admission truth, convergence truth, identity foundations, resolver contracts, and IoC hook seams
 - triaged_at: 2026-04-18
 - created_at: 2026-04-18
-- updated_at: 2026-04-18
+- updated_at: 2026-04-19
 
 ## Context
 
@@ -191,3 +191,15 @@ Related backlog tickets should also follow this protocol when activated:
   - full producer/consumer/projection audit
   - deletion of legacy authority
   - proof on the migrated model only
+
+## Closure
+
+Closed on 2026-04-19.
+
+The governing inside-out migration law now lives in shared
+`SPEC_METHOD.md`, and the active ABIogenesis wave carries its bounded
+enforcement in `specification/GOALS.md`.
+
+`T-007` no longer carries unique project-local executable work. Leaving it in
+`active` would duplicate shared method law and blur constraint surfaces with
+implementation surfaces.

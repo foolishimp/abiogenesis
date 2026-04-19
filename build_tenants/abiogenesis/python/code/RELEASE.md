@@ -4,7 +4,7 @@
 
 | Artifact | Source | Derived (do not edit directly) |
 |----------|--------|-------------------------------|
-| gen-start, gen-gaps, gen-status | `build_tenants/abiogenesis/python/.claude-plugin/plugins/genesis/commands/` | `.claude/commands/` |
+| gen-start, gen-gaps | `build_tenants/abiogenesis/python/.claude-plugin/plugins/genesis/commands/` | `.claude/commands/` |
 | gen-install.py | `build_tenants/abiogenesis/python/code/gen-install.py` | — |
 | Engine (gtl, genesis) | `build_tenants/abiogenesis/python/code/genesis/` | `.genesis/genesis/`, `.genesis/gtl/` |
 

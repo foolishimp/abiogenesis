@@ -1833,15 +1833,15 @@ def test_run_projection_accepts_yielded_runtime_truth(tmp_path):
     assert projected["job_id"] == "job-yield"
 
 
-def test_run_start_auto_yields_without_immediate_redispatch(monkeypatch, tmp_path):
+def test_run_start_until_converged_yields_without_immediate_redispatch(monkeypatch, tmp_path):
     gen_start_calls: list[int] = []
 
-    def fake_gen_start(scope, stream, auto=False):
-        assert auto is False
+    def fake_gen_start(intent, stream):
         gen_start_calls.append(1)
         return {
             "status": "pending",
             "blocking_reason": "fp_dispatch",
+            "stop_predicate": "dispatch_required",
             "edge": "requirements→design",
             "fp_manifest_path": str(tmp_path / "manifest.json"),
         }
@@ -1858,12 +1858,12 @@ def test_run_start_auto_yields_without_immediate_redispatch(monkeypatch, tmp_pat
     monkeypatch.setattr(services, "gen_start", fake_gen_start)
     monkeypatch.setattr("genesis.dispatch_runtime.auto_dispatch_from_result", fake_auto_dispatch)
 
-    result = cli_adapter._run_start_auto(
-        object(),
+    result = cli_adapter._run_start_until_converged(
+        services.StartIntent(scope=object(), target=services.StartTarget.next(), until="converged"),
         object(),
         workspace=tmp_path,
         config={"runtime_backend": "codex_cli"},
-        human_proxy=False,
+        fh_mode="direct",
     )
 
     assert gen_start_calls == [1]
@@ -2182,7 +2182,7 @@ def test_live_run_status_projects_and_clears_proof_hold_via_reset(tmp_path):
             "proof_failed",
             {
                 "edge": "design→code",
-                "manifest_id": manifest_id,
+                "spec_hash": "spec-proof-hold-status",
                 "policy_reason": f"proof_incomplete_{idx}",
             },
             stream=stream,

@@ -868,20 +868,20 @@ def derive_operational_gaps(
     workflow_version: str = "unknown",
     runtime_identity: RuntimeIdentity | None = None,
     runtime_config: dict | None = None,
-    edge_filter: str | None = None,
-    work_key_filter: str | None = None,
+    edge_override: str | None = None,
+    scope_selector: Any | None = None,
     carry_forward: list[dict] | None = None,
 ) -> dict:
     operative = _operative_scope(
         stream=stream,
         jobs=jobs,
         work_keys=work_keys,
-        edge_filter=edge_filter,
+        edge_filter=edge_override,
     )
     if not operative.jobs:
         return {
             "status": "error",
-            "reason": "no jobs in scope — check --feature and --edge flags",
+            "reason": "no jobs in scope — check the requested scope or diagnostic edge override",
         }
 
     all_events = list(operative.all_events)
@@ -940,7 +940,8 @@ def derive_operational_gaps(
                 }
             )
 
-            cert_key = work_key if work_key is not None else work_key_filter
+            scope_work_key = getattr(scope_selector, "work_key", None)
+            cert_key = work_key if work_key is not None else scope_work_key
             if delta == 0.0 and (job.vector.name, cert_key) not in certified_keys:
                 if _edge_uses_fulfillment_carrier(job):
                     _project_fulfillment_edge_converged(
@@ -948,7 +949,7 @@ def derive_operational_gaps(
                         job=job,
                         workflow_version=workflow_version,
                         spec_hash=spec_hash,
-                        work_key=work_key or work_key_filter,
+                        work_key=work_key or scope_work_key,
                         certified_keys=certified_keys,
                     )
                 else:
@@ -959,7 +960,7 @@ def derive_operational_gaps(
                             "edge": job.vector.name,
                             "vector_id": job.vector.id,
                             "target": job.vector.target.name,
-                            "work_key": work_key or work_key_filter,
+                            "work_key": work_key or scope_work_key,
                             "delta": 0,
                             "certified_by": "gen_gaps",
                         },
@@ -991,13 +992,19 @@ def derive_operational_gaps(
         entry["proof_hold_active"] = bool(proof_hold.get("held"))
 
     total_delta = sum(entry["delta"] for entry in results)
+    selector_kind = getattr(scope_selector, "kind", "workspace")
+    selector_work_key = getattr(scope_selector, "work_key", None)
     scope_info: dict = {
         "package": module.name,
-        "work_key_filter": work_key_filter,
-        "edge_filter": edge_filter,
+        "selector": {
+            "kind": selector_kind,
+            "work_key": selector_work_key,
+        },
         "build": runtime_identity.build_id if runtime_identity else None,
         "runtime_identity": runtime_identity.as_dict() if runtime_identity else {},
     }
+    if edge_override is not None:
+        scope_info["diagnostic_edge_override"] = edge_override
     if work_keys:
         scope_info["work_keys"] = list(work_keys)
     return {
@@ -1661,6 +1668,9 @@ def _iterated_outcome(
                 "reason": f"F_P dispatch already in flight for edge {vector.name!r}",
                 "pending_run_id": pending.run_id,
                 "edge": vector.name,
+                "work_key": runtime.work_key,
+                "spec_hash": runtime.spec_hash,
+                "workflow_version": runtime.workflow_version,
                 "blocking_reason": "fp_dispatch",
             }
             if pending.manifest_id:
@@ -1788,12 +1798,18 @@ def _iterated_outcome(
         on_leaf_dispatch=runtime.on_leaf_dispatch,
         leaf_task_inputs=runtime.leaf_task_inputs,
         run_id=run_id,
+        spec_hash=runtime.spec_hash,
+        workflow_version=runtime.workflow_version,
+        work_key=runtime.work_key,
     )
     _append_events(runtime.stream, iter_surface.events, context=event_context)
 
     result: dict = {
         "status": "iterated",
         "edge": vector.name,
+        "work_key": runtime.work_key,
+        "spec_hash": runtime.spec_hash,
+        "workflow_version": runtime.workflow_version,
         "delta_before": pre.delta,
         "failing_evaluators": [ev.name for ev in pre.failing_evaluators],
         "events_emitted": len(iter_surface.events) + 3,
@@ -1805,9 +1821,6 @@ def _iterated_outcome(
     }
     if blocking_reason is not None:
         result["blocking_reason"] = blocking_reason
-    if runtime.work_key is not None:
-        result["work_key"] = runtime.work_key
-
     if not _edge_uses_fulfillment_carrier(runtime.executable_job) and not (
         fd_failing or fp_failing or fh_failing
     ):
@@ -2411,6 +2424,9 @@ def _realize_iteration(
     on_leaf_dispatch: Optional[Callable[[LeafTask, dict], tuple[dict | None, str | None]]] = None,
     run_id: Optional[str] = None,
     leaf_task_inputs: Optional[dict[str, dict]] = None,
+    spec_hash: Optional[str] = None,
+    workflow_version: str = "unknown",
+    work_key: Optional[str] = None,
 ) -> WorkSurface:
     """Singular runtime realization path for one bound job.
 
@@ -2484,7 +2500,11 @@ def _realize_iteration(
             "failing_evaluators": [ev.name for ev in fp_failing],
             "prompt_length": len(bound_job.prompt),
             "job_id": job.job.id,
+            "spec_hash": spec_hash,
+            "workflow_version": workflow_version,
         }
+        if work_key is not None:
+            fp_dispatch_data["work_key"] = work_key
         if bound_job.worker_id:
             fp_dispatch_data["worker_id"] = bound_job.worker_id
         if run_id:

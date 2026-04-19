@@ -3,18 +3,27 @@
 - id: B-021
 - title: Reprice the public runtime advancement and observation contract so human truth is `gen-start` plus `gen-gaps`
 - type: feature
-- status: backlog
+- status: completed
 - goal: operator-command-unification
 - change_intent: Ratify one public runtime advancement and observation contract. `gen-gaps` and `gen-start` are named composition truth owned by intent/product/policy surfaces. `gen-start` is the only public advancement command and accepts one product-owned request grammar expressed as `scope + target + until`. Literal CLI spellings, service routes, and adapter-specific entrypoints are build/adapter binding surfaces beneath that named composition truth. `gen-iterate` and `run-status` may remain only as internal or explicitly diagnostic realization detail and must be removed from live co-equal public command surfaces. This ticket does not attempt to collapse the entire CLI, including administrative or qualification commands, into two verbs.
-- change_class: product_reprice
-- re_entry_point: product_definition
+- change_class: intent_reprice
+- re_entry_point: intent
 - priority: high
 - intake_source: operator UX direction 2026-04-19 after ABG B-018 review
 - dependencies: none
 - affected_boundary: `INTENT.md`, `PRODUCT.md`, product policy requirements, README/help surfaces, installed runtime docs, named service composition surfaces, CLI/operator binding design
 - triaged_at: 2026-04-19
 - created_at: 2026-04-19
+- activated_at: 2026-04-19
+- completed_at: 2026-04-19
 - updated_at: 2026-04-19
+- authoritative_contract: one public advancement/observation contract with named compositions `gen-start` and `gen-gaps`; `gen-start` accepts `scope + target + until`; lower-level hooks remain below that public contract
+- superseded_surface: the public three-command story (`gen-start` / `gen-iterate` / `gen-gaps`), co-equal `run-status`, and any surface that teaches literal CLI spellings as operator truth
+- closure_law: intent, product, policy, docs, adapter help, and installed scaffolds all teach the same public operator contract and no superseded surface remains authoritative
+- producer_set: `INTENT.md`, `PRODUCT.md`, `REQ-P-POLICY.md`, `README.md`, `build_tenants/abiogenesis/python/README.md`, `cli_adapter.py`, `services.py`, `app_bootstrap.py`, `gen-install.py`
+- consumer_set: human operators, installed app bootstrap surfaces, downstream domain/operator docs, CLI help, install proof
+- derived_projections: top-level CLI help, repo README examples, installed-line README/examples, scaffold narration, install tests
+- old_path_classification: `gen-iterate`=`re-authorize` as internal diagnostic hook; `run-status`=`re-authorize` as diagnostic projection; old public three-command story=`remove`; literal binding spellings as public truth=`replace`
 
 ## Context
 

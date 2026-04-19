@@ -7,6 +7,7 @@
 from __future__ import annotations
 
 import json
+import sys
 import textwrap
 from pathlib import Path
 
@@ -117,6 +118,132 @@ def _runtime_contract_module() -> Module:
     )
 
 
+def _multi_target_module() -> Module:
+    requirements = ["REQ-RUNTIME-IDENTITY-001"]
+    intent = Node(name="intent", schema="Intent")
+    design = Node(name="design", schema="Design")
+    code = Node(name="code", schema="Code")
+
+    req_complete = Evaluator("req_complete", F_P, "requirements satisfy the intent contract")
+    code_complete = Evaluator("code_complete", F_P, "code satisfies the design contract")
+
+    req_vector = GraphVector(
+        name="intent→design",
+        source=intent,
+        target=design,
+        evaluators=(req_complete,),
+    )
+    code_vector = GraphVector(
+        name="design→code",
+        source=design,
+        target=code,
+        evaluators=(code_complete,),
+    )
+    req_graph = Graph(
+        name="requirements_contract",
+        inputs=(intent,),
+        outputs=(design,),
+        nodes=(intent, design),
+        vectors=(req_vector,),
+    )
+    code_graph = Graph(
+        name="code_contract",
+        inputs=(design,),
+        outputs=(code,),
+        nodes=(design, code),
+        vectors=(code_vector,),
+    )
+    req_fn = GraphFunction.from_graph(
+        name="requirements_fn",
+        graph=req_graph,
+        environment=EnvRef.from_contract(requires=(intent,), provides=(design,)),
+        declarations={"operator_handles": ("req-flow",)},
+    )
+    code_fn = GraphFunction.from_graph(
+        name="code_fn",
+        graph=code_graph,
+        environment=EnvRef.from_contract(requires=(design,), provides=(code,)),
+        declarations={"operator_handles": ("code-flow",)},
+    )
+    return Module(
+        name="multi_target_contract",
+        graphs=(req_graph, code_graph),
+        graph_functions=(req_fn, code_fn),
+        refinement_boundaries=(
+            deferred_refinement(req_vector.name, inputs=(intent,), outputs=(design,)),
+            deferred_refinement(code_vector.name, inputs=(design,), outputs=(code,)),
+        ),
+        jobs=(
+            Job(name=req_vector.name, contracts=(ContractRef(kind="graph_function", target_id=req_fn.id),)),
+            Job(name=code_vector.name, contracts=(ContractRef(kind="graph_function", target_id=code_fn.id),)),
+        ),
+        metadata={"requirements": requirements},
+    )
+
+
+def _ambiguous_target_module() -> Module:
+    module = _runtime_contract_module()
+    graph_function = module.graph_functions[0]
+    return Module(
+        name="ambiguous_target_contract",
+        graphs=module.graphs,
+        graph_functions=module.graph_functions,
+        refinement_boundaries=module.refinement_boundaries,
+        jobs=(
+            Job(name="design→code.a", contracts=(ContractRef(kind="graph_function", target_id=graph_function.id),)),
+            Job(name="design→code.b", contracts=(ContractRef(kind="graph_function", target_id=graph_function.id),)),
+        ),
+        metadata=module.metadata,
+    )
+
+
+def _module_with_unbound_helper_target() -> Module:
+    module = _multi_target_module()
+    helper_input = Node(name="helper_input", schema="HelperInput")
+    helper_output = Node(name="helper_output", schema="HelperOutput")
+    helper_vector = GraphVector(
+        name="helper_input→helper_output",
+        source=helper_input,
+        target=helper_output,
+        evaluators=(),
+    )
+    helper_graph = Graph(
+        name="helper_contract",
+        inputs=(helper_input,),
+        outputs=(helper_output,),
+        nodes=(helper_input, helper_output),
+        vectors=(helper_vector,),
+    )
+    helper_fn = GraphFunction.from_graph(
+        name="helper_fn",
+        graph=helper_graph,
+        environment=EnvRef.from_contract(requires=(helper_input,), provides=(helper_output,)),
+        declarations={"operator_handles": ("helper-flow",)},
+    )
+    return Module(
+        name="module_with_unbound_helper_target",
+        graphs=(*module.graphs, helper_graph),
+        graph_functions=(*module.graph_functions, helper_fn),
+        refinement_boundaries=(
+            *module.refinement_boundaries,
+            deferred_refinement(helper_vector.name, inputs=(helper_input,), outputs=(helper_output,)),
+        ),
+        jobs=module.jobs,
+        metadata=module.metadata,
+    )
+
+
+def _write_operator_asset_query_script(tmp_path: Path, payload: dict[str, object]) -> list[str]:
+    script = tmp_path / "operator_asset_query.py"
+    script.write_text(
+        f"payload = {repr(payload)}\n"
+        "import json\n"
+        "print(json.dumps(payload))\n",
+        encoding="utf-8",
+    )
+    return [sys.executable, str(script)]
+
+
 def _runtime_contract_module_source() -> str:
     return textwrap.dedent(
         """\
@@ -184,7 +311,15 @@ def _runtime_contract_module_source() -> str:
     )
 
 
-def test_run_start_auto_invokes_engine_dispatch_and_retries(monkeypatch, tmp_path: Path):
+def _start_intent(scope, *, until: str = "converged", target=None):
+    return services.StartIntent(
+        scope=scope,
+        target=target if target is not None else services.StartTarget.next(),
+        until=until,
+    )
+
+
+def test_run_start_until_converged_invokes_engine_dispatch_and_retries(monkeypatch, tmp_path: Path):
     results = iter(
         (
             {
@@ -201,8 +336,7 @@ def test_run_start_auto_invokes_engine_dispatch_and_retries(monkeypatch, tmp_pat
     )
     dispatch_calls: list[tuple[str, Path, str]] = []
 
-    def fake_gen_start(scope, stream, auto=False):
-        assert auto is False
+    def fake_gen_start(intent, stream):
         return next(results)
 
     def fake_auto_dispatch(result, workspace, *, config=None):
@@ -212,28 +346,28 @@ def test_run_start_auto_invokes_engine_dispatch_and_retries(monkeypatch, tmp_pat
     monkeypatch.setattr(services, "gen_start", fake_gen_start)
     monkeypatch.setattr("genesis.dispatch_runtime.auto_dispatch_from_result", fake_auto_dispatch)
 
-    result = cli_adapter._run_start_auto(
-        object(),
+    result = cli_adapter._run_start_until_converged(
+        _start_intent(object()),
         object(),
         workspace=tmp_path,
         config={"runtime_backend": "codex_cli"},
-        human_proxy=False,
+        fh_mode="direct",
     )
 
     assert result["status"] == "converged"
-    assert result["auto"] is True
+    assert result["fh_mode"] == "direct"
     assert dispatch_calls == [("requirements→design", tmp_path, "codex_cli")]
 
 
-def test_run_start_auto_surfaces_engine_dispatch_failure_without_shadow_booleans(
+def test_run_start_until_converged_surfaces_engine_dispatch_failure_without_shadow_booleans(
     monkeypatch,
     tmp_path: Path,
 ):
-    def fake_gen_start(scope, stream, auto=False):
-        assert auto is False
+    def fake_gen_start(intent, stream):
         return {
             "status": "pending",
             "blocking_reason": "fp_dispatch",
+            "stop_predicate": "dispatch_required",
             "edge": "requirements→design",
         }
 
@@ -247,12 +381,12 @@ def test_run_start_auto_surfaces_engine_dispatch_failure_without_shadow_booleans
     monkeypatch.setattr(services, "gen_start", fake_gen_start)
     monkeypatch.setattr("genesis.dispatch_runtime.auto_dispatch_from_result", fake_auto_dispatch)
 
-    result = cli_adapter._run_start_auto(
-        object(),
+    result = cli_adapter._run_start_until_converged(
+        _start_intent(object()),
         object(),
         workspace=tmp_path,
         config={"runtime_backend": "codex_cli"},
-        human_proxy=False,
+        fh_mode="direct",
     )
 
     fp_dispatch_available = "auto_fp_dispatch_" + "available"
@@ -263,7 +397,7 @@ def test_run_start_auto_surfaces_engine_dispatch_failure_without_shadow_booleans
     assert fp_dispatch_handled not in result
 
 
-def test_run_start_auto_human_proxy_handles_fh_gate_and_retries(monkeypatch, tmp_path: Path):
+def test_run_start_until_converged_human_proxy_handles_fh_gate_and_retries(monkeypatch, tmp_path: Path):
     results = iter(
         (
             {
@@ -279,8 +413,7 @@ def test_run_start_auto_human_proxy_handles_fh_gate_and_retries(monkeypatch, tmp
     )
     approvals: list[str] = []
 
-    def fake_gen_start(scope, stream, auto=False):
-        assert auto is False
+    def fake_gen_start(intent, stream):
         return next(results)
 
     def fake_emit_human_proxy_approval(workspace, edge):
@@ -289,21 +422,20 @@ def test_run_start_auto_human_proxy_handles_fh_gate_and_retries(monkeypatch, tmp
     monkeypatch.setattr(services, "gen_start", fake_gen_start)
     monkeypatch.setattr(cli_adapter, "_emit_human_proxy_approval", fake_emit_human_proxy_approval)
 
-    result = cli_adapter._run_start_auto(
-        object(),
+    result = cli_adapter._run_start_until_converged(
+        _start_intent(object()),
         object(),
         workspace=tmp_path,
         config={},
-        human_proxy=True,
+        fh_mode="human-proxy",
     )
 
     assert result["status"] == "converged"
-    assert result["auto"] is True
-    assert result["human_proxy"] is True
+    assert result["fh_mode"] == "human-proxy"
     assert approvals == ["design→review"]
 
 
-def test_run_start_auto_continues_after_unblocked_iteration(monkeypatch, tmp_path: Path):
+def test_run_start_until_blocked_continues_after_unblocked_iteration(monkeypatch, tmp_path: Path):
     results = iter(
         (
             {
@@ -317,46 +449,27 @@ def test_run_start_auto_continues_after_unblocked_iteration(monkeypatch, tmp_pat
         )
     )
 
-    def fake_gen_start(scope, stream, auto=False):
-        assert auto is False
+    def fake_gen_start(intent, stream):
         return next(results)
 
     monkeypatch.setattr(services, "gen_start", fake_gen_start)
 
-    result = cli_adapter._run_start_auto(
+    result = cli_adapter._run_start_until_blocked(
+        _start_intent(object(), until="blocked"),
         object(),
-        object(),
-        workspace=tmp_path,
-        config={},
-        human_proxy=False,
     )
 
     assert result["status"] == "converged"
-    assert result["auto"] is True
 
 
-def test_run_start_auto_stops_on_replay_derived_proof_hold(monkeypatch, tmp_path: Path):
+def test_run_start_until_converged_stops_on_replay_derived_proof_hold(monkeypatch, tmp_path: Path):
     stream = genesis_install.workspace_bootstrap(tmp_path)
-    manifests_dir = tmp_path / ".ai-workspace" / "fp_manifests"
-    manifests_dir.mkdir(parents=True, exist_ok=True)
-    manifest_id = "manifest-proof-hold"
-    (manifests_dir / f"{manifest_id}.json").write_text(
-        json.dumps(
-            {
-                "manifest_id": manifest_id,
-                "edge": "requirements→design",
-                "spec_hash": "spec-proof-hold",
-                "workflow_version": "wf-proof-hold",
-            }
-        ),
-        encoding="utf-8",
-    )
     for idx in range(2):
         genesis_events.emit(
             "proof_failed",
             {
                 "edge": "requirements→design",
-                "manifest_id": manifest_id,
+                "spec_hash": "spec-proof-hold",
                 "policy_reason": f"proof_incomplete_{idx}",
             },
             stream=stream,
@@ -366,13 +479,14 @@ def test_run_start_auto_stops_on_replay_derived_proof_hold(monkeypatch, tmp_path
             ),
         )
 
-    def fake_gen_start(scope, stream, auto=False):
-        assert auto is False
+    def fake_gen_start(intent, stream):
         return {
             "status": "pending",
             "blocking_reason": "fp_dispatch",
+            "stop_predicate": "dispatch_required",
             "edge": "requirements→design",
-            "manifest_id": manifest_id,
+            "spec_hash": "spec-proof-hold",
+            "workflow_version": "wf-proof-hold",
         }
 
     dispatched: list[str] = []
@@ -384,12 +498,12 @@ def test_run_start_auto_stops_on_replay_derived_proof_hold(monkeypatch, tmp_path
     monkeypatch.setattr(services, "gen_start", fake_gen_start)
     monkeypatch.setattr("genesis.dispatch_runtime.auto_dispatch_from_result", fake_auto_dispatch)
 
-    result = cli_adapter._run_start_auto(
-        object(),
+    result = cli_adapter._run_start_until_converged(
+        _start_intent(object()),
         object(),
         workspace=tmp_path,
         config={"proof_hold_policy": {"failure_threshold": 2}},
-        human_proxy=False,
+        fh_mode="direct",
     )
 
     assert result["status"] == "pending"
@@ -399,7 +513,64 @@ def test_run_start_auto_stops_on_replay_derived_proof_hold(monkeypatch, tmp_path
     assert dispatched == []
 
 
-def test_run_start_auto_supervised_retries_after_transport_failure_with_valid_artifact(
+def test_run_start_until_converged_ignores_proof_hold_when_policy_disabled(monkeypatch, tmp_path: Path):
+    stream = genesis_install.workspace_bootstrap(tmp_path)
+    for idx in range(2):
+        genesis_events.emit(
+            "proof_failed",
+            {
+                "edge": "requirements→design",
+                "spec_hash": "spec-proof-hold-disabled",
+                "policy_reason": f"proof_incomplete_{idx}",
+            },
+            stream=stream,
+            context=genesis_events.EventContext(
+                workflow_version="wf-proof-hold-disabled",
+                run_id=f"run-proof-hold-disabled-{idx}",
+            ),
+        )
+
+    results = iter(
+        (
+            {
+                "status": "pending",
+                "blocking_reason": "fp_dispatch",
+                "stop_predicate": "dispatch_required",
+                "edge": "requirements→design",
+                "spec_hash": "spec-proof-hold-disabled",
+                "workflow_version": "wf-proof-hold-disabled",
+            },
+            {
+                "status": "converged",
+                "message": "done",
+            },
+        )
+    )
+    dispatched: list[str] = []
+
+    def fake_gen_start(intent, stream):
+        return next(results)
+
+    def fake_auto_dispatch(result, workspace, *, config=None):
+        dispatched.append(result["edge"])
+        return {"status": "ok"}
+
+    monkeypatch.setattr(services, "gen_start", fake_gen_start)
+    monkeypatch.setattr("genesis.dispatch_runtime.auto_dispatch_from_result", fake_auto_dispatch)
+
+    result = cli_adapter._run_start_until_converged(
+        _start_intent(object()),
+        object(),
+        workspace=tmp_path,
+        config={"proof_hold_policy": {"enabled": False, "failure_threshold": 2}},
+        fh_mode="direct",
+    )
+
+    assert result["status"] == "converged"
+    assert dispatched == ["requirements→design"]
+
+
+def test_run_start_until_converged_supervised_retries_after_transport_failure_with_valid_artifact(
     monkeypatch,
     tmp_path: Path,
 ):
@@ -416,7 +587,7 @@ def test_run_start_auto_supervised_retries_after_transport_failure_with_valid_ar
         )
     )
 
-    def fake_run_start_auto(scope, stream, *, workspace, config, human_proxy):
+    def fake_run_start_until_converged(intent, stream, *, workspace, config, fh_mode):
         return next(calls)
 
     statuses = iter(
@@ -426,18 +597,18 @@ def test_run_start_auto_supervised_retries_after_transport_failure_with_valid_ar
         )
     )
 
-    monkeypatch.setattr(cli_adapter, "_run_start_auto", fake_run_start_auto)
+    monkeypatch.setattr(cli_adapter, "_run_start_until_converged", fake_run_start_until_converged)
     monkeypatch.setattr(
         "genesis.live_status.project_live_run_status",
         lambda workspace, run_id=None, runtime_config=None: next(statuses),
     )
 
-    result = cli_adapter._run_start_auto_supervised(
-        object(),
+    result = cli_adapter._run_start_until_converged_supervised(
+        _start_intent(object()),
         object(),
         workspace=tmp_path,
         config={"runtime_backend": "codex_cli"},
-        human_proxy=False,
+        fh_mode="direct",
     )
 
     assert result["status"] == "converged"
@@ -461,6 +632,99 @@ def test_run_status_cmd_prints_live_projection(capsys, monkeypatch, tmp_path: Pa
     captured = json.loads(capsys.readouterr().out)
     assert captured["asset_type"] == "run_status"
     assert captured["run_id"] == "run-1"
+
+
+def test_top_level_cli_help_teaches_only_public_operator_commands():
+    parser = cli_adapter._build_parser()
+
+    help_text = parser.format_help()
+
+    assert "start" in help_text
+    assert "gaps" in help_text
+    assert "iterate" not in help_text
+    assert "run-status" not in help_text
+
+
+def test_resolve_start_target_graph_function_uses_published_catalog():
+    module = _multi_target_module()
+
+    target = services.resolve_start_target(module, "graph_function:code-flow")
+
+    assert target.kind == "graph_function"
+    assert target.handle == "code-flow"
+    assert target.graph_function_name == "code_fn"
+    assert target.target_id == module.graph_functions[1].id
+
+
+def test_resolve_start_target_rejects_unknown_graph_function_handle():
+    module = _multi_target_module()
+
+    with pytest.raises(ValueError, match="unknown published graph-function handle"):
+        services.resolve_start_target(module, "graph_function:missing")
+
+
+def test_resolve_start_target_rejects_unbound_helper_graph_function_handle():
+    module = _module_with_unbound_helper_target()
+
+    with pytest.raises(ValueError, match="unknown published graph-function handle"):
+        services.resolve_start_target(module, "graph_function:helper-flow")
+
+
+def test_resolve_start_target_asset_uses_explicit_operator_asset_contract(tmp_path: Path):
+    module = _multi_target_module()
+    command = _write_operator_asset_query_script(
+        tmp_path,
+        {
+            "assets": [
+                {
+                    "asset_id": "code_surface",
+                    "uri": "file://build/code",
+                    "metadata": {"relative_path": "build/code.py"},
+                    "checkpoint": {"path_kind": "file", "exists": True},
+                    "operator_target": {"kind": "graph_function", "handle": "code-flow"},
+                }
+            ]
+        },
+    )
+
+    target = services.resolve_start_target(
+        module,
+        "asset:code_surface",
+        workspace_root=tmp_path,
+        runtime_config={"operator_asset_contract": {"command": command}},
+    )
+
+    assert target.kind == "asset"
+    assert target.public_ref() == "asset:code_surface"
+    assert target.asset_id == "code_surface"
+    assert target.asset_uri == "file://build/code"
+    assert target.asset_relative_path == "build/code.py"
+    assert target.asset_exists is True
+    assert target.target_id == module.graph_functions[1].id
+    assert target.graph_function_name == "code_fn"
+
+
+def test_resolve_start_target_asset_fails_closed_when_owner_missing(tmp_path: Path):
+    module = _multi_target_module()
+    command = _write_operator_asset_query_script(
+        tmp_path,
+        {
+            "assets": [
+                {
+                    "asset_id": "code_surface",
+                    "uri": "file://build/code",
+                }
+            ]
+        },
+    )
+
+    with pytest.raises(ValueError, match="operator_target.kind='graph_function'"):
+        services.resolve_start_target(
+            module,
+            "asset:code_surface",
+            workspace_root=tmp_path,
+            runtime_config={"operator_asset_contract": {"command": command}},
+        )
 
 
 def test_scope_reports_bound_worker_identity_when_no_runtime_build_is_declared(tmp_path: Path):
@@ -533,9 +797,104 @@ def test_gen_start_uses_scope_module_when_deriving_operational_state(tmp_path: P
     stream = genesis_install.workspace_bootstrap(tmp_path)
     scope = services.Scope(module=module, workspace_root=tmp_path)
 
-    result = services.gen_start(scope, stream)
+    result = services.gen_start(_start_intent(scope, until="first_traversal"), stream)
 
     assert result["status"] in {"iterated", "queued", "needs_selection", "converged", "dispatched"}
+
+
+def test_gen_start_graph_function_target_constrains_semantic_job(monkeypatch, tmp_path: Path):
+    module = _multi_target_module()
+    stream = genesis_install.workspace_bootstrap(tmp_path)
+    scope = services.Scope(module=module, workspace_root=tmp_path)
+    targeted = services.resolve_start_target(module, "graph_function:code-flow")
+    captured: dict[str, object] = {}
+
+    def fake_derive_state(scope_arg, stream_arg, *, jobs_override=None):
+        captured["derive_jobs"] = [job.job.name for job in jobs_override]
+        return {"status": "in_progress", "delta": 1.0}
+
+    def fake_gen_iterate(scope_arg, stream_arg, *, jobs_override=None):
+        captured["iterate_jobs"] = [job.job.name for job in jobs_override]
+        return {"status": "pending", "blocking_reason": "fp_dispatch"}
+
+    monkeypatch.setattr(services, "_derive_state", fake_derive_state)
+    monkeypatch.setattr(services, "gen_iterate", fake_gen_iterate)
+
+    result = services.gen_start(_start_intent(scope, until="first_traversal", target=targeted), stream)
+
+    assert captured["derive_jobs"] == ["design→code"]
+    assert captured["iterate_jobs"] == ["design→code"]
+    assert result["target"] == "graph_function:code-flow"
+    assert result["target_id"] == module.graph_functions[1].id
+    assert result["graph_function_name"] == "code_fn"
+    assert result["stop_predicate"] == "dispatch_required"
+
+
+def test_gen_start_asset_target_constrains_semantic_job(monkeypatch, tmp_path: Path):
+    module = _multi_target_module()
+    stream = genesis_install.workspace_bootstrap(tmp_path)
+    scope = services.Scope(module=module, workspace_root=tmp_path)
+    targeted = services.resolve_start_target(
+        module,
+        "asset:code_surface",
+        workspace_root=tmp_path,
+        runtime_config={
+            "operator_asset_contract": {
+                "command": _write_operator_asset_query_script(
+                    tmp_path,
+                    {
+                        "assets": [
+                            {
+                                "asset_id": "code_surface",
+                                "uri": "file://build/code",
+                                "metadata": {"relative_path": "build/code.py"},
+                                "checkpoint": {"path_kind": "file", "exists": True},
+                                "operator_target": {"kind": "graph_function", "handle": "code-flow"},
+                            }
+                        ]
+                    },
+                )
+            }
+        },
+    )
+    captured: dict[str, object] = {}
+
+    def fake_derive_state(scope_arg, stream_arg, *, jobs_override=None):
+        captured["derive_jobs"] = [job.job.name for job in jobs_override]
+        return {"status": "in_progress", "delta": 1.0}
+
+    def fake_gen_iterate(scope_arg, stream_arg, *, jobs_override=None):
+        captured["iterate_jobs"] = [job.job.name for job in jobs_override]
+        return {"status": "pending", "blocking_reason": "fp_dispatch"}
+
+    monkeypatch.setattr(services, "_derive_state", fake_derive_state)
+    monkeypatch.setattr(services, "gen_iterate", fake_gen_iterate)
+
+    result = services.gen_start(_start_intent(scope, until="first_traversal", target=targeted), stream)
+
+    assert captured["derive_jobs"] == ["design→code"]
+    assert captured["iterate_jobs"] == ["design→code"]
+    assert result["target"] == "asset:code_surface"
+    assert result["target_id"] == module.graph_functions[1].id
+    assert result["graph_function_name"] == "code_fn"
+    assert result["asset_id"] == "code_surface"
+    assert result["asset_uri"] == "file://build/code"
+    assert result["asset_relative_path"] == "build/code.py"
+    assert result["asset_exists"] is True
+    assert result["stop_predicate"] == "dispatch_required"
+
+
+def test_gen_start_graph_function_target_fails_closed_on_multiple_semantic_jobs(tmp_path: Path):
+    module = _ambiguous_target_module()
+    stream = genesis_install.workspace_bootstrap(tmp_path)
+    scope = services.Scope(module=module, workspace_root=tmp_path)
+    targeted = services.resolve_start_target(module, f"graph_function:{module.graph_functions[0].name}")
+
+    result = services.gen_start(_start_intent(scope, until="first_traversal", target=targeted), stream)
+
+    assert result["status"] == "error"
+    assert "multiple semantic jobs" in result["reason"]
+    assert result["target"] == f"graph_function:{module.graph_functions[0].name}"
 
 
 def test_gen_gaps_projects_current_identity_proof_hold(tmp_path: Path):
@@ -571,7 +930,7 @@ def test_gen_gaps_projects_current_identity_proof_hold(tmp_path: Path):
             "proof_failed",
             {
                 "edge": "design→code",
-                "manifest_id": manifest_id,
+                "spec_hash": spec_hash,
                 "policy_reason": f"proof_incomplete_{idx}",
             },
             stream=stream,
@@ -662,7 +1021,7 @@ def test_main_gaps_uses_configured_worker_and_runtime_identity_from_runtime_cont
     )
     monkeypatch.setattr(
         "sys.argv",
-        ["genesis", "gaps", "--workspace", str(tmp_path)],
+        ["genesis", "gaps", "--scope", "workspace", "--workspace", str(tmp_path)],
     )
 
     cli_adapter.main()
@@ -675,7 +1034,7 @@ def test_main_gaps_uses_configured_worker_and_runtime_identity_from_runtime_cont
     assert output["scope"]["runtime_identity"]["authority_ref"] == "runtime://role-dispatch"
 
 
-def test_main_routes_start_auto_human_proxy_through_cli_auto_loop(
+def test_main_routes_start_converged_human_proxy_through_cli_loop(
     monkeypatch,
     tmp_path: Path,
     capsys,
@@ -702,23 +1061,25 @@ def test_main_routes_start_auto_human_proxy_through_cli_auto_loop(
         called["resolved_workspace"] = workspace
         return FakeModule()
 
-    def fake_run_start_auto(scope, stream, *, workspace, config, human_proxy):
-        called["auto_scope"] = scope
-        called["auto_stream"] = stream
-        called["auto_workspace"] = workspace
-        called["auto_config"] = config
-        called["auto_human_proxy"] = human_proxy
-        return {"status": "converged", "message": "ok", "auto": True, "human_proxy": True}
+    def fake_run_start_until_converged(intent, stream, *, workspace, config, fh_mode):
+        called["intent"] = intent
+        called["stream"] = stream
+        called["workspace"] = workspace
+        called["config"] = config
+        called["fh_mode"] = fh_mode
+        return {"status": "converged", "message": "ok", "fh_mode": fh_mode}
 
     def fail_gen_start(*args, **kwargs):
-        raise AssertionError("main() should not call gen_start(auto=True) directly")
+        raise AssertionError("main() should not bypass the converged start loop")
 
     monkeypatch.setattr(cli_adapter, "_load_project_config", fake_load_project_config)
     monkeypatch.setattr(cli_adapter, "_resolve_module", fake_resolve_module)
-    monkeypatch.setattr(cli_adapter, "_run_start_auto", fake_run_start_auto)
+    monkeypatch.setattr(cli_adapter, "_run_start_until_converged", fake_run_start_until_converged)
     monkeypatch.setattr(genesis_install, "workspace_bootstrap", fake_workspace_bootstrap)
     monkeypatch.setattr(services, "Scope", FakeScope)
     monkeypatch.setattr(services, "gen_start", fail_gen_start)
+    monkeypatch.setattr(services, "StartIntent", services.StartIntent)
+    monkeypatch.setattr(services, "ScopeSelector", services.ScopeSelector)
     monkeypatch.setattr(
         genesis_events,
         "init_snapshot",
@@ -726,16 +1087,131 @@ def test_main_routes_start_auto_human_proxy_through_cli_auto_loop(
     )
     monkeypatch.setattr(
         "sys.argv",
-        ["genesis", "start", "--auto", "--human-proxy", "--workspace", str(tmp_path)],
+        [
+            "genesis",
+            "start",
+            "--scope",
+            "workspace",
+            "--target",
+            "next",
+            "--until",
+            "converged",
+            "--fh-mode",
+            "human-proxy",
+            "--workspace",
+            str(tmp_path),
+        ],
     )
 
     cli_adapter.main()
 
     output = capsys.readouterr().out
     assert "\"status\": \"converged\"" in output
-    assert called["auto_workspace"] == tmp_path
-    assert called["auto_config"] == {"module": "demo.module:module", "pythonpath": []}
-    assert called["auto_human_proxy"] is True
+    assert called["workspace"] == tmp_path
+    assert called["config"] == {"module": "demo.module:module", "pythonpath": []}
+    assert called["fh_mode"] == "human-proxy"
+
+
+def test_main_rejects_fh_mode_when_until_is_not_converged(monkeypatch, tmp_path: Path, capsys):
+    class FakeModule:
+        name = "demo_module"
+
+    class FakeScope:
+        def __init__(self, **kwargs):
+            self.module = kwargs["module"]
+            self.workflow_version = "demo-workflow@3.0.0"
+
+    monkeypatch.setattr(
+        cli_adapter,
+        "_load_project_config",
+        lambda workspace: {"module": "demo.module:module", "pythonpath": []},
+    )
+    monkeypatch.setattr(cli_adapter, "_resolve_module", lambda args, workspace: FakeModule())
+    monkeypatch.setattr(genesis_install, "workspace_bootstrap", lambda workspace: object())
+    monkeypatch.setattr(services, "Scope", FakeScope)
+    monkeypatch.setattr(services, "StartIntent", services.StartIntent)
+    monkeypatch.setattr(services, "ScopeSelector", services.ScopeSelector)
+    monkeypatch.setattr(
+        genesis_events,
+        "init_snapshot",
+        lambda snapshot_id: None,
+    )
+    monkeypatch.setattr(
+        "sys.argv",
+        [
+            "genesis",
+            "start",
+            "--scope",
+            "workspace",
+            "--target",
+            "next",
+            "--until",
+            "blocked",
+            "--fh-mode",
+            "human-proxy",
+            "--workspace",
+            str(tmp_path),
+        ],
+    )
+
+    with pytest.raises(SystemExit) as exc:
+        cli_adapter.main()
+
+    assert exc.value.code == 1
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["status"] == "error"
+    assert payload["reason"] == "--fh-mode is only lawful when --until converged"
+
+
+def test_main_rejects_root_mode_when_until_is_not_converged(monkeypatch, tmp_path: Path, capsys):
+    class FakeModule:
+        name = "demo_module"
+
+    class FakeScope:
+        def __init__(self, **kwargs):
+            self.module = kwargs["module"]
+            self.workflow_version = "demo-workflow@3.0.0"
+
+    monkeypatch.setattr(
+        cli_adapter,
+        "_load_project_config",
+        lambda workspace: {"module": "demo.module:module", "pythonpath": []},
+    )
+    monkeypatch.setattr(cli_adapter, "_resolve_module", lambda args, workspace: FakeModule())
+    monkeypatch.setattr(genesis_install, "workspace_bootstrap", lambda workspace: object())
+    monkeypatch.setattr(services, "Scope", FakeScope)
+    monkeypatch.setattr(services, "StartIntent", services.StartIntent)
+    monkeypatch.setattr(services, "ScopeSelector", services.ScopeSelector)
+    monkeypatch.setattr(
+        genesis_events,
+        "init_snapshot",
+        lambda snapshot_id: None,
+    )
+    monkeypatch.setattr(
+        "sys.argv",
+        [
+            "genesis",
+            "start",
+            "--scope",
+            "workspace",
+            "--target",
+            "next",
+            "--until",
+            "first_traversal",
+            "--root-mode",
+            "supervised",
+            "--workspace",
+            str(tmp_path),
+        ],
+    )
+
+    with pytest.raises(SystemExit) as exc:
+        cli_adapter.main()
+
+    assert exc.value.code == 1
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["status"] == "error"
+    assert payload["reason"] == "--root-mode is only lawful when --until converged"
 
 
 def test_attach_pending_recovery_contract_surfaces_exact_assess_result_next_step(tmp_path: Path):
@@ -1055,25 +1531,32 @@ def test_assess_result_cmd_ignores_unprefixed_backend_field(monkeypatch, tmp_pat
     assert "selected_backend" not in calls[0]["data"]
 
 
-def test_gen_start_auto_remains_one_step_engine_progression(monkeypatch):
+def test_gen_start_remains_one_step_engine_progression(monkeypatch):
     calls = {"derive": 0, "iterate": 0}
 
-    def fake_derive_state(scope, stream):
+    def fake_derive_state(scope, stream, *, jobs_override=None):
         calls["derive"] += 1
         return {"status": "in_progress", "delta": 1.0}
 
-    def fake_gen_iterate(scope, stream):
+    def fake_gen_iterate(scope, stream, *, jobs_override=None):
         calls["iterate"] += 1
         return {"status": "pending", "blocking_reason": "fp_dispatch"}
 
+    monkeypatch.setattr(services, "_resolve_worker", lambda scope: object())
+    monkeypatch.setattr(services, "_resolve_start_jobs", lambda scope, worker, target: ["job"])
     monkeypatch.setattr(services, "_derive_state", fake_derive_state)
     monkeypatch.setattr(services, "gen_iterate", fake_gen_iterate)
 
-    result = services.gen_start(object(), object(), auto=True)
+    result = services.gen_start(
+        services.StartIntent(scope=object(), target=services.StartTarget.next(), until="first_traversal"),
+        object(),
+    )
 
     assert result == {
         "status": "pending",
         "blocking_reason": "fp_dispatch",
-        "auto": True,
+        "target": "next",
+        "until": "first_traversal",
+        "stop_predicate": "dispatch_required",
     }
     assert calls == {"derive": 1, "iterate": 1}

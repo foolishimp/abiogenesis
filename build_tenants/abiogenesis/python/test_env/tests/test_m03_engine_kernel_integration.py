@@ -79,7 +79,7 @@ from genesis.projection import project
 from genesis.run import find_pending_run, run_state, supersede_run
 from genesis.selection import SelectionDecision, resolve_candidate_family
 from genesis.selfhosting import _bootloader_consistency_report
-from genesis.services import Scope, gen_gaps, gen_iterate
+from genesis.services import Scope, ScopeSelector, gen_gaps, gen_iterate
 
 
 BOOTLOADER_PATH = (
@@ -4478,7 +4478,11 @@ print(json.dumps({
         for feature in ("FEAT-A", "FEAT-B"):
             workspace = tmp_path / feature
             stream = workspace_bootstrap(workspace)
-            scope = Scope(module=module, workspace_root=workspace, work_key_filter=feature)
+            scope = Scope(
+                module=module,
+                workspace_root=workspace,
+                selector=ScopeSelector(kind="work_key", work_key=feature),
+            )
             spec_hash = spec_hash_for(
                 workflow_version=scope.workflow_version,
                 executable_job=module_to_executable_jobs(module)[0],

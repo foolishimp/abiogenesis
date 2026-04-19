@@ -16,6 +16,7 @@ Current governing truth lives in:
 - `GTL_3_INTERFACE_CONTRACTS.md` — concrete interfaces for tests and code derivation
 - `GTL_3_IMPLEMENTATION_PLAN.md` — implementation target, rejected shapes, and delivery order
 - `ABG_3_MODULE_DESIGN.md` — ABG 3 engine design and runtime module impact
+- `OPERATOR_ASSET_REGISTRY_AND_OWNERSHIP_SURFACE.md` — published operator asset-addressing contract over one governing callable boundary
 - `GTL_ABG_LLM_GUIDE_DOMAIN_WORKFLOWS.md` — agent-facing guide for authoring domain workflows like GSDLC
 
 For the current line, published `GraphFunction` surfaces, canonical graph-function materialization, graph-derived companion bundles, recursive invocation frames, and their provenance are explicit design responsibilities rather than deferred or hidden inside traversal helpers.
@@ -44,6 +45,7 @@ If a proposed implementation shape would feel natural only in a mutable service 
 | ADR-030 | Semantic Job/Role in GTL, ExecutableJob/Binding in ABG | Governs GF-first public job entry and internal vector-based execution binding |
 | ADR-031 | Runtime identity and configured worker resolution | Keeps engine/build/worker/backend provenance explicit and distinct from reporting metadata |
 | ADR-032 | Cumulative environment graph functions and disjoint-write scheduling | Governs cumulative composition, public carrier publication, and conservative parallel batching |
+| ADR-033 | Primary public `gen-start` execution-chain proof | Governs the proof categories for installed non-live public operator chain tests |
 
 New ADRs will implement active `REQ-L-GTL3-*` and `REQ-R-ABG3-*` keys.
 
@@ -59,12 +61,16 @@ The shipping verification harness is downstream of this design surface in `build
 ABG keeps a clean split between:
 
 - one-step engine progression in `services.gen_start()`
-- app-level auto orchestration in `genesis/cli_adapter.py`
+- app-level orchestration and projection in `genesis/cli_adapter.py`
 
-That means `start --auto` is not a hidden engine mode. It is a CLI-owned loop that may:
+That means `gen-start` request normalization and control-mode orchestration are
+not hidden engine modes. They are CLI-owned control-plane behavior around one
+step of engine progression. The adapter may:
 
 - continue through repeated `fp_dispatch`
-- proxy `fh_gate` approvals when `--human-proxy` is selected
+- stop according to the typed `until` contract
+- proxy `fh_gate` approvals when the selected `fh_mode` enables proxy behavior
+- apply root supervision when the selected `root_mode` enables it
 - invoke optional runtime hooks exported by the installed module surface for project-specific `F_P` dispatch or `F_H` approval behavior
 
 This keeps the engine core smaller and makes the app bootstrap seam explicit in module ownership.

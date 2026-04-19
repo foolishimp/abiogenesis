@@ -38,9 +38,18 @@ After install, open the target project:
 
 ```bash
 cd /path/to/your/project
-PYTHONPATH=.genesis python -m genesis gaps       # check workspace state
-PYTHONPATH=.genesis python -m genesis start --auto --human-proxy  # drive the loop
+PYTHONPATH=.genesis python -m genesis gaps --scope workspace
+PYTHONPATH=.genesis python -m genesis start --scope workspace --target next --until converged --fh-mode human-proxy
+PYTHONPATH=.genesis python -m genesis start --scope workspace --target graph_function:code-flow --until first_traversal
 ```
+
+Current public control-mode families are:
+
+- `fh_mode = direct | human-proxy`
+- `root_mode = direct | supervised`
+
+The CLI binds them as `--fh-mode` and `--root-mode`. Both default to `direct`.
+In the current cut, both are lawful only with `--until converged`.
 
 ## Testing
 
@@ -57,9 +66,14 @@ cd build_tenants/abiogenesis/python/test_env
 
 | Command | What it does |
 |---------|-------------|
-| `genesis gaps` | Show delta per edge — which evaluators are failing |
-| `genesis start --auto --human-proxy` | Drive the loop from current state to next block |
-| `genesis iterate --edge "E"` | One bind-and-iterate pass on a specific edge |
+| `genesis gaps --scope workspace` | Show delta per edge over the requested scope |
+| `genesis start --scope workspace --target next --until first_traversal` | Apply one lawful advancement |
+| `genesis start --scope workspace --target graph_function:code-flow --until first_traversal` | Apply one lawful advancement constrained to one published graph-function carrier |
+| `genesis start --scope workspace --target next --until blocked` | Advance until the next canonical stop |
+| `genesis start --scope workspace --target next --until converged --fh-mode human-proxy` | Drive toward convergence using the configured control modes |
 
 Event log at `.ai-workspace/events/events.jsonl` is the authoritative record.
 All state is derived by projecting the log.
+
+`asset:<published_handle>` is available only when the installed runtime
+publishes an operator asset registry and ownership surface.

@@ -114,6 +114,73 @@ It owns:
 This layer may consume GTL declarations and ABG runtime truth, but it must not
 smuggle product policy down into the language or interpreter kernel.
 
+## Public Operator Contract
+
+Abiogenesis publishes one public advancement and observation contract:
+
+- `gen-start`
+- `gen-gaps`
+
+Those names are the public named-composition truth.
+
+`gen-start` accepts one product-owned traversal request grammar:
+
+- `scope`
+- `target`
+- `until`
+
+The currently published target families are:
+
+- `next`
+- `graph_function:<published_handle>`
+- `asset:<published_handle>` when the selected runtime publishes one operator
+  asset registry and ownership surface
+
+`graph_function:<published_handle>` must resolve through a published target
+catalog to one canonical callable-carrier identity. It does not target raw
+graph vectors, unpublished helpers, or implicit candidate-family choice.
+
+`asset:<published_handle>` must resolve through one published operator asset
+registry and ownership surface. That surface must publish the asset handle and
+one governing traversal boundary. In the current ABG cut, the governing
+boundary must resolve to one published graph-function carrier identity.
+Unresolved, unowned, unsupported, or ambiguously owned asset handles fail
+closed.
+
+Their literal delivery spellings are adapter/build bindings, not rival product
+law. Examples include:
+
+- `python -m genesis start`
+- `python -m genesis gaps`
+- `genesis start`
+- `genesis gaps`
+- service or command wrappers such as `/gen-start`
+
+Lower-level traversal and status hooks may still exist structurally where the
+runtime or install line needs them, but they sit below the public operator
+contract. They must not be taught as co-equal human commands beside
+`gen-start` and `gen-gaps`.
+
+Orthogonal control modes such as F_H proxying or root supervision are product
+policy around `gen-start`. They are not members of the `scope + target + until`
+request grammar.
+
+The current public control-mode families are:
+
+- `fh_mode`
+- `root_mode`
+
+Their current public values are:
+
+- `fh_mode = direct | human-proxy`
+- `root_mode = direct | supervised`
+
+Both default to `direct`. Both are public control-mode truth above the adapter.
+Literal bindings such as `--fh-mode` and `--root-mode` are delivery bindings
+for those same mode families, not rival product law. In the current cut, both
+mode families are lawful only when `gen-start` is operating with
+`until = converged`.
+
 ---
 
 ## Product Boundary

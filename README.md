@@ -14,6 +14,44 @@ The active engine and language surface is GTL 3 / ABG 3:
 - GTL: `Module`, `Graph`, `Node`, `GraphVector`, `Context`, `Job`, `Role`
 - ABG: interpreter, event stream, projection, convergence, binding, run, graph call, continuation, transport, provenance
 
+## Public Operator Surface
+
+The public advancement and observation contract is:
+
+- `gen-start`
+- `gen-gaps`
+
+Concrete spellings such as `python -m genesis start` or `genesis gaps` are
+adapter/build bindings for that same contract.
+
+`gen-start` accepts one traversal request grammar:
+
+- `scope`
+- `target`
+- `until`
+
+Current public target families are:
+
+- `next`
+- `graph_function:<published_handle>`
+- `asset:<published_handle>` when the selected runtime publishes an operator
+  asset registry and ownership surface
+
+Control modes such as F_H proxying or root supervision sit outside that
+request grammar.
+
+The current public control-mode families are:
+
+- `fh_mode = direct | human-proxy`
+- `root_mode = direct | supervised`
+
+Both default to `direct`. Concrete spellings such as `--fh-mode` and
+`--root-mode` are adapter/build bindings for those same product-policy control
+families. In the current cut, both are lawful only with `until = converged`.
+
+Lower-level traversal or status hooks may still exist in the runtime and
+install line, but they are not the public human operator workflow.
+
 ## Source of Truth
 
 Read these first:

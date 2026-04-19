@@ -4,28 +4,38 @@
 """
 genesis.services — Named app services.
 
-Orchestrates kernel modules into user-facing commands:
-gen_gaps, gen_iterate, gen_start, Scope.
+Orchestrates kernel modules into user-facing bindings:
+gen_gaps, gen_iterate, gen_start, ScopeSelector, Scope, StartIntent.
 
-Three commands as named compositions of core functions. None introduce new
-primitives. See ADR-004 (Scope).
+The public named compositions are `gen-start` and `gen-gaps`. This module
+provides the Python bindings `gen_start` and `gen_gaps` for those named
+compositions. `gen_iterate` remains a lower-level traversal primitive beneath
+that public operator surface. None introduce new kernel primitives. See
+ADR-004 (Scope).
 
   /gen-gaps    = bind_fd over scope → delta_summary fields
-  /gen-iterate = discover one unconverged work item → traverse once
   /gen-start   = derive state → select work item → traverse
 """
 from __future__ import annotations
 
 import json
+import subprocess
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Optional
+from typing import Any, Literal, Optional
 
 from gtl.module_model import Module
+from gtl.function_model import GraphFunction
 
 from .binding import (
+    ASSET_BINDING_QUERY_TIMEOUT_SECONDS,
     ExecutableJob,
     Worker,
+    _coerce_boolish,
+    _coerce_command_tokens,
+    _coerce_mapping_or_json_object,
+    _dig_path,
+    _workspace_command_env,
     module_to_executable_jobs,
 )
 from .binding import WorkSurface
@@ -83,6 +93,463 @@ def _read_carry_forward(scope: "Scope") -> list[dict]:
 
 # ── Scope ─────────────────────────────────────────────────────────────────────
 
+
+@dataclass(frozen=True)
+class ScopeSelector:
+    """
+    Public scope selector for operator-facing named compositions.
+
+    The selection surface is small on purpose:
+    - workspace: operate over the active workspace scope
+    - work_key: operate over one declared work identity
+    """
+
+    kind: Literal["workspace", "work_key"]
+    work_key: str | None = None
+
+    def __post_init__(self) -> None:
+        if self.kind not in {"workspace", "work_key"}:
+            raise ValueError(f"unsupported scope selector kind: {self.kind!r}")
+        if self.kind == "workspace" and self.work_key is not None:
+            raise ValueError("workspace scope selector may not carry work_key")
+        if self.kind == "work_key":
+            work_key = (self.work_key or "").strip()
+            if not work_key:
+                raise ValueError("work_key scope selector requires a non-empty work_key")
+            object.__setattr__(self, "work_key", work_key)
+
+
+@dataclass(frozen=True)
+class StartTarget:
+    """
+    Canonical target selector behind `gen-start`.
+
+    The public target handle may be user-facing, but canonical resolution must
+    end at one published callable-carrier identity.
+    """
+
+    kind: Literal["next", "graph_function", "asset"]
+    handle: str | None = None
+    target_id: str | None = None
+    graph_function_name: str | None = None
+    asset_id: str | None = None
+    asset_uri: str | None = None
+    asset_relative_path: str | None = None
+    asset_path_kind: str | None = None
+    asset_exists: bool | None = None
+    binding_source: str | None = None
+
+    @classmethod
+    def next(cls) -> "StartTarget":
+        return cls(kind="next")
+
+    @classmethod
+    def graph_function(
+        cls,
+        *,
+        handle: str,
+        target_id: str,
+        graph_function_name: str,
+    ) -> "StartTarget":
+        return cls(
+            kind="graph_function",
+            handle=handle,
+            target_id=target_id,
+            graph_function_name=graph_function_name,
+        )
+
+    @classmethod
+    def asset(
+        cls,
+        *,
+        handle: str,
+        target_id: str,
+        graph_function_name: str,
+        asset_id: str,
+        asset_uri: str,
+        asset_relative_path: str | None = None,
+        asset_path_kind: str | None = None,
+        asset_exists: bool | None = None,
+        binding_source: str | None = None,
+    ) -> "StartTarget":
+        return cls(
+            kind="asset",
+            handle=handle,
+            target_id=target_id,
+            graph_function_name=graph_function_name,
+            asset_id=asset_id,
+            asset_uri=asset_uri,
+            asset_relative_path=asset_relative_path,
+            asset_path_kind=asset_path_kind,
+            asset_exists=asset_exists,
+            binding_source=binding_source,
+        )
+
+    def __post_init__(self) -> None:
+        if self.kind == "next":
+            if any(
+                value is not None
+                for value in (
+                    self.handle,
+                    self.target_id,
+                    self.graph_function_name,
+                    self.asset_id,
+                    self.asset_uri,
+                    self.asset_relative_path,
+                    self.asset_path_kind,
+                    self.asset_exists,
+                    self.binding_source,
+                )
+            ):
+                raise ValueError("StartTarget(kind='next') may not carry target identity")
+            return
+        if self.kind not in {"graph_function", "asset"}:
+            raise ValueError(f"unsupported gen-start target kind: {self.kind!r}")
+        handle = (self.handle or "").strip()
+        target_id = (self.target_id or "").strip()
+        graph_function_name = (self.graph_function_name or "").strip()
+        if not handle or not target_id or not graph_function_name:
+            raise ValueError(
+                "StartTarget graph-function-backed kinds require handle, target_id, and graph_function_name"
+            )
+        object.__setattr__(self, "handle", handle)
+        object.__setattr__(self, "target_id", target_id)
+        object.__setattr__(self, "graph_function_name", graph_function_name)
+        if self.kind == "graph_function":
+            if any(
+                value is not None
+                for value in (
+                    self.asset_id,
+                    self.asset_uri,
+                    self.asset_relative_path,
+                    self.asset_path_kind,
+                    self.asset_exists,
+                    self.binding_source,
+                )
+            ):
+                raise ValueError(
+                    "StartTarget(kind='graph_function') may not carry asset registry metadata"
+                )
+            return
+        asset_id = (self.asset_id or "").strip()
+        asset_uri = (self.asset_uri or "").strip()
+        if not asset_id or not asset_uri:
+            raise ValueError(
+                "StartTarget(kind='asset') requires asset_id and asset_uri"
+            )
+        object.__setattr__(self, "asset_id", asset_id)
+        object.__setattr__(self, "asset_uri", asset_uri)
+        if isinstance(self.asset_relative_path, str) and not self.asset_relative_path.strip():
+            object.__setattr__(self, "asset_relative_path", None)
+        if isinstance(self.asset_path_kind, str) and not self.asset_path_kind.strip():
+            object.__setattr__(self, "asset_path_kind", None)
+        if isinstance(self.binding_source, str) and not self.binding_source.strip():
+            object.__setattr__(self, "binding_source", None)
+
+    def public_ref(self) -> str:
+        if self.kind == "next":
+            return "next"
+        if self.kind == "asset":
+            return f"asset:{self.handle}"
+        return f"graph_function:{self.handle}"
+
+
+GRAPH_FUNCTION_OPERATOR_HANDLES_KEY = "operator_handles"
+
+
+def _declared_graph_function_operator_handles(graph_function: GraphFunction) -> tuple[str, ...]:
+    raw = graph_function.declarations.get(GRAPH_FUNCTION_OPERATOR_HANDLES_KEY)
+    handles: list[str] = [graph_function.name]
+    if raw is None:
+        return tuple(handles)
+    if isinstance(raw, str):
+        raw_values: tuple[Any, ...] = (raw,)
+    elif isinstance(raw, (tuple, list)):
+        raw_values = tuple(raw)
+    else:
+        raise ValueError(
+            f"GraphFunction {graph_function.name!r} declarations.{GRAPH_FUNCTION_OPERATOR_HANDLES_KEY!r} "
+            "must be a string or sequence of strings"
+        )
+    for value in raw_values:
+        if not isinstance(value, str):
+            raise ValueError(
+                f"GraphFunction {graph_function.name!r} operator handle {value!r} must be a string"
+            )
+        handle = value.strip()
+        if not handle:
+            raise ValueError(f"GraphFunction {graph_function.name!r} declares an empty operator handle")
+        if handle not in handles:
+            handles.append(handle)
+    return tuple(handles)
+
+
+def published_graph_function_target_catalog(module: Module) -> dict[str, dict[str, Any]]:
+    """
+    Publish the operator-facing graph-function target catalog for one module.
+
+    Each handle resolves to one canonical callable-carrier identity.
+    """
+    job_names_by_target_id: dict[str, set[str]] = {}
+    for job in module.jobs:
+        for contract in job.contracts:
+            if contract.kind != "graph_function":
+                continue
+            job_names_by_target_id.setdefault(contract.target_id, set()).add(job.name)
+
+    catalog: dict[str, dict[str, Any]] = {}
+    for graph_function in module.graph_functions:
+        job_names = tuple(sorted(job_names_by_target_id.get(graph_function.id, ())))
+        if not job_names:
+            continue
+        entry = {
+            "target_id": graph_function.id,
+            "graph_function_name": graph_function.name,
+            "job_names": job_names,
+        }
+        for handle in _declared_graph_function_operator_handles(graph_function):
+            existing = catalog.get(handle)
+            if existing is not None and existing["target_id"] != graph_function.id:
+                raise ValueError(
+                    f"Module {module.name!r} publishes ambiguous graph-function operator handle {handle!r}"
+                )
+            catalog[handle] = entry
+    return catalog
+
+
+def _graph_function_name_by_id(module: Module) -> dict[str, str]:
+    return {graph_function.id: graph_function.name for graph_function in module.graph_functions}
+
+
+def _operator_asset_contract(runtime_config: dict[str, Any] | None) -> dict[str, Any] | None:
+    config = dict(runtime_config or {})
+    explicit = config.get("operator_asset_contract")
+    if explicit is None:
+        return None
+    contract = _coerce_mapping_or_json_object(
+        explicit,
+        label="runtime_config.operator_asset_contract",
+    )
+    contract["command"] = _coerce_command_tokens(
+        contract.get("command"),
+        label="runtime_config.operator_asset_contract.command",
+    )
+    contract.setdefault("assets_key", "assets")
+    contract.setdefault("handle_key", "asset_id")
+    contract.setdefault("asset_id_key", "asset_id")
+    contract.setdefault("uri_key", "uri")
+    contract.setdefault("relative_path_key", "metadata.relative_path")
+    contract.setdefault("path_kind_key", "checkpoint.path_kind")
+    contract.setdefault("exists_key", "checkpoint.exists")
+    contract.setdefault("owner_kind_key", "operator_target.kind")
+    contract.setdefault("owner_handle_key", "operator_target.handle")
+    contract.setdefault("owner_target_id_key", "operator_target.target_id")
+    contract.setdefault("timeout_seconds", ASSET_BINDING_QUERY_TIMEOUT_SECONDS)
+    contract.setdefault("binding_source", "runtime_config.operator_asset_contract")
+    return contract
+
+
+def published_operator_asset_target_catalog(
+    module: Module,
+    *,
+    workspace_root: Path | None,
+    runtime_config: dict[str, Any] | None = None,
+) -> dict[str, dict[str, Any]]:
+    contract = _operator_asset_contract(runtime_config)
+    if contract is None:
+        return {}
+    if workspace_root is None:
+        raise ValueError("runtime_config.operator_asset_contract requires a workspace_root")
+
+    timeout = contract.get("timeout_seconds", ASSET_BINDING_QUERY_TIMEOUT_SECONDS)
+    try:
+        result = subprocess.run(
+            contract["command"],
+            cwd=workspace_root,
+            capture_output=True,
+            text=True,
+            env=_workspace_command_env(
+                runtime_config=runtime_config,
+                workspace_root=workspace_root,
+            ),
+            timeout=float(timeout),
+        )
+    except (OSError, subprocess.TimeoutExpired) as exc:
+        raise ValueError(f"operator asset query failed: {exc}") from exc
+
+    if result.returncode != 0:
+        detail = result.stderr.strip() or result.stdout.strip() or f"returncode={result.returncode}"
+        raise ValueError(f"operator asset query failed: {detail}")
+
+    try:
+        payload = json.loads(result.stdout)
+    except json.JSONDecodeError as exc:
+        raise ValueError("operator asset query did not return valid JSON") from exc
+
+    assets = _dig_path(payload, str(contract["assets_key"]))
+    if not isinstance(assets, list):
+        raise ValueError("operator asset query JSON must expose a list at assets_key")
+
+    graph_catalog = published_graph_function_target_catalog(module)
+    graph_names_by_id = _graph_function_name_by_id(module)
+    catalog: dict[str, dict[str, Any]] = {}
+    for index, entry in enumerate(assets):
+        if not isinstance(entry, dict):
+            raise ValueError(f"operator asset query entry {index} must be an object")
+        handle = _dig_path(entry, str(contract["handle_key"]))
+        asset_id = _dig_path(entry, str(contract["asset_id_key"]))
+        uri = _dig_path(entry, str(contract["uri_key"]))
+        owner_kind = _dig_path(entry, str(contract["owner_kind_key"]))
+        owner_handle = _dig_path(entry, str(contract["owner_handle_key"]))
+        owner_target_id = _dig_path(entry, str(contract["owner_target_id_key"]))
+        if not isinstance(handle, str) or not handle.strip():
+            raise ValueError(f"operator asset query entry {index} must publish a non-empty handle")
+        if not isinstance(asset_id, str) or not asset_id.strip():
+            raise ValueError(
+                f"operator asset query entry {index} must publish a non-empty asset_id"
+            )
+        if not isinstance(uri, str) or not uri.strip():
+            raise ValueError(
+                f"operator asset query entry {index} must publish a non-empty uri"
+            )
+        if owner_kind != "graph_function":
+            raise ValueError(
+                f"operator asset handle {handle!r} must publish operator_target.kind='graph_function'"
+            )
+        resolved_target_id: str | None = None
+        graph_function_name: str | None = None
+        if isinstance(owner_handle, str) and owner_handle.strip():
+            owner_handle = owner_handle.strip()
+            graph_entry = graph_catalog.get(owner_handle)
+            if graph_entry is None:
+                raise ValueError(
+                    f"operator asset handle {handle!r} references unknown graph-function handle {owner_handle!r}"
+                )
+            resolved_target_id = str(graph_entry["target_id"])
+            graph_function_name = str(graph_entry["graph_function_name"])
+        else:
+            owner_handle = None
+        if isinstance(owner_target_id, str) and owner_target_id.strip():
+            owner_target_id = owner_target_id.strip()
+            graph_name_from_id = graph_names_by_id.get(owner_target_id)
+            if graph_name_from_id is None:
+                raise ValueError(
+                    f"operator asset handle {handle!r} references unknown graph-function target_id {owner_target_id!r}"
+                )
+            if resolved_target_id is not None and resolved_target_id != owner_target_id:
+                raise ValueError(
+                    f"operator asset handle {handle!r} publishes conflicting graph-function ownership"
+                )
+            resolved_target_id = owner_target_id
+            graph_function_name = graph_name_from_id
+        if resolved_target_id is None or graph_function_name is None:
+            raise ValueError(
+                f"operator asset handle {handle!r} must publish operator_target.handle or operator_target.target_id"
+            )
+        relative_path = _dig_path(entry, str(contract["relative_path_key"]))
+        path_kind = _dig_path(entry, str(contract["path_kind_key"]))
+        exists = _coerce_boolish(_dig_path(entry, str(contract["exists_key"])))
+        catalog_entry = {
+            "handle": handle.strip(),
+            "asset_id": asset_id.strip(),
+            "uri": uri.strip(),
+            "relative_path": relative_path if isinstance(relative_path, str) and relative_path else None,
+            "path_kind": path_kind if isinstance(path_kind, str) and path_kind else None,
+            "exists": exists,
+            "target_id": resolved_target_id,
+            "graph_function_name": graph_function_name,
+            "owner_handle": owner_handle,
+            "binding_source": str(contract["binding_source"]),
+        }
+        existing = catalog.get(catalog_entry["handle"])
+        if existing is not None and existing != catalog_entry:
+            raise ValueError(
+                f"operator asset query publishes ambiguous asset handle {catalog_entry['handle']!r}"
+            )
+        catalog[catalog_entry["handle"]] = catalog_entry
+    return catalog
+
+
+def resolve_start_target(
+    module: Module,
+    raw_target: str,
+    *,
+    workspace_root: Path | None = None,
+    runtime_config: dict[str, Any] | None = None,
+) -> StartTarget:
+    value = (raw_target or "").strip()
+    if value == "next":
+        return StartTarget.next()
+    graph_prefix = "graph_function:"
+    asset_prefix = "asset:"
+    if value.startswith(graph_prefix):
+        handle = value[len(graph_prefix):].strip()
+        if not handle:
+            raise ValueError("graph_function target requires a non-empty published handle")
+        catalog = published_graph_function_target_catalog(module)
+        entry = catalog.get(handle)
+        if entry is None:
+            raise ValueError(
+                f"unknown published graph-function handle {handle!r} for module {module.name!r}"
+            )
+        return StartTarget.graph_function(
+            handle=handle,
+            target_id=str(entry["target_id"]),
+            graph_function_name=str(entry["graph_function_name"]),
+        )
+    if not value.startswith(asset_prefix):
+        raise ValueError(
+            "target must be 'next', 'graph_function:<published_handle>', or 'asset:<published_handle>'"
+        )
+    handle = value[len(asset_prefix):].strip()
+    if not handle:
+        raise ValueError("asset target requires a non-empty published handle")
+    contract = _operator_asset_contract(runtime_config)
+    if contract is None:
+        raise ValueError(
+            "asset target resolution requires a published runtime_config.operator_asset_contract"
+        )
+    catalog = published_operator_asset_target_catalog(
+        module,
+        workspace_root=workspace_root,
+        runtime_config=runtime_config,
+    )
+    entry = catalog.get(handle)
+    if entry is None:
+        raise ValueError(
+            f"unknown published asset handle {handle!r} for module {module.name!r}"
+        )
+    return StartTarget.asset(
+        handle=handle,
+        target_id=str(entry["target_id"]),
+        graph_function_name=str(entry["graph_function_name"]),
+        asset_id=str(entry["asset_id"]),
+        asset_uri=str(entry["uri"]),
+        asset_relative_path=entry.get("relative_path"),
+        asset_path_kind=entry.get("path_kind"),
+        asset_exists=entry.get("exists"),
+        binding_source=str(entry["binding_source"]),
+    )
+
+
+@dataclass(frozen=True)
+class StartIntent:
+    """
+    Internal normalization contract behind `gen-start`.
+
+    This type does not own control modes or adapter spellings. It carries only
+    traversal request truth: scope + target + until.
+    """
+
+    scope: "Scope"
+    target: StartTarget
+    until: Literal["first_traversal", "blocked", "converged"]
+
+    def __post_init__(self) -> None:
+        if self.until not in {"first_traversal", "blocked", "converged"}:
+            raise ValueError(f"unsupported gen-start until: {self.until!r}")
+
+
 @dataclass
 class Scope:
     """
@@ -103,8 +570,8 @@ class Scope:
     """
     module: Module = None
     workspace_root: Path = field(default_factory=lambda: Path("."))
-    work_key_filter: Optional[str] = None   # work_key scope (CLI --feature normalizes here)
-    edge_filter: Optional[str] = None       # edge name scope (CLI --edge normalizes here)
+    selector: ScopeSelector = field(default_factory=lambda: ScopeSelector(kind="workspace"))
+    diagnostic_edge_override: Optional[str] = None
     build: str | None = None
     runtime_identity: Optional[RuntimeIdentity] = None
     worker: Optional[Worker] = None   # explicit worker; None = derived
@@ -159,14 +626,14 @@ def _resolve_work_keys(scope: "Scope",
 
     Priority:
     1. scope.work_key set explicitly (CLI override) → [scope.work_key]
-    2. scope.work_key_filter set (feature_id IS work_key) → [scope.work_key_filter]
+    2. scope.selector kind=work_key → [scope.selector.work_key]
     3. Enumerate from active feature vectors + spawned children
     4. Empty list → global scope (no work_key scoping)
     """
     if scope.work_key is not None:
         return [scope.work_key]
-    if scope.work_key_filter is not None:
-        return [scope.work_key_filter]
+    if scope.selector.kind == "work_key":
+        return [scope.selector.work_key]
     return active_work_keys(scope.workspace_root, stream)
 
 
@@ -193,27 +660,29 @@ def gen_gaps(scope: Scope, stream: EventStream) -> dict:
         workflow_version=scope.workflow_version,
         runtime_identity=scope.runtime_identity,
         runtime_config=scope.runtime_config,
-        edge_filter=scope.edge_filter,
-        work_key_filter=scope.work_key_filter,
+        edge_override=scope.diagnostic_edge_override,
+        scope_selector=scope.selector,
         carry_forward=_read_carry_forward(scope),
     )
 
 
-# ── gen_iterate — bind + iterate once ─────────────────────────────────────────
+# ── gen_iterate — internal traversal primitive ───────────────────────────────
 
 def gen_iterate(
     scope: Scope,
     stream: EventStream,
+    *,
+    jobs_override: list[ExecutableJob] | None = None,
 ) -> dict:
     """
-    /gen-iterate = bind one executable contract boundary → iterate exactly once.
+    Internal one-step traversal primitive beneath `/gen-start`.
 
     The most important command to keep pure.
     One Job. One contract boundary. One iterate call.
     When work_keys are active, selects the first unconverged (job, work_key) pair.
     """
     worker = _resolve_worker(scope)
-    jobs = _scoped_jobs(scope, worker)
+    jobs = list(jobs_override) if jobs_override is not None else _scoped_jobs(scope, worker)
 
     if not jobs:
         return {"status": "nothing_to_do", "reason": "no jobs in scope"}
@@ -229,7 +698,7 @@ def gen_iterate(
         workflow_version=scope.workflow_version,
         runtime_identity=scope.runtime_identity,
         build=scope.build,
-        edge_filter=scope.edge_filter,
+        edge_filter=scope.diagnostic_edge_override,
         run_id=scope.run_id,
         runtime_config=scope.runtime_config,
         carry_forward=_read_carry_forward(scope),
@@ -244,55 +713,79 @@ def gen_iterate(
 # ── gen_start — state machine ──────────────────────────────────────────────────
 
 def gen_start(
-    scope: Scope,
+    intent: StartIntent,
     stream: EventStream,
-    auto: bool = False,
 ) -> dict:
     """
-    /gen-start = derive state → select job → traverse exactly once.
+    /gen-start = normalize one start intent into one lawful advancement result.
 
-    Product-layer auto orchestration lives above the engine. The `auto` flag is
-    a caller hint for projection and does not change ABG runtime semantics.
+    Control modes and adapter spellings live above this function. The named
+    composition owns traversal request truth only.
     """
-    state = _derive_state(scope, stream)
+    scope = intent.scope
+    worker = _resolve_worker(scope)
+    jobs = _resolve_start_jobs(scope, worker, intent.target)
+    if isinstance(jobs, dict):
+        result = dict(jobs)
+        _attach_target_metadata(result, intent.target)
+        result["until"] = intent.until
+        result["stop_predicate"] = "gap_stop"
+        return result
+
+    state = _derive_state(scope, stream, jobs_override=jobs)
 
     if state["status"] == "converged":
         _close_completed_features(scope)
-        return {
+        result = {
             "status": "converged",
             "message": "All jobs in scope have delta = 0. Run /gen-gaps for full report.",
+            "until": intent.until,
+            "stop_predicate": "converged",
         }
+        _attach_target_metadata(result, intent.target)
+        return result
 
     if state["status"] == "nothing_to_do":
-        return {
+        result = {
             "status": "nothing_to_do",
             "reason": state.get("reason", ""),
+            "until": intent.until,
+            "stop_predicate": "gap_stop",
         }
+        _attach_target_metadata(result, intent.target)
+        return result
 
-    result = gen_iterate(scope, stream)
-    if auto:
-        result = dict(result)
-        result["auto"] = True
+    result = gen_iterate(scope, stream, jobs_override=jobs)
+    result = dict(result)
+    result["until"] = intent.until
+    result["stop_predicate"] = _project_start_stop_predicate(result)
+    _attach_target_metadata(result, intent.target)
     return result
 
 
-def _derive_state(scope: Scope, stream: EventStream) -> dict:
+def _derive_state(
+    scope: Scope,
+    stream: EventStream,
+    *,
+    jobs_override: list[ExecutableJob] | None = None,
+) -> dict:
     """
     Derive project state from workspace. Never stored — always derived.
 
     Uses typed convergence checking over precomputed manifests.
     """
     worker = _resolve_worker(scope)
+    jobs = list(jobs_override) if jobs_override is not None else _scoped_jobs(scope, worker)
     return derive_operational_state(
         workspace_root=scope.workspace_root,
         stream=stream,
         module=scope.module,
         worker=worker,
-        jobs=_scoped_jobs(scope, worker),
+        jobs=jobs,
         work_keys=tuple(_resolve_work_keys(scope, stream)),
         requirements=scope.module.metadata.get("requirements", ()),
         workflow_version=scope.workflow_version,
-        edge_filter=scope.edge_filter,
+        edge_filter=scope.diagnostic_edge_override,
         carry_forward=_read_carry_forward(scope),
     )
 
@@ -318,25 +811,104 @@ def _scoped_jobs(scope: Scope, worker: Worker) -> list[ExecutableJob]:
     """
     Return jobs from worker.can_execute, filtered by scope overrides.
 
-    edge override: exact match on job.vector.name — narrows which jobs run.
+    diagnostic edge override: exact match on job.vector.name — narrows which
+    jobs run for internal/debug traversal.
 
-    feature override: existence validation only.
-      Single-trajectory scope — Jobs are not tagged by feature_id.
-      --feature FEAT-CORE validates that feature exists in the workspace;
+    work-key scope: existence validation only.
+      Single-trajectory scope — Jobs are not tagged by work_key.
+      work_key:FEAT-CORE validates that feature exists in the workspace;
       it does not narrow which jobs run (all jobs cover the single trajectory).
-      Unknown feature ID → empty list (fails closed; caller reports error).
+      Unknown work_key → empty list (fails closed; caller reports error).
     """
     jobs = list(worker.can_execute)
 
-    if scope.work_key_filter:
+    if scope.selector.kind == "work_key":
         known = _known_feature_ids(scope.workspace_root)
-        if scope.work_key_filter not in known:
+        if scope.selector.work_key not in known:
             return []  # fail closed — unknown feature
 
-    if scope.edge_filter:
-        jobs = [j for j in jobs if j.vector.name == scope.edge_filter]
+    if scope.diagnostic_edge_override:
+        jobs = [j for j in jobs if j.vector.name == scope.diagnostic_edge_override]
 
     return jobs
+
+
+def _resolve_start_jobs(
+    scope: Scope,
+    worker: Worker,
+    target: StartTarget,
+) -> list[ExecutableJob] | dict:
+    jobs = _scoped_jobs(scope, worker)
+    if target.kind == "next":
+        return jobs
+
+    filtered = [
+        job
+        for job in jobs
+        if job.graph_function is not None and job.graph_function.id == target.target_id
+    ]
+    if not filtered:
+        return {
+            "status": "error",
+            "reason": (
+                f"no executable semantic job in scope is bound to start target "
+                f"{target.public_ref()!r}"
+            ),
+        }
+
+    semantic_job_ids = {job.job.id for job in filtered}
+    if len(semantic_job_ids) > 1:
+        semantic_job_names = sorted({job.job.name for job in filtered})
+        return {
+            "status": "error",
+            "reason": (
+                f"start target {target.public_ref()!r} is bound by multiple semantic jobs "
+                f"in scope: {semantic_job_names}"
+            ),
+        }
+    return filtered
+
+
+def _attach_target_metadata(result: dict[str, Any], target: StartTarget) -> None:
+    result["target"] = target.public_ref()
+    if target.kind in {"graph_function", "asset"}:
+        result["target_id"] = target.target_id
+        result["graph_function_name"] = target.graph_function_name
+    if target.kind == "asset":
+        result["asset_id"] = target.asset_id
+        result["asset_uri"] = target.asset_uri
+        if target.asset_relative_path is not None:
+            result["asset_relative_path"] = target.asset_relative_path
+        if target.asset_path_kind is not None:
+            result["asset_path_kind"] = target.asset_path_kind
+        if target.asset_exists is not None:
+            result["asset_exists"] = target.asset_exists
+        if target.binding_source is not None:
+            result["asset_binding_source"] = target.binding_source
+
+
+def _project_start_stop_predicate(result: dict) -> str:
+    """
+    Derive canonical start stop truth from the runtime result.
+
+    These predicates are not CLI labels. CLI stop reasons must project from
+    this canonical layer, not redefine it.
+    """
+    blocking_reason = result.get("blocking_reason")
+    if blocking_reason == "fp_dispatch":
+        return "dispatch_required"
+    if blocking_reason == "fh_gate":
+        return "human_gate_required"
+    if blocking_reason == "fd_gap":
+        return "gap_stop"
+    if result.get("stopped_by") == "yield":
+        return "yielded"
+    status = result.get("status")
+    if status == "converged":
+        return "converged"
+    if status == "nothing_to_do":
+        return "gap_stop"
+    return "traversal_applied"
 
 
 def _close_completed_features(scope: Scope) -> None:

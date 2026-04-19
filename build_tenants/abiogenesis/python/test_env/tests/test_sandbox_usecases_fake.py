@@ -1963,7 +1963,7 @@ class TestSandboxUsecasesFake:
             module=module,
             workspace_root=workspace,
             worker=scope.worker,
-            edge_filter=GL_REQ_TO_DESIGN_EDGE,
+            diagnostic_edge_override=GL_REQ_TO_DESIGN_EDGE,
         )
         final_gaps = gen_gaps(design_scope, stream)
         assert final_gaps["converged"] is True

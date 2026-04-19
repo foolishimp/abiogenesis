@@ -3,18 +3,27 @@
 - id: B-023
 - title: Publish lawful public graph-function handle addressability for `gen-start` without collapsing callable carriers into candidate-family selection
 - type: feature
-- status: backlog
+- status: completed
 - goal: public-graph-function-targeting
-- change_intent: Let operators target published graph-function handles from `gen-start` while preserving GTL identity and selection law. Operator-facing handles shall resolve through a published target catalog whose canonical referent is one published callable carrier `target_id`. Raw declaration labels shall not become target authority, and graph-function targeting must not become a hidden-choice escape hatch.
-- change_class: product_reprice
-- re_entry_point: product_definition
+- change_intent: Realize the already-ratified public graph-function target family for `gen-start` while preserving GTL identity and selection law. Operator-facing handles shall resolve through a published target catalog whose canonical referent is one published callable carrier `target_id`. Raw declaration labels shall not become target authority, and graph-function targeting must not become a hidden-choice escape hatch.
+- change_class: design_reframe
+- re_entry_point: design_surface
 - priority: high
 - intake_source: operator UX direction 2026-04-19 after ABG B-018 review
 - dependencies: B-021, B-022
 - affected_boundary: product/operator target-addressing model, published graph-function target catalog, callable-carrier publication, identity-preserving resolution, traversal planning
 - triaged_at: 2026-04-19
 - created_at: 2026-04-19
+- activated_at: 2026-04-19
+- completed_at: 2026-04-19
 - updated_at: 2026-04-19
+- authoritative_contract: `graph_function:<published_handle>` resolves through a published target catalog to one job-bound callable-carrier `target_id`
+- superseded_surface: raw declaration-name targeting, publication of unbound helper graph functions, and any hidden candidate-family choice through graph-function addressing
+- closure_law: only published handles bound to public callable carriers resolve; ambiguity and unpublished helpers fail closed; graph-function targeting does not collapse into candidate-family selection
+- producer_set: published `GraphFunction` operator handles, GTL semantic jobs/contracts, `services.published_graph_function_target_catalog(...)`
+- consumer_set: `resolve_start_target(...)`, `gen_start(...)`, operator asset ownership resolution, CLI target binding
+- derived_projections: `gen-start` target metadata, CLI help/examples, target-resolution tests
+- old_path_classification: raw declaration labels as target authority=`replace`; unbound helper publication=`remove`
 
 ## Context
 
@@ -32,8 +41,8 @@ Those are not the same structural surface.
 
 ## Problem Statement
 
-ABG does not yet publish one lawful addressing rule for public callable
-graph functions.
+ABG product truth now ratifies public graph-function targeting, but the live
+design/realization cut still has to enforce that target law exactly.
 
 Without that contract:
 

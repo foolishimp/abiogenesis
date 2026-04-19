@@ -12,6 +12,7 @@ These tests validate the real bootstrap surface used by the retained suite:
 from __future__ import annotations
 
 import json
+import sys
 import textwrap
 from pathlib import Path
 
@@ -127,6 +128,214 @@ def _router_dispatch_module_source() -> str:
         )
         """
     )
+
+
+def _multi_target_router_module_source() -> str:
+    return textwrap.dedent(
+        """\
+        from gtl.algebra import deferred_refinement
+        from gtl.function_model import EnvRef, GraphFunction
+        from gtl.graph import Graph, GraphVector, Node
+        from gtl.obligation_ledger import declared_fulfillment_obligation, obligation_ledger_declarations
+        from gtl.module_model import Module
+        from gtl.operator_model import Evaluator, F_P
+        from gtl.work_model import ContractRef, Job, Role
+        from genesis.binding import Worker, module_to_executable_jobs
+
+        constructor = Role(name="constructor")
+        design = Node(name="design", schema="Design")
+        code = Node(name="code", schema="Code")
+        review = Node(name="review", schema="Review")
+
+        code_complete = Evaluator("code_complete", F_P, "code satisfies the design contract")
+        review_complete = Evaluator("review_complete", F_P, "review satisfies the design contract")
+
+        code_vector = GraphVector(
+            name="design→code",
+            source=design,
+            target=code,
+            evaluators=(code_complete,),
+            declarations=obligation_ledger_declarations(
+                obligation_source_kind="test_declared_fp_obligations",
+                obligation_source_ref="test://sandbox_install#design→code",
+                obligation_kind="fp_evaluator_obligation",
+                carry_rule="declared_fulfillment_obligation_set_totality",
+                fulfillment_rule="per_obligation_fp_assessment",
+                evidence_policy="agent_supplied_evidence_refs",
+                obligations=(
+                    declared_fulfillment_obligation(
+                        "code_complete",
+                        evaluator="code_complete",
+                        statement=code_complete.description,
+                        source_kind="test_declared_fp_obligations",
+                        source_refs=("test://sandbox_install#design→code/obligation/0",),
+                    ),
+                ),
+            ),
+        )
+        review_vector = GraphVector(
+            name="design→review",
+            source=design,
+            target=review,
+            evaluators=(review_complete,),
+            declarations=obligation_ledger_declarations(
+                obligation_source_kind="test_declared_fp_obligations",
+                obligation_source_ref="test://sandbox_install#design→review",
+                obligation_kind="fp_evaluator_obligation",
+                carry_rule="declared_fulfillment_obligation_set_totality",
+                fulfillment_rule="per_obligation_fp_assessment",
+                evidence_policy="agent_supplied_evidence_refs",
+                obligations=(
+                    declared_fulfillment_obligation(
+                        "review_complete",
+                        evaluator="review_complete",
+                        statement=review_complete.description,
+                        source_kind="test_declared_fp_obligations",
+                        source_refs=("test://sandbox_install#design→review/obligation/0",),
+                    ),
+                ),
+            ),
+        )
+
+        code_graph = Graph(
+            name="code_contract",
+            inputs=(design,),
+            outputs=(code,),
+            nodes=(design, code),
+            vectors=(code_vector,),
+        )
+        review_graph = Graph(
+            name="review_contract",
+            inputs=(design,),
+            outputs=(review,),
+            nodes=(design, review),
+            vectors=(review_vector,),
+        )
+
+        code_fn = GraphFunction.from_graph(
+            name="code_fn",
+            graph=code_graph,
+            environment=EnvRef.from_contract(requires=(design,), provides=(code,)),
+            declarations={"operator_handles": ("code-flow",)},
+        )
+        review_fn = GraphFunction.from_graph(
+            name="review_fn",
+            graph=review_graph,
+            environment=EnvRef.from_contract(requires=(design,), provides=(review,)),
+            declarations={"operator_handles": ("review-flow",)},
+        )
+
+        module = Module(
+            name="multi_target_runtime_contract",
+            graphs=(code_graph, review_graph),
+            graph_functions=(code_fn, review_fn),
+            refinement_boundaries=(
+                deferred_refinement(code_vector.name, inputs=(design,), outputs=(code,)),
+                deferred_refinement(review_vector.name, inputs=(design,), outputs=(review,)),
+            ),
+            jobs=(
+                Job(name=code_vector.name, contracts=(ContractRef(kind="graph_function", target_id=code_fn.id),), roles=(constructor,)),
+                Job(name=review_vector.name, contracts=(ContractRef(kind="graph_function", target_id=review_fn.id),), roles=(constructor,)),
+            ),
+            roles=(constructor,),
+            metadata={"requirements": ["REQ-P-POLICY-009", "REQ-P-POLICY-010"]},
+        )
+        worker = Worker(
+            id="abiogenesis_python_router",
+            can_execute=module_to_executable_jobs(module),
+            role_ids=(constructor.id,),
+            authority_ref="runtime://role-dispatch",
+        )
+        """
+    )
+
+
+def _deterministic_runtime_module_source() -> str:
+    return textwrap.dedent(
+        """\
+        from gtl.algebra import deferred_refinement
+        from gtl.function_model import EnvRef, GraphFunction
+        from gtl.graph import Graph, GraphVector, Node
+        from gtl.operator_model import Evaluator, F_D
+        from gtl.module_model import Module
+        from gtl.work_model import ContractRef, Job, Role
+        from genesis.binding import Worker, module_to_executable_jobs
+
+        constructor = Role(name="constructor")
+        design = Node(name="design", schema="Design")
+        code = Node(name="code", schema="Code")
+        code_ready = Evaluator(
+            "code_ready",
+            F_D,
+            "deterministic code readiness passes",
+            binding="exec://python -c 'import sys; sys.exit(0)'",
+        )
+        vector = GraphVector(
+            name="design→code",
+            source=design,
+            target=code,
+            evaluators=(code_ready,),
+        )
+        graph = Graph(
+            name="deterministic_runtime_contract",
+            inputs=(design,),
+            outputs=(code,),
+            nodes=(design, code),
+            vectors=(vector,),
+        )
+        graph_function = GraphFunction.from_graph(
+            name="code_fn",
+            graph=graph,
+            environment=EnvRef.from_contract(requires=(design,), provides=(code,)),
+            declarations={"operator_handles": ("code-flow",)},
+        )
+        module = Module(
+            name="deterministic_runtime_contract",
+            graphs=(graph,),
+            graph_functions=(graph_function,),
+            refinement_boundaries=(deferred_refinement(vector.name, inputs=(design,), outputs=(code,)),),
+            jobs=(Job(name=vector.name, contracts=(ContractRef(kind="graph_function", target_id=graph_function.id),), roles=(constructor,)),),
+            roles=(constructor,),
+            metadata={"requirements": ["REQ-P-POLICY-009"]},
+        )
+        worker = Worker(
+            id="abiogenesis_python_router",
+            can_execute=module_to_executable_jobs(module),
+            role_ids=(constructor.id,),
+            authority_ref="runtime://role-dispatch",
+        )
+        """
+    )
+
+
+def _write_runtime_contract(workspace: Path, *extra_lines: str) -> None:
+    (workspace / ".genesis" / "genesis.yml").write_text(
+        "runtime_contract: runtime.yml\n",
+        encoding="utf-8",
+    )
+    lines = [
+        "module: demo_runtime:module",
+        "worker: demo_runtime:worker",
+        "runtime_build: abiogenesis_python_router",
+        "runtime_worker_id: codex",
+        "runtime_backend: codex",
+        "runtime_authority_ref: runtime://role-dispatch",
+        "runtime_assignment_source: runtime://session-override/constructor",
+        "runtime_resolved_runtime_ref: runtime://resolved/constructor/codex",
+        *extra_lines,
+    ]
+    (workspace / "runtime.yml").write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def _write_operator_asset_registry_script(workspace: Path, payload: dict[str, object]) -> str:
+    script = workspace / "operator_asset_query.py"
+    script.write_text(
+        "import json\n"
+        f"payload = {repr(payload)}\n"
+        "print(json.dumps(payload))\n",
+        encoding="utf-8",
+    )
+    return f"{sys.executable} {script}"
 
 
 @pytest.mark.integration
@@ -450,6 +659,178 @@ class TestSandboxInstall:
             router_worker="abiogenesis_python_router",
             provenance_event_types=sorted(provenance_events),
         )
+
+    @pytest.mark.usecase_id("sandbox_install")
+    def test_installed_start_graph_function_target_drives_selected_manifest_and_event_chain(self, run_archive):
+        workspace = run_archive.workspace
+        install_real_sandbox(workspace, archive=run_archive)
+        (workspace / "demo_runtime.py").write_text(_multi_target_router_module_source(), encoding="utf-8")
+        _write_runtime_contract(workspace)
+
+        started = run_installed_genesis(
+            workspace,
+            "start",
+            "--scope",
+            "workspace",
+            "--target",
+            "graph_function:code-flow",
+            "--until",
+            "first_traversal",
+            archive=run_archive,
+            label="installed genesis start graph_function target",
+        )
+        assert started.returncode == 0, started.stderr
+        started_payload = json.loads(started.stdout)
+        assert started_payload["target"] == "graph_function:code-flow"
+        assert started_payload["edge"] == "design→code"
+        assert started_payload["stop_predicate"] == "dispatch_required"
+
+        manifest = json.loads(Path(started_payload["fp_manifest_path"]).read_text(encoding="utf-8"))
+        assert manifest["edge"] == "design→code"
+
+        result_path = Path(manifest["result_path"])
+        result_path.write_text(
+            json.dumps(
+                _fp_result_payload(
+                    manifest["edge"],
+                    actor="graph_function_target_tester",
+                    obligation_id="code_complete",
+                    fulfillment_detail="graph-function targeted chain completed",
+                )
+            ),
+            encoding="utf-8",
+        )
+        assessed = run_installed_genesis(
+            workspace,
+            "assess-result",
+            "--result",
+            str(result_path),
+            archive=run_archive,
+            label="installed genesis assess-result graph_function target",
+        )
+        assert assessed.returncode == 0, assessed.stderr
+
+        events = [
+            json.loads(line)
+            for line in (workspace / ".ai-workspace" / "events" / "events.jsonl").read_text(encoding="utf-8").splitlines()
+            if line.strip()
+        ]
+        dispatched_edges = [event["data"].get("edge") for event in events if event["event_type"] == "fp_dispatched"]
+        assessed_edges = [event["data"].get("edge") for event in events if event["event_type"] == "assessed"]
+        assert "design→code" in dispatched_edges
+        assert "design→review" not in dispatched_edges
+        assert "design→code" in assessed_edges
+        assert "design→review" not in assessed_edges
+
+    @pytest.mark.usecase_id("sandbox_install")
+    def test_installed_start_asset_target_drives_selected_manifest_and_event_chain(self, run_archive):
+        workspace = run_archive.workspace
+        install_real_sandbox(workspace, archive=run_archive)
+        (workspace / "demo_runtime.py").write_text(_multi_target_router_module_source(), encoding="utf-8")
+        asset_command = _write_operator_asset_registry_script(
+            workspace,
+            {
+                "assets": [
+                    {
+                        "asset_id": "code_surface",
+                        "uri": "file://build/code",
+                        "metadata": {"relative_path": "build/code.py"},
+                        "checkpoint": {"path_kind": "file", "exists": True},
+                        "operator_target": {"kind": "graph_function", "handle": "code-flow"},
+                    }
+                ]
+            },
+        )
+        _write_runtime_contract(
+            workspace,
+            f'operator_asset_contract: {json.dumps({"command": asset_command})}',
+        )
+
+        started = run_installed_genesis(
+            workspace,
+            "start",
+            "--scope",
+            "workspace",
+            "--target",
+            "asset:code_surface",
+            "--until",
+            "first_traversal",
+            archive=run_archive,
+            label="installed genesis start asset target",
+        )
+        assert started.returncode == 0, started.stderr
+        started_payload = json.loads(started.stdout)
+        assert started_payload["target"] == "asset:code_surface"
+        assert started_payload["asset_id"] == "code_surface"
+        assert started_payload["edge"] == "design→code"
+        assert started_payload["stop_predicate"] == "dispatch_required"
+
+        manifest = json.loads(Path(started_payload["fp_manifest_path"]).read_text(encoding="utf-8"))
+        assert manifest["edge"] == "design→code"
+
+        result_path = Path(manifest["result_path"])
+        result_path.write_text(
+            json.dumps(
+                _fp_result_payload(
+                    manifest["edge"],
+                    actor="asset_target_tester",
+                    obligation_id="code_complete",
+                    fulfillment_detail="asset-targeted chain completed",
+                )
+            ),
+            encoding="utf-8",
+        )
+        assessed = run_installed_genesis(
+            workspace,
+            "assess-result",
+            "--result",
+            str(result_path),
+            archive=run_archive,
+            label="installed genesis assess-result asset target",
+        )
+        assert assessed.returncode == 0, assessed.stderr
+
+        events = [
+            json.loads(line)
+            for line in (workspace / ".ai-workspace" / "events" / "events.jsonl").read_text(encoding="utf-8").splitlines()
+            if line.strip()
+        ]
+        dispatched_edges = [event["data"].get("edge") for event in events if event["event_type"] == "fp_dispatched"]
+        assessed_edges = [event["data"].get("edge") for event in events if event["event_type"] == "assessed"]
+        assert "design→code" in dispatched_edges
+        assert "design→review" not in dispatched_edges
+        assert "design→code" in assessed_edges
+        assert "design→review" not in assessed_edges
+
+    @pytest.mark.usecase_id("sandbox_install")
+    def test_installed_start_root_mode_supervised_converges_over_deterministic_chain(self, run_archive):
+        workspace = run_archive.workspace
+        install_real_sandbox(workspace, archive=run_archive)
+        (workspace / "demo_runtime.py").write_text(_deterministic_runtime_module_source(), encoding="utf-8")
+        _write_runtime_contract(workspace)
+
+        started = run_installed_genesis(
+            workspace,
+            "start",
+            "--scope",
+            "workspace",
+            "--target",
+            "next",
+            "--until",
+            "converged",
+            "--root-mode",
+            "supervised",
+            archive=run_archive,
+            label="installed genesis start root-mode supervised",
+        )
+        assert started.returncode == 0, started.stderr
+        payload = json.loads(started.stdout)
+        assert payload["status"] in {"converged", "nothing_to_do"}
+        assert payload["root_mode"] == "supervised"
+        assert payload["root_supervision"] is True
+        assert isinstance(payload.get("live_status"), dict)
+        assert payload["live_status"]["asset_type"] == "run_status"
+        assert payload["live_status"]["event_count"] == 0
 
     @pytest.mark.usecase_id("sandbox_install")
     def test_installed_runtime_reset_audit_supersedes_active_run_post_mortem(self, run_archive):

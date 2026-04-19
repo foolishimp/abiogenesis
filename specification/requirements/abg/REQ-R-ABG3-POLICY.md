@@ -26,4 +26,4 @@ default bundles.
 
 **REQ-R-ABG3-POLICY-006**: ABG shall publish supervised probabilistic dispatch as a first-class runtime capability. It remains automated runtime truth, not disguised human review.
 
-**REQ-R-ABG3-POLICY-007**: ABG may also publish a root-level supervision mode over `start --auto` for run-wide observation and recovery, but that control plane shall remain distinct from per-edge dispatch capability.
+**REQ-R-ABG3-POLICY-007**: ABG may also publish a root-level supervision mode around `gen-start` for run-wide observation and recovery, but that control plane shall remain distinct from per-edge dispatch capability and from the traversal request grammar itself.
