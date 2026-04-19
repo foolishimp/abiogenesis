@@ -18,7 +18,7 @@ import json
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Callable, Optional
+from typing import Any, Callable, Optional
 
 from gtl.operator_model import Evaluator, Rule, F_D, F_H, F_P
 from gtl.graph import Attrs, GraphVector
@@ -74,6 +74,7 @@ from .frames import (
 from .identity import RuntimeIdentity
 from .materialization import MaterializationRequest, derive_bundle, materialize_graph_function
 from .policy import materialize_policy_concern, resolve_policy_bundle
+from .proof_hold import project_proof_holds
 from .provenance import spec_hash_for
 from .selection import (
     SelectionDecision,
@@ -866,6 +867,7 @@ def derive_operational_gaps(
     requirements: tuple | list = (),
     workflow_version: str = "unknown",
     runtime_identity: RuntimeIdentity | None = None,
+    runtime_config: dict | None = None,
     edge_filter: str | None = None,
     work_key_filter: str | None = None,
     carry_forward: list[dict] | None = None,
@@ -882,9 +884,11 @@ def derive_operational_gaps(
             "reason": "no jobs in scope — check --feature and --edge flags",
         }
 
-    certified_keys = _current_certified_keys(list(operative.all_events))
+    all_events = list(operative.all_events)
+    certified_keys = _current_certified_keys(all_events)
     resolver = ContextResolver(workspace_root)
     results: list[dict] = []
+    proof_hold_identities: list[dict[str, Any]] = []
     carry_forward = carry_forward or []
 
     for job in operative.jobs:
@@ -927,6 +931,14 @@ def derive_operational_gaps(
             if work_key is not None:
                 entry["work_key"] = work_key
             results.append(entry)
+            proof_hold_identities.append(
+                {
+                    "edge": job.vector.name,
+                    "work_key": work_key,
+                    "spec_hash": spec_hash,
+                    "workflow_version": workflow_version,
+                }
+            )
 
             cert_key = work_key if work_key is not None else work_key_filter
             if delta == 0.0 and (job.vector.name, cert_key) not in certified_keys:
@@ -957,6 +969,26 @@ def derive_operational_gaps(
                         ),
                     )
                     certified_keys.add((job.vector.name, cert_key))
+
+    proof_holds = project_proof_holds(
+        workspace_root,
+        proof_hold_identities,
+        runtime_config=runtime_config,
+        all_events=all_events,
+    )
+    for entry, identity in zip(results, proof_hold_identities, strict=False):
+        proof_hold = proof_holds.get(
+            (
+                identity["edge"],
+                identity["work_key"],
+                identity["spec_hash"],
+                identity["workflow_version"],
+            )
+        )
+        if proof_hold is None:
+            continue
+        entry["proof_hold"] = proof_hold
+        entry["proof_hold_active"] = bool(proof_hold.get("held"))
 
     total_delta = sum(entry["delta"] for entry in results)
     scope_info: dict = {

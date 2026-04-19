@@ -26,6 +26,7 @@ from genesis import events as genesis_events
 from genesis.fulfillment_ledger import make_published_fulfillment_ledger_ref
 from genesis.identity import RuntimeIdentity
 from genesis import install as genesis_install
+from genesis.provenance import spec_hash_for
 from genesis import services
 
 
@@ -334,6 +335,70 @@ def test_run_start_auto_continues_after_unblocked_iteration(monkeypatch, tmp_pat
     assert result["auto"] is True
 
 
+def test_run_start_auto_stops_on_replay_derived_proof_hold(monkeypatch, tmp_path: Path):
+    stream = genesis_install.workspace_bootstrap(tmp_path)
+    manifests_dir = tmp_path / ".ai-workspace" / "fp_manifests"
+    manifests_dir.mkdir(parents=True, exist_ok=True)
+    manifest_id = "manifest-proof-hold"
+    (manifests_dir / f"{manifest_id}.json").write_text(
+        json.dumps(
+            {
+                "manifest_id": manifest_id,
+                "edge": "requirements→design",
+                "spec_hash": "spec-proof-hold",
+                "workflow_version": "wf-proof-hold",
+            }
+        ),
+        encoding="utf-8",
+    )
+    for idx in range(2):
+        genesis_events.emit(
+            "proof_failed",
+            {
+                "edge": "requirements→design",
+                "manifest_id": manifest_id,
+                "policy_reason": f"proof_incomplete_{idx}",
+            },
+            stream=stream,
+            context=genesis_events.EventContext(
+                workflow_version="wf-proof-hold",
+                run_id=f"run-proof-hold-{idx}",
+            ),
+        )
+
+    def fake_gen_start(scope, stream, auto=False):
+        assert auto is False
+        return {
+            "status": "pending",
+            "blocking_reason": "fp_dispatch",
+            "edge": "requirements→design",
+            "manifest_id": manifest_id,
+        }
+
+    dispatched: list[str] = []
+
+    def fake_auto_dispatch(result, workspace, *, config=None):
+        dispatched.append(result["edge"])
+        return {"status": "ok"}
+
+    monkeypatch.setattr(services, "gen_start", fake_gen_start)
+    monkeypatch.setattr("genesis.dispatch_runtime.auto_dispatch_from_result", fake_auto_dispatch)
+
+    result = cli_adapter._run_start_auto(
+        object(),
+        object(),
+        workspace=tmp_path,
+        config={"proof_hold_policy": {"failure_threshold": 2}},
+        human_proxy=False,
+    )
+
+    assert result["status"] == "pending"
+    assert result["stopped_by"] == "proof_hold"
+    assert result["proof_hold_active"] is True
+    assert result["proof_hold"]["failure_count"] == 2
+    assert dispatched == []
+
+
 def test_run_start_auto_supervised_retries_after_transport_failure_with_valid_artifact(
     monkeypatch,
     tmp_path: Path,
@@ -364,7 +429,7 @@ def test_run_start_auto_supervised_retries_after_transport_failure_with_valid_ar
     monkeypatch.setattr(cli_adapter, "_run_start_auto", fake_run_start_auto)
     monkeypatch.setattr(
         "genesis.live_status.project_live_run_status",
-        lambda workspace, run_id=None: next(statuses),
+        lambda workspace, run_id=None, runtime_config=None: next(statuses),
     )
 
     result = cli_adapter._run_start_auto_supervised(
@@ -383,7 +448,7 @@ def test_run_start_auto_supervised_retries_after_transport_failure_with_valid_ar
 def test_run_status_cmd_prints_live_projection(capsys, monkeypatch, tmp_path: Path):
     monkeypatch.setattr(
         "genesis.live_status.project_live_run_status",
-        lambda workspace, run_id=None: {
+        lambda workspace, run_id=None, runtime_config=None: {
             "asset_type": "run_status",
             "run_id": run_id or "run-1",
             "live_state": "active",
@@ -471,6 +536,55 @@ def test_gen_start_uses_scope_module_when_deriving_operational_state(tmp_path: P
     result = services.gen_start(scope, stream)
 
     assert result["status"] in {"iterated", "queued", "needs_selection", "converged", "dispatched"}
+
+
+def test_gen_gaps_projects_current_identity_proof_hold(tmp_path: Path):
+    module = _runtime_contract_module()
+    stream = genesis_install.workspace_bootstrap(tmp_path)
+    scope = services.Scope(
+        module=module,
+        workspace_root=tmp_path,
+        runtime_config={"proof_hold_policy": {"failure_threshold": 2}},
+    )
+    job = module_to_executable_jobs(module)[0]
+    spec_hash = spec_hash_for(
+        workflow_version=scope.workflow_version,
+        executable_job=job,
+        requirements=module.metadata.get("requirements", ()),
+    )
+    manifests_dir = tmp_path / ".ai-workspace" / "fp_manifests"
+    manifests_dir.mkdir(parents=True, exist_ok=True)
+    manifest_id = "manifest-gap-proof-hold"
+    (manifests_dir / f"{manifest_id}.json").write_text(
+        json.dumps(
+            {
+                "manifest_id": manifest_id,
+                "edge": "design→code",
+                "spec_hash": spec_hash,
+                "workflow_version": scope.workflow_version,
+            }
+        ),
+        encoding="utf-8",
+    )
+    for idx in range(2):
+        genesis_events.emit(
+            "proof_failed",
+            {
+                "edge": "design→code",
+                "manifest_id": manifest_id,
+                "policy_reason": f"proof_incomplete_{idx}",
+            },
+            stream=stream,
+            context=genesis_events.EventContext(
+                workflow_version=scope.workflow_version,
+                run_id=f"run-gap-proof-hold-{idx}",
+            ),
+        )
+
+    result = services.gen_gaps(scope, stream)
+
+    assert result["gaps"][0]["proof_hold_active"] is True
+    assert result["gaps"][0]["proof_hold"]["failure_count"] == 2
 
 
 def test_resolve_runtime_identity_reads_runtime_prefixed_keys_only():

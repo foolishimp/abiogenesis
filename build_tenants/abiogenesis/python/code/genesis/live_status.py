@@ -15,6 +15,7 @@ from .continuation import continuation_state
 from .events import EventStream
 from .fulfillment_ledger import latest_fp_assessed_event, resolve_published_fulfillment_ledger
 from .graph_call import project_graph_call
+from .proof_hold import project_proof_hold
 from .run import ACTIVE_RUN_STATES, project_run
 from .transport import inspect_result_artifact
 
@@ -171,7 +172,12 @@ def _lease_timeout_seconds(manifest: Mapping[str, Any]) -> int:
     return 300
 
 
-def project_live_run_status(workspace: Path, run_id: str | None = None) -> dict[str, Any]:
+def project_live_run_status(
+    workspace: Path,
+    run_id: str | None = None,
+    *,
+    runtime_config: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
     stream = EventStream.open(workspace)
     events = stream.all_events()
     resolved_run_id = run_id or _latest_run_id(events)
@@ -240,6 +246,17 @@ def project_live_run_status(workspace: Path, run_id: str | None = None) -> dict[
             if isinstance(maybe_edge, str):
                 edge = maybe_edge
 
+    proof_hold = project_proof_hold(
+        workspace,
+        edge=edge if isinstance(edge, str) else None,
+        work_key=run_projection.get("work_key") if isinstance(run_projection.get("work_key"), str) else None,
+        spec_hash=manifest.get("spec_hash") if isinstance(manifest.get("spec_hash"), str) else None,
+        workflow_version=manifest.get("workflow_version") if isinstance(manifest.get("workflow_version"), str) else None,
+        manifest_id=manifest_id if isinstance(manifest_id, str) else None,
+        runtime_config=runtime_config,
+        all_events=events,
+    )
+
     return {
         "asset_type": "run_status",
         "workspace": str(workspace),
@@ -263,6 +280,8 @@ def project_live_run_status(workspace: Path, run_id: str | None = None) -> dict[
         "published_fulfillment_edge_converged": (
             published_ledger.get("edge_converged") if published_ledger else None
         ),
+        "proof_hold": proof_hold,
+        "proof_hold_active": bool(proof_hold.get("held")),
         "last_progress_event_type": progress_event.get("event_type") if isinstance(progress_event, Mapping) else None,
         "last_progress_at": progress_event.get("event_time") if isinstance(progress_event, Mapping) else None,
         "open_continuations": _open_continuations(events, run_id=resolved_run_id),

@@ -192,6 +192,7 @@ def gen_gaps(scope: Scope, stream: EventStream) -> dict:
         requirements=scope.module.metadata.get("requirements", ()),
         workflow_version=scope.workflow_version,
         runtime_identity=scope.runtime_identity,
+        runtime_config=scope.runtime_config,
         edge_filter=scope.edge_filter,
         work_key_filter=scope.work_key_filter,
         carry_forward=_read_carry_forward(scope),

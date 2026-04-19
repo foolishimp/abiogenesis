@@ -559,7 +559,11 @@ def _emit_workspace_event(
 def _run_status_cmd(workspace: Path, run_id: str | None) -> int:
     from .live_status import project_live_run_status
 
-    status = project_live_run_status(workspace, run_id=run_id)
+    status = project_live_run_status(
+        workspace,
+        run_id=run_id,
+        runtime_config=_load_project_config(workspace),
+    )
     print(json.dumps(status, indent=2))
     return 0
 
@@ -650,6 +654,7 @@ def _run_start_auto(
 ) -> dict:
     """CLI-side auto loop with engine-owned F_P dispatch and CLI-owned F_H proxy handling."""
     from .dispatch_runtime import auto_dispatch_from_result
+    from .proof_hold import project_proof_hold
     from .services import gen_start
 
     max_auto = 50
@@ -666,6 +671,21 @@ def _run_start_auto(
 
         blocking_reason = result.get("blocking_reason")
         if blocking_reason == "fp_dispatch":
+            proof_hold = project_proof_hold(
+                workspace,
+                edge=result.get("edge") if isinstance(result.get("edge"), str) else None,
+                work_key=result.get("work_key") if isinstance(result.get("work_key"), str) else None,
+                spec_hash=None,
+                workflow_version=None,
+                manifest_id=result.get("manifest_id") if isinstance(result.get("manifest_id"), str) else None,
+                runtime_config=config,
+            )
+            if proof_hold.get("held"):
+                result["status"] = "pending"
+                result["proof_hold"] = proof_hold
+                result["proof_hold_active"] = True
+                result["stopped_by"] = "proof_hold"
+                return result
             dispatch_result = auto_dispatch_from_result(
                 result,
                 workspace,
@@ -780,7 +800,7 @@ def _run_start_auto_supervised(
         human_proxy=human_proxy,
     )
     result["root_supervision"] = True
-    result["live_status"] = project_live_run_status(workspace)
+    result["live_status"] = project_live_run_status(workspace, runtime_config=config)
 
     if (
         result.get("status") == "error"
@@ -797,7 +817,7 @@ def _run_start_auto_supervised(
         )
         resumed["root_supervision"] = True
         resumed["resumed_after_transport_failure"] = True
-        resumed["live_status"] = project_live_run_status(workspace)
+        resumed["live_status"] = project_live_run_status(workspace, runtime_config=config)
         return resumed
 
     return result
@@ -973,6 +993,7 @@ def main() -> None:
     #   4 — fd_gap (declared deterministic hard stop before constructive transition)
     #   5 — max_iterations (auto-loop limit hit without convergence)
     #   6 — yield (constructive turn advanced the asset and yielded handoff truth)
+    #   7 — proof_hold (product-layer proof hold stopped redispatch)
     #
     # IMPORTANT: exit 0 means ONLY converged/nothing_to_do — never a blocked run.
     stopped_by = result.get("stopped_by", "")
@@ -986,5 +1007,7 @@ def main() -> None:
         sys.exit(5)
     if stopped_by == "yield":
         sys.exit(6)
+    if stopped_by == "proof_hold":
+        sys.exit(7)
     if result.get("status") == "error":
         sys.exit(1)

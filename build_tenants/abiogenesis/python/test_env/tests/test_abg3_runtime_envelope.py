@@ -2149,6 +2149,78 @@ def test_live_run_status_resolves_published_ledger_from_assessed_event_pointer(t
     assert status["published_fulfillment_edge_converged"] is True
 
 
+def test_live_run_status_projects_and_clears_proof_hold_via_reset(tmp_path):
+    workspace_bootstrap(tmp_path)
+    manifest_id = "manifest-proof-hold-status"
+    manifests_dir = tmp_path / ".ai-workspace" / "fp_manifests"
+    manifests_dir.mkdir(parents=True, exist_ok=True)
+    (manifests_dir / f"{manifest_id}.json").write_text(
+        json.dumps(
+            {
+                "manifest_id": manifest_id,
+                "edge": "design→code",
+                "run_id": "run-proof-hold-status",
+                "spec_hash": "spec-proof-hold-status",
+                "workflow_version": "wf-proof-hold-status",
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    stream = EventStream.open(tmp_path)
+    emit(
+        "run_started",
+        {"edge": "design→code"},
+        stream=stream,
+        context=EventContext(
+            workflow_version="wf-proof-hold-status",
+            run_id="run-proof-hold-status",
+        ),
+    )
+    for idx in range(2):
+        emit(
+            "proof_failed",
+            {
+                "edge": "design→code",
+                "manifest_id": manifest_id,
+                "policy_reason": f"proof_incomplete_{idx}",
+            },
+            stream=stream,
+            context=EventContext(
+                workflow_version="wf-proof-hold-status",
+                run_id="run-proof-hold-status",
+                aggregate_type="run",
+                aggregate_id="run-proof-hold-status",
+            ),
+        )
+
+    status = project_live_run_status(
+        tmp_path,
+        run_id="run-proof-hold-status",
+        runtime_config={"proof_hold_policy": {"failure_threshold": 2}},
+    )
+
+    assert status["proof_hold_active"] is True
+    assert status["proof_hold"]["failure_count"] == 2
+
+    emit(
+        "reset",
+        {"scope": "workspace", "actor": "tester", "reason": "clear proof hold"},
+        stream=stream,
+        context=EventContext(workflow_version="wf-proof-hold-status"),
+    )
+
+    cleared = project_live_run_status(
+        tmp_path,
+        run_id="run-proof-hold-status",
+        runtime_config={"proof_hold_policy": {"failure_threshold": 2}},
+    )
+
+    assert cleared["proof_hold_active"] is False
+    assert cleared["proof_hold"]["failure_count"] == 0
+    assert cleared["proof_hold"]["last_clear"]["kind"] == "reset"
+
+
 def test_dispatch_agent_supervised_pty_observes_terminal_progress_and_artifact(monkeypatch, tmp_path):
     script_path = tmp_path / "fake_terminal_agent.py"
     script_path.write_text(

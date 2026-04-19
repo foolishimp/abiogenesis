@@ -1103,6 +1103,7 @@ def ingest_fp_result(
                 "call_id": call_id or None,
                 "edge": result_data["edge"],
                 "manifest_id": manifest_id,
+                "spec_hash": spec_hash,
                 "policy_mode": proof_policy.get("mode"),
                 "policy_reason": (
                     str(resolved_published_ledger.get("admission_basis") or "pending_fh_review")
