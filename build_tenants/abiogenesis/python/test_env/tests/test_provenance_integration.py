@@ -29,13 +29,16 @@ import pytest
 
 from gtl.algebra import deferred_refinement
 from gtl.function_model import EnvRef, GraphFunction
-from gtl.graph import Graph, Node, GraphVector, Context
+from gtl.graph import Graph, Node, Context
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, Operator, F_D, F_P, F_H, Rule
 from gtl.work_model import Job as GtlJob, ContractRef
+from tests.helpers_obligation_ledger import declared_test_graph_vector as GraphVector
 
 from genesis import __version__ as GENESIS_VERSION
 from genesis.binding import ExecutableJob, Worker
+from genesis.events import EventContext, emit
+from genesis.fulfillment_ledger import make_published_fulfillment_ledger_ref
 from genesis.provenance import WorkflowVersionError, executable_job_hash, req_hash, spec_hash_for
 from genesis.install import workspace_bootstrap
 from genesis.services import Scope, gen_gaps, module_to_executable_jobs
@@ -168,6 +171,75 @@ def _current_spec_hash(module: Module, workflow_version: str) -> str:
     )
 
 
+def _append_fp_assessment(
+    stream,
+    *,
+    workspace: Path,
+    edge: str,
+    obligation_id: str,
+    spec_hash: str,
+    workflow_version: str | None = None,
+    admission_required: bool = False,
+    fulfillment_status: str = "fulfilled",
+    fulfillment_detail: str = "assessment satisfied",
+) -> None:
+    ledger_dir = workspace / ".ai-workspace" / "fp_ledgers"
+    ledger_dir.mkdir(parents=True, exist_ok=True)
+    manifest_slug = edge.replace("→", "_").replace("/", "_")
+    manifest_id = f"{manifest_slug}_{obligation_id}_{spec_hash}"
+    ledger_path = ledger_dir / f"{manifest_id}.json"
+    ledger = {
+        "manifest_id": manifest_id,
+        "edge": edge,
+        "spec_hash": spec_hash,
+        "workflow_version": workflow_version,
+        "admission_required": admission_required,
+        "admitted": not admission_required,
+        "admission_basis": "test_fixture" if not admission_required else "pending_fh_review",
+        "carry_converged": True,
+        "fulfillment_converged": fulfillment_status == "fulfilled",
+        "edge_converged": fulfillment_status == "fulfilled" and not admission_required,
+        "obligations": [
+            {
+                "id": obligation_id,
+                "evaluator": obligation_id,
+                "fulfillment_status": fulfillment_status,
+                "fulfillment_detail": fulfillment_detail,
+                "blocking_reasons": (
+                    [fulfillment_detail]
+                    if fulfillment_status in {"blocked", "unfulfilled"} and fulfillment_detail
+                    else []
+                ),
+                "evidence_refs": (
+                    [fulfillment_detail]
+                    if fulfillment_status in {"fulfilled", "partial"} and fulfillment_detail
+                    else []
+                ),
+            }
+        ],
+    }
+    ledger_path.write_text(json.dumps(ledger, indent=2), encoding="utf-8")
+
+    payload = {
+        "kind": "fp",
+        "edge": edge,
+        "obligation_id": obligation_id,
+        "spec_hash": spec_hash,
+        "manifest_id": manifest_id,
+        "published_ledger_ref": make_published_fulfillment_ledger_ref(
+            manifest_id=manifest_id
+        ),
+    }
+    if workflow_version is not None:
+        payload["workflow_version"] = workflow_version
+    emit(
+        "assessed",
+        payload,
+        stream=stream,
+        context=EventContext(workflow_version=workflow_version or "unknown"),
+    )
+
+
 # ── IT-1: Bootstrap provenance by construction ───────────────────────────────
 
 class TestBootstrapProvenance:
@@ -201,13 +273,13 @@ class TestBootstrapProvenance:
         scope = Scope(module=module, workspace_root=tmp_path)
 
         old_hash = req_hash(module.metadata["requirements"])
-        stream.append("assessed", {
-            "kind": "fp",
-            "edge": "design→code",
-            "evaluator": "code_complete",
-            "result": "pass",
-            "spec_hash": old_hash,
-        })
+        _append_fp_assessment(
+            stream,
+            workspace=tmp_path,
+            edge="design→code",
+            obligation_id="code_complete",
+            spec_hash=old_hash,
+        )
 
         result = gen_gaps(scope, stream)
         assert result["converged"] is False
@@ -218,19 +290,25 @@ class TestBootstrapProvenance:
         module = _make_fh_module()
         scope = Scope(module=module, workspace_root=tmp_path)
 
-        stream.append("assessed", {
-            "kind": "fp",
-            "edge": "design→code",
-            "evaluator": "code_complete",
-            "result": "pass",
-            "spec_hash": _current_spec_hash(module, scope.workflow_version),
-            "workflow_version": scope.workflow_version,
-        })
-        stream.append("approved", {
-            "kind": "fh_review",
-            "edge": "design→code",
-            "actor": "test_human",
-        })
+        _append_fp_assessment(
+            stream,
+            workspace=tmp_path,
+            edge="design→code",
+            obligation_id="code_complete",
+            spec_hash=_current_spec_hash(module, scope.workflow_version),
+            workflow_version=scope.workflow_version,
+            admission_required=True,
+        )
+        emit(
+            "approved",
+            {
+                "kind": "fh_review",
+                "edge": "design→code",
+                "actor": "test_human",
+            },
+            stream=stream,
+            context=EventContext(workflow_version="unknown"),
+        )
 
         result = gen_gaps(scope, stream)
         assert result["converged"] is False
@@ -408,7 +486,14 @@ class TestEmitEventGovernanceValidation:
         workspace_bootstrap(tmp_path)
         from genesis.cli_adapter import _emit_event_cmd
         import json
-        data = json.dumps({"kind": "fp", "edge": "design→code", "result": "pass", "evaluator": "code_complete"})
+        data = json.dumps(
+            {
+                "kind": "fp",
+                "edge": "design→code",
+                "obligation_id": "code_complete",
+                "fulfillment_status": "fulfilled",
+            }
+        )
         rc = _emit_event_cmd("assessed", data, tmp_path)
         assert rc == 1
 
@@ -440,13 +525,13 @@ class TestStaleFpRejected:
         assert scope.workflow_version == "abiogenesis.standard@0.2.0"
 
         stale_hash = req_hash(module.metadata["requirements"])   # old format
-        stream.append("assessed", {
-            "kind": "fp",
-            "edge": "design→code",
-            "evaluator": "code_complete",
-            "result": "pass",
-            "spec_hash": stale_hash,
-        })
+        _append_fp_assessment(
+            stream,
+            workspace=tmp_path,
+            edge="design→code",
+            obligation_id="code_complete",
+            spec_hash=stale_hash,
+        )
 
         result = gen_gaps(scope, stream)
         assert result["converged"] is False, (
@@ -464,13 +549,13 @@ class TestStaleFpRejected:
         scope = Scope(module=module, workspace_root=tmp_path)
 
         new_hash = _current_spec_hash(module, scope.workflow_version)
-        stream.append("assessed", {
-            "kind": "fp",
-            "edge": "design→code",
-            "evaluator": "code_complete",
-            "result": "pass",
-            "spec_hash": new_hash,
-        })
+        _append_fp_assessment(
+            stream,
+            workspace=tmp_path,
+            edge="design→code",
+            obligation_id="code_complete",
+            spec_hash=new_hash,
+        )
 
         result = gen_gaps(scope, stream)
         assert result["converged"] is True, (
@@ -490,13 +575,13 @@ class TestStaleFpRejected:
 
         # Emit assessment against the ORIGINAL job
         original_hash = _current_spec_hash(module, scope.workflow_version)
-        stream.append("assessed", {
-            "kind": "fp",
-            "edge": "design→code",
-            "evaluator": "code_complete",
-            "result": "pass",
-            "spec_hash": original_hash,
-        })
+        _append_fp_assessment(
+            stream,
+            workspace=tmp_path,
+            edge="design→code",
+            obligation_id="code_complete",
+            spec_hash=original_hash,
+        )
 
         # Simulate evaluator change by building a new module with different description
         design = Node(name="design")
@@ -555,13 +640,13 @@ class TestStaleFpRejected:
         scope = Scope(module=module, workspace_root=tmp_path)
 
         original_hash = _current_spec_hash(module, scope.workflow_version)
-        stream.append("assessed", {
-            "kind": "fp",
-            "edge": "design→code",
-            "evaluator": "code_complete",
-            "result": "pass",
-            "spec_hash": original_hash,
-        })
+        _append_fp_assessment(
+            stream,
+            workspace=tmp_path,
+            edge="design→code",
+            obligation_id="code_complete",
+            spec_hash=original_hash,
+        )
         assert gen_gaps(scope, stream)["converged"] is True
 
         design = Node(name="design")
@@ -632,20 +717,26 @@ class TestApprovalVersionBinding:
         module = _make_fh_module()
         scope = Scope(module=module, workspace_root=tmp_path)
 
-        stream.append("assessed", {
-            "kind": "fp",
-            "edge": "design→code",
-            "evaluator": "code_complete",
-            "result": "pass",
-            "spec_hash": _current_spec_hash(module, scope.workflow_version),
-            "workflow_version": "abiogenesis.standard@0.2.0",
-        })
-        stream.append("approved", {
-            "kind": "fh_review",
-            "edge": "design→code",
-            "actor": "test_human",
-            "workflow_version": "abiogenesis.standard@0.2.0",
-        })
+        _append_fp_assessment(
+            stream,
+            workspace=tmp_path,
+            edge="design→code",
+            obligation_id="code_complete",
+            spec_hash=_current_spec_hash(module, scope.workflow_version),
+            workflow_version="abiogenesis.standard@0.2.0",
+            admission_required=True,
+        )
+        emit(
+            "approved",
+            {
+                "kind": "fh_review",
+                "edge": "design→code",
+                "actor": "test_human",
+                "workflow_version": "abiogenesis.standard@0.2.0",
+            },
+            stream=stream,
+            context=EventContext(workflow_version="abiogenesis.standard@0.2.0"),
+        )
 
         result = gen_gaps(scope, stream)
         assert result["converged"] is True
@@ -657,20 +748,26 @@ class TestApprovalVersionBinding:
         module = _make_fh_module()
         scope = Scope(module=module, workspace_root=tmp_path)
 
-        stream.append("assessed", {
-            "kind": "fp",
-            "edge": "design→code",
-            "evaluator": "code_complete",
-            "result": "pass",
-            "spec_hash": _current_spec_hash(module, scope.workflow_version),
-            "workflow_version": "abiogenesis.standard@0.2.0",
-        })
-        stream.append("approved", {
-            "kind": "fh_review",
-            "edge": "design→code",
-            "actor": "test_human",
-            "workflow_version": "abiogenesis.standard@0.1.0",  # prior version
-        })
+        _append_fp_assessment(
+            stream,
+            workspace=tmp_path,
+            edge="design→code",
+            obligation_id="code_complete",
+            spec_hash=_current_spec_hash(module, scope.workflow_version),
+            workflow_version="abiogenesis.standard@0.2.0",
+            admission_required=True,
+        )
+        emit(
+            "approved",
+            {
+                "kind": "fh_review",
+                "edge": "design→code",
+                "actor": "test_human",
+                "workflow_version": "abiogenesis.standard@0.1.0",  # prior version
+            },
+            stream=stream,
+            context=EventContext(workflow_version="abiogenesis.standard@0.1.0"),
+        )
 
         result = gen_gaps(scope, stream)
         assert result["converged"] is False, (
@@ -690,20 +787,26 @@ class TestApprovalVersionBinding:
         module = _make_fh_module()
         scope_v1 = Scope(module=module, workspace_root=tmp_path)
 
-        stream.append("assessed", {
-            "kind": "fp",
-            "edge": "design→code",
-            "evaluator": "code_complete",
-            "result": "pass",
-            "spec_hash": _current_spec_hash(module, scope_v1.workflow_version),
-            "workflow_version": "abiogenesis.standard@0.1.0",
-        })
-        stream.append("approved", {
-            "kind": "fh_review",
-            "edge": "design→code",
-            "actor": "test_human",
-            "workflow_version": "abiogenesis.standard@0.1.0",
-        })
+        _append_fp_assessment(
+            stream,
+            workspace=tmp_path,
+            edge="design→code",
+            obligation_id="code_complete",
+            spec_hash=_current_spec_hash(module, scope_v1.workflow_version),
+            workflow_version="abiogenesis.standard@0.1.0",
+            admission_required=True,
+        )
+        emit(
+            "approved",
+            {
+                "kind": "fh_review",
+                "edge": "design→code",
+                "actor": "test_human",
+                "workflow_version": "abiogenesis.standard@0.1.0",
+            },
+            stream=stream,
+            context=EventContext(workflow_version="abiogenesis.standard@0.1.0"),
+        )
 
         result_v1 = gen_gaps(scope_v1, stream)
         assert result_v1["converged"] is True, "Precondition: must be converged at 0.1.0"
@@ -737,20 +840,26 @@ class TestCarryForward:
         module = _make_fh_module()
         scope = Scope(module=module, workspace_root=tmp_path)
 
-        stream.append("assessed", {
-            "kind": "fp",
-            "edge": "design→code",
-            "evaluator": "code_complete",
-            "result": "pass",
-            "spec_hash": _current_spec_hash(module, scope.workflow_version),
-            "workflow_version": "abiogenesis.standard@0.2.0",
-        })
-        stream.append("approved", {
-            "kind": "fh_review",
-            "edge": "design→code",
-            "actor": "test_human",
-            "workflow_version": "abiogenesis.standard@0.1.0",   # prior version
-        })
+        _append_fp_assessment(
+            stream,
+            workspace=tmp_path,
+            edge="design→code",
+            obligation_id="code_complete",
+            spec_hash=_current_spec_hash(module, scope.workflow_version),
+            workflow_version="abiogenesis.standard@0.2.0",
+            admission_required=True,
+        )
+        emit(
+            "approved",
+            {
+                "kind": "fh_review",
+                "edge": "design→code",
+                "actor": "test_human",
+                "workflow_version": "abiogenesis.standard@0.1.0",   # prior version
+            },
+            stream=stream,
+            context=EventContext(workflow_version="abiogenesis.standard@0.1.0"),
+        )
 
         result = gen_gaps(scope, stream)
         assert result["converged"] is True, (
@@ -768,21 +877,27 @@ class TestCarryForward:
         module = _make_fh_module()
         scope = Scope(module=module, workspace_root=tmp_path)
 
-        stream.append("assessed", {
-            "kind": "fp",
-            "edge": "design→code",
-            "evaluator": "code_complete",
-            "result": "pass",
-            "spec_hash": _current_spec_hash(module, scope.workflow_version),
-            "workflow_version": "abiogenesis.standard@0.2.0",
-        })
+        _append_fp_assessment(
+            stream,
+            workspace=tmp_path,
+            edge="design→code",
+            obligation_id="code_complete",
+            spec_hash=_current_spec_hash(module, scope.workflow_version),
+            workflow_version="abiogenesis.standard@0.2.0",
+            admission_required=True,
+        )
         # Approval from 0.0.1 — not the carry_forward from_version (0.1.0)
-        stream.append("approved", {
-            "kind": "fh_review",
-            "edge": "design→code",
-            "actor": "test_human",
-            "workflow_version": "abiogenesis.standard@0.0.1",
-        })
+        emit(
+            "approved",
+            {
+                "kind": "fh_review",
+                "edge": "design→code",
+                "actor": "test_human",
+                "workflow_version": "abiogenesis.standard@0.0.1",
+            },
+            stream=stream,
+            context=EventContext(workflow_version="abiogenesis.standard@0.0.1"),
+        )
 
         result = gen_gaps(scope, stream)
         assert result["converged"] is False, (
@@ -797,20 +912,26 @@ class TestCarryForward:
         module = _make_fh_module()
         scope = Scope(module=module, workspace_root=tmp_path)
 
-        stream.append("assessed", {
-            "kind": "fp",
-            "edge": "design→code",
-            "evaluator": "code_complete",
-            "result": "pass",
-            "spec_hash": _current_spec_hash(module, scope.workflow_version),
-            "workflow_version": "abiogenesis.standard@0.2.0",
-        })
-        stream.append("approved", {
-            "kind": "fh_review",
-            "edge": "design→code",
-            "actor": "test_human",
-            "workflow_version": "abiogenesis.standard@0.1.0",
-        })
+        _append_fp_assessment(
+            stream,
+            workspace=tmp_path,
+            edge="design→code",
+            obligation_id="code_complete",
+            spec_hash=_current_spec_hash(module, scope.workflow_version),
+            workflow_version="abiogenesis.standard@0.2.0",
+            admission_required=True,
+        )
+        emit(
+            "approved",
+            {
+                "kind": "fh_review",
+                "edge": "design→code",
+                "actor": "test_human",
+                "workflow_version": "abiogenesis.standard@0.1.0",
+            },
+            stream=stream,
+            context=EventContext(workflow_version="abiogenesis.standard@0.1.0"),
+        )
 
         result = gen_gaps(scope, stream)
         assert result["converged"] is False
@@ -832,21 +953,27 @@ class TestPreProvenanceRejection:
         module = _make_fh_module()
         scope = Scope(module=module, workspace_root=tmp_path)
 
-        stream.append("assessed", {
-            "kind": "fp",
-            "edge": "design→code",
-            "evaluator": "code_complete",
-            "result": "pass",
-            "spec_hash": _current_spec_hash(module, scope.workflow_version),
-            "workflow_version": "abiogenesis.standard@0.2.0",
-        })
+        _append_fp_assessment(
+            stream,
+            workspace=tmp_path,
+            edge="design→code",
+            obligation_id="code_complete",
+            spec_hash=_current_spec_hash(module, scope.workflow_version),
+            workflow_version="abiogenesis.standard@0.2.0",
+            admission_required=True,
+        )
         # Pre-provenance: no workflow_version field on the approval
-        stream.append("approved", {
-            "kind": "fh_review",
-            "edge": "design→code",
-            "actor": "test_human",
-            # workflow_version intentionally absent
-        })
+        emit(
+            "approved",
+            {
+                "kind": "fh_review",
+                "edge": "design→code",
+                "actor": "test_human",
+                # workflow_version intentionally absent
+            },
+            stream=stream,
+            context=EventContext(workflow_version="unknown"),
+        )
 
         result = gen_gaps(scope, stream)
         assert result["converged"] is False, (

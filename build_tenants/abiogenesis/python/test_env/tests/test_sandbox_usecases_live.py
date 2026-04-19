@@ -36,6 +36,7 @@ from helpers_intent_requirements import (
     intent_requirements_module,
     judge_intent_traceability,
     run_requirements_standard_check,
+    to_fulfillment_assessments as i2r_fulfillment_assessments,
     write_result_file as write_i2r_result_file,
 )
 from helpers_requirements_uat import (
@@ -44,6 +45,7 @@ from helpers_requirements_uat import (
     judge_uat_scenario_quality,
     requirements_uat_module,
     run_uat_standard_check,
+    to_fulfillment_assessments as r2u_fulfillment_assessments,
     write_result_file as write_r2u_result_file,
 )
 from helpers_gsdlc_lite import (
@@ -71,6 +73,7 @@ from helpers_gsdlc_lite import (
     run_design_standard_check,
     run_design_review_standard_check,
     write_result_file as write_gsdlc_result_file,
+    to_fulfillment_assessments as gsdlc_fulfillment_assessments,
 )
 
 
@@ -234,7 +237,7 @@ def test_requirements_to_uat_live_qualification(run_archive):
         result_path,
         edge=R2U_EDGE_NAME,
         actor="live_fp_judge",
-        assessments=assessments,
+        fulfillment_assessments=r2u_fulfillment_assessments(assessments),
     )
     rc = _assess_result_cmd(str(result_path), workspace)
     assert rc == 0
@@ -303,7 +306,7 @@ def test_intents_to_requirements_live_qualification(run_archive):
         result_path,
         edge=I2R_EDGE_NAME,
         actor="live_requirements_judge",
-        assessments=assessments,
+        fulfillment_assessments=i2r_fulfillment_assessments(assessments),
     )
     rc = _assess_result_cmd(str(result_path), workspace)
     assert rc == 0
@@ -353,7 +356,7 @@ def test_gsdlc_lite_requirements_design_code_live_qualification(run_archive):
         Path(first_manifest["result_path"]),
         edge=GL_REQ_TO_DESIGN_EDGE,
         actor="live_design_judge",
-        assessments=design_assessments,
+        fulfillment_assessments=gsdlc_fulfillment_assessments(design_assessments),
     )
     assert _assess_result_cmd(str(first_manifest["result_path"]), workspace) == 0
 
@@ -389,7 +392,7 @@ def test_gsdlc_lite_requirements_design_code_live_qualification(run_archive):
         Path(second_manifest["result_path"]),
         edge=GL_DESIGN_TO_CODE_EDGE,
         actor="live_code_judge",
-        assessments=code_assessments,
+        fulfillment_assessments=gsdlc_fulfillment_assessments(code_assessments),
     )
     assert _assess_result_cmd(str(second_manifest["result_path"]), workspace) == 0
 
@@ -455,7 +458,7 @@ def test_gsdlc_lite_design_review_live_qualification(run_archive):
         Path(first_manifest["result_path"]),
         edge=GL_REQ_TO_DESIGN_EDGE,
         actor="live_design_judge",
-        assessments=design_assessments,
+        fulfillment_assessments=gsdlc_fulfillment_assessments(design_assessments),
     )
     assert _assess_result_cmd(str(first_manifest["result_path"]), workspace) == 0
 
@@ -490,7 +493,7 @@ def test_gsdlc_lite_design_review_live_qualification(run_archive):
         Path(second_manifest["result_path"]),
         edge=GL_DESIGN_TO_REVIEW_EDGE,
         actor="live_design_review_judge",
-        assessments=review_assessments,
+        fulfillment_assessments=gsdlc_fulfillment_assessments(review_assessments),
     )
     assert _assess_result_cmd(str(second_manifest["result_path"]), workspace) == 0
 
@@ -525,7 +528,7 @@ def test_gsdlc_lite_design_review_live_qualification(run_archive):
         Path(third_manifest["result_path"]),
         edge=GL_REVIEW_TO_CODE_EDGE,
         actor="live_code_judge",
-        assessments=code_assessments,
+        fulfillment_assessments=gsdlc_fulfillment_assessments(code_assessments),
     )
     assert _assess_result_cmd(str(third_manifest["result_path"]), workspace) == 0
 
@@ -650,11 +653,11 @@ def test_gsdlc_lite_zoom_design_live_qualification(run_archive):
             Path(manifest["result_path"]),
             edge=edge_name,
             actor="live_zoom_judge",
-            assessments=[{
+            fulfillment_assessments=gsdlc_fulfillment_assessments([{
                 "evaluator": "zoom_progress",
                 "result": "pass",
                 "evidence": f"{artifact_relpath.name} updated with non-empty content",
-            }],
+            }]),
         )
         assert _assess_result_cmd(str(manifest["result_path"]), workspace) == 0
 
@@ -692,11 +695,11 @@ def test_gsdlc_lite_zoom_design_live_qualification(run_archive):
         Path(rebound_manifest["result_path"]),
         edge=GL_REQ_TO_DESIGN_EDGE,
         actor="live_zoom_parent_judge",
-        assessments=[{
+        fulfillment_assessments=gsdlc_fulfillment_assessments([{
             "evaluator": "zoom_progress",
             "result": "pass",
             "evidence": rebound_design_assessments[0]["evidence"],
-        }],
+        }]),
     )
     assert _assess_result_cmd(str(rebound_manifest["result_path"]), workspace) == 0
 

@@ -20,7 +20,7 @@ import pytest
 
 from gtl.algebra import candidate_family, compose, deferred_refinement, recurse
 from gtl.function_model import EnvRef, GraphFunction, TemplateRef
-from gtl.graph import Attrs, Graph, GraphVector, Node
+from gtl.graph import Attrs, Graph, Node, GraphVector
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, F_D, Operator
 from gtl.work_model import ContractRef, Job

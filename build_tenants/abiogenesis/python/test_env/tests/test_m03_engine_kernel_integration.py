@@ -35,10 +35,11 @@ import pytest
 
 from gtl.algebra import compose, graph_function_for_vector, recurse
 from gtl.function_model import CandidateFamily, EnvRef, GraphFunction, RefinementBoundary
-from gtl.graph import Graph, GraphVector, Node
+from gtl.graph import Graph, Node
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, F_D, F_H, F_P, Rule
 from gtl.work_model import ContractRef, Job, Role
+from tests.helpers_obligation_ledger import declared_test_graph_vector as GraphVector
 
 from genesis import __version__ as GENESIS_VERSION
 from genesis.binding import (
@@ -55,6 +56,7 @@ from genesis.identity import RuntimeIdentity
 from genesis.convergence import convergence_from_precomputed, outcomes_from_precomputed
 from genesis.events import EventContext, EventStream, emit
 from genesis.frames import deserialize_frame, find_active_frame, resolve_frame_candidate_family
+from genesis.fulfillment_ledger import make_published_fulfillment_ledger_ref
 from genesis.install import workspace_bootstrap
 from genesis.interpret import (
     Traversal,
@@ -146,9 +148,102 @@ def _event_types(stream: EventStream) -> list[str]:
     return [event["event_type"] for event in stream.all_events()]
 
 
+def _write_published_fulfillment_ledger(
+    workspace: Path,
+    *,
+    edge: str,
+    obligation_id: str,
+    spec_hash: str,
+    workflow_version: str | None,
+    fulfillment_status: str = "fulfilled",
+    fulfillment_detail: str = "assessment satisfied",
+) -> tuple[str, dict[str, str]]:
+    ledger_dir = workspace / ".ai-workspace" / "fp_ledgers"
+    ledger_dir.mkdir(parents=True, exist_ok=True)
+    manifest_slug = edge.replace("→", "_").replace("/", "_")
+    manifest_id = f"{manifest_slug}_{obligation_id}_{spec_hash}"
+    ledger_path = ledger_dir / f"{manifest_id}.json"
+    blocking_reasons = (
+        [fulfillment_detail]
+        if fulfillment_status in {"blocked", "unfulfilled"} and fulfillment_detail
+        else []
+    )
+    evidence_refs = (
+        [fulfillment_detail]
+        if fulfillment_status in {"fulfilled", "partial"} and fulfillment_detail
+        else []
+    )
+    ledger = {
+        "manifest_id": manifest_id,
+        "edge": edge,
+        "spec_hash": spec_hash,
+        "workflow_version": workflow_version,
+        "admission_required": False,
+        "admitted": True,
+        "admission_basis": "test_fixture",
+        "carry_converged": True,
+        "fulfillment_converged": fulfillment_status == "fulfilled",
+        "edge_converged": fulfillment_status == "fulfilled",
+        "obligations": [
+            {
+                "id": obligation_id,
+                "evaluator": obligation_id,
+                "fulfillment_status": fulfillment_status,
+                "fulfillment_detail": fulfillment_detail,
+                "blocking_reasons": blocking_reasons,
+                "evidence_refs": evidence_refs,
+            }
+        ],
+    }
+    ledger_path.write_text(json.dumps(ledger, indent=2), encoding="utf-8")
+    return manifest_id, make_published_fulfillment_ledger_ref(manifest_id=manifest_id)
+
+
+def _append_fp_assessment(
+    stream: EventStream,
+    *,
+    workspace: Path,
+    edge: str,
+    obligation_id: str,
+    spec_hash: str,
+    workflow_version: str | None = None,
+    work_key: str | None = None,
+    fulfillment_status: str = "fulfilled",
+    fulfillment_detail: str = "assessment satisfied",
+) -> None:
+    manifest_id, ledger_ref = _write_published_fulfillment_ledger(
+        workspace,
+        edge=edge,
+        obligation_id=obligation_id,
+        spec_hash=spec_hash,
+        workflow_version=workflow_version,
+        fulfillment_status=fulfillment_status,
+        fulfillment_detail=fulfillment_detail,
+    )
+    emit(
+        "assessed",
+        {
+            "kind": "fp",
+            "edge": edge,
+            "obligation_id": obligation_id,
+            "spec_hash": spec_hash,
+            "manifest_id": manifest_id,
+            "workflow_version": workflow_version,
+            "work_key": work_key,
+            "published_ledger_ref": ledger_ref,
+        },
+        stream=stream,
+        context=EventContext(
+            workflow_version=workflow_version or "unknown",
+            work_key=work_key,
+        ),
+    )
+
+
 def _emit_successful_fp_completion(
     stream: EventStream,
     *,
+    workspace: Path,
     workflow_version: str,
     edge: str,
     evaluator: str,
@@ -167,14 +262,22 @@ def _emit_successful_fp_completion(
         frame_attempt_id=frame.frame_attempt_id if frame is not None else None,
         frame_lineage_id=frame.frame_lineage_id if frame is not None else None,
     )
+    manifest_id, ledger_ref = _write_published_fulfillment_ledger(
+        workspace,
+        edge=edge,
+        obligation_id=evaluator,
+        spec_hash=spec_hash,
+        workflow_version=workflow_version,
+    )
     emit(
         "assessed",
         {
             "kind": "fp",
             "edge": edge,
-            "evaluator": evaluator,
-            "result": "pass",
+            "obligation_id": evaluator,
             "spec_hash": spec_hash,
+            "manifest_id": manifest_id,
+            "published_ledger_ref": ledger_ref,
         },
         stream=stream,
         context=context,
@@ -604,6 +707,7 @@ def _emit_edge_converged(
 def _converge_fp_edge(
     *,
     stream: EventStream,
+    workspace: Path,
     workflow_version: str,
     job: ExecutableJob,
     requirements: list[str],
@@ -616,6 +720,7 @@ def _converge_fp_edge(
     )
     _emit_successful_fp_completion(
         stream,
+        workspace=workspace,
         workflow_version=workflow_version,
         edge=job.vector.name,
         evaluator=job.vector.evaluators[0].name,
@@ -1079,6 +1184,7 @@ print(json.dumps({
 
         _converge_fp_edge(
             stream=stream,
+            workspace=tmp_path,
             workflow_version=scope.workflow_version,
             job=jobs["input_set→requirements"],
             requirements=module.metadata["requirements"],
@@ -1106,6 +1212,7 @@ print(json.dumps({
 
         _converge_fp_edge(
             stream=stream,
+            workspace=tmp_path,
             workflow_version=scope.workflow_version,
             job=jobs["requirements→design"],
             requirements=module.metadata["requirements"],
@@ -2430,6 +2537,7 @@ print(json.dumps({
         frame, step = active
         _emit_successful_fp_completion(
             stream,
+            workspace=tmp_path,
             workflow_version=scope.workflow_version,
             edge=step.edge,
             evaluator="child_review",
@@ -4382,15 +4490,14 @@ print(json.dumps({
                 f"id: {feature}\nstatus: active\nsatisfies:\n  - REQ-M03-PROPERTY-001\n",
                 encoding="utf-8",
             )
-            stream.append(
-                "assessed",
-                {
-                    "kind": "fp",
-                    "edge": "design→code",
-                    "evaluator": "code_complete",
-                    "result": "pass",
-                    "spec_hash": spec_hash,
-                },
+            _append_fp_assessment(
+                stream,
+                workspace=workspace,
+                edge="design→code",
+                obligation_id="code_complete",
+                spec_hash=spec_hash,
+                workflow_version=scope.workflow_version,
+                work_key=feature,
             )
 
             first = gen_gaps(scope, stream)
@@ -4419,15 +4526,13 @@ print(json.dumps({
             requirements=module_v1.metadata["requirements"],
         )
 
-        stream.append(
-            "assessed",
-            {
-                "kind": "fp",
-                "edge": "design→code",
-                "evaluator": "code_complete",
-                "result": "pass",
-                "spec_hash": hash_v1,
-            },
+        _append_fp_assessment(
+            stream,
+            workspace=tmp_path,
+            edge="design→code",
+            obligation_id="code_complete",
+            spec_hash=hash_v1,
+            workflow_version=scope_v1.workflow_version,
         )
         assert gen_gaps(scope_v1, stream)["converged"] is True
 
@@ -4444,15 +4549,13 @@ print(json.dumps({
         assert result_v2["converged"] is False
         assert result_v2["total_delta"] > 0
 
-        stream.append(
-            "assessed",
-            {
-                "kind": "fp",
-                "edge": "design→code",
-                "evaluator": "code_complete",
-                "result": "pass",
-                "spec_hash": hash_v2,
-            },
+        _append_fp_assessment(
+            stream,
+            workspace=tmp_path,
+            edge="design→code",
+            obligation_id="code_complete",
+            spec_hash=hash_v2,
+            workflow_version=scope_v2.workflow_version,
         )
         assert gen_gaps(scope_v2, stream)["converged"] is True
 
@@ -4466,15 +4569,13 @@ print(json.dumps({
             requirements=module.metadata["requirements"],
         )
 
-        stream.append(
-            "assessed",
-            {
-                "kind": "fp",
-                "edge": "design→code",
-                "evaluator": "code_complete",
-                "result": "pass",
-                "spec_hash": "stale_hash",
-            },
+        _append_fp_assessment(
+            stream,
+            workspace=tmp_path,
+            edge="design→code",
+            obligation_id="code_complete",
+            spec_hash="stale_hash",
+            workflow_version=scope.workflow_version,
         )
 
         stale = gen_gaps(scope, stream)
@@ -4482,14 +4583,12 @@ print(json.dumps({
         failing = [evaluator for gap in stale["gaps"] for evaluator in gap["failing"]]
         assert "code_complete" in failing
 
-        stream.append(
-            "assessed",
-            {
-                "kind": "fp",
-                "edge": "design→code",
-                "evaluator": "code_complete",
-                "result": "pass",
-                "spec_hash": expected_hash,
-            },
+        _append_fp_assessment(
+            stream,
+            workspace=tmp_path,
+            edge="design→code",
+            obligation_id="code_complete",
+            spec_hash=expected_hash,
+            workflow_version=scope.workflow_version,
         )
         assert gen_gaps(scope, stream)["converged"] is True

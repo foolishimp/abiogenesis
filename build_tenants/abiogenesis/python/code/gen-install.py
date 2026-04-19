@@ -55,6 +55,7 @@ GTL_MODULES = [
     "function_model.py",
     "algebra.py",
     "module_model.py",
+    "obligation_ledger.py",
     "work_model.py",
 ]
 

@@ -13,6 +13,7 @@ from typing import Any
 
 from .continuation import continuation_state
 from .events import EventStream
+from .fulfillment_ledger import latest_fp_assessed_event, resolve_published_fulfillment_ledger
 from .graph_call import project_graph_call
 from .run import ACTIVE_RUN_STATES, project_run
 from .transport import inspect_result_artifact
@@ -193,6 +194,26 @@ def project_live_run_status(workspace: Path, run_id: str | None = None) -> dict[
         call_id=call_id,
     )
     manifest = _read_manifest(workspace, manifest_id if isinstance(manifest_id, str) else None)
+    latest_ledger_event = latest_fp_assessed_event(
+        events,
+        run_id=resolved_run_id,
+        call_id=call_id,
+    )
+    published_ledger = resolve_published_fulfillment_ledger(
+        events,
+        run_id=resolved_run_id,
+        call_id=call_id,
+        edge=run_projection.get("edge") if isinstance(run_projection.get("edge"), str) else None,
+        work_key=run_projection.get("work_key") if isinstance(run_projection.get("work_key"), str) else None,
+        spec_hash=manifest.get("spec_hash") if isinstance(manifest.get("spec_hash"), str) else None,
+        current_workflow_version=manifest.get("workflow_version") if isinstance(manifest.get("workflow_version"), str) else "unknown",
+        workspace=workspace,
+        ledger_ref=(
+            latest_ledger_event.get("data", {}).get("published_ledger_ref")
+            if isinstance(latest_ledger_event, Mapping)
+            else None
+        ),
+    ) or {}
     result_path = manifest.get("result_path") if isinstance(manifest.get("result_path"), str) else None
     artifact = inspect_result_artifact(
         result_path,
@@ -235,6 +256,13 @@ def project_live_run_status(workspace: Path, run_id: str | None = None) -> dict[
         "result_artifact_status": artifact.status if artifact is not None else None,
         "result_artifact_failure_class": artifact.failure_class if artifact is not None else None,
         "result_artifact_valid": artifact.valid if artifact is not None else False,
+        "published_fulfillment_ledger_ref": published_ledger.get("published_ledger_ref"),
+        "published_fulfillment_admitted": (
+            published_ledger.get("admitted") if published_ledger else None
+        ),
+        "published_fulfillment_edge_converged": (
+            published_ledger.get("edge_converged") if published_ledger else None
+        ),
         "last_progress_event_type": progress_event.get("event_type") if isinstance(progress_event, Mapping) else None,
         "last_progress_at": progress_event.get("event_time") if isinstance(progress_event, Mapping) else None,
         "open_continuations": _open_continuations(events, run_id=resolved_run_id),

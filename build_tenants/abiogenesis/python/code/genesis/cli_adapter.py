@@ -28,6 +28,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import shlex
 import sys
 from collections.abc import Mapping
 from datetime import datetime, timezone
@@ -312,16 +313,23 @@ def _check_tag_coverage(tag_type: str, package_ref: str, scan_path: str) -> int:
 
 def _assess_result_cmd(result_path: str, workspace: Path) -> int:
     """
-    Ingest an F_P result JSON file and emit assessed events.
+    Ingest an F_P result JSON file, publish typed fulfillment truth, and emit assessed events.
 
     This is the app-level consumer that closes the result_path protocol:
-      1. F_P actor writes assessment JSON to result_path
+      1. F_P actor writes fulfillment-assessment JSON to result_path
       2. This command reads it, resolves provenance from the matching manifest
-      3. Emits one assessed{kind: fp} event per assessment entry
+      3. Publishes a merged fulfillment ledger and emits assessed{kind: fp} events
 
     The result file format (as declared in the manifest OUTPUT CONTRACT):
-      {"edge": "X→Y", "actor": "agent_id", "assessments": [
-        {"evaluator": "name", "result": "pass|fail", "evidence": "..."}
+      {"edge": "X→Y", "actor": "agent_id", "fulfillment_assessments": [
+        {
+          "id": "obligation-id",
+          "evaluator": "declared-evaluator-name",
+          "fulfillment_status": "fulfilled|partial|blocked|unfulfilled",
+          "fulfillment_detail": "...",
+          "blocking_reasons": ["..."],
+          "evidence_refs": ["..."]
+        }
       ]}
 
     Callable by both the skill layer (gen-start.md) and the test harness.
@@ -356,8 +364,8 @@ def _emit_event_cmd(event_type: str, data_json: str, workspace: Path) -> int:
     Governance: required fields validated per event type (prime operators).
       approved  — requires: kind (fh_review | fh_intent), edge, actor (human | human-proxy)
         human-proxy actor additionally requires: proxy_log
-      assessed  — requires: kind, edge, evaluator, result (pass | fail)
-        kind=fp additionally requires: spec_hash
+      assessed  — requires: kind, edge
+      kind=fp additionally requires: obligation_id, spec_hash, published_ledger_ref
       revoked   — requires: kind (fh_approval), edge, actor, reason
     """
     import json as _json
@@ -383,19 +391,23 @@ def _emit_event_cmd(event_type: str, data_json: str, workspace: Path) -> int:
             errors.append("human-proxy actor requires 'proxy_log' path field")
     elif event_type == "assessed":
         # Assessed has two schemas split by kind:
-        #   kind=fp       — F_P agent assessment: requires evaluator, spec_hash
+        #   kind=fp        — F_P fulfillment publication pointer: requires obligation_id, spec_hash, published_ledger_ref
         #   kind=fh_review — F_H human rejection: requires actor, reason
-        for fld in ("kind", "edge", "result"):
+        for fld in ("kind", "edge"):
             if fld not in data:
                 errors.append(f"assessed requires '{fld}' field")
         kind = data.get("kind")
         if kind == "fp":
-            # spec_hash is required so bind_fd() can validate the active requirements snapshot.
-            for fld in ("evaluator", "spec_hash"):
+            for fld in ("obligation_id", "spec_hash", "published_ledger_ref"):
                 if fld not in data:
                     errors.append(f"assessed{{kind: fp}} requires '{fld}' field")
-            if data.get("result") not in (None, "pass", "fail"):
-                errors.append("assessed{kind: fp} 'result' must be 'pass' or 'fail'")
+            if "published_ledger_ref" in data:
+                from .fulfillment_ledger import coerce_published_fulfillment_ledger_ref
+
+                try:
+                    coerce_published_fulfillment_ledger_ref(data["published_ledger_ref"])
+                except ValueError as exc:
+                    errors.append(str(exc))
         elif kind == "fh_review":
             for fld in ("actor", "reason"):
                 if fld not in data:
@@ -406,8 +418,8 @@ def _emit_event_cmd(event_type: str, data_json: str, workspace: Path) -> int:
         for fld in ("kind", "edge", "actor", "reason"):
             if fld not in data:
                 errors.append(f"revoked requires '{fld}' field")
-        if data.get("kind") not in (None, "fh_approval", "fp_assessment"):
-            errors.append(f"revoked 'kind' must be 'fh_approval' or 'fp_assessment', got '{data.get('kind')!s}'")
+        if data.get("kind") not in (None, "fh_approval"):
+            errors.append(f"revoked 'kind' must be 'fh_approval', got '{data.get('kind')!s}'")
 
     if event_type == "reset":
         if "scope" not in data:
@@ -694,6 +706,62 @@ def _run_start_auto(
     return result
 
 
+def _attach_pending_recovery_contract(result: Mapping[str, object], workspace: Path) -> dict[str, object]:
+    enriched = dict(result)
+    if enriched.get("status") != "pending":
+        return enriched
+
+    manifest_path: Path | None = None
+    manifest_path_value = enriched.get("fp_manifest_path")
+    if isinstance(manifest_path_value, str) and manifest_path_value:
+        manifest_path = Path(manifest_path_value)
+    else:
+        manifest_id = enriched.get("manifest_id")
+        if isinstance(manifest_id, str) and manifest_id:
+            manifest_path = workspace / ".ai-workspace" / "fp_manifests" / f"{manifest_id}.json"
+
+    manifest: dict[str, object] = {}
+    if manifest_path is not None and manifest_path.exists():
+        try:
+            raw_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            raw_manifest = {}
+        if isinstance(raw_manifest, Mapping):
+            manifest = dict(raw_manifest)
+
+    result_path = enriched.get("fp_result_path")
+    if not isinstance(result_path, str) or not result_path:
+        manifest_result_path = manifest.get("result_path")
+        if isinstance(manifest_result_path, str) and manifest_result_path:
+            result_path = manifest_result_path
+            enriched["fp_result_path"] = result_path
+
+    recovery: dict[str, object] = {}
+    if isinstance(enriched.get("manifest_id"), str) and enriched["manifest_id"]:
+        recovery["manifest_id"] = enriched["manifest_id"]
+    if manifest_path is not None:
+        recovery["fp_manifest_path"] = str(manifest_path)
+    if isinstance(result_path, str) and result_path:
+        recovery["fp_result_path"] = result_path
+        recovery["next_step"] = "assess-result"
+        recovery["assess_result_command"] = " ".join(
+            shlex.quote(part)
+            for part in (
+                "python",
+                "-m",
+                "genesis",
+                "assess-result",
+                "--result",
+                result_path,
+                "--workspace",
+                str(workspace),
+            )
+        )
+    if recovery:
+        enriched["recovery"] = recovery
+    return enriched
+
+
 def _run_start_auto_supervised(
     scope,
     stream,
@@ -894,6 +962,7 @@ def main() -> None:
         parser.print_help()
         sys.exit(1)
 
+    result = _attach_pending_recovery_contract(result, workspace)
     print(json.dumps(result, indent=2))
 
     # Exit codes for skill routing:

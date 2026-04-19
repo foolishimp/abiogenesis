@@ -5,10 +5,6 @@
 			"path": "../../../.."
 		},
 		{
-			"name": "odd_method",
-			"path": "../../../../../odd_method"
-		},
-		{
 			"name": "ai_sdlc_examples",
 			"path": "../../../../../ai_sdlc_examples"
 		},
@@ -17,11 +13,13 @@
 			"path": "../../../../../specification_methodology"
 		},
 		{
-			"name": "constraint_emergence_ontology",
-			"path": "../../../../../constraint_emergence_ontology"
+			"path": "../../../../../odd_domain"
 		},
 		{
-			"path": "../../../../../ai_sdlc_method"
+			"path": "../../../../../odd_sdlc"
+		},
+		{
+			"path": "../../../../../odd_manager"
 		}
 	],
 	"settings": {

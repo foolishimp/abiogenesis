@@ -43,7 +43,10 @@ from gtl.algebra import (
     substitute,
 )
 from gtl.function_model import EnvRef, GraphFunction, TemplateRef
-from gtl.graph import Attrs, Context, Graph, GraphVector, Node, node_contract_key
+from gtl.graph import Attrs, Context, Graph, Node, GraphVector, node_contract_key
+from gtl.obligation_ledger import (
+    coerce_obligation_ledger_declaration,
+)
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, F_D, F_P, Rule
 from gtl.work_model import ContractRef, Job, Role
@@ -80,6 +83,73 @@ def _graph_function(
 
 @pytest.mark.integration
 class TestM01GtlCoreIntegration:
+    def test_obligation_ledger_declaration_accepts_adapter_driven_family(self) -> None:
+        declaration = coerce_obligation_ledger_declaration(
+            {
+                "signal_key": "derive_code_surface",
+                "adapter_ref": "odd_sdlc.traceability:declared_requirement_edge_gap",
+                "obligation_source_ref": "requirement_surface",
+                "obligation_source_kind": "requirement_surface",
+                "obligation_source_admission_basis": "authority_or_current_surface",
+                "obligation_kind": "requirement",
+                "derivation_rule": "implementation_code_projection",
+                "carry_rule": "deterministic_requirement_membership",
+                "fulfillment_rule": "behavioral_code_realization",
+                "evidence_policy": "behavioral_code_evidence",
+            }
+        )
+
+        assert declaration is not None
+        assert declaration["declaration_family"] == "adapter_driven"
+        assert declaration["certification_scope"] == "edge"
+        assert declaration["signal_key"] == "derive_code_surface"
+        assert declaration["obligations"] == []
+
+    def test_obligation_ledger_declaration_rejects_duplicate_evaluator_bindings(self) -> None:
+        with pytest.raises(ValueError, match="duplicates .*evaluator"):
+            coerce_obligation_ledger_declaration(
+                {
+                    "obligation_source_ref": "vector://design_to_code#obligation_ledger",
+                    "obligation_kind": "fp_evaluator_obligation",
+                    "carry_rule": "declared_fulfillment_obligation_set_totality",
+                    "fulfillment_rule": "per_obligation_fp_assessment",
+                    "evidence_policy": "agent_supplied_evidence_refs",
+                    "obligations": [
+                        {
+                            "id": "first_check",
+                            "evaluator": "shared_review",
+                            "statement": "first review obligation",
+                        },
+                        {
+                            "id": "second_check",
+                            "evaluator": "shared_review",
+                            "statement": "second review obligation",
+                        },
+                    ],
+                }
+            )
+
+    def test_native_package_vectors_publish_explicit_fp_obligation_declarations(self) -> None:
+        from gtl_spec.packages import abiogenesis as abiogenesis_package
+
+        policy = abiogenesis_package.v_req_feat.declarations["obligation_ledger"]
+
+        assert policy["obligation_source_kind"] == "package_declared_fp_obligations"
+        assert policy["obligation_source_ref"] == (
+            "package://gtl_spec.packages.abiogenesis#requirements→feature_decomp"
+        )
+        assert policy["obligations"] == [
+            {
+                "id": "decomp_complete",
+                "evaluator": "decomp_complete",
+                "statement": abiogenesis_package.eval_decomp_fp.description,
+                "source_kind": "package_declared_fp_obligations",
+                "source_refs": [
+                    "package://gtl_spec.packages.abiogenesis#requirements→feature_decomp/obligation/decomp_complete",
+                ],
+            }
+        ]
+
     def test_node_asset_surface_is_part_of_the_visible_interface_contract(self) -> None:
         module_design = Node(name="module_design", schema="ModuleDesign")
         schema = Node(name="schema", schema="Schema")

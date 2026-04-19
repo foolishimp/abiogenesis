@@ -12,10 +12,11 @@ from pathlib import Path
 
 from gtl.algebra import deferred_refinement, graph_function_for_vector
 from gtl.function_model import GraphFunction
-from gtl.graph import Context, Graph, GraphVector, Node
+from gtl.graph import Context, Graph, Node
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, Operator, F_D, F_P
 from gtl.work_model import ContractRef, Job
+from tests.helpers_obligation_ledger import declared_test_graph_vector as GraphVector
 
 
 EDGE_NAME = "requirements→uat_tests"
@@ -176,14 +177,41 @@ def judge_uat_scenario_quality(artifact: Path) -> list[dict]:
     }]
 
 
-def write_result_file(result_path: Path, *, edge: str, actor: str, assessments: list[dict]) -> None:
+def to_fulfillment_assessments(assessments: list[dict]) -> list[dict]:
+    return [
+        {
+            "id": assessment["evaluator"],
+            "fulfillment_status": "fulfilled" if assessment["result"] == "pass" else "unfulfilled",
+            "fulfillment_detail": assessment.get("evidence", ""),
+            "blocking_reasons": (
+                [assessment.get("evidence", "")]
+                if assessment["result"] == "fail" and assessment.get("evidence")
+                else []
+            ),
+            "evidence_refs": (
+                [assessment.get("evidence", "")]
+                if assessment["result"] == "pass" and assessment.get("evidence")
+                else []
+            ),
+        }
+        for assessment in assessments
+    ]
+
+
+def write_result_file(
+    result_path: Path,
+    *,
+    edge: str,
+    actor: str,
+    fulfillment_assessments: list[dict],
+) -> None:
     result_path.parent.mkdir(parents=True, exist_ok=True)
     result_path.write_text(
         json.dumps(
             {
                 "edge": edge,
                 "actor": actor,
-                "assessments": assessments,
+                "fulfillment_assessments": fulfillment_assessments,
             },
             indent=2,
         ),

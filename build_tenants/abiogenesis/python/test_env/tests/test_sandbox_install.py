@@ -24,12 +24,48 @@ from genesis.projection import project
 from sandbox_runtime import install_real_sandbox, run_installed_genesis
 
 
+def _fp_result_payload(
+    edge: str,
+    *,
+    actor: str,
+    obligation_id: str = "code_complete",
+    fulfillment_status: str = "fulfilled",
+    fulfillment_detail: str = "ok",
+    extra: dict[str, object] | None = None,
+) -> dict[str, object]:
+    payload: dict[str, object] = {
+        "edge": edge,
+        "actor": actor,
+        "fulfillment_assessments": [
+            {
+                "id": obligation_id,
+                "fulfillment_status": fulfillment_status,
+                "fulfillment_detail": fulfillment_detail,
+                "blocking_reasons": (
+                    [fulfillment_detail]
+                    if fulfillment_status in {"blocked", "unfulfilled"} and fulfillment_detail
+                    else []
+                ),
+                "evidence_refs": (
+                    [fulfillment_detail]
+                    if fulfillment_status in {"fulfilled", "partial"} and fulfillment_detail
+                    else []
+                ),
+            }
+        ],
+    }
+    if extra:
+        payload.update(extra)
+    return payload
+
+
 def _router_dispatch_module_source() -> str:
     return textwrap.dedent(
         """\
         from gtl.algebra import deferred_refinement
         from gtl.function_model import EnvRef, GraphFunction
         from gtl.graph import Graph, GraphVector, Node
+        from gtl.obligation_ledger import declared_fulfillment_obligation, obligation_ledger_declarations
         from gtl.module_model import Module
         from gtl.operator_model import Evaluator, F_P
         from gtl.work_model import ContractRef, Job, Role
@@ -44,6 +80,23 @@ def _router_dispatch_module_source() -> str:
             source=design,
             target=code,
             evaluators=(code_complete,),
+            declarations=obligation_ledger_declarations(
+                obligation_source_kind="test_declared_fp_obligations",
+                obligation_source_ref="test://sandbox_install#design→code",
+                obligation_kind="fp_evaluator_obligation",
+                carry_rule="declared_fulfillment_obligation_set_totality",
+                fulfillment_rule="per_obligation_fp_assessment",
+                evidence_policy="agent_supplied_evidence_refs",
+                obligations=(
+                    declared_fulfillment_obligation(
+                        "code_complete",
+                        evaluator="code_complete",
+                        statement=code_complete.description,
+                        source_kind="test_declared_fp_obligations",
+                        source_refs=("test://sandbox_install#design→code/obligation/0",),
+                    ),
+                ),
+            ),
         )
         graph = Graph(
             name="runtime_identity_contract",
@@ -340,22 +393,18 @@ class TestSandboxInstall:
         result_path = Path(manifest["result_path"])
         result_path.write_text(
             json.dumps(
-                {
-                    "edge": "design→code",
-                    "actor": "live_fp_judge",
-                    "worker_id": "codex",
-                    "backend_id": "codex",
-                    "role_id": manifest["role_id"],
-                    "assignment_source": "runtime://session-override/constructor",
-                    "resolved_runtime_ref": "runtime://resolved/constructor/codex",
-                    "assessments": [
-                        {
-                            "evaluator": "code_complete",
-                            "result": "pass",
-                            "evidence": "router-dispatched execution completed successfully",
-                        }
-                    ],
-                }
+                _fp_result_payload(
+                    "design→code",
+                    actor="live_fp_judge",
+                    fulfillment_detail="router-dispatched execution completed successfully",
+                    extra={
+                        "worker_id": "codex",
+                        "backend_id": "codex",
+                        "role_id": manifest["role_id"],
+                        "assignment_source": "runtime://session-override/constructor",
+                        "resolved_runtime_ref": "runtime://resolved/constructor/codex",
+                    },
+                )
             ),
             encoding="utf-8",
         )
@@ -509,17 +558,12 @@ class TestSandboxInstall:
         result_path = Path(manifest["result_path"])
         result_path.write_text(
             json.dumps(
-                {
-                    "edge": manifest["edge"],
-                    "actor": "live_fp_judge",
-                    "assessments": [
-                        {
-                            "evaluator": "code_complete",
-                            "result": "fail",
-                            "evidence": "returned code does not satisfy the contract",
-                        }
-                    ],
-                }
+                _fp_result_payload(
+                    manifest["edge"],
+                    actor="live_fp_judge",
+                    fulfillment_status="unfulfilled",
+                    fulfillment_detail="returned code does not satisfy the contract",
+                )
             ),
             encoding="utf-8",
         )

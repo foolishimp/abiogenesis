@@ -22,16 +22,16 @@ lane="${1:-default}"
 
 case "$lane" in
   default)
-    $PYTEST "$TEST_DIR" -m 'not live_fp and not e2e' -q --tb=short --timeout=30
+    $PYTEST "$TEST_DIR" -q --tb=short --timeout=30
     ;;
   e2e)
-    $PYTEST "$TEST_DIR" -m e2e -q --tb=short --timeout=30
+    $PYTEST -o addopts='' "$TEST_DIR" -m e2e -q --tb=short --timeout=30
     ;;
   live)
-    $PYTEST "$TEST_DIR" -m live_fp -v --tb=short --timeout=600
+    $PYTEST -o addopts='' "$TEST_DIR" -m live_fp -v --tb=short --timeout=600
     ;;
   all)
-    $PYTEST "$TEST_DIR" -v --tb=short --timeout=600
+    $PYTEST -o addopts='' "$TEST_DIR" -v --tb=short --timeout=600
     ;;
   file)
     shift

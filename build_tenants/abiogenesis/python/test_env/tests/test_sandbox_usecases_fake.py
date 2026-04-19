@@ -26,13 +26,15 @@ import pytest
 
 from gtl.algebra import candidate_family, compose, deferred_refinement, graph_function_for_vector
 from gtl.function_model import EnvRef, GraphFunction
-from gtl.graph import Graph, GraphVector, Node
+from gtl.graph import Graph, Node
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, F_P
 from gtl.work_model import ContractRef, Job
+from tests.helpers_obligation_ledger import declared_test_graph_vector as GraphVector
 
 from genesis.binding import PrecomputedManifest, WorkSurface, Worker, module_to_executable_jobs
 from genesis.events import emit
+from genesis.fulfillment_ledger import make_published_fulfillment_ledger_ref
 from genesis.install import workspace_bootstrap
 from genesis.interpret import Traversal, TraversalRuntime, traverse
 from genesis.projection import project
@@ -49,6 +51,7 @@ from helpers_intent_requirements import (
     intent_requirements_module,
     judge_intent_traceability,
     run_requirements_standard_check,
+    to_fulfillment_assessments as i2r_fulfillment_assessments,
     write_result_file as write_i2r_result_file,
 )
 from helpers_requirements_uat import (
@@ -58,6 +61,7 @@ from helpers_requirements_uat import (
     requirements_uat_artifact,
     requirements_uat_module,
     run_uat_standard_check,
+    to_fulfillment_assessments as r2u_fulfillment_assessments,
     write_result_file as write_r2u_result_file,
 )
 from helpers_gsdlc_lite import (
@@ -92,7 +96,10 @@ from helpers_gsdlc_lite import (
     SEQUENCING_TO_DESIGN_EDGE as GL_SEQUENCING_TO_DESIGN_EDGE,
     gsdlc_lite_zoom_module,
     write_result_file as write_gsdlc_result_file,
+    to_fulfillment_assessments as gsdlc_fulfillment_assessments,
 )
+
+pytestmark = [pytest.mark.e2e]
 
 
 def _graph_function(name: str, graph: Graph, *, tags: tuple[str, ...] = ()) -> GraphFunction:
@@ -116,6 +123,77 @@ def _precomputed(job, *, failing=(), passing=()) -> PrecomputedManifest:
         passing_evaluators=list(passing),
         fd_results={},
         relevant_contexts={},
+    )
+
+
+def _append_fp_assessment(
+    stream,
+    *,
+    workspace: Path,
+    edge: str,
+    obligation_id: str,
+    spec_hash: str,
+    workflow_version: str,
+    actor: str = "fake_llm",
+    fulfillment_status: str = "fulfilled",
+    fulfillment_detail: str = "assessment satisfied",
+) -> None:
+    ledger_dir = workspace / ".ai-workspace" / "fp_ledgers"
+    ledger_dir.mkdir(parents=True, exist_ok=True)
+    manifest_id = f"{edge.replace('→', '_')}_{obligation_id}_{spec_hash}"
+    ledger_path = ledger_dir / f"{manifest_id}.json"
+    blocking_reasons = (
+        [fulfillment_detail]
+        if fulfillment_status in {"blocked", "unfulfilled"} and fulfillment_detail
+        else []
+    )
+    evidence_refs = (
+        [fulfillment_detail]
+        if fulfillment_status in {"fulfilled", "partial"} and fulfillment_detail
+        else []
+    )
+    ledger_path.write_text(
+        json.dumps(
+            {
+                "manifest_id": manifest_id,
+                "edge": edge,
+                "spec_hash": spec_hash,
+                "workflow_version": workflow_version,
+                "admission_required": False,
+                "admitted": True,
+                "admission_basis": "test_fixture",
+                "carry_converged": True,
+                "fulfillment_converged": fulfillment_status == "fulfilled",
+                "edge_converged": fulfillment_status == "fulfilled",
+                "obligations": [
+                    {
+                        "id": obligation_id,
+                        "evaluator": obligation_id,
+                        "fulfillment_status": fulfillment_status,
+                        "fulfillment_detail": fulfillment_detail,
+                        "blocking_reasons": blocking_reasons,
+                        "evidence_refs": evidence_refs,
+                    }
+                ],
+            },
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+    stream.append(
+        "assessed",
+        {
+            "kind": "fp",
+            "edge": edge,
+            "obligation_id": obligation_id,
+            "actor": actor,
+            "spec_hash": spec_hash,
+            "manifest_id": manifest_id,
+            "workflow_version": workflow_version,
+            "published_ledger_ref": make_published_fulfillment_ledger_ref(
+                manifest_id=manifest_id
+            ),
+        },
     )
 
 
@@ -171,11 +249,13 @@ def _write_fake_result_file(
             {
                 "edge": edge,
                 "actor": actor,
-                "assessments": [
+                "fulfillment_assessments": [
                     {
-                        "evaluator": evaluator,
-                        "result": "pass",
-                        "evidence": f"{edge} advanced under cumulative environment law",
+                        "id": evaluator,
+                        "fulfillment_status": "fulfilled",
+                        "fulfillment_detail": f"{edge} advanced under cumulative environment law",
+                        "blocking_reasons": [],
+                        "evidence_refs": [f"{edge} advanced under cumulative environment law"],
                     }
                 ],
             },
@@ -659,7 +739,7 @@ class TestSandboxUsecasesFake:
             Path(manifest["result_path"]),
             edge=I2R_EDGE_NAME,
             actor="fake_requirements_judge",
-            assessments=assessments,
+            fulfillment_assessments=i2r_fulfillment_assessments(assessments),
         )
 
         from genesis.cli_adapter import _assess_result_cmd
@@ -716,7 +796,7 @@ class TestSandboxUsecasesFake:
             Path(manifest["result_path"]),
             edge=R2U_EDGE_NAME,
             actor="fake_uat_judge",
-            assessments=assessments,
+            fulfillment_assessments=r2u_fulfillment_assessments(assessments),
         )
 
         from genesis.cli_adapter import _assess_result_cmd
@@ -752,17 +832,14 @@ class TestSandboxUsecasesFake:
             executable_job=module_to_executable_jobs(module)[0],
             requirements=module.metadata["requirements"],
         )
-        emit(
-            "assessed",
-            {
-                "kind": "fp",
-                "edge": "raw_contract→discovered_context",
-                "evaluator": "context_sufficient",
-                "actor": "fake_llm",
-                "result": "pass",
-                "evidence": "discovery context is sufficient",
-                "spec_hash": spec_hash,
-            },
+        _append_fp_assessment(
+            stream,
+            workspace=workspace,
+            edge="raw_contract→discovered_context",
+            obligation_id="context_sufficient",
+            spec_hash=spec_hash,
+            workflow_version=scope.workflow_version,
+            fulfillment_detail="discovery context is sufficient",
         )
 
         after = gen_gaps(scope, stream)
@@ -1133,7 +1210,7 @@ class TestSandboxUsecasesFake:
             Path(first_manifest["result_path"]),
             edge=GL_REQ_TO_DESIGN_EDGE,
             actor="fake_design_judge",
-            assessments=design_assessments,
+            fulfillment_assessments=gsdlc_fulfillment_assessments(design_assessments),
         )
         from genesis.cli_adapter import _assess_result_cmd
 
@@ -1158,7 +1235,7 @@ class TestSandboxUsecasesFake:
             Path(second_manifest["result_path"]),
             edge=GL_DESIGN_TO_CODE_EDGE,
             actor="fake_code_judge",
-            assessments=code_assessments,
+            fulfillment_assessments=gsdlc_fulfillment_assessments(code_assessments),
         )
         assert _assess_result_cmd(second_manifest["result_path"], workspace) == 0
 
@@ -1209,7 +1286,7 @@ class TestSandboxUsecasesFake:
             Path(first_manifest["result_path"]),
             edge=GL_REQ_TO_DESIGN_EDGE,
             actor="fake_design_judge",
-            assessments=design_assessments,
+            fulfillment_assessments=gsdlc_fulfillment_assessments(design_assessments),
         )
         from genesis.cli_adapter import _assess_result_cmd
         assert _assess_result_cmd(first_manifest["result_path"], workspace) == 0
@@ -1238,7 +1315,7 @@ class TestSandboxUsecasesFake:
             Path(second_manifest["result_path"]),
             edge=GL_DESIGN_TO_REVIEW_EDGE,
             actor="fake_design_review_judge",
-            assessments=review_assessments,
+            fulfillment_assessments=gsdlc_fulfillment_assessments(review_assessments),
         )
         assert _assess_result_cmd(second_manifest["result_path"], workspace) == 0
 
@@ -1268,7 +1345,7 @@ class TestSandboxUsecasesFake:
             Path(third_manifest["result_path"]),
             edge=GL_REVIEW_TO_CODE_EDGE,
             actor="fake_code_judge",
-            assessments=code_assessments,
+            fulfillment_assessments=gsdlc_fulfillment_assessments(code_assessments),
         )
         assert _assess_result_cmd(third_manifest["result_path"], workspace) == 0
 
@@ -1316,7 +1393,9 @@ class TestSandboxUsecasesFake:
             Path(first_manifest["result_path"]),
             edge=GL_REQ_TO_DESIGN_EDGE,
             actor="fake_design_judge",
-            assessments=judge_design_quality(workspace / GL_DESIGN_ARTIFACT_PATH),
+            fulfillment_assessments=gsdlc_fulfillment_assessments(
+                judge_design_quality(workspace / GL_DESIGN_ARTIFACT_PATH)
+            ),
         )
         assert _assess_result_cmd(first_manifest["result_path"], workspace) == 0
 
@@ -1335,7 +1414,7 @@ class TestSandboxUsecasesFake:
             Path(second_manifest["result_path"]),
             edge=GL_DESIGN_TO_REVIEW_EDGE,
             actor="fake_design_review_judge",
-            assessments=initial_review_assessments,
+            fulfillment_assessments=gsdlc_fulfillment_assessments(initial_review_assessments),
         )
         assert _assess_result_cmd(second_manifest["result_path"], workspace) == 0
 
@@ -1370,7 +1449,7 @@ class TestSandboxUsecasesFake:
             Path(replay_manifest["result_path"]),
             edge=GL_DESIGN_TO_REVIEW_EDGE,
             actor="fake_design_review_judge",
-            assessments=replay_review_assessments,
+            fulfillment_assessments=gsdlc_fulfillment_assessments(replay_review_assessments),
         )
         assert _assess_result_cmd(replay_manifest["result_path"], workspace) == 0
 
@@ -1383,7 +1462,9 @@ class TestSandboxUsecasesFake:
             Path(third_manifest["result_path"]),
             edge=GL_REVIEW_TO_CODE_EDGE,
             actor="fake_code_judge",
-            assessments=judge_code_quality(workspace / GL_CODE_ARTIFACT_PATH),
+            fulfillment_assessments=gsdlc_fulfillment_assessments(
+                judge_code_quality(workspace / GL_CODE_ARTIFACT_PATH)
+            ),
         )
         assert _assess_result_cmd(third_manifest["result_path"], workspace) == 0
 
@@ -1448,7 +1529,9 @@ class TestSandboxUsecasesFake:
             Path(first_manifest["result_path"]),
             edge=GL_REQ_TO_DESIGN_EDGE,
             actor="designer_worker",
-            assessments=judge_design_quality(workspace / GL_DESIGN_ARTIFACT_PATH),
+            fulfillment_assessments=gsdlc_fulfillment_assessments(
+                judge_design_quality(workspace / GL_DESIGN_ARTIFACT_PATH)
+            ),
         )
         from genesis.cli_adapter import _assess_result_cmd
         assert _assess_result_cmd(first_manifest["result_path"], workspace) == 0
@@ -1466,7 +1549,9 @@ class TestSandboxUsecasesFake:
             Path(second_manifest["result_path"]),
             edge=GL_DESIGN_TO_REVIEW_EDGE,
             actor="reviewer_worker",
-            assessments=list(judge_design_review_quality(workspace / GL_DESIGN_REVIEW_ARTIFACT_PATH)),
+            fulfillment_assessments=gsdlc_fulfillment_assessments(
+                list(judge_design_review_quality(workspace / GL_DESIGN_REVIEW_ARTIFACT_PATH))
+            ),
         )
         assert _assess_result_cmd(second_manifest["result_path"], workspace) == 0
 
@@ -1480,7 +1565,9 @@ class TestSandboxUsecasesFake:
             Path(third_manifest["result_path"]),
             edge=GL_REVIEW_TO_CODE_EDGE,
             actor="coder_worker",
-            assessments=judge_code_quality(workspace / GL_CODE_ARTIFACT_PATH),
+            fulfillment_assessments=gsdlc_fulfillment_assessments(
+                judge_code_quality(workspace / GL_CODE_ARTIFACT_PATH)
+            ),
         )
         assert _assess_result_cmd(third_manifest["result_path"], workspace) == 0
 
@@ -1529,7 +1616,9 @@ class TestSandboxUsecasesFake:
             Path(first_manifest["result_path"]),
             edge=GL_REQ_TO_DESIGN_EDGE,
             actor="fake_design_judge",
-            assessments=judge_design_quality(workspace / GL_DESIGN_ARTIFACT_PATH),
+            fulfillment_assessments=gsdlc_fulfillment_assessments(
+                judge_design_quality(workspace / GL_DESIGN_ARTIFACT_PATH)
+            ),
         )
         assert _assess_result_cmd(first_manifest["result_path"], workspace) == 0
 
@@ -1544,7 +1633,9 @@ class TestSandboxUsecasesFake:
             Path(second_manifest["result_path"]),
             edge=GL_DESIGN_TO_REVIEW_EDGE,
             actor="fake_review_judge",
-            assessments=list(judge_design_review_quality(workspace / GL_DESIGN_REVIEW_ARTIFACT_PATH)),
+            fulfillment_assessments=gsdlc_fulfillment_assessments(
+                list(judge_design_review_quality(workspace / GL_DESIGN_REVIEW_ARTIFACT_PATH))
+            ),
         )
         assert _assess_result_cmd(second_manifest["result_path"], workspace) == 0
 
@@ -1632,7 +1723,9 @@ class TestSandboxUsecasesFake:
             Path(third_manifest["result_path"]),
             edge=GL_REVIEW_TO_CODE_EDGE,
             actor="fake_code_judge",
-            assessments=judge_code_quality(workspace / GL_CODE_ARTIFACT_PATH),
+            fulfillment_assessments=gsdlc_fulfillment_assessments(
+                judge_code_quality(workspace / GL_CODE_ARTIFACT_PATH)
+            ),
         )
         assert _assess_result_cmd(third_manifest["result_path"], workspace) == 0
 
@@ -1720,11 +1813,11 @@ class TestSandboxUsecasesFake:
             Path(next_manifest["result_path"]),
             edge=GL_REQ_TO_DECOMPOSITION_EDGE,
             actor="fake_zoom_judge",
-            assessments=[{
+            fulfillment_assessments=gsdlc_fulfillment_assessments([{
                 "evaluator": "zoom_progress",
                 "result": "pass",
                 "evidence": "decomposition.md updated with non-empty content",
-            }],
+            }]),
         )
         from genesis.cli_adapter import _assess_result_cmd
         assert _assess_result_cmd(next_manifest["result_path"], workspace) == 0
@@ -1826,11 +1919,11 @@ class TestSandboxUsecasesFake:
                 Path(manifest["result_path"]),
                 edge=edge_name,
                 actor="fake_zoom_judge",
-                assessments=[{
+                fulfillment_assessments=gsdlc_fulfillment_assessments([{
                     "evaluator": "zoom_progress",
                     "result": "pass",
                     "evidence": f"{artifact_relpath.name} updated with non-empty content",
-                }],
+                }]),
             )
             assert _assess_result_cmd(manifest["result_path"], workspace) == 0
 
@@ -1858,11 +1951,11 @@ class TestSandboxUsecasesFake:
             Path(rebound_manifest["result_path"]),
             edge=GL_REQ_TO_DESIGN_EDGE,
             actor="fake_zoom_parent_judge",
-            assessments=[{
+            fulfillment_assessments=gsdlc_fulfillment_assessments([{
                 "evaluator": "zoom_progress",
                 "result": "pass",
                 "evidence": design_assessments[0]["evidence"],
-            }],
+            }]),
         )
         assert _assess_result_cmd(rebound_manifest["result_path"], workspace) == 0
 

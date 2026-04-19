@@ -14,17 +14,73 @@ import pytest
 
 from gtl.algebra import deferred_refinement
 from gtl.function_model import EnvRef, GraphFunction
-from gtl.graph import Graph, GraphVector, Node
+from gtl.graph import Graph, Node
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, F_P
 from gtl.work_model import ContractRef, Job
+from tests.helpers_obligation_ledger import declared_test_graph_vector as GraphVector
 
 from genesis.binding import Worker, module_to_executable_jobs
 from genesis import cli_adapter
 from genesis import events as genesis_events
+from genesis.fulfillment_ledger import make_published_fulfillment_ledger_ref
 from genesis.identity import RuntimeIdentity
 from genesis import install as genesis_install
 from genesis import services
+
+
+def _fp_result_payload(
+    edge: str,
+    *,
+    actor: str,
+    obligation_id: str = "code_complete",
+    fulfillment_status: str = "fulfilled",
+    fulfillment_detail: str = "ok",
+    extra: dict[str, object] | None = None,
+) -> dict[str, object]:
+    payload: dict[str, object] = {
+        "edge": edge,
+        "actor": actor,
+        "fulfillment_assessments": [
+            {
+                "id": obligation_id,
+                "fulfillment_status": fulfillment_status,
+                "fulfillment_detail": fulfillment_detail,
+                "blocking_reasons": (
+                    [fulfillment_detail]
+                    if fulfillment_status in {"blocked", "unfulfilled"} and fulfillment_detail
+                    else []
+                ),
+                "evidence_refs": (
+                    [fulfillment_detail]
+                    if fulfillment_status in {"fulfilled", "partial"} and fulfillment_detail
+                    else []
+                ),
+            }
+        ],
+    }
+    if extra:
+        payload.update(extra)
+    return payload
+
+
+def _fulfillment_obligations(*entries: tuple[str, str] | str) -> list[dict[str, object]]:
+    obligations: list[dict[str, object]] = []
+    for index, entry in enumerate(entries):
+        if isinstance(entry, tuple):
+            obligation_id, statement = entry
+        else:
+            obligation_id, statement = entry, ""
+        obligations.append(
+            {
+                "id": obligation_id,
+                "evaluator": obligation_id,
+                "statement": statement,
+                "source_kind": "manifest_fulfillment_obligations",
+                "source_refs": [f"manifest://fixture#fulfillment_obligations/{index}"],
+            }
+        )
+    return obligations
 
 
 def _runtime_contract_module() -> Module:
@@ -66,6 +122,7 @@ def _runtime_contract_module_source() -> str:
         from gtl.algebra import deferred_refinement
         from gtl.function_model import EnvRef, GraphFunction
         from gtl.graph import Graph, GraphVector, Node
+        from gtl.obligation_ledger import declared_fulfillment_obligation, obligation_ledger_declarations
         from gtl.module_model import Module
         from gtl.operator_model import Evaluator, F_P
         from gtl.work_model import ContractRef, Job
@@ -79,6 +136,23 @@ def _runtime_contract_module_source() -> str:
             source=design,
             target=code,
             evaluators=(code_complete,),
+            declarations=obligation_ledger_declarations(
+                obligation_source_kind="test_declared_fp_obligations",
+                obligation_source_ref="test://cli_adapter_auto#design→code",
+                obligation_kind="fp_evaluator_obligation",
+                carry_rule="declared_fulfillment_obligation_set_totality",
+                fulfillment_rule="per_obligation_fp_assessment",
+                evidence_policy="agent_supplied_evidence_refs",
+                obligations=(
+                    declared_fulfillment_obligation(
+                        "code_complete",
+                        evaluator="code_complete",
+                        statement=code_complete.description,
+                        source_kind="test_declared_fp_obligations",
+                        source_refs=("test://cli_adapter_auto#design→code/obligation/0",),
+                    ),
+                ),
+            ),
         )
         graph = Graph(
             name="runtime_identity_contract",
@@ -550,6 +624,47 @@ def test_main_routes_start_auto_human_proxy_through_cli_auto_loop(
     assert called["auto_human_proxy"] is True
 
 
+def test_attach_pending_recovery_contract_surfaces_exact_assess_result_next_step(tmp_path: Path):
+    manifests_dir = tmp_path / ".ai-workspace" / "fp_manifests"
+    manifests_dir.mkdir(parents=True, exist_ok=True)
+    manifest_path = manifests_dir / "manifest-pending.json"
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "manifest_id": "manifest-pending",
+                "result_path": str(tmp_path / ".ai-workspace" / "fp_results" / "manifest-pending.json"),
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    enriched = cli_adapter._attach_pending_recovery_contract(
+        {
+            "status": "pending",
+            "blocking_reason": "fp_dispatch",
+            "manifest_id": "manifest-pending",
+            "fp_manifest_path": str(manifest_path),
+        },
+        tmp_path,
+    )
+
+    assert enriched["fp_result_path"] == str(
+        tmp_path / ".ai-workspace" / "fp_results" / "manifest-pending.json"
+    )
+    assert enriched["recovery"] == {
+        "manifest_id": "manifest-pending",
+        "fp_manifest_path": str(manifest_path),
+        "fp_result_path": str(tmp_path / ".ai-workspace" / "fp_results" / "manifest-pending.json"),
+        "next_step": "assess-result",
+        "assess_result_command": (
+            "python -m genesis assess-result --result "
+            + str(tmp_path / ".ai-workspace" / "fp_results" / "manifest-pending.json")
+            + " --workspace "
+            + str(tmp_path)
+        ),
+    }
+
+
 def test_emit_workspace_event_uses_canonical_emit_with_explicit_event_context(
     monkeypatch,
     tmp_path: Path,
@@ -662,20 +777,16 @@ def test_assess_result_cmd_routes_manifest_provenance_through_workspace_event_he
     result_path = tmp_path / "judge-result.json"
     result_path.write_text(
         json.dumps(
-            {
-                "edge": "design→code",
-                "actor": "codex",
-                "worker_id": "codex",
-                "backend_id": "codex_cli",
-                "role_id": "constructor",
-                "assessments": [
-                    {
-                        "evaluator": "code_complete",
-                        "result": "pass",
-                        "evidence": "all checks pass",
-                    }
-                ],
-            }
+            _fp_result_payload(
+                "design→code",
+                actor="codex",
+                fulfillment_detail="all checks pass",
+                extra={
+                    "worker_id": "codex",
+                    "backend_id": "codex_cli",
+                    "role_id": "constructor",
+                },
+            )
         ),
         encoding="utf-8",
     )
@@ -687,6 +798,9 @@ def test_assess_result_cmd_routes_manifest_provenance_through_workspace_event_he
                 "spec_hash": "abc123",
                 "run_id": "run-42",
                 "work_key": "REQ-7/design→code",
+                "fulfillment_obligations": _fulfillment_obligations(
+                    ("code_complete", "code satisfies the design contract")
+                ),
                 "authority_ref": "runtime://role-dispatch",
                 "assignment_source": "runtime://session-override/constructor",
                 "resolved_runtime_ref": "runtime://resolved/constructor/codex",
@@ -726,6 +840,7 @@ def test_assess_result_cmd_routes_manifest_provenance_through_workspace_event_he
         "assessed",
         "proof_passed",
         "closure_passed",
+        "edge_converged",
         "run_completed",
     ]
     assert calls[0] == {
@@ -734,9 +849,10 @@ def test_assess_result_cmd_routes_manifest_provenance_through_workspace_event_he
         "data": {
             "kind": "fp",
             "edge": "design→code",
-            "evaluator": "code_complete",
-            "result": "pass",
-            "evidence": "all checks pass",
+            "obligation_id": "code_complete",
+            "published_ledger_ref": make_published_fulfillment_ledger_ref(
+                manifest_id="judge-result"
+            ),
             "actor": "codex",
             "spec_hash": "abc123",
             "manifest_id": "judge-result",
@@ -766,27 +882,30 @@ def test_assess_result_cmd_ignores_unprefixed_backend_field(monkeypatch, tmp_pat
     result_path = tmp_path / "judge-result.json"
     result_path.write_text(
         json.dumps(
-            {
-                "edge": "design→code",
-                "actor": "codex",
-                "worker_id": "codex",
-                "backend": "ignored-codex-cli",
-                "role_id": "constructor",
-                "assessments": [
-                    {
-                        "evaluator": "code_complete",
-                        "result": "pass",
-                        "evidence": "all checks pass",
-                    }
-                ],
-            }
+            _fp_result_payload(
+                "design→code",
+                actor="codex",
+                fulfillment_detail="all checks pass",
+                extra={
+                    "worker_id": "codex",
+                    "backend": "ignored-codex-cli",
+                    "role_id": "constructor",
+                },
+            )
         ),
         encoding="utf-8",
     )
     manifests_dir = tmp_path / ".ai-workspace" / "fp_manifests"
     manifests_dir.mkdir(parents=True, exist_ok=True)
     (manifests_dir / "judge-result.json").write_text(
-        json.dumps({"spec_hash": "abc123"}),
+        json.dumps(
+            {
+                "spec_hash": "abc123",
+                "fulfillment_obligations": _fulfillment_obligations(
+                    ("code_complete", "code satisfies the design contract")
+                ),
+            }
+        ),
         encoding="utf-8",
     )
 

@@ -35,6 +35,8 @@ from .binding import (
     ContextResolver,
     bind_fd,
     bind_fp,
+    declared_obligation_ledger_policy_for_job,
+    declared_fulfillment_obligations_for_job,
 )
 from .convergence import (
     convergence_from_precomputed,
@@ -43,6 +45,7 @@ from .convergence import (
 )
 from .correction import find_latest_reset
 from .events import EventContext, EventStream, emit
+from .fulfillment_ledger import resolve_published_fulfillment_ledger
 from .frames import (
     FoldBackOutcome,
     InvocationFrame,
@@ -83,6 +86,53 @@ from .subwork import LeafTask
 
 
 # ── Traversal ────────────────────────────────────────────────────────────────
+
+
+def _edge_uses_fulfillment_carrier(job: ExecutableJob) -> bool:
+    """F_P-managed edges converge only through the fulfillment carrier path."""
+    return any(ev.regime is F_P for ev in job.evaluators)
+
+
+def _project_fulfillment_edge_converged(
+    stream: EventStream,
+    *,
+    job: ExecutableJob,
+    workflow_version: str,
+    spec_hash: str,
+    work_key: str | None,
+    certified_keys: set[tuple[str, str | None]],
+) -> bool:
+    cert_key = (job.vector.name, work_key)
+    if cert_key in certified_keys:
+        return False
+    ledger = resolve_published_fulfillment_ledger(
+        stream.all_events(),
+        edge=job.vector.name,
+        work_key=work_key,
+        spec_hash=spec_hash,
+        current_workflow_version=workflow_version,
+        workspace=stream.path.parent.parent.parent,
+    )
+    if ledger is None or not bool(ledger.get("edge_converged")):
+        return False
+    _emit_event(
+        stream,
+        "edge_converged",
+        {
+            "edge": job.vector.name,
+            "vector_id": job.vector.id,
+            "target": job.vector.target.name,
+            "work_key": work_key,
+            "delta": 0,
+            "certified_by": "published_fulfillment_ledger",
+        },
+        context=EventContext(
+            workflow_version=workflow_version,
+            work_key=work_key,
+        ),
+    )
+    certified_keys.add(cert_key)
+    return True
 
 
 @dataclass(frozen=True)
@@ -349,6 +399,8 @@ def _execution_index(stream: EventStream) -> RecursiveExecutionIndex:
             return index
         if event_type == "edge_converged" and data.get("target"):
             index.certified_keys.add((data.get("edge", ""), data.get("work_key")))
+        elif event_type == "edge_reopened":
+            index.certified_keys.discard((data.get("edge", ""), data.get("work_key")))
         elif event_type == "frame_step_completed":
             index.completed_steps.add(
                 (
@@ -878,23 +930,33 @@ def derive_operational_gaps(
 
             cert_key = work_key if work_key is not None else work_key_filter
             if delta == 0.0 and (job.vector.name, cert_key) not in certified_keys:
-                _emit_event(
-                    stream,
-                    "edge_converged",
-                    {
-                        "edge": job.vector.name,
-                        "vector_id": job.vector.id,
-                        "target": job.vector.target.name,
-                        "work_key": work_key or work_key_filter,
-                        "delta": 0,
-                        "certified_by": "gen_gaps",
-                    },
-                    context=EventContext(
+                if _edge_uses_fulfillment_carrier(job):
+                    _project_fulfillment_edge_converged(
+                        stream,
+                        job=job,
                         workflow_version=workflow_version,
-                        work_key=work_key,
-                    ),
-                )
-                certified_keys.add((job.vector.name, cert_key))
+                        spec_hash=spec_hash,
+                        work_key=work_key or work_key_filter,
+                        certified_keys=certified_keys,
+                    )
+                else:
+                    _emit_event(
+                        stream,
+                        "edge_converged",
+                        {
+                            "edge": job.vector.name,
+                            "vector_id": job.vector.id,
+                            "target": job.vector.target.name,
+                            "work_key": work_key or work_key_filter,
+                            "delta": 0,
+                            "certified_by": "gen_gaps",
+                        },
+                        context=EventContext(
+                            workflow_version=workflow_version,
+                            work_key=work_key,
+                        ),
+                    )
+                    certified_keys.add((job.vector.name, cert_key))
 
     total_delta = sum(entry["delta"] for entry in results)
     scope_info: dict = {
@@ -1212,9 +1274,13 @@ def _append_recursive_state(
 def _current_certified_keys(all_events: list[dict]) -> set[tuple[str, str | None]]:
     certified_keys: set[tuple[str, str | None]] = set()
     for event in all_events:
-        if event.get("event_type") != "edge_converged":
-            continue
         data = event.get("data", {})
+        event_type = event.get("event_type")
+        if event_type == "edge_reopened":
+            certified_keys.discard((data.get("edge", ""), data.get("work_key")))
+            continue
+        if event_type != "edge_converged":
+            continue
         if not data.get("target"):
             continue
         reset = find_latest_reset(all_events, edge=data.get("edge"), work_key=data.get("work_key"))
@@ -1710,7 +1776,9 @@ def _iterated_outcome(
     if runtime.work_key is not None:
         result["work_key"] = runtime.work_key
 
-    if not (fd_failing or fp_failing or fh_failing):
+    if not _edge_uses_fulfillment_carrier(runtime.executable_job) and not (
+        fd_failing or fp_failing or fh_failing
+    ):
         proof_event = _emit_event(
             runtime.stream,
             "proof_passed",
@@ -1789,6 +1857,9 @@ def _iterated_outcome(
         manifests_dir = runtime.workspace_root / ".ai-workspace" / "fp_manifests"
         manifests_dir.mkdir(parents=True, exist_ok=True)
         manifest_file = manifests_dir / f"{manifest_id}.json"
+        declared_obligation_policy = declared_obligation_ledger_policy_for_job(
+            runtime.executable_job
+        )
 
         src = vector.source
         if isinstance(src, tuple):
@@ -1833,6 +1904,11 @@ def _iterated_outcome(
                 }
                 for ev in pre.failing_evaluators
             ],
+            "fulfillment_obligations": declared_fulfillment_obligations_for_job(
+                runtime.executable_job,
+                workspace_root=runtime.workspace_root,
+            ),
+            "obligation_ledger_policy": declared_obligation_policy,
             "fd_failures": [
                 {
                     "name": ev.name,
@@ -2007,24 +2083,35 @@ def _advance_current_recursive_state(
         if conv.aggregate_state != "closed":
             continue
         if cert_key not in execution_index.certified_keys:
-            _emit_event(
-                stream,
-                "edge_converged",
-                {
-                    "edge": step.edge,
-                    "vector_id": step.executable_job.vector.id,
-                    "target": step.executable_job.vector.target.name,
-                    "work_key": step.child_key,
-                    "delta": 0,
-                    "certified_by": "frame_progress",
-                },
-                context=EventContext(
+            if _edge_uses_fulfillment_carrier(step.executable_job):
+                if _project_fulfillment_edge_converged(
+                    stream,
+                    job=step.executable_job,
                     workflow_version=workflow_version,
+                    spec_hash=spec_hash,
                     work_key=step.child_key,
-                ),
-            )
-            execution_index.certified_keys.add(cert_key)
-            progressed = True
+                    certified_keys=execution_index.certified_keys,
+                ):
+                    progressed = True
+            else:
+                _emit_event(
+                    stream,
+                    "edge_converged",
+                    {
+                        "edge": step.edge,
+                        "vector_id": step.executable_job.vector.id,
+                        "target": step.executable_job.vector.target.name,
+                        "work_key": step.child_key,
+                        "delta": 0,
+                        "certified_by": "frame_progress",
+                    },
+                    context=EventContext(
+                        workflow_version=workflow_version,
+                        work_key=step.child_key,
+                    ),
+                )
+                execution_index.certified_keys.add(cert_key)
+                progressed = True
         if step_key not in execution_index.completed_steps:
             _emit_event(
                 stream,

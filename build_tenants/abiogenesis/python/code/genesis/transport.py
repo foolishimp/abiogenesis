@@ -203,7 +203,6 @@ _DEFAULT_AGENT_CONTRACTS: dict[str, AgentCliContract] = {
         command="codex",
         args_template=(
             "exec",
-            "--ephemeral",
             "--full-auto",
             "--skip-git-repo-check",
             "-o",
@@ -1464,17 +1463,4 @@ def _sanitized_env(
         for key in list(env):
             if key.startswith(prefix):
                 del env[key]
-    if agent == "codex" and not env.get("CODEX_HOME"):
-        codex_home = Path(tempfile.gettempdir()) / "abg_codex_home"
-        codex_home.mkdir(parents=True, exist_ok=True)
-        source_home = Path.home() / ".codex"
-        for filename in ("auth.json", "config.toml", "installation_id"):
-            source = source_home / filename
-            target = codex_home / filename
-            if source.exists() and not target.exists():
-                try:
-                    shutil.copy2(source, target)
-                except OSError:
-                    pass
-        env["CODEX_HOME"] = str(codex_home)
     return env

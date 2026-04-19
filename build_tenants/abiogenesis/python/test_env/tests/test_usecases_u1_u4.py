@@ -22,10 +22,11 @@ import pytest
 
 from gtl.algebra import candidate_family, compose, deferred_refinement, fan_in, fan_out, gate, promote
 from gtl.function_model import EnvRef, GraphFunction
-from gtl.graph import Graph, GraphVector, Node
+from gtl.graph import Graph, Node
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, Rule, F_P
 from gtl.work_model import ContractRef, Job
+from tests.helpers_obligation_ledger import declared_test_graph_vector as GraphVector
 
 from genesis.binding import PrecomputedManifest, WorkSurface, module_to_executable_jobs
 from genesis.convergence import EvaluatorOutcome, delta

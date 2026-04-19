@@ -17,10 +17,14 @@ and are traced through feature vectors in .ai-workspace/features/.
 """
 
 from gtl.function_model import GraphFunction
-from gtl.graph import Graph, Node, GraphVector, Context
+from gtl.graph import Graph, Node, Context, GraphVector
 from gtl.module_model import Module
 from gtl.work_model import Job, ContractRef, Role
 from gtl.algebra import deferred_refinement, graph_function_for_vector
+from gtl.obligation_ledger import (
+    declared_fulfillment_obligation,
+    obligation_ledger_declarations,
+)
 
 from gtl.operator_model import (
     Evaluator, Operator, Rule,
@@ -179,6 +183,30 @@ eval_uat_fh = Evaluator(
 )
 
 
+def _fp_obligation_declarations(
+    vector_name: str,
+    *obligations: tuple[str, str, str],
+) -> dict:
+    return obligation_ledger_declarations(
+        obligation_source_kind="package_declared_fp_obligations",
+        obligation_source_ref=f"package://gtl_spec.packages.project_package#{vector_name}",
+        obligation_kind="fp_evaluator_obligation",
+        carry_rule="declared_fulfillment_obligation_set_totality",
+        fulfillment_rule="per_obligation_fp_assessment",
+        evidence_policy="agent_supplied_evidence_refs",
+        obligations=[
+            declared_fulfillment_obligation(
+                obligation_id,
+                evaluator=evaluator,
+                statement=statement,
+                source_kind="package_declared_fp_obligations",
+                source_refs=(f"package://gtl_spec.packages.project_package#{vector_name}/obligation/{obligation_id}",),
+            )
+            for obligation_id, evaluator, statement in obligations
+        ],
+    )
+
+
 # ── Graph Vectors ────────────────────────────────────────────────────────────
 # Each vector carries its own operators, evaluators, and contexts.
 
@@ -200,6 +228,10 @@ v_req_feat = GraphVector(
     evaluators=(eval_req_coverage, eval_decomp_fp, eval_decomp_fh),
     contexts=(bootloader, this_spec, intent_doc),
     rule=standard_gate,
+    declarations=_fp_obligation_declarations(
+        "requirements→feature_decomp",
+        ("decomp_complete", "decomp_complete", eval_decomp_fp.description),
+    ),
 )
 
 v_feat_design = GraphVector(
@@ -210,6 +242,10 @@ v_feat_design = GraphVector(
     evaluators=(eval_design_fp, eval_design_fh),
     contexts=(bootloader, this_spec, intent_doc),
     rule=standard_gate,
+    declarations=_fp_obligation_declarations(
+        "feature_decomp→design",
+        ("design_coherent", "design_coherent", eval_design_fp.description),
+    ),
 )
 
 v_design_code = GraphVector(
@@ -219,6 +255,10 @@ v_design_code = GraphVector(
     operators=(claude_agent, check_impl_op),
     evaluators=(eval_impl_tags, eval_code_fp),
     contexts=(bootloader, this_spec, design_adrs),
+    declarations=_fp_obligation_declarations(
+        "design→code",
+        ("code_complete", "code_complete", eval_code_fp.description),
+    ),
 )
 
 v_tdd = GraphVector(
@@ -228,6 +268,10 @@ v_tdd = GraphVector(
     operators=(claude_agent, pytest_op, check_impl_op, check_test_op),
     evaluators=(eval_tests_pass, eval_test_tags, eval_coverage_fp),
     contexts=(bootloader, this_spec, design_adrs),
+    declarations=_fp_obligation_declarations(
+        "code↔unit_tests",
+        ("coverage_complete", "coverage_complete", eval_coverage_fp.description),
+    ),
 )
 
 v_unit_uat = GraphVector(
@@ -238,6 +282,10 @@ v_unit_uat = GraphVector(
     evaluators=(eval_uat_report, eval_uat_fp, eval_uat_fh),
     contexts=(bootloader, this_spec, design_adrs),
     rule=standard_gate,
+    declarations=_fp_obligation_declarations(
+        "unit_tests→uat_tests",
+        ("uat_e2e_passed", "uat_e2e_passed", eval_uat_fp.description),
+    ),
 )
 
 

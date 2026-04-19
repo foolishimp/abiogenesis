@@ -12,10 +12,11 @@ from pathlib import Path
 
 from gtl.algebra import deferred_refinement, graph_function_for_vector
 from gtl.function_model import EnvRef, GraphFunction
-from gtl.graph import Context, Graph, GraphVector, Node
+from gtl.graph import Context, Graph, Node
 from gtl.module_model import Module
 from gtl.operator_model import Evaluator, Operator, F_D, F_P
 from gtl.work_model import ContractRef, Job, Role
+from tests.helpers_obligation_ledger import declared_test_graph_vector as GraphVector
 
 
 REQ_TO_DESIGN_EDGE = "requirements→design"
@@ -543,14 +544,41 @@ def judge_design_review_quality(artifact: Path) -> list[dict]:
     )
 
 
-def write_result_file(result_path: Path, *, edge: str, actor: str, assessments: list[dict]) -> None:
+def to_fulfillment_assessments(assessments: list[dict]) -> list[dict]:
+    return [
+        {
+            "id": assessment["evaluator"],
+            "fulfillment_status": "fulfilled" if assessment["result"] == "pass" else "unfulfilled",
+            "fulfillment_detail": assessment.get("evidence", ""),
+            "blocking_reasons": (
+                [assessment.get("evidence", "")]
+                if assessment["result"] == "fail" and assessment.get("evidence")
+                else []
+            ),
+            "evidence_refs": (
+                [assessment.get("evidence", "")]
+                if assessment["result"] == "pass" and assessment.get("evidence")
+                else []
+            ),
+        }
+        for assessment in assessments
+    ]
+
+
+def write_result_file(
+    result_path: Path,
+    *,
+    edge: str,
+    actor: str,
+    fulfillment_assessments: list[dict],
+) -> None:
     result_path.parent.mkdir(parents=True, exist_ok=True)
     result_path.write_text(
         json.dumps(
             {
                 "edge": edge,
                 "actor": actor,
-                "assessments": assessments,
+                "fulfillment_assessments": fulfillment_assessments,
             },
             indent=2,
         ),
@@ -888,6 +916,11 @@ def gsdlc_lite_zoom_module(workspace: Path) -> Module:
         # Decomposition Output Contract
 
         Update output/decomposition.md with the major design slices required before full design synthesis.
+
+        Requirements:
+        - Declare at least three named design slices.
+        - Keep the slices user-facing and implementation-light.
+        - Make sure the slices can be carried forward into dependency and sequencing planning.
         """
     )
     zoom_dependency_contract = textwrap.dedent(
@@ -895,6 +928,11 @@ def gsdlc_lite_zoom_module(workspace: Path) -> Module:
         # Dependency Chain Output Contract
 
         Update output/dependency_chain.md with the dependency relationships between the decomposed slices.
+
+        Requirements:
+        - Reference the declared decomposition slices by name.
+        - Express the ProjectService -> ProjectStore dependency chain explicitly.
+        - Keep the dependency chain aligned to project creation, archive, and search behavior.
         """
     )
     zoom_sequencing_contract = textwrap.dedent(
@@ -902,6 +940,11 @@ def gsdlc_lite_zoom_module(workspace: Path) -> Module:
         # Sequencing Output Contract
 
         Update output/sequencing.md with the ordered implementation sequence for the decomposed slices.
+
+        Requirements:
+        - Express at least three ordered implementation steps.
+        - Reference the decomposed slices and dependency chain by name.
+        - Preserve the ordering needed to synthesize the final design artifact.
         """
     )
     (docs / "decomposition_output_contract.md").write_text(zoom_decomposition_contract, encoding="utf-8")
@@ -972,6 +1015,21 @@ def gsdlc_lite_zoom_module(workspace: Path) -> Module:
     ctx_live_design = Context(
         name="design_artifact",
         locator="workspace://output/design.md",
+        digest=PENDING_DIGEST,
+    )
+    ctx_live_decomposition = Context(
+        name="decomposition_artifact",
+        locator="workspace://output/decomposition.md",
+        digest=PENDING_DIGEST,
+    )
+    ctx_live_dependency_chain = Context(
+        name="dependency_chain_artifact",
+        locator="workspace://output/dependency_chain.md",
+        digest=PENDING_DIGEST,
+    )
+    ctx_live_sequencing = Context(
+        name="sequencing_artifact",
+        locator="workspace://output/sequencing.md",
         digest=PENDING_DIGEST,
     )
     ctx_code_standard = Context(
@@ -1071,7 +1129,11 @@ def gsdlc_lite_zoom_module(workspace: Path) -> Module:
                     target=dependency_chain,
                     operators=(op_zoom,),
                     evaluators=(zoom_fp,),
-                    contexts=(ctx_requirements, ctx_dependency_output),
+                    contexts=(
+                        ctx_requirements,
+                        ctx_dependency_output,
+                        ctx_live_decomposition,
+                    ),
                 ),
                 GraphVector(
                     name=DEPENDENCY_TO_SEQUENCING_EDGE,
@@ -1079,7 +1141,12 @@ def gsdlc_lite_zoom_module(workspace: Path) -> Module:
                     target=sequencing,
                     operators=(op_zoom,),
                     evaluators=(zoom_fp,),
-                    contexts=(ctx_requirements, ctx_sequencing_output),
+                    contexts=(
+                        ctx_requirements,
+                        ctx_sequencing_output,
+                        ctx_live_decomposition,
+                        ctx_live_dependency_chain,
+                    ),
                 ),
                 GraphVector(
                     name=SEQUENCING_TO_DESIGN_EDGE,
@@ -1087,7 +1154,14 @@ def gsdlc_lite_zoom_module(workspace: Path) -> Module:
                     target=design,
                     operators=(op_zoom,),
                     evaluators=(zoom_fp,),
-                    contexts=(ctx_requirements, ctx_design_standard, ctx_design_output_contract),
+                    contexts=(
+                        ctx_requirements,
+                        ctx_design_standard,
+                        ctx_design_output_contract,
+                        ctx_live_decomposition,
+                        ctx_live_dependency_chain,
+                        ctx_live_sequencing,
+                    ),
                 ),
             ),
         ),
