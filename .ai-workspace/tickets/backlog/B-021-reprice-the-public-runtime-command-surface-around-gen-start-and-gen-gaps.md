@@ -1,11 +1,11 @@
-# B-021 Reprice The Public Runtime Command Surface Around `gen-start` And `gen-gaps`
+# B-021 Reprice The Public Runtime Advancement And Observation Contract Around `gen-start` And `gen-gaps`
 
 - id: B-021
-- title: Reprice the public runtime operator contract so human truth is `gen-start` plus `gen-gaps`
+- title: Reprice the public runtime advancement and observation contract so human truth is `gen-start` plus `gen-gaps`
 - type: feature
 - status: backlog
 - goal: operator-command-unification
-- change_intent: Ratify one public runtime operator contract. `gen-gaps` and `gen-start` are named composition truth owned by intent/product/policy surfaces. `gen-start` is the only public advancement command and accepts one product-owned request grammar expressed as `scope + target + until`. Literal CLI spellings, service routes, and adapter-specific entrypoints are build/adapter binding surfaces beneath that named composition truth. `gen-iterate` and `run-status` may remain only as internal or explicitly diagnostic realization detail and must be removed from live co-equal public command surfaces.
+- change_intent: Ratify one public runtime advancement and observation contract. `gen-gaps` and `gen-start` are named composition truth owned by intent/product/policy surfaces. `gen-start` is the only public advancement command and accepts one product-owned request grammar expressed as `scope + target + until`. Literal CLI spellings, service routes, and adapter-specific entrypoints are build/adapter binding surfaces beneath that named composition truth. `gen-iterate` and `run-status` may remain only as internal or explicitly diagnostic realization detail and must be removed from live co-equal public command surfaces. This ticket does not attempt to collapse the entire CLI, including administrative or qualification commands, into two verbs.
 - change_class: product_reprice
 - re_entry_point: product_definition
 - priority: high
@@ -26,7 +26,7 @@ Live intent still states that abiogenesis provides:
 
 That is not the operator contract the current work is trying to establish.
 
-The intended public command surface is:
+The intended public advancement/observation surface is:
 
 - `gen-gaps`
   - observe current truth
@@ -40,6 +40,11 @@ Any lower-level traversal or live-status primitive may still exist
 structurally, but it must sit below that public operator contract rather than
 beside it as a co-equal human command.
 
+This ticket is about the human advancement/observation contract only. It does
+not claim that the entire shipped CLI has only two subcommands; administrative,
+projection-ingest, and qualification commands may still exist as separate
+adapter/build surfaces.
+
 The current code also mixes two different layers:
 
 - named composition truth such as `gen-start` and `gen-gaps`
@@ -47,6 +52,10 @@ The current code also mixes two different layers:
   point wrappers
 
 Those are not the same thing and must not remain collapsed.
+
+Intent/product/policy ratify named compositions such as `gen-start` and
+`gen-gaps`. Adapter/build surfaces own literal spellings such as
+`python -m genesis start`, `genesis start`, and `/gen-start`.
 
 If that change is real, it must be ratified in live product/policy surfaces
 first, with leaked contradictory intent detail cleaned up as part of the same
@@ -70,7 +79,8 @@ That creates avoidable drift:
 
 ## Required Direction
 
-1. Ratify the public runtime operator contract in live product/policy surfaces:
+1. Ratify the public runtime advancement/observation contract in live
+   product/policy surfaces:
    - `gen-gaps` is the public observation command
    - `gen-start` is the public advancement command
    - those names are the public named-composition truth
@@ -106,6 +116,9 @@ That creates avoidable drift:
   service spellings
 - no intent/product/policy surface ratifies concrete adapter spelling as the
   public operator truth
+- the ticket scope is limited to advancement/observation contract truth and
+  does not implicitly collapse unrelated administrative or qualification CLI
+  commands
 - `INTENT.md` no longer contradicts the ratified product/operator contract
 - `gen-iterate` and `run-status` are no longer taught as part of the public
   human workflow

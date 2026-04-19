@@ -38,6 +38,9 @@ The intended operator language is already a public product contract from
 - `target`
 - `until`
 
+Intent/product/policy own that named composition truth. Adapter/build surfaces
+own the literal command spellings that invoke it.
+
 But that contract will only be lawful if it does not:
 
 - leak bare graph-vector targeting into the public surface
@@ -141,6 +144,10 @@ Capabilities such as:
 - similar recovery or control-plane modes
 
 must be classified outside `StartIntent`.
+
+Active control modes such as `--human-proxy` and `--supervised-root` are
+orthogonal wrappers around `StartIntent`, not fields inside the traversal
+request contract.
 
 They may remain as product-policy control modes around execution of
 `gen-start`, but they are not members of the `scope + target + until`

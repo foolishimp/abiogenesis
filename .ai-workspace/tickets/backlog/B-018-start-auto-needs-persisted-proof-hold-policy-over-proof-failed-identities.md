@@ -60,7 +60,9 @@ Without that state:
    - whether explicit operator clear is allowed
    The source of truth is product policy. If runtime config or per-edge policy
    later specialize it, they must resolve into that one product-consumed policy
-   surface rather than becoming CLI-local or controller-local truth
+   surface rather than becoming CLI-local or controller-local truth. The
+   threshold `N` is therefore read from one resolved product-policy surface,
+   not inferred ad hoc by the auto loop
 3. Key the held identity on the same current-truth dimensions already used for
    published fulfillment state:
    - `edge`
@@ -76,7 +78,13 @@ Without that state:
 6. The explicit operator clear path for this ticket should use the existing
    `reset` event family over the held scope, not ad hoc local memory. If a
    narrower non-reset override is later required, that must be a separate
-   ticket with its own event law
+   ticket with its own event law. The clear event contract for this ticket is:
+   - `event_type = reset`
+   - `scope = workspace | work_key | edge`
+   - `actor`
+   - `reason`
+   - `work_key` when scope is `work_key` or `edge`
+   - `edge` when scope is `edge`
 7. Keep canonical run truth unchanged. `run-status` may report hold, but
    `proof_hold` must project alongside run truth rather than overwrite the ABG
    run algebra
