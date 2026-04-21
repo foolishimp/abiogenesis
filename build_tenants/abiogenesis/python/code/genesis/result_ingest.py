@@ -29,7 +29,7 @@ from .fulfillment_ledger import (
     resolve_published_fulfillment_ledger,
     write_published_fulfillment_ledger,
 )
-from .policy import materialize_policy_concern, resolve_policy_bundle
+from .policy import materialize_policy_concern
 from .provenance import _read_workflow_version
 
 
@@ -260,7 +260,7 @@ def _policy_bundle(manifest: Mapping[str, Any]) -> dict[str, Any]:
     resolved = manifest.get("resolved_policy")
     if isinstance(resolved, Mapping):
         return dict(resolved)
-    return resolve_policy_bundle()
+    raise ValueError("manifest must carry resolved_policy for F_P result ingest")
 
 
 def _carried_forward_fh_admission(

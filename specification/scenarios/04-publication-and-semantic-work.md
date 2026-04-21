@@ -2,7 +2,7 @@
 
 **Validates**: REQ-L-GTL3-MODULE, REQ-L-GTL3-ROLE, REQ-L-GTL3-JOB
 
-**Derives from**: [/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [INTENT.md](../INTENT.md) INT-001, [GTL_3_CONSTITUTIONAL_DESIGN.md](../GTL_3_CONSTITUTIONAL_DESIGN.md)
+**Derives from**: [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md), [INTENT.md](../INTENT.md) INT-001, [GTL_3_CONSTITUTIONAL_DESIGN.md](../GTL_3_CONSTITUTIONAL_DESIGN.md)
 
 **Purpose**: Prove that GTL 3 publishes reusable declaration libraries and
 expresses durable semantic work without collapsing into runtime identity or

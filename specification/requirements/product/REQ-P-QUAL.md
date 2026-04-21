@@ -3,7 +3,7 @@
 **Status**: Active
 **Category**: Verification
 **Date**: 2026-03-25
-**Derives from**: INT-005 (run governance, failure classification), [/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md) (Verification Layers)
+**Derives from**: INT-005 (run governance, failure classification), [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md) (Verification Layers)
 **Wave**: 2
 
 ---

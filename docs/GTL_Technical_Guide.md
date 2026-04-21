@@ -1,6 +1,6 @@
 # GTL Reference Guide
 
-**Status**: Current GTL 3 reference
+**Status**: Current GTL 3 / ABG 3.2.0 reference
 **Audience**: Engineers authoring GTL modules and graph functions
 **Purpose**: Describe the live GTL language surface and its runtime boundary
 
@@ -31,6 +31,7 @@ GTL owns:
 ABG owns:
 
 - traversal
+- typed runtime carriers
 - graph-call execution
 - runtime event truth
 - projection
@@ -317,8 +318,8 @@ The lawful shape is:
 
 ```text
 GTL declaration -> hook ref + replay-safe config
-ABG resolution  -> policy bundle + executable implementation
-Runtime         -> evented enforcement
+ABG admission   -> resolved carrier truth + executable implementation
+Runtime         -> carrier-owned decision + evented enforcement
 ```
 
 GTL does not own:
@@ -334,6 +335,10 @@ The GTL side stops at declaration and publication.
 ABG-compatible engines own:
 
 - graph-call execution
+- `ExecutionBasis`
+- `AdvancementTransition`
+- `IterationAdvanceDecision`
+- `RegimeBindingSet`
 - frame progression
 - continuation truth
 - runtime event emission
@@ -345,6 +350,8 @@ This means:
 - GTL does not emit runtime facts
 - GTL does not carry frame state
 - GTL does not become a controller
+- GTL does not reinterpret `F_D` / `F_P` / `F_H` runtime outcomes
+- GTL does not use `runtime_config` as semantic runtime authority
 
 ## Minimal Authoring Example
 
@@ -423,6 +430,7 @@ Use GTL well by following these rules:
 - preserve inspectable outer contracts on composed and recursive graph functions
 - keep semantic work contracts at the job layer
 - let ABG own runtime fact truth
+- let ABG own typed advancement and regime-binding truth
 
 Avoid these mistakes:
 
@@ -431,6 +439,7 @@ Avoid these mistakes:
 - hiding runtime law in ad hoc Python callbacks
 - mixing semantic roles with runtime worker identity
 - treating GTL declarations as imperative control code
+- rebuilding advancement, policy, or regime meaning from open dictionaries
 
 ## Relation To ABG
 

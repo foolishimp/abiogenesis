@@ -15,7 +15,8 @@ from __future__ import annotations
 
 import uuid
 import json
-from dataclasses import dataclass, field
+from collections.abc import Mapping
+from dataclasses import dataclass, field, replace
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Optional
@@ -27,16 +28,17 @@ from gtl.module_model import Module
 from gtl.work_model import Job
 
 from .binding import (
+    AssetBindingQueryContract,
+    BoundJob,
     ExecutableJob,
     Worker,
-    BoundJob,
     WorkSurface,
     PrecomputedManifest,
     ContextResolver,
     bind_fd,
     bind_fp,
-    declared_obligation_ledger_policy_for_job,
-    declared_fulfillment_obligations_for_job,
+    admit_asset_binding_query_contract,
+    resolve_workspace_asset_bindings,
 )
 from .convergence import (
     convergence_from_precomputed,
@@ -73,9 +75,40 @@ from .frames import (
 )
 from .identity import RuntimeIdentity
 from .materialization import MaterializationRequest, derive_bundle, materialize_graph_function
-from .policy import materialize_policy_concern, resolve_policy_bundle
+from .policy import (
+    ResolvedPolicy,
+    admit_resolved_policy,
+    materialize_policy_concern,
+    resolve_policy_bundle,
+)
 from .proof_hold import project_proof_holds
 from .provenance import spec_hash_for
+from .runtime_carrier import (
+    AdvancementTransition,
+    DispatchBindingRequest,
+    ExecutionBasis,
+    FhEscalationTransition,
+    FpDispatchPublicationPlan,
+    FpDispatchRequiredTransition,
+    TerminalTransition,
+    IterationAdvanceDecision,
+    IterationDispatchPlan,
+    advance_transition_for_precomputed,
+    attach_runtime_carrier_metadata,
+    blocking_reason_for_transition,
+    dispatch_transition_for_requirement,
+    execution_basis_for_runtime,
+    fp_dispatch_publication_plan,
+    fp_dispatch_transition,
+    iteration_advance_decision,
+    iteration_advance_decision_with_basis,
+    iteration_dispatch_plan,
+    iteration_outcome_plan,
+    iterated_result_payload,
+    outcome_transition_for_iteration,
+    regime_failures,
+    transition_blocks_progress,
+)
 from .selection import (
     SelectionDecision,
     accept_selection,
@@ -200,7 +233,8 @@ class TraversalRuntime:
     run_id: Optional[str] = None
     call_id: Optional[str] = None
     runtime_config: dict = field(default_factory=dict)
-    resolved_policy: dict = field(default_factory=dict)
+    asset_binding_contract: AssetBindingQueryContract | None = None
+    resolved_policy: ResolvedPolicy | Mapping[str, Any] | None = None
 
     def __post_init__(self) -> None:
         if not self.workflow_version or self.workflow_version == "unknown":
@@ -213,6 +247,82 @@ class TraversalRuntime:
             self.runtime_identity = self.runtime_identity.with_report_build_id(self.build)
         self.runtime_identity = self.runtime_identity.bind_worker(self.worker)
         self.build = self.runtime_identity.report_build_id()
+        if isinstance(self.resolved_policy, Mapping) and self.resolved_policy:
+            self.resolved_policy = admit_resolved_policy(self.resolved_policy)
+        if not isinstance(self.resolved_policy, ResolvedPolicy):
+            raise ValueError("TraversalRuntime requires admitted resolved_policy carrier truth")
+
+
+def admit_traversal_runtime(
+    *,
+    module: Module,
+    executable_job: ExecutableJob,
+    precomputed: PrecomputedManifest,
+    workspace_root: Path,
+    stream: EventStream,
+    worker: Worker,
+    spec_hash: str,
+    runtime_identity: RuntimeIdentity | None = None,
+    build: str | None = None,
+    work_key: str | None = None,
+    workflow_version: str = "unknown",
+    leaf_tasks: tuple[LeafTask, ...] = (),
+    on_leaf_dispatch: Optional[Callable[[LeafTask, dict], tuple[dict | None, str | None]]] = None,
+    leaf_task_inputs: dict[str, dict] | None = None,
+    run_id: str | None = None,
+    call_id: str | None = None,
+    runtime_config: dict[str, Any] | None = None,
+    asset_binding_contract: AssetBindingQueryContract | None = None,
+    resolved_policy: Mapping[str, Any] | None = None,
+    candidate_family: CandidateFamily | None = None,
+) -> TraversalRuntime:
+    admitted_policy = admit_resolved_policy(
+        resolved_policy
+        if resolved_policy is not None
+        else resolve_policy_bundle(
+            vector=executable_job.vector,
+            graph_function=executable_job.graph_function,
+            roles=executable_job.job.roles,
+            candidate_family=candidate_family,
+            runtime_config=dict(runtime_config or {}),
+        )
+    )
+    return TraversalRuntime(
+        module=module,
+        executable_job=executable_job,
+        precomputed=precomputed,
+        workspace_root=workspace_root,
+        stream=stream,
+        worker=worker,
+        spec_hash=spec_hash,
+        runtime_identity=runtime_identity,
+        build=build,
+        work_key=work_key,
+        workflow_version=workflow_version,
+        leaf_tasks=leaf_tasks,
+        on_leaf_dispatch=on_leaf_dispatch,
+        leaf_task_inputs=dict(leaf_task_inputs or {}),
+        run_id=run_id,
+        call_id=call_id,
+        runtime_config=dict(runtime_config or {}),
+        asset_binding_contract=(
+            asset_binding_contract
+            if asset_binding_contract is not None
+            else admit_asset_binding_query_contract(
+                dict(runtime_config or {}),
+                workspace_root=workspace_root,
+            )
+        ),
+        resolved_policy=admitted_policy,
+    )
+
+
+@dataclass(frozen=True)
+class PublicRuntimeOpenPlan:
+    run_id: str
+    call_id: str
+    active_frame: tuple[InvocationFrame, object] | None
+    events: tuple[tuple[str, dict, EventContext], ...] = ()
 
 
 @dataclass(frozen=True)
@@ -220,6 +330,68 @@ class TraversalOutcome:
     """Structured result of one traversal attempt."""
     surface: WorkSurface
     result: dict
+    basis: ExecutionBasis | None = None
+    transition: AdvancementTransition | None = None
+
+
+@dataclass(frozen=True)
+class IterationStartPlan:
+    vector_started_data: dict[str, Any]
+    frame_step_started_data: dict[str, Any] | None = None
+    recursive_state: RecursiveInterpreterState | None = None
+    prior_recursive_state: RecursiveInterpreterState | None = None
+    frame_suspended_data: dict[str, Any] | None = None
+
+
+@dataclass(frozen=True)
+class IterationCompletionPlan:
+    proof_passed_data: dict[str, Any] | None = None
+    closure_passed_data: dict[str, Any] | None = None
+    graph_call_closed_data: dict[str, Any] | None = None
+    emit_run_completed: bool = False
+
+
+@dataclass(frozen=True)
+class IterationExecutionPlan:
+    open_plan: PublicRuntimeOpenPlan
+    basis: ExecutionBasis
+    decision: IterationAdvanceDecision
+    event_context: EventContext
+    dispatch_plan: IterationDispatchPlan
+    bound_job: BoundJob
+    publication_plan: FpDispatchPublicationPlan | None
+    iteration_start_plan: IterationStartPlan
+    completion_plan: IterationCompletionPlan
+    blocking_reason: str | None
+
+
+@dataclass(frozen=True)
+class PendingDispatchReplayPlan:
+    result: dict[str, Any]
+    metadata: dict[str, Any]
+    transition: FpDispatchTransition
+    recursive_state: RecursiveInterpreterState | None = None
+    prior_recursive_state: RecursiveInterpreterState | None = None
+
+
+def _iteration_start_event_count(plan: IterationStartPlan) -> int:
+    count = 1
+    if plan.frame_step_started_data is not None:
+        count += 1
+    if plan.recursive_state is not None and plan.prior_recursive_state != plan.recursive_state:
+        count += 1
+    if plan.frame_suspended_data is not None:
+        count += 1
+    return count
+
+
+def _iteration_completion_event_count(plan: IterationCompletionPlan) -> int:
+    if plan.proof_passed_data is None or plan.closure_passed_data is None or not plan.emit_run_completed:
+        return 0
+    count = 3
+    if plan.graph_call_closed_data is None:
+        count -= 1
+    return count
 
 
 @dataclass(frozen=True)
@@ -662,6 +834,7 @@ def plan_next_traversal(
     edge_filter: str | None = None,
     run_id: Optional[str] = None,
     runtime_config: dict | None = None,
+    asset_binding_contract: AssetBindingQueryContract | None = None,
     carry_forward: list[dict] | None = None,
 ) -> TraversalPlan:
     """Interpreter-owned next traversal planning.
@@ -835,9 +1008,9 @@ def plan_next_traversal(
         graph_function=selected_job.graph_function,
         roles=selected_job.job.roles,
         candidate_family=family,
-        runtime_config=runtime_config or {},
+        runtime_config=dict(runtime_config or {}),
     )
-    runtime = TraversalRuntime(
+    runtime = admit_traversal_runtime(
         module=module,
         executable_job=selected_job,
         precomputed=selected_pre,
@@ -851,7 +1024,9 @@ def plan_next_traversal(
         workflow_version=workflow_version,
         run_id=run_id,
         runtime_config=dict(runtime_config or {}),
+        asset_binding_contract=asset_binding_contract,
         resolved_policy=resolved_policy,
+        candidate_family=family,
     )
     return TraversalPlan(traversal=traversal, runtime=runtime, result={"status": "planned"})
 
@@ -937,6 +1112,12 @@ def derive_operational_gaps(
                     "work_key": work_key,
                     "spec_hash": spec_hash,
                     "workflow_version": workflow_version,
+                    "resolved_policy": resolve_policy_bundle(
+                        vector=job.vector,
+                        graph_function=job.graph_function,
+                        roles=job.job.roles,
+                        runtime_config=runtime_config,
+                    ),
                 }
             )
 
@@ -974,7 +1155,6 @@ def derive_operational_gaps(
     proof_holds = project_proof_holds(
         workspace_root,
         proof_hold_identities,
-        runtime_config=runtime_config,
         all_events=all_events,
     )
     for entry, identity in zip(results, proof_hold_identities, strict=False):
@@ -1079,32 +1259,6 @@ def derive_operational_state(
     }
 
 
-def _blocking_reason(
-    pre: PrecomputedManifest,
-    *,
-    resolved_policy: dict | None = None,
-    runtime_config: dict | None = None,
-) -> str | None:
-    """Return the typed blocking reason for one precomputed traversal state."""
-    if any(ev.regime is F_D for ev in pre.failing_evaluators):
-        conv = convergence_from_precomputed(
-            pre.executable_job.vector.id,
-            pre,
-            resolved_policy=resolved_policy,
-            runtime_config=runtime_config,
-        )
-        if conv.next_regime is F_P and conv.next_action in ("continue", "escalate"):
-            return "fp_dispatch"
-        if conv.next_regime is F_H and conv.next_action in ("continue", "escalate"):
-            return "fh_gate"
-        return "fd_gap"
-    if any(ev.regime is F_P for ev in pre.failing_evaluators):
-        return "fp_dispatch"
-    if any(ev.regime is F_H for ev in pre.failing_evaluators):
-        return "fh_gate"
-    return None
-
-
 def _boundary_inputs(vector: GraphVector) -> tuple:
     return vector.source if isinstance(vector.source, tuple) else (vector.source,)
 
@@ -1201,44 +1355,293 @@ def _graph_call_opened_data(runtime: TraversalRuntime, *, call_id: str) -> dict:
     return data
 
 
-def _ensure_public_runtime_open(
-    runtime: TraversalRuntime,
-) -> tuple[str, str, tuple[InvocationFrame, object] | None]:
-    active_frame = _active_frame_for_runtime(runtime)
-    if runtime.run_id is None:
-        runtime.run_id = str(uuid.uuid4())
-    if active_frame is not None:
-        runtime.call_id = active_frame[0].call_id
-    elif not runtime.call_id:
-        runtime.call_id = f"call-{runtime.run_id}"
+def _vector_started_data(runtime: TraversalRuntime) -> dict[str, Any]:
+    vector = runtime.executable_job.vector
+    data: dict[str, Any] = {
+        "edge": vector.name,
+        "vector_id": vector.id,
+        "worker_id": runtime.worker.id,
+        "target": vector.target.name,
+    }
+    if runtime.runtime_identity.build_id:
+        data["build"] = runtime.runtime_identity.build_id
+    if runtime.runtime_identity.backend_id:
+        data["backend_id"] = runtime.runtime_identity.backend_id
+    if runtime.work_key is not None:
+        data["work_key"] = runtime.work_key
+    if runtime.executable_job.job.roles:
+        data["role_id"] = runtime.executable_job.job.roles[0].id
+    if runtime.worker.authority_ref:
+        data["authority_ref"] = runtime.worker.authority_ref
+    _attach_execution_binding_provenance(
+        data,
+        runtime_identity=runtime.runtime_identity,
+        worker=runtime.worker,
+    )
+    return data
 
-    event_context = _event_context(runtime, run_id=runtime.run_id, active_frame=active_frame)
-    if not _event_exists(runtime.stream, "run_bound", run_id=runtime.run_id):
+
+def _plan_public_runtime_open(
+    runtime: TraversalRuntime,
+    *,
+    active_frame: tuple[InvocationFrame, object] | None = None,
+) -> PublicRuntimeOpenPlan:
+    if active_frame is None:
+        active_frame = _active_frame_for_runtime(runtime)
+    run_id = runtime.run_id or str(uuid.uuid4())
+    if active_frame is not None:
+        call_id = active_frame[0].call_id
+    else:
+        call_id = runtime.call_id or f"call-{run_id}"
+
+    event_context = _event_context(
+        runtime,
+        run_id=run_id,
+        active_frame=active_frame,
+        call_id=call_id,
+    )
+    events: list[tuple[str, dict, EventContext]] = []
+    if not _event_exists(runtime.stream, "run_bound", run_id=run_id):
+        events.append(
+            (
+                "run_bound",
+                _run_bound_data(runtime, run_id=run_id),
+                event_context,
+            )
+        )
+    if not _event_exists(runtime.stream, "run_started", run_id=run_id):
+        events.append(
+            (
+                "run_started",
+                _run_started_data(runtime, run_id=run_id),
+                event_context,
+            )
+        )
+    if call_id and not _event_exists(runtime.stream, "graph_call_opened", call_id=call_id):
+        events.append(
+            (
+                "graph_call_opened",
+                _graph_call_opened_data(runtime, call_id=call_id),
+                EventContext(
+                    workflow_version=runtime.workflow_version,
+                    work_key=runtime.work_key,
+                    run_id=run_id,
+                    aggregate_type="graph_call",
+                    aggregate_id=call_id,
+                    parent_aggregate_id=run_id,
+                    job_id=runtime.executable_job.job.id,
+                    graph_function_id=(
+                        runtime.executable_job.graph_function.id
+                        if runtime.executable_job.graph_function is not None
+                        else None
+                    ),
+                    materialization_id=runtime.executable_job.materialization_id,
+                    call_id=call_id,
+                ),
+            )
+        )
+    return PublicRuntimeOpenPlan(
+        run_id=run_id,
+        call_id=call_id,
+        active_frame=active_frame,
+        events=tuple(events),
+    )
+
+
+def _apply_public_runtime_open_plan(
+    runtime: TraversalRuntime,
+    plan: PublicRuntimeOpenPlan,
+) -> None:
+    runtime.run_id = plan.run_id
+    runtime.call_id = plan.call_id
+    for event_type, data, context in plan.events:
+        _emit_event(runtime.stream, event_type, data, context=context)
+
+
+def _bind_fp_dispatch_job(request: DispatchBindingRequest) -> BoundJob:
+    bound = bind_fp(
+        request.pre,
+        request.executable_job,
+        result_path=request.result_path,
+        workspace_root=request.workspace_root,
+        asset_bindings=(
+            dict(request.asset_bindings) if request.asset_bindings is not None else None
+        ),
+    )
+    return replace(
+        bound,
+        manifest_id=request.manifest_id,
+        worker_id=request.worker_id,
+        role_id=request.role_id or "",
+        authority_ref=request.authority_ref or "",
+        selected_worker_id=(
+            request.runtime_identity.worker_id
+            if request.runtime_identity.worker_id
+            and request.runtime_identity.worker_id != request.worker_id
+            else ""
+        ),
+        selected_backend=request.runtime_identity.backend_id or "",
+        assignment_source=request.runtime_identity.assignment_source or "",
+        resolved_runtime_ref=request.runtime_identity.resolved_runtime_ref or "",
+    )
+
+
+def _plan_iteration_start(
+    runtime: TraversalRuntime,
+    *,
+    run_id: str,
+    active_frame: tuple[InvocationFrame, object] | None,
+    pre_transition: AdvancementTransition,
+    blocking_reason: str | None,
+) -> IterationStartPlan:
+    vector_started_data = _vector_started_data(runtime)
+    if active_frame is None:
+        return IterationStartPlan(vector_started_data=vector_started_data)
+
+    frame, step = active_frame
+    prior_state = current_recursive_state(runtime.stream, frame.frame_id)
+    blocks_progress = transition_blocks_progress(pre_transition)
+    next_state = recursive_state_for_frame(
+        frame,
+        phase="waiting_on_children" if blocks_progress else "advancing",
+        pending_child_keys=prior_state.frontier.pending_child_keys if prior_state else None,
+        completed_child_keys=prior_state.frontier.completed_child_keys if prior_state else (),
+        blocked_on=(step.child_key,) if blocks_progress else (),
+        active_child_key=step.child_key,
+        checkpoint_id=(
+            run_id
+            if blocks_progress
+            else prior_state.checkpoint_id if prior_state else None
+        ),
+        suspended=blocks_progress,
+        stack=prior_state.stack if prior_state else (frame,),
+    )
+    frame_suspended_data = None
+    if blocks_progress and not (prior_state and prior_state.suspended):
+        frame_suspended_data = frame_suspended_event(
+            frame,
+            next_state,
+            reason=blocking_reason or "blocked",
+        )["data"]
+    return IterationStartPlan(
+        vector_started_data=vector_started_data,
+        frame_step_started_data=frame_step_started_event(frame, step, run_id=run_id)["data"],
+        recursive_state=next_state,
+        prior_recursive_state=prior_state,
+        frame_suspended_data=frame_suspended_data,
+    )
+
+
+def _apply_iteration_start_plan(
+    runtime: TraversalRuntime,
+    plan: IterationStartPlan,
+    *,
+    event_context: EventContext,
+) -> None:
+    _emit_event(
+        runtime.stream,
+        "vector_started",
+        plan.vector_started_data,
+        context=event_context,
+    )
+    if plan.frame_step_started_data is not None:
         _emit_event(
             runtime.stream,
-            "run_bound",
-            _run_bound_data(runtime, run_id=runtime.run_id),
+            "frame_step_started",
+            plan.frame_step_started_data,
             context=event_context,
         )
-    if not _event_exists(runtime.stream, "run_started", run_id=runtime.run_id):
+    if plan.recursive_state is not None:
+        _append_recursive_state(
+            runtime.stream,
+            plan.recursive_state,
+            context=event_context,
+            prior_state=plan.prior_recursive_state,
+        )
+    if plan.frame_suspended_data is not None:
         _emit_event(
             runtime.stream,
-            "run_started",
-            _run_started_data(runtime, run_id=runtime.run_id),
+            "frame_suspended",
+            plan.frame_suspended_data,
             context=event_context,
         )
-    if runtime.call_id and not _event_exists(runtime.stream, "graph_call_opened", call_id=runtime.call_id):
+
+
+def _plan_iteration_completion(
+    runtime: TraversalRuntime,
+    *,
+    call_id: str,
+    active_frame: tuple[InvocationFrame, object] | None,
+    fd_failing: tuple[Evaluator, ...],
+    fp_failing: tuple[Evaluator, ...],
+    fh_failing: tuple[Evaluator, ...],
+) -> IterationCompletionPlan:
+    if _edge_uses_fulfillment_carrier(runtime.executable_job) or (
+        fd_failing or fp_failing or fh_failing
+    ):
+        return IterationCompletionPlan()
+    return IterationCompletionPlan(
+        proof_passed_data={
+            "call_id": call_id,
+            "edge": runtime.executable_job.vector.name,
+            "policy_mode": materialize_policy_concern(runtime.resolved_policy, "proof").get(
+                "mode"
+            ),
+        },
+        closure_passed_data={
+            "call_id": call_id,
+            "edge": runtime.executable_job.vector.name,
+            "policy_mode": materialize_policy_concern(
+                runtime.resolved_policy, "closure"
+            ).get("mode"),
+        },
+        graph_call_closed_data=(
+            {
+                "call_id": call_id,
+                "edge": runtime.executable_job.vector.name,
+            }
+            if active_frame is None and call_id
+            else None
+        ),
+        emit_run_completed=True,
+    )
+
+
+def _apply_iteration_completion_plan(
+    runtime: TraversalRuntime,
+    plan: IterationCompletionPlan,
+    *,
+    event_context: EventContext,
+    run_id: str,
+    call_id: str,
+) -> None:
+    if plan.proof_passed_data is None or plan.closure_passed_data is None or not plan.emit_run_completed:
+        return
+    proof_event = _emit_event(
+        runtime.stream,
+        "proof_passed",
+        plan.proof_passed_data,
+        context=event_context,
+    )
+    closure_event = _emit_event(
+        runtime.stream,
+        "closure_passed",
+        plan.closure_passed_data,
+        context=event_context,
+    )
+    if plan.graph_call_closed_data is not None:
         _emit_event(
             runtime.stream,
-            "graph_call_opened",
-            _graph_call_opened_data(runtime, call_id=runtime.call_id),
+            "graph_call_closed",
+            plan.graph_call_closed_data,
             context=EventContext(
                 workflow_version=runtime.workflow_version,
                 work_key=runtime.work_key,
-                run_id=runtime.run_id,
+                run_id=run_id,
                 aggregate_type="graph_call",
-                aggregate_id=runtime.call_id,
-                parent_aggregate_id=runtime.run_id,
+                aggregate_id=call_id,
+                parent_aggregate_id=run_id,
+                causation_event_id=closure_event["event_id"],
                 job_id=runtime.executable_job.job.id,
                 graph_function_id=(
                     runtime.executable_job.graph_function.id
@@ -1246,10 +1649,336 @@ def _ensure_public_runtime_open(
                     else None
                 ),
                 materialization_id=runtime.executable_job.materialization_id,
-                call_id=runtime.call_id,
+                call_id=call_id,
+                vector_id=runtime.executable_job.vector.id,
             ),
         )
-    return runtime.run_id, runtime.call_id or "", active_frame
+    _emit_event(
+        runtime.stream,
+        "run_completed",
+        {
+            "call_id": call_id,
+            "edge": runtime.executable_job.vector.name,
+            "caused_by_event_id": proof_event["event_id"],
+        },
+        context=EventContext(
+            workflow_version=runtime.workflow_version,
+            work_key=runtime.work_key,
+            run_id=run_id,
+            aggregate_type="run",
+            aggregate_id=run_id,
+            causation_event_id=closure_event["event_id"],
+            job_id=runtime.executable_job.job.id,
+            graph_function_id=(
+                runtime.executable_job.graph_function.id
+                if runtime.executable_job.graph_function is not None
+                else None
+            ),
+            materialization_id=runtime.executable_job.materialization_id,
+            call_id=call_id,
+            vector_id=runtime.executable_job.vector.id,
+        ),
+    )
+
+
+def _plan_iteration_execution(
+    runtime: TraversalRuntime,
+    *,
+    active_frame: tuple[InvocationFrame, object] | None,
+    runtime_basis: ExecutionBasis,
+    decision: IterationAdvanceDecision,
+    manifest_id: str,
+    fp_result_path: str | None,
+) -> IterationExecutionPlan:
+    open_plan = _plan_public_runtime_open(runtime, active_frame=active_frame)
+    decision = iteration_advance_decision_with_basis(
+        decision,
+        replace(runtime_basis, run_id=open_plan.run_id),
+    )
+    runtime_basis = decision.basis
+    pre_transition = decision.pre_transition
+    event_context = _event_context(
+        runtime,
+        run_id=open_plan.run_id,
+        active_frame=open_plan.active_frame,
+        call_id=open_plan.call_id,
+    )
+    admitted_asset_bindings = (
+        resolve_workspace_asset_bindings(
+            workspace_root=runtime.workspace_root,
+            contract=runtime.asset_binding_contract,
+        )
+        if isinstance(pre_transition, FpDispatchRequiredTransition)
+        else None
+    )
+    dispatch_plan = iteration_dispatch_plan(
+        decision=decision,
+        pre=runtime.precomputed,
+        executable_job=runtime.executable_job,
+        workspace_root=runtime.workspace_root,
+        asset_bindings=admitted_asset_bindings,
+        manifest_id=manifest_id,
+        result_path=fp_result_path,
+        worker_id=runtime.worker.id,
+        role_id=(
+            runtime.executable_job.job.roles[0].id
+            if runtime.executable_job.job.roles
+            else None
+        ),
+        authority_ref=runtime.worker.authority_ref,
+        runtime_identity=runtime.runtime_identity,
+    )
+    bound_job = _bind_fp_dispatch_job(dispatch_plan.binding_request)
+    publication_plan = None
+    if dispatch_plan.dispatch_transition is not None:
+        publication_plan = fp_dispatch_publication_plan(
+            workspace_root=runtime.workspace_root,
+            transition=dispatch_plan.dispatch_transition,
+            executable_job=runtime.executable_job,
+            pre=runtime.precomputed,
+            bound_job=bound_job,
+            resolved_policy=decision.resolved_policy,
+            workflow_version=runtime.workflow_version,
+            spec_hash=runtime.spec_hash,
+            requirements=runtime.module.metadata.get("requirements", []),
+            run_id=open_plan.run_id,
+            call_id=open_plan.call_id,
+            work_key=runtime.work_key,
+            worker_id=runtime.worker.id,
+            role_id=(
+                runtime.executable_job.job.roles[0].id
+                if runtime.executable_job.job.roles
+                else None
+            ),
+            authority_ref=runtime.worker.authority_ref,
+            graph_call_terminal_on_result=open_plan.active_frame is None,
+        )
+    iteration_start_plan = _plan_iteration_start(
+        runtime,
+        run_id=open_plan.run_id,
+        active_frame=open_plan.active_frame,
+        pre_transition=pre_transition,
+        blocking_reason=decision.blocking_reason,
+    )
+    completion_plan = _plan_iteration_completion(
+        runtime,
+        call_id=open_plan.call_id,
+        active_frame=open_plan.active_frame,
+        fd_failing=decision.failures.fd,
+        fp_failing=decision.failures.fp,
+        fh_failing=decision.failures.fh,
+    )
+    return IterationExecutionPlan(
+        open_plan=open_plan,
+        basis=runtime_basis,
+        decision=decision,
+        event_context=event_context,
+        dispatch_plan=dispatch_plan,
+        bound_job=bound_job,
+        publication_plan=publication_plan,
+        iteration_start_plan=iteration_start_plan,
+        completion_plan=completion_plan,
+        blocking_reason=decision.blocking_reason,
+    )
+
+
+def _apply_iteration_execution_plan(
+    runtime: TraversalRuntime,
+    plan: IterationExecutionPlan,
+    *,
+    surface: WorkSurface,
+) -> TraversalOutcome:
+    _apply_public_runtime_open_plan(runtime, plan.open_plan)
+    _apply_iteration_start_plan(
+        runtime,
+        plan.iteration_start_plan,
+        event_context=plan.event_context,
+    )
+    iter_surface = _realize_iteration(
+        plan.bound_job,
+        blocking_reason=plan.blocking_reason,
+        leaf_tasks=list(runtime.leaf_tasks) if runtime.leaf_tasks else None,
+        on_leaf_dispatch=runtime.on_leaf_dispatch,
+        leaf_task_inputs=runtime.leaf_task_inputs,
+        run_id=plan.open_plan.run_id,
+        spec_hash=runtime.spec_hash,
+        workflow_version=runtime.workflow_version,
+        work_key=runtime.work_key,
+    )
+    _append_events(runtime.stream, iter_surface.events, context=plan.event_context)
+    _apply_iteration_completion_plan(
+        runtime,
+        plan.completion_plan,
+        event_context=plan.event_context,
+        run_id=plan.open_plan.run_id,
+        call_id=plan.open_plan.call_id,
+    )
+    if isinstance(plan.decision.pre_transition, FpDispatchRequiredTransition):
+        if plan.dispatch_plan.dispatch_transition is None or plan.publication_plan is None:
+            raise RuntimeError("fp dispatch transition must exist when manifest is published")
+        manifest = dict(plan.publication_plan.manifest_payload)
+        _attach_execution_binding_provenance(
+            manifest,
+            runtime_identity=runtime.runtime_identity,
+            worker=runtime.worker,
+        )
+        plan.publication_plan.manifest_path.parent.mkdir(parents=True, exist_ok=True)
+        plan.publication_plan.manifest_path.write_text(
+            json.dumps(manifest, indent=2),
+            encoding="utf-8",
+        )
+    outcome_plan = iteration_outcome_plan(
+        basis=plan.basis,
+        pre_transition=plan.decision.pre_transition,
+        dispatch_transition=plan.dispatch_plan.dispatch_transition,
+        outer_surface_metadata=surface.metadata,
+        iter_surface_metadata=iter_surface.metadata,
+        executable_job=runtime.executable_job,
+        pre=runtime.precomputed,
+        bound_job=plan.bound_job,
+        surface_artifacts=iter_surface.artifacts,
+        context_consumed_names=[c.name for c in iter_surface.context_consumed],
+        work_key=runtime.work_key,
+        spec_hash=runtime.spec_hash,
+        workflow_version=runtime.workflow_version,
+        run_id=plan.open_plan.run_id,
+        call_id=plan.open_plan.call_id,
+        blocking_reason=plan.blocking_reason,
+        fh_failing=plan.decision.failures.fh,
+        publication_plan=plan.publication_plan,
+        events_emitted=(
+            len(plan.open_plan.events)
+            + _iteration_start_event_count(plan.iteration_start_plan)
+            + len(iter_surface.events)
+            + _iteration_completion_event_count(plan.completion_plan)
+        ),
+    )
+    return TraversalOutcome(
+        surface=WorkSurface(
+            events=iter_surface.events,
+            artifacts=iter_surface.artifacts,
+            context_consumed=iter_surface.context_consumed,
+            context_emitted=iter_surface.context_emitted,
+            findings=iter_surface.findings,
+            attestations=iter_surface.attestations,
+            metadata=outcome_plan.metadata,
+        ),
+        result=outcome_plan.result,
+        basis=plan.basis,
+        transition=outcome_plan.transition,
+    )
+
+
+def _plan_pending_dispatch_replay(
+    runtime: TraversalRuntime,
+    *,
+    surface: WorkSurface,
+    runtime_basis: ExecutionBasis,
+    active_frame: tuple[InvocationFrame, object] | None,
+    pending_run_id: str,
+    pending_manifest_id: str | None,
+    dispatch_transition: FpDispatchTransition,
+    manifest_path: str | None,
+    resumed_result_path: str | None,
+) -> PendingDispatchReplayPlan:
+    recursive_state = None
+    prior_recursive_state = None
+    if active_frame is not None:
+        frame, step = active_frame
+        prior_recursive_state = current_recursive_state(runtime.stream, frame.frame_id)
+        recursive_state = recursive_state_for_frame(
+            frame,
+            phase="waiting_on_children",
+            pending_child_keys=(
+                prior_recursive_state.frontier.pending_child_keys
+                if prior_recursive_state
+                else None
+            ),
+            completed_child_keys=(
+                prior_recursive_state.frontier.completed_child_keys
+                if prior_recursive_state
+                else ()
+            ),
+            blocked_on=(step.child_key,),
+            active_child_key=step.child_key,
+            checkpoint_id=(
+                prior_recursive_state.checkpoint_id if prior_recursive_state else None
+            ),
+            suspended=False,
+            stack=prior_recursive_state.stack if prior_recursive_state else (frame,),
+        )
+
+    result = {
+        "status": "pending",
+        "reason": f"F_P dispatch already in flight for edge {runtime.executable_job.vector.name!r}",
+        "pending_run_id": pending_run_id,
+        "edge": runtime.executable_job.vector.name,
+        "work_key": runtime.work_key,
+        "spec_hash": runtime.spec_hash,
+        "workflow_version": runtime.workflow_version,
+        "blocking_reason": "fp_dispatch",
+    }
+    if pending_manifest_id:
+        result["manifest_id"] = pending_manifest_id
+    if manifest_path is not None:
+        result["fp_manifest_path"] = manifest_path
+    if resumed_result_path is not None:
+        result["fp_result_path"] = resumed_result_path
+    attach_runtime_carrier_metadata(result, runtime_basis, dispatch_transition)
+
+    metadata = dict(surface.metadata)
+    metadata["traversal_outcome"] = {
+        "status": "pending",
+        "pending_run_id": pending_run_id,
+        "blocking_reason": "fp_dispatch",
+    }
+    if pending_manifest_id:
+        metadata["traversal_outcome"]["manifest_id"] = pending_manifest_id
+    if manifest_path is not None:
+        metadata["traversal_outcome"]["fp_manifest_path"] = manifest_path
+    if resumed_result_path is not None:
+        metadata["traversal_outcome"]["fp_result_path"] = resumed_result_path
+
+    return PendingDispatchReplayPlan(
+        result=result,
+        metadata=metadata,
+        transition=dispatch_transition,
+        recursive_state=recursive_state,
+        prior_recursive_state=prior_recursive_state,
+    )
+
+
+def _apply_pending_dispatch_replay_plan(
+    runtime: TraversalRuntime,
+    plan: PendingDispatchReplayPlan,
+    *,
+    surface: WorkSurface,
+    pending_context: EventContext | None,
+    runtime_basis: ExecutionBasis,
+) -> TraversalOutcome:
+    if plan.recursive_state is not None:
+        if pending_context is None:
+            raise RuntimeError("pending replay recursive state requires an event context")
+        _append_recursive_state(
+            runtime.stream,
+            plan.recursive_state,
+            context=pending_context,
+            prior_state=plan.prior_recursive_state,
+        )
+    return TraversalOutcome(
+        surface=WorkSurface(
+            events=surface.events,
+            artifacts=surface.artifacts,
+            context_consumed=surface.context_consumed,
+            context_emitted=surface.context_emitted,
+            findings=surface.findings,
+            attestations=surface.attestations,
+            metadata=plan.metadata,
+        ),
+        result=plan.result,
+        basis=runtime_basis,
+        transition=plan.transition,
+    )
 
 
 def _event_context(
@@ -1257,9 +1986,10 @@ def _event_context(
     *,
     run_id: str | None = None,
     active_frame: tuple[InvocationFrame, object] | None = None,
+    call_id: str | None = None,
 ) -> EventContext:
     frame = active_frame[0] if active_frame is not None else None
-    call_id = runtime.call_id or (frame.call_id if frame is not None else None)
+    resolved_call_id = call_id or runtime.call_id or (frame.call_id if frame is not None else None)
     return EventContext(
         workflow_version=runtime.workflow_version,
         work_key=runtime.work_key,
@@ -1271,7 +2001,7 @@ def _event_context(
             else None
         ),
         materialization_id=runtime.executable_job.materialization_id,
-        call_id=call_id,
+        call_id=resolved_call_id,
         frame_attempt_id=frame.frame_attempt_id if frame is not None else None,
         frame_lineage_id=frame.frame_lineage_id if frame is not None else None,
         vector_id=runtime.executable_job.vector.id,
@@ -1477,7 +2207,11 @@ def _selection_outcome(
     family: CandidateFamily,
     selection: SelectionDecision,
 ) -> TraversalOutcome:
-    run_id, call_id, _ = _ensure_public_runtime_open(runtime)
+    active_frame = _active_frame_for_runtime(runtime)
+    open_plan = _plan_public_runtime_open(runtime, active_frame=active_frame)
+    _apply_public_runtime_open_plan(runtime, open_plan)
+    run_id = open_plan.run_id
+    call_id = open_plan.call_id
     vector = runtime.executable_job.vector
     candidates = family.candidates
     if not candidates:
@@ -1595,41 +2329,48 @@ def _iterated_outcome(
     runtime: TraversalRuntime,
 ) -> TraversalOutcome:
     vector = runtime.executable_job.vector
-    if not runtime.resolved_policy:
-        runtime.resolved_policy = resolve_policy_bundle(
-            vector=runtime.executable_job.vector,
-            graph_function=runtime.executable_job.graph_function,
-            roles=runtime.executable_job.job.roles,
-            runtime_config=runtime.runtime_config,
-        )
     pre = runtime.precomputed
-    blocking_reason = _blocking_reason(
-        pre,
-        resolved_policy=runtime.resolved_policy,
-        runtime_config=runtime.runtime_config,
+    active_frame = _active_frame_for_runtime(runtime)
+    frame_id = active_frame[0].frame_id if active_frame is not None else None
+    frame_lineage_id = (
+        active_frame[0].frame_lineage_id if active_frame is not None else None
     )
-
-    fd_failing = [ev for ev in pre.failing_evaluators if ev.regime is F_D]
-    fp_failing = [ev for ev in pre.failing_evaluators if ev.regime is F_P]
-    fh_failing = [ev for ev in pre.failing_evaluators if ev.regime is F_H]
+    runtime_basis = execution_basis_for_runtime(
+        runtime,
+        frame_id=frame_id,
+        frame_lineage_id=frame_lineage_id,
+    )
+    decision = iteration_advance_decision(
+        basis=runtime_basis,
+        pre=pre,
+        resolved_policy=runtime.resolved_policy,
+    )
+    runtime.resolved_policy = decision.resolved_policy
+    pre_transition = decision.pre_transition
 
     ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
     edge_slug = vector.name.replace("→", "_").replace("↔", "_")
     manifest_id = f"{edge_slug}_{ts}"
-    active_frame = _active_frame_for_runtime(runtime)
 
     from .run import find_pending_run
 
-    dispatch_requires_fp = blocking_reason == "fp_dispatch"
+    dispatch_requires_fp = isinstance(pre_transition, FpDispatchRequiredTransition)
+    fp_result_path: str | None = None
+    dispatch_transition = None
 
     if dispatch_requires_fp:
+        fp_results_dir = runtime.workspace_root / ".ai-workspace" / "fp_results"
+        fp_results_dir.mkdir(parents=True, exist_ok=True)
+        fp_result_path = str(fp_results_dir / f"{manifest_id}.json")
         pending = find_pending_run(
             runtime.stream.all_events(),
             vector.name,
             work_key=runtime.work_key,
         )
         if pending is not None:
+            runtime_basis = replace(runtime_basis, run_id=pending.run_id)
             manifest_path = None
+            resumed_result_path = None
             if pending.manifest_id:
                 candidate = (
                     runtime.workspace_root
@@ -1638,393 +2379,62 @@ def _iterated_outcome(
                     / f"{pending.manifest_id}.json"
                 )
                 manifest_path = str(candidate)
+                resumed_result_path = str(
+                    runtime.workspace_root
+                    / ".ai-workspace"
+                    / "fp_results"
+                    / f"{pending.manifest_id}.json"
+                )
+            decision = iteration_advance_decision_with_basis(
+                decision,
+                replace(runtime_basis, run_id=pending.run_id),
+            )
+            runtime_basis = decision.basis
+            dispatch_transition = dispatch_transition_for_requirement(
+                decision,
+                manifest_id=str(pending.manifest_id or ""),
+                result_path=resumed_result_path,
+            )
+            pending_context = None
             if active_frame is not None:
-                frame, step = active_frame
                 pending_context = _event_context(
                     runtime,
                     run_id=runtime.run_id or pending.run_id,
                     active_frame=active_frame,
                 )
-                prior_state = current_recursive_state(runtime.stream, frame.frame_id)
-                next_state = recursive_state_for_frame(
-                    frame,
-                    phase="waiting_on_children",
-                    pending_child_keys=prior_state.frontier.pending_child_keys if prior_state else None,
-                    completed_child_keys=prior_state.frontier.completed_child_keys if prior_state else (),
-                    blocked_on=(step.child_key,),
-                    active_child_key=step.child_key,
-                    checkpoint_id=prior_state.checkpoint_id if prior_state else None,
-                    suspended=False,
-                    stack=prior_state.stack if prior_state else (frame,),
-                )
-                _append_recursive_state(
-                    runtime.stream,
-                    next_state,
-                    context=pending_context,
-                    prior_state=prior_state,
-                )
-            result = {
-                "status": "pending",
-                "reason": f"F_P dispatch already in flight for edge {vector.name!r}",
-                "pending_run_id": pending.run_id,
-                "edge": vector.name,
-                "work_key": runtime.work_key,
-                "spec_hash": runtime.spec_hash,
-                "workflow_version": runtime.workflow_version,
-                "blocking_reason": "fp_dispatch",
-            }
-            if pending.manifest_id:
-                result["manifest_id"] = pending.manifest_id
-            if manifest_path is not None:
-                result["fp_manifest_path"] = manifest_path
-            next_metadata = dict(surface.metadata)
-            next_metadata["traversal_outcome"] = {
-                "status": "pending",
-                "pending_run_id": pending.run_id,
-                "blocking_reason": "fp_dispatch",
-            }
-            if pending.manifest_id:
-                next_metadata["traversal_outcome"]["manifest_id"] = pending.manifest_id
-            if manifest_path is not None:
-                next_metadata["traversal_outcome"]["fp_manifest_path"] = manifest_path
-            return TraversalOutcome(
-                surface=WorkSurface(
-                    events=surface.events,
-                    artifacts=surface.artifacts,
-                    context_consumed=surface.context_consumed,
-                    context_emitted=surface.context_emitted,
-                    findings=surface.findings,
-                    attestations=surface.attestations,
-                    metadata=next_metadata,
+            replay_plan = _plan_pending_dispatch_replay(
+                runtime,
+                surface=surface,
+                runtime_basis=runtime_basis,
+                active_frame=active_frame,
+                pending_run_id=pending.run_id,
+                pending_manifest_id=(
+                    pending.manifest_id if isinstance(pending.manifest_id, str) else None
                 ),
-                result=result,
+                dispatch_transition=dispatch_transition,
+                manifest_path=manifest_path,
+                resumed_result_path=resumed_result_path,
+            )
+            return _apply_pending_dispatch_replay_plan(
+                runtime,
+                replay_plan,
+                surface=surface,
+                pending_context=pending_context,
+                runtime_basis=runtime_basis,
             )
 
-    run_id, call_id, active_frame = _ensure_public_runtime_open(runtime)
-    event_context = _event_context(runtime, run_id=run_id, active_frame=active_frame)
-
-    result_path = ""
-    if dispatch_requires_fp:
-        fp_results_dir = runtime.workspace_root / ".ai-workspace" / "fp_results"
-        fp_results_dir.mkdir(parents=True, exist_ok=True)
-        result_path = str(fp_results_dir / f"{manifest_id}.json")
-
-    bound = bind_fp(
-        pre,
-        runtime.executable_job,
-        result_path=result_path,
-        workspace_root=runtime.workspace_root,
-        runtime_config=runtime.runtime_config,
+    execution_plan = _plan_iteration_execution(
+        runtime,
+        active_frame=active_frame,
+        runtime_basis=runtime_basis,
+        decision=decision,
+        manifest_id=manifest_id,
+        fp_result_path=fp_result_path,
     )
-    bound.manifest_id = manifest_id
-    bound.worker_id = runtime.worker.id
-    if runtime.executable_job.job.roles:
-        bound.role_id = runtime.executable_job.job.roles[0].id
-    if runtime.worker.authority_ref:
-        bound.authority_ref = runtime.worker.authority_ref
-    if runtime.runtime_identity.worker_id and runtime.runtime_identity.worker_id != runtime.worker.id:
-        bound.selected_worker_id = runtime.runtime_identity.worker_id
-    if runtime.runtime_identity.backend_id:
-        bound.selected_backend = runtime.runtime_identity.backend_id
-    if runtime.runtime_identity.assignment_source:
-        bound.assignment_source = runtime.runtime_identity.assignment_source
-    if runtime.runtime_identity.resolved_runtime_ref:
-        bound.resolved_runtime_ref = runtime.runtime_identity.resolved_runtime_ref
-
-    vector_started_data: dict = {
-        "edge": vector.name,
-        "vector_id": vector.id,
-        "worker_id": runtime.worker.id,
-        "target": vector.target.name,
-    }
-    if runtime.runtime_identity.build_id:
-        vector_started_data["build"] = runtime.runtime_identity.build_id
-    if runtime.runtime_identity.backend_id:
-        vector_started_data["backend_id"] = runtime.runtime_identity.backend_id
-    if runtime.work_key is not None:
-        vector_started_data["work_key"] = runtime.work_key
-    if runtime.executable_job.job.roles:
-        vector_started_data["role_id"] = runtime.executable_job.job.roles[0].id
-    if runtime.worker.authority_ref:
-        vector_started_data["authority_ref"] = runtime.worker.authority_ref
-    _attach_execution_binding_provenance(
-        vector_started_data,
-        runtime_identity=runtime.runtime_identity,
-        worker=runtime.worker,
-    )
-    _emit_event(runtime.stream, "vector_started", vector_started_data, context=event_context)
-    if active_frame is not None:
-        frame, step = active_frame
-        _emit_event(
-            runtime.stream,
-            "frame_step_started",
-            frame_step_started_event(frame, step, run_id=run_id)["data"],
-            context=event_context,
-        )
-        prior_state = current_recursive_state(runtime.stream, frame.frame_id)
-        next_state = recursive_state_for_frame(
-            frame,
-            phase="waiting_on_children" if blocking_reason is not None else "advancing",
-            pending_child_keys=prior_state.frontier.pending_child_keys if prior_state else None,
-            completed_child_keys=prior_state.frontier.completed_child_keys if prior_state else (),
-            blocked_on=(step.child_key,) if blocking_reason is not None else (),
-            active_child_key=step.child_key,
-            checkpoint_id=run_id if blocking_reason is not None else prior_state.checkpoint_id if prior_state else None,
-            suspended=blocking_reason is not None,
-            stack=prior_state.stack if prior_state else (frame,),
-        )
-        _append_recursive_state(
-            runtime.stream,
-            next_state,
-            context=event_context,
-            prior_state=prior_state,
-        )
-        if blocking_reason is not None and not (prior_state and prior_state.suspended):
-            _emit_event(
-                runtime.stream,
-                "frame_suspended",
-                frame_suspended_event(
-                    frame,
-                    next_state,
-                    reason=blocking_reason,
-                )["data"],
-                context=event_context,
-            )
-
-    iter_surface = _realize_iteration(
-        bound,
-        blocking_reason=blocking_reason,
-        leaf_tasks=list(runtime.leaf_tasks) if runtime.leaf_tasks else None,
-        on_leaf_dispatch=runtime.on_leaf_dispatch,
-        leaf_task_inputs=runtime.leaf_task_inputs,
-        run_id=run_id,
-        spec_hash=runtime.spec_hash,
-        workflow_version=runtime.workflow_version,
-        work_key=runtime.work_key,
-    )
-    _append_events(runtime.stream, iter_surface.events, context=event_context)
-
-    result: dict = {
-        "status": "iterated",
-        "edge": vector.name,
-        "work_key": runtime.work_key,
-        "spec_hash": runtime.spec_hash,
-        "workflow_version": runtime.workflow_version,
-        "delta_before": pre.delta,
-        "failing_evaluators": [ev.name for ev in pre.failing_evaluators],
-        "events_emitted": len(iter_surface.events) + 3,
-        "prompt_words": len(bound.prompt.split()),
-        "surface_artifacts": iter_surface.artifacts,
-        "context_consumed": [c.name for c in iter_surface.context_consumed],
-        "run_id": run_id,
-        "call_id": call_id,
-    }
-    if blocking_reason is not None:
-        result["blocking_reason"] = blocking_reason
-    if not _edge_uses_fulfillment_carrier(runtime.executable_job) and not (
-        fd_failing or fp_failing or fh_failing
-    ):
-        proof_event = _emit_event(
-            runtime.stream,
-            "proof_passed",
-            {
-                "call_id": call_id,
-                "edge": vector.name,
-                "policy_mode": materialize_policy_concern(runtime.resolved_policy, "proof").get("mode"),
-            },
-            context=event_context,
-        )
-        closure_event = _emit_event(
-            runtime.stream,
-            "closure_passed",
-            {
-                "call_id": call_id,
-                "edge": vector.name,
-                "policy_mode": materialize_policy_concern(runtime.resolved_policy, "closure").get("mode"),
-            },
-            context=event_context,
-        )
-        if active_frame is None and call_id:
-            _emit_event(
-                runtime.stream,
-                "graph_call_closed",
-                {
-                    "call_id": call_id,
-                    "edge": vector.name,
-                },
-                context=EventContext(
-                    workflow_version=runtime.workflow_version,
-                    work_key=runtime.work_key,
-                    run_id=run_id,
-                    aggregate_type="graph_call",
-                    aggregate_id=call_id,
-                    parent_aggregate_id=run_id,
-                    causation_event_id=closure_event["event_id"],
-                    job_id=runtime.executable_job.job.id,
-                    graph_function_id=(
-                        runtime.executable_job.graph_function.id
-                        if runtime.executable_job.graph_function is not None
-                        else None
-                    ),
-                    materialization_id=runtime.executable_job.materialization_id,
-                    call_id=call_id,
-                    vector_id=vector.id,
-                ),
-            )
-        _emit_event(
-            runtime.stream,
-            "run_completed",
-            {
-                "call_id": call_id,
-                "edge": vector.name,
-                "caused_by_event_id": proof_event["event_id"],
-            },
-            context=EventContext(
-                workflow_version=runtime.workflow_version,
-                work_key=runtime.work_key,
-                run_id=run_id,
-                aggregate_type="run",
-                aggregate_id=run_id,
-                causation_event_id=closure_event["event_id"],
-                job_id=runtime.executable_job.job.id,
-                graph_function_id=(
-                    runtime.executable_job.graph_function.id
-                    if runtime.executable_job.graph_function is not None
-                    else None
-                ),
-                materialization_id=runtime.executable_job.materialization_id,
-                call_id=call_id,
-                vector_id=vector.id,
-            ),
-        )
-
-    if dispatch_requires_fp:
-        manifests_dir = runtime.workspace_root / ".ai-workspace" / "fp_manifests"
-        manifests_dir.mkdir(parents=True, exist_ok=True)
-        manifest_file = manifests_dir / f"{manifest_id}.json"
-        declared_obligation_policy = declared_obligation_ledger_policy_for_job(
-            runtime.executable_job
-        )
-
-        src = vector.source
-        if isinstance(src, tuple):
-            source_asset = [a.name for a in src]
-            source_markov = {a.name: a.markov for a in src}
-        else:
-            source_asset = src.name
-            source_markov = {src.name: src.markov}
-
-        contexts = []
-        for ctx in vector.contexts:
-            ctx_entry: dict = {
-                "name": ctx.name,
-                "locator": ctx.locator,
-                "digest": ctx.digest,
-            }
-            if ctx.name in pre.relevant_contexts:
-                ctx_entry["content"] = pre.relevant_contexts[ctx.name]
-            contexts.append(ctx_entry)
-
-        manifest: dict = {
-            "manifest_id": manifest_id,
-            "call_id": call_id,
-            "edge": vector.name,
-            "vector_id": vector.id,
-            "job_id": runtime.executable_job.job.id,
-            "graph_function_id": (
-                runtime.executable_job.graph_function.id
-                if runtime.executable_job.graph_function is not None
-                else ""
-            ),
-            "materialization_id": runtime.executable_job.materialization_id or "",
-            "source_asset": source_asset,
-            "target_asset": vector.target.name,
-            "source_markov": source_markov,
-            "target_markov": vector.target.markov,
-            "failing_evaluators": [
-                {
-                    "name": ev.name,
-                    "regime": ev.regime.__name__,
-                    "description": ev.description,
-                }
-                for ev in pre.failing_evaluators
-            ],
-            "fulfillment_obligations": declared_fulfillment_obligations_for_job(
-                runtime.executable_job,
-                workspace_root=runtime.workspace_root,
-            ),
-            "obligation_ledger_policy": declared_obligation_policy,
-            "fd_failures": [
-                {
-                    "name": ev.name,
-                    "binding": ev.binding,
-                    "description": ev.description,
-                }
-                for ev in fd_failing
-            ],
-            "fd_results": pre.fd_results,
-            "delta": pre.delta,
-            "unresolved_count": pre.unresolved_count,
-            "delta_summary": pre.delta_summary,
-            "contexts": contexts,
-            "current_asset": pre.current_asset,
-            "prompt": bound.prompt,
-            "result_path": result_path,
-            "target_asset_binding": bound.target_asset_binding,
-            "environment_asset_bindings": bound.environment_asset_bindings,
-            "target_asset_surface": bound.target_asset_surface,
-            "environment_asset_surfaces": bound.environment_asset_surfaces,
-            "runtime_environment_contract": bound.runtime_environment_contract,
-            "spec_hash": runtime.spec_hash,
-            "requirements": runtime.module.metadata.get("requirements", []),
-            "workflow_version": runtime.workflow_version,
-            "run_id": run_id,
-            "worker_id": runtime.worker.id,
-            "resolved_policy_bundle_ref": runtime.resolved_policy.get("resolved_policy_bundle_ref", ""),
-            "resolved_policy": runtime.resolved_policy,
-            "graph_call_terminal_on_result": active_frame is None,
-        }
-        if runtime.work_key is not None:
-            manifest["work_key"] = runtime.work_key
-        if runtime.executable_job.job.roles:
-            manifest["role_id"] = runtime.executable_job.job.roles[0].id
-        if runtime.worker.authority_ref:
-            manifest["authority_ref"] = runtime.worker.authority_ref
-        _attach_execution_binding_provenance(
-            manifest,
-            runtime_identity=runtime.runtime_identity,
-            worker=runtime.worker,
-        )
-        manifest_file.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
-        result["fp_manifest_path"] = str(manifest_file)
-        result["manifest_id"] = manifest_id
-
-    if fh_failing:
-        result["fh_gate"] = {
-            "edge": vector.name,
-            "evaluators": [ev.name for ev in fh_failing],
-            "criteria": [ev.description for ev in fh_failing],
-        }
-
-    next_metadata = dict(iter_surface.metadata)
-    next_metadata.update(surface.metadata)
-    next_metadata["traversal_outcome"] = {
-        "status": result["status"],
-        "run_id": run_id,
-    }
-    if blocking_reason is not None:
-        next_metadata["traversal_outcome"]["blocking_reason"] = blocking_reason
-    return TraversalOutcome(
-        surface=WorkSurface(
-            events=iter_surface.events,
-            artifacts=iter_surface.artifacts,
-            context_consumed=iter_surface.context_consumed,
-            context_emitted=iter_surface.context_emitted,
-            findings=iter_surface.findings,
-            attestations=iter_surface.attestations,
-            metadata=next_metadata,
-        ),
-        result=result,
+    return _apply_iteration_execution_plan(
+        runtime,
+        execution_plan,
+        surface=surface,
     )
 
 
@@ -2438,9 +2848,10 @@ def _realize_iteration(
     events: list[dict] = []
     artifacts: list[str] = []
 
-    fd_failing = [ev for ev in pre.failing_evaluators if ev.regime is F_D]
-    fp_failing = [ev for ev in pre.failing_evaluators if ev.regime is F_P]
-    fh_failing = [ev for ev in pre.failing_evaluators if ev.regime is F_H]
+    failures = regime_failures(pre)
+    fd_failing = failures.fd
+    fp_failing = failures.fp
+    fh_failing = failures.fh
 
     if fd_failing:
         kind = "fd_findings" if fp_failing or blocking_reason == "fp_dispatch" else "fd_gap"
@@ -2538,7 +2949,7 @@ def _realize_iteration(
         if bound_job.result_path:
             artifacts.append(bound_job.result_path)
 
-    if fh_failing and not fd_failing and not fp_failing:
+    if fh_failing:
         events.append({
             "event_type": "fh_gate_pending",
             "data": {

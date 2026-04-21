@@ -17,12 +17,14 @@ from genesis import cli_adapter, services
 from genesis.binding import (
     PrecomputedManifest,
     TargetAssetBinding,
+    Worker,
     _assemble_prompt,
     bind_fh,
     bind_fp_certified,
     declared_fulfillment_obligations_for_job,
     declared_obligation_ledger_policy_for_job,
     module_to_executable_jobs,
+    regime_binding_set_from_evaluator_partitions,
 )
 from genesis.dispatch_runtime import auto_dispatch_from_result, dispatch_bound_manifest_via_transport
 from genesis.events import EventContext, EventStream, emit
@@ -32,6 +34,7 @@ from genesis.fulfillment_ledger import (
 )
 from genesis.live_status import project_live_run_status
 from genesis.install import workspace_bootstrap
+from genesis.interpret import TraversalRuntime
 from genesis.policy import resolve_policy_bundle
 from genesis.projection import project
 from genesis.result_ingest import _build_published_fulfillment_ledger, ingest_fp_result
@@ -105,7 +108,10 @@ def _write_test_published_ledger(
     return ledger_path, make_published_fulfillment_ledger_ref(manifest_id=manifest_id)
 
 
-def _fp_executable_job(edge: str = "design→code", obligation_id: str = "code_complete"):
+def _fp_module_and_executable_job(
+    edge: str = "design→code",
+    obligation_id: str = "code_complete",
+):
     source = Node(name="design", schema="Design")
     target = Node(name="code", schema="Code")
     evaluator = Evaluator(obligation_id, F_P, "code satisfies the design contract")
@@ -131,14 +137,21 @@ def _fp_executable_job(edge: str = "design→code", obligation_id: str = "code_c
         name=edge,
         contracts=(ContractRef(kind="graph_function", target_id=graph_function.id),),
     )
-    executable_job = module_to_executable_jobs(
-        Module(
-            name="fp_runtime_envelope",
-            graphs=(graph,),
-            graph_functions=(graph_function,),
-            jobs=(job,),
-        )
-    )[0]
+    module = Module(
+        name="fp_runtime_envelope",
+        graphs=(graph,),
+        graph_functions=(graph_function,),
+        jobs=(job,),
+    )
+    executable_job = module_to_executable_jobs(module)[0]
+    return module, executable_job, evaluator
+
+
+def _fp_executable_job(edge: str = "design→code", obligation_id: str = "code_complete"):
+    _, executable_job, evaluator = _fp_module_and_executable_job(
+        edge=edge,
+        obligation_id=obligation_id,
+    )
     return executable_job, evaluator
 
 
@@ -276,8 +289,7 @@ def test_prompt_includes_current_source_asset_snapshot_when_bound(tmp_path):
     pre = PrecomputedManifest(
         executable_job=executable_job,
         current_asset={"status": "not_started", "edges_converged": []},
-        failing_evaluators=[evaluator],
-        passing_evaluators=[],
+        regime_bindings=regime_binding_set_from_evaluator_partitions(failing=(evaluator,)),
         fd_results={},
         relevant_contexts={
             "design_standard": "design must declare at least three ordered decomposition/sequencing steps",
@@ -533,6 +545,7 @@ def test_dispatch_runtime_forwards_local_transport_contract_config(monkeypatch, 
         "prompt": "write code",
         "result_path": str(result_path),
         "spec_hash": "spec-forward",
+        "resolved_policy": resolve_policy_bundle(),
         "fulfillment_obligations": _fulfillment_obligations(
             ("code_complete", "code satisfies the design contract")
         ),
@@ -617,6 +630,7 @@ def test_dispatch_runtime_ingests_result_and_closes_graph_call(monkeypatch, tmp_
         "prompt": "write code",
         "result_path": str(result_path),
         "spec_hash": "spec-2",
+        "resolved_policy": resolve_policy_bundle(),
         "fulfillment_obligations": _fulfillment_obligations(
             ("code_complete", "code satisfies the design contract")
         ),
@@ -664,6 +678,62 @@ def test_dispatch_runtime_ingests_result_and_closes_graph_call(monkeypatch, tmp_
 
     run = project(stream, "run", "run-2")
     assert run["status"] == "completed"
+
+
+def test_dispatch_runtime_missing_resolved_policy_emits_fail_closed_runtime_truth(
+    monkeypatch,
+    tmp_path,
+):
+    workspace_bootstrap(tmp_path)
+    results_dir = tmp_path / ".ai-workspace" / "fp_results"
+    results_dir.mkdir(parents=True, exist_ok=True)
+    result_path = results_dir / "manifest-missing-policy-dispatch.json"
+    result_path.write_text(
+        json.dumps(_fp_result_payload("design→code", fulfillment_detail="ok")),
+        encoding="utf-8",
+    )
+    manifest = {
+        "manifest_id": "manifest-missing-policy-dispatch",
+        "call_id": "call-missing-policy-dispatch",
+        "edge": "design→code",
+        "run_id": "run-missing-policy-dispatch",
+        "workflow_version": "wf-missing-policy-dispatch",
+        "graph_function_id": "gf-missing-policy-dispatch",
+        "materialization_id": "mat-missing-policy-dispatch",
+        "vector_id": "vec-missing-policy-dispatch",
+        "job_id": "job-missing-policy-dispatch",
+        "prompt": "write code",
+        "result_path": str(result_path),
+        "spec_hash": "spec-missing-policy-dispatch",
+        "fulfillment_obligations": _fulfillment_obligations(
+            ("code_complete", "code satisfies the design contract")
+        ),
+    }
+
+    def fake_dispatch_agent(prompt, work_folder, *, agent="claude", timeout=300, config=None, **kwargs):
+        return AgentResult(stdout="ok", stderr="", returncode=0, agent=agent)
+
+    monkeypatch.setattr("genesis.dispatch_runtime.dispatch_agent_supervised", fake_dispatch_agent)
+
+    summary = dispatch_bound_manifest_via_transport(
+        manifest,
+        tmp_path,
+        config={"runtime_backend": "codex_cli"},
+    )
+
+    assert summary["status"] == "error"
+    assert summary["failure_class"] == "policy_config_defect"
+    assert "resolved_policy" in summary["reason"]
+
+    stream = EventStream.open(tmp_path)
+    event_types = [event["event_type"] for event in stream.all_events()]
+    assert event_types == [
+        "graph_call_opened",
+        "worker_turn_started",
+        "worker_turn_succeeded",
+        "graph_call_failed",
+        "run_failed",
+    ]
 
 
 def test_ingest_rejects_manifest_missing_fulfillment_obligations(tmp_path):
@@ -717,6 +787,7 @@ def test_ingest_requires_target_binding_materialization_before_success_lifecycle
         "prompt": "write code",
         "result_path": str(result_path),
         "spec_hash": "spec-missing-target",
+        "resolved_policy": resolve_policy_bundle(),
         "fulfillment_obligations": _fulfillment_obligations(
             ("code_complete", "code satisfies the design contract")
         ),
@@ -751,6 +822,134 @@ def test_ingest_requires_target_binding_materialization_before_success_lifecycle
     assert "edge_converged" not in event_types
     assert "proof_failed" in event_types
     assert "run_failed" in event_types
+
+
+def test_ingest_fail_closes_when_manifest_omits_resolved_policy(tmp_path):
+    workspace_bootstrap(tmp_path)
+    results_dir = tmp_path / ".ai-workspace" / "fp_results"
+    results_dir.mkdir(parents=True, exist_ok=True)
+    result_path = results_dir / "manifest-missing-policy.json"
+    result_path.write_text(
+        json.dumps(_fp_result_payload("design→code", fulfillment_detail="ok")),
+        encoding="utf-8",
+    )
+    manifest = {
+        "manifest_id": "manifest-missing-policy",
+        "call_id": "call-missing-policy",
+        "edge": "design→code",
+        "run_id": "run-missing-policy",
+        "workflow_version": "wf-missing-policy",
+        "graph_function_id": "gf-missing-policy",
+        "materialization_id": "mat-missing-policy",
+        "vector_id": "vec-missing-policy",
+        "job_id": "job-missing-policy",
+        "prompt": "write code",
+        "result_path": str(result_path),
+        "spec_hash": "spec-missing-policy",
+        "fulfillment_obligations": _fulfillment_obligations(
+            ("code_complete", "code satisfies the design contract")
+        ),
+    }
+
+    with pytest.raises(ValueError, match="manifest must carry resolved_policy"):
+        ingest_fp_result(result_path, tmp_path, manifest_data=manifest)
+
+
+def test_traversal_runtime_requires_admitted_resolved_policy(tmp_path):
+    workspace_bootstrap(tmp_path)
+    module, executable_job, _ = _fp_module_and_executable_job()
+    stream = EventStream.open(tmp_path)
+    precomputed = PrecomputedManifest(
+        executable_job=executable_job,
+        current_asset={},
+        regime_bindings=regime_binding_set_from_evaluator_partitions(),
+        fd_results={},
+        relevant_contexts={},
+    )
+
+    with pytest.raises(ValueError, match="requires admitted resolved_policy carrier truth"):
+        TraversalRuntime(
+            module=module,
+            executable_job=executable_job,
+            precomputed=precomputed,
+            workspace_root=tmp_path,
+            stream=stream,
+            worker=Worker(id="runtime-envelope", can_execute=[executable_job]),
+            spec_hash="spec-runtime-envelope",
+        )
+
+
+def test_auto_dispatch_preserved_result_missing_resolved_policy_emits_fail_closed_runtime_truth(
+    tmp_path,
+):
+    workspace_bootstrap(tmp_path)
+    manifests_dir = tmp_path / ".ai-workspace" / "fp_manifests"
+    manifests_dir.mkdir(parents=True, exist_ok=True)
+    results_dir = tmp_path / ".ai-workspace" / "fp_results"
+    results_dir.mkdir(parents=True, exist_ok=True)
+    result_path = results_dir / "manifest-missing-policy-preserved.json"
+    result_path.write_text(
+        json.dumps(_fp_result_payload("design→code", fulfillment_detail="ok")),
+        encoding="utf-8",
+    )
+    manifest_path = manifests_dir / "manifest-missing-policy-preserved.json"
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "manifest_id": "manifest-missing-policy-preserved",
+                "call_id": "call-missing-policy-preserved",
+                "edge": "design→code",
+                "run_id": "run-missing-policy-preserved",
+                "workflow_version": "wf-missing-policy-preserved",
+                "graph_function_id": "gf-missing-policy-preserved",
+                "materialization_id": "mat-missing-policy-preserved",
+                "vector_id": "vec-missing-policy-preserved",
+                "job_id": "job-missing-policy-preserved",
+                "spec_hash": "spec-missing-policy-preserved",
+                "fulfillment_obligations": _fulfillment_obligations(
+                    ("code_complete", "code satisfies the design contract")
+                ),
+                "advancement_transition": {
+                    "kind": "fp_dispatch",
+                    "manifest_id": "manifest-missing-policy-preserved",
+                    "dispatch_ref": "test.dispatch:carrier",
+                    "result_path": str(result_path),
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    summary = auto_dispatch_from_result(
+        {
+            "status": "pending",
+            "blocking_reason": "fp_dispatch",
+            "manifest_id": "manifest-missing-policy-preserved",
+            "run_id": "run-missing-policy-preserved",
+            "call_id": "call-missing-policy-preserved",
+            "edge": "design→code",
+            "advancement_transition": {
+                "kind": "fp_dispatch",
+                "manifest_id": "manifest-missing-policy-preserved",
+                "dispatch_ref": "test.dispatch:carrier",
+                "result_path": str(result_path),
+            },
+        },
+        tmp_path,
+        config={"runtime_backend": "codex_cli"},
+    )
+
+    assert summary["status"] == "error"
+    assert summary["failure_class"] == "policy_config_defect"
+    assert "resolved_policy" in summary["reason"]
+
+    event_types = [event["event_type"] for event in EventStream.open(tmp_path).all_events()]
+    assert event_types == [
+        "worker_turn_salvaged",
+        "graph_call_opened",
+        "graph_call_failed",
+        "run_failed",
+    ]
 
 
 def test_ingest_applies_declared_target_certification_hook_before_closure(tmp_path):
@@ -1372,6 +1571,7 @@ def test_ingest_unadmitted_ledger_fails_proof_and_opens_fh_review(tmp_path):
         "prompt": "write code",
         "result_path": str(result_path),
         "spec_hash": "spec-fh-review",
+        "resolved_policy": resolve_policy_bundle(),
         "fulfillment_obligations": _fulfillment_obligations(
             ("code_complete", "code satisfies the design contract")
         ),
@@ -1485,6 +1685,12 @@ def test_auto_dispatch_derives_manifest_path_from_manifest_id(tmp_path, monkeypa
                     ("code_complete", "code satisfies the design contract")
                 ),
                 "result_path": str(tmp_path / ".ai-workspace" / "fp_results" / "manifest-derive.json"),
+                "resolved_policy": {
+                    "dispatch": {
+                        "ref": "genesis.dispatch_runtime:dispatch_bound_manifest_via_supervised_transport",
+                        "config": {},
+                    }
+                },
             }
         ),
         encoding="utf-8",
@@ -1515,6 +1721,162 @@ def test_auto_dispatch_derives_manifest_path_from_manifest_id(tmp_path, monkeypa
 
     assert summary["status"] == "ok"
     assert summary["call_id"] == "call-manifest-derive"
+
+
+def test_auto_dispatch_prefers_manifest_carrier_dispatch_ref_over_policy_resolution(
+    tmp_path,
+    monkeypatch,
+):
+    manifests_dir = tmp_path / ".ai-workspace" / "fp_manifests"
+    manifests_dir.mkdir(parents=True, exist_ok=True)
+    manifest_path = manifests_dir / "manifest-carrier.json"
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "manifest_id": "manifest-carrier",
+                "call_id": "call-manifest-carrier",
+                "edge": "design→code",
+                "run_id": "run-manifest-carrier",
+                "graph_function_id": "gf-manifest-carrier",
+                "failing_evaluators": [
+                    {
+                        "name": "code_complete",
+                        "regime": "F_P",
+                        "description": "code satisfies the design contract",
+                    }
+                ],
+                "fulfillment_obligations": _fulfillment_obligations(
+                    ("code_complete", "code satisfies the design contract")
+                ),
+                "result_path": str(
+                    tmp_path / ".ai-workspace" / "fp_results" / "manifest-carrier.json"
+                ),
+                "advancement_transition": {
+                    "kind": "fp_dispatch",
+                    "manifest_id": "manifest-carrier",
+                    "dispatch_ref": "test.dispatch:carrier",
+                    "result_path": str(
+                        tmp_path / ".ai-workspace" / "fp_results" / "manifest-carrier.json"
+                    ),
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    def fail_resolve_policy_bundle(*args, **kwargs):
+        raise AssertionError("carrier dispatch ref should make policy resolution unnecessary")
+
+    def fake_dispatch(manifest, workspace, *, config=None, hook_config=None):
+        assert manifest["manifest_id"] == "manifest-carrier"
+        assert workspace == tmp_path
+        assert hook_config is None
+        return {"status": "ok", "call_id": manifest["call_id"], "events_emitted": 0}
+
+    def fake_import_ref(ref):
+        assert ref == "test.dispatch:carrier"
+        return fake_dispatch
+
+    monkeypatch.setattr(
+        "genesis.policy.resolve_policy_bundle",
+        fail_resolve_policy_bundle,
+    )
+    monkeypatch.setattr(
+        "genesis.policy._import_ref",
+        fake_import_ref,
+    )
+
+    summary = auto_dispatch_from_result(
+        {
+            "status": "pending",
+            "blocking_reason": "fp_dispatch",
+            "manifest_id": "manifest-carrier",
+            "run_id": "run-manifest-carrier",
+            "call_id": "call-manifest-carrier",
+            "edge": "design→code",
+        },
+        tmp_path,
+        config={"runtime_backend": "codex_cli"},
+    )
+
+    assert summary["status"] == "ok"
+    assert summary["call_id"] == "call-manifest-carrier"
+
+
+def test_auto_dispatch_salvages_result_via_carrier_result_path_when_manifest_omits_it(
+    tmp_path,
+    monkeypatch,
+):
+    workspace_bootstrap(tmp_path)
+    manifests_dir = tmp_path / ".ai-workspace" / "fp_manifests"
+    manifests_dir.mkdir(parents=True, exist_ok=True)
+    results_dir = tmp_path / ".ai-workspace" / "fp_results"
+    results_dir.mkdir(parents=True, exist_ok=True)
+    result_path = results_dir / "manifest-carrier-path.json"
+    result_path.write_text(
+        json.dumps(_fp_result_payload("design→code", fulfillment_detail="ok")),
+        encoding="utf-8",
+    )
+    manifest_path = manifests_dir / "manifest-carrier-path.json"
+    manifest_path.write_text(
+        json.dumps(
+            {
+                "manifest_id": "manifest-carrier-path",
+                "call_id": "call-manifest-carrier-path",
+                "edge": "design→code",
+                "run_id": "run-manifest-carrier-path",
+                "work_key": "wk-manifest-carrier-path",
+                "workflow_version": "wf-manifest-carrier-path",
+                "graph_function_id": "gf-manifest-carrier-path",
+                "materialization_id": "mat-manifest-carrier-path",
+                "vector_id": "vec-manifest-carrier-path",
+                "job_id": "job-manifest-carrier-path",
+                "spec_hash": "spec-manifest-carrier-path",
+                "resolved_policy": resolve_policy_bundle(),
+                "fulfillment_obligations": _fulfillment_obligations(
+                    ("code_complete", "code satisfies the design contract")
+                ),
+                "advancement_transition": {
+                    "kind": "fp_dispatch",
+                    "manifest_id": "manifest-carrier-path",
+                    "dispatch_ref": "test.dispatch:carrier",
+                    "result_path": str(result_path),
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    from genesis.policy import _import_ref as real_import_ref
+
+    def selective_import_ref(ref):
+        if ref == "test.dispatch:carrier":
+            raise AssertionError(f"dispatch should not run when preserved result exists: {ref}")
+        return real_import_ref(ref)
+
+    monkeypatch.setattr("genesis.policy._import_ref", selective_import_ref)
+
+    summary = auto_dispatch_from_result(
+        {
+            "status": "pending",
+            "blocking_reason": "fp_dispatch",
+            "manifest_id": "manifest-carrier-path",
+            "run_id": "run-manifest-carrier-path",
+            "call_id": "call-manifest-carrier-path",
+            "edge": "design→code",
+            "advancement_transition": {
+                "kind": "fp_dispatch",
+                "manifest_id": "manifest-carrier-path",
+                "dispatch_ref": "test.dispatch:carrier",
+                "result_path": str(result_path),
+            },
+        },
+        tmp_path,
+        config={"runtime_backend": "codex_cli"},
+    )
+
+    assert summary["status"] == "ok"
+    assert summary["salvage_mode"] == "idempotent_reentry"
 
 
 def test_successful_ingest_resolves_preexisting_open_continuation(monkeypatch, tmp_path):
@@ -1555,6 +1917,7 @@ def test_successful_ingest_resolves_preexisting_open_continuation(monkeypatch, t
         "prompt": "write code",
         "result_path": str(result_path),
         "spec_hash": "spec-3",
+        "resolved_policy": resolve_policy_bundle(),
         "fulfillment_obligations": _fulfillment_obligations(
             ("code_complete", "code satisfies the design contract")
         ),
@@ -1605,6 +1968,7 @@ def test_ingest_post_transform_fd_findings_no_longer_stop_closure(tmp_path):
         "prompt": "repair code",
         "result_path": str(result_path),
         "spec_hash": "spec-fd-gap",
+        "resolved_policy": resolve_policy_bundle(),
         "delta_summary": "delta = 1 — 1 evaluator failing: code_traceability_present",
         "fulfillment_obligations": _fulfillment_obligations(
             ("code_traceability_present", "constructor attempted repair")
@@ -1675,6 +2039,7 @@ def test_converged_ingest_resolves_preexisting_open_continuation(tmp_path):
         "prompt": "repair code",
         "result_path": str(result_path),
         "spec_hash": "spec-yield-resolve",
+        "resolved_policy": resolve_policy_bundle(),
         "delta_summary": "delta = 1 — 1 evaluator failing: code_traceability_present",
         "fulfillment_obligations": _fulfillment_obligations(
             ("code_traceability_present", "constructor attempted repair")
@@ -1728,6 +2093,7 @@ def test_ingest_no_longer_emits_fd_findings_after_carrier_convergence(tmp_path):
         "prompt": "repair code",
         "result_path": str(result_path),
         "spec_hash": "spec-taxonomy",
+        "resolved_policy": resolve_policy_bundle(),
         "delta_summary": "delta = 1 — 1 evaluator failing: code_traceability_present",
         "fulfillment_obligations": _fulfillment_obligations(
             ("code_traceability_present", "constructor attempted repair")
@@ -1772,6 +2138,7 @@ def test_ingest_target_binding_checks_no_longer_block_after_carrier_convergence(
         "prompt": "repair code",
         "result_path": str(result_path),
         "spec_hash": "spec-target-binding",
+        "resolved_policy": resolve_policy_bundle(),
         "delta_summary": "delta = 1 — 1 evaluator failing: code_traceability_present",
         "fulfillment_obligations": _fulfillment_obligations(
             ("code_traceability_present", "constructor returned code")
@@ -1896,6 +2263,7 @@ def test_dispatch_runtime_salvages_timed_out_transport_when_valid_result_exists(
         "prompt": "write code",
         "result_path": str(result_path),
         "spec_hash": "spec-salvage",
+        "resolved_policy": resolve_policy_bundle(),
         "failing_evaluators": [{"name": "code_complete"}],
         "fulfillment_obligations": _fulfillment_obligations(
             ("code_complete", "code satisfies the design contract")
@@ -1950,10 +2318,10 @@ def test_auto_dispatch_reuses_preserved_result_without_redispatch(monkeypatch, t
     manifest_path = manifests_dir / "manifest-reuse.json"
     manifest_path.write_text(
         json.dumps(
-            {
-                "manifest_id": "manifest-reuse",
-                "call_id": "call-reuse",
-                "edge": "design→code",
+                {
+                    "manifest_id": "manifest-reuse",
+                    "call_id": "call-reuse",
+                    "edge": "design→code",
                 "run_id": "run-reuse",
                 "work_key": "wk-reuse",
                 "workflow_version": "wf-reuse",
@@ -1963,12 +2331,13 @@ def test_auto_dispatch_reuses_preserved_result_without_redispatch(monkeypatch, t
                 "job_id": "job-reuse",
                 "prompt": "write code",
                 "result_path": str(result_path),
-                "spec_hash": "spec-reuse",
-                "failing_evaluators": [{"name": "code_complete"}],
-                "fulfillment_obligations": _fulfillment_obligations(
-                    ("code_complete", "code satisfies the design contract")
-                ),
-            }
+                    "spec_hash": "spec-reuse",
+                    "failing_evaluators": [{"name": "code_complete"}],
+                    "resolved_policy": resolve_policy_bundle(),
+                    "fulfillment_obligations": _fulfillment_obligations(
+                        ("code_complete", "code satisfies the design contract")
+                    ),
+                }
         ),
         encoding="utf-8",
     )
@@ -2162,6 +2531,12 @@ def test_live_run_status_projects_and_clears_proof_hold_via_reset(tmp_path):
                 "run_id": "run-proof-hold-status",
                 "spec_hash": "spec-proof-hold-status",
                 "workflow_version": "wf-proof-hold-status",
+                "resolved_policy": {
+                    "proof": {
+                        "ref": "genesis.policy_defaults:proof_recheck_after_fp",
+                        "config": {"proof_hold": {"failure_threshold": 2}},
+                    }
+                },
             }
         ),
         encoding="utf-8",
@@ -2175,6 +2550,17 @@ def test_live_run_status_projects_and_clears_proof_hold_via_reset(tmp_path):
         context=EventContext(
             workflow_version="wf-proof-hold-status",
             run_id="run-proof-hold-status",
+        ),
+    )
+    emit(
+        "graph_call_opened",
+        {"call_id": "call-proof-hold-status", "edge": "design→code", "manifest_id": manifest_id},
+        stream=stream,
+        context=EventContext(
+            workflow_version="wf-proof-hold-status",
+            run_id="run-proof-hold-status",
+            aggregate_type="graph_call",
+            aggregate_id="call-proof-hold-status",
         ),
     )
     for idx in range(2):
@@ -2197,11 +2583,11 @@ def test_live_run_status_projects_and_clears_proof_hold_via_reset(tmp_path):
     status = project_live_run_status(
         tmp_path,
         run_id="run-proof-hold-status",
-        runtime_config={"proof_hold_policy": {"failure_threshold": 2}},
     )
 
     assert status["proof_hold_active"] is True
     assert status["proof_hold"]["failure_count"] == 2
+    assert status["proof_hold"]["policy_source"] == "resolved_policy.proof.config.proof_hold"
 
     emit(
         "reset",
@@ -2213,7 +2599,6 @@ def test_live_run_status_projects_and_clears_proof_hold_via_reset(tmp_path):
     cleared = project_live_run_status(
         tmp_path,
         run_id="run-proof-hold-status",
-        runtime_config={"proof_hold_policy": {"failure_threshold": 2}},
     )
 
     assert cleared["proof_hold_active"] is False

@@ -28,10 +28,15 @@ from gtl.operator_model import Evaluator, Rule, F_P
 from gtl.work_model import ContractRef, Job
 from tests.helpers_obligation_ledger import declared_test_graph_vector as GraphVector
 
-from genesis.binding import PrecomputedManifest, WorkSurface, module_to_executable_jobs
+from genesis.binding import (
+    PrecomputedManifest,
+    WorkSurface,
+    module_to_executable_jobs,
+    regime_binding_set_from_evaluator_partitions,
+)
 from genesis.convergence import EvaluatorOutcome, delta
 from genesis.install import workspace_bootstrap
-from genesis.interpret import Traversal, TraversalRuntime, traverse
+from genesis.interpret import Traversal, TraversalRuntime, admit_traversal_runtime, traverse
 from genesis.projection import project
 from genesis.selection import SelectionDecision, resolve_candidate_family, resolve_refinement_boundary
 from genesis.services import Scope
@@ -50,8 +55,10 @@ def _precomputed(job, *, failing=(), passing=()) -> PrecomputedManifest:
     return PrecomputedManifest(
         executable_job=job,
         current_asset={},
-        failing_evaluators=list(failing),
-        passing_evaluators=list(passing),
+        regime_bindings=regime_binding_set_from_evaluator_partitions(
+            failing=failing,
+            passing=passing,
+        ),
         fd_results={},
         relevant_contexts={},
     )
@@ -151,7 +158,7 @@ class TestU1MaterializationProfiles:
         assert resolve_candidate_family(scope.module, outer.id) == profiles
 
         executable_job = module_to_executable_jobs(module)[0]
-        runtime = TraversalRuntime(
+        runtime = admit_traversal_runtime(
             module=module,
             executable_job=executable_job,
             precomputed=_precomputed(executable_job),
@@ -237,7 +244,7 @@ class TestU2GapTriggeredRefinement:
         assert resolve_refinement_boundary(scope.module, vector.id) == boundary
 
         executable_job = module_to_executable_jobs(module)[0]
-        runtime = TraversalRuntime(
+        runtime = admit_traversal_runtime(
             module=module,
             executable_job=executable_job,
             precomputed=_precomputed(executable_job, failing=(eval_fp,)),

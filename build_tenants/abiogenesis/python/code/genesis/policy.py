@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import importlib
 from collections.abc import Mapping, Sequence
+from dataclasses import dataclass
 from typing import Any
 
 from gtl.function_model import CandidateFamily, GraphFunction
@@ -16,6 +17,45 @@ from gtl.work_model import Role
 
 POLICY_CONCERNS = ("dispatch", "evaluation", "escalation", "proof", "closure")
 DEFAULT_POLICY_BUNDLE_REF = "genesis.policy_defaults:broad_fp_first_bundle"
+
+
+@dataclass(frozen=True)
+class PolicyConcernSpec:
+    ref: str
+    config: dict[str, Any]
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "ref": self.ref,
+            "config": dict(self.config),
+        }
+
+
+@dataclass(frozen=True)
+class ResolvedPolicy:
+    resolved_policy_bundle_ref: str
+    bundle_refs: tuple[str, ...]
+    sources: dict[str, str]
+    dispatch: PolicyConcernSpec
+    evaluation: PolicyConcernSpec
+    escalation: PolicyConcernSpec
+    proof: PolicyConcernSpec
+    closure: PolicyConcernSpec
+
+    def concern(self, name: str) -> PolicyConcernSpec:
+        if name not in POLICY_CONCERNS:
+            raise KeyError(name)
+        return getattr(self, name)
+
+    def to_dict(self) -> dict[str, Any]:
+        payload = {
+            "resolved_policy_bundle_ref": self.resolved_policy_bundle_ref,
+            "bundle_refs": tuple(self.bundle_refs),
+            "sources": dict(self.sources),
+        }
+        for concern in POLICY_CONCERNS:
+            payload[concern] = self.concern(concern).to_dict()
+        return payload
 
 
 def _mapping(value: Any) -> dict[str, Any]:
@@ -44,23 +84,20 @@ def _import_ref(ref: str) -> Any:
 
 
 def materialize_policy_concern(
-    policy_bundle: Mapping[str, Any],
+    policy_bundle: Mapping[str, Any] | ResolvedPolicy,
     concern: str,
 ) -> dict[str, Any]:
     """Resolve one concern ref/config into executable behavior metadata."""
-    concern_spec = policy_bundle.get(concern)
-    if not isinstance(concern_spec, Mapping):
-        raise ValueError(f"Resolved policy bundle is missing concern {concern!r}")
-    spec = _normalize_spec(concern_spec, concern=concern, source="resolved_policy")
-    target = _import_ref(spec["ref"])
-    materialized = target(spec.get("config", {})) if callable(target) else target
+    spec = admit_resolved_policy(policy_bundle).concern(concern)
+    target = _import_ref(spec.ref)
+    materialized = target(spec.config) if callable(target) else target
     if not isinstance(materialized, Mapping):
         raise ValueError(
-            f"Resolved policy concern {concern!r} from {spec['ref']!r} must materialize to a mapping"
+            f"Resolved policy concern {concern!r} from {spec.ref!r} must materialize to a mapping"
         )
     result = dict(materialized)
-    result.setdefault("ref", spec["ref"])
-    result.setdefault("config", dict(spec.get("config", {})))
+    result.setdefault("ref", spec.ref)
+    result.setdefault("config", dict(spec.config))
     return result
 
 
@@ -90,6 +127,65 @@ def _resolve_bundle(spec: dict[str, Any], *, source: str) -> tuple[dict[str, Any
     if not isinstance(bundle, Mapping):
         raise ValueError(f"{source} bundle ref {spec['ref']!r} must resolve to a mapping")
     return dict(bundle), spec["ref"]
+
+
+def _concern_spec_from_value(
+    value: Any,
+    *,
+    concern: str,
+    source: str,
+) -> PolicyConcernSpec:
+    spec = _normalize_spec(value, concern=concern, source=source)
+    return PolicyConcernSpec(
+        ref=str(spec["ref"]),
+        config=dict(spec.get("config", {})),
+    )
+
+
+def admit_resolved_policy(value: Mapping[str, Any] | ResolvedPolicy) -> ResolvedPolicy:
+    if isinstance(value, ResolvedPolicy):
+        return value
+    if not isinstance(value, Mapping) or not value:
+        raise ValueError("resolved policy carrier must be a non-empty mapping or ResolvedPolicy")
+
+    bundle_ref = value.get("resolved_policy_bundle_ref")
+    if not isinstance(bundle_ref, str) or not bundle_ref:
+        bundle_ref = DEFAULT_POLICY_BUNDLE_REF
+
+    raw_bundle_refs = value.get("bundle_refs")
+    if isinstance(raw_bundle_refs, (list, tuple)):
+        bundle_refs = tuple(ref for ref in raw_bundle_refs if isinstance(ref, str) and ref)
+    else:
+        bundle_refs = ()
+    if not bundle_refs:
+        bundle_refs = (bundle_ref,)
+
+    raw_sources = value.get("sources")
+    sources = dict(raw_sources) if isinstance(raw_sources, Mapping) else {}
+
+    concerns = {
+        concern: _concern_spec_from_value(
+            value.get(concern),
+            concern=concern,
+            source="resolved_policy",
+        )
+        for concern in POLICY_CONCERNS
+    }
+
+    return ResolvedPolicy(
+        resolved_policy_bundle_ref=bundle_ref,
+        bundle_refs=bundle_refs,
+        sources=sources,
+        dispatch=concerns["dispatch"],
+        evaluation=concerns["evaluation"],
+        escalation=concerns["escalation"],
+        proof=concerns["proof"],
+        closure=concerns["closure"],
+    )
+
+
+def resolved_policy_payload(value: Mapping[str, Any] | ResolvedPolicy) -> dict[str, Any]:
+    return admit_resolved_policy(value).to_dict()
 
 
 def _surface_concern_value(surface: Mapping[str, Any], concern: str) -> Any:
@@ -130,6 +226,30 @@ def _apply_policy_surface(
         source_by_concern[concern] = source
 
 
+def _policy_ingress_surface(runtime_config: Mapping[str, Any] | None) -> dict[str, Any]:
+    if runtime_config is None:
+        return {}
+    surface = _surface_dict(runtime_config)
+    illegal_keys = [
+        key
+        for concern in POLICY_CONCERNS
+        for key in (concern, f"{concern}_policy")
+        if key in surface
+    ]
+    if illegal_keys:
+        joined = ", ".join(sorted(illegal_keys))
+        raise ValueError(
+            "runtime_config policy ingress may only declare policy_bundle/default_policy_bundle; "
+            f"illegal direct concern overrides: {joined}"
+        )
+    ingress: dict[str, Any] = {}
+    if "policy_bundle" in surface:
+        ingress["policy_bundle"] = surface["policy_bundle"]
+    if "default_policy_bundle" in surface:
+        ingress["default_policy_bundle"] = surface["default_policy_bundle"]
+    return ingress
+
+
 def resolve_policy_bundle(
     *,
     vector: GraphVector | None = None,
@@ -142,7 +262,7 @@ def resolve_policy_bundle(
     Resolve the effective ABG3 policy bundle for one concrete traversal boundary.
 
     Precedence is low-to-high:
-      broad default -> runtime config -> candidate family -> roles
+      broad default -> runtime-config default bundle ingress -> candidate family -> roles
       -> graph function -> graph vector
     """
     resolved: dict[str, Any] = {}
@@ -156,12 +276,13 @@ def resolve_policy_bundle(
         {"default_policy_bundle": DEFAULT_POLICY_BUNDLE_REF},
         source="abg_default",
     )
-    if runtime_config is not None:
+    runtime_ingress = _policy_ingress_surface(runtime_config)
+    if runtime_ingress:
         _apply_policy_surface(
             resolved,
             source_by_concern,
             bundle_refs,
-            _surface_dict(runtime_config),
+            runtime_ingress,
             source="runtime_config",
         )
     if candidate_family is not None:

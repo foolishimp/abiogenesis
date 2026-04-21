@@ -191,8 +191,6 @@ def _lease_timeout_seconds(manifest: Mapping[str, Any]) -> int:
 def project_live_run_status(
     workspace: Path,
     run_id: str | None = None,
-    *,
-    runtime_config: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     stream = EventStream.open(workspace)
     events = stream.all_events()
@@ -221,6 +219,7 @@ def project_live_run_status(
         call_id=call_id,
     )
     manifest = _read_manifest(workspace, manifest_id if isinstance(manifest_id, str) else None)
+    resolved_policy = manifest.get("resolved_policy")
     latest_ledger_event = latest_fp_assessed_event(
         events,
         run_id=resolved_run_id,
@@ -281,7 +280,7 @@ def project_live_run_status(
             if isinstance(proof_identity_event, Mapping)
             else None
         ),
-        runtime_config=runtime_config,
+        resolved_policy=resolved_policy if isinstance(resolved_policy, Mapping) else None,
         all_events=events,
     )
 

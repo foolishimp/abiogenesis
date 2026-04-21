@@ -41,6 +41,9 @@ The target default profile is broad and F_P-biased:
    governed F_P execution.
 3. Escalate to F_H only when the resolved escalation policy still requires it.
 
+That rule is governed explicitly by ADR-035. Deterministic helper structure
+must not become a hidden hard-stop that blocks lawful governed F_P dispatch.
+
 The important constraint is that these are not hidden hardcoded branches.
 They are configured default bundles that ship with ABG as reference material,
 and domain users can copy, edit, and reference them from their own GTL/ABG

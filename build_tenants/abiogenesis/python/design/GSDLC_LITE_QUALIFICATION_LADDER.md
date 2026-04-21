@@ -3,7 +3,7 @@
 **Status**: Active  
 **Category**: Qualification Design  
 **Date**: 2026-03-27  
-**Derives from**: [SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md), [GTL_3_INTERFACE_CONTRACTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_3_INTERFACE_CONTRACTS.md), [GTL_3_MODULE_DESIGN.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GTL_3_MODULE_DESIGN.md)
+**Derives from**: [SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md](https://github.com/foolishimp/abiogenesis/blob/main/build_tenants/abiogenesis/python/design/SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md), [GTL_3_INTERFACE_CONTRACTS.md](https://github.com/foolishimp/abiogenesis/blob/main/build_tenants/abiogenesis/python/design/GTL_3_INTERFACE_CONTRACTS.md), [GTL_3_MODULE_DESIGN.md](https://github.com/foolishimp/abiogenesis/blob/main/build_tenants/abiogenesis/python/design/GTL_3_MODULE_DESIGN.md)
 
 ---
 
@@ -43,9 +43,9 @@ These are already exercised in the canonical sandbox family:
 
 Current canonical proofs:
 
-- [SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md)
-- [SCENARIO_INTENT_TO_TAGGED_REQUIREMENTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/SCENARIO_INTENT_TO_TAGGED_REQUIREMENTS.md)
-- [SCENARIO_REQUIREMENTS_TO_UAT.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/SCENARIO_REQUIREMENTS_TO_UAT.md)
+- [SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md](https://github.com/foolishimp/abiogenesis/blob/main/build_tenants/abiogenesis/python/design/SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md)
+- [SCENARIO_INTENT_TO_TAGGED_REQUIREMENTS.md](https://github.com/foolishimp/abiogenesis/blob/main/build_tenants/abiogenesis/python/design/SCENARIO_INTENT_TO_TAGGED_REQUIREMENTS.md)
+- [SCENARIO_REQUIREMENTS_TO_UAT.md](https://github.com/foolishimp/abiogenesis/blob/main/build_tenants/abiogenesis/python/design/SCENARIO_REQUIREMENTS_TO_UAT.md)
 
 ---
 

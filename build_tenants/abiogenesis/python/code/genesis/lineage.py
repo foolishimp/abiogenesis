@@ -49,8 +49,44 @@ def _discover_children(events: list[dict], work_key: str) -> set[str]:
     return children
 
 
+def _work_key_lineage_matches(feature_key: str, candidate: str | None) -> bool:
+    if candidate is None:
+        return False
+    return (
+        feature_key == candidate
+        or feature_key.startswith(candidate + "/")
+        or candidate.startswith(feature_key + "/")
+    )
+
+
 # Public alias for external callers
 discover_children = _discover_children
+
+
+def completed_feature_keys(events: list[dict]) -> set[str]:
+    completed: set[str] = set()
+    for event in events:
+        etype = event.get("event_type")
+        data = event.get("data", {})
+        if etype == "reset":
+            reset_scope = data.get("scope")
+            if reset_scope == "workspace":
+                completed = set()
+                continue
+            reset_work_key = data.get("work_key")
+            if reset_scope in {"work_key", "edge"}:
+                completed = {
+                    key
+                    for key in completed
+                    if not _work_key_lineage_matches(key, reset_work_key)
+                }
+            continue
+        if etype != "feature_completed":
+            continue
+        work_key = data.get("work_key")
+        if isinstance(work_key, str) and work_key:
+            completed.add(work_key)
+    return completed
 
 
 def active_work_keys(workspace: Path, stream: Optional[EventStream] = None) -> list[str]:
@@ -68,7 +104,9 @@ def active_work_keys(workspace: Path, stream: Optional[EventStream] = None) -> l
         keys.update(f.stem for f in features_dir.glob("*.yml"))
 
     if stream is not None:
-        for e in stream.all_events():
+        all_events = stream.all_events()
+        completed = completed_feature_keys(all_events)
+        for e in all_events:
             event_work_key = e.get("data", {}).get("work_key")
             if event_work_key:
                 keys.add(event_work_key)
@@ -76,5 +114,10 @@ def active_work_keys(workspace: Path, stream: Optional[EventStream] = None) -> l
                 child_key = e.get("data", {}).get("child_key")
                 if child_key:
                     keys.add(child_key)
+        if completed:
+            keys = {
+                key for key in keys
+                if not any(key == done or key.startswith(done + "/") for done in completed)
+            }
 
     return sorted(keys)

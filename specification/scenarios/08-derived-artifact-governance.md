@@ -2,7 +2,7 @@
 
 **Validates**: REQ-R-ABG3-SELFHOSTING
 
-**Derives from**: [/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [INTENT.md](../INTENT.md) INT-001, [ABG_3_CONSTITUTIONAL_DESIGN.md](../ABG_3_CONSTITUTIONAL_DESIGN.md)
+**Derives from**: [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md), [INTENT.md](../INTENT.md) INT-001, [ABG_3_CONSTITUTIONAL_DESIGN.md](../ABG_3_CONSTITUTIONAL_DESIGN.md)
 
 **Purpose**: Prove that derived artifacts and qualification surfaces remain
 governed runtime work rather than bootstrap exceptions.

@@ -1,9 +1,41 @@
-# abiogenesis RC Notes
+# abiogenesis 3.2.0 RC Notes
 
 This note records release-candidate caveats and accepted framework behavior
-for the current `abiogenesis` wave.
+for the current `abiogenesis` B-027 runtime-carrier wave.
 
 ## Accepted Framework Behavior
+
+### Runtime Law Is Carrier And Event Owned
+
+The current RC makes typed runtime carriers and replay-visible events the
+authoritative source for advancement, convergence, dispatch, and projection
+truth.
+
+That means:
+
+- public advancement consumes `ExecutionBasis` and `AdvancementTransition`
+  truth produced by the kernel
+- iteration planning consumes `IterationAdvanceDecision` instead of local
+  controller branches
+- `RegimeBindingSet` is the singular `F_D` / `F_P` / `F_H` regime truth used by
+  convergence and runtime publication
+- feature completion is emitted as event truth and active-work state is
+  projected by replay
+- removing the carrier path is a fail-closed defect, not a degraded legacy mode
+
+### Runtime Config Is Ingress, Not Runtime Law
+
+The current RC demotes runtime configuration to an adapter/bootstrap ingress
+surface.
+
+That means:
+
+- dispatch, result ingest, proof-hold, live-status, and asset-binding contract
+  paths consume resolved/admitted carrier truth
+- missing carrier truth fails closed rather than resolving policy or contract
+  meaning mid-flight
+- downstream consumers must move to the installed 3.2.0 boundary instead of
+  depending on older `runtime_config` side-channel semantics
 
 ### Provenance-Ready Runtime Is Now Mandatory
 
@@ -122,10 +154,18 @@ That means:
 
 The current release-candidate proving footer is:
 
-- `259 passed`
-- `5 deselected`
-- `22.78s`
+- `317 passed`
+- `19 deselected`
 
 from:
 
 - `python -m pytest build_tenants/abiogenesis/python/test_env/tests -q`
+
+The live F_P qualification footer is:
+
+- `5 passed`
+- `600s`
+
+from the Claude-run live harness:
+
+- `CODEX_LIVE_FP=1 python -m pytest -m live_fp -x -v -s build_tenants/abiogenesis/python/test_env/tests/test_sandbox_usecases_live.py`

@@ -32,11 +32,17 @@ from gtl.operator_model import Evaluator, F_P
 from gtl.work_model import ContractRef, Job
 from tests.helpers_obligation_ledger import declared_test_graph_vector as GraphVector
 
-from genesis.binding import PrecomputedManifest, WorkSurface, Worker, module_to_executable_jobs
+from genesis.binding import (
+    PrecomputedManifest,
+    WorkSurface,
+    Worker,
+    module_to_executable_jobs,
+    regime_binding_set_from_evaluator_partitions,
+)
 from genesis.events import emit
 from genesis.fulfillment_ledger import make_published_fulfillment_ledger_ref
 from genesis.install import workspace_bootstrap
-from genesis.interpret import Traversal, TraversalRuntime, traverse
+from genesis.interpret import Traversal, TraversalRuntime, admit_traversal_runtime, traverse
 from genesis.projection import project
 from genesis.provenance import spec_hash_for
 from genesis.selection import SelectionDecision, resolve_refinement_boundary
@@ -119,8 +125,10 @@ def _precomputed(job, *, failing=(), passing=()) -> PrecomputedManifest:
     return PrecomputedManifest(
         executable_job=job,
         current_asset={},
-        failing_evaluators=list(failing),
-        passing_evaluators=list(passing),
+        regime_bindings=regime_binding_set_from_evaluator_partitions(
+            failing=failing,
+            passing=passing,
+        ),
         fd_results={},
         relevant_contexts={},
     )
@@ -858,7 +866,7 @@ class TestSandboxUsecasesFake:
         assert any(event["event_type"] == "genesis_installed" for event in stream.all_events())
 
         executable_job = module_to_executable_jobs(module)[0]
-        runtime = TraversalRuntime(
+        runtime = admit_traversal_runtime(
             module=module,
             executable_job=executable_job,
             precomputed=_precomputed(executable_job),
@@ -922,7 +930,7 @@ class TestSandboxUsecasesFake:
         assert any(event["event_type"] == "genesis_installed" for event in stream.all_events())
 
         executable_job = module_to_executable_jobs(module)[0]
-        runtime = TraversalRuntime(
+        runtime = admit_traversal_runtime(
             module=module,
             executable_job=executable_job,
             precomputed=_precomputed(executable_job),
@@ -1040,7 +1048,7 @@ class TestSandboxUsecasesFake:
         assert initial_by_edge["design→code"]["missing_required_bindings"] == ["schema"]
 
         executable_job = module_to_executable_jobs(module)[0]
-        runtime = TraversalRuntime(
+        runtime = admit_traversal_runtime(
             module=module,
             executable_job=executable_job,
             precomputed=_precomputed(executable_job),
@@ -1652,7 +1660,7 @@ class TestSandboxUsecasesFake:
                 "summary": f"{task.name}:{input_data['artifact']}",
             }, None
 
-        runtime = TraversalRuntime(
+        runtime = admit_traversal_runtime(
             module=module,
             executable_job=executable_job,
             precomputed=_precomputed(executable_job, failing=executable_job.vector.evaluators),
@@ -1752,7 +1760,7 @@ class TestSandboxUsecasesFake:
         assert any(event["event_type"] == "genesis_installed" for event in stream.all_events())
 
         executable_job = module_to_executable_jobs(module)[0]
-        runtime = TraversalRuntime(
+        runtime = admit_traversal_runtime(
             module=module,
             executable_job=executable_job,
             precomputed=_precomputed(executable_job),
@@ -1853,7 +1861,7 @@ class TestSandboxUsecasesFake:
         )
 
         executable_job = module_to_executable_jobs(module)[0]
-        runtime = TraversalRuntime(
+        runtime = admit_traversal_runtime(
             module=module,
             executable_job=executable_job,
             precomputed=_precomputed(executable_job),

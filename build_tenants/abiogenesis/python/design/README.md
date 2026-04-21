@@ -2,7 +2,33 @@
 
 Claude Code build — shipping design surface.
 
-## ADRs
+## Governing Runtime Law
+
+For the current Python line, the governing runtime design decisions are:
+
+- [ADR-034](./adrs/ADR-034-runtime-execution-law-is-carrier-and-event-owned.md)
+- [ADR-036](./adrs/ADR-036-abg-runtime-advancement-uses-execution-basis-and-advancement-transition.md)
+
+Read that ADR first when judging:
+
+- controller versus carrier ownership
+- event truth versus controller-local reconstruction
+- whether a seam is lawful delivery binding or an illicit semantic center
+- whether `runtime_config` is acting as ingress or as rival runtime authority
+
+Read ADR-036 when judging:
+
+- the concrete upstream runtime carrier shape
+- whether a refactor is introducing a typed carrier or another dict shim
+- whether regime truth is readable from one carrier family
+- whether config-backed operator/asset contracts are admitted once at the
+  boundary and then carried as typed ingress, rather than re-read as raw
+  config in the runtime core
+
+This README is an index. ADR-034 is the primary runtime-law source for the
+current line.
+
+## Design Index
 
 Current governing truth lives in:
 
@@ -39,6 +65,9 @@ If a proposed implementation shape would feel natural only in a mutable service 
 
 | ADR | Decision | Why it exists |
 |-----|----------|----------------|
+| ADR-034 | Runtime execution law is carrier-and-event owned | Governs controller-versus-carrier ownership, event-first runtime truth, and demotes controller orchestration as runtime law |
+| ADR-035 | Deterministic handling must not structurally block governed F_P | Governs deterministic-first but F_P-biased fallback law and prevents F_D helper structure from becoming an accidental hard stop |
+| ADR-036 | Runtime advancement uses `ExecutionBasis` and `AdvancementTransition` | Names the upstream typed carrier family that replaces controller-owned runtime law during `B-027` |
 | ADR-022 | Subprocess transport with env sanitization | Shipping transport surface for governed F_P dispatch |
 | ADR-023 | Graph and vector identity via opaque ids | Operational identity is distinct from labels |
 | ADR-024 | Markov as a first-class node field | Node-owned declared conditions remain in the GTL surface |
@@ -53,27 +82,25 @@ New ADRs will implement active `REQ-L-GTL3-*` and `REQ-R-ABG3-*` keys.
 
 Traceability derives from the active GTL 3 / ABG 3 requirement surface plus the
 live testcase-authority surfaces under `specification/scenarios/`.
-Live requirement headers carry `Status` and `Category` metadata per [/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md).
+Live requirement headers carry `Status` and `Category` metadata per [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md).
 The shipping verification harness is downstream of this design surface in `build_tenants/abiogenesis/python/test_env/`.
 
-## App Bootstrap Assumption
+## Delivery Binding Boundary
 
-ABG keeps a clean split between:
+The Python build still has CLI/bootstrap/install delivery surfaces, but they do
+not own runtime law.
 
-- one-step engine progression in `services.gen_start()`
-- app-level orchestration and projection in `genesis/cli_adapter.py`
+Read [ADR-034](./adrs/ADR-034-runtime-execution-law-is-carrier-and-event-owned.md)
+as the governing interpretation for:
 
-That means `gen-start` request normalization and control-mode orchestration are
-not hidden engine modes. They are CLI-owned control-plane behavior around one
-step of engine progression. The adapter may:
+- `genesis/cli_adapter.py`
+- `app_bootstrap.py`
+- `gen-install.py`
+- temporary controller helpers in `genesis/services.py`
 
-- continue through repeated `fp_dispatch`
-- stop according to the typed `until` contract
-- proxy `fh_gate` approvals when the selected `fh_mode` enables proxy behavior
-- apply root supervision when the selected `root_mode` enables it
-- invoke optional runtime hooks exported by the installed module surface for project-specific `F_P` dispatch or `F_H` approval behavior
-
-This keeps the engine core smaller and makes the app bootstrap seam explicit in module ownership.
+Those seams may normalize input, invoke the lawful runtime path, and present
+projections. They are not allowed to become a rival semantic center for
+advancement, admission, or closure.
 
 ## Runtime Identity Assumption
 
@@ -89,10 +116,10 @@ ABG treats runtime identity as a structured surface rather than collapsing it to
 
 The canonical toy scenarios for rebuilding and pressure-testing the engine are:
 
-- [SCENARIO_INTENT_TO_TAGGED_REQUIREMENTS.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/SCENARIO_INTENT_TO_TAGGED_REQUIREMENTS.md)
-- [SCENARIO_REQUIREMENTS_TO_UAT.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/SCENARIO_REQUIREMENTS_TO_UAT.md)
-- [SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md)
-- [GSDLC_LITE_QUALIFICATION_LADDER.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GSDLC_LITE_QUALIFICATION_LADDER.md)
+- [SCENARIO_INTENT_TO_TAGGED_REQUIREMENTS.md](https://github.com/foolishimp/abiogenesis/blob/main/build_tenants/abiogenesis/python/design/SCENARIO_INTENT_TO_TAGGED_REQUIREMENTS.md)
+- [SCENARIO_REQUIREMENTS_TO_UAT.md](https://github.com/foolishimp/abiogenesis/blob/main/build_tenants/abiogenesis/python/design/SCENARIO_REQUIREMENTS_TO_UAT.md)
+- [SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md](https://github.com/foolishimp/abiogenesis/blob/main/build_tenants/abiogenesis/python/design/SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md)
+- [GSDLC_LITE_QUALIFICATION_LADDER.md](https://github.com/foolishimp/abiogenesis/blob/main/build_tenants/abiogenesis/python/design/GSDLC_LITE_QUALIFICATION_LADDER.md)
 
 Together they define the current sandbox qualification ladder for:
 
@@ -119,6 +146,6 @@ The archive shape is:
 
 The governing authority for restoring that behavior is now:
 
-- [REQ-P-QUAL.md](/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-QUAL.md)
+- [REQ-P-QUAL.md](https://github.com/foolishimp/abiogenesis/blob/main/specification/requirements/product/REQ-P-QUAL.md)
 
 Implementation should preserve the durable postmortem properties of that archive shape.

@@ -652,7 +652,6 @@ def _run_status_cmd(workspace: Path, run_id: str | None) -> int:
     status = project_live_run_status(
         workspace,
         run_id=run_id,
-        runtime_config=_load_project_config(workspace),
     )
     print(json.dumps(status, indent=2))
     return 0
@@ -790,6 +789,7 @@ def _run_start_until_converged(
         if stop_predicate == "traversal_applied":
             continue
         if stop_predicate == "dispatch_required":
+            resolved_policy = _resolved_policy_from_result(result, workspace)
             proof_hold = project_proof_hold(
                 workspace,
                 edge=result.get("edge") if isinstance(result.get("edge"), str) else None,
@@ -800,7 +800,7 @@ def _run_start_until_converged(
                     if isinstance(result.get("workflow_version"), str)
                     else None
                 ),
-                runtime_config=config,
+                resolved_policy=resolved_policy,
             )
             if proof_hold.get("held"):
                 result["status"] = "pending"
@@ -898,6 +898,36 @@ def _attach_pending_recovery_contract(result: Mapping[str, object], workspace: P
     return enriched
 
 
+def _resolved_policy_from_result(
+    result: Mapping[str, object],
+    workspace: Path,
+) -> dict[str, object] | None:
+    resolved_policy = result.get("resolved_policy")
+    if isinstance(resolved_policy, Mapping):
+        return dict(resolved_policy)
+
+    manifest_path: Path | None = None
+    manifest_path_value = result.get("fp_manifest_path")
+    if isinstance(manifest_path_value, str) and manifest_path_value:
+        manifest_path = Path(manifest_path_value)
+    else:
+        manifest_id = result.get("manifest_id")
+        if isinstance(manifest_id, str) and manifest_id:
+            manifest_path = workspace / ".ai-workspace" / "fp_manifests" / f"{manifest_id}.json"
+    if manifest_path is None or not manifest_path.exists():
+        return None
+    try:
+        raw_manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    if not isinstance(raw_manifest, Mapping):
+        return None
+    resolved_policy = raw_manifest.get("resolved_policy")
+    if not isinstance(resolved_policy, Mapping):
+        return None
+    return dict(resolved_policy)
+
+
 def _run_start_until_converged_supervised(
     intent,
     stream,
@@ -916,7 +946,7 @@ def _run_start_until_converged_supervised(
         fh_mode=fh_mode,
     )
     result["root_supervision"] = True
-    result["live_status"] = project_live_run_status(workspace, runtime_config=config)
+    result["live_status"] = project_live_run_status(workspace)
 
     if (
         result.get("status") == "error"
@@ -933,7 +963,7 @@ def _run_start_until_converged_supervised(
         )
         resumed["root_supervision"] = True
         resumed["resumed_after_transport_failure"] = True
-        resumed["live_status"] = project_live_run_status(workspace, runtime_config=config)
+        resumed["live_status"] = project_live_run_status(workspace)
         return resumed
 
     return result
@@ -1033,6 +1063,7 @@ def main() -> None:
         Scope,
         ScopeSelector,
         StartIntent,
+        admit_operator_asset_query_contract,
         gen_gaps,
         gen_iterate,
         gen_start,
@@ -1079,11 +1110,15 @@ def main() -> None:
 
     if args.command == "start":
         try:
+            operator_asset_contract = admit_operator_asset_query_contract(
+                _config,
+                workspace_root=workspace,
+            )
             resolved_target = resolve_start_target(
                 module,
                 args.target,
                 workspace_root=workspace,
-                runtime_config=_config,
+                operator_asset_contract=operator_asset_contract,
             )
         except ValueError as exc:
             print(json.dumps({"status": "error", "reason": str(exc)}))

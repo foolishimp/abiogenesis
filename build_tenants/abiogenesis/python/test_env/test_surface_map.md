@@ -54,6 +54,11 @@ Current reading:
 
 ## ABG Kernel Integration Tests
 
+### test_abg3_runtime_structure.py
+
+- Requirements: `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-CONVERGENCE`, `REQ-R-ABG3-POLICY`
+- Design: [README.md](../design/README.md), [ABG_3_MODULE_DESIGN.md](../design/ABG_3_MODULE_DESIGN.md), [ADR-034-runtime-execution-law-is-carrier-and-event-owned.md](../design/adrs/ADR-034-runtime-execution-law-is-carrier-and-event-owned.md), [ADR-035-deterministic-handling-must-not-structurally-block-governed-fp.md](../design/adrs/ADR-035-deterministic-handling-must-not-structurally-block-governed-fp.md), [ADR-036-abg-runtime-advancement-uses-execution-basis-and-advancement-transition.md](../design/adrs/ADR-036-abg-runtime-advancement-uses-execution-basis-and-advancement-transition.md)
+
 ### test_abg3_runtime_envelope.py
 
 - Requirements: `REQ-R-ABG3-EVENTS`, `REQ-R-ABG3-PROJECTION`, `REQ-R-ABG3-RUN`, `REQ-R-ABG3-GRAPHCALL`, `REQ-R-ABG3-FRAME`, `REQ-R-ABG3-CONTINUATION`, `REQ-R-ABG3-RETRY`

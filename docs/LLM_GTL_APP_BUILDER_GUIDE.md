@@ -1,17 +1,176 @@
 # LLM GTL App Builder Guide
 
-**Status**: Current builder guide
+**Status**: Current GTL 3 / ABG 3.2.0 builder guide
 **Audience**: LLM agentic coders building GTL/ABG domain apps
-**Purpose**: Define what a GTL domain app is, what the builder authors, what ABG owns, how apps bootstrap and initialize, what hooks exist, what the runtime produces, and how to run the current kernel
+**Purpose**: Provide the LLM-facing axiomatic ontology and operating contract for building and running GTL/ABG apps
 
 ## Position
 
-This is the primary builder guide.
+This is the first GTL/ABG document to give an LLM that must build or operate a
+GTL/ABG app.
 
-Read this guide when you need to build a GTL/ABG app from first principles.
+This guide defines the substrate ontology:
 
-Use the GTL reference guide and the constitutions for deeper type and runtime
-detail.
+- what GTL is
+- what ABG is
+- what a GTL/ABG app boundary contains
+- what the builder authors
+- what ABG owns
+- how graph functions become the constructive carrier
+- how runtime truth is emitted, replayed, projected, proved, and closed
+- how to run the current public kernel loop
+
+This guide is not `ODD_METHOD.md`.
+
+Use this guide first for GTL/ABG ontology and operation.
+
+Use `ODD_METHOD.md` next when the product must be authored as an ODD product.
+
+Then read the local product authority surfaces.
+
+For an ODD-shaped product such as `odd_sdlc`, the read order is:
+
+1. this guide for GTL/ABG substrate law
+2. `ODD_METHOD.md` for ODD product-authoring law
+3. local `GOALS.md`, `INTENT.md`, `PRODUCT.md`, requirements, and design
+4. local code and tests as realization evidence
+
+Do not treat this guide as domain semantics.
+
+Do not treat `ODD_METHOD.md` as a replacement for local product authority.
+
+## Axiomatic Substrate
+
+GTL is the graph language.
+
+ABG is the canonical runtime for GTL.
+
+GTL declares constructive structure.
+
+ABG executes declared structure and owns runtime truth.
+
+The governing split is:
+
+| Surface | Owner | Rule |
+| --- | --- | --- |
+| `Graph` | GTL | First-class structural type. |
+| `Node` | GTL | Typed local locus of meaning. |
+| `GraphVector` | GTL | Internal admissible transition contract between nodes. |
+| `GraphFunction` | GTL | Public callable carrier for constructive work. |
+| `Job` | GTL | Durable semantic work contract over published graph functions. |
+| `Module` | GTL | Publication boundary for graphs, graph functions, jobs, roles, and selection surfaces. |
+| `Policy Surface` | GTL/app declaration | Declarative law for dispatch, evaluation, escalation, proof, and closure. |
+| `GraphCall` | ABG | Runtime realization of one published graph function. |
+| `Frame` | ABG | Invocation-local runtime boundary for recursion or local execution. |
+| `Continuation` | ABG | Open runtime obligation derived from emitted facts. |
+| `Runtime Fact` | ABG | Event truth emitted through the runtime write boundary. |
+| `Projection` | ABG/app read model | Replay-derived current state. |
+| `Proof Lane` | app declaration plus ABG runtime facts | Declared proving path for capability or closure. |
+
+The primary construction axiom is:
+
+```text
+constructive work = published graph functions over typed assets/nodes
+```
+
+The primary runtime axiom is:
+
+```text
+runtime truth = emitted events + replay-derived projection
+```
+
+The public execution chain is:
+
+```text
+Job
+-> GraphFunction
+-> GraphCall
+-> materialized Graph
+-> internal GraphVector traversal
+-> ExecutionBasis
+-> AdvancementTransition
+-> events
+-> projection
+-> proof
+-> closure
+```
+
+`GraphFunction` is the public callable carrier.
+
+`GraphVector` remains internal realized structure.
+
+`ExecutionBasis`, `AdvancementTransition`, `IterationAdvanceDecision`, and
+`RegimeBindingSet` carry ABG 3.2 runtime law.
+
+Do not rebuild those meanings from result dictionaries, controller state, prompt
+text, or `runtime_config`.
+
+## LLM Operating Rules
+
+An LLM builder must preserve these rules:
+
+- make graph functions the constructive carrier
+- bind semantic jobs to published graph functions, not bare vectors
+- publish live traversal truth through the module, not through hidden service methods
+- make policy, proof, closure, escalation, and dispatch declarative
+- let ABG own traversal, events, frames, continuations, replay, projection, and correction
+- treat prompts and command output as transport or projection, not constitutional truth
+- treat `runtime_config` as adapter/bootstrap ingress, not semantic runtime law
+- fail closed when a target, helper ref, asset binding, carried environment, or policy surface is ambiguous
+- reprice the declaration when the graph or policy shape is wrong
+
+Do not add:
+
+- imperative executive loops as shadow graph traversal
+- product-specific orchestration scripts as second runtime law
+- compatibility targets that keep old and new truth alive
+- hidden prompt-only policy
+- file-path lore where a typed asset surface or registry is required
+- derived projections that outrank emitted runtime facts
+
+## Relation To ODD Method
+
+This guide gives the GTL/ABG substrate.
+
+`ODD_METHOD.md` gives the product-authoring method for ODD products built over
+that substrate.
+
+When both are provided to an LLM:
+
+- use this guide to know the ontology and runtime contract
+- use `ODD_METHOD.md` to shape the product as an ODD product
+- use local product specification and design to bind domain meaning
+
+The composition is:
+
+```text
+GTL/ABG guide = language/runtime ontology
+ODD_METHOD.md = product-authoring method
+local authority = product meaning and current line
+```
+
+For an ODD-shaped app, the target product shape is:
+
+```text
+product
+= typed asset/domain model
++ GTL-defined graph functions
++ GTL module publication
++ ABG runtime execution
++ projection/query surface
++ proof surface
+```
+
+Do not copy another product's local asset names as shared doctrine.
+
+Do copy the structural law:
+
+- typed assets or nodes bind domain meaning
+- public graph functions carry construction
+- semantic jobs bind durable work to graph functions
+- ABG owns runtime facts and traversal
+- projection/query surfaces read from constructive history
+- proof surfaces determine closure authority
 
 ## Why GTL/ABG Exists
 
@@ -69,10 +228,12 @@ App
 = Bootstrap Surface
 + Initialization Surface
 + Domain Configuration
-+ GTL Program Surface
++ Typed Domain Assets / Nodes
++ GTL Function Catalog
++ GTL Module
 + Policy Hook Bindings
 + ABG Runtime
-+ Projection / Audit Surface
++ Projection / Query / Audit Surface
 + Proof Surface
 ```
 
@@ -114,12 +275,15 @@ The app ontology has these primary objects:
 The core execution rule is:
 
 ```text
-Job -> GraphFunction -> GraphCall -> materialized graph -> internal GraphVector traversal over cumulative environment
+Job -> GraphFunction -> GraphCall -> ExecutionBasis -> AdvancementTransition -> events -> projection -> proof -> closure
 ```
 
 `GraphFunction` is the public callable carrier.
 
 `GraphVector` remains internal realized structure.
+
+ABG materializes and traverses internal `GraphVector` structure under the public
+`GraphFunction` carrier.
 
 `GraphFunction.environment` is the cumulative typed environment contract.
 
@@ -867,6 +1031,8 @@ ABG owns runtime truth and runtime progression.
 
 ABG owns:
 
+- typed advancement carriers
+- typed regime-binding algebra
 - graph-call execution
 - frame progression
 - continuation truth
@@ -878,6 +1044,24 @@ ABG owns:
 ABG does not own domain semantics beyond declared law.
 
 ABG interprets and enforces declared law.
+
+### ABG 3.2.0 carrier law
+
+The live runtime boundary is carrier and event owned.
+
+The builder should expect runtime decisions to flow through:
+
+- `ExecutionBasis`
+- `AdvancementTransition`
+- `IterationAdvanceDecision`
+- `RegimeBindingSet`
+
+Do not rebuild these meanings from result dictionaries, controller state, or
+`runtime_config` side channels.
+
+`runtime_config` may provide adapter/bootstrap ingress. After admission,
+runtime policy, asset-binding, proof-hold, dispatch, and convergence truth must
+be carried by typed or resolved runtime surfaces.
 
 ## What The App Produces
 
@@ -916,9 +1100,36 @@ The build lifecycle is:
 
 This is the shortest useful builder loop.
 
+## LLM Builder Algorithm
+
+When building a new GTL/ABG app, execute this algorithm:
+
+1. Read this guide and identify the substrate primitives you need.
+2. Read the governing method, such as `ODD_METHOD.md`, when the product is method-shaped.
+3. Read local goals, intent, product definition, requirements, and ratified design.
+4. Name the typed domain assets or nodes.
+5. Name the outcome states and lawful transitions.
+6. Publish graph functions as the constructive carriers.
+7. Bind semantic jobs to public graph functions.
+8. Publish the module surface: graphs, graph functions, jobs, roles, refinement boundaries, and candidate families.
+9. Attach policy hooks for dispatch, evaluation, escalation, proof, and closure.
+10. Install or initialize the runtime surface.
+11. Run `gen-start` through the concrete CLI binding.
+12. Inspect events, projection, proof, closure, and gaps.
+13. Correct, supersede, or reprice from emitted runtime facts.
+
+Stop and reprice when:
+
+- the intended work cannot be expressed as typed assets and graph functions
+- the public carrier is a bare vector or hidden service method
+- a required environment binding is not replay-visible
+- two surfaces claim authority over the same runtime truth
+- the runtime needs a compatibility bridge to keep old and new truth alive
+- proof or closure depends on prompt text instead of declared policy and emitted facts
+
 ## Operator UX
 
-The right UX for GTL/ABG apps is artifact-first.
+The GTL/ABG app UX is artifact-first.
 
 The primary operator surfaces are:
 
@@ -951,17 +1162,19 @@ The UX should expose lawful next moves from runtime facts.
 
 The live kernel in this repo is `abiogenesis`.
 
+The current source version is `3.2.0`.
+
 ### Run from source
 
 ```bash
-cd /Users/jim/src/apps/abiogenesis
+git clone https://github.com/foolishimp/abiogenesis.git
+cd abiogenesis
 PYTHONPATH=build_tenants/abiogenesis/python/code python -m genesis --help
 ```
 
 Current commands:
 
 - `start`
-- `iterate`
 - `gaps`
 - `emit-event`
 - `assess-result`
@@ -974,15 +1187,128 @@ Current commands:
 Common commands:
 
 ```bash
-PYTHONPATH=build_tenants/abiogenesis/python/code python -m genesis gaps --workspace .
-PYTHONPATH=build_tenants/abiogenesis/python/code python -m genesis iterate --workspace .
-PYTHONPATH=build_tenants/abiogenesis/python/code python -m genesis start --auto --workspace .
+PYTHONPATH=build_tenants/abiogenesis/python/code python -m genesis gaps --workspace . --scope workspace
+PYTHONPATH=build_tenants/abiogenesis/python/code python -m genesis start --workspace . --scope workspace --target next --until first_traversal
+```
+
+The public `gen-start` traversal request is `scope + target + until`.
+Targets are `next`, `graph_function:<handle>`, and `asset:<handle>`.
+Control modes such as `--fh-mode` and `--root-mode` stay outside that request
+grammar and are lawful only with `--until converged`.
+
+### Public runtime contract
+
+The concrete CLI command is `start`.
+
+The public operator contract is `gen-start`.
+
+`gen-start` admits exactly one traversal request:
+
+| Field | Values | Rule |
+| --- | --- | --- |
+| `--scope` | `workspace`, `work_key:<id>` | Selects the work scope. |
+| `--target` | `next`, `graph_function:<handle>`, `asset:<handle>` | Selects the public work target. |
+| `--until` | `first_traversal`, `blocked`, `converged` | Selects the stop condition. |
+
+Target law:
+
+- `next` advances the next open job in scope
+- `graph_function:<handle>` selects one published graph-function carrier
+- `asset:<handle>` resolves through the operator asset registry and then selects the governing graph-function carrier
+- unresolved, unsupported, unowned, or ambiguous targets fail closed
+
+Stop-condition law:
+
+| `--until` | Meaning |
+| --- | --- |
+| `first_traversal` | Stop after one visible advancement, dispatch, gate, blocker, or no-op. |
+| `blocked` | Continue until a blocking condition is visible. |
+| `converged` | Continue until the scope closes or cannot lawfully continue. |
+
+Control-mode law:
+
+| Mode | Values | Rule |
+| --- | --- | --- |
+| `--fh-mode` | `direct`, `human-proxy` | Lawful only with `--until converged`. |
+| `--root-mode` | `direct`, `supervised` | Lawful only with `--until converged`. |
+
+`asset:<handle>` requires an admitted `operator_asset_contract`.
+
+The contract command returns registry JSON with an `assets` collection.
+
+Each asset entry identifies the asset and its operator target:
+
+```json
+{
+  "assets": [
+    {
+      "asset_id": "code_surface",
+      "uri": "file://build/code",
+      "operator_target": {
+        "kind": "graph_function",
+        "handle": "code-flow"
+      }
+    }
+  ]
+}
+```
+
+### Public runtime loop
+
+`start` writes one JSON object to stdout.
+
+Read these fields first:
+
+| Field | Meaning |
+| --- | --- |
+| `status` | Public result status. |
+| `target` | Admitted target string. |
+| `asset_id` | Resolved asset identity for `asset:<handle>`. |
+| `edge` | Selected graph edge. |
+| `stop_predicate` | Runtime stop reason projected from the typed advancement transition. |
+| `fp_manifest_path` | F_P manifest path when constructive dispatch is pending. |
+| `root_mode` | Admitted root control mode. |
+| `root_supervision` | True when supervised root mode is active. |
+| `live_status` | Live run status projection. |
+| `proof_hold_active` | True when replay-derived proof-hold blocks public redispatch. |
+
+Act from `stop_predicate` or `status`:
+
+| Signal | Lawful next move |
+| --- | --- |
+| `dispatch_required` | Read `fp_manifest_path`, perform the manifest contract, write the result at manifest `result_path`, then run `assess-result --result <path>`. |
+| `human_gate_required` | Satisfy the human lane or use lawful `--fh-mode human-proxy --until converged` when policy allows it. |
+| `proof_hold` | Inspect `gaps --workspace . --scope workspace` and live status, then correct or reset the failed proof scope before rerunning. |
+| `converged` | Inspect events, projection, proof, and closure before claiming completion. |
+| `nothing_to_do` | Confirm the admitted scope and target. No lawful advancement was available. |
+| `status = error` | Treat the output as failed runtime or command admission, not as product truth. |
+
+Process exit codes classify the same loop for scripts:
+
+| Code | Meaning |
+| --- | --- |
+| `0` | Converged or nothing to do. |
+| `1` | Error. |
+| `2` | F_P dispatch pending. |
+| `3` | F_H gate pending. |
+| `4` | Deterministic gap stopped advancement. |
+| `5` | Iteration limit stopped convergence. |
+| `6` | Constructive work yielded handoff truth. |
+| `7` | Proof hold stopped redispatch. |
+
+F_P dispatch loop:
+
+```bash
+PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target next --until first_traversal
+python -m json.tool .ai-workspace/fp_manifests/<manifest-id>.json
+PYTHONPATH=.genesis python -m genesis assess-result --workspace . --result .ai-workspace/fp_results/<manifest-id>.json
+PYTHONPATH=.genesis python -m genesis gaps --workspace . --scope workspace
 ```
 
 ### Install the kernel into another workspace
 
 ```bash
-python /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/code/gen-install.py --target /path/to/project
+python build_tenants/abiogenesis/python/code/gen-install.py --target /path/to/project
 ```
 
 This installs:
@@ -998,8 +1324,8 @@ Then run:
 
 ```bash
 cd /path/to/project
-PYTHONPATH=.genesis python -m genesis gaps --workspace .
-PYTHONPATH=.genesis python -m genesis start --auto --workspace .
+PYTHONPATH=.genesis python -m genesis gaps --workspace . --scope workspace
+PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target next --until first_traversal
 ```
 
 ### Live transport readiness
@@ -1079,6 +1405,8 @@ That is enough to prove whether the app should stay on GTL/ABG.
 
 Use these when you need more detail:
 
+- [ODD_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/ODD_METHOD.md)
+- [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md)
 - [GTL_Technical_Guide.md](./GTL_Technical_Guide.md)
-- [GTL_3_CONSTITUTIONAL_DESIGN.md](/Users/jim/src/apps/abiogenesis/specification/GTL_3_CONSTITUTIONAL_DESIGN.md)
-- [ABG_3_CONSTITUTIONAL_DESIGN.md](/Users/jim/src/apps/abiogenesis/specification/ABG_3_CONSTITUTIONAL_DESIGN.md)
+- [GTL_3_CONSTITUTIONAL_DESIGN.md](https://github.com/foolishimp/abiogenesis/blob/main/specification/GTL_3_CONSTITUTIONAL_DESIGN.md)
+- [ABG_3_CONSTITUTIONAL_DESIGN.md](https://github.com/foolishimp/abiogenesis/blob/main/specification/ABG_3_CONSTITUTIONAL_DESIGN.md)

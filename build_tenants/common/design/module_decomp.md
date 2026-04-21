@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Date**: 2026-03-29
-**Derived from**: [GTL_3_CONSTITUTIONAL_DESIGN.md](/Users/jim/src/apps/abiogenesis/specification/GTL_3_CONSTITUTIONAL_DESIGN.md), [specification/requirements/](/Users/jim/src/apps/abiogenesis/specification/requirements/)
+**Derived from**: [GTL_3_CONSTITUTIONAL_DESIGN.md](https://github.com/foolishimp/abiogenesis/blob/main/specification/GTL_3_CONSTITUTIONAL_DESIGN.md), [specification/requirements/](https://github.com/foolishimp/abiogenesis/tree/main/specification/requirements/)
 
 ## Position
 

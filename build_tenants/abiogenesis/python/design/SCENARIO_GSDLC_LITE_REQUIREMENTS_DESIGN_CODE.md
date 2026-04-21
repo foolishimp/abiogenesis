@@ -4,7 +4,7 @@
 **Status**: Baseline  
 **Category**: Capability Scenario  
 **Date**: 2026-03-27  
-**Derives from**: [INTENT.md](/Users/jim/src/apps/abiogenesis/specification/INTENT.md), [/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md)
+**Derives from**: [INTENT.md](https://github.com/foolishimp/abiogenesis/blob/main/specification/INTENT.md), [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md)
 **Governs**: fake-lane and live-lane sandbox qualification for a minimal `requirements -> design -> code` build chain
 
 ---
@@ -247,4 +247,4 @@ It is the preferred place to grow:
 
 The governing qualification layering for this scenario now lives in:
 
-- [GSDLC_LITE_QUALIFICATION_LADDER.md](/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/GSDLC_LITE_QUALIFICATION_LADDER.md)
+- [GSDLC_LITE_QUALIFICATION_LADDER.md](https://github.com/foolishimp/abiogenesis/blob/main/build_tenants/abiogenesis/python/design/GSDLC_LITE_QUALIFICATION_LADDER.md)

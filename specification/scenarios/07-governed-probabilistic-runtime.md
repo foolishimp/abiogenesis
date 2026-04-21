@@ -2,7 +2,7 @@
 
 **Validates**: REQ-R-ABG3-INTERPRET, REQ-R-ABG3-CONVERGENCE, REQ-R-ABG3-POLICY, REQ-R-ABG3-SELECTION-APPLICATION, REQ-R-ABG3-LEAFTASK, REQ-R-ABG3-TRANSPORT, REQ-M-GTL3-MAPPING, REQ-M-GTL3-PROVENANCE
 
-**Derives from**: [/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [INTENT.md](../INTENT.md) INT-001, [ABG_3_CONSTITUTIONAL_DESIGN.md](../ABG_3_CONSTITUTIONAL_DESIGN.md)
+**Derives from**: [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md), [INTENT.md](../INTENT.md) INT-001, [ABG_3_CONSTITUTIONAL_DESIGN.md](../ABG_3_CONSTITUTIONAL_DESIGN.md)
 
 **Purpose**: Prove that ABG 3 governs probabilistic work declaratively through
 policy/default law and post-dispatch fact ownership rather than imperative

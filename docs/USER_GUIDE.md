@@ -1,6 +1,6 @@
 # GTL/ABG User Guide
 
-**Status**: Current GTL 3 / ABG 3 user guide
+**Status**: Current GTL 3 / ABG 3.2.0 user guide
 **Audience**: People building or operating GTL/ABG applications
 **Purpose**: Explain what GTL/ABG is for, what it builds, how the build loop works, what the runtime gives you, and how to run the current kernel
 
@@ -119,6 +119,27 @@ The important rule is:
 
 `GraphVector` remains internal realized structure.
 
+## ABG 3.2.0 Runtime Boundary
+
+ABG 3.2.0 makes runtime law carrier and event owned.
+
+Public work still starts from a semantic `Job` bound to a published
+`GraphFunction`, but advancement truth is no longer reconstructed from service
+return dictionaries or local controller state.
+
+The runtime source carriers are:
+
+- `ExecutionBasis`
+- `AdvancementTransition`
+- `IterationAdvanceDecision`
+- `RegimeBindingSet`
+
+The primary event rule is unchanged:
+
+- `emit()` is the lawful write boundary
+- projections derive current truth by replay
+- `runtime_config` is ingress/configuration input, not independent runtime law
+
 ## How You Build
 
 The build loop is:
@@ -183,7 +204,7 @@ ABG opens runtime execution from the public graph-function carrier.
 The public runtime path is:
 
 ```text
-Job -> GraphFunction -> GraphCall -> internal traversal -> proof -> closure
+Job -> GraphFunction -> GraphCall -> ExecutionBasis -> AdvancementTransition -> events/projection -> proof -> closure
 ```
 
 ### 6. Inspect the runtime facts
@@ -192,10 +213,12 @@ After a run, the primary truth is the event stream.
 
 Read what happened from:
 
+- execution-basis and advancement-transition payloads
 - runtime events
 - graph calls
 - frames
 - continuations
+- regime-binding outcomes
 - proof and closure facts
 
 Do not treat process return codes or chat summaries as the main truth.
@@ -241,7 +264,7 @@ The output is both:
 
 ## What The UX Is
 
-The right GTL/ABG UX is artifact-first.
+The GTL/ABG UX is artifact-first.
 
 The primary operator surfaces are:
 
@@ -278,14 +301,14 @@ The live kernel in this repo is `abiogenesis`.
 ### Run from source
 
 ```bash
-cd /Users/jim/src/apps/abiogenesis
+git clone https://github.com/foolishimp/abiogenesis.git
+cd abiogenesis
 PYTHONPATH=build_tenants/abiogenesis/python/code python -m genesis --help
 ```
 
 Current commands:
 
 - `start`
-- `iterate`
 - `gaps`
 - `emit-event`
 - `assess-result`
@@ -298,15 +321,173 @@ Current commands:
 Common commands:
 
 ```bash
-PYTHONPATH=build_tenants/abiogenesis/python/code python -m genesis gaps --workspace .
-PYTHONPATH=build_tenants/abiogenesis/python/code python -m genesis iterate --workspace .
-PYTHONPATH=build_tenants/abiogenesis/python/code python -m genesis start --auto --workspace .
+PYTHONPATH=build_tenants/abiogenesis/python/code python -m genesis gaps --workspace . --scope workspace
+PYTHONPATH=build_tenants/abiogenesis/python/code python -m genesis start --workspace . --scope workspace --target next --until first_traversal
 ```
+
+### Public `start` contract
+
+The CLI command is `start`. The public operator contract is `gen-start`.
+
+`start` accepts one traversal request. The request has three governing fields:
+
+| Field | Values | Meaning |
+| --- | --- | --- |
+| `--scope` | `workspace`, `work_key:<id>` | Selects the work scope. |
+| `--target` | `next`, `graph_function:<handle>`, `asset:<handle>` | Selects the public work target. |
+| `--until` | `first_traversal`, `blocked`, `converged` | Selects the stop condition. |
+
+Target meanings:
+
+- `next` advances the next open job in scope.
+- `graph_function:<handle>` selects one published graph-function carrier by handle.
+- `asset:<handle>` resolves the handle through the published operator asset registry, then selects the governing graph-function carrier for that asset.
+- Unknown, unsupported, unowned, or ambiguous targets fail closed.
+
+Stop-condition meanings:
+
+| `--until` | Use it when | Stops on |
+| --- | --- | --- |
+| `first_traversal` | You want one visible advancement and one manifest or fact surface. | First applied traversal, dispatch requirement, gate, blocker, or completed no-op. |
+| `blocked` | You want ABG to run until a blocking condition is visible. | Dispatch requirement, human gate, proof hold, policy stop, or no lawful move. |
+| `converged` | You want ABG to continue until the scoped work is closed or cannot lawfully continue. | Convergence, no work, proof hold, gate, policy stop, or runtime failure. |
+
+Control modes stay outside `scope + target + until`:
+
+| Mode | Values | Law |
+| --- | --- | --- |
+| `--fh-mode` | `direct`, `human-proxy` | Lawful only with `--until converged`. |
+| `--root-mode` | `direct`, `supervised` | Lawful only with `--until converged`. |
+
+The same arguments apply from source or from an installed runtime.
+These examples use an installed runtime:
+
+```bash
+PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target next --until first_traversal
+PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target graph_function:code-flow --until first_traversal
+PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target asset:code_surface --until first_traversal
+PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target next --until converged --root-mode supervised
+PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target next --until converged --fh-mode human-proxy
+```
+
+`asset:<handle>` requires an installed runtime contract that publishes `operator_asset_contract`.
+The registry entry resolves the public asset handle to a published graph-function target.
+The asset registry is operator-ingress truth; the selected traversal still runs through the graph-function carrier.
+
+Proof-hold lives in resolved policy. When proof-hold is disabled, repeated proof failures remain event truth and do not stop `start` through the hold projection.
+
+### Read `start` output
+
+`start` writes one JSON object to stdout.
+
+These fields carry the operator surface:
+
+| Field | Meaning |
+| --- | --- |
+| `status` | Overall public result. Common values include `pending`, `in_progress`, `converged`, `nothing_to_do`, `blocked`, and `error`. |
+| `target` | The admitted target string. |
+| `asset_id` | Present for `asset:<handle>` when the registry resolves the handle. |
+| `edge` | The selected graph edge when execution selects a traversal. |
+| `stop_predicate` | The runtime stop reason projected from the typed advancement transition. |
+| `fp_manifest_path` | Present when ABG dispatched F_P work and wrote a manifest. |
+| `root_mode` | The admitted root control mode. |
+| `root_supervision` | Present and true when `--root-mode supervised` admitted a supervised root run. |
+| `live_status` | Present on supervised root output and some status surfaces. |
+| `proof_hold_active` | Present when replay-derived proof-hold state blocks further public start progress. |
+
+Typical stop predicates:
+
+| `stop_predicate` | Operator action |
+| --- | --- |
+| `dispatch_required` | Open `fp_manifest_path`, do the requested F_P work, write the result JSON at the manifest `result_path`, then run `assess-result --result <path>`. |
+| `human_gate_required` | Satisfy the human approval lane or rerun with lawful `--fh-mode human-proxy --until converged` when policy allows proxying. |
+| `proof_hold` | Inspect `gaps --workspace . --scope workspace` and live status. Clear the underlying failed proof state through the scoped correction path before rerunning. |
+| `converged` | Inspect the event stream and proof surfaces before treating the run as operationally closed. |
+| `nothing_to_do` | Confirm the scope and target were correct. This means ABG found no lawful advancement in that scope. |
+
+Process exit codes classify the same surface for scripts:
+
+| Code | Meaning |
+| --- | --- |
+| `0` | Converged or nothing to do. |
+| `1` | Command or runtime error. |
+| `2` | F_P dispatch is pending. Read `fp_manifest_path`. |
+| `3` | F_H gate is pending. Read the gate criteria in output. |
+| `4` | Deterministic gap stopped advancement. |
+| `5` | Iteration limit stopped convergence. |
+| `6` | Constructive work yielded handoff truth. |
+| `7` | Proof hold stopped redispatch. |
+
+### Run targeted work
+
+Use `next` for ordinary workspace advancement:
+
+```bash
+PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target next --until first_traversal
+```
+
+Use a graph-function target when the operator already knows the published carrier:
+
+```bash
+PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target graph_function:code-flow --until first_traversal
+```
+
+When this selects F_P work, the output includes `fp_manifest_path`.
+Read the manifest edge before writing the result:
+
+```bash
+python -m json.tool .ai-workspace/fp_manifests/<manifest-id>.json
+PYTHONPATH=.genesis python -m genesis assess-result --workspace . --result .ai-workspace/fp_results/<manifest-id>.json
+```
+
+Use an asset target when the operator works from a published artifact handle:
+
+```bash
+PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target asset:code_surface --until first_traversal
+```
+
+The runtime contract must publish an `operator_asset_contract`.
+The contract command must return registry JSON with an `assets` collection.
+Each entry must identify the asset and its operator target.
+
+Example registry entry:
+
+```json
+{
+  "assets": [
+    {
+      "asset_id": "code_surface",
+      "uri": "file://build/code",
+      "operator_target": {
+        "kind": "graph_function",
+        "handle": "code-flow"
+      }
+    }
+  ]
+}
+```
+
+Use supervised root mode when the operator wants convergence control plus a live status surface:
+
+```bash
+PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target next --until converged --root-mode supervised
+```
+
+The output includes `root_supervision: true` and a `live_status` object.
+
+Use human-proxy mode only for convergence runs where the resolved policy allows F_H proxying:
+
+```bash
+PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target next --until converged --fh-mode human-proxy
+```
+
+`--fh-mode human-proxy` and `--root-mode supervised` are control modes.
+They do not change the admitted `scope + target + until` traversal request.
 
 ### Install the kernel into another workspace
 
 ```bash
-python /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/code/gen-install.py --target /path/to/project
+python build_tenants/abiogenesis/python/code/gen-install.py --target /path/to/project
 ```
 
 That installs:
@@ -322,8 +503,8 @@ Then run:
 
 ```bash
 cd /path/to/project
-PYTHONPATH=.genesis python -m genesis gaps --workspace .
-PYTHONPATH=.genesis python -m genesis start --auto --workspace .
+PYTHONPATH=.genesis python -m genesis gaps --workspace . --scope workspace
+PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target next --until first_traversal
 ```
 
 ## What To Inspect After A Run
@@ -335,10 +516,15 @@ Inspect these in order:
 3. projected graph-call state
 4. open continuations
 5. proof and closure facts
+6. selected manifest edge when `start` dispatches F_P work
 
 Ask these questions:
 
 - what graph function was called
+- which `target` and `until` the command admitted
+- whether `root_mode` or `fh_mode` changed the control path
+- which manifest edge was selected
+- which edge was dispatched or assessed
 - what runtime facts were emitted
 - what failed or remained open
 - whether proof passed

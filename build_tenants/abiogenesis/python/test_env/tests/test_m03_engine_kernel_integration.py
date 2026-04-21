@@ -48,9 +48,12 @@ from genesis.binding import (
     PrecomputedManifest,
     WorkSurface,
     Worker,
+    admit_asset_binding_query_contract,
     bind_fd,
     bind_fp,
     module_to_executable_jobs,
+    regime_binding_set_from_evaluator_partitions,
+    resolve_workspace_asset_bindings,
 )
 from genesis.identity import RuntimeIdentity
 from genesis.convergence import convergence_from_precomputed, outcomes_from_precomputed
@@ -61,6 +64,7 @@ from genesis.install import workspace_bootstrap
 from genesis.interpret import (
     Traversal,
     TraversalRuntime,
+    admit_traversal_runtime,
     derive_operational_gaps,
     plan_next_traversal,
     schedule,
@@ -106,8 +110,10 @@ def _precomputed(job, *, failing=(), passing=()) -> PrecomputedManifest:
     return PrecomputedManifest(
         executable_job=job,
         current_asset={},
-        failing_evaluators=list(failing),
-        passing_evaluators=list(passing),
+        regime_bindings=regime_binding_set_from_evaluator_partitions(
+            failing=failing,
+            passing=passing,
+        ),
         fd_results={},
         relevant_contexts={},
     )
@@ -738,6 +744,47 @@ def _converge_fp_edge(
 
 @pytest.mark.integration
 class TestM03EngineKernelIntegration:
+    def test_convergence_consumes_regime_binding_set_as_singular_truth(self) -> None:
+        source = Node(name="design", schema="Design")
+        target = Node(name="approval", schema="Approval")
+        evaluator = Evaluator("human_gate", F_H, "human approval is admitted")
+        vector = GraphVector(
+            name="design→approval",
+            source=source,
+            target=target,
+            evaluators=(evaluator,),
+        )
+        graph = Graph(
+            name="human_gate_graph",
+            inputs=(source,),
+            outputs=(target,),
+            nodes=(source, target),
+            vectors=(vector,),
+        )
+        graph_function = _graph_function("design→approval", graph)
+        job = Job(
+            name="human_gate_job",
+            contracts=(ContractRef(kind="graph_function", target_id=graph_function.id),),
+        )
+        executable_job = module_to_executable_jobs(
+            Module(
+                name="human_gate_module",
+                graphs=(graph,),
+                graph_functions=(graph_function,),
+                jobs=(job,),
+            )
+        )[0]
+
+        pre = _precomputed(executable_job, failing=(evaluator,))
+        result = convergence_from_precomputed(executable_job.vector.id, pre)
+
+        assert result.aggregate_state == "open"
+        assert result.outcomes[0].status == "open"
+
+        pre.regime_bindings = None  # type: ignore[assignment]
+        with pytest.raises(ValueError, match="RegimeBindingSet carrier truth"):
+            convergence_from_precomputed(executable_job.vector.id, pre)
+
     @pytest.mark.parametrize(
         "territories",
         tuple(
@@ -787,6 +834,7 @@ class TestM03EngineKernelIntegration:
             module=module,
         )
 
+        assert blocked.regime_bindings.failures().fd == ()
         assert blocked.resolved_environment.ready is False
         assert blocked.resolved_environment.missing_required == ("requirements", "design")
         assert any(
@@ -815,6 +863,9 @@ class TestM03EngineKernelIntegration:
             module=module,
         )
 
+        assert ready.regime_bindings.failures().fd == ()
+        assert ready.regime_bindings.failures().fh == ()
+        assert ready.regime_bindings.failures().fp == tuple(ready.failing_evaluators)
         assert ready.resolved_environment.ready is True
         bound = bind_fp(ready, code_job, result_path="tmp/result.json")
         assert "[ENVIRONMENT]" in bound.prompt
@@ -891,12 +942,20 @@ print(json.dumps({
             encoding="utf-8",
         )
 
+        admitted_asset_bindings = resolve_workspace_asset_bindings(
+            workspace_root=tmp_path,
+            contract=admit_asset_binding_query_contract(
+                {"domain_package": "asset_query_fixture"},
+                workspace_root=tmp_path,
+            ),
+        )
+
         bound = bind_fp(
             ready,
             code_job,
             result_path="tmp/result.json",
             workspace_root=tmp_path,
-            runtime_config={"domain_package": "asset_query_fixture"},
+            asset_bindings=admitted_asset_bindings,
         )
 
         assert "[TARGET BINDING]" in bound.prompt
@@ -1052,7 +1111,7 @@ print(json.dumps({
             tmp_path,
             module=module,
         )
-        runtime = TraversalRuntime(
+        runtime = admit_traversal_runtime(
             module=module,
             executable_job=code_job,
             precomputed=ready,
@@ -1135,17 +1194,24 @@ print(json.dumps({
         )
 
         with pytest.raises(ValueError, match="target asset binding"):
+            admitted_asset_bindings = resolve_workspace_asset_bindings(
+                workspace_root=tmp_path,
+                contract=admit_asset_binding_query_contract(
+                    {
+                        "asset_binding_contract": {
+                            "command": [sys.executable, str(query_script)],
+                            "timeout_seconds": 5,
+                        }
+                    },
+                    workspace_root=tmp_path,
+                ),
+            )
             bind_fp(
                 ready,
                 code_job,
                 result_path="tmp/result.json",
                 workspace_root=tmp_path,
-                runtime_config={
-                    "asset_binding_contract": {
-                        "command": [sys.executable, str(query_script)],
-                        "timeout_seconds": 5,
-                    }
-                },
+                asset_bindings=admitted_asset_bindings,
             )
 
     def test_plan_next_traversal_skips_blocked_late_step_until_carried_environment_exists(
@@ -1304,6 +1370,35 @@ print(json.dumps({
         assert resolved["closure"]["ref"] == "genesis.policy_defaults:closure_require_resolution_or_fh"
         assert resolved["sources"]["closure"] == "graph_function.declarations"
 
+    def test_policy_resolution_accepts_runtime_config_only_as_default_bundle_ingress(self) -> None:
+        resolved = resolve_policy_bundle(
+            runtime_config={
+                "default_policy_bundle": {
+                    "ref": "genesis.policy_defaults:supervised_fp_bundle",
+                    "config": {"dispatch": {"mode": "supervised"}},
+                }
+            }
+        )
+
+        assert resolved["resolved_policy_bundle_ref"] == "genesis.policy_defaults:supervised_fp_bundle"
+        assert resolved["sources"]["dispatch"] == "runtime_config:bundle"
+        assert resolved["dispatch"]["ref"] == "genesis.dispatch_runtime:dispatch_bound_manifest_via_supervised_transport"
+        assert resolved["dispatch"]["config"]["mode"] == "supervised"
+
+    def test_policy_resolution_rejects_runtime_config_direct_concern_override(self) -> None:
+        with pytest.raises(
+            ValueError,
+            match="runtime_config policy ingress may only declare policy_bundle/default_policy_bundle",
+        ):
+            resolve_policy_bundle(
+                runtime_config={
+                    "dispatch": {
+                        "ref": "genesis.dispatch_runtime:dispatch_bound_manifest_via_supervised_transport",
+                        "config": {"mode": "supervised"},
+                    }
+                }
+            )
+
     def test_selected_edge_fd_failure_dispatches_fp_when_declared_policy_allows_continuation(
         self,
         tmp_path: Path,
@@ -1374,7 +1469,7 @@ print(json.dumps({
                 target=graph_function,
                 evaluators=vector.evaluators,
             ),
-            runtime=TraversalRuntime(
+            runtime=admit_traversal_runtime(
                 module=module,
                 executable_job=executable_job,
                 precomputed=_precomputed(executable_job, failing=(fd_gap,)),
@@ -1466,7 +1561,7 @@ print(json.dumps({
                 target=graph_function,
                 evaluators=vector.evaluators,
             ),
-            runtime=TraversalRuntime(
+            runtime=admit_traversal_runtime(
                 module=module,
                 executable_job=executable_job,
                 precomputed=_precomputed(executable_job, failing=(fd_gap,)),
@@ -1556,7 +1651,7 @@ print(json.dumps({
                 target=graph_function,
                 evaluators=vector.evaluators,
             ),
-            runtime=TraversalRuntime(
+            runtime=admit_traversal_runtime(
                 module=module,
                 executable_job=executable_job,
                 precomputed=_precomputed(executable_job, failing=(fd_gap, fp_review)),
@@ -1684,7 +1779,7 @@ print(json.dumps({
         )
         stream = workspace_bootstrap(tmp_path)
         executable_job = module_to_executable_jobs(module)[0]
-        runtime = TraversalRuntime(
+        runtime = admit_traversal_runtime(
             module=module,
             executable_job=executable_job,
             precomputed=_precomputed(executable_job),
@@ -1834,7 +1929,7 @@ print(json.dumps({
                 ),
                 evaluators=outer.evaluators,
             ),
-            runtime=TraversalRuntime(
+            runtime=admit_traversal_runtime(
                 module=module,
                 executable_job=executable_job,
                 precomputed=_precomputed(executable_job),
@@ -1942,7 +2037,7 @@ print(json.dumps({
                 ),
                 evaluators=outer.evaluators,
             ),
-            runtime=TraversalRuntime(
+            runtime=admit_traversal_runtime(
                 module=module,
                 executable_job=executable_job,
                 precomputed=_precomputed(executable_job),
@@ -2051,7 +2146,7 @@ print(json.dumps({
                 ),
                 evaluators=outer.evaluators,
             ),
-            runtime=TraversalRuntime(
+            runtime=admit_traversal_runtime(
                 module=module,
                 executable_job=executable_job,
                 precomputed=_precomputed(executable_job),
@@ -2177,7 +2272,7 @@ print(json.dumps({
                     ),
                     evaluators=outer.evaluators,
                 ),
-                runtime=TraversalRuntime(
+                runtime=admit_traversal_runtime(
                     module=module,
                     executable_job=executable_job,
                     precomputed=_precomputed(executable_job),
@@ -2302,7 +2397,7 @@ print(json.dumps({
                     ),
                     evaluators=outer.evaluators,
                 ),
-                runtime=TraversalRuntime(
+                runtime=admit_traversal_runtime(
                     module=module,
                     executable_job=executable_job,
                     precomputed=_precomputed(executable_job),
@@ -2386,7 +2481,7 @@ print(json.dumps({
                 ),
                 evaluators=outer.evaluators,
             ),
-            runtime=TraversalRuntime(
+            runtime=admit_traversal_runtime(
                 module=module,
                 executable_job=executable_job,
                 precomputed=_precomputed(executable_job),
@@ -2505,7 +2600,7 @@ print(json.dumps({
                 ),
                 evaluators=outer.evaluators,
             ),
-            runtime=TraversalRuntime(
+            runtime=admit_traversal_runtime(
                 module=module,
                 executable_job=executable_job,
                 precomputed=_precomputed(executable_job),
@@ -2654,7 +2749,7 @@ print(json.dumps({
                 ),
                 evaluators=outer.evaluators,
             ),
-            runtime=TraversalRuntime(
+            runtime=admit_traversal_runtime(
                 module=module,
                 executable_job=executable_job,
                 precomputed=_precomputed(executable_job),
@@ -2791,7 +2886,7 @@ print(json.dumps({
         )
         first = traverse(
             traversal,
-            runtime=TraversalRuntime(
+            runtime=admit_traversal_runtime(
                 module=module,
                 executable_job=executable_job,
                 precomputed=_precomputed(executable_job),
@@ -2824,7 +2919,7 @@ print(json.dumps({
                 ),
                 evaluators=outer.evaluators,
             ),
-            runtime=TraversalRuntime(
+            runtime=admit_traversal_runtime(
                 module=module,
                 executable_job=executable_job,
                 precomputed=_precomputed(executable_job),
@@ -2964,7 +3059,7 @@ print(json.dumps({
                 ),
                 evaluators=outer.evaluators,
             ),
-            runtime=TraversalRuntime(
+            runtime=admit_traversal_runtime(
                 module=module,
                 executable_job=executable_job,
                 precomputed=_precomputed(executable_job),
@@ -3091,7 +3186,7 @@ print(json.dumps({
                 ),
                 evaluators=outer.evaluators,
             ),
-            runtime=TraversalRuntime(
+            runtime=admit_traversal_runtime(
                 module=module,
                 executable_job=executable_job,
                 precomputed=_precomputed(executable_job),
@@ -3229,7 +3324,7 @@ print(json.dumps({
                 ),
                 evaluators=outer.evaluators,
             ),
-            runtime=TraversalRuntime(
+            runtime=admit_traversal_runtime(
                 module=module,
                 executable_job=executable_job,
                 precomputed=_precomputed(executable_job),
@@ -3266,7 +3361,7 @@ print(json.dumps({
                 ),
                 evaluators=step.executable_job.vector.evaluators,
             ),
-            runtime=TraversalRuntime(
+            runtime=admit_traversal_runtime(
                 module=module,
                 executable_job=step.executable_job,
                 precomputed=_precomputed(step.executable_job),
@@ -3388,7 +3483,7 @@ print(json.dumps({
                 ),
                 evaluators=outer.evaluators,
             ),
-            runtime=TraversalRuntime(
+            runtime=admit_traversal_runtime(
                 module=module,
                 executable_job=executable_job,
                 precomputed=_precomputed(executable_job),
@@ -3426,7 +3521,7 @@ print(json.dumps({
                 ),
                 evaluators=step.executable_job.vector.evaluators,
             ),
-            runtime=TraversalRuntime(
+            runtime=admit_traversal_runtime(
                 module=module,
                 executable_job=step.executable_job,
                 precomputed=_precomputed(step.executable_job),
@@ -3515,7 +3610,7 @@ print(json.dumps({
                     ),
                     evaluators=current_job.vector.evaluators,
                 ),
-                runtime=TraversalRuntime(
+                runtime=admit_traversal_runtime(
                     module=module,
                     executable_job=current_job,
                     precomputed=_precomputed(current_job),
@@ -3623,7 +3718,7 @@ print(json.dumps({
         )
         stream = workspace_bootstrap(tmp_path)
 
-        runtime = TraversalRuntime(
+        runtime = admit_traversal_runtime(
             module=module,
             executable_job=executable_job,
             precomputed=_precomputed(executable_job, failing=(fp_evaluator,)),
@@ -3720,7 +3815,7 @@ print(json.dumps({
         scope = Scope(module=module, workspace_root=tmp_path, build="kernel_router")
         scope.worker.authority_ref = "module://M03-engine-kernel"
         executable_job = module_to_executable_jobs(module)[0]
-        runtime = TraversalRuntime(
+        runtime = admit_traversal_runtime(
             module=module,
             executable_job=executable_job,
             precomputed=_precomputed(
@@ -3736,6 +3831,11 @@ print(json.dumps({
             work_key=vector.id,
             workflow_version="m03.test@3.0.0",
             run_id="run-m03-fp",
+            resolved_policy=resolve_policy_bundle(
+                vector=executable_job.vector,
+                graph_function=executable_job.graph_function,
+                roles=executable_job.job.roles,
+            ),
         )
 
         outcome = traverse(
@@ -3750,6 +3850,12 @@ print(json.dumps({
 
         assert outcome.result["status"] == "iterated"
         assert outcome.result["blocking_reason"] == "fp_dispatch"
+        assert outcome.result["execution_basis"]["edge"] == vector.name
+        assert outcome.result["advancement_transition"]["kind"] == "fp_dispatch"
+        assert outcome.result["fp_result_path"] == str(
+            tmp_path / ".ai-workspace" / "fp_results" / f"{outcome.result['manifest_id']}.json"
+        )
+        assert outcome.result["advancement_transition"]["result_path"] == outcome.result["fp_result_path"]
         manifest_path = Path(outcome.result["fp_manifest_path"])
         assert manifest_path.exists()
 
@@ -3790,8 +3896,15 @@ print(json.dumps({
         assert manifest["resolved_policy"]["dispatch"]["ref"] == (
             "genesis.dispatch_runtime:dispatch_bound_manifest_via_supervised_transport"
         )
+        assert manifest["execution_basis"]["edge"] == vector.name
+        assert manifest["execution_basis"]["run_id"] == "run-m03-fp"
+        assert manifest["advancement_transition"]["kind"] == "fp_dispatch"
+        assert manifest["advancement_transition"]["dispatch_ref"] == (
+            "genesis.dispatch_runtime:dispatch_bound_manifest_via_supervised_transport"
+        )
+        assert manifest["advancement_transition"]["result_path"] == manifest["result_path"]
 
-        resumed_runtime = TraversalRuntime(
+        resumed_runtime = admit_traversal_runtime(
             module=module,
             executable_job=executable_job,
             precomputed=_precomputed(
@@ -3806,6 +3919,11 @@ print(json.dumps({
             build=scope.build,
             work_key=vector.id,
             workflow_version="m03.test@3.0.0",
+            resolved_policy=resolve_policy_bundle(
+                vector=executable_job.vector,
+                graph_function=executable_job.graph_function,
+                roles=executable_job.job.roles,
+            ),
         )
         resumed_outcome = traverse(
             Traversal(
@@ -3821,6 +3939,14 @@ print(json.dumps({
         assert resumed_outcome.result["pending_run_id"] == "run-m03-fp"
         assert resumed_outcome.result["manifest_id"] == manifest_path.stem
         assert resumed_outcome.result["fp_manifest_path"] == str(manifest_path)
+        assert resumed_outcome.result["fp_result_path"] == str(
+            tmp_path / ".ai-workspace" / "fp_results" / f"{manifest_path.stem}.json"
+        )
+        assert resumed_outcome.result["advancement_transition"]["kind"] == "fp_dispatch"
+        assert (
+            resumed_outcome.result["advancement_transition"]["result_path"]
+            == resumed_outcome.result["fp_result_path"]
+        )
 
     def test_retry_after_terminal_run_mints_fresh_manifest_with_current_binding_truth(self, tmp_path: Path) -> None:
         raw_contract = Node(name="raw_contract", schema="ContractInput")
@@ -3894,7 +4020,7 @@ print(json.dumps({
             encoding="utf-8",
         )
 
-        first_runtime = TraversalRuntime(
+        first_runtime = admit_traversal_runtime(
             module=module,
             executable_job=executable_job,
             precomputed=_precomputed(
@@ -3974,7 +4100,7 @@ print(json.dumps({
             encoding="utf-8",
         )
 
-        second_runtime = TraversalRuntime(
+        second_runtime = admit_traversal_runtime(
             module=module,
             executable_job=executable_job,
             precomputed=_precomputed(
@@ -4061,7 +4187,7 @@ print(json.dumps({
 
         stream = workspace_bootstrap(tmp_path)
         executable_job = module_to_executable_jobs(module)[0]
-        runtime = TraversalRuntime(
+        runtime = admit_traversal_runtime(
             module=module,
             executable_job=executable_job,
             precomputed=_precomputed(executable_job, passing=(fd_ok,)),
@@ -4152,7 +4278,7 @@ print(json.dumps({
         )
         stream = workspace_bootstrap(tmp_path)
         executable_job = module_to_executable_jobs(module)[0]
-        runtime = TraversalRuntime(
+        runtime = admit_traversal_runtime(
             module=module,
             executable_job=executable_job,
             precomputed=_precomputed(
@@ -4286,7 +4412,7 @@ print(json.dumps({
         )
         stream = workspace_bootstrap(tmp_path)
         executable_job = module_to_executable_jobs(module)[0]
-        runtime = TraversalRuntime(
+        runtime = admit_traversal_runtime(
             module=module,
             executable_job=executable_job,
             precomputed=_precomputed(

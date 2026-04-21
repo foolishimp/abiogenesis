@@ -1,10 +1,22 @@
-# abiogenesis RC Release Note
+# abiogenesis 3.2.0 RC Release Note
 
-This release candidate closes the current `abiogenesis` provenance and
-runtime-boundary hardening wave.
+This release candidate closes the current `abiogenesis` B-027
+runtime-carrier, regime-algebra, and runtime-boundary hardening wave.
 
 ## What Shipped
 
+- runtime advancement law is now expressed through typed carriers including
+  `ExecutionBasis`, `AdvancementTransition`, `IterationAdvanceDecision`, and
+  regime-binding algebra rather than controller-owned orchestration
+- `gen-start` and `gen-iterate` consume kernel-produced carrier truth instead
+  of reconstructing transition meaning from result dictionaries
+- `RegimeBindingSet` is the singular regime truth for `F_D`, `F_P`, and `F_H`;
+  convergence and runtime publication derive evaluator state from that algebra
+- feature completion is event-owned; active-work projection is replay-derived
+  from declaration files plus completion/reset events
+- runtime policy, proof-hold, live-status, dispatch, ingest, and asset-binding
+  contract ingress now fail closed or consume admitted carrier truth instead of
+  treating `runtime_config` as an independent semantic authority
 - install/bootstrap now seeds provenance-ready workflow metadata by construction
 - governed runtime no longer accepts `"unknown"` as a steady-state provenance
   mode
@@ -24,6 +36,11 @@ runtime-boundary hardening wave.
   asset, determine realized progress, identify the remaining gap, and continue
   from present state
 - regression coverage for:
+  - carrier-only advancement and mixed-state rejection
+  - regime-binding algebra as the convergence/publication authority
+  - event-backed feature completion and reset replay
+  - dispatch, ingest, proof-hold, live-status, and asset-binding ingress
+    fail-closed behavior
   - provenance hard-fail on missing or malformed workflow metadata
   - install/bootstrap provenance readiness
   - stale event rejection under the stronger versioned runtime identity
@@ -34,8 +51,12 @@ runtime-boundary hardening wave.
 
 ## Framework Position
 
-This RC hardens the ABG runtime boundary:
+This RC cuts a new ABG runtime boundary:
 
+- graph-owned carriers and replay-visible events are the runtime source of
+  truth
+- imperative service/controller seams are bindings over that source, not rival
+  semantic centers
 - governed runtime must be provenance-ready by construction
 - removed fallback modes are interface cuts, not hidden compatibility surfaces
 - downstream consumers must refactor to the released boundary through install
@@ -72,7 +93,14 @@ Targeted proof lanes:
 Full framework suite:
 
 - `python -m pytest build_tenants/abiogenesis/python/test_env/tests -q`
-- result: `259 passed, 5 deselected in 22.78s`
+- result: `317 passed, 19 deselected`
+
+Live qualification:
+
+- `CODEX_LIVE_FP=1 python -m pytest -m live_fp -x -v -s build_tenants/abiogenesis/python/test_env/tests/test_sandbox_usecases_live.py`
+- result: `5 passed` from the Claude-run live harness; Codex sandbox execution
+  skipped the same live tests because the sandboxed subprocess could not
+  complete Claude CLI OAuth/auth startup
 
 ## Known RC Limitation
 
@@ -85,4 +113,4 @@ The canonical release path remains:
 3. refactor downstream consumers to the released boundary
 4. prove the downstream evidence workspaces from that installed RC
 
-This is documented in [ABIOGENESIS_RC_NOTES.md](/Users/jim/src/apps/abiogenesis/docs/ABIOGENESIS_RC_NOTES.md).
+This is documented in [ABIOGENESIS_RC_NOTES.md](https://github.com/foolishimp/abiogenesis/blob/main/docs/ABIOGENESIS_RC_NOTES.md).

@@ -12,7 +12,14 @@ from typing import Literal, Optional
 
 from gtl.operator_model import Evaluator, Regime, Rule, F_D, F_H, F_P
 
-from .binding import ContextResolver, PrecomputedManifest, bind_fd
+from .binding import (
+    ContextResolver,
+    FdBindingOutcome,
+    FhBindingOutcome,
+    FpCertificationOutcome,
+    PrecomputedManifest,
+    bind_fd,
+)
 from .events import EventStream
 from .lineage import _discover_children
 from .policy import materialize_policy_concern, resolve_policy_bundle
@@ -120,14 +127,16 @@ def outcomes_from_precomputed(
     This is the singular assessment basis for the Claude build runtime.
     """
     outcomes: list[EvaluatorOutcome] = []
-    passing = {ev.name for ev in precomputed.passing_evaluators}
-    failing = {ev.name for ev in precomputed.failing_evaluators}
-
+    regime_bindings = precomputed.regime_binding_truth()
     for ev in precomputed.executable_job.evaluators:
-        if ev.name in passing:
-            status: Literal["pass", "fail", "open", "error"] = "pass"
-        elif ev.name in failing:
-            status = "fail" if ev.regime is F_D else "open"
+        status: Literal["pass", "fail", "open", "error"]
+        binding = regime_bindings.outcome_for(ev.name)
+        if isinstance(binding, FdBindingOutcome):
+            status = "pass" if binding.passes else "fail"
+        elif isinstance(binding, FhBindingOutcome):
+            status = "pass" if binding.admitted else "open"
+        elif isinstance(binding, FpCertificationOutcome):
+            status = "pass" if binding.certified else "open"
         else:
             status = "error"
         outcomes.append(
@@ -143,7 +152,7 @@ def outcomes_from_precomputed(
 
 
 def unresolved_fraction(outcomes: tuple[EvaluatorOutcome, ...]) -> float:
-    """Legacy convergence score derived from typed evaluator outcomes."""
+    """Convergence score derived from typed evaluator outcomes."""
     if not outcomes:
         return 0.0
     unresolved = sum(1 for o in outcomes if o.status != "pass")
@@ -193,8 +202,17 @@ def convergence_from_precomputed(
         resolved_policy=resolved_policy,
         runtime_config=runtime_config,
     )
-    failing = precomputed.failing_evaluators
-    if not failing:
+    unresolved = tuple(outcome for outcome in outcomes if outcome.status != "pass")
+    if any(outcome.status == "error" for outcome in unresolved):
+        return ConvergenceResult(
+            contract_id=contract_id,
+            outcomes=outcomes,
+            aggregate_state="error",
+            next_action="fail",
+            next_regime=None,
+            round_index=round_index,
+        )
+    if not unresolved:
         return ConvergenceResult(
             contract_id=contract_id,
             outcomes=outcomes,
@@ -204,7 +222,7 @@ def convergence_from_precomputed(
             round_index=round_index,
         )
 
-    failing_regimes = {ev.regime for ev in failing}
+    failing_regimes = {outcome.regime for outcome in unresolved}
     if F_D in failing_regimes:
         next_regime = _transition_for(escalation_behavior, "fail_transition", F_D)
         action_with_transition = str(

@@ -41,7 +41,7 @@ Default role assignments for this install:
 <!-- GTL_BOOTLOADER_START -->
 # GTL Bootloader: Axiomatic Constraint Surface
 
-**Version**: 3.1.0
+**Version**: 3.2.0
 **Status**: Compressed install-time bootstrap
 **Role**: Minimal ontology and operating constraints for GTL 3 / ABG 3 work
 
@@ -73,6 +73,7 @@ ABG is:
 - event-sourced
 - provenance-carrying
 - replayable
+- carrier-owned at the runtime-law boundary
 - tail-loop recursive over explicit continuation and child-frontier state
 
 The published module stays stable.
@@ -145,6 +146,8 @@ GTL declares:
 
 ABG realizes:
 - traversal
+- typed advancement carriers
+- typed regime-binding algebra
 - lawful selection application
 - materialization
 - events
@@ -174,6 +177,8 @@ Rules:
 2. Agent output is not constitutional truth by itself.
 3. Human approval does not override deterministic failure.
 4. Evaluators attest contract satisfaction; operators perform work.
+5. Deterministic observations may inform F_P without structurally blocking
+   lawful constructive dispatch when resolved runtime policy permits it.
 
 ## 6. Recursive Runtime Contract
 
@@ -199,6 +204,13 @@ If frame-local recursion bleeds into global publication or hidden fallback trave
 5. Correction shadows stale truth; it does not erase history.
 6. Transport/prompt formatting is replaceable; manifest/work truth is authoritative.
 7. Derived artifacts are read models and must not outrank constitutional or design truth.
+8. Runtime advancement truth is carried by `ExecutionBasis` and
+   `AdvancementTransition`, not by controller-local result shapes.
+9. Iteration decisions are carried by `IterationAdvanceDecision`.
+10. Regime truth is carried by `RegimeBindingSet`; `F_D`, `F_P`, and `F_H`
+    consumers pattern-match the algebra instead of reinterpreting evaluator
+    lists.
+11. `runtime_config` is adapter/bootstrap ingress, not semantic runtime law.
 
 ## 8. Read Next
 

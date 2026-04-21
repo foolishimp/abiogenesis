@@ -25,6 +25,7 @@ from genesis.services import (
     Scope,
     ScopeSelector,
     StartIntent,
+    admit_operator_asset_query_contract,
     gen_gaps,
     gen_iterate,
     gen_start,
@@ -102,7 +103,10 @@ def start(
             app.module,
             target,
             workspace_root=app.config.workspace_root,
-            runtime_config=app.config.runtime_config,
+            operator_asset_contract=admit_operator_asset_query_contract(
+                app.config.runtime_config,
+                workspace_root=app.config.workspace_root,
+            ),
         ),
         until=until,
     )

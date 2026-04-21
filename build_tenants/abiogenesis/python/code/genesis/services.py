@@ -20,7 +20,7 @@ from __future__ import annotations
 
 import json
 import subprocess
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from pathlib import Path
 from typing import Any, Literal, Optional
 
@@ -29,17 +29,20 @@ from gtl.function_model import GraphFunction
 
 from .binding import (
     ASSET_BINDING_QUERY_TIMEOUT_SECONDS,
+    AssetBindingQueryContract,
     ExecutableJob,
     Worker,
+    admit_asset_binding_query_contract,
     _coerce_boolish,
     _coerce_command_tokens,
     _coerce_mapping_or_json_object,
     _dig_path,
+    _runtime_pythonpath_entries,
     _workspace_command_env,
     module_to_executable_jobs,
 )
 from .binding import WorkSurface
-from .events import EventStream
+from .events import EventContext, EventStream, emit
 from .identity import RuntimeIdentity
 from .interpret import (
     derive_operational_gaps,
@@ -47,8 +50,16 @@ from .interpret import (
     plan_next_traversal,
     traverse,
 )
-from .lineage import _discover_children, active_work_keys
+from .lineage import _discover_children, active_work_keys, completed_feature_keys
 from .provenance import _read_workflow_version
+from .runtime_carrier import (
+    AdvancementTransition,
+    ExecutionBasis,
+    TerminalTransition,
+    attach_runtime_carrier_metadata,
+    stop_predicate_from_transition,
+    terminal_transition_from_operational_state,
+)
 from .selection import (
     validate_job_callable_vectors_are_published,
     validate_module_selection_surface,
@@ -321,56 +332,87 @@ def _graph_function_name_by_id(module: Module) -> dict[str, str]:
     return {graph_function.id: graph_function.name for graph_function in module.graph_functions}
 
 
-def _operator_asset_contract(runtime_config: dict[str, Any] | None) -> dict[str, Any] | None:
+@dataclass(frozen=True)
+class OperatorAssetQueryContract:
+    command: tuple[str, ...]
+    assets_key: str
+    handle_key: str
+    asset_id_key: str
+    uri_key: str
+    relative_path_key: str
+    path_kind_key: str
+    exists_key: str
+    owner_kind_key: str
+    owner_handle_key: str
+    owner_target_id_key: str
+    timeout_seconds: int
+    binding_source: str
+    pythonpath_entries: tuple[str, ...] = ()
+
+
+def admit_operator_asset_query_contract(
+    runtime_config: dict[str, Any] | None,
+    *,
+    workspace_root: Path | None,
+) -> OperatorAssetQueryContract | None:
     config = dict(runtime_config or {})
     explicit = config.get("operator_asset_contract")
     if explicit is None:
         return None
-    contract = _coerce_mapping_or_json_object(
+    contract_map = _coerce_mapping_or_json_object(
         explicit,
         label="runtime_config.operator_asset_contract",
     )
-    contract["command"] = _coerce_command_tokens(
-        contract.get("command"),
-        label="runtime_config.operator_asset_contract.command",
+    return OperatorAssetQueryContract(
+        command=tuple(
+            _coerce_command_tokens(
+                contract_map.get("command"),
+                label="runtime_config.operator_asset_contract.command",
+            )
+        ),
+        assets_key=str(contract_map.get("assets_key", "assets")),
+        handle_key=str(contract_map.get("handle_key", "asset_id")),
+        asset_id_key=str(contract_map.get("asset_id_key", "asset_id")),
+        uri_key=str(contract_map.get("uri_key", "uri")),
+        relative_path_key=str(contract_map.get("relative_path_key", "metadata.relative_path")),
+        path_kind_key=str(contract_map.get("path_kind_key", "checkpoint.path_kind")),
+        exists_key=str(contract_map.get("exists_key", "checkpoint.exists")),
+        owner_kind_key=str(contract_map.get("owner_kind_key", "operator_target.kind")),
+        owner_handle_key=str(contract_map.get("owner_handle_key", "operator_target.handle")),
+        owner_target_id_key=str(contract_map.get("owner_target_id_key", "operator_target.target_id")),
+        timeout_seconds=int(contract_map.get("timeout_seconds", ASSET_BINDING_QUERY_TIMEOUT_SECONDS)),
+        binding_source=str(
+            contract_map.get("binding_source", "runtime_config.operator_asset_contract")
+        ),
+        pythonpath_entries=tuple(
+            _runtime_pythonpath_entries(runtime_config, workspace_root=workspace_root)
+        ),
     )
-    contract.setdefault("assets_key", "assets")
-    contract.setdefault("handle_key", "asset_id")
-    contract.setdefault("asset_id_key", "asset_id")
-    contract.setdefault("uri_key", "uri")
-    contract.setdefault("relative_path_key", "metadata.relative_path")
-    contract.setdefault("path_kind_key", "checkpoint.path_kind")
-    contract.setdefault("exists_key", "checkpoint.exists")
-    contract.setdefault("owner_kind_key", "operator_target.kind")
-    contract.setdefault("owner_handle_key", "operator_target.handle")
-    contract.setdefault("owner_target_id_key", "operator_target.target_id")
-    contract.setdefault("timeout_seconds", ASSET_BINDING_QUERY_TIMEOUT_SECONDS)
-    contract.setdefault("binding_source", "runtime_config.operator_asset_contract")
-    return contract
 
 
 def published_operator_asset_target_catalog(
     module: Module,
     *,
     workspace_root: Path | None,
-    runtime_config: dict[str, Any] | None = None,
+    operator_asset_contract: OperatorAssetQueryContract | None = None,
 ) -> dict[str, dict[str, Any]]:
-    contract = _operator_asset_contract(runtime_config)
+    contract = operator_asset_contract
     if contract is None:
         return {}
     if workspace_root is None:
-        raise ValueError("runtime_config.operator_asset_contract requires a workspace_root")
+        raise ValueError("operator asset contract requires a workspace_root")
 
-    timeout = contract.get("timeout_seconds", ASSET_BINDING_QUERY_TIMEOUT_SECONDS)
+    timeout = contract.timeout_seconds
     try:
         result = subprocess.run(
-            contract["command"],
+            list(contract.command),
             cwd=workspace_root,
             capture_output=True,
             text=True,
             env=_workspace_command_env(
-                runtime_config=runtime_config,
+                runtime_config=None,
                 workspace_root=workspace_root,
+                pythonpath_entries=contract.pythonpath_entries,
             ),
             timeout=float(timeout),
         )
@@ -386,7 +428,7 @@ def published_operator_asset_target_catalog(
     except json.JSONDecodeError as exc:
         raise ValueError("operator asset query did not return valid JSON") from exc
 
-    assets = _dig_path(payload, str(contract["assets_key"]))
+    assets = _dig_path(payload, contract.assets_key)
     if not isinstance(assets, list):
         raise ValueError("operator asset query JSON must expose a list at assets_key")
 
@@ -396,12 +438,12 @@ def published_operator_asset_target_catalog(
     for index, entry in enumerate(assets):
         if not isinstance(entry, dict):
             raise ValueError(f"operator asset query entry {index} must be an object")
-        handle = _dig_path(entry, str(contract["handle_key"]))
-        asset_id = _dig_path(entry, str(contract["asset_id_key"]))
-        uri = _dig_path(entry, str(contract["uri_key"]))
-        owner_kind = _dig_path(entry, str(contract["owner_kind_key"]))
-        owner_handle = _dig_path(entry, str(contract["owner_handle_key"]))
-        owner_target_id = _dig_path(entry, str(contract["owner_target_id_key"]))
+        handle = _dig_path(entry, contract.handle_key)
+        asset_id = _dig_path(entry, contract.asset_id_key)
+        uri = _dig_path(entry, contract.uri_key)
+        owner_kind = _dig_path(entry, contract.owner_kind_key)
+        owner_handle = _dig_path(entry, contract.owner_handle_key)
+        owner_target_id = _dig_path(entry, contract.owner_target_id_key)
         if not isinstance(handle, str) or not handle.strip():
             raise ValueError(f"operator asset query entry {index} must publish a non-empty handle")
         if not isinstance(asset_id, str) or not asset_id.strip():
@@ -446,9 +488,9 @@ def published_operator_asset_target_catalog(
             raise ValueError(
                 f"operator asset handle {handle!r} must publish operator_target.handle or operator_target.target_id"
             )
-        relative_path = _dig_path(entry, str(contract["relative_path_key"]))
-        path_kind = _dig_path(entry, str(contract["path_kind_key"]))
-        exists = _coerce_boolish(_dig_path(entry, str(contract["exists_key"])))
+        relative_path = _dig_path(entry, contract.relative_path_key)
+        path_kind = _dig_path(entry, contract.path_kind_key)
+        exists = _coerce_boolish(_dig_path(entry, contract.exists_key))
         catalog_entry = {
             "handle": handle.strip(),
             "asset_id": asset_id.strip(),
@@ -459,7 +501,7 @@ def published_operator_asset_target_catalog(
             "target_id": resolved_target_id,
             "graph_function_name": graph_function_name,
             "owner_handle": owner_handle,
-            "binding_source": str(contract["binding_source"]),
+            "binding_source": contract.binding_source,
         }
         existing = catalog.get(catalog_entry["handle"])
         if existing is not None and existing != catalog_entry:
@@ -475,7 +517,7 @@ def resolve_start_target(
     raw_target: str,
     *,
     workspace_root: Path | None = None,
-    runtime_config: dict[str, Any] | None = None,
+    operator_asset_contract: OperatorAssetQueryContract | None = None,
 ) -> StartTarget:
     value = (raw_target or "").strip()
     if value == "next":
@@ -504,15 +546,14 @@ def resolve_start_target(
     handle = value[len(asset_prefix):].strip()
     if not handle:
         raise ValueError("asset target requires a non-empty published handle")
-    contract = _operator_asset_contract(runtime_config)
-    if contract is None:
+    if operator_asset_contract is None:
         raise ValueError(
-            "asset target resolution requires a published runtime_config.operator_asset_contract"
+            "asset target resolution requires a published operator asset contract"
         )
     catalog = published_operator_asset_target_catalog(
         module,
         workspace_root=workspace_root,
-        runtime_config=runtime_config,
+        operator_asset_contract=operator_asset_contract,
     )
     entry = catalog.get(handle)
     if entry is None:
@@ -580,6 +621,8 @@ class Scope:
     work_key: Optional[str] = None    # work identity (ADR-023); None = global scope
     run_id: Optional[str] = None      # attempt identity (ADR-023); None = global scope
     runtime_config: dict = field(default_factory=dict)
+    operator_asset_contract: "OperatorAssetQueryContract | None" = None
+    asset_binding_contract: AssetBindingQueryContract | None = None
     workflow_version: str = field(init=False, default="")
 
     def __post_init__(self) -> None:
@@ -608,6 +651,16 @@ class Scope:
 
         self.runtime_identity = self.runtime_identity.bind_worker(self.worker)
         self.build = self.runtime_identity.report_build_id()
+        if self.operator_asset_contract is None:
+            self.operator_asset_contract = admit_operator_asset_query_contract(
+                self.runtime_config,
+                workspace_root=self.workspace_root,
+            )
+        if self.asset_binding_contract is None:
+            self.asset_binding_contract = admit_asset_binding_query_contract(
+                self.runtime_config,
+                workspace_root=self.workspace_root,
+            )
 
         self.workflow_version = _read_workflow_version(
             self.workspace_root, self.active_workflow_path
@@ -668,24 +721,32 @@ def gen_gaps(scope: Scope, stream: EventStream) -> dict:
 
 # ── gen_iterate — internal traversal primitive ───────────────────────────────
 
-def gen_iterate(
+
+@dataclass(frozen=True)
+class IterateKernelOutcome:
+    result: dict[str, Any]
+    basis: ExecutionBasis
+    transition: AdvancementTransition
+
+
+def _iterate_kernel_outcome(
     scope: Scope,
     stream: EventStream,
     *,
     jobs_override: list[ExecutableJob] | None = None,
-) -> dict:
-    """
-    Internal one-step traversal primitive beneath `/gen-start`.
-
-    The most important command to keep pure.
-    One Job. One contract boundary. One iterate call.
-    When work_keys are active, selects the first unconverged (job, work_key) pair.
-    """
+) -> IterateKernelOutcome:
     worker = _resolve_worker(scope)
     jobs = list(jobs_override) if jobs_override is not None else _scoped_jobs(scope, worker)
+    basis = _execution_basis_for_scope(scope, jobs=jobs)
 
     if not jobs:
-        return {"status": "nothing_to_do", "reason": "no jobs in scope"}
+        result = {"status": "nothing_to_do", "reason": "no jobs in scope"}
+        transition = TerminalTransition(
+            basis=basis,
+            terminal_kind="nothing_to_do",
+            reason=result["reason"],
+        )
+        return IterateKernelOutcome(result=result, basis=basis, transition=transition)
 
     plan = plan_next_traversal(
         module=scope.module,
@@ -701,13 +762,44 @@ def gen_iterate(
         edge_filter=scope.diagnostic_edge_override,
         run_id=scope.run_id,
         runtime_config=scope.runtime_config,
+        asset_binding_contract=scope.asset_binding_contract,
         carry_forward=_read_carry_forward(scope),
     )
     if plan.traversal is None or plan.runtime is None:
-        return dict(plan.result)
-    outcome = traverse(plan.traversal, runtime=plan.runtime, surface=WorkSurface())
+        result = dict(plan.result)
+        transition = _transition_from_plan_result(basis, result)
+        return IterateKernelOutcome(result=result, basis=basis, transition=transition)
 
-    return outcome.result
+    outcome = traverse(plan.traversal, runtime=plan.runtime, surface=WorkSurface())
+    result = dict(outcome.result)
+    if outcome.basis is None or outcome.transition is None:
+        raise RuntimeError(
+            "iterated traversal outcome must carry typed runtime basis and transition"
+        )
+    return IterateKernelOutcome(
+        result=result,
+        basis=outcome.basis,
+        transition=outcome.transition,
+    )
+
+
+def gen_iterate(
+    scope: Scope,
+    stream: EventStream,
+    *,
+    jobs_override: list[ExecutableJob] | None = None,
+) -> dict:
+    """
+    Internal one-step traversal primitive beneath `/gen-start`.
+
+    The most important command to keep pure.
+    One Job. One contract boundary. One iterate call.
+    When work_keys are active, selects the first unconverged (job, work_key) pair.
+    """
+    outcome = _iterate_kernel_outcome(scope, stream, jobs_override=jobs_override)
+    result = dict(outcome.result)
+    attach_runtime_carrier_metadata(result, outcome.basis, outcome.transition)
+    return result
 
 
 # ── gen_start — state machine ──────────────────────────────────────────────────
@@ -727,56 +819,20 @@ def gen_start(
     jobs = _resolve_start_jobs(scope, worker, intent.target)
     if isinstance(jobs, dict):
         result = dict(jobs)
+        basis = _execution_basis_for_scope(scope, intent=intent, jobs=None)
+        transition = TerminalTransition(
+            basis=basis,
+            terminal_kind="gap_stop",
+            reason=result.get("reason"),
+        )
         _attach_target_metadata(result, intent.target)
         result["until"] = intent.until
-        result["stop_predicate"] = "gap_stop"
+        result["stop_predicate"] = stop_predicate_from_transition(transition)
+        attach_runtime_carrier_metadata(result, basis, transition)
         return result
 
-    state = _derive_state(scope, stream, jobs_override=jobs)
-
-    if state["status"] == "converged":
-        _close_completed_features(scope)
-        result = {
-            "status": "converged",
-            "message": "All jobs in scope have delta = 0. Run /gen-gaps for full report.",
-            "until": intent.until,
-            "stop_predicate": "converged",
-        }
-        _attach_target_metadata(result, intent.target)
-        return result
-
-    if state["status"] == "nothing_to_do":
-        result = {
-            "status": "nothing_to_do",
-            "reason": state.get("reason", ""),
-            "until": intent.until,
-            "stop_predicate": "gap_stop",
-        }
-        _attach_target_metadata(result, intent.target)
-        return result
-
-    result = gen_iterate(scope, stream, jobs_override=jobs)
-    result = dict(result)
-    result["until"] = intent.until
-    result["stop_predicate"] = _project_start_stop_predicate(result)
-    _attach_target_metadata(result, intent.target)
-    return result
-
-
-def _derive_state(
-    scope: Scope,
-    stream: EventStream,
-    *,
-    jobs_override: list[ExecutableJob] | None = None,
-) -> dict:
-    """
-    Derive project state from workspace. Never stored — always derived.
-
-    Uses typed convergence checking over precomputed manifests.
-    """
-    worker = _resolve_worker(scope)
-    jobs = list(jobs_override) if jobs_override is not None else _scoped_jobs(scope, worker)
-    return derive_operational_state(
+    basis = _execution_basis_for_scope(scope, intent=intent, jobs=jobs)
+    state = derive_operational_state(
         workspace_root=scope.workspace_root,
         stream=stream,
         module=scope.module,
@@ -788,6 +844,77 @@ def _derive_state(
         edge_filter=scope.diagnostic_edge_override,
         carry_forward=_read_carry_forward(scope),
     )
+    state_transition = terminal_transition_from_operational_state(basis, state)
+
+    if state_transition is not None and state_transition.terminal_kind == "converged":
+        _close_completed_features(scope, stream, target=intent.target)
+        result = {
+            "status": "converged",
+            "message": state_transition.reason,
+            "until": intent.until,
+        }
+        result["stop_predicate"] = stop_predicate_from_transition(state_transition)
+        _attach_target_metadata(result, intent.target)
+        attach_runtime_carrier_metadata(result, basis, state_transition)
+        return result
+
+    if state_transition is not None and state_transition.terminal_kind == "nothing_to_do":
+        result = {
+            "status": "nothing_to_do",
+            "reason": state_transition.reason or "",
+            "until": intent.until,
+        }
+        result["stop_predicate"] = stop_predicate_from_transition(state_transition)
+        _attach_target_metadata(result, intent.target)
+        attach_runtime_carrier_metadata(result, basis, state_transition)
+        return result
+
+    iterate_outcome = _iterate_kernel_outcome(scope, stream, jobs_override=jobs)
+    result = dict(iterate_outcome.result)
+    result["until"] = intent.until
+    transition = iterate_outcome.transition
+    result["stop_predicate"] = stop_predicate_from_transition(transition)
+    _attach_target_metadata(result, intent.target)
+    attach_runtime_carrier_metadata(
+        result,
+        replace(iterate_outcome.basis, start_intent=intent),
+        transition,
+    )
+    return result
+
+
+def _execution_basis_for_scope(
+    scope: Scope,
+    *,
+    intent: StartIntent | None = None,
+    jobs: list[ExecutableJob] | None = None,
+) -> ExecutionBasis:
+    executable_job = jobs[0] if jobs and len(jobs) == 1 else None
+    return ExecutionBasis(
+        workspace_root=scope.workspace_root,
+        executable_job=executable_job,
+        runtime_identity=scope.runtime_identity,
+        workflow_version=scope.workflow_version,
+        start_intent=intent,
+        run_id=scope.run_id,
+        work_key=scope.work_key,
+    )
+
+def _transition_from_plan_result(
+    basis: ExecutionBasis,
+    result: dict[str, Any],
+) -> AdvancementTransition:
+    status = str(result.get("status") or "")
+    reason = str(result.get("reason") or "") or None
+    if status == "converged":
+        return TerminalTransition(basis=basis, terminal_kind="converged", reason=reason)
+    if status == "nothing_to_do":
+        return TerminalTransition(basis=basis, terminal_kind="nothing_to_do", reason=reason)
+    if status == "blocked":
+        return TerminalTransition(basis=basis, terminal_kind="gap_stop", reason=reason)
+    if status == "in_progress":
+        return TerminalTransition(basis=basis, terminal_kind="traversal_applied", reason=reason)
+    return TerminalTransition(basis=basis, terminal_kind="traversal_applied", reason=reason)
 
 
 # ── internal helpers ──────────────────────────────────────────────────────────
@@ -887,53 +1014,67 @@ def _attach_target_metadata(result: dict[str, Any], target: StartTarget) -> None
             result["asset_binding_source"] = target.binding_source
 
 
-def _project_start_stop_predicate(result: dict) -> str:
+def _selected_feature_work_keys_for_completion(
+    scope: Scope,
+    *,
+    target: StartTarget,
+    active_feature_keys: set[str],
+) -> set[str]:
+    if target.kind != "next":
+        return set()
+    scoped_work_key = scope.work_key
+    if scoped_work_key is None and scope.selector.kind == "work_key":
+        scoped_work_key = scope.selector.work_key
+    if scoped_work_key is None:
+        return set(active_feature_keys)
+    return {
+        key
+        for key in active_feature_keys
+        if key == scoped_work_key or scoped_work_key.startswith(key + "/")
+    }
+
+
+def _close_completed_features(
+    scope: Scope,
+    stream: EventStream,
+    *,
+    target: StartTarget,
+) -> None:
     """
-    Derive canonical start stop truth from the runtime result.
+    Emit feature-completion runtime truth for active feature work keys.
 
-    These predicates are not CLI labels. CLI stop reasons must project from
-    this canonical layer, not redefine it.
-    """
-    blocking_reason = result.get("blocking_reason")
-    if blocking_reason == "fp_dispatch":
-        return "dispatch_required"
-    if blocking_reason == "fh_gate":
-        return "human_gate_required"
-    if blocking_reason == "fd_gap":
-        return "gap_stop"
-    if result.get("stopped_by") == "yield":
-        return "yielded"
-    status = result.get("status")
-    if status == "converged":
-        return "converged"
-    if status == "nothing_to_do":
-        return "gap_stop"
-    return "traversal_applied"
-
-
-def _close_completed_features(scope: Scope) -> None:
-    """
-    Move all active feature YAMLs to features/completed/ and update status field.
-
-    Called by gen_start when it arrives and finds all edges have delta=0 — the
-    worker came back, found the work done, closes the ticket.
+    Runtime completion is event-owned. Feature YAML location is no longer the
+    authoritative signal for whether a work_key remains active.
     """
     active_dir = scope.workspace_root / ".ai-workspace" / "features" / "active"
-    completed_dir = scope.workspace_root / ".ai-workspace" / "features" / "completed"
-    completed_dir.mkdir(parents=True, exist_ok=True)
-
     if not active_dir.exists():
         return
-
-    for yml in sorted(active_dir.glob("*.yml")):
-        text = yml.read_text(encoding="utf-8")
-        # Update status field regardless of current value
-        for old_status in ("status: not_started", "status: active", "status: iterating"):
-            if old_status in text:
-                text = text.replace(old_status, "status: completed", 1)
-                break
-        (completed_dir / yml.name).write_text(text, encoding="utf-8")
-        yml.unlink()
+    active_feature_keys = {yml.stem for yml in sorted(active_dir.glob("*.yml"))}
+    eligible_feature_keys = _selected_feature_work_keys_for_completion(
+        scope,
+        target=target,
+        active_feature_keys=active_feature_keys,
+    )
+    if not eligible_feature_keys:
+        return
+    existing_completed = completed_feature_keys(stream.all_events())
+    for work_key in sorted(eligible_feature_keys):
+        if work_key in existing_completed:
+            continue
+        yml = active_dir / f"{work_key}.yml"
+        emit(
+            "feature_completed",
+            {
+                "work_key": work_key,
+                "feature_id": work_key,
+                "feature_path": str(yml.relative_to(scope.workspace_root)),
+            },
+            stream=stream,
+            context=EventContext(
+                workflow_version=scope.workflow_version,
+                work_key=work_key,
+            ),
+        )
 
 
 def _known_feature_ids(workspace_root: Path) -> set[str]:

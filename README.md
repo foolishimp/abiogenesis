@@ -10,9 +10,16 @@ The repo is organized around spec-driven development:
 - `build_tenants/abiogenesis/python/code/` is the shipping Python realization
 - `build_tenants/abiogenesis/python/test_env/` is the shipping Python test harness
 
-The active engine and language surface is GTL 3 / ABG 3:
+The active engine and language surface is GTL 3 / ABG 3.2.0:
 - GTL: `Module`, `Graph`, `Node`, `GraphVector`, `Context`, `Job`, `Role`
-- ABG: interpreter, event stream, projection, convergence, binding, run, graph call, continuation, transport, provenance
+- ABG: interpreter, typed runtime carriers, event stream, projection,
+  convergence, regime binding, run, graph call, continuation, transport,
+  provenance
+
+The 3.2.0 runtime boundary is carrier and event owned. Public execution still
+enters through published `GraphFunction` work, but advancement, dispatch,
+convergence, completion, and projection consume typed runtime truth rather than
+controller-local state or `runtime_config` side channels.
 
 ## Public Operator Surface
 
@@ -52,11 +59,16 @@ families. In the current cut, both are lawful only with `until = converged`.
 Lower-level traversal or status hooks may still exist in the runtime and
 install line, but they are not the public human operator workflow.
 
+Internally, `gen-start` binds operator input to the kernel carrier family
+(`ExecutionBasis`, `AdvancementTransition`, `IterationAdvanceDecision`, and
+`RegimeBindingSet`). Those carriers and replay-visible events are the runtime
+source of truth.
+
 ## Source of Truth
 
 Read these first:
 - Public methodology master: `https://github.com/foolishimp/specification_methodology`
-- Local installer source in this checkout: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md)
+- Methodology standard: [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md)
 - [INTENT.md](specification/INTENT.md)
 - [requirements/](specification/requirements/)
 - [GTL_3_CONSTITUTIONAL_DESIGN.md](specification/GTL_3_CONSTITUTIONAL_DESIGN.md)

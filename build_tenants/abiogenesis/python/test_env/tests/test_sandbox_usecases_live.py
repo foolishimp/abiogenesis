@@ -21,9 +21,14 @@ from pathlib import Path
 import pytest
 
 from genesis.cli_adapter import _assess_result_cmd
-from genesis.binding import PrecomputedManifest, WorkSurface, module_to_executable_jobs
+from genesis.binding import (
+    PrecomputedManifest,
+    WorkSurface,
+    module_to_executable_jobs,
+    regime_binding_set_from_evaluator_partitions,
+)
 from genesis.install import workspace_bootstrap
-from genesis.interpret import Traversal, TraversalRuntime, traverse
+from genesis.interpret import Traversal, TraversalRuntime, admit_traversal_runtime, traverse
 from genesis.projection import project
 from genesis.selection import SelectionDecision
 from genesis.services import Scope, gen_gaps, gen_iterate
@@ -565,14 +570,15 @@ def test_gsdlc_lite_zoom_design_live_qualification(run_archive):
     assert any(event["event_type"] == "genesis_installed" for event in stream.all_events())
 
     executable_job = module_to_executable_jobs(module)[0]
-    runtime = TraversalRuntime(
+    runtime = admit_traversal_runtime(
         module=module,
         executable_job=executable_job,
         precomputed=PrecomputedManifest(
             executable_job=executable_job,
             current_asset={},
-            failing_evaluators=list(executable_job.vector.evaluators),
-            passing_evaluators=[],
+            regime_bindings=regime_binding_set_from_evaluator_partitions(
+                failing=executable_job.vector.evaluators,
+            ),
             fd_results={},
             relevant_contexts={},
         ),

@@ -10,12 +10,17 @@ from __future__ import annotations
 
 import json
 import uuid
+from dataclasses import dataclass
 from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
 
 from .events import EventContext, EventStream, emit
 from .result_ingest import ingest_fp_result, validate_fp_result_payload
+from .runtime_carrier import (
+    dispatch_ref_from_transition_payload,
+    result_path_from_transition_payload,
+)
 from .transport import (
     ArtifactObservation,
     classify_failure,
@@ -23,6 +28,22 @@ from .transport import (
     dispatch_agent_supervised,
     inspect_result_artifact,
 )
+
+
+@dataclass(frozen=True)
+class PendingDispatchSurface:
+    manifest_path: Path
+    manifest: dict[str, Any]
+    dispatch_ref: str
+    hook_config: dict[str, Any] | None
+    result_path: str | None
+
+
+class PendingDispatchSurfaceError(Exception):
+    def __init__(self, failure_class: str, reason: str) -> None:
+        super().__init__(reason)
+        self.failure_class = failure_class
+        self.reason = reason
 
 
 def _mapping(value: Any) -> dict[str, Any]:
@@ -39,6 +60,97 @@ def _read_json(path: Path, *, label: str) -> dict[str, Any]:
     if not isinstance(raw, Mapping):
         raise ValueError(f"{label} must contain a JSON object")
     return dict(raw)
+
+
+def _manifest_path_from_pending_result(result: Mapping[str, Any], workspace: Path) -> Path:
+    manifest_path_value = result.get("fp_manifest_path")
+    if isinstance(manifest_path_value, str) and manifest_path_value:
+        return Path(manifest_path_value)
+    manifest_id = result.get("manifest_id")
+    if isinstance(manifest_id, str) and manifest_id:
+        return workspace / ".ai-workspace" / "fp_manifests" / f"{manifest_id}.json"
+    raise PendingDispatchSurfaceError(
+        "policy_config_defect",
+        "pending F_P result is missing fp_manifest_path",
+    )
+
+
+def _dispatch_ref_from_carrier_payload(
+    payload: Mapping[str, Any] | None,
+) -> str | None:
+    return dispatch_ref_from_transition_payload(payload)
+
+
+def _resolve_pending_dispatch_surface(
+    result: Mapping[str, Any],
+    workspace: Path,
+    *,
+    config: Mapping[str, Any] | None = None,
+) -> PendingDispatchSurface:
+    manifest_path = _manifest_path_from_pending_result(result, workspace)
+    if not manifest_path.exists():
+        raise PendingDispatchSurfaceError(
+            "policy_config_defect",
+            f"manifest does not exist: {manifest_path}",
+        )
+    manifest = _read_json(manifest_path, label=f"manifest file {manifest_path}")
+    result_path = manifest.get("result_path")
+    if not isinstance(result_path, str) or not result_path:
+        result_path = result_path_from_transition_payload(
+            result.get("advancement_transition")
+            if isinstance(result.get("advancement_transition"), Mapping)
+            else None
+        )
+    if not isinstance(result_path, str) or not result_path:
+        result_path = result_path_from_transition_payload(
+            manifest.get("advancement_transition")
+            if isinstance(manifest.get("advancement_transition"), Mapping)
+            else None
+        )
+    if not isinstance(result_path, str) or not result_path:
+        result_path = None
+
+    dispatch_ref = _dispatch_ref_from_carrier_payload(
+        result.get("advancement_transition")
+        if isinstance(result.get("advancement_transition"), Mapping)
+        else None
+    )
+    if not dispatch_ref:
+        dispatch_ref = _dispatch_ref_from_carrier_payload(
+            manifest.get("advancement_transition")
+            if isinstance(manifest.get("advancement_transition"), Mapping)
+            else None
+        )
+
+    resolved_policy = manifest.get("resolved_policy")
+    dispatch_policy = (
+        resolved_policy.get("dispatch") if isinstance(resolved_policy, Mapping) else None
+    )
+    if not dispatch_ref and not isinstance(dispatch_policy, Mapping):
+        raise PendingDispatchSurfaceError(
+            "policy_config_defect",
+            "resolved policy is missing dispatch concern",
+        )
+    if not dispatch_ref:
+        dispatch_ref = dispatch_policy.get("ref")
+        if not isinstance(dispatch_ref, str) or not dispatch_ref:
+            raise PendingDispatchSurfaceError(
+                "policy_config_defect",
+                "dispatch policy must declare a non-empty ref",
+            )
+
+    return PendingDispatchSurface(
+        manifest_path=manifest_path,
+        manifest=manifest,
+        dispatch_ref=dispatch_ref,
+        hook_config=(
+            dict(dispatch_policy.get("config"))
+            if isinstance(dispatch_policy, Mapping)
+            and isinstance(dispatch_policy.get("config"), Mapping)
+            else None
+        ),
+        result_path=result_path,
+    )
 
 
 def _normalize_agent(agent_ref: object) -> str:
@@ -301,16 +413,28 @@ def _ingest_preserved_result(
                 parent_aggregate_id=run_id,
             ),
         )
-    ingest_summary = ingest_fp_result(
-        result_path,
-        workspace,
-        manifest_data=manifest_map,
-        active_workflow_path=(
-            manifest_map.get("active_workflow")
-            if isinstance(manifest_map.get("active_workflow"), str)
-            else None
-        ),
-    )
+    try:
+        ingest_summary = ingest_fp_result(
+            result_path,
+            workspace,
+            manifest_data=manifest_map,
+            active_workflow_path=(
+                manifest_map.get("active_workflow")
+                if isinstance(manifest_map.get("active_workflow"), str)
+                else None
+            ),
+        )
+    except ValueError as exc:
+        if "resolved_policy" not in str(exc):
+            raise
+        return _emit_fail_closed_defect(
+            stream,
+            manifest_map,
+            failure_class="policy_config_defect",
+            reason=str(exc),
+            call_id=call_id,
+            run_id=run_id,
+        )
     summary = dict(ingest_summary)
     summary["call_id"] = call_id
     summary["salvage_mode"] = salvage_mode
@@ -533,16 +657,28 @@ def dispatch_bound_manifest_via_transport(
         stream=stream,
         context=call_context,
     )
-    ingest_summary = ingest_fp_result(
-        result_path,
-        workspace,
-        manifest_data=manifest_map,
-        active_workflow_path=(
-            config.get("active_workflow")
-            if isinstance(config, Mapping) and isinstance(config.get("active_workflow"), str)
-            else None
-        ),
-    )
+    try:
+        ingest_summary = ingest_fp_result(
+            result_path,
+            workspace,
+            manifest_data=manifest_map,
+            active_workflow_path=(
+                config.get("active_workflow")
+                if isinstance(config, Mapping) and isinstance(config.get("active_workflow"), str)
+                else None
+            ),
+        )
+    except ValueError as exc:
+        if "resolved_policy" not in str(exc):
+            raise
+        return _emit_fail_closed_defect(
+            stream,
+            manifest_map,
+            failure_class="policy_config_defect",
+            reason=str(exc),
+            call_id=call_id,
+            run_id=run_id,
+        )
     summary = dict(ingest_summary)
     summary.update(
         {
@@ -580,34 +716,19 @@ def auto_dispatch_from_result(
     """
     Resolve the dispatch policy for one pending F_P manifest and execute it.
     """
-    manifest_path_value = result.get("fp_manifest_path")
-    manifest_path: Path | None = None
-    if isinstance(manifest_path_value, str) and manifest_path_value:
-        manifest_path = Path(manifest_path_value)
-    else:
-        manifest_id = result.get("manifest_id")
-        if isinstance(manifest_id, str) and manifest_id:
-            manifest_path = workspace / ".ai-workspace" / "fp_manifests" / f"{manifest_id}.json"
-    if manifest_path is None:
+    try:
+        surface = _resolve_pending_dispatch_surface(result, workspace, config=config)
+    except PendingDispatchSurfaceError as exc:
         return _emit_result_defect(
             result,
             workspace,
-            failure_class="policy_config_defect",
-            reason="pending F_P result is missing fp_manifest_path",
+            failure_class=exc.failure_class,
+            reason=exc.reason,
         )
-    if not manifest_path.exists():
-        return _emit_result_defect(
-            result,
-            workspace,
-            failure_class="policy_config_defect",
-            reason=f"manifest does not exist: {manifest_path}",
-        )
-
-    manifest = _read_json(manifest_path, label=f"manifest file {manifest_path}")
-    manifest_result_path = manifest.get("result_path")
-    if isinstance(manifest_result_path, str) and manifest_result_path:
+    manifest = surface.manifest
+    if surface.result_path:
         artifact = inspect_result_artifact(
-            manifest_result_path,
+            surface.result_path,
             payload_validator=validate_fp_result_payload,
             manifest=manifest,
         )
@@ -615,46 +736,20 @@ def auto_dispatch_from_result(
             return _ingest_preserved_result(
                 workspace,
                 manifest,
-                result_path=manifest_result_path,
+                result_path=surface.result_path,
                 emit_salvage_event=True,
                 salvage_mode="idempotent_reentry",
             )
-    resolved_policy = manifest.get("resolved_policy")
-    if not isinstance(resolved_policy, Mapping):
-        from .policy import resolve_policy_bundle
-
-        resolved_policy = resolve_policy_bundle(runtime_config=config)
-    dispatch_policy = resolved_policy.get("dispatch")
-    if not isinstance(dispatch_policy, Mapping):
-        return _emit_fail_closed_defect(
-            EventStream.open(workspace),
-            manifest,
-            failure_class="policy_config_defect",
-            reason="resolved policy is missing dispatch concern",
-            call_id=manifest.get("call_id") if isinstance(manifest.get("call_id"), str) else None,
-            run_id=manifest.get("run_id") if isinstance(manifest.get("run_id"), str) else None,
-        )
-
-    dispatch_ref = dispatch_policy.get("ref")
-    if not isinstance(dispatch_ref, str) or not dispatch_ref:
-        return _emit_fail_closed_defect(
-            EventStream.open(workspace),
-            manifest,
-            failure_class="policy_config_defect",
-            reason="dispatch policy must declare a non-empty ref",
-            call_id=manifest.get("call_id") if isinstance(manifest.get("call_id"), str) else None,
-            run_id=manifest.get("run_id") if isinstance(manifest.get("run_id"), str) else None,
-        )
 
     from .policy import _import_ref  # local import to avoid cycle at module import time
 
-    dispatch_fn = _import_ref(dispatch_ref)
+    dispatch_fn = _import_ref(surface.dispatch_ref)
     if not callable(dispatch_fn):
         return _emit_fail_closed_defect(
             EventStream.open(workspace),
             manifest,
             failure_class="policy_config_defect",
-            reason=f"dispatch ref {dispatch_ref!r} did not resolve to a callable",
+            reason=f"dispatch ref {surface.dispatch_ref!r} did not resolve to a callable",
             call_id=manifest.get("call_id") if isinstance(manifest.get("call_id"), str) else None,
             run_id=manifest.get("run_id") if isinstance(manifest.get("run_id"), str) else None,
         )
@@ -662,5 +757,5 @@ def auto_dispatch_from_result(
         manifest,
         workspace,
         config=config,
-        hook_config=dispatch_policy.get("config"),
+        hook_config=surface.hook_config,
     )

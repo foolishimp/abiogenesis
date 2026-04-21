@@ -12,6 +12,7 @@ Consumes Module, Graph, GraphVector, Node natively.
     materialization — explicit graph-function materialization and derived companion bundles
     provenance   — provenance_snapshot
     events       — EventStream, emit
+    runtime_carrier — ExecutionBasis, AdvancementTransition carrier family
     projection   — project
     transport    — Subprocess transport for F_P actor invocations (ADR-022)
     identity     — RuntimeIdentity surface for engine/build/worker/backend provenance
@@ -19,4 +20,4 @@ Consumes Module, Graph, GraphVector, Node natively.
     selfhosting  — Bootloader consistency checks
     __main__     — CLI entry point
 """
-__version__ = "3.1.0"
+__version__ = "3.2.0"

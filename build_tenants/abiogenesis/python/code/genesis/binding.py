@@ -24,7 +24,7 @@ import sys
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterable, Literal, TypeAlias
 
 from gtl.function_model import GraphFunction
 from gtl.graph import Attrs, Graph, GraphVector, Node, Context, node_contract_key, _schema_key
@@ -527,6 +527,7 @@ class TargetAssetBinding:
     relative_path: str | None = None
     path_kind: str | None = None
     exists: bool | None = None
+    generated_asset_contract: dict[str, Any] | None = None
     binding_source: str = "workspace_asset_query"
 
     def to_dict(self) -> dict[str, Any]:
@@ -536,8 +537,28 @@ class TargetAssetBinding:
             "relative_path": self.relative_path,
             "path_kind": self.path_kind,
             "exists": self.exists,
+            "generated_asset_contract": (
+                None
+                if self.generated_asset_contract is None
+                else dict(self.generated_asset_contract)
+            ),
             "binding_source": self.binding_source,
         }
+
+
+@dataclass(frozen=True)
+class AssetBindingQueryContract:
+    command: tuple[str, ...]
+    assets_key: str
+    asset_id_key: str
+    uri_key: str
+    relative_path_key: str
+    path_kind_key: str
+    exists_key: str
+    timeout_seconds: int
+    binding_source: str
+    explicit: bool
+    pythonpath_entries: tuple[str, ...] = ()
 
 
 ASSET_BINDING_QUERY_TIMEOUT_SECONDS: int = int(
@@ -604,11 +625,15 @@ def _workspace_command_env(
     *,
     runtime_config: dict[str, Any] | None,
     workspace_root: Path | None,
+    pythonpath_entries: Sequence[str] | None = None,
 ) -> dict[str, str]:
     env = os.environ.copy()
-    extra = os.pathsep.join(
-        _runtime_pythonpath_entries(runtime_config, workspace_root=workspace_root)
+    extra_entries = (
+        list(pythonpath_entries)
+        if pythonpath_entries is not None
+        else _runtime_pythonpath_entries(runtime_config, workspace_root=workspace_root)
     )
+    extra = os.pathsep.join(extra_entries)
     existing = env.get("PYTHONPATH", "")
     env["PYTHONPATH"] = os.pathsep.join(filter(None, [extra, existing]))
     return env
@@ -686,59 +711,75 @@ def _coerce_boolish(value: Any) -> bool | None:
     return None
 
 
-def _asset_binding_query_contract(runtime_config: dict[str, Any] | None) -> tuple[dict[str, Any] | None, bool]:
-    """Return a resolved asset-binding query contract and whether it was explicit."""
+def admit_asset_binding_query_contract(
+    runtime_config: dict[str, Any] | None,
+    *,
+    workspace_root: Path | None,
+) -> AssetBindingQueryContract | None:
+    """Admit one asset-binding query contract from ingress config."""
     config = dict(runtime_config or {})
     explicit = config.get("asset_binding_contract")
     if explicit is not None:
-        contract = _coerce_mapping_or_json_object(
+        contract_map = _coerce_mapping_or_json_object(
             explicit,
             label="runtime_config.asset_binding_contract",
         )
-        contract["command"] = _coerce_command_tokens(
-            contract.get("command"),
-            label="runtime_config.asset_binding_contract.command",
+        command = tuple(
+            _coerce_command_tokens(
+                contract_map.get("command"),
+                label="runtime_config.asset_binding_contract.command",
+            )
         )
-        contract.setdefault("assets_key", "assets")
-        contract.setdefault("asset_id_key", "asset_id")
-        contract.setdefault("uri_key", "uri")
-        contract.setdefault("relative_path_key", "metadata.relative_path")
-        contract.setdefault("path_kind_key", "checkpoint.path_kind")
-        contract.setdefault("exists_key", "checkpoint.exists")
-        contract.setdefault("timeout_seconds", ASSET_BINDING_QUERY_TIMEOUT_SECONDS)
-        contract.setdefault("binding_source", "runtime_config.asset_binding_contract")
-        return contract, True
+        pythonpath_entries = tuple(
+            _runtime_pythonpath_entries(runtime_config, workspace_root=workspace_root)
+        )
+        return AssetBindingQueryContract(
+            command=command,
+            assets_key=str(contract_map.get("assets_key", "assets")),
+            asset_id_key=str(contract_map.get("asset_id_key", "asset_id")),
+            uri_key=str(contract_map.get("uri_key", "uri")),
+            relative_path_key=str(contract_map.get("relative_path_key", "metadata.relative_path")),
+            path_kind_key=str(contract_map.get("path_kind_key", "checkpoint.path_kind")),
+            exists_key=str(contract_map.get("exists_key", "checkpoint.exists")),
+            timeout_seconds=int(contract_map.get("timeout_seconds", ASSET_BINDING_QUERY_TIMEOUT_SECONDS)),
+            binding_source=str(
+                contract_map.get("binding_source", "runtime_config.asset_binding_contract")
+            ),
+            explicit=True,
+            pythonpath_entries=pythonpath_entries,
+        )
 
     domain_package = config.get("domain_package")
     if not isinstance(domain_package, str) or not domain_package.strip():
-        return None, False
-    return (
-        {
-            "command": [
-                sys.executable,
-                "-m",
-                domain_package.strip(),
-                "query-domain",
-                "--workspace",
-                ".",
-            ],
-            "assets_key": "assets",
-            "asset_id_key": "asset_id",
-            "uri_key": "uri",
-            "relative_path_key": "metadata.relative_path",
-            "path_kind_key": "checkpoint.path_kind",
-            "exists_key": "checkpoint.exists",
-            "timeout_seconds": ASSET_BINDING_QUERY_TIMEOUT_SECONDS,
-            "binding_source": "runtime_config.domain_package",
-        },
-        False,
+        return None
+    return AssetBindingQueryContract(
+        command=(
+            sys.executable,
+            "-m",
+            domain_package.strip(),
+            "query-domain",
+            "--workspace",
+            ".",
+        ),
+        assets_key="assets",
+        asset_id_key="asset_id",
+        uri_key="uri",
+        relative_path_key="metadata.relative_path",
+        path_kind_key="checkpoint.path_kind",
+        exists_key="checkpoint.exists",
+        timeout_seconds=ASSET_BINDING_QUERY_TIMEOUT_SECONDS,
+        binding_source="runtime_config.domain_package",
+        explicit=False,
+        pythonpath_entries=tuple(
+            _runtime_pythonpath_entries(runtime_config, workspace_root=workspace_root)
+        ),
     )
 
 
 def resolve_workspace_asset_bindings(
     *,
     workspace_root: Path | None,
-    runtime_config: dict[str, Any] | None = None,
+    contract: AssetBindingQueryContract | None = None,
 ) -> dict[str, TargetAssetBinding]:
     """
     Resolve concrete asset bindings from an optional workspace asset query surface.
@@ -747,38 +788,38 @@ def resolve_workspace_asset_bindings(
     configuration defects and must fail closed. When only a default domain_package
     query is available, discovery remains best-effort.
     """
-    contract, explicit = _asset_binding_query_contract(runtime_config)
     if contract is None:
         return {}
     if workspace_root is None:
-        if explicit:
+        if contract.explicit:
             raise ValueError(
                 "runtime_config.asset_binding_contract requires a workspace_root"
             )
         return {}
 
-    timeout = contract.get("timeout_seconds", ASSET_BINDING_QUERY_TIMEOUT_SECONDS)
+    timeout = contract.timeout_seconds
     try:
         result = subprocess.run(
-            contract["command"],
+            list(contract.command),
             cwd=workspace_root,
             capture_output=True,
             text=True,
             env=_workspace_command_env(
-                runtime_config=runtime_config,
+                runtime_config=None,
                 workspace_root=workspace_root,
+                pythonpath_entries=contract.pythonpath_entries,
             ),
             timeout=float(timeout),
         )
     except (OSError, subprocess.TimeoutExpired) as exc:
-        if explicit:
+        if contract.explicit:
             raise ValueError(
                 f"workspace asset query failed: {exc}"
             ) from exc
         return {}
 
     if result.returncode != 0:
-        if explicit:
+        if contract.explicit:
             detail = result.stderr.strip() or result.stdout.strip() or f"returncode={result.returncode}"
             raise ValueError(f"workspace asset query failed: {detail}")
         return {}
@@ -786,13 +827,13 @@ def resolve_workspace_asset_bindings(
     try:
         payload = _json.loads(result.stdout)
     except _json.JSONDecodeError as exc:
-        if explicit:
+        if contract.explicit:
             raise ValueError("workspace asset query did not return valid JSON") from exc
         return {}
 
-    assets = _dig_path(payload, str(contract["assets_key"]))
+    assets = _dig_path(payload, contract.assets_key)
     if not isinstance(assets, list):
-        if explicit:
+        if contract.explicit:
             raise ValueError("workspace asset query JSON must expose a list at assets_key")
         return {}
 
@@ -800,20 +841,26 @@ def resolve_workspace_asset_bindings(
     for entry in assets:
         if not isinstance(entry, dict):
             continue
-        asset_id = _dig_path(entry, str(contract["asset_id_key"]))
-        uri = _dig_path(entry, str(contract["uri_key"]))
+        asset_id = _dig_path(entry, contract.asset_id_key)
+        uri = _dig_path(entry, contract.uri_key)
         if not isinstance(asset_id, str) or not asset_id or not isinstance(uri, str) or not uri:
             continue
-        relative_path = _dig_path(entry, str(contract["relative_path_key"]))
-        path_kind = _dig_path(entry, str(contract["path_kind_key"]))
-        exists = _coerce_boolish(_dig_path(entry, str(contract["exists_key"])))
+        relative_path = _dig_path(entry, contract.relative_path_key)
+        path_kind = _dig_path(entry, contract.path_kind_key)
+        exists = _coerce_boolish(_dig_path(entry, contract.exists_key))
+        generated_asset_contract = entry.get("generated_asset_contract")
         resolved[asset_id] = TargetAssetBinding(
             asset_id=asset_id,
             uri=uri,
             relative_path=relative_path if isinstance(relative_path, str) and relative_path else None,
             path_kind=path_kind if isinstance(path_kind, str) and path_kind else None,
             exists=exists,
-            binding_source=str(contract["binding_source"]),
+            generated_asset_contract=(
+                dict(generated_asset_contract)
+                if isinstance(generated_asset_contract, dict)
+                else None
+            ),
+            binding_source=contract.binding_source,
         )
     return resolved
 
@@ -956,6 +1003,161 @@ def resolve_runtime_environment(
     )
 
 
+# ── Regime binding algebra ───────────────────────────────────────────────────
+
+
+@dataclass(frozen=True)
+class FdBindingOutcome:
+    evaluator: Evaluator
+    passes: bool
+    detail: Any
+    kind: Literal["fd"] = "fd"
+
+
+@dataclass(frozen=True)
+class FhBindingOutcome:
+    evaluator: Evaluator
+    admitted: bool
+    admission_required: bool
+    ledger_ref: str | None = None
+    reason: str | None = None
+    kind: Literal["fh"] = "fh"
+
+
+@dataclass(frozen=True)
+class FpCertificationOutcome:
+    evaluator: Evaluator
+    certified: bool
+    certification_scope: str | None = None
+    ledger_ref: str | None = None
+    reason: str | None = None
+    kind: Literal["fp"] = "fp"
+
+
+RegimeBindingOutcome: TypeAlias = (
+    FdBindingOutcome | FhBindingOutcome | FpCertificationOutcome
+)
+
+
+@dataclass(frozen=True)
+class RegimeFailureSet:
+    fd: tuple[Evaluator, ...] = ()
+    fh: tuple[Evaluator, ...] = ()
+    fp: tuple[Evaluator, ...] = ()
+
+
+@dataclass(frozen=True)
+class RegimeBindingSet:
+    outcomes: tuple[RegimeBindingOutcome, ...] = ()
+
+    def outcome_for(self, evaluator_name: str) -> RegimeBindingOutcome | None:
+        for outcome in self.outcomes:
+            if outcome.evaluator.name == evaluator_name:
+                return outcome
+        return None
+
+    def passing_evaluators(self) -> tuple[Evaluator, ...]:
+        passing: list[Evaluator] = []
+        for outcome in self.outcomes:
+            if isinstance(outcome, FdBindingOutcome) and outcome.passes:
+                passing.append(outcome.evaluator)
+            elif isinstance(outcome, FhBindingOutcome) and outcome.admitted:
+                passing.append(outcome.evaluator)
+            elif isinstance(outcome, FpCertificationOutcome) and outcome.certified:
+                passing.append(outcome.evaluator)
+        return tuple(passing)
+
+    def failing_evaluators(self) -> tuple[Evaluator, ...]:
+        failing: list[Evaluator] = []
+        for outcome in self.outcomes:
+            if isinstance(outcome, FdBindingOutcome) and not outcome.passes:
+                failing.append(outcome.evaluator)
+            elif isinstance(outcome, FhBindingOutcome) and not outcome.admitted:
+                failing.append(outcome.evaluator)
+            elif isinstance(outcome, FpCertificationOutcome) and not outcome.certified:
+                failing.append(outcome.evaluator)
+        return tuple(failing)
+
+    def failures(self) -> RegimeFailureSet:
+        fd: list[Evaluator] = []
+        fh: list[Evaluator] = []
+        fp: list[Evaluator] = []
+        for outcome in self.outcomes:
+            if isinstance(outcome, FdBindingOutcome):
+                if not outcome.passes:
+                    fd.append(outcome.evaluator)
+                continue
+            if isinstance(outcome, FhBindingOutcome):
+                if not outcome.admitted:
+                    fh.append(outcome.evaluator)
+                continue
+            if not outcome.certified:
+                fp.append(outcome.evaluator)
+        return RegimeFailureSet(fd=tuple(fd), fh=tuple(fh), fp=tuple(fp))
+
+    def fd_results(self) -> dict[str, Any]:
+        return {
+            outcome.evaluator.name: {
+                "passes": outcome.passes,
+                "detail": outcome.detail,
+            }
+            for outcome in self.outcomes
+            if isinstance(outcome, FdBindingOutcome)
+        }
+
+
+def regime_binding_set_from_evaluator_partitions(
+    *,
+    failing: Iterable[Evaluator] = (),
+    passing: Iterable[Evaluator] = (),
+    fd_results: dict[str, Any] | None = None,
+) -> RegimeBindingSet:
+    """Build typed regime truth from explicit evaluator partitions.
+
+    This is for tests and adapter fixtures that do not run the F_D binder.
+    Runtime code must publish the resulting RegimeBindingSet, never retain the
+    input partitions as an independent authority.
+    """
+    fd_results = fd_results or {}
+    passing_tuple = tuple(passing)
+    failing_tuple = tuple(failing)
+    overlap = {ev.name for ev in passing_tuple} & {ev.name for ev in failing_tuple}
+    if overlap:
+        raise ValueError(
+            "regime binding partitions must not declare the same evaluator as passing and failing: "
+            + ", ".join(sorted(overlap))
+        )
+    outcomes: list[RegimeBindingOutcome] = []
+    for ev in passing_tuple:
+        if ev.regime is F_D:
+            outcomes.append(FdBindingOutcome(ev, passes=True, detail=fd_results.get(ev.name, {})))
+        elif ev.regime is F_H:
+            outcomes.append(FhBindingOutcome(ev, admitted=True, admission_required=True))
+        elif ev.regime is F_P:
+            outcomes.append(FpCertificationOutcome(ev, certified=True))
+    for ev in failing_tuple:
+        if ev.regime is F_D:
+            outcomes.append(FdBindingOutcome(ev, passes=False, detail=fd_results.get(ev.name, {})))
+        elif ev.regime is F_H:
+            outcomes.append(
+                FhBindingOutcome(
+                    ev,
+                    admitted=False,
+                    admission_required=True,
+                    reason="fixture_declared_open",
+                )
+            )
+        elif ev.regime is F_P:
+            outcomes.append(
+                FpCertificationOutcome(
+                    ev,
+                    certified=False,
+                    reason="fixture_declared_open",
+                )
+            )
+    return RegimeBindingSet(outcomes=tuple(outcomes))
+
+
 # ── PrecomputedManifest and BoundJob ─────────────────────────────────────────
 
 @dataclass
@@ -967,13 +1169,28 @@ class PrecomputedManifest:
     """
     executable_job: ExecutableJob
     current_asset: dict
-    failing_evaluators: list[Evaluator]
-    passing_evaluators: list[Evaluator]
+    regime_bindings: RegimeBindingSet
     fd_results: dict[str, Any]
     relevant_contexts: dict[str, str]
     resolved_environment: ResolvedEnvironment = field(default_factory=ResolvedEnvironment.empty)
     missing_contexts: list[str] = field(default_factory=list)
     delta_summary: str = ""
+
+    def __post_init__(self) -> None:
+        self.regime_binding_truth()
+
+    def regime_binding_truth(self) -> RegimeBindingSet:
+        if not isinstance(self.regime_bindings, RegimeBindingSet):
+            raise ValueError("PrecomputedManifest requires RegimeBindingSet carrier truth")
+        return self.regime_bindings
+
+    @property
+    def failing_evaluators(self) -> tuple[Evaluator, ...]:
+        return self.regime_binding_truth().failing_evaluators()
+
+    @property
+    def passing_evaluators(self) -> tuple[Evaluator, ...]:
+        return self.regime_binding_truth().passing_evaluators()
 
     @property
     def has_gap(self) -> bool:
@@ -1057,6 +1274,49 @@ def _event_time_value(event: dict) -> datetime | None:
 
 # ── F_H gate — Event Calculus ────────────────────────────────────────────────
 
+
+def fh_binding_outcomes(
+    job: ExecutableJob,
+    all_events: list[dict],
+    current_workflow_version: str = "unknown",
+    *,
+    work_key: str | None = None,
+    workspace_root: Path | None = None,
+) -> tuple[FhBindingOutcome, ...]:
+    evaluators = tuple(ev for ev in job.evaluators if ev.regime is F_H)
+    if not evaluators:
+        return ()
+    resolved_ledger = resolve_published_fulfillment_ledger(
+        all_events,
+        edge=job.vector.name,
+        work_key=work_key,
+        current_workflow_version=current_workflow_version,
+        workspace=workspace_root,
+    )
+    if resolved_ledger is None:
+        return tuple(
+            FhBindingOutcome(
+                evaluator=ev,
+                admitted=False,
+                admission_required=True,
+                reason="missing_published_fulfillment_ledger",
+            )
+            for ev in evaluators
+        )
+    admission_required = bool(resolved_ledger.get("admission_required"))
+    admitted = bool(resolved_ledger.get("admitted")) if admission_required else True
+    ledger_ref = resolved_ledger.get("published_ledger_ref")
+    return tuple(
+        FhBindingOutcome(
+            evaluator=ev,
+            admitted=admitted,
+            admission_required=admission_required,
+            ledger_ref=ledger_ref if isinstance(ledger_ref, str) and ledger_ref else None,
+        )
+        for ev in evaluators
+    )
+
+
 def bind_fh(
     job: ExecutableJob,
     all_events: list[dict],
@@ -1068,21 +1328,132 @@ def bind_fh(
     """
     Resolve the current ledger-backed admission state for this edge/work slice.
     """
-    resolved_ledger = resolve_published_fulfillment_ledger(
+    outcomes = fh_binding_outcomes(
+        job,
         all_events,
-        edge=job.vector.name,
+        current_workflow_version,
         work_key=work_key,
-        current_workflow_version=current_workflow_version,
-        workspace=workspace_root,
+        workspace_root=workspace_root,
     )
-    if resolved_ledger is None:
-        return False
-    if bool(resolved_ledger.get("admission_required")):
-        return bool(resolved_ledger.get("admitted"))
-    return True
+    return bool(outcomes) and all(outcome.admitted for outcome in outcomes)
 
 
 # ── F_P certification — Event Calculus ───────────────────────────────────────
+
+
+def fp_certification_outcome(
+    job: ExecutableJob,
+    ev: Evaluator,
+    all_events: list[dict],
+    spec_hash: str | None = None,
+    current_workflow_version: str = "unknown",
+    *,
+    work_key: str | None = None,
+    workspace_root: Path | None = None,
+) -> FpCertificationOutcome:
+    reset_boundary = find_latest_reset(all_events, edge=job.vector.name, work_key=work_key)
+    reset_time = _event_time_value(reset_boundary) if reset_boundary else None
+    latest_assessed = latest_fp_assessed_event(
+        all_events,
+        edge=job.vector.name,
+        work_key=work_key,
+        spec_hash=spec_hash,
+    )
+    latest_assessed_time = _event_time_value(latest_assessed) if latest_assessed is not None else None
+    ledger_ref = None
+
+    if latest_assessed is None:
+        return FpCertificationOutcome(
+            evaluator=ev,
+            certified=False,
+            reason="no_fp_assessed_event",
+        )
+
+    if reset_time is not None and latest_assessed_time is not None and latest_assessed_time <= reset_time:
+        return FpCertificationOutcome(
+            evaluator=ev,
+            certified=False,
+            reason="shadowed_by_reset",
+        )
+
+    raw_ledger_ref = latest_assessed.get("data", {}).get("published_ledger_ref")
+    if isinstance(raw_ledger_ref, str) and raw_ledger_ref:
+        ledger_ref = raw_ledger_ref
+    ledger_data = resolve_published_fulfillment_ledger(
+        all_events,
+        edge=job.vector.name,
+        work_key=work_key,
+        spec_hash=spec_hash,
+        current_workflow_version=current_workflow_version,
+        workspace=workspace_root,
+        ledger_ref=ledger_ref,
+    )
+    if ledger_data is None:
+        return FpCertificationOutcome(
+            evaluator=ev,
+            certified=False,
+            ledger_ref=ledger_ref,
+            reason="missing_published_fulfillment_ledger",
+        )
+    if ledger_data.get("edge") != job.vector.name:
+        return FpCertificationOutcome(
+            evaluator=ev,
+            certified=False,
+            ledger_ref=ledger_ref,
+            reason="ledger_edge_mismatch",
+        )
+    certification_scope = ledger_data.get("certification_scope")
+    if ledger_data.get("carry_converged") is False:
+        return FpCertificationOutcome(
+            evaluator=ev,
+            certified=False,
+            ledger_ref=ledger_ref,
+            certification_scope=str(certification_scope or ""),
+            reason="carry_not_converged",
+        )
+    if ledger_data.get("admitted") is not True:
+        return FpCertificationOutcome(
+            evaluator=ev,
+            certified=False,
+            ledger_ref=ledger_ref,
+            certification_scope=str(certification_scope or ""),
+            reason="ledger_not_admitted",
+        )
+    if ledger_data.get("target_certification_passed", True) is not True:
+        return FpCertificationOutcome(
+            evaluator=ev,
+            certified=False,
+            ledger_ref=ledger_ref,
+            certification_scope=str(certification_scope or ""),
+            reason="target_certification_failed",
+        )
+    if certification_scope == "edge":
+        certified = bool(ledger_data.get("edge_converged"))
+        return FpCertificationOutcome(
+            evaluator=ev,
+            certified=certified,
+            ledger_ref=ledger_ref,
+            certification_scope="edge",
+            reason=None if certified else "edge_not_converged",
+        )
+    obligation = obligation_for_evaluator(ledger_data, ev.name)
+    if obligation is None:
+        return FpCertificationOutcome(
+            evaluator=ev,
+            certified=False,
+            ledger_ref=ledger_ref,
+            certification_scope=str(certification_scope or "obligation"),
+            reason="missing_obligation",
+        )
+    certified = obligation.get("fulfillment_status") == "fulfilled"
+    return FpCertificationOutcome(
+        evaluator=ev,
+        certified=certified,
+        ledger_ref=ledger_ref,
+        certification_scope=str(certification_scope or "obligation"),
+        reason=None if certified else "obligation_not_fulfilled",
+    )
+
 
 def bind_fp_certified(
     job: ExecutableJob,
@@ -1104,46 +1475,15 @@ def bind_fp_certified(
     raw event payload fields. The assessed event is only the discovery pointer
     to the current ledger publication for this obligation.
     """
-    reset_boundary = find_latest_reset(all_events, edge=job.vector.name, work_key=work_key)
-    reset_time = _event_time_value(reset_boundary) if reset_boundary else None
-    latest_assessed = latest_fp_assessed_event(
+    return fp_certification_outcome(
+        job,
+        ev,
         all_events,
-        edge=job.vector.name,
+        spec_hash,
+        current_workflow_version,
         work_key=work_key,
-        spec_hash=spec_hash,
-    )
-    latest_assessed_time = _event_time_value(latest_assessed) if latest_assessed is not None else None
-
-    if latest_assessed is None:
-        return False
-
-    if reset_time is not None and latest_assessed_time is not None and latest_assessed_time <= reset_time:
-        return False
-    ledger_data = resolve_published_fulfillment_ledger(
-        all_events,
-        edge=job.vector.name,
-        work_key=work_key,
-        spec_hash=spec_hash,
-        current_workflow_version=current_workflow_version,
-        workspace=workspace_root,
-        ledger_ref=latest_assessed.get("data", {}).get("published_ledger_ref"),
-    )
-    if ledger_data is None:
-        return False
-    if ledger_data.get("edge") != job.vector.name:
-        return False
-    if ledger_data.get("carry_converged") is False:
-        return False
-    if ledger_data.get("admitted") is not True:
-        return False
-    if ledger_data.get("target_certification_passed", True) is not True:
-        return False
-    if ledger_data.get("certification_scope") == "edge":
-        return bool(ledger_data.get("edge_converged"))
-    obligation = obligation_for_evaluator(ledger_data, ev.name)
-    if obligation is None:
-        return False
-    return obligation.get("fulfillment_status") == "fulfilled"
+        workspace_root=workspace_root,
+    ).certified
 
 
 # ── F_D evaluator runner ──────────────────────────────────────────────────────
@@ -1207,6 +1547,81 @@ def run_fd_evaluator(
     }
 
 
+def fd_binding_outcomes(
+    job: ExecutableJob,
+    *,
+    current_asset: dict,
+    workspace_root: Path,
+    work_key: str | None = None,
+) -> tuple[FdBindingOutcome, ...]:
+    return tuple(
+        FdBindingOutcome(
+            evaluator=ev,
+            passes=passes,
+            detail=detail,
+        )
+        for ev in job.evaluators
+        if ev.regime is F_D
+        for passes, detail in (run_fd_evaluator(ev, current_asset, workspace_root, work_key=work_key),)
+    )
+
+
+def regime_binding_set(
+    job: ExecutableJob,
+    *,
+    current_asset: dict,
+    all_events: list[dict],
+    workspace_root: Path,
+    spec_hash: str | None = None,
+    current_workflow_version: str = "unknown",
+    work_key: str | None = None,
+) -> RegimeBindingSet:
+    fd_outcomes = {
+        outcome.evaluator.name: outcome
+        for outcome in fd_binding_outcomes(
+            job,
+            current_asset=current_asset,
+            workspace_root=workspace_root,
+            work_key=work_key,
+        )
+    }
+    fh_outcomes = {
+        outcome.evaluator.name: outcome
+        for outcome in fh_binding_outcomes(
+            job,
+            all_events,
+            current_workflow_version,
+            work_key=work_key,
+            workspace_root=workspace_root,
+        )
+    }
+    fp_outcomes = {
+        outcome.evaluator.name: outcome
+        for outcome in (
+            fp_certification_outcome(
+                job,
+                ev,
+                all_events,
+                spec_hash,
+                current_workflow_version,
+                work_key=work_key,
+                workspace_root=workspace_root,
+            )
+            for ev in job.evaluators
+            if ev.regime is F_P
+        )
+    }
+    ordered: list[RegimeBindingOutcome] = []
+    for ev in job.evaluators:
+        if ev.regime is F_D:
+            ordered.append(fd_outcomes[ev.name])
+        elif ev.regime is F_H:
+            ordered.append(fh_outcomes[ev.name])
+        elif ev.regime is F_P:
+            ordered.append(fp_outcomes[ev.name])
+    return RegimeBindingSet(outcomes=tuple(ordered))
+
+
 # ── bind_fd ───────────────────────────────────────────────────────────────────
 
 def bind_fd(
@@ -1241,34 +1656,18 @@ def bind_fd(
         project(stream, source_name, "current", work_key=work_key),
     )
 
-    all_events = stream.all_events()
-    fd_results: dict[str, Any] = {}
-    for ev in job.evaluators:
-        if ev.regime is F_D:
-            passes, detail = run_fd_evaluator(
-                ev, current, workspace_root, work_key=work_key,
-            )
-            fd_results[ev.name] = {"passes": passes, "detail": detail}
-
-    def _passes(ev: Evaluator) -> bool:
-        if ev.regime is F_D:
-            return fd_results.get(ev.name, {}).get("passes", False)
-        if ev.regime is F_H:
-            return bind_fh(
-                job, all_events, current_workflow_version,
-                work_key=work_key,
-                workspace_root=workspace_root,
-            )
-        if ev.regime is F_P:
-            return bind_fp_certified(
-                job, ev, all_events, spec_hash, current_workflow_version,
-                work_key=work_key,
-                workspace_root=workspace_root,
-            )
-        return False
-
-    failing = [ev for ev in job.evaluators if not _passes(ev)]
-    passing = [ev for ev in job.evaluators if _passes(ev)]
+    bindings = regime_binding_set(
+        job,
+        current_asset=current,
+        all_events=stream.all_events(),
+        workspace_root=workspace_root,
+        spec_hash=spec_hash,
+        current_workflow_version=current_workflow_version,
+        work_key=work_key,
+    )
+    failing = list(bindings.failing_evaluators())
+    passing = list(bindings.passing_evaluators())
+    fd_results = bindings.fd_results()
 
     relevant_ctxs = select_relevant_contexts(job.vector.contexts, failing)
     resolved: dict[str, str] = {}
@@ -1287,9 +1686,8 @@ def bind_fd(
     return PrecomputedManifest(
         executable_job=job,
         current_asset=current,
+        regime_bindings=bindings,
         resolved_environment=resolved_environment,
-        failing_evaluators=failing,
-        passing_evaluators=passing,
         fd_results=fd_results,
         relevant_contexts=resolved,
         missing_contexts=_missing_contexts,
@@ -1299,18 +1697,14 @@ def bind_fd(
 
 # ── bind_fp ───────────────────────────────────────────────────────────────────
 
-def bind_fp(
+def _construct_bound_job(
     pre: PrecomputedManifest,
     job: ExecutableJob,
     result_path: str = "",
     *,
     workspace_root: Path | None = None,
-    runtime_config: dict[str, Any] | None = None,
+    asset_bindings: dict[str, TargetAssetBinding] | None = None,
 ) -> BoundJob:
-    """
-    Assemble the minimal F_P manifest from pre-computed material.
-    Raises FileNotFoundError if required context failed to resolve.
-    """
     if pre.missing_contexts:
         raise FileNotFoundError(
             f"Cannot dispatch F_P: required context(s) not found: "
@@ -1323,10 +1717,7 @@ def bind_fp(
             "Cannot dispatch F_P: runtime environment unresolved: "
             + "; ".join(details)
         )
-    asset_bindings = resolve_workspace_asset_bindings(
-        workspace_root=workspace_root,
-        runtime_config=runtime_config,
-    )
+    asset_bindings = dict(asset_bindings or {})
     target_binding = asset_bindings.get(job.vector.target.name)
     if asset_bindings and target_binding is None:
         raise ValueError(
@@ -1365,6 +1756,27 @@ def bind_fp(
         runtime_environment_contract=_runtime_environment_contract_summary(
             pre.resolved_environment
         ),
+    )
+
+
+def bind_fp(
+    pre: PrecomputedManifest,
+    job: ExecutableJob,
+    result_path: str = "",
+    *,
+    workspace_root: Path | None = None,
+    asset_bindings: dict[str, TargetAssetBinding] | None = None,
+) -> BoundJob:
+    """
+    Assemble the minimal F_P manifest from pre-computed material.
+    Raises FileNotFoundError if required context failed to resolve.
+    """
+    return _construct_bound_job(
+        pre,
+        job,
+        result_path,
+        workspace_root=workspace_root,
+        asset_bindings=asset_bindings,
     )
 
 
@@ -1618,6 +2030,23 @@ def _assemble_prompt(
         if target_binding.exists is not None:
             target_lines.append(f"  exists: {str(target_binding.exists).lower()}")
         sections.append("\n".join(target_lines))
+        if target_binding.generated_asset_contract:
+            contract = target_binding.generated_asset_contract
+            contract_lines = [
+                "[GENERATED ASSET CONTRACT] — target output must satisfy this published contract:",
+            ]
+            for key in (
+                "asset_id",
+                "materialization_kind",
+                "relative_path",
+                "marker_path",
+                "marker_text",
+                "heading_prefix",
+            ):
+                value = contract.get(key)
+                if value not in (None, ""):
+                    contract_lines.append(f"  {key}: {value}")
+            sections.append("\n".join(contract_lines))
 
     declared_obligation_policy = (
         declared_obligation_ledger_policy_for_job(job) if result_path else None

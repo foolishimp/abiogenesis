@@ -39,7 +39,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-VERSION = "3.1.0"
+VERSION = "3.2.0"
 
 # Instruction-file markers for idempotent GTL bootloader injection
 _GTL_BOOTLOADER_START = "<!-- GTL_BOOTLOADER_START -->"
@@ -432,7 +432,16 @@ from gtl.module_model import Module
 from genesis.binding import Worker
 from genesis.events import EventStream
 from genesis.install import workspace_bootstrap
-from genesis.services import Scope, ScopeSelector, StartIntent, gen_gaps, gen_iterate, gen_start, resolve_start_target
+from genesis.services import (
+    Scope,
+    ScopeSelector,
+    StartIntent,
+    admit_operator_asset_query_contract,
+    gen_gaps,
+    gen_iterate,
+    gen_start,
+    resolve_start_target,
+)
 
 
 @dataclass(frozen=True)
@@ -505,7 +514,10 @@ def start(
             app.module,
             target,
             workspace_root=app.config.workspace_root,
-            runtime_config=app.config.runtime_config,
+            operator_asset_contract=admit_operator_asset_query_contract(
+                app.config.runtime_config,
+                workspace_root=app.config.workspace_root,
+            ),
         ),
         until=until,
     )

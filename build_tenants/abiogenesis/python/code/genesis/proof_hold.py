@@ -29,7 +29,27 @@ def _event_value(event: Mapping[str, Any], key: str) -> Any:
     return None
 
 
-def resolve_proof_hold_policy(runtime_config: Mapping[str, Any] | None = None) -> dict[str, Any]:
+def _proof_hold_policy_spec(
+    *,
+    resolved_policy: Mapping[str, Any] | None = None,
+) -> tuple[Mapping[str, Any] | None, str | None]:
+    if isinstance(resolved_policy, Mapping):
+        proof = resolved_policy.get("proof")
+        if isinstance(proof, Mapping):
+            config = proof.get("config")
+            if isinstance(config, Mapping):
+                nested = config.get("proof_hold")
+                if isinstance(nested, Mapping):
+                    return nested, "resolved_policy.proof.config.proof_hold"
+                if "enabled" in config or "failure_threshold" in config:
+                    return config, "resolved_policy.proof.config"
+    return None, None
+
+
+def resolve_proof_hold_policy(
+    *,
+    resolved_policy: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
     """
     Resolve product-layer proof-hold policy into one consumed surface.
 
@@ -42,27 +62,25 @@ def resolve_proof_hold_policy(runtime_config: Mapping[str, Any] | None = None) -
         "failure_threshold": DEFAULT_PROOF_HOLD_FAILURE_THRESHOLD,
         "source": "product_default",
     }
-    if runtime_config is None:
-        return resolved
-    policy = runtime_config.get("proof_hold_policy")
+    policy, source = _proof_hold_policy_spec(
+        resolved_policy=resolved_policy,
+    )
     if policy is None:
         return resolved
-    if not isinstance(policy, Mapping):
-        raise ValueError("runtime_config.proof_hold_policy must be a mapping")
 
     enabled = policy.get("enabled", resolved["enabled"])
     if not isinstance(enabled, bool):
-        raise ValueError("runtime_config.proof_hold_policy.enabled must be a boolean")
+        raise ValueError(f"{source}.enabled must be a boolean")
 
     failure_threshold = policy.get("failure_threshold", resolved["failure_threshold"])
     if not isinstance(failure_threshold, int) or failure_threshold < 1:
-        raise ValueError("runtime_config.proof_hold_policy.failure_threshold must be an integer >= 1")
+        raise ValueError(f"{source}.failure_threshold must be an integer >= 1")
 
     resolved.update(
         {
             "enabled": enabled,
             "failure_threshold": failure_threshold,
-            "source": "runtime_config.proof_hold_policy",
+            "source": source,
         }
     )
     return resolved
@@ -115,7 +133,7 @@ def project_proof_holds(
     workspace: Path,
     identities: Sequence[Mapping[str, Any]],
     *,
-    runtime_config: Mapping[str, Any] | None = None,
+    resolved_policy: Mapping[str, Any] | None = None,
     all_events: list[dict[str, Any]] | None = None,
 ) -> dict[tuple[str, str | None, str, str], dict[str, Any]]:
     """
@@ -123,7 +141,6 @@ def project_proof_holds(
 
     Each identity must resolve to edge/work_key/spec_hash/workflow_version.
     """
-    policy = resolve_proof_hold_policy(runtime_config)
     events = all_events if all_events is not None else EventStream.open(workspace).all_events()
 
     normalized_keys: list[tuple[str, str | None, str, str]] = []
@@ -137,6 +154,14 @@ def project_proof_holds(
         )
         if key is None:
             continue
+        identity_resolved_policy = (
+            identity.get("resolved_policy")
+            if isinstance(identity, Mapping) and isinstance(identity.get("resolved_policy"), Mapping)
+            else resolved_policy
+        )
+        policy = resolve_proof_hold_policy(
+            resolved_policy=identity_resolved_policy,
+        )
         normalized_keys.append(key)
         results[key] = {
             "held": False,
@@ -166,10 +191,12 @@ def project_proof_holds(
         else:
             reset_boundaries[key] = ""
 
-    if not policy["enabled"]:
+    tracked_keys = {
+        key for key, value in results.items() if bool(value.get("enabled"))
+    }
+    if not tracked_keys:
         return results
 
-    tracked_keys = set(normalized_keys)
     for event in events:
         event_type = event.get("event_type")
         if event_type not in {"proof_failed", "proof_passed"}:
@@ -202,7 +229,7 @@ def project_proof_hold(
     work_key: str | None,
     spec_hash: str | None,
     workflow_version: str | None,
-    runtime_config: Mapping[str, Any] | None = None,
+    resolved_policy: Mapping[str, Any] | None = None,
     all_events: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     holds = project_proof_holds(
@@ -215,7 +242,7 @@ def project_proof_hold(
                 "workflow_version": workflow_version,
             },
         ),
-        runtime_config=runtime_config,
+        resolved_policy=resolved_policy,
         all_events=all_events,
     )
     key = _normalize_identity(
@@ -225,7 +252,9 @@ def project_proof_hold(
         workflow_version,
     )
     if key is None:
-        policy = resolve_proof_hold_policy(runtime_config)
+        policy = resolve_proof_hold_policy(
+            resolved_policy=resolved_policy,
+        )
         return {
             "held": False,
             "failure_count": 0,

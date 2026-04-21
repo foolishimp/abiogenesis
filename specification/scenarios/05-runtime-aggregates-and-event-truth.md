@@ -2,7 +2,7 @@
 
 **Validates**: REQ-R-ABG3-EVENTS, REQ-R-ABG3-BINDING, REQ-R-ABG3-WORKER, REQ-R-ABG3-JOB-WORKER, REQ-R-ABG3-RUN, REQ-R-ABG3-GRAPHCALL, REQ-R-ABG3-FRAME, REQ-R-ABG3-CONTINUATION
 
-**Derives from**: [/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [INTENT.md](../INTENT.md) INT-001, [ABG_3_CONSTITUTIONAL_DESIGN.md](../ABG_3_CONSTITUTIONAL_DESIGN.md)
+**Derives from**: [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md), [INTENT.md](../INTENT.md) INT-001, [ABG_3_CONSTITUTIONAL_DESIGN.md](../ABG_3_CONSTITUTIONAL_DESIGN.md)
 
 **Purpose**: Prove that ABG 3 runtime truth is event-authoritative over
 explicit aggregates, runtime-environment binding, and carried execution truth

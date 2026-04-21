@@ -10,6 +10,7 @@ import json
 import sys
 import textwrap
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
@@ -26,8 +27,12 @@ from genesis import cli_adapter
 from genesis import events as genesis_events
 from genesis.fulfillment_ledger import make_published_fulfillment_ledger_ref
 from genesis.identity import RuntimeIdentity
+from genesis.interpret import TraversalOutcome
 from genesis import install as genesis_install
+from genesis.lineage import active_work_keys
+from genesis.policy import resolve_policy_bundle
 from genesis.provenance import spec_hash_for
+from genesis.runtime_carrier import FpDispatchTransition
 from genesis import services
 
 
@@ -487,6 +492,13 @@ def test_run_start_until_converged_stops_on_replay_derived_proof_hold(monkeypatc
             "edge": "requirements→design",
             "spec_hash": "spec-proof-hold",
             "workflow_version": "wf-proof-hold",
+            "resolved_policy": {
+                **resolve_policy_bundle(),
+                "proof": {
+                    "ref": "genesis.policy_defaults:proof_recheck_after_fp",
+                    "config": {"proof_hold": {"failure_threshold": 2}},
+                },
+            },
         }
 
     dispatched: list[str] = []
@@ -502,7 +514,7 @@ def test_run_start_until_converged_stops_on_replay_derived_proof_hold(monkeypatc
         _start_intent(object()),
         object(),
         workspace=tmp_path,
-        config={"proof_hold_policy": {"failure_threshold": 2}},
+        config={"proof_hold_policy": {"failure_threshold": 99}},
         fh_mode="direct",
     )
 
@@ -539,6 +551,13 @@ def test_run_start_until_converged_ignores_proof_hold_when_policy_disabled(monke
                 "edge": "requirements→design",
                 "spec_hash": "spec-proof-hold-disabled",
                 "workflow_version": "wf-proof-hold-disabled",
+                "resolved_policy": {
+                    **resolve_policy_bundle(),
+                    "proof": {
+                        "ref": "genesis.policy_defaults:proof_recheck_after_fp",
+                        "config": {"enabled": False, "failure_threshold": 2},
+                    },
+                },
             },
             {
                 "status": "converged",
@@ -562,7 +581,7 @@ def test_run_start_until_converged_ignores_proof_hold_when_policy_disabled(monke
         _start_intent(object()),
         object(),
         workspace=tmp_path,
-        config={"proof_hold_policy": {"enabled": False, "failure_threshold": 2}},
+        config={"proof_hold_policy": {"enabled": True, "failure_threshold": 1}},
         fh_mode="direct",
     )
 
@@ -600,7 +619,7 @@ def test_run_start_until_converged_supervised_retries_after_transport_failure_wi
     monkeypatch.setattr(cli_adapter, "_run_start_until_converged", fake_run_start_until_converged)
     monkeypatch.setattr(
         "genesis.live_status.project_live_run_status",
-        lambda workspace, run_id=None, runtime_config=None: next(statuses),
+        lambda workspace, run_id=None: next(statuses),
     )
 
     result = cli_adapter._run_start_until_converged_supervised(
@@ -619,7 +638,7 @@ def test_run_start_until_converged_supervised_retries_after_transport_failure_wi
 def test_run_status_cmd_prints_live_projection(capsys, monkeypatch, tmp_path: Path):
     monkeypatch.setattr(
         "genesis.live_status.project_live_run_status",
-        lambda workspace, run_id=None, runtime_config=None: {
+        lambda workspace, run_id=None: {
             "asset_type": "run_status",
             "run_id": run_id or "run-1",
             "live_state": "active",
@@ -691,7 +710,10 @@ def test_resolve_start_target_asset_uses_explicit_operator_asset_contract(tmp_pa
         module,
         "asset:code_surface",
         workspace_root=tmp_path,
-        runtime_config={"operator_asset_contract": {"command": command}},
+        operator_asset_contract=services.admit_operator_asset_query_contract(
+            {"operator_asset_contract": {"command": command}},
+            workspace_root=tmp_path,
+        ),
     )
 
     assert target.kind == "asset"
@@ -723,7 +745,10 @@ def test_resolve_start_target_asset_fails_closed_when_owner_missing(tmp_path: Pa
             module,
             "asset:code_surface",
             workspace_root=tmp_path,
-            runtime_config={"operator_asset_contract": {"command": command}},
+            operator_asset_contract=services.admit_operator_asset_query_contract(
+                {"operator_asset_contract": {"command": command}},
+                workspace_root=tmp_path,
+            ),
         )
 
 
@@ -809,16 +834,29 @@ def test_gen_start_graph_function_target_constrains_semantic_job(monkeypatch, tm
     targeted = services.resolve_start_target(module, "graph_function:code-flow")
     captured: dict[str, object] = {}
 
-    def fake_derive_state(scope_arg, stream_arg, *, jobs_override=None):
-        captured["derive_jobs"] = [job.job.name for job in jobs_override]
+    def fake_derive_state(*, jobs, **kwargs):
+        captured["derive_jobs"] = [job.job.name for job in jobs]
         return {"status": "in_progress", "delta": 1.0}
 
-    def fake_gen_iterate(scope_arg, stream_arg, *, jobs_override=None):
+    def fake_iterate_kernel_outcome(scope_arg, stream_arg, *, jobs_override=None):
         captured["iterate_jobs"] = [job.job.name for job in jobs_override]
-        return {"status": "pending", "blocking_reason": "fp_dispatch"}
+        carrier_basis = services.ExecutionBasis(
+            workspace_root=tmp_path,
+            executable_job=jobs_override[0],
+            runtime_identity=scope.runtime_identity,
+            workflow_version=scope.workflow_version,
+        )
+        return services.IterateKernelOutcome(
+            result={"status": "pending", "blocking_reason": "fp_dispatch"},
+            basis=carrier_basis,
+            transition=FpDispatchTransition(
+                basis=carrier_basis,
+                manifest_id="fp-manifest",
+            ),
+        )
 
-    monkeypatch.setattr(services, "_derive_state", fake_derive_state)
-    monkeypatch.setattr(services, "gen_iterate", fake_gen_iterate)
+    monkeypatch.setattr(services, "derive_operational_state", fake_derive_state)
+    monkeypatch.setattr(services, "_iterate_kernel_outcome", fake_iterate_kernel_outcome)
 
     result = services.gen_start(_start_intent(scope, until="first_traversal", target=targeted), stream)
 
@@ -828,6 +866,9 @@ def test_gen_start_graph_function_target_constrains_semantic_job(monkeypatch, tm
     assert result["target_id"] == module.graph_functions[1].id
     assert result["graph_function_name"] == "code_fn"
     assert result["stop_predicate"] == "dispatch_required"
+    assert result["execution_basis"]["target"] == "graph_function:code-flow"
+    assert result["execution_basis"]["job_name"] == "design→code"
+    assert result["advancement_transition"]["kind"] == "fp_dispatch"
 
 
 def test_gen_start_asset_target_constrains_semantic_job(monkeypatch, tmp_path: Path):
@@ -838,37 +879,53 @@ def test_gen_start_asset_target_constrains_semantic_job(monkeypatch, tmp_path: P
         module,
         "asset:code_surface",
         workspace_root=tmp_path,
-        runtime_config={
-            "operator_asset_contract": {
-                "command": _write_operator_asset_query_script(
-                    tmp_path,
-                    {
-                        "assets": [
-                            {
-                                "asset_id": "code_surface",
-                                "uri": "file://build/code",
-                                "metadata": {"relative_path": "build/code.py"},
-                                "checkpoint": {"path_kind": "file", "exists": True},
-                                "operator_target": {"kind": "graph_function", "handle": "code-flow"},
-                            }
-                        ]
-                    },
-                )
-            }
-        },
+        operator_asset_contract=services.admit_operator_asset_query_contract(
+            {
+                "operator_asset_contract": {
+                    "command": _write_operator_asset_query_script(
+                        tmp_path,
+                        {
+                            "assets": [
+                                {
+                                    "asset_id": "code_surface",
+                                    "uri": "file://build/code",
+                                    "metadata": {"relative_path": "build/code.py"},
+                                    "checkpoint": {"path_kind": "file", "exists": True},
+                                    "operator_target": {"kind": "graph_function", "handle": "code-flow"},
+                                }
+                            ]
+                        },
+                    )
+                }
+            },
+            workspace_root=tmp_path,
+        ),
     )
     captured: dict[str, object] = {}
 
-    def fake_derive_state(scope_arg, stream_arg, *, jobs_override=None):
-        captured["derive_jobs"] = [job.job.name for job in jobs_override]
+    def fake_derive_state(*, jobs, **kwargs):
+        captured["derive_jobs"] = [job.job.name for job in jobs]
         return {"status": "in_progress", "delta": 1.0}
 
-    def fake_gen_iterate(scope_arg, stream_arg, *, jobs_override=None):
+    def fake_iterate_kernel_outcome(scope_arg, stream_arg, *, jobs_override=None):
         captured["iterate_jobs"] = [job.job.name for job in jobs_override]
-        return {"status": "pending", "blocking_reason": "fp_dispatch"}
+        carrier_basis = services.ExecutionBasis(
+            workspace_root=tmp_path,
+            executable_job=jobs_override[0],
+            runtime_identity=scope.runtime_identity,
+            workflow_version=scope.workflow_version,
+        )
+        return services.IterateKernelOutcome(
+            result={"status": "pending", "blocking_reason": "fp_dispatch"},
+            basis=carrier_basis,
+            transition=FpDispatchTransition(
+                basis=carrier_basis,
+                manifest_id="fp-manifest",
+            ),
+        )
 
-    monkeypatch.setattr(services, "_derive_state", fake_derive_state)
-    monkeypatch.setattr(services, "gen_iterate", fake_gen_iterate)
+    monkeypatch.setattr(services, "derive_operational_state", fake_derive_state)
+    monkeypatch.setattr(services, "_iterate_kernel_outcome", fake_iterate_kernel_outcome)
 
     result = services.gen_start(_start_intent(scope, until="first_traversal", target=targeted), stream)
 
@@ -882,6 +939,9 @@ def test_gen_start_asset_target_constrains_semantic_job(monkeypatch, tmp_path: P
     assert result["asset_relative_path"] == "build/code.py"
     assert result["asset_exists"] is True
     assert result["stop_predicate"] == "dispatch_required"
+    assert result["execution_basis"]["target"] == "asset:code_surface"
+    assert result["execution_basis"]["job_name"] == "design→code"
+    assert result["advancement_transition"]["kind"] == "fp_dispatch"
 
 
 def test_gen_start_graph_function_target_fails_closed_on_multiple_semantic_jobs(tmp_path: Path):
@@ -895,6 +955,156 @@ def test_gen_start_graph_function_target_fails_closed_on_multiple_semantic_jobs(
     assert result["status"] == "error"
     assert "multiple semantic jobs" in result["reason"]
     assert result["target"] == f"graph_function:{module.graph_functions[0].name}"
+    assert result["execution_basis"]["target"] == f"graph_function:{module.graph_functions[0].name}"
+    assert result["advancement_transition"]["kind"] == "terminal"
+
+
+def test_gen_start_next_converged_multi_job_scope_does_not_publish_arbitrary_job_identity(
+    monkeypatch,
+    tmp_path: Path,
+):
+    module = _multi_target_module()
+    stream = genesis_install.workspace_bootstrap(tmp_path)
+    scope = services.Scope(module=module, workspace_root=tmp_path)
+
+    def fake_derive_state(*, jobs, **kwargs):
+        assert len(jobs) == 2
+        return {"status": "converged"}
+
+    monkeypatch.setattr(services, "derive_operational_state", fake_derive_state)
+    monkeypatch.setattr(
+        services,
+        "_close_completed_features",
+        lambda scope_arg, stream_arg, *, target: None,
+    )
+
+    result = services.gen_start(_start_intent(scope, until="converged"), stream)
+
+    assert result["status"] == "converged"
+    assert result["target"] == "next"
+    assert result["stop_predicate"] == "converged"
+    assert result["execution_basis"]["target"] == "next"
+    assert "job_id" not in result["execution_basis"]
+    assert "job_name" not in result["execution_basis"]
+    assert "edge" not in result["execution_basis"]
+    assert "graph_function_id" not in result["execution_basis"]
+
+
+def test_gen_start_converged_emits_feature_completion_events_without_mutating_feature_files(
+    monkeypatch,
+    tmp_path: Path,
+):
+    module = _runtime_contract_module()
+    stream = genesis_install.workspace_bootstrap(tmp_path)
+    active_dir = tmp_path / ".ai-workspace" / "features" / "active"
+    active_dir.mkdir(parents=True, exist_ok=True)
+    feature_path = active_dir / "REQ-FEAT-1.yml"
+    feature_text = "id: REQ-FEAT-1\nstatus: active\n"
+    feature_path.write_text(feature_text, encoding="utf-8")
+    scope = services.Scope(module=module, workspace_root=tmp_path)
+
+    monkeypatch.setattr(
+        services,
+        "derive_operational_state",
+        lambda **kwargs: {"status": "converged"},
+    )
+
+    result = services.gen_start(_start_intent(scope, until="converged"), stream)
+
+    assert result["status"] == "converged"
+    assert feature_path.read_text(encoding="utf-8") == feature_text
+    completed = [event for event in stream.all_events() if event["event_type"] == "feature_completed"]
+    assert len(completed) == 1
+    assert completed[0]["data"]["work_key"] == "REQ-FEAT-1"
+    assert active_work_keys(tmp_path, stream) == []
+
+
+def test_gen_start_converged_work_key_scope_completes_only_selected_feature(
+    monkeypatch,
+    tmp_path: Path,
+):
+    module = _runtime_contract_module()
+    stream = genesis_install.workspace_bootstrap(tmp_path)
+    active_dir = tmp_path / ".ai-workspace" / "features" / "active"
+    active_dir.mkdir(parents=True, exist_ok=True)
+    (active_dir / "REQ-FEAT-1.yml").write_text("id: REQ-FEAT-1\nstatus: active\n", encoding="utf-8")
+    (active_dir / "REQ-FEAT-2.yml").write_text("id: REQ-FEAT-2\nstatus: active\n", encoding="utf-8")
+    scope = services.Scope(
+        module=module,
+        workspace_root=tmp_path,
+        selector=services.ScopeSelector(kind="work_key", work_key="REQ-FEAT-1"),
+    )
+
+    monkeypatch.setattr(
+        services,
+        "derive_operational_state",
+        lambda **kwargs: {"status": "converged"},
+    )
+
+    result = services.gen_start(_start_intent(scope, until="converged"), stream)
+
+    assert result["status"] == "converged"
+    completed = [event for event in stream.all_events() if event["event_type"] == "feature_completed"]
+    assert [event["data"]["work_key"] for event in completed] == ["REQ-FEAT-1"]
+    assert active_work_keys(tmp_path, stream) == ["REQ-FEAT-2"]
+
+
+def test_gen_start_converged_targeted_graph_function_does_not_complete_features(
+    monkeypatch,
+    tmp_path: Path,
+):
+    module = _multi_target_module()
+    stream = genesis_install.workspace_bootstrap(tmp_path)
+    active_dir = tmp_path / ".ai-workspace" / "features" / "active"
+    active_dir.mkdir(parents=True, exist_ok=True)
+    (active_dir / "REQ-FEAT-1.yml").write_text("id: REQ-FEAT-1\nstatus: active\n", encoding="utf-8")
+    (active_dir / "REQ-FEAT-2.yml").write_text("id: REQ-FEAT-2\nstatus: active\n", encoding="utf-8")
+    scope = services.Scope(module=module, workspace_root=tmp_path)
+    targeted = services.resolve_start_target(module, "graph_function:code-flow")
+
+    monkeypatch.setattr(
+        services,
+        "derive_operational_state",
+        lambda **kwargs: {"status": "converged"},
+    )
+
+    result = services.gen_start(_start_intent(scope, until="converged", target=targeted), stream)
+
+    assert result["status"] == "converged"
+    assert [event for event in stream.all_events() if event["event_type"] == "feature_completed"] == []
+    assert active_work_keys(tmp_path, stream) == ["REQ-FEAT-1", "REQ-FEAT-2"]
+
+
+def test_edge_scoped_reset_reopens_completed_feature_activeness(tmp_path: Path):
+    stream = genesis_install.workspace_bootstrap(tmp_path)
+    active_dir = tmp_path / ".ai-workspace" / "features" / "active"
+    active_dir.mkdir(parents=True, exist_ok=True)
+    (active_dir / "REQ-FEAT-1.yml").write_text("id: REQ-FEAT-1\nstatus: active\n", encoding="utf-8")
+
+    genesis_events.emit(
+        "feature_completed",
+        {
+            "work_key": "REQ-FEAT-1",
+            "feature_id": "REQ-FEAT-1",
+            "feature_path": ".ai-workspace/features/active/REQ-FEAT-1.yml",
+        },
+        stream=stream,
+        context=genesis_events.EventContext(workflow_version="demo.workflow@3.0.0", work_key="REQ-FEAT-1"),
+    )
+    assert active_work_keys(tmp_path, stream) == []
+
+    genesis_events.emit(
+        "reset",
+        {
+            "scope": "edge",
+            "edge": "design→code",
+            "work_key": "REQ-FEAT-1",
+        },
+        stream=stream,
+        context=genesis_events.EventContext(workflow_version="demo.workflow@3.0.0", work_key="REQ-FEAT-1"),
+    )
+
+    assert active_work_keys(tmp_path, stream) == ["REQ-FEAT-1"]
 
 
 def test_gen_gaps_projects_current_identity_proof_hold(tmp_path: Path):
@@ -903,7 +1113,12 @@ def test_gen_gaps_projects_current_identity_proof_hold(tmp_path: Path):
     scope = services.Scope(
         module=module,
         workspace_root=tmp_path,
-        runtime_config={"proof_hold_policy": {"failure_threshold": 2}},
+        runtime_config={
+            "default_policy_bundle": {
+                "ref": "genesis.policy_defaults:broad_fp_first_bundle",
+                "config": {"proof": {"proof_hold": {"failure_threshold": 2}}},
+            }
+        },
     )
     job = module_to_executable_jobs(module)[0]
     spec_hash = spec_hash_for(
@@ -1388,6 +1603,7 @@ def test_assess_result_cmd_routes_manifest_provenance_through_workspace_event_he
                 "spec_hash": "abc123",
                 "run_id": "run-42",
                 "work_key": "REQ-7/design→code",
+                "resolved_policy": resolve_policy_bundle(),
                 "fulfillment_obligations": _fulfillment_obligations(
                     ("code_complete", "code satisfies the design contract")
                 ),
@@ -1491,6 +1707,7 @@ def test_assess_result_cmd_ignores_unprefixed_backend_field(monkeypatch, tmp_pat
         json.dumps(
             {
                 "spec_hash": "abc123",
+                "resolved_policy": resolve_policy_bundle(),
                 "fulfillment_obligations": _fulfillment_obligations(
                     ("code_complete", "code satisfies the design contract")
                 ),
@@ -1531,32 +1748,96 @@ def test_assess_result_cmd_ignores_unprefixed_backend_field(monkeypatch, tmp_pat
     assert "selected_backend" not in calls[0]["data"]
 
 
-def test_gen_start_remains_one_step_engine_progression(monkeypatch):
+def test_gen_start_remains_one_step_engine_progression(monkeypatch, tmp_path: Path):
     calls = {"derive": 0, "iterate": 0}
+    module = _runtime_contract_module()
+    stream = genesis_install.workspace_bootstrap(tmp_path)
+    scope = services.Scope(module=module, workspace_root=tmp_path)
 
-    def fake_derive_state(scope, stream, *, jobs_override=None):
+    def fake_derive_state(*, jobs, **kwargs):
         calls["derive"] += 1
+        assert len(jobs) == 1
         return {"status": "in_progress", "delta": 1.0}
 
-    def fake_gen_iterate(scope, stream, *, jobs_override=None):
+    def fake_iterate_kernel_outcome(scope, stream, *, jobs_override=None):
         calls["iterate"] += 1
-        return {"status": "pending", "blocking_reason": "fp_dispatch"}
+        carrier_basis = services.ExecutionBasis(
+            workspace_root=tmp_path,
+            runtime_identity=scope.runtime_identity,
+            workflow_version=scope.workflow_version,
+            run_id="kernel-run",
+        )
+        return services.IterateKernelOutcome(
+            result={"status": "pending", "blocking_reason": "fp_dispatch"},
+            basis=carrier_basis,
+            transition=FpDispatchTransition(
+                basis=carrier_basis,
+                manifest_id="fp-manifest",
+            ),
+        )
 
-    monkeypatch.setattr(services, "_resolve_worker", lambda scope: object())
-    monkeypatch.setattr(services, "_resolve_start_jobs", lambda scope, worker, target: ["job"])
-    monkeypatch.setattr(services, "_derive_state", fake_derive_state)
-    monkeypatch.setattr(services, "gen_iterate", fake_gen_iterate)
+    monkeypatch.setattr(services, "derive_operational_state", fake_derive_state)
+    monkeypatch.setattr(services, "_iterate_kernel_outcome", fake_iterate_kernel_outcome)
 
     result = services.gen_start(
-        services.StartIntent(scope=object(), target=services.StartTarget.next(), until="first_traversal"),
-        object(),
+        services.StartIntent(scope=scope, target=services.StartTarget.next(), until="first_traversal"),
+        stream,
     )
 
-    assert result == {
-        "status": "pending",
-        "blocking_reason": "fp_dispatch",
-        "target": "next",
-        "until": "first_traversal",
-        "stop_predicate": "dispatch_required",
-    }
+    assert result["status"] == "pending"
+    assert result["blocking_reason"] == "fp_dispatch"
+    assert result["target"] == "next"
+    assert result["until"] == "first_traversal"
+    assert result["stop_predicate"] == "dispatch_required"
+    assert result["execution_basis"]["run_id"] == "kernel-run"
+    assert result["advancement_transition"]["kind"] == "fp_dispatch"
     assert calls == {"derive": 1, "iterate": 1}
+
+
+def test_gen_iterate_uses_typed_traversal_outcome_over_result_payload(monkeypatch, tmp_path: Path):
+    module = _runtime_contract_module()
+    worker = Worker(
+        id="typed_outcome_router",
+        can_execute=module_to_executable_jobs(module),
+    )
+    stream = genesis_install.workspace_bootstrap(tmp_path)
+    scope = services.Scope(module=module, workspace_root=tmp_path, worker=worker)
+    executable_job = module_to_executable_jobs(module)[0]
+    carrier_basis = services.ExecutionBasis(
+        workspace_root=tmp_path,
+        executable_job=executable_job,
+        runtime_identity=scope.runtime_identity,
+        workflow_version=scope.workflow_version,
+        run_id=scope.run_id,
+    )
+    typed_transition = FpDispatchTransition(
+        basis=carrier_basis,
+        manifest_id="typed-manifest",
+        dispatch_ref="runtime://dispatch",
+        result_path=str(tmp_path / ".ai-workspace" / "fp_results" / "typed-manifest.json"),
+    )
+
+    def fake_plan_next_traversal(**kwargs):
+        return SimpleNamespace(traversal=object(), runtime=object(), result={})
+
+    def fake_traverse(traversal, *, runtime, surface=None):
+        return TraversalOutcome(
+            surface=services.WorkSurface(),
+            result={
+                "status": "pending",
+                "blocking_reason": "fd_gap",
+                "advancement_transition": {"kind": "terminal", "terminal_kind": "gap_stop"},
+            },
+            basis=carrier_basis,
+            transition=typed_transition,
+        )
+
+    monkeypatch.setattr(services, "plan_next_traversal", fake_plan_next_traversal)
+    monkeypatch.setattr(services, "traverse", fake_traverse)
+
+    result = services.gen_iterate(scope, stream)
+
+    assert result["advancement_transition"]["kind"] == "fp_dispatch"
+    assert result["advancement_transition"]["manifest_id"] == "typed-manifest"
+    assert result["advancement_transition"]["dispatch_ref"] == "runtime://dispatch"
+    assert result["advancement_transition"]["result_path"].endswith("typed-manifest.json")
