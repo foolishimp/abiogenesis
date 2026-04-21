@@ -531,19 +531,17 @@ class TargetAssetBinding:
     binding_source: str = "workspace_asset_query"
 
     def to_dict(self) -> dict[str, Any]:
-        return {
+        data = {
             "asset_id": self.asset_id,
             "uri": self.uri,
             "relative_path": self.relative_path,
             "path_kind": self.path_kind,
             "exists": self.exists,
-            "generated_asset_contract": (
-                None
-                if self.generated_asset_contract is None
-                else dict(self.generated_asset_contract)
-            ),
             "binding_source": self.binding_source,
         }
+        if self.generated_asset_contract is not None:
+            data["generated_asset_contract"] = dict(self.generated_asset_contract)
+        return data
 
 
 @dataclass(frozen=True)
@@ -639,13 +637,65 @@ def _workspace_command_env(
     return env
 
 
+def _bounded_prompt_text(text: str, *, max_chars: int, marker: str) -> str:
+    if len(text) <= max_chars:
+        return text
+    if max_chars <= 0:
+        return ""
+    suffix = f" {marker}" if marker else ""
+    if len(suffix) >= max_chars:
+        return suffix[:max_chars]
+    body_limit = max_chars - len(suffix)
+    body = text[:body_limit].rstrip()
+    if not body:
+        return suffix.strip()[:max_chars]
+    return f"{body}{suffix}"[:max_chars]
+
+
+def _markdown_heading_sections(text: str) -> list[str]:
+    sections: list[list[str]] = []
+    current: list[str] = []
+    for line in text.splitlines():
+        if line.startswith("## ") and current:
+            sections.append(current)
+            current = [line]
+            continue
+        current.append(line)
+    if current:
+        sections.append(current)
+    return ["\n".join(section).strip() for section in sections if "\n".join(section).strip()]
+
+
+def _bounded_markdown_context(text: str, *, max_chars: int, marker: str) -> str:
+    if len(text) <= max_chars:
+        return text
+    sections = _markdown_heading_sections(text)
+    if len(sections) < 3:
+        return _bounded_prompt_text(text, max_chars=max_chars, marker=marker)
+    section_budget = max(120, max_chars // len(sections))
+    emitted_sections = [
+        _bounded_prompt_text(section, max_chars=section_budget, marker="...")
+        for section in sections
+    ]
+    emitted = "\n\n".join(emitted_sections)
+    if len(emitted) <= max_chars:
+        return emitted
+    return _bounded_prompt_text(emitted, max_chars=max_chars, marker=marker)
+
+
+@dataclass(frozen=True)
+class WorkspaceAssetSnapshot:
+    text: str
+    relative_path: str
+    original_chars: int
+    inspection_ref: str
+
+
 def _read_workspace_asset_snapshot(
     workspace_root: Path,
     relative_path: str,
-    *,
-    max_chars: int = 4000,
-) -> str | None:
-    """Load a bounded text snapshot for a concrete workspace asset binding."""
+) -> WorkspaceAssetSnapshot | None:
+    """Load source text for a concrete workspace asset binding."""
     path = (workspace_root / relative_path).resolve()
     try:
         path.relative_to(workspace_root.resolve())
@@ -654,20 +704,20 @@ def _read_workspace_asset_snapshot(
     if not path.exists():
         return None
 
-    def _truncate(text: str) -> str:
-        if len(text) <= max_chars:
-            return text
-        return text[:max_chars].rstrip() + "\n...[truncated]"
-
     if path.is_file():
         try:
-            return _truncate(path.read_text(encoding="utf-8"))
+            text = path.read_text(encoding="utf-8")
         except (OSError, UnicodeDecodeError):
             return None
+        return WorkspaceAssetSnapshot(
+            text=text,
+            relative_path=relative_path,
+            original_chars=len(text),
+            inspection_ref=f"workspace://{relative_path}",
+        )
 
     if path.is_dir():
         parts: list[str] = []
-        remaining = max_chars
         for pattern in ("*.md", "*.txt", "*.py", "*.json", "*.yml", "*.yaml"):
             for asset_file in sorted(path.rglob(pattern)):
                 try:
@@ -678,15 +728,15 @@ def _read_workspace_asset_snapshot(
                     f"# {asset_file.relative_to(workspace_root)}\n"
                     f"{content.rstrip()}\n\n"
                 )
-                if len(block) > remaining:
-                    parts.append(block[:remaining].rstrip() + "\n...[truncated]")
-                    return "".join(parts).rstrip()
                 parts.append(block)
-                remaining -= len(block)
-                if remaining <= 0:
-                    return "".join(parts).rstrip()
         if parts:
-            return "".join(parts).rstrip()
+            text = "".join(parts).rstrip()
+            return WorkspaceAssetSnapshot(
+                text=text,
+                relative_path=relative_path,
+                original_chars=len(text),
+                inspection_ref=f"workspace://{relative_path}",
+            )
     return None
 
 
@@ -1208,12 +1258,72 @@ class PrecomputedManifest:
         return self.unresolved_count / total
 
 
+@dataclass(frozen=True)
+class PromptCompactionRecord:
+    """Closed prompt-budget record published into manifests and events."""
+
+    surface: str
+    reason: str
+    size_unit: Literal["chars", "items", "bindings"]
+    original_size: int
+    emitted_size: int
+    budget_size: int
+    inspection_ref: str
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "surface": self.surface,
+            "reason": self.reason,
+            "size_unit": self.size_unit,
+            "original_size": self.original_size,
+            "emitted_size": self.emitted_size,
+            "budget_size": self.budget_size,
+            "inspection_ref": self.inspection_ref,
+        }
+
+
+@dataclass(frozen=True)
+class PromptSection:
+    """One rendered prompt section and the compaction records it caused."""
+
+    name: str
+    text: str
+    compactions: tuple[PromptCompactionRecord, ...] = ()
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "name": self.name,
+            "emitted_chars": len(self.text),
+            "prompt_compactions": [
+                record.to_dict() for record in self.compactions
+            ],
+        }
+
+
+@dataclass(frozen=True)
+class PromptAssembly:
+    """Admitted F_P prompt interface: emitted text plus prompt-budget truth."""
+
+    prompt: str
+    compactions: tuple[PromptCompactionRecord, ...] = ()
+    sections: tuple[PromptSection, ...] = ()
+
+    def prompt_compactions(self) -> list[dict[str, Any]]:
+        return [record.to_dict() for record in self.compactions]
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "sections": [section.to_dict() for section in self.sections],
+            "prompt_compactions": self.prompt_compactions(),
+        }
+
+
 @dataclass
 class BoundJob:
     """Implementation helper — an executable job with resolved context, ready for F_P dispatch."""
     executable_job: ExecutableJob
     precomputed: PrecomputedManifest
-    prompt: str
+    prompt_assembly: PromptAssembly
     result_path: str = ""
     manifest_id: str = ""
     worker_id: str = ""
@@ -1228,6 +1338,14 @@ class BoundJob:
     target_asset_surface: dict[str, Any] | None = None
     environment_asset_surfaces: dict[str, dict[str, Any]] = field(default_factory=dict)
     runtime_environment_contract: dict[str, Any] = field(default_factory=dict)
+
+    @property
+    def prompt(self) -> str:
+        return self.prompt_assembly.prompt
+
+    @property
+    def prompt_compactions(self) -> list[dict[str, Any]]:
+        return self.prompt_assembly.prompt_compactions()
 
 
 def _asset_surface_summary(node: Node) -> dict[str, Any] | None:
@@ -1697,6 +1815,942 @@ def bind_fd(
 
 # ── bind_fp ───────────────────────────────────────────────────────────────────
 
+_FD_PROMPT_DETAIL_CHAR_LIMIT = 700
+_FD_PROMPT_JSON_ITEM_LIMIT = 3
+_PROMPT_CONTEXT_CHAR_LIMIT = 1800
+_SOURCE_SNAPSHOT_TOTAL_CHAR_LIMIT = 1000
+_SOURCE_SNAPSHOT_MIN_CHAR_LIMIT = 500
+
+
+@dataclass
+class PromptAssemblyBudget:
+    """Single prompt-budget boundary that records every compaction decision."""
+
+    events: list[PromptCompactionRecord] = field(default_factory=list)
+    fd_detail_char_limit: int = _FD_PROMPT_DETAIL_CHAR_LIMIT
+    context_char_limit: int = _PROMPT_CONTEXT_CHAR_LIMIT
+    source_snapshot_total_char_limit: int = _SOURCE_SNAPSHOT_TOTAL_CHAR_LIMIT
+    source_snapshot_min_char_limit: int = _SOURCE_SNAPSHOT_MIN_CHAR_LIMIT
+
+    def checkpoint(self) -> int:
+        return len(self.events)
+
+    def section(self, name: str, text: str, checkpoint: int) -> PromptSection:
+        return PromptSection(
+            name=name,
+            text=text,
+            compactions=tuple(self.events[checkpoint:]),
+        )
+
+    def assembly(self, sections: Iterable[PromptSection]) -> PromptAssembly:
+        section_tuple = tuple(section for section in sections if section.text)
+        return PromptAssembly(
+            prompt="\n\n".join(section.text for section in section_tuple),
+            compactions=tuple(self.events),
+            sections=section_tuple,
+        )
+
+    def records(self) -> tuple[PromptCompactionRecord, ...]:
+        return tuple(self.events)
+
+    def source_snapshot_budget(self, source_count: int) -> int:
+        return max(
+            self.source_snapshot_min_char_limit,
+            self.source_snapshot_total_char_limit // max(1, source_count),
+        )
+
+    def record(
+        self,
+        *,
+        surface: str,
+        reason: str,
+        size_unit: Literal["chars", "items", "bindings"],
+        original_size: int,
+        emitted_size: int,
+        budget_size: int,
+        inspection_ref: str,
+    ) -> None:
+        self.events.append(
+            PromptCompactionRecord(
+                surface=surface,
+                reason=reason,
+                size_unit=size_unit,
+                original_size=original_size,
+                emitted_size=emitted_size,
+                budget_size=budget_size,
+                inspection_ref=inspection_ref,
+            )
+        )
+
+    def compact_text(
+        self,
+        value: Any,
+        *,
+        max_chars: int,
+        surface: str,
+        reason: str,
+        inspection_ref: str,
+        marker: str = "...[truncated]",
+    ) -> str:
+        text = str(value).strip()
+        if len(text) <= max_chars:
+            return text
+        emitted = _bounded_prompt_text(text, max_chars=max_chars, marker=marker)
+        self.record(
+            surface=surface,
+            reason=reason,
+            size_unit="chars",
+            original_size=len(text),
+            emitted_size=len(emitted),
+            budget_size=max_chars,
+            inspection_ref=inspection_ref,
+        )
+        return emitted
+
+    def compact_context(
+        self,
+        name: str,
+        content: str,
+        *,
+        inspection_ref: str,
+    ) -> str:
+        text = str(content).strip()
+        if len(text) <= self.context_char_limit:
+            return text
+        marker = "...[context truncated; inspect the source context reference for the full surface]"
+        emitted = _bounded_markdown_context(
+            text,
+            max_chars=self.context_char_limit,
+            marker=marker,
+        )
+        self.record(
+            surface=f"context:{name}",
+            reason="context_prompt_budget",
+            size_unit="chars",
+            original_size=len(text),
+            emitted_size=len(emitted),
+            budget_size=self.context_char_limit,
+            inspection_ref=inspection_ref,
+        )
+        return emitted
+
+    def record_source_snapshot(
+        self,
+        *,
+        node_name: str,
+        relative_path: str,
+        original_chars: int,
+        emitted_chars: int,
+        budget_chars: int,
+    ) -> None:
+        if original_chars <= emitted_chars:
+            return
+        self.record(
+            surface=f"source_asset:{node_name}",
+            reason="source_snapshot_prompt_budget",
+            size_unit="chars",
+            original_size=original_chars,
+            emitted_size=emitted_chars,
+            budget_size=budget_chars,
+            inspection_ref=f"workspace://{relative_path}",
+        )
+
+    def record_omitted_obligations(
+        self,
+        *,
+        edge: str,
+        total_count: int,
+        emitted_count: int,
+        budget_count: int,
+        inspection_ref: str,
+    ) -> None:
+        if total_count <= emitted_count:
+            return
+        self.record(
+            surface=f"output_contract:{edge}:fulfillment_obligations",
+            reason="fulfillment_obligation_prompt_budget",
+            size_unit="items",
+            original_size=total_count,
+            emitted_size=emitted_count,
+            budget_size=budget_count,
+            inspection_ref=inspection_ref,
+        )
+
+    def record_omitted_environment_bindings(
+        self,
+        *,
+        edge: str,
+        total_count: int,
+        emitted_count: int,
+        budget_count: int,
+        inspection_ref: str,
+    ) -> None:
+        if total_count <= emitted_count:
+            return
+        self.record(
+            surface=f"runtime_environment:{edge}:carried_bindings",
+            reason="environment_binding_prompt_budget",
+            size_unit="bindings",
+            original_size=total_count,
+            emitted_size=emitted_count,
+            budget_size=budget_count,
+            inspection_ref=inspection_ref,
+        )
+
+    def record_json_summary(
+        self,
+        *,
+        surface: str,
+        reason: str,
+        original_count: int,
+        emitted_count: int,
+        budget_count: int,
+        inspection_ref: str = "fp_manifest.fd_results",
+    ) -> None:
+        if original_count <= emitted_count:
+            return
+        self.record(
+            surface=surface,
+            reason=reason,
+            size_unit="items",
+            original_size=original_count,
+            emitted_size=emitted_count,
+            budget_size=budget_count,
+            inspection_ref=inspection_ref,
+        )
+
+
+def _compact_json_scalar(
+    value: Any,
+    *,
+    budget: PromptAssemblyBudget,
+    surface: str = "fd_result:json_scalar",
+) -> str:
+    text = _json.dumps(value, sort_keys=True) if isinstance(value, (dict, list)) else str(value)
+    return budget.compact_text(
+        text,
+        max_chars=180,
+        surface=surface,
+        reason="json_scalar_prompt_budget",
+        inspection_ref="fp_manifest.fd_results",
+    )
+
+
+def _compact_fd_json_output(
+    value: Any,
+    *,
+    budget: PromptAssemblyBudget,
+    surface: str = "fd_result:stdout",
+) -> str:
+    if isinstance(value, list):
+        lines = [f"json_list entries={len(value)}"]
+        visible_items = value[:_FD_PROMPT_JSON_ITEM_LIMIT]
+        for index, item in enumerate(visible_items, start=1):
+            if isinstance(item, dict):
+                selected: list[str] = []
+                selected_keys: list[str] = []
+                for key in (
+                    "asset_id",
+                    "edge",
+                    "status",
+                    "traceability_status",
+                    "contract_satisfied",
+                    "reason",
+                    "marker_path",
+                    "target_path",
+                    "missing_requirement_ids",
+                    "missing_from_current_requirement_surface",
+                ):
+                    if key in item:
+                        selected_keys.append(key)
+                        selected.append(
+                            f"{key}="
+                            + _compact_json_scalar(
+                                item[key],
+                                budget=budget,
+                                surface=f"{surface}:item{index}:{key}",
+                            )
+                        )
+                if not selected:
+                    summarized_keys = sorted(str(key) for key in item)[:8]
+                    selected_keys = summarized_keys
+                    selected.append("keys=" + ",".join(summarized_keys))
+                budget.record_json_summary(
+                    surface=f"{surface}:item{index}:keys",
+                    reason="fd_json_object_key_prompt_budget",
+                    original_count=len(item),
+                    emitted_count=len(selected_keys),
+                    budget_count=len(selected_keys),
+                )
+                lines.append(f"item{index}: " + "; ".join(selected))
+            else:
+                lines.append(
+                    f"item{index}: "
+                    + _compact_json_scalar(
+                        item,
+                        budget=budget,
+                        surface=f"{surface}:item{index}",
+                    )
+                )
+        if len(value) > _FD_PROMPT_JSON_ITEM_LIMIT:
+            budget.record_json_summary(
+                surface=f"{surface}:items",
+                reason="fd_json_list_prompt_budget",
+                original_count=len(value),
+                emitted_count=len(visible_items),
+                budget_count=_FD_PROMPT_JSON_ITEM_LIMIT,
+            )
+            lines.append(f"... {len(value) - _FD_PROMPT_JSON_ITEM_LIMIT} more item(s)")
+        return " | ".join(lines)
+    if isinstance(value, dict):
+        selected = []
+        selected_keys = []
+        for key in ("status", "reason", "asset_id", "edge", "traceability_status", "contract_satisfied"):
+            if key in value:
+                selected_keys.append(key)
+                selected.append(
+                    f"{key}="
+                    + _compact_json_scalar(value[key], budget=budget, surface=f"{surface}:{key}")
+                )
+        if selected:
+            budget.record_json_summary(
+                surface=f"{surface}:keys",
+                reason="fd_json_object_key_prompt_budget",
+                original_count=len(value),
+                emitted_count=len(selected_keys),
+                budget_count=len(selected_keys),
+            )
+            return "; ".join(selected)
+        summarized_keys = sorted(str(key) for key in value)[:10]
+        budget.record_json_summary(
+            surface=f"{surface}:keys",
+            reason="fd_json_object_key_prompt_budget",
+            original_count=len(value),
+            emitted_count=len(summarized_keys),
+            budget_count=len(summarized_keys),
+        )
+        return "json_object keys=" + ",".join(summarized_keys)
+    return _compact_json_scalar(value, budget=budget, surface=surface)
+
+
+def _compact_fd_stdout(stdout: Any, *, budget: PromptAssemblyBudget, surface: str) -> str:
+    text = str(stdout).strip()
+    if not text:
+        return ""
+    try:
+        parsed = _json.loads(text)
+    except Exception:
+        return budget.compact_text(
+            text,
+            max_chars=_FD_PROMPT_DETAIL_CHAR_LIMIT,
+            surface=surface,
+            reason="fd_stdout_prompt_budget",
+            inspection_ref="fp_manifest.fd_results",
+        )
+    return _compact_fd_json_output(parsed, budget=budget, surface=surface)
+
+
+def _compact_fd_prompt_detail(
+    detail: Any,
+    *,
+    budget: PromptAssemblyBudget,
+    evaluator_name: str = "unknown",
+) -> str:
+    payload = detail.get("detail", detail) if isinstance(detail, dict) else detail
+    if not isinstance(payload, dict):
+        return budget.compact_text(
+            payload,
+            max_chars=_FD_PROMPT_DETAIL_CHAR_LIMIT,
+            surface=f"fd_result:{evaluator_name}",
+            reason="fd_result_prompt_budget",
+            inspection_ref="fp_manifest.fd_results",
+        )
+
+    parts: list[str] = []
+    for key in ("status", "reason", "returncode"):
+        if key in payload:
+            parts.append(
+                f"{key}="
+                + _compact_json_scalar(
+                    payload[key],
+                    budget=budget,
+                    surface=f"fd_result:{evaluator_name}:{key}",
+                )
+            )
+    stderr = str(payload.get("stderr") or "").strip()
+    if stderr:
+        stderr_text = budget.compact_text(
+            stderr,
+            max_chars=240,
+            surface=f"fd_result:{evaluator_name}:stderr",
+            reason="fd_stderr_prompt_budget",
+            inspection_ref="fp_manifest.fd_results",
+        )
+        parts.append("stderr=" + stderr_text)
+    stdout = _compact_fd_stdout(
+        payload.get("stdout", ""),
+        budget=budget,
+        surface=f"fd_result:{evaluator_name}:stdout",
+    )
+    if stdout:
+        parts.append(f"stdout={stdout}")
+    if not parts:
+        summarized_keys = sorted(str(key) for key in payload)[:10]
+        budget.record_json_summary(
+            surface=f"fd_result:{evaluator_name}:keys",
+            reason="fd_result_key_prompt_budget",
+            original_count=len(payload),
+            emitted_count=len(summarized_keys),
+            budget_count=len(summarized_keys),
+        )
+        parts.append("keys=" + ",".join(summarized_keys))
+    joined = "; ".join(parts)
+    return budget.compact_text(
+        joined,
+        max_chars=budget.fd_detail_char_limit,
+        surface=f"fd_result:{evaluator_name}",
+        reason="fd_result_prompt_budget",
+        inspection_ref="fp_manifest.fd_results",
+    )
+
+
+def _render_fd_detail_for_delta(detail: Any) -> str:
+    payload = detail.get("detail", detail) if isinstance(detail, dict) else detail
+    if isinstance(payload, (dict, list)):
+        try:
+            return _json.dumps(payload, sort_keys=True)
+        except TypeError:
+            return str(payload)
+    return str(payload)
+
+
+def _prompt_source_identity(job: ExecutableJob) -> tuple[str, dict[str, Any], tuple[Node, ...]]:
+    src = job.vector.source
+    if isinstance(src, tuple):
+        return (
+            " × ".join(a.name for a in src),
+            {a.name: a.markov for a in src},
+            src,
+        )
+    return src.name, {src.name: src.markov}, (src,)
+
+
+def _render_preconditions_section(
+    src_markov: dict[str, Any],
+    budget: PromptAssemblyBudget,
+) -> PromptSection:
+    checkpoint = budget.checkpoint()
+    lines = ["[PRECONDITIONS] — upstream asset stability (these hold):"]
+    for name, conditions in src_markov.items():
+        if conditions:
+            lines.append(f"  {name}: {conditions}")
+        else:
+            lines.append(f"  {name}: (no markov conditions)")
+    return budget.section("preconditions", "\n".join(lines), checkpoint)
+
+
+def _render_current_state_section(
+    pre: PrecomputedManifest,
+    job: ExecutableJob,
+    *,
+    src_name: str,
+    budget: PromptAssemblyBudget,
+) -> PromptSection:
+    checkpoint = budget.checkpoint()
+    return budget.section(
+        "current_state",
+        (
+            f"[CURRENT STATE]\n"
+            f"Edge: {job.vector.name}\n"
+            f"Source asset: {src_name}\n"
+            f"Target asset: {job.vector.target.name}\n"
+            f"Status: {pre.current_asset.get('status', 'unknown')}\n"
+            f"Edges converged: {pre.current_asset.get('edges_converged', [])}"
+        ),
+        checkpoint,
+    )
+
+
+def _render_working_method_section(
+    target_binding: TargetAssetBinding | None,
+    budget: PromptAssemblyBudget,
+) -> PromptSection:
+    checkpoint = budget.checkpoint()
+    lines = ["[WORKING METHOD] — current-state-first execution is mandatory:"]
+    if target_binding is not None:
+        relative_path = target_binding.relative_path
+        if isinstance(relative_path, str) and relative_path:
+            lines.append(
+                f"  1. Inspect the current target asset state at {relative_path} before making changes."
+            )
+        else:
+            lines.append(
+                "  1. Inspect the current target asset state in the bound workspace location before making changes."
+            )
+    else:
+        lines.append(
+            "  1. Inspect the current target asset state in workspace before making changes."
+        )
+    lines.extend(
+        [
+            "  2. Determine what is already realized and what remains unresolved.",
+            "  3. Treat the current workspace state as truth; prior manifests and prior prompts are historical evidence only.",
+            "  4. Continue construction from the present state and reduce the unresolved gap before assessment.",
+        ]
+    )
+    return budget.section("working_method", "\n".join(lines), checkpoint)
+
+
+def _render_gap_section(
+    pre: PrecomputedManifest,
+    budget: PromptAssemblyBudget,
+) -> PromptSection:
+    checkpoint = budget.checkpoint()
+    lines = [f"[GAP] — {len(pre.failing_evaluators)} evaluator(s) failing:"]
+    for ev in pre.failing_evaluators:
+        detail = pre.fd_results.get(ev.name, {})
+        lines.append(f"  {ev.name} ({ev.regime.__name__}): {ev.description}")
+        if detail:
+            lines.append(
+                "    F_D result: "
+                + _compact_fd_prompt_detail(
+                    detail,
+                    budget=budget,
+                    evaluator_name=ev.name,
+                )
+            )
+    if not pre.failing_evaluators:
+        lines.append("  (none — all evaluators pass)")
+    return budget.section("gap", "\n".join(lines), checkpoint)
+
+
+def _render_deterministic_failures_section(
+    pre: PrecomputedManifest,
+    budget: PromptAssemblyBudget,
+) -> PromptSection | None:
+    fd_failures = [ev for ev in pre.failing_evaluators if ev.regime is F_D]
+    if not fd_failures:
+        return None
+    checkpoint = budget.checkpoint()
+    lines = ["[DETERMINISTIC FAILURES] — clear these before asking for assessment:"]
+    for ev in fd_failures:
+        detail = pre.fd_results.get(ev.name, {})
+        lines.append(
+            f"  {ev.name}: "
+            + _compact_fd_prompt_detail(
+                detail,
+                budget=budget,
+                evaluator_name=ev.name,
+            )
+        )
+    return budget.section("deterministic_failures", "\n".join(lines), checkpoint)
+
+
+def _render_context_section(
+    pre: PrecomputedManifest,
+    job: ExecutableJob,
+    budget: PromptAssemblyBudget,
+) -> PromptSection | None:
+    if not pre.relevant_contexts:
+        return None
+    checkpoint = budget.checkpoint()
+    context_refs = {
+        ctx.name: (
+            ctx.locator
+            or f"fp_manifest.contexts[name={ctx.name}].content"
+        )
+        for ctx in job.vector.contexts
+    }
+    lines = ["[CONTEXT] — constraint surface for this edge:"]
+    for name, content in pre.relevant_contexts.items():
+        lines.append(
+            f"\n--- {name} ---\n"
+            + budget.compact_context(
+                name,
+                content,
+                inspection_ref=context_refs.get(
+                    name,
+                    f"fp_manifest.contexts[name={name}].content",
+                ),
+            )
+        )
+    return budget.section("context", "\n".join(lines), checkpoint)
+
+
+def _render_source_asset_snapshot_section(
+    *,
+    source_nodes: tuple[Node, ...],
+    workspace_root: Path | None,
+    asset_bindings: dict[str, TargetAssetBinding],
+    budget: PromptAssemblyBudget,
+) -> PromptSection | None:
+    if workspace_root is None:
+        return None
+    source_bindings = [
+        (node, binding)
+        for node in source_nodes
+        for binding in (asset_bindings.get(node.name),)
+        if binding is not None and binding.relative_path
+    ]
+    snapshot_budget = budget.source_snapshot_budget(len(source_bindings))
+    checkpoint = budget.checkpoint()
+    source_snapshots: list[str] = []
+    for node, binding in source_bindings:
+        snapshot = _read_workspace_asset_snapshot(
+            workspace_root,
+            binding.relative_path,
+        )
+        if snapshot:
+            emitted_snapshot = budget.compact_text(
+                snapshot.text,
+                max_chars=snapshot_budget,
+                surface=f"source_asset:{node.name}",
+                reason="source_snapshot_prompt_budget",
+                inspection_ref=snapshot.inspection_ref,
+            )
+            source_snapshots.append(
+                "\n".join(
+                    [
+                        f"--- {node.name} ({binding.relative_path}) ---",
+                        emitted_snapshot,
+                    ]
+                )
+            )
+    if not source_snapshots:
+        return None
+    return budget.section(
+        "source_asset_snapshot",
+        "\n".join(
+            ["[SOURCE ASSET SNAPSHOT] — current upstream asset content in workspace:"]
+            + source_snapshots
+        ),
+        checkpoint,
+    )
+
+
+def _mandatory_contexts_for_prompt(
+    pre: PrecomputedManifest,
+    target: Node,
+) -> tuple[str, ...]:
+    return tuple(
+        dict.fromkeys(
+            list(
+                name
+                for name in pre.relevant_contexts
+                if "standard" in name or "output_contract" in name or "contract" in name
+            )
+            + list(target.asset_surface.standards_refs)
+            + list(target.asset_surface.output_contract_refs)
+        )
+    )
+
+
+def _render_environment_section(
+    pre: PrecomputedManifest,
+    job: ExecutableJob,
+    *,
+    asset_bindings: dict[str, TargetAssetBinding],
+    budget: PromptAssemblyBudget,
+) -> PromptSection | None:
+    if not pre.resolved_environment.bindings:
+        return None
+    checkpoint = budget.checkpoint()
+    lines = ["[ENVIRONMENT] — resolved runtime environment for this edge:"]
+    omitted_carried_bindings = 0
+    emitted_environment_bindings = 0
+    for binding in pre.resolved_environment.bindings:
+        if not binding.required and not binding.provided:
+            omitted_carried_bindings += 1
+            continue
+        emitted_environment_bindings += 1
+        roles: list[str] = []
+        if binding.required:
+            roles.append("required")
+        if binding.provided:
+            roles.append("provided")
+        if not roles:
+            roles.append("carried")
+        origin = (
+            "internal_carrier"
+            if binding.produced_within_carrier
+            else "external_entry"
+        )
+        required_via_suffix = ""
+        if binding.required_sources:
+            required_via_suffix = " required_via=" + "+".join(binding.required_sources)
+        asset_kind_suffix = ""
+        if binding.node.asset_surface.kind:
+            asset_kind_suffix = f" asset_kind={binding.node.asset_surface.kind}"
+        asset_binding = asset_bindings.get(binding.node.name)
+        location_suffix = ""
+        if asset_binding is not None:
+            location_parts = []
+            if asset_binding.relative_path:
+                location_parts.append(f"path={asset_binding.relative_path}")
+            if asset_binding.path_kind:
+                location_parts.append(f"kind={asset_binding.path_kind}")
+            if asset_binding.exists is not None:
+                location_parts.append(f"exists={str(asset_binding.exists).lower()}")
+            if asset_binding.uri:
+                location_parts.append(f"uri={asset_binding.uri}")
+            if location_parts:
+                location_suffix = " " + " ".join(location_parts)
+        lines.append(
+            f"  {binding.node.name} [{', '.join(roles)}] "
+            f"schema={binding.node.schema!r} status={binding.display_status} origin={origin}"
+            f"{required_via_suffix}{asset_kind_suffix}{location_suffix}"
+        )
+    if omitted_carried_bindings:
+        budget.record_omitted_environment_bindings(
+            edge=job.vector.name,
+            total_count=len(pre.resolved_environment.bindings),
+            emitted_count=emitted_environment_bindings,
+            budget_count=emitted_environment_bindings,
+            inspection_ref="fp_manifest.runtime_environment_contract",
+        )
+        lines.append(
+            f"  carried bindings omitted from prompt: {omitted_carried_bindings}; "
+            "inspect the asset query surface or runtime manifest for the full environment."
+        )
+    if not pre.resolved_environment.ready:
+        lines.extend(
+            f"  BLOCKED: {line}"
+            for line in pre.resolved_environment.summary_lines()
+        )
+    return budget.section("environment", "\n".join(lines), checkpoint)
+
+
+def _render_required_boundary_section(
+    pre: PrecomputedManifest,
+    budget: PromptAssemblyBudget,
+) -> PromptSection:
+    checkpoint = budget.checkpoint()
+    contract_summary = _runtime_environment_contract_summary(pre.resolved_environment)
+    lines = [
+        "[REQUIRED BOUNDARY] — invocation-local effective required bindings for this edge:",
+        "  vector_source_required_contexts: "
+        + (
+            ", ".join(contract_summary["vector_source_required_contexts"])
+            or "(none)"
+        ),
+        "  asset_surface_required_contexts: "
+        + (
+            ", ".join(contract_summary["asset_surface_required_contexts"])
+            or "(none)"
+        ),
+        "  asset_surface_injected_required_contexts: "
+        + (
+            ", ".join(contract_summary["asset_surface_injected_required_contexts"])
+            or "(none)"
+        ),
+        "  effective_required_contexts: "
+        + (
+            ", ".join(contract_summary["effective_required_contexts"])
+            or "(none)"
+        ),
+        "  note: this merge is invocation-local runtime interpretation, not a rewrite of published GTL module topology.",
+    ]
+    return budget.section("required_boundary", "\n".join(lines), checkpoint)
+
+
+def _render_asset_surface_section(
+    target: Node,
+    budget: PromptAssemblyBudget,
+) -> PromptSection | None:
+    if not target.asset_surface.declared:
+        return None
+    checkpoint = budget.checkpoint()
+    lines = [
+        "[ASSET SURFACE] — declared target asset contract:",
+        f"  kind: {target.asset_surface.kind or '(unspecified)'}",
+        f"  schema: {_schema_key(target.schema)}",
+    ]
+    if target.asset_surface.required_contexts:
+        lines.append(
+            "  required_contexts: " + ", ".join(target.asset_surface.required_contexts)
+        )
+    if target.asset_surface.standards_refs:
+        lines.append(
+            "  standards_refs: " + ", ".join(target.asset_surface.standards_refs)
+        )
+    if target.asset_surface.output_contract_refs:
+        lines.append(
+            "  output_contract_refs: "
+            + ", ".join(target.asset_surface.output_contract_refs)
+        )
+    return budget.section("asset_surface", "\n".join(lines), checkpoint)
+
+
+def _render_target_binding_sections(
+    target_binding: TargetAssetBinding | None,
+    budget: PromptAssemblyBudget,
+) -> tuple[PromptSection, ...]:
+    if target_binding is None:
+        return ()
+    checkpoint = budget.checkpoint()
+    lines = [
+        "[TARGET BINDING] — concrete workspace destination for the produced asset:",
+        f"  asset_id: {target_binding.asset_id}",
+        f"  uri: {target_binding.uri}",
+    ]
+    if target_binding.relative_path:
+        lines.append(f"  relative_path: {target_binding.relative_path}")
+    if target_binding.path_kind:
+        lines.append(f"  path_kind: {target_binding.path_kind}")
+    if target_binding.exists is not None:
+        lines.append(f"  exists: {str(target_binding.exists).lower()}")
+    sections = [budget.section("target_binding", "\n".join(lines), checkpoint)]
+    if target_binding.generated_asset_contract:
+        checkpoint = budget.checkpoint()
+        contract = target_binding.generated_asset_contract
+        contract_lines = [
+            "[GENERATED ASSET CONTRACT] — target output must satisfy this published contract:",
+        ]
+        for key in (
+            "asset_id",
+            "materialization_kind",
+            "relative_path",
+            "marker_path",
+            "marker_text",
+            "heading_prefix",
+        ):
+            value = contract.get(key)
+            if value not in (None, ""):
+                contract_lines.append(f"  {key}: {value}")
+        sections.append(
+            budget.section(
+                "generated_asset_contract",
+                "\n".join(contract_lines),
+                checkpoint,
+            )
+        )
+    return tuple(sections)
+
+
+def _render_output_contract_section(
+    *,
+    job: ExecutableJob,
+    target: Node,
+    pre: PrecomputedManifest,
+    declared_fulfillment_obligations: list[dict[str, Any]],
+    result_path: str,
+    budget: PromptAssemblyBudget,
+) -> PromptSection:
+    checkpoint = budget.checkpoint()
+    assessment_contract = ""
+    if declared_fulfillment_obligations and result_path:
+        manifest_ref = str(result_path).replace("/fp_results/", "/fp_manifests/")
+        obligation_ids = [
+            str(obligation["id"])
+            for obligation in declared_fulfillment_obligations
+        ]
+        inline_limit = 12
+        visible_ids = obligation_ids[:inline_limit]
+        omitted_count = max(0, len(obligation_ids) - len(visible_ids))
+        if omitted_count:
+            budget.record_omitted_obligations(
+                edge=job.vector.name,
+                total_count=len(obligation_ids),
+                emitted_count=len(visible_ids),
+                budget_count=inline_limit,
+                inspection_ref=f"{manifest_ref}#fulfillment_obligations",
+            )
+        obligation_lines = [
+            f"- total declared obligations: {len(obligation_ids)}",
+            "- inline obligation ids: " + (", ".join(visible_ids) if visible_ids else "(none)"),
+        ]
+        if omitted_count:
+            obligation_lines.append(
+                f"- omitted from prompt: {omitted_count}; read `{manifest_ref}` key `fulfillment_obligations` for the full set"
+            )
+        assessment_contract = (
+            f"\n\nWrite fulfillment assessment JSON to: {result_path}\n"
+            f"Format: {{{{'edge': '{job.vector.name}', 'actor': '<your_agent_id>', "
+            "'fulfillment_assessments': [{\"id\": \"<declared_obligation_id>\", "
+            "\"fulfillment_status\": \"fulfilled|partial|blocked|unfulfilled\", "
+            "\"fulfillment_detail\": \"...\", \"blocking_reasons\": [\"...\"], "
+            "\"evidence_refs\": [\"...\"]}]}}\n"
+            + "\n".join(obligation_lines)
+            + "\nUse every declared fulfillment obligation id exactly as published for this dispatch. "
+            "The app reads this file, publishes the current fulfillment ledger, and emits discovery events — do NOT call emit-event yourself."
+        )
+    return budget.section(
+        "output_contract",
+        (
+            f"[OUTPUT CONTRACT]\n"
+            f"Produce: {target.name} asset\n"
+            f"Satisfying markov conditions: {target.markov}\n"
+            f"Current failing evaluators: {[ev.name for ev in pre.failing_evaluators]}\n"
+            f"Declared fulfillment obligations: {len(declared_fulfillment_obligations)} published in the F_P manifest"
+            + assessment_contract
+        ),
+        checkpoint,
+    )
+
+
+def _render_declared_obligation_policy_sections(
+    declared_obligation_policy: dict[str, Any] | None,
+    budget: PromptAssemblyBudget,
+) -> tuple[PromptSection, ...]:
+    if declared_obligation_policy is None:
+        return ()
+    checkpoint = budget.checkpoint()
+    sections = [
+        budget.section(
+            "declared_obligation_ledger_policy",
+            "\n".join(
+                [
+                    "[DECLARED OBLIGATION LEDGER POLICY]",
+                    f"  declaration_family: {declared_obligation_policy['declaration_family']}",
+                    f"  obligation_source_ref: {declared_obligation_policy['obligation_source_ref']}",
+                    f"  obligation_kind: {declared_obligation_policy['obligation_kind']}",
+                    f"  certification_scope: {declared_obligation_policy['certification_scope']}",
+                    f"  carry_rule: {declared_obligation_policy['carry_rule']}",
+                    f"  fulfillment_rule: {declared_obligation_policy['fulfillment_rule']}",
+                    f"  evidence_policy: {declared_obligation_policy['evidence_policy']}",
+                ]
+            ),
+            checkpoint,
+        )
+    ]
+    if declared_obligation_policy.get("adapter_ref"):
+        checkpoint = budget.checkpoint()
+        sections.append(
+            budget.section(
+                "declared_obligation_ledger_adapter",
+                "\n".join(
+                    [
+                        "[DECLARED OBLIGATION LEDGER ADAPTER]",
+                        f"  signal_key: {declared_obligation_policy.get('signal_key', '')}",
+                        f"  adapter_ref: {declared_obligation_policy.get('adapter_ref', '')}",
+                        f"  derivation_rule: {declared_obligation_policy.get('derivation_rule', '')}",
+                    ]
+                ),
+                checkpoint,
+            )
+        )
+    return tuple(sections)
+
+
+def _render_execution_rules_section(
+    mandatory_contexts: tuple[str, ...],
+    budget: PromptAssemblyBudget,
+) -> PromptSection:
+    checkpoint = budget.checkpoint()
+    lines = [
+        "[EXECUTION RULES]",
+        "- Update the workspace artifact(s), not just the assessment file.",
+        "- Clear every deterministic F_D failure before treating the work as done.",
+        "- Treat standards and output-contract contexts as mandatory acceptance checks.",
+        "- Self-check the artifact against the target markov conditions before writing assessment JSON.",
+    ]
+    if mandatory_contexts:
+        lines.append(
+            "- Mandatory contexts for this edge: " + ", ".join(mandatory_contexts)
+        )
+    return budget.section("execution_rules", "\n".join(lines), checkpoint)
+
+
 def _construct_bound_job(
     pre: PrecomputedManifest,
     job: ExecutableJob,
@@ -1724,7 +2778,7 @@ def _construct_bound_job(
             f"Cannot dispatch F_P: target asset binding for {job.vector.target.name!r} "
             "is not present in the workspace asset query surface."
         )
-    prompt = _assemble_prompt(
+    prompt_assembly = _assemble_prompt(
         pre,
         job,
         result_path,
@@ -1739,7 +2793,7 @@ def _construct_bound_job(
     return BoundJob(
         executable_job=job,
         precomputed=pre,
-        prompt=prompt,
+        prompt_assembly=prompt_assembly,
         result_path=result_path,
         target_asset_binding=None if target_binding is None else target_binding.to_dict(),
         environment_asset_bindings={
@@ -1788,266 +2842,13 @@ def _assemble_prompt(
     workspace_root: Path | None = None,
     asset_bindings: dict[str, TargetAssetBinding] | None = None,
     target_binding: TargetAssetBinding | None = None,
-) -> str:
+) -> PromptAssembly:
     """Assemble the F_P prompt."""
-    sections: list[str] = []
     asset_bindings = asset_bindings or {}
-
-    src = job.vector.source
-    if isinstance(src, tuple):
-        src_name = " × ".join(a.name for a in src)
-        src_markov = {a.name: a.markov for a in src}
-    else:
-        src_name = src.name
-        src_markov = {src.name: src.markov}
-    precond_lines = [
-        "[PRECONDITIONS] — upstream asset stability (these hold):"
-    ]
-    for name, conditions in src_markov.items():
-        if conditions:
-            precond_lines.append(f"  {name}: {conditions}")
-        else:
-            precond_lines.append(f"  {name}: (no markov conditions)")
-    sections.append("\n".join(precond_lines))
-
-    sections.append(
-        f"[CURRENT STATE]\n"
-        f"Edge: {job.vector.name}\n"
-        f"Source asset: {src_name}\n"
-        f"Target asset: {job.vector.target.name}\n"
-        f"Status: {pre.current_asset.get('status', 'unknown')}\n"
-        f"Edges converged: {pre.current_asset.get('edges_converged', [])}"
-    )
-
-    target_binding_lines = [
-        "[WORKING METHOD] — current-state-first execution is mandatory:",
-    ]
-    if target_binding is not None:
-        relative_path = target_binding.relative_path
-        if isinstance(relative_path, str) and relative_path:
-            target_binding_lines.append(
-                f"  1. Inspect the current target asset state at {relative_path} before making changes."
-            )
-        else:
-            target_binding_lines.append(
-                "  1. Inspect the current target asset state in the bound workspace location before making changes."
-            )
-    else:
-        target_binding_lines.append(
-            "  1. Inspect the current target asset state in workspace before making changes."
-        )
-    target_binding_lines.extend(
-        [
-            "  2. Determine what is already realized and what remains unresolved.",
-            "  3. Treat the current workspace state as truth; prior manifests and prior prompts are historical evidence only.",
-            "  4. Continue construction from the present state and reduce the unresolved gap before assessment.",
-        ]
-    )
-    sections.append("\n".join(target_binding_lines))
-
-    gap_lines = [f"[GAP] — {len(pre.failing_evaluators)} evaluator(s) failing:"]
-    for ev in pre.failing_evaluators:
-        detail = pre.fd_results.get(ev.name, {})
-        gap_lines.append(f"  {ev.name} ({ev.regime.__name__}): {ev.description}")
-        if detail:
-            gap_lines.append(f"    F_D result: {detail.get('detail', detail)}")
-    if not pre.failing_evaluators:
-        gap_lines.append("  (none — all evaluators pass)")
-    sections.append("\n".join(gap_lines))
-
-    fd_failures = [ev for ev in pre.failing_evaluators if ev.regime is F_D]
-    if fd_failures:
-        deterministic_lines = [
-            "[DETERMINISTIC FAILURES] — clear these before asking for assessment:"
-        ]
-        for ev in fd_failures:
-            detail = pre.fd_results.get(ev.name, {}).get("detail", {})
-            if isinstance(detail, dict):
-                reason = (
-                    str(detail.get("stderr", "")).strip()
-                    or str(detail.get("stdout", "")).strip()
-                    or str(detail)
-                )
-            else:
-                reason = str(detail)
-            deterministic_lines.append(f"  {ev.name}: {reason}")
-        sections.append("\n".join(deterministic_lines))
-
-    if pre.relevant_contexts:
-        ctx_lines = ["[CONTEXT] — constraint surface for this edge:"]
-        for name, content in pre.relevant_contexts.items():
-            ctx_lines.append(f"\n--- {name} ---\n{content}")
-        sections.append("\n".join(ctx_lines))
-
-    if workspace_root is not None:
-        source_nodes = src if isinstance(src, tuple) else (src,)
-        source_snapshots: list[str] = []
-        for node in source_nodes:
-            binding = asset_bindings.get(node.name)
-            if binding is None or not binding.relative_path:
-                continue
-            snapshot = _read_workspace_asset_snapshot(
-                workspace_root,
-                binding.relative_path,
-            )
-            if snapshot:
-                source_snapshots.append(
-                    "\n".join(
-                        [
-                            f"--- {node.name} ({binding.relative_path}) ---",
-                            snapshot,
-                        ]
-                    )
-                )
-        if source_snapshots:
-            sections.append(
-                "\n".join(
-                    ["[SOURCE ASSET SNAPSHOT] — current upstream asset content in workspace:"]
-                    + source_snapshots
-                )
-            )
-
+    budget = PromptAssemblyBudget()
+    src_name, src_markov, source_nodes = _prompt_source_identity(job)
     target = job.vector.target
-    mandatory_contexts = tuple(
-        dict.fromkeys(
-            list(
-                name
-                for name in pre.relevant_contexts
-                if "standard" in name or "output_contract" in name or "contract" in name
-            )
-            + list(target.asset_surface.standards_refs)
-            + list(target.asset_surface.output_contract_refs)
-        )
-    )
-
-    if pre.resolved_environment.bindings:
-        env_lines = ["[ENVIRONMENT] — resolved runtime environment for this edge:"]
-        for binding in pre.resolved_environment.bindings:
-            roles: list[str] = []
-            if binding.required:
-                roles.append("required")
-            if binding.provided:
-                roles.append("provided")
-            if not roles:
-                roles.append("carried")
-            origin = (
-                "internal_carrier"
-                if binding.produced_within_carrier
-                else "external_entry"
-            )
-            required_via_suffix = ""
-            if binding.required_sources:
-                required_via_suffix = (
-                    " required_via=" + "+".join(binding.required_sources)
-                )
-            asset_kind_suffix = ""
-            if binding.node.asset_surface.kind:
-                asset_kind_suffix = f" asset_kind={binding.node.asset_surface.kind}"
-            asset_binding = asset_bindings.get(binding.node.name)
-            location_suffix = ""
-            if asset_binding is not None:
-                location_parts = []
-                if asset_binding.relative_path:
-                    location_parts.append(f"path={asset_binding.relative_path}")
-                if asset_binding.path_kind:
-                    location_parts.append(f"kind={asset_binding.path_kind}")
-                if asset_binding.exists is not None:
-                    location_parts.append(f"exists={str(asset_binding.exists).lower()}")
-                if asset_binding.uri:
-                    location_parts.append(f"uri={asset_binding.uri}")
-                if location_parts:
-                    location_suffix = " " + " ".join(location_parts)
-            env_lines.append(
-                f"  {binding.node.name} [{', '.join(roles)}] "
-                f"schema={binding.node.schema!r} status={binding.display_status} origin={origin}"
-                f"{required_via_suffix}{asset_kind_suffix}{location_suffix}"
-            )
-        if not pre.resolved_environment.ready:
-            env_lines.extend(
-                f"  BLOCKED: {line}"
-                for line in pre.resolved_environment.summary_lines()
-            )
-        sections.append("\n".join(env_lines))
-
-    contract_summary = _runtime_environment_contract_summary(pre.resolved_environment)
-    boundary_lines = [
-        "[REQUIRED BOUNDARY] — invocation-local effective required bindings for this edge:",
-        "  vector_source_required_contexts: "
-        + (
-            ", ".join(contract_summary["vector_source_required_contexts"])
-            or "(none)"
-        ),
-        "  asset_surface_required_contexts: "
-        + (
-            ", ".join(contract_summary["asset_surface_required_contexts"])
-            or "(none)"
-        ),
-        "  asset_surface_injected_required_contexts: "
-        + (
-            ", ".join(contract_summary["asset_surface_injected_required_contexts"])
-            or "(none)"
-        ),
-        "  effective_required_contexts: "
-        + (
-            ", ".join(contract_summary["effective_required_contexts"])
-            or "(none)"
-        ),
-        "  note: this merge is invocation-local runtime interpretation, not a rewrite of published GTL module topology.",
-    ]
-    sections.append("\n".join(boundary_lines))
-
-    if target.asset_surface.declared:
-        asset_surface_lines = [
-            "[ASSET SURFACE] — declared target asset contract:",
-            f"  kind: {target.asset_surface.kind or '(unspecified)'}",
-            f"  schema: {_schema_key(target.schema)}",
-        ]
-        if target.asset_surface.required_contexts:
-            asset_surface_lines.append(
-                "  required_contexts: " + ", ".join(target.asset_surface.required_contexts)
-            )
-        if target.asset_surface.standards_refs:
-            asset_surface_lines.append(
-                "  standards_refs: " + ", ".join(target.asset_surface.standards_refs)
-            )
-        if target.asset_surface.output_contract_refs:
-            asset_surface_lines.append(
-                "  output_contract_refs: "
-                + ", ".join(target.asset_surface.output_contract_refs)
-            )
-        sections.append("\n".join(asset_surface_lines))
-
-    if target_binding is not None:
-        target_lines = [
-            "[TARGET BINDING] — concrete workspace destination for the produced asset:",
-            f"  asset_id: {target_binding.asset_id}",
-            f"  uri: {target_binding.uri}",
-        ]
-        if target_binding.relative_path:
-            target_lines.append(f"  relative_path: {target_binding.relative_path}")
-        if target_binding.path_kind:
-            target_lines.append(f"  path_kind: {target_binding.path_kind}")
-        if target_binding.exists is not None:
-            target_lines.append(f"  exists: {str(target_binding.exists).lower()}")
-        sections.append("\n".join(target_lines))
-        if target_binding.generated_asset_contract:
-            contract = target_binding.generated_asset_contract
-            contract_lines = [
-                "[GENERATED ASSET CONTRACT] — target output must satisfy this published contract:",
-            ]
-            for key in (
-                "asset_id",
-                "materialization_kind",
-                "relative_path",
-                "marker_path",
-                "marker_text",
-                "heading_prefix",
-            ):
-                value = contract.get(key)
-                if value not in (None, ""):
-                    contract_lines.append(f"  {key}: {value}")
-            sections.append("\n".join(contract_lines))
-
+    mandatory_contexts = _mandatory_contexts_for_prompt(pre, target)
     declared_obligation_policy = (
         declared_obligation_ledger_policy_for_job(job) if result_path else None
     )
@@ -2056,72 +2857,57 @@ def _assemble_prompt(
         if declared_obligation_policy is not None
         else []
     )
-    assessment_contract = ""
-    if declared_fulfillment_obligations and result_path:
-        fulfillment_assessments = [
-            (
-                f'{{"id": "{obligation["id"]}", "fulfillment_status": "fulfilled|partial|blocked|unfulfilled", '
-                f'"fulfillment_detail": "...", "blocking_reasons": ["..."], "evidence_refs": ["..."]}}'
-            )
-            for obligation in declared_fulfillment_obligations
-        ]
-        assessment_contract = (
-            f"\n\nWrite fulfillment assessment JSON to: {result_path}\n"
-            f"Format: {{{{'edge': '{job.vector.name}', 'actor': '<your_agent_id>', "
-            f"'fulfillment_assessments': [{', '.join(fulfillment_assessments)}]}}}}\n"
-            "Use the declared fulfillment obligation ids exactly as published for this dispatch. "
-            "The app reads this file, publishes the current fulfillment ledger, and emits discovery events — do NOT call emit-event yourself."
-        )
 
-    sections.append(
-        f"[OUTPUT CONTRACT]\n"
-        f"Produce: {target.name} asset\n"
-        f"Satisfying markov conditions: {target.markov}\n"
-        f"Current failing evaluators: {[ev.name for ev in pre.failing_evaluators]}\n"
-        f"Declared fulfillment obligations: {[entry['id'] for entry in declared_fulfillment_obligations]}"
-        + assessment_contract
-    )
-    if declared_obligation_policy is not None:
-        sections.append(
-            "\n".join(
-                [
-                    "[DECLARED OBLIGATION LEDGER POLICY]",
-                    f"  declaration_family: {declared_obligation_policy['declaration_family']}",
-                    f"  obligation_source_ref: {declared_obligation_policy['obligation_source_ref']}",
-                    f"  obligation_kind: {declared_obligation_policy['obligation_kind']}",
-                    f"  certification_scope: {declared_obligation_policy['certification_scope']}",
-                    f"  carry_rule: {declared_obligation_policy['carry_rule']}",
-                    f"  fulfillment_rule: {declared_obligation_policy['fulfillment_rule']}",
-                    f"  evidence_policy: {declared_obligation_policy['evidence_policy']}",
-                ]
-            )
-        )
-        if declared_obligation_policy.get("adapter_ref"):
-            sections.append(
-                "\n".join(
-                    [
-                        "[DECLARED OBLIGATION LEDGER ADAPTER]",
-                        f"  signal_key: {declared_obligation_policy.get('signal_key', '')}",
-                        f"  adapter_ref: {declared_obligation_policy.get('adapter_ref', '')}",
-                        f"  derivation_rule: {declared_obligation_policy.get('derivation_rule', '')}",
-                    ]
-                )
-            )
-
-    execution_lines = [
-        "[EXECUTION RULES]",
-        "- Update the workspace artifact(s), not just the assessment file.",
-        "- Clear every deterministic F_D failure before treating the work as done.",
-        "- Treat standards and output-contract contexts as mandatory acceptance checks.",
-        "- Self-check the artifact against the target markov conditions before writing assessment JSON.",
+    sections: list[PromptSection] = [
+        _render_preconditions_section(src_markov, budget),
+        _render_current_state_section(pre, job, src_name=src_name, budget=budget),
+        _render_working_method_section(target_binding, budget),
+        _render_gap_section(pre, budget),
     ]
-    if mandatory_contexts:
-        execution_lines.append(
-            "- Mandatory contexts for this edge: " + ", ".join(mandatory_contexts)
+    sections.extend(
+        section
+        for section in (
+            _render_deterministic_failures_section(pre, budget),
+            _render_context_section(pre, job, budget),
+            _render_source_asset_snapshot_section(
+                source_nodes=source_nodes,
+                workspace_root=workspace_root,
+                asset_bindings=asset_bindings,
+                budget=budget,
+            ),
+            _render_environment_section(
+                pre,
+                job,
+                asset_bindings=asset_bindings,
+                budget=budget,
+            ),
         )
-    sections.append("\n".join(execution_lines))
+        if section is not None
+    )
+    sections.append(_render_required_boundary_section(pre, budget))
+    asset_surface_section = _render_asset_surface_section(target, budget)
+    if asset_surface_section is not None:
+        sections.append(asset_surface_section)
+    sections.extend(_render_target_binding_sections(target_binding, budget))
+    sections.append(
+        _render_output_contract_section(
+            job=job,
+            target=target,
+            pre=pre,
+            declared_fulfillment_obligations=declared_fulfillment_obligations,
+            result_path=result_path,
+            budget=budget,
+        )
+    )
+    sections.extend(
+        _render_declared_obligation_policy_sections(
+            declared_obligation_policy,
+            budget,
+        )
+    )
+    sections.append(_render_execution_rules_section(mandatory_contexts, budget))
 
-    return "\n\n".join(sections)
+    return budget.assembly(sections)
 
 
 # ── select_relevant_contexts ──────────────────────────────────────────────────
@@ -2158,8 +2944,10 @@ def render_delta(
     lines = [f"delta = {len(failing)} — {len(failing)} evaluator(s) failing:"]
     for ev in failing:
         detail = fd_results.get(ev.name, {})
-        det = detail.get("detail", detail) if isinstance(detail, dict) else detail
-        lines.append(f"  {ev.name} ({ev.regime.__name__}): {det}")
+        lines.append(
+            f"  {ev.name} ({ev.regime.__name__}): "
+            + _render_fd_detail_for_delta(detail)
+        )
     if environment is not None and not environment.ready:
         lines.append("  runtime environment unresolved:")
         lines.extend(f"    {line}" for line in environment.summary_lines())

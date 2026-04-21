@@ -6,7 +6,7 @@ RunState, run_state, find_pending_run, supersede_run.
 """
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 
 def _event_value(event: dict, key: str):
@@ -58,6 +58,7 @@ class RunState:
     assignment_source: str | None = None
     resolved_runtime_ref: str | None = None
     manifest_id: str | None = None
+    prompt_compactions: list[dict[str, Any]] = field(default_factory=list)
     failure_class: str | None = None
     attempt_number: int = 1
     superseded_by: str | None = None
@@ -94,6 +95,7 @@ def run_state(
     assignment_source = None
     resolved_runtime_ref = None
     manifest_id = None
+    prompt_compactions: list[dict[str, Any]] = []
     failure_class = None
     attempt_number = 1
     superseded_by = None
@@ -163,6 +165,13 @@ def run_state(
             state = "dispatched"
             edge = _event_value(e, "edge") or edge
             manifest_id = _event_value(e, "manifest_id") or manifest_id
+            event_prompt_compactions = _event_value(e, "prompt_compactions")
+            if isinstance(event_prompt_compactions, list):
+                prompt_compactions = [
+                    dict(item)
+                    for item in event_prompt_compactions
+                    if isinstance(item, dict)
+                ]
             role_id = _event_value(e, "role_id") or role_id
             authority_ref = _event_value(e, "authority_ref") or authority_ref
             selected_worker_id = _event_value(e, "selected_worker_id") or selected_worker_id
@@ -220,6 +229,7 @@ def run_state(
         assignment_source=assignment_source,
         resolved_runtime_ref=resolved_runtime_ref,
         manifest_id=manifest_id,
+        prompt_compactions=prompt_compactions,
         failure_class=failure_class,
         attempt_number=attempt_number,
         superseded_by=superseded_by,
@@ -252,6 +262,7 @@ def project_run(all_events: list[dict], run_id: str) -> dict:
         "assignment_source": state.assignment_source,
         "resolved_runtime_ref": state.resolved_runtime_ref,
         "manifest_id": state.manifest_id,
+        "prompt_compactions": list(state.prompt_compactions),
         "failure_class": state.failure_class,
         "attempt_number": state.attempt_number,
         "superseded_by": state.superseded_by,

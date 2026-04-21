@@ -14,6 +14,7 @@ import json
 from dataclasses import dataclass
 from pathlib import Path
 
+from .binding import PromptAssembly, PromptAssemblyBudget
 from .transport import dispatch_agent, classify_failure
 
 
@@ -41,6 +42,9 @@ _JSON_TYPE_MAP = {
     "object": dict,
     "null": type(None),
 }
+
+
+_LEAF_PROMPT_SECTION_CHAR_LIMIT = 2000
 
 
 def validate_leaf_schema(data: dict, schema: dict) -> tuple[bool, str]:
@@ -74,6 +78,50 @@ def validate_leaf_schema(data: dict, schema: dict) -> tuple[bool, str]:
     return True, ""
 
 
+def _assemble_leaf_prompt(
+    task: LeafTask,
+    input_data: dict,
+    *,
+    sub_run_id: str,
+    result_path: str,
+    prompt_manifest_ref: str,
+) -> PromptAssembly:
+    budget = PromptAssemblyBudget()
+    tools_clause = "You MAY use tools." if task.tools_allowed else "Do NOT use any tools."
+    input_text = json.dumps(input_data, indent=2, sort_keys=True)
+    output_schema_text = json.dumps(task.output_schema, indent=2, sort_keys=True)
+    compacted_input = budget.compact_text(
+        input_text,
+        max_chars=_LEAF_PROMPT_SECTION_CHAR_LIMIT,
+        surface=f"leaf_task:{task.name}:input_data",
+        reason="leaf_input_prompt_budget",
+        inspection_ref=f"{prompt_manifest_ref}#input_data",
+    )
+    compacted_output_schema = budget.compact_text(
+        output_schema_text,
+        max_chars=_LEAF_PROMPT_SECTION_CHAR_LIMIT,
+        surface=f"leaf_task:{task.name}:output_schema",
+        reason="leaf_output_schema_prompt_budget",
+        inspection_ref=f"{prompt_manifest_ref}#output_schema",
+    )
+    emitted_prompt = (
+        f"LEAF TASK: {task.name}\n"
+        f"Sub-run: {sub_run_id}\n\n"
+        f"INPUT:\n{compacted_input}\n\n"
+        f"OUTPUT SCHEMA:\n{compacted_output_schema}\n\n"
+        f"RESULT FILE: {result_path}\n"
+        f"PROMPT MANIFEST: {prompt_manifest_ref}\n"
+        f"Write your output as a JSON object to the file above.\n\n"
+        f"Instructions: {tools_clause}\n"
+        f"The JSON must match the output schema exactly."
+    )
+    return budget.assembly(
+        (
+            budget.section("leaf_task", emitted_prompt, 0),
+        )
+    )
+
+
 def dispatch_leaf(
     task: LeafTask,
     input_data: dict,
@@ -100,21 +148,36 @@ def dispatch_leaf(
     result_dir = Path(work_folder) / ".ai-workspace" / "leaf_results"
     result_dir.mkdir(parents=True, exist_ok=True)
     result_path = str(result_dir / f"{task.name}.json")
+    prompt_manifest_path = result_dir / f"{task.name}.prompt_manifest.json"
+    prompt_manifest_ref = (
+        f"workspace://.ai-workspace/leaf_results/{task.name}.prompt_manifest.json"
+    )
 
-    tools_clause = "You MAY use tools." if task.tools_allowed else "Do NOT use any tools."
-    prompt = (
-        f"LEAF TASK: {task.name}\n"
-        f"Sub-run: {sub_run_id}\n\n"
-        f"INPUT:\n{json.dumps(input_data, indent=2)}\n\n"
-        f"OUTPUT SCHEMA:\n{json.dumps(task.output_schema, indent=2)}\n\n"
-        f"RESULT FILE: {result_path}\n"
-        f"Write your output as a JSON object to the file above.\n\n"
-        f"Instructions: {tools_clause}\n"
-        f"The JSON must match the output schema exactly."
+    prompt_assembly = _assemble_leaf_prompt(
+        task,
+        input_data,
+        sub_run_id=sub_run_id,
+        result_path=result_path,
+        prompt_manifest_ref=prompt_manifest_ref,
+    )
+    prompt_manifest_path.write_text(
+        json.dumps(
+            {
+                "task": task.name,
+                "sub_run_id": sub_run_id,
+                "input_data": input_data,
+                "output_schema": task.output_schema,
+                "result_path": result_path,
+                "prompt_compactions": prompt_assembly.prompt_compactions(),
+            },
+            indent=2,
+            sort_keys=True,
+        ),
+        encoding="utf-8",
     )
 
     timeout_s = max(1, task.timeout_ms // 1000)
-    result = dispatch_agent(prompt, work_folder, agent=agent, timeout=timeout_s)
+    result = dispatch_agent(prompt_assembly.prompt, work_folder, agent=agent, timeout=timeout_s)
 
     failure = classify_failure(
         result,

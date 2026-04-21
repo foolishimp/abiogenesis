@@ -116,7 +116,7 @@ from .selection import (
     resolve_refinement_boundary,
     validate_selection,
 )
-from .subwork import LeafTask
+from .subwork import LeafTask, dispatch_leaf
 
 
 # ── Traversal ────────────────────────────────────────────────────────────────
@@ -125,6 +125,16 @@ from .subwork import LeafTask
 def _edge_uses_fulfillment_carrier(job: ExecutableJob) -> bool:
     """F_P-managed edges converge only through the fulfillment carrier path."""
     return any(ev.regime is F_P for ev in job.evaluators)
+
+
+def _leaf_dispatch_prompt_authority(
+    callback: Callable[[LeafTask, dict], tuple[dict | None, str | None]] | None,
+) -> str:
+    if callback is None:
+        return "none"
+    if callback is dispatch_leaf:
+        return "governed_prompt_assembly_carrier"
+    return "caller_supplied_effect_boundary_no_abg_prompt_authority"
 
 
 def _project_fulfillment_edge_converged(
@@ -1747,6 +1757,7 @@ def _plan_iteration_execution(
         runtime_identity=runtime.runtime_identity,
     )
     bound_job = _bind_fp_dispatch_job(dispatch_plan.binding_request)
+    dispatch_plan = replace(dispatch_plan, bound_job=bound_job)
     publication_plan = None
     if dispatch_plan.dispatch_transition is not None:
         publication_plan = fp_dispatch_publication_plan(
@@ -1898,6 +1909,7 @@ def _plan_pending_dispatch_replay(
     dispatch_transition: FpDispatchTransition,
     manifest_path: str | None,
     resumed_result_path: str | None,
+    prompt_compactions: list[dict[str, Any]] | None = None,
 ) -> PendingDispatchReplayPlan:
     recursive_state = None
     prior_recursive_state = None
@@ -1942,6 +1954,8 @@ def _plan_pending_dispatch_replay(
         result["fp_manifest_path"] = manifest_path
     if resumed_result_path is not None:
         result["fp_result_path"] = resumed_result_path
+    prompt_compactions_payload = list(prompt_compactions or [])
+    result["prompt_compactions"] = prompt_compactions_payload
     attach_runtime_carrier_metadata(result, runtime_basis, dispatch_transition)
 
     metadata = dict(surface.metadata)
@@ -1956,6 +1970,7 @@ def _plan_pending_dispatch_replay(
         metadata["traversal_outcome"]["fp_manifest_path"] = manifest_path
     if resumed_result_path is not None:
         metadata["traversal_outcome"]["fp_result_path"] = resumed_result_path
+    metadata["traversal_outcome"]["prompt_compactions"] = prompt_compactions_payload
 
     return PendingDispatchReplayPlan(
         result=result,
@@ -2432,6 +2447,7 @@ def _iterated_outcome(
                 dispatch_transition=dispatch_transition,
                 manifest_path=manifest_path,
                 resumed_result_path=resumed_result_path,
+                prompt_compactions=pending.prompt_compactions,
             )
             return _apply_pending_dispatch_replay_plan(
                 runtime,
@@ -2895,6 +2911,7 @@ def _realize_iteration(
                     "run_id": sub_run_id,
                     "parent_run_id": parent_run_id,
                     "edge": job.vector.name,
+                    "prompt_authority": _leaf_dispatch_prompt_authority(on_leaf_dispatch),
                 },
             })
             input_data = _leaf_inputs.get(task.name, {})
@@ -2940,6 +2957,7 @@ def _realize_iteration(
             fp_dispatch_data["run_id"] = run_id
         if bound_job.manifest_id:
             fp_dispatch_data["manifest_id"] = bound_job.manifest_id
+        fp_dispatch_data["prompt_compactions"] = list(bound_job.prompt_compactions)
         if bound_job.role_id:
             fp_dispatch_data["role_id"] = bound_job.role_id
         if bound_job.authority_ref:

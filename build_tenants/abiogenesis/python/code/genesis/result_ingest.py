@@ -866,6 +866,16 @@ def ingest_fp_result(
     manifest_run_id = manifest.get("run_id") if isinstance(manifest.get("run_id"), str) else ""
     manifest_work_key = manifest.get("work_key") if isinstance(manifest.get("work_key"), str) else ""
     call_id = manifest.get("call_id") if isinstance(manifest.get("call_id"), str) and manifest.get("call_id") else ""
+    manifest_prompt_compactions = manifest.get("prompt_compactions")
+    prompt_compactions = (
+        [
+            dict(item)
+            for item in manifest_prompt_compactions
+            if isinstance(item, Mapping)
+        ]
+        if isinstance(manifest_prompt_compactions, list)
+        else []
+    )
     graph_call_terminal = bool(manifest.get("graph_call_terminal_on_result", True))
     workflow_version = _read_provenance(manifest.get("workflow_version"))
     if not workflow_version:
@@ -1411,6 +1421,7 @@ def ingest_fp_result(
             "result_path": str(result_file),
             "published_ledger_ref": dict(published_ledger_ref),
             "manifest_id": manifest_id,
+            "prompt_compactions": prompt_compactions,
             "spec_hash": spec_hash,
             "workflow_version": workflow_version,
             "events_emitted": emitted_count,
@@ -1424,6 +1435,7 @@ def ingest_fp_result(
         "result_path": str(result_file),
         "published_ledger_ref": dict(published_ledger_ref),
         "manifest_id": manifest_id,
+        "prompt_compactions": prompt_compactions,
         "spec_hash": spec_hash,
         "workflow_version": workflow_version,
         "events_emitted": emitted_count,

@@ -871,6 +871,13 @@ def _attach_pending_recovery_contract(result: Mapping[str, object], workspace: P
         if isinstance(manifest_result_path, str) and manifest_result_path:
             result_path = manifest_result_path
             enriched["fp_result_path"] = result_path
+    manifest_prompt_compactions = manifest.get("prompt_compactions")
+    if isinstance(manifest_prompt_compactions, list):
+        enriched["prompt_compactions"] = [
+            dict(item)
+            for item in manifest_prompt_compactions
+            if isinstance(item, Mapping)
+        ]
 
     recovery: dict[str, object] = {}
     if isinstance(enriched.get("manifest_id"), str) and enriched["manifest_id"]:

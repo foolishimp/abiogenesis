@@ -220,6 +220,24 @@ def project_live_run_status(
     )
     manifest = _read_manifest(workspace, manifest_id if isinstance(manifest_id, str) else None)
     resolved_policy = manifest.get("resolved_policy")
+    manifest_prompt_compactions = manifest.get("prompt_compactions")
+    if isinstance(manifest_prompt_compactions, list):
+        prompt_compactions = [
+            dict(item)
+            for item in manifest_prompt_compactions
+            if isinstance(item, Mapping)
+        ]
+    else:
+        run_prompt_compactions = run_projection.get("prompt_compactions")
+        prompt_compactions = (
+            [
+                dict(item)
+                for item in run_prompt_compactions
+                if isinstance(item, Mapping)
+            ]
+            if isinstance(run_prompt_compactions, list)
+            else []
+        )
     latest_ledger_event = latest_fp_assessed_event(
         events,
         run_id=resolved_run_id,
@@ -296,6 +314,7 @@ def project_live_run_status(
         "failure_class": run_projection.get("failure_class"),
         "dispatch_mode": _dispatch_mode(events, run_id=resolved_run_id, call_id=call_id),
         "manifest_id": manifest_id,
+        "prompt_compactions": prompt_compactions,
         "result_path": result_path,
         "result_artifact_status": artifact.status if artifact is not None else None,
         "result_artifact_failure_class": artifact.failure_class if artifact is not None else None,

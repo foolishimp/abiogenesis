@@ -46,6 +46,8 @@ AGENT_PROBE_PROMPT = (
     "Return exactly this token on one line: ABG_READY. "
     "Do not inspect the workspace. Do not analyze files. Do not add commentary."
 )
+# Transport readiness probes are intentionally outside F_P prompt assembly.
+# They prove CLI liveness only; they do not carry product or traversal work.
 
 
 class AgentTransportError(Exception):
@@ -636,7 +638,11 @@ def dispatch_agent_supervised(
     manifest: Mapping[str, Any] | None = None,
     progress_callback: Callable[[dict[str, Any]], None] | None = None,
 ) -> AgentResult:
-    """Invoke an agent subprocess under a progress lease with live artifact observation."""
+    """Deliver already-governed prompt text under a progress lease.
+
+    This is a transport shell. It must not construct, clip, summarize, or infer
+    prompt-budget truth from prompt text.
+    """
     try:
         contract = _resolve_agent_contract(agent, config=config, work_folder=work_folder)
     except ValueError as exc:
@@ -1240,6 +1246,9 @@ def call_agent(
 ) -> str:
     """Invoke an autonomous agent in a workspace via subprocess.
 
+    The prompt argument is delivery payload. Prompt construction and compaction
+    authority must already have been admitted before this boundary.
+
     Environment sanitization: For Claude Code, all CLAUDE* env vars are stripped
     to prevent the nesting guard hang.
 
@@ -1326,6 +1335,9 @@ def dispatch_agent(
     config: Mapping[str, Any] | None = None,
 ) -> AgentResult:
     """Invoke an agent subprocess and return the full result.
+
+    The prompt argument is delivery payload. This boundary must not construct,
+    compact, or inspect prompt-budget truth.
 
     Unlike call_agent(), this never raises — all outcomes are captured in AgentResult.
     The caller can then classify substrate and payload-contract failure explicitly.
@@ -1427,6 +1439,9 @@ def _build_args(
     contract: AgentCliContract | None = None,
 ) -> list[str]:
     """Build the subprocess argument list for the given agent.
+
+    This function renders already-governed prompt text into process arguments.
+    It is not a prompt construction, prompt compaction, or prompt-policy seam.
 
     REQ-P-QUAL-023: agent subprocess must have sufficient permissions to
     execute all tools required by the dispatch contract. For Claude Code,

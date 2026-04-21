@@ -24,6 +24,7 @@ from .binding import (
     BoundJob,
     PrecomputedManifest,
     ExecutableJob,
+    PromptAssembly,
     TargetAssetBinding,
     declared_fulfillment_obligations_for_job,
     declared_obligation_ledger_policy_for_job,
@@ -99,6 +100,7 @@ class FpDispatchPublicationPlan:
     manifest_path: Path
     result_updates: dict[str, Any]
     manifest_payload: dict[str, Any]
+    prompt_assembly: PromptAssembly
 
 
 @dataclass(frozen=True)
@@ -114,6 +116,7 @@ class IterationAdvanceDecision:
 class IterationDispatchPlan:
     binding_request: DispatchBindingRequest
     dispatch_transition: FpDispatchTransition | None
+    bound_job: BoundJob | None = None
 
 
 @dataclass(frozen=True)
@@ -426,6 +429,8 @@ def fp_dispatch_publication_plan(
         "contexts": contexts,
         "current_asset": pre.current_asset,
         "prompt": bound_job.prompt,
+        "prompt_assembly": bound_job.prompt_assembly.to_dict(),
+        "prompt_compactions": list(bound_job.prompt_compactions),
         "result_path": result_path,
         "target_asset_binding": bound_job.target_asset_binding,
         "environment_asset_bindings": bound_job.environment_asset_bindings,
@@ -460,6 +465,7 @@ def fp_dispatch_publication_plan(
             "fp_result_path": result_path,
         },
         manifest_payload=manifest_payload,
+        prompt_assembly=bound_job.prompt_assembly,
     )
 
 
@@ -491,6 +497,8 @@ def iterated_result_payload(
         "surface_artifacts": list(surface_artifacts),
         "context_consumed": context_consumed_names,
         "prompt_words": len(bound_job.prompt.split()),
+        "prompt_assembly": bound_job.prompt_assembly.to_dict(),
+        "prompt_compactions": list(bound_job.prompt_compactions),
         "run_id": run_id,
         "call_id": call_id,
     }

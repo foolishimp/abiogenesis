@@ -62,6 +62,74 @@ def _read_json(path: Path, *, label: str) -> dict[str, Any]:
     return dict(raw)
 
 
+def _validate_prompt_assembly_contract(manifest: Mapping[str, Any]) -> None:
+    if "prompt_compactions" not in manifest:
+        raise PendingDispatchSurfaceError(
+            "policy_config_defect",
+            "manifest is missing admitted prompt_compactions contract",
+        )
+    compactions = manifest.get("prompt_compactions")
+    if not isinstance(compactions, list):
+        raise PendingDispatchSurfaceError(
+            "policy_config_defect",
+            "manifest prompt_compactions must be a list",
+        )
+    prompt_assembly = manifest.get("prompt_assembly")
+    if prompt_assembly is not None:
+        if not isinstance(prompt_assembly, Mapping):
+            raise PendingDispatchSurfaceError(
+                "policy_config_defect",
+                "manifest prompt_assembly must be an object when present",
+            )
+        assembly_compactions = prompt_assembly.get("prompt_compactions")
+        if assembly_compactions != compactions:
+            raise PendingDispatchSurfaceError(
+                "policy_config_defect",
+                "manifest prompt_assembly.prompt_compactions must match prompt_compactions",
+            )
+    required_fields = {
+        "surface",
+        "reason",
+        "size_unit",
+        "original_size",
+        "emitted_size",
+        "budget_size",
+        "inspection_ref",
+    }
+    allowed_units = {"chars", "items", "bindings"}
+    for index, record in enumerate(compactions):
+        if not isinstance(record, Mapping):
+            raise PendingDispatchSurfaceError(
+                "policy_config_defect",
+                f"manifest prompt_compactions[{index}] must be an object",
+            )
+        missing = sorted(required_fields - set(record))
+        if missing:
+            raise PendingDispatchSurfaceError(
+                "policy_config_defect",
+                f"manifest prompt_compactions[{index}] missing field(s): {', '.join(missing)}",
+            )
+        if record.get("size_unit") not in allowed_units:
+            raise PendingDispatchSurfaceError(
+                "policy_config_defect",
+                f"manifest prompt_compactions[{index}] has invalid size_unit",
+            )
+        for field in ("original_size", "emitted_size", "budget_size"):
+            value = record.get(field)
+            if not isinstance(value, int) or value < 0:
+                raise PendingDispatchSurfaceError(
+                    "policy_config_defect",
+                    f"manifest prompt_compactions[{index}].{field} must be a non-negative integer",
+                )
+        for field in ("surface", "reason", "inspection_ref"):
+            value = record.get(field)
+            if not isinstance(value, str) or not value:
+                raise PendingDispatchSurfaceError(
+                    "policy_config_defect",
+                    f"manifest prompt_compactions[{index}].{field} must be a non-empty string",
+                )
+
+
 def _manifest_path_from_pending_result(result: Mapping[str, Any], workspace: Path) -> Path:
     manifest_path_value = result.get("fp_manifest_path")
     if isinstance(manifest_path_value, str) and manifest_path_value:
@@ -94,6 +162,7 @@ def _resolve_pending_dispatch_surface(
             f"manifest does not exist: {manifest_path}",
         )
     manifest = _read_json(manifest_path, label=f"manifest file {manifest_path}")
+    _validate_prompt_assembly_contract(manifest)
     result_path = manifest.get("result_path")
     if not isinstance(result_path, str) or not result_path:
         result_path = result_path_from_transition_payload(
@@ -461,6 +530,10 @@ def dispatch_bound_manifest_via_transport(
         raise ValueError("manifest must declare non-empty prompt")
     if not isinstance(result_path, str) or not result_path:
         raise ValueError("manifest must declare non-empty result_path")
+    try:
+        _validate_prompt_assembly_contract(manifest_map)
+    except PendingDispatchSurfaceError as exc:
+        raise ValueError(exc.reason) from exc
 
     hook_config_map = _mapping(hook_config)
     timeout = hook_config_map.get("timeout")

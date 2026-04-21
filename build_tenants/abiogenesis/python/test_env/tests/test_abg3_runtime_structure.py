@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 from dataclasses import fields, is_dataclass
+from pathlib import Path
 from typing import get_args, get_type_hints
 
 from genesis.runtime_carrier import (
@@ -25,6 +26,7 @@ from genesis.binding import (
     FdBindingOutcome,
     FhBindingOutcome,
     FpCertificationOutcome,
+    PromptAssembly,
     RegimeBindingSet,
     PrecomputedManifest,
 )
@@ -95,3 +97,25 @@ def test_precomputed_manifest_publishes_typed_regime_bindings() -> None:
     assert "passing_evaluators" not in field_names
     assert isinstance(PrecomputedManifest.failing_evaluators, property)
     assert isinstance(PrecomputedManifest.passing_evaluators, property)
+
+
+def test_prompt_assembly_does_not_masquerade_as_string() -> None:
+    assert "__str__" not in PromptAssembly.__dict__
+    assert "__contains__" not in PromptAssembly.__dict__
+    assert "__len__" not in PromptAssembly.__dict__
+    assert "split" not in PromptAssembly.__dict__
+
+
+def test_prompt_truncation_policy_is_confined_to_prompt_budget_carriers() -> None:
+    genesis_root = Path(__file__).resolve().parents[2] / "code" / "genesis"
+    allowed_budget_files = {
+        genesis_root / "binding.py",
+        genesis_root / "subwork.py",
+    }
+
+    for path in genesis_root.glob("*.py"):
+        text = path.read_text(encoding="utf-8")
+        assert "budget=None" not in text
+        if path not in allowed_budget_files:
+            assert "...[truncated]" not in text
+            assert "max_chars" not in text

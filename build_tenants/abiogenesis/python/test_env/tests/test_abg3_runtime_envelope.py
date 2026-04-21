@@ -10,12 +10,15 @@ import pytest
 from gtl.function_model import EnvRef, GraphFunction
 from gtl.graph import Graph, GraphVector, GraphVector as RuntimeGraphVector, Node
 from gtl.module_model import Module
-from gtl.operator_model import Evaluator, F_P
+from gtl.operator_model import Evaluator, F_D, F_P
 from gtl.work_model import ContractRef, Job
 
 from genesis import cli_adapter, services
 from genesis.binding import (
     PrecomputedManifest,
+    PromptAssemblyBudget,
+    ResolvedEnvironment,
+    ResolvedEnvironmentBinding,
     TargetAssetBinding,
     Worker,
     _assemble_prompt,
@@ -94,6 +97,16 @@ def _fulfillment_obligations(*entries: tuple[str, str] | str) -> list[dict[str, 
             }
         )
     return obligations
+
+
+def _prompt_manifest_contract() -> dict[str, object]:
+    return {
+        "prompt_assembly": {
+            "sections": [],
+            "prompt_compactions": [],
+        },
+        "prompt_compactions": [],
+    }
 
 
 def _write_test_published_ledger(
@@ -209,6 +222,72 @@ def _dynamic_fp_executable_job(
     return executable_job, evaluator
 
 
+def _static_obligation_job(obligation_count: int = 14):
+    source = Node(name="design", schema="Design")
+    target = Node(name="code", schema="Code")
+    evaluators = tuple(
+        Evaluator(
+            f"REQ-{index:03d}",
+            F_P,
+            f"requirement {index:03d} is fulfilled",
+        )
+        for index in range(obligation_count)
+    )
+    vector = RuntimeGraphVector(
+        name="design→code",
+        source=source,
+        target=target,
+        evaluators=evaluators,
+        declarations={
+            "obligation_ledger": {
+                "obligation_source_kind": "test_declared_fp_obligations",
+                "obligation_source_ref": "test://static-obligation-job",
+                "obligation_kind": "requirement",
+                "carry_rule": "declared_fulfillment_obligation_set_totality",
+                "fulfillment_rule": "per_obligation_fp_assessment",
+                "evidence_policy": "agent_supplied_evidence_refs",
+                "obligations": [
+                    {
+                        "id": evaluator.name,
+                        "evaluator": evaluator.name,
+                        "statement": evaluator.description,
+                        "source_kind": "test_declared_fp_obligations",
+                        "source_refs": [
+                            f"test://static-obligation-job/obligation/{index}"
+                        ],
+                    }
+                    for index, evaluator in enumerate(evaluators)
+                ],
+            }
+        },
+    )
+    graph = Graph(
+        name="static_obligation_prompt_graph",
+        inputs=(source,),
+        outputs=(target,),
+        nodes=(source, target),
+        vectors=(vector,),
+    )
+    graph_function = GraphFunction.from_graph(
+        name="design→code",
+        graph=graph,
+        environment=EnvRef.from_contract(requires=graph.inputs, provides=graph.outputs),
+    )
+    job = Job(
+        name="design→code",
+        contracts=(ContractRef(kind="graph_function", target_id=graph_function.id),),
+    )
+    executable_job = module_to_executable_jobs(
+        Module(
+            name="static_obligation_prompt_module",
+            graphs=(graph,),
+            graph_functions=(graph_function,),
+            jobs=(job,),
+        )
+    )[0]
+    return executable_job, source, target
+
+
 def runtime_target_certification_hook(
     *,
     workspace: Path,
@@ -313,7 +392,7 @@ def test_prompt_includes_current_source_asset_snapshot_when_bound(tmp_path):
         ),
     }
 
-    prompt = _assemble_prompt(
+    prompt_assembly = _assemble_prompt(
         pre,
         executable_job,
         "",
@@ -322,10 +401,199 @@ def test_prompt_includes_current_source_asset_snapshot_when_bound(tmp_path):
         target_binding=asset_bindings["design"],
     )
 
+    prompt = prompt_assembly.prompt
     assert "[SOURCE ASSET SNAPSHOT]" in prompt
     assert "--- sequencing (output/sequencing.md) ---" in prompt
     assert "Implement ProjectStore primitives." in prompt
     assert "archive and search behavior with read-only archived handling." in prompt
+
+
+def test_prompt_assembly_budget_records_closed_compaction_and_respects_limit():
+    budget = PromptAssemblyBudget()
+
+    emitted = budget.compact_text(
+        "0123456789abcdef",
+        max_chars=10,
+        surface="unit:surface",
+        reason="unit_prompt_budget",
+        inspection_ref="test://full-surface",
+        marker="...[cut]",
+    )
+
+    assert len(emitted) <= 10
+    assert emitted.endswith("...[cut]")
+    assert [record.to_dict() for record in budget.records()] == [
+        {
+            "surface": "unit:surface",
+            "reason": "unit_prompt_budget",
+            "size_unit": "chars",
+            "original_size": 16,
+            "emitted_size": len(emitted),
+            "budget_size": 10,
+            "inspection_ref": "test://full-surface",
+        }
+    ]
+
+
+def test_prompt_assembly_records_over_budget_fd_context_and_source_surfaces(tmp_path):
+    output = tmp_path / "output"
+    output.mkdir(parents=True, exist_ok=True)
+    design_path = output / "design.md"
+    design_path.write_text(
+        "SOURCE_HEAD\n" + ("source-body\n" * 180) + "SOURCE_TAIL_MARKER\n",
+        encoding="utf-8",
+    )
+    code_path = output / "code.py"
+    code_path.write_text("# target\n", encoding="utf-8")
+
+    _, executable_job, _ = _fp_module_and_executable_job()
+    fd_evaluator = Evaluator(
+        "traceability_scan",
+        F_D,
+        "code traceability scan must pass before F_P dispatch",
+    )
+    pre = PrecomputedManifest(
+        executable_job=executable_job,
+        current_asset={"status": "in_progress"},
+        regime_bindings=regime_binding_set_from_evaluator_partitions(
+            failing=(fd_evaluator,)
+        ),
+        fd_results={
+            "traceability_scan": {
+                "detail": {
+                    "status": "failed",
+                    "stderr": "stderr-detail " * 40,
+                    "stdout": "stdout-detail " * 120,
+                }
+            }
+        },
+        relevant_contexts={
+            "design_standard": "context-detail " * 220,
+        },
+    )
+    asset_bindings = {
+        "design": TargetAssetBinding(
+            asset_id="design",
+            uri="workspace://output/design.md",
+            relative_path="output/design.md",
+            path_kind="file",
+            exists=True,
+        ),
+        "code": TargetAssetBinding(
+            asset_id="code",
+            uri="workspace://output/code.py",
+            relative_path="output/code.py",
+            path_kind="file",
+            exists=True,
+        ),
+    }
+
+    prompt_assembly = _assemble_prompt(
+        pre,
+        executable_job,
+        "",
+        workspace_root=tmp_path,
+        asset_bindings=asset_bindings,
+        target_binding=asset_bindings["code"],
+    )
+
+    records = prompt_assembly.prompt_compactions()
+    reasons = {record["reason"] for record in records}
+    assert "fd_stdout_prompt_budget" in reasons
+    assert "fd_stderr_prompt_budget" in reasons
+    assert "context_prompt_budget" in reasons
+    assert "source_snapshot_prompt_budget" in reasons
+    assert "SOURCE_HEAD" in prompt_assembly.prompt
+    assert "SOURCE_TAIL_MARKER" not in prompt_assembly.prompt
+    assert any(
+        record["inspection_ref"] == "workspace://output/design.md"
+        and record["original_size"] > record["emitted_size"]
+        for record in records
+    )
+    assert all(
+        {
+            "surface",
+            "reason",
+            "size_unit",
+            "original_size",
+            "emitted_size",
+            "budget_size",
+            "inspection_ref",
+        }
+        <= set(record)
+        for record in records
+    )
+
+
+def test_prompt_assembly_records_environment_and_obligation_omissions(tmp_path):
+    executable_job, source, target = _static_obligation_job(obligation_count=14)
+    archive = Node(name="archive", schema="Archive")
+    catalog = Node(name="catalog", schema="Catalog")
+    result_path = tmp_path / ".ai-workspace" / "fp_results" / "manifest-omissions.json"
+    pre = PrecomputedManifest(
+        executable_job=executable_job,
+        current_asset={},
+        regime_bindings=regime_binding_set_from_evaluator_partitions(),
+        fd_results={},
+        relevant_contexts={},
+        resolved_environment=ResolvedEnvironment(
+            requires=(source,),
+            provides=(target,),
+            carries=(source, target, archive, catalog),
+            bindings=(
+                ResolvedEnvironmentBinding(
+                    node=source,
+                    projection={"status": "converged"},
+                    required=True,
+                    produced_within_carrier=False,
+                ),
+                ResolvedEnvironmentBinding(
+                    node=archive,
+                    projection={"status": "converged"},
+                    produced_within_carrier=True,
+                ),
+                ResolvedEnvironmentBinding(
+                    node=catalog,
+                    projection={"status": "converged"},
+                    produced_within_carrier=True,
+                ),
+            ),
+        ),
+    )
+
+    prompt_assembly = _assemble_prompt(
+        pre,
+        executable_job,
+        str(result_path),
+        workspace_root=tmp_path,
+    )
+
+    records = prompt_assembly.prompt_compactions()
+    environment_record = next(
+        record
+        for record in records
+        if record["reason"] == "environment_binding_prompt_budget"
+    )
+    obligation_record = next(
+        record
+        for record in records
+        if record["reason"] == "fulfillment_obligation_prompt_budget"
+    )
+
+    assert environment_record["size_unit"] == "bindings"
+    assert environment_record["original_size"] == 3
+    assert environment_record["emitted_size"] == 1
+    assert environment_record["budget_size"] == 1
+    assert environment_record["inspection_ref"] == "fp_manifest.runtime_environment_contract"
+    assert obligation_record["size_unit"] == "items"
+    assert obligation_record["original_size"] == 14
+    assert obligation_record["emitted_size"] == 12
+    assert obligation_record["budget_size"] == 12
+    assert "fp_manifests/manifest-omissions.json#fulfillment_obligations" in obligation_record["inspection_ref"]
+    assert "carried bindings omitted from prompt: 2" in prompt_assembly.prompt
+    assert "total declared obligations: 14" in prompt_assembly.prompt
+    assert "omitted from prompt: 2" in prompt_assembly.prompt
+    assert "REQ-013" not in prompt_assembly.prompt
 
 
 def test_event_envelope_carries_top_level_runtime_refs(tmp_path):
@@ -480,6 +748,7 @@ def test_dispatch_runtime_emits_failure_graph_call_and_continuation(monkeypatch,
         "vector_id": "vec-1",
         "job_id": "job-1",
         "prompt": "write code",
+        **_prompt_manifest_contract(),
         "result_path": str(tmp_path / ".ai-workspace" / "fp_results" / "manifest-1.json"),
         "spec_hash": "spec-1",
     }
@@ -523,6 +792,26 @@ def test_dispatch_runtime_emits_failure_graph_call_and_continuation(monkeypatch,
     assert run["failure_class"] == "transport_failure"
 
 
+def test_dispatch_runtime_rejects_prompt_only_manifest_without_admitted_budget(tmp_path):
+    manifest = {
+        "manifest_id": "manifest-prompt-only",
+        "call_id": "call-prompt-only",
+        "edge": "design→code",
+        "run_id": "run-prompt-only",
+        "prompt": "write code",
+        "result_path": str(
+            tmp_path / ".ai-workspace" / "fp_results" / "manifest-prompt-only.json"
+        ),
+    }
+
+    with pytest.raises(ValueError, match="prompt_compactions"):
+        dispatch_bound_manifest_via_transport(
+            manifest,
+            tmp_path,
+            config={"runtime_backend": "codex_cli"},
+        )
+
+
 def test_dispatch_runtime_forwards_local_transport_contract_config(monkeypatch, tmp_path):
     workspace_bootstrap(tmp_path)
     results_dir = tmp_path / ".ai-workspace" / "fp_results"
@@ -543,6 +832,7 @@ def test_dispatch_runtime_forwards_local_transport_contract_config(monkeypatch, 
         "vector_id": "vec-forward",
         "job_id": "job-forward",
         "prompt": "write code",
+        **_prompt_manifest_contract(),
         "result_path": str(result_path),
         "spec_hash": "spec-forward",
         "resolved_policy": resolve_policy_bundle(),
@@ -590,6 +880,7 @@ def test_dispatch_runtime_classifies_missing_local_transport_contract_as_policy_
         "vector_id": "vec-missing-contract",
         "job_id": "job-missing-contract",
         "prompt": "write code",
+        **_prompt_manifest_contract(),
         "result_path": str(tmp_path / ".ai-workspace" / "fp_results" / "manifest-missing-contract.json"),
         "spec_hash": "spec-missing-contract",
     }
@@ -628,6 +919,7 @@ def test_dispatch_runtime_ingests_result_and_closes_graph_call(monkeypatch, tmp_
         "vector_id": "vec-2",
         "job_id": "job-2",
         "prompt": "write code",
+        **_prompt_manifest_contract(),
         "result_path": str(result_path),
         "spec_hash": "spec-2",
         "resolved_policy": resolve_policy_bundle(),
@@ -703,6 +995,7 @@ def test_dispatch_runtime_missing_resolved_policy_emits_fail_closed_runtime_trut
         "vector_id": "vec-missing-policy-dispatch",
         "job_id": "job-missing-policy-dispatch",
         "prompt": "write code",
+        **_prompt_manifest_contract(),
         "result_path": str(result_path),
         "spec_hash": "spec-missing-policy-dispatch",
         "fulfillment_obligations": _fulfillment_obligations(
@@ -906,6 +1199,7 @@ def test_auto_dispatch_preserved_result_missing_resolved_policy_emits_fail_close
                 "vector_id": "vec-missing-policy-preserved",
                 "job_id": "job-missing-policy-preserved",
                 "spec_hash": "spec-missing-policy-preserved",
+                **_prompt_manifest_contract(),
                 "fulfillment_obligations": _fulfillment_obligations(
                     ("code_complete", "code satisfies the design contract")
                 ),
@@ -1685,6 +1979,7 @@ def test_auto_dispatch_derives_manifest_path_from_manifest_id(tmp_path, monkeypa
                     ("code_complete", "code satisfies the design contract")
                 ),
                 "result_path": str(tmp_path / ".ai-workspace" / "fp_results" / "manifest-derive.json"),
+                **_prompt_manifest_contract(),
                 "resolved_policy": {
                     "dispatch": {
                         "ref": "genesis.dispatch_runtime:dispatch_bound_manifest_via_supervised_transport",
@@ -1751,6 +2046,7 @@ def test_auto_dispatch_prefers_manifest_carrier_dispatch_ref_over_policy_resolut
                 "result_path": str(
                     tmp_path / ".ai-workspace" / "fp_results" / "manifest-carrier.json"
                 ),
+                **_prompt_manifest_contract(),
                 "advancement_transition": {
                     "kind": "fp_dispatch",
                     "manifest_id": "manifest-carrier",
@@ -1833,6 +2129,7 @@ def test_auto_dispatch_salvages_result_via_carrier_result_path_when_manifest_omi
                 "job_id": "job-manifest-carrier-path",
                 "spec_hash": "spec-manifest-carrier-path",
                 "resolved_policy": resolve_policy_bundle(),
+                **_prompt_manifest_contract(),
                 "fulfillment_obligations": _fulfillment_obligations(
                     ("code_complete", "code satisfies the design contract")
                 ),
@@ -1915,6 +2212,7 @@ def test_successful_ingest_resolves_preexisting_open_continuation(monkeypatch, t
         "vector_id": "vec-3",
         "job_id": "job-3",
         "prompt": "write code",
+        **_prompt_manifest_contract(),
         "result_path": str(result_path),
         "spec_hash": "spec-3",
         "resolved_policy": resolve_policy_bundle(),
@@ -2261,6 +2559,7 @@ def test_dispatch_runtime_salvages_timed_out_transport_when_valid_result_exists(
         "vector_id": "vec-salvage",
         "job_id": "job-salvage",
         "prompt": "write code",
+        **_prompt_manifest_contract(),
         "result_path": str(result_path),
         "spec_hash": "spec-salvage",
         "resolved_policy": resolve_policy_bundle(),
@@ -2318,10 +2617,10 @@ def test_auto_dispatch_reuses_preserved_result_without_redispatch(monkeypatch, t
     manifest_path = manifests_dir / "manifest-reuse.json"
     manifest_path.write_text(
         json.dumps(
-                {
-                    "manifest_id": "manifest-reuse",
-                    "call_id": "call-reuse",
-                    "edge": "design→code",
+            {
+                "manifest_id": "manifest-reuse",
+                "call_id": "call-reuse",
+                "edge": "design→code",
                 "run_id": "run-reuse",
                 "work_key": "wk-reuse",
                 "workflow_version": "wf-reuse",
@@ -2330,14 +2629,15 @@ def test_auto_dispatch_reuses_preserved_result_without_redispatch(monkeypatch, t
                 "vector_id": "vec-reuse",
                 "job_id": "job-reuse",
                 "prompt": "write code",
+                **_prompt_manifest_contract(),
                 "result_path": str(result_path),
-                    "spec_hash": "spec-reuse",
-                    "failing_evaluators": [{"name": "code_complete"}],
-                    "resolved_policy": resolve_policy_bundle(),
-                    "fulfillment_obligations": _fulfillment_obligations(
-                        ("code_complete", "code satisfies the design contract")
-                    ),
-                }
+                "spec_hash": "spec-reuse",
+                "failing_evaluators": [{"name": "code_complete"}],
+                "resolved_policy": resolve_policy_bundle(),
+                "fulfillment_obligations": _fulfillment_obligations(
+                    ("code_complete", "code satisfies the design contract")
+                ),
+            }
         ),
         encoding="utf-8",
     )
