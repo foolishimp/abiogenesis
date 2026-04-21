@@ -114,11 +114,13 @@ def write_published_fulfillment_ledger(
 
 def published_fulfillment_edge_converged(ledger_data: Mapping[str, Any]) -> bool:
     target_certification_passed = ledger_data.get("target_certification_passed", True)
+    fd_recheck_passed = ledger_data.get("fd_recheck_passed", True)
     return (
         bool(ledger_data.get("carry_converged"))
         and bool(ledger_data.get("fulfillment_converged"))
         and bool(ledger_data.get("admitted"))
         and bool(target_certification_passed)
+        and bool(fd_recheck_passed)
     )
 
 

@@ -959,6 +959,13 @@ def ingest_fp_result(
         published_ledger["target_certification_hook_ref"] = target_certification["hook_ref"]
     if "details" in target_certification:
         published_ledger["target_certification_details"] = target_certification["details"]
+    fd_recheck_decision = _rerun_manifest_fd_failures(
+        workspace,
+        manifest,
+        work_key=manifest_work_key or None,
+    )
+    published_ledger["fd_recheck_passed"] = bool(fd_recheck_decision.get("passed"))
+    published_ledger["fd_recheck_failures"] = list(fd_recheck_decision.get("failures") or [])
     published_ledger["edge_converged"] = published_fulfillment_edge_converged(published_ledger)
     published_ledger_ref = _write_published_fulfillment_ledger(
         workspace,
@@ -1047,6 +1054,108 @@ def ingest_fp_result(
                 "evidence_refs": evidence_refs,
             }
         )
+
+    if _fd_recheck_should_yield(fd_recheck_decision):
+        if call_id and graph_call_terminal:
+            graph_call_closed = _event_writer(
+                workspace,
+                emit_event,
+                "graph_call_closed",
+                {
+                    "call_id": call_id,
+                    "edge": result_data["edge"],
+                    "manifest_id": manifest_id,
+                    "yielded": True,
+                    "handoff_reason": "fd_findings",
+                },
+                workflow_version=workflow_version,
+                work_key=manifest_work_key or None,
+                run_id=manifest_run_id or None,
+                aggregate_type="graph_call",
+                aggregate_id=call_id,
+                parent_aggregate_id=manifest_run_id or None,
+                causation_event_id=latest_event_id,
+                job_id=job_id or None,
+                graph_function_id=graph_function_id or None,
+                materialization_id=materialization_id or None,
+                call_id=call_id,
+                vector_id=vector_id or None,
+            )
+            emitted_count += 1
+            latest_event_id = graph_call_closed.get("event_id")
+
+        continuation_id = f"cont-{uuid.uuid4().hex}"
+        continuation_opened = _event_writer(
+            workspace,
+            emit_event,
+            "continuation_opened",
+            {
+                "continuation_id": continuation_id,
+                "continuation_kind": "observer_handoff",
+                "kind": "fd_findings",
+                "call_id": call_id or None,
+                "edge": result_data["edge"],
+                "caused_by_event_id": latest_event_id,
+                "fd_recheck": dict(fd_recheck_decision),
+            },
+            workflow_version=workflow_version,
+            work_key=manifest_work_key or None,
+            run_id=manifest_run_id or None,
+            aggregate_type="continuation",
+            aggregate_id=continuation_id,
+            parent_aggregate_id=manifest_run_id or None,
+            causation_event_id=latest_event_id,
+            call_id=call_id or None,
+            job_id=job_id or None,
+            graph_function_id=graph_function_id or None,
+            materialization_id=materialization_id or None,
+            vector_id=vector_id or None,
+        )
+        emitted_count += 1
+        latest_event_id = continuation_opened.get("event_id")
+        if manifest_run_id:
+            _event_writer(
+                workspace,
+                emit_event,
+                "run_yielded",
+                {
+                    "call_id": call_id or None,
+                    "edge": result_data["edge"],
+                    "continuation_id": continuation_id,
+                    "handoff_kind": "observer_handoff",
+                    "handoff_reason": "fd_findings",
+                },
+                workflow_version=workflow_version,
+                work_key=manifest_work_key or None,
+                run_id=manifest_run_id or None,
+                aggregate_type="run",
+                aggregate_id=manifest_run_id,
+                causation_event_id=latest_event_id,
+                job_id=job_id or None,
+                graph_function_id=graph_function_id or None,
+                materialization_id=materialization_id or None,
+                call_id=call_id or None,
+                vector_id=vector_id or None,
+            )
+            emitted_count += 1
+        return {
+            "status": "yield",
+            "stopped_by": "yield",
+            "handoff_kind": "observer_handoff",
+            "handoff_reason": "fd_findings",
+            "edge": result_data["edge"],
+            "result_path": str(result_file),
+            "published_ledger_ref": dict(published_ledger_ref),
+            "manifest_id": manifest_id,
+            "spec_hash": spec_hash,
+            "workflow_version": workflow_version,
+            "events_emitted": emitted_count,
+            "fulfillment_assessments": emitted,
+            "continuation_id": continuation_id,
+            "run_id": manifest_run_id or None,
+            "call_id": call_id or None,
+            "fd_recheck": dict(fd_recheck_decision),
+        }
 
     carry_converged = bool(resolved_published_ledger["carry_converged"])
     fulfillment_converged = bool(resolved_published_ledger["fulfillment_converged"])
