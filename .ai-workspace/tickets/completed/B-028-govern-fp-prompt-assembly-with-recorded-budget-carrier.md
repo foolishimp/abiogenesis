@@ -3,7 +3,7 @@ id: B-028
 title: Govern F_P prompt assembly with a recorded prompt-budget carrier
 type: bug
 ticket_category: implementation_migration
-status: active
+status: completed
 goal: remove ad hoc prompt text compaction and make every over-budget prompt surface visible in runtime truth
 change_intent: replace scattered prompt string truncation with one prompt assembly budget carrier that owns limits, records every exceeded budget, publishes compaction records into manifests and dispatch events, and keeps full source surfaces inspectable by reference
 change_class: design_reframe
@@ -13,7 +13,7 @@ priority: high
 triaged_at: 2026-04-21
 created_at: 2026-04-21
 updated_at: 2026-04-22
-dependencies: B-027 completed; odd_sdlc T-020 active; odd_sdlc T-024 active
+dependencies: B-027 completed; odd_sdlc T-020 active; odd_sdlc T-024 completed
 intake_source: odd_sdlc Test28 compact prompt regression exposed silent prompt clipping as hidden runtime policy
 target_truth: F_P prompt text is a governed runtime interface assembled through one prompt-budget carrier; when any input exceeds a prompt budget, the emitted prompt is bounded, the full source remains inspectable by reference, and the compaction record is published in the manifest and runtime event stream
 superseded_truth: prompt assembly directly concatenates raw F_D stdout, full context bodies, full source snapshots, and carried environment rows, or silently clips them through local helper constants without recording that compaction occurred
@@ -332,7 +332,7 @@ Migration rejection checks:
 - [x] Mixed old/new prompt authority rejected by code, not only by tests.
 - [x] Tests that prove mixed prompt authority still works are removed or
   repriced as negative proofs.
-- [ ] Ticket, product/design wording, manifest contract, event contract, and
+- [x] Ticket, product/design wording, manifest contract, event contract, and
   proof surface reconciled before closure.
 
 ## Break-To-Closure Map
@@ -352,7 +352,7 @@ Migration rejection checks:
   compaction truth.
 - [x] Break 9: run source scan for remaining prompt truncation and raw prompt
   construction authority.
-- [ ] Break 10: only after breaks 1-9, write or reprice tests for positive,
+- [x] Break 10: only after breaks 1-9, write or reprice tests for positive,
   negative, replay, manifest/event equality, projection, and downstream
   odd_sdlc proof.
 
@@ -415,9 +415,23 @@ Focused proof performed:
   `python -m pytest test_abg3_runtime_envelope.py test_m03_engine_kernel_integration.py test_abg3_runtime_structure.py test_cli_adapter_auto.py -k "prompt or environment or target_binding or asset_surface or dispatch or manifest or live_status or run_status"`.
 - Result: `49 passed, 163 deselected`.
 
-Break 10 remains open until the full closure proof surface, downstream
-odd_sdlc Test28 regression, and product/design wording reconciliation are
-completed.
+Downstream odd_sdlc latest-build proof performed:
+
+- odd_sdlc first-slice proof against current ABG build:
+  `test_odd_sdlc_first_slice.py`: 63 passed.
+- odd_sdlc query-domain contract version consumers against current ABG build:
+  `test_odd_sdlc_disambiguation_usecase.py::test_normalization_publishes_and_reduces_major_ambiguity`
+  and
+  `test_odd_sdlc_iterative_closure_traceability_usecase.py::test_iterative_requirement_closure_and_generated_traceability`:
+  2 passed.
+- odd_sdlc installed sandbox proof against current ABG build:
+  `test_odd_sdlc_sandbox_usecase.py::test_canonical_sandbox_usecase_runs_from_installed_workspace`:
+  1 passed.
+- odd_sdlc Test28 regression against current ABG build:
+  `test_odd_sdlc_test28_regression.py`: 4 passed.
+
+Break 10 is complete. The ticket remains active until product/design wording
+reconciliation and final closure movement are performed.
 
 ## Required Break Order
 

@@ -466,7 +466,7 @@ Illustrative event families:
 - `graph_call_failed`
 - `vector_started`
 - `vector_gap_found`
-- `fp_dispatched`
+- `fp_dispatched` with admitted prompt assembly and prompt compaction truth
 - `backend_readiness_succeeded`
 - `backend_readiness_failed`
 - `worker_turn_started`

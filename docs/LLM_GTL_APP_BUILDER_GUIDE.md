@@ -1276,7 +1276,7 @@ Act from `stop_predicate` or `status`:
 
 | Signal | Lawful next move |
 | --- | --- |
-| `dispatch_required` | Read `fp_manifest_path`, perform the manifest contract, write the result at manifest `result_path`, then run `assess-result --result <path>`. |
+| `dispatch_required` | Read `fp_manifest_path`, perform the manifest contract, preserve the manifest `prompt_assembly` / `prompt_compactions` contract as runtime truth, write the result at manifest `result_path`, then run `assess-result --result <path>`. |
 | `human_gate_required` | Satisfy the human lane or use lawful `--fh-mode human-proxy --until converged` when policy allows it. |
 | `proof_hold` | Inspect `gaps --workspace . --scope workspace` and live status, then correct or reset the failed proof scope before rerunning. |
 | `converged` | Inspect events, projection, proof, and closure before claiming completion. |
