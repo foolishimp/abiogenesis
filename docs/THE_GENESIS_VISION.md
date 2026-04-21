@@ -211,6 +211,14 @@ Prompt-driven development is the equivalent of handing that graduate the keys an
 
 Spec-Driven Development separates the specification (what the system must do) from the construction (how it is built). The specification is formal, versioned, and independent of any particular AI model or developer. The AI works against it and is accepted only when deterministic evaluators confirm its output satisfies the specification. When the model misunderstands, the model iterates; the specification does not change. The business requirement governs the AI; the AI does not govern the requirement.
 
+### Automation that stays explainable
+
+Spec-Driven Development refuses to let automation outrun the method. The graph-native constitution carries a **Manual Walkthrough Rule**: automation is lawful only when it preserves a walk a human could follow — identify the current state, the next lawful step, the authority surfaces in play, the produced artifact, and the gate that proves closure. If the team cannot describe the traversal manually, the automation is not yet method-safe.
+
+This is a binding constitutional rule, not aspiration. It lives in `GRAPH_METHOD.md` and again as core law in `ODD_METHOD.md`. Its consequences are concrete: automation may render prompts, scaffold artifacts, select the next traversal step, run workers, collect evidence, and assess closure. It may not skip undeclared nodes, fabricate authority not present in the declared surfaces, collapse multiple constitutional transitions into one opaque step, or collapse the installed builder and the product under development into one authority surface during self-host work.
+
+The effect is that AI construction remains auditable even when it is fast. "How did the system arrive at this behaviour?" is always answerable as a graph walk, because the rule forbids any other answer from closing lawfully.
+
 ---
 
 ## 9. What This Is and Is Not
