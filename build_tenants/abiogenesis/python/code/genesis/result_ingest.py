@@ -21,7 +21,7 @@ from gtl.obligation_ledger import (
 )
 
 from .events import EventContext, EventStream, emit
-from .continuation import continuation_state
+from .continuation import YieldedContinuationContract, continuation_state
 from .fulfillment_ledger import (
     make_published_fulfillment_ledger_ref,
     published_fulfillment_edge_converged,
@@ -1308,16 +1308,20 @@ def ingest_fp_result(
             )
             emitted_count += 1
             latest_event_id = continuation_opened.get("event_id")
+            yielded_continuation = YieldedContinuationContract(
+                continuation_id=continuation_id,
+                handoff_kind="fh_review",
+                edge=result_data["edge"],
+                call_id=call_id or None,
+                handoff_reason=str(resolved_published_ledger.get("admission_basis") or "pending_fh_review"),
+                failure_class=failure_class,
+            )
             if manifest_run_id:
                 _event_writer(
                     workspace,
                     emit_event,
-                    "run_failed",
-                    {
-                        "failure_class": "probabilistic_non_convergence",
-                        "call_id": call_id or None,
-                        "edge": result_data["edge"],
-                    },
+                    "run_yielded",
+                    yielded_continuation.run_yielded_event_data(),
                     workflow_version=workflow_version,
                     work_key=manifest_work_key or None,
                     run_id=manifest_run_id or None,
@@ -1331,18 +1335,15 @@ def ingest_fp_result(
                     vector_id=vector_id or None,
                 )
                 emitted_count += 1
-            return {
-                "status": "error",
-                "result_path": str(result_file),
-                "published_ledger_ref": dict(published_ledger_ref),
-                "manifest_id": manifest_id,
-                "spec_hash": spec_hash,
-                "workflow_version": workflow_version,
-                "events_emitted": emitted_count,
-                "fulfillment_assessments": emitted,
-                "failure_class": failure_class,
-                "continuation_id": continuation_id,
-            }
+            return yielded_continuation.public_result(
+                result_path=str(result_file),
+                published_ledger_ref=dict(published_ledger_ref),
+                manifest_id=manifest_id,
+                spec_hash=spec_hash,
+                workflow_version=workflow_version,
+                events_emitted=emitted_count,
+                fulfillment_assessments=emitted,
+            )
 
         if call_id and graph_call_terminal:
             graph_call_failed = _event_writer(
@@ -1393,16 +1394,27 @@ def ingest_fp_result(
         )
         emitted_count += 1
         latest_event_id = continuation_opened.get("event_id")
+        yielded_continuation = YieldedContinuationContract(
+            continuation_id=continuation_id,
+            handoff_kind="repair",
+            edge=result_data["edge"],
+            call_id=call_id or None,
+            handoff_reason=(
+                str(
+                    resolved_published_ledger.get("target_certification_reason")
+                    or "target_certification_failed"
+                )
+                if certification_failed
+                else "proof_incomplete"
+            ),
+            failure_class=failure_class,
+        )
         if manifest_run_id:
             _event_writer(
                 workspace,
                 emit_event,
-                "run_failed",
-                {
-                    "failure_class": failure_class,
-                    "call_id": call_id or None,
-                    "edge": result_data["edge"],
-                },
+                "run_yielded",
+                yielded_continuation.run_yielded_event_data(),
                 workflow_version=workflow_version,
                 work_key=manifest_work_key or None,
                 run_id=manifest_run_id or None,
@@ -1416,19 +1428,16 @@ def ingest_fp_result(
                 vector_id=vector_id or None,
             )
             emitted_count += 1
-        return {
-            "status": "error",
-            "result_path": str(result_file),
-            "published_ledger_ref": dict(published_ledger_ref),
-            "manifest_id": manifest_id,
-            "prompt_compactions": prompt_compactions,
-            "spec_hash": spec_hash,
-            "workflow_version": workflow_version,
-            "events_emitted": emitted_count,
-            "fulfillment_assessments": emitted,
-            "failure_class": failure_class,
-            "continuation_id": continuation_id,
-        }
+        return yielded_continuation.public_result(
+            result_path=str(result_file),
+            published_ledger_ref=dict(published_ledger_ref),
+            manifest_id=manifest_id,
+            prompt_compactions=prompt_compactions,
+            spec_hash=spec_hash,
+            workflow_version=workflow_version,
+            events_emitted=emitted_count,
+            fulfillment_assessments=emitted,
+        )
 
     return {
         "status": "ok",

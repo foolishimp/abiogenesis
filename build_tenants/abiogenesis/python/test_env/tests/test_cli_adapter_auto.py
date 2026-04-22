@@ -398,8 +398,49 @@ def test_run_start_until_converged_surfaces_engine_dispatch_failure_without_shad
     fp_dispatch_handled = "auto_fp_dispatch_" + "handled"
     assert result["stopped_by"] == "fp_runtime_failure"
     assert result["failure_class"] == "transport_failure"
+    assert "continuation_id" not in result
+    assert "handoff_kind" not in result
+    assert "handoff_reason" not in result
     assert fp_dispatch_available not in result
     assert fp_dispatch_handled not in result
+
+
+def test_run_start_until_converged_surfaces_retry_continuation_as_yield(monkeypatch, tmp_path: Path):
+    def fake_gen_start(intent, stream):
+        return {
+            "status": "pending",
+            "blocking_reason": "fp_dispatch",
+            "stop_predicate": "dispatch_required",
+            "edge": "requirements→design",
+        }
+
+    def fake_auto_dispatch(result, workspace, *, config=None):
+        return {
+            "status": "yield",
+            "stopped_by": "yield",
+            "handoff_kind": "retry",
+            "handoff_reason": "transport_failure",
+            "failure_class": "transport_failure",
+            "continuation_id": "cont-retry",
+        }
+
+    monkeypatch.setattr(services, "gen_start", fake_gen_start)
+    monkeypatch.setattr("genesis.dispatch_runtime.auto_dispatch_from_result", fake_auto_dispatch)
+
+    result = cli_adapter._run_start_until_converged(
+        _start_intent(object()),
+        object(),
+        workspace=tmp_path,
+        config={"runtime_backend": "codex_cli"},
+        fh_mode="direct",
+    )
+
+    assert result["status"] == "yield"
+    assert result["stop_predicate"] == "yielded"
+    assert result["stopped_by"] == "yield"
+    assert result["handoff_kind"] == "retry"
+    assert result["handoff_reason"] == "transport_failure"
+    assert result["continuation_id"] == "cont-retry"
 
 
 def test_run_start_until_converged_human_proxy_handles_fh_gate_and_retries(monkeypatch, tmp_path: Path):

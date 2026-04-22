@@ -397,6 +397,20 @@ def _resolve_agent_contract(
     )
 
 
+def resolve_agent_contract(
+    agent: str,
+    *,
+    config: Mapping[str, Any] | None = None,
+    work_folder: str | None = None,
+) -> AgentCliContract:
+    """Resolve one agent transport contract without invoking the subprocess."""
+    return _resolve_agent_contract(
+        agent,
+        config=config,
+        work_folder=work_folder,
+    )
+
+
 def has_agent(
     agent: str = "claude",
     *,

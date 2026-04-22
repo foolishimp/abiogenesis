@@ -1,171 +1,72 @@
-# abiogenesis 3.2.0 RC Notes
+# abiogenesis 3.3.0 RC Notes
 
-This note records release-candidate caveats and accepted framework behavior
-for the current `abiogenesis` B-027 runtime-carrier wave.
+This note records accepted RC behavior for the current `v3.3.0` line after the
+B-029 continuation-yield projection fix.
 
 ## Accepted Framework Behavior
 
-### Runtime Law Is Carrier And Event Owned
+### Continuation-Owned Next Steps Project As Yield
 
-The current RC makes typed runtime carriers and replay-visible events the
-authoritative source for advancement, convergence, dispatch, and projection
-truth.
-
-That means:
-
-- public advancement consumes `ExecutionBasis` and `AdvancementTransition`
-  truth produced by the kernel
-- iteration planning consumes `IterationAdvanceDecision` instead of local
-  controller branches
-- `RegimeBindingSet` is the singular `F_D` / `F_P` / `F_H` regime truth used by
-  convergence and runtime publication
-- feature completion is emitted as event truth and active-work state is
-  projected by replay
-- removing the carrier path is a fail-closed defect, not a degraded legacy mode
-
-### Runtime Config Is Ingress, Not Runtime Law
-
-The current RC demotes runtime configuration to an adapter/bootstrap ingress
-surface.
+The current RC treats continuation-owned retry, repair, and `fh_review`
+outcomes as yielded public truth when a lawful next step already exists.
 
 That means:
 
-- dispatch, result ingest, proof-hold, live-status, and asset-binding contract
-  paths consume resolved/admitted carrier truth
-- missing carrier truth fails closed rather than resolving policy or contract
-  meaning mid-flight
-- downstream consumers must move to the installed 3.2.0 boundary instead of
-  depending on older `runtime_config` side-channel semantics
+- `continuation_opened` is not enough on its own; the public boundary must also
+  project yielded continuation truth
+- the typed public carrier is `YieldedContinuationContract`
+- the run/read-model carrier is `run_yielded`
+- CLI/control-plane consumers must surface `yield`, not failure-shaped status,
+  for those continuation-owned cases
 
-### Provenance-Ready Runtime Is Now Mandatory
+### True No-Continuation Defects Stay Hard Failure
 
-The current RC removes `"unknown"` as a lawful governed-runtime provenance
-mode.
-
-That means:
-
-- governed runtime initialization now requires valid workflow metadata
-- missing or malformed active-workflow metadata is a runtime defect, not a
-  compatibility fallback
-- CLI and runtime entry points fail closed when provenance metadata is absent
-  or invalid
-
-This is an interface cut in the substrate runtime boundary, not a downstream
-compatibility feature.
-
-### Install And Bootstrap Seed Workflow Truth By Construction
-
-The current RC treats provenance readiness as part of the install/bootstrap
-contract.
+The current RC does not flatten all failure into yield.
 
 That means:
 
-- install/bootstrap writes active workflow metadata into the runtime surface
-- fresh installed workspaces start provenance-ready rather than degrading at
-  first use
-- runtime truth now assumes versioned workflow metadata exists because install
-  guarantees it
+- `policy_config_defect` with no lawful continuation remains `status="error"`
+- `runtime_defect` with no lawful continuation remains `status="error"`
+- those paths emit no `continuation_opened`
+- those paths emit no `run_yielded`
 
-### Approval And Runtime Identity Are Versioned More Strictly
+### Retry Yield Is Narrowed By Failure Class
 
-The current RC strengthens the identity carried by runtime approvals and
-probabilistic assessment reuse.
+Retry continuation is now source-governed rather than branch-local.
 
-That means:
+That means retry yield is lawful only for:
 
-- bare edge-name `F_H` approvals no longer authorize governed traversal
-- runtime `spec_hash` now binds workflow version, executable-job structure, and
-  requirement truth
-- stale probabilistic assessments reopen when active workflow or requirements
-  truth changes
+- `transport_failure`
+- `no_output`
+- `contract_failure`
 
-### Unresolved Post-Continuation Deterministic Gaps Surface As `fd_gap`
-
-The current RC keeps `F_D -> F_P` continuation lawful, but it no longer
-misclassifies an unresolved deterministic gap as a generic runtime failure
-after the constructive turn returns.
-
-That means:
-
-- when a constructive continuation finishes and closure reruns the declared
-  deterministic checks
-- and those deterministic checks are still the active blocker
-- the runtime now surfaces that state back out as `fd_gap`
-- instead of reporting `probabilistic_non_convergence` / `fp_runtime_failure`
-
-### Retry Attempts Now Rebind Current Truth
-
-The current RC makes retry attempts current-state-derived rather than stale
-manifest replay.
-
-That means:
-
-- retryable attempts now mint fresh manifest identity at finer than one-second
-  resolution
-- retry prompts are rebuilt from current workspace and runtime state rather than
-  redispatching an old prompt
-- the generic prompt now instructs the actor to inspect the current target
-  asset, determine realized progress, identify the remaining gap, and continue
-  from present state
-
-### Stopped `fd_gap` Attempts Now Terminalize Prior Run And GraphCall Truth
-
-The current RC no longer leaves a retryable stopped attempt looking live in run
-and graph-call projection.
-
-That means:
-
-- unresolved deterministic closure after `F_D -> F_P` still stops as `fd_gap`
-- but the stopped bounded attempt now emits terminal graph-call and run truth
-- later retries therefore open fresh attempt identity instead of reusing a
-  stale in-flight manifest
+Other failure classes must remain terminal unless another explicit continuation
+family owns the next step.
 
 ## Current Known Limitation
 
-### Downstream Consumers Must Refactor To The Released Boundary
+### Downstream Install Validation Follows The Published Cut
 
-This RC does not provide a backward-compatibility shim for removed provenance
-fallback behavior.
-
-That means:
-
-- downstream consumers such as `odd_method` must consume this RC through their
-  installer path
-- downstream `.genesis` truth is refreshed by install, not by manual source
-  mirroring
-- downstream green status is a separate refactor/proof wave, not part of this
-  ABG RC note itself
-
-### Structured Deterministic Repair Evidence Remains Domain-Owned
-
-This RC makes retry prompts fresh and current-state-derived, but it does not
-invent domain-specific repair hints where a domain evaluator emits no structured
-detail.
+This RC closes the ABG source boundary for B-029, but it does not claim
+downstream consumer proof inside the source ticket.
 
 That means:
 
-- ABG now carries generic retry law and fresh prompt truth
-- richer missing-item or repair-target evidence still belongs to the domain
-  evaluator surface
-- downstream domains such as `odd_method` may still improve their evaluator
-  output independently of this RC
+- installed consumers such as `odd_sdlc` must validate against the published RC
+  cut
+- if the installed consumer still exposes failure-shaped status where source now
+  yields, that reopens B-029 as a release regression
+- downstream validation is qualification over the release cut, not hidden source
+  closure evidence
 
 ## Current Verification Footer
 
-The current release-candidate proving footer is:
+The current source proving footer for B-029 is:
 
-- `317 passed`
-- `19 deselected`
+- `3 passed`
+- `7 passed`
 
 from:
 
-- `python -m pytest build_tenants/abiogenesis/python/test_env/tests -q`
-
-The live F_P qualification footer is:
-
-- `5 passed`
-- `600s`
-
-from the Claude-run live harness:
-
-- `CODEX_LIVE_FP=1 python -m pytest -m live_fp -x -v -s build_tenants/abiogenesis/python/test_env/tests/test_sandbox_usecases_live.py`
+- the negative-proof bundle over true no-continuation failures
+- the positive continuation-yield bundle over retry, repair, and `fh_review`

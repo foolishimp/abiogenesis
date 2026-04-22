@@ -764,7 +764,10 @@ def test_dispatch_runtime_emits_failure_graph_call_and_continuation(monkeypatch,
         config={"runtime_backend": "codex_cli"},
     )
 
-    assert summary["status"] == "error"
+    assert summary["status"] == "yield"
+    assert summary["stopped_by"] == "yield"
+    assert summary["handoff_kind"] == "retry"
+    assert summary["handoff_reason"] == "transport_failure"
     assert summary["failure_class"] == "transport_failure"
 
     stream = EventStream.open(tmp_path)
@@ -775,7 +778,7 @@ def test_dispatch_runtime_emits_failure_graph_call_and_continuation(monkeypatch,
         "worker_turn_failed",
         "graph_call_failed",
         "continuation_opened",
-        "run_failed",
+        "run_yielded",
     ]
 
     graph_call = project(stream, "graph_call", "call-manifest-1")
@@ -788,8 +791,54 @@ def test_dispatch_runtime_emits_failure_graph_call_and_continuation(monkeypatch,
     assert continuation["run_id"] == "run-1"
 
     run = project(stream, "run", "run-1")
-    assert run["status"] == "failed"
-    assert run["failure_class"] == "transport_failure"
+    assert run["status"] == "yielded"
+
+
+def test_dispatch_runtime_retry_continuation_projects_live_status_as_yielded(monkeypatch, tmp_path):
+    workspace_bootstrap(tmp_path)
+    manifest = {
+        "manifest_id": "manifest-live-retry",
+        "call_id": "call-live-retry",
+        "edge": "design→code",
+        "run_id": "run-live-retry",
+        "work_key": "wk-live-retry",
+        "workflow_version": "wf-live-retry",
+        "graph_function_id": "gf-live-retry",
+        "materialization_id": "mat-live-retry",
+        "vector_id": "vec-live-retry",
+        "job_id": "job-live-retry",
+        "prompt": "write code",
+        **_prompt_manifest_contract(),
+        "result_path": str(tmp_path / ".ai-workspace" / "fp_results" / "manifest-live-retry.json"),
+        "spec_hash": "spec-live-retry",
+    }
+
+    def fake_dispatch_agent(prompt, work_folder, *, agent="claude", timeout=300, config=None, **kwargs):
+        return AgentResult(stdout="", stderr="boom", returncode=1, agent=agent)
+
+    monkeypatch.setattr("genesis.dispatch_runtime.dispatch_agent_supervised", fake_dispatch_agent)
+
+    summary = dispatch_bound_manifest_via_transport(
+        manifest,
+        tmp_path,
+        config={"runtime_backend": "codex_cli"},
+    )
+
+    assert summary["status"] == "yield"
+
+    status = project_live_run_status(tmp_path, run_id="run-live-retry")
+    assert status["live_state"] == "yielded"
+    assert status["run_status"] == "yielded"
+    assert status["failure_class"] == "transport_failure"
+    assert status["graph_call_status"] == "failed"
+    assert status["open_continuations"] == [
+        {
+            "continuation_id": summary["continuation_id"],
+            "continuation_kind": "retry",
+            "call_id": "call-live-retry",
+            "status": "open",
+        }
+    ]
 
 
 def test_dispatch_runtime_rejects_prompt_only_manifest_without_admitted_budget(tmp_path):
@@ -896,6 +945,90 @@ def test_dispatch_runtime_classifies_missing_local_transport_contract_as_policy_
 
     assert summary["status"] == "error"
     assert summary["failure_class"] == "policy_config_defect"
+    assert "continuation_id" not in summary
+    assert "handoff_kind" not in summary
+    assert "handoff_reason" not in summary
+
+    events = EventStream.open(tmp_path).all_events()
+    event_types = [event["event_type"] for event in events]
+    assert "continuation_opened" not in event_types
+    assert "run_yielded" not in event_types
+    assert event_types == [
+        "graph_call_opened",
+        "graph_call_failed",
+        "run_failed",
+    ]
+
+    status = project_live_run_status(tmp_path, run_id="run-missing-contract")
+    assert status["live_state"] == "failed"
+    assert status["run_status"] == "failed"
+    assert status["failure_class"] == "policy_config_defect"
+    assert status["open_continuations"] == []
+
+
+def test_dispatch_runtime_runtime_defect_stays_terminal_without_retry_continuation(
+    monkeypatch,
+    tmp_path,
+):
+    workspace_bootstrap(tmp_path)
+    manifest = {
+        "manifest_id": "manifest-runtime-defect",
+        "call_id": "call-runtime-defect",
+        "edge": "design→code",
+        "run_id": "run-runtime-defect",
+        "work_key": "wk-runtime-defect",
+        "workflow_version": "wf-runtime-defect",
+        "graph_function_id": "gf-runtime-defect",
+        "materialization_id": "mat-runtime-defect",
+        "vector_id": "vec-runtime-defect",
+        "job_id": "job-runtime-defect",
+        "prompt": "write code",
+        **_prompt_manifest_contract(),
+        "result_path": str(tmp_path / ".ai-workspace" / "fp_results" / "manifest-runtime-defect.json"),
+        "spec_hash": "spec-runtime-defect",
+    }
+
+    def fake_dispatch_agent(prompt, work_folder, *, agent="claude", timeout=300, config=None, **kwargs):
+        return AgentResult(
+            stdout="",
+            stderr="engine runtime defect",
+            returncode=-1,
+            agent=agent,
+            failure_class="runtime_defect",
+            supervision_mode="supervised",
+        )
+
+    monkeypatch.setattr("genesis.dispatch_runtime.dispatch_agent_supervised", fake_dispatch_agent)
+
+    summary = dispatch_bound_manifest_via_transport(
+        manifest,
+        tmp_path,
+        config={"runtime_backend": "codex_cli"},
+    )
+
+    assert summary["status"] == "error"
+    assert summary["stopped_by"] == "fp_runtime_failure"
+    assert summary["failure_class"] == "runtime_defect"
+    assert "continuation_id" not in summary
+    assert "handoff_kind" not in summary
+    assert "handoff_reason" not in summary
+
+    events = EventStream.open(tmp_path).all_events()
+    assert [event["event_type"] for event in events] == [
+        "graph_call_opened",
+        "worker_turn_started",
+        "worker_turn_failed",
+        "graph_call_failed",
+        "run_failed",
+    ]
+    assert all(event["event_type"] != "continuation_opened" for event in events)
+    assert all(event["event_type"] != "run_yielded" for event in events)
+
+    status = project_live_run_status(tmp_path, run_id="run-runtime-defect")
+    assert status["live_state"] == "failed"
+    assert status["run_status"] == "failed"
+    assert status["failure_class"] == "runtime_defect"
+    assert status["open_continuations"] == []
 
 
 def test_dispatch_runtime_ingests_result_and_closes_graph_call(monkeypatch, tmp_path):
@@ -1095,8 +1228,12 @@ def test_ingest_requires_target_binding_materialization_before_success_lifecycle
 
     summary = ingest_fp_result(result_path, tmp_path, manifest_data=manifest)
 
-    assert summary["status"] == "error"
+    assert summary["status"] == "yield"
+    assert summary["stopped_by"] == "yield"
+    assert summary["handoff_kind"] == "repair"
+    assert summary["handoff_reason"] == "target_binding_not_materialized"
     assert summary["failure_class"] == "certification_failure"
+    assert summary["continuation_id"]
 
     ledger = json.loads(
         published_fulfillment_ledger_path(tmp_path, manifest_id).read_text(encoding="utf-8")
@@ -1114,7 +1251,7 @@ def test_ingest_requires_target_binding_materialization_before_success_lifecycle
     assert "closure_passed" not in event_types
     assert "edge_converged" not in event_types
     assert "proof_failed" in event_types
-    assert "run_failed" in event_types
+    assert "run_yielded" in event_types
 
 
 def test_ingest_fail_closes_when_manifest_omits_resolved_policy(tmp_path):
@@ -1297,8 +1434,12 @@ def test_ingest_applies_declared_target_certification_hook_before_closure(tmp_pa
 
     summary = ingest_fp_result(result_path, tmp_path, manifest_data=manifest)
 
-    assert summary["status"] == "error"
+    assert summary["status"] == "yield"
+    assert summary["stopped_by"] == "yield"
+    assert summary["handoff_kind"] == "repair"
+    assert summary["handoff_reason"] == "declared_target_contract_failed"
     assert summary["failure_class"] == "certification_failure"
+    assert summary["continuation_id"]
 
     ledger = json.loads(
         published_fulfillment_ledger_path(tmp_path, manifest_id).read_text(encoding="utf-8")
@@ -1874,7 +2015,10 @@ def test_ingest_unadmitted_ledger_fails_proof_and_opens_fh_review(tmp_path):
 
     summary = ingest_fp_result(result_path, tmp_path, manifest_data=manifest)
 
-    assert summary["status"] == "error"
+    assert summary["status"] == "yield"
+    assert summary["stopped_by"] == "yield"
+    assert summary["handoff_kind"] == "fh_review"
+    assert summary["handoff_reason"] == "pending_fh_review"
     assert summary["failure_class"] == "probabilistic_non_convergence"
     assert summary["continuation_id"]
 
@@ -1884,12 +2028,68 @@ def test_ingest_unadmitted_ledger_fails_proof_and_opens_fh_review(tmp_path):
         "proof_failed",
         "graph_call_failed",
         "continuation_opened",
-        "run_failed",
+        "run_yielded",
     ]
     assert events[1]["data"]["policy_reason"] == "pending_fh_review"
     continuation = project(EventStream.open(tmp_path), "continuation", summary["continuation_id"])
     assert continuation["status"] == "open"
     assert continuation["continuation_kind"] == "fh_review"
+
+
+def test_ingest_repair_continuation_projects_live_status_as_yielded(tmp_path):
+    workspace_bootstrap(tmp_path)
+    results_dir = tmp_path / ".ai-workspace" / "fp_results"
+    results_dir.mkdir(parents=True, exist_ok=True)
+    manifest_id = "manifest-live-repair"
+    result_path = results_dir / f"{manifest_id}.json"
+    result_path.write_text(
+        json.dumps(_fp_result_payload("design→code", fulfillment_detail="ok")),
+        encoding="utf-8",
+    )
+    manifest = {
+        "manifest_id": manifest_id,
+        "call_id": "call-live-repair",
+        "edge": "design→code",
+        "run_id": "run-live-repair",
+        "work_key": "wk-live-repair",
+        "workflow_version": "wf-live-repair",
+        "graph_function_id": "gf-live-repair",
+        "materialization_id": "mat-live-repair",
+        "vector_id": "vec-live-repair",
+        "job_id": "job-live-repair",
+        "prompt": "write code",
+        "result_path": str(result_path),
+        "spec_hash": "spec-live-repair",
+        "resolved_policy": resolve_policy_bundle(),
+        "fulfillment_obligations": _fulfillment_obligations(
+            ("code_complete", "code satisfies the design contract")
+        ),
+        "target_asset_binding": {
+            "asset_id": "code",
+            "uri": "workspace://output/code.py",
+            "relative_path": "output/code.py",
+            "path_kind": "file",
+            "exists": False,
+        },
+    }
+
+    summary = ingest_fp_result(result_path, tmp_path, manifest_data=manifest)
+
+    assert summary["status"] == "yield"
+
+    status = project_live_run_status(tmp_path, run_id="run-live-repair")
+    assert status["live_state"] == "yielded"
+    assert status["run_status"] == "yielded"
+    assert status["failure_class"] == "certification_failure"
+    assert status["graph_call_status"] == "failed"
+    assert status["open_continuations"] == [
+        {
+            "continuation_id": summary["continuation_id"],
+            "continuation_kind": "repair",
+            "call_id": "call-live-repair",
+            "status": "open",
+        }
+    ]
 
 
 def test_bind_fp_certified_rejects_missing_obligation_row(tmp_path):

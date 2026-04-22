@@ -198,6 +198,7 @@ def run_state(
             work_key = _event_value(e, "work_key") or work_key
             edge = _event_value(e, "edge") or edge
             state = "yielded"
+            failure_class = _event_value(e, "failure_class") or failure_class
 
         elif etype == "run_failed":
             work_key = _event_value(e, "work_key") or work_key

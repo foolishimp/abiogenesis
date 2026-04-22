@@ -15,6 +15,7 @@ from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
 
+from .continuation import yielded_retry_continuation_contract
 from .events import EventContext, EventStream, emit
 from .result_ingest import ingest_fp_result, validate_fp_result_payload
 from .runtime_carrier import (
@@ -27,6 +28,7 @@ from .transport import (
     dispatch_agent,
     dispatch_agent_supervised,
     inspect_result_artifact,
+    resolve_agent_contract,
 )
 
 
@@ -558,6 +560,21 @@ def dispatch_bound_manifest_via_transport(
             call_id=call_id,
             run_id=run_id,
         )
+    try:
+        resolve_agent_contract(
+            agent,
+            config=config,
+            work_folder=str(workspace),
+        )
+    except ValueError as exc:
+        return _emit_fail_closed_defect(
+            stream,
+            manifest_map,
+            failure_class="policy_config_defect",
+            reason=str(exc),
+            call_id=call_id,
+            run_id=run_id,
+        )
 
     _ensure_graph_call_opened(stream, manifest_map, call_id=call_id, run_id=run_id)
     call_context = _event_context_for_manifest(
@@ -673,6 +690,36 @@ def dispatch_bound_manifest_via_transport(
             ),
         )
         continuation_id = f"cont-{uuid.uuid4().hex}"
+        yielded_continuation = yielded_retry_continuation_contract(
+            continuation_id=continuation_id,
+            failure_class=failure_class,
+            edge=manifest_map.get("edge") if isinstance(manifest_map.get("edge"), str) else None,
+            call_id=call_id,
+        )
+        if yielded_continuation is None:
+            if run_id:
+                emit(
+                    "run_failed",
+                    _run_failure_event_data(
+                        manifest_map,
+                        failure_class=failure_class,
+                        call_id=call_id,
+                    ) | {"reason": diagnostic_output or failure_class},
+                    stream=stream,
+                    context=_event_context_for_manifest(
+                        manifest_map,
+                        aggregate_type="run",
+                        aggregate_id=run_id,
+                        causation_event_id=graph_call_failed["event_id"],
+                    ),
+                )
+            return {
+                "status": "error",
+                "stopped_by": "fp_runtime_failure",
+                "failure_class": failure_class,
+                "reason": diagnostic_output or failure_class,
+                "call_id": call_id,
+            }
         emit(
             "continuation_opened",
             {
@@ -693,12 +740,8 @@ def dispatch_bound_manifest_via_transport(
         )
         if run_id:
             emit(
-                "run_failed",
-                _run_failure_event_data(
-                    manifest_map,
-                    failure_class=failure_class,
-                    call_id=call_id,
-                ),
+                "run_yielded",
+                yielded_continuation.run_yielded_event_data(),
                 stream=stream,
                 context=_event_context_for_manifest(
                     manifest_map,
@@ -707,13 +750,7 @@ def dispatch_bound_manifest_via_transport(
                     causation_event_id=graph_call_failed["event_id"],
                 ),
             )
-        return {
-            "status": "error",
-            "stopped_by": "fp_runtime_failure",
-            "failure_class": failure_class,
-            "call_id": call_id,
-            "continuation_id": continuation_id,
-        }
+        return yielded_continuation.public_result()
 
     emit(
         "worker_turn_succeeded",
