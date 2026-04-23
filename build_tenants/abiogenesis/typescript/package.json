@@ -1,0 +1,58 @@
+{
+  "name": "@abiogenesis/typescript-tenant",
+  "private": true,
+  "type": "module",
+  "types": "./build/semantic/code/src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./build/semantic/code/src/index.d.ts",
+      "import": "./build/semantic/code/src/index.js"
+    },
+    "./gtl/m01": {
+      "types": "./build/semantic/code/src/gtl/m01/index.d.ts",
+      "import": "./build/semantic/code/src/gtl/m01/index.js"
+    },
+    "./gtl/m02": {
+      "types": "./build/semantic/code/src/gtl/m02/index.d.ts",
+      "import": "./build/semantic/code/src/gtl/m02/index.js"
+    },
+    "./abg/m03": {
+      "types": "./build/semantic/code/src/abg/m03/index.d.ts",
+      "import": "./build/semantic/code/src/abg/m03/index.js"
+    },
+    "./app/m04": {
+      "types": "./build/semantic/code/src/app/m04/index.d.ts",
+      "import": "./build/semantic/code/src/app/m04/index.js"
+    },
+    "./app/m04/control": {
+      "types": "./build/semantic/code/src/app/m04/control/index.d.ts",
+      "import": "./build/semantic/code/src/app/m04/control/index.js"
+    }
+  },
+  "files": [
+    "build/semantic/**"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build:semantic": "tsc -p tsconfig.semantic-strict.json",
+    "lint:semantic": "eslint --max-warnings=0 \"code/src/gtl/m01/contracts/**/*.ts\" \"code/src/gtl/m01/admission/**/*.ts\" \"code/src/gtl/m01/algebra/**/*.ts\" \"code/src/gtl/m01/serialization/**/*.ts\" \"code/src/gtl/m02/contracts/**/*.ts\" \"code/src/gtl/m02/admission/**/*.ts\" \"code/src/gtl/m02/serialization/**/*.ts\" \"code/src/abg/m03/contracts/**/*.ts\" \"code/src/abg/m03/admission/**/*.ts\" \"code/src/abg/m03/events/**/*.ts\" \"code/src/app/m04/**/*.ts\" \"code/src/shared/validation/**/*.ts\"",
+    "test:semantic": "npm run build:semantic && node --test test_env/tests/*.test.mjs",
+    "test:t009": "npm run build:semantic && node --test test_env/tests/t009-m01-negative-ingress.test.mjs test_env/tests/t009-m01-roundtrip.test.mjs test_env/tests/test_m01_gtl_core_integration.test.mjs",
+    "test:t010": "npm run build:semantic && node --test test_env/tests/t010-m02-negative-ingress.test.mjs test_env/tests/test_m02_work_publication_integration.test.mjs",
+    "test:t011": "npm run build:semantic && node --test test_env/tests/t011-abg-negative-ingress.test.mjs test_env/tests/test_m03_engine_kernel_integration.test.mjs",
+    "test:t012": "npm run build:semantic && node --test test_env/tests/t012-m04-negative-ingress.test.mjs test_env/tests/test_m04_app_bootstrap_unit.test.mjs test_env/tests/test_m04_app_bootstrap_integration.test.mjs",
+    "test:t013": "npm run build:semantic && node --test test_env/tests/t013-m04-control-negative.test.mjs test_env/tests/test_m04_control_loop_unit.test.mjs test_env/tests/test_m04_control_loop_integration.test.mjs",
+    "test:t014": "npm run build:semantic && node --test test_env/tests/t014-lookup-authority-negative.test.mjs test_env/tests/test_m02_m03_lookup_authority_integration.test.mjs"
+  },
+  "dependencies": {
+    "valibot": "1.3.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "8.59.0",
+    "@typescript-eslint/parser": "8.59.0",
+    "eslint": "10.2.1",
+    "typescript": "6.0.3"
+  }
+}

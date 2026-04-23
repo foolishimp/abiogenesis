@@ -26,10 +26,10 @@ implements_features:
   - REQ-L-GTL3-SELECTION-BOUNDARY
   - REQ-L-GTL3-IDENTITY
 primary_surfaces:
-  - gtl.graph
-  - gtl.operator_model
-  - gtl.function_model
-  - gtl.algebra
+  - gtl-core.graph-surface
+  - gtl-core.operator-model-surface
+  - gtl-core.function-model-surface
+  - gtl-core.algebra-surface
 interfaces:
   - Node[T]
   - GraphVector

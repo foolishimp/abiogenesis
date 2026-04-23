@@ -2105,7 +2105,22 @@ def _compact_fd_json_output(
     if isinstance(value, dict):
         selected = []
         selected_keys = []
-        for key in ("status", "reason", "asset_id", "edge", "traceability_status", "contract_satisfied"):
+        for key in (
+            "status",
+            "reason",
+            "asset_id",
+            "edge",
+            "traceability_status",
+            "contract_satisfied",
+            "missing_requirement_ids",
+            "missing_code_traceability_ids",
+            "missing_planned_test_traceability_ids",
+            "missing_realized_test_traceability_ids",
+            "unexpected_requirement_ids",
+            "blocking_obligation_ids",
+            "orphan_code_files",
+            "orphan_test_files",
+        ):
             if key in value:
                 selected_keys.append(key)
                 selected.append(

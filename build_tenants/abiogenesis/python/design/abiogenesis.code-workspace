@@ -20,6 +20,9 @@
 		},
 		{
 			"path": "../../../../../odd_manager"
+		},
+		{
+			"path": "../../../../../constraint_emergence_ontology"
 		}
 	],
 	"settings": {

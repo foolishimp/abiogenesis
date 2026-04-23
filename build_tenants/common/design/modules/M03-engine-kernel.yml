@@ -28,20 +28,20 @@ implements_features:
   - REQ-M-GTL3-MAPPING
   - REQ-M-GTL3-PROVENANCE
 primary_surfaces:
-  - genesis.events
-  - genesis.projection
-  - genesis.binding
-  - genesis.lineage
-  - genesis.run
-  - genesis.convergence
-  - genesis.selection
-  - genesis.provenance
-  - genesis.correction
-  - genesis.subwork
-  - genesis.transport
-  - genesis.interpret
-  - genesis.selfhosting
-  - genesis.materialization
+  - engine-kernel.event-surface
+  - engine-kernel.projection-surface
+  - engine-kernel.binding-surface
+  - engine-kernel.lineage-surface
+  - engine-kernel.run-surface
+  - engine-kernel.convergence-surface
+  - engine-kernel.selection-surface
+  - engine-kernel.provenance-surface
+  - engine-kernel.correction-surface
+  - engine-kernel.subwork-surface
+  - engine-kernel.transport-surface
+  - engine-kernel.interpret-surface
+  - engine-kernel.selfhosting-surface
+  - engine-kernel.materialization-surface
 interfaces:
   - EventContext
   - EventStream
@@ -95,4 +95,4 @@ notes:
   - canonical ABG graph-function materialization and graph-derived companion bundle derivation are kernel-owned design obligations for the 1.1 line
   - kernel materialization and traversal should read as a functional core with explicit interpreter-edge effects; event emission, transport, and subprocess remain outside the pure materialization/convergence kernels
   - recursive refinement is lawful only when parent contract, child materialization, derived evaluator bundle, and fold-back provenance remain replayable end to end
-  - the dedicated `genesis.materialization` surface is the canonical kernel seam for explicit graph-function materialization and companion-bundle derivation
+  - the dedicated materialization surface is the canonical kernel seam for explicit graph-function materialization and companion-bundle derivation

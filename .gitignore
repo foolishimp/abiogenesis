@@ -37,3 +37,6 @@ venv/
 # Scenario test run archives — persistent forensic data, not committed
 build_tenants/*/*/test_env/test_runs/
 builds/claude_code/test_env/test_runs/
+
+# Local package installs inside build tenants
+build_tenants/*/*/node_modules/

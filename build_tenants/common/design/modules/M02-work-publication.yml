@@ -14,10 +14,10 @@ implements_features:
   - REQ-L-GTL3-GRAPHFUNCTION
   - REQ-L-GTL3-SELECTION-BOUNDARY
 primary_surfaces:
-  - gtl.work_model
-  - gtl.module_model
-  - gtl_spec.packages.abiogenesis
-  - gtl_spec.packages.project_package
+  - work-publication.contract-surface
+  - work-publication.module-publication-surface
+  - work-publication.package-manifest-surface
+  - work-publication.package-discoverability-surface
 interfaces:
   - ContractRef
   - Role

@@ -23,7 +23,9 @@ At this level, modules are the common source of truth for:
 - `specification/` remains constitutional truth.
 - `build_tenants/common/design/` holds shared capability law that is genuinely common across realizations.
 - Module decomposition is structural guidance for derivation and ownership; it does not create new runtime behavior.
-- The implementation target is Python with Scala-style discipline: immutable value types, symbolic publication, functional core, and explicit effect interpreters at the shell.
+- The implementation target is functional-design discipline across realizations:
+  immutable value carriers, symbolic publication, functional core, and explicit
+  effect interpreters at the shell.
 - Recursive graph-function zoom/materialize/fold-back must remain lawful value transformation with explicit lineage and provenance, not interpreter-side mutation.
 - `design/modules/` is the common derivation layer for code and unit tests. If module specs are too weak to derive tests without invention, the module layer is not complete.
 
@@ -44,7 +46,10 @@ At this level, modules are the common source of truth for:
 - `M03-engine-kernel` also owns recursive zoom/materialize/fold-back protocol, including evaluator-bundle derivation from refined structure when the refined boundary declares deterministic proof surfaces.
 - `M01-gtl-core`, `M02-work-publication`, and `M03-engine-kernel` are the prime derivation modules for the current code wave. Their interfaces, invariants, and test obligations must be explicit enough that implementation does not invent semantics.
 - `M06-mapping-deferred` applies only to alternate runtime families and is not part of the canonical engine kernel.
-- `M04-app-bootstrap` owns the app-level auto loop. The design assumption is that `gen_start()` remains one-step engine progression, while `cli_adapter` owns the iterative `--auto` orchestration and proxy approval handling for `F_H`.
+- `M04-app-bootstrap` owns app-level orchestration above one-step engine
+  progression. The shared law is structural: the app layer may own iterative
+  auto/proxy control flow, but it must not absorb kernel semantics or become a
+  rival semantic center.
 - `M04-app-bootstrap` also owns runtime identity projection and configured worker resolution from the runtime contract. Worker, build, backend, and authority provenance must stay explicit rather than collapsing into one default build label.
 - `M01-gtl-core` owns `GraphVector.declarations` as the transition-governance declaration surface. ABG runtime policy resolution remains outside this module.
 - `M02-work-publication` owns symbolic graph-function publication. Published graph-function truth must be inspectable and replayable without depending on anonymous closures or ambient module state.
