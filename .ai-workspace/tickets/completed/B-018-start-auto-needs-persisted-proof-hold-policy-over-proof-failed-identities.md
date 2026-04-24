@@ -16,7 +16,7 @@
 - created_at: 2026-04-19
 - activated_at: 2026-04-19
 - completed_at: 2026-04-19
-- updated_at: 2026-04-19
+- updated_at: 2026-04-24
 - authoritative_contract: replay-derived product-layer `proof_hold` projection keyed by `edge + work_key + spec_hash + workflow_version`, consumed consistently by `gen-start`, `gen-gaps`, and live run status
 - superseded_surface: loop-local retry behavior, controller-local proof-failure memory, and pending-work stories that lack durable held-state truth
 - closure_law: one work identity becomes held only by replay over canonical `proof_failed` / `proof_passed` / scoped `reset` events under one resolved hold policy, and every consumer reports that same held truth
@@ -116,3 +116,18 @@ Without that state:
   an explicit scoped `reset` event over the held boundary
 - `data_mapper.test35`-class runs do not spend 7 proof cycles on the same
   identity without an authoritative held state appearing
+
+## Post-Closure Trace Note
+
+On 2026-04-24, the primary operator loop was restated as interactive agentic
+coder work where an operator runs `gen-start`, receives one truthful stop or
+gap seam, works with the agent, inspects with `gen-gaps`, and runs
+`gen-start` again.
+
+This completed ticket is the closed source anchor for the proof-hold seam in
+that loop:
+
+- repeated proof failure becomes durable held truth instead of silent replay
+- `gen-start`, `gen-gaps`, and live status tell the same proof-hold story
+- the operator can stop, resolve the held ambiguity or defect, and restart
+  lawfully without losing control truth across process restarts

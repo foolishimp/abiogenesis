@@ -181,6 +181,32 @@ for those same mode families, not rival product law. In the current cut, both
 mode families are lawful only when `gen-start` is operating with
 `until = converged`.
 
+The primary operator UX in the current product line is not a website.
+Downstream products may present abiogenesis through a website, service, or
+other shell, but the primary flexible operator surface is interactive work with
+an agentic coder interface over the public contract.
+
+In the current cut, that interactive operator surface is typically reached
+through agentic coder CLIs such as:
+
+- `claude`
+- `codex`
+- `gemini`
+
+Those transports are delivery bindings over the same product truth. The core
+operator loop is:
+
+1. define or refine the current project assets and constraints
+2. trigger `gen-start`
+3. accept one truthful stop, hold, or gap signal from substrate truth
+4. work interactively with the agent to remove one ambiguity, missing
+   capability, or roadblock
+5. run `gen-gaps` or inspect the current live/operator projection
+6. trigger `gen-start` again
+
+That loop is product truth. It must be projection over ABG truth rather than a
+second controller or local runtime replacement in downstream wrappers.
+
 ---
 
 ## Product Boundary

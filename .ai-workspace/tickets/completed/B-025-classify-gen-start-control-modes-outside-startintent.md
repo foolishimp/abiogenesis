@@ -16,7 +16,7 @@
 - created_at: 2026-04-19
 - activated_at: 2026-04-19
 - completed_at: 2026-04-19
-- updated_at: 2026-04-19
+- updated_at: 2026-04-24
 - authoritative_contract: public `gen-start` control-mode taxonomy outside `StartIntent`; current control-mode families are `fh_mode` and `root_mode`, both default to `direct`, both are lawful only when `until = converged`
 - superseded_surface: implicit adapter-owned control-mode law and historical public flag stories such as `--human-proxy` / `--supervised-root`
 - closure_law: policy, product/docs, parser, and control-plane outputs consume the same control-mode families, defaults, legality, and binding status
@@ -100,3 +100,18 @@ Without that classification:
   supervision/proxy mode
 - completed supervision capabilities from T-004/T-005/T-006 sit inside one
   explicit operator/control-plane taxonomy
+
+## Post-Closure Trace Note
+
+On 2026-04-24, the primary operator loop was made explicit as interactive work
+with an agentic coder CLI surface where the operator can remove ambiguity or a
+roadblock and then restart the lawful `gen-start` / `gen-gaps` cycle.
+
+This completed ticket is the closed source anchor for keeping that loop honest
+about control ownership:
+
+- `fh_mode` and `root_mode` stay outside `StartIntent`
+- the operator loop may bind human-proxy and supervised control modes without
+  turning them into rival request grammar
+- the loop remains one `gen-start` story instead of a second hidden control
+  surface beside it

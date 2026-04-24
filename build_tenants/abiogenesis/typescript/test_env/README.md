@@ -2,6 +2,13 @@
 
 The TypeScript tenant now has a completed bounded `M05` qualification line.
 
+The latest completed waves are:
+
+- `T-029` installed sandbox and live-lane equivalence audit against the Python
+  reference tests
+- `T-030` installed run-archive writer/finalizer and archive-finalization parity
+- `T-031` installed live scenario portfolio parity against the Python live lane
+
 That qualification line derives from:
 
 - `build_tenants/common/design/modules/`
@@ -99,6 +106,32 @@ Current boundary:
   - `t022-m05-installed-sandbox-negative.test.mjs`
   - these files prove install, installed live-lane, and archive shape over the
     completed delivery line
+- completed `T-029` now owns the parity audit over those completed proof lanes:
+  - Python sandbox source assets are reconciled at the feature level against
+    the current TypeScript `M05` installed proof surfaces
+  - the durable audit baseline is
+    `design/M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md`
+  - the follow-up parity tickets `T-030`, `T-031`, and `T-032` are now all
+    completed
+- completed `T-030` now owns the bounded archive-finalization proof surface:
+  - `test_m05_archive_finalization_unit.test.mjs`
+  - `test_m05_run_archive_integration.test.mjs`
+  - `t030-m05-archive-finalization-negative.test.mjs`
+  - these files now prove canonical archive materialization before archive
+    qualification rather than shape-only fixture synthesis
+- completed `T-031` now owns the bounded installed live-portfolio proof surface:
+  - `test_m05_installed_live_portfolio_unit.test.mjs`
+  - `test_m05_installed_live_portfolio_integration.test.mjs`
+  - `t031-m05-live-portfolio-negative.test.mjs`
+  - these files now prove the five Python live scenario families at equivalent
+    installed feature breadth over the package surface
+- completed `T-032` now owns the bounded installed reset-postmortem proof
+  surface:
+  - `test_m05_installed_reset_postmortem_unit.test.mjs`
+  - `test_m05_installed_reset_postmortem_integration.test.mjs`
+  - `t032-m05-reset-postmortem-negative.test.mjs`
+  - these files now prove the remaining Python reset/postmortem parity family
+    over accepted reset ingress plus repriced installed postmortem truth
 - sandbox is not yet the primary TypeScript proof surface
 - sandbox/scenario qualification becomes primary later, once successor tickets
   open enough runtime/bootstrap surface to support a lawful `M05` lane

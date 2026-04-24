@@ -29,6 +29,7 @@ A clean, GTL-first implementation of abiogenesis as the reference GTL + ABG engi
 6. Binds convergence events to workflow provenance (version, spec_hash) to prevent stale assessment reuse
 7. Is built by the abiogenesis engine using itself as bootstrap compiler (the GCC/C analogy)
 8. Reaches a self-hosting gate: abiogenesis can build itself
+9. Supports the primary operator workflow as interactive work with an agentic coder surface, where an operator defines initial assets, triggers `gen-start`, receives one lawful stop or gap signal, removes one ambiguity or roadblock with the agent, runs gap analysis, and starts again without replacing ABG with a second local controller
 
 The authored domain surface is `build_tenants/abiogenesis/python/code/gtl_spec/packages/abiogenesis.py` — the GTL Module is the shipping domain declaration. `specification/` provides the constitutional intent, requirement, and design surfaces that govern it.
 
@@ -52,6 +53,7 @@ The authored domain surface is `build_tenants/abiogenesis/python/code/gtl_spec/p
 5. Sandbox E2E: fresh sandbox run creates working code+tests
 6. Self-hosting gate: abiogenesis uses abiogenesis to build its next iteration
 7. Specification is authoritative: deleting `build_tenants/abiogenesis/python/code/` and regenerating from `specification/` + `build_tenants/abiogenesis/python/design/adrs/` produces an equivalent compiler
+8. The primary operator loop is lawful and usable: an operator can define initial assets, run `gen-start`, receive a truthful stop or gap signal, work interactively with the agent to remove ambiguity or a roadblock, run `gen-gaps`, and run `gen-start` again without inventing a second runtime model
 
 ---
 

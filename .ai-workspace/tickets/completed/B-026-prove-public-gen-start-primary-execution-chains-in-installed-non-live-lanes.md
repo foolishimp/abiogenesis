@@ -16,7 +16,7 @@
 - created_at: 2026-04-19
 - activated_at: 2026-04-19
 - completed_at: 2026-04-19
-- updated_at: 2026-04-19
+- updated_at: 2026-04-24
 - authoritative_contract: public `gen-start` primary paths are proved through installed non-live execution chains, not only adapter-local tests
 - superseded_surface: iterate-centered install proof and adapter-only proof as the practical evidence for newly added public targeting and control-mode behavior
 - closure_law: each primary public `gen-start` family/control seam has at least one installed execution chain showing that a change in operator input changes the downstream manifest/job/events/projection chain lawfully and traceably
@@ -94,3 +94,19 @@ direct proof at the consumed policy seam.
 - direct proof exists for `proof_hold_policy.enabled = false`
 - the added proof demonstrates a visible chain from operator input to deeper
   runtime effect rather than only asserting parser-local state
+
+## Post-Closure Trace Note
+
+On 2026-04-24, the primary operator loop was restated as a traceable sequence:
+define assets, run `gen-start`, receive truthful stop or gap truth, work with
+the agent to remove the roadblock, inspect with `gen-gaps`, and run
+`gen-start` again.
+
+This completed ticket is the closed source anchor proving that loop through
+installed execution chains rather than only adapter-local mechanics:
+
+- one operator input perturbation changes downstream manifest, job, event, and
+  projection truth lawfully
+- the installed line is the proof seam for the loop, not just parser or help
+  text
+- the loop stays auditable when the operator changes target or control mode

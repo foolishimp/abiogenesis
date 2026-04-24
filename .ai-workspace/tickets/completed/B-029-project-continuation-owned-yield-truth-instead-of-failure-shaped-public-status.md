@@ -19,7 +19,7 @@
 - affected_boundary: ABG dispatch runtime, result-ingest continuation projection, public `gen-start`/`gen-iterate` control plane, CLI adapter stop classification, run/live-status projection, and installed downstream operator surfaces consuming ABG status
 - triaged_at: 2026-04-22
 - created_at: 2026-04-22
-- updated_at: 2026-04-22
+- updated_at: 2026-04-24
 - authoritative_contract: `genesis.continuation.YieldedContinuationContract` plus `run_yielded` event truth and its public runtime/control projection become the one authoritative carrier family for continuation-owned retry/repair/review outcomes; failure-shaped public status is lawful only when no continuation-owned next step exists
 - old_path_classification: `dispatch_runtime` return payloads for continuation-opened failure branches=`replace`; `cli_adapter` failure-default projection after non-yield dispatch result=`replace`; downstream product workarounds over failure-shaped status=`demote after ABG fix`
 - governing_design:
@@ -257,6 +257,20 @@ failure-shaped semantic center in controller code.
 
 - seam severed: acceptance of `continuation_opened(kind=retry)` plus failure-shaped public status as a lawful mixed state
 - expected negative proof: if retry continuation opens, source proof must fail unless the public result is yielded
+
+## Post-Closure Trace Note
+
+On 2026-04-24, the primary operator loop was restated constitutionally as an
+interactive `gen-start` / `gen-gaps` cycle where the operator removes one
+ambiguity or roadblock and starts again.
+
+This completed ticket is the closed source anchor for the continuation part of
+that loop:
+
+- a lawful next step projects as yielded continuation truth, not public failure
+- the operator can see a governed next action instead of a false terminal error
+- the loop can pause, inspect, repair, review, and restart without inventing a
+  second local runtime model
 
 ### Break 2
 

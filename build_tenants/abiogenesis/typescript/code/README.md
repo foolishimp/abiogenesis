@@ -153,4 +153,30 @@ That completed wave is bounded to:
 - the run-archive integration lane
 - the `T-021` and `T-022` negative-proof lanes
 
+The latest completed `M05` follow-up implementation authority is:
+
+- `.ai-workspace/tickets/completed/T-030-realize-typescript-m05-installed-run-archive-writer-and-postmortem-finalization-proof-under-explicit-archive-finalization-law.md`
+
+That completed wave is bounded to:
+
+- `code/src/qualification/m05/archive_finalization*.ts`
+- one canonical archive writer/finalizer
+- one downstream archive-qualification request builder
+- one module-derived archive-finalization unit lane
+- one real-output run-archive integration lane
+- one fail-closed archive-finalization negative lane
+
+The latest completed `M05` follow-up implementation authority is:
+
+- `.ai-workspace/tickets/completed/T-031-realize-typescript-m05-installed-live-scenario-portfolio-parity-against-the-python-sandbox-live-reference-line.md`
+
+That completed wave is bounded to:
+
+- `code/src/qualification/m05/live_portfolio*.ts`
+- one installed live scenario portfolio request/outcome family
+- one explicit installed scenario-result carrier
+- one installed portfolio integration lane
+- one module-derived installed-portfolio unit lane
+- one fail-closed installed-portfolio negative lane
+
 No later TypeScript implementation wave is active.

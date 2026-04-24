@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Date**: 2026-04-24
-**Derived from**: [REQ-P-QUAL.md](../../../../specification/requirements/product/REQ-P-QUAL.md), [REQ-P-SCENARIOS.md](../../../../specification/requirements/product/REQ-P-SCENARIOS.md), [GTL_3_MODULE_DESIGN.md](../design/GTL_3_MODULE_DESIGN.md), [GTL_3_INTERFACE_CONTRACTS.md](../design/GTL_3_INTERFACE_CONTRACTS.md), [GTL_3_FIRST_SLICE_IACS.md](../design/GTL_3_FIRST_SLICE_IACS.md), [GTL_3_M02_WORK_PUBLICATION_IACS.md](../design/GTL_3_M02_WORK_PUBLICATION_IACS.md), [ABG_3_MODULE_DESIGN.md](../design/ABG_3_MODULE_DESIGN.md), [ABG_3_FIRST_SLICE_IACS.md](../design/ABG_3_FIRST_SLICE_IACS.md), [M04_PUBLIC_START_DERIVATION.md](../design/M04_PUBLIC_START_DERIVATION.md), [M04_FIRST_SLICE_IACS.md](../design/M04_FIRST_SLICE_IACS.md), [M04_PUBLIC_START_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_PUBLIC_START_STRUCTURAL_CARRIER_DIAGRAM.md), [M04_CONTROL_LOOP_DERIVATION.md](../design/M04_CONTROL_LOOP_DERIVATION.md), [M04_CONTROL_LOOP_FIRST_SLICE_IACS.md](../design/M04_CONTROL_LOOP_FIRST_SLICE_IACS.md), [M04_CONTROL_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_CONTROL_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md), [M02_M03_LOOKUP_AUTHORITY_DERIVATION.md](../design/M02_M03_LOOKUP_AUTHORITY_DERIVATION.md), [M02_M03_LOOKUP_AUTHORITY_IACS.md](../design/M02_M03_LOOKUP_AUTHORITY_IACS.md), [M02_M03_LOOKUP_AUTHORITY_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M02_M03_LOOKUP_AUTHORITY_STRUCTURAL_CARRIER_DIAGRAM.md), [M05_QUALIFICATION_DERIVATION.md](../design/M05_QUALIFICATION_DERIVATION.md), [M05_QUALIFICATION_FIRST_SLICE_IACS.md](../design/M05_QUALIFICATION_FIRST_SLICE_IACS.md), [M05_QUALIFICATION_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_QUALIFICATION_STRUCTURAL_CARRIER_DIAGRAM.md), [M05_INSTALLED_SANDBOX_DERIVATION.md](../design/M05_INSTALLED_SANDBOX_DERIVATION.md), [M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md](../design/M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md), [M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md), [REMAINING_TYPESCRIPT_FORWARD_DERIVATION_PLAN.md](../design/REMAINING_TYPESCRIPT_FORWARD_DERIVATION_PLAN.md), [REMAINING_TYPESCRIPT_OPTIMIZATION_LEDGER.md](../design/REMAINING_TYPESCRIPT_OPTIMIZATION_LEDGER.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-009-build-the-typescript-tenant-first-slice-under-explicit-carrier-law.md](../../../.ai-workspace/tickets/completed/T-009-build-the-typescript-tenant-first-slice-under-explicit-carrier-law.md), [T-010-realize-typescript-gtl-m02-work-publication-under-explicit-publication-carrier-law.md](../../../.ai-workspace/tickets/completed/T-010-realize-typescript-gtl-m02-work-publication-under-explicit-publication-carrier-law.md), [T-011-realize-typescript-abg-first-runtime-slice-under-explicit-execution-event-carrier-law.md](../../../.ai-workspace/tickets/completed/T-011-realize-typescript-abg-first-runtime-slice-under-explicit-execution-event-carrier-law.md), [T-012-realize-typescript-m04-public-start-steel-thread-over-kernel-owned-runtime-law.md](../../../.ai-workspace/tickets/completed/T-012-realize-typescript-m04-public-start-steel-thread-over-kernel-owned-runtime-law.md), [T-013-realize-typescript-m04-control-modes-over-closed-public-start-outcome-law.md](../../../.ai-workspace/tickets/completed/T-013-realize-typescript-m04-control-modes-over-closed-public-start-outcome-law.md), [T-014-reprice-typescript-m02-publication-lookup-and-m03-execution-resolution-under-explicit-lookup-authority.md](../../../.ai-workspace/tickets/completed/T-014-reprice-typescript-m02-publication-lookup-and-m03-execution-resolution-under-explicit-lookup-authority.md), [T-015-front-run-the-remaining-typescript-tenant-design-and-module-derivation-from-the-released-python-reference.md](../../../.ai-workspace/tickets/completed/T-015-front-run-the-remaining-typescript-tenant-design-and-module-derivation-from-the-released-python-reference.md), [T-021-realize-typescript-m05-qualification-foundation-under-module-derived-method-trace-and-fake-lane-law.md](../../../.ai-workspace/tickets/completed/T-021-realize-typescript-m05-qualification-foundation-under-module-derived-method-trace-and-fake-lane-law.md), [T-022-realize-typescript-m05-installed-sandbox-live-lane-and-archive-proof-under-explicit-installed-runtime-qualification-law.md](../../../.ai-workspace/tickets/completed/T-022-realize-typescript-m05-installed-sandbox-live-lane-and-archive-proof-under-explicit-installed-runtime-qualification-law.md)
+**Derived from**: [REQ-P-QUAL.md](../../../../specification/requirements/product/REQ-P-QUAL.md), [REQ-P-SCENARIOS.md](../../../../specification/requirements/product/REQ-P-SCENARIOS.md), [GTL_3_MODULE_DESIGN.md](../design/GTL_3_MODULE_DESIGN.md), [GTL_3_INTERFACE_CONTRACTS.md](../design/GTL_3_INTERFACE_CONTRACTS.md), [GTL_3_FIRST_SLICE_IACS.md](../design/GTL_3_FIRST_SLICE_IACS.md), [GTL_3_M02_WORK_PUBLICATION_IACS.md](../design/GTL_3_M02_WORK_PUBLICATION_IACS.md), [ABG_3_MODULE_DESIGN.md](../design/ABG_3_MODULE_DESIGN.md), [ABG_3_FIRST_SLICE_IACS.md](../design/ABG_3_FIRST_SLICE_IACS.md), [M04_PUBLIC_START_DERIVATION.md](../design/M04_PUBLIC_START_DERIVATION.md), [M04_FIRST_SLICE_IACS.md](../design/M04_FIRST_SLICE_IACS.md), [M04_PUBLIC_START_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_PUBLIC_START_STRUCTURAL_CARRIER_DIAGRAM.md), [M04_CONTROL_LOOP_DERIVATION.md](../design/M04_CONTROL_LOOP_DERIVATION.md), [M04_CONTROL_LOOP_FIRST_SLICE_IACS.md](../design/M04_CONTROL_LOOP_FIRST_SLICE_IACS.md), [M04_CONTROL_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_CONTROL_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md), [M02_M03_LOOKUP_AUTHORITY_DERIVATION.md](../design/M02_M03_LOOKUP_AUTHORITY_DERIVATION.md), [M02_M03_LOOKUP_AUTHORITY_IACS.md](../design/M02_M03_LOOKUP_AUTHORITY_IACS.md), [M02_M03_LOOKUP_AUTHORITY_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M02_M03_LOOKUP_AUTHORITY_STRUCTURAL_CARRIER_DIAGRAM.md), [M05_QUALIFICATION_DERIVATION.md](../design/M05_QUALIFICATION_DERIVATION.md), [M05_QUALIFICATION_FIRST_SLICE_IACS.md](../design/M05_QUALIFICATION_FIRST_SLICE_IACS.md), [M05_QUALIFICATION_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_QUALIFICATION_STRUCTURAL_CARRIER_DIAGRAM.md), [M05_INSTALLED_SANDBOX_DERIVATION.md](../design/M05_INSTALLED_SANDBOX_DERIVATION.md), [M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md](../design/M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md), [M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md), [M05_ARCHIVE_FINALIZATION_DERIVATION.md](../design/M05_ARCHIVE_FINALIZATION_DERIVATION.md), [M05_ARCHIVE_FINALIZATION_FIRST_SLICE_IACS.md](../design/M05_ARCHIVE_FINALIZATION_FIRST_SLICE_IACS.md), [M05_ARCHIVE_FINALIZATION_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_ARCHIVE_FINALIZATION_STRUCTURAL_CARRIER_DIAGRAM.md), [M05_INSTALLED_LIVE_PORTFOLIO_DERIVATION.md](../design/M05_INSTALLED_LIVE_PORTFOLIO_DERIVATION.md), [M05_INSTALLED_LIVE_PORTFOLIO_FIRST_SLICE_IACS.md](../design/M05_INSTALLED_LIVE_PORTFOLIO_FIRST_SLICE_IACS.md), [M05_INSTALLED_LIVE_PORTFOLIO_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_INSTALLED_LIVE_PORTFOLIO_STRUCTURAL_CARRIER_DIAGRAM.md), [M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md](../design/M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md), [REMAINING_TYPESCRIPT_FORWARD_DERIVATION_PLAN.md](../design/REMAINING_TYPESCRIPT_FORWARD_DERIVATION_PLAN.md), [REMAINING_TYPESCRIPT_OPTIMIZATION_LEDGER.md](../design/REMAINING_TYPESCRIPT_OPTIMIZATION_LEDGER.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-009-build-the-typescript-tenant-first-slice-under-explicit-carrier-law.md](../../../.ai-workspace/tickets/completed/T-009-build-the-typescript-tenant-first-slice-under-explicit-carrier-law.md), [T-010-realize-typescript-gtl-m02-work-publication-under-explicit-publication-carrier-law.md](../../../.ai-workspace/tickets/completed/T-010-realize-typescript-gtl-m02-work-publication-under-explicit-publication-carrier-law.md), [T-011-realize-typescript-abg-first-runtime-slice-under-explicit-execution-event-carrier-law.md](../../../.ai-workspace/tickets/completed/T-011-realize-typescript-abg-first-runtime-slice-under-explicit-execution-event-carrier-law.md), [T-012-realize-typescript-m04-public-start-steel-thread-over-kernel-owned-runtime-law.md](../../../.ai-workspace/tickets/completed/T-012-realize-typescript-m04-public-start-steel-thread-over-kernel-owned-runtime-law.md), [T-013-realize-typescript-m04-control-modes-over-closed-public-start-outcome-law.md](../../../.ai-workspace/tickets/completed/T-013-realize-typescript-m04-control-modes-over-closed-public-start-outcome-law.md), [T-014-reprice-typescript-m02-publication-lookup-and-m03-execution-resolution-under-explicit-lookup-authority.md](../../../.ai-workspace/tickets/completed/T-014-reprice-typescript-m02-publication-lookup-and-m03-execution-resolution-under-explicit-lookup-authority.md), [T-015-front-run-the-remaining-typescript-tenant-design-and-module-derivation-from-the-released-python-reference.md](../../../.ai-workspace/tickets/completed/T-015-front-run-the-remaining-typescript-tenant-design-and-module-derivation-from-the-released-python-reference.md), [T-021-realize-typescript-m05-qualification-foundation-under-module-derived-method-trace-and-fake-lane-law.md](../../../.ai-workspace/tickets/completed/T-021-realize-typescript-m05-qualification-foundation-under-module-derived-method-trace-and-fake-lane-law.md), [T-022-realize-typescript-m05-installed-sandbox-live-lane-and-archive-proof-under-explicit-installed-runtime-qualification-law.md](../../../.ai-workspace/tickets/completed/T-022-realize-typescript-m05-installed-sandbox-live-lane-and-archive-proof-under-explicit-installed-runtime-qualification-law.md), [T-029-audit-typescript-installed-sandbox-and-live-lane-proof-against-the-python-reference-tests-at-equivalent-feature-coverage.md](../../../.ai-workspace/tickets/completed/T-029-audit-typescript-installed-sandbox-and-live-lane-proof-against-the-python-reference-tests-at-equivalent-feature-coverage.md), [T-030-realize-typescript-m05-installed-run-archive-writer-and-postmortem-finalization-proof-under-explicit-archive-finalization-law.md](../../../.ai-workspace/tickets/completed/T-030-realize-typescript-m05-installed-run-archive-writer-and-postmortem-finalization-proof-under-explicit-archive-finalization-law.md), [T-031-realize-typescript-m05-installed-live-scenario-portfolio-parity-against-the-python-sandbox-live-reference-line.md](../../../.ai-workspace/tickets/completed/T-031-realize-typescript-m05-installed-live-scenario-portfolio-parity-against-the-python-sandbox-live-reference-line.md)
 
 ## Purpose
 
@@ -118,6 +118,38 @@ That completed line derives from:
 - `T-021-realize-typescript-m05-qualification-foundation-under-module-derived-method-trace-and-fake-lane-law.md`
 - `T-022-realize-typescript-m05-installed-sandbox-live-lane-and-archive-proof-under-explicit-installed-runtime-qualification-law.md`
 
+The latest completed audit wave is:
+
+- `T-029` installed sandbox and live-lane equivalence audit against the Python
+  reference tests
+
+That completed wave is audit-only.
+It does not open a new proof lane by itself.
+It reconciles the current `M05` installed proof files against the shipping
+Python sandbox reference tests at equivalent feature coverage and records the
+follow-up parity work that is now completed in `T-030`, `T-031`, and `T-032`.
+
+The latest completed `M05` follow-up implementation wave is:
+
+- `T-030` archive writer/finalizer parity
+
+That completed wave now adds one explicit archive-finalization slice over the
+completed installed qualification line.
+
+The latest completed `M05` follow-up implementation wave is:
+
+- `T-031` installed live scenario portfolio parity
+
+That completed wave now adds one explicit installed live-portfolio slice over
+the completed installed qualification line.
+
+The latest completed `M05` follow-up implementation wave is:
+
+- `T-032` installed reset/postmortem parity
+
+That completed wave now adds one explicit installed reset-postmortem slice over
+the completed installed qualification line.
+
 The canonical files are:
 
 - `test_m05_method_trace_unit.test.mjs` — canonical module-derived trace lane
@@ -125,8 +157,16 @@ The canonical files are:
 - `t021-m05-qualification-negative.test.mjs` — fail-closed negative-proof fixture
 - `test_m05_sandbox_install_integration.test.mjs` — canonical installed-line integration lane
 - `test_m05_sandbox_live_integration.test.mjs` — canonical installed live-lane integration lane
+- `test_m05_installed_live_portfolio_unit.test.mjs` — canonical installed live-portfolio unit lane
+- `test_m05_installed_live_portfolio_integration.test.mjs` — canonical installed live-portfolio integration lane
+- `test_m05_installed_reset_postmortem_unit.test.mjs` — canonical installed reset-postmortem unit lane
+- `test_m05_installed_reset_postmortem_integration.test.mjs` — canonical installed reset-postmortem integration lane
+- `test_m05_archive_finalization_unit.test.mjs` — canonical archive-finalization unit lane
 - `test_m05_run_archive_integration.test.mjs` — canonical archive-proof integration lane
 - `t022-m05-installed-sandbox-negative.test.mjs` — installed-line fail-closed fixture
+- `t031-m05-live-portfolio-negative.test.mjs` — installed live-portfolio fail-closed fixture
+- `t030-m05-archive-finalization-negative.test.mjs` — archive-finalization fail-closed fixture
+- `t032-m05-reset-postmortem-negative.test.mjs` — installed reset-postmortem fail-closed fixture
 
 The completed late `M03` implementation wave is:
 
@@ -524,3 +564,118 @@ The canonical active files are:
 - Module alignment: `M02-work-publication` -> `M03-engine-kernel`
 - Requirements: `REQ-L-GTL3-MODULE`, `REQ-L-GTL3-JOB`, `REQ-L-GTL3-GRAPHFUNCTION`, `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-RUN`
 - Design: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](../design/TYPESCRIPT_REALIZATION_GUARDRAILS.md), [M02_M03_LOOKUP_AUTHORITY_DERIVATION.md](../design/M02_M03_LOOKUP_AUTHORITY_DERIVATION.md), [M02_M03_LOOKUP_AUTHORITY_IACS.md](../design/M02_M03_LOOKUP_AUTHORITY_IACS.md), [M02_M03_LOOKUP_AUTHORITY_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M02_M03_LOOKUP_AUTHORITY_STRUCTURAL_CARRIER_DIAGRAM.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-014-reprice-typescript-m02-publication-lookup-and-m03-execution-resolution-under-explicit-lookup-authority.md](../../../.ai-workspace/tickets/completed/T-014-reprice-typescript-m02-publication-lookup-and-m03-execution-resolution-under-explicit-lookup-authority.md)
+
+## M05 Qualification Tests
+
+### test_m05_method_trace_unit.test.mjs
+
+- Status: canonical module-derived unit lane
+- Module alignment: `M05-qualification-scenarios`
+- Requirements: `REQ-P-QUAL`
+- Design: [M05_QUALIFICATION_DERIVATION.md](../design/M05_QUALIFICATION_DERIVATION.md), [M05_QUALIFICATION_FIRST_SLICE_IACS.md](../design/M05_QUALIFICATION_FIRST_SLICE_IACS.md), [M05_QUALIFICATION_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_QUALIFICATION_STRUCTURAL_CARRIER_DIAGRAM.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-021-realize-typescript-m05-qualification-foundation-under-module-derived-method-trace-and-fake-lane-law.md](../../../.ai-workspace/tickets/completed/T-021-realize-typescript-m05-qualification-foundation-under-module-derived-method-trace-and-fake-lane-law.md)
+- Current focus inside this lane:
+  module-derived qualification authority tracing over live requirements,
+  design, ticket, and strict-lane truth before later installed-line proof
+  closes
+
+### test_m05_fake_lane_integration.test.mjs
+
+- Status: canonical module-owned integration lane
+- Module alignment: `M05-qualification-scenarios`
+- Requirements: `REQ-P-QUAL`, `REQ-P-SCENARIOS`
+- Design: [M05_QUALIFICATION_DERIVATION.md](../design/M05_QUALIFICATION_DERIVATION.md), [M05_QUALIFICATION_FIRST_SLICE_IACS.md](../design/M05_QUALIFICATION_FIRST_SLICE_IACS.md), [M05_QUALIFICATION_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_QUALIFICATION_STRUCTURAL_CARRIER_DIAGRAM.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-021-realize-typescript-m05-qualification-foundation-under-module-derived-method-trace-and-fake-lane-law.md](../../../.ai-workspace/tickets/completed/T-021-realize-typescript-m05-qualification-foundation-under-module-derived-method-trace-and-fake-lane-law.md)
+- Current focus inside this lane:
+  one bounded qualification kernel over fake-lane scenario truth without
+  widening into installed runtime, live-scenario portfolio breadth, or archive
+  materialization
+
+### t021-m05-qualification-negative.test.mjs
+
+- Status: transitional slice-gating proof retained as completed `T-021` fail-closed evidence
+- Module alignment: `M05-qualification-scenarios`
+- Requirements: `REQ-P-QUAL`
+- Design: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](../design/TYPESCRIPT_REALIZATION_GUARDRAILS.md), [M05_QUALIFICATION_DERIVATION.md](../design/M05_QUALIFICATION_DERIVATION.md), [M05_QUALIFICATION_FIRST_SLICE_IACS.md](../design/M05_QUALIFICATION_FIRST_SLICE_IACS.md), [M05_QUALIFICATION_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_QUALIFICATION_STRUCTURAL_CARRIER_DIAGRAM.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-021-realize-typescript-m05-qualification-foundation-under-module-derived-method-trace-and-fake-lane-law.md](../../../.ai-workspace/tickets/completed/T-021-realize-typescript-m05-qualification-foundation-under-module-derived-method-trace-and-fake-lane-law.md)
+
+### test_m05_sandbox_install_integration.test.mjs
+
+- Status: canonical module-owned integration lane
+- Module alignment: `M05-qualification-scenarios`
+- Requirements: `REQ-P-QUAL`, `REQ-P-SCENARIOS`
+- Design: [M05_INSTALLED_SANDBOX_DERIVATION.md](../design/M05_INSTALLED_SANDBOX_DERIVATION.md), [M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md](../design/M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md), [M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-022-realize-typescript-m05-installed-sandbox-live-lane-and-archive-proof-under-explicit-installed-runtime-qualification-law.md](../../../.ai-workspace/tickets/completed/T-022-realize-typescript-m05-installed-sandbox-live-lane-and-archive-proof-under-explicit-installed-runtime-qualification-law.md)
+- Current focus inside this lane:
+  installed-root qualification over completed delivery outcomes and one bounded
+  installed package surface
+
+### test_m05_sandbox_live_integration.test.mjs
+
+- Status: canonical module-owned integration lane
+- Module alignment: `M05-qualification-scenarios`
+- Requirements: `REQ-P-QUAL`, `REQ-P-SCENARIOS`
+- Design: [M05_INSTALLED_SANDBOX_DERIVATION.md](../design/M05_INSTALLED_SANDBOX_DERIVATION.md), [M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md](../design/M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md), [M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md), [M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md](../design/M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-022-realize-typescript-m05-installed-sandbox-live-lane-and-archive-proof-under-explicit-installed-runtime-qualification-law.md](../../../.ai-workspace/tickets/completed/T-022-realize-typescript-m05-installed-sandbox-live-lane-and-archive-proof-under-explicit-installed-runtime-qualification-law.md)
+- Current focus inside this lane:
+  one bounded installed live scenario over the completed install and bootloader
+  line, without yet widening into the Python scenario portfolio
+
+### test_m05_archive_finalization_unit.test.mjs
+
+- Status: canonical module-derived unit lane
+- Module alignment: `M05-qualification-scenarios`
+- Requirements: `REQ-P-QUAL`
+- Design: [M05_ARCHIVE_FINALIZATION_DERIVATION.md](../design/M05_ARCHIVE_FINALIZATION_DERIVATION.md), [M05_ARCHIVE_FINALIZATION_FIRST_SLICE_IACS.md](../design/M05_ARCHIVE_FINALIZATION_FIRST_SLICE_IACS.md), [M05_ARCHIVE_FINALIZATION_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_ARCHIVE_FINALIZATION_STRUCTURAL_CARRIER_DIAGRAM.md), [ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md](../design/ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-030-realize-typescript-m05-installed-run-archive-writer-and-postmortem-finalization-proof-under-explicit-archive-finalization-law.md](../../../.ai-workspace/tickets/completed/T-030-realize-typescript-m05-installed-run-archive-writer-and-postmortem-finalization-proof-under-explicit-archive-finalization-law.md)
+- Current focus inside this lane:
+  downstream archive-qualification request construction from finalized archive
+  truth while preserving only the required qualification file kinds
+
+### test_m05_run_archive_integration.test.mjs
+
+- Status: canonical module-owned integration lane
+- Module alignment: `M05-qualification-scenarios`
+- Requirements: `REQ-P-QUAL`
+- Design: [M05_INSTALLED_SANDBOX_DERIVATION.md](../design/M05_INSTALLED_SANDBOX_DERIVATION.md), [M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md](../design/M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md), [M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md), [M05_ARCHIVE_FINALIZATION_DERIVATION.md](../design/M05_ARCHIVE_FINALIZATION_DERIVATION.md), [M05_ARCHIVE_FINALIZATION_FIRST_SLICE_IACS.md](../design/M05_ARCHIVE_FINALIZATION_FIRST_SLICE_IACS.md), [M05_ARCHIVE_FINALIZATION_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_ARCHIVE_FINALIZATION_STRUCTURAL_CARRIER_DIAGRAM.md), [M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md](../design/M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-022-realize-typescript-m05-installed-sandbox-live-lane-and-archive-proof-under-explicit-installed-runtime-qualification-law.md](../../../.ai-workspace/tickets/completed/T-022-realize-typescript-m05-installed-sandbox-live-lane-and-archive-proof-under-explicit-installed-runtime-qualification-law.md), [T-030-realize-typescript-m05-installed-run-archive-writer-and-postmortem-finalization-proof-under-explicit-archive-finalization-law.md](../../../.ai-workspace/tickets/completed/T-030-realize-typescript-m05-installed-run-archive-writer-and-postmortem-finalization-proof-under-explicit-archive-finalization-law.md)
+- Current focus inside this lane:
+  canonical archive finalization over explicit source-file refs, durable
+  postmortem materialization, and downstream archive qualification over real
+  output instead of synthetic fixtures
+
+### t022-m05-installed-sandbox-negative.test.mjs
+
+- Status: transitional slice-gating proof retained as completed `T-022` fail-closed evidence
+- Module alignment: `M05-qualification-scenarios`
+- Requirements: `REQ-P-QUAL`
+- Design: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](../design/TYPESCRIPT_REALIZATION_GUARDRAILS.md), [M05_INSTALLED_SANDBOX_DERIVATION.md](../design/M05_INSTALLED_SANDBOX_DERIVATION.md), [M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md](../design/M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md), [M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-022-realize-typescript-m05-installed-sandbox-live-lane-and-archive-proof-under-explicit-installed-runtime-qualification-law.md](../../../.ai-workspace/tickets/completed/T-022-realize-typescript-m05-installed-sandbox-live-lane-and-archive-proof-under-explicit-installed-runtime-qualification-law.md)
+
+### t030-m05-archive-finalization-negative.test.mjs
+
+- Status: transitional slice-gating proof retained as completed `T-030` fail-closed evidence
+- Module alignment: `M05-qualification-scenarios`
+- Requirements: `REQ-P-QUAL`
+- Design: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](../design/TYPESCRIPT_REALIZATION_GUARDRAILS.md), [M05_ARCHIVE_FINALIZATION_DERIVATION.md](../design/M05_ARCHIVE_FINALIZATION_DERIVATION.md), [M05_ARCHIVE_FINALIZATION_FIRST_SLICE_IACS.md](../design/M05_ARCHIVE_FINALIZATION_FIRST_SLICE_IACS.md), [M05_ARCHIVE_FINALIZATION_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_ARCHIVE_FINALIZATION_STRUCTURAL_CARRIER_DIAGRAM.md), [ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md](../design/ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-030-realize-typescript-m05-installed-run-archive-writer-and-postmortem-finalization-proof-under-explicit-archive-finalization-law.md](../../../.ai-workspace/tickets/completed/T-030-realize-typescript-m05-installed-run-archive-writer-and-postmortem-finalization-proof-under-explicit-archive-finalization-law.md)
+
+### test_m05_installed_live_portfolio_unit.test.mjs
+
+- Status: canonical module-derived unit lane
+- Module alignment: `M05-qualification-scenarios`
+- Requirements: `REQ-P-QUAL`, `REQ-P-SCENARIOS`
+- Design: [M05_INSTALLED_LIVE_PORTFOLIO_DERIVATION.md](../design/M05_INSTALLED_LIVE_PORTFOLIO_DERIVATION.md), [M05_INSTALLED_LIVE_PORTFOLIO_FIRST_SLICE_IACS.md](../design/M05_INSTALLED_LIVE_PORTFOLIO_FIRST_SLICE_IACS.md), [M05_INSTALLED_LIVE_PORTFOLIO_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_INSTALLED_LIVE_PORTFOLIO_STRUCTURAL_CARRIER_DIAGRAM.md), [M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md](../design/M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-031-realize-typescript-m05-installed-live-scenario-portfolio-parity-against-the-python-sandbox-live-reference-line.md](../../../.ai-workspace/tickets/completed/T-031-realize-typescript-m05-installed-live-scenario-portfolio-parity-against-the-python-sandbox-live-reference-line.md)
+- Current focus inside this lane:
+  explicit portfolio completeness over the five Python live scenario families,
+  required scenario authority refs, portfolio mode, stage breadth, and review
+  breadth
+
+### test_m05_installed_live_portfolio_integration.test.mjs
+
+- Status: canonical module-owned integration lane
+- Module alignment: `M05-qualification-scenarios`
+- Requirements: `REQ-P-QUAL`, `REQ-P-SCENARIOS`
+- Design: [M05_INSTALLED_LIVE_PORTFOLIO_DERIVATION.md](../design/M05_INSTALLED_LIVE_PORTFOLIO_DERIVATION.md), [M05_INSTALLED_LIVE_PORTFOLIO_FIRST_SLICE_IACS.md](../design/M05_INSTALLED_LIVE_PORTFOLIO_FIRST_SLICE_IACS.md), [M05_INSTALLED_LIVE_PORTFOLIO_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_INSTALLED_LIVE_PORTFOLIO_STRUCTURAL_CARRIER_DIAGRAM.md), [M05_INSTALLED_SANDBOX_DERIVATION.md](../design/M05_INSTALLED_SANDBOX_DERIVATION.md), [M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md](../design/M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-031-realize-typescript-m05-installed-live-scenario-portfolio-parity-against-the-python-sandbox-live-reference-line.md](../../../.ai-workspace/tickets/completed/T-031-realize-typescript-m05-installed-live-scenario-portfolio-parity-against-the-python-sandbox-live-reference-line.md)
+- Current focus inside this lane:
+  installed package-surface execution of the Python live scenario families at
+  equivalent feature breadth through explicit single-edge, staged-chain,
+  review-chain, and zoom-chain profiles
+
+### t031-m05-live-portfolio-negative.test.mjs
+
+- Status: transitional slice-gating proof retained as completed `T-031` fail-closed evidence
+- Module alignment: `M05-qualification-scenarios`
+- Requirements: `REQ-P-QUAL`, `REQ-P-SCENARIOS`
+- Design: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](../design/TYPESCRIPT_REALIZATION_GUARDRAILS.md), [M05_INSTALLED_LIVE_PORTFOLIO_DERIVATION.md](../design/M05_INSTALLED_LIVE_PORTFOLIO_DERIVATION.md), [M05_INSTALLED_LIVE_PORTFOLIO_FIRST_SLICE_IACS.md](../design/M05_INSTALLED_LIVE_PORTFOLIO_FIRST_SLICE_IACS.md), [M05_INSTALLED_LIVE_PORTFOLIO_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_INSTALLED_LIVE_PORTFOLIO_STRUCTURAL_CARRIER_DIAGRAM.md), [M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md](../design/M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-031-realize-typescript-m05-installed-live-scenario-portfolio-parity-against-the-python-sandbox-live-reference-line.md](../../../.ai-workspace/tickets/completed/T-031-realize-typescript-m05-installed-live-scenario-portfolio-parity-against-the-python-sandbox-live-reference-line.md)

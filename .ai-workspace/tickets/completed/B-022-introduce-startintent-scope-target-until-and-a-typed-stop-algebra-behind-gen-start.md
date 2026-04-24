@@ -16,7 +16,7 @@
 - created_at: 2026-04-19
 - activated_at: 2026-04-19
 - completed_at: 2026-04-19
-- updated_at: 2026-04-19
+- updated_at: 2026-04-24
 - authoritative_contract: internal `StartIntent(scope, target, until)` plus typed canonical stop predicates behind public `gen-start`
 - superseded_surface: parser-shaped request semantics driven by `--feature`, `--edge`, `--auto`, and ambiguous CLI stop buckets such as a mixed `blocked` story
 - closure_law: every public `gen-start` path normalizes through `StartIntent` and canonical stop predicates; no legacy flag or CLI-local stop label remains authoritative
@@ -204,3 +204,20 @@ not invent new runtime truth.
 - yielded handoff remains distinct from blocker or failure classes
 - `StartIntent` acts as a normalization contract over canonical truth rather
   than as a second semantic center
+
+## Post-Closure Trace Note
+
+On 2026-04-24, the primary operator loop was restated constitutionally as:
+define assets, run `gen-start`, receive one truthful stop or gap seam, work
+with the agent to remove ambiguity or a roadblock, run `gen-gaps`, and run
+`gen-start` again.
+
+This completed ticket is the closed source anchor for the internal
+normalization and stop-shape needed by that loop:
+
+- the operator-facing `gen-start` request normalizes through
+  `StartIntent(scope, target, until)`
+- the operator loop stops on canonical typed stop predicates rather than
+  parser-local folklore
+- the loop can restart lawfully because `StartIntent` is a normalization
+  contract over runtime truth, not a second controller

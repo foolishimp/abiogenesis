@@ -112,8 +112,65 @@ writer, and instruction-injection carriers instead of rebuilding them locally.
 
 `T-022` completed the installed-sandbox, live-lane, and archive-proof
 qualification wave.
-`T-023` completed the dormant `M06` trigger boundary, so no later TypeScript
-implementation wave is active.
+`T-023` completed the dormant `M06` trigger boundary.
+
+The latest completed audit wave is:
+
+- `.ai-workspace/tickets/completed/T-029-audit-typescript-installed-sandbox-and-live-lane-proof-against-the-python-reference-tests-at-equivalent-feature-coverage.md`
+
+`T-029` completed the feature-equivalence audit over the completed `M05`
+installed sandbox, live-lane, and archive proof surfaces.
+It did not open a new implementation boundary.
+Its follow-up parity waves are now all completed:
+
+- `T-030` archive writer/finalizer parity
+- `T-031` installed live scenario portfolio parity
+- `T-032` installed reset/postmortem parity
+
+The latest completed implementation follow-up wave is:
+
+- `.ai-workspace/tickets/completed/T-030-realize-typescript-m05-installed-run-archive-writer-and-postmortem-finalization-proof-under-explicit-archive-finalization-law.md`
+
+`T-030` completed the bounded `M05` archive-finalization slice over the
+completed delivery library and installed qualification line.
+That completed slice now gives the tenant:
+
+- one canonical archive writer/finalizer
+- one downstream builder from finalized archive output into archive
+  qualification
+- one real-output archive-proof integration lane
+- one fail-closed archive-finalization negative lane
+
+The latest completed implementation follow-up wave is:
+
+- `.ai-workspace/tickets/completed/T-031-realize-typescript-m05-installed-live-scenario-portfolio-parity-against-the-python-sandbox-live-reference-line.md`
+
+`T-031` completed the bounded `M05` installed live-portfolio slice over the
+completed installed qualification line.
+That completed slice now gives the tenant:
+
+- one explicit installed live scenario portfolio over the five Python live
+  scenario families
+- one portfolio qualification boundary over scenario mode, stage breadth,
+  authority refs, event evidence, and final run status
+- one installed portfolio integration lane
+- one fail-closed installed portfolio negative lane
+
+The latest completed implementation follow-up wave is:
+
+- `.ai-workspace/tickets/completed/T-032-realize-typescript-m05-installed-reset-postmortem-parity-over-canonical-reset-and-continuation-law.md`
+
+`T-032` completed the bounded `M05` installed reset-postmortem slice over the
+completed installed qualification line.
+That completed slice now gives the tenant:
+
+- one explicit installed reset-postmortem qualification boundary
+- one repriced parity proof for `run_superseded` over accepted reset and live
+  run truth
+- one repriced parity proof for `continuation_abandoned` over accepted reset
+  and non-fulfilled assessment provenance
+- one installed reset-postmortem integration lane
+- one fail-closed installed reset-postmortem negative lane
 
 ## Governing Truth
 

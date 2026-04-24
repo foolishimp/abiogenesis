@@ -16,7 +16,7 @@
 - created_at: 2026-04-19
 - activated_at: 2026-04-19
 - completed_at: 2026-04-19
-- updated_at: 2026-04-19
+- updated_at: 2026-04-24
 - authoritative_contract: one public advancement/observation contract with named compositions `gen-start` and `gen-gaps`; `gen-start` accepts `scope + target + until`; lower-level hooks remain below that public contract
 - superseded_surface: the public three-command story (`gen-start` / `gen-iterate` / `gen-gaps`), co-equal `run-status`, and any surface that teaches literal CLI spellings as operator truth
 - closure_law: intent, product, policy, docs, adapter help, and installed scaffolds all teach the same public operator contract and no superseded surface remains authoritative
@@ -134,3 +134,20 @@ That creates avoidable drift:
 - no public surface contradicts the ratified product/operator contract
 - any retained lower-level traversal or status primitive is clearly below the
   public operator contract rather than co-equal with it
+
+## Post-Closure Trace Note
+
+On 2026-04-24, intent/product/policy wording was tightened to say the primary
+operator UX is interactive work with an agentic coder CLI surface where an
+operator defines or refines assets, runs `gen-start`, receives one truthful
+stop or gap seam, works with the agent to remove the ambiguity or roadblock,
+runs `gen-gaps`, and runs `gen-start` again.
+
+This completed ticket is the closed source anchor for that loop's public named
+composition truth:
+
+- `gen-start` is the public advancement composition
+- `gen-gaps` is the public observation composition
+- the loop is not a rival website or wrapper controller story
+- literal CLI or service spellings remain bindings beneath those named
+  compositions

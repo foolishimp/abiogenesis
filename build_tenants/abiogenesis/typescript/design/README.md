@@ -112,6 +112,13 @@ Current tenant-local design truth lives in:
 - `M05_INSTALLED_SANDBOX_DERIVATION.md`
 - `M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md`
 - `M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M05_ARCHIVE_FINALIZATION_DERIVATION.md`
+- `M05_ARCHIVE_FINALIZATION_FIRST_SLICE_IACS.md`
+- `M05_ARCHIVE_FINALIZATION_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M05_INSTALLED_LIVE_PORTFOLIO_DERIVATION.md`
+- `M05_INSTALLED_LIVE_PORTFOLIO_FIRST_SLICE_IACS.md`
+- `M05_INSTALLED_LIVE_PORTFOLIO_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md`
 - `M06_MAPPING_DEFERRED_DERIVATION.md`
 - `M06_MAPPING_DEFERRED_TRIGGER_IACS.md`
 - `M06_MAPPING_DEFERRED_STRUCTURAL_CARRIER_DIAGRAM.md`
@@ -333,14 +340,76 @@ That completed `M05` line is bounded to:
 - one archive-proof qualification over stable run roots
 - one tenant-local qualification kernel under `code/src/qualification/m05/**`
 
+The latest completed audit wave is:
+
+- `.ai-workspace/tickets/completed/T-029-audit-typescript-installed-sandbox-and-live-lane-proof-against-the-python-reference-tests-at-equivalent-feature-coverage.md`
+
+`T-029` completed the feature-equivalence audit over the completed TypeScript
+installed-sandbox, live-lane, and archive proof surfaces.
+It established the durable audit baseline in
+`M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md` and pushed the remaining
+still-relevant misses into explicit follow-up tickets, now all completed:
+
+- `T-030` archive writer/finalizer parity
+- `T-031` installed live scenario portfolio parity
+- `T-032` installed reset/postmortem parity
+
+The latest completed follow-up implementation wave is:
+
+- `.ai-workspace/tickets/completed/T-030-realize-typescript-m05-installed-run-archive-writer-and-postmortem-finalization-proof-under-explicit-archive-finalization-law.md`
+
+`T-030` completed the bounded `M05` archive-finalization slice.
+Its first-slice design assets are:
+
+- `M05_ARCHIVE_FINALIZATION_DERIVATION.md`
+- `M05_ARCHIVE_FINALIZATION_FIRST_SLICE_IACS.md`
+- `M05_ARCHIVE_FINALIZATION_STRUCTURAL_CARRIER_DIAGRAM.md`
+
+The latest completed follow-up implementation wave is:
+
+- `.ai-workspace/tickets/completed/T-032-realize-typescript-m05-installed-reset-postmortem-parity-over-canonical-reset-and-continuation-law.md`
+
+`T-032` completed the bounded `M05` installed reset-postmortem slice.
+Its first-slice design assets are:
+
+- `M05_INSTALLED_RESET_POSTMORTEM_DERIVATION.md`
+- `M05_INSTALLED_RESET_POSTMORTEM_FIRST_SLICE_IACS.md`
+- `M05_INSTALLED_RESET_POSTMORTEM_STRUCTURAL_CARRIER_DIAGRAM.md`
+
+That completed slice is bounded to:
+
+- one canonical archive writer/finalizer under `code/src/qualification/m05/**`
+- one downstream builder from finalization output into the existing
+  archive-qualification request family
+- one module-derived archive-finalization unit lane
+- one real-output archive integration lane
+- one fail-closed archive-finalization negative lane
+
+The latest completed follow-up implementation wave is:
+
+- `.ai-workspace/tickets/completed/T-031-realize-typescript-m05-installed-live-scenario-portfolio-parity-against-the-python-sandbox-live-reference-line.md`
+
+`T-031` completed the bounded `M05` installed live-portfolio slice.
+Its first-slice design assets are:
+
+- `M05_INSTALLED_LIVE_PORTFOLIO_DERIVATION.md`
+- `M05_INSTALLED_LIVE_PORTFOLIO_FIRST_SLICE_IACS.md`
+- `M05_INSTALLED_LIVE_PORTFOLIO_STRUCTURAL_CARRIER_DIAGRAM.md`
+
+That completed slice is bounded to:
+
+- one installed portfolio qualification request/outcome family
+- one explicit scenario-result carrier over the Python live families
+- one installed portfolio integration lane
+- one module-derived installed-portfolio unit lane
+- one fail-closed installed-portfolio negative lane
+
 The completed deferred-only `M06` adjudication is:
 
 - `.ai-workspace/tickets/completed/T-023-adjudicate-typescript-m06-mapping-deferred-trigger-boundary-under-explicit-deferred-only-law.md`
 
 That completed boundary keeps alternate-runtime mapping dormant until a
 successor ticket explicitly activates one named alternate runtime family.
-
-No later TypeScript implementation wave is active.
 
 For module ownership, shared `M01` to `M06` law remains upstream in
 `build_tenants/common/design/`.

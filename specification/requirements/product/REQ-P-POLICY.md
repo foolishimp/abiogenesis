@@ -48,3 +48,24 @@ Those mode families are product-policy truth above the adapter. Literal flags or
 - `direct`
 - `supervised`
 `direct` is the default. `supervised` is a public operator option for root-level convergence control around repeated `gen-start` advancement. `root_mode` shall remain outside `scope + target + until` and shall be lawful only when `until = converged`.
+
+**REQ-P-POLICY-014**: The primary operator workflow shall be an interactive
+start or observe loop over the public named compositions. An operator shall be
+able to define or refine current assets, run `gen-start`, receive one truthful
+stop, hold, or gap signal, remove one ambiguity or roadblock through the
+interactive agentic coder surface, run `gen-gaps` or inspect the current
+projection, and run `gen-start` again without inventing a second runtime or
+controller model.
+
+**REQ-P-POLICY-015**: Website, service, or installer shells may bind the
+public operator contract, but they shall remain delivery bindings. The primary
+flexible operator surface shall remain interactive work with an agentic coder
+interface over substrate truth. Concrete transports such as `claude`, `codex`,
+or `gemini` are bindings of that same product law, not rival control models.
+
+**REQ-P-POLICY-016**: Product-layer stop, hold, and gap reporting for the
+interactive operator workflow shall be explicit enough that an operator can
+decide the next lawful action: continue by restarting `gen-start`, inspect
+with `gen-gaps`, remove an ambiguity, satisfy a missing capability, or supply
+human decision. Downstream wrappers shall not need to reconstruct that next
+step from hidden controller-local state.
