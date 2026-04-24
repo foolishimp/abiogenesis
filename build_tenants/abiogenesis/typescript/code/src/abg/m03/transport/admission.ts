@@ -1,0 +1,329 @@
+import {
+  constructAgentTransportContract,
+  constructDispatchExpectation,
+  projectDispatchAssessmentIds,
+  projectDispatchExpectedEdge
+} from "../../../shared/abg_library/index.js";
+import {
+  parseNonEmptyString,
+  parseOptionalField,
+  parsePlainObject,
+  parseStringArray
+} from "../../../shared/validation/primitives.js";
+import {
+  constructDispatchRequest,
+  constructResultArtifact
+} from "./constructors.js";
+import type {
+  DispatchRequest,
+  FulfillmentStatus,
+  ResultArtifact,
+  TransportFailureClass
+} from "./carriers.js";
+
+const FULFILLMENT_STATUSES = Object.freeze([
+  "fulfilled",
+  "partial",
+  "blocked",
+  "unfulfilled"
+] satisfies readonly FulfillmentStatus[]);
+
+function parseNullableNonEmptyString(
+  input: unknown,
+  label: string
+): string | null {
+  if (input === undefined || input === null) {
+    return null;
+  }
+  return parseNonEmptyString(input, label);
+}
+
+function parseFulfillmentStatus(
+  input: unknown,
+  label: string
+): FulfillmentStatus {
+  const status = parseNonEmptyString(input, label);
+  if (
+    status === "fulfilled" ||
+    status === "partial" ||
+    status === "blocked" ||
+    status === "unfulfilled"
+  ) {
+    return status;
+  }
+  throw new TypeError(
+    `${label}: expected one of ${JSON.stringify(FULFILLMENT_STATUSES)}, got ${JSON.stringify(status)}`
+  );
+}
+
+function parseTransportFailureClass(
+  input: unknown,
+  label: string
+): TransportFailureClass {
+  const failureClass = parseNonEmptyString(input, label);
+  if (
+    failureClass === "transport_failure" ||
+    failureClass === "no_output" ||
+    failureClass === "contract_failure"
+  ) {
+    return failureClass;
+  }
+  throw new TypeError(
+    `${label}: expected "transport_failure", "no_output", or "contract_failure", got ${JSON.stringify(failureClass)}`
+  );
+}
+
+function parseOptionalStringArray(
+  input: unknown,
+  label: string
+): readonly string[] {
+  if (input === undefined || input === null) {
+    return Object.freeze([]);
+  }
+  return parseStringArray(input, label);
+}
+
+function parseTransportContract(
+  input: unknown,
+  label: string
+){
+  const contract = parsePlainObject(input, label);
+  const sanitizedEnvironmentPolicy = parsePlainObject(
+    contract["sanitizedEnvironmentPolicy"],
+    `${label}.sanitizedEnvironmentPolicy`
+  );
+  return constructAgentTransportContract({
+    agentKey: parseNonEmptyString(contract["agentKey"], `${label}.agentKey`),
+    command: parseNonEmptyString(contract["command"], `${label}.command`),
+    argsTemplate: parseStringArray(contract["argsTemplate"], `${label}.argsTemplate`),
+    sanitizedEnvironmentPolicy: {
+      prefixes: parseOptionalStringArray(
+        parseOptionalField(sanitizedEnvironmentPolicy, "prefixes"),
+        `${label}.sanitizedEnvironmentPolicy.prefixes`
+      )
+    }
+  });
+}
+
+function normalizeArtifactIdentityIssues(
+  request: DispatchRequest,
+  edge: string,
+  observedAssessmentIds: readonly string[]
+): readonly string[] {
+  const issues: string[] = [];
+
+  if (request.expectedEdge !== null && edge !== request.expectedEdge) {
+    issues.push(
+      `result edge ${JSON.stringify(edge)} does not match expected edge ${JSON.stringify(request.expectedEdge)}`
+    );
+  }
+
+  if (request.expectedAssessmentIds.length > 0) {
+    const observed = new Set(observedAssessmentIds);
+    const expected = new Set(request.expectedAssessmentIds);
+    const missing = [...expected].filter((value) => !observed.has(value)).sort();
+    const extra = [...observed].filter((value) => !expected.has(value)).sort();
+    if (missing.length > 0) {
+      issues.push(
+        `missing declared fulfillment assessments: ${missing.join(", ")}`
+      );
+    }
+    if (extra.length > 0) {
+      issues.push(`unexpected fulfillment assessments: ${extra.join(", ")}`);
+    }
+  }
+
+  return Object.freeze(issues);
+}
+
+function parseArtifactAssessment(
+  input: unknown,
+  label: string
+): {
+  readonly id: string;
+  readonly evaluator: string;
+  readonly fulfillmentStatus: FulfillmentStatus;
+  readonly fulfillmentDetail: string;
+  readonly blockingReasons: readonly string[];
+  readonly evidenceRefs: readonly string[];
+} {
+  const assessment = parsePlainObject(input, label);
+  const id = parseNonEmptyString(assessment["id"], `${label}.id`);
+  const evaluator = parseNullableNonEmptyString(
+    parseOptionalField(assessment, "evaluator"),
+    `${label}.evaluator`
+  );
+  return Object.freeze({
+    id,
+    evaluator: evaluator ?? id,
+    fulfillmentStatus: parseFulfillmentStatus(
+      assessment["fulfillment_status"],
+      `${label}.fulfillment_status`
+    ),
+    fulfillmentDetail:
+      parseNullableNonEmptyString(
+        parseOptionalField(assessment, "fulfillment_detail"),
+        `${label}.fulfillment_detail`
+      ) ?? "",
+    blockingReasons: parseOptionalStringArray(
+      parseOptionalField(assessment, "blocking_reasons"),
+      `${label}.blocking_reasons`
+    ),
+    evidenceRefs: parseOptionalStringArray(
+      parseOptionalField(assessment, "evidence_refs"),
+      `${label}.evidence_refs`
+    )
+  });
+}
+
+function parseNormalizedArtifactPayload(
+  request: DispatchRequest,
+  input: unknown,
+  label: string
+): ResultArtifact {
+  const payload = parsePlainObject(input, label);
+  const edge = parseNonEmptyString(payload["edge"], `${label}.edge`);
+  const rawAssessments = parseOptionalField(payload, "fulfillment_assessments");
+  if (rawAssessments === undefined) {
+    throw new TypeError(`${label}.fulfillment_assessments: required`);
+  }
+  if (!Array.isArray(rawAssessments) || rawAssessments.length === 0) {
+    throw new TypeError(
+      `${label}.fulfillment_assessments: expected a non-empty list`
+    );
+  }
+
+  const fulfillmentAssessments = rawAssessments.map((entry, index) =>
+    parseArtifactAssessment(
+      entry,
+      `${label}.fulfillment_assessments[${index}]`
+    )
+  );
+  const assessmentIds = fulfillmentAssessments.map((entry) => entry.id);
+  if (new Set(assessmentIds).size !== assessmentIds.length) {
+    throw new TypeError(`${label}.fulfillment_assessments: duplicate id`);
+  }
+
+  return constructResultArtifact({
+    basisId: request.basisId,
+    dispatchRef: request.dispatchRef,
+    resultRef: request.resultRef,
+    artifactPayload: {
+      edge,
+      actor: parseNonEmptyString(payload["actor"], `${label}.actor`),
+      fulfillmentAssessments,
+      workerId:
+        parseNullableNonEmptyString(
+          parseOptionalField(payload, "selected_worker_id"),
+          `${label}.selected_worker_id`
+        ) ??
+        parseNullableNonEmptyString(
+          parseOptionalField(payload, "worker_id"),
+          `${label}.worker_id`
+        ),
+      backendId:
+        parseNullableNonEmptyString(
+          parseOptionalField(payload, "selected_backend"),
+          `${label}.selected_backend`
+        ) ??
+        parseNullableNonEmptyString(
+          parseOptionalField(payload, "backend_id"),
+          `${label}.backend_id`
+        ),
+      roleId: parseNullableNonEmptyString(
+        parseOptionalField(payload, "role_id"),
+        `${label}.role_id`
+      ),
+      assignmentSource: parseNullableNonEmptyString(
+        parseOptionalField(payload, "assignment_source"),
+        `${label}.assignment_source`
+      ),
+      resolvedRuntimeRef: parseNullableNonEmptyString(
+        parseOptionalField(payload, "resolved_runtime_ref"),
+        `${label}.resolved_runtime_ref`
+      )
+    },
+    identityIssues: normalizeArtifactIdentityIssues(
+      request,
+      edge,
+      assessmentIds
+    ),
+    transportFailure: null
+  });
+}
+
+function parseTransportFailureArtifact(
+  request: DispatchRequest,
+  input: unknown,
+  label: string
+): ResultArtifact {
+  const failure = parsePlainObject(input, label);
+  return constructResultArtifact({
+    basisId: request.basisId,
+    dispatchRef: request.dispatchRef,
+    resultRef: request.resultRef,
+    artifactPayload: null,
+    identityIssues: [],
+    transportFailure: {
+      failureClass: parseTransportFailureClass(
+        failure["failureClass"],
+        `${label}.failureClass`
+      ),
+      detail: parseNonEmptyString(failure["detail"], `${label}.detail`)
+    }
+  });
+}
+
+export function admitDispatchRequest(
+  input: unknown,
+  label = "DispatchRequest"
+): DispatchRequest {
+  const request = parsePlainObject(input, label);
+  const expectation = constructDispatchExpectation({
+    expectedEdge: parseNullableNonEmptyString(
+      parseOptionalField(request, "expectedEdge"),
+      `${label}.expectedEdge`
+    ),
+    assessmentIds: parseOptionalStringArray(
+      parseOptionalField(request, "expectedAssessmentIds"),
+      `${label}.expectedAssessmentIds`
+    )
+  });
+  if (request["kind"] !== "fp_dispatch_request") {
+    throw new TypeError(`${label}.kind: expected "fp_dispatch_request"`);
+  }
+  return constructDispatchRequest({
+    basisId: parseNonEmptyString(request["basisId"], `${label}.basisId`),
+    graphFunctionId: parseNonEmptyString(
+      request["graphFunctionId"],
+      `${label}.graphFunctionId`
+    ),
+    jobId: parseNonEmptyString(request["jobId"], `${label}.jobId`),
+    dispatchRef: parseNonEmptyString(request["dispatchRef"], `${label}.dispatchRef`),
+    workerId: parseNonEmptyString(request["workerId"], `${label}.workerId`),
+    backendId: parseNonEmptyString(request["backendId"], `${label}.backendId`),
+    resultRef: parseNonEmptyString(request["resultRef"], `${label}.resultRef`),
+    expectedEdge: projectDispatchExpectedEdge(expectation),
+    expectedAssessmentIds: projectDispatchAssessmentIds(expectation),
+    transportContract: parseTransportContract(
+      request["transportContract"],
+      `${label}.transportContract`
+    )
+  });
+}
+
+export function admitResultArtifact(
+  request: DispatchRequest,
+  input: unknown,
+  label = "ResultArtifact"
+): ResultArtifact {
+  const artifact = parsePlainObject(input, label);
+  const kind = parseNullableNonEmptyString(
+    parseOptionalField(artifact, "kind"),
+    `${label}.kind`
+  );
+  if (kind === "transport_failure") {
+    return parseTransportFailureArtifact(request, artifact, label);
+  }
+  return parseNormalizedArtifactPayload(request, artifact, label);
+}

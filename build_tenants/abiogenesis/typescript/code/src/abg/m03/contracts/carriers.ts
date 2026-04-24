@@ -128,9 +128,65 @@ export interface TerminalReachedEvent {
   readonly reason: string | null;
 }
 
+export interface ApprovedRuntimeEvent {
+  readonly kind: "approved";
+  readonly approvalKind: "fh_review" | "fh_intent";
+  readonly edge: string;
+  readonly actor: "human" | "human-proxy";
+  readonly workflowVersion: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+}
+
+export interface RevokedRuntimeEvent {
+  readonly kind: "revoked";
+  readonly approvalKind: "fh_approval";
+  readonly edge: string;
+  readonly actor: string;
+  readonly reason: string;
+  readonly workflowVersion: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+}
+
+export interface ResetRuntimeEvent {
+  readonly kind: "reset";
+  readonly scope: "workspace" | "work_key" | "edge";
+  readonly actor: string;
+  readonly reason: string;
+  readonly workflowVersion: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly edge: string | null;
+}
+
+export interface AssessedRuntimeEvent {
+  readonly kind: "assessed";
+  readonly assessmentKind: "fp";
+  readonly edge: string;
+  readonly obligationId: string;
+  readonly publishedLedgerRef: string;
+  readonly actor: string;
+  readonly specHash: string;
+  readonly manifestId: string;
+  readonly workflowVersion: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly selectedWorkerId: string | null;
+  readonly selectedBackend: string | null;
+  readonly roleId: string | null;
+  readonly authorityRef: string | null;
+  readonly assignmentSource: string | null;
+  readonly resolvedRuntimeRef: string | null;
+}
+
 export type RuntimeEvent =
   | BasisAdmittedEvent
   | FdAdvanceReadyEvent
   | FpDispatchRequestedEvent
   | FhEscalatedEvent
-  | TerminalReachedEvent;
+  | TerminalReachedEvent
+  | ApprovedRuntimeEvent
+  | RevokedRuntimeEvent
+  | ResetRuntimeEvent
+  | AssessedRuntimeEvent;

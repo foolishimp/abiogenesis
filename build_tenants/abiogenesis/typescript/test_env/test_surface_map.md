@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Date**: 2026-04-24
-**Derived from**: [REQ-P-QUAL.md](../../../../specification/requirements/product/REQ-P-QUAL.md), [REQ-P-SCENARIOS.md](../../../../specification/requirements/product/REQ-P-SCENARIOS.md), [GTL_3_MODULE_DESIGN.md](../design/GTL_3_MODULE_DESIGN.md), [GTL_3_INTERFACE_CONTRACTS.md](../design/GTL_3_INTERFACE_CONTRACTS.md), [GTL_3_FIRST_SLICE_IACS.md](../design/GTL_3_FIRST_SLICE_IACS.md), [GTL_3_M02_WORK_PUBLICATION_IACS.md](../design/GTL_3_M02_WORK_PUBLICATION_IACS.md), [ABG_3_MODULE_DESIGN.md](../design/ABG_3_MODULE_DESIGN.md), [ABG_3_FIRST_SLICE_IACS.md](../design/ABG_3_FIRST_SLICE_IACS.md), [M04_PUBLIC_START_DERIVATION.md](../design/M04_PUBLIC_START_DERIVATION.md), [M04_FIRST_SLICE_IACS.md](../design/M04_FIRST_SLICE_IACS.md), [M04_PUBLIC_START_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_PUBLIC_START_STRUCTURAL_CARRIER_DIAGRAM.md), [M04_CONTROL_LOOP_DERIVATION.md](../design/M04_CONTROL_LOOP_DERIVATION.md), [M04_CONTROL_LOOP_FIRST_SLICE_IACS.md](../design/M04_CONTROL_LOOP_FIRST_SLICE_IACS.md), [M04_CONTROL_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_CONTROL_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md), [M02_M03_LOOKUP_AUTHORITY_DERIVATION.md](../design/M02_M03_LOOKUP_AUTHORITY_DERIVATION.md), [M02_M03_LOOKUP_AUTHORITY_IACS.md](../design/M02_M03_LOOKUP_AUTHORITY_IACS.md), [M02_M03_LOOKUP_AUTHORITY_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M02_M03_LOOKUP_AUTHORITY_STRUCTURAL_CARRIER_DIAGRAM.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-009-build-the-typescript-tenant-first-slice-under-explicit-carrier-law.md](../../../.ai-workspace/tickets/completed/T-009-build-the-typescript-tenant-first-slice-under-explicit-carrier-law.md), [T-010-realize-typescript-gtl-m02-work-publication-under-explicit-publication-carrier-law.md](../../../.ai-workspace/tickets/completed/T-010-realize-typescript-gtl-m02-work-publication-under-explicit-publication-carrier-law.md), [T-011-realize-typescript-abg-first-runtime-slice-under-explicit-execution-event-carrier-law.md](../../../.ai-workspace/tickets/completed/T-011-realize-typescript-abg-first-runtime-slice-under-explicit-execution-event-carrier-law.md), [T-012-realize-typescript-m04-public-start-steel-thread-over-kernel-owned-runtime-law.md](../../../.ai-workspace/tickets/completed/T-012-realize-typescript-m04-public-start-steel-thread-over-kernel-owned-runtime-law.md), [T-013-realize-typescript-m04-control-modes-over-closed-public-start-outcome-law.md](../../../.ai-workspace/tickets/completed/T-013-realize-typescript-m04-control-modes-over-closed-public-start-outcome-law.md), [T-014-reprice-typescript-m02-publication-lookup-and-m03-execution-resolution-under-explicit-lookup-authority.md](../../../.ai-workspace/tickets/completed/T-014-reprice-typescript-m02-publication-lookup-and-m03-execution-resolution-under-explicit-lookup-authority.md)
+**Derived from**: [REQ-P-QUAL.md](../../../../specification/requirements/product/REQ-P-QUAL.md), [REQ-P-SCENARIOS.md](../../../../specification/requirements/product/REQ-P-SCENARIOS.md), [GTL_3_MODULE_DESIGN.md](../design/GTL_3_MODULE_DESIGN.md), [GTL_3_INTERFACE_CONTRACTS.md](../design/GTL_3_INTERFACE_CONTRACTS.md), [GTL_3_FIRST_SLICE_IACS.md](../design/GTL_3_FIRST_SLICE_IACS.md), [GTL_3_M02_WORK_PUBLICATION_IACS.md](../design/GTL_3_M02_WORK_PUBLICATION_IACS.md), [ABG_3_MODULE_DESIGN.md](../design/ABG_3_MODULE_DESIGN.md), [ABG_3_FIRST_SLICE_IACS.md](../design/ABG_3_FIRST_SLICE_IACS.md), [M04_PUBLIC_START_DERIVATION.md](../design/M04_PUBLIC_START_DERIVATION.md), [M04_FIRST_SLICE_IACS.md](../design/M04_FIRST_SLICE_IACS.md), [M04_PUBLIC_START_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_PUBLIC_START_STRUCTURAL_CARRIER_DIAGRAM.md), [M04_CONTROL_LOOP_DERIVATION.md](../design/M04_CONTROL_LOOP_DERIVATION.md), [M04_CONTROL_LOOP_FIRST_SLICE_IACS.md](../design/M04_CONTROL_LOOP_FIRST_SLICE_IACS.md), [M04_CONTROL_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_CONTROL_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md), [M02_M03_LOOKUP_AUTHORITY_DERIVATION.md](../design/M02_M03_LOOKUP_AUTHORITY_DERIVATION.md), [M02_M03_LOOKUP_AUTHORITY_IACS.md](../design/M02_M03_LOOKUP_AUTHORITY_IACS.md), [M02_M03_LOOKUP_AUTHORITY_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M02_M03_LOOKUP_AUTHORITY_STRUCTURAL_CARRIER_DIAGRAM.md), [M05_QUALIFICATION_DERIVATION.md](../design/M05_QUALIFICATION_DERIVATION.md), [M05_QUALIFICATION_FIRST_SLICE_IACS.md](../design/M05_QUALIFICATION_FIRST_SLICE_IACS.md), [M05_QUALIFICATION_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_QUALIFICATION_STRUCTURAL_CARRIER_DIAGRAM.md), [M05_INSTALLED_SANDBOX_DERIVATION.md](../design/M05_INSTALLED_SANDBOX_DERIVATION.md), [M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md](../design/M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md), [M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md), [REMAINING_TYPESCRIPT_FORWARD_DERIVATION_PLAN.md](../design/REMAINING_TYPESCRIPT_FORWARD_DERIVATION_PLAN.md), [REMAINING_TYPESCRIPT_OPTIMIZATION_LEDGER.md](../design/REMAINING_TYPESCRIPT_OPTIMIZATION_LEDGER.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-009-build-the-typescript-tenant-first-slice-under-explicit-carrier-law.md](../../../.ai-workspace/tickets/completed/T-009-build-the-typescript-tenant-first-slice-under-explicit-carrier-law.md), [T-010-realize-typescript-gtl-m02-work-publication-under-explicit-publication-carrier-law.md](../../../.ai-workspace/tickets/completed/T-010-realize-typescript-gtl-m02-work-publication-under-explicit-publication-carrier-law.md), [T-011-realize-typescript-abg-first-runtime-slice-under-explicit-execution-event-carrier-law.md](../../../.ai-workspace/tickets/completed/T-011-realize-typescript-abg-first-runtime-slice-under-explicit-execution-event-carrier-law.md), [T-012-realize-typescript-m04-public-start-steel-thread-over-kernel-owned-runtime-law.md](../../../.ai-workspace/tickets/completed/T-012-realize-typescript-m04-public-start-steel-thread-over-kernel-owned-runtime-law.md), [T-013-realize-typescript-m04-control-modes-over-closed-public-start-outcome-law.md](../../../.ai-workspace/tickets/completed/T-013-realize-typescript-m04-control-modes-over-closed-public-start-outcome-law.md), [T-014-reprice-typescript-m02-publication-lookup-and-m03-execution-resolution-under-explicit-lookup-authority.md](../../../.ai-workspace/tickets/completed/T-014-reprice-typescript-m02-publication-lookup-and-m03-execution-resolution-under-explicit-lookup-authority.md), [T-015-front-run-the-remaining-typescript-tenant-design-and-module-derivation-from-the-released-python-reference.md](../../../.ai-workspace/tickets/completed/T-015-front-run-the-remaining-typescript-tenant-design-and-module-derivation-from-the-released-python-reference.md), [T-021-realize-typescript-m05-qualification-foundation-under-module-derived-method-trace-and-fake-lane-law.md](../../../.ai-workspace/tickets/completed/T-021-realize-typescript-m05-qualification-foundation-under-module-derived-method-trace-and-fake-lane-law.md), [T-022-realize-typescript-m05-installed-sandbox-live-lane-and-archive-proof-under-explicit-installed-runtime-qualification-law.md](../../../.ai-workspace/tickets/completed/T-022-realize-typescript-m05-installed-sandbox-live-lane-and-archive-proof-under-explicit-installed-runtime-qualification-law.md)
 
 ## Purpose
 
@@ -83,6 +83,229 @@ The TypeScript tenant does **not** yet have a sandbox qualification lane.
 Per shared qualification law, sandbox becomes the primary tenant qualification
 surface later as `M05-qualification-scenarios`, after enough runtime and
 bootstrap surface exists to make sandbox proof meaningful.
+
+The completed forward-derivation wave now predeclares the future canonical
+proof lanes for:
+
+- `M05` qualification foundation plus installed sandbox/live/archive proof
+- deferred-only `M06` trigger law with no executable tests until activated
+
+The completed forward-derivation wave predeclared and the tenant has now
+completed:
+
+- late `M03` transport/result protocol
+- remaining `M04` public asset-addressing
+
+The remaining future canonical proof lanes are now for:
+
+- `M05` qualification foundation plus installed sandbox/live/archive proof
+- deferred-only `M06` trigger law with no executable tests until activated
+
+The completed TypeScript tenant now has the full bounded `M05` qualification
+line:
+
+- `T-021` `M05` qualification foundation
+- `T-022` `M05` installed sandbox, live-lane, and archive proof
+
+That completed line derives from:
+
+- `M05_QUALIFICATION_DERIVATION.md`
+- `M05_QUALIFICATION_FIRST_SLICE_IACS.md`
+- `M05_QUALIFICATION_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M05_INSTALLED_SANDBOX_DERIVATION.md`
+- `M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md`
+- `M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `T-021-realize-typescript-m05-qualification-foundation-under-module-derived-method-trace-and-fake-lane-law.md`
+- `T-022-realize-typescript-m05-installed-sandbox-live-lane-and-archive-proof-under-explicit-installed-runtime-qualification-law.md`
+
+The canonical files are:
+
+- `test_m05_method_trace_unit.test.mjs` — canonical module-derived trace lane
+- `test_m05_fake_lane_integration.test.mjs` — canonical fake-lane integration lane
+- `t021-m05-qualification-negative.test.mjs` — fail-closed negative-proof fixture
+- `test_m05_sandbox_install_integration.test.mjs` — canonical installed-line integration lane
+- `test_m05_sandbox_live_integration.test.mjs` — canonical installed live-lane integration lane
+- `test_m05_run_archive_integration.test.mjs` — canonical archive-proof integration lane
+- `t022-m05-installed-sandbox-negative.test.mjs` — installed-line fail-closed fixture
+
+The completed late `M03` implementation wave is:
+
+- late `M03` transport/result protocol under `T-026`
+
+That completed wave owns its canonical proof lanes.
+
+The completed common-library wave is:
+
+- tenant-local ABG common realization library under `T-027`
+
+That completed wave now has its library code boundary under
+`code/src/shared/abg_library/**`.
+Its canonical shared-library proof lanes are now landed and active.
+
+The completed common-delivery-library wave is:
+
+- tenant-local ABG common delivery library under `T-028`
+
+That completed wave now has its library code boundary under
+`code/src/shared/abg_delivery_library/**`.
+Its canonical shared-library proof lanes are now landed and active.
+
+The latest completed product-facing wave is:
+
+- `T-016` `M04` event-ingress
+
+That wave is completed on its bounded lane.
+Its canonical proof lanes derive from:
+
+- `M04_EVENT_INGRESS_DERIVATION.md`
+- `M04_EVENT_INGRESS_FIRST_SLICE_IACS.md`
+- `M04_EVENT_INGRESS_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `T-016-realize-typescript-m04-event-ingress-over-the-canonical-kernel-emission-surface.md`
+
+The canonical active files are:
+
+- `test_m04_event_ingress_unit.test.mjs` — canonical module-derived unit lane
+- `test_m04_event_ingress_integration.test.mjs` — canonical module-owned integration lane
+- `t016-m04-event-ingress-negative.test.mjs` — fail-closed negative-proof fixture
+
+The completed next product-facing wave is:
+
+- `T-017` `M04` result-assessment
+
+That wave is completed on its bounded lane.
+Its canonical proof lanes derive from:
+
+- `M04_RESULT_ASSESSMENT_DERIVATION.md`
+- `M04_RESULT_ASSESSMENT_FIRST_SLICE_IACS.md`
+- `M04_RESULT_ASSESSMENT_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `T-017-realize-typescript-m04-result-assessment-ingress-over-canonical-result-ingest-law.md`
+
+The canonical active files are:
+
+- `test_m04_result_assessment_unit.test.mjs` — canonical module-derived unit lane
+- `test_m04_result_assessment_integration.test.mjs` — canonical module-owned integration lane
+- `t017-m04-result-assessment-negative.test.mjs` — fail-closed negative-proof fixture
+
+The completed next product-facing wave is:
+
+- `T-018` `M04` live-status
+
+That wave is completed on its bounded lane.
+Its canonical proof lanes derive from:
+
+- `M04_LIVE_STATUS_DERIVATION.md`
+- `M04_LIVE_STATUS_FIRST_SLICE_IACS.md`
+- `M04_LIVE_STATUS_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `T-018-realize-typescript-m04-live-status-projection-over-explicit-runtime-projection-law.md`
+
+The canonical active files are:
+
+- `test_m04_live_status_unit.test.mjs` — canonical module-derived unit lane
+- `test_m04_live_status_integration.test.mjs` — canonical module-owned integration lane
+- `t018-m04-live-status-negative.test.mjs` — fail-closed negative-proof fixture
+
+The completed next product-facing wave is:
+
+- `T-019` `M04` install/bootstrap
+
+That wave is completed on its bounded lane.
+Its canonical proof lanes derive from:
+
+- `M04_INSTALL_BOOTSTRAP_DERIVATION.md`
+- `M04_INSTALL_BOOTSTRAP_FIRST_SLICE_IACS.md`
+- `M04_INSTALL_BOOTSTRAP_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `T-019-realize-typescript-m04-install-bootstrap-under-package-first-installed-runtime-law.md`
+
+The canonical active files are:
+
+- `test_m04_install_bootstrap_unit.test.mjs` — canonical module-derived unit lane
+- `test_m04_install_bootstrap_integration.test.mjs` — canonical module-owned integration lane
+- `t019-m04-install-bootstrap-negative.test.mjs` — fail-closed negative-proof fixture
+
+The completed next product-facing wave is:
+
+- `T-020` `M04` bootloader
+
+That wave is completed on its bounded lane.
+Its canonical proof lanes derive from:
+
+- `M04_BOOTLOADER_DERIVATION.md`
+- `M04_BOOTLOADER_FIRST_SLICE_IACS.md`
+- `M04_BOOTLOADER_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `T-020-realize-typescript-m04-bootloader-and-project-facing-delivery-operations-under-explicit-bootloader-law.md`
+
+The canonical active files are:
+
+- `test_m04_bootloader_unit.test.mjs` — canonical module-derived unit lane
+- `test_m04_bootloader_integration.test.mjs` — canonical module-owned integration lane
+- `t020-m04-bootloader-negative.test.mjs` — fail-closed negative-proof fixture
+
+The completed next product-facing wave is:
+
+- `T-025` `M04` public asset-addressing
+
+That wave is completed on its bounded lane.
+Its canonical proof lanes derive from:
+
+- `M04_PUBLIC_ASSET_ADDRESSING_DERIVATION.md`
+- `M04_PUBLIC_ASSET_ADDRESSING_FIRST_SLICE_IACS.md`
+- `M04_PUBLIC_ASSET_ADDRESSING_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `T-025-realize-typescript-m04-public-asset-addressing-through-a-published-operator-asset-registry.md`
+
+The canonical active files are:
+
+- `test_m04_public_asset_addressing_unit.test.mjs` — canonical module-derived unit lane
+- `test_m04_public_asset_addressing_integration.test.mjs` — canonical module-owned integration lane
+- `t025-m04-public-asset-addressing-negative.test.mjs` — fail-closed negative-proof fixture
+
+## ABG Common Delivery Library Tests
+
+The completed common-library wave is `T-028`.
+Its canonical test lanes derive from:
+
+- [ABG_COMMON_DELIVERY_LIBRARY_DERIVATION.md](../design/ABG_COMMON_DELIVERY_LIBRARY_DERIVATION.md)
+- [ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md](../design/ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md)
+- [ABG_COMMON_DELIVERY_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md](../design/ABG_COMMON_DELIVERY_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md)
+- [T-028-realize-a-tenant-local-abg-common-delivery-library-for-installed-root-plans-verification-and-instruction-file-injection.md](../../../.ai-workspace/tickets/completed/T-028-realize-a-tenant-local-abg-common-delivery-library-for-installed-root-plans-verification-and-instruction-file-injection.md)
+
+The canonical active files are:
+
+- `test_abg_common_delivery_library_unit.test.mjs` — canonical module-derived unit lane
+- `test_abg_common_delivery_library_integration.test.mjs` — canonical shared-library integration lane
+- `t028-abg-common-delivery-library-negative.test.mjs` — fail-closed negative-proof fixture
+
+## ABG Common Realization Library Tests
+
+The completed common-library wave is `T-027`.
+Its canonical test lanes derive from:
+
+- [ABG_COMMON_REALIZATION_LIBRARY_DERIVATION.md](../design/ABG_COMMON_REALIZATION_LIBRARY_DERIVATION.md)
+- [ABG_COMMON_REALIZATION_LIBRARY_FIRST_SLICE_IACS.md](../design/ABG_COMMON_REALIZATION_LIBRARY_FIRST_SLICE_IACS.md)
+- [ABG_COMMON_REALIZATION_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md](../design/ABG_COMMON_REALIZATION_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md)
+- [T-027-realize-a-tenant-local-abg-common-realization-library-for-expectation-derivation-contract-carriers-and-module-derived-proof-helpers.md](../../../.ai-workspace/tickets/completed/T-027-realize-a-tenant-local-abg-common-realization-library-for-expectation-derivation-contract-carriers-and-module-derived-proof-helpers.md)
+
+The canonical active files are:
+
+- `test_abg_common_realization_library_unit.test.mjs` — canonical module-derived unit lane
+- `test_abg_common_realization_library_integration.test.mjs` — canonical shared-library integration lane
+- `t027-abg-common-realization-library-negative.test.mjs` — fail-closed negative-proof fixture
+
+## M03 Transport Protocol Tests
+
+The completed late `M03` wave is `T-026`.
+Its canonical test lanes derive from:
+
+- [M03_TRANSPORT_PROTOCOL_DERIVATION.md](../design/M03_TRANSPORT_PROTOCOL_DERIVATION.md)
+- [M03_TRANSPORT_PROTOCOL_FIRST_SLICE_IACS.md](../design/M03_TRANSPORT_PROTOCOL_FIRST_SLICE_IACS.md)
+- [M03_TRANSPORT_PROTOCOL_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M03_TRANSPORT_PROTOCOL_STRUCTURAL_CARRIER_DIAGRAM.md)
+- [ABG_3_MODULE_DESIGN.md](../design/ABG_3_MODULE_DESIGN.md)
+- [T-026-realize-typescript-m03-governed-fp-transport-and-result-artifact-protocol-under-explicit-transport-law.md](../../../.ai-workspace/tickets/completed/T-026-realize-typescript-m03-governed-fp-transport-and-result-artifact-protocol-under-explicit-transport-law.md)
+
+The canonical files are:
+
+- `test_m03_transport_protocol_unit.test.mjs` — canonical module-derived unit lane
+- `test_m03_transport_protocol_integration.test.mjs` — canonical module-owned integration lane
+- `t026-m03-transport-protocol-negative.test.mjs` — fail-closed negative-proof fixture
 
 Until enough runtime and bootstrap surface exists for sandbox:
 

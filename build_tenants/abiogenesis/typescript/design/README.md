@@ -58,7 +58,10 @@ doctrine in tenant-local design.
 
 Current tenant-local design truth lives in:
 
+- `MIGRATED_TYPESCRIPT_DESIGN_SOURCE_AUDIT.md`
 - `PYTHON_TO_TYPESCRIPT_DESIGN_DERIVATION.md`
+- `REMAINING_TYPESCRIPT_FORWARD_DERIVATION_PLAN.md`
+- `REMAINING_TYPESCRIPT_OPTIMIZATION_LEDGER.md`
 - `TYPESCRIPT_REALIZATION_GUARDRAILS.md`
 - `TYPESCRIPT_STRICT_LANE.md`
 - `GTL_3_MODULE_DESIGN.md`
@@ -70,12 +73,48 @@ Current tenant-local design truth lives in:
 - `ABG_3_MODULE_DESIGN.md`
 - `ABG_3_FIRST_SLICE_IACS.md`
 - `ABG_3_M03_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `ABG_COMMON_REALIZATION_LIBRARY_DERIVATION.md`
+- `ABG_COMMON_REALIZATION_LIBRARY_FIRST_SLICE_IACS.md`
+- `ABG_COMMON_REALIZATION_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `ABG_COMMON_DELIVERY_LIBRARY_DERIVATION.md`
+- `ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md`
+- `ABG_COMMON_DELIVERY_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M03_TRANSPORT_PROTOCOL_DERIVATION.md`
+- `M03_TRANSPORT_PROTOCOL_FIRST_SLICE_IACS.md`
+- `M03_TRANSPORT_PROTOCOL_STRUCTURAL_CARRIER_DIAGRAM.md`
 - `M04_PUBLIC_START_DERIVATION.md`
 - `M04_FIRST_SLICE_IACS.md`
 - `M04_PUBLIC_START_STRUCTURAL_CARRIER_DIAGRAM.md`
 - `M04_CONTROL_LOOP_DERIVATION.md`
 - `M04_CONTROL_LOOP_FIRST_SLICE_IACS.md`
 - `M04_CONTROL_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M04_EVENT_INGRESS_DERIVATION.md`
+- `M04_EVENT_INGRESS_FIRST_SLICE_IACS.md`
+- `M04_EVENT_INGRESS_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M04_RESULT_ASSESSMENT_DERIVATION.md`
+- `M04_RESULT_ASSESSMENT_FIRST_SLICE_IACS.md`
+- `M04_RESULT_ASSESSMENT_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M04_LIVE_STATUS_DERIVATION.md`
+- `M04_LIVE_STATUS_FIRST_SLICE_IACS.md`
+- `M04_LIVE_STATUS_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M04_INSTALL_BOOTSTRAP_DERIVATION.md`
+- `M04_INSTALL_BOOTSTRAP_FIRST_SLICE_IACS.md`
+- `M04_INSTALL_BOOTSTRAP_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M04_BOOTLOADER_DERIVATION.md`
+- `M04_BOOTLOADER_FIRST_SLICE_IACS.md`
+- `M04_BOOTLOADER_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M04_PUBLIC_ASSET_ADDRESSING_DERIVATION.md`
+- `M04_PUBLIC_ASSET_ADDRESSING_FIRST_SLICE_IACS.md`
+- `M04_PUBLIC_ASSET_ADDRESSING_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M05_QUALIFICATION_DERIVATION.md`
+- `M05_QUALIFICATION_FIRST_SLICE_IACS.md`
+- `M05_QUALIFICATION_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M05_INSTALLED_SANDBOX_DERIVATION.md`
+- `M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md`
+- `M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M06_MAPPING_DEFERRED_DERIVATION.md`
+- `M06_MAPPING_DEFERRED_TRIGGER_IACS.md`
+- `M06_MAPPING_DEFERRED_STRUCTURAL_CARRIER_DIAGRAM.md`
 - `M02_M03_LOOKUP_AUTHORITY_DERIVATION.md`
 - `M02_M03_LOOKUP_AUTHORITY_IACS.md`
 - `M02_M03_LOOKUP_AUTHORITY_STRUCTURAL_CARRIER_DIAGRAM.md`
@@ -121,7 +160,145 @@ control-loop slice.
 It still does not authorize event-ingress, result-assessment,
 install/bootstrap, bootloader, or sandbox/scenario widening.
 
-No later implementation wave is active yet.
+The completed next `M04` event-ingress wave is:
+
+- `.ai-workspace/tickets/completed/T-016-realize-typescript-m04-event-ingress-over-the-canonical-kernel-emission-surface.md`
+
+`T-016` completed the bounded first `M04` event-ingress slice.
+Its first-slice design assets are:
+
+- `M04_EVENT_INGRESS_DERIVATION.md`
+- `M04_EVENT_INGRESS_FIRST_SLICE_IACS.md`
+- `M04_EVENT_INGRESS_STRUCTURAL_CARRIER_DIAGRAM.md`
+
+That completed first slice is bounded to app-owned `approved`, `revoked`, and
+`reset` command ingress over canonical kernel emission.
+It explicitly deferred `assessed`, result-artifact ingress, install/bootstrap,
+bootloader, and sandbox/scenario widening.
+
+The completed next `M04` result-assessment wave is:
+
+- `.ai-workspace/tickets/completed/T-017-realize-typescript-m04-result-assessment-ingress-over-canonical-result-ingest-law.md`
+
+`T-017` completed the bounded first result-assessment slice.
+Its first-slice design assets are:
+
+- `M04_RESULT_ASSESSMENT_DERIVATION.md`
+- `M04_RESULT_ASSESSMENT_FIRST_SLICE_IACS.md`
+- `M04_RESULT_ASSESSMENT_STRUCTURAL_CARRIER_DIAGRAM.md`
+
+That completed first slice is bounded to `assessed{kind: fp}` over the
+completed canonical ingest boundary.
+It explicitly defers non-F_P review, live-status, install/bootstrap,
+bootloader, and sandbox/scenario widening.
+
+The completed next `M04` live-status wave is:
+
+- `.ai-workspace/tickets/completed/T-018-realize-typescript-m04-live-status-projection-over-explicit-runtime-projection-law.md`
+
+`T-018` completed the bounded first live-status projection slice.
+Its first-slice design assets are:
+
+- `M04_LIVE_STATUS_DERIVATION.md`
+- `M04_LIVE_STATUS_FIRST_SLICE_IACS.md`
+- `M04_LIVE_STATUS_STRUCTURAL_CARRIER_DIAGRAM.md`
+
+That completed first slice is projection-only over admitted public/runtime
+truth.
+It explicitly defers install/bootstrap, bootloader, archive replay, and
+sandbox/scenario widening.
+
+The completed common-library wave is:
+
+- `.ai-workspace/tickets/completed/T-027-realize-a-tenant-local-abg-common-realization-library-for-expectation-derivation-contract-carriers-and-module-derived-proof-helpers.md`
+
+`T-027` is bounded to the tenant-local reusable ABG common realization library
+under `code/src/shared/abg_library/**`.
+That completed wave lawfully absorbed only:
+
+- dispatch-expectation realization carriers
+- nested transport contract/policy realization carriers
+- module-derived proof-helper profiles
+
+It did not widen into new product carriers, shared/common propagation, or rival
+runtime doctrine.
+
+The completed late `M03` transport/result protocol wave is:
+
+- `.ai-workspace/tickets/completed/T-026-realize-typescript-m03-governed-fp-transport-and-result-artifact-protocol-under-explicit-transport-law.md`
+
+`T-026` completed the late `M03` transport/result protocol family under
+`code/src/abg/m03/transport/**`.
+Its repeated realization mechanics now consume the completed `T-027` library
+slice without widening the owned `M03` protocol boundary.
+The completed common-delivery-library wave is:
+
+- `.ai-workspace/tickets/completed/T-028-realize-a-tenant-local-abg-common-delivery-library-for-installed-root-plans-verification-and-instruction-file-injection.md`
+
+`T-028` completed the tenant-local reusable delivery library under
+`code/src/shared/abg_delivery_library/**`.
+That completed wave lawfully absorbed only:
+
+- installed-root delivery-plan carriers
+- delivery verification and writer carriers
+- marker-bound instruction injection carriers
+
+It did not widen into runtime semantics, public product carriers, or
+shared/common propagation.
+The completed next `M04` install/bootstrap wave is:
+
+- `.ai-workspace/tickets/completed/T-019-realize-typescript-m04-install-bootstrap-under-package-first-installed-runtime-law.md`
+
+`T-019` completed the bounded install/bootstrap delivery slice over explicit
+installed-runtime request and outcome truth.
+It explicitly deferred bootloader, public asset-addressing, and later sandbox
+qualification widening.
+
+The completed next `M04` bootloader wave is:
+
+- `.ai-workspace/tickets/completed/T-020-realize-typescript-m04-bootloader-and-project-facing-delivery-operations-under-explicit-bootloader-law.md`
+
+`T-020` completed the bounded bootloader and project-facing delivery slice.
+Its first-slice design assets are:
+
+- `M04_BOOTLOADER_DERIVATION.md`
+- `M04_BOOTLOADER_FIRST_SLICE_IACS.md`
+- `M04_BOOTLOADER_STRUCTURAL_CARRIER_DIAGRAM.md`
+
+That completed first slice is bounded to explicit bootloader document delivery,
+marker-bound instruction-file injection, and verification-only project-facing
+delivery truth.
+It explicitly defers public asset-addressing and later qualification widening.
+
+The completed next `M04` public asset-addressing wave is:
+
+- `.ai-workspace/tickets/completed/T-025-realize-typescript-m04-public-asset-addressing-through-a-published-operator-asset-registry.md`
+
+`T-025` completed the bounded public asset-addressing slice.
+Its first-slice design assets are:
+
+- `M04_PUBLIC_ASSET_ADDRESSING_DERIVATION.md`
+- `M04_PUBLIC_ASSET_ADDRESSING_FIRST_SLICE_IACS.md`
+- `M04_PUBLIC_ASSET_ADDRESSING_STRUCTURAL_CARRIER_DIAGRAM.md`
+
+That completed first slice is bounded to explicit asset-handle resolution
+through one published operator asset registry and one governing graph-function
+owner.
+It explicitly defers qualification, sandbox/archive proof, and later mapping
+repricing.
+The latest completed design-only audit wave is:
+
+- `.ai-workspace/tickets/completed/T-024-audit-the-migrated-typescript-design-and-adr-assets-against-the-python-reference-line.md`
+
+`T-024` established the source-reconciliation baseline for the already-landed
+TypeScript design line through `T-014`.
+The latest completed forward-derivation wave is:
+
+- `.ai-workspace/tickets/completed/T-015-front-run-the-remaining-typescript-tenant-design-and-module-derivation-from-the-released-python-reference.md`
+
+`T-015` established the explicit remaining-wave design chain for late `M03`,
+remaining `M04`, `M05`, and deferred `M06`, plus the optimization baseline for
+those waves.
 The latest completed cross-boundary cleanup wave is:
 
 - `.ai-workspace/tickets/completed/T-014-reprice-typescript-m02-publication-lookup-and-m03-execution-resolution-under-explicit-lookup-authority.md`
@@ -133,9 +310,37 @@ Its module-bounded design assets are:
 - `M02_M03_LOOKUP_AUTHORITY_IACS.md`
 - `M02_M03_LOOKUP_AUTHORITY_STRUCTURAL_CARRIER_DIAGRAM.md`
 
-The TypeScript line will later add qualification and scenario design only when
-those surfaces become tenant-local rather than shared or still governed by the
-released Python proof line.
+The latest completed `M05` qualification wave is:
+
+- `.ai-workspace/tickets/completed/T-022-realize-typescript-m05-installed-sandbox-live-lane-and-archive-proof-under-explicit-installed-runtime-qualification-law.md`
+
+That completed `M05` line now spans two slices.
+Its design assets are:
+
+- `M05_QUALIFICATION_DERIVATION.md`
+- `M05_QUALIFICATION_FIRST_SLICE_IACS.md`
+- `M05_QUALIFICATION_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M05_INSTALLED_SANDBOX_DERIVATION.md`
+- `M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md`
+- `M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md`
+
+That completed `M05` line is bounded to:
+
+- method-trace qualification over live TypeScript design/module authority
+- one fake-lane qualification harness over completed `M04` public/runtime truth
+- installed-sandbox qualification over completed `M04` delivery outcomes
+- one installed live-lane scenario over the installed package surface
+- one archive-proof qualification over stable run roots
+- one tenant-local qualification kernel under `code/src/qualification/m05/**`
+
+The completed deferred-only `M06` adjudication is:
+
+- `.ai-workspace/tickets/completed/T-023-adjudicate-typescript-m06-mapping-deferred-trigger-boundary-under-explicit-deferred-only-law.md`
+
+That completed boundary keeps alternate-runtime mapping dormant until a
+successor ticket explicitly activates one named alternate runtime family.
+
+No later TypeScript implementation wave is active.
 
 For module ownership, shared `M01` to `M06` law remains upstream in
 `build_tenants/common/design/`.
@@ -152,10 +357,12 @@ The required order is:
 1. constitutional `WHAT` in `specification/`
 2. released Python design as reference `HOW`
 3. TypeScript design mapping in `PYTHON_TO_TYPESCRIPT_DESIGN_DERIVATION.md`
-4. module-bounded carrier assets such as IACS documents and structural carrier
+4. source audit baseline in `MIGRATED_TYPESCRIPT_DESIGN_SOURCE_AUDIT.md`
+5. forward remaining-wave baseline in `REMAINING_TYPESCRIPT_FORWARD_DERIVATION_PLAN.md`
+6. module-bounded carrier assets such as IACS documents and structural carrier
    diagrams
-5. implementation tickets
-6. code
+7. implementation tickets
+8. code
 
 If a proposed TypeScript change cannot point to that chain, it is not yet ready
 for implementation.

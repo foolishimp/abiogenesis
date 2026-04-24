@@ -201,9 +201,105 @@ The completed `M04` work in this tenant now includes:
 - one bounded supervision route over repeated `publicStart(...)`
 - one bounded `human-proxy` route over explicit public stop detail
 
-No later `M04-app-bootstrap` wave is active yet.
-Event-ingress, result-assessment, install/bootstrap, bootloader, and later
-qualification families remain deferred until successor tickets open them.
+The completed next `M04-app-bootstrap` wave derived from:
+
+- [M04_EVENT_INGRESS_DERIVATION.md](./M04_EVENT_INGRESS_DERIVATION.md)
+
+Its first module-bounded carrier assets are:
+
+- [M04_EVENT_INGRESS_FIRST_SLICE_IACS.md](./M04_EVENT_INGRESS_FIRST_SLICE_IACS.md)
+- [M04_EVENT_INGRESS_STRUCTURAL_CARRIER_DIAGRAM.md](./M04_EVENT_INGRESS_STRUCTURAL_CARRIER_DIAGRAM.md)
+
+That completed event-ingress wave now routes app-owned `approved`, `revoked`,
+and `reset` command ingress through the canonical emission surface.
+Its first slice was bounded to app-owned `approved`, `revoked`, and `reset`
+command ingress over canonical kernel emission.
+It still did not authorize `assessed`, result-assessment,
+install/bootstrap, bootloader, or later qualification widening.
+
+The completed next `M04-app-bootstrap` wave derives from:
+
+- [M04_RESULT_ASSESSMENT_DERIVATION.md](./M04_RESULT_ASSESSMENT_DERIVATION.md)
+
+Its first module-bounded carrier assets are:
+
+- [M04_RESULT_ASSESSMENT_FIRST_SLICE_IACS.md](./M04_RESULT_ASSESSMENT_FIRST_SLICE_IACS.md)
+- [M04_RESULT_ASSESSMENT_STRUCTURAL_CARRIER_DIAGRAM.md](./M04_RESULT_ASSESSMENT_STRUCTURAL_CARRIER_DIAGRAM.md)
+
+That completed result-assessment wave is bounded to `assessed{kind: fp}` over the completed
+canonical ingest boundary.
+It still does not authorize non-F_P review, live-status,
+install/bootstrap, bootloader, or later qualification widening.
+
+The completed next `M04-app-bootstrap` live-status wave derives from:
+
+- [M04_LIVE_STATUS_DERIVATION.md](./M04_LIVE_STATUS_DERIVATION.md)
+
+Its first module-bounded carrier assets are:
+
+- [M04_LIVE_STATUS_FIRST_SLICE_IACS.md](./M04_LIVE_STATUS_FIRST_SLICE_IACS.md)
+- [M04_LIVE_STATUS_STRUCTURAL_CARRIER_DIAGRAM.md](./M04_LIVE_STATUS_STRUCTURAL_CARRIER_DIAGRAM.md)
+
+That completed live-status wave is projection-only over admitted public and
+runtime truth.
+It does not authorize install/bootstrap, bootloader, archive replay, or later
+qualification widening.
+
+The completed next `M04-app-bootstrap` install/bootstrap wave derives from:
+
+- [M04_INSTALL_BOOTSTRAP_DERIVATION.md](./M04_INSTALL_BOOTSTRAP_DERIVATION.md)
+
+Its first module-bounded carrier assets are:
+
+- [M04_INSTALL_BOOTSTRAP_FIRST_SLICE_IACS.md](./M04_INSTALL_BOOTSTRAP_FIRST_SLICE_IACS.md)
+- [M04_INSTALL_BOOTSTRAP_STRUCTURAL_CARRIER_DIAGRAM.md](./M04_INSTALL_BOOTSTRAP_STRUCTURAL_CARRIER_DIAGRAM.md)
+
+That completed install/bootstrap wave is bounded to explicit installed-runtime
+delivery truth only.
+It does not authorize bootloader, public asset-addressing, or later
+qualification widening.
+
+The completed next `M04-app-bootstrap` bootloader wave derives from:
+
+- [M04_BOOTLOADER_DERIVATION.md](./M04_BOOTLOADER_DERIVATION.md)
+
+Its first module-bounded carrier assets are:
+
+- [M04_BOOTLOADER_FIRST_SLICE_IACS.md](./M04_BOOTLOADER_FIRST_SLICE_IACS.md)
+- [M04_BOOTLOADER_STRUCTURAL_CARRIER_DIAGRAM.md](./M04_BOOTLOADER_STRUCTURAL_CARRIER_DIAGRAM.md)
+
+That completed bootloader wave is bounded to explicit project-facing delivery
+truth over bootloader document and instruction-file injection only.
+It does not authorize public asset-addressing or later qualification widening.
+
+The completed next `M04-app-bootstrap` public asset-addressing wave derives from:
+
+- [M04_PUBLIC_ASSET_ADDRESSING_DERIVATION.md](./M04_PUBLIC_ASSET_ADDRESSING_DERIVATION.md)
+
+Its first module-bounded carrier assets are:
+
+- [M04_PUBLIC_ASSET_ADDRESSING_FIRST_SLICE_IACS.md](./M04_PUBLIC_ASSET_ADDRESSING_FIRST_SLICE_IACS.md)
+- [M04_PUBLIC_ASSET_ADDRESSING_STRUCTURAL_CARRIER_DIAGRAM.md](./M04_PUBLIC_ASSET_ADDRESSING_STRUCTURAL_CARRIER_DIAGRAM.md)
+
+That completed public asset-addressing wave is bounded to explicit
+operator-facing asset-handle resolution over one published graph-function
+owner only.
+It does not authorize qualification, sandbox/archive proof, or later mapping
+repricing.
+
+The completed late `M03-engine-kernel` transport wave derives from:
+
+- [M03_TRANSPORT_PROTOCOL_DERIVATION.md](./M03_TRANSPORT_PROTOCOL_DERIVATION.md)
+
+Its first module-bounded carrier assets are:
+
+- [M03_TRANSPORT_PROTOCOL_FIRST_SLICE_IACS.md](./M03_TRANSPORT_PROTOCOL_FIRST_SLICE_IACS.md)
+- [M03_TRANSPORT_PROTOCOL_STRUCTURAL_CARRIER_DIAGRAM.md](./M03_TRANSPORT_PROTOCOL_STRUCTURAL_CARRIER_DIAGRAM.md)
+
+That completed wave is bounded to governed transport and result-artifact
+protocol truth under `M03`, now landed under `code/src/abg/m03/transport/**`.
+It still does not authorize `M04` result-assessment, installed
+qualification, or archive widening.
 
 ## 8. Effect Boundary Rule
 

@@ -9,6 +9,9 @@ Current landed scope:
 - `code/src/gtl/m02/**`
 - `code/src/abg/m03/**`
 - `code/src/app/m04/**`
+- `code/src/qualification/m05/**`
+- `code/src/shared/abg_library/**`
+- `code/src/shared/abg_delivery_library/**`
 - `code/src/shared/validation/**`
 
 The completed authority for that first code wave is:
@@ -35,9 +38,8 @@ That means:
 - `M04-app-bootstrap` now also has a completed bounded control-loop code wave
   under `T-013`
 - the bounded package exports now extend to `./app/m04/control`
-- auto progression, human-proxy approval, event-ingress, result-assessment,
-  install/bootstrap, and bootloader surfaces remain deferred from the current
-  `M04` code wave
+- auto progression, human-proxy approval, install/bootstrap, and bootloader
+  surfaces remain deferred from the current `M04` code wave
 
 The completed runtime authority is:
 
@@ -66,7 +68,25 @@ That completed wave lawfully owns:
 - the module-owned `M04` control-loop integration lane
 - the `T-013` negative-proof lane
 
-No later implementation wave is active yet.
+The completed late `M03` transport/result protocol authority is:
+
+- `.ai-workspace/tickets/completed/T-026-realize-typescript-m03-governed-fp-transport-and-result-artifact-protocol-under-explicit-transport-law.md`
+
+That completed wave owns `code/src/abg/m03/transport/**`.
+It is bounded to governed dispatch, explicit environment sanitization, admitted
+result artifacts, and closed ingest outcomes only.
+The completed common-library wave is:
+
+- `.ai-workspace/tickets/completed/T-027-realize-a-tenant-local-abg-common-realization-library-for-expectation-derivation-contract-carriers-and-module-derived-proof-helpers.md`
+
+That completed wave now owns:
+
+- `code/src/shared/abg_library/**`
+
+The first landed library slice now owns reusable dispatch-expectation and
+transport-contract realization carriers plus reusable proof-fixture profile
+payload shaping consumed by `M03` and `M04` support fixtures.
+Its canonical shared-library proof lanes are now landed and green.
 The latest completed cross-boundary cleanup authority is:
 
 - `.ai-workspace/tickets/completed/T-014-reprice-typescript-m02-publication-lookup-and-m03-execution-resolution-under-explicit-lookup-authority.md`
@@ -75,3 +95,62 @@ That completed wave was bounded to:
 
 - internal `M02 -> M03` lookup-authority code only
 - no tenant package export widening for lookup detail
+
+The latest completed product-facing waves are:
+
+- `.ai-workspace/tickets/completed/T-016-realize-typescript-m04-event-ingress-over-the-canonical-kernel-emission-surface.md`
+- `.ai-workspace/tickets/completed/T-017-realize-typescript-m04-result-assessment-ingress-over-canonical-result-ingest-law.md`
+- `.ai-workspace/tickets/completed/T-018-realize-typescript-m04-live-status-projection-over-explicit-runtime-projection-law.md`
+- `.ai-workspace/tickets/completed/T-019-realize-typescript-m04-install-bootstrap-under-package-first-installed-runtime-law.md`
+- `.ai-workspace/tickets/completed/T-020-realize-typescript-m04-bootloader-and-project-facing-delivery-operations-under-explicit-bootloader-law.md`
+- `.ai-workspace/tickets/completed/T-025-realize-typescript-m04-public-asset-addressing-through-a-published-operator-asset-registry.md`
+
+Those completed waves now own:
+
+- `code/src/app/m04/event_ingress/**`
+- `code/src/app/m04/result_assessment/**`
+- `code/src/app/m04/live_status/**`
+- `code/src/app/m04/install_bootstrap/**`
+- `code/src/app/m04/bootloader/**`
+- `code/src/app/m04/asset_addressing/**`
+- the bounded `./app/m04/event-ingress` package export
+- the bounded `./app/m04/result-assessment` package export
+- the bounded `./app/m04/live-status` package export
+- the bounded `./app/m04/install-bootstrap` package export
+- the bounded `./app/m04/bootloader` package export
+- the bounded `./app/m04/asset-addressing` package export
+- the first bounded `M04` event-ingress proof lanes
+- the first bounded `M04` result-assessment proof lanes
+- the first bounded `M04` live-status proof lanes
+- the first bounded `M04` install/bootstrap proof lanes
+- the first bounded `M04` bootloader proof lanes
+- the first bounded `M04` public asset-addressing proof lanes
+
+Their bounded supporting changes to canonical upstream families remain inside:
+
+- `code/src/abg/m03/contracts/**`
+- `code/src/abg/m03/events/**`
+
+The completed common-delivery-library authority is:
+
+- `.ai-workspace/tickets/completed/T-028-realize-a-tenant-local-abg-common-delivery-library-for-installed-root-plans-verification-and-instruction-file-injection.md`
+
+That completed wave now owns:
+
+- `code/src/shared/abg_delivery_library/**`
+
+The latest completed product-facing implementation authority is:
+
+- `.ai-workspace/tickets/completed/T-022-realize-typescript-m05-installed-sandbox-live-lane-and-archive-proof-under-explicit-installed-runtime-qualification-law.md`
+
+That completed wave is bounded to:
+
+- `code/src/qualification/m05/**`
+- the method-trace qualification unit lane
+- the fake-lane qualification integration lane
+- the installed-sandbox integration lane
+- the installed live-lane integration lane
+- the run-archive integration lane
+- the `T-021` and `T-022` negative-proof lanes
+
+No later TypeScript implementation wave is active.

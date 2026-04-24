@@ -134,6 +134,58 @@ files under completed `T-014`:
 - `code/src/abg/m03/contracts/**/*.ts`
 - `code/src/abg/m03/admission/**/*.ts`
 
+Phase 7 expanded the same lane to the bounded `T-026` transport/result
+protocol wave:
+
+- `code/src/abg/m03/transport/**`
+
+Phase 8 expanded the same lane to the completed `T-027` ABG common realization
+library wave:
+
+- `code/src/shared/abg_library/**`
+
+Phase 9 expanded the same lane to the completed `T-016` event-ingress wave:
+
+- `code/src/app/m04/event_ingress/**`
+
+Phase 10 expanded the same lane to the completed `T-017` result-assessment
+wave:
+
+- `code/src/app/m04/result_assessment/**`
+
+Phase 11 expanded the same lane to the completed `T-018` live-status wave:
+
+- `code/src/app/m04/live_status/**`
+
+Phase 12 expanded the same lane to the completed `T-028` ABG common delivery
+library wave:
+
+- `code/src/shared/abg_delivery_library/**`
+
+Phase 13 expanded the same lane to the completed `T-019`
+install/bootstrap wave:
+
+- `code/src/app/m04/install_bootstrap/**`
+
+Phase 14 expanded the same lane to the completed `T-020` bootloader wave:
+
+- `code/src/app/m04/bootloader/**`
+
+Phase 15 expanded the same lane to the completed `T-025`
+public-asset-addressing wave:
+
+- `code/src/app/m04/asset_addressing/**`
+
+Phase 16 expanded the same lane to the completed `T-021`
+qualification-foundation wave:
+
+- `code/src/qualification/m05/**`
+
+Phase 17 kept the same lane green through the completed `T-022`
+installed-sandbox and archive-proof wave:
+
+- `code/src/qualification/m05/**`
+
 The following are explicitly outside the active bounded lane unless a later
 design slice reprices them in:
 
@@ -142,7 +194,6 @@ design slice reprices them in:
 - `code/src/app/m04/proxy/**`
 - `code/src/app/m04/install/**`
 - `code/src/runtime-shell/**`
-- `code/src/qualification/**`
 - scenario/test harness code outside the semantic contracts under test
 
 Expanding the lane is allowed only after the earlier bounded lanes are green

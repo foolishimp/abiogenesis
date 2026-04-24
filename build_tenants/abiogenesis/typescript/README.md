@@ -61,13 +61,59 @@ The completed `T-013` code wave is still intentionally narrow:
 It still does not authorize event-ingress, result-assessment,
 install/bootstrap, bootloader, or sandbox/scenario widening.
 
-No later implementation wave is active yet.
+The latest completed implementation wave is:
+
+- `.ai-workspace/tickets/completed/T-026-realize-typescript-m03-governed-fp-transport-and-result-artifact-protocol-under-explicit-transport-law.md`
+
+That completed wave is bounded to late `M03` transport/result protocol law
+under `code/src/abg/m03/transport/**`.
+The completed common-library wave is:
+
+- `.ai-workspace/tickets/completed/T-027-realize-a-tenant-local-abg-common-realization-library-for-expectation-derivation-contract-carriers-and-module-derived-proof-helpers.md`
+
+That completed wave is bounded to `code/src/shared/abg_library/**` and exists so
+later waves can consume reusable realization carriers and proof helpers rather
+than rebuilding them locally.
 The latest completed cross-boundary cleanup wave is:
 
 - `.ai-workspace/tickets/completed/T-014-reprice-typescript-m02-publication-lookup-and-m03-execution-resolution-under-explicit-lookup-authority.md`
 
 That completed wave was bounded to `M02 -> M03` lookup authority only.
-No later TypeScript implementation wave is open yet.
+The completed next product-facing TypeScript waves are:
+
+- `.ai-workspace/tickets/completed/T-016-realize-typescript-m04-event-ingress-over-the-canonical-kernel-emission-surface.md`
+- `.ai-workspace/tickets/completed/T-017-realize-typescript-m04-result-assessment-ingress-over-canonical-result-ingest-law.md`
+- `.ai-workspace/tickets/completed/T-018-realize-typescript-m04-live-status-projection-over-explicit-runtime-projection-law.md`
+- `.ai-workspace/tickets/completed/T-019-realize-typescript-m04-install-bootstrap-under-package-first-installed-runtime-law.md`
+- `.ai-workspace/tickets/completed/T-020-realize-typescript-m04-bootloader-and-project-facing-delivery-operations-under-explicit-bootloader-law.md`
+- `.ai-workspace/tickets/completed/T-025-realize-typescript-m04-public-asset-addressing-through-a-published-operator-asset-registry.md`
+
+Those completed waves now cover:
+
+- bounded event-ingress for app-owned `approved`, `revoked`, and `reset`
+  command ingress over canonical kernel emission
+- bounded result-assessment ingress for `assessed{kind: fp}` over canonical
+  ingest truth
+- bounded live-status projection over admitted public/runtime carriers only
+- bounded install/bootstrap delivery over explicit installed-runtime plans and
+  verification
+- bounded bootloader and instruction-file delivery over explicit marker-bound
+  project-facing delivery law
+- bounded public asset-addressing over one published operator asset registry
+  and governing graph-function owner
+
+The completed common-delivery-library wave is:
+
+- `.ai-workspace/tickets/completed/T-028-realize-a-tenant-local-abg-common-delivery-library-for-installed-root-plans-verification-and-instruction-file-injection.md`
+
+That completed wave is bounded to `code/src/shared/abg_delivery_library/**`
+and exists so later delivery-facing waves consume reusable plan, verification,
+writer, and instruction-injection carriers instead of rebuilding them locally.
+
+`T-022` completed the installed-sandbox, live-lane, and archive-proof
+qualification wave.
+`T-023` completed the dormant `M06` trigger boundary, so no later TypeScript
+implementation wave is active.
 
 ## Governing Truth
 

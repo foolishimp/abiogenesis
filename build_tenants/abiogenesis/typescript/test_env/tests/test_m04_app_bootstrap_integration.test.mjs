@@ -14,156 +14,15 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import { edge, graphFunctionForVector } from "../../build/semantic/code/src/gtl/m01/algebra/core.js";
-import { admitNode } from "../../build/semantic/code/src/gtl/m01/admission/carriers.js";
-import { admitModule } from "../../build/semantic/code/src/gtl/m02/admission/carriers.js";
-import {
-  admitResolvedPolicyIdentity,
-  admitResolvedRuntimeIdentity
-} from "../../build/semantic/code/src/abg/m03/index.js";
 import { publicStart } from "../../build/semantic/code/src/app/m04/index.js";
-
-function designNode(overrides = {}) {
-  return {
-    id: "node-m04-int-design",
-    name: "Design",
-    schema: { kind: "symbolic", ref: "Vector[design]" },
-    markov: ["derived"],
-    assetSurface: {
-      kind: "design",
-      requiredContexts: ["workspace"],
-      standardsRefs: ["design-standard"],
-      outputContractRefs: ["design-contract"]
-    },
-    tags: ["input"],
-    ...overrides
-  };
-}
-
-function codeNode(overrides = {}) {
-  return {
-    id: "node-m04-int-code",
-    name: "Code",
-    schema: { kind: "symbolic", ref: "Vector[code]" },
-    markov: ["implemented"],
-    assetSurface: {
-      kind: "code",
-      requiredContexts: ["workspace"],
-      standardsRefs: ["code-standard"],
-      outputContractRefs: ["code-contract"]
-    },
-    tags: ["output"],
-    ...overrides
-  };
-}
-
-function reviewerRolePayload(overrides = {}) {
-  return {
-    id: "role-reviewer-m04-int",
-    name: "reviewer",
-    tags: ["approval"],
-    policyHooks: {
-      entries: [
-        {
-          key: "authority",
-          value: {
-            kind: "hook_ref",
-            value: {
-              ref: "hook://authority/reviewer",
-              config: {
-                entries: [
-                  {
-                    key: "scope",
-                    value: {
-                      kind: "scalar",
-                      value: "public_start_runtime"
-                    }
-                  }
-                ]
-              }
-            }
-          }
-        }
-      ]
-    },
-    ...overrides
-  };
-}
-
-function publishedProfile({ id, name, graphId, graphName }) {
-  const design = admitNode(designNode());
-  const code = admitNode(codeNode());
-  return graphFunctionForVector(
-    edge([design], code, {
-      id: graphId,
-      name: graphName,
-      declarations: { entries: [] }
-    }).vectors[0],
-    {
-      id,
-      name,
-      declarations: { entries: [] }
-    }
-  );
-}
-
-function modulePayload({ moduleName, graphFunctions, jobs }) {
-  const graphs = graphFunctions.map((graphFunction) => graphFunction.template.graph);
-  return {
-    name: moduleName,
-    graphs,
-    graphFunctions,
-    refinementBoundaries: [],
-    candidateFamilies: [],
-    jobs,
-    roles: [reviewerRolePayload()],
-    operators: [],
-    evaluators: [],
-    rules: [],
-    imports: [],
-    metadata: { entries: [] }
-  };
-}
-
-function jobPayload({ id, name, graphFunctionId }) {
-  return {
-    id,
-    name,
-    contracts: [
-      {
-        kind: "graph_function",
-        targetId: graphFunctionId
-      }
-    ],
-    roles: [reviewerRolePayload()],
-    tags: ["semantic_work"]
-  };
-}
-
-function runtimeIdentity() {
-  return admitResolvedRuntimeIdentity({
-    workerId: "worker://typescript-public-start",
-    backendId: "backend://node",
-    buildId: "build://typescript-dev",
-    resolvedRuntimeRef: "runtime://typescript/node"
-  });
-}
-
-function requestPayload(handle, overrides = {}) {
-  return {
-    scope: {
-      kind: "workspace",
-      workspaceRoot: "/workspace/demo",
-      moduleName: "abiogenesis.public_runtime"
-    },
-    target: {
-      kind: "graph_function",
-      handle
-    },
-    until: "converged",
-    ...overrides
-  };
-}
+import {
+  admitRuntimeModule,
+  jobPayload,
+  publishedProfile,
+  requestPayload,
+  resolvedPolicyIdentity,
+  runtimeIdentity
+} from "./support/m04-fixtures.mjs";
 
 test("M04 integration: publicStart routes through M03 emit for F_D and stays stable through package exports", async () => {
   const profile = publishedProfile({
@@ -172,26 +31,23 @@ test("M04 integration: publicStart routes through M03 emit for F_D and stays sta
     graphId: "graph-m04-int-fd",
     graphName: "design→code:m04-int-fd"
   });
-  const module = admitModule(
-    modulePayload({
-      moduleName: "abiogenesis.public_runtime",
-      graphFunctions: [profile],
-      jobs: [
-        jobPayload({
-          id: "job-m04-int-fd",
-          name: "public_profile_fd_job",
-          graphFunctionId: profile.id
-        })
-      ]
-    })
-  );
+  const module = admitRuntimeModule({
+    graphFunctions: [profile],
+    jobs: [
+      jobPayload({
+        id: "job-m04-int-fd",
+        name: "public_profile_fd_job",
+        graphFunctionId: profile.id
+      })
+    ]
+  });
   const events = [];
   const outcome = publicStart(
     requestPayload(profile.name),
     {
       module,
       runtimeIdentity: runtimeIdentity(),
-      resolvedPolicy: admitResolvedPolicyIdentity({
+      resolvedPolicy: resolvedPolicyIdentity({
         resolvedPolicyBundleRef: "policy://public-fd",
         defaultRegime: "F_D"
       }),
@@ -223,26 +79,23 @@ test("M04 integration: publicStart preserves kernel dispatch truth as a blocked 
     graphId: "graph-m04-int-fp",
     graphName: "design→code:m04-int-fp"
   });
-  const module = admitModule(
-    modulePayload({
-      moduleName: "abiogenesis.public_runtime",
-      graphFunctions: [profile],
-      jobs: [
-        jobPayload({
-          id: "job-m04-int-fp",
-          name: "public_profile_fp_job",
-          graphFunctionId: profile.id
-        })
-      ]
-    })
-  );
+  const module = admitRuntimeModule({
+    graphFunctions: [profile],
+    jobs: [
+      jobPayload({
+        id: "job-m04-int-fp",
+        name: "public_profile_fp_job",
+        graphFunctionId: profile.id
+      })
+    ]
+  });
   const events = [];
   const outcome = publicStart(
     requestPayload(profile.name),
     {
       module,
       runtimeIdentity: runtimeIdentity(),
-      resolvedPolicy: admitResolvedPolicyIdentity({
+      resolvedPolicy: resolvedPolicyIdentity({
         resolvedPolicyBundleRef: "policy://public-fp",
         defaultRegime: "F_P",
         dispatchRef: "dispatch://public-fp"
@@ -271,19 +124,16 @@ test("M04 integration: explicit runtime selector mismatch rejects before kernel 
     graphId: "graph-m04-int-mismatch",
     graphName: "design→code:m04-int-mismatch"
   });
-  const module = admitModule(
-    modulePayload({
-      moduleName: "abiogenesis.public_runtime",
-      graphFunctions: [profile],
-      jobs: [
-        jobPayload({
-          id: "job-m04-int-mismatch",
-          name: "public_profile_mismatch_job",
-          graphFunctionId: profile.id
-        })
-      ]
-    })
-  );
+  const module = admitRuntimeModule({
+    graphFunctions: [profile],
+    jobs: [
+      jobPayload({
+        id: "job-m04-int-mismatch",
+        name: "public_profile_mismatch_job",
+        graphFunctionId: profile.id
+      })
+    ]
+  });
   const events = [];
   const outcome = publicStart(
     requestPayload(profile.name, {
@@ -294,7 +144,7 @@ test("M04 integration: explicit runtime selector mismatch rejects before kernel 
     {
       module,
       runtimeIdentity: runtimeIdentity(),
-      resolvedPolicy: admitResolvedPolicyIdentity({
+      resolvedPolicy: resolvedPolicyIdentity({
         resolvedPolicyBundleRef: "policy://public-fd",
         defaultRegime: "F_D"
       })

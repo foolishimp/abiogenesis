@@ -3,7 +3,7 @@
 - id: B-016
 - title: Standardize ABG extension hooks under a consistent IoC contract model so runtime depends on contracts, not concrete implementations
 - type: bug
-- status: backlog
+- status: completed
 - goal: ioc-hook-standardization
 - change_intent: Refactor ABG extension seams so every hook follows one inversion-of-control model with an explicit contract, reference, and resolver or provider boundary, allowing domains to supply implementations without ABG learning domain semantics or coupling to one storage or transport realization.
 - change_class: realization_refactor
@@ -381,3 +381,35 @@ Any GTL uplift should come only after:
 
 Only then should GTL syntactic sugar be added, so the language surface is
 lifting a stable contract rather than fossilizing a transitional runtime shape.
+
+## Completion Record
+
+This ticket closes by decomposition.
+
+The original umbrella concern was real, but it no longer exists as one lawful
+undifferentiated refactor. Its high-risk slices were pulled into narrower
+completed tickets:
+
+- `B-014` typed fulfillment assessment carrier law
+- `B-015` generic fulfillment truth reference and resolution
+- `B-017` certification over target truth rather than evaluator-name
+  coincidence
+- `B-024` published asset registry and ownership surface
+- `B-029` continuation-owned public projection truth
+- `T-025` TypeScript public asset addressing
+- `T-026` TypeScript transport and result-artifact protocol
+- `T-027` tenant-local common realization library
+- `T-028` tenant-local common delivery library
+
+Current consequence:
+
+- the remaining hook families must now be reviewed and reopened only as
+  boundary-local tickets
+- no single backlog item should reassert the entire substrate-wide IoC
+  standardization problem without a new hook inventory and decomposition pass
+
+Future re-entry rule:
+
+- if a new ABG hook appears without a clear `Ref` / `Contract` / `Resolver` or
+  `Provider` / `Consumer` shape, open a new narrow ticket at the owning
+  boundary instead of reopening this umbrella

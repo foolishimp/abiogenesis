@@ -1,21 +1,9 @@
 import type {
-  AdvancementTransition,
   RuntimeEvent,
   TerminalKind
 } from "../contracts/carriers.js";
 
 export type RuntimeEventSink = (event: RuntimeEvent) => void;
-type DispatchRequest = {
-  readonly kind: "fp_dispatch_request";
-  readonly basisId: string;
-  readonly graphFunctionId: string;
-  readonly jobId: string;
-  readonly dispatchRef: string;
-  readonly workerId: string;
-  readonly backendId: string;
-  readonly resultRef: string;
-};
-export type DispatchRequestSink = (request: DispatchRequest) => void;
 
 function assertNonEmptyString(value: unknown, label: string): void {
   if (typeof value !== "string" || value.length === 0) {
@@ -27,6 +15,26 @@ function assertNullableString(value: unknown, label: string): void {
   if (value !== null && typeof value !== "string") {
     throw new TypeError(`${label} must be a string or null`);
   }
+}
+
+function assertOneOf<T extends string>(
+  value: unknown,
+  label: string,
+  allowed: readonly T[]
+): asserts value is T {
+  if (typeof value !== "string") {
+    throw new TypeError(
+      `${label} must be one of ${allowed.map((item) => JSON.stringify(item)).join(", ")}`
+    );
+  }
+  for (const option of allowed) {
+    if (value === option) {
+      return;
+    }
+  }
+  throw new TypeError(
+    `${label} must be one of ${allowed.map((item) => JSON.stringify(item)).join(", ")}`
+  );
 }
 
 function assertTerminalKind(value: unknown, label: string): asserts value is TerminalKind {
@@ -48,36 +56,10 @@ function isPlainObject(input: unknown): input is Record<string, unknown> {
   return typeof input === "object" && input !== null && !Array.isArray(input);
 }
 
-function deriveDispatchResultRef(
-  basisId: string,
-  dispatchRef: string
-): string {
-  return `result:fp_dispatch:${JSON.stringify({ basisId, dispatchRef })}`;
-}
-
 function isRuntimeEventBatch(
   events: RuntimeEvent | readonly RuntimeEvent[]
 ): events is readonly RuntimeEvent[] {
   return Array.isArray(events);
-}
-
-function isDispatchRequestBatch(
-  requests: DispatchRequest | readonly DispatchRequest[]
-): requests is readonly DispatchRequest[] {
-  return Array.isArray(requests);
-}
-
-function assertDispatchRequest(request: unknown): asserts request is DispatchRequest {
-  if (!isPlainObject(request) || request["kind"] !== "fp_dispatch_request") {
-    throw new TypeError("dispatch request must be an fp_dispatch_request object");
-  }
-  assertNonEmptyString(request["basisId"], "DispatchRequest.basisId");
-  assertNonEmptyString(request["graphFunctionId"], "DispatchRequest.graphFunctionId");
-  assertNonEmptyString(request["jobId"], "DispatchRequest.jobId");
-  assertNonEmptyString(request["dispatchRef"], "DispatchRequest.dispatchRef");
-  assertNonEmptyString(request["workerId"], "DispatchRequest.workerId");
-  assertNonEmptyString(request["backendId"], "DispatchRequest.backendId");
-  assertNonEmptyString(request["resultRef"], "DispatchRequest.resultRef");
 }
 
 function assertRuntimeEvent(event: unknown): asserts event is RuntimeEvent {
@@ -133,6 +115,111 @@ function assertRuntimeEvent(event: unknown): asserts event is RuntimeEvent {
       assertTerminalKind(event["terminalKind"], "TerminalReachedEvent.terminalKind");
       assertNullableString(event["reason"], "TerminalReachedEvent.reason");
       return;
+    case "approved":
+      assertOneOf(event["approvalKind"], "ApprovedRuntimeEvent.approvalKind", [
+        "fh_review",
+        "fh_intent"
+      ]);
+      assertNonEmptyString(event["edge"], "ApprovedRuntimeEvent.edge");
+      assertOneOf(event["actor"], "ApprovedRuntimeEvent.actor", [
+        "human",
+        "human-proxy"
+      ]);
+      assertNonEmptyString(
+        event["workflowVersion"],
+        "ApprovedRuntimeEvent.workflowVersion"
+      );
+      assertNullableString(event["runId"], "ApprovedRuntimeEvent.runId");
+      assertNullableString(event["workKey"], "ApprovedRuntimeEvent.workKey");
+      return;
+    case "revoked":
+      assertOneOf(event["approvalKind"], "RevokedRuntimeEvent.approvalKind", [
+        "fh_approval"
+      ]);
+      assertNonEmptyString(event["edge"], "RevokedRuntimeEvent.edge");
+      assertNonEmptyString(event["actor"], "RevokedRuntimeEvent.actor");
+      assertNonEmptyString(event["reason"], "RevokedRuntimeEvent.reason");
+      assertNonEmptyString(
+        event["workflowVersion"],
+        "RevokedRuntimeEvent.workflowVersion"
+      );
+      assertNullableString(event["runId"], "RevokedRuntimeEvent.runId");
+      assertNullableString(event["workKey"], "RevokedRuntimeEvent.workKey");
+      return;
+    case "reset":
+      assertOneOf(event["scope"], "ResetRuntimeEvent.scope", [
+        "workspace",
+        "work_key",
+        "edge"
+      ]);
+      assertNonEmptyString(event["actor"], "ResetRuntimeEvent.actor");
+      assertNonEmptyString(event["reason"], "ResetRuntimeEvent.reason");
+      assertNonEmptyString(
+        event["workflowVersion"],
+        "ResetRuntimeEvent.workflowVersion"
+      );
+      assertNullableString(event["runId"], "ResetRuntimeEvent.runId");
+      assertNullableString(event["workKey"], "ResetRuntimeEvent.workKey");
+      assertNullableString(event["edge"], "ResetRuntimeEvent.edge");
+      if (
+        (event["scope"] === "work_key" || event["scope"] === "edge") &&
+        event["workKey"] === null
+      ) {
+        throw new TypeError(
+          "ResetRuntimeEvent.workKey must be present for scope work_key or edge"
+        );
+      }
+      if (event["scope"] === "edge" && event["edge"] === null) {
+        throw new TypeError("ResetRuntimeEvent.edge must be present for scope edge");
+      }
+      return;
+    case "assessed":
+      assertOneOf(event["assessmentKind"], "AssessedRuntimeEvent.assessmentKind", [
+        "fp"
+      ]);
+      assertNonEmptyString(event["edge"], "AssessedRuntimeEvent.edge");
+      assertNonEmptyString(
+        event["obligationId"],
+        "AssessedRuntimeEvent.obligationId"
+      );
+      assertNonEmptyString(
+        event["publishedLedgerRef"],
+        "AssessedRuntimeEvent.publishedLedgerRef"
+      );
+      assertNonEmptyString(event["actor"], "AssessedRuntimeEvent.actor");
+      assertNonEmptyString(event["specHash"], "AssessedRuntimeEvent.specHash");
+      assertNonEmptyString(
+        event["manifestId"],
+        "AssessedRuntimeEvent.manifestId"
+      );
+      assertNonEmptyString(
+        event["workflowVersion"],
+        "AssessedRuntimeEvent.workflowVersion"
+      );
+      assertNullableString(event["runId"], "AssessedRuntimeEvent.runId");
+      assertNullableString(event["workKey"], "AssessedRuntimeEvent.workKey");
+      assertNullableString(
+        event["selectedWorkerId"],
+        "AssessedRuntimeEvent.selectedWorkerId"
+      );
+      assertNullableString(
+        event["selectedBackend"],
+        "AssessedRuntimeEvent.selectedBackend"
+      );
+      assertNullableString(event["roleId"], "AssessedRuntimeEvent.roleId");
+      assertNullableString(
+        event["authorityRef"],
+        "AssessedRuntimeEvent.authorityRef"
+      );
+      assertNullableString(
+        event["assignmentSource"],
+        "AssessedRuntimeEvent.assignmentSource"
+      );
+      assertNullableString(
+        event["resolvedRuntimeRef"],
+        "AssessedRuntimeEvent.resolvedRuntimeRef"
+      );
+      return;
     default:
       throw new TypeError("RuntimeEvent.kind is not a supported closed variant");
   }
@@ -155,44 +242,6 @@ function normalizeEvents(
   return Object.freeze(batch);
 }
 
-function normalizeDispatchRequests(
-  requests: DispatchRequest | readonly DispatchRequest[]
-): readonly DispatchRequest[] {
-  const batch: DispatchRequest[] = [];
-  if (isDispatchRequestBatch(requests)) {
-    for (const request of requests) {
-      batch.push(request);
-    }
-  } else {
-    batch.push(requests);
-  }
-  for (const request of batch) {
-    assertDispatchRequest(request);
-  }
-  return Object.freeze(batch);
-}
-
-export function dispatchRequestsForTransition(
-  transition: AdvancementTransition
-): readonly DispatchRequest[] {
-  if (transition.kind !== "fp_dispatch") {
-    return Object.freeze([]);
-  }
-  const dispatchRef = transition.dispatchRef;
-  const basis = transition.basis;
-  const request: DispatchRequest = Object.freeze({
-    kind: "fp_dispatch_request",
-    basisId: basis.id,
-    graphFunctionId: basis.graphFunction.id,
-    jobId: basis.job.id,
-    dispatchRef,
-    workerId: basis.runtimeIdentity.workerId,
-    backendId: basis.runtimeIdentity.backendId,
-    resultRef: deriveDispatchResultRef(basis.id, dispatchRef)
-  });
-  return Object.freeze([request]);
-}
-
 export function emit(
   events: RuntimeEvent | readonly RuntimeEvent[],
   sink: RuntimeEventSink
@@ -200,17 +249,6 @@ export function emit(
   const normalized = normalizeEvents(events);
   for (const event of normalized) {
     sink(event);
-  }
-  return normalized;
-}
-
-export function dispatch(
-  requests: DispatchRequest | readonly DispatchRequest[],
-  sink: DispatchRequestSink
-): readonly DispatchRequest[] {
-  const normalized = normalizeDispatchRequests(requests);
-  for (const request of normalized) {
-    sink(request);
   }
   return normalized;
 }

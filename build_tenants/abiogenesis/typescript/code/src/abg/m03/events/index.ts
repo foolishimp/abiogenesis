@@ -1,2 +1,2 @@
-export { dispatch, dispatchRequestsForTransition, emit } from "./emit.js";
-export type { DispatchRequestSink, RuntimeEventSink } from "./emit.js";
+export { emit } from "./emit.js";
+export type { RuntimeEventSink } from "./emit.js";
