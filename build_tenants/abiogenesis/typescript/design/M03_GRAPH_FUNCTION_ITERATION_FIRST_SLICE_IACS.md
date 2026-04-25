@@ -65,6 +65,7 @@ authoritative runtime facts, but they remain members of the existing
 | `RuntimeEvent` | `M03-engine-kernel` | append-only runtime fact family | canonical `emit(...)` | event store write | aggregate projection |
 | `RuntimeAggregateProjection` | `M03-engine-kernel` | replay-derived current runtime truth | `projectRuntimeAggregates(events, basis)` | none | iteration decision, public projections |
 | `IterationAdvanceDecision` | `M03-engine-kernel` | sole next-edge planning authority | `deriveIterationAdvanceDecision(basis, projection)` | dispatch/evaluator/emit shells | runtime event derivation, later public stop projection |
+| `TraversalStructureProbe` | `M03-engine-kernel` | downstream diagnostic projection over traversal authority | `deriveTraversalStructureProbe(basis, events)` | none | deterministic exploration and module proof lanes |
 
 ## RuntimeEvent Variant Register
 
@@ -122,9 +123,45 @@ Only `traverse_vector` carries `VectorTraversalPlan`.
 | `VectorTraversalPlan` | subordinate | effect plan under one decision | derived only by `traverse_vector` |
 | `EffectiveRuntimeBinding` | subordinate | projection detail for carried context/environment | derived from basis, graph vector, frame, and event truth |
 | `ClosureObservation` | subordinate | vector-local proof/evaluation detail | admitted only through event variants |
+| `TraversalStructureProbe` | downstream diagnostic projection | read-model over existing basis/projection/decision/transition truth, not runtime authority | derived only from admitted basis and runtime events |
+| `TraversalNodeProbe`, `TraversalOperatorProbe`, `TraversalEvaluatorProbe`, `TraversalRuleProbe` | subordinate | field groups inside one diagnostic projection | constructed only inside `TraversalStructureProbe` |
 | public stop class | deferred | belongs to `M04` projection wave | `T-035`/`B-030-TS` |
 | generic retry repair budget | deferred | separate runtime governance design | `T-042` |
 | leaf-task execution envelope | deferred | separate bounded subordinate work design | `T-042` |
+
+## Diagnostic Projection Register
+
+`TraversalStructureProbe` is a downstream diagnostic projection over the active
+M03 runtime carriers. It is not a third prime runtime family.
+
+It reads:
+
+- `ExecutionBasis`
+- `RuntimeEvent`
+- `RuntimeAggregateProjection`
+- `IterationAdvanceDecision`
+- `AdvancementTransition`
+- the current `GraphVector` and its GTL declaration surfaces
+
+It reports deterministic exploration truth for one traversal boundary:
+
+- graph function and job identity
+- current vector identity and edge name
+- source and target schema and asset-surface truth
+- operator, evaluator, and rule surfaces
+- declared operator/evaluator regimes
+- runtime policy regime
+- transition kind
+- iteration and transition event kinds
+- allowed and not-allowed claims
+
+It must not:
+
+- choose the next vector
+- emit runtime events
+- classify runtime stop state for public operators
+- imply identity, domain transform, domain evaluation, completion, or runtime
+  regime fallback where those authorities are absent
 
 ## Selection Rules
 

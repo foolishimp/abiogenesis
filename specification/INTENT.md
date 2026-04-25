@@ -35,6 +35,36 @@ The authored domain surface is `build_tenants/abiogenesis/python/code/gtl_spec/p
 
 ---
 
+## GTL as an LLM-First Algebraic Language
+
+GTL is an LLM-first language because its graph algebra constrains
+probabilistic construction.
+
+The language gives an LLM a bounded program-construction space:
+
+- typed nodes and asset surfaces
+- edge traversal contracts
+- operators, evaluators, and rules
+- graph functions
+- modules, jobs, and roles
+- runtime policy hooks
+- proof, provenance, and projection obligations
+
+An LLM may construct a lawful GTL expression under specification authority.
+It may not invent hidden execution law.
+
+GTL supplies the algebraic program surface.
+ABG admits the program, binds it to runtime identity and policy, executes the
+traversal, records events, projects state, and preserves proof.
+The domain owns asset meaning, domain HOW, acceptance interpretation, and
+domain-specific operator or evaluator implementations.
+
+Robustness comes from admitted carriers, explicit regime law, graph-function
+publication, replayable provenance, and evaluator evidence. It does not come
+from trusting hidden LLM reasoning.
+
+---
+
 ## GTL / ABG Control Boundary
 
 GTL and ABG define governance and control around probabilistic work, not the

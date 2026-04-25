@@ -128,6 +128,10 @@ Current tenant-local design truth and proposed next-boundary design packs live i
 - `M05_QUALIFICATION_DERIVATION.md`
 - `M05_QUALIFICATION_FIRST_SLICE_IACS.md`
 - `M05_QUALIFICATION_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M05_SDLC_BOOTSTRAP_LINEAGE_DERIVATION.md`
+- `M05_SDLC_BOOTSTRAP_LINEAGE_FIRST_SLICE_IACS.md`
+- `M05_SDLC_BOOTSTRAP_LINEAGE_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M05_DATA_MAPPER_REAL_INGRESS_PROOF_DERIVATION.md`
 - `M05_INSTALLED_SANDBOX_DERIVATION.md`
 - `M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md`
 - `M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md`
@@ -448,6 +452,28 @@ That completed slice adds:
 - one installed-package behavior portfolio qualifier
 - one installed-package integration lane that runs 34 scenario obligations
 - one durable portfolio report under `test_env/test_runs/`
+
+The completed SDLC bootstrap-lineage PoC wave is:
+
+- `.ai-workspace/tickets/completed/T-063-realize-typescript-m05-sdlc-bootstrap-lineage-poc-over-gtl-abg-provenance.md`
+
+`T-063` completed the bounded `M05` SDLC-domain proof for conformant bootstrap
+ingress and derived-element lineage over GTL/ABG provenance.
+Its first-slice design assets are:
+
+- `M05_SDLC_BOOTSTRAP_LINEAGE_DERIVATION.md`
+- `M05_SDLC_BOOTSTRAP_LINEAGE_FIRST_SLICE_IACS.md`
+- `M05_SDLC_BOOTSTRAP_LINEAGE_STRUCTURAL_CARRIER_DIAGRAM.md`
+
+That completed slice is bounded to:
+
+- one admitted `SdlcBootstrapInputSet` over weak source material
+- one `GF_BOOTSTRAP_PROJECT` graph function with
+  `BootstrapInputSet->Project` shape
+- one typed `SdlcProject` result
+- one `SdlcDerivationLedger` carrying asset and element lineage
+- one runtime-provenance join over existing ABG traversal truth
+- one module-owned unit lane under `test:t063`
 
 The completed RC live UAT wave is:
 

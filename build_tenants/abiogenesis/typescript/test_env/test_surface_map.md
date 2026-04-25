@@ -537,6 +537,115 @@ The canonical active files are:
   installed sandbox proof now records replay-derived core iteration as the
   progression authority
 
+## M03 Generic Single-Hop Investigation Tests
+
+The generic single-hop substrate investigation is `T-059`.
+Its proof lane derives from:
+
+- [ABG_3_MODULE_DESIGN.md](../design/ABG_3_MODULE_DESIGN.md)
+- [M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md](../design/M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md)
+- [M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md](../design/M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md)
+- [T-059-investigate-typescript-abg-generic-single-hop-graph-function-semantics.md](../../../.ai-workspace/tickets/completed/T-059-investigate-typescript-abg-generic-single-hop-graph-function-semantics.md)
+
+The investigation file is:
+
+- `test_m03_generic_single_hop_graph_function_investigation.test.mjs` —
+  bounded M03 substrate proof for `Fg_1`, a generic one-edge graph function
+  with no domain-specific schema, no transform hook, and no evaluator hook. The
+  lane records whether the admitted policy basis selects `F_D`, `F_P`, or `F_H`
+  transition behavior, and proves absent policy basis fails closed before
+  execution-basis admission.
+
+## M03 Minimum Typed Traversal Investigation Tests
+
+The minimum typed traversal substrate investigation is `T-061`.
+Its proof lane derives from:
+
+- [ABG_3_MODULE_DESIGN.md](../design/ABG_3_MODULE_DESIGN.md)
+- [M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md](../design/M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md)
+- [M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md](../design/M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md)
+- [T-061-investigate-typescript-abg-minimum-typed-traversal-semantics.md](../../../.ai-workspace/tickets/completed/T-061-investigate-typescript-abg-minimum-typed-traversal-semantics.md)
+
+The investigation file is:
+
+- `test_m03_minimum_typed_traversal_investigation.test.mjs` — bounded M03
+  substrate proof for `GF_TYPED_001`, a typed one-edge graph function
+  `A_1->A_2` with declared source and target schema/asset kinds but no
+  transform hook and no evaluator hook. The lane proves that type/interface
+  authority is visible in GTL and ABG projections, but does not itself choose
+  `F_D`, `F_P`, `F_H`, identity, transform, evaluation, or completion semantics.
+  Runtime policy still supplies the invocation interpretation basis, and absent
+  policy basis still fails closed.
+
+## M03 Traversal Structure Probe Tests
+
+The deterministic traversal-structure probe is `T-062`.
+Its proof lane derives from:
+
+- [ABG_3_MODULE_DESIGN.md](../design/ABG_3_MODULE_DESIGN.md)
+- [M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md](../design/M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md)
+- [M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md](../design/M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md)
+- [T-062-realize-typescript-abg-deterministic-traversal-structure-probe.md](../../../.ai-workspace/tickets/completed/T-062-realize-typescript-abg-deterministic-traversal-structure-probe.md)
+
+The canonical active file is:
+
+- `test_m03_traversal_structure_probe_unit.test.mjs` — module-owned F_D probe
+  proof over `deriveTraversalStructureProbe(...)`. The lane proves one reusable
+  report over the PoC ladder: undefined traversal, minimum typed traversal, and
+  minimum defined traversal. The probe reports typed loci, edge shape,
+  operator/evaluator surfaces, policy regime, transition kind, event kinds, and
+  explicit allowed/not-allowed claims so deterministic exploration can inspect
+  traversal authority without creating a second runtime path. The active IACS
+  and structural carrier diagram classify the probe as a downstream diagnostic
+  projection with subordinate probe payloads, not a prime runtime authority.
+
+## M05 SDLC Bootstrap Lineage PoC Tests
+
+The SDLC bootstrap-lineage PoC is `T-063`.
+Its proof lane derives from:
+
+- [M05_SDLC_BOOTSTRAP_LINEAGE_DERIVATION.md](../design/M05_SDLC_BOOTSTRAP_LINEAGE_DERIVATION.md)
+- [M05_SDLC_BOOTSTRAP_LINEAGE_FIRST_SLICE_IACS.md](../design/M05_SDLC_BOOTSTRAP_LINEAGE_FIRST_SLICE_IACS.md)
+- [M05_SDLC_BOOTSTRAP_LINEAGE_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_SDLC_BOOTSTRAP_LINEAGE_STRUCTURAL_CARRIER_DIAGRAM.md)
+- [T-063-realize-typescript-m05-sdlc-bootstrap-lineage-poc-over-gtl-abg-provenance.md](../../../.ai-workspace/tickets/completed/T-063-realize-typescript-m05-sdlc-bootstrap-lineage-poc-over-gtl-abg-provenance.md)
+
+The canonical active file is:
+
+- `test_m05_sdlc_bootstrap_lineage_unit.test.mjs` — module-owned proof for
+  `SDLC_BOOTSTRAP_LINEAGE_001`. The lane proves `GF_BOOTSTRAP_PROJECT` as
+  `BootstrapInputSet->Project`, consumes ABG traversal/provenance truth through
+  the deterministic probe, derives a typed `SdlcProject`, carries asset-level
+  and element-level lineage inside `SdlcDerivationLedger`, answers source-input
+  lookup for a derived project element, and fails closed on invalid weak
+  ingress before semantic derivation.
+
+## M05 Data Mapper Real Ingress Sandbox Tests
+
+The real data-mapper ingress proof is `T-064`.
+Its proof lane derives from:
+
+- [M05_SDLC_BOOTSTRAP_LINEAGE_DERIVATION.md](../design/M05_SDLC_BOOTSTRAP_LINEAGE_DERIVATION.md)
+- [M05_SDLC_BOOTSTRAP_LINEAGE_FIRST_SLICE_IACS.md](../design/M05_SDLC_BOOTSTRAP_LINEAGE_FIRST_SLICE_IACS.md)
+- [M05_SDLC_BOOTSTRAP_LINEAGE_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_SDLC_BOOTSTRAP_LINEAGE_STRUCTURAL_CARRIER_DIAGRAM.md)
+- [M05_DATA_MAPPER_REAL_INGRESS_PROOF_DERIVATION.md](../design/M05_DATA_MAPPER_REAL_INGRESS_PROOF_DERIVATION.md)
+- [T-064-realize-typescript-m05-data-mapper-real-ingress-proof-over-sdlc-bootstrap-lineage.md](../../../.ai-workspace/tickets/completed/T-064-realize-typescript-m05-data-mapper-real-ingress-proof-over-sdlc-bootstrap-lineage.md)
+
+The sandbox file is:
+
+- `test_env/sandbox/test_m05_data_mapper_real_ingress.test.mjs` — fixture-backed
+  M05 proof over the preserved `data_mapper.template` authority corpus plus
+  recent generated `data_mapper.test41`, `data_mapper.test42`, and
+  `data_mapper.test43` Python SDLC surfaces. The lane validates Python
+  deterministic normalization evidence, admits real file digests and URIs into
+  `SdlcBootstrapInputSet`, derives CDME project identity and normalized
+  requirement lineage through `SdlcProject`, and keeps runtime/context evidence
+  visible as ambiguity when it is not semantic authority.
+
+This lane is intentionally outside the default `test:semantic` wildcard because
+it depends on a sibling workspace fixture. It runs through:
+
+- `npm run test:t064`
+
 ## M03 Retry/Repair And Leaf-Task Tests
 
 The completed retry/repair and leaf-task governance wave is `T-045`.

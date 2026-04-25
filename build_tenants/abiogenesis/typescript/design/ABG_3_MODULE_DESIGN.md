@@ -195,6 +195,10 @@ The concrete TypeScript `M03` design pack for this consequence is:
 - [M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md](./M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md)
 - [M03_GRAPH_FUNCTION_ITERATION_STRUCTURAL_CARRIER_DIAGRAM.md](./M03_GRAPH_FUNCTION_ITERATION_STRUCTURAL_CARRIER_DIAGRAM.md)
 
+The deterministic traversal-structure probe is a downstream diagnostic
+projection over this design pack. It is not next-edge authority and is not a
+new public operator command.
+
 ### 5.4 Retry/repair and leaf tasks stay substrate-owned
 
 Generic retry/repair and bounded leaf-task execution are `M03-engine-kernel`

@@ -73,6 +73,11 @@ export {
   runtimeEventsForIterationDecision
 } from "./iteration.js";
 export { deriveRuntimeAggregateProjection } from "./projection.js";
+export type {
+  TraversalStructureKind,
+  TraversalStructureProbe
+} from "./traversal_structure_probe.js";
+export { deriveTraversalStructureProbe } from "./traversal_structure_probe.js";
 export {
   admitLeafTaskPayload,
   constructLeafTaskCompletedEvent,

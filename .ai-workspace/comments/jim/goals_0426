@@ -1,0 +1,35 @@
+
+1. Validate ABG traversal --- Forensic Probe
+2. Determin ABG scaffolding is sufficient
+   1. Gap -> ***Triage
+   2. Start -> (Traverse, ***GraphFn:Process_Ticket -> ***GraphFn:Consensu)
+   3. Evaluate -> (Yield, Close, Stop)
+   4. Iterate
+   5. ***Triage -> ( Ticket, TBD: Action )
+
+    *** SDLC Functions that close the ABG loop
+
+3. Template or define a set of scenarios
+    1. Extract Function, Pattern Rexp.X -> list of X Items
+    2. Synthesis: Inference Rules -> List of Inferred Items
+    3. Transformat: Transformation Rules -> List of transformed Items
+
+   General Feautre
+    4. for ever item in A ->T-> list of items in A_t Etc.
+    5. for ever item in A ->T-> list of ambiguous in A_t Etc.
+    6. Gap Evaluation
+4. Idempotent Instantiated Typed Nodes
+   1. When I run a graphfunction, its over a graph instance, the graph instance has an attached set of assets - this is a project representation
+   2. But there is no reason that I can't create Project "Instances" which from the Project Graph, a new instance can be created, that instance could exist at any traversal potentially.
+   3. Why is this useful,
+      1. First off it makes the concept of idempotency very clear and not assumed, when i'm running a Graph Function, im passing an "instance of a project" to traverse over, or at least a fragement of the graph that Graph Function maps over.
+      2. Once I understand this idempotency, i realise i can run the same graph and generate a set of A -> (B1,B2,B3,B4) each with their associated meta data traversal, fully renentrant and idempotent, by defining a new target from a common starting Node.
+      3. Similarly if I want to compare two nodes directly I can use Zoom out for example and do a gap analysis betwen Requirements -> Implmentation
+      4. Finally I now see the typed Graph as the minimum set of invariant assets that need to be instanced, and for which well modularised Graph Functions can be used to traverse over.
+   4. Graph Functions VS Graph - to be challenged
+      1. A graph is a template of a train tracks with train stations along the route you can stop at
+      2. A project is an instatnce of that Graph, and as discussed above the GraphFunction engine builder can run over the same tracks repeatedly or even branch and instantiate duplicate track
+5. Zoom in / Zoom out / Fold -- Speculation to be tested
+   1. I should not need to create new types of Registers outside of ODD to force deterministic tracking of features
+   2. If an edge traversal is too big for an LLM to manage and it needs sub dived steps it can use zoom in to create more intermediary, for me the example of going from Design ADRS, to Modules, to implementation VS going from Desing ADRs to Implementation. Modules creates a valuable intermediary trace, where you can coneptually reason at a logical layer before going to the physical layer.
+   3. If I need an asset register, or some kind of event ledger, then itself should be built using ODD and graph functions

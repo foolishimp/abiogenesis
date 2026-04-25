@@ -1859,7 +1859,7 @@ cd /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript
 npm run build:semantic
 npm pack
 cd /path/to/project
-npm install /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/abiogenesis-typescript-tenant-3.4.0-rc.1.tgz
+npm install /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/abiogenesis-typescript-tenant-3.4.0-rc.2.tgz
 ```
 
 For product-owned bootstrap, use the package API:
@@ -1873,8 +1873,8 @@ const installOutcome = await installBootstrap(
     installedPackageName: "@example/delivery-app",
     runtimePackage: {
       packageName: "@abiogenesis/typescript-tenant",
-      packageVersion: "3.4.0-rc.1",
-      dependencyRef: "file:./abiogenesis-typescript-tenant-3.4.0-rc.1.tgz",
+      packageVersion: "3.4.0-rc.2",
+      dependencyRef: "file:./abiogenesis-typescript-tenant-3.4.0-rc.2.tgz",
       appExportSubpath: "./app/m04",
       requiredExports: [".", "./app/m04"]
     }

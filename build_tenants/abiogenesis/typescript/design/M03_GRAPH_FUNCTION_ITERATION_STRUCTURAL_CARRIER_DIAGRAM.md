@@ -13,6 +13,10 @@ The diagram makes the authority chain visible:
 
 `ExecutionBasis + RuntimeEvent replay -> RuntimeAggregateProjection -> IterationAdvanceDecision -> emitted facts/effect plans`.
 
+Diagnostic exploration remains downstream of that authority chain:
+
+`ExecutionBasis + RuntimeEvent replay -> RuntimeAggregateProjection + IterationAdvanceDecision + AdvancementTransition -> TraversalStructureProbe`.
+
 ## Diagram
 
 ```mermaid
@@ -84,6 +88,11 @@ class IterationAdvanceDecision {
   <<authoritative>>
 }
 
+class AdvancementTransition {
+  <<existing prime>>
+  <<authoritative>>
+}
+
 class OpenGraphCallDecision {
   <<decision variant>>
 }
@@ -121,6 +130,40 @@ class VectorTraversalPlan {
   -vectorId
   -sourceNodeId
   -targetNodeId
+}
+
+class TraversalStructureProbe {
+  <<downstream>>
+  <<diagnostic projection>>
+  +structureKind
+  +edge
+  +policyRegime
+  +transitionKind
+  +allowedClaims
+  +notAllowedClaims
+}
+
+class TraversalNodeProbe {
+  <<subordinate>>
+  -schemaRef
+  -assetKind
+}
+
+class TraversalOperatorProbe {
+  <<subordinate>>
+  -regime
+  -binding
+}
+
+class TraversalEvaluatorProbe {
+  <<subordinate>>
+  -regime
+  -binding
+}
+
+class TraversalRuleProbe {
+  <<subordinate>>
+  -kind
 }
 
 class EffectiveRuntimeBinding {
@@ -165,6 +208,15 @@ IterationAdvanceDecision --> ExecutionBasis : reads graph/job truth
 TraverseVectorDecision *-- VectorTraversalPlan
 VectorTraversalPlan *-- EffectiveRuntimeBinding
 
+TraversalStructureProbe ..> ExecutionBasis : reads
+TraversalStructureProbe ..> RuntimeAggregateProjection : reads
+TraversalStructureProbe ..> IterationAdvanceDecision : reads
+TraversalStructureProbe ..> AdvancementTransition : reads
+TraversalStructureProbe *-- TraversalNodeProbe
+TraversalStructureProbe *-- TraversalOperatorProbe
+TraversalStructureProbe *-- TraversalEvaluatorProbe
+TraversalStructureProbe *-- TraversalRuleProbe
+
 PublicStart ..> ExecutionBasis : admits/resumes only
 PublicStart ..> IterationAdvanceDecision : does not replace
 IterationAdvanceDecision ..> RuntimeEvent : emits next facts
@@ -176,12 +228,20 @@ IterationAdvanceDecision ..> M04StopTaxonomy : consumed later
 - `ExecutionBasis` and `RuntimeEvent` are existing prime `M03` carriers.
 - `RuntimeAggregateProjection` and `IterationAdvanceDecision` are the two new
   prime families for this boundary.
+- `AdvancementTransition` is an existing prime `M03` carrier consumed by the
+  diagnostic projection. This slice does not redefine it.
 - `GraphCallEvent`, `FrameEvent`, `VectorTraversalEvent`, and
   `ContinuationEvent` are variants of the existing runtime event family.
 - `RunProjection`, `GraphCallProjection`, `FrameProjection`, and
   `ContinuationProjection` must remain separately inspectable even if a first
   implementation returns one aggregate object.
 - `VectorTraversalPlan` is subordinate to one `traverse_vector` decision.
+- `TraversalStructureProbe` is a downstream diagnostic projection. It is not a
+  prime runtime carrier and does not choose traversal, emit facts, or classify
+  public stop state.
+- `TraversalNodeProbe`, `TraversalOperatorProbe`, `TraversalEvaluatorProbe`,
+  and `TraversalRuleProbe` are subordinate payloads inside the diagnostic
+  projection only.
 - `PublicStart` is an ignition/resume consumer. It is not the internal iterate
   engine.
 - Public stop taxonomy remains deferred to `T-035` and `B-030-TS`.
@@ -193,5 +253,8 @@ This diagram is lawful only if future TypeScript code:
 - derives the next internal vector from replayed runtime facts,
 - preserves graph-call and frame truth outside run projection alone,
 - records vector-local traversal, evaluation, proof, and closure facts,
+- keeps diagnostic exploration downstream of `ExecutionBasis`,
+  `RuntimeAggregateProjection`, `IterationAdvanceDecision`, and
+  `AdvancementTransition`,
 - rejects local loop counters as authority, and
 - rejects first-vector-only dispatch as graph-function execution parity.

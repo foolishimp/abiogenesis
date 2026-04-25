@@ -81,6 +81,12 @@ public start:
 The decision family is the only authority for choosing the next internal graph
 vector in TypeScript `M03`.
 
+Diagnostic exploration over that boundary is downstream read-model truth.
+`TraversalStructureProbe` may inspect an admitted basis, replay projection,
+iteration decision, advancement transition, and current vector declaration
+surface. It does not become next-edge authority and does not emit runtime
+facts.
+
 ## 5. Required Runtime Reading
 
 An iteration decision must read:
@@ -124,6 +130,9 @@ internal vector, closure, continuation, or public stop remains.
 Implementation must declare and then land proof lanes for:
 
 - deterministic replay of run, graph-call, frame, and continuation projection
+- deterministic traversal-structure probing that distinguishes graph shape,
+  typed interface authority, declared compute carriers, runtime policy
+  interpretation, event kinds, and forbidden overclaims
 - a composed three-stage graph function whose second and third vectors are
   selected from emitted runtime facts, not from harness sequencing
 - a negative first-vector-only realization rejected as non-parity

@@ -45,6 +45,34 @@ not the GTL + ABG product itself.
 
 ---
 
+## LLM-First Product Identity
+
+GTL is an LLM-first, graph-first algebraic language.
+
+It is LLM-first because its product role is to give probabilistic constructors
+a constrained program space rather than an unconstrained prompt surface. The
+constructive surface is made from typed nodes, edge traversal contracts,
+operators, evaluators, graph functions, modules, jobs, runtime policy hooks,
+and proof obligations.
+
+Abiogenesis relies on LLMs to construct GTL programs under specification
+authority. It does not rely on hidden LLM reasoning as product truth.
+
+The product split is:
+
+- GTL declares the program algebra
+- LLMs construct lawful GTL expressions within that algebra
+- ABG admits, executes, records, projects, and proves traversals
+- downstream domains own asset meaning, domain HOW, and acceptance
+  interpretation
+
+Graph functions are the primary published program form. A graph function is
+product-real only when it is discoverable through a module or job surface,
+materializable from declared inputs and policy-visible parameters, executable
+through ABG, and replayable through event and provenance truth.
+
+---
+
 ## Probabilistic Compute Boundary
 
 Abiogenesis treats one GTL edge traversal as the bounded unit of probabilistic
