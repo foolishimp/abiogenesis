@@ -1,7 +1,7 @@
 # M04 Complete `gen-start` Callable Surface Derivation
 
-**Status**: Proposed
-**Date**: 2026-04-24
+**Status**: Active
+**Date**: 2026-04-25
 **Purpose**: Apply upstream `B-030` to the TypeScript tenant by
 deriving the smallest lawful TypeScript `M04` boundary that can publish one
 complete callable `gen-start` surface and one small stop taxonomy without
@@ -29,10 +29,12 @@ This boundary derives from:
 - `build_tenants/abiogenesis/typescript/design/M04_PUBLIC_START_DERIVATION.md`
 - `build_tenants/abiogenesis/typescript/design/M04_CONTROL_LOOP_DERIVATION.md`
 - `build_tenants/abiogenesis/typescript/design/M04_LIVE_STATUS_DERIVATION.md`
+- `build_tenants/abiogenesis/typescript/design/M03_M04_RUNTIME_FAILURE_TAXONOMY_DERIVATION.md`
 - `.ai-workspace/tickets/completed/T-013-realize-typescript-m04-control-modes-over-closed-public-start-outcome-law.md`
 - `.ai-workspace/tickets/completed/T-016-realize-typescript-m04-event-ingress-over-the-canonical-kernel-emission-surface.md`
 - `.ai-workspace/tickets/completed/T-017-realize-typescript-m04-result-assessment-ingress-over-canonical-result-ingest-law.md`
 - `.ai-workspace/tickets/completed/T-018-realize-typescript-m04-live-status-projection-over-explicit-runtime-projection-law.md`
+- `.ai-workspace/tickets/completed/T-035-reprice-typescript-m03-m04-failure-taxonomy-to-distinguish-runtime-unavailable-capability-missing-and-runtime-failure.md`
 - `build_tenants/abiogenesis/typescript/code/src/shared/abg_library/transport_contracts.ts`
 
 ## 2. Position
@@ -82,7 +84,7 @@ The TypeScript application preserves these truths:
 The TypeScript line intentionally demotes these Python-shaped details from the
 first TypeScript application:
 
-- CLI flag spellings and exit-code mapping
+- binary parser implementation and exit-code mapping
 - install-shell ergonomics
 - controller-local loop structure in `cli_adapter.py`
 - source-vs-installed adapter wording
@@ -104,29 +106,22 @@ boundary:
 - projection-only live status over admitted public/runtime carriers
 - transport/result outcomes below `M04`
 
-### 5.2 Still Missing For B-030 Closure
+### 5.2 Gap Closed By T-035
 
-Two missing TypeScript families are exposed by this application:
+`T-035` has now supplied the missing TypeScript runtime failure taxonomy:
 
-1. proof-hold projection is still deferred in the TypeScript line
-2. transport/result/public failure meaning is still too coarse to separate:
-   - worker/runtime-unavailable
-   - capability-missing
-   - true runtime failure
+- `runtime_unavailable`
+- `capability_missing`
+- `runtime_failure`
+- `payload_contract_failure`
 
-That second gap is specifically important because the current TypeScript line
-already knows about agentic coder CLI transport contracts. If the public stop
-taxonomy cannot say whether `claude`, `codex`, or `gemini` was unavailable,
-unsupported, or failed at runtime, the operator story is still too coarse for
-`B-030`.
+That means this `B-030-TS` wave can consume canonical failure class truth from
+`M03`/`M04` instead of inventing wrapper-local classification.
 
-So `B-030` cannot close in the TypeScript line just by adding a wrapper around
-existing `publicStart(...)`.
-
-It also needs:
-
-- `T-034` proof-hold projection
-- `T-035` runtime/capability/failure taxonomy repricing
+Proof-hold was originally listed here as a required TypeScript `M04` stop-class
+projection. That was a scope error. `M04` owns canonical typed public/control
+and runtime truth. Downstream products own product abbreviations and
+presentation labels such as `proof_hold`.
 
 ## 6. First TypeScript Target
 
@@ -141,8 +136,12 @@ This first slice should **not** widen into:
 
 - a rival operator command beside `gen-start`
 - kernel-owned advancement doctrine
-- CLI spellings or exit-code doctrine as the design center
+- tenant-specific CLI grammar or exit-code doctrine as the design center
 - installed-shell narrative as authority
+
+Any eventual CLI or MCP wrapper over this surface must bind the shared product
+command grammar. Only the executable prefix and delivery adapter may differ by
+tenant.
 
 ## 7. Python-To-TypeScript Mapping
 
@@ -152,8 +151,8 @@ This first slice should **not** widen into:
 | explicit grammar remains lawful for advanced users | completed `PublicStartRequest` and `PublicControlLoopRequest` stay public beneath the callable surface | no destructive rewrite of the lower-level contract |
 | stop meaning should be small and stable | one stop-taxonomy projection over completed public/runtime truth | downstream products no longer infer stop meaning from raw `blocked`/`yielded`/`rejected` detail |
 | primary UX is through agentic coder CLIs | projection must stay honest about `claude`, `codex`, and `gemini` transport reality | stop classes cannot hide the concrete backend/operator surface |
-| proof-hold is product-layer projection, not controller memory | new TypeScript proof-hold projection prerequisite | current TypeScript line is not closure-ready until `T-034` lands |
-| worker/runtime absence and capability gaps must not look identical | new `M03`/`M04` taxonomy prerequisite | current TypeScript line is not closure-ready until `T-035` lands |
+| proof-hold is product-layer projection, not controller memory | downstream product/read-model abbreviation over canonical truth | TypeScript `M04` must not own the `proof_hold` abbreviation as a substrate stop class |
+| worker/runtime absence and capability gaps must not look identical | completed `T-035` `M03`/`M04` taxonomy | stop projection consumes canonical `RuntimeFailureClass` truth |
 
 ## 8. Result Of The Application
 
@@ -161,16 +160,11 @@ Applying `B-030` to TypeScript yields one clear conclusion:
 
 - the right TypeScript boundary is a new `M04` callable-start and stop-taxonomy wave
 
-It also yields two design-module-method blocker discoveries:
-
-- `T-034` for proof-hold projection
-- `T-035` for runtime/capability/failure taxonomy clarity
-
-So the TypeScript result is valuable now, even before code:
+So the TypeScript result is valuable because:
 
 - it shows where the new boundary belongs
 - it shows what the current TypeScript line already covers
-- it shows exactly what is still missing for honest closure
+- it consumes the now-landed runtime taxonomy without downstream inference
 
 ## 9. Required Next Assets
 
@@ -180,5 +174,5 @@ derivation must be followed by:
 - the first-slice IACS
 - the structural carrier diagram in Mermaid UML
 - the TypeScript ticket carrying the Python and TypeScript source inventories
-- explicit blocker tickets for the missing proof-hold and failure-taxonomy
-  families
+- an explicit proof lane for canonical stop-class projection over the landed
+  failure-taxonomy family

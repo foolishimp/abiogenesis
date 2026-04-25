@@ -1,8 +1,15 @@
 # GTL/ABG User Guide
 
-**Status**: Current GTL 3 / ABG 3.2.0 user guide
-**Audience**: People building or operating GTL/ABG applications
-**Purpose**: Explain what GTL/ABG is for, what it builds, how the build loop works, what the runtime gives you, and how to run the current kernel
+**Status**: Current single human guide for GTL 3 / ABG 3.2.0
+**Audience**: People building, operating, or reviewing GTL/ABG applications
+**Purpose**: Explain what GTL/ABG is for, what it builds, the technical GTL/ABG model, how the build loop works, what the runtime gives you, and how to run the current kernel
+
+This is the single human guide. It combines operator orientation, builder
+workflow, and technical reference material.
+
+LLM agentic coders should be primed with
+`LLM_GTL_APP_BUILDER_GUIDE.md`, which compresses this guide into an
+agent-facing technical bootstrap surface.
 
 ## Why Build With GTL/ABG
 
@@ -118,6 +125,264 @@ The important rule is:
 `GraphFunction` is the callable carrier.
 
 `GraphVector` remains internal realized structure.
+
+## GTL Technical Reference
+
+GTL is the declaration language.
+
+ABG is the runtime that interprets and enforces GTL declarations.
+
+GTL is:
+
+- LLM-first
+- graph-first
+- algebraic
+- declarative
+- tenant-realized through concrete language surfaces such as Python and
+  TypeScript
+
+GTL does not own runtime execution state.
+
+GTL owns:
+
+- graph structure
+- graph-function publication
+- semantic work contracts
+- policy-visible hook attachment
+- evidence and closure expectations as declaration truth
+
+ABG owns:
+
+- traversal
+- typed runtime carriers
+- graph-call execution
+- runtime event truth
+- projection
+- continuation opening and resolution
+- proof and closure facts
+
+### Core Thesis
+
+The irreducible structural type of GTL is `Graph`.
+
+The public callable carrier of GTL is `GraphFunction`.
+
+`GraphVector` is internal structural truth inside a realized graph. It is not a
+public work-entry surface.
+
+`Job` binds published graph functions by identity.
+
+The execution shape is:
+
+```text
+Job -> GraphFunction -> GraphCall -> materialized graph -> internal GraphVector traversal
+```
+
+### Regimes
+
+GTL uses three regime markers across operators and evaluators:
+
+| Regime | Meaning | Typical use |
+| --- | --- | --- |
+| `F_D` | Deterministic | checks, transforms, proofs |
+| `F_P` | Probabilistic | constructive synthesis, bounded agentic work |
+| `F_H` | Human | approval, adjudication, external action |
+
+These regimes classify the ambiguity class of the work. They do not implement
+policy by themselves.
+
+### Core Types
+
+`Attrs` is the immutable metadata carrier for public declaration surfaces. Use
+it for graph-function declarations, graph-vector declarations, role policy
+hooks, and module metadata.
+
+`Context` is an externally located, snapshot-bound constraint dimension. Use it
+when a graph boundary depends on an external artifact or environment surface
+that should remain explicit in the declaration.
+
+`Node` is a typed local locus of graph meaning. Common examples are `intent`,
+`requirements`, `design`, `code`, `tests`, and `artifact`.
+
+`GraphVector` is the internal adjacency record between typed nodes. It carries
+transition-local truth: source, target, operators, evaluators, contexts,
+optional rule, and declarations.
+
+`Graph` is the named topology of nodes and graph vectors. Everything
+structural in GTL is graph: one primitive step, one multi-step workflow, one
+composed workflow, one refined workflow, or one recursive workflow.
+
+`Operator` performs effectful work. Operators transform; they do not decide
+convergence.
+
+`Evaluator` judges whether a boundary converged. Evaluators judge; they do not
+perform the constructive step.
+
+`Rule` is passive governance attached to a boundary. Use it for static
+guardrails and declarative control constraints, not as a hidden execution
+program.
+
+`TemplateRef` identifies the declared outer contract for a graph function.
+Recursive and higher-order graph functions preserve that outer contract.
+
+`GraphFunction` is the primary reusable GTL compute abstraction. It is named,
+publishable, callable by identity, composable, recursion-capable, and
+higher-order.
+
+`RefinementBoundary` is the explicit lawful refinement or synthesis boundary.
+Use it when one declared outer contract may be realized by multiple lawful
+inner structures.
+
+`CandidateFamily` publishes lawful graph-function alternatives over one outer
+contract. Use it when selection among alternatives must remain explicit and
+inspectable.
+
+`Role` is the semantic capability class required to perform or supervise work.
+It is not the same thing as a worker identity.
+
+`ContractRef` is the indirection from a job to the GTL contract it binds. In
+the GTL 3 line, semantic work contracts bind published graph functions by
+identity.
+
+`Job` is the durable semantic work contract. A job names work, binds one or
+more published graph functions, declares required roles, and remains semantic,
+not runtime-local.
+
+`Module` is the publication boundary for GTL declarations. It publishes
+graphs, graph functions, refinement boundaries, candidate families, jobs,
+roles, rules, imports, and metadata.
+
+### Graph-Function Algebra
+
+GTL is not limited to single-edge wrappers.
+
+The active algebra includes:
+
+- graph-function composition
+- graph-function recursion
+- gating
+- substitution and refinement
+- higher-order graph-function application
+
+The important rule is stable callable identity:
+
+- recursion does not destroy the outer contract
+- composition does not invent a second executor
+- higher-order graph functions remain inspectable and publishable
+
+### Hook Surfaces
+
+GTL exposes hook attachment points. It does not define a policy mini-language.
+
+The hook surfaces are:
+
+- `GraphFunction.declarations`
+- `GraphVector.declarations`
+- `Role.policy_hooks`
+- `CandidateFamily.policy_hints`
+
+The lawful shape is:
+
+```text
+GTL declaration -> hook ref + replay-safe config
+ABG admission   -> resolved carrier truth + executable implementation
+Runtime         -> carrier-owned decision + evented enforcement
+```
+
+GTL does not own:
+
+- prompt choreography
+- hidden retry logic
+- internal tactic selection for probabilistic workers
+
+### Publication And Execution Boundary
+
+The GTL side stops at declaration and publication.
+
+ABG-compatible engines own:
+
+- graph-call execution
+- `ExecutionBasis`
+- `AdvancementTransition`
+- `IterationAdvanceDecision`
+- `RegimeBindingSet`
+- frame progression
+- continuation truth
+- runtime event emission
+- proof and closure facts
+- replay and projection
+
+This means:
+
+- GTL does not emit runtime facts
+- GTL does not carry frame state
+- GTL does not become a controller
+- GTL does not reinterpret `F_D` / `F_P` / `F_H` runtime outcomes
+- GTL does not use `runtime_config` as semantic runtime authority
+
+### Minimal Authoring Shape
+
+The exact syntax differs by tenant, but the authoring shape is stable:
+
+```text
+Node requirements
+Node design
+
+Operator draft_design classified as F_P
+Evaluator design_checks classified as F_D
+
+GraphVector requirements_to_design:
+  source requirements
+  target design
+  operator draft_design
+  evaluator design_checks
+  declarative dispatch/proof/closure hooks
+
+Graph design_graph:
+  inputs requirements
+  outputs design
+  vectors requirements_to_design
+
+GraphFunction design_fn:
+  public callable carrier over design_graph
+
+Job produce_design:
+  contract graph_function:design_fn
+
+Module example_module:
+  publishes design_graph, design_fn, and produce_design
+```
+
+The important properties are:
+
+- the public carrier is `GraphFunction`
+- the job binds the graph function, not the vector
+- hook attachment is declarative
+- the graph vector remains internal structure
+
+### Technical Design Rules
+
+Use GTL well by following these rules:
+
+- publish graph functions as the callable carrier
+- keep graph vectors internal
+- separate operators from evaluators
+- attach policy declaratively
+- use candidate families for explicit alternatives
+- preserve inspectable outer contracts on composed and recursive graph
+  functions
+- keep semantic work contracts at the job layer
+- let ABG own runtime fact truth
+- let ABG own typed advancement and regime-binding truth
+
+Avoid these mistakes:
+
+- binding public work directly to graph vectors
+- turning work vectors into a rival execution primitive
+- hiding runtime law in ad hoc callbacks
+- mixing semantic roles with runtime worker identity
+- treating GTL declarations as imperative control code
+- rebuilding advancement, policy, or regime meaning from open dictionaries
 
 ## ABG 3.2.0 Runtime Boundary
 
@@ -329,6 +594,29 @@ PYTHONPATH=build_tenants/abiogenesis/python/code python -m genesis start --works
 
 The CLI command is `start`. The public operator contract is `gen-start`.
 
+The public command-line grammar is tenant-invariant. Python, TypeScript, or
+another tenant may use different executable prefixes, but the command suffix
+after the binary stays the same.
+
+```bash
+<runtime-binary> start --workspace . --scope workspace --target next --until first_traversal
+<runtime-binary> start --workspace . --scope workspace --target graph_function:code-flow --until first_traversal
+<runtime-binary> start --workspace . --scope workspace --target asset:code_surface --until first_traversal
+<runtime-binary> start --workspace . --scope workspace --target next --until converged --root-mode supervised
+<runtime-binary> start --workspace . --scope workspace --target next --until converged --fh-mode human-proxy
+```
+
+For the Python installed runtime, `<runtime-binary>` is commonly
+`PYTHONPATH=.genesis python -m genesis`. For a TypeScript installed runtime,
+the package publishes `abiogenesis-ts` and `genesis-ts`; those binaries replace
+only the executable prefix.
+
+```bash
+abiogenesis-ts start --workspace . --scope workspace --target next --until first_traversal
+genesis-ts gaps --workspace . --scope workspace
+genesis-ts assess-result --workspace . --result .ai-workspace/fp_results/<manifest-id>.json
+```
+
 `start` accepts one traversal request. The request has three governing fields:
 
 | Field | Values | Meaning |
@@ -360,7 +648,7 @@ Control modes stay outside `scope + target + until`:
 | `--root-mode` | `direct`, `supervised` | Lawful only with `--until converged`. |
 
 The same arguments apply from source or from an installed runtime.
-These examples use an installed runtime:
+These examples use the Python installed runtime prefix:
 
 ```bash
 PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target next --until first_traversal
@@ -417,6 +705,30 @@ Process exit codes classify the same surface for scripts:
 | `5` | Iteration limit stopped convergence. |
 | `6` | Constructive work yielded handoff truth. |
 | `7` | Proof hold stopped redispatch. |
+
+### Read `gaps` output
+
+`gaps` is a read-only observation command. It must not start traversal or write
+runtime events.
+
+The TypeScript binary derives `gaps` from the installed runtime binding and
+`.ai-workspace/events/events.jsonl`.
+
+Key fields:
+
+| Field | Meaning |
+| --- | --- |
+| `jobs_considered` | Semantic jobs included in the admitted scope. |
+| `total_delta` | Sum of open-vector fractions across considered jobs. |
+| `open_frames` | Replay-visible open frame count. |
+| `converged` | True when all considered jobs are closed or contain no vectors. |
+| `gaps[].edge` | Next open edge, or `null` when that job is closed. |
+| `gaps[].status` | Current replay-derived state for that job. |
+| `gaps[].next_step` | Next lawful operator action such as `start`, `assess-result`, `human-decision`, or `none`. |
+
+The command exits successfully when it returns a valid observation, even when
+open work remains. Admission or replay-projection defects still return
+`status = error`.
 
 ### Run targeted work
 

@@ -5,7 +5,7 @@
 - type: feature
 - ticket_category: implementation_migration
 - migration_strategy: inside_out_hard_break
-- status: backlog
+- status: completed
 - source_ticket: B-030
 - build_tenant: typescript
 - goal: typescript-tenant-complete-start-surface-and-stop-taxonomy
@@ -19,13 +19,13 @@
   - T-016 completed
   - T-017 completed
   - T-018 completed
-  - T-034 backlog
-  - T-035 backlog
+  - T-043 completed
+  - T-035 completed
 - intake_source: design-module-method application of upstream `B-030` against the completed TypeScript `M04` public-start, control-loop, event-ingress, result-assessment, and live-status surfaces
 - affected_boundary: `build_tenants/abiogenesis/typescript/design/`, `build_tenants/abiogenesis/typescript/code/src/app/m04/**`, `build_tenants/abiogenesis/typescript/test_env/**`
 - triaged_at: 2026-04-24
 - created_at: 2026-04-24
-- updated_at: 2026-04-24
+- updated_at: 2026-04-25
 - library_usage: consume
 - governing_library: `build_tenants/abiogenesis/typescript/design/ABG_COMMON_REALIZATION_LIBRARY_FIRST_SLICE_IACS.md`
 - authoritative_contract: before TypeScript code opens, the tenant must declare one explicit complete-start derivation asset, one first-slice IACS, one Mermaid structural carrier diagram, one bounded strict lane, and one module-derived proof lane set; the first slice is bounded to one wrapper-facing complete callable `start` surface and one stop-taxonomy projection over already completed `M04` public truth, while the lower-level explicit request grammar remains lawful beneath it
@@ -50,9 +50,10 @@
   - /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/code/genesis/proof_hold.py
   - /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/code/genesis/subwork.py
   - /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/python/design/adrs/ADR-022-subprocess-transport-with-env-sanitization.md
-- target_truth: TypeScript `M04` publishes one complete callable `start` surface and one small stop taxonomy that distinguishes convergence, human-decision-required, worker/runtime-unavailable, capability-missing, proof-hold, and true runtime failure over existing public/runtime truth rather than downstream folklore bundles; CLI and MCP wrappers consume that substrate truth without local runtime reconstruction
+- target_truth: TypeScript `M04` publishes one complete callable `start` surface and one small stop taxonomy that distinguishes convergence, human-decision-required, worker/runtime-unavailable, capability-missing, and true runtime failure over existing public/runtime truth rather than downstream folklore bundles; CLI and MCP wrappers consume that substrate truth without local runtime reconstruction, while downstream products own product abbreviations and presentation labels such as `proof_hold`
 - superseded_truth: the completed TypeScript line still encourages consumers to rely on remembered convenience bundles or lower-level routing knowledge, and it still exposes low-level stop or status detail such as `dispatch_required`, `yielded`, `transport_failure`, or `rejected` without one substrate-owned stop-class projection
 - closure_law: this ticket closes only when TypeScript `M04` publishes one admitted complete callable `start` surface and one stop-taxonomy projection over canonical public/runtime truth, proof shows both positive autonomous advance and negative terminal classes, and downstream CLI/MCP/package surfaces can bind that substrate truth without inventing a second control loop or local stop taxonomy
+- walkthrough_gate: `T-043` confirmed the governing requirements and found no missing requirement ticket blocking this implementation migration; `T-035` completed the upstream runtime failure taxonomy blocker.
 
 ## First Slice Boundary
 
@@ -132,17 +133,17 @@ becoming a product-owned public carrier family.
 
 ## Migration Checklist
 
-- [ ] old truth path is named explicitly
-- [ ] new truth path is named explicitly
-- [ ] producer set for the new truth is listed
-- [ ] consumer set for the new truth is listed
-- [ ] projection/read-model surfaces are listed
-- [ ] old truth path is removed or explicitly demoted from authority
-- [ ] mixed-state behavior is no longer accepted as closure evidence
-- [ ] tests proving mixed old/new behavior are removed or repriced
-- [ ] recurring realization patterns are checked against existing library/commonization surfaces
-- [ ] library usage is declared and the governing library or rationale is named
-- [ ] ticket wording, product wording, and proof claims are reconciled before closure
+- [x] old truth path is named explicitly
+- [x] new truth path is named explicitly
+- [x] producer set for the new truth is listed
+- [x] consumer set for the new truth is listed
+- [x] projection/read-model surfaces are listed
+- [x] old truth path is removed or explicitly demoted from authority
+- [x] mixed-state behavior is no longer accepted as closure evidence
+- [x] tests proving mixed old/new behavior are removed or repriced
+- [x] recurring realization patterns are checked against existing library/commonization surfaces
+- [x] library usage is declared and the governing library or rationale is named
+- [x] ticket wording, product wording, and proof claims are reconciled before closure
 
 ## Recurring Realization And Library Declaration
 
@@ -194,31 +195,31 @@ becoming a product-owned public carrier family.
 
 ## Python Source Reconciliation Checklist
 
-- [ ] `python/design/ABG_3_MODULE_DESIGN.md` reconciled for complete start interface ownership
-- [ ] `python/code/genesis/cli_adapter.py` reconciled for public callable start surface and stop-class projection
-- [ ] `python/code/genesis/live_status.py` reconciled for operator-grade stop/read-model meaning
-- [ ] `python/code/genesis/proof_hold.py` reconciled for proof-hold stop truth
-- [ ] `python/code/genesis/subwork.py` reconciled where capability/failure taxonomy constrains stop-class meaning
-- [ ] `python/design/adrs/ADR-022-subprocess-transport-with-env-sanitization.md` reconciled for primary agentic coder CLI transport reality (`claude`, `codex`, `gemini`)
-- [ ] `python/test_env/tests/test_cli_adapter_auto.py` reconciled into TypeScript callable-surface and stop-taxonomy proof
-- [ ] `python/test_env/tests/test_sandbox_install.py` reconciled where downstream bare-start binding is proven
+- [x] `python/design/ABG_3_MODULE_DESIGN.md` reconciled for complete start interface ownership
+- [x] `python/code/genesis/cli_adapter.py` reconciled for public callable start surface and stop-class projection
+- [x] `python/code/genesis/live_status.py` reconciled for operator-grade stop/read-model meaning
+- [x] `python/code/genesis/proof_hold.py` reconciled as product policy/read-model precedent, not as a TypeScript `M04` substrate-owned stop abbreviation
+- [x] `python/code/genesis/subwork.py` reconciled where capability/failure taxonomy constrains stop-class meaning
+- [x] `python/design/adrs/ADR-022-subprocess-transport-with-env-sanitization.md` reconciled for primary agentic coder CLI transport reality (`claude`, `codex`, `gemini`)
+- [x] `python/test_env/tests/test_cli_adapter_auto.py` reconciled into TypeScript callable-surface and stop-taxonomy proof
+- [x] `python/test_env/tests/test_sandbox_install.py` reconciled where downstream bare-start binding is proven
 
 ## Functional Realization Review Checklist
 
-- [ ] the complete callable `start` surface is substrate-owned and not a downstream folklore bundle
-- [ ] the lower-level explicit `scope + target + until` request grammar remains lawful beneath the callable surface
-- [ ] the stop taxonomy is projected from canonical public/runtime truth rather than downstream wrappers
-- [ ] the stop taxonomy distinguishes convergence, human-decision-required, worker/runtime-unavailable, capability-missing, proof-hold, and true runtime failure
-- [ ] the taxonomy is stated against the actual primary UX transport line: agentic coder CLI backends `claude`, `codex`, and `gemini`
-- [ ] no new rival operator story is introduced beside `gen-start`
-- [ ] local cleanup is absorbed only inside the owned first slice; cross-boundary blockers or opportunities create triage tickets
+- [x] the complete callable `start` surface is substrate-owned and not a downstream folklore bundle
+- [x] the lower-level explicit `scope + target + until` request grammar remains lawful beneath the callable surface
+- [x] the stop taxonomy is projected from canonical public/runtime truth rather than downstream wrappers
+- [x] the stop taxonomy distinguishes convergence, human-decision-required, worker/runtime-unavailable, capability-missing, and true runtime failure without taking ownership of downstream product abbreviations such as `proof_hold`
+- [x] the taxonomy is stated against the actual primary UX transport line: agentic coder CLI backends `claude`, `codex`, and `gemini`
+- [x] no new rival operator story is introduced beside `gen-start`
+- [x] local cleanup is absorbed only inside the owned first slice; cross-boundary blockers or opportunities create triage tickets
 
 ## Impacted Interface Review Checklist
 
-- [ ] downstream package/bootstrap/CLI/MCP bindings can consume the callable surface without inventing a second control loop
-- [ ] completed `publicStart(...)`, `publicControlLoop(...)`, and `projectLiveStatus(...)` remain upstream authoritative surfaces rather than being silently replaced
-- [ ] advanced callers can still use lower-level explicit control families lawfully
-- [ ] negative proof shows downstream wrappers no longer need the folklore control bundle to bind bare start
+- [x] downstream package/bootstrap/CLI/MCP bindings can consume the callable surface without inventing a second control loop
+- [x] completed `publicStart(...)`, `publicControlLoop(...)`, and `projectLiveStatus(...)` remain upstream authoritative surfaces rather than being silently replaced
+- [x] advanced callers can still use lower-level explicit control families lawfully
+- [x] negative proof shows downstream wrappers no longer need the folklore control bundle to bind bare start
 
 ## Required Break Order
 
@@ -239,7 +240,30 @@ becoming a product-owned public carrier family.
 
 ## Non-Closure Conditions
 
-- closure is claimed while TypeScript still lacks proof-hold projection (`T-034`)
 - closure is claimed while TypeScript still collapses runtime-unavailable, capability-missing, and runtime-failure into a coarser transport or rejection taxonomy (`T-035`)
 - closure is claimed while downstream bindings still need the explicit folklore flag bundle
 - closure is claimed with a convenience helper but no substrate-owned stop-taxonomy projection
+
+## Closure Evidence
+
+Completed on 2026-04-25.
+
+Design/module pack:
+
+- `build_tenants/abiogenesis/typescript/design/M04_MAXIMUM_AUTONOMY_GEN_START_DERIVATION.md`
+- `build_tenants/abiogenesis/typescript/design/M04_MAXIMUM_AUTONOMY_GEN_START_FIRST_SLICE_IACS.md`
+- `build_tenants/abiogenesis/typescript/design/M04_MAXIMUM_AUTONOMY_GEN_START_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `build_tenants/abiogenesis/typescript/design/M03_M04_RUNTIME_FAILURE_TAXONOMY_*`
+
+Canonical realization:
+
+- `code/src/app/m04/max_autonomy/**`
+- package export `@abiogenesis/typescript-tenant/app/m04/max-autonomy`
+- root and `app/m04` exports for `publicCallableStart`
+- `PublicStopClass` projection over canonical live-status/control truth
+
+Proof:
+
+- `npm run test:b030`
+- `npm run lint:semantic`
+- `npm run test:semantic`

@@ -35,6 +35,43 @@ The authored domain surface is `build_tenants/abiogenesis/python/code/gtl_spec/p
 
 ---
 
+## GTL / ABG Control Boundary
+
+GTL and ABG define governance and control around probabilistic work, not the
+hidden internal execution strategy of the worker.
+
+The unit of probabilistic compute is one edge traversal.
+
+A GTL edge declares the admissible external traversal space for that work:
+
+- input and output contract
+- required context
+- role or capability expectation
+- evaluator regime
+- provenance obligation
+- lawful stop, hold, gap, continuation, or completion states
+
+ABG governs one invocation of that traversal. It binds the traversal to an
+eligible worker, tool, or agent; preserves runtime truth; emits events; projects
+state; classifies outcomes; and advances only through lawful next control
+steps.
+
+The worker, tool, agent, or domain implementation owns the internal HOW inside
+the declared traversal boundary.
+
+For F_P work, any unconstrained space remains the hidden constructive traversal
+of the probabilistic worker. GTL and ABG constrain the boundary around that
+work; they do not claim to own the latent reasoning path.
+
+F_D is a deterministic evaluator or domain-owned optimization where the domain
+can make part of the work precise. F_D evidence does not let the framework
+absorb domain HOW as framework law.
+
+If the framework starts prescribing domain solution strategy beyond the declared
+edge contract and control truth, it has crossed the GTL / ABG boundary.
+
+---
+
 ## Business Value
 
 - **Proof of concept for GTL**: demonstrates that a complex system (the abiogenesis engine itself) can be formally specified as a GTL Module and then built from that spec
@@ -536,7 +573,7 @@ The model is:
 This yields a model that matches real workflow systems without collapsing the language into the engine:
 
 - GTL remains the semantic declaration layer
-- ABG remains the semantic realization/execution layer
+- ABG remains the semantic realization and control layer
 - authentication remains external
 - authority resolution remains external
 - identity and authority hooks remain first-class in provenance

@@ -14,7 +14,7 @@ import {
   buildInstalledResetPostmortemRequest,
   buildInstalledSandboxRequest,
   installedResetPostmortemSource,
-  linkInstalledTenantPackage,
+  installPackedTenantPackage,
   provisionInstalledRoot,
   runInstalledNodeScript
 } from "./support/m05-installed-fixtures.mjs";
@@ -22,7 +22,7 @@ import {
 test("M05 installed reset-postmortem integration: installed reset proof derives superseded-run and abandoned-continuation parity from the package surface", async () => {
   const { targetRoot, writer, installOutcome, bootloaderOutcome } =
     await provisionInstalledRoot();
-  await linkInstalledTenantPackage(targetRoot);
+  await installPackedTenantPackage(targetRoot);
 
   const importProbe = await runInstalledNodeScript(
     targetRoot,

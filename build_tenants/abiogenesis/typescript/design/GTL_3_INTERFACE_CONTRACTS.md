@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Date**: 2026-04-23
-**Derived from**: [GTL_3_CONSTITUTIONAL_DESIGN.md](../../../../specification/GTL_3_CONSTITUTIONAL_DESIGN.md), [README.md](../../../../specification/requirements/gtl/README.md), [TESTCASE_AUTHORITY.md](../../../../specification/scenarios/TESTCASE_AUTHORITY.md), [GTL_3_MODULE_DESIGN.md](./GTL_3_MODULE_DESIGN.md)
+**Derived from**: [README.md](../../../../specification/requirements/gtl/README.md), [TESTCASE_AUTHORITY.md](../../../../specification/scenarios/TESTCASE_AUTHORITY.md), [GTL_3_MODULE_DESIGN.md](./GTL_3_MODULE_DESIGN.md)
 
 ## Purpose
 

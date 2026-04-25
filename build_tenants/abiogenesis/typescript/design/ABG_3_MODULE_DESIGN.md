@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Date**: 2026-04-23
-**Purpose**: Human-readable design and impact assessment for the ABG 3 TypeScript line, focused on package-first delivery, engine-owned runtime truth, and the runtime/module cut required by the ABG 3 constitution.
+**Purpose**: Human-readable design and impact assessment for the ABG 3 TypeScript line, focused on package-first delivery, engine-owned runtime truth, and the runtime/module cut required by the ABG 3 requirement families.
 
 ## 1. Position
 
@@ -148,6 +148,94 @@ After a traversal reaches an F_P boundary, ABG owns:
 
 Package entrypoints may still poll, present, proxy, or request approval.
 They do not become the owner of F_P runtime truth.
+
+### 5.3 Graph-function iteration stays engine-owned
+
+The TypeScript line must preserve the ABG interpretation split established by
+`REQ-R-ABG3-INTERPRET-009` through `REQ-R-ABG3-INTERPRET-012`.
+
+`publicStart(...)` is a public ignition boundary. It locates, admits, or
+resumes a lawful graph-function execution boundary.
+
+It is not the complete execution engine.
+
+The runtime engine must own the internal iteration law beneath that public
+boundary:
+
+- materialize the published `GraphFunction` for the active `Job`
+- open or resume the corresponding `GraphCall`
+- derive the next lawful internal `GraphVector` traversal from replay-derived
+  graph-call, frame, traversal, evaluation, proof, and closure truth
+- emit canonical runtime facts for that traversal
+- project what now holds from event truth
+- continue until convergence, failure, hold, continuation, yielded handoff,
+  human gate, or another lawful public stop condition is reached
+
+A TypeScript implementation that materializes a composed graph function but
+dispatches only `graph.vectors[0]` has not realized graph-function execution
+parity. It has only proven one-vector admission over a composed declaration.
+
+The existing `M04` control loop remains an operator-facing supervision route
+over public outcomes. It is not a substitute for the internal ABG iterate
+engine, because package-level repetition over `publicStart(...)` cannot own
+next-edge runtime law.
+
+Design consequence:
+
+- `M03-engine-kernel` owns next-edge planning and advancement carriers
+- `M04-app-bootstrap` owns public ingress, delivery routing, and operator
+  projection only
+- installed sandbox proof must include at least one composed graph function
+  whose progression is selected by replay-derived runtime truth rather than a
+  harness replay or first-vector shortcut
+
+The concrete TypeScript `M03` design pack for this consequence is:
+
+- [M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md](./M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md)
+- [M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md](./M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md)
+- [M03_GRAPH_FUNCTION_ITERATION_STRUCTURAL_CARRIER_DIAGRAM.md](./M03_GRAPH_FUNCTION_ITERATION_STRUCTURAL_CARRIER_DIAGRAM.md)
+
+### 5.4 Retry/repair and leaf tasks stay substrate-owned
+
+Generic retry/repair and bounded leaf-task execution are `M03-engine-kernel`
+runtime governance law.
+
+Retry is not transport retry. A retryable same-edge repair attempt must mint
+fresh runtime identity, regenerate prompt and manifest truth from current
+projection, preserve prior attempts as evidence only, consume explicit budget
+truth, and stop or escalate through authoritative runtime facts.
+
+Leaf-task execution is not helper dispatch. It is subordinate runtime work
+under the parent run, graph-call, frame, and vector boundary with
+schema-validated input/output and typed failure truth.
+
+The concrete TypeScript `M03` design pack for this consequence is:
+
+- [M03_RETRY_REPAIR_LEAFTASK_DERIVATION.md](./M03_RETRY_REPAIR_LEAFTASK_DERIVATION.md)
+- [M03_RETRY_REPAIR_LEAFTASK_FIRST_SLICE_IACS.md](./M03_RETRY_REPAIR_LEAFTASK_FIRST_SLICE_IACS.md)
+- [M03_RETRY_REPAIR_LEAFTASK_STRUCTURAL_CARRIER_DIAGRAM.md](./M03_RETRY_REPAIR_LEAFTASK_STRUCTURAL_CARRIER_DIAGRAM.md)
+
+### 5.5 Runtime failure taxonomy stays canonical across M03/M04
+
+Runtime/payload failure classification is `M03-engine-kernel` truth consumed
+by `M04-app-bootstrap` projection.
+
+The TypeScript line must preserve a closed `RuntimeFailureClass` taxonomy for:
+
+- runtime unavailable
+- capability missing
+- runtime execution failure
+- payload contract failure
+
+`M04` may expose those classes in public result assessment and live status, but
+it must not reconstruct them from reason text, CLI stderr, downstream wrapper
+labels, or local operator projection rules.
+
+The concrete TypeScript `M03`/`M04` design pack for this consequence is:
+
+- [M03_M04_RUNTIME_FAILURE_TAXONOMY_DERIVATION.md](./M03_M04_RUNTIME_FAILURE_TAXONOMY_DERIVATION.md)
+- [M03_M04_RUNTIME_FAILURE_TAXONOMY_FIRST_SLICE_IACS.md](./M03_M04_RUNTIME_FAILURE_TAXONOMY_FIRST_SLICE_IACS.md)
+- [M03_M04_RUNTIME_FAILURE_TAXONOMY_STRUCTURAL_CARRIER_DIAGRAM.md](./M03_M04_RUNTIME_FAILURE_TAXONOMY_STRUCTURAL_CARRIER_DIAGRAM.md)
 
 ## 6. TypeScript Implementation Consequence
 

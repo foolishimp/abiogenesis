@@ -108,6 +108,7 @@ test("M04 live-status unit: accepted result assessment projects assessed status 
   assert.equal(projection.activeEdge, "design→code");
   assert.deepStrictEqual(projection.resultAssessment, {
     status: "accepted",
+    failureClass: null,
     valid: true,
     publishedLedgerRef: "ledger://m04-result-profile",
     assessedCount: 1

@@ -79,12 +79,12 @@ export function constructResultArtifact(
             resolvedRuntimeRef: input.artifactPayload.resolvedRuntimeRef
           }),
     identityIssues: freezeStringArray(input.identityIssues),
-    transportFailure:
-      input.transportFailure === null
+    runtimeFailure:
+      input.runtimeFailure === null
         ? null
         : Object.freeze({
-            failureClass: input.transportFailure.failureClass,
-            detail: input.transportFailure.detail
+            failureClass: input.runtimeFailure.failureClass,
+            detail: input.runtimeFailure.detail
           })
   });
 }
@@ -92,7 +92,7 @@ export function constructResultArtifact(
 function deriveDispatchExpectationForTransition(
   transition: DispatchDerivableTransition
 ) {
-  const vector = transition.basis.graph.vectors[0];
+  const vector = transition.basis.graph.vectors[transition.vectorIndex];
   return deriveDispatchExpectation({
     sourceKinds: vector?.source.map((node) => node.assetSurface.kind) ?? Object.freeze([]),
     targetKind: vector?.target.assetSurface.kind ?? null,
@@ -147,13 +147,13 @@ export function ingestResultArtifact(
   request: DispatchRequest,
   artifact: ResultArtifact
 ): ResultIngestOutcome {
-  if (artifact.transportFailure !== null) {
+  if (artifact.runtimeFailure !== null) {
     return Object.freeze({
-      kind: "transport_failure",
+      kind: "runtime_failure",
       request,
       artifact,
-      failureClass: artifact.transportFailure.failureClass,
-      detail: artifact.transportFailure.detail
+      failureClass: artifact.runtimeFailure.failureClass,
+      detail: artifact.runtimeFailure.detail
     });
   }
 

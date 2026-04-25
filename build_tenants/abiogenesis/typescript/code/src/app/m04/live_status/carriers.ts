@@ -14,6 +14,7 @@ import type {
   PublicResultAssessmentOutcome,
   PublicResultAssessmentRequest
 } from "../result_assessment/carriers.js";
+import type { RuntimeFailureClass } from "../../../abg/m03/transport/index.js";
 
 export interface PublicLiveStatusRequest {
   readonly startRequest: PublicStartRequest | null;
@@ -29,7 +30,8 @@ export interface ProjectionTraceRef {
 }
 
 export interface ProjectionResultAssessmentRef {
-  readonly status: "accepted" | "rejected" | "transport_failure" | null;
+  readonly status: "accepted" | "rejected" | "runtime_failure" | null;
+  readonly failureClass: RuntimeFailureClass | null;
   readonly valid: boolean | null;
   readonly publishedLedgerRef: string | null;
   readonly assessedCount: number | null;
@@ -60,7 +62,7 @@ export interface PublicLiveStatusAttention extends PublicLiveStatusBase {
     | "blocked"
     | "yielded"
     | "rejected"
-    | "transport_failure";
+    | RuntimeFailureClass;
   readonly reason: string;
 }
 

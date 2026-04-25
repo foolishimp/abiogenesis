@@ -1,5 +1,8 @@
 import type { RuntimeEvent } from "../../../abg/m03/contracts/carriers.js";
-import type { ResultArtifact } from "../../../abg/m03/transport/index.js";
+import type {
+  ResultArtifact,
+  RuntimeFailureClass
+} from "../../../abg/m03/transport/index.js";
 import type {
   AssessmentManifestProvenance,
   AssessmentTraceRef,
@@ -115,13 +118,30 @@ export function constructAcceptedPublicResultAssessmentOutcome(input: {
 }
 
 export function constructRejectedPublicResultAssessmentOutcome(input: {
-  readonly ingestKind: "rejected" | "transport_failure";
+  readonly ingestKind: "rejected" | "runtime_failure";
+  readonly failureClass?: RuntimeFailureClass | null;
   readonly reason: string;
   readonly trace?: AssessmentTraceRef | null;
 }): PublicResultAssessmentRejected {
+  if (
+    input.ingestKind === "runtime_failure" &&
+    (input.failureClass === null || input.failureClass === undefined)
+  ) {
+    throw new TypeError(
+      "runtime_failure result assessment requires failureClass"
+    );
+  }
+  if (
+    input.ingestKind === "rejected" &&
+    input.failureClass !== undefined &&
+    input.failureClass !== null
+  ) {
+    throw new TypeError("rejected result assessment must not carry failureClass");
+  }
   return Object.freeze({
     kind: "rejected",
     ingestKind: input.ingestKind,
+    failureClass: input.failureClass ?? null,
     reason: input.reason,
     trace: input.trace ?? null
   });

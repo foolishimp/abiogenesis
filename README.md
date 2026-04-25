@@ -70,11 +70,14 @@ Read these first:
 - Public methodology master: `https://github.com/foolishimp/specification_methodology`
 - Methodology standard: [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md)
 - [INTENT.md](specification/INTENT.md)
-- [requirements/](specification/requirements/)
-- [GTL_3_CONSTITUTIONAL_DESIGN.md](specification/GTL_3_CONSTITUTIONAL_DESIGN.md)
-- [ABG_3_CONSTITUTIONAL_DESIGN.md](specification/ABG_3_CONSTITUTIONAL_DESIGN.md)
+- [PRODUCT.md](specification/PRODUCT.md)
+- [requirements/gtl/](specification/requirements/gtl/)
+- [requirements/abg/](specification/requirements/abg/)
+- [requirements/mapping/](specification/requirements/mapping/)
+- [requirements/product/](specification/requirements/product/)
 - [TENANT_REGISTRY.md](build_tenants/TENANT_REGISTRY.md)
 - [build_tenants/common/design/README.md](build_tenants/common/design/README.md)
+- [build_tenants/common/design/module_decomp.md](build_tenants/common/design/module_decomp.md)
 - [build_tenants/abiogenesis/python/design/README.md](build_tenants/abiogenesis/python/design/README.md)
 
 The project method is explicit:

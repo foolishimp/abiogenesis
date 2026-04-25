@@ -100,6 +100,11 @@ test("ABG common library integration: M04 proof adapter consumes reusable profil
   assert.equal(outcome.kind, "advanced");
   assert.deepStrictEqual(events.map((event) => event.kind), [
     "basis_admitted",
+    "graph_call_opened",
+    "frame_opened",
+    "vector_traversal_planned",
+    "vector_evaluated",
+    "vector_closed",
     "fd_advance_ready"
   ]);
 });

@@ -9,7 +9,7 @@ import { qualifyInstalledSandbox } from "../../build/semantic/code/src/qualifica
 import {
   bootstrapExportProbeSource,
   buildInstalledSandboxRequest,
-  linkInstalledTenantPackage,
+  installPackedTenantPackage,
   provisionInstalledRoot,
   runInstalledNodeScript
 } from "./support/m05-installed-fixtures.mjs";
@@ -17,7 +17,7 @@ import {
 test("M05 installed-sandbox integration: completed delivery surfaces produce an importable installed runtime root", async () => {
   const { targetRoot, writer, installOutcome, bootloaderOutcome } =
     await provisionInstalledRoot();
-  await linkInstalledTenantPackage(targetRoot);
+  await installPackedTenantPackage(targetRoot);
 
   const importProbe = await runInstalledNodeScript(
     targetRoot,

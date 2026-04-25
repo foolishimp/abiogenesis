@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Date**: 2026-04-23
-**Derived from**: [GTL_3_CONSTITUTIONAL_DESIGN.md](../../../../specification/GTL_3_CONSTITUTIONAL_DESIGN.md), [README.md](../../../../specification/requirements/gtl/README.md), [TESTCASE_AUTHORITY.md](../../../../specification/scenarios/TESTCASE_AUTHORITY.md), [module_decomp.md](../../../common/design/module_decomp.md)
+**Derived from**: [README.md](../../../../specification/requirements/gtl/README.md), [TESTCASE_AUTHORITY.md](../../../../specification/scenarios/TESTCASE_AUTHORITY.md), [module_decomp.md](../../../common/design/module_decomp.md)
 
 ## Purpose
 
@@ -10,7 +10,7 @@ Define the current GTL 3 module ownership split, derivation boundary, and
 tenant-facing design law for the TypeScript realization line.
 
 This document is design authority for this tenant.
-It does not replace the constitution or requirement families.
+It does not replace the requirement families or shared design surfaces.
 
 ## Governing Requirement Surfaces
 

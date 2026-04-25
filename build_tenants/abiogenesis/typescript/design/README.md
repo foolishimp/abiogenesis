@@ -16,12 +16,16 @@ Constitutional authority lives in:
 
 - `build_tenants/common/design/design_surface_map.md`
 - `build_tenants/common/design/module_decomp.md`
+- `build_tenants/common/design/modules/M01-gtl-core.yml`
+- `build_tenants/common/design/modules/M02-work-publication.yml`
+- `build_tenants/common/design/modules/M03-engine-kernel.yml`
 - `build_tenants/common/design/modules/M04-app-bootstrap.yml`
 - `specification/INTENT.md`
 - `specification/PRODUCT.md`
-- `specification/GTL_3_CONSTITUTIONAL_DESIGN.md`
-- `specification/ABG_3_CONSTITUTIONAL_DESIGN.md`
-- `specification/requirements/`
+- `specification/requirements/gtl/`
+- `specification/requirements/abg/`
+- `specification/requirements/mapping/`
+- `specification/requirements/product/`
 
 Tenant-local authority for this line lives here.
 
@@ -56,7 +60,7 @@ doctrine in tenant-local design.
 
 ## Design Index
 
-Current tenant-local design truth lives in:
+Current tenant-local design truth and proposed next-boundary design packs live in:
 
 - `MIGRATED_TYPESCRIPT_DESIGN_SOURCE_AUDIT.md`
 - `PYTHON_TO_TYPESCRIPT_DESIGN_DERIVATION.md`
@@ -82,6 +86,15 @@ Current tenant-local design truth lives in:
 - `M03_TRANSPORT_PROTOCOL_DERIVATION.md`
 - `M03_TRANSPORT_PROTOCOL_FIRST_SLICE_IACS.md`
 - `M03_TRANSPORT_PROTOCOL_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md`
+- `M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md`
+- `M03_GRAPH_FUNCTION_ITERATION_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M03_RETRY_REPAIR_LEAFTASK_DERIVATION.md`
+- `M03_RETRY_REPAIR_LEAFTASK_FIRST_SLICE_IACS.md`
+- `M03_RETRY_REPAIR_LEAFTASK_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M03_M04_RUNTIME_FAILURE_TAXONOMY_DERIVATION.md`
+- `M03_M04_RUNTIME_FAILURE_TAXONOMY_FIRST_SLICE_IACS.md`
+- `M03_M04_RUNTIME_FAILURE_TAXONOMY_STRUCTURAL_CARRIER_DIAGRAM.md`
 - `M04_PUBLIC_START_DERIVATION.md`
 - `M04_FIRST_SLICE_IACS.md`
 - `M04_PUBLIC_START_STRUCTURAL_CARRIER_DIAGRAM.md`
@@ -106,6 +119,12 @@ Current tenant-local design truth lives in:
 - `M04_PUBLIC_ASSET_ADDRESSING_DERIVATION.md`
 - `M04_PUBLIC_ASSET_ADDRESSING_FIRST_SLICE_IACS.md`
 - `M04_PUBLIC_ASSET_ADDRESSING_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M04_PUBLIC_GAPS_PROJECTION_DERIVATION.md`
+- `M04_PUBLIC_GAPS_PROJECTION_FIRST_SLICE_IACS.md`
+- `M04_PUBLIC_GAPS_PROJECTION_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M04_MAXIMUM_AUTONOMY_GEN_START_DERIVATION.md`
+- `M04_MAXIMUM_AUTONOMY_GEN_START_FIRST_SLICE_IACS.md`
+- `M04_MAXIMUM_AUTONOMY_GEN_START_STRUCTURAL_CARRIER_DIAGRAM.md`
 - `M05_QUALIFICATION_DERIVATION.md`
 - `M05_QUALIFICATION_FIRST_SLICE_IACS.md`
 - `M05_QUALIFICATION_STRUCTURAL_CARRIER_DIAGRAM.md`
@@ -118,6 +137,12 @@ Current tenant-local design truth lives in:
 - `M05_INSTALLED_LIVE_PORTFOLIO_DERIVATION.md`
 - `M05_INSTALLED_LIVE_PORTFOLIO_FIRST_SLICE_IACS.md`
 - `M05_INSTALLED_LIVE_PORTFOLIO_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M05_INSTALLED_RESET_POSTMORTEM_DERIVATION.md`
+- `M05_INSTALLED_RESET_POSTMORTEM_FIRST_SLICE_IACS.md`
+- `M05_INSTALLED_RESET_POSTMORTEM_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M05_RC_LIVE_UAT_DERIVATION.md`
+- `M05_RC_LIVE_PORTFOLIO_DERIVATION.md`
+- `M05_PYTHON_SANDBOX_BEHAVIOR_PORTFOLIO_DERIVATION.md`
 - `M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md`
 - `M06_MAPPING_DEFERRED_DERIVATION.md`
 - `M06_MAPPING_DEFERRED_TRIGGER_IACS.md`
@@ -378,12 +403,14 @@ Its first-slice design assets are:
 
 That completed slice is bounded to:
 
-- one canonical archive writer/finalizer under `code/src/qualification/m05/**`
-- one downstream builder from finalization output into the existing
-  archive-qualification request family
-- one module-derived archive-finalization unit lane
-- one real-output archive integration lane
-- one fail-closed archive-finalization negative lane
+- one installed reset-postmortem qualification boundary under
+  `code/src/qualification/m05/**`
+- one active-run supersession proof over accepted reset truth
+- one open-continuation abandonment proof over admitted non-fulfilled
+  assessment provenance
+- one module-derived reset-postmortem unit lane
+- one installed reset-postmortem integration lane
+- one fail-closed reset-postmortem negative lane
 
 The latest completed follow-up implementation wave is:
 
@@ -403,6 +430,64 @@ That completed slice is bounded to:
 - one installed portfolio integration lane
 - one module-derived installed-portfolio unit lane
 - one fail-closed installed-portfolio negative lane
+
+The completed next `M05` behavior portfolio wave is:
+
+- `.ai-workspace/tickets/completed/T-036-port-python-archived-sandbox-behavior-portfolio-to-typescript-installed-package-lane.md`
+
+`T-036` completed the 34-scenario Python archived sandbox behavior portfolio
+port.
+Its design asset is:
+
+- `M05_PYTHON_SANDBOX_BEHAVIOR_PORTFOLIO_DERIVATION.md`
+
+That completed slice adds:
+
+- one explicit scenario-obligation catalog for the Python archived sandbox
+  corpus
+- one installed-package behavior portfolio qualifier
+- one installed-package integration lane that runs 34 scenario obligations
+- one durable portfolio report under `test_env/test_runs/`
+
+The completed RC live UAT wave is:
+
+- `.ai-workspace/tickets/completed/T-033-realize-typescript-rc-live-qualification-lane-over-real-fp-transport-execution.md`
+
+`T-033` completed a distinct TypeScript live sandbox UAT lane under the
+`SPEC_METHOD.md` testing strategy taxonomy.
+Its design asset is:
+
+- `M05_RC_LIVE_UAT_DERIVATION.md`
+
+That completed slice is bounded to:
+
+- one opt-in single-edge live command, `npm run test:live:uat`
+- one requirements-sourced sandbox UAT scenario
+- real F_P transport execution through the TypeScript transport contract
+- result-artifact ingestion, result assessment, live-status projection, and
+  durable RC live evidence capture under the Python-sandbox-derived archive
+  convention
+
+The completed RC live portfolio wave is:
+
+- `.ai-workspace/tickets/completed/T-037-port-python-live-scenario-portfolio-to-typescript-rc-external-live-lane.md`
+
+`T-037` completed the external-live portfolio port for all five Python live
+scenario families.
+Its design asset is:
+
+- `M05_RC_LIVE_PORTFOLIO_DERIVATION.md`
+
+That completed slice is bounded to:
+
+- one required RC portfolio live command, `npm run test:live`
+- five Python live scenario families
+- twelve real F_P stage dispatches through the TypeScript transport contract
+- one shared scenario/stage/assessment catalog,
+  `M05_REFERENCE_LIVE_SCENARIO_OBLIGATIONS`
+- package materialization from `npm pack` before installed package import
+- result-artifact ingestion, result assessment, live-status projection, and
+  durable per-stage archive evidence
 
 The completed deferred-only `M06` adjudication is:
 

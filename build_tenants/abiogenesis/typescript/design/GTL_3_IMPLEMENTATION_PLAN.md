@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Date**: 2026-04-23
-**Derived from**: [GTL_3_CONSTITUTIONAL_DESIGN.md](../../../../specification/GTL_3_CONSTITUTIONAL_DESIGN.md), [README.md](../../../../specification/requirements/gtl/README.md), [TESTCASE_AUTHORITY.md](../../../../specification/scenarios/TESTCASE_AUTHORITY.md), [GTL_3_MODULE_DESIGN.md](./GTL_3_MODULE_DESIGN.md), [GTL_3_INTERFACE_CONTRACTS.md](./GTL_3_INTERFACE_CONTRACTS.md)
+**Derived from**: [README.md](../../../../specification/requirements/gtl/README.md), [TESTCASE_AUTHORITY.md](../../../../specification/scenarios/TESTCASE_AUTHORITY.md), [GTL_3_MODULE_DESIGN.md](./GTL_3_MODULE_DESIGN.md), [GTL_3_INTERFACE_CONTRACTS.md](./GTL_3_INTERFACE_CONTRACTS.md)
 
 ## Purpose
 
@@ -11,7 +11,7 @@ design constraints that govern the current implementation wave.
 
 ## Delivery Order
 
-1. GTL 3 constitution
+1. GTL 3 requirement authority
    Status: complete
 2. GTL 3 requirements
    Status: complete
@@ -89,7 +89,7 @@ If those are absent, implementation is starting too early.
 ## Rejected Shapes
 
 - do not introduce a standalone policy semantic language into GTL
-- do not publish raw runtime callables as constitutional hook truth
+- do not publish raw runtime callables as requirement-authoritative hook truth
 - do not defer `GraphVector.declarations` to product-local overlays
 - do not preserve `GraphVector` as a public callable or semantic job target
 - do not replace one open JSON bag with many fragment classes that do not carry

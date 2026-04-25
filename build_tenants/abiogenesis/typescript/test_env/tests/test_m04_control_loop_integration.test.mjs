@@ -24,7 +24,7 @@ import {
   runtimeIdentity
 } from "./support/m04-fixtures.mjs";
 
-test("M04 control integration: supervised control loop re-enters canonical publicStart and preserves advanced seam as yielded truth", async () => {
+test("M04 control integration: supervised control loop re-enters canonical publicStart from replay-derived truth", async () => {
   const profile = publishedProfile({
     id: "graph-function-m04-control-int-fd",
     name: "public_profile_fd",
@@ -61,14 +61,18 @@ test("M04 control integration: supervised control loop re-enters canonical publi
     }
   );
 
-  assert.equal(outcome.kind, "yielded");
-  assert.equal(outcome.stopDetail.kind, "advanced_reentry_required");
-  assert.deepStrictEqual(outcome.trace.stepKinds, ["advanced", "advanced"]);
+  assert.equal(outcome.kind, "converged");
+  assert.deepStrictEqual(outcome.trace.stepKinds, ["advanced", "converged"]);
   assert.deepStrictEqual(events.map((event) => event.kind), [
     "basis_admitted",
+    "graph_call_opened",
+    "frame_opened",
+    "vector_traversal_planned",
+    "vector_evaluated",
+    "vector_closed",
     "fd_advance_ready",
     "basis_admitted",
-    "fd_advance_ready"
+    "terminal_reached"
   ]);
 
   const root = await import("@abiogenesis/typescript-tenant");
@@ -120,6 +124,9 @@ test("M04 control integration: dispatch-required seam remains explicit control t
   assert.deepStrictEqual(outcome.trace.stepKinds, ["blocked"]);
   assert.deepStrictEqual(events.map((event) => event.kind), [
     "basis_admitted",
+    "graph_call_opened",
+    "frame_opened",
+    "vector_traversal_planned",
     "fp_dispatch_requested"
   ]);
 });
@@ -170,6 +177,9 @@ test("M04 control integration: human-proxy mode preserves human-gate seam withou
   });
   assert.deepStrictEqual(events.map((event) => event.kind), [
     "basis_admitted",
+    "graph_call_opened",
+    "frame_opened",
+    "vector_traversal_planned",
     "fh_escalated"
   ]);
 });

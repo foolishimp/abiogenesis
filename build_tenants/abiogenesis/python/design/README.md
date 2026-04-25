@@ -34,9 +34,12 @@ Current governing truth lives in:
 
 - `build_tenants/common/design/design_surface_map.md` — current shared-vs-tenant design classification
 - `build_tenants/common/design/module_decomp.md` — shared module schedule and ownership surface
-- `specification/GTL_3_CONSTITUTIONAL_DESIGN.md` — GTL 3 language + engine boundary
-- `specification/ABG_3_CONSTITUTIONAL_DESIGN.md` — ABG 3 runtime ontology, event law, and GTL/ABG boundary
-- `specification/requirements/` — 4-layer requirement surface (gtl/abg/mapping/product)
+- `specification/INTENT.md` — current intent authority
+- `specification/PRODUCT.md` — current product-definition authority
+- `specification/requirements/gtl/` — GTL 3 language, graph, and publication law
+- `specification/requirements/abg/` — ABG 3 runtime, event, projection, and traversal law
+- `specification/requirements/mapping/` — GTL-to-ABG bridge law
+- `specification/requirements/product/` — product-level qualification and policy law
 - `specification/scenarios/` — GTL 3 / ABG 3 testcase authority and proving lanes
 - `GTL_3_MODULE_DESIGN.md` — module ownership and runtime/language split
 - `GTL_3_INTERFACE_CONTRACTS.md` — concrete interfaces for tests and code derivation

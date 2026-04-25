@@ -48,6 +48,21 @@ TerminalKind: TypeAlias = Literal[
 
 BlockingReason: TypeAlias = Literal["fp_dispatch", "fh_gate", "fd_gap"]
 
+PublicStopClassKind: TypeAlias = Literal[
+    "converged",
+    "worker_dispatch_required",
+    "human_decision_required",
+    "yielded",
+    "proof_hold",
+    "capability_missing",
+    "runtime_unavailable",
+    "runtime_failure",
+    "payload_contract_failure",
+    "gap_stop",
+    "advanced",
+    "not_started",
+]
+
 
 @dataclass(frozen=True)
 class ExecutionBasis:
@@ -734,6 +749,115 @@ def stop_predicate_from_transition(transition: AdvancementTransition) -> str:
             return "gap_stop"
         return transition.terminal_kind
     return "traversal_applied"
+
+
+def _string_field(result: Mapping[str, Any], key: str) -> str | None:
+    value = result.get(key)
+    if isinstance(value, str) and value:
+        return value
+    return None
+
+
+def _detail_for_stop_class(result: Mapping[str, Any], fallback: str) -> str:
+    for key in ("reason", "message", "blocking_reason", "stop_predicate", "status"):
+        value = _string_field(result, key)
+        if value is not None:
+            return value
+    return fallback
+
+
+def _runtime_failure_stop_kind(
+    failure_class: str,
+    detail: str,
+) -> tuple[PublicStopClassKind, str | None]:
+    normalized = detail.lower()
+    if failure_class == "policy_config_defect":
+        return "capability_missing", failure_class
+    if failure_class == "transport_failure":
+        if (
+            "not found" in normalized
+            or "check path" in normalized
+            or "not installed" in normalized
+            or "not available" in normalized
+        ):
+            return "runtime_unavailable", failure_class
+        return "runtime_failure", failure_class
+    if failure_class in {"contract_failure", "no_output"}:
+        return "payload_contract_failure", failure_class
+    return "runtime_failure", failure_class
+
+
+def public_stop_class_from_result(result: Mapping[str, Any]) -> dict[str, Any]:
+    """Project one public stop class from emitted runtime/control truth."""
+    detail = _detail_for_stop_class(result, "unknown")
+    stop_predicate = _string_field(result, "stop_predicate")
+    if stop_predicate is None:
+        blocking_reason = _string_field(result, "blocking_reason")
+        if blocking_reason == "fp_dispatch":
+            stop_predicate = "dispatch_required"
+        elif blocking_reason == "fh_gate":
+            stop_predicate = "human_gate_required"
+        elif blocking_reason == "fd_gap":
+            stop_predicate = "gap_stop"
+    if result.get("stopped_by") == "proof_hold":
+        stop_predicate = "proof_hold"
+    if result.get("stopped_by") == "yield" or result.get("status") == "yield":
+        stop_predicate = "yielded"
+
+    mapping: dict[str, PublicStopClassKind] = {
+        "converged": "converged",
+        "dispatch_required": "worker_dispatch_required",
+        "human_gate_required": "human_decision_required",
+        "yielded": "yielded",
+        "proof_hold": "proof_hold",
+        "gap_stop": "gap_stop",
+        "traversal_applied": "advanced",
+    }
+    if stop_predicate in {"yielded", "proof_hold"}:
+        return {
+            "kind": mapping[stop_predicate],
+            "detail": detail,
+            "source": "public_result",
+            "runtime_failure_class": None,
+        }
+
+    failure_class = _string_field(result, "failure_class")
+    if failure_class is not None:
+        kind, runtime_failure_class = _runtime_failure_stop_kind(failure_class, detail)
+        return {
+            "kind": kind,
+            "detail": detail,
+            "source": "public_result",
+            "runtime_failure_class": runtime_failure_class,
+        }
+
+    if stop_predicate in mapping:
+        return {
+            "kind": mapping[stop_predicate],
+            "detail": detail,
+            "source": "public_result",
+            "runtime_failure_class": None,
+        }
+
+    status = _string_field(result, "status")
+    if status == "converged":
+        kind: PublicStopClassKind = "converged"
+    elif status in {"iterated", "in_progress", "queued", "needs_selection", "dispatched"}:
+        kind = "advanced"
+    elif status == "nothing_to_do":
+        kind = "gap_stop"
+    else:
+        kind = "not_started"
+    return {
+        "kind": kind,
+        "detail": detail,
+        "source": "public_result",
+        "runtime_failure_class": None,
+    }
+
+
+def attach_public_stop_class(result: dict[str, Any]) -> None:
+    result["stop_class"] = public_stop_class_from_result(result)
 
 
 def execution_basis_payload(basis: ExecutionBasis) -> dict[str, Any]:

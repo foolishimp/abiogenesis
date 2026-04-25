@@ -4,189 +4,193 @@ import {
   constructPassedInstalledLiveScenarioPortfolioOutcome,
   constructRejectedInstalledLiveScenarioPortfolioOutcome
 } from "./live_portfolio_constructors.js";
+import {
+  M05_REFERENCE_LIVE_SCENARIO_OBLIGATIONS,
+  M05_REFERENCE_REQUIRED_EVENT_KINDS
+} from "./reference_obligations.js";
 import type {
-  InstalledLiveScenarioName,
   InstalledLiveScenarioPortfolioGapRef,
   InstalledLiveScenarioPortfolioOutcome,
   InstalledLiveScenarioPortfolioRequest,
-  InstalledLiveScenarioResult
+  InstalledLiveScenarioResult,
+  InstalledLiveScenarioStageResult
 } from "./live_portfolio_carriers.js";
+import type { M05ReferenceLiveScenarioObligation } from "./reference_obligations_carriers.js";
+import {
+  collectQualificationObligationGaps,
+  collectMissingEventKindGaps,
+  collectMissingRequiredRefs,
+  collectRequiredScenarioCardinalityGaps,
+  qualificationObligation
+} from "./qualification_common.js";
 
-interface RequiredInstalledScenarioSpec {
-  readonly scenarioName: InstalledLiveScenarioName;
-  readonly authorityRefs: readonly string[];
-  readonly mode: InstalledLiveScenarioResult["mode"];
-  readonly minStageCount: number;
-  readonly minAssessmentCount: number;
+function sameStringSequence(
+  left: readonly string[],
+  right: readonly string[]
+): boolean {
+  return left.length === right.length &&
+    left.every((value, index) => value === right[index]);
 }
 
-const REQUIRED_EVENT_KINDS: readonly string[] = Object.freeze([
-  "basis_admitted",
-  "fp_dispatch_requested",
-  "assessed"
-]);
+function collectStageGaps(
+  scenarioName: string,
+  stage: InstalledLiveScenarioStageResult | undefined,
+  required: InstalledLiveScenarioStageResult,
+  index: number
+): readonly InstalledLiveScenarioPortfolioGapRef[] {
+  const refPrefix = `${scenarioName}:stage:${index}`;
 
-const REQUIRED_SCENARIO_SPECS: readonly RequiredInstalledScenarioSpec[] =
-  Object.freeze([
-    Object.freeze({
-      scenarioName: "requirements_to_uat",
-      authorityRefs: ["SCN-R2U-001"],
-      mode: "asset_addressed",
-      minStageCount: 1,
-      minAssessmentCount: 1
-    }),
-    Object.freeze({
-      scenarioName: "intent_to_requirements",
-      authorityRefs: ["SCN-I2R-001"],
-      mode: "graph_function",
-      minStageCount: 1,
-      minAssessmentCount: 1
-    }),
-    Object.freeze({
-      scenarioName: "gsdlc_lite_requirements_design_code",
-      authorityRefs: ["SCN-GSDLCLITE-001"],
-      mode: "staged_chain",
-      minStageCount: 2,
-      minAssessmentCount: 1
-    }),
-    Object.freeze({
-      scenarioName: "gsdlc_lite_design_review",
-      authorityRefs: ["SCN-GSDLCLITE-001"],
-      mode: "review_chain",
-      minStageCount: 3,
-      minAssessmentCount: 3
-    }),
-    Object.freeze({
-      scenarioName: "gsdlc_lite_zoom_design",
-      authorityRefs: ["SCN-GSDLCLITE-001"],
-      mode: "zoom_chain",
-      minStageCount: 5,
-      minAssessmentCount: 1
+  if (stage === undefined) {
+    return Object.freeze([
+      constructInstalledLiveScenarioPortfolioGapRef(
+        "missing_stage",
+        `${refPrefix}:${required.edge}`
+      )
+    ]);
+  }
+
+  return Object.freeze([
+    ...collectQualificationObligationGaps({
+      constructGap: constructInstalledLiveScenarioPortfolioGapRef,
+      obligations: Object.freeze([
+        qualificationObligation(
+          stage.handle === required.handle,
+          "mismatched_stage_handle",
+          `${refPrefix}:${stage.handle}`
+        ),
+        qualificationObligation(
+          stage.edge === required.edge,
+          "mismatched_stage_edge",
+          `${refPrefix}:${stage.edge}`
+        ),
+        qualificationObligation(
+          stage.sourceKind === required.sourceKind,
+          "mismatched_stage_source",
+          `${refPrefix}:${stage.sourceKind}`
+        ),
+        qualificationObligation(
+          stage.targetKind === required.targetKind,
+          "mismatched_stage_target",
+          `${refPrefix}:${stage.targetKind}`
+        ),
+        qualificationObligation(
+          stage.assetHandle === required.assetHandle,
+          "mismatched_stage_asset_handle",
+          `${refPrefix}:${stage.assetHandle ?? "null"}`
+        ),
+        qualificationObligation(
+          sameStringSequence(stage.assessmentIds, required.assessmentIds),
+          "mismatched_stage_assessments",
+          `${refPrefix}:${stage.assessmentIds.join(",")}`
+        )
+      ])
     })
   ]);
+}
 
 function collectScenarioGaps(
   scenario: InstalledLiveScenarioResult,
-  required: RequiredInstalledScenarioSpec
+  required: M05ReferenceLiveScenarioObligation
 ): readonly InstalledLiveScenarioPortfolioGapRef[] {
-  const gaps: InstalledLiveScenarioPortfolioGapRef[] = [];
-
-  if (!scenario.passed) {
-    gaps.push(
-      constructInstalledLiveScenarioPortfolioGapRef(
-        "failed_scenario",
-        scenario.scenarioName
-      )
-    );
-  }
-
-  for (const ref of required.authorityRefs) {
-    if (!scenario.scenarioAuthorityRefs.includes(ref)) {
-      gaps.push(
-        constructInstalledLiveScenarioPortfolioGapRef(
-          "missing_authority_ref",
-          `${scenario.scenarioName}:${ref}`
+  return Object.freeze([
+    ...collectQualificationObligationGaps({
+      constructGap: constructInstalledLiveScenarioPortfolioGapRef,
+      obligations: Object.freeze([
+        qualificationObligation(
+          scenario.passed,
+          "failed_scenario",
+          scenario.scenarioName
+        ),
+        qualificationObligation(
+          scenario.mode === required.mode,
+          "mismatched_mode",
+          `${scenario.scenarioName}:${scenario.mode}`
+        ),
+        qualificationObligation(
+          scenario.stageCount >= required.minStageCount,
+          "insufficient_stage_count",
+          `${scenario.scenarioName}:${scenario.stageCount}`
+        ),
+        qualificationObligation(
+          scenario.stages.length === required.stages.length,
+          "mismatched_stage_count",
+          `${scenario.scenarioName}:exact:${scenario.stages.length}`
+        ),
+        qualificationObligation(
+          scenario.maxAssessmentCount >= required.minAssessmentCount,
+          "insufficient_assessment_count",
+          `${scenario.scenarioName}:${scenario.maxAssessmentCount}`
+        ),
+        qualificationObligation(
+          scenario.finalRunStatus === "assessed",
+          "unexpected_final_status",
+          `${scenario.scenarioName}:${scenario.finalRunStatus}`
         )
-      );
-    }
-  }
-
-  if (scenario.mode !== required.mode) {
-    gaps.push(
-      constructInstalledLiveScenarioPortfolioGapRef(
-        "mismatched_mode",
-        `${scenario.scenarioName}:${scenario.mode}`
+      ])
+    }),
+    ...collectMissingRequiredRefs({
+      observed: scenario.scenarioAuthorityRefs,
+      required: required.requiredAuthorityRefs,
+      refPrefix: scenario.scenarioName,
+      missingKind: "missing_authority_ref",
+      constructGap: constructInstalledLiveScenarioPortfolioGapRef
+    }),
+    ...required.stages.flatMap((requiredStage, index) =>
+      collectStageGaps(
+        scenario.scenarioName,
+        scenario.stages[index],
+        requiredStage,
+        index
       )
-    );
-  }
-
-  if (scenario.stageCount < required.minStageCount) {
-    gaps.push(
-      constructInstalledLiveScenarioPortfolioGapRef(
-        "insufficient_stage_count",
-        `${scenario.scenarioName}:${scenario.stageCount}`
-      )
-    );
-  }
-
-  if (scenario.maxAssessmentCount < required.minAssessmentCount) {
-    gaps.push(
-      constructInstalledLiveScenarioPortfolioGapRef(
-        "insufficient_assessment_count",
-        `${scenario.scenarioName}:${scenario.maxAssessmentCount}`
-      )
-    );
-  }
-
-  for (const kind of REQUIRED_EVENT_KINDS) {
-    if (!scenario.emittedEventKinds.includes(kind)) {
-      gaps.push(
-        constructInstalledLiveScenarioPortfolioGapRef(
-          "missing_event_kind",
-          `${scenario.scenarioName}:${kind}`
-        )
-      );
-    }
-  }
-
-  if (scenario.finalRunStatus !== "assessed") {
-    gaps.push(
-      constructInstalledLiveScenarioPortfolioGapRef(
-        "unexpected_final_status",
-        `${scenario.scenarioName}:${scenario.finalRunStatus}`
-      )
-    );
-  }
-
-  return Object.freeze(gaps);
+    ),
+    ...collectMissingEventKindGaps({
+      observedEventKinds: scenario.emittedEventKinds,
+      requiredEventKinds: M05_REFERENCE_REQUIRED_EVENT_KINDS,
+      refPrefix: scenario.scenarioName,
+      missingKind: "missing_event_kind",
+      constructGap: constructInstalledLiveScenarioPortfolioGapRef
+    })
+  ]);
 }
 
 export function qualifyInstalledLiveScenarioPortfolio(
   request: InstalledLiveScenarioPortfolioRequest
 ): InstalledLiveScenarioPortfolioOutcome {
-  const gaps: InstalledLiveScenarioPortfolioGapRef[] = [];
-
-  if (request.installedQualification.kind !== "passed") {
-    gaps.push(
-      constructInstalledLiveScenarioPortfolioGapRef(
+  const installedQualificationGaps = collectQualificationObligationGaps({
+    constructGap: constructInstalledLiveScenarioPortfolioGapRef,
+    obligations: Object.freeze([
+      qualificationObligation(
+        request.installedQualification.kind === "passed",
         "failed_scenario",
         "installed_qualification"
       )
-    );
-  }
+    ])
+  });
+  const scenarioGaps = M05_REFERENCE_LIVE_SCENARIO_OBLIGATIONS.flatMap((required) => {
+    const cardinality = collectRequiredScenarioCardinalityGaps({
+      scenarios: request.scenarios,
+      scenarioName: required.scenarioName,
+      getScenarioName: (scenario) => scenario.scenarioName,
+      constructGap: constructInstalledLiveScenarioPortfolioGapRef,
+      missingKind: "missing_scenario",
+      duplicateKind: "duplicate_scenario"
+    });
 
-  for (const required of REQUIRED_SCENARIO_SPECS) {
-    const matches = request.scenarios.filter(
-      (scenario) => scenario.scenarioName === required.scenarioName
-    );
-
-    if (matches.length === 0) {
-      gaps.push(
-        constructInstalledLiveScenarioPortfolioGapRef(
-          "missing_scenario",
-          required.scenarioName
-        )
-      );
-      continue;
+    if (cardinality.gaps.length > 0) {
+      return cardinality.gaps;
     }
 
-    if (matches.length > 1) {
-      gaps.push(
-        constructInstalledLiveScenarioPortfolioGapRef(
-          "duplicate_scenario",
-          required.scenarioName
-        )
-      );
-      continue;
-    }
-
-    const scenario = matches[0];
+    const scenario = cardinality.matches[0];
     if (scenario === undefined) {
-      continue;
+      return [];
     }
 
-    gaps.push(...collectScenarioGaps(scenario, required));
-  }
+    return collectScenarioGaps(scenario, required);
+  });
+  const gaps = Object.freeze([
+    ...installedQualificationGaps,
+    ...scenarioGaps
+  ]);
 
   if (gaps.length > 0) {
     return constructInstalledLiveScenarioPortfolioOutcome(
@@ -199,7 +203,9 @@ export function qualifyInstalledLiveScenarioPortfolio(
 
   return constructInstalledLiveScenarioPortfolioOutcome(
     constructPassedInstalledLiveScenarioPortfolioOutcome({
-      scenarioNames: REQUIRED_SCENARIO_SPECS.map((spec) => spec.scenarioName)
+      scenarioNames: M05_REFERENCE_LIVE_SCENARIO_OBLIGATIONS.map(
+        (spec) => spec.scenarioName
+      )
     })
   );
 }

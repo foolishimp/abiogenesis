@@ -58,7 +58,7 @@ test("M05 qualification negative: fake lane rejects unresolved asset routing and
     emittedEventKinds: [],
     resultAssessmentKind: "rejected",
     liveStatusKind: "attention",
-    liveRunStatus: "transport_failure"
+    liveRunStatus: "runtime_unavailable"
   });
 
   const outcome = qualifyFakeLaneScenario(request);

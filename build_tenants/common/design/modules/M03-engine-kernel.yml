@@ -21,6 +21,7 @@ implements_features:
   - REQ-R-ABG3-SELECTION-APPLICATION
   - REQ-R-ABG3-PROVENANCE
   - REQ-R-ABG3-CORRECTION
+  - REQ-R-ABG3-RETRY
   - REQ-R-ABG3-LEAFTASK
   - REQ-R-ABG3-TRANSPORT
   - REQ-R-ABG3-INTERPRET
@@ -37,6 +38,7 @@ primary_surfaces:
   - engine-kernel.selection-surface
   - engine-kernel.provenance-surface
   - engine-kernel.correction-surface
+  - engine-kernel.retry-repair-surface
   - engine-kernel.subwork-surface
   - engine-kernel.transport-surface
   - engine-kernel.interpret-surface
@@ -73,6 +75,10 @@ invariants:
   - recursive zoom/materialize/fold-back preserves outer contract, lineage, and replayable provenance end to end
   - graph-derived evaluator bundles come from refined or realized structure rather than hidden interpreter-local strategy
   - graph remains primary structural truth even when selected subgraphs or evaluator bundles are derived
+  - public start/resume is an ignition boundary only; replay-derived graph-function iteration and next-edge advancement remain kernel-owned beneath it
+  - next-edge selection is derived from event truth over graph-call, frame, vector-local traversal, evaluation, proof, and closure facts rather than package-local loop state or fixed first-vector shortcuts
+  - retry/repair mints fresh attempt identity and regenerates prompt/manifest truth from current projection rather than redispatching stale controller state
+  - bounded leaf-task execution remains parent-bound runtime work and not a rival top-level workflow ontology
   - workflow version, work key, and run id enter event emission through explicit event-context values rather than mutable hidden stream state
   - compatibility build projection is neutral and resolves through runtime identity as build_id -> worker_id -> engine_id rather than through a hardcoded tool default
   - effect-edge F_P dispatch may contribute explicit WorkSurface fragments, but transport details remain outside the pure traversal/materialization kernels
@@ -86,6 +92,10 @@ test_obligations:
   - explicit request/record materialization tests with replayable provenance
   - fail-closed tests for undeclared graph-function ids, profiles, parameters, and outer-contract violations
   - traversal tests for delegated materialization, convergence, selection, and provenance rather than hidden local strategy
+  - graph-function iteration tests prove replay-derived progression across composed graph boundaries until a lawful stop condition
+  - next-edge selection tests reject first-vector-only dispatch as graph-function execution parity
+  - retry/repair tests prove fresh attempt identity, stale-manifest rejection, bounded budget exhaustion, and continuation repair linkage
+  - leaf-task tests prove parent-bound schema-validated subordinate work and typed failure boundaries
   - traversal tests for explicit WorkSurface contributions from effect-edge F_P dispatch without hidden runtime mutation
   - event-context tests for explicit workflow/work/run provenance without stream-local mutation
   - refinement tests for parent/child lineage, lawful fold-back, and refined evaluator-bundle derivation
@@ -93,6 +103,9 @@ test_obligations:
   - structural selfhosting tests that fail when bootloader sections drift from the exported GTL surface even if names still appear elsewhere in the document
 notes:
   - canonical ABG graph-function materialization and graph-derived companion bundle derivation are kernel-owned design obligations for the 1.1 line
+  - the internal iteration engine is part of the kernel; M04 public start, resume, and control-loop surfaces may admit or resume work but do not substitute for graph traversal advancement
+  - retry/repair is substrate-owned runtime governance; transport helpers and CLI loops may execute effects but do not own retry truth
+  - leaf-task execution is subordinate runtime work under the parent boundary; it does not become public semantic work or a top-level ABG workflow
   - kernel materialization and traversal should read as a functional core with explicit interpreter-edge effects; event emission, transport, and subprocess remain outside the pure materialization/convergence kernels
   - recursive refinement is lawful only when parent contract, child materialization, derived evaluator bundle, and fold-back provenance remain replayable end to end
   - the dedicated materialization surface is the canonical kernel seam for explicit graph-function materialization and companion-bundle derivation

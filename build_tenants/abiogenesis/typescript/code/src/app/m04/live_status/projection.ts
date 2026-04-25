@@ -56,6 +56,7 @@ function deriveResultAssessmentRef(
   if (request.resultAssessmentOutcome === null) {
     return constructProjectionResultAssessmentRef({
       status: null,
+      failureClass: null,
       valid: null,
       publishedLedgerRef: request.resultAssessmentRequest.publishedLedgerRef.ref,
       assessedCount: null
@@ -65,6 +66,7 @@ function deriveResultAssessmentRef(
     case "accepted":
       return constructProjectionResultAssessmentRef({
         status: "accepted",
+        failureClass: null,
         valid: true,
         publishedLedgerRef: request.resultAssessmentRequest.publishedLedgerRef.ref,
         assessedCount: request.resultAssessmentOutcome.assessedCount
@@ -72,6 +74,7 @@ function deriveResultAssessmentRef(
     case "rejected":
       return constructProjectionResultAssessmentRef({
         status: request.resultAssessmentOutcome.ingestKind,
+        failureClass: request.resultAssessmentOutcome.failureClass,
         valid: false,
         publishedLedgerRef: request.resultAssessmentRequest.publishedLedgerRef.ref,
         assessedCount: null
@@ -141,7 +144,15 @@ export function projectLiveStatusFromRequest(
         resultAssessment,
         targetHandle,
         activeEdge,
-        runStatus: request.resultAssessmentOutcome.ingestKind,
+        runStatus:
+          request.resultAssessmentOutcome.ingestKind === "runtime_failure"
+            ? request.resultAssessmentOutcome.failureClass ??
+              (() => {
+                throw new TypeError(
+                  "Runtime failure result assessment requires failureClass"
+                );
+              })()
+            : "rejected",
         reason: request.resultAssessmentOutcome.reason
       })
     );

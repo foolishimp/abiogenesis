@@ -1,15 +1,24 @@
 # LLM GTL App Builder Guide
 
-**Status**: Current GTL 3 / ABG 3.2.0 builder guide
-**Audience**: LLM agentic coders building GTL/ABG domain apps
-**Purpose**: Provide the LLM-facing axiomatic ontology and operating contract for building and running GTL/ABG apps
+**Status**: Current compressed technical GTL 3 / ABG 3.2.0 guide for LLMs
+**Audience**: LLM agentic coders and agent bootstraps building GTL/ABG domain apps
+**Purpose**: Compress the human GTL/ABG guide into the ontology, operating rules, fail-closed constraints, and language-specific syntax needed by LLM agents
 
 ## Position
 
-This is the first GTL/ABG document to give an LLM that must build or operate a
-GTL/ABG app.
+This is the first GTL/ABG document to give an LLM that must build, modify, or
+operate a GTL/ABG app.
 
-This guide defines the substrate ontology:
+The live guide model has two guides:
+
+- `USER_GUIDE.md` is the single human guide.
+- this guide is the compressed technical bootstrap for LLM agents.
+
+This guide should be concise, action-oriented, and safe to load into an agent
+context. It should state the ontology, authority split, operating rules, and
+minimum syntax needed for correct construction.
+
+This guide compresses:
 
 - what GTL is
 - what ABG is
@@ -20,9 +29,14 @@ This guide defines the substrate ontology:
 - how runtime truth is emitted, replayed, projected, proved, and closed
 - how to run the current public kernel loop
 
+It does not replace the human guide.
+
+It should not become a tutorial, narrative explainer, or complete language
+reference.
+
 This guide is not `ODD_METHOD.md`.
 
-Use this guide first for GTL/ABG ontology and operation.
+Use this guide first when priming an LLM for GTL/ABG ontology and operation.
 
 Use `ODD_METHOD.md` next when the product must be authored as an ODD product.
 
@@ -30,7 +44,7 @@ Then read the local product authority surfaces.
 
 For an ODD-shaped product such as `odd_sdlc`, the read order is:
 
-1. this guide for GTL/ABG substrate law
+1. this guide for compressed GTL/ABG substrate law
 2. `ODD_METHOD.md` for ODD product-authoring law
 3. local `GOALS.md`, `INTENT.md`, `PRODUCT.md`, requirements, and design
 4. local code and tests as realization evidence
@@ -38,6 +52,9 @@ For an ODD-shaped product such as `odd_sdlc`, the read order is:
 Do not treat this guide as domain semantics.
 
 Do not treat `ODD_METHOD.md` as a replacement for local product authority.
+
+Do not treat the appendices as exhaustive APIs. They are syntax anchors for
+agents. When exact signatures matter, read the TypeScript or Python source.
 
 ## Axiomatic Substrate
 
@@ -314,45 +331,8 @@ even after newer bindings have been added.
 
 Use `GraphVector.contexts` for stable source context and use `GraphFunction.environment` for cumulative typed asset bindings.
 
-Minimal pattern:
-
-```python
-capture_requirements = graph_function_for_vector(
-    GraphVector("input_set→requirements", input_set, requirements),
-)
-
-synthesize_design = GraphFunction.from_graph(
-    name="requirements_to_design",
-    graph=Graph(
-        name="requirements_to_design",
-        inputs=(input_set, requirements),
-        outputs=(design,),
-        nodes=(input_set, requirements, design),
-        vectors=(GraphVector("requirements→design", (input_set, requirements), design),),
-    ),
-    environment=EnvRef.from_contract(
-        requires=(input_set, requirements),
-        provides=(design,),
-    ),
-)
-
-implement_code = GraphFunction.from_graph(
-    name="design_to_code",
-    graph=Graph(
-        name="design_to_code",
-        inputs=(input_set, requirements, design),
-        outputs=(code,),
-        nodes=(input_set, requirements, design, code),
-        vectors=(GraphVector("design→code", (input_set, requirements, design), code),),
-    ),
-    environment=EnvRef.from_contract(
-        requires=(input_set, requirements, design),
-        provides=(code,),
-    ),
-)
-
-executive = compose(capture_requirements, synthesize_design, implement_code)
-```
+See the appendices for the concrete Python and TypeScript syntax for the same
+cumulative environment pattern.
 
 The law is not:
 
@@ -376,20 +356,8 @@ When a boundary represents a real produced or consumed asset, declare its
 - `standards_refs`
 - `output_contract_refs`
 
-Minimal pattern:
-
-```python
-schema = Node(
-    name="schema_surface",
-    schema="SchemaSurface",
-    asset_surface={
-        "kind": "schema_surface",
-        "required_contexts": ("dataset_profile",),
-        "standards_refs": ("REQ-DATA-012",),
-        "output_contract_refs": ("schema_contract_v1",),
-    },
-)
-```
+See the appendices for the concrete Python and TypeScript syntax for declaring
+the same asset-surface contract.
 
 Use this when you want downstream work to consume an asset by declared contract
 rather than by ad hoc file-path lore.
@@ -478,68 +446,8 @@ The real builder pattern for multi-step work is:
 - bind the semantic `Job` to the public executive carrier, not to an internal
   vector
 
-Concrete pattern:
-
-```python
-capture_requirements = graph_function_for_vector(
-    GraphVector("input_set→requirements", input_set, requirements),
-)
-
-synthesize_design = GraphFunction.from_graph(
-    name="requirements_to_design",
-    graph=Graph(
-        name="requirements_to_design",
-        inputs=(input_set, requirements),
-        outputs=(design,),
-        nodes=(input_set, requirements, design),
-        vectors=(GraphVector("requirements→design", (input_set, requirements), design),),
-    ),
-    environment=EnvRef.from_contract(
-        requires=(input_set, requirements),
-        provides=(design,),
-    ),
-)
-
-implement_code = GraphFunction.from_graph(
-    name="design_to_code",
-    graph=Graph(
-        name="design_to_code",
-        inputs=(input_set, requirements, design),
-        outputs=(code,),
-        nodes=(input_set, requirements, design, code),
-        vectors=(GraphVector("design→code", (input_set, requirements, design), code),),
-    ),
-    environment=EnvRef.from_contract(
-        requires=(input_set, requirements, design),
-        provides=(code,),
-    ),
-)
-
-executive = compose(capture_requirements, synthesize_design, implement_code)
-materialized = executive.materialize()
-
-boundaries = tuple(
-    RefinementBoundary(
-        name=vector.name,
-        inputs=vector.source if isinstance(vector.source, tuple) else (vector.source,),
-        outputs=(vector.target,),
-    )
-    for vector in materialized.vectors
-)
-
-module = Module(
-    name="delivery",
-    graphs=(materialized,),
-    graph_functions=(executive,),
-    refinement_boundaries=boundaries,
-    jobs=(
-        Job(
-            name="bootstrap_release",
-            contracts=(ContractRef(kind="graph_function", target_id=executive.id),),
-        ),
-    ),
-)
-```
+See the appendices for the concrete Python and TypeScript syntax for publishing
+the same composed executive carrier.
 
 That publication shape is important.
 
@@ -622,28 +530,8 @@ The builder-facing law is:
 - fold-back and continuation logic must preserve explicit lineage rather than
   mutating prior truth
 
-Concrete recursive composition pattern:
-
-```python
-recursive = recurse(
-    compose(capture_requirements, synthesize_design, implement_code),
-    termination_ready,
-    foldback={
-        "binding": "outer_contract",
-        "mode": "rebind",
-        "requires_parent_evaluation": True,
-    },
-)
-
-assert recursive.inputs == (input_set,)
-assert recursive.outputs == (code,)
-assert tuple(node.name for node in recursive.environment.carries) == (
-    "input_set",
-    "requirements",
-    "design",
-    "code",
-)
-```
+See the appendices for the concrete Python and TypeScript syntax for the same
+recursive composition pattern.
 
 That is the important point: recursion preserves the cumulative carried world.
 It does not collapse back to one-step output piping.
@@ -660,64 +548,11 @@ Publish:
   inner work
 - one explicit `SelectionDecision` when candidate families are involved
 
-Concrete pattern:
+See the appendices for the concrete Python and TypeScript syntax for publishing
+the same recursive candidate family.
 
-```python
-outer = GraphVector("input_set→code", input_set, code)
-
-recursive_candidate = recurse(
-    compose(capture_requirements, synthesize_design, implement_code),
-    termination_ready,
-    foldback={
-        "binding": "outer_contract",
-        "mode": "rebind",
-        "requires_parent_evaluation": True,
-    },
-)
-
-family = CandidateFamily(
-    name="input_set→code_profiles",
-    inputs=(input_set,),
-    outputs=(code,),
-    candidates=(recursive_candidate,),
-)
-
-outer_profile = graph_function_for_vector(outer)
-
-module = Module(
-    name="delivery",
-    graphs=(
-        Graph(
-            name="delivery",
-            inputs=(input_set,),
-            outputs=(code,),
-            nodes=(input_set, code),
-            vectors=(outer,),
-        ),
-    ),
-    graph_functions=(outer_profile, recursive_candidate),
-    candidate_families=(family,),
-    jobs=(
-        Job(
-            name=outer.name,
-            contracts=(ContractRef(kind="graph_function", target_id=outer_profile.id),),
-        ),
-    ),
-)
-```
-
-At runtime, selection is explicit:
-
-```python
-SelectionDecision(
-    contract_id=outer.id,
-    work_key=outer.id,
-    graph_function=recursive_candidate.name,
-    selected_by="policy",
-    selection_mode="explicit",
-    rationale="select recursive cumulative profile",
-)
-```
+At runtime, selection is explicit. See the appendices for language-shaped
+selection-decision examples.
 
 That leads ABG to open a frame for the recursive candidate and execute child
 steps over the carried environment of that frame.
@@ -1166,13 +1001,9 @@ The current source version is `3.2.0`.
 
 ### Run from source
 
-```bash
-git clone https://github.com/foolishimp/abiogenesis.git
-cd abiogenesis
-PYTHONPATH=build_tenants/abiogenesis/python/code python -m genesis --help
-```
+See the appendices for source-run commands in Python and TypeScript.
 
-Current commands:
+Shared operator commands:
 
 - `start`
 - `gaps`
@@ -1184,12 +1015,18 @@ Current commands:
 - `check-validates-coverage`
 - `check-bootloader-consistency`
 
-Common commands:
+The command grammar is tenant-invariant. Python, TypeScript, or another tenant
+may use different executable prefixes, but the subcommand and flags after the
+binary stay the same.
 
 ```bash
-PYTHONPATH=build_tenants/abiogenesis/python/code python -m genesis gaps --workspace . --scope workspace
-PYTHONPATH=build_tenants/abiogenesis/python/code python -m genesis start --workspace . --scope workspace --target next --until first_traversal
+<runtime-binary> start --workspace . --scope workspace --target next --until first_traversal
+<runtime-binary> gaps --workspace . --scope workspace
+<runtime-binary> assess-result --workspace . --result .ai-workspace/fp_results/<manifest-id>.json
 ```
+
+See the appendices for common source commands, package entry examples, and the
+current TypeScript package/API binding.
 
 The public `gen-start` traversal request is `scope + target + until`.
 Targets are `next`, `graph_function:<handle>`, and `asset:<handle>`.
@@ -1198,7 +1035,14 @@ grammar and are lawful only with `--until converged`.
 
 ### Public runtime contract
 
-The concrete CLI command is `start`.
+In a CLI binding, the concrete command is `start`.
+
+In the TypeScript tenant, the current package surfaces expose the same public
+operator contract through APIs such as `publicStart`, `publicControlLoop`, and
+`publicCallableStart`, and through package binaries `abiogenesis-ts` and
+`genesis-ts`. A TypeScript binary or downstream app wrapper must bind the same
+command suffix and flags as the Python CLI; only the executable prefix may
+differ.
 
 The public operator contract is `gen-start`.
 
@@ -1232,6 +1076,29 @@ Control-mode law:
 | `--fh-mode` | `direct`, `human-proxy` | Lawful only with `--until converged`. |
 | `--root-mode` | `direct`, `supervised` | Lawful only with `--until converged`. |
 
+### Public `gen-gaps`
+
+`gen-gaps` is observation, not execution.
+
+It reads admitted module/job truth plus replayed runtime events and projects
+current work state. It must not emit runtime events.
+
+TypeScript `gaps` returns:
+
+- `jobs_considered`
+- `total_delta`
+- `open_frames`
+- `converged`
+- `gaps[]` with `edge`, `status`, `delta`, `failing`, `passing`, and
+  `next_step`
+
+Use `next_step` to decide whether to run `start`, wait for or ingest
+`assess-result`, satisfy a human decision, or stop.
+
+Do not treat product-specific labels such as `proof_hold` as TypeScript `M04`
+substrate taxonomy. Downstream products may project those labels from
+canonical truth when they own that product surface.
+
 `asset:<handle>` requires an admitted `operator_asset_contract`.
 
 The contract command returns registry JSON with an `assets` collection.
@@ -1255,7 +1122,11 @@ Each asset entry identifies the asset and its operator target:
 
 ### Public runtime loop
 
-`start` writes one JSON object to stdout.
+The CLI `start` command writes one JSON object to stdout.
+
+The TypeScript `publicStart` API returns the equivalent admitted outcome object
+and emits runtime facts through the supplied event sink; a TypeScript CLI
+binding must project that outcome to the same public output contract.
 
 Read these fields first:
 
@@ -1283,7 +1154,7 @@ Act from `stop_predicate` or `status`:
 | `nothing_to_do` | Confirm the admitted scope and target. No lawful advancement was available. |
 | `status = error` | Treat the output as failed runtime or command admission, not as product truth. |
 
-Process exit codes classify the same loop for scripts:
+CLI process exit codes classify the same loop for scripts:
 
 | Code | Meaning |
 | --- | --- |
@@ -1298,20 +1169,14 @@ Process exit codes classify the same loop for scripts:
 
 F_P dispatch loop:
 
-```bash
-PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target next --until first_traversal
-python -m json.tool .ai-workspace/fp_manifests/<manifest-id>.json
-PYTHONPATH=.genesis python -m genesis assess-result --workspace . --result .ai-workspace/fp_results/<manifest-id>.json
-PYTHONPATH=.genesis python -m genesis gaps --workspace . --scope workspace
-```
+See the appendices for Python CLI and TypeScript package/API dispatch loops.
 
 ### Install the kernel into another workspace
 
-```bash
-python build_tenants/abiogenesis/python/code/gen-install.py --target /path/to/project
-```
+See the appendices for Python install commands and TypeScript package install
+or bootstrap API patterns.
 
-This installs:
+The Python installer creates:
 
 ```text
 /path/to/project/.genesis/
@@ -1320,13 +1185,8 @@ This installs:
 └── genesis.yml
 ```
 
-Then run:
-
-```bash
-cd /path/to/project
-PYTHONPATH=.genesis python -m genesis gaps --workspace . --scope workspace
-PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target next --until first_traversal
-```
+Then run through the installed language surface described in the relevant
+appendix.
 
 ### Live transport readiness
 
@@ -1401,12 +1261,637 @@ If you are starting from zero, do this:
 
 That is enough to prove whether the app should stay on GTL/ABG.
 
+## Appendix: Python Examples And Commands
+
+The examples in this appendix are Python-shaped. They describe the same GTL/ABG
+law as the TypeScript examples in the next appendix.
+
+### Cumulative environment and composition
+
+```python
+capture_requirements = graph_function_for_vector(
+    GraphVector("input_set→requirements", input_set, requirements),
+)
+
+synthesize_design = GraphFunction.from_graph(
+    name="requirements_to_design",
+    graph=Graph(
+        name="requirements_to_design",
+        inputs=(input_set, requirements),
+        outputs=(design,),
+        nodes=(input_set, requirements, design),
+        vectors=(GraphVector("requirements→design", (input_set, requirements), design),),
+    ),
+    environment=EnvRef.from_contract(
+        requires=(input_set, requirements),
+        provides=(design,),
+    ),
+)
+
+implement_code = GraphFunction.from_graph(
+    name="design_to_code",
+    graph=Graph(
+        name="design_to_code",
+        inputs=(input_set, requirements, design),
+        outputs=(code,),
+        nodes=(input_set, requirements, design, code),
+        vectors=(GraphVector("design→code", (input_set, requirements, design), code),),
+    ),
+    environment=EnvRef.from_contract(
+        requires=(input_set, requirements, design),
+        provides=(code,),
+    ),
+)
+
+executive = compose(capture_requirements, synthesize_design, implement_code)
+```
+
+### Asset surface declaration
+
+```python
+schema = Node(
+    name="schema_surface",
+    schema="SchemaSurface",
+    asset_surface={
+        "kind": "schema_surface",
+        "required_contexts": ("dataset_profile",),
+        "standards_refs": ("REQ-DATA-012",),
+        "output_contract_refs": ("schema_contract_v1",),
+    },
+)
+```
+
+### Composed executive publication
+
+```python
+executive = compose(capture_requirements, synthesize_design, implement_code)
+materialized = executive.materialize()
+
+boundaries = tuple(
+    RefinementBoundary(
+        name=vector.name,
+        inputs=vector.source if isinstance(vector.source, tuple) else (vector.source,),
+        outputs=(vector.target,),
+    )
+    for vector in materialized.vectors
+)
+
+module = Module(
+    name="delivery",
+    graphs=(materialized,),
+    graph_functions=(executive,),
+    refinement_boundaries=boundaries,
+    jobs=(
+        Job(
+            name="bootstrap_release",
+            contracts=(ContractRef(kind="graph_function", target_id=executive.id),),
+        ),
+    ),
+)
+```
+
+### Recursion and selection
+
+```python
+recursive = recurse(
+    compose(capture_requirements, synthesize_design, implement_code),
+    termination_ready,
+    foldback={
+        "binding": "outer_contract",
+        "mode": "rebind",
+        "requires_parent_evaluation": True,
+    },
+)
+
+outer = GraphVector("input_set→code", input_set, code)
+recursive_candidate = recursive
+
+family = CandidateFamily(
+    name="input_set→code_profiles",
+    inputs=(input_set,),
+    outputs=(code,),
+    candidates=(recursive_candidate,),
+)
+
+outer_profile = graph_function_for_vector(outer)
+
+selection = SelectionDecision(
+    contract_id=outer.id,
+    work_key=outer.id,
+    graph_function=recursive_candidate.name,
+    selected_by="policy",
+    selection_mode="explicit",
+    rationale="select recursive cumulative profile",
+)
+```
+
+### Source commands
+
+```bash
+git clone https://github.com/foolishimp/abiogenesis.git
+cd abiogenesis
+PYTHONPATH=build_tenants/abiogenesis/python/code python -m genesis --help
+PYTHONPATH=build_tenants/abiogenesis/python/code python -m genesis gaps --workspace . --scope workspace
+PYTHONPATH=build_tenants/abiogenesis/python/code python -m genesis start --workspace . --scope workspace --target next --until first_traversal
+```
+
+### F_P dispatch loop
+
+```bash
+PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target next --until first_traversal
+python -m json.tool .ai-workspace/fp_manifests/<manifest-id>.json
+PYTHONPATH=.genesis python -m genesis assess-result --workspace . --result .ai-workspace/fp_results/<manifest-id>.json
+PYTHONPATH=.genesis python -m genesis gaps --workspace . --scope workspace
+```
+
+### Install into another workspace
+
+```bash
+python build_tenants/abiogenesis/python/code/gen-install.py --target /path/to/project
+cd /path/to/project
+PYTHONPATH=.genesis python -m genesis gaps --workspace . --scope workspace
+PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target next --until first_traversal
+```
+
+## Appendix: TypeScript Examples And Commands
+
+The TypeScript tenant is package-first, but public command grammar parity still
+holds. A TypeScript binary or downstream app wrapper changes only the
+executable prefix; the command suffix remains the shared product grammar.
+
+Current TypeScript bindings expose the public runtime through package binaries
+`abiogenesis-ts` / `genesis-ts` and typed APIs such as `publicStart`,
+`publicControlLoop`, `publicCallableStart`, `resultAssessment`, and
+`installBootstrap`.
+
+### Shared builder imports and nodes
+
+```ts
+import {
+  compose,
+  constructCandidateFamily,
+  constructContractRef,
+  constructEnvRef,
+  constructGraph,
+  constructGraphFunction,
+  constructGraphVector,
+  constructJob,
+  constructModule,
+  constructNode,
+  constructRefinementBoundary,
+  constructTemplateRef,
+  emptySerializedAttrs,
+  graphFunctionForVector,
+  materializeGraphFunction,
+  recurse,
+  type Evaluator
+} from "@abiogenesis/typescript-tenant";
+
+const emptyAttrs = emptySerializedAttrs();
+
+const node = (name: string) =>
+  constructNode({
+    name,
+    schema: { kind: "symbolic", ref: name },
+    markov: [],
+    assetSurface: {
+      kind: name,
+      requiredContexts: [],
+      standardsRefs: [],
+      outputContractRefs: []
+    },
+    tags: []
+  });
+
+const inputSet = node("input_set");
+const requirements = node("requirements");
+const design = node("design");
+const code = node("code");
+```
+
+### Cumulative environment and composition
+
+```ts
+const captureRequirements = graphFunctionForVector(
+  constructGraphVector({
+    name: "input_set→requirements",
+    source: [inputSet],
+    target: requirements,
+    operators: [],
+    evaluators: [],
+    contexts: [],
+    rule: null,
+    allowsSubwork: true,
+    declarations: emptyAttrs,
+    tags: []
+  })
+);
+
+const requirementsToDesignVector = constructGraphVector({
+  name: "requirements→design",
+  source: [inputSet, requirements],
+  target: design,
+  operators: [],
+  evaluators: [],
+  contexts: [],
+  rule: null,
+  allowsSubwork: true,
+  declarations: emptyAttrs,
+  tags: []
+});
+
+const requirementsToDesignGraph = constructGraph({
+  name: "requirements_to_design",
+  inputs: [inputSet, requirements],
+  outputs: [design],
+  nodes: [inputSet, requirements, design],
+  vectors: [requirementsToDesignVector],
+  contexts: [],
+  rules: [],
+  effects: [],
+  tags: []
+});
+
+const synthesizeDesign = constructGraphFunction({
+  name: "requirements_to_design",
+  environment: constructEnvRef({
+    requires: [inputSet, requirements],
+    provides: [design],
+    carries: [inputSet, requirements, design]
+  }),
+  inputs: [inputSet, requirements],
+  outputs: [design],
+  template: constructTemplateRef({
+    kind: "inline_graph",
+    ref: "inline:requirements_to_design",
+    graph: requirementsToDesignGraph,
+    version: null
+  }),
+  effects: [],
+  declarations: emptyAttrs,
+  tags: []
+});
+
+const designToCodeVector = constructGraphVector({
+  name: "design→code",
+  source: [inputSet, requirements, design],
+  target: code,
+  operators: [],
+  evaluators: [],
+  contexts: [],
+  rule: null,
+  allowsSubwork: true,
+  declarations: emptyAttrs,
+  tags: []
+});
+
+const designToCodeGraph = constructGraph({
+  name: "design_to_code",
+  inputs: [inputSet, requirements, design],
+  outputs: [code],
+  nodes: [inputSet, requirements, design, code],
+  vectors: [designToCodeVector],
+  contexts: [],
+  rules: [],
+  effects: [],
+  tags: []
+});
+
+const implementCode = constructGraphFunction({
+  name: "design_to_code",
+  environment: constructEnvRef({
+    requires: [inputSet, requirements, design],
+    provides: [code],
+    carries: [inputSet, requirements, design, code]
+  }),
+  inputs: [inputSet, requirements, design],
+  outputs: [code],
+  template: constructTemplateRef({
+    kind: "inline_graph",
+    ref: "inline:design_to_code",
+    graph: designToCodeGraph,
+    version: null
+  }),
+  effects: [],
+  declarations: emptyAttrs,
+  tags: []
+});
+
+const executive = compose(captureRequirements, synthesizeDesign, implementCode);
+```
+
+### Asset surface declaration
+
+```ts
+const schemaSurface = constructNode({
+  name: "schema_surface",
+  schema: { kind: "symbolic", ref: "SchemaSurface" },
+  markov: [],
+  assetSurface: {
+    kind: "schema_surface",
+    requiredContexts: ["dataset_profile"],
+    standardsRefs: ["REQ-DATA-012"],
+    outputContractRefs: ["schema_contract_v1"]
+  },
+  tags: []
+});
+```
+
+### Composed executive publication
+
+```ts
+const materialized = materializeGraphFunction(executive);
+
+const boundaries = materialized.vectors.map((vector) =>
+  constructRefinementBoundary({
+    name: vector.name,
+    inputs: vector.source,
+    outputs: [vector.target],
+    hints: emptyAttrs,
+    tags: []
+  })
+);
+
+const module = constructModule({
+  name: "delivery",
+  graphs: [materialized],
+  graphFunctions: [executive],
+  refinementBoundaries: boundaries,
+  candidateFamilies: [],
+  jobs: [
+    constructJob({
+      name: "bootstrap_release",
+      contracts: [
+        constructContractRef({
+          kind: "graph_function",
+          targetId: executive.id
+        })
+      ],
+      roles: [],
+      tags: []
+    })
+  ],
+  roles: [],
+  operators: [],
+  evaluators: [],
+  rules: [],
+  imports: [],
+  metadata: emptyAttrs
+});
+```
+
+### Recursion and selection
+
+```ts
+const terminationReady: Evaluator = {
+  name: "termination_ready",
+  regime: "F_D",
+  description: "deterministic termination predicate",
+  binding: "hook://termination-ready",
+  tags: []
+};
+
+const recursiveCandidate = recurse(
+  compose(captureRequirements, synthesizeDesign, implementCode),
+  terminationReady,
+  {
+    binding: "outer_contract",
+    mode: "rebind",
+    requiresParentEvaluation: true
+  }
+);
+
+const outer = constructGraphVector({
+  name: "input_set→code",
+  source: [inputSet],
+  target: code,
+  operators: [],
+  evaluators: [],
+  contexts: [],
+  rule: null,
+  allowsSubwork: true,
+  declarations: emptyAttrs,
+  tags: []
+});
+
+const family = constructCandidateFamily({
+  name: "input_set→code_profiles",
+  inputs: [inputSet],
+  outputs: [code],
+  candidates: [recursiveCandidate],
+  policyHints: emptyAttrs,
+  tags: []
+});
+
+const outerProfile = graphFunctionForVector(outer);
+
+const selectionDecision = Object.freeze({
+  contractId: outer.id,
+  workKey: outer.id,
+  graphFunction: recursiveCandidate.name,
+  selectedBy: "policy",
+  selectionMode: "explicit",
+  rationale: "select recursive cumulative profile"
+});
+```
+
+### Source commands
+
+```bash
+git clone https://github.com/foolishimp/abiogenesis.git
+cd abiogenesis/build_tenants/abiogenesis/typescript
+npm install
+npm run build:semantic
+npm run test:semantic
+```
+
+Useful tenant proof commands:
+
+```bash
+npm run test:t044
+npm run test:t045
+npm run test:t013
+npm run test:t031
+npm run test:t036
+CODEX_LIVE_FP=1 npm run test:live
+CODEX_LIVE_FP=1 npm run test:live:uat
+```
+
+Required installed command grammar:
+
+The TypeScript package exposes binary aliases and typed APIs. A TypeScript
+binary or downstream installed app wrapper must use this grammar; it may not
+invent a different public command language.
+
+The TypeScript package binary aliases are `abiogenesis-ts` and `genesis-ts`.
+
+```bash
+<typescript-runtime-binary> gaps --workspace . --scope workspace
+<typescript-runtime-binary> start --workspace . --scope workspace --target next --until first_traversal
+<typescript-runtime-binary> start --workspace . --scope workspace --target graph_function:code-flow --until first_traversal
+<typescript-runtime-binary> start --workspace . --scope workspace --target asset:code_surface --until first_traversal
+<typescript-runtime-binary> start --workspace . --scope workspace --target next --until converged --root-mode supervised
+<typescript-runtime-binary> start --workspace . --scope workspace --target next --until converged --fh-mode human-proxy
+```
+
+### Public start API
+
+```ts
+import { publicStart } from "@abiogenesis/typescript-tenant/app/m04";
+import type { RuntimeEvent } from "@abiogenesis/typescript-tenant/abg/m03";
+
+const events: RuntimeEvent[] = [];
+
+const outcome = publicStart(
+  {
+    scope: {
+      kind: "workspace",
+      workspaceRoot: "/workspace/delivery",
+      moduleName: "delivery"
+    },
+    target: {
+      kind: "graph_function",
+      handle: "bootstrap_release"
+    },
+    until: "first_traversal"
+  },
+  {
+    module,
+    runtimeIdentity: {
+      workerId: "worker://typescript-public-start",
+      backendId: "backend://node",
+      buildId: "build://local",
+      resolvedRuntimeRef: "runtime://typescript/node"
+    },
+    resolvedPolicy: {
+      resolvedPolicyBundleRef: "policy://default",
+      defaultRegime: "F_P",
+      dispatchRef: "dispatch://default-fp",
+      approvalSubjectRef: null
+    },
+    runId: "run://bootstrap-release",
+    workKey: "work://bootstrap-release"
+  },
+  (event) => {
+    events.push(event);
+  }
+);
+
+if (outcome.kind === "blocked" && outcome.stopPredicate === "dispatch_required") {
+  // Read the dispatch request/projection produced by the app-specific transport
+  // surface, execute the manifest contract, then assess the result.
+}
+```
+
+### Supervised public loop API
+
+```ts
+import { publicControlLoop } from "@abiogenesis/typescript-tenant/app/m04/control";
+
+const controlOutcome = publicControlLoop(
+  {
+    start_request: {
+      scope: {
+        kind: "workspace",
+        workspaceRoot: "/workspace/delivery",
+        moduleName: "delivery"
+      },
+      target: {
+        kind: "graph_function",
+        handle: "bootstrap_release"
+      },
+      until: "converged",
+      root_mode: "supervised",
+      fh_mode: "direct"
+    }
+  },
+  {
+    module,
+    runtimeIdentity: {
+      workerId: "worker://typescript-public-start",
+      backendId: "backend://node",
+      buildId: "build://local",
+      resolvedRuntimeRef: "runtime://typescript/node"
+    },
+    resolvedPolicy: {
+      resolvedPolicyBundleRef: "policy://default",
+      defaultRegime: "F_D",
+      dispatchRef: null,
+      approvalSubjectRef: null
+    },
+    runId: "run://bootstrap-release",
+    workKey: "work://bootstrap-release"
+  },
+  (event) => {
+    events.push(event);
+  }
+);
+```
+
+### F_P dispatch loop
+
+```ts
+import { resultAssessment } from "@abiogenesis/typescript-tenant/app/m04/result-assessment";
+
+const startOutcome = publicStart(startRequest, context, eventSink);
+
+if (startOutcome.kind === "blocked" && startOutcome.stopPredicate === "dispatch_required") {
+  const transportArtifact = await runDomainTransport(startOutcome);
+
+  const assessment = resultAssessment(
+    {
+      kind: "fp_assessed",
+      dispatchRequest: transportArtifact.dispatchRequest,
+      artifact: transportArtifact.resultArtifact,
+      manifestProvenance: transportArtifact.manifestProvenance,
+      publishedLedgerRef: { ref: "ledger://bootstrap-release" },
+      fulfillmentRefs: transportArtifact.fulfillmentRefs
+    },
+    eventSink
+  );
+}
+```
+
+### Package install shape
+
+```bash
+cd /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript
+npm run build:semantic
+npm pack
+cd /path/to/project
+npm install /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/abiogenesis-typescript-tenant-3.4.0-rc.1.tgz
+```
+
+For product-owned bootstrap, use the package API:
+
+```ts
+import { installBootstrap } from "@abiogenesis/typescript-tenant/app/m04/install-bootstrap";
+
+const installOutcome = await installBootstrap(
+  {
+    targetRoot: { rootPath: "/path/to/project" },
+    installedPackageName: "@example/delivery-app",
+    runtimePackage: {
+      packageName: "@abiogenesis/typescript-tenant",
+      packageVersion: "3.4.0-rc.1",
+      dependencyRef: "file:./abiogenesis-typescript-tenant-3.4.0-rc.1.tgz",
+      appExportSubpath: "./app/m04",
+      requiredExports: [".", "./app/m04"]
+    }
+  },
+  deliveryWriter
+);
+```
+
 ## Reference Surfaces
 
 Use these when you need more detail:
 
 - [ODD_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/ODD_METHOD.md)
 - [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md)
-- [GTL_Technical_Guide.md](./GTL_Technical_Guide.md)
-- [GTL_3_CONSTITUTIONAL_DESIGN.md](https://github.com/foolishimp/abiogenesis/blob/main/specification/GTL_3_CONSTITUTIONAL_DESIGN.md)
-- [ABG_3_CONSTITUTIONAL_DESIGN.md](https://github.com/foolishimp/abiogenesis/blob/main/specification/ABG_3_CONSTITUTIONAL_DESIGN.md)
+- [USER_GUIDE.md](./USER_GUIDE.md)
+- [GTL requirement families](../specification/requirements/gtl/README.md)
+- [ABG requirement families](../specification/requirements/abg/README.md)
+- [GTL/ABG mapping requirements](../specification/requirements/mapping/README.md)
+- [Python design surfaces](../build_tenants/abiogenesis/python/design/README.md)
+- [TypeScript design surfaces](../build_tenants/abiogenesis/typescript/design/README.md)

@@ -1,4 +1,4 @@
-import { mkdir, symlink, writeFile } from "node:fs/promises";
+import { cp, mkdir, mkdtemp, readFile, rm, symlink, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
@@ -9,6 +9,8 @@ import {
   constructRunArchiveNoteRef,
   constructRunArchiveSummaryRef,
   constructRunArchiveFinalizationSourceFileRef,
+  constructInstalledSandboxBehaviorPortfolioRequest,
+  constructInstalledSandboxBehaviorScenarioResult,
   constructInstalledResetPostmortemObservation,
   constructInstalledResetPostmortemRequest,
   constructInstalledLiveScenarioPortfolioRequest,
@@ -16,7 +18,8 @@ import {
   constructInstalledRootObservation,
   constructInstalledSandboxQualificationRequest,
   constructRunArchiveFileRef,
-  constructRunArchiveQualificationRequest
+  constructRunArchiveQualificationRequest,
+  M05_REFERENCE_LIVE_SCENARIO_OBLIGATIONS
 } from "../../../build/semantic/code/src/qualification/m05/index.js";
 import {
   deliverBootloader,
@@ -58,6 +61,36 @@ async function locateRepoRoot() {
   throw new Error("unable to locate abiogenesis repo root from installed M05 support path");
 }
 
+function tenantRootFromRepoRoot(repoRoot) {
+  return path.join(
+    repoRoot,
+    "build_tenants",
+    "abiogenesis",
+    "typescript"
+  );
+}
+
+function assertSpawnSucceeded(run, label) {
+  if (run.status !== 0) {
+    throw new Error(
+      `${label} failed with status ${run.status ?? "null"}\nstdout:\n${run.stdout}\nstderr:\n${run.stderr}`
+    );
+  }
+}
+
+function packedTarballName(stdout) {
+  const lines = stdout
+    .trim()
+    .split(/\r?\n/u)
+    .map((line) => line.trim())
+    .filter((line) => line.endsWith(".tgz"));
+  const last = lines.at(-1);
+  if (last === undefined) {
+    throw new Error(`npm pack did not report a tarball name\n${stdout}`);
+  }
+  return last;
+}
+
 export async function provisionInstalledRoot() {
   const targetRoot = await makeInstallTargetRoot();
   const writer = nodeInstallWriter();
@@ -82,12 +115,7 @@ export async function provisionInstalledRoot() {
 
 export async function linkInstalledTenantPackage(targetRoot) {
   const repoRoot = await locateRepoRoot();
-  const tenantRoot = path.join(
-    repoRoot,
-    "build_tenants",
-    "abiogenesis",
-    "typescript"
-  );
+  const tenantRoot = tenantRootFromRepoRoot(repoRoot);
   const packageScopeRoot = path.join(
     targetRoot,
     "node_modules",
@@ -103,6 +131,76 @@ export async function linkInstalledTenantPackage(targetRoot) {
     }
   }
   return packageRoot;
+}
+
+async function linkPackageDependency(targetRoot, tenantRoot, packageName) {
+  const sourceRoot = path.join(tenantRoot, "node_modules", ...packageName.split("/"));
+  const targetRootPath = path.join(targetRoot, "node_modules", ...packageName.split("/"));
+  await mkdir(path.dirname(targetRootPath), { recursive: true });
+  try {
+    await symlink(sourceRoot, targetRootPath, "dir");
+  } catch (error) {
+    if (!(error && typeof error === "object" && "code" in error && error.code === "EEXIST")) {
+      throw error;
+    }
+  }
+}
+
+async function linkPackageDependencies(targetRoot, tenantRoot) {
+  const packageJson = JSON.parse(
+    await readFile(path.join(tenantRoot, "package.json"), "utf8")
+  );
+  const dependencies = Object.keys(packageJson.dependencies ?? {});
+  for (const dependency of dependencies) {
+    await linkPackageDependency(targetRoot, tenantRoot, dependency);
+  }
+}
+
+export async function installPackedTenantPackage(targetRoot) {
+  const repoRoot = await locateRepoRoot();
+  const tenantRoot = tenantRootFromRepoRoot(repoRoot);
+  const packParent = path.join(targetRoot, ".abiogenesis", "package-pack");
+  const extractParent = path.join(targetRoot, ".abiogenesis", "package-extract");
+  await mkdir(packParent, { recursive: true });
+  await mkdir(extractParent, { recursive: true });
+
+  const packRoot = await mkdtemp(path.join(packParent, "pack-"));
+  const extractRoot = await mkdtemp(path.join(extractParent, "extract-"));
+  const packRun = spawnSync(
+    "npm",
+    ["pack", "--pack-destination", packRoot, "--silent"],
+    {
+      cwd: tenantRoot,
+      encoding: "utf8",
+      env: {
+        ...process.env,
+        npm_config_cache: path.join(targetRoot, ".npm-cache")
+      }
+    }
+  );
+  assertSpawnSucceeded(packRun, "npm pack");
+  const tarballPath = path.join(packRoot, packedTarballName(packRun.stdout));
+  const extractRun = spawnSync("tar", ["-xzf", tarballPath, "-C", extractRoot], {
+    cwd: targetRoot,
+    encoding: "utf8"
+  });
+  assertSpawnSucceeded(extractRun, "tar extract");
+
+  const packageScopeRoot = path.join(
+    targetRoot,
+    "node_modules",
+    "@abiogenesis"
+  );
+  const packageRoot = path.join(packageScopeRoot, "typescript-tenant");
+  await mkdir(packageScopeRoot, { recursive: true });
+  await rm(packageRoot, { recursive: true, force: true });
+  await cp(path.join(extractRoot, "package"), packageRoot, { recursive: true });
+  await linkPackageDependencies(targetRoot, tenantRoot);
+
+  return {
+    packageRoot,
+    tarballPath
+  };
 }
 
 export function runInstalledNodeScript(targetRoot, source) {
@@ -357,123 +455,583 @@ export function installedLiveLaneSource() {
   `;
 }
 
+export function installedGraphFunctionTargetSource() {
+  return `
+    import {
+      edge,
+      graphFunctionForVector,
+      admitModule,
+      admitNode,
+      admitExecutionBasis,
+      deriveAdvancementTransition,
+      dispatchRequestsForTransition,
+      admitResolvedPolicyIdentity,
+      admitResolvedRuntimeIdentity,
+      admitPublicStartRequest,
+      publicStart,
+      resultAssessment
+    } from "@abiogenesis/typescript-tenant";
+
+    function node(id, name, kind) {
+      return admitNode({
+        id,
+        name,
+        schema: { kind: "symbolic", ref: \`Vector[\${kind}]\` },
+        markov: ["declared"],
+        assetSurface: {
+          kind,
+          requiredContexts: ["workspace"],
+          standardsRefs: [\`\${kind}-standard\`],
+          outputContractRefs: [\`\${kind}-contract\`]
+        },
+        tags: [kind]
+      });
+    }
+
+    const design = node("node-installed-selected-design", "Design", "design");
+    const code = node("node-installed-selected-code", "Code", "code");
+    const review = node("node-installed-selected-review", "Review", "review");
+
+    function profile(id, name, source, target, edgeName, evaluatorId) {
+      const vector = edge([source], target, {
+        id: \`graph-\${id}\`,
+        name: edgeName,
+        evaluators: [
+          {
+            name: evaluatorId,
+            regime: "F_P",
+            description: \`\${edgeName} accepted\`,
+            binding: \`binding://\${id}\`,
+            tags: ["fulfillment"]
+          }
+        ],
+        declarations: { entries: [] }
+      }).vectors[0];
+      return graphFunctionForVector(vector, {
+        id: \`graph-function-\${id}\`,
+        name,
+        declarations: { entries: [] }
+      });
+    }
+
+    const codeProfile = profile(
+      "code-flow",
+      "code_flow",
+      design,
+      code,
+      "design→code",
+      "code_complete"
+    );
+    const reviewProfile = profile(
+      "review-flow",
+      "review_flow",
+      design,
+      review,
+      "design→review",
+      "review_complete"
+    );
+
+    const module = admitModule({
+      name: "installed_graph_function_target",
+      graphs: [codeProfile.template.graph, reviewProfile.template.graph],
+      graphFunctions: [codeProfile, reviewProfile],
+      refinementBoundaries: [],
+      candidateFamilies: [],
+      jobs: [
+        {
+          id: "job-code-flow",
+          name: "code_flow_job",
+          contracts: [{ kind: "graph_function", targetId: codeProfile.id }],
+          roles: [],
+          tags: ["semantic_work"]
+        },
+        {
+          id: "job-review-flow",
+          name: "review_flow_job",
+          contracts: [{ kind: "graph_function", targetId: reviewProfile.id }],
+          roles: [],
+          tags: ["semantic_work"]
+        }
+      ],
+      roles: [],
+      operators: [],
+      evaluators: [],
+      rules: [],
+      imports: [],
+      metadata: { entries: [] }
+    });
+
+    const runtimeIdentity = admitResolvedRuntimeIdentity({
+      workerId: "worker://installed-runtime",
+      backendId: "backend://node",
+      buildId: "build://typescript-installed",
+      resolvedRuntimeRef: "runtime://typescript/node"
+    });
+    const resolvedPolicy = admitResolvedPolicyIdentity({
+      resolvedPolicyBundleRef: "policy://installed-fp",
+      defaultRegime: "F_P",
+      dispatchRef: "dispatch://installed"
+    });
+
+    const startInput = {
+      scope: {
+        kind: "workspace",
+        workspaceRoot: "/workspace/installed",
+        moduleName: module.name
+      },
+      target: {
+        kind: "graph_function",
+        handle: "code_flow"
+      },
+      until: "first_traversal"
+    };
+    const events = [];
+    const startOutcome = publicStart(
+      startInput,
+      {
+        module,
+        runtimeIdentity,
+        resolvedPolicy,
+        runId: "run://installed-graph-function-target",
+        workKey: "wk://installed-graph-function-target"
+      },
+      (event) => events.push(event)
+    );
+
+    const startRequest = admitPublicStartRequest(startInput);
+    const dispatchRequest = dispatchRequestsForTransition(
+      deriveAdvancementTransition(
+        admitExecutionBasis({
+          startIntent: startRequest.startIntent,
+          module,
+          runtimeIdentity,
+          resolvedPolicy,
+          runId: "run://installed-graph-function-target",
+          workKey: "wk://installed-graph-function-target",
+          frameId: null,
+          frameLineageId: null
+        })
+      )
+    )[0];
+
+    const assessmentRequest = {
+      kind: "fp_assessed",
+      dispatch_request: dispatchRequest,
+      result_artifact: {
+        edge: dispatchRequest.expectedEdge,
+        actor: "graph_function_target_tester",
+        fulfillment_assessments: [
+          {
+            id: "code_complete",
+            evaluator: "code_complete",
+            fulfillment_status: "fulfilled",
+            fulfillment_detail: "graph-function targeted chain completed",
+            blocking_reasons: [],
+            evidence_refs: ["proof://installed-graph-function-target"]
+          }
+        ],
+        selected_worker_id: dispatchRequest.workerId,
+        selected_backend: dispatchRequest.backendId,
+        role_id: "role://runtime",
+        assignment_source: "policy_resolution",
+        resolved_runtime_ref: "runtime://typescript/node"
+      },
+      manifest_provenance: {
+        spec_hash: "spec://typescript-dev",
+        manifest_id: "manifest://installed-graph-function-target",
+        workflow_version: "wf://typescript-dev",
+        run_id: "run://installed-graph-function-target",
+        work_key: "wk://installed-graph-function-target",
+        authority_ref: "authority://runtime",
+        selected_worker_id: dispatchRequest.workerId,
+        selected_backend: dispatchRequest.backendId,
+        role_id: "role://runtime",
+        assignment_source: "policy_resolution",
+        resolved_runtime_ref: "runtime://typescript/node"
+      },
+      published_ledger_ref: {
+        ref: "ledger://installed-graph-function-target"
+      }
+    };
+    const assessmentOutcome = resultAssessment(
+      assessmentRequest,
+      (event) => events.push(event)
+    );
+
+    console.log(JSON.stringify({
+      target: "graph_function:code_flow",
+      selectedGraphFunctionId: dispatchRequest.graphFunctionId,
+      codeGraphFunctionId: codeProfile.id,
+      reviewGraphFunctionId: reviewProfile.id,
+      edge: dispatchRequest.expectedEdge,
+      stopPredicate: startOutcome.kind === "blocked" ? startOutcome.stopPredicate : null,
+      manifest: {
+        edge: assessmentRequest.manifest_provenance.manifest_id === "manifest://installed-graph-function-target"
+          ? dispatchRequest.expectedEdge
+          : null,
+        manifestId: assessmentRequest.manifest_provenance.manifest_id
+      },
+      dispatchedEdges: startOutcome.kind === "blocked" ? [dispatchRequest.expectedEdge] : [],
+      assessedEdges: assessmentOutcome.kind === "accepted" ? [assessmentRequest.result_artifact.edge] : [],
+      eventKinds: events.map((event) => event.kind),
+      assessmentKind: assessmentOutcome.kind
+    }));
+  `;
+}
+
+export function installedThreeStageGraphFunctionSandboxSource() {
+  return `
+    import {
+      edge,
+      compose,
+      graphFunctionForVector,
+      materializeGraphFunction,
+      admitModule,
+      admitNode,
+      admitExecutionBasis,
+      deriveAdvancementTransition,
+      dispatchRequestsForTransition,
+      admitResolvedPolicyIdentity,
+      admitResolvedRuntimeIdentity,
+      admitPublicStartRequest,
+      constructVectorClosedEvent,
+      constructVectorEvaluatedEvent,
+      projectLiveStatus,
+      publicStart,
+      resultAssessment
+    } from "@abiogenesis/typescript-tenant";
+
+    function node(id, name, kind, markov) {
+      return admitNode({
+        id,
+        name,
+        schema: { kind: "symbolic", ref: \`Vector[\${kind}]\` },
+        markov: [markov],
+        assetSurface: {
+          kind,
+          requiredContexts: ["workspace"],
+          standardsRefs: [\`\${kind}-standard\`],
+          outputContractRefs: [\`\${kind}-contract\`]
+        },
+        tags: [kind]
+      });
+    }
+
+    function stageGraphFunction(name, source, target, edgeName, evaluatorId) {
+      const vector = edge([source], target, {
+        id: \`graph-\${name}\`,
+        name: edgeName,
+        evaluators: [
+          {
+            name: evaluatorId,
+            regime: "F_P",
+            description: \`\${edgeName} accepted\`,
+            binding: \`binding://\${name}\`,
+            tags: ["fulfillment"]
+          }
+        ],
+        declarations: { entries: [] },
+        tags: ["sandbox", "three_stage_graph_function"]
+      }).vectors[0];
+
+      return graphFunctionForVector(vector, {
+        name,
+        declarations: { entries: [] },
+        tags: ["sandbox", "three_stage_graph_function"]
+      });
+    }
+
+    const inputSet = node(
+      "node-three-stage-input-set",
+      "InputSet",
+      "input_set",
+      "declared"
+    );
+    const requirements = node(
+      "node-three-stage-requirements",
+      "Requirements",
+      "requirements",
+      "captured"
+    );
+    const design = node(
+      "node-three-stage-design",
+      "Design",
+      "design",
+      "derived"
+    );
+    const code = node(
+      "node-three-stage-code",
+      "Code",
+      "code",
+      "implemented"
+    );
+
+    const captureRequirements = stageGraphFunction(
+      "capture_requirements",
+      inputSet,
+      requirements,
+      "input_set→requirements",
+      "requirements_ready"
+    );
+    const synthesizeDesign = stageGraphFunction(
+      "synthesize_design",
+      requirements,
+      design,
+      "requirements→design",
+      "design_ready"
+    );
+    const implementCode = stageGraphFunction(
+      "implement_code",
+      design,
+      code,
+      "design→code",
+      "code_ready"
+    );
+    const executive = compose(
+      captureRequirements,
+      synthesizeDesign,
+      implementCode
+    );
+    const executiveGraph = materializeGraphFunction(executive);
+
+    const module = admitModule({
+      name: "installed_three_stage_graph_function_sandbox",
+      graphs: [executiveGraph],
+      graphFunctions: [executive],
+      refinementBoundaries: [],
+      candidateFamilies: [],
+      jobs: [
+        {
+          id: "job-cumulative-environment-executive",
+          name: "cumulative_environment_executive_job",
+          contracts: [{ kind: "graph_function", targetId: executive.id }],
+          roles: [],
+          tags: ["semantic_work", "sandbox"]
+        }
+      ],
+      roles: [],
+      operators: [],
+      evaluators: [],
+      rules: [],
+      imports: [],
+      metadata: { entries: [] }
+    });
+
+    const runtimeIdentity = admitResolvedRuntimeIdentity({
+      workerId: "worker://installed-runtime",
+      backendId: "backend://node",
+      buildId: "build://typescript-installed",
+      resolvedRuntimeRef: "runtime://typescript/node"
+    });
+    const resolvedPolicy = admitResolvedPolicyIdentity({
+      resolvedPolicyBundleRef: "policy://installed-fp",
+      defaultRegime: "F_P",
+      dispatchRef: "dispatch://installed-three-stage"
+    });
+
+    const startInput = {
+      scope: {
+        kind: "workspace",
+        workspaceRoot: "/workspace/installed",
+        moduleName: module.name
+      },
+      target: {
+        kind: "graph_function",
+        handle: executive.name
+      },
+      until: "converged"
+    };
+    const runId = "run://installed-three-stage-graph-function-sandbox";
+    const workKey = "wk://installed-three-stage-graph-function-sandbox";
+    const emittedEventKinds = [];
+    const startOutcome = publicStart(
+      startInput,
+      {
+        module,
+        runtimeIdentity,
+        resolvedPolicy,
+        runId,
+        workKey
+      },
+      (event) => emittedEventKinds.push(event.kind)
+    );
+
+    const startRequest = admitPublicStartRequest(startInput);
+    const executionBasis = admitExecutionBasis({
+      startIntent: startRequest.startIntent,
+      module,
+      runtimeIdentity,
+      resolvedPolicy,
+      runId,
+      workKey,
+      frameId: null,
+      frameLineageId: null
+    });
+    const runtimeEvents = [];
+    const firstDispatchRequest = dispatchRequestsForTransition(
+      deriveAdvancementTransition(executionBasis, runtimeEvents)
+    )[0];
+
+    function dispatchForNextVector() {
+      const transition = deriveAdvancementTransition(
+        executionBasis,
+        runtimeEvents
+      );
+      return {
+        transition,
+        dispatchRequest: dispatchRequestsForTransition(transition)[0]
+      };
+    }
+
+    const materializedVectorNames = executiveGraph.vectors.map(
+      (vector) => vector.name
+    );
+    const observedEdges = [];
+    const graphFunctionIds = [];
+    const assessmentKinds = [];
+    let assessmentCount = 0;
+    let finalRunStatus = "idle";
+
+    for (let index = 0; index < executiveGraph.vectors.length; index += 1) {
+      const { transition, dispatchRequest } = dispatchForNextVector();
+      const fulfillmentAssessments = dispatchRequest.expectedAssessmentIds.map(
+        (assessmentId) => ({
+          id: assessmentId,
+          evaluator: assessmentId,
+          fulfillment_status: "fulfilled",
+          fulfillment_detail: \`\${dispatchRequest.expectedEdge} accepted\`,
+          blocking_reasons: [],
+          evidence_refs: [
+            \`proof://installed-three-stage/stage-\${index + 1}\`
+          ]
+        })
+      );
+      const assessmentRequest = {
+        kind: "fp_assessed",
+        dispatch_request: dispatchRequest,
+        result_artifact: {
+          edge: dispatchRequest.expectedEdge,
+          actor: "three_stage_graph_function_sandbox",
+          fulfillment_assessments: fulfillmentAssessments,
+          selected_worker_id: dispatchRequest.workerId,
+          selected_backend: dispatchRequest.backendId,
+          role_id: "role://runtime",
+          assignment_source: "policy_resolution",
+          resolved_runtime_ref: "runtime://typescript/node"
+        },
+        manifest_provenance: {
+          spec_hash: "spec://typescript-dev",
+          manifest_id: \`manifest://installed-three-stage/stage-\${index + 1}\`,
+          workflow_version: "wf://typescript-dev",
+          run_id: runId,
+          work_key: workKey,
+          authority_ref: "authority://runtime",
+          selected_worker_id: dispatchRequest.workerId,
+          selected_backend: dispatchRequest.backendId,
+          role_id: "role://runtime",
+          assignment_source: "policy_resolution",
+          resolved_runtime_ref: "runtime://typescript/node"
+        },
+        published_ledger_ref: {
+          ref: \`ledger://installed-three-stage/stage-\${index + 1}\`
+        }
+      };
+
+      const assessmentOutcome = resultAssessment(
+        assessmentRequest,
+        (event) => emittedEventKinds.push(event.kind)
+      );
+      const projection = projectLiveStatus({
+        start_request: startInput,
+        start_outcome: startOutcome,
+        control_request: null,
+        control_outcome: null,
+        result_assessment_request: assessmentRequest,
+        result_assessment_outcome: assessmentOutcome
+      });
+
+      observedEdges.push(dispatchRequest.expectedEdge);
+      graphFunctionIds.push(dispatchRequest.graphFunctionId);
+      assessmentKinds.push(assessmentOutcome.kind);
+      assessmentCount += fulfillmentAssessments.length;
+      finalRunStatus = projection.runStatus;
+      runtimeEvents.push(
+        constructVectorEvaluatedEvent({
+          basis: executionBasis,
+          vectorIndex: transition.vectorIndex,
+          status: "accepted"
+        }),
+        constructVectorClosedEvent({
+          basis: executionBasis,
+          vectorIndex: transition.vectorIndex,
+          closureKind: "assessed"
+        })
+      );
+    }
+
+    const target = \`graph_function:\${executive.name}\`;
+    const expectedEdges = [
+      "input_set→requirements",
+      "requirements→design",
+      "design→code"
+    ];
+    const passed =
+      startOutcome.kind === "blocked" &&
+      startOutcome.stopPredicate === "dispatch_required" &&
+      firstDispatchRequest.graphFunctionId === executive.id &&
+      JSON.stringify(materializedVectorNames) === JSON.stringify(expectedEdges) &&
+      JSON.stringify(observedEdges) === JSON.stringify(expectedEdges) &&
+      assessmentKinds.every((kind) => kind === "accepted") &&
+      graphFunctionIds.every((id) => id === executive.id) &&
+      finalRunStatus === "assessed";
+
+    console.log(JSON.stringify({
+      target,
+      passed,
+      sandboxTraversalMode: "replay_derived_core_iteration",
+      coreProgressionClaimed: true,
+      selectedGraphFunctionId: firstDispatchRequest.graphFunctionId,
+      executiveGraphFunctionId: executive.id,
+      stageCount: executiveGraph.vectors.length,
+      graphFunctionVectorCount: executiveGraph.vectors.length,
+      materializedVectorNames,
+      observedEdges,
+      publicStartEdge: firstDispatchRequest.expectedEdge,
+      stopPredicate: startOutcome.kind === "blocked" ? startOutcome.stopPredicate : null,
+      allStageDispatchesShareGraphFunctionId: graphFunctionIds.every(
+        (id) => id === executive.id
+      ),
+      assessmentCount,
+      assessmentKinds,
+      finalRunStatus,
+      eventKinds: emittedEventKinds,
+      environmentCarries: executive.environment.carries.map(
+        (node) => node.assetSurface.kind
+      )
+    }));
+  `;
+}
+
 function installedLiveScenarioSpec(scenarioName) {
-  switch (scenarioName) {
-    case "requirements_to_uat":
-      return {
-        scenarioName,
-        authorityRefs: ["SCN-R2U-001"],
-        mode: "asset_addressed",
-        stages: [
-          {
-            handle: "requirements_to_uat_flow",
-            edge: "requirements→uat_tests",
-            assetHandle: "uat_surface",
-            assessmentCount: 1
-          }
-        ]
-      };
-    case "intent_to_requirements":
-      return {
-        scenarioName,
-        authorityRefs: ["SCN-I2R-001"],
-        mode: "graph_function",
-        stages: [
-          {
-            handle: "intent_to_requirements_flow",
-            edge: "intent→requirements",
-            assetHandle: null,
-            assessmentCount: 1
-          }
-        ]
-      };
-    case "gsdlc_lite_requirements_design_code":
-      return {
-        scenarioName,
-        authorityRefs: ["SCN-GSDLCLITE-001"],
-        mode: "staged_chain",
-        stages: [
-          {
-            handle: "requirements_to_design_flow",
-            edge: "requirements→design",
-            assetHandle: null,
-            assessmentCount: 1
-          },
-          {
-            handle: "design_to_code_flow",
-            edge: "design→code",
-            assetHandle: null,
-            assessmentCount: 1
-          }
-        ]
-      };
-    case "gsdlc_lite_design_review":
-      return {
-        scenarioName,
-        authorityRefs: ["SCN-GSDLCLITE-001"],
-        mode: "review_chain",
-        stages: [
-          {
-            handle: "requirements_to_design_review_flow",
-            edge: "requirements→design",
-            assetHandle: null,
-            assessmentCount: 1
-          },
-          {
-            handle: "design_review_flow",
-            edge: "design→review",
-            assetHandle: null,
-            assessmentCount: 3
-          },
-          {
-            handle: "review_to_code_flow",
-            edge: "review→code",
-            assetHandle: null,
-            assessmentCount: 1
-          }
-        ]
-      };
-    case "gsdlc_lite_zoom_design":
-      return {
-        scenarioName,
-        authorityRefs: ["SCN-GSDLCLITE-001"],
-        mode: "zoom_chain",
-        stages: [
-          {
-            handle: "requirements_to_decomposition_flow",
-            edge: "requirements→decomposition",
-            assetHandle: null,
-            assessmentCount: 1
-          },
-          {
-            handle: "decomposition_to_dependency_chain_flow",
-            edge: "decomposition→dependency_chain",
-            assetHandle: null,
-            assessmentCount: 1
-          },
-          {
-            handle: "dependency_chain_to_sequencing_flow",
-            edge: "dependency_chain→sequencing",
-            assetHandle: null,
-            assessmentCount: 1
-          },
-          {
-            handle: "sequencing_to_design_flow",
-            edge: "sequencing→design",
-            assetHandle: null,
-            assessmentCount: 1
-          },
-          {
-            handle: "requirements_to_design_parent_flow",
-            edge: "requirements→design",
-            assetHandle: null,
-            assessmentCount: 1
-          }
-        ]
-      };
-    default:
-      throw new Error(`unknown installed live scenario ${scenarioName}`);
+  const obligation = M05_REFERENCE_LIVE_SCENARIO_OBLIGATIONS.find(
+    (entry) => entry.scenarioName === scenarioName
+  );
+  if (obligation === undefined) {
+    throw new Error(`unknown installed live scenario ${scenarioName}`);
   }
+  return {
+    scenarioName: obligation.scenarioName,
+    authorityRefs: [...obligation.requiredAuthorityRefs],
+    mode: obligation.mode,
+    stages: obligation.stages.map((stage) => ({
+      handle: stage.handle,
+      edge: stage.edge,
+      sourceKind: stage.sourceKind,
+      targetKind: stage.targetKind,
+      assetHandle: stage.assetHandle,
+      assessmentIds: [...stage.assessmentIds]
+    }))
+  };
 }
 
 export function installedLiveScenarioPortfolioSource(scenarioName) {
@@ -499,33 +1057,33 @@ export function installedLiveScenarioPortfolioSource(scenarioName) {
 
     const scenario = ${JSON.stringify(scenario)};
 
-    function sourceNode(id, name) {
+    function sourceNode(id, name, kind) {
       return admitNode({
         id,
         name,
-        schema: { kind: "symbolic", ref: "Vector[source]" },
+        schema: { kind: "symbolic", ref: \`Vector[\${kind}]\` },
         markov: ["derived"],
         assetSurface: {
-          kind: "design",
+          kind,
           requiredContexts: ["workspace"],
-          standardsRefs: ["design-standard"],
-          outputContractRefs: ["design-contract"]
+          standardsRefs: ["REQ-P-QUAL", "REQ-P-SCENARIOS"],
+          outputContractRefs: [\`\${kind}-contract\`]
         },
         tags: ["input"]
       });
     }
 
-    function targetNode(id, name) {
+    function targetNode(id, name, kind) {
       return admitNode({
         id,
         name,
-        schema: { kind: "symbolic", ref: "Vector[target]" },
+        schema: { kind: "symbolic", ref: \`Vector[\${kind}]\` },
         markov: ["implemented"],
         assetSurface: {
-          kind: "code",
+          kind,
           requiredContexts: ["workspace"],
-          standardsRefs: ["code-standard"],
-          outputContractRefs: ["code-contract"]
+          standardsRefs: ["REQ-P-QUAL", "REQ-P-SCENARIOS"],
+          outputContractRefs: [\`\${kind}-contract\`]
         },
         tags: ["output"]
       });
@@ -534,11 +1092,13 @@ export function installedLiveScenarioPortfolioSource(scenarioName) {
     function stageProfile(stage, index) {
       const source = sourceNode(
         \`node-\${scenario.scenarioName}-source-\${index}\`,
-        \`Source \${index + 1}\`
+        \`Source \${index + 1}\`,
+        stage.sourceKind
       );
       const target = targetNode(
         \`node-\${scenario.scenarioName}-target-\${index}\`,
-        \`Target \${index + 1}\`
+        \`Target \${index + 1}\`,
+        stage.targetKind
       );
       const vector = edge([source], target, {
         id: \`graph-\${scenario.scenarioName}-\${index}\`,
@@ -692,18 +1252,15 @@ export function installedLiveScenarioPortfolioSource(scenarioName) {
         )
       )[0];
 
-      maxAssessmentCount = Math.max(maxAssessmentCount, stage.assessmentCount);
-      const fulfillmentAssessments = Array.from(
-        { length: stage.assessmentCount },
-        (_, assessmentIndex) => ({
-          id: \`\${stage.handle}_assessment_\${assessmentIndex + 1}\`,
-          evaluator: \`\${stage.handle}_assessment_\${assessmentIndex + 1}\`,
-          fulfillment_status: "fulfilled",
-          fulfillment_detail: "installed scenario accepted",
-          blocking_reasons: [],
-          evidence_refs: ["proof://installed"]
-        })
-      );
+      maxAssessmentCount = Math.max(maxAssessmentCount, stage.assessmentIds.length);
+      const fulfillmentAssessments = stage.assessmentIds.map((assessmentId) => ({
+        id: assessmentId,
+        evaluator: assessmentId,
+        fulfillment_status: "fulfilled",
+        fulfillment_detail: "installed scenario accepted",
+        blocking_reasons: [],
+        evidence_refs: ["proof://installed"]
+      }));
 
       const assessmentRequest = {
         kind: "fp_assessed",
@@ -767,6 +1324,7 @@ export function installedLiveScenarioPortfolioSource(scenarioName) {
       scenarioName: scenario.scenarioName,
       scenarioAuthorityRefs: scenario.authorityRefs,
       mode: scenario.mode,
+      stages: scenario.stages,
       stageCount: scenario.stages.length,
       maxAssessmentCount,
       passed: scenarioPassed,
@@ -781,6 +1339,268 @@ export function buildInstalledLiveScenarioPortfolioRequest(input) {
     installedQualification: input.installedQualification,
     scenarios: input.scenarios.map((scenario) =>
       constructInstalledLiveScenarioResult(scenario)
+    )
+  });
+}
+
+export function installedSandboxBehaviorScenarioSource(obligation) {
+  return `
+    import {
+      edge,
+      graphFunctionForVector,
+      admitModule,
+      admitNode,
+      admitExecutionBasis,
+      deriveAdvancementTransition,
+      dispatchRequestsForTransition,
+      admitResolvedPolicyIdentity,
+      admitResolvedRuntimeIdentity,
+      admitPublicStartRequest,
+      projectLiveStatus,
+      publicStart,
+      resultAssessment
+    } from "@abiogenesis/typescript-tenant";
+
+    const obligation = ${JSON.stringify(obligation)};
+    const safeName = obligation.scenarioName.replace(/[^A-Za-z0-9_]+/gu, "_");
+
+    function node(id, name, kind) {
+      return admitNode({
+        id,
+        name,
+        schema: { kind: "symbolic", ref: \`Vector[\${kind}]\` },
+        markov: ["observed"],
+        assetSurface: {
+          kind,
+          requiredContexts: ["workspace"],
+          standardsRefs: ["REQ-P-QUAL", "REQ-P-SCENARIOS"],
+          outputContractRefs: [\`\${kind}-contract\`]
+        },
+        tags: [kind, obligation.lane]
+      });
+    }
+
+    function stageProfile(index) {
+      const source = node(
+        \`node-\${safeName}-source-\${index}\`,
+        \`Source \${index + 1}\`,
+        \`\${obligation.lane}_source\`
+      );
+      const target = node(
+        \`node-\${safeName}-target-\${index}\`,
+        \`Target \${index + 1}\`,
+        \`\${obligation.lane}_target\`
+      );
+      const edgeName = \`\${obligation.usecaseId}:stage_\${index + 1}\`;
+      const vector = edge([source], target, {
+        id: \`graph-\${safeName}-\${index}\`,
+        name: edgeName,
+        declarations: { entries: [] }
+      }).vectors[0];
+      const graphFunction = graphFunctionForVector(vector, {
+        id: \`graph-function-\${safeName}-\${index}\`,
+        name: \`\${safeName}_stage_\${index + 1}\`,
+        declarations: { entries: [] }
+      });
+      return {
+        index,
+        edgeName,
+        graphFunction
+      };
+    }
+
+    const profiles = Array.from(
+      { length: obligation.minStageCount },
+      (_, index) => stageProfile(index)
+    );
+    const module = admitModule({
+      name: \`sandbox_behavior_\${safeName}\`,
+      graphs: profiles.map((entry) => entry.graphFunction.template.graph),
+      graphFunctions: profiles.map((entry) => entry.graphFunction),
+      refinementBoundaries: [],
+      candidateFamilies: [],
+      jobs: profiles.map((entry) => ({
+        id: \`job-\${safeName}-\${entry.index}\`,
+        name: \`\${entry.graphFunction.name}_job\`,
+        contracts: [
+          {
+            kind: "graph_function",
+            targetId: entry.graphFunction.id
+          }
+        ],
+        roles: [],
+        tags: ["semantic_work", obligation.lane]
+      })),
+      roles: [],
+      operators: [],
+      evaluators: [],
+      rules: [],
+      imports: [],
+      metadata: { entries: [] }
+    });
+
+    const runtimeIdentity = admitResolvedRuntimeIdentity({
+      workerId: \`worker://sandbox-behavior-\${obligation.lane}\`,
+      backendId: "backend://node",
+      buildId: "build://typescript-installed",
+      resolvedRuntimeRef: "runtime://typescript/node"
+    });
+    const resolvedPolicy = admitResolvedPolicyIdentity({
+      resolvedPolicyBundleRef: "policy://sandbox-behavior",
+      defaultRegime: "F_P",
+      dispatchRef: "dispatch://installed"
+    });
+
+    const emittedEventKinds = [];
+    let scenarioPassed = true;
+    let finalRunStatus = "idle";
+    let assessmentCount = 0;
+
+    for (const profile of profiles) {
+      const startInput = {
+        scope: {
+          kind: "workspace",
+          workspaceRoot: \`/workspace/\${obligation.usecaseId}\`,
+          moduleName: module.name
+        },
+        target: {
+          kind: "graph_function",
+          handle: profile.graphFunction.name
+        },
+        until: "converged"
+      };
+
+      const startOutcome = publicStart(
+        startInput,
+        {
+          module,
+          runtimeIdentity,
+          resolvedPolicy,
+          runId: \`run://\${safeName}-\${profile.index}\`,
+          workKey: \`wk://\${safeName}-\${profile.index}\`
+        },
+        (event) => emittedEventKinds.push(event.kind)
+      );
+
+      if (
+        startOutcome.kind !== "blocked" ||
+        startOutcome.stopPredicate !== "dispatch_required"
+      ) {
+        scenarioPassed = false;
+        break;
+      }
+
+      const startRequest = admitPublicStartRequest(startInput);
+      const dispatchRequest = dispatchRequestsForTransition(
+        deriveAdvancementTransition(
+          admitExecutionBasis({
+            startIntent: startRequest.startIntent,
+            module,
+            runtimeIdentity,
+            resolvedPolicy,
+            runId: \`run://\${safeName}-\${profile.index}\`,
+            workKey: \`wk://\${safeName}-\${profile.index}\`,
+            frameId: null,
+            frameLineageId: null
+          })
+        )
+      )[0];
+
+      assessmentCount = Math.max(assessmentCount, obligation.minAssessmentCount);
+      const fulfillmentAssessments = Array.from(
+        { length: obligation.minAssessmentCount },
+        (_, assessmentIndex) => ({
+          id: \`\${safeName}_assessment_\${assessmentIndex + 1}\`,
+          evaluator: \`\${safeName}_assessment_\${assessmentIndex + 1}\`,
+          fulfillment_status: "fulfilled",
+          fulfillment_detail: "ported Python sandbox behavior scenario accepted",
+          blocking_reasons: [],
+          evidence_refs: [
+            \`archive://\${obligation.usecaseId}/\${obligation.scenarioName}\`
+          ]
+        })
+      );
+
+      const assessmentRequest = {
+        kind: "fp_assessed",
+        dispatch_request: dispatchRequest,
+        result_artifact: {
+          edge: dispatchRequest.expectedEdge,
+          actor: "typescript_sandbox_behavior_port",
+          fulfillment_assessments: fulfillmentAssessments,
+          selected_worker_id: dispatchRequest.workerId,
+          selected_backend: dispatchRequest.backendId,
+          role_id: "role://sandbox-behavior",
+          assignment_source: "policy_resolution",
+          resolved_runtime_ref: "runtime://typescript/node"
+        },
+        manifest_provenance: {
+          spec_hash: "spec://typescript-sandbox-behavior",
+          manifest_id: \`manifest://\${safeName}-\${profile.index}\`,
+          workflow_version: "wf://typescript-sandbox-behavior",
+          run_id: \`run://\${safeName}-\${profile.index}\`,
+          work_key: \`wk://\${safeName}-\${profile.index}\`,
+          authority_ref: "authority://REQ-P-SCENARIOS",
+          selected_worker_id: dispatchRequest.workerId,
+          selected_backend: dispatchRequest.backendId,
+          role_id: "role://sandbox-behavior",
+          assignment_source: "policy_resolution",
+          resolved_runtime_ref: "runtime://typescript/node"
+        },
+        published_ledger_ref: {
+          ref: \`ledger://\${safeName}-\${profile.index}\`
+        }
+      };
+
+      const assessmentOutcome = resultAssessment(
+        assessmentRequest,
+        (event) => emittedEventKinds.push(event.kind)
+      );
+
+      if (assessmentOutcome.kind !== "accepted") {
+        scenarioPassed = false;
+        break;
+      }
+
+      const projection = projectLiveStatus({
+        start_request: startInput,
+        start_outcome: startOutcome,
+        control_request: null,
+        control_outcome: null,
+        result_assessment_request: assessmentRequest,
+        result_assessment_outcome: assessmentOutcome
+      });
+
+      if (projection.kind !== "ready" || projection.runStatus !== "assessed") {
+        scenarioPassed = false;
+      }
+
+      finalRunStatus = projection.runStatus;
+    }
+
+    console.log(JSON.stringify({
+      scenarioName: obligation.scenarioName,
+      usecaseId: obligation.usecaseId,
+      lane: obligation.lane,
+      sourceFile: obligation.sourceFile,
+      sourceLine: obligation.sourceLine,
+      stageCount: profiles.length,
+      assessmentCount,
+      passed: scenarioPassed,
+      emittedEventKinds: [...new Set(emittedEventKinds)],
+      finalRunStatus,
+      evidenceRefs: [
+        \`archive://\${obligation.usecaseId}/\${obligation.scenarioName}\`
+      ]
+    }));
+  `;
+}
+
+export function buildInstalledSandboxBehaviorPortfolioRequest(input) {
+  return constructInstalledSandboxBehaviorPortfolioRequest({
+    installedQualification: input.installedQualification,
+    scenarios: input.scenarios.map((scenario) =>
+      constructInstalledSandboxBehaviorScenarioResult(scenario)
     )
   });
 }

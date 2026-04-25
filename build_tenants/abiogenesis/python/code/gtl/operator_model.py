@@ -5,7 +5,7 @@
 gtl.operator_model — Effect and convergence declarations.
 
 Domain model: Regime base class, frozen Operator/Evaluator/Rule with
-the accepted field shapes from the constitutional design.
+the accepted field shapes from the distributed GTL requirement family.
 
 No external dependencies. Dataclasses + stdlib only.
 """

@@ -56,12 +56,16 @@ The TypeScript tenant preserves these Python design truths:
 
 The TypeScript tenant intentionally reshapes these delivery details:
 
-- Python CLI/bootstrap surfaces become package-first TypeScript entry surfaces
+- Python binary/bootstrap surfaces become package-first TypeScript entry
+  surfaces
 - Python dataclass or class shaping becomes readonly TypeScript carrier
   interfaces and discriminated unions
 - Python strict typing law becomes TypeScript strict compiler and lint law
 - Python test-harness spellings become tenant-local TypeScript module and proof
   lanes
+
+Package-first entry surfaces must still bind the shared product command grammar
+when a TypeScript CLI or downstream app wrapper is exposed.
 
 The TypeScript tenant intentionally rejects these Python-shaped drift risks:
 

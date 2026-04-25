@@ -4,6 +4,62 @@
 **Date**: 2026-04-24
 **Derived from**: [REQ-P-QUAL.md](../../../../specification/requirements/product/REQ-P-QUAL.md), [REQ-P-SCENARIOS.md](../../../../specification/requirements/product/REQ-P-SCENARIOS.md), [GTL_3_MODULE_DESIGN.md](../design/GTL_3_MODULE_DESIGN.md), [GTL_3_INTERFACE_CONTRACTS.md](../design/GTL_3_INTERFACE_CONTRACTS.md), [GTL_3_FIRST_SLICE_IACS.md](../design/GTL_3_FIRST_SLICE_IACS.md), [GTL_3_M02_WORK_PUBLICATION_IACS.md](../design/GTL_3_M02_WORK_PUBLICATION_IACS.md), [ABG_3_MODULE_DESIGN.md](../design/ABG_3_MODULE_DESIGN.md), [ABG_3_FIRST_SLICE_IACS.md](../design/ABG_3_FIRST_SLICE_IACS.md), [M04_PUBLIC_START_DERIVATION.md](../design/M04_PUBLIC_START_DERIVATION.md), [M04_FIRST_SLICE_IACS.md](../design/M04_FIRST_SLICE_IACS.md), [M04_PUBLIC_START_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_PUBLIC_START_STRUCTURAL_CARRIER_DIAGRAM.md), [M04_CONTROL_LOOP_DERIVATION.md](../design/M04_CONTROL_LOOP_DERIVATION.md), [M04_CONTROL_LOOP_FIRST_SLICE_IACS.md](../design/M04_CONTROL_LOOP_FIRST_SLICE_IACS.md), [M04_CONTROL_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_CONTROL_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md), [M02_M03_LOOKUP_AUTHORITY_DERIVATION.md](../design/M02_M03_LOOKUP_AUTHORITY_DERIVATION.md), [M02_M03_LOOKUP_AUTHORITY_IACS.md](../design/M02_M03_LOOKUP_AUTHORITY_IACS.md), [M02_M03_LOOKUP_AUTHORITY_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M02_M03_LOOKUP_AUTHORITY_STRUCTURAL_CARRIER_DIAGRAM.md), [M05_QUALIFICATION_DERIVATION.md](../design/M05_QUALIFICATION_DERIVATION.md), [M05_QUALIFICATION_FIRST_SLICE_IACS.md](../design/M05_QUALIFICATION_FIRST_SLICE_IACS.md), [M05_QUALIFICATION_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_QUALIFICATION_STRUCTURAL_CARRIER_DIAGRAM.md), [M05_INSTALLED_SANDBOX_DERIVATION.md](../design/M05_INSTALLED_SANDBOX_DERIVATION.md), [M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md](../design/M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md), [M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md), [M05_ARCHIVE_FINALIZATION_DERIVATION.md](../design/M05_ARCHIVE_FINALIZATION_DERIVATION.md), [M05_ARCHIVE_FINALIZATION_FIRST_SLICE_IACS.md](../design/M05_ARCHIVE_FINALIZATION_FIRST_SLICE_IACS.md), [M05_ARCHIVE_FINALIZATION_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_ARCHIVE_FINALIZATION_STRUCTURAL_CARRIER_DIAGRAM.md), [M05_INSTALLED_LIVE_PORTFOLIO_DERIVATION.md](../design/M05_INSTALLED_LIVE_PORTFOLIO_DERIVATION.md), [M05_INSTALLED_LIVE_PORTFOLIO_FIRST_SLICE_IACS.md](../design/M05_INSTALLED_LIVE_PORTFOLIO_FIRST_SLICE_IACS.md), [M05_INSTALLED_LIVE_PORTFOLIO_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_INSTALLED_LIVE_PORTFOLIO_STRUCTURAL_CARRIER_DIAGRAM.md), [M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md](../design/M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md), [REMAINING_TYPESCRIPT_FORWARD_DERIVATION_PLAN.md](../design/REMAINING_TYPESCRIPT_FORWARD_DERIVATION_PLAN.md), [REMAINING_TYPESCRIPT_OPTIMIZATION_LEDGER.md](../design/REMAINING_TYPESCRIPT_OPTIMIZATION_LEDGER.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-009-build-the-typescript-tenant-first-slice-under-explicit-carrier-law.md](../../../.ai-workspace/tickets/completed/T-009-build-the-typescript-tenant-first-slice-under-explicit-carrier-law.md), [T-010-realize-typescript-gtl-m02-work-publication-under-explicit-publication-carrier-law.md](../../../.ai-workspace/tickets/completed/T-010-realize-typescript-gtl-m02-work-publication-under-explicit-publication-carrier-law.md), [T-011-realize-typescript-abg-first-runtime-slice-under-explicit-execution-event-carrier-law.md](../../../.ai-workspace/tickets/completed/T-011-realize-typescript-abg-first-runtime-slice-under-explicit-execution-event-carrier-law.md), [T-012-realize-typescript-m04-public-start-steel-thread-over-kernel-owned-runtime-law.md](../../../.ai-workspace/tickets/completed/T-012-realize-typescript-m04-public-start-steel-thread-over-kernel-owned-runtime-law.md), [T-013-realize-typescript-m04-control-modes-over-closed-public-start-outcome-law.md](../../../.ai-workspace/tickets/completed/T-013-realize-typescript-m04-control-modes-over-closed-public-start-outcome-law.md), [T-014-reprice-typescript-m02-publication-lookup-and-m03-execution-resolution-under-explicit-lookup-authority.md](../../../.ai-workspace/tickets/completed/T-014-reprice-typescript-m02-publication-lookup-and-m03-execution-resolution-under-explicit-lookup-authority.md), [T-015-front-run-the-remaining-typescript-tenant-design-and-module-derivation-from-the-released-python-reference.md](../../../.ai-workspace/tickets/completed/T-015-front-run-the-remaining-typescript-tenant-design-and-module-derivation-from-the-released-python-reference.md), [T-021-realize-typescript-m05-qualification-foundation-under-module-derived-method-trace-and-fake-lane-law.md](../../../.ai-workspace/tickets/completed/T-021-realize-typescript-m05-qualification-foundation-under-module-derived-method-trace-and-fake-lane-law.md), [T-022-realize-typescript-m05-installed-sandbox-live-lane-and-archive-proof-under-explicit-installed-runtime-qualification-law.md](../../../.ai-workspace/tickets/completed/T-022-realize-typescript-m05-installed-sandbox-live-lane-and-archive-proof-under-explicit-installed-runtime-qualification-law.md), [T-029-audit-typescript-installed-sandbox-and-live-lane-proof-against-the-python-reference-tests-at-equivalent-feature-coverage.md](../../../.ai-workspace/tickets/completed/T-029-audit-typescript-installed-sandbox-and-live-lane-proof-against-the-python-reference-tests-at-equivalent-feature-coverage.md), [T-030-realize-typescript-m05-installed-run-archive-writer-and-postmortem-finalization-proof-under-explicit-archive-finalization-law.md](../../../.ai-workspace/tickets/completed/T-030-realize-typescript-m05-installed-run-archive-writer-and-postmortem-finalization-proof-under-explicit-archive-finalization-law.md), [T-031-realize-typescript-m05-installed-live-scenario-portfolio-parity-against-the-python-sandbox-live-reference-line.md](../../../.ai-workspace/tickets/completed/T-031-realize-typescript-m05-installed-live-scenario-portfolio-parity-against-the-python-sandbox-live-reference-line.md)
 
+Additional current derivation surfaces for completed reset/postmortem parity:
+
+- [M05_INSTALLED_RESET_POSTMORTEM_DERIVATION.md](../design/M05_INSTALLED_RESET_POSTMORTEM_DERIVATION.md)
+- [M05_INSTALLED_RESET_POSTMORTEM_FIRST_SLICE_IACS.md](../design/M05_INSTALLED_RESET_POSTMORTEM_FIRST_SLICE_IACS.md)
+- [M05_INSTALLED_RESET_POSTMORTEM_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_INSTALLED_RESET_POSTMORTEM_STRUCTURAL_CARRIER_DIAGRAM.md)
+- [T-032-realize-typescript-m05-installed-reset-postmortem-parity-over-canonical-reset-and-continuation-law.md](../../../.ai-workspace/tickets/completed/T-032-realize-typescript-m05-installed-reset-postmortem-parity-over-canonical-reset-and-continuation-law.md)
+
+Additional current derivation surfaces for completed RC live sandbox UAT:
+
+- [M05_RC_LIVE_UAT_DERIVATION.md](../design/M05_RC_LIVE_UAT_DERIVATION.md)
+- [T-033-realize-typescript-rc-live-qualification-lane-over-real-fp-transport-execution.md](../../../.ai-workspace/tickets/completed/T-033-realize-typescript-rc-live-qualification-lane-over-real-fp-transport-execution.md)
+- [SPEC_METHOD.md](../../../../../specification_methodology/specification/standards/SPEC_METHOD.md)
+
+Additional current derivation surfaces for completed RC live portfolio:
+
+- [M05_RC_LIVE_PORTFOLIO_DERIVATION.md](../design/M05_RC_LIVE_PORTFOLIO_DERIVATION.md)
+- [T-037-port-python-live-scenario-portfolio-to-typescript-rc-external-live-lane.md](../../../.ai-workspace/tickets/completed/T-037-port-python-live-scenario-portfolio-to-typescript-rc-external-live-lane.md)
+
+Additional current derivation surfaces for completed Python sandbox behavior
+portfolio parity:
+
+- [M05_PYTHON_SANDBOX_BEHAVIOR_PORTFOLIO_DERIVATION.md](../design/M05_PYTHON_SANDBOX_BEHAVIOR_PORTFOLIO_DERIVATION.md)
+- [T-036-port-python-archived-sandbox-behavior-portfolio-to-typescript-installed-package-lane.md](../../../.ai-workspace/tickets/completed/T-036-port-python-archived-sandbox-behavior-portfolio-to-typescript-installed-package-lane.md)
+
+Additional current derivation surfaces for completed runtime failure taxonomy
+repricing:
+
+- [M03_M04_RUNTIME_FAILURE_TAXONOMY_DERIVATION.md](../design/M03_M04_RUNTIME_FAILURE_TAXONOMY_DERIVATION.md)
+- [M03_M04_RUNTIME_FAILURE_TAXONOMY_FIRST_SLICE_IACS.md](../design/M03_M04_RUNTIME_FAILURE_TAXONOMY_FIRST_SLICE_IACS.md)
+- [M03_M04_RUNTIME_FAILURE_TAXONOMY_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M03_M04_RUNTIME_FAILURE_TAXONOMY_STRUCTURAL_CARRIER_DIAGRAM.md)
+- [T-035-reprice-typescript-m03-m04-failure-taxonomy-to-distinguish-runtime-unavailable-capability-missing-and-runtime-failure.md](../../../.ai-workspace/tickets/completed/T-035-reprice-typescript-m03-m04-failure-taxonomy-to-distinguish-runtime-unavailable-capability-missing-and-runtime-failure.md)
+
+Additional current derivation surfaces for completed complete-start callable
+and stop taxonomy:
+
+- [M04_MAXIMUM_AUTONOMY_GEN_START_DERIVATION.md](../design/M04_MAXIMUM_AUTONOMY_GEN_START_DERIVATION.md)
+- [M04_MAXIMUM_AUTONOMY_GEN_START_FIRST_SLICE_IACS.md](../design/M04_MAXIMUM_AUTONOMY_GEN_START_FIRST_SLICE_IACS.md)
+- [M04_MAXIMUM_AUTONOMY_GEN_START_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_MAXIMUM_AUTONOMY_GEN_START_STRUCTURAL_CARRIER_DIAGRAM.md)
+- [B-030-TS-realize-typescript-m04-complete-start-callable-surface-and-stop-taxonomy-over-canonical-public-control-truth.md](../../../.ai-workspace/tickets/completed/B-030-TS-realize-typescript-m04-complete-start-callable-surface-and-stop-taxonomy-over-canonical-public-control-truth.md)
+
+Additional current derivation surfaces for completed replay-derived M03
+graph-function iteration:
+
+- [M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md](../design/M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md)
+- [M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md](../design/M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md)
+- [M03_GRAPH_FUNCTION_ITERATION_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M03_GRAPH_FUNCTION_ITERATION_STRUCTURAL_CARRIER_DIAGRAM.md)
+- [T-044-realize-typescript-m03-replay-derived-graph-function-iteration-and-aggregate-projection.md](../../../.ai-workspace/tickets/completed/T-044-realize-typescript-m03-replay-derived-graph-function-iteration-and-aggregate-projection.md)
+
+Additional current derivation surfaces for completed M03 retry/repair and
+leaf-task governance:
+
+- [M03_RETRY_REPAIR_LEAFTASK_DERIVATION.md](../design/M03_RETRY_REPAIR_LEAFTASK_DERIVATION.md)
+- [M03_RETRY_REPAIR_LEAFTASK_FIRST_SLICE_IACS.md](../design/M03_RETRY_REPAIR_LEAFTASK_FIRST_SLICE_IACS.md)
+- [M03_RETRY_REPAIR_LEAFTASK_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M03_RETRY_REPAIR_LEAFTASK_STRUCTURAL_CARRIER_DIAGRAM.md)
+- [T-045-realize-typescript-m03-retry-repair-and-leaf-task-governance.md](../../../.ai-workspace/tickets/completed/T-045-realize-typescript-m03-retry-repair-and-leaf-task-governance.md)
+
 ## Purpose
 
 Review and trace the active `abiogenesis/typescript` test surface from live
@@ -37,6 +93,12 @@ It must not be justified primarily by:
 - private method layout
 - incidental branch shape
 - mock convenience around one local function
+
+Live sandbox UAT tests under `test_env/live/` are separate from the deterministic
+semantic suite. They must derive from requirements/scenarios and the
+`SPEC_METHOD.md` testing strategy taxonomy, not from module design alone.
+Python reference tests may identify obligations, but portable TypeScript proof
+must be reusable independently from Python harness mechanics.
 
 ## Current Reading
 
@@ -79,33 +141,51 @@ Current proof shape:
 - transitional slice-gating proof retained from `T-012`:
   - `t012-m04-negative-ingress.test.mjs`
 
-The TypeScript tenant does **not** yet have a sandbox qualification lane.
-Per shared qualification law, sandbox becomes the primary tenant qualification
-surface later as `M05-qualification-scenarios`, after enough runtime and
-bootstrap surface exists to make sandbox proof meaningful.
-
-The completed forward-derivation wave now predeclares the future canonical
-proof lanes for:
-
-- `M05` qualification foundation plus installed sandbox/live/archive proof
-- deferred-only `M06` trigger law with no executable tests until activated
-
-The completed forward-derivation wave predeclared and the tenant has now
+The completed forward-derivation wave predeclared, and the tenant has now
 completed:
 
 - late `M03` transport/result protocol
 - remaining `M04` public asset-addressing
+- `M05` qualification foundation
+- installed sandbox, live-lane, archive, live-portfolio, reset/postmortem, and
+  Python sandbox behavior portfolio proof
 
-The remaining future canonical proof lanes are now for:
+The remaining future proof lane is now:
 
-- `M05` qualification foundation plus installed sandbox/live/archive proof
 - deferred-only `M06` trigger law with no executable tests until activated
+
+The completed RC live sandbox portfolio lane is:
+
+- `test_env/live/test_m05_rc_live_portfolio.test.mjs` — required RC live sandbox
+  portfolio lane over all five Python live scenario families and real
+  configured F_P transport
+
+It is intentionally excluded from `npm run test:semantic` and runs through:
+
+- `npm run test:live`
+
+The lane materializes the TypeScript package from `npm pack` output into the
+sandbox package surface before executing the public package import.
+
+When `ABG_TS_LIVE_PORTFOLIO=1` or `CODEX_LIVE_FP=1` is absent, or backend
+readiness fails, the live lane fails. A skip is not a valid RC closure result.
+Dispatch failure is a failing live qualification signal with archive evidence
+under `test_env/test_runs/`.
+
+The previous single-edge live UAT lane remains directly runnable through:
+
+- `npm run test:live:uat`
 
 The completed TypeScript tenant now has the full bounded `M05` qualification
 line:
 
 - `T-021` `M05` qualification foundation
 - `T-022` `M05` installed sandbox, live-lane, and archive proof
+- `T-030` archive writer/finalizer parity
+- `T-031` installed live scenario portfolio parity
+- `T-032` installed reset/postmortem parity
+- `T-036` Python archived sandbox behavior portfolio parity
+- `T-037` RC external-live portfolio parity
 
 That completed line derives from:
 
@@ -115,8 +195,22 @@ That completed line derives from:
 - `M05_INSTALLED_SANDBOX_DERIVATION.md`
 - `M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md`
 - `M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M05_ARCHIVE_FINALIZATION_DERIVATION.md`
+- `M05_ARCHIVE_FINALIZATION_FIRST_SLICE_IACS.md`
+- `M05_ARCHIVE_FINALIZATION_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M05_INSTALLED_LIVE_PORTFOLIO_DERIVATION.md`
+- `M05_INSTALLED_LIVE_PORTFOLIO_FIRST_SLICE_IACS.md`
+- `M05_INSTALLED_LIVE_PORTFOLIO_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M05_INSTALLED_RESET_POSTMORTEM_DERIVATION.md`
+- `M05_INSTALLED_RESET_POSTMORTEM_FIRST_SLICE_IACS.md`
+- `M05_INSTALLED_RESET_POSTMORTEM_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M05_PYTHON_SANDBOX_BEHAVIOR_PORTFOLIO_DERIVATION.md`
 - `T-021-realize-typescript-m05-qualification-foundation-under-module-derived-method-trace-and-fake-lane-law.md`
 - `T-022-realize-typescript-m05-installed-sandbox-live-lane-and-archive-proof-under-explicit-installed-runtime-qualification-law.md`
+- `T-030-realize-typescript-m05-installed-run-archive-writer-and-postmortem-finalization-proof-under-explicit-archive-finalization-law.md`
+- `T-031-realize-typescript-m05-installed-live-scenario-portfolio-parity-against-the-python-sandbox-live-reference-line.md`
+- `T-032-realize-typescript-m05-installed-reset-postmortem-parity-over-canonical-reset-and-continuation-law.md`
+- `T-036-port-python-archived-sandbox-behavior-portfolio-to-typescript-installed-package-lane.md`
 
 The latest completed audit wave is:
 
@@ -150,6 +244,13 @@ The latest completed `M05` follow-up implementation wave is:
 That completed wave now adds one explicit installed reset-postmortem slice over
 the completed installed qualification line.
 
+The latest completed `M05` follow-up implementation wave is:
+
+- `T-036` Python archived sandbox behavior portfolio parity
+
+That completed wave now adds one explicit 34-scenario installed package
+behavior portfolio over the Python sandbox corpus.
+
 The canonical files are:
 
 - `test_m05_method_trace_unit.test.mjs` — canonical module-derived trace lane
@@ -157,16 +258,31 @@ The canonical files are:
 - `t021-m05-qualification-negative.test.mjs` — fail-closed negative-proof fixture
 - `test_m05_sandbox_install_integration.test.mjs` — canonical installed-line integration lane
 - `test_m05_sandbox_live_integration.test.mjs` — canonical installed live-lane integration lane
+- `test_m05_installed_graph_function_target_integration.test.mjs` — translated
+  Python installed graph-function target sandbox lane
+- `test_m05_three_stage_graph_function_sandbox_integration.test.mjs` —
+  installed sandbox lane for one composed three-stage GTL graph-function target
+  replayed through all materialized vectors
 - `test_m05_installed_live_portfolio_unit.test.mjs` — canonical installed live-portfolio unit lane
 - `test_m05_installed_live_portfolio_integration.test.mjs` — canonical installed live-portfolio integration lane
 - `test_m05_installed_reset_postmortem_unit.test.mjs` — canonical installed reset-postmortem unit lane
 - `test_m05_installed_reset_postmortem_integration.test.mjs` — canonical installed reset-postmortem integration lane
+- `test_m05_python_sandbox_behavior_portfolio_integration.test.mjs` — canonical installed behavior portfolio lane over the 34 Python archived sandbox scenarios
 - `test_m05_archive_finalization_unit.test.mjs` — canonical archive-finalization unit lane
 - `test_m05_run_archive_integration.test.mjs` — canonical archive-proof integration lane
 - `t022-m05-installed-sandbox-negative.test.mjs` — installed-line fail-closed fixture
 - `t031-m05-live-portfolio-negative.test.mjs` — installed live-portfolio fail-closed fixture
 - `t030-m05-archive-finalization-negative.test.mjs` — archive-finalization fail-closed fixture
 - `t032-m05-reset-postmortem-negative.test.mjs` — installed reset-postmortem fail-closed fixture
+
+The active live UAT files are:
+
+- `test_env/live/test_m05_rc_live_portfolio.test.mjs` — RC live sandbox
+  portfolio lane over all five Python live scenario families
+- `test_env/live/test_m05_rc_live_uat.test.mjs` — single-edge RC live sandbox
+  UAT lane retained as a direct command
+  derived from requirements/scenarios and `SPEC_METHOD.md`, not a module unit or
+  deterministic installed-surface lane
 
 The completed late `M03` implementation wave is:
 
@@ -346,6 +462,103 @@ The canonical files are:
 - `test_m03_transport_protocol_unit.test.mjs` — canonical module-derived unit lane
 - `test_m03_transport_protocol_integration.test.mjs` — canonical module-owned integration lane
 - `t026-m03-transport-protocol-negative.test.mjs` — fail-closed negative-proof fixture
+
+## M03/M04 Runtime Failure Taxonomy Tests
+
+The completed cross-module runtime failure taxonomy reprice is `T-035`.
+Its canonical test lanes derive from:
+
+- [M03_M04_RUNTIME_FAILURE_TAXONOMY_DERIVATION.md](../design/M03_M04_RUNTIME_FAILURE_TAXONOMY_DERIVATION.md)
+- [M03_M04_RUNTIME_FAILURE_TAXONOMY_FIRST_SLICE_IACS.md](../design/M03_M04_RUNTIME_FAILURE_TAXONOMY_FIRST_SLICE_IACS.md)
+- [M03_M04_RUNTIME_FAILURE_TAXONOMY_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M03_M04_RUNTIME_FAILURE_TAXONOMY_STRUCTURAL_CARRIER_DIAGRAM.md)
+- [M03_TRANSPORT_PROTOCOL_FIRST_SLICE_IACS.md](../design/M03_TRANSPORT_PROTOCOL_FIRST_SLICE_IACS.md)
+- [M04_RESULT_ASSESSMENT_FIRST_SLICE_IACS.md](../design/M04_RESULT_ASSESSMENT_FIRST_SLICE_IACS.md)
+- [M04_LIVE_STATUS_FIRST_SLICE_IACS.md](../design/M04_LIVE_STATUS_FIRST_SLICE_IACS.md)
+- [T-035-reprice-typescript-m03-m04-failure-taxonomy-to-distinguish-runtime-unavailable-capability-missing-and-runtime-failure.md](../../../.ai-workspace/tickets/completed/T-035-reprice-typescript-m03-m04-failure-taxonomy-to-distinguish-runtime-unavailable-capability-missing-and-runtime-failure.md)
+
+The canonical active files are:
+
+- `test_m03_transport_protocol_unit.test.mjs` — proves each supported
+  `RuntimeFailureClass` is canonical through M03 ingest
+- `test_m03_transport_protocol_integration.test.mjs` — proves package-exported
+  runtime failure envelopes remain closed and typed
+- `t026-m03-transport-protocol-negative.test.mjs` — proves unsupported and
+  legacy transport failure classes fail closed
+- `test_m04_result_assessment_unit.test.mjs` — proves runtime failures carry
+  class through public result assessment and emit no assessed facts
+- `test_m04_result_assessment_integration.test.mjs` — proves M04 carries
+  `failureClass` rather than deriving it from reason text
+- `test_m04_live_status_integration.test.mjs` — proves live status consumes
+  the canonical class as attention `runStatus`
+
+## M04 Complete Callable Start Tests
+
+The completed complete-start callable and stop taxonomy wave is `B-030-TS`.
+Its canonical test lanes derive from:
+
+- [M04_MAXIMUM_AUTONOMY_GEN_START_DERIVATION.md](../design/M04_MAXIMUM_AUTONOMY_GEN_START_DERIVATION.md)
+- [M04_MAXIMUM_AUTONOMY_GEN_START_FIRST_SLICE_IACS.md](../design/M04_MAXIMUM_AUTONOMY_GEN_START_FIRST_SLICE_IACS.md)
+- [M04_MAXIMUM_AUTONOMY_GEN_START_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_MAXIMUM_AUTONOMY_GEN_START_STRUCTURAL_CARRIER_DIAGRAM.md)
+- [M03_M04_RUNTIME_FAILURE_TAXONOMY_FIRST_SLICE_IACS.md](../design/M03_M04_RUNTIME_FAILURE_TAXONOMY_FIRST_SLICE_IACS.md)
+- [M04_CONTROL_LOOP_FIRST_SLICE_IACS.md](../design/M04_CONTROL_LOOP_FIRST_SLICE_IACS.md)
+- [M04_LIVE_STATUS_FIRST_SLICE_IACS.md](../design/M04_LIVE_STATUS_FIRST_SLICE_IACS.md)
+- [B-030-TS-realize-typescript-m04-complete-start-callable-surface-and-stop-taxonomy-over-canonical-public-control-truth.md](../../../.ai-workspace/tickets/completed/B-030-TS-realize-typescript-m04-complete-start-callable-surface-and-stop-taxonomy-over-canonical-public-control-truth.md)
+
+The canonical active files are:
+
+- `test_m04_complete_start_surface_unit.test.mjs` — canonical module-derived
+  unit lane for callable-start admission defaults and stop-class projection
+- `test_m04_complete_start_surface_integration.test.mjs` — canonical
+  module-owned integration lane proving bare callable start lowers into
+  substrate public control
+- `b030-ts-m04-complete-start-negative.test.mjs` — fail-closed proof that
+  downstream outcome injection and reason-text taxonomy inference are rejected
+
+## M03 Graph-Function Iteration Tests
+
+The completed replay-derived graph-function iteration wave is `T-044`.
+Its canonical test lanes derive from:
+
+- [M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md](../design/M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md)
+- [M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md](../design/M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md)
+- [M03_GRAPH_FUNCTION_ITERATION_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M03_GRAPH_FUNCTION_ITERATION_STRUCTURAL_CARRIER_DIAGRAM.md)
+- [T-044-realize-typescript-m03-replay-derived-graph-function-iteration-and-aggregate-projection.md](../../../.ai-workspace/tickets/completed/T-044-realize-typescript-m03-replay-derived-graph-function-iteration-and-aggregate-projection.md)
+
+The canonical active files are:
+
+- `test_m03_graph_function_iteration_unit.test.mjs` — module-derived unit lane
+  for aggregate projection and next-vector decision truth
+- `test_m03_graph_function_iteration_integration.test.mjs` — module-owned
+  integration lane proving composed graph-function progression beyond vector
+  zero from replay facts
+- `t044-m03-graph-function-iteration-negative.test.mjs` — fail-closed proof
+  against local-counter vector closure drift and duplicate closure facts
+- `test_m05_three_stage_graph_function_sandbox_integration.test.mjs` —
+  installed sandbox proof now records replay-derived core iteration as the
+  progression authority
+
+## M03 Retry/Repair And Leaf-Task Tests
+
+The completed retry/repair and leaf-task governance wave is `T-045`.
+Its canonical test lanes derive from:
+
+- [M03_RETRY_REPAIR_LEAFTASK_DERIVATION.md](../design/M03_RETRY_REPAIR_LEAFTASK_DERIVATION.md)
+- [M03_RETRY_REPAIR_LEAFTASK_FIRST_SLICE_IACS.md](../design/M03_RETRY_REPAIR_LEAFTASK_FIRST_SLICE_IACS.md)
+- [M03_RETRY_REPAIR_LEAFTASK_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M03_RETRY_REPAIR_LEAFTASK_STRUCTURAL_CARRIER_DIAGRAM.md)
+- [M03_M04_RUNTIME_FAILURE_TAXONOMY_FIRST_SLICE_IACS.md](../design/M03_M04_RUNTIME_FAILURE_TAXONOMY_FIRST_SLICE_IACS.md)
+- [T-045-realize-typescript-m03-retry-repair-and-leaf-task-governance.md](../../../.ai-workspace/tickets/completed/T-045-realize-typescript-m03-retry-repair-and-leaf-task-governance.md)
+
+The canonical active files are:
+
+- `test_m03_retry_repair_unit.test.mjs` — module-derived unit lane proving
+  fresh retry attempt identity, current-projection prompt/manifest truth,
+  retry budget stop, stationary escalation, and continuation repair facts
+- `test_m03_leaf_task_integration.test.mjs` — module-owned integration lane
+  proving parent-bound leaf-task envelopes, replay-visible completion, and
+  typed failure classification
+- `t045-m03-retry-leaftask-negative.test.mjs` — fail-closed proof for stale
+  manifest redispatch, orphan leaf tasks, invalid leaf-task output payloads,
+  and unsupported leaf-task failure classes
 
 Until enough runtime and bootstrap surface exists for sandbox:
 
@@ -616,6 +829,34 @@ The canonical active files are:
   one bounded installed live scenario over the completed install and bootloader
   line, without yet widening into the Python scenario portfolio
 
+### test_m05_installed_graph_function_target_integration.test.mjs
+
+- Status: canonical module-owned integration lane
+- Module alignment: `M05-qualification-scenarios`
+- Requirements: `REQ-P-QUAL`, `REQ-P-SCENARIOS`, `REQ-R-ABG3-INTERPRET`,
+  `REQ-R-ABG3-EVENTS`
+- Design: [M05_INSTALLED_SANDBOX_DERIVATION.md](../design/M05_INSTALLED_SANDBOX_DERIVATION.md), [M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md](../design/M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md), [M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md), [M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md](../design/M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-022-realize-typescript-m05-installed-sandbox-live-lane-and-archive-proof-under-explicit-installed-runtime-qualification-law.md](../../../.ai-workspace/tickets/completed/T-022-realize-typescript-m05-installed-sandbox-live-lane-and-archive-proof-under-explicit-installed-runtime-qualification-law.md)
+- Current focus inside this lane:
+  direct translation of Python
+  `test_installed_start_graph_function_target_drives_selected_manifest_and_event_chain`
+  onto the packaged TypeScript sandbox surface, proving requested graph-function
+  selection, dispatch edge, manifest edge, assessed edge, and sibling graph
+  non-selection
+
+### test_m05_three_stage_graph_function_sandbox_integration.test.mjs
+
+- Status: canonical module-owned integration lane
+- Module alignment: `M05-qualification-scenarios`
+- Requirements: `REQ-P-QUAL`, `REQ-P-SCENARIOS`, `REQ-L-GTL3-COMPOSE`,
+  `REQ-L-GTL3-GRAPHFUNCTION`, `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-EVENTS`
+- Design: [M05_PYTHON_SANDBOX_BEHAVIOR_PORTFOLIO_DERIVATION.md](../design/M05_PYTHON_SANDBOX_BEHAVIOR_PORTFOLIO_DERIVATION.md), [M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md](../design/M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md), [M05_INSTALLED_SANDBOX_DERIVATION.md](../design/M05_INSTALLED_SANDBOX_DERIVATION.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-036-port-python-archived-sandbox-behavior-portfolio-to-typescript-installed-package-lane.md](../../../.ai-workspace/tickets/completed/T-036-port-python-archived-sandbox-behavior-portfolio-to-typescript-installed-package-lane.md)
+- Current focus inside this lane:
+  installed-package sandbox proof that one composed three-stage GTL
+  graph-function target is selected, materializes the ordered
+  `input_set→requirements`, `requirements→design`, and `design→code` vectors,
+  and is replayed through accepted stage assessments without changing the
+  selected graph-function identity
+
 ### test_m05_archive_finalization_unit.test.mjs
 
 - Status: canonical module-derived unit lane
@@ -636,6 +877,17 @@ The canonical active files are:
   canonical archive finalization over explicit source-file refs, durable
   postmortem materialization, and downstream archive qualification over real
   output instead of synthetic fixtures
+
+### test_m05_python_sandbox_behavior_portfolio_integration.test.mjs
+
+- Status: canonical installed-package behavior portfolio lane
+- Module alignment: `M05-qualification-scenarios`
+- Requirements: `REQ-P-QUAL`, `REQ-P-SCENARIOS`
+- Design: [M05_PYTHON_SANDBOX_BEHAVIOR_PORTFOLIO_DERIVATION.md](../design/M05_PYTHON_SANDBOX_BEHAVIOR_PORTFOLIO_DERIVATION.md), [M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md](../design/M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md), [M05_INSTALLED_SANDBOX_DERIVATION.md](../design/M05_INSTALLED_SANDBOX_DERIVATION.md), [M05_INSTALLED_LIVE_PORTFOLIO_DERIVATION.md](../design/M05_INSTALLED_LIVE_PORTFOLIO_DERIVATION.md), [M05_ARCHIVE_FINALIZATION_DERIVATION.md](../design/M05_ARCHIVE_FINALIZATION_DERIVATION.md), [T-036-port-python-archived-sandbox-behavior-portfolio-to-typescript-installed-package-lane.md](../../../.ai-workspace/tickets/completed/T-036-port-python-archived-sandbox-behavior-portfolio-to-typescript-installed-package-lane.md)
+- Current focus inside this lane:
+  all 34 Python archived sandbox behavior scenarios are represented as
+  TypeScript installed-package obligations and run as one cumulative portfolio
+  with durable report output under `test_env/test_runs/`
 
 ### t022-m05-installed-sandbox-negative.test.mjs
 
@@ -679,3 +931,246 @@ The canonical active files are:
 - Module alignment: `M05-qualification-scenarios`
 - Requirements: `REQ-P-QUAL`, `REQ-P-SCENARIOS`
 - Design: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](../design/TYPESCRIPT_REALIZATION_GUARDRAILS.md), [M05_INSTALLED_LIVE_PORTFOLIO_DERIVATION.md](../design/M05_INSTALLED_LIVE_PORTFOLIO_DERIVATION.md), [M05_INSTALLED_LIVE_PORTFOLIO_FIRST_SLICE_IACS.md](../design/M05_INSTALLED_LIVE_PORTFOLIO_FIRST_SLICE_IACS.md), [M05_INSTALLED_LIVE_PORTFOLIO_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_INSTALLED_LIVE_PORTFOLIO_STRUCTURAL_CARRIER_DIAGRAM.md), [M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md](../design/M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-031-realize-typescript-m05-installed-live-scenario-portfolio-parity-against-the-python-sandbox-live-reference-line.md](../../../.ai-workspace/tickets/completed/T-031-realize-typescript-m05-installed-live-scenario-portfolio-parity-against-the-python-sandbox-live-reference-line.md)
+
+## Later Wave Per-Test Provenance
+
+### test_m03_transport_protocol_unit.test.mjs
+
+- Status: canonical module-derived unit lane
+- Module alignment: `M03-engine-kernel` transport/result protocol
+- Requirements: `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-EVENTS`, `REQ-R-ABG3-RUN`
+- Design: [M03_TRANSPORT_PROTOCOL_DERIVATION.md](../design/M03_TRANSPORT_PROTOCOL_DERIVATION.md), [M03_TRANSPORT_PROTOCOL_FIRST_SLICE_IACS.md](../design/M03_TRANSPORT_PROTOCOL_FIRST_SLICE_IACS.md), [M03_TRANSPORT_PROTOCOL_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M03_TRANSPORT_PROTOCOL_STRUCTURAL_CARRIER_DIAGRAM.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-026-realize-typescript-m03-governed-fp-transport-and-result-artifact-protocol-under-explicit-transport-law.md](../../../.ai-workspace/tickets/completed/T-026-realize-typescript-m03-governed-fp-transport-and-result-artifact-protocol-under-explicit-transport-law.md)
+
+### test_m03_transport_protocol_integration.test.mjs
+
+- Status: canonical module-owned integration lane
+- Module alignment: `M03-engine-kernel` transport/result protocol
+- Requirements: `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-EVENTS`, `REQ-R-ABG3-RUN`
+- Design: [M03_TRANSPORT_PROTOCOL_DERIVATION.md](../design/M03_TRANSPORT_PROTOCOL_DERIVATION.md), [M03_TRANSPORT_PROTOCOL_FIRST_SLICE_IACS.md](../design/M03_TRANSPORT_PROTOCOL_FIRST_SLICE_IACS.md), [M03_TRANSPORT_PROTOCOL_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M03_TRANSPORT_PROTOCOL_STRUCTURAL_CARRIER_DIAGRAM.md), [ABG_3_MODULE_DESIGN.md](../design/ABG_3_MODULE_DESIGN.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-026-realize-typescript-m03-governed-fp-transport-and-result-artifact-protocol-under-explicit-transport-law.md](../../../.ai-workspace/tickets/completed/T-026-realize-typescript-m03-governed-fp-transport-and-result-artifact-protocol-under-explicit-transport-law.md)
+
+### t026-m03-transport-protocol-negative.test.mjs
+
+- Status: transitional slice-gating proof retained as completed `T-026` fail-closed evidence
+- Module alignment: `M03-engine-kernel` transport/result protocol
+- Requirements: `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-EVENTS`, `REQ-R-ABG3-RUN`
+- Design: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](../design/TYPESCRIPT_REALIZATION_GUARDRAILS.md), [M03_TRANSPORT_PROTOCOL_DERIVATION.md](../design/M03_TRANSPORT_PROTOCOL_DERIVATION.md), [M03_TRANSPORT_PROTOCOL_FIRST_SLICE_IACS.md](../design/M03_TRANSPORT_PROTOCOL_FIRST_SLICE_IACS.md), [M03_TRANSPORT_PROTOCOL_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M03_TRANSPORT_PROTOCOL_STRUCTURAL_CARRIER_DIAGRAM.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-026-realize-typescript-m03-governed-fp-transport-and-result-artifact-protocol-under-explicit-transport-law.md](../../../.ai-workspace/tickets/completed/T-026-realize-typescript-m03-governed-fp-transport-and-result-artifact-protocol-under-explicit-transport-law.md)
+
+### test_abg_common_realization_library_unit.test.mjs
+
+- Status: canonical module-derived unit lane
+- Module alignment: tenant-local ABG common realization library
+- Requirements: `REQ-R-ABG3-RUN`, `REQ-R-ABG3-EVENTS`, `REQ-P-POLICY`
+- Design: [ABG_COMMON_REALIZATION_LIBRARY_DERIVATION.md](../design/ABG_COMMON_REALIZATION_LIBRARY_DERIVATION.md), [ABG_COMMON_REALIZATION_LIBRARY_FIRST_SLICE_IACS.md](../design/ABG_COMMON_REALIZATION_LIBRARY_FIRST_SLICE_IACS.md), [ABG_COMMON_REALIZATION_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md](../design/ABG_COMMON_REALIZATION_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-027-realize-a-tenant-local-abg-common-realization-library-for-expectation-derivation-contract-carriers-and-module-derived-proof-helpers.md](../../../.ai-workspace/tickets/completed/T-027-realize-a-tenant-local-abg-common-realization-library-for-expectation-derivation-contract-carriers-and-module-derived-proof-helpers.md)
+
+### test_abg_common_realization_library_integration.test.mjs
+
+- Status: canonical shared-library integration lane
+- Module alignment: tenant-local ABG common realization library
+- Requirements: `REQ-R-ABG3-RUN`, `REQ-R-ABG3-EVENTS`, `REQ-P-POLICY`
+- Design: [ABG_COMMON_REALIZATION_LIBRARY_DERIVATION.md](../design/ABG_COMMON_REALIZATION_LIBRARY_DERIVATION.md), [ABG_COMMON_REALIZATION_LIBRARY_FIRST_SLICE_IACS.md](../design/ABG_COMMON_REALIZATION_LIBRARY_FIRST_SLICE_IACS.md), [ABG_COMMON_REALIZATION_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md](../design/ABG_COMMON_REALIZATION_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-027-realize-a-tenant-local-abg-common-realization-library-for-expectation-derivation-contract-carriers-and-module-derived-proof-helpers.md](../../../.ai-workspace/tickets/completed/T-027-realize-a-tenant-local-abg-common-realization-library-for-expectation-derivation-contract-carriers-and-module-derived-proof-helpers.md)
+
+### t027-abg-common-realization-library-negative.test.mjs
+
+- Status: transitional slice-gating proof retained as completed `T-027` fail-closed evidence
+- Module alignment: tenant-local ABG common realization library
+- Requirements: `REQ-R-ABG3-RUN`, `REQ-R-ABG3-EVENTS`, `REQ-P-POLICY`
+- Design: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](../design/TYPESCRIPT_REALIZATION_GUARDRAILS.md), [ABG_COMMON_REALIZATION_LIBRARY_DERIVATION.md](../design/ABG_COMMON_REALIZATION_LIBRARY_DERIVATION.md), [ABG_COMMON_REALIZATION_LIBRARY_FIRST_SLICE_IACS.md](../design/ABG_COMMON_REALIZATION_LIBRARY_FIRST_SLICE_IACS.md), [ABG_COMMON_REALIZATION_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md](../design/ABG_COMMON_REALIZATION_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-027-realize-a-tenant-local-abg-common-realization-library-for-expectation-derivation-contract-carriers-and-module-derived-proof-helpers.md](../../../.ai-workspace/tickets/completed/T-027-realize-a-tenant-local-abg-common-realization-library-for-expectation-derivation-contract-carriers-and-module-derived-proof-helpers.md)
+
+### test_abg_common_delivery_library_unit.test.mjs
+
+- Status: canonical module-derived unit lane
+- Module alignment: tenant-local ABG common delivery library
+- Requirements: `REQ-P-POLICY`, `REQ-P-QUAL`
+- Design: [ABG_COMMON_DELIVERY_LIBRARY_DERIVATION.md](../design/ABG_COMMON_DELIVERY_LIBRARY_DERIVATION.md), [ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md](../design/ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md), [ABG_COMMON_DELIVERY_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md](../design/ABG_COMMON_DELIVERY_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-028-realize-a-tenant-local-abg-common-delivery-library-for-installed-root-plans-verification-and-instruction-file-injection.md](../../../.ai-workspace/tickets/completed/T-028-realize-a-tenant-local-abg-common-delivery-library-for-installed-root-plans-verification-and-instruction-file-injection.md)
+
+### test_abg_common_delivery_library_integration.test.mjs
+
+- Status: canonical shared-library integration lane
+- Module alignment: tenant-local ABG common delivery library
+- Requirements: `REQ-P-POLICY`, `REQ-P-QUAL`
+- Design: [ABG_COMMON_DELIVERY_LIBRARY_DERIVATION.md](../design/ABG_COMMON_DELIVERY_LIBRARY_DERIVATION.md), [ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md](../design/ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md), [ABG_COMMON_DELIVERY_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md](../design/ABG_COMMON_DELIVERY_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-028-realize-a-tenant-local-abg-common-delivery-library-for-installed-root-plans-verification-and-instruction-file-injection.md](../../../.ai-workspace/tickets/completed/T-028-realize-a-tenant-local-abg-common-delivery-library-for-installed-root-plans-verification-and-instruction-file-injection.md)
+
+### t028-abg-common-delivery-library-negative.test.mjs
+
+- Status: transitional slice-gating proof retained as completed `T-028` fail-closed evidence
+- Module alignment: tenant-local ABG common delivery library
+- Requirements: `REQ-P-POLICY`, `REQ-P-QUAL`
+- Design: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](../design/TYPESCRIPT_REALIZATION_GUARDRAILS.md), [ABG_COMMON_DELIVERY_LIBRARY_DERIVATION.md](../design/ABG_COMMON_DELIVERY_LIBRARY_DERIVATION.md), [ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md](../design/ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md), [ABG_COMMON_DELIVERY_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md](../design/ABG_COMMON_DELIVERY_LIBRARY_STRUCTURAL_CARRIER_DIAGRAM.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-028-realize-a-tenant-local-abg-common-delivery-library-for-installed-root-plans-verification-and-instruction-file-injection.md](../../../.ai-workspace/tickets/completed/T-028-realize-a-tenant-local-abg-common-delivery-library-for-installed-root-plans-verification-and-instruction-file-injection.md)
+
+### test_m04_event_ingress_unit.test.mjs
+
+- Status: canonical module-derived unit lane
+- Module alignment: `M04-app-bootstrap` event-ingress slice
+- Requirements: `REQ-P-POLICY`, `REQ-R-ABG3-EVENTS`
+- Design: [M04_EVENT_INGRESS_DERIVATION.md](../design/M04_EVENT_INGRESS_DERIVATION.md), [M04_EVENT_INGRESS_FIRST_SLICE_IACS.md](../design/M04_EVENT_INGRESS_FIRST_SLICE_IACS.md), [M04_EVENT_INGRESS_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_EVENT_INGRESS_STRUCTURAL_CARRIER_DIAGRAM.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md)
+
+### test_m04_event_ingress_integration.test.mjs
+
+- Status: canonical module-owned integration lane
+- Module alignment: `M04-app-bootstrap` event-ingress slice
+- Requirements: `REQ-P-POLICY`, `REQ-R-ABG3-EVENTS`
+- Design: [M04_EVENT_INGRESS_DERIVATION.md](../design/M04_EVENT_INGRESS_DERIVATION.md), [M04_EVENT_INGRESS_FIRST_SLICE_IACS.md](../design/M04_EVENT_INGRESS_FIRST_SLICE_IACS.md), [M04_EVENT_INGRESS_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_EVENT_INGRESS_STRUCTURAL_CARRIER_DIAGRAM.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-016-realize-typescript-m04-event-ingress-over-the-canonical-kernel-emission-surface.md](../../../.ai-workspace/tickets/completed/T-016-realize-typescript-m04-event-ingress-over-the-canonical-kernel-emission-surface.md)
+
+### t016-m04-event-ingress-negative.test.mjs
+
+- Status: transitional slice-gating proof retained as completed `T-016` fail-closed evidence
+- Module alignment: `M04-app-bootstrap` event-ingress slice
+- Requirements: `REQ-P-POLICY`, `REQ-R-ABG3-EVENTS`
+- Design: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](../design/TYPESCRIPT_REALIZATION_GUARDRAILS.md), [M04_EVENT_INGRESS_DERIVATION.md](../design/M04_EVENT_INGRESS_DERIVATION.md), [M04_EVENT_INGRESS_FIRST_SLICE_IACS.md](../design/M04_EVENT_INGRESS_FIRST_SLICE_IACS.md), [M04_EVENT_INGRESS_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_EVENT_INGRESS_STRUCTURAL_CARRIER_DIAGRAM.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-016-realize-typescript-m04-event-ingress-over-the-canonical-kernel-emission-surface.md](../../../.ai-workspace/tickets/completed/T-016-realize-typescript-m04-event-ingress-over-the-canonical-kernel-emission-surface.md)
+
+### test_m04_result_assessment_unit.test.mjs
+
+- Status: canonical module-derived unit lane
+- Module alignment: `M04-app-bootstrap` result-assessment slice
+- Requirements: `REQ-P-POLICY`, `REQ-R-ABG3-EVENTS`
+- Design: [M04_RESULT_ASSESSMENT_DERIVATION.md](../design/M04_RESULT_ASSESSMENT_DERIVATION.md), [M04_RESULT_ASSESSMENT_FIRST_SLICE_IACS.md](../design/M04_RESULT_ASSESSMENT_FIRST_SLICE_IACS.md), [M04_RESULT_ASSESSMENT_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_RESULT_ASSESSMENT_STRUCTURAL_CARRIER_DIAGRAM.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md)
+
+### test_m04_result_assessment_integration.test.mjs
+
+- Status: canonical module-owned integration lane
+- Module alignment: `M04-app-bootstrap` result-assessment slice
+- Requirements: `REQ-P-POLICY`, `REQ-R-ABG3-EVENTS`
+- Design: [M04_RESULT_ASSESSMENT_DERIVATION.md](../design/M04_RESULT_ASSESSMENT_DERIVATION.md), [M04_RESULT_ASSESSMENT_FIRST_SLICE_IACS.md](../design/M04_RESULT_ASSESSMENT_FIRST_SLICE_IACS.md), [M04_RESULT_ASSESSMENT_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_RESULT_ASSESSMENT_STRUCTURAL_CARRIER_DIAGRAM.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-017-realize-typescript-m04-result-assessment-ingress-over-canonical-result-ingest-law.md](../../../.ai-workspace/tickets/completed/T-017-realize-typescript-m04-result-assessment-ingress-over-canonical-result-ingest-law.md)
+
+### t017-m04-result-assessment-negative.test.mjs
+
+- Status: transitional slice-gating proof retained as completed `T-017` fail-closed evidence
+- Module alignment: `M04-app-bootstrap` result-assessment slice
+- Requirements: `REQ-P-POLICY`, `REQ-R-ABG3-EVENTS`
+- Design: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](../design/TYPESCRIPT_REALIZATION_GUARDRAILS.md), [M04_RESULT_ASSESSMENT_DERIVATION.md](../design/M04_RESULT_ASSESSMENT_DERIVATION.md), [M04_RESULT_ASSESSMENT_FIRST_SLICE_IACS.md](../design/M04_RESULT_ASSESSMENT_FIRST_SLICE_IACS.md), [M04_RESULT_ASSESSMENT_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_RESULT_ASSESSMENT_STRUCTURAL_CARRIER_DIAGRAM.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-017-realize-typescript-m04-result-assessment-ingress-over-canonical-result-ingest-law.md](../../../.ai-workspace/tickets/completed/T-017-realize-typescript-m04-result-assessment-ingress-over-canonical-result-ingest-law.md)
+
+### test_m04_live_status_unit.test.mjs
+
+- Status: canonical module-derived unit lane
+- Module alignment: `M04-app-bootstrap` live-status projection slice
+- Requirements: `REQ-P-POLICY`, `REQ-R-ABG3-RUN`, `REQ-R-ABG3-EVENTS`
+- Design: [M04_LIVE_STATUS_DERIVATION.md](../design/M04_LIVE_STATUS_DERIVATION.md), [M04_LIVE_STATUS_FIRST_SLICE_IACS.md](../design/M04_LIVE_STATUS_FIRST_SLICE_IACS.md), [M04_LIVE_STATUS_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_LIVE_STATUS_STRUCTURAL_CARRIER_DIAGRAM.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md)
+
+### test_m04_live_status_integration.test.mjs
+
+- Status: canonical module-owned integration lane
+- Module alignment: `M04-app-bootstrap` live-status projection slice
+- Requirements: `REQ-P-POLICY`, `REQ-R-ABG3-RUN`, `REQ-R-ABG3-EVENTS`
+- Design: [M04_LIVE_STATUS_DERIVATION.md](../design/M04_LIVE_STATUS_DERIVATION.md), [M04_LIVE_STATUS_FIRST_SLICE_IACS.md](../design/M04_LIVE_STATUS_FIRST_SLICE_IACS.md), [M04_LIVE_STATUS_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_LIVE_STATUS_STRUCTURAL_CARRIER_DIAGRAM.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-018-realize-typescript-m04-live-status-projection-over-explicit-runtime-projection-law.md](../../../.ai-workspace/tickets/completed/T-018-realize-typescript-m04-live-status-projection-over-explicit-runtime-projection-law.md)
+
+### t018-m04-live-status-negative.test.mjs
+
+- Status: transitional slice-gating proof retained as completed `T-018` fail-closed evidence
+- Module alignment: `M04-app-bootstrap` live-status projection slice
+- Requirements: `REQ-P-POLICY`, `REQ-R-ABG3-RUN`, `REQ-R-ABG3-EVENTS`
+- Design: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](../design/TYPESCRIPT_REALIZATION_GUARDRAILS.md), [M04_LIVE_STATUS_DERIVATION.md](../design/M04_LIVE_STATUS_DERIVATION.md), [M04_LIVE_STATUS_FIRST_SLICE_IACS.md](../design/M04_LIVE_STATUS_FIRST_SLICE_IACS.md), [M04_LIVE_STATUS_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_LIVE_STATUS_STRUCTURAL_CARRIER_DIAGRAM.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-018-realize-typescript-m04-live-status-projection-over-explicit-runtime-projection-law.md](../../../.ai-workspace/tickets/completed/T-018-realize-typescript-m04-live-status-projection-over-explicit-runtime-projection-law.md)
+
+### test_m04_install_bootstrap_unit.test.mjs
+
+- Status: canonical module-derived unit lane
+- Module alignment: `M04-app-bootstrap` install/bootstrap slice
+- Requirements: `REQ-P-POLICY`, `REQ-P-QUAL`
+- Design: [M04_INSTALL_BOOTSTRAP_DERIVATION.md](../design/M04_INSTALL_BOOTSTRAP_DERIVATION.md), [M04_INSTALL_BOOTSTRAP_FIRST_SLICE_IACS.md](../design/M04_INSTALL_BOOTSTRAP_FIRST_SLICE_IACS.md), [M04_INSTALL_BOOTSTRAP_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_INSTALL_BOOTSTRAP_STRUCTURAL_CARRIER_DIAGRAM.md), [ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md](../design/ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md)
+
+### test_m04_install_bootstrap_integration.test.mjs
+
+- Status: canonical module-owned integration lane
+- Module alignment: `M04-app-bootstrap` install/bootstrap slice
+- Requirements: `REQ-P-POLICY`, `REQ-P-QUAL`
+- Design: [M04_INSTALL_BOOTSTRAP_DERIVATION.md](../design/M04_INSTALL_BOOTSTRAP_DERIVATION.md), [M04_INSTALL_BOOTSTRAP_FIRST_SLICE_IACS.md](../design/M04_INSTALL_BOOTSTRAP_FIRST_SLICE_IACS.md), [M04_INSTALL_BOOTSTRAP_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_INSTALL_BOOTSTRAP_STRUCTURAL_CARRIER_DIAGRAM.md), [ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md](../design/ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-019-realize-typescript-m04-install-bootstrap-under-package-first-installed-runtime-law.md](../../../.ai-workspace/tickets/completed/T-019-realize-typescript-m04-install-bootstrap-under-package-first-installed-runtime-law.md)
+
+### t019-m04-install-bootstrap-negative.test.mjs
+
+- Status: transitional slice-gating proof retained as completed `T-019` fail-closed evidence
+- Module alignment: `M04-app-bootstrap` install/bootstrap slice
+- Requirements: `REQ-P-POLICY`, `REQ-P-QUAL`
+- Design: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](../design/TYPESCRIPT_REALIZATION_GUARDRAILS.md), [M04_INSTALL_BOOTSTRAP_DERIVATION.md](../design/M04_INSTALL_BOOTSTRAP_DERIVATION.md), [M04_INSTALL_BOOTSTRAP_FIRST_SLICE_IACS.md](../design/M04_INSTALL_BOOTSTRAP_FIRST_SLICE_IACS.md), [M04_INSTALL_BOOTSTRAP_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_INSTALL_BOOTSTRAP_STRUCTURAL_CARRIER_DIAGRAM.md), [ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md](../design/ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-019-realize-typescript-m04-install-bootstrap-under-package-first-installed-runtime-law.md](../../../.ai-workspace/tickets/completed/T-019-realize-typescript-m04-install-bootstrap-under-package-first-installed-runtime-law.md)
+
+### test_m04_bootloader_unit.test.mjs
+
+- Status: canonical module-derived unit lane
+- Module alignment: `M04-app-bootstrap` bootloader slice
+- Requirements: `REQ-P-POLICY`, `REQ-P-QUAL`
+- Design: [M04_BOOTLOADER_DERIVATION.md](../design/M04_BOOTLOADER_DERIVATION.md), [M04_BOOTLOADER_FIRST_SLICE_IACS.md](../design/M04_BOOTLOADER_FIRST_SLICE_IACS.md), [M04_BOOTLOADER_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_BOOTLOADER_STRUCTURAL_CARRIER_DIAGRAM.md), [ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md](../design/ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md)
+
+### test_m04_bootloader_integration.test.mjs
+
+- Status: canonical module-owned integration lane
+- Module alignment: `M04-app-bootstrap` bootloader slice
+- Requirements: `REQ-P-POLICY`, `REQ-P-QUAL`
+- Design: [M04_BOOTLOADER_DERIVATION.md](../design/M04_BOOTLOADER_DERIVATION.md), [M04_BOOTLOADER_FIRST_SLICE_IACS.md](../design/M04_BOOTLOADER_FIRST_SLICE_IACS.md), [M04_BOOTLOADER_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_BOOTLOADER_STRUCTURAL_CARRIER_DIAGRAM.md), [ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md](../design/ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-020-realize-typescript-m04-bootloader-and-project-facing-delivery-operations-under-explicit-bootloader-law.md](../../../.ai-workspace/tickets/completed/T-020-realize-typescript-m04-bootloader-and-project-facing-delivery-operations-under-explicit-bootloader-law.md)
+
+### t020-m04-bootloader-negative.test.mjs
+
+- Status: transitional slice-gating proof retained as completed `T-020` fail-closed evidence
+- Module alignment: `M04-app-bootstrap` bootloader slice
+- Requirements: `REQ-P-POLICY`, `REQ-P-QUAL`
+- Design: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](../design/TYPESCRIPT_REALIZATION_GUARDRAILS.md), [M04_BOOTLOADER_DERIVATION.md](../design/M04_BOOTLOADER_DERIVATION.md), [M04_BOOTLOADER_FIRST_SLICE_IACS.md](../design/M04_BOOTLOADER_FIRST_SLICE_IACS.md), [M04_BOOTLOADER_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_BOOTLOADER_STRUCTURAL_CARRIER_DIAGRAM.md), [ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md](../design/ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-020-realize-typescript-m04-bootloader-and-project-facing-delivery-operations-under-explicit-bootloader-law.md](../../../.ai-workspace/tickets/completed/T-020-realize-typescript-m04-bootloader-and-project-facing-delivery-operations-under-explicit-bootloader-law.md)
+
+### test_m04_public_asset_addressing_unit.test.mjs
+
+- Status: canonical module-derived unit lane
+- Module alignment: `M04-app-bootstrap` public asset-addressing slice
+- Requirements: `REQ-P-POLICY`, `REQ-L-GTL3-GRAPHFUNCTION`
+- Design: [M04_PUBLIC_ASSET_ADDRESSING_DERIVATION.md](../design/M04_PUBLIC_ASSET_ADDRESSING_DERIVATION.md), [M04_PUBLIC_ASSET_ADDRESSING_FIRST_SLICE_IACS.md](../design/M04_PUBLIC_ASSET_ADDRESSING_FIRST_SLICE_IACS.md), [M04_PUBLIC_ASSET_ADDRESSING_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_PUBLIC_ASSET_ADDRESSING_STRUCTURAL_CARRIER_DIAGRAM.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md)
+
+### test_m04_public_asset_addressing_integration.test.mjs
+
+- Status: canonical module-owned integration lane
+- Module alignment: `M04-app-bootstrap` public asset-addressing slice
+- Requirements: `REQ-P-POLICY`, `REQ-L-GTL3-GRAPHFUNCTION`
+- Design: [M04_PUBLIC_ASSET_ADDRESSING_DERIVATION.md](../design/M04_PUBLIC_ASSET_ADDRESSING_DERIVATION.md), [M04_PUBLIC_ASSET_ADDRESSING_FIRST_SLICE_IACS.md](../design/M04_PUBLIC_ASSET_ADDRESSING_FIRST_SLICE_IACS.md), [M04_PUBLIC_ASSET_ADDRESSING_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_PUBLIC_ASSET_ADDRESSING_STRUCTURAL_CARRIER_DIAGRAM.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-025-realize-typescript-m04-public-asset-addressing-through-a-published-operator-asset-registry.md](../../../.ai-workspace/tickets/completed/T-025-realize-typescript-m04-public-asset-addressing-through-a-published-operator-asset-registry.md)
+
+### t025-m04-public-asset-addressing-negative.test.mjs
+
+- Status: transitional slice-gating proof retained as completed `T-025` fail-closed evidence
+- Module alignment: `M04-app-bootstrap` public asset-addressing slice
+- Requirements: `REQ-P-POLICY`, `REQ-L-GTL3-GRAPHFUNCTION`
+- Design: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](../design/TYPESCRIPT_REALIZATION_GUARDRAILS.md), [M04_PUBLIC_ASSET_ADDRESSING_DERIVATION.md](../design/M04_PUBLIC_ASSET_ADDRESSING_DERIVATION.md), [M04_PUBLIC_ASSET_ADDRESSING_FIRST_SLICE_IACS.md](../design/M04_PUBLIC_ASSET_ADDRESSING_FIRST_SLICE_IACS.md), [M04_PUBLIC_ASSET_ADDRESSING_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_PUBLIC_ASSET_ADDRESSING_STRUCTURAL_CARRIER_DIAGRAM.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-025-realize-typescript-m04-public-asset-addressing-through-a-published-operator-asset-registry.md](../../../.ai-workspace/tickets/completed/T-025-realize-typescript-m04-public-asset-addressing-through-a-published-operator-asset-registry.md)
+
+### test_m05_installed_reset_postmortem_unit.test.mjs
+
+- Status: canonical module-derived unit lane
+- Module alignment: `M05-qualification-scenarios` installed reset/postmortem slice
+- Requirements: `REQ-P-QUAL`, `REQ-P-SCENARIOS`
+- Design: [M05_INSTALLED_RESET_POSTMORTEM_DERIVATION.md](../design/M05_INSTALLED_RESET_POSTMORTEM_DERIVATION.md), [M05_INSTALLED_RESET_POSTMORTEM_FIRST_SLICE_IACS.md](../design/M05_INSTALLED_RESET_POSTMORTEM_FIRST_SLICE_IACS.md), [M05_INSTALLED_RESET_POSTMORTEM_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_INSTALLED_RESET_POSTMORTEM_STRUCTURAL_CARRIER_DIAGRAM.md), [M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md](../design/M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-032-realize-typescript-m05-installed-reset-postmortem-parity-over-canonical-reset-and-continuation-law.md](../../../.ai-workspace/tickets/completed/T-032-realize-typescript-m05-installed-reset-postmortem-parity-over-canonical-reset-and-continuation-law.md)
+
+### test_m05_installed_reset_postmortem_integration.test.mjs
+
+- Status: canonical module-owned integration lane
+- Module alignment: `M05-qualification-scenarios` installed reset/postmortem slice
+- Requirements: `REQ-P-QUAL`, `REQ-P-SCENARIOS`
+- Design: [M05_INSTALLED_RESET_POSTMORTEM_DERIVATION.md](../design/M05_INSTALLED_RESET_POSTMORTEM_DERIVATION.md), [M05_INSTALLED_RESET_POSTMORTEM_FIRST_SLICE_IACS.md](../design/M05_INSTALLED_RESET_POSTMORTEM_FIRST_SLICE_IACS.md), [M05_INSTALLED_RESET_POSTMORTEM_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_INSTALLED_RESET_POSTMORTEM_STRUCTURAL_CARRIER_DIAGRAM.md), [M05_INSTALLED_SANDBOX_DERIVATION.md](../design/M05_INSTALLED_SANDBOX_DERIVATION.md), [M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md](../design/M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-032-realize-typescript-m05-installed-reset-postmortem-parity-over-canonical-reset-and-continuation-law.md](../../../.ai-workspace/tickets/completed/T-032-realize-typescript-m05-installed-reset-postmortem-parity-over-canonical-reset-and-continuation-law.md)
+
+### t032-m05-reset-postmortem-negative.test.mjs
+
+- Status: transitional slice-gating proof retained as completed `T-032` fail-closed evidence
+- Module alignment: `M05-qualification-scenarios` installed reset/postmortem slice
+- Requirements: `REQ-P-QUAL`, `REQ-P-SCENARIOS`
+- Design: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](../design/TYPESCRIPT_REALIZATION_GUARDRAILS.md), [M05_INSTALLED_RESET_POSTMORTEM_DERIVATION.md](../design/M05_INSTALLED_RESET_POSTMORTEM_DERIVATION.md), [M05_INSTALLED_RESET_POSTMORTEM_FIRST_SLICE_IACS.md](../design/M05_INSTALLED_RESET_POSTMORTEM_FIRST_SLICE_IACS.md), [M05_INSTALLED_RESET_POSTMORTEM_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_INSTALLED_RESET_POSTMORTEM_STRUCTURAL_CARRIER_DIAGRAM.md), [M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md](../design/M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-032-realize-typescript-m05-installed-reset-postmortem-parity-over-canonical-reset-and-continuation-law.md](../../../.ai-workspace/tickets/completed/T-032-realize-typescript-m05-installed-reset-postmortem-parity-over-canonical-reset-and-continuation-law.md)
+
+## Live Sandbox UAT Provenance
+
+### test_env/live/test_m05_rc_live_uat.test.mjs
+
+- Status: completed RC live sandbox UAT lane
+- Module alignment: `M05-qualification-scenarios` RC live acceptance slice
+- Requirements: `REQ-P-QUAL`, `REQ-P-SCENARIOS`
+- Method authority: [SPEC_METHOD.md](../../../../../specification_methodology/specification/standards/SPEC_METHOD.md) testing strategy taxonomy
+- Design: [M05_RC_LIVE_UAT_DERIVATION.md](../design/M05_RC_LIVE_UAT_DERIVATION.md), [M03_TRANSPORT_PROTOCOL_DERIVATION.md](../design/M03_TRANSPORT_PROTOCOL_DERIVATION.md), [M05_INSTALLED_SANDBOX_DERIVATION.md](../design/M05_INSTALLED_SANDBOX_DERIVATION.md), [M05_INSTALLED_LIVE_PORTFOLIO_DERIVATION.md](../design/M05_INSTALLED_LIVE_PORTFOLIO_DERIVATION.md), [T-033-realize-typescript-rc-live-qualification-lane-over-real-fp-transport-execution.md](../../../.ai-workspace/tickets/completed/T-033-realize-typescript-rc-live-qualification-lane-over-real-fp-transport-execution.md)
+- Command: `npm run test:live:uat`
+- Authority class: UAT / acceptance test, live sandbox mode
+- Boundary: installed package surface, public start, F_P dispatch request,
+  configured real transport, result-artifact admission, result assessment, live
+  status projection, persistent archive evidence
+
+### test_env/live/test_m05_rc_live_portfolio.test.mjs
+
+- Status: completed RC live sandbox portfolio lane
+- Module alignment: `M05-qualification-scenarios` RC live acceptance slice
+- Requirements: `REQ-P-QUAL`, `REQ-P-SCENARIOS`
+- Method authority: [SPEC_METHOD.md](../../../../../specification_methodology/specification/standards/SPEC_METHOD.md) testing strategy taxonomy
+- Design: [M05_RC_LIVE_PORTFOLIO_DERIVATION.md](../design/M05_RC_LIVE_PORTFOLIO_DERIVATION.md), [M05_RC_LIVE_UAT_DERIVATION.md](../design/M05_RC_LIVE_UAT_DERIVATION.md), [M05_INSTALLED_LIVE_PORTFOLIO_DERIVATION.md](../design/M05_INSTALLED_LIVE_PORTFOLIO_DERIVATION.md), [M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md](../design/M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md), [T-037-port-python-live-scenario-portfolio-to-typescript-rc-external-live-lane.md](../../../.ai-workspace/tickets/completed/T-037-port-python-live-scenario-portfolio-to-typescript-rc-external-live-lane.md)
+- Command: `npm run test:live`
+- Authority class: UAT / acceptance test, live sandbox portfolio mode
+- Boundary: installed package surface, five Python live scenario families,
+  twelve real F_P stage dispatches, result-artifact admission, result
+  assessment, live status projection, persistent per-stage archive evidence
+- Scenario source: `M05_REFERENCE_LIVE_SCENARIO_OBLIGATIONS` is the single
+  stage/edge/assessment catalog consumed by both installed and external-live
+  portfolio lanes

@@ -12,5 +12,5 @@ export type {
   FulfillmentStatus,
   ResultArtifact,
   ResultIngestOutcome,
-  TransportFailureClass
+  RuntimeFailureClass
 } from "./carriers.js";

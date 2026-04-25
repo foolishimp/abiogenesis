@@ -11,6 +11,7 @@ related engine behavior.
 - append-only event substrate
 - replay-derived fluent and projection law
 - graph-function-first execution entry
+- replay-derived graph-function iteration and next-edge selection
 - runtime aggregates: run, graph call, frame, continuation
 - worker/binding/runtime identity
 - evaluation, proof, closure, and fallback law

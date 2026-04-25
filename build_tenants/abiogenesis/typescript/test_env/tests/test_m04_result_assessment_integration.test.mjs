@@ -66,15 +66,15 @@ test("M04 result-assessment integration: identity mismatch stays rejected withou
   assert.deepStrictEqual(events, []);
 });
 
-test("M04 result-assessment integration: canonical rejection preserves transport-failure truth without app-side closure repair", () => {
+test("M04 result-assessment integration: canonical rejection preserves runtime failure class without app-side closure repair", () => {
   const dispatchRequest = fpDispatchRequest();
   const events = [];
 
   const outcome = resultAssessment(
     resultAssessmentPayload(dispatchRequest, {
       result_artifact: {
-        kind: "transport_failure",
-        failureClass: "no_output",
+        kind: "runtime_failure",
+        failureClass: "payload_contract_failure",
         detail: "agent returned no output"
       }
     }),
@@ -86,8 +86,32 @@ test("M04 result-assessment integration: canonical rejection preserves transport
   assert.deepStrictEqual(events, []);
   assert.deepStrictEqual(outcome, {
     kind: "rejected",
-    ingestKind: "transport_failure",
+    ingestKind: "runtime_failure",
+    failureClass: "payload_contract_failure",
     reason: "agent returned no output",
+    trace: null
+  });
+});
+
+test("M04 result-assessment integration: failure class is carried, not derived from reason text", () => {
+  const dispatchRequest = fpDispatchRequest();
+
+  const outcome = resultAssessment(
+    resultAssessmentPayload(dispatchRequest, {
+      result_artifact: {
+        kind: "runtime_failure",
+        failureClass: "runtime_unavailable",
+        detail: "capability_missing runtime_failure payload_contract_failure"
+      }
+    }),
+    () => {}
+  );
+
+  assert.deepStrictEqual(outcome, {
+    kind: "rejected",
+    ingestKind: "runtime_failure",
+    failureClass: "runtime_unavailable",
+    reason: "capability_missing runtime_failure payload_contract_failure",
     trace: null
   });
 });

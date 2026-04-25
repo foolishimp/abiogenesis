@@ -18,8 +18,9 @@ import type {
   DispatchRequest,
   FulfillmentStatus,
   ResultArtifact,
-  TransportFailureClass
+  RuntimeFailureClass
 } from "./carriers.js";
+import { RUNTIME_FAILURE_CLASS_VALUES } from "../contracts/index.js";
 
 const FULFILLMENT_STATUSES = Object.freeze([
   "fulfilled",
@@ -56,20 +57,18 @@ function parseFulfillmentStatus(
   );
 }
 
-function parseTransportFailureClass(
+function parseRuntimeFailureClass(
   input: unknown,
   label: string
-): TransportFailureClass {
+): RuntimeFailureClass {
   const failureClass = parseNonEmptyString(input, label);
-  if (
-    failureClass === "transport_failure" ||
-    failureClass === "no_output" ||
-    failureClass === "contract_failure"
-  ) {
-    return failureClass;
+  for (const value of RUNTIME_FAILURE_CLASS_VALUES) {
+    if (failureClass === value) {
+      return value;
+    }
   }
   throw new TypeError(
-    `${label}: expected "transport_failure", "no_output", or "contract_failure", got ${JSON.stringify(failureClass)}`
+    `${label}: expected "runtime_unavailable", "capability_missing", "runtime_failure", or "payload_contract_failure", got ${JSON.stringify(failureClass)}`
   );
 }
 
@@ -248,11 +247,11 @@ function parseNormalizedArtifactPayload(
       edge,
       assessmentIds
     ),
-    transportFailure: null
+    runtimeFailure: null
   });
 }
 
-function parseTransportFailureArtifact(
+function parseRuntimeFailureArtifact(
   request: DispatchRequest,
   input: unknown,
   label: string
@@ -264,8 +263,8 @@ function parseTransportFailureArtifact(
     resultRef: request.resultRef,
     artifactPayload: null,
     identityIssues: [],
-    transportFailure: {
-      failureClass: parseTransportFailureClass(
+    runtimeFailure: {
+      failureClass: parseRuntimeFailureClass(
         failure["failureClass"],
         `${label}.failureClass`
       ),
@@ -322,8 +321,13 @@ export function admitResultArtifact(
     parseOptionalField(artifact, "kind"),
     `${label}.kind`
   );
-  if (kind === "transport_failure") {
-    return parseTransportFailureArtifact(request, artifact, label);
+  if (kind === "runtime_failure") {
+    return parseRuntimeFailureArtifact(request, artifact, label);
+  }
+  if (kind !== null) {
+    throw new TypeError(
+      `${label}.kind: expected "runtime_failure" for runtime failure envelopes or omit kind for payload artifacts`
+    );
   }
   return parseNormalizedArtifactPayload(request, artifact, label);
 }

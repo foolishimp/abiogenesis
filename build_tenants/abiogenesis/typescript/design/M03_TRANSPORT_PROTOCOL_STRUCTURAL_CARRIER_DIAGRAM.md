@@ -2,6 +2,7 @@
 
 **Status**: Active
 **Date**: 2026-04-24
+**Derived from**: [M03_TRANSPORT_PROTOCOL_DERIVATION.md](./M03_TRANSPORT_PROTOCOL_DERIVATION.md), [M03_TRANSPORT_PROTOCOL_FIRST_SLICE_IACS.md](./M03_TRANSPORT_PROTOCOL_FIRST_SLICE_IACS.md), [ABG_3_MODULE_DESIGN.md](./ABG_3_MODULE_DESIGN.md), [T-026](../../.ai-workspace/tickets/completed/T-026-realize-typescript-m03-governed-fp-transport-and-result-artifact-protocol-under-explicit-transport-law.md)
 **Purpose**: Render the late `M03` transport and result-artifact protocol
 boundary as one module-bounded structural carrier diagram before code opens.
 

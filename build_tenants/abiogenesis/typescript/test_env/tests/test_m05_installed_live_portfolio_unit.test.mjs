@@ -5,10 +5,28 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import {
+  M05_REFERENCE_LIVE_SCENARIO_OBLIGATIONS,
+  M05_REFERENCE_REQUIRED_EVENT_KINDS,
   constructPassedInstalledSandboxQualificationOutcome,
   qualifyInstalledLiveScenarioPortfolio
 } from "../../build/semantic/code/src/qualification/m05/index.js";
 import { buildInstalledLiveScenarioPortfolioRequest } from "./support/m05-installed-fixtures.mjs";
+
+function scenarioFromObligation(obligation) {
+  return {
+    scenarioName: obligation.scenarioName,
+    scenarioAuthorityRefs: obligation.requiredAuthorityRefs,
+    mode: obligation.mode,
+    stages: obligation.stages,
+    stageCount: obligation.stages.length,
+    maxAssessmentCount: Math.max(
+      ...obligation.stages.map((stage) => stage.assessmentIds.length)
+    ),
+    passed: true,
+    emittedEventKinds: M05_REFERENCE_REQUIRED_EVENT_KINDS,
+    finalRunStatus: "assessed"
+  };
+}
 
 test("M05 installed live-portfolio unit: portfolio request preserves the required Python scenario families and breadth", () => {
   const outcome = qualifyInstalledLiveScenarioPortfolio(
@@ -17,69 +35,14 @@ test("M05 installed live-portfolio unit: portfolio request preserves the require
         lane: "install",
         trace: []
       }),
-      scenarios: [
-        {
-          scenarioName: "requirements_to_uat",
-          scenarioAuthorityRefs: ["SCN-R2U-001"],
-          mode: "asset_addressed",
-          stageCount: 1,
-          maxAssessmentCount: 1,
-          passed: true,
-          emittedEventKinds: ["basis_admitted", "fp_dispatch_requested", "assessed"],
-          finalRunStatus: "assessed"
-        },
-        {
-          scenarioName: "intent_to_requirements",
-          scenarioAuthorityRefs: ["SCN-I2R-001"],
-          mode: "graph_function",
-          stageCount: 1,
-          maxAssessmentCount: 1,
-          passed: true,
-          emittedEventKinds: ["basis_admitted", "fp_dispatch_requested", "assessed"],
-          finalRunStatus: "assessed"
-        },
-        {
-          scenarioName: "gsdlc_lite_requirements_design_code",
-          scenarioAuthorityRefs: ["SCN-GSDLCLITE-001"],
-          mode: "staged_chain",
-          stageCount: 2,
-          maxAssessmentCount: 1,
-          passed: true,
-          emittedEventKinds: ["basis_admitted", "fp_dispatch_requested", "assessed"],
-          finalRunStatus: "assessed"
-        },
-        {
-          scenarioName: "gsdlc_lite_design_review",
-          scenarioAuthorityRefs: ["SCN-GSDLCLITE-001"],
-          mode: "review_chain",
-          stageCount: 3,
-          maxAssessmentCount: 3,
-          passed: true,
-          emittedEventKinds: ["basis_admitted", "fp_dispatch_requested", "assessed"],
-          finalRunStatus: "assessed"
-        },
-        {
-          scenarioName: "gsdlc_lite_zoom_design",
-          scenarioAuthorityRefs: ["SCN-GSDLCLITE-001"],
-          mode: "zoom_chain",
-          stageCount: 5,
-          maxAssessmentCount: 1,
-          passed: true,
-          emittedEventKinds: ["basis_admitted", "fp_dispatch_requested", "assessed"],
-          finalRunStatus: "assessed"
-        }
-      ]
+      scenarios: M05_REFERENCE_LIVE_SCENARIO_OBLIGATIONS.map(scenarioFromObligation)
     })
   );
 
   assert.deepStrictEqual(outcome, {
     kind: "passed",
-    scenarioNames: [
-      "requirements_to_uat",
-      "intent_to_requirements",
-      "gsdlc_lite_requirements_design_code",
-      "gsdlc_lite_design_review",
-      "gsdlc_lite_zoom_design"
-    ]
+    scenarioNames: M05_REFERENCE_LIVE_SCENARIO_OBLIGATIONS.map(
+      (obligation) => obligation.scenarioName
+    )
   });
 });

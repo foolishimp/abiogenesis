@@ -22,13 +22,15 @@ export function constructProjectionTraceRef(
 }
 
 export function constructProjectionResultAssessmentRef(input: {
-  readonly status: "accepted" | "rejected" | "transport_failure" | null;
+  readonly status: ProjectionResultAssessmentRef["status"];
+  readonly failureClass: ProjectionResultAssessmentRef["failureClass"];
   readonly valid: boolean | null;
   readonly publishedLedgerRef: string | null;
   readonly assessedCount: number | null;
 }): ProjectionResultAssessmentRef {
   return Object.freeze({
     status: input.status,
+    failureClass: input.failureClass,
     valid: input.valid,
     publishedLedgerRef: input.publishedLedgerRef,
     assessedCount: input.assessedCount

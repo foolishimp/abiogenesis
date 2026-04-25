@@ -21,7 +21,7 @@ ABG already ratifies a broad F_P-biased default in constitutional surfaces:
   emitted as runtime fact truth and do not by default regain traversal-stopping
   authority
 
-That law is present in requirements and constitutional design, but it has not
+That law is present in requirements and shared design, but it has not
 been concentrated as one explicit Python-line design decision.
 
 Without that concentration, refactors can drift into a common failure mode:

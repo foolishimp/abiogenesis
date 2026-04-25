@@ -14,9 +14,11 @@ Constitutional authority lives in:
 - `build_tenants/common/design/design_surface_map.md` — current shared-vs-tenant design classification
 - `build_tenants/common/design/module_decomp.md` — shared module schedule and ownership surface
 - `specification/INTENT.md`
-- `specification/GTL_3_CONSTITUTIONAL_DESIGN.md`
-- `specification/ABG_3_CONSTITUTIONAL_DESIGN.md`
-- `specification/requirements/`
+- `specification/PRODUCT.md`
+- `specification/requirements/gtl/`
+- `specification/requirements/abg/`
+- `specification/requirements/mapping/`
+- `specification/requirements/product/`
 - `https://github.com/foolishimp/specification_methodology`
 - `https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md`
 

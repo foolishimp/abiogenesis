@@ -234,6 +234,13 @@ def _stopped_by_for_stop_predicate(stop_predicate: str | None) -> str | None:
     return mapping.get(stop_predicate)
 
 
+def _attach_public_stop_class(result: dict) -> dict:
+    from .runtime_carrier import attach_public_stop_class
+
+    attach_public_stop_class(result)
+    return result
+
+
 def _check_tags(tag_type: str, scan_path: str) -> int:
     """
     Scan .py files for required tags.
@@ -747,7 +754,7 @@ def _run_start_until_blocked(
         result = gen_start(intent, stream)
 
         if result["status"] in ("converged", "nothing_to_do"):
-            return result
+            return _attach_public_stop_class(result)
 
         stop_predicate = _project_stop_predicate(result)
         if stop_predicate == "traversal_applied":
@@ -756,10 +763,10 @@ def _run_start_until_blocked(
         stopped_by = _stopped_by_for_stop_predicate(stop_predicate)
         if stopped_by is not None:
             result["stopped_by"] = stopped_by
-        return result
+        return _attach_public_stop_class(result)
 
     result["stopped_by"] = "max_iterations"
-    return result
+    return _attach_public_stop_class(result)
 
 
 def _run_start_until_converged(
@@ -783,7 +790,7 @@ def _run_start_until_converged(
         result["fh_mode"] = fh_mode
 
         if result["status"] in ("converged", "nothing_to_do"):
-            return result
+            return _attach_public_stop_class(result)
 
         stop_predicate = _project_stop_predicate(result)
         if stop_predicate == "traversal_applied":
@@ -808,7 +815,7 @@ def _run_start_until_converged(
                 result["proof_hold_active"] = True
                 result["stop_predicate"] = "proof_hold"
                 result["stopped_by"] = "proof_hold"
-                return result
+                return _attach_public_stop_class(result)
             dispatch_result = auto_dispatch_from_result(
                 result,
                 workspace,
@@ -820,26 +827,26 @@ def _run_start_until_converged(
             if dispatch_result.get("status") == "yield":
                 result["stop_predicate"] = "yielded"
                 result["stopped_by"] = dispatch_result.get("stopped_by", "yield")
-                return result
+                return _attach_public_stop_class(result)
             result["stopped_by"] = dispatch_result.get("stopped_by", "fp_runtime_failure")
-            return result
+            return _attach_public_stop_class(result)
         if stop_predicate == "human_gate_required" and fh_mode == "human-proxy":
             edge = str(result.get("edge") or result.get("fh_gate", {}).get("edge") or "").strip()
             if not edge:
                 result["stopped_by"] = "fh_gate"
                 result["human_proxy_error"] = "missing edge for fh_gate approval"
-                return result
+                return _attach_public_stop_class(result)
             _emit_human_proxy_approval(workspace, edge)
             continue
 
         stopped_by = _stopped_by_for_stop_predicate(stop_predicate)
         if stopped_by is not None:
             result["stopped_by"] = stopped_by
-        return result
+        return _attach_public_stop_class(result)
 
     result["fh_mode"] = fh_mode
     result["stopped_by"] = "max_iterations"
-    return result
+    return _attach_public_stop_class(result)
 
 
 def _attach_pending_recovery_contract(result: Mapping[str, object], workspace: Path) -> dict[str, object]:

@@ -32,11 +32,22 @@ class InstalledLiveScenarioResult {
   +scenarioName
   +scenarioAuthorityRefs
   +mode
+  +stages
   +stageCount
   +maxAssessmentCount
   +passed
   +emittedEventKinds
   +finalRunStatus
+}
+
+class InstalledLiveScenarioStageResult {
+  <<subordinate>>
+  +handle
+  +edge
+  +sourceKind
+  +targetKind
+  +assetHandle
+  +assessmentIds
 }
 
 class InstalledLiveScenarioPortfolioGapRef {
@@ -45,8 +56,35 @@ class InstalledLiveScenarioPortfolioGapRef {
   +ref
 }
 
+class M05ReferenceLiveScenarioObligation {
+  <<subordinate>>
+  <<authoritative>>
+  +scenarioName
+  +requiredAuthorityRefs
+  +mode
+  +stages
+  +minStageCount
+  +minAssessmentCount
+}
+
+class M05ReferenceObligation {
+  <<subordinate>>
+  <<authoritative>>
+  +id
+  +source
+  +state
+  +requirementRefs
+  +sourceRefs
+  +proofRefs
+  +rationale
+}
+
 InstalledLiveScenarioPortfolioRequest --> InstalledSandboxQualificationPassed : consumes upstream
 InstalledLiveScenarioPortfolioRequest *-- InstalledLiveScenarioResult
+InstalledLiveScenarioResult *-- InstalledLiveScenarioStageResult
+M05ReferenceLiveScenarioObligation *-- InstalledLiveScenarioStageResult : required stage shape
+InstalledLiveScenarioPortfolioRequest --> M05ReferenceLiveScenarioObligation : must satisfy
+M05ReferenceObligation --> M05ReferenceLiveScenarioObligation : indexes live-family proof
 InstalledLiveScenarioPortfolioOutcome *-- InstalledLiveScenarioPortfolioGapRef
 InstalledLiveScenarioPortfolioRequest --> InstalledLiveScenarioPortfolioOutcome : qualifies
 ```

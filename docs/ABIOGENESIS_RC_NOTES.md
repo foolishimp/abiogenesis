@@ -1,72 +1,64 @@
-# abiogenesis 3.3.0 RC Notes
+# abiogenesis 3.4.0-rc.1 RC Notes
 
-This note records accepted RC behavior for the current `v3.3.0` line after the
-B-029 continuation-yield projection fix.
+This note records accepted RC behavior for the current `v3.4.0-rc.1` cut.
 
 ## Accepted Framework Behavior
 
-### Continuation-Owned Next Steps Project As Yield
+### TypeScript Is A Package-First RC Carrier
 
-The current RC treats continuation-owned retry, repair, and `fh_review`
-outcomes as yielded public truth when a lawful next step already exists.
+The TypeScript tenant is released as a package-first realization. Public
+consumers should treat the package exports and binary aliases as delivery
+bindings over the same GTL/ABG product grammar, not as a separate product law.
 
-That means:
+Accepted public delivery bindings:
 
-- `continuation_opened` is not enough on its own; the public boundary must also
-  project yielded continuation truth
-- the typed public carrier is `YieldedContinuationContract`
-- the run/read-model carrier is `run_yielded`
-- CLI/control-plane consumers must surface `yield`, not failure-shaped status,
-  for those continuation-owned cases
+- package root: `@abiogenesis/typescript-tenant`
+- public binary aliases:
+  - `abiogenesis-ts`
+  - `genesis-ts`
+- supported command suffixes:
+  - `start`
+  - `gaps`
+  - `assess-result`
 
-### True No-Continuation Defects Stay Hard Failure
+### Public Gaps Is Replay-Derived Observation
 
-The current RC does not flatten all failure into yield.
+`gaps` is now a supported TypeScript operator command.
 
-That means:
+Accepted behavior:
 
-- `policy_config_defect` with no lawful continuation remains `status="error"`
-- `runtime_defect` with no lawful continuation remains `status="error"`
-- those paths emit no `continuation_opened`
-- those paths emit no `run_yielded`
+- loads the installed runtime binding
+- reads replayed runtime events
+- projects open, partial, and converged work from module/job/vector truth
+- remains read-only
+- does not start traversal
+- does not append runtime events
+- does not reintroduce downstream product labels such as `proof_hold` as
+  TypeScript `M04` substrate taxonomy
 
-### Retry Yield Is Narrowed By Failure Class
+### External-Live Qualification Is A Release Gate
 
-Retry continuation is now source-governed rather than branch-local.
+The RC gate includes real F_P transport, not only deterministic source tests.
 
-That means retry yield is lawful only for:
+Accepted behavior:
 
-- `transport_failure`
-- `no_output`
-- `contract_failure`
+- the RC live portfolio covers five Python live scenario families
+- the RC live portfolio covers twelve external-live stages
+- each stage opens public dispatch truth and ingests a live worker artifact
+- skipped live portfolio readiness is not a valid RC closure result
+- the retained single-edge live UAT lane remains runnable as a direct command
 
-Other failure classes must remain terminal unless another explicit continuation
-family owns the next step.
+### Deferred M06 Has No RC Obligation
 
-## Current Known Limitation
-
-### Downstream Install Validation Follows The Published Cut
-
-This RC closes the ABG source boundary for B-029, but it does not claim
-downstream consumer proof inside the source ticket.
-
-That means:
-
-- installed consumers such as `odd_sdlc` must validate against the published RC
-  cut
-- if the installed consumer still exposes failure-shaped status where source now
-  yields, that reopens B-029 as a release regression
-- downstream validation is qualification over the release cut, not hidden source
-  closure evidence
+`M06` trigger law is explicitly deferred. This RC does not claim executable
+trigger semantics.
 
 ## Current Verification Footer
 
-The current source proving footer for B-029 is:
+The current RC proving footer is:
 
-- `3 passed`
-- `7 passed`
-
-from:
-
-- the negative-proof bundle over true no-continuation failures
-- the positive continuation-yield bundle over retry, repair, and `fh_review`
+- `npm run test:semantic`: `202 passed`
+- `npm run lint:semantic`: `passed`
+- `CODEX_LIVE_FP=1 npm run test:live`: `1 passed`
+- `CODEX_LIVE_FP=1 npm run test:live:uat`: `1 passed`, `0 skipped`
+- `git diff --check`: `passed`

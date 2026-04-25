@@ -5,7 +5,7 @@
 - type: bug
 - ticket_category: implementation_migration
 - migration_strategy: inside_out_hard_break
-- status: active
+- status: completed
 - source_ticket: B-030
 - build_tenant: python
 - goal: maximum-autonomy-public-start-with-explicit-terminal-classes
@@ -21,7 +21,8 @@
 - affected_boundary: `build_tenants/abiogenesis/python/code/genesis/cli_adapter.py`, `build_tenants/abiogenesis/python/code/genesis/live_status.py`, `build_tenants/abiogenesis/python/code/genesis/proof_hold.py`, public control carriers, and source/install control-plane proofs
 - triaged_at: 2026-04-24
 - created_at: 2026-04-24
-- updated_at: 2026-04-24
+- updated_at: 2026-04-25
+- completed_at: 2026-04-25
 - authoritative_contract: Python `gen-start` owns the substrate public start contract. The Python line must publish one functionally complete CLI/callable `gen-start` interface and one replay-derived stop-class family over existing runtime truth. Any retained bare-start bootstrap/default lowering must sit beneath that interface and must not outrank it.
 - target_truth: the Python line publishes one functionally complete `gen-start` interface for the current cut and one small stop taxonomy that distinguishes at least convergence, human-decision-required, worker/runtime-unavailable, capability-missing, proof-hold, and true runtime failure. If bare-start bootstrap/default behavior is retained, it lowers into that interface cleanly.
 - superseded_truth: Python public operation still depends on remembered convenience bundles or implicit bootstrap folklore, and still makes operators infer the meaningful stop class from low-level public result detail such as yield, continuation, or missing capability projections.
@@ -124,3 +125,36 @@ Current triage stance:
 2. Add source proof for the interface and stop taxonomy.
 3. Add downstream qualification proof that a domain package can bind bare `start` to the new substrate truth.
 4. Only then reprice CLI defaults/help and installed docs.
+
+## Closure Evidence
+
+Completed on 2026-04-25.
+
+Canonical realization:
+
+- `build_tenants/abiogenesis/python/code/genesis/runtime_carrier.py` now publishes `public_stop_class_from_result(...)` and `attach_public_stop_class(...)`.
+- `build_tenants/abiogenesis/python/code/genesis/services.py` attaches `stop_class` to callable `gen_start(...)` results.
+- `build_tenants/abiogenesis/python/code/genesis/cli_adapter.py` attaches the same public stop-class projection to CLI convergence, blocked, proof-hold, yielded, human-gate, and runtime-failure outcomes.
+
+Stop taxonomy proof:
+
+- `converged`
+- `human_decision_required`
+- `worker_dispatch_required`
+- `proof_hold`
+- `runtime_unavailable`
+- `capability_missing`
+- `runtime_failure`
+- `payload_contract_failure`
+- `yielded`
+
+Downstream/bootstrap proof:
+
+- `build_tenants/abiogenesis/python/test_env/tests/test_cli_adapter_auto.py`
+- `build_tenants/abiogenesis/python/test_env/tests/test_m04_app_bootstrap_integration.py`
+- `build_tenants/abiogenesis/python/test_env/tests/test_sandbox_install.py`
+
+Verification:
+
+- `python -m pytest build_tenants/abiogenesis/python/test_env/tests/test_cli_adapter_auto.py -q`
+- `python -m pytest build_tenants/abiogenesis/python/test_env/tests/test_cli_adapter_auto.py build_tenants/abiogenesis/python/test_env/tests/test_m04_app_bootstrap_integration.py build_tenants/abiogenesis/python/test_env/tests/test_sandbox_install.py -q`

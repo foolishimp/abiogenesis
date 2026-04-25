@@ -179,7 +179,6 @@ Methodology master:
 
 Installed runtime details, always present after install:
 - `workspace://.genesis/docs/LLM_GTL_APP_BUILDER_GUIDE.md`
-- `workspace://.genesis/docs/GTL_Technical_Guide.md`
 - `workspace://.genesis/docs/USER_GUIDE.md`
 - `workspace://.genesis/docs/GTL_BOOTLOADER.md`
 - `workspace://.genesis/docs/standards/SPEC_METHOD.md`

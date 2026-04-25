@@ -33,8 +33,8 @@ framing, and goal-setting above that requirement split.
 Abiogenesis is the reference product that ships:
 
 - `GTL 3` as the declaration language for graph-native workflows
-- `ABG 3` as the canonical interpreter, binding, execution, and runtime-truth
-  substrate for GTL
+- `ABG 3` as the canonical interpreter, binding, traversal-control, and
+  runtime-truth substrate for GTL
 - mapping and provenance law that preserves the GTL to runtime boundary
 - product-layer policy, qualification, and scenario surfaces that make the
   system operationally provable
@@ -42,6 +42,40 @@ Abiogenesis is the reference product that ships:
 The product is not a downstream domain workflow.
 Downstream products are consumers and proving domains for GTL + ABG. They are
 not the GTL + ABG product itself.
+
+---
+
+## Probabilistic Compute Boundary
+
+Abiogenesis treats one GTL edge traversal as the bounded unit of probabilistic
+compute.
+
+The edge declares the admissible external traversal space:
+
+- input and output contract
+- required context
+- role or capability expectation
+- evaluator regime
+- provenance obligation
+- lawful stop, hold, gap, continuation, or completion states
+
+GTL owns that lawful workflow structure.
+
+ABG owns the governance and control truth around an invocation of that
+traversal. It binds the traversal to a worker, tool, or agent; records events
+and provenance; projects state; classifies outcomes; and advances only through
+lawful next steps.
+
+ABG is not the domain executor. The worker, tool, agent, or domain
+implementation owns the internal HOW inside the declared traversal boundary.
+
+For F_P work, any unconstrained space remains hidden internal traversal by the
+probabilistic worker. GTL and ABG constrain the boundary and force the result
+back through declared contracts, evaluator evidence, provenance, and control
+state.
+
+F_D is a deterministic evaluator or domain-owned optimization where the domain
+can make part of the work precise. F_D does not move domain HOW into GTL or ABG.
 
 ---
 
@@ -58,30 +92,32 @@ It owns the declaration-side truth for:
 - operators, evaluators, and rules
 - jobs and roles as semantic work declarations
 - `GraphFunction` as the primary reusable workflow program
+- edge traversal contracts as the admissible external space for probabilistic
+  compute
 - lawful composition, substitution, recursion, and higher-order graph operators
 - module publication and engine-independence boundaries
 
-GTL does not own runtime binding, transport policy, business-choice logic, or
-product-layer release governance.
+GTL does not own runtime binding, transport policy, business-choice logic,
+hidden worker reasoning, or product-layer release governance.
 
 ### 2. ABG
 
-`ABG` is the canonical runtime layer.
+`ABG` is the canonical runtime governance and control layer.
 
-It owns the runtime truth for:
+It owns the runtime control truth for:
 
 - lawful interpretation of GTL declarations
 - graph-function materialization and selection application
 - worker, binding, run, and lineage semantics
 - event emission, projection, correction, and convergence
-- replayable provenance over execution and runtime identity
-- transport and self-hosting execution behavior
+- replayable provenance over traversal invocation and runtime identity
+- transport invocation, result ingestion, and self-hosting control behavior
 
 Runtime identity in ABG remains structured. Reporting projections such as
 `build` must not overwrite canonical worker/backend/authority truth.
 
-ABG does not own business policy, hidden domain logic, or the semantic
-definition of GTL itself.
+ABG does not own business policy, hidden domain logic, worker-internal HOW, or
+the semantic definition of GTL itself.
 
 ### 3. Mapping
 
@@ -93,7 +129,7 @@ It owns:
 - preservation of GTL meaning into executable runtime surfaces
 - capability-visible mapping boundaries
 - graph-function and materialization provenance
-- graph-derived bundle provenance where runtime execution depends on derived
+- graph-derived bundle provenance where runtime traversal depends on derived
   structural surfaces
 
 Mapping does not redefine GTL semantics and does not excuse ABG from lawful
@@ -216,8 +252,8 @@ constituent layers:
 
 | Surface | Owns | Does not own |
 | --- | --- | --- |
-| `GTL` | language, graph law, reusable workflow structure, outer contracts | runtime binding, transport, product policy |
-| `ABG` | execution, binding, runs, lineage, correction, provenance | business-choice logic, product policy, language semantics |
+| `GTL` | language, graph law, reusable workflow structure, edge traversal contracts, outer contracts | runtime binding, transport, product policy |
+| `ABG` | traversal governance, binding, runs, lineage, correction, provenance | business-choice logic, product policy, language semantics, worker-internal HOW |
 | `Mapping` | faithful bridge from GTL to runtime realization | ad hoc semantic rewrite |
 | `Product` | policy, qualification, scenarios, release shape, goals | hidden kernel semantics |
 
@@ -239,7 +275,8 @@ The product boundary also separates abiogenesis from its downstream consumers:
 The current product should be read as:
 
 - a graph-native workflow language, not a private configuration dialect
-- a canonical interpreter/runtime, not a domain-specific planner
+- a canonical traversal governance and runtime-truth substrate, not a
+  domain-specific planner or executor
 - a reference implementation and proving surface for graph-native product
   systems
 - a platform that should support downstream products without leaking one

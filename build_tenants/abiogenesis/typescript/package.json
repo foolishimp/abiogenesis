@@ -1,8 +1,13 @@
 {
   "name": "@abiogenesis/typescript-tenant",
+  "version": "3.4.0-rc.1",
   "private": true,
   "type": "module",
   "types": "./build/semantic/code/src/index.d.ts",
+  "bin": {
+    "abiogenesis-ts": "./build/semantic/code/src/bin/abiogenesis.js",
+    "genesis-ts": "./build/semantic/code/src/bin/abiogenesis.js"
+  },
   "exports": {
     ".": {
       "types": "./build/semantic/code/src/index.d.ts",
@@ -44,6 +49,10 @@
       "types": "./build/semantic/code/src/app/m04/event_ingress/index.d.ts",
       "import": "./build/semantic/code/src/app/m04/event_ingress/index.js"
     },
+    "./app/m04/gaps": {
+      "types": "./build/semantic/code/src/app/m04/gaps/index.d.ts",
+      "import": "./build/semantic/code/src/app/m04/gaps/index.js"
+    },
     "./app/m04/install-bootstrap": {
       "types": "./build/semantic/code/src/app/m04/install_bootstrap/index.d.ts",
       "import": "./build/semantic/code/src/app/m04/install_bootstrap/index.js"
@@ -51,6 +60,10 @@
     "./app/m04/live-status": {
       "types": "./build/semantic/code/src/app/m04/live_status/index.d.ts",
       "import": "./build/semantic/code/src/app/m04/live_status/index.js"
+    },
+    "./app/m04/max-autonomy": {
+      "types": "./build/semantic/code/src/app/m04/max_autonomy/index.d.ts",
+      "import": "./build/semantic/code/src/app/m04/max_autonomy/index.js"
     },
     "./app/m04/result-assessment": {
       "types": "./build/semantic/code/src/app/m04/result_assessment/index.d.ts",
@@ -67,6 +80,8 @@
     "build:semantic": "tsc -p tsconfig.semantic-strict.json",
     "lint:semantic": "eslint --max-warnings=0 \"code/src/gtl/m01/contracts/**/*.ts\" \"code/src/gtl/m01/admission/**/*.ts\" \"code/src/gtl/m01/algebra/**/*.ts\" \"code/src/gtl/m01/serialization/**/*.ts\" \"code/src/gtl/m02/contracts/**/*.ts\" \"code/src/gtl/m02/admission/**/*.ts\" \"code/src/gtl/m02/serialization/**/*.ts\" \"code/src/abg/m03/contracts/**/*.ts\" \"code/src/abg/m03/admission/**/*.ts\" \"code/src/abg/m03/events/**/*.ts\" \"code/src/abg/m03/transport/**/*.ts\" \"code/src/app/m04/**/*.ts\" \"code/src/qualification/m05/**/*.ts\" \"code/src/shared/validation/**/*.ts\" \"code/src/shared/abg_library/**/*.ts\" \"code/src/shared/abg_delivery_library/**/*.ts\"",
     "test:semantic": "npm run build:semantic && node --test test_env/tests/*.test.mjs",
+    "test:live": "npm run build:semantic && node --test test_env/live/test_m05_rc_live_portfolio.test.mjs",
+    "test:live:uat": "npm run build:semantic && node --test test_env/live/test_m05_rc_live_uat.test.mjs",
     "test:t009": "npm run build:semantic && node --test test_env/tests/t009-m01-negative-ingress.test.mjs test_env/tests/t009-m01-roundtrip.test.mjs test_env/tests/test_m01_gtl_core_integration.test.mjs",
     "test:t010": "npm run build:semantic && node --test test_env/tests/t010-m02-negative-ingress.test.mjs test_env/tests/test_m02_work_publication_integration.test.mjs",
     "test:t011": "npm run build:semantic && node --test test_env/tests/t011-abg-negative-ingress.test.mjs test_env/tests/test_m03_engine_kernel_integration.test.mjs",
@@ -79,14 +94,20 @@
     "test:t019": "npm run build:semantic && node --test test_env/tests/t019-m04-install-bootstrap-negative.test.mjs test_env/tests/test_m04_install_bootstrap_unit.test.mjs test_env/tests/test_m04_install_bootstrap_integration.test.mjs",
     "test:t020": "npm run build:semantic && node --test test_env/tests/t020-m04-bootloader-negative.test.mjs test_env/tests/test_m04_bootloader_unit.test.mjs test_env/tests/test_m04_bootloader_integration.test.mjs",
     "test:t021": "npm run build:semantic && node --test test_env/tests/t021-m05-qualification-negative.test.mjs test_env/tests/test_m05_method_trace_unit.test.mjs test_env/tests/test_m05_fake_lane_integration.test.mjs",
-    "test:t022": "npm run build:semantic && node --test test_env/tests/t022-m05-installed-sandbox-negative.test.mjs test_env/tests/test_m05_sandbox_install_integration.test.mjs test_env/tests/test_m05_sandbox_live_integration.test.mjs test_env/tests/test_m05_run_archive_integration.test.mjs",
-    "test:t031": "npm run build:semantic && node --test test_env/tests/t031-m05-live-portfolio-negative.test.mjs test_env/tests/test_m05_installed_live_portfolio_unit.test.mjs test_env/tests/test_m05_installed_live_portfolio_integration.test.mjs",
+    "test:t022": "npm run build:semantic && node --test test_env/tests/t022-m05-installed-sandbox-negative.test.mjs test_env/tests/test_m05_sandbox_install_integration.test.mjs test_env/tests/test_m05_sandbox_live_integration.test.mjs test_env/tests/test_m05_installed_graph_function_target_integration.test.mjs test_env/tests/test_m05_run_archive_integration.test.mjs",
+    "test:t031": "npm run build:semantic && node --test test_env/tests/t031-m05-live-portfolio-negative.test.mjs test_env/tests/test_m05_reference_obligations_unit.test.mjs test_env/tests/test_m05_installed_live_portfolio_unit.test.mjs test_env/tests/test_m05_installed_live_portfolio_integration.test.mjs",
+    "test:t036": "npm run build:semantic && node --test test_env/tests/test_m05_python_sandbox_behavior_portfolio_integration.test.mjs test_env/tests/test_m05_three_stage_graph_function_sandbox_integration.test.mjs",
+    "test:t044": "npm run build:semantic && node --test test_env/tests/t044-m03-graph-function-iteration-negative.test.mjs test_env/tests/test_m03_graph_function_iteration_unit.test.mjs test_env/tests/test_m03_graph_function_iteration_integration.test.mjs",
+    "test:t045": "npm run build:semantic && node --test test_env/tests/t045-m03-retry-leaftask-negative.test.mjs test_env/tests/test_m03_retry_repair_unit.test.mjs test_env/tests/test_m03_leaf_task_integration.test.mjs",
     "test:t030": "npm run build:semantic && node --test test_env/tests/t030-m05-archive-finalization-negative.test.mjs test_env/tests/test_m05_archive_finalization_unit.test.mjs test_env/tests/test_m05_run_archive_integration.test.mjs",
     "test:t032": "npm run build:semantic && node --test test_env/tests/t032-m05-reset-postmortem-negative.test.mjs test_env/tests/test_m05_installed_reset_postmortem_unit.test.mjs test_env/tests/test_m05_installed_reset_postmortem_integration.test.mjs",
     "test:t025": "npm run build:semantic && node --test test_env/tests/t025-m04-public-asset-addressing-negative.test.mjs test_env/tests/test_m04_public_asset_addressing_unit.test.mjs test_env/tests/test_m04_public_asset_addressing_integration.test.mjs",
     "test:t026": "npm run build:semantic && node --test test_env/tests/t026-m03-transport-protocol-negative.test.mjs test_env/tests/test_m03_transport_protocol_unit.test.mjs test_env/tests/test_m03_transport_protocol_integration.test.mjs",
+    "test:b030": "npm run build:semantic && node --test test_env/tests/b030-ts-m04-complete-start-negative.test.mjs test_env/tests/test_m04_complete_start_surface_unit.test.mjs test_env/tests/test_m04_complete_start_surface_integration.test.mjs",
     "test:t027": "npm run build:semantic && node --test test_env/tests/t027-abg-common-realization-library-negative.test.mjs test_env/tests/test_abg_common_realization_library_unit.test.mjs test_env/tests/test_abg_common_realization_library_integration.test.mjs",
-    "test:t028": "npm run build:semantic && node --test test_env/tests/t028-abg-common-delivery-library-negative.test.mjs test_env/tests/test_abg_common_delivery_library_unit.test.mjs test_env/tests/test_abg_common_delivery_library_integration.test.mjs"
+    "test:t028": "npm run build:semantic && node --test test_env/tests/t028-abg-common-delivery-library-negative.test.mjs test_env/tests/test_abg_common_delivery_library_unit.test.mjs test_env/tests/test_abg_common_delivery_library_integration.test.mjs",
+    "test:t057": "npm run build:semantic && node --test test_env/tests/t057-m04-cli-binary-negative.test.mjs test_env/tests/test_m04_cli_binary_integration.test.mjs",
+    "test:t058": "npm run build:semantic && node --test test_env/tests/t058-m04-public-gaps-negative.test.mjs test_env/tests/test_m04_public_gaps_projection_integration.test.mjs"
   },
   "dependencies": {
     "valibot": "1.3.1"

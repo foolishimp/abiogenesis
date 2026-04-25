@@ -1,63 +1,89 @@
-# abiogenesis 3.3.0 RC Release Note
+# abiogenesis 3.4.0-rc.1 Release Note
 
-This release candidate advances the `v3.3.0` line with B-029:
-continuation-owned retry, repair, and review truth now projects as public
-`yield` instead of failure-shaped status whenever a lawful next step already
-exists.
+This release candidate advances the `v3.4.0` line with the TypeScript tenant
+as an RC-qualified GTL/ABG carrier.
+
+The cut publishes the current TypeScript realization as a package-first runtime
+with public GTL, ABG, M04 operator, and M05 qualification surfaces. It keeps
+the release identity explicit: this is an RC cut, not the final tapped release.
 
 ## What Shipped
 
-- `genesis.continuation.YieldedContinuationContract` is now the typed public
-  carrier for continuation-owned yield truth
-- `dispatch_runtime.py` now projects retry continuation as:
-  - `continuation_opened`
-  - `run_yielded`
-  - public `status="yield"`
-- `result_ingest.py` now projects repair and `fh_review` continuation the same
-  way
-- `run.py` and live-status now retain yielded `failure_class` so run/read-model
-  projection agrees with the public continuation contract
-- retry yield is now constrained to retry-eligible failure classes only:
-  - `transport_failure`
-  - `no_output`
-  - `contract_failure`
-- true no-continuation defects such as `policy_config_defect` and
-  `runtime_defect` now remain hard failure:
-  - no `continuation_opened`
-  - no `run_yielded`
-  - public `status="error"`
+- TypeScript GTL `M01` core graph algebra and carrier admission.
+- TypeScript GTL `M02` module publication and semantic job lookup.
+- TypeScript ABG `M03` replay-derived runtime carriers, event admission,
+  graph-function iteration, retry/repair, leaf-task, transport, and runtime
+  failure taxonomy.
+- TypeScript `M04` public operator surface:
+  - `start`
+  - `gaps`
+  - `assess-result`
+  - public asset addressing
+  - live-status projection
+  - control-loop and complete-start callable surfaces
+  - install/bootstrap and bootloader surfaces
+- TypeScript CLI binary bindings:
+  - `abiogenesis-ts`
+  - `genesis-ts`
+- TypeScript `gen-gaps` support over replay-derived runtime truth. The command
+  is read-only and no longer returns an unsupported placeholder.
+- TypeScript `M05` qualification line:
+  - installed sandbox proof
+  - run archive and finalization proof
+  - reset/postmortem proof
+  - Python archived sandbox behavior portfolio parity
+  - RC external-live portfolio proof
 
 ## Framework Position
 
-This RC sharpens one specific ABG runtime law:
+This RC proves the TypeScript tenant as a lawful realization of the current
+GTL/ABG surface, not a rival product definition.
 
-- internal failure does not by itself define public terminality
-- if the runtime has already opened a lawful continuation-owned next step, the
-  public boundary must project `yield`
-- public `error` remains lawful only when no continuation-owned next step
-  exists
+The key release claim is:
 
-That meaning is now carried by one typed source seam:
+1. GTL graph functions remain the constructive carrier.
+2. ABG traversal and projection remain event/replay-derived runtime truth.
+3. Public operator commands are product grammar bindings over that truth.
+4. The TypeScript package can be installed and exercised through the same
+   public command grammar and package import surfaces.
+5. External-live F_P traversal is qualified through real configured transport,
+   not only deterministic source tests.
 
-1. `continuation_opened`
-2. `YieldedContinuationContract`
-3. `run_yielded`
-4. public runtime/control projection
+`M06` trigger law remains explicitly deferred and has no executable obligation
+in this RC.
+
+## Versioned Artifacts
+
+- RC branch: `rc/3.4.0`
+- RC tag: `v3.4.0-rc.1`
+- TypeScript package version: `3.4.0-rc.1`
 
 ## Verification
 
-Targeted source proofs on this cut:
+Qualification performed for this cut:
 
-- `python -m pytest build_tenants/abiogenesis/python/test_env/tests/test_abg3_runtime_envelope.py::test_dispatch_runtime_classifies_missing_local_transport_contract_as_policy_config_defect build_tenants/abiogenesis/python/test_env/tests/test_abg3_runtime_envelope.py::test_dispatch_runtime_runtime_defect_stays_terminal_without_retry_continuation build_tenants/abiogenesis/python/test_env/tests/test_cli_adapter_auto.py::test_run_start_until_converged_surfaces_engine_dispatch_failure_without_shadow_booleans -q`
-- result: `3 passed`
-
-- `python -m pytest build_tenants/abiogenesis/python/test_env/tests/test_abg3_runtime_envelope.py::test_dispatch_runtime_emits_failure_graph_call_and_continuation build_tenants/abiogenesis/python/test_env/tests/test_abg3_runtime_envelope.py::test_dispatch_runtime_retry_continuation_projects_live_status_as_yielded build_tenants/abiogenesis/python/test_env/tests/test_abg3_runtime_envelope.py::test_ingest_unadmitted_ledger_fails_proof_and_opens_fh_review build_tenants/abiogenesis/python/test_env/tests/test_abg3_runtime_envelope.py::test_ingest_requires_target_binding_materialization_before_success_lifecycle build_tenants/abiogenesis/python/test_env/tests/test_abg3_runtime_envelope.py::test_ingest_applies_declared_target_certification_hook_before_closure build_tenants/abiogenesis/python/test_env/tests/test_abg3_runtime_envelope.py::test_ingest_repair_continuation_projects_live_status_as_yielded build_tenants/abiogenesis/python/test_env/tests/test_cli_adapter_auto.py::test_run_start_until_converged_surfaces_retry_continuation_as_yield -q`
-- result: `7 passed`
+- `npm run test:semantic`
+  - result: `202 passed`
+- `npm run lint:semantic`
+  - result: `passed`
+- `CODEX_LIVE_FP=1 npm run test:live`
+  - result: `1 passed`
+  - portfolio: `5` live scenario families, `12` external-live stages
+  - elapsed: `128.4s`
+  - archive:
+    `build_tenants/abiogenesis/typescript/test_env/test_runs/typescript_rc_live_portfolio/2026-04-25T095121549Z/portfolio_report.json`
+- `CODEX_LIVE_FP=1 npm run test:live:uat`
+  - result: `1 passed`, `0 skipped`
+  - elapsed: `14.1s`
+  - archive:
+    `build_tenants/abiogenesis/typescript/test_env/test_runs/typescript_rc_live/requirements_to_uat/2026-04-25T095336463Z`
+- `git diff --check`
+  - result: `passed`
 
 ## Release Qualification Note
 
-This RC closes the ABG source boundary for B-029.
+This RC closes the TypeScript tenant source boundary for the current completed
+ticket set through `T-058`.
 
-Downstream installed validation, including `odd_sdlc`, is not part of this
-source closure proof. It is release qualification over the published cut and
-reopens B-029 only if the installed consumer exposes a source regression.
+The RC does not tap the final `3.4.0` release. Further bounded fixes during the
+RC window must publish a new immutable RC tag, such as `v3.4.0-rc.2`.

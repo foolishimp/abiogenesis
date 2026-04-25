@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Date**: 2026-04-24
-**Derived from**: [M04_EVENT_INGRESS_DERIVATION.md](./M04_EVENT_INGRESS_DERIVATION.md), [M04_EVENT_INGRESS_FIRST_SLICE_IACS.md](./M04_EVENT_INGRESS_FIRST_SLICE_IACS.md), [ABG_3_MODULE_DESIGN.md](./ABG_3_MODULE_DESIGN.md), [T-016](../../.ai-workspace/tickets/active/T-016-realize-typescript-m04-event-ingress-over-the-canonical-kernel-emission-surface.md)
+**Derived from**: [M04_EVENT_INGRESS_DERIVATION.md](./M04_EVENT_INGRESS_DERIVATION.md), [M04_EVENT_INGRESS_FIRST_SLICE_IACS.md](./M04_EVENT_INGRESS_FIRST_SLICE_IACS.md), [ABG_3_MODULE_DESIGN.md](./ABG_3_MODULE_DESIGN.md), [T-016](../../.ai-workspace/tickets/completed/T-016-realize-typescript-m04-event-ingress-over-the-canonical-kernel-emission-surface.md)
 
 ## Purpose
 

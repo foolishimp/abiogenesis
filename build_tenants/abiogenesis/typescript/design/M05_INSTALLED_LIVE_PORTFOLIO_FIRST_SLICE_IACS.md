@@ -15,7 +15,8 @@ installed proof surface as one bounded portfolio rather than as ad hoc scripts.
 This slice is bounded to:
 
 - installed portfolio qualification over completed installed-root truth
-- explicit scenario-result carriers for the Python live families
+- one exported reference-obligation catalog for the Python live families
+- explicit scenario-result carriers for those reference obligations
 - portfolio proof over scenario authority, execution breadth, and runtime event
   evidence
 
@@ -46,7 +47,10 @@ families:
 | Subordinate carrier | Status | Why subordinate | Notes |
 | --- | --- | --- | --- |
 | `InstalledLiveScenarioResult` | subordinate | nested under one portfolio request only | carries one scenario family result |
+| `InstalledLiveScenarioStageResult` | subordinate | nested under one scenario result only | carries exact stage identity, edge, asset handle, and assessment ids |
 | `InstalledLiveScenarioPortfolioGapRef` | subordinate | rejection detail only | derived only from portfolio qualification failure |
+| `M05ReferenceLiveScenarioObligation` | subordinate authoritative catalog entry | consumed by the qualifier as source obligation truth | carries scenario authority, mode, exact stages, and minimum breadth |
+| `M05ReferenceObligation` | subordinate audit catalog entry | consumed by method trace and review only | maps Python reference assets to TypeScript proof refs |
 | installed root qualification outcome | already completed upstream | consumed as upstream truth, not owned here | must already be passed before portfolio qualification |
 
 ## First-Slice Rules
@@ -56,7 +60,8 @@ families:
 - portfolio qualification must require all still-relevant Python live scenario
   families
 - each scenario result must carry explicit scenario authority refs
-- each scenario result must preserve explicit mode and stage breadth
+- each scenario result must preserve exact mode, stage identity, edge identity,
+  asset handle, and assessment ids from `M05_REFERENCE_LIVE_SCENARIO_OBLIGATIONS`
 - each scenario result must prove canonical runtime-event evidence:
   `basis_admitted`, `fp_dispatch_requested`, and `assessed`
 - each scenario result must end in `runStatus = assessed`

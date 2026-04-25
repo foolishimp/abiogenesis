@@ -186,6 +186,28 @@ installed-sandbox and archive-proof wave:
 
 - `code/src/qualification/m05/**`
 
+Phase 18 kept the same lane green through the completed `T-035` runtime
+failure taxonomy and `B-030-TS` complete callable-start waves:
+
+- `code/src/abg/m03/transport/**`
+- `code/src/app/m04/result_assessment/**`
+- `code/src/app/m04/live_status/**`
+- `code/src/app/m04/max_autonomy/**`
+
+Phase 19 kept the same lane green through the completed `T-044`
+replay-derived graph-function iteration wave:
+
+- `code/src/abg/m03/contracts/**`
+- `code/src/abg/m03/events/**`
+- `code/src/abg/m03/transport/**`
+
+Phase 20 kept the same lane green through the completed `T-045`
+retry/repair and leaf-task governance wave:
+
+- `code/src/abg/m03/contracts/**`
+- `code/src/abg/m03/events/**`
+- `code/src/app/m04/live_status/**`
+
 The following are explicitly outside the active bounded lane unless a later
 design slice reprices them in:
 

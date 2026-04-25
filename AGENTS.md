@@ -17,10 +17,14 @@ For this local checkout, the installer and trace surface use `/Users/jim/src/app
 Read the live project-owned constitutional surfaces first:
 - `workspace://README.md`
 - `workspace://specification/INTENT.md`
-- `workspace://specification/requirements/`
-- `workspace://specification/GTL_3_CONSTITUTIONAL_DESIGN.md`
-- `workspace://specification/ABG_3_CONSTITUTIONAL_DESIGN.md`
+- `workspace://specification/PRODUCT.md`
+- `workspace://specification/requirements/gtl/`
+- `workspace://specification/requirements/abg/`
+- `workspace://specification/requirements/mapping/`
+- `workspace://specification/requirements/product/`
 - `workspace://build_tenants/common/design/README.md`
+- `workspace://build_tenants/common/design/module_decomp.md`
+- `workspace://build_tenants/common/design/modules/`
 - `workspace://build_tenants/abiogenesis/python/design/README.md`
 - `workspace://build_tenants/abiogenesis/python/code/gtl_spec/GTL_BOOTLOADER.md`
 
@@ -220,7 +224,6 @@ Methodology master:
 
 Installed runtime details, always present after install:
 - `workspace://.genesis/docs/LLM_GTL_APP_BUILDER_GUIDE.md`
-- `workspace://.genesis/docs/GTL_Technical_Guide.md`
 - `workspace://.genesis/docs/USER_GUIDE.md`
 - `workspace://.genesis/docs/GTL_BOOTLOADER.md`
 - `workspace://.genesis/docs/standards/SPEC_METHOD.md`

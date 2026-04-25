@@ -8,10 +8,16 @@
 
 import {
   admitExecutionBasis,
+  constructVectorClosedEvent,
+  constructVectorEvaluatedEvent,
   deriveAdvancementTransition,
+  deriveIterationAdvanceDecision,
+  deriveRuntimeAggregateProjection,
   emit,
+  runtimeEventsForIterationDecision,
   runtimeEventsForTransition,
   type ExecutionBasisAdmissionInput,
+  type RuntimeEvent,
   type RuntimeEventSink
 } from "../../abg/m03/index.js";
 import type { Module } from "../../gtl/m02/contracts/carriers.js";
@@ -37,6 +43,7 @@ export interface PublicStartContext {
   readonly module: Module;
   readonly runtimeIdentity: ExecutionBasisAdmissionInput["runtimeIdentity"];
   readonly resolvedPolicy: ExecutionBasisAdmissionInput["resolvedPolicy"];
+  readonly runtimeEvents?: readonly RuntimeEvent[];
   readonly runId?: string | null;
   readonly workKey?: string | null;
   readonly frameId?: string | null;
@@ -93,6 +100,50 @@ function bindKernelRoute(
   });
 }
 
+function runtimeEventsForPublicExecution(
+  basis: ReturnType<typeof admitExecutionBasis>,
+  transition: ReturnType<typeof deriveAdvancementTransition>,
+  replayEvents: readonly RuntimeEvent[]
+): readonly RuntimeEvent[] {
+  const transitionEvents = runtimeEventsForTransition(basis, transition);
+  const projection = deriveRuntimeAggregateProjection(basis, replayEvents);
+  const decision = deriveIterationAdvanceDecision(basis, projection);
+
+  if (decision.kind === "converged") {
+    return transitionEvents;
+  }
+
+  const iterationEvents = runtimeEventsForIterationDecision(decision);
+  const basisEvent = transitionEvents[0];
+  if (basisEvent === undefined) {
+    throw new TypeError("public execution requires basis admission event");
+  }
+  const transitionFacts = transitionEvents.slice(1);
+  if (transition.kind !== "fd_advance") {
+    return Object.freeze([
+      basisEvent,
+      ...iterationEvents,
+      ...transitionFacts
+    ]);
+  }
+
+  return Object.freeze([
+    basisEvent,
+    ...iterationEvents,
+    constructVectorEvaluatedEvent({
+      basis,
+      vectorIndex: transition.vectorIndex,
+      status: "accepted"
+    }),
+    constructVectorClosedEvent({
+      basis,
+      vectorIndex: transition.vectorIndex,
+      closureKind: "advanced"
+    }),
+    ...transitionFacts
+  ]);
+}
+
 export function publicStartFromRequest(
   request: PublicStartRequest,
   context: PublicStartContext,
@@ -110,8 +161,12 @@ export function publicStartFromRequest(
 
   const binding = bindKernelRoute(request, context);
   const basis = admitExecutionBasis(binding);
-  const transition = deriveAdvancementTransition(basis);
-  const emitted = emit(runtimeEventsForTransition(basis, transition), sink);
+  const replayEvents = context.runtimeEvents ?? Object.freeze([]);
+  const transition = deriveAdvancementTransition(basis, replayEvents);
+  const emitted = emit(
+    runtimeEventsForPublicExecution(basis, transition, replayEvents),
+    sink
+  );
 
   return constructPublicStartOutcome(
     basis,

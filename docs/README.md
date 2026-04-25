@@ -7,10 +7,15 @@ Use this root for explanatory, operational, or supporting material that is not i
 The constitutional source remains `specification/`. These docs are operator and
 builder guidance over that source.
 
-## Primary Entry
+## Live Guides
 
-- [LLM_GTL_APP_BUILDER_GUIDE.md](./LLM_GTL_APP_BUILDER_GUIDE.md) is the primary
-  builder guide for LLM agentic coders on the GTL 3 / ABG 3.2.0 line.
+- [USER_GUIDE.md](./USER_GUIDE.md) is the single human guide. It combines
+  operator orientation, builder workflow, and technical GTL/ABG reference
+  material.
+- [LLM_GTL_APP_BUILDER_GUIDE.md](./LLM_GTL_APP_BUILDER_GUIDE.md) is the
+  compressed technical guide for LLM agents. It carries the axioms, operating
+  constraints, and compact Python/TypeScript appendices needed for agent
+  bootstrap.
 
 ## Release Notes
 
@@ -23,11 +28,6 @@ builder guidance over that source.
 
 - Public master repository: `https://github.com/foolishimp/specification_methodology`
 - Standards source: `https://github.com/foolishimp/specification_methodology/tree/main/specification/standards/`
-
-## Secondary References
-
-- [GTL_Technical_Guide.md](./GTL_Technical_Guide.md) is the GTL reference guide.
-- [USER_GUIDE.md](./USER_GUIDE.md) is the shorter operator-facing GTL/ABG guide.
 
 ## Archive
 

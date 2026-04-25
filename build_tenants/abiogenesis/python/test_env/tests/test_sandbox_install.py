@@ -386,9 +386,9 @@ class TestSandboxInstall:
 
         assert (docs_root / "README.md").is_file()
         assert (docs_root / "LLM_GTL_APP_BUILDER_GUIDE.md").is_file()
-        assert (docs_root / "GTL_Technical_Guide.md").is_file()
         assert (docs_root / "USER_GUIDE.md").is_file()
         assert (docs_root / "GTL_BOOTLOADER.md").is_file()
+        assert not (docs_root / "GTL_Technical_Guide.md").exists()
         assert (docs_root / "standards" / "SPEC_METHOD.md").is_file()
         assert (docs_root / "standards" / "POSTING_GUIDE.md").is_file()
         assert (docs_root / "standards" / "WRITING_GUIDE.md").is_file()
@@ -904,7 +904,7 @@ class TestSandboxInstall:
         )
 
     @pytest.mark.usecase_id("sandbox_install")
-    def test_installed_runtime_reset_audit_abandons_open_continuation_post_mortem(self, run_archive):
+    def test_installed_runtime_reset_audit_supersedes_open_continuation_post_mortem(self, run_archive):
         workspace = run_archive.workspace
         install_real_sandbox(workspace, archive=run_archive)
         (workspace / "demo_runtime.py").write_text(_router_dispatch_module_source(), encoding="utf-8")
@@ -986,14 +986,14 @@ class TestSandboxInstall:
 
         stream = EventStream.open(workspace)
         events = stream.all_events()
-        assert events[-2]["event_type"] == "reset"
-        assert events[-1]["event_type"] == "continuation_abandoned"
-        assert events[-1]["data"]["continuation_id"] == continuation_id
+        event_types = [event["event_type"] for event in events]
+        assert event_types[-3:] == ["reset", "continuation_superseded", "run_superseded"]
+        assert events[-2]["data"]["continuation_id"] == continuation_id
 
         continuation_projection = project(stream, "continuation", continuation_id)
-        assert continuation_projection["status"] == "abandoned"
+        assert continuation_projection["status"] == "superseded"
         run_archive.update_summary(
-            abandoned_continuation_id=continuation_id,
-            continuation_terminal_event=events[-1]["event_type"],
+            superseded_continuation_id=continuation_id,
+            continuation_terminal_event=events[-2]["event_type"],
             continuation_terminal_status=continuation_projection["status"],
         )

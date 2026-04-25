@@ -6,6 +6,7 @@ import assert from "node:assert/strict";
 import path from "node:path";
 
 import {
+  M05_REFERENCE_LIVE_SCENARIO_OBLIGATIONS,
   qualifyInstalledLiveScenarioPortfolio,
   qualifyInstalledSandbox
 } from "../../build/semantic/code/src/qualification/m05/index.js";
@@ -13,23 +14,19 @@ import {
   buildInstalledLiveScenarioPortfolioRequest,
   buildInstalledSandboxRequest,
   installedLiveScenarioPortfolioSource,
-  linkInstalledTenantPackage,
+  installPackedTenantPackage,
   provisionInstalledRoot,
   runInstalledNodeScript
 } from "./support/m05-installed-fixtures.mjs";
 
-const REQUIRED_SCENARIOS = [
-  "requirements_to_uat",
-  "intent_to_requirements",
-  "gsdlc_lite_requirements_design_code",
-  "gsdlc_lite_design_review",
-  "gsdlc_lite_zoom_design"
-];
+const REQUIRED_SCENARIOS = M05_REFERENCE_LIVE_SCENARIO_OBLIGATIONS.map(
+  (obligation) => obligation.scenarioName
+);
 
 test("M05 installed live-portfolio integration: installed runtime executes the Python live scenario families at equivalent feature breadth", async () => {
   const { targetRoot, writer, installOutcome, bootloaderOutcome } =
     await provisionInstalledRoot();
-  await linkInstalledTenantPackage(targetRoot);
+  await installPackedTenantPackage(targetRoot);
 
   const installedQualification = qualifyInstalledSandbox(
     buildInstalledSandboxRequest({

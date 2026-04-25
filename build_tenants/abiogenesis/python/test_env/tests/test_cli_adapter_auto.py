@@ -361,6 +361,7 @@ def test_run_start_until_converged_invokes_engine_dispatch_and_retries(monkeypat
 
     assert result["status"] == "converged"
     assert result["fh_mode"] == "direct"
+    assert result["stop_class"]["kind"] == "converged"
     assert dispatch_calls == [("requirements→design", tmp_path, "codex_cli")]
 
 
@@ -381,6 +382,7 @@ def test_run_start_until_converged_surfaces_engine_dispatch_failure_without_shad
             "status": "error",
             "stopped_by": "fp_runtime_failure",
             "failure_class": "transport_failure",
+            "reason": "Agent 'codex' exited with code 1",
         }
 
     monkeypatch.setattr(services, "gen_start", fake_gen_start)
@@ -398,11 +400,77 @@ def test_run_start_until_converged_surfaces_engine_dispatch_failure_without_shad
     fp_dispatch_handled = "auto_fp_dispatch_" + "handled"
     assert result["stopped_by"] == "fp_runtime_failure"
     assert result["failure_class"] == "transport_failure"
+    assert result["stop_class"]["kind"] == "runtime_failure"
+    assert result["stop_class"]["runtime_failure_class"] == "transport_failure"
     assert "continuation_id" not in result
     assert "handoff_kind" not in result
     assert "handoff_reason" not in result
     assert fp_dispatch_available not in result
     assert fp_dispatch_handled not in result
+
+
+@pytest.mark.parametrize(
+    ("dispatch_result", "expected_kind"),
+    (
+        (
+            {
+                "status": "error",
+                "stopped_by": "fp_runtime_failure",
+                "failure_class": "transport_failure",
+                "reason": "Agent 'codex' not found (command: codex). Install it or check PATH.",
+            },
+            "runtime_unavailable",
+        ),
+        (
+            {
+                "status": "error",
+                "stopped_by": "fp_runtime_failure",
+                "failure_class": "policy_config_defect",
+                "reason": "no dispatch agent/backend could be resolved from manifest or runtime config",
+            },
+            "capability_missing",
+        ),
+        (
+            {
+                "status": "error",
+                "stopped_by": "fp_runtime_failure",
+                "failure_class": "contract_failure",
+                "reason": "payload validator rejected result artifact",
+            },
+            "payload_contract_failure",
+        ),
+    ),
+)
+def test_run_start_until_converged_projects_public_stop_taxonomy(
+    monkeypatch,
+    tmp_path: Path,
+    dispatch_result: dict[str, object],
+    expected_kind: str,
+):
+    def fake_gen_start(intent, stream):
+        return {
+            "status": "pending",
+            "blocking_reason": "fp_dispatch",
+            "stop_predicate": "dispatch_required",
+            "edge": "requirements→design",
+        }
+
+    def fake_auto_dispatch(result, workspace, *, config=None):
+        return dispatch_result
+
+    monkeypatch.setattr(services, "gen_start", fake_gen_start)
+    monkeypatch.setattr("genesis.dispatch_runtime.auto_dispatch_from_result", fake_auto_dispatch)
+
+    result = cli_adapter._run_start_until_converged(
+        _start_intent(object()),
+        object(),
+        workspace=tmp_path,
+        config={"runtime_backend": "codex_cli"},
+        fh_mode="direct",
+    )
+
+    assert result["stop_class"]["kind"] == expected_kind
+    assert result["stop_class"]["source"] == "public_result"
 
 
 def test_run_start_until_converged_surfaces_retry_continuation_as_yield(monkeypatch, tmp_path: Path):
@@ -438,6 +506,7 @@ def test_run_start_until_converged_surfaces_retry_continuation_as_yield(monkeypa
     assert result["status"] == "yield"
     assert result["stop_predicate"] == "yielded"
     assert result["stopped_by"] == "yield"
+    assert result["stop_class"]["kind"] == "yielded"
     assert result["handoff_kind"] == "retry"
     assert result["handoff_reason"] == "transport_failure"
     assert result["continuation_id"] == "cont-retry"
@@ -478,7 +547,34 @@ def test_run_start_until_converged_human_proxy_handles_fh_gate_and_retries(monke
 
     assert result["status"] == "converged"
     assert result["fh_mode"] == "human-proxy"
+    assert result["stop_class"]["kind"] == "converged"
     assert approvals == ["design→review"]
+
+
+def test_run_start_until_converged_human_direct_projects_public_stop_class(
+    monkeypatch,
+    tmp_path: Path,
+):
+    def fake_gen_start(intent, stream):
+        return {
+            "status": "pending",
+            "blocking_reason": "fh_gate",
+            "stop_predicate": "human_gate_required",
+            "edge": "design→review",
+        }
+
+    monkeypatch.setattr(services, "gen_start", fake_gen_start)
+
+    result = cli_adapter._run_start_until_converged(
+        _start_intent(object()),
+        object(),
+        workspace=tmp_path,
+        config={},
+        fh_mode="direct",
+    )
+
+    assert result["stopped_by"] == "fh_gate"
+    assert result["stop_class"]["kind"] == "human_decision_required"
 
 
 def test_run_start_until_blocked_continues_after_unblocked_iteration(monkeypatch, tmp_path: Path):
@@ -561,6 +657,7 @@ def test_run_start_until_converged_stops_on_replay_derived_proof_hold(monkeypatc
 
     assert result["status"] == "pending"
     assert result["stopped_by"] == "proof_hold"
+    assert result["stop_class"]["kind"] == "proof_hold"
     assert result["proof_hold_active"] is True
     assert result["proof_hold"]["failure_count"] == 2
     assert dispatched == []
@@ -1024,6 +1121,7 @@ def test_gen_start_next_converged_multi_job_scope_does_not_publish_arbitrary_job
     assert result["status"] == "converged"
     assert result["target"] == "next"
     assert result["stop_predicate"] == "converged"
+    assert result["stop_class"]["kind"] == "converged"
     assert result["execution_basis"]["target"] == "next"
     assert "job_id" not in result["execution_basis"]
     assert "job_name" not in result["execution_basis"]

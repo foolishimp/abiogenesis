@@ -1,8 +1,8 @@
 # M04 Complete `gen-start` Callable Surface First Slice IACS
 
-**Status**: Proposed
-**Date**: 2026-04-24
-**Derived from**: [M04_MAXIMUM_AUTONOMY_GEN_START_DERIVATION.md](./M04_MAXIMUM_AUTONOMY_GEN_START_DERIVATION.md), [ABG_3_MODULE_DESIGN.md](./ABG_3_MODULE_DESIGN.md), [TYPESCRIPT_REALIZATION_GUARDRAILS.md](./TYPESCRIPT_REALIZATION_GUARDRAILS.md), [B-030-TS](../../.ai-workspace/tickets/backlog/B-030-TS-realize-typescript-m04-complete-start-callable-surface-and-stop-taxonomy-over-canonical-public-control-truth.md)
+**Status**: Active
+**Date**: 2026-04-25
+**Derived from**: [M04_MAXIMUM_AUTONOMY_GEN_START_DERIVATION.md](./M04_MAXIMUM_AUTONOMY_GEN_START_DERIVATION.md), [M03_M04_RUNTIME_FAILURE_TAXONOMY_FIRST_SLICE_IACS.md](./M03_M04_RUNTIME_FAILURE_TAXONOMY_FIRST_SLICE_IACS.md), [ABG_3_MODULE_DESIGN.md](./ABG_3_MODULE_DESIGN.md), [TYPESCRIPT_REALIZATION_GUARDRAILS.md](./TYPESCRIPT_REALIZATION_GUARDRAILS.md), [B-030-TS](../../../../.ai-workspace/tickets/completed/B-030-TS-realize-typescript-m04-complete-start-callable-surface-and-stop-taxonomy-over-canonical-public-control-truth.md)
 
 ## Purpose
 
@@ -25,8 +25,12 @@ This wave does **not** include:
 
 - a rival operator command surface beside `gen-start`
 - new kernel runtime doctrine
-- CLI spelling or exit-code authority
+- tenant-specific CLI grammar or exit-code authority
 - install/bootstrap narrative as design truth
+
+Any CLI or MCP binding over this slice must preserve the shared product
+command grammar. Tenant delivery may choose a different executable prefix, but
+the public command suffix and flags remain the same.
 
 The first slice is still written for the current primary operator UX:
 
@@ -53,9 +57,9 @@ current primary operator UX substrate:
 
 - agentic coder CLI transport contracts over `claude`, `codex`, and `gemini`
 
-If proof-hold or richer failure taxonomy are required to satisfy the public
-stop taxonomy completely, those truths must be realized in the upstream
-TypeScript line first through `T-034` and `T-035` rather than invented here.
+The richer failure taxonomy required by this slice is supplied by completed
+`T-035`. Product abbreviations and presentation labels such as `proof_hold`
+remain downstream-owned.
 
 ## Irreducible Architectural Carrier Set
 
@@ -87,8 +91,7 @@ the only prime outer carriers in this slice.
 | `StartTraceRef` | subordinate | trace/provenance detail only | derived only from canonical public/runtime truth |
 | `PublicCallableStartResolved` | prime family variant | explicit outcome variant, not a separate outer carrier family | pattern-matched as part of `PublicCallableStartOutcome` |
 | `PublicCallableStartRejected` | prime family variant | explicit outcome variant, not a separate outer carrier family | pattern-matched as part of `PublicCallableStartOutcome` |
-| proof-hold projection payloads | deferred/blocking prerequisite | current TypeScript line still lacks proof-hold projection | `T-034` must land first |
-| runtime-unavailable / capability-missing / runtime-failure split payloads | deferred/blocking prerequisite | current TypeScript line still lacks the required canonical split | `T-035` must land first |
+| runtime-unavailable / capability-missing / runtime-failure split payloads | subordinate | canonical runtime taxonomy supplied by `T-035`, not a new outer carrier | consumed from `RuntimeFailureClass` |
 
 ## Maximum-Autonomy First Slice Rules
 
@@ -117,13 +120,16 @@ the only prime outer carriers in this slice.
   - `human_decision_required`
   - `runtime_unavailable`
   - `capability_missing`
-  - `proof_hold`
   - `runtime_failure`
+- `payload_contract_failure`
+- downstream products may derive product abbreviations and presentation labels
+  such as `proof_hold`; this `M04` slice does not own those spellings as
+  substrate stop classes
 - `runtime_unavailable`, `capability_missing`, and `runtime_failure` must stay
   truthful against the concrete current operator backends `claude`, `codex`,
   and `gemini`, not only against an abstract generic transport shell
-- if current upstream TypeScript truth cannot supply one of those classes, this
-  slice cannot claim closure until the blocking predecessor lands.
+- runtime failure classes are consumed from `RuntimeFailureClass`, not reason
+  text or downstream wrapper labels.
 
 ## Promotion Rule
 

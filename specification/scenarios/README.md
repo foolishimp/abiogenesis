@@ -5,9 +5,9 @@ GTL 3 and ABG 3 lines.
 
 Scenarios prove operational meaning.
 
-They do not replace the constitution, requirements, or design surfaces, but
-they do state the concrete proving lanes that the active GTL 3 / ABG 3 line
-must satisfy.
+They do not replace intent, product, requirements, or design surfaces, but they
+do state the concrete proving lanes that the active GTL 3 / ABG 3 line must
+satisfy.
 
 ## Rules
 

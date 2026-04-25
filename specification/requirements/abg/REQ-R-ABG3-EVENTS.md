@@ -3,7 +3,7 @@
 **Status**: Active
 **Category**: Constraint / Guarantee
 **Date**: 2026-04-05
-**Derives from**: [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [ABG_3_CONSTITUTIONAL_DESIGN.md](../../ABG_3_CONSTITUTIONAL_DESIGN.md)
+**Derives from**: [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md)
 
 ---
 
@@ -30,3 +30,7 @@ Define the ABG 3 event substrate as the only written runtime truth surface.
 **REQ-R-ABG3-EVENTS-008**: When ABG yields on unresolved non-blocking post-transform observer truth, the yielded handoff and its causing observer facts shall be emitted as authoritative event truth rather than inferred from absence of terminal failure.
 
 **REQ-R-ABG3-EVENTS-009**: Long-running supervised dispatch shall emit enough progress, artifact-observation, stall, salvage, and terminal facts that operator-grade live status can be replay-projected without hidden controller memory.
+
+**REQ-R-ABG3-EVENTS-010**: The canonical event envelope shall preserve at minimum event identity, event time, event type, aggregate type, aggregate identity, parent aggregate identity when present, causation identity, correlation identity, workflow version, work key, run identity, semantic job identity, graph-function identity, materialization identity, frame attempt identity, frame lineage identity, vector identity when present, and closed event data.
+
+**REQ-R-ABG3-EVENTS-011**: Authoritative event truth shall cover at minimum run lifecycle, graph-call lifecycle, frame lifecycle, vector-local traversal and dispatch facts, proof and closure facts, continuation lifecycle, correction, and supersession.

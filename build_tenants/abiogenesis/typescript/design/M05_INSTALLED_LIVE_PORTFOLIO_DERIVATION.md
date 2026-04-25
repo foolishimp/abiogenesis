@@ -81,6 +81,8 @@ This slice should realize only:
 - one `InstalledLiveScenarioPortfolioRequest` carrier
 - one `InstalledLiveScenarioPortfolioOutcome` family
 - one explicit installed scenario-result carrier
+- one exported reference obligation catalog carrying exact stage edges and
+  assessment ids
 - one installed portfolio integration lane over the five Python scenario
   families
 - one module-derived unit lane
@@ -109,5 +111,6 @@ This derivation is completed by:
 
 - `M05_INSTALLED_LIVE_PORTFOLIO_FIRST_SLICE_IACS.md`
 - `M05_INSTALLED_LIVE_PORTFOLIO_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M05_REFERENCE_LIVE_SCENARIO_OBLIGATIONS`
 - the installed live-portfolio code boundary under `qualification/m05`
 - the `T-031` proof lanes

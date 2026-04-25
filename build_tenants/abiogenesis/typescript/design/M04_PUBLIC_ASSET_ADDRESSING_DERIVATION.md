@@ -28,7 +28,7 @@ This boundary derives from:
 
 ## 2. Position
 
-The next TypeScript `M04` wave does not start from Python CLI spellings,
+The next TypeScript `M04` wave does not start from Python executable wiring,
 bootstrap scans, or local filesystem heuristics.
 
 It starts from the released Python design truths:
@@ -60,7 +60,7 @@ The next TypeScript `M04` slice preserves these truths from the Python line:
 The TypeScript line intentionally demotes these Python-shaped details to
 delivery binding or deferred concern:
 
-- CLI flag spellings and argparse decomposition
+- binary parser implementation and argparse decomposition
 - shell environment patching conventions
 - installed-line stdout formatting
 - bind-time `asset_binding_contract`
@@ -68,6 +68,9 @@ delivery binding or deferred concern:
 
 Those may reappear later as delivery or qualification bindings, but they do
 not define the first TypeScript public-asset-addressing slice.
+
+This does not demote the shared public flag grammar. It demotes only the
+Python adapter implementation and binary prefix.
 
 ## 5. First TypeScript M04 Public Asset-Addressing Target
 

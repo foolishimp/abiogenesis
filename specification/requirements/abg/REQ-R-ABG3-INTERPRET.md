@@ -3,7 +3,7 @@
 **Status**: Active
 **Category**: Capability
 **Date**: 2026-04-05
-**Derives from**: [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [ABG_3_CONSTITUTIONAL_DESIGN.md](../../ABG_3_CONSTITUTIONAL_DESIGN.md)
+**Derives from**: [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md)
 
 ---
 
@@ -29,3 +29,11 @@ event-authoritative aggregates.
 **REQ-R-ABG3-INTERPRET-007**: ABG shall fail closed on undeclared graph-function identity, undeclared profile, undeclared structural parameter, materialization output that violates the published outer contract, or unresolved runtime law.
 
 **REQ-R-ABG3-INTERPRET-008**: Post-dispatch observer truth that is non-blocking but unresolved shall yield to the next lawful observer or routing layer rather than immediately redispatching the same constructive lane by default.
+
+**REQ-R-ABG3-INTERPRET-009**: Public start/resume entry shall act as a safe ignition boundary over published `GraphFunction` work. It shall locate, admit, or resume the lawful graph-function execution boundary, but shall not replace the ABG internal iteration engine.
+
+**REQ-R-ABG3-INTERPRET-010**: ABG shall execute a published `GraphFunction` by repeatedly planning and advancing lawful internal `GraphVector` traversals from replay-derived runtime truth until convergence, failure, hold, continuation, yielded handoff, human gate, or another lawful public stop condition is reached.
+
+**REQ-R-ABG3-INTERPRET-011**: Next-edge selection shall be derived from graph-call, frame, vector-local traversal, evaluation, proof, and closure event truth. It shall not be inferred from private controller memory, package-local loop counters, or a fixed first-vector shortcut.
+
+**REQ-R-ABG3-INTERPRET-012**: A realization shall not claim graph-function execution parity when it only materializes a composed graph function or dispatches one selected vector without proving replay-derived progression across the callable graph boundary.

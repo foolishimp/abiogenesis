@@ -4,7 +4,8 @@
 import type { RuntimeEvent } from "../../../abg/m03/contracts/carriers.js";
 import type {
   DispatchRequest,
-  ResultArtifact
+  ResultArtifact,
+  RuntimeFailureClass
 } from "../../../abg/m03/transport/index.js";
 
 export interface AssessmentManifestProvenance {
@@ -53,7 +54,8 @@ export interface PublicResultAssessmentAccepted {
 
 export interface PublicResultAssessmentRejected {
   readonly kind: "rejected";
-  readonly ingestKind: "rejected" | "transport_failure";
+  readonly ingestKind: "rejected" | "runtime_failure";
+  readonly failureClass: RuntimeFailureClass | null;
   readonly reason: string;
   readonly trace: AssessmentTraceRef | null;
 }

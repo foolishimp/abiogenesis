@@ -61,12 +61,12 @@ test("M04 live-status integration: public-start truth projects active ready stat
   assert.deepStrictEqual(projection.resultAssessment, null);
 });
 
-test("M04 live-status integration: rejected result assessment projects transport failure as attention truth", () => {
+test("M04 live-status integration: rejected result assessment projects runtime failure class as attention truth", () => {
   const dispatchRequest = fpDispatchRequest();
   const result_assessment_request = resultAssessmentPayload(dispatchRequest, {
     result_artifact: {
-      kind: "transport_failure",
-      failureClass: "transport_failure",
+      kind: "runtime_failure",
+      failureClass: "runtime_unavailable",
       detail: "agent timed out"
     }
   });
@@ -85,13 +85,14 @@ test("M04 live-status integration: rejected result assessment projects transport
   assert.deepStrictEqual(projection, {
     kind: "attention",
     assetType: "run_status",
-    runStatus: "transport_failure",
+    runStatus: "runtime_unavailable",
     reason: "agent timed out",
     targetHandle: null,
     activeEdge: null,
     runtimeIdentity: null,
     resultAssessment: {
-      status: "transport_failure",
+      status: "runtime_failure",
+      failureClass: "runtime_unavailable",
       valid: false,
       publishedLedgerRef: "ledger://m04-result-profile",
       assessedCount: null

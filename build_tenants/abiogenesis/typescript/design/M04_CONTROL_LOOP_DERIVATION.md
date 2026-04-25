@@ -21,7 +21,7 @@ This boundary derives from:
 
 ## 2. Position
 
-The next TypeScript `M04` wave does not start from Python CLI spellings,
+The next TypeScript `M04` wave does not start from Python executable wiring,
 install wiring, or helper decomposition.
 
 It starts from the released Python design truths:
@@ -49,12 +49,16 @@ The next TypeScript `M04` slice preserves these truths from the Python line:
 - public control outcomes remain replay-readable operator truth rather than
   helper-local mutable state
 
+This control loop is not the ABG internal iterate engine. It may repeat public
+calls for operator-facing supervision, but it must not own next-edge selection
+or treat package-level repetition as graph-function execution law.
+
 ## 4. Demoted Python Delivery Detail
 
 The TypeScript line intentionally demotes these Python-shaped details to
 delivery binding or deferred concern:
 
-- CLI flag spellings and command wiring
+- binary parser implementation and command wiring
 - review-log file layout and shell behavior
 - install/bootstrap side effects
 - result-assessment ingress commands
@@ -63,6 +67,9 @@ delivery binding or deferred concern:
 
 Those may reappear later as TypeScript delivery surfaces, but they do not
 define the next TypeScript `M04` control-loop boundary.
+
+This does not demote the shared public flag grammar. It demotes only the
+Python adapter implementation and binary prefix.
 
 ## 5. Next TypeScript M04 Target
 

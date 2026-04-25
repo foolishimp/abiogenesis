@@ -60,18 +60,18 @@ test("M03 transport integration: fp dispatch derives one request and one accepte
   assert.equal(outcome.kind, "accepted");
 });
 
-test("M03 transport integration: transport failure envelope remains closed and typed through ingest", () => {
+test("M03 transport integration: runtime failure envelope remains closed and typed through ingest", () => {
   const { basis } = buildFpBasis({ dispatchRef: "dispatch://claude" });
   const transition = deriveAdvancementTransition(basis);
   const request = dispatchRequestsForTransition(transition)[0];
   const artifact = admitResultArtifact(request, {
-    kind: "transport_failure",
-    failureClass: "transport_failure",
+    kind: "runtime_failure",
+    failureClass: "runtime_failure",
     detail: "agent timed out under supervision lease"
   });
   const outcome = ingestResultArtifact(request, artifact);
 
-  assert.equal(artifact.transportFailure.failureClass, "transport_failure");
-  assert.equal(outcome.kind, "transport_failure");
+  assert.equal(artifact.runtimeFailure.failureClass, "runtime_failure");
+  assert.equal(outcome.kind, "runtime_failure");
   assert.match(outcome.detail, /timed out/i);
 });

@@ -9,7 +9,7 @@ import { qualifyInstalledSandbox } from "../../build/semantic/code/src/qualifica
 import {
   buildInstalledSandboxRequest,
   installedLiveLaneSource,
-  linkInstalledTenantPackage,
+  installPackedTenantPackage,
   provisionInstalledRoot,
   runInstalledNodeScript
 } from "./support/m05-installed-fixtures.mjs";
@@ -17,7 +17,7 @@ import {
 test("M05 installed live-lane integration: installed runtime executes one bounded public scenario through the installed package surface", async () => {
   const { targetRoot, writer, installOutcome, bootloaderOutcome } =
     await provisionInstalledRoot();
-  await linkInstalledTenantPackage(targetRoot);
+  await installPackedTenantPackage(targetRoot);
 
   const liveRun = await runInstalledNodeScript(
     targetRoot,

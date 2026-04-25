@@ -37,18 +37,14 @@ import type {
   AssessmentTraceRef,
   PublicResultAssessmentOutcome
 } from "../result_assessment/carriers.js";
-
-const RUNTIME_EVENT_KINDS = Object.freeze([
-  "basis_admitted",
-  "fd_advance_ready",
-  "fp_dispatch_requested",
-  "fh_escalated",
-  "terminal_reached",
-  "approved",
-  "revoked",
-  "reset",
-  "assessed"
-] as const);
+import type {
+  TerminalKind
+} from "../../../abg/m03/index.js";
+import {
+  parseRuntimeEventKind,
+  parseRuntimeFailureClass,
+  parseTerminalKind
+} from "../../../abg/m03/index.js";
 
 const START_OUTCOME_KINDS = Object.freeze([
   "advanced",
@@ -63,6 +59,17 @@ function parseNullableString(input: unknown, label: string): string | null {
     return null;
   }
   return parseNonEmptyString(input, label);
+}
+
+function parseNullableTerminalKind(
+  input: unknown,
+  label: string
+): TerminalKind | null {
+  const terminalKind = parseNullableString(input, label);
+  if (terminalKind === null) {
+    return null;
+  }
+  return parseTerminalKind(terminalKind, label);
 }
 
 function parseNullableDerived<T>(
@@ -104,6 +111,17 @@ function parseOneOfArray<T extends string>(
   );
 }
 
+function parseRuntimeEventKindArray(
+  input: unknown,
+  label: string
+): readonly ReturnType<typeof parseRuntimeEventKind>[] {
+  return Object.freeze(
+    parseStringArray(input, label).map((entry, index) =>
+      parseRuntimeEventKind(entry, `${label}[${index}]`)
+    )
+  );
+}
+
 function admitRuntimeIdentityProjection(
   input: unknown,
   label: string
@@ -134,34 +152,21 @@ function admitStartTrace(input: unknown, label: string) {
       trace["frameLineageId"],
       `${label}.frameLineageId`
     ),
-    eventKinds: parseOneOfArray(
+    eventKinds: parseRuntimeEventKindArray(
       trace["eventKinds"],
-      `${label}.eventKinds`,
-      RUNTIME_EVENT_KINDS
+      `${label}.eventKinds`
     )
   }) satisfies PublicKernelTraceRef;
 }
 
 function admitStartStopDetail(input: unknown, label: string) {
   const detail = parsePlainObject(input, label);
-  const terminalKind = parseNullableString(
+  const admittedTerminalKind = parseNullableTerminalKind(
     parseOptionalField(detail, "terminalKind"),
     `${label}.terminalKind`
   );
-  if (
-    terminalKind !== null &&
-    terminalKind !== "converged" &&
-    terminalKind !== "nothing_to_do" &&
-    terminalKind !== "gap_stop" &&
-    terminalKind !== "yielded" &&
-    terminalKind !== "dispatch_required" &&
-    terminalKind !== "human_gate_required" &&
-    terminalKind !== "traversal_applied"
-  ) {
-    throw new TypeError(`${label}.terminalKind: unsupported terminal kind`);
-  }
   return Object.freeze({
-    terminalKind,
+    terminalKind: admittedTerminalKind,
     gateReason: parseNullableString(
       parseOptionalField(detail, "gateReason"),
       `${label}.gateReason`
@@ -291,22 +296,10 @@ function admitControlStopDetail(input: unknown, label: string) {
   ) {
     throw new TypeError(`${label}.kind: unsupported value ${JSON.stringify(kind)}`);
   }
-  const terminalKind = parseNullableString(
+  const terminalKind = parseNullableTerminalKind(
     parseOptionalField(detail, "terminalKind"),
     `${label}.terminalKind`
   );
-  if (
-    terminalKind !== null &&
-    terminalKind !== "converged" &&
-    terminalKind !== "nothing_to_do" &&
-    terminalKind !== "gap_stop" &&
-    terminalKind !== "yielded" &&
-    terminalKind !== "dispatch_required" &&
-    terminalKind !== "human_gate_required" &&
-    terminalKind !== "traversal_applied"
-  ) {
-    throw new TypeError(`${label}.terminalKind: unsupported terminal kind`);
-  }
   return Object.freeze({
     kind,
     terminalKind,
@@ -445,10 +438,9 @@ function admitResultAssessmentTrace(input: unknown, label: string) {
     ),
     runId: parseNullableString(trace["runId"], `${label}.runId`),
     workKey: parseNullableString(trace["workKey"], `${label}.workKey`),
-    emittedKinds: parseOneOfArray(
+    emittedKinds: parseRuntimeEventKindArray(
       trace["emittedKinds"],
-      `${label}.emittedKinds`,
-      RUNTIME_EVENT_KINDS
+      `${label}.emittedKinds`
     )
   }) satisfies AssessmentTraceRef;
 }
@@ -477,12 +469,20 @@ function admitPublicResultAssessmentOutcome(
         outcome["ingestKind"],
         `${label}.ingestKind`
       );
-      if (ingestKind !== "rejected" && ingestKind !== "transport_failure") {
+      if (ingestKind !== "rejected" && ingestKind !== "runtime_failure") {
         throw new TypeError(`${label}.ingestKind: unsupported value`);
       }
+      const failureClass =
+        ingestKind === "runtime_failure"
+          ? parseRuntimeFailureClass(
+              outcome["failureClass"],
+              `${label}.failureClass`
+            )
+          : null;
       return Object.freeze({
         kind,
         ingestKind,
+        failureClass,
         reason: parseNonEmptyString(outcome["reason"], `${label}.reason`),
         trace: parseNullableDerived(
           parseOptionalField(outcome, "trace"),

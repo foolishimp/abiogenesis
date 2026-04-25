@@ -140,3 +140,44 @@ test("M03 transport unit: contradictory artifact identity fails closed as reject
   assert.equal(outcome.kind, "rejected");
   assert.match(outcome.detail, /missing declared fulfillment assessments/i);
 });
+
+test("M03 transport unit: runtime failure classes are canonical through ingest", () => {
+  const request = admitDispatchRequest({
+    kind: "fp_dispatch_request",
+    basisId: "basis://fp",
+    graphFunctionId: "graph-function://fp",
+    jobId: "job://fp",
+    dispatchRef: "dispatch://codex",
+    workerId: "worker://codex",
+    backendId: "backend://codex",
+    resultRef: "result://fp",
+    expectedEdge: null,
+    expectedAssessmentIds: [],
+    transportContract: {
+      agentKey: "codex",
+      command: "codex",
+      argsTemplate: ["exec", "{prompt}"],
+      sanitizedEnvironmentPolicy: {
+        prefixes: []
+      }
+    }
+  });
+
+  for (const failureClass of [
+    "runtime_unavailable",
+    "capability_missing",
+    "runtime_failure",
+    "payload_contract_failure"
+  ]) {
+    const artifact = admitResultArtifact(request, {
+      kind: "runtime_failure",
+      failureClass,
+      detail: `${failureClass} detail`
+    });
+    const outcome = ingestResultArtifact(request, artifact);
+
+    assert.equal(artifact.runtimeFailure.failureClass, failureClass);
+    assert.equal(outcome.kind, "runtime_failure");
+    assert.equal(outcome.failureClass, failureClass);
+  }
+});

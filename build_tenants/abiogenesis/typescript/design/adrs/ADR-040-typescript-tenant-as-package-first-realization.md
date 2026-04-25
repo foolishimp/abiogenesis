@@ -41,6 +41,12 @@ The primary delivery assumption for this tenant is:
 Compiled executable delivery may exist later, but it is optional delivery
 binding and not the governing design posture.
 
+Package-first does not authorize a different public operator command grammar.
+When the TypeScript tenant, an installed app, or a downstream wrapper exposes a
+CLI, the executable prefix may differ but the command suffix, public flags,
+target grammar, control-mode grammar, output contract, and stop classification
+must bind the shared product command grammar.
+
 ### 3. Runtime choice stays below the public contract
 
 Node, Bun, and Deno are runtime shells around the same carrier and event law.
@@ -61,6 +67,9 @@ It is not authority for:
 - file layout duplication
 - Python-specific helper shapes
 - Python-specific packaging assumptions
+
+Python's executable prefix and adapter wiring are not tenant authority. The
+shared public command grammar is product policy and remains tenant-invariant.
 
 ## Consequences
 

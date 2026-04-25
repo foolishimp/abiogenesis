@@ -56,6 +56,7 @@ from .runtime_carrier import (
     AdvancementTransition,
     ExecutionBasis,
     TerminalTransition,
+    attach_public_stop_class,
     attach_runtime_carrier_metadata,
     stop_predicate_from_transition,
     terminal_transition_from_operational_state,
@@ -829,6 +830,7 @@ def gen_start(
         result["until"] = intent.until
         result["stop_predicate"] = stop_predicate_from_transition(transition)
         attach_runtime_carrier_metadata(result, basis, transition)
+        attach_public_stop_class(result)
         return result
 
     basis = _execution_basis_for_scope(scope, intent=intent, jobs=jobs)
@@ -856,6 +858,7 @@ def gen_start(
         result["stop_predicate"] = stop_predicate_from_transition(state_transition)
         _attach_target_metadata(result, intent.target)
         attach_runtime_carrier_metadata(result, basis, state_transition)
+        attach_public_stop_class(result)
         return result
 
     if state_transition is not None and state_transition.terminal_kind == "nothing_to_do":
@@ -867,6 +870,7 @@ def gen_start(
         result["stop_predicate"] = stop_predicate_from_transition(state_transition)
         _attach_target_metadata(result, intent.target)
         attach_runtime_carrier_metadata(result, basis, state_transition)
+        attach_public_stop_class(result)
         return result
 
     iterate_outcome = _iterate_kernel_outcome(scope, stream, jobs_override=jobs)
@@ -880,6 +884,7 @@ def gen_start(
         replace(iterate_outcome.basis, start_intent=intent),
         transition,
     )
+    attach_public_stop_class(result)
     return result
 
 

@@ -1,10 +1,10 @@
-import type { AdvancementTransition } from "../contracts/carriers.js";
+import type {
+  AdvancementTransition,
+  RuntimeFailureClass
+} from "../contracts/carriers.js";
 import type { AgentTransportContract } from "../../../shared/abg_library/index.js";
 
-export type TransportFailureClass =
-  | "transport_failure"
-  | "no_output"
-  | "contract_failure";
+export type { RuntimeFailureClass } from "../contracts/carriers.js";
 
 export type FulfillmentStatus =
   | "fulfilled"
@@ -51,8 +51,8 @@ export interface ResultArtifact {
     readonly resolvedRuntimeRef: string | null;
   } | null;
   readonly identityIssues: readonly string[];
-  readonly transportFailure: {
-    readonly failureClass: TransportFailureClass;
+  readonly runtimeFailure: {
+    readonly failureClass: RuntimeFailureClass;
     readonly detail: string;
   } | null;
 }
@@ -70,18 +70,18 @@ export interface RejectedResultIngestOutcome {
   readonly detail: string;
 }
 
-export interface TransportFailedResultIngestOutcome {
-  readonly kind: "transport_failure";
+export interface RuntimeFailedResultIngestOutcome {
+  readonly kind: "runtime_failure";
   readonly request: DispatchRequest;
   readonly artifact: ResultArtifact;
-  readonly failureClass: TransportFailureClass;
+  readonly failureClass: RuntimeFailureClass;
   readonly detail: string;
 }
 
 export type ResultIngestOutcome =
   | AcceptedResultIngestOutcome
   | RejectedResultIngestOutcome
-  | TransportFailedResultIngestOutcome;
+  | RuntimeFailedResultIngestOutcome;
 
 export type DispatchRequestSink = (request: DispatchRequest) => void;
 
@@ -122,8 +122,8 @@ export interface ResultArtifactInit {
   readonly resultRef: string;
   readonly artifactPayload: ResultArtifactPayloadInit | null;
   readonly identityIssues: readonly string[];
-  readonly transportFailure: {
-    readonly failureClass: TransportFailureClass;
+  readonly runtimeFailure: {
+    readonly failureClass: RuntimeFailureClass;
     readonly detail: string;
   } | null;
 }

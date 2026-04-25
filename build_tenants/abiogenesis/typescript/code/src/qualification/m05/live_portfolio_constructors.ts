@@ -6,7 +6,8 @@ import type {
   InstalledLiveScenarioPortfolioPassed,
   InstalledLiveScenarioPortfolioRejected,
   InstalledLiveScenarioPortfolioRequest,
-  InstalledLiveScenarioResult
+  InstalledLiveScenarioResult,
+  InstalledLiveScenarioStageResult
 } from "./live_portfolio_carriers.js";
 
 function freezeStringArray(values: readonly string[]): readonly string[] {
@@ -22,7 +23,26 @@ function freezeScenarioNameArray(
 function freezeScenarioResults(
   values: readonly InstalledLiveScenarioResult[]
 ): readonly InstalledLiveScenarioResult[] {
-  return Object.freeze([...values]);
+  return Object.freeze(
+    values.map((scenario) => constructInstalledLiveScenarioResult(scenario))
+  );
+}
+
+function freezeScenarioStages(
+  values: readonly InstalledLiveScenarioStageResult[]
+): readonly InstalledLiveScenarioStageResult[] {
+  return Object.freeze(
+    values.map((stage) =>
+      Object.freeze({
+        handle: stage.handle,
+        edge: stage.edge,
+        sourceKind: stage.sourceKind,
+        targetKind: stage.targetKind,
+        assetHandle: stage.assetHandle,
+        assessmentIds: freezeStringArray(stage.assessmentIds)
+      })
+    )
+  );
 }
 
 function freezeGaps(
@@ -38,6 +58,7 @@ export function constructInstalledLiveScenarioResult(
     scenarioName: input.scenarioName,
     scenarioAuthorityRefs: freezeStringArray(input.scenarioAuthorityRefs),
     mode: input.mode,
+    stages: freezeScenarioStages(input.stages),
     stageCount: input.stageCount,
     maxAssessmentCount: input.maxAssessmentCount,
     passed: input.passed,

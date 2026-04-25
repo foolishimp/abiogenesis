@@ -1,0 +1,96 @@
+// Validates: REQ-R-ABG3-INTERPRET
+// Validates: REQ-R-ABG3-EVENTS
+// Validates: REQ-R-ABG3-GRAPHCALL
+// Validates: REQ-R-ABG3-FRAME
+
+import test from "node:test";
+import assert from "node:assert/strict";
+
+import {
+  constructVectorClosedEvent,
+  deriveIterationAdvanceDecision,
+  deriveRuntimeAggregateProjection
+} from "../../build/semantic/code/src/abg/m03/index.js";
+import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
+
+test("M03 iteration unit: aggregate projection selects the first unclosed vector from replay", () => {
+  const basis = buildThreeStageBasis();
+  const firstProjection = deriveRuntimeAggregateProjection(basis, []);
+  const firstDecision = deriveIterationAdvanceDecision(basis, firstProjection);
+
+  assert.equal(firstProjection.nextVectorIndex, 0);
+  assert.deepStrictEqual(firstProjection.run, {
+    kind: "run_projection",
+    basisId: basis.id,
+    graphFunctionId: basis.graphFunction.id,
+    runId: basis.runId,
+    workKey: basis.workKey,
+    vectorCount: 3,
+    nextVectorIndex: 0
+  });
+  assert.deepStrictEqual(firstProjection.graphCall, {
+    kind: "graph_call_projection",
+    graphCallId: null,
+    graphFunctionId: basis.graphFunction.id
+  });
+  assert.deepStrictEqual(firstProjection.frame, {
+    kind: "frame_projection",
+    frameId: null,
+    frameLineageId: basis.frameLineageId,
+    plannedVectorIndexes: [],
+    evaluatedVectorIndexes: [],
+    closedVectorIndexes: [],
+    assessedEdges: []
+  });
+  assert.deepStrictEqual(firstProjection.continuation, {
+    kind: "continuation_projection",
+    retryAttemptRunIds: [],
+    retryAttemptManifestIds: [],
+    retryAttemptRefs: [],
+    leafTaskIds: [],
+    completedLeafTaskIds: [],
+    failedLeafTaskIds: []
+  });
+  assert.equal(firstDecision.kind, "advance_vector");
+  assert.equal(firstDecision.edge, "input_set→requirements");
+
+  const secondProjection = deriveRuntimeAggregateProjection(basis, [
+    constructVectorClosedEvent({
+      basis,
+      vectorIndex: 0,
+      closureKind: "assessed"
+    })
+  ]);
+  const secondDecision = deriveIterationAdvanceDecision(basis, secondProjection);
+
+  assert.deepStrictEqual(secondProjection.closedVectorIndexes, [0]);
+  assert.equal(secondProjection.nextVectorIndex, 1);
+  assert.equal(secondDecision.kind, "advance_vector");
+  assert.equal(secondDecision.edge, "requirements→design");
+});
+
+test("M03 iteration unit: aggregate projection converges after all vectors close", () => {
+  const basis = buildThreeStageBasis();
+  const projection = deriveRuntimeAggregateProjection(basis, [
+    constructVectorClosedEvent({
+      basis,
+      vectorIndex: 0,
+      closureKind: "assessed"
+    }),
+    constructVectorClosedEvent({
+      basis,
+      vectorIndex: 1,
+      closureKind: "assessed"
+    }),
+    constructVectorClosedEvent({
+      basis,
+      vectorIndex: 2,
+      closureKind: "assessed"
+    })
+  ]);
+  const decision = deriveIterationAdvanceDecision(basis, projection);
+
+  assert.equal(projection.nextVectorIndex, null);
+  assert.equal(decision.kind, "converged");
+  assert.equal(decision.terminalKind, "converged");
+});

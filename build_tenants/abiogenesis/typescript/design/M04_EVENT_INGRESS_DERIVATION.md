@@ -28,7 +28,7 @@ This boundary derives from:
 
 ## 2. Position
 
-The next TypeScript `M04` wave does not start from Python CLI spellings,
+The next TypeScript `M04` wave does not start from Python executable wiring,
 stdout formatting, or file layout.
 
 It starts from the released Python design truths:
@@ -60,7 +60,7 @@ The next TypeScript `M04` slice preserves these truths from the Python line:
 The TypeScript line intentionally demotes these Python-shaped details to
 delivery binding or deferred concern:
 
-- CLI flag spellings and argparse decomposition
+- binary parser implementation and argparse decomposition
 - stdout or exit-code conventions
 - shell pre-stack command routing
 - direct JSON string parsing as the public API shape

@@ -66,9 +66,10 @@ export function resultAssessmentFromRequest(
         ingestKind: "rejected",
         reason: binding.ingestOutcome.detail
       });
-    case "transport_failure":
+    case "runtime_failure":
       return constructRejectedPublicResultAssessmentOutcome({
-        ingestKind: "transport_failure",
+        ingestKind: "runtime_failure",
+        failureClass: binding.ingestOutcome.failureClass,
         reason: binding.ingestOutcome.detail
       });
     default: {

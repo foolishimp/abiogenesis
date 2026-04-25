@@ -2,6 +2,7 @@
 
 **Status**: Active
 **Date**: 2026-04-23
+**Derived from**: [ABG_3_MODULE_DESIGN.md](./ABG_3_MODULE_DESIGN.md), [ABG_3_FIRST_SLICE_IACS.md](./ABG_3_FIRST_SLICE_IACS.md), [T-011](../../.ai-workspace/tickets/completed/T-011-realize-typescript-abg-first-runtime-slice-under-explicit-execution-event-carrier-law.md)
 **Purpose**: Module-bounded structural carrier sign-off asset for the
 completed TypeScript `M03-engine-kernel` steel thread.
 

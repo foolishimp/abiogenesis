@@ -68,13 +68,13 @@ test("M04 result-assessment unit: accepted route emits one assessed event per ad
   ]);
 });
 
-test("M04 result-assessment unit: transport failure stays rejected and emits nothing", () => {
+test("M04 result-assessment unit: runtime failure stays rejected with canonical class and emits nothing", () => {
   const dispatchRequest = fpDispatchRequest();
   const request = admitPublicResultAssessmentRequest(
     resultAssessmentPayload(dispatchRequest, {
       result_artifact: {
-        kind: "transport_failure",
-        failureClass: "transport_failure",
+        kind: "runtime_failure",
+        failureClass: "runtime_failure",
         detail: "agent timed out under transport lease"
       }
     })
@@ -88,7 +88,8 @@ test("M04 result-assessment unit: transport failure stays rejected and emits not
   assert.deepStrictEqual(events, []);
   assert.deepStrictEqual(outcome, {
     kind: "rejected",
-    ingestKind: "transport_failure",
+    ingestKind: "runtime_failure",
+    failureClass: "runtime_failure",
     reason: "agent timed out under transport lease",
     trace: null
   });

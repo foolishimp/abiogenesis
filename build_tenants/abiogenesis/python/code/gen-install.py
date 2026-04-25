@@ -68,7 +68,6 @@ _BOOTLOADER_FILE = "gtl_spec/GTL_BOOTLOADER.md"
 _INSTALL_DOC_FILES = [
     "README.md",
     "LLM_GTL_APP_BUILDER_GUIDE.md",
-    "GTL_Technical_Guide.md",
     "USER_GUIDE.md",
 ]
 

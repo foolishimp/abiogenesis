@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Date**: 2026-03-31
-**Derived from**: [GTL_3_CONSTITUTIONAL_DESIGN.md](../../../specification/GTL_3_CONSTITUTIONAL_DESIGN.md), [specification/requirements/](../../../specification/requirements/), [build_tenants/common/design/module_decomp.md](./module_decomp.md)
+**Derived from**: [INTENT.md](../../../specification/INTENT.md), [PRODUCT.md](../../../specification/PRODUCT.md), [specification/requirements/](../../../specification/requirements/), [build_tenants/common/design/module_decomp.md](./module_decomp.md)
 
 ## Purpose
 
@@ -37,6 +37,8 @@ They currently govern shared design truth for:
 
 - `REQ-L-GTL3-LANGUAGE`
 - `REQ-L-GTL3-MODULE`
+- `REQ-R-ABG3-RETRY`
+- `REQ-R-ABG3-LEAFTASK`
 - `REQ-R-ABG3-SELFHOSTING`
 - `REQ-P-QUAL`
 - `REQ-M-GTL3-MAPPING`

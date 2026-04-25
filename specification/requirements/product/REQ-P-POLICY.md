@@ -69,3 +69,12 @@ decide the next lawful action: continue by restarting `gen-start`, inspect
 with `gen-gaps`, remove an ambiguity, satisfy a missing capability, or supply
 human decision. Downstream wrappers shall not need to reconstruct that next
 step from hidden controller-local state.
+
+**REQ-P-POLICY-017**: Public command-line grammar shall be tenant-invariant
+for supported GTL/ABG operator commands. Python, TypeScript, or any other
+tenant may use different executable prefixes, installation mechanics, or
+package bindings, but the command suffix after the binary shall preserve the
+same subcommands, public flags, target grammar, control-mode grammar, output
+contract, and stop classification. A tenant-specific binary shall bind the
+shared product command grammar; it shall not define a rival operator command
+language.

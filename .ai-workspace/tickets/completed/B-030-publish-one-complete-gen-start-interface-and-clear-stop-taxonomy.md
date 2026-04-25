@@ -58,8 +58,8 @@ This ticket is now the upstream authority surface for that work item.
 
 Tenant execution lines are intentionally split so lifecycle stays independent:
 
-- [B-030-PY](/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/B-030-PY-clean-up-python-gen-start-interface-bootstrap-default-and-clear-stop-taxonomy.md)
-- [B-030-TS](/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/backlog/B-030-TS-realize-typescript-m04-complete-start-callable-surface-and-stop-taxonomy-over-canonical-public-control-truth.md)
+- [B-030-PY](/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/completed/B-030-PY-clean-up-python-gen-start-interface-bootstrap-default-and-clear-stop-taxonomy.md)
+- [B-030-TS](/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/completed/B-030-TS-realize-typescript-m04-complete-start-callable-surface-and-stop-taxonomy-over-canonical-public-control-truth.md)
 
 This unsuffixed ticket remains the source/product/design authority for the
 shared operator truth. It is not the place to collapse Python and TypeScript
@@ -134,10 +134,10 @@ Current triage stance:
 
 This unsuffixed upstream ticket is now closed as a shared authority surface.
 
-Its remaining execution work is intentionally split by tenant:
+Its tenant execution work is intentionally split by tenant:
 
-- [B-030-PY](/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/B-030-PY-clean-up-python-gen-start-interface-bootstrap-default-and-clear-stop-taxonomy.md)
-- [B-030-TS](/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/backlog/B-030-TS-realize-typescript-m04-complete-start-callable-surface-and-stop-taxonomy-over-canonical-public-control-truth.md)
+- [B-030-PY](/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/completed/B-030-PY-clean-up-python-gen-start-interface-bootstrap-default-and-clear-stop-taxonomy.md)
+- [B-030-TS](/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/completed/B-030-TS-realize-typescript-m04-complete-start-callable-surface-and-stop-taxonomy-over-canonical-public-control-truth.md)
 
-The Python and TypeScript lines now close independently under those tenant-local
-tickets.
+The Python and TypeScript lines are now closed independently under those
+tenant-local tickets.

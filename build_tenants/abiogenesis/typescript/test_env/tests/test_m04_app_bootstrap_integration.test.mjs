@@ -62,6 +62,11 @@ test("M04 integration: publicStart routes through M03 emit for F_D and stays sta
   assert.equal(outcome.kind, "advanced");
   assert.deepStrictEqual(events.map((event) => event.kind), [
     "basis_admitted",
+    "graph_call_opened",
+    "frame_opened",
+    "vector_traversal_planned",
+    "vector_evaluated",
+    "vector_closed",
     "fd_advance_ready"
   ]);
   assert.equal(outcome.runtimeIdentity.resolvedRuntimeRef, "runtime://typescript/node");
@@ -112,6 +117,9 @@ test("M04 integration: publicStart preserves kernel dispatch truth as a blocked 
   assert.equal(outcome.stopPredicate, "dispatch_required");
   assert.deepStrictEqual(events.map((event) => event.kind), [
     "basis_admitted",
+    "graph_call_opened",
+    "frame_opened",
+    "vector_traversal_planned",
     "fp_dispatch_requested"
   ]);
   assert.equal(outcome.stopDetail.dispatchRef, "dispatch://public-fp");

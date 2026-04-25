@@ -55,7 +55,40 @@ test("T-026 negative proof: result artifact admission rejects malformed fulfillm
   );
 });
 
-test("T-026 negative proof: transport failure envelopes reject unsupported failure classes", () => {
+test("T-026 negative proof: runtime failure envelopes reject unsupported failure classes", () => {
+  const request = admitDispatchRequest({
+    kind: "fp_dispatch_request",
+    basisId: "basis://fp",
+    graphFunctionId: "graph-function://fp",
+    jobId: "job://fp",
+    dispatchRef: "dispatch://codex",
+    workerId: "worker://codex",
+    backendId: "backend://codex",
+    resultRef: "result://fp",
+    expectedEdge: null,
+    expectedAssessmentIds: [],
+    transportContract: {
+      agentKey: "codex",
+      command: "codex",
+      argsTemplate: ["exec", "{prompt}"],
+      sanitizedEnvironmentPolicy: {
+        prefixes: []
+      }
+    }
+  });
+
+  assert.throws(
+    () =>
+      admitResultArtifact(request, {
+        kind: "runtime_failure",
+        failureClass: "transport_failure",
+        detail: "legacy class is not canonical runtime taxonomy"
+      }),
+    /runtime_unavailable|capability_missing|runtime_failure|payload_contract_failure/i
+  );
+});
+
+test("T-026 negative proof: legacy transport failure envelope kind is not admitted", () => {
   const request = admitDispatchRequest({
     kind: "fp_dispatch_request",
     basisId: "basis://fp",
@@ -81,9 +114,9 @@ test("T-026 negative proof: transport failure envelopes reject unsupported failu
     () =>
       admitResultArtifact(request, {
         kind: "transport_failure",
-        failureClass: "policy_config_defect",
-        detail: "not supported in first transport slice"
+        failureClass: "runtime_failure",
+        detail: "legacy envelope kind"
       }),
-    /transport_failure|no_output|contract_failure/i
+    /runtime_failure|omit kind/i
   );
 });

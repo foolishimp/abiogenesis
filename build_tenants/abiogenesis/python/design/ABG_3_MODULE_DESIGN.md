@@ -4,7 +4,8 @@
 **Date**: 2026-04-05
 **Purpose**: Human-readable design and impact assessment for the ABG 3 line,
 focused on configured default policy bundles, engine-owned post-dispatch
-runtime truth, and the runtime/module cut required by the ABG 3 constitution.
+runtime truth, and the runtime/module cut required by the ABG 3 requirement
+families.
 
 ---
 
@@ -549,7 +550,7 @@ The active ABG 3 runtime families now carry the following pressure:
 | `REQ-R-ABG3-PROJECTION` | read models must understand the new event vocabulary without inventing rival lifecycle truth |
 | `REQ-R-ABG3-GRAPHCALL`, `REQ-R-ABG3-FRAME`, `REQ-R-ABG3-CONTINUATION` | runtime aggregates and event ownership must remain explicit and replay-safe |
 
-No GTL 3 constitutional change is required for this cut.
+No GTL 3 requirement change is required for this cut.
 
 GTL 3 already exposes the necessary hook surfaces.
 ABG 3 is the engine realization of those surfaces.

@@ -2,18 +2,57 @@
 
 The TypeScript tenant now has a completed bounded `M05` qualification line.
 
+## Test Authority Categories
+
+This test root follows `SPEC_METHOD.md` testing strategy taxonomy:
+
+- design/module conformance tests prove implementation against module and
+  design authority
+- UAT/acceptance tests derive from requirements and scenarios
+- only sandbox or equivalent composed-product proof lanes are UAT
+- harnessed sandbox UAT uses deterministic, fake, recorded, or injected worker
+  truth
+- live sandbox UAT uses a real configured worker or transport boundary
+
+Current TypeScript `test_env/tests/*.test.mjs` lanes are deterministic
+design/module conformance or harnessed installed-surface proof. They are part
+of `npm run test:semantic`.
+
+The RC live sandbox UAT lane is separate:
+
+- `test_env/live/test_m05_rc_live_portfolio.test.mjs`
+- `npm run test:live`
+
+That live lane is excluded from `npm run test:semantic`, but it is a required
+RC gate. Set `ABG_TS_LIVE_PORTFOLIO=1` or `CODEX_LIVE_FP=1` to run it against a
+configured real backend. It materializes `npm pack` output into the sandbox
+package surface before importing `@abiogenesis/typescript-tenant`. If the live
+environment or backend is not ready, the lane fails and archives diagnostic
+evidence under `test_env/test_runs/`.
+
+The previous single-edge RC live UAT lane remains directly runnable as:
+
+- `test_env/live/test_m05_rc_live_uat.test.mjs`
+- `npm run test:live:uat`
+
 The latest completed waves are:
 
 - `T-029` installed sandbox and live-lane equivalence audit against the Python
   reference tests
 - `T-030` installed run-archive writer/finalizer and archive-finalization parity
 - `T-031` installed live scenario portfolio parity against the Python live lane
+- `T-036` installed package behavior portfolio over the full Python archived
+  sandbox scenario corpus
+- `T-037` RC external-live portfolio over all five Python live scenario
+  families
 
 That qualification line derives from:
 
 - `build_tenants/common/design/modules/`
 - tenant-local TypeScript design/ADR surfaces
-- the released Python proving lanes, repriced rather than copied blindly
+- reusable requirement/scenario obligations discovered from the released Python
+  proving lanes, repriced rather than copied blindly
+- packaged TypeScript tenant materialization for installed acceptance lanes
 
 Current proof shape:
 
@@ -102,10 +141,11 @@ Current boundary:
 - completed `T-022` now owns the installed-line `M05` proof surface:
   - `test_m05_sandbox_install_integration.test.mjs`
   - `test_m05_sandbox_live_integration.test.mjs`
+  - `test_m05_installed_graph_function_target_integration.test.mjs`
   - `test_m05_run_archive_integration.test.mjs`
   - `t022-m05-installed-sandbox-negative.test.mjs`
-  - these files prove install, installed live-lane, and archive shape over the
-    completed delivery line
+  - these files prove install, installed live-lane, translated graph-function
+    target selection, and archive shape over the completed delivery line
 - completed `T-029` now owns the parity audit over those completed proof lanes:
   - Python sandbox source assets are reconciled at the feature level against
     the current TypeScript `M05` installed proof surfaces
@@ -125,6 +165,28 @@ Current boundary:
   - `t031-m05-live-portfolio-negative.test.mjs`
   - these files now prove the five Python live scenario families at equivalent
     installed feature breadth over the package surface
+- completed `T-036` now owns the bounded Python sandbox behavior portfolio:
+  - `test_m05_python_sandbox_behavior_portfolio_integration.test.mjs`
+  - `test_m05_three_stage_graph_function_sandbox_integration.test.mjs`
+  - `npm run test:t036`
+  - this lane executes all 34 Python archived sandbox behavior obligations
+    through the installed TypeScript package surface:
+    - 15 install/runtime sandbox scenarios
+    - 14 fake or harnessed sandbox scenarios
+    - 5 live-lineage scenario obligations
+  - it also proves a composed three-stage GTL graph-function target can be
+    selected through the installed package and replayed through each
+    materialized vector by the sandbox harness
+  - this is cumulative harnessed behavior evidence, not five external-live
+    worker executions
+- completed `T-037` now owns the RC external-live portfolio proof surface:
+  - `test_env/live/test_m05_rc_live_portfolio.test.mjs`
+  - `npm run test:live`
+  - this lane executes all five Python live scenario families through real
+    configured F_P transport over the installed TypeScript package surface
+  - the portfolio contains 12 external-live stage dispatches
+  - the exact scenario/stage/assessment catalog is sourced from
+    `M05_REFERENCE_LIVE_SCENARIO_OBLIGATIONS`
 - completed `T-032` now owns the bounded installed reset-postmortem proof
   surface:
   - `test_m05_installed_reset_postmortem_unit.test.mjs`

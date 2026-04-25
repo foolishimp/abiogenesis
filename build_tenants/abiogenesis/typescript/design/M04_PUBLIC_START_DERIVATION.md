@@ -31,6 +31,8 @@ It starts from the released Python **design truths**:
 - runtime identity and configured worker resolution remain explicit
 - public operator proof is execution-chain proof, not parser-local proof
 - event truth is kernel-owned and still flows through the canonical emit path
+- the public command grammar is tenant-invariant; only the executable prefix
+  and delivery adapter may differ
 
 ## 3. Preserved Boundary Truth
 
@@ -50,7 +52,7 @@ The first TypeScript `M04` slice preserves these truths from the Python line:
 The TypeScript line intentionally demotes these Python-shaped details to
 delivery binding or deferred concern:
 
-- Python CLI spellings and command wiring
+- Python executable prefix and adapter wiring
 - `cli_adapter` helper layout
 - install-specific shell behavior
 - auto progression loops
@@ -59,6 +61,18 @@ delivery binding or deferred concern:
 
 Those may reappear as TypeScript delivery surfaces later, but they do not
 define the first TypeScript `M04` boundary.
+
+This demotion does not permit divergent public command grammar. The shared
+`start`, `gaps`, `assess-result`, target, `until`, `fh-mode`, and `root-mode`
+grammar is product-policy truth above tenant delivery.
+
+`auto progression loops` here means package-level or CLI-level repetition over
+public calls. It does not demote the ABG internal iteration engine required by
+`REQ-R-ABG3-INTERPRET-009` through `REQ-R-ABG3-INTERPRET-012`.
+
+The first `M04` public-start slice may stop at one admitted public advancement
+result. Full graph-function execution parity still requires engine-owned
+next-edge planning beneath the public boundary.
 
 ## 5. First TypeScript M04 Target
 

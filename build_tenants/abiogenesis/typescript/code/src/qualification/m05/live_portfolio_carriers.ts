@@ -14,10 +14,20 @@ export type InstalledLiveScenarioMode =
   | "review_chain"
   | "zoom_chain";
 
+export interface InstalledLiveScenarioStageResult {
+  readonly handle: string;
+  readonly edge: string;
+  readonly sourceKind: string;
+  readonly targetKind: string;
+  readonly assetHandle: string | null;
+  readonly assessmentIds: readonly string[];
+}
+
 export interface InstalledLiveScenarioResult {
   readonly scenarioName: InstalledLiveScenarioName;
   readonly scenarioAuthorityRefs: readonly string[];
   readonly mode: InstalledLiveScenarioMode;
+  readonly stages: readonly InstalledLiveScenarioStageResult[];
   readonly stageCount: number;
   readonly maxAssessmentCount: number;
   readonly passed: boolean;
@@ -36,6 +46,14 @@ export type InstalledLiveScenarioPortfolioGapKind =
   | "failed_scenario"
   | "missing_authority_ref"
   | "mismatched_mode"
+  | "missing_stage"
+  | "mismatched_stage_handle"
+  | "mismatched_stage_edge"
+  | "mismatched_stage_source"
+  | "mismatched_stage_target"
+  | "mismatched_stage_asset_handle"
+  | "mismatched_stage_assessments"
+  | "mismatched_stage_count"
   | "insufficient_stage_count"
   | "insufficient_assessment_count"
   | "missing_event_kind"
