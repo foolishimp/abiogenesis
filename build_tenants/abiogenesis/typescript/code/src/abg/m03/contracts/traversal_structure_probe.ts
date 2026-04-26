@@ -57,16 +57,45 @@ interface TraversalRuleProbe {
   readonly tags: readonly string[];
 }
 
+interface RuntimeIdentityProbe {
+  readonly workerId: string;
+  readonly backendId: string;
+  readonly buildId: string;
+  readonly resolvedRuntimeRef: string;
+}
+
+interface CurrentVectorEvidenceProbe {
+  readonly vectorIndex: number;
+  readonly vectorId: string;
+  readonly edge: string;
+  readonly sourceNodeIds: readonly string[];
+  readonly targetNodeId: string;
+}
+
+interface DiagnosticAuthorityProbe {
+  readonly kind: "diagnostic_projection";
+  readonly emitsEvents: false;
+  readonly choosesNextWork: false;
+  readonly sourceAuthorities: readonly string[];
+}
+
 export interface TraversalStructureProbe {
   readonly kind: "traversal_structure_probe";
   readonly basisId: string;
   readonly graphFunctionId: string;
   readonly graphFunctionName: string;
+  readonly materializedGraphId: string;
+  readonly materializedGraphName: string;
   readonly jobId: string;
   readonly jobName: string;
+  readonly graphCallId: string | null;
+  readonly frameId: string | null;
+  readonly frameLineageId: string | null;
+  readonly runtimeIdentity: RuntimeIdentityProbe;
   readonly sourceProjectionRef: string;
   readonly vectorCount: number;
   readonly currentVectorIndex: number | null;
+  readonly currentVectorEvidence: CurrentVectorEvidenceProbe | null;
   readonly edge: string | null;
   readonly structureKind: TraversalStructureKind;
   readonly sourceNodes: readonly TraversalNodeProbe[];
@@ -84,6 +113,7 @@ export interface TraversalStructureProbe {
   readonly iterationEventKinds: readonly RuntimeEvent["kind"][];
   readonly transitionEventKinds: readonly RuntimeEvent["kind"][];
   readonly projection: RuntimeAggregateProjection;
+  readonly diagnosticAuthority: DiagnosticAuthorityProbe;
   readonly allowedClaims: readonly string[];
   readonly notAllowedClaims: readonly string[];
 }
@@ -96,6 +126,47 @@ function freezeEventKinds(
   values: readonly RuntimeEvent["kind"][]
 ): readonly RuntimeEvent["kind"][] {
   return Object.freeze([...values]);
+}
+
+function runtimeIdentityProbe(
+  basis: ExecutionBasis
+): RuntimeIdentityProbe {
+  return Object.freeze({
+    workerId: basis.runtimeIdentity.workerId,
+    backendId: basis.runtimeIdentity.backendId,
+    buildId: basis.runtimeIdentity.buildId,
+    resolvedRuntimeRef: basis.runtimeIdentity.resolvedRuntimeRef
+  });
+}
+
+function currentVectorEvidenceProbe(
+  vector: GraphVector | null,
+  vectorIndex: number | null
+): CurrentVectorEvidenceProbe | null {
+  if (vector === null || vectorIndex === null) {
+    return null;
+  }
+  return Object.freeze({
+    vectorIndex,
+    vectorId: vector.id,
+    edge: vector.name,
+    sourceNodeIds: freezeStrings(vector.source.map((node) => node.id)),
+    targetNodeId: vector.target.id
+  });
+}
+
+function diagnosticAuthorityProbe(): DiagnosticAuthorityProbe {
+  return Object.freeze({
+    kind: "diagnostic_projection",
+    emitsEvents: false,
+    choosesNextWork: false,
+    sourceAuthorities: freezeStrings([
+      "ExecutionBasis",
+      "RuntimeAggregateProjection",
+      "IterationAdvanceDecision",
+      "AdvancementTransition"
+    ])
+  });
 }
 
 function uniqueSorted(values: readonly string[]): readonly string[] {
@@ -283,11 +354,21 @@ export function deriveTraversalStructureProbe(
     basisId: basis.id,
     graphFunctionId: basis.graphFunction.id,
     graphFunctionName: basis.graphFunction.name,
+    materializedGraphId: basis.graph.id,
+    materializedGraphName: basis.graph.name,
     jobId: basis.job.id,
     jobName: basis.job.name,
+    graphCallId: projection.graphCallId,
+    frameId: projection.frameId,
+    frameLineageId: projection.frame.frameLineageId,
+    runtimeIdentity: runtimeIdentityProbe(basis),
     sourceProjectionRef: sourceProjectionRef(projection),
     vectorCount: basis.graph.vectors.length,
     currentVectorIndex: projection.nextVectorIndex,
+    currentVectorEvidence: currentVectorEvidenceProbe(
+      vector,
+      projection.nextVectorIndex
+    ),
     edge: vector === null ? null : vector.name,
     structureKind: classifyTraversalStructure({
       vector,
@@ -317,6 +398,7 @@ export function deriveTraversalStructureProbe(
       runtimeEventsForTransition(basis, transition).map((event) => event.kind)
     ),
     projection,
+    diagnosticAuthority: diagnosticAuthorityProbe(),
     allowedClaims: allowedClaims({
       vector,
       typedInterface,

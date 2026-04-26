@@ -78,7 +78,7 @@
   },
   "scripts": {
     "build:semantic": "tsc -p tsconfig.semantic-strict.json",
-    "lint:semantic": "eslint --max-warnings=0 \"code/src/gtl/m01/contracts/**/*.ts\" \"code/src/gtl/m01/admission/**/*.ts\" \"code/src/gtl/m01/algebra/**/*.ts\" \"code/src/gtl/m01/serialization/**/*.ts\" \"code/src/gtl/m02/contracts/**/*.ts\" \"code/src/gtl/m02/admission/**/*.ts\" \"code/src/gtl/m02/serialization/**/*.ts\" \"code/src/abg/m03/contracts/**/*.ts\" \"code/src/abg/m03/admission/**/*.ts\" \"code/src/abg/m03/events/**/*.ts\" \"code/src/abg/m03/transport/**/*.ts\" \"code/src/app/m04/**/*.ts\" \"code/src/qualification/m05/**/*.ts\" \"code/src/shared/validation/**/*.ts\" \"code/src/shared/abg_library/**/*.ts\" \"code/src/shared/abg_delivery_library/**/*.ts\"",
+    "lint:semantic": "eslint --max-warnings=0 \"code/src/gtl/m01/contracts/**/*.ts\" \"code/src/gtl/m01/admission/**/*.ts\" \"code/src/gtl/m01/algebra/**/*.ts\" \"code/src/gtl/m01/serialization/**/*.ts\" \"code/src/gtl/m02/contracts/**/*.ts\" \"code/src/gtl/m02/admission/**/*.ts\" \"code/src/gtl/m02/serialization/**/*.ts\" \"code/src/abg/m03/contracts/**/*.ts\" \"code/src/abg/m03/admission/**/*.ts\" \"code/src/abg/m03/events/**/*.ts\" \"code/src/abg/m03/runner/**/*.ts\" \"code/src/abg/m03/transport/**/*.ts\" \"code/src/app/m04/**/*.ts\" \"code/src/qualification/m05/**/*.ts\" \"code/src/shared/validation/**/*.ts\" \"code/src/shared/abg_library/**/*.ts\" \"code/src/shared/abg_delivery_library/**/*.ts\"",
     "test:semantic": "npm run build:semantic && node --test test_env/tests/*.test.mjs",
     "test:live": "npm run build:semantic && node --test test_env/live/test_m05_rc_live_portfolio.test.mjs",
     "test:live:uat": "npm run build:semantic && node --test test_env/live/test_m05_rc_live_uat.test.mjs",
@@ -109,10 +109,17 @@
     "test:t057": "npm run build:semantic && node --test test_env/tests/t057-m04-cli-binary-negative.test.mjs test_env/tests/test_m04_cli_binary_integration.test.mjs",
     "test:t058": "npm run build:semantic && node --test test_env/tests/t058-m04-public-gaps-negative.test.mjs test_env/tests/test_m04_public_gaps_projection_integration.test.mjs",
     "test:t059": "npm run build:semantic && node --test test_env/tests/test_m03_generic_single_hop_graph_function_investigation.test.mjs",
+    "test:t060": "npm run build:semantic && node --test test_env/tests/test_m03_no_compute_basis_taxonomy.test.mjs",
     "test:t061": "npm run build:semantic && node --test test_env/tests/test_m03_minimum_typed_traversal_investigation.test.mjs",
     "test:t062": "npm run build:semantic && node --test test_env/tests/test_m03_traversal_structure_probe_unit.test.mjs",
     "test:t063": "npm run build:semantic && node --test test_env/tests/test_m05_sdlc_bootstrap_lineage_unit.test.mjs",
-    "test:t064": "npm run build:semantic && node --test test_env/sandbox/test_m05_data_mapper_real_ingress.test.mjs"
+    "test:t064": "npm run build:semantic && node --test test_env/sandbox/test_m05_data_mapper_real_ingress.test.mjs",
+    "test:t065": "npm run build:semantic && node --test test_env/tests/test_m03_forensic_traversal_probe_completeness.test.mjs",
+    "test:t066": "npm run build:semantic && node --test test_env/tests/test_m03_internal_control_loop_sufficiency.test.mjs",
+    "test:t069": "npm run build:semantic && node --test test_env/tests/test_m03_graph_application_instance_semantics.test.mjs",
+    "test:t072": "npm run build:semantic && node --test test_env/tests/test_m03_engine_owned_iterate_runner_unit.test.mjs test_env/tests/test_m04_engine_start_integration.test.mjs test_env/tests/t072-m03-plugin-contract-negative.test.mjs test_env/tests/test_m03_plugin_contract_inventory_unit.test.mjs",
+    "test:b016": "npm run build:semantic && node --test test_env/tests/test_b016_ioc_hook_authority.test.mjs test_env/tests/test_m03_plugin_contract_inventory_unit.test.mjs test_env/tests/t072-m03-plugin-contract-negative.test.mjs test_env/tests/test_m04_engine_start_integration.test.mjs",
+    "test:t072:plugins": "npm run build:semantic && node --test test_env/tests/t072-m03-plugin-contract-negative.test.mjs test_env/tests/test_m03_plugin_contract_inventory_unit.test.mjs"
   },
   "dependencies": {
     "valibot": "1.3.1"

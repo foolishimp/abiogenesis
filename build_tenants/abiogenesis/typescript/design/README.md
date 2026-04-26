@@ -1,14 +1,14 @@
 # build_tenants/abiogenesis/typescript — Design
 
-TypeScript build — in-development alternate realization of abiogenesis.
+TypeScript build — active package-first RC candidate realization of abiogenesis.
 
 ## Status
 
-This tenant is not the canonical released line.
+This tenant is the active TypeScript RC candidate line.
 
-`build_tenants/abiogenesis/python/` remains the released realization.
-This TypeScript tenant starts as a design-first line so packaging, runtime, and
-carrier law can be repriced before code is ported.
+`build_tenants/abiogenesis/python/` remains the released reference
+realization. This TypeScript tenant is the package-first proving line for the
+current RC candidate.
 
 ## Governing Truth
 
@@ -89,6 +89,10 @@ Current tenant-local design truth and proposed next-boundary design packs live i
 - `M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md`
 - `M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md`
 - `M03_GRAPH_FUNCTION_ITERATION_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md`
+- `M03_M04_PLUGIN_CONTRACT_MODEL_IACS.md`
+- `M03_M04_PLUGIN_CONTRACT_MODEL_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M03_GRAPH_APPLICATION_INSTANCE_SEMANTICS_DERIVATION.md`
 - `M03_RETRY_REPAIR_LEAFTASK_DERIVATION.md`
 - `M03_RETRY_REPAIR_LEAFTASK_FIRST_SLICE_IACS.md`
 - `M03_RETRY_REPAIR_LEAFTASK_STRUCTURAL_CARRIER_DIAGRAM.md`
@@ -122,6 +126,7 @@ Current tenant-local design truth and proposed next-boundary design packs live i
 - `M04_PUBLIC_GAPS_PROJECTION_DERIVATION.md`
 - `M04_PUBLIC_GAPS_PROJECTION_FIRST_SLICE_IACS.md`
 - `M04_PUBLIC_GAPS_PROJECTION_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M04_GAP_TRIAGE_GRAPH_FUNCTION_DERIVATION.md`
 - `M04_MAXIMUM_AUTONOMY_GEN_START_DERIVATION.md`
 - `M04_MAXIMUM_AUTONOMY_GEN_START_FIRST_SLICE_IACS.md`
 - `M04_MAXIMUM_AUTONOMY_GEN_START_STRUCTURAL_CARRIER_DIAGRAM.md`
@@ -132,6 +137,7 @@ Current tenant-local design truth and proposed next-boundary design packs live i
 - `M05_SDLC_BOOTSTRAP_LINEAGE_FIRST_SLICE_IACS.md`
 - `M05_SDLC_BOOTSTRAP_LINEAGE_STRUCTURAL_CARRIER_DIAGRAM.md`
 - `M05_DATA_MAPPER_REAL_INGRESS_PROOF_DERIVATION.md`
+- `M05_RESEARCH_PRODUCT_LAB_SCENARIO_CATALOG_DERIVATION.md`
 - `M05_INSTALLED_SANDBOX_DERIVATION.md`
 - `M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md`
 - `M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md`
@@ -151,6 +157,7 @@ Current tenant-local design truth and proposed next-boundary design packs live i
 - `M06_MAPPING_DEFERRED_DERIVATION.md`
 - `M06_MAPPING_DEFERRED_TRIGGER_IACS.md`
 - `M06_MAPPING_DEFERRED_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `GTL_ODD_ZOOM_FOLD_ALGEBRA_DECISION.md`
 - `M02_M03_LOOKUP_AUTHORITY_DERIVATION.md`
 - `M02_M03_LOOKUP_AUTHORITY_IACS.md`
 - `M02_M03_LOOKUP_AUTHORITY_STRUCTURAL_CARRIER_DIAGRAM.md`
@@ -181,9 +188,11 @@ That completed code wave remains intentionally narrow:
 - one public start request carrier
 - one closed public start outcome family
 - one explicit configured runtime or worker identity projection path
-- one canonical route into completed `M03` kernel carriers
+- one canonical route into completed `M03` `start -> iterate` engine carriers
 
-It does not authorize later `M04` auto/proxy/install/bootstrap widening.
+After T-072/T-074, `publicStart(...)` remains only a compatibility adapter over
+`startFromRequest(...)`; it does not authorize a rival one-step public-start
+runtime path or later `M04` auto/proxy/install/bootstrap widening.
 
 The completed next `M04` control-loop wave is:
 

@@ -3,6 +3,7 @@ export type {
   AdvancementTransition,
   AssessedRuntimeEvent,
   BasisAdmittedEvent,
+  ComputeBasisFailureClass,
   ExecutionBasis,
   FdAdvanceReadyEvent,
   FdAdvanceTransition,
@@ -46,6 +47,7 @@ export type {
   VectorTraversalPlannedEvent
 } from "./carriers.js";
 export {
+  COMPUTE_BASIS_FAILURE_CLASS_VALUES,
   RUNTIME_EVENT_KIND_VALUES,
   RUNTIME_FAILURE_CLASS_VALUES,
   TERMINAL_KIND_VALUES
@@ -97,3 +99,38 @@ export {
   runtimeEventsForRetryRepairDecision
 } from "./retry_repair.js";
 export type { RetryRepairDecisionInput } from "./retry_repair.js";
+export {
+  admitEnginePluginContract,
+  admitFdEvaluationOutcome,
+  admitFhAdmissionOutcome,
+  admitFpDispatchOutcome,
+  constructEnginePluginContract,
+  constructEnginePluginInput,
+  constructFdEvaluationOutcome,
+  constructFhAdmissionOutcome,
+  constructFpDispatchOutcome,
+  defaultFdEvaluatorPlugin,
+  defaultFhAdmissionPlugin,
+  defaultFpDispatchPlugin,
+  enginePluginInventory
+} from "./plugins.js";
+export {
+  ENGINE_PLUGIN_AUTHORITY_VALUES,
+  ENGINE_PLUGIN_KIND_VALUES
+} from "./plugins.js";
+export type {
+  EnginePluginAuthority,
+  EnginePluginContract,
+  EnginePluginEventAuthority,
+  EnginePluginInput,
+  EnginePluginInventoryEntry,
+  EnginePluginKind,
+  EnginePluginOutcome,
+  EngineRunnerPluginSet,
+  FdEvaluationOutcome,
+  FdEvaluatorPlugin,
+  FhAdmissionOutcome,
+  FhAdmissionPlugin,
+  FpDispatchOutcome,
+  FpDispatchPlugin
+} from "./plugins.js";

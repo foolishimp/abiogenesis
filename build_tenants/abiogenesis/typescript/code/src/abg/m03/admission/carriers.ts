@@ -15,6 +15,7 @@ import type {
   RuntimeRegime,
   StartIntent
 } from "../contracts/carriers.js";
+import { COMPUTE_BASIS_FAILURE_CLASS_VALUES } from "../contracts/carriers.js";
 import {
   parseNonEmptyString,
   parseOptionalField,
@@ -30,6 +31,11 @@ function parseNullableNonEmptyString(input: unknown, label: string): string | nu
 }
 
 function parseRuntimeRegime(input: unknown, label: string): RuntimeRegime {
+  if (input === undefined || input === null) {
+    throw new TypeError(
+      `${label}: ${COMPUTE_BASIS_FAILURE_CLASS_VALUES[0]}; explicit defaultRegime is required to choose F_D, F_P, or F_H`
+    );
+  }
   const regime = parseString(input, label);
   if (regime === "F_D" || regime === "F_P" || regime === "F_H") {
     return regime;

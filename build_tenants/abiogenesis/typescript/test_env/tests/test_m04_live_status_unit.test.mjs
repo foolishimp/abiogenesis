@@ -41,7 +41,7 @@ test("M04 live-status unit: admitted request preserves bounded upstream carrier 
   );
 
   assert.equal(request.startRequest.startIntent.target.handle, profile.name);
-  assert.equal(request.startOutcome.kind, "advanced");
+  assert.equal(request.startOutcome.kind, "converged");
   assert.equal(request.resultAssessmentRequest.kind, "fp_assessed");
   assert.equal(request.resultAssessmentOutcome.kind, "accepted");
 });

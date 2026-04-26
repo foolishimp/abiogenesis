@@ -146,6 +146,9 @@ It reads:
 It reports deterministic exploration truth for one traversal boundary:
 
 - graph function and job identity
+- materialized graph identity
+- graph-call and frame identity visible from replay projection
+- runtime identity carried by the execution basis
 - current vector identity and edge name
 - source and target schema and asset-surface truth
 - operator, evaluator, and rule surfaces
@@ -153,6 +156,7 @@ It reports deterministic exploration truth for one traversal boundary:
 - runtime policy regime
 - transition kind
 - iteration and transition event kinds
+- diagnostic projection authority boundaries
 - allowed and not-allowed claims
 
 It must not:
@@ -190,6 +194,8 @@ It must not:
 - A frame projection hidden inside run state alone is not accepted.
 - A local loop counter is not a valid input to `IterationAdvanceDecision`.
 - Dispatching only `graph.vectors[0]` is not graph-function execution parity.
+- Missing runtime compute basis is a named `no_compute_basis` admission
+  failure, not a no-op, identity traversal, or implicit fallback.
 
 ## Promotion Rule
 

@@ -18,3 +18,10 @@ satisfy.
 - scenario bundles should prove graph law, publication truth, event truth,
   replayable governance surfaces, and runtime boundary discipline without
   inventing product-local runtime semantics
+
+## Active Scenario Bundles
+
+- `09-research-product-lab-scenario-catalog.md` defines the extraction,
+  synthesis, transform, fan-out, ambiguity, and gap-evaluation families used to
+  qualify ABIogenesis as an ODD-native research product lab for downstream
+  products such as SDLC.TS.

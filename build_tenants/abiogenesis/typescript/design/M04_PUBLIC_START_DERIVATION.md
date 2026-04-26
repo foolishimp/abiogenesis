@@ -18,6 +18,8 @@ This boundary derives from:
 - `build_tenants/common/design/modules/M04-app-bootstrap.yml`
 - `build_tenants/abiogenesis/typescript/design/ABG_3_MODULE_DESIGN.md`
 - `.ai-workspace/tickets/completed/T-012-realize-typescript-m04-public-start-steel-thread-over-kernel-owned-runtime-law.md`
+- `.ai-workspace/tickets/completed/T-072-realize-typescript-abg-start-to-iterate-engine-runner.md`
+- `.ai-workspace/tickets/backlog/B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md`
 
 ## 2. Position
 
@@ -33,6 +35,8 @@ It starts from the released Python **design truths**:
 - event truth is kernel-owned and still flows through the canonical emit path
 - the public command grammar is tenant-invariant; only the executable prefix
   and delivery adapter may differ
+- after `T-072`, public start does not own one-transition advancement logic;
+  it delegates to the ABG-owned `start -> iterate` runner
 
 ## 3. Preserved Boundary Truth
 
@@ -42,6 +46,8 @@ The first TypeScript `M04` slice preserves these truths from the Python line:
 - operator input is normalized once at the public boundary
 - the app/bootstrap layer routes into kernel carriers rather than inventing a
   second runtime doctrine
+- `publicStart(...)` is a compatibility adapter over `start(...)`, not a
+  second execution route
 - runtime identity and configured worker resolution remain explicit public
   inputs or projections
 - public proof must show a deeper runtime consequence, not only ingress
@@ -70,9 +76,12 @@ grammar is product-policy truth above tenant delivery.
 public calls. It does not demote the ABG internal iteration engine required by
 `REQ-R-ABG3-INTERPRET-009` through `REQ-R-ABG3-INTERPRET-012`.
 
-The first `M04` public-start slice may stop at one admitted public advancement
-result. Full graph-function execution parity still requires engine-owned
-next-edge planning beneath the public boundary.
+The first `M04` public-start slice originally stopped at one admitted public
+advancement result. After `T-072`, that transitional rule is superseded.
+`publicStart(...)` and `start(...)` both route through the same engine-owned
+runner. M04 may parse and project public truth; it must not derive
+advancement, select vectors, emit traversal facts, or close a graph function
+through local public-start code.
 
 ## 5. First TypeScript M04 Target
 
@@ -81,7 +90,7 @@ The first TypeScript `M04` slice should realize only:
 - one public start request carrier
 - one public start outcome family
 - one explicit runtime or worker identity projection path
-- one canonical route into completed `M03` kernel carriers
+- one canonical route into completed `M03` `start -> iterate` engine carriers
 
 This first slice should **not** widen into:
 
@@ -96,9 +105,9 @@ This first slice should **not** widen into:
 | --- | --- | --- |
 | public `gen-start` is the operator-facing entry | package-first `M04` public start entry | root package exports one bounded public start surface rather than many controller helpers |
 | execution-chain proof is primary | module-owned `M04` integration lane | proofs must show public input changing a deeper runtime consequence |
-| controller and adapter layers are delivery bindings only | TypeScript `app/m04/**` stays below kernel meaning | package code parses, projects, and routes; it does not define advancement law |
+| controller and adapter layers are delivery bindings only | TypeScript `app/m04/**` stays below kernel meaning | package code parses, projects, and routes through `start(...)`; it does not define advancement law |
 | runtime identity and configured worker remain explicit | `M04` request/outcome boundary preserves runtime identity explicitly | helper-owned worker or build defaults are out of design |
-| canonical event truth stays kernel-owned | public start routes through completed `M03` emit surfaces | no direct event append from package/bootstrap code |
+| canonical event truth stays kernel-owned | public start routes through completed `M03` engine runner and emit surfaces | no direct event append or event reconstruction from package/bootstrap code |
 
 ## 7. Required Next Assets
 

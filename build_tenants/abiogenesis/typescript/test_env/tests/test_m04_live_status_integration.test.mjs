@@ -43,7 +43,7 @@ test("M04 live-status integration: package export surface stays aligned at root,
   });
 });
 
-test("M04 live-status integration: public-start truth projects active ready status without inventing result state", () => {
+test("M04 live-status integration: public-start truth projects converged ready status without inventing result state", () => {
   const { profile, context } = publicStartContext();
   const start_request = requestPayload(profile.name);
   const start_outcome = publicStart(start_request, context, () => {});
@@ -56,7 +56,7 @@ test("M04 live-status integration: public-start truth projects active ready stat
   );
 
   assert.equal(projection.kind, "ready");
-  assert.equal(projection.runStatus, "active");
+  assert.equal(projection.runStatus, "converged");
   assert.equal(projection.targetHandle, profile.name);
   assert.deepStrictEqual(projection.resultAssessment, null);
 });

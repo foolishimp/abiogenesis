@@ -120,7 +120,8 @@ test("M04 public asset addressing integration: resolved asset ownership drives t
     }
   );
 
-  assert.equal(outcome.kind, "advanced");
+  assert.equal(outcome.kind, "converged");
+  assert.equal(outcome.terminalKind, "converged");
   assert.deepStrictEqual(events.map((event) => event.kind), [
     "basis_admitted",
     "graph_call_opened",
@@ -128,7 +129,8 @@ test("M04 public asset addressing integration: resolved asset ownership drives t
     "vector_traversal_planned",
     "vector_evaluated",
     "vector_closed",
-    "fd_advance_ready"
+    "fd_advance_ready",
+    "terminal_reached"
   ]);
   assert.deepStrictEqual(events[0], {
     kind: "basis_admitted",

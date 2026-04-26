@@ -4,17 +4,23 @@
 - title: Reprice TypeScript ABG bare-edge compute-basis failure taxonomy
 - type: chore
 - ticket_category: substrate_semantics_cleanup
-- status: backlog
+- status: completed
 - build_tenant: typescript
 - goal: odd-native-sdlc-substrate-clarity
 - change_intent: Make the TypeScript ABG treatment of a bare structural edge explicit enough that no runtime, test, or downstream ODD program can mistake a missing compute basis for an implicit F_D or F_P fallback.
-- change_class: design_reframe
-- re_entry_point: design_surface
+- change_class: requirement_reprice
+- re_entry_point: requirements
 - triaged_at: 2026-04-26
-- execution_triage: deferred_until_ready
+- governance_scope: STDO Method
+- governance_scope_expansion:
+  - S: `SPEC_METHOD.md`
+  - T: `TICKET_METHOD.md`
+  - D: `DESIGN_MODULE_METHOD.md`
+  - O: `ODD_METHOD.md`
 - priority: medium
 - created_at: 2026-04-26
 - updated_at: 2026-04-26
+- completed_at: 2026-04-26
 - dependencies:
   - T-059 completed
 - affected_boundary: `specification/requirements/abg/**`, `build_tenants/abiogenesis/typescript/design/**`, `build_tenants/abiogenesis/typescript/code/src/abg/m03/**`, `build_tenants/abiogenesis/typescript/test_env/**`
@@ -61,7 +67,33 @@ The current behavior is directionally correct. The cleanup question is whether
 the fail-closed condition remains an admission error on missing `defaultRegime`
 or becomes an explicitly named runtime taxonomy such as `no_compute_basis`.
 
-## Execution Triage Deferred
+## Closure Evidence
 
-This ticket is backlog-only. Do not implement it until it is selected for active
-work and repriced against the current M03 design and ODD/ABG method language.
+Completed on 2026-04-26.
+
+Realization:
+
+- `specification/requirements/abg/REQ-R-ABG3-INTERPRET.md`
+- `build_tenants/abiogenesis/typescript/design/ABG_3_MODULE_DESIGN.md`
+- `build_tenants/abiogenesis/typescript/design/M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md`
+- `build_tenants/abiogenesis/typescript/design/M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md`
+- `build_tenants/abiogenesis/typescript/design/M03_GRAPH_FUNCTION_ITERATION_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `build_tenants/abiogenesis/typescript/code/src/abg/m03/contracts/carriers.ts`
+- `build_tenants/abiogenesis/typescript/code/src/abg/m03/admission/carriers.ts`
+- `build_tenants/abiogenesis/typescript/test_env/tests/test_m03_no_compute_basis_taxonomy.test.mjs`
+- `build_tenants/abiogenesis/typescript/test_env/test_surface_map.md`
+
+Observed test result:
+
+```text
+npm run test:t060
+tests 2
+pass 2
+fail 0
+```
+
+Result:
+
+Missing runtime compute basis is explicitly named `no_compute_basis`. ABG does
+not treat an uninitialized traversal as no-op, identity, `F_D`, `F_P`, or
+`F_H` fallback.

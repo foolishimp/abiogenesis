@@ -45,7 +45,7 @@ Default role assignments for this install:
 <!-- GTL_BOOTLOADER_START -->
 # GTL Bootloader: Axiomatic Constraint Surface
 
-**Version**: 3.2.0
+**Version**: 3.4.0-rc.2
 **Status**: Compressed install-time bootstrap
 **Role**: Minimal ontology and operating constraints for GTL 3 / ABG 3 work
 
@@ -215,6 +215,9 @@ If frame-local recursion bleeds into global publication or hidden fallback trave
     consumers pattern-match the algebra instead of reinterpreting evaluator
     lists.
 11. `runtime_config` is adapter/bootstrap ingress, not semantic runtime law.
+12. In the TypeScript RC line, `start(...)` delegates to the M03-owned
+    `start -> iterate` runner. `publicStart(...)` is a compatibility adapter,
+    not a separate one-step advancement loop.
 
 ## 8. Read Next
 

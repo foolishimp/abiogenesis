@@ -68,6 +68,26 @@ This first boundary remains directly runnable as `npm run test:live:uat`.
 `M05_RC_LIVE_PORTFOLIO_DERIVATION.md` extends the RC live gate to all five
 Python live scenario families and owns `npm run test:live`.
 
+## Semantic Generation Quality Boundary
+
+The live UAT lane also includes a bounded semantic-generation check.
+
+This check is different from the transport/admission check:
+
+- transport/admission proves a real worker returns an admitted result artifact
+- semantic generation proves a real worker derives quality-bearing content from
+  source requirements
+
+The semantic check gives the worker a fresh nonce and `data_mapper` source
+requirements. The worker must synthesize UAT content inside the admitted
+artifact's `fulfillment_detail` field. The deterministic evaluator then checks
+nonce preservation, requirement coverage, generated UAT cases, unmapped-field
+negative-case semantics, `source_digest -> derived_artifact` lineage semantics,
+and nonce-bearing evidence refs before result assessment.
+
+The semantic check remains intentionally bounded. It is a UAT-quality gate over
+one live generation obligation, not a broad model-quality benchmark.
+
 ## Archive Framework Authority
 
 The durable archive framework is inherited from the Python sandbox line:
@@ -93,6 +113,7 @@ The lane must capture:
 - transport result
 - raw worker response
 - result artifact
+- deterministic semantic-generation evaluation, where the semantic lane is run
 - final assessment/projection
 
 ## Non-Closure

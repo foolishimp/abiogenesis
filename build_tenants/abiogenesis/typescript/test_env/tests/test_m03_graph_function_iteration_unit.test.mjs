@@ -13,6 +13,28 @@ import {
 } from "../../build/semantic/code/src/abg/m03/index.js";
 import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
 
+function assessedEvent(edge, obligationId = "obligation://test") {
+  return {
+    kind: "assessed",
+    assessmentKind: "fp",
+    edge,
+    obligationId,
+    publishedLedgerRef: "ledger://test",
+    actor: "codex",
+    specHash: "spec://test",
+    manifestId: "manifest://test",
+    workflowVersion: "wf://test",
+    runId: "run://m03-iteration",
+    workKey: "wk://m03-iteration",
+    selectedWorkerId: "worker://m03-iteration",
+    selectedBackend: "backend://node",
+    roleId: "role://runtime",
+    authorityRef: "authority://runtime",
+    assignmentSource: "policy_resolution",
+    resolvedRuntimeRef: "runtime://typescript/node"
+  };
+}
+
 test("M03 iteration unit: aggregate projection selects the first unclosed vector from replay", () => {
   const basis = buildThreeStageBasis();
   const firstProjection = deriveRuntimeAggregateProjection(basis, []);
@@ -67,6 +89,24 @@ test("M03 iteration unit: aggregate projection selects the first unclosed vector
   assert.equal(secondProjection.nextVectorIndex, 1);
   assert.equal(secondDecision.kind, "advance_vector");
   assert.equal(secondDecision.edge, "requirements→design");
+});
+
+test("M03 iteration unit: assessed F_P result truth closes the matching vector for re-entry", () => {
+  const basis = buildThreeStageBasis();
+  const projection = deriveRuntimeAggregateProjection(basis, [
+    assessedEvent("input_set→requirements", "requirements_complete"),
+    assessedEvent("input_set→requirements", "trace_complete")
+  ]);
+  const decision = deriveIterationAdvanceDecision(basis, projection);
+
+  assert.deepStrictEqual(projection.assessedEdges, [
+    "input_set→requirements",
+    "input_set→requirements"
+  ]);
+  assert.deepStrictEqual(projection.closedVectorIndexes, [0]);
+  assert.equal(projection.nextVectorIndex, 1);
+  assert.equal(decision.kind, "advance_vector");
+  assert.equal(decision.edge, "requirements→design");
 });
 
 test("M03 iteration unit: aggregate projection converges after all vectors close", () => {

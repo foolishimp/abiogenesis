@@ -313,9 +313,38 @@ The current product should be read as:
 Today that means:
 
 - the canonical released realization is `build_tenants/abiogenesis/python/`
+- the TypeScript tenant is the active package-first RC and research-lab
+  proving line for ODD-native downstream product construction
 - `build_tenants/abiogenesis/codex/` remains a paused alternate realization
 - downstream proving domains are important evidence
   surfaces, but they are not the GTL + ABG product definition
+
+## Research Product Lab Readiness
+
+Abiogenesis may be used as a research product lab for downstream ODD-native
+products when the downstream work starts from graph functions, typed assets,
+ABG replay truth, and scenario proof rather than imperative framework
+scaffolding.
+
+The current TypeScript line is ready for SDLC.TS PoC entry under that boundary
+after the T-072/T-074 engine-iteration correction:
+
+- graph functions are the program surface
+- ABG is the engine-owned traversal, event, projection, and proof substrate
+- `start(...)` delegates to an M03-owned `start -> iterate` runner rather than
+  to a downstream or harness-owned loop
+- replayed F_P assessed-result truth advances re-entry without redispatching
+  the already assessed edge
+- gap observation remains read-only substrate truth
+- gap triage and ticket creation remain downstream graph-function and product
+  policy work
+- extraction, synthesis, transform, fan-out, ambiguity, and gap-evaluation
+  scenarios define the next proof obligations
+
+This readiness is not a claim that SDLC.TS is already built, or that every
+future ODD capability is complete. It is a claim that the substrate has enough
+governed GTL/ABG truth to begin the PoC and expose remaining gaps through
+requirements, design, tickets, and scenario evidence.
 
 ---
 

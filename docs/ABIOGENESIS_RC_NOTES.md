@@ -33,6 +33,27 @@ Accepted behavior:
 - hidden LLM reasoning is not product truth
 - hidden execution law is not admitted by GTL shape alone
 
+### ABG Owns Start-To-Iterate Execution
+
+The RC claim now requires the TypeScript line to prove an engine-owned
+`start -> iterate` path.
+
+Accepted behavior:
+
+- `start(...)` is the public ignition/resume wrapper over the M03 runner
+- `runEngineIterate(...)` owns repeated graph-function traversal in M03
+- public-control wrappers project operator truth; they do not own graph
+  traversal loops
+- T-066 remains historical primitive/harness proof, not RC proof of engine
+  ownership
+- T-072 plus T-074 are the governing engine-owned iterate proof
+- replayed F_P assessed-result truth advances re-entry without redispatching
+  the already assessed edge
+- runner-facing extension seams enter through admitted plugin contracts
+- B-016 remains open for broader hook-family runtime migration
+- plugin outputs cannot own traversal, event, closure, graph-call, frame,
+  transition, next-vector, or loop authority
+
 ### Bare And Typed Edges Do Not Imply Compute Law
 
 The M03 investigation lanes establish the current accepted substrate behavior:
@@ -43,10 +64,12 @@ The M03 investigation lanes establish the current accepted substrate behavior:
 - a typed `A_1 -> A_2` interface exposes type authority without choosing a
   compute regime
 - explicit runtime policy may bind `F_D`, `F_P`, or `F_H`
-- missing runtime policy basis fails closed before execution-basis admission
+- missing runtime policy basis fails closed before execution-basis admission as
+  `no_compute_basis`
 
-`T-060` remains open to decide whether this fail-closed condition should gain a
-more domain-visible `no_compute_basis` taxonomy name.
+The RC cut accepted the fail-closed behavior. The post-cut `T-060` cleanup
+names that condition explicitly so downstream review can distinguish absent
+compute basis from an invalid declared runtime regime.
 
 ### Traversal Structure Probe Is Diagnostic
 
@@ -117,19 +140,42 @@ Accepted behavior:
 - each stage opens public dispatch truth and ingests a live worker artifact
 - skipped live portfolio readiness is not a valid RC closure result
 - the retained single-edge live UAT lane remains runnable as a direct command
+- the live UAT lane now covers both transport/admission and nonce-bound
+  semantic generation over challenge-specific requirements
 
 ### Deferred M06 Has No RC Obligation
 
 `M06` trigger law is explicitly deferred. This RC does not claim executable
 trigger semantics.
 
+### ODD SDLC Source Induction Is Blocked
+
+`B-010` is not part of this RC candidate.
+
+Accepted behavior:
+
+- ABG source development is not inducted under ODD SDLC governance in this RC
+- no root `.genesis` source-workspace authority is claimed
+- the ticket remains blocked until a stable ODD SDLC release candidate exists
+  and is selected as the governing product for an ABG source-development wave
+
 ## Current Verification Footer
 
 The current RC proving footer is:
 
-- `npm run test:semantic`: `214 passed`
+- `npm run test:b016`: `13 passed`
+- `npm run test:t072`: `14 passed`
+- `npm run test:t044`: `9 passed`
+- `npm run test:t066`: `1 passed`
+- `odd_sdlc npm run test:sandbox`: `5 passed`
+- `npm run test:t012`: `9 passed`
+- `npm run test:t013`: `10 passed`
+- `npm run test:t072:plugins`: `7 passed`
+- `npm run test:semantic`: `239 passed`
 - `npm run test:t064`: `3 passed`
 - `npm run lint:semantic`: `passed`
-- `CODEX_LIVE_FP=1 npm run test:live`: `1 passed`
-- `CODEX_LIVE_FP=1 npm run test:live:uat`: `1 passed`, `0 skipped`
+- `CODEX_LIVE_FP=1 npm run test:live`: `1 passed`, `0 skipped`,
+  `153622.118375ms`
+- `CODEX_LIVE_FP=1 npm run test:live:uat`: `2 passed`, `0 skipped`,
+  `53448.786ms`
 - `git diff --check`: `passed`

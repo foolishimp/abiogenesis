@@ -135,10 +135,16 @@ class VectorTraversalPlan {
 class TraversalStructureProbe {
   <<downstream>>
   <<diagnostic projection>>
+  +materializedGraphName
+  +graphCallId
+  +frameId
+  +runtimeIdentity
+  +currentVectorEvidence
   +structureKind
   +edge
   +policyRegime
   +transitionKind
+  +diagnosticAuthority
   +allowedClaims
   +notAllowedClaims
 }
@@ -238,7 +244,9 @@ IterationAdvanceDecision ..> M04StopTaxonomy : consumed later
 - `VectorTraversalPlan` is subordinate to one `traverse_vector` decision.
 - `TraversalStructureProbe` is a downstream diagnostic projection. It is not a
   prime runtime carrier and does not choose traversal, emit facts, or classify
-  public stop state.
+  public stop state. It may expose materialized graph, graph-call, frame,
+  runtime identity, and current-vector evidence when those facts are already
+  present in the admitted basis or replay projection.
 - `TraversalNodeProbe`, `TraversalOperatorProbe`, `TraversalEvaluatorProbe`,
   and `TraversalRuleProbe` are subordinate payloads inside the diagnostic
   projection only.
@@ -256,5 +264,6 @@ This diagram is lawful only if future TypeScript code:
 - keeps diagnostic exploration downstream of `ExecutionBasis`,
   `RuntimeAggregateProjection`, `IterationAdvanceDecision`, and
   `AdvancementTransition`,
+- names absent runtime compute basis as `no_compute_basis` before traversal,
 - rejects local loop counters as authority, and
 - rejects first-vector-only dispatch as graph-function execution parity.

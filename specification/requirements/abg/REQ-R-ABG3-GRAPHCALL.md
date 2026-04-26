@@ -23,3 +23,9 @@ graph-function execution boundary.
 **REQ-R-ABG3-GRAPHCALL-004**: Cross-call relation shall be represented by event causation/correlation identity rather than hidden mutable controller state.
 
 **REQ-R-ABG3-GRAPHCALL-005**: In-memory call objects may exist as caches or projections over event truth, but they shall not become rival control state.
+
+**REQ-R-ABG3-GRAPHCALL-006**: Repeated execution of the same published
+`GraphFunction` may create multiple graph-call instances over the same
+materialized graph. Instance identity shall be scoped by replay-visible run,
+work-key, frame, materialization, and causation truth rather than by mutable
+workspace paths or hidden controller state.

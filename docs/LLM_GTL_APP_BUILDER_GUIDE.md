@@ -1,6 +1,6 @@
 # LLM GTL App Builder Guide
 
-**Status**: Current compressed technical GTL 3 / ABG 3.2.0 guide for LLMs
+**Status**: Current compressed technical GTL 3 / ABG 3.4.0-rc.2 guide for LLMs
 **Audience**: LLM agentic coders and agent bootstraps building GTL/ABG domain apps
 **Purpose**: Compress the human GTL/ABG guide into the ontology, operating rules, fail-closed constraints, and language-specific syntax needed by LLM agents
 
@@ -880,7 +880,7 @@ ABG does not own domain semantics beyond declared law.
 
 ABG interprets and enforces declared law.
 
-### ABG 3.2.0 carrier law
+### ABG 3.4.0 RC carrier law
 
 The live runtime boundary is carrier and event owned.
 
@@ -997,7 +997,7 @@ The UX should expose lawful next moves from runtime facts.
 
 The live kernel in this repo is `abiogenesis`.
 
-The current source version is `3.2.0`.
+The current source version is `3.4.0-rc.2`.
 
 ### Run from source
 
@@ -1043,6 +1043,10 @@ operator contract through APIs such as `publicStart`, `publicControlLoop`, and
 `genesis-ts`. A TypeScript binary or downstream app wrapper must bind the same
 command suffix and flags as the Python CLI; only the executable prefix may
 differ.
+
+`start(...)` is the TypeScript RC entry that delegates to the ABG-owned
+`start -> iterate` runner. `publicStart(...)` is a compatibility adapter over
+that path, not a separate one-step execution loop.
 
 The public operator contract is `gen-start`.
 
@@ -1124,9 +1128,9 @@ Each asset entry identifies the asset and its operator target:
 
 The CLI `start` command writes one JSON object to stdout.
 
-The TypeScript `publicStart` API returns the equivalent admitted outcome object
-and emits runtime facts through the supplied event sink; a TypeScript CLI
-binding must project that outcome to the same public output contract.
+The TypeScript `start` and `publicStart` APIs return admitted outcome objects
+and emit runtime facts through the supplied event sink. `publicStart` delegates
+to `start`, so callers must not depend on old single-advance behavior.
 
 Read these fields first:
 

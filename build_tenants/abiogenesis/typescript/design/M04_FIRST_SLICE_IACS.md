@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Date**: 2026-04-23
-**Derived from**: [M04_PUBLIC_START_DERIVATION.md](./M04_PUBLIC_START_DERIVATION.md), [ABG_3_MODULE_DESIGN.md](./ABG_3_MODULE_DESIGN.md), [TYPESCRIPT_REALIZATION_GUARDRAILS.md](./TYPESCRIPT_REALIZATION_GUARDRAILS.md), [T-012](../../.ai-workspace/tickets/completed/T-012-realize-typescript-m04-public-start-steel-thread-over-kernel-owned-runtime-law.md)
+**Derived from**: [M04_PUBLIC_START_DERIVATION.md](./M04_PUBLIC_START_DERIVATION.md), [ABG_3_MODULE_DESIGN.md](./ABG_3_MODULE_DESIGN.md), [TYPESCRIPT_REALIZATION_GUARDRAILS.md](./TYPESCRIPT_REALIZATION_GUARDRAILS.md), [T-012](../../.ai-workspace/tickets/completed/T-012-realize-typescript-m04-public-start-steel-thread-over-kernel-owned-runtime-law.md), [T-072](../../.ai-workspace/tickets/completed/T-072-realize-typescript-abg-start-to-iterate-engine-runner.md), [B-016](../../.ai-workspace/tickets/backlog/B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md)
 
 ## Purpose
 
@@ -17,8 +17,8 @@ The first TypeScript `M04` code wave is:
 - one admitted public `gen-start` request carrier
 - one closed public `gen-start` outcome family
 - one explicit configured runtime or worker identity projection path
-- one canonical route into completed `M03` kernel carriers and canonical emit
-  surfaces
+- one canonical route into completed `M03` `start -> iterate` engine carriers
+  and canonical emit surfaces
 
 This wave does **not** include:
 
@@ -61,8 +61,8 @@ family rather than separate outer carrier families.
 
 | Carrier | Owning module | Role | Ingress boundary | Effect boundary | Downstream consumers |
 | --- | --- | --- | --- | --- | --- |
-| `PublicStartRequest` | `M04-app-bootstrap` | authoritative public ingress | package/operator parser | none | kernel route binding, `StartIntent` consumption, public start executor |
-| `PublicStartOutcome` | `M04-app-bootstrap` | authoritative public operator outcome family | derived from admitted request plus completed `M03` carrier/event truth | none | root package export, later auto/proxy loops, later observation/qualification lanes |
+| `PublicStartRequest` | `M04-app-bootstrap` | authoritative public ingress | package/operator parser | none | `start(...)` route binding, `StartIntent` consumption, public start executor |
+| `PublicStartOutcome` | `M04-app-bootstrap` | authoritative public operator outcome family | derived from admitted request plus completed `M03` engine-runner carrier/event truth | none | root package export, later auto/proxy loops, later observation/qualification lanes |
 
 `PublicStartRequest` and `PublicStartOutcome` are the only prime `M04` outer
 carriers in this first slice.
@@ -73,7 +73,8 @@ carriers in this first slice.
 | --- | --- | --- | --- |
 | `PublicControlModes` | subordinate | nested product-policy detail carried by `PublicStartRequest` | admitted once by the public-start parser |
 | `ConfiguredRuntimeSelector` | subordinate | explicit runtime/worker input detail, not an outer public carrier | admitted once by the public-start parser |
-| `KernelRouteBinding` | subordinate | app-bootstrap route detail that binds `PublicStartRequest` to completed `M03` admission | constructed once by `M04`, not exposed as a rival public carrier |
+| `KernelRouteBinding` | subordinate | app-bootstrap route detail that binds `PublicStartRequest` to completed `M03` engine start admission | constructed once by `M04`, not exposed as a rival public carrier |
+| `PublicStartContext` | subordinate | app-bootstrap route context shared by `start(...)` and the `publicStart(...)` compatibility adapter | carries admitted module, runtime identity, policy, and replay context but does not own traversal |
 | `PublicRuntimeIdentityProjection` | subordinate | explicit projection detail inside the public outcome family | derived once from `ExecutionBasis.runtimeIdentity` |
 | `PublicKernelTraceRef` | subordinate | public trace/provenance detail over kernel truth, not an outer carrier | derived once from `ExecutionBasis` / `AdvancementTransition` / `RuntimeEvent` |
 | `PublicStopDetail` | subordinate | outcome-detail payload only | derived from kernel transition/event truth |
@@ -104,8 +105,11 @@ carriers in this first slice.
 - `PublicStartOutcome` may expose public trace or stop detail derived from
   completed `M03` truth, but it must not append or reinterpret runtime events
   directly.
-- `M04` code may route through completed `M03` admission, constructor, and emit
-  surfaces. It must not recreate kernel law locally.
+- `M04` code routes public execution through `start(...)`, which calls the
+  completed `M03` engine-owned runner. It must not recreate kernel law locally.
+- `publicStart(...)` exists only as a compatibility adapter over
+  `startFromRequest(...)`. It must not call lower M03 admission, transition,
+  or emit functions directly.
 
 ## Promotion Rule
 

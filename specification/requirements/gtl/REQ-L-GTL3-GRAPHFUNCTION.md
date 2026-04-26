@@ -49,3 +49,8 @@ contract boundary for lawful workflow reuse.
 **REQ-L-GTL3-GRAPHFUNCTION-017**: `GraphFunction.inputs` shall match `environment.requires`, and `GraphFunction.outputs` shall be represented in `environment.provides`.
 
 **REQ-L-GTL3-GRAPHFUNCTION-018**: `environment.carries` shall represent the cumulative typed bindings available after lawful execution of the graph function, including required bindings preserved from upstream and newly provided bindings emitted by the function.
+
+**REQ-L-GTL3-GRAPHFUNCTION-019**: A `GraphFunction` shall remain distinct from
+the materialized `Graph` it produces and from any ABG graph-call execution
+instance over that graph. It is the reusable program carrier, not the runtime
+attempt or the downstream domain asset created by an attempt.

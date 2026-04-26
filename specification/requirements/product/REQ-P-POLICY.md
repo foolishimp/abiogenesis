@@ -78,3 +78,10 @@ same subcommands, public flags, target grammar, control-mode grammar, output
 contract, and stop classification. A tenant-specific binary shall bind the
 shared product command grammar; it shall not define a rival operator command
 language.
+
+**REQ-P-POLICY-018**: Gap triage shall be downstream product policy expressed
+through published graph-function-addressable work. ABG may expose replay-derived
+gap, hold, stop, continuation, and unresolved-observation truth, but it shall
+not own ticket priority, ticket closure, backlog state, or process mechanics.
+When a downstream product creates or changes a ticket from gap truth, that
+behavior shall be governed by the downstream product and `TICKET_METHOD.md`.

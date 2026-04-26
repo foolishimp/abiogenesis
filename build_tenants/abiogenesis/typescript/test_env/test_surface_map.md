@@ -532,7 +532,8 @@ The canonical active files are:
   integration lane proving composed graph-function progression beyond vector
   zero from replay facts
 - `t044-m03-graph-function-iteration-negative.test.mjs` — fail-closed proof
-  against local-counter vector closure drift and duplicate closure facts
+  against local-counter vector closure drift, assessed-edge drift,
+  out-of-order assessed closure, and duplicate closure facts
 - `test_m05_three_stage_graph_function_sandbox_integration.test.mjs` —
   installed sandbox proof now records replay-derived core iteration as the
   progression authority
@@ -555,6 +556,22 @@ The investigation file is:
   lane records whether the admitted policy basis selects `F_D`, `F_P`, or `F_H`
   transition behavior, and proves absent policy basis fails closed before
   execution-basis admission.
+
+## M03 No Compute Basis Taxonomy Tests
+
+The bare-edge compute-basis taxonomy cleanup is `T-060`.
+Its proof lane derives from:
+
+- [ABG_3_MODULE_DESIGN.md](../design/ABG_3_MODULE_DESIGN.md)
+- [M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md](../design/M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md)
+- [M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md](../design/M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md)
+- [T-060-reprice-typescript-abg-bare-edge-compute-basis-failure-taxonomy.md](../../../.ai-workspace/tickets/completed/T-060-reprice-typescript-abg-bare-edge-compute-basis-failure-taxonomy.md)
+
+The canonical active file is:
+
+- `test_m03_no_compute_basis_taxonomy.test.mjs` — module-owned unit lane
+  proving that absent runtime compute basis is named `no_compute_basis` and is
+  distinct from an invalid declared runtime regime.
 
 ## M03 Minimum Typed Traversal Investigation Tests
 
@@ -598,6 +615,59 @@ The canonical active file is:
   traversal authority without creating a second runtime path. The active IACS
   and structural carrier diagram classify the probe as a downstream diagnostic
   projection with subordinate probe payloads, not a prime runtime authority.
+
+## M03 Forensic Traversal Probe Completeness Tests
+
+The forensic traversal-probe completion proof is `T-065`.
+Its proof lane derives from:
+
+- [ABG_3_MODULE_DESIGN.md](../design/ABG_3_MODULE_DESIGN.md)
+- [M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md](../design/M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md)
+- [M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md](../design/M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md)
+- [M03_GRAPH_FUNCTION_ITERATION_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M03_GRAPH_FUNCTION_ITERATION_STRUCTURAL_CARRIER_DIAGRAM.md)
+- [T-065-prove-typescript-abg-forensic-traversal-probe-completeness-over-runtime-truth.md](../../../.ai-workspace/tickets/completed/T-065-prove-typescript-abg-forensic-traversal-probe-completeness-over-runtime-truth.md)
+
+The canonical active file is:
+
+- `test_m03_forensic_traversal_probe_completeness.test.mjs` — module-owned
+  unit lane proving the deterministic probe exposes materialized graph,
+  graph-call, frame, runtime identity, current-vector evidence, replay
+  projection, and diagnostic authority boundaries without choosing work or
+  emitting facts.
+
+## M03 Internal Control Loop Sufficiency Tests
+
+The internal control-loop sufficiency proof is `T-066`.
+Its proof lane derives from:
+
+- [ABG_3_MODULE_DESIGN.md](../design/ABG_3_MODULE_DESIGN.md)
+- [M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md](../design/M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md)
+- [M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md](../design/M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md)
+- [M03_GRAPH_FUNCTION_ITERATION_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M03_GRAPH_FUNCTION_ITERATION_STRUCTURAL_CARRIER_DIAGRAM.md)
+- [T-066-prove-typescript-abg-internal-control-loop-sufficiency-start-traverse-evaluate-iterate.md](../../../.ai-workspace/tickets/completed/T-066-prove-typescript-abg-internal-control-loop-sufficiency-start-traverse-evaluate-iterate.md)
+
+The canonical active file is:
+
+- `test_m03_internal_control_loop_sufficiency.test.mjs` — module-owned unit
+  lane proving a started three-stage graph function traverses, evaluates,
+  closes, iterates by replay truth, and reaches terminal convergence with a
+  concrete event sequence.
+
+## M03 Graph Application Instance Semantics Tests
+
+The graph application instance semantics proof is `T-069`.
+Its proof lane derives from:
+
+- [M03_GRAPH_APPLICATION_INSTANCE_SEMANTICS_DERIVATION.md](../design/M03_GRAPH_APPLICATION_INSTANCE_SEMANTICS_DERIVATION.md)
+- [M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md](../design/M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md)
+- [T-069-model-idempotent-typed-graph-instances-and-project-asset-instances.md](../../../.ai-workspace/tickets/completed/T-069-model-idempotent-typed-graph-instances-and-project-asset-instances.md)
+
+The canonical active file is:
+
+- `test_m03_graph_application_instance_semantics.test.mjs` — module-owned unit
+  lane proving stable graph-function/materialized-graph identity across runs,
+  distinct graph-call/frame identity for distinct run instances, and identical
+  replay identity for the same admitted run/work basis.
 
 ## M05 SDLC Bootstrap Lineage PoC Tests
 
@@ -809,9 +879,10 @@ The canonical active files are:
 - Requirements: `REQ-P-POLICY`, `REQ-P-POLICY-004`, `REQ-P-POLICY-008`, `REQ-P-POLICY-009`, `REQ-P-POLICY-011`, `REQ-P-POLICY-012`, `REQ-P-POLICY-013`, `REQ-R-ABG3-BINDING`, `REQ-R-ABG3-BINDING-002`, `REQ-R-ABG3-BINDING-003`, `REQ-R-ABG3-EVENTS`, `REQ-R-ABG3-EVENTS-001`
 - Design: [M04_PUBLIC_START_DERIVATION.md](../design/M04_PUBLIC_START_DERIVATION.md), [M04_FIRST_SLICE_IACS.md](../design/M04_FIRST_SLICE_IACS.md), [M04_PUBLIC_START_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_PUBLIC_START_STRUCTURAL_CARRIER_DIAGRAM.md), [ABG_3_MODULE_DESIGN.md](../design/ABG_3_MODULE_DESIGN.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-012-realize-typescript-m04-public-start-steel-thread-over-kernel-owned-runtime-law.md](../../../.ai-workspace/tickets/completed/T-012-realize-typescript-m04-public-start-steel-thread-over-kernel-owned-runtime-law.md)
 - Current focus inside this lane:
-  one admitted public start request over completed `M03` kernel truth,
-  canonical `emit(...)` routing, explicit runtime identity projection, package
-  export stability, and public blocked/advanced/rejected outcome truth
+  one admitted public start request over completed `M03` engine-runner truth,
+  canonical `emit(...)` routing through the runner, explicit runtime identity
+  projection, package export stability, and public
+  blocked/converged/rejected outcome truth
 
 ## Transitional Slice Gates
 
@@ -859,7 +930,7 @@ The canonical active files are:
 - Current focus inside this lane:
   nested control-loop request admission over completed public-start truth,
   bounded approval-hint derivation from explicit `approvalSubjectRef`, and
-  explicit yielded re-entry truth over repeated advanced public-start outcomes
+  explicit yielded re-entry truth over replay-derived public-start outcomes
 
 ### test_m04_control_loop_integration.test.mjs
 
@@ -868,7 +939,7 @@ The canonical active files are:
 - Requirements: `REQ-P-POLICY`, `REQ-P-POLICY-004`, `REQ-P-POLICY-008`, `REQ-P-POLICY-009`, `REQ-P-POLICY-011`, `REQ-P-POLICY-012`, `REQ-P-POLICY-013`, `REQ-R-ABG3-BINDING`, `REQ-R-ABG3-BINDING-002`, `REQ-R-ABG3-BINDING-003`, `REQ-R-ABG3-EVENTS`, `REQ-R-ABG3-EVENTS-001`
 - Design: [M04_CONTROL_LOOP_DERIVATION.md](../design/M04_CONTROL_LOOP_DERIVATION.md), [M04_CONTROL_LOOP_FIRST_SLICE_IACS.md](../design/M04_CONTROL_LOOP_FIRST_SLICE_IACS.md), [M04_CONTROL_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_CONTROL_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md), [ABG_3_MODULE_DESIGN.md](../design/ABG_3_MODULE_DESIGN.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-013-realize-typescript-m04-control-modes-over-closed-public-start-outcome-law.md](../../../.ai-workspace/tickets/completed/T-013-realize-typescript-m04-control-modes-over-closed-public-start-outcome-law.md)
 - Current focus inside this lane:
-  bounded repeated routing through canonical `publicStart(...)`, preserved
+  bounded projection through canonical `start(...)` public outcome truth, preserved
   dispatch-required and human-gate-required seams as explicit public control
   truth, package export stability, and no direct event append above completed
   public-start/runtime law
@@ -1253,6 +1324,58 @@ The canonical active files are:
 - Requirements: `REQ-P-QUAL`, `REQ-P-SCENARIOS`
 - Design: [TYPESCRIPT_REALIZATION_GUARDRAILS.md](../design/TYPESCRIPT_REALIZATION_GUARDRAILS.md), [M05_INSTALLED_RESET_POSTMORTEM_DERIVATION.md](../design/M05_INSTALLED_RESET_POSTMORTEM_DERIVATION.md), [M05_INSTALLED_RESET_POSTMORTEM_FIRST_SLICE_IACS.md](../design/M05_INSTALLED_RESET_POSTMORTEM_FIRST_SLICE_IACS.md), [M05_INSTALLED_RESET_POSTMORTEM_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_INSTALLED_RESET_POSTMORTEM_STRUCTURAL_CARRIER_DIAGRAM.md), [M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md](../design/M05_PYTHON_SANDBOX_PROOF_EQUIVALENCE_AUDIT.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-032-realize-typescript-m05-installed-reset-postmortem-parity-over-canonical-reset-and-continuation-law.md](../../../.ai-workspace/tickets/completed/T-032-realize-typescript-m05-installed-reset-postmortem-parity-over-canonical-reset-and-continuation-law.md)
 
+## T-072 Engine Runner And Plugin Contract Proof
+
+### test_b016_ioc_hook_authority.test.mjs
+
+- Status: canonical governance regression lane
+- Module alignment: `M04-app-bootstrap` compatibility entry over the
+  `M03-engine-kernel` runner
+- Requirements: `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-RUN`
+- Design: [M04_PUBLIC_START_DERIVATION.md](../design/M04_PUBLIC_START_DERIVATION.md), [M04_FIRST_SLICE_IACS.md](../design/M04_FIRST_SLICE_IACS.md), [M04_PUBLIC_START_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_PUBLIC_START_STRUCTURAL_CARRIER_DIAGRAM.md), [M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md](../design/M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md), [B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md](../../../.ai-workspace/tickets/backlog/B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md), [T-072-realize-typescript-abg-start-to-iterate-engine-runner.md](../../../.ai-workspace/tickets/completed/T-072-realize-typescript-abg-start-to-iterate-engine-runner.md)
+- Command: `npm run test:b016`
+- Authority class: unit governance proof. It rejects public-start re-entry to
+  lower M03 transition, event-construction, or emit functions and requires
+  delegation to `startFromRequest(...)`.
+
+### test_m03_engine_owned_iterate_runner_unit.test.mjs
+
+- Status: canonical module-derived unit lane
+- Module alignment: `M03-engine-kernel` start-to-iterate runner
+- Requirements: `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-EVENTS`,
+  `REQ-R-ABG3-GRAPHCALL`, `REQ-R-ABG3-FRAME`, `REQ-R-ABG3-RUN`
+- Design: [M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md](../design/M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md), [M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md](../design/M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md), [M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md](../design/M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md), [M03_M04_PLUGIN_CONTRACT_MODEL_IACS.md](../design/M03_M04_PLUGIN_CONTRACT_MODEL_IACS.md), [M03_M04_PLUGIN_CONTRACT_MODEL_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M03_M04_PLUGIN_CONTRACT_MODEL_STRUCTURAL_CARRIER_DIAGRAM.md), [T-072-realize-typescript-abg-start-to-iterate-engine-runner.md](../../../.ai-workspace/tickets/completed/T-072-realize-typescript-abg-start-to-iterate-engine-runner.md)
+- Command: `npm run test:t072`, `npm run test:b016`
+
+### test_m04_engine_start_integration.test.mjs
+
+- Status: canonical module-owned integration lane
+- Module alignment: `M04-app-bootstrap` `start(...)` wrapper over M03 runner
+- Requirements: `REQ-P-POLICY`, `REQ-R-ABG3-RUN`
+- Design: [M04_PUBLIC_START_DERIVATION.md](../design/M04_PUBLIC_START_DERIVATION.md), [M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md](../design/M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md), [M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md](../design/M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md), [T-072-realize-typescript-abg-start-to-iterate-engine-runner.md](../../../.ai-workspace/tickets/completed/T-072-realize-typescript-abg-start-to-iterate-engine-runner.md)
+- Command: `npm run test:t072`
+- Authority class: integration proof. It now proves F_P assessed-result re-entry
+  advances to the next vector and does not redispatch the already assessed edge.
+
+### test_m03_plugin_contract_inventory_unit.test.mjs
+
+- Status: canonical module-derived unit lane
+- Module alignment: `M03-engine-kernel` plugin contract inventory
+- Requirements: `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-RUN`
+- Design: [M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md](../design/M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md), [M03_M04_PLUGIN_CONTRACT_MODEL_IACS.md](../design/M03_M04_PLUGIN_CONTRACT_MODEL_IACS.md), [M03_M04_PLUGIN_CONTRACT_MODEL_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M03_M04_PLUGIN_CONTRACT_MODEL_STRUCTURAL_CARRIER_DIAGRAM.md), [B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md](../../../.ai-workspace/tickets/backlog/B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md), [T-072-realize-typescript-abg-start-to-iterate-engine-runner.md](../../../.ai-workspace/tickets/completed/T-072-realize-typescript-abg-start-to-iterate-engine-runner.md)
+- Command: `npm run test:t072:plugins`, `npm run test:b016`
+- Authority class: module-derived proof. The lane distinguishes
+  `runner_consumed` seams from `classified_hook_family` rows so B-016 is not
+  overclaimed.
+
+### t072-m03-plugin-contract-negative.test.mjs
+
+- Status: canonical negative proof lane
+- Module alignment: `M03-engine-kernel` plugin contract authority boundary
+- Requirements: `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-EVENTS`
+- Design: [M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md](../design/M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md), [M03_M04_PLUGIN_CONTRACT_MODEL_IACS.md](../design/M03_M04_PLUGIN_CONTRACT_MODEL_IACS.md), [M03_M04_PLUGIN_CONTRACT_MODEL_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M03_M04_PLUGIN_CONTRACT_MODEL_STRUCTURAL_CARRIER_DIAGRAM.md), [B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md](../../../.ai-workspace/tickets/backlog/B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md), [T-072-realize-typescript-abg-start-to-iterate-engine-runner.md](../../../.ai-workspace/tickets/completed/T-072-realize-typescript-abg-start-to-iterate-engine-runner.md)
+- Command: `npm run test:t072:plugins`, `npm run test:b016`
+
 ## Live Sandbox UAT Provenance
 
 ### test_env/live/test_m05_rc_live_uat.test.mjs
@@ -1267,6 +1390,12 @@ The canonical active files are:
 - Boundary: installed package surface, public start, F_P dispatch request,
   configured real transport, result-artifact admission, result assessment, live
   status projection, persistent archive evidence
+- Semantic generation boundary: the second live UAT test gives the worker
+  nonce-bound `data_mapper` requirements and deterministically checks generated
+  UAT case coverage, negative-case semantics, lineage semantics, and nonce
+  evidence before ABG result assessment.
+- Completed quality ticket:
+  [T-075-add-live-semantic-generation-uat-proof-over-nonce-bound-derived-content.md](../../../.ai-workspace/tickets/completed/T-075-add-live-semantic-generation-uat-proof-over-nonce-bound-derived-content.md)
 
 ### test_env/live/test_m05_rc_live_portfolio.test.mjs
 

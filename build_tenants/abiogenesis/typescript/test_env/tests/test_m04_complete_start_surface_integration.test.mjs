@@ -48,7 +48,6 @@ test("M04 complete-start integration: bare callable start advances through subst
       "vector_evaluated",
       "vector_closed",
       "fd_advance_ready",
-      "basis_admitted",
       "terminal_reached"
     ]
   );

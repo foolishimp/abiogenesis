@@ -154,10 +154,12 @@ They do not become the owner of F_P runtime truth.
 The TypeScript line must preserve the ABG interpretation split established by
 `REQ-R-ABG3-INTERPRET-009` through `REQ-R-ABG3-INTERPRET-012`.
 
-`publicStart(...)` is a public ignition boundary. It locates, admits, or
-resumes a lawful graph-function execution boundary.
+`start(...)` is the public ignition boundary for the TypeScript RC line. It
+locates, admits, or resumes a lawful graph-function execution boundary and
+delegates to the M03-owned `start -> iterate` runner.
 
-It is not the complete execution engine.
+`publicStart(...)` remains as a compatibility adapter over `start(...)`. It is
+not a separate execution engine and must not own one-step advancement law.
 
 The runtime engine must own the internal iteration law beneath that public
 boundary:
@@ -177,7 +179,7 @@ parity. It has only proven one-vector admission over a composed declaration.
 
 The existing `M04` control loop remains an operator-facing supervision route
 over public outcomes. It is not a substitute for the internal ABG iterate
-engine, because package-level repetition over `publicStart(...)` cannot own
+engine, because package-level repetition over public entrypoints cannot own
 next-edge runtime law.
 
 Design consequence:
@@ -198,6 +200,11 @@ The concrete TypeScript `M03` design pack for this consequence is:
 The deterministic traversal-structure probe is a downstream diagnostic
 projection over this design pack. It is not next-edge authority and is not a
 new public operator command.
+
+An admitted request without an explicit runtime compute basis is not a lawful
+implicit traversal. The TypeScript line names that admission failure
+`no_compute_basis`; it is not a no-op, identity traversal, or automatic
+fallback to `F_D`, `F_P`, or `F_H`.
 
 ### 5.4 Retry/repair and leaf tasks stay substrate-owned
 
@@ -281,8 +288,9 @@ Its module-bounded carrier assets are:
 - [M04_CONTROL_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md](./M04_CONTROL_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md)
 
 That completed control-mode wave stays above completed `publicStart(...)`
-truth. It does not authorize direct event append, event-ingress,
-result-assessment, or install/bootstrap widening.
+truth. After T-072/T-074, that truth is produced by the same `start(...)`
+engine-owned route. The control-mode wave does not authorize direct event
+append, event-ingress, result-assessment, or install/bootstrap widening.
 
 The completed `M04` work in this tenant now includes:
 
@@ -290,7 +298,7 @@ The completed `M04` work in this tenant now includes:
 - one closed public-start outcome family
 - one admitted public control-loop request carrier
 - one closed public control-loop outcome family
-- one bounded supervision route over repeated `publicStart(...)`
+- one bounded supervision projection over `start(...)` public outcome truth
 - one bounded `human-proxy` route over explicit public stop detail
 
 The completed next `M04-app-bootstrap` wave derived from:

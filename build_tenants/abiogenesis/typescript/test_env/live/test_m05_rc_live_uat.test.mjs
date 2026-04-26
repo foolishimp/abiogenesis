@@ -8,6 +8,7 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { randomUUID } from "node:crypto";
 
 import {
   installPackedTenantPackage,
@@ -190,6 +191,196 @@ function resultArtifactPrompt(request, agentKey) {
     '  "resolved_runtime_ref": "runtime://typescript/rc-live"',
     "}"
   ].join("\n");
+}
+
+function semanticChallenge(nonce) {
+  return Object.freeze({
+    nonce,
+    product: "data_mapper",
+    requirements: Object.freeze([
+      Object.freeze({
+        id: "REQ-DM-INGEST",
+        statement: "Ingest CSV mapping files with declared source_digest values before transformation."
+      }),
+      Object.freeze({
+        id: "REQ-DM-REJECT-UNMAPPED",
+        statement: "Reject unmapped target fields and report the missing mapping as a blocking UAT failure."
+      }),
+      Object.freeze({
+        id: "REQ-DM-LINEAGE",
+        statement: "Publish lineage linking source_digest to derived_artifact identifiers for every generated mapping."
+      })
+    ])
+  });
+}
+
+function semanticResultArtifactPrompt(request, agentKey, challenge) {
+  return [
+    "Return only a JSON object. Do not include markdown or commentary.",
+    "You are satisfying an Abiogenesis TypeScript RC live semantic-generation challenge.",
+    "Do not copy a completed fulfillment_detail from this prompt; synthesize it from the source requirements.",
+    `Scenario: ${SCENARIO_NAME}`,
+    `Nonce: ${challenge.nonce}`,
+    `Expected edge: ${request.expectedEdge}`,
+    `Required fulfillment assessment id: ${request.expectedAssessmentIds[0]}`,
+    `Product: ${challenge.product}`,
+    "Source requirements:",
+    ...challenge.requirements.map(
+      (requirement) => `- ${requirement.id}: ${requirement.statement}`
+    ),
+    "The artifact must use the normal Abiogenesis result-artifact shape.",
+    "The single fulfillment_detail value must be a JSON string, not an object.",
+    "That JSON string must contain these keys: nonce, coverage, test_cases, negative_case, lineage_assertion.",
+    "coverage must list the requirement ids covered by the generated UAT plan.",
+    "test_cases must contain one generated UAT case per source requirement.",
+    "negative_case must describe the unmapped-target-field rejection.",
+    "lineage_assertion must mention source_digest and derived_artifact.",
+    "Use this top-level artifact shape, but synthesize fulfillment_detail:",
+    "{",
+    `  "edge": ${JSON.stringify(request.expectedEdge)},`,
+    `  "actor": ${JSON.stringify(agentKey)},`,
+    '  "fulfillment_assessments": [',
+    "    {",
+    `      "id": ${JSON.stringify(request.expectedAssessmentIds[0])},`,
+    `      "evaluator": ${JSON.stringify(request.expectedAssessmentIds[0])},`,
+    '      "fulfillment_status": "fulfilled",',
+    '      "fulfillment_detail": "<JSON string containing the generated UAT plan>",',
+    '      "blocking_reasons": [],',
+    `      "evidence_refs": [${JSON.stringify(`live://typescript-rc-uat-semantic/${challenge.nonce}`)}]`,
+    "    }",
+    "  ],",
+    `  "selected_worker_id": ${JSON.stringify(request.workerId)},`,
+    `  "selected_backend": ${JSON.stringify(request.backendId)},`,
+    '  "role_id": "role://rc-live-uat-semantic",',
+    '  "assignment_source": "policy_resolution",',
+    '  "resolved_runtime_ref": "runtime://typescript/rc-live-semantic"',
+    "}"
+  ].join("\n");
+}
+
+function assertString(value, label) {
+  assert.equal(typeof value, "string", `${label} must be a string`);
+  assert.notEqual(value.trim(), "", `${label} must be non-empty`);
+  return value;
+}
+
+function parseSemanticDetail(value) {
+  const detailText = assertString(value, "fulfillment_detail");
+  try {
+    return JSON.parse(detailText);
+  } catch (error) {
+    assert.fail(
+      `semantic fulfillment_detail must be parseable JSON: ${
+        error instanceof Error ? error.message : String(error)
+      }`
+    );
+  }
+}
+
+function semanticFieldText(value, label) {
+  if (typeof value === "string") {
+    return assertString(value, label);
+  }
+  if (typeof value === "object" && value !== null && !Array.isArray(value)) {
+    const text = JSON.stringify(value);
+    assert.notEqual(text, "{}", `${label} must be non-empty`);
+    return text;
+  }
+  assert.fail(`${label} must be a string or a non-empty object`);
+}
+
+function stringIncludesAll(haystack, terms) {
+  const lowered = haystack.toLowerCase();
+  return terms.every((term) => lowered.includes(term.toLowerCase()));
+}
+
+function evaluateSemanticArtifact(rawArtifact, request, challenge) {
+  assert.equal(rawArtifact.edge, request.expectedEdge);
+  assert.equal(rawArtifact.actor, liveAgentKey());
+  assert.equal(rawArtifact.selected_worker_id, request.workerId);
+  assert.equal(rawArtifact.selected_backend, request.backendId);
+  assert.equal(rawArtifact.role_id, "role://rc-live-uat-semantic");
+  assert.equal(rawArtifact.assignment_source, "policy_resolution");
+  assert.equal(rawArtifact.resolved_runtime_ref, "runtime://typescript/rc-live-semantic");
+  assert.deepStrictEqual(
+    Object.keys(rawArtifact).sort(),
+    [
+      "actor",
+      "assignment_source",
+      "edge",
+      "fulfillment_assessments",
+      "resolved_runtime_ref",
+      "role_id",
+      "selected_backend",
+      "selected_worker_id"
+    ]
+  );
+
+  assert.equal(Array.isArray(rawArtifact.fulfillment_assessments), true);
+  assert.equal(rawArtifact.fulfillment_assessments.length, 1);
+  const assessment = rawArtifact.fulfillment_assessments[0];
+  assert.equal(assessment.id, request.expectedAssessmentIds[0]);
+  assert.equal(assessment.evaluator, request.expectedAssessmentIds[0]);
+  assert.equal(assessment.fulfillment_status, "fulfilled");
+  assert.deepStrictEqual(assessment.blocking_reasons, []);
+  assert.deepStrictEqual(assessment.evidence_refs, [
+    `live://typescript-rc-uat-semantic/${challenge.nonce}`
+  ]);
+
+  const detail = parseSemanticDetail(assessment.fulfillment_detail);
+  assert.equal(detail.nonce, challenge.nonce);
+  assert.equal(Array.isArray(detail.coverage), true);
+  assert.deepStrictEqual(
+    [...detail.coverage].sort(),
+    challenge.requirements.map((requirement) => requirement.id).sort()
+  );
+  assert.equal(Array.isArray(detail.test_cases), true);
+  assert.equal(detail.test_cases.length, challenge.requirements.length);
+
+  const detailText = JSON.stringify(detail);
+  const caseRequirementIds = new Set();
+  for (const [index, testCase] of detail.test_cases.entries()) {
+    const label = `test_cases[${index}]`;
+    const requirementId = assertString(testCase.requirement_id, `${label}.requirement_id`);
+    caseRequirementIds.add(requirementId);
+    assertString(testCase.title ?? testCase.name, `${label}.title_or_name`);
+    assertString(testCase.expected_result, `${label}.expected_result`);
+    const steps = Array.isArray(testCase.steps)
+      ? testCase.steps
+      : typeof testCase.procedure === "string"
+        ? [testCase.procedure]
+        : [];
+    assert.ok(steps.length > 0, `${label}.steps_or_procedure must be non-empty`);
+    for (const [stepIndex, step] of steps.entries()) {
+      assertString(step, `${label}.steps[${stepIndex}]`);
+    }
+  }
+  assert.deepStrictEqual(
+    [...caseRequirementIds].sort(),
+    challenge.requirements.map((requirement) => requirement.id).sort()
+  );
+  const negativeCaseText = semanticFieldText(detail.negative_case, "negative_case");
+  const lineageAssertionText = semanticFieldText(
+    detail.lineage_assertion,
+    "lineage_assertion"
+  );
+  assert.equal(stringIncludesAll(detailText, ["csv", "source_digest"]), true);
+  assert.equal(stringIncludesAll(detailText, ["unmapped", "blocking"]), true);
+  assert.equal(stringIncludesAll(detailText, ["lineage", "derived_artifact"]), true);
+  assert.equal(stringIncludesAll(negativeCaseText, ["unmapped", "blocking"]), true);
+  assert.equal(
+    stringIncludesAll(lineageAssertionText, ["source_digest", "derived_artifact"]),
+    true
+  );
+
+  return Object.freeze({
+    kind: "semantic_generation_evaluation",
+    nonce: challenge.nonce,
+    coveredRequirementIds: Object.freeze([...detail.coverage].sort()),
+    generatedCaseCount: detail.test_cases.length,
+    detailCharCount: assessment.fulfillment_detail.length,
+    evidenceRefs: Object.freeze([...assessment.evidence_refs])
+  });
 }
 
 function rcLiveDispatchSource(agentKey) {
@@ -505,6 +696,134 @@ test("M05 RC live sandbox UAT: real F_P transport artifact is ingested through t
     assert.fail(`live transport returned non-JSON artifact; archive: ${root}`);
   }
 
+  await writeJson(path.join(root, "result_artifact.json"), rawArtifact);
+  await writeFile(
+    path.join(targetRoot, ".abiogenesis", "rc-live-result-artifact.json"),
+    `${JSON.stringify(rawArtifact, null, 2)}\n`,
+    "utf8"
+  );
+
+  const assessmentRun = await runInstalledNodeScript(
+    targetRoot,
+    rcLiveAssessmentSource()
+  );
+  await writeJson(path.join(root, "assessment-script.json"), {
+    status: assessmentRun.status,
+    stderr: assessmentRun.stderr
+  });
+  assert.equal(assessmentRun.status, 0, assessmentRun.stderr);
+
+  const assessment = JSON.parse(assessmentRun.stdout);
+  await writeJson(path.join(root, "assessment_projection.json"), assessment);
+
+  assert.equal(assessment.assessmentOutcome.kind, "accepted");
+  assert.equal(assessment.projection.kind, "ready");
+  assert.equal(assessment.projection.runStatus, "assessed");
+  assert.deepStrictEqual(assessment.eventKinds, ["assessed"]);
+  assert.deepStrictEqual(
+    [...dispatchBundle.eventKinds, ...assessment.eventKinds],
+    EXPECTED_FULL_EVENT_CHAIN
+  );
+});
+
+test("M05 RC live sandbox UAT: live F_P worker synthesizes challenge-specific UAT content", async (t) => {
+  if (!liveEnabled()) {
+    t.skip("set ABG_TS_LIVE_UAT=1 or CODEX_LIVE_FP=1 to run TypeScript RC live semantic UAT");
+    return;
+  }
+
+  const agentKey = liveAgentKey();
+  const challenge = semanticChallenge(`semantic-${randomUUID()}`);
+  const root = archiveRoot();
+  await mkdir(root, { recursive: true });
+
+  const { targetRoot } = await provisionInstalledRoot();
+  const packageInstall = await installPackedTenantPackage(targetRoot);
+
+  await writeJson(path.join(root, "run.json"), {
+    scenarioName: `${SCENARIO_NAME}_semantic_generation`,
+    tenantRoot: TENANT_ROOT,
+    targetRoot,
+    packageRoot: packageInstall.packageRoot,
+    packageTarball: packageInstall.tarballPath,
+    agentKey,
+    challenge,
+    startedAt: new Date().toISOString(),
+    command: "npm run test:live:uat"
+  });
+
+  const dispatchRun = await runInstalledNodeScript(
+    targetRoot,
+    rcLiveDispatchSource(agentKey)
+  );
+  await writeJson(path.join(root, "dispatch-script.json"), {
+    status: dispatchRun.status,
+    stderr: dispatchRun.stderr
+  });
+  assert.equal(dispatchRun.status, 0, dispatchRun.stderr);
+
+  const dispatchBundle = JSON.parse(dispatchRun.stdout);
+  await writeJson(path.join(root, "dispatch_projection.json"), {
+    scenarioName: dispatchBundle.scenarioName,
+    startOutcome: dispatchBundle.startOutcome,
+    eventKinds: dispatchBundle.eventKinds
+  });
+  await writeJson(path.join(root, "dispatch_request.json"), dispatchBundle.dispatchRequest);
+  await writeJson(path.join(root, "semantic_challenge.json"), challenge);
+  await mkdir(path.join(targetRoot, ".abiogenesis"), { recursive: true });
+  await writeFile(
+    path.join(targetRoot, ".abiogenesis", "rc-live-dispatch.json"),
+    `${JSON.stringify(dispatchBundle, null, 2)}\n`,
+    "utf8"
+  );
+
+  const request = dispatchBundle.dispatchRequest;
+  assert.equal(dispatchBundle.startOutcome.kind, "blocked");
+  assert.equal(dispatchBundle.startOutcome.stopPredicate, "dispatch_required");
+  assert.equal(request.expectedEdge, "requirements→uat_tests");
+  assert.deepStrictEqual(request.expectedAssessmentIds, ["uat_tests_complete"]);
+  assert.deepStrictEqual(dispatchBundle.eventKinds, EXPECTED_FULL_EVENT_CHAIN.slice(0, -1));
+
+  const readiness = runTransport(
+    request,
+    readinessPrompt(),
+    targetRoot,
+    root,
+    "readiness"
+  );
+  await writeJson(path.join(root, "readiness.json"), readiness);
+  if (readiness.status !== 0 || !readiness.text.includes(READY_TOKEN)) {
+    t.skip(
+      `configured live backend is not ready for ${agentKey}; diagnostic archived at ${root}`
+    );
+    return;
+  }
+
+  const prompt = semanticResultArtifactPrompt(request, agentKey, challenge);
+  await writeFile(path.join(root, "prompt.txt"), prompt, "utf8");
+  const transport = runTransport(request, prompt, targetRoot, root, "dispatch");
+  await writeJson(path.join(root, "transport.json"), transport);
+  await writeFile(path.join(root, "raw_response.txt"), transport.text, "utf8");
+
+  assert.equal(
+    transport.status,
+    0,
+    `live transport failed; archive: ${root}\n${transport.stderr}`
+  );
+
+  let rawArtifact;
+  try {
+    rawArtifact = extractJsonObject(transport.text);
+  } catch (error) {
+    await writeJson(path.join(root, "contract_failure.json"), {
+      message: error instanceof Error ? error.message : String(error),
+      rawResponse: transport.text
+    });
+    assert.fail(`live transport returned non-JSON artifact; archive: ${root}`);
+  }
+
+  const semanticEvaluation = evaluateSemanticArtifact(rawArtifact, request, challenge);
+  await writeJson(path.join(root, "semantic_evaluation.json"), semanticEvaluation);
   await writeJson(path.join(root, "result_artifact.json"), rawArtifact);
   await writeFile(
     path.join(targetRoot, ".abiogenesis", "rc-live-result-artifact.json"),

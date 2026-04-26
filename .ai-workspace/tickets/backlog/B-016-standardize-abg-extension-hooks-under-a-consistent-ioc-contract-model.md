@@ -3,7 +3,7 @@
 - id: B-016
 - title: Standardize ABG extension hooks under a consistent IoC contract model so runtime depends on contracts, not concrete implementations
 - type: bug
-- status: completed
+- status: backlog
 - goal: ioc-hook-standardization
 - change_intent: Refactor ABG extension seams so every hook follows one inversion-of-control model with an explicit contract, reference, and resolver or provider boundary, allowing domains to supply implementations without ABG learning domain semantics or coupling to one storage or transport realization.
 - change_class: realization_refactor
@@ -14,7 +14,12 @@
 - affected_boundary: runtime bootstrap hooks, policy surfaces, transport, context loading, asset binding, fulfillment truth publication and resolution, runtime certification, live status and reporting resolution
 - triaged_at: 2026-04-18
 - created_at: 2026-04-18
-- updated_at: 2026-04-18
+- updated_at: 2026-04-26
+- reopened_at: 2026-04-26
+- invalidated_completion_at: 2026-04-26T11:10:02Z
+- latest_slice: TypeScript runner-facing plugin slice completed under T-072 and
+  corrected by T-074. The broader B-016 hook standardization umbrella remains
+  open because classified hook-family rows are not runtime consumer proof.
 - completed_prerequisites:
   - B-015 fulfillment-ledger ref/resolver slice completed 2026-04-18
 
@@ -382,7 +387,103 @@ Any GTL uplift should come only after:
 Only then should GTL syntactic sugar be added, so the language surface is
 lifting a stable contract rather than fossilizing a transitional runtime shape.
 
-## Completion Record
+## Reopen Correction 2026-04-26
+
+This ticket is reopened. The prior decomposition closure is not accepted as
+closure evidence.
+
+Correction basis:
+
+- ABG must remain the single framework-authoritative engine.
+- Domains and downstream products may supply IoC plugins, providers, resolvers,
+  policy overlays, and semantic interpretation, but they must not own traversal
+  framework authority.
+- A set of narrower tickets does not close this umbrella unless those tickets
+  prove the full hook inventory and prove every extension seam is either ABG
+  engine law or an injected IoC implementation behind a stable contract.
+- Product-side orchestration loops, tenant-local runners, or app-specific retry
+  controllers are non-closure evidence when they recreate engine authority
+  outside ABG.
+
+Current closure bar:
+
+- publish a current ABG hook inventory
+- classify each hook as engine-owned framework law or IoC plugin contract
+- prove ABG owns start/iterate/traversal/continuation authority exactly once
+- prove every downstream extension enters through a provider/resolver/plugin
+  contract without moving framework authority downstream
+- satisfy `DESIGN_MODULE_METHOD.md` for the plugin boundary: IACS, structural
+  carrier diagram, authority matrix, subordinate payload register, module-derived
+  unit proof, and design-method closure review
+- prove local collapse: duplicate truth, parser re-entry, callback-specific
+  result shapes, and rival authority paths are removed inside each plugin seam
+- prove global collapse: recurring plugin shapes are commonized into reusable
+  contract families or explicitly justified as distinct authority surfaces
+- update affected TypeScript ABG tickets so the missing engine-owned iterate
+  runner is evaluated against this IoC authority rule
+
+TypeScript first closure gate:
+
+- `T-072` must not close until it publishes the TypeScript plugin inventory and
+  tests every runner-facing plugin seam
+- each plugin test must prove both lawful substitution and fail-closed rejection
+  when the plugin tries to own traversal selection, iteration, closure, or event
+  authority outside its admitted contract
+- plugin design must pass the `DESIGN_MODULE_METHOD.md` boundary-inflation,
+  Prime Law, local optimization, and recurrence/commonization checks before
+  `T-072` can claim closure
+- `T-072` may close its runner slice before this umbrella closes only if B-016
+  compliance is satisfied for every plugin seam touched by that runner slice
+
+## Corrective Reopen 2026-04-26
+
+The TypeScript closure record above was invalidated by STDO review feedback.
+
+Corrected state:
+
+- `T-072` realizes the runner-facing plugin slice: runtime event sink, F_D
+  evaluator, F_P dispatch, and F_H admission.
+- `T-074` repairs F_P assessed-result re-entry so replayed `assessed` truth
+  closes the matching vector and prevents redispatch of the same edge.
+- `enginePluginInventory()` now distinguishes `runner_consumed` seams from
+  `classified_hook_family` rows.
+- classified rows for result assessment, event ingress, continuation repair,
+  policy provider, runtime identity provider, operator asset resolver, context
+  resolver, projection consumer, and GTL hook reference are classification
+  proof only. They do not prove those hook families are fully migrated to
+  runtime consumer contracts.
+- `publicStart(...)` remains a compatibility adapter over `startFromRequest(...)`
+  and does not own lower M03 runtime law.
+
+Current focused proof:
+
+- `npm run test:b016` passed: 13 tests.
+- `npm run test:t072` passed: 14 tests.
+- `npm run test:t044` passed: 9 tests.
+- `npm run test:t066` passed: 1 test.
+- `npm run test:semantic` passed: 239 tests.
+- `npm run lint:semantic` passed.
+- ODD SDLC B-068/B-069 emergent outcome-iteration sandbox passed: 4 tests.
+- ODD SDLC `npm run test:sandbox` passed: 5 tests.
+- `CODEX_LIVE_FP=1 npm run test:live:uat` passed: 2 tests, 53448.786ms.
+- `CODEX_LIVE_FP=1 npm run test:live` passed: 1 test, 153622.118375ms.
+- `git diff --check` passed.
+
+Open B-016 closure bar:
+
+- migrate or explicitly retire each classified-only hook-family row through a
+  boundary ticket
+- prove per-family runtime consumer usage where the family remains executable
+- keep projection consumers and declaration refs read-only/declarative
+- preserve the rule that no downstream tenant owns traversal selection,
+  iteration, event authority, graph-function closure, retry policy, or
+  continuation law
+
+Superseded closure comment:
+
+- `.ai-workspace/comments/codex/20260426T111002Z_CLOSURE_b016_typescript_ioc_hook_standardization.md`
+
+## Superseded Completion Record
 
 This ticket closes by decomposition.
 

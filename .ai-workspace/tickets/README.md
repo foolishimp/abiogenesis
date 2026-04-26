@@ -125,6 +125,25 @@ The ticket records that durable work item.
 
 The ticket does not bypass the method.
 
+## STDO Method Shorthand
+
+Tickets may declare `governance_scope: STDO Method` when a work item must be
+reviewed under the full research-lab governance stack.
+
+`STDO` expands to:
+
+- `S` = `SPEC_METHOD.md`
+- `T` = `TICKET_METHOD.md`
+- `D` = `DESIGN_MODULE_METHOD.md`
+- `O` = `ODD_METHOD.md`
+
+`governance_scope: STDO Method` means the ticket must satisfy:
+
+- lawful constitutional re-entry and authority flow from `SPEC_METHOD.md`
+- ticket execution-contract and closure discipline from `TICKET_METHOD.md`
+- module, carrier, IACS, and proof discipline from `DESIGN_MODULE_METHOD.md`
+- outcome-first graph traversal and GTL/ABG product law from `ODD_METHOD.md`
+
 ## Relationship To Comments
 
 Use `.ai-workspace/comments/` for:

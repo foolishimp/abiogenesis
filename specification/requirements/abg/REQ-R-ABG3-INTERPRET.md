@@ -37,3 +37,5 @@ event-authoritative aggregates.
 **REQ-R-ABG3-INTERPRET-011**: Next-edge selection shall be derived from graph-call, frame, vector-local traversal, evaluation, proof, and closure event truth. It shall not be inferred from private controller memory, package-local loop counters, or a fixed first-vector shortcut.
 
 **REQ-R-ABG3-INTERPRET-012**: A realization shall not claim graph-function execution parity when it only materializes a composed graph function or dispatches one selected vector without proving replay-derived progression across the callable graph boundary.
+
+**REQ-R-ABG3-INTERPRET-013**: ABG shall name an admitted graph-function execution request with no declared runtime compute basis as `no_compute_basis`. It shall not treat an uninitialized traversal as a no-op, identity traversal, deterministic fallback, probabilistic fallback, or human fallback.

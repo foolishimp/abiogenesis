@@ -26,3 +26,9 @@ Define higher-order graph-function combinators in GTL 3.
 **REQ-L-GTL3-HOF-006**: Higher-order operations shall be lawful graph-function combinators, not hidden planner or interpreter heuristics.
 
 **REQ-L-GTL3-HOF-007**: Higher-order vector operations may expose evaluator-result vectors, candidate-result vectors, or other harvested result vectors over a contract boundary while leaving merge semantics external to GTL.
+
+**REQ-L-GTL3-HOF-008**: Zoom-in, zoom-out, and fold terminology shall resolve
+to existing lawful GTL higher-order operations or be repriced into new
+requirements before implementation. Informal zoom or fold vocabulary shall not
+authorize hidden interpreter heuristics, unowned registers, or duplicate graph
+algebra.

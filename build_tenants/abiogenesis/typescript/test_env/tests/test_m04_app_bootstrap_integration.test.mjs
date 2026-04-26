@@ -24,7 +24,7 @@ import {
   runtimeIdentity
 } from "./support/m04-fixtures.mjs";
 
-test("M04 integration: publicStart routes through M03 emit for F_D and stays stable through package exports", async () => {
+test("M04 integration: publicStart routes through engine-owned M03 iteration for F_D and stays stable through package exports", async () => {
   const profile = publishedProfile({
     id: "graph-function-m04-int-fd",
     name: "public_profile_fd",
@@ -59,7 +59,8 @@ test("M04 integration: publicStart routes through M03 emit for F_D and stays sta
     }
   );
 
-  assert.equal(outcome.kind, "advanced");
+  assert.equal(outcome.kind, "converged");
+  assert.equal(outcome.terminalKind, "converged");
   assert.deepStrictEqual(events.map((event) => event.kind), [
     "basis_admitted",
     "graph_call_opened",
@@ -67,7 +68,8 @@ test("M04 integration: publicStart routes through M03 emit for F_D and stays sta
     "vector_traversal_planned",
     "vector_evaluated",
     "vector_closed",
-    "fd_advance_ready"
+    "fd_advance_ready",
+    "terminal_reached"
   ]);
   assert.equal(outcome.runtimeIdentity.resolvedRuntimeRef, "runtime://typescript/node");
 

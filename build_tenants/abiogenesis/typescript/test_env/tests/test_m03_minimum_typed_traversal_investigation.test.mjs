@@ -208,6 +208,6 @@ test("T-061 investigation: absent policy basis still fails closed for typed trav
       admitResolvedPolicyIdentity({
         resolvedPolicyBundleRef: "policy://t061/no-basis"
       }),
-    /defaultRegime/
+    /no_compute_basis/
   );
 });

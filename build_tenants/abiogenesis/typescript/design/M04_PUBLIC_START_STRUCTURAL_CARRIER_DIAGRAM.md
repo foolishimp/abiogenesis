@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Date**: 2026-04-23
-**Derived from**: [M04_PUBLIC_START_DERIVATION.md](./M04_PUBLIC_START_DERIVATION.md), [M04_FIRST_SLICE_IACS.md](./M04_FIRST_SLICE_IACS.md), [ABG_3_MODULE_DESIGN.md](./ABG_3_MODULE_DESIGN.md), [T-012](../../.ai-workspace/tickets/completed/T-012-realize-typescript-m04-public-start-steel-thread-over-kernel-owned-runtime-law.md)
+**Derived from**: [M04_PUBLIC_START_DERIVATION.md](./M04_PUBLIC_START_DERIVATION.md), [M04_FIRST_SLICE_IACS.md](./M04_FIRST_SLICE_IACS.md), [ABG_3_MODULE_DESIGN.md](./ABG_3_MODULE_DESIGN.md), [T-012](../../.ai-workspace/tickets/completed/T-012-realize-typescript-m04-public-start-steel-thread-over-kernel-owned-runtime-law.md), [T-072](../../.ai-workspace/tickets/completed/T-072-realize-typescript-abg-start-to-iterate-engine-runner.md), [B-016](../../.ai-workspace/tickets/backlog/B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md)
 **Purpose**: Module-bounded structural carrier sign-off asset for the first
 TypeScript `M04-app-bootstrap` public-start slice.
 
@@ -13,7 +13,7 @@ This diagram covers the active first `M04` boundary only:
 - one admitted public start request carrier
 - one closed public start outcome family
 - one explicit runtime or worker identity projection path
-- one canonical route into completed `M03` kernel truth
+- one canonical route into completed `M03` `start -> iterate` engine truth
 
 It does **not** claim to show:
 
@@ -53,6 +53,14 @@ class KernelRouteBinding {
   -moduleName
   -workspaceRoot
   -resolvedRuntimeRef
+}
+
+class PublicStartContext {
+  <<subordinate>>
+  -module
+  -runtimeIdentity
+  -resolvedPolicy
+  -runtimeEvents
 }
 
 class PublicStartOutcome {
@@ -136,6 +144,14 @@ class RuntimeEvent {
   <<authoritative>>
 }
 
+class EngineStartRunner {
+  <<downstream>>
+  <<authoritative>>
+  +start
+  +iterate
+  +emit
+}
+
 class AutoProgressionLoop {
   <<deferred>>
 }
@@ -159,9 +175,11 @@ class InstallBootstrap {
 PublicStartRequest *-- PublicControlModes
 PublicStartRequest *-- ConfiguredRuntimeSelector
 PublicStartRequest *-- KernelRouteBinding
+KernelRouteBinding *-- PublicStartContext
 PublicStartRequest --> StartIntent
 KernelRouteBinding --> StartIntent
 KernelRouteBinding --> ExecutionBasis
+KernelRouteBinding --> EngineStartRunner : delegates
 PublicStartOutcome <|-- PublicStartAdvanced
 PublicStartOutcome <|-- PublicStartBlocked
 PublicStartOutcome <|-- PublicStartYielded
@@ -186,6 +204,7 @@ PublicStartAdvanced --> RuntimeEvent
 PublicStartBlocked --> RuntimeEvent
 PublicStartYielded --> RuntimeEvent
 PublicStartConverged --> RuntimeEvent
+RuntimeEvent --> EngineStartRunner : emitted by
 PublicStartOutcome ..> AutoProgressionLoop : consumed later
 PublicStartOutcome ..> HumanProxyDecision : consumed later
 PublicStartOutcome ..> EventIngressCommand : downstream later
@@ -214,6 +233,8 @@ This asset is the visual check that:
 - control modes, runtime selection, stop detail, and kernel trace are nested
   subordinate detail rather than rival public carriers
 - `M04` consumes `StartIntent`, `ExecutionBasis`, `AdvancementTransition`, and
-  `RuntimeEvent` as upstream kernel truth instead of reconstructing them
+  `RuntimeEvent` as upstream engine-runner truth instead of reconstructing them
+- `publicStart(...)` is a compatibility adapter over `start(...)`; it does not
+  own a separate event-construction or single-transition path
 - loop, proxy, ingest, install, and qualification families remain explicitly
   deferred

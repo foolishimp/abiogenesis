@@ -97,7 +97,8 @@ test("ABG common library integration: M04 proof adapter consumes reusable profil
     resolvedPolicy.resolvedPolicyBundleRef,
     sharedProfile.runtimeContext.resolvedPolicyBundleRef
   );
-  assert.equal(outcome.kind, "advanced");
+  assert.equal(outcome.kind, "converged");
+  assert.equal(outcome.terminalKind, "converged");
   assert.deepStrictEqual(events.map((event) => event.kind), [
     "basis_admitted",
     "graph_call_opened",
@@ -105,6 +106,7 @@ test("ABG common library integration: M04 proof adapter consumes reusable profil
     "vector_traversal_planned",
     "vector_evaluated",
     "vector_closed",
-    "fd_advance_ready"
+    "fd_advance_ready",
+    "terminal_reached"
   ]);
 });

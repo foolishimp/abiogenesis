@@ -6,10 +6,9 @@
 
 ## Purpose
 
-Declare the next TypeScript `M04-app-bootstrap` slice as an explicit control-loop
-carrier inventory so supervision and proxy behavior stay above completed
-`PublicStartRequest` / `PublicStartOutcome` truth rather than reforming a second
-runtime doctrine in package helpers.
+Declare the TypeScript `M04-app-bootstrap` control carrier inventory so
+supervision and proxy behavior stay above public start outcome truth rather
+than reforming a second runtime doctrine in package helpers.
 
 ## M04 Control-Loop First Slice Boundary
 
@@ -17,12 +16,13 @@ The first TypeScript control-loop wave is:
 
 - one admitted public control-loop request carrier over completed
   `PublicStartRequest` truth
-- one closed public control-loop outcome family over repeated
+- one closed public control-loop outcome family over `start(...)`
   `PublicStartOutcome` truth
-- one bounded supervision route for `root_mode=supervised`
+- one bounded supervision projection for `root_mode=supervised`
 - one bounded proxy-facing control path over explicit `human_gate_required`
   outcome truth
-- one canonical loop route that repeatedly calls completed `publicStart(...)`
+- one canonical route that calls completed `start(...)` once and leaves
+  graph-function iteration in M03
 
 This wave does **not** include:
 
@@ -62,8 +62,8 @@ outcome family rather than separate outer carrier families.
 
 | Carrier | Owning module | Role | Ingress boundary | Effect boundary | Downstream consumers |
 | --- | --- | --- | --- | --- | --- |
-| `PublicControlLoopRequest` | `M04-app-bootstrap` | authoritative public control ingress | package/control-loop parser | none | control-loop route binding, repeated `publicStart(...)` invocation |
-| `PublicControlLoopOutcome` | `M04-app-bootstrap` | authoritative public control outcome family | derived from admitted control request plus repeated `PublicStartOutcome` truth | none | root package export, later event/assessment ingress, later qualification lanes |
+| `PublicControlLoopRequest` | `M04-app-bootstrap` | authoritative public control ingress | package/control-loop parser | none | control route binding, one `start(...)` invocation |
+| `PublicControlLoopOutcome` | `M04-app-bootstrap` | authoritative public control outcome family | derived from admitted control request plus `start(...)` `PublicStartOutcome` truth | none | root package export, later event/assessment ingress, later qualification lanes |
 
 `PublicControlLoopRequest` and `PublicControlLoopOutcome` are the only prime
 outer carriers in this slice.
@@ -72,8 +72,8 @@ outer carriers in this slice.
 
 | Shape | Status | Why not prime | Admission rule |
 | --- | --- | --- | --- |
-| `ControlLoopRouteBinding` | subordinate | route-owned loop detail that binds the control request to repeated `publicStart(...)` invocation | constructed once by `M04`, not exposed as a rival public carrier |
-| `PublicControlLoopTraceRef` | subordinate | public trace/provenance detail over repeated public-start truth, not an outer carrier | derived once from the repeated `PublicStartOutcome` family |
+| `ControlLoopRouteBinding` | subordinate | route-owned detail that binds the control request to `start(...)` invocation | constructed once by `M04`, not exposed as a rival public carrier |
+| `PublicControlLoopTraceRef` | subordinate | public trace/provenance detail over start outcome truth, not an outer carrier | derived once from the `PublicStartOutcome` family |
 | `PublicControlLoopStopDetail` | subordinate | outcome-detail payload only | derived from repeated public-start outcome truth |
 | `HumanProxyApprovalHint` | subordinate | bounded proxy-facing control detail, not a separate public carrier | derived only when a `human_gate_required` seam is preserved under `fh_mode=human-proxy` |
 | `PublicControlLoopConverged` | prime family variant | explicit public outcome variant, not a separate outer carrier family | pattern-matched as part of `PublicControlLoopOutcome` |
@@ -91,12 +91,12 @@ outer carriers in this slice.
 ## M04 Control-Loop First Slice Rules
 
 - `PublicControlLoopRequest` carries completed `PublicStartRequest` as the
-  authoritative source carrier for repeated public-start invocation.
+  authoritative source carrier for `start(...)` invocation.
 - `PublicControlLoopRequest` does not reopen raw `scope`, `target`, `until`,
   `fh_mode`, or `root_mode` as rival public authority once the upstream
   public-start request is admitted.
-- `root_mode=supervised` is realized by repeated invocation of canonical
-  `publicStart(...)` only.
+- `root_mode=supervised` is realized by projecting the single canonical
+  `start(...)` outcome. M03 owns repeated graph-function traversal.
 - `fh_mode=human-proxy` may preserve `human_gate_required` as explicit public
   control truth and may derive `HumanProxyApprovalHint` from admitted
   `approvalSubjectRef`, but it must not append approval events directly in this
@@ -110,11 +110,11 @@ outer carriers in this slice.
   detail when the control loop rejects that seam; it must not be relabeled as
   yielded truth.
 - `PublicControlLoopOutcome` may expose trace and stop detail derived from
-  repeated `PublicStartOutcome` truth, but it must not reinterpret raw runtime
-  events or kernel payloads directly.
-- This slice may route through completed `publicStart(...)`. It may not call
-  lower kernel admission/emit surfaces directly unless that routing still
-  occurs through the completed public-start boundary.
+  `PublicStartOutcome` truth, but it must not reinterpret raw runtime events or
+  kernel payloads directly.
+- This slice routes through completed `start(...)`. It may not call lower
+  kernel admission/emit surfaces directly unless that routing still occurs
+  through the public start boundary.
 
 ## Promotion Rule
 

@@ -8,6 +8,13 @@ import type { Job } from "../../../gtl/m02/contracts/carriers.js";
 
 export type RuntimeRegime = "F_D" | "F_P" | "F_H";
 
+export const COMPUTE_BASIS_FAILURE_CLASS_VALUES = Object.freeze([
+  "no_compute_basis"
+] as const);
+
+export type ComputeBasisFailureClass =
+  (typeof COMPUTE_BASIS_FAILURE_CLASS_VALUES)[number];
+
 export const RUNTIME_FAILURE_CLASS_VALUES = Object.freeze([
   "runtime_unavailable",
   "capability_missing",

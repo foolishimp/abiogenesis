@@ -3,7 +3,7 @@
 - id: B-010
 - title: Induct ABG source development under odd_sdlc governance (without boundary collapse)
 - type: methodology
-- status: completed
+- status: blocked
 - goal: abg-self-governance
 - change_intent: Run ABG 2.0 source development under a released odd_sdlc product as the governing runtime, without collapsing the boundary between the mutable source project and the released product.
 - change_class: intent_reprice
@@ -13,7 +13,15 @@
 - affected_boundary: ABG development process, test qualification authority
 - triaged_at: 2026-04-17
 - created_at: 2026-04-17
-- updated_at: 2026-04-17
+- updated_at: 2026-04-26
+- reopened_at: 2026-04-26
+- blocked_at: 2026-04-26
+- blocking_dependency: stable released ODD SDLC product selected as governing
+  source-development substrate
+- blocked_reason: ABG source induction cannot be actioned until an ODD SDLC
+  release candidate is stable enough to govern ABG source development without
+  reintroducing root `.genesis` residue or collapsing source/install/product
+  boundaries.
 
 ## Correction from prior version
 
@@ -63,14 +71,55 @@ Induction is **low value until a 2.0 plan exists**.
 
 ## Preconditions
 
-- odd_sdlc 1.0 stable and released (data_mapper qualifying run passes cleanly — in progress).
+- odd_sdlc stable and released, with an explicit release candidate selected as
+  the governing source-development substrate.
 - ABG 2.0 goals declared.
 
 ## Not in scope for 1.1
 
 - ABG 1.1 is a patch/bug-fix release. Development process changes belong to 2.0.
 
-## Completion Record
+## Reopen Correction 2026-04-26
+
+This ticket is reopened. The prior deferred-precondition closure is not accepted
+as a completed induction record.
+
+Correction basis:
+
+- ABG must not be treated as inducted under an SDLC runtime until a concrete SDLC
+  candidate product exists and is selected as governing substrate.
+- A root-level `.genesis` install in the ABG source workspace is not lawful
+  source truth for this induction. It is local generated residue unless and until
+  a governed SDLC candidate, installation boundary, and product/source boundary
+  are explicitly ratified.
+- The ticket may remain deferred, but it must not sit in `completed/` because it
+  can be misread as an executed governance induction.
+
+Current closure bar:
+
+- declare an explicit ABG governance wave or ABG 2.x source-development wave
+- identify the released SDLC product that governs the source line
+- state the install/source boundary without creating root runtime authority in
+  the mutable ABG source project
+- remove or quarantine local root `.genesis` residue before claiming induction
+  closure
+- open replacement implementation tickets only after the SDLC candidate exists
+
+## Blocked State 2026-04-26
+
+This ticket is deliberately blocked, not actionable backlog.
+
+It must remain blocked until:
+
+- a stable ODD SDLC release candidate exists
+- that candidate is selected as the governing product for an ABG source wave
+- the ABG source/install/product boundary is stated before any runtime residue
+  is created in the ABG source root
+
+No `.genesis` root induction, install bootstrap, or source-development runtime
+claim is authorized under this ticket before those preconditions hold.
+
+## Superseded Completion Record
 
 This ticket closes as an explicit deferred-precondition record, not as an
 executed induction wave.

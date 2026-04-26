@@ -44,9 +44,13 @@ Full parity requires an internal kernel iteration boundary:
   runtime truth
 - projection determines whether to advance, stop, yield, open a continuation,
   close a frame, or close a graph call
+- a request with no declared runtime compute basis fails closed as
+  `no_compute_basis` before ABG treats the traversal as a no-op, identity, or
+  implicit runtime fallback
 
-The app/control layer may call public start repeatedly for operator
-supervision, but it does not own next-edge law.
+The app/control layer delegates complete start-to-iterate execution to M03.
+It may project operator-facing control truth from the returned public outcome,
+but it does not repeat public start as graph-function execution law.
 
 ## 3. Superseded TypeScript Shape
 
@@ -132,15 +136,44 @@ Implementation must declare and then land proof lanes for:
 - deterministic replay of run, graph-call, frame, and continuation projection
 - deterministic traversal-structure probing that distinguishes graph shape,
   typed interface authority, declared compute carriers, runtime policy
-  interpretation, event kinds, and forbidden overclaims
+  interpretation, graph-call/frame replay identity, current vector evidence,
+  event kinds, and forbidden overclaims
 - a composed three-stage graph function whose second and third vectors are
   selected from emitted runtime facts, not from harness sequencing
+- a named `no_compute_basis` failure taxonomy for absent runtime compute
+  policy
 - a negative first-vector-only realization rejected as non-parity
 - a negative local-counter realization rejected as non-authoritative
 - binding/environment projection that fails closed when an internal target
   requires undeclared carried context
 
-## 8. Deferred Boundary
+## 8. T-072 Realized Boundary
+
+`T-072` realizes the first ABG-owned start-to-iterate runner in TypeScript.
+
+The runner lives below `M04` and owns:
+
+- replay projection on every turn
+- next-vector selection
+- graph-call, frame, vector traversal, evaluation, closure, and terminal event
+  emission
+- F_D advancement to convergence without public-start repetition
+- F_P dispatch stop projection
+- F_P assessed-result re-entry, where admitted `assessed` runtime truth closes
+  the matching replay vector and advances to the next vector without
+  redispatching the same edge
+- F_H gate stop projection
+- plugin output admission through the common `EnginePluginContract` family
+
+`M04` now exposes `start(...)` as the public ignition/resume wrapper. The
+wrapper admits the public request and delegates to the M03 runner. It does not
+own iteration.
+
+`publicControlLoop(...)` remains a public compatibility/control projection. It
+calls `start(...)` once and derives `PublicControlLoopOutcome` from that public
+outcome.
+
+## 9. Deferred Boundary
 
 This design does not implement generic retry/repair or bounded leaf-task
 governance. Those are owned by `T-042`.
@@ -151,7 +184,7 @@ public app/bootstrap layer.
 This design does not complete the public stop taxonomy. That remains `T-035`
 and `B-030-TS`.
 
-## 9. Consequence
+## 10. Consequence
 
 The successor implementation ticket must open under `M03-engine-kernel` and
 must consume the carrier family declared by:

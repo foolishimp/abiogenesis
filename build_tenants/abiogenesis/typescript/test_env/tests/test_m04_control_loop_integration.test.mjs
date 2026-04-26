@@ -24,7 +24,7 @@ import {
   runtimeIdentity
 } from "./support/m04-fixtures.mjs";
 
-test("M04 control integration: supervised control loop re-enters canonical publicStart from replay-derived truth", async () => {
+test("M04 control integration: supervised control delegates to ABG-owned start-to-iterate truth", async () => {
   const profile = publishedProfile({
     id: "graph-function-m04-control-int-fd",
     name: "public_profile_fd",
@@ -62,7 +62,7 @@ test("M04 control integration: supervised control loop re-enters canonical publi
   );
 
   assert.equal(outcome.kind, "converged");
-  assert.deepStrictEqual(outcome.trace.stepKinds, ["advanced", "converged"]);
+  assert.deepStrictEqual(outcome.trace.stepKinds, ["converged"]);
   assert.deepStrictEqual(events.map((event) => event.kind), [
     "basis_admitted",
     "graph_call_opened",
@@ -71,7 +71,6 @@ test("M04 control integration: supervised control loop re-enters canonical publi
     "vector_evaluated",
     "vector_closed",
     "fd_advance_ready",
-    "basis_admitted",
     "terminal_reached"
   ]);
 

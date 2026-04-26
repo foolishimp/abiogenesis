@@ -10,16 +10,18 @@ The repo is organized around spec-driven development:
 - `build_tenants/abiogenesis/python/code/` is the shipping Python realization
 - `build_tenants/abiogenesis/python/test_env/` is the shipping Python test harness
 
-The active engine and language surface is GTL 3 / ABG 3.2.0:
+The active engine and language surface is GTL 3 / ABG 3.4.0-rc.2:
 - GTL: `Module`, `Graph`, `Node`, `GraphVector`, `Context`, `Job`, `Role`
 - ABG: interpreter, typed runtime carriers, event stream, projection,
   convergence, regime binding, run, graph call, continuation, transport,
   provenance
 
-The 3.2.0 runtime boundary is carrier and event owned. Public execution still
-enters through published `GraphFunction` work, but advancement, dispatch,
+The 3.4.0 RC runtime boundary is carrier and event owned. Public execution
+still enters through published `GraphFunction` work, but advancement, dispatch,
 convergence, completion, and projection consume typed runtime truth rather than
-controller-local state or `runtime_config` side channels.
+controller-local state or `runtime_config` side channels. In the TypeScript RC
+line, `start(...)` owns the public `start -> iterate` engine path and
+`publicStart(...)` is only a compatibility adapter over that path.
 
 ## Public Operator Surface
 
@@ -89,7 +91,11 @@ The project method is explicit:
 
 ## Shipping Surface
 
-The current shipping line is the Python realization under `build_tenants/abiogenesis/python/`.
+The current released reference line is the Python realization under
+`build_tenants/abiogenesis/python/`.
+
+The current release-candidate line is the package-first TypeScript realization
+under `build_tenants/abiogenesis/typescript/`.
 
 Relevant directories:
 
@@ -99,6 +105,14 @@ build_tenants/abiogenesis/python/
 ├── design/       shipping design / ADR surface
 ├── test_env/     shipping test harness
 └── test_runs/    persistent test archives
+```
+
+```text
+build_tenants/abiogenesis/typescript/
+├── code/         TypeScript GTL/ABG RC implementation
+├── design/       TypeScript design, IACS, and structural carrier surfaces
+├── test_env/     semantic, sandbox, installed, and live RC proof lanes
+└── package.json  package-first RC scripts and binary bindings
 ```
 
 `build_tenants/abiogenesis/codex/` is non-shipping and not part of the canonical publish gate.
@@ -116,6 +130,18 @@ cd build_tenants/abiogenesis/python/test_env
 ```
 
 The repo root is not the active test bed.
+
+The TypeScript RC proof lane is:
+
+```bash
+cd build_tenants/abiogenesis/typescript
+npm run test:semantic
+npm run test:b016
+npm run test:t072
+npm run lint:semantic
+CODEX_LIVE_FP=1 npm run test:live:uat
+CODEX_LIVE_FP=1 npm run test:live
+```
 
 ## Installer
 

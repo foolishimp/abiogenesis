@@ -10,3 +10,4 @@ export * from "./live_status/index.js";
 export * from "./max_autonomy/index.js";
 export * from "./result_assessment/index.js";
 export { publicStart } from "./public_start.js";
+export { start, startFromRequest } from "./start.js";

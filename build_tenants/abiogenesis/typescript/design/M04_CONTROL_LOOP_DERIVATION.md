@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Date**: 2026-04-23
-**Purpose**: Derive the next TypeScript `M04-app-bootstrap` control-loop
+**Purpose**: Derive the TypeScript `M04-app-bootstrap` public-control projection
 boundary from the released Python design and delivery evidence without
 promoting Python controller drift into tenant-local architecture.
 
@@ -28,7 +28,7 @@ It starts from the released Python design truths:
 
 - `fh_mode` and `root_mode` remain product-policy control modes outside
   `scope + target + until`
-- control-mode behavior consumes one-step runtime truth rather than redefining
+- control-mode behavior consumes public outcome truth rather than redefining
   kernel meaning
 - root-level supervision remains distinct from per-edge dispatch capability
 - human-proxy approval remains an app concern above kernel-owned `F_H` truth
@@ -39,9 +39,11 @@ It starts from the released Python design truths:
 
 The next TypeScript `M04` slice preserves these truths from the Python line:
 
-- the canonical one-step public runtime boundary remains `publicStart(...)`
-- repeated root supervision consumes closed `PublicStartOutcome` truth rather
-  than raw kernel payloads
+- `publicStart(...)` remains a compatibility adapter over the same engine-owned
+  route as `start(...)`
+- `start(...)` is the ABG-owned start-to-iterate public entry
+- root supervision consumes closed public outcome truth rather than raw kernel
+  payloads
 - `human-proxy` approval is a bounded control-plane action over explicit public
   stop detail, not a second runtime doctrine
 - supervision and proxy behavior remain above canonical `emit(...)` truth and
@@ -49,9 +51,10 @@ The next TypeScript `M04` slice preserves these truths from the Python line:
 - public control outcomes remain replay-readable operator truth rather than
   helper-local mutable state
 
-This control loop is not the ABG internal iterate engine. It may repeat public
-calls for operator-facing supervision, but it must not own next-edge selection
-or treat package-level repetition as graph-function execution law.
+This control surface is not the ABG internal iterate engine. After `T-072`, it
+does not repeat public calls for graph-function execution. It delegates once to
+`start(...)`, then projects operator-facing control truth from the returned
+public outcome.
 
 ## 4. Demoted Python Delivery Detail
 
@@ -76,9 +79,8 @@ Python adapter implementation and binary prefix.
 The next TypeScript `M04` slice should realize only:
 
 - one bounded control-loop route over completed `PublicStartRequest`
-- one closed control-loop outcome family over repeated `PublicStartOutcome`
-  truth
-- one supervised root-level convergence path
+- one closed control-loop outcome family over `start(...)` public outcome truth
+- one supervised root-level projection path
 - one bounded `human-proxy` approval path over explicit `human_gate_required`
   truth
 
@@ -94,11 +96,11 @@ This slice should **not** widen into:
 
 | Python design truth | TypeScript target boundary | TypeScript consequence |
 | --- | --- | --- |
-| repeated `gen_start` convergence loop is control-plane logic | bounded TypeScript control loop over `publicStart(...)` | repeated advancement stays above kernel-owned runtime law |
+| repeated `gen_start` convergence loop was Python control-plane delivery logic | bounded TypeScript control projection over `start(...)` | repeated advancement collapses into M03 engine-owned runtime law |
 | `fh_mode` remains outside traversal request grammar | explicit control-loop semantics over admitted `PublicStartRequest.controlModes` | `human-proxy` does not become target grammar |
 | `root_mode=supervised` is root-level observation/recovery | closed control-loop outcome family | supervision consumes public outcome truth and returns one public control result |
 | yielded/dispatch/human-gate seams stay explicit | control loop must preserve those seams as pattern-matchable outcomes | loop may stop or proxy; it must not flatten them into silent success |
-| canonical event truth stays kernel-owned | control loop may call `publicStart(...)` repeatedly but may not append events directly | app loop remains orchestration, not runtime truth |
+| canonical event truth stays kernel-owned | control projection calls `start(...)` once and may not append events directly | app control remains projection, not runtime truth |
 
 ## 7. Required Next Assets
 

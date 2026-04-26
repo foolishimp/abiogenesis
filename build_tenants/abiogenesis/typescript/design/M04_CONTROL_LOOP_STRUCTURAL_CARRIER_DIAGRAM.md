@@ -6,9 +6,9 @@
 
 ## Purpose
 
-Render the next `M04-app-bootstrap` control-loop boundary as one module-bounded
+Render the `M04-app-bootstrap` control projection boundary as one module-bounded
 Mermaid UML carrier topology so Prime Rule, visibility, and deferred-family
-discipline are inspectable before implementation starts.
+discipline are inspectable.
 
 ## Diagram
 
@@ -41,6 +41,7 @@ class ControlLoopRouteBinding {
   <<subordinate>>
   -rootMode: "direct" | "supervised"
   -fhMode: "direct" | "human-proxy"
+  -entry: "start"
 }
 
 class PublicControlLoopTraceRef {
@@ -106,7 +107,7 @@ class SandboxQualification {
 
 PublicControlLoopRequest --> PublicStartRequest : consumes
 PublicControlLoopRequest *-- ControlLoopRouteBinding
-ControlLoopRouteBinding --> PublicStartOutcome : iterates over
+ControlLoopRouteBinding --> PublicStartOutcome : projects over
 
 PublicControlLoopOutcome *-- PublicControlLoopTraceRef
 
@@ -138,6 +139,7 @@ PublicControlLoopRequest ..> Bootloader : deferred later
   truth and are consumed rather than redefined.
 - `ControlLoopRouteBinding`, `PublicControlLoopTraceRef`,
   `PublicControlLoopStopDetail`, and `HumanProxyApprovalHint` stay subordinate.
+  The route binding points at `start(...)`; it does not own an iteration loop.
 - `dispatch_required`, `yielded`, and `human_gate_required` are explicit prime
   family variants so the control loop cannot flatten those seams into generic
   blocked/success shapes.
@@ -152,7 +154,7 @@ PublicControlLoopRequest ..> Bootloader : deferred later
 This control-loop diagram is lawful only if the future TypeScript code:
 
 - consumes completed `PublicStartRequest` / `PublicStartOutcome` truth,
-- routes through canonical `publicStart(...)`,
+- routes through canonical `start(...)`,
 - preserves explicit control seams as closed outcome variants, and
 - keeps event-ingress, result-assessment, install/bootstrap, bootloader, and
   sandbox families deferred until successor tickets open them.

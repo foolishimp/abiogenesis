@@ -180,7 +180,7 @@ Recently completed governed waves:
 
 Related backlog tickets should also follow this protocol when activated:
 
-- [B-016](/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/backlog/B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md)
+- [B-016](/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/completed/B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md)
 
 ## Acceptance
 

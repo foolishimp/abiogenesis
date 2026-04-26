@@ -190,8 +190,20 @@ test("T-062 probe: undefined traversal reports structural morphism and forbidden
 
   assert.equal(probe.kind, "traversal_structure_probe");
   assert.equal(probe.graphFunctionName, "Fg_1");
+  assert.equal(probe.materializedGraphName, "Fg_1_workflow");
+  assert.equal(probe.graphCallId, null);
+  assert.equal(probe.frameId, null);
+  assert.equal(probe.frameLineageId, null);
+  assert.equal(probe.runtimeIdentity.resolvedRuntimeRef, "runtime://typescript/node");
   assert.equal(probe.structureKind, "undefined_structural_morphism");
   assert.equal(probe.edge, "A->B");
+  assert.deepStrictEqual(probe.currentVectorEvidence, {
+    vectorIndex: 0,
+    vectorId: "graph-t062-undefined",
+    edge: "A->B",
+    sourceNodeIds: ["node-t062-a"],
+    targetNodeId: "node-t062-b"
+  });
   assert.equal(probe.hasTypedInterface, false);
   assert.equal(probe.hasDeclaredComputeCarriers, false);
   assert.deepStrictEqual(probe.sourceNodes.map((node) => node.schemaRef), [""]);
@@ -209,6 +221,15 @@ test("T-062 probe: undefined traversal reports structural morphism and forbidden
     "fd_advance_ready"
   ]);
   assert(probe.allowedClaims.includes("edge_shape_visible"));
+  assert.equal(probe.diagnosticAuthority.kind, "diagnostic_projection");
+  assert.equal(probe.diagnosticAuthority.emitsEvents, false);
+  assert.equal(probe.diagnosticAuthority.choosesNextWork, false);
+  assert.deepStrictEqual(probe.diagnosticAuthority.sourceAuthorities, [
+    "ExecutionBasis",
+    "RuntimeAggregateProjection",
+    "IterationAdvanceDecision",
+    "AdvancementTransition"
+  ]);
   assert(probe.notAllowedClaims.includes("typed_interface_not_implied"));
   assert(probe.notAllowedClaims.includes("domain_transform_not_implied"));
   assert(probe.notAllowedClaims.includes("domain_evaluation_not_implied"));
@@ -222,6 +243,13 @@ test("T-062 probe: minimum typed traversal reports typed interface without compu
   assert.equal(probe.graphFunctionName, "GF_TYPED_001");
   assert.equal(probe.structureKind, "typed_structural_morphism");
   assert.equal(probe.edge, "A_1->A_2");
+  assert.deepStrictEqual(probe.currentVectorEvidence, {
+    vectorIndex: 0,
+    vectorId: "graph-t062-typed",
+    edge: "A_1->A_2",
+    sourceNodeIds: ["node-t062-typed-a1"],
+    targetNodeId: "node-t062-typed-a2"
+  });
   assert.equal(probe.hasTypedInterface, true);
   assert.equal(probe.hasDeclaredComputeCarriers, false);
   assert.deepStrictEqual(probe.sourceNodes.map((node) => node.schemaRef), [
@@ -242,6 +270,13 @@ test("T-062 probe: minimum defined traversal reports declared transform and eval
   assert.equal(probe.graphFunctionName, "GF_001");
   assert.equal(probe.structureKind, "defined_constructive_morphism");
   assert.equal(probe.edge, "A_1->A_2");
+  assert.deepStrictEqual(probe.currentVectorEvidence, {
+    vectorIndex: 0,
+    vectorId: "graph-t062-defined",
+    edge: "A_1->A_2",
+    sourceNodeIds: ["node-t062-defined-a1"],
+    targetNodeId: "node-t062-defined-a2"
+  });
   assert.equal(probe.hasTypedInterface, true);
   assert.equal(probe.hasDeclaredComputeCarriers, true);
   assert.deepStrictEqual(probe.declaredOperatorRegimes, ["F_D", "F_P"]);

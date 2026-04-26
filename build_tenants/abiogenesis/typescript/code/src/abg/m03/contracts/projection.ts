@@ -1,4 +1,5 @@
 import type {
+  AssessedRuntimeEvent,
   ExecutionBasis,
   RuntimeAggregateProjection,
   RuntimeEvent
@@ -8,8 +9,92 @@ import {
   assertVectorIndexInRange,
   freezeNumberArray,
   freezeStringArray,
-  sortedNumbers
+  sortedNumbers,
+  vectorEdge
 } from "./runtime_support.js";
+
+type RuntimeProjectionClosureSource = "vector_closed" | "assessed";
+
+function closeVectorFromReplay(input: {
+  readonly basis: ExecutionBasis;
+  readonly closed: Set<number>;
+  readonly closedBy: Map<number, RuntimeProjectionClosureSource>;
+  readonly vectorIndex: number;
+  readonly source: RuntimeProjectionClosureSource;
+}): void {
+  assertVectorIndexInRange(input.basis, input.vectorIndex);
+  if (input.closed.has(input.vectorIndex)) {
+    if (
+      input.source === "assessed" &&
+      input.closedBy.get(input.vectorIndex) === "assessed"
+    ) {
+      return;
+    }
+    throw new TypeError(
+      `Runtime aggregate projection rejects duplicate vector closure ${input.vectorIndex}`
+    );
+  }
+  for (let index = 0; index < input.vectorIndex; index += 1) {
+    if (!input.closed.has(index)) {
+      throw new TypeError(
+        "Runtime aggregate projection rejects non-replay-derived vector closure order"
+      );
+    }
+  }
+  input.closed.add(input.vectorIndex);
+  input.closedBy.set(input.vectorIndex, input.source);
+}
+
+function vectorIndexForAssessedEdge(
+  basis: ExecutionBasis,
+  edge: string
+): number {
+  const matchingIndexes: number[] = [];
+  for (let index = 0; index < basis.graph.vectors.length; index += 1) {
+    if (vectorEdge(basis, index) === edge) {
+      matchingIndexes.push(index);
+    }
+  }
+  if (matchingIndexes.length === 0) {
+    throw new TypeError(
+      `Runtime aggregate projection rejects assessed edge ${JSON.stringify(edge)} outside graph vectors`
+    );
+  }
+  if (matchingIndexes.length > 1) {
+    throw new TypeError(
+      `Runtime aggregate projection rejects ambiguous assessed edge ${JSON.stringify(edge)}`
+    );
+  }
+  const vectorIndex = matchingIndexes[0];
+  if (vectorIndex === undefined) {
+    throw new TypeError("Runtime aggregate projection failed to resolve assessed edge");
+  }
+  return vectorIndex;
+}
+
+function assertAssessedEventScope(
+  basis: ExecutionBasis,
+  event: AssessedRuntimeEvent
+): void {
+  if (
+    basis.runId !== null &&
+    event.runId !== null &&
+    event.runId !== basis.runId
+  ) {
+    throw new TypeError(
+      `Runtime aggregate projection rejects assessed runId ${JSON.stringify(event.runId)} outside basis run ${JSON.stringify(basis.runId)}`
+    );
+  }
+  if (
+    basis.workKey !== null &&
+    event.workKey !== null &&
+    event.workKey !== basis.workKey
+  ) {
+    throw new TypeError(
+      `Runtime aggregate projection rejects assessed workKey ${JSON.stringify(event.workKey)} outside basis work ${JSON.stringify(basis.workKey)}`
+    );
+  }
+}
 
 export function sourceProjectionRef(projection: RuntimeAggregateProjection): string {
   return [
@@ -46,6 +131,7 @@ export function deriveRuntimeAggregateProjection(
   const planned = new Set<number>();
   const evaluated = new Set<number>();
   const closed = new Set<number>();
+  const closedBy = new Map<number, RuntimeProjectionClosureSource>();
   const assessedEdges: string[] = [];
   const retryAttemptRunIds = new Set<string>();
   const retryAttemptManifestIds = new Set<string>();
@@ -77,20 +163,13 @@ export function deriveRuntimeAggregateProjection(
         frameId = event.frameId;
         break;
       case "vector_closed":
-        assertVectorIndexInRange(basis, event.vectorIndex);
-        for (let index = 0; index < event.vectorIndex; index += 1) {
-          if (!closed.has(index)) {
-            throw new TypeError(
-              "Runtime aggregate projection rejects non-replay-derived vector closure order"
-            );
-          }
-        }
-        if (closed.has(event.vectorIndex)) {
-          throw new TypeError(
-            `Runtime aggregate projection rejects duplicate vector closure ${event.vectorIndex}`
-          );
-        }
-        closed.add(event.vectorIndex);
+        closeVectorFromReplay({
+          basis,
+          closed,
+          closedBy,
+          vectorIndex: event.vectorIndex,
+          source: "vector_closed"
+        });
         graphCallId = event.graphCallId;
         frameId = event.frameId;
         break;
@@ -158,7 +237,15 @@ export function deriveRuntimeAggregateProjection(
         frameId = event.frameId;
         break;
       case "assessed":
+        assertAssessedEventScope(basis, event);
         assessedEdges.push(event.edge);
+        closeVectorFromReplay({
+          basis,
+          closed,
+          closedBy,
+          vectorIndex: vectorIndexForAssessedEdge(basis, event.edge),
+          source: "assessed"
+        });
         break;
       case "basis_admitted":
       case "fd_advance_ready":

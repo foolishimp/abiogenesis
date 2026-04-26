@@ -49,7 +49,7 @@ function stageGraphFunction(name, source, target, edgeName, evaluatorId) {
   });
 }
 
-export function buildThreeStageBasis() {
+export function buildThreeStageModule() {
   const inputSet = node("node-m03-input-set", "InputSet", "input_set", "declared");
   const requirements = node(
     "node-m03-requirements",
@@ -107,6 +107,25 @@ export function buildThreeStageBasis() {
     metadata: { entries: [] }
   });
 
+  return Object.freeze({ module, executive });
+}
+
+export function buildThreeStageBasis(options = {}) {
+  const { module, executive } = buildThreeStageModule();
+  const defaultRegime = options.defaultRegime ?? "F_P";
+  const dispatchRef =
+    Object.hasOwn(options, "dispatchRef")
+      ? options.dispatchRef
+      : defaultRegime === "F_P"
+        ? "dispatch://m03-iteration"
+        : null;
+  const approvalSubjectRef =
+    Object.hasOwn(options, "approvalSubjectRef")
+      ? options.approvalSubjectRef
+      : defaultRegime === "F_H"
+        ? "approval://m03-iteration"
+        : null;
+
   return admitExecutionBasis({
     startIntent: {
       scope: {
@@ -129,12 +148,63 @@ export function buildThreeStageBasis() {
     }),
     resolvedPolicy: admitResolvedPolicyIdentity({
       resolvedPolicyBundleRef: "policy://m03-iteration",
-      defaultRegime: "F_P",
-      dispatchRef: "dispatch://m03-iteration"
+      defaultRegime,
+      dispatchRef,
+      approvalSubjectRef
     }),
-    runId: "run://m03-iteration",
-    workKey: "wk://m03-iteration",
-    frameId: null,
-    frameLineageId: null
+    runId: options.runId ?? "run://m03-iteration",
+    workKey: options.workKey ?? "wk://m03-iteration",
+    frameId: options.frameId ?? null,
+    frameLineageId: options.frameLineageId ?? null
   });
+}
+
+export function buildThreeStageStartContext(options = {}) {
+  const { module, executive } = buildThreeStageModule();
+  const defaultRegime = options.defaultRegime ?? "F_D";
+  const dispatchRef =
+    Object.hasOwn(options, "dispatchRef")
+      ? options.dispatchRef
+      : defaultRegime === "F_P"
+        ? "dispatch://m03-iteration"
+        : null;
+  const approvalSubjectRef =
+    Object.hasOwn(options, "approvalSubjectRef")
+      ? options.approvalSubjectRef
+      : defaultRegime === "F_H"
+        ? "approval://m03-iteration"
+        : null;
+  const input = Object.freeze({
+    scope: {
+      kind: "workspace",
+      workspaceRoot: "/workspace/m03-iteration",
+      moduleName: module.name
+    },
+    target: {
+      kind: "graph_function",
+      handle: executive.name
+    },
+    until: options.until ?? "converged"
+  });
+  const context = Object.freeze({
+    module,
+    runtimeIdentity: admitResolvedRuntimeIdentity({
+      workerId: "worker://m03-iteration",
+      backendId: "backend://node",
+      buildId: "build://typescript",
+      resolvedRuntimeRef: "runtime://typescript/node"
+    }),
+    resolvedPolicy: admitResolvedPolicyIdentity({
+      resolvedPolicyBundleRef: "policy://m03-iteration",
+      defaultRegime,
+      dispatchRef,
+      approvalSubjectRef
+    }),
+    runId: options.runId ?? "run://m03-iteration",
+    workKey: options.workKey ?? "wk://m03-iteration",
+    frameId: options.frameId ?? null,
+    frameLineageId: options.frameLineageId ?? null
+  });
+
+  return Object.freeze({ input, context, module, executive });
 }

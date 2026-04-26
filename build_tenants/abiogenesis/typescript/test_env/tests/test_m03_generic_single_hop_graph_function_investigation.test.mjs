@@ -190,6 +190,6 @@ test("T-059 investigation: absent policy basis fails closed before execution-bas
       admitResolvedPolicyIdentity({
         resolvedPolicyBundleRef: "policy://t059/no-basis"
       }),
-    /defaultRegime/
+    /no_compute_basis/
   );
 });
