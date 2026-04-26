@@ -2,7 +2,7 @@
 
 import { access, appendFile, mkdir, readFile } from "node:fs/promises";
 import { dirname, isAbsolute, join, resolve } from "node:path";
-import { pathToFileURL } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import type {
   RuntimeEvent,
   StartIntent
@@ -14,6 +14,7 @@ import {
 } from "../gtl/m02/contracts/lookup.js";
 import {
   admitOperatorAssetQueryContract,
+  installAbiogenesisTypescript,
   publicGaps,
   publicCallableStart,
   resolvePublicAssetTarget,
@@ -40,9 +41,17 @@ interface ParsedFlags {
 }
 
 type ParsedCommand =
+  | ParsedInstallCommand
   | ParsedStartCommand
   | ParsedGapsCommand
   | ParsedAssessResultCommand;
+
+interface ParsedInstallCommand {
+  readonly kind: "install";
+  readonly target: string;
+  readonly packageSource: string | null;
+  readonly installedPackageName: string;
+}
 
 interface ParsedStartCommand {
   readonly kind: "start";
@@ -178,6 +187,11 @@ function optionalFlag(
   return value === undefined ? defaultValue : value;
 }
 
+function optionalNullableFlag(parsed: ParsedFlags, name: string): string | null {
+  const value = parsed.flags.get(name);
+  return value === undefined ? null : value;
+}
+
 function parseUntil(input: string): StartIntent["until"] {
   if (
     input === "first_traversal" ||
@@ -262,6 +276,26 @@ function parseStartCommand(args: readonly string[]): ParsedStartCommand {
   });
 }
 
+function parseInstallCommand(args: readonly string[]): ParsedInstallCommand {
+  const parsed = parseFlags(args);
+  requireNoPositionals(parsed, "install");
+  requireAllowedFlags(parsed, "install", [
+    "target",
+    "package-source",
+    "installed-package-name"
+  ]);
+  return Object.freeze({
+    kind: "install",
+    target: requiredFlag(parsed, "target"),
+    packageSource: optionalNullableFlag(parsed, "package-source"),
+    installedPackageName: optionalFlag(
+      parsed,
+      "installed-package-name",
+      "abiogenesis-typescript-installed-runtime"
+    )
+  });
+}
+
 function parseGapsCommand(args: readonly string[]): ParsedGapsCommand {
   const parsed = parseFlags(args);
   requireNoPositionals(parsed, "gaps");
@@ -293,6 +327,8 @@ function parseCommand(argv: readonly string[]): ParsedCommand {
   }
   const args = argv.slice(1);
   switch (command) {
+    case "install":
+      return parseInstallCommand(args);
     case "start":
       return parseStartCommand(args);
     case "gaps":
@@ -306,6 +342,41 @@ function parseCommand(argv: readonly string[]): ParsedCommand {
 
 function resolveWorkspace(cwd: string, workspace: string): string {
   return isAbsolute(workspace) ? resolve(workspace) : resolve(cwd, workspace);
+}
+
+async function pathExists(path: string): Promise<boolean> {
+  try {
+    await access(path);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function locateCurrentPackageRoot(): Promise<string> {
+  let current = dirname(fileURLToPath(import.meta.url));
+  while (current !== dirname(current)) {
+    if (
+      (await pathExists(join(current, "package.json"))) &&
+      (await pathExists(join(current, "build", "semantic", "code", "src")))
+    ) {
+      return current;
+    }
+    current = dirname(current);
+  }
+  throw new CliError("unable to locate current TypeScript ABG package root");
+}
+
+async function resolvePackageSource(
+  cwd: string,
+  packageSource: string | null
+): Promise<string> {
+  if (packageSource === null) {
+    return locateCurrentPackageRoot();
+  }
+  return isAbsolute(packageSource)
+    ? resolve(packageSource)
+    : resolve(cwd, packageSource);
 }
 
 function eventsPath(workspaceRoot: string): string {
@@ -852,11 +923,41 @@ async function runAssessResultCommand(
   return outcome.kind === "accepted" ? 0 : 1;
 }
 
+async function runInstallCommand(
+  command: ParsedInstallCommand,
+  io: AbiogenesisCliIo
+): Promise<number> {
+  const targetRoot = resolveWorkspace(io.cwd(), command.target);
+  const packageSourceRoot = await resolvePackageSource(
+    io.cwd(),
+    command.packageSource
+  );
+  const outcome = await installAbiogenesisTypescript({
+    targetRoot: {
+      rootPath: targetRoot
+    },
+    packageSourceRoot,
+    installedPackageName: command.installedPackageName
+  });
+  io.stdout(
+    `${JSON.stringify({
+      command: "install",
+      status: outcome.kind,
+      target_root: targetRoot,
+      package_source_root: packageSourceRoot,
+      outcome
+    })}\n`
+  );
+  return outcome.kind === "installed" ? 0 : 1;
+}
+
 async function runParsedCommand(
   command: ParsedCommand,
   io: AbiogenesisCliIo
 ): Promise<number> {
   switch (command.kind) {
+    case "install":
+      return runInstallCommand(command, io);
     case "start":
       return runStartCommand(command, io);
     case "gaps":

@@ -378,6 +378,24 @@ The canonical active files are:
 - `test_m04_install_bootstrap_integration.test.mjs` — canonical module-owned integration lane
 - `t019-m04-install-bootstrap-negative.test.mjs` — fail-closed negative-proof fixture
 
+The completed successor installer wave is:
+
+- `T-076` `M04` TypeScript installer
+
+That wave promotes package materialization and command binding from private M05
+test support into public ABG TypeScript installer law.
+Its canonical proof lanes derive from:
+
+- `M04_TYPESCRIPT_INSTALLER_DERIVATION.md`
+- `M04_TYPESCRIPT_INSTALLER_FIRST_SLICE_IACS.md`
+- `M04_TYPESCRIPT_INSTALLER_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `T-076-realize-typescript-abg-installer-for-downstream-sandbox-population.md`
+
+The canonical active file is:
+
+- `test_m04_typescript_installer_integration.test.mjs` — public installer API
+  and installed `genesis-ts install` command lane
+
 The completed next product-facing wave is:
 
 - `T-020` `M04` bootloader
@@ -1254,6 +1272,17 @@ The canonical active files are:
 - Requirements: `REQ-P-POLICY`, `REQ-P-QUAL`
 - Design: [M04_INSTALL_BOOTSTRAP_DERIVATION.md](../design/M04_INSTALL_BOOTSTRAP_DERIVATION.md), [M04_INSTALL_BOOTSTRAP_FIRST_SLICE_IACS.md](../design/M04_INSTALL_BOOTSTRAP_FIRST_SLICE_IACS.md), [M04_INSTALL_BOOTSTRAP_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_INSTALL_BOOTSTRAP_STRUCTURAL_CARRIER_DIAGRAM.md), [ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md](../design/ABG_COMMON_DELIVERY_LIBRARY_FIRST_SLICE_IACS.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-019-realize-typescript-m04-install-bootstrap-under-package-first-installed-runtime-law.md](../../../.ai-workspace/tickets/completed/T-019-realize-typescript-m04-install-bootstrap-under-package-first-installed-runtime-law.md)
 
+### test_m04_typescript_installer_integration.test.mjs
+
+- Status: canonical module-owned integration lane
+- Module alignment: `M04-app-bootstrap` TypeScript installer slice
+- Requirements: `REQ-P-QUAL`, `REQ-P-SCENARIOS`
+- Design: [M04_TYPESCRIPT_INSTALLER_DERIVATION.md](../design/M04_TYPESCRIPT_INSTALLER_DERIVATION.md), [M04_TYPESCRIPT_INSTALLER_FIRST_SLICE_IACS.md](../design/M04_TYPESCRIPT_INSTALLER_FIRST_SLICE_IACS.md), [M04_TYPESCRIPT_INSTALLER_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_TYPESCRIPT_INSTALLER_STRUCTURAL_CARRIER_DIAGRAM.md), [M04_INSTALL_BOOTSTRAP_DERIVATION.md](../design/M04_INSTALL_BOOTSTRAP_DERIVATION.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-076-realize-typescript-abg-installer-for-downstream-sandbox-population.md](../../../.ai-workspace/tickets/completed/T-076-realize-typescript-abg-installer-for-downstream-sandbox-population.md)
+- Current focus inside this lane:
+  public installer proof that creates a package-backed ABG TypeScript install,
+  exposes target-local command bindings, and proves an installed
+  `genesis-ts install` command can create a second installed workspace
+
 ### t019-m04-install-bootstrap-negative.test.mjs
 
 - Status: transitional slice-gating proof retained as completed `T-019` fail-closed evidence
@@ -1332,7 +1361,7 @@ The canonical active files are:
 - Module alignment: `M04-app-bootstrap` compatibility entry over the
   `M03-engine-kernel` runner
 - Requirements: `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-RUN`
-- Design: [M04_PUBLIC_START_DERIVATION.md](../design/M04_PUBLIC_START_DERIVATION.md), [M04_FIRST_SLICE_IACS.md](../design/M04_FIRST_SLICE_IACS.md), [M04_PUBLIC_START_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_PUBLIC_START_STRUCTURAL_CARRIER_DIAGRAM.md), [M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md](../design/M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md), [B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md](../../../.ai-workspace/tickets/backlog/B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md), [T-072-realize-typescript-abg-start-to-iterate-engine-runner.md](../../../.ai-workspace/tickets/completed/T-072-realize-typescript-abg-start-to-iterate-engine-runner.md)
+- Design: [M04_PUBLIC_START_DERIVATION.md](../design/M04_PUBLIC_START_DERIVATION.md), [M04_FIRST_SLICE_IACS.md](../design/M04_FIRST_SLICE_IACS.md), [M04_PUBLIC_START_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_PUBLIC_START_STRUCTURAL_CARRIER_DIAGRAM.md), [M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md](../design/M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md), [B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md](../../../.ai-workspace/tickets/completed/B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md), [T-072-realize-typescript-abg-start-to-iterate-engine-runner.md](../../../.ai-workspace/tickets/completed/T-072-realize-typescript-abg-start-to-iterate-engine-runner.md)
 - Command: `npm run test:b016`
 - Authority class: unit governance proof. It rejects public-start re-entry to
   lower M03 transition, event-construction, or emit functions and requires
@@ -1362,18 +1391,18 @@ The canonical active files are:
 - Status: canonical module-derived unit lane
 - Module alignment: `M03-engine-kernel` plugin contract inventory
 - Requirements: `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-RUN`
-- Design: [M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md](../design/M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md), [M03_M04_PLUGIN_CONTRACT_MODEL_IACS.md](../design/M03_M04_PLUGIN_CONTRACT_MODEL_IACS.md), [M03_M04_PLUGIN_CONTRACT_MODEL_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M03_M04_PLUGIN_CONTRACT_MODEL_STRUCTURAL_CARRIER_DIAGRAM.md), [B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md](../../../.ai-workspace/tickets/backlog/B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md), [T-072-realize-typescript-abg-start-to-iterate-engine-runner.md](../../../.ai-workspace/tickets/completed/T-072-realize-typescript-abg-start-to-iterate-engine-runner.md)
+- Design: [M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md](../design/M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md), [M03_M04_PLUGIN_CONTRACT_MODEL_IACS.md](../design/M03_M04_PLUGIN_CONTRACT_MODEL_IACS.md), [M03_M04_PLUGIN_CONTRACT_MODEL_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M03_M04_PLUGIN_CONTRACT_MODEL_STRUCTURAL_CARRIER_DIAGRAM.md), [B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md](../../../.ai-workspace/tickets/completed/B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md), [T-072-realize-typescript-abg-start-to-iterate-engine-runner.md](../../../.ai-workspace/tickets/completed/T-072-realize-typescript-abg-start-to-iterate-engine-runner.md)
 - Command: `npm run test:t072:plugins`, `npm run test:b016`
-- Authority class: module-derived proof. The lane distinguishes
-  `runner_consumed` seams from `classified_hook_family` rows so B-016 is not
-  overclaimed.
+- Authority class: module-derived proof. The lane proves every current
+  TypeScript hook family has a closed binding status, with no
+  `classified_hook_family` placeholder remaining.
 
 ### t072-m03-plugin-contract-negative.test.mjs
 
 - Status: canonical negative proof lane
 - Module alignment: `M03-engine-kernel` plugin contract authority boundary
 - Requirements: `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-EVENTS`
-- Design: [M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md](../design/M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md), [M03_M04_PLUGIN_CONTRACT_MODEL_IACS.md](../design/M03_M04_PLUGIN_CONTRACT_MODEL_IACS.md), [M03_M04_PLUGIN_CONTRACT_MODEL_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M03_M04_PLUGIN_CONTRACT_MODEL_STRUCTURAL_CARRIER_DIAGRAM.md), [B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md](../../../.ai-workspace/tickets/backlog/B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md), [T-072-realize-typescript-abg-start-to-iterate-engine-runner.md](../../../.ai-workspace/tickets/completed/T-072-realize-typescript-abg-start-to-iterate-engine-runner.md)
+- Design: [M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md](../design/M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md), [M03_M04_PLUGIN_CONTRACT_MODEL_IACS.md](../design/M03_M04_PLUGIN_CONTRACT_MODEL_IACS.md), [M03_M04_PLUGIN_CONTRACT_MODEL_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M03_M04_PLUGIN_CONTRACT_MODEL_STRUCTURAL_CARRIER_DIAGRAM.md), [B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md](../../../.ai-workspace/tickets/completed/B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md), [T-072-realize-typescript-abg-start-to-iterate-engine-runner.md](../../../.ai-workspace/tickets/completed/T-072-realize-typescript-abg-start-to-iterate-engine-runner.md)
 - Command: `npm run test:t072:plugins`, `npm run test:b016`
 
 ## Live Sandbox UAT Provenance

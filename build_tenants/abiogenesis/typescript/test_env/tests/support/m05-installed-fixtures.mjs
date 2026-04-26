@@ -23,7 +23,7 @@ import {
 } from "../../../build/semantic/code/src/qualification/m05/index.js";
 import {
   deliverBootloader,
-  installBootstrap
+  installAbiogenesisTypescript
 } from "../../../build/semantic/code/src/app/m04/index.js";
 import {
   bootloaderPayload,
@@ -94,10 +94,19 @@ function packedTarballName(stdout) {
 export async function provisionInstalledRoot() {
   const targetRoot = await makeInstallTargetRoot();
   const writer = nodeInstallWriter();
-  const installOutcome = await installBootstrap(
-    installedRuntimePayload(targetRoot),
-    writer
-  );
+  const repoRoot = await locateRepoRoot();
+  const tenantRoot = tenantRootFromRepoRoot(repoRoot);
+  const installerOutcome = await installAbiogenesisTypescript({
+    targetRoot: {
+      rootPath: targetRoot
+    },
+    packageSourceRoot: tenantRoot,
+    installedPackageName: installedRuntimePayload(targetRoot).installedPackageName
+  });
+  if (installerOutcome.kind !== "installed") {
+    throw new Error(`ABG TypeScript installer failed: ${installerOutcome.reason}`);
+  }
+  const installOutcome = installerOutcome.installBootstrapOutcome;
   await writer.writeTextFile(path.join(targetRoot, "AGENTS.md"), "# local agents\n");
   await writer.writeTextFile(path.join(targetRoot, "CLAUDE.md"), "# local claude\n");
   const bootloaderOutcome = await deliverBootloader(
@@ -108,6 +117,7 @@ export async function provisionInstalledRoot() {
   return {
     targetRoot,
     writer,
+    installerOutcome,
     installOutcome,
     bootloaderOutcome
   };
@@ -157,6 +167,21 @@ async function linkPackageDependencies(targetRoot, tenantRoot) {
 }
 
 export async function installPackedTenantPackage(targetRoot) {
+  const installerManifestPath = path.join(
+    targetRoot,
+    ".abiogenesis",
+    "typescript-installer-manifest.json"
+  );
+  if (await pathExists(installerManifestPath)) {
+    const manifest = JSON.parse(await readFile(installerManifestPath, "utf8"));
+    if (typeof manifest.packageRoot === "string" && typeof manifest.tarballPath === "string") {
+      return {
+        packageRoot: manifest.packageRoot,
+        tarballPath: manifest.tarballPath
+      };
+    }
+  }
+
   const repoRoot = await locateRepoRoot();
   const tenantRoot = tenantRootFromRepoRoot(repoRoot);
   const packParent = path.join(targetRoot, ".abiogenesis", "package-pack");

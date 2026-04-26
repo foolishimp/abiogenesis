@@ -19,7 +19,7 @@ This boundary derives from:
 - `build_tenants/abiogenesis/typescript/design/ABG_3_MODULE_DESIGN.md`
 - `.ai-workspace/tickets/completed/T-012-realize-typescript-m04-public-start-steel-thread-over-kernel-owned-runtime-law.md`
 - `.ai-workspace/tickets/completed/T-072-realize-typescript-abg-start-to-iterate-engine-runner.md`
-- `.ai-workspace/tickets/backlog/B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md`
+- `.ai-workspace/tickets/completed/B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md`
 
 ## 2. Position
 

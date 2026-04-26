@@ -3,7 +3,7 @@
 - id: B-016
 - title: Standardize ABG extension hooks under a consistent IoC contract model so runtime depends on contracts, not concrete implementations
 - type: bug
-- status: backlog
+- status: completed
 - goal: ioc-hook-standardization
 - change_intent: Refactor ABG extension seams so every hook follows one inversion-of-control model with an explicit contract, reference, and resolver or provider boundary, allowing domains to supply implementations without ABG learning domain semantics or coupling to one storage or transport realization.
 - change_class: realization_refactor
@@ -14,12 +14,15 @@
 - affected_boundary: runtime bootstrap hooks, policy surfaces, transport, context loading, asset binding, fulfillment truth publication and resolution, runtime certification, live status and reporting resolution
 - triaged_at: 2026-04-18
 - created_at: 2026-04-18
-- updated_at: 2026-04-26
+- updated_at: 2026-04-27
+- completed_at: 2026-04-27
+- completion_scope: TypeScript ABG current hook inventory only
 - reopened_at: 2026-04-26
 - invalidated_completion_at: 2026-04-26T11:10:02Z
-- latest_slice: TypeScript runner-facing plugin slice completed under T-072 and
-  corrected by T-074. The broader B-016 hook standardization umbrella remains
-  open because classified hook-family rows are not runtime consumer proof.
+- latest_slice: TypeScript current hook inventory completed. T-072 and T-074
+  prove the runner-facing plugin slice; this closure removes the remaining
+  classified-only rows by assigning every current TS hook family to an explicit
+  closed binding lane.
 - completed_prerequisites:
   - B-015 fulfillment-ledger ref/resolver slice completed 2026-04-18
 
@@ -469,15 +472,61 @@ Current focused proof:
 - `CODEX_LIVE_FP=1 npm run test:live` passed: 1 test, 153622.118375ms.
 - `git diff --check` passed.
 
-Open B-016 closure bar:
+TypeScript B-016 closure bar:
 
-- migrate or explicitly retire each classified-only hook-family row through a
-  boundary ticket
-- prove per-family runtime consumer usage where the family remains executable
-- keep projection consumers and declaration refs read-only/declarative
-- preserve the rule that no downstream tenant owns traversal selection,
-  iteration, event authority, graph-function closure, retry policy, or
-  continuation law
+- no current TypeScript hook family remains `classified_hook_family`
+- runner-facing seams are `runner_consumed`
+- executable M04 seams are `public_runtime_consumed`
+- continuation/retry/repair remains `engine_law_consumed`
+- projection consumers remain `read_model_consumed`
+- context references and GTL hook refs remain `declarative_contract`
+- no downstream tenant owns traversal selection, iteration, event authority,
+  graph-function closure, retry policy, or continuation law
+
+Closure limit:
+
+- this completion closes the current TypeScript ABG hook inventory
+- it does not claim Python tenant hook migration
+- any future executable context resolver or hook-ref resolver must open a
+  boundary-local ticket before moving from declarative contract to runtime
+  consumer proof
+
+## TypeScript Completion Record 2026-04-27
+
+This ticket is completed for the TypeScript ABG current hook inventory.
+
+The accepted closure is not a runner-only proof. The inventory now records one
+of five closed binding lanes for every hook family:
+
+- `runner_consumed`
+- `public_runtime_consumed`
+- `engine_law_consumed`
+- `read_model_consumed`
+- `declarative_contract`
+
+The completed inventory is:
+
+| Hook family | Binding lane | Closure meaning |
+| --- | --- | --- |
+| runtime event sink | `runner_consumed` | M03 runner emits admitted events into an injected sink |
+| F_D evaluator | `runner_consumed` | M03 runner admits deterministic plugin output and owns closure |
+| F_P dispatch | `runner_consumed` | M03 runner owns dispatch stop and event truth |
+| F_H admission | `runner_consumed` | M03 runner owns human-gate stop and event truth |
+| result assessment | `public_runtime_consumed` | M04 result assessment ingests artifacts through admitted ABG event truth |
+| event ingress | `public_runtime_consumed` | M04 event ingress emits only admitted runtime events |
+| policy provider | `public_runtime_consumed` | public start consumes admitted resolved policy without provider authority owning traversal |
+| runtime identity provider | `public_runtime_consumed` | public start consumes admitted runtime identity and selector proof |
+| operator asset resolver | `public_runtime_consumed` | M04 asset addressing consumes injected resolver output through admitted contract |
+| continuation/retry/repair | `engine_law_consumed` | ABG owns retry budget, continuation identity, and repair event law |
+| gaps/live-status projection | `read_model_consumed` | projection consumers read replay-derived truth only |
+| context resolver | `declarative_contract` | current TS admits context declarations but has no executable context lookup hook |
+| GTL `hook_ref` | `declarative_contract` | hook refs are declarations, not executable hidden callbacks |
+
+Current focused proof:
+
+- `npm run test:b016` passed: 13 tests on 2026-04-27.
+
+This record supersedes the corrected reopen state for the TypeScript tenant.
 
 Superseded closure comment:
 

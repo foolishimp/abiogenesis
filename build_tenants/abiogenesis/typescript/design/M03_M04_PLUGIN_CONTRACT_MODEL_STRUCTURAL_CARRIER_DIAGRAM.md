@@ -153,8 +153,8 @@ EnginePluginOutcome ..> AbgIterateRunner : cannot select or emit
 - seam-specific details stay as outcome variants or subordinate payloads.
 - sink/provider/resolver/projection/declaration roles are classifications inside
   one contract model, not separate framework authority surfaces.
-- `EnginePluginInventoryEntry` distinguishes runner-consumed seams from
-  classified-only hook families so classification does not overclaim runtime
-  migration.
+- `EnginePluginInventoryEntry` records an explicit binding lane for every
+  current TypeScript hook family so no classified-only placeholder can close
+  B-016.
 - `AbgIterateRunner` owns selection, event emission, closure, retry,
   continuation, and terminal projection.

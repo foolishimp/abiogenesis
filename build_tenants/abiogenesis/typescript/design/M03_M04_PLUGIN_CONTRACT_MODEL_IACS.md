@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Date**: 2026-04-26
-**Derived from**: [M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md](./M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md), [M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md](./M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md), [B-016](../../.ai-workspace/tickets/backlog/B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md), [T-072](../../.ai-workspace/tickets/completed/T-072-realize-typescript-abg-start-to-iterate-engine-runner.md)
+**Derived from**: [M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md](./M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md), [M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md](./M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md), [B-016](../../.ai-workspace/tickets/completed/B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md), [T-072](../../.ai-workspace/tickets/completed/T-072-realize-typescript-abg-start-to-iterate-engine-runner.md)
 
 ## Purpose
 
@@ -30,7 +30,7 @@ families.
 | `EnginePluginContract` | `M03-engine-kernel` | admitted plugin capability declaration | plugin-set admission | none | runner, plugin inventory, proof |
 | `EnginePluginInput` | `M03-engine-kernel` | admitted per-turn call input | runner-derived from `ExecutionBasis`, projection, decision, and transition | plugin call | plugin implementation |
 | `EnginePluginOutcome` | `M03-engine-kernel` | admitted plugin result family | plugin output admission | runner-owned event/projection decisions | runner, public start projection |
-| `EnginePluginInventoryEntry` | `M03-engine-kernel` | proof/read-model inventory over plugin seams and classified hook families | static design/code declaration | none | tests, B-016 review |
+| `EnginePluginInventoryEntry` | `M03-engine-kernel` | proof/read-model inventory over plugin seams and declarative/read-model hook families | static design/code declaration | none | tests, B-016 review |
 
 ## Plugin Seam Inventory
 
@@ -40,15 +40,15 @@ families.
 | F_D evaluator | `EffectPlugin` | runner-consumed | next vector, evaluation event, closure event | deterministic status for one vector | accepted vector closes; malicious output fails |
 | F_P dispatch transport | `EffectPlugin` | runner-consumed | dispatch/yield decision and dispatch event | external worker dispatch or result reference | dispatch yields; malicious output fails |
 | F_H admission | `EffectPlugin` | runner-consumed | human gate stop decision and gate event admission | escalation or denial signal | gate input is admitted; event injection fails |
-| result assessment | `EffectPlugin` | classified hook family | result ingest event authority | result artifact interpretation within contract | accepted artifact stays admitted result truth |
-| event ingress | `Provider` | classified hook family | external-event admission | transport of external event candidate | unadmitted event shape fails |
-| continuation/retry/repair | `EffectPlugin` | classified hook family | continuation identity and retry policy | bounded recovery suggestion | retry cannot select next vector |
-| policy | `Provider` | classified hook family | resolved-policy admission | source of policy bundle data | missing regime fails |
-| runtime identity | `Provider` | classified hook family | runtime identity admission | source of worker/backend/build identity | selector mismatch fails |
-| operator asset | `Resolver` | classified hook family | asset target admission | handle-to-asset resolution | unknown handle fails |
-| context/external asset | `Resolver` | classified hook family | context binding admission | context lookup | unknown context fails |
-| gaps/live-status | `ProjectionConsumer` | classified hook family | projection is replay-derived | read-only presentation | projection cannot close work |
-| GTL `hook_ref` | `DeclarationRef` | classified hook family | hook refs are declarations | downstream resolver target | hook ref cannot execute directly |
+| result assessment | `EffectPlugin` | public-runtime-consumed | result ingest event authority | result artifact interpretation within contract | accepted artifact stays admitted result truth |
+| event ingress | `Provider` | public-runtime-consumed | external-event admission | transport of external event candidate | unadmitted event shape fails |
+| continuation/retry/repair | `EffectPlugin` | engine-law-consumed | continuation identity and retry policy | bounded recovery effect requested by ABG law | retry cannot select next vector |
+| policy | `Provider` | public-runtime-consumed | resolved-policy admission | source of policy bundle data | missing regime fails |
+| runtime identity | `Provider` | public-runtime-consumed | runtime identity admission | source of worker/backend/build identity | selector mismatch fails |
+| operator asset | `Resolver` | public-runtime-consumed | asset target admission | handle-to-asset resolution | unknown handle fails |
+| context/external asset | `Resolver` | declarative-contract | context declaration admission | declared context reference only in current TS surface | no hidden context lookup executes |
+| gaps/live-status | `ProjectionConsumer` | read-model-consumed | projection is replay-derived | read-only presentation | projection cannot close work |
+| GTL `hook_ref` | `DeclarationRef` | declarative-contract | hook refs are declarations | downstream resolver target | hook ref cannot execute directly |
 
 ## Subordinate Payload Register
 
@@ -69,16 +69,17 @@ families.
 - policy and runtime identity use the same provider classification.
 - asset and context use the same resolver classification.
 - gaps/live-status are projection consumers, not engine plugins.
-- `hook_ref` is a declaration reference, not a callback.
-- inventory rows distinguish runner-consumed seams from classified-only hook
-  families; classified-only rows do not claim runtime migration closure.
+- context references and `hook_ref` are declarative contracts in the current
+  TypeScript surface, not callbacks.
+- inventory rows use explicit closure lanes; no current TS hook remains
+  classified-only.
 
 ## Module-Derived Unit Test Map
 
 | Proof lane | Design source | Required assertion |
 | --- | --- | --- |
 | plugin inventory completeness | this IACS | every seam has classification, authority, positive proof, negative proof |
-| runtime binding status | this IACS | runner-consumed rows are limited to event sink, F_D, F_P, and F_H for this slice |
+| runtime binding status | this IACS | every current hook has an explicit closed lane and no `classified_hook_family` row remains |
 | F_D plugin substitution | F_D inventory row | accepted outcome closes through runner-owned events |
 | F_P plugin yield | F_P inventory row | dispatch yields without caller-owned loop |
 | F_H plugin gate | F_H inventory row | gate stops without plugin event authority |

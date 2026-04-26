@@ -153,6 +153,20 @@ python build_tenants/abiogenesis/python/code/gen-install.py --target /path/to/pr
 
 That installs a `.genesis/` runtime into the target project. The root repo itself is not the installed runtime.
 
+The TypeScript RC installer lives behind the package binary:
+
+```bash
+cd build_tenants/abiogenesis/typescript
+npm run build:semantic
+node build/semantic/code/src/bin/abiogenesis.js install --target /path/to/project
+```
+
+That installs a package-backed ABG TypeScript runtime into the target project:
+`.abiogenesis/install-manifest.json`,
+`.abiogenesis/typescript-installer-manifest.json`,
+`node_modules/@abiogenesis/typescript-tenant`, and
+`node_modules/.bin/{abiogenesis-ts,genesis-ts}`.
+
 ## Notes
 
 - Historical V1 doctrine and supersession history still exist in the specification where they matter constitutionally.

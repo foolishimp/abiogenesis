@@ -116,7 +116,8 @@ export {
 } from "./plugins.js";
 export {
   ENGINE_PLUGIN_AUTHORITY_VALUES,
-  ENGINE_PLUGIN_KIND_VALUES
+  ENGINE_PLUGIN_KIND_VALUES,
+  ENGINE_PLUGIN_RUNTIME_BINDING_STATUS_VALUES
 } from "./plugins.js";
 export type {
   EnginePluginAuthority,
@@ -126,6 +127,7 @@ export type {
   EnginePluginInventoryEntry,
   EnginePluginKind,
   EnginePluginOutcome,
+  EnginePluginRuntimeBindingStatus,
   EngineRunnerPluginSet,
   FdEvaluationOutcome,
   FdEvaluatorPlugin,

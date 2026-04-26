@@ -59,9 +59,16 @@ export type EnginePluginEventAuthority =
   | "sink_receive_only"
   | "none";
 
+export const ENGINE_PLUGIN_RUNTIME_BINDING_STATUS_VALUES = Object.freeze([
+  "runner_consumed",
+  "public_runtime_consumed",
+  "engine_law_consumed",
+  "read_model_consumed",
+  "declarative_contract"
+] as const);
+
 export type EnginePluginRuntimeBindingStatus =
-  | "runner_consumed"
-  | "classified_hook_family";
+  (typeof ENGINE_PLUGIN_RUNTIME_BINDING_STATUS_VALUES)[number];
 
 export interface EnginePluginContract {
   readonly kind: "engine_plugin_contract";
@@ -754,14 +761,17 @@ function runtimeBindingStatusFor(
       return "runner_consumed";
     case "result_assessment":
     case "event_ingress":
-    case "continuation_repair":
     case "policy_provider":
     case "runtime_identity_provider":
     case "operator_asset_resolver":
-    case "context_resolver":
+      return "public_runtime_consumed";
+    case "continuation_repair":
+      return "engine_law_consumed";
     case "projection_consumer":
+      return "read_model_consumed";
+    case "context_resolver":
     case "hook_ref":
-      return "classified_hook_family";
+      return "declarative_contract";
     default: {
       const exhaustive: never = pluginKind;
       throw new TypeError(`Unsupported engine plugin kind ${JSON.stringify(exhaustive)}`);
@@ -774,8 +784,14 @@ function proofScopeFor(pluginKind: EnginePluginKind): string {
   switch (status) {
     case "runner_consumed":
       return "runner consumer proof";
-    case "classified_hook_family":
-      return "classification proof only; runtime migration requires a boundary ticket";
+    case "public_runtime_consumed":
+      return "public runtime consumer proof";
+    case "engine_law_consumed":
+      return "engine-owned law proof; extension effects remain downstream";
+    case "read_model_consumed":
+      return "replay-derived read-model consumer proof";
+    case "declarative_contract":
+      return "declarative contract proof; no executable plugin authority in current TS surface";
     default: {
       const exhaustive: never = status;
       throw new TypeError(

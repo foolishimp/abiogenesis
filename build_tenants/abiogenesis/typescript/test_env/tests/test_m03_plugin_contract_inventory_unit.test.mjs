@@ -9,6 +9,7 @@ import assert from "node:assert/strict";
 import {
   ENGINE_PLUGIN_AUTHORITY_VALUES,
   ENGINE_PLUGIN_KIND_VALUES,
+  ENGINE_PLUGIN_RUNTIME_BINDING_STATUS_VALUES,
   admitEnginePluginContract,
   enginePluginInventory
 } from "../../build/semantic/code/src/index.js";
@@ -26,7 +27,7 @@ test("T-072 plugin inventory: every declared ABG plugin seam has one governed co
   for (const entry of inventory) {
     assert.equal(entry.kind, "engine_plugin_inventory_entry");
     assert.ok(
-      ["runner_consumed", "classified_hook_family"].includes(
+      ENGINE_PLUGIN_RUNTIME_BINDING_STATUS_VALUES.includes(
         entry.runtimeBindingStatus
       )
     );
@@ -66,14 +67,26 @@ test("T-072 plugin inventory: repeated seams collapse into common authority fami
   assert.equal(familyCounts.get("declaration_ref"), 1);
 });
 
-test("T-072 plugin inventory: runtime proof is not overclaimed for classified hook families", () => {
+test("B-016 plugin inventory: every current TS hook has a closed binding lane", () => {
   const inventory = enginePluginInventory();
   const runtimeConsumed = inventory
     .filter((entry) => entry.runtimeBindingStatus === "runner_consumed")
     .map((entry) => entry.contract.pluginKind)
     .sort();
-  const classifiedOnly = inventory
-    .filter((entry) => entry.runtimeBindingStatus === "classified_hook_family")
+  const publicRuntimeConsumed = inventory
+    .filter((entry) => entry.runtimeBindingStatus === "public_runtime_consumed")
+    .map((entry) => entry.contract.pluginKind)
+    .sort();
+  const engineLawConsumed = inventory
+    .filter((entry) => entry.runtimeBindingStatus === "engine_law_consumed")
+    .map((entry) => entry.contract.pluginKind)
+    .sort();
+  const readModelConsumed = inventory
+    .filter((entry) => entry.runtimeBindingStatus === "read_model_consumed")
+    .map((entry) => entry.contract.pluginKind)
+    .sort();
+  const declarativeContracts = inventory
+    .filter((entry) => entry.runtimeBindingStatus === "declarative_contract")
     .map((entry) => entry.contract.pluginKind)
     .sort();
 
@@ -83,20 +96,23 @@ test("T-072 plugin inventory: runtime proof is not overclaimed for classified ho
     "fp_dispatch",
     "runtime_event_sink"
   ]);
-  assert.deepStrictEqual(classifiedOnly, [
-    "context_resolver",
-    "continuation_repair",
+  assert.deepStrictEqual(publicRuntimeConsumed, [
     "event_ingress",
-    "hook_ref",
     "operator_asset_resolver",
     "policy_provider",
-    "projection_consumer",
     "result_assessment",
     "runtime_identity_provider"
   ]);
-  assert.ok(
-    inventory
-      .filter((entry) => entry.runtimeBindingStatus === "classified_hook_family")
-      .every((entry) => entry.proofScope.includes("classification proof only"))
+  assert.deepStrictEqual(engineLawConsumed, ["continuation_repair"]);
+  assert.deepStrictEqual(readModelConsumed, ["projection_consumer"]);
+  assert.deepStrictEqual(declarativeContracts, [
+    "context_resolver",
+    "hook_ref"
+  ]);
+  assert.equal(
+    inventory.some(
+      (entry) => entry.runtimeBindingStatus === "classified_hook_family"
+    ),
+    false
   );
 });

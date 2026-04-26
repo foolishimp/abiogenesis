@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Date**: 2026-04-26
-**Derived from**: [ABG_3_MODULE_DESIGN.md](./ABG_3_MODULE_DESIGN.md), [M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md](./M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md), [M04_PUBLIC_START_DERIVATION.md](./M04_PUBLIC_START_DERIVATION.md), [M04_CONTROL_LOOP_DERIVATION.md](./M04_CONTROL_LOOP_DERIVATION.md), [B-016](../../.ai-workspace/tickets/backlog/B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md), [T-072](../../.ai-workspace/tickets/completed/T-072-realize-typescript-abg-start-to-iterate-engine-runner.md)
+**Derived from**: [ABG_3_MODULE_DESIGN.md](./ABG_3_MODULE_DESIGN.md), [M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md](./M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md), [M04_PUBLIC_START_DERIVATION.md](./M04_PUBLIC_START_DERIVATION.md), [M04_CONTROL_LOOP_DERIVATION.md](./M04_CONTROL_LOOP_DERIVATION.md), [B-016](../../.ai-workspace/tickets/completed/B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md), [T-072](../../.ai-workspace/tickets/completed/T-072-realize-typescript-abg-start-to-iterate-engine-runner.md)
 
 ## Purpose
 
@@ -70,10 +70,19 @@ The plugin implementation may produce only the outcome carrier authorized for
 that seam. ABG admits that outcome and then decides whether to emit, close,
 yield, retry, continue, or stop.
 
-The inventory also classifies wider ABG hook families that are not yet runtime
-consumed by the runner. Those rows are classification proof, not closure proof
-that the hook has been fully migrated. A classified-only hook family requires a
-boundary ticket before it can claim runtime consumer proof.
+The inventory classifies every current TypeScript hook family into an explicit
+binding lane. No current row may remain a generic classified-only placeholder.
+
+Binding lanes:
+
+- `runner_consumed`: consumed by the M03 engine runner.
+- `public_runtime_consumed`: consumed by an M04 public runtime surface while ABG
+  retains runtime law.
+- `engine_law_consumed`: implemented as ABG-owned law rather than downstream
+  plugin authority.
+- `read_model_consumed`: consumed only as replay-derived projection truth.
+- `declarative_contract`: admitted declaration only; no executable plugin
+  authority exists in the current TypeScript surface.
 
 ## Local Collapse
 
@@ -107,7 +116,7 @@ inventory.
 
 ## Proof Rule
 
-Every runner-consumed plugin seam requires:
+Every executable plugin seam requires:
 
 - positive substitution proof
 - negative authority proof
@@ -117,5 +126,6 @@ Every runner-consumed plugin seam requires:
 No proof may count if the plugin selects the next vector, emits unadmitted
 runtime truth, closes a traversal, or runs an iteration loop.
 
-Classified-only hook-family rows require classification proof and an explicit
-runtime-binding status. They do not close B-016 by themselves.
+Read-model and declarative-contract rows require proof that they cannot execute
+hidden runtime authority. Future executable context or declaration resolution
+must open a boundary ticket before it can move into a runtime-consumed lane.

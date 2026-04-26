@@ -119,7 +119,8 @@
     "test:t069": "npm run build:semantic && node --test test_env/tests/test_m03_graph_application_instance_semantics.test.mjs",
     "test:t072": "npm run build:semantic && node --test test_env/tests/test_m03_engine_owned_iterate_runner_unit.test.mjs test_env/tests/test_m04_engine_start_integration.test.mjs test_env/tests/t072-m03-plugin-contract-negative.test.mjs test_env/tests/test_m03_plugin_contract_inventory_unit.test.mjs",
     "test:b016": "npm run build:semantic && node --test test_env/tests/test_b016_ioc_hook_authority.test.mjs test_env/tests/test_m03_plugin_contract_inventory_unit.test.mjs test_env/tests/t072-m03-plugin-contract-negative.test.mjs test_env/tests/test_m04_engine_start_integration.test.mjs",
-    "test:t072:plugins": "npm run build:semantic && node --test test_env/tests/t072-m03-plugin-contract-negative.test.mjs test_env/tests/test_m03_plugin_contract_inventory_unit.test.mjs"
+    "test:t072:plugins": "npm run build:semantic && node --test test_env/tests/t072-m03-plugin-contract-negative.test.mjs test_env/tests/test_m03_plugin_contract_inventory_unit.test.mjs",
+    "test:t076": "npm run build:semantic && node --test test_env/tests/test_m04_typescript_installer_integration.test.mjs"
   },
   "dependencies": {
     "valibot": "1.3.1"
