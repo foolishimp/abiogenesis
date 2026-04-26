@@ -8,12 +8,13 @@
 - build_tenant: typescript
 - goal: provide-abg-owned-typescript-installer-for-installed-sandbox-population
 - change_intent: Promote the TypeScript ABG install/bootstrap and package delivery surfaces into one public downstream-consumable ABG TypeScript installer.
-- change_class: design_reframe
-- re_entry_point: design
+- change_class: requirement_reprice
+- re_entry_point: requirements
 - triaged_at: 2026-04-26
 - created_at: 2026-04-26
-- updated_at: 2026-04-26
+- updated_at: 2026-04-27
 - completed_at: 2026-04-26
+- corrected_at: 2026-04-27
 - governance_scope: STDO Method
 - governance_scope_expansion:
   - S: `SPEC_METHOD.md`
@@ -31,6 +32,10 @@
 - intake_source: odd_sdlc.TS sandbox review found that current sandbox tests are harnessed/in-process and must be repopulated by ABG install before they can qualify installed sandbox behavior.
 - target_truth: ABG TypeScript publishes and proves one public installer that downstream products can call or invoke to create a fresh installed workspace, record install manifest truth, expose installed package/CLI bindings, and archive runtime/projection evidence without importing private ABG test helpers.
 - superseded_truth: ABG TypeScript install/bootstrap internals and M05 test helpers are enough for downstream products to claim ABG-populated sandbox proof.
+- requirement_authority:
+  - REQ-P-QUAL-018G
+  - REQ-P-QUAL-018H
+  - REQ-P-QUAL-018I
 
 ## Problem
 
@@ -150,6 +155,7 @@ installer manifest is present.
 
 Design surfaces:
 
+- `specification/requirements/product/REQ-P-QUAL.md`
 - `build_tenants/abiogenesis/typescript/design/M04_TYPESCRIPT_INSTALLER_DERIVATION.md`
 - `build_tenants/abiogenesis/typescript/design/M04_TYPESCRIPT_INSTALLER_FIRST_SLICE_IACS.md`
 - `build_tenants/abiogenesis/typescript/design/M04_TYPESCRIPT_INSTALLER_STRUCTURAL_CARRIER_DIAGRAM.md`
@@ -163,13 +169,45 @@ Code surfaces:
 
 Verification:
 
-- `npm run test:t076` — 2 tests passed
+- `npm run test:t076` — 3 tests passed
 - `npm run test:t022` — 6 tests passed
 - `npm run test:t057` — 8 tests passed
 - `npm run test:semantic` — 241 tests passed
 - `npm run lint:semantic` — passed
 - `CODEX_LIVE_FP=1 npm run test:live:uat` — 2 live tests passed
 - `CODEX_LIVE_FP=1 npm run test:live` — 1 live portfolio test passed
+
+Persistent archive proof:
+
+- `test_m04_typescript_installer_integration.test.mjs` now writes
+  `test_env/test_runs/typescript_installer/public_installer/<timestamp>/`
+  before assertion completion.
+- The archive includes `run.json`, `summary.json`, `postmortem.md`,
+  `artifacts/typescript-installer-manifest.json`,
+  `artifacts/install-manifest.json`, `artifacts/package_identity.json`,
+  `artifacts/command_paths.json`, `artifacts/runtime_identity.json`,
+  `artifacts/events.jsonl`, and `artifacts/projection.json`.
+- The archive is ignored by git as persistent forensic run data, but the test
+  asserts the full proof set exists on every T-076 run.
+
+## Corrective STDO Review 2026-04-27
+
+This ticket was corrected after review found that the original closure was
+under-triaged at the S layer and overclaimed archive proof.
+
+Corrections:
+
+- re-entry changed from `design_reframe` / `design` to
+  `requirement_reprice` / `requirements`
+- `REQ-P-QUAL-018G`, `REQ-P-QUAL-018H`, and `REQ-P-QUAL-018I` now explicitly
+  own public installer, installed-runtime manifest, and installer archive proof
+- the public API now rejects relative `packageSourceRoot` values; CLI adapter
+  resolution remains the only place relative operator input may be cwd-resolved
+- the installer manifest now carries explicit runtime identity
+- T-076 proof now writes and asserts a persistent installer archive/postmortem
+  under `test_env/test_runs/typescript_installer/`
+- new design links were corrected to resolve from the design directory to the
+  repo root
 
 ## STDO Self Review
 

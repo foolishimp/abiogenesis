@@ -1,4 +1,5 @@
-// Implements: REQ-P-QUAL
+// Implements: REQ-P-QUAL-018G
+// Implements: REQ-P-QUAL-018H
 // Implements: REQ-P-SCENARIOS
 
 import type {
@@ -12,6 +13,13 @@ export interface AbgTypescriptInstallerRequest {
   readonly installedPackageName: string;
 }
 
+export interface AbgTypescriptInstallerRuntimeIdentity {
+  readonly workerId: string;
+  readonly backendId: "node";
+  readonly buildId: string;
+  readonly resolvedRuntimeRef: string;
+}
+
 export interface AbgTypescriptInstallerManifest {
   readonly kind: "abg_typescript_installer_manifest";
   readonly targetRoot: string;
@@ -22,6 +30,7 @@ export interface AbgTypescriptInstallerManifest {
   readonly packageRoot: string;
   readonly tarballPath: string;
   readonly commandPaths: readonly string[];
+  readonly runtimeIdentity: AbgTypescriptInstallerRuntimeIdentity;
   readonly installManifestPath: string;
   readonly installerManifestPath: string;
   readonly bootstrapEntryPath: string;
@@ -39,6 +48,7 @@ export interface AbgTypescriptInstallerInstalled {
   readonly packageRoot: string;
   readonly tarballPath: string;
   readonly commandPaths: readonly string[];
+  readonly runtimeIdentity: AbgTypescriptInstallerRuntimeIdentity;
   readonly installManifestPath: string;
   readonly installerManifestPath: string;
   readonly bootstrapEntryPath: string;

@@ -1,6 +1,8 @@
-// Implements: REQ-P-QUAL
+// Implements: REQ-P-QUAL-018G
+// Implements: REQ-P-QUAL-018H
 // Implements: REQ-P-SCENARIOS
 
+import { isAbsolute } from "node:path";
 import {
   parseNonEmptyString,
   parseOptionalField,
@@ -19,6 +21,14 @@ function admitInstallerTargetRoot(input: unknown, label: string) {
   return constructInstallTargetRoot(rootPath);
 }
 
+function admitPackageSourceRoot(input: unknown, label: string): string {
+  const rootPath = parseNonEmptyString(input, label);
+  if (!isAbsolute(rootPath)) {
+    throw new TypeError(`${label}: expected an absolute path`);
+  }
+  return rootPath;
+}
+
 export function admitAbgTypescriptInstallerRequest(
   input: unknown,
   label = "abgTypescriptInstallerRequest"
@@ -32,7 +42,7 @@ export function admitAbgTypescriptInstallerRequest(
       request["targetRoot"],
       `${label}.targetRoot`
     ),
-    packageSourceRoot: parseNonEmptyString(
+    packageSourceRoot: admitPackageSourceRoot(
       request["packageSourceRoot"],
       `${label}.packageSourceRoot`
     ),

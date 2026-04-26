@@ -108,6 +108,16 @@ This requirement establishes the constitutional rules for the qualification infr
 
 ---
 
+## Installed Sandbox Population
+
+**REQ-P-QUAL-018G**: Any sandbox-backed downstream qualification that claims installed ABG substrate truth shall populate the sandbox through a public ABG installer surface. Source-tree imports, private test helpers, or harness-only package bindings are not sufficient closure evidence for installed runtime behavior.
+
+**REQ-P-QUAL-018H**: A public ABG installer shall write inspectable installed-runtime truth that includes package identity, installer manifest path, install manifest path, command binding paths, runtime identity, event/projection evidence roots, and the installed package root used by downstream execution.
+
+**REQ-P-QUAL-018I**: Installer qualification shall preserve a persistent archive/postmortem under the stable test-run archive root. The archive shall include install manifest evidence, installer manifest evidence, package identity, command binding evidence, runtime identity, event/projection evidence, and an operator-facing postmortem summary.
+
+---
+
 ## Live Test Authority
 
 **REQ-P-QUAL-021**: Live F_P qualification tests are the **gold standard** for product correctness. Any failure must be root-caused — never dismissed as flaky, pre-existing, or environmental without diagnosis.

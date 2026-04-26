@@ -386,6 +386,9 @@ That wave promotes package materialization and command binding from private M05
 test support into public ABG TypeScript installer law.
 Its canonical proof lanes derive from:
 
+- `REQ-P-QUAL-018G`
+- `REQ-P-QUAL-018H`
+- `REQ-P-QUAL-018I`
 - `M04_TYPESCRIPT_INSTALLER_DERIVATION.md`
 - `M04_TYPESCRIPT_INSTALLER_FIRST_SLICE_IACS.md`
 - `M04_TYPESCRIPT_INSTALLER_STRUCTURAL_CARRIER_DIAGRAM.md`
@@ -394,7 +397,8 @@ Its canonical proof lanes derive from:
 The canonical active file is:
 
 - `test_m04_typescript_installer_integration.test.mjs` — public installer API
-  and installed `genesis-ts install` command lane
+  and installed `genesis-ts install` command lane with persistent
+  installer-archive proof
 
 The completed next product-facing wave is:
 
@@ -1276,12 +1280,16 @@ The canonical active files are:
 
 - Status: canonical module-owned integration lane
 - Module alignment: `M04-app-bootstrap` TypeScript installer slice
-- Requirements: `REQ-P-QUAL`, `REQ-P-SCENARIOS`
+- Requirements: `REQ-P-QUAL-018G`, `REQ-P-QUAL-018H`,
+  `REQ-P-QUAL-018I`, `REQ-P-SCENARIOS`
 - Design: [M04_TYPESCRIPT_INSTALLER_DERIVATION.md](../design/M04_TYPESCRIPT_INSTALLER_DERIVATION.md), [M04_TYPESCRIPT_INSTALLER_FIRST_SLICE_IACS.md](../design/M04_TYPESCRIPT_INSTALLER_FIRST_SLICE_IACS.md), [M04_TYPESCRIPT_INSTALLER_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M04_TYPESCRIPT_INSTALLER_STRUCTURAL_CARRIER_DIAGRAM.md), [M04_INSTALL_BOOTSTRAP_DERIVATION.md](../design/M04_INSTALL_BOOTSTRAP_DERIVATION.md), [TYPESCRIPT_STRICT_LANE.md](../design/TYPESCRIPT_STRICT_LANE.md), [T-076-realize-typescript-abg-installer-for-downstream-sandbox-population.md](../../../.ai-workspace/tickets/completed/T-076-realize-typescript-abg-installer-for-downstream-sandbox-population.md)
 - Current focus inside this lane:
   public installer proof that creates a package-backed ABG TypeScript install,
   exposes target-local command bindings, and proves an installed
-  `genesis-ts install` command can create a second installed workspace
+  `genesis-ts install` command can create a second installed workspace. The
+  lane also rejects direct API admission of cwd-dependent package source roots
+  and writes persistent installer archive/postmortem evidence under
+  `test_env/test_runs/typescript_installer/`.
 
 ### t019-m04-install-bootstrap-negative.test.mjs
 

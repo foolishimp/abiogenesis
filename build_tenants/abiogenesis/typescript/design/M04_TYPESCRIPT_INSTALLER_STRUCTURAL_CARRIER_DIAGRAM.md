@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Date**: 2026-04-26
-**Derived from**: [M04_TYPESCRIPT_INSTALLER_DERIVATION.md](./M04_TYPESCRIPT_INSTALLER_DERIVATION.md), [M04_TYPESCRIPT_INSTALLER_FIRST_SLICE_IACS.md](./M04_TYPESCRIPT_INSTALLER_FIRST_SLICE_IACS.md), [T-076](../../.ai-workspace/tickets/completed/T-076-realize-typescript-abg-installer-for-downstream-sandbox-population.md)
+**Derived from**: [M04_TYPESCRIPT_INSTALLER_DERIVATION.md](./M04_TYPESCRIPT_INSTALLER_DERIVATION.md), [M04_TYPESCRIPT_INSTALLER_FIRST_SLICE_IACS.md](./M04_TYPESCRIPT_INSTALLER_FIRST_SLICE_IACS.md), [T-076](../../../../.ai-workspace/tickets/completed/T-076-realize-typescript-abg-installer-for-downstream-sandbox-population.md)
 
 ## Purpose
 
@@ -46,6 +46,10 @@ class PackageIdentity {
   <<subordinate>>
 }
 
+class RuntimeIdentity {
+  <<subordinate>>
+}
+
 class PackageTarballRef {
   <<subordinate>>
 }
@@ -73,6 +77,7 @@ AbgTypescriptInstallerInstalled --|> AbgTypescriptInstallerOutcome
 AbgTypescriptInstallerRejected --|> AbgTypescriptInstallerOutcome
 
 AbgTypescriptInstallerInstalled *-- PackageIdentity
+AbgTypescriptInstallerInstalled *-- RuntimeIdentity
 AbgTypescriptInstallerInstalled *-- PackageTarballRef
 AbgTypescriptInstallerInstalled *-- InstalledPackageRoot
 AbgTypescriptInstallerInstalled *-- CommandBindingRef
@@ -85,6 +90,6 @@ AbgTypescriptInstallerOutcome ..> RuntimeTraversal : no authority
 
 - the installer is a delivery boundary above install/bootstrap, not a new
   runtime controller.
-- package tarball, installed package root, command refs, and installer manifest
-  stay subordinate to the installer outcome.
+- package tarball, installed package root, runtime identity, command refs, and
+  installer manifest stay subordinate to the installer outcome.
 - runtime traversal stays outside the installer.

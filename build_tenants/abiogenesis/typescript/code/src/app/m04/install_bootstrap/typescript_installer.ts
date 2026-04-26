@@ -1,4 +1,5 @@
-// Implements: REQ-P-QUAL
+// Implements: REQ-P-QUAL-018G
+// Implements: REQ-P-QUAL-018H
 // Implements: REQ-P-SCENARIOS
 
 import { spawnSync } from "node:child_process";
@@ -27,7 +28,8 @@ import type { DeliveryWriter } from "../../../shared/abg_delivery_library/index.
 import type { PublicInstallBootstrapInstalled } from "./carriers.js";
 import type {
   AbgTypescriptInstallerOutcome,
-  AbgTypescriptInstallerRequest
+  AbgTypescriptInstallerRequest,
+  AbgTypescriptInstallerRuntimeIdentity
 } from "./typescript_installer_carriers.js";
 
 interface PackageIdentity {
@@ -120,6 +122,17 @@ async function readPackageIdentity(
     packageName,
     packageVersion,
     dependencies: dependencyNames(packageJson)
+  });
+}
+
+function runtimeIdentityForPackage(
+  identity: PackageIdentity
+): AbgTypescriptInstallerRuntimeIdentity {
+  return Object.freeze({
+    workerId: "abiogenesis-typescript-installer",
+    backendId: "node",
+    buildId: identity.packageVersion,
+    resolvedRuntimeRef: `package:${identity.packageName}@${identity.packageVersion}`
   });
 }
 
@@ -357,6 +370,7 @@ export async function installAbiogenesisTypescript(
   const request = admitAbgTypescriptInstallerRequest(input);
   try {
     const identity = await readPackageIdentity(request.packageSourceRoot);
+    const runtimeIdentity = runtimeIdentityForPackage(identity);
     const tarballPath = await packPackage(request);
     const installBootstrapOutcome = installedBootstrapOutcome(
       await installBootstrap(
@@ -380,6 +394,7 @@ export async function installAbiogenesisTypescript(
       packageRoot,
       tarballPath,
       commandPaths,
+      runtimeIdentity,
       installManifestPath: join(
         request.targetRoot.rootPath,
         ".abiogenesis",
@@ -410,6 +425,7 @@ export async function installAbiogenesisTypescript(
         packageRoot,
         tarballPath,
         commandPaths,
+        runtimeIdentity,
         installManifestPath: manifest.installManifestPath,
         installerManifestPath,
         bootstrapEntryPath: manifest.bootstrapEntryPath,

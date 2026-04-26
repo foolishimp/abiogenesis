@@ -1,4 +1,5 @@
-// Implements: REQ-P-QUAL
+// Implements: REQ-P-QUAL-018G
+// Implements: REQ-P-QUAL-018H
 // Implements: REQ-P-SCENARIOS
 
 import type {
@@ -6,7 +7,8 @@ import type {
   AbgTypescriptInstallerManifest,
   AbgTypescriptInstallerOutcome,
   AbgTypescriptInstallerRejected,
-  AbgTypescriptInstallerRequest
+  AbgTypescriptInstallerRequest,
+  AbgTypescriptInstallerRuntimeIdentity
 } from "./typescript_installer_carriers.js";
 import type {
   InstallTargetRoot,
@@ -38,6 +40,7 @@ export function constructAbgTypescriptInstallerManifest(input: {
   readonly packageRoot: string;
   readonly tarballPath: string;
   readonly commandPaths: readonly string[];
+  readonly runtimeIdentity: AbgTypescriptInstallerRuntimeIdentity;
   readonly installManifestPath: string;
   readonly installerManifestPath: string;
   readonly bootstrapEntryPath: string;
@@ -54,6 +57,12 @@ export function constructAbgTypescriptInstallerManifest(input: {
     packageRoot: input.packageRoot,
     tarballPath: input.tarballPath,
     commandPaths: freezeStringArray(input.commandPaths),
+    runtimeIdentity: Object.freeze({
+      workerId: input.runtimeIdentity.workerId,
+      backendId: input.runtimeIdentity.backendId,
+      buildId: input.runtimeIdentity.buildId,
+      resolvedRuntimeRef: input.runtimeIdentity.resolvedRuntimeRef
+    }),
     installManifestPath: input.installManifestPath,
     installerManifestPath: input.installerManifestPath,
     bootstrapEntryPath: input.bootstrapEntryPath,
@@ -71,6 +80,7 @@ export function constructInstalledAbgTypescriptInstallerOutcome(input: {
   readonly packageRoot: string;
   readonly tarballPath: string;
   readonly commandPaths: readonly string[];
+  readonly runtimeIdentity: AbgTypescriptInstallerRuntimeIdentity;
   readonly installManifestPath: string;
   readonly installerManifestPath: string;
   readonly bootstrapEntryPath: string;
@@ -89,6 +99,12 @@ export function constructInstalledAbgTypescriptInstallerOutcome(input: {
     packageRoot: input.packageRoot,
     tarballPath: input.tarballPath,
     commandPaths: freezeStringArray(input.commandPaths),
+    runtimeIdentity: Object.freeze({
+      workerId: input.runtimeIdentity.workerId,
+      backendId: input.runtimeIdentity.backendId,
+      buildId: input.runtimeIdentity.buildId,
+      resolvedRuntimeRef: input.runtimeIdentity.resolvedRuntimeRef
+    }),
     installManifestPath: input.installManifestPath,
     installerManifestPath: input.installerManifestPath,
     bootstrapEntryPath: input.bootstrapEntryPath,

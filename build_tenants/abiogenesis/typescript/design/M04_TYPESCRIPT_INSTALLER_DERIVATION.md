@@ -15,7 +15,8 @@ This boundary derives from:
 - [M04_INSTALL_BOOTSTRAP_FIRST_SLICE_IACS.md](./M04_INSTALL_BOOTSTRAP_FIRST_SLICE_IACS.md)
 - [M05_INSTALLED_SANDBOX_DERIVATION.md](./M05_INSTALLED_SANDBOX_DERIVATION.md)
 - [M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md](./M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md)
-- [T-076](../../.ai-workspace/tickets/completed/T-076-realize-typescript-abg-installer-for-downstream-sandbox-population.md)
+- [REQ-P-QUAL.md](../../../../specification/requirements/product/REQ-P-QUAL.md)
+- [T-076](../../../../.ai-workspace/tickets/completed/T-076-realize-typescript-abg-installer-for-downstream-sandbox-population.md)
 - `build_tenants/abiogenesis/python/code/gen-install.py`
 - `build_tenants/abiogenesis/python/test_env/tests/sandbox_runtime.py`
 - `build_tenants/abiogenesis/python/test_env/tests/test_sandbox_install.py`
@@ -37,7 +38,8 @@ command delivery concern into one public installer surface:
 - create the bootstrap workspace through `PublicInstallBootstrapRequest`
 - pack and install the ABG TypeScript package into the target workspace
 - expose `abiogenesis-ts` and `genesis-ts` command bindings
-- write one installer manifest with package, command, and runtime-root truth
+- write one installer manifest with package, command, runtime-identity, and
+  runtime-root truth
 - leave graph execution, domain HOW, and downstream acceptance interpretation
   outside the installer
 
@@ -50,6 +52,8 @@ The TypeScript installer preserves these truths from the Python line:
   execution
 - command binding is installer truth, not a private test fixture
 - installed runtime identity is inspectable through manifest files
+- installer qualification preserves archive/postmortem evidence under
+  `test_env/test_runs/`
 - downstream products may consume the installer but do not define it
 
 ## Demoted Delivery Detail
