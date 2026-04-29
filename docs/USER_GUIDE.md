@@ -1,6 +1,6 @@
 # GTL/ABG User Guide
 
-**Status**: Current single human guide for GTL 3 / ABG 3.4.0-rc.2
+**Status**: Current single human guide for GTL 3 / ABG 3.4.0-rc.3
 **Audience**: People building, operating, or reviewing GTL/ABG applications
 **Purpose**: Explain what GTL/ABG is for, what it builds, the technical GTL/ABG model, how the build loop works, what the runtime gives you, and how to run the current kernel
 
@@ -80,8 +80,8 @@ Treat them by owner:
   - imported or authored `specification/*`
   - project `README.md`
 - kernel-owned installed surfaces
-  - `.genesis/*`
-  - installed docs under `.genesis/docs/`
+  - `.abiogenesis/*`
+  - installed docs under `.abiogenesis/docs/`
   - the generic GTL bootloader section written into `CLAUDE.md` / `AGENTS.md`
 - domain-installer-owned surfaces
   - runtime-contract overlays such as `.odd_sdlc/release/genesis.yml`
@@ -294,6 +294,28 @@ GTL does not own:
 - prompt choreography
 - hidden retry logic
 - internal tactic selection for probabilistic workers
+
+### Assurance And Payload Hooks
+
+For downstream ODD domain builders, the new rule is simple: declare the full
+graph function and its hook refs in GTL, then bind executable behavior through
+ABG plugins.
+
+Assurance plugin points include:
+
+- authority snapshot providers
+- evidence adapters
+- ambiguity classifiers
+- closure policy providers
+- gain function adapters
+
+Payloads that influence authority, evidence, ambiguity, traversal, or closure
+must be admitted by ABG and projected through the event-sourced payload ledger.
+Domain lifecycle registers should be projections over those events, not a second
+writable ledger with its own closure truth.
+
+Plugin outputs can inform ABG. They cannot directly emit runtime events, choose
+the next vector, close a traversal, or own the iteration loop.
 
 ### Publication And Execution Boundary
 
@@ -572,7 +594,10 @@ The live kernel in this repo is `abiogenesis`.
 ```bash
 git clone https://github.com/foolishimp/abiogenesis.git
 cd abiogenesis
-PYTHONPATH=build_tenants/abiogenesis/python/code python -m genesis --help
+cd build_tenants/abiogenesis/typescript
+npm install
+npm run build:semantic
+node build/semantic/code/src/bin/abiogenesis.js --help
 ```
 
 Current commands:
@@ -590,8 +615,8 @@ Current commands:
 Common commands:
 
 ```bash
-PYTHONPATH=build_tenants/abiogenesis/python/code python -m genesis gaps --workspace . --scope workspace
-PYTHONPATH=build_tenants/abiogenesis/python/code python -m genesis start --workspace . --scope workspace --target next --until first_traversal
+node build/semantic/code/src/bin/abiogenesis.js gaps --workspace ../../.. --scope workspace
+node build/semantic/code/src/bin/abiogenesis.js start --workspace ../../.. --scope workspace --target next --until first_traversal
 ```
 
 ### Public `start` contract
@@ -610,10 +635,10 @@ after the binary stays the same.
 <runtime-binary> start --workspace . --scope workspace --target next --until converged --fh-mode human-proxy
 ```
 
-For the Python installed runtime, `<runtime-binary>` is commonly
-`PYTHONPATH=.genesis python -m genesis`. For a TypeScript installed runtime,
-the package publishes `abiogenesis-ts` and `genesis-ts`; those binaries replace
-only the executable prefix.
+For the primary TypeScript installed runtime, `<runtime-binary>` is commonly
+`abiogenesis-ts` or `genesis-ts`. The paused Python reference line uses
+`PYTHONPATH=.genesis python -m genesis`; that prefix is reference-only for the
+TS-primary RC gate.
 
 ```bash
 abiogenesis-ts start --workspace . --scope workspace --target next --until first_traversal
@@ -652,14 +677,14 @@ Control modes stay outside `scope + target + until`:
 | `--root-mode` | `direct`, `supervised` | Lawful only with `--until converged`. |
 
 The same arguments apply from source or from an installed runtime.
-These examples use the Python installed runtime prefix:
+These examples use the TypeScript installed runtime prefix:
 
 ```bash
-PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target next --until first_traversal
-PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target graph_function:code-flow --until first_traversal
-PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target asset:code_surface --until first_traversal
-PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target next --until converged --root-mode supervised
-PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target next --until converged --fh-mode human-proxy
+genesis-ts start --workspace . --scope workspace --target next --until first_traversal
+genesis-ts start --workspace . --scope workspace --target graph_function:code-flow --until first_traversal
+genesis-ts start --workspace . --scope workspace --target asset:code_surface --until first_traversal
+genesis-ts start --workspace . --scope workspace --target next --until converged --root-mode supervised
+genesis-ts start --workspace . --scope workspace --target next --until converged --fh-mode human-proxy
 ```
 
 `asset:<handle>` requires an installed runtime contract that publishes `operator_asset_contract`.
@@ -739,13 +764,13 @@ open work remains. Admission or replay-projection defects still return
 Use `next` for ordinary workspace advancement:
 
 ```bash
-PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target next --until first_traversal
+genesis-ts start --workspace . --scope workspace --target next --until first_traversal
 ```
 
 Use a graph-function target when the operator already knows the published carrier:
 
 ```bash
-PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target graph_function:code-flow --until first_traversal
+genesis-ts start --workspace . --scope workspace --target graph_function:code-flow --until first_traversal
 ```
 
 When this selects F_P work, the output includes `fp_manifest_path`.
@@ -753,13 +778,13 @@ Read the manifest edge before writing the result:
 
 ```bash
 python -m json.tool .ai-workspace/fp_manifests/<manifest-id>.json
-PYTHONPATH=.genesis python -m genesis assess-result --workspace . --result .ai-workspace/fp_results/<manifest-id>.json
+genesis-ts assess-result --workspace . --result .ai-workspace/fp_results/<manifest-id>.json
 ```
 
 Use an asset target when the operator works from a published artifact handle:
 
 ```bash
-PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target asset:code_surface --until first_traversal
+genesis-ts start --workspace . --scope workspace --target asset:code_surface --until first_traversal
 ```
 
 The runtime contract must publish an `operator_asset_contract`.
@@ -786,7 +811,7 @@ Example registry entry:
 Use supervised root mode when the operator wants convergence control plus a live status surface:
 
 ```bash
-PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target next --until converged --root-mode supervised
+genesis-ts start --workspace . --scope workspace --target next --until converged --root-mode supervised
 ```
 
 The output includes `root_supervision: true` and a `live_status` object.
@@ -794,7 +819,7 @@ The output includes `root_supervision: true` and a `live_status` object.
 Use human-proxy mode only for convergence runs where the resolved policy allows F_H proxying:
 
 ```bash
-PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target next --until converged --fh-mode human-proxy
+genesis-ts start --workspace . --scope workspace --target next --until converged --fh-mode human-proxy
 ```
 
 `--fh-mode human-proxy` and `--root-mode supervised` are control modes.
@@ -803,24 +828,27 @@ They do not change the admitted `scope + target + until` traversal request.
 ### Install the kernel into another workspace
 
 ```bash
-python build_tenants/abiogenesis/python/code/gen-install.py --target /path/to/project
+cd build_tenants/abiogenesis/typescript
+npm run build:semantic
+node build/semantic/code/src/bin/abiogenesis.js install --target /path/to/project
 ```
 
 That installs:
 
 ```text
-/path/to/project/.genesis/
-├── genesis/
-├── gtl/
-└── genesis.yml
+/path/to/project/.abiogenesis/
+├── docs/
+├── cli-runtime.mjs
+├── install-manifest.json
+└── install-provenance.json
 ```
 
 Then run:
 
 ```bash
 cd /path/to/project
-PYTHONPATH=.genesis python -m genesis gaps --workspace . --scope workspace
-PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target next --until first_traversal
+genesis-ts gaps --workspace . --scope workspace
+genesis-ts start --workspace . --scope workspace --target next --until first_traversal
 ```
 
 ## What To Inspect After A Run

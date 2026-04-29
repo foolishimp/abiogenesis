@@ -1,4 +1,4 @@
-# Abiogenesis 3.4.0-rc.2 Docs
+# Abiogenesis 3.4.0-rc.3 Docs
 
 Live supporting project documentation lives here.
 
@@ -14,8 +14,8 @@ builder guidance over that source.
   material.
 - [LLM_GTL_APP_BUILDER_GUIDE.md](./LLM_GTL_APP_BUILDER_GUIDE.md) is the
   compressed technical guide for LLM agents. It carries the axioms, operating
-  constraints, and compact Python/TypeScript appendices needed for agent
-  bootstrap.
+  constraints, TypeScript-primary package guidance, and the GTL hook/ABG plugin
+  setup needed for agent bootstrap.
 
 ## Release Notes
 

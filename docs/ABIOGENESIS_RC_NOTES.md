@@ -1,14 +1,16 @@
-# abiogenesis 3.4.0-rc.2 RC Notes
+# abiogenesis 3.4.0-rc.3 RC Notes
 
-This note records accepted RC behavior for the current `v3.4.0-rc.2` cut.
+This note records accepted RC behavior for the current `v3.4.0-rc.3` cut.
 
 ## Accepted Framework Behavior
 
-### TypeScript Is A Package-First RC Carrier
+### TypeScript Is The Primary Package-First RC Carrier
 
-The TypeScript tenant is released as a package-first realization. Public
-consumers should treat the package exports and binary aliases as delivery
+The TypeScript tenant is the primary release realization for this RC line.
+Public consumers should treat the package exports and binary aliases as delivery
 bindings over the same GTL/ABG product grammar, not as a separate product law.
+The Python tenant is paused as released-reference evidence and is not an active
+release gate while the tenant registry keeps it paused.
 
 Accepted public delivery bindings:
 
@@ -50,9 +52,69 @@ Accepted behavior:
 - replayed F_P assessed-result truth advances re-entry without redispatching
   the already assessed edge
 - runner-facing extension seams enter through admitted plugin contracts
-- B-016 remains open for broader hook-family runtime migration
 - plugin outputs cannot own traversal, event, closure, graph-call, frame,
   transition, next-vector, or loop authority
+
+### GTL Declares Assurance Hooks, ABG Owns Plugin Admission
+
+Downstream ODD builders must declare policy and assurance hook refs through GTL
+surfaces. They must not smuggle equivalent behavior through `runtime_config`,
+transport prompts, controller-local payloads, or app-specific service loops.
+
+Accepted hook declaration surfaces:
+
+- `GraphFunction.declarations`
+- `GraphVector.declarations`
+- `Role.policy_hooks`
+- `CandidateFamily.policy_hints`
+
+Accepted assurance plugin concerns:
+
+- `assurance_authority_snapshot_provider`
+- `assurance_evidence_adapter`
+- `assurance_ambiguity_classifier`
+- `assurance_closure_policy_provider`
+- `assurance_gain_function_adapter`
+
+Accepted behavior:
+
+- GTL carries stable hook refs and replay-safe config
+- ABG resolves hook refs to admitted plugin contracts
+- plugins provide candidate data, classification, policy, or gain inputs
+- ABG emits the events, projects the ledgers, and applies closure law
+- plugin output cannot directly close a run, graph call, frame, continuation,
+  or release boundary
+
+### Payload And Ledger Truth Is Event Sourced
+
+Payloads that affect authority, evidence, traversal, projection, ambiguity, or
+closure pass through ABG admission. Product-specific lifecycle registers are
+read models over admitted ABG events, not second writable ledgers.
+
+Accepted payload/ledger behavior:
+
+- payload identity is digest-bound before it can participate in closure
+- payload authority, evidence, and ambiguity facts are evented
+- lifecycle registers project from the event log and can be replayed
+- stale authority, orphan evidence, missing proof, and contradictory evidence
+  remain named rows rather than disappearing into successful closure
+- downstream domains own semantic gain functions, but ABG owns the carrier and
+  event law that admits their outputs
+
+### Assurance Projection Blocks Premature Closure
+
+The RC line includes total assurance projection and closure-fold gating for the
+TypeScript tenant.
+
+Accepted behavior:
+
+- assurance rows are projected from authority snapshots, evidence, payload
+  facts, and runtime events
+- unknowns become named ambiguity rows instead of nullable bypasses
+- a second-hop register can deepen the evidence surface and stop convergence
+  when new unresolved rows appear
+- `fulfilled` is a projected state, not a worker self-report
+- closure folds over the total projection and blocks on unresolved blocker rows
 
 ### Bare And Typed Edges Do Not Imply Compute Law
 
@@ -129,14 +191,15 @@ Accepted behavior:
 - does not reintroduce downstream product labels such as `proof_hold` as
   TypeScript `M04` substrate taxonomy
 
-### External-Live Qualification Is A Release Gate
+### Claude External-Live Qualification Is A Release Gate
 
 The RC gate includes real F_P transport, not only deterministic source tests.
 
 Accepted behavior:
 
-- the RC live portfolio covers five Python live scenario families
-- the RC live portfolio covers twelve external-live stages
+- the RC live gates use the Claude live lane
+- the RC live portfolio covers real external-live F_P stages through the
+  TypeScript package surface
 - each stage opens public dispatch truth and ingests a live worker artifact
 - skipped live portfolio readiness is not a valid RC closure result
 - the retained single-edge live UAT lane remains runnable as a direct command
@@ -163,19 +226,16 @@ Accepted behavior:
 
 The current RC proving footer is:
 
-- `npm run test:b016`: `13 passed`
-- `npm run test:t072`: `14 passed`
-- `npm run test:t044`: `9 passed`
-- `npm run test:t066`: `1 passed`
-- `odd_sdlc npm run test:sandbox`: `5 passed`
-- `npm run test:t012`: `9 passed`
-- `npm run test:t013`: `10 passed`
-- `npm run test:t072:plugins`: `7 passed`
-- `npm run test:semantic`: `239 passed`
-- `npm run test:t064`: `3 passed`
+- `npm run test:t076`: `4 passed`, `4310.658167ms`
+- `npm run test:semantic`: `291 passed`, `4823.088125ms`
 - `npm run lint:semantic`: `passed`
-- `CODEX_LIVE_FP=1 npm run test:live`: `1 passed`, `0 skipped`,
-  `153622.118375ms`
-- `CODEX_LIVE_FP=1 npm run test:live:uat`: `2 passed`, `0 skipped`,
-  `53448.786ms`
+- `npm run lint:test-harness`: `passed`
+- `CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=360000 npm run test:t094:live`:
+  `1 passed`, `11357.336375ms`
+- `CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=360000 npm run test:live:uat`:
+  `2 passed`, `32388.037125ms`
+- `CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=360000 npm run test:live`:
+  `1 passed`, `75197.459708ms`
+- `npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run`: `passed`,
+  package `3.4.0-rc.3`, `294 files`
 - `git diff --check`: `passed`

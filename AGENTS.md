@@ -25,8 +25,9 @@ Read the live project-owned constitutional surfaces first:
 - `workspace://build_tenants/common/design/README.md`
 - `workspace://build_tenants/common/design/module_decomp.md`
 - `workspace://build_tenants/common/design/modules/`
-- `workspace://build_tenants/abiogenesis/python/design/README.md`
-- `workspace://build_tenants/abiogenesis/python/code/gtl_spec/GTL_BOOTLOADER.md`
+- `workspace://build_tenants/abiogenesis/typescript/design/README.md`
+- `workspace://docs/LLM_GTL_APP_BUILDER_GUIDE.md`
+- `workspace://docs/USER_GUIDE.md`
 
 Installed axioms:
 - Specification defines project truth; design surfaces define realization.
@@ -45,7 +46,7 @@ Default role assignments for this install:
 <!-- GTL_BOOTLOADER_START -->
 # GTL Bootloader: Axiomatic Constraint Surface
 
-**Version**: 3.4.0-rc.2
+**Version**: 3.4.0-rc.3
 **Status**: Compressed install-time bootstrap
 **Role**: Minimal ontology and operating constraints for GTL 3 / ABG 3 work
 
@@ -162,11 +163,25 @@ ABG realizes:
 - role binding
 - correction/reset
 - transport
+- admitted payload ledger projection
+- total assurance projection
+- closure-fold gating
 - self-hosting consistency checks
 - recursive machine control
 
 GTL must not depend on ABG runtime modules.
 ABG may interpret GTL declarations.
+
+GTL declares hook refs and replay-safe config on `GraphFunction`,
+`GraphVector`, `Role`, and `CandidateFamily` surfaces. ABG resolves those refs
+through governed plugin contracts. Downstream ODD builders must not create
+side-door payload or assurance frameworks in transport prompts, runtime config,
+or app-local service loops.
+
+Assurance plugin concerns include authority snapshots, evidence adaptation,
+ambiguity classification, closure policy, and gain-function adaptation. Plugins
+provide data or policy inputs to ABG; ABG owns event emission, projection,
+selection, closure, and ledger truth.
 
 ## 5. Evaluator Regimes
 
@@ -218,35 +233,31 @@ If frame-local recursion bleeds into global publication or hidden fallback trave
 12. In the TypeScript RC line, `start(...)` delegates to the M03-owned
     `start -> iterate` runner. `publicStart(...)` is a compatibility adapter,
     not a separate one-step advancement loop.
+13. Payloads that affect authority, evidence, ambiguity, traversal, or closure
+    pass through ABG admission and event-sourced payload-ledger projection.
+14. Assurance and lineage registers are projections over admitted events, not
+    independent writable ledgers.
 
 ## 8. Read Next
 
 Methodology master:
 - public source-of-truth repository: `https://github.com/foolishimp/specification_methodology`
-- installed workspace mirror: `workspace://.genesis/docs/standards/`
+- installed workspace mirror: `workspace://.abiogenesis/docs/standards/`
 
 Installed runtime details, always present after install:
-- `workspace://.genesis/docs/LLM_GTL_APP_BUILDER_GUIDE.md`
-- `workspace://.genesis/docs/USER_GUIDE.md`
-- `workspace://.genesis/docs/GTL_BOOTLOADER.md`
-- `workspace://.genesis/docs/standards/SPEC_METHOD.md`
-- `workspace://.genesis/docs/standards/POSTING_GUIDE.md`
-- `workspace://.genesis/docs/standards/WRITING_GUIDE.md`
-- `workspace://.genesis/gtl/__init__.py`
-- `workspace://.genesis/gtl/graph.py`
-- `workspace://.genesis/gtl/function_model.py`
-- `workspace://.genesis/gtl/algebra.py`
-- `workspace://.genesis/genesis/interpret.py`
-- `workspace://.genesis/genesis/frames.py`
-- `workspace://.genesis/genesis/selection.py`
-- `workspace://.genesis/genesis/events.py`
-- `workspace://.genesis/genesis/materialization.py`
-- `workspace://.genesis/genesis/selfhosting.py`
+- `workspace://.abiogenesis/docs/LLM_GTL_APP_BUILDER_GUIDE.md`
+- `workspace://.abiogenesis/docs/USER_GUIDE.md`
+- `workspace://.abiogenesis/docs/standards/SPEC_METHOD.md`
+- `workspace://.abiogenesis/docs/standards/POSTING_GUIDE.md`
+- `workspace://.abiogenesis/docs/standards/WRITING_GUIDE.md`
+- `workspace://.abiogenesis/install-manifest.json`
+- `workspace://.abiogenesis/install-provenance.json`
+- `workspace://.abiogenesis/cli-runtime.mjs`
 
 Project-owned surfaces, when present after scaffold:
 - `workspace://README.md`
 - `workspace://.ai-workspace/comments/README.md`
-- `workspace://.genesis/docs/standards/SPEC_METHOD.md`
+- `workspace://.abiogenesis/docs/standards/SPEC_METHOD.md`
 - `workspace://specification/INTENT.md`
 - `workspace://specification/PRODUCT.md`
 - `workspace://specification/GOALS.md`
@@ -264,6 +275,6 @@ When acting under this bootstrap:
 5. treat missing traceability as a defect
 6. if a live requirement is not realized, state the gap explicitly
 7. do not invent hidden selection strategy, hidden traversal targets, or rival ontology
-8. if writing under `workspace://.ai-workspace/comments/`, follow `workspace://.genesis/docs/standards/POSTING_GUIDE.md` and treat the result as commentary, not law
+8. if writing under `workspace://.ai-workspace/comments/`, follow `workspace://.abiogenesis/docs/standards/POSTING_GUIDE.md` and treat the result as commentary, not law
 
 <!-- GTL_BOOTLOADER_END -->

@@ -31,7 +31,14 @@ const EXPECTED_STAGE_EVENT_PREFIX = [
   "graph_call_opened",
   "frame_opened",
   "vector_traversal_planned",
-  "fp_dispatch_requested"
+  "fp_dispatch_requested",
+  "actor_invocation_started",
+  "actor_invocation_closed"
+];
+const EXPECTED_ASSESSMENT_PAYLOAD_EVENT_CHAIN_PER_ID = [
+  "payload_observed",
+  "payload_validated",
+  "evidence_admitted"
 ];
 const SCENARIOS = M05_REFERENCE_LIVE_SCENARIO_OBLIGATIONS.map((obligation) => ({
   scenarioName: obligation.scenarioName,
@@ -61,6 +68,20 @@ function transportTimeoutMs() {
   const raw = process.env["ABG_TS_LIVE_TIMEOUT_MS"] ?? "600000";
   const parsed = Number.parseInt(raw, 10);
   return Number.isFinite(parsed) && parsed > 0 ? parsed : 600000;
+}
+
+function expectedAssessmentEventKinds(count) {
+  if (count <= 0) {
+    return [];
+  }
+  return [
+    "authority_snapshot_admitted",
+    ...Array.from(
+      { length: count },
+      () => EXPECTED_ASSESSMENT_PAYLOAD_EVENT_CHAIN_PER_ID
+    ).flat(),
+    ...Array.from({ length: count }, () => "assessed")
+  ];
 }
 
 function timestampId() {
@@ -582,19 +603,13 @@ async function runLiveStage({
   assert.equal(assessment.projection.runStatus, "assessed");
   assert.deepStrictEqual(
     assessment.eventKinds,
-    Array.from(
-      { length: request.expectedAssessmentIds.length },
-      () => "assessed"
-    )
+    expectedAssessmentEventKinds(request.expectedAssessmentIds.length)
   );
   assert.deepStrictEqual(
     [...dispatchBundle.eventKinds, ...assessment.eventKinds],
     [
       ...EXPECTED_STAGE_EVENT_PREFIX,
-      ...Array.from(
-        { length: request.expectedAssessmentIds.length },
-        () => "assessed"
-      )
+      ...expectedAssessmentEventKinds(request.expectedAssessmentIds.length)
     ]
   );
 

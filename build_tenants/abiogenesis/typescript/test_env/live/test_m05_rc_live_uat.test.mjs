@@ -21,13 +21,25 @@ const TEST_ENV_ROOT = path.dirname(LIVE_DIR);
 const TENANT_ROOT = path.dirname(TEST_ENV_ROOT);
 const SCENARIO_NAME = "requirements_to_uat";
 const READY_TOKEN = "ABG_TS_READY";
-const EXPECTED_FULL_EVENT_CHAIN = [
+const EXPECTED_DISPATCH_EVENT_CHAIN = [
   "basis_admitted",
   "graph_call_opened",
   "frame_opened",
   "vector_traversal_planned",
   "fp_dispatch_requested",
+  "actor_invocation_started",
+  "actor_invocation_closed"
+];
+const EXPECTED_ASSESSMENT_EVENT_CHAIN = [
+  "authority_snapshot_admitted",
+  "payload_observed",
+  "payload_validated",
+  "evidence_admitted",
   "assessed"
+];
+const EXPECTED_FULL_EVENT_CHAIN = [
+  ...EXPECTED_DISPATCH_EVENT_CHAIN,
+  ...EXPECTED_ASSESSMENT_EVENT_CHAIN
 ];
 
 function liveEnabled() {
@@ -660,7 +672,7 @@ test("M05 RC live sandbox UAT: real F_P transport artifact is ingested through t
   assert.equal(dispatchBundle.startOutcome.stopPredicate, "dispatch_required");
   assert.equal(request.expectedEdge, "requirements→uat_tests");
   assert.deepStrictEqual(request.expectedAssessmentIds, ["uat_tests_complete"]);
-  assert.deepStrictEqual(dispatchBundle.eventKinds, EXPECTED_FULL_EVENT_CHAIN.slice(0, -1));
+  assert.deepStrictEqual(dispatchBundle.eventKinds, EXPECTED_DISPATCH_EVENT_CHAIN);
 
   const readiness = runTransport(
     request,
@@ -723,7 +735,7 @@ test("M05 RC live sandbox UAT: real F_P transport artifact is ingested through t
   assert.equal(assessment.assessmentOutcome.kind, "accepted");
   assert.equal(assessment.projection.kind, "ready");
   assert.equal(assessment.projection.runStatus, "assessed");
-  assert.deepStrictEqual(assessment.eventKinds, ["assessed"]);
+  assert.deepStrictEqual(assessment.eventKinds, EXPECTED_ASSESSMENT_EVENT_CHAIN);
   assert.deepStrictEqual(
     [...dispatchBundle.eventKinds, ...assessment.eventKinds],
     EXPECTED_FULL_EVENT_CHAIN
@@ -786,7 +798,7 @@ test("M05 RC live sandbox UAT: live F_P worker synthesizes challenge-specific UA
   assert.equal(dispatchBundle.startOutcome.stopPredicate, "dispatch_required");
   assert.equal(request.expectedEdge, "requirements→uat_tests");
   assert.deepStrictEqual(request.expectedAssessmentIds, ["uat_tests_complete"]);
-  assert.deepStrictEqual(dispatchBundle.eventKinds, EXPECTED_FULL_EVENT_CHAIN.slice(0, -1));
+  assert.deepStrictEqual(dispatchBundle.eventKinds, EXPECTED_DISPATCH_EVENT_CHAIN);
 
   const readiness = runTransport(
     request,
@@ -851,7 +863,7 @@ test("M05 RC live sandbox UAT: live F_P worker synthesizes challenge-specific UA
   assert.equal(assessment.assessmentOutcome.kind, "accepted");
   assert.equal(assessment.projection.kind, "ready");
   assert.equal(assessment.projection.runStatus, "assessed");
-  assert.deepStrictEqual(assessment.eventKinds, ["assessed"]);
+  assert.deepStrictEqual(assessment.eventKinds, EXPECTED_ASSESSMENT_EVENT_CHAIN);
   assert.deepStrictEqual(
     [...dispatchBundle.eventKinds, ...assessment.eventKinds],
     EXPECTED_FULL_EVENT_CHAIN

@@ -14,11 +14,11 @@ The repo is organized around spec-driven development:
   harness
 - `build_tenants/abiogenesis/python/` is a paused released reference line
 
-The active engine and language surface is GTL 3 / ABG 3.4.0-rc.2:
+The active engine and language surface is GTL 3 / ABG 3.4.0-rc.3:
 - GTL: `Module`, `Graph`, `Node`, `GraphVector`, `Context`, `Job`, `Role`
 - ABG: interpreter, typed runtime carriers, event stream, projection,
   convergence, regime binding, run, graph call, continuation, transport,
-  provenance
+  provenance, payload ledger, assurance projection
 
 The 3.4.0 RC runtime boundary is carrier and event owned. Public execution
 still enters through published `GraphFunction` work, but advancement, dispatch,
@@ -26,6 +26,11 @@ convergence, completion, and projection consume typed runtime truth rather than
 controller-local state or `runtime_config` side channels. In the TypeScript RC
 line, `start(...)` owns the public `start -> iterate` engine path and
 `publicStart(...)` is only a compatibility adapter over that path.
+
+Downstream ODD domain builders declare hook refs in GTL and bind executable
+behavior through ABG plugin contracts. Payloads that influence authority,
+evidence, ambiguity, traversal, or closure pass through ABG admission and the
+event-sourced payload ledger.
 
 ## Public Operator Surface
 
@@ -134,8 +139,8 @@ npm run test:b016
 npm run test:t072
 npm run lint:semantic
 CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=180000 npm run test:t094:live
-CODEX_LIVE_FP=1 npm run test:live:uat
-CODEX_LIVE_FP=1 npm run test:live
+CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude npm run test:live:uat
+CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude npm run test:live
 ```
 
 The repo root is not the active test bed.
@@ -153,15 +158,7 @@ cd build_tenants/abiogenesis/python/test_env
 
 ## Installer
 
-The Claude build installer lives at:
-
-```bash
-python build_tenants/abiogenesis/python/code/gen-install.py --target /path/to/project
-```
-
-That installs a `.genesis/` runtime into the target project. The root repo itself is not the installed runtime.
-
-The TypeScript RC installer lives behind the package binary:
+The TypeScript RC installer is the primary bootstrap path:
 
 ```bash
 cd build_tenants/abiogenesis/typescript
@@ -172,8 +169,34 @@ node build/semantic/code/src/bin/abiogenesis.js install --target /path/to/projec
 That installs a package-backed ABG TypeScript runtime into the target project:
 `.abiogenesis/install-manifest.json`,
 `.abiogenesis/typescript-installer-manifest.json`,
+`.abiogenesis/docs/`,
 `node_modules/@abiogenesis/typescript-tenant`, and
 `node_modules/.bin/{abiogenesis-ts,genesis-ts}`.
+
+The paused Python reference installer remains historical/reference-only:
+
+```bash
+python build_tenants/abiogenesis/python/code/gen-install.py --target /path/to/project
+```
+
+That installs a `.genesis/` runtime into the target project. It is not the
+primary TS release bootstrap path.
+
+## GTL Hook And ABG Plugin Setup
+
+For ODD domain builders, the setup rule is:
+
+```text
+GTL declaration -> hook ref + replay-safe config
+ABG plugin      -> admitted provider/evaluator/policy implementation
+ABG events      -> payload, evidence, ambiguity, and closure truth
+Read models     -> projected lifecycle and lineage registers
+```
+
+The assurance plugin concerns are authority snapshot, evidence adapter,
+ambiguity classifier, closure policy provider, and gain-function adapter.
+Plugins supply inputs to ABG; ABG owns event emission, projection, selection,
+closure, and ledger truth.
 
 ## Notes
 

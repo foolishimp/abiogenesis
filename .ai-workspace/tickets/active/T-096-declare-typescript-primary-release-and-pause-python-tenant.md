@@ -15,11 +15,14 @@ priority: high
 triaged_at: 2026-04-30T00:50:46+10:00
 created_at: 2026-04-30T00:50:46+10:00
 dependencies:
+  - T-086 active/awaiting_external_agent_review
+  - T-090 active/awaiting_external_agent_review
   - T-091 active/external_review_blockers_resolved_pending_re_review
   - T-092-TS active/external_review_blockers_resolved_pending_re_review
   - T-093-TS active/external_review_blockers_resolved_pending_re_review
   - T-094 active/external_review_blockers_resolved_pending_re_review
   - T-095 active/external_review_blockers_resolved_pending_re_review
+  - T-095-TS active/external_review_accepted_closure_ready
 governing_library:
   - build_tenants/TENANT_REGISTRY.md
   - specification/PRODUCT.md
@@ -38,6 +41,7 @@ evaluation_criteria:
   - T-092-PY, T-094-PY, and T-095-PY are paused rather than closed.
   - T-094 and T-095 do not claim Python parity, Python no-gap sufficiency, or Python tenant closure.
   - The ABG assurance/payload tranche remains active until external review accepts the TS-primary scope and the TypeScript proof evidence.
+  - The external review tranche includes T-086, T-090, T-091, T-092-TS, T-093-TS, T-094, T-095, T-095-TS, and T-096.
 proof_surface:
   - build_tenants/TENANT_REGISTRY.md
   - specification/PRODUCT.md

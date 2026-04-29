@@ -1,6 +1,6 @@
 # LLM GTL App Builder Guide
 
-**Status**: Current compressed technical GTL 3 / ABG 3.4.0-rc.2 guide for LLMs
+**Status**: Current compressed technical GTL 3 / ABG 3.4.0-rc.3 guide for LLMs
 **Audience**: LLM agentic coders and agent bootstraps building GTL/ABG domain apps
 **Purpose**: Compress the human GTL/ABG guide into the ontology, operating rules, fail-closed constraints, and language-specific syntax needed by LLM agents
 
@@ -783,6 +783,7 @@ The main hook concerns are:
 - `escalation`
 - `proof`
 - `closure`
+- `assurance`
 
 These concerns attach through GTL declaration surfaces:
 
@@ -850,6 +851,36 @@ failing closure.
 Only declared blocker-class conditions should convert those findings into
 closure failure.
 
+### `assurance`
+
+Assurance hooks connect domain-specific authority, evidence, ambiguity, closure
+policy, and gain functions to the ABG assurance projection.
+
+Use GTL declarations for the hook ref and replay-safe config. Bind executable
+implementations through ABG plugin contracts.
+
+The TypeScript RC plugin kinds are:
+
+- `assurance_authority_snapshot_provider`
+- `assurance_evidence_adapter`
+- `assurance_ambiguity_classifier`
+- `assurance_closure_policy_provider`
+- `assurance_gain_function_adapter`
+
+These plugins provide inputs to ABG. They do not emit runtime events, select the
+next vector, close traversals, or own the iteration loop.
+
+### `payload ledger`
+
+Payloads that affect authority, evidence, ambiguity, traversal, or closure must
+pass through ABG admission. Product-specific ledgers and lineage registers are
+read models projected from admitted events.
+
+Do not create a second payload framework in app services. Domain builders may
+own payload codecs, authority providers, evidence adapters, ambiguity
+classifiers, closure policies, and gain functions, but ABG owns payload
+identity, event admission, projection, and closure relevance.
+
 ### `role hooks`
 
 Role hooks govern authority, assignment, and approval constraints.
@@ -875,6 +906,8 @@ ABG owns:
 - proof and closure facts
 - replay and projection
 - correction and supersession fact emission
+- payload identity and event-sourced payload-ledger projection
+- total assurance projection and closure-fold gating
 
 ABG does not own domain semantics beyond declared law.
 
@@ -908,7 +941,9 @@ It produces:
 - a graph-function catalog
 - semantic jobs and roles
 - evented runtime truth
+- admitted payload and assurance facts
 - projected run, graph-call, frame, and continuation state
+- projected lifecycle or lineage registers
 - proof and closure facts
 - correction and supersession paths
 - written testcase authority and proof lanes
@@ -997,7 +1032,7 @@ The UX should expose lawful next moves from runtime facts.
 
 The live kernel in this repo is `abiogenesis`.
 
-The current source version is `3.4.0-rc.2`.
+The current source version is `3.4.0-rc.3`.
 
 ### Run from source
 
@@ -1177,16 +1212,17 @@ See the appendices for Python CLI and TypeScript package/API dispatch loops.
 
 ### Install the kernel into another workspace
 
-See the appendices for Python install commands and TypeScript package install
-or bootstrap API patterns.
+See the TypeScript appendix for package install and bootstrap API patterns. The
+Python installer is retained as paused reference material only.
 
-The Python installer creates:
+The TypeScript installer creates:
 
 ```text
-/path/to/project/.genesis/
-├── genesis/
-├── gtl/
-└── genesis.yml
+/path/to/project/.abiogenesis/
+├── docs/
+├── cli-runtime.mjs
+├── install-manifest.json
+└── install-provenance.json
 ```
 
 Then run through the installed language surface described in the relevant
@@ -1393,28 +1429,32 @@ selection = SelectionDecision(
 
 ```bash
 git clone https://github.com/foolishimp/abiogenesis.git
-cd abiogenesis
-PYTHONPATH=build_tenants/abiogenesis/python/code python -m genesis --help
-PYTHONPATH=build_tenants/abiogenesis/python/code python -m genesis gaps --workspace . --scope workspace
-PYTHONPATH=build_tenants/abiogenesis/python/code python -m genesis start --workspace . --scope workspace --target next --until first_traversal
+cd abiogenesis/build_tenants/abiogenesis/typescript
+npm install
+npm run build:semantic
+node build/semantic/code/src/bin/abiogenesis.js --help
+node build/semantic/code/src/bin/abiogenesis.js gaps --workspace ../../.. --scope workspace
+node build/semantic/code/src/bin/abiogenesis.js start --workspace ../../.. --scope workspace --target next --until first_traversal
 ```
 
 ### F_P dispatch loop
 
 ```bash
-PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target next --until first_traversal
+genesis-ts start --workspace . --scope workspace --target next --until first_traversal
 python -m json.tool .ai-workspace/fp_manifests/<manifest-id>.json
-PYTHONPATH=.genesis python -m genesis assess-result --workspace . --result .ai-workspace/fp_results/<manifest-id>.json
-PYTHONPATH=.genesis python -m genesis gaps --workspace . --scope workspace
+genesis-ts assess-result --workspace . --result .ai-workspace/fp_results/<manifest-id>.json
+genesis-ts gaps --workspace . --scope workspace
 ```
 
 ### Install into another workspace
 
 ```bash
-python build_tenants/abiogenesis/python/code/gen-install.py --target /path/to/project
+cd build_tenants/abiogenesis/typescript
+npm run build:semantic
+node build/semantic/code/src/bin/abiogenesis.js install --target /path/to/project
 cd /path/to/project
-PYTHONPATH=.genesis python -m genesis gaps --workspace . --scope workspace
-PYTHONPATH=.genesis python -m genesis start --workspace . --scope workspace --target next --until first_traversal
+genesis-ts gaps --workspace . --scope workspace
+genesis-ts start --workspace . --scope workspace --target next --until first_traversal
 ```
 
 ## Appendix: TypeScript Examples And Commands
@@ -1717,8 +1757,8 @@ npm run test:t045
 npm run test:t013
 npm run test:t031
 npm run test:t036
-CODEX_LIVE_FP=1 npm run test:live
-CODEX_LIVE_FP=1 npm run test:live:uat
+CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude npm run test:live
+CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude npm run test:live:uat
 ```
 
 Required installed command grammar:
@@ -1863,7 +1903,7 @@ cd /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript
 npm run build:semantic
 npm pack
 cd /path/to/project
-npm install /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/abiogenesis-typescript-tenant-3.4.0-rc.2.tgz
+npm install /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/abiogenesis-typescript-tenant-3.4.0-rc.3.tgz
 ```
 
 For product-owned bootstrap, use the package API:
@@ -1877,8 +1917,8 @@ const installOutcome = await installBootstrap(
     installedPackageName: "@example/delivery-app",
     runtimePackage: {
       packageName: "@abiogenesis/typescript-tenant",
-      packageVersion: "3.4.0-rc.2",
-      dependencyRef: "file:./abiogenesis-typescript-tenant-3.4.0-rc.2.tgz",
+      packageVersion: "3.4.0-rc.3",
+      dependencyRef: "file:./abiogenesis-typescript-tenant-3.4.0-rc.3.tgz",
       appExportSubpath: "./app/m04",
       requiredExports: [".", "./app/m04"]
     }
