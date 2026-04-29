@@ -3,7 +3,7 @@
 **Status**: Active
 **Date**: 2026-04-23
 **Purpose**: Derive the first TypeScript `M04-app-bootstrap` public-start
-boundary from the released Python design without importing Python
+boundary from the paused Python reference design without importing Python
 controller/bootstrap drift as architecture.
 
 ## 1. Source Material
@@ -26,7 +26,7 @@ This boundary derives from:
 The TypeScript `M04` line does not start from Python `cli_adapter.py`,
 `gen_start()`, or install/bootstrap helpers as architecture.
 
-It starts from the released Python **design truths**:
+It starts from the paused Python reference **design truths**:
 
 - public execution is graph-function-first
 - package/bootstrap remains a delivery binding above kernel-owned runtime law

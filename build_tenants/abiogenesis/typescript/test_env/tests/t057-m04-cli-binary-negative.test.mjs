@@ -6,7 +6,7 @@
 
 import test from "node:test";
 import assert from "node:assert/strict";
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
 
@@ -176,6 +176,9 @@ function parsePayload(run) {
 
 test("T-057 negative proof: start fails closed when no app-owned TypeScript runtime binding exists", async () => {
   const { targetRoot, packageRoot } = await installCliPackage();
+  await rm(path.join(targetRoot, ".abiogenesis", "cli-runtime.mjs"), {
+    force: true
+  });
   const run = runCli(targetRoot, packageRoot, [
     "start",
     "--workspace",

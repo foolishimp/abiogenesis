@@ -7,11 +7,13 @@ Use these families for the observable product contract that sits above pure lang
 ## Scope
 
 - policy and operational governance
+- installed substrate contracts
 - qualification and evidence expectations
 - end-to-end scenario obligations
 
 ## Families
 
 - `REQ-P-POLICY.md`
+- `REQ-P-INSTALL.md`
 - `REQ-P-QUAL.md`
 - `REQ-P-SCENARIOS.md`

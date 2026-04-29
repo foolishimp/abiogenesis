@@ -3,7 +3,7 @@
 **Status**: Completed
 **Date**: 2026-04-24
 **Purpose**: Derive the next TypeScript `M04-app-bootstrap`
-bootloader/project-facing delivery boundary from the released Python delivery
+bootloader/project-facing delivery boundary from the paused Python reference delivery
 evidence without promoting installer script behavior or bootloader content
 doctrine into the wrong module boundary.
 
@@ -25,7 +25,7 @@ This boundary derives from:
 The next TypeScript `M04` wave does not start from Python regex helpers,
 shell-oriented installer flow, or project-package doctrine.
 
-It starts from the released Python design truths:
+It starts from the paused Python reference design truths:
 
 - bootloader delivery is explicit delivery truth
 - bootloader content is delivered and injected idempotently into instruction

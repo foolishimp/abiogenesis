@@ -32,7 +32,7 @@ from genesis.interpret import Traversal, TraversalRuntime, admit_traversal_runti
 from genesis.projection import project
 from genesis.selection import SelectionDecision
 from genesis.services import Scope, gen_gaps, gen_iterate
-from genesis.transport import agent_ready, call_agent
+from genesis.transport import AgentResult, call_agent, probe_agent
 from sandbox_runtime import install_real_sandbox
 
 from helpers_intent_requirements import (
@@ -82,15 +82,55 @@ from helpers_gsdlc_lite import (
 )
 
 
-pytestmark = [pytest.mark.live_fp, pytest.mark.timeout(600)]
+pytestmark = [
+    pytest.mark.live_fp,
+    pytest.mark.timeout(600),
+    pytest.mark.skipif(
+        os.environ.get("CODEX_LIVE_FP") != "1",
+        reason="set CODEX_LIVE_FP=1 to run the live Claude lane",
+    ),
+]
 REPO_ROOT = Path(__file__).resolve().parents[5]
+_CLAUDE_ACTOR_OBSERVATION: AgentResult | None = None
 
 
-def _live_enabled() -> bool:
-    return (
-        os.environ.get("CODEX_LIVE_FP") == "1"
-        and agent_ready("claude", work_folder=str(REPO_ROOT))
+def _observe_claude_actor() -> AgentResult:
+    global _CLAUDE_ACTOR_OBSERVATION
+    if _CLAUDE_ACTOR_OBSERVATION is None:
+        _CLAUDE_ACTOR_OBSERVATION = probe_agent("claude", work_folder=str(REPO_ROOT))
+    return _CLAUDE_ACTOR_OBSERVATION
+
+
+def _require_live_claude(run_archive) -> None:
+    observation = _observe_claude_actor()
+    run_archive.log_agent_result("claude_actor_probe", observation)
+    run_archive.capture_json(
+        "claude_actor_probe.json",
+        {
+            "observer_actor": "claude.actor",
+            "observed_worker": "claude.worker",
+            "agent": observation.agent,
+            "returncode": observation.returncode,
+            "success": observation.success,
+            "timed_out": observation.timed_out,
+            "failure_class": observation.failure_class,
+            "stdout": observation.stdout,
+            "stderr": observation.stderr,
+            "supervision_mode": observation.supervision_mode,
+        },
     )
+    run_archive.update_summary(
+        lane="live",
+        transport_agent="claude",
+        actor_observation_success=observation.success,
+        actor_observation_returncode=observation.returncode,
+        actor_observation_failure_class=observation.failure_class,
+    )
+    if not observation.success:
+        pytest.fail(
+            "Claude live lane unavailable; actor observation archived under "
+            f"{run_archive.run_dir}."
+        )
 
 
 def _call_agent_for_design_with_single_repair(
@@ -188,8 +228,8 @@ def _call_agent_for_uat_with_single_repair(
 
 
 @pytest.mark.usecase_id("requirements_to_uat")
-@pytest.mark.skipif(not _live_enabled(), reason="set CODEX_LIVE_FP=1 and ensure claude is available")
 def test_requirements_to_uat_live_qualification(run_archive):
+    _require_live_claude(run_archive)
     workspace = run_archive.workspace
     install_real_sandbox(workspace, archive=run_archive)
     stream = workspace_bootstrap(workspace)
@@ -254,8 +294,8 @@ def test_requirements_to_uat_live_qualification(run_archive):
 
 
 @pytest.mark.usecase_id("intent_to_requirements")
-@pytest.mark.skipif(not _live_enabled(), reason="set CODEX_LIVE_FP=1 and ensure claude is available")
 def test_intents_to_requirements_live_qualification(run_archive):
+    _require_live_claude(run_archive)
     workspace = run_archive.workspace
     install_real_sandbox(workspace, archive=run_archive)
     stream = workspace_bootstrap(workspace)
@@ -323,8 +363,8 @@ def test_intents_to_requirements_live_qualification(run_archive):
 
 
 @pytest.mark.usecase_id("gsdlc_lite")
-@pytest.mark.skipif(not _live_enabled(), reason="set CODEX_LIVE_FP=1 and ensure claude is available")
 def test_gsdlc_lite_requirements_design_code_live_qualification(run_archive):
+    _require_live_claude(run_archive)
     workspace = run_archive.workspace
     install_real_sandbox(workspace, archive=run_archive)
     stream = workspace_bootstrap(workspace)
@@ -420,8 +460,8 @@ def test_gsdlc_lite_requirements_design_code_live_qualification(run_archive):
 
 
 @pytest.mark.usecase_id("gsdlc_lite_review")
-@pytest.mark.skipif(not _live_enabled(), reason="set CODEX_LIVE_FP=1 and ensure claude is available")
 def test_gsdlc_lite_design_review_live_qualification(run_archive):
+    _require_live_claude(run_archive)
     workspace = run_archive.workspace
     install_real_sandbox(workspace, archive=run_archive)
     stream = workspace_bootstrap(workspace)
@@ -559,8 +599,8 @@ def test_gsdlc_lite_design_review_live_qualification(run_archive):
 
 
 @pytest.mark.usecase_id("gsdlc_lite_zoom")
-@pytest.mark.skipif(not _live_enabled(), reason="set CODEX_LIVE_FP=1 and ensure claude is available")
 def test_gsdlc_lite_zoom_design_live_qualification(run_archive):
+    _require_live_claude(run_archive)
     workspace = run_archive.workspace
     install_real_sandbox(workspace, archive=run_archive)
     stream = workspace_bootstrap(workspace)

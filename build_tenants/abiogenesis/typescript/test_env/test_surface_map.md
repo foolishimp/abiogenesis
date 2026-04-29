@@ -60,6 +60,18 @@ leaf-task governance:
 - [M03_RETRY_REPAIR_LEAFTASK_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M03_RETRY_REPAIR_LEAFTASK_STRUCTURAL_CARRIER_DIAGRAM.md)
 - [T-045-realize-typescript-m03-retry-repair-and-leaf-task-governance.md](../../../.ai-workspace/tickets/completed/T-045-realize-typescript-m03-retry-repair-and-leaf-task-governance.md)
 
+Additional current derivation surfaces for completed attached F_P worker loop
+and local live installed-sandbox proof:
+
+- [M03_ATTACHED_FP_WORKER_LOOP_DERIVATION.md](../design/M03_ATTACHED_FP_WORKER_LOOP_DERIVATION.md)
+- [M03_ATTACHED_FP_WORKER_LOOP_FIRST_SLICE_IACS.md](../design/M03_ATTACHED_FP_WORKER_LOOP_FIRST_SLICE_IACS.md)
+- [M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md)
+- [M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md](../design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md)
+- [M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md](../design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md)
+- [M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md)
+- [T-084-realize-abg-owned-fp-result-ingest-retry-and-continue-loop-for-attached-workers.md](../../../.ai-workspace/tickets/completed/T-084-realize-abg-owned-fp-result-ingest-retry-and-continue-loop-for-attached-workers.md)
+- [T-085-prove-attached-fp-loop-through-local-live-installed-sandbox.md](../../../.ai-workspace/tickets/completed/T-085-prove-attached-fp-loop-through-local-live-installed-sandbox.md)
+
 ## Purpose
 
 Review and trace the active `abiogenesis/typescript` test surface from live
@@ -1412,6 +1424,79 @@ The canonical active files are:
 - Requirements: `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-EVENTS`
 - Design: [M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md](../design/M03_M04_PLUGIN_CONTRACT_MODEL_DERIVATION.md), [M03_M04_PLUGIN_CONTRACT_MODEL_IACS.md](../design/M03_M04_PLUGIN_CONTRACT_MODEL_IACS.md), [M03_M04_PLUGIN_CONTRACT_MODEL_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M03_M04_PLUGIN_CONTRACT_MODEL_STRUCTURAL_CARRIER_DIAGRAM.md), [B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md](../../../.ai-workspace/tickets/completed/B-016-standardize-abg-extension-hooks-under-a-consistent-ioc-contract-model.md), [T-072-realize-typescript-abg-start-to-iterate-engine-runner.md](../../../.ai-workspace/tickets/completed/T-072-realize-typescript-abg-start-to-iterate-engine-runner.md)
 - Command: `npm run test:t072:plugins`, `npm run test:b016`
+
+### test_t087_supervised_actor_invocation.test.mjs
+
+- Status: canonical module-derived unit lane
+- Module alignment: `M03-engine-kernel` supervised actor invocation
+- Requirements: `REQ-R-ABG3-TRANSPORT-010` through
+  `REQ-R-ABG3-TRANSPORT-015`
+- Design: [M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md](../design/M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md), [M03_SUPERVISED_ACTOR_INVOCATION_FIRST_SLICE_IACS.md](../design/M03_SUPERVISED_ACTOR_INVOCATION_FIRST_SLICE_IACS.md), [M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md](../design/M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md), [T-087](../../../.ai-workspace/tickets/completed/T-087-restore-typescript-abg-supervised-actor-invocation-over-one-fp-dispatch.md)
+- Command: `npm run test:t087`
+- Authority class: module-derived proof. The lane proves one actor invocation
+  per F_P dispatch attempt, replay-visible actor event truth, blocked
+  transport with artifact salvage, malformed artifact failure conversion, and
+  plugin-authority rejection.
+
+### test_t094_assurance_register_two_hop_unit.test.mjs
+
+- Status: active module-derived unit lane for T-094
+- Module alignment: `M03-engine-kernel` assurance register read model over
+  ABG payload ledger facts
+- Requirements: `REQ-R-ABG3-ASSURANCE`, `REQ-R-ABG3-LINEAGE`,
+  `REQ-R-ABG3-PROJECTION`, `REQ-R-ABG3-CONVERGENCE`,
+  `REQ-R-ABG3-PAYLOAD`
+- Design/proof authority:
+  [T-094](../../../.ai-workspace/tickets/active/T-094-prove-requirement-derived-live-uat-reproduces-test35-effectiveness-through-abg-assurance.md),
+  [T-095-TS](../../../.ai-workspace/tickets/active/T-095-TS-realize-typescript-event-sourced-payload-ledger-and-legal-proof.md)
+- Command: `npm run test:t094`
+- Authority class: register-buildability proof. The lane proves one closing hop
+  may converge, while adding a second hop with missing downstream evidence
+  projects a `deepen` register decision and sets `mayConverge: false`. The
+  proof now derives authority and evidence rows from emitted payload ledger
+  source facts rather than harness-local row construction.
+
+### test_t095_payload_ledger_unit.test.mjs
+
+- Status: active module-derived unit lane for T-095-TS
+- Module alignment: `M03-engine-kernel` payload source event and projection law
+- Requirements: `REQ-R-ABG3-PAYLOAD`, `REQ-R-ABG3-EVENTS`,
+  `REQ-R-ABG3-PROJECTION`, `REQ-R-ABG3-ASSURANCE`
+- Design/proof authority:
+  [T-095](../../../.ai-workspace/tickets/active/T-095-define-event-sourced-abg-payload-ledger-and-legal-proof-topology.md),
+  [T-095-TS](../../../.ai-workspace/tickets/active/T-095-TS-realize-typescript-event-sourced-payload-ledger-and-legal-proof.md),
+  [M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_PROOF_PLAN.md](../design/M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_PROOF_PLAN.md)
+- Command: `npm run test:t095`
+- Authority class: design/module conformance proof. The lane proves accepted
+  payload evidence can close assurance, evidence without accepted payload is
+  non-closing, rejected payloads are projected, and malformed payload source
+  facts fail closed at `emit()`.
+
+### test_env/live/test_t094_assurance_register_two_hop_live.test.mjs
+
+- Status: active live lane for T-094
+- Module alignment: `M03-engine-kernel` assurance register read model with
+  live Claude worker evidence admitted through payload ledger facts
+- Requirements: `REQ-R-ABG3-ASSURANCE`, `REQ-R-ABG3-LINEAGE`,
+  `REQ-R-ABG3-PROJECTION`, `REQ-R-ABG3-CONVERGENCE`,
+  `REQ-R-ABG3-PAYLOAD`, `REQ-P-QUAL`
+- Design/proof authority:
+  [T-094](../../../.ai-workspace/tickets/active/T-094-prove-requirement-derived-live-uat-reproduces-test35-effectiveness-through-abg-assurance.md)
+- Command:
+  `CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude npm run test:t094:live`
+- Authority class: live UAT/register-buildability proof. The lane performs two
+  real Claude-backed hops when transport is available, archives prompts,
+  stdout/stderr, transport metadata, event log, payload ledgers, assurance
+  projections, closure decisions, and the derived register. If Claude is
+  unavailable, the lane fails with
+  archive evidence rather than skipping.
+- Current live evidence:
+  `test_runs/t094_assurance_register_two_hop_live/20260429T133349413Z`
+  records the passing two-hop Claude proof: hop 1 `close`, hop 2 `retry`, and
+  register `deepen` with `mayConverge: false` over ABG-admitted payload facts.
+  Earlier archives
+  `20260429T114404387Z` and `20260429T115446555Z` record the auth and sandbox
+  timeout failures that failed closed with transport evidence.
 
 ## Live Sandbox UAT Provenance
 

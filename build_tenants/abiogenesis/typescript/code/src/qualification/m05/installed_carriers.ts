@@ -56,6 +56,10 @@ export type RunArchiveFileKind =
   | "events"
   | "manifest"
   | "result"
+  | "runtime_identity"
+  | "command_binding"
+  | "projection"
+  | "postmortem"
   | "workspace_artifact";
 
 export interface RunArchiveFileRef {

@@ -1,14 +1,17 @@
 // Implements: REQ-P-QUAL-018G
 // Implements: REQ-P-QUAL-018H
 // Implements: REQ-P-SCENARIOS
+// Implements: REQ-P-INSTALL
 
 import { spawnSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import {
   chmod,
   cp,
   mkdir,
   mkdtemp,
   readFile,
+  readdir,
   rm,
   stat,
   symlink,
@@ -27,9 +30,11 @@ import {
 import type { DeliveryWriter } from "../../../shared/abg_delivery_library/index.js";
 import type { PublicInstallBootstrapInstalled } from "./carriers.js";
 import type {
+  AbgTypescriptInstallerFileEvidence,
   AbgTypescriptInstallerOutcome,
   AbgTypescriptInstallerRequest,
-  AbgTypescriptInstallerRuntimeIdentity
+  AbgTypescriptInstallerRuntimeIdentity,
+  AbgTypescriptInstallerTopologyVerification
 } from "./typescript_installer_carriers.js";
 
 interface PackageIdentity {
@@ -37,6 +42,28 @@ interface PackageIdentity {
   readonly packageVersion: string;
   readonly dependencies: readonly string[];
 }
+
+type TargetMode = "imported" | "clean_no_project_authority";
+type InstallMode = "fresh" | "refresh";
+
+const REQUIRED_STANDARDS_SMOKE_FILES = Object.freeze([
+  "README.md",
+  "SPEC_METHOD.md",
+  "TICKET_METHOD.md",
+  "DESIGN_MODULE_METHOD.md",
+  "ODD_METHOD.md",
+  "RELEASE_METHOD.md",
+  "WRITING_GUIDE.md",
+  "POSTING_GUIDE.md",
+  "GLOSSARY_GUIDE.md",
+  "templates/README.md"
+] as const);
+
+const REQUIRED_DOC_FILES = Object.freeze([
+  "README.md",
+  "LLM_GTL_APP_BUILDER_GUIDE.md",
+  "USER_GUIDE.md"
+] as const);
 
 function isNodeErrorCode(error: unknown, code: string): boolean {
   return (
@@ -49,6 +76,17 @@ function isNodeErrorCode(error: unknown, code: string): boolean {
 
 function stringifyJson(value: unknown): string {
   return `${JSON.stringify(value, null, 2)}\n`;
+}
+
+async function pathIsFile(path: string): Promise<boolean> {
+  try {
+    return (await stat(path)).isFile();
+  } catch (error: unknown) {
+    if (isNodeErrorCode(error, "ENOENT")) {
+      return false;
+    }
+    throw error;
+  }
 }
 
 function nodeDeliveryWriter(): DeliveryWriter {
@@ -204,6 +242,167 @@ async function pathIsDirectory(path: string): Promise<boolean> {
   }
 }
 
+async function pathExists(path: string): Promise<boolean> {
+  try {
+    await stat(path);
+    return true;
+  } catch (error: unknown) {
+    if (isNodeErrorCode(error, "ENOENT")) {
+      return false;
+    }
+    throw error;
+  }
+}
+
+async function detectTargetMode(targetRoot: string): Promise<TargetMode> {
+  for (const relativePath of [
+    "specification",
+    "build_tenants",
+    "docs",
+    "README.md"
+  ]) {
+    if (await pathExists(join(targetRoot, relativePath))) {
+      return "imported";
+    }
+  }
+  return "clean_no_project_authority";
+}
+
+async function detectInstallMode(targetRoot: string): Promise<InstallMode> {
+  for (const relativePath of [
+    join(".abiogenesis", "typescript-installer-manifest.json"),
+    join(".abiogenesis", "install-manifest.json"),
+    join(".abiogenesis", "install-provenance.json")
+  ]) {
+    if (await pathExists(join(targetRoot, relativePath))) {
+      return "refresh";
+    }
+  }
+  return "fresh";
+}
+
+async function findUpwardDirectory(
+  startRoot: string,
+  candidates: readonly string[]
+): Promise<string | null> {
+  let current = startRoot;
+  while (current !== dirname(current)) {
+    for (const candidate of candidates) {
+      const candidateRoot = join(current, candidate);
+      if (await pathIsDirectory(candidateRoot)) {
+        return candidateRoot;
+      }
+    }
+    current = dirname(current);
+  }
+  return null;
+}
+
+async function resolveStandardsSourceRoot(
+  request: AbgTypescriptInstallerRequest
+): Promise<string> {
+  if (request.standardsSourceRoot !== null) {
+    return request.standardsSourceRoot;
+  }
+  const sourceRoot = await findUpwardDirectory(request.packageSourceRoot, [
+    join(".abiogenesis", "docs", "standards"),
+    join("specification_methodology", "specification", "standards")
+  ]);
+  if (sourceRoot === null) {
+    throw new Error("unable to locate specification methodology standards source");
+  }
+  return sourceRoot;
+}
+
+async function resolveDocsSourceRoot(
+  request: AbgTypescriptInstallerRequest
+): Promise<string> {
+  if (request.docsSourceRoot !== null) {
+    return request.docsSourceRoot;
+  }
+  const sourceRoot = await findUpwardDirectory(request.packageSourceRoot, [
+    join(".abiogenesis", "docs"),
+    "docs"
+  ]);
+  if (sourceRoot === null) {
+    throw new Error("unable to locate ABIogenesis docs source");
+  }
+  return sourceRoot;
+}
+
+function sha256(content: Uint8Array): string {
+  return createHash("sha256").update(content).digest("hex");
+}
+
+async function fileEvidence(
+  root: string,
+  relativePath: string
+): Promise<AbgTypescriptInstallerFileEvidence> {
+  const content = await readFile(join(root, relativePath));
+  return Object.freeze({
+    relativePath,
+    bytes: content.byteLength,
+    sha256: sha256(content)
+  });
+}
+
+async function treeFileEvidence(
+  root: string,
+  prefix = ""
+): Promise<readonly AbgTypescriptInstallerFileEvidence[]> {
+  const entries = await readdir(join(root, prefix), { withFileTypes: true });
+  const evidence: AbgTypescriptInstallerFileEvidence[] = [];
+  for (const entry of [...entries].sort((left, right) =>
+    left.name.localeCompare(right.name)
+  )) {
+    const relativePath = prefix.length === 0 ? entry.name : join(prefix, entry.name);
+    if (entry.isDirectory()) {
+      evidence.push(...(await treeFileEvidence(root, relativePath)));
+    } else if (entry.isFile()) {
+      evidence.push(await fileEvidence(root, relativePath));
+    }
+  }
+  return Object.freeze(evidence);
+}
+
+async function copyStandardsTree(
+  sourceRoot: string,
+  targetRoot: string
+): Promise<readonly AbgTypescriptInstallerFileEvidence[]> {
+  if (sourceRoot !== targetRoot) {
+    await rm(targetRoot, { recursive: true, force: true });
+    await mkdir(dirname(targetRoot), { recursive: true });
+    await cp(sourceRoot, targetRoot, { recursive: true });
+  }
+  return treeFileEvidence(targetRoot);
+}
+
+async function copyDocsFiles(
+  sourceRoot: string,
+  targetRoot: string
+): Promise<readonly AbgTypescriptInstallerFileEvidence[]> {
+  await mkdir(targetRoot, { recursive: true });
+  for (const filename of REQUIRED_DOC_FILES) {
+    const sourcePath = join(sourceRoot, filename);
+    if (!(await pathIsFile(sourcePath))) {
+      throw new Error(`missing ABIogenesis docs source file ${sourcePath}`);
+    }
+    await cp(sourcePath, join(targetRoot, filename), { recursive: false });
+  }
+  const evidence: AbgTypescriptInstallerFileEvidence[] = [];
+  for (const filename of REQUIRED_DOC_FILES) {
+    evidence.push(await fileEvidence(targetRoot, filename));
+  }
+  return Object.freeze(evidence);
+}
+
+async function writeInstallProvenance(input: {
+  readonly manifestPath: string;
+  readonly manifest: unknown;
+}): Promise<void> {
+  await writeFile(input.manifestPath, stringifyJson(input.manifest), "utf8");
+}
+
 function packageRootForName(targetRoot: string, packageName: string): string {
   return join(targetRoot, "node_modules", ...packageName.split("/"));
 }
@@ -325,6 +524,267 @@ async function writeCommandBindings(
   ]);
 }
 
+function installedCliRuntimeBindingSource(input: {
+  readonly runtimeIdentity: AbgTypescriptInstallerRuntimeIdentity;
+}): string {
+  return `import {
+  admitModule,
+  admitNode,
+  admitResolvedPolicyIdentity,
+  admitResolvedRuntimeIdentity,
+  edge,
+  graphFunctionForVector
+} from "@abiogenesis/typescript-tenant";
+
+const installedSubstrate = admitNode({
+  id: "node:abiogenesis:installed_substrate",
+  name: "installed_substrate",
+  schema: { kind: "symbolic", ref: "schema://abiogenesis/install/substrate" },
+  markov: ["installed"],
+  assetSurface: {
+    kind: "installed_substrate",
+    requiredContexts: ["workspace"],
+    standardsRefs: ["workspace://.abiogenesis/docs/standards/"],
+    outputContractRefs: ["installed_substrate_present"]
+  },
+  tags: ["abiogenesis", "installer", "substrate"]
+});
+
+const cliRuntimeBinding = admitNode({
+  id: "node:abiogenesis:cli_runtime_binding",
+  name: "cli_runtime_binding",
+  schema: { kind: "symbolic", ref: "schema://abiogenesis/install/cli-runtime-binding" },
+  markov: ["installed"],
+  assetSurface: {
+    kind: "cli_runtime_binding",
+    requiredContexts: ["workspace"],
+    standardsRefs: ["workspace://.abiogenesis/docs/standards/ODD_METHOD.md"],
+    outputContractRefs: ["cli_runtime_binding_present"]
+  },
+  tags: ["abiogenesis", "installer", "runtime_binding"]
+});
+
+const runtimeBindingGraphFunction = graphFunctionForVector(
+  edge([installedSubstrate], cliRuntimeBinding, {
+    id: "graph:abiogenesis:installed_cli_runtime_binding",
+    name: "installed_substrate_to_cli_runtime_binding",
+    evaluators: [
+      {
+        name: "installed_cli_runtime_binding_present",
+        regime: "F_D",
+        description: "Installed CLI runtime binding is present and package-backed.",
+        binding: "fd://abiogenesis/installed-cli-runtime-binding/present",
+        tags: ["installer", "runtime_binding"]
+      }
+    ],
+    declarations: { entries: [] }
+  }).vectors[0],
+  {
+    id: "graph-function:abiogenesis:installed_cli_runtime_binding_self_test",
+    name: "installed_cli_runtime_binding_self_test",
+    declarations: { entries: [] }
+  }
+);
+
+const module = admitModule({
+  name: "abiogenesis_installed_substrate",
+  graphs: [runtimeBindingGraphFunction.template.graph],
+  graphFunctions: [runtimeBindingGraphFunction],
+  refinementBoundaries: [],
+  candidateFamilies: [],
+  jobs: [
+    {
+      id: "job:abiogenesis:installed_cli_runtime_binding_self_test",
+      name: "installed_cli_runtime_binding_self_test_job",
+      contracts: [
+        {
+          kind: "graph_function",
+          targetId: runtimeBindingGraphFunction.id
+        }
+      ],
+      roles: [],
+      tags: ["abiogenesis", "installer", "self_test"]
+    }
+  ],
+  roles: [],
+  operators: [],
+  evaluators: [],
+  rules: [],
+  imports: [],
+  metadata: { entries: [] }
+});
+
+export const runtimeBinding = {
+  module,
+  runtimeIdentity: admitResolvedRuntimeIdentity(${JSON.stringify(
+    input.runtimeIdentity,
+    null,
+    2
+  )}),
+  resolvedPolicy: admitResolvedPolicyIdentity({
+    resolvedPolicyBundleRef: "policy://abiogenesis/installed-substrate-self-test/F_D",
+    defaultRegime: "F_D",
+    dispatchRef: null
+  }),
+  runId: "run://abiogenesis/installed-substrate-self-test",
+  workKey: "wk://abiogenesis/installed-substrate-self-test"
+};
+`;
+}
+
+async function writeCliRuntimeBinding(input: {
+  readonly targetRoot: string;
+  readonly runtimeIdentity: AbgTypescriptInstallerRuntimeIdentity;
+}): Promise<string> {
+  const runtimeBindingPath = join(
+    input.targetRoot,
+    ".abiogenesis",
+    "cli-runtime.mjs"
+  );
+  await mkdir(dirname(runtimeBindingPath), { recursive: true });
+  await writeFile(
+    runtimeBindingPath,
+    installedCliRuntimeBindingSource({
+      runtimeIdentity: input.runtimeIdentity
+    }),
+    "utf8"
+  );
+  return runtimeBindingPath;
+}
+
+async function allPathsPresent(paths: readonly string[]): Promise<boolean> {
+  for (const path of paths) {
+    if (!(await pathExists(path))) {
+      return false;
+    }
+  }
+  return true;
+}
+
+async function missingPaths(paths: readonly string[]): Promise<readonly string[]> {
+  const missing: string[] = [];
+  for (const path of paths) {
+    if (!(await pathExists(path))) {
+      missing.push(path);
+    }
+  }
+  return Object.freeze(missing);
+}
+
+function manifestTargetMode(input: unknown): TargetMode {
+  const manifest = parsePlainObject(input, "typescript installer manifest");
+  const targetMode = manifest["targetMode"];
+  if (targetMode === "imported" || targetMode === "clean_no_project_authority") {
+    return targetMode;
+  }
+  return "clean_no_project_authority";
+}
+
+export async function verifyAbiogenesisTypescriptInstallTopology(input: {
+  readonly targetRoot: string;
+}): Promise<AbgTypescriptInstallerTopologyVerification> {
+  const targetRoot = input.targetRoot;
+  const installerManifestPath = join(
+    targetRoot,
+    ".abiogenesis",
+    "typescript-installer-manifest.json"
+  );
+  const manifest: unknown = JSON.parse(
+    await readFile(installerManifestPath, "utf8")
+  );
+  const manifestObject = parsePlainObject(
+    manifest,
+    "typescript installer manifest"
+  );
+  const commandPaths = Array.isArray(manifestObject["commandPaths"])
+    ? manifestObject["commandPaths"].filter(
+        (value): value is string => typeof value === "string"
+      )
+    : [];
+  const standardsInstallRoot =
+    typeof manifestObject["standardsInstallRoot"] === "string"
+      ? manifestObject["standardsInstallRoot"]
+      : join(targetRoot, ".abiogenesis", "docs", "standards");
+  const docsInstallRoot =
+    typeof manifestObject["docsInstallRoot"] === "string"
+      ? manifestObject["docsInstallRoot"]
+      : join(targetRoot, ".abiogenesis", "docs");
+  const installProvenancePath =
+    typeof manifestObject["installProvenancePath"] === "string"
+      ? manifestObject["installProvenancePath"]
+      : join(targetRoot, ".abiogenesis", "install-provenance.json");
+  const packageRoot =
+    typeof manifestObject["packageRoot"] === "string"
+      ? manifestObject["packageRoot"]
+      : join(targetRoot, "node_modules");
+  const installManifestPath =
+    typeof manifestObject["installManifestPath"] === "string"
+      ? manifestObject["installManifestPath"]
+      : join(targetRoot, ".abiogenesis", "install-manifest.json");
+  const bootstrapEntryPath =
+    typeof manifestObject["bootstrapEntryPath"] === "string"
+      ? manifestObject["bootstrapEntryPath"]
+      : join(targetRoot, "bootstrap", "index.mjs");
+  const eventsPath =
+    typeof manifestObject["eventsPath"] === "string"
+      ? manifestObject["eventsPath"]
+      : join(targetRoot, ".ai-workspace", "events", "events.jsonl");
+  const runtimeDirectory =
+    typeof manifestObject["runtimeDirectory"] === "string"
+      ? manifestObject["runtimeDirectory"]
+      : join(targetRoot, ".ai-workspace", "runtime");
+  const runtimeBindingPath =
+    typeof manifestObject["runtimeBindingPath"] === "string"
+      ? manifestObject["runtimeBindingPath"]
+      : join(targetRoot, ".abiogenesis", "cli-runtime.mjs");
+
+  const requiredPaths = Object.freeze([
+    join(targetRoot, ".abiogenesis"),
+    packageRoot,
+    ...commandPaths,
+    installManifestPath,
+    installerManifestPath,
+    installProvenancePath,
+    bootstrapEntryPath,
+    eventsPath,
+    runtimeDirectory,
+    runtimeBindingPath,
+    standardsInstallRoot,
+    docsInstallRoot,
+    ...REQUIRED_STANDARDS_SMOKE_FILES.map((relativePath) =>
+      join(standardsInstallRoot, relativePath)
+    ),
+    ...REQUIRED_DOC_FILES.map((relativePath) => join(docsInstallRoot, relativePath))
+  ]);
+  const absentPaths = await missingPaths(requiredPaths);
+
+  return Object.freeze({
+    kind: "abg_typescript_install_topology_verification",
+    targetRoot,
+    complete: absentPaths.length === 0,
+    targetMode: manifestTargetMode(manifest),
+    cleanTargetPolicy: "no_scaffold",
+    missingPaths: absentPaths,
+    substrateRootPresent: await pathIsDirectory(join(targetRoot, ".abiogenesis")),
+    packageRootPresent: await pathIsDirectory(packageRoot),
+    commandBindingsPresent: await allPathsPresent(commandPaths),
+    installManifestPresent: await pathIsFile(installManifestPath),
+    installerManifestPresent: await pathIsFile(installerManifestPath),
+    installProvenancePresent: await pathIsFile(installProvenancePath),
+    bootstrapEntryPresent: await pathIsFile(bootstrapEntryPath),
+    eventsPathPresent: await pathIsFile(eventsPath),
+    runtimeDirectoryPresent: await pathIsDirectory(runtimeDirectory),
+    runtimeBindingPresent: await pathIsFile(runtimeBindingPath),
+    standardsRootPresent: await pathIsDirectory(standardsInstallRoot),
+    standardsSmokeFilesPresent: await allPathsPresent(
+      REQUIRED_STANDARDS_SMOKE_FILES.map((relativePath) =>
+        join(standardsInstallRoot, relativePath)
+      )
+    ),
+    docsRootPresent: await pathIsDirectory(docsInstallRoot)
+  });
+}
+
 function bootstrapRequest(
   request: AbgTypescriptInstallerRequest,
   identity: PackageIdentity,
@@ -369,6 +829,10 @@ export async function installAbiogenesisTypescript(
 ): Promise<AbgTypescriptInstallerOutcome> {
   const request = admitAbgTypescriptInstallerRequest(input);
   try {
+    const targetMode = await detectTargetMode(request.targetRoot.rootPath);
+    const installMode = await detectInstallMode(request.targetRoot.rootPath);
+    const standardsSourceRoot = await resolveStandardsSourceRoot(request);
+    const docsSourceRoot = await resolveDocsSourceRoot(request);
     const identity = await readPackageIdentity(request.packageSourceRoot);
     const runtimeIdentity = runtimeIdentityForPackage(identity);
     const tarballPath = await packPackage(request);
@@ -380,13 +844,32 @@ export async function installAbiogenesisTypescript(
     );
     const packageRoot = await extractPackage(request, identity, tarballPath);
     const commandPaths = await writeCommandBindings(request, packageRoot);
+    const runtimeBindingPath = await writeCliRuntimeBinding({
+      targetRoot: request.targetRoot.rootPath,
+      runtimeIdentity
+    });
+    const docsInstallRoot = join(request.targetRoot.rootPath, ".abiogenesis", "docs");
+    const standardsInstallRoot = join(docsInstallRoot, "standards");
+    const docsFiles = await copyDocsFiles(docsSourceRoot, docsInstallRoot);
+    const standardsFiles = await copyStandardsTree(
+      standardsSourceRoot,
+      standardsInstallRoot
+    );
     const installerManifestPath = join(
       request.targetRoot.rootPath,
       ".abiogenesis",
       "typescript-installer-manifest.json"
     );
+    const installProvenancePath = join(
+      request.targetRoot.rootPath,
+      ".abiogenesis",
+      "install-provenance.json"
+    );
     const manifest = constructAbgTypescriptInstallerManifest({
       targetRoot: request.targetRoot.rootPath,
+      targetMode,
+      installMode,
+      cleanTargetPolicy: request.cleanTargetPolicy,
       installedPackageName: request.installedPackageName,
       packageName: identity.packageName,
       packageVersion: identity.packageVersion,
@@ -394,13 +877,21 @@ export async function installAbiogenesisTypescript(
       packageRoot,
       tarballPath,
       commandPaths,
+      standardsSourceRoot,
+      standardsInstallRoot,
+      standardsFiles,
+      docsSourceRoot,
+      docsInstallRoot,
+      docsFiles,
       runtimeIdentity,
+      runtimeBindingPath,
       installManifestPath: join(
         request.targetRoot.rootPath,
         ".abiogenesis",
         "install-manifest.json"
       ),
       installerManifestPath,
+      installProvenancePath,
       bootstrapEntryPath: join(request.targetRoot.rootPath, "bootstrap", "index.mjs"),
       eventsPath: join(
         request.targetRoot.rootPath,
@@ -415,9 +906,46 @@ export async function installAbiogenesisTypescript(
       )
     });
     await writeFile(installerManifestPath, stringifyJson(manifest), "utf8");
+    await writeInstallProvenance({
+      manifestPath: installProvenancePath,
+      manifest: {
+        kind: "abg_typescript_install_provenance",
+        targetRoot: request.targetRoot.rootPath,
+        targetMode,
+        installMode,
+        cleanTargetPolicy: request.cleanTargetPolicy,
+        packageName: identity.packageName,
+        packageVersion: identity.packageVersion,
+        packageRoot,
+        commandPaths,
+        runtimeIdentity,
+        installManifestPath: manifest.installManifestPath,
+        installerManifestPath,
+        runtimeBindingPath,
+        standardsInstallRoot,
+        standardsFileCount: standardsFiles.length,
+        docsInstallRoot,
+        docsFileCount: docsFiles.length,
+        eventsPath: manifest.eventsPath,
+        runtimeDirectory: manifest.runtimeDirectory,
+        installResult: "installed"
+      }
+    });
+    const topologyVerification =
+      await verifyAbiogenesisTypescriptInstallTopology({
+        targetRoot: request.targetRoot.rootPath
+      });
+    if (!topologyVerification.complete) {
+      throw new Error(
+        `installed topology incomplete: ${topologyVerification.missingPaths.join(", ")}`
+      );
+    }
     return constructAbgTypescriptInstallerOutcome(
       constructInstalledAbgTypescriptInstallerOutcome({
         targetRoot: request.targetRoot,
+        targetMode,
+        installMode,
+        cleanTargetPolicy: request.cleanTargetPolicy,
         installedPackageName: request.installedPackageName,
         packageName: identity.packageName,
         packageVersion: identity.packageVersion,
@@ -425,13 +953,22 @@ export async function installAbiogenesisTypescript(
         packageRoot,
         tarballPath,
         commandPaths,
+        standardsSourceRoot,
+        standardsInstallRoot,
+        standardsFiles,
+        docsSourceRoot,
+        docsInstallRoot,
+        docsFiles,
         runtimeIdentity,
+        runtimeBindingPath,
         installManifestPath: manifest.installManifestPath,
         installerManifestPath,
+        installProvenancePath,
         bootstrapEntryPath: manifest.bootstrapEntryPath,
         eventsPath: manifest.eventsPath,
         runtimeDirectory: manifest.runtimeDirectory,
         installBootstrapOutcome,
+        topologyVerification,
         manifest
       })
     );

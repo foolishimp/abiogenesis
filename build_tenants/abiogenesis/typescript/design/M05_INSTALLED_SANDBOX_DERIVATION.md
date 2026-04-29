@@ -3,7 +3,7 @@
 **Status**: Completed
 **Date**: 2026-04-24
 **Purpose**: Derive the second TypeScript `M05-qualification-scenarios` slice
-from the released Python installed sandbox, live-lane, and archive proof line
+from the paused Python reference installed sandbox, live-lane, and archive proof line
 without reintroducing Python-specific transport or installer mechanics as the
 TypeScript authority surface.
 
@@ -33,7 +33,7 @@ This boundary derives from:
 
 The second TypeScript `M05` slice is the installed-line qualification wave.
 
-It starts from the released Python truths:
+It starts from the paused Python reference truths:
 
 - install/bootstrap proof is not interchangeable with source-tree imports
 - live-lane scenario proof must execute against the installed line

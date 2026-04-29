@@ -33,6 +33,10 @@ const REQUIRED_ARCHIVE_KINDS: readonly RunArchiveFileKind[] = Object.freeze([
   "events",
   "manifest",
   "result",
+  "runtime_identity",
+  "command_binding",
+  "projection",
+  "postmortem",
   "workspace_artifact"
 ]);
 

@@ -1973,6 +1973,10 @@ export async function materializeArchiveFixture(targetRoot, scenarioName) {
   await writeFile(path.join(artifactsRoot, "events.jsonl"), "{\"kind\":\"basis_admitted\"}\n");
   await writeFile(path.join(artifactsRoot, "manifest_m.json"), JSON.stringify({ manifest_id: "m" }, null, 2));
   await writeFile(path.join(artifactsRoot, "result_m.json"), JSON.stringify({ edge: "design→code" }, null, 2));
+  await writeFile(path.join(artifactsRoot, "runtime_identity.json"), JSON.stringify({ runtime_ref: "runtime://node-test" }, null, 2));
+  await writeFile(path.join(artifactsRoot, "command_binding.json"), JSON.stringify({ command: "abiogenesis-ts start" }, null, 2));
+  await writeFile(path.join(artifactsRoot, "projection.json"), JSON.stringify({ status: "converged" }, null, 2));
+  await writeFile(path.join(archiveRoot, "postmortem.md"), "# postmortem\n");
   await writeFile(path.join(workspaceDocsRoot, "artifact.md"), "# artifact\n");
 
   return {
@@ -2018,6 +2022,26 @@ export async function materializeArchiveFixture(targetRoot, scenarioName) {
           exists: true
         }),
         constructRunArchiveFileRef({
+          path: path.join(artifactsRoot, "runtime_identity.json"),
+          kind: "runtime_identity",
+          exists: true
+        }),
+        constructRunArchiveFileRef({
+          path: path.join(artifactsRoot, "command_binding.json"),
+          kind: "command_binding",
+          exists: true
+        }),
+        constructRunArchiveFileRef({
+          path: path.join(artifactsRoot, "projection.json"),
+          kind: "projection",
+          exists: true
+        }),
+        constructRunArchiveFileRef({
+          path: path.join(archiveRoot, "postmortem.md"),
+          kind: "postmortem",
+          exists: true
+        }),
+        constructRunArchiveFileRef({
           path: path.join(workspaceDocsRoot, "artifact.md"),
           kind: "workspace_artifact",
           exists: true
@@ -2051,12 +2075,20 @@ export async function materializeArchiveSourceWorkspace(targetRoot, scenarioName
   const resultPath = path.join(resultsRoot, "m.json");
   const artifactPath = path.join(docsRoot, "artifact.md");
   const rawResponsePath = path.join(capturedRoot, "raw_response.txt");
+  const runtimeIdentityPath = path.join(capturedRoot, "runtime_identity.json");
+  const commandBindingPath = path.join(capturedRoot, "command_binding.json");
+  const projectionPath = path.join(capturedRoot, "projection.json");
+  const postmortemPath = path.join(capturedRoot, "postmortem.md");
 
   await writeFile(eventsPath, "{\"kind\":\"basis_admitted\"}\n");
   await writeFile(manifestPath, JSON.stringify({ manifest_id: "m" }, null, 2));
   await writeFile(resultPath, JSON.stringify({ edge: "design→code" }, null, 2));
   await writeFile(artifactPath, "# artifact\n");
   await writeFile(rawResponsePath, "example raw response\n");
+  await writeFile(runtimeIdentityPath, JSON.stringify({ runtime_ref: "runtime://node-test" }, null, 2));
+  await writeFile(commandBindingPath, JSON.stringify({ command: "abiogenesis-ts start" }, null, 2));
+  await writeFile(projectionPath, JSON.stringify({ status: "converged" }, null, 2));
+  await writeFile(postmortemPath, "# postmortem\n");
 
   return {
     workspaceRoot,
@@ -2064,7 +2096,11 @@ export async function materializeArchiveSourceWorkspace(targetRoot, scenarioName
     manifestPath,
     resultPath,
     artifactPath,
-    rawResponsePath
+    rawResponsePath,
+    runtimeIdentityPath,
+    commandBindingPath,
+    projectionPath,
+    postmortemPath
   };
 }
 
@@ -2125,6 +2161,26 @@ export async function buildArchiveFinalizationFixture(targetRoot, scenarioName) 
           sourcePath: source.resultPath,
           archiveRelativePath: "artifacts/result_m.json",
           kind: "result"
+        }),
+        constructRunArchiveFinalizationSourceFileRef({
+          sourcePath: source.runtimeIdentityPath,
+          archiveRelativePath: "artifacts/runtime_identity.json",
+          kind: "runtime_identity"
+        }),
+        constructRunArchiveFinalizationSourceFileRef({
+          sourcePath: source.commandBindingPath,
+          archiveRelativePath: "artifacts/command_binding.json",
+          kind: "command_binding"
+        }),
+        constructRunArchiveFinalizationSourceFileRef({
+          sourcePath: source.projectionPath,
+          archiveRelativePath: "artifacts/projection.json",
+          kind: "projection"
+        }),
+        constructRunArchiveFinalizationSourceFileRef({
+          sourcePath: source.postmortemPath,
+          archiveRelativePath: "postmortem.md",
+          kind: "postmortem"
         }),
         constructRunArchiveFinalizationSourceFileRef({
           sourcePath: source.artifactPath,

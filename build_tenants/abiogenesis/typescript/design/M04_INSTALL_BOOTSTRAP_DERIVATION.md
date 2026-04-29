@@ -3,7 +3,7 @@
 **Status**: Completed
 **Date**: 2026-04-24
 **Purpose**: Derive the next TypeScript `M04-app-bootstrap`
-install/bootstrap boundary from the released Python delivery evidence without
+install/bootstrap boundary from the paused Python reference delivery evidence without
 promoting Python script orchestration, workspace ownership drift, or runtime
 semantics into the wrong TypeScript module boundary.
 
@@ -26,7 +26,7 @@ This boundary derives from:
 The next TypeScript `M04` wave does not start from Python shell flags,
 multi-tree copying, or installed Python package layout.
 
-It starts from the released Python design truths:
+It starts from the paused Python reference design truths:
 
 - install/bootstrap is a delivery boundary below kernel semantics
 - installed runtime roots and workspace bootstrap are explicit product-facing

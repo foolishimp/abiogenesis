@@ -28,7 +28,14 @@ export async function materializeDeliveryPlan(
     await writer.ensureDirectory(joinPath(rootPath, directory.relativePath));
   }
   for (const file of plan.files) {
-    await writer.writeTextFile(joinPath(rootPath, file.relativePath), file.content);
+    const targetPath = joinPath(rootPath, file.relativePath);
+    if (
+      file.writeMode === "create_if_missing" &&
+      (await writer.readTextFile(targetPath)) !== null
+    ) {
+      continue;
+    }
+    await writer.writeTextFile(targetPath, file.content);
   }
 }
 
@@ -46,12 +53,15 @@ export async function verifyDeliveryPlan(
     });
   }
   for (const file of plan.files) {
+    const targetPath = joinPath(rootPath, file.relativePath);
+    const existingContent = await writer.readTextFile(targetPath);
     items.push({
       relativePath: file.relativePath,
       kind: "file",
       verified:
-        (await writer.readTextFile(joinPath(rootPath, file.relativePath))) ===
-        file.content
+        file.writeMode === "create_if_missing"
+          ? existingContent !== null
+          : existingContent === file.content
     });
   }
   return constructDeliveryVerification(items);

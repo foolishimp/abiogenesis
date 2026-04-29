@@ -1,0 +1,140 @@
+---
+id: T-084
+title: Realize ABG-owned F_P result-ingest retry and continue loop for attached workers
+type: defect
+ticket_category: downstream_rc_blocker
+status: completed
+goal: restore-abg-start-to-iterate-engine-authority-before-downstream-sdlc-rc
+change_intent: Determine and close the ABG functional gap exposed by odd_sdlc.TS data_mapper parity work: when an F_P worker is attached and returns a result, ABG must own result ingestion, deterministic assessment, retry/continuation fact emission, same-edge re-entry, and next-vector continuation rather than forcing downstream products or CLI harnesses to own the loop.
+change_class: design_reframe
+re_entry_point: design
+affected_boundary: M03 iterate runner, M03 retry/repair carriers, M04 public start, result assessment/event ingress, attached F_P worker dispatch, runtime event projection, downstream odd_sdlc installed operator
+priority: critical
+triaged_at: 2026-04-27T12:20:00Z
+created_at: 2026-04-27T12:20:00Z
+updated_at: 2026-04-27T12:43:52Z
+dependencies:
+  - T-072 completed
+  - T-073 completed
+  - T-074 completed
+  - T-082
+governance_scope: STDO Method
+governance_scope_expansion:
+  - S: SPEC_METHOD.md
+  - T: TICKET_METHOD.md
+  - D: DESIGN_MODULE_METHOD.md
+  - O: ODD_METHOD.md
+downstream_trigger:
+  - /Users/jim/src/apps/odd_sdlc/.ai-workspace/comments/codex/20260427T120602Z_AUDIT_data_mapper_test35_traversal_vs_current_ts_success_gap.md
+  - /Users/jim/src/apps/odd_sdlc/.ai-workspace/tickets/backlog/T-071-realize-stateful-recursive-deepening-over-installed-graph-program.md
+requirement_authority:
+  - specification/INTENT.md success criteria for `iterate()` and `gen-start`
+  - specification/PRODUCT.md ABG owns transport invocation, result ingestion, event/projection truth, and lawful next steps
+  - specification/requirements/abg/REQ-R-ABG3-INTERPRET.md
+  - specification/requirements/abg/REQ-R-ABG3-RETRY.md
+  - specification/requirements/abg/REQ-R-ABG3-CONVERGENCE.md
+test35_observed_capability: Python-era test35 repeatedly dispatched F_P work, admitted results, failed proof, opened continuations, re-entered edges, deepened existing workspace assets, and advanced only after proof closed.
+current_abg_ts_status: TypeScript ABG has replay-derived iteration, retry/repair carriers, and an M03 runner. The runner can converge F_D graphs and can stop/yield at F_P dispatch. It does not currently prove a single ABG-owned attached-worker loop that dispatches F_P, ingests the returned result, evaluates it, emits retry/continuation when blocked, and continues until convergence.
+gap: downstream odd_sdlc.TS currently performs worker invocation and postflight in its installed operator, then either appends assessed events for a passed edge or returns `postflight_failed`. That means the attached-worker loop and retry pressure can live outside ABG runtime authority.
+target_truth: ABG TypeScript exposes one engine-owned path for attached-worker F_P traversal: dispatch, result ingress, deterministic assessment, retry/continuation or vector closure, replay projection, and next traversal selection are all ABG-owned runtime truth.
+superseded_truth: It is sufficient for downstream products to call ABG decision APIs and own the worker/result/retry loop themselves.
+closure_law: This ticket closes only when design/module surfaces identify whether the current M03/M04 contract is sufficient or deficient, and implementation/proof shows an attached F_P worker can run under ABG-owned iterate control through at least one blocked retry and one subsequent accepted continuation without a downstream CLI/test harness loop.
+evaluation_criteria:
+  - ABG design explicitly defines the attached-worker F_P path distinct from unconsumed external dispatch/yield
+  - result ingestion is admitted through ABG-owned carrier/event truth
+  - deterministic assessment can block without closing the vector
+  - blocked assessment emits retry/repair and continuation events from ABG law
+  - retry regenerates prompt/manifest from current replay and workspace state
+  - accepted assessment closes the vector and continues to the next vector when `until=converged`
+  - a negative test proves downstream/plugin code cannot select next vector, close traversal, or emit unadmitted retry truth
+  - a downstream odd_sdlc fixture proves the same capability can be consumed without an odd_sdlc-owned runner loop
+proof_surface:
+  - M03/M04 design update or explicit no-gap analysis with proof
+  - attached-worker F_P loop carrier/IACS update if needed
+  - focused unit tests for dispatch-result-assess-retry-continue
+  - focused negative plugin-authority tests
+  - package-level public start proof
+  - downstream odd_sdlc consumption note
+non_closure_conditions:
+  - proof requires a caller-local `while` loop around public start
+  - proof only shows F_D convergence
+  - proof only shows F_P dispatch/yield without result ingestion
+  - retry/continuation events are generated by downstream product code rather than ABG
+  - worker/plugin output can close a vector or choose the next vector directly
+---
+
+## Design Method Notes
+
+This ticket exists to prevent a shadow runtime from forming in downstream
+products.
+
+Under Design Module Method and ODD alignment:
+
+- ABG owns traversal selection, closure, retry, continuation, event emission,
+  projection, and public stop truth.
+- F_P workers own only the internal constructive HOW inside the edge boundary.
+- Downstream products own domain meaning, domain evaluators, and acceptance
+  interpretation, but not framework iteration.
+- Plugins may provide effects and admitted results; they must not own the loop.
+
+## Why This Is Not Yet Proven
+
+`runEngineIterate(...)` currently returns on `fp_dispatch` after the dispatch
+plugin reports `dispatched`. That is lawful for an unconsumed external worker
+handoff.
+
+The downstream `odd_sdlc.TS` installed operator currently invokes a process
+worker and appends accepted `assessed` events for one edge, then returns
+`rerun_gaps_or_start_next_edge`. If postflight fails, it returns
+`postflight_failed` without ABG retry/continuation event truth.
+
+That proves the current substrate can be used, but it does not yet prove the
+attached-worker loop needed by test35-style recursive realization.
+
+## Closure Evidence
+
+Closed at: 2026-04-27T12:43:52Z
+
+Design surfaces:
+
+- `build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_DERIVATION.md`
+- `build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_FIRST_SLICE_IACS.md`
+- `build_tenants/abiogenesis/typescript/design/M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md`
+
+Implementation surfaces:
+
+- `build_tenants/abiogenesis/typescript/code/src/abg/m03/runner/attached_fp_worker.ts`
+- `build_tenants/abiogenesis/typescript/code/src/abg/m03/runner/engine_runner.ts`
+- `build_tenants/abiogenesis/typescript/code/src/abg/m03/contracts/plugins.ts`
+- `build_tenants/abiogenesis/typescript/code/src/abg/m03/contracts/projection.ts`
+- `build_tenants/abiogenesis/typescript/code/src/abg/m03/contracts/carriers.ts`
+
+Proof surfaces:
+
+- `build_tenants/abiogenesis/typescript/test_env/tests/test_t084_attached_fp_worker_loop.test.mjs`
+- `build_tenants/abiogenesis/typescript/test_env/tests/test_m03_graph_function_iteration_unit.test.mjs`
+
+Proof result:
+
+- `npm run test:t084`: 4 passed
+- `npm run test:t072`: 14 passed
+- `npm run test:t017`: 10 passed
+- `npm run test:t026`: 11 passed
+- `npm run lint:semantic`: passed
+- `npm run test:semantic`: 248 passed
+
+Closure claim:
+
+The TypeScript M03 runner now has an ABG-owned attached F_P result loop.
+External dispatch behavior remains unchanged when no attached artifact is
+returned. When an attached artifact is returned, ABG admits the artifact,
+evaluates fulfillment status, emits blocked evaluation plus retry/continuation
+and retry-progress facts when blocked, re-enters from replay-derived state, and
+emits assessed truth on acceptance. Under `until = converged`, the runner
+continues to the next replay-selected vector without a caller-owned loop.
+
+Non-claim:
+
+This closes the ABG engine capability required by downstream recursive
+deepening. It does not close odd_sdlc data_mapper RC qualification or live
+probabilistic data_mapper execution.

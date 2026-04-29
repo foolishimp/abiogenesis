@@ -169,6 +169,8 @@ def _project_fulfillment_edge_converged(
             "work_key": work_key,
             "delta": 0,
             "certified_by": "published_fulfillment_ledger",
+            "spec_hash": spec_hash,
+            "workflow_version": workflow_version,
         },
         context=EventContext(
             workflow_version=workflow_version,
@@ -760,7 +762,6 @@ def _plan_recursive_frontier_candidate(
 ) -> PlannedTraversalCandidate | None:
     resolver = ContextResolver(workspace_root)
     operative_keys = set(operative.work_keys)
-    certified_keys = _execution_index(stream).certified_keys
 
     for frame_id in _ordered_machine_frame_ids(stream):
         state = current_recursive_state(stream, frame_id)
@@ -775,8 +776,6 @@ def _plan_recursive_frontier_candidate(
             if step is None:
                 continue
             if edge_filter and step.edge != edge_filter:
-                continue
-            if (step.executable_job.vector.name, child_key) in certified_keys:
                 continue
             if not _worker_can_execute(worker, step.executable_job):
                 continue
@@ -899,7 +898,6 @@ def plan_next_traversal(
         selected_work_key = recursive_candidate.work_key
 
     if selected_job is None:
-        certified_keys = _execution_index(stream).certified_keys
         for job in operative.jobs:
             if not _worker_can_execute(worker, job):
                 continue
@@ -912,8 +910,6 @@ def plan_next_traversal(
                 if not _work_key_matches_job(work_key, job):
                     continue
                 if work_key is not None and work_key in operative.refined_parents:
-                    continue
-                if (job.vector.name, work_key) in certified_keys:
                     continue
                 pre = bind_fd(
                     job,
@@ -1093,8 +1089,6 @@ def derive_operational_gaps(
                 continue
             if work_key is not None and work_key in operative.refined_parents:
                 continue
-            if (job.vector.name, work_key) in certified_keys:
-                continue
             pre = bind_fd(
                 job,
                 stream,
@@ -1162,6 +1156,8 @@ def derive_operational_gaps(
                             "work_key": work_key or scope_work_key,
                             "delta": 0,
                             "certified_by": "gen_gaps",
+                            "spec_hash": spec_hash,
+                            "workflow_version": workflow_version,
                         },
                         context=EventContext(
                             workflow_version=workflow_version,
@@ -1240,7 +1236,6 @@ def derive_operational_state(
     resolver = ContextResolver(workspace_root)
     total_delta = 0.0
     carry_forward = carry_forward or []
-    certified_keys = _execution_index(stream).certified_keys
 
     for job in operative.jobs:
         if not _worker_can_execute(worker, job):
@@ -1254,8 +1249,6 @@ def derive_operational_state(
             if not _work_key_matches_job(work_key, job):
                 continue
             if work_key is not None and work_key in operative.refined_parents:
-                continue
-            if (job.vector.name, work_key) in certified_keys:
                 continue
             pre = bind_fd(
                 job,

@@ -213,7 +213,9 @@ test("M04 CLI binary integration: installed package publishes TS binary aliases 
     "graph_call_opened",
     "frame_opened",
     "vector_traversal_planned",
-    "fp_dispatch_requested"
+    "fp_dispatch_requested",
+    "actor_invocation_started",
+    "actor_invocation_closed"
   ]);
   assert.deepStrictEqual(await eventKinds(targetRoot), payload.event_kinds);
 });
@@ -365,8 +367,14 @@ test("M04 CLI binary integration: assess-result uses the shared workspace/result
 
   assert.equal(payload.command, "assess-result");
   assert.equal(payload.status, "accepted");
-  assert.deepStrictEqual(payload.event_kinds, ["assessed"]);
-  assert.deepStrictEqual(await eventKinds(targetRoot), ["assessed"]);
+  assert.deepStrictEqual(payload.event_kinds, [
+    "authority_snapshot_admitted",
+    "payload_observed",
+    "payload_validated",
+    "evidence_admitted",
+    "assessed"
+  ]);
+  assert.deepStrictEqual(await eventKinds(targetRoot), payload.event_kinds);
 });
 
 test("M04 CLI binary integration: gaps preserves the shared suffix and returns replay-derived projection truth", async () => {

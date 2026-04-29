@@ -5,6 +5,18 @@ import { fileURLToPath } from "node:url";
 
 const tenantRoot = dirname(fileURLToPath(import.meta.url));
 
+const nodeEsmGlobals = Object.freeze({
+  Buffer: "readonly",
+  URL: "readonly",
+  URLSearchParams: "readonly",
+  clearInterval: "readonly",
+  clearTimeout: "readonly",
+  console: "readonly",
+  process: "readonly",
+  setInterval: "readonly",
+  setTimeout: "readonly"
+});
+
 export default [
   {
     ignores: ["build/**", "node_modules/**"]
@@ -57,6 +69,36 @@ export default [
       "@typescript-eslint/no-empty-object-type": "error",
       "@typescript-eslint/no-wrapper-object-types": "error",
       "@typescript-eslint/no-redundant-type-constituents": "error"
+    }
+  },
+  {
+    files: ["test_env/**/*.mjs"],
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
+      globals: nodeEsmGlobals
+    },
+    rules: {
+      "no-constant-condition": ["error", { checkLoops: false }],
+      "no-dupe-keys": "error",
+      "no-fallthrough": "error",
+      "no-redeclare": "error",
+      "no-undef": "error",
+      "no-unreachable": "error",
+      "no-unused-vars": [
+        "error",
+        {
+          args: "after-used",
+          argsIgnorePattern: "^_",
+          caughtErrors: "all",
+          caughtErrorsIgnorePattern: "^_",
+          destructuredArrayIgnorePattern: "^_",
+          ignoreRestSiblings: true,
+          vars: "all",
+          varsIgnorePattern: "^_"
+        }
+      ],
+      "no-useless-escape": "error"
     }
   }
 ];

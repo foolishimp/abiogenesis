@@ -67,7 +67,7 @@ They do not justify weakening ABG runtime law.
 
 ## 3A. Reference Derivation Rule
 
-The TypeScript ABG line derives from the released Python ABG design through:
+The TypeScript ABG line derives from the paused Python reference ABG design through:
 
 - `PYTHON_TO_TYPESCRIPT_DESIGN_DERIVATION.md`
 - `ABG_3_FIRST_SLICE_IACS.md`

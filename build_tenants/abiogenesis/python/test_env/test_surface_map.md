@@ -30,6 +30,8 @@ Current reading:
   - `test_m01_gtl_core_integration.py`
   - `test_m02_work_publication_integration.py`
   - `test_m03_engine_kernel_integration.py`
+  - `test_t092_total_assurance_projection.py`
+  - `test_t095_payload_ledger_parity_audit.py`
   - `test_m04_app_bootstrap_integration.py`
   - `test_provenance_integration.py`
   - `test_run_archive.py`
@@ -69,6 +71,24 @@ Current reading:
 - Requirements: `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-CONVERGENCE`, `REQ-R-ABG3-SELECTION-APPLICATION`, `REQ-R-ABG3-POLICY`, `REQ-R-ABG3-PROVENANCE`, `REQ-R-ABG3-RUN`, `REQ-R-ABG3-RETRY`, `REQ-R-ABG3-PROJECTION`, `REQ-R-ABG3-SELFHOSTING`, `REQ-R-ABG3-BINDING`, `REQ-R-ABG3-WORKER`, `REQ-M-GTL3-MAPPING`, `REQ-M-GTL3-PROVENANCE`
 - Design: [module_decomp.md](../../../common/design/module_decomp.md), [qualification_refactor_loop.md](../../../common/qualification/qualification_refactor_loop.md), [GTL_3_MODULE_DESIGN.md](../design/GTL_3_MODULE_DESIGN.md), [GTL_3_INTERFACE_CONTRACTS.md](../design/GTL_3_INTERFACE_CONTRACTS.md), [05-runtime-aggregates-and-event-truth.md](../../../../specification/scenarios/05-runtime-aggregates-and-event-truth.md), [06-replay-lineage-and-correction.md](../../../../specification/scenarios/06-replay-lineage-and-correction.md), [07-governed-probabilistic-runtime.md](../../../../specification/scenarios/07-governed-probabilistic-runtime.md), [08-derived-artifact-governance.md](../../../../specification/scenarios/08-derived-artifact-governance.md)
 
+### test_t092_total_assurance_projection.py
+
+- Requirements: `REQ-R-ABG3-ASSURANCE`, `REQ-R-ABG3-EVENTS`, `REQ-R-ABG3-PROJECTION`, `REQ-R-ABG3-CONVERGENCE`
+- Design: [M03_TOTAL_ASSURANCE_PROJECTION_DERIVATION.md](../../typescript/design/M03_TOTAL_ASSURANCE_PROJECTION_DERIVATION.md), [M03_TOTAL_ASSURANCE_PROJECTION_PROOF_PLAN.md](../../typescript/design/M03_TOTAL_ASSURANCE_PROJECTION_PROOF_PLAN.md), [ABG_3_MODULE_DESIGN.md](../design/ABG_3_MODULE_DESIGN.md), [10-total-assurance-projection-uat.md](../../../../specification/scenarios/10-total-assurance-projection-uat.md)
+- T-094 status: deterministic assurance projection coverage exists in the
+  Python tenant, but the Python tenant does not yet implement the T-094 two-hop
+  live assurance-register proof. That gap is recorded in
+  [20260429T120442Z_T094_external_review_and_python_gap.md](../../../../.ai-workspace/comments/codex/20260429T120442Z_T094_external_review_and_python_gap.md).
+
+### test_t095_payload_ledger_parity_audit.py
+
+- Requirements: `REQ-R-ABG3-PAYLOAD`
+- Design: [REQ-R-ABG3-PAYLOAD.md](../../../../specification/requirements/abg/REQ-R-ABG3-PAYLOAD.md), [11-event-sourced-payload-ledger-uat.md](../../../../specification/scenarios/11-event-sourced-payload-ledger-uat.md), [T-095-PY-audit-python-event-sourced-payload-ledger-parity-or-sufficiency.md](../../../../.ai-workspace/tickets/active/T-095-PY-audit-python-event-sourced-payload-ledger-parity-or-sufficiency.md)
+- T-095-PY status: this is a forensic audit validator, not Python
+  implementation proof. It proves every payload-ledger acceptance criterion and
+  Scenario 11 case has an explicit Python parity/sufficiency disposition before
+  upstream T-095 may claim Python coverage.
+
 ## Product and Qualification Tests
 
 ### test_cli_adapter_auto.py
@@ -94,7 +114,7 @@ Current reading:
 ### test_spec_method_trace.py
 
 - Requirements: `REQ-P-SCENARIOS`, `REQ-R-ABG3-SELFHOSTING-002`
-- Design: [module_decomp.md](../../../common/design/module_decomp.md), [design_surface_map.md](../../../common/design/design_surface_map.md), [qualification_surface_map.md](../../../common/qualification/qualification_surface_map.md), [TESTCASE_AUTHORITY.md](../../../../specification/scenarios/TESTCASE_AUTHORITY.md)
+- Design: [module_decomp.md](../../../common/design/module_decomp.md), [design_surface_map.md](../../../common/design/design_surface_map.md), [qualification_surface_map.md](../../../common/qualification/qualification_surface_map.md), [TESTCASE_AUTHORITY.md](../../../../specification/scenarios/TESTCASE_AUTHORITY.md), [10-total-assurance-projection-uat.md](../../../../specification/scenarios/10-total-assurance-projection-uat.md)
 
 ## Sandbox and Scenario Tests
 
@@ -112,6 +132,9 @@ Current reading:
 
 - Requirements: `REQ-R-ABG3-TRANSPORT`, `REQ-R-ABG3-INTERPRET`
 - Design: [GSDLC_LITE_QUALIFICATION_LADDER.md](../design/GSDLC_LITE_QUALIFICATION_LADDER.md), [SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md](../design/SCENARIO_GSDLC_LITE_REQUIREMENTS_DESIGN_CODE.md)
+- T-094 status: this lane now archives Claude actor observation when live
+  transport is unavailable, but it remains a sandbox use-case lane rather than
+  a T-094 assurance-register live proof.
 
 ### test_usecases_u1_u4.py
 

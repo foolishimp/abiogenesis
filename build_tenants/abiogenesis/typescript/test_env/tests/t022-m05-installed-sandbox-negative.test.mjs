@@ -137,6 +137,26 @@ test("M05 installed-sandbox negative: archive proof fails on unstable path and m
           exists: true
         }),
         constructRunArchiveFileRef({
+          path: "/tmp/archive/runtime_identity.json",
+          kind: "runtime_identity",
+          exists: true
+        }),
+        constructRunArchiveFileRef({
+          path: "/tmp/archive/command_binding.json",
+          kind: "command_binding",
+          exists: true
+        }),
+        constructRunArchiveFileRef({
+          path: "/tmp/archive/projection.json",
+          kind: "projection",
+          exists: true
+        }),
+        constructRunArchiveFileRef({
+          path: "/tmp/archive/postmortem.md",
+          kind: "postmortem",
+          exists: true
+        }),
+        constructRunArchiveFileRef({
           path: "/tmp/archive/workspace/docs/artifact.md",
           kind: "workspace_artifact",
           exists: true

@@ -4,8 +4,10 @@ import type {
   RuntimeEvent,
   TerminalTransition
 } from "../../../abg/m03/contracts/carriers.js";
+import type { EngineAssuranceGateResult } from "../../../abg/m03/runner/index.js";
 import type {
   ConfiguredRuntimeSelector,
+  PublicAssuranceTraceRef,
   PublicControlModes,
   PublicKernelTraceRef,
   PublicRuntimeIdentityProjection,
@@ -73,9 +75,22 @@ function projectRuntimeIdentityInput(
   });
 }
 
+function projectAssuranceTrace(
+  assuranceGate: EngineAssuranceGateResult
+): PublicAssuranceTraceRef {
+  return Object.freeze({
+    status: assuranceGate.kind,
+    reason: assuranceGate.reason,
+    projectionRefs: Object.freeze([...assuranceGate.projectionRefs]),
+    closureDecisions: Object.freeze([...assuranceGate.closureDecisions]),
+    blockingStatuses: Object.freeze([...assuranceGate.blockingStatuses])
+  });
+}
+
 function projectTrace(
   basis: ExecutionBasis,
-  events: readonly RuntimeEvent[]
+  events: readonly RuntimeEvent[],
+  assuranceGate?: EngineAssuranceGateResult
 ): PublicKernelTraceRef {
   return Object.freeze({
     basisId: basis.id,
@@ -83,7 +98,10 @@ function projectTrace(
     workKey: basis.workKey,
     frameId: basis.frameId,
     frameLineageId: basis.frameLineageId,
-    eventKinds: Object.freeze(events.map((event) => event.kind))
+    eventKinds: Object.freeze(events.map((event) => event.kind)),
+    ...(assuranceGate === undefined
+      ? {}
+      : { assurance: projectAssuranceTrace(assuranceGate) })
   });
 }
 
@@ -140,12 +158,13 @@ export function constructRejectedPublicStartOutcome(
 
 function constructAdvancedOutcome(
   basis: ExecutionBasis,
-  events: readonly RuntimeEvent[]
+  events: readonly RuntimeEvent[],
+  assuranceGate?: EngineAssuranceGateResult
 ): PublicStartAdvanced {
   return Object.freeze({
     kind: "advanced",
     runtimeIdentity: projectRuntimeIdentity(basis),
-    trace: projectTrace(basis, events)
+    trace: projectTrace(basis, events, assuranceGate)
   });
 }
 
@@ -153,13 +172,14 @@ function constructBlockedOutcome(
   basis: ExecutionBasis,
   events: readonly RuntimeEvent[],
   stopPredicate: PublicStartBlocked["stopPredicate"],
-  transition: AdvancementTransition
+  transition: AdvancementTransition,
+  assuranceGate?: EngineAssuranceGateResult
 ): PublicStartBlocked {
   return Object.freeze({
     kind: "blocked",
     stopPredicate,
     runtimeIdentity: projectRuntimeIdentity(basis),
-    trace: projectTrace(basis, events),
+    trace: projectTrace(basis, events, assuranceGate),
     stopDetail: projectStopDetail(transition)
   });
 }
@@ -167,12 +187,13 @@ function constructBlockedOutcome(
 function constructYieldedOutcome(
   basis: ExecutionBasis,
   events: readonly RuntimeEvent[],
-  transition: TerminalTransition
+  transition: TerminalTransition,
+  assuranceGate?: EngineAssuranceGateResult
 ): PublicStartYielded {
   return Object.freeze({
     kind: "yielded",
     runtimeIdentity: projectRuntimeIdentity(basis),
-    trace: projectTrace(basis, events),
+    trace: projectTrace(basis, events, assuranceGate),
     stopDetail: projectStopDetail(transition)
   });
 }
@@ -180,13 +201,14 @@ function constructYieldedOutcome(
 function constructConvergedOutcome(
   basis: ExecutionBasis,
   events: readonly RuntimeEvent[],
-  terminalKind: PublicStartConverged["terminalKind"]
+  terminalKind: PublicStartConverged["terminalKind"],
+  assuranceGate?: EngineAssuranceGateResult
 ): PublicStartConverged {
   return Object.freeze({
     kind: "converged",
     terminalKind,
     runtimeIdentity: projectRuntimeIdentity(basis),
-    trace: projectTrace(basis, events)
+    trace: projectTrace(basis, events, assuranceGate)
   });
 }
 
@@ -194,56 +216,74 @@ export function constructPublicStartOutcome(
   basis: ExecutionBasis,
   transition: AdvancementTransition,
   events: readonly RuntimeEvent[],
-  until: ExecutionBasis["startIntent"]["until"]
+  until: ExecutionBasis["startIntent"]["until"],
+  assuranceGate?: EngineAssuranceGateResult
 ): PublicStartOutcome {
   switch (transition.kind) {
     case "fd_advance":
-      return constructAdvancedOutcome(basis, events);
+      return constructAdvancedOutcome(basis, events, assuranceGate);
     case "fp_dispatch":
       return constructBlockedOutcome(
         basis,
         events,
         "dispatch_required",
-        transition
+        transition,
+        assuranceGate
       );
     case "fh_escalation":
       return constructBlockedOutcome(
         basis,
         events,
         "human_gate_required",
-        transition
+        transition,
+        assuranceGate
       );
     case "terminal":
       switch (transition.terminalKind) {
         case "yielded":
-          return constructYieldedOutcome(basis, events, transition);
+          return constructYieldedOutcome(basis, events, transition, assuranceGate);
         case "converged":
         case "nothing_to_do":
           return constructConvergedOutcome(
             basis,
             events,
-            transition.terminalKind
+            transition.terminalKind,
+            assuranceGate
           );
         case "gap_stop":
-          return constructBlockedOutcome(basis, events, "gap_stop", transition);
+          return constructBlockedOutcome(
+            basis,
+            events,
+            "gap_stop",
+            transition,
+            assuranceGate
+          );
         case "traversal_applied":
           if (until === "first_traversal") {
-            return constructAdvancedOutcome(basis, events);
+            return constructAdvancedOutcome(basis, events, assuranceGate);
           }
-          return constructBlockedOutcome(basis, events, "gap_stop", transition);
+          return constructBlockedOutcome(
+            basis,
+            events,
+            "gap_stop",
+            transition,
+            assuranceGate
+          );
         case "dispatch_required":
           return constructBlockedOutcome(
             basis,
             events,
             "dispatch_required",
-            transition
+            transition,
+            assuranceGate
           );
         case "human_gate_required":
           return constructBlockedOutcome(
             basis,
             events,
             "human_gate_required",
-            transition
+            transition,
+            assuranceGate
           );
         default: {
           const exhaustive: never = transition.terminalKind;

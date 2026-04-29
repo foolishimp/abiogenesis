@@ -32,7 +32,7 @@ test("M04 result-assessment unit: admitted request preserves manifest, ledger, a
   );
 });
 
-test("M04 result-assessment unit: accepted route emits one assessed event per admitted fulfillment obligation", () => {
+test("M04 result-assessment unit: accepted route emits payload ledger facts and assessed read model", () => {
   const dispatchRequest = fpDispatchRequest();
   const request = admitPublicResultAssessmentRequest(
     resultAssessmentPayload(dispatchRequest)
@@ -45,27 +45,50 @@ test("M04 result-assessment unit: accepted route emits one assessed event per ad
 
   assert.equal(outcome.kind, "accepted");
   assert.equal(outcome.assessedCount, 1);
-  assert.deepStrictEqual(events, [
-    {
-      kind: "assessed",
-      assessmentKind: "fp",
-      edge: "design→code",
-      obligationId: "code_complete",
-      publishedLedgerRef: "ledger://m04-result-profile",
-      actor: "codex",
-      specHash: "spec://typescript-dev",
-      manifestId: "manifest://m04-result-profile",
-      workflowVersion: "wf://typescript-dev",
-      runId: "run://m04-result",
-      workKey: "wk://m04-result",
-      selectedWorkerId: dispatchRequest.workerId,
-      selectedBackend: dispatchRequest.backendId,
-      roleId: "role://runtime",
-      authorityRef: "authority://runtime",
-      assignmentSource: "policy_resolution",
-      resolvedRuntimeRef: "runtime://typescript/node"
-    }
+  assert.deepStrictEqual(events.map((event) => event.kind), [
+    "authority_snapshot_admitted",
+    "payload_observed",
+    "payload_validated",
+    "evidence_admitted",
+    "assessed"
   ]);
+  assert.deepStrictEqual(events.at(-1), {
+    kind: "assessed",
+    assessmentKind: "fp",
+    edge: "design→code",
+    obligationId: "code_complete",
+    publishedLedgerRef: "ledger://m04-result-profile",
+    actor: "codex",
+    specHash: "spec://typescript-dev",
+    manifestId: "manifest://m04-result-profile",
+    workflowVersion: "wf://typescript-dev",
+    runId: "run://m04-result",
+    workKey: "wk://m04-result",
+    selectedWorkerId: dispatchRequest.workerId,
+    selectedBackend: dispatchRequest.backendId,
+    roleId: "role://runtime",
+    authorityRef: "authority://runtime",
+    assignmentSource: "policy_resolution",
+    resolvedRuntimeRef: "runtime://typescript/node"
+  });
+  assert.deepStrictEqual(
+    events
+      .filter((event) => event.kind === "evidence_admitted")
+      .map((event) => ({
+        evidenceRef: event.evidenceRef,
+        authorityRef: event.authorityRef,
+        complete: event.complete,
+        shallow: event.shallow
+      })),
+    [
+      {
+        evidenceRef: "proof://runtime",
+        authorityRef: "code_complete",
+        complete: true,
+        shallow: false
+      }
+    ]
+  );
 });
 
 test("M04 result-assessment unit: runtime failure stays rejected with canonical class and emits nothing", () => {

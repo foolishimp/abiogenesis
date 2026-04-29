@@ -105,6 +105,38 @@ state.
 F_D is a deterministic evaluator or domain-owned optimization where the domain
 can make part of the work precise. F_D does not move domain HOW into GTL or ABG.
 
+### Outcome Compute Contract
+
+ABG is the compact runtime motor for outcome compute.
+
+Its primitive is one governed iteration over a current projection, cumulative
+context, and evaluator set:
+
+```text
+iterate(
+  current_surface_projection,
+  cumulative_context,
+  evaluators
+) -> runtime_events
+```
+
+The current surface is a replay-derived projection over runtime truth. It is
+not private mutable controller state.
+
+The cumulative context is the declared constraint and history pressure
+available to the traversal. It includes the edge contract, required context,
+carried environment, prior edge evidence, intermediate ledgers, retry gap
+dossiers, and current delta.
+
+ABG does not certify a domain result merely because a worker produced an asset.
+ABG admits lawful runtime events, projects the next current surface from those
+events, and advances through declared evaluation, retry, continuation, hold,
+gap, completion, or stop law.
+
+Downstream products provide the graph function, domain contexts, evaluator
+implementations, and worker bindings. ABG provides the replayable control loop
+that makes outcome compute auditable and capable of lawful re-entry.
+
 ---
 
 ## Product Layers
@@ -138,6 +170,8 @@ It owns the runtime control truth for:
 - graph-function materialization and selection application
 - worker, binding, run, and lineage semantics
 - event emission, projection, correction, and convergence
+- outcome-compute iteration over current projections, cumulative context, and
+  evaluator truth
 - replayable provenance over traversal invocation and runtime identity
 - transport invocation, result ingestion, and self-hosting control behavior
 
@@ -171,12 +205,37 @@ It owns:
 
 - product policy
 - qualification infrastructure
+- installed substrate contracts
 - scenario and proving surfaces
 - release claims
 - operator-facing product behavior above pure language/runtime law
 
 This layer may consume GTL declarations and ABG runtime truth, but it must not
 smuggle product policy down into the language or interpreter kernel.
+
+## Installed Substrate Contract
+
+Abiogenesis publishes an installer as product behavior.
+
+The installer turns a released or source-bound ABG build into an installed
+substrate inside an independent target workspace. That installed substrate is a
+development product: downstream products may build over it, but it is not the
+mutable abiogenesis source project.
+
+The installed substrate must be inspectable from the target workspace. It must
+publish:
+
+- the `.abiogenesis/` substrate root
+- install and installer manifests
+- installed package identity and command bindings
+- runtime identity, event roots, projection roots, and archive roots
+- local method reference copies under `.abiogenesis/docs/standards/`
+- a cold-agent-readable bootstrap surface
+
+Installed standards are a tactical reference copy for the target workspace.
+They make `workspace://.abiogenesis/docs/standards/...` references stable for
+cold agents. They do not become the upstream source of shared method law when
+the method itself is edited.
 
 ## Public Operator Contract
 
@@ -312,9 +371,10 @@ The current product should be read as:
 
 Today that means:
 
-- the canonical released realization is `build_tenants/abiogenesis/python/`
-- the TypeScript tenant is the active package-first RC and research-lab
-  proving line for ODD-native downstream product construction
+- the primary release realization is `build_tenants/abiogenesis/typescript/`
+- `build_tenants/abiogenesis/python/` is a paused released reference line
+  retained for history, comparison, and compatibility evidence, not an active
+  RC gate
 - `build_tenants/abiogenesis/codex/` remains a paused alternate realization
 - downstream proving domains are important evidence
   surfaces, but they are not the GTL + ABG product definition

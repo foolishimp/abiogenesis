@@ -63,6 +63,9 @@ not separate outer carrier families.
   archive postmortem materialization in the TypeScript line.
 - archive finalization must consume explicit source-file refs rather than
   implicitly scanning arbitrary workspace trees.
+- archive qualification must include runtime identity, command binding,
+  projection, and postmortem evidence as first-class archive kinds rather than
+  treating them as untyped captured files.
 - archive finalization must consume the completed delivery library writer and
   materialization helpers instead of inventing a rival write substrate.
 - archive finalization must fail closed when required source files are missing

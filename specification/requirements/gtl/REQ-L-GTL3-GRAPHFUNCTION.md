@@ -3,7 +3,7 @@
 **Status**: Active
 **Category**: Capability
 **Date**: 2026-04-06
-**Derives from**: [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [ODD_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/ODD_METHOD.md), [PRODUCT.md](../../PRODUCT.md)
+**Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [PRODUCT.md](../../PRODUCT.md)
 
 ---
 
@@ -30,7 +30,7 @@ contract boundary for lawful workflow reuse.
 
 **REQ-L-GTL3-GRAPHFUNCTION-008**: A graph function's declared outer contract shall remain stable even when internal refinement changes realized graph structure.
 
-**REQ-L-GTL3-GRAPHFUNCTION-009**: `GraphFunction.declarations` shall be the canonical declaration surface for publication metadata, materialization metadata, hook references for dispatch, evaluation, escalation, deterministic proof, and closure, opaque hook configuration, and graph-function-local publication surfaces.
+**REQ-L-GTL3-GRAPHFUNCTION-009**: `GraphFunction.declarations` shall be the canonical declaration surface for publication metadata, materialization metadata, hook references for dispatch, evaluation, escalation, deterministic proof, closure, and assurance, opaque hook configuration, and graph-function-local publication surfaces.
 
 **REQ-L-GTL3-GRAPHFUNCTION-010**: Published graph functions shall remain discoverable as first-class module surfaces rather than collapsing into anonymous realized graphs or helper code.
 

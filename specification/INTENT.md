@@ -22,7 +22,7 @@ language.
 A clean, GTL-first implementation of abiogenesis as the reference GTL + ABG engine — an AI SDLC engine that:
 
 1. Defines the SDLC as a typed workflow graph (6 nodes, 5 vectors) in a GTL Module
-2. Implements the convergence engine: `iterate()` drives candidates toward stability via three evaluator types (F_D deterministic, F_P agent, F_H human)
+2. Implements the convergence engine: `iterate()` advances the current projected surface under cumulative context and evaluator truth, emitting runtime events that drive candidates toward stability via three evaluator types (F_D deterministic, F_P agent, F_H human)
 3. Grounds runtime truth in Event Calculus over authoritative events, runtime aggregates (`Run`, `GraphCall`, `Frame`, `Continuation`), and replay-derived fluents and projections
 4. Provides public named operator compositions `gen-start` and `gen-gaps` over the engine, with `gen-start` expressed through `scope + target + until` and lower-level traversal primitives such as `iterate()` remaining below that public operator surface
 5. Enforces traceability from REQ keys through code to tests via tag enforcement
@@ -99,6 +99,37 @@ absorb domain HOW as framework law.
 
 If the framework starts prescribing domain solution strategy beyond the declared
 edge contract and control truth, it has crossed the GTL / ABG boundary.
+
+## ABG Outcome Compute Primitive
+
+ABG is the compact runtime motor for outcome compute.
+
+The engine primitive is:
+
+```text
+iterate(
+  current_surface_projection,
+  cumulative_context,
+  evaluators
+) -> runtime_events
+```
+
+The current surface is a replay-derived projection, not private mutable engine
+state. The cumulative context is the declared, snapshot-bound constraint and
+history pressure available to the traversal: source and target contracts,
+required context, carried environment, prior edge evidence, intermediate
+ledgers, retry gap dossiers, and current delta. Evaluators decide whether the
+candidate projection is converged, blocked, retryable, held, or escalated.
+
+`iterate()` does not make domain meaning true by returning an asset directly.
+It emits lawful runtime events. ABG appends those events, derives the next
+surface by projection, and then advances only through declared graph,
+evaluation, continuation, retry, hold, or stop law.
+
+This primitive is domain-neutral. Downstream products supply the graph
+function, contexts, domain evaluators, and worker bindings. ABG supplies the
+event-sourced control loop that makes the traversal replayable, auditable, and
+capable of lawful re-entry.
 
 ---
 

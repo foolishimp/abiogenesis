@@ -3,7 +3,7 @@
 **Status**: Active
 **Category**: Constraint / Guarantee
 **Date**: 2026-04-05
-**Derives from**: [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [ODD_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/ODD_METHOD.md), [PRODUCT.md](../../PRODUCT.md)
+**Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [PRODUCT.md](../../PRODUCT.md)
 
 ---
 
@@ -16,7 +16,7 @@ semantic language.
 
 **REQ-L-GTL3-HOOKS-001**: GTL shall expose governance hook attachment points on `GraphFunction.declarations`, `GraphVector.declarations`, `Role.policy_hooks`, and `CandidateFamily.policy_hints`.
 
-**REQ-L-GTL3-HOOKS-002**: Governance hook concerns shall include at minimum dispatch, evaluation, escalation, deterministic proof, and closure.
+**REQ-L-GTL3-HOOKS-002**: Governance hook concerns shall include at minimum dispatch, evaluation, escalation, deterministic proof, closure, and assurance.
 
 **REQ-L-GTL3-HOOKS-003**: A hook attachment may declare a stable hook reference and opaque configuration for the resolved implementation.
 
@@ -27,3 +27,7 @@ semantic language.
 **REQ-L-GTL3-HOOKS-006**: Governance hook references and opaque configuration shall remain inspectable and replayable through publication, serialization, and interpretation surfaces.
 
 **REQ-L-GTL3-HOOKS-007**: Engines may resolve declared hook references to Python or other executable implementations, but raw injected callables shall not be the constitutional GTL surface.
+
+**REQ-L-GTL3-HOOKS-008**: Assurance hook attachments may declare stable hook references and opaque configuration for authority snapshot, evidence adaptation, ambiguity classification, closure policy, and gain-function adaptation, while assurance semantics remain engine-owned.
+
+**REQ-L-GTL3-HOOKS-009**: An authored `GraphFunction` or `GraphVector` shall be able to declare its assurance hook refs and boundary intent through GTL declarations without requiring hidden side-door runtime configuration to complete the published graph-function contract.

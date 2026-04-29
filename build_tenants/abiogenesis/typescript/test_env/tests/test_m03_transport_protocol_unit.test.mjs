@@ -7,6 +7,9 @@ import {
   ingestResultArtifact,
   sanitizeEnvironment
 } from "../../build/semantic/code/src/abg/m03/transport/index.js";
+import {
+  contractForKnownAgent
+} from "../../build/semantic/code/src/shared/abg_library/index.js";
 
 test("M03 transport unit: explicit environment sanitization strips configured prefixes only", () => {
   const request = admitDispatchRequest({
@@ -40,6 +43,39 @@ test("M03 transport unit: explicit environment sanitization strips configured pr
   );
 
   assert.deepStrictEqual(sanitized, {
+    PATH: "/usr/bin",
+    HOME: "/tmp/demo"
+  });
+});
+
+test("M03 transport unit: Claude default contract preserves OAuth auth while stripping nested session markers", () => {
+  const request = admitDispatchRequest({
+    kind: "fp_dispatch_request",
+    basisId: "basis://fp",
+    graphFunctionId: "graph-function://fp",
+    jobId: "job://fp",
+    dispatchRef: "dispatch://claude",
+    workerId: "worker://claude",
+    backendId: "backend://claude",
+    resultRef: "result://fp",
+    expectedEdge: "requirements→uat",
+    expectedAssessmentIds: ["uat_complete"],
+    transportContract: contractForKnownAgent("claude")
+  });
+  const sanitized = sanitizeEnvironment(
+    request,
+    Object.freeze({
+      CLAUDE_CODE_OAUTH_TOKEN: "token-from-keychain",
+      CLAUDE_CODE_SSE_PORT: "3000",
+      CLAUDE_CODE_ENTRYPOINT: "parent-session",
+      CLAUDE_CODE_EXECPATH: "/tmp/parent",
+      PATH: "/usr/bin",
+      HOME: "/tmp/demo"
+    })
+  );
+
+  assert.deepStrictEqual(sanitized, {
+    CLAUDE_CODE_OAUTH_TOKEN: "token-from-keychain",
     PATH: "/usr/bin",
     HOME: "/tmp/demo"
   });

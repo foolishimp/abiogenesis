@@ -3,7 +3,7 @@
 **Status**: Active
 **Date**: 2026-04-24
 **Purpose**: Derive the TypeScript `M02-work-publication` to
-`M03-engine-kernel` lookup-authority boundary from the released Python design
+`M03-engine-kernel` lookup-authority boundary from the paused Python reference design
 and delivery evidence without promoting runtime-local caches or repricing
 public carrier truth.
 

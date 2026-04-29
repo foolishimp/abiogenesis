@@ -1,6 +1,10 @@
-# build_tenants/abiogenesis/python — Design
+# build_tenants/abiogenesis/python - Design
 
-Claude Code build — shipping design surface.
+Claude Code build - paused released-reference design surface.
+
+TypeScript is the primary release line for the current abiogenesis cut. This
+Python design root is retained as historical/reference evidence while the
+Python tenant is paused.
 
 ## Governing Runtime Law
 
@@ -26,7 +30,7 @@ Read ADR-036 when judging:
   config in the runtime core
 
 This README is an index. ADR-034 is the primary runtime-law source for the
-current line.
+paused Python reference line.
 
 ## Design Index
 
@@ -86,7 +90,8 @@ New ADRs will implement active `REQ-L-GTL3-*` and `REQ-R-ABG3-*` keys.
 Traceability derives from the active GTL 3 / ABG 3 requirement surface plus the
 live testcase-authority surfaces under `specification/scenarios/`.
 Live requirement headers carry `Status` and `Category` metadata per [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md).
-The shipping verification harness is downstream of this design surface in `build_tenants/abiogenesis/python/test_env/`.
+The paused reference verification harness is downstream of this design surface
+in `build_tenants/abiogenesis/python/test_env/`.
 
 ## Delivery Binding Boundary
 

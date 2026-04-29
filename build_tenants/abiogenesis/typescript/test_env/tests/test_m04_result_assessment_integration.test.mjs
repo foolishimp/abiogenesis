@@ -31,7 +31,13 @@ test("M04 result-assessment integration: package export surface stays aligned at
   assert.equal(m04.resultAssessment, resultAssessment);
   assert.equal(resultAssessmentModule.resultAssessment, resultAssessment);
   assert.equal(outcome.kind, "accepted");
-  assert.deepStrictEqual(events.map((event) => event.kind), ["assessed"]);
+  assert.deepStrictEqual(events.map((event) => event.kind), [
+    "authority_snapshot_admitted",
+    "payload_observed",
+    "payload_validated",
+    "evidence_admitted",
+    "assessed"
+  ]);
 });
 
 test("M04 result-assessment integration: identity mismatch stays rejected without assessed-event emission", () => {

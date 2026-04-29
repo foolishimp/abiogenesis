@@ -8,6 +8,11 @@ import type {
   RunArchiveFileRef,
   RunArchiveQualificationRequest
 } from "./installed_carriers.js";
+import type {
+  AssuranceAmbiguityStatus,
+  AssuranceClosureDecisionKind,
+  EngineAssuranceGateKind
+} from "../../abg/m03/index.js";
 
 export interface RunArchiveNoteRef {
   readonly label: string;
@@ -25,6 +30,14 @@ export interface RunArchiveMetadataRef {
   readonly notes: readonly RunArchiveNoteRef[];
 }
 
+export interface RunArchiveAssuranceSummaryRef {
+  readonly status: EngineAssuranceGateKind;
+  readonly reason: string;
+  readonly projectionRefs: readonly string[];
+  readonly closureDecisions: readonly AssuranceClosureDecisionKind[];
+  readonly blockingStatuses: readonly AssuranceAmbiguityStatus[];
+}
+
 export interface RunArchiveSummaryRef {
   readonly workspacePath: string;
   readonly totalEvents: number;
@@ -33,6 +46,7 @@ export interface RunArchiveSummaryRef {
   readonly resultFiles: readonly string[];
   readonly converged: boolean | null;
   readonly totalDelta: number | null;
+  readonly assurance?: RunArchiveAssuranceSummaryRef;
 }
 
 export type RunArchiveMaterializedFileKind =

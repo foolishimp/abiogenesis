@@ -68,9 +68,13 @@ test("M04 install/bootstrap integration: reinstall stays idempotent on a matchin
   const request = installBootstrapPayload(targetRoot);
 
   const first = await installBootstrap(request, writer);
+  const eventsPath = path.join(targetRoot, ".ai-workspace/events/events.jsonl");
+  const existingEvents = "{\"kind\":\"basis_admitted\",\"id\":\"event://preserve\"}\n";
+  await writer.writeTextFile(eventsPath, existingEvents);
   const second = await installBootstrap(request, writer);
 
   assert.equal(first.kind, "installed");
   assert.equal(second.kind, "installed");
   assert.deepStrictEqual(second.verification, first.verification);
+  assert.equal(await writer.readTextFile(eventsPath), existingEvents);
 });

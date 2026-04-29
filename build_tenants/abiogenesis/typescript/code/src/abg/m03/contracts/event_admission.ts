@@ -4,6 +4,9 @@ import type {
   TerminalKind
 } from "./carriers.js";
 import {
+  PAYLOAD_AMBIGUITY_STATUS_VALUES,
+  PAYLOAD_CLOSURE_DECISION_KIND_VALUES,
+  PAYLOAD_REJECTION_CLASS_VALUES,
   RUNTIME_EVENT_KIND_VALUES,
   RUNTIME_FAILURE_CLASS_VALUES,
   TERMINAL_KIND_VALUES
@@ -132,6 +135,45 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
   fp_dispatch_requested: applyFieldRules("FpDispatchRequestedEvent", {
     basisId: "non_empty_string",
     dispatchRef: "non_empty_string"
+  }),
+  actor_invocation_started: applyFieldRules("ActorInvocationStartedEvent", {
+    basisId: "non_empty_string",
+    graphCallId: "non_empty_string",
+    frameId: "non_empty_string",
+    vectorIndex: "non_negative_integer",
+    edge: "non_empty_string",
+    actorInvocationId: "non_empty_string",
+    attemptIndex: "non_negative_integer",
+    dispatchRef: "non_empty_string",
+    workerId: "non_empty_string",
+    backendId: "non_empty_string",
+    resultRef: "non_empty_string"
+  }),
+  actor_result_artifact_observed: applyFieldRules(
+    "ActorResultArtifactObservedEvent",
+    {
+      basisId: "non_empty_string",
+      graphCallId: "non_empty_string",
+      frameId: "non_empty_string",
+      vectorIndex: "non_negative_integer",
+      edge: "non_empty_string",
+      actorInvocationId: "non_empty_string",
+      resultRef: "non_empty_string",
+      artifactRef: "non_empty_string"
+    }
+  ),
+  actor_invocation_closed: applyFieldRules("ActorInvocationClosedEvent", {
+    basisId: "non_empty_string",
+    graphCallId: "non_empty_string",
+    frameId: "non_empty_string",
+    vectorIndex: "non_negative_integer",
+    edge: "non_empty_string",
+    actorInvocationId: "non_empty_string",
+    closureStatus: {
+      oneOf: ["completed", "blocked", "blocked_with_artifact"]
+    },
+    resultRef: "nullable_string",
+    detail: "nullable_string"
   }),
   fh_escalated: applyFieldRules("FhEscalatedEvent", {
     basisId: "non_empty_string",
@@ -349,6 +391,121 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     authorityRef: "nullable_string",
     assignmentSource: "nullable_string",
     resolvedRuntimeRef: "nullable_string"
+  }),
+  payload_observed: applyFieldRules("PayloadObservedRuntimeEvent", {
+    basisId: "non_empty_string",
+    graphCallId: "non_empty_string",
+    frameId: "non_empty_string",
+    vectorIndex: "non_negative_integer",
+    edge: "non_empty_string",
+    payloadRef: "non_empty_string",
+    payloadClass: "non_empty_string",
+    schemaRef: "nullable_string",
+    contractRef: "nullable_string",
+    digest: "non_empty_string",
+    producerRef: "non_empty_string",
+    sourceEventRef: "nullable_string",
+    actorInvocationId: "nullable_string",
+    authorityRef: "nullable_string",
+    inputDigest: "nullable_string",
+    policyRefs: "string_array"
+  }),
+  payload_validated: applyFieldRules("PayloadValidatedRuntimeEvent", {
+    basisId: "non_empty_string",
+    graphCallId: "non_empty_string",
+    frameId: "non_empty_string",
+    vectorIndex: "non_negative_integer",
+    edge: "non_empty_string",
+    payloadRef: "non_empty_string",
+    schemaRef: "nullable_string",
+    contractRef: "nullable_string",
+    digest: "non_empty_string",
+    validationRef: "non_empty_string",
+    evidenceRef: "nullable_string",
+    policyRefs: "string_array"
+  }),
+  payload_rejected: applyFieldRules("PayloadRejectedRuntimeEvent", {
+    basisId: "non_empty_string",
+    graphCallId: "non_empty_string",
+    frameId: "non_empty_string",
+    vectorIndex: "non_negative_integer",
+    edge: "non_empty_string",
+    payloadRef: "non_empty_string",
+    rejectionClass: { oneOf: PAYLOAD_REJECTION_CLASS_VALUES },
+    schemaRef: "nullable_string",
+    contractRef: "nullable_string",
+    digest: "nullable_string",
+    reason: "non_empty_string",
+    policyRefs: "string_array"
+  }),
+  authority_snapshot_admitted: applyFieldRules(
+    "AuthoritySnapshotAdmittedRuntimeEvent",
+    {
+      basisId: "non_empty_string",
+      graphCallId: "non_empty_string",
+      frameId: "non_empty_string",
+      vectorIndex: "non_negative_integer",
+      edge: "non_empty_string",
+      authoritySnapshotRef: "non_empty_string",
+      authorityRefs: "string_array",
+      inputRefs: "string_array",
+      authorityDigest: "non_empty_string",
+      inputDigest: "non_empty_string",
+      closureCapable: "boolean",
+      contradictoryAuthority: "boolean",
+      deferredAuthorityRefs: "string_array",
+      providerRefs: "string_array",
+      policyRefs: "string_array"
+    }
+  ),
+  evidence_admitted: applyFieldRules("EvidenceAdmittedRuntimeEvent", {
+    basisId: "non_empty_string",
+    graphCallId: "non_empty_string",
+    frameId: "non_empty_string",
+    vectorIndex: "non_negative_integer",
+    edge: "non_empty_string",
+    evidenceRef: "non_empty_string",
+    payloadRef: "non_empty_string",
+    authorityRef: "nullable_string",
+    authorityDigest: "nullable_string",
+    inputDigest: "nullable_string",
+    providerRefs: "string_array",
+    policyRefs: "string_array",
+    complete: "boolean",
+    shallow: "boolean",
+    contradictsAuthority: "boolean",
+    deferred: "boolean"
+  }),
+  ambiguity_observation_admitted: applyFieldRules(
+    "AmbiguityObservationAdmittedRuntimeEvent",
+    {
+      basisId: "non_empty_string",
+      graphCallId: "non_empty_string",
+      frameId: "non_empty_string",
+      vectorIndex: "non_negative_integer",
+      edge: "non_empty_string",
+      ambiguityRef: "non_empty_string",
+      ambiguityStatus: { oneOf: PAYLOAD_AMBIGUITY_STATUS_VALUES },
+      authorityRef: "nullable_string",
+      evidenceRef: "nullable_string",
+      payloadRef: "nullable_string",
+      reason: "non_empty_string",
+      providerRefs: "string_array",
+      policyRefs: "string_array"
+    }
+  ),
+  closure_input_published: applyFieldRules("ClosureInputPublishedRuntimeEvent", {
+    basisId: "non_empty_string",
+    graphCallId: "non_empty_string",
+    frameId: "non_empty_string",
+    vectorIndex: "non_negative_integer",
+    edge: "non_empty_string",
+    closureInputRef: "non_empty_string",
+    projectionRef: "non_empty_string",
+    closureDecision: { oneOf: PAYLOAD_CLOSURE_DECISION_KIND_VALUES },
+    rowRefs: "string_array",
+    sourceProjectionRefs: "string_array",
+    policyRefs: "string_array"
   })
 } satisfies Record<RuntimeEvent["kind"], RuntimeEventAdmitter>);
 

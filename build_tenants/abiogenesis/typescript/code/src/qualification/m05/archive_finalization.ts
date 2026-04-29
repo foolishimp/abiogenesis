@@ -75,7 +75,18 @@ function summaryContent(request: RunArchiveFinalizationRequest): string {
     manifest_files: request.summary.manifestFiles,
     result_files: request.summary.resultFiles,
     converged: request.summary.converged,
-    total_delta: request.summary.totalDelta
+    total_delta: request.summary.totalDelta,
+    ...(request.summary.assurance === undefined
+      ? {}
+      : {
+          assurance: {
+            status: request.summary.assurance.status,
+            reason: request.summary.assurance.reason,
+            projection_refs: request.summary.assurance.projectionRefs,
+            closure_decisions: request.summary.assurance.closureDecisions,
+            blocking_statuses: request.summary.assurance.blockingStatuses
+          }
+        })
   });
 }
 

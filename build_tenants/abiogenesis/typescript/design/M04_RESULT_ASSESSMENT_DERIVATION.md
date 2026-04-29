@@ -3,7 +3,7 @@
 **Status**: Active
 **Date**: 2026-04-24
 **Purpose**: Derive the next TypeScript `M04-app-bootstrap`
-result-assessment ingress boundary from the released Python design and delivery
+result-assessment ingress boundary from the paused Python reference design and delivery
 evidence without promoting Python manifest/file-path handling or closure
 fan-out into the wrong TypeScript module boundary.
 
@@ -30,7 +30,7 @@ This boundary derives from:
 The next TypeScript `M04` wave does not start from Python manifest file paths,
 JSON file layout, or multi-event closure fan-out.
 
-It starts from the released Python design truths:
+It starts from the paused Python reference design truths:
 
 - result-assessment ingress is app-owned
 - canonical artifact ingest remains kernel-owned

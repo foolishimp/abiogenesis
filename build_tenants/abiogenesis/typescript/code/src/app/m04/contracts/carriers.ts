@@ -5,10 +5,13 @@
 // Implements: REQ-P-POLICY-013
 
 import type {
+  AssuranceAmbiguityStatus,
+  AssuranceClosureDecisionKind,
   RuntimeEvent,
   StartIntent,
   TerminalKind
-} from "../../../abg/m03/contracts/carriers.js";
+} from "../../../abg/m03/index.js";
+import type { EngineAssuranceGateKind } from "../../../abg/m03/runner/index.js";
 
 export type FhMode = "direct" | "human-proxy";
 export type RootMode = "direct" | "supervised";
@@ -36,6 +39,14 @@ export interface PublicRuntimeIdentityProjection {
   readonly resolvedRuntimeRef: string;
 }
 
+export interface PublicAssuranceTraceRef {
+  readonly status: EngineAssuranceGateKind;
+  readonly reason: string;
+  readonly projectionRefs: readonly string[];
+  readonly closureDecisions: readonly AssuranceClosureDecisionKind[];
+  readonly blockingStatuses: readonly AssuranceAmbiguityStatus[];
+}
+
 export interface PublicKernelTraceRef {
   readonly basisId: string;
   readonly runId: string | null;
@@ -43,6 +54,7 @@ export interface PublicKernelTraceRef {
   readonly frameId: string | null;
   readonly frameLineageId: string | null;
   readonly eventKinds: readonly RuntimeEvent["kind"][];
+  readonly assurance?: PublicAssuranceTraceRef;
 }
 
 export interface PublicStopDetail {

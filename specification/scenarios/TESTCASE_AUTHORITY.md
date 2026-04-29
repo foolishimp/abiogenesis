@@ -13,6 +13,8 @@ and ABG 3 requirement families.
 | `REQ-R-ABG3-PROJECTION`, `REQ-R-ABG3-LINEAGE`, `REQ-R-ABG3-PROVENANCE`, `REQ-R-ABG3-CORRECTION` | `06-replay-lineage-and-correction.md` | proves replay-derived current truth, causal lineage, provenance completeness, and stale-state invalidation under correction or supersession |
 | `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-CONVERGENCE`, `REQ-R-ABG3-POLICY`, `REQ-R-ABG3-SELECTION-APPLICATION`, `REQ-R-ABG3-LEAFTASK`, `REQ-R-ABG3-TRANSPORT`, `REQ-M-GTL3-MAPPING`, `REQ-M-GTL3-PROVENANCE` | `07-governed-probabilistic-runtime.md` | proves ABG-owned interpretation, configured default bundles, fail-closed fallback law, lawful external selection, local transport-contract override handling, bind-time asset-surface/mapping provenance, bounded subordinate subwork, and post-dispatch runtime ownership |
 | `REQ-R-ABG3-SELFHOSTING` | `08-derived-artifact-governance.md` | proves that derived artifacts and qualification surfaces stay under the same event, replay, and drift-detection law as other governed work |
+| `REQ-R-ABG3-ASSURANCE` | `10-total-assurance-projection-uat.md` | proves total assurance row projection, closure folding, live Claude actor observation, two-hop register deepening, and downstream-register buildability without moving downstream domain semantics into ABG |
+| `REQ-R-ABG3-PAYLOAD` | `11-event-sourced-payload-ledger-uat.md` | proves payload envelope admission, payload/evidence/authority source facts, read-model ledgers, plugin authority limits, GTL payload declarations, and two-hop register deepening from admitted ABG facts |
 
 Deferred family note: `REQ-M-GTL3-CAPABILITY` remains deferred and is tracked in
 design/module mapping surfaces rather than live testcase authority for the

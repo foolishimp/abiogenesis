@@ -1,6 +1,14 @@
 import type {
   AdvancementTransition,
+  ActorInvocation,
+  ActorInvocationClosedEvent,
+  ActorInvocationStartedEvent,
+  ActorResultArtifactObservedEvent,
+  AmbiguityObservationAdmittedRuntimeEvent,
+  AuthoritySnapshotAdmittedRuntimeEvent,
   BasisAdmittedEvent,
+  ClosureInputPublishedRuntimeEvent,
+  EvidenceAdmittedRuntimeEvent,
   ExecutionBasis,
   FdAdvanceReadyEvent,
   FdAdvanceTransition,
@@ -10,6 +18,9 @@ import type {
   FpDispatchTransition,
   FrameOpenedEvent,
   GraphCallOpenedEvent,
+  PayloadObservedRuntimeEvent,
+  PayloadRejectedRuntimeEvent,
+  PayloadValidatedRuntimeEvent,
   RuntimeEvent,
   TerminalReachedEvent,
   TerminalTransition,
@@ -140,6 +151,62 @@ export function constructFpDispatchRequestedEvent(
   });
 }
 
+export function constructActorInvocationStartedEvent(
+  invocation: ActorInvocation
+): ActorInvocationStartedEvent {
+  return Object.freeze({
+    kind: "actor_invocation_started",
+    basisId: invocation.basisId,
+    graphCallId: invocation.graphCallId,
+    frameId: invocation.frameId,
+    vectorIndex: invocation.vectorIndex,
+    edge: invocation.edge,
+    actorInvocationId: invocation.actorInvocationId,
+    attemptIndex: invocation.attemptIndex,
+    dispatchRef: invocation.dispatchRef,
+    workerId: invocation.workerId,
+    backendId: invocation.backendId,
+    resultRef: invocation.resultRef
+  });
+}
+
+export function constructActorResultArtifactObservedEvent(input: {
+  readonly invocation: ActorInvocation;
+  readonly artifactRef: string;
+}): ActorResultArtifactObservedEvent {
+  return Object.freeze({
+    kind: "actor_result_artifact_observed",
+    basisId: input.invocation.basisId,
+    graphCallId: input.invocation.graphCallId,
+    frameId: input.invocation.frameId,
+    vectorIndex: input.invocation.vectorIndex,
+    edge: input.invocation.edge,
+    actorInvocationId: input.invocation.actorInvocationId,
+    resultRef: input.invocation.resultRef,
+    artifactRef: input.artifactRef
+  });
+}
+
+export function constructActorInvocationClosedEvent(input: {
+  readonly invocation: ActorInvocation;
+  readonly closureStatus: ActorInvocationClosedEvent["closureStatus"];
+  readonly resultRef: string | null;
+  readonly detail: string | null;
+}): ActorInvocationClosedEvent {
+  return Object.freeze({
+    kind: "actor_invocation_closed",
+    basisId: input.invocation.basisId,
+    graphCallId: input.invocation.graphCallId,
+    frameId: input.invocation.frameId,
+    vectorIndex: input.invocation.vectorIndex,
+    edge: input.invocation.edge,
+    actorInvocationId: input.invocation.actorInvocationId,
+    closureStatus: input.closureStatus,
+    resultRef: input.resultRef,
+    detail: input.detail
+  });
+}
+
 export function constructFhEscalatedEvent(
   transition: FhEscalationTransition
 ): FhEscalatedEvent {
@@ -159,6 +226,220 @@ export function constructTerminalReachedEvent(
     basisId: transition.basis.id,
     terminalKind: transition.terminalKind,
     reason: transition.reason
+  });
+}
+
+function runtimeEventScope(input: {
+  readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
+}): {
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+} {
+  assertVectorIndexInRange(input.basis, input.vectorIndex);
+  return Object.freeze({
+    basisId: input.basis.id,
+    graphCallId: graphCallIdForBasis(input.basis),
+    frameId: frameIdForBasis(input.basis),
+    vectorIndex: input.vectorIndex,
+    edge: vectorEdge(input.basis, input.vectorIndex)
+  });
+}
+
+export function constructPayloadObservedEvent(input: {
+  readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
+  readonly payloadRef: string;
+  readonly payloadClass: string;
+  readonly schemaRef?: string | null;
+  readonly contractRef?: string | null;
+  readonly digest: string;
+  readonly producerRef: string;
+  readonly sourceEventRef?: string | null;
+  readonly actorInvocationId?: string | null;
+  readonly authorityRef?: string | null;
+  readonly inputDigest?: string | null;
+  readonly policyRefs?: readonly string[];
+}): PayloadObservedRuntimeEvent {
+  return Object.freeze({
+    kind: "payload_observed",
+    ...runtimeEventScope(input),
+    payloadRef: input.payloadRef,
+    payloadClass: input.payloadClass,
+    schemaRef: input.schemaRef ?? null,
+    contractRef: input.contractRef ?? null,
+    digest: input.digest,
+    producerRef: input.producerRef,
+    sourceEventRef: input.sourceEventRef ?? null,
+    actorInvocationId: input.actorInvocationId ?? null,
+    authorityRef: input.authorityRef ?? null,
+    inputDigest: input.inputDigest ?? null,
+    policyRefs: freezeStringArray(input.policyRefs ?? Object.freeze([]))
+  });
+}
+
+export function constructPayloadValidatedEvent(input: {
+  readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
+  readonly payloadRef: string;
+  readonly schemaRef?: string | null;
+  readonly contractRef?: string | null;
+  readonly digest: string;
+  readonly validationRef: string;
+  readonly evidenceRef?: string | null;
+  readonly policyRefs?: readonly string[];
+}): PayloadValidatedRuntimeEvent {
+  return Object.freeze({
+    kind: "payload_validated",
+    ...runtimeEventScope(input),
+    payloadRef: input.payloadRef,
+    schemaRef: input.schemaRef ?? null,
+    contractRef: input.contractRef ?? null,
+    digest: input.digest,
+    validationRef: input.validationRef,
+    evidenceRef: input.evidenceRef ?? null,
+    policyRefs: freezeStringArray(input.policyRefs ?? Object.freeze([]))
+  });
+}
+
+export function constructPayloadRejectedEvent(input: {
+  readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
+  readonly payloadRef: string;
+  readonly rejectionClass: PayloadRejectedRuntimeEvent["rejectionClass"];
+  readonly schemaRef?: string | null;
+  readonly contractRef?: string | null;
+  readonly digest?: string | null;
+  readonly reason: string;
+  readonly policyRefs?: readonly string[];
+}): PayloadRejectedRuntimeEvent {
+  return Object.freeze({
+    kind: "payload_rejected",
+    ...runtimeEventScope(input),
+    payloadRef: input.payloadRef,
+    rejectionClass: input.rejectionClass,
+    schemaRef: input.schemaRef ?? null,
+    contractRef: input.contractRef ?? null,
+    digest: input.digest ?? null,
+    reason: input.reason,
+    policyRefs: freezeStringArray(input.policyRefs ?? Object.freeze([]))
+  });
+}
+
+export function constructAuthoritySnapshotAdmittedEvent(input: {
+  readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
+  readonly authoritySnapshotRef: string;
+  readonly authorityRefs: readonly string[];
+  readonly inputRefs: readonly string[];
+  readonly authorityDigest: string;
+  readonly inputDigest: string;
+  readonly closureCapable?: boolean;
+  readonly contradictoryAuthority?: boolean;
+  readonly deferredAuthorityRefs?: readonly string[];
+  readonly providerRefs?: readonly string[];
+  readonly policyRefs?: readonly string[];
+}): AuthoritySnapshotAdmittedRuntimeEvent {
+  return Object.freeze({
+    kind: "authority_snapshot_admitted",
+    ...runtimeEventScope(input),
+    authoritySnapshotRef: input.authoritySnapshotRef,
+    authorityRefs: freezeStringArray(input.authorityRefs),
+    inputRefs: freezeStringArray(input.inputRefs),
+    authorityDigest: input.authorityDigest,
+    inputDigest: input.inputDigest,
+    closureCapable: input.closureCapable ?? true,
+    contradictoryAuthority: input.contradictoryAuthority ?? false,
+    deferredAuthorityRefs: freezeStringArray(
+      input.deferredAuthorityRefs ?? Object.freeze([])
+    ),
+    providerRefs: freezeStringArray(input.providerRefs ?? Object.freeze([])),
+    policyRefs: freezeStringArray(input.policyRefs ?? Object.freeze([]))
+  });
+}
+
+export function constructEvidenceAdmittedEvent(input: {
+  readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
+  readonly evidenceRef: string;
+  readonly payloadRef: string;
+  readonly authorityRef?: string | null;
+  readonly authorityDigest?: string | null;
+  readonly inputDigest?: string | null;
+  readonly providerRefs?: readonly string[];
+  readonly policyRefs?: readonly string[];
+  readonly complete?: boolean;
+  readonly shallow?: boolean;
+  readonly contradictsAuthority?: boolean;
+  readonly deferred?: boolean;
+}): EvidenceAdmittedRuntimeEvent {
+  return Object.freeze({
+    kind: "evidence_admitted",
+    ...runtimeEventScope(input),
+    evidenceRef: input.evidenceRef,
+    payloadRef: input.payloadRef,
+    authorityRef: input.authorityRef ?? null,
+    authorityDigest: input.authorityDigest ?? null,
+    inputDigest: input.inputDigest ?? null,
+    providerRefs: freezeStringArray(input.providerRefs ?? Object.freeze([])),
+    policyRefs: freezeStringArray(input.policyRefs ?? Object.freeze([])),
+    complete: input.complete ?? true,
+    shallow: input.shallow ?? false,
+    contradictsAuthority: input.contradictsAuthority ?? false,
+    deferred: input.deferred ?? false
+  });
+}
+
+export function constructAmbiguityObservationAdmittedEvent(input: {
+  readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
+  readonly ambiguityRef: string;
+  readonly ambiguityStatus: AmbiguityObservationAdmittedRuntimeEvent["ambiguityStatus"];
+  readonly authorityRef?: string | null;
+  readonly evidenceRef?: string | null;
+  readonly payloadRef?: string | null;
+  readonly reason: string;
+  readonly providerRefs?: readonly string[];
+  readonly policyRefs?: readonly string[];
+}): AmbiguityObservationAdmittedRuntimeEvent {
+  return Object.freeze({
+    kind: "ambiguity_observation_admitted",
+    ...runtimeEventScope(input),
+    ambiguityRef: input.ambiguityRef,
+    ambiguityStatus: input.ambiguityStatus,
+    authorityRef: input.authorityRef ?? null,
+    evidenceRef: input.evidenceRef ?? null,
+    payloadRef: input.payloadRef ?? null,
+    reason: input.reason,
+    providerRefs: freezeStringArray(input.providerRefs ?? Object.freeze([])),
+    policyRefs: freezeStringArray(input.policyRefs ?? Object.freeze([]))
+  });
+}
+
+export function constructClosureInputPublishedEvent(input: {
+  readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
+  readonly closureInputRef: string;
+  readonly projectionRef: string;
+  readonly closureDecision: ClosureInputPublishedRuntimeEvent["closureDecision"];
+  readonly rowRefs?: readonly string[];
+  readonly sourceProjectionRefs?: readonly string[];
+  readonly policyRefs?: readonly string[];
+}): ClosureInputPublishedRuntimeEvent {
+  return Object.freeze({
+    kind: "closure_input_published",
+    ...runtimeEventScope(input),
+    closureInputRef: input.closureInputRef,
+    projectionRef: input.projectionRef,
+    closureDecision: input.closureDecision,
+    rowRefs: freezeStringArray(input.rowRefs ?? Object.freeze([])),
+    sourceProjectionRefs: freezeStringArray(
+      input.sourceProjectionRefs ?? Object.freeze([])
+    ),
+    policyRefs: freezeStringArray(input.policyRefs ?? Object.freeze([]))
   });
 }
 

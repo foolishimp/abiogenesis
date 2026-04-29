@@ -56,7 +56,7 @@ The GTL 3 design line is derived from the live GTL 3 families under
 
 ## Reference Derivation Rule
 
-The TypeScript GTL line derives from the released Python GTL design through:
+The TypeScript GTL line derives from the paused Python reference GTL design through:
 
 - `PYTHON_TO_TYPESCRIPT_DESIGN_DERIVATION.md`
 - `GTL_3_FIRST_SLICE_IACS.md`

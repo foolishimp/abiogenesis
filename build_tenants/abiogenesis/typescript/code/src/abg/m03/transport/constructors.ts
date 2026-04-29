@@ -1,5 +1,10 @@
 import type { AdvancementTransition } from "../contracts/carriers.js";
 import {
+  assertNonNegativeInteger,
+  frameIdForBasis,
+  graphCallIdForBasis
+} from "../contracts/runtime_support.js";
+import {
   contractForKnownAgent,
   deriveDispatchExpectation,
   projectDispatchAssessmentIds,
@@ -22,10 +27,15 @@ function freezeStringArray(values: readonly string[]): readonly string[] {
 export function constructDispatchRequest(
   input: DispatchRequestInit
 ): DispatchRequest {
+  const vectorIndex = input.vectorIndex ?? 0;
+  assertNonNegativeInteger(vectorIndex, "DispatchRequest.vectorIndex");
   return Object.freeze({
     kind: "fp_dispatch_request",
     basisId: input.basisId,
     graphFunctionId: input.graphFunctionId,
+    graphCallId: input.graphCallId ?? `graph-call:${input.basisId}`,
+    frameId: input.frameId ?? `frame:${input.basisId}:root`,
+    vectorIndex,
     jobId: input.jobId,
     dispatchRef: input.dispatchRef,
     workerId: input.workerId,
@@ -131,6 +141,9 @@ export function dispatchRequestsForTransition(
     constructDispatchRequest({
       basisId: basis.id,
       graphFunctionId: basis.graphFunction.id,
+      graphCallId: graphCallIdForBasis(basis),
+      frameId: frameIdForBasis(basis),
+      vectorIndex: transition.vectorIndex,
       jobId: basis.job.id,
       dispatchRef: transition.dispatchRef,
       workerId: basis.runtimeIdentity.workerId,

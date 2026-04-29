@@ -4,7 +4,7 @@
 **Date**: 2026-04-24
 **Purpose**: Audit the completed TypeScript installed-sandbox, live-lane,
 archive, and Python sandbox behavior portfolio proof surfaces against the
-released Python sandbox reference tests at equivalent feature coverage, and
+paused Python sandbox reference tests at equivalent feature coverage, and
 force any still-relevant misses into explicit follow-up tickets.
 
 ## 1. Scope

@@ -41,6 +41,12 @@ test("M05 installed graph-function target integration: packaged sandbox start se
     "frame_opened",
     "vector_traversal_planned",
     "fp_dispatch_requested",
+    "actor_invocation_started",
+    "actor_invocation_closed",
+    "authority_snapshot_admitted",
+    "payload_observed",
+    "payload_validated",
+    "evidence_admitted",
     "assessed"
   ]);
   assert.equal(payload.assessmentKind, "accepted");

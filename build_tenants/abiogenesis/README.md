@@ -4,9 +4,9 @@ This family groups concrete realizations of the abiogenesis project under one sh
 
 ## Current Variants
 
-- `python/` — canonical released realization of GTL + ABG
-- `typescript/` — active package-first TypeScript RC candidate and research-lab
-  proving line
+- `typescript/` — primary package-first TypeScript release realization of GTL + ABG
+- `python/` — paused released reference realization retained for history,
+  comparison, and compatibility evidence
 - `codex/` — paused partial alternate realization retained for comparison and migration
 
 ## Boundaries
@@ -17,6 +17,6 @@ This family groups concrete realizations of the abiogenesis project under one sh
 
 ## Current Posture
 
-At this stage of migration, `python/` remains the released reference line.
-`typescript/` is the active RC candidate line.
+At this stage of migration, `typescript/` is the primary release line.
+`python/` is paused and no longer part of the active RC gate.
 `codex/` is informative and comparative, but is not part of the release gate.

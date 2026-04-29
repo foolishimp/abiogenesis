@@ -1,14 +1,14 @@
 # build_tenants/abiogenesis/typescript — Design
 
-TypeScript build — active package-first RC candidate realization of abiogenesis.
+TypeScript build - primary package-first release realization of abiogenesis.
 
 ## Status
 
-This tenant is the active TypeScript RC candidate line.
+This tenant is the primary TypeScript release line.
 
-`build_tenants/abiogenesis/python/` remains the released reference
-realization. This TypeScript tenant is the package-first proving line for the
-current RC candidate.
+`build_tenants/abiogenesis/python/` remains a paused released reference
+realization. This TypeScript tenant is the package-first proving and release
+line for the current cut.
 
 ## Governing Truth
 
@@ -29,9 +29,10 @@ Constitutional authority lives in:
 
 Tenant-local authority for this line lives here.
 
-Python remains the released reference implementation.
+Python remains paused reference evidence.
 It is source material for comparison and migration, not the authority that this
-tenant is required to mimic file-for-file.
+tenant is required to mimic file-for-file and not an active release gate while
+paused.
 
 ## Governing Runtime Law
 
@@ -86,6 +87,9 @@ Current tenant-local design truth and proposed next-boundary design packs live i
 - `M03_TRANSPORT_PROTOCOL_DERIVATION.md`
 - `M03_TRANSPORT_PROTOCOL_FIRST_SLICE_IACS.md`
 - `M03_TRANSPORT_PROTOCOL_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M03_SUPERVISED_ACTOR_INVOCATION_DERIVATION.md`
+- `M03_SUPERVISED_ACTOR_INVOCATION_FIRST_SLICE_IACS.md`
+- `M03_SUPERVISED_ACTOR_INVOCATION_STRUCTURAL_CARRIER_DIAGRAM.md`
 - `M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md`
 - `M03_GRAPH_FUNCTION_ITERATION_FIRST_SLICE_IACS.md`
 - `M03_GRAPH_FUNCTION_ITERATION_STRUCTURAL_CARRIER_DIAGRAM.md`
@@ -96,6 +100,20 @@ Current tenant-local design truth and proposed next-boundary design packs live i
 - `M03_RETRY_REPAIR_LEAFTASK_DERIVATION.md`
 - `M03_RETRY_REPAIR_LEAFTASK_FIRST_SLICE_IACS.md`
 - `M03_RETRY_REPAIR_LEAFTASK_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M03_ATTACHED_FP_WORKER_LOOP_DERIVATION.md`
+- `M03_ATTACHED_FP_WORKER_LOOP_FIRST_SLICE_IACS.md`
+- `M03_ATTACHED_FP_WORKER_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M03_TRAVERSAL_ENVELOPE_TOPOLOGY_DERIVATION.md`
+- `M03_TRAVERSAL_ENVELOPE_TOPOLOGY_FIRST_SLICE_IACS.md`
+- `M03_TRAVERSAL_ENVELOPE_TOPOLOGY_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M03_TOTAL_ASSURANCE_PROJECTION_DERIVATION.md`
+- `M03_TOTAL_ASSURANCE_PROJECTION_FIRST_SLICE_IACS.md`
+- `M03_TOTAL_ASSURANCE_PROJECTION_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M03_TOTAL_ASSURANCE_PROJECTION_PROOF_PLAN.md`
+- `M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_DERIVATION.md`
+- `M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_FIRST_SLICE_IACS.md`
+- `M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_PROOF_PLAN.md`
 - `M03_M04_RUNTIME_FAILURE_TAXONOMY_DERIVATION.md`
 - `M03_M04_RUNTIME_FAILURE_TAXONOMY_FIRST_SLICE_IACS.md`
 - `M03_M04_RUNTIME_FAILURE_TAXONOMY_STRUCTURAL_CARRIER_DIAGRAM.md`
@@ -141,9 +159,15 @@ Current tenant-local design truth and proposed next-boundary design packs live i
 - `M05_INSTALLED_SANDBOX_DERIVATION.md`
 - `M05_INSTALLED_SANDBOX_FIRST_SLICE_IACS.md`
 - `M05_INSTALLED_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_DERIVATION.md`
+- `M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_FIRST_SLICE_IACS.md`
+- `M05_ATTACHED_FP_LOCAL_LIVE_SANDBOX_STRUCTURAL_CARRIER_DIAGRAM.md`
 - `M05_ARCHIVE_FINALIZATION_DERIVATION.md`
 - `M05_ARCHIVE_FINALIZATION_FIRST_SLICE_IACS.md`
 - `M05_ARCHIVE_FINALIZATION_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M05_PUBLIC_SANDBOX_ARCHIVE_API_DERIVATION.md`
+- `M05_PUBLIC_SANDBOX_ARCHIVE_API_FIRST_SLICE_IACS.md`
+- `M05_PUBLIC_SANDBOX_ARCHIVE_API_STRUCTURAL_CARRIER_DIAGRAM.md`
 - `M05_INSTALLED_LIVE_PORTFOLIO_DERIVATION.md`
 - `M05_INSTALLED_LIVE_PORTFOLIO_FIRST_SLICE_IACS.md`
 - `M05_INSTALLED_LIVE_PORTFOLIO_STRUCTURAL_CARRIER_DIAGRAM.md`
@@ -403,6 +427,14 @@ Its first-slice design assets are:
 - `M05_ARCHIVE_FINALIZATION_FIRST_SLICE_IACS.md`
 - `M05_ARCHIVE_FINALIZATION_STRUCTURAL_CARRIER_DIAGRAM.md`
 
+`T-077` promoted the completed M05 sandbox/archive substrate through a public
+downstream package API.
+Its first-slice design assets are:
+
+- `M05_PUBLIC_SANDBOX_ARCHIVE_API_DERIVATION.md`
+- `M05_PUBLIC_SANDBOX_ARCHIVE_API_FIRST_SLICE_IACS.md`
+- `M05_PUBLIC_SANDBOX_ARCHIVE_API_STRUCTURAL_CARRIER_DIAGRAM.md`
+
 The latest completed follow-up implementation wave is:
 
 - `.ai-workspace/tickets/completed/T-032-realize-typescript-m05-installed-reset-postmortem-parity-over-canonical-reset-and-continuation-law.md`
@@ -544,7 +576,7 @@ The TypeScript tenant does not build from code-first porting.
 The required order is:
 
 1. constitutional `WHAT` in `specification/`
-2. released Python design as reference `HOW`
+2. paused Python reference design as historical/reference `HOW`
 3. TypeScript design mapping in `PYTHON_TO_TYPESCRIPT_DESIGN_DERIVATION.md`
 4. source audit baseline in `MIGRATED_TYPESCRIPT_DESIGN_SOURCE_AUDIT.md`
 5. forward remaining-wave baseline in `REMAINING_TYPESCRIPT_FORWARD_DERIVATION_PLAN.md`

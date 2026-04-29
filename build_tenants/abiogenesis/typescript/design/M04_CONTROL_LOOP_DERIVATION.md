@@ -3,7 +3,7 @@
 **Status**: Active
 **Date**: 2026-04-23
 **Purpose**: Derive the TypeScript `M04-app-bootstrap` public-control projection
-boundary from the released Python design and delivery evidence without
+boundary from the paused Python reference design and delivery evidence without
 promoting Python controller drift into tenant-local architecture.
 
 ## 1. Source Material
@@ -24,7 +24,7 @@ This boundary derives from:
 The next TypeScript `M04` wave does not start from Python executable wiring,
 install wiring, or helper decomposition.
 
-It starts from the released Python design truths:
+It starts from the paused Python reference design truths:
 
 - `fh_mode` and `root_mode` remain product-policy control modes outside
   `scope + target + until`

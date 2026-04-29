@@ -53,7 +53,7 @@ No other top-level carrier is prime in this slice.
 | fulfillment assessment entries | subordinate | nested artifact payload detail | admitted once into `ResultArtifact` |
 | identity issues | subordinate | nested ingest diagnostic detail | carried only inside `ResultIngestOutcome` |
 | transport failure detail | subordinate | nested closed outcome detail | carried only inside `ResultIngestOutcome` |
-| PTY supervision or progress-lease detail | deferred | runtime observability family, not first transport slice truth | later transport/progress wave only |
+| PTY supervision or progress-lease detail | successor slice | runtime observability family, not first transport slice truth | `M03_SUPERVISED_ACTOR_INVOCATION_FIRST_SLICE_IACS.md` owns the explicit actor invocation/progress boundary |
 | local contract override | deferred | configuration extension, not first transport slice truth | later transport/config wave only |
 | archive publication of result artifacts | deferred | downstream qualification/archive family | later `M05` wave only |
 

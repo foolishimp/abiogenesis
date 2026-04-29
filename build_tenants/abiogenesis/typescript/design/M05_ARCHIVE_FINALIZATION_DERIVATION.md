@@ -39,7 +39,8 @@ This slice preserves these Python truths:
 
 - archive output is durable qualification truth
 - canonical postmortem files include run metadata, summary, stdout, stderr,
-  event logs, manifests, results, and workspace artifacts
+  event logs, manifests, results, runtime identity, command binding,
+  projections, postmortem notes, and workspace artifacts
 - archive proof should consume the writer/finalizer output rather than a
   synthetic shape-only fixture
 

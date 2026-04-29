@@ -3,7 +3,7 @@
 **Status**: Active
 **Date**: 2026-04-24
 **Purpose**: Derive the late TypeScript `M03` transport and result-artifact
-protocol boundary from the released Python transport line without turning
+protocol boundary from the paused Python reference transport line without turning
 shell/process details into runtime semantic authority.
 
 ## 1. Position
@@ -27,7 +27,7 @@ That missing boundary is the remaining late `M03` transport family.
 
 ## 2. Python Reference Inputs
 
-The released Python line establishes the relevant reference through:
+The paused Python reference line establishes the relevant reference through:
 
 - `design/adrs/ADR-022-subprocess-transport-with-env-sanitization.md`
 - `code/genesis/transport.py`

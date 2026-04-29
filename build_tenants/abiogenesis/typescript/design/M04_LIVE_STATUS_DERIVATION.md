@@ -3,7 +3,7 @@
 **Status**: Active
 **Date**: 2026-04-24
 **Purpose**: Derive the next TypeScript `M04-app-bootstrap`
-live-status/read-model boundary from the released Python projection surfaces
+live-status/read-model boundary from the paused Python reference projection surfaces
 without importing Python's event-stream archive and filesystem coupling into a
 TypeScript line that still carries bounded public carriers rather than a full
 installed runtime envelope.

@@ -64,6 +64,9 @@ export function startFromRequest(
     runtimeEvents: context.runtimeEvents ?? Object.freeze([]),
     eventSink: sink,
     ...(plugins === undefined ? {} : { plugins }),
+    ...(context.assuranceProvider === undefined
+      ? {}
+      : { assuranceProvider: context.assuranceProvider }),
     ...(context.runId === undefined ? {} : { runId: context.runId }),
     ...(context.workKey === undefined ? {} : { workKey: context.workKey }),
     ...(context.frameId === undefined ? {} : { frameId: context.frameId }),
@@ -76,7 +79,8 @@ export function startFromRequest(
     result.basis,
     result.transition,
     result.emittedEvents,
-    request.startIntent.until
+    request.startIntent.until,
+    context.assuranceProvider === undefined ? undefined : result.assuranceGate
   );
 }
 

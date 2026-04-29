@@ -122,7 +122,9 @@ test("M04 integration: publicStart preserves kernel dispatch truth as a blocked 
     "graph_call_opened",
     "frame_opened",
     "vector_traversal_planned",
-    "fp_dispatch_requested"
+    "fp_dispatch_requested",
+    "actor_invocation_started",
+    "actor_invocation_closed"
   ]);
   assert.equal(outcome.stopDetail.dispatchRef, "dispatch://public-fp");
 });

@@ -7,6 +7,7 @@ export interface DeliveryFileRef {
   readonly kind: string;
   readonly relativePath: string;
   readonly content: string;
+  readonly writeMode?: "overwrite" | "create_if_missing";
 }
 
 export interface DeliveryPlan {

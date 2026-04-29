@@ -21,6 +21,7 @@ import type {
   RunArchiveFinalizationRejected,
   RunArchiveFinalizationRequest,
   RunArchiveFinalizationSourceFileRef,
+  RunArchiveAssuranceSummaryRef,
   RunArchiveFinalized,
   RunArchiveMaterializedFileKind,
   RunArchiveMaterializedFileRef,
@@ -31,6 +32,18 @@ import type {
 
 function freezeStringArray(values: readonly string[]): readonly string[] {
   return Object.freeze([...values].sort());
+}
+
+export function constructRunArchiveAssuranceSummaryRef(
+  input: RunArchiveAssuranceSummaryRef
+): RunArchiveAssuranceSummaryRef {
+  return Object.freeze({
+    status: input.status,
+    reason: input.reason,
+    projectionRefs: freezeStringArray(input.projectionRefs),
+    closureDecisions: Object.freeze([...input.closureDecisions].sort()),
+    blockingStatuses: Object.freeze([...input.blockingStatuses].sort())
+  });
 }
 
 function freezeNotes(values: readonly RunArchiveNoteRef[]): readonly RunArchiveNoteRef[] {
@@ -95,7 +108,10 @@ export function constructRunArchiveSummaryRef(
     manifestFiles: freezeStringArray(input.manifestFiles),
     resultFiles: freezeStringArray(input.resultFiles),
     converged: input.converged,
-    totalDelta: input.totalDelta
+    totalDelta: input.totalDelta,
+    ...(input.assurance === undefined
+      ? {}
+      : { assurance: constructRunArchiveAssuranceSummaryRef(input.assurance) })
   });
 }
 
@@ -194,6 +210,10 @@ function isQualificationFileKind(
     kind === "events" ||
     kind === "manifest" ||
     kind === "result" ||
+    kind === "runtime_identity" ||
+    kind === "command_binding" ||
+    kind === "projection" ||
+    kind === "postmortem" ||
     kind === "workspace_artifact"
   );
 }

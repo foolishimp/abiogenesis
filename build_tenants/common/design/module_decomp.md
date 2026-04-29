@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Date**: 2026-03-29
-**Derived from**: [INTENT.md](https://github.com/foolishimp/abiogenesis/blob/main/specification/INTENT.md), [PRODUCT.md](https://github.com/foolishimp/abiogenesis/blob/main/specification/PRODUCT.md), [specification/requirements/](https://github.com/foolishimp/abiogenesis/tree/main/specification/requirements/)
+**Derived from**: [INTENT.md](../../../specification/INTENT.md), [PRODUCT.md](../../../specification/PRODUCT.md), [specification/requirements/](../../../specification/requirements/)
 
 ## Position
 

@@ -45,6 +45,22 @@ test("M05 run-archive integration: canonical finalizer writes the installed post
     await writer.isFile(path.join(archiveRoot, "artifacts/raw_response.txt")),
     true
   );
+  assert.equal(
+    await writer.isFile(path.join(archiveRoot, "artifacts/runtime_identity.json")),
+    true
+  );
+  assert.equal(
+    await writer.isFile(path.join(archiveRoot, "artifacts/command_binding.json")),
+    true
+  );
+  assert.equal(
+    await writer.isFile(path.join(archiveRoot, "artifacts/projection.json")),
+    true
+  );
+  assert.equal(
+    await writer.isFile(path.join(archiveRoot, "postmortem.md")),
+    true
+  );
 
   const outcome = qualifyRunArchive(
     buildRunArchiveQualificationRequest(finalized)
@@ -61,6 +77,10 @@ test("M05 run-archive integration: canonical finalizer writes the installed post
       "events",
       "manifest",
       "result",
+      "runtime_identity",
+      "command_binding",
+      "projection",
+      "postmortem",
       "workspace_artifact"
     ]
   });

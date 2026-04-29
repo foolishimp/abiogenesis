@@ -3,7 +3,7 @@
 **Status**: Active
 **Category**: Capability
 **Date**: 2026-04-05
-**Derives from**: [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [ODD_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/ODD_METHOD.md), [PRODUCT.md](../../PRODUCT.md)
+**Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [PRODUCT.md](../../PRODUCT.md)
 
 ---
 
@@ -24,7 +24,7 @@ record of GTL 3.
 
 **REQ-L-GTL3-GRAPHVECTOR-005**: `GraphVector.declarations` shall be the canonical transition-governance declaration surface for one invariant traversal boundary.
 
-**REQ-L-GTL3-GRAPHVECTOR-006**: `GraphVector.declarations` may carry explicit truth for invariant transition description, dispatch intent, evaluation policy, escalation policy, deterministic proof surfaces, closure contract, hook references, and opaque hook configuration.
+**REQ-L-GTL3-GRAPHVECTOR-006**: `GraphVector.declarations` may carry explicit truth for invariant transition description, dispatch intent, evaluation policy, escalation policy, deterministic proof surfaces, closure contract, assurance hook references, other hook references, and opaque hook configuration.
 
 **REQ-L-GTL3-GRAPHVECTOR-007**: Graph-vector declarations shall remain inspectable and replayable across publication, serialization, and interpretation surfaces.
 

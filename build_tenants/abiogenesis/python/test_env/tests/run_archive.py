@@ -82,6 +82,34 @@ class RunArchive:
             handle.write(result.stderr or "")
             handle.write("\n")
 
+    def log_agent_result(self, label: str, result: Any) -> None:
+        self.note(
+            "agent_observation",
+            observation_label=label,
+            agent=getattr(result, "agent", None),
+            returncode=getattr(result, "returncode", None),
+            timed_out=getattr(result, "timed_out", None),
+            failure_class=getattr(result, "failure_class", None),
+            artifact_status=getattr(result, "artifact_status", None),
+            artifact_failure_class=getattr(result, "artifact_failure_class", None),
+            progress_source=getattr(result, "progress_source", None),
+            supervision_mode=getattr(result, "supervision_mode", None),
+        )
+        with open(self._stdout_path, "a", encoding="utf-8") as handle:
+            handle.write(
+                f"--- {label} agent stdout "
+                f"(exit {getattr(result, 'returncode', 'unknown')}) ---\n"
+            )
+            handle.write(getattr(result, "stdout", "") or "")
+            handle.write("\n")
+        with open(self._stderr_path, "a", encoding="utf-8") as handle:
+            handle.write(
+                f"--- {label} agent stderr "
+                f"(exit {getattr(result, 'returncode', 'unknown')}) ---\n"
+            )
+            handle.write(getattr(result, "stderr", "") or "")
+            handle.write("\n")
+
     def capture_text(self, name: str, text: str) -> Path:
         path = self.artifacts_dir / name
         path.parent.mkdir(parents=True, exist_ok=True)

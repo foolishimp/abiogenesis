@@ -899,6 +899,10 @@ def test_dispatch_runtime_forwards_local_transport_contract_config(monkeypatch, 
         return AgentResult(stdout="ok", stderr="", returncode=0, agent=agent)
 
     monkeypatch.setattr("genesis.dispatch_runtime.dispatch_agent_supervised", fake_dispatch_agent)
+    (tmp_path / "local_transport_contract.json").write_text(
+        json.dumps({"codex": {}}),
+        encoding="utf-8",
+    )
 
     config = {
         "runtime_backend": "codex_cli",

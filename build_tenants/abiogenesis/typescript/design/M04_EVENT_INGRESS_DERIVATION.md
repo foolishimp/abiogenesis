@@ -3,7 +3,7 @@
 **Status**: Active
 **Date**: 2026-04-24
 **Purpose**: Derive the next TypeScript `M04-app-bootstrap` event-ingress
-boundary from the released Python design and delivery evidence without
+boundary from the paused Python reference design and delivery evidence without
 promoting Python CLI wiring or result-ingest behavior into the wrong
 TypeScript module boundary.
 
@@ -31,7 +31,7 @@ This boundary derives from:
 The next TypeScript `M04` wave does not start from Python executable wiring,
 stdout formatting, or file layout.
 
-It starts from the released Python design truths:
+It starts from the paused Python reference design truths:
 
 - event ingress is app-owned
 - canonical event persistence remains kernel-owned through `emit(...)`

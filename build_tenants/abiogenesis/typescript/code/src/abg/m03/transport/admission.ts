@@ -82,6 +82,19 @@ function parseOptionalStringArray(
   return parseStringArray(input, label);
 }
 
+function parseOptionalNonNegativeInteger(
+  input: unknown,
+  label: string
+): number | undefined {
+  if (input === undefined || input === null) {
+    return undefined;
+  }
+  if (typeof input !== "number" || !Number.isInteger(input) || input < 0) {
+    throw new TypeError(`${label}: expected a non-negative integer`);
+  }
+  return input;
+}
+
 function parseTransportContract(
   input: unknown,
   label: string
@@ -291,12 +304,27 @@ export function admitDispatchRequest(
   if (request["kind"] !== "fp_dispatch_request") {
     throw new TypeError(`${label}.kind: expected "fp_dispatch_request"`);
   }
+  const graphCallId = parseNullableNonEmptyString(
+    parseOptionalField(request, "graphCallId"),
+    `${label}.graphCallId`
+  );
+  const frameId = parseNullableNonEmptyString(
+    parseOptionalField(request, "frameId"),
+    `${label}.frameId`
+  );
+  const vectorIndex = parseOptionalNonNegativeInteger(
+    parseOptionalField(request, "vectorIndex"),
+    `${label}.vectorIndex`
+  );
   return constructDispatchRequest({
     basisId: parseNonEmptyString(request["basisId"], `${label}.basisId`),
     graphFunctionId: parseNonEmptyString(
       request["graphFunctionId"],
       `${label}.graphFunctionId`
     ),
+    ...(graphCallId === null ? {} : { graphCallId }),
+    ...(frameId === null ? {} : { frameId }),
+    ...(vectorIndex === undefined ? {} : { vectorIndex }),
     jobId: parseNonEmptyString(request["jobId"], `${label}.jobId`),
     dispatchRef: parseNonEmptyString(request["dispatchRef"], `${label}.dispatchRef`),
     workerId: parseNonEmptyString(request["workerId"], `${label}.workerId`),

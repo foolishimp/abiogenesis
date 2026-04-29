@@ -13,25 +13,15 @@ import {
 } from "../../build/semantic/code/src/index.js";
 import { buildThreeStageStartContext } from "./support/m03-iteration-fixtures.mjs";
 
-function assessedEvent(edge) {
+function vectorClosedEvent(plannedEvent) {
   return {
-    kind: "assessed",
-    assessmentKind: "fp",
-    edge,
-    obligationId: "requirements_complete",
-    publishedLedgerRef: "ledger://m03-iteration",
-    actor: "codex",
-    specHash: "spec://m03-iteration",
-    manifestId: "manifest://m03-iteration",
-    workflowVersion: "wf://m03-iteration",
-    runId: "run://m03-iteration",
-    workKey: "wk://m03-iteration",
-    selectedWorkerId: "worker://m03-iteration",
-    selectedBackend: "backend://node",
-    roleId: "role://runtime",
-    authorityRef: "authority://runtime",
-    assignmentSource: "policy_resolution",
-    resolvedRuntimeRef: "runtime://typescript/node"
+    kind: "vector_closed",
+    basisId: plannedEvent.basisId,
+    graphCallId: plannedEvent.graphCallId,
+    frameId: plannedEvent.frameId,
+    vectorIndex: plannedEvent.vectorIndex,
+    edge: plannedEvent.edge,
+    closureKind: "assessed"
   };
 }
 
@@ -95,12 +85,14 @@ test("T-072 M04 start: F_P remains a lawful dispatch stop from the same engine p
       "graph_call_opened",
       "frame_opened",
       "vector_traversal_planned",
-      "fp_dispatch_requested"
+      "fp_dispatch_requested",
+      "actor_invocation_started",
+      "actor_invocation_closed"
     ]
   );
 });
 
-test("T-072 M04 start: assessed F_P replay advances on re-entry without redispatching the same vector", () => {
+test("T-072 M04 start: vector-closed F_P replay advances on re-entry without redispatching the same vector", () => {
   const { input, context } = buildThreeStageStartContext({
     defaultRegime: "F_P",
     dispatchRef: "dispatch://m03-iteration"
@@ -111,7 +103,13 @@ test("T-072 M04 start: assessed F_P replay advances on re-entry without redispat
   });
   const replayEvents = Object.freeze([
     ...firstEvents,
-    assessedEvent("input_set→requirements")
+    vectorClosedEvent(
+      firstEvents.find(
+        (event) =>
+          event.kind === "vector_traversal_planned" &&
+          event.edge === "input_set→requirements"
+      )
+    )
   ]);
   const secondEvents = [];
   const dispatchedEdges = [];
@@ -124,7 +122,7 @@ test("T-072 M04 start: assessed F_P replay advances on re-entry without redispat
       outputCarrier: "FpDispatchOutcome"
     }),
     dispatch: (pluginInput) => {
-      assert.equal(secondEvents.at(-1)?.kind, "fp_dispatch_requested");
+      assert.equal(secondEvents.at(-1)?.kind, "actor_invocation_started");
       dispatchedEdges.push(pluginInput.edge);
       assert.notEqual(pluginInput.edge, "input_set→requirements");
       return constructFpDispatchOutcome({
@@ -158,7 +156,9 @@ test("T-072 M04 start: assessed F_P replay advances on re-entry without redispat
       "graph_call_opened",
       "frame_opened",
       "vector_traversal_planned",
-      "fp_dispatch_requested"
+      "fp_dispatch_requested",
+      "actor_invocation_started",
+      "actor_invocation_closed"
     ]
   );
   assert.deepStrictEqual(

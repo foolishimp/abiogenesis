@@ -4,16 +4,16 @@ TypeScript build tenant for abiogenesis.
 
 ## Status
 
-This tenant is in development.
+This tenant is the primary release line.
 
-It is a design-first alternate realization of the GTL + ABG product line.
-`build_tenants/abiogenesis/python/` remains the canonical released realization.
+It is the package-first realization of the GTL + ABG product line.
+`build_tenants/abiogenesis/python/` is retained as a paused released reference
+line, not as an active RC gate.
 
 ## Position
 
-This tenant exists to evaluate a TypeScript realization under the same
-constitutional specification and shared module law as the released Python line,
-while taking advantage of:
+This tenant realizes the current primary release under the same constitutional
+specification and shared module law, while taking advantage of:
 
 - package-first enterprise deployment
 - strong discriminated-union carrier design
@@ -183,5 +183,6 @@ Read these first:
 - `build_tenants/common/design/module_decomp.md`
 - `build_tenants/abiogenesis/typescript/design/README.md`
 
-Python remains the released reference implementation.
-It is source material for this tenant, not constitutional authority over it.
+Python remains paused reference evidence.
+It is source material for comparison and migration, not constitutional authority
+over this tenant and not an active release gate while paused.

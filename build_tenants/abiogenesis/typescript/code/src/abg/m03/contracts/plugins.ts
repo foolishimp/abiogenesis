@@ -3,6 +3,7 @@
 // Implements: REQ-R-ABG3-EVENTS
 
 import type {
+  ActorInvocationRef,
   ExecutionBasis,
   RuntimeAggregateProjection,
   RuntimeRegime
@@ -32,6 +33,11 @@ export const ENGINE_PLUGIN_KIND_VALUES = Object.freeze([
   "event_ingress",
   "continuation_repair",
   "policy_provider",
+  "assurance_authority_snapshot_provider",
+  "assurance_evidence_adapter",
+  "assurance_ambiguity_classifier",
+  "assurance_closure_policy_provider",
+  "assurance_gain_function_adapter",
   "runtime_identity_provider",
   "operator_asset_resolver",
   "context_resolver",
@@ -62,6 +68,7 @@ export type EnginePluginEventAuthority =
 export const ENGINE_PLUGIN_RUNTIME_BINDING_STATUS_VALUES = Object.freeze([
   "runner_consumed",
   "public_runtime_consumed",
+  "assurance_consumed",
   "engine_law_consumed",
   "read_model_consumed",
   "declarative_contract"
@@ -107,8 +114,13 @@ export interface EnginePluginInput {
   readonly edge: string;
   readonly regime: RuntimeRegime;
   readonly sourceProjectionRef: string;
+  readonly expectedEdge: string | null;
+  readonly expectedAssessmentIds: readonly string[];
   readonly closedVectorIndexes: readonly number[];
   readonly assessedEdges: readonly string[];
+  readonly retryAttemptRefs: RuntimeAggregateProjection["retryAttemptRefs"];
+  readonly retryProgressRefs: RuntimeAggregateProjection["retryProgressRefs"];
+  readonly actorInvocationRef: ActorInvocationRef | null;
 }
 
 export interface EnginePluginOutcomeBase {
@@ -125,6 +137,7 @@ export interface FpDispatchOutcome extends EnginePluginOutcomeBase {
   readonly kind: "fp_dispatch";
   readonly status: "dispatched" | "blocked";
   readonly resultRef: string | null;
+  readonly attachedResultArtifact: Readonly<Record<string, unknown>> | null;
 }
 
 export interface FhAdmissionOutcome extends EnginePluginOutcomeBase {
@@ -181,7 +194,9 @@ const FORBIDDEN_OUTCOME_AUTHORITY_FIELDS = Object.freeze([
   "closureKind",
   "graphCallId",
   "frameId",
-  "vectorIndex"
+  "vectorIndex",
+  "actorInvocationId",
+  "actorInvocationRef"
 ] as const);
 
 function assertPluginKind(kind: string, label: string): EnginePluginKind {
@@ -194,6 +209,11 @@ function assertPluginKind(kind: string, label: string): EnginePluginKind {
     case "event_ingress":
     case "continuation_repair":
     case "policy_provider":
+    case "assurance_authority_snapshot_provider":
+    case "assurance_evidence_adapter":
+    case "assurance_ambiguity_classifier":
+    case "assurance_closure_policy_provider":
+    case "assurance_gain_function_adapter":
     case "runtime_identity_provider":
     case "operator_asset_resolver":
     case "context_resolver":
@@ -414,10 +434,15 @@ export function constructEnginePluginInput(input: {
   readonly vectorIndex: number;
   readonly edge: string;
   readonly regime: RuntimeRegime;
+  readonly actorInvocationRef?: ActorInvocationRef | null | undefined;
 }): EnginePluginInput {
   const contract = admitEnginePluginContract(input.contract);
   assertProjectionBasis(input.basis, input.projection, "EnginePluginInput");
   assertVectorIndexInRange(input.basis, input.vectorIndex);
+  const vector = input.basis.graph.vectors[input.vectorIndex];
+  if (vector === undefined) {
+    throw new TypeError("EnginePluginInput requires a graph vector");
+  }
   return Object.freeze({
     kind: "engine_plugin_input",
     contract,
@@ -428,8 +453,24 @@ export function constructEnginePluginInput(input: {
     edge: input.edge,
     regime: input.regime,
     sourceProjectionRef: sourceProjectionRef(input.projection),
+    expectedEdge: input.edge,
+    expectedAssessmentIds: freezeStringArray(
+      vector.evaluators.map((evaluator) => evaluator.name)
+    ),
     closedVectorIndexes: freezeNumberArray(input.projection.closedVectorIndexes),
-    assessedEdges: freezeStringArray(input.projection.assessedEdges)
+    assessedEdges: freezeStringArray(input.projection.assessedEdges),
+    retryAttemptRefs: Object.freeze([...input.projection.retryAttemptRefs]),
+    retryProgressRefs: Object.freeze([...input.projection.retryProgressRefs]),
+    actorInvocationRef:
+      input.actorInvocationRef === undefined ||
+      input.actorInvocationRef === null
+        ? null
+        : Object.freeze({
+            actorInvocationId: input.actorInvocationRef.actorInvocationId,
+            attemptIndex: input.actorInvocationRef.attemptIndex,
+            dispatchRef: input.actorInvocationRef.dispatchRef,
+            resultRef: input.actorInvocationRef.resultRef
+          })
   });
 }
 
@@ -449,6 +490,7 @@ export function constructFdEvaluationOutcome(input: {
 export function constructFpDispatchOutcome(input: {
   readonly status: FpDispatchOutcome["status"];
   readonly resultRef?: string | null;
+  readonly attachedResultArtifact?: Readonly<Record<string, unknown>> | null;
   readonly evidenceRefs?: readonly string[];
   readonly reason?: string | null;
 }): FpDispatchOutcome {
@@ -456,6 +498,14 @@ export function constructFpDispatchOutcome(input: {
     kind: "fp_dispatch",
     status: input.status,
     resultRef: normalizeReason(input.resultRef, "FpDispatchOutcome.resultRef"),
+    attachedResultArtifact:
+      input.attachedResultArtifact === undefined ||
+      input.attachedResultArtifact === null
+        ? null
+        : parsePlainObject(
+            input.attachedResultArtifact,
+            "FpDispatchOutcome.attachedResultArtifact"
+          ),
     evidenceRefs: freezeStringArray(input.evidenceRefs ?? Object.freeze([])),
     reason: normalizeReason(input.reason, "FpDispatchOutcome.reason")
   });
@@ -518,12 +568,23 @@ export function admitFpDispatchOutcome(
     );
   }
   const resultRef = parseOptionalField(outcomeObject, "resultRef");
+  const attachedResultArtifact = parseOptionalField(
+    outcomeObject,
+    "attachedResultArtifact"
+  );
   return constructFpDispatchOutcome({
     status,
     resultRef:
       resultRef === undefined || resultRef === null
         ? null
         : parseNonEmptyString(resultRef, `${label}.resultRef`),
+    attachedResultArtifact:
+      attachedResultArtifact === undefined || attachedResultArtifact === null
+        ? null
+        : parsePlainObject(
+            attachedResultArtifact,
+            `${label}.attachedResultArtifact`
+          ),
     evidenceRefs: parseOptionalEvidenceRefs(outcomeObject, label),
     reason: parseOptionalReason(outcomeObject, label)
   });
@@ -606,8 +667,8 @@ const inventoryInputs = Object.freeze([
   },
   {
     contract: fpDispatchContract,
-    engineOwnedLaw: "ABG selects the vector and publishes dispatch-required runtime truth.",
-    pluginOwnedScope: "Bind an external probabilistic worker dispatch request.",
+    engineOwnedLaw: "ABG selects the vector, binds one actor invocation to one F_P dispatch attempt, and publishes runtime truth.",
+    pluginOwnedScope: "Run or bind the external probabilistic worker effect for the supplied invocation.",
     positiveProof: "test_m03_plugin_contract_inventory_unit.fp_dispatch.positive",
     negativeProof: "t072-m03-plugin-contract-negative.fp_dispatch.authority",
     distinctAuthorityReason: null
@@ -674,6 +735,76 @@ const inventoryInputs = Object.freeze([
     pluginOwnedScope: "Provide policy bundles from domain configuration or runtime substrate.",
     positiveProof: "test_m03_plugin_contract_inventory_unit.policy_provider.positive",
     negativeProof: "t072-m03-plugin-contract-negative.policy_provider.authority",
+    distinctAuthorityReason: null
+  },
+  {
+    contract: constructEnginePluginContract({
+      ref: "plugin://abg/assurance-authority-snapshot-provider",
+      pluginKind: "assurance_authority_snapshot_provider",
+      authority: "provider",
+      inputCarrier: "AssuranceScopeRef",
+      outputCarrier: "AssuranceAuthoritySnapshot"
+    }),
+    engineOwnedLaw: "ABG admits authority/input snapshots and owns digest-bound assurance projection.",
+    pluginOwnedScope: "Provide current authority and input snapshot refs for one assurance scope.",
+    positiveProof: "test_t092_total_assurance_projection_unit.authority_snapshot_provider.positive",
+    negativeProof: "test_t092_total_assurance_projection_unit.authority_snapshot_provider.authority",
+    distinctAuthorityReason: null
+  },
+  {
+    contract: constructEnginePluginContract({
+      ref: "plugin://abg/assurance-evidence-adapter",
+      pluginKind: "assurance_evidence_adapter",
+      authority: "provider",
+      inputCarrier: "TraversalEnvelopeView",
+      outputCarrier: "AssuranceEvidenceRow"
+    }),
+    engineOwnedLaw: "ABG admits evidence rows from current runtime truth and owns row classification.",
+    pluginOwnedScope: "Adapt admitted runtime facts into evidence candidates.",
+    positiveProof: "test_t092_total_assurance_projection_unit.evidence_adapter.positive",
+    negativeProof: "test_t092_total_assurance_projection_unit.evidence_adapter.authority",
+    distinctAuthorityReason: null
+  },
+  {
+    contract: constructEnginePluginContract({
+      ref: "plugin://abg/assurance-ambiguity-classifier",
+      pluginKind: "assurance_ambiguity_classifier",
+      authority: "provider",
+      inputCarrier: "AssuranceAuthoritySnapshot + AssuranceEvidenceRow",
+      outputCarrier: "AssuranceAmbiguityRow"
+    }),
+    engineOwnedLaw: "ABG owns the closed ambiguity vocabulary, total row projection, and precedence.",
+    pluginOwnedScope: "Propose domain-aware classification for admitted authority/evidence inputs.",
+    positiveProof: "test_t092_total_assurance_projection_unit.ambiguity_classifier.positive",
+    negativeProof: "test_t092_total_assurance_projection_unit.ambiguity_classifier.authority",
+    distinctAuthorityReason: null
+  },
+  {
+    contract: constructEnginePluginContract({
+      ref: "plugin://abg/assurance-closure-policy-provider",
+      pluginKind: "assurance_closure_policy_provider",
+      authority: "provider",
+      inputCarrier: "AssuranceProjection",
+      outputCarrier: "AssuranceClosurePolicy"
+    }),
+    engineOwnedLaw: "ABG folds assurance rows into one closure decision.",
+    pluginOwnedScope: "Provide retry, reprice, block, and defer policy values.",
+    positiveProof: "test_t092_total_assurance_projection_unit.closure_policy_provider.positive",
+    negativeProof: "test_t092_total_assurance_projection_unit.closure_policy_provider.authority",
+    distinctAuthorityReason: null
+  },
+  {
+    contract: constructEnginePluginContract({
+      ref: "plugin://abg/assurance-gain-function-adapter",
+      pluginKind: "assurance_gain_function_adapter",
+      authority: "provider",
+      inputCarrier: "AssuranceEvidenceRow",
+      outputCarrier: "GainSignal"
+    }),
+    engineOwnedLaw: "ABG admits gain signals as evidence inputs without letting them close scopes.",
+    pluginOwnedScope: "Provide downstream domain gain signals or scoring.",
+    positiveProof: "test_t092_total_assurance_projection_unit.gain_function_adapter.positive",
+    negativeProof: "test_t092_total_assurance_projection_unit.gain_function_adapter.authority",
     distinctAuthorityReason: null
   },
   {
@@ -765,6 +896,12 @@ function runtimeBindingStatusFor(
     case "runtime_identity_provider":
     case "operator_asset_resolver":
       return "public_runtime_consumed";
+    case "assurance_authority_snapshot_provider":
+    case "assurance_evidence_adapter":
+    case "assurance_ambiguity_classifier":
+    case "assurance_closure_policy_provider":
+    case "assurance_gain_function_adapter":
+      return "assurance_consumed";
     case "continuation_repair":
       return "engine_law_consumed";
     case "projection_consumer":
@@ -786,6 +923,8 @@ function proofScopeFor(pluginKind: EnginePluginKind): string {
       return "runner consumer proof";
     case "public_runtime_consumed":
       return "public runtime consumer proof";
+    case "assurance_consumed":
+      return "assurance projection provider proof";
     case "engine_law_consumed":
       return "engine-owned law proof; extension effects remain downstream";
     case "read_model_consumed":

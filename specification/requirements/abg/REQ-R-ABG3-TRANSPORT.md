@@ -3,7 +3,7 @@
 **Status**: Active
 **Category**: Capability
 **Date**: 2026-04-05
-**Derives from**: [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md)
+**Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md)
 
 ---
 
@@ -31,3 +31,15 @@ product-local imperative code.
 **REQ-R-ABG3-TRANSPORT-008**: Long-running `F_P` dispatch shall be governed by a progress lease over explicit observable facts such as result-artifact updates, bounded heartbeat/progress events, or equivalent declared liveness surfaces. Elapsed wall-clock alone is not sufficient runtime truth for long constructive work.
 
 **REQ-R-ABG3-TRANSPORT-009**: ABG shall observe `result_path` as a live writeback surface during supervised dispatch. Detection of a valid artifact before subprocess termination shall be replay-visible and available to closure/recovery logic without inventing new semantic truth.
+
+**REQ-R-ABG3-TRANSPORT-010**: Each governed `F_P` dispatch attempt shall be wrapped by exactly one ABG-owned actor invocation identity. The actor invocation is the supervised effect boundary for one worker, tool, or agent process and shall not hide multiple graph traversals.
+
+**REQ-R-ABG3-TRANSPORT-011**: Actor invocation identity shall be derived from admitted runtime truth for the current dispatch attempt. Same-edge retry or re-entry shall mint a fresh actor invocation identity and shall carry prior actor invocation evidence only through replay-derived context.
+
+**REQ-R-ABG3-TRANSPORT-012**: Actor invocation events shall be replay-visible. At minimum ABG shall preserve actor invocation start, result-artifact observation, and actor invocation closure or failure as runtime truth or as a closed ingest surface that is projected from runtime truth.
+
+**REQ-R-ABG3-TRANSPORT-013**: An actor invocation may supervise liveness, progress, subprocess execution, and result-artifact observation for its own dispatch attempt. It shall not select the next graph vector, close traversal, retry the edge, or append domain truth outside ABG event calculus.
+
+**REQ-R-ABG3-TRANSPORT-014**: When an actor invocation reports timeout, crash, nonzero exit, or equivalent transport failure after producing a candidate result artifact, ABG shall attempt deterministic admission of that artifact against the original `DispatchRequest`. A valid artifact shall be available to closure/recovery logic; an invalid artifact shall become typed failure or gap truth.
+
+**REQ-R-ABG3-TRANSPORT-015**: Downstream products may provide the concrete actor binding and domain-specific worker implementation, but they shall not replace ABG-owned actor invocation identity, progress observation, result admission, retry, or projection truth with a shadow runtime.

@@ -15,6 +15,8 @@ related engine behavior.
 - runtime aggregates: run, graph call, frame, continuation
 - worker/binding/runtime identity
 - evaluation, proof, closure, and fallback law
+- total assurance projection and closure fold law
+- event-sourced payload envelope, admission, and ledger projection law
 - correction, supersession, and self-hosting behavior
 
 ## Families
@@ -30,6 +32,8 @@ related engine behavior.
 - `REQ-R-ABG3-FRAME.md`
 - `REQ-R-ABG3-CONTINUATION.md`
 - `REQ-R-ABG3-CONVERGENCE.md`
+- `REQ-R-ABG3-ASSURANCE.md`
+- `REQ-R-ABG3-PAYLOAD.md`
 - `REQ-R-ABG3-POLICY.md`
 - `REQ-R-ABG3-SELECTION-APPLICATION.md`
 - `REQ-R-ABG3-LEAFTASK.md`

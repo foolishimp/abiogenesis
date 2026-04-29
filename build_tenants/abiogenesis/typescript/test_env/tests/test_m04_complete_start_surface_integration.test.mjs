@@ -80,7 +80,9 @@ test("M04 complete-start integration: F_P bare callable start projects worker di
       "graph_call_opened",
       "frame_opened",
       "vector_traversal_planned",
-      "fp_dispatch_requested"
+      "fp_dispatch_requested",
+      "actor_invocation_started",
+      "actor_invocation_closed"
     ]
   );
 });

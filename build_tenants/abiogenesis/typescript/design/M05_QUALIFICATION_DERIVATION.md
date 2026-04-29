@@ -3,7 +3,7 @@
 **Status**: Active
 **Date**: 2026-04-24
 **Purpose**: Derive the first TypeScript `M05-qualification-scenarios`
-foundation from the released Python qualification line and the completed
+foundation from the paused Python reference qualification line and the completed
 TypeScript `M01` through `M04` surfaces without widening immediately into
 installed sandbox, live transport, or archive mechanics.
 
@@ -32,7 +32,7 @@ This boundary derives from:
 The first TypeScript `M05` wave is a qualification foundation, not the full
 installed sandbox line.
 
-It starts from the released Python truths:
+It starts from the paused Python reference truths:
 
 - qualification is a product surface with its own law
 - method trace is a first-class gate, not commentary

@@ -3,7 +3,7 @@
 **Status**: Completed
 **Date**: 2026-04-24
 **Purpose**: Derive the TypeScript `M05` installed live-scenario portfolio from
-the released Python sandbox live reference line so the TypeScript tenant proves
+the paused Python sandbox live reference line so the TypeScript tenant proves
 the same still-relevant scenario families at equivalent feature breadth over
 the installed package surface.
 

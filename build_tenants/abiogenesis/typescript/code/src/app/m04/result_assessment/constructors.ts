@@ -112,7 +112,7 @@ export function constructAcceptedPublicResultAssessmentOutcome(input: {
 }): PublicResultAssessmentAccepted {
   return Object.freeze({
     kind: "accepted",
-    assessedCount: input.emitted.length,
+    assessedCount: input.emitted.filter((event) => event.kind === "assessed").length,
     trace: constructAssessmentTraceRef(input)
   });
 }
@@ -153,15 +153,131 @@ export function constructRuntimeEventsForResultAssessment(
   if (request.artifact.artifactPayload === null) {
     return Object.freeze([]);
   }
-  return Object.freeze(
-    request.artifact.artifactPayload.fulfillmentAssessments.map((assessment) =>
+  const payload = request.artifact.artifactPayload;
+  const authorityRefs = payload.fulfillmentAssessments.map(
+    (assessment) => assessment.id
+  );
+  const authorityDigest = `authority:result_assessment:${JSON.stringify({
+    graphFunctionId: request.dispatchRequest.graphFunctionId,
+    edge: payload.edge,
+    authorityRefs
+  })}`;
+  const inputDigest = `input:result_assessment:${JSON.stringify({
+    basisId: request.dispatchRequest.basisId,
+    dispatchRef: request.dispatchRequest.dispatchRef,
+    resultRef: request.dispatchRequest.resultRef
+  })}`;
+  const providerRefs = Object.freeze([
+    request.manifestProvenance.selectedWorkerId ?? request.dispatchRequest.workerId,
+    request.manifestProvenance.selectedBackend ?? request.dispatchRequest.backendId
+  ]);
+  const policyRefs = Object.freeze([request.manifestProvenance.workflowVersion]);
+  const events: RuntimeEvent[] = [
+    Object.freeze({
+      kind: "authority_snapshot_admitted",
+      basisId: request.dispatchRequest.basisId,
+      graphCallId: request.dispatchRequest.graphCallId,
+      frameId: request.dispatchRequest.frameId,
+      vectorIndex: request.dispatchRequest.vectorIndex,
+      edge: payload.edge,
+      authoritySnapshotRef: `authority-snapshot:result_assessment:${request.dispatchRequest.resultRef}`,
+      authorityRefs,
+      inputRefs: [request.dispatchRequest.resultRef],
+      authorityDigest,
+      inputDigest,
+      closureCapable: true,
+      contradictoryAuthority: false,
+      deferredAuthorityRefs: [],
+      providerRefs,
+      policyRefs
+    } satisfies RuntimeEvent)
+  ];
+
+  for (const assessment of payload.fulfillmentAssessments) {
+    const evidenceRefs =
+      assessment.evidenceRefs.length === 0
+        ? [`evidence:result_assessment:${assessment.id}`]
+        : assessment.evidenceRefs;
+    for (const evidenceRef of evidenceRefs) {
+      const payloadRef = `payload:result_assessment:${JSON.stringify({
+        basisId: request.dispatchRequest.basisId,
+        dispatchRef: request.dispatchRequest.dispatchRef,
+        resultRef: request.dispatchRequest.resultRef,
+        assessmentId: assessment.id,
+        evidenceRef
+      })}`;
+      const digest = `digest:result_assessment:${JSON.stringify({
+        resultRef: request.dispatchRequest.resultRef,
+        assessmentId: assessment.id,
+        evidenceRef
+      })}`;
+      events.push(
+        Object.freeze({
+          kind: "payload_observed",
+          basisId: request.dispatchRequest.basisId,
+          graphCallId: request.dispatchRequest.graphCallId,
+          frameId: request.dispatchRequest.frameId,
+          vectorIndex: request.dispatchRequest.vectorIndex,
+          edge: payload.edge,
+          payloadRef,
+          payloadClass: "evidence",
+          schemaRef: null,
+          contractRef: "contract://abg/fp-result-evidence",
+          digest,
+          producerRef: payload.actor,
+          sourceEventRef: request.dispatchRequest.resultRef,
+          actorInvocationId: null,
+          authorityRef: assessment.id,
+          inputDigest,
+          policyRefs
+        } satisfies RuntimeEvent),
+        Object.freeze({
+          kind: "payload_validated",
+          basisId: request.dispatchRequest.basisId,
+          graphCallId: request.dispatchRequest.graphCallId,
+          frameId: request.dispatchRequest.frameId,
+          vectorIndex: request.dispatchRequest.vectorIndex,
+          edge: payload.edge,
+          payloadRef,
+          schemaRef: null,
+          contractRef: "contract://abg/fp-result-evidence",
+          digest,
+          validationRef: `validation:result_assessment:${payloadRef}`,
+          evidenceRef,
+          policyRefs
+        } satisfies RuntimeEvent),
+        Object.freeze({
+          kind: "evidence_admitted",
+          basisId: request.dispatchRequest.basisId,
+          graphCallId: request.dispatchRequest.graphCallId,
+          frameId: request.dispatchRequest.frameId,
+          vectorIndex: request.dispatchRequest.vectorIndex,
+          edge: payload.edge,
+          evidenceRef,
+          payloadRef,
+          authorityRef: assessment.id,
+          authorityDigest,
+          inputDigest,
+          providerRefs,
+          policyRefs,
+          complete: true,
+          shallow: false,
+          contradictsAuthority: false,
+          deferred: false
+        } satisfies RuntimeEvent)
+      );
+    }
+  }
+
+  events.push(
+    ...payload.fulfillmentAssessments.map((assessment) =>
       Object.freeze({
         kind: "assessed",
         assessmentKind: "fp" as const,
-        edge: request.artifact.artifactPayload?.edge ?? "",
+        edge: payload.edge,
         obligationId: assessment.id,
         publishedLedgerRef: request.publishedLedgerRef.ref,
-        actor: request.artifact.artifactPayload?.actor ?? "",
+        actor: payload.actor,
         specHash: request.manifestProvenance.specHash,
         manifestId: request.manifestProvenance.manifestId,
         workflowVersion: request.manifestProvenance.workflowVersion,
@@ -173,9 +289,11 @@ export function constructRuntimeEventsForResultAssessment(
         authorityRef: request.manifestProvenance.authorityRef,
         assignmentSource: request.manifestProvenance.assignmentSource,
         resolvedRuntimeRef: request.manifestProvenance.resolvedRuntimeRef
-      })
+      } satisfies RuntimeEvent)
     )
   );
+
+  return Object.freeze(events);
 }
 
 export function constructPublicResultAssessmentOutcome(input: {

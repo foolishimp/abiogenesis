@@ -33,3 +33,81 @@
    1. I should not need to create new types of Registers outside of ODD to force deterministic tracking of features
    2. If an edge traversal is too big for an LLM to manage and it needs sub dived steps it can use zoom in to create more intermediary, for me the example of going from Design ADRS, to Modules, to implementation VS going from Desing ADRs to Implementation. Modules creates a valuable intermediary trace, where you can coneptually reason at a logical layer before going to the physical layer.
    3. If I need an asset register, or some kind of event ledger, then itself should be built using ODD and graph functions
+
+
+• Current checkpoint comparison, with test49’s derive_scenario_surface worker still in flight.
+
+  | Dimension | test35 Reference | test49 Current |
+  |---|---:|---:|
+  | Runtime basis | Python / Genesis 3.1.0 line | installed odd_sdlc.TS + ABG TS 3.4.0-rc.2 |
+  | Stage | Full historical run complete | early bootstrap/spec branch, scenario edge in flight |
+  | Completed graph edges | Full run, many re-entries | 7 completed edges: intent, product, goal, requirement, feature, UAT, design |
+  | Current/in-flight edge | n/a | derive_scenario_surface |
+  | Event count at checkpoint | first 35 events included 2 F_P dispatches, 2 proof passes, 1 edge convergence | 35 events = 7 graph calls, 7 frames, 7
+  vector plans, 14 assessed |
+  | Completed worker/operator runs | test35 total: 86 run starts, 57 F_P dispatches | 7 completed worker invocations, 1 in-flight archive |
+  | Completed worker time | test35 whole run spans Apr 18-19 | ~21.2 minutes for 7 completed TS worker calls |
+  | Proof/closure event richness | fp_dispatched, result_artifact_observed, proof_passed, edge_converged, run_completed visible early | TS emits
+  compressed assessed events; no explicit proof/edge-converged event family in the installed run output |
+  | Unresolved reasons | test35 later preserves failures/continuations | all completed test49 worker reports have unresolvedReasons: [] |
+  | Materialized files so far | final test35: 105 main Scala, 35 test Scala | 0 product files; no build_tenants/ yet |
+  | Test reports | final test35: 33 JUnit XML files on disk, admitted surface says 173 passing tests | 0 reports; not reached code/test execution branch
+  | Iteration behavior | high iteration and continuation pressure is proven across the full run | current TS operator still returns one edge at a time
+  with next_action: rerun_gaps_or_start_next_edge |
+
+  graph successfully, but it is not yet at the authority-to-code or code-to-test gap points.
+
+  The first serious comparison point will be derive_code_surface and then derive_test_module_surface / derive_test_run_archive_surface. That is where
+  test35 started proving depth through materialization, failures, and repair pressure. At the current stage, test49 is still mostly producing upstream
+  paper surfaces.
+
+
+
+• Root cause is two-layered.
+
+  | Layer | test35 | test49 |
+  |---|---|---|
+  | Immediate code-edge result | Code edge artifacts were admitted into event flow, assessed, and later re-entered/found/replayed. | Worker wrote files,
+  but postflight rejected the report before hook/event admission. |
+  | Failure semantics | Failure became runtime truth: proof/closure/continuation events. | Failure stayed in the operator archive as postflight_failed;
+  no retry/continuation event was appended. |
+  | Re-entry mechanism | Runtime could select/re-enter the same edge from event truth. | CLI returns next_action: repair_worker_output; operator/human
+  must restart manually. |
+  | Gap payload | Prior artifact state and proof pressure were visible to later traversals. | Blocking reason is a flat string list; not a machine-
+  consumable repair dossier. |
+
+  Immediate defect: path contract mismatch.
+
+  The code worker wrote files under the right tenant root, but reported relativePath as workspace-relative:
+
+  build_tenants/scala_spark/cdme-compiler/src/main/scala/...
+
+  The TS postflight expects relativePath to be relative to the tenant root:
+
+  cdme-compiler/src/main/scala/...
+
+  That check is here: odd_sdlc/build_tenants/typescript/code/src/operator/handoff.ts:405. It computes relative(tenantRoot, absolutePath) and rejects
+  mismatch at odd_sdlc/build_tenants/typescript/code/src/operator/handoff.ts:416.
+
+  Deeper root cause: TS does not promote postflight failure into ABG continuation truth.
+
+  The installed operator handles failed postflight here: odd_sdlc/build_tenants/typescript/code/src/operator/installed_operator.ts:435. It returns:
+
+  status: postflight_failed
+  nextLawfulAction: repair_worker_output
+  emittedRuntimeEventKinds: []
+
+  So ABG replay never receives “code edge failed with these repair obligations.” gaps still shows current edge derive_code_surface, but the reason lives
+  in an archive, not in the graph’s continuation algebra.
+
+  That is why test35 continued and test49 did not.
+
+  Test35’s derive_code_surface sequence had event truth around dispatch, artifact observation, assessment, proof, closure, edge convergence, and later
+  replay/found records. Test49’s failed code edge has a postflight archive but no appended failure/continuation event.
+
+  So the fix is not “make Codex try again.” The fix is:
+
+  postflight failure -> admitted gap dossier -> ABG retry/continuation event -> same-edge re-entry with prior artifacts + repair reasons
+
+  And separately tighten the manifest wording/API so materializedFiles.relativePath is unambiguously tenant-root-relative.
+

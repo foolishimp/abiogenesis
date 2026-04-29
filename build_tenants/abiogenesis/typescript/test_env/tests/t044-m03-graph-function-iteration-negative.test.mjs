@@ -61,16 +61,16 @@ test("T-044 negative proof: projection rejects assessed edge outside graph truth
   );
 });
 
-test("T-044 negative proof: projection rejects out-of-order assessed closure", () => {
+test("T-044 proof: assessed read model does not create out-of-order closure", () => {
   const basis = buildThreeStageBasis();
 
-  assert.throws(
-    () =>
-      deriveRuntimeAggregateProjection(basis, [
-        assessedEvent("requirements→design")
-      ]),
-    /replay-derived vector closure order/i
-  );
+  const projection = deriveRuntimeAggregateProjection(basis, [
+    assessedEvent("requirements→design")
+  ]);
+
+  assert.deepStrictEqual(projection.assessedEdges, ["requirements→design"]);
+  assert.deepStrictEqual(projection.closedVectorIndexes, []);
+  assert.equal(projection.nextVectorIndex, 0);
 });
 
 test("T-044 negative proof: projection rejects assessed truth from a different run", () => {

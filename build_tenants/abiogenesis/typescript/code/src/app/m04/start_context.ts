@@ -3,6 +3,7 @@
 
 import type {
   ExecutionBasisAdmissionInput,
+  EngineAssuranceProvider,
   RuntimeEvent,
   RuntimeEventSink
 } from "../../abg/m03/index.js";
@@ -17,6 +18,7 @@ export interface PublicStartContext {
   readonly workKey?: string | null;
   readonly frameId?: string | null;
   readonly frameLineageId?: string | null;
+  readonly assuranceProvider?: EngineAssuranceProvider;
 }
 
 export function assertRuntimeEventSink(

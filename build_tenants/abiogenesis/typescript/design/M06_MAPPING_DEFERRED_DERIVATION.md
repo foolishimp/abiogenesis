@@ -3,7 +3,7 @@
 **Status**: Completed
 **Date**: 2026-04-24
 **Purpose**: Derive the TypeScript `M06-mapping-deferred` boundary from shared
-module law and the released Python line so dormant alternate-runtime mapping
+module law and the paused Python reference line so dormant alternate-runtime mapping
 stays explicit and cannot open accidentally through local implementation drift.
 
 ## 1. Source Material

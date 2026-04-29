@@ -1,0 +1,334 @@
+// Implements: REQ-R-ABG3-PAYLOAD
+// Implements: REQ-R-ABG3-EVENTS
+// Implements: REQ-R-ABG3-PROJECTION
+// Implements: REQ-R-ABG3-ASSURANCE
+
+import type {
+  AmbiguityObservationAdmittedRuntimeEvent,
+  AuthoritySnapshotAdmittedRuntimeEvent,
+  ClosureInputPublishedRuntimeEvent,
+  EvidenceAdmittedRuntimeEvent,
+  ExecutionBasis,
+  PayloadObservedRuntimeEvent,
+  PayloadRejectedRuntimeEvent,
+  PayloadValidatedRuntimeEvent,
+  RuntimeAggregateProjection,
+  RuntimeEvent
+} from "./carriers.js";
+import type {
+  AssuranceAuthoritySnapshot,
+  AssuranceEvidenceRow,
+  AssuranceScopeRef
+} from "./assurance.js";
+import {
+  constructAssuranceAuthoritySnapshot,
+  constructAssuranceEvidenceRow
+} from "./assurance.js";
+import {
+  assertProjectionBasis,
+  assertVectorIndexInRange,
+  frameIdForBasis,
+  freezeStringArray,
+  graphCallIdForBasis,
+  vectorEdge
+} from "./runtime_support.js";
+
+export interface PayloadLedgerScope {
+  readonly kind: "payload_ledger_scope";
+  readonly basisId: string;
+  readonly graphFunctionId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+}
+
+export type PayloadLedgerSourceEvent =
+  | PayloadObservedRuntimeEvent
+  | PayloadValidatedRuntimeEvent
+  | PayloadRejectedRuntimeEvent
+  | AuthoritySnapshotAdmittedRuntimeEvent
+  | EvidenceAdmittedRuntimeEvent
+  | AmbiguityObservationAdmittedRuntimeEvent
+  | ClosureInputPublishedRuntimeEvent;
+
+export interface PayloadLedgerProjection {
+  readonly kind: "payload_ledger_projection";
+  readonly scope: PayloadLedgerScope;
+  readonly observedPayloads: readonly PayloadObservedRuntimeEvent[];
+  readonly validatedPayloads: readonly PayloadValidatedRuntimeEvent[];
+  readonly rejectedPayloads: readonly PayloadRejectedRuntimeEvent[];
+  readonly authoritySnapshots: readonly AuthoritySnapshotAdmittedRuntimeEvent[];
+  readonly evidenceRows: readonly EvidenceAdmittedRuntimeEvent[];
+  readonly ambiguityObservations: readonly AmbiguityObservationAdmittedRuntimeEvent[];
+  readonly closureInputs: readonly ClosureInputPublishedRuntimeEvent[];
+  readonly projectionRef: string;
+}
+
+function isPayloadLedgerSourceEvent(
+  event: RuntimeEvent
+): event is PayloadLedgerSourceEvent {
+  return (
+    event.kind === "payload_observed" ||
+    event.kind === "payload_validated" ||
+    event.kind === "payload_rejected" ||
+    event.kind === "authority_snapshot_admitted" ||
+    event.kind === "evidence_admitted" ||
+    event.kind === "ambiguity_observation_admitted" ||
+    event.kind === "closure_input_published"
+  );
+}
+
+function matchesScope(
+  event: PayloadLedgerSourceEvent,
+  scope: PayloadLedgerScope
+): boolean {
+  return (
+    event.basisId === scope.basisId &&
+    event.graphCallId === scope.graphCallId &&
+    event.frameId === scope.frameId &&
+    event.vectorIndex === scope.vectorIndex &&
+    event.edge === scope.edge
+  );
+}
+
+function ensureScopeMatchesAssurance(
+  payloadScope: PayloadLedgerScope,
+  assuranceScope: AssuranceScopeRef
+): void {
+  if (
+    payloadScope.basisId !== assuranceScope.basisId ||
+    payloadScope.graphFunctionId !== assuranceScope.graphFunctionId ||
+    payloadScope.graphCallId !== assuranceScope.graphCallId ||
+    payloadScope.frameId !== assuranceScope.frameId ||
+    payloadScope.vectorIndex !== assuranceScope.vectorIndex ||
+    payloadScope.edge !== assuranceScope.edge
+  ) {
+    throw new TypeError(
+      "Payload ledger scope does not match assurance scope"
+    );
+  }
+}
+
+function hasPayloadRef(
+  event: AmbiguityObservationAdmittedRuntimeEvent
+): event is AmbiguityObservationAdmittedRuntimeEvent & {
+  readonly payloadRef: string;
+} {
+  return event.payloadRef !== null;
+}
+
+function payloadLedgerProjectionRef(input: PayloadLedgerProjection): string {
+  return [
+    "payload_ledger_projection",
+    input.scope.basisId,
+    input.scope.graphCallId,
+    input.scope.frameId,
+    String(input.scope.vectorIndex),
+    `observed=${input.observedPayloads.map((event) => event.payloadRef).join(",")}`,
+    `validated=${input.validatedPayloads.map((event) => event.validationRef).join(",")}`,
+    `rejected=${input.rejectedPayloads.map((event) => `${event.payloadRef}/${event.rejectionClass}`).join(",")}`,
+    `authority=${input.authoritySnapshots.map((event) => event.authoritySnapshotRef).join(",")}`,
+    `evidence=${input.evidenceRows.map((event) => event.evidenceRef).join(",")}`,
+    `ambiguity=${input.ambiguityObservations.map((event) => event.ambiguityRef).join(",")}`,
+    `closure=${input.closureInputs.map((event) => event.closureInputRef).join(",")}`
+  ].join(":");
+}
+
+export function derivePayloadLedgerScope(input: {
+  readonly basis: ExecutionBasis;
+  readonly runtimeProjection: RuntimeAggregateProjection;
+  readonly vectorIndex: number;
+}): PayloadLedgerScope {
+  assertProjectionBasis(
+    input.basis,
+    input.runtimeProjection,
+    "PayloadLedgerScope"
+  );
+  assertVectorIndexInRange(input.basis, input.vectorIndex);
+  return Object.freeze({
+    kind: "payload_ledger_scope",
+    basisId: input.basis.id,
+    graphFunctionId: input.basis.graphFunction.id,
+    graphCallId:
+      input.runtimeProjection.graphCallId ?? graphCallIdForBasis(input.basis),
+    frameId: input.runtimeProjection.frameId ?? frameIdForBasis(input.basis),
+    vectorIndex: input.vectorIndex,
+    edge: vectorEdge(input.basis, input.vectorIndex)
+  });
+}
+
+export function derivePayloadLedgerProjection(input: {
+  readonly basis: ExecutionBasis;
+  readonly runtimeProjection: RuntimeAggregateProjection;
+  readonly events: readonly RuntimeEvent[];
+  readonly vectorIndex: number;
+}): PayloadLedgerProjection {
+  const scope = derivePayloadLedgerScope(input);
+  const sourceEvents = input.events
+    .filter(isPayloadLedgerSourceEvent)
+    .filter((event) => matchesScope(event, scope));
+
+  const partial = Object.freeze({
+    kind: "payload_ledger_projection" as const,
+    scope,
+    observedPayloads: Object.freeze(
+      sourceEvents.filter(
+        (event): event is PayloadObservedRuntimeEvent =>
+          event.kind === "payload_observed"
+      )
+    ),
+    validatedPayloads: Object.freeze(
+      sourceEvents.filter(
+        (event): event is PayloadValidatedRuntimeEvent =>
+          event.kind === "payload_validated"
+      )
+    ),
+    rejectedPayloads: Object.freeze(
+      sourceEvents.filter(
+        (event): event is PayloadRejectedRuntimeEvent =>
+          event.kind === "payload_rejected"
+      )
+    ),
+    authoritySnapshots: Object.freeze(
+      sourceEvents.filter(
+        (event): event is AuthoritySnapshotAdmittedRuntimeEvent =>
+          event.kind === "authority_snapshot_admitted"
+      )
+    ),
+    evidenceRows: Object.freeze(
+      sourceEvents.filter(
+        (event): event is EvidenceAdmittedRuntimeEvent =>
+          event.kind === "evidence_admitted"
+      )
+    ),
+    ambiguityObservations: Object.freeze(
+      sourceEvents.filter(
+        (event): event is AmbiguityObservationAdmittedRuntimeEvent =>
+          event.kind === "ambiguity_observation_admitted"
+      )
+    ),
+    closureInputs: Object.freeze(
+      sourceEvents.filter(
+        (event): event is ClosureInputPublishedRuntimeEvent =>
+          event.kind === "closure_input_published"
+      )
+    )
+  });
+
+  return Object.freeze({
+    ...partial,
+    projectionRef: payloadLedgerProjectionRef({
+      ...partial,
+      projectionRef: "pending"
+    })
+  });
+}
+
+export function deriveAssuranceAuthoritySnapshotFromPayloadLedger(input: {
+  readonly assuranceScope: AssuranceScopeRef;
+  readonly ledger: PayloadLedgerProjection;
+  readonly authoritySnapshotRef?: string;
+}): AssuranceAuthoritySnapshot {
+  ensureScopeMatchesAssurance(input.ledger.scope, input.assuranceScope);
+  const candidates =
+    input.authoritySnapshotRef === undefined
+      ? input.ledger.authoritySnapshots
+      : input.ledger.authoritySnapshots.filter(
+          (event) => event.authoritySnapshotRef === input.authoritySnapshotRef
+        );
+  const snapshot = candidates.at(-1);
+  if (snapshot === undefined) {
+    throw new TypeError("Payload ledger has no admitted authority snapshot");
+  }
+  return constructAssuranceAuthoritySnapshot({
+    scope: input.assuranceScope,
+    authorityRefs: snapshot.authorityRefs,
+    inputRefs: snapshot.inputRefs,
+    authorityDigest: snapshot.authorityDigest,
+    inputDigest: snapshot.inputDigest,
+    closureCapable: snapshot.closureCapable,
+    contradictoryAuthority: snapshot.contradictoryAuthority,
+    deferredAuthorityRefs: snapshot.deferredAuthorityRefs,
+    providerRefs: snapshot.providerRefs,
+    policyRefs: snapshot.policyRefs
+  });
+}
+
+export function deriveAssuranceEvidenceRowsFromPayloadLedger(input: {
+  readonly assuranceScope: AssuranceScopeRef;
+  readonly ledger: PayloadLedgerProjection;
+}): readonly AssuranceEvidenceRow[] {
+  ensureScopeMatchesAssurance(input.ledger.scope, input.assuranceScope);
+  const observedByPayloadRef = new Map(
+    input.ledger.observedPayloads.map((event) => [event.payloadRef, event])
+  );
+  const rejectedPayloadRefs = new Set(
+    input.ledger.rejectedPayloads.map((event) => event.payloadRef)
+  );
+  const contradictoryPayloadRefs = new Set(
+    input.ledger.ambiguityObservations
+      .filter(hasPayloadRef)
+      .filter(
+        (event) =>
+          (event.ambiguityStatus === "contradictory_evidence" ||
+            event.ambiguityStatus === "event_ledger_invalid")
+      )
+      .map((event) => event.payloadRef)
+  );
+  const acceptedPayloadEvents = new Map(
+    input.ledger.validatedPayloads
+      .filter((validated) => {
+        const observed = observedByPayloadRef.get(validated.payloadRef);
+        return (
+          observed !== undefined &&
+          observed.digest === validated.digest &&
+          !rejectedPayloadRefs.has(validated.payloadRef) &&
+          !contradictoryPayloadRefs.has(validated.payloadRef)
+        );
+      })
+      .map((event) => [event.payloadRef, event])
+  );
+  return Object.freeze(
+    input.ledger.evidenceRows.map((event) => {
+      const observed = observedByPayloadRef.get(event.payloadRef);
+      const validated = acceptedPayloadEvents.get(event.payloadRef);
+      const payloadAccepted = observed !== undefined && validated !== undefined;
+      return constructAssuranceEvidenceRow({
+        scope: input.assuranceScope,
+        evidenceRef: event.evidenceRef,
+        authorityRef: event.authorityRef,
+        authorityDigest: event.authorityDigest,
+        inputDigest: event.inputDigest,
+        eventRefs: freezeStringArray([
+          ...(observed === undefined
+            ? []
+            : [`event:payload_observed:${observed.payloadRef}`]),
+          ...(validated === undefined
+            ? []
+            : [`event:payload_validated:${validated.validationRef}`]),
+          ...input.ledger.rejectedPayloads
+            .filter((rejected) => rejected.payloadRef === event.payloadRef)
+            .map(
+              (rejected) =>
+                `event:payload_rejected:${rejected.payloadRef}:${rejected.rejectionClass}`
+            ),
+          ...input.ledger.ambiguityObservations
+            .filter((observation) => observation.payloadRef === event.payloadRef)
+            .map(
+              (observation) =>
+                `event:ambiguity_observation_admitted:${observation.ambiguityRef}`
+            ),
+          `event:evidence_admitted:${event.evidenceRef}`
+        ]),
+        providerRefs: event.providerRefs,
+        policyRefs: event.policyRefs,
+        boundToScope: payloadAccepted,
+        complete: payloadAccepted && event.complete,
+        shallow: !payloadAccepted || event.shallow,
+        contradictsAuthority: event.contradictsAuthority,
+        deferred: event.deferred
+      });
+    })
+  );
+}

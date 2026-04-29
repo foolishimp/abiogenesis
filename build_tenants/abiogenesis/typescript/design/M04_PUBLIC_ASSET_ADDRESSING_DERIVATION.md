@@ -3,7 +3,7 @@
 **Status**: Completed
 **Date**: 2026-04-24
 **Purpose**: Derive the next TypeScript `M04-app-bootstrap`
-public-asset-addressing boundary from the released Python design and installed
+public-asset-addressing boundary from the paused Python reference design and installed
 proof line without promoting runtime binding helpers or local path inference
 into the wrong TypeScript module boundary.
 
@@ -31,7 +31,7 @@ This boundary derives from:
 The next TypeScript `M04` wave does not start from Python executable wiring,
 bootstrap scans, or local filesystem heuristics.
 
-It starts from the released Python design truths:
+It starts from the paused Python reference design truths:
 
 - `asset:<published_handle>` is an operator-facing target family above the
   runtime

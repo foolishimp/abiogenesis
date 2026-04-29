@@ -8,7 +8,7 @@
 
 ## Context
 
-Abiogenesis already has one released Python realization and one paused Codex
+Abiogenesis already has one paused Python reference realization and one paused Codex
 comparison line.
 
 The TypeScript tenant exists for a different reason:
@@ -30,7 +30,7 @@ to rewrite constitutional or runtime law.
 ### 1. The TypeScript line is a new tenant realization
 
 `build_tenants/abiogenesis/typescript/` is an in-development realization under
-the same constitutional `specification/` surface as the released Python line.
+the same constitutional `specification/` surface as the paused Python reference line.
 
 ### 2. The TypeScript line is package-first
 
@@ -56,7 +56,7 @@ the first design wave.
 
 ### 4. Python is source material, not tenant authority
 
-The released Python line is the reference implementation for:
+The paused Python reference line is the reference implementation for:
 
 - runtime law already proven in source
 - public operator contract behavior

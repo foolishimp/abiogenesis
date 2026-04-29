@@ -115,7 +115,8 @@ export function deriveInstallBootstrapPlan(
       {
         kind: "workspace_events",
         relativePath: ".ai-workspace/events/events.jsonl",
-        content: ""
+        content: "",
+        writeMode: "create_if_missing"
       }
     ]
   });
@@ -146,22 +147,6 @@ async function detectInstallMismatch(
     ) {
       return "existing package.json name does not match installedPackageName";
     }
-    const dependencies = existingPackageJson["dependencies"];
-    if (typeof dependencies === "object" && dependencies !== null) {
-      const dependencyMap = parsePlainObject(
-        dependencies,
-        `${packageJsonPath}.dependencies`
-      );
-      const dependencyRef = dependencyMap[
-        request.runtimePackage.packageName
-      ];
-      if (
-        typeof dependencyRef === "string" &&
-        dependencyRef !== request.runtimePackage.dependencyRef
-      ) {
-        return "existing package.json runtime dependency does not match the admitted runtime package contract";
-      }
-    }
   }
 
   const installManifestPath = joinPath(
@@ -177,12 +162,9 @@ async function detectInstallMismatch(
         `${installManifestPath}.runtimePackage`
       );
       const packageName = existingRuntimePackage["packageName"];
-      const dependencyRef = existingRuntimePackage["dependencyRef"];
       if (
-        (typeof packageName === "string" &&
-          packageName !== request.runtimePackage.packageName) ||
-        (typeof dependencyRef === "string" &&
-          dependencyRef !== request.runtimePackage.dependencyRef)
+        typeof packageName === "string" &&
+        packageName !== request.runtimePackage.packageName
       ) {
         return "existing install manifest runtime package does not match the admitted runtime package contract";
       }

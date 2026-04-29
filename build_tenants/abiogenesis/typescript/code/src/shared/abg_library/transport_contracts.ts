@@ -68,7 +68,6 @@ export function contractForKnownAgent(
           "{prompt}"
         ],
         sanitizedEnvironmentPolicy: constructSanitizedEnvironmentPolicy([
-          "CLAUDE",
           "CLAUDE_CODE_SSE_",
           "CLAUDE_CODE_ENTRYPOINT",
           "CLAUDE_CODE_EXECPATH"

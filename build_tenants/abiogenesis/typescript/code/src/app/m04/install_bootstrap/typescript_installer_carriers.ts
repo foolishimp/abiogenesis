@@ -1,6 +1,7 @@
 // Implements: REQ-P-QUAL-018G
 // Implements: REQ-P-QUAL-018H
 // Implements: REQ-P-SCENARIOS
+// Implements: REQ-P-INSTALL
 
 import type {
   InstallTargetRoot,
@@ -10,7 +11,10 @@ import type {
 export interface AbgTypescriptInstallerRequest {
   readonly targetRoot: InstallTargetRoot;
   readonly packageSourceRoot: string;
+  readonly standardsSourceRoot: string | null;
+  readonly docsSourceRoot: string | null;
   readonly installedPackageName: string;
+  readonly cleanTargetPolicy: "no_scaffold";
 }
 
 export interface AbgTypescriptInstallerRuntimeIdentity {
@@ -20,9 +24,14 @@ export interface AbgTypescriptInstallerRuntimeIdentity {
   readonly resolvedRuntimeRef: string;
 }
 
+export type AbgTypescriptInstallerInstallMode = "fresh" | "refresh";
+
 export interface AbgTypescriptInstallerManifest {
   readonly kind: "abg_typescript_installer_manifest";
   readonly targetRoot: string;
+  readonly targetMode: "imported" | "clean_no_project_authority";
+  readonly installMode: AbgTypescriptInstallerInstallMode;
+  readonly cleanTargetPolicy: "no_scaffold";
   readonly installedPackageName: string;
   readonly packageName: string;
   readonly packageVersion: string;
@@ -30,17 +39,56 @@ export interface AbgTypescriptInstallerManifest {
   readonly packageRoot: string;
   readonly tarballPath: string;
   readonly commandPaths: readonly string[];
+  readonly standardsSourceRoot: string;
+  readonly standardsInstallRoot: string;
+  readonly standardsFiles: readonly AbgTypescriptInstallerFileEvidence[];
+  readonly docsSourceRoot: string;
+  readonly docsInstallRoot: string;
+  readonly docsFiles: readonly AbgTypescriptInstallerFileEvidence[];
   readonly runtimeIdentity: AbgTypescriptInstallerRuntimeIdentity;
+  readonly runtimeBindingPath: string;
   readonly installManifestPath: string;
   readonly installerManifestPath: string;
+  readonly installProvenancePath: string;
   readonly bootstrapEntryPath: string;
   readonly eventsPath: string;
   readonly runtimeDirectory: string;
 }
 
+export interface AbgTypescriptInstallerFileEvidence {
+  readonly relativePath: string;
+  readonly bytes: number;
+  readonly sha256: string;
+}
+
+export interface AbgTypescriptInstallerTopologyVerification {
+  readonly kind: "abg_typescript_install_topology_verification";
+  readonly targetRoot: string;
+  readonly complete: boolean;
+  readonly targetMode: "imported" | "clean_no_project_authority";
+  readonly cleanTargetPolicy: "no_scaffold";
+  readonly missingPaths: readonly string[];
+  readonly substrateRootPresent: boolean;
+  readonly packageRootPresent: boolean;
+  readonly commandBindingsPresent: boolean;
+  readonly installManifestPresent: boolean;
+  readonly installerManifestPresent: boolean;
+  readonly installProvenancePresent: boolean;
+  readonly bootstrapEntryPresent: boolean;
+  readonly eventsPathPresent: boolean;
+  readonly runtimeDirectoryPresent: boolean;
+  readonly runtimeBindingPresent: boolean;
+  readonly standardsRootPresent: boolean;
+  readonly standardsSmokeFilesPresent: boolean;
+  readonly docsRootPresent: boolean;
+}
+
 export interface AbgTypescriptInstallerInstalled {
   readonly kind: "installed";
   readonly targetRoot: InstallTargetRoot;
+  readonly targetMode: "imported" | "clean_no_project_authority";
+  readonly installMode: AbgTypescriptInstallerInstallMode;
+  readonly cleanTargetPolicy: "no_scaffold";
   readonly installedPackageName: string;
   readonly packageName: string;
   readonly packageVersion: string;
@@ -48,13 +96,22 @@ export interface AbgTypescriptInstallerInstalled {
   readonly packageRoot: string;
   readonly tarballPath: string;
   readonly commandPaths: readonly string[];
+  readonly standardsSourceRoot: string;
+  readonly standardsInstallRoot: string;
+  readonly standardsFiles: readonly AbgTypescriptInstallerFileEvidence[];
+  readonly docsSourceRoot: string;
+  readonly docsInstallRoot: string;
+  readonly docsFiles: readonly AbgTypescriptInstallerFileEvidence[];
   readonly runtimeIdentity: AbgTypescriptInstallerRuntimeIdentity;
+  readonly runtimeBindingPath: string;
   readonly installManifestPath: string;
   readonly installerManifestPath: string;
+  readonly installProvenancePath: string;
   readonly bootstrapEntryPath: string;
   readonly eventsPath: string;
   readonly runtimeDirectory: string;
   readonly installBootstrapOutcome: PublicInstallBootstrapInstalled;
+  readonly topologyVerification: AbgTypescriptInstallerTopologyVerification;
   readonly manifest: AbgTypescriptInstallerManifest;
 }
 

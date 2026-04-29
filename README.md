@@ -6,9 +6,13 @@ The repo is organized around spec-driven development:
 - `specification/` is the constitutional source
 - `build_tenants/TENANT_REGISTRY.md` is the canonical tenant registry
 - `build_tenants/common/` is the shared tenant-local realization root
-- `build_tenants/abiogenesis/python/design/` is the shipping design surface for the current GTL 3 / ABG 3 line
-- `build_tenants/abiogenesis/python/code/` is the shipping Python realization
-- `build_tenants/abiogenesis/python/test_env/` is the shipping Python test harness
+- `build_tenants/abiogenesis/typescript/design/` is the primary release design
+  surface for the current GTL 3 / ABG 3 line
+- `build_tenants/abiogenesis/typescript/code/` is the primary TypeScript
+  realization
+- `build_tenants/abiogenesis/typescript/test_env/` is the primary TS RC proof
+  harness
+- `build_tenants/abiogenesis/python/` is a paused released reference line
 
 The active engine and language surface is GTL 3 / ABG 3.4.0-rc.2:
 - GTL: `Module`, `Graph`, `Node`, `GraphVector`, `Context`, `Job`, `Role`
@@ -80,7 +84,7 @@ Read these first:
 - [TENANT_REGISTRY.md](build_tenants/TENANT_REGISTRY.md)
 - [build_tenants/common/design/README.md](build_tenants/common/design/README.md)
 - [build_tenants/common/design/module_decomp.md](build_tenants/common/design/module_decomp.md)
-- [build_tenants/abiogenesis/python/design/README.md](build_tenants/abiogenesis/python/design/README.md)
+- [build_tenants/abiogenesis/typescript/design/README.md](build_tenants/abiogenesis/typescript/design/README.md)
 
 The project method is explicit:
 - requirements are the constitutional `what`
@@ -91,47 +95,37 @@ The project method is explicit:
 
 ## Shipping Surface
 
-The current released reference line is the Python realization under
-`build_tenants/abiogenesis/python/`.
+The primary release line is the package-first TypeScript realization under
+`build_tenants/abiogenesis/typescript/`.
 
-The current release-candidate line is the package-first TypeScript realization
-under `build_tenants/abiogenesis/typescript/`.
+The Python realization under `build_tenants/abiogenesis/python/` is retained as
+a paused released reference line. Python tests and archives remain useful
+evidence, but Python work is not part of the TS-primary RC gate while the tenant
+registry keeps Python paused.
 
 Relevant directories:
 
 ```text
-build_tenants/abiogenesis/python/
-├── code/         shipping engine + GTL types + domain packages
-├── design/       shipping design / ADR surface
-├── test_env/     shipping test harness
-└── test_runs/    persistent test archives
+build_tenants/abiogenesis/typescript/
+├── code/         TypeScript GTL/ABG primary release implementation
+├── design/       TypeScript design, IACS, and structural carrier surfaces
+├── test_env/     semantic, sandbox, installed, and live RC proof lanes
+└── package.json  package-first scripts and binary bindings
 ```
 
 ```text
-build_tenants/abiogenesis/typescript/
-├── code/         TypeScript GTL/ABG RC implementation
-├── design/       TypeScript design, IACS, and structural carrier surfaces
-├── test_env/     semantic, sandbox, installed, and live RC proof lanes
-└── package.json  package-first RC scripts and binary bindings
+build_tenants/abiogenesis/python/
+├── code/         paused released reference engine + GTL types + domain packages
+├── design/       paused released reference design / ADR surface
+├── test_env/     paused released reference test harness
+└── test_runs/    persistent reference test archives
 ```
 
 `build_tenants/abiogenesis/codex/` is non-shipping and not part of the canonical publish gate.
 
 ## Test Harness
 
-The canonical Claude harness is:
-
-```bash
-cd build_tenants/abiogenesis/python/test_env
-./run_tests
-./run_tests e2e
-./run_tests live
-./run_tests file tests/test_live_fp_qualification.py -m live_fp -k TestLiveFpSmoke -v
-```
-
-The repo root is not the active test bed.
-
-The TypeScript RC proof lane is:
+The primary TypeScript proof lane is:
 
 ```bash
 cd build_tenants/abiogenesis/typescript
@@ -139,8 +133,22 @@ npm run test:semantic
 npm run test:b016
 npm run test:t072
 npm run lint:semantic
+CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=180000 npm run test:t094:live
 CODEX_LIVE_FP=1 npm run test:live:uat
 CODEX_LIVE_FP=1 npm run test:live
+```
+
+The repo root is not the active test bed.
+
+The paused Python reference harness remains available for reference-only
+regression evidence:
+
+```bash
+cd build_tenants/abiogenesis/python/test_env
+./run_tests
+./run_tests e2e
+./run_tests live
+./run_tests file tests/test_live_fp_qualification.py -m live_fp -k TestLiveFpSmoke -v
 ```
 
 ## Installer

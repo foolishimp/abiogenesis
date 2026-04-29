@@ -3,7 +3,7 @@
 **Status**: Active
 **Category**: Verification
 **Date**: 2026-03-25
-**Derives from**: INT-005 (run governance, failure classification), [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md) (Verification Layers)
+**Derives from**: INT-005 (run governance, failure classification), [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md) (Verification Layers)
 **Wave**: 2
 
 ---
@@ -109,6 +109,10 @@ This requirement establishes the constitutional rules for the qualification infr
 ---
 
 ## Installed Sandbox Population
+
+The installed substrate contract is governed by
+[REQ-P-INSTALL.md](./REQ-P-INSTALL.md). Qualification requirements here define
+the proving obligations over that product contract.
 
 **REQ-P-QUAL-018G**: Any sandbox-backed downstream qualification that claims installed ABG substrate truth shall populate the sandbox through a public ABG installer surface. Source-tree imports, private test helpers, or harness-only package bindings are not sufficient closure evidence for installed runtime behavior.
 

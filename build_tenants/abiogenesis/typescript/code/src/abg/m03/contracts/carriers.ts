@@ -95,6 +95,28 @@ export interface FpDispatchTransition {
   readonly dispatchRef: string;
 }
 
+export interface ActorInvocation {
+  readonly kind: "actor_invocation";
+  readonly actorInvocationId: string;
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly attemptIndex: number;
+  readonly dispatchRef: string;
+  readonly workerId: string;
+  readonly backendId: string;
+  readonly resultRef: string;
+}
+
+export interface ActorInvocationRef {
+  readonly actorInvocationId: string;
+  readonly attemptIndex: number;
+  readonly dispatchRef: string;
+  readonly resultRef: string;
+}
+
 export interface FhEscalationTransition {
   readonly kind: "fh_escalation";
   readonly basis: ExecutionBasis;
@@ -139,6 +161,46 @@ export interface FpDispatchRequestedEvent {
   readonly kind: "fp_dispatch_requested";
   readonly basisId: string;
   readonly dispatchRef: string;
+}
+
+export interface ActorInvocationStartedEvent {
+  readonly kind: "actor_invocation_started";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly actorInvocationId: string;
+  readonly attemptIndex: number;
+  readonly dispatchRef: string;
+  readonly workerId: string;
+  readonly backendId: string;
+  readonly resultRef: string;
+}
+
+export interface ActorResultArtifactObservedEvent {
+  readonly kind: "actor_result_artifact_observed";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly actorInvocationId: string;
+  readonly resultRef: string;
+  readonly artifactRef: string;
+}
+
+export interface ActorInvocationClosedEvent {
+  readonly kind: "actor_invocation_closed";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly actorInvocationId: string;
+  readonly closureStatus: "completed" | "blocked" | "blocked_with_artifact";
+  readonly resultRef: string | null;
+  readonly detail: string | null;
 }
 
 export interface FhEscalatedEvent {
@@ -482,10 +544,178 @@ export interface AssessedRuntimeEvent {
   readonly resolvedRuntimeRef: string | null;
 }
 
+export const PAYLOAD_REJECTION_CLASS_VALUES = Object.freeze([
+  "missing",
+  "empty",
+  "malformed",
+  "unreadable",
+  "schema_invalid",
+  "contract_invalid",
+  "stale",
+  "orphaned",
+  "contradictory"
+] as const);
+
+export type PayloadRejectionClass =
+  (typeof PAYLOAD_REJECTION_CLASS_VALUES)[number];
+
+export const PAYLOAD_AMBIGUITY_STATUS_VALUES = Object.freeze([
+  "fulfilled",
+  "partial",
+  "missing",
+  "stale_input",
+  "authority_missing",
+  "orphan_evidence",
+  "contradictory_authority",
+  "contradictory_evidence",
+  "deferred",
+  "event_ledger_invalid"
+] as const);
+
+export type PayloadAmbiguityStatus =
+  (typeof PAYLOAD_AMBIGUITY_STATUS_VALUES)[number];
+
+export const PAYLOAD_CLOSURE_DECISION_KIND_VALUES = Object.freeze([
+  "close",
+  "retry",
+  "reprice",
+  "block",
+  "qualified_defer"
+] as const);
+
+export type PayloadClosureDecisionKind =
+  (typeof PAYLOAD_CLOSURE_DECISION_KIND_VALUES)[number];
+
+export interface PayloadObservedRuntimeEvent {
+  readonly kind: "payload_observed";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly payloadRef: string;
+  readonly payloadClass: string;
+  readonly schemaRef: string | null;
+  readonly contractRef: string | null;
+  readonly digest: string;
+  readonly producerRef: string;
+  readonly sourceEventRef: string | null;
+  readonly actorInvocationId: string | null;
+  readonly authorityRef: string | null;
+  readonly inputDigest: string | null;
+  readonly policyRefs: readonly string[];
+}
+
+export interface PayloadValidatedRuntimeEvent {
+  readonly kind: "payload_validated";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly payloadRef: string;
+  readonly schemaRef: string | null;
+  readonly contractRef: string | null;
+  readonly digest: string;
+  readonly validationRef: string;
+  readonly evidenceRef: string | null;
+  readonly policyRefs: readonly string[];
+}
+
+export interface PayloadRejectedRuntimeEvent {
+  readonly kind: "payload_rejected";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly payloadRef: string;
+  readonly rejectionClass: PayloadRejectionClass;
+  readonly schemaRef: string | null;
+  readonly contractRef: string | null;
+  readonly digest: string | null;
+  readonly reason: string;
+  readonly policyRefs: readonly string[];
+}
+
+export interface AuthoritySnapshotAdmittedRuntimeEvent {
+  readonly kind: "authority_snapshot_admitted";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly authoritySnapshotRef: string;
+  readonly authorityRefs: readonly string[];
+  readonly inputRefs: readonly string[];
+  readonly authorityDigest: string;
+  readonly inputDigest: string;
+  readonly closureCapable: boolean;
+  readonly contradictoryAuthority: boolean;
+  readonly deferredAuthorityRefs: readonly string[];
+  readonly providerRefs: readonly string[];
+  readonly policyRefs: readonly string[];
+}
+
+export interface EvidenceAdmittedRuntimeEvent {
+  readonly kind: "evidence_admitted";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly evidenceRef: string;
+  readonly payloadRef: string;
+  readonly authorityRef: string | null;
+  readonly authorityDigest: string | null;
+  readonly inputDigest: string | null;
+  readonly providerRefs: readonly string[];
+  readonly policyRefs: readonly string[];
+  readonly complete: boolean;
+  readonly shallow: boolean;
+  readonly contradictsAuthority: boolean;
+  readonly deferred: boolean;
+}
+
+export interface AmbiguityObservationAdmittedRuntimeEvent {
+  readonly kind: "ambiguity_observation_admitted";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly ambiguityRef: string;
+  readonly ambiguityStatus: PayloadAmbiguityStatus;
+  readonly authorityRef: string | null;
+  readonly evidenceRef: string | null;
+  readonly payloadRef: string | null;
+  readonly reason: string;
+  readonly providerRefs: readonly string[];
+  readonly policyRefs: readonly string[];
+}
+
+export interface ClosureInputPublishedRuntimeEvent {
+  readonly kind: "closure_input_published";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly closureInputRef: string;
+  readonly projectionRef: string;
+  readonly closureDecision: PayloadClosureDecisionKind;
+  readonly rowRefs: readonly string[];
+  readonly sourceProjectionRefs: readonly string[];
+  readonly policyRefs: readonly string[];
+}
+
 export type RuntimeEvent =
   | BasisAdmittedEvent
   | FdAdvanceReadyEvent
   | FpDispatchRequestedEvent
+  | ActorInvocationStartedEvent
+  | ActorResultArtifactObservedEvent
+  | ActorInvocationClosedEvent
   | FhEscalatedEvent
   | TerminalReachedEvent
   | GraphCallOpenedEvent
@@ -506,12 +736,22 @@ export type RuntimeEvent =
   | ApprovedRuntimeEvent
   | RevokedRuntimeEvent
   | ResetRuntimeEvent
-  | AssessedRuntimeEvent;
+  | AssessedRuntimeEvent
+  | PayloadObservedRuntimeEvent
+  | PayloadValidatedRuntimeEvent
+  | PayloadRejectedRuntimeEvent
+  | AuthoritySnapshotAdmittedRuntimeEvent
+  | EvidenceAdmittedRuntimeEvent
+  | AmbiguityObservationAdmittedRuntimeEvent
+  | ClosureInputPublishedRuntimeEvent;
 
 export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "basis_admitted",
   "fd_advance_ready",
   "fp_dispatch_requested",
+  "actor_invocation_started",
+  "actor_result_artifact_observed",
+  "actor_invocation_closed",
   "fh_escalated",
   "terminal_reached",
   "graph_call_opened",
@@ -532,7 +772,14 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "approved",
   "revoked",
   "reset",
-  "assessed"
+  "assessed",
+  "payload_observed",
+  "payload_validated",
+  "payload_rejected",
+  "authority_snapshot_admitted",
+  "evidence_admitted",
+  "ambiguity_observation_admitted",
+  "closure_input_published"
 ] as const satisfies readonly RuntimeEvent["kind"][]);
 
 export interface AdmittedLeafTaskPayload {
@@ -580,6 +827,12 @@ export interface ContinuationProjection {
     readonly attemptIndex: number;
     readonly sourceProjectionRef: string;
   }[];
+  readonly retryProgressRefs: readonly {
+    readonly vectorIndex: number;
+    readonly retryRunId: string;
+    readonly progressSignalRefs: readonly string[];
+    readonly stationary: boolean;
+  }[];
   readonly leafTaskIds: readonly string[];
   readonly completedLeafTaskIds: readonly string[];
   readonly failedLeafTaskIds: readonly string[];
@@ -609,6 +862,25 @@ export interface RuntimeAggregateProjection {
     readonly manifestId: string;
     readonly attemptIndex: number;
     readonly sourceProjectionRef: string;
+  }[];
+  readonly retryProgressRefs: readonly {
+    readonly vectorIndex: number;
+    readonly retryRunId: string;
+    readonly progressSignalRefs: readonly string[];
+    readonly stationary: boolean;
+  }[];
+  readonly actorInvocationRefs: readonly {
+    readonly vectorIndex: number;
+    readonly actorInvocationId: string;
+    readonly attemptIndex: number;
+    readonly dispatchRef: string;
+    readonly resultRef: string;
+  }[];
+  readonly observedActorArtifactRefs: readonly {
+    readonly vectorIndex: number;
+    readonly actorInvocationId: string;
+    readonly resultRef: string;
+    readonly artifactRef: string;
   }[];
   readonly leafTaskIds: readonly string[];
   readonly completedLeafTaskIds: readonly string[];

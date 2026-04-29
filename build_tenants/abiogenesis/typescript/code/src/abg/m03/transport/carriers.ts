@@ -18,6 +18,9 @@ export interface DispatchRequest {
   readonly kind: "fp_dispatch_request";
   readonly basisId: string;
   readonly graphFunctionId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
   readonly jobId: string;
   readonly dispatchRef: string;
   readonly workerId: string;
@@ -88,6 +91,9 @@ export type DispatchRequestSink = (request: DispatchRequest) => void;
 export interface DispatchRequestInit {
   readonly basisId: string;
   readonly graphFunctionId: string;
+  readonly graphCallId?: string;
+  readonly frameId?: string;
+  readonly vectorIndex?: number;
   readonly jobId: string;
   readonly dispatchRef: string;
   readonly workerId: string;

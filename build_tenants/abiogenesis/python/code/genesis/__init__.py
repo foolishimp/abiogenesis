@@ -14,6 +14,7 @@ Consumes Module, Graph, GraphVector, Node natively.
     events       — EventStream, emit
     runtime_carrier — ExecutionBasis, AdvancementTransition carrier family
     projection   — project
+    assurance    — total ambiguity projection and closure fold
     transport    — Subprocess transport for F_P actor invocations (ADR-022)
     identity     — RuntimeIdentity surface for engine/build/worker/backend provenance
     cli_adapter  — CLI entry point wiring

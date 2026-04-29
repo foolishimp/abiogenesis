@@ -50,8 +50,8 @@ That qualification line derives from:
 
 - `build_tenants/common/design/modules/`
 - tenant-local TypeScript design/ADR surfaces
-- reusable requirement/scenario obligations discovered from the released Python
-  proving lanes, repriced rather than copied blindly
+- reusable requirement/scenario obligations discovered from the paused Python
+  reference proving lanes, repriced rather than copied blindly
 - packaged TypeScript tenant materialization for installed acceptance lanes
 
 Current proof shape:

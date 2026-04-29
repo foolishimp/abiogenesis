@@ -27,7 +27,8 @@ export function constructDeliveryFileRef(
   return Object.freeze({
     kind: input.kind,
     relativePath: input.relativePath,
-    content: input.content
+    content: input.content,
+    ...(input.writeMode === undefined ? {} : { writeMode: input.writeMode })
   });
 }
 

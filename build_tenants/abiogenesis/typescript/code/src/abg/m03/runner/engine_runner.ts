@@ -7,12 +7,17 @@ import { admitExecutionBasis } from "../admission/index.js";
 import type { ExecutionBasisAdmissionInput } from "../admission/index.js";
 import type {
   AdvancementTransition,
+  ActorInvocation,
+  ActorInvocationRef,
   ExecutionBasis,
   RuntimeAggregateProjection,
   RuntimeEvent,
   TerminalTransition
 } from "../contracts/carriers.js";
 import {
+  constructActorInvocationClosedEvent,
+  constructActorInvocationStartedEvent,
+  constructActorResultArtifactObservedEvent,
   constructBasisAdmittedEvent,
   constructFdAdvanceReadyEvent,
   constructFhEscalatedEvent,
@@ -28,6 +33,10 @@ import {
 } from "../contracts/iteration.js";
 import { deriveRuntimeAggregateProjection } from "../contracts/projection.js";
 import {
+  frameIdForBasis,
+  graphCallIdForBasis
+} from "../contracts/runtime_support.js";
+import {
   admitFdEvaluationOutcome,
   admitFhAdmissionOutcome,
   admitFpDispatchOutcome,
@@ -41,18 +50,30 @@ import {
   type FpDispatchPlugin
 } from "../contracts/plugins.js";
 import { emit, type RuntimeEventSink } from "../events/index.js";
+import { dispatchRequestsForTransition } from "../transport/index.js";
+import { deriveAttachedFpResultDecision } from "./attached_fp_worker.js";
+import {
+  constructNotEvaluatedAssuranceGate,
+  evaluateAssuranceGate,
+  type EngineAssuranceGateResult,
+  type EngineAssuranceProvider
+} from "./assurance_gate.js";
 
 export interface EngineIterateRequest {
   readonly basis: ExecutionBasis;
   readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
   readonly eventSink: RuntimeEventSink;
   readonly plugins?: EngineRunnerPluginSet | undefined;
+  readonly maxAttachedFpAttempts?: number | undefined;
+  readonly assuranceProvider?: EngineAssuranceProvider | undefined;
 }
 
 export interface EngineStartRequest extends ExecutionBasisAdmissionInput {
   readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
   readonly eventSink: RuntimeEventSink;
   readonly plugins?: EngineRunnerPluginSet | undefined;
+  readonly maxAttachedFpAttempts?: number | undefined;
+  readonly assuranceProvider?: EngineAssuranceProvider | undefined;
 }
 
 export interface EngineIterateResult {
@@ -63,6 +84,7 @@ export interface EngineIterateResult {
   readonly emittedEvents: readonly RuntimeEvent[];
   readonly replayEvents: readonly RuntimeEvent[];
   readonly iterationCount: number;
+  readonly assuranceGate: EngineAssuranceGateResult;
 }
 
 interface ResolvedRunnerPlugins {
@@ -103,6 +125,65 @@ function terminalTransition(
   });
 }
 
+function actorAttemptIndexForProjection(input: {
+  readonly projection: RuntimeAggregateProjection;
+  readonly vectorIndex: number;
+}): number {
+  return (
+    input.projection.retryAttemptRefs.filter(
+      (attempt) => attempt.vectorIndex === input.vectorIndex
+    ).length + 1
+  );
+}
+
+function actorInvocationForTransition(input: {
+  readonly projection: RuntimeAggregateProjection;
+  readonly transition: Extract<AdvancementTransition, { readonly kind: "fp_dispatch" }>;
+}): ActorInvocation {
+  const request = dispatchRequestsForTransition(input.transition)[0];
+  if (request === undefined) {
+    throw new TypeError("actor invocation requires a dispatch request");
+  }
+  const attemptIndex = actorAttemptIndexForProjection({
+    projection: input.projection,
+    vectorIndex: input.transition.vectorIndex
+  });
+  return Object.freeze({
+    kind: "actor_invocation",
+    actorInvocationId: `actor-invocation:${JSON.stringify({
+      basisId: input.transition.basis.id,
+      vectorIndex: input.transition.vectorIndex,
+      attemptIndex
+    })}`,
+    basisId: input.transition.basis.id,
+    graphCallId: graphCallIdForBasis(input.transition.basis),
+    frameId: frameIdForBasis(input.transition.basis),
+    vectorIndex: input.transition.vectorIndex,
+    edge: input.transition.edge,
+    attemptIndex,
+    dispatchRef: request.dispatchRef,
+    workerId: request.workerId,
+    backendId: request.backendId,
+    resultRef: request.resultRef
+  });
+}
+
+function actorInvocationRef(invocation: ActorInvocation): ActorInvocationRef {
+  return Object.freeze({
+    actorInvocationId: invocation.actorInvocationId,
+    attemptIndex: invocation.attemptIndex,
+    dispatchRef: invocation.dispatchRef,
+    resultRef: invocation.resultRef
+  });
+}
+
+function resultRefForActorOutcome(input: {
+  readonly invocation: ActorInvocation;
+  readonly outcomeResultRef: string | null;
+}): string {
+  return input.outcomeResultRef ?? input.invocation.resultRef;
+}
+
 function constructResult(input: {
   readonly basis: ExecutionBasis;
   readonly transition: AdvancementTransition;
@@ -110,6 +191,7 @@ function constructResult(input: {
   readonly emittedEvents: readonly RuntimeEvent[];
   readonly replayEvents: readonly RuntimeEvent[];
   readonly iterationCount: number;
+  readonly assuranceGate?: EngineAssuranceGateResult | undefined;
 }): EngineIterateResult {
   return Object.freeze({
     kind: "engine_iterate_result",
@@ -118,7 +200,12 @@ function constructResult(input: {
     projection: input.projection,
     emittedEvents: Object.freeze([...input.emittedEvents]),
     replayEvents: Object.freeze([...input.replayEvents]),
-    iterationCount: input.iterationCount
+    iterationCount: input.iterationCount,
+    assuranceGate:
+      input.assuranceGate ??
+      constructNotEvaluatedAssuranceGate(
+        "assurance gate only evaluates convergence-capable terminal projection"
+      )
   });
 }
 
@@ -163,6 +250,31 @@ export function runEngineIterate(
       if (transition.kind !== "terminal") {
         throw new TypeError("engine iterate expected terminal transition");
       }
+      const assuranceGate = evaluateAssuranceGate({
+        basis: request.basis,
+        projection,
+        replayEvents,
+        ...(request.assuranceProvider === undefined
+          ? {}
+          : { provider: request.assuranceProvider })
+      });
+      if (assuranceGate.kind === "assurance_blocked") {
+        const blocked = terminalTransition(
+          request.basis,
+          "gap_stop",
+          `assurance closure blocked: ${assuranceGate.reason}`
+        );
+        emitRunnerEvents(constructTerminalReachedEvent(blocked));
+        return constructResult({
+          basis: request.basis,
+          transition: blocked,
+          projection: deriveRuntimeAggregateProjection(request.basis, replayEvents),
+          emittedEvents,
+          replayEvents,
+          iterationCount,
+          assuranceGate
+        });
+      }
       emitRunnerEvents(constructTerminalReachedEvent(transition));
       return constructResult({
         basis: request.basis,
@@ -170,7 +282,8 @@ export function runEngineIterate(
         projection: deriveRuntimeAggregateProjection(request.basis, replayEvents),
         emittedEvents,
         replayEvents,
-        iterationCount
+        iterationCount,
+        assuranceGate
       });
     }
 
@@ -234,16 +347,120 @@ export function runEngineIterate(
         break;
       }
       case "fp_dispatch": {
+        const actorInvocation = actorInvocationForTransition({
+          projection,
+          transition
+        });
         const input = constructEnginePluginInput({
           contract: plugins.fpDispatch.contract,
           basis: request.basis,
           projection,
           vectorIndex: transition.vectorIndex,
           edge: transition.edge,
-          regime: "F_P"
+          regime: "F_P",
+          actorInvocationRef: actorInvocationRef(actorInvocation)
         });
         emitRunnerEvents(constructFpDispatchRequestedEvent(transition));
+        emitRunnerEvents(constructActorInvocationStartedEvent(actorInvocation));
         const outcome = admitFpDispatchOutcome(plugins.fpDispatch.dispatch(input));
+        if (outcome.attachedResultArtifact !== null) {
+          const resultRef = resultRefForActorOutcome({
+            invocation: actorInvocation,
+            outcomeResultRef: outcome.resultRef
+          });
+          emitRunnerEvents(
+            constructActorResultArtifactObservedEvent({
+              invocation: actorInvocation,
+              artifactRef: resultRef
+            })
+          );
+          const attachedDecision = deriveAttachedFpResultDecision({
+            basis: request.basis,
+            projection,
+            transition,
+            outcome,
+            maxAttempts: request.maxAttachedFpAttempts
+          });
+          emitRunnerEvents(
+            constructActorInvocationClosedEvent({
+              invocation: actorInvocation,
+              closureStatus:
+                outcome.status === "blocked"
+                  ? "blocked_with_artifact"
+                  : "completed",
+              resultRef,
+              detail: outcome.reason
+            })
+          );
+          if (attachedDecision.kind === "accepted") {
+            emitRunnerEvents(
+              constructVectorEvaluatedEvent({
+                basis: request.basis,
+                vectorIndex: transition.vectorIndex,
+                status: "accepted"
+              })
+            );
+            emitRunnerEvents(attachedDecision.payloadEvents);
+            emitRunnerEvents(
+              constructVectorClosedEvent({
+                basis: request.basis,
+                vectorIndex: transition.vectorIndex,
+                closureKind: "assessed"
+              })
+            );
+            iterationCount += 1;
+            if (request.basis.startIntent.until === "first_traversal") {
+              const applied = terminalTransition(
+                request.basis,
+                "traversal_applied",
+                "attached F_P result assessed"
+              );
+              emitRunnerEvents(constructTerminalReachedEvent(applied));
+              return constructResult({
+                basis: request.basis,
+                transition: applied,
+                projection: deriveRuntimeAggregateProjection(request.basis, replayEvents),
+                emittedEvents,
+                replayEvents,
+                iterationCount
+              });
+            }
+            break;
+          }
+          emitRunnerEvents(
+            constructVectorEvaluatedEvent({
+              basis: request.basis,
+              vectorIndex: transition.vectorIndex,
+              status: "blocked"
+            })
+          );
+          emitRunnerEvents(attachedDecision.retryEvents);
+          if (attachedDecision.kind === "retry_planned") {
+            break;
+          }
+          const blocked = terminalTransition(
+            request.basis,
+            attachedDecision.terminalKind,
+            attachedDecision.reason
+          );
+          emitRunnerEvents(constructTerminalReachedEvent(blocked));
+          return constructResult({
+            basis: request.basis,
+            transition: blocked,
+            projection: deriveRuntimeAggregateProjection(request.basis, replayEvents),
+            emittedEvents,
+            replayEvents,
+            iterationCount
+          });
+        }
+        emitRunnerEvents(
+          constructActorInvocationClosedEvent({
+            invocation: actorInvocation,
+            closureStatus: outcome.status === "blocked" ? "blocked" : "completed",
+            resultRef: outcome.resultRef,
+            detail: outcome.reason
+          })
+        );
         if (outcome.status === "blocked") {
           const blocked = terminalTransition(
             request.basis,
@@ -331,6 +548,8 @@ export function runEngineStart(request: EngineStartRequest): EngineIterateResult
     basis,
     runtimeEvents: request.runtimeEvents,
     eventSink: request.eventSink,
-    plugins: request.plugins
+    plugins: request.plugins,
+    maxAttachedFpAttempts: request.maxAttachedFpAttempts,
+    assuranceProvider: request.assuranceProvider
   });
 }

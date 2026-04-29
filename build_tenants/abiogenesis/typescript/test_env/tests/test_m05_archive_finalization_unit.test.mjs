@@ -59,6 +59,26 @@ test("M05 archive-finalization unit: downstream qualification request preserves 
         exists: true
       }),
       constructRunArchiveMaterializedFileRef({
+        path: "/tmp/archive/artifacts/runtime_identity.json",
+        kind: "runtime_identity",
+        exists: true
+      }),
+      constructRunArchiveMaterializedFileRef({
+        path: "/tmp/archive/artifacts/command_binding.json",
+        kind: "command_binding",
+        exists: true
+      }),
+      constructRunArchiveMaterializedFileRef({
+        path: "/tmp/archive/artifacts/projection.json",
+        kind: "projection",
+        exists: true
+      }),
+      constructRunArchiveMaterializedFileRef({
+        path: "/tmp/archive/postmortem.md",
+        kind: "postmortem",
+        exists: true
+      }),
+      constructRunArchiveMaterializedFileRef({
         path: "/tmp/archive/workspace/docs/artifact.md",
         kind: "workspace_artifact",
         exists: true
@@ -83,6 +103,10 @@ test("M05 archive-finalization unit: downstream qualification request preserves 
       "events",
       "manifest",
       "result",
+      "runtime_identity",
+      "command_binding",
+      "projection",
+      "postmortem",
       "workspace_artifact"
     ]
   );

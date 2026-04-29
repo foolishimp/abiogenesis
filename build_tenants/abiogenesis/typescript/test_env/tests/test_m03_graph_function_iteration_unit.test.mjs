@@ -69,6 +69,7 @@ test("M03 iteration unit: aggregate projection selects the first unclosed vector
     retryAttemptRunIds: [],
     retryAttemptManifestIds: [],
     retryAttemptRefs: [],
+    retryProgressRefs: [],
     leafTaskIds: [],
     completedLeafTaskIds: [],
     failedLeafTaskIds: []
@@ -91,11 +92,16 @@ test("M03 iteration unit: aggregate projection selects the first unclosed vector
   assert.equal(secondDecision.edge, "requirements→design");
 });
 
-test("M03 iteration unit: assessed F_P result truth closes the matching vector for re-entry", () => {
+test("M03 iteration unit: assessed F_P result truth is read-model only and vector closure advances re-entry", () => {
   const basis = buildThreeStageBasis();
   const projection = deriveRuntimeAggregateProjection(basis, [
     assessedEvent("input_set→requirements", "requirements_complete"),
-    assessedEvent("input_set→requirements", "trace_complete")
+    assessedEvent("input_set→requirements", "trace_complete"),
+    constructVectorClosedEvent({
+      basis,
+      vectorIndex: 0,
+      closureKind: "assessed"
+    })
   ]);
   const decision = deriveIterationAdvanceDecision(basis, projection);
 

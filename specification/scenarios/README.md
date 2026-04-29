@@ -25,3 +25,10 @@ satisfy.
   synthesis, transform, fan-out, ambiguity, and gap-evaluation families used to
   qualify ABIogenesis as an ODD-native research product lab for downstream
   products such as SDLC.TS.
+- `10-total-assurance-projection-uat.md` defines the requirement-derived UAT
+  paths for ABG total assurance projection, including the two-hop live Claude
+  register proof that must deepen and stop convergence when downstream evidence
+  is missing.
+- `11-event-sourced-payload-ledger-uat.md` defines the legal UAT paths for
+  consolidating payload and ledger truth under ABG's event-sourced runtime
+  model.

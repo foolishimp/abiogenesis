@@ -23,8 +23,17 @@ declare module "node:child_process" {
   };
 }
 
+declare module "node:crypto" {
+  export function createHash(algorithm: string): {
+    update(data: string | Uint8Array): {
+      digest(encoding: "hex"): string;
+    };
+  };
+}
+
 declare module "node:fs/promises" {
   export function access(path: string): Promise<void>;
+  export function readFile(path: string): Promise<Uint8Array>;
   export function readFile(path: string, encoding: "utf8"): Promise<string>;
   export function writeFile(
     path: string,
@@ -50,6 +59,16 @@ declare module "node:fs/promises" {
     destination: string,
     options: { readonly recursive?: boolean }
   ): Promise<void>;
+  export function readdir(
+    path: string,
+    options: { readonly withFileTypes: true }
+  ): Promise<
+    readonly {
+      readonly name: string;
+      isDirectory(): boolean;
+      isFile(): boolean;
+    }[]
+  >;
   export function symlink(
     target: string,
     path: string,

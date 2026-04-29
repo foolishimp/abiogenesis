@@ -2,6 +2,7 @@
 // Validates: REQ-P-QUAL-018H
 // Validates: REQ-P-QUAL-018I
 // Validates: REQ-P-SCENARIOS
+// Validates: REQ-P-INSTALL
 
 import test from "node:test";
 import assert from "node:assert/strict";
@@ -19,7 +20,10 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
 
-import { installAbiogenesisTypescript } from "../../build/semantic/code/src/app/m04/install_bootstrap/index.js";
+import {
+  installAbiogenesisTypescript,
+  verifyAbiogenesisTypescriptInstallTopology
+} from "../../build/semantic/code/src/app/m04/install_bootstrap/index.js";
 
 const TEST_DIR = path.dirname(fileURLToPath(import.meta.url));
 const TEST_ENV_ROOT = path.dirname(TEST_DIR);
@@ -92,6 +96,7 @@ async function writeInstallerArchive(input) {
     packageRoot: input.outcome.packageRoot,
     commandPaths: input.outcome.commandPaths,
     runtimeIdentity: input.outcome.runtimeIdentity,
+    runtimeBindingPath: input.outcome.runtimeBindingPath,
     startedAt: new Date().toISOString(),
     command: "npm run test:t076"
   });
@@ -101,6 +106,10 @@ async function writeInstallerArchive(input) {
     packageVersion: input.outcome.packageVersion,
     installManifestPath: input.outcome.installManifestPath,
     installerManifestPath: input.outcome.installerManifestPath,
+    installProvenancePath: input.outcome.installProvenancePath,
+    runtimeBindingPath: input.outcome.runtimeBindingPath,
+    standardsInstallRoot: input.outcome.standardsInstallRoot,
+    docsInstallRoot: input.outcome.docsInstallRoot,
     eventEvidencePath: input.outcome.eventsPath,
     projectionEvidencePath: "artifacts/projection.json",
     postmortemPath: "postmortem.md"
@@ -114,17 +123,32 @@ async function writeInstallerArchive(input) {
   await writeJson(path.join(artifactsRoot, "command_paths.json"), {
     commandPaths: input.outcome.commandPaths
   });
+  await writeJson(path.join(artifactsRoot, "standards_inventory.json"), {
+    standardsSourceRoot: input.outcome.standardsSourceRoot,
+    standardsInstallRoot: input.outcome.standardsInstallRoot,
+    standardsFiles: input.outcome.standardsFiles
+  });
+  await writeJson(path.join(artifactsRoot, "docs_inventory.json"), {
+    docsSourceRoot: input.outcome.docsSourceRoot,
+    docsInstallRoot: input.outcome.docsInstallRoot,
+    docsFiles: input.outcome.docsFiles
+  });
   await writeJson(
     path.join(artifactsRoot, "runtime_identity.json"),
     input.outcome.runtimeIdentity
   );
+  await writeJson(path.join(artifactsRoot, "runtime_binding.json"), {
+    runtimeBindingPath: input.outcome.runtimeBindingPath
+  });
   await writeJson(path.join(artifactsRoot, "projection.json"), {
     installerOutcomeKind: input.outcome.kind,
     installVerification: input.outcome.installBootstrapOutcome.verification,
     packageRoot: input.outcome.packageRoot,
     commandPaths: input.outcome.commandPaths,
+    runtimeBindingPath: input.outcome.runtimeBindingPath,
     eventsPath: input.outcome.eventsPath,
-    runtimeDirectory: input.outcome.runtimeDirectory
+    runtimeDirectory: input.outcome.runtimeDirectory,
+    topologyVerification: input.outcome.topologyVerification
   });
   await copyTextFile(
     input.outcome.installerManifestPath,
@@ -133,6 +157,14 @@ async function writeInstallerArchive(input) {
   await copyTextFile(
     input.outcome.installManifestPath,
     path.join(artifactsRoot, "install-manifest.json")
+  );
+  await copyTextFile(
+    input.outcome.installProvenancePath,
+    path.join(artifactsRoot, "install-provenance.json")
+  );
+  await copyTextFile(
+    input.outcome.runtimeBindingPath,
+    path.join(artifactsRoot, "cli-runtime.mjs")
   );
   await copyTextFile(input.outcome.eventsPath, path.join(artifactsRoot, "events.jsonl"));
   await writeFile(
@@ -145,6 +177,8 @@ async function writeInstallerArchive(input) {
       `- package: ${installerManifest.packageName}@${installerManifest.packageVersion}`,
       `- command paths: ${installerManifest.commandPaths.join(", ")}`,
       `- runtime: ${installerManifest.runtimeIdentity.resolvedRuntimeRef}`,
+      `- runtime binding: ${installerManifest.runtimeBindingPath}`,
+      `- standards: ${installerManifest.standardsInstallRoot}`,
       `- bootstrap dependency: ${installManifest.runtimePackage.dependencyRef}`
     ].join("\n"),
     "utf8"
@@ -153,16 +187,47 @@ async function writeInstallerArchive(input) {
   return archiveRoot;
 }
 
+function runInstalledCommand(targetRoot, commandName, args) {
+  return spawnSync(
+    path.join(targetRoot, "node_modules", ".bin", commandName),
+    args,
+    {
+      cwd: targetRoot,
+      encoding: "utf8"
+    }
+  );
+}
+
+function parseCommandPayload(run) {
+  assert.notEqual(run.stdout.trim(), "", run.stderr);
+  return JSON.parse(run.stdout);
+}
+
+async function readJson(filePath) {
+  return JSON.parse(await readFile(filePath, "utf8"));
+}
+
 async function runInstalledProbe(targetRoot) {
   const probePath = path.join(targetRoot, ".abiogenesis", "public-installer-probe.mjs");
   await writeFile(
     probePath,
     `
       import { start } from "@abiogenesis/typescript-tenant/app/m04";
-      import { installAbiogenesisTypescript } from "@abiogenesis/typescript-tenant/app/m04/install-bootstrap";
+      import {
+        installAbiogenesisTypescript,
+        verifyAbiogenesisTypescriptInstallTopology
+      } from "@abiogenesis/typescript-tenant/app/m04/install-bootstrap";
+
+      const topology = await verifyAbiogenesisTypescriptInstallTopology({
+        targetRoot: process.cwd()
+      });
+
       console.log(JSON.stringify({
         start: typeof start,
-        installer: typeof installAbiogenesisTypescript
+        installer: typeof installAbiogenesisTypescript,
+        topologyVerifier: typeof verifyAbiogenesisTypescriptInstallTopology,
+        topologyComplete: topology.complete,
+        topologyMissingPaths: topology.missingPaths.length
       }));
     `,
     "utf8"
@@ -188,6 +253,8 @@ test("T-076 public TypeScript installer populates a package-backed ABG install a
   assert.equal(outcome.kind, "installed");
   assert.equal(outcome.packageName, "@abiogenesis/typescript-tenant");
   assert.equal(outcome.installBootstrapOutcome.kind, "installed");
+  assert.equal(outcome.targetMode, "clean_no_project_authority");
+  assert.equal(outcome.cleanTargetPolicy, "no_scaffold");
   assert.equal(
     await pathExists(path.join(targetRoot, ".abiogenesis", "install-manifest.json")),
     true
@@ -209,6 +276,14 @@ test("T-076 public TypeScript installer populates a package-backed ABG install a
   const manifest = JSON.parse(await readFile(outcome.installerManifestPath, "utf8"));
   assert.equal(manifest.kind, "abg_typescript_installer_manifest");
   assert.equal(manifest.packageRoot, outcome.packageRoot);
+  assert.equal(manifest.targetMode, "clean_no_project_authority");
+  assert.equal(manifest.installMode, "fresh");
+  assert.equal(manifest.cleanTargetPolicy, "no_scaffold");
+  assert.equal(manifest.standardsInstallRoot, outcome.standardsInstallRoot);
+  assert.equal(manifest.docsInstallRoot, outcome.docsInstallRoot);
+  assert.equal(manifest.runtimeBindingPath, outcome.runtimeBindingPath);
+  assert(manifest.standardsFiles.length > 8);
+  assert(manifest.docsFiles.length >= 3);
   assert.deepStrictEqual(manifest.commandPaths, outcome.commandPaths);
   assert.deepStrictEqual(manifest.runtimeIdentity, {
     workerId: "abiogenesis-typescript-installer",
@@ -217,12 +292,114 @@ test("T-076 public TypeScript installer populates a package-backed ABG install a
     resolvedRuntimeRef: `package:${outcome.packageName}@${outcome.packageVersion}`
   });
 
+  const topology = await verifyAbiogenesisTypescriptInstallTopology({ targetRoot });
+  assert.equal(topology.complete, true);
+  assert.deepStrictEqual(topology.missingPaths, []);
+  assert.equal(topology.standardsRootPresent, true);
+  assert.equal(topology.standardsSmokeFilesPresent, true);
+  assert.equal(topology.docsRootPresent, true);
+  assert.equal(topology.runtimeBindingPresent, true);
+  assert.deepStrictEqual(topology, outcome.topologyVerification);
+
+  for (const relativePath of [
+    "README.md",
+    "SPEC_METHOD.md",
+    "TICKET_METHOD.md",
+    "DESIGN_MODULE_METHOD.md",
+    "ODD_METHOD.md",
+    "RELEASE_METHOD.md",
+    "WRITING_GUIDE.md",
+    "POSTING_GUIDE.md",
+    "GLOSSARY_GUIDE.md",
+    path.join("templates", "README.md")
+  ]) {
+    assert.equal(
+      await pathExists(path.join(outcome.standardsInstallRoot, relativePath)),
+      true
+    );
+  }
+  for (const relativePath of [
+    "README.md",
+    "LLM_GTL_APP_BUILDER_GUIDE.md",
+    "USER_GUIDE.md"
+  ]) {
+    assert.equal(await pathExists(path.join(outcome.docsInstallRoot, relativePath)), true);
+  }
+  const provenance = JSON.parse(await readFile(outcome.installProvenancePath, "utf8"));
+  assert.equal(provenance.kind, "abg_typescript_install_provenance");
+  assert.equal(provenance.installResult, "installed");
+  assert.equal(provenance.installMode, "fresh");
+  assert.equal(provenance.standardsFileCount, outcome.standardsFiles.length);
+  assert.equal(provenance.runtimeBindingPath, outcome.runtimeBindingPath);
+  assert.equal(
+    await pathExists(path.join(targetRoot, ".abiogenesis", "cli-runtime.mjs")),
+    true
+  );
+
   const probe = await runInstalledProbe(targetRoot);
   assert.equal(probe.status, 0, probe.stderr);
   assert.deepStrictEqual(JSON.parse(probe.stdout), {
     start: "function",
-    installer: "function"
+    installer: "function",
+    topologyVerifier: "function",
+    topologyComplete: true,
+    topologyMissingPaths: 0
   });
+
+  const openGaps = runInstalledCommand(targetRoot, "genesis-ts", [
+    "gaps",
+    "--workspace",
+    ".",
+    "--scope",
+    "workspace"
+  ]);
+  assert.equal(openGaps.status, 0, openGaps.stderr);
+  const openGapsPayload = parseCommandPayload(openGaps);
+  assert.equal(openGapsPayload.command, "gaps");
+  assert.equal(openGapsPayload.status, "open");
+  assert.equal(
+    openGapsPayload.gaps[0].graph_function_handle,
+    "installed_cli_runtime_binding_self_test"
+  );
+
+  const abiogenesisOpenGaps = runInstalledCommand(targetRoot, "abiogenesis-ts", [
+    "gaps",
+    "--workspace",
+    ".",
+    "--scope",
+    "workspace"
+  ]);
+  assert.equal(abiogenesisOpenGaps.status, 0, abiogenesisOpenGaps.stderr);
+  const abiogenesisOpenGapsPayload = parseCommandPayload(abiogenesisOpenGaps);
+  assert.equal(abiogenesisOpenGapsPayload.command, "gaps");
+  assert.equal(abiogenesisOpenGapsPayload.status, "open");
+
+  const selfTestStart = runInstalledCommand(targetRoot, "genesis-ts", [
+    "start",
+    "--workspace",
+    ".",
+    "--scope",
+    "workspace",
+    "--target",
+    "graph_function:installed_cli_runtime_binding_self_test",
+    "--until",
+    "converged"
+  ]);
+  assert.equal(selfTestStart.status, 0, selfTestStart.stderr);
+  const selfTestStartPayload = parseCommandPayload(selfTestStart);
+  assert.equal(selfTestStartPayload.command, "start");
+  assert.equal(selfTestStartPayload.status, "converged");
+  assert.equal(selfTestStartPayload.stopped_by, "converged");
+  assert.deepStrictEqual(selfTestStartPayload.event_kinds, [
+    "basis_admitted",
+    "graph_call_opened",
+    "frame_opened",
+    "vector_traversal_planned",
+    "vector_evaluated",
+    "vector_closed",
+    "fd_advance_ready",
+    "terminal_reached"
+  ]);
 
   const archiveRoot = await writeInstallerArchive({
     sourceRoot,
@@ -237,12 +414,82 @@ test("T-076 public TypeScript installer populates a package-backed ABG install a
     "artifacts/install-manifest.json",
     "artifacts/package_identity.json",
     "artifacts/command_paths.json",
+    "artifacts/standards_inventory.json",
+    "artifacts/docs_inventory.json",
     "artifacts/runtime_identity.json",
+    "artifacts/runtime_binding.json",
+    "artifacts/install-provenance.json",
+    "artifacts/cli-runtime.mjs",
     "artifacts/events.jsonl",
     "artifacts/projection.json"
   ]) {
     assert.equal(await pathExists(path.join(archiveRoot, relativePath)), true);
   }
+});
+
+test("T-078 public TypeScript installer refreshes repeated installs over admitted package state", async () => {
+  const repoRoot = await locateRepoRoot();
+  const sourceRoot = tenantRoot(repoRoot);
+  const targetRoot = await makeTargetRoot("repeat-installer");
+
+  const first = await installAbiogenesisTypescript({
+    targetRoot: {
+      rootPath: targetRoot
+    },
+    packageSourceRoot: sourceRoot,
+    installedPackageName: "abiogenesis-t078-repeat"
+  });
+  assert.equal(first.kind, "installed");
+  assert.equal(first.installMode, "fresh");
+
+  const firstPackageJson = await readJson(path.join(targetRoot, "package.json"));
+  const firstDependency =
+    firstPackageJson.dependencies["@abiogenesis/typescript-tenant"];
+  assert.equal(firstDependency, `file:${path.relative(targetRoot, first.tarballPath)}`);
+
+  const second = await installAbiogenesisTypescript({
+    targetRoot: {
+      rootPath: targetRoot
+    },
+    packageSourceRoot: sourceRoot,
+    installedPackageName: "abiogenesis-t078-repeat"
+  });
+  assert.equal(second.kind, "installed");
+  assert.equal(second.installMode, "refresh");
+  assert.notEqual(second.tarballPath, first.tarballPath);
+
+  const secondPackageJson = await readJson(path.join(targetRoot, "package.json"));
+  const secondDependency =
+    secondPackageJson.dependencies["@abiogenesis/typescript-tenant"];
+  assert.equal(secondPackageJson.name, "abiogenesis-t078-repeat");
+  assert.equal(secondDependency, `file:${path.relative(targetRoot, second.tarballPath)}`);
+  assert.notEqual(secondDependency, firstDependency);
+
+  const installManifest = await readJson(second.installManifestPath);
+  assert.equal(installManifest.installedPackageName, "abiogenesis-t078-repeat");
+  assert.equal(installManifest.runtimePackage.dependencyRef, secondDependency);
+
+  const installerManifest = await readJson(second.installerManifestPath);
+  assert.equal(installerManifest.installMode, "refresh");
+  assert.equal(installerManifest.tarballPath, second.tarballPath);
+
+  const provenance = await readJson(second.installProvenancePath);
+  assert.equal(provenance.installMode, "refresh");
+  assert.equal(provenance.installResult, "installed");
+
+  const topology = await verifyAbiogenesisTypescriptInstallTopology({ targetRoot });
+  assert.equal(topology.complete, true);
+  assert.deepStrictEqual(topology.missingPaths, []);
+
+  const openGaps = runInstalledCommand(targetRoot, "genesis-ts", [
+    "gaps",
+    "--workspace",
+    ".",
+    "--scope",
+    "workspace"
+  ]);
+  assert.equal(openGaps.status, 0, openGaps.stderr);
+  assert.equal(parseCommandPayload(openGaps).status, "open");
 });
 
 test("T-076 installed genesis-ts install command can create a second ABG TypeScript install", async () => {
@@ -285,6 +532,11 @@ test("T-076 installed genesis-ts install command can create a second ABG TypeScr
     ),
     true
   );
+  const topology = await verifyAbiogenesisTypescriptInstallTopology({
+    targetRoot: secondTarget
+  });
+  assert.equal(topology.complete, true);
+  assert.equal(topology.standardsSmokeFilesPresent, true);
   assert.equal(
     await pathExists(path.join(secondTarget, "node_modules", ".bin", "abiogenesis-ts")),
     true

@@ -3,7 +3,7 @@
 **Status**: Active
 **Date**: 2026-04-23
 **Purpose**: Declare how the TypeScript tenant derives its module and carrier
-design from the shipping Python design without turning Python code shape into
+design from the paused Python reference design without turning Python code shape into
 constitutional authority for the TypeScript line.
 
 ## 1. Position
@@ -11,7 +11,7 @@ constitutional authority for the TypeScript line.
 The derivation order for this tenant is:
 
 1. `specification/` constitutional `WHAT`
-2. shipping Python design as released reference `HOW`
+2. paused Python reference design as released reference `HOW`
 3. TypeScript tenant design mapping
 4. TypeScript module-bounded carrier assets
 5. TypeScript implementation tickets
@@ -19,7 +19,7 @@ The derivation order for this tenant is:
 
 The TypeScript line does **not** port by file mirroring.
 
-It derives target module boundaries from the released Python design and then
+It derives target module boundaries from the paused Python reference design and then
 binds those boundaries to TypeScript-specific carrier, package, runtime, and
 strict-lane choices.
 
@@ -29,7 +29,7 @@ The current audit baseline for already migrated design assets lives in:
 
 ## 2. Reference Surfaces
 
-The released Python design surfaces used as source material are:
+The paused Python reference design surfaces used as source material are:
 
 - `build_tenants/abiogenesis/python/design/README.md`
 - `build_tenants/abiogenesis/python/design/GTL_3_MODULE_DESIGN.md`

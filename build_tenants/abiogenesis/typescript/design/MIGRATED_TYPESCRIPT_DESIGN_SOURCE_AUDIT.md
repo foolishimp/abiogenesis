@@ -3,7 +3,7 @@
 **Status**: Active
 **Date**: 2026-04-24
 **Purpose**: Audit the TypeScript design and ADR assets migrated through
-`T-014` against the released Python reference line so later derivation and
+`T-014` against the paused Python reference line so later derivation and
 implementation waves can start from one explicit source-reconciliation
 baseline.
 
@@ -102,7 +102,7 @@ It does not audit later implementation waves because none are open yet.
 ## 5. Audit Outcome
 
 The migrated TypeScript design line through `T-014` is broadly traceable to the
-released Python reference line. Two still-relevant source families were not yet
+paused Python reference line. Two still-relevant source families were not yet
 explicitly represented in the backlog before this audit:
 
 - public operator asset-addressing and asset registry ownership

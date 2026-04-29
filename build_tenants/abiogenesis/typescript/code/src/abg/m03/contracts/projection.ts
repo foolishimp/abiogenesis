@@ -13,7 +13,7 @@ import {
   vectorEdge
 } from "./runtime_support.js";
 
-type RuntimeProjectionClosureSource = "vector_closed" | "assessed";
+type RuntimeProjectionClosureSource = "vector_closed";
 
 function closeVectorFromReplay(input: {
   readonly basis: ExecutionBasis;
@@ -24,12 +24,6 @@ function closeVectorFromReplay(input: {
 }): void {
   assertVectorIndexInRange(input.basis, input.vectorIndex);
   if (input.closed.has(input.vectorIndex)) {
-    if (
-      input.source === "assessed" &&
-      input.closedBy.get(input.vectorIndex) === "assessed"
-    ) {
-      return;
-    }
     throw new TypeError(
       `Runtime aggregate projection rejects duplicate vector closure ${input.vectorIndex}`
     );
@@ -43,33 +37,6 @@ function closeVectorFromReplay(input: {
   }
   input.closed.add(input.vectorIndex);
   input.closedBy.set(input.vectorIndex, input.source);
-}
-
-function vectorIndexForAssessedEdge(
-  basis: ExecutionBasis,
-  edge: string
-): number {
-  const matchingIndexes: number[] = [];
-  for (let index = 0; index < basis.graph.vectors.length; index += 1) {
-    if (vectorEdge(basis, index) === edge) {
-      matchingIndexes.push(index);
-    }
-  }
-  if (matchingIndexes.length === 0) {
-    throw new TypeError(
-      `Runtime aggregate projection rejects assessed edge ${JSON.stringify(edge)} outside graph vectors`
-    );
-  }
-  if (matchingIndexes.length > 1) {
-    throw new TypeError(
-      `Runtime aggregate projection rejects ambiguous assessed edge ${JSON.stringify(edge)}`
-    );
-  }
-  const vectorIndex = matchingIndexes[0];
-  if (vectorIndex === undefined) {
-    throw new TypeError("Runtime aggregate projection failed to resolve assessed edge");
-  }
-  return vectorIndex;
 }
 
 function assertAssessedEventScope(
@@ -92,6 +59,28 @@ function assertAssessedEventScope(
   ) {
     throw new TypeError(
       `Runtime aggregate projection rejects assessed workKey ${JSON.stringify(event.workKey)} outside basis work ${JSON.stringify(basis.workKey)}`
+    );
+  }
+}
+
+function assertAssessedEdgeInGraph(
+  basis: ExecutionBasis,
+  event: AssessedRuntimeEvent
+): void {
+  const matchingIndexes: number[] = [];
+  for (let index = 0; index < basis.graph.vectors.length; index += 1) {
+    if (vectorEdge(basis, index) === event.edge) {
+      matchingIndexes.push(index);
+    }
+  }
+  if (matchingIndexes.length === 0) {
+    throw new TypeError(
+      `Runtime aggregate projection rejects assessed edge ${JSON.stringify(event.edge)} outside graph vectors`
+    );
+  }
+  if (matchingIndexes.length > 1) {
+    throw new TypeError(
+      `Runtime aggregate projection rejects ambiguous assessed edge ${JSON.stringify(event.edge)}`
     );
   }
 }
@@ -136,6 +125,9 @@ export function deriveRuntimeAggregateProjection(
   const retryAttemptRunIds = new Set<string>();
   const retryAttemptManifestIds = new Set<string>();
   const retryAttemptRefs: RuntimeAggregateProjection["retryAttemptRefs"][number][] = [];
+  const retryProgressRefs: RuntimeAggregateProjection["retryProgressRefs"][number][] = [];
+  const actorInvocationRefs: RuntimeAggregateProjection["actorInvocationRefs"][number][] = [];
+  const observedActorArtifactRefs: RuntimeAggregateProjection["observedActorArtifactRefs"][number][] = [];
   const leafTaskIds = new Set<string>();
   const completedLeafTaskIds = new Set<string>();
   const failedLeafTaskIds = new Set<string>();
@@ -206,6 +198,46 @@ export function deriveRuntimeAggregateProjection(
       case "retry_progress_recorded":
         assertVectorIndexInRange(basis, event.vectorIndex);
         retryAttemptRunIds.add(event.retryRunId);
+        retryProgressRefs.push(
+          Object.freeze({
+            vectorIndex: event.vectorIndex,
+            retryRunId: event.retryRunId,
+            progressSignalRefs: freezeStringArray(event.progressSignalRefs),
+            stationary: event.stationary
+          })
+        );
+        graphCallId = event.graphCallId;
+        frameId = event.frameId;
+        break;
+      case "actor_invocation_started":
+        assertVectorIndexInRange(basis, event.vectorIndex);
+        actorInvocationRefs.push(
+          Object.freeze({
+            vectorIndex: event.vectorIndex,
+            actorInvocationId: event.actorInvocationId,
+            attemptIndex: event.attemptIndex,
+            dispatchRef: event.dispatchRef,
+            resultRef: event.resultRef
+          })
+        );
+        graphCallId = event.graphCallId;
+        frameId = event.frameId;
+        break;
+      case "actor_result_artifact_observed":
+        assertVectorIndexInRange(basis, event.vectorIndex);
+        observedActorArtifactRefs.push(
+          Object.freeze({
+            vectorIndex: event.vectorIndex,
+            actorInvocationId: event.actorInvocationId,
+            resultRef: event.resultRef,
+            artifactRef: event.artifactRef
+          })
+        );
+        graphCallId = event.graphCallId;
+        frameId = event.frameId;
+        break;
+      case "actor_invocation_closed":
+        assertVectorIndexInRange(basis, event.vectorIndex);
         graphCallId = event.graphCallId;
         frameId = event.frameId;
         break;
@@ -238,14 +270,19 @@ export function deriveRuntimeAggregateProjection(
         break;
       case "assessed":
         assertAssessedEventScope(basis, event);
+        assertAssessedEdgeInGraph(basis, event);
         assessedEdges.push(event.edge);
-        closeVectorFromReplay({
-          basis,
-          closed,
-          closedBy,
-          vectorIndex: vectorIndexForAssessedEdge(basis, event.edge),
-          source: "assessed"
-        });
+        break;
+      case "payload_observed":
+      case "payload_validated":
+      case "payload_rejected":
+      case "authority_snapshot_admitted":
+      case "evidence_admitted":
+      case "ambiguity_observation_admitted":
+      case "closure_input_published":
+        assertVectorIndexInRange(basis, event.vectorIndex);
+        graphCallId = event.graphCallId;
+        frameId = event.frameId;
         break;
       case "basis_admitted":
       case "fd_advance_ready":
@@ -288,6 +325,33 @@ export function deriveRuntimeAggregateProjection(
       return left.attemptIndex - right.attemptIndex;
     })
   );
+  const frozenRetryProgressRefs = Object.freeze(
+    [...retryProgressRefs].sort((left, right) => {
+      const vectorDelta = left.vectorIndex - right.vectorIndex;
+      if (vectorDelta !== 0) {
+        return vectorDelta;
+      }
+      return left.retryRunId.localeCompare(right.retryRunId);
+    })
+  );
+  const frozenActorInvocationRefs = Object.freeze(
+    [...actorInvocationRefs].sort((left, right) => {
+      const vectorDelta = left.vectorIndex - right.vectorIndex;
+      if (vectorDelta !== 0) {
+        return vectorDelta;
+      }
+      return left.attemptIndex - right.attemptIndex;
+    })
+  );
+  const frozenObservedActorArtifactRefs = Object.freeze(
+    [...observedActorArtifactRefs].sort((left, right) => {
+      const vectorDelta = left.vectorIndex - right.vectorIndex;
+      if (vectorDelta !== 0) {
+        return vectorDelta;
+      }
+      return left.actorInvocationId.localeCompare(right.actorInvocationId);
+    })
+  );
   const frozenLeafTaskIds = freezeStringArray([...leafTaskIds].sort());
   const frozenCompletedLeafTaskIds = freezeStringArray([...completedLeafTaskIds].sort());
   const frozenFailedLeafTaskIds = freezeStringArray([...failedLeafTaskIds].sort());
@@ -320,6 +384,7 @@ export function deriveRuntimeAggregateProjection(
     retryAttemptRunIds: frozenRetryAttemptRunIds,
     retryAttemptManifestIds: frozenRetryAttemptManifestIds,
     retryAttemptRefs: frozenRetryAttemptRefs,
+    retryProgressRefs: frozenRetryProgressRefs,
     leafTaskIds: frozenLeafTaskIds,
     completedLeafTaskIds: frozenCompletedLeafTaskIds,
     failedLeafTaskIds: frozenFailedLeafTaskIds
@@ -343,6 +408,9 @@ export function deriveRuntimeAggregateProjection(
     retryAttemptRunIds: frozenRetryAttemptRunIds,
     retryAttemptManifestIds: frozenRetryAttemptManifestIds,
     retryAttemptRefs: frozenRetryAttemptRefs,
+    retryProgressRefs: frozenRetryProgressRefs,
+    actorInvocationRefs: frozenActorInvocationRefs,
+    observedActorArtifactRefs: frozenObservedActorArtifactRefs,
     leafTaskIds: frozenLeafTaskIds,
     completedLeafTaskIds: frozenCompletedLeafTaskIds,
     failedLeafTaskIds: frozenFailedLeafTaskIds,

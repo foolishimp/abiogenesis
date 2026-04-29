@@ -68,6 +68,10 @@
     "./app/m04/result-assessment": {
       "types": "./build/semantic/code/src/app/m04/result_assessment/index.d.ts",
       "import": "./build/semantic/code/src/app/m04/result_assessment/index.js"
+    },
+    "./qualification/m05": {
+      "types": "./build/semantic/code/src/qualification/m05/index.d.ts",
+      "import": "./build/semantic/code/src/qualification/m05/index.js"
     }
   },
   "files": [
@@ -79,6 +83,8 @@
   "scripts": {
     "build:semantic": "tsc -p tsconfig.semantic-strict.json",
     "lint:semantic": "eslint --max-warnings=0 \"code/src/gtl/m01/contracts/**/*.ts\" \"code/src/gtl/m01/admission/**/*.ts\" \"code/src/gtl/m01/algebra/**/*.ts\" \"code/src/gtl/m01/serialization/**/*.ts\" \"code/src/gtl/m02/contracts/**/*.ts\" \"code/src/gtl/m02/admission/**/*.ts\" \"code/src/gtl/m02/serialization/**/*.ts\" \"code/src/abg/m03/contracts/**/*.ts\" \"code/src/abg/m03/admission/**/*.ts\" \"code/src/abg/m03/events/**/*.ts\" \"code/src/abg/m03/runner/**/*.ts\" \"code/src/abg/m03/transport/**/*.ts\" \"code/src/app/m04/**/*.ts\" \"code/src/qualification/m05/**/*.ts\" \"code/src/shared/validation/**/*.ts\" \"code/src/shared/abg_library/**/*.ts\" \"code/src/shared/abg_delivery_library/**/*.ts\"",
+    "lint:test-harness": "eslint --max-warnings=0 \"test_env/live/**/*.mjs\" \"test_env/sandbox/**/*.mjs\" \"test_env/tests/support/**/*.mjs\"",
+    "lint:t087": "npm run lint:semantic && eslint --max-warnings=0 \"test_env/live/test_t087_supervised_actor_invocation_live.test.mjs\"",
     "test:semantic": "npm run build:semantic && node --test test_env/tests/*.test.mjs",
     "test:live": "npm run build:semantic && node --test test_env/live/test_m05_rc_live_portfolio.test.mjs",
     "test:live:uat": "npm run build:semantic && node --test test_env/live/test_m05_rc_live_uat.test.mjs",
@@ -120,7 +126,17 @@
     "test:t072": "npm run build:semantic && node --test test_env/tests/test_m03_engine_owned_iterate_runner_unit.test.mjs test_env/tests/test_m04_engine_start_integration.test.mjs test_env/tests/t072-m03-plugin-contract-negative.test.mjs test_env/tests/test_m03_plugin_contract_inventory_unit.test.mjs",
     "test:b016": "npm run build:semantic && node --test test_env/tests/test_b016_ioc_hook_authority.test.mjs test_env/tests/test_m03_plugin_contract_inventory_unit.test.mjs test_env/tests/t072-m03-plugin-contract-negative.test.mjs test_env/tests/test_m04_engine_start_integration.test.mjs",
     "test:t072:plugins": "npm run build:semantic && node --test test_env/tests/t072-m03-plugin-contract-negative.test.mjs test_env/tests/test_m03_plugin_contract_inventory_unit.test.mjs",
-    "test:t076": "npm run build:semantic && node --test test_env/tests/test_m04_typescript_installer_integration.test.mjs"
+    "test:t076": "npm run build:semantic && node --test test_env/tests/test_m04_typescript_installer_integration.test.mjs",
+    "test:t077": "npm run build:semantic && node --test test_env/tests/test_t077_m05_public_sandbox_archive_api_integration.test.mjs",
+    "test:t084": "npm run build:semantic && node --test test_env/tests/test_t084_attached_fp_worker_loop.test.mjs",
+    "test:t085": "npm run build:semantic && node --test test_env/sandbox/test_t085_attached_fp_local_live_sandbox.test.mjs",
+    "test:t087": "npm run build:semantic && node --test test_env/tests/test_t087_supervised_actor_invocation.test.mjs",
+    "test:t087:live": "npm run build:semantic && node --test test_env/live/test_t087_supervised_actor_invocation_live.test.mjs",
+    "test:t092": "npm run build:semantic && node --test test_env/tests/test_t092_total_assurance_projection_unit.test.mjs",
+    "test:t093": "npm run build:semantic && node --test test_env/tests/test_t093_assurance_gate_integration.test.mjs",
+    "test:t094": "npm run build:semantic && node --test test_env/tests/test_t094_assurance_register_two_hop_unit.test.mjs",
+    "test:t094:live": "npm run build:semantic && node --test test_env/live/test_t094_assurance_register_two_hop_live.test.mjs",
+    "test:t095": "npm run build:semantic && node --test test_env/tests/test_t095_payload_ledger_unit.test.mjs test_env/tests/test_t094_assurance_register_two_hop_unit.test.mjs"
   },
   "dependencies": {
     "valibot": "1.3.1"

@@ -77,6 +77,10 @@ test("B-016 plugin inventory: every current TS hook has a closed binding lane", 
     .filter((entry) => entry.runtimeBindingStatus === "public_runtime_consumed")
     .map((entry) => entry.contract.pluginKind)
     .sort();
+  const assuranceConsumed = inventory
+    .filter((entry) => entry.runtimeBindingStatus === "assurance_consumed")
+    .map((entry) => entry.contract.pluginKind)
+    .sort();
   const engineLawConsumed = inventory
     .filter((entry) => entry.runtimeBindingStatus === "engine_law_consumed")
     .map((entry) => entry.contract.pluginKind)
@@ -102,6 +106,13 @@ test("B-016 plugin inventory: every current TS hook has a closed binding lane", 
     "policy_provider",
     "result_assessment",
     "runtime_identity_provider"
+  ]);
+  assert.deepStrictEqual(assuranceConsumed, [
+    "assurance_ambiguity_classifier",
+    "assurance_authority_snapshot_provider",
+    "assurance_closure_policy_provider",
+    "assurance_evidence_adapter",
+    "assurance_gain_function_adapter"
   ]);
   assert.deepStrictEqual(engineLawConsumed, ["continuation_repair"]);
   assert.deepStrictEqual(readModelConsumed, ["projection_consumer"]);
