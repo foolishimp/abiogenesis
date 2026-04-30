@@ -16,6 +16,7 @@ type FieldRule =
   | "non_empty_string"
   | "nullable_string"
   | "non_negative_integer"
+  | "nullable_non_negative_integer"
   | "boolean"
   | "string_array"
   | { readonly oneOf: readonly string[] };
@@ -44,6 +45,13 @@ function assertNonNegativeInteger(value: unknown, label: string): void {
   if (!Number.isInteger(value) || Number(value) < 0) {
     throw new TypeError(`${label} must be a non-negative integer`);
   }
+}
+
+function assertNullableNonNegativeInteger(value: unknown, label: string): void {
+  if (value === null) {
+    return;
+  }
+  assertNonNegativeInteger(value, label);
 }
 
 function assertOneOf<T extends string>(
@@ -86,6 +94,10 @@ function applyFieldRule(value: unknown, label: string, rule: FieldRule): void {
   }
   if (rule === "non_negative_integer") {
     assertNonNegativeInteger(value, label);
+    return;
+  }
+  if (rule === "nullable_non_negative_integer") {
+    assertNullableNonNegativeInteger(value, label);
     return;
   }
   if (rule === "boolean") {
@@ -174,6 +186,79 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     },
     resultRef: "nullable_string",
     detail: "nullable_string"
+  }),
+  actor_process_started: applyFieldRules("ActorProcessStartedEvent", {
+    basisId: "non_empty_string",
+    graphCallId: "non_empty_string",
+    frameId: "non_empty_string",
+    vectorIndex: "non_negative_integer",
+    edge: "non_empty_string",
+    actorInvocationId: "non_empty_string",
+    command: "non_empty_string",
+    args: "string_array",
+    cwd: "non_empty_string",
+    pid: "nullable_non_negative_integer",
+    timeoutMs: "non_negative_integer",
+    stdoutRef: "non_empty_string",
+    stderrRef: "non_empty_string"
+  }),
+  actor_process_stream_observed: applyFieldRules(
+    "ActorProcessStreamObservedEvent",
+    {
+      basisId: "non_empty_string",
+      graphCallId: "non_empty_string",
+      frameId: "non_empty_string",
+      vectorIndex: "non_negative_integer",
+      edge: "non_empty_string",
+      actorInvocationId: "non_empty_string",
+      streamName: { oneOf: ["stdout", "stderr"] },
+      streamRef: "non_empty_string",
+      chunkIndex: "non_negative_integer",
+      byteLength: "non_negative_integer"
+    }
+  ),
+  actor_process_heartbeat: applyFieldRules("ActorProcessHeartbeatEvent", {
+    basisId: "non_empty_string",
+    graphCallId: "non_empty_string",
+    frameId: "non_empty_string",
+    vectorIndex: "non_negative_integer",
+    edge: "non_empty_string",
+    actorInvocationId: "non_empty_string",
+    heartbeatIndex: "non_negative_integer",
+    elapsedMs: "non_negative_integer"
+  }),
+  actor_process_timeout: applyFieldRules("ActorProcessTimeoutEvent", {
+    basisId: "non_empty_string",
+    graphCallId: "non_empty_string",
+    frameId: "non_empty_string",
+    vectorIndex: "non_negative_integer",
+    edge: "non_empty_string",
+    actorInvocationId: "non_empty_string",
+    timeoutMs: "non_negative_integer",
+    elapsedMs: "non_negative_integer"
+  }),
+  actor_process_signal_sent: applyFieldRules("ActorProcessSignalSentEvent", {
+    basisId: "non_empty_string",
+    graphCallId: "non_empty_string",
+    frameId: "non_empty_string",
+    vectorIndex: "non_negative_integer",
+    edge: "non_empty_string",
+    actorInvocationId: "non_empty_string",
+    signal: { oneOf: ["SIGTERM", "SIGKILL"] },
+    elapsedMs: "non_negative_integer"
+  }),
+  actor_process_exited: applyFieldRules("ActorProcessExitedEvent", {
+    basisId: "non_empty_string",
+    graphCallId: "non_empty_string",
+    frameId: "non_empty_string",
+    vectorIndex: "non_negative_integer",
+    edge: "non_empty_string",
+    actorInvocationId: "non_empty_string",
+    status: "nullable_non_negative_integer",
+    signal: "nullable_string",
+    elapsedMs: "non_negative_integer",
+    timedOut: "boolean",
+    error: "nullable_string"
   }),
   fh_escalated: applyFieldRules("FhEscalatedEvent", {
     basisId: "non_empty_string",

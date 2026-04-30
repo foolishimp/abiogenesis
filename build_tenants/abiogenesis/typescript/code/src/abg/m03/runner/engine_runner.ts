@@ -44,6 +44,7 @@ import {
   defaultFdEvaluatorPlugin,
   defaultFhAdmissionPlugin,
   defaultFpDispatchPlugin,
+  type EnginePluginMaybePromise,
   type EngineRunnerPluginSet,
   type FdEvaluatorPlugin,
   type FhAdmissionPlugin,
@@ -101,6 +102,25 @@ function resolveRunnerPlugins(
     fpDispatch: plugins?.fpDispatch ?? defaultFpDispatchPlugin,
     fhAdmission: plugins?.fhAdmission ?? defaultFhAdmissionPlugin
   });
+}
+
+function isPromiseLike(input: unknown): input is Promise<unknown> {
+  return (
+    typeof input === "object" &&
+    input !== null &&
+    "then" in input &&
+    typeof input.then === "function"
+  );
+}
+
+function resolveSyncPluginOutcome<T>(
+  outcome: EnginePluginMaybePromise<T>,
+  label: string
+): T {
+  if (isPromiseLike(outcome)) {
+    throw new TypeError(`${label} returned a Promise; use runEngineIterateAsync`);
+  }
+  return outcome;
 }
 
 function hasBasisAdmittedEvent(
@@ -295,12 +315,16 @@ export function runEngineIterate(
           contract: plugins.fdEvaluator.contract,
           basis: request.basis,
           projection,
+          replayEvents,
           vectorIndex: transition.vectorIndex,
           edge: transition.edge,
           regime: "F_D"
         });
         const outcome = admitFdEvaluationOutcome(
-          plugins.fdEvaluator.evaluate(input)
+          resolveSyncPluginOutcome(
+            plugins.fdEvaluator.evaluate(input),
+            "fd evaluator plugin"
+          )
         );
         emitRunnerEvents(
           constructVectorEvaluatedEvent({
@@ -355,6 +379,7 @@ export function runEngineIterate(
           contract: plugins.fpDispatch.contract,
           basis: request.basis,
           projection,
+          replayEvents,
           vectorIndex: transition.vectorIndex,
           edge: transition.edge,
           regime: "F_P",
@@ -362,7 +387,12 @@ export function runEngineIterate(
         });
         emitRunnerEvents(constructFpDispatchRequestedEvent(transition));
         emitRunnerEvents(constructActorInvocationStartedEvent(actorInvocation));
-        const outcome = admitFpDispatchOutcome(plugins.fpDispatch.dispatch(input));
+        const outcome = admitFpDispatchOutcome(
+          resolveSyncPluginOutcome(
+            plugins.fpDispatch.dispatch(input),
+            "fp dispatch plugin"
+          )
+        );
         if (outcome.attachedResultArtifact !== null) {
           const resultRef = resultRefForActorOutcome({
             invocation: actorInvocation,
@@ -374,11 +404,15 @@ export function runEngineIterate(
               artifactRef: resultRef
             })
           );
+          if (input.fpTransformRequest === null) {
+            throw new TypeError("F_P dispatch requires a transform request carrier");
+          }
           const attachedDecision = deriveAttachedFpResultDecision({
             basis: request.basis,
             projection,
             transition,
             outcome,
+            transformRequest: input.fpTransformRequest,
             maxAttempts: request.maxAttachedFpAttempts
           });
           emitRunnerEvents(
@@ -491,11 +525,361 @@ export function runEngineIterate(
           contract: plugins.fhAdmission.contract,
           basis: request.basis,
           projection,
+          replayEvents,
           vectorIndex: transition.vectorIndex,
           edge: transition.edge,
           regime: "F_H"
         });
-        const outcome = admitFhAdmissionOutcome(plugins.fhAdmission.admit(input));
+        const outcome = admitFhAdmissionOutcome(
+          resolveSyncPluginOutcome(
+            plugins.fhAdmission.admit(input),
+            "fh admission plugin"
+          )
+        );
+        if (outcome.status === "blocked") {
+          const blocked = terminalTransition(
+            request.basis,
+            "gap_stop",
+            outcome.reason ?? "fh admission plugin blocked traversal"
+          );
+          emitRunnerEvents(constructTerminalReachedEvent(blocked));
+          return constructResult({
+            basis: request.basis,
+            transition: blocked,
+            projection: deriveRuntimeAggregateProjection(request.basis, replayEvents),
+            emittedEvents,
+            replayEvents,
+            iterationCount
+          });
+        }
+        emitRunnerEvents(constructFhEscalatedEvent(transition));
+        return constructResult({
+          basis: request.basis,
+          transition,
+          projection: deriveRuntimeAggregateProjection(request.basis, replayEvents),
+          emittedEvents,
+          replayEvents,
+          iterationCount
+        });
+      }
+      case "terminal":
+        emitRunnerEvents(constructTerminalReachedEvent(transition));
+        return constructResult({
+          basis: request.basis,
+          transition,
+          projection: deriveRuntimeAggregateProjection(request.basis, replayEvents),
+          emittedEvents,
+          replayEvents,
+          iterationCount
+        });
+      default: {
+        const exhaustive: never = transition;
+        throw new TypeError(
+          `Unsupported engine transition ${JSON.stringify(exhaustive)}`
+        );
+      }
+    }
+  }
+}
+
+export async function runEngineIterateAsync(
+  request: EngineIterateRequest
+): Promise<EngineIterateResult> {
+  const plugins = resolveRunnerPlugins(request.plugins);
+  const emittedEvents: RuntimeEvent[] = [];
+  let replayEvents: readonly RuntimeEvent[] = Object.freeze([
+    ...(request.runtimeEvents ?? Object.freeze([]))
+  ]);
+  let iterationCount = 0;
+
+  const emitRunnerEvents = (
+    events: RuntimeEvent | readonly RuntimeEvent[]
+  ): readonly RuntimeEvent[] => {
+    const emitted = emit(events, request.eventSink);
+    emittedEvents.push(...emitted);
+    replayEvents = Object.freeze([...replayEvents, ...emitted]);
+    return emitted;
+  };
+
+  if (!hasBasisAdmittedEvent(request.basis, replayEvents)) {
+    emitRunnerEvents(constructBasisAdmittedEvent(request.basis));
+  }
+
+  while (true) {
+    if (iterationCount > request.basis.graph.vectors.length) {
+      throw new TypeError(
+        "engine iterate runner exceeded replay-derived graph traversal bound"
+      );
+    }
+
+    const projection = deriveRuntimeAggregateProjection(
+      request.basis,
+      replayEvents
+    );
+    const decision = deriveIterationAdvanceDecision(request.basis, projection);
+    const transition = deriveAdvancementTransition(request.basis, replayEvents);
+
+    if (decision.kind === "converged") {
+      if (transition.kind !== "terminal") {
+        throw new TypeError("engine iterate expected terminal transition");
+      }
+      const assuranceGate = evaluateAssuranceGate({
+        basis: request.basis,
+        projection,
+        replayEvents,
+        ...(request.assuranceProvider === undefined
+          ? {}
+          : { provider: request.assuranceProvider })
+      });
+      if (assuranceGate.kind === "assurance_blocked") {
+        const blocked = terminalTransition(
+          request.basis,
+          "gap_stop",
+          `assurance closure blocked: ${assuranceGate.reason}`
+        );
+        emitRunnerEvents(constructTerminalReachedEvent(blocked));
+        return constructResult({
+          basis: request.basis,
+          transition: blocked,
+          projection: deriveRuntimeAggregateProjection(request.basis, replayEvents),
+          emittedEvents,
+          replayEvents,
+          iterationCount,
+          assuranceGate
+        });
+      }
+      emitRunnerEvents(constructTerminalReachedEvent(transition));
+      return constructResult({
+        basis: request.basis,
+        transition,
+        projection: deriveRuntimeAggregateProjection(request.basis, replayEvents),
+        emittedEvents,
+        replayEvents,
+        iterationCount,
+        assuranceGate
+      });
+    }
+
+    emitRunnerEvents(runtimeEventsForIterationDecision(decision));
+
+    switch (transition.kind) {
+      case "fd_advance": {
+        const input = constructEnginePluginInput({
+          contract: plugins.fdEvaluator.contract,
+          basis: request.basis,
+          projection,
+          replayEvents,
+          vectorIndex: transition.vectorIndex,
+          edge: transition.edge,
+          regime: "F_D"
+        });
+        const outcome = admitFdEvaluationOutcome(
+          await plugins.fdEvaluator.evaluate(input)
+        );
+        emitRunnerEvents(
+          constructVectorEvaluatedEvent({
+            basis: request.basis,
+            vectorIndex: transition.vectorIndex,
+            status: outcome.status === "accepted" ? "accepted" : "blocked"
+          })
+        );
+        if (outcome.status === "blocked") {
+          const blocked = terminalTransition(
+            request.basis,
+            "gap_stop",
+            outcome.reason ?? "fd evaluator blocked traversal"
+          );
+          emitRunnerEvents(constructTerminalReachedEvent(blocked));
+          return constructResult({
+            basis: request.basis,
+            transition: blocked,
+            projection: deriveRuntimeAggregateProjection(request.basis, replayEvents),
+            emittedEvents,
+            replayEvents,
+            iterationCount
+          });
+        }
+        emitRunnerEvents([
+          constructVectorClosedEvent({
+            basis: request.basis,
+            vectorIndex: transition.vectorIndex,
+            closureKind: "advanced"
+          }),
+          constructFdAdvanceReadyEvent(transition)
+        ]);
+        iterationCount += 1;
+        if (request.basis.startIntent.until === "first_traversal") {
+          return constructResult({
+            basis: request.basis,
+            transition,
+            projection: deriveRuntimeAggregateProjection(request.basis, replayEvents),
+            emittedEvents,
+            replayEvents,
+            iterationCount
+          });
+        }
+        break;
+      }
+      case "fp_dispatch": {
+        const actorInvocation = actorInvocationForTransition({
+          projection,
+          transition
+        });
+        const input = constructEnginePluginInput({
+          contract: plugins.fpDispatch.contract,
+          basis: request.basis,
+          projection,
+          replayEvents,
+          vectorIndex: transition.vectorIndex,
+          edge: transition.edge,
+          regime: "F_P",
+          actorInvocationRef: actorInvocationRef(actorInvocation)
+        });
+        emitRunnerEvents(constructFpDispatchRequestedEvent(transition));
+        emitRunnerEvents(constructActorInvocationStartedEvent(actorInvocation));
+        const outcome = admitFpDispatchOutcome(
+          await plugins.fpDispatch.dispatch(input)
+        );
+        if (outcome.attachedResultArtifact !== null) {
+          const resultRef = resultRefForActorOutcome({
+            invocation: actorInvocation,
+            outcomeResultRef: outcome.resultRef
+          });
+          emitRunnerEvents(
+            constructActorResultArtifactObservedEvent({
+              invocation: actorInvocation,
+              artifactRef: resultRef
+            })
+          );
+          if (input.fpTransformRequest === null) {
+            throw new TypeError("F_P dispatch requires a transform request carrier");
+          }
+          const attachedDecision = deriveAttachedFpResultDecision({
+            basis: request.basis,
+            projection,
+            transition,
+            outcome,
+            transformRequest: input.fpTransformRequest,
+            maxAttempts: request.maxAttachedFpAttempts
+          });
+          emitRunnerEvents(
+            constructActorInvocationClosedEvent({
+              invocation: actorInvocation,
+              closureStatus:
+                outcome.status === "blocked"
+                  ? "blocked_with_artifact"
+                  : "completed",
+              resultRef,
+              detail: outcome.reason
+            })
+          );
+          if (attachedDecision.kind === "accepted") {
+            emitRunnerEvents(
+              constructVectorEvaluatedEvent({
+                basis: request.basis,
+                vectorIndex: transition.vectorIndex,
+                status: "accepted"
+              })
+            );
+            emitRunnerEvents(attachedDecision.payloadEvents);
+            emitRunnerEvents(
+              constructVectorClosedEvent({
+                basis: request.basis,
+                vectorIndex: transition.vectorIndex,
+                closureKind: "assessed"
+              })
+            );
+            iterationCount += 1;
+            if (request.basis.startIntent.until === "first_traversal") {
+              const applied = terminalTransition(
+                request.basis,
+                "traversal_applied",
+                "attached F_P result assessed"
+              );
+              emitRunnerEvents(constructTerminalReachedEvent(applied));
+              return constructResult({
+                basis: request.basis,
+                transition: applied,
+                projection: deriveRuntimeAggregateProjection(request.basis, replayEvents),
+                emittedEvents,
+                replayEvents,
+                iterationCount
+              });
+            }
+            break;
+          }
+          emitRunnerEvents(
+            constructVectorEvaluatedEvent({
+              basis: request.basis,
+              vectorIndex: transition.vectorIndex,
+              status: "blocked"
+            })
+          );
+          emitRunnerEvents(attachedDecision.retryEvents);
+          if (attachedDecision.kind === "retry_planned") {
+            break;
+          }
+          const blocked = terminalTransition(
+            request.basis,
+            attachedDecision.terminalKind,
+            attachedDecision.reason
+          );
+          emitRunnerEvents(constructTerminalReachedEvent(blocked));
+          return constructResult({
+            basis: request.basis,
+            transition: blocked,
+            projection: deriveRuntimeAggregateProjection(request.basis, replayEvents),
+            emittedEvents,
+            replayEvents,
+            iterationCount
+          });
+        }
+        emitRunnerEvents(
+          constructActorInvocationClosedEvent({
+            invocation: actorInvocation,
+            closureStatus: outcome.status === "blocked" ? "blocked" : "completed",
+            resultRef: outcome.resultRef,
+            detail: outcome.reason
+          })
+        );
+        if (outcome.status === "blocked") {
+          const blocked = terminalTransition(
+            request.basis,
+            "gap_stop",
+            outcome.reason ?? "fp dispatch plugin blocked traversal"
+          );
+          emitRunnerEvents(constructTerminalReachedEvent(blocked));
+          return constructResult({
+            basis: request.basis,
+            transition: blocked,
+            projection: deriveRuntimeAggregateProjection(request.basis, replayEvents),
+            emittedEvents,
+            replayEvents,
+            iterationCount
+          });
+        }
+        return constructResult({
+          basis: request.basis,
+          transition,
+          projection: deriveRuntimeAggregateProjection(request.basis, replayEvents),
+          emittedEvents,
+          replayEvents,
+          iterationCount
+        });
+      }
+      case "fh_escalation": {
+        const input = constructEnginePluginInput({
+          contract: plugins.fhAdmission.contract,
+          basis: request.basis,
+          projection,
+          replayEvents,
+          vectorIndex: transition.vectorIndex,
+          edge: transition.edge,
+          regime: "F_H"
+        });
+        const outcome = admitFhAdmissionOutcome(
+          await plugins.fhAdmission.admit(input)
+        );
         if (outcome.status === "blocked") {
           const blocked = terminalTransition(
             request.basis,

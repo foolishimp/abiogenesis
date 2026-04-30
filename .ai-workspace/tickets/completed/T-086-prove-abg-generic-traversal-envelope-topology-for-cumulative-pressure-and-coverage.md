@@ -3,8 +3,8 @@ id: T-086
 title: Prove ABG generic traversal envelope topology for cumulative pressure and coverage
 type: spike
 ticket_category: ordinary
-status: active
-review_status: awaiting_external_agent_review
+status: completed
+review_status: external_review_accepted
 goal: abg-total-assurance-calculus
 goal_status: active
 change_intent: Determine and prove the correct ABG-owned generic traversal envelope for cumulative context, obligation pressure, coverage evidence, prior gap state, retry/re-entry, and lawful stop truth so downstream products do not rebuild the same mechanism as local Python-style orchestration.
@@ -14,8 +14,9 @@ affected_boundary: GTL graph-vector declarations, ABG iterate primitive, executi
 priority: high
 triaged_at: 2026-04-28T06:16:37Z
 created_at: 2026-04-28T06:16:37Z
-updated_at: 2026-04-29T08:04:16Z
+updated_at: 2026-04-30T17:57:01+10:00
 closure_candidate_at: 2026-04-29T08:04:16Z
+completed_at: 2026-04-30T17:57:01+10:00
 dependencies:
   - B-013 completed
   - B-014 completed
@@ -92,7 +93,7 @@ non_closure_conditions:
 
 ## Closure Candidate
 
-T-086 is a closure candidate pending external agent review.
+T-086 is closed after external agent review accepted the topology decision.
 
 ABG already has the generic traversal-envelope shape across current M03
 carriers. The correct design is not a new `TraversalEnvelope` aggregate. The

@@ -20,6 +20,12 @@ export type {
   FhEscalationTransition,
   FpDispatchRequestedEvent,
   FpDispatchTransition,
+  ActorProcessExitedEvent,
+  ActorProcessHeartbeatEvent,
+  ActorProcessSignalSentEvent,
+  ActorProcessStartedEvent,
+  ActorProcessStreamObservedEvent,
+  ActorProcessTimeoutEvent,
   FrameOpenedEvent,
   FrameProjection,
   GraphCallOpenedEvent,
@@ -70,6 +76,31 @@ export {
   RUNTIME_FAILURE_CLASS_VALUES,
   TERMINAL_KIND_VALUES
 } from "./carriers.js";
+export {
+  FP_TRANSFORM_STATUS_VALUES,
+  admitFpTransformResult,
+  admitFpTransformResultForRequest,
+  constructFpTransformRequest,
+  constructFpTransformResult,
+  runtimeEventsForFpTransformResult
+} from "./fp_stages.js";
+export type {
+  FpEvidenceCandidate,
+  FpTransformRequest,
+  FpTransformResult,
+  FpTransformStatus
+} from "./fp_stages.js";
+export {
+  RETRY_FRONTIER_REASON_CLASS_VALUES,
+  assertFullRetryFrontierProjection,
+  deriveRetryFrontierProjection
+} from "./retry_frontier.js";
+export type {
+  RetryFrontierOwnerSurface,
+  RetryFrontierProjection,
+  RetryFrontierReasonClass,
+  RetryFrontierRow
+} from "./retry_frontier.js";
 export {
   ASSURANCE_AMBIGUITY_STATUS_VALUES,
   ASSURANCE_CLOSURE_DECISION_KIND_VALUES,

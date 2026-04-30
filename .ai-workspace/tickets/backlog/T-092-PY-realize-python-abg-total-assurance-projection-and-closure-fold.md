@@ -3,8 +3,9 @@ id: T-092-PY
 title: Realize Python ABG total assurance projection and closure fold
 type: feature
 ticket_category: implementation_migration
-status: paused
+status: backlog
 review_status: suspended_by_tenant_registry
+backlog_reason: Python tenant paused by T-096 and TENANT_REGISTRY; retained as reactivation authority, not a TS-primary RC gate.
 closure_candidate_at: 2026-04-29T08:58:14Z
 goal: abg-total-assurance-calculus
 goal_status: active
@@ -17,7 +18,7 @@ affected_boundary: Python ABG event/projection/closure surfaces, stale-input inv
 priority: high
 triaged_at: 2026-04-29T07:24:15Z
 created_at: 2026-04-29T07:24:15Z
-updated_at: 2026-04-30T00:50:46+10:00
+updated_at: 2026-04-30T12:48:50+10:00
 dependencies:
   - T-088 completed
   - T-089 completed

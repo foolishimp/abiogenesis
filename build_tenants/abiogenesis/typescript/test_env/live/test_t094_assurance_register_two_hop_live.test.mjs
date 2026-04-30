@@ -404,6 +404,14 @@ test("T-094 live: two Claude hops build a register that requires deepening", asy
       scope: base.scope,
       hops: [hop1, hop2]
     });
+    const assertions = {
+      hop1Closed: first.decision.decision === "close",
+      hop2Retries: second.decision.decision === "retry",
+      hop2Missing: JSON.stringify(hop2.rowStatuses) === JSON.stringify(["missing"]),
+      registerDeepens: register.decision === "deepen",
+      mayConvergeFalse: register.mayConverge === false,
+      deepeningRequired: register.deepeningRequired === true
+    };
     await writeJson(path.join(archiveRoot, "hop1-assurance-projection.json"), first.projection);
     await writeJson(path.join(archiveRoot, "hop1-closure-decision.json"), first.decision);
     await writeJson(path.join(archiveRoot, "hop1-payload-ledger.json"), first.payloadLedger);
@@ -415,6 +423,7 @@ test("T-094 live: two Claude hops build a register that requires deepening", asy
       [...first.emittedEvents, ...second.emittedEvents]
     );
     await writeJson(path.join(archiveRoot, "assurance-register.json"), register);
+    await writeJson(path.join(archiveRoot, "assertions.json"), assertions);
     await writeText(
       path.join(archiveRoot, "postmortem.md"),
       [
@@ -425,7 +434,8 @@ test("T-094 live: two Claude hops build a register that requires deepening", asy
         `- hop1 decision: ${first.decision.decision}`,
         `- hop2 decision: ${second.decision.decision}`,
         `- register decision: ${register.decision}`,
-        `- mayConverge: ${String(register.mayConverge)}`
+        `- mayConverge: ${String(register.mayConverge)}`,
+        `- assertions: ${path.join(archiveRoot, "assertions.json")}`
       ].join("\n")
     );
 

@@ -4,8 +4,8 @@ title: Realize TypeScript event-sourced payload ledger and legal proof
 type: feature
 ticket_category: implementation_migration
 migration_strategy: inside_out_hard_break
-status: active
-review_status: external_review_accepted_closure_ready
+status: completed
+review_status: external_review_accepted
 source_ticket: T-095
 build_tenant: typescript
 goal: abg-total-assurance-calculus
@@ -17,7 +17,8 @@ affected_boundary: TypeScript M03 RuntimeEvent carrier, event admission, event f
 priority: high
 triaged_at: 2026-04-29T12:54:32Z
 created_at: 2026-04-29T12:54:32Z
-updated_at: 2026-04-30T00:50:46+10:00
+updated_at: 2026-04-30T12:48:50+10:00
+completed_at: 2026-04-30T12:48:50+10:00
 dependencies:
   - T-095 active/reviewed_for_ts_ticket
   - T-094 active/external_review_received_not_closure_ready

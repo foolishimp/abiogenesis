@@ -6,7 +6,7 @@ import {
 } from "../contracts/runtime_support.js";
 import {
   contractForKnownAgent,
-  deriveDispatchExpectation,
+  constructDispatchExpectation,
   projectDispatchAssessmentIds,
   projectDispatchExpectedEdge,
   selectKnownTransportAgentKey
@@ -103,9 +103,8 @@ function deriveDispatchExpectationForTransition(
   transition: DispatchDerivableTransition
 ) {
   const vector = transition.basis.graph.vectors[transition.vectorIndex];
-  return deriveDispatchExpectation({
-    sourceKinds: vector?.source.map((node) => node.assetSurface.kind) ?? Object.freeze([]),
-    targetKind: vector?.target.assetSurface.kind ?? null,
+  return constructDispatchExpectation({
+    expectedEdge: transition.edge,
     assessmentIds: vector?.evaluators.map((evaluator) => evaluator.name) ?? Object.freeze([])
   });
 }

@@ -54,7 +54,7 @@ test("M03 transport integration: fp dispatch derives one request and one accepte
   assert.deepStrictEqual(written, requests);
   assert.deepStrictEqual(dispatched, requests);
   assert.equal(request.graphFunctionId, profile.id);
-  assert.equal(request.expectedEdge, "design→code");
+  assert.equal(request.expectedEdge, "design→code:fp");
   assert.deepStrictEqual(request.expectedAssessmentIds, ["code_complete"]);
   assert.equal(request.transportContract.command, "codex");
   assert.equal(outcome.kind, "accepted");

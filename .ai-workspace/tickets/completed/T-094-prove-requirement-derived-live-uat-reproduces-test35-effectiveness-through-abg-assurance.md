@@ -3,11 +3,11 @@ id: T-094
 title: Prove requirement-derived live UAT reproduces test35 effectiveness through ABG assurance
 type: feature
 ticket_category: ordinary
-status: active
-review_status: external_review_blockers_resolved_pending_re_review
+status: completed
+review_status: external_review_accepted
 goal: abg-total-assurance-calculus
 goal_status: active
-activation_requires: T-086, T-090, T-091, T-092-TS, T-093-TS, and T-096 remain active or review-pending; Claude live lane available or actor-observation failure archived
+activation_requires: T-086, T-090, T-091, T-092-TS, T-093-TS, and T-096 completed or review-accepted; Claude live lane available or actor-observation failure archived
 change_intent: Add requirement-derived UAT scenario authority and live Claude-lane proof showing the ABG assurance wave can build the event-derived register a downstream lifecycle product needs to reproduce the effectiveness qualities that made data_mapper.test35 the product-quality reference, without relying on premature closure, prompt-side self-report, or downstream SDLC-specific ledgers as ABG truth.
 change_class: design_reframe
 re_entry_point: scenario_proof
@@ -15,15 +15,16 @@ affected_boundary: ABG scenario authority, REQ-R-ABG3-ASSURANCE UAT derivation, 
 priority: high
 triaged_at: 2026-04-29T11:21:49Z
 created_at: 2026-04-29T11:21:49Z
-updated_at: 2026-04-30T00:50:46+10:00
+updated_at: 2026-04-30T17:57:01+10:00
+completed_at: 2026-04-30T17:57:01+10:00
 dependencies:
-  - T-086 active/awaiting_external_agent_review
-  - T-090 active/awaiting_external_agent_review
-  - T-091 active/awaiting_external_agent_review
-  - T-092-TS active/awaiting_external_agent_review
-  - T-093-TS active/awaiting_external_agent_review
-  - T-094-PY paused/suspended_by_tenant_registry
-  - T-096 active/ts_primary_release_scope
+  - T-086 completed/external_review_accepted
+  - T-090 completed/external_review_accepted
+  - T-091 completed/external_review_accepted
+  - T-092-TS completed/external_review_accepted
+  - T-093-TS completed/external_review_accepted
+  - T-094-PY backlog/suspended_by_tenant_registry
+  - T-096 completed/external_review_accepted
   - REQ-R-ABG3-ASSURANCE active
   - REQ-P-SCENARIOS active
   - REQ-P-QUAL active

@@ -204,12 +204,14 @@ function scopeResultForProvider(input: {
       reason: "assurance provider returned no authority snapshot for scope"
     });
   }
-  const authoritySnapshot = ledgerHasAuthority
-    ? deriveAssuranceAuthoritySnapshotFromPayloadLedger({
-        assuranceScope: input.scope,
-        ledger: payloadLedger
-      })
-    : providerAuthoritySnapshot;
+  const authoritySnapshot =
+    providerAuthoritySnapshot ??
+    (ledgerHasAuthority
+      ? deriveAssuranceAuthoritySnapshotFromPayloadLedger({
+          assuranceScope: input.scope,
+          ledger: payloadLedger
+        })
+      : null);
   if (authoritySnapshot === null) {
     throw new TypeError("assurance scope requires authority snapshot");
   }

@@ -165,13 +165,23 @@ function parseArtifactAssessment(
     parseOptionalField(assessment, "evaluator"),
     `${label}.evaluator`
   );
+  const fulfillmentStatus = parseFulfillmentStatus(
+    assessment["fulfillment_status"],
+    `${label}.fulfillment_status`
+  );
+  const evidenceRefs = parseOptionalStringArray(
+    parseOptionalField(assessment, "evidence_refs"),
+    `${label}.evidence_refs`
+  );
+  if (fulfillmentStatus === "fulfilled" && evidenceRefs.length === 0) {
+    throw new TypeError(
+      `${label}.evidence_refs: fulfilled assessment requires non-empty evidence refs`
+    );
+  }
   return Object.freeze({
     id,
     evaluator: evaluator ?? id,
-    fulfillmentStatus: parseFulfillmentStatus(
-      assessment["fulfillment_status"],
-      `${label}.fulfillment_status`
-    ),
+    fulfillmentStatus,
     fulfillmentDetail:
       parseNullableNonEmptyString(
         parseOptionalField(assessment, "fulfillment_detail"),
@@ -181,10 +191,7 @@ function parseArtifactAssessment(
       parseOptionalField(assessment, "blocking_reasons"),
       `${label}.blocking_reasons`
     ),
-    evidenceRefs: parseOptionalStringArray(
-      parseOptionalField(assessment, "evidence_refs"),
-      `${label}.evidence_refs`
-    )
+    evidenceRefs
   });
 }
 

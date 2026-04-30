@@ -105,7 +105,7 @@ test("M04 live-status unit: accepted result assessment projects assessed status 
   assert.equal(projection.kind, "ready");
   assert.equal(projection.runStatus, "assessed");
   assert.equal(projection.targetHandle, profile.name);
-  assert.equal(projection.activeEdge, "design→code");
+  assert.equal(projection.activeEdge, "design→code:result-profile");
   assert.deepStrictEqual(projection.resultAssessment, {
     status: "accepted",
     failureClass: null,

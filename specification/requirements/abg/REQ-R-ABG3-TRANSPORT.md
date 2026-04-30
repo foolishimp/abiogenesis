@@ -43,3 +43,11 @@ product-local imperative code.
 **REQ-R-ABG3-TRANSPORT-014**: When an actor invocation reports timeout, crash, nonzero exit, or equivalent transport failure after producing a candidate result artifact, ABG shall attempt deterministic admission of that artifact against the original `DispatchRequest`. A valid artifact shall be available to closure/recovery logic; an invalid artifact shall become typed failure or gap truth.
 
 **REQ-R-ABG3-TRANSPORT-015**: Downstream products may provide the concrete actor binding and domain-specific worker implementation, but they shall not replace ABG-owned actor invocation identity, progress observation, result admission, retry, or projection truth with a shadow runtime.
+
+**REQ-R-ABG3-TRANSPORT-016**: A supervised process actor shall use an explicit ABG-owned invocation contract covering command, arguments, working directory, stdin or prompt source, environment policy, timeout policy, stream capture targets, result artifact reference, and worker binding identity.
+
+**REQ-R-ABG3-TRANSPORT-017**: Environment sanitation for supervised actors shall remove parent-session control variables only by explicit policy. It shall preserve required authentication or runtime capability inputs unless policy explicitly classifies them as unsafe for the child process.
+
+**REQ-R-ABG3-TRANSPORT-018**: Actor stdout and stderr observation shall be recorded as process-boundary evidence while the process is running when the transport can observe it. Post-exit transcript capture alone shall not satisfy live-observation proof for long-running actor dispatch.
+
+**REQ-R-ABG3-TRANSPORT-019**: Actor invocation may return, block, fail, or time out only through typed ABG transport and result-admission outcomes. Worker self-report fields may inform transform assessment, but they shall not own retry, vector closure, traversal convergence, or release closure.

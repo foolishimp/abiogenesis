@@ -3,11 +3,11 @@ id: T-090
 title: Design ABG total assurance carriers and plugin seams
 type: feature
 ticket_category: implementation_migration
-status: active
-review_status: awaiting_external_agent_review
+status: completed
+review_status: external_review_accepted
 goal: abg-total-assurance-calculus
 goal_status: active
-activation_requires: T-089 completed and T-086 active/awaiting_external_agent_review
+activation_requires: T-089 completed and T-086 completed/external_review_accepted
 change_intent: Design the minimal ABG-owned carrier and IoC plugin topology for total assurance projection without creating a rival compute aggregate, side-door runtime configuration, or plugin-owned closure path.
 change_class: design_reframe
 re_entry_point: design
@@ -15,12 +15,13 @@ affected_boundary: ABG projection carriers, closure fold carrier, authority snap
 priority: high
 triaged_at: 2026-04-29T07:24:15Z
 created_at: 2026-04-29T07:24:15Z
-updated_at: 2026-04-29T08:09:58Z
+updated_at: 2026-04-30T17:57:01+10:00
 closure_candidate_at: 2026-04-29T08:09:58Z
+completed_at: 2026-04-30T17:57:01+10:00
 dependencies:
   - T-088 completed
   - T-089 completed
-  - T-086 active/awaiting_external_agent_review
+  - T-086 completed/external_review_accepted
   - B-016 completed
 migration_strategy: inside_out_core_interface_migration
 library_usage: extend
@@ -77,7 +78,7 @@ non_closure_conditions:
 
 ## Closure Candidate
 
-T-090 is a closure candidate pending external agent review.
+T-090 is closed after external agent review accepted the carrier and plugin seam design.
 
 The accepted design is a total assurance projection over the T-086 traversal
 envelope. It introduces assurance carriers, provider contracts, row

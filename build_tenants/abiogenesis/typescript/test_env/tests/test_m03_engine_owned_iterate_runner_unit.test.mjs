@@ -149,6 +149,7 @@ test("T-072 engine runner: retry and continuation replay facts remain ABG projec
       retryRunId: "run://m03-iteration:retry:1",
       retryCallId: `graph-call:${basis.id}:retry:1`,
       manifestId: "manifest://candidate",
+      priorManifestId: "manifest://prior",
       attemptIndex: 1,
       sourceProjectionRef: `runtime_projection:${basis.id}:closed=:retry=0:leaf=0`
     }

@@ -128,6 +128,27 @@ export function deriveRuntimeAggregateProjection(
   const retryProgressRefs: RuntimeAggregateProjection["retryProgressRefs"][number][] = [];
   const actorInvocationRefs: RuntimeAggregateProjection["actorInvocationRefs"][number][] = [];
   const observedActorArtifactRefs: RuntimeAggregateProjection["observedActorArtifactRefs"][number][] = [];
+  const actorProcessStarted = new Map<
+    string,
+    Extract<RuntimeEvent, { readonly kind: "actor_process_started" }>
+  >();
+  const actorProcessHeartbeats = new Map<
+    string,
+    Extract<RuntimeEvent, { readonly kind: "actor_process_heartbeat" }>
+  >();
+  const actorProcessTimeouts = new Map<
+    string,
+    Extract<RuntimeEvent, { readonly kind: "actor_process_timeout" }>
+  >();
+  const actorProcessSignals = new Map<
+    string,
+    Extract<RuntimeEvent, { readonly kind: "actor_process_signal_sent" }>[]
+  >();
+  const actorProcessExited = new Map<
+    string,
+    Extract<RuntimeEvent, { readonly kind: "actor_process_exited" }>
+  >();
+  const actorProcessStreamRefs: RuntimeAggregateProjection["actorProcessStreamRefs"][number][] = [];
   const leafTaskIds = new Set<string>();
   const completedLeafTaskIds = new Set<string>();
   const failedLeafTaskIds = new Set<string>();
@@ -175,6 +196,7 @@ export function deriveRuntimeAggregateProjection(
             retryRunId: event.retryRunId,
             retryCallId: event.retryCallId,
             manifestId: event.manifestId,
+            priorManifestId: event.priorManifestId,
             attemptIndex: event.attemptIndex,
             sourceProjectionRef: event.sourceProjectionRef
           })
@@ -238,6 +260,54 @@ export function deriveRuntimeAggregateProjection(
         break;
       case "actor_invocation_closed":
         assertVectorIndexInRange(basis, event.vectorIndex);
+        graphCallId = event.graphCallId;
+        frameId = event.frameId;
+        break;
+      case "actor_process_started":
+        assertVectorIndexInRange(basis, event.vectorIndex);
+        actorProcessStarted.set(event.actorInvocationId, event);
+        graphCallId = event.graphCallId;
+        frameId = event.frameId;
+        break;
+      case "actor_process_stream_observed":
+        assertVectorIndexInRange(basis, event.vectorIndex);
+        actorProcessStreamRefs.push(
+          Object.freeze({
+            vectorIndex: event.vectorIndex,
+            actorInvocationId: event.actorInvocationId,
+            streamName: event.streamName,
+            streamRef: event.streamRef,
+            chunkIndex: event.chunkIndex,
+            byteLength: event.byteLength
+          })
+        );
+        graphCallId = event.graphCallId;
+        frameId = event.frameId;
+        break;
+      case "actor_process_heartbeat":
+        assertVectorIndexInRange(basis, event.vectorIndex);
+        actorProcessHeartbeats.set(event.actorInvocationId, event);
+        graphCallId = event.graphCallId;
+        frameId = event.frameId;
+        break;
+      case "actor_process_timeout":
+        assertVectorIndexInRange(basis, event.vectorIndex);
+        actorProcessTimeouts.set(event.actorInvocationId, event);
+        graphCallId = event.graphCallId;
+        frameId = event.frameId;
+        break;
+      case "actor_process_signal_sent":
+        assertVectorIndexInRange(basis, event.vectorIndex);
+        if (!actorProcessSignals.has(event.actorInvocationId)) {
+          actorProcessSignals.set(event.actorInvocationId, []);
+        }
+        actorProcessSignals.get(event.actorInvocationId)?.push(event);
+        graphCallId = event.graphCallId;
+        frameId = event.frameId;
+        break;
+      case "actor_process_exited":
+        assertVectorIndexInRange(basis, event.vectorIndex);
+        actorProcessExited.set(event.actorInvocationId, event);
         graphCallId = event.graphCallId;
         frameId = event.frameId;
         break;
@@ -352,6 +422,65 @@ export function deriveRuntimeAggregateProjection(
       return left.actorInvocationId.localeCompare(right.actorInvocationId);
     })
   );
+  const frozenActorProcessRefs = Object.freeze(
+    [...actorProcessStarted.values()]
+      .map((started) => {
+        const exited = actorProcessExited.get(started.actorInvocationId);
+        const latestHeartbeat = actorProcessHeartbeats.get(
+          started.actorInvocationId
+        );
+        const timeout = actorProcessTimeouts.get(started.actorInvocationId);
+        const signalSequence = Object.freeze(
+          (actorProcessSignals.get(started.actorInvocationId) ?? []).map(
+            (signalEvent) =>
+              Object.freeze({
+                signal: signalEvent.signal,
+                elapsedMs: signalEvent.elapsedMs
+              })
+          )
+        );
+        return Object.freeze({
+          vectorIndex: started.vectorIndex,
+          actorInvocationId: started.actorInvocationId,
+          pid: started.pid,
+          stdoutRef: started.stdoutRef,
+          stderrRef: started.stderrRef,
+          running: exited === undefined,
+          latestHeartbeatIndex: latestHeartbeat?.heartbeatIndex ?? null,
+          latestHeartbeatElapsedMs: latestHeartbeat?.elapsedMs ?? null,
+          timeoutObserved: timeout !== undefined,
+          timeoutMs: timeout?.timeoutMs ?? null,
+          timeoutElapsedMs: timeout?.elapsedMs ?? null,
+          signalSequence,
+          status: exited?.status ?? null,
+          signal: exited?.signal ?? null,
+          timedOut: exited?.timedOut ?? false,
+          error: exited?.error ?? null
+        });
+      })
+      .sort((left, right) => {
+        const vectorDelta = left.vectorIndex - right.vectorIndex;
+        if (vectorDelta !== 0) {
+          return vectorDelta;
+        }
+        return left.actorInvocationId.localeCompare(right.actorInvocationId);
+      })
+  );
+  const frozenActorProcessStreamRefs = Object.freeze(
+    [...actorProcessStreamRefs].sort((left, right) => {
+      const vectorDelta = left.vectorIndex - right.vectorIndex;
+      if (vectorDelta !== 0) {
+        return vectorDelta;
+      }
+      const invocationDelta = left.actorInvocationId.localeCompare(
+        right.actorInvocationId
+      );
+      if (invocationDelta !== 0) {
+        return invocationDelta;
+      }
+      return left.chunkIndex - right.chunkIndex;
+    })
+  );
   const frozenLeafTaskIds = freezeStringArray([...leafTaskIds].sort());
   const frozenCompletedLeafTaskIds = freezeStringArray([...completedLeafTaskIds].sort());
   const frozenFailedLeafTaskIds = freezeStringArray([...failedLeafTaskIds].sort());
@@ -411,6 +540,8 @@ export function deriveRuntimeAggregateProjection(
     retryProgressRefs: frozenRetryProgressRefs,
     actorInvocationRefs: frozenActorInvocationRefs,
     observedActorArtifactRefs: frozenObservedActorArtifactRefs,
+    actorProcessRefs: frozenActorProcessRefs,
+    actorProcessStreamRefs: frozenActorProcessStreamRefs,
     leafTaskIds: frozenLeafTaskIds,
     completedLeafTaskIds: frozenCompletedLeafTaskIds,
     failedLeafTaskIds: frozenFailedLeafTaskIds,

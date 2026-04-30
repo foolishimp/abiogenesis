@@ -1,6 +1,6 @@
-# abiogenesis 3.4.0-rc.3 RC Notes
+# abiogenesis 3.4.0-rc.4 RC Notes
 
-This note records accepted RC behavior for the current `v3.4.0-rc.3` cut.
+This note records accepted RC behavior for the current `v3.4.0-rc.4` cut.
 
 ## Accepted Framework Behavior
 
@@ -226,16 +226,20 @@ Accepted behavior:
 
 The current RC proving footer is:
 
-- `npm run test:t076`: `4 passed`, `4310.658167ms`
-- `npm run test:semantic`: `291 passed`, `4823.088125ms`
+- `npm run test:t076`: `4 passed`, `3785.520875ms`
+- `npm run test:semantic`: `304 passed`, `6141.406292ms`
 - `npm run lint:semantic`: `passed`
 - `npm run lint:test-harness`: `passed`
-- `CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=360000 npm run test:t094:live`:
-  `1 passed`, `11357.336375ms`
+- `CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=240000 npm run test:t094:live`:
+  `1 passed`, `11948.129375ms`; archive
+  `test_env/test_runs/t094_assurance_register_two_hop_live/20260430T141629554Z`
+- `CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=240000 npm run test:t097:live`:
+  `1 passed`, `3930.383167ms`; archive
+  `test_env/test_runs/t097_supervised_process_actor_live/20260430T141652934Z`
 - `CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=360000 npm run test:live:uat`:
-  `2 passed`, `32388.037125ms`
+  retained rc.3 evidence, `2 passed`, `32388.037125ms`
 - `CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=360000 npm run test:live`:
-  `1 passed`, `75197.459708ms`
+  retained rc.3 evidence, `1 passed`, `75197.459708ms`
 - `npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run`: `passed`,
-  package `3.4.0-rc.3`, `294 files`
+  package `3.4.0-rc.4`, `300 files`
 - `git diff --check`: `passed`

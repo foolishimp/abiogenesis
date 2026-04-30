@@ -12,13 +12,13 @@ import type {
   TerminalKind
 } from "../contracts/carriers.js";
 import type { FpDispatchOutcome } from "../contracts/plugins.js";
+import type { FpTransformRequest, FpTransformResult } from "../contracts/index.js";
 import {
-  constructAuthoritySnapshotAdmittedEvent,
-  constructEvidenceAdmittedEvent,
-  constructPayloadObservedEvent,
-  constructPayloadValidatedEvent,
+  admitFpTransformResultForRequest,
   constructRetryProgressRecordedEvent,
+  constructFpTransformResult,
   deriveRetryRepairDecision,
+  runtimeEventsForFpTransformResult,
   runtimeEventsForRetryRepairDecision
 } from "../contracts/index.js";
 import {
@@ -77,6 +77,7 @@ export type AttachedFpResultDecision =
 
 interface BlockedAttachedResult {
   readonly artifact: ResultArtifact;
+  readonly transformResult: FpTransformResult;
   readonly reason: string;
   readonly progressSignalRefs: readonly string[];
 }
@@ -122,164 +123,128 @@ function continuationRepairForRetry(input: {
   });
 }
 
-function payloadRefForAssessment(input: {
-  readonly request: DispatchRequest;
-  readonly assessmentId: string;
-  readonly evidenceRef: string;
-}): string {
-  return `payload:fp_result:${JSON.stringify({
-    basisId: input.request.basisId,
-    dispatchRef: input.request.dispatchRef,
-    resultRef: input.request.resultRef,
-    assessmentId: input.assessmentId,
-    evidenceRef: input.evidenceRef
-  })}`;
-}
-
-function digestForAssessment(input: {
-  readonly request: DispatchRequest;
-  readonly assessmentId: string;
-  readonly evidenceRef: string;
-}): string {
-  return `digest:fp_result:${JSON.stringify({
-    resultRef: input.request.resultRef,
-    assessmentId: input.assessmentId,
-    evidenceRef: input.evidenceRef
-  })}`;
-}
-
-function payloadEventsForAcceptedResult(input: {
-  readonly basis: ExecutionBasis;
-  readonly request: DispatchRequest;
+function evidenceCandidatesForArtifact(input: {
+  readonly transformRequest: FpTransformRequest;
   readonly artifact: ResultArtifact;
-  readonly transition: FpDispatchTransition;
-}): readonly RuntimeEvent[] {
+}): readonly {
+  readonly candidateRef: string;
+  readonly authorityRef: string;
+  readonly evidenceRefs: readonly string[];
+  readonly providerRefs: readonly string[];
+  readonly payloadClass: string;
+  readonly contractRef: string;
+  readonly complete: boolean;
+  readonly shallow: boolean;
+}[] {
   const payload = input.artifact.artifactPayload;
   if (payload === null) {
     return Object.freeze([]);
   }
-  const authorityRefs = payload.fulfillmentAssessments.map(
-    (assessment) => assessment.id
+  return Object.freeze(
+    payload.fulfillmentAssessments.map((assessment) =>
+      Object.freeze({
+        candidateRef: assessment.id,
+        authorityRef: assessment.id,
+        evidenceRefs: assessment.evidenceRefs,
+        providerRefs: [
+          payload.workerId ?? input.transformRequest.workerId,
+          payload.backendId ?? input.transformRequest.backendId
+        ],
+        payloadClass: "evidence",
+        contractRef: "contract://abg/fp-transform-evidence",
+        complete:
+          assessment.fulfillmentStatus === "fulfilled" &&
+          assessment.evidenceRefs.length > 0,
+        shallow: assessment.fulfillmentStatus !== "fulfilled"
+      })
+    )
   );
-  const authorityDigest = `authority:fp_result:${JSON.stringify({
-    graphFunctionId: input.request.graphFunctionId,
-    edge: payload.edge,
-    authorityRefs
-  })}`;
-  const inputDigest = `input:fp_result:${JSON.stringify({
-    basisId: input.request.basisId,
-    dispatchRef: input.request.dispatchRef,
-    resultRef: input.request.resultRef
-  })}`;
-  const events: RuntimeEvent[] = [
-    constructAuthoritySnapshotAdmittedEvent({
-      basis: input.basis,
-      vectorIndex: input.transition.vectorIndex,
-      authoritySnapshotRef: `authority-snapshot:fp_result:${input.request.resultRef}`,
-      authorityRefs,
-      inputRefs: [input.request.resultRef],
-      authorityDigest,
-      inputDigest,
-      providerRefs: [
-        payload.workerId ?? input.request.workerId,
-        payload.backendId ?? input.request.backendId
-      ],
-      policyRefs: [input.basis.resolvedPolicy.resolvedPolicyBundleRef]
-    })
-  ];
+}
 
-  for (const assessment of payload.fulfillmentAssessments) {
-    const evidenceRefs =
-      assessment.evidenceRefs.length === 0
-        ? [`evidence:fp_result:${assessment.id}`]
-        : assessment.evidenceRefs;
-    for (const evidenceRef of evidenceRefs) {
-      const payloadRef = payloadRefForAssessment({
-        request: input.request,
-        assessmentId: assessment.id,
-        evidenceRef
-      });
-      const digest = digestForAssessment({
-        request: input.request,
-        assessmentId: assessment.id,
-        evidenceRef
-      });
-      events.push(
-        constructPayloadObservedEvent({
-          basis: input.basis,
-          vectorIndex: input.transition.vectorIndex,
-          payloadRef,
-          payloadClass: "evidence",
-          contractRef: "contract://abg/fp-result-evidence",
-          digest,
-          producerRef: payload.actor,
-          sourceEventRef: input.request.resultRef,
-          authorityRef: assessment.id,
-          inputDigest,
-          policyRefs: [input.basis.resolvedPolicy.resolvedPolicyBundleRef]
-        }),
-        constructPayloadValidatedEvent({
-          basis: input.basis,
-          vectorIndex: input.transition.vectorIndex,
-          payloadRef,
-          contractRef: "contract://abg/fp-result-evidence",
-          digest,
-          validationRef: `validation:fp_result:${payloadRef}`,
-          evidenceRef,
-          policyRefs: [input.basis.resolvedPolicy.resolvedPolicyBundleRef]
-        }),
-        constructEvidenceAdmittedEvent({
-          basis: input.basis,
-          vectorIndex: input.transition.vectorIndex,
-          evidenceRef,
-          payloadRef,
-          authorityRef: assessment.id,
-          authorityDigest,
-          inputDigest,
-          providerRefs: [
-            payload.workerId ?? input.request.workerId,
-            payload.backendId ?? input.request.backendId
-          ],
-          policyRefs: [input.basis.resolvedPolicy.resolvedPolicyBundleRef],
-          complete: true,
-          shallow: false
-        })
-      );
+/*
+ * F_P worker output is transform evidence, not closure authority. The attached
+ * worker path uses fulfillment_status/blocking_reasons only to choose the
+ * per-vector accepted-or-retry branch; convergence remains guarded by the ABG
+ * assurance fold over projected authority/evidence ledgers.
+ */
+function scopedTransformResult(input: {
+  readonly transformRequest: FpTransformRequest;
+  readonly artifact: ResultArtifact;
+  readonly status: FpTransformResult["status"];
+  readonly reason?: string | null;
+}): FpTransformResult {
+  return admitFpTransformResultForRequest(
+    input.transformRequest,
+    constructFpTransformResult({
+      request: input.transformRequest,
+      resultRef: input.artifact.resultRef,
+      artifactRef: input.artifact.resultRef,
+      status: input.status,
+      reason: input.reason ?? null,
+      evidenceCandidates: evidenceCandidatesForArtifact({
+        transformRequest: input.transformRequest,
+        artifact: input.artifact
+      })
+    })
+  );
+}
+
+function progressSignalRefsForTransformResult(
+  result: FpTransformResult
+): readonly string[] {
+  const refs: string[] = [
+    `fp_transform_status:${result.status}:${result.reason ?? "no detail"}`
+  ];
+  switch (result.status) {
+    case "returned":
+      break;
+    case "blocked":
+      for (const candidate of result.evidenceCandidates) {
+        refs.push(
+          `blocking_reason:${candidate.candidateRef}:${result.reason ?? "blocked"}`
+        );
+        refs.push(...candidate.evidenceRefs);
+      }
+      break;
+    case "runtime_failed":
+      refs.push(`runtime_failure:${result.reason ?? "runtime failed"}`);
+      break;
+    case "contract_failed":
+      refs.push(`payload_contract_failure:${result.reason ?? "contract failed"}`);
+      break;
+    default: {
+      const exhaustive: never = result.status;
+      throw new TypeError(`Unsupported F_P transform status ${exhaustive}`);
     }
   }
+  return Object.freeze(refs);
+}
 
-  return Object.freeze(events);
+function payloadEventsForAcceptedResult(input: {
+  readonly basis: ExecutionBasis;
+  readonly transformRequest: FpTransformRequest;
+  readonly artifact: ResultArtifact;
+}): readonly RuntimeEvent[] {
+  return runtimeEventsForFpTransformResult({
+    basis: input.basis,
+    request: input.transformRequest,
+    result: scopedTransformResult({
+      transformRequest: input.transformRequest,
+      artifact: input.artifact,
+      status: "returned"
+    })
+  });
 }
 
 function progressSignalRefsForBlockedResult(input: {
   readonly reason: string;
-  readonly artifact: ResultArtifact;
+  readonly transformResult: FpTransformResult;
 }): readonly string[] {
-  const refs: string[] = [];
-  if (input.artifact.runtimeFailure !== null) {
-    refs.push(
-      `runtime_failure:${input.artifact.runtimeFailure.failureClass}:${input.artifact.runtimeFailure.detail}`
-    );
-  }
-  if (input.artifact.artifactPayload !== null) {
-    for (const assessment of input.artifact.artifactPayload.fulfillmentAssessments) {
-      for (const reason of assessment.blockingReasons) {
-        refs.push(`blocking_reason:${assessment.id}:${reason}`);
-      }
-      for (const evidenceRef of assessment.evidenceRefs) {
-        refs.push(evidenceRef);
-      }
-      if (assessment.fulfillmentStatus !== "fulfilled") {
-        refs.push(
-          `fulfillment_status:${assessment.id}:${assessment.fulfillmentStatus}:${assessment.fulfillmentDetail}`
-        );
-      }
-    }
-  }
+  const refs = progressSignalRefsForTransformResult(input.transformResult);
   if (refs.length === 0) {
-    refs.push(`blocked:${input.reason}`);
+    return Object.freeze([`blocked:${input.reason}`]);
   }
-  return Object.freeze(refs);
+  return refs;
 }
 
 function errorDetail(error: unknown): string {
@@ -303,7 +268,7 @@ function admitAttachedResultArtifact(input: {
     return constructResultArtifact({
       basisId: input.request.basisId,
       dispatchRef: input.request.dispatchRef,
-      resultRef: input.outcome.resultRef ?? input.request.resultRef,
+      resultRef: input.request.resultRef,
       artifactPayload: null,
       identityIssues: [],
       runtimeFailure: {
@@ -315,18 +280,28 @@ function admitAttachedResultArtifact(input: {
 }
 
 function blockedResultFromIngestOutcome(
-  outcome: ResultIngestOutcome
+  input: {
+    readonly transformRequest: FpTransformRequest;
+    readonly outcome: ResultIngestOutcome;
+  }
 ): BlockedAttachedResult | null {
-  switch (outcome.kind) {
+  switch (input.outcome.kind) {
     case "accepted": {
-      const payload = outcome.artifact.artifactPayload;
+      const payload = input.outcome.artifact.artifactPayload;
       if (payload === null) {
+        const transformResult = scopedTransformResult({
+          transformRequest: input.transformRequest,
+          artifact: input.outcome.artifact,
+          status: "contract_failed",
+          reason: "accepted artifact has no fulfillment payload"
+        });
         return Object.freeze({
-          artifact: outcome.artifact,
+          artifact: input.outcome.artifact,
+          transformResult,
           reason: "accepted artifact has no fulfillment payload",
           progressSignalRefs: progressSignalRefsForBlockedResult({
             reason: "accepted artifact has no fulfillment payload",
-            artifact: outcome.artifact
+            transformResult
           })
         });
       }
@@ -339,38 +314,63 @@ function blockedResultFromIngestOutcome(
       const reason = blockedAssessments
         .map(
           (assessment) =>
-            `${assessment.id}:${assessment.fulfillmentStatus}:${assessment.fulfillmentDetail}`
+            `${assessment.id}:${assessment.fulfillmentStatus}:${assessment.fulfillmentDetail}:` +
+            assessment.blockingReasons.join(",")
         )
         .join("; ");
+      const transformResult = scopedTransformResult({
+        transformRequest: input.transformRequest,
+        artifact: input.outcome.artifact,
+        status: "blocked",
+        reason
+      });
       return Object.freeze({
-        artifact: outcome.artifact,
+        artifact: input.outcome.artifact,
+        transformResult,
         reason,
         progressSignalRefs: progressSignalRefsForBlockedResult({
           reason,
-          artifact: outcome.artifact
+          transformResult
         })
       });
     }
-    case "rejected":
+    case "rejected": {
+      const transformResult = scopedTransformResult({
+        transformRequest: input.transformRequest,
+        artifact: input.outcome.artifact,
+        status: "contract_failed",
+        reason: input.outcome.detail
+      });
       return Object.freeze({
-        artifact: outcome.artifact,
-        reason: outcome.detail,
+        artifact: input.outcome.artifact,
+        transformResult,
+        reason: input.outcome.detail,
         progressSignalRefs: progressSignalRefsForBlockedResult({
-          reason: outcome.detail,
-          artifact: outcome.artifact
+          reason: input.outcome.detail,
+          transformResult
         })
       });
-    case "runtime_failure":
+    }
+    case "runtime_failure": {
+      const reason = `${input.outcome.failureClass}: ${input.outcome.detail}`;
+      const transformResult = scopedTransformResult({
+        transformRequest: input.transformRequest,
+        artifact: input.outcome.artifact,
+        status: "runtime_failed",
+        reason
+      });
       return Object.freeze({
-        artifact: outcome.artifact,
-        reason: `${outcome.failureClass}: ${outcome.detail}`,
+        artifact: input.outcome.artifact,
+        transformResult,
+        reason,
         progressSignalRefs: progressSignalRefsForBlockedResult({
-          reason: `${outcome.failureClass}: ${outcome.detail}`,
-          artifact: outcome.artifact
+          reason,
+          transformResult
         })
       });
+    }
     default: {
-      const exhaustive: never = outcome;
+      const exhaustive: never = input.outcome;
       throw new TypeError(
         `Unsupported attached F_P ingest outcome ${JSON.stringify(exhaustive)}`
       );
@@ -430,6 +430,7 @@ export function deriveAttachedFpResultDecision(input: {
   readonly projection: RuntimeAggregateProjection;
   readonly transition: FpDispatchTransition;
   readonly outcome: FpDispatchOutcome;
+  readonly transformRequest: FpTransformRequest;
   readonly maxAttempts?: number | undefined;
 }): AttachedFpResultDecision {
   const request = dispatchRequestForTransition(input.transition);
@@ -438,7 +439,10 @@ export function deriveAttachedFpResultDecision(input: {
     outcome: input.outcome
   });
   const ingestOutcome = ingestResultArtifact(request, artifact);
-  const blocked = blockedResultFromIngestOutcome(ingestOutcome);
+  const blocked = blockedResultFromIngestOutcome({
+    transformRequest: input.transformRequest,
+    outcome: ingestOutcome
+  });
   if (blocked === null) {
     return Object.freeze({
       kind: "accepted",
@@ -446,9 +450,8 @@ export function deriveAttachedFpResultDecision(input: {
       artifact,
       payloadEvents: payloadEventsForAcceptedResult({
         basis: input.basis,
-        request,
         artifact,
-        transition: input.transition
+        transformRequest: input.transformRequest
       })
     });
   }

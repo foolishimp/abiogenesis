@@ -1,6 +1,6 @@
 # Scenario Bundle - Total Assurance Projection UAT
 
-**Validates**: REQ-R-ABG3-ASSURANCE, REQ-R-ABG3-LINEAGE, REQ-R-ABG3-PROJECTION, REQ-R-ABG3-CONVERGENCE, REQ-P-SCENARIOS, REQ-P-QUAL
+**Validates**: REQ-R-ABG3-ASSURANCE, REQ-R-ABG3-EVENTS, REQ-R-ABG3-LINEAGE, REQ-R-ABG3-PROJECTION, REQ-R-ABG3-TRANSPORT, REQ-R-ABG3-CONVERGENCE, REQ-P-SCENARIOS, REQ-P-QUAL
 
 **Derives from**: [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md), [INTENT.md](../INTENT.md) INT-001, [ODD_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/ODD_METHOD.md), [PRODUCT.md](../PRODUCT.md), [requirements/abg/REQ-R-ABG3-ASSURANCE.md](../requirements/abg/REQ-R-ABG3-ASSURANCE.md)
 
@@ -48,7 +48,7 @@ convergence even when the first hop produced a valid artifact.
 | UAT-ASSURANCE-003 stale input reopens prior close | REQ-R-ABG3-ASSURANCE-004, -010, -020, -024 | replay-derived projection with changed digest | deterministic tenant test | `stale_input` | `retry` |
 | UAT-ASSURANCE-004 orphan evidence does not satisfy authority | REQ-R-ABG3-ASSURANCE-012, -018, -020, -025 | projection over admitted evidence without matching authority | deterministic tenant test | `orphan_evidence` | `reprice` or `block` by policy |
 | UAT-ASSURANCE-005 plugin cannot close scope | REQ-R-ABG3-ASSURANCE-021, -022, -023 | plugin-provided snapshot/evidence/classifier inputs | deterministic tenant test | classified rows, no plugin-owned closure | closure fold remains ABG-owned |
-| UAT-ASSURANCE-006 live actor observation is evidence, not closure | REQ-R-ABG3-ASSURANCE-019, -025, REQ-P-QUAL | Claude actor/worker transport archive | Claude live lane | transport stdout/stderr archived and projected | success only if assurance fold closes |
+| UAT-ASSURANCE-006 live actor observation is evidence, not closure | REQ-R-ABG3-ASSURANCE-019, -025, REQ-R-ABG3-EVENTS-012..015, REQ-R-ABG3-PROJECTION-007..010, REQ-R-ABG3-TRANSPORT-016..019, REQ-P-QUAL | Claude actor/worker transport archive | Claude live lane | transport stdout/stderr archived and projected | success only if assurance fold closes |
 | UAT-ASSURANCE-007 subordinate boundary remains bound | REQ-R-ABG3-ASSURANCE-026 | parent graph call plus subordinate boundary ref | deterministic or live tenant test | parent-bound or subordinate-bound rows | no parent close from unbound child output |
 
 ## Current Live Proof

@@ -3,8 +3,8 @@ id: T-096
 title: Declare TypeScript primary release and pause Python tenant work
 type: feature
 ticket_category: ordinary
-status: active
-review_status: awaiting_external_agent_review
+status: completed
+review_status: external_review_accepted
 goal: abg-total-assurance-calculus
 goal_status: active
 change_intent: Reprice the active release lane so TypeScript is the primary release realization and Python is retained only as paused released-reference evidence until explicitly reactivated.
@@ -14,15 +14,17 @@ affected_boundary: tenant registry, product shape, release gate, qualification m
 priority: high
 triaged_at: 2026-04-30T00:50:46+10:00
 created_at: 2026-04-30T00:50:46+10:00
+updated_at: 2026-04-30T17:57:01+10:00
+completed_at: 2026-04-30T17:57:01+10:00
 dependencies:
-  - T-086 active/awaiting_external_agent_review
-  - T-090 active/awaiting_external_agent_review
-  - T-091 active/external_review_blockers_resolved_pending_re_review
-  - T-092-TS active/external_review_blockers_resolved_pending_re_review
-  - T-093-TS active/external_review_blockers_resolved_pending_re_review
-  - T-094 active/external_review_blockers_resolved_pending_re_review
-  - T-095 active/external_review_blockers_resolved_pending_re_review
-  - T-095-TS active/external_review_accepted_closure_ready
+  - T-086 completed/external_review_accepted
+  - T-090 completed/external_review_accepted
+  - T-091 completed/external_review_accepted
+  - T-092-TS completed/external_review_accepted
+  - T-093-TS completed/external_review_accepted
+  - T-094 completed/external_review_accepted
+  - T-095 completed/external_review_accepted
+  - T-095-TS completed/external_review_accepted
 governing_library:
   - build_tenants/TENANT_REGISTRY.md
   - specification/PRODUCT.md
@@ -38,9 +40,9 @@ evaluation_criteria:
   - `build_tenants/TENANT_REGISTRY.md` marks `abiogenesis/python` as `Paused`.
   - Product and README surfaces no longer describe Python as the active canonical released line.
   - Qualification surfaces identify TypeScript as the primary proof lane and Python as paused reference evidence.
-  - T-092-PY, T-094-PY, and T-095-PY are paused rather than closed.
+  - T-092-PY, T-094-PY, and T-095-PY are backlogged/suspended rather than closed.
   - T-094 and T-095 do not claim Python parity, Python no-gap sufficiency, or Python tenant closure.
-  - The ABG assurance/payload tranche remains active until external review accepts the TS-primary scope and the TypeScript proof evidence.
+  - The ABG assurance/payload tranche remains open only for T-097 after external review accepted the TS-primary scope and the TypeScript proof evidence.
   - The external review tranche includes T-086, T-090, T-091, T-092-TS, T-093-TS, T-094, T-095, T-095-TS, and T-096.
 proof_surface:
   - build_tenants/TENANT_REGISTRY.md
@@ -51,9 +53,9 @@ proof_surface:
   - build_tenants/abiogenesis/README.md
   - build_tenants/abiogenesis/typescript/README.md
   - build_tenants/abiogenesis/typescript/design/README.md
-  - .ai-workspace/tickets/active/T-092-PY-realize-python-abg-total-assurance-projection-and-closure-fold.md
-  - .ai-workspace/tickets/active/T-094-PY-audit-python-live-uat-parity-or-sufficiency-for-test35-assurance-proof.md
-  - .ai-workspace/tickets/active/T-095-PY-audit-python-event-sourced-payload-ledger-parity-or-sufficiency.md
+  - .ai-workspace/tickets/backlog/T-092-PY-realize-python-abg-total-assurance-projection-and-closure-fold.md
+  - .ai-workspace/tickets/backlog/T-094-PY-audit-python-live-uat-parity-or-sufficiency-for-test35-assurance-proof.md
+  - .ai-workspace/tickets/backlog/T-095-PY-audit-python-event-sourced-payload-ledger-parity-or-sufficiency.md
   - .ai-workspace/tickets/active/T-094-prove-requirement-derived-live-uat-reproduces-test35-effectiveness-through-abg-assurance.md
   - .ai-workspace/tickets/active/T-095-define-event-sourced-abg-payload-ledger-and-legal-proof-topology.md
   - .ai-workspace/comments/codex/20260430T005046AEST_TS_primary_release_python_paused_scope.md
@@ -79,9 +81,9 @@ Python paused.
 | --- | --- |
 | `abiogenesis/typescript` | Primary release line and active RC gate |
 | `abiogenesis/python` | Paused released reference line |
-| `T-092-PY` | Paused, retained as assurance-projection reference evidence |
-| `T-094-PY` | Paused, retained to prevent silent Python live-UAT parity claims |
-| `T-095-PY` | Paused, retained with forensic conclusion that Python is not payload-ledger equivalent today |
+| `T-092-PY` | Backlogged/suspended, retained as assurance-projection reference evidence |
+| `T-094-PY` | Backlogged/suspended, retained to prevent silent Python live-UAT parity claims |
+| `T-095-PY` | Backlogged/suspended, retained with forensic conclusion that Python is not payload-ledger equivalent today |
 | `T-094` | TypeScript-primary live proof; no Python parity claim |
 | `T-095` | TypeScript-primary payload-ledger proof; no Python parity or no-gap claim |
 

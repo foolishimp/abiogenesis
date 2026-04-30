@@ -8,6 +8,34 @@ declare const process: {
 };
 
 declare module "node:child_process" {
+  export interface ChildProcessWithoutNullStreams {
+    readonly pid?: number;
+    readonly stdout: {
+      on(event: "data", listener: (chunk: string) => void): void;
+    };
+    readonly stderr: {
+      on(event: "data", listener: (chunk: string) => void): void;
+    };
+    readonly stdin: {
+      write(data: string): void;
+      end(): void;
+    };
+    once(event: "error", listener: (error: Error) => void): void;
+    once(
+      event: "close",
+      listener: (code: number | null, signal: string | null) => void
+    ): void;
+    kill(signal: "SIGTERM" | "SIGKILL"): boolean;
+  }
+  export function spawn(
+    command: string,
+    args: readonly string[],
+    options: {
+      readonly cwd?: string;
+      readonly env?: Record<string, string | undefined>;
+      readonly stdio?: readonly ["pipe", "pipe", "pipe"];
+    }
+  ): ChildProcessWithoutNullStreams;
   export function spawnSync(
     command: string,
     args: readonly string[],
@@ -20,6 +48,29 @@ declare module "node:child_process" {
     readonly status: number | null;
     readonly stdout: string;
     readonly stderr: string;
+  };
+}
+
+declare module "node:fs" {
+  export function appendFileSync(
+    path: string,
+    data: string,
+    encoding: "utf8"
+  ): void;
+  export function mkdirSync(
+    path: string,
+    options: { readonly recursive: true }
+  ): string | undefined;
+  export function writeFileSync(
+    path: string,
+    data: string,
+    encoding: "utf8"
+  ): void;
+}
+
+declare module "node:perf_hooks" {
+  export const performance: {
+    now(): number;
   };
 }
 

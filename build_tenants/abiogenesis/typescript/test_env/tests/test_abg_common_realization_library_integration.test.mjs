@@ -8,8 +8,8 @@ import {
 import { publicStart } from "../../build/semantic/code/src/app/m04/index.js";
 import {
   contractForKnownAgent,
+  constructDispatchExpectation,
   constructProofFixtureProfile,
-  deriveDispatchExpectation,
   projectDispatchAssessmentIds,
   projectDispatchExpectedEdge
 } from "../../build/semantic/code/src/shared/abg_library/index.js";
@@ -27,9 +27,8 @@ test("ABG common library integration: M03 transport adapter consumes canonical e
   const { basis, profile } = buildFpBasis();
   const transition = deriveAdvancementTransition(basis);
   const request = dispatchRequestsForTransition(transition)[0];
-  const expected = deriveDispatchExpectation({
-    sourceKinds: ["design"],
-    targetKind: "code",
+  const expected = constructDispatchExpectation({
+    expectedEdge: "design→code:fp",
     assessmentIds: ["code_complete"]
   });
   const codexContract = contractForKnownAgent("codex");

@@ -34,3 +34,11 @@ Define the ABG 3 event substrate as the only written runtime truth surface.
 **REQ-R-ABG3-EVENTS-010**: The canonical event envelope shall preserve at minimum event identity, event time, event type, aggregate type, aggregate identity, parent aggregate identity when present, causation identity, correlation identity, workflow version, work key, run identity, semantic job identity, graph-function identity, materialization identity, frame attempt identity, frame lineage identity, vector identity when present, and closed event data.
 
 **REQ-R-ABG3-EVENTS-011**: Authoritative event truth shall cover at minimum run lifecycle, graph-call lifecycle, frame lifecycle, vector-local traversal and dispatch facts, proof and closure facts, continuation lifecycle, correction, and supersession.
+
+**REQ-R-ABG3-EVENTS-012**: Actor/process supervision facts shall be authoritative ABG event truth when a traversal dispatch crosses a local or external process boundary. Product-local transcripts, terminal logs, or controller memory shall not replace these events.
+
+**REQ-R-ABG3-EVENTS-013**: The actor/process event family shall preserve enough source facts to replay at minimum actor invocation start, process start or spawn failure, stdout chunk observation, stderr chunk observation, heartbeat or liveness observation, timeout observation, termination signal request, process exit, result-artifact observation, and actor invocation closure or failure.
+
+**REQ-R-ABG3-EVENTS-014**: Spawn failure, unavailable command, path drift, sandbox/runtime denial, timeout, signal termination, and nonzero exit shall be emitted as typed runtime facts. Such failures shall not crash admission, disappear into stderr text, or be represented only as absent result artifacts.
+
+**REQ-R-ABG3-EVENTS-015**: Actor/process events shall carry the run, graph function, graph call, frame, vector, actor invocation, worker binding, causation, and correlation identities needed to connect process evidence back to the active traversal boundary by replay.

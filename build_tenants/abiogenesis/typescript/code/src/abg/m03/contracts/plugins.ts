@@ -6,8 +6,13 @@ import type {
   ActorInvocationRef,
   ExecutionBasis,
   RuntimeAggregateProjection,
+  RuntimeEvent,
   RuntimeRegime
 } from "./carriers.js";
+import type { FpTransformRequest } from "./fp_stages.js";
+import { constructFpTransformRequest } from "./fp_stages.js";
+import type { RetryFrontierProjection } from "./retry_frontier.js";
+import { deriveRetryFrontierProjection } from "./retry_frontier.js";
 import {
   parseBoolean,
   parseNonEmptyString,
@@ -20,7 +25,9 @@ import {
   assertProjectionBasis,
   assertVectorIndexInRange,
   freezeNumberArray,
-  freezeStringArray
+  freezeStringArray,
+  frameIdForBasis,
+  graphCallIdForBasis
 } from "./runtime_support.js";
 import { sourceProjectionRef } from "./projection.js";
 
@@ -108,6 +115,8 @@ export interface EnginePluginInput {
   readonly kind: "engine_plugin_input";
   readonly contract: EnginePluginContract;
   readonly basisId: string;
+  readonly graphCallId: string | null;
+  readonly frameId: string | null;
   readonly graphFunctionId: string;
   readonly jobId: string;
   readonly vectorIndex: number;
@@ -120,7 +129,9 @@ export interface EnginePluginInput {
   readonly assessedEdges: readonly string[];
   readonly retryAttemptRefs: RuntimeAggregateProjection["retryAttemptRefs"];
   readonly retryProgressRefs: RuntimeAggregateProjection["retryProgressRefs"];
+  readonly retryFrontier: RetryFrontierProjection;
   readonly actorInvocationRef: ActorInvocationRef | null;
+  readonly fpTransformRequest: FpTransformRequest | null;
 }
 
 export interface EnginePluginOutcomeBase {
@@ -150,20 +161,28 @@ export type EnginePluginOutcome =
   | FpDispatchOutcome
   | FhAdmissionOutcome;
 
+export type EnginePluginMaybePromise<T> = T | Promise<T>;
+
 export interface FdEvaluatorPlugin {
   readonly contract: EnginePluginContract;
-  readonly evaluate: (input: EnginePluginInput) => FdEvaluationOutcome;
+  readonly evaluate: (
+    input: EnginePluginInput
+  ) => EnginePluginMaybePromise<FdEvaluationOutcome>;
 }
 
 export interface FpDispatchPlugin {
   readonly contract: EnginePluginContract;
   // The runner emits fp_dispatch_requested before invoking this effect edge.
-  readonly dispatch: (input: EnginePluginInput) => FpDispatchOutcome;
+  readonly dispatch: (
+    input: EnginePluginInput
+  ) => EnginePluginMaybePromise<FpDispatchOutcome>;
 }
 
 export interface FhAdmissionPlugin {
   readonly contract: EnginePluginContract;
-  readonly admit: (input: EnginePluginInput) => FhAdmissionOutcome;
+  readonly admit: (
+    input: EnginePluginInput
+  ) => EnginePluginMaybePromise<FhAdmissionOutcome>;
 }
 
 export interface EngineRunnerPluginSet {
@@ -431,6 +450,7 @@ export function constructEnginePluginInput(input: {
   readonly contract: EnginePluginContract;
   readonly basis: ExecutionBasis;
   readonly projection: RuntimeAggregateProjection;
+  readonly replayEvents?: readonly RuntimeEvent[] | undefined;
   readonly vectorIndex: number;
   readonly edge: string;
   readonly regime: RuntimeRegime;
@@ -443,10 +463,43 @@ export function constructEnginePluginInput(input: {
   if (vector === undefined) {
     throw new TypeError("EnginePluginInput requires a graph vector");
   }
+  const retryFrontier = deriveRetryFrontierProjection({
+    basis: input.basis,
+    runtimeProjection: input.projection,
+    events: input.replayEvents ?? Object.freeze([]),
+    vectorIndex: input.vectorIndex
+  });
+  const normalizedActorInvocationRef =
+    input.actorInvocationRef === undefined ||
+    input.actorInvocationRef === null
+      ? null
+      : Object.freeze({
+          actorInvocationId: input.actorInvocationRef.actorInvocationId,
+          attemptIndex: input.actorInvocationRef.attemptIndex,
+          dispatchRef: input.actorInvocationRef.dispatchRef,
+          resultRef: input.actorInvocationRef.resultRef
+        });
+  const fpTransformRequest =
+    input.regime === "F_P" && normalizedActorInvocationRef !== null
+      ? constructFpTransformRequest({
+          basis: input.basis,
+          projection: input.projection,
+          vectorIndex: input.vectorIndex,
+          edge: input.edge,
+          actorInvocationRef: normalizedActorInvocationRef,
+          sourceProjectionRef: sourceProjectionRef(input.projection),
+          expectedAssessmentIds: vector.evaluators.map(
+            (evaluator) => evaluator.name
+          ),
+          retryFrontier
+        })
+      : null;
   return Object.freeze({
     kind: "engine_plugin_input",
     contract,
     basisId: input.basis.id,
+    graphCallId: input.projection.graphCallId ?? graphCallIdForBasis(input.basis),
+    frameId: input.projection.frameId ?? frameIdForBasis(input.basis),
     graphFunctionId: input.basis.graphFunction.id,
     jobId: input.basis.job.id,
     vectorIndex: input.vectorIndex,
@@ -461,16 +514,9 @@ export function constructEnginePluginInput(input: {
     assessedEdges: freezeStringArray(input.projection.assessedEdges),
     retryAttemptRefs: Object.freeze([...input.projection.retryAttemptRefs]),
     retryProgressRefs: Object.freeze([...input.projection.retryProgressRefs]),
-    actorInvocationRef:
-      input.actorInvocationRef === undefined ||
-      input.actorInvocationRef === null
-        ? null
-        : Object.freeze({
-            actorInvocationId: input.actorInvocationRef.actorInvocationId,
-            attemptIndex: input.actorInvocationRef.attemptIndex,
-            dispatchRef: input.actorInvocationRef.dispatchRef,
-            resultRef: input.actorInvocationRef.resultRef
-          })
+    retryFrontier,
+    actorInvocationRef: normalizedActorInvocationRef,
+    fpTransformRequest
   });
 }
 

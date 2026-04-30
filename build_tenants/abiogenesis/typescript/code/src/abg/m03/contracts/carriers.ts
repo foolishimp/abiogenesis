@@ -203,6 +203,88 @@ export interface ActorInvocationClosedEvent {
   readonly detail: string | null;
 }
 
+export interface ActorProcessStartedEvent {
+  readonly kind: "actor_process_started";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly actorInvocationId: string;
+  readonly command: string;
+  readonly args: readonly string[];
+  readonly cwd: string;
+  readonly pid: number | null;
+  readonly timeoutMs: number;
+  readonly stdoutRef: string;
+  readonly stderrRef: string;
+}
+
+export interface ActorProcessStreamObservedEvent {
+  readonly kind: "actor_process_stream_observed";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly actorInvocationId: string;
+  readonly streamName: "stdout" | "stderr";
+  readonly streamRef: string;
+  readonly chunkIndex: number;
+  readonly byteLength: number;
+}
+
+export interface ActorProcessHeartbeatEvent {
+  readonly kind: "actor_process_heartbeat";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly actorInvocationId: string;
+  readonly heartbeatIndex: number;
+  readonly elapsedMs: number;
+}
+
+export interface ActorProcessTimeoutEvent {
+  readonly kind: "actor_process_timeout";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly actorInvocationId: string;
+  readonly timeoutMs: number;
+  readonly elapsedMs: number;
+}
+
+export interface ActorProcessSignalSentEvent {
+  readonly kind: "actor_process_signal_sent";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly actorInvocationId: string;
+  readonly signal: "SIGTERM" | "SIGKILL";
+  readonly elapsedMs: number;
+}
+
+export interface ActorProcessExitedEvent {
+  readonly kind: "actor_process_exited";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly actorInvocationId: string;
+  readonly status: number | null;
+  readonly signal: string | null;
+  readonly elapsedMs: number;
+  readonly timedOut: boolean;
+  readonly error: string | null;
+}
+
 export interface FhEscalatedEvent {
   readonly kind: "fh_escalated";
   readonly basisId: string;
@@ -716,6 +798,12 @@ export type RuntimeEvent =
   | ActorInvocationStartedEvent
   | ActorResultArtifactObservedEvent
   | ActorInvocationClosedEvent
+  | ActorProcessStartedEvent
+  | ActorProcessStreamObservedEvent
+  | ActorProcessHeartbeatEvent
+  | ActorProcessTimeoutEvent
+  | ActorProcessSignalSentEvent
+  | ActorProcessExitedEvent
   | FhEscalatedEvent
   | TerminalReachedEvent
   | GraphCallOpenedEvent
@@ -752,6 +840,12 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "actor_invocation_started",
   "actor_result_artifact_observed",
   "actor_invocation_closed",
+  "actor_process_started",
+  "actor_process_stream_observed",
+  "actor_process_heartbeat",
+  "actor_process_timeout",
+  "actor_process_signal_sent",
+  "actor_process_exited",
   "fh_escalated",
   "terminal_reached",
   "graph_call_opened",
@@ -824,6 +918,7 @@ export interface ContinuationProjection {
     readonly retryRunId: string;
     readonly retryCallId: string;
     readonly manifestId: string;
+    readonly priorManifestId: string;
     readonly attemptIndex: number;
     readonly sourceProjectionRef: string;
   }[];
@@ -860,6 +955,7 @@ export interface RuntimeAggregateProjection {
     readonly retryRunId: string;
     readonly retryCallId: string;
     readonly manifestId: string;
+    readonly priorManifestId: string;
     readonly attemptIndex: number;
     readonly sourceProjectionRef: string;
   }[];
@@ -881,6 +977,35 @@ export interface RuntimeAggregateProjection {
     readonly actorInvocationId: string;
     readonly resultRef: string;
     readonly artifactRef: string;
+  }[];
+  readonly actorProcessRefs: readonly {
+    readonly vectorIndex: number;
+    readonly actorInvocationId: string;
+    readonly pid: number | null;
+    readonly stdoutRef: string;
+    readonly stderrRef: string;
+    readonly running: boolean;
+    readonly latestHeartbeatIndex: number | null;
+    readonly latestHeartbeatElapsedMs: number | null;
+    readonly timeoutObserved: boolean;
+    readonly timeoutMs: number | null;
+    readonly timeoutElapsedMs: number | null;
+    readonly signalSequence: readonly {
+      readonly signal: "SIGTERM" | "SIGKILL";
+      readonly elapsedMs: number;
+    }[];
+    readonly status: number | null;
+    readonly signal: string | null;
+    readonly timedOut: boolean;
+    readonly error: string | null;
+  }[];
+  readonly actorProcessStreamRefs: readonly {
+    readonly vectorIndex: number;
+    readonly actorInvocationId: string;
+    readonly streamName: "stdout" | "stderr";
+    readonly streamRef: string;
+    readonly chunkIndex: number;
+    readonly byteLength: number;
   }[];
   readonly leafTaskIds: readonly string[];
   readonly completedLeafTaskIds: readonly string[];

@@ -2,6 +2,12 @@ import type {
   AdvancementTransition,
   ActorInvocation,
   ActorInvocationClosedEvent,
+  ActorProcessExitedEvent,
+  ActorProcessHeartbeatEvent,
+  ActorProcessSignalSentEvent,
+  ActorProcessStartedEvent,
+  ActorProcessStreamObservedEvent,
+  ActorProcessTimeoutEvent,
   ActorInvocationStartedEvent,
   ActorResultArtifactObservedEvent,
   AmbiguityObservationAdmittedRuntimeEvent,
@@ -204,6 +210,134 @@ export function constructActorInvocationClosedEvent(input: {
     closureStatus: input.closureStatus,
     resultRef: input.resultRef,
     detail: input.detail
+  });
+}
+
+export function constructActorProcessStartedEvent(input: {
+  readonly invocation: ActorInvocation;
+  readonly command: string;
+  readonly args: readonly string[];
+  readonly cwd: string;
+  readonly pid: number | null;
+  readonly timeoutMs: number;
+  readonly stdoutRef: string;
+  readonly stderrRef: string;
+}): ActorProcessStartedEvent {
+  return Object.freeze({
+    kind: "actor_process_started",
+    basisId: input.invocation.basisId,
+    graphCallId: input.invocation.graphCallId,
+    frameId: input.invocation.frameId,
+    vectorIndex: input.invocation.vectorIndex,
+    edge: input.invocation.edge,
+    actorInvocationId: input.invocation.actorInvocationId,
+    command: input.command,
+    args: freezeStringArray(input.args),
+    cwd: input.cwd,
+    pid: input.pid,
+    timeoutMs: input.timeoutMs,
+    stdoutRef: input.stdoutRef,
+    stderrRef: input.stderrRef
+  });
+}
+
+export function constructActorProcessStreamObservedEvent(input: {
+  readonly invocation: ActorInvocation;
+  readonly streamName: ActorProcessStreamObservedEvent["streamName"];
+  readonly streamRef: string;
+  readonly chunkIndex: number;
+  readonly byteLength: number;
+}): ActorProcessStreamObservedEvent {
+  return Object.freeze({
+    kind: "actor_process_stream_observed",
+    basisId: input.invocation.basisId,
+    graphCallId: input.invocation.graphCallId,
+    frameId: input.invocation.frameId,
+    vectorIndex: input.invocation.vectorIndex,
+    edge: input.invocation.edge,
+    actorInvocationId: input.invocation.actorInvocationId,
+    streamName: input.streamName,
+    streamRef: input.streamRef,
+    chunkIndex: input.chunkIndex,
+    byteLength: input.byteLength
+  });
+}
+
+export function constructActorProcessHeartbeatEvent(input: {
+  readonly invocation: ActorInvocation;
+  readonly heartbeatIndex: number;
+  readonly elapsedMs: number;
+}): ActorProcessHeartbeatEvent {
+  return Object.freeze({
+    kind: "actor_process_heartbeat",
+    basisId: input.invocation.basisId,
+    graphCallId: input.invocation.graphCallId,
+    frameId: input.invocation.frameId,
+    vectorIndex: input.invocation.vectorIndex,
+    edge: input.invocation.edge,
+    actorInvocationId: input.invocation.actorInvocationId,
+    heartbeatIndex: input.heartbeatIndex,
+    elapsedMs: input.elapsedMs
+  });
+}
+
+export function constructActorProcessTimeoutEvent(input: {
+  readonly invocation: ActorInvocation;
+  readonly timeoutMs: number;
+  readonly elapsedMs: number;
+}): ActorProcessTimeoutEvent {
+  return Object.freeze({
+    kind: "actor_process_timeout",
+    basisId: input.invocation.basisId,
+    graphCallId: input.invocation.graphCallId,
+    frameId: input.invocation.frameId,
+    vectorIndex: input.invocation.vectorIndex,
+    edge: input.invocation.edge,
+    actorInvocationId: input.invocation.actorInvocationId,
+    timeoutMs: input.timeoutMs,
+    elapsedMs: input.elapsedMs
+  });
+}
+
+export function constructActorProcessSignalSentEvent(input: {
+  readonly invocation: ActorInvocation;
+  readonly signal: ActorProcessSignalSentEvent["signal"];
+  readonly elapsedMs: number;
+}): ActorProcessSignalSentEvent {
+  return Object.freeze({
+    kind: "actor_process_signal_sent",
+    basisId: input.invocation.basisId,
+    graphCallId: input.invocation.graphCallId,
+    frameId: input.invocation.frameId,
+    vectorIndex: input.invocation.vectorIndex,
+    edge: input.invocation.edge,
+    actorInvocationId: input.invocation.actorInvocationId,
+    signal: input.signal,
+    elapsedMs: input.elapsedMs
+  });
+}
+
+export function constructActorProcessExitedEvent(input: {
+  readonly invocation: ActorInvocation;
+  readonly status: number | null;
+  readonly signal: string | null;
+  readonly elapsedMs: number;
+  readonly timedOut: boolean;
+  readonly error: string | null;
+}): ActorProcessExitedEvent {
+  return Object.freeze({
+    kind: "actor_process_exited",
+    basisId: input.invocation.basisId,
+    graphCallId: input.invocation.graphCallId,
+    frameId: input.invocation.frameId,
+    vectorIndex: input.invocation.vectorIndex,
+    edge: input.invocation.edge,
+    actorInvocationId: input.invocation.actorInvocationId,
+    status: input.status,
+    signal: input.signal,
+    elapsedMs: input.elapsedMs,
+    timedOut: input.timedOut,
+    error: input.error
   });
 }
 

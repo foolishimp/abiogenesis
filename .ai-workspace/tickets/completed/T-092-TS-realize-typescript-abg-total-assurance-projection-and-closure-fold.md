@@ -3,12 +3,12 @@ id: T-092-TS
 title: Realize TypeScript ABG total assurance projection and closure fold
 type: feature
 ticket_category: implementation_migration
-status: active
-review_status: external_review_blockers_resolved_pending_re_review
+status: completed
+review_status: external_review_accepted
 goal: abg-total-assurance-calculus
 goal_status: active
 build_tenant: typescript
-activation_requires: T-089 completed, T-090 active/awaiting_external_agent_review, and T-091 proof plan accepted
+activation_requires: T-089 completed, T-090 completed/external_review_accepted, and T-091 completed/external_review_accepted
 change_intent: Implement the ratified ABG total assurance projection and closure fold in the TypeScript tenant, with tenant-local proof and no reliance on Python proof closure.
 change_class: realization_refactor
 re_entry_point: realized_surface
@@ -16,13 +16,14 @@ affected_boundary: TypeScript ABG event/projection/closure surfaces, stale-input
 priority: high
 triaged_at: 2026-04-29T07:24:15Z
 created_at: 2026-04-29T07:24:15Z
-updated_at: 2026-04-30T00:20:06+10:00
+updated_at: 2026-04-30T17:57:01+10:00
 closure_candidate_at: 2026-04-29T08:23:15Z
+completed_at: 2026-04-30T17:57:01+10:00
 dependencies:
   - T-088 completed
   - T-089 completed
-  - T-090 active/awaiting_external_agent_review
-  - T-091 active/proof plan accepted
+  - T-090 completed/external_review_accepted
+  - T-091 completed/external_review_accepted
 source_ticket: T-090
 migration_strategy: inside_out_core_interface_migration
 library_usage: consume
@@ -64,8 +65,8 @@ non_closure_conditions:
 
 ## Closure Candidate
 
-T-092-TS is a closure candidate for the TypeScript projection/fold slice
-pending external agent review.
+T-092-TS is closed for the TypeScript projection/fold slice after external
+agent review accepted the implementation and proof.
 
 The tenant now has:
 
@@ -96,7 +97,7 @@ Passed:
 - `npm run test:t072:plugins`
 - `npm run test:semantic`
 
-The full semantic suite passed 291 tests after stale event expectations outside
+The full semantic suite passed 296 tests after stale event expectations outside
 the focused T-092 proof were repriced to the event-sourced payload truth path.
 
 ## Explicit Defer

@@ -3,13 +3,14 @@ id: T-093-TS
 title: Integrate TypeScript assurance closure fold into runner and release gates
 type: feature
 ticket_category: implementation_migration
-status: active
-review_status: external_review_blockers_resolved_pending_re_review
+status: completed
+review_status: external_review_accepted
 closure_candidate_at: 2026-04-29T08:44:05Z
+completed_at: 2026-04-30T17:57:01+10:00
 goal: abg-total-assurance-calculus
 goal_status: active
 build_tenant: typescript
-activation_requires: T-092-TS active/awaiting_external_agent_review with local proof passing
+activation_requires: T-092-TS completed/external_review_accepted with local proof passing
 change_intent: Consume the TypeScript ABG assurance projection and closure decision in runner/release gate surfaces so traversal convergence, installed operator success, archive shape, or downstream reports cannot be mistaken for assurance closure.
 change_class: realization_refactor
 re_entry_point: realized_surface
@@ -17,13 +18,13 @@ affected_boundary: TypeScript M03 runner, public start/convergence projection, r
 priority: high
 triaged_at: 2026-04-29T08:23:15Z
 created_at: 2026-04-29T08:23:15Z
-updated_at: 2026-04-30T00:20:06+10:00
+updated_at: 2026-04-30T17:57:01+10:00
 dependencies:
   - T-088 completed
   - T-089 completed
-  - T-090 active/awaiting_external_agent_review
-  - T-091 active/proof plan accepted
-  - T-092-TS active/awaiting_external_agent_review
+  - T-090 completed/external_review_accepted
+  - T-091 completed/external_review_accepted
+  - T-092-TS completed/external_review_accepted
 migration_strategy: inside_out_core_interface_migration
 library_usage: consume
 governing_library:
@@ -63,15 +64,13 @@ non_closure_conditions:
 
 This is the TypeScript follow-on opened by T-092-TS.
 
-T-092-TS created and locally proved the projection/fold and is pending external
-agent review. T-093-TS makes existing
+T-092-TS created and proved the projection/fold. T-093-TS makes existing
 runner/release paths consume it so the new assurance law affects closure
 behavior instead of remaining a library-only capability.
 
 ## Closure Candidate Evidence
 
-Status remains `active`; this ticket is not closed until another agent reviews
-and accepts the implementation.
+This ticket closed after another agent reviewed and accepted the implementation.
 
 Implemented surfaces:
 
@@ -91,12 +90,12 @@ Implemented surfaces:
 Verification:
 
 - `npm run build:semantic` passed.
-- `npm run test:t093` passed 5 tests.
+- `npm run test:t093` passed 6 tests.
 - `npm run test:t092` passed 14 tests.
 - `npm run test:t072:plugins` passed 7 tests.
 - `npm run lint:semantic` passed.
-- `npm run test:semantic` passed 291 tests after stale M04/M05/T-087 canonical
+- `npm run test:semantic` passed 296 tests after stale M04/M05/T-087 canonical
   expectations were repriced to the event-sourced payload truth path.
 
-The 2026-04-30 external review red-suite blockers are resolved. This ticket
-remains active pending another-agent re-review.
+The 2026-04-30 external review red-suite blockers are resolved. Claude's
+2026-04-30 closure-readiness review accepted this ticket for closure.

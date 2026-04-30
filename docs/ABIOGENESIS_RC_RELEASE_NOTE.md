@@ -1,4 +1,4 @@
-# abiogenesis 3.4.0-rc.3 Release Candidate Note
+# abiogenesis 3.4.0-rc.4 Release Candidate Note
 
 This checkpoint is the current TypeScript ABG release-candidate source state.
 
@@ -54,8 +54,8 @@ as released-reference evidence and is not an active RC gate while
 ## Versioned Artifacts
 
 - RC branch: `rc/3.4.0`
-- Candidate package version: `3.4.0-rc.3`
-- Candidate tag: `v3.4.0-rc.3`
+- Candidate package version: `3.4.0-rc.4`
+- Candidate tag: `v3.4.0-rc.4`
 
 ## Verification
 
@@ -63,10 +63,10 @@ Current qualification evidence for this cut:
 
 ```text
 npm run test:t076
-4 passed, duration_ms 4310.658167
+4 passed, duration_ms 3785.520875
 
 npm run test:semantic
-291 passed, duration_ms 4823.088125
+304 passed, duration_ms 6141.406292
 
 npm run lint:semantic
 passed
@@ -74,20 +74,24 @@ passed
 npm run lint:test-harness
 passed
 
-CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=360000 npm run test:t094:live
-1 passed, duration_ms 11357.336375
-archive: test_env/test_runs/t094_assurance_register_two_hop_live/20260429T152742308Z
+CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=240000 npm run test:t094:live
+1 passed, duration_ms 11948.129375
+archive: test_env/test_runs/t094_assurance_register_two_hop_live/20260430T141629554Z
+
+CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=240000 npm run test:t097:live
+1 passed, duration_ms 3930.383167
+archive: test_env/test_runs/t097_supervised_process_actor_live/20260430T141652934Z
 
 CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=360000 npm run test:live:uat
-2 passed, duration_ms 32388.037125
+retained rc.3 evidence: 2 passed, duration_ms 32388.037125
 latest semantic archive: test_env/test_runs/typescript_rc_live/requirements_to_uat/2026-04-29T153039592Z
 
 CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=360000 npm run test:live
-1 passed, duration_ms 75197.459708
+retained rc.3 evidence: 1 passed, duration_ms 75197.459708
 archive: test_env/test_runs/typescript_rc_live_portfolio/2026-04-29T153442846Z
 
 npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run
-passed, version 3.4.0-rc.3, files 294
+passed, version 3.4.0-rc.4, files 300
 
 git diff --check
 passed
@@ -106,13 +110,12 @@ ABG source induction under ODD SDLC governance cannot be actioned until there is
 a stable released ODD SDLC candidate selected as the governing product. No root
 `.genesis` induction or source-development runtime authority is claimed here.
 
-The active STDO assurance/payload tranche remains review-gated. This RC
-candidate records an operator-directed cut of the TypeScript primary release
-source state; it does not self-close T-086, T-090, T-091, T-092-TS, T-093-TS,
-T-094, T-095, T-095-TS, or T-096.
+The ABG-layer STDO assurance/payload/process-actor tranche has passed review
+for this RC cut. Downstream odd_sdlc regression proof for the test60-class
+consumer bugs remains a separate downstream gate and is not claimed by this ABG
+source RC.
 
 ## RC Decision
 
 The release operator has requested an RC cut. This tag is a release-candidate
-checkpoint, not the final tapped `3.4.0` release and not a claim that the active
-STDO tickets are closed.
+checkpoint, not the final tapped `3.4.0` release.

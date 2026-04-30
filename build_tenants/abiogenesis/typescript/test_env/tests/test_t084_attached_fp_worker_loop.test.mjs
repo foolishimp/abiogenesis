@@ -129,6 +129,7 @@ test("T-084 engine runner: attached F_P worker retries from replay state, then c
         vectorIndex: 0,
         attemptIndex: 1
       })}`,
+      priorManifestId: "result://t084/input_set%E2%86%92requirements/1",
       attemptIndex: 1,
       sourceProjectionRef: `runtime_projection:${basis.id}:closed=:retry=0:leaf=0`
     }

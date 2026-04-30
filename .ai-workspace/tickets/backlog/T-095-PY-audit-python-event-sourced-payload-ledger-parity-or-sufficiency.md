@@ -3,8 +3,9 @@ id: T-095-PY
 title: Audit Python event-sourced payload ledger parity or sufficiency
 type: spike
 ticket_category: ordinary
-status: paused
+status: backlog
 review_status: suspended_by_tenant_registry
+backlog_reason: Python tenant paused by T-096 and TENANT_REGISTRY; retained as reactivation authority, not a TS-primary RC gate.
 source_ticket: T-095
 build_tenant: python
 goal: abg-total-assurance-calculus
@@ -16,7 +17,7 @@ affected_boundary: Python ABG assurance, Python event/run archive surfaces, payl
 priority: high
 triaged_at: 2026-04-30T00:00:00Z
 created_at: 2026-04-30T00:00:00Z
-updated_at: 2026-04-30T00:50:46+10:00
+updated_at: 2026-04-30T12:48:50+10:00
 dependencies:
   - T-095 active/external_review_blockers_resolved_pending_re_review
   - T-092-PY paused/suspended_by_tenant_registry

@@ -6,6 +6,7 @@ export {
   ingestResultArtifact
 } from "./constructors.js";
 export { dispatch, sanitizeEnvironment } from "./dispatch.js";
+export { invokeSupervisedProcessActor } from "./process_actor.js";
 export type {
   DispatchRequest,
   DispatchRequestSink,
@@ -14,3 +15,7 @@ export type {
   ResultIngestOutcome,
   RuntimeFailureClass
 } from "./carriers.js";
+export type {
+  SupervisedProcessActorRequest,
+  SupervisedProcessActorResult
+} from "./process_actor.js";

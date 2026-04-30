@@ -1,6 +1,6 @@
 {
   "name": "@abiogenesis/typescript-tenant",
-  "version": "3.4.0-rc.3",
+  "version": "3.4.0-rc.4",
   "private": true,
   "type": "module",
   "types": "./build/semantic/code/src/index.d.ts",
@@ -136,7 +136,11 @@
     "test:t093": "npm run build:semantic && node --test test_env/tests/test_t093_assurance_gate_integration.test.mjs",
     "test:t094": "npm run build:semantic && node --test test_env/tests/test_t094_assurance_register_two_hop_unit.test.mjs",
     "test:t094:live": "npm run build:semantic && node --test test_env/live/test_t094_assurance_register_two_hop_live.test.mjs",
-    "test:t095": "npm run build:semantic && node --test test_env/tests/test_t095_payload_ledger_unit.test.mjs test_env/tests/test_t094_assurance_register_two_hop_unit.test.mjs"
+    "test:t095": "npm run build:semantic && node --test test_env/tests/test_t095_payload_ledger_unit.test.mjs test_env/tests/test_t094_assurance_register_two_hop_unit.test.mjs",
+    "test:t097": "npm run build:semantic && node --test test_env/tests/test_t097_supervised_process_actor.test.mjs",
+    "test:t097:live": "npm run build:semantic && node --test test_env/live/test_t097_supervised_process_actor_live.test.mjs",
+    "test:t098": "npm run build:semantic && node --test test_env/tests/test_t098_retry_frontier_projection.test.mjs",
+    "test:t099": "npm run build:semantic && node --test test_env/tests/test_t099_fp_stage_carriers.test.mjs"
   },
   "dependencies": {
     "valibot": "1.3.1"

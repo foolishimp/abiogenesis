@@ -3,12 +3,13 @@ id: T-091
 title: Prove ABG total ambiguity projection and premature closure guards
 type: feature
 ticket_category: implementation_migration
-status: active
-review_status: external_review_blockers_resolved_pending_re_review
+status: completed
+review_status: external_review_accepted
 closure_candidate_at: 2026-04-29T08:58:54Z
+completed_at: 2026-04-30T17:57:01+10:00
 goal: abg-total-assurance-calculus
 goal_status: active
-activation_requires: T-089 completed, T-090 active/awaiting_external_agent_review, and T-086 active/awaiting_external_agent_review
+activation_requires: T-089 completed, T-090 completed/external_review_accepted, and T-086 completed/external_review_accepted
 proof_plan_status: accepted
 change_intent: Prove that ABG total assurance projection is exhaustive, deterministic, stale-input aware, and unable to close work through worker success, passing tests, archive shape, plugin claim, or nullable closure register absence.
 change_class: design_reframe
@@ -17,12 +18,12 @@ affected_boundary: ABG assurance projection tests, closure fold tests, stale-inp
 priority: high
 triaged_at: 2026-04-29T07:24:15Z
 created_at: 2026-04-29T07:24:15Z
-updated_at: 2026-04-30T00:34:03+10:00
+updated_at: 2026-04-30T17:57:01+10:00
 dependencies:
   - T-088 completed
   - T-089 completed
-  - T-090 active/awaiting_external_agent_review
-  - T-086 active/awaiting_external_agent_review
+  - T-090 completed/external_review_accepted
+  - T-086 completed/external_review_accepted
 migration_strategy: inside_out_core_interface_migration
 library_usage: consume
 governing_library: build_tenants/abiogenesis/typescript/design/M03_TOTAL_ASSURANCE_PROJECTION_DERIVATION.md
@@ -80,12 +81,11 @@ non_closure_conditions:
 
 # T-091: Total Ambiguity Projection Proof
 
-This ticket is active with an accepted proof plan.
+This ticket is completed with an accepted proof plan.
 
-It is not complete. Closure still requires tenant proof surfaces that satisfy
-the accepted row-totality, mixed-state, stale-input, plugin-negative, old-path
-bypass, report read-model, replay determinism, and T-086 envelope-compatibility
-matrix.
+Claude external review accepted that tenant proof surfaces satisfy the accepted
+row-totality, mixed-state, stale-input, plugin-negative, old-path bypass,
+report read-model, replay determinism, and T-086 envelope-compatibility matrix.
 
 ## Accepted Proof Plan
 
@@ -98,8 +98,7 @@ shared proof closure.
 
 ## Closure Candidate Evidence
 
-Status remains `active`; this ticket is not closed until another agent reviews
-and accepts it.
+This ticket closed after another agent reviewed and accepted it.
 
 The accepted proof plan is now realized by tenant-local proof surfaces:
 
@@ -115,10 +114,10 @@ Verification:
 
 - TypeScript: `npm run test:t092`, `npm run test:t093`,
   `npm run test:t072:plugins`, `npm run lint:semantic`, and
-  `npm run test:semantic` passed 291 tests.
+  `npm run test:semantic` passed 296 tests.
 - Python reference: prior Python T-092 and T-095-PY checks remain retained
   evidence, but Python is paused by tenant registry disposition and is not an
   active release gate.
 
-The 2026-04-30 external review red-suite blockers are resolved, but this ticket
-remains active pending another-agent re-review.
+The 2026-04-30 external review red-suite blockers are resolved and Claude's
+2026-04-30 closure-readiness review accepted this ticket for closure.

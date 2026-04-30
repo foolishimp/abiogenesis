@@ -55,7 +55,7 @@ test("M04 result-assessment unit: accepted route emits payload ledger facts and 
   assert.deepStrictEqual(events.at(-1), {
     kind: "assessed",
     assessmentKind: "fp",
-    edge: "design→code",
+    edge: "design→code:result-profile",
     obligationId: "code_complete",
     publishedLedgerRef: "ledger://m04-result-profile",
     actor: "codex",

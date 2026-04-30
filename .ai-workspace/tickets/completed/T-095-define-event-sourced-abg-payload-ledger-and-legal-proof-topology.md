@@ -3,11 +3,11 @@ id: T-095
 title: Define event-sourced ABG payload ledger and legal proof topology
 type: feature
 ticket_category: implementation_migration
-status: active
-review_status: external_review_blockers_resolved_pending_re_review
+status: completed
+review_status: external_review_accepted
 goal: abg-total-assurance-calculus
 goal_status: active
-activation_requires: T-094 remains active and the payload ledger design passes external STDO review before tenant closure claims
+activation_requires: T-094 completed/external_review_accepted and the payload ledger design passes external STDO review before tenant closure claims
 change_intent: Consolidate payload, event, ledger, authority, evidence, ambiguity, and closure-input truth under ABG's event-sourced runtime model so downstream lifecycle registers are projected read models rather than plugin-owned or product-owned rival ledgers.
 change_class: requirement_reprice
 re_entry_point: requirement
@@ -15,16 +15,17 @@ affected_boundary: ABG payload event source, event admission, payload ledger pro
 priority: high
 triaged_at: 2026-04-29T12:41:26Z
 created_at: 2026-04-29T12:41:26Z
-updated_at: 2026-04-30T00:50:46+10:00
+updated_at: 2026-04-30T17:57:01+10:00
+completed_at: 2026-04-30T17:57:01+10:00
 dependencies:
-  - T-086 active/awaiting_external_agent_review
-  - T-090 active/awaiting_external_agent_review
-  - T-091 active/awaiting_external_agent_review
-  - T-092-TS active/awaiting_external_agent_review
-  - T-093-TS active/awaiting_external_agent_review
-  - T-094 active/external_review_received_not_closure_ready
-  - T-095-PY paused/suspended_by_tenant_registry
-  - T-096 active/ts_primary_release_scope
+  - T-086 completed/external_review_accepted
+  - T-090 completed/external_review_accepted
+  - T-091 completed/external_review_accepted
+  - T-092-TS completed/external_review_accepted
+  - T-093-TS completed/external_review_accepted
+  - T-094 completed/external_review_accepted
+  - T-095-PY backlog/suspended_by_tenant_registry
+  - T-096 completed/external_review_accepted
   - REQ-R-ABG3-ASSURANCE active
   - REQ-R-ABG3-EVENTS active
   - REQ-R-ABG3-PROJECTION active
@@ -69,8 +70,8 @@ core_interface_migration_inventory_required:
   - legal tests proving shadow ledger paths cannot close
   - live Claude lane proving actor/worker output is admitted through ABG facts before closure relevance
 required_follow_on_before_closure:
-  - T-095-TS TypeScript tenant payload event source and projection implementation ticket
-  - T-095-PY Python pause disposition recorded under the tenant registry; no Python parity or no-gap claim is made for the TS-primary release cut
+  - T-095-TS completed TypeScript tenant payload event source and projection implementation ticket
+  - T-095-PY Python backlog/suspension disposition recorded under the tenant registry; no Python parity or no-gap claim is made for the TS-primary release cut
   - T-096 external review accepts TS-primary release scope and Python suspension before RC claims use this upstream ticket
   - T-094 event-derived two-hop live UAT rerun over admitted ABG payload facts
   - downstream odd_sdlc adapter tracking ticket mapping SDLC lifecycle registers to ABG payload/evidence/assurance projections, non-operative until ABG source-carrier proof lands
@@ -281,10 +282,11 @@ through ABG payload source facts before assurance evidence can close. Provider-
 only fulfilled evidence blocks as `event_ledger_invalid`, and `assessed` replay
 events are retained only as read-model facts, not vector-closure authority.
 
-This does not close T-095. The upstream ticket still requires external STDO
-review acceptance. Python parity is no longer an active implementation gate for
-the TS-primary cut, but the Python pause disposition must be reviewed so no
-Python parity or no-gap claim is implied.
+This did not close T-095 by itself. The upstream ticket required external STDO
+review acceptance, which Claude's 2026-04-30 closure-readiness review supplied.
+Python parity is no longer an active implementation gate for the TS-primary cut,
+and the Python pause disposition was reviewed so no Python parity or no-gap
+claim is implied.
 
 Huygens externally reviewed the T-095-TS implementation and accepted it as
 closure-ready for the TypeScript tenant. The acceptance is recorded at
@@ -309,16 +311,16 @@ Applied response:
 
 Verification after the response:
 
-- `npm run test:semantic` passed 291 tests.
+- `npm run test:semantic` passed 296 tests.
 - `./run_tests` passed 347 tests with 19 deselected from
   `build_tenants/abiogenesis/python/test_env`.
 - `CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=180000 npm run test:t094:live`
   passed 1 Claude-only live test and archived
   `build_tenants/abiogenesis/typescript/test_env/test_runs/t094_assurance_register_two_hop_live/20260429T142205279Z`.
 
-This resolves the review's reported red-suite blockers. It does not close this
-upstream ticket: T-095 still needs external STDO re-review and the T-095-PY
-pause disposition must be accepted before TS-primary RC claims proceed.
+This resolves the review's reported red-suite blockers. Claude's 2026-04-30
+closure-readiness review accepted this upstream ticket and the T-095-PY pause
+disposition for the TS-primary tranche.
 
 ## 2026-04-30 Self-Review Depth Correction
 
@@ -350,6 +352,6 @@ Verification after the correction:
 
 - Python targeted forensic audit and trace tests passed 18 tests.
 - TypeScript T-087 scoped payload-linkage proof passed 4 tests.
-- `npm run test:semantic` passed 291 tests.
+- `npm run test:semantic` passed 296 tests.
 - `./run_tests` passed 349 tests with 19 deselected from
   `build_tenants/abiogenesis/python/test_env`.
