@@ -891,6 +891,127 @@ Candidate-family hints influence selection policy.
 
 They do not become a second execution runtime.
 
+### F_P / F_D constitutional boundary
+
+F_P owns semantic quality judgment of `A.req_i -> B.result_i` for each
+obligation `i`. F_D owns deterministic mechanics only.
+
+Authority anchors:
+
+- `specification/PRODUCT.md:97` — F_P owns unconstrained constructive space;
+  F_D is deterministic / domain-owned optimization and does not move domain
+  HOW into ABG.
+- `specification/PRODUCT.md:105` — F_D evidence does not let the framework
+  absorb domain HOW as framework law.
+- `specification/INTENT.md:92` — F_P owns hidden constructive traversal of the
+  probabilistic worker.
+- `specification/INTENT.md:96` — if the framework prescribes domain solution
+  strategy beyond declared edge contract and control truth, it has crossed the
+  GTL / ABG boundary.
+
+Concrete split:
+
+| Concern | Owner | Examples |
+| --- | --- | --- |
+| `did A.req_i -> B.result_i?` per obligation | F_P | worker self-assessment, downstream F_P evaluator plugin attesting per-obligation, behavioral or material observation, finding-class split |
+| Artifact mechanics | F_D | file exists under allocated root, schema valid, digest matches, write-root respected, identity bound, admission envelope intact, target certification reference present |
+| Foldback algebra | ABG runtime | aggregating F_P assessments into ledger, computing the five-term `edge_converged` predicate, latest-assessed-per-slice projection, retry allowlist gating, artifact salvage admission |
+
+Subdivision is a feature, not the check. When one requirement is split into N
+obligations, each per-obligation check is still F_P. Determinism of an
+implementation does not make a check F_D. If a check reads disk content, parses
+sections, evaluates substantive content, or counts items per obligation
+expectation, it judges semantic fulfillment and is F_P-class regardless of how
+deterministic it looks.
+
+"Behavioral F_D" or "semantic F_D" is a code smell. Either the label is wrong
+(rename to F_P) or the structure is wrong (split semantic judgment into a
+separate F_P plugin and leave F_D doing mechanics).
+
+Recurring bug pattern: B-003, B-013, B-014, B-016, B-017 are the same
+conflation surfacing in different shapes. A check that lexically substring-matches
+output content gets labelled F_D because it is "deterministic"; it is actually
+F_P-class semantic quality judgment, and labelling it F_D allows the runtime
+to admit material gaps as fulfilled. Finding-class taxonomies
+(`semantic_fulfillment_gap`, `traceability_reference_gap`) come from F_P; F_D
+does not classify.
+
+## Eval Suite Projection And Worker Variance
+
+T-102 admits typed eval-suite projection over event-sourced trial truth. F_P
+workers are non-deterministic; capability claims that do not measure variance
+are unsafe.
+
+Carriers (`code/src/abg/m03/contracts/eval_suite.ts`):
+
+- `EvalSuiteSpec` (`eval_suite.ts:17-29`) — suite identity, `suiteClass` of
+  `capability` or `regression`, `repeatCount`, `passThreshold`,
+  `saturationPolicy`, owner and source refs.
+- `EvalTask` (`eval_suite.ts:31-42`) — task ref over a graph-function edge with
+  declared output refs, reference solution refs, success criteria refs, grader
+  refs.
+- `EvalTrial` (`eval_suite.ts:44-57`) — one trial of one task by one
+  `workerRef` under one `policyRef`, with `outputRootRef`, `eventStreamRef`,
+  `transcriptRefs`.
+- `EvalOutcome` (`eval_suite.ts:59-71`) — terminal decision plus admitted
+  evidence, projection refs, and `failureClass` for the trial.
+- `EvalGradeRow` and `EvalGradeVector` (`eval_suite.ts:73-93`) — per-subject
+  grade rows folded into a vector verdict (`pass`, `fail`, `unknown`).
+- `EvalAggregateProjection` (`eval_suite.ts:95-116`) — suite-level pass@k
+  (`passAtK`), pass^k (`passAllK`), `passRate`, `passThreshold`, grade row
+  counts, `failureClasses`, and `verdict` (`passed` or `failed`).
+
+Capability vs regression discipline (`eval_suite.ts:13`,
+`EvalAggregateProjection.suiteClass`):
+
+- `capability` evals exercise hard domain work. Low pass rates are expected
+  while the substrate is maturing. They lose signal as they saturate.
+- `regression` evals protect existing carrier contracts. They should be at or
+  near saturation and gate against degradation.
+
+Mixing the two surfaces creates ambiguity: a CI failure cannot be classified as
+expected capability gap versus regression without `suiteClass`. Keep them
+separate at the suite-spec level.
+
+Worker variance metrics (`deriveEvalAggregateProjection` in
+`eval_suite.ts:336-457`):
+
+- `passAtK` — at least one trial in the trial set passed.
+- `passAllK` — every trial in the trial set passed.
+
+For chained traversal of N edges, pass^k is the consistency metric that
+matters. A 0.9 pass@1 per edge becomes ~0.12 pass^20 across the chain even
+though each edge looks fine in isolation.
+
+Anthropic vocabulary mapping
+(`.ai-workspace/comments/claude/20260502T053000Z_DESIGN_eval-framework-from-anthropic-demystifying-evals.md`):
+
+| Anthropic | RC.6 carrier |
+| --- | --- |
+| Task | `EvalTask` over a graph-function edge or chain |
+| Input | `EvalTask.inputRefs` resolving to admitted `WorkspaceAssetBinding`s |
+| Output | `EvalOutcome.materializedOutputRefs` under T-082 allocation roots |
+| Transcript / Trace | `EvalTrial.eventStreamRef` plus `transcriptRefs` |
+| Outcome | `EvalOutcome` plus `EvalGradeVector` plus admitted ledger projection |
+| Grader (semantic) | F_P evaluator plugin |
+| Grader (mechanical) | F_D envelope plugin |
+| Reference solution | `EvalTask.referenceSolutionRefs` |
+| pass@k | `EvalAggregateProjection.passAtK` |
+| pass^k | `EvalAggregateProjection.passAllK` |
+
+Operator discipline (sandbox shape, `test_env/sandbox/mini_dm_redux/`):
+
+- One `run.mjs` per sandbox dispatches the F_P worker (`fp_worker.mjs`) and the
+  F_P evaluator (`fp_evaluator.mjs`) per edge.
+- The F_D envelope (`fd_envelope.mjs`) checks artifact mechanics only.
+- Each trial materializes under a fresh allocation root, so trials do not
+  correlate across runs by construction.
+- Transcripts and ledger fields are inspectable per trial.
+
+Read transcripts. Graders that pass on lexical match alone will admit material
+gaps as fulfilled. The recurring `behavioral F_D` bug class is a transcript-not-read
+failure.
+
 ## What ABG Owns
 
 ABG owns runtime truth and runtime progression.
@@ -930,6 +1051,252 @@ Do not rebuild these meanings from result dictionaries, controller state, or
 `runtime_config` may provide adapter/bootstrap ingress. After admission,
 runtime policy, asset-binding, proof-hold, dispatch, and convergence truth must
 be carried by typed or resolved runtime surfaces.
+
+### ABG 3.4.0-rc.6 carrier extensions
+
+The rc.6 wave adds output allocation, zoom-foldback, graph-span, and
+cross-workspace carriers. These are not optional. A graph function that takes
+inputs and produces typed outputs must consume them.
+
+#### T-082 output instance allocation
+
+T-082 admits invocation-local output materialization roots. Builders that
+produced outputs under caller-chosen paths must move to T-082 allocation.
+
+Carriers (`code/src/abg/m03/contracts/output_allocation.ts`):
+
+- `OutputInstanceAllocation` (`output_allocation.ts:97-115`) — one allocated
+  output: `assetRef`, `assetType`, `materializationRoot`, `materializationUri`,
+  `allowedWriteRoots`, plus run / work / basis / graph-function lineage.
+- `WorkspaceAssetBinding` (`output_allocation.ts:32-42`) — admitted input or
+  output asset bound to a workspace, with `allowedWriteRoots` and
+  `bindingRole`.
+- `OutputPluginHandoffManifest` (`output_allocation.ts:141-155`) — the manifest
+  the F_P plugin receives: admitted input refs, allocated outputs, allowed
+  write roots, proof obligation refs.
+- `OutputAllocationProjection` (`output_allocation.ts:157-174`) — replay-derived
+  view of allocations, bindings, observed materializations.
+
+Event kinds (admitted through ABG, defined in
+`code/src/abg/m03/contracts/event_admission.ts`):
+
+- `output_instance_allocated` — ABG mints a write root for one declared output.
+- `output_binding_admitted` — admitted asset binding for an allocated or
+  caller-supplied input.
+- `output_materialization_observed` — materialization observation under the
+  allowed write roots; admission asserts the path is within allocation
+  (`output_allocation.ts:454-476`).
+
+Builder rules:
+
+- F_P plugins emit artifacts under `OutputPluginHandoffManifest.allowedWriteRoots`.
+  Writes outside that root fail closed in admission.
+- Output identity comes from ABG, not from the worker. Workers do not invent
+  asset refs.
+- F_D mechanics (existence, schema, digest, write-root respected) attest the
+  envelope; F_P attests semantic fulfillment.
+
+#### T-100 zoom foldback and obligation schedule
+
+T-100 admits per-edge zoom traversal where one outer edge unfolds into a
+schedule of obligations and ABG runs `dispatch -> assess -> fold` until the
+five-term `edge_converged` predicate holds.
+
+Carriers (`code/src/abg/m03/contracts/workspace_zoom_foldback.ts`):
+
+- `ObligationLedgerAsset` (`workspace_zoom_foldback.ts:89-97`) — typed
+  obligation ledger admitted from the input asset and its authority digest.
+- `ObligationScheduleAsset` (`workspace_zoom_foldback.ts:108-115`) — derived
+  per-obligation schedule items.
+- `ZoomFrame` (`workspace_zoom_foldback.ts:117-128`) — admitted invocation-local
+  zoom over one edge with `inputAssetRef`, `outputAssetRef`, `ledgerRef`,
+  `scheduleRef`.
+- `ScheduledSliceDispatch` (`workspace_zoom_foldback.ts:130-139`) — one
+  per-attempt dispatch of one schedule item to one plugin.
+- `ScheduledSliceAssessment` (`workspace_zoom_foldback.ts:141-155`) — one
+  attempt outcome with `status`, `assessmentRegime`, `findingClass`,
+  `evidenceRefs`, `outputRefs`, `runtimeFailureClass`.
+- `ZoomFoldbackEvaluation` (`workspace_zoom_foldback.ts:157-185`) — the foldback
+  result with the five-term `edge_converged` predicate.
+- `OuterTraversalEvaluation` (`workspace_zoom_foldback.ts:187-201`) — the next
+  outer-traversal action: `close`, `retry_same_edge`, `carry_loopback_pressure`,
+  `block`, `reprice`.
+
+Five-term `edge_converged` predicate
+(`workspace_zoom_foldback.ts:781-797`, fields on `ZoomFoldbackEvaluation`):
+
+1. `carryConverged` — every schedule item has a current semantic assessment
+   with no conflicting status.
+2. `fulfillmentConverged` — every schedule item is `fulfilled` with finding
+   class `fulfilled`; no open, blocked, runtime-failed, or conflicting items.
+3. `admitted` — the foldback was admitted through ABG.
+4. `targetCertificationPassed` — fulfillment converged at target certification.
+5. `fdRecheckPassed` — F_D mechanical recheck passed at close.
+
+Close fires only when all five terms hold. Any single failure routes to a
+typed decision: `retry_scheduled_slice`, `carry_loopback_pressure`, `blocked`,
+or `reprice_required`.
+
+Retry allowlist (`workspace_zoom_foldback.ts:57-62`):
+
+```text
+RETRYABLE_RUNTIME_FAILURE_CLASSES = ["transport_failure", "no_output", "contract_failure"]
+```
+
+Only these three runtime failure classes are retry-eligible. Other failure
+classes block the slice, even if a later attempt would otherwise look
+fulfilled.
+
+Artifact salvage (`workspace_zoom_foldback.ts:184`, `salvagedItemRefs`):
+
+A schedule item where a runtime-failed attempt produced a usable artifact may
+be admitted as `fulfilled` with the runtime failure class still recorded. The
+foldback projects these into `salvagedItemRefs`. Salvage preserves valid F_P
+outputs across transport timeouts; it does not relax F_P fulfillment evidence
+requirements.
+
+Finding-class taxonomy (`workspace_zoom_foldback.ts:46-49`):
+
+- `fulfilled` — the obligation is satisfied with required output and evidence.
+- `semantic_fulfillment_gap` — F_P attests that the result does not materially
+  represent the requirement.
+- `traceability_reference_gap` — references to authority are missing or
+  malformed but the substantive content may still be partial.
+
+The split allows reentry routing to distinguish "rewrite this slice" from
+"add a missing reference".
+
+Behavioral observation rule: assessments admitted with non-runtime status must
+carry F_P regime (`workspace_zoom_foldback.ts:307-311`,
+`defaultAssessmentRegimeForStatus`). Semantic judgment is F_P; only
+`runtime_failed` admits at F_D regime.
+
+Event kinds:
+
+- `workspace_obligation_ledger_admitted`
+- `workspace_obligation_schedule_derived`
+- `zoom_frame_opened`
+- `scheduled_slice_dispatched`
+- `scheduled_slice_assessed`
+- `zoom_foldback_evaluated`
+
+#### T-104 cross-workspace output allocation
+
+T-104 admits graph-function starts that read inputs from one workspace (W1) and
+write outputs to a different declared workspace (W2). Output authority and
+input lineage stay separate.
+
+Carriers (`code/src/abg/m03/contracts/output_allocation.ts`):
+
+- `OutputWorkspaceBinding` (`output_allocation.ts:44-50`) — admitted output
+  workspace identity: `workspaceRef`, `workspaceRoot`, `authorityRef`, `source`.
+- `admitOutputWorkspaceBinding` (`output_allocation.ts:337-363`) — admission
+  with canonical-path failure-closed.
+- `OutputInstanceAllocation` extended fields (`output_allocation.ts:106-109`):
+  `inputWorkspaceRoot`, `outputWorkspaceRef`, `outputWorkspaceRoot`,
+  `outputWorkspaceAuthorityRef`.
+- `OutputPluginHandoffManifest` extended fields (`output_allocation.ts:148-153`):
+  `inputWorkspaceRoots`, `outputWorkspaceRefs`, `outputWorkspaceRoots`.
+
+Builder rule: when the start request supplies `outputWorkspaceBinding`,
+allocation derives roots under W2; when it does not, allocation derives under
+the basis workspace. W2 represented as a string path without an admitted
+binding fails closed.
+
+## Graph-Span Foldback And Constitutional Reentry
+
+T-103 admits foldback over a contiguous run of graph vectors and routes
+reentry to the earliest implicated vector or, when the gap exceeds the local
+graph, to a constitutional reentry point.
+
+Carriers (`code/src/abg/m03/contracts/graph_span_reentry.ts`):
+
+- `GraphSpanRef` (`graph_span_reentry.ts:50-60`) — contiguous span over
+  `[sourceVectorIndex, terminalVectorIndex]` with `coveredVectorIndexes`.
+- `GraphSpanEvaluationSchedule` (`graph_span_reentry.ts:62-70`) — schedule of
+  spans terminating at one vector with a `generation` counter.
+- `GraphSpanAssessment` (`graph_span_reentry.ts:81-98`) — one assessment of one
+  span carrying obligation rows, carry observations, optional constitutional
+  reentry payload, and `assessmentRegime` (F_P for any non-fulfilled status,
+  enforced at `graph_span_reentry.ts:654-659`).
+- `GraphSpanFoldbackEvaluation` (`graph_span_reentry.ts:100-120`) — fold result
+  with `decision`, fulfillment counts, `reentryCandidateVectorIndexes`,
+  `earliestReentryVectorIndex`, accumulated constitutional reentries.
+- `GraphReentryFrontierProjection` (`graph_span_reentry.ts:141-152`) —
+  replay-derived active reentry frontier with `decision` of `advance`,
+  `reenter`, `constitutional_reentry`, `reprice`, or `block`.
+- `GraphReentryPlan` (`graph_span_reentry.ts:154-168`) — the planned reentry
+  with `targetVectorIndex`, `changeClass`, `reEntryPoint`, `routeContractRefs`,
+  `shadowedVectorIndexes`, `causingFrontierRowRefs`.
+- `GraphConstitutionalReentry` (re-exported from
+  `graph_span_reentry.ts:41-48`) — the constitutional payload with
+  `changeClass`, `reEntryPoint`, `targetGraphFunctionRef`, `routeContractRefs`,
+  `authorityRefs`, `rationale`.
+
+Five new event kinds:
+
+- `graph_span_evaluation_scheduled`
+- `graph_span_assessed`
+- `graph_span_foldback_evaluated`
+- `graph_reentry_planned`
+- `graph_reentry_applied`
+
+Earliest-implicated-vector reentry rule (`graph_span_reentry.ts:680-703`,
+`deriveFirstBadVector`): for each span obligation row that is not fulfilled
+and not constitutional, ABG walks `carryObservations` in source-vector order
+and returns the first observation whose status is not `carried`. The set of
+first-bad vectors across rows yields the foldback's
+`reentryCandidateVectorIndexes`; `earliestReentryVectorIndex` is the minimum.
+Reentry routes to that vector, not to the terminal edge.
+
+`change_class` taxonomy (`carriers.ts:GRAPH_CHANGE_CLASS_VALUES`):
+
+- `goal_reprice` — current work-wave focus changes.
+- `intent_reprice` — direction or scope changes.
+- `product_reprice` — current product shape changes while intent stays stable.
+- `requirement_reprice` — constitutional truth changes while direction stays
+  stable.
+- `design_reframe` — realization structure changes while requirements stay
+  stable.
+- `realization_refactor` — local realization changes with no intended upstream
+  change.
+
+`re_entry_point` taxonomy (`carriers.ts:GRAPH_REENTRY_POINT_VALUES`):
+
+`goals`, `intent`, `product_definition`, `requirements`, `design_surface`,
+`realization`, `proof`.
+
+A constitutional gap on a graph-span row (status `constitutional_gap`) requires
+a `GraphConstitutionalReentry` payload with `routeContractRefs`,
+`authorityRefs`, and `rationale`. Without the payload, admission fails closed
+(`graph_span_reentry.ts:376-408`).
+
+Frontier and plan projection
+(`graph_span_reentry.ts:1122-1255`):
+
+- The frontier accumulates rows per foldback event and clears them on
+  `decision === "close"` for the matching terminal vector or when a
+  `graph_reentry_applied` event references the row.
+- Row severity priority: `block` > `constitutional_reentry` > `reprice` >
+  `retry`.
+- `deriveAdvancementTransitionWithReentry` (`graph_span_reentry.ts:1329-1388`)
+  yields the next runtime action: `reenter_graph_vector`,
+  `reenter_constitutional_route`, `reprice_required`, `blocked`, or
+  `default_iteration` (delegating to the standard `IterationAdvanceDecision`).
+
+Intent loop / homeostatic loop mapping:
+
+| Substrate signal | Constitutional route |
+| --- | --- |
+| local span gap, target inside graph | `reenter_graph_vector` (realization refactor) |
+| stale input, contradictory evidence | `reprice_required` (requirement_reprice or product_reprice) |
+| `constitutional_gap` row with reentry payload | `reenter_constitutional_route` (`change_class` per payload) |
+| blocked or unrecoverable | `blocked` |
+
+The runtime treats reentry as governed iteration over the same execution
+basis. Constitutional reentry does not erase prior runtime truth; it shadows
+the vectors at and after the target vector
+(`graph_span_reentry.ts:533-544`, `shadowedVectorIndexes`).
 
 ## What The App Produces
 
@@ -982,11 +1349,15 @@ When building a new GTL/ABG app, execute this algorithm:
 6. Publish graph functions as the constructive carriers.
 7. Bind semantic jobs to public graph functions.
 8. Publish the module surface: graphs, graph functions, jobs, roles, refinement boundaries, and candidate families.
-9. Attach policy hooks for dispatch, evaluation, escalation, proof, and closure.
-10. Install or initialize the runtime surface.
-11. Run `gen-start` through the concrete CLI binding.
-12. Inspect events, projection, proof, closure, and gaps.
-13. Correct, supersede, or reprice from emitted runtime facts.
+9. Attach policy hooks for dispatch, evaluation, escalation, proof, and closure. Keep F_P plugins for semantic judgment and F_D plugins for mechanics; do not collapse the two.
+10. For graph functions that produce typed outputs, consume T-082 output allocation. When the start request crosses workspaces, supply an admitted T-104 `OutputWorkspaceBinding` (W2).
+11. For per-edge zoom work, derive an `ObligationLedgerAsset` from the input asset, derive the `ObligationScheduleAsset`, open a `ZoomFrame`, and let ABG run the dispatch/assess/fold loop until the five-term `edge_converged` predicate holds.
+12. Install or initialize the runtime surface.
+13. Run `gen-start` through the concrete CLI binding.
+14. Inspect events, projection, proof, closure, gaps, the zoom foldback decision, and the graph-span reentry frontier.
+15. Consume the graph-span foldback decision: close, retry the same edge, reenter at the earliest implicated vector, route a constitutional reentry per `change_class` and `re_entry_point`, or stop and reprice.
+16. For capability claims, emit `EvalSuiteSpec` / `EvalTask` / `EvalTrial` / `EvalOutcome` / `EvalGradeVector` and read `EvalAggregateProjection.passAtK` and `passAllK` before claiming a capability has landed.
+17. Correct, supersede, or reprice from emitted runtime facts.
 
 Stop and reprice when:
 
@@ -1093,6 +1464,12 @@ The public operator contract is `gen-start`.
 | `--target` | `next`, `graph_function:<handle>`, `asset:<handle>` | Selects the public work target. |
 | `--until` | `first_traversal`, `blocked`, `converged` | Selects the stop condition. |
 
+When the graph function reads inputs from one workspace and writes outputs to a
+different workspace, the start carrier admits an additional T-104
+`OutputWorkspaceBinding` (W2) alongside the input scope (W1). Allocation roots
+derive under W2; input lineage stays bound to W1. A W2 supplied as a string
+path without admitted binding fails closed.
+
 Target law:
 
 - `next` advances the next open job in scope
@@ -1167,44 +1544,68 @@ The TypeScript `start` and `publicStart` APIs return admitted outcome objects
 and emit runtime facts through the supplied event sink. `publicStart` delegates
 to `start`, so callers must not depend on old single-advance behavior.
 
-Read these fields first:
+Read these fields first (per `code/src/cli/command.ts:820-836`):
 
 | Field | Meaning |
 | --- | --- |
-| `status` | Public result status. |
-| `target` | Admitted target string. |
-| `asset_id` | Resolved asset identity for `asset:<handle>`. |
-| `edge` | Selected graph edge. |
-| `stop_predicate` | Runtime stop reason projected from the typed advancement transition. |
-| `fp_manifest_path` | F_P manifest path when constructive dispatch is pending. |
+| `command` | Always `"start"`. |
+| `status` | One of `blocked`, `converged`, `nothing_to_do`, `yielded`, `error`. Both `dispatch_required` and `human_gate_required` collapse into `blocked`; use `stopped_by` to distinguish. |
+| `target` | Admitted target string from `--target`. |
+| `resolved_target` | Always `graph_function:<handle>` after CLI resolution of `next` / `asset:<handle>`. |
+| `graph_function_id` | Resolved graph-function identity. |
+| `asset_id` | Resolved asset identity for `--target asset:<handle>`, otherwise null. |
+| `edge` | Edge from the first emitted `vector_traversal_planned` event, otherwise null. |
+| `stopped_by` | Underlying control-outcome kind: `converged`, `dispatch_required`, `human_gate_required`, `yielded`, `rejected`. |
+| `fh_mode` | Admitted F_H control mode. |
 | `root_mode` | Admitted root control mode. |
-| `root_supervision` | True when supervised root mode is active. |
+| `event_kinds` | Ordered kinds of events emitted during this call. |
+| `events_path` | Event log location written for replay. |
+| `stop_class` | Classification of the stop, when present. |
+| `control_outcome` | Full control-outcome carrier projection. |
 | `live_status` | Live run status projection. |
-| `proof_hold_active` | True when replay-derived proof-hold blocks public redispatch. |
 
-Act from `stop_predicate` or `status`:
+Act from `status` and `stopped_by`:
 
 | Signal | Lawful next move |
 | --- | --- |
-| `dispatch_required` | Read `fp_manifest_path`, perform the manifest contract, preserve the manifest `prompt_assembly` / `prompt_compactions` contract as runtime truth, write the result at manifest `result_path`, then run `assess-result --result <path>`. |
-| `human_gate_required` | Satisfy the human lane or use lawful `--fh-mode human-proxy --until converged` when policy allows it. |
-| `proof_hold` | Inspect `gaps --workspace . --scope workspace` and live status, then correct or reset the failed proof scope before rerunning. |
-| `converged` | Inspect events, projection, proof, and closure before claiming completion. |
-| `nothing_to_do` | Confirm the admitted scope and target. No lawful advancement was available. |
+| `stopped_by = dispatch_required` | Read the F_P manifest produced for this call (path appears in the dispatch event), perform the manifest contract, preserve the manifest `prompt_assembly` / `prompt_compactions` contract as runtime truth, write the result under `OutputPluginHandoffManifest.allowedWriteRoots`, then run `assess-result --result <path>`. |
+| `stopped_by = human_gate_required` | Satisfy the human lane or use lawful `--fh-mode human-proxy --until converged` when policy allows it. |
+| `stopped_by = yielded` | Constructive work produced handoff truth; inspect emitted events, then resume or correct. |
+| `status = converged` | Inspect events, projection, proof, and closure before claiming completion. |
+| `status = nothing_to_do` | Confirm the admitted scope and target. No lawful advancement was available. |
 | `status = error` | Treat the output as failed runtime or command admission, not as product truth. |
 
-CLI process exit codes classify the same loop for scripts:
+The runtime loop also emits graph-span foldback and reentry events. Read them
+to know whether convergence is real or constitutional reentry was routed:
+
+| Event kind | Meaning |
+| --- | --- |
+| `output_instance_allocated` | ABG minted a write root for one declared output. |
+| `output_binding_admitted` | Asset binding admitted for an allocated or supplied input. |
+| `output_materialization_observed` | Materialization observed inside the allowed write root. |
+| `workspace_obligation_ledger_admitted` | Obligation ledger admitted from the input asset. |
+| `workspace_obligation_schedule_derived` | Schedule derived from the ledger. |
+| `zoom_frame_opened` | Per-edge zoom traversal opened. |
+| `scheduled_slice_dispatched` | One schedule item dispatched on one attempt. |
+| `scheduled_slice_assessed` | One attempt assessed (F_P semantic, or F_D `runtime_failed`). |
+| `zoom_foldback_evaluated` | Five-term `edge_converged` evaluation admitted. |
+| `graph_span_evaluation_scheduled` | Span schedule admitted at terminal vector. |
+| `graph_span_assessed` | One span assessment admitted; constitutional reentry payload optional. |
+| `graph_span_foldback_evaluated` | Span foldback decision admitted. |
+| `graph_reentry_planned` | Reentry plan admitted with target vector or constitutional route. |
+| `graph_reentry_applied` | Reentry applied; shadowed vectors recorded for downstream replay. |
+
+CLI process exit codes classify the same loop for scripts (per
+`code/src/cli/command.ts:770-789`):
 
 | Code | Meaning |
 | --- | --- |
 | `0` | Converged or nothing to do. |
-| `1` | Error. |
+| `1` | Error (rejected without `gap_stop`). |
 | `2` | F_P dispatch pending. |
 | `3` | F_H gate pending. |
-| `4` | Deterministic gap stopped advancement. |
-| `5` | Iteration limit stopped convergence. |
+| `4` | Rejected with `gap_stop`. |
 | `6` | Constructive work yielded handoff truth. |
-| `7` | Proof hold stopped redispatch. |
 
 F_P dispatch loop:
 

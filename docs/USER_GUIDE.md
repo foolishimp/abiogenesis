@@ -697,43 +697,48 @@ Proof-hold lives in resolved policy. When proof-hold is disabled, repeated proof
 
 `start` writes one JSON object to stdout.
 
-These fields carry the operator surface:
+These fields carry the operator surface (per `code/src/cli/command.ts:820-836`):
 
 | Field | Meaning |
 | --- | --- |
-| `status` | Overall public result. Common values include `pending`, `in_progress`, `converged`, `nothing_to_do`, `blocked`, and `error`. |
-| `target` | The admitted target string. |
-| `asset_id` | Present for `asset:<handle>` when the registry resolves the handle. |
-| `edge` | The selected graph edge when execution selects a traversal. |
-| `stop_predicate` | The runtime stop reason projected from the typed advancement transition. |
-| `fp_manifest_path` | Present when ABG dispatched F_P work and wrote a manifest. |
-| `root_mode` | The admitted root control mode. |
-| `root_supervision` | Present and true when `--root-mode supervised` admitted a supervised root run. |
-| `live_status` | Present on supervised root output and some status surfaces. |
-| `proof_hold_active` | Present when replay-derived proof-hold state blocks further public start progress. |
+| `command` | Always `"start"`. |
+| `status` | One of `blocked`, `converged`, `nothing_to_do`, `yielded`, `error`. Both `dispatch_required` and `human_gate_required` collapse into `blocked`; use `stopped_by` to distinguish. |
+| `target` | The admitted target string from `--target`. |
+| `resolved_target` | Always `graph_function:<handle>` after CLI resolution of `next` / `asset:<handle>`. |
+| `graph_function_id` | Resolved graph-function identity. |
+| `asset_id` | Present for `--target asset:<handle>` when the registry resolves the handle, otherwise null. |
+| `edge` | Edge from the first emitted `vector_traversal_planned` event, otherwise null. |
+| `stopped_by` | Underlying control-outcome kind: `converged`, `dispatch_required`, `human_gate_required`, `yielded`, `rejected`. |
+| `fh_mode` | Admitted F_H control mode. |
+| `root_mode` | Admitted root control mode. |
+| `event_kinds` | Ordered kinds of events emitted during this call. |
+| `events_path` | Event log location written for replay. |
+| `stop_class` | Classification of the stop, when present. |
+| `control_outcome` | Full control-outcome carrier projection. |
+| `live_status` | Live run status projection. |
 
-Typical stop predicates:
+Act from `status` and `stopped_by`:
 
-| `stop_predicate` | Operator action |
+| Signal | Operator action |
 | --- | --- |
-| `dispatch_required` | Open `fp_manifest_path`, do the requested F_P work, write the result JSON at the manifest `result_path`, then run `assess-result --result <path>`. |
-| `human_gate_required` | Satisfy the human approval lane or rerun with lawful `--fh-mode human-proxy --until converged` when policy allows proxying. |
-| `proof_hold` | Inspect `gaps --workspace . --scope workspace` and live status. Clear the underlying failed proof state through the scoped correction path before rerunning. |
-| `converged` | Inspect the event stream and proof surfaces before treating the run as operationally closed. |
-| `nothing_to_do` | Confirm the scope and target were correct. This means ABG found no lawful advancement in that scope. |
+| `stopped_by = dispatch_required` | Read the F_P manifest produced for this call (path appears in the dispatch event), do the requested F_P work, write the result JSON at the manifest `result_path`, then run `assess-result --result <path>`. |
+| `stopped_by = human_gate_required` | Satisfy the human approval lane or rerun with lawful `--fh-mode human-proxy --until converged` when policy allows proxying. |
+| `stopped_by = yielded` | Constructive work produced handoff truth; inspect emitted events, then resume or correct. |
+| `status = converged` | Inspect the event stream and proof surfaces before treating the run as operationally closed. |
+| `status = nothing_to_do` | Confirm the scope and target were correct. This means ABG found no lawful advancement in that scope. |
+| `status = error` | Treat the output as failed runtime or command admission, not as product truth. |
 
-Process exit codes classify the same surface for scripts:
+Process exit codes classify the same surface for scripts (per
+`code/src/cli/command.ts:770-789`):
 
 | Code | Meaning |
 | --- | --- |
 | `0` | Converged or nothing to do. |
-| `1` | Command or runtime error. |
-| `2` | F_P dispatch is pending. Read `fp_manifest_path`. |
-| `3` | F_H gate is pending. Read the gate criteria in output. |
-| `4` | Deterministic gap stopped advancement. |
-| `5` | Iteration limit stopped convergence. |
+| `1` | Error (rejected without `gap_stop`). |
+| `2` | F_P dispatch is pending. |
+| `3` | F_H gate is pending. |
+| `4` | Rejected with `gap_stop`. |
 | `6` | Constructive work yielded handoff truth. |
-| `7` | Proof hold stopped redispatch. |
 
 ### Read `gaps` output
 
@@ -773,7 +778,8 @@ Use a graph-function target when the operator already knows the published carrie
 genesis-ts start --workspace . --scope workspace --target graph_function:code-flow --until first_traversal
 ```
 
-When this selects F_P work, the output includes `fp_manifest_path`.
+When this selects F_P work, `stopped_by = dispatch_required` and the F_P
+manifest path appears in the dispatch event emitted on this call.
 Read the manifest edge before writing the result:
 
 ```bash
@@ -814,7 +820,7 @@ Use supervised root mode when the operator wants convergence control plus a live
 genesis-ts start --workspace . --scope workspace --target next --until converged --root-mode supervised
 ```
 
-The output includes `root_supervision: true` and a `live_status` object.
+The output includes `root_mode: "supervised"` and a `live_status` object.
 
 Use human-proxy mode only for convergence runs where the resolved policy allows F_H proxying:
 

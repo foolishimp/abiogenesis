@@ -54,7 +54,7 @@ node build/semantic/code/src/bin/abiogenesis.js gaps  --workspace ../../..
 <!-- GTL_BOOTLOADER_START -->
 # GTL Bootloader: Axiomatic Constraint Surface
 
-**Version**: 3.4.0-rc.5
+**Version**: 3.4.0-rc.6
 **Status**: Compressed install-time bootstrap
 **Role**: Minimal ontology and operating constraints for GTL 3 / ABG 3 work
 
@@ -107,7 +107,7 @@ Recursive selection opens invocation-local frames; it does not rewrite global mo
 11. `Job` is the durable semantic work contract over published graph functions.
 12. `Role` is the semantic capability class.
 
-ABG runtime types such as `Traversal`, `ConvergenceResult`, `Worker`, `Run`, `SelectionDecision`, `RecursiveContinuation`, `ChildFrontier`, and `RecursiveMachineControl` are interpreter/runtime artifacts, not rival GTL language ontology.
+ABG runtime types such as `Traversal`, `ConvergenceResult`, `Worker`, `Run`, `SelectionDecision`, `RecursiveContinuation`, `ChildFrontier`, `RecursiveMachineControl`, `OutputInstanceAllocation`, `OutputWorkspaceBinding`, `ZoomFrame`, `ScheduledSliceAssessment`, `ZoomFoldbackEvaluation`, `GraphSpanAssessment`, `GraphSpanFoldbackEvaluation`, `GraphReentryFrontierProjection`, `GraphReentryPlan`, `GraphConstitutionalReentry`, `EvalSuiteSpec`, and `EvalAggregateProjection` are interpreter/runtime artifacts, not rival GTL language ontology.
 
 ## 3. GTL Type Surface
 
@@ -176,6 +176,12 @@ ABG realizes:
 - closure-fold gating
 - self-hosting consistency checks
 - recursive machine control
+- output allocation and materialization-root authority
+- zoomed obligation ledger and slice-schedule traversal
+- graph-span foldback and reentry-frontier projection
+- constitutional reentry routing through typed `change_class`
+- eval-suite projection over event-sourced trial truth
+- cross-workspace start truth
 
 GTL must not depend on ABG runtime modules.
 ABG may interpret GTL declarations.
@@ -190,6 +196,12 @@ Assurance plugin concerns include authority snapshots, evidence adaptation,
 ambiguity classification, closure policy, and gain-function adaptation. Plugins
 provide data or policy inputs to ABG; ABG owns event emission, projection,
 selection, closure, and ledger truth.
+
+F_P owns the per-obligation semantic judgment of `A.req_i -> B.result_i`. F_D
+owns mechanical envelope checks: existence, schema, digest, write-root,
+identity, admission envelope, target certification. Subdivision of one
+requirement into many obligations is structural; each per-obligation check is
+still F_P. Determinism does not reclassify a check as F_D.
 
 ## 5. Evaluator Regimes
 
@@ -218,6 +230,8 @@ Operational GTL recursion in ABG means:
 - parent truth is re-evaluated after rebind
 - reset/reopen mints a fresh attempt identity
 - checkpoints are resumability aids, not a second truth surface
+- terminal-vector closure triggers graph-span foldback over source-to-terminal spans
+- reentry-frontier projection routes the next vector to the earliest implicated source or to a constitutional layer
 
 Containment is strict.
 If frame-local recursion bleeds into global publication or hidden fallback traversal, recursion is broken.
@@ -245,6 +259,17 @@ If frame-local recursion bleeds into global publication or hidden fallback trave
     pass through ABG admission and event-sourced payload-ledger projection.
 14. Assurance and lineage registers are projections over admitted events, not
     independent writable ledgers.
+15. Edge convergence holds only when `carryConverged AND fulfillmentConverged
+    AND admitted AND targetCertificationPassed AND fdRecheckPassed`.
+16. Worker-runtime failure retry is gated by the typed allowlist
+    `{transport_failure, no_output, contract_failure}`. Other failure classes
+    block the slice.
+17. Graph-span foldback at terminal close evaluates source-to-terminal spans;
+    reentry routes to the earliest implicated vector or to a constitutional
+    layer typed by `change_class`.
+18. Output materialization roots are minted by ABG through
+    `OutputInstanceAllocation` and confined to allowed write roots;
+    cross-workspace starts admit a typed `OutputWorkspaceBinding`.
 
 ## 8. Read Next
 
@@ -272,6 +297,8 @@ Project-owned surfaces, when present after scaffold:
 - `workspace://specification/requirements/`
 - `workspace://build_tenants/TENANT_REGISTRY.md`
 - `workspace://build_tenants/common/design/README.md`
+- `workspace://build_tenants/abiogenesis/typescript/design/M03_OUTPUT_ALLOCATION_AND_WORKSPACE_ZOOM_FOLDBACK_DERIVATION.md`
+- `workspace://build_tenants/abiogenesis/typescript/design/M03_GRAPH_SPAN_FOLDBACK_REENTRY_DERIVATION.md`
 
 ## 9. LLM Operating Rule
 
