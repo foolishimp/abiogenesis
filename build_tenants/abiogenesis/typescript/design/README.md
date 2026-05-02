@@ -118,6 +118,8 @@ Current tenant-local design truth and proposed next-boundary design packs live i
 - `M03_M04_RUNTIME_FAILURE_TAXONOMY_FIRST_SLICE_IACS.md`
 - `M03_M04_RUNTIME_FAILURE_TAXONOMY_STRUCTURAL_CARRIER_DIAGRAM.md`
 - `M03_OUTPUT_ALLOCATION_AND_WORKSPACE_ZOOM_FOLDBACK_DERIVATION.md`
+  (T-082/T-100/T-102/T-104 output allocation, cross-workspace output authority,
+  zoom foldback, eval projection, mini data-mapper W1/W2 forensic sandbox)
 - `M03_GRAPH_SPAN_FOLDBACK_REENTRY_DERIVATION.md`
 - `M04_PUBLIC_START_DERIVATION.md`
 - `M04_FIRST_SLICE_IACS.md`

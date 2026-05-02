@@ -84,6 +84,39 @@ node test_env/sandbox/mini_dm_redux/run.mjs --full --workspace "$WORKSPACE"
 node test_env/sandbox/mini_dm_redux/run.mjs --gaps --workspace "$WORKSPACE"
 ```
 
+## Running with a separate output workspace
+
+T-104 extends the same harness with an explicit output/review workspace. The
+input workspace remains the runtime/system workspace for the run ledger and
+event stream. ABG allocates materialized artifacts under the declared output
+workspace and records both sides in allocation, manifest, and event truth.
+
+```bash
+cd build_tenants/abiogenesis/typescript
+npm run build:semantic
+
+INPUT_WORKSPACE=/tmp/t104_mini_dm_input_$(date +%s)
+OUTPUT_WORKSPACE=/tmp/t104_mini_dm_review_$(date +%s)
+
+node test_env/sandbox/mini_dm_redux/run.mjs \
+  --full \
+  --workspace "$INPUT_WORKSPACE" \
+  --output-workspace "$OUTPUT_WORKSPACE" \
+  --output-workspace-ref "workspace://manual-review/stream-a" \
+  --output-workspace-authority-ref "authority://manual-review/stream-a"
+
+cat "$INPUT_WORKSPACE/.ai-workspace/runtime/allocations/derive_field_spec.json"
+cat "$INPUT_WORKSPACE/.ai-workspace/runtime/zoom_foldback/derive_validation/assessments.jsonl"
+find "$OUTPUT_WORKSPACE" -type f | sort
+```
+
+The repeatable forensic proof runs two deterministic W1/W2 streams, compares
+their semantic fingerprints, and writes review artifacts under `test_runs`:
+
+```bash
+npm run test:t104:sandbox
+```
+
 ## Live mode (Codex CLI by default)
 
 By default the F_P worker emits a deterministic fixture. To dispatch each

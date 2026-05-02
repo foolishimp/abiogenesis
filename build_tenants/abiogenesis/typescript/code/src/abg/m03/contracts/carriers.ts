@@ -46,10 +46,17 @@ export interface StartInputAssetBinding {
   readonly uri: string;
 }
 
+export interface StartOutputWorkspaceBinding {
+  readonly workspaceRef: string;
+  readonly workspaceRoot: string;
+  readonly authorityRef: string | null;
+}
+
 export interface StartRequestedOutput {
   readonly outputName: string;
   readonly outputAssetType: string;
   readonly relativePath: string;
+  readonly outputWorkspace?: StartOutputWorkspaceBinding;
 }
 
 export interface StartIntent {
@@ -822,6 +829,10 @@ export interface OutputInstanceAllocatedEvent {
   readonly materializationRoot: string;
   readonly materializationUri: string;
   readonly allowedWriteRoots: readonly string[];
+  readonly inputWorkspaceRoot: string;
+  readonly outputWorkspaceRef: string;
+  readonly outputWorkspaceRoot: string;
+  readonly outputWorkspaceAuthorityRef: string | null;
   readonly graphFunctionId: string;
   readonly runId: string | null;
   readonly workKey: string | null;
@@ -841,6 +852,9 @@ export interface OutputBindingAdmittedEvent {
   readonly bindingRole: "output";
   readonly source: "abg_allocation";
   readonly allowedWriteRoots: readonly string[];
+  readonly outputWorkspaceRef: string;
+  readonly outputWorkspaceRoot: string;
+  readonly outputWorkspaceAuthorityRef: string | null;
 }
 
 export interface OutputMaterializationObservedEvent {

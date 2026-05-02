@@ -744,6 +744,10 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     materializationRoot: "non_empty_string",
     materializationUri: "non_empty_string",
     allowedWriteRoots: "string_array",
+    inputWorkspaceRoot: "non_empty_string",
+    outputWorkspaceRef: "non_empty_string",
+    outputWorkspaceRoot: "non_empty_string",
+    outputWorkspaceAuthorityRef: "nullable_string",
     graphFunctionId: "non_empty_string",
     runId: "nullable_string",
     workKey: "nullable_string"
@@ -760,7 +764,10 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     assetType: "non_empty_string",
     bindingRole: { oneOf: ["output"] },
     source: { oneOf: ["abg_allocation"] },
-    allowedWriteRoots: "string_array"
+    allowedWriteRoots: "string_array",
+    outputWorkspaceRef: "non_empty_string",
+    outputWorkspaceRoot: "non_empty_string",
+    outputWorkspaceAuthorityRef: "nullable_string"
   }),
   output_materialization_observed: applyFieldRules(
     "OutputMaterializationObservedEvent",

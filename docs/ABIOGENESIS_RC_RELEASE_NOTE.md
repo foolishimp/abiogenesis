@@ -1,4 +1,4 @@
-# abiogenesis 3.4.0-rc.5 Release Candidate Note
+# abiogenesis 3.4.0-rc.6 Release Candidate Note
 
 This checkpoint is the current TypeScript ABG release-candidate source state.
 
@@ -17,7 +17,8 @@ The TypeScript tenant is now a package-first GTL/ABG RC candidate with:
 - real external-live F_P qualification
 - updated bootstrap, design, docs, and ticket evidence surfaces
 - ABG-owned output allocation, workspace zoom/foldback, eval-suite projection,
-  mini data-mapper semantic sandbox, and graph-span reentry frontier substrate
+  mini data-mapper semantic sandbox, graph-span reentry frontier substrate, and
+  explicit W1 input workspace to W2 output workspace allocation
 
 The TypeScript tenant is the primary release line. The Python tenant is paused
 as released-reference evidence and is not an active RC gate while
@@ -58,6 +59,14 @@ as released-reference evidence and is not an active RC gate while
   - a mini data-mapper semantic eval sandbox with F_D/F_P separation
   - eval-suite projection artifacts with repeated-trial evidence
   - graph-span foldback and replay-derived lawful reentry
+- T-104 extends output allocation to explicit cross-workspace graph-function
+  starts. `StartRequestedOutput.outputWorkspace` admits W2 authority, allocation
+  materializes under W2, and manifests/events/projections preserve both W1 input
+  lineage and W2 output lineage.
+- The mini data-mapper redux sandbox now supports separate output workspaces and
+  the T-104 forensic lane reruns multiple deterministic review streams, compares
+  edge-by-edge semantic fingerprints, and writes `forensic_analysis.json` /
+  `forensic_analysis.md` under `test_env/test_runs`.
 - T-100 now carries the test35-derived five-rule parity surface: named
   five-term closure predicate, latest-assessed-per-slice projection, typed
   retry allowlist, artifact salvage, and behavioral-vs-lexical finding class.
@@ -68,8 +77,8 @@ as released-reference evidence and is not an active RC gate while
 ## Versioned Artifacts
 
 - RC branch: `rc/3.4.0`
-- Candidate package version: `3.4.0-rc.5`
-- Candidate tag: `v3.4.0-rc.5`
+- Candidate package version: `3.4.0-rc.6`
+- Candidate tag: `v3.4.0-rc.6`
 
 ## Verification
 
@@ -80,7 +89,7 @@ npm run test:t082
 6 passed
 
 npm run test:semantic
-349 passed
+354 passed
 
 npm run lint:semantic
 passed
@@ -100,15 +109,21 @@ npm run test:t102
 npm run test:t103
 24 passed
 
+npm run test:t104
+6 passed
+
+npm run test:t104:sandbox
+1 passed
+
 git diff --check
 passed
 
 npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run
-passed, version 3.4.0-rc.5, files 308, package abiogenesis-typescript-tenant-3.4.0-rc.5.tgz
+passed, version 3.4.0-rc.6, files 308, package abiogenesis-typescript-tenant-3.4.0-rc.6.tgz
 ```
 
 The retained rc.4 live gates remain prior external-live evidence for the
-package line. The rc.5 tranche adds deterministic semantic, sandbox, and
+package line. The rc.6 tranche adds deterministic semantic, sandbox, and
 test35-parity proof for the ABG ledger/reentry substrate. T-101 includes a
 Codex live worker path pinned through the shared transport contract to
 `gpt-5.3-codex`; live execution remains operator-enabled.

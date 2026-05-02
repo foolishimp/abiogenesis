@@ -6,6 +6,7 @@
 //   node test_env/sandbox/mini_dm_redux/run.mjs --edge derive_validation      --workspace <dir>
 //   node test_env/sandbox/mini_dm_redux/run.mjs --gaps                        --workspace <dir>
 //   node test_env/sandbox/mini_dm_redux/run.mjs --full                        --workspace <dir>
+//   node test_env/sandbox/mini_dm_redux/run.mjs --full --workspace <dir> --output-workspace <dir>
 //
 // Each --edge invocation:
 //   1. picks up state.json from <dir> (creates fresh on first edge)
@@ -37,6 +38,7 @@ import { fileURLToPath } from "node:url";
 import {
   admitExecutionBasis,
   admitModule,
+  admitOutputWorkspaceBinding,
   admitPublicStartRequest,
   admitResolvedPolicyIdentity,
   admitResolvedRuntimeIdentity,
@@ -99,7 +101,15 @@ async function writeJsonl(filePath, value) {
 }
 
 function parseArgs(argv) {
-  const out = { edge: null, workspace: null, gaps: false, full: false };
+  const out = {
+    edge: null,
+    workspace: null,
+    outputWorkspace: null,
+    outputWorkspaceRef: null,
+    outputWorkspaceAuthorityRef: null,
+    gaps: false,
+    full: false
+  };
   for (let idx = 2; idx < argv.length; idx += 1) {
     const arg = argv[idx];
     if (arg === "--edge") {
@@ -109,6 +119,21 @@ function parseArgs(argv) {
     }
     if (arg === "--workspace") {
       out.workspace = argv[idx + 1] ?? null;
+      idx += 1;
+      continue;
+    }
+    if (arg === "--output-workspace") {
+      out.outputWorkspace = argv[idx + 1] ?? null;
+      idx += 1;
+      continue;
+    }
+    if (arg === "--output-workspace-ref") {
+      out.outputWorkspaceRef = argv[idx + 1] ?? null;
+      idx += 1;
+      continue;
+    }
+    if (arg === "--output-workspace-authority-ref") {
+      out.outputWorkspaceAuthorityRef = argv[idx + 1] ?? null;
       idx += 1;
       continue;
     }
@@ -128,11 +153,33 @@ function timestampId() {
   return new Date().toISOString().replaceAll(/[-:.]/gu, "");
 }
 
-function workspaceLayout(workspaceRoot) {
+function safeRefSegment(value) {
+  const safe = value.replace(/[^A-Za-z0-9._-]+/g, "_").replace(/^_+|_+$/g, "");
+  return safe.length === 0 ? "workspace" : safe;
+}
+
+function isUnderRoot(candidate, root) {
+  const relative = path.relative(root, candidate);
+  return relative.length === 0 || (!relative.startsWith("..") && !path.isAbsolute(relative));
+}
+
+function workspaceLayout(workspaceRoot, options = {}) {
+  const outputWorkspaceRoot =
+    options.outputWorkspace === undefined || options.outputWorkspace === null
+      ? workspaceRoot
+      : path.resolve(options.outputWorkspace);
+  const explicitOutputWorkspace = outputWorkspaceRoot !== workspaceRoot;
+  const outputWorkspaceRef =
+    options.outputWorkspaceRef ??
+    `workspace://t101-mini-dm-redux/output/${safeRefSegment(path.basename(outputWorkspaceRoot))}`;
   const aiRoot = path.join(workspaceRoot, ".ai-workspace");
   const runtimeRoot = path.join(aiRoot, "runtime");
   return {
     workspaceRoot,
+    outputWorkspaceRoot,
+    explicitOutputWorkspace,
+    outputWorkspaceRef,
+    outputWorkspaceAuthorityRef: options.outputWorkspaceAuthorityRef ?? null,
     aiRoot,
     runtimeRoot,
     eventsLogPath: path.join(runtimeRoot, "events", "events.jsonl"),
@@ -146,15 +193,16 @@ function workspaceLayout(workspaceRoot) {
   };
 }
 
-async function loadOrInitState(layout) {
+async function loadOrInitState(layout, options = {}) {
   if (await pathExists(layout.statePath)) {
     const raw = await readFile(layout.statePath, "utf8");
     return JSON.parse(raw);
   }
-  const runId = `t101-mini-dm-redux/${timestampId()}`;
+  const runId = options.runId ?? `t101-mini-dm-redux/${timestampId()}`;
   const state = {
     runId,
     workspaceRoot: layout.workspaceRoot,
+    outputWorkspaceRoot: layout.outputWorkspaceRoot,
     createdAt: new Date().toISOString(),
     edges: {},
     edgeOrder: [],
@@ -241,13 +289,39 @@ function buildPerEdgeModule(edgeDef, perEdgeGraphFunctions) {
   });
 }
 
-async function buildBasisForEdge(edgeDef, layout, inputPath) {
+function sourceWorkspaceRootForPath(layout, inputPath) {
+  const resolvedInputPath = path.resolve(inputPath);
+  if (isUnderRoot(resolvedInputPath, layout.outputWorkspaceRoot)) {
+    return layout.outputWorkspaceRoot;
+  }
+  return layout.workspaceRoot;
+}
+
+async function buildBasisForEdge(edgeDef, layout, inputPath, inputWorkspaceRoot) {
   const built = buildMiniDmReduxModule();
   const perEdgeModule = buildPerEdgeModule(edgeDef, built.perEdgeGraphFunctions);
+  const requestedOutput = {
+    output_name: edgeDef.outputName,
+    output_asset_type: edgeDef.outputAssetType,
+    relative_path: edgeDef.relativePath,
+    vectorIndex: 0
+  };
+  const requestedOutputs = [
+    layout.explicitOutputWorkspace
+      ? {
+          ...requestedOutput,
+          output_workspace: {
+            workspace_ref: layout.outputWorkspaceRef,
+            workspace_root: layout.outputWorkspaceRoot,
+            authority_ref: layout.outputWorkspaceAuthorityRef
+          }
+        }
+      : requestedOutput
+  ];
   const requestBody = {
     scope: {
       kind: "workspace",
-      workspaceRoot: layout.workspaceRoot,
+      workspaceRoot: inputWorkspaceRoot,
       moduleName: perEdgeModule.name
     },
     target: {
@@ -262,14 +336,7 @@ async function buildBasisForEdge(edgeDef, layout, inputPath) {
         uri: inputPath
       }
     ],
-    requested_outputs: [
-      {
-        output_name: edgeDef.outputName,
-        output_asset_type: edgeDef.outputAssetType,
-        relative_path: edgeDef.relativePath,
-        vectorIndex: 0
-      }
-    ]
+    requested_outputs: requestedOutputs
   };
   const request = admitPublicStartRequest(requestBody);
   const basis = admitExecutionBasis({
@@ -332,7 +399,13 @@ async function runEdge(edgeName, layout, state) {
     );
   }
 
-  const { request, basis } = await buildBasisForEdge(edgeDef, layout, inputPath);
+  const inputWorkspaceRoot = sourceWorkspaceRootForPath(layout, inputPath);
+  const { request, basis } = await buildBasisForEdge(
+    edgeDef,
+    layout,
+    inputPath,
+    inputWorkspaceRoot
+  );
 
   const inputBindingRaw = request.startIntent.inputBindings[0];
   const inputBinding = assertOk(
@@ -340,19 +413,33 @@ async function runEdge(edgeName, layout, state) {
       assetRef: inputBindingRaw.assetRef,
       assetType: inputBindingRaw.assetType,
       uri: inputBindingRaw.uri,
-      workspaceRoot: layout.workspaceRoot,
+      workspaceRoot: inputWorkspaceRoot,
       bindingRole: "input",
       source: "caller"
     })
   ).binding;
 
   const requestedOutput = request.startIntent.requestedOutputs[0];
+  const outputWorkspaceBinding =
+    requestedOutput.outputWorkspace === undefined
+      ? undefined
+      : assertOk(
+          admitOutputWorkspaceBinding({
+            workspaceRef: requestedOutput.outputWorkspace.workspaceRef,
+            workspaceRoot: requestedOutput.outputWorkspace.workspaceRoot,
+            authorityRef: requestedOutput.outputWorkspace.authorityRef,
+            source: "caller"
+          })
+        ).binding;
   const allocation = assertOk(
     deriveOutputInstanceAllocation({
       basis,
       outputName: requestedOutput.outputName,
       outputAssetType: requestedOutput.outputAssetType,
-      relativePath: requestedOutput.relativePath
+      relativePath: requestedOutput.relativePath,
+      ...(outputWorkspaceBinding === undefined
+        ? {}
+        : { outputWorkspaceBinding })
     })
   ).allocation;
   await writeJson(
@@ -383,6 +470,7 @@ async function runEdge(edgeName, layout, state) {
     basis,
     manifestRef: `manifest://t101-mini-dm-redux/${edgeDef.name}`,
     admittedInputRefs: [inputBinding.assetRef],
+    admittedInputBindings: [inputBinding],
     allocatedOutputs: [allocation],
     proofObligationRefs: edgeDef.obligationIds
   });
@@ -570,6 +658,7 @@ async function runEdge(edgeName, layout, state) {
     runId: state.runId,
     createdAt: state.createdAt,
     workspaceRoot: layout.workspaceRoot,
+    outputWorkspaceRoot: layout.outputWorkspaceRoot,
     edges: state.edgeOrder.map((name) => ({
       name,
       summary: state.edges[name]
@@ -626,6 +715,9 @@ async function ensureWorkspaceInfra(layout) {
   await mkdir(layout.zoomRoot, { recursive: true });
   await mkdir(layout.invocationLogsRoot, { recursive: true });
   await mkdir(path.dirname(layout.eventsLogPath), { recursive: true });
+  await mkdir(path.join(layout.outputWorkspaceRoot, ".ai-workspace", "runtime"), {
+    recursive: true
+  });
 }
 
 async function main() {
@@ -637,7 +729,12 @@ async function main() {
     process.exit(2);
   }
   const workspaceRoot = path.resolve(args.workspace);
-  const layout = workspaceLayout(workspaceRoot);
+  const layout = workspaceLayout(workspaceRoot, {
+    outputWorkspace:
+      args.outputWorkspace === null ? undefined : path.resolve(args.outputWorkspace),
+    outputWorkspaceRef: args.outputWorkspaceRef ?? undefined,
+    outputWorkspaceAuthorityRef: args.outputWorkspaceAuthorityRef
+  });
   await mkdir(workspaceRoot, { recursive: true });
   await ensureWorkspaceInfra(layout);
   const state = await loadOrInitState(layout);

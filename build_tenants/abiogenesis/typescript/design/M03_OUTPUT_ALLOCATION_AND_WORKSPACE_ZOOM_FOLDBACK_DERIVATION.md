@@ -2,7 +2,7 @@
 
 **Status**: Active
 **Date**: 2026-05-02
-**Tickets**: T-082, T-100, T-102
+**Tickets**: T-082, T-100, T-102, T-104
 **Purpose**: define the ABG-owned TypeScript building block for input-only
 output allocation and workspace-visible obligation schedule foldback.
 
@@ -19,13 +19,13 @@ output allocation and workspace-visible obligation schedule foldback.
 - `specification/requirements/abg/REQ-R-ABG3-LINEAGE.md`
 - `specification/requirements/abg/REQ-R-ABG3-PROVENANCE.md`
 - `specification/requirements/abg/REQ-R-ABG3-RUN.md`
-- `.ai-workspace/tickets/active/T-082-define-and-realize-abg-output-instance-allocation-for-input-only-graph-function-start.md`
-- `.ai-workspace/tickets/active/T-100-define-abg-zoomed-workspace-asset-obligation-schedule-and-foldback-evaluation.md`
-- `.ai-workspace/tickets/active/T-102-formalize-abg-eval-suite-projection-artifacts-and-repeatable-sandbox-runs.md`
+- `.ai-workspace/tickets/completed/T-082-define-and-realize-abg-output-instance-allocation-for-input-only-graph-function-start.md`
+- `.ai-workspace/tickets/completed/T-100-define-abg-zoomed-workspace-asset-obligation-schedule-and-foldback-evaluation.md`
+- `.ai-workspace/tickets/completed/T-102-formalize-abg-eval-suite-projection-artifacts-and-repeatable-sandbox-runs.md`
+- `.ai-workspace/tickets/completed/T-104-define-cross-workspace-output-allocation-for-graph-function-starts.md`
 
-Existing requirement authority is sufficient for the first implementation
-slice. T-082 and T-100 remain active until the public manual sandbox and any
-constitutional requirement wording updates are completed.
+Existing requirement authority plus `REQ-R-ABG3-BINDING-015` is sufficient for
+the current T-082/T-100/T-102/T-104 implementation slice.
 
 ## STDO Triage
 
@@ -63,6 +63,21 @@ eval suite/task
   -> aggregate pass@k / pass^k projection
 ```
 
+T-104 extends the T-082 primitive from one implicit workspace to an explicit
+workspace authority pair:
+
+```text
+StartIntent.scope.workspaceRoot = W1
+StartRequestedOutput.outputWorkspace = admitted W2 binding, optional
+  -> ABG output instance allocation under W2
+  -> handoff manifest carries W1 input lineage and W2 output roots
+  -> runtime events/projection preserve W1/W2 lineage
+```
+
+When no W2 binding is present, the T-082 same-workspace path remains the
+default. When W2 is present, a string path is not sufficient. The output
+workspace must be admitted as workspace authority before allocation.
+
 ## Ownership
 
 | Surface | Owner |
@@ -90,6 +105,7 @@ edge, or write outside the allocated output root.
 T-082 introduces:
 
 - `WorkspaceAssetBinding`
+- `OutputWorkspaceBinding`
 - `OutputInstanceAllocation`
 - `OutputPluginHandoffManifest`
 - `OutputAllocationProjection`
@@ -132,6 +148,7 @@ The implementation exposes pure functions:
 
 ```text
 admitWorkspaceAssetBinding(raw) -> Result<WorkspaceAssetBinding>
+admitOutputWorkspaceBinding(raw) -> Result<OutputWorkspaceBinding>
 deriveOutputInstanceAllocation(request) -> Result<OutputInstanceAllocation>
 deriveOutputAllocationProjection(events) -> OutputAllocationProjection
 deriveWorkspaceSystemProjection(workspaceRoot, assetRefs) -> WorkspaceSystemProjection
@@ -161,6 +178,36 @@ Effects remain outside the algebra:
 - process or plugin dispatch,
 - CLI rendering,
 - workspace asset publication.
+
+### Cross-Workspace Output Allocation
+
+The pure allocation function has one authority rule:
+
+```text
+outputWorkspaceBinding present:
+  outputWorkspaceRoot = outputWorkspaceBinding.workspaceRoot
+  outputWorkspaceRef = outputWorkspaceBinding.workspaceRef
+
+outputWorkspaceBinding absent:
+  outputWorkspaceRoot = basis.workspaceRoot
+  outputWorkspaceRef = basis scope workspace ref
+```
+
+All materialization roots are ABG-derived under `outputWorkspaceRoot`; neither
+the caller nor the plugin supplies an output path outside `relativePath`.
+`relativePath` remains normalized and slash-relative. Observed materialization
+outside the allocated root is rejected both by constructor and by replay
+projection.
+
+The handoff manifest is the reviewable parallel-stream boundary. It must expose:
+
+- admitted input refs and input workspace roots,
+- allocated output refs,
+- output workspace refs and roots,
+- exact allowed write roots derived by ABG.
+
+This makes `W1 -> W2` reviewable without making W2 a product-local convention
+or a hidden path in a plugin prompt.
 
 ## Closure Predicate
 
@@ -247,8 +294,10 @@ flowchart TD
 | Interface | Assumption | Contract | Structure |
 | --- | --- | --- | --- |
 | output allocation | basis has workspace root and output declaration | allocation root is under `.ai-workspace/runtime/runs/<run>/assets/...` | `OutputInstanceAllocation` |
+| cross-workspace output allocation | start output carries admitted W2 workspace binding | allocation root is under W2 and input lineage still names W1 | `OutputWorkspaceBinding`, `OutputInstanceAllocation` |
 | output binding | allocation exists | binding source is `abg_allocation` | `output_binding_admitted` |
 | materialization observation | observed path is under allocated write root | projection rejects outside-root materialization | `output_materialization_observed` |
+| plugin handoff | inputs and outputs are admitted runtime truth | manifest carries W1 input refs/roots and W2 output refs/roots/write roots | `OutputPluginHandoffManifest` |
 | ledger admission | A is an input workspace asset | ledger rows have stable obligation ids | `ObligationLedgerAsset` |
 | schedule derivation | ledger rows are finite | one schedule item per obligation row | `ObligationScheduleAsset` |
 | slice assessment | item exists in schedule | status is fulfilled, partial, blocked, or runtime_failed | `ScheduledSliceAssessment` |
@@ -262,13 +311,22 @@ flowchart TD
 First-slice proof lives in:
 
 - `test_env/tests/test_t082_output_allocation_unit.test.mjs`
+- `test_env/tests/test_t104_cross_workspace_output_allocation_unit.test.mjs`
 - `test_env/tests/test_t100_workspace_zoom_foldback_unit.test.mjs`
 - `test_env/sandbox/test_t100_mini_data_mapper_lifecycle_sandbox.test.mjs`
+- `test_env/sandbox/test_t104_cross_workspace_mini_dm_forensics_sandbox.test.mjs`
 
 The tests prove:
 
 - input-only output allocation creates an ABG-owned output root,
+- cross-workspace output allocation creates an ABG-owned output root under W2
+  from an admitted output workspace binding,
+- the mini data-mapper redux graph can run deterministically across multiple
+  W1/W2 workspace pairs while preserving stream isolation and producing
+  identical semantic fingerprints over ledger, foldback, manifest, F_D
+  envelope, F_P evaluation, and admitted assessments,
 - events project allocated binding and materialization truth,
+- events and projections preserve W1 input lineage and W2 output lineage,
 - unsafe output paths and collisions fail,
 - dot-dot materialization escapes and plugin writes outside the allocated root
   fail,

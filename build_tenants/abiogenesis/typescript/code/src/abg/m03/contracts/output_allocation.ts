@@ -1,5 +1,7 @@
 // Implements: T-082-TS
+// Implements: T-104-TS
 // Implements: REQ-R-ABG3-BINDING
+// Implements: REQ-R-ABG3-BINDING-015
 // Implements: REQ-R-ABG3-PROVENANCE
 // Implements: REQ-R-ABG3-EVENTS
 
@@ -25,6 +27,7 @@ export type WorkspaceAssetBindingSource =
   | "caller"
   | "abg_allocation"
   | "runtime_observation";
+export type OutputWorkspaceBindingSource = "caller" | "runtime_observation";
 
 export interface WorkspaceAssetBinding {
   readonly kind: "workspace_asset_binding";
@@ -38,6 +41,14 @@ export interface WorkspaceAssetBinding {
   readonly allowedWriteRoots: readonly string[];
 }
 
+export interface OutputWorkspaceBinding {
+  readonly kind: "output_workspace_binding";
+  readonly workspaceRef: string;
+  readonly workspaceRoot: string;
+  readonly authorityRef: string | null;
+  readonly source: OutputWorkspaceBindingSource;
+}
+
 export type WorkspaceAssetBindingFailureReason =
   | "empty_asset_ref"
   | "empty_asset_type"
@@ -45,11 +56,23 @@ export type WorkspaceAssetBindingFailureReason =
   | "empty_workspace_root"
   | "empty_allowed_write_root";
 
+export type OutputWorkspaceBindingFailureReason =
+  | "empty_workspace_ref"
+  | "empty_workspace_root";
+
 export type WorkspaceAssetBindingResult =
   | { readonly ok: true; readonly binding: WorkspaceAssetBinding }
   | {
       readonly ok: false;
       readonly reason: WorkspaceAssetBindingFailureReason;
+      readonly detail: string;
+    };
+
+export type OutputWorkspaceBindingResult =
+  | { readonly ok: true; readonly binding: OutputWorkspaceBinding }
+  | {
+      readonly ok: false;
+      readonly reason: OutputWorkspaceBindingFailureReason;
       readonly detail: string;
     };
 
@@ -64,6 +87,13 @@ export interface WorkspaceAssetBindingInput {
   readonly allowedWriteRoots?: readonly string[];
 }
 
+export interface OutputWorkspaceBindingInput {
+  readonly workspaceRef: string;
+  readonly workspaceRoot: string;
+  readonly authorityRef?: string | null;
+  readonly source: OutputWorkspaceBindingSource;
+}
+
 export interface OutputInstanceAllocation {
   readonly kind: "output_instance_allocation";
   readonly allocationId: string;
@@ -73,6 +103,10 @@ export interface OutputInstanceAllocation {
   readonly materializationRoot: string;
   readonly materializationUri: string;
   readonly allowedWriteRoots: readonly string[];
+  readonly inputWorkspaceRoot: string;
+  readonly outputWorkspaceRef: string;
+  readonly outputWorkspaceRoot: string;
+  readonly outputWorkspaceAuthorityRef: string | null;
   readonly graphFunctionId: string;
   readonly graphFunctionName: string;
   readonly basisId: string;
@@ -100,6 +134,7 @@ export interface OutputAllocationRequest {
   readonly outputName: string;
   readonly outputAssetType: string;
   readonly relativePath: string;
+  readonly outputWorkspaceBinding?: OutputWorkspaceBinding;
   readonly existingAllocations?: readonly OutputInstanceAllocation[];
 }
 
@@ -111,7 +146,10 @@ export interface OutputPluginHandoffManifest {
   readonly runId: string | null;
   readonly workKey: string | null;
   readonly admittedInputRefs: readonly string[];
+  readonly inputWorkspaceRoots: readonly string[];
   readonly allocatedOutputs: readonly OutputInstanceAllocation[];
+  readonly outputWorkspaceRefs: readonly string[];
+  readonly outputWorkspaceRoots: readonly string[];
   readonly allowedWriteRoots: readonly string[];
   readonly proofObligationRefs: readonly string[];
 }
@@ -149,6 +187,13 @@ function bindingFailure(
   return Object.freeze({ ok: false, reason, detail } as const);
 }
 
+function outputWorkspaceBindingFailure(
+  reason: OutputWorkspaceBindingFailureReason,
+  detail: string
+): OutputWorkspaceBindingResult {
+  return Object.freeze({ ok: false, reason, detail } as const);
+}
+
 function safeSegment(value: string): string {
   const trimmed = value.trim();
   const safe = trimmed.replace(/[^A-Za-z0-9._-]+/g, "_").replace(/^_+|_+$/g, "");
@@ -156,7 +201,12 @@ function safeSegment(value: string): string {
 }
 
 function trimTrailingSlashes(value: string): string {
-  return value.replace(/\/+$/g, "");
+  const trimmed = value.replace(/\/+$/g, "");
+  return trimmed.length === 0 && value.startsWith("/") ? "/" : trimmed;
+}
+
+function freezeUniqueSortedStrings(values: readonly string[]): readonly string[] {
+  return freezeStringArray([...new Set(values)].sort());
 }
 
 function canonicalPath(value: string): string | null {
@@ -237,6 +287,10 @@ function assertAllocationBasis(
   }
 }
 
+function defaultOutputWorkspaceRef(basis: ExecutionBasis): string {
+  return `workspace://${basis.moduleName}/scope`;
+}
+
 export function admitWorkspaceAssetBinding(
   input: WorkspaceAssetBindingInput
 ): WorkspaceAssetBindingResult {
@@ -280,6 +334,34 @@ export function admitWorkspaceAssetBinding(
   } as const);
 }
 
+export function admitOutputWorkspaceBinding(
+  input: OutputWorkspaceBindingInput
+): OutputWorkspaceBindingResult {
+  if (input.workspaceRef.trim().length === 0) {
+    return outputWorkspaceBindingFailure(
+      "empty_workspace_ref",
+      "Output workspace binding requires workspaceRef"
+    );
+  }
+  const workspaceRoot = canonicalPath(input.workspaceRoot);
+  if (workspaceRoot === null || workspaceRoot.length === 0) {
+    return outputWorkspaceBindingFailure(
+      "empty_workspace_root",
+      "Output workspace binding requires a canonical workspaceRoot"
+    );
+  }
+  return Object.freeze({
+    ok: true,
+    binding: Object.freeze({
+      kind: "output_workspace_binding",
+      workspaceRef: input.workspaceRef,
+      workspaceRoot,
+      authorityRef: input.authorityRef ?? null,
+      source: input.source
+    })
+  } as const);
+}
+
 export function deriveOutputInstanceAllocation(
   input: OutputAllocationRequest
 ): OutputAllocationResult {
@@ -299,7 +381,9 @@ export function deriveOutputInstanceAllocation(
   const runSegment = safeSegment(input.basis.runId ?? input.basis.id);
   const graphSegment = safeSegment(input.basis.graphFunction.name);
   const outputSegment = safeSegment(input.outputName);
-  const workspaceRoot = trimTrailingSlashes(input.basis.workspaceRoot);
+  const workspaceRoot = trimTrailingSlashes(
+    input.outputWorkspaceBinding?.workspaceRoot ?? input.basis.workspaceRoot
+  );
   const materializationRoot = [
     workspaceRoot,
     ".ai-workspace",
@@ -311,20 +395,27 @@ export function deriveOutputInstanceAllocation(
     outputSegment
   ].join("/");
   const materializationUri = `${materializationRoot}/${relativePath}`;
+  const outputWorkspaceRef =
+    input.outputWorkspaceBinding?.workspaceRef ?? defaultOutputWorkspaceRef(input.basis);
   const allocationId = [
     "output-allocation",
     input.basis.id,
     input.basis.graphFunction.id,
+    outputWorkspaceRef,
     input.outputName,
     relativePath
   ].join(":");
   const assetRef =
-    `workspace://${input.basis.moduleName}/${input.basis.graphFunction.name}` +
-    `/${runSegment}/outputs/${input.outputName}`;
+    input.outputWorkspaceBinding === undefined
+      ? `workspace://${input.basis.moduleName}/${input.basis.graphFunction.name}` +
+        `/${runSegment}/outputs/${input.outputName}`
+      : `${trimTrailingSlashes(outputWorkspaceRef)}/${graphSegment}` +
+        `/${runSegment}/outputs/${input.outputName}`;
   const existing = input.existingAllocations ?? [];
   if (
     existing.some(
       (allocation) =>
+        allocation.allocationId === allocationId ||
         allocation.assetRef === assetRef ||
         allocation.materializationRoot === materializationRoot ||
         allocation.materializationUri === materializationUri
@@ -346,6 +437,11 @@ export function deriveOutputInstanceAllocation(
       materializationRoot,
       materializationUri,
       allowedWriteRoots: freezeStringArray([materializationRoot]),
+      inputWorkspaceRoot: trimTrailingSlashes(input.basis.workspaceRoot),
+      outputWorkspaceRef,
+      outputWorkspaceRoot: workspaceRoot,
+      outputWorkspaceAuthorityRef:
+        input.outputWorkspaceBinding?.authorityRef ?? null,
       graphFunctionId: input.basis.graphFunction.id,
       graphFunctionName: input.basis.graphFunction.name,
       basisId: input.basis.id,
@@ -383,6 +479,7 @@ export function constructOutputPluginHandoffManifest(input: {
   readonly basis: ExecutionBasis;
   readonly manifestRef: string;
   readonly admittedInputRefs: readonly string[];
+  readonly admittedInputBindings?: readonly WorkspaceAssetBinding[];
   readonly allocatedOutputs: readonly OutputInstanceAllocation[];
   readonly proofObligationRefs: readonly string[];
 }): OutputPluginHandoffManifest {
@@ -393,6 +490,20 @@ export function constructOutputPluginHandoffManifest(input: {
   const allowedWriteRoots = freezeStringArray(
     input.allocatedOutputs.flatMap((allocation) => [...allocation.allowedWriteRoots])
   );
+  const inputWorkspaceRoots = freezeUniqueSortedStrings(
+    [
+      ...(input.admittedInputBindings?.map((binding) => binding.workspaceRoot) ?? []),
+      input.basis.workspaceRoot
+    ]
+  );
+  const outputWorkspaceRefs = freezeUniqueSortedStrings(
+    input.allocatedOutputs
+      .map((allocation) => allocation.outputWorkspaceRef)
+  );
+  const outputWorkspaceRoots = freezeUniqueSortedStrings(
+    input.allocatedOutputs
+      .map((allocation) => allocation.outputWorkspaceRoot)
+  );
   return Object.freeze({
     kind: "output_plugin_handoff_manifest",
     manifestRef: input.manifestRef,
@@ -401,7 +512,10 @@ export function constructOutputPluginHandoffManifest(input: {
     runId: input.basis.runId,
     workKey: input.basis.workKey,
     admittedInputRefs: freezeStringArray(input.admittedInputRefs),
+    inputWorkspaceRoots,
     allocatedOutputs: Object.freeze([...input.allocatedOutputs]),
+    outputWorkspaceRefs,
+    outputWorkspaceRoots,
     allowedWriteRoots,
     proofObligationRefs: freezeStringArray(input.proofObligationRefs)
   });
@@ -428,6 +542,10 @@ export function constructOutputInstanceAllocatedEvent(input: {
     materializationRoot: input.allocation.materializationRoot,
     materializationUri: input.allocation.materializationUri,
     allowedWriteRoots: freezeStringArray(input.allocation.allowedWriteRoots),
+    inputWorkspaceRoot: input.allocation.inputWorkspaceRoot,
+    outputWorkspaceRef: input.allocation.outputWorkspaceRef,
+    outputWorkspaceRoot: input.allocation.outputWorkspaceRoot,
+    outputWorkspaceAuthorityRef: input.allocation.outputWorkspaceAuthorityRef,
     graphFunctionId: input.basis.graphFunction.id,
     runId: input.basis.runId,
     workKey: input.basis.workKey
@@ -456,7 +574,10 @@ export function constructOutputBindingAdmittedEvent(input: {
     assetType: input.allocation.assetType,
     bindingRole: "output",
     source: "abg_allocation",
-    allowedWriteRoots: freezeStringArray(input.allocation.allowedWriteRoots)
+    allowedWriteRoots: freezeStringArray(input.allocation.allowedWriteRoots),
+    outputWorkspaceRef: input.allocation.outputWorkspaceRef,
+    outputWorkspaceRoot: input.allocation.outputWorkspaceRoot,
+    outputWorkspaceAuthorityRef: input.allocation.outputWorkspaceAuthorityRef
   });
 }
 
@@ -528,6 +649,10 @@ export function deriveOutputAllocationProjection(input: {
           materializationRoot: event.materializationRoot,
           materializationUri: event.materializationUri,
           allowedWriteRoots: freezeStringArray(event.allowedWriteRoots),
+          inputWorkspaceRoot: event.inputWorkspaceRoot,
+          outputWorkspaceRef: event.outputWorkspaceRef,
+          outputWorkspaceRoot: event.outputWorkspaceRoot,
+          outputWorkspaceAuthorityRef: event.outputWorkspaceAuthorityRef,
           graphFunctionId: event.graphFunctionId,
           graphFunctionName: input.basis.graphFunction.name,
           basisId: event.basisId,
@@ -542,7 +667,7 @@ export function deriveOutputAllocationProjection(input: {
         assetRef: event.assetRef,
         assetType: event.assetType,
         uri: event.assetRef,
-        workspaceRoot: input.basis.workspaceRoot,
+        workspaceRoot: event.outputWorkspaceRoot,
         bindingRole: event.bindingRole,
         source: event.source,
         materializationRoot: event.allowedWriteRoots[0] ?? null,

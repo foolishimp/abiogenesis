@@ -1,6 +1,6 @@
-# abiogenesis 3.4.0-rc.5 RC Notes
+# abiogenesis 3.4.0-rc.6 RC Notes
 
-This note records accepted RC behavior for the current `v3.4.0-rc.5` cut.
+This note records accepted RC behavior for the current `v3.4.0-rc.6` cut.
 
 ## Accepted Framework Behavior
 
@@ -222,9 +222,9 @@ Accepted behavior:
 - the ticket remains blocked until a stable ODD SDLC release candidate exists
   and is selected as the governing product for an ABG source-development wave
 
-### Workspace Ledgers, Eval Suites, And Graph-Span Reentry Are ABG Substrate
+### Workspace Ledgers, Eval Suites, Graph-Span Reentry, And Cross-Workspace Outputs Are ABG Substrate
 
-The rc.5 tranche accepts the T-082 through T-103 substrate as ABG-owned runtime
+The rc.6 tranche accepts the T-082 through T-104 substrate as ABG-owned runtime
 law, not downstream SDLC-local controller behavior.
 
 Accepted behavior:
@@ -245,11 +245,12 @@ Accepted behavior:
   frontier truth
 - the runner consumes admitted graph-span evidence and applies reentry; it does
   not fabricate F_P span assessments
-
-Deferred behavior:
-
-- explicit `W1` input workspace to `W2` output workspace allocation is tracked
-  separately as T-104 backlog scope
+- explicit `W1` input workspace to `W2` output workspace allocation is now an
+  admitted start/allocation shape, not a downstream convention
+- W2 output allocation preserves W1 input lineage and W2 output authority in
+  output allocation, plugin handoff manifest, runtime events, and projection
+- the mini data-mapper redux sandbox can run deterministic cross-workspace
+  review streams and write forensic comparison artifacts under `test_runs`
 
 ## Current Verification Footer
 
@@ -260,9 +261,11 @@ The current RC proving footer is:
 - `npm run test:t101`: `2 passed`
 - `npm run test:t102`: `7 passed`
 - `npm run test:t103`: `24 passed`
-- `npm run test:semantic`: `349 passed`
+- `npm run test:t104`: `6 passed`
+- `npm run test:t104:sandbox`: `1 passed`
+- `npm run test:semantic`: `354 passed`
 - `npm run lint:semantic`: `passed`
 - `npm run lint:test-harness`: `passed`
 - `git diff --check`: `passed`
 - `npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run`: `passed`,
-  package `3.4.0-rc.5`, `308 files`
+  package `3.4.0-rc.6`, `308 files`

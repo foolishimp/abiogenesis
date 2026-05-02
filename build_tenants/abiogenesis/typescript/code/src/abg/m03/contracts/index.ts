@@ -77,6 +77,7 @@ export type {
   RuntimeRegime,
   StartInputAssetBinding,
   StartIntent,
+  StartOutputWorkspaceBinding,
   StartRequestedOutput,
   StartUntil,
   TerminalKind,
@@ -232,6 +233,7 @@ export {
 } from "./iteration.js";
 export { deriveRuntimeAggregateProjection } from "./projection.js";
 export {
+  admitOutputWorkspaceBinding,
   admitWorkspaceAssetBinding,
   constructOutputBindingAdmittedEvent,
   constructOutputInstanceAllocatedEvent,
@@ -246,6 +248,11 @@ export type {
   OutputAllocationProjection,
   OutputAllocationRequest,
   OutputAllocationResult,
+  OutputWorkspaceBinding,
+  OutputWorkspaceBindingFailureReason,
+  OutputWorkspaceBindingInput,
+  OutputWorkspaceBindingResult,
+  OutputWorkspaceBindingSource,
   OutputInstanceAllocation,
   OutputPluginHandoffManifest,
   WorkspaceAssetBinding,

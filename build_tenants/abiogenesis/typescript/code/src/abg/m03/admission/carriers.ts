@@ -15,6 +15,7 @@ import type {
   RuntimeRegime,
   StartInputAssetBinding,
   StartIntent,
+  StartOutputWorkspaceBinding,
   StartRequestedOutput
 } from "../contracts/carriers.js";
 import { COMPUTE_BASIS_FAILURE_CLASS_VALUES } from "../contracts/carriers.js";
@@ -115,6 +116,10 @@ function parseStartRequestedOutputs(
   return Object.freeze(
     parseUnknownArray(input, label).map((item, index) => {
       const itemObject = parsePlainObject(item, `${label}[${index}]`);
+      const outputWorkspace = parseStartOutputWorkspaceBinding(
+        readOptionalAlias(itemObject, "outputWorkspace", "output_workspace"),
+        `${label}[${index}].outputWorkspace`
+      );
       return Object.freeze({
         outputName: readRequiredStringAlias(
           itemObject,
@@ -133,10 +138,44 @@ function parseStartRequestedOutputs(
           "relativePath",
           "relative_path",
           `${label}[${index}].relativePath`
-        )
+        ),
+        ...(outputWorkspace === undefined ? {} : { outputWorkspace })
       });
     })
   );
+}
+
+function parseStartOutputWorkspaceBinding(
+  input: unknown,
+  label: string
+): StartOutputWorkspaceBinding | undefined {
+  if (input === undefined) {
+    return undefined;
+  }
+  const workspaceObject = parsePlainObject(input, label);
+  const authorityRefInput = readOptionalAlias(
+    workspaceObject,
+    "authorityRef",
+    "authority_ref"
+  );
+  return Object.freeze({
+    workspaceRef: readRequiredStringAlias(
+      workspaceObject,
+      "workspaceRef",
+      "workspace_ref",
+      `${label}.workspaceRef`
+    ),
+    workspaceRoot: readRequiredStringAlias(
+      workspaceObject,
+      "workspaceRoot",
+      "workspace_root",
+      `${label}.workspaceRoot`
+    ),
+    authorityRef: parseNullableNonEmptyString(
+      authorityRefInput,
+      `${label}.authorityRef`
+    )
+  });
 }
 
 export function admitStartIntent(
