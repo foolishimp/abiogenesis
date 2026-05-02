@@ -81,6 +81,9 @@ export function projectPublicStopClass(
       }
     case "attention":
       switch (liveStatus.runStatus) {
+        case "transport_failure":
+        case "no_output":
+        case "contract_failure":
         case "runtime_unavailable":
         case "capability_missing":
         case "runtime_failure":

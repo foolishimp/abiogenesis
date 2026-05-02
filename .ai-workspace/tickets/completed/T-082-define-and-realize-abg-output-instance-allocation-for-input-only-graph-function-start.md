@@ -3,7 +3,8 @@ id: T-082
 title: Define and realize ABG output instance allocation for input-only graph-function start
 type: feature
 ticket_category: runtime_output_allocation
-status: backlog
+status: completed
+review_status: closure_accepted_for_abg_source_scope
 goal: outcome-driven-development-runtime-materialization
 change_intent: Make ABG able to start a graph function from declared input bindings and mint collision-safe output asset instance bindings and materialization roots without the caller predeclaring concrete output paths.
 change_class: requirement_reprice
@@ -12,11 +13,16 @@ affected_boundary: ABG start intent, execution basis, runtime binding, graph-fun
 priority: high
 triaged_at: 2026-04-27T04:54:36Z
 created_at: 2026-04-27T04:54:36Z
-updated_at: 2026-04-27T04:54:36Z
+updated_at: 2026-05-02
+closed_at: 2026-05-02T21:40:26+10:00
 dependencies:
   - T-072 completed
   - T-073 completed
   - T-081 completed
+related_tickets:
+  - T-100 active ABG zoomed workspace-asset obligation schedule and foldback evaluation
+related_design:
+  - build_tenants/abiogenesis/typescript/design/M03_OUTPUT_ALLOCATION_AND_WORKSPACE_ZOOM_FOLDBACK_DERIVATION.md
 governance_scope: STDO Method
 governance_scope_expansion:
   - S: SPEC_METHOD.md
@@ -46,6 +52,7 @@ missing_requirement_truth:
   - Replay-visible output allocation, output binding, and materialization provenance events.
   - Plugin handoff manifest contract carrying allocated output paths and forbidding writes outside them.
   - Projection surface that answers which output asset instances were minted by a graph-function run.
+  - Output allocation refs must be stable and typed enough for downstream zoom/foldback carriers to reference the minted output as `Workspace.<asset>.ref`.
 intake_source: Operator identified a missing outcome-driven-development capability: run a graph function from input start truth, let the graph function traverse internally, and have ABG create new output asset instances at non-colliding paths such as `<guid>/<graph-function-defined-paths>` rather than forcing the caller to predeclare every output path.
 target_truth: A caller can start a published graph function with only declared input asset bindings. ABG admits the inputs, allocates invocation-local output asset identities and materialization roots from graph-function output declarations and domain-owned path templates, dispatches workers with those bindings, records allocation/provenance events, and projects the resulting output assets without path collisions or hidden harness truth.
 superseded_truth: Callers, tests, or downstream harnesses must precompute every output path and asset ID before ABG can run a constructive graph function.
@@ -119,6 +126,31 @@ The product and intent surfaces already point at the capability:
 The exact ABG requirement is still missing: ABG must own invocation-local output
 instance allocation when start truth supplies inputs but omits concrete output
 bindings.
+
+## Relationship To T-100
+
+T-100 is the higher-order workspace traversal building block that consumes this
+ticket's output allocation law.
+
+T-082 owns:
+
+- input-only graph-function start admission
+- ABG-allocated output asset identity
+- ABG-allocated materialization root
+- plugin handoff write territory
+- allocation and materialization projection
+
+T-100 owns:
+
+- workspace-visible obligation ledger and schedule assets
+- zoom frame over an outer A-to-B traversal
+- finite scheduled slice traversal
+- per-slice event/projection truth
+- foldback evaluation of the outer A-to-B boundary
+
+This ticket must not absorb T-100's assurance, schedule, or foldback law. It
+must expose allocation outputs with stable refs so T-100 can treat the minted B
+asset as `Workspace.B.ref` without caller-authored path truth.
 
 ## Required Requirement Work
 
@@ -239,3 +271,100 @@ Before implementation, the ticket requires:
   materialization.
 - Do not use this ticket to add broad SDLC product behavior. This is ABG
   runtime allocation law.
+
+## Implementation Checkpoint: 2026-05-02
+
+First TypeScript slice implemented under the shared T-082/T-100 design:
+
+- `code/src/abg/m03/contracts/output_allocation.ts`
+- `code/src/abg/m03/contracts/carriers.ts`
+- `code/src/abg/m03/contracts/event_admission.ts`
+- `code/src/abg/m03/contracts/projection.ts`
+- `code/src/abg/m03/contracts/retry_frontier.ts`
+- `code/src/abg/m03/contracts/index.ts`
+- `test_env/tests/test_t082_output_allocation_unit.test.mjs`
+
+Implemented runtime law:
+
+- `WorkspaceAssetBinding`
+- `OutputInstanceAllocation`
+- `OutputPluginHandoffManifest`
+- `OutputAllocationProjection`
+- `output_instance_allocated`
+- `output_binding_admitted`
+- `output_materialization_observed`
+
+Proof covered:
+
+- input-only output allocation creates an ABG-owned root under
+  `.ai-workspace/runtime/runs/<run>/assets/...`
+- allocation, binding, and materialization are runtime events accepted by
+  `emit()`
+- projection reports allocated and materialized output refs
+- unsafe relative paths and duplicate allocation roots fail closed
+- materialization outside the allocated write root fails closed
+- dot-dot materialization escape attempts fail in both constructors and replay
+  projection
+- public start admission can carry typed `input_bindings` and
+  `requested_outputs` into `ExecutionBasis.startIntent` without changing
+  legacy start payloads
+- T-100 mini data-mapper lifecycle sandbox consumes T-082 to allocate design,
+  implementation, test-suite, and run-archive output roots from input-only start
+  truth, lets the transform write bounded random fixed-feature batches, lets a
+  domain/F_P quality assessor evaluate the allocated design artifact before
+  assessment admission, and materializes all four outputs under ABG-owned write
+  roots
+
+Validation:
+
+```text
+npm run build:semantic
+node --test test_env/tests/test_t082_output_allocation_unit.test.mjs
+npm run lint:semantic
+npm run test:t082
+npm run test:t100:sandbox
+npm run test:semantic
+```
+
+Observed validation result on 2026-05-02:
+
+- `npm run lint:semantic` passed
+- `npm run test:t082` passed, 6/6 after the containment and public-start
+  hardening pass
+- `npm run test:t100:sandbox` passed, 1/1 as downstream allocation proof; latest
+  observed run used random fixed-feature transform attempts and domain/F_P
+  quality assessments before close
+- `npm run test:semantic` passed, 318/318
+
+Remaining active gate:
+
+- live-eval filesystem sandbox proof exists through T-100; closure still
+  needs the final operator-facing rerun/tuning contract and any needed
+  constitutional requirement wording updates.
+
+## Closure Disposition: 2026-05-02
+
+T-082 is closed for the ABIogenesis TypeScript source scope.
+
+Closure evidence:
+
+- `output_allocation.ts` owns input-only graph-function output allocation,
+  output binding admission, plugin handoff manifests, materialization
+  observation, write-root containment, and projection.
+- Public start admission carries `input_bindings` and `requested_outputs` into
+  execution-basis truth without widening legacy start payload authority.
+- T-100/T-101/T-102 consume the allocation surface without re-deriving output
+  allocation or letting plugins choose hidden output paths.
+
+Verification rerun:
+
+- `npm run test:t082` passed, 6/6.
+- `npm run test:t100:test35-parity` passed, 15/15.
+- `npm run test:semantic` passed, 349/349.
+- `npm run lint:semantic` passed.
+
+Deferred scope:
+
+- Cross-workspace start where inputs are read from `W1` and outputs are
+  allocated into an explicit `W2` is not part of this ticket's closed scope.
+  It is captured as backlog ticket T-104.

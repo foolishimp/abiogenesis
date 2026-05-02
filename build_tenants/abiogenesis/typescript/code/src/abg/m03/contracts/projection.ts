@@ -350,7 +350,47 @@ export function deriveRuntimeAggregateProjection(
       case "evidence_admitted":
       case "ambiguity_observation_admitted":
       case "closure_input_published":
+      case "output_instance_allocated":
+      case "output_binding_admitted":
+      case "output_materialization_observed":
+      case "workspace_obligation_ledger_admitted":
+      case "workspace_obligation_schedule_derived":
+      case "zoom_frame_opened":
+      case "scheduled_slice_dispatched":
+      case "scheduled_slice_assessed":
+      case "zoom_foldback_evaluated":
         assertVectorIndexInRange(basis, event.vectorIndex);
+        graphCallId = event.graphCallId;
+        frameId = event.frameId;
+        break;
+      case "graph_span_evaluation_scheduled":
+      case "graph_span_assessed":
+      case "graph_span_foldback_evaluated":
+        assertVectorIndexInRange(basis, event.terminalVectorIndex);
+        graphCallId = event.graphCallId;
+        frameId = event.frameId;
+        break;
+      case "graph_reentry_planned":
+        if (event.targetVectorIndex !== null) {
+          assertVectorIndexInRange(basis, event.targetVectorIndex);
+        }
+        graphCallId = event.graphCallId;
+        frameId = event.frameId;
+        break;
+      case "graph_reentry_applied":
+        if (event.targetVectorIndex !== null) {
+          assertVectorIndexInRange(basis, event.targetVectorIndex);
+          for (
+            let index = event.targetVectorIndex;
+            index < basis.graph.vectors.length;
+            index += 1
+          ) {
+            closed.delete(index);
+            closedBy.delete(index);
+            planned.delete(index);
+            evaluated.delete(index);
+          }
+        }
         graphCallId = event.graphCallId;
         frameId = event.frameId;
         break;

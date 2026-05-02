@@ -650,6 +650,20 @@ export function deriveRetryFrontierProjection(input: {
       case "authority_snapshot_admitted":
       case "evidence_admitted":
       case "closure_input_published":
+      case "output_instance_allocated":
+      case "output_binding_admitted":
+      case "output_materialization_observed":
+      case "workspace_obligation_ledger_admitted":
+      case "workspace_obligation_schedule_derived":
+      case "zoom_frame_opened":
+      case "scheduled_slice_dispatched":
+      case "scheduled_slice_assessed":
+      case "zoom_foldback_evaluated":
+      case "graph_span_evaluation_scheduled":
+      case "graph_span_assessed":
+      case "graph_span_foldback_evaluated":
+      case "graph_reentry_planned":
+      case "graph_reentry_applied":
         break;
       default:
         {

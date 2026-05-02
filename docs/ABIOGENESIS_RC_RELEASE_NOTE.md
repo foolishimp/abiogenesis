@@ -1,4 +1,4 @@
-# abiogenesis 3.4.0-rc.4 Release Candidate Note
+# abiogenesis 3.4.0-rc.5 Release Candidate Note
 
 This checkpoint is the current TypeScript ABG release-candidate source state.
 
@@ -16,6 +16,8 @@ The TypeScript tenant is now a package-first GTL/ABG RC candidate with:
 - installed-package sandbox proof
 - real external-live F_P qualification
 - updated bootstrap, design, docs, and ticket evidence surfaces
+- ABG-owned output allocation, workspace zoom/foldback, eval-suite projection,
+  mini data-mapper semantic sandbox, and graph-span reentry frontier substrate
 
 The TypeScript tenant is the primary release line. The Python tenant is paused
 as released-reference evidence and is not an active RC gate while
@@ -50,23 +52,35 @@ as released-reference evidence and is not an active RC gate while
   not TS-primary release authority.
 - Documentation and bootstrap surfaces state the current TypeScript RC runtime
   law instead of the older Python-reference-only posture.
+- T-082/T-100/T-101/T-102/T-103 close the ABG substrate for:
+  - input-only output allocation with write-root containment
+  - workspace-visible obligation ledgers, schedules, and foldback evaluation
+  - a mini data-mapper semantic eval sandbox with F_D/F_P separation
+  - eval-suite projection artifacts with repeated-trial evidence
+  - graph-span foldback and replay-derived lawful reentry
+- T-100 now carries the test35-derived five-rule parity surface: named
+  five-term closure predicate, latest-assessed-per-slice projection, typed
+  retry allowlist, artifact salvage, and behavioral-vs-lexical finding class.
+- T-103 wires graph-span reentry into the runner while preserving the
+  constitutional boundary: the runner consumes admitted F_P span evidence and
+  never produces graph-span assessment truth itself.
 
 ## Versioned Artifacts
 
 - RC branch: `rc/3.4.0`
-- Candidate package version: `3.4.0-rc.4`
-- Candidate tag: `v3.4.0-rc.4`
+- Candidate package version: `3.4.0-rc.5`
+- Candidate tag: `v3.4.0-rc.5`
 
 ## Verification
 
 Current qualification evidence for this cut:
 
 ```text
-npm run test:t076
-4 passed, duration_ms 3785.520875
+npm run test:t082
+6 passed
 
 npm run test:semantic
-304 passed, duration_ms 6141.406292
+349 passed
 
 npm run lint:semantic
 passed
@@ -74,33 +88,30 @@ passed
 npm run lint:test-harness
 passed
 
-CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=240000 npm run test:t094:live
-1 passed, duration_ms 11948.129375
-archive: test_env/test_runs/t094_assurance_register_two_hop_live/20260430T141629554Z
+npm run test:t100:test35-parity
+15 passed
 
-CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=240000 npm run test:t097:live
-1 passed, duration_ms 3930.383167
-archive: test_env/test_runs/t097_supervised_process_actor_live/20260430T141652934Z
+npm run test:t101
+2 passed
 
-CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=360000 npm run test:live:uat
-retained rc.3 evidence: 2 passed, duration_ms 32388.037125
-latest semantic archive: test_env/test_runs/typescript_rc_live/requirements_to_uat/2026-04-29T153039592Z
+npm run test:t102
+7 passed
 
-CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=360000 npm run test:live
-retained rc.3 evidence: 1 passed, duration_ms 75197.459708
-archive: test_env/test_runs/typescript_rc_live_portfolio/2026-04-29T153442846Z
-
-npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run
-passed, version 3.4.0-rc.4, files 300
+npm run test:t103
+24 passed
 
 git diff --check
 passed
+
+npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run
+passed, version 3.4.0-rc.5, files 308, package abiogenesis-typescript-tenant-3.4.0-rc.5.tgz
 ```
 
-The live RC portfolio uses the Claude live lane for F_P dispatch evidence. The
-release does not use Codex live lanes for this cut. Live LLM gates were run
-outside the Codex sandbox because sandboxed subprocesses cannot reach the
-Claude API.
+The retained rc.4 live gates remain prior external-live evidence for the
+package line. The rc.5 tranche adds deterministic semantic, sandbox, and
+test35-parity proof for the ABG ledger/reentry substrate. T-101 includes a
+Codex live worker path pinned through the shared transport contract to
+`gpt-5.3-codex`; live execution remains operator-enabled.
 
 ## Current Blocking Non-Claim
 

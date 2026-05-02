@@ -16,6 +16,9 @@ export type ComputeBasisFailureClass =
   (typeof COMPUTE_BASIS_FAILURE_CLASS_VALUES)[number];
 
 export const RUNTIME_FAILURE_CLASS_VALUES = Object.freeze([
+  "transport_failure",
+  "no_output",
+  "contract_failure",
   "runtime_unavailable",
   "capability_missing",
   "runtime_failure",
@@ -37,6 +40,18 @@ export const TERMINAL_KIND_VALUES = Object.freeze([
 
 export type StartUntil = "first_traversal" | "blocked" | "converged";
 
+export interface StartInputAssetBinding {
+  readonly assetRef: string;
+  readonly assetType: string;
+  readonly uri: string;
+}
+
+export interface StartRequestedOutput {
+  readonly outputName: string;
+  readonly outputAssetType: string;
+  readonly relativePath: string;
+}
+
 export interface StartIntent {
   readonly scope: {
     readonly kind: "workspace";
@@ -48,6 +63,8 @@ export interface StartIntent {
     readonly handle: string;
   };
   readonly until: StartUntil;
+  readonly inputBindings?: readonly StartInputAssetBinding[];
+  readonly requestedOutputs?: readonly StartRequestedOutput[];
 }
 
 export interface ExecutionBasis {
@@ -791,6 +808,366 @@ export interface ClosureInputPublishedRuntimeEvent {
   readonly policyRefs: readonly string[];
 }
 
+export interface OutputInstanceAllocatedEvent {
+  readonly kind: "output_instance_allocated";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly allocationId: string;
+  readonly assetRef: string;
+  readonly assetType: string;
+  readonly outputName: string;
+  readonly materializationRoot: string;
+  readonly materializationUri: string;
+  readonly allowedWriteRoots: readonly string[];
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+}
+
+export interface OutputBindingAdmittedEvent {
+  readonly kind: "output_binding_admitted";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly bindingRef: string;
+  readonly allocationId: string;
+  readonly assetRef: string;
+  readonly assetType: string;
+  readonly bindingRole: "output";
+  readonly source: "abg_allocation";
+  readonly allowedWriteRoots: readonly string[];
+}
+
+export interface OutputMaterializationObservedEvent {
+  readonly kind: "output_materialization_observed";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly allocationId: string;
+  readonly assetRef: string;
+  readonly materializedRef: string;
+  readonly materializedPath: string;
+  readonly digest: string;
+  readonly observerRef: string;
+  readonly artifactRefs: readonly string[];
+}
+
+export interface WorkspaceObligationLedgerAdmittedEvent {
+  readonly kind: "workspace_obligation_ledger_admitted";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly ledgerRef: string;
+  readonly workspaceAssetRef: string;
+  readonly authorityDigest: string;
+  readonly obligationRefs: readonly string[];
+}
+
+export interface WorkspaceObligationScheduleDerivedEvent {
+  readonly kind: "workspace_obligation_schedule_derived";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly scheduleRef: string;
+  readonly ledgerRef: string;
+  readonly scheduleItemRefs: readonly string[];
+}
+
+export interface ZoomFrameOpenedRuntimeEvent {
+  readonly kind: "zoom_frame_opened";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly zoomFrameId: string;
+  readonly inputAssetRef: string;
+  readonly outputAssetRef: string;
+  readonly ledgerRef: string;
+  readonly scheduleRef: string;
+}
+
+export interface ScheduledSliceDispatchedRuntimeEvent {
+  readonly kind: "scheduled_slice_dispatched";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly zoomFrameId: string;
+  readonly scheduleItemId: string;
+  readonly obligationId: string;
+  readonly attemptIndex: number;
+  readonly handoffRef: string;
+  readonly pluginRef: string;
+  readonly outputAssetRef: string;
+}
+
+export interface ScheduledSliceAssessedRuntimeEvent {
+  readonly kind: "scheduled_slice_assessed";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly zoomFrameId: string;
+  readonly assessmentId: string;
+  readonly scheduleItemId: string;
+  readonly obligationId: string;
+  readonly attemptIndex: number;
+  readonly status: "fulfilled" | "partial" | "blocked" | "runtime_failed";
+  readonly assessmentRegime: RuntimeRegime;
+  readonly findingClass:
+    | "fulfilled"
+    | "semantic_fulfillment_gap"
+    | "traceability_reference_gap"
+    | null;
+  readonly evidenceRefs: readonly string[];
+  readonly outputRefs: readonly string[];
+  readonly runtimeFailureClass: RuntimeFailureClass | null;
+  readonly detail: string | null;
+}
+
+export interface ZoomFoldbackEvaluatedRuntimeEvent {
+  readonly kind: "zoom_foldback_evaluated";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly zoomFrameId: string;
+  readonly foldbackRef: string;
+  readonly decision: "close" | "retry_scheduled_slice" | "carry_loopback_pressure" | "blocked" | "reprice_required";
+  readonly fulfilledCount: number;
+  readonly openCount: number;
+  readonly blockedCount: number;
+  readonly runtimeFailureCount: number;
+  readonly missingAssessmentCount: number;
+  readonly conflictingCount: number;
+}
+
+export const GRAPH_CHANGE_CLASS_VALUES = Object.freeze([
+  "goal_reprice",
+  "intent_reprice",
+  "product_reprice",
+  "requirement_reprice",
+  "design_reframe",
+  "realization_refactor"
+] as const);
+
+export type GraphChangeClass =
+  (typeof GRAPH_CHANGE_CLASS_VALUES)[number];
+
+export const GRAPH_REENTRY_POINT_VALUES = Object.freeze([
+  "goals",
+  "intent",
+  "product_definition",
+  "requirements",
+  "design_surface",
+  "realization",
+  "proof"
+] as const);
+
+export type GraphReentryPoint =
+  (typeof GRAPH_REENTRY_POINT_VALUES)[number];
+
+export const GRAPH_SPAN_OBLIGATION_ASSESSMENT_STATUS_VALUES = Object.freeze([
+  "fulfilled",
+  "semantic_gap",
+  "traceability_gap",
+  "constitutional_gap",
+  "stale_input",
+  "contradictory_evidence",
+  "blocked"
+] as const);
+
+export type GraphSpanObligationAssessmentStatus =
+  (typeof GRAPH_SPAN_OBLIGATION_ASSESSMENT_STATUS_VALUES)[number];
+
+export const GRAPH_SPAN_CARRY_OBSERVATION_STATUS_VALUES = Object.freeze([
+  "carried",
+  "dropped",
+  "mutated",
+  "unknown"
+] as const);
+
+export type GraphSpanCarryObservationStatus =
+  (typeof GRAPH_SPAN_CARRY_OBSERVATION_STATUS_VALUES)[number];
+
+export interface GraphSpanCarryObservationEventRow {
+  readonly fromVectorIndex: number;
+  readonly toVectorIndex: number;
+  readonly status: GraphSpanCarryObservationStatus;
+  readonly evidenceRefs: readonly string[];
+}
+
+export interface GraphSpanAssessmentEventRow {
+  readonly obligationId: string;
+  readonly sourceAuthorityRef: string;
+  readonly status: GraphSpanObligationAssessmentStatus;
+  readonly terminalEvidenceRefs: readonly string[];
+  readonly carryObservations: readonly GraphSpanCarryObservationEventRow[];
+  readonly detail: string | null;
+}
+
+export interface GraphConstitutionalReentryEventPayload {
+  readonly kind: "graph_constitutional_reentry";
+  readonly changeClass: GraphChangeClass;
+  readonly reEntryPoint: GraphReentryPoint;
+  readonly targetGraphFunctionRef: string | null;
+  readonly targetVectorIndex: number | null;
+  readonly routeContractRefs: readonly string[];
+  readonly authorityRefs: readonly string[];
+  readonly rationale: string;
+}
+
+export type GraphSpanFoldbackDecision =
+  | "close"
+  | "retry_terminal_edge"
+  | "reenter_at_vector"
+  | "constitutional_reentry"
+  | "reprice_required"
+  | "blocked";
+
+export type GraphReentryFrontierDecision =
+  | "advance"
+  | "reenter"
+  | "constitutional_reentry"
+  | "reprice"
+  | "block";
+
+export interface GraphSpanEvaluationScheduledEvent {
+  readonly kind: "graph_span_evaluation_scheduled";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly frameLineageId: string | null;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly terminalVectorIndex: number;
+  readonly terminalEdge: string;
+  readonly scheduleRef: string;
+  readonly spanIds: readonly string[];
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+  readonly generation: number;
+}
+
+export interface GraphSpanAssessedEvent {
+  readonly kind: "graph_span_assessed";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly frameLineageId: string | null;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly terminalVectorIndex: number;
+  readonly terminalEdge: string;
+  readonly sourceVectorIndex: number;
+  readonly spanId: string;
+  readonly sourceNodeRef: string;
+  readonly terminalNodeRef: string;
+  readonly coveredVectorIndexes: readonly number[];
+  readonly assessmentId: string;
+  readonly attemptIndex: number;
+  readonly assessmentRegime: RuntimeRegime;
+  readonly obligationRows: readonly GraphSpanAssessmentEventRow[];
+  readonly constitutionalReentry: GraphConstitutionalReentryEventPayload | null;
+  readonly evidenceRefs: readonly string[];
+  readonly edgeFoldbackRefs: readonly string[];
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+  readonly detail: string | null;
+  readonly generation: number;
+}
+
+export interface GraphSpanFoldbackEvaluatedEvent {
+  readonly kind: "graph_span_foldback_evaluated";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly frameLineageId: string | null;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly terminalVectorIndex: number;
+  readonly terminalEdge: string;
+  readonly foldbackRef: string;
+  readonly spanAssessmentRefs: readonly string[];
+  readonly edgeFoldbackRefs: readonly string[];
+  readonly causingEdgeFoldbackRefs: readonly string[];
+  readonly decision: GraphSpanFoldbackDecision;
+  readonly fulfilledCount: number;
+  readonly gapCount: number;
+  readonly staleInputCount: number;
+  readonly blockedCount: number;
+  readonly contradictoryCount: number;
+  readonly reentryCandidateVectorIndexes: readonly number[];
+  readonly earliestReentryVectorIndex: number | null;
+  readonly constitutionalReentries: readonly GraphConstitutionalReentryEventPayload[];
+  readonly causingObligationRefs: readonly string[];
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+  readonly generation: number;
+}
+
+export interface GraphReentryPlannedEvent {
+  readonly kind: "graph_reentry_planned";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly frameLineageId: string | null;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly planRef: string;
+  readonly fromTerminalVectorIndex: number;
+  readonly targetVectorIndex: number | null;
+  readonly changeClass: GraphChangeClass | null;
+  readonly reEntryPoint: GraphReentryPoint | null;
+  readonly routeContractRefs: readonly string[];
+  readonly causingFrontierRowRefs: readonly string[];
+  readonly shadowedVectorIndexes: readonly number[];
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+  readonly reason: string;
+  readonly generation: number;
+}
+
+export interface GraphReentryAppliedEvent {
+  readonly kind: "graph_reentry_applied";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly frameLineageId: string | null;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly planRef: string;
+  readonly targetVectorIndex: number | null;
+  readonly changeClass: GraphChangeClass | null;
+  readonly reEntryPoint: GraphReentryPoint | null;
+  readonly routeContractRefs: readonly string[];
+  readonly causingFrontierRowRefs: readonly string[];
+  readonly shadowedVectorIndexes: readonly number[];
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+  readonly generation: number;
+}
+
 export type RuntimeEvent =
   | BasisAdmittedEvent
   | FdAdvanceReadyEvent
@@ -831,7 +1208,21 @@ export type RuntimeEvent =
   | AuthoritySnapshotAdmittedRuntimeEvent
   | EvidenceAdmittedRuntimeEvent
   | AmbiguityObservationAdmittedRuntimeEvent
-  | ClosureInputPublishedRuntimeEvent;
+  | ClosureInputPublishedRuntimeEvent
+  | OutputInstanceAllocatedEvent
+  | OutputBindingAdmittedEvent
+  | OutputMaterializationObservedEvent
+  | WorkspaceObligationLedgerAdmittedEvent
+  | WorkspaceObligationScheduleDerivedEvent
+  | ZoomFrameOpenedRuntimeEvent
+  | ScheduledSliceDispatchedRuntimeEvent
+  | ScheduledSliceAssessedRuntimeEvent
+  | ZoomFoldbackEvaluatedRuntimeEvent
+  | GraphSpanEvaluationScheduledEvent
+  | GraphSpanAssessedEvent
+  | GraphSpanFoldbackEvaluatedEvent
+  | GraphReentryPlannedEvent
+  | GraphReentryAppliedEvent;
 
 export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "basis_admitted",
@@ -873,7 +1264,21 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "authority_snapshot_admitted",
   "evidence_admitted",
   "ambiguity_observation_admitted",
-  "closure_input_published"
+  "closure_input_published",
+  "output_instance_allocated",
+  "output_binding_admitted",
+  "output_materialization_observed",
+  "workspace_obligation_ledger_admitted",
+  "workspace_obligation_schedule_derived",
+  "zoom_frame_opened",
+  "scheduled_slice_dispatched",
+  "scheduled_slice_assessed",
+  "zoom_foldback_evaluated",
+  "graph_span_evaluation_scheduled",
+  "graph_span_assessed",
+  "graph_span_foldback_evaluated",
+  "graph_reentry_planned",
+  "graph_reentry_applied"
 ] as const satisfies readonly RuntimeEvent["kind"][]);
 
 export interface AdmittedLeafTaskPayload {

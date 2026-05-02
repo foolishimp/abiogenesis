@@ -1,6 +1,6 @@
 {
   "name": "@abiogenesis/typescript-tenant",
-  "version": "3.4.0-rc.4",
+  "version": "3.4.0-rc.5",
   "private": true,
   "type": "module",
   "types": "./build/semantic/code/src/index.d.ts",
@@ -140,7 +140,21 @@
     "test:t097": "npm run build:semantic && node --test test_env/tests/test_t097_supervised_process_actor.test.mjs",
     "test:t097:live": "npm run build:semantic && node --test test_env/live/test_t097_supervised_process_actor_live.test.mjs",
     "test:t098": "npm run build:semantic && node --test test_env/tests/test_t098_retry_frontier_projection.test.mjs",
-    "test:t099": "npm run build:semantic && node --test test_env/tests/test_t099_fp_stage_carriers.test.mjs"
+    "test:t099": "npm run build:semantic && node --test test_env/tests/test_t099_fp_stage_carriers.test.mjs",
+    "test:t082": "npm run build:semantic && node --test test_env/tests/test_t082_output_allocation_unit.test.mjs",
+    "test:t100:unit": "npm run build:semantic && node --test test_env/tests/test_t100_workspace_zoom_foldback_unit.test.mjs",
+    "test:t100:sandbox": "npm run build:semantic && node --test test_env/sandbox/test_t100_mini_data_mapper_lifecycle_sandbox.test.mjs",
+    "test:t100": "npm run build:semantic && node --test test_env/tests/test_t100_workspace_zoom_foldback_unit.test.mjs test_env/sandbox/test_t100_mini_data_mapper_lifecycle_sandbox.test.mjs",
+    "test:t100:five-rule": "npm run build:semantic && node --test test_env/live/test_t100_five_rule_algebra_live.test.mjs",
+    "test:t100:test35-parity": "npm run build:semantic && node --test test_env/tests/test_t100_workspace_zoom_foldback_unit.test.mjs test_env/sandbox/test_t100_mini_data_mapper_lifecycle_sandbox.test.mjs test_env/live/test_t100_five_rule_algebra_live.test.mjs",
+    "test:t101": "npm run build:semantic && node --test test_env/sandbox/test_t101_mini_dm_redux_live.test.mjs",
+    "test:t101:edge1": "npm run build:semantic && node test_env/sandbox/mini_dm_redux/run.mjs --edge derive_field_spec",
+    "test:t101:edge2": "npm run build:semantic && node test_env/sandbox/mini_dm_redux/run.mjs --edge derive_implementation",
+    "test:t101:edge3": "npm run build:semantic && node test_env/sandbox/mini_dm_redux/run.mjs --edge derive_validation",
+    "test:t101:full": "npm run build:semantic && node test_env/sandbox/mini_dm_redux/run.mjs --full",
+    "test:t101:gaps": "node test_env/sandbox/mini_dm_redux/run.mjs --gaps",
+    "test:t102": "npm run build:semantic && node --test test_env/tests/test_t102_eval_suite_projection_unit.test.mjs && T100_MINI_SANDBOX_REPEAT=2 node --test test_env/sandbox/test_t100_mini_data_mapper_lifecycle_sandbox.test.mjs",
+    "test:t103": "npm run build:semantic && node --test test_env/tests/test_t103_graph_span_reentry_unit.test.mjs test_env/tests/test_t103_graph_span_reentry_semantic_deep.test.mjs"
   },
   "dependencies": {
     "valibot": "1.3.1"

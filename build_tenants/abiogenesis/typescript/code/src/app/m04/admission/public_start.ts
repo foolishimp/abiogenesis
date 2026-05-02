@@ -105,12 +105,23 @@ export function admitPublicStartRequest(
   label = "PublicStartRequest"
 ): PublicStartRequest {
   const requestObject = parsePlainObject(input, label);
+  const startIntentInput: Record<string, unknown> = {
+    scope: requestObject["scope"],
+    target: requestObject["target"],
+    until: requestObject["until"]
+  };
+  for (const field of [
+    "inputBindings",
+    "input_bindings",
+    "requestedOutputs",
+    "requested_outputs"
+  ]) {
+    if (Object.hasOwn(requestObject, field)) {
+      startIntentInput[field] = requestObject[field];
+    }
+  }
   const startIntent = admitStartIntent(
-    {
-      scope: requestObject["scope"],
-      target: requestObject["target"],
-      until: requestObject["until"]
-    },
+    startIntentInput,
     `${label}.startIntent`
   );
   const controlModes = admitPublicControlModes(

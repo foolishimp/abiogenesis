@@ -13,14 +13,17 @@ import {
 import type {
   ExecutionBasis,
   RuntimeRegime,
-  StartIntent
+  StartInputAssetBinding,
+  StartIntent,
+  StartRequestedOutput
 } from "../contracts/carriers.js";
 import { COMPUTE_BASIS_FAILURE_CLASS_VALUES } from "../contracts/carriers.js";
 import {
   parseNonEmptyString,
   parseOptionalField,
   parsePlainObject,
-  parseString
+  parseString,
+  parseUnknownArray
 } from "../../../shared/validation/primitives.js";
 
 function parseNullableNonEmptyString(input: unknown, label: string): string | null {
@@ -47,6 +50,93 @@ function parseRuntimeRegime(input: unknown, label: string): RuntimeRegime {
 
 function deriveIdentity(prefix: string, payload: unknown): string {
   return `${prefix}:${JSON.stringify(payload)}`;
+}
+
+function readOptionalAlias(
+  input: Record<string, unknown>,
+  firstField: string,
+  secondField: string
+): unknown {
+  if (Object.hasOwn(input, firstField)) {
+    return input[firstField];
+  }
+  if (Object.hasOwn(input, secondField)) {
+    return input[secondField];
+  }
+  return undefined;
+}
+
+function readRequiredStringAlias(
+  input: Record<string, unknown>,
+  firstField: string,
+  secondField: string,
+  label: string
+): string {
+  const value = readOptionalAlias(input, firstField, secondField);
+  return parseNonEmptyString(value, label);
+}
+
+function parseStartInputBindings(
+  input: unknown,
+  label: string
+): readonly StartInputAssetBinding[] | undefined {
+  if (input === undefined) {
+    return undefined;
+  }
+  return Object.freeze(
+    parseUnknownArray(input, label).map((item, index) => {
+      const itemObject = parsePlainObject(item, `${label}[${index}]`);
+      return Object.freeze({
+        assetRef: readRequiredStringAlias(
+          itemObject,
+          "assetRef",
+          "asset_ref",
+          `${label}[${index}].assetRef`
+        ),
+        assetType: readRequiredStringAlias(
+          itemObject,
+          "assetType",
+          "asset_type",
+          `${label}[${index}].assetType`
+        ),
+        uri: parseNonEmptyString(itemObject["uri"], `${label}[${index}].uri`)
+      });
+    })
+  );
+}
+
+function parseStartRequestedOutputs(
+  input: unknown,
+  label: string
+): readonly StartRequestedOutput[] | undefined {
+  if (input === undefined) {
+    return undefined;
+  }
+  return Object.freeze(
+    parseUnknownArray(input, label).map((item, index) => {
+      const itemObject = parsePlainObject(item, `${label}[${index}]`);
+      return Object.freeze({
+        outputName: readRequiredStringAlias(
+          itemObject,
+          "outputName",
+          "output_name",
+          `${label}[${index}].outputName`
+        ),
+        outputAssetType: readRequiredStringAlias(
+          itemObject,
+          "outputAssetType",
+          "output_asset_type",
+          `${label}[${index}].outputAssetType`
+        ),
+        relativePath: readRequiredStringAlias(
+          itemObject,
+          "relativePath",
+          "relative_path",
+          `${label}[${index}].relativePath`
+        )
+      });
+    })
+  );
 }
 
 export function admitStartIntent(
@@ -81,6 +171,14 @@ export function admitStartIntent(
       `${label}.until: expected "first_traversal", "blocked", or "converged", got ${JSON.stringify(until)}`
     );
   }
+  const inputBindings = parseStartInputBindings(
+    readOptionalAlias(intentObject, "inputBindings", "input_bindings"),
+    `${label}.inputBindings`
+  );
+  const requestedOutputs = parseStartRequestedOutputs(
+    readOptionalAlias(intentObject, "requestedOutputs", "requested_outputs"),
+    `${label}.requestedOutputs`
+  );
 
   return Object.freeze({
     scope: Object.freeze({
@@ -98,7 +196,9 @@ export function admitStartIntent(
       kind: "graph_function",
       handle: parseNonEmptyString(targetObject["handle"], `${label}.target.handle`)
     }),
-    until
+    until,
+    ...(inputBindings === undefined ? {} : { inputBindings }),
+    ...(requestedOutputs === undefined ? {} : { requestedOutputs })
   });
 }
 

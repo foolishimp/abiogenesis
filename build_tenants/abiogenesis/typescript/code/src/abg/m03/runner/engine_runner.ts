@@ -28,9 +28,15 @@ import {
 } from "../contracts/event_factories.js";
 import {
   deriveAdvancementTransition,
-  deriveIterationAdvanceDecision,
   runtimeEventsForIterationDecision
 } from "../contracts/iteration.js";
+import {
+  constructGraphReentryAppliedEvent,
+  constructGraphReentryPlannedEvent,
+  deriveAdvancementTransitionWithReentry,
+  deriveGraphReentryFrontierProjection,
+  deriveGraphReentryPlan
+} from "../contracts/graph_span_reentry.js";
 import { deriveRuntimeAggregateProjection } from "../contracts/projection.js";
 import {
   frameIdForBasis,
@@ -143,6 +149,45 @@ function terminalTransition(
     terminalKind,
     reason
   });
+}
+
+function deriveActiveReentry(input: {
+  readonly basis: ExecutionBasis;
+  readonly projection: RuntimeAggregateProjection;
+  readonly replayEvents: readonly RuntimeEvent[];
+}): ReturnType<typeof deriveAdvancementTransitionWithReentry> {
+  const frontier = deriveGraphReentryFrontierProjection({
+    basis: input.basis,
+    events: input.replayEvents
+  });
+  return deriveAdvancementTransitionWithReentry({
+    basis: input.basis,
+    runtimeProjection: input.projection,
+    frontier
+  });
+}
+
+function reentryPlanEvents(input: {
+  readonly basis: ExecutionBasis;
+  readonly projection: RuntimeAggregateProjection;
+  readonly replayEvents: readonly RuntimeEvent[];
+}): readonly RuntimeEvent[] {
+  const frontier = deriveGraphReentryFrontierProjection({
+    basis: input.basis,
+    events: input.replayEvents
+  });
+  const plan = deriveGraphReentryPlan({
+    basis: input.basis,
+    runtimeProjection: input.projection,
+    frontier
+  });
+  if (plan === null) {
+    throw new TypeError("Active graph reentry frontier requires a reentry plan");
+  }
+  return Object.freeze([
+    constructGraphReentryPlannedEvent({ basis: input.basis, plan }),
+    constructGraphReentryAppliedEvent({ basis: input.basis, plan })
+  ]);
 }
 
 function actorAttemptIndexForProjection(input: {
@@ -263,7 +308,64 @@ export function runEngineIterate(
       request.basis,
       replayEvents
     );
-    const decision = deriveIterationAdvanceDecision(request.basis, projection);
+    const reentryTransition = deriveActiveReentry({
+      basis: request.basis,
+      projection,
+      replayEvents
+    });
+    if (reentryTransition.kind === "reenter_graph_vector") {
+      emitRunnerEvents(
+        reentryPlanEvents({
+          basis: request.basis,
+          projection,
+          replayEvents
+        })
+      );
+      continue;
+    }
+    if (reentryTransition.kind === "reenter_constitutional_route") {
+      emitRunnerEvents(
+        reentryPlanEvents({
+          basis: request.basis,
+          projection,
+          replayEvents
+        })
+      );
+      const yielded = terminalTransition(
+        request.basis,
+        "yielded",
+        `graph reentry yielded to ${reentryTransition.changeClass}:${reentryTransition.reEntryPoint}`
+      );
+      emitRunnerEvents(constructTerminalReachedEvent(yielded));
+      return constructResult({
+        basis: request.basis,
+        transition: yielded,
+        projection: deriveRuntimeAggregateProjection(request.basis, replayEvents),
+        emittedEvents,
+        replayEvents,
+        iterationCount
+      });
+    }
+    if (
+      reentryTransition.kind === "blocked" ||
+      reentryTransition.kind === "reprice_required"
+    ) {
+      const blocked = terminalTransition(
+        request.basis,
+        "gap_stop",
+        reentryTransition.reason
+      );
+      emitRunnerEvents(constructTerminalReachedEvent(blocked));
+      return constructResult({
+        basis: request.basis,
+        transition: blocked,
+        projection: deriveRuntimeAggregateProjection(request.basis, replayEvents),
+        emittedEvents,
+        replayEvents,
+        iterationCount
+      });
+    }
+    const decision = reentryTransition.decision;
     const transition = deriveAdvancementTransition(request.basis, replayEvents);
 
     if (decision.kind === "converged") {
@@ -616,7 +718,64 @@ export async function runEngineIterateAsync(
       request.basis,
       replayEvents
     );
-    const decision = deriveIterationAdvanceDecision(request.basis, projection);
+    const reentryTransition = deriveActiveReentry({
+      basis: request.basis,
+      projection,
+      replayEvents
+    });
+    if (reentryTransition.kind === "reenter_graph_vector") {
+      emitRunnerEvents(
+        reentryPlanEvents({
+          basis: request.basis,
+          projection,
+          replayEvents
+        })
+      );
+      continue;
+    }
+    if (reentryTransition.kind === "reenter_constitutional_route") {
+      emitRunnerEvents(
+        reentryPlanEvents({
+          basis: request.basis,
+          projection,
+          replayEvents
+        })
+      );
+      const yielded = terminalTransition(
+        request.basis,
+        "yielded",
+        `graph reentry yielded to ${reentryTransition.changeClass}:${reentryTransition.reEntryPoint}`
+      );
+      emitRunnerEvents(constructTerminalReachedEvent(yielded));
+      return constructResult({
+        basis: request.basis,
+        transition: yielded,
+        projection: deriveRuntimeAggregateProjection(request.basis, replayEvents),
+        emittedEvents,
+        replayEvents,
+        iterationCount
+      });
+    }
+    if (
+      reentryTransition.kind === "blocked" ||
+      reentryTransition.kind === "reprice_required"
+    ) {
+      const blocked = terminalTransition(
+        request.basis,
+        "gap_stop",
+        reentryTransition.reason
+      );
+      emitRunnerEvents(constructTerminalReachedEvent(blocked));
+      return constructResult({
+        basis: request.basis,
+        transition: blocked,
+        projection: deriveRuntimeAggregateProjection(request.basis, replayEvents),
+        emittedEvents,
+        replayEvents,
+        iterationCount
+      });
+    }
+    const decision = reentryTransition.decision;
     const transition = deriveAdvancementTransition(request.basis, replayEvents);
 
     if (decision.kind === "converged") {

@@ -112,6 +112,28 @@ semantic suite. They must derive from requirements/scenarios and the
 Python reference tests may identify obligations, but portable TypeScript proof
 must be reusable independently from Python harness mechanics.
 
+## Eval Taxonomy
+
+Regression suites protect behavior already won and should run near 100% green:
+
+- `npm run test:semantic`
+- `npm run test:t082`
+- `npm run test:t100:unit`
+- `npm run test:t102`
+
+Capability/parity suites measure hard behavior and must emit durable eval
+artifacts when they involve F_P variance:
+
+- `npm run test:t100:sandbox`
+- `npm run test:t100:five-rule`
+- `npm run test:t100:test35-parity`
+- `npm run test:t101`
+
+For capability evals, `pass@k` means at least one repeated trial passed and
+`pass^k` means every repeated trial passed. F_D rows may score only mechanical
+envelope predicates. Requirement-by-requirement semantic quality rows are F_P
+or F_H, even when implemented with deterministic code.
+
 ## Current Reading
 
 The active TypeScript tenant now has completed:
@@ -749,6 +771,125 @@ This lane is intentionally outside the default `test:semantic` wildcard because
 it depends on a sibling workspace fixture. It runs through:
 
 - `npm run test:t064`
+
+## T-100 Mini Data Mapper Lifecycle Sandbox
+
+The T-100 mini data-mapper lifecycle proof is the filesystem sandbox for the
+ABG output-allocation plus workspace-zoom/foldback building block. It keeps the
+transform bounded and noisy while a domain/F_P quality assessor evaluates
+semantic content over the materialized workspace artifact requirement by
+requirement.
+
+It derives from:
+
+- [M03_OUTPUT_ALLOCATION_AND_WORKSPACE_ZOOM_FOLDBACK_DERIVATION.md](../design/M03_OUTPUT_ALLOCATION_AND_WORKSPACE_ZOOM_FOLDBACK_DERIVATION.md)
+- [T-082](../../../.ai-workspace/tickets/active/T-082-define-and-realize-abg-output-instance-allocation-for-input-only-graph-function-start.md)
+- [T-100](../../../.ai-workspace/tickets/active/T-100-define-abg-zoomed-workspace-asset-obligation-schedule-and-foldback-evaluation.md)
+- [T-102](../../../.ai-workspace/tickets/active/T-102-formalize-abg-eval-suite-projection-artifacts-and-repeatable-sandbox-runs.md)
+
+The sandbox file is:
+
+- `test_env/sandbox/test_t100_mini_data_mapper_lifecycle_sandbox.test.mjs` —
+  creates a timestamped `test_env/test_runs/t100_mini_data_mapper_lifecycle`
+  workspace with 10 bootstrapped mini data-mapper requirements, admits input-only
+  public start truth, allocates design/implementation/test/archive output roots
+  through T-082, derives `Workspace.A.requirements.ledger` and
+  `Workspace.A.requirements.schedule`, lets the transform return random
+  fixed-feature batches into the design artifact, runs domain/F_P quality
+  assessments by reading that artifact before admitting per-slice assessments,
+  folds them back through
+  T-100, and writes transform, evaluation, event, projection, system,
+  postmortem, materialized output evidence, eval suite/task/trial/outcome/grade
+  vectors, aggregate pass@k/pass^k projection, and review sample artifacts for
+  manual inspection.
+
+This lane is intentionally outside the default `test:semantic` wildcard because
+it materializes durable sandbox evidence under `test_runs`. It runs through:
+
+- `npm run test:t100:sandbox`
+- `npm run test:t100`
+- `npm run test:t100:test35-parity`
+- `npm run test:t102` with `T100_MINI_SANDBOX_REPEAT=2`
+
+## T-103 Graph-Span Reentry Unit Proof
+
+The T-103 graph-span reentry proof is the unit proof for ABG-owned endpoint
+span foldback and replay-derived reentry frontier projection. It proves the
+pure M03 carrier surface before any downstream SDLC product consumes it.
+
+It derives from:
+
+- [M03_GRAPH_SPAN_FOLDBACK_REENTRY_DERIVATION.md](../design/M03_GRAPH_SPAN_FOLDBACK_REENTRY_DERIVATION.md)
+- [T-103](../../../.ai-workspace/tickets/active/T-103-define-abg-graph-span-foldback-and-reentry-frontier.md)
+
+The unit files are:
+
+- `test_env/tests/test_t103_graph_span_reentry_unit.test.mjs` — derives
+  endpoint spans `C->D`, `B->D`, and `A->D` over the existing three-stage M03
+  graph, admits typed F_P span assessments, folds them into graph-span
+  decisions, projects the active reentry frontier from events, derives reentry
+  plans, preserves generation shadowing inputs, and proves `intent_reprice` as
+  a constitutional reentry route distinct from graph-vector retry.
+- `test_env/tests/test_t103_graph_span_reentry_semantic_deep.test.mjs` —
+  expands the proof around the semantic invariants: endpoint span scheduling
+  cannot run before covered closure, F_D cannot carry semantic gap judgment,
+  terminal evidence and span-bounded carry observations are admission law,
+  latest span attempts replace prior attempts instead of unioning stale truth,
+  close foldbacks clear prior frontier rows, later gaps can reopen the frontier,
+  graph-vector reentry shadows planned/evaluated/closed downstream projection
+  facts, constitutional reentry does not erase graph projection state, block
+  and reprice decisions cannot mint retry plans, graph-span event ingress
+  rejects status widening and raw F_D semantic-gap rows, graph-span events carry
+  run/work/frame lineage plus causation/correlation fields, T-100 edge foldbacks
+  participate in T-103 foldback decisions, stale lower-generation close facts
+  cannot clear newer frontier rows, and the engine runner consumes an active
+  graph reentry frontier by emitting planned/applied reentry events before
+  default iteration resumes at the target vector.
+
+This lane runs in the default semantic wildcard and directly through:
+
+- `npm run test:t103`
+
+## T-101 Mini Data-Mapper Redux Sandbox
+
+The T-101 mini data-mapper redux sandbox is a dramatically reduced-scope live
+reproduction of the `data_mapper` experiment. Three graph-function edges
+(`derive_field_spec` -> `derive_implementation` -> `derive_validation`) carry
+three field obligations through structural, AST-style, and empirical-execution
+F_P semantic checks. The semantic depth at edge 3 is empirical: the F_P
+evaluator transpiles and imports the implementation produced at edge 2 and
+executes it against canonical cases. F_P owns the per-obligation judgment;
+F_D is a strictly mechanical envelope check (file exists, declared schema
+parses, digest matches, manifest envelope intact).
+
+The sandbox files are:
+
+- `test_env/sandbox/mini_dm_redux/module.mjs` — graph module declaration and
+  per-edge obligation schema.
+- `test_env/sandbox/mini_dm_redux/fp_worker.mjs` — F_P worker plugin, claude
+  CLI when `CODEX_LIVE_FP=1`, deterministic fixture otherwise.
+- `test_env/sandbox/mini_dm_redux/fp_evaluator.mjs` — F_P semantic evaluator,
+  per-obligation deep checks per edge, including real `tsc --noEmit` and live
+  execution of the produced TypeScript.
+- `test_env/sandbox/mini_dm_redux/fd_envelope.mjs` — mechanical F_D envelope
+  checks only.
+- `test_env/sandbox/mini_dm_redux/run.mjs` — per-edge CLI runner; supports
+  `--edge <name>`, `--full`, and `--gaps`.
+- `test_env/sandbox/mini_dm_redux/README.md` — operator quick-start.
+- `test_env/sandbox/test_t101_mini_dm_redux_live.test.mjs` — node test wrapper
+  exercising all 3 edges (fixture by default, live when `CODEX_LIVE_FP=1`).
+
+The controlling ticket is:
+
+- [T-101](../../../.ai-workspace/tickets/active/T-101-realize-mini-data-mapper-redux-live-semantic-eval-sandbox.md)
+
+This lane runs through:
+
+- `npm run test:t101` — node test wrapper, runs all 3 edges in fixture mode
+- `npm run test:t101:edge1` / `:edge2` / `:edge3` — operator-driven per-edge
+  CLI runs (each requires `--workspace <dir>` after the script path)
+- `npm run test:t101:full` — single-shot all-edges run via the CLI
+- `npm run test:t101:gaps` — gaps inspection over a populated workspace
 
 ## M03 Retry/Repair And Leaf-Task Tests
 
@@ -1534,3 +1675,37 @@ The canonical active files are:
 - Scenario source: `M05_REFERENCE_LIVE_SCENARIO_OBLIGATIONS` is the single
   stage/edge/assessment catalog consumed by both installed and external-live
   portfolio lanes
+
+### test_env/live/test_t100_five_rule_algebra_live.test.mjs
+
+- Status: active parity proof lane for T-100 closure gate (b)
+- Module alignment: `M03-engine-kernel` workspace zoom foldback algebra
+- Requirements: `REQ-R-ABG3-FRAME`, `REQ-R-ABG3-EVENTS`,
+  `REQ-R-ABG3-PROVENANCE`
+- Design/proof authority:
+  [T-100](../../../.ai-workspace/tickets/active/),
+  [20260502T025410Z_REVIEW_T-082-T-100-implementation-stdo.md](../../../.ai-workspace/comments/claude/20260502T025410Z_REVIEW_T-082-T-100-implementation-stdo.md)
+- Python parity references:
+  - R1 five-term `edge_converged` predicate: `fulfillment_ledger.py:115-124`
+  - R2 latest-assessed-per-slice projection: `fulfillment_ledger.py:146-258`,
+    `interpret.py:2074-2076`
+  - R3 retry allowlist `{transport_failure, no_output, contract_failure}`:
+    `continuation.py:10-14`
+  - R4 artifact salvage on transport failure: `dispatch_runtime.py:433-440`
+  - R5 behavioral-vs-lexical observation finding-class split:
+    `gtl_module.py:536-540`
+- Command:
+  `npm run test:t100:five-rule`
+  (live F_P enabled with `CODEX_LIVE_FP=1`; otherwise R1 falls back to a
+  controlled F_P fixture so the algebra assertions still run.)
+- Authority class: parity proof gate for the T-100 algebra fix. Tests assert
+  the corrected algebra per Python/test35 source-of-truth. R1 uses a real
+  agentic worker callout for the happy-path scenario when live transport is
+  available; R2-R5 use controlled deterministic F_P fixtures because they
+  require non-monotonic / failure-shaped trajectories that real workers cannot
+  reliably reproduce. Semantic content is evaluated by a domain/F_P quality
+  assessment fixture over materialized markdown sections and obligation-specific
+  content expectations; F_D remains limited to mechanical carrier and artifact
+  checks.
+- Evidence layout:
+  `test_runs/t100_five_rule_algebra/<timestamp>/<r1..r5>/...`

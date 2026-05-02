@@ -81,6 +81,20 @@ test("M03 transport unit: Claude default contract preserves OAuth auth while str
   });
 });
 
+test("M03 transport unit: Codex default contract pins the live model", () => {
+  const contract = contractForKnownAgent("codex");
+
+  assert.equal(contract.command, "codex");
+  assert.deepStrictEqual(contract.argsTemplate.slice(0, 4), [
+    "exec",
+    "--model",
+    "gpt-5.3-codex",
+    "--full-auto"
+  ]);
+  assert.ok(contract.argsTemplate.includes("{output_path}"));
+  assert.ok(contract.argsTemplate.includes("{prompt}"));
+});
+
 test("M03 transport unit: valid result artifact normalizes payload and ingests as accepted truth", () => {
   const request = admitDispatchRequest({
     kind: "fp_dispatch_request",

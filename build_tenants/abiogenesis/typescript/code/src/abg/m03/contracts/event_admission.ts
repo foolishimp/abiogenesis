@@ -4,6 +4,10 @@ import type {
   TerminalKind
 } from "./carriers.js";
 import {
+  GRAPH_CHANGE_CLASS_VALUES,
+  GRAPH_REENTRY_POINT_VALUES,
+  GRAPH_SPAN_CARRY_OBSERVATION_STATUS_VALUES,
+  GRAPH_SPAN_OBLIGATION_ASSESSMENT_STATUS_VALUES,
   PAYLOAD_AMBIGUITY_STATUS_VALUES,
   PAYLOAD_CLOSURE_DECISION_KIND_VALUES,
   PAYLOAD_REJECTION_CLASS_VALUES,
@@ -19,11 +23,18 @@ type FieldRule =
   | "nullable_non_negative_integer"
   | "boolean"
   | "string_array"
+  | "number_array"
   | { readonly oneOf: readonly string[] };
 
 type RuntimeEventRecord = Record<string, unknown>;
 type RuntimeEventFieldRules = Readonly<Record<string, FieldRule>>;
 type RuntimeEventAdmitter = (event: RuntimeEventRecord) => void;
+
+const SCHEDULED_SLICE_FINDING_CLASS_VALUES = Object.freeze([
+  "fulfilled",
+  "semantic_fulfillment_gap",
+  "traceability_reference_gap"
+] as const);
 
 function isPlainObject(input: unknown): input is RuntimeEventRecord {
   return typeof input === "object" && input !== null && !Array.isArray(input);
@@ -83,6 +94,130 @@ function assertStringArray(value: unknown, label: string): void {
   }
 }
 
+function assertNumberArray(value: unknown, label: string): void {
+  if (!Array.isArray(value)) {
+    throw new TypeError(`${label} must be a list`);
+  }
+  for (const [index, entry] of value.entries()) {
+    assertNonNegativeInteger(entry, `${label}[${index}]`);
+  }
+}
+
+function assertNullableNonEmptyString(value: unknown, label: string): void {
+  if (value === null) {
+    return;
+  }
+  assertNonEmptyString(value, label);
+}
+
+function assertGraphConstitutionalReentry(
+  value: unknown,
+  label: string
+): void {
+  if (value === null) {
+    return;
+  }
+  if (!isPlainObject(value)) {
+    throw new TypeError(`${label} must be a plain object or null`);
+  }
+  assertOneOf(value["kind"], `${label}.kind`, ["graph_constitutional_reentry"]);
+  assertOneOf(value["changeClass"], `${label}.changeClass`, GRAPH_CHANGE_CLASS_VALUES);
+  assertOneOf(value["reEntryPoint"], `${label}.reEntryPoint`, GRAPH_REENTRY_POINT_VALUES);
+  assertNullableNonEmptyString(
+    value["targetGraphFunctionRef"],
+    `${label}.targetGraphFunctionRef`
+  );
+  assertNullableNonNegativeInteger(
+    value["targetVectorIndex"],
+    `${label}.targetVectorIndex`
+  );
+  assertStringArray(value["routeContractRefs"], `${label}.routeContractRefs`);
+  assertStringArray(value["authorityRefs"], `${label}.authorityRefs`);
+  assertNonEmptyString(value["rationale"], `${label}.rationale`);
+}
+
+function assertGraphConstitutionalReentryArray(
+  value: unknown,
+  label: string
+): void {
+  if (!Array.isArray(value)) {
+    throw new TypeError(`${label} must be a list`);
+  }
+  for (const [index, entry] of value.entries()) {
+    assertGraphConstitutionalReentry(entry, `${label}[${index}]`);
+  }
+}
+
+function assertGraphSpanAssessmentRows(value: unknown, label: string): void {
+  if (!Array.isArray(value)) {
+    throw new TypeError(`${label} must be a list`);
+  }
+  for (const [index, entry] of value.entries()) {
+    if (!isPlainObject(entry)) {
+      throw new TypeError(`${label}[${index}] must be a plain object`);
+    }
+    const rowLabel = `${label}[${index}]`;
+    assertNonEmptyString(entry["obligationId"], `${rowLabel}.obligationId`);
+    assertNonEmptyString(
+      entry["sourceAuthorityRef"],
+      `${rowLabel}.sourceAuthorityRef`
+    );
+    assertOneOf(
+      entry["status"],
+      `${rowLabel}.status`,
+      GRAPH_SPAN_OBLIGATION_ASSESSMENT_STATUS_VALUES
+    );
+    assertStringArray(
+      entry["terminalEvidenceRefs"],
+      `${rowLabel}.terminalEvidenceRefs`
+    );
+    if (!Array.isArray(entry["carryObservations"])) {
+      throw new TypeError(`${rowLabel}.carryObservations must be a list`);
+    }
+    for (const [carryIndex, carry] of entry["carryObservations"].entries()) {
+      if (!isPlainObject(carry)) {
+        throw new TypeError(
+          `${rowLabel}.carryObservations[${carryIndex}] must be a plain object`
+        );
+      }
+      const carryLabel = `${rowLabel}.carryObservations[${carryIndex}]`;
+      assertNonNegativeInteger(
+        carry["fromVectorIndex"],
+        `${carryLabel}.fromVectorIndex`
+      );
+      assertNonNegativeInteger(
+        carry["toVectorIndex"],
+        `${carryLabel}.toVectorIndex`
+      );
+      assertOneOf(
+        carry["status"],
+        `${carryLabel}.status`,
+        GRAPH_SPAN_CARRY_OBSERVATION_STATUS_VALUES
+      );
+      assertStringArray(carry["evidenceRefs"], `${carryLabel}.evidenceRefs`);
+    }
+    assertNullableString(entry["detail"], `${rowLabel}.detail`);
+  }
+}
+
+function assertGraphSpanAssessmentRegimeBoundary(
+  event: RuntimeEventRecord,
+  label: string
+): void {
+  const rows = event["obligationRows"];
+  if (!Array.isArray(rows)) {
+    return;
+  }
+  const hasNonFulfilledRow = rows.some(
+    (row) => isPlainObject(row) && row["status"] !== "fulfilled"
+  );
+  if (hasNonFulfilledRow && event["assessmentRegime"] !== "F_P") {
+    throw new TypeError(
+      `${label}.assessmentRegime must be F_P when obligation rows are not fulfilled`
+    );
+  }
+}
+
 function applyFieldRule(value: unknown, label: string, rule: FieldRule): void {
   if (rule === "non_empty_string") {
     assertNonEmptyString(value, label);
@@ -108,6 +243,10 @@ function applyFieldRule(value: unknown, label: string, rule: FieldRule): void {
   }
   if (rule === "string_array") {
     assertStringArray(value, label);
+    return;
+  }
+  if (rule === "number_array") {
+    assertNumberArray(value, label);
     return;
   }
   assertOneOf(value, label, rule.oneOf);
@@ -437,7 +576,7 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     runId: "nullable_string",
     workKey: "nullable_string"
   }),
-  reset: (event) => {
+  reset: (event: RuntimeEventRecord) => {
     applyFieldRules("ResetRuntimeEvent", {
       scope: { oneOf: ["workspace", "work_key", "edge"] },
       actor: "non_empty_string",
@@ -591,7 +730,369 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     rowRefs: "string_array",
     sourceProjectionRefs: "string_array",
     policyRefs: "string_array"
-  })
+  }),
+  output_instance_allocated: applyFieldRules("OutputInstanceAllocatedEvent", {
+    basisId: "non_empty_string",
+    graphCallId: "non_empty_string",
+    frameId: "non_empty_string",
+    vectorIndex: "non_negative_integer",
+    edge: "non_empty_string",
+    allocationId: "non_empty_string",
+    assetRef: "non_empty_string",
+    assetType: "non_empty_string",
+    outputName: "non_empty_string",
+    materializationRoot: "non_empty_string",
+    materializationUri: "non_empty_string",
+    allowedWriteRoots: "string_array",
+    graphFunctionId: "non_empty_string",
+    runId: "nullable_string",
+    workKey: "nullable_string"
+  }),
+  output_binding_admitted: applyFieldRules("OutputBindingAdmittedEvent", {
+    basisId: "non_empty_string",
+    graphCallId: "non_empty_string",
+    frameId: "non_empty_string",
+    vectorIndex: "non_negative_integer",
+    edge: "non_empty_string",
+    bindingRef: "non_empty_string",
+    allocationId: "non_empty_string",
+    assetRef: "non_empty_string",
+    assetType: "non_empty_string",
+    bindingRole: { oneOf: ["output"] },
+    source: { oneOf: ["abg_allocation"] },
+    allowedWriteRoots: "string_array"
+  }),
+  output_materialization_observed: applyFieldRules(
+    "OutputMaterializationObservedEvent",
+    {
+      basisId: "non_empty_string",
+      graphCallId: "non_empty_string",
+      frameId: "non_empty_string",
+      vectorIndex: "non_negative_integer",
+      edge: "non_empty_string",
+      allocationId: "non_empty_string",
+      assetRef: "non_empty_string",
+      materializedRef: "non_empty_string",
+      materializedPath: "non_empty_string",
+      digest: "non_empty_string",
+      observerRef: "non_empty_string",
+      artifactRefs: "string_array"
+    }
+  ),
+  workspace_obligation_ledger_admitted: applyFieldRules(
+    "WorkspaceObligationLedgerAdmittedEvent",
+    {
+      basisId: "non_empty_string",
+      graphCallId: "non_empty_string",
+      frameId: "non_empty_string",
+      vectorIndex: "non_negative_integer",
+      edge: "non_empty_string",
+      ledgerRef: "non_empty_string",
+      workspaceAssetRef: "non_empty_string",
+      authorityDigest: "non_empty_string",
+      obligationRefs: "string_array"
+    }
+  ),
+  workspace_obligation_schedule_derived: applyFieldRules(
+    "WorkspaceObligationScheduleDerivedEvent",
+    {
+      basisId: "non_empty_string",
+      graphCallId: "non_empty_string",
+      frameId: "non_empty_string",
+      vectorIndex: "non_negative_integer",
+      edge: "non_empty_string",
+      scheduleRef: "non_empty_string",
+      ledgerRef: "non_empty_string",
+      scheduleItemRefs: "string_array"
+    }
+  ),
+  zoom_frame_opened: applyFieldRules("ZoomFrameOpenedRuntimeEvent", {
+    basisId: "non_empty_string",
+    graphCallId: "non_empty_string",
+    frameId: "non_empty_string",
+    vectorIndex: "non_negative_integer",
+    edge: "non_empty_string",
+    zoomFrameId: "non_empty_string",
+    inputAssetRef: "non_empty_string",
+    outputAssetRef: "non_empty_string",
+    ledgerRef: "non_empty_string",
+    scheduleRef: "non_empty_string"
+  }),
+  scheduled_slice_dispatched: applyFieldRules(
+    "ScheduledSliceDispatchedRuntimeEvent",
+    {
+      basisId: "non_empty_string",
+      graphCallId: "non_empty_string",
+      frameId: "non_empty_string",
+      vectorIndex: "non_negative_integer",
+      edge: "non_empty_string",
+      zoomFrameId: "non_empty_string",
+      scheduleItemId: "non_empty_string",
+      obligationId: "non_empty_string",
+      attemptIndex: "non_negative_integer",
+      handoffRef: "non_empty_string",
+      pluginRef: "non_empty_string",
+      outputAssetRef: "non_empty_string"
+    }
+  ),
+  scheduled_slice_assessed: (event: RuntimeEventRecord) => {
+    applyFieldRules("ScheduledSliceAssessedRuntimeEvent", {
+      basisId: "non_empty_string",
+      graphCallId: "non_empty_string",
+      frameId: "non_empty_string",
+      vectorIndex: "non_negative_integer",
+      edge: "non_empty_string",
+      zoomFrameId: "non_empty_string",
+      assessmentId: "non_empty_string",
+      scheduleItemId: "non_empty_string",
+      obligationId: "non_empty_string",
+      attemptIndex: "non_negative_integer",
+      status: { oneOf: ["fulfilled", "partial", "blocked", "runtime_failed"] },
+      assessmentRegime: { oneOf: ["F_D", "F_P", "F_H"] },
+      findingClass: "nullable_string",
+      evidenceRefs: "string_array",
+      outputRefs: "string_array",
+      runtimeFailureClass: "nullable_string",
+      detail: "nullable_string"
+    })(event);
+    if (event["findingClass"] !== null) {
+      assertOneOf(
+        event["findingClass"],
+        "ScheduledSliceAssessedRuntimeEvent.findingClass",
+        SCHEDULED_SLICE_FINDING_CLASS_VALUES
+      );
+    }
+    if (event["runtimeFailureClass"] !== null) {
+      assertOneOf(
+        event["runtimeFailureClass"],
+        "ScheduledSliceAssessedRuntimeEvent.runtimeFailureClass",
+        RUNTIME_FAILURE_CLASS_VALUES
+      );
+    }
+    if (
+      event["status"] === "runtime_failed" &&
+      event["runtimeFailureClass"] === null
+    ) {
+      throw new TypeError(
+        "ScheduledSliceAssessedRuntimeEvent.runtimeFailureClass must be present for runtime_failed status"
+      );
+    }
+    if (
+      event["status"] === "runtime_failed" &&
+      event["findingClass"] !== null
+    ) {
+      throw new TypeError(
+        "ScheduledSliceAssessedRuntimeEvent.findingClass must be null for runtime_failed status"
+      );
+    }
+    if (
+      event["status"] === "fulfilled" &&
+      event["findingClass"] !== "fulfilled"
+    ) {
+      throw new TypeError(
+        "ScheduledSliceAssessedRuntimeEvent.findingClass must be fulfilled for fulfilled status"
+      );
+    }
+  },
+  zoom_foldback_evaluated: applyFieldRules("ZoomFoldbackEvaluatedRuntimeEvent", {
+    basisId: "non_empty_string",
+    graphCallId: "non_empty_string",
+    frameId: "non_empty_string",
+    vectorIndex: "non_negative_integer",
+    edge: "non_empty_string",
+    zoomFrameId: "non_empty_string",
+    foldbackRef: "non_empty_string",
+    decision: {
+      oneOf: [
+        "close",
+        "retry_scheduled_slice",
+        "carry_loopback_pressure",
+        "blocked",
+        "reprice_required"
+      ]
+    },
+    fulfilledCount: "non_negative_integer",
+    openCount: "non_negative_integer",
+    blockedCount: "non_negative_integer",
+    runtimeFailureCount: "non_negative_integer",
+    missingAssessmentCount: "non_negative_integer",
+    conflictingCount: "non_negative_integer"
+  }),
+  graph_span_evaluation_scheduled: applyFieldRules(
+    "GraphSpanEvaluationScheduledEvent",
+    {
+      basisId: "non_empty_string",
+      graphCallId: "non_empty_string",
+      frameId: "non_empty_string",
+      frameLineageId: "nullable_string",
+      graphFunctionId: "non_empty_string",
+      runId: "nullable_string",
+      workKey: "nullable_string",
+      terminalVectorIndex: "non_negative_integer",
+      terminalEdge: "non_empty_string",
+      scheduleRef: "non_empty_string",
+      spanIds: "string_array",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string",
+      generation: "non_negative_integer"
+    }
+  ),
+  graph_span_assessed: (event: RuntimeEventRecord) => {
+    applyFieldRules("GraphSpanAssessedEvent", {
+      basisId: "non_empty_string",
+      graphCallId: "non_empty_string",
+      frameId: "non_empty_string",
+      frameLineageId: "nullable_string",
+      graphFunctionId: "non_empty_string",
+      runId: "nullable_string",
+      workKey: "nullable_string",
+      terminalVectorIndex: "non_negative_integer",
+      terminalEdge: "non_empty_string",
+      sourceVectorIndex: "non_negative_integer",
+      spanId: "non_empty_string",
+      sourceNodeRef: "non_empty_string",
+      terminalNodeRef: "non_empty_string",
+      coveredVectorIndexes: "number_array",
+      assessmentId: "non_empty_string",
+      attemptIndex: "non_negative_integer",
+      assessmentRegime: { oneOf: ["F_D", "F_P", "F_H"] },
+      evidenceRefs: "string_array",
+      edgeFoldbackRefs: "string_array",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string",
+      detail: "nullable_string",
+      generation: "non_negative_integer"
+    })(event);
+    assertGraphSpanAssessmentRows(
+      event["obligationRows"],
+      "GraphSpanAssessedEvent.obligationRows"
+    );
+    assertGraphConstitutionalReentry(
+      event["constitutionalReentry"],
+      "GraphSpanAssessedEvent.constitutionalReentry"
+    );
+    assertGraphSpanAssessmentRegimeBoundary(event, "GraphSpanAssessedEvent");
+  },
+  graph_span_foldback_evaluated: (event: RuntimeEventRecord) => {
+    applyFieldRules("GraphSpanFoldbackEvaluatedEvent", {
+      basisId: "non_empty_string",
+      graphCallId: "non_empty_string",
+      frameId: "non_empty_string",
+      frameLineageId: "nullable_string",
+      graphFunctionId: "non_empty_string",
+      runId: "nullable_string",
+      workKey: "nullable_string",
+      terminalVectorIndex: "non_negative_integer",
+      terminalEdge: "non_empty_string",
+      foldbackRef: "non_empty_string",
+      spanAssessmentRefs: "string_array",
+      edgeFoldbackRefs: "string_array",
+      causingEdgeFoldbackRefs: "string_array",
+      decision: {
+        oneOf: [
+          "close",
+          "retry_terminal_edge",
+          "reenter_at_vector",
+          "constitutional_reentry",
+          "reprice_required",
+          "blocked"
+        ]
+      },
+      fulfilledCount: "non_negative_integer",
+      gapCount: "non_negative_integer",
+      staleInputCount: "non_negative_integer",
+      blockedCount: "non_negative_integer",
+      contradictoryCount: "non_negative_integer",
+      causingObligationRefs: "string_array",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string",
+      generation: "non_negative_integer"
+    })(event);
+    assertNumberArray(
+      event["reentryCandidateVectorIndexes"],
+      "GraphSpanFoldbackEvaluatedEvent.reentryCandidateVectorIndexes"
+    );
+    assertNullableNonNegativeInteger(
+      event["earliestReentryVectorIndex"],
+      "GraphSpanFoldbackEvaluatedEvent.earliestReentryVectorIndex"
+    );
+    assertGraphConstitutionalReentryArray(
+      event["constitutionalReentries"],
+      "GraphSpanFoldbackEvaluatedEvent.constitutionalReentries"
+    );
+  },
+  graph_reentry_planned: (event: RuntimeEventRecord) => {
+    applyFieldRules("GraphReentryPlannedEvent", {
+      basisId: "non_empty_string",
+      graphCallId: "non_empty_string",
+      frameId: "non_empty_string",
+      frameLineageId: "nullable_string",
+      graphFunctionId: "non_empty_string",
+      runId: "nullable_string",
+      workKey: "nullable_string",
+      planRef: "non_empty_string",
+      fromTerminalVectorIndex: "non_negative_integer",
+      targetVectorIndex: "nullable_non_negative_integer",
+      changeClass: "nullable_string",
+      reEntryPoint: "nullable_string",
+      routeContractRefs: "string_array",
+      causingFrontierRowRefs: "string_array",
+      shadowedVectorIndexes: "number_array",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string",
+      reason: "non_empty_string",
+      generation: "non_negative_integer"
+    })(event);
+    if (event["changeClass"] !== null) {
+      assertOneOf(
+        event["changeClass"],
+        "GraphReentryPlannedEvent.changeClass",
+        GRAPH_CHANGE_CLASS_VALUES
+      );
+    }
+    if (event["reEntryPoint"] !== null) {
+      assertOneOf(
+        event["reEntryPoint"],
+        "GraphReentryPlannedEvent.reEntryPoint",
+        GRAPH_REENTRY_POINT_VALUES
+      );
+    }
+  },
+  graph_reentry_applied: (event: RuntimeEventRecord) => {
+    applyFieldRules("GraphReentryAppliedEvent", {
+      basisId: "non_empty_string",
+      graphCallId: "non_empty_string",
+      frameId: "non_empty_string",
+      frameLineageId: "nullable_string",
+      graphFunctionId: "non_empty_string",
+      runId: "nullable_string",
+      workKey: "nullable_string",
+      planRef: "non_empty_string",
+      targetVectorIndex: "nullable_non_negative_integer",
+      changeClass: "nullable_string",
+      reEntryPoint: "nullable_string",
+      routeContractRefs: "string_array",
+      causingFrontierRowRefs: "string_array",
+      shadowedVectorIndexes: "number_array",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string",
+      generation: "non_negative_integer"
+    })(event);
+    if (event["changeClass"] !== null) {
+      assertOneOf(
+        event["changeClass"],
+        "GraphReentryAppliedEvent.changeClass",
+        GRAPH_CHANGE_CLASS_VALUES
+      );
+    }
+    if (event["reEntryPoint"] !== null) {
+      assertOneOf(
+        event["reEntryPoint"],
+        "GraphReentryAppliedEvent.reEntryPoint",
+        GRAPH_REENTRY_POINT_VALUES
+      );
+    }
+  },
 } satisfies Record<RuntimeEvent["kind"], RuntimeEventAdmitter>);
 
 export function parseRuntimeEventKind(

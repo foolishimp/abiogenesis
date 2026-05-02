@@ -1,6 +1,6 @@
-# abiogenesis 3.4.0-rc.4 RC Notes
+# abiogenesis 3.4.0-rc.5 RC Notes
 
-This note records accepted RC behavior for the current `v3.4.0-rc.4` cut.
+This note records accepted RC behavior for the current `v3.4.0-rc.5` cut.
 
 ## Accepted Framework Behavior
 
@@ -222,24 +222,47 @@ Accepted behavior:
 - the ticket remains blocked until a stable ODD SDLC release candidate exists
   and is selected as the governing product for an ABG source-development wave
 
+### Workspace Ledgers, Eval Suites, And Graph-Span Reentry Are ABG Substrate
+
+The rc.5 tranche accepts the T-082 through T-103 substrate as ABG-owned runtime
+law, not downstream SDLC-local controller behavior.
+
+Accepted behavior:
+
+- input-only starts may allocate declared output asset instances and bounded
+  materialization roots through ABG output allocation
+- workspace-visible obligation ledgers and schedules are inspectable assets or
+  projections under the ABG runtime surface
+- F_D validates mechanical envelopes only; F_P owns requirement-by-requirement
+  semantic quality judgment
+- eval-suite artifacts are projection evidence over ABG run truth, not a rival
+  controller
+- T-100 foldback exposes the five test35 parity rules: named five-term
+  closure predicate, latest-assessed-per-slice projection, retry allowlist,
+  artifact salvage, and behavioral-vs-lexical finding-class split
+- T-103 graph-span foldback can evaluate composed path endpoints such as
+  C->D, B->D, and A->D, then route lawful reentry through replay-derived
+  frontier truth
+- the runner consumes admitted graph-span evidence and applies reentry; it does
+  not fabricate F_P span assessments
+
+Deferred behavior:
+
+- explicit `W1` input workspace to `W2` output workspace allocation is tracked
+  separately as T-104 backlog scope
+
 ## Current Verification Footer
 
 The current RC proving footer is:
 
-- `npm run test:t076`: `4 passed`, `3785.520875ms`
-- `npm run test:semantic`: `304 passed`, `6141.406292ms`
+- `npm run test:t082`: `6 passed`
+- `npm run test:t100:test35-parity`: `15 passed`
+- `npm run test:t101`: `2 passed`
+- `npm run test:t102`: `7 passed`
+- `npm run test:t103`: `24 passed`
+- `npm run test:semantic`: `349 passed`
 - `npm run lint:semantic`: `passed`
 - `npm run lint:test-harness`: `passed`
-- `CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=240000 npm run test:t094:live`:
-  `1 passed`, `11948.129375ms`; archive
-  `test_env/test_runs/t094_assurance_register_two_hop_live/20260430T141629554Z`
-- `CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=240000 npm run test:t097:live`:
-  `1 passed`, `3930.383167ms`; archive
-  `test_env/test_runs/t097_supervised_process_actor_live/20260430T141652934Z`
-- `CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=360000 npm run test:live:uat`:
-  retained rc.3 evidence, `2 passed`, `32388.037125ms`
-- `CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=360000 npm run test:live`:
-  retained rc.3 evidence, `1 passed`, `75197.459708ms`
-- `npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run`: `passed`,
-  package `3.4.0-rc.4`, `300 files`
 - `git diff --check`: `passed`
+- `npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run`: `passed`,
+  package `3.4.0-rc.5`, `308 files`

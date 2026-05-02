@@ -572,6 +572,9 @@ function liveSandboxSource(agentKey) {
       assessedEdges: events
         .filter((event) => event.kind === "assessed")
         .map((event) => event.edge),
+      closedEdges: events
+        .filter((event) => event.kind === "vector_closed")
+        .map((event) => event.edge),
       pluginInputs
     };
     writeFileSync(
@@ -715,16 +718,18 @@ test("T-087 live: real agent transport runs inside one ABG supervised actor invo
     "actor_result_artifact_observed",
     "actor_invocation_closed",
     "vector_evaluated",
-    "assessed",
+    "authority_snapshot_admitted",
+    "payload_observed",
+    "payload_validated",
+    "evidence_admitted",
+    "vector_closed",
     "terminal_reached"
   ]);
   assert.equal(payload.actorEvents.length, 3);
   assert.deepStrictEqual(payload.projectionSummary.plannedVectorIndexes, [0]);
   assert.deepStrictEqual(payload.projectionSummary.evaluatedVectorIndexes, [0]);
   assert.deepStrictEqual(payload.projectionSummary.closedVectorIndexes, [0]);
-  assert.deepStrictEqual(payload.projectionSummary.assessedEdges, [
-    "live_source→live_result"
-  ]);
+  assert.deepStrictEqual(payload.projectionSummary.assessedEdges, []);
   assert.equal(payload.projectionSummary.nextVectorIndex, null);
   assert.equal(payload.projectionSummary.actorInvocationRefs.length, 1);
   assert.equal(payload.projectionSummary.observedActorArtifactRefs.length, 1);
@@ -741,7 +746,8 @@ test("T-087 live: real agent transport runs inside one ABG supervised actor invo
     payload.projectionSummary.observedActorArtifactRefs[0].actorInvocationId,
     payload.actorEvents[0].actorInvocationId
   );
-  assert.deepStrictEqual(payload.assessedEdges, ["live_source→live_result"]);
+  assert.deepStrictEqual(payload.assessedEdges, []);
+  assert.deepStrictEqual(payload.closedEdges, ["live_source→live_result"]);
   assert.equal(
     payload.assetIndexSummary.liveArtifactFiles.includes("event_log.json"),
     true

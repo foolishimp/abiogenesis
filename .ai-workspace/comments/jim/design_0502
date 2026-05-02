@@ -1,0 +1,73 @@
+ABG/GTL graph functions and workspaces
+
+The following is a very high level abstraction of the key logical elements, 
+the are not the actual ABG/GTL functions 
+but need to be translated as such for the actual implementaton.
+
+ABG supports a traversal, followed by an eval -- the eval may need to be multi facited (conjecture).
+
+Declared Workspace, usually the project, has an internal structure declared, typed assets can be tethered to the workspace topology.
+Workspace.Root - URI
+Workspace.Dependencies
+Workspace.Topology
+etc.
+
+i have a series of typed assets, A, B, C, D, and I have a declared workspace topology that says A is a dependency of B, B is a dependency of C, and C is a dependency of D. And each is located by URI within the workspace, if allowed URI may reference outside of root.
+
+Workspace ( A, B, C, D ) and so i'm either referencing the workspace asset or the asset type A.ref, A.type
+When I call a graph function, there is an implicit reference to the workspace, I'm working in
+so I can say ABG.Transform(Intent.history, Context.Ref, A.ref, B.type )
+ and it will know to look for A in the workspace.
+
+W1 = Workspace( URI:".")
+And I need to traverse 
+A -> B 
+
+GTL( A->B
+  Traverse( F_D(
+    traversal_plugins_F_D():B.type
+  ), 
+  F_P(
+    traversal_plugins_F_P():B.type
+  )
+  , F_H(
+    interaction_method(text, email, cli):Unknown|B.type
+  ))
+  // same for Eval
+  Eval( F_D(
+    eval_plugins_F_D():Ledger.Gap
+  ), 
+  F_P(
+    eval_plugins_F_P():Ledger.Gap
+  )
+  , F_H(
+    interaction_method(text, email, cli):Unknown | Ledger.Gap
+  ))
+)
+
+ABG.Transform(W1, Intent.history, Context[](W1,Additional_Context), A.ref, B.type )
+ABG.Eval(W1, Intent.history, Context[], A.ref, B.ref ): W1.system.(A->B).gap_ledger
+
+But I can also call a graph function with an new Workspace
+
+ABG.Transform((W1,W2), Intent.history, Context[](W1,Additional_Context), A.ref, B.type ) -> W2.B.ref
+
+This describes the building blocks but not a robust recoverable traversal.
+Every Element can fail in that sequence.
+For the work to be guaranteed,
+
+I need to confirm everything in A is in B, or i can say everything from B is derived from A
+
+  Every element of A under the Traversal requirements, with an uniqueID, A.ledger.requirement[]
+  Every element of B under the Traversal requirements, with an uniqueID, B.ledger.implementation[]
+  I need a lineage of every element of A, __Fullfilled under transform definition__ to an element of B
+  I need every element of B B.e to be have a reference back to A.ledger.requirement[B.e]
+
+
+I need to zoom in and add additional stages for example the A -> B traversal
+
+1. Logically A can be infinite and B can be infinite, but I have a finite engine
+2. I need to be able to track the traversal and the eval, here 
+
+A_tracked = SDLC.GTL.ZoomIn( A -> (A.dependency_decomposition) )
+A -> ABG.traverse(SDLC.A.A.ledger -> ABG.Schedule ( A -> B ) )

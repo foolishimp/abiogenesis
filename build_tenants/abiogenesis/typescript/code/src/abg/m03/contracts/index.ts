@@ -30,6 +30,20 @@ export type {
   FrameProjection,
   GraphCallOpenedEvent,
   GraphCallProjection,
+  GraphChangeClass,
+  GraphConstitutionalReentryEventPayload,
+  GraphReentryAppliedEvent,
+  GraphReentryFrontierDecision,
+  GraphReentryPlannedEvent,
+  GraphReentryPoint,
+  GraphSpanAssessedEvent,
+  GraphSpanAssessmentEventRow,
+  GraphSpanCarryObservationEventRow,
+  GraphSpanCarryObservationStatus,
+  GraphSpanEvaluationScheduledEvent,
+  GraphSpanFoldbackDecision,
+  GraphSpanFoldbackEvaluatedEvent,
+  GraphSpanObligationAssessmentStatus,
   IterationAdvanceDecision,
   IterationAdvanceVectorDecision,
   IterationConvergedDecision,
@@ -37,6 +51,9 @@ export type {
   LeafTaskEnvelope,
   LeafTaskFailedEvent,
   LeafTaskOpenedEvent,
+  OutputBindingAdmittedEvent,
+  OutputInstanceAllocatedEvent,
+  OutputMaterializationObservedEvent,
   PayloadAmbiguityStatus,
   PayloadClosureDecisionKind,
   PayloadObservedRuntimeEvent,
@@ -58,14 +75,22 @@ export type {
   RuntimeEvent,
   RuntimeFailureClass,
   RuntimeRegime,
+  StartInputAssetBinding,
   StartIntent,
+  StartRequestedOutput,
   StartUntil,
   TerminalKind,
   TerminalReachedEvent,
   TerminalTransition,
   VectorClosedEvent,
   VectorEvaluatedEvent,
-  VectorTraversalPlannedEvent
+  VectorTraversalPlannedEvent,
+  WorkspaceObligationLedgerAdmittedEvent,
+  WorkspaceObligationScheduleDerivedEvent,
+  ZoomFoldbackEvaluatedRuntimeEvent,
+  ZoomFrameOpenedRuntimeEvent,
+  ScheduledSliceAssessedRuntimeEvent,
+  ScheduledSliceDispatchedRuntimeEvent
 } from "./carriers.js";
 export {
   COMPUTE_BASIS_FAILURE_CLASS_VALUES,
@@ -76,6 +101,32 @@ export {
   RUNTIME_FAILURE_CLASS_VALUES,
   TERMINAL_KIND_VALUES
 } from "./carriers.js";
+export {
+  GRAPH_CHANGE_CLASS_VALUES,
+  GRAPH_REENTRY_POINT_VALUES,
+  GRAPH_SPAN_CARRY_OBSERVATION_STATUS_VALUES,
+  GRAPH_SPAN_OBLIGATION_ASSESSMENT_STATUS_VALUES
+} from "./carriers.js";
+export {
+  constructEvalGradeVector,
+  constructEvalOutcome,
+  constructEvalSuiteSpec,
+  constructEvalTask,
+  constructEvalTrial,
+  deriveEvalAggregateProjection
+} from "./eval_suite.js";
+export type {
+  EvalAggregateProjection,
+  EvalAggregateVerdict,
+  EvalGradeRow,
+  EvalGradeStatus,
+  EvalGradeVector,
+  EvalOutcome,
+  EvalSuiteClass,
+  EvalSuiteSpec,
+  EvalTask,
+  EvalTrial
+} from "./eval_suite.js";
 export {
   FP_TRANSFORM_STATUS_VALUES,
   admitFpTransformResult,
@@ -180,6 +231,98 @@ export {
   runtimeEventsForIterationDecision
 } from "./iteration.js";
 export { deriveRuntimeAggregateProjection } from "./projection.js";
+export {
+  admitWorkspaceAssetBinding,
+  constructOutputBindingAdmittedEvent,
+  constructOutputInstanceAllocatedEvent,
+  constructOutputMaterializationObservedEvent,
+  constructOutputPluginHandoffManifest,
+  deriveOutputAllocationProjection,
+  deriveOutputInstanceAllocation,
+  isMaterializationPathWithinAllocation
+} from "./output_allocation.js";
+export type {
+  OutputAllocationFailureReason,
+  OutputAllocationProjection,
+  OutputAllocationRequest,
+  OutputAllocationResult,
+  OutputInstanceAllocation,
+  OutputPluginHandoffManifest,
+  WorkspaceAssetBinding,
+  WorkspaceAssetBindingFailureReason,
+  WorkspaceAssetBindingInput,
+  WorkspaceAssetBindingResult,
+  WorkspaceAssetBindingRole,
+  WorkspaceAssetBindingSource
+} from "./output_allocation.js";
+export {
+  admitScheduledSliceAssessment,
+  constructScheduledSliceAssessedEvent,
+  constructScheduledSliceDispatchedEvent,
+  constructScheduledSlicePluginHandoff,
+  constructWorkspaceObligationLedgerAdmittedEvent,
+  constructWorkspaceObligationScheduleDerivedEvent,
+  constructZoomFoldbackEvaluatedEvent,
+  constructZoomFrameOpenedEvent,
+  deriveNextScheduledSlice,
+  deriveObligationLedgerAsset,
+  deriveObligationSchedule,
+  deriveOuterTraversalEvaluation,
+  deriveScheduledSliceAssessmentsFromEvents,
+  deriveWorkspaceSystemProjection,
+  deriveWorkspaceZoomProjection,
+  deriveZoomFoldbackEvaluationFromEvents,
+  foldScheduledSlices,
+  openZoomFrame,
+  RETRYABLE_RUNTIME_FAILURE_CLASSES
+} from "./workspace_zoom_foldback.js";
+export type {
+  ObligationLedgerAsset,
+  ObligationLedgerRow,
+  ObligationLedgerRowStatus,
+  ObligationScheduleAsset,
+  ObligationScheduleItem,
+  OuterTraversalEvaluation,
+  ScheduledSliceAssessment,
+  ScheduledSliceAssessmentFindingClass,
+  ScheduledSliceAssessmentStatus,
+  ScheduledSliceDecision,
+  ScheduledSliceDispatch,
+  ScheduledSliceFindingClassCounts,
+  WorkspaceSystemProjection,
+  WorkspaceZoomProjection,
+  ZoomFoldbackDecision,
+  ZoomFoldbackEvaluation,
+  ZoomFrame
+} from "./workspace_zoom_foldback.js";
+export {
+  admitGraphSpanAssessment,
+  constructGraphReentryAppliedEvent,
+  constructGraphReentryPlannedEvent,
+  constructGraphSpanAssessedEvent,
+  constructGraphSpanEvaluationScheduledEvent,
+  constructGraphSpanFoldbackEvaluatedEvent,
+  deriveAdvancementTransitionWithReentry,
+  deriveEndpointSpanSchedule,
+  deriveFirstBadVector,
+  deriveGraphReentryFrontierProjection,
+  deriveGraphReentryPlan,
+  deriveGraphSpanAssessmentsFromEvents,
+  deriveGraphSpanFoldbackEvaluationFromEvents,
+  foldGraphSpanAssessments
+} from "./graph_span_reentry.js";
+export type {
+  GraphConstitutionalReentry,
+  GraphReentryAdvanceDecision,
+  GraphReentryFrontierProjection,
+  GraphReentryFrontierRow,
+  GraphReentryPlan,
+  GraphSpanAssessment,
+  GraphSpanEvaluationSchedule,
+  GraphSpanFoldbackEvaluation,
+  GraphSpanObligationAssessmentRow,
+  GraphSpanRef
+} from "./graph_span_reentry.js";
 export type {
   TraversalStructureKind,
   TraversalStructureProbe

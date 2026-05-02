@@ -79,6 +79,8 @@ export function contractForKnownAgent(
         command: "codex",
         argsTemplate: [
           "exec",
+          "--model",
+          "gpt-5.3-codex",
           "--full-auto",
           "--skip-git-repo-check",
           "-o",

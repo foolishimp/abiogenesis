@@ -81,10 +81,10 @@ test("T-026 negative proof: runtime failure envelopes reject unsupported failure
     () =>
       admitResultArtifact(request, {
         kind: "runtime_failure",
-        failureClass: "transport_failure",
-        detail: "legacy class is not canonical runtime taxonomy"
+        failureClass: "transport_timeout",
+        detail: "unsupported class is not canonical runtime taxonomy"
       }),
-    /runtime_unavailable|capability_missing|runtime_failure|payload_contract_failure/i
+    /transport_failure|no_output|contract_failure|runtime_unavailable|capability_missing|runtime_failure|payload_contract_failure/i
   );
 });
 
