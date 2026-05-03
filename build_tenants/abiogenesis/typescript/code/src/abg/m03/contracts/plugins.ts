@@ -11,6 +11,7 @@ import type {
 } from "./carriers.js";
 import type { FpTransformRequest } from "./fp_stages.js";
 import { constructFpTransformRequest } from "./fp_stages.js";
+import type { TraversalAttemptEnvelope } from "./traversal_modulation.js";
 import type { RetryFrontierProjection } from "./retry_frontier.js";
 import { deriveRetryFrontierProjection } from "./retry_frontier.js";
 import {
@@ -132,6 +133,7 @@ export interface EnginePluginInput {
   readonly retryFrontier: RetryFrontierProjection;
   readonly actorInvocationRef: ActorInvocationRef | null;
   readonly fpTransformRequest: FpTransformRequest | null;
+  readonly traversalAttemptEnvelope: TraversalAttemptEnvelope | null;
 }
 
 export interface EnginePluginOutcomeBase {
@@ -455,6 +457,7 @@ export function constructEnginePluginInput(input: {
   readonly edge: string;
   readonly regime: RuntimeRegime;
   readonly actorInvocationRef?: ActorInvocationRef | null | undefined;
+  readonly traversalAttemptEnvelope?: TraversalAttemptEnvelope | null | undefined;
 }): EnginePluginInput {
   const contract = admitEnginePluginContract(input.contract);
   assertProjectionBasis(input.basis, input.projection, "EnginePluginInput");
@@ -516,7 +519,8 @@ export function constructEnginePluginInput(input: {
     retryProgressRefs: Object.freeze([...input.projection.retryProgressRefs]),
     retryFrontier,
     actorInvocationRef: normalizedActorInvocationRef,
-    fpTransformRequest
+    fpTransformRequest,
+    traversalAttemptEnvelope: input.traversalAttemptEnvelope ?? null
   });
 }
 

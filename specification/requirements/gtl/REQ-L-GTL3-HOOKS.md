@@ -31,3 +31,7 @@ semantic language.
 **REQ-L-GTL3-HOOKS-008**: Assurance hook attachments may declare stable hook references and opaque configuration for authority snapshot, evidence adaptation, ambiguity classification, closure policy, and gain-function adaptation, while assurance semantics remain engine-owned.
 
 **REQ-L-GTL3-HOOKS-009**: An authored `GraphFunction` or `GraphVector` shall be able to declare its assurance hook refs and boundary intent through GTL declarations without requiring hidden side-door runtime configuration to complete the published graph-function contract.
+
+**REQ-L-GTL3-HOOKS-010**: Traversal modulation shall be declared as governance hook/config truth, not as hidden runtime configuration or prompt prose. `GraphVector.declarations` is the primary edge-traversal qualifier surface; `GraphFunction.declarations` and `Role.policy_hooks` may provide defaults by explicit precedence.
+
+**REQ-L-GTL3-HOOKS-011**: Traversal modulation hook configuration may carry strategy owner refs, descriptive strategy labels, scheduling primitive refs, obligation schedule refs, ordering constraints, phase gates, and bounded batch parameters, but GTL shall not define downstream product strategy semantics such as steel-thread or waterfall as language law.

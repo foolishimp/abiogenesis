@@ -50,6 +50,8 @@ import {
   defaultFdEvaluatorPlugin,
   defaultFhAdmissionPlugin,
   defaultFpDispatchPlugin,
+  type EnginePluginContract,
+  type EnginePluginInput,
   type EnginePluginMaybePromise,
   type EngineRunnerPluginSet,
   type FdEvaluatorPlugin,
@@ -62,10 +64,26 @@ import {
   runtimeEventsForRetryRepairDecision
 } from "../contracts/retry_repair.js";
 import {
+  constructAgenticBackendProgressProfile,
+  constructTraversalAttemptDispatchedEvent,
+  constructTraversalAttemptEnvelopeDerivedEvent,
+  constructTraversalAttemptNonProgressClassifiedEvent,
+  constructTraversalModulationResolvedEvent,
+  deriveTraversalAttemptEnvelope,
+  deriveTraversalModulationProfile,
+  tryResolveTraversalStrategyDirectiveFromGtl,
+  type AgenticBackendKind,
+  type TraversalAttemptEnvelope,
+  type TraversalModulationProfile,
+  type TraversalModulationGtlQualifierResolution
+} from "../contracts/traversal_modulation.js";
+import {
   assertTraversalContinuationSummaryAgreement,
   deriveTraversalContinuationActionProjection,
   deriveTraversalContinuationSummary,
   deriveTraversalNonProgressCarrier,
+  type TraversalContinuationActionProjection,
+  type TraversalNonProgressCarrier,
   type TraversalContinuationSummary
 } from "../contracts/traversal_non_progress.js";
 import { emit, type RuntimeEventSink } from "../events/index.js";
@@ -257,6 +275,182 @@ function actorInvocationRef(invocation: ActorInvocation): ActorInvocationRef {
   });
 }
 
+interface ModulatedFpAttempt {
+  readonly resolution: TraversalModulationGtlQualifierResolution;
+  readonly profile: TraversalModulationProfile;
+  readonly envelope: TraversalAttemptEnvelope;
+}
+
+type FpDispatchTransition = Extract<
+  AdvancementTransition,
+  { readonly kind: "fp_dispatch" }
+>;
+
+interface FpDispatchAttemptInput {
+  readonly actorInvocation: ActorInvocation;
+  readonly modulatedAttempt: ModulatedFpAttempt | null;
+  readonly pluginInput: EnginePluginInput;
+}
+
+function agenticBackendKindForBasis(basis: ExecutionBasis): AgenticBackendKind {
+  const normalized = [
+    basis.runtimeIdentity.backendId,
+    basis.runtimeIdentity.workerId,
+    basis.runtimeIdentity.resolvedRuntimeRef
+  ].join(" ").toLowerCase();
+  if (normalized.includes("claude")) {
+    return "claude";
+  }
+  if (normalized.includes("codex")) {
+    return "codex";
+  }
+  return "generic_process";
+}
+
+function backendProgressProfileForBasis(
+  basis: ExecutionBasis
+): ReturnType<typeof constructAgenticBackendProgressProfile> {
+  const backendKind = agenticBackendKindForBasis(basis);
+  return constructAgenticBackendProgressProfile({
+    backendKind,
+    profileRef: `agentic_backend_progress_profile:${basis.runtimeIdentity.backendId}`,
+    processProtocolSignals: Object.freeze(["process_started", "ack"]),
+    streamProgressSignals: Object.freeze(["stdout_chunk", "stderr_chunk"]),
+    declaredArtifactProgressSignals: Object.freeze(["progress_report"]),
+    finalOutputMayBeBuffered: backendKind === "codex",
+    progressSignalRequiredBeforeInactivityMs: 30000
+  });
+}
+
+function deriveModulatedFpAttempt(input: {
+  readonly basis: ExecutionBasis;
+  readonly transition: FpDispatchTransition;
+  readonly actorInvocation: ActorInvocation;
+}): ModulatedFpAttempt | null {
+  const vector = input.basis.graph.vectors[input.transition.vectorIndex];
+  if (vector === undefined) {
+    throw new TypeError("Traversal modulation requires a graph vector");
+  }
+  const resolution = tryResolveTraversalStrategyDirectiveFromGtl({
+    vector,
+    graphFunction: input.basis.graphFunction,
+    roles: input.basis.job.roles
+  });
+  if (resolution === null) {
+    return null;
+  }
+  const profile = deriveTraversalModulationProfile({
+    basis: input.basis,
+    vectorIndex: input.transition.vectorIndex,
+    directive: resolution.directive,
+    backendProfile: backendProgressProfileForBasis(input.basis),
+    policyRefs: Object.freeze([input.basis.resolvedPolicy.resolvedPolicyBundleRef])
+  });
+  const retryBudgetRemaining = Math.max(
+    profile.continuation.maxTotalAttempts - input.actorInvocation.attemptIndex,
+    0
+  );
+  const envelope = deriveTraversalAttemptEnvelope({
+    basis: input.basis,
+    profile,
+    actorInvocationId: input.actorInvocation.actorInvocationId,
+    retryBudgetRemaining
+  });
+  return Object.freeze({ resolution, profile, envelope });
+}
+
+function deriveFpDispatchAttemptInput(input: {
+  readonly basis: ExecutionBasis;
+  readonly projection: RuntimeAggregateProjection;
+  readonly replayEvents: readonly RuntimeEvent[];
+  readonly transition: FpDispatchTransition;
+  readonly contract: EnginePluginContract;
+}): FpDispatchAttemptInput {
+  const actorInvocation = actorInvocationForTransition({
+    projection: input.projection,
+    transition: input.transition
+  });
+  const modulatedAttempt = deriveModulatedFpAttempt({
+    basis: input.basis,
+    transition: input.transition,
+    actorInvocation
+  });
+  const pluginInput = constructEnginePluginInput({
+    contract: input.contract,
+    basis: input.basis,
+    projection: input.projection,
+    replayEvents: input.replayEvents,
+    vectorIndex: input.transition.vectorIndex,
+    edge: input.transition.edge,
+    regime: "F_P",
+    actorInvocationRef: actorInvocationRef(actorInvocation),
+    traversalAttemptEnvelope: modulatedAttempt?.envelope ?? null
+  });
+  return Object.freeze({
+    actorInvocation,
+    modulatedAttempt,
+    pluginInput
+  });
+}
+
+function fpDispatchAttemptStartedEvents(input: {
+  readonly basis: ExecutionBasis;
+  readonly transition: FpDispatchTransition;
+  readonly actorInvocation: ActorInvocation;
+  readonly modulatedAttempt: ModulatedFpAttempt | null;
+}): readonly RuntimeEvent[] {
+  const events: RuntimeEvent[] = [constructFpDispatchRequestedEvent(input.transition)];
+  if (input.modulatedAttempt !== null) {
+    events.push(
+      constructTraversalModulationResolvedEvent({
+        basis: input.basis,
+        profile: input.modulatedAttempt.profile,
+        causationEventRefs: Object.freeze([input.transition.dispatchRef])
+      }),
+      constructTraversalAttemptEnvelopeDerivedEvent({
+        basis: input.basis,
+        envelope: input.modulatedAttempt.envelope,
+        causationEventRefs: Object.freeze([
+          input.modulatedAttempt.profile.profileRef
+        ])
+      })
+    );
+  }
+  events.push(constructActorInvocationStartedEvent(input.actorInvocation));
+  if (input.modulatedAttempt !== null) {
+    events.push(
+      constructTraversalAttemptDispatchedEvent({
+        basis: input.basis,
+        envelope: input.modulatedAttempt.envelope,
+        dispatchRef: input.actorInvocation.dispatchRef,
+        causationEventRefs: Object.freeze([
+          input.modulatedAttempt.envelope.envelopeRef,
+          input.actorInvocation.actorInvocationId
+        ])
+      })
+    );
+  }
+  return Object.freeze(events);
+}
+
+function fpDispatchAttemptNonProgressEvents(input: {
+  readonly basis: ExecutionBasis;
+  readonly modulatedAttempt: ModulatedFpAttempt | null;
+  readonly continuation: BlockedFpNoArtifactContinuation;
+}): readonly RuntimeEvent[] {
+  if (input.modulatedAttempt === null) {
+    return Object.freeze([]);
+  }
+  return Object.freeze([
+    constructTraversalAttemptNonProgressClassifiedEvent({
+      basis: input.basis,
+      envelope: input.modulatedAttempt.envelope,
+      sourceCarrierRef: input.continuation.carrier.carrierRef,
+      actionProjectionRef: input.continuation.action.projectionRef
+    })
+  ]);
+}
+
 function resultRefForActorOutcome(input: {
   readonly invocation: ActorInvocation;
   readonly outcomeResultRef: string | null;
@@ -299,18 +493,22 @@ type BlockedFpNoArtifactContinuation =
   | {
       readonly kind: "retry";
       readonly summary: TraversalContinuationSummary;
+      readonly carrier: TraversalNonProgressCarrier;
+      readonly action: TraversalContinuationActionProjection;
       readonly retryEvents: readonly RuntimeEvent[];
     }
   | {
       readonly kind: "terminal";
       readonly summary: TraversalContinuationSummary;
+      readonly carrier: TraversalNonProgressCarrier;
+      readonly action: TraversalContinuationActionProjection;
       readonly transition: TerminalTransition;
     };
 
 function deriveBlockedFpNoArtifactContinuation(input: {
   readonly basis: ExecutionBasis;
   readonly projection: RuntimeAggregateProjection;
-  readonly transition: Extract<AdvancementTransition, { readonly kind: "fp_dispatch" }>;
+  readonly transition: FpDispatchTransition;
   readonly actorInvocation: ActorInvocation;
   readonly outcome: FpDispatchOutcome;
   readonly maxAttempts: number;
@@ -361,6 +559,8 @@ function deriveBlockedFpNoArtifactContinuation(input: {
     return Object.freeze({
       kind: "retry",
       summary,
+      carrier,
+      action,
       retryEvents: runtimeEventsForRetryRepairDecision(retryDecision)
     });
   }
@@ -370,6 +570,8 @@ function deriveBlockedFpNoArtifactContinuation(input: {
   return Object.freeze({
     kind: "terminal",
     summary,
+    carrier,
+    action,
     transition: terminalTransition(
       input.basis,
       terminalKind,
@@ -602,22 +804,22 @@ export function runEngineIterate(
         break;
       }
       case "fp_dispatch": {
-        const actorInvocation = actorInvocationForTransition({
-          projection,
-          transition
-        });
-        const input = constructEnginePluginInput({
-          contract: plugins.fpDispatch.contract,
+        const attempt = deriveFpDispatchAttemptInput({
           basis: request.basis,
           projection,
+          transition,
           replayEvents,
-          vectorIndex: transition.vectorIndex,
-          edge: transition.edge,
-          regime: "F_P",
-          actorInvocationRef: actorInvocationRef(actorInvocation)
+          contract: plugins.fpDispatch.contract
         });
-        emitRunnerEvents(constructFpDispatchRequestedEvent(transition));
-        emitRunnerEvents(constructActorInvocationStartedEvent(actorInvocation));
+        const { actorInvocation, modulatedAttempt, pluginInput: input } = attempt;
+        emitRunnerEvents(
+          fpDispatchAttemptStartedEvents({
+            basis: request.basis,
+            transition,
+            actorInvocation,
+            modulatedAttempt
+          })
+        );
         const outcome = admitFpDispatchOutcome(
           resolveSyncPluginOutcome(
             plugins.fpDispatch.dispatch(input),
@@ -738,9 +940,23 @@ export function runEngineIterate(
               DEFAULT_ATTACHED_FP_MAX_RETRY_ATTEMPTS
           });
           if (continuation.kind === "retry") {
+            emitRunnerEvents(
+              fpDispatchAttemptNonProgressEvents({
+                basis: request.basis,
+                modulatedAttempt,
+                continuation
+              })
+            );
             emitRunnerEvents(continuation.retryEvents);
             break;
           }
+          emitRunnerEvents(
+            fpDispatchAttemptNonProgressEvents({
+              basis: request.basis,
+              modulatedAttempt,
+              continuation
+            })
+          );
           emitRunnerEvents(constructTerminalReachedEvent(continuation.transition));
           return constructResult({
             basis: request.basis,
@@ -1018,22 +1234,22 @@ export async function runEngineIterateAsync(
         break;
       }
       case "fp_dispatch": {
-        const actorInvocation = actorInvocationForTransition({
-          projection,
-          transition
-        });
-        const input = constructEnginePluginInput({
-          contract: plugins.fpDispatch.contract,
+        const attempt = deriveFpDispatchAttemptInput({
           basis: request.basis,
           projection,
+          transition,
           replayEvents,
-          vectorIndex: transition.vectorIndex,
-          edge: transition.edge,
-          regime: "F_P",
-          actorInvocationRef: actorInvocationRef(actorInvocation)
+          contract: plugins.fpDispatch.contract
         });
-        emitRunnerEvents(constructFpDispatchRequestedEvent(transition));
-        emitRunnerEvents(constructActorInvocationStartedEvent(actorInvocation));
+        const { actorInvocation, modulatedAttempt, pluginInput: input } = attempt;
+        emitRunnerEvents(
+          fpDispatchAttemptStartedEvents({
+            basis: request.basis,
+            transition,
+            actorInvocation,
+            modulatedAttempt
+          })
+        );
         const outcome = admitFpDispatchOutcome(
           await plugins.fpDispatch.dispatch(input)
         );
@@ -1151,9 +1367,23 @@ export async function runEngineIterateAsync(
               DEFAULT_ATTACHED_FP_MAX_RETRY_ATTEMPTS
           });
           if (continuation.kind === "retry") {
+            emitRunnerEvents(
+              fpDispatchAttemptNonProgressEvents({
+                basis: request.basis,
+                modulatedAttempt,
+                continuation
+              })
+            );
             emitRunnerEvents(continuation.retryEvents);
             break;
           }
+          emitRunnerEvents(
+            fpDispatchAttemptNonProgressEvents({
+              basis: request.basis,
+              modulatedAttempt,
+              continuation
+            })
+          );
           emitRunnerEvents(constructTerminalReachedEvent(continuation.transition));
           return constructResult({
             basis: request.basis,

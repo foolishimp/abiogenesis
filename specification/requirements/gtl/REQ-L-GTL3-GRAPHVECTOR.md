@@ -29,3 +29,5 @@ record of GTL 3.
 **REQ-L-GTL3-GRAPHVECTOR-007**: Graph-vector declarations shall remain inspectable and replayable across publication, serialization, and interpretation surfaces.
 
 **REQ-L-GTL3-GRAPHVECTOR-008**: Public execution entry and semantic work contracts shall not target bare graph vectors. Operative traversal boundaries remain internal realized structure beneath one or more published graph functions.
+
+**REQ-L-GTL3-GRAPHVECTOR-009**: When a traversal modulation qualifier is present, the graph-vector declaration shall be the highest-precedence source for that edge's modulation hook. A graph-function or role default shall not override the vector-local qualifier.

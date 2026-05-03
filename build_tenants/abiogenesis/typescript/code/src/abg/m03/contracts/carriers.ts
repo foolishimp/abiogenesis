@@ -971,6 +971,179 @@ export interface ZoomFoldbackEvaluatedRuntimeEvent {
   readonly conflictingCount: number;
 }
 
+export interface TraversalModulationResolvedEvent {
+  readonly kind: "traversal_modulation_resolved";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly frameLineageId: string | null;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly profileRef: string;
+  readonly strategyDirectiveRef: string;
+  readonly strategyOwnerRef: string;
+  readonly strategyLabel: string;
+  readonly enforcementPrimitives: readonly string[];
+  readonly obligationScheduleRefs: readonly string[];
+  readonly orderingConstraintRefs: readonly string[];
+  readonly phaseGateRefs: readonly string[];
+  readonly backendProfileRef: string;
+  readonly policyRefs: readonly string[];
+  readonly gapPressureRefs: readonly string[];
+  readonly affectRefs: readonly string[];
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
+export interface TraversalAttemptEnvelopeDerivedEvent {
+  readonly kind: "traversal_attempt_envelope_derived";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly frameLineageId: string | null;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly envelopeRef: string;
+  readonly profileRef: string;
+  readonly strategyDirectiveRef: string;
+  readonly backendProfileRef: string;
+  readonly actorInvocationId: string;
+  readonly selectedScheduleItemRefs: readonly string[];
+  readonly orderingConstraintRefs: readonly string[];
+  readonly phaseGateRefs: readonly string[];
+  readonly requiredProgressArtifactRefs: readonly string[];
+  readonly gapPressureRefs: readonly string[];
+  readonly affectRefs: readonly string[];
+  readonly retryBudgetRemaining: number;
+  readonly mustExitAfterBoundedAttempt: boolean;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
+export interface TraversalAttemptDispatchedEvent {
+  readonly kind: "traversal_attempt_dispatched";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly frameLineageId: string | null;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly envelopeRef: string;
+  readonly actorInvocationId: string;
+  readonly dispatchRef: string;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
+export interface TraversalAttemptProgressObservedEvent {
+  readonly kind: "traversal_attempt_progress_observed";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly frameLineageId: string | null;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly envelopeRef: string;
+  readonly rowRef: string;
+  readonly scheduleItemRef: string;
+  readonly declaredOutcome: "fulfilled" | "partial" | "blocked" | "not_attempted";
+  readonly artifactRefs: readonly string[];
+  readonly evidenceRefs: readonly string[];
+  readonly remainingWorkRefs: readonly string[];
+  readonly reviewRequired: boolean;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
+export interface TraversalAttemptNonProgressClassifiedEvent {
+  readonly kind: "traversal_attempt_non_progress_classified";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly frameLineageId: string | null;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly envelopeRef: string;
+  readonly sourceCarrierRef: string;
+  readonly actionProjectionRef: string;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
+export interface TraversalForcedReviewProjectedEvent {
+  readonly kind: "traversal_forced_review_projected";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly frameLineageId: string | null;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly envelopeRef: string;
+  readonly gateRef: string;
+  readonly trigger: string;
+  readonly triggeredScheduleItemRefs: readonly string[];
+  readonly evidenceRefs: readonly string[];
+  readonly requiredRegime: RuntimeRegime;
+  readonly publicAction: "forced_review";
+  readonly blocksPrivateContinuation: true;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
+export interface TraversalSameEdgeContinuationPlannedEvent {
+  readonly kind: "traversal_same_edge_continuation_planned";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly frameLineageId: string | null;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly envelopeRef: string;
+  readonly remainingScheduleItemRefs: readonly string[];
+  readonly evidenceRefs: readonly string[];
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
+export interface TraversalModulationExhaustedEvent {
+  readonly kind: "traversal_modulation_exhausted";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly frameLineageId: string | null;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly envelopeRef: string;
+  readonly reason: string;
+  readonly evidenceRefs: readonly string[];
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
 export const GRAPH_CHANGE_CLASS_VALUES = Object.freeze([
   "goal_reprice",
   "intent_reprice",
@@ -1232,6 +1405,14 @@ export type RuntimeEvent =
   | ScheduledSliceDispatchedRuntimeEvent
   | ScheduledSliceAssessedRuntimeEvent
   | ZoomFoldbackEvaluatedRuntimeEvent
+  | TraversalModulationResolvedEvent
+  | TraversalAttemptEnvelopeDerivedEvent
+  | TraversalAttemptDispatchedEvent
+  | TraversalAttemptProgressObservedEvent
+  | TraversalAttemptNonProgressClassifiedEvent
+  | TraversalForcedReviewProjectedEvent
+  | TraversalSameEdgeContinuationPlannedEvent
+  | TraversalModulationExhaustedEvent
   | GraphSpanEvaluationScheduledEvent
   | GraphSpanAssessedEvent
   | GraphSpanFoldbackEvaluatedEvent
@@ -1288,6 +1469,14 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "scheduled_slice_dispatched",
   "scheduled_slice_assessed",
   "zoom_foldback_evaluated",
+  "traversal_modulation_resolved",
+  "traversal_attempt_envelope_derived",
+  "traversal_attempt_dispatched",
+  "traversal_attempt_progress_observed",
+  "traversal_attempt_non_progress_classified",
+  "traversal_forced_review_projected",
+  "traversal_same_edge_continuation_planned",
+  "traversal_modulation_exhausted",
   "graph_span_evaluation_scheduled",
   "graph_span_assessed",
   "graph_span_foldback_evaluated",

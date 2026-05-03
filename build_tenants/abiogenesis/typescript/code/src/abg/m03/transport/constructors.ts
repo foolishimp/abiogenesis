@@ -43,6 +43,19 @@ export function constructDispatchRequest(
     resultRef: input.resultRef,
     expectedEdge: input.expectedEdge,
     expectedAssessmentIds: freezeStringArray(input.expectedAssessmentIds),
+    traversalAttemptEnvelopeRef: input.traversalAttemptEnvelopeRef ?? null,
+    selectedScheduleItemRefs: freezeStringArray(
+      input.selectedScheduleItemRefs ?? Object.freeze([])
+    ),
+    orderingConstraintRefs: freezeStringArray(
+      input.orderingConstraintRefs ?? Object.freeze([])
+    ),
+    phaseGateRefs: freezeStringArray(input.phaseGateRefs ?? Object.freeze([])),
+    requiredProgressArtifactRefs: freezeStringArray(
+      input.requiredProgressArtifactRefs ?? Object.freeze([])
+    ),
+    gapPressureRefs: freezeStringArray(input.gapPressureRefs ?? Object.freeze([])),
+    affectRefs: freezeStringArray(input.affectRefs ?? Object.freeze([])),
     transportContract: Object.freeze({
       agentKey: input.transportContract.agentKey,
       command: input.transportContract.command,

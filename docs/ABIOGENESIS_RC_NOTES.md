@@ -1,8 +1,7 @@
-# abiogenesis 3.4.0-rc.6 RC Notes
+# abiogenesis 3.4.0-rc.7 RC Notes
 
-This note records accepted RC behavior for the current `v3.4.0-rc.6` line.
-The package build cut is `3.4.0-rc.6+build.20260503.1`; the RC identity remains
-`rc.6`.
+This note records accepted RC behavior for the current `v3.4.0-rc.7` line.
+The package cut is `3.4.0-rc.7`.
 
 ## Accepted Framework Behavior
 
@@ -274,6 +273,29 @@ Accepted behavior:
   does not inspect obligation rows, compute semantic fulfillment, or fabricate
   F_P graph-span assessment truth
 
+### Traversal Modulation Is GTL-Qualified ABG Runtime Truth
+
+The rc.7 cut accepts T-107 as ABG substrate.
+
+Accepted behavior:
+
+- traversal modulation is declared through GTL hook/config truth, with
+  `GraphVector.declarations["abg.traversal_modulation"]` as the highest
+  precedence edge qualifier and graph-function / role defaults below it
+- ABG derives a `TraversalModulationProfile` and `TraversalAttemptEnvelope`
+  only from admitted qualifier truth
+- sync and async runner modes consume one shared F_P dispatch-attempt law for
+  actor invocation derivation, envelope derivation, `EnginePluginInput`
+  construction, and the replay-visible event spine
+- unqualified F_P vectors keep the legacy null-envelope path
+- malformed or duplicate present qualifiers fail closed
+- prompt prose is not the scheduler command surface; the attempt envelope,
+  progress rows, forced-review gates, and existing T-100/T-103/T-106
+  projections are the replay authority
+- ABG enforces generic scheduling primitives, schedule refs, ordering
+  constraints, phase gates, progress artifact refs, retry budget, and
+  non-progress classification without switching on downstream strategy labels
+
 ## Current Verification Footer
 
 The current RC proving footer is:
@@ -286,8 +308,10 @@ The current RC proving footer is:
 - `npm run test:t104`: `6 passed`
 - `npm run test:t104:sandbox`: `1 passed`
 - `npm run test:t106`: `14 passed`
-- `npm run test:semantic`: `368 passed`
+- `npm run test:t107`: `15 passed`
+- `npm run test:semantic`: `383 passed`
 - `npm run lint:semantic`: `passed`
+- `npm run lint:test-harness`: `passed`
 - `git diff --check`: `passed`
 - `npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run`: `passed`,
-  package `3.4.0-rc.6+build.20260503.1`, `310 files`
+  package `3.4.0-rc.7`, `312 files`

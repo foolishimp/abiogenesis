@@ -57,3 +57,7 @@ product-local imperative code.
 **REQ-R-ABG3-TRANSPORT-021**: A traversal non-progress carrier shall preserve the graph function, graph call, frame, vector, actor invocation, attempt, process identity when available, timeout class, stream byte counts, last heartbeat, signal sequence, exit status, artifact/report/progress observation flags, and evidence references used for classification.
 
 **REQ-R-ABG3-TRANSPORT-022**: ABG shall not classify traversal non-progress when a valid result artifact or admitted report exists for the actor invocation. Artifact/report salvage and admission precede retry projection; no-progress is reserved for absence of semantically assessable worker output.
+
+**REQ-R-ABG3-TRANSPORT-023**: A modulated `F_P` dispatch handoff shall carry the ABG-derived traversal attempt envelope or a stable ref to it. The handoff surface shall preserve selected schedule items, ordering constraints, phase gates, required progress artifact refs, gap-pressure refs, and affect refs needed to drive the worker without making prompt prose the authority surface.
+
+**REQ-R-ABG3-TRANSPORT-024**: A worker or downstream product shall not invent a private schedule, retry, or chunking loop when a traversal attempt envelope is present. Any continuation, exhaustion, or forced-review result shall be admitted as ABG runtime truth.

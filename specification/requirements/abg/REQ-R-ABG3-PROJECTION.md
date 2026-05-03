@@ -35,3 +35,5 @@ surface over ABG runtime truth.
 **REQ-R-ABG3-PROJECTION-010**: A structural assertion that a supplied projection is full shall validate row shape, deterministic identity, reason-class coverage, and retry-attempt coverage. Closure-critical consumers should prefer replay-derived projections or compare supplied projections against replay-derived truth.
 
 **REQ-R-ABG3-PROJECTION-011**: Public runtime summaries, CLI surfaces, and downstream consumer projections that describe traversal non-progress shall render the same ABG-derived continuation action. A carrier may record process facts and a projection may decide the next action, but there shall be one authoritative action truth for a given event stream.
+
+**REQ-R-ABG3-PROJECTION-012**: Traversal modulation projection shall be deterministic over GTL qualifier truth, current basis, admitted schedule refs, admitted progress rows, backend progress classification, forced-review gates, and existing non-progress/foldback/reentry projections. Public summaries and downstream consumers shall not publish a rival next action for the same event stream.

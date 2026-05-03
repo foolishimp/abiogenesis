@@ -359,6 +359,14 @@ export function deriveRuntimeAggregateProjection(
       case "scheduled_slice_dispatched":
       case "scheduled_slice_assessed":
       case "zoom_foldback_evaluated":
+      case "traversal_modulation_resolved":
+      case "traversal_attempt_envelope_derived":
+      case "traversal_attempt_dispatched":
+      case "traversal_attempt_progress_observed":
+      case "traversal_attempt_non_progress_classified":
+      case "traversal_forced_review_projected":
+      case "traversal_same_edge_continuation_planned":
+      case "traversal_modulation_exhausted":
         assertVectorIndexInRange(basis, event.vectorIndex);
         graphCallId = event.graphCallId;
         frameId = event.frameId;

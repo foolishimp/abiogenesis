@@ -79,3 +79,5 @@ not widen the product compute boundary without product reprice.
 **REQ-R-ABG3-ASSURANCE-025**: Assurance rows and closure decisions shall preserve enough provenance to explain which authority, event facts, plugin outputs, and policy refs produced the decision.
 
 **REQ-R-ABG3-ASSURANCE-026**: Subordinate work, including bounded leaf tasks, shall either project assurance within the parent runtime boundary or publish a declared subordinate assurance boundary that remains causally bound to the parent.
+
+**REQ-R-ABG3-ASSURANCE-027**: For a modulated traversal attempt, assurance shall consume `TraversalAttemptEnvelope`, admitted `TraversalAttemptProgressRow` rows, `TraversalForcedReviewGate` truth, and existing foldback/non-progress/reentry projections. File presence, worker narrative, elapsed time, or unstated worker intent shall not satisfy closure or continuation evidence.

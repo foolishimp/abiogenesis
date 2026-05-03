@@ -323,6 +323,10 @@ export function admitDispatchRequest(
     parseOptionalField(request, "vectorIndex"),
     `${label}.vectorIndex`
   );
+  const traversalAttemptEnvelopeRef = parseNullableNonEmptyString(
+    parseOptionalField(request, "traversalAttemptEnvelopeRef"),
+    `${label}.traversalAttemptEnvelopeRef`
+  );
   return constructDispatchRequest({
     basisId: parseNonEmptyString(request["basisId"], `${label}.basisId`),
     graphFunctionId: parseNonEmptyString(
@@ -339,6 +343,31 @@ export function admitDispatchRequest(
     resultRef: parseNonEmptyString(request["resultRef"], `${label}.resultRef`),
     expectedEdge: projectDispatchExpectedEdge(expectation),
     expectedAssessmentIds: projectDispatchAssessmentIds(expectation),
+    traversalAttemptEnvelopeRef,
+    selectedScheduleItemRefs: parseOptionalStringArray(
+      parseOptionalField(request, "selectedScheduleItemRefs"),
+      `${label}.selectedScheduleItemRefs`
+    ),
+    orderingConstraintRefs: parseOptionalStringArray(
+      parseOptionalField(request, "orderingConstraintRefs"),
+      `${label}.orderingConstraintRefs`
+    ),
+    phaseGateRefs: parseOptionalStringArray(
+      parseOptionalField(request, "phaseGateRefs"),
+      `${label}.phaseGateRefs`
+    ),
+    requiredProgressArtifactRefs: parseOptionalStringArray(
+      parseOptionalField(request, "requiredProgressArtifactRefs"),
+      `${label}.requiredProgressArtifactRefs`
+    ),
+    gapPressureRefs: parseOptionalStringArray(
+      parseOptionalField(request, "gapPressureRefs"),
+      `${label}.gapPressureRefs`
+    ),
+    affectRefs: parseOptionalStringArray(
+      parseOptionalField(request, "affectRefs"),
+      `${label}.affectRefs`
+    ),
     transportContract: parseTransportContract(
       request["transportContract"],
       `${label}.transportContract`

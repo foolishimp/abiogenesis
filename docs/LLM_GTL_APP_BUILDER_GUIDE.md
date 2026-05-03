@@ -1,6 +1,6 @@
 # LLM GTL App Builder Guide
 
-**Status**: Current compressed technical GTL 3 / ABG 3.4.0-rc.6 guide for LLMs
+**Status**: Current compressed technical GTL 3 / ABG 3.4.0-rc.7 guide for LLMs
 **Audience**: LLM agentic coders and agent bootstraps building GTL/ABG domain apps
 **Purpose**: Compress the human GTL/ABG guide into the ontology, operating rules, fail-closed constraints, and language-specific syntax needed by LLM agents
 
@@ -1052,11 +1052,19 @@ Do not rebuild these meanings from result dictionaries, controller state, or
 runtime policy, asset-binding, proof-hold, dispatch, and convergence truth must
 be carried by typed or resolved runtime surfaces.
 
-### ABG 3.4.0-rc.6 carrier extensions
+### ABG 3.4.0-rc.7 carrier extensions
 
-The rc.6 wave adds output allocation, zoom-foldback, graph-span, and
-cross-workspace carriers. These are not optional. A graph function that takes
-inputs and produces typed outputs must consume them.
+The rc.6 and rc.7 waves add output allocation, zoom-foldback, graph-span,
+cross-workspace allocation, and traversal modulation carriers. These are not
+optional. A graph function that takes inputs, produces typed outputs, or runs
+large agentic F_P work must consume them.
+
+Traversal modulation is declared through GTL hook/config truth, with
+`GraphVector.declarations["abg.traversal_modulation"]` as the primary
+edge-qualifier surface and graph-function / role defaults below it. ABG derives
+the `TraversalAttemptEnvelope` from that qualifier and passes it to the F_P
+plugin through the same dispatch-attempt law in sync and async runner modes.
+Prompt prose is not the scheduler command surface.
 
 #### T-082 output instance allocation
 
@@ -1403,8 +1411,7 @@ The UX should expose lawful next moves from runtime facts.
 
 The live kernel in this repo is `abiogenesis`.
 
-The current source version is `3.4.0-rc.6+build.20260503.1`. The RC identity
-remains `3.4.0-rc.6`.
+The current source version is `3.4.0-rc.7`.
 
 ### Run from source
 
@@ -2305,7 +2312,7 @@ cd /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript
 npm run build:semantic
 npm pack
 cd /path/to/project
-npm install /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/abiogenesis-typescript-tenant-3.4.0-rc.6+build.20260503.1.tgz
+npm install /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/abiogenesis-typescript-tenant-3.4.0-rc.7.tgz
 ```
 
 For product-owned bootstrap, use the package API:
@@ -2319,8 +2326,8 @@ const installOutcome = await installBootstrap(
     installedPackageName: "@example/delivery-app",
     runtimePackage: {
       packageName: "@abiogenesis/typescript-tenant",
-      packageVersion: "3.4.0-rc.6+build.20260503.1",
-      dependencyRef: "file:./abiogenesis-typescript-tenant-3.4.0-rc.6+build.20260503.1.tgz",
+      packageVersion: "3.4.0-rc.7",
+      dependencyRef: "file:./abiogenesis-typescript-tenant-3.4.0-rc.7.tgz",
       appExportSubpath: "./app/m04",
       requiredExports: [".", "./app/m04"]
     }

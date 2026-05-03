@@ -25,3 +25,7 @@ events.
 **REQ-R-ABG3-CONTINUATION-005**: Authoritative continuation lifecycle shall include at minimum open, resolved, superseded, and abandoned termination truth.
 
 **REQ-R-ABG3-CONTINUATION-006**: Yielded post-dispatch handoff may open continuation truth for observer, routing, or approval-bearing next action, but that continuation shall remain runtime-open obligation truth rather than constitutional intent.
+
+**REQ-R-ABG3-CONTINUATION-007**: A modulated same-edge continuation shall be derived from the traversal attempt envelope, admitted progress rows, typed remaining schedule refs, and existing retry/non-progress projection truth. ABG shall not infer remaining work from worker prose, file presence, elapsed time, or unstated worker intent.
+
+**REQ-R-ABG3-CONTINUATION-008**: Retry exhaustion, blocked modulation, and forced review for a modulated attempt shall be replay-visible runtime truth. They shall not be implemented as a private loop inside a downstream product, runner adapter, or worker prompt.

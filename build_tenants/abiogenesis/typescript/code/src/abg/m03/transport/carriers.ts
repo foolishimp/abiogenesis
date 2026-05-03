@@ -28,6 +28,13 @@ export interface DispatchRequest {
   readonly resultRef: string;
   readonly expectedEdge: string | null;
   readonly expectedAssessmentIds: readonly string[];
+  readonly traversalAttemptEnvelopeRef: string | null;
+  readonly selectedScheduleItemRefs: readonly string[];
+  readonly orderingConstraintRefs: readonly string[];
+  readonly phaseGateRefs: readonly string[];
+  readonly requiredProgressArtifactRefs: readonly string[];
+  readonly gapPressureRefs: readonly string[];
+  readonly affectRefs: readonly string[];
   readonly transportContract: TransportContract;
 }
 
@@ -101,6 +108,13 @@ export interface DispatchRequestInit {
   readonly resultRef: string;
   readonly expectedEdge: string | null;
   readonly expectedAssessmentIds: readonly string[];
+  readonly traversalAttemptEnvelopeRef?: string | null;
+  readonly selectedScheduleItemRefs?: readonly string[];
+  readonly orderingConstraintRefs?: readonly string[];
+  readonly phaseGateRefs?: readonly string[];
+  readonly requiredProgressArtifactRefs?: readonly string[];
+  readonly gapPressureRefs?: readonly string[];
+  readonly affectRefs?: readonly string[];
   readonly transportContract: TransportContract;
 }
 

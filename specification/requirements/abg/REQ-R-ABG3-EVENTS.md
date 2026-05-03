@@ -42,3 +42,7 @@ Define the ABG 3 event substrate as the only written runtime truth surface.
 **REQ-R-ABG3-EVENTS-014**: Spawn failure, unavailable command, path drift, sandbox/runtime denial, timeout, signal termination, and nonzero exit shall be emitted as typed runtime facts. Such failures shall not crash admission, disappear into stderr text, or be represented only as absent result artifacts.
 
 **REQ-R-ABG3-EVENTS-015**: Actor/process events shall carry the run, graph function, graph call, frame, vector, actor invocation, worker binding, causation, and correlation identities needed to connect process evidence back to the active traversal boundary by replay.
+
+**REQ-R-ABG3-EVENTS-016**: Traversal modulation runtime truth shall be admitted as replay-visible event truth. The minimum event family shall include modulation resolution, attempt-envelope derivation, attempt dispatch, progress observation, non-progress classification, forced-review projection, same-edge continuation planning, and modulation exhaustion.
+
+**REQ-R-ABG3-EVENTS-017**: Traversal modulation events shall preserve basis, graph function, run, work key, graph call, frame, frame lineage, vector, edge, causation refs, and correlation id sufficient to replay the modulation projection without runner-local state.
