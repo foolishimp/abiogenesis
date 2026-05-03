@@ -1748,7 +1748,7 @@ Act from `status` and `stopped_by`:
 
 | Signal | Lawful next move |
 | --- | --- |
-| `stopped_by = dispatch_required` | Read the F_P manifest produced for this call (path appears in the dispatch event), perform the manifest contract, preserve the manifest `prompt_assembly` / `prompt_compactions` contract as runtime truth, write the result under `OutputPluginHandoffManifest.allowedWriteRoots`, then run `assess-result --result <path>`. |
+| `stopped_by = dispatch_required` | Read the F_P manifest produced for this call (path appears in the dispatch event), perform the manifest contract, preserve the manifest `prompt_assembly` / `prompt_compactions` contract as runtime truth, write the result under `OutputPluginHandoffManifest.allowedWriteRoots`, then run `assess-result --result <path>`. When the vector is modulation-qualified, agents read the typed envelope from the engine plugin input and the `traversal_attempt_envelope_derived` event. Downstream-consumer projection of the envelope into the worker handoff manifest is governed by the downstream-consumption gate; until it closes, agents read events directly. |
 | `stopped_by = human_gate_required` | Satisfy the human lane or use lawful `--fh-mode human-proxy --until converged` when policy allows it. |
 | `stopped_by = yielded` | Constructive work produced handoff truth; inspect emitted events, then resume or correct. |
 | `status = converged` | Inspect events, projection, proof, and closure before claiming completion. |
@@ -1832,16 +1832,22 @@ first. Do not misclassify that as a GTL or ABG product failure.
 
 ### What constructive dispatch exposes
 
-When ABG dispatches `F_P`, the prompt explicitly surfaces:
+When ABG dispatches `F_P`, the engine plugin input and prompt surface:
 
 - deterministic findings and obligations already observed for the live edge
 - the resolved runtime environment for the live edge
 - whether each binding comes from `external_entry` or `internal_carrier`
 - the output contract and mandatory acceptance contexts
 - execution rules that require the artifact to be updated before assessment
+- the typed `TraversalAttemptEnvelope` when the vector carries a
+  traversal-modulation qualifier; the envelope projects the selected
+  schedule item refs, target / max item counts, ordering refs, and retry
+  budget remaining. Unqualified vectors expose `traversalAttemptEnvelope =
+  null` and stay on the legacy unmodulated path.
 
-Builders should expect this prompt shape and use it as the authoritative
-execution contract for one live edge.
+Builders consume the typed plugin input and prompt as the authoritative
+execution contract for one live edge. Schedule control comes from the typed
+envelope, not from prompt prose.
 
 Do not read this as "every deterministic finding must be cleared before the
 graph call can close."
