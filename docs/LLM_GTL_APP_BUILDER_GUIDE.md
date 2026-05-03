@@ -779,6 +779,7 @@ The hook model should stay narrow and explicit.
 The main hook concerns are:
 
 - `dispatch`
+- `traversal_modulation`
 - `evaluation`
 - `escalation`
 - `proof`
@@ -801,6 +802,30 @@ Examples:
 - default `F_P` dispatch
 - deterministic-first dispatch
 - worker or backend preference
+
+### `traversal_modulation`
+
+Traversal modulation governs how an agentic F_P attempt over one edge is
+schedule-bounded and progress-gated.
+
+The declaration surface is:
+
+- `GraphVector.declarations["abg.traversal_modulation"]` — primary edge
+  qualifier
+- `GraphFunction.declarations["abg.default_traversal_modulation"]` — function
+  default
+- `Role.policyHooks["abg.traversal_modulation"]` — role-level
+  default
+
+Resolution order is edge → graph-function default → role default. Duplicate or
+malformed qualifiers fail closed. An F_P vector with no qualifier at any layer
+remains on the legacy unmodulated path.
+
+Qualifier truth declares strategy primitives (`bounded_batch`,
+`ordered_schedule_prefix`, etc.), target / max item counts, ordering refs, and
+schedule item refs. ABG derives the typed `TraversalAttemptEnvelope` from the
+qualifier and passes it to the F_P plugin. Prompt prose is not the scheduler
+command surface.
 
 ### `evaluation`
 
@@ -1029,6 +1054,11 @@ ABG owns:
 - correction and supersession fact emission
 - payload identity and event-sourced payload-ledger projection
 - total assurance projection and closure-fold gating
+- attempt-envelope derivation from the GTL traversal-modulation qualifier
+- one shared dispatch-attempt law across sync and async runner modes
+- typed non-progress classification and continuation-action projection
+- forced-review gating on backend ambiguity
+- modulation exhaustion gating on retry-budget closure
 
 ABG does not own domain semantics beyond declared law.
 
@@ -1054,17 +1084,17 @@ be carried by typed or resolved runtime surfaces.
 
 ### ABG 3.4.0-rc.7 carrier extensions
 
-The rc.6 and rc.7 waves add output allocation, zoom-foldback, graph-span,
-cross-workspace allocation, and traversal modulation carriers. These are not
-optional. A graph function that takes inputs, produces typed outputs, or runs
-large agentic F_P work must consume them.
+The rc.7 carrier surface covers output allocation, zoom-foldback, graph-span
+foldback and reentry, cross-workspace allocation, eval-suite projection, typed
+non-progress continuation, and traversal modulation. These are not optional. A
+graph function that takes inputs, produces typed outputs, runs per-edge zoom
+work, or routes agentic F_P work must consume them.
 
-Traversal modulation is declared through GTL hook/config truth, with
-`GraphVector.declarations["abg.traversal_modulation"]` as the primary
-edge-qualifier surface and graph-function / role defaults below it. ABG derives
-the `TraversalAttemptEnvelope` from that qualifier and passes it to the F_P
-plugin through the same dispatch-attempt law in sync and async runner modes.
-Prompt prose is not the scheduler command surface.
+Traversal modulation is declared through GTL hook/config truth on the
+edge-qualifier surface. ABG derives the typed envelope, runs the same
+dispatch-attempt law on sync and async runners, classifies non-progress, and
+projects the typed continuation action. Prompt prose is not the scheduler
+command surface.
 
 #### T-082 output instance allocation
 
@@ -1210,6 +1240,59 @@ Builder rule: when the start request supplies `outputWorkspaceBinding`,
 allocation derives roots under W2; when it does not, allocation derives under
 the basis workspace. W2 represented as a string path without an admitted
 binding fails closed.
+
+#### T-106 typed non-progress and continuation-action projection
+
+T-106 admits typed non-progress derivation and a single typed continuation
+action over agentic F_P attempts that produced no progress artifact. It
+defends against the multiple-source-of-truth bug where one event projects
+several contradictory action verdicts.
+
+Carriers (`code/src/abg/m03/contracts/traversal_non_progress.ts`):
+
+- `TraversalNonProgressCarrier` — typed carrier holding `classification`,
+  `timeoutClass`, signal sequence, and replay-derivable basis lineage.
+- `TraversalContinuationActionProjection` — typed projection over the carrier
+  with `action` and `publicSummaryAction` fields.
+- `TraversalContinuationSummary` — public summary view consumed by downstream
+  agents.
+
+Timeout class enum (`TRAVERSAL_NON_PROGRESS_TIMEOUT_CLASS_VALUES`):
+
+- `inactivity_timeout`
+- `hard_timeout`
+- `transport_exit`
+
+Continuation action enum (`TRAVERSAL_CONTINUATION_ACTION_VALUES`):
+
+- `retry_same_edge`
+- `yield_same_edge_continuation`
+- `retry_exhausted`
+- `inspect_runtime_archive`
+- `reprice_runtime_policy`
+- `blocked`
+
+Multi-source-of-truth defense (`assertTraversalContinuationSummaryAgreement`):
+
+When a downstream consumer derives or receives a continuation summary
+independently of the projection, it must call
+`assertTraversalContinuationSummaryAgreement` to verify the public summary
+matches the carrier-derived projection. Drift on `action`,
+`publicSummaryAction`, classification, or timeout class fails closed.
+
+Composition with the T-100 retry allowlist:
+
+- The T-100 allowlist (`{transport_failure, no_output, contract_failure}`) is
+  the F_D-mechanical gate over which runtime failure classes admit retry at
+  all.
+- The T-106 continuation action is the typed semantic verdict over the
+  non-progress carrier. `retry_same_edge` is lawful only when the failure
+  class is allowlisted; otherwise the action projects to `blocked`,
+  `inspect_runtime_archive`, or `reprice_runtime_policy`.
+
+Builder rule: do not parse continuation intent from prompt prose, manifest
+notes, or worker output. Read the typed projection. When emitting your own
+candidate summary, validate against the projection before publishing.
 
 ## Graph-Span Foldback And Constitutional Reentry
 
