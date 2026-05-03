@@ -1294,6 +1294,93 @@ Builder rule: do not parse continuation intent from prompt prose, manifest
 notes, or worker output. Read the typed projection. When emitting your own
 candidate summary, validate against the projection before publishing.
 
+#### T-107 agentic F_P traversal modulation
+
+T-107 admits typed traversal modulation profiles for agentic F_P attempts.
+ABG resolves a `TraversalStrategyDirective` from GTL declaration truth,
+derives the `TraversalModulationProfile` and `TraversalAttemptEnvelope`, and
+passes the envelope to the F_P plugin through one shared dispatch-attempt
+law.
+
+Carriers (`code/src/abg/m03/contracts/traversal_modulation.ts`):
+
+- `TraversalStrategyDirective` — admitted directive with strategy primitives,
+  schedule item refs, target / max item counts, ordering refs, and source
+  classification.
+- `TraversalModulationProfile` — derived profile binding the directive to
+  policy refs, retry budget, progress contract, and continuation contract.
+- `TraversalAttemptEnvelope` — typed envelope passed to the F_P plugin with
+  `selectedScheduleItemRefs`, `targetItemCount`, `maxItemCount`,
+  `orderingConstraintRefs`, and retry budget remaining.
+- `TraversalAttemptProgressRow` — typed per-attempt progress observation
+  admitted by ABG.
+- `TraversalForcedReviewGate` — projection emitted when backend ambiguity
+  blocks semantic closure.
+- `AgenticBackendProgressProfile` — backend-classifier carrier feeding
+  modulation profile derivation.
+- `TraversalAffect` — typed affect classification (not emotional prose) used
+  by modulation profile derivation.
+
+Strategy primitives (`TRAVERSAL_SCHEDULING_PRIMITIVE_VALUES`): primitive
+labels are operator-meaningful tokens such as `bounded_batch` and
+`ordered_schedule_prefix`. ABG enforces the enum and schedule refs; it does
+not interpret arbitrary strategy strings.
+
+Resolution order (`tryResolveTraversalStrategyDirectiveFromGtl`):
+
+1. `GraphVector.declarations["abg.traversal_modulation"]` — edge qualifier.
+2. `GraphFunction.declarations["abg.default_traversal_modulation"]` —
+   function default.
+3. `Role.policyHooks["abg.traversal_modulation"]` — role
+   default.
+
+Duplicate or malformed qualifiers fail closed. An F_P vector unqualified at
+all three layers returns `null`. Unqualified vectors stay byte-identical to
+the legacy unmodulated path; this is the load-bearing opt-in safety property.
+
+Single dispatch-attempt law:
+
+- `deriveModulatedFpAttempt` — sole modulation derivation site.
+- `deriveFpDispatchAttemptInput` — sole F_P plugin input construction site,
+  consumed by both `runEngineIterate` (sync) and `runEngineIterateAsync`
+  (async).
+- `fpDispatchAttemptStartedEvents` — sole start-side event emitter, ordered
+  `fp_dispatch_requested → traversal_modulation_resolved →
+  traversal_attempt_envelope_derived → actor_invocation_started →
+  traversal_attempt_dispatched`. Modulation events fire only when the
+  qualifier resolves.
+- `fpDispatchAttemptNonProgressEvents` — sole non-progress emitter; returns
+  empty when modulation is null.
+
+Drift between sync and async runner modes on the modulation surface is
+structurally prevented; both routes pass through the same helper.
+
+Event kinds (constructed in `traversal_modulation.ts`):
+
+- `traversal_modulation_resolved`
+- `traversal_attempt_envelope_derived`
+- `traversal_attempt_dispatched`
+- `traversal_attempt_progress_observed`
+- `traversal_attempt_non_progress_classified`
+- `traversal_forced_review_projected`
+- `traversal_same_edge_continuation_planned`
+- `traversal_modulation_exhausted`
+
+Builder rules:
+
+- Declare the `abg.traversal_modulation` qualifier on agentic F_P vectors
+  that need bounded schedule control. Vectors that should remain unmodulated
+  carry no qualifier.
+- F_P plugins consume `TraversalAttemptEnvelope` from the engine plugin
+  input. The envelope is null on unqualified vectors.
+- F_P / F_D boundary holds: modulation derivation performs only mechanical
+  ref / length checks. Semantic judgment of `A.req_i → B.result_i` remains
+  F_P plugin truth.
+- Strategy primitives are descriptive tokens; ABG does not hardcode strategy
+  semantics. Downstream policy resolves primitives into runtime behavior.
+- Affect is typed classification, not emotional prose. Free-text affect on
+  the runtime surface fails closed.
+
 ## Graph-Span Foldback And Constitutional Reentry
 
 T-103 admits foldback over a contiguous run of graph vectors and routes
@@ -1443,12 +1530,14 @@ When building a new GTL/ABG app, execute this algorithm:
 9. Attach policy hooks for dispatch, evaluation, escalation, proof, and closure. Keep F_P plugins for semantic judgment and F_D plugins for mechanics; do not collapse the two.
 10. For graph functions that produce typed outputs, consume T-082 output allocation. When the start request crosses workspaces, supply an admitted T-104 `OutputWorkspaceBinding` (W2).
 11. For per-edge zoom work, derive an `ObligationLedgerAsset` from the input asset, derive the `ObligationScheduleAsset`, open a `ZoomFrame`, and let ABG run the dispatch/assess/fold loop until the five-term `edge_converged` predicate holds.
-12. Install or initialize the runtime surface.
-13. Run `gen-start` through the concrete CLI binding.
-14. Inspect events, projection, proof, closure, gaps, the zoom foldback decision, and the graph-span reentry frontier.
-15. Consume the graph-span foldback decision: close, retry the same edge, reenter at the earliest implicated vector, route a constitutional reentry per `change_class` and `re_entry_point`, or stop and reprice.
-16. For capability claims, emit `EvalSuiteSpec` / `EvalTask` / `EvalTrial` / `EvalOutcome` / `EvalGradeVector` and read `EvalAggregateProjection.passAtK` and `passAllK` before claiming a capability has landed.
-17. Correct, supersede, or reprice from emitted runtime facts.
+12. For agentic F_P vectors that need bounded schedule control, declare `GraphVector.declarations["abg.traversal_modulation"]` (or a graph-function / role default). ABG resolves the strategy directive, derives the `TraversalAttemptEnvelope`, and passes it to the F_P plugin through one shared dispatch-attempt law on both sync and async runners. Vectors that should remain unmodulated carry no qualifier.
+13. Consume `TraversalContinuationActionProjection` to decide retry vs yield-same-edge vs reprice vs inspect-runtime-archive vs blocked. Do not parse continuation intent from prompt prose. When publishing your own candidate summary, validate against the projection with `assertTraversalContinuationSummaryAgreement` before emitting downstream.
+14. Install or initialize the runtime surface.
+15. Run `gen-start` through the concrete CLI binding.
+16. Inspect events, projection, proof, closure, gaps, the zoom foldback decision, the graph-span reentry frontier, the modulation profile, the attempt envelope, and the typed continuation action.
+17. Consume the graph-span foldback decision: close, retry the same edge, reenter at the earliest implicated vector, route a constitutional reentry per `change_class` and `re_entry_point`, or stop and reprice.
+18. For capability claims, emit `EvalSuiteSpec` / `EvalTask` / `EvalTrial` / `EvalOutcome` / `EvalGradeVector` and read `EvalAggregateProjection.passAtK` and `passAllK` before claiming a capability has landed.
+19. Correct, supersede, or reprice from emitted runtime facts.
 
 Stop and reprice when:
 
@@ -1685,6 +1774,14 @@ to know whether convergence is real or constitutional reentry was routed:
 | `graph_span_foldback_evaluated` | Span foldback decision admitted. |
 | `graph_reentry_planned` | Reentry plan admitted with target vector or constitutional route. |
 | `graph_reentry_applied` | Reentry applied; shadowed vectors recorded for downstream replay. |
+| `traversal_modulation_resolved` | Strategy directive resolved from the GTL qualifier. |
+| `traversal_attempt_envelope_derived` | Typed envelope derived from the modulation profile and passed to the F_P plugin. |
+| `traversal_attempt_dispatched` | Modulated F_P attempt dispatched under the envelope. |
+| `traversal_attempt_progress_observed` | Typed per-attempt progress row admitted. |
+| `traversal_attempt_non_progress_classified` | Non-progress carrier classified into a typed continuation action. |
+| `traversal_forced_review_projected` | Backend ambiguity blocked semantic closure; forced-review gate admitted. |
+| `traversal_same_edge_continuation_planned` | Typed remaining schedule truth planned as same-edge continuation. |
+| `traversal_modulation_exhausted` | Retry budget closed; modulation exhausted on this edge. |
 
 CLI process exit codes classify the same loop for scripts (per
 `code/src/cli/command.ts:770-789`):
