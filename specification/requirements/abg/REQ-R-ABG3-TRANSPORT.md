@@ -51,3 +51,9 @@ product-local imperative code.
 **REQ-R-ABG3-TRANSPORT-018**: Actor stdout and stderr observation shall be recorded as process-boundary evidence while the process is running when the transport can observe it. Post-exit transcript capture alone shall not satisfy live-observation proof for long-running actor dispatch.
 
 **REQ-R-ABG3-TRANSPORT-019**: Actor invocation may return, block, fail, or time out only through typed ABG transport and result-admission outcomes. Worker self-report fields may inform transform assessment, but they shall not own retry, vector closure, traversal convergence, or release closure.
+
+**REQ-R-ABG3-TRANSPORT-020**: When a supervised `F_P` actor invocation terminates, times out, or becomes non-progressing without an admitted result artifact, admitted report, stream evidence, or declared progress signal, ABG shall expose that fact as a typed traversal non-progress carrier. The carrier shall be derivable from admitted runtime truth and shall not be invented by a downstream product summary.
+
+**REQ-R-ABG3-TRANSPORT-021**: A traversal non-progress carrier shall preserve the graph function, graph call, frame, vector, actor invocation, attempt, process identity when available, timeout class, stream byte counts, last heartbeat, signal sequence, exit status, artifact/report/progress observation flags, and evidence references used for classification.
+
+**REQ-R-ABG3-TRANSPORT-022**: ABG shall not classify traversal non-progress when a valid result artifact or admitted report exists for the actor invocation. Artifact/report salvage and admission precede retry projection; no-progress is reserved for absence of semantically assessable worker output.

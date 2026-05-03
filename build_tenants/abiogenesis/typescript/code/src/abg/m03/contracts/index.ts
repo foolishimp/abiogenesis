@@ -212,6 +212,12 @@ export {
   constructAmbiguityObservationAdmittedEvent,
   constructActorInvocationClosedEvent,
   constructActorInvocationStartedEvent,
+  constructActorProcessExitedEvent,
+  constructActorProcessHeartbeatEvent,
+  constructActorProcessSignalSentEvent,
+  constructActorProcessStartedEvent,
+  constructActorProcessStreamObservedEvent,
+  constructActorProcessTimeoutEvent,
   constructActorResultArtifactObservedEvent,
   constructAuthoritySnapshotAdmittedEvent,
   constructClosureInputPublishedEvent,
@@ -231,6 +237,27 @@ export {
   deriveIterationAdvanceDecision,
   runtimeEventsForIterationDecision
 } from "./iteration.js";
+export {
+  TRAVERSAL_CONTINUATION_ACTION_VALUES,
+  TRAVERSAL_NON_PROGRESS_CLASSIFICATION_VALUES,
+  TRAVERSAL_NON_PROGRESS_TIMEOUT_CLASS_VALUES,
+  assertTraversalContinuationSummaryAgreement,
+  deriveTraversalContinuationActionProjection,
+  deriveTraversalContinuationSummary,
+  deriveTraversalNonProgressCarrier,
+  runtimeFailureClassForTraversalTimeout
+} from "./traversal_non_progress.js";
+export type {
+  TraversalContinuationAction,
+  TraversalContinuationActionDerivationInput,
+  TraversalContinuationActionProjection,
+  TraversalContinuationRetryBudget,
+  TraversalContinuationSummary,
+  TraversalNonProgressCarrier,
+  TraversalNonProgressClassification,
+  TraversalNonProgressDerivationInput,
+  TraversalNonProgressTimeoutClass
+} from "./traversal_non_progress.js";
 export { deriveRuntimeAggregateProjection } from "./projection.js";
 export {
   admitOutputWorkspaceBinding,

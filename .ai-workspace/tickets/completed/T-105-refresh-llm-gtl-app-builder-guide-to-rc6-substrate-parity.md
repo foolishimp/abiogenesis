@@ -3,7 +3,8 @@ id: T-105
 title: RC.6 cross-surface consistency loop — docs, bootstrap, install, design, and operator-facing artifacts
 type: feature
 ticket_category: rc_consistency_loop
-status: active
+status: completed
+review_status: closed_operator_reviewed
 goal: rc6-cross-surface-consistency-with-substrate-actually-shipping
 change_intent: Run a full consistency audit across documentation, bootstrap, install, design, specification statements, operator-facing CLI outputs, and test-surface registries to detect and fix rc.4-era references that survive across rc cuts. Original scope (LLM_GTL_APP_BUILDER_GUIDE.md substrate refresh) is one node in the loop, not the whole ticket. Independent review of the guide refresh found three pre-existing field-level inaccuracies inherited across rc cuts (CLI start fields, lawful-next-move conflation, exit codes including 5 and 7 that do not exist in source); that finding generalizes — other surfaces likely carry analogous rc.4-era stale references that the rc.6 cut bumped version labels for without correcting content.
 change_class: realization_refactor
@@ -13,7 +14,9 @@ priority: high
 build_tenant: typescript
 triaged_at: 2026-05-02T13:06:08Z
 created_at: 2026-05-02T13:06:08Z
-updated_at: 2026-05-02T13:06:08Z
+updated_at: 2026-05-03T13:32:16+10:00
+closed_at: 2026-05-03T13:32:16+10:00
+closure_scope: ABG RC.6 cross-surface documentation/bootstrap consistency scope
 governance_scope: STDO Method
 governance_scope_expansion:
   - S: SPEC_METHOD.md
@@ -416,3 +419,9 @@ in one sentence, and points at deeper detail through Section 8 references.
 - `git diff --check`: clean
 - Bootloader-region byte-identity between `AGENTS.md` and `CLAUDE.md`: confirmed
 
+## Closure Review
+
+Closed on 2026-05-03 under STDO after operator review. The ticket is closed for
+the ABG RC.6 consistency scope captured above: builder guide refresh,
+operator-facing stale-reference audit, bootloader content audit, and the listed
+proof commands. No downstream consumer work remains attached to T-105.

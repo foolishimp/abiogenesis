@@ -1,6 +1,8 @@
-# abiogenesis 3.4.0-rc.6 Release Candidate Note
+# abiogenesis 3.4.0-rc.6 Build 20260503.1 Release Candidate Note
 
 This checkpoint is the current TypeScript ABG release-candidate source state.
+It keeps the RC identity at `3.4.0-rc.6` and publishes build
+`20260503.1` as the package/tag build identifier.
 
 It is an RC candidate, not the final tapped `3.4.0` release. The release
 identity remains explicit until the cut is committed, tagged, and accepted.
@@ -73,12 +75,22 @@ as released-reference evidence and is not an active RC gate while
 - T-103 wires graph-span reentry into the runner while preserving the
   constitutional boundary: the runner consumes admitted F_P span evidence and
   never produces graph-span assessment truth itself.
+- T-106 adds typed traversal non-progress continuation truth for blocked
+  no-artifact F_P attempts. ABG now derives one replay-visible
+  `TraversalNonProgressCarrier`, projects one
+  `TraversalContinuationActionProjection`, enforces summary/action agreement,
+  and wires the projection into the blocked F_P runner path without letting the
+  runner own semantic judgment.
+- T-105 closes the RC.6 cross-surface consistency loop for builder-facing docs,
+  bootstrap, and operator-facing stale-reference cleanup.
 
 ## Versioned Artifacts
 
 - RC branch: `rc/3.4.0`
-- Candidate package version: `3.4.0-rc.6`
-- Candidate tag: `v3.4.0-rc.6`
+- RC identity: `3.4.0-rc.6`
+- Build identifier: `20260503.1`
+- Candidate package version: `3.4.0-rc.6+build.20260503.1`
+- Candidate tag: `v3.4.0-rc.6+build.20260503.1`
 
 ## Verification
 
@@ -88,45 +100,29 @@ Current qualification evidence for this cut:
 npm run test:t082
 6 passed
 
-npm run test:semantic
-354 passed
-
 npm run lint:semantic
 passed
 
-npm run lint:test-harness
-passed
+npm run test:semantic
+368 passed
 
-npm run test:t100:test35-parity
-15 passed
-
-npm run test:t101
-2 passed
-
-npm run test:t102
-7 passed
-
-npm run test:t103
-24 passed
-
-npm run test:t104
-6 passed
-
-npm run test:t104:sandbox
-1 passed
+npm run test:t106
+14 passed
 
 git diff --check
 passed
 
 npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run
-passed, version 3.4.0-rc.6, files 308, package abiogenesis-typescript-tenant-3.4.0-rc.6.tgz
+passed, version 3.4.0-rc.6+build.20260503.1, files 310, package abiogenesis-typescript-tenant-3.4.0-rc.6+build.20260503.1.tgz
 ```
 
 The retained rc.4 live gates remain prior external-live evidence for the
 package line. The rc.6 tranche adds deterministic semantic, sandbox, and
-test35-parity proof for the ABG ledger/reentry substrate. T-101 includes a
-Codex live worker path pinned through the shared transport contract to
-`gpt-5.3-codex`; live execution remains operator-enabled.
+test35-parity proof for the ABG ledger/reentry substrate. Build 20260503.1
+adds T-106 no-progress continuation proof and preserves the T-103 graph-span
+reentry boundary. T-101 includes a Codex live worker path pinned through the
+shared transport contract to `gpt-5.3-codex`; live execution remains
+operator-enabled.
 
 ## Current Blocking Non-Claim
 
@@ -143,5 +139,6 @@ source RC.
 
 ## RC Decision
 
-The release operator has requested an RC cut. This tag is a release-candidate
-checkpoint, not the final tapped `3.4.0` release.
+The release operator has requested an RC6 build cut. This tag is a
+release-candidate build checkpoint, not a new RC and not the final tapped
+`3.4.0` release.

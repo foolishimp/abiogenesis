@@ -1,6 +1,8 @@
 # abiogenesis 3.4.0-rc.6 RC Notes
 
-This note records accepted RC behavior for the current `v3.4.0-rc.6` cut.
+This note records accepted RC behavior for the current `v3.4.0-rc.6` line.
+The package build cut is `3.4.0-rc.6+build.20260503.1`; the RC identity remains
+`rc.6`.
 
 ## Accepted Framework Behavior
 
@@ -252,6 +254,26 @@ Accepted behavior:
 - the mini data-mapper redux sandbox can run deterministic cross-workspace
   review streams and write forensic comparison artifacts under `test_runs`
 
+### Typed Traversal Non-Progress Continuation Is ABG Runtime Truth
+
+The rc.6 build 20260503.1 accepts T-106 as ABG substrate.
+
+Accepted behavior:
+
+- a blocked no-artifact F_P attempt is not summarized through downstream-local
+  retry or triage convention
+- ABG derives a replay-visible `TraversalNonProgressCarrier` from invocation,
+  process, stream, timeout, artifact/report/progress, and evidence facts
+- ABG projects one `TraversalContinuationActionProjection` as the public next
+  action truth for that attempt
+- public summaries must agree with the projected action and fail closed on
+  drift
+- retry eligibility composes with the T-100 retry taxonomy and T-103 graph-span
+  reentry remains separate
+- the runner consumes the projection at the blocked F_P no-artifact path; it
+  does not inspect obligation rows, compute semantic fulfillment, or fabricate
+  F_P graph-span assessment truth
+
 ## Current Verification Footer
 
 The current RC proving footer is:
@@ -263,9 +285,9 @@ The current RC proving footer is:
 - `npm run test:t103`: `24 passed`
 - `npm run test:t104`: `6 passed`
 - `npm run test:t104:sandbox`: `1 passed`
-- `npm run test:semantic`: `354 passed`
+- `npm run test:t106`: `14 passed`
+- `npm run test:semantic`: `368 passed`
 - `npm run lint:semantic`: `passed`
-- `npm run lint:test-harness`: `passed`
 - `git diff --check`: `passed`
 - `npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run`: `passed`,
-  package `3.4.0-rc.6`, `308 files`
+  package `3.4.0-rc.6+build.20260503.1`, `310 files`

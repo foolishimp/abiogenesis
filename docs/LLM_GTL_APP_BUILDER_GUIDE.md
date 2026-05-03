@@ -1403,7 +1403,8 @@ The UX should expose lawful next moves from runtime facts.
 
 The live kernel in this repo is `abiogenesis`.
 
-The current source version is `3.4.0-rc.6`.
+The current source version is `3.4.0-rc.6+build.20260503.1`. The RC identity
+remains `3.4.0-rc.6`.
 
 ### Run from source
 
@@ -2304,7 +2305,7 @@ cd /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript
 npm run build:semantic
 npm pack
 cd /path/to/project
-npm install /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/abiogenesis-typescript-tenant-3.4.0-rc.6.tgz
+npm install /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/abiogenesis-typescript-tenant-3.4.0-rc.6+build.20260503.1.tgz
 ```
 
 For product-owned bootstrap, use the package API:
@@ -2318,8 +2319,8 @@ const installOutcome = await installBootstrap(
     installedPackageName: "@example/delivery-app",
     runtimePackage: {
       packageName: "@abiogenesis/typescript-tenant",
-      packageVersion: "3.4.0-rc.6",
-      dependencyRef: "file:./abiogenesis-typescript-tenant-3.4.0-rc.6.tgz",
+      packageVersion: "3.4.0-rc.6+build.20260503.1",
+      dependencyRef: "file:./abiogenesis-typescript-tenant-3.4.0-rc.6+build.20260503.1.tgz",
       appExportSubpath: "./app/m04",
       requiredExports: [".", "./app/m04"]
     }

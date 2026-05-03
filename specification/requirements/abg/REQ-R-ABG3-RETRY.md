@@ -25,3 +25,7 @@ domain-specific retry logic into the substrate.
 **REQ-R-ABG3-RETRY-005**: Domain products may override retry behavior only through declared GTL or policy surfaces. Domains may refine retry budget, retryability, escalation target, or progress criteria, but they shall not replace substrate-owned retry execution truth with a shadow runtime.
 
 **REQ-R-ABG3-RETRY-006**: Retryable same-edge repair may continue while the configured policy still permits continuation and new signal is being produced. When configured retry budget is exhausted or successive attempts produce no new signal, ABG shall stop or escalate through authoritative runtime fact emission.
+
+**REQ-R-ABG3-RETRY-007**: Traversal non-progress retry eligibility shall be projected by ABG from replay-derived runtime truth, retry policy, and the retryable runtime failure class allowlist. A downstream product shall not compute retry eligibility from a product-local dossier, shard summary, or private loop state.
+
+**REQ-R-ABG3-RETRY-008**: Traversal non-progress timeout classes shall map into the existing retry failure taxonomy before retry projection. `inactivity_timeout` maps to `no_output`; `hard_timeout` and `transport_exit` map to `transport_failure`; payload or report contract defects map to `contract_failure` only after deterministic artifact/report admission rejects them.

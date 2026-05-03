@@ -1,6 +1,6 @@
 {
   "name": "@abiogenesis/typescript-tenant",
-  "version": "3.4.0-rc.6",
+  "version": "3.4.0-rc.6+build.20260503.1",
   "private": true,
   "type": "module",
   "types": "./build/semantic/code/src/index.d.ts",
@@ -157,7 +157,8 @@
     "test:t103": "npm run build:semantic && node --test test_env/tests/test_t103_graph_span_reentry_unit.test.mjs test_env/tests/test_t103_graph_span_reentry_semantic_deep.test.mjs",
     "test:t104:unit": "npm run build:semantic && node --test test_env/tests/test_t104_cross_workspace_output_allocation_unit.test.mjs",
     "test:t104:sandbox": "npm run build:semantic && node --test test_env/sandbox/test_t104_cross_workspace_mini_dm_forensics_sandbox.test.mjs",
-    "test:t104": "npm run build:semantic && node --test test_env/tests/test_t104_cross_workspace_output_allocation_unit.test.mjs test_env/sandbox/test_t104_cross_workspace_mini_dm_forensics_sandbox.test.mjs"
+    "test:t104": "npm run build:semantic && node --test test_env/tests/test_t104_cross_workspace_output_allocation_unit.test.mjs test_env/sandbox/test_t104_cross_workspace_mini_dm_forensics_sandbox.test.mjs",
+    "test:t106": "npm run build:semantic && node --test test_env/tests/test_t106_traversal_non_progress_continuation.test.mjs"
   },
   "dependencies": {
     "valibot": "1.3.1"

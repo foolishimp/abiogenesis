@@ -53,12 +53,27 @@ import {
   type EnginePluginMaybePromise,
   type EngineRunnerPluginSet,
   type FdEvaluatorPlugin,
+  type FpDispatchOutcome,
   type FhAdmissionPlugin,
   type FpDispatchPlugin
 } from "../contracts/plugins.js";
+import {
+  deriveRetryRepairDecision,
+  runtimeEventsForRetryRepairDecision
+} from "../contracts/retry_repair.js";
+import {
+  assertTraversalContinuationSummaryAgreement,
+  deriveTraversalContinuationActionProjection,
+  deriveTraversalContinuationSummary,
+  deriveTraversalNonProgressCarrier,
+  type TraversalContinuationSummary
+} from "../contracts/traversal_non_progress.js";
 import { emit, type RuntimeEventSink } from "../events/index.js";
 import { dispatchRequestsForTransition } from "../transport/index.js";
-import { deriveAttachedFpResultDecision } from "./attached_fp_worker.js";
+import {
+  DEFAULT_ATTACHED_FP_MAX_RETRY_ATTEMPTS,
+  deriveAttachedFpResultDecision
+} from "./attached_fp_worker.js";
 import {
   constructNotEvaluatedAssuranceGate,
   evaluateAssuranceGate,
@@ -247,6 +262,120 @@ function resultRefForActorOutcome(input: {
   readonly outcomeResultRef: string | null;
 }): string {
   return input.outcomeResultRef ?? input.invocation.resultRef;
+}
+
+function candidateNoProgressRetryManifestId(input: {
+  readonly basis: ExecutionBasis;
+  readonly projection: RuntimeAggregateProjection;
+  readonly vectorIndex: number;
+}): string {
+  const attemptIndex =
+    input.projection.retryAttemptRefs.filter(
+      (attempt) => attempt.vectorIndex === input.vectorIndex
+    ).length + 1;
+  return `manifest:fp_no_progress_retry:${JSON.stringify({
+    basisId: input.basis.id,
+    vectorIndex: input.vectorIndex,
+    attemptIndex
+  })}`;
+}
+
+function noProgressContinuationRepair(input: {
+  readonly basis: ExecutionBasis;
+  readonly projection: RuntimeAggregateProjection;
+  readonly vectorIndex: number;
+}) {
+  const observedAttemptCount = input.projection.retryAttemptRefs.filter(
+    (attempt) => attempt.vectorIndex === input.vectorIndex
+  ).length;
+  const prefix = `continuation:${input.basis.id}:${input.vectorIndex}:no_progress`;
+  return Object.freeze({
+    terminatedContinuationId: `${prefix}:attempt:${observedAttemptCount}`,
+    reopenedContinuationId: `${prefix}:attempt:${observedAttemptCount + 1}`
+  });
+}
+
+type BlockedFpNoArtifactContinuation =
+  | {
+      readonly kind: "retry";
+      readonly summary: TraversalContinuationSummary;
+      readonly retryEvents: readonly RuntimeEvent[];
+    }
+  | {
+      readonly kind: "terminal";
+      readonly summary: TraversalContinuationSummary;
+      readonly transition: TerminalTransition;
+    };
+
+function deriveBlockedFpNoArtifactContinuation(input: {
+  readonly basis: ExecutionBasis;
+  readonly projection: RuntimeAggregateProjection;
+  readonly transition: Extract<AdvancementTransition, { readonly kind: "fp_dispatch" }>;
+  readonly actorInvocation: ActorInvocation;
+  readonly outcome: FpDispatchOutcome;
+  readonly maxAttempts: number;
+}): BlockedFpNoArtifactContinuation {
+  const carrier = deriveTraversalNonProgressCarrier({
+    basis: input.basis,
+    projection: input.projection,
+    vectorIndex: input.transition.vectorIndex,
+    actorInvocationId: input.actorInvocation.actorInvocationId
+  });
+  const action = deriveTraversalContinuationActionProjection({
+    basis: input.basis,
+    projection: input.projection,
+    carrier,
+    maxAttempts: input.maxAttempts
+  });
+  const summary = deriveTraversalContinuationSummary(action);
+  assertTraversalContinuationSummaryAgreement({
+    projection: action,
+    summary
+  });
+
+  if (summary.action === "retry_same_edge") {
+    const retryDecision = deriveRetryRepairDecision({
+      basis: input.basis,
+      projection: input.projection,
+      failedVectorIndex: input.transition.vectorIndex,
+      priorManifestId: input.outcome.resultRef ?? input.actorInvocation.resultRef,
+      candidateManifestId: candidateNoProgressRetryManifestId({
+        basis: input.basis,
+        projection: input.projection,
+        vectorIndex: input.transition.vectorIndex
+      }),
+      maxAttempts: input.maxAttempts,
+      stationary: false,
+      escalationSubjectRef: input.basis.resolvedPolicy.approvalSubjectRef,
+      continuationRepair: noProgressContinuationRepair({
+        basis: input.basis,
+        projection: input.projection,
+        vectorIndex: input.transition.vectorIndex
+      })
+    });
+    if (retryDecision.kind !== "retry_planned") {
+      throw new TypeError(
+        "Traversal no-progress retry projection drifted from retry repair decision"
+      );
+    }
+    return Object.freeze({
+      kind: "retry",
+      summary,
+      retryEvents: runtimeEventsForRetryRepairDecision(retryDecision)
+    });
+  }
+
+  const terminalKind: TerminalTransition["terminalKind"] =
+    summary.action === "yield_same_edge_continuation" ? "yielded" : "gap_stop";
+  return Object.freeze({
+    kind: "terminal",
+    summary,
+    transition: terminalTransition(
+      input.basis,
+      terminalKind,
+      `traversal_continuation:${summary.action}:${summary.reason}`
+    )
+  });
 }
 
 function constructResult(input: {
@@ -598,15 +727,24 @@ export function runEngineIterate(
           })
         );
         if (outcome.status === "blocked") {
-          const blocked = terminalTransition(
-            request.basis,
-            "gap_stop",
-            outcome.reason ?? "fp dispatch plugin blocked traversal"
-          );
-          emitRunnerEvents(constructTerminalReachedEvent(blocked));
+          const continuation = deriveBlockedFpNoArtifactContinuation({
+            basis: request.basis,
+            projection: deriveRuntimeAggregateProjection(request.basis, replayEvents),
+            transition,
+            actorInvocation,
+            outcome,
+            maxAttempts:
+              request.maxAttachedFpAttempts ??
+              DEFAULT_ATTACHED_FP_MAX_RETRY_ATTEMPTS
+          });
+          if (continuation.kind === "retry") {
+            emitRunnerEvents(continuation.retryEvents);
+            break;
+          }
+          emitRunnerEvents(constructTerminalReachedEvent(continuation.transition));
           return constructResult({
             basis: request.basis,
-            transition: blocked,
+            transition: continuation.transition,
             projection: deriveRuntimeAggregateProjection(request.basis, replayEvents),
             emittedEvents,
             replayEvents,
@@ -1002,15 +1140,24 @@ export async function runEngineIterateAsync(
           })
         );
         if (outcome.status === "blocked") {
-          const blocked = terminalTransition(
-            request.basis,
-            "gap_stop",
-            outcome.reason ?? "fp dispatch plugin blocked traversal"
-          );
-          emitRunnerEvents(constructTerminalReachedEvent(blocked));
+          const continuation = deriveBlockedFpNoArtifactContinuation({
+            basis: request.basis,
+            projection: deriveRuntimeAggregateProjection(request.basis, replayEvents),
+            transition,
+            actorInvocation,
+            outcome,
+            maxAttempts:
+              request.maxAttachedFpAttempts ??
+              DEFAULT_ATTACHED_FP_MAX_RETRY_ATTEMPTS
+          });
+          if (continuation.kind === "retry") {
+            emitRunnerEvents(continuation.retryEvents);
+            break;
+          }
+          emitRunnerEvents(constructTerminalReachedEvent(continuation.transition));
           return constructResult({
             basis: request.basis,
-            transition: blocked,
+            transition: continuation.transition,
             projection: deriveRuntimeAggregateProjection(request.basis, replayEvents),
             emittedEvents,
             replayEvents,
