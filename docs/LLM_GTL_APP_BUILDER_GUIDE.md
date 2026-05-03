@@ -1084,7 +1084,7 @@ be carried by typed or resolved runtime surfaces.
 
 ### ABG 3.5.0-rc.1 carrier extensions
 
-The rc.7 carrier surface covers output allocation, zoom-foldback, graph-span
+The carrier surface covers output allocation, zoom-foldback, graph-span
 foldback and reentry, cross-workspace allocation, eval-suite projection, typed
 non-progress continuation, and traversal modulation. These are not optional. A
 graph function that takes inputs, produces typed outputs, runs per-edge zoom
@@ -1826,6 +1826,86 @@ The TypeScript installer creates:
 Then run through the installed language surface described in the relevant
 appendix.
 
+### Traced agent call-out substrate
+
+Every framework-owned call-out whose purpose is invoking an `agent.actor` or
+`agent.worker` enters one library interface:
+
+```text
+agent.actor / agent.worker call-out
+  -> runAgentActorWorkerCallout(request)
+    -> runTracedProcess(request)
+      -> executor (local-spawn | pty-terminal)
+      -> parser (generic-text | claude-stream-json)
+      -> typed TracedProcessOutcome
+      -> per-call trace archive
+```
+
+Surfaces:
+
+- `runTracedProcess` — process execution substrate. Owns spawn/PTY, stream
+  capture, timeout/signal mechanics, parser invocation, archive writing.
+- `runAgentActorWorkerCallout` — typed framework call-out interface. Carries
+  `agentCalloutKind: "agent_actor" | "agent_worker"`.
+- `runAgentTransport` — adapter that prepares an agent worker call-out from a
+  named transport contract (claude/codex/gemini) and delegates to
+  `runAgentActorWorkerCallout`.
+- `invokeSupervisedProcessActor` — ABG runtime adapter. Translates
+  call-out observations into `actor_process_started`,
+  `actor_process_stream_observed`, `actor_process_timeout`,
+  `actor_process_signal_sent`, and `actor_process_exited` runtime events.
+- No framework agent call-out path uses local `spawn` or `spawnSync`. The
+  semantic guard in `test_t109_agent_callout_guard.test.mjs` enforces this.
+
+Executor profiles (`TracedProcessExecutorProfile`):
+
+- `local-spawn` — fresh subprocess per call. Default. Deterministic for unit
+  tests. `streamModel = "stdio"`.
+- `pty-terminal` — literal terminal session backed by GNU `screen -L`.
+  Terminal transcript captured under `terminal_session/screenlog.0`.
+  `streamModel = "terminal-transcript"`. The substrate probes shell execution
+  capability, not just `screen -ls`; if the daemon's child shell cannot run,
+  the call returns `outcome.kind = "executor_unavailable"` with reason
+  `screen_missing` or `screen_shell_unavailable`.
+
+Parser registry (`TracedProcessParser`):
+
+- `generic-text` — raw stdout is the final output.
+- `claude-stream-json` — the substrate parses NDJSON stream events from
+  `claude -p --output-format stream-json --verbose`, accumulates
+  `apiRetryEvents`, `toolCallEvents`, and a final result text. Result-event
+  text is canonical; assistant text chunks are a fallback for older or
+  degraded stream shapes. The accumulator is a pure parser state with no I/O,
+  so whole-log replay and live streaming share one implementation.
+
+Typed outcome (`TracedProcessOutcome`) replaces nullable
+`(status, signal, error)`:
+
+| Outcome | Meaning |
+| --- | --- |
+| `exited` | Process exited with `status: number`. Inspect status and stderr. |
+| `signaled` | Killed by a signal (e.g. `SIGTERM`, `SIGKILL`). |
+| `hard_timeout` | Per-call wall clock exceeded `timeoutMs`. |
+| `inactivity_timeout` | No output for `inactivityTimeoutMs`. Often an upstream stall. |
+| `executor_unavailable` | Executor backend missing or unrunnable. Falls back to local-spawn or repair the backend. |
+| `launch_failed` | Subprocess could not start. Check command/args/cwd. |
+| `process_error` | Node-level child error (ENOENT, EACCES, etc.). |
+| `lost_terminal` | PTY session ended before the exit sentinel was written. Inspect `terminal_session/screenlog.0`. |
+
+Agent transport failure classification (`AgentTransportFailureClass`):
+
+- `transport_failure` — agent process did not deliver. Retryable per the ABG
+  allowlist. Triggers include any non-`exited` outcome, pre-init crash
+  (`structuredEventCount === 0` for claude-stream-json), `apiRetryCount > 0`,
+  empty text and empty stderr with non-zero status, and `API Error:` /
+  `ETIMEDOUT` / `ECONNRESET` patterns in error text.
+- `no_output` — exit 0 with empty text. Agent ran but produced nothing.
+- `contract_failure` — non-zero exit with stderr explanation. Agent rejected
+  the input or the request was semantically invalid.
+
+Only `transport_failure`, `no_output`, and `contract_failure` are
+retry-eligible per the runtime allowlist.
+
 ### Live transport readiness
 
 For live qualification, "CLI installed" is not sufficient.
@@ -1837,7 +1917,10 @@ You need:
 - an active authenticated session
 
 If live qualification reports transport unavailability, repair the agent/session
-first. Do not misclassify that as a GTL or ABG product failure.
+first. Do not misclassify that as a GTL or ABG product failure. The substrate
+classifies transport unavailability as `outcome.kind = "executor_unavailable"`
+or `failureClass = "transport_failure"` and writes a per-call trace archive;
+inspect that archive before assuming a substrate or product defect.
 
 ### What constructive dispatch exposes
 
@@ -1889,6 +1972,80 @@ or corrective obligations are still emitted as runtime fact truth, unless the
 declared policy marks them as blocker-class conditions.
 
 The post-mortem audit is the decisive operational surface.
+
+### Per-call trace archive
+
+Every traced call-out produces a self-contained archive at the request's
+`archiveRoot`:
+
+```text
+<archiveRoot>/
+  meta.json              session id, label, parser, executorProfile, streamModel, terminalSessionKey
+  command.json           command, args, cwd, timeoutMs, terminationGraceMs, inactivityTimeoutMs
+  events.ndjson          append-only trace events (one JSON object per line)
+  stdout.raw             raw stdout bytes captured from the agent
+  stderr.raw             raw stderr bytes captured from the agent
+  final_output.txt       parser-derived final artifact text
+  result.json            full TracedProcessResult including typed outcome
+  terminal_session/      pty-terminal only: GNU screen log + transcript
+    screenlog.0
+```
+
+`result.json` carries the canonical `outcome` (typed union) plus legacy
+nullable `status` / `signal` / `error` fields. New diagnostic code reads
+`outcome.kind` first; the nullable fields are preserved for legacy callers and
+will be deprecated.
+
+Trace event kinds in `events.ndjson` (non-exhaustive):
+
+- subprocess lifecycle: `process_starting`, `process_started`, `stdout_chunk`,
+  `stderr_chunk`, `process_signal_sent`, `process_exited`, `process_error`
+- timeout: `hard_timeout`, `timeout_escalated`, `idle`,
+  `inactivity_timeout_escalated`
+- terminal lifecycle (pty-terminal only):
+  `terminal_session_starting`, `terminal_session_started`,
+  `terminal_turn_started`, `terminal_input_written`,
+  `terminal_exit_sentinel_observed`, `terminal_turn_completed`,
+  `terminal_session_unhealthy`, `terminal_session_closed`
+- claude-stream-json parser: `structured_event_observed`,
+  `api_retry_observed`, `tool_call_observed`,
+  `structured_event_parse_failed`
+
+For `runAgentTransport` callers there is also a sibling `<label>-transport.json`
+adjacent to the trace archive carrying the typed `failureClass`,
+`apiRetryCount`, `toolCallCount`, `structuredEventCount`, and a pointer to the
+trace via `traceRoot` and `traceResultPath`.
+
+### Diagnostic playbook
+
+Symptom → first place to look.
+
+| Symptom | Diagnostic path |
+| --- | --- |
+| Agent call returned no output and timed out | `result.json` `outcome.kind`. `hard_timeout` means the wall budget was exceeded; raise `timeoutMs` or tighten the prompt. `inactivity_timeout` usually indicates an upstream API retry storm — see retry storm row. |
+| Suspected API retry storm under `claude-stream-json` | `result.json` `apiRetryEvents.length`. Walk `events.ndjson` for `api_retry_observed` to see attempt sequence and backoff. If retries exhausted the budget, classify as `transport_failure` and let the ABG allowlist drive retry policy. Do not raise `timeoutMs` blindly. |
+| Pre-init crash (process exited non-zero with no observable agent output) | `result.json` `structuredEventCount === 0` plus `outcome.kind === "exited"` with non-zero `status`, or `outcome.kind === "process_error"`. Inspect `stderr.raw`. With `claude-stream-json` parser the absence of `init` system events triggers `failureClass = "transport_failure"`. |
+| Agent emits TUI noise but no parseable JSON | `result.json` `structuredParseFailureCount > 0`. Walk `events.ndjson` for `structured_event_parse_failed` lines. Verify the agent invocation enables `--output-format stream-json`. |
+| Tool exploration is eating the budget | `result.json` `toolCallEvents.length` and per-event entries. Walk `events.ndjson` for `tool_call_observed`. Tighten the prompt or disable tool use for the call-out. |
+| PTY executor reports unavailable | `result.json` `outcome.kind === "executor_unavailable"`, with `reason: "screen_missing"` (no `screen` binary) or `reason: "screen_shell_unavailable"` (screen runs but the child shell cannot write the capability marker). Install `screen`, fall back to `executorProfile = "local-spawn"`, or fix the shell environment. |
+| PTY session ended without producing a final answer | `result.json` `outcome.kind === "lost_terminal"`. Inspect `terminal_session/screenlog.0` for the last terminal output. The session was closed before the exit sentinel landed; possible causes are external `screen -X quit`, OS signal, or the inner agent crashing without flushing. |
+| Agent killed by SIGTERM mid-output | `result.json` `outcome.kind === "signaled"` with `signal: "SIGTERM"`. The substrate sent `SIGTERM` for either `hard_timeout` or `inactivity_timeout`; the prior typed outcome (in nested `terminal_*` events) names which. SIGKILL means the termination grace window was exhausted. |
+| Agent finished cleanly but produced no text | `result.json` `outcome.kind === "exited"`, `status: 0`, `failureClass: "no_output"`. Prompt/contract problem, not transport. |
+| Agent exited with stderr explaining rejection | `failureClass: "contract_failure"`. Inspect `stderr.raw`. Not retryable as transport; reprice the request. |
+| `runAgentTransport` succeeded but ABG retry classification disagrees | Cross-check `transport.json` `failureClass` against `traced.outcome.kind` in `result.json`. Only `transport_failure`, `no_output`, and `contract_failure` are retry-eligible per `RETRYABLE_RUNTIME_FAILURE_CLASSES`. |
+
+For an ABG-supervised call (via `invokeSupervisedProcessActor`), the same
+trace archive is written under `<processEventsPath>.trace/` and the ABG event
+stream additionally carries `actor_process_started`,
+`actor_process_stream_observed`, `actor_process_heartbeat`,
+`actor_process_timeout`, `actor_process_signal_sent`, and
+`actor_process_exited` events. Heartbeats are emitted at `heartbeatMs`
+intervals while the call-out is in flight; their absence is itself a signal
+that the supervising actor was killed or the runtime stalled.
+
+Do not paraphrase `result.json` `outcome` from prompt prose. Always read the
+typed field. Outcome ambiguity in narrative summaries is the single most
+common diagnostic miscalibration.
 
 ## First Practical Slice
 

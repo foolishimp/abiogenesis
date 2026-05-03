@@ -56,8 +56,8 @@ This realisation of Spec-Driven Development is three independent bodies of work 
 
 ```mermaid
 graph TB
-    subgraph L1["Methodology — the WHAT"]
-        SM[specification_methodology<br/>SPEC_METHOD · TICKET_METHOD<br/>RELEASE_METHOD · WRITING_GUIDE]
+    subgraph L1["Methodology — the WHAT (STDO)"]
+        SM[specification_methodology<br/>SPEC_METHOD · TICKET_METHOD<br/>DESIGN_MODULE_METHOD · ODD_METHOD]
     end
     subgraph L2["Algebra & Engine — the HOW"]
         GTL[GTL<br/>graph-first declarative language]
@@ -65,9 +65,7 @@ graph TB
         GTL -.interprets.-> ABG
     end
     subgraph L3["Implementation — the PROCESS"]
-        OM[odd_method<br/>Outcome-Driven Development<br/>methodology — 'Jim's ODD']
-        ODD[odd_sdlc<br/>worksite lifecycle<br/>as a GTL Module]
-        OM -.realised as.-> ODD
+        ODD[odd_sdlc<br/>worksite lifecycle realising ODD_METHOD<br/>as a GTL Module on ABG]
     end
     L1 -->|constitutional authority| L2
     L1 -->|constitutional authority| L3
@@ -86,13 +84,18 @@ The separation is load-bearing. A drift at one layer is recognisable as a drift 
 
 ## 5. The Methodology Layer — `specification_methodology`
 
-The methodology layer defines what Spec-Driven Development is before any software exists. Its central document, `SPEC_METHOD.md`, states the litmus tests every specification artifact must satisfy: live-surface immutability, trace closure, anti-drift, installed-dev proof.
+The methodology layer defines what Spec-Driven Development is before any software exists. Four constitutional methods make up its governance surface, collectively known as **STDO**:
+
+- `SPEC_METHOD.md` — what a specification artifact must satisfy: live-surface immutability, trace closure, anti-drift, installed-dev proof
+- `TICKET_METHOD.md` — how defects, regressions, and change proposals are recorded as first-class artifacts with admission criteria
+- `DESIGN_MODULE_METHOD.md` — how design decomposes into governed modules with explicit derivation from requirements and explicit downstream realisation contracts
+- `ODD_METHOD.md` — how outcome-driven delivery treats a project as an active worksite, classifies disturbance as a lawful act, and binds AI construction to declared graph functions and evaluators
 
 Companion documents extend the constitution:
 
-- `TICKET_METHOD.md` — how defects, regressions, and change proposals are recorded as first-class artifacts with admission criteria
 - `RELEASE_METHOD.md` — how a set of artifacts becomes a release with stable identity and reproducible contents
 - `WRITING_GUIDE.md` — how specification text is written so it remains usable to humans and machines across authorship changes
+- `POSTING_GUIDE.md`, `IDENTITY_METHOD.md`, `UX_METHOD.md`, and others — additional surfaces governing commentary, identity, and operator-facing artifacts
 
 These documents describe what specifications must do to be trusted. They do not describe software. A project in Python, in Scala, or in a language that does not yet exist can be governed by the same methodology, because the methodology governs specifications, not code.
 
@@ -113,7 +116,7 @@ Work is declared as a graph of lawful transitions between typed nodes. Convergen
 ABG is the canonical interpreter for GTL. Its runtime law is event-sourced and carrier-owned by construction:
 
 - every state change is an append-only event
-- runtime advancement is carried by typed data — `ExecutionBasis`, `AdvancementTransition`, `RegimeBindingSet` — rather than controller-local result dictionaries
+- runtime advancement is carried by typed carriers including `ExecutionBasis`, `AdvancementTransition`, `RegimeBindingSet`, and the typed surfaces for output allocation, zoom-foldback, traversal modulation, and traced agent call-outs
 - every artifact records what produced it and under what constraints
 - the entire system state is derivable from the event stream
 - the typed carrier is structurally required; if it is absent, the engine refuses to advance
@@ -126,26 +129,27 @@ Three evaluator regimes classify what counts as accepted work:
 
 ```mermaid
 graph LR
-    subgraph GTL_BOX["GTL — declarative language"]
-        N[Node] --> V[GraphVector]
-        V --> N
-        OP[Operator]
-        EV[Evaluator]
-        GF[GraphFunction]
-        MOD[Module]
-    end
-    subgraph ABG_BOX["ABG — runtime"]
-        TR[Traversal] --> EM[Event Stream<br/>append-only]
-        EM --> PR[Projection<br/>replay-derived]
-        SEL[Selection<br/>lawful alternatives only]
-        REG{{"Regimes<br/>F_D · F_P · F_H"}}
-    end
-    GTL_BOX -.interpreted by.-> ABG_BOX
-    EV --- REG
+    SPEC[Specification<br/>requirements and ADRs]
+    WORK[AI construction<br/>F_P regime]
+    FD{F_D check<br/>schemas · hashes · tests}
+    FH{F_H approval<br/>where judgement is required}
+    EVENT[Append-only event<br/>this is the runtime truth]
+    PROJ[Replayable record<br/>any state derived from events]
 
-    style GTL_BOX fill:#eef7ff,stroke:#333
-    style ABG_BOX fill:#e6f4ea,stroke:#333
+    SPEC -->|constrains| WORK
+    WORK -->|attempts work| FD
+    FD -.refused.-> WORK
+    FD -->|attested| EVENT
+    FH -->|approved| EVENT
+    EVENT --> PROJ
+    PROJ -.audited against.-> SPEC
+
+    style SPEC fill:#eef7ff,stroke:#333
+    style EVENT fill:#e6f4ea,stroke:#333
+    style PROJ fill:#e6f4ea,stroke:#333
 ```
+
+The diagram shows the governance loop in plain terms. The specification authorises what the AI may construct. Deterministic checks decide whether the output is admitted as runtime truth, or returned for another attempt. Human approval is a parallel acceptance lane where judgement is genuinely required. Once admitted, an event becomes the system's record; the current state is derived from the event log by replay, and any audit reads back against the specification that authorised the work.
 
 Three runtime rules keep the separation honest:
 
@@ -157,32 +161,31 @@ A methodology statement like "every requirement must appear in a test before del
 
 ---
 
-## 7. The ODD Layer — `odd_method` and `odd_sdlc`
+## 7. ODD — Constitutional Method And Worksite Implementation
 
 The methodology and engine described in the previous sections are reusable across many delivery shapes. This project ships **Outcome-Driven Development** — within the project, "Jim's ODD" — as its domain methodology.
 
-ODD has two parts at this layer. `odd_method` states the ODD constitution: the position that a project is an active worksite, not a one-shot pipeline that ends at release. `odd_sdlc` is the running implementation — a GTL Module that declares ODD's worksite lifecycle as graph functions executed by ABG. The method is the WHAT for this delivery line; the SDLC is the HOW, expressed in the same graph-first vocabulary the engine enforces.
+ODD has two parts that span two layers. `ODD_METHOD.md` is one of the four constitutional methods at L1: it states the ODD constitution and the position that a project is an active worksite. `odd_sdlc` is its L3 implementation — a GTL Module that declares ODD's worksite lifecycle as graph functions executed by ABG. The method is the WHAT for this delivery line; the SDLC is the HOW, expressed in the same graph-first vocabulary the engine enforces.
 
-A linear chain of stages (specify, design, build, test, ship) describes how work moves the first time. It does not describe how real systems are operated. Real systems return evidence after release, drift in production, surface gaps that were not visible until a user touched them, and require lawful re-entry rather than emergency patches. ODD treats the project as a worksite that cycles through request, gate, specify, design, implement, qualify, release, deploy, observe, return, retrofit, and relaunch. Any of those acts may legitimately re-open work upstream.
+A linear chain of stages (specify, design, build, test, ship) describes how work moves the first time. It does not describe how real systems are operated. Real systems return evidence after release, drift in production, surface gaps that were not visible until a user touched them, and require lawful re-entry rather than emergency patches. ODD treats the project as a worksite that cycles through request, specification, design, implementation, qualification, release, deployment, runtime return, observation, and retrofit. Any of those acts may legitimately re-open work upstream.
 
 ```mermaid
 graph LR
-    REQ([Request]) --> GATE([Gate])
-    GATE --> SPEC([Specify])
+    REQ([Request]) --> SPEC([Specification])
     SPEC --> DES([Design])
-    DES --> IMP([Implement])
-    IMP --> QUAL([Qualify])
+    DES --> IMP([Implementation])
+    IMP --> QUAL([Qualification])
     QUAL --> REL([Release])
-    REL --> DEP([Deploy])
-    DEP --> OBS([Observe])
-    OBS --> RET([Return])
-    RET --> RETRO([Retrofit])
-    RETRO -.relaunch.-> SPEC
-    RET -.lawful re-entry.-> DES
-    RET -.lawful re-entry.-> IMP
+    REL --> DEP([Deployment])
+    DEP --> RET([Runtime Return])
+    RET --> OBS([Observation])
+    OBS --> RETRO([Retrofit])
+    RETRO -.lawful re-entry.-> SPEC
+    OBS -.lawful re-entry.-> DES
+    OBS -.lawful re-entry.-> IMP
 
     classDef stage fill:#f0fff0,stroke:#333
-    class REQ,GATE,SPEC,DES,IMP,QUAL,REL,DEP,OBS,RET,RETRO stage
+    class REQ,SPEC,DES,IMP,QUAL,REL,DEP,RET,OBS,RETRO stage
 ```
 
 Four properties define what ODD delivers. Any AI-assisted delivery practice can be evaluated against them.
@@ -215,7 +218,7 @@ Spec-Driven Development separates the specification (what the system must do) fr
 
 Spec-Driven Development refuses to let automation outrun the method. The graph-native constitution carries a **Manual Walkthrough Rule**: automation is lawful only when it preserves a walk a human could follow — identify the current state, the next lawful step, the authority surfaces in play, the produced artifact, and the gate that proves closure. If the team cannot describe the traversal manually, the automation is not yet method-safe.
 
-This is a binding constitutional rule, not aspiration. It lives in `ODD_METHOD.md` as Core Law §11.7. Its consequences are concrete: automation may render prompts, scaffold artifacts, select the next traversal step, run workers, collect evidence, and assess closure. It may not skip undeclared nodes, fabricate authority not present in the declared surfaces, collapse multiple constitutional transitions into one opaque step, or collapse the installed builder and the product under development into one authority surface during self-host work.
+It binds at the constitutional layer. It lives in `ODD_METHOD.md` as Core Law §11.7. Its consequences are concrete: automation may render prompts, scaffold artifacts, select the next traversal step, run workers, collect evidence, and assess closure. It may not skip undeclared nodes, fabricate authority not present in the declared surfaces, collapse multiple constitutional transitions into one opaque step, or collapse the installed builder and the product under development into one authority surface during self-host work.
 
 The effect is that AI construction remains auditable even when it is fast. "How did the system arrive at this behaviour?" is always answerable as a graph walk, because the rule forbids any other answer from closing lawfully.
 
@@ -508,9 +511,9 @@ Scale-invariance means the same governance rules apply whether the unit of work 
 
 ---
 
-### Fragment 8 — The Runtime Truth Rule (GTL Bootloader `3.2.0`)
+### Fragment 8 — The Runtime Truth Rule (GTL Bootloader)
 
-This is the current runtime-law rule that constrains any agent operating inside the engine. It closes the chain: the requirement from Fragment 1 states the rule, the ADRs ratify the realization, and this bootloader clause is what the engine enforces at runtime.
+This is the runtime-law rule that constrains any agent operating inside the engine. It closes the chain: the requirement from Fragment 1 states the rule, the ADRs ratify the realization, and this bootloader clause is what the engine enforces at runtime.
 
 > **Runtime advancement truth is carried by `ExecutionBasis` and `AdvancementTransition`, not by controller-local result shapes.**
 >
