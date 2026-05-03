@@ -13,12 +13,12 @@
 // artifact. It does NOT decide whether the artifact fulfills any obligation —
 // that judgment is F_P's, but it lives in fp_evaluator.mjs.
 
-import { spawnSync } from "node:child_process";
-import { existsSync, readFileSync } from "node:fs";
-import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 
-import { contractForKnownAgent } from "../../../build/semantic/code/src/shared/abg_library/index.js";
+import {
+  contractForKnownAgent,
+  runAgentTransport
+} from "../../../build/semantic/code/src/shared/abg_library/index.js";
 
 import {
   EXPECTED_TRANSFORM_CASES,
@@ -45,6 +45,20 @@ function transportTimeoutMs() {
     : TRANSPORT_TIMEOUT_MS_DEFAULT;
 }
 
+function selectedExecutorProfile() {
+  const raw = process.env["ABG_TS_AGENT_EXECUTOR_PROFILE"];
+  if (raw === undefined || raw.trim().length === 0) {
+    return undefined;
+  }
+  const normalized = raw.trim();
+  if (normalized === "local-spawn" || normalized === "pty-terminal") {
+    return normalized;
+  }
+  throw new Error(
+    `unsupported ABG_TS_AGENT_EXECUTOR_PROFILE=${raw}; expected local-spawn or pty-terminal`
+  );
+}
+
 function selectedLiveAgent() {
   const raw = process.env["ABG_TS_LIVE_AGENT"] ?? DEFAULT_LIVE_AGENT;
   const normalized = raw.trim().toLowerCase();
@@ -56,96 +70,43 @@ function selectedLiveAgent() {
   );
 }
 
-function stringEnv() {
-  const out = {};
-  for (const [key, value] of Object.entries(process.env)) {
-    if (typeof value === "string") {
-      out[key] = value;
-    }
-  }
-  return out;
-}
-
-function sanitizeEnvironment(contract) {
-  const prefixes = contract.sanitizedEnvironmentPolicy.prefixes.filter(
-    (prefix) => prefix.length > 0
-  );
-  const env = {};
-  outer: for (const [key, value] of Object.entries(stringEnv())) {
-    for (const prefix of prefixes) {
-      if (key.startsWith(prefix)) {
-        continue outer;
-      }
-    }
-    env[key] = value;
-  }
-  return env;
-}
-
-function renderArgs(template, replacements) {
-  return template.map((arg) =>
-    arg
-      .replaceAll("{prompt}", replacements.prompt)
-      .replaceAll("{output_path}", replacements.outputPath)
-  );
-}
-
-async function writeText(filePath, value) {
-  await mkdir(path.dirname(filePath), { recursive: true });
-  await writeFile(filePath, value, "utf8");
-}
-
-async function writeJson(filePath, value) {
-  await mkdir(path.dirname(filePath), { recursive: true });
-  await writeFile(filePath, `${JSON.stringify(value, null, 2)}\n`, "utf8");
-}
-
-function collectTransportText(run, outputPath) {
-  if (existsSync(outputPath)) {
-    const output = readFileSync(outputPath, "utf8");
-    if (output.trim().length > 0) {
-      return output;
-    }
-  }
-  return run.stdout ?? "";
-}
-
 async function runLiveAgent(prompt, invocationLogPath) {
   const agentKey = selectedLiveAgent();
   const contract = contractForKnownAgent(agentKey);
   const archiveRoot = path.dirname(invocationLogPath);
   const outputPath = `${invocationLogPath}.output.txt`;
-  await writeText(`${invocationLogPath}.prompt.txt`, prompt);
-  const args = renderArgs(contract.argsTemplate, { prompt, outputPath });
-  const run = spawnSync(contract.command, args, {
+  const executorProfile = selectedExecutorProfile();
+  const transport = await runAgentTransport({
+    contract,
+    prompt,
     cwd: archiveRoot,
-    encoding: "utf8",
-    env: sanitizeEnvironment(contract),
-    timeout: transportTimeoutMs(),
-    maxBuffer: 1024 * 1024 * 10
+    archiveRoot,
+    label: path.basename(invocationLogPath),
+    timeoutMs: transportTimeoutMs(),
+    executorProfile,
+    terminalSessionKey:
+      executorProfile === "pty-terminal"
+        ? `mini-dm-${path.basename(invocationLogPath)}-${Date.now()}`
+        : undefined,
+    outputPath,
+    promptPath: `${invocationLogPath}.prompt.txt`,
+    stdoutPath: `${invocationLogPath}.stdout.log`,
+    stderrPath: `${invocationLogPath}.stderr.log`,
+    transportPath: `${invocationLogPath}.transport.json`,
+    traceRoot: `${invocationLogPath}.trace`
   });
-  const text = collectTransportText(run, outputPath);
-  await writeJson(`${invocationLogPath}.transport.json`, {
-    agentKey,
-    command: contract.command,
-    args,
-    status: run.status,
-    signal: run.signal,
-    error: run.error === undefined ? null : String(run.error),
-    stdoutLength: (run.stdout ?? "").length,
-    stderrLength: (run.stderr ?? "").length,
-    textLength: text.length
-  });
-  await writeText(`${invocationLogPath}.stdout.log`, run.stdout ?? "");
-  await writeText(`${invocationLogPath}.stderr.log`, run.stderr ?? "");
-  if (run.status !== 0) {
+  if (transport.status !== 0) {
     throw new Error(
-      `${agentKey} transport failed: status=${run.status} signal=${String(
-        run.signal
-      )} error=${String(run.error)}`
+      `${agentKey} transport failed: status=${transport.status} signal=${String(
+        transport.signal
+      )} timedOut=${String(transport.timedOut)} apiRetryCount=${
+        transport.apiRetryCount
+      } failureClass=${String(transport.failureClass)} trace=${String(
+        transport.traceRoot
+      )}`
     );
   }
-  return text;
+  return transport.text;
 }
 
 function fixtureFieldSpec() {

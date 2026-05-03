@@ -1,5 +1,6 @@
 declare const process: {
   readonly argv: readonly string[];
+  readonly execPath: string;
   readonly stdout: { write(chunk: string): void };
   readonly stderr: { write(chunk: string): void };
   readonly env: Record<string, string | undefined>;
@@ -43,9 +44,13 @@ declare module "node:child_process" {
       readonly cwd?: string;
       readonly encoding?: "utf8";
       readonly env?: Record<string, string | undefined>;
+      readonly timeout?: number;
+      readonly maxBuffer?: number;
     }
   ): {
     readonly status: number | null;
+    readonly signal: string | null;
+    readonly error?: Error;
     readonly stdout: string;
     readonly stderr: string;
   };
@@ -61,6 +66,12 @@ declare module "node:fs" {
     path: string,
     options: { readonly recursive: true }
   ): string | undefined;
+  export function existsSync(path: string): boolean;
+  export function readFileSync(path: string, encoding: "utf8"): string;
+  export function rmSync(
+    path: string,
+    options: { readonly recursive: true; readonly force: true }
+  ): void;
   export function writeFileSync(
     path: string,
     data: string,

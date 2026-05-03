@@ -1,6 +1,6 @@
 # GTL/ABG User Guide
 
-**Status**: Current single human guide for GTL 3 / ABG 3.4.0-rc.7
+**Status**: Current single human guide for GTL 3 / ABG 3.5.0-rc.1
 **Audience**: People building, operating, or reviewing GTL/ABG applications
 **Purpose**: Explain what GTL/ABG is for, what it builds, the technical GTL/ABG model, how the build loop works, what the runtime gives you, and how to run the current kernel
 
@@ -406,9 +406,9 @@ Avoid these mistakes:
 - treating GTL declarations as imperative control code
 - rebuilding advancement, policy, or regime meaning from open dictionaries
 
-## ABG 3.4.0 RC Runtime Boundary
+## ABG 3.5.0 RC Runtime Boundary
 
-ABG 3.4.0 RC makes runtime law carrier and event owned.
+ABG 3.5.0 RC makes runtime law carrier and event owned.
 
 Public work still starts from a semantic `Job` bound to a published
 `GraphFunction`, but advancement truth is no longer reconstructed from service

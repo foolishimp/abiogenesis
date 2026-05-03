@@ -3,6 +3,7 @@
 
 import {
   runEngineStart,
+  runEngineStartAsync,
   type EngineRunnerPluginSet,
   type RuntimeEventSink
 } from "../../abg/m03/index.js";
@@ -84,6 +85,50 @@ export function startFromRequest(
   );
 }
 
+export async function startFromRequestAsync(
+  request: PublicStartRequest,
+  context: PublicStartContext,
+  eventSink: RuntimeEventSink,
+  plugins?: EngineRunnerPluginSet
+): Promise<PublicStartOutcome> {
+  const sink = assertRuntimeEventSink(eventSink);
+  const mismatchReason = selectorMismatchReason(request, context.runtimeIdentity);
+
+  if (mismatchReason !== null) {
+    return constructRejectedPublicStartOutcome(
+      mismatchReason,
+      context.runtimeIdentity
+    );
+  }
+
+  const result = await runEngineStartAsync({
+    startIntent: request.startIntent,
+    module: context.module,
+    runtimeIdentity: context.runtimeIdentity,
+    resolvedPolicy: context.resolvedPolicy,
+    runtimeEvents: context.runtimeEvents ?? Object.freeze([]),
+    eventSink: sink,
+    ...(plugins === undefined ? {} : { plugins }),
+    ...(context.assuranceProvider === undefined
+      ? {}
+      : { assuranceProvider: context.assuranceProvider }),
+    ...(context.runId === undefined ? {} : { runId: context.runId }),
+    ...(context.workKey === undefined ? {} : { workKey: context.workKey }),
+    ...(context.frameId === undefined ? {} : { frameId: context.frameId }),
+    ...(context.frameLineageId === undefined
+      ? {}
+      : { frameLineageId: context.frameLineageId })
+  });
+
+  return constructPublicStartOutcome(
+    result.basis,
+    result.transition,
+    result.emittedEvents,
+    request.startIntent.until,
+    context.assuranceProvider === undefined ? undefined : result.assuranceGate
+  );
+}
+
 export function start(
   input: unknown,
   context: PublicStartContext,
@@ -92,4 +137,14 @@ export function start(
 ): PublicStartOutcome {
   const request = admitPublicStartRequest(input);
   return startFromRequest(request, context, eventSink, plugins);
+}
+
+export async function startAsync(
+  input: unknown,
+  context: PublicStartContext,
+  eventSink: RuntimeEventSink,
+  plugins?: EngineRunnerPluginSet
+): Promise<PublicStartOutcome> {
+  const request = admitPublicStartRequest(input);
+  return await startFromRequestAsync(request, context, eventSink, plugins);
 }

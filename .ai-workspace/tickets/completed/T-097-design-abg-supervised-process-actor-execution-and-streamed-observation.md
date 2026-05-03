@@ -171,14 +171,28 @@ deterministic implementation, but held closure pending one of:
 The live Claude pre-exit evidence gate is now satisfied by the T-097 live
 archive listed below. The external STDO/code review accepted the final patch before the `3.4.0-rc.4` cut.
 
+2026-05-03 supersession note:
+
+- The historical T-097 live archive remains valid evidence for the original
+  supervised-process-actor ticket.
+- The `test:t097:live` harness and
+  `test_env/live/test_t097_supervised_process_actor_live.test.mjs` were removed
+  during the T-108/T-109 one-interface refactor because they used the stale
+  Claude text-mode process path.
+- Current actor/worker call-out proof is owned by
+  `runAgentActorWorkerCallout` and `npm run test:t109`, including the migrated
+  supervised actor fixture in
+  `test_env/tests/test_t109_agent_callout_traced_substrate.test.mjs`.
+
 2026-04-30 refresh:
 
 - `node --test test_env/tests/test_t097_supervised_process_actor.test.mjs`
   passed.
 - `npm run test:semantic` passed at `2026-04-30T23:44:12+10:00`: 304 tests,
   0 failed.
-- `/bin/zsh -ic 'CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=240000 npm run test:t097:live'`
-  passed.
+- Historical, now superseded:
+  `/bin/zsh -ic 'CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=240000 npm run test:t097:live'`
+  passed before the later one-interface refactor removed that harness.
 - Live archive:
   `/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/t097_supervised_process_actor_live/20260430T134349638Z`.
   Evidence includes `worker_process_events.jsonl`, `runtime_projection.json`,

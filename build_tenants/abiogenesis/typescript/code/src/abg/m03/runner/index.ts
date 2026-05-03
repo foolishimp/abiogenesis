@@ -1,7 +1,8 @@
 export {
   runEngineIterate,
   runEngineIterateAsync,
-  runEngineStart
+  runEngineStart,
+  runEngineStartAsync
 } from "./engine_runner.js";
 export {
   constructNotEvaluatedAssuranceGate,

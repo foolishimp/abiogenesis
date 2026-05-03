@@ -166,8 +166,10 @@ function impliesConcatenation(source) {
   if (!(refersFirst && refersLast)) {
     return false;
   }
-  const firstNameRef = String.raw`\b(?:first_name|firstName|first)\b`;
-  const lastNameRef = String.raw`\b(?:last_name|lastName|last)\b`;
+  const firstNameRef = String.raw`\b(?:first_name|firstName|first|trimmedFirst|firstPart|firstValue)\b`;
+  const lastNameRef = String.raw`\b(?:last_name|lastName|last|trimmedLast|lastPart|lastValue)\b`;
+  const anyFirstAlias = String.raw`\b[a-zA-Z_$][\w$]*(?:first|First)[a-zA-Z_$\w]*\b`;
+  const anyLastAlias = String.raw`\b[a-zA-Z_$][\w$]*(?:last|Last)[a-zA-Z_$\w]*\b`;
   const templateConcat = /\$\{[^}]*first[^}]*\}\s*\$\{[^}]*last[^}]*\}/u.test(
     source
   );
@@ -177,8 +179,15 @@ function impliesConcatenation(source) {
     `${firstNameRef}[^;]*\\+[^;]*${lastNameRef}|${lastNameRef}[^;]*\\+[^;]*${firstNameRef}`,
     "u"
   ).test(source);
-  const joinConcat = /\.join\s*\(\s*['"`]\s['"`]\s*\)/u.test(source);
-  return templateConcat || templateBoth || plusConcat || joinConcat;
+  const aliasPlusConcat = new RegExp(
+    `${anyFirstAlias}[^;]*\\+[^;]*${anyLastAlias}|${anyLastAlias}[^;]*\\+[^;]*${anyFirstAlias}`,
+    "u"
+  ).test(source);
+  const joinConcat =
+    /\.join\s*\(\s*['"`]\s['"`]\s*\)/u.test(source) &&
+    new RegExp(`${firstNameRef}|${anyFirstAlias}`, "u").test(source) &&
+    new RegExp(`${lastNameRef}|${anyLastAlias}`, "u").test(source);
+  return templateConcat || templateBoth || plusConcat || aliasPlusConcat || joinConcat;
 }
 
 function impliesAtSplit(source) {
@@ -204,6 +213,19 @@ function impliesAtSplit(source) {
 function impliesYearSubtraction(source) {
   if (!/\bbirth_year\b/u.test(source)) {
     return false;
+  }
+  const birthYearRef = String.raw`(?:\bbirth_year\b|\b[a-zA-Z_$][\w$]*\.birth_year\b)`;
+  const yearLiteral = String.raw`\b20\d{2}\b`;
+  const yearAlias = String.raw`\b(?:REFERENCE_YEAR|CURRENT_YEAR|YEAR|year)\b`;
+  const yearValue = String.raw`(?:${yearLiteral}|${yearAlias})`;
+  if (new RegExp(`${yearValue}\\s*-\\s*${birthYearRef}`, "u").test(source)) {
+    return true;
+  }
+  if (
+    new RegExp(`(?:const|let|var)\\s+${yearAlias}\\s*=\\s*${yearLiteral}`, "u").test(source) &&
+    new RegExp(`${yearAlias}\\s*-\\s*${birthYearRef}`, "u").test(source)
+  ) {
+    return true;
   }
   if (/2026\s*-\s*[^;]*birth_year/u.test(source)) {
     return true;

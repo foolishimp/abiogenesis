@@ -19,7 +19,10 @@ function sourceText(path) {
 test("B-016 publicStart authority: compatibility entry delegates to startFromRequest", () => {
   const publicStartSource = sourceText("code/src/app/m04/public_start.ts");
 
-  assert.match(publicStartSource, /import \{ startFromRequest \} from "\.\/start\.js";/);
+  assert.match(
+    publicStartSource,
+    /import \{[^}]*\bstartFromRequest\b[^}]*\} from "\.\/start\.js";/s
+  );
   assert.match(publicStartSource, /return startFromRequest\(request, context, eventSink, plugins\);/);
 });
 

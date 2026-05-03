@@ -1,7 +1,7 @@
-# abiogenesis 3.4.0-rc.7 RC Notes
+# abiogenesis 3.5.0-rc.1 RC Notes
 
-This note records accepted RC behavior for the current `v3.4.0-rc.7` line.
-The package cut is `3.4.0-rc.7`.
+This note records accepted RC behavior for the current `v3.5.0-rc.1` line.
+The package cut is `3.5.0-rc.1`.
 
 ## Accepted Framework Behavior
 
@@ -296,6 +296,34 @@ Accepted behavior:
   constraints, phase gates, progress artifact refs, retry budget, and
   non-progress classification without switching on downstream strategy labels
 
+### Traced Agent Call-Outs And PTY Execution Are ABG Substrate
+
+The 3.5.0-rc.1 cut accepts T-108, T-109, and T-111 as ABG substrate.
+
+Accepted behavior:
+
+- `runAgentActorWorkerCallout` is the single framework-owned call-out interface
+  for `agent.actor` and `agent.worker` execution
+- agent transport and supervised actor invocation consume the same call-out
+  interface rather than owning divergent shell-out paths
+- framework call-out paths preserve trace archives with command metadata, raw
+  stdout/stderr, final output, parser-derived structured events, timeout state,
+  and result metadata
+- Claude `stream-json` parsing preserves `api_retry` and tool-call observations
+  when those events exist
+- `local-spawn` remains the deterministic default executor profile
+- `pty-terminal` is a Docker-compatible GNU `screen` backed per-call terminal
+  executor profile
+- PTY execution preserves the same per-call result/archive contract as
+  `local-spawn`, with an additional terminal transcript available as evidence
+- `ABG_TS_AGENT_EXECUTOR_PROFILE=pty-terminal` selects PTY execution across
+  `runAgentTransport` and `invokeSupervisedProcessActor` when a request does
+  not provide an explicit executor profile
+- PTY hard timeout and inactivity timeout are distinct trace-observed terminal
+  conditions
+- sticky session reuse, warm agent pools, and automatic session affinity remain
+  future T-110 work, not 3.5.0-rc.1 behavior
+
 ## Current Verification Footer
 
 The current RC proving footer is:
@@ -309,9 +337,21 @@ The current RC proving footer is:
 - `npm run test:t104:sandbox`: `1 passed`
 - `npm run test:t106`: `14 passed`
 - `npm run test:t107`: `15 passed`
+- `npm run test:t109`: `7 passed`
+- `npm run test:t111`: `4 passed`
 - `npm run test:semantic`: `383 passed`
 - `npm run lint:semantic`: `passed`
 - `npm run lint:test-harness`: `passed`
 - `git diff --check`: `passed`
 - `npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run`: `passed`,
-  package `3.4.0-rc.7`, `312 files`
+  package `3.5.0-rc.1`, `318 files`
+
+Fresh 3.5.0-rc.1 live PTY matrix:
+
+- `test:t101`: `2 passed`
+- `test:t107:data-mapper-live`: `1 passed`
+- `test:t094:live`: `1 passed`
+- `test:t087:live`: `1 passed`
+- `test:t100:five-rule`: `6 passed`
+- `test:live:uat`: `2 passed`
+- `test:live`: `1 passed`

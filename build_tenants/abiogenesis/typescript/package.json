@@ -1,6 +1,6 @@
 {
   "name": "@abiogenesis/typescript-tenant",
-  "version": "3.4.0-rc.7",
+  "version": "3.5.0-rc.1",
   "private": true,
   "type": "module",
   "types": "./build/semantic/code/src/index.d.ts",
@@ -72,6 +72,10 @@
     "./qualification/m05": {
       "types": "./build/semantic/code/src/qualification/m05/index.d.ts",
       "import": "./build/semantic/code/src/qualification/m05/index.js"
+    },
+    "./shared/traced-process": {
+      "types": "./build/semantic/code/src/shared/traced_process/index.d.ts",
+      "import": "./build/semantic/code/src/shared/traced_process/index.js"
     }
   },
   "files": [
@@ -82,7 +86,7 @@
   },
   "scripts": {
     "build:semantic": "tsc -p tsconfig.semantic-strict.json",
-    "lint:semantic": "eslint --max-warnings=0 \"code/src/gtl/m01/contracts/**/*.ts\" \"code/src/gtl/m01/admission/**/*.ts\" \"code/src/gtl/m01/algebra/**/*.ts\" \"code/src/gtl/m01/serialization/**/*.ts\" \"code/src/gtl/m02/contracts/**/*.ts\" \"code/src/gtl/m02/admission/**/*.ts\" \"code/src/gtl/m02/serialization/**/*.ts\" \"code/src/abg/m03/contracts/**/*.ts\" \"code/src/abg/m03/admission/**/*.ts\" \"code/src/abg/m03/events/**/*.ts\" \"code/src/abg/m03/runner/**/*.ts\" \"code/src/abg/m03/transport/**/*.ts\" \"code/src/app/m04/**/*.ts\" \"code/src/qualification/m05/**/*.ts\" \"code/src/shared/validation/**/*.ts\" \"code/src/shared/abg_library/**/*.ts\" \"code/src/shared/abg_delivery_library/**/*.ts\"",
+    "lint:semantic": "eslint --max-warnings=0 \"code/src/gtl/m01/contracts/**/*.ts\" \"code/src/gtl/m01/admission/**/*.ts\" \"code/src/gtl/m01/algebra/**/*.ts\" \"code/src/gtl/m01/serialization/**/*.ts\" \"code/src/gtl/m02/contracts/**/*.ts\" \"code/src/gtl/m02/admission/**/*.ts\" \"code/src/gtl/m02/serialization/**/*.ts\" \"code/src/abg/m03/contracts/**/*.ts\" \"code/src/abg/m03/admission/**/*.ts\" \"code/src/abg/m03/events/**/*.ts\" \"code/src/abg/m03/runner/**/*.ts\" \"code/src/abg/m03/transport/**/*.ts\" \"code/src/app/m04/**/*.ts\" \"code/src/qualification/m05/**/*.ts\" \"code/src/shared/validation/**/*.ts\" \"code/src/shared/abg_library/**/*.ts\" \"code/src/shared/abg_delivery_library/**/*.ts\" \"code/src/shared/traced_process/**/*.ts\"",
     "lint:test-harness": "eslint --max-warnings=0 \"test_env/live/**/*.mjs\" \"test_env/sandbox/**/*.mjs\" \"test_env/tests/support/**/*.mjs\"",
     "lint:t087": "npm run lint:semantic && eslint --max-warnings=0 \"test_env/live/test_t087_supervised_actor_invocation_live.test.mjs\"",
     "test:semantic": "npm run build:semantic && node --test test_env/tests/*.test.mjs",
@@ -138,7 +142,6 @@
     "test:t094:live": "npm run build:semantic && node --test test_env/live/test_t094_assurance_register_two_hop_live.test.mjs",
     "test:t095": "npm run build:semantic && node --test test_env/tests/test_t095_payload_ledger_unit.test.mjs test_env/tests/test_t094_assurance_register_two_hop_unit.test.mjs",
     "test:t097": "npm run build:semantic && node --test test_env/tests/test_t097_supervised_process_actor.test.mjs",
-    "test:t097:live": "npm run build:semantic && node --test test_env/live/test_t097_supervised_process_actor_live.test.mjs",
     "test:t098": "npm run build:semantic && node --test test_env/tests/test_t098_retry_frontier_projection.test.mjs",
     "test:t099": "npm run build:semantic && node --test test_env/tests/test_t099_fp_stage_carriers.test.mjs",
     "test:t082": "npm run build:semantic && node --test test_env/tests/test_t082_output_allocation_unit.test.mjs",
@@ -159,7 +162,13 @@
     "test:t104:sandbox": "npm run build:semantic && node --test test_env/sandbox/test_t104_cross_workspace_mini_dm_forensics_sandbox.test.mjs",
     "test:t104": "npm run build:semantic && node --test test_env/tests/test_t104_cross_workspace_output_allocation_unit.test.mjs test_env/sandbox/test_t104_cross_workspace_mini_dm_forensics_sandbox.test.mjs",
     "test:t106": "npm run build:semantic && node --test test_env/tests/test_t106_traversal_non_progress_continuation.test.mjs",
-    "test:t107": "npm run build:semantic && node --test test_env/tests/test_t107_traversal_modulation_unit.test.mjs"
+    "test:t107": "npm run build:semantic && node --test test_env/tests/test_t107_traversal_modulation_unit.test.mjs",
+    "test:t107:data-mapper-live": "npm run build:semantic && CODEX_LIVE_FP=1 node --test test_env/sandbox/test_t107_mini_dm_traversal_schemes_live.test.mjs",
+    "test:agent-callout-guard": "npm run build:semantic && node --test test_env/tests/test_t109_agent_callout_guard.test.mjs",
+    "test:claude-stream-json-parser": "npm run build:semantic && node --test test_env/tests/test_t109_agent_callout_traced_substrate.test.mjs",
+    "test:agent-callout-forced-failure": "npm run build:semantic && node --test test_env/tests/test_t109_agent_callout_traced_substrate.test.mjs",
+    "test:t109": "npm run build:semantic && node --test test_env/tests/test_t109_agent_callout_guard.test.mjs test_env/tests/test_t109_agent_callout_traced_substrate.test.mjs",
+    "test:t111": "npm run build:semantic && node --test test_env/tests/test_t111_pty_terminal_executor.test.mjs"
   },
   "dependencies": {
     "valibot": "1.3.1"

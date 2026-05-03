@@ -1,7 +1,12 @@
-import { spawn } from "node:child_process";
 import { appendFileSync, mkdirSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
 import { performance } from "node:perf_hooks";
+import {
+  runAgentActorWorkerCallout,
+  type TracedProcessExecutorProfile,
+  type TracedProcessParser,
+  type TracedProcessResult
+} from "../../../shared/traced_process/index.js";
 import type { ActorInvocation, RuntimeEvent } from "../contracts/carriers.js";
 import {
   constructActorProcessExitedEvent,
@@ -31,6 +36,10 @@ export interface SupervisedProcessActorRequest {
   readonly stderrRef: string;
   readonly processStartedPath?: string | undefined;
   readonly processEventsPath?: string | undefined;
+  readonly parser?: TracedProcessParser | undefined;
+  readonly executorProfile?: TracedProcessExecutorProfile | undefined;
+  readonly terminalSessionKey?: string | undefined;
+  readonly terminalPollMs?: number | undefined;
   readonly timeoutMs?: number | undefined;
   readonly terminationGraceMs?: number | undefined;
   readonly heartbeatMs?: number | undefined;
@@ -45,6 +54,7 @@ export interface SupervisedProcessActorResult {
   readonly pid: number | null;
   readonly status: number | null;
   readonly signal: string | null;
+  readonly outcome: TracedProcessResult["outcome"];
   readonly elapsedMs: number;
   readonly timedOut: boolean;
   readonly stdoutPath: string;
@@ -56,6 +66,29 @@ export interface SupervisedProcessActorResult {
 const DEFAULT_TIMEOUT_MS = 1000 * 60 * 30;
 const DEFAULT_TERMINATION_GRACE_MS = 1000 * 10;
 const DEFAULT_HEARTBEAT_MS = 1000 * 30;
+
+function inferredParserForActorRequest(
+  request: SupervisedProcessActorRequest
+): TracedProcessParser {
+  if (request.parser !== undefined) {
+    return request.parser;
+  }
+  const command = request.command.toLowerCase();
+  const args = request.args.map((arg) => arg.toLowerCase());
+  if (
+    command.split(/[\\/]/u).at(-1)?.includes("claude") === true &&
+    args.includes("stream-json")
+  ) {
+    return "claude-stream-json";
+  }
+  return "generic-text";
+}
+
+function executorProfileFor(
+  request: SupervisedProcessActorRequest
+): TracedProcessExecutorProfile | undefined {
+  return request.executorProfile;
+}
 
 function roundElapsedMs(startedAt: number): number {
   return Math.max(0, Math.round(performance.now() - startedAt));
@@ -105,31 +138,6 @@ function normalizeExitStatus(status: number | null): number | null {
   return status;
 }
 
-function errorStringField(error: Error, key: string): string | null {
-  const value: unknown = Reflect.get(error, key);
-  return typeof value === "string" && value.length > 0 ? value : null;
-}
-
-function errorNumberField(error: Error, key: string): number | null {
-  const value: unknown = Reflect.get(error, key);
-  return typeof value === "number" ? value : null;
-}
-
-function spawnErrorMessage(error: Error): string {
-  const code = errorStringField(error, "code");
-  const errno = errorNumberField(error, "errno");
-  const syscall = errorStringField(error, "syscall");
-  const path = errorStringField(error, "path");
-  const details = [
-    code === null ? null : `code=${code}`,
-    errno === null ? null : `errno=${String(errno)}`,
-    syscall === null ? null : `syscall=${syscall}`,
-    path === null ? null : `path=${path}`,
-    error.message
-  ].filter((entry): entry is string => entry !== null && entry.length > 0);
-  return details.join(" ");
-}
-
 export async function invokeSupervisedProcessActor(
   request: SupervisedProcessActorRequest
 ): Promise<SupervisedProcessActorResult> {
@@ -153,177 +161,166 @@ export async function invokeSupervisedProcessActor(
     events.push(event);
     request.eventSink?.(event);
   };
-
-  const child = spawn(request.command, [...request.args], {
-    cwd: request.cwd,
-    env: sanitizedEnvironment({
-      environment: request.environment,
-      policy: request.environmentPolicy
-    }),
-    stdio: ["pipe", "pipe", "pipe"]
-  });
-  const pid = child.pid ?? null;
+  const traceRoot = request.processEventsPath === undefined
+    ? `${request.stdoutPath}.trace`
+    : `${request.processEventsPath}.trace`;
+  let pid: number | null = null;
   let timedOut = false;
   let errorMessage: string | null = null;
   let stdoutChunkIndex = 0;
   let stderrChunkIndex = 0;
   let heartbeatIndex = 0;
   let closed = false;
+  const executorProfile = executorProfileFor(request);
 
-  const startedEvent = constructActorProcessStartedEvent({
-    invocation: request.invocation,
-    command: request.command,
-    args: request.args,
-    cwd: request.cwd,
-    pid,
-    timeoutMs,
-    stdoutRef: request.stdoutRef,
-    stderrRef: request.stderrRef
-  });
-  writeJson(request.processStartedPath, startedEvent);
-  emit(startedEvent, eventSink);
+  const heartbeatTimer =
+    heartbeatMs > 0
+      ? setInterval(() => {
+          if (closed) {
+            return;
+          }
+          emit(
+            constructActorProcessHeartbeatEvent({
+              invocation: request.invocation,
+              heartbeatIndex,
+              elapsedMs: roundElapsedMs(startedAt)
+            }),
+            eventSink
+          );
+          heartbeatIndex += 1;
+        }, heartbeatMs)
+      : null;
 
-  child.stdout?.on("data", (chunk: string) => {
-    appendFileSync(request.stdoutPath, chunk, "utf8");
-    emit(
-      constructActorProcessStreamObservedEvent({
-        invocation: request.invocation,
-        streamName: "stdout",
-        streamRef: request.stdoutRef,
-        chunkIndex: stdoutChunkIndex,
-        byteLength: chunk.length
+  let traced: TracedProcessResult;
+  try {
+    traced = await runAgentActorWorkerCallout({
+      agentCalloutKind: "agent_actor",
+      actorRef: request.invocation.actorInvocationId,
+      workerRef: request.invocation.workerId,
+      command: request.command,
+      args: request.args,
+      cwd: request.cwd,
+      env: sanitizedEnvironment({
+        environment: request.environment,
+        policy: request.environmentPolicy
       }),
-      eventSink
-    );
-    stdoutChunkIndex += 1;
-  });
-
-  child.stderr?.on("data", (chunk: string) => {
-    appendFileSync(request.stderrPath, chunk, "utf8");
-    emit(
-      constructActorProcessStreamObservedEvent({
-        invocation: request.invocation,
-        streamName: "stderr",
-        streamRef: request.stderrRef,
-        chunkIndex: stderrChunkIndex,
-        byteLength: chunk.length
-      }),
-      eventSink
-    );
-    stderrChunkIndex += 1;
-  });
-
-  child.once("error", (error) => {
-    errorMessage = spawnErrorMessage(error);
-  });
-
-  if (request.stdin !== null && request.stdin !== undefined) {
-    child.stdin?.write(request.stdin);
-  }
-  child.stdin?.end();
-
-  return await new Promise((resolve) => {
-    const heartbeatTimer =
-      heartbeatMs > 0
-        ? setInterval(() => {
-            if (closed) {
-              return;
-            }
-            emit(
-              constructActorProcessHeartbeatEvent({
-                invocation: request.invocation,
-                heartbeatIndex,
-                elapsedMs: roundElapsedMs(startedAt)
-              }),
-              eventSink
-            );
-            heartbeatIndex += 1;
-          }, heartbeatMs)
-        : null;
-
-    let killTimer: ReturnType<typeof setTimeout> | null = null;
-    const timeoutTimer =
-      timeoutMs > 0
-        ? setTimeout(() => {
-            if (closed) {
-              return;
-            }
-            timedOut = true;
-            emit(
-              constructActorProcessTimeoutEvent({
-                invocation: request.invocation,
-                timeoutMs,
-                elapsedMs: roundElapsedMs(startedAt)
-              }),
-              eventSink
-            );
-            child.kill("SIGTERM");
-            emit(
-              constructActorProcessSignalSentEvent({
-                invocation: request.invocation,
-                signal: "SIGTERM",
-                elapsedMs: roundElapsedMs(startedAt)
-              }),
-              eventSink
-            );
-            killTimer = setTimeout(() => {
-              if (closed) {
-                return;
-              }
-              child.kill("SIGKILL");
-              emit(
-                constructActorProcessSignalSentEvent({
-                  invocation: request.invocation,
-                  signal: "SIGKILL",
-                  elapsedMs: roundElapsedMs(startedAt)
-                }),
-                eventSink
-              );
-            }, terminationGraceMs);
-          }, timeoutMs)
-        : null;
-
-    child.once("close", (status, signal) => {
-      closed = true;
-      if (heartbeatTimer !== null) {
-        clearInterval(heartbeatTimer);
-      }
-      if (timeoutTimer !== null) {
-        clearTimeout(timeoutTimer);
-      }
-      if (killTimer !== null) {
-        clearTimeout(killTimer);
-      }
-      const elapsedMs = roundElapsedMs(startedAt);
-      const normalizedStatus = normalizeExitStatus(status);
-      emit(
-        constructActorProcessExitedEvent({
+      archiveRoot: traceRoot,
+      label: request.invocation.actorInvocationId,
+      parser: inferredParserForActorRequest(request),
+      ...(executorProfile === undefined
+        ? {}
+        : { executorProfile }),
+      ...(request.terminalSessionKey === undefined
+        ? {}
+        : { terminalSessionKey: request.terminalSessionKey }),
+      ...(request.terminalPollMs === undefined
+        ? {}
+        : { terminalPollMs: request.terminalPollMs }),
+      stdin: request.stdin ?? null,
+      timeoutMs,
+      terminationGraceMs,
+      onProcessStarted: (event) => {
+        pid = event.pid;
+        const startedEvent = constructActorProcessStartedEvent({
           invocation: request.invocation,
-          status: normalizedStatus,
-          signal,
-          elapsedMs,
-          timedOut,
-          error: errorMessage
-        }),
-        eventSink
-      );
-      resolve(
-        Object.freeze({
-          kind: "supervised_process_actor_result",
           command: request.command,
-          args: Object.freeze([...request.args]),
+          args: request.args,
           cwd: request.cwd,
           pid,
-          status: normalizedStatus,
-          signal,
-          elapsedMs,
-          timedOut,
-          stdoutPath: request.stdoutPath,
-          stderrPath: request.stderrPath,
-          error: errorMessage,
-          events: Object.freeze([...events])
-        })
-      );
+          timeoutMs,
+          stdoutRef: request.stdoutRef,
+          stderrRef: request.stderrRef
+        });
+        writeJson(request.processStartedPath, startedEvent);
+        emit(startedEvent, eventSink);
+      },
+      onStdoutChunk: (chunk, event) => {
+        appendFileSync(request.stdoutPath, chunk, "utf8");
+        emit(
+          constructActorProcessStreamObservedEvent({
+            invocation: request.invocation,
+            streamName: "stdout",
+            streamRef: request.stdoutRef,
+            chunkIndex: stdoutChunkIndex,
+            byteLength: event.byteLength
+          }),
+          eventSink
+        );
+        stdoutChunkIndex += 1;
+      },
+      onStderrChunk: (chunk, event) => {
+        appendFileSync(request.stderrPath, chunk, "utf8");
+        emit(
+          constructActorProcessStreamObservedEvent({
+            invocation: request.invocation,
+            streamName: "stderr",
+            streamRef: request.stderrRef,
+            chunkIndex: stderrChunkIndex,
+            byteLength: event.byteLength
+          }),
+          eventSink
+        );
+        stderrChunkIndex += 1;
+      },
+      onTimeout: () => {
+        timedOut = true;
+        emit(
+          constructActorProcessTimeoutEvent({
+            invocation: request.invocation,
+            timeoutMs,
+            elapsedMs: roundElapsedMs(startedAt)
+          }),
+          eventSink
+        );
+      },
+      onSignalSent: (event) => {
+        emit(
+          constructActorProcessSignalSentEvent({
+            invocation: request.invocation,
+            signal: event.signal,
+            elapsedMs: roundElapsedMs(startedAt)
+          }),
+          eventSink
+        );
+      },
+      onProcessError: (event) => {
+        errorMessage = event.error;
+      }
     });
+  } finally {
+    closed = true;
+    if (heartbeatTimer !== null) {
+      clearInterval(heartbeatTimer);
+    }
+  }
+  const elapsedMs = roundElapsedMs(startedAt);
+  const normalizedStatus = normalizeExitStatus(traced.status);
+  const finalError = errorMessage ?? traced.error;
+  emit(
+    constructActorProcessExitedEvent({
+      invocation: request.invocation,
+      status: normalizedStatus,
+      signal: traced.signal,
+      elapsedMs,
+      timedOut: timedOut || traced.timedOut,
+      error: finalError
+    }),
+    eventSink
+  );
+  return Object.freeze({
+    kind: "supervised_process_actor_result",
+    command: request.command,
+    args: Object.freeze([...request.args]),
+    cwd: request.cwd,
+    pid,
+    status: normalizedStatus,
+    signal: traced.signal,
+    outcome: traced.outcome,
+    elapsedMs,
+    timedOut: timedOut || traced.timedOut,
+    stdoutPath: request.stdoutPath,
+    stderrPath: request.stderrPath,
+    error: finalError,
+    events: Object.freeze([...events])
   });
 }

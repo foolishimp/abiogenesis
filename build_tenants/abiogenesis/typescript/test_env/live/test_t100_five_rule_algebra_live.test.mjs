@@ -18,8 +18,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { spawnSync } from "node:child_process";
-import { existsSync, readFileSync } from "node:fs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -54,8 +52,10 @@ import {
   openZoomFrame
 } from "../../build/semantic/code/src/index.js";
 import {
-  contractForKnownAgent
+  contractForKnownAgent,
+  runAgentTransport
 } from "../../build/semantic/code/src/shared/abg_library/index.js";
+import { executorProfileFields } from "./support/executor_profile.mjs";
 
 const TEST_DIR = path.dirname(fileURLToPath(import.meta.url));
 const TEST_ENV_ROOT = path.resolve(TEST_DIR, "..");
@@ -493,52 +493,29 @@ async function liveProduceDesign({ archiveRoot }) {
     ""
   ].join("\n");
   const outputPath = path.join(archiveRoot, "live-fp-output.md");
-  await writeText(path.join(archiveRoot, "live-fp-prompt.txt"), prompt);
-  const args = contract.argsTemplate.map((arg) =>
-    arg.replaceAll("{prompt}", prompt).replaceAll("{output_path}", outputPath)
-  );
-  const env = {};
-  const prefixes = contract.sanitizedEnvironmentPolicy.prefixes.filter(
-    (p) => p.length > 0
-  );
-  outer: for (const [key, value] of Object.entries(process.env)) {
-    if (typeof value !== "string") {
-      continue;
-    }
-    for (const prefix of prefixes) {
-      if (key.startsWith(prefix)) {
-        continue outer;
-      }
-    }
-    env[key] = value;
-  }
-  const run = spawnSync(contract.command, args, {
+  const transport = await runAgentTransport({
+    contract,
+    prompt,
     cwd: archiveRoot,
-    encoding: "utf8",
-    env,
-    timeout: transportTimeoutMs(),
-    maxBuffer: 1024 * 1024 * 10
+    archiveRoot,
+    label: "live-fp",
+    timeoutMs: transportTimeoutMs(),
+    ...executorProfileFields(),
+    outputPath,
+    promptPath: path.join(archiveRoot, "live-fp-prompt.txt"),
+    stdoutPath: path.join(archiveRoot, "live-fp-stdout.log"),
+    stderrPath: path.join(archiveRoot, "live-fp-stderr.log")
   });
-  await writeText(
-    path.join(archiveRoot, "live-fp-stdout.log"),
-    run.stdout ?? ""
-  );
-  await writeText(
-    path.join(archiveRoot, "live-fp-stderr.log"),
-    run.stderr ?? ""
-  );
-  if (run.status !== 0) {
+  if (transport.status !== 0) {
     throw new Error(
-      `live F_P transport failed status=${run.status} signal=${run.signal}`
+      `live F_P transport failed status=${transport.status} signal=${String(
+        transport.signal
+      )} failureClass=${String(transport.failureClass)} trace=${String(
+        transport.traceRoot
+      )}`
     );
   }
-  if (existsSync(outputPath)) {
-    const content = readFileSync(outputPath, "utf8");
-    if (content.trim().length > 0) {
-      return content;
-    }
-  }
-  return run.stdout ?? "";
+  return transport.text;
 }
 
 // Common harness: builds the workspace, basis, frame, schedule, and emits the

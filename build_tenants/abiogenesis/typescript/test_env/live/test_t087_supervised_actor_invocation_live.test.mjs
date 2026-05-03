@@ -45,6 +45,20 @@ function liveAgentKey() {
   return process.env["ABG_TS_LIVE_AGENT"] ?? "codex";
 }
 
+function selectedExecutorProfile() {
+  const raw = process.env["ABG_TS_AGENT_EXECUTOR_PROFILE"];
+  if (raw === undefined || raw.trim().length === 0) {
+    return undefined;
+  }
+  const normalized = raw.trim();
+  if (normalized === "local-spawn" || normalized === "pty-terminal") {
+    return normalized;
+  }
+  throw new Error(
+    `unsupported ABG_TS_AGENT_EXECUTOR_PROFILE=${raw}; expected local-spawn or pty-terminal`
+  );
+}
+
 function timestamp() {
   return new Date().toISOString().replace(/[-:.]/gu, "").replace("Z", "Z");
 }
@@ -86,7 +100,7 @@ async function listRelativeFiles(root) {
   );
 }
 
-function liveSandboxSource(agentKey) {
+function liveSandboxSource(agentKey, executorProfile) {
   return `
     import {
       existsSync,
@@ -97,7 +111,6 @@ function liveSandboxSource(agentKey) {
       writeFileSync
     } from "node:fs";
     import path from "node:path";
-    import { spawnSync } from "node:child_process";
     import { fileURLToPath } from "node:url";
     import {
       admitExecutionBasis,
@@ -113,11 +126,13 @@ function liveSandboxSource(agentKey) {
       dispatchRequestsForTransition,
       edge,
       graphFunctionForVector,
-      publicStart
+      publicStartAsync,
+      runAgentTransport
     } from "@abiogenesis/typescript-tenant";
 
     const READY_TOKEN = "ABG_TS_T087_READY";
     const agentKey = ${JSON.stringify(agentKey)};
+    const executorProfile = ${JSON.stringify(executorProfile)};
     const packageEntryPath = fileURLToPath(
       import.meta.resolve("@abiogenesis/typescript-tenant")
     );
@@ -139,50 +154,6 @@ function liveSandboxSource(agentKey) {
       "typescript-installer-manifest.json"
     );
     mkdirSync(artifactRoot, { recursive: true });
-
-    function stringEnv() {
-      const out = {};
-      for (const [key, value] of Object.entries(process.env)) {
-        if (typeof value === "string") {
-          out[key] = value;
-        }
-      }
-      return out;
-    }
-
-    function sanitizeEnvironment(contract) {
-      const prefixes = contract.sanitizedEnvironmentPolicy.prefixes.filter(
-        (prefix) => prefix.length > 0
-      );
-      const env = {};
-      outer: for (const [key, value] of Object.entries(stringEnv())) {
-        for (const prefix of prefixes) {
-          if (key.startsWith(prefix)) {
-            continue outer;
-          }
-        }
-        env[key] = value;
-      }
-      return env;
-    }
-
-    function renderArgs(template, replacements) {
-      return template.map((arg) =>
-        arg
-          .replaceAll("{prompt}", replacements.prompt)
-          .replaceAll("{output_path}", replacements.outputPath)
-      );
-    }
-
-    function collectTransportText(run, outputPath) {
-      if (existsSync(outputPath)) {
-        const output = readFileSync(outputPath, "utf8");
-        if (output.trim().length > 0) {
-          return output;
-        }
-      }
-      return run.stdout;
-    }
 
     function listRelativeFiles(root) {
       if (!existsSync(root)) {
@@ -239,38 +210,6 @@ function liveSandboxSource(agentKey) {
         installedPackageFileCount: assetIndex.installedPackageFiles.length,
         liveArtifactFiles: assetIndex.liveArtifactFiles.map((file) => file.relativePath)
       };
-    }
-
-    function runTransport(request, prompt, label) {
-      const outputPath = path.join(artifactRoot, label + "-output.txt");
-      const args = renderArgs(request.transportContract.argsTemplate, {
-        prompt,
-        outputPath
-      });
-      const run = spawnSync(request.transportContract.command, args, {
-        cwd: sandboxRoot,
-        encoding: "utf8",
-        env: sanitizeEnvironment(request.transportContract),
-        timeout: Number.parseInt(process.env["ABG_TS_LIVE_TIMEOUT_MS"] ?? "600000", 10),
-        maxBuffer: 1024 * 1024 * 10
-      });
-      const result = {
-        command: request.transportContract.command,
-        args,
-        outputPath,
-        status: run.status,
-        signal: run.signal,
-        error: run.error === undefined ? null : String(run.error),
-        stdout: run.stdout,
-        stderr: run.stderr,
-        text: collectTransportText(run, outputPath)
-      };
-      writeFileSync(
-        path.join(artifactRoot, label + "-transport.json"),
-        JSON.stringify(result, null, 2),
-        "utf8"
-      );
-      return result;
     }
 
     function extractJsonObject(text) {
@@ -386,7 +325,20 @@ function liveSandboxSource(agentKey) {
       deriveAdvancementTransition(basis)
     )[0];
 
-    const readiness = runTransport(
+    async function runTransport(request, prompt, label) {
+      return await runAgentTransport({
+        contract: request.transportContract,
+        prompt,
+        cwd: sandboxRoot,
+        archiveRoot: artifactRoot,
+        label,
+        timeoutMs: Number.parseInt(process.env["ABG_TS_LIVE_TIMEOUT_MS"] ?? "600000", 10),
+        ...(executorProfile === undefined ? {} : { executorProfile }),
+        outputPath: path.join(artifactRoot, label + "-output.txt")
+      });
+    }
+
+    const readiness = await runTransport(
       dispatchRequest,
       "Return exactly this token and nothing else: " + READY_TOKEN,
       "readiness"
@@ -450,7 +402,7 @@ function liveSandboxSource(agentKey) {
         inputCarrier: "EnginePluginInput",
         outputCarrier: "FpDispatchOutcome"
       }),
-      dispatch: (input) => {
+      dispatch: async (input) => {
         if (input.actorInvocationRef === null) {
           throw new Error("missing ABG actor invocation ref");
         }
@@ -459,7 +411,7 @@ function liveSandboxSource(agentKey) {
           actorInvocationRef: input.actorInvocationRef,
           sourceProjectionRef: input.sourceProjectionRef
         });
-        const transport = runTransport(
+        const transport = await runTransport(
           dispatchRequest,
           resultPrompt(dispatchRequest, input.actorInvocationRef),
           "live-result"
@@ -487,7 +439,7 @@ function liveSandboxSource(agentKey) {
       }
     });
 
-    const outcome = publicStart(
+    const outcome = await publicStartAsync(
       startInput,
       {
         module,
@@ -658,7 +610,7 @@ test("T-087 live: real agent transport runs inside one ABG supervised actor invo
   const artifactRoot = path.join(targetRoot, INSTALLED_ARTIFACT_RELATIVE_ROOT);
   const run = await runInstalledNodeScript(
     targetRoot,
-    liveSandboxSource(liveAgentKey())
+    liveSandboxSource(liveAgentKey(), selectedExecutorProfile())
   );
 
   if (run.status !== 0) {

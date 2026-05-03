@@ -1473,3 +1473,17 @@ export function runEngineStart(request: EngineStartRequest): EngineIterateResult
     assuranceProvider: request.assuranceProvider
   });
 }
+
+export async function runEngineStartAsync(
+  request: EngineStartRequest
+): Promise<EngineIterateResult> {
+  const basis = admitExecutionBasis(request);
+  return await runEngineIterateAsync({
+    basis,
+    runtimeEvents: request.runtimeEvents,
+    eventSink: request.eventSink,
+    plugins: request.plugins,
+    maxAttachedFpAttempts: request.maxAttachedFpAttempts,
+    assuranceProvider: request.assuranceProvider
+  });
+}

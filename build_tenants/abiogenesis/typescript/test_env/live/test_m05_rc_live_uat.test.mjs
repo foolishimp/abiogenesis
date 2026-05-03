@@ -4,12 +4,14 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { mkdir, writeFile } from "node:fs/promises";
-import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
-import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { randomUUID } from "node:crypto";
 
+import {
+  runAgentTransport
+} from "../../build/semantic/code/src/shared/abg_library/index.js";
+import { executorProfileFields } from "./support/executor_profile.mjs";
 import {
   installPackedTenantPackage,
   provisionInstalledRoot,
@@ -82,74 +84,18 @@ async function writeJson(filePath, value) {
   await writeFile(filePath, `${JSON.stringify(value, null, 2)}\n`, "utf8");
 }
 
-function stringEnv() {
-  const out = {};
-  for (const [key, value] of Object.entries(process.env)) {
-    if (typeof value === "string") {
-      out[key] = value;
-    }
-  }
-  return out;
-}
-
-function sanitizeEnvironment(contract) {
-  const prefixes = contract.sanitizedEnvironmentPolicy.prefixes.filter(
-    (prefix) => prefix.length > 0
-  );
-  const env = {};
-  outer: for (const [key, value] of Object.entries(stringEnv())) {
-    for (const prefix of prefixes) {
-      if (key.startsWith(prefix)) {
-        continue outer;
-      }
-    }
-    env[key] = value;
-  }
-  return env;
-}
-
-function renderArgs(template, replacements) {
-  return template.map((arg) =>
-    arg
-      .replaceAll("{prompt}", replacements.prompt)
-      .replaceAll("{output_path}", replacements.outputPath)
-  );
-}
-
-function collectTransportText(run, outputPath) {
-  if (existsSync(outputPath)) {
-    const output = readFileSync(outputPath, "utf8");
-    if (output.trim().length > 0) {
-      return output;
-    }
-  }
-  return run.stdout;
-}
-
-function runTransport(request, prompt, cwd, root, label) {
+async function runTransport(request, prompt, cwd, root, label) {
   const outputPath = path.join(root, `${label}-output.txt`);
-  const args = renderArgs(request.transportContract.argsTemplate, {
+  return await runAgentTransport({
+    contract: request.transportContract,
     prompt,
+    cwd,
+    archiveRoot: root,
+    label,
+    timeoutMs: transportTimeoutMs(),
+    ...executorProfileFields(),
     outputPath
   });
-  const run = spawnSync(request.transportContract.command, args, {
-    cwd,
-    encoding: "utf8",
-    env: sanitizeEnvironment(request.transportContract),
-    timeout: transportTimeoutMs(),
-    maxBuffer: 1024 * 1024 * 10
-  });
-  return {
-    command: request.transportContract.command,
-    args,
-    outputPath,
-    status: run.status,
-    signal: run.signal,
-    error: run.error === undefined ? null : String(run.error),
-    stdout: run.stdout,
-    stderr: run.stderr,
-    text: collectTransportText(run, outputPath)
-  };
 }
 
 function extractJsonObject(text) {
@@ -674,7 +620,7 @@ test("M05 RC live sandbox UAT: real F_P transport artifact is ingested through t
   assert.deepStrictEqual(request.expectedAssessmentIds, ["uat_tests_complete"]);
   assert.deepStrictEqual(dispatchBundle.eventKinds, EXPECTED_DISPATCH_EVENT_CHAIN);
 
-  const readiness = runTransport(
+  const readiness = await runTransport(
     request,
     readinessPrompt(),
     targetRoot,
@@ -691,7 +637,7 @@ test("M05 RC live sandbox UAT: real F_P transport artifact is ingested through t
 
   const prompt = resultArtifactPrompt(request, agentKey);
   await writeFile(path.join(root, "prompt.txt"), prompt, "utf8");
-  const transport = runTransport(request, prompt, targetRoot, root, "dispatch");
+  const transport = await runTransport(request, prompt, targetRoot, root, "dispatch");
   await writeJson(path.join(root, "transport.json"), transport);
   await writeFile(path.join(root, "raw_response.txt"), transport.text, "utf8");
 
@@ -800,7 +746,7 @@ test("M05 RC live sandbox UAT: live F_P worker synthesizes challenge-specific UA
   assert.deepStrictEqual(request.expectedAssessmentIds, ["uat_tests_complete"]);
   assert.deepStrictEqual(dispatchBundle.eventKinds, EXPECTED_DISPATCH_EVENT_CHAIN);
 
-  const readiness = runTransport(
+  const readiness = await runTransport(
     request,
     readinessPrompt(),
     targetRoot,
@@ -817,7 +763,7 @@ test("M05 RC live sandbox UAT: live F_P worker synthesizes challenge-specific UA
 
   const prompt = semanticResultArtifactPrompt(request, agentKey, challenge);
   await writeFile(path.join(root, "prompt.txt"), prompt, "utf8");
-  const transport = runTransport(request, prompt, targetRoot, root, "dispatch");
+  const transport = await runTransport(request, prompt, targetRoot, root, "dispatch");
   await writeJson(path.join(root, "transport.json"), transport);
   await writeFile(path.join(root, "raw_response.txt"), transport.text, "utf8");
 

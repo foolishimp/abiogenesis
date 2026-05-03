@@ -81,6 +81,7 @@ test("T-097 supervised process actor streams stdout/stderr and records lifecycle
   });
 
   assert.equal(result.status, 0);
+  assert.equal(result.outcome.kind, "exited");
   assert.equal(result.timedOut, false);
   assert.equal(await readFile(stdoutPath, "utf8"), "stdout-before-exit\n");
   assert.equal(await readFile(stderrPath, "utf8"), "stderr-before-exit\n");
@@ -134,6 +135,7 @@ test("T-097 supervised process actor times out with governed signal events", asy
   });
 
   assert.equal(result.timedOut, true);
+  assert.equal(result.outcome.kind, "hard_timeout");
   assert.deepStrictEqual(
     observed.map((event) => event.kind),
     [
@@ -173,6 +175,7 @@ test("T-097 supervised process actor records missing command as typed runtime fa
 
   assert.equal(result.status, null);
   assert.equal(result.signal, null);
+  assert.equal(result.outcome.kind, "process_error");
   assert.match(result.error ?? "", /ENOENT/u);
   assert.deepStrictEqual(
     observed.map((event) => event.kind),
@@ -219,6 +222,7 @@ test("T-097 supervised process actor escalates timeout from SIGTERM to SIGKILL w
   });
 
   assert.equal(result.timedOut, true);
+  assert.equal(result.outcome.kind, "hard_timeout");
   assert.equal(result.signal, "SIGKILL");
   assert.deepStrictEqual(
     observed

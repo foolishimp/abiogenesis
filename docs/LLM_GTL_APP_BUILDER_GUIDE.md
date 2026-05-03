@@ -1,6 +1,6 @@
 # LLM GTL App Builder Guide
 
-**Status**: Current compressed technical GTL 3 / ABG 3.4.0-rc.7 guide for LLMs
+**Status**: Current compressed technical GTL 3 / ABG 3.5.0-rc.1 guide for LLMs
 **Audience**: LLM agentic coders and agent bootstraps building GTL/ABG domain apps
 **Purpose**: Compress the human GTL/ABG guide into the ontology, operating rules, fail-closed constraints, and language-specific syntax needed by LLM agents
 
@@ -479,7 +479,7 @@ an app-owned program catalog plus a custom iteration runner.
 
 ### Eager vs deferred composition
 
-There are now two lawful composition patterns.
+There are two lawful composition patterns.
 
 #### Eager GTL composition
 
@@ -1064,7 +1064,7 @@ ABG does not own domain semantics beyond declared law.
 
 ABG interprets and enforces declared law.
 
-### ABG 3.4.0 RC carrier law
+### ABG 3.5.0 RC carrier law
 
 The live runtime boundary is carrier and event owned.
 
@@ -1082,7 +1082,7 @@ Do not rebuild these meanings from result dictionaries, controller state, or
 runtime policy, asset-binding, proof-hold, dispatch, and convergence truth must
 be carried by typed or resolved runtime surfaces.
 
-### ABG 3.4.0-rc.7 carrier extensions
+### ABG 3.5.0-rc.1 carrier extensions
 
 The rc.7 carrier surface covers output allocation, zoom-foldback, graph-span
 foldback and reentry, cross-workspace allocation, eval-suite projection, typed
@@ -1583,27 +1583,36 @@ The UX should expose lawful next moves from runtime facts.
 
 The live kernel in this repo is `abiogenesis`.
 
-The current source version is `3.4.0-rc.7`.
+The current source version is `3.5.0-rc.1`.
 
 ### Run from source
 
 See the appendices for source-run commands in Python and TypeScript.
 
-Shared operator commands:
+Operator commands fall into a tenant-invariant core and a Python-tenant
+extension surface.
+
+Tenant-invariant core, implemented by every tenant:
 
 - `start`
 - `gaps`
-- `emit-event`
 - `assess-result`
+- `install`
+
+Python-tenant extension commands, not yet present in the TypeScript tenant:
+
+- `emit-event`
 - `check-tags`
 - `check-req-coverage`
 - `check-impl-coverage`
 - `check-validates-coverage`
 - `check-bootloader-consistency`
 
-The command grammar is tenant-invariant. Python, TypeScript, or another tenant
-may use different executable prefixes, but the subcommand and flags after the
-binary stay the same.
+The command grammar is tenant-invariant for the core surface. Python,
+TypeScript, or another tenant may use different executable prefixes, but the
+subcommand and flags after the binary stay the same. Extension commands are
+authored in Python and are not part of the TypeScript CLI surface in this
+release line.
 
 ```bash
 <runtime-binary> start --workspace . --scope workspace --target next --until first_traversal
@@ -2498,7 +2507,7 @@ cd /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript
 npm run build:semantic
 npm pack
 cd /path/to/project
-npm install /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/abiogenesis-typescript-tenant-3.4.0-rc.7.tgz
+npm install /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/abiogenesis-typescript-tenant-3.5.0-rc.1.tgz
 ```
 
 For product-owned bootstrap, use the package API:
@@ -2512,8 +2521,8 @@ const installOutcome = await installBootstrap(
     installedPackageName: "@example/delivery-app",
     runtimePackage: {
       packageName: "@abiogenesis/typescript-tenant",
-      packageVersion: "3.4.0-rc.7",
-      dependencyRef: "file:./abiogenesis-typescript-tenant-3.4.0-rc.7.tgz",
+      packageVersion: "3.5.0-rc.1",
+      dependencyRef: "file:./abiogenesis-typescript-tenant-3.5.0-rc.1.tgz",
       appExportSubpath: "./app/m04",
       requiredExports: [".", "./app/m04"]
     }

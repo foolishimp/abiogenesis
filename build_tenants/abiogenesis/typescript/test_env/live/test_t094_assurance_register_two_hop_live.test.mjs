@@ -8,8 +8,6 @@
 
 import test from "node:test";
 import assert from "node:assert/strict";
-import { spawnSync } from "node:child_process";
-import { existsSync, readFileSync } from "node:fs";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -31,9 +29,14 @@ import {
   emit
 } from "../../build/semantic/code/src/abg/m03/index.js";
 import {
-  contractForKnownAgent
+  contractForKnownAgent,
+  runAgentTransport
 } from "../../build/semantic/code/src/shared/abg_library/index.js";
 import { buildThreeStageBasis } from "../tests/support/m03-iteration-fixtures.mjs";
+import {
+  executorProfileFields,
+  selectedExecutorProfile
+} from "./support/executor_profile.mjs";
 
 const LIVE_DIR = path.dirname(fileURLToPath(import.meta.url));
 const TEST_ENV_ROOT = path.dirname(LIVE_DIR);
@@ -71,50 +74,6 @@ async function writeText(filePath, value) {
   await writeFile(filePath, value, "utf8");
 }
 
-function stringEnv() {
-  const out = {};
-  for (const [key, value] of Object.entries(process.env)) {
-    if (typeof value === "string") {
-      out[key] = value;
-    }
-  }
-  return out;
-}
-
-function sanitizeEnvironment(contract) {
-  const prefixes = contract.sanitizedEnvironmentPolicy.prefixes.filter(
-    (prefix) => prefix.length > 0
-  );
-  const env = {};
-  outer: for (const [key, value] of Object.entries(stringEnv())) {
-    for (const prefix of prefixes) {
-      if (key.startsWith(prefix)) {
-        continue outer;
-      }
-    }
-    env[key] = value;
-  }
-  return env;
-}
-
-function renderArgs(template, replacements) {
-  return template.map((arg) =>
-    arg
-      .replaceAll("{prompt}", replacements.prompt)
-      .replaceAll("{output_path}", replacements.outputPath)
-  );
-}
-
-function collectTransportText(run, outputPath) {
-  if (existsSync(outputPath)) {
-    const output = readFileSync(outputPath, "utf8");
-    if (output.trim().length > 0) {
-      return output;
-    }
-  }
-  return run.stdout;
-}
-
 async function runTransport({
   contract,
   prompt,
@@ -122,33 +81,16 @@ async function runTransport({
   label
 }) {
   const outputPath = path.join(archiveRoot, `${label}-output.txt`);
-  const args = renderArgs(contract.argsTemplate, {
+  return await runAgentTransport({
+    contract,
     prompt,
+    cwd: archiveRoot,
+    archiveRoot,
+    label,
+    timeoutMs: transportTimeoutMs(),
+    ...executorProfileFields(),
     outputPath
   });
-  await writeText(path.join(archiveRoot, `${label}-prompt.txt`), prompt);
-  const run = spawnSync(contract.command, args, {
-    cwd: archiveRoot,
-    encoding: "utf8",
-    env: sanitizeEnvironment(contract),
-    timeout: transportTimeoutMs(),
-    maxBuffer: 1024 * 1024 * 10
-  });
-  const result = {
-    command: contract.command,
-    args,
-    outputPath,
-    status: run.status,
-    signal: run.signal,
-    error: run.error === undefined ? null : String(run.error),
-    stdout: run.stdout,
-    stderr: run.stderr,
-    text: collectTransportText(run, outputPath)
-  };
-  await writeJson(path.join(archiveRoot, `${label}-transport.json`), result);
-  await writeText(path.join(archiveRoot, `${label}-stdout.log`), run.stdout ?? "");
-  await writeText(path.join(archiveRoot, `${label}-stderr.log`), run.stderr ?? "");
-  return result;
 }
 
 function extractJsonObject(text) {
@@ -325,6 +267,7 @@ test("T-094 live: two Claude hops build a register that requires deepening", asy
   await writeJson(path.join(archiveRoot, "live_config.json"), {
     agentKey,
     enforcedAgent: "claude",
+    executorProfile: selectedExecutorProfile() ?? "local-spawn",
     timeoutMs: transportTimeoutMs(),
     archiveRoot
   });
