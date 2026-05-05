@@ -68,6 +68,21 @@ export function startFromRequest(
     ...(context.assuranceProvider === undefined
       ? {}
       : { assuranceProvider: context.assuranceProvider }),
+    ...(context.abgFallbackBundle === undefined
+      ? {}
+      : { abgFallbackBundle: context.abgFallbackBundle }),
+    ...(context.pluginTraversalObserverFallbackEnabled === undefined
+      ? {}
+      : {
+          pluginTraversalObserverFallbackEnabled:
+            context.pluginTraversalObserverFallbackEnabled
+        }),
+    ...(context.pluginTraversalObserverFallbackKinds === undefined
+      ? {}
+      : {
+          pluginTraversalObserverFallbackKinds:
+            context.pluginTraversalObserverFallbackKinds
+        }),
     ...(context.runId === undefined ? {} : { runId: context.runId }),
     ...(context.workKey === undefined ? {} : { workKey: context.workKey }),
     ...(context.frameId === undefined ? {} : { frameId: context.frameId }),
@@ -112,6 +127,21 @@ export async function startFromRequestAsync(
     ...(context.assuranceProvider === undefined
       ? {}
       : { assuranceProvider: context.assuranceProvider }),
+    ...(context.abgFallbackBundle === undefined
+      ? {}
+      : { abgFallbackBundle: context.abgFallbackBundle }),
+    ...(context.pluginTraversalObserverFallbackEnabled === undefined
+      ? {}
+      : {
+          pluginTraversalObserverFallbackEnabled:
+            context.pluginTraversalObserverFallbackEnabled
+        }),
+    ...(context.pluginTraversalObserverFallbackKinds === undefined
+      ? {}
+      : {
+          pluginTraversalObserverFallbackKinds:
+            context.pluginTraversalObserverFallbackKinds
+        }),
     ...(context.runId === undefined ? {} : { runId: context.runId }),
     ...(context.workKey === undefined ? {} : { workKey: context.workKey }),
     ...(context.frameId === undefined ? {} : { frameId: context.frameId }),

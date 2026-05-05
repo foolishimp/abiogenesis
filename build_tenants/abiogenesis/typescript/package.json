@@ -1,6 +1,6 @@
 {
   "name": "@abiogenesis/typescript-tenant",
-  "version": "3.5.0-rc.1",
+  "version": "3.5.0-rc.2",
   "private": true,
   "type": "module",
   "types": "./build/semantic/code/src/index.d.ts",
@@ -79,7 +79,8 @@
     }
   },
   "files": [
-    "build/semantic/**"
+    "build/semantic/**",
+    "config/**"
   ],
   "engines": {
     "node": ">=20"
@@ -168,7 +169,13 @@
     "test:claude-stream-json-parser": "npm run build:semantic && node --test test_env/tests/test_t109_agent_callout_traced_substrate.test.mjs",
     "test:agent-callout-forced-failure": "npm run build:semantic && node --test test_env/tests/test_t109_agent_callout_traced_substrate.test.mjs",
     "test:t109": "npm run build:semantic && node --test test_env/tests/test_t109_agent_callout_guard.test.mjs test_env/tests/test_t109_agent_callout_traced_substrate.test.mjs",
-    "test:t111": "npm run build:semantic && node --test test_env/tests/test_t111_pty_terminal_executor.test.mjs"
+    "test:t111": "npm run build:semantic && node --test test_env/tests/test_t111_pty_terminal_executor.test.mjs",
+    "test:t113:live": "npm run build:semantic && CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_AGENT_EXECUTOR_PROFILE=pty-terminal node --test test_env/live/test_t113_live_pty_claude_actor_worker.test.mjs",
+    "test:t115": "npm run build:semantic && node --test test_env/tests/test_t115_actor_worker_callout_closure.test.mjs",
+    "test:t116": "npm run build:semantic && node --test test_env/tests/test_t116_plugin_traversal_observer_binding.test.mjs",
+    "test:t116:live": "npm run test:t113:live",
+    "test:t117": "npm run build:semantic && node --test test_env/tests/test_t117_abg_defaults_bundle.test.mjs test_env/tests/test_m04_typescript_installer_integration.test.mjs",
+    "test:t117:live": "npm run test:t113:live"
   },
   "dependencies": {
     "valibot": "1.3.1"

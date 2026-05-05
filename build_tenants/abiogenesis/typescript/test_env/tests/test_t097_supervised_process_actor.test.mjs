@@ -16,6 +16,9 @@ function invocation(overrides = {}) {
     kind: "actor_invocation",
     actorInvocationId: "actor-invocation://t097",
     basisId: "basis://t097",
+    graphFunctionId: "graph-function://t097",
+    runId: "run://t097",
+    workKey: "wk://t097",
     graphCallId: "graph-call://t097",
     frameId: "frame://t097",
     vectorIndex: 0,
@@ -25,6 +28,8 @@ function invocation(overrides = {}) {
     workerId: "worker://node",
     backendId: "backend://node",
     resultRef: "result://t097",
+    causationEventRefs: ["dispatch://test"],
+    correlationId: "correlation://t097",
     ...overrides
   });
 }
@@ -32,11 +37,24 @@ function invocation(overrides = {}) {
 function invocationForBasis(basis) {
   return invocation({
     basisId: basis.id,
+    graphFunctionId: basis.graphFunction.id,
+    runId: basis.runId,
+    workKey: basis.workKey,
     graphCallId: "graph-call://t097",
     frameId: "frame://t097",
     vectorIndex: 0,
     edge: "design→code:fp"
   });
+}
+
+function assertActorProcessIdentity(event, actor = invocation()) {
+  assert.equal(event.graphFunctionId, actor.graphFunctionId);
+  assert.equal(event.runId, actor.runId);
+  assert.equal(event.workKey, actor.workKey);
+  assert.equal(event.workerId, actor.workerId);
+  assert.equal(event.backendId, actor.backendId);
+  assert.deepStrictEqual(event.causationEventRefs, actor.causationEventRefs);
+  assert.equal(event.correlationId, actor.correlationId);
 }
 
 async function tempWorkspace() {
@@ -99,6 +117,9 @@ test("T-097 supervised process actor streams stdout/stderr and records lifecycle
     observed.some((event) => event.kind === "actor_process_heartbeat"),
     "long-running process should record heartbeat before exit"
   );
+  for (const event of observed) {
+    assertActorProcessIdentity(event);
+  }
   assert.ok(
     (await readFile(eventPath, "utf8")).includes("actor_process_stream_observed")
   );
@@ -146,6 +167,9 @@ test("T-097 supervised process actor times out with governed signal events", asy
     ]
   );
   assert.equal(observed[2].signal, "SIGTERM");
+  for (const event of observed) {
+    assertActorProcessIdentity(event);
+  }
   assert.notEqual(result.signal, null);
 });
 
@@ -179,10 +203,16 @@ test("T-097 supervised process actor records missing command as typed runtime fa
   assert.match(result.error ?? "", /ENOENT/u);
   assert.deepStrictEqual(
     observed.map((event) => event.kind),
-    ["actor_process_started", "actor_process_exited"]
+    ["actor_process_start_failed", "actor_process_exited"]
   );
+  assert.equal(observed[0].failureKind, "process_error");
+  assert.match(observed[0].detail, /ENOENT/u);
+  assert.equal(observed[0].command, path.join(root, "missing-command"));
   assert.equal(observed[1].status, null);
   assert.match(observed[1].error ?? "", /ENOENT/u);
+  for (const event of observed) {
+    assertActorProcessIdentity(event);
+  }
   assert.match(await readFile(eventPath, "utf8"), /actor_process_exited/u);
 });
 
@@ -237,11 +267,18 @@ test("T-097 runtime projection exposes process liveness, heartbeat, timeout, and
   const actor = invocationForBasis(basis);
   const common = {
     basisId: actor.basisId,
+    graphFunctionId: actor.graphFunctionId,
+    runId: actor.runId,
+    workKey: actor.workKey,
     graphCallId: actor.graphCallId,
     frameId: actor.frameId,
     vectorIndex: actor.vectorIndex,
     edge: actor.edge,
-    actorInvocationId: actor.actorInvocationId
+    actorInvocationId: actor.actorInvocationId,
+    workerId: actor.workerId,
+    backendId: actor.backendId,
+    causationEventRefs: actor.causationEventRefs,
+    correlationId: actor.correlationId
   };
   const projection = deriveRuntimeAggregateProjection(basis, [
     {
@@ -251,6 +288,7 @@ test("T-097 runtime projection exposes process liveness, heartbeat, timeout, and
       args: ["worker.mjs"],
       cwd: "/workspace/demo",
       pid: 123,
+      terminalSessionId: "terminal://t097/success",
       timeoutMs: 70,
       stdoutRef: "file:///tmp/stdout.log",
       stderrRef: "file:///tmp/stderr.log"
@@ -300,9 +338,23 @@ test("T-097 runtime projection exposes process liveness, heartbeat, timeout, and
     {
       vectorIndex: 0,
       actorInvocationId: actor.actorInvocationId,
+      graphFunctionId: actor.graphFunctionId,
+      graphCallId: actor.graphCallId,
+      frameId: actor.frameId,
+      edge: actor.edge,
+      runId: actor.runId,
+      workKey: actor.workKey,
+      workerId: actor.workerId,
+      backendId: actor.backendId,
+      causationEventRefs: actor.causationEventRefs,
+      correlationId: actor.correlationId,
       pid: 123,
       stdoutRef: "file:///tmp/stdout.log",
       stderrRef: "file:///tmp/stderr.log",
+      startFailed: false,
+      startFailureKind: null,
+      startFailureDetail: null,
+      terminalSessionId: "terminal://t097/success",
       running: false,
       latestHeartbeatIndex: 1,
       latestHeartbeatElapsedMs: 55,

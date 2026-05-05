@@ -23,9 +23,12 @@ export type {
   ActorProcessExitedEvent,
   ActorProcessHeartbeatEvent,
   ActorProcessSignalSentEvent,
+  ActorProcessStartFailedEvent,
+  ActorProcessStartFailureKind,
   ActorProcessStartedEvent,
   ActorProcessStreamObservedEvent,
   ActorProcessTimeoutEvent,
+  AbgFallbackBundleRef,
   FrameOpenedEvent,
   FrameProjection,
   GraphCallOpenedEvent,
@@ -60,6 +63,9 @@ export type {
   PayloadRejectedRuntimeEvent,
   PayloadRejectionClass,
   PayloadValidatedRuntimeEvent,
+  PluginTraversalKind,
+  PluginTraversalObserverBindingSource,
+  PluginTraversalPromptMaterializedEvent,
   RetryAttemptEscalatedEvent,
   RetryAttemptOpenedEvent,
   RetryAttemptStoppedEvent,
@@ -151,6 +157,20 @@ export type {
   FpTransformStatus
 } from "./fp_stages.js";
 export {
+  PLUGIN_TRAVERSAL_KIND_VALUES,
+  PLUGIN_TRAVERSAL_OBSERVER_DECLARATION_KEYS,
+  admitAbgFallbackBundle,
+  loadAbgFallbackBundleFromFile,
+  resolvePluginTraversalObserverBinding,
+  tryResolvePluginTraversalObserverBinding
+} from "./plugin_traversal_observer.js";
+export type {
+  AbgFallbackBundle,
+  AbgFallbackPluginTraversalObserverBinding,
+  PluginTraversalObserverBinding,
+  PluginTraversalObserverBindingSelection
+} from "./plugin_traversal_observer.js";
+export {
   RETRY_FRONTIER_REASON_CLASS_VALUES,
   assertFullRetryFrontierProjection,
   deriveRetryFrontierProjection
@@ -223,6 +243,7 @@ export {
   constructActorProcessExitedEvent,
   constructActorProcessHeartbeatEvent,
   constructActorProcessSignalSentEvent,
+  constructActorProcessStartFailedEvent,
   constructActorProcessStartedEvent,
   constructActorProcessStreamObservedEvent,
   constructActorProcessTimeoutEvent,
@@ -235,6 +256,7 @@ export {
   constructPayloadObservedEvent,
   constructPayloadRejectedEvent,
   constructPayloadValidatedEvent,
+  constructPluginTraversalPromptMaterializedEvent,
   constructVectorClosedEvent,
   constructVectorEvaluatedEvent,
   constructVectorTraversalPlannedEvent,

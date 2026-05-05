@@ -14,7 +14,7 @@ The repo is organized around spec-driven development:
   harness
 - `build_tenants/abiogenesis/python/` is a paused released reference line
 
-The active engine and language surface is GTL 3 / ABG 3.5.0-rc.1:
+The active engine and language surface is GTL 3 / ABG 3.5.0-rc.2:
 - GTL: `Module`, `Graph`, `Node`, `GraphVector`, `Context`, `Job`, `Role`
 - ABG: interpreter, typed runtime carriers, event stream, projection,
   convergence, regime binding, run, graph call, continuation, transport,

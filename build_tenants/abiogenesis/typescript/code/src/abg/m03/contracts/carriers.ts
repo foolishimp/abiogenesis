@@ -8,6 +8,20 @@ import type { Job } from "../../../gtl/m02/contracts/carriers.js";
 
 export type RuntimeRegime = "F_D" | "F_P" | "F_H";
 
+export type PluginTraversalKind = "transform" | "eval";
+
+export type PluginTraversalObserverBindingSource =
+  | "graph_vector_declarations"
+  | "graph_function_declarations"
+  | "role_policy_hooks"
+  | "abg_defaults";
+
+export interface AbgFallbackBundleRef {
+  readonly bundleRef: string;
+  readonly bundlePath: string | null;
+  readonly bundleDigest: string;
+}
+
 export const COMPUTE_BASIS_FAILURE_CLASS_VALUES = Object.freeze([
   "no_compute_basis"
 ] as const);
@@ -123,6 +137,9 @@ export interface ActorInvocation {
   readonly kind: "actor_invocation";
   readonly actorInvocationId: string;
   readonly basisId: string;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
   readonly graphCallId: string;
   readonly frameId: string;
   readonly vectorIndex: number;
@@ -132,6 +149,8 @@ export interface ActorInvocation {
   readonly workerId: string;
   readonly backendId: string;
   readonly resultRef: string;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
 }
 
 export interface ActorInvocationRef {
@@ -139,6 +158,22 @@ export interface ActorInvocationRef {
   readonly attemptIndex: number;
   readonly dispatchRef: string;
   readonly resultRef: string;
+}
+
+export interface ActorRuntimeScope {
+  readonly basisId: string;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly actorInvocationId: string;
+  readonly workerId: string;
+  readonly backendId: string;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
 }
 
 export interface FhEscalationTransition {
@@ -187,126 +222,130 @@ export interface FpDispatchRequestedEvent {
   readonly dispatchRef: string;
 }
 
-export interface ActorInvocationStartedEvent {
+export interface ActorInvocationStartedEvent extends ActorRuntimeScope {
   readonly kind: "actor_invocation_started";
-  readonly basisId: string;
-  readonly graphCallId: string;
-  readonly frameId: string;
-  readonly vectorIndex: number;
-  readonly edge: string;
-  readonly actorInvocationId: string;
   readonly attemptIndex: number;
   readonly dispatchRef: string;
-  readonly workerId: string;
-  readonly backendId: string;
   readonly resultRef: string;
 }
 
-export interface ActorResultArtifactObservedEvent {
+export interface ActorResultArtifactObservedEvent extends ActorRuntimeScope {
   readonly kind: "actor_result_artifact_observed";
-  readonly basisId: string;
-  readonly graphCallId: string;
-  readonly frameId: string;
-  readonly vectorIndex: number;
-  readonly edge: string;
-  readonly actorInvocationId: string;
   readonly resultRef: string;
   readonly artifactRef: string;
 }
 
-export interface ActorInvocationClosedEvent {
+export interface ActorInvocationClosedEvent extends ActorRuntimeScope {
   readonly kind: "actor_invocation_closed";
-  readonly basisId: string;
-  readonly graphCallId: string;
-  readonly frameId: string;
-  readonly vectorIndex: number;
-  readonly edge: string;
-  readonly actorInvocationId: string;
   readonly closureStatus: "completed" | "blocked" | "blocked_with_artifact";
   readonly resultRef: string | null;
   readonly detail: string | null;
 }
 
-export interface ActorProcessStartedEvent {
+export type ActorProcessRuntimeScope = ActorRuntimeScope;
+
+export type ActorProcessStartFailureKind =
+  | "executor_unavailable"
+  | "launch_failed"
+  | "process_error";
+
+export interface ActorProcessStartedEvent extends ActorProcessRuntimeScope {
   readonly kind: "actor_process_started";
-  readonly basisId: string;
-  readonly graphCallId: string;
-  readonly frameId: string;
-  readonly vectorIndex: number;
-  readonly edge: string;
-  readonly actorInvocationId: string;
   readonly command: string;
   readonly args: readonly string[];
   readonly cwd: string;
   readonly pid: number | null;
+  readonly terminalSessionId: string | null;
   readonly timeoutMs: number;
   readonly stdoutRef: string;
   readonly stderrRef: string;
 }
 
-export interface ActorProcessStreamObservedEvent {
+export interface ActorProcessStartFailedEvent extends ActorProcessRuntimeScope {
+  readonly kind: "actor_process_start_failed";
+  readonly command: string;
+  readonly args: readonly string[];
+  readonly cwd: string;
+  readonly timeoutMs: number;
+  readonly stdoutRef: string;
+  readonly stderrRef: string;
+  readonly terminalSessionId: string | null;
+  readonly failureKind: ActorProcessStartFailureKind;
+  readonly detail: string;
+}
+
+export interface ActorProcessStreamObservedEvent extends ActorProcessRuntimeScope {
   readonly kind: "actor_process_stream_observed";
-  readonly basisId: string;
-  readonly graphCallId: string;
-  readonly frameId: string;
-  readonly vectorIndex: number;
-  readonly edge: string;
-  readonly actorInvocationId: string;
   readonly streamName: "stdout" | "stderr";
   readonly streamRef: string;
   readonly chunkIndex: number;
   readonly byteLength: number;
 }
 
-export interface ActorProcessHeartbeatEvent {
+export interface ActorProcessHeartbeatEvent extends ActorProcessRuntimeScope {
   readonly kind: "actor_process_heartbeat";
-  readonly basisId: string;
-  readonly graphCallId: string;
-  readonly frameId: string;
-  readonly vectorIndex: number;
-  readonly edge: string;
-  readonly actorInvocationId: string;
   readonly heartbeatIndex: number;
   readonly elapsedMs: number;
 }
 
-export interface ActorProcessTimeoutEvent {
+export interface ActorProcessTimeoutEvent extends ActorProcessRuntimeScope {
   readonly kind: "actor_process_timeout";
-  readonly basisId: string;
-  readonly graphCallId: string;
-  readonly frameId: string;
-  readonly vectorIndex: number;
-  readonly edge: string;
-  readonly actorInvocationId: string;
   readonly timeoutMs: number;
   readonly elapsedMs: number;
 }
 
-export interface ActorProcessSignalSentEvent {
+export interface ActorProcessSignalSentEvent extends ActorProcessRuntimeScope {
   readonly kind: "actor_process_signal_sent";
-  readonly basisId: string;
-  readonly graphCallId: string;
-  readonly frameId: string;
-  readonly vectorIndex: number;
-  readonly edge: string;
-  readonly actorInvocationId: string;
   readonly signal: "SIGTERM" | "SIGKILL";
   readonly elapsedMs: number;
 }
 
-export interface ActorProcessExitedEvent {
+export interface ActorProcessExitedEvent extends ActorProcessRuntimeScope {
   readonly kind: "actor_process_exited";
-  readonly basisId: string;
-  readonly graphCallId: string;
-  readonly frameId: string;
-  readonly vectorIndex: number;
-  readonly edge: string;
-  readonly actorInvocationId: string;
   readonly status: number | null;
   readonly signal: string | null;
   readonly elapsedMs: number;
   readonly timedOut: boolean;
   readonly error: string | null;
+}
+
+export interface PluginTraversalPromptMaterializedEvent {
+  readonly kind: "plugin_traversal_prompt_materialized";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly frameLineageId: string | null;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly traversalKind: PluginTraversalKind;
+  readonly materializationRef: string;
+  readonly selectionRef: string;
+  readonly selectionSource: PluginTraversalObserverBindingSource;
+  readonly sourceRef: string;
+  readonly attrKey: string | null;
+  readonly hookRef: string;
+  readonly actorInvocationId: string | null;
+  readonly workerId: string | null;
+  readonly backendId: string | null;
+  readonly observerPromptRef: string;
+  readonly renderedPromptRef: string;
+  readonly promptInputDigest: string;
+  readonly promptTemplateRef: string;
+  readonly promptInputContractRef: string;
+  readonly expectedOutputContractRef: string;
+  readonly progressSignalRefs: readonly string[];
+  readonly continuationRequestRefs: readonly string[];
+  readonly policyRefs: readonly string[];
+  readonly configDigest: string;
+  readonly defaultsBundleRef: string | null;
+  readonly defaultsBundleDigest: string | null;
+  readonly defaultsPath: string | null;
+  readonly defaultKey: string | null;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
 }
 
 export interface FhEscalatedEvent {
@@ -1363,11 +1402,13 @@ export type RuntimeEvent =
   | ActorResultArtifactObservedEvent
   | ActorInvocationClosedEvent
   | ActorProcessStartedEvent
+  | ActorProcessStartFailedEvent
   | ActorProcessStreamObservedEvent
   | ActorProcessHeartbeatEvent
   | ActorProcessTimeoutEvent
   | ActorProcessSignalSentEvent
   | ActorProcessExitedEvent
+  | PluginTraversalPromptMaterializedEvent
   | FhEscalatedEvent
   | TerminalReachedEvent
   | GraphCallOpenedEvent
@@ -1427,11 +1468,13 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "actor_result_artifact_observed",
   "actor_invocation_closed",
   "actor_process_started",
+  "actor_process_start_failed",
   "actor_process_stream_observed",
   "actor_process_heartbeat",
   "actor_process_timeout",
   "actor_process_signal_sent",
   "actor_process_exited",
+  "plugin_traversal_prompt_materialized",
   "fh_escalated",
   "terminal_reached",
   "graph_call_opened",
@@ -1576,6 +1619,16 @@ export interface RuntimeAggregateProjection {
   readonly actorInvocationRefs: readonly {
     readonly vectorIndex: number;
     readonly actorInvocationId: string;
+    readonly graphFunctionId: string;
+    readonly graphCallId: string;
+    readonly frameId: string;
+    readonly edge: string;
+    readonly runId: string | null;
+    readonly workKey: string | null;
+    readonly workerId: string;
+    readonly backendId: string;
+    readonly causationEventRefs: readonly string[];
+    readonly correlationId: string;
     readonly attemptIndex: number;
     readonly dispatchRef: string;
     readonly resultRef: string;
@@ -1583,15 +1636,39 @@ export interface RuntimeAggregateProjection {
   readonly observedActorArtifactRefs: readonly {
     readonly vectorIndex: number;
     readonly actorInvocationId: string;
+    readonly graphFunctionId: string;
+    readonly graphCallId: string;
+    readonly frameId: string;
+    readonly edge: string;
+    readonly runId: string | null;
+    readonly workKey: string | null;
+    readonly workerId: string;
+    readonly backendId: string;
+    readonly causationEventRefs: readonly string[];
+    readonly correlationId: string;
     readonly resultRef: string;
     readonly artifactRef: string;
   }[];
   readonly actorProcessRefs: readonly {
     readonly vectorIndex: number;
     readonly actorInvocationId: string;
+    readonly graphFunctionId: string;
+    readonly graphCallId: string;
+    readonly frameId: string;
+    readonly edge: string;
+    readonly runId: string | null;
+    readonly workKey: string | null;
+    readonly workerId: string;
+    readonly backendId: string;
+    readonly causationEventRefs: readonly string[];
+    readonly correlationId: string;
     readonly pid: number | null;
     readonly stdoutRef: string;
     readonly stderrRef: string;
+    readonly startFailed: boolean;
+    readonly startFailureKind: ActorProcessStartFailureKind | null;
+    readonly startFailureDetail: string | null;
+    readonly terminalSessionId: string | null;
     readonly running: boolean;
     readonly latestHeartbeatIndex: number | null;
     readonly latestHeartbeatElapsedMs: number | null;
@@ -1614,6 +1691,32 @@ export interface RuntimeAggregateProjection {
     readonly streamRef: string;
     readonly chunkIndex: number;
     readonly byteLength: number;
+  }[];
+  readonly pluginTraversalPromptMaterializationRefs: readonly {
+    readonly vectorIndex: number;
+    readonly edge: string;
+    readonly traversalKind: PluginTraversalKind;
+    readonly materializationRef: string;
+    readonly selectionRef: string;
+    readonly selectionSource: PluginTraversalObserverBindingSource;
+    readonly sourceRef: string;
+    readonly attrKey: string | null;
+    readonly hookRef: string;
+    readonly actorInvocationId: string | null;
+    readonly workerId: string | null;
+    readonly backendId: string | null;
+    readonly observerPromptRef: string;
+    readonly renderedPromptRef: string;
+    readonly promptInputDigest: string;
+    readonly promptTemplateRef: string;
+    readonly promptInputContractRef: string;
+    readonly expectedOutputContractRef: string;
+    readonly defaultsBundleRef: string | null;
+    readonly defaultsBundleDigest: string | null;
+    readonly defaultsPath: string | null;
+    readonly defaultKey: string | null;
+    readonly causationEventRefs: readonly string[];
+    readonly correlationId: string;
   }[];
   readonly leafTaskIds: readonly string[];
   readonly completedLeafTaskIds: readonly string[];

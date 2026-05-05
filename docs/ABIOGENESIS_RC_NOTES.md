@@ -1,7 +1,7 @@
-# abiogenesis 3.5.0-rc.1 RC Notes
+# abiogenesis 3.5.0-rc.2 RC Notes
 
-This note records accepted RC behavior for the current `v3.5.0-rc.1` line.
-The package cut is `3.5.0-rc.1`.
+This note records accepted RC behavior for the current `v3.5.0-rc.2` line.
+The package cut is `3.5.0-rc.2`.
 
 ## Accepted Framework Behavior
 
@@ -298,7 +298,9 @@ Accepted behavior:
 
 ### Traced Agent Call-Outs And PTY Execution Are ABG Substrate
 
-The 3.5.0-rc.1 cut accepts T-108, T-109, and T-111 as ABG substrate.
+The 3.5.0-rc.1 cut accepted T-108, T-109, and T-111 as ABG substrate. The
+3.5.0-rc.2 cut preserves that substrate and repairs successful PTY terminal
+session identity at the ABG event/projection boundary.
 
 Accepted behavior:
 
@@ -321,37 +323,77 @@ Accepted behavior:
   not provide an explicit executor profile
 - PTY hard timeout and inactivity timeout are distinct trace-observed terminal
   conditions
+- successful PTY `actor_process_started` events and projections carry
+  `terminalSessionId`, so runtime replay truth no longer depends on trace-local
+  files for successful terminal session identity
 - sticky session reuse, warm agent pools, and automatic session affinity remain
-  future T-110 work, not 3.5.0-rc.1 behavior
+  future T-110 work, not 3.5.0-rc.2 behavior
+
+### Plugin Traversal Observer Bindings Are Replay Visible
+
+The 3.5.0-rc.2 cut accepts T-116 as the first GTL-declared plugin traversal
+observer binding slice for Transform and Eval.
+
+Accepted behavior:
+
+- GTL observer bindings are declared through GraphVector, GraphFunction, or
+  Role hook/config surfaces
+- ABG resolves observer binding precedence as GraphVector, GraphFunction, Role,
+  then opt-in `abg_defaults`
+- prompt materialization emits replay-visible runtime events with selected
+  prompt refs, contracts, config digest, causation, correlation, and source
+  bundle metadata when applicable
+- materialization identity is unique per materialization, not only per static
+  selection
+- fallback observer binding is opt-in by traversal kind; ordinary F_P runs do
+  not implicitly activate it
+
+### ABG Defaults Are Visible For The Plugin Observer Slice
+
+The 3.5.0-rc.2 cut accepts T-117 only for the plugin traversal observer
+fallback slice plus audit inventory.
+
+Accepted behavior:
+
+- `build_tenants/abiogenesis/typescript/config/abg.reference-fallbacks.json` is
+  the shipped reference fallback bundle
+- installed workspaces receive `.abiogenesis/config/abg.fallbacks.json`
+- installer refresh preserves local edits to the installed fallback config
+- public installed `genesis-ts`/`abiogenesis-ts` command paths load the installed
+  fallback config and fail closed on malformed edited config
+- runtime prompt materialization records fallback bundle ref, digest, path, and
+  selected default key when a default participates
+
+Non-claim:
+
+- T-117 does not externalize every ABG default family. T-118 owns transport,
+  PTY, timeout, parser, worker-binding, trace path, environment, retry,
+  traversal-modulation, M04 request, installer, and live-harness defaults not
+  closed by the plugin observer slice.
 
 ## Current Verification Footer
 
 The current RC proving footer is:
 
-- `npm run test:t082`: `6 passed`
-- `npm run test:t100:test35-parity`: `15 passed`
-- `npm run test:t101`: `2 passed`
-- `npm run test:t102`: `7 passed`
-- `npm run test:t103`: `24 passed`
-- `npm run test:t104`: `6 passed`
-- `npm run test:t104:sandbox`: `1 passed`
-- `npm run test:t106`: `14 passed`
-- `npm run test:t107`: `15 passed`
-- `npm run test:t109`: `7 passed`
-- `npm run test:t111`: `4 passed`
-- `npm run test:semantic`: `383 passed`
+- `npm run build:semantic`: `passed`
 - `npm run lint:semantic`: `passed`
 - `npm run lint:test-harness`: `passed`
+- `npm run test:t087`: `4 passed`
+- `npm run test:t097`: `5 passed`
+- `npm run test:t106`: `14 passed`
+- `npm run test:t111`: `4 passed`
+- `npm run test:t115`: `6 passed`
+- `npm run test:t116`: `5 passed`
+- `npm run test:t117`: `8 passed`
+- `npm run test:t116:live`: `1 passed`
 - `git diff --check`: `passed`
 - `npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run`: `passed`,
-  package `3.5.0-rc.1`, `318 files`
+  package `3.5.0-rc.2`, `321 files`
 
-Fresh 3.5.0-rc.1 live PTY matrix:
+Fresh 3.5.0-rc.2 live PTY plugin/actor matrix:
 
-- `test:t101`: `2 passed`
-- `test:t107:data-mapper-live`: `1 passed`
-- `test:t094:live`: `1 passed`
-- `test:t087:live`: `1 passed`
-- `test:t100:five-rule`: `6 passed`
-- `test:live:uat`: `2 passed`
-- `test:live`: `1 passed`
+- `npm run test:t116:live`: `1 passed`
+- summary:
+  `build_tenants/abiogenesis/typescript/test_env/test_runs/t113_live_pty_claude_actor_worker/20260505T161759398Z/summary.json`
+- rows: `defaultPluginActorEnabled`, `defaultPluginActorDisabled`,
+  `customPluginActorEnabled`, `customPluginActorDisabled`

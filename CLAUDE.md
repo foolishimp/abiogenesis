@@ -54,7 +54,7 @@ node build/semantic/code/src/bin/abiogenesis.js gaps  --workspace ../../..
 <!-- GTL_BOOTLOADER_START -->
 # GTL Bootloader: Axiomatic Constraint Surface
 
-**Version**: 3.5.0-rc.1
+**Version**: 3.5.0-rc.2
 **Status**: Compressed install-time bootstrap
 **Role**: Minimal ontology and operating constraints for GTL 3 / ABG 3 work
 
@@ -273,16 +273,29 @@ If frame-local recursion bleeds into global publication or hidden fallback trave
 
 ## 8. Read Next
 
-Methodology master:
-- public source-of-truth repository: `https://github.com/foolishimp/specification_methodology`
-- installed workspace mirror: `workspace://.abiogenesis/docs/standards/`
+Methodology master — **STDO** is the four-method constitutional governance surface:
+
+- `workspace://.abiogenesis/docs/standards/SPEC_METHOD.md` — what a specification artifact must satisfy
+- `workspace://.abiogenesis/docs/standards/TICKET_METHOD.md` — how change is admitted as first-class artifacts
+- `workspace://.abiogenesis/docs/standards/DESIGN_MODULE_METHOD.md` — how design decomposes into governed modules with explicit derivation
+- `workspace://.abiogenesis/docs/standards/ODD_METHOD.md` — outcome-driven worksite law for governed delivery
+
+Companion methods and guides governing specific surfaces:
+
+- `workspace://.abiogenesis/docs/standards/UX_METHOD.md`
+- `workspace://.abiogenesis/docs/standards/IDENTITY_METHOD.md`
+- `workspace://.abiogenesis/docs/standards/WORLD_MODEL_METHOD.md`
+- `workspace://.abiogenesis/docs/standards/RELEASE_METHOD.md`
+- `workspace://.abiogenesis/docs/standards/WRITING_GUIDE.md`
+- `workspace://.abiogenesis/docs/standards/POSTING_GUIDE.md`
+- `workspace://.abiogenesis/docs/standards/GLOSSARY_GUIDE.md`
+
+Public source-of-truth: `https://github.com/foolishimp/specification_methodology`
+Installed workspace mirror: `workspace://.abiogenesis/docs/standards/`
 
 Installed runtime details, always present after install:
 - `workspace://.abiogenesis/docs/LLM_GTL_APP_BUILDER_GUIDE.md`
 - `workspace://.abiogenesis/docs/USER_GUIDE.md`
-- `workspace://.abiogenesis/docs/standards/SPEC_METHOD.md`
-- `workspace://.abiogenesis/docs/standards/POSTING_GUIDE.md`
-- `workspace://.abiogenesis/docs/standards/WRITING_GUIDE.md`
 - `workspace://.abiogenesis/install-manifest.json`
 - `workspace://.abiogenesis/install-provenance.json`
 - `workspace://.abiogenesis/cli-runtime.mjs`
@@ -311,6 +324,7 @@ When acting under this bootstrap:
 6. if a live requirement is not realized, state the gap explicitly
 7. do not invent hidden selection strategy, hidden traversal targets, or rival ontology
 8. if writing under `workspace://.ai-workspace/comments/`, follow `workspace://.abiogenesis/docs/standards/POSTING_GUIDE.md` and treat the result as commentary, not law
+9. STDO governs constitutional change. Spec changes obey `SPEC_METHOD`; defect, regression, and feature admission obey `TICKET_METHOD`; design decomposition obeys `DESIGN_MODULE_METHOD`; outcome-driven worksite acts obey `ODD_METHOD`. No constitutional change is lawful outside these four.
 
 <!-- GTL_BOOTLOADER_END -->
 
@@ -330,8 +344,7 @@ Read the live project-owned constitutional surfaces first:
 - `workspace://build_tenants/common/design/README.md`
 - `workspace://build_tenants/common/design/module_decomp.md`
 - `workspace://build_tenants/common/design/modules/`
-- `workspace://build_tenants/abiogenesis/python/design/README.md`
-- `workspace://build_tenants/abiogenesis/python/code/gtl_spec/GTL_BOOTLOADER.md`
+- `workspace://build_tenants/abiogenesis/typescript/design/`
 
 Installed axioms:
 - Specification defines project truth; design surfaces define realization.

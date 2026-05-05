@@ -57,6 +57,7 @@ function freezeTopologyVerification(
     eventsPathPresent: value.eventsPathPresent,
     runtimeDirectoryPresent: value.runtimeDirectoryPresent,
     runtimeBindingPresent: value.runtimeBindingPresent,
+    fallbackConfigPresent: value.fallbackConfigPresent,
     standardsRootPresent: value.standardsRootPresent,
     standardsSmokeFilesPresent: value.standardsSmokeFilesPresent,
     docsRootPresent: value.docsRootPresent
@@ -99,6 +100,9 @@ export function constructAbgTypescriptInstallerManifest(input: {
   readonly docsSourceRoot: string;
   readonly docsInstallRoot: string;
   readonly docsFiles: readonly AbgTypescriptInstallerFileEvidence[];
+  readonly fallbackConfigSourcePath: string;
+  readonly fallbackConfigPath: string;
+  readonly fallbackConfigFile: AbgTypescriptInstallerFileEvidence;
   readonly runtimeIdentity: AbgTypescriptInstallerRuntimeIdentity;
   readonly runtimeBindingPath: string;
   readonly installManifestPath: string;
@@ -127,6 +131,13 @@ export function constructAbgTypescriptInstallerManifest(input: {
     docsSourceRoot: input.docsSourceRoot,
     docsInstallRoot: input.docsInstallRoot,
     docsFiles: freezeFileEvidenceArray(input.docsFiles),
+    fallbackConfigSourcePath: input.fallbackConfigSourcePath,
+    fallbackConfigPath: input.fallbackConfigPath,
+    fallbackConfigFile: Object.freeze({
+      relativePath: input.fallbackConfigFile.relativePath,
+      bytes: input.fallbackConfigFile.bytes,
+      sha256: input.fallbackConfigFile.sha256
+    }),
     runtimeIdentity: Object.freeze({
       workerId: input.runtimeIdentity.workerId,
       backendId: input.runtimeIdentity.backendId,
@@ -161,6 +172,9 @@ export function constructInstalledAbgTypescriptInstallerOutcome(input: {
   readonly docsSourceRoot: string;
   readonly docsInstallRoot: string;
   readonly docsFiles: readonly AbgTypescriptInstallerFileEvidence[];
+  readonly fallbackConfigSourcePath: string;
+  readonly fallbackConfigPath: string;
+  readonly fallbackConfigFile: AbgTypescriptInstallerFileEvidence;
   readonly runtimeIdentity: AbgTypescriptInstallerRuntimeIdentity;
   readonly runtimeBindingPath: string;
   readonly installManifestPath: string;
@@ -192,6 +206,13 @@ export function constructInstalledAbgTypescriptInstallerOutcome(input: {
     docsSourceRoot: input.docsSourceRoot,
     docsInstallRoot: input.docsInstallRoot,
     docsFiles: freezeFileEvidenceArray(input.docsFiles),
+    fallbackConfigSourcePath: input.fallbackConfigSourcePath,
+    fallbackConfigPath: input.fallbackConfigPath,
+    fallbackConfigFile: Object.freeze({
+      relativePath: input.fallbackConfigFile.relativePath,
+      bytes: input.fallbackConfigFile.bytes,
+      sha256: input.fallbackConfigFile.sha256
+    }),
     runtimeIdentity: Object.freeze({
       workerId: input.runtimeIdentity.workerId,
       backendId: input.runtimeIdentity.backendId,

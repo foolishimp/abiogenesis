@@ -64,6 +64,12 @@ export type TracedProcessOutcome =
       readonly detail: string;
     };
 
+export interface AgentActorWorkerCalloutMetadata {
+  readonly agentCalloutKind: AgentActorWorkerCalloutKind;
+  readonly actorRef?: string;
+  readonly workerRef?: string;
+}
+
 export interface TracedProcessRequest {
   readonly command: string;
   readonly args: readonly string[];
@@ -74,12 +80,17 @@ export interface TracedProcessRequest {
   readonly parser?: TracedProcessParser;
   readonly executorProfile?: TracedProcessExecutorProfile;
   readonly terminalSessionKey?: string;
+  readonly terminalScreenCommand?: string;
   readonly terminalPollMs?: number;
+  readonly agentCallout?: AgentActorWorkerCalloutMetadata;
   readonly stdin?: string | null;
   readonly timeoutMs?: number;
   readonly terminationGraceMs?: number;
   readonly inactivityTimeoutMs?: number;
-  readonly onProcessStarted?: (event: { readonly pid: number | null }) => void;
+  readonly onProcessStarted?: (event: {
+    readonly pid: number | null;
+    readonly terminalSessionId: string | null;
+  }) => void;
   readonly onStdoutChunk?: (
     chunk: string,
     event: { readonly byteLength: number }
@@ -135,6 +146,9 @@ export interface TracedProcessResult {
   readonly label: string;
   readonly executorProfile: TracedProcessExecutorProfile;
   readonly terminalSessionId: string | null;
+  readonly agentCalloutKind: AgentActorWorkerCalloutKind | null;
+  readonly actorRef: string | null;
+  readonly workerRef: string | null;
   readonly command: string;
   readonly args: readonly string[];
   readonly cwd: string;
@@ -190,7 +204,7 @@ type ScreenTerminalCapability =
       readonly detail: string;
     };
 
-let cachedScreenTerminalCapability: ScreenTerminalCapability | null = null;
+const cachedScreenTerminalCapabilities = new Map<string, ScreenTerminalCapability>();
 
 function nowIso(): string {
   return new Date().toISOString();
@@ -330,19 +344,22 @@ function outcomeFromProcess(input: {
 }
 
 function screenTerminalCapability(
-  probeRoot: string
+  probeRoot: string,
+  screenCommand: string
 ): ScreenTerminalCapability {
-  if (cachedScreenTerminalCapability !== null) {
-    return cachedScreenTerminalCapability;
+  const cached = cachedScreenTerminalCapabilities.get(screenCommand);
+  if (cached !== undefined) {
+    return cached;
   }
-  const out = spawnSync("screen", ["-ls"], { encoding: "utf8" });
+  const out = spawnSync(screenCommand, ["-ls"], { encoding: "utf8" });
   if (out.error !== undefined && out.error !== null) {
-    cachedScreenTerminalCapability = {
+    const unavailable = {
       kind: "unavailable",
       reason: "screen_missing",
       detail: out.error.message
-    };
-    return cachedScreenTerminalCapability;
+    } satisfies ScreenTerminalCapability;
+    cachedScreenTerminalCapabilities.set(screenCommand, unavailable);
+    return unavailable;
   }
   const probeDir = join(probeRoot, "terminal_capability_probe");
   const markerPath = join(probeDir, "marker.txt");
@@ -350,54 +367,57 @@ function screenTerminalCapability(
   mkdirSync(probeDir, { recursive: true });
   try {
     const probe = spawnSync(
-      "screen",
+      screenCommand,
       [
         "-dmS",
         probeId,
         "/bin/sh",
         "-lc",
-        'printf ok > "$1"',
+        'printf ok > "$1"; sleep 1',
         "abg-terminal-probe",
         markerPath
       ],
       { cwd: probeDir, encoding: "utf8" }
     );
     if (probe.status !== 0) {
-      cachedScreenTerminalCapability = {
+      const unavailable = {
         kind: "unavailable",
         reason: "screen_shell_unavailable",
         detail: probe.stderr || probe.stdout || `screen probe exited ${String(probe.status)}`
-      };
-      return cachedScreenTerminalCapability;
+      } satisfies ScreenTerminalCapability;
+      cachedScreenTerminalCapabilities.set(screenCommand, unavailable);
+      return unavailable;
     }
     for (let attempt = 0; attempt < 5; attempt += 1) {
       sleepSync(200);
       if (existsSync(markerPath) && readFileSync(markerPath, "utf8") === "ok") {
-        cachedScreenTerminalCapability = { kind: "available" };
-        return cachedScreenTerminalCapability;
+        const available = { kind: "available" } satisfies ScreenTerminalCapability;
+        cachedScreenTerminalCapabilities.set(screenCommand, available);
+        return available;
       }
     }
-    cachedScreenTerminalCapability = {
+    const unavailable = {
       kind: "unavailable",
       reason: "screen_shell_unavailable",
       detail: "screen started but /bin/sh did not write the capability probe marker"
-    };
-    return cachedScreenTerminalCapability;
+    } satisfies ScreenTerminalCapability;
+    cachedScreenTerminalCapabilities.set(screenCommand, unavailable);
+    return unavailable;
   } finally {
-    stopScreenSession(probeId);
+    stopScreenSession(screenCommand, probeId);
     rmSync(probeDir, { recursive: true, force: true });
   }
 }
 
-function screenSessionLive(sessionId: string): boolean {
-  const out = spawnSync("screen", ["-ls"], { encoding: "utf8" });
+function screenSessionLive(screenCommand: string, sessionId: string): boolean {
+  const out = spawnSync(screenCommand, ["-ls"], { encoding: "utf8" });
   const text = `${out.stdout ?? ""}${out.stderr ?? ""}`;
   const escaped = sessionId.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&");
   return new RegExp(`\\d+\\.${escaped}\\s+\\((?:Attached|Detached)\\)`, "u").test(text);
 }
 
-function stopScreenSession(sessionId: string): void {
-  spawnSync("screen", ["-S", sessionId, "-X", "quit"], { encoding: "utf8" });
+function stopScreenSession(screenCommand: string, sessionId: string): void {
+  spawnSync(screenCommand, ["-S", sessionId, "-X", "quit"], { encoding: "utf8" });
 }
 
 function statusFromTerminalSentinel(
@@ -446,6 +466,9 @@ export async function runTracedProcess(
     executorProfile === "pty-terminal" ? "terminal-transcript" : "stdio";
   const sessionId = simpleId();
   const paths = buildPaths(request.archiveRoot);
+  const agentCalloutKind = request.agentCallout?.agentCalloutKind ?? null;
+  const actorRef = request.agentCallout?.actorRef ?? null;
+  const workerRef = request.agentCallout?.workerRef ?? null;
   mkdirSync(request.archiveRoot, { recursive: true });
 
   const state: TraceState = {
@@ -466,7 +489,11 @@ export async function runTracedProcess(
     parser,
     executorProfile,
     streamModel,
+    agentCalloutKind,
+    actorRef,
+    workerRef,
     terminalSessionKey: request.terminalSessionKey ?? null,
+    terminalScreenCommand: request.terminalScreenCommand ?? null,
     archiveRoot: request.archiveRoot,
     createdAt: nowIso()
   });
@@ -623,6 +650,9 @@ export async function runTracedProcess(
         label,
         executorProfile,
         terminalSessionId: null,
+        agentCalloutKind: request.agentCallout?.agentCalloutKind ?? null,
+        actorRef: request.agentCallout?.actorRef ?? null,
+        workerRef: request.agentCallout?.workerRef ?? null,
         streamModel: state.streamModel,
         outcome,
         command: request.command,
@@ -682,8 +712,10 @@ export async function runTracedProcess(
       });
     });
 
-    writeEvent(state, "process_started", { pid });
-    request.onProcessStarted?.({ pid });
+    if (pid !== null) {
+      writeEvent(state, "process_started", { pid });
+      request.onProcessStarted?.({ pid, terminalSessionId: null });
+    }
 
     child.once("error", (error: Error) => {
       const errorText = error.stack ?? String(error);
@@ -706,6 +738,7 @@ async function runPtyTerminalExecutor(
 ): Promise<TracedProcessResult> {
   const parser = state.parser;
   const paths = state.paths;
+  const screenCommand = request.terminalScreenCommand ?? "screen";
   const terminalSessionId = screenSafeSessionId(
     request.terminalSessionKey ?? `abg-${state.sessionId}`
   );
@@ -718,7 +751,7 @@ async function runPtyTerminalExecutor(
     writeFileSync(paths.terminalTranscript, "", "utf8");
   }
 
-  const capability = screenTerminalCapability(request.archiveRoot);
+  const capability = screenTerminalCapability(request.archiveRoot, screenCommand);
   if (capability.kind === "unavailable") {
     const error = `pty-terminal executor unavailable: ${capability.detail}`;
     const outcome: TracedProcessOutcome = {
@@ -738,6 +771,9 @@ async function runPtyTerminalExecutor(
       label: state.label,
       executorProfile: state.executorProfile,
       terminalSessionId,
+      agentCalloutKind: request.agentCallout?.agentCalloutKind ?? null,
+      actorRef: request.agentCallout?.actorRef ?? null,
+      workerRef: request.agentCallout?.workerRef ?? null,
       streamModel: state.streamModel,
       outcome,
       command: request.command,
@@ -800,7 +836,7 @@ async function runPtyTerminalExecutor(
     request.command,
     ...request.args
   ];
-  const spawned = spawnSync("screen", screenArgs, {
+  const spawned = spawnSync(screenCommand, screenArgs, {
     cwd: terminalDir,
     env,
     encoding: "utf8"
@@ -816,6 +852,9 @@ async function runPtyTerminalExecutor(
       label: state.label,
       executorProfile: state.executorProfile,
       terminalSessionId,
+      agentCalloutKind: request.agentCallout?.agentCalloutKind ?? null,
+      actorRef: request.agentCallout?.actorRef ?? null,
+      workerRef: request.agentCallout?.workerRef ?? null,
       streamModel: state.streamModel,
       outcome,
       command: request.command,
@@ -848,10 +887,10 @@ async function runPtyTerminalExecutor(
     transcriptPath: paths.terminalTranscript ?? screenLogPath
   });
   writeEvent(state, "process_started", { pid: null, terminalSessionId });
-  request.onProcessStarted?.({ pid: null });
+  request.onProcessStarted?.({ pid: null, terminalSessionId });
 
   if (request.stdin !== null && request.stdin !== undefined) {
-    const sent = spawnSync("screen", ["-S", terminalSessionId, "-X", "stuff", request.stdin], {
+    const sent = spawnSync(screenCommand, ["-S", terminalSessionId, "-X", "stuff", request.stdin], {
       encoding: "utf8"
     });
     writeEvent(state, "terminal_input_written", {
@@ -917,6 +956,9 @@ async function runPtyTerminalExecutor(
         label: state.label,
         executorProfile: state.executorProfile,
         terminalSessionId,
+        agentCalloutKind: request.agentCallout?.agentCalloutKind ?? null,
+        actorRef: request.agentCallout?.actorRef ?? null,
+        workerRef: request.agentCallout?.workerRef ?? null,
         streamModel: state.streamModel,
         outcome,
         command: request.command,
@@ -983,7 +1025,7 @@ async function runPtyTerminalExecutor(
         finish(finalStatus, null, null);
         return;
       }
-      if (!screenSessionLive(terminalSessionId)) {
+      if (!screenSessionLive(screenCommand, terminalSessionId)) {
         terminalExitObservedAt = terminalExitObservedAt ?? now;
         if (now - terminalExitObservedAt >= 500) {
           observeTranscript();
@@ -1019,7 +1061,7 @@ async function runPtyTerminalExecutor(
           timeoutMs: request.timeoutMs,
           elapsedSinceLastOutputMs: now - lastOutputAt
         });
-        stopScreenSession(terminalSessionId);
+        stopScreenSession(screenCommand, terminalSessionId);
         request.onSignalSent?.({ signal: "SIGTERM" });
         finish(null, "SIGTERM", null, {
           kind: "hard_timeout",
@@ -1048,7 +1090,7 @@ async function runPtyTerminalExecutor(
           inactivityTimeoutMs: request.inactivityTimeoutMs,
           elapsedSinceLastOutputMs: now - lastOutputAt
         });
-        stopScreenSession(terminalSessionId);
+        stopScreenSession(screenCommand, terminalSessionId);
         request.onSignalSent?.({ signal: "SIGTERM" });
         finish(null, "SIGTERM", null, {
           kind: "inactivity_timeout",
@@ -1063,5 +1105,12 @@ async function runPtyTerminalExecutor(
 export async function runAgentActorWorkerCallout(
   request: AgentActorWorkerCalloutRequest
 ): Promise<TracedProcessResult> {
-  return runTracedProcess(request);
+  return runTracedProcess({
+    ...request,
+    agentCallout: {
+      agentCalloutKind: request.agentCalloutKind,
+      ...(request.actorRef === undefined ? {} : { actorRef: request.actorRef }),
+      ...(request.workerRef === undefined ? {} : { workerRef: request.workerRef })
+    }
+  });
 }

@@ -31,6 +31,7 @@ import {
   parseString,
   parseStringArray
 } from "../../../shared/validation/primitives.js";
+import type { PluginTraversalObserverBindingSelection } from "./plugin_traversal_observer.js";
 
 export const FP_TRANSFORM_STATUS_VALUES = Object.freeze([
   "returned",
@@ -62,6 +63,11 @@ export interface FpTransformRequest {
   readonly expectedAssessmentIds: readonly string[];
   readonly retryFrontierRef: string;
   readonly retryReasonClasses: readonly string[];
+  readonly pluginTraversalObserverBindingRef: string | null;
+  readonly observerPromptRef: string | null;
+  readonly promptTemplateRef: string | null;
+  readonly defaultsBundleRef: string | null;
+  readonly defaultsBundleDigest: string | null;
 }
 
 export interface FpEvidenceCandidate {
@@ -313,6 +319,7 @@ export function constructFpTransformRequest(input: {
   readonly sourceProjectionRef: string;
   readonly expectedAssessmentIds: readonly string[];
   readonly retryFrontier: RetryFrontierProjection;
+  readonly pluginTraversalObserverBinding?: PluginTraversalObserverBindingSelection | null;
 }): FpTransformRequest {
   assertProjectionBasis(input.basis, input.projection, "FpTransformRequest");
   assertVectorIndexInRange(input.basis, input.vectorIndex);
@@ -346,7 +353,17 @@ export function constructFpTransformRequest(input: {
     sourceProjectionRef: input.sourceProjectionRef,
     expectedAssessmentIds: freezeStringArray(input.expectedAssessmentIds),
     retryFrontierRef: input.retryFrontier.frontierRef,
-    retryReasonClasses: freezeStringArray(input.retryFrontier.reasonClasses)
+    retryReasonClasses: freezeStringArray(input.retryFrontier.reasonClasses),
+    pluginTraversalObserverBindingRef:
+      input.pluginTraversalObserverBinding?.selectionRef ?? null,
+    observerPromptRef:
+      input.pluginTraversalObserverBinding?.binding.observerPromptRef ?? null,
+    promptTemplateRef:
+      input.pluginTraversalObserverBinding?.binding.promptTemplateRef ?? null,
+    defaultsBundleRef:
+      input.pluginTraversalObserverBinding?.fallbackBundleRef?.bundleRef ?? null,
+    defaultsBundleDigest:
+      input.pluginTraversalObserverBinding?.fallbackBundleRef?.bundleDigest ?? null
   });
 }
 

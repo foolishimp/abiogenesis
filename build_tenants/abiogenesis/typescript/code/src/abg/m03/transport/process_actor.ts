@@ -12,6 +12,7 @@ import {
   constructActorProcessExitedEvent,
   constructActorProcessHeartbeatEvent,
   constructActorProcessSignalSentEvent,
+  constructActorProcessStartFailedEvent,
   constructActorProcessStartedEvent,
   constructActorProcessStreamObservedEvent,
   constructActorProcessTimeoutEvent
@@ -39,6 +40,7 @@ export interface SupervisedProcessActorRequest {
   readonly parser?: TracedProcessParser | undefined;
   readonly executorProfile?: TracedProcessExecutorProfile | undefined;
   readonly terminalSessionKey?: string | undefined;
+  readonly terminalScreenCommand?: string | undefined;
   readonly terminalPollMs?: number | undefined;
   readonly timeoutMs?: number | undefined;
   readonly terminationGraceMs?: number | undefined;
@@ -171,6 +173,7 @@ export async function invokeSupervisedProcessActor(
   let stderrChunkIndex = 0;
   let heartbeatIndex = 0;
   let closed = false;
+  let processStartObserved = false;
   const executorProfile = executorProfileFor(request);
 
   const heartbeatTimer =
@@ -213,6 +216,9 @@ export async function invokeSupervisedProcessActor(
       ...(request.terminalSessionKey === undefined
         ? {}
         : { terminalSessionKey: request.terminalSessionKey }),
+      ...(request.terminalScreenCommand === undefined
+        ? {}
+        : { terminalScreenCommand: request.terminalScreenCommand }),
       ...(request.terminalPollMs === undefined
         ? {}
         : { terminalPollMs: request.terminalPollMs }),
@@ -220,6 +226,7 @@ export async function invokeSupervisedProcessActor(
       timeoutMs,
       terminationGraceMs,
       onProcessStarted: (event) => {
+        processStartObserved = true;
         pid = event.pid;
         const startedEvent = constructActorProcessStartedEvent({
           invocation: request.invocation,
@@ -227,6 +234,7 @@ export async function invokeSupervisedProcessActor(
           args: request.args,
           cwd: request.cwd,
           pid,
+          terminalSessionId: event.terminalSessionId,
           timeoutMs,
           stdoutRef: request.stdoutRef,
           stderrRef: request.stderrRef
@@ -296,6 +304,34 @@ export async function invokeSupervisedProcessActor(
   const elapsedMs = roundElapsedMs(startedAt);
   const normalizedStatus = normalizeExitStatus(traced.status);
   const finalError = errorMessage ?? traced.error;
+  if (!processStartObserved) {
+    const startFailure =
+      traced.outcome.kind === "executor_unavailable" ||
+      traced.outcome.kind === "launch_failed" ||
+      traced.outcome.kind === "process_error"
+        ? traced.outcome
+        : null;
+    if (startFailure !== null) {
+      emit(
+        constructActorProcessStartFailedEvent({
+          invocation: request.invocation,
+          command: request.command,
+          args: request.args,
+          cwd: request.cwd,
+          timeoutMs,
+          stdoutRef: request.stdoutRef,
+          stderrRef: request.stderrRef,
+          terminalSessionId: traced.terminalSessionId,
+          failureKind: startFailure.kind,
+          detail:
+            startFailure.kind === "executor_unavailable"
+              ? `${startFailure.reason}: ${startFailure.detail}`
+              : startFailure.detail
+        }),
+        eventSink
+      );
+    }
+  }
   emit(
     constructActorProcessExitedEvent({
       invocation: request.invocation,

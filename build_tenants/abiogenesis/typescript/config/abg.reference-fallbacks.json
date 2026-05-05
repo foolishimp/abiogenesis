@@ -1,0 +1,41 @@
+{
+  "kind": "abg_fallback_bundle",
+  "abgDefaultsFamily": "abg_defaults",
+  "version": 1,
+  "bundleRef": "fallback-bundle://abg/reference/typescript",
+  "pluginTraversalObserverBindings": {
+    "transform": {
+      "absenceLawful": true,
+      "observerPromptRef": "prompt://abg/reference/generic-transform-observer",
+      "promptTemplateRef": "template://abg/reference/generic-transform-observer",
+      "promptInputContractRef": "contract://abg/plugin-traversal/transform-input",
+      "expectedOutputContractRef": "contract://abg/plugin-traversal/transform-output",
+      "continuationRequestRefs": [
+        "continuation://abg/drive-transform-forward"
+      ],
+      "progressSignalRefs": [
+        "progress://abg/stream-observed",
+        "progress://abg/artifact-candidate-observed"
+      ],
+      "policyRefs": [
+        "policy://abg/reference/defaults/plugin-traversal-observer"
+      ]
+    },
+    "eval": {
+      "absenceLawful": true,
+      "observerPromptRef": "prompt://abg/reference/generic-eval-observer",
+      "promptTemplateRef": "template://abg/reference/generic-eval-observer",
+      "promptInputContractRef": "contract://abg/plugin-traversal/eval-input",
+      "expectedOutputContractRef": "contract://abg/plugin-traversal/eval-output",
+      "continuationRequestRefs": [
+        "continuation://abg/continue-evaluation"
+      ],
+      "progressSignalRefs": [
+        "progress://abg/evaluation-observed"
+      ],
+      "policyRefs": [
+        "policy://abg/reference/defaults/plugin-traversal-observer"
+      ]
+    }
+  }
+}

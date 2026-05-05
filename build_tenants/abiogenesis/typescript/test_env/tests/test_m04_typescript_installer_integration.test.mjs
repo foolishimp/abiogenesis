@@ -97,6 +97,7 @@ async function writeInstallerArchive(input) {
     commandPaths: input.outcome.commandPaths,
     runtimeIdentity: input.outcome.runtimeIdentity,
     runtimeBindingPath: input.outcome.runtimeBindingPath,
+    fallbackConfigPath: input.outcome.fallbackConfigPath,
     startedAt: new Date().toISOString(),
     command: "npm run test:t076"
   });
@@ -108,6 +109,7 @@ async function writeInstallerArchive(input) {
     installerManifestPath: input.outcome.installerManifestPath,
     installProvenancePath: input.outcome.installProvenancePath,
     runtimeBindingPath: input.outcome.runtimeBindingPath,
+    fallbackConfigPath: input.outcome.fallbackConfigPath,
     standardsInstallRoot: input.outcome.standardsInstallRoot,
     docsInstallRoot: input.outcome.docsInstallRoot,
     eventEvidencePath: input.outcome.eventsPath,
@@ -150,6 +152,11 @@ async function writeInstallerArchive(input) {
     runtimeDirectory: input.outcome.runtimeDirectory,
     topologyVerification: input.outcome.topologyVerification
   });
+  await writeJson(path.join(artifactsRoot, "fallback_config_inventory.json"), {
+    fallbackConfigSourcePath: input.outcome.fallbackConfigSourcePath,
+    fallbackConfigPath: input.outcome.fallbackConfigPath,
+    fallbackConfigFile: input.outcome.fallbackConfigFile
+  });
   await copyTextFile(
     input.outcome.installerManifestPath,
     path.join(artifactsRoot, "typescript-installer-manifest.json")
@@ -176,9 +183,10 @@ async function writeInstallerArchive(input) {
       "",
       `- package: ${installerManifest.packageName}@${installerManifest.packageVersion}`,
       `- command paths: ${installerManifest.commandPaths.join(", ")}`,
-      `- runtime: ${installerManifest.runtimeIdentity.resolvedRuntimeRef}`,
-      `- runtime binding: ${installerManifest.runtimeBindingPath}`,
-      `- standards: ${installerManifest.standardsInstallRoot}`,
+    `- runtime: ${installerManifest.runtimeIdentity.resolvedRuntimeRef}`,
+    `- runtime binding: ${installerManifest.runtimeBindingPath}`,
+    `- fallback config: ${installerManifest.fallbackConfigPath}`,
+    `- standards: ${installerManifest.standardsInstallRoot}`,
       `- bootstrap dependency: ${installManifest.runtimePackage.dependencyRef}`
     ].join("\n"),
     "utf8"
@@ -282,6 +290,15 @@ test("T-076 public TypeScript installer populates a package-backed ABG install a
   assert.equal(manifest.standardsInstallRoot, outcome.standardsInstallRoot);
   assert.equal(manifest.docsInstallRoot, outcome.docsInstallRoot);
   assert.equal(manifest.runtimeBindingPath, outcome.runtimeBindingPath);
+  assert.equal(manifest.fallbackConfigPath, outcome.fallbackConfigPath);
+  assert.equal(
+    manifest.fallbackConfigSourcePath,
+    path.join(sourceRoot, "config", "abg.reference-fallbacks.json")
+  );
+  assert.equal(
+    manifest.fallbackConfigFile.relativePath,
+    path.join(".abiogenesis", "config", "abg.fallbacks.json")
+  );
   assert(manifest.standardsFiles.length > 8);
   assert(manifest.docsFiles.length >= 3);
   assert.deepStrictEqual(manifest.commandPaths, outcome.commandPaths);
@@ -299,6 +316,7 @@ test("T-076 public TypeScript installer populates a package-backed ABG install a
   assert.equal(topology.standardsSmokeFilesPresent, true);
   assert.equal(topology.docsRootPresent, true);
   assert.equal(topology.runtimeBindingPresent, true);
+  assert.equal(topology.fallbackConfigPresent, true);
   assert.deepStrictEqual(topology, outcome.topologyVerification);
 
   for (const relativePath of [
@@ -335,6 +353,13 @@ test("T-076 public TypeScript installer populates a package-backed ABG install a
     await pathExists(path.join(targetRoot, ".abiogenesis", "cli-runtime.mjs")),
     true
   );
+  const installedFallbackPath = path.join(
+    targetRoot,
+    ".abiogenesis",
+    "config",
+    "abg.fallbacks.json"
+  );
+  assert.equal(await pathExists(installedFallbackPath), true);
 
   const probe = await runInstalledProbe(targetRoot);
   assert.equal(probe.status, 0, probe.stderr);
@@ -401,6 +426,34 @@ test("T-076 public TypeScript installer populates a package-backed ABG install a
     "terminal_reached"
   ]);
 
+  const originalFallbackConfig = JSON.parse(
+    await readFile(installedFallbackPath, "utf8")
+  );
+  const malformedFallbackConfig = {
+    ...originalFallbackConfig,
+    pluginTraversalObserverBindings: {
+      ...originalFallbackConfig.pluginTraversalObserverBindings,
+      transform: {
+        ...originalFallbackConfig.pluginTraversalObserverBindings.transform,
+        observerPromptRef: ""
+      }
+    }
+  };
+  await writeJson(installedFallbackPath, malformedFallbackConfig);
+  const malformedFallbackGaps = runInstalledCommand(targetRoot, "genesis-ts", [
+    "gaps",
+    "--workspace",
+    ".",
+    "--scope",
+    "workspace"
+  ]);
+  assert.equal(malformedFallbackGaps.status, 1);
+  assert.match(
+    parseCommandPayload(malformedFallbackGaps).reason,
+    /observerPromptRef/u
+  );
+  await writeJson(installedFallbackPath, originalFallbackConfig);
+
   const archiveRoot = await writeInstallerArchive({
     sourceRoot,
     targetRoot,
@@ -416,6 +469,7 @@ test("T-076 public TypeScript installer populates a package-backed ABG install a
     "artifacts/command_paths.json",
     "artifacts/standards_inventory.json",
     "artifacts/docs_inventory.json",
+    "artifacts/fallback_config_inventory.json",
     "artifacts/runtime_identity.json",
     "artifacts/runtime_binding.json",
     "artifacts/install-provenance.json",
@@ -446,6 +500,17 @@ test("T-078 public TypeScript installer refreshes repeated installs over admitte
   const firstDependency =
     firstPackageJson.dependencies["@abiogenesis/typescript-tenant"];
   assert.equal(firstDependency, `file:${path.relative(targetRoot, first.tarballPath)}`);
+  const fallbackConfigPath = path.join(
+    targetRoot,
+    ".abiogenesis",
+    "config",
+    "abg.fallbacks.json"
+  );
+  const customizedFallbackConfig = await readJson(fallbackConfigPath);
+  customizedFallbackConfig.bundleRef = "fallback-bundle://abg/t078-local-edit";
+  customizedFallbackConfig.pluginTraversalObserverBindings.transform.observerPromptRef =
+    "prompt://tenant/t078-local-transform-observer";
+  await writeJson(fallbackConfigPath, customizedFallbackConfig);
 
   const second = await installAbiogenesisTypescript({
     targetRoot: {
@@ -472,6 +537,16 @@ test("T-078 public TypeScript installer refreshes repeated installs over admitte
   const installerManifest = await readJson(second.installerManifestPath);
   assert.equal(installerManifest.installMode, "refresh");
   assert.equal(installerManifest.tarballPath, second.tarballPath);
+  assert.equal(await pathExists(fallbackConfigPath), true);
+  const refreshedFallbackConfig = await readJson(fallbackConfigPath);
+  assert.equal(
+    refreshedFallbackConfig.bundleRef,
+    "fallback-bundle://abg/t078-local-edit"
+  );
+  assert.equal(
+    refreshedFallbackConfig.pluginTraversalObserverBindings.transform.observerPromptRef,
+    "prompt://tenant/t078-local-transform-observer"
+  );
 
   const provenance = await readJson(second.installProvenancePath);
   assert.equal(provenance.installMode, "refresh");
@@ -537,6 +612,7 @@ test("T-076 installed genesis-ts install command can create a second ABG TypeScr
   });
   assert.equal(topology.complete, true);
   assert.equal(topology.standardsSmokeFilesPresent, true);
+  assert.equal(topology.fallbackConfigPresent, true);
   assert.equal(
     await pathExists(path.join(secondTarget, "node_modules", ".bin", "abiogenesis-ts")),
     true

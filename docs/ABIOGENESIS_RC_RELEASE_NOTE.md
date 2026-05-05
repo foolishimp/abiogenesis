@@ -1,7 +1,7 @@
-# abiogenesis 3.5.0-rc.1 Release Candidate Note
+# abiogenesis 3.5.0-rc.2 Release Candidate Note
 
 This checkpoint is the current TypeScript ABG release-candidate source state.
-It advances the RC identity from `3.4.0-rc.8` to `3.5.0-rc.1`.
+It advances the RC identity from `3.5.0-rc.1` to `3.5.0-rc.2`.
 
 It is an RC candidate, not the final tapped `3.5.0` release. The release
 identity remains explicit until the cut is committed, tagged, and accepted.
@@ -9,108 +9,109 @@ identity remains explicit until the cut is committed, tagged, and accepted.
 ## Release Claim
 
 The TypeScript tenant remains the package-first GTL/ABG RC candidate. This cut
-adds a universal traced agent call-out substrate and a robust per-call PTY
-executor profile for framework-owned `agent.actor` and `agent.worker`
-invocations.
+accepts the T-113/T-116/T-117 repair wave over the rc.1 traced call-out and PTY
+substrate.
 
-The TypeScript tenant is the primary release line. The Python tenant remains
-paused as released-reference evidence and is not an active RC gate while
-`build_tenants/TENANT_REGISTRY.md` keeps it paused.
+RC2 adds:
 
-## What Shipped In This Candidate
+- successful PTY actor process start events and projections carry
+  `terminalSessionId`, not only trace-local terminal evidence;
+- plugin traversal observer prompt materialization is replay-visible and unique
+  per materialization, including config digest, actor/work identity, causation,
+  and correlation in the materialization identity;
+- Transform plugin traversal observer bindings resolve from GTL declarations or
+  from the explicit ABG fallback bundle when fallback is enabled;
+- live proof covers enabled actor and disabled actor paths with both default
+  plugin fallback and custom GraphVector plugin binding;
+- the first `abg_defaults` member is the reference plugin traversal observer
+  fallback bundle;
+- installed workspaces receive an editable `.abiogenesis/config/abg.fallbacks.json`
+  copy, preserve local edits across refresh, and load that config through the
+  public installed CLI path.
 
-The 3.5.0-rc.1 tranche accepts T-108, T-109, and T-111 as ABG substrate:
+## Non-Claims
 
-- T-108 introduced the traced-process substrate for live worker observability.
-  Worker call-outs now preserve command metadata, raw stdout/stderr, structured
-  Claude stream-json events, final output, timeout state, and trace archive
-  paths instead of collapsing failures into opaque `0/0/143` style evidence.
-- T-109 made `runAgentActorWorkerCallout` the single framework-owned call-out
-  interface for `agent.actor` and `agent.worker` execution. Agent transport and
-  supervised actor invocation consume that one interface. Direct framework
-  shell-out paths are guarded by a semantic test.
-- T-111 added typed executor selection with `local-spawn` and `pty-terminal`
-  profiles. `local-spawn` remains the deterministic default. `pty-terminal` is
-  a Docker-compatible GNU `screen` backed per-call terminal executor that writes
-  a terminal transcript while preserving the same per-call trace archive
-  contract.
-- `ABG_TS_AGENT_EXECUTOR_PROFILE=pty-terminal` selects the PTY executor across
-  `runAgentTransport` and `invokeSupervisedProcessActor` when a request does not
-  provide an explicit executor profile.
-- Claude `stream-json` parsing is proven over PTY transcript slices, including
-  long JSONL result lines.
-- PTY hard timeout and inactivity timeout paths produce explicit
-  terminal-session evidence.
-- The data-mapper live evaluator was hardened so live tests validate semantic
-  equivalence rather than exact response text shape for age calculation.
+T-117 is closed only for the plugin traversal observer fallback slice plus
+audit inventory. RC2 does not claim every historical runtime default has been
+externalized. T-118 owns the remaining defaults expansion.
 
-Sticky session reuse and agent pooling are not part of rc.8. T-110 remains a
-future optimization over the now-proven executor seam.
+Sticky-session reuse, warm agent pools, and automatic session affinity remain
+future T-110 work.
 
 ## Versioned Artifacts
 
 - RC branch: `rc/3.5.0`
-- RC identity: `3.5.0-rc.1`
-- Candidate package version: `3.5.0-rc.1`
-- Candidate tag: `v3.5.0-rc.1`
+- RC identity: `3.5.0-rc.2`
+- Candidate package version: `3.5.0-rc.2`
+- Candidate tag: `v3.5.0-rc.2`
 
 ## Verification
 
 Current qualification evidence for this cut:
 
 ```text
-npm run test:t109
-7 passed
+npm run build:semantic
+passed
+
+npm run lint:semantic
+passed
+
+npm run lint:test-harness
+passed
+
+npm run test:t087
+4 passed
+
+npm run test:t097
+5 passed
+
+npm run test:t106
+14 passed
 
 npm run test:t111
 4 passed
 
-npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run
-passed, version 3.5.0-rc.1, files 318, package abiogenesis-typescript-tenant-3.5.0-rc.1.tgz
-```
-
-Fresh external-live PTY evidence before the metadata-only version cut:
-
-```text
-CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_AGENT_EXECUTOR_PROFILE=pty-terminal ABG_TS_LIVE_TIMEOUT_MS=360000 npm run test:t101
-2 passed
-
-CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_AGENT_EXECUTOR_PROFILE=pty-terminal ABG_TS_LIVE_TIMEOUT_MS=360000 npm run test:t107:data-mapper-live
-1 passed
-
-CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_AGENT_EXECUTOR_PROFILE=pty-terminal ABG_TS_LIVE_TIMEOUT_MS=360000 npm run test:t094:live
-1 passed
-
-CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_AGENT_EXECUTOR_PROFILE=pty-terminal ABG_TS_LIVE_TIMEOUT_MS=360000 npm run test:t087:live
-1 passed
-
-CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_AGENT_EXECUTOR_PROFILE=pty-terminal ABG_TS_LIVE_TIMEOUT_MS=360000 npm run test:t100:five-rule
+npm run test:t115
 6 passed
 
-CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_AGENT_EXECUTOR_PROFILE=pty-terminal ABG_TS_LIVE_TIMEOUT_MS=360000 npm run test:live:uat
-2 passed
+npm run test:t116
+5 passed
 
-CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_AGENT_EXECUTOR_PROFILE=pty-terminal ABG_TS_LIVE_TIMEOUT_MS=360000 npm run test:live
+npm run test:t117
+8 passed
+
+npm run test:t116:live
 1 passed
+
+git diff --check
+passed
+
+npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run
+passed, version 3.5.0-rc.2, files 321, package abiogenesis-typescript-tenant-3.5.0-rc.2.tgz
 ```
 
-The live transport summaries record `executorProfile: "pty-terminal"`,
-`status: 0`, `apiRetryCount: 0`, and `toolCallCount: 0` across the inspected
-T-087, T-094, T-100, T-101, T-107, M05 UAT, and M05 portfolio agent call-outs.
+Fresh RC2 live proof:
 
-## Current Blocking Non-Claim
+```text
+build_tenants/abiogenesis/typescript/test_env/test_runs/t113_live_pty_claude_actor_worker/20260505T161759398Z/summary.json
+```
 
-B-010 is not part of this RC candidate.
+The live matrix records:
 
-ABG source induction under ODD SDLC governance cannot be actioned until there is
-a stable released ODD SDLC candidate selected as the governing product. No root
-`.genesis` induction or source-development runtime authority is claimed here.
+```text
+defaultPluginActorEnabled
+defaultPluginActorDisabled
+customPluginActorEnabled
+customPluginActorDisabled
+```
 
-Sticky-session reuse, warm agent pools, and automatic session affinity are not
-part of this RC candidate. They remain future T-110 work.
+The disabled rows carry `actorInvocationId: null`. Default-plugin rows carry
+`fallback-bundle://abg/reference/typescript` and its digest. Custom-plugin rows
+resolve through `graph_vector_declarations` and carry no fallback bundle digest.
+The four prompt materialization refs are unique in the live matrix.
 
 ## RC Decision
 
-The release operator accepted the T-108/T-109/T-111 call-out and PTY executor
-substrate after live PTY proof. Cut `v3.5.0-rc.1` as a release-candidate
-checkpoint. This is not the final tapped `3.5.0` release.
+The release operator requested RC2 after external review. The review findings
+were accepted and repaired before the cut. Cut `v3.5.0-rc.2` as a
+release-candidate checkpoint. This is not the final tapped `3.5.0` release.

@@ -4,9 +4,14 @@ import { access, appendFile, mkdir, readFile } from "node:fs/promises";
 import { dirname, isAbsolute, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import type {
+  PluginTraversalKind,
   RuntimeEvent,
   StartIntent
 } from "../abg/m03/contracts/carriers.js";
+import {
+  loadAbgFallbackBundleFromFile,
+  type AbgFallbackBundle
+} from "../abg/m03/index.js";
 import type { Module } from "../gtl/m02/contracts/carriers.js";
 import {
   constructModuleLookupAuthority,
@@ -88,6 +93,9 @@ interface RuntimeBinding {
   readonly module: Module;
   readonly runtimeIdentity: PublicStartContext["runtimeIdentity"];
   readonly resolvedPolicy: PublicStartContext["resolvedPolicy"];
+  readonly abgFallbackConfigPath?: string | null;
+  readonly pluginTraversalObserverFallbackEnabled?: boolean;
+  readonly pluginTraversalObserverFallbackKinds?: readonly PluginTraversalKind[];
   readonly runtimeEvents?: readonly RuntimeEvent[];
   readonly runId?: string | null;
   readonly workKey?: string | null;
@@ -96,6 +104,12 @@ interface RuntimeBinding {
   readonly operatorAssetContract?: OperatorAssetQueryContract;
   readonly operatorAssets?: unknown;
 }
+
+const INSTALLED_FALLBACK_CONFIG_RELATIVE_PATH = join(
+  ".abiogenesis",
+  "config",
+  "abg.fallbacks.json"
+);
 
 interface ResolvedCliTarget {
   readonly inputRef: string;
@@ -474,6 +488,43 @@ function coerceNullableStringField(
   throw new CliError(`${label}.${key} must be null or a non-empty string`);
 }
 
+function coerceOptionalBooleanField(
+  input: Record<string, unknown>,
+  key: string,
+  label: string
+): boolean | undefined {
+  if (!Object.hasOwn(input, key)) {
+    return undefined;
+  }
+  const value = input[key];
+  if (typeof value === "boolean") {
+    return value;
+  }
+  throw new CliError(`${label}.${key} must be a boolean`);
+}
+
+function coercePluginTraversalKinds(
+  input: Record<string, unknown>,
+  key: string,
+  label: string
+): readonly PluginTraversalKind[] | undefined {
+  if (!Object.hasOwn(input, key)) {
+    return undefined;
+  }
+  const value = input[key];
+  if (!Array.isArray(value)) {
+    throw new CliError(`${label}.${key} must be an array`);
+  }
+  return Object.freeze(
+    value.map((entry, index) => {
+      if (entry === "transform" || entry === "eval") {
+        return entry;
+      }
+      throw new CliError(`${label}.${key}[${index}] must be transform or eval`);
+    })
+  );
+}
+
 function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
   if (!isRecord(input)) {
     throw new CliError(`${label} must export an object runtime binding`);
@@ -495,6 +546,9 @@ function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
     module: Module;
     runtimeIdentity: PublicStartContext["runtimeIdentity"];
     resolvedPolicy: PublicStartContext["resolvedPolicy"];
+    abgFallbackConfigPath?: string | null;
+    pluginTraversalObserverFallbackEnabled?: boolean;
+    pluginTraversalObserverFallbackKinds?: readonly PluginTraversalKind[];
     runtimeEvents?: readonly RuntimeEvent[];
     runId?: string | null;
     workKey?: string | null;
@@ -510,6 +564,33 @@ function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
 
   if (Array.isArray(input["runtimeEvents"])) {
     result.runtimeEvents = Object.freeze([...input["runtimeEvents"]]) as readonly RuntimeEvent[];
+  }
+
+  const abgFallbackConfigPath = coerceNullableStringField(
+    input,
+    "abgFallbackConfigPath",
+    label
+  );
+  if (abgFallbackConfigPath !== undefined) {
+    result.abgFallbackConfigPath = abgFallbackConfigPath;
+  }
+  const pluginTraversalObserverFallbackEnabled = coerceOptionalBooleanField(
+    input,
+    "pluginTraversalObserverFallbackEnabled",
+    label
+  );
+  if (pluginTraversalObserverFallbackEnabled !== undefined) {
+    result.pluginTraversalObserverFallbackEnabled =
+      pluginTraversalObserverFallbackEnabled;
+  }
+  const pluginTraversalObserverFallbackKinds = coercePluginTraversalKinds(
+    input,
+    "pluginTraversalObserverFallbackKinds",
+    label
+  );
+  if (pluginTraversalObserverFallbackKinds !== undefined) {
+    result.pluginTraversalObserverFallbackKinds =
+      pluginTraversalObserverFallbackKinds;
   }
 
   const runId = coerceNullableStringField(input, "runId", label);
@@ -545,6 +626,50 @@ function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
   }
 
   return Object.freeze(result);
+}
+
+function isNodeErrorCode(error: unknown, code: string): boolean {
+  return (
+    typeof error === "object" &&
+    error !== null &&
+    "code" in error &&
+    error["code"] === code
+  );
+}
+
+function resolveFallbackConfigPath(
+  workspaceRoot: string,
+  binding: RuntimeBinding
+): string | null {
+  const configuredPath =
+    binding.abgFallbackConfigPath ?? INSTALLED_FALLBACK_CONFIG_RELATIVE_PATH;
+  if (configuredPath === null) {
+    return null;
+  }
+  const workspacePrefix = "workspace://";
+  const path =
+    configuredPath.startsWith(workspacePrefix)
+      ? configuredPath.slice(workspacePrefix.length)
+      : configuredPath;
+  return isAbsolute(path) ? path : join(workspaceRoot, path);
+}
+
+function loadCliFallbackBundle(
+  workspaceRoot: string,
+  binding: RuntimeBinding
+): AbgFallbackBundle | null {
+  const fallbackPath = resolveFallbackConfigPath(workspaceRoot, binding);
+  if (fallbackPath === null) {
+    return null;
+  }
+  try {
+    return loadAbgFallbackBundleFromFile(fallbackPath);
+  } catch (error: unknown) {
+    if (isNodeErrorCode(error, "ENOENT")) {
+      return null;
+    }
+    throw error;
+  }
 }
 
 async function loadRuntimeBinding(workspaceRoot: string): Promise<RuntimeBinding> {
@@ -674,6 +799,7 @@ async function resolveCliTarget(
 }
 
 function startContext(
+  workspaceRoot: string,
   binding: RuntimeBinding,
   replayEvents: readonly RuntimeEvent[]
 ): PublicStartContext {
@@ -686,6 +812,19 @@ function startContext(
     runtimeIdentity: binding.runtimeIdentity,
     resolvedPolicy: binding.resolvedPolicy,
     runtimeEvents,
+    abgFallbackBundle: loadCliFallbackBundle(workspaceRoot, binding),
+    ...(binding.pluginTraversalObserverFallbackEnabled === undefined
+      ? {}
+      : {
+          pluginTraversalObserverFallbackEnabled:
+            binding.pluginTraversalObserverFallbackEnabled
+        }),
+    ...(binding.pluginTraversalObserverFallbackKinds === undefined
+      ? {}
+      : {
+          pluginTraversalObserverFallbackKinds:
+            binding.pluginTraversalObserverFallbackKinds
+        }),
     ...(binding.runId !== undefined ? { runId: binding.runId } : {}),
     ...(binding.workKey !== undefined ? { workKey: binding.workKey } : {}),
     ...(binding.frameId !== undefined ? { frameId: binding.frameId } : {}),
@@ -810,7 +949,7 @@ async function runStartCommand(
   const emitted: RuntimeEvent[] = [];
   const outcome = publicCallableStart(
     callableInput(request),
-    startContext(binding, replayEvents),
+    startContext(workspaceRoot, binding, replayEvents),
     (event) => {
       emitted.push(event);
     }
@@ -891,7 +1030,11 @@ async function runGapsCommand(
         moduleName: binding.module.name
       }
     },
-    startContext(binding, await readReplayEvents(eventsPath(workspaceRoot)))
+    startContext(
+      workspaceRoot,
+      binding,
+      await readReplayEvents(eventsPath(workspaceRoot))
+    )
   );
   io.stdout(`${JSON.stringify(gapsOutput(projection))}\n`);
   return 0;

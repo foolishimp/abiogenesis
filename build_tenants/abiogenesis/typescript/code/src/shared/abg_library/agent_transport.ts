@@ -35,9 +35,14 @@ export interface AgentTransportRequest {
   readonly stderrPath?: string;
   readonly transportPath?: string;
   readonly traceRoot?: string;
+  readonly workerRef?: string;
+  readonly actorRef?: string;
 }
 
 export interface AgentTransportResult {
+  readonly agentKey: string;
+  readonly workerRef: string;
+  readonly actorRef: string | null;
   readonly command: string;
   readonly args: readonly string[];
   readonly executorProfile: TracedProcessExecutorProfile;
@@ -216,6 +221,7 @@ export async function runAgentTransport(
   const traceRoot = request.traceRoot ?? defaultPath(request, ".trace");
   const executorProfile = executorProfileFor(request);
   const isClaude = request.contract.agentKey === "claude";
+  const workerRef = request.workerRef ?? request.contract.agentKey;
   const args = isClaude
     ? claudeStreamJsonArgs(request.prompt)
     : renderAgentTransportArgs(request.contract.argsTemplate, {
@@ -224,7 +230,8 @@ export async function runAgentTransport(
       });
   const traced = await runAgentActorWorkerCallout({
     agentCalloutKind: "agent_worker",
-    workerRef: request.contract.agentKey,
+    workerRef,
+    ...(request.actorRef === undefined ? {} : { actorRef: request.actorRef }),
     command: request.contract.command,
     args,
     cwd: request.cwd,
@@ -248,6 +255,9 @@ export async function runAgentTransport(
       ? traced.finalOutput
       : collectPlainTransportText(traced.stdout, outputPath);
   const result: AgentTransportResult = {
+    agentKey: request.contract.agentKey,
+    workerRef,
+    actorRef: request.actorRef ?? null,
     command: traced.command,
     args: traced.args,
     executorProfile: traced.executorProfile,

@@ -45,6 +45,52 @@ function liveAgentKey() {
   return process.env["ABG_TS_LIVE_AGENT"] ?? "codex";
 }
 
+function assertNonEmptyString(value, label) {
+  assert.equal(typeof value, "string", `${label} must be a string`);
+  assert.equal(value.length > 0, true, `${label} must be non-empty`);
+}
+
+function assertActorRuntimeScope(value, label) {
+  assertNonEmptyString(value.basisId, `${label}.basisId`);
+  assertNonEmptyString(value.graphFunctionId, `${label}.graphFunctionId`);
+  assert.equal(
+    value.runId === null || typeof value.runId === "string",
+    true,
+    `${label}.runId must be null or string`
+  );
+  assert.equal(
+    value.workKey === null || typeof value.workKey === "string",
+    true,
+    `${label}.workKey must be null or string`
+  );
+  assertNonEmptyString(value.graphCallId, `${label}.graphCallId`);
+  assertNonEmptyString(value.frameId, `${label}.frameId`);
+  assert.equal(Number.isInteger(value.vectorIndex), true);
+  assertNonEmptyString(value.edge, `${label}.edge`);
+  assertNonEmptyString(value.actorInvocationId, `${label}.actorInvocationId`);
+  assertNonEmptyString(value.workerId, `${label}.workerId`);
+  assertNonEmptyString(value.backendId, `${label}.backendId`);
+  assert.equal(Array.isArray(value.causationEventRefs), true);
+  assertNonEmptyString(value.correlationId, `${label}.correlationId`);
+}
+
+function assertProjectedScopeMatchesEvent(projectionRef, event, label) {
+  assert.equal(projectionRef.graphFunctionId, event.graphFunctionId);
+  assert.equal(projectionRef.graphCallId, event.graphCallId);
+  assert.equal(projectionRef.frameId, event.frameId);
+  assert.equal(projectionRef.edge, event.edge);
+  assert.equal(projectionRef.runId, event.runId);
+  assert.equal(projectionRef.workKey, event.workKey);
+  assert.equal(projectionRef.workerId, event.workerId);
+  assert.equal(projectionRef.backendId, event.backendId);
+  assert.deepStrictEqual(
+    projectionRef.causationEventRefs,
+    event.causationEventRefs,
+    `${label}.causationEventRefs`
+  );
+  assert.equal(projectionRef.correlationId, event.correlationId);
+}
+
 function selectedExecutorProfile() {
   const raw = process.env["ABG_TS_AGENT_EXECUTOR_PROFILE"];
   if (raw === undefined || raw.trim().length === 0) {
@@ -332,6 +378,7 @@ function liveSandboxSource(agentKey, executorProfile) {
         cwd: sandboxRoot,
         archiveRoot: artifactRoot,
         label,
+        workerRef: request.workerId,
         timeoutMs: Number.parseInt(process.env["ABG_TS_LIVE_TIMEOUT_MS"] ?? "600000", 10),
         ...(executorProfile === undefined ? {} : { executorProfile }),
         outputPath: path.join(artifactRoot, label + "-output.txt")
@@ -685,6 +732,22 @@ test("T-087 live: real agent transport runs inside one ABG supervised actor invo
   assert.equal(payload.projectionSummary.nextVectorIndex, null);
   assert.equal(payload.projectionSummary.actorInvocationRefs.length, 1);
   assert.equal(payload.projectionSummary.observedActorArtifactRefs.length, 1);
+  const actorStarted = payload.actorEvents[0];
+  const actorArtifactObserved = payload.actorEvents[1];
+  const actorClosed = payload.actorEvents[2];
+  assertActorRuntimeScope(actorStarted, "actorStarted");
+  assertActorRuntimeScope(actorArtifactObserved, "actorArtifactObserved");
+  assertActorRuntimeScope(actorClosed, "actorClosed");
+  assertProjectedScopeMatchesEvent(
+    payload.projectionSummary.actorInvocationRefs[0],
+    actorStarted,
+    "actorInvocationRefs[0]"
+  );
+  assertProjectedScopeMatchesEvent(
+    payload.projectionSummary.observedActorArtifactRefs[0],
+    actorArtifactObserved,
+    "observedActorArtifactRefs[0]"
+  );
   assert.equal(payload.pluginInputs.length, 1);
   assert.equal(
     payload.pluginInputs[0].actorInvocationRef.actorInvocationId,

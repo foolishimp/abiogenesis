@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import type {
   AdvancementTransition,
   ActorInvocation,
@@ -5,6 +6,7 @@ import type {
   ActorProcessExitedEvent,
   ActorProcessHeartbeatEvent,
   ActorProcessSignalSentEvent,
+  ActorProcessStartFailedEvent,
   ActorProcessStartedEvent,
   ActorProcessStreamObservedEvent,
   ActorProcessTimeoutEvent,
@@ -27,6 +29,7 @@ import type {
   PayloadObservedRuntimeEvent,
   PayloadRejectedRuntimeEvent,
   PayloadValidatedRuntimeEvent,
+  PluginTraversalPromptMaterializedEvent,
   RuntimeEvent,
   TerminalReachedEvent,
   TerminalTransition,
@@ -34,6 +37,7 @@ import type {
   VectorEvaluatedEvent,
   VectorTraversalPlannedEvent
 } from "./carriers.js";
+import type { PluginTraversalObserverBindingSelection } from "./plugin_traversal_observer.js";
 import {
   assertVectorIndexInRange,
   frameIdForBasis,
@@ -162,16 +166,9 @@ export function constructActorInvocationStartedEvent(
 ): ActorInvocationStartedEvent {
   return Object.freeze({
     kind: "actor_invocation_started",
-    basisId: invocation.basisId,
-    graphCallId: invocation.graphCallId,
-    frameId: invocation.frameId,
-    vectorIndex: invocation.vectorIndex,
-    edge: invocation.edge,
-    actorInvocationId: invocation.actorInvocationId,
+    ...actorRuntimeScope(invocation),
     attemptIndex: invocation.attemptIndex,
     dispatchRef: invocation.dispatchRef,
-    workerId: invocation.workerId,
-    backendId: invocation.backendId,
     resultRef: invocation.resultRef
   });
 }
@@ -182,12 +179,7 @@ export function constructActorResultArtifactObservedEvent(input: {
 }): ActorResultArtifactObservedEvent {
   return Object.freeze({
     kind: "actor_result_artifact_observed",
-    basisId: input.invocation.basisId,
-    graphCallId: input.invocation.graphCallId,
-    frameId: input.invocation.frameId,
-    vectorIndex: input.invocation.vectorIndex,
-    edge: input.invocation.edge,
-    actorInvocationId: input.invocation.actorInvocationId,
+    ...actorRuntimeScope(input.invocation),
     resultRef: input.invocation.resultRef,
     artifactRef: input.artifactRef
   });
@@ -201,16 +193,48 @@ export function constructActorInvocationClosedEvent(input: {
 }): ActorInvocationClosedEvent {
   return Object.freeze({
     kind: "actor_invocation_closed",
-    basisId: input.invocation.basisId,
-    graphCallId: input.invocation.graphCallId,
-    frameId: input.invocation.frameId,
-    vectorIndex: input.invocation.vectorIndex,
-    edge: input.invocation.edge,
-    actorInvocationId: input.invocation.actorInvocationId,
+    ...actorRuntimeScope(input.invocation),
     closureStatus: input.closureStatus,
     resultRef: input.resultRef,
     detail: input.detail
   });
+}
+
+function actorRuntimeScope(invocation: ActorInvocation) {
+  return Object.freeze({
+    basisId: invocation.basisId,
+    graphFunctionId: invocation.graphFunctionId,
+    runId: invocation.runId,
+    workKey: invocation.workKey,
+    graphCallId: invocation.graphCallId,
+    frameId: invocation.frameId,
+    vectorIndex: invocation.vectorIndex,
+    edge: invocation.edge,
+    actorInvocationId: invocation.actorInvocationId,
+    workerId: invocation.workerId,
+    backendId: invocation.backendId,
+    causationEventRefs: freezeStringArray(invocation.causationEventRefs),
+    correlationId: invocation.correlationId
+  });
+}
+
+function sha256Text(input: string): string {
+  return `sha256:${createHash("sha256").update(input).digest("hex")}`;
+}
+
+function stableJson(input: unknown): string {
+  if (input === null || typeof input !== "object") {
+    return JSON.stringify(input);
+  }
+  if (Array.isArray(input)) {
+    return `[${input.map((entry) => stableJson(entry)).join(",")}]`;
+  }
+  const entries = Object.entries(input).sort(([left], [right]) =>
+    left.localeCompare(right)
+  );
+  return `{${entries
+    .map(([key, value]) => `${JSON.stringify(key)}:${stableJson(value)}`)
+    .join(",")}}`;
 }
 
 export function constructActorProcessStartedEvent(input: {
@@ -219,25 +243,49 @@ export function constructActorProcessStartedEvent(input: {
   readonly args: readonly string[];
   readonly cwd: string;
   readonly pid: number | null;
+  readonly terminalSessionId: string | null;
   readonly timeoutMs: number;
   readonly stdoutRef: string;
   readonly stderrRef: string;
 }): ActorProcessStartedEvent {
   return Object.freeze({
     kind: "actor_process_started",
-    basisId: input.invocation.basisId,
-    graphCallId: input.invocation.graphCallId,
-    frameId: input.invocation.frameId,
-    vectorIndex: input.invocation.vectorIndex,
-    edge: input.invocation.edge,
-    actorInvocationId: input.invocation.actorInvocationId,
+    ...actorRuntimeScope(input.invocation),
     command: input.command,
     args: freezeStringArray(input.args),
     cwd: input.cwd,
     pid: input.pid,
+    terminalSessionId: input.terminalSessionId,
     timeoutMs: input.timeoutMs,
     stdoutRef: input.stdoutRef,
     stderrRef: input.stderrRef
+  });
+}
+
+export function constructActorProcessStartFailedEvent(input: {
+  readonly invocation: ActorInvocation;
+  readonly command: string;
+  readonly args: readonly string[];
+  readonly cwd: string;
+  readonly timeoutMs: number;
+  readonly stdoutRef: string;
+  readonly stderrRef: string;
+  readonly terminalSessionId: string | null;
+  readonly failureKind: ActorProcessStartFailedEvent["failureKind"];
+  readonly detail: string;
+}): ActorProcessStartFailedEvent {
+  return Object.freeze({
+    kind: "actor_process_start_failed",
+    ...actorRuntimeScope(input.invocation),
+    command: input.command,
+    args: freezeStringArray(input.args),
+    cwd: input.cwd,
+    timeoutMs: input.timeoutMs,
+    stdoutRef: input.stdoutRef,
+    stderrRef: input.stderrRef,
+    terminalSessionId: input.terminalSessionId,
+    failureKind: input.failureKind,
+    detail: input.detail
   });
 }
 
@@ -250,12 +298,7 @@ export function constructActorProcessStreamObservedEvent(input: {
 }): ActorProcessStreamObservedEvent {
   return Object.freeze({
     kind: "actor_process_stream_observed",
-    basisId: input.invocation.basisId,
-    graphCallId: input.invocation.graphCallId,
-    frameId: input.invocation.frameId,
-    vectorIndex: input.invocation.vectorIndex,
-    edge: input.invocation.edge,
-    actorInvocationId: input.invocation.actorInvocationId,
+    ...actorRuntimeScope(input.invocation),
     streamName: input.streamName,
     streamRef: input.streamRef,
     chunkIndex: input.chunkIndex,
@@ -270,12 +313,7 @@ export function constructActorProcessHeartbeatEvent(input: {
 }): ActorProcessHeartbeatEvent {
   return Object.freeze({
     kind: "actor_process_heartbeat",
-    basisId: input.invocation.basisId,
-    graphCallId: input.invocation.graphCallId,
-    frameId: input.invocation.frameId,
-    vectorIndex: input.invocation.vectorIndex,
-    edge: input.invocation.edge,
-    actorInvocationId: input.invocation.actorInvocationId,
+    ...actorRuntimeScope(input.invocation),
     heartbeatIndex: input.heartbeatIndex,
     elapsedMs: input.elapsedMs
   });
@@ -288,12 +326,7 @@ export function constructActorProcessTimeoutEvent(input: {
 }): ActorProcessTimeoutEvent {
   return Object.freeze({
     kind: "actor_process_timeout",
-    basisId: input.invocation.basisId,
-    graphCallId: input.invocation.graphCallId,
-    frameId: input.invocation.frameId,
-    vectorIndex: input.invocation.vectorIndex,
-    edge: input.invocation.edge,
-    actorInvocationId: input.invocation.actorInvocationId,
+    ...actorRuntimeScope(input.invocation),
     timeoutMs: input.timeoutMs,
     elapsedMs: input.elapsedMs
   });
@@ -306,12 +339,7 @@ export function constructActorProcessSignalSentEvent(input: {
 }): ActorProcessSignalSentEvent {
   return Object.freeze({
     kind: "actor_process_signal_sent",
-    basisId: input.invocation.basisId,
-    graphCallId: input.invocation.graphCallId,
-    frameId: input.invocation.frameId,
-    vectorIndex: input.invocation.vectorIndex,
-    edge: input.invocation.edge,
-    actorInvocationId: input.invocation.actorInvocationId,
+    ...actorRuntimeScope(input.invocation),
     signal: input.signal,
     elapsedMs: input.elapsedMs
   });
@@ -327,17 +355,90 @@ export function constructActorProcessExitedEvent(input: {
 }): ActorProcessExitedEvent {
   return Object.freeze({
     kind: "actor_process_exited",
-    basisId: input.invocation.basisId,
-    graphCallId: input.invocation.graphCallId,
-    frameId: input.invocation.frameId,
-    vectorIndex: input.invocation.vectorIndex,
-    edge: input.invocation.edge,
-    actorInvocationId: input.invocation.actorInvocationId,
+    ...actorRuntimeScope(input.invocation),
     status: input.status,
     signal: input.signal,
     elapsedMs: input.elapsedMs,
     timedOut: input.timedOut,
     error: input.error
+  });
+}
+
+export function constructPluginTraversalPromptMaterializedEvent(input: {
+  readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
+  readonly selection: PluginTraversalObserverBindingSelection;
+  readonly invocation?: ActorInvocation | null;
+  readonly causationEventRefs?: readonly string[];
+  readonly correlationId: string;
+}): PluginTraversalPromptMaterializedEvent {
+  const causationEventRefs = freezeStringArray(input.causationEventRefs ?? []);
+  const materializationBasis = {
+    basisId: input.basis.id,
+    vectorIndex: input.vectorIndex,
+    selectionRef: input.selection.selectionRef,
+    graphFunctionId: input.basis.graphFunction.id,
+    configDigest: input.selection.binding.configDigest,
+    actorInvocationId: input.invocation?.actorInvocationId ?? null,
+    workerId: input.invocation?.workerId ?? null,
+    backendId: input.invocation?.backendId ?? null,
+    causationEventRefs,
+    correlationId: input.correlationId
+  };
+  const materializationDigest = sha256Text(stableJson(materializationBasis));
+  const materializationRef =
+    `plugin-traversal-prompt-materialized:${materializationDigest}`;
+  const promptInputDigest = sha256Text(stableJson({
+    ...materializationBasis,
+    observerPromptRef: input.selection.binding.observerPromptRef,
+    promptTemplateRef: input.selection.binding.promptTemplateRef,
+    promptInputContractRef: input.selection.binding.promptInputContractRef,
+    expectedOutputContractRef:
+      input.selection.binding.expectedOutputContractRef
+  }));
+  return Object.freeze({
+    kind: "plugin_traversal_prompt_materialized",
+    basisId: input.basis.id,
+    graphCallId: graphCallIdForBasis(input.basis),
+    frameId: frameIdForBasis(input.basis),
+    frameLineageId: input.basis.frameLineageId,
+    graphFunctionId: input.basis.graphFunction.id,
+    runId: input.basis.runId,
+    workKey: input.basis.workKey,
+    vectorIndex: input.vectorIndex,
+    edge: vectorEdge(input.basis, input.vectorIndex),
+    traversalKind: input.selection.traversalKind,
+    materializationRef,
+    selectionRef: input.selection.selectionRef,
+    selectionSource: input.selection.source,
+    sourceRef: input.selection.sourceRef,
+    attrKey: input.selection.attrKey,
+    hookRef: input.selection.hookRef,
+    actorInvocationId: input.invocation?.actorInvocationId ?? null,
+    workerId: input.invocation?.workerId ?? null,
+    backendId: input.invocation?.backendId ?? null,
+    observerPromptRef: input.selection.binding.observerPromptRef,
+    renderedPromptRef: `rendered-prompt:${materializationRef}`,
+    promptInputDigest,
+    promptTemplateRef: input.selection.binding.promptTemplateRef,
+    promptInputContractRef: input.selection.binding.promptInputContractRef,
+    expectedOutputContractRef:
+      input.selection.binding.expectedOutputContractRef,
+    progressSignalRefs: freezeStringArray(
+      input.selection.binding.progressSignalRefs
+    ),
+    continuationRequestRefs: freezeStringArray(
+      input.selection.binding.continuationRequestRefs
+    ),
+    policyRefs: freezeStringArray(input.selection.binding.policyRefs),
+    configDigest: input.selection.binding.configDigest,
+    defaultsBundleRef: input.selection.fallbackBundleRef?.bundleRef ?? null,
+    defaultsBundleDigest:
+      input.selection.fallbackBundleRef?.bundleDigest ?? null,
+    defaultsPath: input.selection.fallbackBundleRef?.bundlePath ?? null,
+    defaultKey: input.selection.defaultKey,
+    causationEventRefs,
+    correlationId: input.correlationId
   });
 }
 

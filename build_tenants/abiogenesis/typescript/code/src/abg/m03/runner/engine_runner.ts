@@ -10,6 +10,7 @@ import type {
   ActorInvocation,
   ActorInvocationRef,
   ExecutionBasis,
+  PluginTraversalKind,
   RuntimeAggregateProjection,
   RuntimeEvent,
   TerminalTransition
@@ -22,6 +23,7 @@ import {
   constructFdAdvanceReadyEvent,
   constructFhEscalatedEvent,
   constructFpDispatchRequestedEvent,
+  constructPluginTraversalPromptMaterializedEvent,
   constructTerminalReachedEvent,
   constructVectorClosedEvent,
   constructVectorEvaluatedEvent
@@ -59,6 +61,7 @@ import {
   type FhAdmissionPlugin,
   type FpDispatchPlugin
 } from "../contracts/plugins.js";
+import type { AbgFallbackBundle } from "../contracts/plugin_traversal_observer.js";
 import {
   deriveRetryRepairDecision,
   runtimeEventsForRetryRepairDecision
@@ -106,6 +109,11 @@ export interface EngineIterateRequest {
   readonly plugins?: EngineRunnerPluginSet | undefined;
   readonly maxAttachedFpAttempts?: number | undefined;
   readonly assuranceProvider?: EngineAssuranceProvider | undefined;
+  readonly abgFallbackBundle?: AbgFallbackBundle | null | undefined;
+  readonly pluginTraversalObserverFallbackEnabled?: boolean | undefined;
+  readonly pluginTraversalObserverFallbackKinds?:
+    | readonly PluginTraversalKind[]
+    | undefined;
 }
 
 export interface EngineStartRequest extends ExecutionBasisAdmissionInput {
@@ -114,6 +122,11 @@ export interface EngineStartRequest extends ExecutionBasisAdmissionInput {
   readonly plugins?: EngineRunnerPluginSet | undefined;
   readonly maxAttachedFpAttempts?: number | undefined;
   readonly assuranceProvider?: EngineAssuranceProvider | undefined;
+  readonly abgFallbackBundle?: AbgFallbackBundle | null | undefined;
+  readonly pluginTraversalObserverFallbackEnabled?: boolean | undefined;
+  readonly pluginTraversalObserverFallbackKinds?:
+    | readonly PluginTraversalKind[]
+    | undefined;
 }
 
 export interface EngineIterateResult {
@@ -254,6 +267,9 @@ function actorInvocationForTransition(input: {
       attemptIndex
     })}`,
     basisId: input.transition.basis.id,
+    graphFunctionId: input.transition.basis.graphFunction.id,
+    runId: input.transition.basis.runId,
+    workKey: input.transition.basis.workKey,
     graphCallId: graphCallIdForBasis(input.transition.basis),
     frameId: frameIdForBasis(input.transition.basis),
     vectorIndex: input.transition.vectorIndex,
@@ -262,7 +278,14 @@ function actorInvocationForTransition(input: {
     dispatchRef: request.dispatchRef,
     workerId: request.workerId,
     backendId: request.backendId,
-    resultRef: request.resultRef
+    resultRef: request.resultRef,
+    causationEventRefs: Object.freeze([request.dispatchRef]),
+    correlationId: [
+      "actor-correlation",
+      input.transition.basis.id,
+      String(input.transition.vectorIndex),
+      String(attemptIndex)
+    ].join(":")
   });
 }
 
@@ -365,6 +388,9 @@ function deriveFpDispatchAttemptInput(input: {
   readonly replayEvents: readonly RuntimeEvent[];
   readonly transition: FpDispatchTransition;
   readonly contract: EnginePluginContract;
+  readonly abgFallbackBundle: AbgFallbackBundle | null;
+  readonly pluginTraversalObserverFallbackEnabled: boolean;
+  readonly pluginTraversalObserverFallbackKinds: readonly PluginTraversalKind[];
 }): FpDispatchAttemptInput {
   const actorInvocation = actorInvocationForTransition({
     projection: input.projection,
@@ -384,7 +410,12 @@ function deriveFpDispatchAttemptInput(input: {
     edge: input.transition.edge,
     regime: "F_P",
     actorInvocationRef: actorInvocationRef(actorInvocation),
-    traversalAttemptEnvelope: modulatedAttempt?.envelope ?? null
+    traversalAttemptEnvelope: modulatedAttempt?.envelope ?? null,
+    abgFallbackBundle: input.abgFallbackBundle,
+    pluginTraversalObserverFallbackEnabled:
+      input.pluginTraversalObserverFallbackEnabled,
+    pluginTraversalObserverFallbackKinds:
+      input.pluginTraversalObserverFallbackKinds
   });
   return Object.freeze({
     actorInvocation,
@@ -398,8 +429,21 @@ function fpDispatchAttemptStartedEvents(input: {
   readonly transition: FpDispatchTransition;
   readonly actorInvocation: ActorInvocation;
   readonly modulatedAttempt: ModulatedFpAttempt | null;
+  readonly pluginInput: EnginePluginInput;
 }): readonly RuntimeEvent[] {
   const events: RuntimeEvent[] = [constructFpDispatchRequestedEvent(input.transition)];
+  if (input.pluginInput.pluginTraversalObserverBinding !== null) {
+    events.push(
+      constructPluginTraversalPromptMaterializedEvent({
+        basis: input.basis,
+        vectorIndex: input.transition.vectorIndex,
+        selection: input.pluginInput.pluginTraversalObserverBinding,
+        invocation: input.actorInvocation,
+        causationEventRefs: Object.freeze([input.transition.dispatchRef]),
+        correlationId: input.actorInvocation.correlationId
+      })
+    );
+  }
   if (input.modulatedAttempt !== null) {
     events.push(
       constructTraversalModulationResolvedEvent({
@@ -449,6 +493,23 @@ function fpDispatchAttemptNonProgressEvents(input: {
       actionProjectionRef: input.continuation.action.projectionRef
     })
   ]);
+}
+
+function mustExitAfterBoundedAttempt(
+  modulatedAttempt: ModulatedFpAttempt | null
+): boolean {
+  return modulatedAttempt?.envelope.mustExitAfterBoundedAttempt === true;
+}
+
+function boundedAttemptExitTransition(input: {
+  readonly basis: ExecutionBasis;
+  readonly reason: string | null;
+}): TerminalTransition {
+  return terminalTransition(
+    input.basis,
+    "gap_stop",
+    `bounded_traversal_attempt_exit:${input.reason ?? "blocked"}`
+  );
 }
 
 function resultRefForActorOutcome(input: {
@@ -751,8 +812,29 @@ export function runEngineIterate(
           replayEvents,
           vectorIndex: transition.vectorIndex,
           edge: transition.edge,
-          regime: "F_D"
+          regime: "F_D",
+          abgFallbackBundle: request.abgFallbackBundle ?? null,
+          pluginTraversalObserverFallbackEnabled:
+            request.pluginTraversalObserverFallbackEnabled ?? false,
+          pluginTraversalObserverFallbackKinds:
+            request.pluginTraversalObserverFallbackKinds ?? Object.freeze([])
         });
+        if (input.pluginTraversalObserverBinding !== null) {
+          emitRunnerEvents(
+            constructPluginTraversalPromptMaterializedEvent({
+              basis: request.basis,
+              vectorIndex: transition.vectorIndex,
+              selection: input.pluginTraversalObserverBinding,
+              causationEventRefs: Object.freeze([input.sourceProjectionRef]),
+              correlationId: [
+                "plugin-traversal",
+                request.basis.id,
+                String(transition.vectorIndex),
+                "eval"
+              ].join(":")
+            })
+          );
+        }
         const outcome = admitFdEvaluationOutcome(
           resolveSyncPluginOutcome(
             plugins.fdEvaluator.evaluate(input),
@@ -809,7 +891,12 @@ export function runEngineIterate(
           projection,
           transition,
           replayEvents,
-          contract: plugins.fpDispatch.contract
+          contract: plugins.fpDispatch.contract,
+          abgFallbackBundle: request.abgFallbackBundle ?? null,
+          pluginTraversalObserverFallbackEnabled:
+            request.pluginTraversalObserverFallbackEnabled ?? false,
+          pluginTraversalObserverFallbackKinds:
+            request.pluginTraversalObserverFallbackKinds ?? Object.freeze([])
         });
         const { actorInvocation, modulatedAttempt, pluginInput: input } = attempt;
         emitRunnerEvents(
@@ -817,7 +904,8 @@ export function runEngineIterate(
             basis: request.basis,
             transition,
             actorInvocation,
-            modulatedAttempt
+            modulatedAttempt,
+            pluginInput: input
           })
         );
         const outcome = admitFpDispatchOutcome(
@@ -901,6 +989,24 @@ export function runEngineIterate(
               status: "blocked"
             })
           );
+          if (
+            attachedDecision.kind === "retry_planned" &&
+            mustExitAfterBoundedAttempt(modulatedAttempt)
+          ) {
+            const bounded = boundedAttemptExitTransition({
+              basis: request.basis,
+              reason: attachedDecision.reason
+            });
+            emitRunnerEvents(constructTerminalReachedEvent(bounded));
+            return constructResult({
+              basis: request.basis,
+              transition: bounded,
+              projection: deriveRuntimeAggregateProjection(request.basis, replayEvents),
+              emittedEvents,
+              replayEvents,
+              iterationCount
+            });
+          }
           emitRunnerEvents(attachedDecision.retryEvents);
           if (attachedDecision.kind === "retry_planned") {
             break;
@@ -947,6 +1053,21 @@ export function runEngineIterate(
                 continuation
               })
             );
+            if (mustExitAfterBoundedAttempt(modulatedAttempt)) {
+              const bounded = boundedAttemptExitTransition({
+                basis: request.basis,
+                reason: continuation.summary.reason
+              });
+              emitRunnerEvents(constructTerminalReachedEvent(bounded));
+              return constructResult({
+                basis: request.basis,
+                transition: bounded,
+                projection: deriveRuntimeAggregateProjection(request.basis, replayEvents),
+                emittedEvents,
+                replayEvents,
+                iterationCount
+              });
+            }
             emitRunnerEvents(continuation.retryEvents);
             break;
           }
@@ -1184,8 +1305,29 @@ export async function runEngineIterateAsync(
           replayEvents,
           vectorIndex: transition.vectorIndex,
           edge: transition.edge,
-          regime: "F_D"
+          regime: "F_D",
+          abgFallbackBundle: request.abgFallbackBundle ?? null,
+          pluginTraversalObserverFallbackEnabled:
+            request.pluginTraversalObserverFallbackEnabled ?? false,
+          pluginTraversalObserverFallbackKinds:
+            request.pluginTraversalObserverFallbackKinds ?? Object.freeze([])
         });
+        if (input.pluginTraversalObserverBinding !== null) {
+          emitRunnerEvents(
+            constructPluginTraversalPromptMaterializedEvent({
+              basis: request.basis,
+              vectorIndex: transition.vectorIndex,
+              selection: input.pluginTraversalObserverBinding,
+              causationEventRefs: Object.freeze([input.sourceProjectionRef]),
+              correlationId: [
+                "plugin-traversal",
+                request.basis.id,
+                String(transition.vectorIndex),
+                "eval"
+              ].join(":")
+            })
+          );
+        }
         const outcome = admitFdEvaluationOutcome(
           await plugins.fdEvaluator.evaluate(input)
         );
@@ -1239,7 +1381,12 @@ export async function runEngineIterateAsync(
           projection,
           transition,
           replayEvents,
-          contract: plugins.fpDispatch.contract
+          contract: plugins.fpDispatch.contract,
+          abgFallbackBundle: request.abgFallbackBundle ?? null,
+          pluginTraversalObserverFallbackEnabled:
+            request.pluginTraversalObserverFallbackEnabled ?? false,
+          pluginTraversalObserverFallbackKinds:
+            request.pluginTraversalObserverFallbackKinds ?? Object.freeze([])
         });
         const { actorInvocation, modulatedAttempt, pluginInput: input } = attempt;
         emitRunnerEvents(
@@ -1247,7 +1394,8 @@ export async function runEngineIterateAsync(
             basis: request.basis,
             transition,
             actorInvocation,
-            modulatedAttempt
+            modulatedAttempt,
+            pluginInput: input
           })
         );
         const outcome = admitFpDispatchOutcome(
@@ -1328,6 +1476,24 @@ export async function runEngineIterateAsync(
               status: "blocked"
             })
           );
+          if (
+            attachedDecision.kind === "retry_planned" &&
+            mustExitAfterBoundedAttempt(modulatedAttempt)
+          ) {
+            const bounded = boundedAttemptExitTransition({
+              basis: request.basis,
+              reason: attachedDecision.reason
+            });
+            emitRunnerEvents(constructTerminalReachedEvent(bounded));
+            return constructResult({
+              basis: request.basis,
+              transition: bounded,
+              projection: deriveRuntimeAggregateProjection(request.basis, replayEvents),
+              emittedEvents,
+              replayEvents,
+              iterationCount
+            });
+          }
           emitRunnerEvents(attachedDecision.retryEvents);
           if (attachedDecision.kind === "retry_planned") {
             break;
@@ -1374,6 +1540,21 @@ export async function runEngineIterateAsync(
                 continuation
               })
             );
+            if (mustExitAfterBoundedAttempt(modulatedAttempt)) {
+              const bounded = boundedAttemptExitTransition({
+                basis: request.basis,
+                reason: continuation.summary.reason
+              });
+              emitRunnerEvents(constructTerminalReachedEvent(bounded));
+              return constructResult({
+                basis: request.basis,
+                transition: bounded,
+                projection: deriveRuntimeAggregateProjection(request.basis, replayEvents),
+                emittedEvents,
+                replayEvents,
+                iterationCount
+              });
+            }
             emitRunnerEvents(continuation.retryEvents);
             break;
           }
@@ -1470,7 +1651,12 @@ export function runEngineStart(request: EngineStartRequest): EngineIterateResult
     eventSink: request.eventSink,
     plugins: request.plugins,
     maxAttachedFpAttempts: request.maxAttachedFpAttempts,
-    assuranceProvider: request.assuranceProvider
+    assuranceProvider: request.assuranceProvider,
+    abgFallbackBundle: request.abgFallbackBundle,
+    pluginTraversalObserverFallbackEnabled:
+      request.pluginTraversalObserverFallbackEnabled,
+    pluginTraversalObserverFallbackKinds:
+      request.pluginTraversalObserverFallbackKinds
   });
 }
 
@@ -1484,6 +1670,11 @@ export async function runEngineStartAsync(
     eventSink: request.eventSink,
     plugins: request.plugins,
     maxAttachedFpAttempts: request.maxAttachedFpAttempts,
-    assuranceProvider: request.assuranceProvider
+    assuranceProvider: request.assuranceProvider,
+    abgFallbackBundle: request.abgFallbackBundle,
+    pluginTraversalObserverFallbackEnabled:
+      request.pluginTraversalObserverFallbackEnabled,
+    pluginTraversalObserverFallbackKinds:
+      request.pluginTraversalObserverFallbackKinds
   });
 }

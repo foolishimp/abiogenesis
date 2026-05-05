@@ -933,6 +933,65 @@ test("T-107 async runner derives the same qualified F_P attempt envelope as sync
   assert.equal(result.transition.kind, "terminal");
 });
 
+test("T-107 async runner exits bounded attempt instead of internally retrying blocked attached artifact", async () => {
+  const basis = withBasisGraphVectorDeclarations(
+    buildThreeStageBasis({
+      defaultRegime: "F_P",
+      dispatchRef: "dispatch://t107-async-runner-bounded-attached"
+    }),
+    attrs([
+      hookEntry("abg.traversal_modulation", {
+        ref: "strategy://odd_sdlc/async-runner-bounded-attached",
+        label: "steel_thread",
+        primitives: ["bounded_batch", "ordered_schedule_prefix"],
+        obligationScheduleRefs: [
+          "schedule://bounded-req-1",
+          "schedule://bounded-req-2"
+        ],
+        targetItemCount: 1,
+        maxItemCount: 1
+      })
+    ])
+  );
+  const pluginInputs = [];
+  const emittedEvents = [];
+  const fpDispatch = Object.freeze({
+    contract: fpDispatchContract("plugin://test/t107-async-runner-bounded-attached"),
+    dispatch: async (input) => {
+      pluginInputs.push(input);
+      assert.equal(input.traversalAttemptEnvelope.mustExitAfterBoundedAttempt, true);
+      return constructFpDispatchOutcome({
+        status: "blocked",
+        resultRef: "result://t107-async-runner-bounded-attached/runtime-failure",
+        reason: "worker process failed after transport retries",
+        attachedResultArtifact: {
+          kind: "runtime_failure",
+          failureClass: "runtime_failure",
+          detail: "api_retry_count=10"
+        }
+      });
+    }
+  });
+
+  const result = await runEngineIterateAsync({
+    basis,
+    eventSink: (event) => {
+      emittedEvents.push(event);
+    },
+    plugins: { fpDispatch },
+    maxAttachedFpAttempts: 3
+  });
+
+  assert.equal(pluginInputs.length, 1);
+  assert.equal(result.transition.kind, "terminal");
+  assert.equal(result.transition.terminalKind, "gap_stop");
+  assert.match(result.transition.reason ?? "", /bounded_traversal_attempt_exit/u);
+  assert.equal(
+    emittedEvents.some((event) => event.kind === "retry_repair_planned"),
+    false
+  );
+});
+
 test("T-107 async runner leaves unqualified F_P vectors on the legacy path", async () => {
   const basis = buildThreeStageBasis({
     defaultRegime: "F_P",

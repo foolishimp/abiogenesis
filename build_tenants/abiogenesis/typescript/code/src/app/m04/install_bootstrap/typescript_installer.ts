@@ -52,6 +52,9 @@ const REQUIRED_STANDARDS_SMOKE_FILES = Object.freeze([
   "TICKET_METHOD.md",
   "DESIGN_MODULE_METHOD.md",
   "ODD_METHOD.md",
+  "UX_METHOD.md",
+  "IDENTITY_METHOD.md",
+  "WORLD_MODEL_METHOD.md",
   "RELEASE_METHOD.md",
   "WRITING_GUIDE.md",
   "POSTING_GUIDE.md",
@@ -64,6 +67,17 @@ const REQUIRED_DOC_FILES = Object.freeze([
   "LLM_GTL_APP_BUILDER_GUIDE.md",
   "USER_GUIDE.md"
 ] as const);
+
+const REFERENCE_FALLBACK_CONFIG_RELATIVE_PATH = join(
+  "config",
+  "abg.reference-fallbacks.json"
+);
+
+const INSTALLED_FALLBACK_CONFIG_RELATIVE_PATH = join(
+  ".abiogenesis",
+  "config",
+  "abg.fallbacks.json"
+);
 
 function isNodeErrorCode(error: unknown, code: string): boolean {
   return (
@@ -396,6 +410,39 @@ async function copyDocsFiles(
   return Object.freeze(evidence);
 }
 
+async function copyFallbackConfig(input: {
+  readonly packageSourceRoot: string;
+  readonly targetRoot: string;
+}): Promise<{
+  readonly sourcePath: string;
+  readonly targetPath: string;
+  readonly evidence: AbgTypescriptInstallerFileEvidence;
+}> {
+  const sourcePath = join(
+    input.packageSourceRoot,
+    REFERENCE_FALLBACK_CONFIG_RELATIVE_PATH
+  );
+  if (!(await pathIsFile(sourcePath))) {
+    throw new Error(`missing ABG fallback config source file ${sourcePath}`);
+  }
+  const targetPath = join(
+    input.targetRoot,
+    INSTALLED_FALLBACK_CONFIG_RELATIVE_PATH
+  );
+  await mkdir(dirname(targetPath), { recursive: true });
+  if (!(await pathIsFile(targetPath))) {
+    await cp(sourcePath, targetPath, { recursive: false });
+  }
+  return Object.freeze({
+    sourcePath,
+    targetPath,
+    evidence: await fileEvidence(
+      input.targetRoot,
+      INSTALLED_FALLBACK_CONFIG_RELATIVE_PATH
+    )
+  });
+}
+
 async function writeInstallProvenance(input: {
   readonly manifestPath: string;
   readonly manifest: unknown;
@@ -626,6 +673,7 @@ export const runtimeBinding = {
     defaultRegime: "F_D",
     dispatchRef: null
   }),
+  abgFallbackConfigPath: ".abiogenesis/config/abg.fallbacks.json",
   runId: "run://abiogenesis/installed-substrate-self-test",
   workKey: "wk://abiogenesis/installed-substrate-self-test"
 };
@@ -737,6 +785,10 @@ export async function verifyAbiogenesisTypescriptInstallTopology(input: {
     typeof manifestObject["runtimeBindingPath"] === "string"
       ? manifestObject["runtimeBindingPath"]
       : join(targetRoot, ".abiogenesis", "cli-runtime.mjs");
+  const fallbackConfigPath =
+    typeof manifestObject["fallbackConfigPath"] === "string"
+      ? manifestObject["fallbackConfigPath"]
+      : join(targetRoot, INSTALLED_FALLBACK_CONFIG_RELATIVE_PATH);
 
   const requiredPaths = Object.freeze([
     join(targetRoot, ".abiogenesis"),
@@ -749,6 +801,7 @@ export async function verifyAbiogenesisTypescriptInstallTopology(input: {
     eventsPath,
     runtimeDirectory,
     runtimeBindingPath,
+    fallbackConfigPath,
     standardsInstallRoot,
     docsInstallRoot,
     ...REQUIRED_STANDARDS_SMOKE_FILES.map((relativePath) =>
@@ -775,6 +828,7 @@ export async function verifyAbiogenesisTypescriptInstallTopology(input: {
     eventsPathPresent: await pathIsFile(eventsPath),
     runtimeDirectoryPresent: await pathIsDirectory(runtimeDirectory),
     runtimeBindingPresent: await pathIsFile(runtimeBindingPath),
+    fallbackConfigPresent: await pathIsFile(fallbackConfigPath),
     standardsRootPresent: await pathIsDirectory(standardsInstallRoot),
     standardsSmokeFilesPresent: await allPathsPresent(
       REQUIRED_STANDARDS_SMOKE_FILES.map((relativePath) =>
@@ -851,6 +905,10 @@ export async function installAbiogenesisTypescript(
     const docsInstallRoot = join(request.targetRoot.rootPath, ".abiogenesis", "docs");
     const standardsInstallRoot = join(docsInstallRoot, "standards");
     const docsFiles = await copyDocsFiles(docsSourceRoot, docsInstallRoot);
+    const fallbackConfig = await copyFallbackConfig({
+      packageSourceRoot: request.packageSourceRoot,
+      targetRoot: request.targetRoot.rootPath
+    });
     const standardsFiles = await copyStandardsTree(
       standardsSourceRoot,
       standardsInstallRoot
@@ -883,6 +941,9 @@ export async function installAbiogenesisTypescript(
       docsSourceRoot,
       docsInstallRoot,
       docsFiles,
+      fallbackConfigSourcePath: fallbackConfig.sourcePath,
+      fallbackConfigPath: fallbackConfig.targetPath,
+      fallbackConfigFile: fallbackConfig.evidence,
       runtimeIdentity,
       runtimeBindingPath,
       installManifestPath: join(
@@ -922,6 +983,9 @@ export async function installAbiogenesisTypescript(
         installManifestPath: manifest.installManifestPath,
         installerManifestPath,
         runtimeBindingPath,
+        fallbackConfigSourcePath: fallbackConfig.sourcePath,
+        fallbackConfigPath: fallbackConfig.targetPath,
+        fallbackConfigSha256: fallbackConfig.evidence.sha256,
         standardsInstallRoot,
         standardsFileCount: standardsFiles.length,
         docsInstallRoot,
@@ -959,6 +1023,9 @@ export async function installAbiogenesisTypescript(
         docsSourceRoot,
         docsInstallRoot,
         docsFiles,
+        fallbackConfigSourcePath: fallbackConfig.sourcePath,
+        fallbackConfigPath: fallbackConfig.targetPath,
+        fallbackConfigFile: fallbackConfig.evidence,
         runtimeIdentity,
         runtimeBindingPath,
         installManifestPath: manifest.installManifestPath,

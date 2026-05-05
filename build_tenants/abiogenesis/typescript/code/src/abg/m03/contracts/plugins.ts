@@ -5,12 +5,20 @@
 import type {
   ActorInvocationRef,
   ExecutionBasis,
+  PluginTraversalKind,
   RuntimeAggregateProjection,
   RuntimeEvent,
   RuntimeRegime
 } from "./carriers.js";
 import type { FpTransformRequest } from "./fp_stages.js";
 import { constructFpTransformRequest } from "./fp_stages.js";
+import type {
+  AbgFallbackBundle,
+  PluginTraversalObserverBindingSelection
+} from "./plugin_traversal_observer.js";
+import {
+  tryResolvePluginTraversalObserverBinding
+} from "./plugin_traversal_observer.js";
 import type { TraversalAttemptEnvelope } from "./traversal_modulation.js";
 import type { RetryFrontierProjection } from "./retry_frontier.js";
 import { deriveRetryFrontierProjection } from "./retry_frontier.js";
@@ -133,6 +141,7 @@ export interface EnginePluginInput {
   readonly retryFrontier: RetryFrontierProjection;
   readonly actorInvocationRef: ActorInvocationRef | null;
   readonly fpTransformRequest: FpTransformRequest | null;
+  readonly pluginTraversalObserverBinding: PluginTraversalObserverBindingSelection | null;
   readonly traversalAttemptEnvelope: TraversalAttemptEnvelope | null;
 }
 
@@ -458,6 +467,11 @@ export function constructEnginePluginInput(input: {
   readonly regime: RuntimeRegime;
   readonly actorInvocationRef?: ActorInvocationRef | null | undefined;
   readonly traversalAttemptEnvelope?: TraversalAttemptEnvelope | null | undefined;
+  readonly abgFallbackBundle?: AbgFallbackBundle | null | undefined;
+  readonly pluginTraversalObserverFallbackEnabled?: boolean | undefined;
+  readonly pluginTraversalObserverFallbackKinds?:
+    | readonly PluginTraversalKind[]
+    | undefined;
 }): EnginePluginInput {
   const contract = admitEnginePluginContract(input.contract);
   assertProjectionBasis(input.basis, input.projection, "EnginePluginInput");
@@ -482,6 +496,28 @@ export function constructEnginePluginInput(input: {
           dispatchRef: input.actorInvocationRef.dispatchRef,
           resultRef: input.actorInvocationRef.resultRef
         });
+  const pluginTraversalKind: PluginTraversalKind | null =
+    input.regime === "F_P"
+      ? "transform"
+      : input.regime === "F_D"
+        ? "eval"
+        : null;
+  const pluginTraversalObserverBinding =
+    pluginTraversalKind !== null
+      ? tryResolvePluginTraversalObserverBinding({
+          traversalKind: pluginTraversalKind,
+          vector,
+          graphFunction: input.basis.graphFunction,
+          roles: input.basis.job.roles,
+          defaultsBundle: input.abgFallbackBundle ?? null,
+          fallbackEnabled:
+            input.pluginTraversalObserverFallbackKinds?.includes(
+              pluginTraversalKind
+            ) ??
+            input.pluginTraversalObserverFallbackEnabled ??
+            false
+        })
+      : null;
   const fpTransformRequest =
     input.regime === "F_P" && normalizedActorInvocationRef !== null
       ? constructFpTransformRequest({
@@ -494,7 +530,8 @@ export function constructEnginePluginInput(input: {
           expectedAssessmentIds: vector.evaluators.map(
             (evaluator) => evaluator.name
           ),
-          retryFrontier
+          retryFrontier,
+          pluginTraversalObserverBinding
         })
       : null;
   return Object.freeze({
@@ -520,6 +557,7 @@ export function constructEnginePluginInput(input: {
     retryFrontier,
     actorInvocationRef: normalizedActorInvocationRef,
     fpTransformRequest,
+    pluginTraversalObserverBinding,
     traversalAttemptEnvelope: input.traversalAttemptEnvelope ?? null
   });
 }

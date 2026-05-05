@@ -132,6 +132,10 @@ export function deriveRuntimeAggregateProjection(
     string,
     Extract<RuntimeEvent, { readonly kind: "actor_process_started" }>
   >();
+  const actorProcessStartFailed = new Map<
+    string,
+    Extract<RuntimeEvent, { readonly kind: "actor_process_start_failed" }>
+  >();
   const actorProcessHeartbeats = new Map<
     string,
     Extract<RuntimeEvent, { readonly kind: "actor_process_heartbeat" }>
@@ -149,6 +153,7 @@ export function deriveRuntimeAggregateProjection(
     Extract<RuntimeEvent, { readonly kind: "actor_process_exited" }>
   >();
   const actorProcessStreamRefs: RuntimeAggregateProjection["actorProcessStreamRefs"][number][] = [];
+  const pluginTraversalPromptMaterializationRefs: RuntimeAggregateProjection["pluginTraversalPromptMaterializationRefs"][number][] = [];
   const leafTaskIds = new Set<string>();
   const completedLeafTaskIds = new Set<string>();
   const failedLeafTaskIds = new Set<string>();
@@ -237,6 +242,16 @@ export function deriveRuntimeAggregateProjection(
           Object.freeze({
             vectorIndex: event.vectorIndex,
             actorInvocationId: event.actorInvocationId,
+            graphFunctionId: event.graphFunctionId,
+            graphCallId: event.graphCallId,
+            frameId: event.frameId,
+            edge: event.edge,
+            runId: event.runId,
+            workKey: event.workKey,
+            workerId: event.workerId,
+            backendId: event.backendId,
+            causationEventRefs: freezeStringArray(event.causationEventRefs),
+            correlationId: event.correlationId,
             attemptIndex: event.attemptIndex,
             dispatchRef: event.dispatchRef,
             resultRef: event.resultRef
@@ -251,6 +266,16 @@ export function deriveRuntimeAggregateProjection(
           Object.freeze({
             vectorIndex: event.vectorIndex,
             actorInvocationId: event.actorInvocationId,
+            graphFunctionId: event.graphFunctionId,
+            graphCallId: event.graphCallId,
+            frameId: event.frameId,
+            edge: event.edge,
+            runId: event.runId,
+            workKey: event.workKey,
+            workerId: event.workerId,
+            backendId: event.backendId,
+            causationEventRefs: freezeStringArray(event.causationEventRefs),
+            correlationId: event.correlationId,
             resultRef: event.resultRef,
             artifactRef: event.artifactRef
           })
@@ -266,6 +291,12 @@ export function deriveRuntimeAggregateProjection(
       case "actor_process_started":
         assertVectorIndexInRange(basis, event.vectorIndex);
         actorProcessStarted.set(event.actorInvocationId, event);
+        graphCallId = event.graphCallId;
+        frameId = event.frameId;
+        break;
+      case "actor_process_start_failed":
+        assertVectorIndexInRange(basis, event.vectorIndex);
+        actorProcessStartFailed.set(event.actorInvocationId, event);
         graphCallId = event.graphCallId;
         frameId = event.frameId;
         break;
@@ -308,6 +339,39 @@ export function deriveRuntimeAggregateProjection(
       case "actor_process_exited":
         assertVectorIndexInRange(basis, event.vectorIndex);
         actorProcessExited.set(event.actorInvocationId, event);
+        graphCallId = event.graphCallId;
+        frameId = event.frameId;
+        break;
+      case "plugin_traversal_prompt_materialized":
+        assertVectorIndexInRange(basis, event.vectorIndex);
+        pluginTraversalPromptMaterializationRefs.push(
+          Object.freeze({
+            vectorIndex: event.vectorIndex,
+            edge: event.edge,
+            traversalKind: event.traversalKind,
+            materializationRef: event.materializationRef,
+            selectionRef: event.selectionRef,
+            selectionSource: event.selectionSource,
+            sourceRef: event.sourceRef,
+            attrKey: event.attrKey,
+            hookRef: event.hookRef,
+            actorInvocationId: event.actorInvocationId,
+            workerId: event.workerId,
+            backendId: event.backendId,
+            observerPromptRef: event.observerPromptRef,
+            renderedPromptRef: event.renderedPromptRef,
+            promptInputDigest: event.promptInputDigest,
+            promptTemplateRef: event.promptTemplateRef,
+            promptInputContractRef: event.promptInputContractRef,
+            expectedOutputContractRef: event.expectedOutputContractRef,
+            defaultsBundleRef: event.defaultsBundleRef,
+            defaultsBundleDigest: event.defaultsBundleDigest,
+            defaultsPath: event.defaultsPath,
+            defaultKey: event.defaultKey,
+            causationEventRefs: freezeStringArray(event.causationEventRefs),
+            correlationId: event.correlationId
+          })
+        );
         graphCallId = event.graphCallId;
         frameId = event.frameId;
         break;
@@ -470,16 +534,24 @@ export function deriveRuntimeAggregateProjection(
       return left.actorInvocationId.localeCompare(right.actorInvocationId);
     })
   );
+  const actorProcessInvocationIds = new Set<string>([
+    ...actorProcessStarted.keys(),
+    ...actorProcessStartFailed.keys()
+  ]);
   const frozenActorProcessRefs = Object.freeze(
-    [...actorProcessStarted.values()]
-      .map((started) => {
-        const exited = actorProcessExited.get(started.actorInvocationId);
-        const latestHeartbeat = actorProcessHeartbeats.get(
-          started.actorInvocationId
-        );
-        const timeout = actorProcessTimeouts.get(started.actorInvocationId);
+    [...actorProcessInvocationIds]
+      .map((actorInvocationId) => {
+        const started = actorProcessStarted.get(actorInvocationId);
+        const startFailed = actorProcessStartFailed.get(actorInvocationId);
+        const anchor = started ?? startFailed;
+        if (anchor === undefined) {
+          throw new TypeError("actor process projection requires replay anchor");
+        }
+        const exited = actorProcessExited.get(actorInvocationId);
+        const latestHeartbeat = actorProcessHeartbeats.get(actorInvocationId);
+        const timeout = actorProcessTimeouts.get(actorInvocationId);
         const signalSequence = Object.freeze(
-          (actorProcessSignals.get(started.actorInvocationId) ?? []).map(
+          (actorProcessSignals.get(actorInvocationId) ?? []).map(
             (signalEvent) =>
               Object.freeze({
                 signal: signalEvent.signal,
@@ -488,12 +560,27 @@ export function deriveRuntimeAggregateProjection(
           )
         );
         return Object.freeze({
-          vectorIndex: started.vectorIndex,
-          actorInvocationId: started.actorInvocationId,
-          pid: started.pid,
-          stdoutRef: started.stdoutRef,
-          stderrRef: started.stderrRef,
-          running: exited === undefined,
+          vectorIndex: anchor.vectorIndex,
+          actorInvocationId,
+          graphFunctionId: anchor.graphFunctionId,
+          graphCallId: anchor.graphCallId,
+          frameId: anchor.frameId,
+          edge: anchor.edge,
+          runId: anchor.runId,
+          workKey: anchor.workKey,
+          workerId: anchor.workerId,
+          backendId: anchor.backendId,
+          causationEventRefs: freezeStringArray(anchor.causationEventRefs),
+          correlationId: anchor.correlationId,
+          pid: started?.pid ?? null,
+          stdoutRef: anchor.stdoutRef,
+          stderrRef: anchor.stderrRef,
+          startFailed: startFailed !== undefined,
+          startFailureKind: startFailed?.failureKind ?? null,
+          startFailureDetail: startFailed?.detail ?? null,
+          terminalSessionId:
+            started?.terminalSessionId ?? startFailed?.terminalSessionId ?? null,
+          running: started !== undefined && exited === undefined,
           latestHeartbeatIndex: latestHeartbeat?.heartbeatIndex ?? null,
           latestHeartbeatElapsedMs: latestHeartbeat?.elapsedMs ?? null,
           timeoutObserved: timeout !== undefined,
@@ -503,7 +590,7 @@ export function deriveRuntimeAggregateProjection(
           status: exited?.status ?? null,
           signal: exited?.signal ?? null,
           timedOut: exited?.timedOut ?? false,
-          error: exited?.error ?? null
+          error: exited?.error ?? startFailed?.detail ?? null
         });
       })
       .sort((left, right) => {
@@ -527,6 +614,15 @@ export function deriveRuntimeAggregateProjection(
         return invocationDelta;
       }
       return left.chunkIndex - right.chunkIndex;
+    })
+  );
+  const frozenPluginTraversalPromptMaterializationRefs = Object.freeze(
+    [...pluginTraversalPromptMaterializationRefs].sort((left, right) => {
+      const vectorDelta = left.vectorIndex - right.vectorIndex;
+      if (vectorDelta !== 0) {
+        return vectorDelta;
+      }
+      return left.materializationRef.localeCompare(right.materializationRef);
     })
   );
   const frozenLeafTaskIds = freezeStringArray([...leafTaskIds].sort());
@@ -590,6 +686,8 @@ export function deriveRuntimeAggregateProjection(
     observedActorArtifactRefs: frozenObservedActorArtifactRefs,
     actorProcessRefs: frozenActorProcessRefs,
     actorProcessStreamRefs: frozenActorProcessStreamRefs,
+    pluginTraversalPromptMaterializationRefs:
+      frozenPluginTraversalPromptMaterializationRefs,
     leafTaskIds: frozenLeafTaskIds,
     completedLeafTaskIds: frozenCompletedLeafTaskIds,
     failedLeafTaskIds: frozenFailedLeafTaskIds,

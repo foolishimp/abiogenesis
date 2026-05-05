@@ -625,11 +625,13 @@ export function deriveRetryFrontierProjection(input: {
       case "actor_invocation_started":
       case "actor_result_artifact_observed":
       case "actor_process_started":
+      case "actor_process_start_failed":
       case "actor_process_stream_observed":
       case "actor_process_heartbeat":
       case "actor_process_timeout":
       case "actor_process_signal_sent":
       case "actor_process_exited":
+      case "plugin_traversal_prompt_materialized":
       case "fh_escalated":
       case "terminal_reached":
       case "graph_call_opened":

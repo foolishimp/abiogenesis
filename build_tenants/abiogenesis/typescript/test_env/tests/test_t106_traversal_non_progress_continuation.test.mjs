@@ -41,6 +41,9 @@ function invocationFor({ basis, vectorIndex = 1, actorInvocationId = "actor://t1
     kind: "actor_invocation",
     actorInvocationId,
     basisId: basis.id,
+    graphFunctionId: basis.graphFunction.id,
+    runId: basis.runId,
+    workKey: basis.workKey,
     graphCallId: graphCall.graphCallId,
     frameId: frame.frameId,
     vectorIndex,
@@ -49,7 +52,9 @@ function invocationFor({ basis, vectorIndex = 1, actorInvocationId = "actor://t1
     dispatchRef: `dispatch://t106/${attemptIndex}`,
     workerId: "worker://t106",
     backendId: "backend://node",
-    resultRef: `result://t106/${attemptIndex}`
+    resultRef: `result://t106/${attemptIndex}`,
+    causationEventRefs: [`dispatch://t106/${attemptIndex}`],
+    correlationId: `correlation://t106/${vectorIndex}/${attemptIndex}`
   });
 }
 
@@ -124,6 +129,7 @@ function processStartedEvent({ invocation, pid = 4242 } = {}) {
     args: ["--print"],
     cwd: "/workspace/t106",
     pid,
+    terminalSessionId: null,
     timeoutMs: 120000,
     stdoutRef: "asset://t106/stdout",
     stderrRef: "asset://t106/stderr"
@@ -359,6 +365,7 @@ test("T-106 stream progress is not collapsed into silent no-output retry", () =>
       args: ["--print"],
       cwd: "/workspace/t106",
       pid: 4343,
+      terminalSessionId: null,
       timeoutMs: 120000,
       stdoutRef: "asset://t106/stdout",
       stderrRef: "asset://t106/stderr"
