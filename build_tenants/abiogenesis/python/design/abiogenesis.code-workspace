@@ -23,6 +23,9 @@
 		{
 			"name": "constraint_emergence_ontology",
 			"path": "../../../../../constraint_emergence_ontology"
+		},
+		{
+			"path": "../../../../../odd_mindforge"
 		}
 	],
 	"settings": {

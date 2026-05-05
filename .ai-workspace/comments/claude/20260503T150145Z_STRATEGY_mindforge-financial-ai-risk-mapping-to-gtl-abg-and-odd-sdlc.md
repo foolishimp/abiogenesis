@@ -1,7 +1,7 @@
 # MindForge AI Risk Management Handbook — implementing on GTL/ABG and odd_sdlc
 
 **Type:** Strategy commentary
-**Author:** Claude (Sonnet 4.6 review session)
+**Author:** Claude (Opus 4.7 1M-context review session)
 **Date:** 2026-05-04
 **Subject:** Project MindForge AI Risk Management Handbook (Jan 2026, MAS-led financial-services consortium)
 **Source artifacts (downloaded local copies; canonical PDFs at `mas.gov.sg/schemes-and-initiatives/project-mindforge`):**
@@ -25,7 +25,7 @@ The structural unit is the **Consideration**. There are 17 Considerations groupe
 - **Section 3 — AI Lifecycle Management** (Considerations 7–15): per-use-case lifecycle from context/design through monitoring/change
 - **Section 4 — Enablers** (Considerations 16–17): skills/knowledge/culture and infrastructure
 
-Each Consideration decomposes into Practices (typically 1–7 per Consideration), and each Practice in the Operationalisation Handbook expands into multi-paragraph Operationalisation Guidelines plus cross-references to leading frameworks (NIST AI RMF, ISO 42001, EU AI Act, etc.) in Appendix C.
+Each Consideration decomposes into Practices (typically 1–7 per Consideration), and each Practice in the Operationalisation Handbook expands into multi-paragraph Operationalisation Guidelines. Appendix C of the Operationalisation Handbook segments related global frameworks into three categories: **Build** (foundational sources directly integrated — FEAT Principles, MAS Proposed Guidelines on AI Risk Management, ABS Handbook on Generative AI Guardrails in Banking, MAS Thematic Review on AI Model Risk Management, MindForge Phase 1, Veritas Methodology), **Highlight** (parallel-evolving frameworks referenced but not reproduced — including the IMDA Model AI Governance Framework for Agentic AI, MAS Guidelines on Outsourcing/Technology Risk, MAS Guidelines on Fair Dealing), and **Incorporate** (global norms drawn upon for lessons learned — AI Verify Foundation Model AI Governance Framework, BoE PRA SS1/23 Model risk management principles, Australia DISR Voluntary AI Safety Standards, EU AI Act, ISO/IEC 42001:2023, NIST AI Risk Management Framework, US Federal Reserve SR 11-7). Appendix D maps each Consideration to specific FEAT Principles and MAS Proposed Guidelines sections; several Considerations note "does not correspond directly to an existing FEAT Principle", which is the structural evidence MindForge's scope is wider than FEAT's model-oriented view.
 
 The framework's core operational claim is **proportionality**: governance scales with risk materiality, and risk materiality is assessed both inherently (before controls) and residually (after controls). Use cases are tiered (DBS calls them risk-materiality tiers approved by the RDU Committee; Prudential uses Immaterial → Group Critical with the AIRAQ questionnaire; Julius Baer pre-approves foundation models so per-use-case assessment can skip duplicated review).
 
@@ -58,8 +58,9 @@ GTL/ABG side:
 - **`AgentTransportContract`** with `sanitizedEnvironmentPolicy` realises third-party AI transport boundary — every external agent invocation is a typed contract with declared environment hygiene
 - **Traced call-out substrate** (T-108/T-109) realises per-call forensic evidence: when an external AI provider returns unexpected output, the trace archive is the disclosure obligation
 - **`AgentTransportFailureClass`** (`transport_failure | no_output | contract_failure`) realises the supervisory distinction between "vendor failed" and "use case rejected the input"
+- **MindForge AI Card Template** (Operationalisation Handbook Appendix E p152) — standardised disclosure shape requested from third-party AI providers (basic metadata, license, AI type, modalities, purpose, techniques, risks, governance) — maps onto an extension of `AgentTransportContract` carrying disclosure-fields-by-reference. Worth admitting `ThirdPartyDisclosure` as a typed carrier so the FI's procurement record is replay-derivable, not narrative.
 
-What is missing: MindForge's "AI risk taxonomy" (Appendix B of the Operationalisation Handbook lists seven risk dimensions) is a typed surface that would benefit from being a first-class GTL carrier rather than a domain configuration. A `RiskDimension` carrier with `inherent_severity`, `residual_severity`, and `control_refs` fields would make risk-based dispatch a first-class scheduling concern.
+What is missing: MindForge's "AI risk taxonomy" (Appendix B of the Operationalisation Handbook, identifying seven risk dimensions in the Phase 2 taxonomy: Fairness & Bias, Ethics & Impact, Accountability & Governance, Transparency & Explainability, Robustness & Stability, Monitoring & Stability, Cyber & Data Security; plus Legal & Regulatory cross-cutting) is a typed surface that would benefit from being a first-class GTL carrier rather than a domain configuration. A `RiskDimension` carrier with `inherent_severity`, `residual_severity`, and `control_refs` fields would make risk-based dispatch a first-class scheduling concern.
 
 ### Use-case-level risk management and AI inventory (Considerations 5–6)
 
@@ -87,12 +88,14 @@ Mapping:
 | C8–C9 data acquisition & processing | specification (data section) → implementation (data prep edge) | AssetSurface contract, payload-ledger admission, F_D data-validity evaluator |
 | C10 onboarding (third-party) | specification (third-party section) → qualification | `AgentTransportContract`, third-party `Module` import |
 | C11 build | implementation | `GraphFunction` realisation per edge, F_P worker dispatch |
-| C12 pre-deployment review | qualification | F_D structural review at terminal vectors, F_H gate at obligation closure |
+| C12 pre-deployment review | qualification | F_D admission envelope (schema, identity, digest checks), F_P semantic review (use-case fit, residual-risk attestation, AI-specific obligations), F_H committee gate at obligation closure; T-104 `EvalSuiteSpec` / `EvalAggregateProjection` (`abg/m03/contracts/eval_suite.ts`) is the canonical evidence carrier for the AI-specific review trial set |
 | C13 deployment | release → deployment | T-082 output instance allocation, cross-workspace binding |
-| C14 monitoring | runtime return → observation | event stream, KRI projection, `actor_process_*` events, traced call-out archives |
+| C14 monitoring | runtime return → observation | event stream, KRI projection, `actor_process_*` events, traced call-out archives, eval-suite re-evaluation at recertification cadence |
 | C15 change management | retrofit | ABG correction shadows, reset/reopen with fresh attempt identity, payload-ledger amendment |
 
-The Implementation Examples confirm this fit. Prudential's PRUShield Chatbot walks request → AI Registry registration (use case design) → LSRC review (architecture design) → GSRC review (group-level design) → in-house build with RAG → 4-month UAT (qualification) → CAB approval (deployment gate) → phased rollout (deployment) → continuous monitoring + annual recertification (runtime return + retrofit). Each named gate corresponds to a terminal vector in an odd_sdlc graph function. The AIRAQ questionnaire is an F_D evaluator over typed AI-specific attributes.
+The Implementation Examples confirm this fit. Prudential's PRUShield Chatbot walks request → AI Registry registration (use case design) → LSRC review (architecture design) → GSRC review (group-level design) → in-house build with RAG → 4-month UAT (qualification) → CAB approval (deployment gate) → phased rollout (deployment) → continuous monitoring + annual recertification (runtime return + retrofit). Each named gate corresponds to a terminal vector in an odd_sdlc graph function. The AIRAQ (AI Risk Assessment Questionnaire) is an F_P evaluator over the seven Risk Taxonomy dimensions answered by SME reviewers; AIWG voting at higher tiers is F_H. AIRAQ is not F_D — its outputs are semantic per-dimension judgments, not mechanical envelope checks.
+
+PRUShield is also the cleanest published evidence for the retrofit cycle. UAT started at 41% accuracy (Implementation Examples p16-17) on the SME response evaluation; iterative correction over four months — including knowledge-base updates and a two-bucket question categorisation between "must always be correct" and "factual but creative-allowed" — drove accuracy to 99%. That iteration is exactly the cycle odd_sdlc's `runtime return → observation → retrofit → re-implementation` law is designed to govern. PRUShield is a worked instance of the same governance loop expressed in MAS supervisory vocabulary.
 
 DBS's CodeBuddy walks the same lifecycle through ALAN (the AI inventory) plus the RDU Committee gate. The "stateless processing" requirement and "secured proxy service for governed interaction" are concrete instantiations of `AgentTransportContract` with sanitized environment policy.
 
@@ -108,7 +111,7 @@ C17 (infrastructure) maps onto the traced call-out substrate, executor profiles 
 
 ## Where MindForge requires additions to GTL/ABG
 
-Honest accounting of gaps. None are large; all are typed-carrier additions or small spec drops.
+Six typed-carrier additions are required. All are additive; none change ABG runtime law.
 
 1. **`RiskMaterialityTier` carrier** — first-class risk tier on `Job` and `Module` with replay-derivable assignment from declared use-case characteristics. Currently inferable from policy hooks but not a typed substrate field.
 2. **`AIInventoryEntry` carrier or projection** — MindForge requires a specific set of inventory attributes (purpose, scope, AI types, data, third-party model info, status, governance). The resolved-runtime contract is close but does not declare these attributes as required. A projection over `Module` admissions with the MindForge attribute set is one realisation; making it a carrier is another.
@@ -116,6 +119,8 @@ Honest accounting of gaps. None are large; all are typed-carrier additions or sm
 4. **KRI projection helpers** — payload-ledger projection has all the underlying data; canonical KRI projections (latency, error rate, drift, bias, hallucination rate per use case) are not yet shipped. These are not substrate work but reference projections odd_sdlc could publish.
 5. **Recertification cadence as graph-function** — MindForge requires periodic recertification with cadence proportionate to risk tier. The right realisation is a `RecurrenceProfile` on `Module` whose terminal vector reopens the post-deployment review job at the declared cadence. ABG's recursive runtime contract supports this; no syntactic sugar exists yet.
 6. **Risk taxonomy as typed surface** — MindForge Appendix B lists seven risk dimensions. Making these a typed carrier (rather than tenant-local configuration) means dispatch and selection can route on them.
+
+7. **`ThirdPartyDisclosure` carrier** — MindForge Appendix E publishes a standardised AI Card Template. Admitting third-party AI provider disclosures as a typed carrier (basic metadata, license, AI type, modalities, purpose, techniques, risks, governance) makes vendor-onboarding evidence replay-derivable rather than narrative-only. Closely related to `AgentTransportContract` but adds the disclosure surface MindForge specifies.
 
 ## One Consideration walked end-to-end
 
@@ -137,13 +142,17 @@ RiskTier:      derived from CandidateFamily over (autonomy, data_sensitivity, bl
 Job:           job://<id>/risk-managed-deployment
 GraphFunction: gf://<id>/use-case-deployment-with-tier-<tier>-controls
 Edges:
-  e1 inherent_risk_assessment -> InherentRiskTier (F_D evaluator over typed attributes)
+  e1 inherent_risk_assessment -> InherentRiskTier
+       F_D admission envelope (declared-attribute schema + identity)
+       F_P semantic tier judgment over the seven Risk Taxonomy dimensions
   e2 control_selection         -> CandidateFamily(control-set-low | control-set-mod | control-set-high)
   e3 build                     -> implementation edge per chosen control set
-  e4 residual_risk_assessment  -> ResidualRiskTier (F_D over admitted controls)
-  e5 ai_specific_review        -> F_H attestation (committee gate; role binding by tier)
+  e4 residual_risk_assessment  -> ResidualRiskTier
+       F_D envelope over admitted controls; F_P residual judgment
+  e5 ai_specific_review        -> EvalSuiteSpec (AIRAQ-equivalent trial set)
+       F_P per-dimension attestation; F_H committee gate at higher tiers
   e6 deploy                    -> T-082 output instance allocation
-  e7 monitor                   -> recurring graph function, cadence by tier
+  e7 monitor                   -> recurring graph function, cadence by tier; KRI projections + eval-suite re-run
   e8 recertify                 -> reopen e5 at declared cadence; correction shadow on changes
 ```
 
@@ -181,6 +190,6 @@ A future ticket could carve this decision explicitly. Worth pinning before any F
 
 MindForge and GTL/ABG converge on the same structural answer: AI governance is event-sourced, event-replayable, role-bound, and gate-enforced rather than process-document-described. MindForge specifies that answer in the supervisory vocabulary of financial regulation; GTL/ABG specifies it in the language of constraint-based runtime. The mapping is closer than incidental. An FI implementing MindForge on GTL/ABG is implementing the same governance shape twice — once in policy text and once in event-sourced runtime — with the runtime side carrying the proof.
 
-The MAS Consultation Paper on AI Risk Management (Nov 2025, finalising 2026) will move MindForge from industry handbook to supervisory expectation. At that point, an FI's MindForge compliance becomes an audited artefact. A GTL/ABG realisation produces the audit artefact as a property of operation, not as a separate document — which is exactly the structural argument in `THE_GENESIS_VISION.md` §3.
+The MAS Consultation Paper on AI Risk Management (Nov 2025, consultation closed 31 Jan 2026, expected to finalise as supervisory expectation in 2026) will move MindForge-aligned governance from industry handbook to supervised compliance. At that point, an FI's MindForge alignment becomes an audited artefact. A GTL/ABG realisation produces the audit artefact as a property of operation, not as a separate document — which is exactly the structural argument in `THE_GENESIS_VISION.md` §3.
 
-Worth pursuing.
+Operationalisation Handbook Appendix D maps each MindForge Consideration to specific FEAT Principles and to specific MAS Proposed Guidelines sections. That cross-reference table is the bridge for an FI implementing MindForge on GTL/ABG: every Consideration in the handbook can be traced to (a) the FEAT Principle it inherits, (b) the MAS section it satisfies, and (c) the GTL/ABG primitive that realises it under the mappings in this post. That three-way trace is the structural form of MindForge compliance evidence on the substrate.

@@ -17,7 +17,7 @@ affected_boundary: traced process substrate, agent transport adapter, supervised
 priority: medium
 triaged_at: 2026-05-03T20:30:00+10:00
 created_at: 2026-05-03T20:30:00+10:00
-updated_at: 2026-05-03T20:30:00+10:00
+updated_at: 2026-05-04
 governance_scope: STDO Method
 dependencies:
   - T-108 traced process substrate (completed)
@@ -34,6 +34,7 @@ related_design:
 evidence_refs:
   - build_tenants/abiogenesis/typescript/test_env/test_runs/t094_assurance_register_two_hop_live/
   - build_tenants/abiogenesis/typescript/test_env/test_runs/t107_mini_dm_traversal_schemes_live/
+  - /Users/jim/src/apps/odd_sdlc/build_tenants/typescript/test_env/test_runs/t109_live_installed_data_mapper_pty/20260504T121722717Z_pid84330
 proof_commands:
   - npm run build:semantic
   - npm run test:t109
@@ -51,6 +52,21 @@ non_closure_conditions:
 ---
 
 # T-110: Sticky-Session Agent Pool Executor
+
+## 2026-05-04 Downstream Pressure
+
+The odd_sdlc T-109 data-mapper PTY live lane shows the same performance
+pressure at production scale. A single graph walk repeatedly launches
+`process://claude` for adjacent design and realization edges, then retries the
+same edge when typed postflight rejects a carrier. The retry is lawful, but it
+pays the cold-start and context rediscovery cost again even though the retry
+has the same workspace, graph function, vector, edge, and prompt contract.
+
+This ticket therefore explicitly owns same-edge retry stickiness as the first
+pooling policy. Cross-edge pooling remains in scope, but same-edge retry reuse
+is the lowest-risk closure slice because it preserves a single logical
+postflight repair context without treating hidden conversational state as graph
+authority.
 
 ## Why This Ticket Exists
 
@@ -82,6 +98,18 @@ Sticky-key candidates already in the GTL/ABG carriers:
 - `traversalId` — natural unit for one warm session per traversal walk
 - `frameId` — recursive selection opens a child traversal with its own warm slot
 - `workKey` — durable semantic work contract; outlives a single traversal
+
+Initial sticky policy:
+
+- same-edge retry key:
+  `workspaceRef + graphFunctionRef + vectorIndex + edgeName + promptContractDigest`
+- graph-run key:
+  `workspaceRef + graphFunctionRef + workKey`
+- default closure slice:
+  same-edge retry reuse only
+- later policy:
+  graph-run scoped reuse after archive slicing and authority-boundary tests
+  prove that hidden session memory cannot become closure authority
 
 The substrate stays opaque to which key the caller picks. ABG's `process_actor` adapter derives `sessionAffinityKey` from `ActorInvocation` automatically. Direct `runAgentTransport` callers pass it explicitly. Tests omit it and hit local-spawn.
 
@@ -127,6 +155,12 @@ The trace archive shape is unchanged from the caller's perspective. The pool exe
 7. Wedged-session replace-and-resume with one-retry allowance per traversal. Trace event vocabulary additions: `session_unhealthy_observed`, `session_replaced`, `session_failure_admitted`.
 8. Test isolation: tests pin `executorProfile: "local"` by default; pool opt-in is explicit per call or per env.
 9. Update the T-109 semantic guard's allow-list and pattern set to cover the pool executor module without permitting direct subprocess use elsewhere.
+10. Add same-edge retry reuse as the first sticky policy, with one per-call
+    archive per retry attempt and one shared session transcript slice keyed by
+    the retry affinity key.
+11. Emit prompt-cache and session metrics into the per-call archive:
+    `sessionAffinityKey`, `sessionReuseKind`, `cachePrefixDigest`,
+    `cacheReadTokens`, `cacheCreationTokens`, and `sessionReplacementCount`.
 
 ## Closure Criteria
 
@@ -139,6 +173,8 @@ T-110 closes only when:
 - pool executor unit fixtures cover: warm-session hit, cache-prefix discipline assertion, wedged-session replace, second-wedge admits `session_failure`
 - a recorded multi-edge fixture replayed through the pool executor proves `apiRetryEvents` and `toolCallEvents` are correctly associated to the per-callout archive, not bled across the warm session
 - mini-DM redux three-edge walk under the pool executor produces reduced wall-time and observable prompt-cache hit metrics relative to the local-spawn baseline, archived as evidence
+- an odd_sdlc-style same-edge retry fixture proves a rejected carrier retry
+  reuses the same sticky session while preserving distinct per-attempt archives
 - the T-109 semantic guard still passes, scoped to the new pool executor module
 - `npm run build:semantic` passes
 

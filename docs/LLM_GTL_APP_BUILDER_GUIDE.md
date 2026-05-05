@@ -117,7 +117,7 @@ Job
 `GraphVector` remains internal realized structure.
 
 `ExecutionBasis`, `AdvancementTransition`, `IterationAdvanceDecision`, and
-`RegimeBindingSet` carry ABG 3.2 runtime law.
+`RegimeBindingSet` carry ABG 3.5 runtime law.
 
 Do not rebuild those meanings from result dictionaries, controller state, prompt
 text, or `runtime_config`.
@@ -780,6 +780,7 @@ The main hook concerns are:
 
 - `dispatch`
 - `traversal_modulation`
+- `plugin_traversal_observer`
 - `evaluation`
 - `escalation`
 - `proof`
@@ -826,6 +827,49 @@ Qualifier truth declares strategy primitives (`bounded_batch`,
 schedule item refs. ABG derives the typed `TraversalAttemptEnvelope` from the
 qualifier and passes it to the F_P plugin. Prompt prose is not the scheduler
 command surface.
+
+### `plugin_traversal_observer`
+
+Plugin traversal observers bind Transform and Eval plugin traversal to a
+declared observer prompt contract.
+
+Declaration keys:
+
+- `abg.plugin_traversal_observer.transform`
+- `abg.plugin_traversal_observer.eval`
+
+Resolution order is:
+
+1. `GraphVector.declarations`
+2. `GraphFunction.declarations`
+3. `Role.policyHooks`
+4. explicit `abg_defaults` fallback when absence is lawful and the runtime
+   context enables the fallback kind
+
+The hook ref config carries:
+
+- optional `traversal_kind`, which must match the declaration key when present
+- `observer_prompt_ref`
+- `prompt_template_ref`
+- `prompt_input_contract_ref`
+- `expected_output_contract_ref`
+- `progress_signal_refs`
+- `continuation_request_refs`
+- optional `policy_refs`
+
+Duplicate, malformed, or kind-mismatched declarations fail closed. Fallback
+truth is not implicit: the runtime must load a visible fallback bundle and opt
+in to the relevant fallback kind.
+
+ABG emits `plugin_traversal_prompt_materialized` when it materializes the
+observer prompt. The event carries selection source, hook ref, prompt refs,
+config digest, materialization ref, prompt-input digest, default bundle
+provenance when used, and causation/correlation. Transform/F_P and Eval/F_D
+plugin inputs receive the selected `pluginTraversalObserverBinding`.
+
+GTL declares the observer contract. ABG selects, materializes, proves
+provenance, and passes the binding to the plugin. A concrete worker, backend,
+or transport command does not belong in the GTL declaration.
 
 ### `evaluation`
 
@@ -1011,7 +1055,7 @@ though each edge looks fine in isolation.
 Anthropic vocabulary mapping
 (`.ai-workspace/comments/claude/20260502T053000Z_DESIGN_eval-framework-from-anthropic-demystifying-evals.md`):
 
-| Anthropic | RC.6 carrier |
+| Anthropic | ABG 3.5 RC carrier |
 | --- | --- |
 | Task | `EvalTask` over a graph-function edge or chain |
 | Input | `EvalTask.inputRefs` resolving to admitted `WorkspaceAssetBinding`s |
@@ -1059,6 +1103,14 @@ ABG owns:
 - typed non-progress classification and continuation-action projection
 - forced-review gating on backend ambiguity
 - modulation exhaustion gating on retry-budget closure
+- bounded-attempt terminal exit for modulated F_P attempts that must not
+  silently continue into retry repair
+- supervised actor/worker call-out identity, process facts, terminal session
+  facts, and replay-derived process projection
+- Transform/Eval plugin traversal observer binding selection,
+  materialization, provenance, and plugin-input handoff
+- visible `abg_defaults` fallback bundle admission and default-source
+  provenance
 
 ABG does not own domain semantics beyond declared law.
 
@@ -1086,9 +1138,13 @@ be carried by typed or resolved runtime surfaces.
 
 The carrier surface covers output allocation, zoom-foldback, graph-span
 foldback and reentry, cross-workspace allocation, eval-suite projection, typed
-non-progress continuation, and traversal modulation. These are not optional. A
-graph function that takes inputs, produces typed outputs, runs per-edge zoom
-work, or routes agentic F_P work must consume them.
+non-progress continuation, traversal modulation, bounded-attempt exit,
+supervised actor/worker call-out projection, PTY terminal execution,
+Transform/Eval plugin traversal observer materialization, and the visible
+`abg_defaults` fallback bundle. These are not optional. A graph function that
+takes inputs, produces typed outputs, runs per-edge zoom work, routes agentic
+F_P work, invokes supervised agent actors/workers, or relies on observer
+fallbacks must consume them.
 
 Traversal modulation is declared through GTL hook/config truth on the
 edge-qualifier surface. ABG derives the typed envelope, runs the same
@@ -1381,6 +1437,125 @@ Builder rules:
 - Affect is typed classification, not emotional prose. Free-text affect on
   the runtime surface fails closed.
 
+#### T-113/T-115 supervised actor/worker call-out and PTY terminal truth
+
+T-113 and T-115 close the supervised actor/worker process surface. Framework
+call-outs use `runAgentActorWorkerCallout` / `runAgentTransport`, and ABG
+adapts them through `invokeSupervisedProcessActor`. No framework-owned
+`agent.actor` or `agent.worker` path may bypass the traced process substrate.
+
+The default executor profile is `local-spawn`: one fresh subprocess per call.
+The explicit `pty-terminal` profile runs the command through a GNU
+`screen -L` terminal transcript. If `pty-terminal` is requested, ABG must not
+silently fall back to `local-spawn`. Missing `screen`, a child shell that
+cannot execute the capability probe, terminal loss, or launch failure is
+runtime truth and must be emitted as such.
+
+Actor invocation and process events carry the same runtime identity envelope:
+
+- `basisId`
+- `graphFunctionId`
+- `runId`
+- `workKey`
+- `graphCallId`
+- `frameId`
+- `vectorIndex`
+- `edge`
+- `actorInvocationId`
+- `workerId`
+- `backendId`
+- `causationEventRefs`
+- `correlationId`
+
+Process events include:
+
+- `actor_process_started`
+- `actor_process_start_failed`
+- `actor_process_stream_observed`
+- `actor_process_heartbeat`
+- `actor_process_timeout`
+- `actor_process_signal_sent`
+- `actor_process_exited`
+
+`actor_process_started` and `actor_process_start_failed` both carry
+`terminalSessionId`. For `local-spawn` this is null. For `pty-terminal` it is
+the screen-backed terminal session identity, and the replay projection exposes
+it on `actorProcessRefs`. A start failure is not a fake start: ABG emits
+`actor_process_start_failed`, then terminal closure/exited facts as available.
+
+Transport traces preserve `agentCalloutKind`, `actorRef`, `workerRef`,
+runtime `workerId`, parser facts, and terminal session metadata. Adapter agent
+keys must not replace the runtime `workerRef`.
+
+#### T-114 bounded exit for modulated F_P attempts
+
+T-114 adds fail-closed terminal exit for a modulated F_P attempt whose envelope
+sets `mustExitAfterBoundedAttempt: true`.
+
+When that attempt blocks after its bounded schedule work, ABG returns terminal
+`gap_stop` with:
+
+```text
+reason = bounded_traversal_attempt_exit:<reason>
+```
+
+ABG does not schedule `retry_repair_planned` for this exit. The same rule holds
+on sync and async runner paths. Downstream callers receive the public terminal
+envelope and must treat it as a bounded attempt exit, not as an open retry lane.
+
+#### T-116 plugin traversal observer binding for Transform and Eval
+
+T-116 admits GTL-declared plugin traversal observer bindings for Transform/F_P
+and Eval/F_D traversal.
+
+ABG resolves one binding per traversal kind from:
+
+1. `GraphVector.declarations["abg.plugin_traversal_observer.<kind>"]`
+2. `GraphFunction.declarations["abg.plugin_traversal_observer.<kind>"]`
+3. `Role.policyHooks["abg.plugin_traversal_observer.<kind>"]`
+4. loaded `abg_defaults` fallback when absence is lawful and enabled
+
+The selected binding appears on `EnginePluginInput.pluginTraversalObserverBinding`
+for Transform/F_P and on the Eval/F_D plugin request. ABG emits
+`plugin_traversal_prompt_materialized` for each materialization with a unique
+`materializationRef`, `promptInputDigest`, `selectionRef`, source, hook ref,
+prompt refs, config digest, actor/worker identity when present, and
+causation/correlation.
+
+The event, not a prompt string, is the replay-visible proof that the observer
+binding was selected and materialized. When `abg_defaults` supplied the
+binding, the event also carries `defaultsBundleRef`, `defaultsBundleDigest`,
+`defaultsPath`, and `defaultKey`.
+
+#### T-117 visible ABG defaults bundle first slice
+
+T-117 adds the first visible `abg_defaults` bundle slice. The source reference
+bundle is:
+
+```text
+build_tenants/abiogenesis/typescript/config/abg.reference-fallbacks.json
+```
+
+The TypeScript installer installs an editable copy at:
+
+```text
+.abiogenesis/config/abg.fallbacks.json
+```
+
+The installed CLI loads that config through the runtime binding field
+`abgFallbackConfigPath`, defaulting to the installed path above. A missing file
+means no loaded fallback bundle. A malformed, partial, wrong-family, or
+wrong-kind bundle fails closed. Installer refresh copies the reference bundle
+only when the installed file does not already exist, so local edits are
+preserved.
+
+The T-117 bundle currently covers only plugin traversal observer fallbacks for
+`transform` and `eval`. Full ABG defaults expansion for transport executor,
+PTY commands/probes, parser inference, worker binding, trace paths, retry
+budgets, traversal modulation defaults, M04 request defaults, and broader
+installer defaults is future T-118 work. Do not document those as current
+runtime defaults.
+
 ## Graph-Span Foldback And Constitutional Reentry
 
 T-103 admits foldback over a contiguous run of graph vectors and routes
@@ -1527,17 +1702,19 @@ When building a new GTL/ABG app, execute this algorithm:
 6. Publish graph functions as the constructive carriers.
 7. Bind semantic jobs to public graph functions.
 8. Publish the module surface: graphs, graph functions, jobs, roles, refinement boundaries, and candidate families.
-9. Attach policy hooks for dispatch, evaluation, escalation, proof, and closure. Keep F_P plugins for semantic judgment and F_D plugins for mechanics; do not collapse the two.
+9. Attach policy hooks for dispatch, traversal modulation, plugin traversal observers, evaluation, escalation, proof, and closure. Keep F_P plugins for semantic judgment and F_D plugins for mechanics; do not collapse the two.
 10. For graph functions that produce typed outputs, consume T-082 output allocation. When the start request crosses workspaces, supply an admitted T-104 `OutputWorkspaceBinding` (W2).
 11. For per-edge zoom work, derive an `ObligationLedgerAsset` from the input asset, derive the `ObligationScheduleAsset`, open a `ZoomFrame`, and let ABG run the dispatch/assess/fold loop until the five-term `edge_converged` predicate holds.
 12. For agentic F_P vectors that need bounded schedule control, declare `GraphVector.declarations["abg.traversal_modulation"]` (or a graph-function / role default). ABG resolves the strategy directive, derives the `TraversalAttemptEnvelope`, and passes it to the F_P plugin through one shared dispatch-attempt law on both sync and async runners. Vectors that should remain unmodulated carry no qualifier.
-13. Consume `TraversalContinuationActionProjection` to decide retry vs yield-same-edge vs reprice vs inspect-runtime-archive vs blocked. Do not parse continuation intent from prompt prose. When publishing your own candidate summary, validate against the projection with `assertTraversalContinuationSummaryAgreement` before emitting downstream.
-14. Install or initialize the runtime surface.
-15. Run `gen-start` through the concrete CLI binding.
-16. Inspect events, projection, proof, closure, gaps, the zoom foldback decision, the graph-span reentry frontier, the modulation profile, the attempt envelope, and the typed continuation action.
-17. Consume the graph-span foldback decision: close, retry the same edge, reenter at the earliest implicated vector, route a constitutional reentry per `change_class` and `re_entry_point`, or stop and reprice.
-18. For capability claims, emit `EvalSuiteSpec` / `EvalTask` / `EvalTrial` / `EvalOutcome` / `EvalGradeVector` and read `EvalAggregateProjection.passAtK` and `passAllK` before claiming a capability has landed.
-19. Correct, supersede, or reprice from emitted runtime facts.
+13. For modulated attempts that must not continue into retry repair after one bounded schedule, set `mustExitAfterBoundedAttempt: true` and handle terminal `gap_stop` reason `bounded_traversal_attempt_exit:*`.
+14. For Transform/F_P and Eval/F_D plugin traversal observers, declare `abg.plugin_traversal_observer.transform` / `.eval` on the edge, function, or role. If absence is lawful, load a visible `abg_defaults` bundle and explicitly enable the fallback kind.
+15. Consume `TraversalContinuationActionProjection` to decide retry vs yield-same-edge vs reprice vs inspect-runtime-archive vs blocked. Do not parse continuation intent from prompt prose. When publishing your own candidate summary, validate against the projection with `assertTraversalContinuationSummaryAgreement` before emitting downstream.
+16. Install or initialize the runtime surface. Installed TypeScript workspaces carry editable `.abiogenesis/config/abg.fallbacks.json`; preserve local edits on refresh.
+17. Run `gen-start` through the concrete CLI binding.
+18. Inspect events, projection, proof, closure, gaps, the zoom foldback decision, the graph-span reentry frontier, the modulation profile, the attempt envelope, plugin traversal observer materializations, actor/process projections, terminal session refs, and the typed continuation action.
+19. Consume the graph-span foldback decision: close, retry the same edge, reenter at the earliest implicated vector, route a constitutional reentry per `change_class` and `re_entry_point`, or stop and reprice.
+20. For capability claims, emit `EvalSuiteSpec` / `EvalTask` / `EvalTrial` / `EvalOutcome` / `EvalGradeVector` and read `EvalAggregateProjection.passAtK` and `passAllK` before claiming a capability has landed.
+21. Correct, supersede, or reprice from emitted runtime facts.
 
 Stop and reprice when:
 
@@ -1785,12 +1962,18 @@ to know whether convergence is real or constitutional reentry was routed:
 | `graph_reentry_applied` | Reentry applied; shadowed vectors recorded for downstream replay. |
 | `traversal_modulation_resolved` | Strategy directive resolved from the GTL qualifier. |
 | `traversal_attempt_envelope_derived` | Typed envelope derived from the modulation profile and passed to the F_P plugin. |
+| `plugin_traversal_prompt_materialized` | Transform/Eval observer prompt materialized from GTL declaration or visible `abg_defaults` fallback, with digest and provenance. |
 | `traversal_attempt_dispatched` | Modulated F_P attempt dispatched under the envelope. |
 | `traversal_attempt_progress_observed` | Typed per-attempt progress row admitted. |
 | `traversal_attempt_non_progress_classified` | Non-progress carrier classified into a typed continuation action. |
 | `traversal_forced_review_projected` | Backend ambiguity blocked semantic closure; forced-review gate admitted. |
 | `traversal_same_edge_continuation_planned` | Typed remaining schedule truth planned as same-edge continuation. |
 | `traversal_modulation_exhausted` | Retry budget closed; modulation exhausted on this edge. |
+| `actor_process_start_failed` | Supervised actor/worker process failed before start; identity and terminal session fact still enter runtime truth. |
+| `actor_process_started` | Supervised actor/worker process started; `terminalSessionId` carries PTY identity when present. |
+| `actor_process_heartbeat` | Supervised call-out liveness fact emitted while in flight. |
+| `actor_process_exited` | Supervised actor/worker process exit fact admitted. |
+| `terminal_reached` | Terminal transition admitted. `reason = bounded_traversal_attempt_exit:*` is a bounded-attempt fail-closed stop, not retry repair. |
 
 CLI process exit codes classify the same loop for scripts (per
 `code/src/cli/command.ts:770-789`):
@@ -1817,11 +2000,18 @@ The TypeScript installer creates:
 
 ```text
 /path/to/project/.abiogenesis/
+├── config/
+│   └── abg.fallbacks.json
 ├── docs/
 ├── cli-runtime.mjs
 ├── install-manifest.json
 └── install-provenance.json
 ```
+
+`config/abg.fallbacks.json` is the editable installed ABG fallback config. The
+installer copies it from
+`build_tenants/abiogenesis/typescript/config/abg.reference-fallbacks.json` only
+when the target file does not already exist.
 
 Then run through the installed language surface described in the relevant
 appendix.
@@ -1852,10 +2042,17 @@ Surfaces:
   `runAgentActorWorkerCallout`.
 - `invokeSupervisedProcessActor` — ABG runtime adapter. Translates
   call-out observations into `actor_process_started`,
-  `actor_process_stream_observed`, `actor_process_timeout`,
+  `actor_process_start_failed`, `actor_process_stream_observed`,
+  `actor_process_heartbeat`, `actor_process_timeout`,
   `actor_process_signal_sent`, and `actor_process_exited` runtime events.
 - No framework agent call-out path uses local `spawn` or `spawnSync`. The
   semantic guard in `test_t109_agent_callout_guard.test.mjs` enforces this.
+
+Every actor invocation and process event carries the replay identity envelope:
+graph function, run/work key, graph call, frame, vector, edge,
+actorInvocationId, workerId, backendId, causation refs, and correlation id.
+The trace metadata also preserves `agentCalloutKind`, `actorRef`, and
+`workerRef`.
 
 Executor profiles (`TracedProcessExecutorProfile`):
 
@@ -1866,7 +2063,8 @@ Executor profiles (`TracedProcessExecutorProfile`):
   `streamModel = "terminal-transcript"`. The substrate probes shell execution
   capability, not just `screen -ls`; if the daemon's child shell cannot run,
   the call returns `outcome.kind = "executor_unavailable"` with reason
-  `screen_missing` or `screen_shell_unavailable`.
+  `screen_missing` or `screen_shell_unavailable`. A requested `pty-terminal`
+  call does not silently fall back to `local-spawn`.
 
 Parser registry (`TracedProcessParser`):
 
@@ -1887,7 +2085,7 @@ Typed outcome (`TracedProcessOutcome`) replaces nullable
 | `signaled` | Killed by a signal (e.g. `SIGTERM`, `SIGKILL`). |
 | `hard_timeout` | Per-call wall clock exceeded `timeoutMs`. |
 | `inactivity_timeout` | No output for `inactivityTimeoutMs`. Often an upstream stall. |
-| `executor_unavailable` | Executor backend missing or unrunnable. Falls back to local-spawn or repair the backend. |
+| `executor_unavailable` | Requested executor backend missing or unrunnable. Repair it or choose a different executor profile explicitly. |
 | `launch_failed` | Subprocess could not start. Check command/args/cwd. |
 | `process_error` | Node-level child error (ENOENT, EACCES, etc.). |
 | `lost_terminal` | PTY session ended before the exit sentinel was written. Inspect `terminal_session/screenlog.0`. |
@@ -1936,6 +2134,9 @@ When ABG dispatches `F_P`, the engine plugin input and prompt surface:
   schedule item refs, target / max item counts, ordering refs, and retry
   budget remaining. Unqualified vectors expose `traversalAttemptEnvelope =
   null` and stay on the legacy unmodulated path.
+- the selected `pluginTraversalObserverBinding` for Transform/F_P or Eval/F_D
+  traversal when one resolves from GTL declaration or loaded `abg_defaults`
+  fallback truth. Absence remains null unless fallback activation is explicit.
 
 Builders consume the typed plugin input and prompt as the authoritative
 execution contract for one live edge. Schedule control comes from the typed
@@ -1992,9 +2193,9 @@ Every traced call-out produces a self-contained archive at the request's
 ```
 
 `result.json` carries the canonical `outcome` (typed union) plus legacy
-nullable `status` / `signal` / `error` fields. New diagnostic code reads
-`outcome.kind` first; the nullable fields are preserved for legacy callers and
-will be deprecated.
+nullable `status` / `signal` / `error` fields and `terminalSessionId` when the
+executor opened a terminal. New diagnostic code reads `outcome.kind` first; the
+nullable fields are preserved for legacy callers and will be deprecated.
 
 Trace event kinds in `events.ndjson` (non-exhaustive):
 
@@ -2027,7 +2228,7 @@ Symptom → first place to look.
 | Pre-init crash (process exited non-zero with no observable agent output) | `result.json` `structuredEventCount === 0` plus `outcome.kind === "exited"` with non-zero `status`, or `outcome.kind === "process_error"`. Inspect `stderr.raw`. With `claude-stream-json` parser the absence of `init` system events triggers `failureClass = "transport_failure"`. |
 | Agent emits TUI noise but no parseable JSON | `result.json` `structuredParseFailureCount > 0`. Walk `events.ndjson` for `structured_event_parse_failed` lines. Verify the agent invocation enables `--output-format stream-json`. |
 | Tool exploration is eating the budget | `result.json` `toolCallEvents.length` and per-event entries. Walk `events.ndjson` for `tool_call_observed`. Tighten the prompt or disable tool use for the call-out. |
-| PTY executor reports unavailable | `result.json` `outcome.kind === "executor_unavailable"`, with `reason: "screen_missing"` (no `screen` binary) or `reason: "screen_shell_unavailable"` (screen runs but the child shell cannot write the capability marker). Install `screen`, fall back to `executorProfile = "local-spawn"`, or fix the shell environment. |
+| PTY executor reports unavailable | `result.json` `outcome.kind === "executor_unavailable"`, with `reason: "screen_missing"` (no `screen` binary) or `reason: "screen_shell_unavailable"` (screen runs but the child shell cannot write the capability marker). Install `screen`, choose `executorProfile = "local-spawn"` explicitly only when policy allows it, or fix the shell environment. A requested `pty-terminal` call does not silently fall back. |
 | PTY session ended without producing a final answer | `result.json` `outcome.kind === "lost_terminal"`. Inspect `terminal_session/screenlog.0` for the last terminal output. The session was closed before the exit sentinel landed; possible causes are external `screen -X quit`, OS signal, or the inner agent crashing without flushing. |
 | Agent killed by SIGTERM mid-output | `result.json` `outcome.kind === "signaled"` with `signal: "SIGTERM"`. The substrate sent `SIGTERM` for either `hard_timeout` or `inactivity_timeout`; the prior typed outcome (in nested `terminal_*` events) names which. SIGKILL means the termination grace window was exhausted. |
 | Agent finished cleanly but produced no text | `result.json` `outcome.kind === "exited"`, `status: 0`, `failureClass: "no_output"`. Prompt/contract problem, not transport. |
@@ -2037,11 +2238,13 @@ Symptom → first place to look.
 For an ABG-supervised call (via `invokeSupervisedProcessActor`), the same
 trace archive is written under `<processEventsPath>.trace/` and the ABG event
 stream additionally carries `actor_process_started`,
-`actor_process_stream_observed`, `actor_process_heartbeat`,
-`actor_process_timeout`, `actor_process_signal_sent`, and
-`actor_process_exited` events. Heartbeats are emitted at `heartbeatMs`
-intervals while the call-out is in flight; their absence is itself a signal
-that the supervising actor was killed or the runtime stalled.
+`actor_process_start_failed`, `actor_process_stream_observed`,
+`actor_process_heartbeat`, `actor_process_timeout`,
+`actor_process_signal_sent`, and `actor_process_exited` events. Successful and
+failed start events both carry `terminalSessionId`; replay projection surfaces
+that terminal id on `actorProcessRefs` when present. Heartbeats are emitted at
+`heartbeatMs` intervals while the call-out is in flight; their absence is
+itself a signal that the supervising actor was killed or the runtime stalled.
 
 Do not paraphrase `result.json` `outcome` from prompt prose. Always read the
 typed field. Outcome ambiguity in narrative summaries is the single most
@@ -2513,11 +2716,20 @@ npm run test:semantic
 Useful tenant proof commands:
 
 ```bash
+npm run lint:semantic
+npm run lint:test-harness
 npm run test:t044
 npm run test:t045
 npm run test:t013
 npm run test:t031
 npm run test:t036
+npm run test:t087
+npm run test:t111
+npm run test:t115
+npm run test:t116
+npm run test:t117
+npm run test:t113:live
+npm run test:t116:live
 CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude npm run test:live
 CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude npm run test:live:uat
 ```
