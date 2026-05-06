@@ -1,7 +1,7 @@
-# abiogenesis 3.5.0-rc.2 RC Notes
+# abiogenesis 3.6.0-rc.1 RC Notes
 
-This note records accepted RC behavior for the current `v3.5.0-rc.2` line.
-The package cut is `3.5.0-rc.2`.
+This note records accepted RC behavior for the current `v3.6.0-rc.1` line.
+The package cut is `3.6.0-rc.1`.
 
 ## Accepted Framework Behavior
 
@@ -371,6 +371,34 @@ Non-claim:
   traversal-modulation, M04 request, installer, and live-harness defaults not
   closed by the plugin observer slice.
 
+### Temporal GTL/ABG Capability Starts The 3.6.0 Line
+
+The temporal slice moves the next release candidate from `3.5.0` to `3.6.0`
+because it adds GTL syntax, ABG temporal events, Event Calculus extension, and
+new replay-derived projection behavior.
+
+Accepted behavior:
+
+- temporal constraints attach through
+  `GraphVector.declarations["abg.temporal_constraint"]`
+- provider timer truth becomes ABG runtime truth only through admitted temporal
+  events
+- `timer_intent_admitted`, `timer_outcome_admitted`,
+  `deadline_breach_admitted`, and `scheduled_continuation_reopened` map through
+  declared Event Calculus effects
+- temporal projection exposes eligibility rows and deadline-breach rows derived
+  from admitted event truth
+- homeostatic schedule/deadline pressure consumes temporal projection rows and
+  does not close, fail, retry, or advance traversal directly
+- non-temporal GTL graph functions remain admissible without temporal syntax
+
+Non-claims:
+
+- recurrence, window policy, and cloud durable provider integration remain
+  future work
+- T-126 owns local consolidation of repeated temporal runtime-scope construction
+  after the release-candidate proof
+
 ## Current Verification Footer
 
 The current RC proving footer is:
@@ -385,10 +413,18 @@ The current RC proving footer is:
 - `npm run test:t115`: `6 passed`
 - `npm run test:t116`: `5 passed`
 - `npm run test:t117`: `8 passed`
+- `npm run test:t119`: `17 passed`
+- `npm run test:t120`: `4 passed`
+- `npm run test:t121`: `4 passed`
+- `npm run test:t122`: `5 passed`
+- `npm run test:t123`: `6 passed`
+- `npm run test:semantic`: `443 passed`
+- `npm run test:t119:live`: `3 passed`
+- `npm run test:t125:live`: `2 passed`
 - `npm run test:t116:live`: `1 passed`
 - `git diff --check`: `passed`
 - `npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run`: `passed`,
-  package `3.5.0-rc.2`, `321 files`
+  package `3.6.0-rc.1`, `325 files`
 
 Fresh 3.5.0-rc.2 live PTY plugin/actor matrix:
 

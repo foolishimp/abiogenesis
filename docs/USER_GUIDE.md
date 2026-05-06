@@ -1,6 +1,6 @@
 # GTL/ABG User Guide
 
-**Status**: Current single human guide for GTL 3 / ABG 3.5.0-rc.2
+**Status**: Current single human guide for GTL 3 / ABG 3.6.0-rc.1
 **Audience**: People building, operating, or reviewing GTL/ABG applications
 **Purpose**: Explain what GTL/ABG is for, what it builds, the technical GTL/ABG model, how the build loop works, what the runtime gives you, and how to run the current kernel
 
@@ -406,9 +406,9 @@ Avoid these mistakes:
 - treating GTL declarations as imperative control code
 - rebuilding advancement, policy, or regime meaning from open dictionaries
 
-## ABG 3.5.0 RC Runtime Boundary
+## ABG 3.6.0 RC Runtime Boundary
 
-ABG 3.5.0 RC makes runtime law carrier and event owned.
+ABG 3.6.0 RC makes runtime law carrier and event owned.
 
 Public work still starts from a semantic `Job` bound to a published
 `GraphFunction`, but advancement truth is no longer reconstructed from service
@@ -430,6 +430,131 @@ The primary event rule is unchanged:
 - `emit()` is the lawful write boundary
 - projections derive current truth by replay
 - `runtime_config` is ingress/configuration input, not independent runtime law
+
+## Time, Eligibility, And Replay
+
+ABG now treats current state and time as declared replay law, not as
+imperative projection code or wall-clock reads.
+
+Two changes matter to a builder.
+
+### Event calculus runtime law
+
+Until now, the rule "what holds true right now" was implicit: it lived inside
+projection switch statements that translated event kinds into state changes.
+ABG now declares that mapping as a typed table.
+
+For each runtime event kind, a single axiom states which named facts the
+event initiates, which it terminates, and what scope it clips. Replay walks
+the event log once and produces a `HoldsAt` read model: the set of facts
+that hold given everything admitted so far.
+
+The named facts are bounded. They cover lifecycle truth such as
+`graph_call_open`, `frame_open`, `vector_evaluated`, `vector_closed`,
+`continuation_open`, `retry_repair_planned`, and `reset_scope_active`, plus
+the temporal facts introduced below.
+
+The rules a builder needs to know:
+
+- `emit()` is still the only write path. Replay does not invent truth.
+- Inertia is automatic: a fact persists across events that do not
+  terminate or clip it.
+- Reset shadows truth by clipping; it does not rewrite history.
+- Unknown event kinds, malformed facts, duplicate axioms, and contradictory
+  effects fail closed.
+- The event-calculus layer does not pick the next graph step. It is a read
+  model. Advancement, ordering, retries, and closure remain ABG iteration
+  truth.
+
+The first slice covers graph-call open, frame open, and vector closure.
+Continuation, retry, correction, and derived-fluent parity are scheduled as
+follow-up work; do not assume the full surface is in place yet.
+
+### GTL temporal algebra
+
+GTL gains a first-class temporal dimension. The central rule is short:
+
+> Time changes eligibility. ABG remains the iterator.
+
+Time does not pick the next vector. It restricts which already-lawful
+vectors are eligible right now. A graph vector is eligible to advance only
+when its dependencies are closed, its policy allows it, and its temporal
+constraint allows it.
+
+The first slice exposes one operator: `not_before`. A graph vector can
+declare that it must not advance before a named instant, and that the
+governing schedule policy is bound to a named timer provider.
+
+Authoring shape. A temporal constraint is declared on a `GraphVector` via
+the `abg.temporal_constraint` qualifier. The qualifier is a hook reference
+whose config carries:
+
+- `constraint_ref` — opaque reference for the declared constraint
+- `operator` — `not_before` (only operator in the first slice)
+- `not_before_ref` — the instant the constraint blocks before
+- `schedule_policy_ref` — schedule policy this constraint binds to
+- `timer_provider_ref` — provider that arms the timer
+- `deadline_breach_action` — `observe_drift`, `block`, `retry`,
+  `human_gate`, or `reprice`
+
+The deadline breach action is policy-selected. ABG does not hard-code one
+response when a deadline passes; the application chooses.
+
+Carrier vocabulary. A small, stable set of carriers represents the
+temporal surface:
+
+- `TemporalContext` — clock, calendar, timezone refs
+- `TemporalConstraint` — temporal law attached to a vector, function, or job
+- `SchedulePolicy` — deadline policy and timer-provider binding
+- `TimerIntent` — admitted timer obligation
+- `TimerOutcome` — admitted provider outcome (fired, cancelled, missed)
+- `ScheduledContinuation` — replay-owned continuation reopened by a fired timer
+- `TemporalProjection` — replay-derived eligibility read model
+
+Three new admitted runtime events carry temporal truth:
+`timer_intent_admitted`, `timer_outcome_admitted`, and
+`scheduled_continuation_reopened`. Each declares its event-calculus effect
+in the same axiom table that governs lifecycle truth, so temporal
+eligibility is just another `HoldsAt` query.
+
+The strict admission path. A timer provider may arm timers, wait, and
+report receipts, but it does not authorize graph transitions:
+
+```text
+GTL temporal constraint
+  -> ABG admits TimerIntent
+  -> provider arms timer
+  -> provider returns outcome
+  -> ABG admits TimerOutcome
+  -> ABG replays temporal projection
+  -> ABG decides eligibility and continuation
+```
+
+Cron, EventBridge, Step Functions, Temporal, and saga orchestrators are
+delivery effects. They never select the next vector or close a traversal
+without ABG admission.
+
+Two-stage evaluation. ABG.eval still decides whether a graph edge
+locally completed. Schedule and SLA drift — missed windows, deadline
+pressure, recurrence debt — feed a separate homeostatic evaluation that
+runs after ABG.eval. A graph function can be locally complete and still
+create homeostatic pressure that triggers re-entry, mitigation, or
+repricing. Drift never folds into edge-completeness closure.
+
+What is intentionally not in the first slice. The deeper operators
+(`window`, `deadline`, `not_after`, `retry_after`, `cooldown`, `recurs`,
+`until`), recurrence coalescing, window open/close events, and broader
+deadline consequence proof are reserved by design but not yet implemented.
+Do not author against them until the follow-up work lands.
+
+What never becomes runtime authority:
+
+- `Date.now()` or any wall-clock read deciding eligibility, closure, or
+  deadline truth
+- provider receipts becoming truth without ABG admission
+- a scheduler selecting the next graph vector
+- recurrence minting fresh graph-call instances when a scheduled
+  continuation over the existing function boundary is sufficient
 
 ## How You Build
 

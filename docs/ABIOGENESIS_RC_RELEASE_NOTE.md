@@ -1,49 +1,45 @@
-# abiogenesis 3.5.0-rc.2 Release Candidate Note
+# abiogenesis 3.6.0-rc.1 Release Candidate Note
 
 This checkpoint is the current TypeScript ABG release-candidate source state.
-It advances the RC identity from `3.5.0-rc.1` to `3.5.0-rc.2`.
+It advances the release line from `3.5.0-rc.2` to `3.6.0-rc.1` because the
+temporal GTL/ABG slice adds new language and runtime capability.
 
-It is an RC candidate, not the final tapped `3.5.0` release. The release
+It is an RC candidate, not the final tapped `3.6.0` release. The release
 identity remains explicit until the cut is committed, tagged, and accepted.
 
 ## Release Claim
 
 The TypeScript tenant remains the package-first GTL/ABG RC candidate. This cut
-accepts the T-113/T-116/T-117 repair wave over the rc.1 traced call-out and PTY
-substrate.
+preserves the accepted `3.5.0-rc.2` substrate and adds the temporal GTL/ABG
+wave as the first `3.6.0` release candidate.
 
-RC2 adds:
+RC1 for `3.6.0` adds:
 
-- successful PTY actor process start events and projections carry
-  `terminalSessionId`, not only trace-local terminal evidence;
-- plugin traversal observer prompt materialization is replay-visible and unique
-  per materialization, including config digest, actor/work identity, causation,
-  and correlation in the materialization identity;
-- Transform plugin traversal observer bindings resolve from GTL declarations or
-  from the explicit ABG fallback bundle when fallback is enabled;
-- live proof covers enabled actor and disabled actor paths with both default
-  plugin fallback and custom GraphVector plugin binding;
-- the first `abg_defaults` member is the reference plugin traversal observer
-  fallback bundle;
-- installed workspaces receive an editable `.abiogenesis/config/abg.fallbacks.json`
-  copy, preserve local edits across refresh, and load that config through the
-  public installed CLI path.
+- explicit ABG Event Calculus law for admitted runtime events and replay-derived
+  `HoldsAt` truth;
+- GTL temporal syntax through `GraphVector.declarations["abg.temporal_constraint"]`;
+- ABG temporal carriers and events for timer intent, timer outcome, deadline
+  breach, and scheduled continuation;
+- replay-derived temporal projection rows for eligibility and deadline breach
+  truth;
+- separate homeostatic schedule/deadline pressure over replay-derived temporal
+  rows, without letting time close or advance graph traversal directly;
+- live temporal and non-temporal GTL proof lanes.
 
 ## Non-Claims
 
-T-117 is closed only for the plugin traversal observer fallback slice plus
-audit inventory. RC2 does not claim every historical runtime default has been
-externalized. T-118 owns the remaining defaults expansion.
+The temporal slice does not claim recurrence, window policy, cloud durable
+provider integration, sticky-session reuse, warm agent pools, or automatic
+session affinity.
 
-Sticky-session reuse, warm agent pools, and automatic session affinity remain
-future T-110 work.
+T-126 owns post-proof temporal runtime-scope and projection-row consolidation.
 
 ## Versioned Artifacts
 
-- RC branch: `rc/3.5.0`
-- RC identity: `3.5.0-rc.2`
-- Candidate package version: `3.5.0-rc.2`
-- Candidate tag: `v3.5.0-rc.2`
+- RC branch: `rc/3.6.0`
+- RC identity: `3.6.0-rc.1`
+- Candidate package version: `3.6.0-rc.1`
+- Candidate tag: `v3.6.0-rc.1`
 
 ## Verification
 
@@ -80,6 +76,27 @@ npm run test:t116
 npm run test:t117
 8 passed
 
+npm run test:t119
+17 passed
+
+npm run test:t120
+4 passed
+
+npm run test:t121
+4 passed
+
+npm run test:t122
+5 passed
+
+npm run test:t123
+6 passed
+
+npm run test:t119:live
+3 passed
+
+npm run test:t125:live
+2 passed
+
 npm run test:t116:live
 1 passed
 
@@ -87,31 +104,29 @@ git diff --check
 passed
 
 npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run
-passed, version 3.5.0-rc.2, files 321, package abiogenesis-typescript-tenant-3.5.0-rc.2.tgz
+passed, version 3.6.0-rc.1, files 325, package abiogenesis-typescript-tenant-3.6.0-rc.1.tgz
 ```
 
-Fresh RC2 live proof:
+Fresh 3.6.0 temporal live proof:
 
 ```text
-build_tenants/abiogenesis/typescript/test_env/test_runs/t113_live_pty_claude_actor_worker/20260505T161759398Z/summary.json
+npm run test:t119:live
+npm run test:t125:live
 ```
 
-The live matrix records:
+The live lanes prove:
 
 ```text
-defaultPluginActorEnabled
-defaultPluginActorDisabled
-customPluginActorEnabled
-customPluginActorDisabled
+temporal GTL graph function admits eligibility only after ABG timer outcome
+non-temporal GTL graph function remains admissible without temporal syntax
+provider receipt does not authorize temporal eligibility before ABG admission
 ```
 
-The disabled rows carry `actorInvocationId: null`. Default-plugin rows carry
-`fallback-bundle://abg/reference/typescript` and its digest. Custom-plugin rows
-resolve through `graph_vector_declarations` and carry no fallback bundle digest.
-The four prompt materialization refs are unique in the live matrix.
+The previous `3.5.0-rc.2` PTY/plugin observer live proof remains historical
+release evidence for the substrate preserved by this line.
 
 ## RC Decision
 
-The release operator requested RC2 after external review. The review findings
-were accepted and repaired before the cut. Cut `v3.5.0-rc.2` as a
-release-candidate checkpoint. This is not the final tapped `3.5.0` release.
+The release operator repriced temporal capability as a minor release-line move.
+Cut `v3.6.0-rc.1` as a release-candidate checkpoint after live temporal proof.
+This is not the final tapped `3.6.0` release.

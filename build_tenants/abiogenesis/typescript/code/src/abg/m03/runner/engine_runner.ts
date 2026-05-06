@@ -74,11 +74,11 @@ import {
   constructTraversalModulationResolvedEvent,
   deriveTraversalAttemptEnvelope,
   deriveTraversalModulationProfile,
-  tryResolveTraversalStrategyDirectiveFromGtl,
+  tryDeriveTraversalStrategySelectionFromGtl,
   type AgenticBackendKind,
   type TraversalAttemptEnvelope,
   type TraversalModulationProfile,
-  type TraversalModulationGtlQualifierResolution
+  type TraversalStrategySelection
 } from "../contracts/traversal_modulation.js";
 import {
   assertTraversalContinuationSummaryAgreement,
@@ -299,7 +299,7 @@ function actorInvocationRef(invocation: ActorInvocation): ActorInvocationRef {
 }
 
 interface ModulatedFpAttempt {
-  readonly resolution: TraversalModulationGtlQualifierResolution;
+  readonly selection: TraversalStrategySelection;
   readonly profile: TraversalModulationProfile;
   readonly envelope: TraversalAttemptEnvelope;
 }
@@ -354,18 +354,31 @@ function deriveModulatedFpAttempt(input: {
   if (vector === undefined) {
     throw new TypeError("Traversal modulation requires a graph vector");
   }
-  const resolution = tryResolveTraversalStrategyDirectiveFromGtl({
+  const selection = tryDeriveTraversalStrategySelectionFromGtl({
+    basis: input.basis,
+    vectorIndex: input.transition.vectorIndex,
     vector,
     graphFunction: input.basis.graphFunction,
     roles: input.basis.job.roles
   });
-  if (resolution === null) {
+  if (selection === null) {
     return null;
   }
   const profile = deriveTraversalModulationProfile({
     basis: input.basis,
     vectorIndex: input.transition.vectorIndex,
-    directive: resolution.directive,
+    directive: {
+      kind: "traversal_strategy_directive",
+      directiveRef: selection.directiveRef,
+      strategyOwnerRef: selection.strategyOwnerRef,
+      strategyLabel: selection.strategyLabel,
+      enforcementPrimitives: selection.enforcementPrimitives,
+      obligationScheduleRefs: selection.obligationScheduleRefs,
+      orderingConstraintRefs: selection.orderingConstraintRefs,
+      phaseGateRefs: selection.phaseGateRefs,
+      batch: selection.batch
+    },
+    strategySelection: selection,
     backendProfile: backendProgressProfileForBasis(input.basis),
     policyRefs: Object.freeze([input.basis.resolvedPolicy.resolvedPolicyBundleRef])
   });
@@ -379,7 +392,7 @@ function deriveModulatedFpAttempt(input: {
     actorInvocationId: input.actorInvocation.actorInvocationId,
     retryBudgetRemaining
   });
-  return Object.freeze({ resolution, profile, envelope });
+  return Object.freeze({ selection, profile, envelope });
 }
 
 function deriveFpDispatchAttemptInput(input: {
@@ -410,6 +423,7 @@ function deriveFpDispatchAttemptInput(input: {
     edge: input.transition.edge,
     regime: "F_P",
     actorInvocationRef: actorInvocationRef(actorInvocation),
+    traversalStrategySelection: modulatedAttempt?.selection ?? null,
     traversalAttemptEnvelope: modulatedAttempt?.envelope ?? null,
     abgFallbackBundle: input.abgFallbackBundle,
     pluginTraversalObserverFallbackEnabled:

@@ -1,6 +1,6 @@
 # LLM GTL App Builder Guide
 
-**Status**: Current compressed technical GTL 3 / ABG 3.5.0-rc.2 guide for LLMs
+**Status**: Current compressed technical GTL 3 / ABG 3.6.0-rc.1 guide for LLMs
 **Audience**: LLM agentic coders and agent bootstraps building GTL/ABG domain apps
 **Purpose**: Compress the human GTL/ABG guide into the ontology, operating rules, fail-closed constraints, and language-specific syntax needed by LLM agents
 
@@ -1116,7 +1116,7 @@ ABG does not own domain semantics beyond declared law.
 
 ABG interprets and enforces declared law.
 
-### ABG 3.5.0 RC carrier law
+### ABG 3.6.0 RC carrier law
 
 The live runtime boundary is carrier and event owned.
 
@@ -1134,7 +1134,7 @@ Do not rebuild these meanings from result dictionaries, controller state, or
 runtime policy, asset-binding, proof-hold, dispatch, and convergence truth must
 be carried by typed or resolved runtime surfaces.
 
-### ABG 3.5.0-rc.2 carrier extensions
+### ABG 3.6.0-rc.1 carrier extensions
 
 The carrier surface covers output allocation, zoom-foldback, graph-span
 foldback and reentry, cross-workspace allocation, eval-suite projection, typed
@@ -1556,6 +1556,272 @@ budgets, traversal modulation defaults, M04 request defaults, and broader
 installer defaults is future T-118 work. Do not document those as current
 runtime defaults.
 
+#### T-120 declared event calculus runtime law
+
+T-120 makes ABG's Event Calculus commitment explicit. The runtime now declares
+event-to-fluent law as a typed axiom table instead of leaving it implicit in
+projection-local switch statements. T-119 temporal carriers and any later
+fluent layer compile against this substrate; they do not introduce new
+controllers.
+
+EC carriers (`code/src/abg/m03/contracts/event_calculus.ts`):
+
+- `RuntimeFluent` (`event_calculus.ts:48-66`) — a replay-derived fact
+  candidate, scoped to one of `basis | run | graph_call | frame | vector |
+  continuation | temporal`, with fluent-name from the closed
+  `RUNTIME_FLUENT_NAME_VALUES` set: `basis_admitted`, `graph_call_open`,
+  `frame_open`, `vector_traversal_planned`, `vector_evaluated`,
+  `vector_closed`, `retry_repair_planned`, `continuation_open`,
+  `continuation_terminated`, `reset_scope_active`, `temporal_timer_pending`,
+  `temporal_timer_fired`, `temporal_eligible`, `scheduled_continuation_open`,
+  `temporal_deadline_breached`.
+- `RuntimeFluentPattern` (`event_calculus.ts:68-86`) — pattern shape used by
+  `clips`/`declips` matching; nullable fields act as wildcards on the matched
+  scope.
+- `RuntimeEventCalculusEffect` (`event_calculus.ts:88-93`) — `{ initiates,
+  terminates, clips, declips }` produced by an axiom for one event.
+- `RuntimeEventCalculusAxiom` (`event_calculus.ts:99-106`) — typed mapping
+  from `RuntimeEvent.kind` to a pure `deriveEffects(event, context)` function.
+  One axiom per event kind. Duplicate or contradictory axioms fail closed.
+- `RuntimeDerivedFluentRule` (`event_calculus.ts:108-114`) — pure ramification
+  hook taking the current `holds` set and emitting additional derived fluents.
+- `RuntimeEventCalculusProjection` (`event_calculus.ts:125-132`) —
+  `HoldsAt` read model: `{ holds, effectRows, clippedFluentRefs,
+  declippedPatternRefs }` derived by one replay function.
+- `RuntimeEventCalculusReplayInput` (`event_calculus.ts:134-142`) — replay
+  input: events, optional axioms (defaults to the registered table),
+  `initiallyP` / `initiallyN` initial conditions, derived rules, and
+  `undeclaredEventBehavior: "reject" | "ignore"`. Default is `reject`:
+  unknown event kinds fail closed.
+
+Replay law (proven by `test_t120_event_calculus_runtime_law.test.mjs`):
+
+- `Initiates` adds the named fluent to `holds` if it was not already present.
+- `Terminates` removes the named fluent from `holds`.
+- Inertia: a fluent persists across events that do not terminate or clip it.
+- `Clips` removes every fluent in `holds` whose pattern matches; clipped refs
+  appear in `clippedFluentRefs`.
+- `Declips` undoes a prior clipping scope when a matching pattern arrives.
+- Reset scope is admitted via `reset_scope_active` clipping rather than
+  silent projection mutation; correction shadows truth, it does not erase
+  history.
+- Aggregate projection consumes EC effects for `graph_call_opened`,
+  `frame_opened`, and `vector_closed` lifecycle facts. T-121 carries
+  continuation, retry, reset/correction, declipping, and derived-fluent
+  projection parity beyond this first lifecycle slice.
+
+Authority rule: EC replay derives `HoldsAt` read-model truth from admitted
+events. ABG iteration/projection still owns advancement, ordering,
+duplicate-closure, range, and traversal integrity checks. The EC layer does
+not choose graph advancement, retry, or closure directly.
+
+Failure classes that fail closed:
+
+- undeclared `RuntimeEvent.kind` when `undeclaredEventBehavior` is `reject`;
+- malformed `RuntimeFluent` (unknown name, unknown scope, malformed scope
+  fields);
+- duplicate `RuntimeEventCalculusAxiom` for the same event kind;
+- contradictory effect (the same fluent appearing in both `initiates` and
+  `terminates` of one effect);
+- reset clipping a scope it does not legally apply to.
+
+Design references:
+
+- `build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md`
+- `build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_IACS.md`
+- `build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_PROJECTION_REFACTOR_PLAN.md`
+- `build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_T119_TEMPORAL_EXTENSION_CONTRACT.md`
+
+#### T-119 GTL temporal algebra and schedule domain module
+
+T-119 adds the first temporal slice to GTL. Time is modeled as an eligibility
+dimension over graph functions and graph vectors, not as a hidden scheduler.
+The central law is:
+
+```text
+time changes eligibility;
+ABG remains the iterator.
+```
+
+Eligibility composition:
+
+```text
+eligible(edge, replay) =
+  dependency_truth_closed(edge, replay)
+  AND temporal_truth_allows(edge, replay)
+  AND policy_truth_allows(edge, replay)
+```
+
+Temporal carriers (`code/src/abg/m03/contracts/temporal_algebra.ts`):
+
+- `TemporalContext` (`temporal_algebra.ts:58-64`) — `{ contextRef, clockRef,
+  calendarRef, timezoneId }`. Carrier for snapshot-bound time-source
+  assumptions; lives at the GTL/ABG boundary.
+- `TemporalConstraint` (`temporal_algebra.ts:66-76`) — temporal law attached
+  to a `graph_vector`, `graph_function`, or `job`. First slice supports
+  `operator: "not_before"` only; it carries `notBeforeRef`,
+  `schedulePolicyRef`, the constraint's vectorIndex, and edge identity.
+- `SchedulePolicy` (`temporal_algebra.ts:78-88`) — domain policy:
+  `{ schedulePolicyRef, deadlineBreachAction, timerProviderRef }`.
+  `deadlineBreachAction` is policy-selected from
+  `observe_drift | block | retry | human_gate | reprice`. ABG does not
+  hard-code one breach response.
+- `TimerIntent` (`temporal_algebra.ts:90-105`) — admitted timer obligation
+  bound to `(basis, graphCall, frame, vector, edge, constraint, provider,
+  schedulePolicy)`.
+- `TimerOutcome` (`temporal_algebra.ts:107-116`) — admitted provider outcome
+  with `outcome: "timer_fired" | "timer_cancelled" | "timer_missed"` and a
+  `providerReceiptRef`. Provider receipts are effects; only the admitted
+  outcome event becomes runtime truth.
+- `ScheduledContinuation` (`temporal_algebra.ts:118-134`) — replay-owned
+  continuation reopened after a `timer_fired` outcome. Recurrence defaults to
+  `ScheduledContinuation` over the existing graph-function boundary; fresh
+  graph-call instances would fragment provenance and require explicit design
+  justification (T-122).
+- `TemporalProjection` (`temporal_algebra.ts:136-144`) — replay-derived read
+  model: `{ eligibleVectorIndexes, pendingTimerIntentRefs,
+  firedTimerOutcomeRefs, scheduledContinuationRefs, eventCalculus }`. The
+  embedded `eventCalculus` field is the T-120 EC projection — `HoldsAt` is
+  the source of eligibility, not a parallel surface.
+- `TemporalDriftObservation` (`temporal_algebra.ts:146-154`) and
+  `TemporalHomeostaticProjection` (`temporal_algebra.ts:156-161`) —
+  homeostatic read model. Drift is reported through F_H regime, separate
+  from edge-completeness closure. Schedule/SLA drift never folds into
+  traversal completion.
+- `TemporalConstraintGtlResolution` (`temporal_algebra.ts:163-171`) —
+  canonical resolution of the GTL declaration to runtime carriers.
+
+GTL declaration syntax. The first-slice temporal constraint is declared on a
+`GraphVector` via `GraphVector.declarations` with attribute key
+`abg.temporal_constraint` and a `hook_ref` value carrying the policy config.
+The required config keys (`temporal_algebra.ts:47-54`) are:
+
+```text
+constraint_ref           — opaque ref for the declared constraint
+operator                 — "not_before" (only operator in the first slice)
+not_before_ref           — instant ref the constraint blocks before
+schedule_policy_ref      — SchedulePolicy this constraint binds to
+timer_provider_ref       — provider that arms timers for this policy
+deadline_breach_action   — observe_drift | block | retry | human_gate | reprice
+```
+
+Sketch (mirrors `test_t119_temporal_gtl_syntax.test.mjs`):
+
+```text
+GraphVector {
+  ...
+  declarations: {
+    entries: [
+      {
+        key: "abg.temporal_constraint",
+        value: {
+          kind: "hook_ref",
+          value: {
+            ref: "temporal-constraint://my-app/edge0",
+            config: {
+              entries: [
+                { key: "constraint_ref",
+                  value: { kind: "scalar", value: "temporal-constraint://my-app/edge0" } },
+                { key: "operator",
+                  value: { kind: "scalar", value: "not_before" } },
+                { key: "not_before_ref",
+                  value: { kind: "scalar", value: "instant://2026-05-06T12:00:00Z" } },
+                { key: "schedule_policy_ref",
+                  value: { kind: "scalar", value: "schedule-policy://my-app/not-before" } },
+                { key: "timer_provider_ref",
+                  value: { kind: "scalar", value: "timer-provider://my-app/stub" } },
+                { key: "deadline_breach_action",
+                  value: { kind: "scalar", value: "observe_drift" } }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
+}
+```
+
+Resolution functions:
+
+- `tryDeriveTemporalConstraintFromGtl({ basis, vectorIndex, vector })` —
+  returns a `TemporalConstraintGtlResolution` if the vector declares
+  `abg.temporal_constraint`, or `null` if not present. Duplicate qualifiers
+  on one vector fail closed.
+- `deriveTemporalConstraintFromGtl(...)` — same, but throws if the
+  qualifier is missing.
+- `constructNotBeforeConstraint`, `constructSchedulePolicy`,
+  `constructTimerIntent`, `constructTimerOutcome` — pure constructors. Use
+  these instead of hand-building carriers.
+
+Three new admitted runtime events (`carriers.ts:1408-1469`):
+
+- `timer_intent_admitted` — opens pending-timer obligation truth.
+- `timer_outcome_admitted` — closes pending-timer truth and, on
+  `timer_fired`, initiates eligibility for the governed boundary when
+  dependency and policy truth also hold. Required identity preserved through
+  admission: `schedulePolicyRef`, `providerRef`, `providerReceiptRef`,
+  `timerIntentRef`, `timerOutcomeRef`, `outcome`, `correlationId`.
+- `scheduled_continuation_reopened` — opens `ScheduledContinuation` after a
+  fired timer. Same policy/provider identity preservation.
+
+Each event has a declared T-120 EC axiom; replay derives temporal eligibility
+through the same `HoldsAt` projection that drives lifecycle fluents.
+
+Provider authority. Cloud timers, EventBridge schedulers, Step Functions,
+Temporal, cron, queues, and saga providers may arm timers, wait, invoke
+external services, hold callback tokens, and report receipts. They must not
+select the next graph vector, close a traversal, decide convergence, or emit
+authoritative runtime truth without ABG admission. The strict path is:
+
+```text
+GTL temporal constraint
+  -> ABG admits TimerIntent
+  -> provider arms timer
+  -> provider returns outcome
+  -> ABG admits TimerOutcome
+  -> ABG replays temporal projection
+  -> ABG decides eligibility and continuation
+```
+
+Two-stage evaluation. ABG.eval decides traversal completeness over an edge.
+Schedule/SLA drift, missed windows, recurrence debt, and deadline pressure
+feed a separate homeostatic evaluation surface (`TemporalDriftObservation`
+in F_H regime). A graph function can be locally complete and still create
+homeostatic pressure; the homeostatic loop routes that pressure to lawful
+re-entry, mitigation, or repricing without weakening ABG's authority over
+traversal.
+
+What T-119 does not yet cover (deferred to T-122): deadline breach truth,
+recurrence coalescing, window open/close events, schedule-policy consequence
+selection beyond declaration, broader drift proof. The first slice operators
+are limited to `not_before`. Operators `window`, `deadline`, `not_after`,
+`retry_after`, `cooldown`, `recurs`, and `until` are reserved by design but
+not yet implemented; do not author against them until T-122 lands.
+
+Non-goals (do not write code that violates these):
+
+- no `Date.now()` / wall-clock read decides eligibility, closure, retry, or
+  deadline truth; time enters only as admitted timer outcome events;
+- no provider receipt becomes runtime truth without ABG admission;
+- no scheduler (cron, Step Functions, EventBridge, Temporal, runner loop)
+  selects the next graph vector;
+- no temporal evaluator regime is added; temporal evaluation is F_D over
+  replay-derived temporal fluents;
+- recurrence does not fragment provenance by minting fresh graph-call
+  instances when `ScheduledContinuation` over the existing boundary
+  preserves closure and proof truth.
+
+Design references:
+
+- `build_tenants/abiogenesis/typescript/design/GTL_TIME_ALGEBRA_DERIVATION.md`
+- `build_tenants/abiogenesis/typescript/design/GTL_TIME_ALGEBRA_IACS.md`
+- `build_tenants/abiogenesis/typescript/design/GTL_TIME_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `build_tenants/abiogenesis/typescript/design/GTL_TIME_ALGEBRA_FIRST_PROOF_PLAN.md`
+- `build_tenants/abiogenesis/typescript/design/ABG_SCHEDULE_RUNTIME_DERIVATION.md`
+- `build_tenants/abiogenesis/typescript/design/HOMEOSTATIC_LOOP_AFTER_EVAL_EVENT_DERIVATION.md`
+
 ## Graph-Span Foldback And Constitutional Reentry
 
 T-103 admits foldback over a contiguous run of graph vectors and routes
@@ -1760,7 +2026,7 @@ The UX should expose lawful next moves from runtime facts.
 
 The live kernel in this repo is `abiogenesis`.
 
-The current source version is `3.5.0-rc.2`.
+The current source version is `3.6.0-rc.1`.
 
 ### Run from source
 
@@ -2876,7 +3142,7 @@ cd /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript
 npm run build:semantic
 npm pack
 cd /path/to/project
-npm install /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/abiogenesis-typescript-tenant-3.5.0-rc.2.tgz
+npm install /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/abiogenesis-typescript-tenant-3.6.0-rc.1.tgz
 ```
 
 For product-owned bootstrap, use the package API:
@@ -2890,8 +3156,8 @@ const installOutcome = await installBootstrap(
     installedPackageName: "@example/delivery-app",
     runtimePackage: {
       packageName: "@abiogenesis/typescript-tenant",
-      packageVersion: "3.5.0-rc.2",
-      dependencyRef: "file:./abiogenesis-typescript-tenant-3.5.0-rc.2.tgz",
+      packageVersion: "3.6.0-rc.1",
+      dependencyRef: "file:./abiogenesis-typescript-tenant-3.6.0-rc.1.tgz",
       appExportSubpath: "./app/m04",
       requiredExports: [".", "./app/m04"]
     }

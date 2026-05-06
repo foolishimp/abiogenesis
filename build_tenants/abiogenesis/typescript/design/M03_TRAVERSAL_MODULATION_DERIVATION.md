@@ -42,20 +42,21 @@ as replay-visible runtime law.
 The primary qualifier is:
 
 ```text
-GraphVector.declarations["abg.traversal_modulation"]
+GraphVector.declarations["abg.traversal_strategy"]
 ```
 
 Fallback precedence is:
 
 ```text
-GraphVector.declarations["abg.traversal_modulation"]
-  > GraphFunction.declarations["abg.default_traversal_modulation"]
-  > Role.policyHooks["abg.traversal_modulation"]
+GraphVector.declarations["abg.traversal_strategy"]
+  > GraphFunction.declarations["abg.default_traversal_strategy"]
+  > Role.policyHooks["abg.traversal_strategy"]
 ```
 
-Absence of all three surfaces means no modulation applies and the legacy
-unqualified `F_P` path remains in force. A malformed present qualifier fails
-closed. A duplicate qualifier fails closed.
+Absence of all three surfaces means no strategy-qualified modulation applies
+and the `F_P` attempt remains unqualified. A malformed present qualifier fails
+closed. A duplicate qualifier fails closed. Older traversal-modulation key
+spellings are not compatibility aliases.
 
 The hook config yields a `TraversalStrategyDirective`. Strategy labels are
 descriptive metadata owned by downstream strategy layers. ABG switches only on
@@ -93,6 +94,7 @@ strategy language.
 
 ```text
 TraversalStrategyDirective
+  -> TraversalStrategySelection
   -> TraversalModulationProfile
   -> TraversalAttemptEnvelope
   -> TraversalAttemptProgressRow*
@@ -177,7 +179,7 @@ sequenceDiagram
   Runner->>GTL: inspect current GraphVector/GraphFunction/Role hook config
   GTL-->>Runner: qualifier or no qualifier
   alt qualifier absent
-    Runner->>Plugin: legacy EnginePluginInput with null envelope
+    Runner->>Plugin: EnginePluginInput with null envelope
   else qualifier present
     Runner->>T107: resolve directive and derive profile/envelope
     T107-->>Events: traversal_modulation_resolved
@@ -241,5 +243,5 @@ T-107 closes for ABG source scope when:
 5. `EnginePluginInput` and dispatch handoff can carry the envelope
 6. sync and async runner modes derive envelopes only from explicit GTL
    qualifier truth through the same dispatch-attempt law
-7. malformed present qualifiers fail closed and absent qualifiers keep legacy behavior
+7. malformed present qualifiers fail closed and absent qualifiers keep unqualified behavior
 8. tests prove no-inference, strategy-boundary, event admission, handoff, and runner paths

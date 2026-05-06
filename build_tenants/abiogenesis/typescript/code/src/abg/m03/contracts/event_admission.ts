@@ -1074,6 +1074,14 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       vectorIndex: "non_negative_integer",
       edge: "non_empty_string",
       profileRef: "non_empty_string",
+      strategySelectionRef: "non_empty_string",
+      strategySelectionSource: {
+        oneOf: ["graph_vector", "graph_function", "role_policy", "runtime_default"]
+      },
+      strategySelectionSourceRef: "non_empty_string",
+      strategySelectionAttrKey: "nullable_string",
+      strategySelectionHookRef: "nullable_string",
+      strategyConfigDigest: "non_empty_string",
       strategyDirectiveRef: "non_empty_string",
       strategyOwnerRef: "non_empty_string",
       strategyLabel: "non_empty_string",
@@ -1103,6 +1111,11 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       edge: "non_empty_string",
       envelopeRef: "non_empty_string",
       profileRef: "non_empty_string",
+      strategySelectionRef: "non_empty_string",
+      strategySelectionSource: {
+        oneOf: ["graph_vector", "graph_function", "role_policy", "runtime_default"]
+      },
+      strategyConfigDigest: "non_empty_string",
       strategyDirectiveRef: "non_empty_string",
       backendProfileRef: "non_empty_string",
       actorInvocationId: "non_empty_string",
@@ -1416,6 +1429,88 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       );
     }
   },
+  timer_intent_admitted: applyFieldRules("TimerIntentAdmittedEvent", {
+    basisId: "non_empty_string",
+    graphCallId: "non_empty_string",
+    frameId: "non_empty_string",
+    frameLineageId: "nullable_string",
+    graphFunctionId: "non_empty_string",
+    runId: "nullable_string",
+    workKey: "nullable_string",
+    vectorIndex: "non_negative_integer",
+    edge: "non_empty_string",
+    constraintRef: "non_empty_string",
+    timerIntentRef: "non_empty_string",
+    providerRef: "non_empty_string",
+    notBeforeRef: "non_empty_string",
+    schedulePolicyRef: "non_empty_string",
+    causationEventRefs: "string_array",
+    correlationId: "non_empty_string"
+  }),
+  timer_outcome_admitted: applyFieldRules("TimerOutcomeAdmittedEvent", {
+    basisId: "non_empty_string",
+    graphCallId: "non_empty_string",
+    frameId: "non_empty_string",
+    frameLineageId: "nullable_string",
+    graphFunctionId: "non_empty_string",
+    runId: "nullable_string",
+    workKey: "nullable_string",
+    vectorIndex: "non_negative_integer",
+    edge: "non_empty_string",
+    constraintRef: "non_empty_string",
+    schedulePolicyRef: "non_empty_string",
+    timerIntentRef: "non_empty_string",
+    timerOutcomeRef: "non_empty_string",
+    outcome: { oneOf: ["timer_fired", "timer_cancelled", "timer_missed"] },
+    providerRef: "non_empty_string",
+    providerReceiptRef: "non_empty_string",
+    causationEventRefs: "string_array",
+    correlationId: "non_empty_string"
+  }),
+  deadline_breach_admitted: applyFieldRules("DeadlineBreachAdmittedEvent", {
+    basisId: "non_empty_string",
+    graphCallId: "non_empty_string",
+    frameId: "non_empty_string",
+    frameLineageId: "nullable_string",
+    graphFunctionId: "non_empty_string",
+    runId: "nullable_string",
+    workKey: "nullable_string",
+    vectorIndex: "non_negative_integer",
+    edge: "non_empty_string",
+    deadlineBreachRef: "non_empty_string",
+    constraintRef: "non_empty_string",
+    schedulePolicyRef: "non_empty_string",
+    deadlineRef: "non_empty_string",
+    deadlineBreachAction: {
+      oneOf: ["observe_drift", "block", "retry", "human_gate", "reprice"]
+    },
+    providerRef: "non_empty_string",
+    providerReceiptRef: "non_empty_string",
+    causationEventRefs: "string_array",
+    correlationId: "non_empty_string"
+  }),
+  scheduled_continuation_reopened: applyFieldRules(
+    "ScheduledContinuationReopenedEvent",
+    {
+      basisId: "non_empty_string",
+      graphCallId: "non_empty_string",
+      frameId: "non_empty_string",
+      frameLineageId: "nullable_string",
+      graphFunctionId: "non_empty_string",
+      runId: "nullable_string",
+      workKey: "nullable_string",
+      vectorIndex: "non_negative_integer",
+      edge: "non_empty_string",
+      scheduledContinuationRef: "non_empty_string",
+      constraintRef: "non_empty_string",
+      schedulePolicyRef: "non_empty_string",
+      timerIntentRef: "non_empty_string",
+      timerOutcomeRef: "non_empty_string",
+      providerRef: "non_empty_string",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string"
+    }
+  )
 } satisfies Record<RuntimeEvent["kind"], RuntimeEventAdmitter>);
 
 export function parseRuntimeEventKind(

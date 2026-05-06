@@ -674,6 +674,10 @@ export function deriveRetryFrontierProjection(input: {
       case "graph_span_foldback_evaluated":
       case "graph_reentry_planned":
       case "graph_reentry_applied":
+      case "timer_intent_admitted":
+      case "timer_outcome_admitted":
+      case "deadline_breach_admitted":
+      case "scheduled_continuation_reopened":
         break;
       default:
         {

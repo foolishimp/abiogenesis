@@ -19,7 +19,10 @@ import type {
 import {
   tryResolvePluginTraversalObserverBinding
 } from "./plugin_traversal_observer.js";
-import type { TraversalAttemptEnvelope } from "./traversal_modulation.js";
+import type {
+  TraversalAttemptEnvelope,
+  TraversalStrategySelection
+} from "./traversal_modulation.js";
 import type { RetryFrontierProjection } from "./retry_frontier.js";
 import { deriveRetryFrontierProjection } from "./retry_frontier.js";
 import {
@@ -142,6 +145,7 @@ export interface EnginePluginInput {
   readonly actorInvocationRef: ActorInvocationRef | null;
   readonly fpTransformRequest: FpTransformRequest | null;
   readonly pluginTraversalObserverBinding: PluginTraversalObserverBindingSelection | null;
+  readonly traversalStrategySelection: TraversalStrategySelection | null;
   readonly traversalAttemptEnvelope: TraversalAttemptEnvelope | null;
 }
 
@@ -466,6 +470,10 @@ export function constructEnginePluginInput(input: {
   readonly edge: string;
   readonly regime: RuntimeRegime;
   readonly actorInvocationRef?: ActorInvocationRef | null | undefined;
+  readonly traversalStrategySelection?:
+    | TraversalStrategySelection
+    | null
+    | undefined;
   readonly traversalAttemptEnvelope?: TraversalAttemptEnvelope | null | undefined;
   readonly abgFallbackBundle?: AbgFallbackBundle | null | undefined;
   readonly pluginTraversalObserverFallbackEnabled?: boolean | undefined;
@@ -558,6 +566,7 @@ export function constructEnginePluginInput(input: {
     actorInvocationRef: normalizedActorInvocationRef,
     fpTransformRequest,
     pluginTraversalObserverBinding,
+    traversalStrategySelection: input.traversalStrategySelection ?? null,
     traversalAttemptEnvelope: input.traversalAttemptEnvelope ?? null
   });
 }

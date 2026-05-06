@@ -24,6 +24,7 @@ Codex backend parity. Those are release proof lanes above this first slice.
 | `GraphFunction.declarations` | GTL | default qualifier for a graph function | none |
 | `Role.policyHooks` | GTL/M02 work publication | last-precedence default qualifier | none |
 | `TraversalStrategyDirective` | ABG M03 contracts | admitted strategy-layer directive; labels descriptive only | none |
+| `TraversalStrategySelection` | ABG M03 contracts | replay-visible selected per-edge strategy with source and config digest | none |
 | `AgenticBackendProgressProfile` | ABG M03 contracts | backend progress interpretation config | none |
 | `TraversalModulationProfile` | ABG M03 contracts | basis-bound modulation profile | none |
 | `TraversalAttemptEnvelope` | ABG M03 contracts | scheduler command surface for one actor attempt | plugin/transport handoff |
@@ -39,19 +40,19 @@ Codex backend parity. Those are release proof lanes above this first slice.
 | `code/src/abg/m03/contracts/traversal_modulation.ts` | pure directive resolution, profile/envelope derivation, backend progress classification, progress-row admission, forced-review projection, event constructors |
 | `code/src/abg/m03/contracts/carriers.ts` | runtime event union and T-107 event interfaces |
 | `code/src/abg/m03/contracts/event_admission.ts` | fail-closed admission rules for T-107 events |
-| `code/src/abg/m03/contracts/plugins.ts` | `EnginePluginInput.traversalAttemptEnvelope` handoff field |
+| `code/src/abg/m03/contracts/plugins.ts` | `EnginePluginInput.traversalStrategySelection` and `traversalAttemptEnvelope` handoff fields |
 | `code/src/abg/m03/transport/carriers.ts` | dispatch request fields for envelope refs and scheduling primitives |
 | `code/src/abg/m03/transport/constructors.ts` | transport constructor preservation of envelope refs and schedule/gate/progress refs |
 | `code/src/abg/m03/transport/admission.ts` | dispatch request admission for modulation handoff fields |
-| `code/src/abg/m03/runner/engine_runner.ts` | shared qualified-vector F_P attempt derivation for sync and async runner adapters; absent qualifier stays legacy |
+| `code/src/abg/m03/runner/engine_runner.ts` | shared qualified-vector F_P attempt derivation for sync and async runner adapters; absent qualifier stays unqualified |
 | `test_env/tests/test_t107_traversal_modulation_unit.test.mjs` | first-slice proof |
 
 ## Precedence Contract
 
 ```text
-GraphVector.declarations["abg.traversal_modulation"]
-  > GraphFunction.declarations["abg.default_traversal_modulation"]
-  > Role.policyHooks["abg.traversal_modulation"]
+GraphVector.declarations["abg.traversal_strategy"]
+  > GraphFunction.declarations["abg.default_traversal_strategy"]
+  > Role.policyHooks["abg.traversal_strategy"]
 ```
 
 Tests must prove:
@@ -62,6 +63,7 @@ Tests must prove:
 - malformed present qualifier fails closed
 - duplicate qualifier fails closed
 - no qualifier means no envelope is derived
+- old traversal-modulation key spellings are not accepted as aliases
 
 ## Event Admission Contract
 
@@ -92,7 +94,7 @@ flowchart TD
   A[derive advancement transition] --> B{F_P dispatch?}
   B -- no --> Z[existing transition handling]
   B -- yes --> C{GTL modulation qualifier?}
-  C -- absent --> D[legacy EnginePluginInput envelope null]
+  C -- absent --> D[EnginePluginInput envelope null]
   C -- malformed --> E[fail closed]
   C -- present --> F[derive profile and attempt envelope]
   F --> G[emit modulation resolved and envelope derived]
@@ -137,7 +139,7 @@ Do not close T-107 if:
 
 - modulation is prompt text without an admitted envelope
 - runner derives an envelope without GTL qualifier truth
-- a present malformed qualifier silently falls back to legacy behavior
+- a present malformed qualifier silently falls back to unqualified behavior
 - public summary and modulation projection disagree
 - worker prose, file presence, or elapsed time is used as progress truth
 - ABG hard-codes downstream strategy labels

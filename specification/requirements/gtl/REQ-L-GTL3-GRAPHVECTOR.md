@@ -31,3 +31,7 @@ record of GTL 3.
 **REQ-L-GTL3-GRAPHVECTOR-008**: Public execution entry and semantic work contracts shall not target bare graph vectors. Operative traversal boundaries remain internal realized structure beneath one or more published graph functions.
 
 **REQ-L-GTL3-GRAPHVECTOR-009**: When a traversal modulation qualifier is present, the graph-vector declaration shall be the highest-precedence source for that edge's modulation hook. A graph-function or role default shall not override the vector-local qualifier.
+
+**REQ-L-GTL3-GRAPHVECTOR-010**: Per-edge traversal strategy shall be declared through `GraphVector.declarations["abg.traversal_strategy"]`. ABG shall carry the selected strategy as runtime truth while treating the strategy label as descriptive product-owned metadata.
+
+**REQ-L-GTL3-GRAPHVECTOR-011**: Temporal eligibility constraints such as `not_before` may attach to a graph vector when the constraint governs one traversal boundary. The first canonical graph-vector temporal syntax shall be `GraphVector.declarations["abg.temporal_constraint"]` as a `hook_ref` whose config carries `constraint_ref`, `operator`, `not_before_ref`, optional `deadline_ref`, `schedule_policy_ref`, `timer_provider_ref`, and `deadline_breach_action`. Such constraints shall affect eligibility, deadline-breach pressure, and schedule-policy consequence only through ABG replay and shall not make a graph vector a public execution target. Alternate temporal key spellings shall not be admitted as compatibility surfaces.

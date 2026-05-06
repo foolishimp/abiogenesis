@@ -240,7 +240,7 @@ test("T-107 resolves GraphVector traversal modulation qualifier before defaults"
   const vector = withVectorDeclarations(
     basis,
     attrs([
-      hookEntry("abg.traversal_modulation", {
+      hookEntry("abg.traversal_strategy", {
         ref: "strategy://odd_sdlc/waterfall",
         label: "waterfall",
         primitives: ["single_vertical_slice"],
@@ -251,7 +251,7 @@ test("T-107 resolves GraphVector traversal modulation qualifier before defaults"
   const graphFunction = withGraphFunctionDeclarations(
     basis,
     attrs([
-      hookEntry("abg.default_traversal_modulation", {
+      hookEntry("abg.default_traversal_strategy", {
         ref: "strategy://odd_sdlc/default",
         label: "default",
         primitives: ["bounded_batch"]
@@ -261,7 +261,7 @@ test("T-107 resolves GraphVector traversal modulation qualifier before defaults"
   const role = roleWithPolicyHooks(
     "role://t107",
     attrs([
-      hookEntry("abg.traversal_modulation", {
+      hookEntry("abg.traversal_strategy", {
         ref: "strategy://role/default",
         label: "role_default",
         primitives: ["ordered_schedule_prefix"]
@@ -302,7 +302,7 @@ test("T-107 resolves GraphFunction default before Role policy hook", () => {
   const graphFunction = withGraphFunctionDeclarations(
     basis,
     attrs([
-      hookEntry("abg.default_traversal_modulation", {
+      hookEntry("abg.default_traversal_strategy", {
         ref: "strategy://odd_sdlc/ordered-default",
         label: "graph_function_default",
         primitives: ["ordered_schedule_prefix", "bounded_batch"],
@@ -313,7 +313,7 @@ test("T-107 resolves GraphFunction default before Role policy hook", () => {
   const role = roleWithPolicyHooks(
     "role://t107",
     attrs([
-      hookEntry("abg.traversal_modulation", {
+      hookEntry("abg.traversal_strategy", {
         ref: "strategy://role/default",
         label: "role_default",
         primitives: ["single_vertical_slice"]
@@ -345,7 +345,7 @@ test("T-107 resolves Role policy hook only when edge and graph-function defaults
   const role = roleWithPolicyHooks(
     "role://t107",
     attrs([
-      hookEntry("abg.traversal_modulation", {
+      hookEntry("abg.traversal_strategy", {
         ref: "strategy://role/gap-repair",
         label: "role_gap_repair",
         primitives: ["gap_repair_slice", "bounded_batch"]
@@ -371,7 +371,7 @@ test("T-107 GTL qualifier resolution fails closed for malformed, duplicate, or a
       resolveTraversalStrategyDirectiveFromGtl({
         vector: withVectorDeclarations(
           basis,
-          attrs([scalarAttr("abg.traversal_modulation", "strategy://bad")])
+          attrs([scalarAttr("abg.traversal_strategy", "strategy://bad")])
         ),
         graphFunction
       }),
@@ -384,12 +384,12 @@ test("T-107 GTL qualifier resolution fails closed for malformed, duplicate, or a
         vector: withVectorDeclarations(
           basis,
           attrs([
-            hookEntry("abg.traversal_modulation", {
+            hookEntry("abg.traversal_strategy", {
               ref: "strategy://one",
               label: "one",
               primitives: ["bounded_batch"]
             }),
-            hookEntry("traversal_modulation", {
+            hookEntry("abg.traversal_strategy", {
               ref: "strategy://two",
               label: "two",
               primitives: ["bounded_batch"]
@@ -418,7 +418,7 @@ test("T-107 strategy labels are descriptive; ABG enforces primitives and schedul
     const vector = withVectorDeclarations(
       basis,
       attrs([
-        hookEntry("abg.traversal_modulation", {
+        hookEntry("abg.traversal_strategy", {
           ref: `strategy://odd_sdlc/${label}`,
           label,
           primitives: ["bounded_batch", "ordered_schedule_prefix"]
@@ -447,7 +447,7 @@ test("T-107 agent-proposed slices require admission evidence", () => {
   const vector = withVectorDeclarations(
     basis,
     attrs([
-      hookEntry("abg.traversal_modulation", {
+      hookEntry("abg.traversal_strategy", {
         ref: "strategy://odd_sdlc/agent-proposed",
         label: "agent_proposed",
         primitives: ["agent_proposed_slice_requires_admission"]
@@ -487,7 +487,7 @@ test("T-107 agent-proposed slices require admission evidence", () => {
 test("T-107 assurance blocks private continuation when typed progress rows are incomplete", () => {
   const envelope = buildEnvelope({
     vectorAttrs: attrs([
-      hookEntry("abg.traversal_modulation", {
+      hookEntry("abg.traversal_strategy", {
         ref: "strategy://odd_sdlc/bounded",
         label: "bounded",
         primitives: ["bounded_batch"]
@@ -526,7 +526,7 @@ test("T-107 assurance blocks private continuation when typed progress rows are i
 test("T-107 same-edge continuation requires typed remaining schedule truth", () => {
   const envelope = buildEnvelope({
     vectorAttrs: attrs([
-      hookEntry("abg.traversal_modulation", {
+      hookEntry("abg.traversal_strategy", {
         ref: "strategy://odd_sdlc/bounded",
         label: "bounded",
         primitives: ["bounded_batch"]
@@ -578,7 +578,7 @@ test("T-107 backend ambiguity projects forced review without semantic closure", 
   const envelope = buildEnvelope({
     backendProfile: backendProfile("codex"),
     vectorAttrs: attrs([
-      hookEntry("abg.traversal_modulation", {
+      hookEntry("abg.traversal_strategy", {
         ref: "strategy://odd_sdlc/bounded",
         label: "bounded",
         primitives: ["bounded_batch"]
@@ -619,7 +619,7 @@ test("T-107 runtime event family is replay-admitted with lineage", () => {
   const vector = withVectorDeclarations(
     basis,
     attrs([
-      hookEntry("abg.traversal_modulation", {
+      hookEntry("abg.traversal_strategy", {
         ref: "strategy://odd_sdlc/event-spine",
         label: "event_spine",
         primitives: ["bounded_batch"]
@@ -716,7 +716,7 @@ test("T-107 runtime event family is replay-admitted with lineage", () => {
 test("T-107 transport dispatch request can carry attempt envelope primitives", () => {
   const envelope = buildEnvelope({
     vectorAttrs: attrs([
-      hookEntry("abg.traversal_modulation", {
+      hookEntry("abg.traversal_strategy", {
         ref: "strategy://odd_sdlc/transport",
         label: "transport",
         primitives: ["bounded_batch"],
@@ -770,7 +770,7 @@ test("T-107 runner derives envelope from GTL qualifier and passes it to F_P plug
       dispatchRef: "dispatch://t107-runner"
     }),
     attrs([
-      hookEntry("abg.traversal_modulation", {
+      hookEntry("abg.traversal_strategy", {
         ref: "strategy://odd_sdlc/runner-steel-thread",
         label: "steel_thread",
         primitives: ["bounded_batch", "ordered_schedule_prefix"],
@@ -828,20 +828,20 @@ test("T-107 runner derives envelope from GTL qualifier and passes it to F_P plug
   assert.equal(result.transition.kind, "terminal");
 });
 
-test("T-107 runner leaves unqualified F_P vectors on the legacy path", () => {
+test("T-107 runner leaves unqualified F_P vectors on the unqualified path", () => {
   const basis = buildThreeStageBasis({
     defaultRegime: "F_P",
-    dispatchRef: "dispatch://t107-runner-legacy"
+    dispatchRef: "dispatch://t107-runner-unqualified"
   });
   const pluginInputs = [];
   const emittedEvents = [];
   const fpDispatch = Object.freeze({
-    contract: fpDispatchContract("plugin://test/t107-runner-legacy"),
+    contract: fpDispatchContract("plugin://test/t107-runner-unqualified"),
     dispatch: (input) => {
       pluginInputs.push(input);
       return constructFpDispatchOutcome({
         status: "blocked",
-        resultRef: "result://t107-runner-legacy/no-output",
+        resultRef: "result://t107-runner-unqualified/no-output",
         reason: "worker produced no output"
       });
     }
@@ -875,7 +875,7 @@ test("T-107 async runner derives the same qualified F_P attempt envelope as sync
       dispatchRef: "dispatch://t107-async-runner"
     }),
     attrs([
-      hookEntry("abg.traversal_modulation", {
+      hookEntry("abg.traversal_strategy", {
         ref: "strategy://odd_sdlc/async-runner-steel-thread",
         label: "steel_thread",
         primitives: ["bounded_batch", "ordered_schedule_prefix"],
@@ -940,7 +940,7 @@ test("T-107 async runner exits bounded attempt instead of internally retrying bl
       dispatchRef: "dispatch://t107-async-runner-bounded-attached"
     }),
     attrs([
-      hookEntry("abg.traversal_modulation", {
+      hookEntry("abg.traversal_strategy", {
         ref: "strategy://odd_sdlc/async-runner-bounded-attached",
         label: "steel_thread",
         primitives: ["bounded_batch", "ordered_schedule_prefix"],
@@ -992,20 +992,20 @@ test("T-107 async runner exits bounded attempt instead of internally retrying bl
   );
 });
 
-test("T-107 async runner leaves unqualified F_P vectors on the legacy path", async () => {
+test("T-107 async runner leaves unqualified F_P vectors on the unqualified path", async () => {
   const basis = buildThreeStageBasis({
     defaultRegime: "F_P",
-    dispatchRef: "dispatch://t107-async-runner-legacy"
+    dispatchRef: "dispatch://t107-async-runner-unqualified"
   });
   const pluginInputs = [];
   const emittedEvents = [];
   const fpDispatch = Object.freeze({
-    contract: fpDispatchContract("plugin://test/t107-async-runner-legacy"),
+    contract: fpDispatchContract("plugin://test/t107-async-runner-unqualified"),
     dispatch: async (input) => {
       pluginInputs.push(input);
       return constructFpDispatchOutcome({
         status: "blocked",
-        resultRef: "result://t107-async-runner-legacy/no-output",
+        resultRef: "result://t107-async-runner-unqualified/no-output",
         reason: "worker produced no output"
       });
     }

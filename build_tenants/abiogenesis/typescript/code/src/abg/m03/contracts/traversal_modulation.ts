@@ -1,8 +1,11 @@
 // Implements: T-107
-// Implements: REQ-R-ABG3-CONTINUATION
-// Implements: REQ-R-ABG3-PROJECTION
+// Implements: T-112
+// Implements: REQ-L-GTL3-GRAPHVECTOR-010
+// Implements: REQ-R-ABG3-EVENTS-020
+// Implements: REQ-R-ABG3-PROJECTION-012
 // Implements: REQ-R-ABG3-ASSURANCE
 
+import { createHash } from "node:crypto";
 import type {
   ExecutionBasis,
   TraversalAttemptDispatchedEvent,
@@ -45,6 +48,19 @@ export const TRAVERSAL_SCHEDULING_PRIMITIVE_VALUES = Object.freeze([
 export type TraversalSchedulingPrimitive =
   (typeof TRAVERSAL_SCHEDULING_PRIMITIVE_VALUES)[number];
 
+export const TRAVERSAL_STRATEGY_VECTOR_ATTR_KEYS = Object.freeze([
+  "abg.traversal_strategy"
+] as const);
+
+export const TRAVERSAL_STRATEGY_GRAPH_FUNCTION_DEFAULT_ATTR_KEYS =
+  Object.freeze([
+    "abg.default_traversal_strategy"
+  ] as const);
+
+export const TRAVERSAL_STRATEGY_ROLE_ATTR_KEYS = Object.freeze([
+  "abg.traversal_strategy"
+] as const);
+
 export const AGENTIC_BACKEND_KIND_VALUES = Object.freeze([
   "claude",
   "codex",
@@ -52,25 +68,6 @@ export const AGENTIC_BACKEND_KIND_VALUES = Object.freeze([
 ] as const);
 
 export type AgenticBackendKind = (typeof AGENTIC_BACKEND_KIND_VALUES)[number];
-
-export const TRAVERSAL_MODULATION_VECTOR_ATTR_KEYS = Object.freeze([
-  "abg.traversal_modulation",
-  "traversal_modulation",
-  "traversal_modulation_ref"
-] as const);
-
-export const TRAVERSAL_MODULATION_GRAPH_FUNCTION_DEFAULT_ATTR_KEYS =
-  Object.freeze([
-    "abg.default_traversal_modulation",
-    "default_traversal_modulation",
-    "default_traversal_modulation_ref"
-  ] as const);
-
-export const TRAVERSAL_MODULATION_ROLE_ATTR_KEYS = Object.freeze([
-  "abg.traversal_modulation",
-  "traversal_modulation",
-  "traversal_modulation_ref"
-] as const);
 
 export const TRAVERSAL_MODULATION_CONFIG_KEY_VALUES = Object.freeze([
   "directive_ref",
@@ -140,6 +137,12 @@ export type TraversalModulationGtlQualifierSource =
   | "graph_function_declarations"
   | "role_policy_hooks";
 
+export type TraversalStrategySelectionSource =
+  | "graph_vector"
+  | "graph_function"
+  | "role_policy"
+  | "runtime_default";
+
 export interface TraversalStrategyDirective {
   readonly kind: "traversal_strategy_directive";
   readonly directiveRef: string;
@@ -159,6 +162,30 @@ export interface TraversalModulationGtlQualifierResolution {
   readonly attrKey: string;
   readonly hookRef: string;
   readonly directive: TraversalStrategyDirective;
+}
+
+export interface TraversalStrategySelection {
+  readonly kind: "traversal_strategy_selection";
+  readonly selectionRef: string;
+  readonly basisId: string;
+  readonly graphFunctionId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly source: TraversalStrategySelectionSource;
+  readonly sourceRef: string;
+  readonly attrKey: string | null;
+  readonly hookRef: string | null;
+  readonly directiveRef: string;
+  readonly strategyOwnerRef: string;
+  readonly strategyLabel: string;
+  readonly enforcementPrimitives: readonly TraversalSchedulingPrimitive[];
+  readonly obligationScheduleRefs: readonly string[];
+  readonly orderingConstraintRefs: readonly string[];
+  readonly phaseGateRefs: readonly string[];
+  readonly batch: TraversalModulationBatch;
+  readonly configDigest: string;
 }
 
 export interface AgenticBackendProgressProfile {
@@ -210,6 +237,12 @@ export interface TraversalContinuationContract {
 export interface TraversalModulationProfile {
   readonly kind: "traversal_modulation_profile";
   readonly profileRef: string;
+  readonly strategySelectionRef: string;
+  readonly strategySelectionSource: TraversalStrategySelectionSource;
+  readonly strategySelectionSourceRef: string;
+  readonly strategySelectionAttrKey: string | null;
+  readonly strategySelectionHookRef: string | null;
+  readonly strategyConfigDigest: string;
   readonly basisId: string;
   readonly graphFunctionId: string;
   readonly graphCallId: string;
@@ -237,6 +270,9 @@ export interface TraversalAttemptEnvelope {
   readonly kind: "traversal_attempt_envelope";
   readonly envelopeRef: string;
   readonly profileRef: string;
+  readonly strategySelectionRef: string;
+  readonly strategySelectionSource: TraversalStrategySelectionSource;
+  readonly strategyConfigDigest: string;
   readonly basisId: string;
   readonly graphFunctionId: string;
   readonly graphCallId: string;
@@ -312,6 +348,7 @@ export interface TraversalModulationProfileInput {
   readonly basis: ExecutionBasis;
   readonly vectorIndex: number;
   readonly directive: TraversalStrategyDirective;
+  readonly strategySelection?: TraversalStrategySelection | undefined;
   readonly backendProfile: AgenticBackendProgressProfile;
   readonly policyRefs?: readonly string[];
   readonly obligationScheduleRefs?: readonly string[];
@@ -592,7 +629,7 @@ function singleRoleHookMatch(roles: readonly Role[]): TraversalHookMatch | null 
   for (const role of roles) {
     const match = traversalHookMatch({
       attrs: role.policyHooks,
-      keys: TRAVERSAL_MODULATION_ROLE_ATTR_KEYS,
+      keys: TRAVERSAL_STRATEGY_ROLE_ATTR_KEYS,
       source: "role_policy_hooks",
       sourceRef: role.id
     });
@@ -635,6 +672,25 @@ function hasPrimitive(
 
 function sortedUniqueStrings(values: Iterable<string>): readonly string[] {
   return freezeStringArray([...new Set(values)].sort());
+}
+
+function stableJson(input: unknown): string {
+  if (input === null || typeof input !== "object") {
+    return JSON.stringify(input);
+  }
+  if (Array.isArray(input)) {
+    return `[${input.map((entry) => stableJson(entry)).join(",")}]`;
+  }
+  const entries = Object.entries(input).sort(([left], [right]) =>
+    left.localeCompare(right)
+  );
+  return `{${entries
+    .map(([key, value]) => `${JSON.stringify(key)}:${stableJson(value)}`)
+    .join(",")}}`;
+}
+
+function sha256Json(input: unknown): string {
+  return `sha256:${createHash("sha256").update(stableJson(input)).digest("hex")}`;
 }
 
 function runtimeLineageFields(input: {
@@ -947,6 +1003,124 @@ export function admitTraversalStrategyDirective(input: {
   } satisfies TraversalStrategyDirective);
 }
 
+function directiveFromSelection(
+  selection: TraversalStrategySelection
+): TraversalStrategyDirective {
+  return admitTraversalStrategyDirective({
+    directiveRef: selection.directiveRef,
+    strategyOwnerRef: selection.strategyOwnerRef,
+    strategyLabel: selection.strategyLabel,
+    enforcementPrimitives: selection.enforcementPrimitives,
+    obligationScheduleRefs: selection.obligationScheduleRefs,
+    orderingConstraintRefs: selection.orderingConstraintRefs,
+    phaseGateRefs: selection.phaseGateRefs,
+    batch: selection.batch
+  });
+}
+
+function selectionSourceForQualifier(
+  source: TraversalModulationGtlQualifierSource
+): TraversalStrategySelectionSource {
+  switch (source) {
+    case "graph_vector_declarations":
+      return "graph_vector";
+    case "graph_function_declarations":
+      return "graph_function";
+    case "role_policy_hooks":
+      return "role_policy";
+    default: {
+      const exhaustive: never = source;
+      throw new TypeError(
+        `Unsupported traversal strategy source ${JSON.stringify(exhaustive)}`
+      );
+    }
+  }
+}
+
+function selectionFromDirective(input: {
+  readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
+  readonly source: TraversalStrategySelectionSource;
+  readonly sourceRef: string;
+  readonly attrKey: string | null;
+  readonly hookRef: string | null;
+  readonly directive: TraversalStrategyDirective;
+  readonly selectionRef?: string | undefined;
+}): TraversalStrategySelection {
+  assertVectorIndexInRange(input.basis, input.vectorIndex);
+  assertNonEmptyString(input.sourceRef, "TraversalStrategySelection.sourceRef");
+  if (input.attrKey !== null) {
+    assertNonEmptyString(input.attrKey, "TraversalStrategySelection.attrKey");
+  }
+  if (input.hookRef !== null) {
+    assertNonEmptyString(input.hookRef, "TraversalStrategySelection.hookRef");
+  }
+  const directive = admitTraversalStrategyDirective(input.directive);
+  const graphCallId = graphCallIdForBasis(input.basis);
+  const frameId = frameIdForBasis(input.basis);
+  const edge = vectorEdge(input.basis, input.vectorIndex);
+  const digestInput = Object.freeze({
+    basisId: input.basis.id,
+    graphFunctionId: input.basis.graphFunction.id,
+    vectorIndex: input.vectorIndex,
+    edge,
+    source: input.source,
+    sourceRef: input.sourceRef,
+    attrKey: input.attrKey,
+    hookRef: input.hookRef,
+    directive
+  });
+  const configDigest = sha256Json(digestInput);
+  return Object.freeze({
+    kind: "traversal_strategy_selection",
+    selectionRef:
+      input.selectionRef ??
+      [
+        "traversal_strategy_selection",
+        input.basis.id,
+        String(input.vectorIndex),
+        input.source,
+        directive.directiveRef,
+        configDigest
+      ].join(":"),
+    basisId: input.basis.id,
+    graphFunctionId: input.basis.graphFunction.id,
+    graphCallId,
+    frameId,
+    vectorIndex: input.vectorIndex,
+    edge,
+    source: input.source,
+    sourceRef: input.sourceRef,
+    attrKey: input.attrKey,
+    hookRef: input.hookRef,
+    directiveRef: directive.directiveRef,
+    strategyOwnerRef: directive.strategyOwnerRef,
+    strategyLabel: directive.strategyLabel,
+    enforcementPrimitives: directive.enforcementPrimitives,
+    obligationScheduleRefs: directive.obligationScheduleRefs,
+    orderingConstraintRefs: directive.orderingConstraintRefs,
+    phaseGateRefs: directive.phaseGateRefs,
+    batch: directive.batch,
+    configDigest
+  } satisfies TraversalStrategySelection);
+}
+
+function selectionFromResolution(input: {
+  readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
+  readonly resolution: TraversalModulationGtlQualifierResolution;
+}): TraversalStrategySelection {
+  return selectionFromDirective({
+    basis: input.basis,
+    vectorIndex: input.vectorIndex,
+    source: selectionSourceForQualifier(input.resolution.source),
+    sourceRef: input.resolution.sourceRef,
+    attrKey: input.resolution.attrKey,
+    hookRef: input.resolution.hookRef,
+    directive: input.resolution.directive
+  });
+}
+
 function resolveTraversalHookMatch(input: {
   readonly vector: GraphVector;
   readonly graphFunction: GraphFunction;
@@ -954,18 +1128,18 @@ function resolveTraversalHookMatch(input: {
 }): TraversalHookMatch | null {
   const vectorMatch = traversalHookMatch({
     attrs: input.vector.declarations,
-    keys: TRAVERSAL_MODULATION_VECTOR_ATTR_KEYS,
+    keys: TRAVERSAL_STRATEGY_VECTOR_ATTR_KEYS,
     source: "graph_vector_declarations",
     sourceRef: input.vector.id
   });
   const graphFunctionMatch =
     vectorMatch ??
-    traversalHookMatch({
-      attrs: input.graphFunction.declarations,
-      keys: TRAVERSAL_MODULATION_GRAPH_FUNCTION_DEFAULT_ATTR_KEYS,
-      source: "graph_function_declarations",
-      sourceRef: input.graphFunction.id
-    });
+      traversalHookMatch({
+        attrs: input.graphFunction.declarations,
+        keys: TRAVERSAL_STRATEGY_GRAPH_FUNCTION_DEFAULT_ATTR_KEYS,
+        source: "graph_function_declarations",
+        sourceRef: input.graphFunction.id
+      });
   const match =
     graphFunctionMatch ?? singleRoleHookMatch(input.roles ?? Object.freeze([]));
   return match;
@@ -1004,6 +1178,45 @@ export function resolveTraversalStrategyDirectiveFromGtl(input: {
   return resolution;
 }
 
+export function tryDeriveTraversalStrategySelectionFromGtl(input: {
+  readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
+  readonly vector: GraphVector;
+  readonly graphFunction: GraphFunction;
+  readonly roles?: readonly Role[];
+}): TraversalStrategySelection | null {
+  const resolutionInput = {
+    vector: input.vector,
+    graphFunction: input.graphFunction,
+    ...(input.roles !== undefined ? { roles: input.roles } : {})
+  };
+  const resolution = tryResolveTraversalStrategyDirectiveFromGtl(resolutionInput);
+  if (resolution === null) {
+    return null;
+  }
+  return selectionFromResolution({
+    basis: input.basis,
+    vectorIndex: input.vectorIndex,
+    resolution
+  });
+}
+
+export function deriveTraversalStrategySelectionFromGtl(input: {
+  readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
+  readonly vector: GraphVector;
+  readonly graphFunction: GraphFunction;
+  readonly roles?: readonly Role[];
+}): TraversalStrategySelection {
+  const selection = tryDeriveTraversalStrategySelectionFromGtl(input);
+  if (selection === null) {
+    throw new TypeError(
+      "Traversal strategy selection requires a GTL qualifier or explicit runtime default"
+    );
+  }
+  return selection;
+}
+
 export function deriveTraversalModulationProfileFromGtl(input: Omit<
   TraversalModulationProfileInput,
   "directive"
@@ -1012,26 +1225,28 @@ export function deriveTraversalModulationProfileFromGtl(input: Omit<
   readonly graphFunction: GraphFunction;
   readonly roles?: readonly Role[];
 }): TraversalModulationProfile {
-  const resolutionInput = {
+  const selection = deriveTraversalStrategySelectionFromGtl({
+    basis: input.basis,
+    vectorIndex: input.vectorIndex,
     vector: input.vector,
     graphFunction: input.graphFunction,
     ...(input.roles !== undefined ? { roles: input.roles } : {})
-  };
-  const resolution = resolveTraversalStrategyDirectiveFromGtl(resolutionInput);
+  });
   const profileInput = {
     basis: input.basis,
     vectorIndex: input.vectorIndex,
-    directive: resolution.directive,
+    directive: directiveFromSelection(selection),
+    strategySelection: selection,
     backendProfile: input.backendProfile,
     obligationScheduleRefs:
-      input.obligationScheduleRefs ?? resolution.directive.obligationScheduleRefs,
+      input.obligationScheduleRefs ?? selection.obligationScheduleRefs,
     ...(input.policyRefs !== undefined ? { policyRefs: input.policyRefs } : {}),
     ...(input.gapPressureRefs !== undefined
       ? { gapPressureRefs: input.gapPressureRefs }
       : {}),
     ...(input.affectRefs !== undefined ? { affectRefs: input.affectRefs } : {}),
     ...(input.affects !== undefined ? { affects: input.affects } : {}),
-    batch: input.batch ?? resolution.directive.batch,
+    batch: input.batch ?? selection.batch,
     ...(input.progressContract !== undefined
       ? { progressContract: input.progressContract }
       : {}),
@@ -1130,6 +1345,29 @@ export function deriveTraversalModulationProfile(
 ): TraversalModulationProfile {
   assertVectorIndexInRange(input.basis, input.vectorIndex);
   const directive = admitTraversalStrategyDirective(input.directive);
+  const selection =
+    input.strategySelection ??
+    selectionFromDirective({
+      basis: input.basis,
+      vectorIndex: input.vectorIndex,
+      source: "runtime_default",
+      sourceRef: input.basis.resolvedPolicy.resolvedPolicyBundleRef,
+      attrKey: null,
+      hookRef: null,
+      directive
+    });
+  if (selection.basisId !== input.basis.id) {
+    throw new TypeError("Traversal strategy selection must share execution basis");
+  }
+  if (selection.graphFunctionId !== input.basis.graphFunction.id) {
+    throw new TypeError("Traversal strategy selection must share graph function");
+  }
+  if (selection.vectorIndex !== input.vectorIndex) {
+    throw new TypeError("Traversal strategy selection must share vector index");
+  }
+  if (selection.directiveRef !== directive.directiveRef) {
+    throw new TypeError("Traversal strategy selection must share directive ref");
+  }
   const obligationScheduleRefs = freezeUniqueNonEmptyStrings(
     input.obligationScheduleRefs ?? directive.obligationScheduleRefs,
     "TraversalModulationProfile.obligationScheduleRefs"
@@ -1172,6 +1410,12 @@ export function deriveTraversalModulationProfile(
         String(input.vectorIndex),
         directive.directiveRef
       ].join(":"),
+    strategySelectionRef: selection.selectionRef,
+    strategySelectionSource: selection.source,
+    strategySelectionSourceRef: selection.sourceRef,
+    strategySelectionAttrKey: selection.attrKey,
+    strategySelectionHookRef: selection.hookRef,
+    strategyConfigDigest: selection.configDigest,
     basisId: input.basis.id,
     graphFunctionId: input.basis.graphFunction.id,
     graphCallId,
@@ -1241,6 +1485,9 @@ export function deriveTraversalAttemptEnvelope(
         input.actorInvocationId
       ].join(":"),
     profileRef: input.profile.profileRef,
+    strategySelectionRef: input.profile.strategySelectionRef,
+    strategySelectionSource: input.profile.strategySelectionSource,
+    strategyConfigDigest: input.profile.strategyConfigDigest,
     basisId: input.basis.id,
     graphFunctionId: input.basis.graphFunction.id,
     graphCallId: input.profile.graphCallId,
@@ -1291,6 +1538,12 @@ export function constructTraversalModulationResolvedEvent(input: {
     vectorIndex: input.profile.vectorIndex,
     edge: input.profile.edge,
     profileRef: input.profile.profileRef,
+    strategySelectionRef: input.profile.strategySelectionRef,
+    strategySelectionSource: input.profile.strategySelectionSource,
+    strategySelectionSourceRef: input.profile.strategySelectionSourceRef,
+    strategySelectionAttrKey: input.profile.strategySelectionAttrKey,
+    strategySelectionHookRef: input.profile.strategySelectionHookRef,
+    strategyConfigDigest: input.profile.strategyConfigDigest,
     strategyDirectiveRef: input.profile.strategyDirectiveRef,
     strategyOwnerRef: input.profile.strategyOwnerRef,
     strategyLabel: input.profile.strategyLabel,
@@ -1332,6 +1585,9 @@ export function constructTraversalAttemptEnvelopeDerivedEvent(input: {
     edge: input.envelope.edge,
     envelopeRef: input.envelope.envelopeRef,
     profileRef: input.envelope.profileRef,
+    strategySelectionRef: input.envelope.strategySelectionRef,
+    strategySelectionSource: input.envelope.strategySelectionSource,
+    strategyConfigDigest: input.envelope.strategyConfigDigest,
     strategyDirectiveRef: input.envelope.strategyDirectiveRef,
     backendProfileRef: input.envelope.backendProfileRef,
     actorInvocationId: input.envelope.actorInvocationId,

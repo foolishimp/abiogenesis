@@ -5,6 +5,14 @@ import type {
   RuntimeEvent
 } from "./carriers.js";
 import {
+  constructRuntimeFluent,
+  constructVectorClosedRuntimeFluent,
+  eventCalculusEffectInitiates,
+  eventCalculusEffectTerminates,
+  eventCalculusEffectsForEvent
+} from "./event_calculus.js";
+import type { RuntimeEventCalculusAxiom } from "./event_calculus.js";
+import {
   assertBasisEvent,
   assertVectorIndexInRange,
   freezeNumberArray,
@@ -14,6 +22,12 @@ import {
 } from "./runtime_support.js";
 
 type RuntimeProjectionClosureSource = "vector_closed";
+
+export interface RuntimeAggregateProjectionOptions {
+  readonly eventCalculusAxioms?:
+    | readonly RuntimeEventCalculusAxiom[]
+    | undefined;
+}
 
 function closeVectorFromReplay(input: {
   readonly basis: ExecutionBasis;
@@ -85,6 +99,48 @@ function assertAssessedEdgeInGraph(
   }
 }
 
+function retryRepairPlannedRuntimeFluent(
+  basis: ExecutionBasis,
+  event: Extract<RuntimeEvent, { readonly kind: "retry_repair_planned" }>
+) {
+  return constructRuntimeFluent({
+    name: "retry_repair_planned",
+    scope: "vector",
+    basisId: event.basisId,
+    graphFunctionId: basis.graphFunction.id,
+    graphCallId: event.graphCallId,
+    frameId: event.frameId,
+    runId: basis.runId,
+    workKey: basis.workKey,
+    vectorIndex: event.vectorIndex,
+    edge: event.edge
+  });
+}
+
+function continuationRuntimeFluent(
+  basis: ExecutionBasis,
+  event:
+    | Extract<RuntimeEvent, { readonly kind: "continuation_terminated" }>
+    | Extract<RuntimeEvent, { readonly kind: "continuation_reopened" }>,
+  name: "continuation_open" | "continuation_terminated",
+  continuationId: string
+) {
+  return constructRuntimeFluent({
+    name,
+    scope: "continuation",
+    basisId: event.basisId,
+    graphFunctionId: basis.graphFunction.id,
+    graphCallId: event.graphCallId,
+    frameId: event.frameId,
+    runId: basis.runId,
+    workKey: basis.workKey,
+    vectorIndex: event.vectorIndex,
+    edge: event.edge,
+    continuationId,
+    ref: event.causedByRetryRunId
+  });
+}
+
 export function sourceProjectionRef(projection: RuntimeAggregateProjection): string {
   return [
     "runtime_projection",
@@ -113,7 +169,8 @@ export function manifestSeenInProjection(
 
 export function deriveRuntimeAggregateProjection(
   basis: ExecutionBasis,
-  events: readonly RuntimeEvent[]
+  events: readonly RuntimeEvent[],
+  options: RuntimeAggregateProjectionOptions = Object.freeze({})
 ): RuntimeAggregateProjection {
   let graphCallId: string | null = null;
   let frameId: string | null = null;
@@ -162,9 +219,54 @@ export function deriveRuntimeAggregateProjection(
     assertBasisEvent(basis, event);
     switch (event.kind) {
       case "graph_call_opened":
+        if (
+          !eventCalculusEffectInitiates(
+            eventCalculusEffectsForEvent({
+              basis,
+              event,
+              axioms: options.eventCalculusAxioms
+            }),
+            constructRuntimeFluent({
+              name: "graph_call_open",
+              scope: "graph_call",
+              basisId: event.basisId,
+              graphFunctionId: event.graphFunctionId,
+              graphCallId: event.graphCallId,
+              runId: event.runId,
+              workKey: event.workKey
+            })
+          )
+        ) {
+          throw new TypeError(
+            "Runtime aggregate projection rejects graph call open without declared Event Calculus law"
+          );
+        }
         graphCallId = event.graphCallId;
         break;
       case "frame_opened":
+        if (
+          !eventCalculusEffectInitiates(
+            eventCalculusEffectsForEvent({
+              basis,
+              event,
+              axioms: options.eventCalculusAxioms
+            }),
+            constructRuntimeFluent({
+              name: "frame_open",
+              scope: "frame",
+              basisId: event.basisId,
+              graphFunctionId: basis.graphFunction.id,
+              graphCallId: event.graphCallId,
+              frameId: event.frameId,
+              runId: basis.runId,
+              workKey: basis.workKey
+            })
+          )
+        ) {
+          throw new TypeError(
+            "Runtime aggregate projection rejects frame open without declared Event Calculus law"
+          );
+        }
         graphCallId = event.graphCallId;
         frameId = event.frameId;
         break;
@@ -181,6 +283,25 @@ export function deriveRuntimeAggregateProjection(
         frameId = event.frameId;
         break;
       case "vector_closed":
+        if (
+          !eventCalculusEffectInitiates(
+            eventCalculusEffectsForEvent({
+              basis,
+              event,
+              axioms: options.eventCalculusAxioms
+            }),
+            constructVectorClosedRuntimeFluent({
+              basis,
+              vectorIndex: event.vectorIndex,
+              graphCallId: event.graphCallId,
+              frameId: event.frameId
+            })
+          )
+        ) {
+          throw new TypeError(
+            "Runtime aggregate projection rejects vector closure without declared Event Calculus law"
+          );
+        }
         closeVectorFromReplay({
           basis,
           closed,
@@ -192,6 +313,20 @@ export function deriveRuntimeAggregateProjection(
         frameId = event.frameId;
         break;
       case "retry_repair_planned":
+        if (
+          !eventCalculusEffectInitiates(
+            eventCalculusEffectsForEvent({
+              basis,
+              event,
+              axioms: options.eventCalculusAxioms
+            }),
+            retryRepairPlannedRuntimeFluent(basis, event)
+          )
+        ) {
+          throw new TypeError(
+            "Runtime aggregate projection rejects retry repair without declared Event Calculus law"
+          );
+        }
         assertVectorIndexInRange(basis, event.vectorIndex);
         retryAttemptRunIds.add(event.retryRunId);
         retryAttemptManifestIds.add(event.manifestId);
@@ -376,7 +511,63 @@ export function deriveRuntimeAggregateProjection(
         frameId = event.frameId;
         break;
       case "continuation_terminated":
+        if (
+          !eventCalculusEffectInitiates(
+            eventCalculusEffectsForEvent({
+              basis,
+              event,
+              axioms: options.eventCalculusAxioms
+            }),
+            continuationRuntimeFluent(
+              basis,
+              event,
+              "continuation_terminated",
+              event.continuationId
+            )
+          ) ||
+          !eventCalculusEffectTerminates(
+            eventCalculusEffectsForEvent({
+              basis,
+              event,
+              axioms: options.eventCalculusAxioms
+            }),
+            continuationRuntimeFluent(
+              basis,
+              event,
+              "continuation_open",
+              event.continuationId
+            )
+          )
+        ) {
+          throw new TypeError(
+            "Runtime aggregate projection rejects continuation termination without declared Event Calculus law"
+          );
+        }
+        assertVectorIndexInRange(basis, event.vectorIndex);
+        retryAttemptRunIds.add(event.causedByRetryRunId);
+        graphCallId = event.graphCallId;
+        frameId = event.frameId;
+        break;
       case "continuation_reopened":
+        if (
+          !eventCalculusEffectInitiates(
+            eventCalculusEffectsForEvent({
+              basis,
+              event,
+              axioms: options.eventCalculusAxioms
+            }),
+            continuationRuntimeFluent(
+              basis,
+              event,
+              "continuation_open",
+              event.continuationId
+            )
+          )
+        ) {
+          throw new TypeError(
+            "Runtime aggregate projection rejects continuation reopen without declared Event Calculus law"
+          );
+        }
         assertVectorIndexInRange(basis, event.vectorIndex);
         retryAttemptRunIds.add(event.causedByRetryRunId);
         graphCallId = event.graphCallId;
@@ -474,6 +665,10 @@ export function deriveRuntimeAggregateProjection(
       case "approved":
       case "revoked":
       case "reset":
+      case "timer_intent_admitted":
+      case "timer_outcome_admitted":
+      case "deadline_breach_admitted":
+      case "scheduled_continuation_reopened":
         break;
       default: {
         const exhaustive: never = event;

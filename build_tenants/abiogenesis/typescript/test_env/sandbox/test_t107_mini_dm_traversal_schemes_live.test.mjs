@@ -245,7 +245,7 @@ function schemeFor(edgeName) {
       qualifierSource: "graph_vector_declarations",
       selectedScheduleItemRefs: [scheduleRefs[0]],
       vectorDeclarations: attrs([
-        hookEntry("abg.traversal_modulation", {
+        hookEntry("abg.traversal_strategy", {
           ref: "strategy://data-mapper/single-field-steel-thread",
           label: "single_field_steel_thread",
           primitives: ["single_vertical_slice"],
@@ -254,7 +254,7 @@ function schemeFor(edgeName) {
         })
       ]),
       graphFunctionDeclarations: attrs([
-        hookEntry("abg.default_traversal_modulation", {
+        hookEntry("abg.default_traversal_strategy", {
           ref: "strategy://data-mapper/default-batch",
           label: "default_batch",
           primitives: ["bounded_batch"],
@@ -274,7 +274,7 @@ function schemeFor(edgeName) {
       selectedScheduleItemRefs: [scheduleRefs[0], scheduleRefs[1]],
       vectorDeclarations: attrs(),
       graphFunctionDeclarations: attrs([
-        hookEntry("abg.default_traversal_modulation", {
+        hookEntry("abg.default_traversal_strategy", {
           ref: "strategy://data-mapper/implementation-bounded-batch",
           label: "implementation_bounded_batch",
           primitives: ["bounded_batch", "ordered_schedule_prefix"],
@@ -298,7 +298,7 @@ function schemeFor(edgeName) {
       roleWithPolicyHooks(
         "role://data-mapper/validation-reviewer",
         attrs([
-          hookEntry("abg.traversal_modulation", {
+          hookEntry("abg.traversal_strategy", {
             ref: "strategy://data-mapper/agent-proposed-validation-slice",
             label: "agent_proposed_validation_slice",
             primitives: ["agent_proposed_slice_requires_admission"],

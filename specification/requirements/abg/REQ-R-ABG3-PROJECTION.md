@@ -37,3 +37,9 @@ surface over ABG runtime truth.
 **REQ-R-ABG3-PROJECTION-011**: Public runtime summaries, CLI surfaces, and downstream consumer projections that describe traversal non-progress shall render the same ABG-derived continuation action. A carrier may record process facts and a projection may decide the next action, but there shall be one authoritative action truth for a given event stream.
 
 **REQ-R-ABG3-PROJECTION-012**: Traversal modulation projection shall be deterministic over GTL qualifier truth, current basis, admitted schedule refs, admitted progress rows, backend progress classification, forced-review gates, and existing non-progress/foldback/reentry projections. Public summaries and downstream consumers shall not publish a rival next action for the same event stream.
+
+**REQ-R-ABG3-PROJECTION-013**: `HoldsAt` truth shall be derived by replay over admitted runtime events, declared Event Calculus effects, initial fluent truth, clipping, and derived-fluent rules. Projection modules may present read models over those fluents, but shall not own untraceable rival transition law.
+
+**REQ-R-ABG3-PROJECTION-014**: Temporal projection shall be a replay-derived read model over admitted timer, deadline-breach, and scheduled-continuation events. It may change eligibility, deadline-breach pressure, and drift observations, but it shall not select graph advancement, close vectors, or outrank ABG aggregate projection.
+
+**REQ-R-ABG3-PROJECTION-015**: Schedule, SLA, and temporal drift shall feed a homeostatic projection/evaluation surface separate from traversal-completeness projection. Edge closure remains governed by existing ABG traversal and evaluator law.

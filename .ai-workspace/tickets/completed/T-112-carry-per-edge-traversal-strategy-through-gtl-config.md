@@ -2,12 +2,12 @@
 id: T-112
 title: Carry per-edge traversal strategy through GTL config and ABG runtime carriers
 type: feature
-ticket_category: traversal_strategy_config
-status: backlog
+ticket_category: implementation_migration
+status: completed
 goal: rc-next-gtl-qualified-traversal-strategy
 change_intent: Make traversal strategy selection an explicit GTL edge/default configuration resolved and carried by ABG, so downstream products can choose full-breadth, steel-thread-like, or repair strategies per graph edge without hidden runtime heuristics or prompt-only policy.
-change_class: design_reframe
-re_entry_point: design
+change_class: requirement_reprice
+re_entry_point: requirements
 affected_boundary:
   - specification/requirements/gtl/
   - specification/requirements/abg/
@@ -19,7 +19,9 @@ build_tenant: typescript
 release_scope: post-3.5.0-rc.1
 triaged_at: 2026-05-05
 created_at: 2026-05-05
-updated_at: 2026-05-05
+updated_at: 2026-05-07T00:07:09+10:00
+reopened_at: 2026-05-06T23:33:27+10:00
+closed_at: 2026-05-06T23:45:46+10:00
 governance_scope: STDO Method
 governance_scope_expansion:
   - S: SPEC_METHOD.md
@@ -32,6 +34,9 @@ dependencies:
   - T-111 completed literal PTY/xterm agent executor
 downstream_consumers:
   - /Users/jim/src/apps/odd_sdlc/.ai-workspace/tickets/backlog/T-123-consume-per-edge-traversal-strategy-and-delay-steel-thread-scope.md
+follow_up_tickets:
+  - /Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/backlog/T-123-add-abg-method-trace-and-design-module-closure-guard.md
+  - /Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/completed/T-124-prove-functional-gtl-temporal-syntax-sandbox-and-live-lanes.md
 evidence_refs:
   - /Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/completed/T-107-define-abg-traversal-modulation-profiles-for-agentic-fp-attempts.md
   - /Users/jim/src/apps/odd_sdlc/.ai-workspace/tickets/completed/T-121-adopt-steel-thread-delivery-strategy-by-default.md
@@ -39,8 +44,16 @@ evidence_refs:
   - /Users/jim/src/apps/ai_sdlc_examples/local_projects/data_mapper/data_mapper.test69.TS.cx/.ai-workspace/runtime/odd_sdlc/operator-runs/
 proof_commands:
   - npm run build:semantic
+  - npm run test:t112:sandbox
   - npm run test:t112
   - npm run test:semantic
+current_evidence:
+  - test:t112 proves one canonical `abg.traversal_strategy` surface, old key rejection, precedence, selected strategy carrier, plugin input exposure, and label neutrality.
+  - T-124 repaired the T-107 mini data-mapper sandbox/live fixture to use the canonical T-112 key names and added `test:t112:sandbox`.
+  - test:semantic passed with 428 tests after T-124.
+migration_strategy: Hard break to one canonical `abg.traversal_strategy` surface. Legacy traversal-modulation key spellings and public attr-key aliases are invalid; no compatibility bridge is retained.
+library_usage: none
+library_rationale: This ticket changes ABG/GTL interface law directly and does not consume or extend an external migration library.
 intake_source: During the data_mapper test69 Claude PTY live run, the operator observed that steel-thread scope was being applied from the first downstream edge. The corrected model is per-edge traversal strategy: early induction and requirement formation stay full-breadth, while later construction edges may select steel-thread or repair strategies.
 target_truth: GTL configuration declares traversal strategy policy at the graph edge/default level. ABG resolves the selected strategy for the current vector through the existing T-107 traversal-modulation boundary, carries it in replay-visible runtime truth, and exposes it to downstream handoff/plugin consumers. ABG enforces generic scheduling primitives and admitted policy refs; it does not hard-code downstream strategy semantics such as "steel thread" or decide when odd_sdlc induction ends.
 superseded_truth: A downstream product or prompt layer applies one workspace-wide traversal strategy to all edges, or infers strategy from edge names, CLI flags, env vars, or prose rather than from GTL-published edge/default policy resolved by ABG.
@@ -61,12 +74,12 @@ non_closure_conditions:
 
 ### First Missing Layer
 
-Design.
+Requirements.
 
-T-107 already established the runtime-law boundary for traversal modulation:
-GTL exposes hook/config refs, ABG resolves those refs, and downstream products
-own strategy meaning. The remaining gap is a sharper design and realization
-slice for one selected strategy per edge traversal.
+T-107 established the runtime-law boundary for traversal modulation, but T-112
+also changes live GTL and ABG requirement text by declaring one canonical
+strategy surface and rejecting legacy traversal-modulation spellings. The first
+re-entry point is therefore requirements, followed by design and code.
 
 The observed downstream problem is not that ABG should know when odd_sdlc wants
 steel thread. The problem is that the selected traversal strategy must be
@@ -75,11 +88,51 @@ smuggle strategy through prompt text or workspace-wide defaults.
 
 ### Lawful Re-Entry
 
-`design_reframe`.
+`requirement_reprice`.
 
-This ticket composes with T-107. It should update requirement text only if
-review finds that existing T-107 authority does not explicitly cover per-edge
-selection and downstream projection.
+This ticket composes with T-107, but it is not only a local design refinement.
+It changes requirement truth and intentionally severs the old spelling as a
+normal interface path.
+
+## Reopen Review Findings And Closure Checklist
+
+The 2026-05-06 review found that this ticket was previously closed under the
+wrong change class and still exported old traversal-modulation attr-key aliases
+as a public compatibility surface.
+
+Before this ticket may close again:
+
+- [x] Re-triage as `requirement_reprice` because live requirements changed.
+- [x] Declare the interface break as an implementation migration with no
+  compatibility bridge.
+- [x] Remove public `TRAVERSAL_MODULATION_*_ATTR_KEYS` aliases from the M03
+  export surface.
+- [x] Add a regression test proving the old public attr-key aliases are absent.
+- [x] Keep the negative old-key admission test for `abg.traversal_modulation`.
+- [x] Run `npm run test:t112`.
+- [x] Run `npm run test:semantic`.
+- [x] Record design-module-method review outcome before moving this ticket back
+  to completed.
+
+## Design-Module Review Outcome
+
+Boundary stayed lawful after re-entry was corrected from `design_reframe` to
+`requirement_reprice`.
+
+Local cleanup absorbed before closure:
+
+- removed public `TRAVERSAL_MODULATION_*_ATTR_KEYS` compatibility aliases;
+- kept one canonical GTL declaration surface;
+- kept the old-key rejection regression as a negative proof.
+
+Execution authority did not move. ABG resolves and carries selected strategy
+truth, but downstream products own strategy label meaning and ABG does not
+branch on labels.
+
+Global consolidation opportunity:
+
+- T-123 records a local method-trace/design-closure guard so this class of
+  premature closure and broad trace comment is caught before future completion.
 
 ## Target Shape
 

@@ -12,6 +12,7 @@ export type {
   BasisAdmittedEvent,
   ClosureInputPublishedRuntimeEvent,
   ComputeBasisFailureClass,
+  DeadlineBreachAdmittedEvent,
   EvidenceAdmittedRuntimeEvent,
   ExecutionBasis,
   FdAdvanceReadyEvent,
@@ -81,6 +82,7 @@ export type {
   RuntimeEvent,
   RuntimeFailureClass,
   RuntimeRegime,
+  ScheduledContinuationReopenedEvent,
   StartInputAssetBinding,
   StartIntent,
   StartOutputWorkspaceBinding,
@@ -89,6 +91,9 @@ export type {
   TerminalKind,
   TerminalReachedEvent,
   TerminalTransition,
+  TimerIntentAdmittedEvent,
+  TimerOutcomeAdmittedEvent,
+  TimerOutcomeKind,
   TraversalAttemptDispatchedEvent,
   TraversalAttemptEnvelopeDerivedEvent,
   TraversalAttemptNonProgressClassifiedEvent,
@@ -234,6 +239,78 @@ export {
   parseTerminalKind
 } from "./event_admission.js";
 export {
+  RUNTIME_EVENT_CALCULUS_AXIOMS,
+  RUNTIME_FLUENT_NAME_VALUES,
+  RUNTIME_FLUENT_SCOPE_VALUES,
+  admitRuntimeEventCalculusAxioms,
+  constructRuntimeFluent,
+  constructRuntimeFluentPattern,
+  constructVectorClosedRuntimeFluent,
+  constructVectorRuntimeFluent,
+  deriveHoldsAt,
+  deriveRuntimeEventCalculusProjection,
+  eventCalculusEffectInitiates,
+  eventCalculusEffectTerminates,
+  eventCalculusEffectsForEvent,
+  holdsAt,
+  runtimeEventCalculusAxiomFor,
+  runtimeFluentKey,
+  runtimeFluentMatchesPattern,
+  runtimeFluentPatternKey
+} from "./event_calculus.js";
+export type {
+  RuntimeDerivedFluentRule,
+  RuntimeEventCalculusAxiom,
+  RuntimeEventCalculusContext,
+  RuntimeEventCalculusEffect,
+  RuntimeEventCalculusEffectRow,
+  RuntimeEventCalculusProjection,
+  RuntimeEventCalculusReplayInput,
+  RuntimeFluent,
+  RuntimeFluentName,
+  RuntimeFluentPattern,
+  RuntimeFluentScope
+} from "./event_calculus.js";
+export {
+  TEMPORAL_CONSTRAINT_CONFIG_KEY_VALUES,
+  TEMPORAL_CONSTRAINT_VECTOR_ATTR_KEYS,
+  constructNotBeforeConstraint,
+  constructDeadlineBreach,
+  constructDeadlineBreachAdmittedEvent,
+  constructSchedulePolicy,
+  constructScheduledContinuation,
+  constructScheduledContinuationReopenedEvent,
+  constructTemporalContext,
+  constructTimerIntent,
+  constructTimerIntentAdmittedEvent,
+  constructTimerOutcome,
+  constructTimerOutcomeAdmittedEvent,
+  deriveTemporalConstraintFromGtl,
+  deriveTemporalHomeostaticProjection,
+  deriveTemporalProjection,
+  temporalEligibleRuntimeFluent,
+  temporalProjectionHoldsEligibility,
+  tryDeriveTemporalConstraintFromGtl
+} from "./temporal_algebra.js";
+export type {
+  SchedulePolicy,
+  DeadlineBreachProjectionRow,
+  DeadlineBreach,
+  ScheduledContinuation,
+  TemporalConstraint,
+  TemporalConstraintGtlResolution,
+  TemporalConstraintGtlSource,
+  TemporalConstraintAttachment,
+  TemporalConstraintOperator,
+  TemporalContext,
+  TemporalDriftObservation,
+  TemporalEligibilityProjectionRow,
+  TemporalHomeostaticProjection,
+  TemporalProjection,
+  TimerIntent,
+  TimerOutcome
+} from "./temporal_algebra.js";
+export {
   constructExecutionBasis,
 } from "./constructors.js";
 export {
@@ -249,6 +326,7 @@ export {
   constructActorProcessTimeoutEvent,
   constructActorResultArtifactObservedEvent,
   constructAuthoritySnapshotAdmittedEvent,
+  constructBasisAdmittedEvent,
   constructClosureInputPublishedEvent,
   constructEvidenceAdmittedEvent,
   constructFrameOpenedEvent,
@@ -295,10 +373,10 @@ export {
   TRAVERSAL_FORCED_REVIEW_TRIGGER_VALUES,
   TRAVERSAL_MODULATION_ACTION_VALUES,
   TRAVERSAL_MODULATION_CONFIG_KEY_VALUES,
-  TRAVERSAL_MODULATION_GRAPH_FUNCTION_DEFAULT_ATTR_KEYS,
-  TRAVERSAL_MODULATION_ROLE_ATTR_KEYS,
-  TRAVERSAL_MODULATION_VECTOR_ATTR_KEYS,
   TRAVERSAL_SCHEDULING_PRIMITIVE_VALUES,
+  TRAVERSAL_STRATEGY_GRAPH_FUNCTION_DEFAULT_ATTR_KEYS,
+  TRAVERSAL_STRATEGY_ROLE_ATTR_KEYS,
+  TRAVERSAL_STRATEGY_VECTOR_ATTR_KEYS,
   admitTraversalAttemptProgressRow,
   admitTraversalStrategyDirective,
   assertTraversalModulationSummaryAgreement,
@@ -317,7 +395,9 @@ export {
   deriveTraversalModulationProfile,
   deriveTraversalModulationProfileFromGtl,
   deriveTraversalModulationSummary,
+  deriveTraversalStrategySelectionFromGtl,
   resolveTraversalStrategyDirectiveFromGtl,
+  tryDeriveTraversalStrategySelectionFromGtl,
   tryResolveTraversalStrategyDirectiveFromGtl
 } from "./traversal_modulation.js";
 export type {
@@ -344,7 +424,9 @@ export type {
   TraversalModulationSummary,
   TraversalProgressContract,
   TraversalSchedulingPrimitive,
-  TraversalStrategyDirective
+  TraversalStrategyDirective,
+  TraversalStrategySelection,
+  TraversalStrategySelectionSource
 } from "./traversal_modulation.js";
 export { deriveRuntimeAggregateProjection } from "./projection.js";
 export {

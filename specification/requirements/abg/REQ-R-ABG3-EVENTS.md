@@ -46,3 +46,9 @@ Define the ABG 3 event substrate as the only written runtime truth surface.
 **REQ-R-ABG3-EVENTS-016**: Traversal modulation runtime truth shall be admitted as replay-visible event truth. The minimum event family shall include modulation resolution, attempt-envelope derivation, attempt dispatch, progress observation, non-progress classification, forced-review projection, same-edge continuation planning, and modulation exhaustion.
 
 **REQ-R-ABG3-EVENTS-017**: Traversal modulation events shall preserve basis, graph function, run, work key, graph call, frame, frame lineage, vector, edge, causation refs, and correlation id sufficient to replay the modulation projection without runner-local state.
+
+**REQ-R-ABG3-EVENTS-018**: ABG event kinds that change runtime fluent truth shall have declared Event Calculus effects. The declaration shall identify the fluents initiated, terminated, clipped, and declipped by the admitted event kind.
+
+**REQ-R-ABG3-EVENTS-019**: Temporal provider effects shall become ABG runtime truth only through admitted temporal events. Timer intent, timer outcome, deadline-breach, and scheduled-continuation events shall preserve basis, graph function, graph call, frame, vector, edge, policy, provider, causation, and correlation identity. Deadline-breach events shall also preserve the deadline ref and policy-selected breach action.
+
+**REQ-R-ABG3-EVENTS-020**: Traversal strategy selection shall use one canonical GTL declaration surface: `GraphVector.declarations["abg.traversal_strategy"]`, `GraphFunction.declarations["abg.default_traversal_strategy"]`, and `Role.policyHooks["abg.traversal_strategy"]`. Legacy or alternate traversal-modulation key spellings shall not be admitted as compatibility surfaces.

@@ -1022,6 +1022,12 @@ export interface TraversalModulationResolvedEvent {
   readonly vectorIndex: number;
   readonly edge: string;
   readonly profileRef: string;
+  readonly strategySelectionRef: string;
+  readonly strategySelectionSource: "graph_vector" | "graph_function" | "role_policy" | "runtime_default";
+  readonly strategySelectionSourceRef: string;
+  readonly strategySelectionAttrKey: string | null;
+  readonly strategySelectionHookRef: string | null;
+  readonly strategyConfigDigest: string;
   readonly strategyDirectiveRef: string;
   readonly strategyOwnerRef: string;
   readonly strategyLabel: string;
@@ -1050,6 +1056,9 @@ export interface TraversalAttemptEnvelopeDerivedEvent {
   readonly edge: string;
   readonly envelopeRef: string;
   readonly profileRef: string;
+  readonly strategySelectionRef: string;
+  readonly strategySelectionSource: "graph_vector" | "graph_function" | "role_policy" | "runtime_default";
+  readonly strategyConfigDigest: string;
   readonly strategyDirectiveRef: string;
   readonly backendProfileRef: string;
   readonly actorInvocationId: string;
@@ -1394,6 +1403,98 @@ export interface GraphReentryAppliedEvent {
   readonly generation: number;
 }
 
+export type TimerOutcomeKind = "timer_fired" | "timer_cancelled" | "timer_missed";
+
+export interface TimerIntentAdmittedEvent {
+  readonly kind: "timer_intent_admitted";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly frameLineageId: string | null;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly constraintRef: string;
+  readonly timerIntentRef: string;
+  readonly providerRef: string;
+  readonly notBeforeRef: string;
+  readonly schedulePolicyRef: string;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
+export interface TimerOutcomeAdmittedEvent {
+  readonly kind: "timer_outcome_admitted";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly frameLineageId: string | null;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly constraintRef: string;
+  readonly schedulePolicyRef: string;
+  readonly timerIntentRef: string;
+  readonly timerOutcomeRef: string;
+  readonly outcome: TimerOutcomeKind;
+  readonly providerRef: string;
+  readonly providerReceiptRef: string;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
+export interface DeadlineBreachAdmittedEvent {
+  readonly kind: "deadline_breach_admitted";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly frameLineageId: string | null;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly deadlineBreachRef: string;
+  readonly constraintRef: string;
+  readonly schedulePolicyRef: string;
+  readonly deadlineRef: string;
+  readonly deadlineBreachAction:
+    | "observe_drift"
+    | "block"
+    | "retry"
+    | "human_gate"
+    | "reprice";
+  readonly providerRef: string;
+  readonly providerReceiptRef: string;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
+export interface ScheduledContinuationReopenedEvent {
+  readonly kind: "scheduled_continuation_reopened";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly frameLineageId: string | null;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly scheduledContinuationRef: string;
+  readonly constraintRef: string;
+  readonly schedulePolicyRef: string;
+  readonly timerIntentRef: string;
+  readonly timerOutcomeRef: string;
+  readonly providerRef: string;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
 export type RuntimeEvent =
   | BasisAdmittedEvent
   | FdAdvanceReadyEvent
@@ -1458,7 +1559,11 @@ export type RuntimeEvent =
   | GraphSpanAssessedEvent
   | GraphSpanFoldbackEvaluatedEvent
   | GraphReentryPlannedEvent
-  | GraphReentryAppliedEvent;
+  | GraphReentryAppliedEvent
+  | TimerIntentAdmittedEvent
+  | TimerOutcomeAdmittedEvent
+  | DeadlineBreachAdmittedEvent
+  | ScheduledContinuationReopenedEvent;
 
 export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "basis_admitted",
@@ -1524,7 +1629,11 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "graph_span_assessed",
   "graph_span_foldback_evaluated",
   "graph_reentry_planned",
-  "graph_reentry_applied"
+  "graph_reentry_applied",
+  "timer_intent_admitted",
+  "timer_outcome_admitted",
+  "deadline_breach_admitted",
+  "scheduled_continuation_reopened"
 ] as const satisfies readonly RuntimeEvent["kind"][]);
 
 export interface AdmittedLeafTaskPayload {
