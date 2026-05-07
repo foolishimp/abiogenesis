@@ -10,6 +10,25 @@ import { spawnSync } from "node:child_process";
 
 import { publicGaps } from "../../build/semantic/code/src/app/m04/index.js";
 import {
+  admitModule,
+  admitNode,
+  admitExecutionBasis,
+  admitLeafTaskPayload,
+  admitResolvedPolicyIdentity,
+  admitResolvedRuntimeIdentity,
+  constructConstructionPriorityRule,
+  constructConstructionPriorityScheme,
+  constructFrameOpenedEvent,
+  constructGraphCallOpenedEvent,
+  constructLeafTaskEnvelope,
+  constructLeafTaskFailedEvent,
+  constructLeafTaskOpenedEvent,
+  deriveRuntimeAggregateProjection,
+  edge,
+  graphFunctionForVector,
+  materializeGraphFunction
+} from "../../build/semantic/code/src/index.js";
+import {
   installPackedTenantPackage,
   provisionInstalledRoot,
   runInstalledNodeScript
@@ -128,6 +147,159 @@ function twoStageRuntimeBindingSource() {
   `;
 }
 
+function priorityRuntimeBindingSource() {
+  return `
+    import {
+      admitModule,
+      admitNode,
+      admitResolvedPolicyIdentity,
+      admitResolvedRuntimeIdentity,
+      constructConstructionPriorityRule,
+      constructConstructionPriorityScheme,
+      edge,
+      graphFunctionForVector,
+      materializeGraphFunction
+    } from "@abiogenesis/typescript-tenant";
+
+    function node(id, name, kind) {
+      return admitNode({
+        id,
+        name,
+        schema: { kind: "symbolic", ref: \`Vector[\${kind}]\` },
+        markov: ["declared"],
+        assetSurface: {
+          kind,
+          requiredContexts: ["workspace"],
+          standardsRefs: [\`\${kind}-standard\`],
+          outputContractRefs: [\`\${kind}-contract\`]
+        },
+        tags: [kind]
+      });
+    }
+
+    function stage(id, name, source, target, edgeName, evaluatorId) {
+      const vector = edge([source], target, {
+        id: \`graph-\${id}\`,
+        name: edgeName,
+        evaluators: [
+          {
+            name: evaluatorId,
+            regime: "F_P",
+            description: \`\${edgeName} accepted\`,
+            binding: \`binding://\${id}\`,
+            tags: ["fulfillment"]
+          }
+        ],
+        declarations: { entries: [] }
+      }).vectors[0];
+      return graphFunctionForVector(vector, {
+        id: \`graph-function-\${id}\`,
+        name,
+        declarations: { entries: [] }
+      });
+    }
+
+    const inputSet = node("node-installed-priority-input", "Input", "input_set");
+    const alphaTarget = node("node-installed-alpha", "Alpha", "design");
+    const releaseTarget = node("node-installed-z-release", "Z Release", "code");
+    const alpha = stage(
+      "installed-alpha",
+      "installed_alpha",
+      inputSet,
+      alphaTarget,
+      "input_to_alpha",
+      "alpha_complete"
+    );
+    const release = stage(
+      "installed-release",
+      "installed_release",
+      inputSet,
+      releaseTarget,
+      "input_to_release",
+      "release_complete"
+    );
+
+    export const runtimeBinding = {
+      module: admitModule({
+        name: "gaps_installed_priority_runtime",
+        graphs: [materializeGraphFunction(alpha), materializeGraphFunction(release)],
+        graphFunctions: [alpha, release],
+        refinementBoundaries: [],
+        candidateFamilies: [],
+        jobs: [
+          {
+            id: "job-installed-alpha",
+            name: "installed_alpha_job",
+            contracts: [{ kind: "graph_function", targetId: alpha.id }],
+            roles: [],
+            tags: ["semantic_work"],
+            policyHooks: { entries: [] }
+          },
+          {
+            id: "job-installed-release",
+            name: "installed_release_job",
+            contracts: [{ kind: "graph_function", targetId: release.id }],
+            roles: [],
+            tags: ["semantic_work"],
+            policyHooks: { entries: [] }
+          }
+        ],
+        roles: [],
+        operators: [],
+        evaluators: [],
+        rules: [],
+        imports: [],
+        policyHooks: { entries: [] },
+        metadata: { entries: [] }
+      }),
+      runtimeIdentity: admitResolvedRuntimeIdentity({
+        workerId: "worker://gaps-installed-priority",
+        backendId: "backend://node",
+        buildId: "build://typescript-gaps-installed-priority",
+        resolvedRuntimeRef: "runtime://typescript/node"
+      }),
+      resolvedPolicy: admitResolvedPolicyIdentity({
+        resolvedPolicyBundleRef: "policy://gaps-installed-priority",
+        defaultRegime: "F_P",
+        dispatchRef: "dispatch://gaps-installed-priority"
+      }),
+      constructionPriorityScheme: constructConstructionPriorityScheme({
+        schemeRef: "priority-scheme://installed-gaps/read-only-evaluator",
+        sourcePolicyRef: "policy://gaps-installed-priority/default",
+        rules: [
+          constructConstructionPriorityRule({
+            priorityRuleRef: "priority-rule://installed-gaps/release-blocking",
+            axis: "release_blocking",
+            weight: 20,
+            appliesToActionKinds: ["invoke_graph_function"],
+            appliesToOutcomeRefs: ["typed-asset-outcome:node-installed-z-release"],
+            sourcePolicyRef: "policy://gaps-installed-priority/release",
+            strategyLabel: "release-blocking"
+          })
+        ]
+      }),
+      runId: "run://gaps-installed-priority",
+      workKey: "wk://gaps-installed-priority"
+    };
+  `;
+}
+
+function malformedPriorityRuntimeBindingSource() {
+  return priorityRuntimeBindingSource()
+    .replace(
+      "constructionPriorityScheme: constructConstructionPriorityScheme({",
+      'constructionPriorityScheme: ({ kind: "construction_priority_scheme",'
+    )
+    .replace(
+      "constructConstructionPriorityRule({",
+      '({ kind: "construction_priority_rule",'
+    )
+    .replace(
+      'schemeRef: "priority-scheme://installed-gaps/read-only-evaluator"',
+      'schemeRef: ""'
+    );
+}
+
 function closeVectorScript(vectorIndex) {
   return `
     import { appendFile, mkdir } from "node:fs/promises";
@@ -184,13 +356,13 @@ function closeVectorScript(vectorIndex) {
   `;
 }
 
-async function installGapsRuntime() {
+async function installGapsRuntime(source = twoStageRuntimeBindingSource()) {
   const { targetRoot } = await provisionInstalledRoot();
   const { packageRoot } = await installPackedTenantPackage(targetRoot);
   await mkdir(path.join(targetRoot, ".abiogenesis"), { recursive: true });
   await writeFile(
     path.join(targetRoot, ".abiogenesis", "typescript-runtime.mjs"),
-    twoStageRuntimeBindingSource(),
+    source,
     "utf8"
   );
   return { targetRoot, packageRoot };
@@ -220,6 +392,354 @@ async function eventLineCount(targetRoot) {
   return text.trim().split(/\r?\n/u).filter(Boolean).length;
 }
 
+function directNode(id, name, kind) {
+  return admitNode({
+    id,
+    name,
+    schema: { kind: "symbolic", ref: `Vector[${kind}]` },
+    markov: ["declared"],
+    assetSurface: {
+      kind,
+      requiredContexts: ["workspace"],
+      standardsRefs: [`${kind}-standard`],
+      outputContractRefs: [`${kind}-contract`]
+    },
+    tags: [kind]
+  });
+}
+
+function jsonAttrValue(value) {
+  if (value === null || ["string", "number", "boolean"].includes(typeof value)) {
+    return value;
+  }
+  if (Array.isArray(value)) {
+    return Object.freeze({
+      kind: "array",
+      items: Object.freeze(value.map((entry) => jsonAttrValue(entry)))
+    });
+  }
+  return Object.freeze({
+    kind: "object",
+    entries: Object.freeze(
+      Object.entries(value).map(([key, entry]) =>
+        Object.freeze({
+          key,
+          value: jsonAttrValue(entry)
+        })
+      )
+    )
+  });
+}
+
+function fpConsciousnessHookAttrs(hookRef, priorityRules) {
+  return Object.freeze({
+    entries: Object.freeze([
+      Object.freeze({
+        key: "abg.fp_consciousness",
+        value: Object.freeze({
+          kind: "hook_ref",
+          value: Object.freeze({
+            ref: hookRef,
+            config: Object.freeze({
+              entries: Object.freeze([
+                Object.freeze({
+                  key: "concerns",
+                  value: Object.freeze({
+                    kind: "string_list",
+                    value: Object.freeze(["priority_scheme"])
+                  })
+                }),
+                Object.freeze({
+                  key: "priorityRules",
+                  value: Object.freeze({
+                    kind: "json_blob",
+                    value: jsonAttrValue(priorityRules)
+                  })
+                })
+              ])
+            })
+          })
+        })
+      })
+    ])
+  });
+}
+
+function directStage(id, name, source, target, edgeName, evaluatorId, options = {}) {
+  const vector = edge([source], target, {
+    id: `graph-${id}`,
+    name: edgeName,
+    evaluators: [
+      {
+        name: evaluatorId,
+        regime: "F_P",
+        description: `${edgeName} accepted`,
+        binding: `binding://${id}`,
+        tags: ["fulfillment"]
+      }
+    ],
+    declarations: options.vectorDeclarations ?? { entries: [] }
+  }).vectors[0];
+  return graphFunctionForVector(vector, {
+    id: `graph-function-${id}`,
+    name,
+    declarations: options.graphFunctionDeclarations ?? { entries: [] }
+  });
+}
+
+function priorityProjectionRuntimeContext() {
+  const inputSet = directNode("node-priority-input", "Input", "input_set");
+  const alphaTarget = directNode("node-alpha-low", "Alpha Low", "design");
+  const releaseTarget = directNode("node-z-release", "Z Release", "code");
+  const alpha = directStage(
+    "alpha-low",
+    "alpha_low",
+    inputSet,
+    alphaTarget,
+    "input_to_alpha",
+    "alpha_complete"
+  );
+  const release = directStage(
+    "z-release",
+    "z_release",
+    inputSet,
+    releaseTarget,
+    "input_to_release",
+    "release_complete"
+  );
+  const module = admitModule({
+    name: "gaps_priority_runtime",
+    graphs: [materializeGraphFunction(alpha), materializeGraphFunction(release)],
+    graphFunctions: [alpha, release],
+    refinementBoundaries: [],
+    candidateFamilies: [],
+    jobs: [
+      {
+        id: "job-alpha-low",
+        name: "alpha_low_job",
+        contracts: [{ kind: "graph_function", targetId: alpha.id }],
+        roles: [],
+        tags: ["semantic_work"],
+        policyHooks: { entries: [] }
+      },
+      {
+        id: "job-z-release",
+        name: "z_release_job",
+        contracts: [{ kind: "graph_function", targetId: release.id }],
+        roles: [],
+        tags: ["semantic_work"],
+        policyHooks: { entries: [] }
+      }
+    ],
+    roles: [],
+    operators: [],
+    evaluators: [],
+    rules: [],
+    imports: [],
+    policyHooks: { entries: [] },
+    metadata: { entries: [] }
+  });
+
+  return {
+    module,
+    alphaGraphFunctionId: alpha.id,
+    releaseGraphFunctionId: release.id,
+    runtimeIdentity: admitResolvedRuntimeIdentity({
+      workerId: "worker://gaps-priority",
+      backendId: "backend://node",
+      buildId: "build://typescript-gaps-priority",
+      resolvedRuntimeRef: "runtime://typescript/node"
+    }),
+    resolvedPolicy: admitResolvedPolicyIdentity({
+      resolvedPolicyBundleRef: "policy://gaps-priority",
+      defaultRegime: "F_P",
+      dispatchRef: "dispatch://gaps-priority"
+    }),
+    constructionPriorityScheme: constructConstructionPriorityScheme({
+      schemeRef: "priority-scheme://gaps/read-only-evaluator",
+      sourcePolicyRef: "policy://gaps-priority/default",
+      rules: [
+        constructConstructionPriorityRule({
+          priorityRuleRef: "priority-rule://gaps/release-blocking",
+          axis: "release_blocking",
+          weight: 20,
+          appliesToActionKinds: ["invoke_graph_function"],
+          appliesToOutcomeRefs: ["typed-asset-outcome:node-z-release"],
+          sourcePolicyRef: "policy://gaps-priority/release",
+          strategyLabel: "release-blocking"
+        })
+      ]
+    }),
+    runId: "run://gaps-priority",
+    workKey: "wk://gaps-priority"
+  };
+}
+
+function hookPriorityRuntimeContext() {
+  const inputSet = directNode("node-hook-priority-input", "Input", "input_set");
+  const alphaTarget = directNode("node-hook-alpha", "Alpha", "design");
+  const releaseTarget = directNode("node-hook-z-release", "Z Release", "code");
+  const alpha = directStage(
+    "hook-alpha",
+    "hook_alpha",
+    inputSet,
+    alphaTarget,
+    "input_to_alpha",
+    "alpha_complete"
+  );
+  const release = directStage(
+    "hook-release",
+    "hook_release",
+    inputSet,
+    releaseTarget,
+    "input_to_release",
+    "release_complete",
+    {
+      vectorDeclarations: fpConsciousnessHookAttrs(
+        "hook://gaps/vector/release-priority",
+        [
+          {
+            priorityRuleRef: "priority-rule://gaps/vector-release",
+            axis: "release_blocking",
+            weight: 20,
+            appliesToActionKinds: ["invoke_graph_function"],
+            appliesToOutcomeRefs: ["typed-asset-outcome:node-hook-z-release"],
+            sourcePolicyRef: "policy://gaps/vector-release",
+            strategyLabel: "release-blocking"
+          }
+        ]
+      )
+    }
+  );
+  const module = admitModule({
+    name: "gaps_hook_priority_runtime",
+    graphs: [materializeGraphFunction(alpha), materializeGraphFunction(release)],
+    graphFunctions: [alpha, release],
+    refinementBoundaries: [],
+    candidateFamilies: [],
+    jobs: [
+      {
+        id: "job-hook-alpha",
+        name: "hook_alpha_job",
+        contracts: [{ kind: "graph_function", targetId: alpha.id }],
+        roles: [],
+        tags: ["semantic_work"],
+        policyHooks: { entries: [] }
+      },
+      {
+        id: "job-hook-release",
+        name: "hook_release_job",
+        contracts: [{ kind: "graph_function", targetId: release.id }],
+        roles: [],
+        tags: ["semantic_work"],
+        policyHooks: { entries: [] }
+      }
+    ],
+    roles: [],
+    operators: [],
+    evaluators: [],
+    rules: [],
+    imports: [],
+    policyHooks: { entries: [] },
+    metadata: { entries: [] }
+  });
+
+  return {
+    module,
+    alphaGraphFunctionId: alpha.id,
+    releaseGraphFunctionId: release.id,
+    runtimeIdentity: admitResolvedRuntimeIdentity({
+      workerId: "worker://gaps-hook-priority",
+      backendId: "backend://node",
+      buildId: "build://typescript-gaps-hook-priority",
+      resolvedRuntimeRef: "runtime://typescript/node"
+    }),
+    resolvedPolicy: admitResolvedPolicyIdentity({
+      resolvedPolicyBundleRef: "policy://gaps-hook-priority",
+      defaultRegime: "F_P",
+      dispatchRef: "dispatch://gaps-hook-priority"
+    }),
+    runId: "run://gaps-hook-priority",
+    workKey: "wk://gaps-hook-priority"
+  };
+}
+
+function failedLeafTaskEventsForGraphFunction(context, graphFunctionId, leafTaskId) {
+  const basis = admitExecutionBasis({
+    startIntent: {
+      scope: {
+        kind: "workspace",
+        workspaceRoot: process.cwd(),
+        moduleName: context.module.name
+      },
+      target: {
+        kind: "graph_function",
+        handle: graphFunctionId
+      },
+      until: "converged"
+    },
+    module: context.module,
+    runtimeIdentity: context.runtimeIdentity,
+    resolvedPolicy: context.resolvedPolicy,
+    runId: context.runId,
+    workKey: context.workKey,
+    frameId: null,
+    frameLineageId: null
+  });
+  const parentEvents = [
+    constructGraphCallOpenedEvent(basis),
+    constructFrameOpenedEvent(basis)
+  ];
+  const envelope = constructLeafTaskEnvelope({
+    basis,
+    projection: deriveRuntimeAggregateProjection(basis, parentEvents),
+    leafTaskId,
+    vectorIndex: 0,
+    inputSchemaRef: "schema://public-gaps/leaf-input",
+    outputSchemaRef: "schema://public-gaps/leaf-output",
+    input: admitLeafTaskPayload({
+      schemaRef: "schema://public-gaps/leaf-input",
+      value: Object.freeze({ target: graphFunctionId }),
+      requiredKeys: ["target"]
+    }),
+    workerRef: "worker://public-gaps-leaf"
+  });
+  return Object.freeze([
+    ...parentEvents,
+    constructLeafTaskOpenedEvent(envelope),
+    constructLeafTaskFailedEvent({
+      envelope,
+      failure: {
+        failureClass: "capability_missing",
+        detail: "fixture marks the highest-priority action ineligible",
+        evidenceRefs: ["evidence://public-gaps/ineligible-action"]
+      }
+    })
+  ]);
+}
+
+function legacyAssessedEvent(input) {
+  return Object.freeze({
+    kind: "assessed",
+    assessmentKind: "fp",
+    edge: input.edge,
+    obligationId: input.obligationId,
+    publishedLedgerRef: "ledger://public-gaps/legacy-assessed",
+    actor: "codex",
+    specHash: "sha256:legacy",
+    manifestId: "manifest://public-gaps/legacy-assessed",
+    workflowVersion: "workflow://public-gaps/legacy",
+    runId: input.runId,
+    workKey: input.workKey,
+    selectedWorkerId: "worker://public-gaps/legacy",
+    selectedBackend: "backend://node",
+    roleId: "role://public-gaps/legacy",
+    authorityRef: "authority://public-gaps/legacy",
+    assignmentSource: "legacy_assessed_without_basis",
+    resolvedRuntimeRef: "runtime://typescript/node"
+  });
+}
+
 test("M04 public gaps projection integration: package export surface stays aligned at root, m04, and gaps subpath", async () => {
   const root = await import("@abiogenesis/typescript-tenant");
   const m04 = await import("@abiogenesis/typescript-tenant/app/m04");
@@ -228,6 +748,235 @@ test("M04 public gaps projection integration: package export surface stays align
   assert.equal(root.publicGaps, publicGaps);
   assert.equal(m04.publicGaps, publicGaps);
   assert.equal(gapsModule.publicGaps, publicGaps);
+});
+
+test("M04 public gaps projection integration: read-only gaps renders the T-127 construction priority projection", () => {
+  const context = priorityProjectionRuntimeContext();
+  const projection = publicGaps(
+    {
+      scope: {
+        kind: "workspace",
+        workspaceRoot: process.cwd(),
+        moduleName: context.module.name
+      }
+    },
+    context
+  );
+
+  assert.equal(projection.eventCount, 0);
+  assert.equal(projection.readOnlyEvaluator.mutationAllowed, false);
+  assert.equal(projection.readOnlyEvaluator.bestAssetRef, "node-z-release");
+  assert.match(
+    projection.readOnlyEvaluator.bestActionRef,
+    /^construction-action:/u
+  );
+  assert.equal(
+    projection.readOnlyEvaluator.bestGraphFunctionRef,
+    context.releaseGraphFunctionId
+  );
+
+  const alphaGap = projection.gaps
+    .find((gap) => gap.graphFunctionId === context.alphaGraphFunctionId)
+    ?.typedAssetGaps.at(0);
+  const releaseGap = projection.gaps
+    .find((gap) => gap.graphFunctionId === context.releaseGraphFunctionId)
+    ?.typedAssetGaps.at(0);
+  assert.ok(alphaGap);
+  assert.ok(releaseGap);
+  assert.equal(releaseGap.priorityRank, 0);
+  assert.equal(alphaGap.priorityRank, 1);
+  assert.equal(releaseGap.bestActionRef, projection.readOnlyEvaluator.bestActionRef);
+  assert.equal(projection.readOnlyEvaluator.evaluatorRef, releaseGap.priorityProjectionRef);
+  assert.equal(
+    releaseGap.priorityProjectionRef,
+    projection.readOnlyEvaluator.sourceProjectionRefs.at(-1)
+  );
+  assert.ok(
+    releaseGap.rankingReasonRefs.includes(
+      "priority-rule://gaps/release-blocking"
+    )
+  );
+  assert.doesNotMatch(releaseGap.bestActionRef ?? "", /^public-gaps-action:/u);
+});
+
+test("M04 public gaps projection integration: read-only gaps consumes GTL hook priority precedence", () => {
+  const context = hookPriorityRuntimeContext();
+  const projection = publicGaps(
+    {
+      scope: {
+        kind: "workspace",
+        workspaceRoot: process.cwd(),
+        moduleName: context.module.name
+      }
+    },
+    context
+  );
+
+  assert.equal(projection.readOnlyEvaluator.bestAssetRef, "node-hook-z-release");
+  assert.equal(
+    projection.readOnlyEvaluator.bestGraphFunctionRef,
+    context.releaseGraphFunctionId
+  );
+  assert.ok(
+    projection.readOnlyEvaluator.rankingReasonRefs.includes(
+      "priority-rule://gaps/vector-release"
+    )
+  );
+});
+
+test("M04 public gaps projection integration: assessed events without basisId do not satisfy scoped public gaps truth", () => {
+  const context = hookPriorityRuntimeContext();
+  const projection = publicGaps(
+    {
+      scope: {
+        kind: "workspace",
+        workspaceRoot: process.cwd(),
+        moduleName: context.module.name
+      }
+    },
+    {
+      ...context,
+      runtimeEvents: [
+        legacyAssessedEvent({
+          edge: "input_to_alpha",
+          obligationId: "alpha_complete",
+          runId: context.runId,
+          workKey: context.workKey
+        })
+      ]
+    }
+  );
+
+  const alphaGap = projection.gaps
+    .find((gap) => gap.graphFunctionId === context.alphaGraphFunctionId)
+    ?.typedAssetGaps.at(0);
+  assert.ok(alphaGap);
+  assert.deepEqual(alphaGap.missingTruthRefs, [
+    "evaluator-obligation:alpha_complete"
+  ]);
+});
+
+test("M04 public gaps projection integration: ineligible highest priority actions are not exposed as best actions", () => {
+  const base = priorityProjectionRuntimeContext();
+  const projection = publicGaps(
+    {
+      scope: {
+        kind: "workspace",
+        workspaceRoot: process.cwd(),
+        moduleName: base.module.name
+      }
+    },
+    {
+      ...base,
+      runtimeEvents: failedLeafTaskEventsForGraphFunction(
+        base,
+        base.releaseGraphFunctionId,
+        "leaf://public-gaps/release-blocker"
+      )
+    }
+  );
+
+  assert.equal(
+    projection.readOnlyEvaluator.bestGraphFunctionRef,
+    base.alphaGraphFunctionId
+  );
+  assert.deepStrictEqual(projection.readOnlyEvaluator.admissionBlockerRefs, []);
+
+  const releaseGap = projection.gaps
+    .find((gap) => gap.graphFunctionId === base.releaseGraphFunctionId)
+    ?.typedAssetGaps.at(0);
+  assert.ok(releaseGap);
+  assert.equal(releaseGap.priorityRank, 0);
+  assert.equal(releaseGap.bestActionRef, null);
+  assert.deepStrictEqual(releaseGap.eligibleActionRefs, []);
+  assert.ok(
+    releaseGap.admissionBlockerRefs.includes(
+      "failed-leaf-task:leaf://public-gaps/release-blocker"
+    )
+  );
+});
+
+test("M04 public gaps projection integration: priority projection identity changes with ranking policy", () => {
+  const base = priorityProjectionRuntimeContext();
+  const input = {
+    scope: {
+      kind: "workspace",
+      workspaceRoot: process.cwd(),
+      moduleName: base.module.name
+    }
+  };
+  const releaseFirst = publicGaps(input, base);
+  const alphaFirst = publicGaps(input, {
+    ...base,
+    constructionPriorityScheme: constructConstructionPriorityScheme({
+      schemeRef: "priority-scheme://gaps/alpha-first",
+      sourcePolicyRef: "policy://gaps-priority/alpha",
+      rules: [
+        constructConstructionPriorityRule({
+          priorityRuleRef: "priority-rule://gaps/alpha-first",
+          axis: "steel_thread",
+          weight: 30,
+          appliesToActionKinds: ["invoke_graph_function"],
+          appliesToOutcomeRefs: ["typed-asset-outcome:node-alpha-low"],
+          sourcePolicyRef: "policy://gaps-priority/alpha",
+          strategyLabel: "steel-thread"
+        })
+      ]
+    })
+  });
+
+  assert.notEqual(
+    releaseFirst.readOnlyEvaluator.evaluatorRef,
+    alphaFirst.readOnlyEvaluator.evaluatorRef
+  );
+  assert.equal(releaseFirst.readOnlyEvaluator.bestAssetRef, "node-z-release");
+  assert.equal(alphaFirst.readOnlyEvaluator.bestAssetRef, "node-alpha-low");
+});
+
+test("M04 public gaps projection integration: installed CLI gaps carries configured construction priority", async () => {
+  const { targetRoot, packageRoot } = await installGapsRuntime(
+    priorityRuntimeBindingSource()
+  );
+
+  const run = runCli(targetRoot, packageRoot, [
+    "gaps",
+    "--workspace",
+    ".",
+    "--scope",
+    "workspace"
+  ]);
+  assert.equal(run.status, 0, run.stderr);
+  const payload = parsePayload(run);
+
+  assert.equal(payload.read_only_evaluator.best_asset_ref, "node-installed-z-release");
+  assert.equal(
+    payload.read_only_evaluator.ranking_reason_refs.includes(
+      "priority-rule://installed-gaps/release-blocking"
+    ),
+    true
+  );
+  assert.ok(
+    payload.read_only_evaluator.evaluator_ref.includes(
+      "priority-scheme://installed-gaps/read-only-evaluator"
+    )
+  );
+});
+
+test("M04 public gaps projection integration: installed CLI gaps rejects malformed construction priority ingress", async () => {
+  const { targetRoot, packageRoot } = await installGapsRuntime(
+    malformedPriorityRuntimeBindingSource()
+  );
+
+  const run = runCli(targetRoot, packageRoot, [
+    "gaps",
+    "--workspace",
+    ".",
+    "--scope",
+    "workspace"
+  ]);
+
+  assert.notEqual(run.status, 0);
+  assert.match(run.stderr, /constructionPriorityScheme\.schemeRef/u);
 });
 
 test("M04 public gaps projection integration: installed CLI gaps is read-only and replay-derived across open, partial, and converged states", async () => {
@@ -256,6 +1005,22 @@ test("M04 public gaps projection integration: installed CLI gaps is read-only an
   assert.equal(open.gaps[0].status, "dispatch_required");
   assert.equal(open.gaps[0].next_step, "start");
   assert.deepStrictEqual(open.gaps[0].failing, ["design_complete"]);
+  assert.equal(open.read_only_evaluator.mutation_allowed, false);
+  assert.equal(open.read_only_evaluator.best_asset_ref, "node-gaps-design");
+  assert.equal(
+    open.read_only_evaluator.best_graph_function_ref,
+    open.gaps[0].graph_function_id
+  );
+  assert.equal(open.gaps[0].typed_asset_gaps[0].asset_kind, "design");
+  assert.equal(open.gaps[0].typed_asset_gaps[0].asset_ref, "node-gaps-design");
+  assert.equal(open.gaps[0].typed_asset_gaps[0].priority_rank, 0);
+  assert.deepStrictEqual(open.gaps[0].typed_asset_gaps[0].missing_truth_refs, [
+    "evaluator-obligation:design_complete"
+  ]);
+  assert.equal(
+    open.gaps[0].typed_asset_gaps[0].best_graph_function_ref,
+    open.gaps[0].graph_function_id
+  );
   assert.equal(await eventLineCount(targetRoot), 0);
 
   const closeFirst = await runInstalledNodeScript(targetRoot, closeVectorScript(0));
@@ -281,6 +1046,14 @@ test("M04 public gaps projection integration: installed CLI gaps is read-only an
   assert.equal(partial.gaps[0].closed_vector_count, 1);
   assert.equal(partial.gaps[0].open_vector_count, 1);
   assert.deepStrictEqual(partial.gaps[0].failing, ["code_complete"]);
+  assert.equal(partial.read_only_evaluator.mutation_allowed, false);
+  assert.equal(partial.read_only_evaluator.best_asset_ref, "node-gaps-code");
+  assert.equal(partial.gaps[0].typed_asset_gaps[0].asset_kind, "code");
+  assert.equal(partial.gaps[0].typed_asset_gaps[0].asset_ref, "node-gaps-code");
+  assert.deepStrictEqual(partial.gaps[0].typed_asset_gaps[0].missing_truth_refs, [
+    "evaluator-obligation:code_complete"
+  ]);
+  assert.equal(await eventLineCount(targetRoot), 2);
 
   const closeSecond = await runInstalledNodeScript(targetRoot, closeVectorScript(1));
   assert.equal(closeSecond.status, 0, closeSecond.stderr);
@@ -304,4 +1077,7 @@ test("M04 public gaps projection integration: installed CLI gaps is read-only an
   assert.equal(converged.gaps[0].edge, null);
   assert.equal(converged.gaps[0].status, "converged");
   assert.equal(converged.gaps[0].next_step, "none");
+  assert.equal(converged.read_only_evaluator.mutation_allowed, false);
+  assert.equal(converged.read_only_evaluator.best_asset_ref, null);
+  assert.deepStrictEqual(converged.gaps[0].typed_asset_gaps, []);
 });

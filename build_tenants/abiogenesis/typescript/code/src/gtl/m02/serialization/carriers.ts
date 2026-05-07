@@ -39,6 +39,7 @@ export function serializeJob(job: Job): Job {
     contracts: Object.freeze(job.contracts.map(serializeContractRef)),
     roles: Object.freeze(job.roles.map(serializeRole)),
     tags: Object.freeze([...job.tags]),
+    policyHooks: serializeSerializedAttrs(job.policyHooks),
     id: job.id
   });
 }
@@ -97,6 +98,7 @@ export function serializeModule(moduleValue: Module): Module {
     evaluators: Object.freeze(moduleValue.evaluators.map(serializeEvaluator)),
     rules: Object.freeze(moduleValue.rules.map(serializeRule)),
     imports: Object.freeze(moduleValue.imports.map(serializeModuleImport)),
+    policyHooks: serializeSerializedAttrs(moduleValue.policyHooks),
     metadata: serializeSerializedAttrs(moduleValue.metadata)
   });
 }

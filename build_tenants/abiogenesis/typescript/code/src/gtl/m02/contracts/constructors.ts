@@ -36,6 +36,7 @@ export interface JobInit {
   readonly contracts: readonly ContractRef[];
   readonly roles: readonly Role[];
   readonly tags: readonly string[];
+  readonly policyHooks: SerializedAttrs;
   readonly id?: string | undefined;
 }
 
@@ -76,6 +77,7 @@ export interface ModuleInit {
   readonly evaluators: readonly Evaluator[];
   readonly rules: readonly Rule[];
   readonly imports: readonly ModuleImport[];
+  readonly policyHooks: SerializedAttrs;
   readonly metadata: SerializedAttrs;
 }
 
@@ -207,6 +209,7 @@ export function constructRole(input: RoleInit): Role {
 export function constructJob(input: JobInit): Job {
   const contracts = freezeContractRefs(input.contracts);
   const roles = freezeRoles(input.roles);
+  const policyHooks = serializeSerializedAttrs(input.policyHooks);
 
   const seenContracts = new Set<string>();
   for (const contract of contracts) {
@@ -236,13 +239,15 @@ export function constructJob(input: JobInit): Job {
     contracts,
     roles,
     tags: freezeStrings(input.tags),
+    policyHooks,
     id:
       input.id ??
       deriveIdentity("job", {
         name: input.name,
         contracts: contracts.map(canonicalContractRef),
         roles: roles.map(canonicalRole),
-        tags: [...input.tags]
+        tags: [...input.tags],
+        policyHooks
       })
   });
 }
@@ -329,6 +334,7 @@ export function constructModule(input: ModuleInit): Module {
   const candidateFamilies = Object.freeze([...input.candidateFamilies]);
   const jobs = Object.freeze([...input.jobs]);
   const roles = freezeRoles(input.roles);
+  const policyHooks = serializeSerializedAttrs(input.policyHooks);
 
   const publishedGraphFunctionIds = new Set(graphFunctions.map((graphFunction) => graphFunction.id));
 
@@ -382,6 +388,7 @@ export function constructModule(input: ModuleInit): Module {
     evaluators: Object.freeze([...input.evaluators]),
     rules: Object.freeze([...input.rules]),
     imports: freezeModuleImports(input.imports),
+    policyHooks,
     metadata: serializeSerializedAttrs(input.metadata)
   });
 }

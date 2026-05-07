@@ -1495,6 +1495,148 @@ export interface ScheduledContinuationReopenedEvent {
   readonly correlationId: string;
 }
 
+export interface ConstructionRuntimeEventScope {
+  readonly constructionEventRef: string;
+  readonly basisId: string;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly episodeId: string;
+  readonly iterationOrdinal: number;
+  readonly eventSequence: number;
+  readonly basisProjectionRef: string;
+  readonly priorIntentId: string | null;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
+export interface ConstructionEpisodeStartedEvent
+  extends ConstructionRuntimeEventScope {
+  readonly kind: "construction_episode_started";
+  readonly startProjectionRef: string;
+}
+
+export interface ConstructionObservationSnapshotMaterializedEvent
+  extends ConstructionRuntimeEventScope {
+  readonly kind: "construction_observation_snapshot_materialized";
+  readonly observationId: string;
+  readonly currentProjectionRef: string;
+  readonly linkedAssetRefs: readonly string[];
+  readonly authorityDigest: string;
+}
+
+export interface ConstructionActionCatalogProjectedEvent
+  extends ConstructionRuntimeEventScope {
+  readonly kind: "construction_action_catalog_projected";
+  readonly catalogRef: string;
+  readonly hookResolutionRef: string;
+  readonly fallbackConfigDigest: string;
+  readonly traversalPublicationRefs: readonly string[];
+}
+
+export interface ConstructionEvaluatorInvokedEvent
+  extends ConstructionRuntimeEventScope {
+  readonly kind: "construction_evaluator_invoked";
+  readonly observationId: string;
+  readonly catalogRef: string;
+  readonly evaluatorPluginRef: string;
+  readonly inputDigest: string;
+}
+
+export interface ConstructionIntentCandidateReturnedEvent
+  extends ConstructionRuntimeEventScope {
+  readonly kind: "construction_intent_candidate_returned";
+  readonly evaluatorPluginRef: string;
+  readonly evaluatorOutcomeRef: string;
+  readonly candidateSetDigest: string;
+  readonly candidateRefs: readonly string[];
+}
+
+export interface ConstructionIntentCandidateAdmittedEvent
+  extends ConstructionRuntimeEventScope {
+  readonly kind: "construction_intent_candidate_admitted";
+  readonly candidateId: string;
+  readonly admissionRef: string;
+  readonly intentId: string;
+  readonly authorityRefs: readonly string[];
+}
+
+export interface ConstructionIntentCandidateRejectedEvent
+  extends ConstructionRuntimeEventScope {
+  readonly kind: "construction_intent_candidate_rejected";
+  readonly candidateId: string;
+  readonly admissionRef: string;
+  readonly rejectionReasonRefs: readonly string[];
+  readonly authorityRefs: readonly string[];
+}
+
+export interface ConstructionIntentSelectedEvent
+  extends ConstructionRuntimeEventScope {
+  readonly kind: "construction_intent_selected";
+  readonly intentId: string;
+  readonly selectedActionRef: string;
+  readonly selectedBindingRef: string;
+  readonly selectionPolicyRef: string;
+}
+
+export interface ConstructionGraphActionInvokedEvent
+  extends ConstructionRuntimeEventScope {
+  readonly kind: "construction_graph_action_invoked";
+  readonly intentId: string;
+  readonly selectedActionRef: string;
+  readonly runtimeInvocationPlanRef: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly continuationId: string | null;
+  readonly selectedGraphFunctionRef: string | null;
+  readonly selectedVectorRef: string | null;
+}
+
+export interface ConstructionDeltaObservedEvent
+  extends ConstructionRuntimeEventScope {
+  readonly kind: "construction_delta_observed";
+  readonly intentId: string;
+  readonly attemptOrdinal: number;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly continuationId: string | null;
+  readonly deltaRef: string;
+  readonly assetDeltaRefs: readonly string[];
+  readonly runtimeEventRefs: readonly string[];
+  readonly beforeProjectionRef: string;
+  readonly afterProjectionRef: string;
+  readonly artifactDigestBefore: string | null;
+  readonly artifactDigestAfter: string | null;
+  readonly blockerBefore: string | null;
+  readonly blockerAfter: string | null;
+  readonly fulfilledObligationRefs: readonly string[];
+  readonly remainingObligationRefs: readonly string[];
+  readonly newEvidenceRefs: readonly string[];
+  readonly fhDecisionAccepted: boolean;
+  readonly reentryMoved: boolean;
+  readonly closed: boolean;
+}
+
+export type ConstructionTerminalPublicState =
+  | "construction_closed"
+  | "construction_blocked"
+  | "construction_review_required"
+  | "construction_escalated"
+  | "fh_input_required"
+  | "ticket_created"
+  | "reprice_required";
+
+export interface ConstructionTerminalDispositionProjectedEvent
+  extends ConstructionRuntimeEventScope {
+  readonly kind: "construction_terminal_disposition_projected";
+  readonly terminalProjectionRef: string;
+  readonly publicState: ConstructionTerminalPublicState;
+  readonly selectedActionRef: string | null;
+  readonly selectedIntentId: string | null;
+  readonly terminalRouteRefs: readonly string[];
+  readonly reviewReasonRefs: readonly string[];
+}
+
 export type RuntimeEvent =
   | BasisAdmittedEvent
   | FdAdvanceReadyEvent
@@ -1563,7 +1705,18 @@ export type RuntimeEvent =
   | TimerIntentAdmittedEvent
   | TimerOutcomeAdmittedEvent
   | DeadlineBreachAdmittedEvent
-  | ScheduledContinuationReopenedEvent;
+  | ScheduledContinuationReopenedEvent
+  | ConstructionEpisodeStartedEvent
+  | ConstructionObservationSnapshotMaterializedEvent
+  | ConstructionActionCatalogProjectedEvent
+  | ConstructionEvaluatorInvokedEvent
+  | ConstructionIntentCandidateReturnedEvent
+  | ConstructionIntentCandidateAdmittedEvent
+  | ConstructionIntentCandidateRejectedEvent
+  | ConstructionIntentSelectedEvent
+  | ConstructionGraphActionInvokedEvent
+  | ConstructionDeltaObservedEvent
+  | ConstructionTerminalDispositionProjectedEvent;
 
 export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "basis_admitted",
@@ -1633,7 +1786,18 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "timer_intent_admitted",
   "timer_outcome_admitted",
   "deadline_breach_admitted",
-  "scheduled_continuation_reopened"
+  "scheduled_continuation_reopened",
+  "construction_episode_started",
+  "construction_observation_snapshot_materialized",
+  "construction_action_catalog_projected",
+  "construction_evaluator_invoked",
+  "construction_intent_candidate_returned",
+  "construction_intent_candidate_admitted",
+  "construction_intent_candidate_rejected",
+  "construction_intent_selected",
+  "construction_graph_action_invoked",
+  "construction_delta_observed",
+  "construction_terminal_disposition_projected"
 ] as const satisfies readonly RuntimeEvent["kind"][]);
 
 export interface AdmittedLeafTaskPayload {

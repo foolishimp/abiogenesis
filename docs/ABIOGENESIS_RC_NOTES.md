@@ -1,7 +1,7 @@
-# abiogenesis 3.6.0-rc.1 RC Notes
+# abiogenesis 3.7.0-rc.1 RC Notes
 
-This note records accepted RC behavior for the current `v3.6.0-rc.1` line.
-The package cut is `3.6.0-rc.1`.
+This note records accepted RC behavior for the current `v3.7.0-rc.1` line.
+The package cut is `3.7.0-rc.1`.
 
 ## Accepted Framework Behavior
 
@@ -399,6 +399,33 @@ Non-claims:
 - T-126 owns local consolidation of repeated temporal runtime-scope construction
   after the release-candidate proof
 
+### F_P Consciousness Evaluator Starts The 3.7.0 Line
+
+The F_P consciousness slice moves the current release candidate from
+`3.6.0-rc.1` to `3.7.0-rc.1` because it adds a generic construction evaluator
+surface over linked asset truth and makes public gaps a read-only view over
+that evaluator.
+
+Accepted behavior:
+
+- `ConstructionObservationSnapshot`,
+  `ConstructionActionCatalogProjection`,
+  `ObservationToActionBindingProjection`, and
+  `ConstructionPriorityProjection` are the shared construction-evaluator
+  carriers.
+- public gaps renders typed asset gaps, candidate graph actions, blockers, and
+  ranking reasons from the construction evaluator projection; it does not
+  append events, admit intent, dispatch graph work, or own retry.
+- configured construction priority and affect policies are admitted through
+  typed M03 ingress before M04 renders them.
+- bootstrap asset induction is represented as a lawful construction action over
+  sparse typed assets, not as special CLI setup glue.
+
+Non-claim:
+
+- T-128 owns the installed runner-level loop that consumes admitted construction
+  intent and invokes graph work recursively.
+
 ## Current Verification Footer
 
 The current RC proving footer is:
@@ -418,13 +445,18 @@ The current RC proving footer is:
 - `npm run test:t121`: `4 passed`
 - `npm run test:t122`: `5 passed`
 - `npm run test:t123`: `6 passed`
-- `npm run test:semantic`: `443 passed`
+- `npm run test:semantic`: `477 passed`
+- `npm run test:t127`: `33 passed`
+- `npm run test:t058`: `11 passed`
+- `npm run test:t127:live`: `6 passed`
+- `CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude npm run test:live`: `1 passed`
+- `CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude npm run test:live:uat`: `2 passed`
 - `npm run test:t119:live`: `3 passed`
 - `npm run test:t125:live`: `2 passed`
 - `npm run test:t116:live`: `1 passed`
 - `git diff --check`: `passed`
 - `npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run`: `passed`,
-  package `3.6.0-rc.1`, `325 files`
+  package `3.7.0-rc.1`, `327 files`
 
 Fresh 3.5.0-rc.2 live PTY plugin/actor matrix:
 

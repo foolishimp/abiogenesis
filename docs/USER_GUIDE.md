@@ -1,6 +1,6 @@
 # GTL/ABG User Guide
 
-**Status**: Current single human guide for GTL 3 / ABG 3.6.0-rc.1
+**Status**: Current single human guide for GTL 3 / ABG 3.7.0-rc.1
 **Audience**: People building, operating, or reviewing GTL/ABG applications
 **Purpose**: Explain what GTL/ABG is for, what it builds, the technical GTL/ABG model, how the build loop works, what the runtime gives you, and how to run the current kernel
 
@@ -406,9 +406,11 @@ Avoid these mistakes:
 - treating GTL declarations as imperative control code
 - rebuilding advancement, policy, or regime meaning from open dictionaries
 
-## ABG 3.6.0 RC Runtime Boundary
+## ABG 3.7.0 RC Runtime Boundary
 
-ABG 3.6.0 RC makes runtime law carrier and event owned.
+ABG 3.7.0 RC keeps runtime law carrier and event owned, and adds the
+read-only F_P construction evaluator/gaps projection as one ranking surface
+over replay-derived runtime truth.
 
 Public work still starts from a semantic `Job` bound to a published
 `GraphFunction`, but advancement truth is no longer reconstructed from service
@@ -430,6 +432,11 @@ The primary event rule is unchanged:
 - `emit()` is the lawful write boundary
 - projections derive current truth by replay
 - `runtime_config` is ingress/configuration input, not independent runtime law
+
+Public gaps follows the same rule. It may show the highest-value typed asset
+gap, candidate graph function/vector, blockers, and priority reasons from the
+construction evaluator projection. It does not start traversal, append events,
+admit intent, dispatch graph work, or own retry.
 
 ## Time, Eligibility, And Replay
 

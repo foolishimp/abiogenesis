@@ -7,6 +7,7 @@ import type {
   PublicGapsEntry,
   PublicGapsProjection,
   PublicGapsRequest,
+  PublicGapsReadOnlyEvaluatorProjection,
   PublicGapsScopeProjection
 } from "./carriers.js";
 
@@ -19,6 +20,12 @@ function freezeStringArray(values: readonly string[]): readonly string[] {
 }
 
 function freezeEntries(values: readonly PublicGapsEntry[]): readonly PublicGapsEntry[] {
+  return Object.freeze([...values]);
+}
+
+function freezeTypedAssetGapRows(
+  values: PublicGapsEntry["typedAssetGaps"]
+): PublicGapsEntry["typedAssetGaps"] {
   return Object.freeze([...values]);
 }
 
@@ -51,10 +58,14 @@ export function constructPublicGapsDeltaSummary(input: {
 }
 
 export function constructPublicGapsEntry(
-  input: Omit<PublicGapsEntry, "failing" | "passing" | "deltaSummary"> & {
+  input: Omit<
+    PublicGapsEntry,
+    "failing" | "passing" | "deltaSummary" | "typedAssetGaps"
+  > & {
     readonly failing: readonly string[];
     readonly passing: readonly string[];
     readonly deltaSummary: PublicGapsDeltaSummary;
+    readonly typedAssetGaps: PublicGapsEntry["typedAssetGaps"];
   }
 ): PublicGapsEntry {
   return Object.freeze({
@@ -79,7 +90,26 @@ export function constructPublicGapsEntry(
     terminalKind: input.terminalKind,
     nextStep: input.nextStep,
     dispatchRequested: input.dispatchRequested,
+    typedAssetGaps: freezeTypedAssetGapRows(input.typedAssetGaps),
     projection: input.projection
+  });
+}
+
+export function constructPublicGapsReadOnlyEvaluatorProjection(
+  input: PublicGapsReadOnlyEvaluatorProjection
+): PublicGapsReadOnlyEvaluatorProjection {
+  return Object.freeze({
+    kind: input.kind,
+    evaluatorRef: input.evaluatorRef,
+    mutationAllowed: false,
+    bestGapRef: input.bestGapRef,
+    bestAssetRef: input.bestAssetRef,
+    bestActionRef: input.bestActionRef,
+    bestGraphFunctionRef: input.bestGraphFunctionRef,
+    bestGraphVectorRef: input.bestGraphVectorRef,
+    admissionBlockerRefs: freezeStringArray(input.admissionBlockerRefs),
+    rankingReasonRefs: freezeStringArray(input.rankingReasonRefs),
+    sourceProjectionRefs: freezeStringArray(input.sourceProjectionRefs)
   });
 }
 
@@ -117,6 +147,9 @@ export function constructPublicGapsProjection(
     openFrames: input.openFrames,
     converged: input.converged,
     eventCount: input.eventCount,
+    readOnlyEvaluator: constructPublicGapsReadOnlyEvaluatorProjection(
+      input.readOnlyEvaluator
+    ),
     gaps: freezeEntries(input.gaps)
   });
 }

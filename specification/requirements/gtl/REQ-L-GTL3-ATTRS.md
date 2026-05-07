@@ -20,7 +20,7 @@ declaration surfaces.
 
 **REQ-L-GTL3-ATTRS-003**: `Attrs` shall preserve stable ordered key/value truth and fail closed on duplicate keys.
 
-**REQ-L-GTL3-ATTRS-004**: `Attrs` shall be usable at minimum on `Rule.config`, `GraphFunction.declarations`, `GraphVector.declarations`, `RefinementBoundary.hints`, `CandidateFamily.policy_hints`, `Role.policy_hooks`, and `Module.metadata`.
+**REQ-L-GTL3-ATTRS-004**: `Attrs` shall be usable at minimum on `Rule.config`, `GraphFunction.declarations`, `GraphVector.declarations`, `RefinementBoundary.hints`, `CandidateFamily.policy_hints`, `Job.policy_hooks`, `Role.policy_hooks`, `Module.policy_hooks`, and `Module.metadata`.
 
 **REQ-L-GTL3-ATTRS-005**: `Attrs` shall remain inspectable, serializable, and replayable across publication and interpretation surfaces.
 

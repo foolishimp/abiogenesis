@@ -669,6 +669,17 @@ export function deriveRuntimeAggregateProjection(
       case "timer_outcome_admitted":
       case "deadline_breach_admitted":
       case "scheduled_continuation_reopened":
+      case "construction_episode_started":
+      case "construction_observation_snapshot_materialized":
+      case "construction_action_catalog_projected":
+      case "construction_evaluator_invoked":
+      case "construction_intent_candidate_returned":
+      case "construction_intent_candidate_admitted":
+      case "construction_intent_candidate_rejected":
+      case "construction_intent_selected":
+      case "construction_graph_action_invoked":
+      case "construction_delta_observed":
+      case "construction_terminal_disposition_projected":
         break;
       default: {
         const exhaustive: never = event;

@@ -1,6 +1,6 @@
 {
   "name": "@abiogenesis/typescript-tenant",
-  "version": "3.6.0-rc.1",
+  "version": "3.7.0-rc.1",
   "private": true,
   "type": "module",
   "types": "./build/semantic/code/src/index.d.ts",
@@ -186,6 +186,10 @@
     "test:t121": "npm run build:semantic && node --test test_env/tests/test_t121_event_calculus_projection_parity.test.mjs",
     "test:t122": "npm run build:semantic && node --test test_env/tests/test_t122_temporal_deadline_policy.test.mjs",
     "test:t123": "npm run build:semantic && node --test test_env/tests/test_t123_method_trace_guard.test.mjs",
+    "test:t127:unit": "npm run build:semantic && node --test test_env/tests/test_t127_fp_consciousness_loop_unit.test.mjs",
+    "test:t127:sandbox": "npm run build:semantic && node --test test_env/sandbox/test_t127_fp_consciousness_scenarios_sandbox.test.mjs",
+    "test:t127:live": "npm run build:semantic && node --test test_env/live/test_t127_fp_consciousness_scenarios_live.test.mjs",
+    "test:t127": "npm run build:semantic && node --test test_env/tests/test_t127_fp_consciousness_loop_unit.test.mjs test_env/sandbox/test_t127_fp_consciousness_scenarios_sandbox.test.mjs",
     "test:t125:live": "npm run build:semantic && node --test test_env/live/test_t125_temporal_and_non_temporal_gtl_live.test.mjs",
     "test:t125": "npm run test:t125:live"
   },

@@ -2,6 +2,8 @@
 // Implements: REQ-R-ABG3-RUN
 
 import type {
+  AffectPriorityPolicy,
+  ConstructionPriorityScheme,
   ExecutionBasisAdmissionInput,
   EngineAssuranceProvider,
   PluginTraversalKind,
@@ -16,6 +18,8 @@ export interface PublicStartContext {
   readonly runtimeIdentity: ExecutionBasisAdmissionInput["runtimeIdentity"];
   readonly resolvedPolicy: ExecutionBasisAdmissionInput["resolvedPolicy"];
   readonly runtimeEvents?: readonly RuntimeEvent[];
+  readonly constructionPriorityScheme?: ConstructionPriorityScheme;
+  readonly constructionAffectPolicies?: readonly AffectPriorityPolicy[];
   readonly runId?: string | null;
   readonly workKey?: string | null;
   readonly frameId?: string | null;

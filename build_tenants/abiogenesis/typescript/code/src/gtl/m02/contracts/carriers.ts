@@ -32,6 +32,7 @@ export interface Job {
   readonly contracts: readonly ContractRef[];
   readonly roles: readonly Role[];
   readonly tags: readonly string[];
+  readonly policyHooks: SerializedAttrs;
   readonly id: string;
 }
 
@@ -72,5 +73,6 @@ export interface Module {
   readonly evaluators: readonly Evaluator[];
   readonly rules: readonly Rule[];
   readonly imports: readonly ModuleImport[];
+  readonly policyHooks: SerializedAttrs;
   readonly metadata: SerializedAttrs;
 }

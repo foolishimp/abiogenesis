@@ -185,7 +185,31 @@ test("M02 integration: module publication preserves graph-function-first work tr
           }
         ],
         roles: [reviewerRole],
-        tags: ["semantic_work"]
+        tags: ["semantic_work"],
+        policyHooks: {
+          entries: [
+            {
+              key: "abg.fp_consciousness",
+              value: {
+                kind: "hook_ref",
+                value: {
+                  ref: "hook://job/design-code/fp-consciousness",
+                  config: {
+                    entries: [
+                      {
+                        key: "concerns",
+                        value: {
+                          kind: "string_list",
+                          value: ["priority_scheme"]
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        }
       }
     ],
     roles: [reviewerRole],
@@ -193,6 +217,30 @@ test("M02 integration: module publication preserves graph-function-first work tr
     evaluators: [],
     rules: [],
     imports: [moduleImportPayload()],
+    policyHooks: {
+      entries: [
+        {
+          key: "abg.fp_consciousness",
+          value: {
+            kind: "hook_ref",
+            value: {
+              ref: "hook://module/design-library/fp-consciousness",
+              config: {
+                entries: [
+                  {
+                    key: "concerns",
+                    value: {
+                      kind: "string_list",
+                      value: ["intent_renderer"]
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
     metadata: {
       entries: [
         {
@@ -211,7 +259,9 @@ test("M02 integration: module publication preserves graph-function-first work tr
   assert.equal(replayed.graphFunctions[0].id, publishedCarrier.id);
   assert.equal(replayed.jobs[0].contracts[0].kind, "graph_function");
   assert.equal(replayed.jobs[0].contracts[0].targetId, publishedCarrier.id);
+  assert.equal(replayed.jobs[0].policyHooks.entries[0].key, "abg.fp_consciousness");
   assert.equal(replayed.roles[0].policyHooks.entries[0].key, "authority");
+  assert.equal(replayed.policyHooks.entries[0].key, "abg.fp_consciousness");
   assert.equal(replayed.candidateFamilies[0].candidates[0].id, publishedCarrier.id);
   assert.equal(replayed.refinementBoundaries[0].name, "design→code");
   assert.equal(replayed.imports[0].source, "abiogenesis.core");

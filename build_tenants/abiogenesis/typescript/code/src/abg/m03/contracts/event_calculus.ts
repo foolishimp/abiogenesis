@@ -18,7 +18,8 @@ export const RUNTIME_FLUENT_SCOPE_VALUES = Object.freeze([
   "frame",
   "vector",
   "continuation",
-  "temporal"
+  "temporal",
+  "construction"
 ] as const);
 
 export type RuntimeFluentScope =
@@ -39,7 +40,24 @@ export const RUNTIME_FLUENT_NAME_VALUES = Object.freeze([
   "temporal_timer_fired",
   "temporal_eligible",
   "scheduled_continuation_open",
-  "temporal_deadline_breached"
+  "temporal_deadline_breached",
+  "construction_episode_open",
+  "construction_episode_closed",
+  "construction_evaluator_awaiting_outcome",
+  "construction_intent_admitted",
+  "construction_intent_selected",
+  "construction_graph_action_in_flight",
+  "construction_delta_available",
+  "construction_progress_observed",
+  "construction_closed",
+  "construction_progressing_yield",
+  "construction_blocked",
+  "construction_stalled",
+  "construction_review_required",
+  "construction_escalated",
+  "fh_input_required",
+  "ticket_created",
+  "reprice_required"
 ] as const);
 
 export type RuntimeFluentName =
@@ -110,12 +128,14 @@ export interface RuntimeDerivedFluentRule {
   readonly ruleRef: string;
   readonly derive: (input: {
     readonly holds: readonly RuntimeFluent[];
+    readonly effectRows: readonly RuntimeEventCalculusEffectRow[];
   }) => readonly RuntimeFluent[];
 }
 
 export interface RuntimeEventCalculusEffectRow {
   readonly kind: "event_calculus_effect_row";
   readonly eventKind: string;
+  readonly sourceEvent: RuntimeEvent;
   readonly initiates: readonly RuntimeFluent[];
   readonly terminates: readonly RuntimeFluent[];
   readonly clips: readonly RuntimeFluentPattern[];
@@ -910,6 +930,332 @@ function deadlineBreachAxiom(
   });
 }
 
+type ConstructionRuntimeEvent = Extract<
+  RuntimeEvent,
+  { readonly episodeId: string; readonly iterationOrdinal: number }
+>;
+
+function constructionIterationRef(event: ConstructionRuntimeEvent): string {
+  return `${event.episodeId}:${event.iterationOrdinal}`;
+}
+
+function constructionRuntimeFluent(input: {
+  readonly event: ConstructionRuntimeEvent;
+  readonly name:
+    | "construction_episode_open"
+    | "construction_episode_closed"
+    | "construction_evaluator_awaiting_outcome"
+    | "construction_intent_admitted"
+    | "construction_intent_selected"
+    | "construction_graph_action_in_flight"
+    | "construction_delta_available"
+    | "construction_progress_observed"
+    | "construction_closed"
+    | "construction_progressing_yield"
+    | "construction_blocked"
+    | "construction_stalled"
+    | "construction_review_required"
+    | "construction_escalated"
+    | "fh_input_required"
+    | "ticket_created"
+    | "reprice_required";
+  readonly ref: string;
+  readonly graphCallId?: string | null;
+  readonly frameId?: string | null;
+  readonly continuationId?: string | null;
+  readonly constraintRef?: string | null;
+}): RuntimeFluent {
+  return constructRuntimeFluent({
+    name: input.name,
+    scope: "construction",
+    basisId: input.event.basisId,
+    graphFunctionId: input.event.graphFunctionId,
+    graphCallId: input.graphCallId ?? null,
+    frameId: input.frameId ?? null,
+    runId: input.event.runId,
+    workKey: input.event.workKey,
+    continuationId: input.continuationId ?? null,
+    constraintRef: input.constraintRef ?? null,
+    ref: input.ref
+  });
+}
+
+function constructionEpisodeStartedAxiom(
+  event: RuntimeEvent,
+  context: RuntimeEventCalculusContext
+): RuntimeEventCalculusEffect {
+  void context;
+  assertEventKind(event, "construction_episode_started");
+  return completeEffect({
+    initiates: [
+      constructionRuntimeFluent({
+        event,
+        name: "construction_episode_open",
+        ref: event.episodeId
+      })
+    ]
+  });
+}
+
+function constructionReplayAidAxiom(
+  event: RuntimeEvent,
+  context: RuntimeEventCalculusContext
+): RuntimeEventCalculusEffect {
+  void event;
+  void context;
+  return completeEffect({});
+}
+
+function constructionEvaluatorInvokedAxiom(
+  event: RuntimeEvent,
+  context: RuntimeEventCalculusContext
+): RuntimeEventCalculusEffect {
+  void context;
+  assertEventKind(event, "construction_evaluator_invoked");
+  return completeEffect({
+    initiates: [
+      constructionRuntimeFluent({
+        event,
+        name: "construction_evaluator_awaiting_outcome",
+        ref: constructionIterationRef(event),
+        constraintRef: event.evaluatorPluginRef
+      })
+    ]
+  });
+}
+
+function constructionIntentCandidateReturnedAxiom(
+  event: RuntimeEvent,
+  context: RuntimeEventCalculusContext
+): RuntimeEventCalculusEffect {
+  void context;
+  assertEventKind(event, "construction_intent_candidate_returned");
+  return completeEffect({
+    terminates: [
+      constructionRuntimeFluent({
+        event,
+        name: "construction_evaluator_awaiting_outcome",
+        ref: constructionIterationRef(event),
+        constraintRef: event.evaluatorPluginRef
+      })
+    ]
+  });
+}
+
+function constructionIntentCandidateAdmittedAxiom(
+  event: RuntimeEvent,
+  context: RuntimeEventCalculusContext
+): RuntimeEventCalculusEffect {
+  void context;
+  assertEventKind(event, "construction_intent_candidate_admitted");
+  return completeEffect({
+    initiates: [
+      constructionRuntimeFluent({
+        event,
+        name: "construction_intent_admitted",
+        ref: event.candidateId,
+        constraintRef: event.admissionRef
+      })
+    ]
+  });
+}
+
+function constructionIntentSelectedAxiom(
+  event: RuntimeEvent,
+  context: RuntimeEventCalculusContext
+): RuntimeEventCalculusEffect {
+  void context;
+  assertEventKind(event, "construction_intent_selected");
+  return completeEffect({
+    initiates: [
+      constructionRuntimeFluent({
+        event,
+        name: "construction_intent_selected",
+        ref: event.intentId,
+        constraintRef: event.selectionPolicyRef
+      })
+    ]
+  });
+}
+
+function constructionGraphActionInvokedAxiom(
+  event: RuntimeEvent,
+  context: RuntimeEventCalculusContext
+): RuntimeEventCalculusEffect {
+  void context;
+  assertEventKind(event, "construction_graph_action_invoked");
+  return completeEffect({
+    initiates: [
+      constructionRuntimeFluent({
+        event,
+        name: "construction_graph_action_in_flight",
+        ref: event.intentId,
+        graphCallId: event.graphCallId,
+        frameId: event.frameId,
+        continuationId: event.continuationId
+      })
+    ]
+  });
+}
+
+function constructionDeltaObservedAxiom(
+  event: RuntimeEvent,
+  context: RuntimeEventCalculusContext
+): RuntimeEventCalculusEffect {
+  void context;
+  assertEventKind(event, "construction_delta_observed");
+  const initiates = [
+    constructionRuntimeFluent({
+      event,
+      name: "construction_delta_available",
+      ref: event.intentId,
+      graphCallId: event.graphCallId,
+      frameId: event.frameId,
+      continuationId: event.continuationId,
+      constraintRef: event.deltaRef
+    })
+  ];
+  if (event.closed) {
+    initiates.push(
+      constructionRuntimeFluent({
+        event,
+        name: "construction_episode_closed",
+        ref: event.episodeId,
+        constraintRef: event.deltaRef
+      })
+    );
+  }
+  const terminates = [
+    constructionRuntimeFluent({
+      event,
+      name: "construction_graph_action_in_flight",
+      ref: event.intentId,
+      graphCallId: event.graphCallId,
+      frameId: event.frameId,
+      continuationId: event.continuationId
+    })
+  ];
+  if (event.closed) {
+    terminates.push(
+      constructionRuntimeFluent({
+        event,
+        name: "construction_episode_open",
+        ref: event.episodeId
+      })
+    );
+  }
+  return completeEffect({
+    terminates,
+    initiates
+  });
+}
+
+function constructionTerminalDispositionProjectedAxiom(
+  event: RuntimeEvent,
+  context: RuntimeEventCalculusContext
+): RuntimeEventCalculusEffect {
+  void context;
+  assertEventKind(event, "construction_terminal_disposition_projected");
+  const terminalConstraintRef =
+    event.terminalRouteRefs[0] ?? event.selectedActionRef ?? event.terminalProjectionRef;
+  const initiates: RuntimeFluent[] = [
+    constructionRuntimeFluent({
+      event,
+      name: event.publicState,
+      ref: event.terminalProjectionRef,
+      constraintRef: terminalConstraintRef
+    })
+  ];
+  const terminates: RuntimeFluent[] = [];
+  if (event.publicState === "construction_closed") {
+    initiates.push(
+      constructionRuntimeFluent({
+        event,
+        name: "construction_episode_closed",
+        ref: event.episodeId,
+        constraintRef: event.terminalProjectionRef
+      })
+    );
+    terminates.push(
+      constructionRuntimeFluent({
+        event,
+        name: "construction_episode_open",
+        ref: event.episodeId
+      })
+    );
+  }
+  return completeEffect({
+    initiates,
+    terminates
+  });
+}
+
+function constructionDeltaHasMaterialProgress(
+  event: Extract<RuntimeEvent, { readonly kind: "construction_delta_observed" }>
+): boolean {
+  return (
+    event.closed ||
+    (event.artifactDigestBefore !== null &&
+      event.artifactDigestAfter !== null &&
+      event.artifactDigestBefore !== event.artifactDigestAfter) ||
+    event.fulfilledObligationRefs.length > 0 ||
+    event.newEvidenceRefs.length > 0 ||
+    (event.blockerBefore !== null &&
+      event.blockerAfter !== null &&
+      event.blockerBefore !== event.blockerAfter) ||
+    event.fhDecisionAccepted ||
+    event.reentryMoved
+  );
+}
+
+export const CONSTRUCTION_PROGRESS_DERIVED_FLUENT_RULE = Object.freeze({
+  kind: "derived_fluent_rule",
+  ruleRef: "runtime-derived-fluent-rule://abg/construction-progress-from-delta",
+  derive: (input: {
+    readonly holds: readonly RuntimeFluent[];
+    readonly effectRows: readonly RuntimeEventCalculusEffectRow[];
+  }) => {
+    const heldKeys = new Set(input.holds.map((fluent) => runtimeFluentKey(fluent)));
+    return Object.freeze(
+      input.effectRows
+        .filter(
+          (
+            row
+          ): row is RuntimeEventCalculusEffectRow & {
+            readonly sourceEvent: Extract<
+              RuntimeEvent,
+              { readonly kind: "construction_delta_observed" }
+            >;
+          } =>
+            row.sourceEvent.kind === "construction_delta_observed" &&
+            constructionDeltaHasMaterialProgress(row.sourceEvent)
+        )
+        .flatMap((row) =>
+          row.initiates.filter(
+            (fluent) =>
+              fluent.name === "construction_delta_available" &&
+              heldKeys.has(runtimeFluentKey(fluent))
+          )
+        )
+        .map((fluent) =>
+          constructRuntimeFluent({
+            name: "construction_progress_observed",
+            scope: "construction",
+            basisId: fluent.basisId,
+            graphFunctionId: fluent.graphFunctionId,
+            graphCallId: fluent.graphCallId,
+            frameId: fluent.frameId,
+            runId: fluent.runId,
+            workKey: fluent.workKey,
+            continuationId: fluent.continuationId,
+            constraintRef: fluent.constraintRef,
+            ref: fluent.ref
+          })
+        )
+    );
+  }
+} satisfies RuntimeDerivedFluentRule);
+
 export const RUNTIME_EVENT_CALCULUS_AXIOMS = Object.freeze([
   Object.freeze({
     kind: "event_calculus_axiom",
@@ -984,6 +1330,61 @@ export const RUNTIME_EVENT_CALCULUS_AXIOMS = Object.freeze([
     kind: "event_calculus_axiom",
     eventKind: "scheduled_continuation_reopened",
     deriveEffects: scheduledContinuationReopenedAxiom
+  }),
+  Object.freeze({
+    kind: "event_calculus_axiom",
+    eventKind: "construction_episode_started",
+    deriveEffects: constructionEpisodeStartedAxiom
+  }),
+  Object.freeze({
+    kind: "event_calculus_axiom",
+    eventKind: "construction_observation_snapshot_materialized",
+    deriveEffects: constructionReplayAidAxiom
+  }),
+  Object.freeze({
+    kind: "event_calculus_axiom",
+    eventKind: "construction_action_catalog_projected",
+    deriveEffects: constructionReplayAidAxiom
+  }),
+  Object.freeze({
+    kind: "event_calculus_axiom",
+    eventKind: "construction_evaluator_invoked",
+    deriveEffects: constructionEvaluatorInvokedAxiom
+  }),
+  Object.freeze({
+    kind: "event_calculus_axiom",
+    eventKind: "construction_intent_candidate_returned",
+    deriveEffects: constructionIntentCandidateReturnedAxiom
+  }),
+  Object.freeze({
+    kind: "event_calculus_axiom",
+    eventKind: "construction_intent_candidate_admitted",
+    deriveEffects: constructionIntentCandidateAdmittedAxiom
+  }),
+  Object.freeze({
+    kind: "event_calculus_axiom",
+    eventKind: "construction_intent_candidate_rejected",
+    deriveEffects: constructionReplayAidAxiom
+  }),
+  Object.freeze({
+    kind: "event_calculus_axiom",
+    eventKind: "construction_intent_selected",
+    deriveEffects: constructionIntentSelectedAxiom
+  }),
+  Object.freeze({
+    kind: "event_calculus_axiom",
+    eventKind: "construction_graph_action_invoked",
+    deriveEffects: constructionGraphActionInvokedAxiom
+  }),
+  Object.freeze({
+    kind: "event_calculus_axiom",
+    eventKind: "construction_delta_observed",
+    deriveEffects: constructionDeltaObservedAxiom
+  }),
+  Object.freeze({
+    kind: "event_calculus_axiom",
+    eventKind: "construction_terminal_disposition_projected",
+    deriveEffects: constructionTerminalDispositionProjectedAxiom
   })
 ] satisfies readonly RuntimeEventCalculusAxiom[]);
 
@@ -1106,7 +1507,10 @@ function applyDerivedRules(input: {
     if (!isNonEmptyString(rule.ruleRef)) {
       throw new TypeError("Derived fluent rule requires ruleRef");
     }
-    const derived = rule.derive({ holds: snapshot.holds });
+    const derived = rule.derive({
+      holds: snapshot.holds,
+      effectRows: input.effectRows
+    });
     for (const fluent of derived) {
       validateRuntimeFluent(fluent);
       const key = runtimeFluentKey(fluent);
@@ -1189,6 +1593,7 @@ export function deriveRuntimeEventCalculusProjection(
     const row = Object.freeze({
       kind: "event_calculus_effect_row",
       eventKind: event.kind,
+      sourceEvent: event,
       initiates: effect.initiates,
       terminates: effect.terminates,
       clips: effect.clips,

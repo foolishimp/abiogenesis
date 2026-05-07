@@ -22,3 +22,5 @@ Define `Module` as the publication boundary for GTL 3 declarations.
 **REQ-L-GTL3-MODULE-004**: Published graph functions, refinement boundaries, candidate families, jobs, and roles shall remain inspectable to importing consumers rather than collapsing into anonymous realized surfaces.
 
 **REQ-L-GTL3-MODULE-005**: Module metadata shall be an immutable declaration surface visible to consumers, policy resolution, and replay.
+
+**REQ-L-GTL3-MODULE-006**: A module may declare module-level `policy_hooks` as visible publication defaults for imported graph functions, jobs, roles, and runtime policy resolution. Module policy hooks shall not override more specific declared hook truth unless the hook family explicitly names that precedence.

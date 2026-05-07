@@ -1,6 +1,6 @@
 # LLM GTL App Builder Guide
 
-**Status**: Current compressed technical GTL 3 / ABG 3.6.0-rc.1 guide for LLMs
+**Status**: Current compressed technical GTL 3 / ABG 3.7.0-rc.1 guide for LLMs
 **Audience**: LLM agentic coders and agent bootstraps building GTL/ABG domain apps
 **Purpose**: Compress the human GTL/ABG guide into the ontology, operating rules, fail-closed constraints, and language-specific syntax needed by LLM agents
 
@@ -1116,7 +1116,7 @@ ABG does not own domain semantics beyond declared law.
 
 ABG interprets and enforces declared law.
 
-### ABG 3.6.0 RC carrier law
+### ABG 3.6.0 RC carrier law retained in 3.7
 
 The live runtime boundary is carrier and event owned.
 
@@ -1134,7 +1134,7 @@ Do not rebuild these meanings from result dictionaries, controller state, or
 runtime policy, asset-binding, proof-hold, dispatch, and convergence truth must
 be carried by typed or resolved runtime surfaces.
 
-### ABG 3.6.0-rc.1 carrier extensions
+### ABG 3.6.0-rc.1 carrier extensions retained in 3.7
 
 The carrier surface covers output allocation, zoom-foldback, graph-span
 foldback and reentry, cross-workspace allocation, eval-suite projection, typed
@@ -1145,6 +1145,24 @@ Transform/Eval plugin traversal observer materialization, and the visible
 takes inputs, produces typed outputs, runs per-edge zoom work, routes agentic
 F_P work, invokes supervised agent actors/workers, or relies on observer
 fallbacks must consume them.
+
+### ABG 3.7.0-rc.1 construction evaluator extensions
+
+The F_P construction evaluator is now the single ranking surface for typed
+asset gaps and lawful candidate graph actions. Public gaps is a read-only view
+over that evaluator projection.
+
+The builder should expect construction recommendations to flow through:
+
+- `ConstructionObservationSnapshot`
+- `ConstructionActionCatalogProjection`
+- `ObservationToActionBindingProjection`
+- `ConstructionPriorityProjection`
+
+Do not rebuild gap ordering, action ranking, bootstrap induction, or retry
+pressure in public app adapters. M04 gaps may render typed asset gaps, blockers,
+candidate actions, and ranking reasons. It must not append events, admit
+intent, dispatch graph work, or own a retry loop.
 
 Traversal modulation is declared through GTL hook/config truth on the
 edge-qualifier surface. ABG derives the typed envelope, runs the same
@@ -2026,7 +2044,7 @@ The UX should expose lawful next moves from runtime facts.
 
 The live kernel in this repo is `abiogenesis`.
 
-The current source version is `3.6.0-rc.1`.
+The current source version is `3.7.0-rc.1`.
 
 ### Run from source
 
@@ -3142,7 +3160,7 @@ cd /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript
 npm run build:semantic
 npm pack
 cd /path/to/project
-npm install /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/abiogenesis-typescript-tenant-3.6.0-rc.1.tgz
+npm install /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/abiogenesis-typescript-tenant-3.7.0-rc.1.tgz
 ```
 
 For product-owned bootstrap, use the package API:
@@ -3156,8 +3174,8 @@ const installOutcome = await installBootstrap(
     installedPackageName: "@example/delivery-app",
     runtimePackage: {
       packageName: "@abiogenesis/typescript-tenant",
-      packageVersion: "3.6.0-rc.1",
-      dependencyRef: "file:./abiogenesis-typescript-tenant-3.6.0-rc.1.tgz",
+      packageVersion: "3.7.0-rc.1",
+      dependencyRef: "file:./abiogenesis-typescript-tenant-3.7.0-rc.1.tgz",
       appExportSubpath: "./app/m04",
       requiredExports: [".", "./app/m04"]
     }

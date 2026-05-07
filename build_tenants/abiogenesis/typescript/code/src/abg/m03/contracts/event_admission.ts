@@ -269,6 +269,31 @@ const retryStopReasons = Object.freeze([
   "stationary_retry"
 ] as const);
 
+const constructionRuntimeEventRules = Object.freeze({
+  constructionEventRef: "non_empty_string",
+  basisId: "non_empty_string",
+  graphFunctionId: "non_empty_string",
+  runId: "nullable_string",
+  workKey: "nullable_string",
+  episodeId: "non_empty_string",
+  iterationOrdinal: "non_negative_integer",
+  eventSequence: "non_negative_integer",
+  basisProjectionRef: "non_empty_string",
+  priorIntentId: "nullable_string",
+  causationEventRefs: "string_array",
+  correlationId: "non_empty_string"
+} satisfies RuntimeEventFieldRules);
+
+const constructionTerminalPublicStateValues = Object.freeze([
+  "construction_closed",
+  "construction_blocked",
+  "construction_review_required",
+  "construction_escalated",
+  "fh_input_required",
+  "ticket_created",
+  "reprice_required"
+] as const);
+
 const RUNTIME_EVENT_ADMITTERS = Object.freeze({
   basis_admitted: applyFieldRules("BasisAdmittedEvent", {
     basisId: "non_empty_string",
@@ -1509,6 +1534,123 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       providerRef: "non_empty_string",
       causationEventRefs: "string_array",
       correlationId: "non_empty_string"
+    }
+  ),
+  construction_episode_started: applyFieldRules("ConstructionEpisodeStartedEvent", {
+    ...constructionRuntimeEventRules,
+    startProjectionRef: "non_empty_string"
+  }),
+  construction_observation_snapshot_materialized: applyFieldRules(
+    "ConstructionObservationSnapshotMaterializedEvent",
+    {
+      ...constructionRuntimeEventRules,
+      observationId: "non_empty_string",
+      currentProjectionRef: "non_empty_string",
+      linkedAssetRefs: "string_array",
+      authorityDigest: "non_empty_string"
+    }
+  ),
+  construction_action_catalog_projected: applyFieldRules(
+    "ConstructionActionCatalogProjectedEvent",
+    {
+      ...constructionRuntimeEventRules,
+      catalogRef: "non_empty_string",
+      hookResolutionRef: "non_empty_string",
+      fallbackConfigDigest: "non_empty_string",
+      traversalPublicationRefs: "string_array"
+    }
+  ),
+  construction_evaluator_invoked: applyFieldRules("ConstructionEvaluatorInvokedEvent", {
+    ...constructionRuntimeEventRules,
+    observationId: "non_empty_string",
+    catalogRef: "non_empty_string",
+    evaluatorPluginRef: "non_empty_string",
+    inputDigest: "non_empty_string"
+  }),
+  construction_intent_candidate_returned: applyFieldRules(
+    "ConstructionIntentCandidateReturnedEvent",
+    {
+      ...constructionRuntimeEventRules,
+      evaluatorPluginRef: "non_empty_string",
+      evaluatorOutcomeRef: "non_empty_string",
+      candidateSetDigest: "non_empty_string",
+      candidateRefs: "string_array"
+    }
+  ),
+  construction_intent_candidate_admitted: applyFieldRules(
+    "ConstructionIntentCandidateAdmittedEvent",
+    {
+      ...constructionRuntimeEventRules,
+      candidateId: "non_empty_string",
+      admissionRef: "non_empty_string",
+      intentId: "non_empty_string",
+      authorityRefs: "string_array"
+    }
+  ),
+  construction_intent_candidate_rejected: applyFieldRules(
+    "ConstructionIntentCandidateRejectedEvent",
+    {
+      ...constructionRuntimeEventRules,
+      candidateId: "non_empty_string",
+      admissionRef: "non_empty_string",
+      rejectionReasonRefs: "string_array",
+      authorityRefs: "string_array"
+    }
+  ),
+  construction_intent_selected: applyFieldRules("ConstructionIntentSelectedEvent", {
+    ...constructionRuntimeEventRules,
+    intentId: "non_empty_string",
+    selectedActionRef: "non_empty_string",
+    selectedBindingRef: "non_empty_string",
+    selectionPolicyRef: "non_empty_string"
+  }),
+  construction_graph_action_invoked: applyFieldRules(
+    "ConstructionGraphActionInvokedEvent",
+    {
+      ...constructionRuntimeEventRules,
+      intentId: "non_empty_string",
+      selectedActionRef: "non_empty_string",
+      runtimeInvocationPlanRef: "non_empty_string",
+      graphCallId: "non_empty_string",
+      frameId: "non_empty_string",
+      continuationId: "nullable_string",
+      selectedGraphFunctionRef: "nullable_string",
+      selectedVectorRef: "nullable_string"
+    }
+  ),
+  construction_delta_observed: applyFieldRules("ConstructionDeltaObservedEvent", {
+    ...constructionRuntimeEventRules,
+    intentId: "non_empty_string",
+    attemptOrdinal: "non_negative_integer",
+    graphCallId: "non_empty_string",
+    frameId: "non_empty_string",
+    continuationId: "nullable_string",
+    deltaRef: "non_empty_string",
+    assetDeltaRefs: "string_array",
+    runtimeEventRefs: "string_array",
+    beforeProjectionRef: "non_empty_string",
+    afterProjectionRef: "non_empty_string",
+    artifactDigestBefore: "nullable_string",
+    artifactDigestAfter: "nullable_string",
+    blockerBefore: "nullable_string",
+    blockerAfter: "nullable_string",
+    fulfilledObligationRefs: "string_array",
+    remainingObligationRefs: "string_array",
+    newEvidenceRefs: "string_array",
+    fhDecisionAccepted: "boolean",
+    reentryMoved: "boolean",
+    closed: "boolean"
+  }),
+  construction_terminal_disposition_projected: applyFieldRules(
+    "ConstructionTerminalDispositionProjectedEvent",
+    {
+      ...constructionRuntimeEventRules,
+      terminalProjectionRef: "non_empty_string",
+      publicState: { oneOf: constructionTerminalPublicStateValues },
+      selectedActionRef: "nullable_string",
+      selectedIntentId: "nullable_string",
+      terminalRouteRefs: "string_array",
+      reviewReasonRefs: "string_array"
     }
   )
 } satisfies Record<RuntimeEvent["kind"], RuntimeEventAdmitter>);

@@ -1,6 +1,6 @@
 # M04 Public Gaps Projection Derivation
 
-**Status**: Completed
+**Status**: Completed, amended by T-127 on 2026-05-08
 **Date**: 2026-04-25
 **Purpose**: Derive the TypeScript `gen-gaps` observation boundary that closes
 the remaining CLI behavior gap after the TypeScript binary binding landed.
@@ -19,6 +19,8 @@ This boundary derives from:
 - `.ai-workspace/tickets/completed/T-046-wire-typescript-public-execution-to-replay-derived-m03-iteration.md`
 - `.ai-workspace/tickets/completed/T-057-realize-typescript-cli-binary-binding-over-shared-product-command-grammar.md`
 - `.ai-workspace/tickets/backlog/T-058-realize-typescript-gen-gaps-projection-over-replay-derived-runtime-truth.md`
+- `.ai-workspace/tickets/completed/T-127-define-generic-fp-consciousness-loop-with-gtl-plugin-overrides.md`
+- `build_tenants/abiogenesis/typescript/design/M03_FP_CONSCIOUSNESS_LOOP_DERIVATION.md`
 
 ## 2. Position
 
@@ -40,6 +42,11 @@ It projects current work from TypeScript substrate truth:
 - replayed `M03` runtime events
 - replay-derived aggregate projection
 - replay-derived next-vector and transition status
+- `T-127` construction evaluator carriers:
+  `ConstructionObservationSnapshot`,
+  `ConstructionActionCatalogProjection`,
+  `ObservationToActionBindingProjection`, and
+  `ConstructionPriorityProjection`
 
 ## 3. Boundary Law
 
@@ -47,6 +54,42 @@ The TypeScript gaps projection belongs in `M04` because it is a public
 operator-facing read model over runtime truth.
 
 It consumes `M03`; it does not redefine `M03`.
+
+The read-only evaluator preview must render the same `T-127` construction
+evaluator ranking surface used for construction action selection. M04 may adapt
+runtime aggregate truth into construction observation pressure rows, but M04
+must not carry a separate local ranking law, fabricate public-gaps action
+authority, or select a graph action outside the construction action catalog.
+
+The carrier chain is:
+
+```text
+replay-derived runtime aggregate truth
+  -> ConstructionObservationSnapshot
+  -> ConstructionActionCatalogProjection
+  -> ObservationToActionBindingProjection
+  -> ConstructionPriorityProjection
+  -> PublicGapsProjection read-only fields
+```
+
+Configured priority policy and `abg.fp_consciousness` hook resolution remain
+visible inputs. Public gaps resolves hook precedence through the same declared
+GTL order as construction selection:
+
+```text
+GraphVector.declarations
+  > GraphFunction.declarations
+  > Job.policyHooks
+  > Role.policyHooks
+  > Module.policyHooks
+  > visible installed fallback/config, or visible source-default fallback when
+    public gaps is called directly without an installed fallback bundle
+```
+
+Ineligible or inadmissible construction bindings must not be exposed as the
+top public best action. The read model may show their typed blockers and
+ranking pressure, but selected best action refs must remain eligible action
+refs.
 
 The projection reports:
 
@@ -56,8 +99,22 @@ The projection reports:
 - convergence
 - current edge, vector index, and vector counts per job
 - replay-derived closed/planned/evaluated vector indexes
+- replay events scoped by admitted `basisId`; legacy assessed events without
+  basis identity do not bind by run/work/edge fallback
 - expected evaluator obligations still missing for the next open vector
-- next lawful operator action
+- typed asset gap rows with missing truth, candidate action refs, blockers, and
+  construction priority rank
+- read-only evaluator recommendation for the highest-ranked eligible asset and
+  graph function, or blocked context when no eligible action remains
+
+The recommendation is preview truth. It is derived from the same evaluator
+ranking surface used by construction action selection, but it does not admit
+intent, dispatch graph work, or publish a rival action authority outside the
+construction episode.
+
+Projection identity must be policy-distinct. If the same observation is ranked
+under different priority schemes or visible hook configs, the public evaluator
+ref or source refs must carry a distinct priority projection identity.
 
 ## 4. Explicit Non-Ownership
 
@@ -98,3 +155,10 @@ The proof must show installed-package behavior, not only source imports:
 - fully closed replay converges
 - no semantic jobs fail closed
 - ambiguous semantic job ownership fails closed
+- configured construction priority changes ranking through the installed CLI
+  gaps path, not only through direct API injection
+- GTL hook precedence can change the read-only ranking without creating a
+  second M04 ranking surface
+- ineligible highest-priority actions are not exposed as selected best actions
+- priority projection identity changes, or carries distinct source refs, when
+  priority policy changes

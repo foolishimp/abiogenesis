@@ -8,7 +8,13 @@ import type {
   RuntimeEvent,
   StartIntent
 } from "../abg/m03/contracts/carriers.js";
+import type {
+  AffectPriorityPolicy,
+  ConstructionPriorityScheme
+} from "../abg/m03/index.js";
 import {
+  admitAffectPriorityPolicies,
+  admitConstructionPriorityScheme,
   loadAbgFallbackBundleFromFile,
   type AbgFallbackBundle
 } from "../abg/m03/index.js";
@@ -97,6 +103,8 @@ interface RuntimeBinding {
   readonly pluginTraversalObserverFallbackEnabled?: boolean;
   readonly pluginTraversalObserverFallbackKinds?: readonly PluginTraversalKind[];
   readonly runtimeEvents?: readonly RuntimeEvent[];
+  readonly constructionPriorityScheme?: ConstructionPriorityScheme;
+  readonly constructionAffectPolicies?: readonly AffectPriorityPolicy[];
   readonly runId?: string | null;
   readonly workKey?: string | null;
   readonly frameId?: string | null;
@@ -129,6 +137,13 @@ class CliError extends Error {
 
 function isRecord(input: unknown): input is Record<string, unknown> {
   return typeof input === "object" && input !== null && !Array.isArray(input);
+}
+
+function hasOwnField(
+  input: Readonly<Record<string, unknown>>,
+  key: string
+): boolean {
+  return Object.prototype.hasOwnProperty.call(input, key);
 }
 
 function parseFlags(args: readonly string[]): ParsedFlags {
@@ -550,6 +565,8 @@ function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
     pluginTraversalObserverFallbackEnabled?: boolean;
     pluginTraversalObserverFallbackKinds?: readonly PluginTraversalKind[];
     runtimeEvents?: readonly RuntimeEvent[];
+    constructionPriorityScheme?: ConstructionPriorityScheme;
+    constructionAffectPolicies?: readonly AffectPriorityPolicy[];
     runId?: string | null;
     workKey?: string | null;
     frameId?: string | null;
@@ -564,6 +581,18 @@ function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
 
   if (Array.isArray(input["runtimeEvents"])) {
     result.runtimeEvents = Object.freeze([...input["runtimeEvents"]]) as readonly RuntimeEvent[];
+  }
+  if (hasOwnField(input, "constructionPriorityScheme")) {
+    result.constructionPriorityScheme = admitConstructionPriorityScheme(
+      input["constructionPriorityScheme"],
+      `${label}.constructionPriorityScheme`
+    );
+  }
+  if (hasOwnField(input, "constructionAffectPolicies")) {
+    result.constructionAffectPolicies = admitAffectPriorityPolicies(
+      input["constructionAffectPolicies"],
+      `${label}.constructionAffectPolicies`
+    );
   }
 
   const abgFallbackConfigPath = coerceNullableStringField(
@@ -813,6 +842,12 @@ function startContext(
     resolvedPolicy: binding.resolvedPolicy,
     runtimeEvents,
     abgFallbackBundle: loadCliFallbackBundle(workspaceRoot, binding),
+    ...(binding.constructionPriorityScheme === undefined
+      ? {}
+      : { constructionPriorityScheme: binding.constructionPriorityScheme }),
+    ...(binding.constructionAffectPolicies === undefined
+      ? {}
+      : { constructionAffectPolicies: binding.constructionAffectPolicies }),
     ...(binding.pluginTraversalObserverFallbackEnabled === undefined
       ? {}
       : {
@@ -987,6 +1022,19 @@ function gapsOutput(projection: ReturnType<typeof publicGaps>): unknown {
     open_frames: projection.openFrames,
     converged: projection.converged,
     event_count: projection.eventCount,
+    read_only_evaluator: {
+      kind: projection.readOnlyEvaluator.kind,
+      evaluator_ref: projection.readOnlyEvaluator.evaluatorRef,
+      mutation_allowed: projection.readOnlyEvaluator.mutationAllowed,
+      best_gap_ref: projection.readOnlyEvaluator.bestGapRef,
+      best_asset_ref: projection.readOnlyEvaluator.bestAssetRef,
+      best_action_ref: projection.readOnlyEvaluator.bestActionRef,
+      best_graph_function_ref: projection.readOnlyEvaluator.bestGraphFunctionRef,
+      best_graph_vector_ref: projection.readOnlyEvaluator.bestGraphVectorRef,
+      admission_blocker_refs: projection.readOnlyEvaluator.admissionBlockerRefs,
+      ranking_reason_refs: projection.readOnlyEvaluator.rankingReasonRefs,
+      source_projection_refs: projection.readOnlyEvaluator.sourceProjectionRefs
+    },
     gaps: projection.gaps.map((entry) => ({
       graph_function_id: entry.graphFunctionId,
       graph_function_handle: entry.graphFunctionHandle,
@@ -1008,7 +1056,27 @@ function gapsOutput(projection: ReturnType<typeof publicGaps>): unknown {
       approval_subject_ref: entry.approvalSubjectRef,
       terminal_kind: entry.terminalKind,
       next_step: entry.nextStep,
-      dispatch_requested: entry.dispatchRequested
+      dispatch_requested: entry.dispatchRequested,
+      typed_asset_gaps: entry.typedAssetGaps.map((gap) => ({
+        gap_ref: gap.gapRef,
+        observation_id: gap.observationId,
+        asset_ref: gap.assetRef,
+        asset_kind: gap.assetKind,
+        required_by_ref: gap.requiredByRef,
+        missing_truth_refs: gap.missingTruthRefs,
+        blocking_reason_refs: gap.blockingReasonRefs,
+        eligible_action_refs: gap.eligibleActionRefs,
+        best_action_ref: gap.bestActionRef,
+        best_graph_function_ref: gap.bestGraphFunctionRef,
+        best_graph_vector_ref: gap.bestGraphVectorRef,
+        terminal_route_ref: gap.terminalRouteRef,
+        admission_blocker_refs: gap.admissionBlockerRefs,
+        priority_rank: gap.priorityRank,
+        ranking_reason_refs: gap.rankingReasonRefs,
+        source_projection_refs: gap.sourceProjectionRefs,
+        action_catalog_ref: gap.actionCatalogRef,
+        priority_projection_ref: gap.priorityProjectionRef
+      }))
     }))
   };
 }

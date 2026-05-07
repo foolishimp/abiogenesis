@@ -3,10 +3,13 @@
 // Implements: REQ-P-POLICY-017
 
 import type {
+  AffectPriorityPolicy,
+  AbgFallbackBundle,
+  ConstructionPriorityScheme,
   RuntimeAggregateProjection,
   RuntimeEvent,
   TerminalKind
-} from "../../../abg/m03/contracts/carriers.js";
+} from "../../../abg/m03/contracts/index.js";
 import type { Module } from "../../../gtl/m02/contracts/carriers.js";
 import type {
   PublicRuntimeIdentityProjection,
@@ -42,6 +45,9 @@ export interface PublicGapsContext {
   readonly runtimeIdentity: PublicStartContext["runtimeIdentity"];
   readonly resolvedPolicy: PublicStartContext["resolvedPolicy"];
   readonly runtimeEvents?: readonly RuntimeEvent[];
+  readonly abgFallbackBundle?: AbgFallbackBundle | null;
+  readonly constructionPriorityScheme?: ConstructionPriorityScheme;
+  readonly constructionAffectPolicies?: readonly AffectPriorityPolicy[];
   readonly runId?: string | null;
   readonly workKey?: string | null;
   readonly frameId?: string | null;
@@ -56,6 +62,27 @@ export interface PublicGapsDeltaSummary {
   readonly evaluatedVectorIndexes: readonly number[];
   readonly closedVectorIndexes: readonly number[];
   readonly assessedEdges: readonly string[];
+}
+
+export interface PublicTypedAssetGapProjectionRow {
+  readonly gapRef: string;
+  readonly observationId: string;
+  readonly assetRef: string;
+  readonly assetKind: string;
+  readonly requiredByRef: string;
+  readonly missingTruthRefs: readonly string[];
+  readonly blockingReasonRefs: readonly string[];
+  readonly eligibleActionRefs: readonly string[];
+  readonly bestActionRef: string | null;
+  readonly bestGraphFunctionRef: string | null;
+  readonly bestGraphVectorRef: string | null;
+  readonly terminalRouteRef: string | null;
+  readonly admissionBlockerRefs: readonly string[];
+  readonly priorityRank: number;
+  readonly rankingReasonRefs: readonly string[];
+  readonly sourceProjectionRefs: readonly string[];
+  readonly actionCatalogRef: string;
+  readonly priorityProjectionRef: string;
 }
 
 export interface PublicGapsEntry {
@@ -80,7 +107,22 @@ export interface PublicGapsEntry {
   readonly terminalKind: TerminalKind | null;
   readonly nextStep: PublicGapsNextStep;
   readonly dispatchRequested: boolean;
+  readonly typedAssetGaps: readonly PublicTypedAssetGapProjectionRow[];
   readonly projection: RuntimeAggregateProjection;
+}
+
+export interface PublicGapsReadOnlyEvaluatorProjection {
+  readonly kind: "public_gaps_read_only_evaluator_projection";
+  readonly evaluatorRef: string;
+  readonly mutationAllowed: false;
+  readonly bestGapRef: string | null;
+  readonly bestAssetRef: string | null;
+  readonly bestActionRef: string | null;
+  readonly bestGraphFunctionRef: string | null;
+  readonly bestGraphVectorRef: string | null;
+  readonly admissionBlockerRefs: readonly string[];
+  readonly rankingReasonRefs: readonly string[];
+  readonly sourceProjectionRefs: readonly string[];
 }
 
 export interface PublicGapsScopeProjection {
@@ -102,5 +144,6 @@ export interface PublicGapsProjection {
   readonly openFrames: number;
   readonly converged: boolean;
   readonly eventCount: number;
+  readonly readOnlyEvaluator: PublicGapsReadOnlyEvaluatorProjection;
   readonly gaps: readonly PublicGapsEntry[];
 }

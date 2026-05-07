@@ -47,6 +47,14 @@ function parseOptionalId(input: unknown, label: string): string | undefined {
   return parseNonEmptyString(input, `${label}.id`);
 }
 
+const EMPTY_SERIALIZED_ATTRS = Object.freeze({
+  entries: Object.freeze([])
+});
+
+function admitOptionalSerializedAttrs(input: unknown, label: string) {
+  return admitSerializedAttrs(input ?? EMPTY_SERIALIZED_ATTRS, label);
+}
+
 export function admitContractRef(
   input: unknown,
   label = "ContractRef"
@@ -92,6 +100,10 @@ export function admitJob(input: unknown, label = "Job"): Job {
       )
     ),
     tags: parseStringArray(jobObject["tags"], `${label}.tags`),
+    policyHooks: admitOptionalSerializedAttrs(
+      parseOptionalField(jobObject, "policyHooks"),
+      `${label}.policyHooks`
+    ),
     id: parseOptionalId(parseOptionalField(jobObject, "id"), label)
   });
 }
@@ -257,6 +269,10 @@ export function admitModule(input: unknown, label = "Module"): Module {
       importsInput.map((importInput, index) =>
         admitModuleImport(importInput, `${label}.imports[${index}]`)
       )
+    ),
+    policyHooks: admitOptionalSerializedAttrs(
+      parseOptionalField(moduleObject, "policyHooks"),
+      `${label}.policyHooks`
     ),
     metadata: admitSerializedAttrs(moduleObject["metadata"], `${label}.metadata`)
   });

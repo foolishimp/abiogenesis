@@ -32,3 +32,5 @@ Define `Job` as the durable semantic work contract of GTL 3.
 **REQ-L-GTL3-JOB-009**: Scheduling, triggers, KPIs, and similar orchestration concerns may be layered onto jobs later, but the absence of those declarations does not negate job semantics.
 
 **REQ-L-GTL3-JOB-010**: A semantic job shall not target a bare `GraphVector`. Internal graph-vector boundaries are traversed only as realized structure beneath the bound graph function.
+
+**REQ-L-GTL3-JOB-011**: A job may declare `policy_hooks` as work-contract default hook/config truth. Job-level policy hooks shall remain replayable declarations and shall not execute hidden orchestration authority.

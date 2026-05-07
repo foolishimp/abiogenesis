@@ -137,6 +137,33 @@ Downstream products provide the graph function, domain contexts, evaluator
 implementations, and worker bindings. ABG provides the replayable control loop
 that makes outcome compute auditable and capable of lawful re-entry.
 
+### Higher-Order F_P Construction Episodes
+
+One edge traversal remains the bounded runtime unit of probabilistic compute.
+ABG may also support a higher-order `F_P` construction episode that composes
+those bounded invocations through event-sourced tail recursion:
+
+```text
+observe current linked asset state
+-> evaluate admissible construction outcomes
+-> admit one construction intent
+-> invoke the selected graph function through ABG
+-> project the runtime and asset delta
+-> recur, yield progress, close, block, or escalate
+```
+
+The construction episode does not make ABG the domain strategy decider. The
+product-owned `F_P` evaluator chooses the highest-value lawful outcome from the
+declared graph/action catalog. ABG admits or rejects that evaluator intent,
+binds it to graph-call, frame, continuation, lineage, event, ledger, and
+projection truth, and exposes one public construction-progress projection.
+
+F_D may optimize and reject mechanical defects under hard authority. When the
+source authority has not disambiguated product meaning, F_D shall not force a
+semantic failure or canonical output shape. It must surface ambiguity to the
+`F_P` construction evaluator so the product layer can decide the next lawful
+outcome.
+
 ---
 
 ## Product Layers
@@ -262,6 +289,13 @@ The currently published target families are:
 `graph_function:<published_handle>` must resolve through a published target
 catalog to one canonical callable-carrier identity. It does not target raw
 graph vectors, unpublished helpers, or implicit candidate-family choice.
+
+`gen-gaps` is a read-only evaluator projection surface. It may expose
+replay-derived open work, typed asset gaps, candidate completion or induction
+recommendations, blocking reasons, the highest-ranked asset, the implicated
+graph function, and ranking reasons from the same evaluator surface used for
+construction action selection. It does not start traversal, append events, admit
+construction intent, dispatch graph work, or own a retry loop.
 
 `asset:<published_handle>` must resolve through one published operator asset
 registry and ownership surface. That surface must publish the asset handle and
