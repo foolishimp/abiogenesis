@@ -1,7 +1,7 @@
-# abiogenesis 3.7.0-rc.1 RC Notes
+# abiogenesis 3.7.1-rc.1 RC Notes
 
-This note records accepted RC behavior for the current `v3.7.0-rc.1` line.
-The package cut is `3.7.0-rc.1`.
+This note records accepted RC behavior for the current `v3.7.1-rc.1` line.
+The package cut is `3.7.1-rc.1`.
 
 ## Accepted Framework Behavior
 
@@ -426,6 +426,32 @@ Non-claim:
 - T-128 owns the installed runner-level loop that consumes admitted construction
   intent and invokes graph work recursively.
 
+### System Probe Observer Liveness Starts The 3.7.1 Line
+
+The T-129 liveness observer slice moves the current release candidate from
+`3.7.0-rc.1` to `3.7.1-rc.1` because it adds one ABG-owned
+probe -> observer -> disposition surface for runtime liveness.
+
+Accepted behavior:
+
+- every explicit runtime activity probe requires a declared
+  `RuntimeSystemProbeContract`;
+- runtime asset activity, including event-log, ledger, manifest, archive,
+  projection/report, artifact, heartbeat, stream, and graph-call/frame activity,
+  can reset the inactivity lease when admitted for the active invocation;
+- `RuntimeLivenessObserverProjection` is the replay-derived source for active,
+  inactive, externally interrupted, and controlled-termination truth;
+- hard safety caps require typed external interruption evidence and cannot
+  become final retry, block, or failure authority by themselves;
+- supervised actor invocation emits generic probe facts for stdout, stderr, and
+  heartbeat activity.
+
+Non-claim:
+
+- downstream product harnesses consume or relay ABG liveness truth through their
+  own migration tickets; they are not closure authority for the ABG substrate
+  ticket.
+
 ## Current Verification Footer
 
 The current RC proving footer is:
@@ -445,8 +471,9 @@ The current RC proving footer is:
 - `npm run test:t121`: `4 passed`
 - `npm run test:t122`: `5 passed`
 - `npm run test:t123`: `6 passed`
-- `npm run test:semantic`: `477 passed`
+- `npm run test:semantic`: `488 passed`
 - `npm run test:t127`: `33 passed`
+- `npm run test:t129`: `11 passed`
 - `npm run test:t058`: `11 passed`
 - `npm run test:t127:live`: `6 passed`
 - `CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude npm run test:live`: `1 passed`
@@ -456,7 +483,7 @@ The current RC proving footer is:
 - `npm run test:t116:live`: `1 passed`
 - `git diff --check`: `passed`
 - `npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run`: `passed`,
-  package `3.7.0-rc.1`, `327 files`
+  package `3.7.1-rc.1`, `329 files`
 
 Fresh 3.5.0-rc.2 live PTY plugin/actor matrix:
 

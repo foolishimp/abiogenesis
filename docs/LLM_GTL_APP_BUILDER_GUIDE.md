@@ -1,6 +1,6 @@
 # LLM GTL App Builder Guide
 
-**Status**: Current compressed technical GTL 3 / ABG 3.7.0-rc.1 guide for LLMs
+**Status**: Current compressed technical GTL 3 / ABG 3.7.1-rc.1 guide for LLMs
 **Audience**: LLM agentic coders and agent bootstraps building GTL/ABG domain apps
 **Purpose**: Compress the human GTL/ABG guide into the ontology, operating rules, fail-closed constraints, and language-specific syntax needed by LLM agents
 
@@ -2044,7 +2044,7 @@ The UX should expose lawful next moves from runtime facts.
 
 The live kernel in this repo is `abiogenesis`.
 
-The current source version is `3.7.0-rc.1`.
+The current source version is `3.7.1-rc.1`.
 
 ### Run from source
 
@@ -3160,7 +3160,7 @@ cd /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript
 npm run build:semantic
 npm pack
 cd /path/to/project
-npm install /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/abiogenesis-typescript-tenant-3.7.0-rc.1.tgz
+npm install /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/abiogenesis-typescript-tenant-3.7.1-rc.1.tgz
 ```
 
 For product-owned bootstrap, use the package API:
@@ -3174,8 +3174,8 @@ const installOutcome = await installBootstrap(
     installedPackageName: "@example/delivery-app",
     runtimePackage: {
       packageName: "@abiogenesis/typescript-tenant",
-      packageVersion: "3.7.0-rc.1",
-      dependencyRef: "file:./abiogenesis-typescript-tenant-3.7.0-rc.1.tgz",
+      packageVersion: "3.7.1-rc.1",
+      dependencyRef: "file:./abiogenesis-typescript-tenant-3.7.1-rc.1.tgz",
       appExportSubpath: "./app/m04",
       requiredExports: [".", "./app/m04"]
     }

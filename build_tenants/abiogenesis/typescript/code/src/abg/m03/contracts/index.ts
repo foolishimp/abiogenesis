@@ -91,8 +91,12 @@ export type {
   RetryRepairStoppedDecision,
   ContinuationProjection,
   RunProjection,
+  RuntimeActivityProbeObservedEvent,
+  RuntimeActivityProbeSource,
   RuntimeAggregateProjection,
   RuntimeEvent,
+  RuntimeExternalInterruptionObservedEvent,
+  RuntimeExternalInterruptionSource,
   RuntimeFailureClass,
   RuntimeRegime,
   ScheduledContinuationReopenedEvent,
@@ -130,7 +134,9 @@ export {
   PAYLOAD_AMBIGUITY_STATUS_VALUES,
   PAYLOAD_CLOSURE_DECISION_KIND_VALUES,
   PAYLOAD_REJECTION_CLASS_VALUES,
+  RUNTIME_ACTIVITY_PROBE_SOURCE_VALUES,
   RUNTIME_EVENT_KIND_VALUES,
+  RUNTIME_EXTERNAL_INTERRUPTION_SOURCE_VALUES,
   RUNTIME_FAILURE_CLASS_VALUES,
   TERMINAL_KIND_VALUES
 } from "./carriers.js";
@@ -349,11 +355,30 @@ export {
   constructPayloadRejectedEvent,
   constructPayloadValidatedEvent,
   constructPluginTraversalPromptMaterializedEvent,
+  constructRuntimeActivityProbeObservedEvent,
+  constructRuntimeExternalInterruptionObservedEvent,
   constructVectorClosedEvent,
   constructVectorEvaluatedEvent,
   constructVectorTraversalPlannedEvent,
   runtimeEventsForTransition
 } from "./event_factories.js";
+export {
+  RUNTIME_INVOCATION_DISPOSITION_ACTION_VALUES,
+  constructRuntimeSystemProbeContract,
+  constructRuntimeWatchdogPolicy,
+  deriveRuntimeLivenessObserverProjection
+} from "./runtime_liveness.js";
+export type {
+  RuntimeInvocationDisposition,
+  RuntimeInvocationDispositionAction,
+  RuntimeLivenessActivityRow,
+  RuntimeLivenessInterruptionRow,
+  RuntimeLivenessLeaseState,
+  RuntimeLivenessObserverInput,
+  RuntimeLivenessObserverProjection,
+  RuntimeSystemProbeContract,
+  RuntimeWatchdogPolicy
+} from "./runtime_liveness.js";
 export {
   deriveAdvancementTransition,
   deriveIterationAdvanceDecision,

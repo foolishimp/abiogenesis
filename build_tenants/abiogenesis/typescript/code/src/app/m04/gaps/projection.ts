@@ -138,7 +138,7 @@ function stableJson(value: unknown): string {
     return `[${value.map((entry) => stableJson(entry)).join(",")}]`;
   }
   if (typeof value === "object" && value !== null) {
-    return `{${Object.entries(value as Readonly<Record<string, unknown>>)
+    return `{${Object.entries(value)
       .sort(([left], [right]) => left.localeCompare(right))
       .map(([key, entry]) => `${JSON.stringify(key)}:${stableJson(entry)}`)
       .join(",")}}`;

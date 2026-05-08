@@ -7,7 +7,13 @@ import {
   type TracedProcessParser,
   type TracedProcessResult
 } from "../../../shared/traced_process/index.js";
-import type { ActorInvocation, RuntimeEvent } from "../contracts/carriers.js";
+import type {
+  ActorInvocation,
+  RuntimeActivityProbeSource,
+  RuntimeActivityProbeObservedEvent,
+  RuntimeExternalInterruptionSource,
+  RuntimeEvent
+} from "../contracts/carriers.js";
 import {
   constructActorProcessExitedEvent,
   constructActorProcessHeartbeatEvent,
@@ -15,8 +21,14 @@ import {
   constructActorProcessStartFailedEvent,
   constructActorProcessStartedEvent,
   constructActorProcessStreamObservedEvent,
-  constructActorProcessTimeoutEvent
+  constructActorProcessTimeoutEvent,
+  constructRuntimeActivityProbeObservedEvent,
+  constructRuntimeExternalInterruptionObservedEvent
 } from "../contracts/event_factories.js";
+import {
+  constructRuntimeSystemProbeContract,
+  type RuntimeSystemProbeContract
+} from "../contracts/runtime_liveness.js";
 import { emit, type RuntimeEventSink } from "../events/index.js";
 
 export interface SupervisedProcessEnvironmentPolicy {
@@ -63,11 +75,13 @@ export interface SupervisedProcessActorResult {
   readonly stderrPath: string;
   readonly error: string | null;
   readonly events: readonly RuntimeEvent[];
+  readonly probeContracts: readonly RuntimeSystemProbeContract[];
 }
 
 const DEFAULT_TIMEOUT_MS = 1000 * 60 * 30;
 const DEFAULT_TERMINATION_GRACE_MS = 1000 * 10;
 const DEFAULT_HEARTBEAT_MS = 1000 * 30;
+const PROCESS_ACTOR_SYSTEM_REF = "runtime-system:abg:process_actor";
 
 function inferredParserForActorRequest(
   request: SupervisedProcessActorRequest
@@ -140,6 +154,85 @@ function normalizeExitStatus(status: number | null): number | null {
   return status;
 }
 
+function streamProbeSource(input: {
+  readonly executorProfile: TracedProcessExecutorProfile | undefined;
+  readonly streamName: "stdout" | "stderr";
+}): RuntimeActivityProbeSource {
+  if (input.executorProfile === "pty-terminal") {
+    return "pty_transcript";
+  }
+  return input.streamName === "stdout"
+    ? "local_spawn_stdout"
+    : "local_spawn_stderr";
+}
+
+function runtimeActivityProbe(input: {
+  readonly invocation: ActorInvocation;
+  readonly probeSource: RuntimeActivityProbeSource;
+  readonly activityRef: string;
+  readonly elapsedMs: number;
+  readonly evidenceRefs: readonly string[];
+  readonly detail: string | null;
+}): RuntimeActivityProbeObservedEvent {
+  return constructRuntimeActivityProbeObservedEvent({
+    basisId: input.invocation.basisId,
+    graphFunctionId: input.invocation.graphFunctionId,
+    runId: input.invocation.runId,
+    workKey: input.invocation.workKey,
+    graphCallId: input.invocation.graphCallId,
+    frameId: input.invocation.frameId,
+    vectorIndex: input.invocation.vectorIndex,
+    edge: input.invocation.edge,
+    actorInvocationId: input.invocation.actorInvocationId,
+    workerId: input.invocation.workerId,
+    backendId: input.invocation.backendId,
+    systemRef: PROCESS_ACTOR_SYSTEM_REF,
+    probeRef: `runtime-probe:abg:process_actor:${input.probeSource}`,
+    probeSource: input.probeSource,
+    activityRef: input.activityRef,
+    elapsedMs: input.elapsedMs,
+    observedAtMs: input.elapsedMs,
+    evidenceRefs: input.evidenceRefs,
+    detail: input.detail,
+    causationEventRefs: input.invocation.causationEventRefs,
+    correlationId: input.invocation.correlationId
+  });
+}
+
+function runtimeExternalInterruption(input: {
+  readonly invocation: ActorInvocation;
+  readonly interruptionSource: RuntimeExternalInterruptionSource;
+  readonly interruptionRef: string;
+  readonly signal: string | null;
+  readonly elapsedMs: number;
+  readonly evidenceRefs: readonly string[];
+  readonly detail: string | null;
+}): RuntimeEvent {
+  return constructRuntimeExternalInterruptionObservedEvent({
+    basisId: input.invocation.basisId,
+    graphFunctionId: input.invocation.graphFunctionId,
+    runId: input.invocation.runId,
+    workKey: input.invocation.workKey,
+    graphCallId: input.invocation.graphCallId,
+    frameId: input.invocation.frameId,
+    vectorIndex: input.invocation.vectorIndex,
+    edge: input.invocation.edge,
+    actorInvocationId: input.invocation.actorInvocationId,
+    workerId: input.invocation.workerId,
+    backendId: input.invocation.backendId,
+    systemRef: PROCESS_ACTOR_SYSTEM_REF,
+    interruptionRef: input.interruptionRef,
+    interruptionSource: input.interruptionSource,
+    signal: input.signal,
+    elapsedMs: input.elapsedMs,
+    observedAtMs: input.elapsedMs,
+    evidenceRefs: input.evidenceRefs,
+    detail: input.detail,
+    causationEventRefs: input.invocation.causationEventRefs,
+    correlationId: input.invocation.correlationId
+  });
+}
+
 export async function invokeSupervisedProcessActor(
   request: SupervisedProcessActorRequest
 ): Promise<SupervisedProcessActorResult> {
@@ -158,7 +251,26 @@ export async function invokeSupervisedProcessActor(
   const heartbeatMs = request.heartbeatMs ?? DEFAULT_HEARTBEAT_MS;
   const startedAt = performance.now();
   const events: RuntimeEvent[] = [];
+  const probeContractsByRef = new Map<string, RuntimeSystemProbeContract>();
   const eventSink: RuntimeEventSink = (event) => {
+    if (event.kind === "runtime_activity_probe_observed") {
+      probeContractsByRef.set(
+        event.probeRef,
+        constructRuntimeSystemProbeContract({
+          probeRef: event.probeRef,
+          systemRef: event.systemRef,
+          source: event.probeSource,
+          basisId: event.basisId,
+          graphFunctionId: event.graphFunctionId,
+          graphCallId: event.graphCallId,
+          frameId: event.frameId,
+          vectorIndex: event.vectorIndex,
+          edge: event.edge,
+          actorInvocationId: event.actorInvocationId,
+          evidenceRefs: event.evidenceRefs
+        })
+      );
+    }
     appendJsonLine(request.processEventsPath, event);
     events.push(event);
     request.eventSink?.(event);
@@ -182,12 +294,27 @@ export async function invokeSupervisedProcessActor(
           if (closed) {
             return;
           }
+          const elapsedMs = roundElapsedMs(startedAt);
+          const heartbeatEvent = constructActorProcessHeartbeatEvent({
+            invocation: request.invocation,
+            heartbeatIndex,
+            elapsedMs
+          });
           emit(
-            constructActorProcessHeartbeatEvent({
-              invocation: request.invocation,
-              heartbeatIndex,
-              elapsedMs: roundElapsedMs(startedAt)
-            }),
+            [
+              heartbeatEvent,
+              runtimeActivityProbe({
+                invocation: request.invocation,
+                probeSource: "actor_process_heartbeat",
+                activityRef:
+                  `actor-process-heartbeat:${request.invocation.actorInvocationId}:${heartbeatIndex}`,
+                elapsedMs,
+                evidenceRefs: [
+                  `event:${heartbeatEvent.kind}:${request.invocation.actorInvocationId}:${heartbeatIndex}`
+                ],
+                detail: "supervised actor heartbeat"
+              })
+            ],
             eventSink
           );
           heartbeatIndex += 1;
@@ -228,6 +355,7 @@ export async function invokeSupervisedProcessActor(
       onProcessStarted: (event) => {
         processStartObserved = true;
         pid = event.pid;
+        const elapsedMs = roundElapsedMs(startedAt);
         const startedEvent = constructActorProcessStartedEvent({
           invocation: request.invocation,
           command: request.command,
@@ -240,54 +368,134 @@ export async function invokeSupervisedProcessActor(
           stderrRef: request.stderrRef
         });
         writeJson(request.processStartedPath, startedEvent);
-        emit(startedEvent, eventSink);
+        emit(
+          [
+            startedEvent,
+            runtimeActivityProbe({
+              invocation: request.invocation,
+              probeSource: "actor_process_lifecycle",
+              activityRef:
+                `actor-process-started:${request.invocation.actorInvocationId}`,
+              elapsedMs,
+              evidenceRefs: [request.stdoutRef, request.stderrRef],
+              detail: "supervised actor process started"
+            })
+          ],
+          eventSink
+        );
       },
       onStdoutChunk: (chunk, event) => {
         appendFileSync(request.stdoutPath, chunk, "utf8");
+        const elapsedMs = roundElapsedMs(startedAt);
+        const streamEvent = constructActorProcessStreamObservedEvent({
+          invocation: request.invocation,
+          streamName: "stdout",
+          streamRef: request.stdoutRef,
+          chunkIndex: stdoutChunkIndex,
+          byteLength: event.byteLength
+        });
         emit(
-          constructActorProcessStreamObservedEvent({
-            invocation: request.invocation,
-            streamName: "stdout",
-            streamRef: request.stdoutRef,
-            chunkIndex: stdoutChunkIndex,
-            byteLength: event.byteLength
-          }),
+          [
+            streamEvent,
+            runtimeActivityProbe({
+              invocation: request.invocation,
+              probeSource: streamProbeSource({
+                executorProfile,
+                streamName: "stdout"
+              }),
+              activityRef:
+                `actor-process-stream:${request.invocation.actorInvocationId}:stdout:${stdoutChunkIndex}`,
+              elapsedMs,
+              evidenceRefs: [request.stdoutRef],
+              detail: `stdout chunk bytes=${event.byteLength}`
+            })
+          ],
           eventSink
         );
         stdoutChunkIndex += 1;
       },
       onStderrChunk: (chunk, event) => {
         appendFileSync(request.stderrPath, chunk, "utf8");
+        const elapsedMs = roundElapsedMs(startedAt);
+        const streamEvent = constructActorProcessStreamObservedEvent({
+          invocation: request.invocation,
+          streamName: "stderr",
+          streamRef: request.stderrRef,
+          chunkIndex: stderrChunkIndex,
+          byteLength: event.byteLength
+        });
         emit(
-          constructActorProcessStreamObservedEvent({
-            invocation: request.invocation,
-            streamName: "stderr",
-            streamRef: request.stderrRef,
-            chunkIndex: stderrChunkIndex,
-            byteLength: event.byteLength
-          }),
+          [
+            streamEvent,
+            runtimeActivityProbe({
+              invocation: request.invocation,
+              probeSource: streamProbeSource({
+                executorProfile,
+                streamName: "stderr"
+              }),
+              activityRef:
+                `actor-process-stream:${request.invocation.actorInvocationId}:stderr:${stderrChunkIndex}`,
+              elapsedMs,
+              evidenceRefs: [request.stderrRef],
+              detail: `stderr chunk bytes=${event.byteLength}`
+            })
+          ],
           eventSink
         );
         stderrChunkIndex += 1;
       },
       onTimeout: () => {
         timedOut = true;
+        const elapsedMs = roundElapsedMs(startedAt);
+        const timeoutEvent = constructActorProcessTimeoutEvent({
+          invocation: request.invocation,
+          timeoutMs,
+          elapsedMs
+        });
         emit(
-          constructActorProcessTimeoutEvent({
-            invocation: request.invocation,
-            timeoutMs,
-            elapsedMs: roundElapsedMs(startedAt)
-          }),
+          [
+            timeoutEvent,
+            runtimeExternalInterruption({
+              invocation: request.invocation,
+              interruptionSource: "harness_safety_cap",
+              interruptionRef:
+                `runtime-interruption:${request.invocation.actorInvocationId}:timeout:${elapsedMs}`,
+              signal: null,
+              elapsedMs,
+              evidenceRefs: [
+                `event:${timeoutEvent.kind}:${request.invocation.actorInvocationId}:${elapsedMs}`
+              ],
+              detail: `timeoutMs=${timeoutMs}`
+            })
+          ],
           eventSink
         );
       },
       onSignalSent: (event) => {
+        const elapsedMs = roundElapsedMs(startedAt);
+        const signalEvent = constructActorProcessSignalSentEvent({
+          invocation: request.invocation,
+          signal: event.signal,
+          elapsedMs
+        });
         emit(
-          constructActorProcessSignalSentEvent({
-            invocation: request.invocation,
-            signal: event.signal,
-            elapsedMs: roundElapsedMs(startedAt)
-          }),
+          [
+            signalEvent,
+            runtimeExternalInterruption({
+              invocation: request.invocation,
+              interruptionSource: timedOut ? "harness_safety_cap" : "host_signal",
+              interruptionRef:
+                `runtime-interruption:${request.invocation.actorInvocationId}:signal:${event.signal}:${elapsedMs}`,
+              signal: event.signal,
+              elapsedMs,
+              evidenceRefs: [
+                `event:${signalEvent.kind}:${request.invocation.actorInvocationId}:${event.signal}:${elapsedMs}`
+              ],
+              detail: timedOut
+                ? "supervisor signal after timeout"
+                : "supervisor signal"
+            })
+          ],
           eventSink
         );
       },
@@ -357,6 +565,7 @@ export async function invokeSupervisedProcessActor(
     stdoutPath: request.stdoutPath,
     stderrPath: request.stderrPath,
     error: finalError,
-    events: Object.freeze([...events])
+    events: Object.freeze([...events]),
+    probeContracts: Object.freeze([...probeContractsByRef.values()])
   });
 }

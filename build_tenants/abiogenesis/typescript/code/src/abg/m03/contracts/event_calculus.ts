@@ -19,7 +19,8 @@ export const RUNTIME_FLUENT_SCOPE_VALUES = Object.freeze([
   "vector",
   "continuation",
   "temporal",
-  "construction"
+  "construction",
+  "liveness"
 ] as const);
 
 export type RuntimeFluentScope =
@@ -57,7 +58,13 @@ export const RUNTIME_FLUENT_NAME_VALUES = Object.freeze([
   "construction_escalated",
   "fh_input_required",
   "ticket_created",
-  "reprice_required"
+  "reprice_required",
+  "runtime_activity_recent",
+  "runtime_inactivity_exceeded",
+  "runtime_invocation_active",
+  "runtime_externally_interrupted",
+  "runtime_invocation_blocked",
+  "runtime_invocation_continued"
 ] as const);
 
 export type RuntimeFluentName =
@@ -681,8 +688,14 @@ function vectorAxiom(
   if (!("vectorIndex" in event)) {
     throw new TypeError(`${name} Event Calculus axiom requires vectorIndex`);
   }
+  if (event.vectorIndex === null) {
+    throw new TypeError(`${name} Event Calculus axiom requires non-null vectorIndex`);
+  }
   if (!("graphCallId" in event) || !("frameId" in event)) {
     throw new TypeError(`${name} Event Calculus axiom requires graph frame scope`);
+  }
+  if (event.graphCallId === null || event.frameId === null) {
+    throw new TypeError(`${name} Event Calculus axiom requires non-null graph frame scope`);
   }
   return completeEffect({
     initiates: [
@@ -925,6 +938,134 @@ function deadlineBreachAxiom(
         constraintRef: event.constraintRef,
         schedulePolicyRef: event.schedulePolicyRef,
         ref: event.deadlineBreachRef
+      })
+    ]
+  });
+}
+
+type RuntimeActivityProbeEvent = Extract<
+  RuntimeEvent,
+  { readonly kind: "runtime_activity_probe_observed" }
+>;
+
+type RuntimeExternalInterruptionEvent = Extract<
+  RuntimeEvent,
+  { readonly kind: "runtime_external_interruption_observed" }
+>;
+
+function livenessRuntimeFluent(input: {
+  readonly event: RuntimeActivityProbeEvent | RuntimeExternalInterruptionEvent;
+  readonly name:
+    | "runtime_activity_recent"
+    | "runtime_inactivity_exceeded"
+    | "runtime_invocation_active"
+    | "runtime_externally_interrupted"
+    | "runtime_invocation_blocked"
+    | "runtime_invocation_continued";
+  readonly ref: string;
+  readonly constraintRef?: string | null;
+}): RuntimeFluent {
+  return constructRuntimeFluent({
+    name: input.name,
+    scope: "liveness",
+    basisId: input.event.basisId,
+    graphFunctionId: input.event.graphFunctionId,
+    graphCallId: input.event.graphCallId,
+    frameId: input.event.frameId,
+    runId: input.event.runId,
+    workKey: input.event.workKey,
+    vectorIndex: input.event.vectorIndex,
+    edge: input.event.edge,
+    constraintRef: input.constraintRef ?? input.event.systemRef,
+    ref: input.ref
+  });
+}
+
+function livenessRuntimePattern(input: {
+  readonly event: RuntimeActivityProbeEvent | RuntimeExternalInterruptionEvent;
+  readonly name:
+    | "runtime_activity_recent"
+    | "runtime_inactivity_exceeded"
+    | "runtime_invocation_active"
+    | "runtime_externally_interrupted"
+    | "runtime_invocation_blocked"
+    | "runtime_invocation_continued";
+}): RuntimeFluentPattern {
+  return constructRuntimeFluentPattern({
+    name: input.name,
+    scope: "liveness",
+    basisId: input.event.basisId,
+    graphFunctionId: input.event.graphFunctionId,
+    graphCallId: input.event.graphCallId,
+    frameId: input.event.frameId,
+    runId: input.event.runId,
+    workKey: input.event.workKey,
+    vectorIndex: input.event.vectorIndex,
+    edge: input.event.edge
+  });
+}
+
+function runtimeActivityProbeObservedAxiom(
+  event: RuntimeEvent,
+  context: RuntimeEventCalculusContext
+): RuntimeEventCalculusEffect {
+  void context;
+  assertEventKind(event, "runtime_activity_probe_observed");
+  return completeEffect({
+    initiates: [
+      livenessRuntimeFluent({
+        event,
+        name: "runtime_activity_recent",
+        ref: event.activityRef,
+        constraintRef: event.probeRef
+      }),
+      livenessRuntimeFluent({
+        event,
+        name: "runtime_invocation_active",
+        ref: event.systemRef
+      }),
+      livenessRuntimeFluent({
+        event,
+        name: "runtime_invocation_continued",
+        ref: event.activityRef,
+        constraintRef: event.probeRef
+      })
+    ],
+    clips: [
+      livenessRuntimePattern({
+        event,
+        name: "runtime_inactivity_exceeded"
+      })
+    ]
+  });
+}
+
+function runtimeExternalInterruptionObservedAxiom(
+  event: RuntimeEvent,
+  context: RuntimeEventCalculusContext
+): RuntimeEventCalculusEffect {
+  void context;
+  assertEventKind(event, "runtime_external_interruption_observed");
+  return completeEffect({
+    terminates: [
+      livenessRuntimeFluent({
+        event,
+        name: "runtime_invocation_active",
+        ref: event.systemRef
+      })
+    ],
+    initiates: [
+      livenessRuntimeFluent({
+        event,
+        name: "runtime_externally_interrupted",
+        ref: event.interruptionRef,
+        constraintRef: event.systemRef
+      }),
+      livenessRuntimeFluent({
+        event,
+        name: "runtime_invocation_blocked",
+        ref: event.interruptionRef,
+        constraintRef: event.systemRef
       })
     ]
   });
@@ -1330,6 +1471,16 @@ export const RUNTIME_EVENT_CALCULUS_AXIOMS = Object.freeze([
     kind: "event_calculus_axiom",
     eventKind: "scheduled_continuation_reopened",
     deriveEffects: scheduledContinuationReopenedAxiom
+  }),
+  Object.freeze({
+    kind: "event_calculus_axiom",
+    eventKind: "runtime_activity_probe_observed",
+    deriveEffects: runtimeActivityProbeObservedAxiom
+  }),
+  Object.freeze({
+    kind: "event_calculus_axiom",
+    eventKind: "runtime_external_interruption_observed",
+    deriveEffects: runtimeExternalInterruptionObservedAxiom
   }),
   Object.freeze({
     kind: "event_calculus_axiom",

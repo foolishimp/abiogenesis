@@ -39,3 +39,11 @@ event-authoritative aggregates.
 **REQ-R-ABG3-INTERPRET-012**: A realization shall not claim graph-function execution parity when it only materializes a composed graph function or dispatches one selected vector without proving replay-derived progression across the callable graph boundary.
 
 **REQ-R-ABG3-INTERPRET-013**: ABG shall name an admitted graph-function execution request with no declared runtime compute basis as `no_compute_basis`. It shall not treat an uninitialized traversal as a no-op, identity traversal, deterministic fallback, probabilistic fallback, or human fallback.
+
+**REQ-R-ABG3-INTERPRET-014**: Every ABG-known runtime system or runtime asset surface participating in a graph-function invocation shall expose a declared runtime activity probe surface when it can affect liveness. Probe facts observe activity and evidence only; they shall not select retry, traversal movement, stop state, or closure.
+
+**REQ-R-ABG3-INTERPRET-015**: ABG shall derive invocation liveness through one runtime liveness observer projection over admitted probe and interruption events. Caller-local timers, harness state, CLI adapters, and product summaries shall not own rival liveness truth for ABG-owned graph-function work.
+
+**REQ-R-ABG3-INTERPRET-016**: ABG watchdog and evaluator dispositions shall consume the runtime liveness observer projection before deciding continue-waiting, controlled inactivity termination, external interruption block, hard safety-cap block, retry-budget exhaustion, or artifact-salvage admission.
+
+**REQ-R-ABG3-INTERPRET-017**: If no watchdog/evaluator disposition selects an alternate lawful action, graph-function execution shall continue following replay-derived graph progression. The default is graph progress, not caller-local timeout policy.

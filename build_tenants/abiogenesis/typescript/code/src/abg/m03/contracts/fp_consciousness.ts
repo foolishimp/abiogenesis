@@ -825,8 +825,9 @@ function stableJson(value: unknown): string {
     return `[${value.map((item) => stableJson(item)).join(",")}]`;
   }
   if (typeof value === "object" && value !== null) {
-    const entries = Object.entries(value as Readonly<Record<string, unknown>>)
-      .sort(([left], [right]) => left.localeCompare(right));
+    const entries = Object.entries(value).sort(([left], [right]) =>
+      left.localeCompare(right)
+    );
     return `{${entries
       .map(([key, item]) => `${JSON.stringify(key)}:${stableJson(item)}`)
       .join(",")}}`;
@@ -843,8 +844,10 @@ function assertAllowedString<T extends string>(
   allowed: readonly T[],
   label: string
 ): T {
-  if ((allowed as readonly string[]).includes(value)) {
-    return value as T;
+  for (const candidate of allowed) {
+    if (candidate === value) {
+      return candidate;
+    }
   }
   throw new TypeError(`${label} has unsupported value ${JSON.stringify(value)}`);
 }
@@ -904,7 +907,11 @@ function assertPlainRecord(
   if (typeof value !== "object" || value === null || Array.isArray(value)) {
     throw new TypeError(`${label} must be an object`);
   }
-  return value as Readonly<Record<string, unknown>>;
+  const record: Record<string, unknown> = {};
+  for (const [key, item] of Object.entries(value)) {
+    record[key] = item;
+  }
+  return Object.freeze(record);
 }
 
 function requiredStringField(
@@ -969,9 +976,8 @@ function configValueByAliases(
   record: Readonly<Record<string, unknown>>,
   aliases: readonly string[]
 ): unknown {
-  return aliases.find((key) => record[key] !== undefined) === undefined
-    ? undefined
-    : record[aliases.find((key) => record[key] !== undefined) as string];
+  const key = aliases.find((candidate) => record[candidate] !== undefined);
+  return key === undefined ? undefined : record[key];
 }
 
 function optionalStringArrayConfigByAliases(
@@ -1051,8 +1057,8 @@ function matchesOptionalActionKinds(
 export function isConstructiveConstructionActionKind(
   actionKind: ConstructionActionKind
 ): actionKind is ConstructiveConstructionActionKind {
-  return (CONSTRUCTIVE_CONSTRUCTION_ACTION_KIND_VALUES as readonly string[]).includes(
-    actionKind
+  return CONSTRUCTIVE_CONSTRUCTION_ACTION_KIND_VALUES.some(
+    (candidate) => candidate === actionKind
   );
 }
 

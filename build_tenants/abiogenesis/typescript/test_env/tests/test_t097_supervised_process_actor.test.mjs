@@ -61,6 +61,29 @@ async function tempWorkspace() {
   return await mkdtemp(path.join(tmpdir(), "abg-t097-"));
 }
 
+function actorProcessKinds(events, { includeHeartbeat = false } = {}) {
+  return events
+    .map((event) => event.kind)
+    .filter((kind) =>
+      kind.startsWith("actor_process_") &&
+      (includeHeartbeat || kind !== "actor_process_heartbeat")
+    );
+}
+
+function runtimeProbeSources(events) {
+  return new Set(
+    events
+      .filter((event) => event.kind === "runtime_activity_probe_observed")
+      .map((event) => event.probeSource)
+  );
+}
+
+function runtimeInterruptionEvents(events) {
+  return events.filter(
+    (event) => event.kind === "runtime_external_interruption_observed"
+  );
+}
+
 test("T-097 supervised process actor streams stdout/stderr and records lifecycle before exit", async () => {
   const root = await tempWorkspace();
   const script = path.join(root, "worker.mjs");
@@ -105,7 +128,7 @@ test("T-097 supervised process actor streams stdout/stderr and records lifecycle
   assert.equal(await readFile(stderrPath, "utf8"), "stderr-before-exit\n");
   assert.ok(result.pid !== null);
   assert.deepStrictEqual(
-    observed.map((event) => event.kind).filter((kind) => kind !== "actor_process_heartbeat"),
+    actorProcessKinds(observed),
     [
       "actor_process_started",
       "actor_process_stream_observed",
@@ -117,6 +140,12 @@ test("T-097 supervised process actor streams stdout/stderr and records lifecycle
     observed.some((event) => event.kind === "actor_process_heartbeat"),
     "long-running process should record heartbeat before exit"
   );
+  const probeSources = runtimeProbeSources(observed);
+  assert.equal(probeSources.has("actor_process_lifecycle"), true);
+  assert.equal(probeSources.has("local_spawn_stdout"), true);
+  assert.equal(probeSources.has("local_spawn_stderr"), true);
+  assert.equal(probeSources.has("actor_process_heartbeat"), true);
+  assert.equal(result.probeContracts.length >= 4, true);
   for (const event of observed) {
     assertActorProcessIdentity(event);
   }
@@ -158,7 +187,7 @@ test("T-097 supervised process actor times out with governed signal events", asy
   assert.equal(result.timedOut, true);
   assert.equal(result.outcome.kind, "hard_timeout");
   assert.deepStrictEqual(
-    observed.map((event) => event.kind),
+    actorProcessKinds(observed, { includeHeartbeat: true }),
     [
       "actor_process_started",
       "actor_process_timeout",
@@ -166,7 +195,27 @@ test("T-097 supervised process actor times out with governed signal events", asy
       "actor_process_exited"
     ]
   );
-  assert.equal(observed[2].signal, "SIGTERM");
+  const signalEvent = observed.find((event) => event.kind === "actor_process_signal_sent");
+  assert.equal(signalEvent?.signal, "SIGTERM");
+  assert.equal(runtimeProbeSources(observed).has("actor_process_lifecycle"), true);
+  const interruptions = runtimeInterruptionEvents(observed);
+  assert.equal(interruptions.length >= 2, true);
+  assert.equal(
+    interruptions.some(
+      (event) =>
+        event.interruptionSource === "harness_safety_cap" &&
+        event.signal === null
+    ),
+    true
+  );
+  assert.equal(
+    interruptions.some(
+      (event) =>
+        event.interruptionSource === "harness_safety_cap" &&
+        event.signal === "SIGTERM"
+    ),
+    true
+  );
   for (const event of observed) {
     assertActorProcessIdentity(event);
   }
@@ -257,6 +306,12 @@ test("T-097 supervised process actor escalates timeout from SIGTERM to SIGKILL w
   assert.deepStrictEqual(
     observed
       .filter((event) => event.kind === "actor_process_signal_sent")
+      .map((event) => event.signal),
+    ["SIGTERM", "SIGKILL"]
+  );
+  assert.deepStrictEqual(
+    runtimeInterruptionEvents(observed)
+      .filter((event) => event.signal !== null)
       .map((event) => event.signal),
     ["SIGTERM", "SIGKILL"]
   );

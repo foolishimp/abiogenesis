@@ -309,6 +309,91 @@ export interface ActorProcessExitedEvent extends ActorProcessRuntimeScope {
   readonly error: string | null;
 }
 
+export const RUNTIME_ACTIVITY_PROBE_SOURCE_VALUES = Object.freeze([
+  "local_spawn_stdout",
+  "local_spawn_stderr",
+  "pty_transcript",
+  "structured_agent_stream",
+  "api_retry",
+  "tool_call",
+  "actor_process_lifecycle",
+  "actor_process_heartbeat",
+  "runtime_event_append",
+  "runtime_ledger_write",
+  "runtime_manifest_write",
+  "runtime_projection_write",
+  "archive_write",
+  "graph_call_frame",
+  "result_artifact",
+  "evaluator_fold",
+  "scheduler_status"
+] as const);
+
+export type RuntimeActivityProbeSource =
+  (typeof RUNTIME_ACTIVITY_PROBE_SOURCE_VALUES)[number];
+
+export const RUNTIME_EXTERNAL_INTERRUPTION_SOURCE_VALUES = Object.freeze([
+  "host_signal",
+  "harness_safety_cap",
+  "operator_abort",
+  "executor_provider",
+  "os_signal",
+  "unknown"
+] as const);
+
+export type RuntimeExternalInterruptionSource =
+  (typeof RUNTIME_EXTERNAL_INTERRUPTION_SOURCE_VALUES)[number];
+
+export interface RuntimeActivityProbeObservedEvent {
+  readonly kind: "runtime_activity_probe_observed";
+  readonly basisId: string;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly graphCallId: string | null;
+  readonly frameId: string | null;
+  readonly vectorIndex: number | null;
+  readonly edge: string | null;
+  readonly actorInvocationId: string | null;
+  readonly workerId: string | null;
+  readonly backendId: string | null;
+  readonly systemRef: string;
+  readonly probeRef: string;
+  readonly probeSource: RuntimeActivityProbeSource;
+  readonly activityRef: string;
+  readonly elapsedMs: number;
+  readonly observedAtMs: number;
+  readonly evidenceRefs: readonly string[];
+  readonly detail: string | null;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
+export interface RuntimeExternalInterruptionObservedEvent {
+  readonly kind: "runtime_external_interruption_observed";
+  readonly basisId: string;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly graphCallId: string | null;
+  readonly frameId: string | null;
+  readonly vectorIndex: number | null;
+  readonly edge: string | null;
+  readonly actorInvocationId: string | null;
+  readonly workerId: string | null;
+  readonly backendId: string | null;
+  readonly systemRef: string;
+  readonly interruptionRef: string;
+  readonly interruptionSource: RuntimeExternalInterruptionSource;
+  readonly signal: string | null;
+  readonly elapsedMs: number;
+  readonly observedAtMs: number;
+  readonly evidenceRefs: readonly string[];
+  readonly detail: string | null;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
 export interface PluginTraversalPromptMaterializedEvent {
   readonly kind: "plugin_traversal_prompt_materialized";
   readonly basisId: string;
@@ -1651,6 +1736,8 @@ export type RuntimeEvent =
   | ActorProcessTimeoutEvent
   | ActorProcessSignalSentEvent
   | ActorProcessExitedEvent
+  | RuntimeActivityProbeObservedEvent
+  | RuntimeExternalInterruptionObservedEvent
   | PluginTraversalPromptMaterializedEvent
   | FhEscalatedEvent
   | TerminalReachedEvent
@@ -1732,6 +1819,8 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "actor_process_timeout",
   "actor_process_signal_sent",
   "actor_process_exited",
+  "runtime_activity_probe_observed",
+  "runtime_external_interruption_observed",
   "plugin_traversal_prompt_materialized",
   "fh_escalated",
   "terminal_reached",

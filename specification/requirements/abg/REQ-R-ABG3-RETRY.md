@@ -29,3 +29,5 @@ domain-specific retry logic into the substrate.
 **REQ-R-ABG3-RETRY-007**: Traversal non-progress retry eligibility shall be projected by ABG from replay-derived runtime truth, retry policy, and the retryable runtime failure class allowlist. A downstream product shall not compute retry eligibility from a product-local dossier, shard summary, or private loop state.
 
 **REQ-R-ABG3-RETRY-008**: Traversal non-progress timeout classes shall map into the existing retry failure taxonomy before retry projection. `inactivity_timeout` maps to `no_output`; `hard_timeout` and `transport_exit` map to `transport_failure`; payload or report contract defects map to `contract_failure` only after deterministic artifact/report admission rejects them.
+
+**REQ-R-ABG3-RETRY-009**: Retry budget exhaustion shall be evaluated against runtime liveness observer disposition before another expensive worker call is launched. If the observer projection reports inactivity with no retry budget remaining, ABG shall block, yield, escalate, or reprice through typed runtime truth rather than dispatch another attempt.

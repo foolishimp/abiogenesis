@@ -11,7 +11,9 @@ import {
   PAYLOAD_AMBIGUITY_STATUS_VALUES,
   PAYLOAD_CLOSURE_DECISION_KIND_VALUES,
   PAYLOAD_REJECTION_CLASS_VALUES,
+  RUNTIME_ACTIVITY_PROBE_SOURCE_VALUES,
   RUNTIME_EVENT_KIND_VALUES,
+  RUNTIME_EXTERNAL_INTERRUPTION_SOURCE_VALUES,
   RUNTIME_FAILURE_CLASS_VALUES,
   TERMINAL_KIND_VALUES
 } from "./carriers.js";
@@ -513,6 +515,60 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     timedOut: "boolean",
     error: "nullable_string"
   }),
+  runtime_activity_probe_observed: applyFieldRules(
+    "RuntimeActivityProbeObservedEvent",
+    {
+      basisId: "non_empty_string",
+      graphFunctionId: "non_empty_string",
+      runId: "nullable_string",
+      workKey: "nullable_string",
+      graphCallId: "nullable_string",
+      frameId: "nullable_string",
+      vectorIndex: "nullable_non_negative_integer",
+      edge: "nullable_string",
+      actorInvocationId: "nullable_string",
+      workerId: "nullable_string",
+      backendId: "nullable_string",
+      systemRef: "non_empty_string",
+      probeRef: "non_empty_string",
+      probeSource: { oneOf: RUNTIME_ACTIVITY_PROBE_SOURCE_VALUES },
+      activityRef: "non_empty_string",
+      elapsedMs: "non_negative_integer",
+      observedAtMs: "non_negative_integer",
+      evidenceRefs: "string_array",
+      detail: "nullable_string",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string"
+    }
+  ),
+  runtime_external_interruption_observed: applyFieldRules(
+    "RuntimeExternalInterruptionObservedEvent",
+    {
+      basisId: "non_empty_string",
+      graphFunctionId: "non_empty_string",
+      runId: "nullable_string",
+      workKey: "nullable_string",
+      graphCallId: "nullable_string",
+      frameId: "nullable_string",
+      vectorIndex: "nullable_non_negative_integer",
+      edge: "nullable_string",
+      actorInvocationId: "nullable_string",
+      workerId: "nullable_string",
+      backendId: "nullable_string",
+      systemRef: "non_empty_string",
+      interruptionRef: "non_empty_string",
+      interruptionSource: {
+        oneOf: RUNTIME_EXTERNAL_INTERRUPTION_SOURCE_VALUES
+      },
+      signal: "nullable_string",
+      elapsedMs: "non_negative_integer",
+      observedAtMs: "non_negative_integer",
+      evidenceRefs: "string_array",
+      detail: "nullable_string",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string"
+    }
+  ),
   plugin_traversal_prompt_materialized: applyFieldRules(
     "PluginTraversalPromptMaterializedEvent",
     {

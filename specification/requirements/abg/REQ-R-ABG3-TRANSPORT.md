@@ -61,3 +61,15 @@ product-local imperative code.
 **REQ-R-ABG3-TRANSPORT-023**: A modulated `F_P` dispatch handoff shall carry the ABG-derived traversal attempt envelope or a stable ref to it. The handoff surface shall preserve selected schedule items, ordering constraints, phase gates, required progress artifact refs, gap-pressure refs, and affect refs needed to drive the worker without making prompt prose the authority surface.
 
 **REQ-R-ABG3-TRANSPORT-024**: A worker or downstream product shall not invent a private schedule, retry, or chunking loop when a traversal attempt envelope is present. Any continuation, exhaustion, or forced-review result shall be admitted as ABG runtime truth.
+
+**REQ-R-ABG3-TRANSPORT-025**: Every ABG-known runtime system and runtime asset surface that can affect supervised traversal liveness shall expose a declared, substrate-neutral probe contract. Probe contracts shall identify the observed runtime boundary, the source kind, the system or asset ref, and the evidence refs that can prove activity or interruption. Runtime asset activity includes event log append, ledger append/update, manifest creation/update, PTY capture output, stdout/stderr capture, result artifact creation, projection/report/dossier creation, archive/sidecar write, heartbeat/status stream, and typed external interruption evidence. They may be adapted to future telemetry backends, but ABG liveness law shall not depend on a telemetry vendor, span model, or non-ABG trace authority.
+
+**REQ-R-ABG3-TRANSPORT-026**: Probe adapters shall publish raw runtime activity or interruption evidence only. They shall not decide retry, stop, graph advancement, closure, escalation, or traversal movement.
+
+**REQ-R-ABG3-TRANSPORT-027**: ABG runtime liveness shall be governed by an inactivity lease over admitted probe activity. Any admitted activity for the active invocation from a declared system or asset probe source shall reset the lease. Activity evidence is not domain truth, closure truth, or artifact admission by itself.
+
+**REQ-R-ABG3-TRANSPORT-028**: A hard elapsed-time safety cap may exist only as outer safety evidence. When it fires, ABG shall admit typed external interruption truth before any public summary or retry decision treats the invocation as stopped.
+
+**REQ-R-ABG3-TRANSPORT-029**: A valid result artifact, admitted report, or declared progress observation produced before transport failure shall be deterministically admitted or rejected before no-progress, retry, or block classification.
+
+**REQ-R-ABG3-TRANSPORT-030**: ABG-owned live transport paths shall prefer inactivity lease policy over flat subprocess timeout policy for long-running constructive work. A caller-local timeout shall not be the effective liveness authority for an invocation that continues to emit admitted probe activity.

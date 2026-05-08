@@ -112,6 +112,38 @@ They are not rival controllers.
 runtime evidence. It is not a private retry loop. A later human or policy
 decision must append new ABG truth before traversal can continue.
 
+## Composition With T-129 Runtime Liveness
+
+T-106 is not the global liveness loop. It classifies one supervised actor
+attempt after ABG has already derived liveness, interruption, and artifact
+salvage truth.
+
+T-129 adds the broader observer surface:
+
+```text
+declared runtime system probes
+  -> runtime_activity_probe_observed / runtime_external_interruption_observed
+  -> RuntimeLivenessObserverProjection
+  -> RuntimeInvocationDisposition
+  -> T-106 non-progress only when no artifact/report/progress remains admissible
+```
+
+Probe adapters are effect boundaries. They observe stdout, stderr, PTY
+transcript deltas, structured stream activity, heartbeats, event-sink appends,
+archive writes, graph-call/frame movement, result artifacts, evaluator folds,
+and scheduler state. They do not choose retry, continuation, traversal
+movement, or closure.
+
+The observer projection is replay-derived and substrate-neutral. It may later
+feed or be fed by OpenTelemetry adapters, but the ABG law is the carrier
+surface, not a telemetry backend.
+
+If any declared probe reports activity inside the inactivity lease, the
+disposition is `continue_waiting` unless artifact salvage, external
+interruption, hard safety cap, or retry-budget exhaustion takes precedence. If
+no alternate disposition applies, execution continues through replay-derived
+graph progression.
+
 ## Deterministic Flow
 
 ```mermaid

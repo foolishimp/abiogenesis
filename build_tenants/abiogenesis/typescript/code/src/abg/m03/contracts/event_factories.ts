@@ -31,6 +31,8 @@ import type {
   PayloadValidatedRuntimeEvent,
   PluginTraversalPromptMaterializedEvent,
   RuntimeEvent,
+  RuntimeActivityProbeObservedEvent,
+  RuntimeExternalInterruptionObservedEvent,
   TerminalReachedEvent,
   TerminalTransition,
   VectorClosedEvent,
@@ -361,6 +363,109 @@ export function constructActorProcessExitedEvent(input: {
     elapsedMs: input.elapsedMs,
     timedOut: input.timedOut,
     error: input.error
+  });
+}
+
+export function constructRuntimeActivityProbeObservedEvent(input: {
+  readonly basisId: string;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly graphCallId: string | null;
+  readonly frameId: string | null;
+  readonly vectorIndex: number | null;
+  readonly edge: string | null;
+  readonly actorInvocationId: string | null;
+  readonly workerId: string | null;
+  readonly backendId: string | null;
+  readonly systemRef: string;
+  readonly probeRef: string;
+  readonly probeSource: RuntimeActivityProbeObservedEvent["probeSource"];
+  readonly activityRef: string;
+  readonly elapsedMs: number;
+  readonly observedAtMs: number;
+  readonly evidenceRefs?: readonly string[];
+  readonly detail?: string | null;
+  readonly causationEventRefs?: readonly string[];
+  readonly correlationId: string;
+}): RuntimeActivityProbeObservedEvent {
+  return Object.freeze({
+    kind: "runtime_activity_probe_observed",
+    basisId: input.basisId,
+    graphFunctionId: input.graphFunctionId,
+    runId: input.runId,
+    workKey: input.workKey,
+    graphCallId: input.graphCallId,
+    frameId: input.frameId,
+    vectorIndex: input.vectorIndex,
+    edge: input.edge,
+    actorInvocationId: input.actorInvocationId,
+    workerId: input.workerId,
+    backendId: input.backendId,
+    systemRef: input.systemRef,
+    probeRef: input.probeRef,
+    probeSource: input.probeSource,
+    activityRef: input.activityRef,
+    elapsedMs: input.elapsedMs,
+    observedAtMs: input.observedAtMs,
+    evidenceRefs: freezeStringArray(input.evidenceRefs ?? Object.freeze([])),
+    detail: input.detail ?? null,
+    causationEventRefs: freezeStringArray(
+      input.causationEventRefs ?? Object.freeze([])
+    ),
+    correlationId: input.correlationId
+  });
+}
+
+export function constructRuntimeExternalInterruptionObservedEvent(input: {
+  readonly basisId: string;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly graphCallId: string | null;
+  readonly frameId: string | null;
+  readonly vectorIndex: number | null;
+  readonly edge: string | null;
+  readonly actorInvocationId: string | null;
+  readonly workerId: string | null;
+  readonly backendId: string | null;
+  readonly systemRef: string;
+  readonly interruptionRef: string;
+  readonly interruptionSource:
+    RuntimeExternalInterruptionObservedEvent["interruptionSource"];
+  readonly signal: string | null;
+  readonly elapsedMs: number;
+  readonly observedAtMs: number;
+  readonly evidenceRefs?: readonly string[];
+  readonly detail?: string | null;
+  readonly causationEventRefs?: readonly string[];
+  readonly correlationId: string;
+}): RuntimeExternalInterruptionObservedEvent {
+  return Object.freeze({
+    kind: "runtime_external_interruption_observed",
+    basisId: input.basisId,
+    graphFunctionId: input.graphFunctionId,
+    runId: input.runId,
+    workKey: input.workKey,
+    graphCallId: input.graphCallId,
+    frameId: input.frameId,
+    vectorIndex: input.vectorIndex,
+    edge: input.edge,
+    actorInvocationId: input.actorInvocationId,
+    workerId: input.workerId,
+    backendId: input.backendId,
+    systemRef: input.systemRef,
+    interruptionRef: input.interruptionRef,
+    interruptionSource: input.interruptionSource,
+    signal: input.signal,
+    elapsedMs: input.elapsedMs,
+    observedAtMs: input.observedAtMs,
+    evidenceRefs: freezeStringArray(input.evidenceRefs ?? Object.freeze([])),
+    detail: input.detail ?? null,
+    causationEventRefs: freezeStringArray(
+      input.causationEventRefs ?? Object.freeze([])
+    ),
+    correlationId: input.correlationId
   });
 }
 

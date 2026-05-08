@@ -477,6 +477,14 @@ export function deriveRuntimeAggregateProjection(
         graphCallId = event.graphCallId;
         frameId = event.frameId;
         break;
+      case "runtime_activity_probe_observed":
+      case "runtime_external_interruption_observed":
+        if (event.vectorIndex !== null) {
+          assertVectorIndexInRange(basis, event.vectorIndex);
+        }
+        graphCallId = event.graphCallId ?? graphCallId;
+        frameId = event.frameId ?? frameId;
+        break;
       case "plugin_traversal_prompt_materialized":
         assertVectorIndexInRange(basis, event.vectorIndex);
         pluginTraversalPromptMaterializationRefs.push(
