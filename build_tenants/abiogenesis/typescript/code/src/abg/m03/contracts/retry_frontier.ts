@@ -691,6 +691,7 @@ export function deriveRetryFrontierProjection(input: {
       case "construction_graph_action_invoked":
       case "construction_delta_observed":
       case "construction_terminal_disposition_projected":
+      case "workspace_installation_admitted":
         break;
       default:
         {

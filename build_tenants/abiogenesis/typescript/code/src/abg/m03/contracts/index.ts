@@ -122,6 +122,8 @@ export type {
   VectorClosedEvent,
   VectorEvaluatedEvent,
   VectorTraversalPlannedEvent,
+  WorkspaceInstallationAdmittedRuntimeEvent,
+  WorkspaceInstallationResult,
   WorkspaceObligationLedgerAdmittedEvent,
   WorkspaceObligationScheduleDerivedEvent,
   ZoomFoldbackEvaluatedRuntimeEvent,
@@ -138,7 +140,8 @@ export {
   RUNTIME_EVENT_KIND_VALUES,
   RUNTIME_EXTERNAL_INTERRUPTION_SOURCE_VALUES,
   RUNTIME_FAILURE_CLASS_VALUES,
-  TERMINAL_KIND_VALUES
+  TERMINAL_KIND_VALUES,
+  WORKSPACE_INSTALLATION_RESULT_VALUES
 } from "./carriers.js";
 export {
   GRAPH_CHANGE_CLASS_VALUES,

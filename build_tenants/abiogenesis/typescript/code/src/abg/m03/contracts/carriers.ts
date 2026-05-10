@@ -1722,6 +1722,27 @@ export interface ConstructionTerminalDispositionProjectedEvent
   readonly reviewReasonRefs: readonly string[];
 }
 
+export const WORKSPACE_INSTALLATION_RESULT_VALUES = Object.freeze([
+  "installed",
+  "rejected"
+] as const);
+
+export type WorkspaceInstallationResult =
+  (typeof WORKSPACE_INSTALLATION_RESULT_VALUES)[number];
+
+export interface WorkspaceInstallationAdmittedRuntimeEvent {
+  readonly kind: "workspace_installation_admitted";
+  readonly installResult: WorkspaceInstallationResult;
+  readonly targetRoot: string;
+  readonly packageName: string;
+  readonly packageVersion: string;
+  readonly resolvedRuntimeRef: string;
+  readonly installManifestPath: string;
+  readonly installerEcosystem: string;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
 export type RuntimeEvent =
   | BasisAdmittedEvent
   | FdAdvanceReadyEvent
@@ -1803,7 +1824,8 @@ export type RuntimeEvent =
   | ConstructionIntentSelectedEvent
   | ConstructionGraphActionInvokedEvent
   | ConstructionDeltaObservedEvent
-  | ConstructionTerminalDispositionProjectedEvent;
+  | ConstructionTerminalDispositionProjectedEvent
+  | WorkspaceInstallationAdmittedRuntimeEvent;
 
 export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "basis_admitted",
@@ -1886,7 +1908,8 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "construction_intent_selected",
   "construction_graph_action_invoked",
   "construction_delta_observed",
-  "construction_terminal_disposition_projected"
+  "construction_terminal_disposition_projected",
+  "workspace_installation_admitted"
 ] as const satisfies readonly RuntimeEvent["kind"][]);
 
 export interface AdmittedLeafTaskPayload {

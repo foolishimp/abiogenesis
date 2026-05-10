@@ -1708,6 +1708,20 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       terminalRouteRefs: "string_array",
       reviewReasonRefs: "string_array"
     }
+  ),
+  workspace_installation_admitted: applyFieldRules(
+    "WorkspaceInstallationAdmittedRuntimeEvent",
+    {
+      installResult: { oneOf: ["installed", "rejected"] },
+      targetRoot: "non_empty_string",
+      packageName: "non_empty_string",
+      packageVersion: "non_empty_string",
+      resolvedRuntimeRef: "non_empty_string",
+      installManifestPath: "non_empty_string",
+      installerEcosystem: "non_empty_string",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string"
+    }
   )
 } satisfies Record<RuntimeEvent["kind"], RuntimeEventAdmitter>);
 
