@@ -1712,7 +1712,7 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
   workspace_installation_admitted: applyFieldRules(
     "WorkspaceInstallationAdmittedRuntimeEvent",
     {
-      installResult: { oneOf: ["installed", "rejected"] },
+      installResult: { oneOf: ["installed"] },
       targetRoot: "non_empty_string",
       packageName: "non_empty_string",
       packageVersion: "non_empty_string",

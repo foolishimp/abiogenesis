@@ -1723,8 +1723,7 @@ export interface ConstructionTerminalDispositionProjectedEvent
 }
 
 export const WORKSPACE_INSTALLATION_RESULT_VALUES = Object.freeze([
-  "installed",
-  "rejected"
+  "installed"
 ] as const);
 
 export type WorkspaceInstallationResult =
