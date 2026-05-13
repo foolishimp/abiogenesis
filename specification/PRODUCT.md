@@ -86,6 +86,8 @@ The edge declares the admissible external traversal space:
 - evaluator regime
 - provenance obligation
 - lawful stop, hold, gap, continuation, or completion states
+- edge assurance contract when automated or probabilistic gain and closure are
+  intended
 
 GTL owns that lawful workflow structure.
 
@@ -104,6 +106,13 @@ state.
 
 F_D is a deterministic evaluator or domain-owned optimization where the domain
 can make part of the work precise. F_D does not move domain HOW into GTL or ABG.
+
+If a GTL edge traversal does not declare an assurance function, the default
+assurance regime is F_H by absentia. ABG must not infer automated closure from
+worker output, file presence, runtime success, or absence of gaps. A human may
+iterate over the open edge, perform direct worksite transformation, and declare
+close or continuation. ABG owns the scoped observation, admission, replay, and
+next lawful consequence of that human judgment.
 
 ### Outcome Compute Contract
 

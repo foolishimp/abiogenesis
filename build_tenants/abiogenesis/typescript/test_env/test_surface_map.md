@@ -891,6 +891,64 @@ This lane runs through:
 - `npm run test:t101:full` — single-shot all-edges run via the CLI
 - `npm run test:t101:gaps` — gaps inspection over a populated workspace
 
+## T-132 Edge Assurance Installed Sandbox
+
+The T-132 edge-assurance installed sandbox proves the T-130/T-131 carrier work
+through the ABG installer and installed package surface. It uses a fresh
+installed target, declares a three-edge GTL graph directly in the installed
+runtime, and proves runner-consumed `EnginePluginInput.edgeAssuranceResolution`
+for each edge:
+
+```text
+source information
+-> synthesized requirements
+-> formal logical requirements
+-> disambiguated design syntax
+```
+
+The proof is intentionally the generic repeated SDLC morphism rather than an
+odd_sdlc-specific controller scaffold:
+
+```text
+informal material
+-> synthesized outcome surface
+-> formal logical or typed formulation
+-> disambiguated construction syntax
+```
+
+The deterministic installed sandbox file is:
+
+- `test_env/tests/test_t132_edge_assurance_installed_sandbox.test.mjs` —
+  provisions a fresh ABG TypeScript install through the installer, packs the
+  tenant into the target package surface, runs the three-edge graph through the
+  engine runner, records one edge-assurance eval hook action/finding/admission
+  per edge, admits authority/evidence through the payload ledger, derives edge
+  assurance evaluation projections/read models, validates the `C -> D`
+  `gtl_disambiguated_design_syntax` payload with an F_D schema/envelope check
+  before F_P semantic assurance, reconstructs outputs from predecessor refs,
+  composes the three admitted contribution refs into an A-to-Z basis, and proves
+  negative fail-closed cases for missing hook action, unrecorded admission,
+  rejected finding, unadmitted evidence, side-door authority fields, lineage
+  drift, premature compound close, and missing intermediate contribution.
+
+The live installed sandbox file is:
+
+- `test_env/live/test_t132_edge_assurance_installed_live.test.mjs` — runs the
+  same installed scenario with live Claude F_P eval callouts when
+  `ABG_TS_T132_LIVE=1` or `CODEX_LIVE_FP=1` is set. The live worker returns the
+  same typed design-syntax payload for the terminal encoding edge, which the
+  installed script validates before admission, with transport archives written
+  under `test_env/test_runs/t132_edge_assurance_installed_live/`.
+
+The controlling ticket is:
+
+- [T-132](../../../.ai-workspace/tickets/completed/T-132-prove-runner-consumed-edge-assurance-eval-replay.md)
+
+This lane runs through:
+
+- `npm run test:t132`
+- `npm run test:t132:live`
+
 ## M03 Retry/Repair And Leaf-Task Tests
 
 The completed retry/repair and leaf-task governance wave is `T-045`.

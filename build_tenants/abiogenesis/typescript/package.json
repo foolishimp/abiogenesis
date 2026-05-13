@@ -1,6 +1,6 @@
 {
   "name": "@abiogenesis/typescript-tenant",
-  "version": "3.7.1-rc.1",
+  "version": "3.7.1-rc.2",
   "private": true,
   "type": "module",
   "types": "./build/semantic/code/src/index.d.ts",
@@ -191,6 +191,11 @@
     "test:t127:live": "npm run build:semantic && node --test test_env/live/test_t127_fp_consciousness_scenarios_live.test.mjs",
     "test:t127": "npm run build:semantic && node --test test_env/tests/test_t127_fp_consciousness_loop_unit.test.mjs test_env/sandbox/test_t127_fp_consciousness_scenarios_sandbox.test.mjs",
     "test:t129": "npm run build:semantic && node --test test_env/tests/test_t129_runtime_liveness_observer.test.mjs",
+    "test:t130": "npm run build:semantic && node --test test_env/tests/test_t130_hook_action_typing_model.test.mjs",
+    "test:t131": "npm run build:semantic && node --test test_env/tests/test_t131_edge_assurance_contract.test.mjs",
+    "test:t130:t131": "npm run build:semantic && node --test test_env/tests/test_t130_hook_action_typing_model.test.mjs test_env/tests/test_t131_edge_assurance_contract.test.mjs",
+    "test:t132": "npm run build:semantic && node --test test_env/tests/test_t132_edge_assurance_installed_sandbox.test.mjs",
+    "test:t132:live": "npm run build:semantic && node --test test_env/live/test_t132_edge_assurance_installed_live.test.mjs",
     "test:t125:live": "npm run build:semantic && node --test test_env/live/test_t125_temporal_and_non_temporal_gtl_live.test.mjs",
     "test:t125": "npm run test:t125:live"
   },

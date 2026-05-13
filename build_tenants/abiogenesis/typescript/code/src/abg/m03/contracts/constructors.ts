@@ -41,6 +41,7 @@ export function constructExecutionBasis(input: ExecutionBasisInit): ExecutionBas
     graphFunction,
     graph,
     job,
+    modulePolicyHooks: input.module.policyHooks,
     runtimeIdentity: input.runtimeIdentity,
     resolvedPolicy: input.resolvedPolicy,
     startIntent: input.startIntent,

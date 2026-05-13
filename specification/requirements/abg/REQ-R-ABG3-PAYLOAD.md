@@ -60,3 +60,7 @@ meaning, product-specific gain functions, or downstream release interpretation.
 **REQ-R-ABG3-PAYLOAD-015**: Same-edge retry, correction, reopen, or authority/input change shall preserve prior payload facts while requiring fresh projection over current admitted authority/input truth.
 
 **REQ-R-ABG3-PAYLOAD-016**: Downstream products may project domain-specific lifecycle registers from ABG payload facts, but missing domain semantics, bad gain functions, or adapter gaps shall surface as explicit ambiguity or gap rows rather than silent closure.
+
+**REQ-R-ABG3-PAYLOAD-017**: Hook action records and hook finding admissions shall be ABG-owned payload/event inputs when plugin output participates in traversal, assurance, projection, intent, ledger, or closure truth. The plugin-returned payload is not owning truth until ABG admits it under the hook contract.
+
+**REQ-R-ABG3-PAYLOAD-018**: Edge assurance eval findings shall preserve refs for the selected edge assurance contract, hook action, gain report, metrics, close disposition, residual pressure, continuation, evidence, authority, and composition contribution. Payload admission shall reject side-door engine authority fields.

@@ -23,6 +23,11 @@ import type {
   TraversalAttemptEnvelope,
   TraversalStrategySelection
 } from "./traversal_modulation.js";
+import type {
+  EdgeAssuranceDefaultContract,
+  EdgeAssuranceResolution
+} from "./edge_assurance_contract.js";
+import { resolveEdgeAssuranceContract } from "./edge_assurance_contract.js";
 import type { RetryFrontierProjection } from "./retry_frontier.js";
 import { deriveRetryFrontierProjection } from "./retry_frontier.js";
 import {
@@ -145,6 +150,7 @@ export interface EnginePluginInput {
   readonly actorInvocationRef: ActorInvocationRef | null;
   readonly fpTransformRequest: FpTransformRequest | null;
   readonly pluginTraversalObserverBinding: PluginTraversalObserverBindingSelection | null;
+  readonly edgeAssuranceResolution: EdgeAssuranceResolution;
   readonly traversalStrategySelection: TraversalStrategySelection | null;
   readonly traversalAttemptEnvelope: TraversalAttemptEnvelope | null;
 }
@@ -480,6 +486,10 @@ export function constructEnginePluginInput(input: {
   readonly pluginTraversalObserverFallbackKinds?:
     | readonly PluginTraversalKind[]
     | undefined;
+  readonly edgeAssuranceDefaults?:
+    | EdgeAssuranceDefaultContract
+    | null
+    | undefined;
 }): EnginePluginInput {
   const contract = admitEnginePluginContract(input.contract);
   assertProjectionBasis(input.basis, input.projection, "EnginePluginInput");
@@ -542,6 +552,17 @@ export function constructEnginePluginInput(input: {
           pluginTraversalObserverBinding
         })
       : null;
+  const edgeAssuranceResolution = resolveEdgeAssuranceContract({
+    vector,
+    graphFunction: input.basis.graphFunction,
+    job: input.basis.job,
+    roles: input.basis.job.roles,
+    module: {
+      name: input.basis.moduleName,
+      policyHooks: input.basis.modulePolicyHooks
+    },
+    defaults: input.edgeAssuranceDefaults ?? null
+  });
   return Object.freeze({
     kind: "engine_plugin_input",
     contract,
@@ -566,6 +587,7 @@ export function constructEnginePluginInput(input: {
     actorInvocationRef: normalizedActorInvocationRef,
     fpTransformRequest,
     pluginTraversalObserverBinding,
+    edgeAssuranceResolution,
     traversalStrategySelection: input.traversalStrategySelection ?? null,
     traversalAttemptEnvelope: input.traversalAttemptEnvelope ?? null
   });

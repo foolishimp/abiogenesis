@@ -81,3 +81,9 @@ not widen the product compute boundary without product reprice.
 **REQ-R-ABG3-ASSURANCE-026**: Subordinate work, including bounded leaf tasks, shall either project assurance within the parent runtime boundary or publish a declared subordinate assurance boundary that remains causally bound to the parent.
 
 **REQ-R-ABG3-ASSURANCE-027**: For a modulated traversal attempt, assurance shall consume `TraversalAttemptEnvelope`, admitted `TraversalAttemptProgressRow` rows, `TraversalForcedReviewGate` truth, and existing foldback/non-progress/reentry projections. File presence, worker narrative, elapsed time, or unstated worker intent shall not satisfy closure or continuation evidence.
+
+**REQ-R-ABG3-ASSURANCE-028**: ABG shall resolve a declared edge assurance contract before automated probabilistic closure is lawful. Resolution shall preserve source precedence, selected contract refs, and config identity as replay-visible truth.
+
+**REQ-R-ABG3-ASSURANCE-029**: If no edge assurance contract is declared, ABG shall project an F_H-required absentia disposition. In absentia mode a human may declare closure, continuation, reprice, block, defer, or directly transform the mutable worksite, but ABG shall still admit the scoped judgment or observed state change before projection or routing.
+
+**REQ-R-ABG3-ASSURANCE-030**: F_P eval output under an edge assurance contract shall enter assurance only as an admitted finding attached to a recorded hook action. ABG shall reject eval findings that contain runtime events, ledger writes, projections, selected vector choices, transitions, or closure authority.

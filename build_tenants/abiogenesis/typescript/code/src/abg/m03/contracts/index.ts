@@ -184,6 +184,50 @@ export type {
   FpTransformStatus
 } from "./fp_stages.js";
 export {
+  HOOK_ACTION_CLASS_VALUES,
+  HOOK_FINDING_ADMISSION_STATUS_VALUES,
+  admitHookActionRecord,
+  admitHookFindingAdmission,
+  assertHookActionClass,
+  assertHookFindingAdmissionMatchesAction,
+  assertHookFindingAdmissionStatus,
+  constructHookActionRecord,
+  constructHookFindingAdmission
+} from "./hook_actions.js";
+export type {
+  HookActionClass,
+  HookActionRecord,
+  HookFindingAdmission,
+  HookFindingAdmissionStatus
+} from "./hook_actions.js";
+export {
+  EDGE_ASSURANCE_CLOSE_DISPOSITION_VALUES,
+  EDGE_ASSURANCE_CONTRACT_DECLARATION_KEY,
+  EDGE_ASSURANCE_FH_ABSENTIA_ACTION_REFS,
+  admitFpEdgeAssuranceEvalFinding,
+  assertFpEdgeAssuranceEvalFindingMatchesHookAction,
+  constructEdgeAssuranceContract,
+  constructFpEdgeAssuranceEvalFinding,
+  deriveEdgeAssuranceEvaluationProjection,
+  deriveEdgeAssuranceEvaluationReadModel,
+  resolveEdgeAssuranceContract,
+  tryResolveEdgeAssuranceContract
+} from "./edge_assurance_contract.js";
+export type {
+  EdgeAssuranceAbsentiaResolution,
+  EdgeAssuranceCloseDisposition,
+  EdgeAssuranceContract,
+  EdgeAssuranceContractResolutionInput,
+  EdgeAssuranceContractSelection,
+  EdgeAssuranceContractSource,
+  EdgeAssuranceDefaultContract,
+  EdgeAssuranceEvaluationProjection,
+  EdgeAssuranceEvaluationReadModel,
+  EdgeAssuranceModulePolicySource,
+  EdgeAssuranceResolution,
+  FpEdgeAssuranceEvalFinding
+} from "./edge_assurance_contract.js";
+export {
   PLUGIN_TRAVERSAL_KIND_VALUES,
   PLUGIN_TRAVERSAL_OBSERVER_DECLARATION_KEYS,
   admitAbgFallbackBundle,

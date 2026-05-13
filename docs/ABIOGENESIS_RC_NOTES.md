@@ -1,7 +1,7 @@
-# abiogenesis 3.7.1-rc.1 RC Notes
+# abiogenesis 3.7.1-rc.2 RC Notes
 
-This note records accepted RC behavior for the current `v3.7.1-rc.1` line.
-The package cut is `3.7.1-rc.1`.
+This note records accepted RC behavior for the current `v3.7.1-rc.2` line.
+The package cut is `3.7.1-rc.2`.
 
 ## Accepted Framework Behavior
 
@@ -452,6 +452,45 @@ Non-claim:
   own migration tickets; they are not closure authority for the ABG substrate
   ticket.
 
+### Edge Assurance Contract Replay Completes RC2
+
+The T-130/T-131/T-132 edge assurance wave moves the current release candidate
+from `3.7.1-rc.1` to `3.7.1-rc.2` because it makes per-edge gain and close a
+declared GTL/ABG contract consumed by the runner and replayed through admitted
+runtime facts.
+
+Accepted behavior:
+
+- GTL edges can declare `abg.edge_assurance_contract` with target outcome,
+  authority, evidence, gain, metric, close, residual, continuation,
+  composition, structural check, and policy refs;
+- absent edge assurance resolves to F_H by absentia, not inferred automated
+  close;
+- ABG passes the selected edge assurance contract to plugins through
+  `EnginePluginInput.edgeAssuranceResolution`;
+- F_P edge assurance findings are tied to recorded hook actions and admitted
+  through `HookFindingAdmission`;
+- plugin findings cannot own closure, ledger, event, projection, vector
+  selection, or next-action authority;
+- edge assurance read models expose replay-derived gain/close/residual and
+  next-action basis;
+- a compound traversal closes only when every required edge contributes admitted
+  composition evidence;
+- the installed T-132 proof runs a three-edge GTL graph over source
+  information -> synthesized requirements -> formal logical requirements ->
+  disambiguated design syntax;
+- the terminal design-encoding edge emits a concrete
+  `gtl_disambiguated_design_syntax` payload that is F_D-validated before F_P
+  assurance admits semantic close.
+
+Non-claim:
+
+- downstream odd_sdlc test35 carry-across is not part of this ABG release cut.
+  This RC gives downstream products enough substrate to bind their own
+  requirement-authority closure, obligation/evidence ledger measurement,
+  behavioral fulfillment, residual pressure, continuation, and A-to-Z
+  composition proof.
+
 ## Current Verification Footer
 
 The current RC proving footer is:
@@ -474,6 +513,9 @@ The current RC proving footer is:
 - `npm run test:semantic`: `488 passed`
 - `npm run test:t127`: `33 passed`
 - `npm run test:t129`: `11 passed`
+- `npm run test:t130:t131`: `20 passed`
+- `npm run test:t132`: `1 passed`
+- `ABG_TS_T132_LIVE=1 CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=120000 npm run test:t132:live`: `1 passed`
 - `npm run test:t058`: `11 passed`
 - `npm run test:t127:live`: `6 passed`
 - `CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude npm run test:live`: `1 passed`
@@ -483,7 +525,7 @@ The current RC proving footer is:
 - `npm run test:t116:live`: `1 passed`
 - `git diff --check`: `passed`
 - `npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run`: `passed`,
-  package `3.7.1-rc.1`, `329 files`
+  package `3.7.1-rc.2`, `333 files`
 
 Fresh 3.5.0-rc.2 live PTY plugin/actor matrix:
 

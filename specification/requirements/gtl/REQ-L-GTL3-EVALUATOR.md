@@ -25,3 +25,5 @@ and gate-visible assessment.
 **REQ-L-GTL3-EVALUATOR-005**: Evaluator multiplicity and ordering may be declared at a contract boundary without embedding domain closure semantics in the interpreter.
 
 **REQ-L-GTL3-EVALUATOR-006**: Domain-specific gap, closure, ranking, or attestation semantics belong to evaluator declarations and their resolved implementations, not to the interpreter.
+
+**REQ-L-GTL3-EVALUATOR-007**: Probabilistic evaluator output for a declared edge assurance contract shall be a constrained finding over gain, close disposition, residual pressure, continuation, evidence, authority, and composition refs. Such output shall not directly close the edge, write a ledger, select a vector, or emit runtime events. If F_P proposes human involvement, that proposed close disposition shall be distinct from ABG's F_H-by-absentia disposition for a missing edge assurance contract.

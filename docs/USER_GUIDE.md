@@ -1,6 +1,6 @@
 # GTL/ABG User Guide
 
-**Status**: Current single human guide for GTL 3 / ABG 3.7.1-rc.1
+**Status**: Current single human guide for GTL 3 / ABG 3.7.1-rc.2
 **Audience**: People building, operating, or reviewing GTL/ABG applications
 **Purpose**: Explain what GTL/ABG is for, what it builds, the technical GTL/ABG model, how the build loop works, what the runtime gives you, and how to run the current kernel
 

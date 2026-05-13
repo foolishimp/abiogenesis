@@ -3,7 +3,11 @@
 // Implements: REQ-R-ABG3-RUN
 // Implements: REQ-R-ABG3-CONVERGENCE
 
-import type { Graph, GraphFunction } from "../../../gtl/m01/contracts/carriers.js";
+import type {
+  Graph,
+  GraphFunction,
+  SerializedAttrs
+} from "../../../gtl/m01/contracts/carriers.js";
 import type { Job } from "../../../gtl/m02/contracts/carriers.js";
 
 export type RuntimeRegime = "F_D" | "F_P" | "F_H";
@@ -95,6 +99,7 @@ export interface ExecutionBasis {
   readonly graphFunction: GraphFunction;
   readonly graph: Graph;
   readonly job: Job;
+  readonly modulePolicyHooks: SerializedAttrs;
   readonly runtimeIdentity: {
     readonly workerId: string;
     readonly backendId: string;

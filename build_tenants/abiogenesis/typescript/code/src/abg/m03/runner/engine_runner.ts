@@ -62,6 +62,7 @@ import {
   type FpDispatchPlugin
 } from "../contracts/plugins.js";
 import type { AbgFallbackBundle } from "../contracts/plugin_traversal_observer.js";
+import type { EdgeAssuranceDefaultContract } from "../contracts/edge_assurance_contract.js";
 import {
   deriveRetryRepairDecision,
   runtimeEventsForRetryRepairDecision
@@ -110,6 +111,10 @@ export interface EngineIterateRequest {
   readonly maxAttachedFpAttempts?: number | undefined;
   readonly assuranceProvider?: EngineAssuranceProvider | undefined;
   readonly abgFallbackBundle?: AbgFallbackBundle | null | undefined;
+  readonly edgeAssuranceDefaults?:
+    | EdgeAssuranceDefaultContract
+    | null
+    | undefined;
   readonly pluginTraversalObserverFallbackEnabled?: boolean | undefined;
   readonly pluginTraversalObserverFallbackKinds?:
     | readonly PluginTraversalKind[]
@@ -123,6 +128,10 @@ export interface EngineStartRequest extends ExecutionBasisAdmissionInput {
   readonly maxAttachedFpAttempts?: number | undefined;
   readonly assuranceProvider?: EngineAssuranceProvider | undefined;
   readonly abgFallbackBundle?: AbgFallbackBundle | null | undefined;
+  readonly edgeAssuranceDefaults?:
+    | EdgeAssuranceDefaultContract
+    | null
+    | undefined;
   readonly pluginTraversalObserverFallbackEnabled?: boolean | undefined;
   readonly pluginTraversalObserverFallbackKinds?:
     | readonly PluginTraversalKind[]
@@ -402,6 +411,7 @@ function deriveFpDispatchAttemptInput(input: {
   readonly transition: FpDispatchTransition;
   readonly contract: EnginePluginContract;
   readonly abgFallbackBundle: AbgFallbackBundle | null;
+  readonly edgeAssuranceDefaults: EdgeAssuranceDefaultContract | null;
   readonly pluginTraversalObserverFallbackEnabled: boolean;
   readonly pluginTraversalObserverFallbackKinds: readonly PluginTraversalKind[];
 }): FpDispatchAttemptInput {
@@ -426,6 +436,7 @@ function deriveFpDispatchAttemptInput(input: {
     traversalStrategySelection: modulatedAttempt?.selection ?? null,
     traversalAttemptEnvelope: modulatedAttempt?.envelope ?? null,
     abgFallbackBundle: input.abgFallbackBundle,
+    edgeAssuranceDefaults: input.edgeAssuranceDefaults,
     pluginTraversalObserverFallbackEnabled:
       input.pluginTraversalObserverFallbackEnabled,
     pluginTraversalObserverFallbackKinds:
@@ -828,6 +839,7 @@ export function runEngineIterate(
           edge: transition.edge,
           regime: "F_D",
           abgFallbackBundle: request.abgFallbackBundle ?? null,
+          edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
           pluginTraversalObserverFallbackEnabled:
             request.pluginTraversalObserverFallbackEnabled ?? false,
           pluginTraversalObserverFallbackKinds:
@@ -907,6 +919,7 @@ export function runEngineIterate(
           replayEvents,
           contract: plugins.fpDispatch.contract,
           abgFallbackBundle: request.abgFallbackBundle ?? null,
+          edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
           pluginTraversalObserverFallbackEnabled:
             request.pluginTraversalObserverFallbackEnabled ?? false,
           pluginTraversalObserverFallbackKinds:
@@ -1119,7 +1132,8 @@ export function runEngineIterate(
           replayEvents,
           vectorIndex: transition.vectorIndex,
           edge: transition.edge,
-          regime: "F_H"
+          regime: "F_H",
+          edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null
         });
         const outcome = admitFhAdmissionOutcome(
           resolveSyncPluginOutcome(
@@ -1321,6 +1335,7 @@ export async function runEngineIterateAsync(
           edge: transition.edge,
           regime: "F_D",
           abgFallbackBundle: request.abgFallbackBundle ?? null,
+          edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
           pluginTraversalObserverFallbackEnabled:
             request.pluginTraversalObserverFallbackEnabled ?? false,
           pluginTraversalObserverFallbackKinds:
@@ -1397,6 +1412,7 @@ export async function runEngineIterateAsync(
           replayEvents,
           contract: plugins.fpDispatch.contract,
           abgFallbackBundle: request.abgFallbackBundle ?? null,
+          edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
           pluginTraversalObserverFallbackEnabled:
             request.pluginTraversalObserverFallbackEnabled ?? false,
           pluginTraversalObserverFallbackKinds:
@@ -1606,7 +1622,8 @@ export async function runEngineIterateAsync(
           replayEvents,
           vectorIndex: transition.vectorIndex,
           edge: transition.edge,
-          regime: "F_H"
+          regime: "F_H",
+          edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null
         });
         const outcome = admitFhAdmissionOutcome(
           await plugins.fhAdmission.admit(input)
