@@ -73,6 +73,57 @@ through ABG, and replayable through event and provenance truth.
 
 ---
 
+## Canonical GTL Topology Anchors
+
+The canonical GTL topology-anchoring types are `Graph`, `Node`, `GraphVector`,
+`GraphFunction`, `Job`, and `Module`.
+
+These anchors do not exhaust the first-class GTL declaration surface. `Context`,
+`Operator`, `Evaluator`, `Rule`, `RefinementBoundary`, `CandidateFamily`, and
+`Role` remain first-class GTL declarations. They attach to, govern, refine, or
+publish through the topology anchors without becoming rival public work
+entrypoints. `ContractRef` is the job indirection to a published contract, not a
+topology anchor or runtime execution target.
+
+Downstream terms such as graph overlay, leaf, workflow lane, app surface, or
+other product-local vocabulary are not canonical GTL type names. They must bind
+back to a GTL topology anchor or first-class declaration surface before
+declaring GTL or ABG behavior.
+
+| Type | Product meaning | Boundary |
+| --- | --- | --- |
+| `Graph` | Named topology of nodes and graph vectors. | It is the structural materialization surface, not the public callable workflow carrier by itself. |
+| `Node` | Typed local locus of graph meaning, invariant state, markov conditions, and optional asset-surface declaration. | It is not an executable workflow carrier, public work entrypoint, or graph function. |
+| `GraphVector` | Invariant traversal boundary and internal adjacency record from source node set to target node. It carries transition-governance declarations including dispatch intent, evaluation policy, escalation policy, deterministic proof surfaces, closure contract, assurance hook refs, other hook refs, and opaque hook config. | It is not a rival public ontology, public callable carrier, or semantic job target. |
+| `GraphFunction` | Primary published reusable workflow program. It has an explicit typed outer interface and cumulative environment contract, materializes a graph, and may realize one or more internal graph vectors. | It is not a node, not the materialized graph itself, not a runtime graph-call attempt, and not the downstream asset produced by an attempt. |
+| `Job` | Durable semantic work contract over one or more published graph-function contracts. | It does not target bare graph vectors. |
+| `Module` | Publication boundary for GTL declarations, including graphs, graph functions, refinement boundaries, candidate families, jobs, roles, operators, evaluators, rules, imports, metadata, and module-level policy hooks. | It is not runtime event truth and does not replace ABG projection. |
+
+| First-class declaration | Product boundary |
+| --- | --- |
+| `Context` | Snapshot-bound constraint declaration carried by graph structure. It is language-owned declaration truth, not an engine-owned event or runtime fact. |
+| `Operator` | Effectful work declaration with regime and binding. It is distinct from worker identity and concrete transport. |
+| `Evaluator` | Convergence and attestation declaration. It checks or attests contract satisfaction; it does not perform work or emit runtime events by itself. |
+| `Rule` | Passive declarative constraint over what must hold at a contract boundary. It is not enforcement strategy. |
+| `RefinementBoundary` | Explicit lawful refinement or synthesis boundary that preserves an outer contract. It is not hidden selection strategy. |
+| `CandidateFamily` | Published family of lawful alternatives over one outer contract. It exposes choices without deciding them in GTL. |
+| `Role` | Semantic capability class for work, supervision, or approval. It is distinct from ABG `Worker` identity. |
+
+A node may describe an asset surface that contains graph-function-related data,
+such as a catalog, selector, or declaration file. That does not make the node a
+`GraphFunction`. Public execution enters through published graph-function
+carriers bound by jobs. ABG executes the call by advancing the realized internal
+`GraphVector` boundaries beneath that carrier.
+
+This boundary derives from `REQ-L-GTL3-GRAPH`, `REQ-L-GTL3-NODE`,
+`REQ-L-GTL3-GRAPHVECTOR`, `REQ-L-GTL3-GRAPHFUNCTION`,
+`REQ-L-GTL3-JOB`, `REQ-L-GTL3-MODULE`, `REQ-L-GTL3-CONTEXT`,
+`REQ-L-GTL3-OPERATOR`, `REQ-L-GTL3-EVALUATOR`, `REQ-L-GTL3-RULE`,
+`REQ-L-GTL3-ROLE`, `REQ-L-GTL3-SYNTHESIS`, `REQ-L-GTL3-LAWS`,
+`REQ-L-GTL3-LANGUAGE`, and `REQ-R-ABG3-INTERPRET`.
+
+---
+
 ## Probabilistic Compute Boundary
 
 Abiogenesis treats one GTL edge traversal as the bounded unit of probabilistic

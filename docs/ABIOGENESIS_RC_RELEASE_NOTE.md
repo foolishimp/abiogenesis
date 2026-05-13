@@ -1,17 +1,20 @@
-# abiogenesis 3.7.1-rc.2 Release Candidate Note
+# abiogenesis 3.7.1-rc.3 Release Candidate Note
 
 This checkpoint is the current TypeScript ABG release-candidate source state.
-It advances the release line from `3.7.1-rc.1` to `3.7.1-rc.2` because
-T-130, T-131, and T-132 make edge assurance a declared GTL contract consumed by
-ABG runtime replay rather than a downstream meta-contract.
+It advances the release line from `3.7.1-rc.2` to `3.7.1-rc.3` because the
+product and builder-guide surfaces now state one consistent GTL axiomatic type
+boundary: six topology anchors plus first-class declaration surfaces attached
+to those anchors.
 
 The `3.7.0-rc.1` line introduced the generic F_P construction evaluator and
 read-only public gaps over evaluator truth. The `3.7.1-rc.1` candidate
 preserved that evaluator substrate and added the runtime liveness observer
 needed to keep long-running constructive work governed by admitted activity
-rather than flat caller-local timeouts. This `3.7.1-rc.2` candidate preserves
-both lines and adds edge-level gain/close assurance contracts with live
-installed proof.
+rather than flat caller-local timeouts. The `3.7.1-rc.2` candidate preserved
+both lines and added edge-level gain/close assurance contracts with live
+installed proof. This `3.7.1-rc.3` candidate preserves that runtime substrate
+and repairs the constitutional/docs model so GTL topology anchors do not
+collapse the wider first-class declaration surface.
 
 It is an RC candidate, not the final tapped `3.7.1` release. The release
 identity remains explicit until the cut is committed, tagged, and accepted.
@@ -19,13 +22,10 @@ identity remains explicit until the cut is committed, tagged, and accepted.
 ## Release Claim
 
 The TypeScript tenant remains the package-first GTL/ABG RC candidate. This cut
-preserves the accepted `3.7.0-rc.1` evaluator substrate and the
-`3.7.1-rc.1` runtime probe observer, then adds a first-class edge assurance
-contract path through GTL declarations, ABG plugin input, hook action/finding
-admission, payload-ledger evidence, closure projection, and installed live
-replay.
+preserves the accepted `3.7.0-rc.1` evaluator substrate, the `3.7.1-rc.1`
+runtime probe observer, and the `3.7.1-rc.2` edge-assurance runtime path.
 
-RC2 for `3.7.1` adds:
+RC2 for `3.7.1` added:
 
 - `HookActionRecord` and `HookFindingAdmission` as typed replay-visible records
   for F_P eval actions and returned findings;
@@ -49,6 +49,20 @@ RC2 for `3.7.1` adds:
   findings, unadmitted evidence, side-door closure authority, lineage drift,
   premature compound close, and missing intermediate edge contribution.
 
+RC3 for `3.7.1` adds:
+
+- `PRODUCT.md` language that names `Graph`, `Node`, `GraphVector`,
+  `GraphFunction`, `Job`, and `Module` as topology anchors rather than the
+  whole GTL type universe;
+- explicit preservation of `Context`, `Operator`, `Evaluator`, `Rule`,
+  `RefinementBoundary`, `CandidateFamily`, and `Role` as first-class GTL
+  declarations;
+- explicit `ContractRef` treatment as job indirection to a published contract,
+  not a topology anchor or runtime execution target;
+- builder-guide alignment so downstream terms such as graph overlay, leaf,
+  workflow lane, and app surface must bind back to a GTL topology anchor or
+  first-class declaration surface before declaring GTL or ABG behavior.
+
 ## Non-Claims
 
 The T-130/T-131/T-132 edge assurance slice does not claim downstream odd_sdlc
@@ -67,9 +81,9 @@ session affinity. Those remain outside this cut unless separately ticketed.
 ## Versioned Artifacts
 
 - RC branch: `rc/3.7.1`
-- RC identity: `3.7.1-rc.2`
-- Candidate package version: `3.7.1-rc.2`
-- Candidate tag: `v3.7.1-rc.2`
+- RC identity: `3.7.1-rc.3`
+- Candidate package version: `3.7.1-rc.3`
+- Candidate tag: `v3.7.1-rc.3`
 
 ## Verification
 
@@ -95,7 +109,7 @@ git diff --check
 passed
 
 npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run
-passed, version 3.7.1-rc.2, files 333, package abiogenesis-typescript-tenant-3.7.1-rc.2.tgz
+passed, version 3.7.1-rc.3, files 333, package abiogenesis-typescript-tenant-3.7.1-rc.3.tgz
 ```
 
 The previous `3.7.0-rc.1` construction evaluator proof remains historical
@@ -105,7 +119,7 @@ the runtime observer substrate preserved by this line.
 
 ## RC Decision
 
-The release operator repriced edge assurance gain/close as a patch
-release-candidate over the accepted `3.7.1-rc.1` liveness line. Cut
-`v3.7.1-rc.2` as the next release-candidate checkpoint after committing this
-source state. This is not the final tapped `3.7.1` release.
+The release operator repriced the GTL type-boundary documentation as a
+release-candidate correction over the accepted `3.7.1-rc.2` edge-assurance
+line. Cut `v3.7.1-rc.3` as the next release-candidate checkpoint after
+committing this source state. This is not the final tapped `3.7.1` release.

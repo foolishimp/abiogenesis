@@ -1,7 +1,7 @@
-# abiogenesis 3.7.1-rc.2 RC Notes
+# abiogenesis 3.7.1-rc.3 RC Notes
 
-This note records accepted RC behavior for the current `v3.7.1-rc.2` line.
-The package cut is `3.7.1-rc.2`.
+This note records accepted RC behavior for the current `v3.7.1-rc.3` line.
+The package cut is `3.7.1-rc.3`.
 
 ## Accepted Framework Behavior
 
@@ -491,6 +491,32 @@ Non-claim:
   behavioral fulfillment, residual pressure, continuation, and A-to-Z
   composition proof.
 
+### Canonical GTL Topology Anchors Complete RC3
+
+The GTL type-boundary correction moves the current release candidate from
+`3.7.1-rc.2` to `3.7.1-rc.3` because the product and LLM builder-guide surfaces
+now state one consistent axiomatic model.
+
+Accepted behavior:
+
+- `Graph`, `Node`, `GraphVector`, `GraphFunction`, `Job`, and `Module` are the
+  canonical topology anchors;
+- those anchors do not exhaust the first-class GTL declaration surface;
+- `Context`, `Operator`, `Evaluator`, `Rule`, `RefinementBoundary`,
+  `CandidateFamily`, and `Role` remain first-class GTL declarations attached
+  to, governing, refining, or publishing through the topology anchors;
+- `ContractRef` is job indirection to a published contract, not a topology
+  anchor or runtime execution target;
+- downstream terms such as graph overlay, leaf, workflow lane, and app surface
+  are local vocabulary until bound back to a GTL topology anchor or first-class
+  declaration surface.
+
+Non-claim:
+
+- RC3 does not add new runtime behavior over RC2. It corrects the
+  constitutional and agent-facing model so the existing runtime substrate is
+  read through one consistent GTL ontology.
+
 ## Current Verification Footer
 
 The current RC proving footer is:
@@ -525,7 +551,7 @@ The current RC proving footer is:
 - `npm run test:t116:live`: `1 passed`
 - `git diff --check`: `passed`
 - `npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run`: `passed`,
-  package `3.7.1-rc.2`, `333 files`
+  package `3.7.1-rc.3`, `333 files`
 
 Fresh 3.5.0-rc.2 live PTY plugin/actor matrix:
 

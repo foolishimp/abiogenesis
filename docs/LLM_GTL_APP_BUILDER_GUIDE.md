@@ -1,6 +1,6 @@
 # LLM GTL App Builder Guide
 
-**Status**: Current compressed technical GTL 3 / ABG 3.7.1-rc.2 guide for LLMs
+**Status**: Current compressed technical GTL 3 / ABG 3.7.1-rc.3 guide for LLMs
 **Audience**: LLM agentic coders and agent bootstraps building GTL/ABG domain apps
 **Purpose**: Compress the human GTL/ABG guide into the ontology, operating rules, fail-closed constraints, and language-specific syntax needed by LLM agents
 
@@ -30,6 +30,10 @@ This guide compresses:
 - how to run the current public kernel loop
 
 It does not replace the human guide.
+
+This guide is secondary truth beneath `specification/PRODUCT.md` and the live
+requirement surface. If this guide conflicts with product or requirement law,
+repair this guide; do not reinterpret the product from the compressed guide.
 
 It should not become a tutorial, narrative explainer, or complete language
 reference.
@@ -66,16 +70,28 @@ GTL declares constructive structure.
 
 ABG executes declared structure and owns runtime truth.
 
+The `Graph` through `Module` GTL rows are topology anchors. The remaining GTL
+rows are first-class declaration or reference surfaces that attach to, govern,
+refine, or publish through those anchors.
+
 The governing split is:
 
 | Surface | Owner | Rule |
 | --- | --- | --- |
-| `Graph` | GTL | First-class structural type. |
-| `Node` | GTL | Typed local locus of meaning. |
-| `GraphVector` | GTL | Internal admissible transition contract between nodes. |
-| `GraphFunction` | GTL | Public callable carrier for constructive work. |
-| `Job` | GTL | Durable semantic work contract over published graph functions. |
-| `Module` | GTL | Publication boundary for graphs, graph functions, jobs, roles, and selection surfaces. |
+| `Graph` | GTL | Named topology of nodes and graph vectors; structural materialization surface, not the public callable workflow carrier by itself. |
+| `Node` | GTL | Typed local locus of graph meaning, invariant state, markov conditions, and optional asset-surface declaration; not an executable workflow carrier, public work entrypoint, or graph function. |
+| `GraphVector` | GTL | Internal invariant traversal boundary between source node set and target node; carries transition-governance declarations; not a public callable carrier or semantic job target. |
+| `GraphFunction` | GTL | Public reusable workflow program with typed outer interface and cumulative environment; materializes a graph and may realize one or more internal vectors. |
+| `Job` | GTL | Durable semantic work contract over published graph functions; does not target bare graph vectors. |
+| `Module` | GTL | Publication boundary for graphs, graph functions, refinement boundaries, candidate families, jobs, roles, operators, evaluators, rules, imports, metadata, and module policy hooks; not runtime event truth. |
+| `ContractRef` | GTL | Job-to-contract indirection; current semantic work targets published graph-function contracts, not bare vectors. |
+| `Context` | GTL | Snapshot-bound constraint declaration carried by graph structure; not an engine-owned runtime fact. |
+| `Operator` | GTL | Effectful work declaration with regime and binding; distinct from worker identity and transport. |
+| `Evaluator` | GTL | Convergence and attestation declaration; checks or attests, but does not perform work. |
+| `Rule` | GTL | Passive declaration of what must hold at a contract boundary; not enforcement strategy. |
+| `RefinementBoundary` | GTL | Explicit lawful refinement or synthesis boundary preserving an outer contract. |
+| `CandidateFamily` | GTL | Published lawful alternatives over one outer contract; exposes choices without selecting them. |
+| `Role` | GTL | Semantic capability class for work, supervision, or approval; distinct from ABG worker identity. |
 | `Policy Surface` | GTL/app declaration | Declarative law for dispatch, evaluation, escalation, proof, and closure. |
 | `GraphCall` | ABG | Runtime realization of one published graph function. |
 | `Frame` | ABG | Invocation-local runtime boundary for recursion or local execution. |
@@ -87,7 +103,7 @@ The governing split is:
 The primary construction axiom is:
 
 ```text
-constructive work = published graph functions over typed assets/nodes
+constructive work = published graph functions over typed nodes and declared asset surfaces
 ```
 
 The primary runtime axiom is:
@@ -115,6 +131,11 @@ Job
 `GraphFunction` is the public callable carrier.
 
 `GraphVector` remains internal realized structure.
+
+Downstream terms such as graph overlay, leaf, workflow lane, app surface, or
+other product-local vocabulary are not canonical GTL type names. Use them only
+as local vocabulary, then bind them back to a GTL topology anchor or first-class
+declaration surface before declaring GTL or ABG behavior.
 
 `ExecutionBasis`, `AdvancementTransition`, `IterationAdvanceDecision`, and
 `RegimeBindingSet` carry ABG 3.5 runtime law.
@@ -2044,7 +2065,7 @@ The UX should expose lawful next moves from runtime facts.
 
 The live kernel in this repo is `abiogenesis`.
 
-The current source version is `3.7.1-rc.2`.
+The current source version is `3.7.1-rc.3`.
 
 ### Run from source
 
@@ -3160,7 +3181,7 @@ cd /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript
 npm run build:semantic
 npm pack
 cd /path/to/project
-npm install /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/abiogenesis-typescript-tenant-3.7.1-rc.2.tgz
+npm install /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/abiogenesis-typescript-tenant-3.7.1-rc.3.tgz
 ```
 
 For product-owned bootstrap, use the package API:
@@ -3174,8 +3195,8 @@ const installOutcome = await installBootstrap(
     installedPackageName: "@example/delivery-app",
     runtimePackage: {
       packageName: "@abiogenesis/typescript-tenant",
-      packageVersion: "3.7.1-rc.2",
-      dependencyRef: "file:./abiogenesis-typescript-tenant-3.7.1-rc.2.tgz",
+      packageVersion: "3.7.1-rc.3",
+      dependencyRef: "file:./abiogenesis-typescript-tenant-3.7.1-rc.3.tgz",
       appExportSubpath: "./app/m04",
       requiredExports: [".", "./app/m04"]
     }
