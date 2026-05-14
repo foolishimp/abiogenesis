@@ -26,6 +26,9 @@
 		},
 		{
 			"path": "../../../../../odd_mindforge"
+		},
+		{
+			"path": "../../../../../odd_world_model"
 		}
 	],
 	"settings": {
