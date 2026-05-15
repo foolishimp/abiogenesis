@@ -34,3 +34,24 @@ export {
   constructTemplateRef,
   emptySerializedAttrs
 } from "./constructors.js";
+export {
+  TARGET_CARRIER_CONTRACT_DECLARATION_KEY,
+  admitGtlTargetCarrierDefaultsBundle,
+  loadGtlTargetCarrierDefaultsBundle,
+  loadGtlTargetCarrierDefaultsBundleFromFile,
+  resolveGtlTargetCarrierDefaultsPath,
+  resolveTargetCarrierContractBinding,
+  targetCarrierContractDeclarationForTarget,
+  validateTargetCarrierCandidate
+} from "./target_carrier_contract.js";
+export type {
+  GenericTargetCarrierTemplate,
+  GtlTargetCarrierDefaultsBundle,
+  TargetCarrierContractBinding,
+  TargetCarrierContractBindingSource,
+  TargetCarrierCandidateAdmitted,
+  TargetCarrierCandidateAdmission,
+  TargetCarrierCandidateAdmissionStatus,
+  TargetCarrierCandidateRejected,
+  TargetCarrierCandidateRejectionClass
+} from "./target_carrier_contract.js";

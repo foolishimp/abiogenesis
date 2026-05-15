@@ -1,6 +1,6 @@
 # LLM GTL App Builder Guide
 
-**Status**: Current compressed technical GTL 3 / ABG 3.7.1-rc.3 guide for LLMs
+**Status**: Current compressed technical GTL 3 / ABG 3.7.1-rc.4 guide for LLMs
 **Audience**: LLM agentic coders and agent bootstraps building GTL/ABG domain apps
 **Purpose**: Compress the human GTL/ABG guide into the ontology, operating rules, fail-closed constraints, and language-specific syntax needed by LLM agents
 
@@ -892,6 +892,45 @@ GTL declares the observer contract. ABG selects, materializes, proves
 provenance, and passes the binding to the plugin. A concrete worker, backend,
 or transport command does not belong in the GTL declaration.
 
+### `gtl.target_carrier_contract`
+
+Every `GraphVector` output has an effective target-carrier contract binding.
+
+Declaration key:
+
+- `GraphVector.declarations["gtl.target_carrier_contract"]`
+
+Resolution order is:
+
+1. vector-local `gtl.target_carrier_contract`
+2. visible GTL defaults config
+
+The default is not a code constant and not null. If the vector does not declare
+a product-specific output carrier contract, the runtime reads the generic
+target-carrier template from:
+
+```text
+config/gtl.target-carrier-defaults.json
+```
+
+Installed workspaces receive the editable copy at:
+
+```text
+.abiogenesis/config/gtl.target-carrier-defaults.json
+```
+
+Malformed vector declarations, missing defaults config, malformed defaults
+config, or unresolved template fields fail closed.
+
+The selected binding names the target node, output surface, carrier family and
+kind, envelope contract, nested payload path, required fields, fixed protocol
+fields, worker-fillable fields, literal/enum domains, schema/admission refs,
+payload-ledger binding, edge-assurance binding, handoff projection,
+construction template, replay digest policy, materialization policy, closure
+precondition, and test-case generation ref. ABG payload-ledger projection
+records the selected contract ref and digest; closure cannot rely on file
+presence or worker prose without admitted target-carrier satisfaction.
+
 ### `evaluation`
 
 Evaluation governs how convergence is checked.
@@ -1595,6 +1634,26 @@ budgets, traversal modulation defaults, M04 request defaults, and broader
 installer defaults is future T-118 work. Do not document those as current
 runtime defaults.
 
+#### T-133 visible GTL target carrier defaults
+
+T-133 adds a separate GTL defaults config for mandatory graph-vector output
+carrier bindings:
+
+```text
+build_tenants/abiogenesis/typescript/config/gtl.target-carrier-defaults.json
+```
+
+The TypeScript installer installs an editable copy at:
+
+```text
+.abiogenesis/config/gtl.target-carrier-defaults.json
+```
+
+This config supplies the generic target-carrier template used when a vector does
+not declare a product-specific `gtl.target_carrier_contract`. The effective
+binding is still mandatory: there is no null binding and no code-defined
+generic fallback. Missing or malformed config fails closed.
+
 #### T-120 declared event calculus runtime law
 
 T-120 makes ABG's Event Calculus commitment explicit. The runtime now declares
@@ -2065,7 +2124,7 @@ The UX should expose lawful next moves from runtime facts.
 
 The live kernel in this repo is `abiogenesis`.
 
-The current source version is `3.7.1-rc.3`.
+The current source version is `3.7.1-rc.4`.
 
 ### Run from source
 
@@ -3181,7 +3240,7 @@ cd /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript
 npm run build:semantic
 npm pack
 cd /path/to/project
-npm install /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/abiogenesis-typescript-tenant-3.7.1-rc.3.tgz
+npm install /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/abiogenesis-typescript-tenant-3.7.1-rc.4.tgz
 ```
 
 For product-owned bootstrap, use the package API:
@@ -3195,8 +3254,8 @@ const installOutcome = await installBootstrap(
     installedPackageName: "@example/delivery-app",
     runtimePackage: {
       packageName: "@abiogenesis/typescript-tenant",
-      packageVersion: "3.7.1-rc.3",
-      dependencyRef: "file:./abiogenesis-typescript-tenant-3.7.1-rc.3.tgz",
+      packageVersion: "3.7.1-rc.4",
+      dependencyRef: "file:./abiogenesis-typescript-tenant-3.7.1-rc.4.tgz",
       appExportSubpath: "./app/m04",
       requiredExports: [".", "./app/m04"]
     }

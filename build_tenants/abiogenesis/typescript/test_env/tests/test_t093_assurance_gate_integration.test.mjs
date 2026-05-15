@@ -14,6 +14,8 @@ import {
   constructEvidenceAdmittedEvent,
   constructPayloadObservedEvent,
   constructPayloadValidatedEvent,
+  loadGtlTargetCarrierDefaultsBundle,
+  resolveTargetCarrierContractBinding,
   runEngineIterate,
   start
 } from "../../build/semantic/code/src/index.js";
@@ -76,6 +78,42 @@ function ledgerOnlyAssuranceProvider() {
   });
 }
 
+function targetCarrierFulfillmentEvents(basis) {
+  const defaults = loadGtlTargetCarrierDefaultsBundle();
+  const events = [];
+  for (let vectorIndex = 0; vectorIndex < basis.graph.vectors.length; vectorIndex += 1) {
+    const vector = basis.graph.vectors[vectorIndex];
+    const binding = resolveTargetCarrierContractBinding({ vector, defaults });
+    const payloadRef = `payload://assurance/${vectorIndex}/target-carrier`;
+    const digest = `digest://assurance/${vectorIndex}/target-carrier`;
+    events.push(
+      constructPayloadObservedEvent({
+        basis,
+        vectorIndex,
+        payloadRef,
+        payloadClass: "target_carrier",
+        contractRef: binding.contractRef,
+        digest,
+        producerRef: "provider://target-carrier",
+        authorityRef: `req://assurance/${vectorIndex}`,
+        inputDigest: "input-digest-current",
+        policyRefs: ["policy://assurance"]
+      }),
+      constructPayloadValidatedEvent({
+        basis,
+        vectorIndex,
+        payloadRef,
+        contractRef: binding.contractRef,
+        contractDigest: binding.configDigest,
+        digest,
+        validationRef: `validation://assurance/${vectorIndex}/target-carrier`,
+        policyRefs: ["policy://assurance"]
+      })
+    );
+  }
+  return Object.freeze(events);
+}
+
 function eventSourcedFulfillmentEvents(basis) {
   const events = [];
   for (let vectorIndex = 0; vectorIndex < basis.graph.vectors.length; vectorIndex += 1) {
@@ -96,6 +134,9 @@ function eventSourcedFulfillmentEvents(basis) {
         providerRefs: ["provider://authority"],
         policyRefs: ["policy://assurance"]
       }),
+      ...targetCarrierFulfillmentEvents(basis).filter(
+        (event) => event.vectorIndex === vectorIndex
+      ),
       constructPayloadObservedEvent({
         basis,
         vectorIndex,
@@ -175,6 +216,7 @@ test("T-093-TS provider-only assurance rows block as invalid ledger truth", () =
 
   const result = runEngineIterate({
     basis,
+    runtimeEvents: targetCarrierFulfillmentEvents(basis),
     eventSink: () => {},
     assuranceProvider: missingEvidenceAssuranceProvider()
   });
@@ -194,11 +236,16 @@ test("T-093-TS public start blocks provider-only assurance truth without owning 
     defaultRegime: "F_D",
     dispatchRef: null
   });
+  const basis = buildThreeStageBasis({
+    defaultRegime: "F_D",
+    dispatchRef: null
+  });
 
   const outcome = start(
     input,
     {
       ...context,
+      runtimeEvents: targetCarrierFulfillmentEvents(basis),
       assuranceProvider: missingEvidenceAssuranceProvider()
     },
     () => {}
@@ -218,11 +265,16 @@ test("T-093-TS provider-only fulfilled assurance cannot close without ledger fac
     defaultRegime: "F_D",
     dispatchRef: null
   });
+  const basis = buildThreeStageBasis({
+    defaultRegime: "F_D",
+    dispatchRef: null
+  });
 
   const outcome = start(
     input,
     {
       ...context,
+      runtimeEvents: targetCarrierFulfillmentEvents(basis),
       assuranceProvider: fulfilledAssuranceProvider()
     },
     () => {}

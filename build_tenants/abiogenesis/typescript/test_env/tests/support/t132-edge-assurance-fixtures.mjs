@@ -49,12 +49,15 @@ export function installedT132EdgeAssuranceThreeChainSource({
       deriveRuntimeAggregateProjection,
       dispatchRequestsForTransition,
       emit,
+      loadGtlTargetCarrierDefaultsBundle,
       runAgentTransport,
-      runEngineIterateAsync
+      runEngineIterateAsync,
+      resolveTargetCarrierContractBinding
     } from "@abiogenesis/typescript-tenant";
 
     const LIVE_MODE = ${liveMode ? "true" : "false"};
     const EXTERNAL_ARCHIVE_ROOT = ${archiveRootLiteral};
+    const targetCarrierDefaults = loadGtlTargetCarrierDefaultsBundle();
 
     const stages = Object.freeze([
       Object.freeze({
@@ -827,6 +830,51 @@ export function installedT132EdgeAssuranceThreeChainSource({
       ];
     }
 
+    function targetCarrierPayloadPair(record, suffix = "eval") {
+      const vector = basis.graph.vectors[record.pluginInput.vectorIndex];
+      const binding = resolveTargetCarrierContractBinding({
+        vector,
+        defaults: targetCarrierDefaults
+      });
+      const value = Object.freeze({
+        kind: binding.outputCarrierKind,
+        payload: Object.freeze({
+          artifactRef: record.artifact.evidenceRef,
+          stageId: record.stage.id
+        })
+      });
+      const payloadRef =
+        "payload://t132/" + record.stage.id + "/target-carrier/" + suffix;
+      const digest = digestFor(value);
+      return [
+        constructPayloadObservedEvent({
+          basis,
+          vectorIndex: record.pluginInput.vectorIndex,
+          payloadRef,
+          payloadClass: "target_carrier",
+          contractRef: binding.contractRef,
+          digest,
+          producerRef: fpDispatchContract.ref,
+          sourceEventRef: record.pluginInput.actorInvocationRef.dispatchRef,
+          actorInvocationId: record.pluginInput.actorInvocationRef.actorInvocationId,
+          authorityRef: record.stage.authorityRef,
+          inputDigest: "input-digest://t132/" + record.stage.id,
+          policyRefs: record.pluginInput.edgeAssuranceResolution.contract.policyRefs
+        }),
+        constructPayloadValidatedEvent({
+          basis,
+          vectorIndex: record.pluginInput.vectorIndex,
+          payloadRef,
+          contractRef: binding.contractRef,
+          contractDigest: binding.configDigest,
+          digest,
+          validationRef:
+            "validation://t132/" + record.stage.id + "/target-carrier",
+          policyRefs: record.pluginInput.edgeAssuranceResolution.contract.policyRefs
+        })
+      ];
+    }
+
     function assuranceRuntimeEventsFor(
       record,
       hookAction,
@@ -850,6 +898,7 @@ export function installedT132EdgeAssuranceThreeChainSource({
           providerRefs: ["provider://t132/authority"],
           policyRefs: record.pluginInput.edgeAssuranceResolution.contract.policyRefs
         }),
+        ...targetCarrierPayloadPair(record, suffix),
         ...payloadPair({
           record,
           payloadRef: hookAction.hookActionRef,
@@ -936,7 +985,8 @@ export function installedT132EdgeAssuranceThreeChainSource({
         basis,
         runtimeProjection,
         events: nextRuntimeEvents,
-        vectorIndex: record.pluginInput.vectorIndex
+        vectorIndex: record.pluginInput.vectorIndex,
+        targetCarrierDefaults
       });
       const authoritySnapshot =
         deriveAssuranceAuthoritySnapshotFromPayloadLedger({

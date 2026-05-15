@@ -14,8 +14,12 @@ import {
   constructAssuranceAuthoritySnapshot,
   constructEnginePluginContract,
   constructFpDispatchOutcome,
+  constructPayloadObservedEvent,
+  constructPayloadValidatedEvent,
   deriveAdvancementTransition,
   dispatchRequestsForTransition,
+  loadGtlTargetCarrierDefaultsBundle,
+  resolveTargetCarrierContractBinding,
   runEngineIterate
 } from "../../build/semantic/code/src/index.js";
 import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
@@ -63,6 +67,42 @@ function externalAuthorityProvider() {
         policyRefs: ["policy://t099/assurance"]
       })
   });
+}
+
+function targetCarrierFulfillmentEvents(basis) {
+  const defaults = loadGtlTargetCarrierDefaultsBundle();
+  const events = [];
+  for (let vectorIndex = 0; vectorIndex < basis.graph.vectors.length; vectorIndex += 1) {
+    const vector = basis.graph.vectors[vectorIndex];
+    const binding = resolveTargetCarrierContractBinding({ vector, defaults });
+    const payloadRef = `payload://t099/${vectorIndex}/target-carrier`;
+    const digest = `digest://t099/${vectorIndex}/target-carrier`;
+    events.push(
+      constructPayloadObservedEvent({
+        basis,
+        vectorIndex,
+        payloadRef,
+        payloadClass: "target_carrier",
+        contractRef: binding.contractRef,
+        digest,
+        producerRef: "provider://t099/target-carrier",
+        authorityRef: `req://t099/external/${vectorIndex}`,
+        inputDigest: "input-digest-t099-current",
+        policyRefs: ["policy://t099/assurance"]
+      }),
+      constructPayloadValidatedEvent({
+        basis,
+        vectorIndex,
+        payloadRef,
+        contractRef: binding.contractRef,
+        contractDigest: binding.configDigest,
+        digest,
+        validationRef: `validation://t099/${vectorIndex}/target-carrier`,
+        policyRefs: ["policy://t099/assurance"]
+      })
+    );
+  }
+  return Object.freeze(events);
 }
 
 test("T-099 F_P input exposes transform request and ABG admits transform evidence", () => {
@@ -290,6 +330,7 @@ test("T-099 negative: worker fulfilled self-report cannot override assurance aut
 
   const result = runEngineIterate({
     basis,
+    runtimeEvents: targetCarrierFulfillmentEvents(basis),
     eventSink: () => {},
     plugins: { fpDispatch },
     assuranceProvider: externalAuthorityProvider()

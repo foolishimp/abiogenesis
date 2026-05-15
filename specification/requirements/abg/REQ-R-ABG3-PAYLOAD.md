@@ -64,3 +64,5 @@ meaning, product-specific gain functions, or downstream release interpretation.
 **REQ-R-ABG3-PAYLOAD-017**: Hook action records and hook finding admissions shall be ABG-owned payload/event inputs when plugin output participates in traversal, assurance, projection, intent, ledger, or closure truth. The plugin-returned payload is not owning truth until ABG admits it under the hook contract.
 
 **REQ-R-ABG3-PAYLOAD-018**: Edge assurance eval findings shall preserve refs for the selected edge assurance contract, hook action, gain report, metrics, close disposition, residual pressure, continuation, evidence, authority, and composition contribution. Payload admission shall reject side-door engine authority fields.
+
+**REQ-R-ABG3-PAYLOAD-019**: Payload ledger projections for graph-vector output payloads shall carry the selected GTL target carrier contract ref and digest. Target carrier satisfaction requires an admitted payload under that selected contract. Rejected, missing, wrong-contract, or malformed target carriers shall remain non-closing pressure and shall not be treated as edge completion by file presence, worker prose, or arbitrary payload existence.

@@ -241,6 +241,7 @@ export function constructRuntimeEventsForResultAssessment(
           payloadRef,
           schemaRef: null,
           contractRef: "contract://abg/fp-result-evidence",
+          contractDigest: null,
           digest,
           validationRef: `validation:result_assessment:${payloadRef}`,
           evidenceRef,

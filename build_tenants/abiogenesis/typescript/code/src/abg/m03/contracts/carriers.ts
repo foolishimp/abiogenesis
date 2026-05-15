@@ -851,6 +851,7 @@ export interface PayloadValidatedRuntimeEvent {
   readonly payloadRef: string;
   readonly schemaRef: string | null;
   readonly contractRef: string | null;
+  readonly contractDigest: string | null;
   readonly digest: string;
   readonly validationRef: string;
   readonly evidenceRef: string | null;
@@ -868,6 +869,7 @@ export interface PayloadRejectedRuntimeEvent {
   readonly rejectionClass: PayloadRejectionClass;
   readonly schemaRef: string | null;
   readonly contractRef: string | null;
+  readonly contractDigest: string | null;
   readonly digest: string | null;
   readonly reason: string;
   readonly policyRefs: readonly string[];

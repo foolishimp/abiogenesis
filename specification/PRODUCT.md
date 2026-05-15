@@ -132,6 +132,7 @@ compute.
 The edge declares the admissible external traversal space:
 
 - input and output contract
+- mandatory target carrier contract binding for the output surface
 - required context
 - role or capability expectation
 - evaluator regime
@@ -141,6 +142,12 @@ The edge declares the admissible external traversal space:
   intended
 
 GTL owns that lawful workflow structure.
+
+Target carrier binding is mandatory at the effective graph-vector level. A
+vector may declare a product-specific `gtl.target_carrier_contract`. If it does
+not, the generic binding comes from visible GTL defaults config, not from code
+constants, prompt prose, parser convention, or null. ABG consumes the selected
+binding for payload admission, replay, projection, and closure preconditions.
 
 ABG owns the governance and control truth around an invocation of that
 traversal. It binds the traversal to a worker, tool, or agent; records events

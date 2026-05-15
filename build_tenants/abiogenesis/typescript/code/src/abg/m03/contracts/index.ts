@@ -291,12 +291,17 @@ export {
   deriveAssuranceAuthoritySnapshotFromPayloadLedger,
   deriveAssuranceEvidenceRowsFromPayloadLedger,
   derivePayloadLedgerProjection,
-  derivePayloadLedgerScope
+  derivePayloadLedgerScope,
+  deriveTargetCarrierAdmissionProjection,
+  assertTargetCarrierAdmittedForClosure,
+  TargetCarrierClosureRejectedError
 } from "./payload_ledger.js";
 export type {
   PayloadLedgerProjection,
   PayloadLedgerScope,
-  PayloadLedgerSourceEvent
+  PayloadLedgerSourceEvent,
+  TargetCarrierAdmissionProjection,
+  TargetCarrierAdmissionStatus
 } from "./payload_ledger.js";
 export {
   assertRuntimeEvent,

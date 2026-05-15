@@ -1,7 +1,7 @@
-# abiogenesis 3.7.1-rc.3 RC Notes
+# abiogenesis 3.7.1-rc.4 RC Notes
 
-This note records accepted RC behavior for the current `v3.7.1-rc.3` line.
-The package cut is `3.7.1-rc.3`.
+This note records accepted RC behavior for the current `v3.7.1-rc.4` line.
+The package cut is `3.7.1-rc.4`.
 
 ## Accepted Framework Behavior
 
@@ -517,6 +517,38 @@ Non-claim:
   constitutional and agent-facing model so the existing runtime substrate is
   read through one consistent GTL ontology.
 
+### Target Carrier Contract Bindings Complete RC4
+
+The target-carrier contract correction moves the current release candidate from
+`3.7.1-rc.3` to `3.7.1-rc.4` because graph-vector output shape is now declared
+and consumed as one GTL/ABG boundary instead of being split across prompt text,
+parser convention, and closure folds.
+
+Accepted behavior:
+
+- every graph-vector output has an effective `gtl.target_carrier_contract`
+  binding;
+- vector-local bindings win over defaults but must match the hosting vector's
+  target node and target schema;
+- absent product-specific bindings resolve through visible
+  `gtl.target-carrier-defaults.json` config, not hidden code constants;
+- defaults bundle identity is normalized so JSON whitespace or load path does
+  not change logical bundle digest;
+- payload validation and rejection events preserve the selected target-carrier
+  contract digest;
+- target-carrier admission filters by selected contract ref plus digest, so
+  replay cannot admit an old payload under a changed contract with the same ref;
+- assurance closure blocks until the selected target-carrier contract has
+  admitted payload truth;
+- generic F_D validation covers only the envelope boundary: nested payload path,
+  required fields, carrier kind literal, and fixed protocol fields.
+
+Non-claim:
+
+- RC4 does not make ABG a product-domain schema engine. Downstream products own
+  semantic field meaning, product-specific payload interpretation, and richer
+  design-consumer test generation.
+
 ## Current Verification Footer
 
 The current RC proving footer is:
@@ -536,11 +568,12 @@ The current RC proving footer is:
 - `npm run test:t121`: `4 passed`
 - `npm run test:t122`: `5 passed`
 - `npm run test:t123`: `6 passed`
-- `npm run test:semantic`: `488 passed`
+- `npm run test:semantic`: `531 passed`
 - `npm run test:t127`: `33 passed`
 - `npm run test:t129`: `11 passed`
 - `npm run test:t130:t131`: `20 passed`
 - `npm run test:t132`: `1 passed`
+- `npm run test:t133`: `9 passed`
 - `ABG_TS_T132_LIVE=1 CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=120000 npm run test:t132:live`: `1 passed`
 - `npm run test:t058`: `11 passed`
 - `npm run test:t127:live`: `6 passed`
@@ -551,7 +584,7 @@ The current RC proving footer is:
 - `npm run test:t116:live`: `1 passed`
 - `git diff --check`: `passed`
 - `npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run`: `passed`,
-  package `3.7.1-rc.3`, `333 files`
+  package `3.7.1-rc.4`, `336 files`
 
 Fresh 3.5.0-rc.2 live PTY plugin/actor matrix:
 

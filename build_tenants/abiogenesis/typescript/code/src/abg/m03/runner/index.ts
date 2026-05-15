@@ -18,6 +18,7 @@ export type {
   EngineAssuranceGateResult,
   EngineAssuranceProvider,
   EngineAssuranceProviderInput,
+  EngineAssuranceScopeBlocked,
   EngineAssuranceScopeEvaluated,
   EngineAssuranceScopeNotCapable,
   EngineAssuranceScopeResult

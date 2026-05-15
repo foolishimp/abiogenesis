@@ -63,6 +63,8 @@ import {
 } from "../contracts/plugins.js";
 import type { AbgFallbackBundle } from "../contracts/plugin_traversal_observer.js";
 import type { EdgeAssuranceDefaultContract } from "../contracts/edge_assurance_contract.js";
+import type { GtlTargetCarrierDefaultsBundle } from "../../../gtl/m01/contracts/index.js";
+import { loadGtlTargetCarrierDefaultsBundle } from "../../../gtl/m01/contracts/index.js";
 import {
   deriveRetryRepairDecision,
   runtimeEventsForRetryRepairDecision
@@ -110,6 +112,7 @@ export interface EngineIterateRequest {
   readonly plugins?: EngineRunnerPluginSet | undefined;
   readonly maxAttachedFpAttempts?: number | undefined;
   readonly assuranceProvider?: EngineAssuranceProvider | undefined;
+  readonly targetCarrierDefaults?: GtlTargetCarrierDefaultsBundle | undefined;
   readonly abgFallbackBundle?: AbgFallbackBundle | null | undefined;
   readonly edgeAssuranceDefaults?:
     | EdgeAssuranceDefaultContract
@@ -127,6 +130,7 @@ export interface EngineStartRequest extends ExecutionBasisAdmissionInput {
   readonly plugins?: EngineRunnerPluginSet | undefined;
   readonly maxAttachedFpAttempts?: number | undefined;
   readonly assuranceProvider?: EngineAssuranceProvider | undefined;
+  readonly targetCarrierDefaults?: GtlTargetCarrierDefaultsBundle | undefined;
   readonly abgFallbackBundle?: AbgFallbackBundle | null | undefined;
   readonly edgeAssuranceDefaults?:
     | EdgeAssuranceDefaultContract
@@ -695,6 +699,8 @@ export function runEngineIterate(
   request: EngineIterateRequest
 ): EngineIterateResult {
   const plugins = resolveRunnerPlugins(request.plugins);
+  const targetCarrierDefaults =
+    request.targetCarrierDefaults ?? loadGtlTargetCarrierDefaultsBundle();
   const emittedEvents: RuntimeEvent[] = [];
   let replayEvents: readonly RuntimeEvent[] = Object.freeze([
     ...(request.runtimeEvents ?? Object.freeze([]))
@@ -793,6 +799,7 @@ export function runEngineIterate(
         basis: request.basis,
         projection,
         replayEvents,
+        targetCarrierDefaults,
         ...(request.assuranceProvider === undefined
           ? {}
           : { provider: request.assuranceProvider })
@@ -1191,6 +1198,8 @@ export async function runEngineIterateAsync(
   request: EngineIterateRequest
 ): Promise<EngineIterateResult> {
   const plugins = resolveRunnerPlugins(request.plugins);
+  const targetCarrierDefaults =
+    request.targetCarrierDefaults ?? loadGtlTargetCarrierDefaultsBundle();
   const emittedEvents: RuntimeEvent[] = [];
   let replayEvents: readonly RuntimeEvent[] = Object.freeze([
     ...(request.runtimeEvents ?? Object.freeze([]))
@@ -1289,6 +1298,7 @@ export async function runEngineIterateAsync(
         basis: request.basis,
         projection,
         replayEvents,
+        targetCarrierDefaults,
         ...(request.assuranceProvider === undefined
           ? {}
           : { provider: request.assuranceProvider })
@@ -1683,6 +1693,7 @@ export function runEngineStart(request: EngineStartRequest): EngineIterateResult
     plugins: request.plugins,
     maxAttachedFpAttempts: request.maxAttachedFpAttempts,
     assuranceProvider: request.assuranceProvider,
+    targetCarrierDefaults: request.targetCarrierDefaults,
     abgFallbackBundle: request.abgFallbackBundle,
     pluginTraversalObserverFallbackEnabled:
       request.pluginTraversalObserverFallbackEnabled,
@@ -1702,6 +1713,7 @@ export async function runEngineStartAsync(
     plugins: request.plugins,
     maxAttachedFpAttempts: request.maxAttachedFpAttempts,
     assuranceProvider: request.assuranceProvider,
+    targetCarrierDefaults: request.targetCarrierDefaults,
     abgFallbackBundle: request.abgFallbackBundle,
     pluginTraversalObserverFallbackEnabled:
       request.pluginTraversalObserverFallbackEnabled,

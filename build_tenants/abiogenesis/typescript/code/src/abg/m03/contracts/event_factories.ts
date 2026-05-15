@@ -627,6 +627,7 @@ export function constructPayloadValidatedEvent(input: {
   readonly payloadRef: string;
   readonly schemaRef?: string | null;
   readonly contractRef?: string | null;
+  readonly contractDigest?: string | null;
   readonly digest: string;
   readonly validationRef: string;
   readonly evidenceRef?: string | null;
@@ -638,6 +639,7 @@ export function constructPayloadValidatedEvent(input: {
     payloadRef: input.payloadRef,
     schemaRef: input.schemaRef ?? null,
     contractRef: input.contractRef ?? null,
+    contractDigest: input.contractDigest ?? null,
     digest: input.digest,
     validationRef: input.validationRef,
     evidenceRef: input.evidenceRef ?? null,
@@ -652,6 +654,7 @@ export function constructPayloadRejectedEvent(input: {
   readonly rejectionClass: PayloadRejectedRuntimeEvent["rejectionClass"];
   readonly schemaRef?: string | null;
   readonly contractRef?: string | null;
+  readonly contractDigest?: string | null;
   readonly digest?: string | null;
   readonly reason: string;
   readonly policyRefs?: readonly string[];
@@ -663,6 +666,7 @@ export function constructPayloadRejectedEvent(input: {
     rejectionClass: input.rejectionClass,
     schemaRef: input.schemaRef ?? null,
     contractRef: input.contractRef ?? null,
+    contractDigest: input.contractDigest ?? null,
     digest: input.digest ?? null,
     reason: input.reason,
     policyRefs: freezeStringArray(input.policyRefs ?? Object.freeze([]))

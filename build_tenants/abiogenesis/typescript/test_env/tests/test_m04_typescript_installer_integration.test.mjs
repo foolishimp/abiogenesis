@@ -299,6 +299,17 @@ test("T-076 public TypeScript installer populates a package-backed ABG install a
     manifest.fallbackConfigFile.relativePath,
     path.join(".abiogenesis", "config", "abg.fallbacks.json")
   );
+  assert.equal(
+    await pathExists(
+      path.join(
+        targetRoot,
+        ".abiogenesis",
+        "config",
+        "gtl.target-carrier-defaults.json"
+      )
+    ),
+    true
+  );
   assert(manifest.standardsFiles.length > 8);
   assert(manifest.docsFiles.length >= 3);
   assert.deepStrictEqual(manifest.commandPaths, outcome.commandPaths);
@@ -506,6 +517,12 @@ test("T-078 public TypeScript installer refreshes repeated installs over admitte
     "config",
     "abg.fallbacks.json"
   );
+  const targetCarrierDefaultsPath = path.join(
+    targetRoot,
+    ".abiogenesis",
+    "config",
+    "gtl.target-carrier-defaults.json"
+  );
   const customizedFallbackConfig = await readJson(fallbackConfigPath);
   customizedFallbackConfig.bundleRef = "fallback-bundle://abg/t078-local-edit";
   customizedFallbackConfig.pluginTraversalObserverBindings.transform.observerPromptRef =
@@ -538,6 +555,7 @@ test("T-078 public TypeScript installer refreshes repeated installs over admitte
   assert.equal(installerManifest.installMode, "refresh");
   assert.equal(installerManifest.tarballPath, second.tarballPath);
   assert.equal(await pathExists(fallbackConfigPath), true);
+  assert.equal(await pathExists(targetCarrierDefaultsPath), true);
   const refreshedFallbackConfig = await readJson(fallbackConfigPath);
   assert.equal(
     refreshedFallbackConfig.bundleRef,

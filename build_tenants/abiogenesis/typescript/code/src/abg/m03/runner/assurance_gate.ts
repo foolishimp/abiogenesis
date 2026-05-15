@@ -17,6 +17,7 @@ import type {
   RuntimeAggregateProjection,
   RuntimeEvent
 } from "../contracts/index.js";
+import type { GtlTargetCarrierDefaultsBundle } from "../../../gtl/m01/contracts/index.js";
 import {
   admitAssuranceProviderOutput,
   deriveAssuranceAuthoritySnapshotFromPayloadLedger,
@@ -25,7 +26,9 @@ import {
   deriveAssuranceProjection,
   deriveAssuranceReportReadModel,
   deriveAssuranceScopeRef,
-  derivePayloadLedgerProjection
+  derivePayloadLedgerProjection,
+  deriveTargetCarrierAdmissionProjection,
+  assertTargetCarrierAdmittedForClosure
 } from "../contracts/index.js";
 
 export interface EngineAssuranceProviderInput {
@@ -64,9 +67,16 @@ export interface EngineAssuranceScopeNotCapable {
   readonly reason: string;
 }
 
+export interface EngineAssuranceScopeBlocked {
+  readonly kind: "assurance_blocked";
+  readonly scope: AssuranceScopeRef;
+  readonly reason: string;
+}
+
 export type EngineAssuranceScopeResult =
   | EngineAssuranceScopeEvaluated
-  | EngineAssuranceScopeNotCapable;
+  | EngineAssuranceScopeNotCapable
+  | EngineAssuranceScopeBlocked;
 
 export type EngineAssuranceGateKind =
   | "not_evaluated"
@@ -175,6 +185,7 @@ function scopeResultForProvider(input: {
   readonly replayEvents: readonly RuntimeEvent[];
   readonly provider: EngineAssuranceProvider;
   readonly scope: AssuranceScopeRef;
+  readonly targetCarrierDefaults: GtlTargetCarrierDefaultsBundle;
 }): EngineAssuranceScopeResult {
   const providerInput = baseInput(input);
   const providerAuthoritySnapshot = input.provider.authoritySnapshot(providerInput);
@@ -194,7 +205,8 @@ function scopeResultForProvider(input: {
     basis: input.basis,
     runtimeProjection: input.projection,
     events: input.replayEvents,
-    vectorIndex: input.scope.vectorIndex
+    vectorIndex: input.scope.vectorIndex,
+    targetCarrierDefaults: input.targetCarrierDefaults
   });
   const ledgerHasAuthority = payloadLedger.authoritySnapshots.length > 0;
   if (!ledgerHasAuthority && providerAuthoritySnapshot === null) {
@@ -202,6 +214,21 @@ function scopeResultForProvider(input: {
       kind: "not_assurance_capable",
       scope: input.scope,
       reason: "assurance provider returned no authority snapshot for scope"
+    });
+  }
+  const targetCarrierAdmission = deriveTargetCarrierAdmissionProjection({
+    ledger: payloadLedger
+  });
+  try {
+    assertTargetCarrierAdmittedForClosure(targetCarrierAdmission);
+  } catch (error) {
+    return Object.freeze({
+      kind: "assurance_blocked",
+      scope: input.scope,
+      reason:
+        error instanceof Error
+          ? error.message
+          : "target carrier contract is not admitted"
     });
   }
   const authoritySnapshot =
@@ -267,6 +294,7 @@ export function evaluateAssuranceGate(input: {
   readonly basis: ExecutionBasis;
   readonly projection: RuntimeAggregateProjection;
   readonly replayEvents: readonly RuntimeEvent[];
+  readonly targetCarrierDefaults: GtlTargetCarrierDefaultsBundle;
   readonly provider?: EngineAssuranceProvider;
 }): EngineAssuranceGateResult {
   if (input.provider === undefined) {
@@ -295,7 +323,8 @@ export function evaluateAssuranceGate(input: {
         projection: input.projection,
         replayEvents: input.replayEvents,
         provider: input.provider,
-        scope
+        scope,
+        targetCarrierDefaults: input.targetCarrierDefaults
       })
     );
   }
@@ -313,6 +342,19 @@ export function evaluateAssuranceGate(input: {
     return constructGateResult({
       kind: "assurance_blocked",
       reason: firstBlocking.decision.reason,
+      scopeResults
+    });
+  }
+
+  const carrierBlocked = scopeResults.filter(
+    (entry): entry is EngineAssuranceScopeBlocked =>
+      entry.kind === "assurance_blocked"
+  );
+  const firstCarrierBlocked = carrierBlocked[0];
+  if (firstCarrierBlocked !== undefined) {
+    return constructGateResult({
+      kind: "assurance_blocked",
+      reason: firstCarrierBlocked.reason,
       scopeResults
     });
   }

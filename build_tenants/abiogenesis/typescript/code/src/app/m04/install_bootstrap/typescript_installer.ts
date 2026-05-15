@@ -73,10 +73,21 @@ const REFERENCE_FALLBACK_CONFIG_RELATIVE_PATH = join(
   "abg.reference-fallbacks.json"
 );
 
+const REFERENCE_TARGET_CARRIER_DEFAULTS_RELATIVE_PATH = join(
+  "config",
+  "gtl.target-carrier-defaults.json"
+);
+
 const INSTALLED_FALLBACK_CONFIG_RELATIVE_PATH = join(
   ".abiogenesis",
   "config",
   "abg.fallbacks.json"
+);
+
+const INSTALLED_TARGET_CARRIER_DEFAULTS_RELATIVE_PATH = join(
+  ".abiogenesis",
+  "config",
+  "gtl.target-carrier-defaults.json"
 );
 
 function isNodeErrorCode(error: unknown, code: string): boolean {
@@ -441,6 +452,27 @@ async function copyFallbackConfig(input: {
       INSTALLED_FALLBACK_CONFIG_RELATIVE_PATH
     )
   });
+}
+
+async function copyTargetCarrierDefaultsConfig(input: {
+  readonly packageSourceRoot: string;
+  readonly targetRoot: string;
+}): Promise<void> {
+  const sourcePath = join(
+    input.packageSourceRoot,
+    REFERENCE_TARGET_CARRIER_DEFAULTS_RELATIVE_PATH
+  );
+  if (!(await pathIsFile(sourcePath))) {
+    throw new Error(`missing GTL target carrier defaults config source file ${sourcePath}`);
+  }
+  const targetPath = join(
+    input.targetRoot,
+    INSTALLED_TARGET_CARRIER_DEFAULTS_RELATIVE_PATH
+  );
+  await mkdir(dirname(targetPath), { recursive: true });
+  if (!(await pathIsFile(targetPath))) {
+    await cp(sourcePath, targetPath, { recursive: false });
+  }
 }
 
 async function writeInstallProvenance(input: {
@@ -906,6 +938,10 @@ export async function installAbiogenesisTypescript(
     const standardsInstallRoot = join(docsInstallRoot, "standards");
     const docsFiles = await copyDocsFiles(docsSourceRoot, docsInstallRoot);
     const fallbackConfig = await copyFallbackConfig({
+      packageSourceRoot: request.packageSourceRoot,
+      targetRoot: request.targetRoot.rootPath
+    });
+    await copyTargetCarrierDefaultsConfig({
       packageSourceRoot: request.packageSourceRoot,
       targetRoot: request.targetRoot.rootPath
     });

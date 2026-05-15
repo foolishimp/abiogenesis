@@ -19,6 +19,7 @@ close, residual pressure, and replay-visible F_P hook findings.
 - `M03_ATTACHED_FP_WORKER_LOOP_DERIVATION.md`
 - `T-130`
 - `T-131`
+- `T-133`
 
 ## Position
 
@@ -77,6 +78,54 @@ action, admitted finding, existing `AssuranceProjection`, and existing
 `AssuranceClosureDecision`. The F_P close disposition remains a proposed close
 disposition. The ABG assurance fold remains the actual close, retry, reprice,
 block, or defer decision.
+
+## Target Carrier Contract
+
+T-133 adds the missing output-carrier side of the edge contract. Edge assurance
+can declare target outcome, gain, metric, close, residual, continuation, and
+composition law, but closure still needs a structural target carrier that can be
+admitted before semantic closure is lawful.
+
+Every graph-vector output has an effective `gtl.target_carrier_contract`
+binding. The vector may declare a product-specific binding. If it does not, the
+generic binding is read from visible GTL defaults config:
+
+```text
+config/gtl.target-carrier-defaults.json
+-> generic output template
+-> materialized target carrier contract for vector.target
+```
+
+The generic binding is not a code constant and not null. Missing or malformed
+config fails closed. A product-specific vector-local binding still wins over the
+config default.
+
+The binding declares:
+
+- target node ref
+- output surface ref
+- output carrier family and kind
+- envelope contract ref
+- nested payload path
+- required fields
+- fixed protocol fields
+- worker-fillable fields
+- literal or enum domains
+- schema and admission refs
+- payload-ledger binding ref
+- edge-assurance binding ref
+- handoff projection ref
+- construction template ref
+- replay digest policy ref
+- materialization policy ref
+- closure precondition ref
+- test-case generation ref
+
+ABG payload-ledger projection records the selected target-carrier contract ref
+and digest. Closure cannot treat file presence, worker prose, or arbitrary
+payload existence as target satisfaction. The target carrier must be admitted
+under the selected contract, and rejected or missing target carriers remain
+non-closing pressure.
 
 ## Resolution Law
 

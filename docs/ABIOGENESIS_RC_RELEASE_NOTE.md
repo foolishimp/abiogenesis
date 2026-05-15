@@ -1,10 +1,9 @@
-# abiogenesis 3.7.1-rc.3 Release Candidate Note
+# abiogenesis 3.7.1-rc.4 Release Candidate Note
 
 This checkpoint is the current TypeScript ABG release-candidate source state.
-It advances the release line from `3.7.1-rc.2` to `3.7.1-rc.3` because the
-product and builder-guide surfaces now state one consistent GTL axiomatic type
-boundary: six topology anchors plus first-class declaration surfaces attached
-to those anchors.
+It advances the release line from `3.7.1-rc.3` to `3.7.1-rc.4` because GTL
+target-carrier contracts are now first-class graph-vector output bindings and
+ABG closure consumes the selected contract identity before assurance close.
 
 The `3.7.0-rc.1` line introduced the generic F_P construction evaluator and
 read-only public gaps over evaluator truth. The `3.7.1-rc.1` candidate
@@ -12,9 +11,10 @@ preserved that evaluator substrate and added the runtime liveness observer
 needed to keep long-running constructive work governed by admitted activity
 rather than flat caller-local timeouts. The `3.7.1-rc.2` candidate preserved
 both lines and added edge-level gain/close assurance contracts with live
-installed proof. This `3.7.1-rc.3` candidate preserves that runtime substrate
-and repairs the constitutional/docs model so GTL topology anchors do not
-collapse the wider first-class declaration surface.
+installed proof. The `3.7.1-rc.3` candidate repaired the constitutional/docs
+model so GTL topology anchors do not collapse the wider first-class declaration
+surface. This `3.7.1-rc.4` candidate preserves those cuts and adds mandatory
+target-carrier contract bindings for graph-vector outputs.
 
 It is an RC candidate, not the final tapped `3.7.1` release. The release
 identity remains explicit until the cut is committed, tagged, and accepted.
@@ -23,7 +23,8 @@ identity remains explicit until the cut is committed, tagged, and accepted.
 
 The TypeScript tenant remains the package-first GTL/ABG RC candidate. This cut
 preserves the accepted `3.7.0-rc.1` evaluator substrate, the `3.7.1-rc.1`
-runtime probe observer, and the `3.7.1-rc.2` edge-assurance runtime path.
+runtime probe observer, the `3.7.1-rc.2` edge-assurance runtime path, and the
+`3.7.1-rc.3` GTL type-boundary correction.
 
 RC2 for `3.7.1` added:
 
@@ -63,12 +64,30 @@ RC3 for `3.7.1` adds:
   workflow lane, and app surface must bind back to a GTL topology anchor or
   first-class declaration surface before declaring GTL or ABG behavior.
 
+RC4 for `3.7.1` adds:
+
+- `gtl.target_carrier_contract` as the mandatory effective output-carrier
+  contract binding for graph-vector targets;
+- visible `gtl.target-carrier-defaults.json` config for the generic binding
+  when no product-specific vector declaration exists;
+- vector-local target/schema identity checks so a declaration cannot bind a
+  carrier for a different target node;
+- normalized defaults-bundle digest identity across load and direct admission
+  paths;
+- payload validation/rejection events carrying selected contract digest, with
+  replay admission filtered by contract ref plus digest;
+- assurance-gate closure blocking when the selected target-carrier contract has
+  no admitted payload truth;
+- generic F_D envelope validation for nested payload presence, required fields,
+  carrier kind literal, and fixed protocol fields while leaving downstream
+  semantic meaning to product/F_P consumers.
+
 ## Non-Claims
 
-The T-130/T-131/T-132 edge assurance slice does not claim downstream odd_sdlc
-test35 migration as complete. It creates the ABG substrate proof that
-downstream products can now consume without rebuilding an SDLC-local
-meta-contract for edge gain and close.
+The T-130/T-131/T-132/T-133 edge assurance and target-carrier slice does not
+claim downstream odd_sdlc test35 migration as complete. It creates the ABG
+substrate proof that downstream products can now consume without rebuilding an
+SDLC-local meta-contract for edge gain, close, or output carrier identity.
 
 The T-127/T-128 split remains intact. T-127 owns the construction evaluator
 substrate; T-128 owns the installed runner-level loop that consumes admitted
@@ -81,9 +100,9 @@ session affinity. Those remain outside this cut unless separately ticketed.
 ## Versioned Artifacts
 
 - RC branch: `rc/3.7.1`
-- RC identity: `3.7.1-rc.3`
-- Candidate package version: `3.7.1-rc.3`
-- Candidate tag: `v3.7.1-rc.3`
+- RC identity: `3.7.1-rc.4`
+- Candidate package version: `3.7.1-rc.4`
+- Candidate tag: `v3.7.1-rc.4`
 
 ## Verification
 
@@ -99,17 +118,20 @@ npm run test:t130:t131
 npm run test:t132
 1 passed
 
+npm run test:t133
+9 passed
+
 ABG_TS_T132_LIVE=1 CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=120000 npm run test:t132:live
 1 passed, archive build_tenants/abiogenesis/typescript/test_env/test_runs/t132_edge_assurance_installed_live/20260513T122205821Z_pid12061
 
 npm run test:semantic
-522 passed
+531 passed
 
 git diff --check
 passed
 
 npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run
-passed, version 3.7.1-rc.3, files 333, package abiogenesis-typescript-tenant-3.7.1-rc.3.tgz
+passed, version 3.7.1-rc.4, files 336, package abiogenesis-typescript-tenant-3.7.1-rc.4.tgz
 ```
 
 The previous `3.7.0-rc.1` construction evaluator proof remains historical
@@ -119,7 +141,7 @@ the runtime observer substrate preserved by this line.
 
 ## RC Decision
 
-The release operator repriced the GTL type-boundary documentation as a
-release-candidate correction over the accepted `3.7.1-rc.2` edge-assurance
-line. Cut `v3.7.1-rc.3` as the next release-candidate checkpoint after
+The release operator repriced the target-carrier contract work as a
+release-candidate correction over the accepted `3.7.1-rc.3` GTL type-boundary
+line. Cut `v3.7.1-rc.4` as the next release-candidate checkpoint after
 committing this source state. This is not the final tapped `3.7.1` release.

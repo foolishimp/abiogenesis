@@ -23,7 +23,10 @@ import {
   deriveRuntimeAggregateProjection,
   emit
 } from "../../build/semantic/code/src/abg/m03/index.js";
+import { loadGtlTargetCarrierDefaultsBundle } from "../../build/semantic/code/src/index.js";
 import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
+
+const targetCarrierDefaults = loadGtlTargetCarrierDefaultsBundle();
 
 function base(vectorIndex = 0) {
   const basis = buildThreeStageBasis();
@@ -43,7 +46,8 @@ function project(input) {
     basis: input.basis,
     runtimeProjection: input.runtimeProjection,
     events: emitted,
-    vectorIndex: input.scope.vectorIndex
+    vectorIndex: input.scope.vectorIndex,
+    targetCarrierDefaults
   });
   const authoritySnapshot = deriveAssuranceAuthoritySnapshotFromPayloadLedger({
     assuranceScope: input.scope,

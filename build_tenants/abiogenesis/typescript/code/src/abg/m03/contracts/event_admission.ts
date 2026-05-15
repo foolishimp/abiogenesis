@@ -860,6 +860,7 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     payloadRef: "non_empty_string",
     schemaRef: "nullable_string",
     contractRef: "nullable_string",
+    contractDigest: "nullable_string",
     digest: "non_empty_string",
     validationRef: "non_empty_string",
     evidenceRef: "nullable_string",
@@ -875,6 +876,7 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     rejectionClass: { oneOf: PAYLOAD_REJECTION_CLASS_VALUES },
     schemaRef: "nullable_string",
     contractRef: "nullable_string",
+    contractDigest: "nullable_string",
     digest: "nullable_string",
     reason: "non_empty_string",
     policyRefs: "string_array"

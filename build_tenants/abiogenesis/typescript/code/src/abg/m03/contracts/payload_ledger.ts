@@ -16,6 +16,11 @@ import type {
   RuntimeEvent
 } from "./carriers.js";
 import type {
+  GtlTargetCarrierDefaultsBundle,
+  TargetCarrierContractBinding
+} from "../../../gtl/m01/contracts/index.js";
+import { resolveTargetCarrierContractBinding } from "../../../gtl/m01/contracts/index.js";
+import type {
   AssuranceAuthoritySnapshot,
   AssuranceEvidenceRow,
   AssuranceScopeRef
@@ -55,6 +60,7 @@ export type PayloadLedgerSourceEvent =
 export interface PayloadLedgerProjection {
   readonly kind: "payload_ledger_projection";
   readonly scope: PayloadLedgerScope;
+  readonly targetCarrierContract: TargetCarrierContractBinding;
   readonly observedPayloads: readonly PayloadObservedRuntimeEvent[];
   readonly validatedPayloads: readonly PayloadValidatedRuntimeEvent[];
   readonly rejectedPayloads: readonly PayloadRejectedRuntimeEvent[];
@@ -63,6 +69,36 @@ export interface PayloadLedgerProjection {
   readonly ambiguityObservations: readonly AmbiguityObservationAdmittedRuntimeEvent[];
   readonly closureInputs: readonly ClosureInputPublishedRuntimeEvent[];
   readonly projectionRef: string;
+}
+
+export type TargetCarrierAdmissionStatus =
+  | "admitted"
+  | "rejected"
+  | "missing";
+
+export interface TargetCarrierAdmissionProjection {
+  readonly kind: "target_carrier_admission_projection";
+  readonly targetCarrierContractRef: string;
+  readonly targetCarrierContractDigest: string;
+  readonly status: TargetCarrierAdmissionStatus;
+  readonly payloadRef: string | null;
+  readonly validationRefs: readonly string[];
+  readonly rejectedPayloadRefs: readonly string[];
+  readonly reason: string | null;
+}
+
+export class TargetCarrierClosureRejectedError extends Error {
+  readonly targetCarrierContractRef: string;
+  readonly status: TargetCarrierAdmissionStatus;
+
+  constructor(projection: TargetCarrierAdmissionProjection) {
+    super(
+      `Target carrier contract ${projection.targetCarrierContractRef} is ${projection.status}`
+    );
+    this.name = "TargetCarrierClosureRejectedError";
+    this.targetCarrierContractRef = projection.targetCarrierContractRef;
+    this.status = projection.status;
+  }
 }
 
 function isPayloadLedgerSourceEvent(
@@ -125,6 +161,8 @@ function payloadLedgerProjectionRef(input: PayloadLedgerProjection): string {
     input.scope.graphCallId,
     input.scope.frameId,
     String(input.scope.vectorIndex),
+    `target_carrier=${input.targetCarrierContract.contractRef}`,
+    `target_carrier_digest=${input.targetCarrierContract.configDigest}`,
     `observed=${input.observedPayloads.map((event) => event.payloadRef).join(",")}`,
     `validated=${input.validatedPayloads.map((event) => event.validationRef).join(",")}`,
     `rejected=${input.rejectedPayloads.map((event) => `${event.payloadRef}/${event.rejectionClass}`).join(",")}`,
@@ -163,8 +201,17 @@ export function derivePayloadLedgerProjection(input: {
   readonly runtimeProjection: RuntimeAggregateProjection;
   readonly events: readonly RuntimeEvent[];
   readonly vectorIndex: number;
+  readonly targetCarrierDefaults: GtlTargetCarrierDefaultsBundle;
 }): PayloadLedgerProjection {
   const scope = derivePayloadLedgerScope(input);
+  const vector = input.basis.graph.vectors[input.vectorIndex];
+  if (vector === undefined) {
+    throw new TypeError("Payload ledger vector index out of range");
+  }
+  const targetCarrierContract = resolveTargetCarrierContractBinding({
+    vector,
+    defaults: input.targetCarrierDefaults
+  });
   const sourceEvents = input.events
     .filter(isPayloadLedgerSourceEvent)
     .filter((event) => matchesScope(event, scope));
@@ -172,6 +219,7 @@ export function derivePayloadLedgerProjection(input: {
   const partial = Object.freeze({
     kind: "payload_ledger_projection" as const,
     scope,
+    targetCarrierContract,
     observedPayloads: Object.freeze(
       sourceEvents.filter(
         (event): event is PayloadObservedRuntimeEvent =>
@@ -223,6 +271,83 @@ export function derivePayloadLedgerProjection(input: {
       projectionRef: "pending"
     })
   });
+}
+
+export function deriveTargetCarrierAdmissionProjection(input: {
+  readonly ledger: PayloadLedgerProjection;
+  readonly payloadRef?: string | null | undefined;
+}): TargetCarrierAdmissionProjection {
+  const payloadRef = input.payloadRef ?? null;
+  const contractRef = input.ledger.targetCarrierContract.contractRef;
+  const contractDigest = input.ledger.targetCarrierContract.configDigest;
+  const validatedPayloads = input.ledger.validatedPayloads.filter(
+    (event) =>
+      event.contractRef === contractRef &&
+      event.contractDigest === contractDigest &&
+      (payloadRef === null || event.payloadRef === payloadRef)
+  );
+  const rejectedPayloads = input.ledger.rejectedPayloads.filter(
+    (event) =>
+      event.contractRef === contractRef &&
+      event.contractDigest === contractDigest &&
+      (payloadRef === null || event.payloadRef === payloadRef)
+  );
+  const targetPayloadRef =
+    payloadRef ??
+    rejectedPayloads.at(-1)?.payloadRef ??
+    validatedPayloads.at(-1)?.payloadRef ??
+    null;
+
+  if (rejectedPayloads.length > 0) {
+    return Object.freeze({
+      kind: "target_carrier_admission_projection",
+      targetCarrierContractRef: contractRef,
+      targetCarrierContractDigest: contractDigest,
+      status: "rejected",
+      payloadRef: targetPayloadRef,
+      validationRefs: freezeStringArray(
+        validatedPayloads.map((event) => event.validationRef)
+      ),
+      rejectedPayloadRefs: freezeStringArray(
+        rejectedPayloads.map((event) => event.payloadRef)
+      ),
+      reason: rejectedPayloads.at(-1)?.reason ?? "target carrier rejected"
+    });
+  }
+
+  if (validatedPayloads.length > 0) {
+    return Object.freeze({
+      kind: "target_carrier_admission_projection",
+      targetCarrierContractRef: contractRef,
+      targetCarrierContractDigest: contractDigest,
+      status: "admitted",
+      payloadRef: targetPayloadRef,
+      validationRefs: freezeStringArray(
+        validatedPayloads.map((event) => event.validationRef)
+      ),
+      rejectedPayloadRefs: freezeStringArray([]),
+      reason: null
+    });
+  }
+
+  return Object.freeze({
+    kind: "target_carrier_admission_projection",
+    targetCarrierContractRef: contractRef,
+    targetCarrierContractDigest: contractDigest,
+    status: "missing",
+    payloadRef: targetPayloadRef,
+    validationRefs: freezeStringArray([]),
+    rejectedPayloadRefs: freezeStringArray([]),
+    reason: "target carrier contract has no admitted payload"
+  });
+}
+
+export function assertTargetCarrierAdmittedForClosure(
+  projection: TargetCarrierAdmissionProjection
+): void {
+  if (projection.status !== "admitted") {
+    throw new TargetCarrierClosureRejectedError(projection);
+  }
 }
 
 export function deriveAssuranceAuthoritySnapshotFromPayloadLedger(input: {
