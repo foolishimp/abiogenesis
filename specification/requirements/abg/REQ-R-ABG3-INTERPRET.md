@@ -47,3 +47,5 @@ event-authoritative aggregates.
 **REQ-R-ABG3-INTERPRET-016**: ABG watchdog and evaluator dispositions shall consume the runtime liveness observer projection before deciding continue-waiting, controlled inactivity termination, external interruption block, hard safety-cap block, retry-budget exhaustion, or artifact-salvage admission.
 
 **REQ-R-ABG3-INTERPRET-017**: If no watchdog/evaluator disposition selects an alternate lawful action, graph-function execution shall continue following replay-derived graph progression. The default is graph progress, not caller-local timeout policy.
+
+**REQ-R-ABG3-INTERPRET-018**: Overlay-like runtime attention frames shall be ABG frame contracts bound to GTL graph-function, graph-vector, graph-span, job, module, or rule anchors. They shall not introduce a rival GTL topology type or a product-local controller loop. Fire, terminate, fold-back, re-entry, and pressure decisions shall derive from admitted runtime events and admitted observed-state refs.

@@ -31,6 +31,7 @@ import {
   parseString,
   parseStringArray
 } from "../../../shared/validation/primitives.js";
+import { stableSha256HexDigest } from "../../../shared/runtime_identity.js";
 import type { PluginTraversalObserverBindingSelection } from "./plugin_traversal_observer.js";
 
 export const FP_TRANSFORM_STATUS_VALUES = Object.freeze([
@@ -111,7 +112,7 @@ function fpTransformRequestRef(input: {
   readonly vectorIndex: number;
   readonly actorInvocationRef: ActorInvocationRef;
 }): string {
-  return `fp-transform-request:${JSON.stringify({
+  return `fp-transform-request:${stableSha256HexDigest({
     basisId: input.basis.id,
     vectorIndex: input.vectorIndex,
     actorInvocationId: input.actorInvocationRef.actorInvocationId
@@ -264,7 +265,7 @@ function authorityDigestForResult(input: {
   readonly request: FpTransformRequest;
   readonly result: FpTransformResult;
 }): string {
-  return `authority:fp_transform:${JSON.stringify({
+  return `authority:fp_transform:${stableSha256HexDigest({
     requestRef: input.request.requestRef,
     resultRef: input.result.resultRef,
     authorityRefs: input.result.evidenceCandidates.map(
@@ -277,7 +278,7 @@ function inputDigestForResult(input: {
   readonly request: FpTransformRequest;
   readonly result: FpTransformResult;
 }): string {
-  return `input:fp_transform:${JSON.stringify({
+  return `input:fp_transform:${stableSha256HexDigest({
     requestRef: input.request.requestRef,
     resultRef: input.result.resultRef,
     sourceProjectionRef: input.request.sourceProjectionRef
@@ -290,7 +291,7 @@ function payloadRefForEvidence(input: {
   readonly candidate: FpEvidenceCandidate;
   readonly evidenceRef: string;
 }): string {
-  return `payload:fp_transform:${JSON.stringify({
+  return `payload:fp_transform:${stableSha256HexDigest({
     requestRef: input.request.requestRef,
     resultRef: input.result.resultRef,
     candidateRef: input.candidate.candidateRef,
@@ -303,7 +304,7 @@ function digestForEvidence(input: {
   readonly candidate: FpEvidenceCandidate;
   readonly evidenceRef: string;
 }): string {
-  return `digest:fp_transform:${JSON.stringify({
+  return `digest:fp_transform:${stableSha256HexDigest({
     resultRef: input.result.resultRef,
     candidateRef: input.candidate.candidateRef,
     evidenceRef: input.evidenceRef

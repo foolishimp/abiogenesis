@@ -12,6 +12,219 @@ import type { Job } from "../../../gtl/m02/contracts/carriers.js";
 
 export type RuntimeRegime = "F_D" | "F_P" | "F_H";
 
+export const FD_AUTHORITY_SEVERITY_CLASS_VALUES = Object.freeze([
+  "protocol_invalid",
+  "construction_context_invalid",
+  "diagnostic_shape_invalid",
+  "content_unproven"
+] as const);
+
+export type FdAuthoritySeverityClass =
+  (typeof FD_AUTHORITY_SEVERITY_CLASS_VALUES)[number];
+
+export const FD_PRESSURE_ROUTING_DECISION_VALUES = Object.freeze([
+  "continue",
+  "block",
+  "preserve_pressure",
+  "route_to_fp"
+] as const);
+
+export type FdPressureRoutingDecision =
+  (typeof FD_PRESSURE_ROUTING_DECISION_VALUES)[number];
+
+export const OBSERVED_STATE_SOURCE_KIND_VALUES = Object.freeze([
+  "workspace_file",
+  "register_json",
+  "derived_projection",
+  "event_spine_watermark",
+  "policy_config"
+] as const);
+
+export type ObservedStateSourceKind =
+  (typeof OBSERVED_STATE_SOURCE_KIND_VALUES)[number];
+
+export interface ObservedStateSourceRef {
+  readonly kind: ObservedStateSourceKind;
+  readonly scopeRef: string;
+  readonly sourceRef: string;
+}
+
+export interface ObservedStateDerivationBasis {
+  readonly derivationBasisRef: string;
+  readonly basisProjectionRef: string;
+  readonly eventWatermark: number;
+  readonly derivedFromRefs: readonly string[];
+}
+
+export interface ObservedStateRecord {
+  readonly kind: "observed_state_record";
+  readonly observedStateRef: string;
+  readonly source: ObservedStateSourceRef;
+  readonly digest: string;
+  readonly version: string | null;
+  readonly freshnessPolicyRef: string;
+  readonly derivationBasis: ObservedStateDerivationBasis;
+}
+
+export interface ObservedStateProjection {
+  readonly kind: "observed_state_projection";
+  readonly projectionRef: string;
+  readonly records: readonly ObservedStateRecord[];
+  readonly observedStateRefs: readonly string[];
+  readonly latestEventWatermark: number;
+}
+
+export interface ObservedStateAdmissionOutcome {
+  readonly kind: "observed_state_admission_outcome";
+  readonly status: "admitted" | "rejected";
+  readonly record: ObservedStateRecord;
+  readonly diagnosticRefs: readonly string[];
+}
+
+export const OVERLAY_FRAME_SCOPE_KIND_VALUES = Object.freeze([
+  "graph_function",
+  "graph_vector",
+  "graph_span",
+  "job",
+  "module",
+  "rule"
+] as const);
+
+export type OverlayFrameScopeKind =
+  (typeof OVERLAY_FRAME_SCOPE_KIND_VALUES)[number];
+
+export const OVERLAY_FRAME_PREDICATE_ROLE_VALUES = Object.freeze([
+  "fire_when",
+  "terminate_when"
+] as const);
+
+export type OverlayFramePredicateRole =
+  (typeof OVERLAY_FRAME_PREDICATE_ROLE_VALUES)[number];
+
+export const OVERLAY_FRAME_PRESSURE_DECISION_VALUES = Object.freeze([
+  "carry_pressure",
+  "clear_pressure",
+  "no_close"
+] as const);
+
+export type OverlayFramePressureDecisionKind =
+  (typeof OVERLAY_FRAME_PRESSURE_DECISION_VALUES)[number];
+
+export const OVERLAY_FRAME_STATUS_VALUES = Object.freeze([
+  "declared",
+  "waiting",
+  "active",
+  "closed",
+  "no_close"
+] as const);
+
+export type OverlayFrameStatus =
+  (typeof OVERLAY_FRAME_STATUS_VALUES)[number];
+
+export interface OverlayFrameScopeEventRow {
+  readonly scopeKind: OverlayFrameScopeKind;
+  readonly scopeRef: string;
+  readonly anchorRef: string;
+  readonly vectorIndex: number | null;
+  readonly spanId: string | null;
+}
+
+export interface OverlayFramePredicateEventRow {
+  readonly predicateRef: string;
+  readonly role: OverlayFramePredicateRole;
+  readonly expressionRef: string;
+  readonly observedStateRefs: readonly string[];
+}
+
+export interface OverlayFramePredicateEvaluationEventRow {
+  readonly predicateRef: string;
+  readonly role: OverlayFramePredicateRole;
+  readonly satisfied: boolean;
+  readonly observedStateRefs: readonly string[];
+  readonly missingObservedStateRefs: readonly string[];
+}
+
+export interface OverlayFrameContract {
+  readonly kind: "overlay_frame_contract";
+  readonly overlayFrameRef: string;
+  readonly contractRef: string;
+  readonly basisId: string;
+  readonly graphFunctionId: string;
+  readonly scopeRefs: readonly OverlayFrameScopeEventRow[];
+  readonly fireWhen: OverlayFramePredicateEventRow;
+  readonly terminateWhen: OverlayFramePredicateEventRow;
+  readonly pressureRefs: readonly string[];
+  readonly foldbackTargetRef: string | null;
+  readonly reentryTargetVectorIndex: number | null;
+  readonly noClosePolicyRef: string | null;
+}
+
+export interface OverlayFrameFoldbackOutcome {
+  readonly kind: "overlay_frame_foldback_outcome";
+  readonly outcomeRef: string;
+  readonly overlayFrameRef: string;
+  readonly contractRef: string;
+  readonly fireSatisfied: boolean;
+  readonly terminateSatisfied: boolean;
+  readonly predicateEvaluations: readonly OverlayFramePredicateEvaluationEventRow[];
+  readonly pressureDecision: OverlayFramePressureDecisionKind;
+  readonly pressureRefs: readonly string[];
+  readonly carriedPressureRefs: readonly string[];
+  readonly clearedPressureRefs: readonly string[];
+  readonly clearingEvidenceRefs: readonly string[];
+  readonly foldbackTargetRef: string | null;
+  readonly reentryTargetVectorIndex: number | null;
+  readonly diagnosticRefs: readonly string[];
+}
+
+export interface OverlayFrameProjectionRow {
+  readonly kind: "overlay_frame_projection_row";
+  readonly overlayFrameRef: string;
+  readonly contractRef: string;
+  readonly status: OverlayFrameStatus;
+  readonly scopeRefs: readonly OverlayFrameScopeEventRow[];
+  readonly fireWhen: OverlayFramePredicateEventRow;
+  readonly terminateWhen: OverlayFramePredicateEventRow;
+  readonly pressureRefs: readonly string[];
+  readonly carriedPressureRefs: readonly string[];
+  readonly clearedPressureRefs: readonly string[];
+  readonly diagnosticRefs: readonly string[];
+  readonly foldbackTargetRef: string | null;
+  readonly reentryTargetVectorIndex: number | null;
+  readonly latestOutcomeRef: string | null;
+}
+
+export interface OverlayFrameProjection {
+  readonly kind: "overlay_frame_projection";
+  readonly basisId: string;
+  readonly graphFunctionId: string;
+  readonly projectionRef: string;
+  readonly rows: readonly OverlayFrameProjectionRow[];
+  readonly activeRows: readonly OverlayFrameProjectionRow[];
+  readonly activeOverlayFrameRefs: readonly string[];
+  readonly carriedPressureRefs: readonly string[];
+  readonly clearedPressureRefs: readonly string[];
+}
+
+export type EffectiveVectorRegimeSource =
+  | "graph_vector_declaration"
+  | "graph_vector_runtime_surface"
+  | "basis_default_policy";
+
+export interface EffectiveVectorRegime {
+  readonly kind: "effective_vector_regime";
+  readonly basisId: string;
+  readonly graphFunctionId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly regime: RuntimeRegime;
+  readonly source: EffectiveVectorRegimeSource;
+  readonly sourceRef: string;
+  readonly declarationKey: string | null;
+  readonly declaredVectorRegimes: readonly RuntimeRegime[];
+  readonly diagnosticRefs: readonly string[];
+}
+
 export type PluginTraversalKind = "transform" | "eval";
 
 export type PluginTraversalObserverBindingSource =
@@ -127,6 +340,7 @@ export interface FdAdvanceTransition {
   readonly basis: ExecutionBasis;
   readonly vectorIndex: number;
   readonly edge: string;
+  readonly effectiveRegime: EffectiveVectorRegime;
   readonly status: "ready";
 }
 
@@ -135,6 +349,7 @@ export interface FpDispatchTransition {
   readonly basis: ExecutionBasis;
   readonly vectorIndex: number;
   readonly edge: string;
+  readonly effectiveRegime: EffectiveVectorRegime;
   readonly dispatchRef: string;
 }
 
@@ -186,6 +401,7 @@ export interface FhEscalationTransition {
   readonly basis: ExecutionBasis;
   readonly vectorIndex: number;
   readonly edge: string;
+  readonly effectiveRegime: EffectiveVectorRegime;
   readonly approvalSubjectRef: string;
   readonly gateReason: string;
 }
@@ -478,6 +694,10 @@ export interface VectorTraversalPlannedEvent {
   readonly frameId: string;
   readonly vectorIndex: number;
   readonly edge: string;
+  readonly regime: RuntimeRegime;
+  readonly regimeSource: EffectiveVectorRegimeSource;
+  readonly regimeSourceRef: string;
+  readonly regimeDiagnosticRefs: readonly string[];
 }
 
 export interface VectorEvaluatedEvent {
@@ -944,6 +1164,99 @@ export interface ClosureInputPublishedRuntimeEvent {
   readonly rowRefs: readonly string[];
   readonly sourceProjectionRefs: readonly string[];
   readonly policyRefs: readonly string[];
+}
+
+export interface ObservedStateAdmittedRuntimeEvent {
+  readonly kind: "observed_state_admitted";
+  readonly basisId: string;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly observedStateRef: string;
+  readonly sourceKind: ObservedStateSourceKind;
+  readonly scopeRef: string;
+  readonly sourceRef: string;
+  readonly digest: string;
+  readonly version: string | null;
+  readonly eventWatermark: number;
+  readonly freshnessPolicyRef: string;
+  readonly derivationBasisRef: string;
+  readonly basisProjectionRef: string;
+  readonly derivedFromRefs: readonly string[];
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
+export interface FdAuthorityOutcomeAdmittedRuntimeEvent {
+  readonly kind: "fd_authority_outcome_admitted";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly outcomeRef: string;
+  readonly status: "accepted" | "blocked";
+  readonly severityClass: FdAuthoritySeverityClass | null;
+  readonly routingDecision: FdPressureRoutingDecision;
+  readonly affectedFieldRefs: readonly string[];
+  readonly consumedFieldRefs: readonly string[];
+  readonly pressureRefs: readonly string[];
+  readonly diagnosticRefs: readonly string[];
+  readonly evidenceRefs: readonly string[];
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
+export interface OverlayFrameDeclaredEvent {
+  readonly kind: "overlay_frame_declared";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly frameLineageId: string | null;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly overlayFrameRef: string;
+  readonly contractRef: string;
+  readonly scopeRefs: readonly OverlayFrameScopeEventRow[];
+  readonly fireWhen: OverlayFramePredicateEventRow;
+  readonly terminateWhen: OverlayFramePredicateEventRow;
+  readonly pressureRefs: readonly string[];
+  readonly foldbackTargetRef: string | null;
+  readonly reentryTargetVectorIndex: number | null;
+  readonly noClosePolicyRef: string | null;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
+export interface OverlayFrameEvaluatedEvent {
+  readonly kind: "overlay_frame_evaluated";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly frameLineageId: string | null;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly overlayFrameRef: string;
+  readonly contractRef: string;
+  readonly outcomeRef: string;
+  readonly fireSatisfied: boolean;
+  readonly terminateSatisfied: boolean;
+  readonly predicateEvaluations: readonly OverlayFramePredicateEvaluationEventRow[];
+  readonly pressureDecision: OverlayFramePressureDecisionKind;
+  readonly pressureRefs: readonly string[];
+  readonly carriedPressureRefs: readonly string[];
+  readonly clearedPressureRefs: readonly string[];
+  readonly clearingEvidenceRefs: readonly string[];
+  readonly foldbackTargetRef: string | null;
+  readonly reentryTargetVectorIndex: number | null;
+  readonly diagnosticRefs: readonly string[];
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
 }
 
 export interface OutputInstanceAllocatedEvent {
@@ -1613,6 +1926,7 @@ export interface ConstructionObservationSnapshotMaterializedEvent
   readonly kind: "construction_observation_snapshot_materialized";
   readonly observationId: string;
   readonly currentProjectionRef: string;
+  readonly observedStateRefs: readonly string[];
   readonly linkedAssetRefs: readonly string[];
   readonly authorityDigest: string;
 }
@@ -1682,6 +1996,28 @@ export interface ConstructionGraphActionInvokedEvent
   readonly continuationId: string | null;
   readonly selectedGraphFunctionRef: string | null;
   readonly selectedVectorRef: string | null;
+}
+
+export interface ConstructionPressurePackageMaterializedEvent
+  extends ConstructionRuntimeEventScope {
+  readonly kind: "construction_pressure_package_materialized";
+  readonly packageRef: string;
+  readonly packageDigest: string;
+  readonly observationId: string;
+  readonly selectedIntentId: string;
+  readonly selectedActionRef: string;
+  readonly selectedOutcomeRef: string;
+  readonly executionTargetRef: string;
+  readonly runtimeProjectionRef: string;
+  readonly constructionProjectionRef: string;
+  readonly overlayFrameProjectionRef: string;
+  readonly observedStateRefs: readonly string[];
+  readonly pressureRefs: readonly string[];
+  readonly fdOutcomeRefs: readonly string[];
+  readonly overlayFrameRefs: readonly string[];
+  readonly targetStateRefs: readonly string[];
+  readonly priorEvidenceRefs: readonly string[];
+  readonly obligationPolicyRefs: readonly string[];
 }
 
 export interface ConstructionDeltaObservedEvent
@@ -1794,6 +2130,10 @@ export type RuntimeEvent =
   | EvidenceAdmittedRuntimeEvent
   | AmbiguityObservationAdmittedRuntimeEvent
   | ClosureInputPublishedRuntimeEvent
+  | ObservedStateAdmittedRuntimeEvent
+  | FdAuthorityOutcomeAdmittedRuntimeEvent
+  | OverlayFrameDeclaredEvent
+  | OverlayFrameEvaluatedEvent
   | OutputInstanceAllocatedEvent
   | OutputBindingAdmittedEvent
   | OutputMaterializationObservedEvent
@@ -1829,6 +2169,7 @@ export type RuntimeEvent =
   | ConstructionIntentCandidateRejectedEvent
   | ConstructionIntentSelectedEvent
   | ConstructionGraphActionInvokedEvent
+  | ConstructionPressurePackageMaterializedEvent
   | ConstructionDeltaObservedEvent
   | ConstructionTerminalDispositionProjectedEvent
   | WorkspaceInstallationAdmittedRuntimeEvent;
@@ -1878,6 +2219,10 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "evidence_admitted",
   "ambiguity_observation_admitted",
   "closure_input_published",
+  "observed_state_admitted",
+  "fd_authority_outcome_admitted",
+  "overlay_frame_declared",
+  "overlay_frame_evaluated",
   "output_instance_allocated",
   "output_binding_admitted",
   "output_materialization_observed",
@@ -1913,6 +2258,7 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "construction_intent_candidate_rejected",
   "construction_intent_selected",
   "construction_graph_action_invoked",
+  "construction_pressure_package_materialized",
   "construction_delta_observed",
   "construction_terminal_disposition_projected",
   "workspace_installation_admitted"
@@ -1979,6 +2325,8 @@ export interface RuntimeAggregateProjection {
   readonly kind: "runtime_aggregate_projection";
   readonly basisId: string;
   readonly graphFunctionId: string;
+  readonly observedState: ObservedStateProjection;
+  readonly overlayFrame: OverlayFrameProjection;
   readonly run: RunProjection;
   readonly graphCall: GraphCallProjection;
   readonly frame: FrameProjection;
@@ -2121,6 +2469,7 @@ export interface IterationAdvanceVectorDecision {
   readonly vectorIndex: number;
   readonly edge: string;
   readonly regime: RuntimeRegime;
+  readonly effectiveRegime: EffectiveVectorRegime;
 }
 
 export interface IterationConvergedDecision {

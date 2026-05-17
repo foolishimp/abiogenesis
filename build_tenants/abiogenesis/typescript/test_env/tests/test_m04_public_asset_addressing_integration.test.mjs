@@ -127,6 +127,7 @@ test("M04 public asset addressing integration: resolved asset ownership drives t
     "graph_call_opened",
     "frame_opened",
     "vector_traversal_planned",
+    "fd_authority_outcome_admitted",
     "vector_evaluated",
     "vector_closed",
     "fd_advance_ready",

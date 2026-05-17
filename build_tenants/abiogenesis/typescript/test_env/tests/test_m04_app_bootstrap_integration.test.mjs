@@ -66,6 +66,7 @@ test("M04 integration: publicStart routes through engine-owned M03 iteration for
     "graph_call_opened",
     "frame_opened",
     "vector_traversal_planned",
+    "fd_authority_outcome_admitted",
     "vector_evaluated",
     "vector_closed",
     "fd_advance_ready",

@@ -9,6 +9,7 @@ import type {
   RetryRepairDecision,
   RuntimeAggregateProjection,
   RuntimeEvent,
+  RuntimeFailureClass,
   TerminalKind
 } from "../contracts/carriers.js";
 import type { FpDispatchOutcome } from "../contracts/plugins.js";
@@ -18,6 +19,7 @@ import {
   constructRetryProgressRecordedEvent,
   constructFpTransformResult,
   deriveRetryRepairDecision,
+  RETRYABLE_RUNTIME_FAILURE_CLASSES,
   runtimeEventsForFpTransformResult,
   runtimeEventsForRetryRepairDecision
 } from "../contracts/index.js";
@@ -384,6 +386,7 @@ function retryDecisionForBlockedResult(input: {
   readonly transition: FpDispatchTransition;
   readonly request: DispatchRequest;
   readonly outcome: FpDispatchOutcome;
+  readonly retryable: boolean;
   readonly maxAttempts: number;
 }): RetryRepairDecision {
   return deriveRetryRepairDecision({
@@ -396,7 +399,7 @@ function retryDecisionForBlockedResult(input: {
       projection: input.projection,
       vectorIndex: input.transition.vectorIndex
     }),
-    maxAttempts: input.maxAttempts,
+    maxAttempts: input.retryable ? input.maxAttempts : 0,
     stationary: false,
     escalationSubjectRef: input.basis.resolvedPolicy.approvalSubjectRef,
     continuationRepair: continuationRepairForRetry({
@@ -405,6 +408,14 @@ function retryDecisionForBlockedResult(input: {
       vectorIndex: input.transition.vectorIndex
     })
   });
+}
+
+function runtimeFailureClassIsRetryable(
+  failureClass: RuntimeFailureClass
+): boolean {
+  return RETRYABLE_RUNTIME_FAILURE_CLASSES.some(
+    (candidate) => candidate === failureClass
+  );
 }
 
 function retryEventsForBlockedResult(input: {
@@ -462,6 +473,9 @@ export function deriveAttachedFpResultDecision(input: {
     transition: input.transition,
     request,
     outcome: input.outcome,
+    retryable:
+      ingestOutcome.kind !== "runtime_failure" ||
+      runtimeFailureClassIsRetryable(ingestOutcome.failureClass),
     maxAttempts: input.maxAttempts ?? DEFAULT_ATTACHED_FP_MAX_RETRY_ATTEMPTS
   });
   const retryEvents = retryEventsForBlockedResult({
@@ -487,7 +501,11 @@ export function deriveAttachedFpResultDecision(input: {
         retryDecision,
         retryEvents,
         terminalKind: "gap_stop",
-        reason: retryDecision.reason
+        reason:
+          ingestOutcome.kind === "runtime_failure" &&
+          !runtimeFailureClassIsRetryable(ingestOutcome.failureClass)
+            ? blocked.reason
+            : retryDecision.reason
       });
     case "retry_escalated":
       return Object.freeze({

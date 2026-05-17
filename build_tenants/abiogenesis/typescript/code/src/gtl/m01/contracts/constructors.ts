@@ -240,6 +240,7 @@ function canonicalGraphVector(vector: GraphVector): unknown {
       regime: evaluator.regime,
       description: evaluator.description,
       binding: evaluator.binding,
+      consumedFieldRefs: [...(evaluator.consumedFieldRefs ?? [])],
       tags: [...evaluator.tags]
     })),
     contexts: vector.contexts.map(canonicalContext),
@@ -335,7 +336,18 @@ export function constructGraphVector(input: GraphVectorInit): GraphVector {
     source: freezeNodes(input.source),
     target: input.target,
     operators: Object.freeze([...input.operators]),
-    evaluators: Object.freeze([...input.evaluators]),
+    evaluators: Object.freeze(
+      input.evaluators.map((evaluator) =>
+        Object.freeze({
+          name: evaluator.name,
+          regime: evaluator.regime,
+          description: evaluator.description,
+          binding: evaluator.binding,
+          consumedFieldRefs: freezeStrings(evaluator.consumedFieldRefs ?? []),
+          tags: freezeStrings(evaluator.tags)
+        })
+      )
+    ),
     contexts: freezeContexts(input.contexts),
     rule: input.rule,
     allowsSubwork: input.allowsSubwork,
@@ -358,6 +370,7 @@ export function constructGraphVector(input: GraphVectorInit): GraphVector {
           regime: evaluator.regime,
           description: evaluator.description,
           binding: evaluator.binding,
+          consumedFieldRefs: [...(evaluator.consumedFieldRefs ?? [])],
           tags: [...evaluator.tags]
         })),
         contexts: input.contexts.map(canonicalContext),

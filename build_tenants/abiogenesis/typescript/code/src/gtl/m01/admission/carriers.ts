@@ -310,6 +310,10 @@ export function admitEvaluator(input: unknown, label = "Evaluator"): Evaluator {
       parseOptionalField(evaluatorObject, "binding") ?? "",
       `${label}.binding`
     ),
+    consumedFieldRefs: parseStringArray(
+      parseOptionalField(evaluatorObject, "consumedFieldRefs") ?? [],
+      `${label}.consumedFieldRefs`
+    ),
     tags: parseStringArray(
       parseOptionalField(evaluatorObject, "tags") ?? [],
       `${label}.tags`

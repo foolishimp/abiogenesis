@@ -110,6 +110,7 @@ function bootstrapEvaluators(): readonly Evaluator[] {
       description:
         "Validates that bootstrap output is a typed Project with embedded lineage.",
       binding: "evaluator://sdlc/bootstrap-project/project-output-contract",
+      consumedFieldRefs: ["project.kind", "project.lineage"],
       tags: ["bootstrap", "project", "lineage"]
     }),
     Object.freeze({
@@ -118,6 +119,7 @@ function bootstrapEvaluators(): readonly Evaluator[] {
       description:
         "Validates that derived project elements carry source-input lineage.",
       binding: "evaluator://sdlc/bootstrap-project/derived-element-lineage",
+      consumedFieldRefs: ["derived_elements.lineage"],
       tags: ["bootstrap", "element-lineage"]
     })
   ]);

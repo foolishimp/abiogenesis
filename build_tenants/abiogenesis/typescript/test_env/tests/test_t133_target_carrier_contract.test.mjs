@@ -6,7 +6,9 @@
 
 import test from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 
 import {
   TARGET_CARRIER_CONTRACT_DECLARATION_KEY,
@@ -236,6 +238,20 @@ test("T-133 defaults bundle identity is normalized across load and admission pat
 
   assert.equal(loaded.bundleDigest, admitted.bundleDigest);
   assert.equal(loaded.bundleRef, admitted.bundleRef);
+});
+
+test("T-133 defaults loader is package-relative when caller cwd has no config", () => {
+  const originalCwd = process.cwd();
+  const tempRoot = mkdtempSync(join(tmpdir(), "abg-t133-no-config-"));
+  try {
+    process.chdir(tempRoot);
+    const loaded = loadGtlTargetCarrierDefaultsBundle();
+    assert.equal(loaded.kind, "gtl_target_carrier_defaults_bundle");
+    assert.match(loaded.bundlePath, /config[/\\]gtl\.target-carrier-defaults\.json$/u);
+  } finally {
+    process.chdir(originalCwd);
+    rmSync(tempRoot, { force: true, recursive: true });
+  }
 });
 
 test("T-133 malformed target carrier declarations fail closed", () => {

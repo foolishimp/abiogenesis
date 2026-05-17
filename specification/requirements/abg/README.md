@@ -17,6 +17,7 @@ related engine behavior.
 - evaluation, proof, closure, and fallback law
 - total assurance projection and closure fold law
 - event-sourced payload envelope, admission, and ledger projection law
+- replay-stable ABG.Fn regime composition grammar
 - correction, supersession, and self-hosting behavior
 
 ## Families
@@ -34,6 +35,7 @@ related engine behavior.
 - `REQ-R-ABG3-CONVERGENCE.md`
 - `REQ-R-ABG3-ASSURANCE.md`
 - `REQ-R-ABG3-FP-CONSCIOUSNESS.md`
+- `REQ-R-ABG3-FN-COMPOSITION.md`
 - `REQ-R-ABG3-PAYLOAD.md`
 - `REQ-R-ABG3-POLICY.md`
 - `REQ-R-ABG3-SELECTION-APPLICATION.md`

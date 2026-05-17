@@ -431,6 +431,7 @@ test("T-076 public TypeScript installer populates a package-backed ABG install a
     "graph_call_opened",
     "frame_opened",
     "vector_traversal_planned",
+    "fd_authority_outcome_admitted",
     "vector_evaluated",
     "vector_closed",
     "fd_advance_ready",

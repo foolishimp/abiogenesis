@@ -4,10 +4,16 @@ import type {
   TerminalKind
 } from "./carriers.js";
 import {
+  FD_AUTHORITY_SEVERITY_CLASS_VALUES,
+  FD_PRESSURE_ROUTING_DECISION_VALUES,
   GRAPH_CHANGE_CLASS_VALUES,
   GRAPH_REENTRY_POINT_VALUES,
   GRAPH_SPAN_CARRY_OBSERVATION_STATUS_VALUES,
   GRAPH_SPAN_OBLIGATION_ASSESSMENT_STATUS_VALUES,
+  OBSERVED_STATE_SOURCE_KIND_VALUES,
+  OVERLAY_FRAME_PREDICATE_ROLE_VALUES,
+  OVERLAY_FRAME_PRESSURE_DECISION_VALUES,
+  OVERLAY_FRAME_SCOPE_KIND_VALUES,
   PAYLOAD_AMBIGUITY_STATUS_VALUES,
   PAYLOAD_CLOSURE_DECISION_KIND_VALUES,
   PAYLOAD_REJECTION_CLASS_VALUES,
@@ -27,7 +33,7 @@ type FieldRule =
   | "boolean"
   | "string_array"
   | "number_array"
-  | { readonly oneOf: readonly string[] };
+  | { readonly oneOf: readonly string[]; readonly nullable?: boolean };
 
 type RuntimeEventRecord = Record<string, unknown>;
 type RuntimeEventFieldRules = Readonly<Record<string, FieldRule>>;
@@ -221,6 +227,78 @@ function assertGraphSpanAssessmentRegimeBoundary(
   }
 }
 
+function assertOverlayFrameScopeRows(value: unknown, label: string): void {
+  if (!Array.isArray(value)) {
+    throw new TypeError(`${label} must be a list`);
+  }
+  for (const [index, entry] of value.entries()) {
+    if (!isPlainObject(entry)) {
+      throw new TypeError(`${label}[${index}] must be a plain object`);
+    }
+    const rowLabel = `${label}[${index}]`;
+    assertOneOf(
+      entry["scopeKind"],
+      `${rowLabel}.scopeKind`,
+      OVERLAY_FRAME_SCOPE_KIND_VALUES
+    );
+    assertNonEmptyString(entry["scopeRef"], `${rowLabel}.scopeRef`);
+    assertNonEmptyString(entry["anchorRef"], `${rowLabel}.anchorRef`);
+    assertNullableNonNegativeInteger(
+      entry["vectorIndex"],
+      `${rowLabel}.vectorIndex`
+    );
+    assertNullableString(entry["spanId"], `${rowLabel}.spanId`);
+  }
+}
+
+function assertOverlayFramePredicateRow(
+  value: unknown,
+  label: string
+): void {
+  if (!isPlainObject(value)) {
+    throw new TypeError(`${label} must be a plain object`);
+  }
+  assertNonEmptyString(value["predicateRef"], `${label}.predicateRef`);
+  assertOneOf(value["role"], `${label}.role`, OVERLAY_FRAME_PREDICATE_ROLE_VALUES);
+  assertNonEmptyString(value["expressionRef"], `${label}.expressionRef`);
+  assertStringArray(value["observedStateRefs"], `${label}.observedStateRefs`);
+  if (Array.isArray(value["observedStateRefs"]) && value["observedStateRefs"].length === 0) {
+    throw new TypeError(`${label}.observedStateRefs must not be empty`);
+  }
+}
+
+function assertOverlayFramePredicateEvaluationRows(
+  value: unknown,
+  label: string
+): void {
+  if (!Array.isArray(value)) {
+    throw new TypeError(`${label} must be a list`);
+  }
+  for (const [index, entry] of value.entries()) {
+    if (!isPlainObject(entry)) {
+      throw new TypeError(`${label}[${index}] must be a plain object`);
+    }
+    const rowLabel = `${label}[${index}]`;
+    assertNonEmptyString(entry["predicateRef"], `${rowLabel}.predicateRef`);
+    assertOneOf(
+      entry["role"],
+      `${rowLabel}.role`,
+      OVERLAY_FRAME_PREDICATE_ROLE_VALUES
+    );
+    if (typeof entry["satisfied"] !== "boolean") {
+      throw new TypeError(`${rowLabel}.satisfied must be boolean`);
+    }
+    assertStringArray(
+      entry["observedStateRefs"],
+      `${rowLabel}.observedStateRefs`
+    );
+    assertStringArray(
+      entry["missingObservedStateRefs"],
+      `${rowLabel}.missingObservedStateRefs`
+    );
+  }
+}
+
 function applyFieldRule(value: unknown, label: string, rule: FieldRule): void {
   if (rule === "non_empty_string") {
     assertNonEmptyString(value, label);
@@ -250,6 +328,9 @@ function applyFieldRule(value: unknown, label: string, rule: FieldRule): void {
   }
   if (rule === "number_array") {
     assertNumberArray(value, label);
+    return;
+  }
+  if (rule.nullable === true && value === null) {
     return;
   }
   assertOneOf(value, label, rule.oneOf);
@@ -646,7 +727,11 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     graphCallId: "non_empty_string",
     frameId: "non_empty_string",
     vectorIndex: "non_negative_integer",
-    edge: "non_empty_string"
+    edge: "non_empty_string",
+    regime: "non_empty_string",
+    regimeSource: "non_empty_string",
+    regimeSourceRef: "non_empty_string",
+    regimeDiagnosticRefs: "string_array"
   }),
   vector_evaluated: applyFieldRules("VectorEvaluatedEvent", {
     basisId: "non_empty_string",
@@ -1604,6 +1689,7 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       ...constructionRuntimeEventRules,
       observationId: "non_empty_string",
       currentProjectionRef: "non_empty_string",
+      observedStateRefs: "string_array",
       linkedAssetRefs: "string_array",
       authorityDigest: "non_empty_string"
     }
@@ -1676,6 +1762,29 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       selectedVectorRef: "nullable_string"
     }
   ),
+  construction_pressure_package_materialized: applyFieldRules(
+    "ConstructionPressurePackageMaterializedEvent",
+    {
+      ...constructionRuntimeEventRules,
+      packageRef: "non_empty_string",
+      packageDigest: "non_empty_string",
+      observationId: "non_empty_string",
+      selectedIntentId: "non_empty_string",
+      selectedActionRef: "non_empty_string",
+      selectedOutcomeRef: "non_empty_string",
+      executionTargetRef: "non_empty_string",
+      runtimeProjectionRef: "non_empty_string",
+      constructionProjectionRef: "non_empty_string",
+      overlayFrameProjectionRef: "non_empty_string",
+      observedStateRefs: "string_array",
+      pressureRefs: "string_array",
+      fdOutcomeRefs: "string_array",
+      overlayFrameRefs: "string_array",
+      targetStateRefs: "string_array",
+      priorEvidenceRefs: "string_array",
+      obligationPolicyRefs: "string_array"
+    }
+  ),
   construction_delta_observed: applyFieldRules("ConstructionDeltaObservedEvent", {
     ...constructionRuntimeEventRules,
     intentId: "non_empty_string",
@@ -1724,7 +1833,114 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       causationEventRefs: "string_array",
       correlationId: "non_empty_string"
     }
-  )
+  ),
+  observed_state_admitted: applyFieldRules("ObservedStateAdmittedRuntimeEvent", {
+    basisId: "non_empty_string",
+    graphFunctionId: "non_empty_string",
+    runId: "nullable_string",
+    workKey: "nullable_string",
+    observedStateRef: "non_empty_string",
+    sourceKind: { oneOf: OBSERVED_STATE_SOURCE_KIND_VALUES },
+    scopeRef: "non_empty_string",
+    sourceRef: "non_empty_string",
+    digest: "non_empty_string",
+    version: "nullable_string",
+    eventWatermark: "non_negative_integer",
+    freshnessPolicyRef: "non_empty_string",
+    derivationBasisRef: "non_empty_string",
+    basisProjectionRef: "non_empty_string",
+    derivedFromRefs: "string_array",
+    causationEventRefs: "string_array",
+    correlationId: "non_empty_string"
+  }),
+  fd_authority_outcome_admitted: applyFieldRules(
+    "FdAuthorityOutcomeAdmittedRuntimeEvent",
+    {
+      basisId: "non_empty_string",
+      graphCallId: "non_empty_string",
+      frameId: "non_empty_string",
+      graphFunctionId: "non_empty_string",
+      runId: "nullable_string",
+      workKey: "nullable_string",
+      vectorIndex: "non_negative_integer",
+      edge: "non_empty_string",
+      outcomeRef: "non_empty_string",
+      status: { oneOf: ["accepted", "blocked"] },
+      severityClass: {
+        oneOf: FD_AUTHORITY_SEVERITY_CLASS_VALUES,
+        nullable: true
+      },
+      routingDecision: { oneOf: FD_PRESSURE_ROUTING_DECISION_VALUES },
+      affectedFieldRefs: "string_array",
+      consumedFieldRefs: "string_array",
+      pressureRefs: "string_array",
+      diagnosticRefs: "string_array",
+      evidenceRefs: "string_array",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string"
+    }
+  ),
+  overlay_frame_declared: (event: RuntimeEventRecord) => {
+    applyFieldRules("OverlayFrameDeclaredEvent", {
+      basisId: "non_empty_string",
+      graphCallId: "non_empty_string",
+      frameId: "non_empty_string",
+      frameLineageId: "nullable_string",
+      graphFunctionId: "non_empty_string",
+      runId: "nullable_string",
+      workKey: "nullable_string",
+      overlayFrameRef: "non_empty_string",
+      contractRef: "non_empty_string",
+      pressureRefs: "string_array",
+      foldbackTargetRef: "nullable_string",
+      reentryTargetVectorIndex: "nullable_non_negative_integer",
+      noClosePolicyRef: "nullable_string",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string"
+    })(event);
+    assertOverlayFrameScopeRows(
+      event["scopeRefs"],
+      "OverlayFrameDeclaredEvent.scopeRefs"
+    );
+    assertOverlayFramePredicateRow(
+      event["fireWhen"],
+      "OverlayFrameDeclaredEvent.fireWhen"
+    );
+    assertOverlayFramePredicateRow(
+      event["terminateWhen"],
+      "OverlayFrameDeclaredEvent.terminateWhen"
+    );
+  },
+  overlay_frame_evaluated: (event: RuntimeEventRecord) => {
+    applyFieldRules("OverlayFrameEvaluatedEvent", {
+      basisId: "non_empty_string",
+      graphCallId: "non_empty_string",
+      frameId: "non_empty_string",
+      frameLineageId: "nullable_string",
+      graphFunctionId: "non_empty_string",
+      runId: "nullable_string",
+      workKey: "nullable_string",
+      overlayFrameRef: "non_empty_string",
+      contractRef: "non_empty_string",
+      outcomeRef: "non_empty_string",
+      fireSatisfied: "boolean",
+      terminateSatisfied: "boolean",
+      pressureDecision: { oneOf: OVERLAY_FRAME_PRESSURE_DECISION_VALUES },
+      pressureRefs: "string_array",
+      carriedPressureRefs: "string_array",
+      clearedPressureRefs: "string_array",
+      clearingEvidenceRefs: "string_array",
+      foldbackTargetRef: "nullable_string",
+      reentryTargetVectorIndex: "nullable_non_negative_integer",
+      diagnosticRefs: "string_array",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string"
+    })(event);
+    assertOverlayFramePredicateEvaluationRows(
+      event["predicateEvaluations"],
+      "OverlayFrameEvaluatedEvent.predicateEvaluations"
+    );
+  }
 } satisfies Record<RuntimeEvent["kind"], RuntimeEventAdmitter>);
 
 export function parseRuntimeEventKind(

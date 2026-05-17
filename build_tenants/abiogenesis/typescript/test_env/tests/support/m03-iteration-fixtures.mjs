@@ -25,14 +25,14 @@ function node(id, name, kind, markov) {
   });
 }
 
-function stageGraphFunction(name, source, target, edgeName, evaluatorId) {
+function stageGraphFunction(name, source, target, edgeName, evaluatorId, regime) {
   const vector = edge([source], target, {
     id: `graph-${name}`,
     name: edgeName,
     evaluators: [
       {
         name: evaluatorId,
-        regime: "F_P",
+        regime,
         description: `${edgeName} accepted`,
         binding: `binding://${name}`,
         tags: ["fulfillment"]
@@ -49,7 +49,12 @@ function stageGraphFunction(name, source, target, edgeName, evaluatorId) {
   });
 }
 
-export function buildThreeStageModule() {
+export function buildThreeStageModule(options = {}) {
+  const vectorRegimes = options.vectorRegimes ?? [
+    options.defaultRegime ?? "F_P",
+    options.defaultRegime ?? "F_P",
+    options.defaultRegime ?? "F_P"
+  ];
   const inputSet = node("node-m03-input-set", "InputSet", "input_set", "declared");
   const requirements = node(
     "node-m03-requirements",
@@ -66,21 +71,24 @@ export function buildThreeStageModule() {
       inputSet,
       requirements,
       "input_set→requirements",
-      "requirements_ready"
+      "requirements_ready",
+      vectorRegimes[0]
     ),
     stageGraphFunction(
       "synthesize_design",
       requirements,
       design,
       "requirements→design",
-      "design_ready"
+      "design_ready",
+      vectorRegimes[1]
     ),
     stageGraphFunction(
       "implement_code",
       design,
       code,
       "design→code",
-      "code_ready"
+      "code_ready",
+      vectorRegimes[2]
     )
   );
 
@@ -111,8 +119,11 @@ export function buildThreeStageModule() {
 }
 
 export function buildThreeStageBasis(options = {}) {
-  const { module, executive } = buildThreeStageModule();
   const defaultRegime = options.defaultRegime ?? "F_P";
+  const { module, executive } = buildThreeStageModule({
+    defaultRegime,
+    vectorRegimes: options.vectorRegimes
+  });
   const dispatchRef =
     Object.hasOwn(options, "dispatchRef")
       ? options.dispatchRef
@@ -160,8 +171,11 @@ export function buildThreeStageBasis(options = {}) {
 }
 
 export function buildThreeStageStartContext(options = {}) {
-  const { module, executive } = buildThreeStageModule();
   const defaultRegime = options.defaultRegime ?? "F_D";
+  const { module, executive } = buildThreeStageModule({
+    defaultRegime,
+    vectorRegimes: options.vectorRegimes
+  });
   const dispatchRef =
     Object.hasOwn(options, "dispatchRef")
       ? options.dispatchRef

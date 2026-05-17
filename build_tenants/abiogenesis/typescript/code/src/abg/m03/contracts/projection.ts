@@ -20,6 +20,8 @@ import {
   sortedNumbers,
   vectorEdge
 } from "./runtime_support.js";
+import { deriveObservedStateProjection } from "./observed_state.js";
+import { deriveOverlayFrameProjection } from "./overlay_frame.js";
 
 type RuntimeProjectionClosureSource = "vector_closed";
 
@@ -613,6 +615,7 @@ export function deriveRuntimeAggregateProjection(
       case "evidence_admitted":
       case "ambiguity_observation_admitted":
       case "closure_input_published":
+      case "fd_authority_outcome_admitted":
       case "output_instance_allocated":
       case "output_binding_admitted":
       case "output_materialization_observed":
@@ -686,9 +689,13 @@ export function deriveRuntimeAggregateProjection(
       case "construction_intent_candidate_rejected":
       case "construction_intent_selected":
       case "construction_graph_action_invoked":
+      case "construction_pressure_package_materialized":
       case "construction_delta_observed":
       case "construction_terminal_disposition_projected":
       case "workspace_installation_admitted":
+      case "observed_state_admitted":
+      case "overlay_frame_declared":
+      case "overlay_frame_evaluated":
         break;
       default: {
         const exhaustive: never = event;
@@ -843,6 +850,12 @@ export function deriveRuntimeAggregateProjection(
   const frozenLeafTaskIds = freezeStringArray([...leafTaskIds].sort());
   const frozenCompletedLeafTaskIds = freezeStringArray([...completedLeafTaskIds].sort());
   const frozenFailedLeafTaskIds = freezeStringArray([...failedLeafTaskIds].sort());
+  const observedState = deriveObservedStateProjection(events);
+  const overlayFrame = deriveOverlayFrameProjection({
+    basis,
+    events,
+    observedState
+  });
 
   const run = Object.freeze({
     kind: "run_projection",
@@ -882,6 +895,8 @@ export function deriveRuntimeAggregateProjection(
     kind: "runtime_aggregate_projection",
     basisId: basis.id,
     graphFunctionId: basis.graphFunction.id,
+    observedState,
+    overlayFrame,
     run,
     graphCall,
     frame,

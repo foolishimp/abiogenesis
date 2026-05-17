@@ -43,7 +43,7 @@ related_tickets:
   - .ai-workspace/tickets/completed/T-107-define-abg-traversal-modulation-profiles-for-agentic-fp-attempts.md
   - .ai-workspace/tickets/completed/T-116-enable-gtl-plugin-traversal-observer-bindings-for-transform-and-eval.md
   - .ai-workspace/tickets/backlog/T-118-complete-abg-defaults-bundle-expansion-after-plugin-observer-slice.md
-  - .ai-workspace/tickets/backlog/T-128-realize-fp-consciousness-runner-over-admitted-construction-intent.md
+  - .ai-workspace/tickets/completed/T-128-realize-fp-consciousness-runner-over-admitted-construction-intent.md
 source_review:
   - STDO review performed from the strategy post, Abiogenesis INTENT/PRODUCT, LLM GTL App Builder Guide, local ticket README, and shared SPEC/TICKET/ODD method surfaces.
 requirement_refs:
@@ -247,7 +247,7 @@ resolved_blocks:
   - shared construction action catalog/admitted-intent path consumed by public gaps and runtime invocation event construction
   - downstream-style progressive design-depth repair proof lane
 child_ticket_candidates:
-  - .ai-workspace/tickets/backlog/T-128-realize-fp-consciousness-runner-over-admitted-construction-intent.md
+  - .ai-workspace/tickets/completed/T-128-realize-fp-consciousness-runner-over-admitted-construction-intent.md
 intake_source: Design discussion on 2026-05-07 after odd_sdlc T-109 live proof showed incremental F_P repair progress collapsing into repeated same-edge retry and harness timeout rather than a typed homeostatic construction-progress projection.
 target_truth: ABG provides the first-slice generic, event-sourced F_P construction substrate over observed linked asset state. The substrate observes runtime truth, loads a graph/action catalog, ranks admissible outcomes, admits an F_P construction intent, constructs replay-visible graph-action invocation events from that admitted intent, records asset/runtime deltas, and projects progress, closure, block, or escalation truth. Public gaps is a read-only construction preview over incomplete typed assets, blocking obligations, lawful completion or induction actions, and ranking reasons; it cannot mutate runtime truth or dispatch work. Bootstrap enters the same substrate law from sparse replay state, where asset induction may rank highest but must still be a published graph function/action row admitted by ABG. GTL declarations and product plugins may override observation, admissibility, value, progress, and escalation policy; ABG owns carrier admission, invocation event construction, runtime events, ledgers, replay, projection, and lineage. Installed runner-level recursion that consumes AdmittedConstructionIntent and performs graph work is deferred to T-128.
 superseded_truth: Open gaps collapse into next-edge or same-edge retry, product/harness code drives iteration, or prompt prose acts as the hidden evaluator for which graph function should be invoked next.

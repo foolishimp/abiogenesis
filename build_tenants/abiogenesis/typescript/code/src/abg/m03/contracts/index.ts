@@ -23,13 +23,19 @@ export type {
   ConstructionIntentSelectedEvent,
   ConstructionObservationSnapshotMaterializedEvent,
   ConstructionRuntimeEventScope,
+  ConstructionPressurePackageMaterializedEvent,
   ConstructionTerminalDispositionProjectedEvent,
   ConstructionTerminalPublicState,
   DeadlineBreachAdmittedEvent,
   EvidenceAdmittedRuntimeEvent,
+  EffectiveVectorRegime,
+  EffectiveVectorRegimeSource,
   ExecutionBasis,
+  FdAuthorityOutcomeAdmittedRuntimeEvent,
+  FdAuthoritySeverityClass,
   FdAdvanceReadyEvent,
   FdAdvanceTransition,
+  FdPressureRoutingDecision,
   FhEscalatedEvent,
   FhEscalationTransition,
   FpDispatchRequestedEvent,
@@ -68,6 +74,26 @@ export type {
   LeafTaskEnvelope,
   LeafTaskFailedEvent,
   LeafTaskOpenedEvent,
+  ObservedStateAdmissionOutcome,
+  ObservedStateAdmittedRuntimeEvent,
+  ObservedStateDerivationBasis,
+  ObservedStateProjection,
+  ObservedStateRecord,
+  ObservedStateSourceRef,
+  ObservedStateSourceKind,
+  OverlayFrameContract,
+  OverlayFrameDeclaredEvent,
+  OverlayFrameEvaluatedEvent,
+  OverlayFrameFoldbackOutcome,
+  OverlayFramePredicateEvaluationEventRow,
+  OverlayFramePredicateEventRow,
+  OverlayFramePredicateRole,
+  OverlayFramePressureDecisionKind,
+  OverlayFrameProjection,
+  OverlayFrameProjectionRow,
+  OverlayFrameScopeEventRow,
+  OverlayFrameScopeKind,
+  OverlayFrameStatus,
   OutputBindingAdmittedEvent,
   OutputInstanceAllocatedEvent,
   OutputMaterializationObservedEvent,
@@ -133,6 +159,8 @@ export type {
 } from "./carriers.js";
 export {
   COMPUTE_BASIS_FAILURE_CLASS_VALUES,
+  FD_AUTHORITY_SEVERITY_CLASS_VALUES,
+  FD_PRESSURE_ROUTING_DECISION_VALUES,
   PAYLOAD_AMBIGUITY_STATUS_VALUES,
   PAYLOAD_CLOSURE_DECISION_KIND_VALUES,
   PAYLOAD_REJECTION_CLASS_VALUES,
@@ -147,7 +175,8 @@ export {
   GRAPH_CHANGE_CLASS_VALUES,
   GRAPH_REENTRY_POINT_VALUES,
   GRAPH_SPAN_CARRY_OBSERVATION_STATUS_VALUES,
-  GRAPH_SPAN_OBLIGATION_ASSESSMENT_STATUS_VALUES
+  GRAPH_SPAN_OBLIGATION_ASSESSMENT_STATUS_VALUES,
+  OBSERVED_STATE_SOURCE_KIND_VALUES
 } from "./carriers.js";
 export {
   constructEvalGradeVector,
@@ -310,6 +339,31 @@ export {
   parseTerminalKind
 } from "./event_admission.js";
 export {
+  ObservedStateAdmissionRejectedError,
+  ObservedStateSnapshotCoverageRejectedError,
+  admitObservedStateRecord,
+  assertConstructionSnapshotObservedStateCoverage,
+  assertObservedStateAdmitted,
+  constructObservedStateRecord,
+  deriveConstructionSnapshotObservedStateCoverage,
+  deriveObservedStateProjection,
+  observedStateProjectionRef,
+  observedStateRecordFromEvent
+} from "./observed_state.js";
+export type {
+  ObservedStateAdmissionExpectation,
+  ConstructionSnapshotObservedStateCoverageOutcome
+} from "./observed_state.js";
+export {
+  constructOverlayFrameContract,
+  constructOverlayFrameDeclaredEvent,
+  constructOverlayFrameEvaluatedEvent,
+  constructOverlayFramePredicateBinding,
+  constructOverlayFrameScopeRef,
+  deriveOverlayFrameProjection,
+  evaluateOverlayFrameContract
+} from "./overlay_frame.js";
+export {
   CONSTRUCTION_PROGRESS_DERIVED_FLUENT_RULE,
   RUNTIME_EVENT_CALCULUS_AXIOMS,
   RUNTIME_FLUENT_NAME_VALUES,
@@ -401,8 +455,10 @@ export {
   constructBasisAdmittedEvent,
   constructClosureInputPublishedEvent,
   constructEvidenceAdmittedEvent,
+  constructFdAuthorityOutcomeAdmittedEvent,
   constructFrameOpenedEvent,
   constructGraphCallOpenedEvent,
+  constructObservedStateAdmittedEvent,
   constructPayloadObservedEvent,
   constructPayloadRejectedEvent,
   constructPayloadValidatedEvent,
@@ -436,6 +492,10 @@ export {
   deriveIterationAdvanceDecision,
   runtimeEventsForIterationDecision
 } from "./iteration.js";
+export {
+  deriveEffectiveVectorRegime,
+  VECTOR_RUNTIME_REGIME_DECLARATION_KEY
+} from "./regime_resolution.js";
 export {
   TRAVERSAL_CONTINUATION_ACTION_VALUES,
   TRAVERSAL_NON_PROGRESS_CLASSIFICATION_VALUES,
@@ -535,21 +595,27 @@ export {
   CONSTRUCTIVE_CONSTRUCTION_ACTION_KIND_VALUES,
   admitAffectPriorityPolicies,
   admitAffectPriorityPolicy,
+  admitConstructionPressurePackage,
   admitConstructionPriorityRule,
   admitConstructionPriorityScheme,
   admitConstructionIntentCandidate,
+  assertConstructionPressurePackageAdmitted,
   assertConstructionProjectionSummaryAgreement,
   constructAffectPriorityPolicy,
   constructConstructionActionCatalogProjection,
   constructConstructionActionRefForTraversalTarget,
   constructConstructionActionRow,
+  constructConstructionDeltaObservedEvent,
   constructConstructionGraphActionInvokedEvent,
   constructConstructionIntentCandidate,
   constructConstructionObservationSnapshot,
+  constructConstructionPressurePackageMaterializedEvent,
   constructConstructionPriorityRule,
   constructConstructionPriorityScheme,
   constructObservationPressureRow,
   deriveConstructionObservationAssetRefsFromRuntimeTruth,
+  deriveConstructionPressurePackage,
+  deriveConstructionPressureProjection,
   deriveConstructionPriorityProjection,
   deriveConstructionPrioritySchemeFromHookResolutions,
   deriveConstructionEventCalculusProjection,
@@ -584,7 +650,13 @@ export type {
   ConstructionIntentCandidate,
   ConstructionObservationAssetRefs,
   ConstructionObservationSnapshot,
+  ConstructionPressureClearanceEvidence,
+  ConstructionPressureInputBasis,
   ConstructionPressureKind,
+  ConstructionPressurePackage,
+  ConstructionPressurePackageAdmission,
+  ConstructionPressureProjection,
+  ConstructionPressureRef,
   ConstructionPriorityAxis,
   ConstructionPriorityProjection,
   ConstructionPriorityRow,
@@ -737,6 +809,7 @@ export {
   constructFdEvaluationOutcome,
   constructFhAdmissionOutcome,
   constructFpDispatchOutcome,
+  deriveFdPressureRoutingDecision,
   defaultFdEvaluatorPlugin,
   defaultFhAdmissionPlugin,
   defaultFpDispatchPlugin,

@@ -149,6 +149,17 @@ not, the generic binding comes from visible GTL defaults config, not from code
 constants, prompt prose, parser convention, or null. ABG consumes the selected
 binding for payload admission, replay, projection, and closure preconditions.
 
+ABG.Fn composition binding is mandatory wherever a graph function, graph
+vector, evaluator, rule, or operator boundary combines deterministic,
+probabilistic, or human/held-out regimes for traversal selection, evidence,
+optimization, or closure. The selected composition identity binds the host GTL
+surface, ordered regime roles, standards context, policy context, carrier
+context, assurance context, and deterministic closure predicate. F_P and F_H
+contributions are evidence or judgment states under that identity; they are not
+closure law. F_P-to-F_D optimization is lawful only when an admitted equivalence
+contract preserves the source composition identity through positive and negative
+cases.
+
 ABG owns the governance and control truth around an invocation of that
 traversal. It binds the traversal to a worker, tool, or agent; records events
 and provenance; projects state; classifies outcomes; and advances only through

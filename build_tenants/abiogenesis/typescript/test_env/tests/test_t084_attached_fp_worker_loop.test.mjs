@@ -239,6 +239,56 @@ test("T-084 public start: attached F_P graph converges without caller-owned loop
   );
 });
 
+test("T-084 non-retryable runtime failures stop without same-edge retry", () => {
+  const basis = buildThreeStageBasis({
+    defaultRegime: "F_P",
+    dispatchRef: "dispatch://attached-worker"
+  });
+  const events = [];
+  let dispatchCount = 0;
+  const fpDispatch = Object.freeze({
+    contract: fpDispatchContract("plugin://test/t084-runtime-failure-stop"),
+    dispatch: (input) => {
+      dispatchCount += 1;
+      return constructFpDispatchOutcome({
+        status: "blocked",
+        resultRef: `result://t084-runtime-failure/${encodeURIComponent(input.edge)}`,
+        attachedResultArtifact: {
+          kind: "runtime_failure",
+          failureClass: "runtime_failure",
+          detail: "invalid model selection"
+        },
+        evidenceRefs: [input.sourceProjectionRef],
+        reason: "invalid model selection"
+      });
+    }
+  });
+
+  const result = runEngineIterate({
+    basis,
+    eventSink: (event) => {
+      events.push(event);
+    },
+    plugins: { fpDispatch }
+  });
+
+  assert.equal(dispatchCount, 1);
+  assert.equal(result.transition.kind, "terminal");
+  assert.equal(result.transition.terminalKind, "gap_stop");
+  assert.equal(
+    events.some((event) => event.kind === "retry_repair_planned"),
+    false
+  );
+  assert.equal(
+    events.some((event) => event.kind === "retry_attempt_opened"),
+    false
+  );
+  assert.equal(
+    events.filter((event) => event.kind === "retry_attempt_stopped").length,
+    1
+  );
+});
+
 test("T-084 negative: F_P plugin output cannot carry hidden traversal authority", () => {
   assert.throws(
     () =>

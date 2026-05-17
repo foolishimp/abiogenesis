@@ -992,13 +992,11 @@ test("T-127 candidate admission rejects hidden config, event payloads, and F_D c
   });
 
   assert.equal(admission.decision, "rejected");
-  assert.ok(admission.rejectionReasonRefs.includes("hidden_runtime_config"));
-  assert.ok(admission.rejectionReasonRefs.includes("direct_runtime_event_payload"));
-  assert.ok(
-    admission.rejectionReasonRefs.includes(
-      "fd_semantic_canonicalization_without_source_authority"
-    )
-  );
+  assert.deepEqual(admission.rejectionReasonRefs, [
+    "hidden_runtime_config",
+    "direct_runtime_event_payload",
+    "fd_semantic_canonicalization_without_source_authority"
+  ]);
 });
 
 test("T-127 progress ledger distinguishes material progress from stagnation", () => {
@@ -1322,6 +1320,7 @@ test("T-127 construction Event Calculus replay uses canonical event order and de
       eventSequence: 1,
       observationId: OBSERVATION_ID,
       currentProjectionRef: "runtime-projection://t127/0",
+      observedStateRefs: [],
       linkedAssetRefs: ["asset://requirements/site"],
       authorityDigest: "sha256:t127-authority"
     }

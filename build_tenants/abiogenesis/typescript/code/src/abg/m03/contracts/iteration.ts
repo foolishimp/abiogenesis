@@ -16,6 +16,7 @@ import {
   constructVectorTraversalPlannedEvent
 } from "./event_factories.js";
 import { deriveRuntimeAggregateProjection } from "./projection.js";
+import { deriveEffectiveVectorRegime } from "./regime_resolution.js";
 import { vectorEdge } from "./runtime_support.js";
 
 export function deriveIterationAdvanceDecision(
@@ -41,12 +42,17 @@ export function deriveIterationAdvanceDecision(
       reason: "all graph-function vectors are closed by replay"
     });
   }
+  const effectiveRegime = deriveEffectiveVectorRegime({
+    basis,
+    vectorIndex: projection.nextVectorIndex
+  });
   return Object.freeze({
     kind: "advance_vector",
     basis,
     vectorIndex: projection.nextVectorIndex,
     edge: vectorEdge(basis, projection.nextVectorIndex),
-    regime: basis.resolvedPolicy.defaultRegime
+    regime: effectiveRegime.regime,
+    effectiveRegime
   });
 }
 
@@ -66,13 +72,14 @@ export function deriveAdvancementTransition(
     } satisfies TerminalTransition);
   }
 
-  switch (basis.resolvedPolicy.defaultRegime) {
+  switch (decision.regime) {
     case "F_D":
       return Object.freeze({
         kind: "fd_advance",
         basis,
         vectorIndex: decision.vectorIndex,
         edge: decision.edge,
+        effectiveRegime: decision.effectiveRegime,
         status: "ready"
       } satisfies FdAdvanceTransition);
     case "F_P": {
@@ -87,6 +94,7 @@ export function deriveAdvancementTransition(
         basis,
         vectorIndex: decision.vectorIndex,
         edge: decision.edge,
+        effectiveRegime: decision.effectiveRegime,
         dispatchRef
       } satisfies FpDispatchTransition);
     }
@@ -101,11 +109,12 @@ export function deriveAdvancementTransition(
         basis,
         vectorIndex: decision.vectorIndex,
         edge: decision.edge,
+        effectiveRegime: decision.effectiveRegime,
         approvalSubjectRef: basis.resolvedPolicy.approvalSubjectRef,
         gateReason: "fh_gate"
       } satisfies FhEscalationTransition);
     default: {
-      const exhaustive: never = basis.resolvedPolicy.defaultRegime;
+      const exhaustive: never = decision.regime;
       throw new TypeError(`Unsupported runtime regime ${JSON.stringify(exhaustive)}`);
     }
   }
@@ -129,7 +138,8 @@ export function runtimeEventsForIterationDecision(
     constructFrameOpenedEvent(decision.basis),
     constructVectorTraversalPlannedEvent({
       basis: decision.basis,
-      vectorIndex: decision.vectorIndex
+      vectorIndex: decision.vectorIndex,
+      effectiveRegime: decision.effectiveRegime
     })
   ]);
 }

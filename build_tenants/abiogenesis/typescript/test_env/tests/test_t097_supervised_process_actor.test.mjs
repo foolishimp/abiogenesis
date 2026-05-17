@@ -292,7 +292,7 @@ test("T-097 supervised process actor escalates timeout from SIGTERM to SIGKILL w
     stderrPath,
     stdoutRef: pathToFileURL(stdoutPath).href,
     stderrRef: pathToFileURL(stderrPath).href,
-    timeoutMs: 30,
+    timeoutMs: 250,
     terminationGraceMs: 30,
     heartbeatMs: 0,
     eventSink: (event) => {

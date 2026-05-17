@@ -1494,6 +1494,26 @@ export const RUNTIME_EVENT_CALCULUS_AXIOMS = Object.freeze([
   }),
   Object.freeze({
     kind: "event_calculus_axiom",
+    eventKind: "observed_state_admitted",
+    deriveEffects: constructionReplayAidAxiom
+  }),
+  Object.freeze({
+    kind: "event_calculus_axiom",
+    eventKind: "fd_authority_outcome_admitted",
+    deriveEffects: constructionReplayAidAxiom
+  }),
+  Object.freeze({
+    kind: "event_calculus_axiom",
+    eventKind: "overlay_frame_declared",
+    deriveEffects: constructionReplayAidAxiom
+  }),
+  Object.freeze({
+    kind: "event_calculus_axiom",
+    eventKind: "overlay_frame_evaluated",
+    deriveEffects: constructionReplayAidAxiom
+  }),
+  Object.freeze({
+    kind: "event_calculus_axiom",
     eventKind: "construction_action_catalog_projected",
     deriveEffects: constructionReplayAidAxiom
   }),
@@ -1526,6 +1546,11 @@ export const RUNTIME_EVENT_CALCULUS_AXIOMS = Object.freeze([
     kind: "event_calculus_axiom",
     eventKind: "construction_graph_action_invoked",
     deriveEffects: constructionGraphActionInvokedAxiom
+  }),
+  Object.freeze({
+    kind: "event_calculus_axiom",
+    eventKind: "construction_pressure_package_materialized",
+    deriveEffects: constructionReplayAidAxiom
   }),
   Object.freeze({
     kind: "event_calculus_axiom",

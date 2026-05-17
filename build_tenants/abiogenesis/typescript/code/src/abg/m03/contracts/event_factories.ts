@@ -1,4 +1,3 @@
-import { createHash } from "node:crypto";
 import type {
   AdvancementTransition,
   ActorInvocation,
@@ -17,15 +16,21 @@ import type {
   BasisAdmittedEvent,
   ClosureInputPublishedRuntimeEvent,
   EvidenceAdmittedRuntimeEvent,
+  EffectiveVectorRegime,
   ExecutionBasis,
+  FdAuthorityOutcomeAdmittedRuntimeEvent,
+  FdAuthoritySeverityClass,
   FdAdvanceReadyEvent,
   FdAdvanceTransition,
+  FdPressureRoutingDecision,
   FhEscalatedEvent,
   FhEscalationTransition,
   FpDispatchRequestedEvent,
   FpDispatchTransition,
   FrameOpenedEvent,
   GraphCallOpenedEvent,
+  ObservedStateAdmittedRuntimeEvent,
+  ObservedStateSourceKind,
   PayloadObservedRuntimeEvent,
   PayloadRejectedRuntimeEvent,
   PayloadValidatedRuntimeEvent,
@@ -39,14 +44,26 @@ import type {
   VectorEvaluatedEvent,
   VectorTraversalPlannedEvent
 } from "./carriers.js";
-import type { PluginTraversalObserverBindingSelection } from "./plugin_traversal_observer.js";
 import {
+  FD_AUTHORITY_SEVERITY_CLASS_VALUES,
+  FD_PRESSURE_ROUTING_DECISION_VALUES,
+  OBSERVED_STATE_SOURCE_KIND_VALUES
+} from "./carriers.js";
+import type { PluginTraversalObserverBindingSelection } from "./plugin_traversal_observer.js";
+import { deriveEffectiveVectorRegime } from "./regime_resolution.js";
+import {
+  assertNonEmptyString,
+  assertNonNegativeInteger,
   assertVectorIndexInRange,
   frameIdForBasis,
   freezeStringArray,
   graphCallIdForBasis,
   vectorEdge
 } from "./runtime_support.js";
+import {
+  sha256DigestForText,
+  stableJson
+} from "../../../shared/runtime_identity.js";
 
 export function constructGraphCallOpenedEvent(
   basis: ExecutionBasis
@@ -78,15 +95,34 @@ export function constructFrameOpenedEvent(
 export function constructVectorTraversalPlannedEvent(input: {
   readonly basis: ExecutionBasis;
   readonly vectorIndex: number;
+  readonly effectiveRegime?: EffectiveVectorRegime | undefined;
 }): VectorTraversalPlannedEvent {
   assertVectorIndexInRange(input.basis, input.vectorIndex);
+  const effectiveRegime =
+    input.effectiveRegime ??
+    deriveEffectiveVectorRegime({
+      basis: input.basis,
+      vectorIndex: input.vectorIndex
+    });
+  if (
+    effectiveRegime.basisId !== input.basis.id ||
+    effectiveRegime.vectorIndex !== input.vectorIndex
+  ) {
+    throw new TypeError(
+      "VectorTraversalPlannedEvent requires matching effective regime"
+    );
+  }
   return Object.freeze({
     kind: "vector_traversal_planned",
     basisId: input.basis.id,
     graphCallId: graphCallIdForBasis(input.basis),
     frameId: frameIdForBasis(input.basis),
     vectorIndex: input.vectorIndex,
-    edge: vectorEdge(input.basis, input.vectorIndex)
+    edge: vectorEdge(input.basis, input.vectorIndex),
+    regime: effectiveRegime.regime,
+    regimeSource: effectiveRegime.source,
+    regimeSourceRef: effectiveRegime.sourceRef,
+    regimeDiagnosticRefs: effectiveRegime.diagnosticRefs
   });
 }
 
@@ -218,25 +254,6 @@ function actorRuntimeScope(invocation: ActorInvocation) {
     causationEventRefs: freezeStringArray(invocation.causationEventRefs),
     correlationId: invocation.correlationId
   });
-}
-
-function sha256Text(input: string): string {
-  return `sha256:${createHash("sha256").update(input).digest("hex")}`;
-}
-
-function stableJson(input: unknown): string {
-  if (input === null || typeof input !== "object") {
-    return JSON.stringify(input);
-  }
-  if (Array.isArray(input)) {
-    return `[${input.map((entry) => stableJson(entry)).join(",")}]`;
-  }
-  const entries = Object.entries(input).sort(([left], [right]) =>
-    left.localeCompare(right)
-  );
-  return `{${entries
-    .map(([key, value]) => `${JSON.stringify(key)}:${stableJson(value)}`)
-    .join(",")}}`;
 }
 
 export function constructActorProcessStartedEvent(input: {
@@ -490,10 +507,10 @@ export function constructPluginTraversalPromptMaterializedEvent(input: {
     causationEventRefs,
     correlationId: input.correlationId
   };
-  const materializationDigest = sha256Text(stableJson(materializationBasis));
+  const materializationDigest = sha256DigestForText(stableJson(materializationBasis));
   const materializationRef =
     `plugin-traversal-prompt-materialized:${materializationDigest}`;
-  const promptInputDigest = sha256Text(stableJson({
+  const promptInputDigest = sha256DigestForText(stableJson({
     ...materializationBasis,
     observerPromptRef: input.selection.binding.observerPromptRef,
     promptTemplateRef: input.selection.binding.promptTemplateRef,
@@ -785,6 +802,183 @@ export function constructClosureInputPublishedEvent(input: {
     ),
     policyRefs: freezeStringArray(input.policyRefs ?? Object.freeze([]))
   });
+}
+
+function assertObservedStateSourceKind(
+  value: ObservedStateSourceKind,
+  label: string
+): void {
+  for (const allowed of OBSERVED_STATE_SOURCE_KIND_VALUES) {
+    if (value === allowed) {
+      return;
+    }
+  }
+  throw new TypeError(`${label}: unsupported observed state source kind ${value}`);
+}
+
+function assertFdAuthoritySeverityClass(
+  value: FdAuthoritySeverityClass | null,
+  label: string
+): void {
+  if (value === null) {
+    return;
+  }
+  for (const allowed of FD_AUTHORITY_SEVERITY_CLASS_VALUES) {
+    if (value === allowed) {
+      return;
+    }
+  }
+  throw new TypeError(`${label}: unsupported F_D authority severity class ${value}`);
+}
+
+function assertFdPressureRoutingDecision(
+  value: FdPressureRoutingDecision,
+  label: string
+): void {
+  for (const allowed of FD_PRESSURE_ROUTING_DECISION_VALUES) {
+    if (value === allowed) {
+      return;
+    }
+  }
+  throw new TypeError(`${label}: unsupported F_D pressure routing decision ${value}`);
+}
+
+export function constructObservedStateAdmittedEvent(input: {
+  readonly basis: ExecutionBasis;
+  readonly observedStateRef: string;
+  readonly sourceKind: ObservedStateSourceKind;
+  readonly scopeRef: string;
+  readonly sourceRef: string;
+  readonly digest: string;
+  readonly version?: string | null | undefined;
+  readonly eventWatermark: number;
+  readonly freshnessPolicyRef: string;
+  readonly derivationBasisRef: string;
+  readonly basisProjectionRef: string;
+  readonly derivedFromRefs: readonly string[];
+  readonly causationEventRefs?: readonly string[] | undefined;
+  readonly correlationId?: string | undefined;
+}): ObservedStateAdmittedRuntimeEvent {
+  assertNonEmptyString(input.observedStateRef, "ObservedState.observedStateRef");
+  assertObservedStateSourceKind(input.sourceKind, "ObservedState.sourceKind");
+  assertNonEmptyString(input.scopeRef, "ObservedState.scopeRef");
+  assertNonEmptyString(input.sourceRef, "ObservedState.sourceRef");
+  assertNonEmptyString(input.digest, "ObservedState.digest");
+  if (input.version !== undefined && input.version !== null) {
+    assertNonEmptyString(input.version, "ObservedState.version");
+  }
+  assertNonNegativeInteger(input.eventWatermark, "ObservedState.eventWatermark");
+  assertNonEmptyString(input.freshnessPolicyRef, "ObservedState.freshnessPolicyRef");
+  assertNonEmptyString(input.derivationBasisRef, "ObservedState.derivationBasisRef");
+  assertNonEmptyString(input.basisProjectionRef, "ObservedState.basisProjectionRef");
+  const derivedFromRefs = freezeStringArray(input.derivedFromRefs);
+  if (derivedFromRefs.length === 0) {
+    throw new TypeError("ObservedState requires derivedFromRefs");
+  }
+  return Object.freeze({
+    kind: "observed_state_admitted",
+    basisId: input.basis.id,
+    graphFunctionId: input.basis.graphFunction.id,
+    runId: input.basis.runId,
+    workKey: input.basis.workKey,
+    observedStateRef: input.observedStateRef,
+    sourceKind: input.sourceKind,
+    scopeRef: input.scopeRef,
+    sourceRef: input.sourceRef,
+    digest: input.digest,
+    version: input.version ?? null,
+    eventWatermark: input.eventWatermark,
+    freshnessPolicyRef: input.freshnessPolicyRef,
+    derivationBasisRef: input.derivationBasisRef,
+    basisProjectionRef: input.basisProjectionRef,
+    derivedFromRefs,
+    causationEventRefs: freezeStringArray(
+      input.causationEventRefs ?? Object.freeze([])
+    ),
+    correlationId:
+      input.correlationId ??
+      [
+        "observed-state",
+        input.basis.id,
+        input.observedStateRef,
+        String(input.eventWatermark)
+      ].join(":")
+  } satisfies ObservedStateAdmittedRuntimeEvent);
+}
+
+export function constructFdAuthorityOutcomeAdmittedEvent(input: {
+  readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
+  readonly status: FdAuthorityOutcomeAdmittedRuntimeEvent["status"];
+  readonly severityClass: FdAuthoritySeverityClass | null;
+  readonly routingDecision: FdPressureRoutingDecision;
+  readonly affectedFieldRefs?: readonly string[] | undefined;
+  readonly consumedFieldRefs?: readonly string[] | undefined;
+  readonly pressureRefs?: readonly string[] | undefined;
+  readonly diagnosticRefs?: readonly string[] | undefined;
+  readonly evidenceRefs?: readonly string[] | undefined;
+  readonly causationEventRefs?: readonly string[] | undefined;
+  readonly correlationId?: string | undefined;
+}): FdAuthorityOutcomeAdmittedRuntimeEvent {
+  assertVectorIndexInRange(input.basis, input.vectorIndex);
+  assertFdAuthoritySeverityClass(input.severityClass, "FdAuthority.severityClass");
+  assertFdPressureRoutingDecision(
+    input.routingDecision,
+    "FdAuthority.routingDecision"
+  );
+  const edge = vectorEdge(input.basis, input.vectorIndex);
+  const affectedFieldRefs = freezeStringArray(
+    input.affectedFieldRefs ?? Object.freeze([])
+  );
+  const consumedFieldRefs = freezeStringArray(
+    input.consumedFieldRefs ?? Object.freeze([])
+  );
+  const pressureRefs = freezeStringArray(
+    input.pressureRefs ?? Object.freeze([])
+  );
+  const diagnosticRefs = freezeStringArray(
+    input.diagnosticRefs ?? Object.freeze([])
+  );
+  const evidenceRefs = freezeStringArray(
+    input.evidenceRefs ?? Object.freeze([])
+  );
+  return Object.freeze({
+    kind: "fd_authority_outcome_admitted",
+    basisId: input.basis.id,
+    graphCallId: graphCallIdForBasis(input.basis),
+    frameId: frameIdForBasis(input.basis),
+    graphFunctionId: input.basis.graphFunction.id,
+    runId: input.basis.runId,
+    workKey: input.basis.workKey,
+    vectorIndex: input.vectorIndex,
+    edge,
+    outcomeRef: [
+      "fd-authority-outcome",
+      input.basis.id,
+      String(input.vectorIndex),
+      input.routingDecision,
+      input.severityClass ?? "accepted"
+    ].join(":"),
+    status: input.status,
+    severityClass: input.severityClass,
+    routingDecision: input.routingDecision,
+    affectedFieldRefs,
+    consumedFieldRefs,
+    pressureRefs,
+    diagnosticRefs,
+    evidenceRefs,
+    causationEventRefs: freezeStringArray(
+      input.causationEventRefs ?? Object.freeze([])
+    ),
+    correlationId:
+      input.correlationId ??
+      [
+        "fd-authority",
+        input.basis.id,
+        String(input.vectorIndex),
+        input.routingDecision
+      ].join(":")
+  } satisfies FdAuthorityOutcomeAdmittedRuntimeEvent);
 }
 
 export function runtimeEventsForTransition(

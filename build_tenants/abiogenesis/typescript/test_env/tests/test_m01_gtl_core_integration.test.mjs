@@ -100,6 +100,7 @@ function planEvaluator() {
     regime: "F_D",
     description: "plan satisfies declared repair contract",
     binding: "binding://attest-plan",
+    consumedFieldRefs: [],
     tags: ["proof"]
   };
 }

@@ -4,7 +4,6 @@
 // Implements: REQ-R-ABG3-POLICY
 // Implements: REQ-R-ABG3-PROVENANCE
 
-import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import type {
   GraphFunction,
@@ -31,6 +30,10 @@ import {
   assertNonEmptyString,
   freezeStringArray
 } from "./runtime_support.js";
+import {
+  sha256DigestForText,
+  stableSha256Digest
+} from "../../../shared/runtime_identity.js";
 
 export const PLUGIN_TRAVERSAL_KIND_VALUES = Object.freeze([
   "transform",
@@ -138,28 +141,7 @@ function freezeUniqueStringArray(
   return freezeStringArray(result);
 }
 
-function stableJson(input: unknown): string {
-  if (input === null || typeof input !== "object") {
-    return JSON.stringify(input);
-  }
-  if (Array.isArray(input)) {
-    return `[${input.map((entry) => stableJson(entry)).join(",")}]`;
-  }
-  const entries = Object.entries(input).sort(([left], [right]) =>
-    left.localeCompare(right)
-  );
-  return `{${entries
-    .map(([key, value]) => `${JSON.stringify(key)}:${stableJson(value)}`)
-    .join(",")}}`;
-}
-
-function sha256Text(content: string): string {
-  return `sha256:${createHash("sha256").update(content).digest("hex")}`;
-}
-
-function digestForValue(input: unknown): string {
-  return sha256Text(stableJson(input));
-}
+const digestForValue = stableSha256Digest;
 
 function attrValueForKey(
   attrs: SerializedAttrs,
@@ -555,7 +537,7 @@ export function loadAbgFallbackBundleFromFile(
   const raw = readFileSync(bundlePath, "utf8");
   return admitAbgFallbackBundle(JSON.parse(raw), {
     bundlePath,
-    bundleDigest: sha256Text(raw)
+    bundleDigest: sha256DigestForText(raw)
   });
 }
 

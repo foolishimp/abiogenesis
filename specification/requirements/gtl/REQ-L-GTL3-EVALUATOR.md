@@ -27,3 +27,7 @@ and gate-visible assessment.
 **REQ-L-GTL3-EVALUATOR-006**: Domain-specific gap, closure, ranking, or attestation semantics belong to evaluator declarations and their resolved implementations, not to the interpreter.
 
 **REQ-L-GTL3-EVALUATOR-007**: Probabilistic evaluator output for a declared edge assurance contract shall be a constrained finding over gain, close disposition, residual pressure, continuation, evidence, authority, and composition refs. Such output shall not directly close the edge, write a ledger, select a vector, or emit runtime events. If F_P proposes human involvement, that proposed close disposition shall be distinct from ABG's F_H-by-absentia disposition for a missing edge assurance contract.
+
+**REQ-L-GTL3-EVALUATOR-008**: Evaluator declarations that participate in an `abg.fn_composition` contract shall preserve the evaluator regime, role, authority, consumed field refs, input carrier refs, output carrier refs, and evidence refs needed by ABG admission. A probabilistic or human evaluator may emit evidence or judgment state under the selected composition identity, but it shall not claim deterministic closure authority.
+
+**REQ-L-GTL3-EVALUATOR-009**: Evaluator declarations shall expose `consumedFieldRefs` as an admitted carrier field when deterministic authority placement depends on which output fields downstream routing, execution construction, pressure projection, or closure predicates read. An empty consumed-field set is lawful only when the evaluator does not consume field-local payload truth for those decisions.

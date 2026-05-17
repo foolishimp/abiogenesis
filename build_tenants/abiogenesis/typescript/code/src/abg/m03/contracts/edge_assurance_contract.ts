@@ -4,7 +4,6 @@
 // Implements: REQ-R-ABG3-ASSURANCE
 // Implements: REQ-R-ABG3-PAYLOAD
 
-import { createHash } from "node:crypto";
 import type {
   GraphFunction,
   GraphVector,
@@ -27,6 +26,10 @@ import {
   assertNonEmptyString,
   freezeStringArray
 } from "./runtime_support.js";
+import {
+  stableJson,
+  stableSha256Digest
+} from "../../../shared/runtime_identity.js";
 import type {
   HookActionRecord,
   HookFindingAdmission
@@ -220,24 +223,7 @@ const FORBIDDEN_FP_EVAL_FINDING_AUTHORITY_FIELDS = Object.freeze([
   "maySelectNextVector"
 ] as const);
 
-function stableJson(input: unknown): string {
-  if (input === null || typeof input !== "object") {
-    return JSON.stringify(input);
-  }
-  if (Array.isArray(input)) {
-    return `[${input.map((entry) => stableJson(entry)).join(",")}]`;
-  }
-  const entries = Object.entries(input).sort(([left], [right]) =>
-    left.localeCompare(right)
-  );
-  return `{${entries
-    .map(([key, value]) => `${JSON.stringify(key)}:${stableJson(value)}`)
-    .join(",")}}`;
-}
-
-function digestForValue(input: unknown): string {
-  return `sha256:${createHash("sha256").update(stableJson(input)).digest("hex")}`;
-}
+const digestForValue = stableSha256Digest;
 
 function canonicalSerializedAttrs(attrs: SerializedAttrs): SerializedAttrs {
   return Object.freeze({

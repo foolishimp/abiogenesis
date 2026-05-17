@@ -103,6 +103,7 @@ export interface Evaluator {
   readonly regime: Regime;
   readonly description: string;
   readonly binding: string;
+  readonly consumedFieldRefs: readonly string[];
   readonly tags: readonly string[];
 }
 

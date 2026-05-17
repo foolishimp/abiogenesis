@@ -654,6 +654,7 @@ export function deriveRetryFrontierProjection(input: {
       case "authority_snapshot_admitted":
       case "evidence_admitted":
       case "closure_input_published":
+      case "fd_authority_outcome_admitted":
       case "output_instance_allocated":
       case "output_binding_admitted":
       case "output_materialization_observed":
@@ -689,9 +690,13 @@ export function deriveRetryFrontierProjection(input: {
       case "construction_intent_candidate_rejected":
       case "construction_intent_selected":
       case "construction_graph_action_invoked":
+      case "construction_pressure_package_materialized":
       case "construction_delta_observed":
       case "construction_terminal_disposition_projected":
       case "workspace_installation_admitted":
+      case "observed_state_admitted":
+      case "overlay_frame_declared":
+      case "overlay_frame_evaluated":
         break;
       default:
         {

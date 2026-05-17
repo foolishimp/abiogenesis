@@ -12,7 +12,24 @@ export {
   DEFAULT_ATTACHED_FP_MAX_RETRY_ATTEMPTS,
   deriveAttachedFpResultDecision
 } from "./attached_fp_worker.js";
+export {
+  composeConstructionRunnerOutcome,
+  deriveConstructionDeltaFromGraphResult,
+  deriveConstructionEffectPlan,
+  materializeConstructionInvocationEvents,
+  runConstructionEffectPlan,
+  runConstructionIntentStep
+} from "./construction_runner.js";
 export type { AttachedFpResultDecision } from "./attached_fp_worker.js";
+export type {
+  ConstructionIntentRunnerRequest,
+  ConstructionInvocationEvents,
+  ConstructionRuntimeEffectPlanDerivation,
+  ConstructionRuntimeEffectResult,
+  ConstructionRunnerStepOutcome,
+  ConstructionRunnerStepStatus,
+  ConstructionRuntimeEffectPlan
+} from "./construction_runner.js";
 export type {
   EngineAssuranceGateKind,
   EngineAssuranceGateResult,

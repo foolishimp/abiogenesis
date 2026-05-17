@@ -57,6 +57,14 @@ and projects.
 
 **REQ-R-ABG3-FPC-011**: F_D evidence shall remain mechanical or domain-owned optimization truth. When source authority does not disambiguate product meaning, F_D shall not force canonical semantic output or fail the construction episode. It shall project ambiguity pressure that can trigger the `F_P` construction evaluator.
 
+**REQ-R-ABG3-FPC-011A**: F_D outcomes shall carry admitted authority-placement severity when they do not accept. The closed severity classes are `protocol_invalid`, `construction_context_invalid`, `diagnostic_shape_invalid`, and `content_unproven`.
+
+**REQ-R-ABG3-FPC-011B**: ABG shall derive F_D pressure routing from severity plus evaluator-declared `consumedFieldRefs`. `protocol_invalid` and `construction_context_invalid` block. `diagnostic_shape_invalid` blocks only when the malformed field is consumed by downstream routing, execution construction, pressure projection, or closure; otherwise it preserves pressure and allows lawful construction to continue. `content_unproven` routes to F_P/content pressure rather than deterministic closure.
+
+**REQ-R-ABG3-FPC-011C**: F_D authority-placement decisions shall be replay-visible runtime truth. The event spine shall preserve status, severity class, routing decision, affected field refs, consumed field refs, pressure refs, diagnostics, and evidence refs sufficient to replay the runner's block, continue, pressure-preserve, or F_P-route behavior.
+
+**REQ-R-ABG3-FPC-011D**: Plugins may report deterministic evidence and affected fields, but they shall not own pressure-routing authority. If a plugin supplies a routing decision, ABG shall admit it only when it matches the routing derived from admitted severity and consumed-field truth.
+
 **REQ-R-ABG3-FPC-012**: The public construction projection shall expose one authoritative next-action state for a construction episode. Minimum states are `construction_closed`, `construction_progressing_yield`, `construction_blocked`, `construction_stalled`, `construction_review_required`, `construction_escalated`, `fh_input_required`, `ticket_created`, and `reprice_required`.
 
 **REQ-R-ABG3-FPC-013**: GTL/product overrides for observation, action catalog, admissibility, value, progress, escalation, and intent rendering shall resolve from declared hook/policy surfaces with visible fallback behavior. Hidden runtime config shall not satisfy override authority.

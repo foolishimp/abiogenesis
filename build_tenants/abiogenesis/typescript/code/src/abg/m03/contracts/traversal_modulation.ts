@@ -5,7 +5,6 @@
 // Implements: REQ-R-ABG3-PROJECTION-012
 // Implements: REQ-R-ABG3-ASSURANCE
 
-import { createHash } from "node:crypto";
 import type {
   ExecutionBasis,
   TraversalAttemptDispatchedEvent,
@@ -34,6 +33,7 @@ import {
   graphCallIdForBasis,
   vectorEdge
 } from "./runtime_support.js";
+import { stableSha256Digest } from "../../../shared/runtime_identity.js";
 
 export const TRAVERSAL_SCHEDULING_PRIMITIVE_VALUES = Object.freeze([
   "atomic_attempt",
@@ -674,25 +674,6 @@ function sortedUniqueStrings(values: Iterable<string>): readonly string[] {
   return freezeStringArray([...new Set(values)].sort());
 }
 
-function stableJson(input: unknown): string {
-  if (input === null || typeof input !== "object") {
-    return JSON.stringify(input);
-  }
-  if (Array.isArray(input)) {
-    return `[${input.map((entry) => stableJson(entry)).join(",")}]`;
-  }
-  const entries = Object.entries(input).sort(([left], [right]) =>
-    left.localeCompare(right)
-  );
-  return `{${entries
-    .map(([key, value]) => `${JSON.stringify(key)}:${stableJson(value)}`)
-    .join(",")}}`;
-}
-
-function sha256Json(input: unknown): string {
-  return `sha256:${createHash("sha256").update(stableJson(input)).digest("hex")}`;
-}
-
 function runtimeLineageFields(input: {
   readonly basis: ExecutionBasis;
   readonly causationEventRefs?: readonly string[] | undefined;
@@ -1070,7 +1051,7 @@ function selectionFromDirective(input: {
     hookRef: input.hookRef,
     directive
   });
-  const configDigest = sha256Json(digestInput);
+  const configDigest = stableSha256Digest(digestInput);
   return Object.freeze({
     kind: "traversal_strategy_selection",
     selectionRef:

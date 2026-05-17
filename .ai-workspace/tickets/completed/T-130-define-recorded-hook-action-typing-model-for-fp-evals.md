@@ -26,7 +26,7 @@ owning_repo: abiogenesis
 governance_scope: STDO Method
 parent_tickets:
   - .ai-workspace/tickets/completed/T-127-define-generic-fp-consciousness-loop-with-gtl-plugin-overrides.md
-  - .ai-workspace/tickets/backlog/T-128-realize-fp-consciousness-runner-over-admitted-construction-intent.md
+  - .ai-workspace/tickets/completed/T-128-realize-fp-consciousness-runner-over-admitted-construction-intent.md
 follow_up_tickets:
   - .ai-workspace/tickets/completed/T-132-prove-runner-consumed-edge-assurance-eval-replay.md
 related_downstream:

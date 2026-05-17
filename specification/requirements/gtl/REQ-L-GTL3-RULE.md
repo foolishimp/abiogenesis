@@ -23,3 +23,5 @@ boundary.
 **REQ-L-GTL3-RULE-004**: Rule configuration may carry opaque, policy-visible parameters for gate protocol, aggregation, ordering, or threshold concerns without turning GTL into a policy semantic language.
 
 **REQ-L-GTL3-RULE-005**: Engines may enforce declared rule protocol, but the underlying business, merge, ranking, or approval semantics remain outside the interpreter unless explicitly supplied through declarations and resolved implementations.
+
+**REQ-L-GTL3-RULE-006**: A rule may reference or participate in an `abg.fn_composition` closure predicate only as declarative constraint truth. The rule shall not become executable closure strategy, prompt strategy, or hidden policy law; ABG shall resolve enforcement through admitted evaluator, closure, and policy bindings.

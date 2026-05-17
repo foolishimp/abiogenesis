@@ -5,10 +5,16 @@
 import type {
   ActorInvocationRef,
   ExecutionBasis,
+  FdAuthoritySeverityClass,
+  FdPressureRoutingDecision,
   PluginTraversalKind,
   RuntimeAggregateProjection,
   RuntimeEvent,
   RuntimeRegime
+} from "./carriers.js";
+import {
+  FD_AUTHORITY_SEVERITY_CLASS_VALUES,
+  FD_PRESSURE_ROUTING_DECISION_VALUES
 } from "./carriers.js";
 import type { FpTransformRequest } from "./fp_stages.js";
 import { constructFpTransformRequest } from "./fp_stages.js";
@@ -27,6 +33,7 @@ import type {
   EdgeAssuranceDefaultContract,
   EdgeAssuranceResolution
 } from "./edge_assurance_contract.js";
+import type { ConstructionPressurePackage } from "./construction_pressure_package.js";
 import { resolveEdgeAssuranceContract } from "./edge_assurance_contract.js";
 import type { RetryFrontierProjection } from "./retry_frontier.js";
 import { deriveRetryFrontierProjection } from "./retry_frontier.js";
@@ -142,6 +149,12 @@ export interface EnginePluginInput {
   readonly sourceProjectionRef: string;
   readonly expectedEdge: string | null;
   readonly expectedAssessmentIds: readonly string[];
+  readonly consumedFieldRefs: readonly string[];
+  readonly observedStateProjectionRef: string;
+  readonly observedStateRefs: readonly string[];
+  readonly constructionPressurePackage: ConstructionPressurePackage | null;
+  readonly constructionPressurePackageRef: string | null;
+  readonly constructionPressureRefs: readonly string[];
   readonly closedVectorIndexes: readonly number[];
   readonly assessedEdges: readonly string[];
   readonly retryAttemptRefs: RuntimeAggregateProjection["retryAttemptRefs"];
@@ -163,6 +176,12 @@ export interface EnginePluginOutcomeBase {
 export interface FdEvaluationOutcome extends EnginePluginOutcomeBase {
   readonly kind: "fd_evaluation";
   readonly status: "accepted" | "blocked";
+  readonly severityClass: FdAuthoritySeverityClass | null;
+  readonly routingDecision: FdPressureRoutingDecision;
+  readonly affectedFieldRefs: readonly string[];
+  readonly consumedFieldRefs: readonly string[];
+  readonly pressureRefs: readonly string[];
+  readonly diagnosticRefs: readonly string[];
 }
 
 export interface FpDispatchOutcome extends EnginePluginOutcomeBase {
@@ -360,6 +379,93 @@ function parseOptionalEvidenceRefs(
   return parseStringArray(evidence, `${label}.evidenceRefs`);
 }
 
+function assertFdAuthoritySeverityClass(
+  input: string,
+  label: string
+): FdAuthoritySeverityClass {
+  for (const severityClass of FD_AUTHORITY_SEVERITY_CLASS_VALUES) {
+    if (input === severityClass) {
+      return severityClass;
+    }
+  }
+  throw new TypeError(
+    `${label}: expected F_D authority severity class, got ${JSON.stringify(input)}`
+  );
+}
+
+function assertFdPressureRoutingDecision(
+  input: string,
+  label: string
+): FdPressureRoutingDecision {
+  for (const routingDecision of FD_PRESSURE_ROUTING_DECISION_VALUES) {
+    if (input === routingDecision) {
+      return routingDecision;
+    }
+  }
+  throw new TypeError(
+    `${label}: expected F_D pressure routing decision, got ${JSON.stringify(input)}`
+  );
+}
+
+function fieldRefsIntersect(
+  left: readonly string[],
+  right: readonly string[]
+): boolean {
+  const rightSet = new Set(right);
+  return left.some((fieldRef) => rightSet.has(fieldRef));
+}
+
+function defaultFdPressureRefs(input: {
+  readonly severityClass: FdAuthoritySeverityClass | null;
+  readonly affectedFieldRefs: readonly string[];
+  readonly routingDecision: FdPressureRoutingDecision;
+}): readonly string[] {
+  if (input.routingDecision === "continue" || input.severityClass === null) {
+    return Object.freeze([]);
+  }
+  return Object.freeze([
+    [
+      "fd-pressure",
+      input.routingDecision,
+      input.severityClass,
+      input.affectedFieldRefs.length === 0
+        ? "no-field"
+        : input.affectedFieldRefs.join("+")
+    ].join(":")
+  ]);
+}
+
+export function deriveFdPressureRoutingDecision(input: {
+  readonly status: FdEvaluationOutcome["status"];
+  readonly severityClass: FdAuthoritySeverityClass | null;
+  readonly affectedFieldRefs: readonly string[];
+  readonly consumedFieldRefs: readonly string[];
+}): FdPressureRoutingDecision {
+  if (input.status === "accepted") {
+    return "continue";
+  }
+  if (input.severityClass === null) {
+    throw new TypeError("FdEvaluationOutcome blocked status requires severityClass");
+  }
+  switch (input.severityClass) {
+    case "protocol_invalid":
+    case "construction_context_invalid":
+      return "block";
+    case "diagnostic_shape_invalid":
+      return fieldRefsIntersect(input.affectedFieldRefs, input.consumedFieldRefs)
+        ? "block"
+        : "preserve_pressure";
+    case "content_unproven":
+      return "route_to_fp";
+    default: {
+      const exhaustive: never = input.severityClass;
+      throw new TypeError(
+        `Unsupported F_D severity class ${JSON.stringify(exhaustive)}`
+      );
+    }
+  }
+}
+
 function pluginContract(input: EnginePluginContractInput): EnginePluginContract {
   return Object.freeze({
     kind: "engine_plugin_contract",
@@ -490,6 +596,10 @@ export function constructEnginePluginInput(input: {
     | EdgeAssuranceDefaultContract
     | null
     | undefined;
+  readonly constructionPressurePackage?:
+    | ConstructionPressurePackage
+    | null
+    | undefined;
 }): EnginePluginInput {
   const contract = admitEnginePluginContract(input.contract);
   assertProjectionBasis(input.basis, input.projection, "EnginePluginInput");
@@ -579,6 +689,21 @@ export function constructEnginePluginInput(input: {
     expectedAssessmentIds: freezeStringArray(
       vector.evaluators.map((evaluator) => evaluator.name)
     ),
+    consumedFieldRefs: freezeStringArray(
+      vector.evaluators.flatMap((evaluator) => evaluator.consumedFieldRefs)
+    ),
+    observedStateProjectionRef: input.projection.observedState.projectionRef,
+    observedStateRefs: freezeStringArray(
+      input.projection.observedState.observedStateRefs
+    ),
+    constructionPressurePackage: input.constructionPressurePackage ?? null,
+    constructionPressurePackageRef:
+      input.constructionPressurePackage?.packageRef ?? null,
+    constructionPressureRefs: freezeStringArray(
+      input.constructionPressurePackage?.pressureRefs.map(
+        (row) => row.pressureRef
+      ) ?? Object.freeze([])
+    ),
     closedVectorIndexes: freezeNumberArray(input.projection.closedVectorIndexes),
     assessedEdges: freezeStringArray(input.projection.assessedEdges),
     retryAttemptRefs: Object.freeze([...input.projection.retryAttemptRefs]),
@@ -595,12 +720,53 @@ export function constructEnginePluginInput(input: {
 
 export function constructFdEvaluationOutcome(input: {
   readonly status: FdEvaluationOutcome["status"];
+  readonly severityClass?: FdAuthoritySeverityClass | null | undefined;
+  readonly affectedFieldRefs?: readonly string[] | undefined;
+  readonly consumedFieldRefs?: readonly string[] | undefined;
+  readonly pressureRefs?: readonly string[] | undefined;
+  readonly diagnosticRefs?: readonly string[] | undefined;
   readonly evidenceRefs?: readonly string[];
   readonly reason?: string | null;
 }): FdEvaluationOutcome {
+  const affectedFieldRefs = freezeStringArray(
+    input.affectedFieldRefs ?? Object.freeze([])
+  );
+  const consumedFieldRefs = freezeStringArray(
+    input.consumedFieldRefs ?? Object.freeze([])
+  );
+  const severityClass =
+    input.status === "accepted" ? null : input.severityClass ?? null;
+  const routingDecision = deriveFdPressureRoutingDecision({
+    status: input.status,
+    severityClass,
+    affectedFieldRefs,
+    consumedFieldRefs
+  });
+  const diagnosticRefs = freezeStringArray(
+    input.diagnosticRefs ??
+      (severityClass === null
+        ? Object.freeze([])
+        : Object.freeze([
+            `fd_severity:${severityClass}`,
+            `fd_routing:${routingDecision}`
+          ]))
+  );
   return Object.freeze({
     kind: "fd_evaluation",
     status: input.status,
+    severityClass,
+    routingDecision,
+    affectedFieldRefs,
+    consumedFieldRefs,
+    pressureRefs: freezeStringArray(
+      input.pressureRefs ??
+        defaultFdPressureRefs({
+          severityClass,
+          affectedFieldRefs,
+          routingDecision
+        })
+    ),
+    diagnosticRefs,
     evidenceRefs: freezeStringArray(input.evidenceRefs ?? Object.freeze([])),
     reason: normalizeReason(input.reason, "FdEvaluationOutcome.reason")
   });
@@ -661,11 +827,56 @@ export function admitFdEvaluationOutcome(
       `${label}.status: expected accepted or blocked, got ${JSON.stringify(status)}`
     );
   }
-  return constructFdEvaluationOutcome({
+  const severityInput = parseOptionalField(outcomeObject, "severityClass");
+  const severityClass =
+    severityInput === undefined || severityInput === null
+      ? null
+      : assertFdAuthoritySeverityClass(
+          parseString(severityInput, `${label}.severityClass`),
+          `${label}.severityClass`
+        );
+  if (status === "accepted" && severityClass !== null) {
+    throw new TypeError(`${label}.severityClass: accepted F_D outcome cannot carry severity`);
+  }
+  const affectedFieldRefs = parseStringArray(
+    parseOptionalField(outcomeObject, "affectedFieldRefs") ?? [],
+    `${label}.affectedFieldRefs`
+  );
+  const consumedFieldRefs = parseStringArray(
+    parseOptionalField(outcomeObject, "consumedFieldRefs") ?? [],
+    `${label}.consumedFieldRefs`
+  );
+  const pressureRefs = parseStringArray(
+    parseOptionalField(outcomeObject, "pressureRefs") ?? [],
+    `${label}.pressureRefs`
+  );
+  const diagnosticRefs = parseStringArray(
+    parseOptionalField(outcomeObject, "diagnosticRefs") ?? [],
+    `${label}.diagnosticRefs`
+  );
+  const admitted = constructFdEvaluationOutcome({
     status,
+    severityClass,
+    affectedFieldRefs,
+    consumedFieldRefs,
+    ...(pressureRefs.length === 0 ? {} : { pressureRefs }),
+    ...(diagnosticRefs.length === 0 ? {} : { diagnosticRefs }),
     evidenceRefs: parseOptionalEvidenceRefs(outcomeObject, label),
     reason: parseOptionalReason(outcomeObject, label)
   });
+  const routingInput = parseOptionalField(outcomeObject, "routingDecision");
+  if (routingInput !== undefined) {
+    const suppliedRouting = assertFdPressureRoutingDecision(
+      parseString(routingInput, `${label}.routingDecision`),
+      `${label}.routingDecision`
+    );
+    if (suppliedRouting !== admitted.routingDecision) {
+      throw new TypeError(
+        `${label}.routingDecision contradicts admitted F_D authority routing`
+      );
+    }
+  }
+  return admitted;
 }
 
 export function admitFpDispatchOutcome(

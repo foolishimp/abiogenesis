@@ -152,6 +152,7 @@ export function serializeEvaluator(evaluator: Evaluator): Evaluator {
     regime: evaluator.regime,
     description: evaluator.description,
     binding: evaluator.binding,
+    consumedFieldRefs: Object.freeze([...evaluator.consumedFieldRefs]),
     tags: Object.freeze([...evaluator.tags])
   });
 }

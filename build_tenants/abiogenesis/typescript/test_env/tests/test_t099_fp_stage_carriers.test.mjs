@@ -142,10 +142,36 @@ test("T-099 F_P input exposes transform request and ABG admits transform evidenc
   const observed = events.filter((event) => event.kind === "payload_observed");
   const validated = events.filter((event) => event.kind === "payload_validated");
   const evidence = events.filter((event) => event.kind === "evidence_admitted");
+  const authority = events.filter(
+    (event) => event.kind === "authority_snapshot_admitted"
+  );
 
   assert.equal(observed.length, 3);
   assert.equal(validated.length, 3);
   assert.equal(evidence.length, 3);
+  assert.equal(authority.length, 3);
+  assert.equal(
+    inputs.every((input) =>
+      /^fp-transform-request:[a-f0-9]{64}$/.test(
+        input.fpTransformRequest.requestRef
+      )
+    ),
+    true
+  );
+  assert.equal(
+    authority.every((event) =>
+      /^authority:fp_transform:[a-f0-9]{64}$/.test(event.authorityDigest) &&
+      /^input:fp_transform:[a-f0-9]{64}$/.test(event.inputDigest)
+    ),
+    true
+  );
+  assert.equal(
+    observed.every((event) =>
+      /^payload:fp_transform:[a-f0-9]{64}$/.test(event.payloadRef) &&
+      /^digest:fp_transform:[a-f0-9]{64}$/.test(event.digest)
+    ),
+    true
+  );
   assert.equal(
     observed.every(
       (event) => event.contractRef === "contract://abg/fp-transform-evidence"

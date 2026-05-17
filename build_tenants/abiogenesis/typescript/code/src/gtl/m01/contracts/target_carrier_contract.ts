@@ -2,9 +2,9 @@
 // Implements: REQ-L-GTL3-GRAPHVECTOR
 // Implements: REQ-L-GTL3-HOOKS
 
-import { createHash } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import type {
   GraphVector,
   HookRef,
@@ -13,6 +13,10 @@ import type {
   SerializedAttrs,
   SerializedAttrValue
 } from "./carriers.js";
+import {
+  stableJsonEquals,
+  stableSha256Digest
+} from "../../../shared/runtime_identity.js";
 
 export const TARGET_CARRIER_CONTRACT_DECLARATION_KEY =
   "gtl.target_carrier_contract" as const;
@@ -188,32 +192,8 @@ function assertStringArray(
   return Object.freeze(result);
 }
 
-function stableJson(input: unknown): string {
-  if (input === null || typeof input !== "object") {
-    return JSON.stringify(input);
-  }
-  if (Array.isArray(input)) {
-    return `[${input.map((entry) => stableJson(entry)).join(",")}]`;
-  }
-  const entries = Object.entries(input).sort(([left], [right]) =>
-    left.localeCompare(right)
-  );
-  return `{${entries
-    .map(([key, value]) => `${JSON.stringify(key)}:${stableJson(value)}`)
-    .join(",")}}`;
-}
-
-function sha256Text(content: string): string {
-  return `sha256:${createHash("sha256").update(content).digest("hex")}`;
-}
-
-function digestForValue(input: unknown): string {
-  return sha256Text(stableJson(input));
-}
-
-function valuesEqual(left: unknown, right: unknown): boolean {
-  return stableJson(left) === stableJson(right);
-}
+const digestForValue = stableSha256Digest;
+const valuesEqual = stableJsonEquals;
 
 function attrValueForKey(
   attrs: SerializedAttrs,
@@ -779,6 +759,22 @@ export function resolveGtlTargetCarrierDefaultsPath(
   const packagePath = join(workspaceRoot, PACKAGE_TARGET_CARRIER_DEFAULTS_RELATIVE_PATH);
   if (existsSync(packagePath)) {
     return packagePath;
+  }
+  const modulePath = fileURLToPath(import.meta.url);
+  let current = dirname(modulePath);
+  while (true) {
+    const modulePackagePath = join(
+      current,
+      PACKAGE_TARGET_CARRIER_DEFAULTS_RELATIVE_PATH
+    );
+    if (existsSync(modulePackagePath)) {
+      return modulePackagePath;
+    }
+    const parent = dirname(current);
+    if (parent === current) {
+      break;
+    }
+    current = parent;
   }
   throw new TypeError(
     `GTL target-carrier defaults config not found under ${workspaceRoot}`
