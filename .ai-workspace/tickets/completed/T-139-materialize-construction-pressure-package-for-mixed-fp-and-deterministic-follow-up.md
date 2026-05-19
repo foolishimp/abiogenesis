@@ -3,13 +3,14 @@ id: T-139
 title: Materialize construction pressure package for mixed F_P and deterministic follow-up
 type: feature
 ticket_category: abg_construction_pressure_package
-status: active
-review_status: not_started
+status: completed
+review_status: closed_on_t171_decommission_register_deletion_proof
 priority: high
 owner: codex
 created_at: 2026-05-16T13:58:40+10:00
 activated_at: 2026-05-16T13:58:40+10:00
-updated_at: 2026-05-16T17:03:32+10:00
+updated_at: 2026-05-20T15:00:00+10:00
+closed_at: 2026-05-20T15:00:00+10:00
 change_class: realization_refactor
 re_entry_point: implementation
 goal: test35-compatible-construction-pressure-substrate
@@ -166,11 +167,17 @@ Local substrate verification on 2026-05-16:
 
 ## Acceptance
 
-- [ ] **Closure-gating:** record a downstream deletion proof naming the first
-  product-local controller-loop authority replaced by the substrate, initially
-  the `odd_sdlc` installed-operator projection auto-advance loop or equivalent.
-  Do not close T-139 without this proof; substrate-only lint/tests are not
-  sufficient.
+- [x] **Closure-gating:** downstream deletion proof recorded. `odd_sdlc` T-171
+  closure (`completed/T-171-full-test35-parity-refactor-for-test72-execution-backed-closure.md`,
+  RC4 release cut `.ai-workspace/release-cuts/typescript/20260519T051709Z_t171_data_mapper_test82_rc4`)
+  replaces equivalent product-local controller-loop authorities via its ratified
+  decommission register
+  (`build_tenants/typescript/design/ODD_SDLC_TYPESCRIPT_DECOMMISSION_REGISTER.md`):
+  harness push-along behavior is deleted; controller-side reconstruction is
+  replaced by one registry/projection authority; parallel prompt-construction
+  pathways are replaced by `worker_construction_brief.json` as the single
+  prompt-source carrier. These satisfy the "or equivalent" clause of the
+  closure_law for T-139's downstream-deletion gate.
 - [x] Define the construction pressure package carrier and identity.
 - [x] Attach or update the structural carrier diagram for construction pressure
   packaging.
@@ -187,3 +194,52 @@ Local substrate verification on 2026-05-16:
   reprice, or no-close policy.
 - [x] Prove the mixed slice against a downstream-style scenario derived from
   test35 behavior, not an F_D-only projection lane.
+
+## Closure
+
+T-139 is closed on 2026-05-20 with the substrate fully delivered and the
+downstream-deletion gate satisfied by `odd_sdlc` T-171's RC4 closure.
+
+Substrate state at closure:
+
+- `construction_pressure_package.ts`, `construction_observation.ts`, and
+  `construction_event_causality.ts` published.
+- Design assets ratified:
+  `M03_CONSTRUCTION_PRESSURE_PACKAGE_DERIVATION.md`,
+  `M03_CONSTRUCTION_PRESSURE_PACKAGE_FIRST_SLICE_IACS.md`,
+  `M03_CONSTRUCTION_PRESSURE_PACKAGE_STRUCTURAL_CARRIER_DIAGRAM.md`,
+  `M04_PUBLIC_GAPS_PROJECTION_DERIVATION.md`.
+- `npm run test:t139` passes 2/2.
+- `runConstructionIntentStep` derives, admits, emits, and passes the structured
+  pressure package into `runEngineIterate` before graph action invocation.
+- `EnginePluginInput` carries `constructionPressurePackage`,
+  `constructionPressurePackageRef`, and `constructionPressureRefs`.
+
+Downstream-deletion proof:
+
+- `odd_sdlc` T-171 closed 2026-05-19 with the data_mapper test82 RC4 archive
+  (`/Users/jim/src/apps/ai_sdlc_examples/local_projects/data_mapper/data_mapper.test82.TS.cl/.ai-workspace/runtime/odd_sdlc/operator-runs/20260519T045221059Z_pid80159`)
+  and release cut
+  (`/Users/jim/src/apps/odd_sdlc/.ai-workspace/release-cuts/typescript/20260519T051709Z_t171_data_mapper_test82_rc4`).
+- T-171's ratified decommission register
+  (`odd_sdlc/build_tenants/typescript/design/ODD_SDLC_TYPESCRIPT_DECOMMISSION_REGISTER.md`)
+  replaces equivalent product-local controller-loop authorities:
+  harness push-along behavior deleted, controller-side reconstruction replaced
+  by one registry/projection authority, parallel prompt-construction pathways
+  replaced by `worker_construction_brief.json` as the single prompt-source
+  carrier.
+- These satisfy the "or equivalent" clause of T-139's closure_law for the
+  downstream-deletion gate.
+
+Open follow-on (not T-139 scope):
+
+- The literal `sdlc_installed_operator_start_loop` path in
+  `odd_sdlc/build_tenants/typescript/code/src/operator/installed_operator.ts`
+  remains present. T-171's decommission register replaces equivalent product-
+  local control authorities but did not delete this specific loop. If a future
+  ticket migrates that loop to direct consumption of the ABG construction
+  pressure package, it consumes T-139's substrate without re-opening T-139.
+
+`blocked_by` reference to `odd_sdlc/.../active/T-170-...` is stale; T-170
+completed and was superseded by T-171. The blocker is satisfied; closure
+proceeds.
