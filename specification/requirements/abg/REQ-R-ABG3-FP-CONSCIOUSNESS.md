@@ -3,7 +3,7 @@
 **Status**: Active
 **Category**: Capability / Constraint
 **Date**: 2026-05-07
-**Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md), [REQ-R-ABG3-PROJECTION.md](./REQ-R-ABG3-PROJECTION.md), [REQ-R-ABG3-RETRY.md](./REQ-R-ABG3-RETRY.md), [REQ-L-GTL3-HOOKS.md](../gtl/REQ-L-GTL3-HOOKS.md), [T-127](../../../.ai-workspace/tickets/completed/T-127-define-generic-fp-consciousness-loop-with-gtl-plugin-overrides.md)
+**Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md), [REQ-R-ABG3-PROJECTION.md](./REQ-R-ABG3-PROJECTION.md), [REQ-R-ABG3-RETRY.md](./REQ-R-ABG3-RETRY.md), [REQ-R-ABG3-SAGA-FRONTIER.md](./REQ-R-ABG3-SAGA-FRONTIER.md), [REQ-L-GTL3-HOOKS.md](../gtl/REQ-L-GTL3-HOOKS.md), [T-127](../../../.ai-workspace/tickets/completed/T-127-define-generic-fp-consciousness-loop-with-gtl-plugin-overrides.md)
 
 ---
 
@@ -44,6 +44,8 @@ and projects.
 **REQ-R-ABG3-FPC-005C**: `AffectPriorityAdjustment` shall be an ABG replay-derived projection row over admitted affect signal, visible `AffectPriorityPolicy`, current observation pressure, and lawful action bindings. Affect shall not make an otherwise inadmissible graph action admissible, shall not bypass graph-call/frame/continuation law, and shall remain replay-visible. Affect-only pressure shall not bind directly to constructive graph actions; it may adjust existing lawful bindings or select review, F_H, escalation, or terminal-route pressure under declared policy.
 
 **REQ-R-ABG3-FPC-005D**: Construction priority projection shall be deterministic. It shall carry a stable rank ordinal and tie-break key, and terminal affect dispositions such as forced review, F_H input, or escalation shall block graph invocation when selected by policy even if a lawful constructive action exists.
+
+**REQ-R-ABG3-FPC-005E**: Construction evaluator selection may declare a steel-thread plan or dependency fan-out plan when the product owns that dependency meaning. The declared plan shall preserve admitted module/test dependency maps, declared source/test/build/output targets, write territory or output allocation, evidence expectations, fan-in expectations, and product-owned dependency meaning. ABG shall consume that declaration as dependency-frontier input under `REQ-R-ABG3-SAGA-FRONTIER`; it shall not treat the declaration as a mandatory concurrent-dispatch command. System parallelism shall keep immutable semantic carriers and replay-derived projections at the center while treating shared workspace mutation as an effect edge governed by observed-state and publication truth.
 
 **REQ-R-ABG3-FPC-006**: ABG shall admit construction intent candidates before invocation. Admission shall reject malformed lineage, unavailable graph/action refs, contradictory authority, hidden plugin config, missing target outcome, missing source asset authority, or attempts to bypass GTL/ABG graph invocation.
 

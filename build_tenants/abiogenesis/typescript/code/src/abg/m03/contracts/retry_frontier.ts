@@ -681,6 +681,12 @@ export function deriveRetryFrontierProjection(input: {
       case "timer_outcome_admitted":
       case "deadline_breach_admitted":
       case "scheduled_continuation_reopened":
+      case "branch_lease_acquired":
+      case "branch_lease_released":
+      case "branch_lease_superseded":
+      case "branch_task_failed":
+      case "branch_payload_admitted":
+      case "branch_fan_in_projected":
       case "construction_episode_started":
       case "construction_observation_snapshot_materialized":
       case "construction_action_catalog_projected":

@@ -105,6 +105,28 @@ closure must be admitted observed state.
 The new strategy does not need to invent a different runtime model. It needs to
 compose these existing laws into one saga runner.
 
+## Event Calculus Boundary
+
+ABG already uses Event Calculus for runtime truth.
+
+This strategy must not introduce a rival saga calculus, scheduler calculus, or
+workflow-state formalism. "Saga" is the operational pattern: a long-running
+graph-function invocation whose current truth is replay-derived from admitted
+events. Its projections should be ordinary ABG projections over existing Event
+Calculus law:
+
+```text
+Happens(runtime event)
+-> declared Initiates / Terminates / clipping law
+-> replay-derived HoldsAt fluents
+-> projection read model
+-> lawful next command or terminal disposition
+```
+
+Any new branch, frontier, lease, fan-in, timeout, cancellation, or idempotency
+surface proposed below is a candidate carrier/projection/event family inside
+that existing event calculus. It is not a new semantic layer.
+
 ## Current Runtime Gap
 
 The TypeScript M03 runner has the right event/projection center, but the
@@ -195,6 +217,77 @@ terminal_reached
 Some names above already exist; some need exact carrier names in the future
 ticket. The important rule is that the saga state remains replay-derived.
 
+## Branch Identity And Idempotency
+
+Branch identity is the smallest critical missing shape.
+
+Every dispatchable unit needs a stable logical branch identity, separate from
+attempt identity. A candidate `BranchRef` should be derivable from existing ABG
+runtime identity plus the selected frontier row:
+
+```text
+BranchRef =
+  work_key
+  basis_id
+  graph_function_id
+  graph_call_id
+  frame_id
+  frame_lineage_id
+  frame_attempt_id
+  vector_index or action_ref
+  frontier_ref or frontier_digest
+  branch_key
+  fan_in_scope_ref
+```
+
+`branch_key` is the stable local key for the branch within the frontier. For
+static graph vectors it can be the vector ref. For `fan_out(...)` over a vector
+boundary it should include the item identity or declared item-order key. For a
+product-supplied dependency map it should include the admitted dependency row
+identity. It must not be inferred from worker prose or completion order.
+
+Attempts are separate:
+
+```text
+BranchAttemptRef =
+  branch_ref
+  attempt_ordinal
+  retry_attempt_ref
+  actor_invocation_ref when present
+```
+
+Idempotency is event-admission law, not transport folklore.
+
+Every command that can append branch truth needs an idempotency key derived from
+the logical command identity and admitted input identity:
+
+```text
+IdempotencyKey =
+  command_kind
+  branch_ref
+  branch_attempt_ref when attempt-scoped
+  payload_ref or payload_digest when payload-scoped
+  observed_state_ref set digest when state-dependent
+  output_allocation_ref / write_territory_ref when write-dependent
+```
+
+Admission rules:
+
+- same idempotency key + same admitted payload digest returns the prior logical
+  admission result and does not create a second logical fact
+- same idempotency key + different payload digest is an idempotency conflict and
+  fails closed through admitted rejection/correction truth
+- late results from a superseded, cancelled, expired, or compensated attempt may
+  be observed as historical evidence, but they must not close the current branch
+  unless projection still marks that attempt current
+- retry opens a new `BranchAttemptRef`; it does not mint a new logical
+  `BranchRef`
+- fan-in consumes branch logical closure, not every duplicate delivery of a
+  branch result
+
+The natural delivery model is at-least-once effects with idempotent admission.
+Exactly-once transport is not required and should not be assumed.
+
 ## Not This
 
 This strategy is not:
@@ -253,10 +346,13 @@ The eventual ticket should define or reuse event families for:
 - frame open, reopen, reset, and close
 - ready-frontier derivation identity when a frontier is used for dispatch
 - branch lease acquisition and release
+- branch lease expiry
 - branch dispatch start
 - branch activity and liveness observations
 - branch result payload observation, validation, rejection, and evidence
+- duplicate branch command/result rejection or prior-admission replay
 - branch closure or non-progress classification
+- branch timeout, cancellation, and interruption
 - fan-in fold/admission
 - compensation planning, dispatch, and completion
 - correction/supersession/reopen
@@ -273,6 +369,7 @@ The target runner needs these projections:
 SagaProjection
 DependencyFrontierProjection
 BranchLeaseProjection
+BranchIdempotencyProjection
 WriteTerritoryConflictProjection
 BranchLivenessProjection
 FanInProjection
@@ -306,6 +403,7 @@ What output/write territory may it affect?
 Which siblings can run at the same time?
 Which branches must serialize?
 Which fan-in gate will consume its result?
+Which idempotency keys are already admitted or rejected?
 ```
 
 The parent graph should be derived in this order:
@@ -323,6 +421,33 @@ ABG should not infer product-specific dependencies from filenames, prompt text,
 or worker prose. If `odd_sdlc` computes a module dependency map, that map is a
 product-owned input to ABG. ABG admits and schedules against it; ABG does not
 invent SDLC topology.
+
+## Frontier Selection
+
+`selectDisjointReadyBranches(...)` is a policy decision over a replay-derived
+frontier. It should be explicit, deterministic, and replay-explainable.
+
+Default selection policy:
+
+1. filter to rows whose parents are closed or otherwise lawfully satisfied
+2. filter out rows with stale or missing observed-state refs
+3. filter out rows whose idempotency key is already admitted, rejected, or
+   currently leased in a way projection treats as active
+4. sort by declared priority, then critical-path/dependency depth when present,
+   then stable branch identity
+5. greedily select rows whose write territories are disjoint from already
+   selected and already leased active branches
+6. stop at declared resource caps
+
+Products may provide priority policy inputs, but ABG owns the admission and
+projection of the selected frontier. A product policy cannot make an
+inadmissible branch ready, cannot bypass observed-state freshness, and cannot
+override write-territory conflict law.
+
+Human-gate branches are frontier rows too. They may remain pending for a long
+time without holding compute capacity. Their timeout and escalation policy
+should be F_H-aware; an idle human gate is not the same failure class as a hung
+process worker.
 
 ## Promise Graph As Local Realization
 
@@ -452,6 +577,77 @@ ABG can admit a parallel batch only when:
 Overlapping writes do not fail the saga by default. They serialize unless a
 stronger product-owned merge contract is declared.
 
+## Reliability And Operational Policy Contracts
+
+The saga runner needs policy carriers, but those carriers consume existing ABG
+law. They should not introduce a new runtime theory.
+
+One compact carrier may be enough:
+
+```text
+BranchExecutionPolicy =
+  retry_policy
+  timeout_policy
+  cancellation_policy
+  resource_policy
+  lease_policy
+```
+
+Retry policy should use the existing ABG retry failure classes. The current
+retry allowlist is:
+
+```text
+transport_failure
+no_output
+contract_failure
+```
+
+Other failure classes block, escalate, compensate, or re-enter according to
+declared continuation and assurance law. They do not become retryable by local
+runner discretion.
+
+Timeout policy should distinguish:
+
+- no-output timeout
+- inactivity timeout from runtime liveness projection
+- hard safety cap
+- F_H waiting state
+
+Cancellation policy should distinguish:
+
+- cooperative interruption signal
+- grace interval
+- forceful termination
+- evidence preservation rule
+- branch-attempt supersession rule
+
+Resource policy should distinguish:
+
+- max concurrency
+- per-resource caps when known
+- queueing policy under capacity pressure
+- preemption policy, if any
+
+Lease policy should include:
+
+- lease identity
+- lease ttl or freshness condition
+- renewal rule
+- expiry event/projection rule
+- recovery behavior when a runner crashes while holding a lease
+
+Event-store unavailability is a hard semantic boundary. A runner that cannot
+append or verify event admission may not dispatch new branch work or claim
+closure. It may preserve local process evidence for later admission, interrupt
+workers, or yield a controlled runtime condition, but it must not keep advancing
+from private memory as if runtime truth had been written.
+
+Event ordering should reuse ABG event admission order. Within one aggregate
+scope, replay must have a deterministic order. A distributed substrate may
+materialize that order through conditional append, aggregate-local sequence, or
+another ABG-admitted event-envelope field, but it should not introduce wall-clock
+completion order as semantic ordering for fan-in.
+
 ## Fan-In And Deterministic Merge
 
 Fan-in is not "wait until all promises return and concatenate results."
@@ -510,6 +706,82 @@ corrective graph action or no-action disposition
 expected write territory
 closure or review policy
 ```
+
+## Observability And Self-Healing
+
+Observability has four layers:
+
+- events: admitted facts
+- projections: replay-derived current state
+- metrics: operational read models over event/projection truth
+- traces: causation/correlation views over event identity
+
+Metrics and traces are not authority. They are operator read models. Useful
+metrics include branch duration, dispatch latency, fan-in wait time, retry count,
+lease wait time, write-conflict serialization rate, timeout count, cancellation
+count, stale-observation rejection count, and idempotency conflict count.
+
+`PublicConstructionProgressProjection` should expose at least:
+
+```text
+saga_ref
+graph_call_id
+frame_id
+frontier_ref
+frontier_rows:
+  branch_ref
+  parent_refs
+  state:
+    blocked_by_parents
+    ready
+    leased
+    dispatched
+    awaiting_evidence
+    awaiting_human
+    retry_pending
+    compensated
+    closed
+    blocked
+    escalated
+  active_attempt_ref
+  observed_state_refs
+  write_territory_ref
+  fan_in_scope_ref
+  latest_liveness_ref
+  latest_policy_disposition
+aggregate:
+  ready_count
+  active_count
+  blocked_count
+  closed_count
+  critical_path_estimate when declared
+```
+
+Self-healing is policy-driven projection plus command emission. It is not a
+private watchdog loop.
+
+Default watchdog table:
+
+| Condition from projection | Runtime truth emitted or admitted | Policy reaction |
+| --- | --- | --- |
+| no output before no-output timeout | branch non-progress / timeout observation | retry if failure class is retryable, else block or compensate |
+| inactivity beyond liveness policy | runtime liveness disposition | cooperative cancel, retry, yield continuation, or escalate |
+| hard cap reached | cancellation/interruption observation | terminate attempt, preserve evidence, block or compensate |
+| lease expired without current liveness | lease expiry truth | release lease and allow fresh attempt if policy permits |
+| idempotency conflict | rejection/correction truth | block branch or route F_H review |
+| observed-state stale before dispatch | observation rejection | re-observe or block if freshness cannot be restored |
+| write conflict with active branch | write-territory conflict projection | serialize or queue |
+
+Workspace writes should use branch-scoped staging by default:
+
+```text
+allowed_write_root / branch_ref / attempt_ref / staging
+```
+
+The branch output becomes visible to downstream branches only after admission
+publishes or merges the staged result under the declared output allocation.
+Partial writes from cancelled or failed attempts remain evidence or are cleaned
+by compensation policy; they do not become current workspace truth by accident.
 
 ## Local Runner Shape
 
@@ -620,8 +892,8 @@ Suggested ticket sequence:
 1. **Declare ABG saga frontier law**
    - Requirement/design reframe.
    - Define `SagaProjection`, `DependencyFrontierProjection`, branch identity,
-     branch lease, write-territory conflict projection, and deterministic fan-in
-     law.
+     idempotency admission, branch lease, write-territory conflict projection,
+     and deterministic fan-in law.
    - Preserve current serial runner as the degenerate one-branch case.
 
 2. **Strengthen dispatch carriers for branch work**
@@ -629,6 +901,7 @@ Suggested ticket sequence:
      territory, fan-in scope, lease refs, and frontier projection ref/digest to
      dispatch/request carriers.
    - Ensure payload/evidence admission preserves branch identity.
+   - Add idempotency key derivation and duplicate/late-result admission rules.
 
 3. **Implement local dependency-ready saga runner**
    - Pure frontier derivation.
@@ -636,6 +909,8 @@ Suggested ticket sequence:
    - Promise-graph local execution.
    - Replay after branch event batches.
    - Restart proof from event stream and observed-state records.
+   - Consume declared retry, timeout, cancellation, resource, and lease policy
+     through existing runtime liveness/retry/projection law.
 
 4. **Add fan-in and compensation proof lanes**
    - Deterministic fan-in over multiple branch outputs.
@@ -693,15 +968,64 @@ The first complete proof set should include:
       and then dependency-isolated parallel branch work without `odd_sdlc`
       owning async orchestration.
 
+11. **Idempotent duplicate admission**
+    - The same branch result is delivered twice under the same idempotency key.
+    - Projection admits one logical result; duplicate delivery replays prior
+      admission or emits a typed duplicate rejection without changing closure.
+
+12. **Late result after retry**
+    - Attempt 1 times out and attempt 2 closes the branch.
+    - A late attempt-1 result is preserved as historical evidence but cannot
+      supersede the current branch closure without correction/reopen truth.
+
+13. **Lease expiry recovery**
+    - The runner crashes while holding a branch lease.
+    - Replay plus liveness/lease policy projects lease expiry.
+    - A fresh attempt can acquire the branch without colliding with the dead
+      attempt.
+
+14. **Retry budget exhaustion**
+    - A retryable failure repeats until policy budget is exhausted.
+    - Projection routes to block, compensation, F_H, or re-entry according to
+      declared policy; the runner does not keep retrying privately.
+
+15. **Timeout and cancellation evidence**
+    - A hung branch hits hard cap.
+    - Runtime emits/admits cancellation and liveness truth, preserves available
+      evidence refs, and prevents the attempt from closing later by accident.
+
+16. **Progress observability**
+    - An operator queries public construction progress mid-flight.
+    - The projection reports ready, leased, dispatched, awaiting evidence,
+      awaiting human, retry, closed, blocked, and compensated rows from admitted
+      truth only.
+
+17. **Mid-write abort cleanliness**
+    - A worker is killed while writing branch output.
+    - Partial staged output does not become downstream current state.
+    - Retry or compensation proceeds from admitted evidence and observed-state
+      truth.
+
 ## Non-Closure Conditions
 
 The work is not closed if:
 
 - a controller-local ready set owns truth outside replay
 - in-memory promises are required to recover current state
+- branch identity is implicit or derived from worker prose/completion order
+- idempotency keys are missing for branch commands/results
+- duplicate branch result delivery can create two logical closures
+- late results from superseded attempts can close current branch without
+  correction/reopen truth
 - branch completion order affects fan-in without declared ordering law
 - branch workers write outside declared output allocation/write territory
 - overlapping writes are allowed without merge admission
+- branch leases have no replay-visible expiry/recovery behavior
+- retry, timeout, cancellation, and resource decisions live only in runner-local
+  state
+- event-store unavailability still permits new branch dispatch or closure claims
+- partial writes from cancelled/failed branches become visible downstream without
+  admission
 - worker success, transport success, or file presence closes branches without
   payload/evidence/assurance admission
 - compensation deletes or rewrites event history

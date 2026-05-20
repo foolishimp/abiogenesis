@@ -1,7 +1,7 @@
-# abiogenesis 3.7.1-rc.4 RC Notes
+# abiogenesis 3.8.0-rc.1 RC Notes
 
-This note records accepted RC behavior for the current `v3.7.1-rc.4` line.
-The package cut is `3.7.1-rc.4`.
+This note records accepted RC behavior for the current `v3.8.0-rc.1` line.
+The package cut is `3.8.0-rc.1`.
 
 ## Accepted Framework Behavior
 
@@ -549,6 +549,46 @@ Non-claim:
   semantic field meaning, product-specific payload interpretation, and richer
   design-consumer test generation.
 
+### Saga Frontier Opens 3.8.0 RC1
+
+The saga-frontier correction moves the current release candidate from
+`3.7.1-rc.4` to `3.8.0-rc.1` because ABG now owns the event-sourced runtime
+truth needed to run dependency-aware construction branches serially or in
+parallel without changing product meaning.
+
+Accepted behavior:
+
+- products own dependency meaning and may declare a steel thread, a dependency
+  fan-out, or both;
+- ABG owns runtime selection, lease, event, projection, and fan-in mechanics;
+- parallelism is lawful only when observed-state freshness and write/output
+  territory disjointness are declared and admitted;
+- missing or underdeclared observed-state, write-territory, or output-allocation
+  proof serializes, blocks, yields, or escalates instead of defaulting to safe
+  concurrency;
+- BranchRef names logical branch work; BranchAttemptRef names an effect attempt;
+- duplicate payload delivery is idempotent per branch attempt, while conflicting
+  duplicate payloads fail closed;
+- branch leases carry replay-visible dispatch-conflict territory, including
+  output allocation;
+- native Node async execution is available as a runtime realization, controlled
+  by system policy such as max concurrency;
+- evented execution admits leases before branch effects begin, emits payload and
+  release truth after successful branch work, and emits failure/release truth for
+  task rejection;
+- deterministic fan-in derives from admitted payload events, not wall-clock
+  completion order;
+- staged output remains invisible to downstream branches until matching payload
+  admission;
+- the live T-141 lane proves the T-167-shaped ticket-review fan-out pattern with
+  real Claude PTY reviewer branches and abstract reducer/router branches.
+
+Non-claim:
+
+- RC1 does not require downstream products to expose ABG scheduling as product
+  truth. It also does not complete cloud durable providers, final atomic
+  workspace publish/merge, or the full timeout/cancellation/retry runtime.
+
 ## Current Verification Footer
 
 The current RC proving footer is:
@@ -574,6 +614,9 @@ The current RC proving footer is:
 - `npm run test:t130:t131`: `20 passed`
 - `npm run test:t132`: `1 passed`
 - `npm run test:t133`: `9 passed`
+- `npm run test:t141`: `32 passed`
+- `npm run test:semantic`: `595 passed`
+- `npm run lint:test-harness`: `passed`
 - `ABG_TS_T132_LIVE=1 CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=120000 npm run test:t132:live`: `1 passed`
 - `npm run test:t058`: `11 passed`
 - `npm run test:t127:live`: `6 passed`
@@ -582,9 +625,10 @@ The current RC proving footer is:
 - `npm run test:t119:live`: `3 passed`
 - `npm run test:t125:live`: `2 passed`
 - `npm run test:t116:live`: `1 passed`
+- full live sweep including `test:t141:live`: `passed`
 - `git diff --check`: `passed`
 - `npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run`: `passed`,
-  package `3.7.1-rc.4`, `336 files`
+  package `3.8.0-rc.1`, `374 files`
 
 Fresh 3.5.0-rc.2 live PTY plugin/actor matrix:
 

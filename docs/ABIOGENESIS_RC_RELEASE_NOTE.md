@@ -1,9 +1,9 @@
-# abiogenesis 3.7.1-rc.4 Release Candidate Note
+# abiogenesis 3.8.0-rc.1 Release Candidate Note
 
 This checkpoint is the current TypeScript ABG release-candidate source state.
-It advances the release line from `3.7.1-rc.3` to `3.7.1-rc.4` because GTL
-target-carrier contracts are now first-class graph-vector output bindings and
-ABG closure consumes the selected contract identity before assurance close.
+It advances the release line from `3.7.1-rc.4` to `3.8.0-rc.1` because ABG now
+declares and realizes an event-sourced saga frontier for dependency-aware
+system parallelism over a shared mutable workspace.
 
 The `3.7.0-rc.1` line introduced the generic F_P construction evaluator and
 read-only public gaps over evaluator truth. The `3.7.1-rc.1` candidate
@@ -13,18 +13,22 @@ rather than flat caller-local timeouts. The `3.7.1-rc.2` candidate preserved
 both lines and added edge-level gain/close assurance contracts with live
 installed proof. The `3.7.1-rc.3` candidate repaired the constitutional/docs
 model so GTL topology anchors do not collapse the wider first-class declaration
-surface. This `3.7.1-rc.4` candidate preserves those cuts and adds mandatory
-target-carrier contract bindings for graph-vector outputs.
+surface. The `3.7.1-rc.4` candidate preserved those cuts and added mandatory
+target-carrier contract bindings for graph-vector outputs. This
+`3.8.0-rc.1` candidate preserves those cuts and adds T-141 saga-frontier law,
+typed carriers, evented native async orchestration, and synthetic/live proofs
+for transparent serial-vs-parallel realization.
 
-It is an RC candidate, not the final tapped `3.7.1` release. The release
+It is an RC candidate, not the final tapped `3.8.0` release. The release
 identity remains explicit until the cut is committed, tagged, and accepted.
 
 ## Release Claim
 
 The TypeScript tenant remains the package-first GTL/ABG RC candidate. This cut
 preserves the accepted `3.7.0-rc.1` evaluator substrate, the `3.7.1-rc.1`
-runtime probe observer, the `3.7.1-rc.2` edge-assurance runtime path, and the
-`3.7.1-rc.3` GTL type-boundary correction.
+runtime probe observer, the `3.7.1-rc.2` edge-assurance runtime path, the
+`3.7.1-rc.3` GTL type-boundary correction, and the `3.7.1-rc.4`
+target-carrier binding path.
 
 RC2 for `3.7.1` added:
 
@@ -82,12 +86,43 @@ RC4 for `3.7.1` adds:
   carrier kind literal, and fixed protocol fields while leaving downstream
   semantic meaning to product/F_P consumers.
 
+RC1 for `3.8.0` adds:
+
+- `REQ-R-ABG3-SAGA-FRONTIER` as the ABG law for event-sourced saga-frontier
+  selection, dependency fan-out/fan-in, observed-state freshness, and
+  write/output territory safety;
+- a product-transparency axiom: products such as odd_sdlc may declare a steel
+  thread or dependency fan-out because they own content meaning, while ABG may
+  choose serial or parallel realization under the same declared truth;
+- native Node async runner support with policy-capped system parallelism;
+- BranchRef, BranchAttemptRef, BranchExecutionPolicy, idempotent branch payload
+  admission, branch lease, fan-in, failure, and replay projection carriers;
+- fail-closed underdeclaration handling so missing observed-state or
+  write/output territory proof does not masquerade as safe concurrency;
+- evented lease-before-effect ordering, task-failure disposition, replay-visible
+  release behavior, output-allocation conflict projection, and deterministic
+  fan-in;
+- synthetic proof for a T-167-shaped multi-reviewer ticket-generation graph:
+  ticket surface -> configured reviewer fan-out -> finding reduction -> ticket
+  routing;
+- live proof for the same abstract shape using real Claude PTY reviewer
+  branches and abstract reducer/router branches;
+- a deterministic stress proof with 65 branches: 50 concurrent roots, 10
+  reducers, and 5 terminal leaves over a three-batch dependency graph.
+
 ## Non-Claims
 
-The T-130/T-131/T-132/T-133 edge assurance and target-carrier slice does not
-claim downstream odd_sdlc test35 migration as complete. It creates the ABG
-substrate proof that downstream products can now consume without rebuilding an
-SDLC-local meta-contract for edge gain, close, or output carrier identity.
+The T-141 saga-frontier slice does not claim that downstream odd_sdlc changes
+its product dependency meaning or must expose ABG scheduling decisions. The
+contract is transparent to products: admitted module/test dependency maps,
+selected steel-thread or parallel traversal plans, declared targets, write
+territories, evidence/fan-in expectations, and product-owned dependency meaning
+remain product truth. ABG may or may not exploit lawful fan-out.
+
+The T-141 slice also does not claim cloud durable provider integration, a final
+workspace publish/merge primitive, human-gate timeout policy, or a complete
+distributed retry/cancellation runtime. Those remain separately ticketed
+runtime-realization concerns.
 
 The T-127/T-128 split remains intact. T-127 owns the construction evaluator
 substrate; T-128 owns the installed runner-level loop that consumes admitted
@@ -99,49 +134,44 @@ session affinity. Those remain outside this cut unless separately ticketed.
 
 ## Versioned Artifacts
 
-- RC branch: `rc/3.7.1`
-- RC identity: `3.7.1-rc.4`
-- Candidate package version: `3.7.1-rc.4`
-- Candidate tag: `v3.7.1-rc.4`
+- RC branch: `rc/3.8.0`
+- RC identity: `3.8.0-rc.1`
+- Candidate package version: `3.8.0-rc.1`
+- Candidate tag: `v3.8.0-rc.1`
 
 ## Verification
 
 Current qualification evidence for this cut:
 
 ```text
-npm run test:t129
-11 passed
-
-npm run test:t130:t131
-20 passed
-
-npm run test:t132
-1 passed
-
-npm run test:t133
-9 passed
-
-ABG_TS_T132_LIVE=1 CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=120000 npm run test:t132:live
-1 passed, archive build_tenants/abiogenesis/typescript/test_env/test_runs/t132_edge_assurance_installed_live/20260513T122205821Z_pid12061
+npm run test:t141
+32 passed
 
 npm run test:semantic
-531 passed
+595 passed
+
+npm run lint:test-harness
+passed
+
+npm run lint:semantic
+passed
 
 git diff --check
 passed
 
 npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run
-passed, version 3.7.1-rc.4, files 336, package abiogenesis-typescript-tenant-3.7.1-rc.4.tgz
+passed, version 3.8.0-rc.1, files 374, package abiogenesis-typescript-tenant-3.8.0-rc.1.tgz
 ```
 
-The previous `3.7.0-rc.1` construction evaluator proof remains historical
-release evidence for the evaluator substrate preserved by this line. The
-previous `3.7.1-rc.1` liveness proof remains historical release evidence for
-the runtime observer substrate preserved by this line.
+The full live sweep was green before this final version/doc-only RC bump, with
+the T-141 live lane included. The previous `3.7.0-rc.1` construction evaluator
+proof, `3.7.1-rc.1` liveness proof, `3.7.1-rc.2` edge-assurance proof,
+`3.7.1-rc.3` GTL type-boundary proof, and `3.7.1-rc.4` target-carrier proof
+remain historical release evidence for the substrate preserved by this line.
 
 ## RC Decision
 
-The release operator repriced the target-carrier contract work as a
-release-candidate correction over the accepted `3.7.1-rc.3` GTL type-boundary
-line. Cut `v3.7.1-rc.4` as the next release-candidate checkpoint after
-committing this source state. This is not the final tapped `3.7.1` release.
+The release operator repriced the saga-frontier work as a release-candidate
+correction over the accepted `3.7.1-rc.4` target-carrier line. Cut
+`v3.8.0-rc.1` as the next release-candidate checkpoint after committing this
+source state. This is not the final tapped `3.8.0` release.

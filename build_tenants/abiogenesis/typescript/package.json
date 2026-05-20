@@ -1,6 +1,6 @@
 {
   "name": "@abiogenesis/typescript-tenant",
-  "version": "3.7.1-rc.4",
+  "version": "3.8.0-rc.1",
   "private": true,
   "type": "module",
   "types": "./build/semantic/code/src/index.d.ts",
@@ -204,6 +204,9 @@
     "test:t138": "npm run build:semantic && node --test test_env/tests/test_t138_fd_authority_placement.test.mjs",
     "test:t139": "npm run build:semantic && node --test test_env/tests/test_t139_construction_pressure_package.test.mjs",
     "test:t140": "npm run build:semantic && node --test test_env/tests/test_t140_runtime_identity_consolidation.test.mjs",
+    "test:t141:async": "npm run build:semantic && node --test test_env/tests/test_t141_saga_frontier_async.test.mjs",
+    "test:t141": "npm run build:semantic && node --test test_env/tests/test_t141_saga_frontier.test.mjs test_env/tests/test_t141_saga_frontier_async.test.mjs",
+    "test:t141:live": "npm run build:semantic && CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_AGENT_EXECUTOR_PROFILE=pty-terminal node --test test_env/live/test_t141_saga_frontier_live.test.mjs",
     "test:t125:live": "npm run build:semantic && node --test test_env/live/test_t125_temporal_and_non_temporal_gtl_live.test.mjs",
     "test:t125": "npm run test:t125:live"
   },

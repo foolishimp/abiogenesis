@@ -32,6 +32,7 @@ import {
   contractForKnownAgent,
   runAgentTransport
 } from "../../build/semantic/code/src/shared/abg_library/index.js";
+import { loadGtlTargetCarrierDefaultsBundle } from "../../build/semantic/code/src/index.js";
 import { buildThreeStageBasis } from "../tests/support/m03-iteration-fixtures.mjs";
 import {
   executorProfileFields,
@@ -230,7 +231,8 @@ function projectionFor(input) {
     basis: input.basis,
     runtimeProjection: input.runtimeProjection,
     events: emittedEvents,
-    vectorIndex: input.scope.vectorIndex
+    vectorIndex: input.scope.vectorIndex,
+    targetCarrierDefaults: loadGtlTargetCarrierDefaultsBundle()
   });
   const authoritySnapshot = deriveAssuranceAuthoritySnapshotFromPayloadLedger({
     assuranceScope: input.scope,

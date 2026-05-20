@@ -131,6 +131,19 @@ function, contexts, domain evaluators, and worker bindings. ABG supplies the
 event-sourced control loop that makes the traversal replayable, auditable, and
 capable of lawful re-entry.
 
+When a downstream product declares a steel thread or dependency fan-out, that
+declaration supplies product-owned content authority for lawful work. It does
+not force a runtime concurrency shape. ABG may realize the same admitted work
+serially or through bounded parallel branch dispatch when replay-derived
+frontier truth, observed-state freshness, idempotency, branch leases, write
+territory, and visible runtime policy make that safe. The product meaning,
+dependency expectations, target/output declarations, evidence expectations, and
+fan-in meaning remain stable across those realizations.
+
+System parallelism keeps immutable semantic carriers and projections at the
+center. Shared workspace mutation is treated as an effect boundary observed
+through admitted state and publication truth, not as scheduler authority.
+
 ---
 
 ## Business Value

@@ -236,6 +236,20 @@ declared graph/action catalog. ABG admits or rejects that evaluator intent,
 binds it to graph-call, frame, continuation, lineage, event, ledger, and
 projection truth, and exposes one public construction-progress projection.
 
+When a downstream product declares a steel thread or dependency fan-out from its
+own content, that declaration is admitted product authority, not a runtime
+concurrency command. ABG may realize the same declared work serially or as
+bounded parallel branch execution. Product meaning is stable across both
+realizations when dependency declarations, target/output/evidence expectations,
+write territories, and fan-in meaning are unchanged. Parallel execution is an
+ABG runtime admission consequence over replay, branch identity, idempotency,
+leases, liveness, policy, and disjoint write territory.
+
+System parallelism is an immutable semantic boundary over admitted carriers and
+replay-derived projections. The shared mutable workspace remains an effect edge
+guarded by observed-state, write-territory/output-allocation, staging,
+publication, and admission truth.
+
 F_D may optimize and reject mechanical defects under hard authority. When the
 source authority has not disambiguated product meaning, F_D shall not force a
 semantic failure or canonical output shape. It must surface ambiguity to the

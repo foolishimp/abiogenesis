@@ -14,6 +14,7 @@ related engine behavior.
 - replay-derived graph-function iteration and next-edge selection
 - runtime aggregates: run, graph call, frame, continuation
 - worker/binding/runtime identity
+- dependency-ready saga frontier and runtime-realization transparency
 - evaluation, proof, closure, and fallback law
 - total assurance projection and closure fold law
 - event-sourced payload envelope, admission, and ledger projection law
@@ -24,6 +25,7 @@ related engine behavior.
 
 - `REQ-R-ABG3-EVENTS.md`
 - `REQ-R-ABG3-PROJECTION.md`
+- `REQ-R-ABG3-SAGA-FRONTIER.md`
 - `REQ-R-ABG3-BINDING.md`
 - `REQ-R-ABG3-WORKER.md`
 - `REQ-R-ABG3-JOB-WORKER.md`

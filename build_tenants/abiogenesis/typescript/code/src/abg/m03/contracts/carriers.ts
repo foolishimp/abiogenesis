@@ -259,6 +259,17 @@ export const RUNTIME_FAILURE_CLASS_VALUES = Object.freeze([
 export type RuntimeFailureClass =
   (typeof RUNTIME_FAILURE_CLASS_VALUES)[number];
 
+export const BRANCH_EXECUTION_DISPOSITION_VALUES = Object.freeze([
+  "block",
+  "compensate",
+  "escalate",
+  "await_human",
+  "reenter"
+] as const);
+
+export type BranchExecutionDisposition =
+  (typeof BRANCH_EXECUTION_DISPOSITION_VALUES)[number];
+
 export const TERMINAL_KIND_VALUES = Object.freeze([
   "converged",
   "nothing_to_do",
@@ -1900,6 +1911,79 @@ export interface ScheduledContinuationReopenedEvent {
   readonly correlationId: string;
 }
 
+export interface BranchRuntimeScope {
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly frontierRef: string;
+  readonly branchRef: string;
+  readonly branchAttemptRef: string;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
+export interface BranchLeaseAcquiredEvent extends BranchRuntimeScope {
+  readonly kind: "branch_lease_acquired";
+  readonly leaseRef: string;
+  readonly leasedWriteTerritoryRefs: readonly string[];
+  readonly leasedOutputAllocationRefs: readonly string[];
+  readonly leasedAtMs: number;
+  readonly expiresAtMs: number | null;
+}
+
+export interface BranchLeaseReleasedEvent extends BranchRuntimeScope {
+  readonly kind: "branch_lease_released";
+  readonly leaseRef: string;
+  readonly releasedAtMs: number;
+}
+
+export interface BranchLeaseSupersededEvent extends BranchRuntimeScope {
+  readonly kind: "branch_lease_superseded";
+  readonly leaseRef: string;
+  readonly supersededByLeaseRef: string;
+}
+
+export interface BranchTaskFailedEvent extends BranchRuntimeScope {
+  readonly kind: "branch_task_failed";
+  readonly leaseRef: string;
+  readonly failureRef: string;
+  readonly failureClass: RuntimeFailureClass;
+  readonly failureDigest: string;
+  readonly disposition: BranchExecutionDisposition;
+  readonly preserveEvidence: boolean;
+  readonly evidenceRefs: readonly string[];
+}
+
+export interface BranchPayloadAdmittedEvent extends BranchRuntimeScope {
+  readonly kind: "branch_payload_admitted";
+  readonly fanInScopeRef: string;
+  readonly idempotencyKey: string;
+  readonly payloadDigest: string;
+  readonly evidenceRefs: readonly string[];
+  readonly sourceEventRef: string | null;
+}
+
+export interface BranchFanInProjectedEvent {
+  readonly kind: "branch_fan_in_projected";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly frontierRef: string;
+  readonly fanInRef: string;
+  readonly fanInDigest: string;
+  readonly orderedBranchRefs: readonly string[];
+  readonly payloadDigests: readonly string[];
+  readonly evidenceRefs: readonly string[];
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
 export interface ConstructionRuntimeEventScope {
   readonly constructionEventRef: string;
   readonly basisId: string;
@@ -2160,6 +2244,12 @@ export type RuntimeEvent =
   | TimerOutcomeAdmittedEvent
   | DeadlineBreachAdmittedEvent
   | ScheduledContinuationReopenedEvent
+  | BranchLeaseAcquiredEvent
+  | BranchLeaseReleasedEvent
+  | BranchLeaseSupersededEvent
+  | BranchTaskFailedEvent
+  | BranchPayloadAdmittedEvent
+  | BranchFanInProjectedEvent
   | ConstructionEpisodeStartedEvent
   | ConstructionObservationSnapshotMaterializedEvent
   | ConstructionActionCatalogProjectedEvent
@@ -2249,6 +2339,12 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "timer_outcome_admitted",
   "deadline_breach_admitted",
   "scheduled_continuation_reopened",
+  "branch_lease_acquired",
+  "branch_lease_released",
+  "branch_lease_superseded",
+  "branch_task_failed",
+  "branch_payload_admitted",
+  "branch_fan_in_projected",
   "construction_episode_started",
   "construction_observation_snapshot_materialized",
   "construction_action_catalog_projected",

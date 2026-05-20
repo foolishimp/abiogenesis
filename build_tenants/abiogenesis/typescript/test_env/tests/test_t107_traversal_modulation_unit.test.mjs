@@ -933,7 +933,7 @@ test("T-107 async runner derives the same qualified F_P attempt envelope as sync
   assert.equal(result.transition.kind, "terminal");
 });
 
-test("T-107 async runner exits bounded attempt instead of internally retrying blocked attached artifact", async () => {
+test("T-107 async runner exits without internally retrying blocked attached artifact", async () => {
   const basis = withBasisGraphVectorDeclarations(
     buildThreeStageBasis({
       defaultRegime: "F_P",
@@ -985,7 +985,8 @@ test("T-107 async runner exits bounded attempt instead of internally retrying bl
   assert.equal(pluginInputs.length, 1);
   assert.equal(result.transition.kind, "terminal");
   assert.equal(result.transition.terminalKind, "gap_stop");
-  assert.match(result.transition.reason ?? "", /bounded_traversal_attempt_exit/u);
+  assert.match(result.transition.reason ?? "", /runtime_failure/u);
+  assert.match(result.transition.reason ?? "", /api_retry_count=10/u);
   assert.equal(
     emittedEvents.some((event) => event.kind === "retry_repair_planned"),
     false

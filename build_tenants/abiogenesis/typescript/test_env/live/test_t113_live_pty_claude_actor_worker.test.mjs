@@ -112,6 +112,23 @@ function extractTokenByPrefix(text, prefix) {
   return match[0];
 }
 
+function assertActorLifecycleKinds(events) {
+  const kinds = events
+    .map((event) => event.kind)
+    .filter((kind) => kind !== "actor_process_stream_observed");
+  const middleKinds = kinds.slice(1, -1);
+  assert.equal(kinds[0], "actor_process_started");
+  assert.equal(kinds.at(-1), "actor_process_exited");
+  assert.ok(
+    middleKinds.length > 0,
+    "at least one replay-visible runtime activity probe is observed between actor start and exit"
+  );
+  assert.ok(
+    middleKinds.every((kind) => kind === "runtime_activity_probe_observed"),
+    "runtime activity probes are the only non-stream actor lifecycle events between start and exit"
+  );
+}
+
 function attrs(entries = []) {
   return Object.freeze({ entries: Object.freeze(entries) });
 }
@@ -719,12 +736,7 @@ test("T-113/T-116/T-117 live PTY actor matrix covers enabled/disabled actors wit
     .split("\n")
     .filter((line) => line.length > 0)
     .map((line) => JSON.parse(line));
-  assert.deepStrictEqual(
-    observedActorEvents
-      .map((event) => event.kind)
-      .filter((kind) => kind !== "actor_process_stream_observed"),
-    ["actor_process_started", "actor_process_exited"]
-  );
+  assertActorLifecycleKinds(observedActorEvents);
   for (const event of observedActorEvents) {
     assert.equal(event.actorInvocationId, observedInvocation.actorInvocationId);
     assert.equal(event.workerId, "worker.claude");
@@ -740,12 +752,7 @@ test("T-113/T-116/T-117 live PTY actor matrix covers enabled/disabled actors wit
     .split("\n")
     .filter((line) => line.length > 0)
     .map((line) => JSON.parse(line));
-  assert.deepStrictEqual(
-    declaredActorEvents
-      .map((event) => event.kind)
-      .filter((kind) => kind !== "actor_process_stream_observed"),
-    ["actor_process_started", "actor_process_exited"]
-  );
+  assertActorLifecycleKinds(declaredActorEvents);
   for (const event of declaredActorEvents) {
     assert.equal(
       event.actorInvocationId,

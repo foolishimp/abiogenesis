@@ -186,7 +186,7 @@ test("T-087 actor invocation: blocked transport with a valid artifact is salvage
   }
 });
 
-test("T-087 actor invocation: malformed observed artifact becomes retry-visible payload-contract failure", () => {
+test("T-087 actor invocation: malformed observed artifact becomes terminal payload-contract failure", () => {
   const basis = buildThreeStageBasis({
     defaultRegime: "F_P",
     dispatchRef: "dispatch://supervised-actor"
@@ -220,11 +220,15 @@ test("T-087 actor invocation: malformed observed artifact becomes retry-visible 
     true
   );
   assert.equal(events.some((event) => event.kind === "assessed"), false);
+  assert.match(
+    result.transition.reason ?? "",
+    /payload_contract_failure: FpDispatchOutcome\.attachedResultArtifact\.edge/u
+  );
   assert.equal(
-    result.projection.retryProgressRefs.some((entry) =>
-      entry.progressSignalRefs.some((ref) =>
-        ref.includes("runtime_failure:payload_contract_failure")
-      )
+    events.some(
+      (event) =>
+        event.kind === "retry_attempt_stopped" &&
+        event.reason === "retry_budget_exhausted"
     ),
     true
   );

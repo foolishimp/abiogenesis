@@ -20,6 +20,10 @@ export {
   runConstructionEffectPlan,
   runConstructionIntentStep
 } from "./construction_runner.js";
+export {
+  runEventedNativeSagaFrontier,
+  runNativeSagaFrontier
+} from "./saga_frontier_runner.js";
 export type { AttachedFpResultDecision } from "./attached_fp_worker.js";
 export type {
   ConstructionIntentRunnerRequest,
@@ -30,6 +34,14 @@ export type {
   ConstructionRunnerStepStatus,
   ConstructionRuntimeEffectPlan
 } from "./construction_runner.js";
+export type {
+  EventedNativeSagaFrontierBatchResult,
+  EventedNativeSagaFrontierRunResult,
+  NativeBranchTask,
+  NativeBranchTaskResult,
+  NativeSagaFrontierBatchResult,
+  NativeSagaFrontierRunResult
+} from "./saga_frontier_runner.js";
 export type {
   EngineAssuranceGateKind,
   EngineAssuranceGateResult,
