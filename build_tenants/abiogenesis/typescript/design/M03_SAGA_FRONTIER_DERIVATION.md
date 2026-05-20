@@ -23,7 +23,7 @@ runtime-realization transparency.
 - `build_tenants/abiogenesis/typescript/design/M03_OBSERVED_STATE_ADMISSION_DERIVATION.md`
 - `build_tenants/abiogenesis/typescript/design/M03_CONSTRUCTION_PRESSURE_PACKAGE_DERIVATION.md`
 - `build_tenants/abiogenesis/typescript/design/M03_SYSTEM_PROBE_OBSERVER_LIVENESS_DERIVATION.md`
-- [T-141](../../../../.ai-workspace/tickets/active/T-141-declare-event-sourced-saga-frontier-and-runtime-realization-transparency.md)
+- [T-141](../../../../.ai-workspace/tickets/completed/T-141-declare-event-sourced-saga-frontier-and-runtime-realization-transparency.md)
 
 ## Problem
 
@@ -188,6 +188,7 @@ territory proof for the branch.
 ## Non-Goals
 
 This slice does not implement cloud queues, distributed event stores, process
-pooling, physical filesystem rename, compensation execution, or an `odd_sdlc`
-consumer. It creates the constitutional and TypeScript carrier/projection and
-native-promise runner surface those later effects must consume.
+pooling, physical filesystem rename, compensation execution, or a downstream
+product consumer. It creates the constitutional and TypeScript
+carrier/projection and native-promise runner surface those later effects must
+consume.

@@ -36,7 +36,8 @@ constructed values, not shared mutable scheduler state.
 
 6. `DependencyFrontierProjection`
    The replay-derived read model answering which branch rows are ready, blocked,
-   leased, stale, safety-underdeclared, idempotently closed, or already closed.
+   leased, failed, stale, safety-underdeclared, idempotently closed, or already
+   closed.
 
 7. `BranchExecutionPolicy`
    The resolved policy view consumed by selection. It carries max concurrency,
@@ -158,22 +159,28 @@ The first slice is complete when:
   release, and fan-in events around native async dispatch;
 - the evented native saga frontier runner emits replay-visible branch failure
   and lease release truth when a native branch task rejects after acquisition,
-  and reports failed branches separately from scheduling deferrals;
+  reports failed branches separately from scheduling deferrals, and continues
+  dispatching independent ready rows;
+- the native saga frontier runner has symmetric branch-failure handling for
+  non-evented stress proofs rather than throwing the whole frontier;
 - branch execution policy exposes the declared runtime control surface without
   introducing a new configuration authority;
 - frontier, selection, and native runner results are immutable semantic values
-  even when branch tasks operate over mutable effect edges.
-- the odd_sdlc T-167 review shape is proven abstractly: two configured reviewer
-  branches over one ticket surface can fan out, reduce into decision rows, and
-  route into ticket drafts without ABG owning reviewer meaning or ticket status
-  authority.
+  even when branch tasks operate over mutable effect edges;
+- an ABG-contained review fan-out shape is proven abstractly: two configured
+  reviewer branches over one work surface can fan out, reduce into decision
+  rows, and route into downstream decisions without ABG owning reviewer meaning
+  or product status authority.
 
 ## Batch Completion Proof
 
-T-141 is not fully closed by this first slice alone. Full closure still needs
-construction-runner consumption of the evented saga frontier, cancellation and
-evidence preservation, physical publish/merge implementation, broader policy
-carrier consumption, and an `odd_sdlc` consumer proof.
+T-141 closes at a deliberately small RC substrate bar: ABG-owned requirements,
+design, carriers, projections, native Node async dispatch, replay-visible
+events, live/synthetic ABG scenario proofs, and max-concurrency policy
+consumption. Construction-runner consumption, cancellation evidence
+preservation, physical publish/merge implementation, and broader policy carrier
+consumption are successor runtime closures, not downstream-product coupling
+requirements for this ticket.
 
 ## Module Boundary
 

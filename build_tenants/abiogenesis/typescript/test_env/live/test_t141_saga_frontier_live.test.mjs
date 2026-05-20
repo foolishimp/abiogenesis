@@ -218,7 +218,7 @@ function localBranchTask(input) {
 
 function liveClaudeReviewBranchTask(input) {
   const safeReviewerKey = input.reviewerRef.replace(/[^A-Za-z0-9]+/gu, "_");
-  const token = `ABG_T141_T167_REVIEW_${safeReviewerKey}_${timestampId()}`;
+  const token = `ABG_T141_REVIEW_FANOUT_${safeReviewerKey}_${timestampId()}`;
   return Object.freeze({
     kind: "native_branch_task",
     branchRef: input.branchRef.branchRef,
@@ -235,9 +235,9 @@ function liveClaudeReviewBranchTask(input) {
           contract: input.contract,
           workerRef: "worker.claude",
           prompt: [
-            "You are executing one ABG T-141 live branch shaped after odd_sdlc T-167.",
-            "The branch is a configured reviewer assessment over a ticket surface.",
-            `Ticket surface ref: ${input.subjectRef}`,
+            "You are executing one ABG T-141 live branch in a generic review fan-out scenario.",
+            "The branch is a configured reviewer assessment over a work surface.",
+            `Work surface ref: ${input.subjectRef}`,
             `Reviewer profile ref: ${input.reviewerRef}`,
             `Reviewer profile digest: ${input.profileDigest}`,
             `Return exactly this line and nothing else: ${token} reviewer=${input.reviewerRef} ruling=${input.ruling}`
@@ -267,7 +267,7 @@ function liveClaudeReviewBranchTask(input) {
       return Object.freeze({
         kind: "native_branch_task_result",
         branchRef: input.branchRef.branchRef,
-        payloadDigest: `sha256:t141:t167:${safeReviewerKey}:${token}`,
+        payloadDigest: `sha256:t141:review-fanout:${safeReviewerKey}:${token}`,
         evidenceRefs: [
           `reviewer-profile-ref:${input.reviewerRef}`,
           `reviewer-profile-digest:${input.profileDigest}`,
@@ -368,7 +368,7 @@ test("T-141 live sunnyday: evented saga frontier runs disjoint live F_P branches
   assert.ok(fanIn.evidenceRefs.length >= 2);
 });
 
-test("T-141/T-167 live scenario: configured reviewer fan-out reduces into ticket routing", async (t) => {
+test("T-141 live ABG scenario: configured reviewer fan-out reduces into routing", async (t) => {
   if (!liveEnabled()) {
     t.skip("set ABG_TS_T141_LIVE=1 or CODEX_LIVE_FP=1 to run T-141 live saga frontier proof");
     return;
@@ -376,40 +376,39 @@ test("T-141/T-167 live scenario: configured reviewer fan-out reduces into ticket
   const basis = buildThreeStageBasis();
   const root = await runRoot();
   const { contract, executorProfile } = liveContext();
-  const subjectRef =
-    "ticket://odd-sdlc/T-167-define-review-graph-function-for-multi-reviewer-ticket-generation";
-  const reviewerFanInRef = "fan-in://t141/live/t167/reviewer-findings";
-  const reducerFanInRef = "fan-in://t141/live/t167/reduction";
-  const routingFanInRef = "fan-in://t141/live/t167/ticket-routing";
-  const codexReviewer = branch("t167-reviewer-codex-live", {
+  const subjectRef = "work://t141/live/review-fanout/source";
+  const reviewerFanInRef = "fan-in://t141/live/review-fanout/reviewer-findings";
+  const reducerFanInRef = "fan-in://t141/live/review-fanout/reduction";
+  const routingFanInRef = "fan-in://t141/live/review-fanout/routing";
+  const codexReviewer = branch("review-fanout-reviewer-codex-live", {
     fanInScopeRef: reviewerFanInRef
   });
-  const claudeReviewer = branch("t167-reviewer-claude-live", {
+  const claudeReviewer = branch("review-fanout-reviewer-claude-live", {
     fanInScopeRef: reviewerFanInRef
   });
-  const reducer = branch("t167-reduce-review-live", {
+  const reducer = branch("review-fanout-reduce-review-live", {
     fanInScopeRef: reducerFanInRef
   });
-  const router = branch("t167-route-ticket-live", {
+  const router = branch("review-fanout-route-live", {
     fanInScopeRef: routingFanInRef
   });
   const runCounters = counters();
   const result = await runEventedNativeSagaFrontier({
     basis,
-    frontierRef: "frontier://t141/live/t167-review-ticket-routing",
+    frontierRef: "frontier://t141/live/review-fanout-routing",
     declarations: [
       declaration(codexReviewer, {
         declaredPriority: 40,
         readRefs: [subjectRef],
         outputAllocationRefs: [
-          "output://t141/live/t167/reviewer-findings/codex"
+          "output://t141/live/review-fanout/reviewer-findings/codex"
         ]
       }),
       declaration(claudeReviewer, {
         declaredPriority: 30,
         readRefs: [subjectRef],
         outputAllocationRefs: [
-          "output://t141/live/t167/reviewer-findings/claude"
+          "output://t141/live/review-fanout/reviewer-findings/claude"
         ]
       }),
       declaration(reducer, {
@@ -419,20 +418,20 @@ test("T-141/T-167 live scenario: configured reviewer fan-out reduces into ticket
           claudeReviewer.branchRef
         ],
         readRefs: [
-          "output://t141/live/t167/reviewer-findings/codex",
-          "output://t141/live/t167/reviewer-findings/claude"
+          "output://t141/live/review-fanout/reviewer-findings/codex",
+          "output://t141/live/review-fanout/reviewer-findings/claude"
         ],
-        outputAllocationRefs: ["output://t141/live/t167/decision-rows"]
+        outputAllocationRefs: ["output://t141/live/review-fanout/decision-rows"]
       }),
       declaration(router, {
         declaredPriority: 10,
         parentBranchRefs: [reducer.branchRef],
-        readRefs: ["output://t141/live/t167/decision-rows"],
-        outputAllocationRefs: ["output://t141/live/t167/draft-tickets"]
+        readRefs: ["output://t141/live/review-fanout/decision-rows"],
+        outputAllocationRefs: ["output://t141/live/review-fanout/routing-decisions"]
       })
     ],
     policy: constructBranchExecutionPolicy({
-      policyRef: "policy://t141/live/t167-review-ticket-routing",
+      policyRef: "policy://t141/live/review-fanout-routing",
       maxConcurrency: 2,
       resolvedSystemPolicyRefs: [
         "abg-default://saga-frontier/live/max-concurrency/two"
@@ -445,11 +444,11 @@ test("T-141/T-167 live scenario: configured reviewer fan-out reduces into ticket
         contract,
         executorProfile,
         counters: runCounters,
-        label: "t141.live.t167-reviewer-codex",
+        label: "t141.live.review-fanout-reviewer-codex",
         subjectRef,
-        reviewerRef: "reviewer://odd-sdlc/codex",
-        profileDigest: "sha256:t167-reviewer-codex-profile",
-        ruling: "split_ticket"
+        reviewerRef: "reviewer://abg/codex",
+        profileDigest: "sha256:review-fanout-reviewer-codex-profile",
+        ruling: "split_work"
       }),
       liveClaudeReviewBranchTask({
         branchRef: claudeReviewer,
@@ -457,25 +456,25 @@ test("T-141/T-167 live scenario: configured reviewer fan-out reduces into ticket
         contract,
         executorProfile,
         counters: runCounters,
-        label: "t141.live.t167-reviewer-claude",
+        label: "t141.live.review-fanout-reviewer-claude",
         subjectRef,
-        reviewerRef: "reviewer://odd-sdlc/claude",
-        profileDigest: "sha256:t167-reviewer-claude-profile",
+        reviewerRef: "reviewer://abg/claude",
+        profileDigest: "sha256:review-fanout-reviewer-claude-profile",
         ruling: "deferred"
       }),
       localBranchTask({
         branchRef: reducer,
         counters: runCounters,
-        evidenceRefs: ["evidence://t141/live/t167/decision-rows"]
+        evidenceRefs: ["evidence://t141/live/review-fanout/decision-rows"]
       }),
       localBranchTask({
         branchRef: router,
         counters: runCounters,
-        evidenceRefs: ["evidence://t141/live/t167/draft-ticket"]
+        evidenceRefs: ["evidence://t141/live/review-fanout/routing-decision"]
       })
     ],
     eventSink: () => {},
-    correlationId: "correlation://t141/live/t167-review-ticket-routing"
+    correlationId: "correlation://t141/live/review-fanout-routing"
   });
   const reviewerFanIn = deriveBranchFanInProjectionFromEvents({
     fanInRef: reviewerFanInRef,
@@ -503,11 +502,11 @@ test("T-141/T-167 live scenario: configured reviewer fan-out reduces into ticket
     claudeReviewer.branchRef
   ]);
   assert.equal(
-    reviewerFanIn.evidenceRefs.includes("reviewer-profile-ref:reviewer://odd-sdlc/codex"),
+    reviewerFanIn.evidenceRefs.includes("reviewer-profile-ref:reviewer://abg/codex"),
     true
   );
   assert.equal(
-    reviewerFanIn.evidenceRefs.includes("reviewer-profile-ref:reviewer://odd-sdlc/claude"),
+    reviewerFanIn.evidenceRefs.includes("reviewer-profile-ref:reviewer://abg/claude"),
     true
   );
   assert.deepEqual(result.failedBranchRefs, []);

@@ -3,13 +3,14 @@ id: T-141
 title: Declare event-sourced saga frontier and runtime realization transparency
 type: feature
 ticket_category: abg_event_sourced_saga_frontier
-status: active
-review_status: pending
+status: completed
+review_status: passed_minimal_abg_rc
 priority: critical
 owner: codex
 created_at: 2026-05-20T23:00:58+10:00
 activated_at: 2026-05-20T23:00:58+10:00
-updated_at: 2026-05-21T01:26:44+10:00
+updated_at: 2026-05-21T03:28:11+10:00
+completed_at: 2026-05-21T03:28:11+10:00
 change_class: requirement_reprice
 re_entry_point: requirement
 goal: dependency-ready-abg-saga-frontier-with-runtime-realization-transparency
@@ -18,7 +19,7 @@ build_tenant: typescript
 owning_repo: abiogenesis
 governance_scope: STDO Method
 intake_source:
-  - operator clarified that odd_sdlc may declare steel-thread or dependency fan-out from product content, while ABG may or may not exploit parallel runtime execution
+  - operator clarified that downstream products may declare steel-thread or dependency fan-out from product content, while ABG may or may not exploit parallel runtime execution
   - operator clarified that serial and async share the same product authority, dependency declarations, and closure expectations
   - operator clarified that this is a lawful tradeoff and should be captured as an ABG ticket axiom
   - operator clarified that async implementation should use native Node async primitives, with ABG's existing system-level configuration controlling parallelism caps
@@ -36,8 +37,6 @@ dependencies:
   - .ai-workspace/tickets/completed/T-139-materialize-construction-pressure-package-for-mixed-fp-and-deterministic-follow-up.md
   - .ai-workspace/tickets/completed/T-140-consolidate-abg-m03-runtime-and-construction-substrate-under-design-module-method.md
 related_tickets:
-  - /Users/jim/src/apps/odd_sdlc/.ai-workspace/tickets/active/T-172-realize-staged-disambiguation-graph-and-decomposition-admission.md
-  - /Users/jim/src/apps/odd_sdlc/.ai-workspace/tickets/active/T-173-realize-complexity-admitted-min-fp-traversal-selection.md
   - .ai-workspace/tickets/backlog/T-126-consolidate-temporal-runtime-scope-and-projection-row-carriers.md
   - .ai-workspace/tickets/backlog/T-110-sticky-session-agent-pool-executor.md
 requirement_refs:
@@ -73,8 +72,6 @@ design_refs:
 reference_documents:
   - .ai-workspace/comments/codex/20260520T222852AEST_STRATEGY_abg_event_sourced_saga_dependency_parallel_runtime.md
   - /Users/jim/src/apps/specification_methodology/specification/standards/DESIGN_MODULE_METHOD.md
-  - /Users/jim/src/apps/odd_sdlc/.ai-workspace/comments/codex/20260519T164333AEST_STRATEGY_staged_construction_computation_test35_test82.md
-  - /Users/jim/src/apps/odd_sdlc/.ai-workspace/comments/claude/20260517T084000Z_STRATEGY_promise_graph_parallel_execution.md
 affected_boundary:
   - specification/PRODUCT.md
   - specification/INTENT.md
@@ -85,11 +82,10 @@ affected_boundary:
   - build_tenants/abiogenesis/typescript/code/src/abg/m03/transport/
   - build_tenants/abiogenesis/typescript/test_env/tests/
   - build_tenants/abiogenesis/typescript/test_env/live/
-blocks:
-  - /Users/jim/src/apps/odd_sdlc/.ai-workspace/tickets/active/T-173-realize-complexity-admitted-min-fp-traversal-selection.md
+blocks: []
 target_truth: ABG admits a dependency-ready saga frontier over GTL graph-function work using existing Event Calculus runtime law. A downstream product may declare a steel-thread traversal or dependency-isolated fan-out because it owns product dependency meaning, but that declaration is an admitted traversal opportunity, not a command that forces concurrent execution. ABG may realize the same product authority serially, bounded-parallel, paused, retried, recovered, compensated, blocked, or escalated without changing product meaning. Parallel execution is lawful only when replay-derived frontier truth, observed-state freshness, idempotent branch admission, branch leases, disjoint write territory, and admitted runtime concurrency policy prove it safe. The local TypeScript realization uses native Node async primitives and consumes ABG's existing visible system-level configuration/resolved runtime policy surfaces for max concurrency, transport/worker/resource caps, queueing, timeout, cancellation, and lease policy. System parallelism is a DESIGN_MODULE_METHOD Functional Programming Prime boundary: semantic carriers/projections advance as immutable values, while the shared mutable workspace remains an explicit effect edge guarded by observed-state, write-territory/output-allocation, staging, publication, and idempotent admission law. If isolation or policy admission is not proven, ABG serializes or blocks rather than inventing product topology or private orchestration.
 superseded_truth: Product-declared parallel traversal means the runtime must dispatch multiple workers concurrently, or async orchestration belongs in the downstream product when ABG cannot exploit dependency fan-out.
-closure_law: Close only when requirements, design modules, carriers, Event Calculus projection rules, runner behavior, and deterministic tests prove the runtime-realization transparency axiom; branch identity and idempotency law; dependency-ready frontier projection; write-territory-safe batch selection; serial fallback over the same declarations; replay-visible branch lease, timeout, cancellation, retry, and liveness policy; deterministic fan-in; public progress projection; and Functional Programming Prime immutability for the semantic system-parallelism boundary. The ticket does not close if any async/fan-out behavior depends on runner-local ready sets, in-memory promises, product-local async loops, unstated worker intent, file presence alone, shared mutable workspace state as scheduler truth, or a new saga calculus outside existing ABG Event Calculus law.
+closure_law: Close at the 3.8.0 RC substrate bar when ABG-owned requirements, design modules, carriers, Event Calculus projection rules, native Node runner behavior, and deterministic synthetic/live tests prove the runtime-realization transparency axiom; branch identity and idempotency law; dependency-ready frontier projection; write-territory/output-allocation-safe batch selection; serial fallback over the same declarations; replay-visible branch lease/payload/failure/release/fan-in events; deterministic fan-in; public progress projection; and Functional Programming Prime immutability for the semantic system-parallelism boundary. Broader timeout, cancellation, retry-loop, physical publish/merge, construction-runner consumption, and downstream product consumer proofs are successor closures, not T-141 RC blockers. The ticket does not close if any async/fan-out behavior depends on runner-local ready sets, in-memory promises as recovery truth, product-local async loops, unstated worker intent, file presence alone, shared mutable workspace state as scheduler truth, or a new saga calculus outside existing ABG Event Calculus law.
 evaluation_criteria:
   - requirements declare runtime-realization transparency: product authority is stable across serial and async realization
   - requirements declare that product-owned dependency maps and steel-thread plans are traversal opportunities, not mandatory concurrent execution commands
@@ -105,7 +101,7 @@ evaluation_criteria:
   - runner implementation preserves existing serial behavior as the degenerate one-branch frontier
   - runner implementation can execute independent branches concurrently only after branch leases, write territories, and concurrency policy are admitted
   - public progress projection exposes branch/frontier state from admitted truth without becoming a rival controller
-  - tests cover serial equivalence, dependency blocking, write conflict serialization, idempotent duplicate admission, late result after retry, lease expiry recovery, retry budget exhaustion, timeout/cancellation evidence, fan-in determinism, observed-state freshness, mid-write abort cleanliness, and an odd_sdlc dependency-map consumer proof
+  - tests cover serial equivalence, dependency blocking, write conflict serialization, idempotent duplicate admission, retry-attempt separation, lease expiry recovery input, branch task failure disposition, fan-in determinism, observed-state freshness, staged-output invisibility before payload admission, live negative dispatch blocking, and an ABG-contained multi-branch dependency fan-out scenario proof
 non_closure_conditions:
   - product-declared parallel traversal is treated as a runtime obligation to dispatch concurrently
   - serial execution of an admitted dependency fan-out is treated as product semantic failure
@@ -125,17 +121,18 @@ non_closure_conditions:
   - shared mutable workspace state is treated as branch-readiness, selection, or fan-in authority without observed-state admission and replay-visible publication truth
   - in-memory promises are required to recover current runtime truth
   - event-store unavailability still permits new branch dispatch or closure claims
-  - product-local async orchestration is required for odd_sdlc to consume a dependency fan-out plan
+  - product-local async orchestration is required for a downstream product to consume a dependency fan-out plan
 ---
 
 # T-141: Declare Event-Sourced Saga Frontier And Runtime Realization Transparency
 
 ## Entry
 
-The immediate downstream pressure comes from `odd_sdlc`: the product can know
-which construction path is the steel thread and which component or test branches
-are dependency-isolated. That product knowledge should be declared as authority.
-It should not force a particular runtime realization.
+The immediate pressure is generic: a downstream product can know which
+construction path is the steel thread and which work branches are
+dependency-isolated. That product knowledge should be declared as authority. It
+should not force a particular runtime realization or make ABG depend on the
+downstream product's domain.
 
 The ABG axiom to declare is:
 
@@ -148,9 +145,10 @@ serial if isolation is not proven or not exploited
 parallel only where isolation is proven and admitted
 ```
 
-`odd_sdlc` may create a steel thread or dependency fan-out because it owns the
-content. ABG may exploit that fan-out with bounded parallel runtime execution,
-or may run the same admitted plan serially. The product meaning does not change.
+A downstream product may create a steel thread or dependency fan-out because it
+owns the content. ABG may exploit that fan-out with bounded parallel runtime
+execution, or may run the same admitted plan serially. The product meaning does
+not change.
 
 That axiom turns async execution into an ABG runtime admission consequence, not
 a second product model and not a product-local orchestration burden.
@@ -192,8 +190,9 @@ surfaces before code.
 
 ### T - Ticket Method
 
-This ticket owns the durable ABG work item. It does not close `odd_sdlc` T-172
-or T-173 directly. It supplies the ABG substrate those tickets can consume.
+This ticket owns the durable ABG work item. It is self-contained in ABG and
+does not close any downstream product ticket directly. It supplies the ABG
+substrate downstream products can consume later.
 
 Closure must prove the axiom across both cases:
 
@@ -546,8 +545,8 @@ The progress projection is read-only. It must not become a controller.
 5. Implement local dependency-ready saga runner with serial fallback and bounded
    disjoint branch execution.
 6. Add deterministic tests for all closure criteria.
-7. Add an `odd_sdlc` consumer proof using admitted dependency-map input without
-   product-local async orchestration.
+7. Add an ABG-contained scenario proof using admitted dependency-map input
+   without product-local async orchestration.
 
 ## Implementation Progress
 
@@ -582,8 +581,8 @@ payload/fan-in projection, native-promise serial fallback, native-promise
 bounded fan-out, evented native lease/payload/release/fan-in emission, and
 staging invisibility before matching payload admission. Construction-runner
 consumption of the evented saga frontier, cancellation/evidence preservation,
-physical publish/merge implementation, broader policy consumption by the runner,
-and `odd_sdlc` consumer proof remain open.
+physical publish/merge implementation, and broader policy consumption by the
+runner remain successor-runtime work outside the minimal 3.8.0 RC substrate bar.
 
 Functional Prime follow-up landed:
 
@@ -646,13 +645,11 @@ Async suite follow-up landed:
   runner returns a controlled failed-branch result. The async proof asserts that
   rejected branch tasks do not leave an active replayed lease behind and do not
   masquerade as scheduling deferrals.
-- T-167-shaped scenario proof landed from
-  `/Users/jim/src/apps/odd_sdlc/.ai-workspace/tickets/backlog/T-167-define-review-graph-function-for-multi-reviewer-ticket-generation.md`:
-  ABG now has a synthetic and live test for the abstract shape
-  `ticket surface -> configured reviewer fan-out -> finding reduction -> ticket
-  routing`, where reviewer branches run in parallel only because their declared
-  output allocations are disjoint, and reducer/router branches wait for admitted
-  parent closure.
+- ABG-contained review fan-out scenario proof landed: ABG now has a synthetic
+  and live test for the abstract shape `work surface -> configured reviewer
+  fan-out -> finding reduction -> routing decision`, where reviewer branches run
+  in parallel only because their declared output allocations are disjoint, and
+  reducer/router branches wait for admitted parent closure.
 - Synthetic async stress proof landed: a deterministic random dependency graph
   with 65 branches runs through the real evented native async runner as a
   50-branch initial fan-out, 10 reducer branches, and 5 terminal leaf branches.
@@ -672,10 +669,10 @@ Async suite follow-up landed:
   - The live lane has live serialization coverage proving shared output
     allocation serializes two live F_P branches even when max concurrency is
     greater than one.
-  - The live lane has a T-167-shaped scenario where two configured reviewer
-    branches execute as live F_P calls and then feed abstract reducer and
-    ticket-routing branches through the same replay-visible frontier/fan-in
-    mechanics.
+  - The live lane has an ABG-contained review fan-out scenario where two
+    configured reviewer branches execute as live F_P calls and then feed
+    abstract reducer and routing branches through the same replay-visible
+    frontier/fan-in mechanics.
 - RC live sweep on 2026-05-21 passed the unique live-script set:
   `test:live`, `test:live:uat`, `test:t087:live`, `test:t094:live`,
   `test:t100:five-rule`, `test:t107:data-mapper-live`, `test:t113:live`,
@@ -695,6 +692,24 @@ Async suite follow-up landed:
   - failed branch results are reported through `failedBranchRefs`, not
     `deferredBranchRefs`, so scheduling deferral and branch failure remain
     separate replay/result concepts.
+- Minimal ABG RC closure pass landed on 2026-05-21:
+  - downstream-product consumer proof was removed from the T-141 closure bar;
+  - synthetic and live review fan-out scenarios are ABG-contained and no longer
+    cite downstream product tickets, reviewer refs, or work-surface refs;
+  - `runEventedNativeSagaFrontier(...)` no longer halts the whole frontier after
+    one branch task failure; independent rows continue while failed parents keep
+    dependents blocked;
+  - failed native branch tasks preserve declared failure evidence refs into
+    replay-visible `branch_task_failed` truth;
+  - `runNativeSagaFrontier(...)` now has symmetric branch-failure handling and
+    reports failed branch refs instead of throwing the whole wide fan-out.
+- Minimal ABG RC verification passed:
+  - `npm run build:semantic`
+  - `npm run lint:semantic`
+  - `npm run lint:test-harness`
+  - `npm run test:t141` - 34/34
+  - `npm run test:semantic` - 597/597
+  - `npm run test:t141:live` - 5/5
 
 ## Acceptance Proofs
 
@@ -717,15 +732,16 @@ Required tests/proofs:
 12. observed-state freshness rejects stale workspace state before dispatch;
 13. mid-write abort does not expose partial staged output downstream;
 14. public progress projection answers mid-flight state from replay truth;
-15. odd_sdlc dependency-map consumer proves steel-thread then dependency-isolated
-   fan-out without odd_sdlc owning async runtime mechanics.
+15. ABG-contained dependency-map scenario proves steel-thread then
+   dependency-isolated fan-out without any downstream product owning async
+   runtime mechanics.
 
-## Downstream Boundary
+## Product Boundary
 
-`odd_sdlc` owns:
+Downstream products own:
 
 - product dependency meaning;
-- module/test dependency maps;
+- dependency maps;
 - steel-thread or parallel traversal selection;
 - product target/output/evidence expectations;
 - product fan-in meaning.

@@ -1,7 +1,7 @@
-# abiogenesis 3.8.0-rc.1 RC Notes
+# abiogenesis 3.8.0-rc.2 RC Notes
 
-This note records accepted RC behavior for the current `v3.8.0-rc.1` line.
-The package cut is `3.8.0-rc.1`.
+This note records accepted RC behavior for the current `v3.8.0-rc.2` line.
+The package cut is `3.8.0-rc.2`.
 
 ## Accepted Framework Behavior
 
@@ -549,10 +549,10 @@ Non-claim:
   semantic field meaning, product-specific payload interpretation, and richer
   design-consumer test generation.
 
-### Saga Frontier Opens 3.8.0 RC1
+### Saga Frontier Opens 3.8.0 RC2
 
 The saga-frontier correction moves the current release candidate from
-`3.7.1-rc.4` to `3.8.0-rc.1` because ABG now owns the event-sourced runtime
+`3.7.1-rc.4` to `3.8.0-rc.2` because ABG now owns the event-sourced runtime
 truth needed to run dependency-aware construction branches serially or in
 parallel without changing product meaning.
 
@@ -580,12 +580,15 @@ Accepted behavior:
   completion order;
 - staged output remains invisible to downstream branches until matching payload
   admission;
-- the live T-141 lane proves the T-167-shaped ticket-review fan-out pattern with
+- failed branches become replay-visible frontier truth, preserve failure
+  evidence refs, release leases, block dependent children, and do not halt
+  independent ready rows;
+- the live T-141 lane proves an ABG-contained review fan-out pattern with
   real Claude PTY reviewer branches and abstract reducer/router branches.
 
 Non-claim:
 
-- RC1 does not require downstream products to expose ABG scheduling as product
+- RC2 does not require downstream products to expose ABG scheduling as product
   truth. It also does not complete cloud durable providers, final atomic
   workspace publish/merge, or the full timeout/cancellation/retry runtime.
 
@@ -614,8 +617,9 @@ The current RC proving footer is:
 - `npm run test:t130:t131`: `20 passed`
 - `npm run test:t132`: `1 passed`
 - `npm run test:t133`: `9 passed`
-- `npm run test:t141`: `32 passed`
-- `npm run test:semantic`: `595 passed`
+- `npm run test:t141`: `34 passed`
+- `npm run test:semantic`: `597 passed`
+- `npm run test:t141:live`: `5 passed`
 - `npm run lint:test-harness`: `passed`
 - `ABG_TS_T132_LIVE=1 CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=120000 npm run test:t132:live`: `1 passed`
 - `npm run test:t058`: `11 passed`
@@ -628,7 +632,7 @@ The current RC proving footer is:
 - full live sweep including `test:t141:live`: `passed`
 - `git diff --check`: `passed`
 - `npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run`: `passed`,
-  package `3.8.0-rc.1`, `374 files`
+  package `3.8.0-rc.2`, `374 files`
 
 Fresh 3.5.0-rc.2 live PTY plugin/actor matrix:
 

@@ -31,6 +31,7 @@ export type DependencyFrontierRowState =
   | "blocked_by_parents"
   | "ready"
   | "leased"
+  | "failed"
   | "stale_observed_state"
   | "underdeclared_safety"
   | "idempotency_admitted"
@@ -212,6 +213,7 @@ export interface DependencyFrontierProjection {
   readonly rows: readonly DependencyFrontierRow[];
   readonly readyBranchRefs: readonly string[];
   readonly blockedBranchRefs: readonly string[];
+  readonly failedBranchRefs: readonly string[];
   readonly leasedBranchRefs: readonly string[];
   readonly closedBranchRefs: readonly string[];
 }
@@ -1042,6 +1044,7 @@ export function deriveDependencyFrontierProjection(input: {
   readonly basisRef?: string | null | undefined;
   readonly declarations: readonly DependencyFrontierDeclaration[];
   readonly closedBranchRefs?: readonly string[] | undefined;
+  readonly failedBranchRefs?: readonly string[] | undefined;
   readonly staleObservedStateRefs?: readonly string[] | undefined;
   readonly admittedIdempotencyKeys?: readonly string[] | undefined;
   readonly activeLeaseBranchRefs?: readonly string[] | undefined;
@@ -1053,6 +1056,12 @@ export function deriveDependencyFrontierProjection(input: {
     "DependencyFrontierProjection.closedBranchRefs"
   );
   const closed = new Set(closedBranchRefs);
+  const failed = new Set(
+    freezeUniqueSortedStrings(
+      input.failedBranchRefs ?? EMPTY_STRING_ARRAY,
+      "DependencyFrontierProjection.failedBranchRefs"
+    )
+  );
   const staleObserved = new Set(
     freezeUniqueSortedStrings(
       input.staleObservedStateRefs ?? EMPTY_STRING_ARRAY,
@@ -1086,6 +1095,8 @@ export function deriveDependencyFrontierProjection(input: {
       let rowState: DependencyFrontierRowState = "ready";
       if (closed.has(branchRef)) {
         rowState = "closed";
+      } else if (failed.has(branchRef)) {
+        rowState = "failed";
       } else if (blockingParentRefs.length > 0) {
         rowState = "blocked_by_parents";
       } else if (missingSafetyProofRefs.length > 0) {
@@ -1130,6 +1141,7 @@ export function deriveDependencyFrontierProjection(input: {
       .filter(
         (row) =>
           row.rowState === "blocked_by_parents" ||
+          row.rowState === "failed" ||
           row.rowState === "underdeclared_safety" ||
           row.rowState === "stale_observed_state"
       )
@@ -1139,6 +1151,12 @@ export function deriveDependencyFrontierProjection(input: {
   const leasedBranchRefs = freezeStringArray(
     rows
       .filter((row) => row.rowState === "leased")
+      .map((row) => row.branchRef.branchRef)
+      .sort()
+  );
+  const failedBranchRefs = freezeStringArray(
+    rows
+      .filter((row) => row.rowState === "failed")
       .map((row) => row.branchRef.branchRef)
       .sort()
   );
@@ -1155,6 +1173,7 @@ export function deriveDependencyFrontierProjection(input: {
     rows,
     readyBranchRefs,
     blockedBranchRefs,
+    failedBranchRefs,
     leasedBranchRefs,
     closedBranchRefs
   });

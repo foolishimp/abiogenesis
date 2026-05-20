@@ -16,12 +16,12 @@ from `SPEC_METHOD.md`:
 This wave does not treat compatibility aliases or mixed operator stories as
 acceptable closure.
 
-The current active wave is ABG construction-substrate. It turns the T-127
+The current completed wave is ABG construction-substrate. It turns the T-127
 first-slice construction carriers into an installed mixed-regime runner with
 composition grammar, vector-local regimes, observed-state admission, overlay
 frames, F_D authority placement, construction pressure packaging, and
 dependency-ready saga-frontier realization transparency.
-Downstream `odd_sdlc` migration follows after this substrate proves by deleting
+Downstream product migration follows after this substrate proves by deleting
 product-local loop/controller authority rather than rebuilding it.
 
 ## Current Goals
@@ -32,8 +32,8 @@ product-local loop/controller authority rather than rebuilding it.
 | `GOAL-004` | `Product` + `Policy` + `Projection` | Make repeated proof failure become authoritative control-plane hold truth instead of loop-local behavior. | One resolved hold policy source governs enablement and threshold; `gen-start`, `gen-gaps`, and live status project the same replay-derived held truth; the clear path is authoritative event truth, not controller memory. | `B-018`, `REQ-P-POLICY`, `test_abg3_runtime_envelope.py`, `test_cli_adapter_auto.py`, `test_m03_engine_kernel_integration.py` | Completed | `B-018` |
 | `GOAL-005` | `Product` + `Design` | Make public targeting identity-backed and fail closed before downstream domains build higher-order traversal over it. | Public graph-function targeting resolves through a published target catalog to canonical callable-carrier identity, ambiguity fails closed, and `asset:<published_handle>` resolves only through one published operator asset registry and ownership surface to one governing callable boundary. | `B-023`, `B-024`, GTL identity law, target-resolution tests | Completed | `B-023`, `B-024`, `B-026` |
 | `GOAL-006` | `Run` + `Convergence` + `Policy` + `Projection` | Make continuation-owned retry/repair/review outcomes project as yielded public truth instead of failure-shaped status whenever a lawful next step exists. | `gen-start`, runtime return payloads, run projection, and live-status agree on yielded continuation truth; downstream products no longer need semantic repair over ABG status. | `B-029`, `REQ-R-ABG3-RUN`, `REQ-R-ABG3-CONVERGENCE`, `REQ-R-ABG3-EVENTS`, `REQ-P-POLICY`, `test_abg3_runtime_envelope.py`, `test_cli_adapter_auto.py` | Completed | `B-029` |
-| `GOAL-007` | `Requirements` + `Projection` + `Convergence` | Make ABG closure derive from total assurance projection over current authority and admitted runtime events, so bounded compute cannot close by worker success, report shape, test success, or absent closure rows. | ABG has requirement authority for exhaustive ambiguity rows and event-sourced payload ledgers, GTL can declare assurance and payload hook refs without side-door runtime config, TS tenant proof owns the primary release gate, Python evidence is retained only as paused reference material, and ABG owns process actor truth, typed F_P stage carriers, and full retry frontier projection before downstream odd_sdlc consumes them. | `T-088`, `T-089`, `T-090`, `T-091`, `T-092-TS`, `T-093-TS`, `T-094`, `T-095`, `T-096`, `T-097`, `T-098`, `T-099`, `REQ-R-ABG3-ASSURANCE`, `REQ-R-ABG3-PAYLOAD`, `REQ-L-GTL3-HOOKS` | Completed | `T-088`, `T-089`, `T-086`, `T-090`, `T-091`, `T-092-TS`, `T-093-TS`, `T-094`, `T-095`, `T-096`, `T-097`, `T-098`, `T-099` |
-| `GOAL-008` | `GTL` + `ABG Runtime` + `Construction` + `Projection` | Realize the generic mixed-regime construction substrate that replaces downstream product outer loops. | ABG owns an installed construction runner over admitted construction intent; vector-local regimes drive mixed F_P/F_D/F_H traversal; observed workspace/register state is admitted and replay-visible; overlay frames are GTL-bound runtime contracts; F_D outcomes route by authority placement; construction pressure packages reproduce the load-bearing test35 behavior; dependency-ready fan-out is an admitted traversal opportunity that ABG may realize serially or bounded-parallel without SDLC-local loop control; system parallelism keeps immutable semantic carriers over the shared workspace effect boundary. | `T-134`, `T-128`, `T-135`, `T-136`, `T-137`, `T-138`, `T-139`, `T-141`, `REQ-R-ABG3-FP-CONSCIOUSNESS`, `REQ-R-ABG3-SAGA-FRONTIER`, `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-PROJECTION`, `REQ-L-GTL3-GRAPHVECTOR`, `REQ-L-GTL3-EVALUATOR` | Active | `T-134`, `T-128`, `T-135`, `T-136`, `T-137`, `T-138`, `T-139`, `T-141` |
+| `GOAL-007` | `Requirements` + `Projection` + `Convergence` | Make ABG closure derive from total assurance projection over current authority and admitted runtime events, so bounded compute cannot close by worker success, report shape, test success, or absent closure rows. | ABG has requirement authority for exhaustive ambiguity rows and event-sourced payload ledgers, GTL can declare assurance and payload hook refs without side-door runtime config, TS tenant proof owns the primary release gate, Python evidence is retained only as paused reference material, and ABG owns process actor truth, typed F_P stage carriers, and full retry frontier projection before downstream products consume them. | `T-088`, `T-089`, `T-090`, `T-091`, `T-092-TS`, `T-093-TS`, `T-094`, `T-095`, `T-096`, `T-097`, `T-098`, `T-099`, `REQ-R-ABG3-ASSURANCE`, `REQ-R-ABG3-PAYLOAD`, `REQ-L-GTL3-HOOKS` | Completed | `T-088`, `T-089`, `T-086`, `T-090`, `T-091`, `T-092-TS`, `T-093-TS`, `T-094`, `T-095`, `T-096`, `T-097`, `T-098`, `T-099` |
+| `GOAL-008` | `GTL` + `ABG Runtime` + `Construction` + `Projection` | Realize the generic mixed-regime construction substrate that replaces downstream product outer loops. | ABG owns an installed construction runner over admitted construction intent; vector-local regimes drive mixed F_P/F_D/F_H traversal; observed workspace/register state is admitted and replay-visible; overlay frames are GTL-bound runtime contracts; F_D outcomes route by authority placement; construction pressure packages reproduce the load-bearing test35 behavior; dependency-ready fan-out is an admitted traversal opportunity that ABG may realize serially or bounded-parallel without product-local loop control; system parallelism keeps immutable semantic carriers over the shared workspace effect boundary. | `T-134`, `T-128`, `T-135`, `T-136`, `T-137`, `T-138`, `T-139`, `T-141`, `REQ-R-ABG3-FP-CONSCIOUSNESS`, `REQ-R-ABG3-SAGA-FRONTIER`, `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-PROJECTION`, `REQ-L-GTL3-GRAPHVECTOR`, `REQ-L-GTL3-EVALUATOR` | Completed | `T-134`, `T-128`, `T-135`, `T-136`, `T-137`, `T-138`, `T-139`, `T-141` |
 
 ## Wave Boundary
 
@@ -63,7 +63,7 @@ Python tenant work from this wave is paused by the tenant registry. Existing
 Python evidence remains reference material, but Python parity is not an active
 RC gate while the release line is TS-primary.
 
-The active construction-substrate wave covers:
+The completed construction-substrate wave covers:
 
 1. `T-134` completed requirements/design grammar
 2. `T-128` completed installed construction runner
@@ -71,8 +71,8 @@ The active construction-substrate wave covers:
 4. `T-136` completed observed-state admission
 5. `T-137` completed overlay-frame contract
 6. `T-138` completed F_D authority placement
-7. `T-139`
-8. `T-141`
+7. `T-139` completed construction pressure package substrate
+8. `T-141` completed dependency-ready saga frontier substrate
 
 `T-134` supplies the completed requirements/design grammar that all
 implementation tickets bind to; it does not own parser/runtime/export
@@ -88,8 +88,8 @@ pressure package substrate. `T-141` supplies dependency-ready saga frontier
 truth and runtime-realization transparency so downstream dependency fan-out can
 be admitted without forcing downstream async controller authority.
 
-`odd_sdlc` follow-on work starts after this ABG wave lands and proves. The
-immediate downstream consumer work is expected to consume ABG construction
+Downstream product follow-on work starts after this ABG wave lands and proves.
+Immediate downstream consumer work is expected to consume ABG construction
 runner truth, vector-local regime truth, observed-state refs, overlay-frame
 truth, construction pressure packages, and dependency-frontier truth rather
-than rebuilding those surfaces in SDLC-local controller code.
+than rebuilding those surfaces in product-local controller code.

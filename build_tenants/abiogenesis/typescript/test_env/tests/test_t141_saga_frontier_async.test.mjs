@@ -76,6 +76,7 @@ function delayedTask(branchRef, input = {}) {
   return Object.freeze({
     kind: "native_branch_task",
     branchRef: branchRef.branchRef,
+    failureEvidenceRefs: input.failureEvidenceRefs ?? [],
     run: async () => {
       if (emittedEvents !== null) {
         log.push(
@@ -109,6 +110,7 @@ function failingTask(branchRef, input = {}) {
   return Object.freeze({
     kind: "native_branch_task",
     branchRef: branchRef.branchRef,
+    failureEvidenceRefs: input.failureEvidenceRefs ?? [],
     run: async () => {
       runCounters.active += 1;
       runCounters.maxActive = Math.max(runCounters.maxActive, runCounters.active);
@@ -250,40 +252,40 @@ test("T-141 async suite proves serial and bounded-parallel realization preserve 
   assert.deepEqual(parallel.emittedEvents, parallelEvents);
 });
 
-test("T-141/T-167 synthetic scenario fans out configured reviewers before ticket routing", async () => {
+test("T-141 synthetic ABG scenario fans out configured reviewers before routing", async () => {
   const basis = buildThreeStageBasis();
-  const reviewerFanInRef = "fan-in://t141/async/t167/reviewer-findings";
-  const reducerFanInRef = "fan-in://t141/async/t167/reduction";
-  const routeFanInRef = "fan-in://t141/async/t167/ticket-routing";
-  const codexReviewer = branch("t167-reviewer-codex", {
+  const reviewerFanInRef = "fan-in://t141/async/review-fanout/reviewer-findings";
+  const reducerFanInRef = "fan-in://t141/async/review-fanout/reduction";
+  const routeFanInRef = "fan-in://t141/async/review-fanout/routing";
+  const codexReviewer = branch("review-fanout-reviewer-codex", {
     fanInScopeRef: reviewerFanInRef
   });
-  const claudeReviewer = branch("t167-reviewer-claude", {
+  const claudeReviewer = branch("review-fanout-reviewer-claude", {
     fanInScopeRef: reviewerFanInRef
   });
-  const reducer = branch("t167-reduce-findings", {
+  const reducer = branch("review-fanout-reduce-findings", {
     fanInScopeRef: reducerFanInRef
   });
-  const router = branch("t167-route-ticket-decisions", {
+  const router = branch("review-fanout-route-decisions", {
     fanInScopeRef: routeFanInRef
   });
   const runCounters = counters();
   const result = await runEventedNativeSagaFrontier({
     basis,
-    frontierRef: "frontier://t141/async/t167-review-ticket-routing",
+    frontierRef: "frontier://t141/async/review-fanout-routing",
     declarations: [
       declaration(codexReviewer, {
         declaredPriority: 40,
-        readRefs: ["ticket://odd-sdlc/T-167"],
+        readRefs: ["work://t141/async/review-fanout/source"],
         outputAllocationRefs: [
-          "output://t141/async/t167/reviewer-findings/codex"
+          "output://t141/async/review-fanout/reviewer-findings/codex"
         ]
       }),
       declaration(claudeReviewer, {
         declaredPriority: 30,
-        readRefs: ["ticket://odd-sdlc/T-167"],
+        readRefs: ["work://t141/async/review-fanout/source"],
         outputAllocationRefs: [
-          "output://t141/async/t167/reviewer-findings/claude"
+          "output://t141/async/review-fanout/reviewer-findings/claude"
         ]
       }),
       declaration(reducer, {
@@ -293,20 +295,20 @@ test("T-141/T-167 synthetic scenario fans out configured reviewers before ticket
           claudeReviewer.branchRef
         ],
         readRefs: [
-          "output://t141/async/t167/reviewer-findings/codex",
-          "output://t141/async/t167/reviewer-findings/claude"
+          "output://t141/async/review-fanout/reviewer-findings/codex",
+          "output://t141/async/review-fanout/reviewer-findings/claude"
         ],
-        outputAllocationRefs: ["output://t141/async/t167/decision-rows"]
+        outputAllocationRefs: ["output://t141/async/review-fanout/decision-rows"]
       }),
       declaration(router, {
         declaredPriority: 10,
         parentBranchRefs: [reducer.branchRef],
-        readRefs: ["output://t141/async/t167/decision-rows"],
-        outputAllocationRefs: ["output://t141/async/t167/draft-tickets"]
+        readRefs: ["output://t141/async/review-fanout/decision-rows"],
+        outputAllocationRefs: ["output://t141/async/review-fanout/routing-decisions"]
       })
     ],
     policy: constructBranchExecutionPolicy({
-      policyRef: "policy://t141/async/t167-review-ticket-routing",
+      policyRef: "policy://t141/async/review-fanout-routing",
       maxConcurrency: 2
     }),
     tasks: [
@@ -316,7 +318,7 @@ test("T-141/T-167 synthetic scenario fans out configured reviewers before ticket
       delayedTask(router, { delayMs: 1, counters: runCounters })
     ],
     eventSink: () => {},
-    correlationId: "correlation://t141/async/t167-review-ticket-routing"
+    correlationId: "correlation://t141/async/review-fanout-routing"
   });
   const reviewerFanIn = deriveBranchFanInProjectionFromEvents({
     fanInRef: reviewerFanInRef,
@@ -466,7 +468,10 @@ test("T-141 async suite emits failure and releases leases when a native branch t
       preserveEvidenceOnCancellation: true
     }),
     tasks: [
-      failingTask(alpha, { delayMs: 1 }),
+      failingTask(alpha, {
+        delayMs: 1,
+        failureEvidenceRefs: ["evidence://t141/async/task-rejection/alpha"]
+      }),
       delayedTask(beta, { delayMs: 1 })
     ],
     eventSink: (event) => {
@@ -498,6 +503,9 @@ test("T-141 async suite emits failure and releases leases when a native branch t
   assert.equal(failureEvent.disposition, "block");
   assert.equal(failureEvent.preserveEvidence, true);
   assert.match(failureEvent.failureDigest, /^branch-task-failure:/u);
+  assert.deepEqual(failureEvent.evidenceRefs, [
+    "evidence://t141/async/task-rejection/alpha"
+  ]);
 
   const leaseProjection = deriveBranchLeaseProjectionFromEvents({
     projectionRef: "branch-lease-projection://t141/async/task-rejection",
@@ -511,6 +519,93 @@ test("T-141 async suite emits failure and releases leases when a native branch t
       .map((event) => event.leaseRef)
       .sort()
   );
+});
+
+test("T-141 async suite continues independent frontier rows after a branch task failure", async () => {
+  const basis = buildThreeStageBasis();
+  const alpha = branch("failure-routing-alpha");
+  const beta = branch("failure-routing-beta");
+  const gamma = branch("failure-routing-gamma");
+  const child = branch("failure-routing-child");
+  const runCounters = counters();
+  const result = await runEventedNativeSagaFrontier({
+    basis,
+    frontierRef: "frontier://t141/async/failure-routing",
+    declarations: [
+      declaration(alpha, { declaredPriority: 40 }),
+      declaration(beta, { declaredPriority: 30 }),
+      declaration(gamma, { declaredPriority: 20 }),
+      declaration(child, {
+        declaredPriority: 10,
+        parentBranchRefs: [alpha.branchRef]
+      })
+    ],
+    policy: constructBranchExecutionPolicy({
+      policyRef: "policy://t141/async/failure-routing",
+      maxConcurrency: 2
+    }),
+    tasks: [
+      failingTask(alpha, {
+        delayMs: 1,
+        counters: runCounters,
+        failureEvidenceRefs: ["evidence://t141/async/failure-routing/alpha"]
+      }),
+      delayedTask(beta, { delayMs: 1, counters: runCounters }),
+      delayedTask(gamma, { delayMs: 1, counters: runCounters }),
+      delayedTask(child, { delayMs: 1, counters: runCounters })
+    ],
+    eventSink: () => {},
+    correlationId: "correlation://t141/async/failure-routing"
+  });
+
+  assert.equal(runCounters.maxActive, 2);
+  assert.equal(result.batchCount, 2);
+  assert.deepEqual(result.completedBranchRefs, [beta.branchRef, gamma.branchRef].sort());
+  assert.deepEqual(result.failedBranchRefs, [alpha.branchRef]);
+  assert.deepEqual(result.batches[0].selection.selectedBranchRefs, [
+    alpha.branchRef,
+    beta.branchRef
+  ]);
+  assert.deepEqual(result.batches[1].selection.selectedBranchRefs, [gamma.branchRef]);
+  assert.equal(runCounters.started.includes(child.branchRef), false);
+});
+
+test("T-141 async suite non-evented runner preserves branch failures and keeps dispatching independent rows", async () => {
+  const alpha = branch("native-failure-alpha");
+  const beta = branch("native-failure-beta");
+  const gamma = branch("native-failure-gamma");
+  const runCounters = counters();
+  const result = await runNativeSagaFrontier({
+    frontierRef: "frontier://t141/async/native-failure-routing",
+    declarations: [
+      declaration(alpha, { declaredPriority: 30 }),
+      declaration(beta, { declaredPriority: 20 }),
+      declaration(gamma, { declaredPriority: 10 })
+    ],
+    policy: constructBranchExecutionPolicy({
+      policyRef: "policy://t141/async/native-failure-routing",
+      maxConcurrency: 2
+    }),
+    tasks: [
+      failingTask(alpha, {
+        delayMs: 1,
+        counters: runCounters,
+        failureEvidenceRefs: ["evidence://t141/async/native-failure-routing/alpha"]
+      }),
+      delayedTask(beta, { delayMs: 1, counters: runCounters }),
+      delayedTask(gamma, { delayMs: 1, counters: runCounters })
+    ]
+  });
+
+  assert.equal(result.batchCount, 2);
+  assert.deepEqual(result.completedBranchRefs, [beta.branchRef, gamma.branchRef].sort());
+  assert.deepEqual(result.failedBranchRefs, [alpha.branchRef]);
+  assert.deepEqual(result.batches[0].taskFailures.map((failure) => failure.branchRef), [
+    alpha.branchRef
+  ]);
+  assert.deepEqual(result.batches[0].taskFailures[0].evidenceRefs, [
+    "evidence://t141/async/native-failure-routing/alpha"
+  ]);
 });
 
 test("T-141 async suite serializes shared output allocation over a mutable effect target", async () => {
@@ -782,7 +877,7 @@ test("T-141 async suite runs a real 50-way fan-out through a three-deep dependen
   const rootDeclarations = rootBranches.map((branchRef, index) =>
     declaration(branchRef, {
       declaredPriority: 1_000 - index,
-      readRefs: ["ticket://odd-sdlc/T-167"],
+      readRefs: ["work://t141/async/stress/source"],
       outputAllocationRefs: [
         `output://t141/async/stress/root/${branchRef.branchKey}`
       ]

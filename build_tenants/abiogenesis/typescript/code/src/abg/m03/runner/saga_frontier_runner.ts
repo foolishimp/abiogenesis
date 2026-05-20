@@ -40,7 +40,7 @@ export interface NativeBranchTaskResult {
   readonly evidenceRefs: readonly string[];
 }
 
-interface NativeBranchTaskFailure {
+export interface NativeBranchTaskFailure {
   readonly kind: "native_branch_task_failure";
   readonly branchRef: string;
   readonly failureClass: RuntimeFailureClass;
@@ -61,6 +61,7 @@ type NativeBranchTaskSettlement =
 export interface NativeBranchTask {
   readonly kind: "native_branch_task";
   readonly branchRef: string;
+  readonly failureEvidenceRefs?: readonly string[] | undefined;
   readonly run: () => Promise<NativeBranchTaskResult>;
 }
 
@@ -69,6 +70,7 @@ export interface NativeSagaFrontierBatchResult {
   readonly batchOrdinal: number;
   readonly selection: BranchSelectionProjection;
   readonly results: readonly NativeBranchTaskResult[];
+  readonly taskFailures: readonly NativeBranchTaskFailure[];
 }
 
 export interface NativeSagaFrontierRunResult {
@@ -78,6 +80,7 @@ export interface NativeSagaFrontierRunResult {
   readonly batchCount: number;
   readonly completedBranchRefs: readonly string[];
   readonly deferredBranchRefs: readonly string[];
+  readonly failedBranchRefs: readonly string[];
   readonly batches: readonly NativeSagaFrontierBatchResult[];
   readonly results: readonly NativeBranchTaskResult[];
 }
@@ -112,6 +115,7 @@ export interface EventedNativeSagaFrontierRunResult {
 interface NativeSagaFrontierRunState {
   readonly batchOrdinal: number;
   readonly completedBranchRefs: readonly string[];
+  readonly failedBranchRefs: readonly string[];
   readonly batches: readonly NativeSagaFrontierBatchResult[];
   readonly results: readonly NativeBranchTaskResult[];
 }
@@ -147,38 +151,6 @@ function taskMap(tasks: readonly NativeBranchTask[]): ReadonlyMap<string, Native
   return map;
 }
 
-async function runSelectedTasks(input: {
-  readonly selection: BranchSelectionProjection;
-  readonly tasksByBranchRef: ReadonlyMap<string, NativeBranchTask>;
-}): Promise<readonly NativeBranchTaskResult[]> {
-  const selectedTasks = input.selection.selectedBranchRefs.map((branchRef) => {
-    const task = input.tasksByBranchRef.get(branchRef);
-    if (task === undefined) {
-      throw new TypeError(
-        `Native saga frontier runner has no task for selected branch ${JSON.stringify(branchRef)}`
-      );
-    }
-    return task;
-  });
-  const results = await Promise.all(
-    selectedTasks.map(async (task) => {
-      const result = await task.run();
-      if (result.branchRef !== task.branchRef) {
-        throw new TypeError(
-          "Native saga frontier runner rejects result for a different branch"
-        );
-      }
-      return Object.freeze({
-        kind: "native_branch_task_result",
-        branchRef: result.branchRef,
-        payloadDigest: result.payloadDigest,
-        evidenceRefs: freezeStringArray(result.evidenceRefs)
-      } satisfies NativeBranchTaskResult);
-    })
-  );
-  return Object.freeze(results);
-}
-
 function failureDigestForTask(input: {
   readonly branchRef: string;
   readonly reason: unknown;
@@ -202,6 +174,29 @@ function failureClassForTaskRejection(reason: unknown): RuntimeFailureClass {
     return "contract_failure";
   }
   return "runtime_failure";
+}
+
+function evidenceRefsFromThrownReason(reason: unknown): readonly string[] {
+  if (reason !== null && typeof reason === "object") {
+    const descriptor = Object.getOwnPropertyDescriptor(reason, "evidenceRefs");
+    if (descriptor === undefined || !Array.isArray(descriptor.value)) {
+      return Object.freeze([]);
+    }
+    return freezeStringArray(
+      descriptor.value.filter((value): value is string => typeof value === "string")
+    );
+  }
+  return Object.freeze([]);
+}
+
+function failureEvidenceRefsForTask(input: {
+  readonly task: NativeBranchTask;
+  readonly reason: unknown;
+}): readonly string[] {
+  return freezeUniqueSortedStrings([
+    ...(input.task.failureEvidenceRefs ?? Object.freeze([])),
+    ...evidenceRefsFromThrownReason(input.reason)
+  ]);
 }
 
 async function runSelectedTasksSettled(input: {
@@ -246,7 +241,10 @@ async function runSelectedTasksSettled(input: {
               branchRef: task.branchRef,
               reason
             }),
-            evidenceRefs: Object.freeze([])
+            evidenceRefs: failureEvidenceRefsForTask({
+              task,
+              reason
+            })
           } satisfies NativeBranchTaskFailure)
         } satisfies NativeBranchTaskSettlement);
       }
@@ -275,12 +273,17 @@ function appendBatchState(input: {
   readonly state: NativeSagaFrontierRunState;
   readonly batch: NativeSagaFrontierBatchResult;
   readonly batchResults: readonly NativeBranchTaskResult[];
+  readonly taskFailures: readonly NativeBranchTaskFailure[];
 }): NativeSagaFrontierRunState {
   return Object.freeze({
     batchOrdinal: input.state.batchOrdinal + 1,
     completedBranchRefs: freezeUniqueSortedStrings([
       ...input.state.completedBranchRefs,
       ...input.batchResults.map((result) => result.branchRef)
+    ]),
+    failedBranchRefs: freezeUniqueSortedStrings([
+      ...input.state.failedBranchRefs,
+      ...input.taskFailures.map((failure) => failure.branchRef)
     ]),
     batches: Object.freeze([...input.state.batches, input.batch]),
     results: Object.freeze([...input.state.results, ...input.batchResults])
@@ -300,6 +303,7 @@ function runResult(input: {
     batchCount: input.state.batches.length,
     completedBranchRefs: input.state.completedBranchRefs,
     deferredBranchRefs: freezeStringArray(input.deferredBranchRefs),
+    failedBranchRefs: input.state.failedBranchRefs,
     batches: input.state.batches,
     results: input.state.results
   });
@@ -328,6 +332,7 @@ async function runNativeSagaFrontierBatches(input: {
     frontierRef: input.frontierRef,
     declarations: input.declarations,
     closedBranchRefs: input.state.completedBranchRefs,
+    failedBranchRefs: input.state.failedBranchRefs,
     staleObservedStateRefs: input.staleObservedStateRefs,
     admittedIdempotencyKeys: input.admittedIdempotencyKeys,
     activeLeaseBranchRefs: input.activeLeaseBranchRefs
@@ -345,22 +350,34 @@ async function runNativeSagaFrontierBatches(input: {
       deferredBranchRefs: selection.deferredReadyBranchRefs
     });
   }
-  const batchResults = await runSelectedTasks({
+  const settlements = await runSelectedTasksSettled({
     selection,
     tasksByBranchRef: input.tasksByBranchRef
   });
+  const batchResults = Object.freeze(
+    settlements
+      .filter((settlement) => settlement.status === "fulfilled")
+      .map((settlement) => settlement.result)
+  );
+  const taskFailures = Object.freeze(
+    settlements
+      .filter((settlement) => settlement.status === "rejected")
+      .map((settlement) => settlement.failure)
+  );
   const batch = Object.freeze({
     kind: "native_saga_frontier_batch_result",
     batchOrdinal: input.state.batchOrdinal,
     selection,
-    results: batchResults
+    results: batchResults,
+    taskFailures
   } satisfies NativeSagaFrontierBatchResult);
   return runNativeSagaFrontierBatches({
     ...input,
     state: appendBatchState({
       state: input.state,
       batch,
-      batchResults
+      batchResults,
+      taskFailures
     })
   });
 }
@@ -392,6 +409,7 @@ export async function runNativeSagaFrontier(input: {
       completedBranchRefs: freezeUniqueSortedStrings(
         input.initialClosedBranchRefs ?? Object.freeze([])
       ),
+      failedBranchRefs: Object.freeze([]),
       batches: Object.freeze([]),
       results: Object.freeze([])
     })
@@ -703,6 +721,7 @@ async function runEventedNativeSagaFrontierBatches(input: {
     frontierRef: input.frontierRef,
     declarations: input.declarations,
     closedBranchRefs: input.state.completedBranchRefs,
+    failedBranchRefs: input.state.failedBranchRefs,
     staleObservedStateRefs: input.staleObservedStateRefs,
     admittedIdempotencyKeys: input.admittedIdempotencyKeys,
     activeLeaseBranchRefs: input.activeLeaseBranchRefs
@@ -806,17 +825,6 @@ async function runEventedNativeSagaFrontierBatches(input: {
       ...afterTaskEvents
     ])
   } satisfies EventedNativeSagaFrontierBatchResult);
-  if (taskFailures.length > 0) {
-    return eventedRunResult({
-      frontierRef: input.frontierRef,
-      policy: input.policy,
-      state: appendEventedBatchState({
-        state: input.state,
-        batch
-      }),
-      deferredBranchRefs: Object.freeze([])
-    });
-  }
   return runEventedNativeSagaFrontierBatches({
     ...input,
     state: appendEventedBatchState({

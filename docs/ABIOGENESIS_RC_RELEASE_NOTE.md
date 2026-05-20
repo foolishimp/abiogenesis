@@ -1,7 +1,7 @@
-# abiogenesis 3.8.0-rc.1 Release Candidate Note
+# abiogenesis 3.8.0-rc.2 Release Candidate Note
 
 This checkpoint is the current TypeScript ABG release-candidate source state.
-It advances the release line from `3.7.1-rc.4` to `3.8.0-rc.1` because ABG now
+It advances the release line from `3.7.1-rc.4` to `3.8.0-rc.2` because ABG now
 declares and realizes an event-sourced saga frontier for dependency-aware
 system parallelism over a shared mutable workspace.
 
@@ -15,7 +15,7 @@ installed proof. The `3.7.1-rc.3` candidate repaired the constitutional/docs
 model so GTL topology anchors do not collapse the wider first-class declaration
 surface. The `3.7.1-rc.4` candidate preserved those cuts and added mandatory
 target-carrier contract bindings for graph-vector outputs. This
-`3.8.0-rc.1` candidate preserves those cuts and adds T-141 saga-frontier law,
+`3.8.0-rc.2` candidate preserves those cuts and adds T-141 saga-frontier law,
 typed carriers, evented native async orchestration, and synthetic/live proofs
 for transparent serial-vs-parallel realization.
 
@@ -86,12 +86,12 @@ RC4 for `3.7.1` adds:
   carrier kind literal, and fixed protocol fields while leaving downstream
   semantic meaning to product/F_P consumers.
 
-RC1 for `3.8.0` adds:
+RC2 for `3.8.0` adds:
 
 - `REQ-R-ABG3-SAGA-FRONTIER` as the ABG law for event-sourced saga-frontier
   selection, dependency fan-out/fan-in, observed-state freshness, and
   write/output territory safety;
-- a product-transparency axiom: products such as odd_sdlc may declare a steel
+- a product-transparency axiom: downstream products may declare a steel
   thread or dependency fan-out because they own content meaning, while ABG may
   choose serial or parallel realization under the same declared truth;
 - native Node async runner support with policy-capped system parallelism;
@@ -102,17 +102,19 @@ RC1 for `3.8.0` adds:
 - evented lease-before-effect ordering, task-failure disposition, replay-visible
   release behavior, output-allocation conflict projection, and deterministic
   fan-in;
-- synthetic proof for a T-167-shaped multi-reviewer ticket-generation graph:
-  ticket surface -> configured reviewer fan-out -> finding reduction -> ticket
-  routing;
+- synthetic proof for an ABG-contained multi-reviewer dependency graph:
+  work surface -> configured reviewer fan-out -> finding reduction -> routing;
 - live proof for the same abstract shape using real Claude PTY reviewer
   branches and abstract reducer/router branches;
 - a deterministic stress proof with 65 branches: 50 concurrent roots, 10
   reducers, and 5 terminal leaves over a three-batch dependency graph.
+- RC2 hardening for per-branch task failure: failed branches become
+  replay-visible frontier truth, preserve failure evidence refs, release
+  leases, block dependents, and do not halt independent ready rows.
 
 ## Non-Claims
 
-The T-141 saga-frontier slice does not claim that downstream odd_sdlc changes
+The T-141 saga-frontier slice does not claim that downstream product changes
 its product dependency meaning or must expose ABG scheduling decisions. The
 contract is transparent to products: admitted module/test dependency maps,
 selected steel-thread or parallel traversal plans, declared targets, write
@@ -135,9 +137,9 @@ session affinity. Those remain outside this cut unless separately ticketed.
 ## Versioned Artifacts
 
 - RC branch: `rc/3.8.0`
-- RC identity: `3.8.0-rc.1`
-- Candidate package version: `3.8.0-rc.1`
-- Candidate tag: `v3.8.0-rc.1`
+- RC identity: `3.8.0-rc.2`
+- Candidate package version: `3.8.0-rc.2`
+- Candidate tag: `v3.8.0-rc.2`
 
 ## Verification
 
@@ -145,10 +147,13 @@ Current qualification evidence for this cut:
 
 ```text
 npm run test:t141
-32 passed
+34 passed
 
 npm run test:semantic
-595 passed
+597 passed
+
+npm run test:t141:live
+5 passed
 
 npm run lint:test-harness
 passed
@@ -160,18 +165,19 @@ git diff --check
 passed
 
 npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run
-passed, version 3.8.0-rc.1, files 374, package abiogenesis-typescript-tenant-3.8.0-rc.1.tgz
+passed, version 3.8.0-rc.2, files 374, package abiogenesis-typescript-tenant-3.8.0-rc.2.tgz
 ```
 
-The full live sweep was green before this final version/doc-only RC bump, with
-the T-141 live lane included. The previous `3.7.0-rc.1` construction evaluator
-proof, `3.7.1-rc.1` liveness proof, `3.7.1-rc.2` edge-assurance proof,
-`3.7.1-rc.3` GTL type-boundary proof, and `3.7.1-rc.4` target-carrier proof
-remain historical release evidence for the substrate preserved by this line.
+The prior full live sweep remains historical release evidence, and the focused
+T-141 live lane was rerun after the RC2 ABG-contained scenario update. The
+previous `3.7.0-rc.1` construction evaluator proof, `3.7.1-rc.1` liveness
+proof, `3.7.1-rc.2` edge-assurance proof, `3.7.1-rc.3` GTL type-boundary
+proof, and `3.7.1-rc.4` target-carrier proof remain historical release evidence
+for the substrate preserved by this line.
 
 ## RC Decision
 
 The release operator repriced the saga-frontier work as a release-candidate
 correction over the accepted `3.7.1-rc.4` target-carrier line. Cut
-`v3.8.0-rc.1` as the next release-candidate checkpoint after committing this
+`v3.8.0-rc.2` as the next release-candidate checkpoint after committing this
 source state. This is not the final tapped `3.8.0` release.
