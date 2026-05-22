@@ -57,3 +57,11 @@ identity is absent, stale, malformed, or mismatched.
 **REQ-R-ABG3-FN-COMP-013**: ABG shall interpret GTL compute notation such as `fn<A, B>.C`, `transform.C`, `evaluate.C`, and `consequence.C` as epistemic notation over selected `abg.fn_composition` and admitted runtime truth. The notation shall not create a new ABG carrier, execution target, closure path, ledger writer, or controller surface.
 
 **REQ-R-ABG3-FN-COMP-014**: ABG shall preserve the ontology/epistemology split for composition-governed boundaries. GTL and product declarations identify lawful hosts, hooks, policy refs, and product read-model intent; ABG admits candidate/evaluation payloads, emits events, derives payload ledgers, derives assurance and traversal projections, folds closure, and records replay truth.
+
+**REQ-R-ABG3-FN-COMP-015**: ABG shall interpret selected composition execution as an event-sourced bind chain: start composition, open graph call, open frame, invoke `plugin.transform.C`, admit transform, write transform events and ledgers, invoke `plugin.evaluate.C`, admit evaluation, write evaluation ledgers, fold assurance, invoke `plugin.consequence.C`, admit consequence projection, derive traversal transition, and replay continuation.
+
+**REQ-R-ABG3-FN-COMP-016**: Engine plugin contracts that participate in composition-governed compute shall carry explicit compute-stage category, compute means, purpose, selected composition identity at invocation, and authority-denial flags. The current ABG runtime categories are transform/candidate construction, evaluate/candidate evaluation, consequence/projection, and external human callout.
+
+**REQ-R-ABG3-FN-COMP-017**: ABG shall treat `F_H` as an external callout regime. ABG may emit or admit callout/request/response boundary events and carriers, but the human work surface itself is outside ABG; no human callout may directly write runtime events, ledgers, traversal transitions, replay truth, or closure.
+
+**REQ-R-ABG3-FN-COMP-018**: The plugin traversal observer and hook/action category surfaces shall use `evaluate` for the evaluation stage. ABG shall reject malformed or legacy stage-category names on the admitted category surfaces rather than silently mapping them to current authority.

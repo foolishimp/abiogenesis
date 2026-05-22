@@ -1,9 +1,35 @@
-# abiogenesis 3.8.0-rc.3 RC Notes
+# abiogenesis 3.8.0-rc.5 RC Notes
 
-This note records accepted RC behavior for the current `v3.8.0-rc.3` line.
-The package cut is `3.8.0-rc.3`.
+This note records accepted RC behavior for the current `v3.8.0-rc.5` line.
+The package cut is `3.8.0-rc.5`.
 
 ## Accepted Framework Behavior
+
+### ABG Is The Event-Sourced Monad Over Selected GTL Composition
+
+The current RC line accepts the T-144 framing as notation and runtime-boundary
+law over the existing ontology. `C` is the selected `abg.fn_composition`
+identity at an owning GTL boundary, not a new public compute unit.
+
+Accepted behavior:
+
+- `plugin.transform.C`, `plugin.evaluate.C`, and `plugin.consequence.C` are
+  distinct compute-stage plugin categories;
+- plugins compute typed values inside their declared stage boundary;
+- ABG.system admits plugin outputs, writes runtime events and ledgers, folds
+  assurance, derives traversal, and replays continuation;
+- selected composition refs, digests, selection refs, and selected regime
+  binding refs must be preserved across plugin input and runtime projections;
+- `F_H` is an external human-callout regime. ABG admits the callout boundary
+  and later admits the response carrier; it does not execute human work inside
+  the runtime;
+- a purely deterministic event-sourced program is a valid reduction of the same
+  shape, not a separate product model.
+
+RC5 tightens the T-144 closure boundary after review: selected composition
+identity is consumed from selected `abg.fn_composition` declaration truth,
+`consequence.C` is runner-consumed, and internal `F_H` compute roles are not
+representable outside the external human-callout category.
 
 ### TypeScript Is The Primary Package-First RC Carrier
 

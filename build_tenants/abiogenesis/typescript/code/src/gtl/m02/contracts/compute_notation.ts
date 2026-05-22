@@ -12,6 +12,8 @@ import type { Job } from "./carriers.js";
 
 export type GtlComputeMeans = Regime;
 
+export type GtlNonHumanComputeMeans = Exclude<GtlComputeMeans, "F_H">;
+
 export type GtlCompositionHostSurfaceKind =
   | "graph_function"
   | "graph_vector"
@@ -124,6 +126,73 @@ export interface GtlFunctionCompositionNotation<A, B> {
 }
 
 export type GtlStageRole = "transform" | "evaluate" | "consequence";
+
+export type GtlComputePluginStageRole = GtlStageRole | "human_callout";
+
+export type GtlComputePluginPurpose =
+  | "candidate_construction"
+  | "candidate_evaluation"
+  | "consequence_projection"
+  | "external_human_callout";
+
+interface GtlComputePluginCategoryBindingBase<
+  StageRole extends GtlComputePluginStageRole,
+  ComputeMeans extends GtlComputeMeans,
+  Purpose extends GtlComputePluginPurpose
+> {
+  readonly kind: "gtl_compute_plugin_category_binding";
+  readonly stageRole: StageRole;
+  readonly computeMeans: ComputeMeans;
+  readonly purpose: Purpose;
+  readonly compositionRef: string;
+  readonly compositionDigest: string;
+  readonly compositionSelectionRef: string;
+  readonly regimeBindingRef: string | null;
+  readonly inputCarrierRefs: readonly string[];
+  readonly outputCarrierRefs: readonly string[];
+  readonly evidenceRefs: readonly string[];
+  readonly mayWriteLedgers: false;
+  readonly mayEmitRuntimeEvents: false;
+  readonly maySelectTraversal: false;
+  readonly mayCloseTraversal: false;
+}
+
+export type GtlTransformComputePluginCategoryBinding =
+  GtlComputePluginCategoryBindingBase<
+    "transform",
+    GtlNonHumanComputeMeans,
+    "candidate_construction"
+  >;
+
+export type GtlEvaluateComputePluginCategoryBinding =
+  GtlComputePluginCategoryBindingBase<
+    "evaluate",
+    GtlNonHumanComputeMeans,
+    "candidate_evaluation"
+  >;
+
+export type GtlConsequenceComputePluginCategoryBinding =
+  GtlComputePluginCategoryBindingBase<
+    "consequence",
+    GtlNonHumanComputeMeans,
+    "consequence_projection"
+  >;
+
+export interface GtlHumanCalloutComputePluginCategoryBinding
+  extends GtlComputePluginCategoryBindingBase<
+    "human_callout",
+    "F_H",
+    "external_human_callout"
+  > {
+  readonly humanWorkExternal: true;
+  readonly responseAdmissionRequired: true;
+}
+
+export type GtlComputePluginCategoryBinding =
+  | GtlTransformComputePluginCategoryBinding
+  | GtlEvaluateComputePluginCategoryBinding
+  | GtlConsequenceComputePluginCategoryBinding
+  | GtlHumanCalloutComputePluginCategoryBinding;
 
 export interface GtlCandidate<B> {
   readonly kind: "gtl_candidate";

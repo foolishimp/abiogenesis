@@ -1,6 +1,6 @@
 {
   "name": "@abiogenesis/typescript-tenant",
-  "version": "3.8.0-rc.3",
+  "version": "3.8.0-rc.5",
   "private": true,
   "type": "module",
   "types": "./build/semantic/code/src/index.d.ts",
@@ -210,6 +210,7 @@
     "test:t141:live": "npm run build:semantic && CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_AGENT_EXECUTOR_PROFILE=pty-terminal node --test test_env/live/test_t141_saga_frontier_live.test.mjs",
     "test:t142": "npm run build:semantic && node --test test_env/tests/test_t142_release_snapshot_bundle.test.mjs",
     "test:t143": "npm run build:semantic && node --test test_env/tests/test_t143_gtl_compute_notation_types.test.mjs",
+    "test:t144": "npm run build:semantic && node --test test_env/tests/test_t144_abg_probabilistic_monad_plugin_boundary.test.mjs",
     "test:t125:live": "npm run build:semantic && node --test test_env/live/test_t125_temporal_and_non_temporal_gtl_live.test.mjs",
     "test:t125": "npm run test:t125:live"
   },

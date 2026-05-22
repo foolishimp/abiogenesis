@@ -657,10 +657,16 @@ function coercePluginTraversalKinds(
   }
   return Object.freeze(
     value.map((entry, index) => {
-      if (entry === "transform" || entry === "eval") {
+      if (
+        entry === "transform" ||
+        entry === "evaluate" ||
+        entry === "consequence"
+      ) {
         return entry;
       }
-      throw new CliError(`${label}.${key}[${index}] must be transform or eval`);
+      throw new CliError(
+        `${label}.${key}[${index}] must be transform, evaluate, or consequence`
+      );
     })
   );
 }

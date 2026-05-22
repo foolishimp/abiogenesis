@@ -1,4 +1,5 @@
 import {
+  ABG_FN_COMPOSITION_DECLARATION_KEY,
   admitExecutionBasis,
   admitModule,
   admitNode,
@@ -8,6 +9,150 @@ import {
   edge,
   graphFunctionForVector
 } from "../../../build/semantic/code/src/index.js";
+
+function scalarEntry(key, value) {
+  return Object.freeze({
+    key,
+    value: Object.freeze({ kind: "scalar", value })
+  });
+}
+
+function stringListEntry(key, value) {
+  return Object.freeze({
+    key,
+    value: Object.freeze({ kind: "string_list", value: Object.freeze([...value]) })
+  });
+}
+
+function jsonValue(value) {
+  if (
+    value === null ||
+    typeof value === "string" ||
+    typeof value === "number" ||
+    typeof value === "boolean"
+  ) {
+    return value;
+  }
+  if (Array.isArray(value)) {
+    return Object.freeze({
+      kind: "array",
+      items: Object.freeze(value.map(jsonValue))
+    });
+  }
+  return Object.freeze({
+    kind: "object",
+    entries: Object.freeze(
+      Object.entries(value).map(([key, entryValue]) =>
+        Object.freeze({ key, value: jsonValue(entryValue) })
+      )
+    )
+  });
+}
+
+function jsonEntry(key, value) {
+  return Object.freeze({
+    key,
+    value: Object.freeze({ kind: "json_blob", value: jsonValue(value) })
+  });
+}
+
+function fnCompositionDeclarations() {
+  const regimeBindings = Object.freeze([
+    {
+      bindingRef: "regime-binding://m03-iteration/transform/fp",
+      stageRole: "transform",
+      regime: "F_P",
+      role: "construct",
+      order: 0,
+      authority: "evidence",
+      inputCarrierRefs: ["EnginePluginInput"],
+      outputCarrierRefs: ["FpDispatchOutcome"],
+      evidenceRefs: ["evidence://m03-iteration/fp-transform"]
+    },
+    {
+      bindingRef: "regime-binding://m03-iteration/evaluate/fd",
+      stageRole: "evaluate",
+      regime: "F_D",
+      role: "validate",
+      order: 1,
+      authority: "closure",
+      inputCarrierRefs: ["EnginePluginInput"],
+      outputCarrierRefs: ["FdEvaluationOutcome"],
+      evidenceRefs: ["evidence://m03-iteration/fd-evaluate"]
+    },
+    {
+      bindingRef: "regime-binding://m03-iteration/evaluate/fp",
+      stageRole: "evaluate",
+      regime: "F_P",
+      role: "validate",
+      order: 2,
+      authority: "judgment",
+      inputCarrierRefs: ["EnginePluginInput"],
+      outputCarrierRefs: ["FpEdgeAssuranceEvalFinding"],
+      evidenceRefs: ["evidence://m03-iteration/fp-evaluate"]
+    },
+    {
+      bindingRef: "regime-binding://m03-iteration/consequence/fd",
+      stageRole: "consequence",
+      regime: "F_D",
+      role: "observe",
+      order: 3,
+      authority: "evidence",
+      inputCarrierRefs: ["EnginePluginInput"],
+      outputCarrierRefs: ["ConsequenceProjectionOutcome"],
+      evidenceRefs: ["evidence://m03-iteration/consequence"]
+    },
+    {
+      bindingRef: "regime-binding://m03-iteration/human-callout/fh",
+      stageRole: "human_callout",
+      regime: "F_H",
+      role: "escalate",
+      order: 4,
+      authority: "judgment",
+      inputCarrierRefs: ["EnginePluginInput"],
+      outputCarrierRefs: ["FhAdmissionOutcome"],
+      evidenceRefs: ["evidence://m03-iteration/fh-callout"]
+    }
+  ]);
+  return Object.freeze({
+    entries: Object.freeze([
+      Object.freeze({
+        key: ABG_FN_COMPOSITION_DECLARATION_KEY,
+        value: Object.freeze({
+          kind: "hook_ref",
+          value: Object.freeze({
+            ref: "hook://m03-iteration/abg-fn-composition",
+            config: Object.freeze({
+              entries: Object.freeze([
+                scalarEntry(
+                  "contract_ref",
+                  "abg.fn_composition://m03-iteration/default"
+                ),
+                stringListEntry("standards_context_refs", [
+                  "standard://m03-iteration"
+                ]),
+                stringListEntry("policy_context_refs", [
+                  "policy://m03-iteration"
+                ]),
+                stringListEntry("carrier_context_refs", [
+                  "carrier://m03-iteration"
+                ]),
+                stringListEntry("assurance_context_refs", [
+                  "assurance://m03-iteration"
+                ]),
+                scalarEntry(
+                  "closure_contract_ref",
+                  "closure://m03-iteration/fd-evaluate"
+                ),
+                jsonEntry("regime_bindings", regimeBindings)
+              ])
+            })
+          })
+        })
+      })
+    ])
+  });
+}
 
 function node(id, name, kind, markov) {
   return admitNode({
@@ -25,7 +170,15 @@ function node(id, name, kind, markov) {
   });
 }
 
-function stageGraphFunction(name, source, target, edgeName, evaluatorId, regime) {
+function stageGraphFunction(
+  name,
+  source,
+  target,
+  edgeName,
+  evaluatorId,
+  regime,
+  includeComposition
+) {
   const vector = edge([source], target, {
     id: `graph-${name}`,
     name: edgeName,
@@ -44,7 +197,7 @@ function stageGraphFunction(name, source, target, edgeName, evaluatorId, regime)
 
   return graphFunctionForVector(vector, {
     name,
-    declarations: { entries: [] },
+    declarations: includeComposition ? fnCompositionDeclarations() : { entries: [] },
     tags: ["m03_iteration"]
   });
 }
@@ -72,7 +225,8 @@ export function buildThreeStageModule(options = {}) {
       requirements,
       "input_set→requirements",
       "requirements_ready",
-      vectorRegimes[0]
+      vectorRegimes[0],
+      options.includeComposition !== false
     ),
     stageGraphFunction(
       "synthesize_design",
@@ -80,7 +234,8 @@ export function buildThreeStageModule(options = {}) {
       design,
       "requirements→design",
       "design_ready",
-      vectorRegimes[1]
+      vectorRegimes[1],
+      options.includeComposition !== false
     ),
     stageGraphFunction(
       "implement_code",
@@ -88,7 +243,8 @@ export function buildThreeStageModule(options = {}) {
       code,
       "design→code",
       "code_ready",
-      vectorRegimes[2]
+      vectorRegimes[2],
+      options.includeComposition !== false
     )
   );
 
@@ -122,7 +278,8 @@ export function buildThreeStageBasis(options = {}) {
   const defaultRegime = options.defaultRegime ?? "F_P";
   const { module, executive } = buildThreeStageModule({
     defaultRegime,
-    vectorRegimes: options.vectorRegimes
+    vectorRegimes: options.vectorRegimes,
+    includeComposition: options.includeComposition
   });
   const dispatchRef =
     Object.hasOwn(options, "dispatchRef")
@@ -174,7 +331,8 @@ export function buildThreeStageStartContext(options = {}) {
   const defaultRegime = options.defaultRegime ?? "F_D";
   const { module, executive } = buildThreeStageModule({
     defaultRegime,
-    vectorRegimes: options.vectorRegimes
+    vectorRegimes: options.vectorRegimes,
+    includeComposition: options.includeComposition
   });
   const dispatchRef =
     Object.hasOwn(options, "dispatchRef")

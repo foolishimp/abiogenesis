@@ -894,9 +894,9 @@ export function assertFpEdgeAssuranceEvalFindingMatchesHookAction(input: {
   readonly finding: FpEdgeAssuranceEvalFinding;
   readonly admission?: HookFindingAdmission | null | undefined;
 }): void {
-  if (input.hookAction.hookClass !== "eval") {
+  if (input.hookAction.hookClass !== "evaluate") {
     throw new TypeError(
-      "FpEdgeAssuranceEvalFinding requires an eval HookActionRecord"
+      "FpEdgeAssuranceEvalFinding requires an evaluate HookActionRecord"
     );
   }
   if (input.finding.hookActionRef !== input.hookAction.hookActionRef) {

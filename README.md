@@ -14,7 +14,7 @@ The repo is organized around spec-driven development:
   harness
 - `build_tenants/abiogenesis/python/` is a paused released reference line
 
-The active engine and language surface is GTL 3 / ABG 3.8.0-rc.3:
+The active engine and language surface is GTL 3 / ABG 3.8.0-rc.5:
 - GTL: `Module`, `Graph`, `Node`, `GraphVector`, `Context`, `Operator`,
   `Evaluator`, `Rule`, `GraphFunction`, `RefinementBoundary`,
   `CandidateFamily`, `ContractRef`, `Job`, `Role`
@@ -30,10 +30,10 @@ line, `start(...)` owns the public `start -> iterate` engine path and
 `publicStart(...)` is only a compatibility adapter over that path.
 
 The epistemic notation layer is deliberately not new ontology. `C` means the
-selected `abg.fn_composition` identity at an owning GTL boundary. `transform.C`
-and `evaluate.C` produce candidates, evidence, and findings; ABG admission is
-where those payloads become runtime truth; `consequence.C` is a projection ref
-over ABG-admitted assurance, traversal, and downstream read-model facts.
+selected `abg.fn_composition` identity at an owning GTL boundary.
+`plugin.transform.C`, `plugin.evaluate.C`, and `plugin.consequence.C` compute
+typed values; ABG.system admits those values, writes events and ledgers, folds
+assurance, derives traversal, and replays continuation.
 
 Downstream ODD domain builders declare hook refs in GTL and bind executable
 behavior through ABG plugin contracts. Payloads that influence authority,
@@ -64,7 +64,9 @@ Current public target families are:
   asset registry and ownership surface
 
 Control modes such as F_H proxying or root supervision sit outside that
-request grammar.
+request grammar. `F_H` is an external human-callout regime; ABG admits the
+callout boundary and the eventual response carrier rather than performing human
+work inside the runtime.
 
 The current public control-mode families are:
 

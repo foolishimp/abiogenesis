@@ -1,6 +1,6 @@
 # LLM GTL App Builder Guide
 
-**Status**: Current compressed technical GTL 3 / ABG 3.8.0-rc.3 guide for LLMs
+**Status**: Current compressed technical GTL 3 / ABG 3.8.0-rc.5 guide for LLMs
 **Audience**: LLM agentic coders and agent bootstraps building GTL/ABG domain apps
 **Purpose**: Compress the human GTL/ABG guide into the ontology, operating rules, fail-closed constraints, and language-specific syntax needed by LLM agents
 
@@ -373,30 +373,37 @@ topology anchor, not a public callable carrier, and not an ABG runtime carrier.
 The epistemic flow is:
 
 ```text
-A
-  -> transform.C
-  -> candidate/evidence refs
-  -> evaluate.C
-  -> evaluation finding refs
-  -> ABG admission
-  -> ABG events, ledgers, assurance projection, traversal projection
-  -> consequence.C
-  -> product read-model interpretation
-  -> B or lawful continuation
+ABG.start(fn<A, B>.C)
+  .bind(system.openGraphCall)
+  .bind(system.openFrame)
+  .bind(plugin.transform.C)
+  .bind(system.admitTransform)
+  .bind(system.writeTransformEventsAndLedgers)
+  .bind(plugin.evaluate.C)
+  .bind(system.admitEvaluation)
+  .bind(system.writeEvaluationLedgers)
+  .bind(system.assuranceFold)
+  .bind(plugin.consequence.C)
+  .bind(system.admitConsequenceProjection)
+  .bind(system.traversalTransition)
+  .bind(system.replayContinuation)
 ```
 
-`transform.C` produces candidates and evidence under the selected composition.
-`evaluate.C` produces findings under the selected composition. Findings may
-propose close, retry, reprice, block, defer, or human-required dispositions, but
-they do not directly close, write ledgers, emit events, select traversal, or
-transition the runtime.
+ABG is the opinionated probabilistic eventual-consistency monad over selected
+composition. A fully deterministic `F_D` graph is the same event-sourced model
+reduced to deterministic compute.
+
+`plugin.transform.C` produces candidates and evidence under the selected
+composition. `plugin.evaluate.C` produces findings under the selected
+composition. `plugin.consequence.C` produces product projection refs over
+ABG-admitted state. Plugins do not directly close, write ledgers, emit events,
+select traversal, own replay, or transition the runtime.
 
 ABG admission is the epistemic authority boundary. Before admission, plugin and
 evaluator returns are proposed evidence. After admission, ABG owns the events,
 payload ledgers, assurance projection, traversal transition, continuation,
-closure fold, correction, and replay truth. `consequence.C` is only a
-projection reference over those ABG-admitted facts plus downstream read-model
-refs.
+closure fold, correction, and replay truth. `F_H` is an external human-callout
+regime: ABG admits the callout and later admits the response event/carrier.
 
 ## Cumulative Environment Law
 
@@ -924,13 +931,14 @@ command surface.
 
 ### `plugin_traversal_observer`
 
-Plugin traversal observers bind Transform and Eval plugin traversal to a
+Plugin traversal observers bind transform, evaluate, and consequence plugin traversal to a
 declared observer prompt contract.
 
 Declaration keys:
 
 - `abg.plugin_traversal_observer.transform`
-- `abg.plugin_traversal_observer.eval`
+- `abg.plugin_traversal_observer.evaluate`
+- `abg.plugin_traversal_observer.consequence`
 
 Resolution order is:
 
@@ -958,8 +966,9 @@ in to the relevant fallback kind.
 ABG emits `plugin_traversal_prompt_materialized` when it materializes the
 observer prompt. The event carries selection source, hook ref, prompt refs,
 config digest, materialization ref, prompt-input digest, default bundle
-provenance when used, and causation/correlation. Transform/F_P and Eval/F_D
-plugin inputs receive the selected `pluginTraversalObserverBinding`.
+provenance when used, and causation/correlation. Transform, evaluate, and
+consequence plugin inputs receive the selected
+`pluginTraversalObserverBinding` when one is declared or enabled.
 
 GTL declares the observer contract. ABG selects, materializes, proves
 provenance, and passes the binding to the plugin. A concrete worker, backend,
@@ -1654,10 +1663,10 @@ ABG does not schedule `retry_repair_planned` for this exit. The same rule holds
 on sync and async runner paths. Downstream callers receive the public terminal
 envelope and must treat it as a bounded attempt exit, not as an open retry lane.
 
-#### T-116 plugin traversal observer binding for Transform and Eval
+#### T-116 plugin traversal observer binding for transform, evaluate, and consequence
 
-T-116 admits GTL-declared plugin traversal observer bindings for Transform/F_P
-and Eval/F_D traversal.
+T-116 admits GTL-declared plugin traversal observer bindings for transform,
+evaluate, and consequence traversal.
 
 ABG resolves one binding per traversal kind from:
 
@@ -1667,7 +1676,7 @@ ABG resolves one binding per traversal kind from:
 4. loaded `abg_defaults` fallback when absence is lawful and enabled
 
 The selected binding appears on `EnginePluginInput.pluginTraversalObserverBinding`
-for Transform/F_P and on the Eval/F_D plugin request. ABG emits
+for the matching plugin stage. ABG emits
 `plugin_traversal_prompt_materialized` for each materialization with a unique
 `materializationRef`, `promptInputDigest`, `selectionRef`, source, hook ref,
 prompt refs, config digest, actor/worker identity when present, and
@@ -1956,7 +1965,8 @@ GTL temporal constraint
   -> ABG decides eligibility and continuation
 ```
 
-Two-stage evaluation. ABG.eval decides traversal completeness over an edge.
+Two-stage evaluation. `plugin.evaluate.C` proposes evaluation findings and the
+ABG assurance fold decides traversal completeness over an edge.
 Schedule/SLA drift, missed windows, recurrence debt, and deadline pressure
 feed a separate homeostatic evaluation surface (`TemporalDriftObservation`
 in F_H regime). A graph function can be locally complete and still create
@@ -2144,7 +2154,7 @@ When building a new GTL/ABG app, execute this algorithm:
 11. For per-edge zoom work, derive an `ObligationLedgerAsset` from the input asset, derive the `ObligationScheduleAsset`, open a `ZoomFrame`, and let ABG run the dispatch/assess/fold loop until the five-term `edge_converged` predicate holds.
 12. For agentic F_P vectors that need bounded schedule control, declare `GraphVector.declarations["abg.traversal_modulation"]` (or a graph-function / role default). ABG resolves the strategy directive, derives the `TraversalAttemptEnvelope`, and passes it to the F_P plugin through one shared dispatch-attempt law on both sync and async runners. Vectors that should remain unmodulated carry no qualifier.
 13. For modulated attempts that must not continue into retry repair after one bounded schedule, set `mustExitAfterBoundedAttempt: true` and handle terminal `gap_stop` reason `bounded_traversal_attempt_exit:*`.
-14. For Transform/F_P and Eval/F_D plugin traversal observers, declare `abg.plugin_traversal_observer.transform` / `.eval` on the edge, function, or role. If absence is lawful, load a visible `abg_defaults` bundle and explicitly enable the fallback kind.
+14. For plugin traversal observers, declare `abg.plugin_traversal_observer.transform`, `.evaluate`, or `.consequence` on the edge, function, or role. If absence is lawful, load a visible `abg_defaults` bundle and explicitly enable the fallback kind.
 15. Consume `TraversalContinuationActionProjection` to decide retry vs yield-same-edge vs reprice vs inspect-runtime-archive vs blocked. Do not parse continuation intent from prompt prose. When publishing your own candidate summary, validate against the projection with `assertTraversalContinuationSummaryAgreement` before emitting downstream.
 16. Install or initialize the runtime surface. Installed TypeScript workspaces carry editable `.abiogenesis/config/abg.fallbacks.json`; preserve local edits on refresh.
 17. Run `gen-start` through the concrete CLI binding.
@@ -2197,7 +2207,7 @@ The UX should expose lawful next moves from runtime facts.
 
 The live kernel in this repo is `abiogenesis`.
 
-The current source version is `3.8.0-rc.3`.
+The current source version is `3.8.0-rc.5`.
 
 ### Run from source
 
@@ -2571,9 +2581,10 @@ When ABG dispatches `F_P`, the engine plugin input and prompt surface:
   schedule item refs, target / max item counts, ordering refs, and retry
   budget remaining. Unqualified vectors expose `traversalAttemptEnvelope =
   null` and stay on the legacy unmodulated path.
-- the selected `pluginTraversalObserverBinding` for Transform/F_P or Eval/F_D
-  traversal when one resolves from GTL declaration or loaded `abg_defaults`
-  fallback truth. Absence remains null unless fallback activation is explicit.
+- the selected `pluginTraversalObserverBinding` for transform, evaluate, or
+  consequence traversal when one resolves from GTL declaration or loaded
+  `abg_defaults` fallback truth. Absence remains null unless fallback
+  activation is explicit.
 
 Builders consume the typed plugin input and prompt as the authoritative
 execution contract for one live edge. Schedule control comes from the typed
@@ -3313,7 +3324,7 @@ cd /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript
 npm run build:semantic
 npm pack
 cd /path/to/project
-npm install /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/abiogenesis-typescript-tenant-3.8.0-rc.3.tgz
+npm install /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/abiogenesis-typescript-tenant-3.8.0-rc.5.tgz
 ```
 
 For product-owned bootstrap, use the package API:
@@ -3327,8 +3338,8 @@ const installOutcome = await installBootstrap(
     installedPackageName: "@example/delivery-app",
     runtimePackage: {
       packageName: "@abiogenesis/typescript-tenant",
-      packageVersion: "3.8.0-rc.3",
-      dependencyRef: "file:./abiogenesis-typescript-tenant-3.8.0-rc.3.tgz",
+      packageVersion: "3.8.0-rc.5",
+      dependencyRef: "file:./abiogenesis-typescript-tenant-3.8.0-rc.5.tgz",
       appExportSubpath: "./app/m04",
       requiredExports: [".", "./app/m04"]
     }

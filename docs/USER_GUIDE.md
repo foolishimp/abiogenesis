@@ -1,6 +1,6 @@
 # GTL/ABG User Guide
 
-**Status**: Current single human guide for GTL 3 / ABG 3.8.0-rc.3
+**Status**: Current single human guide for GTL 3 / ABG 3.8.0-rc.5
 **Audience**: People building, operating, or reviewing GTL/ABG applications
 **Purpose**: Explain what GTL/ABG is for, what it builds, the technical GTL/ABG model, how the build loop works, what the runtime gives you, and how to run the current kernel
 
@@ -217,23 +217,28 @@ ABG-admitted facts.
 The epistemic flow is:
 
 ```text
-A
-  -> transform.C
-  -> candidate/evidence refs
-  -> evaluate.C
-  -> evaluation finding refs
-  -> ABG admission
-  -> ABG events, ledgers, assurance projection, traversal projection
-  -> consequence.C
-  -> product read-model interpretation
-  -> B or lawful continuation
+ABG.start(fn<A, B>.C)
+  .bind(system.openGraphCall)
+  .bind(system.openFrame)
+  .bind(plugin.transform.C)
+  .bind(system.admitTransform)
+  .bind(system.writeTransformEventsAndLedgers)
+  .bind(plugin.evaluate.C)
+  .bind(system.admitEvaluation)
+  .bind(system.writeEvaluationLedgers)
+  .bind(system.assuranceFold)
+  .bind(plugin.consequence.C)
+  .bind(system.admitConsequenceProjection)
+  .bind(system.traversalTransition)
+  .bind(system.replayContinuation)
 ```
 
-`transform.C` produces candidates and evidence. `evaluate.C` produces findings.
-ABG admission turns lawful plugin/evaluator payloads into runtime facts.
-`consequence.C` references ABG-derived assurance, traversal, and product
-read-model projections. It does not write ledgers, emit events, select
-traversal, or close the boundary.
+`plugin.transform.C` produces candidates and evidence. `plugin.evaluate.C`
+produces findings. `plugin.consequence.C` produces projection refs over
+ABG-admitted state. ABG admission turns lawful plugin/evaluator payloads into
+runtime facts. Plugins do not write ledgers, emit events, select traversal,
+own replay, or close the boundary. `F_H` is an external human-callout regime;
+ABG admits the callout and later admits the response event/carrier.
 
 ### Core Types
 
@@ -585,12 +590,12 @@ Cron, EventBridge, Step Functions, Temporal, and saga orchestrators are
 delivery effects. They never select the next vector or close a traversal
 without ABG admission.
 
-Two-stage evaluation. ABG.eval still decides whether a graph edge
-locally completed. Schedule and SLA drift — missed windows, deadline
-pressure, recurrence debt — feed a separate homeostatic evaluation that
-runs after ABG.eval. A graph function can be locally complete and still
-create homeostatic pressure that triggers re-entry, mitigation, or
-repricing. Drift never folds into edge-completeness closure.
+Two-stage evaluation. `plugin.evaluate.C` proposes edge findings and ABG's
+assurance fold decides whether a graph edge locally completed. Schedule and SLA
+drift, missed windows, deadline pressure, and recurrence debt feed a separate
+homeostatic evaluation after local edge assurance. A graph function can be
+locally complete and still create homeostatic pressure that triggers re-entry,
+mitigation, or repricing. Drift never folds into edge-completeness closure.
 
 What is intentionally not in the first slice. The deeper operators
 (`window`, `deadline`, `not_after`, `retry_after`, `cooldown`, `recurs`,

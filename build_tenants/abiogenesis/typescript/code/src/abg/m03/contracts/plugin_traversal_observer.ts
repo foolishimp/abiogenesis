@@ -37,12 +37,14 @@ import {
 
 export const PLUGIN_TRAVERSAL_KIND_VALUES = Object.freeze([
   "transform",
-  "eval"
+  "evaluate",
+  "consequence"
 ] as const);
 
 export const PLUGIN_TRAVERSAL_OBSERVER_DECLARATION_KEYS = Object.freeze({
   transform: "abg.plugin_traversal_observer.transform",
-  eval: "abg.plugin_traversal_observer.eval"
+  evaluate: "abg.plugin_traversal_observer.evaluate",
+  consequence: "abg.plugin_traversal_observer.consequence"
 } as const satisfies Record<PluginTraversalKind, string>);
 
 export interface PluginTraversalObserverBinding {
@@ -107,10 +109,14 @@ function assertTraversalKind(
   value: string,
   label: string
 ): PluginTraversalKind {
-  if (value === "transform" || value === "eval") {
+  if (
+    value === "transform" ||
+    value === "evaluate" ||
+    value === "consequence"
+  ) {
     return value;
   }
-  throw new TypeError(`${label}: expected transform or eval`);
+  throw new TypeError(`${label}: expected transform, evaluate, or consequence`);
 }
 
 function assertPositiveInteger(value: unknown, label: string): number {
@@ -503,9 +509,13 @@ export function admitAbgFallbackBundle(
       bindings["transform"],
       "AbgFallbackBundle.pluginTraversalObserverBindings.transform"
     ),
-    eval: admitFallbackObserverBinding(
-      bindings["eval"],
-      "AbgFallbackBundle.pluginTraversalObserverBindings.eval"
+    evaluate: admitFallbackObserverBinding(
+      bindings["evaluate"],
+      "AbgFallbackBundle.pluginTraversalObserverBindings.evaluate"
+    ),
+    consequence: admitFallbackObserverBinding(
+      bindings["consequence"],
+      "AbgFallbackBundle.pluginTraversalObserverBindings.consequence"
     )
   } satisfies Record<
     PluginTraversalKind,

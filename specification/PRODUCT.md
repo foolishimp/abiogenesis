@@ -154,28 +154,39 @@ callable carrier, and not an ABG runtime carrier.
 The epistemic flow is:
 
 ```text
-A
-  -> transform.C
-  -> candidate/evidence refs
-  -> evaluate.C
-  -> evaluation finding refs
-  -> ABG admission
-  -> ABG events, ledgers, assurance projection, traversal projection
-  -> consequence.C
-  -> product read-model interpretation
-  -> B or lawful continuation
+ABG.start(fn<A, B>.C)
+  .bind(system.openGraphCall)
+  .bind(system.openFrame)
+  .bind(plugin.transform.C)
+  .bind(system.admitTransform)
+  .bind(system.writeTransformEventsAndLedgers)
+  .bind(plugin.evaluate.C)
+  .bind(system.admitEvaluation)
+  .bind(system.writeEvaluationLedgers)
+  .bind(system.assuranceFold)
+  .bind(plugin.consequence.C)
+  .bind(system.admitConsequenceProjection)
+  .bind(system.traversalTransition)
+  .bind(system.replayContinuation)
 ```
 
-`transform.C` may produce candidates and evidence. `evaluate.C` may produce
-findings, including gain, residual pressure, continuation, evidence, authority,
-diagnostic, and proposed disposition refs. Neither stage writes ledgers, emits
-runtime events, selects traversal, or closes the boundary.
+ABG is the opinionated probabilistic eventual-consistency monad over selected
+GTL composition. A purely deterministic event-sourced `F_D` run is a lawful
+reduction of that model, not a separate execution surface.
 
-ABG admission is the boundary where proposed candidate/evaluation payloads
-become runtime facts. ABG owns event emission, payload ledger projection,
-assurance fold, traversal transition, continuation, closure, correction, and
-replay truth. `consequence.C` is a projection reference over those ABG-admitted
-facts plus downstream read-model refs; it is not an independent action stage.
+`plugin.transform.C` may produce candidates and evidence. `plugin.evaluate.C`
+may produce findings, including gain, residual pressure, continuation,
+evidence, authority, diagnostic, and proposed disposition refs.
+`plugin.consequence.C` may produce product read-model projection refs over
+ABG-admitted state. Plugins do not write ledgers, emit runtime events, select
+traversal, own replay, or close the boundary.
+
+ABG admission is the boundary where proposed plugin payloads become runtime
+facts. ABG.system owns graph call/frame opening, event emission, payload ledger
+projection, assurance fold, traversal transition, continuation, closure,
+correction, and replay truth. `F_H` is an external callout regime: ABG admits
+or emits the callout boundary and later admits the response event/carrier; human
+work itself is outside the ABG system.
 
 This boundary derives from `REQ-L-GTL3-COMPUTE-NOTATION`,
 `REQ-L-GTL3-HOOKS`, `REQ-L-GTL3-EVALUATOR`,

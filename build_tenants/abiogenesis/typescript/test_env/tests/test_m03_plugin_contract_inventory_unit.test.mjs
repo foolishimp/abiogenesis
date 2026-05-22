@@ -95,6 +95,7 @@ test("B-016 plugin inventory: every current TS hook has a closed binding lane", 
     .sort();
 
   assert.deepStrictEqual(runtimeConsumed, [
+    "consequence_projection",
     "fd_evaluator",
     "fh_admission",
     "fp_dispatch",

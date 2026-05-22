@@ -116,3 +116,13 @@ contract identity for the owning boundary.
 **REQ-L-GTL3-COMPUTE-NOTATION-013**: Product-specific pressure, gain meaning, and read-model interpretation shall remain product-owned projections over ABG-admitted facts. GTL compute notation shall not standardize downstream product strategy semantics.
 
 **REQ-L-GTL3-COMPUTE-NOTATION-014**: Documentation, examples, and TypeScript contracts that use the notation shall state that `Composition(...)` is display shorthand for selected `abg.fn_composition`, not a separate source of truth.
+
+**REQ-L-GTL3-COMPUTE-NOTATION-015**: GTL compute notation shall expose compute plugin categories for `transform.C`, `evaluate.C`, and `consequence.C`. Each category shall preserve selected composition ref, digest, selection ref, regime binding ref when present, input carrier refs, output carrier refs, evidence refs, and non-authority flags proving the plugin cannot write ledgers, emit runtime events, select traversal, or close the boundary.
+
+**REQ-L-GTL3-COMPUTE-NOTATION-016**: `plugin.transform.C` shall denote candidate/evidence computation, `plugin.evaluate.C` shall denote evaluation finding computation, and `plugin.consequence.C` shall denote consequence/read-model projection computation. These category names shall be used on public runtime observer and hook/action surfaces instead of the ambiguous `eval` stage name.
+
+**REQ-L-GTL3-COMPUTE-NOTATION-017**: `F_H` shall be represented as an external human-callout compute category when it participates in composition. The category shall require `F_H`, shall state that human work is external to ABG, and shall require response admission before any human result can affect runtime truth.
+
+**REQ-L-GTL3-COMPUTE-NOTATION-018**: ABG.system side effects shall appear between plugin compute categories. A product plugin may compute and return typed values or refs, but only ABG.system may admit them, write events, derive ledgers, fold assurance, select traversal, replay continuation, or close.
+
+**REQ-L-GTL3-COMPUTE-NOTATION-019**: The deterministic event-sourced case shall be represented as a lawful reduction of the same composition notation. A fully `F_D` graph remains a program graph over ABG admission/events/replay, not a separate API or shortcut around selected composition identity.

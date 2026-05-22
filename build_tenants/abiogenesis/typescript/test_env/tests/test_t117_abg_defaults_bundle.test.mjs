@@ -51,8 +51,12 @@ test("T-117 shipped fallback bundle is visible abg_defaults configuration with d
     "prompt://abg/reference/generic-transform-observer"
   );
   assert.equal(
-    bundle.pluginTraversalObserverBindings.eval.observerPromptRef,
-    "prompt://abg/reference/generic-eval-observer"
+    bundle.pluginTraversalObserverBindings.evaluate.observerPromptRef,
+    "prompt://abg/reference/generic-evaluate-observer"
+  );
+  assert.equal(
+    bundle.pluginTraversalObserverBindings.consequence.observerPromptRef,
+    "prompt://abg/reference/generic-consequence-observer"
   );
 
   const admitted = admitAbgFallbackBundle(raw);
@@ -104,7 +108,7 @@ test("T-117 malformed, missing, and partial defaults fail closed", async () => {
   const malformed = clone(source);
   malformed.pluginTraversalObserverBindings.transform.observerPromptRef = "";
   const partial = clone(source);
-  delete partial.pluginTraversalObserverBindings.eval;
+  delete partial.pluginTraversalObserverBindings.evaluate;
   await writeJson(malformedPath, malformed);
   await writeJson(partialPath, partial);
 
@@ -118,7 +122,7 @@ test("T-117 malformed, missing, and partial defaults fail closed", async () => {
   );
   assert.throws(
     () => loadAbgFallbackBundleFromFile(partialPath),
-    /pluginTraversalObserverBindings.eval/u
+    /pluginTraversalObserverBindings.evaluate/u
   );
 });
 

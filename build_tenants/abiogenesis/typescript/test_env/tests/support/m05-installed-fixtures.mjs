@@ -250,6 +250,7 @@ export function installedLiveLaneSource() {
     import {
       edge,
       graphFunctionForVector,
+      constructDefaultAbgFnCompositionDeclarations,
       admitModule,
       admitNode,
       admitExecutionBasis,
@@ -296,7 +297,10 @@ export function installedLiveLaneSource() {
       edge([design], code, {
         id: "graph-installed-code",
         name: "design→code:installed",
-        declarations: { entries: [] }
+        declarations: constructDefaultAbgFnCompositionDeclarations({
+          scopeRef: "m05/installed-live-lane",
+          hostGraphVectorRef: "graph-installed-code"
+        })
       }).vectors[0],
       {
         id: "graph-function-installed-code",
@@ -485,6 +489,7 @@ export function installedGraphFunctionTargetSource() {
     import {
       edge,
       graphFunctionForVector,
+      constructDefaultAbgFnCompositionDeclarations,
       admitModule,
       admitNode,
       admitExecutionBasis,
@@ -530,7 +535,10 @@ export function installedGraphFunctionTargetSource() {
             tags: ["fulfillment"]
           }
         ],
-        declarations: { entries: [] }
+        declarations: constructDefaultAbgFnCompositionDeclarations({
+          scopeRef: \`m05/installed-target/\${id}\`,
+          hostGraphVectorRef: \`graph-\${id}\`
+        })
       }).vectors[0];
       return graphFunctionForVector(vector, {
         id: \`graph-function-\${id}\`,
@@ -711,6 +719,7 @@ export function installedThreeStageGraphFunctionSandboxSource() {
       compose,
       graphFunctionForVector,
       materializeGraphFunction,
+      constructDefaultAbgFnCompositionDeclarations,
       admitModule,
       admitNode,
       admitExecutionBasis,
@@ -755,7 +764,9 @@ export function installedThreeStageGraphFunctionSandboxSource() {
             tags: ["fulfillment"]
           }
         ],
-        declarations: { entries: [] },
+        declarations: constructDefaultAbgFnCompositionDeclarations({
+          scopeRef: "m05/three-stage"
+        }),
         tags: ["sandbox", "three_stage_graph_function"]
       }).vectors[0];
 
@@ -1065,6 +1076,7 @@ export function installedLiveScenarioPortfolioSource(scenarioName) {
     import {
       edge,
       graphFunctionForVector,
+      constructDefaultAbgFnCompositionDeclarations,
       admitModule,
       admitNode,
       admitExecutionBasis,
@@ -1128,7 +1140,10 @@ export function installedLiveScenarioPortfolioSource(scenarioName) {
       const vector = edge([source], target, {
         id: \`graph-\${scenario.scenarioName}-\${index}\`,
         name: stage.edge,
-        declarations: { entries: [] }
+        declarations: constructDefaultAbgFnCompositionDeclarations({
+          scopeRef: \`m05/live-portfolio/\${scenario.scenarioName}/\${index}\`,
+          hostGraphVectorRef: \`graph-\${scenario.scenarioName}-\${index}\`
+        })
       }).vectors[0];
       const graphFunction = graphFunctionForVector(vector, {
         id: \`graph-function-\${scenario.scenarioName}-\${index}\`,
@@ -1373,6 +1388,7 @@ export function installedSandboxBehaviorScenarioSource(obligation) {
     import {
       edge,
       graphFunctionForVector,
+      constructDefaultAbgFnCompositionDeclarations,
       admitModule,
       admitNode,
       admitExecutionBasis,
@@ -1420,7 +1436,10 @@ export function installedSandboxBehaviorScenarioSource(obligation) {
       const vector = edge([source], target, {
         id: \`graph-\${safeName}-\${index}\`,
         name: edgeName,
-        declarations: { entries: [] }
+        declarations: constructDefaultAbgFnCompositionDeclarations({
+          scopeRef: \`m05/sandbox-behavior/\${safeName}/\${index}\`,
+          hostGraphVectorRef: \`graph-\${safeName}-\${index}\`
+        })
       }).vectors[0];
       const graphFunction = graphFunctionForVector(vector, {
         id: \`graph-function-\${safeName}-\${index}\`,
@@ -1636,6 +1655,7 @@ export function installedResetPostmortemSource() {
       edge,
       eventIngress,
       graphFunctionForVector,
+      constructDefaultAbgFnCompositionDeclarations,
       admitModule,
       admitNode,
       admitExecutionBasis,
@@ -1688,7 +1708,10 @@ export function installedResetPostmortemSource() {
         edge([design], code, {
           id: "graph-installed-reset",
           name: "design→code:reset",
-          declarations: { entries: [] }
+          declarations: constructDefaultAbgFnCompositionDeclarations({
+            scopeRef: "m05/installed-reset",
+            hostGraphVectorRef: "graph-installed-reset"
+          })
         }).vectors[0],
         {
           id: "graph-function-installed-reset",

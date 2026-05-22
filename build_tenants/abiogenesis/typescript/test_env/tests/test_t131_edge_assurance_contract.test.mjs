@@ -259,7 +259,7 @@ function selectedEdgeAssurance() {
 function hookActionForSelection(selection, findingRef = "finding://t131/eval/1") {
   return constructHookActionRecord({
     hookActionRef: "hook-action://t131/eval/1",
-    hookClass: "eval",
+    hookClass: "evaluate",
     hookContractRef: selection.contract.evalFpContractRef,
     pluginRef: "plugin://t131/eval",
     inputBasisRefs: [selection.selectionRef],
@@ -919,6 +919,6 @@ test("T-131 negative: F_P eval findings cannot smuggle closure or use a transfor
         selection,
         finding
       }),
-    /requires an eval hookactionrecord/i
+    /requires an evaluate hookactionrecord/i
   );
 });

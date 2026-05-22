@@ -92,9 +92,15 @@ test("T-132 installed deterministic sandbox: ABG installer carries a three-edge 
   assert.ok(
     payload.ledgerPayloadRefsByStage.every(
       (refs) =>
-        refs.includes("payload://t132/source_to_requirements/evidence/eval") ||
-        refs.includes("payload://t132/requirements_to_logic/evidence/eval") ||
-        refs.includes("payload://t132/logic_to_design_encoding/evidence/eval")
+        refs.includes(
+          "payload://t132/source_to_requirements/evidence/evaluate"
+        ) ||
+        refs.includes(
+          "payload://t132/requirements_to_logic/evidence/evaluate"
+        ) ||
+        refs.includes(
+          "payload://t132/logic_to_design_encoding/evidence/evaluate"
+        )
     )
   );
   assert.deepStrictEqual(payload.designSyntaxFacts, [

@@ -86,8 +86,10 @@ not widen the product compute boundary without product reprice.
 
 **REQ-R-ABG3-ASSURANCE-029**: If no edge assurance contract is declared, ABG shall project an F_H-required absentia disposition. In absentia mode a human may declare closure, continuation, reprice, block, defer, or directly transform the mutable worksite, but ABG shall still admit the scoped judgment or observed state change before projection or routing.
 
-**REQ-R-ABG3-ASSURANCE-030**: F_P eval output under an edge assurance contract shall enter assurance only as an admitted finding attached to a recorded hook action. ABG shall reject eval findings that contain runtime events, ledger writes, projections, selected vector choices, transitions, or closure authority.
+**REQ-R-ABG3-ASSURANCE-030**: F_P evaluate output under an edge assurance contract shall enter assurance only as an admitted finding attached to a recorded hook action. ABG shall reject evaluation findings that contain runtime events, ledger writes, projections, selected vector choices, transitions, or closure authority.
 
 **REQ-R-ABG3-ASSURANCE-031**: When an assurance scope is governed by an `abg.fn_composition` contract, ABG assurance projection and closure fold shall preserve the selected composition ref and digest. Assurance evidence shall not close a scope when it was admitted under a different, missing, stale, or malformed composition identity.
 
 **REQ-R-ABG3-ASSURANCE-032**: Edge assurance contracts may contribute gain, residual pressure, continuation, and proposed close disposition only under the selected composition identity. The actual close/retry/reprice/block/defer decision remains the ABG assurance fold over admitted evidence and deterministic closure law.
+
+**REQ-R-ABG3-ASSURANCE-033**: Human-required assurance states shall be represented as external `F_H` callout boundaries. A human-facing system may perform and return the work, but ABG shall only consume an admitted response event or carrier; no external human response directly mutates assurance projection, traversal transition, replay truth, or closure.

@@ -225,7 +225,7 @@ export interface EffectiveVectorRegime {
   readonly diagnosticRefs: readonly string[];
 }
 
-export type PluginTraversalKind = "transform" | "eval";
+export type PluginTraversalKind = "transform" | "evaluate" | "consequence";
 
 export type PluginTraversalObserverBindingSource =
   | "graph_vector_declarations"

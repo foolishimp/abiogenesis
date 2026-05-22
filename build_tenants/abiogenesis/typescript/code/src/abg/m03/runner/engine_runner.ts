@@ -49,10 +49,14 @@ import {
   admitFdEvaluationOutcome,
   admitFhAdmissionOutcome,
   admitFpDispatchOutcome,
+  admitConsequenceProjectionOutcome,
   constructEnginePluginInput,
+  defaultConsequenceProjectionPlugin,
   defaultFdEvaluatorPlugin,
   defaultFhAdmissionPlugin,
   defaultFpDispatchPlugin,
+  type ConsequenceProjectionOutcome,
+  type ConsequenceProjectionPlugin,
   type EnginePluginContract,
   type EnginePluginInput,
   type EnginePluginMaybePromise,
@@ -169,6 +173,7 @@ interface ResolvedRunnerPlugins {
   readonly fdEvaluator: FdEvaluatorPlugin;
   readonly fpDispatch: FpDispatchPlugin;
   readonly fhAdmission: FhAdmissionPlugin;
+  readonly consequenceProjection: ConsequenceProjectionPlugin;
 }
 
 function resolveRunnerPlugins(
@@ -177,7 +182,9 @@ function resolveRunnerPlugins(
   return Object.freeze({
     fdEvaluator: plugins?.fdEvaluator ?? defaultFdEvaluatorPlugin,
     fpDispatch: plugins?.fpDispatch ?? defaultFpDispatchPlugin,
-    fhAdmission: plugins?.fhAdmission ?? defaultFhAdmissionPlugin
+    fhAdmission: plugins?.fhAdmission ?? defaultFhAdmissionPlugin,
+    consequenceProjection:
+      plugins?.consequenceProjection ?? defaultConsequenceProjectionPlugin
   });
 }
 
@@ -790,6 +797,10 @@ type EnginePluginEffect =
   | {
       readonly kind: "fh_admit";
       readonly input: EnginePluginInput;
+    }
+  | {
+      readonly kind: "consequence_project";
+      readonly input: EnginePluginInput;
     };
 
 type EnginePluginEffectResult =
@@ -804,6 +815,10 @@ type EnginePluginEffectResult =
   | {
       readonly kind: "fh_admit";
       readonly outcome: FhAdmissionOutcome;
+    }
+  | {
+      readonly kind: "consequence_project";
+      readonly outcome: ConsequenceProjectionOutcome;
     };
 
 function assertEnginePluginEffectKind(
@@ -827,6 +842,8 @@ function fdEvaluationOutcomeFromEffectResult(
     case "fp_dispatch":
     case "fh_admit":
       throw new TypeError("Engine plugin effect expected fd_evaluate");
+    case "consequence_project":
+      throw new TypeError("Engine plugin effect expected fd_evaluate");
   }
 }
 
@@ -840,6 +857,8 @@ function fpDispatchOutcomeFromEffectResult(
     case "fd_evaluate":
     case "fh_admit":
       throw new TypeError("Engine plugin effect expected fp_dispatch");
+    case "consequence_project":
+      throw new TypeError("Engine plugin effect expected fp_dispatch");
   }
 }
 
@@ -852,7 +871,22 @@ function fhAdmissionOutcomeFromEffectResult(
       return result.outcome;
     case "fd_evaluate":
     case "fp_dispatch":
+    case "consequence_project":
       throw new TypeError("Engine plugin effect expected fh_admit");
+  }
+}
+
+function consequenceProjectionOutcomeFromEffectResult(
+  result: EnginePluginEffectResult
+): ConsequenceProjectionOutcome {
+  assertEnginePluginEffectKind(result, "consequence_project");
+  switch (result.kind) {
+    case "consequence_project":
+      return result.outcome;
+    case "fd_evaluate":
+    case "fp_dispatch":
+    case "fh_admit":
+      throw new TypeError("Engine plugin effect expected consequence_project");
   }
 }
 
@@ -1030,7 +1064,7 @@ function* runEngineIterateMachine(input: {
                 "plugin-traversal",
                 request.basis.id,
                 String(transition.vectorIndex),
-                "eval"
+                "evaluate"
               ].join(":")
             })
           );
@@ -1075,6 +1109,67 @@ function* runEngineIterateMachine(input: {
           }),
           constructFdAdvanceReadyEvent(transition)
         ]);
+        const consequenceProjection = deriveRuntimeAggregateProjection(
+          request.basis,
+          eventState.replayEvents
+        );
+        const consequenceInput = constructEnginePluginInput({
+          contract: plugins.consequenceProjection.contract,
+          basis: request.basis,
+          projection: consequenceProjection,
+          replayEvents: eventState.replayEvents,
+          vectorIndex: transition.vectorIndex,
+          edge: transition.edge,
+          regime: "F_D",
+          abgFallbackBundle: request.abgFallbackBundle ?? null,
+          edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
+          constructionPressurePackage:
+            request.constructionPressurePackage ?? null,
+          pluginTraversalObserverFallbackEnabled:
+            request.pluginTraversalObserverFallbackEnabled ?? false,
+          pluginTraversalObserverFallbackKinds:
+            request.pluginTraversalObserverFallbackKinds ?? Object.freeze([])
+        });
+        if (consequenceInput.pluginTraversalObserverBinding !== null) {
+          eventState = emitRunnerEvents(eventState,
+            constructPluginTraversalPromptMaterializedEvent({
+              basis: request.basis,
+              vectorIndex: transition.vectorIndex,
+              selection: consequenceInput.pluginTraversalObserverBinding,
+              causationEventRefs: Object.freeze([
+                consequenceInput.sourceProjectionRef
+              ]),
+              correlationId: [
+                "plugin-traversal",
+                request.basis.id,
+                String(transition.vectorIndex),
+                "consequence"
+              ].join(":")
+            })
+          );
+        }
+        const consequenceOutcome = consequenceProjectionOutcomeFromEffectResult(
+          yield Object.freeze({
+            kind: "consequence_project",
+            input: consequenceInput
+          })
+        );
+        if (consequenceOutcome.status === "blocked") {
+          const blocked = terminalTransition(
+            request.basis,
+            "gap_stop",
+            consequenceOutcome.reason ?? "consequence projection plugin blocked traversal"
+          );
+          eventState = emitRunnerEvents(eventState, constructTerminalReachedEvent(blocked));
+          return constructResult({
+            basis: request.basis,
+            transition: blocked,
+            projection: deriveRuntimeAggregateProjection(request.basis, eventState.replayEvents),
+            emittedEvents: eventState.emittedEvents,
+            replayEvents: eventState.replayEvents,
+            iterationCount
+          });
+        }
         iterationCount += 1;
         if (request.basis.startIntent.until === "first_traversal") {
           return constructResult({
@@ -1166,6 +1261,67 @@ function* runEngineIterateMachine(input: {
                 closureKind: "assessed"
               })
             );
+            const consequenceProjection = deriveRuntimeAggregateProjection(
+              request.basis,
+              eventState.replayEvents
+            );
+            const consequenceInput = constructEnginePluginInput({
+              contract: plugins.consequenceProjection.contract,
+              basis: request.basis,
+              projection: consequenceProjection,
+              replayEvents: eventState.replayEvents,
+              vectorIndex: transition.vectorIndex,
+              edge: transition.edge,
+              regime: "F_D",
+              abgFallbackBundle: request.abgFallbackBundle ?? null,
+              edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
+              constructionPressurePackage:
+                request.constructionPressurePackage ?? null,
+              pluginTraversalObserverFallbackEnabled:
+                request.pluginTraversalObserverFallbackEnabled ?? false,
+              pluginTraversalObserverFallbackKinds:
+                request.pluginTraversalObserverFallbackKinds ?? Object.freeze([])
+            });
+            if (consequenceInput.pluginTraversalObserverBinding !== null) {
+              eventState = emitRunnerEvents(eventState,
+                constructPluginTraversalPromptMaterializedEvent({
+                  basis: request.basis,
+                  vectorIndex: transition.vectorIndex,
+                  selection: consequenceInput.pluginTraversalObserverBinding,
+                  causationEventRefs: Object.freeze([
+                    consequenceInput.sourceProjectionRef
+                  ]),
+                  correlationId: [
+                    "plugin-traversal",
+                    request.basis.id,
+                    String(transition.vectorIndex),
+                    "consequence"
+                  ].join(":")
+                })
+              );
+            }
+            const consequenceOutcome = consequenceProjectionOutcomeFromEffectResult(
+              yield Object.freeze({
+                kind: "consequence_project",
+                input: consequenceInput
+              })
+            );
+            if (consequenceOutcome.status === "blocked") {
+              const blocked = terminalTransition(
+                request.basis,
+                "gap_stop",
+                consequenceOutcome.reason ?? "consequence projection plugin blocked traversal"
+              );
+              eventState = emitRunnerEvents(eventState, constructTerminalReachedEvent(blocked));
+              return constructResult({
+                basis: request.basis,
+                transition: blocked,
+                projection: deriveRuntimeAggregateProjection(request.basis, eventState.replayEvents),
+                emittedEvents: eventState.emittedEvents,
+                replayEvents: eventState.replayEvents,
+                iterationCount
+              });
+            }
             iterationCount += 1;
             if (request.basis.startIntent.until === "first_traversal") {
               const applied = terminalTransition(
@@ -1397,6 +1553,16 @@ function resolveSyncEnginePluginEffect(
           )
         )
       });
+    case "consequence_project":
+      return Object.freeze({
+        kind: "consequence_project",
+        outcome: admitConsequenceProjectionOutcome(
+          resolveSyncPluginOutcome(
+            plugins.consequenceProjection.project(effect.input),
+            "consequence projection plugin"
+          )
+        )
+      });
   }
 }
 
@@ -1424,6 +1590,13 @@ async function resolveAsyncEnginePluginEffect(
         kind: "fh_admit",
         outcome: admitFhAdmissionOutcome(
           await plugins.fhAdmission.admit(effect.input)
+        )
+      });
+    case "consequence_project":
+      return Object.freeze({
+        kind: "consequence_project",
+        outcome: admitConsequenceProjectionOutcome(
+          await plugins.consequenceProjection.project(effect.input)
         )
       });
   }

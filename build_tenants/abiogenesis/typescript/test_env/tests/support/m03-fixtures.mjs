@@ -2,6 +2,7 @@ import { edge, graphFunctionForVector } from "../../../build/semantic/code/src/g
 import { admitNode } from "../../../build/semantic/code/src/gtl/m01/admission/carriers.js";
 import { admitModule } from "../../../build/semantic/code/src/gtl/m02/admission/carriers.js";
 import {
+  ABG_FN_COMPOSITION_DECLARATION_KEY,
   admitExecutionBasis,
   admitResolvedPolicyIdentity,
   admitResolvedRuntimeIdentity,
@@ -30,6 +31,135 @@ const FP_PROFILE = constructProofFixtureProfile({
     resolvedPolicyBundleRef: "policy://fp-default"
   }
 });
+
+function scalarEntry(key, value) {
+  return Object.freeze({
+    key,
+    value: Object.freeze({ kind: "scalar", value })
+  });
+}
+
+function stringListEntry(key, value) {
+  return Object.freeze({
+    key,
+    value: Object.freeze({ kind: "string_list", value: Object.freeze([...value]) })
+  });
+}
+
+function jsonValue(value) {
+  if (
+    value === null ||
+    typeof value === "string" ||
+    typeof value === "number" ||
+    typeof value === "boolean"
+  ) {
+    return value;
+  }
+  if (Array.isArray(value)) {
+    return Object.freeze({
+      kind: "array",
+      items: Object.freeze(value.map(jsonValue))
+    });
+  }
+  return Object.freeze({
+    kind: "object",
+    entries: Object.freeze(
+      Object.entries(value).map(([key, entryValue]) =>
+        Object.freeze({ key, value: jsonValue(entryValue) })
+      )
+    )
+  });
+}
+
+function jsonEntry(key, value) {
+  return Object.freeze({
+    key,
+    value: Object.freeze({ kind: "json_blob", value: jsonValue(value) })
+  });
+}
+
+function fnCompositionDeclarations() {
+  return Object.freeze({
+    entries: Object.freeze([
+      Object.freeze({
+        key: ABG_FN_COMPOSITION_DECLARATION_KEY,
+        value: Object.freeze({
+          kind: "hook_ref",
+          value: Object.freeze({
+            ref: "hook://m03-fp/abg-fn-composition",
+            config: Object.freeze({
+              entries: Object.freeze([
+                scalarEntry("contract_ref", "abg.fn_composition://m03-fp/default"),
+                stringListEntry("standards_context_refs", ["standard://m03-fp"]),
+                stringListEntry("policy_context_refs", ["policy://m03-fp"]),
+                stringListEntry("carrier_context_refs", ["carrier://m03-fp"]),
+                stringListEntry("assurance_context_refs", ["assurance://m03-fp"]),
+                scalarEntry("closure_contract_ref", "closure://m03-fp/fd-evaluate"),
+                jsonEntry("regime_bindings", [
+                  {
+                    bindingRef: "regime-binding://m03-fp/transform/fp",
+                    stageRole: "transform",
+                    regime: "F_P",
+                    role: "construct",
+                    order: 0,
+                    authority: "evidence",
+                    inputCarrierRefs: ["EnginePluginInput"],
+                    outputCarrierRefs: ["FpDispatchOutcome"],
+                    evidenceRefs: ["evidence://m03-fp/fp-transform"]
+                  },
+                  {
+                    bindingRef: "regime-binding://m03-fp/evaluate/fd",
+                    stageRole: "evaluate",
+                    regime: "F_D",
+                    role: "validate",
+                    order: 1,
+                    authority: "closure",
+                    inputCarrierRefs: ["EnginePluginInput"],
+                    outputCarrierRefs: ["FdEvaluationOutcome"],
+                    evidenceRefs: ["evidence://m03-fp/fd-evaluate"]
+                  },
+                  {
+                    bindingRef: "regime-binding://m03-fp/evaluate/fp",
+                    stageRole: "evaluate",
+                    regime: "F_P",
+                    role: "validate",
+                    order: 2,
+                    authority: "judgment",
+                    inputCarrierRefs: ["EnginePluginInput"],
+                    outputCarrierRefs: ["FpEdgeAssuranceEvalFinding"],
+                    evidenceRefs: ["evidence://m03-fp/fp-evaluate"]
+                  },
+                  {
+                    bindingRef: "regime-binding://m03-fp/consequence/fd",
+                    stageRole: "consequence",
+                    regime: "F_D",
+                    role: "observe",
+                    order: 3,
+                    authority: "evidence",
+                    inputCarrierRefs: ["EnginePluginInput"],
+                    outputCarrierRefs: ["ConsequenceProjectionOutcome"],
+                    evidenceRefs: ["evidence://m03-fp/consequence"]
+                  },
+                  {
+                    bindingRef: "regime-binding://m03-fp/human-callout/fh",
+                    stageRole: "human_callout",
+                    regime: "F_H",
+                    role: "escalate",
+                    order: 4,
+                    authority: "judgment",
+                    inputCarrierRefs: ["EnginePluginInput"],
+                    outputCarrierRefs: ["FhAdmissionOutcome"],
+                    evidenceRefs: ["evidence://m03-fp/fh-callout"]
+                  }
+                ])
+              ])
+            })
+          })
+        })
+      })
+    ])
+  });
+}
 
 function designNode(overrides = {}) {
   return {
@@ -77,7 +207,7 @@ function publishedProfile({
   name = "fp_profile",
   graphId = "graph-m03-fp",
   graphName = "design→code:fp",
-  declarations = { entries: [] },
+  declarations = fnCompositionDeclarations(),
   design = admitNode(designNode()),
   code = admitNode(codeNode())
 } = {}) {

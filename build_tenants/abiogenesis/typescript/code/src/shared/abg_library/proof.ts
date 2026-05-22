@@ -1,4 +1,9 @@
 import type { ProofFixtureProfile } from "./carriers.js";
+import type {
+  SerializedAttrEntry,
+  SerializedAttrs,
+  SerializedJsonValue
+} from "../../gtl/m01/contracts/carriers.js";
 
 interface FixtureNodeInput {
   readonly id: string;
@@ -39,6 +44,173 @@ interface JobPayload {
 
 function freezeStringArray(values: readonly string[]): readonly string[] {
   return Object.freeze([...values]);
+}
+
+function scalarEntry(key: string, value: string): SerializedAttrEntry {
+  return Object.freeze({
+    key,
+    value: Object.freeze({
+      kind: "scalar",
+      value
+    })
+  });
+}
+
+function stringListEntry(
+  key: string,
+  value: readonly string[]
+): SerializedAttrEntry {
+  return Object.freeze({
+    key,
+    value: Object.freeze({
+      kind: "string_list",
+      value: freezeStringArray(value)
+    })
+  });
+}
+
+function stringArrayJson(values: readonly string[]): SerializedJsonValue {
+  return Object.freeze({
+    kind: "array",
+    items: freezeStringArray(values)
+  });
+}
+
+function regimeBindingJson(input: {
+  readonly scopeRef: string;
+  readonly stageRole: string;
+  readonly regime: string;
+  readonly role: string;
+  readonly order: number;
+  readonly authority: string;
+  readonly outputCarrierRef: string;
+}): SerializedJsonValue {
+  return Object.freeze({
+    kind: "object",
+    entries: Object.freeze([
+      Object.freeze({
+        key: "bindingRef",
+        value: `regime-binding://${input.scopeRef}/${input.stageRole}/${input.regime}`
+      }),
+      Object.freeze({ key: "stageRole", value: input.stageRole }),
+      Object.freeze({ key: "regime", value: input.regime }),
+      Object.freeze({ key: "role", value: input.role }),
+      Object.freeze({ key: "order", value: input.order }),
+      Object.freeze({ key: "authority", value: input.authority }),
+      Object.freeze({
+        key: "inputCarrierRefs",
+        value: stringArrayJson(["EnginePluginInput"])
+      }),
+      Object.freeze({
+        key: "outputCarrierRefs",
+        value: stringArrayJson([input.outputCarrierRef])
+      }),
+      Object.freeze({
+        key: "evidenceRefs",
+        value: stringArrayJson([
+          `evidence://${input.scopeRef}/${input.stageRole}/${input.regime}`
+        ])
+      })
+    ])
+  });
+}
+
+function jsonEntry(
+  key: string,
+  value: SerializedJsonValue
+): SerializedAttrEntry {
+  return Object.freeze({
+    key,
+    value: Object.freeze({
+      kind: "json_blob",
+      value
+    })
+  });
+}
+
+function defaultFixtureFnCompositionPolicyHooks(
+  moduleName: string
+): SerializedAttrs {
+  const scopeRef = `fixture/${moduleName}`;
+  return Object.freeze({
+    entries: Object.freeze([
+      Object.freeze({
+        key: "abg.fn_composition",
+        value: Object.freeze({
+          kind: "hook_ref",
+          value: Object.freeze({
+            ref: `hook://${scopeRef}/abg-fn-composition`,
+            config: Object.freeze({
+              entries: Object.freeze([
+                scalarEntry(
+                  "contract_ref",
+                  `abg.fn_composition://${scopeRef}`
+                ),
+                stringListEntry("standards_context_refs", []),
+                stringListEntry("policy_context_refs", []),
+                stringListEntry("carrier_context_refs", []),
+                stringListEntry("assurance_context_refs", []),
+                scalarEntry("closure_contract_ref", `closure://${scopeRef}/fd`),
+                jsonEntry(
+                  "regime_bindings",
+                  Object.freeze({
+                    kind: "array",
+                    items: Object.freeze([
+                      regimeBindingJson({
+                        scopeRef,
+                        stageRole: "transform",
+                        regime: "F_P",
+                        role: "construct",
+                        order: 0,
+                        authority: "evidence",
+                        outputCarrierRef: "FpDispatchOutcome"
+                      }),
+                      regimeBindingJson({
+                        scopeRef,
+                        stageRole: "evaluate",
+                        regime: "F_D",
+                        role: "validate",
+                        order: 1,
+                        authority: "closure",
+                        outputCarrierRef: "FdEvaluationOutcome"
+                      }),
+                      regimeBindingJson({
+                        scopeRef,
+                        stageRole: "evaluate",
+                        regime: "F_P",
+                        role: "validate",
+                        order: 2,
+                        authority: "judgment",
+                        outputCarrierRef: "FpEdgeAssuranceEvalFinding"
+                      }),
+                      regimeBindingJson({
+                        scopeRef,
+                        stageRole: "consequence",
+                        regime: "F_D",
+                        role: "observe",
+                        order: 3,
+                        authority: "evidence",
+                        outputCarrierRef: "ConsequenceProjectionOutcome"
+                      }),
+                      regimeBindingJson({
+                        scopeRef,
+                        stageRole: "human_callout",
+                        regime: "F_H",
+                        role: "escalate",
+                        order: 4,
+                        authority: "judgment",
+                        outputCarrierRef: "FhAdmissionOutcome"
+                      })
+                    ])
+                  })
+                )
+              ])
+            })
+          })
+        })
+      })
+    ])
+  });
 }
 
 export function constructProofFixtureProfile(
@@ -153,6 +325,9 @@ export function constructFixtureModulePayload(input: {
     evaluators: Object.freeze([]),
     rules: Object.freeze([]),
     imports: Object.freeze([]),
+    policyHooks: defaultFixtureFnCompositionPolicyHooks(
+      input.profile.publishedWork.moduleName
+    ),
     metadata: Object.freeze({
       entries: Object.freeze([])
     })

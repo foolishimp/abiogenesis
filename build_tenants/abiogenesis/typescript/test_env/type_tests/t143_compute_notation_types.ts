@@ -9,6 +9,7 @@ import type {
   GtlCompositionHostBinding,
   GtlCompositionRegimeBinding,
   GtlConsequenceProjectionRef,
+  GtlComputePluginCategoryBinding,
   GtlEvaluation,
   GtlEvaluationFindingRef
 } from "../../code/src/gtl/m02/contracts/compute_notation.js";
@@ -161,3 +162,81 @@ export const consequenceProjectionWithoutComposition: GtlConsequenceProjectionRe
   traversalTransitionRef: "traversal-transition://t143",
   domainReadModelRefs: ["read-model://sdlc"]
 };
+
+export const evaluatePluginCategory: GtlComputePluginCategoryBinding = {
+  kind: "gtl_compute_plugin_category_binding",
+  stageRole: "evaluate",
+  computeMeans: "F_P",
+  purpose: "candidate_evaluation",
+  compositionRef: "composition://t143",
+  compositionDigest: "digest://composition",
+  compositionSelectionRef: "composition-selection://t143",
+  regimeBindingRef: "regime-binding://t143/fp-evaluate",
+  inputCarrierRefs: ["candidate://t143"],
+  outputCarrierRefs: ["finding://t143"],
+  evidenceRefs: ["evidence://t143"],
+  mayWriteLedgers: false,
+  mayEmitRuntimeEvents: false,
+  maySelectTraversal: false,
+  mayCloseTraversal: false
+};
+
+export const humanCalloutCategory: GtlComputePluginCategoryBinding = {
+  kind: "gtl_compute_plugin_category_binding",
+  stageRole: "human_callout",
+  computeMeans: "F_H",
+  purpose: "external_human_callout",
+  compositionRef: "composition://t143",
+  compositionDigest: "digest://composition",
+  compositionSelectionRef: "composition-selection://t143",
+  regimeBindingRef: "regime-binding://t143/fh-callout",
+  inputCarrierRefs: ["subject://t143"],
+  outputCarrierRefs: ["human-response://t143"],
+  evidenceRefs: [],
+  mayWriteLedgers: false,
+  mayEmitRuntimeEvents: false,
+  maySelectTraversal: false,
+  mayCloseTraversal: false,
+  humanWorkExternal: true,
+  responseAdmissionRequired: true
+};
+
+export const illegalInternalHumanEvaluateCategory = {
+  kind: "gtl_compute_plugin_category_binding",
+  stageRole: "evaluate",
+  computeMeans: "F_H",
+  purpose: "candidate_evaluation",
+  compositionRef: "composition://t143",
+  compositionDigest: "digest://composition",
+  compositionSelectionRef: "composition-selection://t143",
+  regimeBindingRef: "regime-binding://t143/bad-internal-fh",
+  inputCarrierRefs: ["candidate://t143"],
+  outputCarrierRefs: ["finding://t143"],
+  evidenceRefs: ["evidence://t143"],
+  mayWriteLedgers: false,
+  mayEmitRuntimeEvents: false,
+  maySelectTraversal: false,
+  mayCloseTraversal: false
+  // @ts-expect-error F_H is only lawful as the external human_callout category.
+} satisfies GtlComputePluginCategoryBinding;
+
+export const illegalHumanCalloutMeans = {
+  kind: "gtl_compute_plugin_category_binding",
+  stageRole: "human_callout",
+  computeMeans: "F_P",
+  purpose: "external_human_callout",
+  compositionRef: "composition://t143",
+  compositionDigest: "digest://composition",
+  compositionSelectionRef: "composition-selection://t143",
+  regimeBindingRef: "regime-binding://t143/bad",
+  inputCarrierRefs: ["subject://t143"],
+  outputCarrierRefs: ["human-response://t143"],
+  evidenceRefs: [],
+  mayWriteLedgers: false,
+  mayEmitRuntimeEvents: false,
+  maySelectTraversal: false,
+  mayCloseTraversal: false,
+  humanWorkExternal: true,
+  responseAdmissionRequired: true
+  // @ts-expect-error Human callout category is only lawful for F_H.
+} satisfies GtlComputePluginCategoryBinding;

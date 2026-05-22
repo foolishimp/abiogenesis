@@ -870,14 +870,17 @@ export {
 export type { RetryRepairDecisionInput } from "./retry_repair.js";
 export {
   admitEnginePluginContract,
+  admitConsequenceProjectionOutcome,
   admitFdEvaluationOutcome,
   admitFhAdmissionOutcome,
   admitFpDispatchOutcome,
+  constructConsequenceProjectionOutcome,
   constructEnginePluginContract,
   constructEnginePluginInput,
   constructFdEvaluationOutcome,
   constructFhAdmissionOutcome,
   constructFpDispatchOutcome,
+  defaultConsequenceProjectionPlugin,
   deriveFdPressureRoutingDecision,
   defaultFdEvaluatorPlugin,
   defaultFhAdmissionPlugin,
@@ -885,11 +888,19 @@ export {
   enginePluginInventory
 } from "./plugins.js";
 export {
+  ENGINE_COMPUTE_STAGE_PURPOSE_VALUES,
+  ENGINE_COMPUTE_STAGE_ROLE_VALUES,
   ENGINE_PLUGIN_AUTHORITY_VALUES,
   ENGINE_PLUGIN_KIND_VALUES,
   ENGINE_PLUGIN_RUNTIME_BINDING_STATUS_VALUES
 } from "./plugins.js";
 export type {
+  ConsequenceProjectionOutcome,
+  ConsequenceProjectionPlugin,
+  EngineComputeStageBinding,
+  EngineComputeStagePurpose,
+  EngineComputeStageRole,
+  EngineHumanBoundary,
   EnginePluginAuthority,
   EnginePluginContract,
   EnginePluginEventAuthority,
@@ -906,3 +917,24 @@ export type {
   FpDispatchOutcome,
   FpDispatchPlugin
 } from "./plugins.js";
+export {
+  ABG_FN_COMPOSITION_DECLARATION_KEY,
+  ABG_FN_COMPOSITION_SOURCE_VALUES,
+  constructAbgFnCompositionDeclarations,
+  constructDefaultAbgFnCompositionDeclarations,
+  resolveAbgFnCompositionSelection,
+  selectedAbgFnRegimeBindingForCompute
+} from "./fn_composition.js";
+export type {
+  AbgFnCompositionContract,
+  AbgFnCompositionDeclarationInit,
+  AbgFnCompositionModulePolicySource,
+  AbgFnCompositionSelection,
+  AbgFnCompositionSource,
+  AbgFnComputeStageRole,
+  AbgFnHostBinding,
+  AbgFnRegimeAuthority,
+  AbgFnRegimeBinding,
+  AbgFnRegimeRole,
+  DefaultAbgFnCompositionDeclarationInit
+} from "./fn_composition.js";

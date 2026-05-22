@@ -23,6 +23,7 @@ function runtimeBindingSource() {
       admitNode,
       admitResolvedPolicyIdentity,
       admitResolvedRuntimeIdentity,
+      constructDefaultAbgFnCompositionDeclarations,
       edge,
       graphFunctionForVector
     } from "@abiogenesis/typescript-tenant";
@@ -56,7 +57,10 @@ function runtimeBindingSource() {
             tags: ["fulfillment"]
           }
         ],
-        declarations: { entries: [] }
+        declarations: constructDefaultAbgFnCompositionDeclarations({
+          scopeRef: \`cli-binary/\${id}\`,
+          hostGraphVectorRef: \`graph-\${id}\`
+        })
       }).vectors[0];
       return graphFunctionForVector(vector, {
         id: \`graph-function-\${id}\`,

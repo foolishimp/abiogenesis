@@ -17,15 +17,15 @@ import {
 
 function hookAction(overrides = {}) {
   return constructHookActionRecord({
-    hookActionRef: "hook-action://t130/eval/1",
-    hookClass: "eval",
-    hookContractRef: "contract://t130/eval",
+    hookActionRef: "hook-action://t130/evaluate/1",
+    hookClass: "evaluate",
+    hookContractRef: "contract://t130/evaluate",
     pluginRef: "plugin://t130/evaluator",
     inputBasisRefs: ["basis://t130/edge-state"],
-    policyRefs: ["policy://t130/eval"],
-    configRefs: ["config://t130/eval"],
-    returnedFindingRefs: ["finding://t130/eval/1"],
-    admissionRefs: ["admission://t130/eval/1"],
+    policyRefs: ["policy://t130/evaluate"],
+    configRefs: ["config://t130/evaluate"],
+    returnedFindingRefs: ["finding://t130/evaluate/1"],
+    admissionRefs: ["admission://t130/evaluate/1"],
     predecessorRefs: ["event://t130/predecessor"],
     outputSurfaceRef: "assurance://t130/edge",
     ...overrides
@@ -34,14 +34,14 @@ function hookAction(overrides = {}) {
 
 function admission(overrides = {}) {
   return constructHookFindingAdmission({
-    admissionRef: "admission://t130/eval/1",
-    hookActionRef: "hook-action://t130/eval/1",
-    findingRef: "finding://t130/eval/1",
+    admissionRef: "admission://t130/evaluate/1",
+    hookActionRef: "hook-action://t130/evaluate/1",
+    findingRef: "finding://t130/evaluate/1",
     status: "admitted",
     owningSurfaceRef: "assurance://t130/edge",
     evidenceRefs: ["evidence://t130/edge"],
-    policyRefs: ["policy://t130/eval"],
-    predecessorRefs: ["hook-action://t130/eval/1"],
+    policyRefs: ["policy://t130/evaluate"],
+    predecessorRefs: ["hook-action://t130/evaluate/1"],
     ...overrides
   });
 }
@@ -78,12 +78,12 @@ test("T-130 admission parser preserves admitted and rejected findings", () => {
   const admitted = admitHookFindingAdmission({
     kind: "hook_finding_admission",
     admissionRef: "admission://t130/rejected",
-    hookActionRef: "hook-action://t130/eval/1",
+    hookActionRef: "hook-action://t130/evaluate/1",
     findingRef: "finding://t130/rejected",
     status: "rejected",
     owningSurfaceRef: "assurance://t130/edge",
-    policyRefs: ["policy://t130/eval"],
-    predecessorRefs: ["hook-action://t130/eval/1"],
+    policyRefs: ["policy://t130/evaluate"],
+    predecessorRefs: ["hook-action://t130/evaluate/1"],
     reason: "finding attempted to exceed hook contract"
   });
 

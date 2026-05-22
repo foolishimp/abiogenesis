@@ -21,17 +21,33 @@
         "policy://abg/reference/defaults/plugin-traversal-observer"
       ]
     },
-    "eval": {
+    "evaluate": {
       "absenceLawful": true,
-      "observerPromptRef": "prompt://abg/reference/generic-eval-observer",
-      "promptTemplateRef": "template://abg/reference/generic-eval-observer",
-      "promptInputContractRef": "contract://abg/plugin-traversal/eval-input",
-      "expectedOutputContractRef": "contract://abg/plugin-traversal/eval-output",
+      "observerPromptRef": "prompt://abg/reference/generic-evaluate-observer",
+      "promptTemplateRef": "template://abg/reference/generic-evaluate-observer",
+      "promptInputContractRef": "contract://abg/plugin-traversal/evaluate-input",
+      "expectedOutputContractRef": "contract://abg/plugin-traversal/evaluate-output",
       "continuationRequestRefs": [
         "continuation://abg/continue-evaluation"
       ],
       "progressSignalRefs": [
         "progress://abg/evaluation-observed"
+      ],
+      "policyRefs": [
+        "policy://abg/reference/defaults/plugin-traversal-observer"
+      ]
+    },
+    "consequence": {
+      "absenceLawful": true,
+      "observerPromptRef": "prompt://abg/reference/generic-consequence-observer",
+      "promptTemplateRef": "template://abg/reference/generic-consequence-observer",
+      "promptInputContractRef": "contract://abg/plugin-traversal/consequence-input",
+      "expectedOutputContractRef": "contract://abg/plugin-traversal/consequence-output",
+      "continuationRequestRefs": [
+        "continuation://abg/project-consequence"
+      ],
+      "progressSignalRefs": [
+        "progress://abg/consequence-observed"
       ],
       "policyRefs": [
         "policy://abg/reference/defaults/plugin-traversal-observer"

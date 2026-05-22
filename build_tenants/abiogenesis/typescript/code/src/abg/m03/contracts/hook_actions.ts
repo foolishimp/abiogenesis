@@ -14,7 +14,7 @@ import { freezeStringArray } from "./runtime_support.js";
 
 export const HOOK_ACTION_CLASS_VALUES = Object.freeze([
   "traversal",
-  "eval",
+  "evaluate",
   "transform",
   "admission",
   "projection"

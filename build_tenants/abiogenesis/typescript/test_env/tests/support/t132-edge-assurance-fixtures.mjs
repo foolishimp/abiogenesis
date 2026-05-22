@@ -12,6 +12,7 @@ export function installedT132EdgeAssuranceThreeChainSource({
     import { join } from "node:path";
 
     import {
+      ABG_FN_COMPOSITION_DECLARATION_KEY,
       EDGE_ASSURANCE_CONTRACT_DECLARATION_KEY,
       admitExecutionBasis,
       admitFpEdgeAssuranceEvalFinding,
@@ -133,6 +134,41 @@ export function installedT132EdgeAssuranceThreeChainSource({
       });
     }
 
+    function jsonValue(value) {
+      if (
+        value === null ||
+        typeof value === "string" ||
+        typeof value === "number" ||
+        typeof value === "boolean"
+      ) {
+        return value;
+      }
+      if (Array.isArray(value)) {
+        return Object.freeze({
+          kind: "array",
+          items: Object.freeze(value.map(jsonValue))
+        });
+      }
+      return Object.freeze({
+        kind: "object",
+        entries: Object.freeze(
+          Object.entries(value).map(([key, entryValue]) =>
+            Object.freeze({ key, value: jsonValue(entryValue) })
+          )
+        )
+      });
+    }
+
+    function jsonEntry(key, value) {
+      return Object.freeze({
+        key,
+        value: Object.freeze({
+          kind: "json_blob",
+          value: jsonValue(value)
+        })
+      });
+    }
+
     function hookEntry(stage) {
       return Object.freeze({
         key: EDGE_ASSURANCE_CONTRACT_DECLARATION_KEY,
@@ -141,6 +177,108 @@ export function installedT132EdgeAssuranceThreeChainSource({
           value: Object.freeze({
             ref: "hook://t132/" + stage.id + "/edge-assurance",
             config: edgeContractAttrs(stage)
+          })
+        })
+      });
+    }
+
+    function fnCompositionEntry(stage) {
+      return Object.freeze({
+        key: ABG_FN_COMPOSITION_DECLARATION_KEY,
+        value: Object.freeze({
+          kind: "hook_ref",
+          value: Object.freeze({
+            ref: "hook://t132/" + stage.id + "/abg-fn-composition",
+            config: attrs([
+              scalarEntry(
+                "contract_ref",
+                "abg.fn_composition://t132/" + stage.id
+              ),
+              scalarEntry("host_graph_vector_ref", "graph-t132-" + stage.id),
+              stringListEntry("standards_context_refs", [
+                "REQ-R-ABG3-FN-COMPOSITION",
+                "REQ-L-GTL3-COMPUTE-NOTATION"
+              ]),
+              stringListEntry("policy_context_refs", [
+                "policy://t132/" + stage.id + "/edge-assurance"
+              ]),
+              stringListEntry("carrier_context_refs", [
+                "carrier://t132/" + stage.id + "/plugin-boundary"
+              ]),
+              stringListEntry("assurance_context_refs", [
+                "assurance://t132/" + stage.id
+              ]),
+              scalarEntry(
+                "closure_contract_ref",
+                "closure://t132/" + stage.id + "/fd-fp-assurance"
+              ),
+              jsonEntry("regime_bindings", [
+                {
+                  bindingRef:
+                    "regime-binding://t132/" + stage.id + "/transform/fp",
+                  stageRole: "transform",
+                  regime: "F_P",
+                  role: "construct",
+                  order: 0,
+                  authority: "evidence",
+                  inputCarrierRefs: ["EnginePluginInput"],
+                  outputCarrierRefs: ["FpDispatchOutcome"],
+                  evidenceRefs: [
+                    "evidence://t132/" + stage.id + "/fp-transform"
+                  ]
+                },
+                {
+                  bindingRef:
+                    "regime-binding://t132/" + stage.id + "/evaluate/fp",
+                  stageRole: "evaluate",
+                  regime: "F_P",
+                  role: "validate",
+                  order: 1,
+                  authority: "judgment",
+                  inputCarrierRefs: ["EnginePluginInput"],
+                  outputCarrierRefs: ["FpEdgeAssuranceEvalFinding"],
+                  evidenceRefs: ["evidence://t132/" + stage.id + "/fp-eval"]
+                },
+                {
+                  bindingRef:
+                    "regime-binding://t132/" + stage.id + "/evaluate/fd",
+                  stageRole: "evaluate",
+                  regime: "F_D",
+                  role: "validate",
+                  order: 2,
+                  authority: "closure",
+                  inputCarrierRefs: ["EnginePluginInput"],
+                  outputCarrierRefs: ["FdEvaluationOutcome"],
+                  evidenceRefs: ["evidence://t132/" + stage.id + "/fd-eval"]
+                },
+                {
+                  bindingRef:
+                    "regime-binding://t132/" + stage.id + "/consequence/fd",
+                  stageRole: "consequence",
+                  regime: "F_D",
+                  role: "observe",
+                  order: 3,
+                  authority: "evidence",
+                  inputCarrierRefs: ["EnginePluginInput"],
+                  outputCarrierRefs: ["ConsequenceProjectionOutcome"],
+                  evidenceRefs: [
+                    "evidence://t132/" + stage.id + "/consequence"
+                  ]
+                },
+                {
+                  bindingRef:
+                    "regime-binding://t132/" + stage.id + "/human-callout/fh",
+                  stageRole: "human_callout",
+                  regime: "F_H",
+                  role: "escalate",
+                  order: 4,
+                  authority: "judgment",
+                  inputCarrierRefs: ["EnginePluginInput"],
+                  outputCarrierRefs: ["FhAdmissionOutcome"],
+                  evidenceRefs: ["evidence://t132/" + stage.id + "/fh"]
+                }
+              ])
+            ])
           })
         })
       });
@@ -246,7 +384,7 @@ export function installedT132EdgeAssuranceThreeChainSource({
         source: [source],
         target,
         operators: [],
-        declarations: attrs([hookEntry(stage)]),
+        declarations: attrs([hookEntry(stage), fnCompositionEntry(stage)]),
         evaluators: [
           {
             name: "assure_" + stage.id,
@@ -744,11 +882,11 @@ export function installedT132EdgeAssuranceThreeChainSource({
       }
     };
 
-    function hookActionFor(record, suffix = "eval") {
+    function hookActionFor(record, suffix = "evaluate") {
       const selection = record.pluginInput.edgeAssuranceResolution;
       return constructHookActionRecord({
         hookActionRef: "hook-action://t132/" + record.stage.id + "/" + suffix,
-        hookClass: "eval",
+        hookClass: "evaluate",
         hookContractRef: selection.contract.evalFpContractRef,
         pluginRef: fpDispatchContract.ref,
         inputBasisRefs: [
@@ -768,7 +906,7 @@ export function installedT132EdgeAssuranceThreeChainSource({
       });
     }
 
-    function findingFor(record, hookAction, suffix = "eval") {
+    function findingFor(record, hookAction, suffix = "evaluate") {
       const selection = record.pluginInput.edgeAssuranceResolution;
       return admitFpEdgeAssuranceEvalFinding({
         kind: "fp_edge_assurance_eval_finding",
@@ -788,7 +926,7 @@ export function installedT132EdgeAssuranceThreeChainSource({
       });
     }
 
-    function admissionFor(record, hookAction, finding, suffix = "eval") {
+    function admissionFor(record, hookAction, finding, suffix = "evaluate") {
       return constructHookFindingAdmission({
         admissionRef: "admission://t132/" + record.stage.id + "/" + suffix,
         hookActionRef: hookAction.hookActionRef,
@@ -830,7 +968,7 @@ export function installedT132EdgeAssuranceThreeChainSource({
       ];
     }
 
-    function targetCarrierPayloadPair(record, suffix = "eval") {
+    function targetCarrierPayloadPair(record, suffix = "evaluate") {
       const vector = basis.graph.vectors[record.pluginInput.vectorIndex];
       const binding = resolveTargetCarrierContractBinding({
         vector,
@@ -880,7 +1018,7 @@ export function installedT132EdgeAssuranceThreeChainSource({
       hookAction,
       finding,
       admission,
-      suffix = "eval"
+      suffix = "evaluate"
     ) {
       const evidencePayloadRef =
         "payload://t132/" + record.stage.id + "/evidence/" + suffix;
@@ -957,7 +1095,7 @@ export function installedT132EdgeAssuranceThreeChainSource({
       ];
     }
 
-    function projectEdgeAssurance(record, runtimeEvents, suffix = "eval") {
+    function projectEdgeAssurance(record, runtimeEvents, suffix = "evaluate") {
       const hookAction = hookActionFor(record, suffix);
       const finding = findingFor(record, hookAction, suffix);
       const admission = admissionFor(record, hookAction, finding, suffix);

@@ -611,6 +611,7 @@ function installedCliRuntimeBindingSource(input: {
   admitNode,
   admitResolvedPolicyIdentity,
   admitResolvedRuntimeIdentity,
+  constructDefaultAbgFnCompositionDeclarations,
   edge,
   graphFunctionForVector
 } from "@abiogenesis/typescript-tenant";
@@ -656,7 +657,10 @@ const runtimeBindingGraphFunction = graphFunctionForVector(
         tags: ["installer", "runtime_binding"]
       }
     ],
-    declarations: { entries: [] }
+    declarations: constructDefaultAbgFnCompositionDeclarations({
+      scopeRef: "abiogenesis/installed-cli-runtime-binding",
+      hostGraphVectorRef: "graph:abiogenesis:installed_cli_runtime_binding"
+    })
   }).vectors[0],
   {
     id: "graph-function:abiogenesis:installed_cli_runtime_binding_self_test",

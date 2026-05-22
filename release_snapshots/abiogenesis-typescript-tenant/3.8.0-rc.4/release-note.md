@@ -1,10 +1,9 @@
-# abiogenesis 3.8.0-rc.5 Release Candidate Note
+# abiogenesis 3.8.0-rc.4 Release Candidate Note
 
 This checkpoint is the current TypeScript ABG release-candidate source state.
-It advances the release line from `3.8.0-rc.4` to `3.8.0-rc.5` because the
-post-review T-144 remediation now makes selected `abg.fn_composition` contract
-truth the runtime source for selected composition identity and makes
-`consequence.C` a runner-consumed plugin stage.
+It advances the release line from `3.8.0-rc.3` to `3.8.0-rc.4` because T-144
+now makes the ABG event-sourced monad framing explicit over selected GTL
+composition without introducing a new GTL carrier or runtime execution target.
 
 It is an RC candidate, not the final tapped `3.8.0` release. The release
 identity remains explicit until the cut is committed, tagged, pushed, and
@@ -18,24 +17,17 @@ edge-assurance runtime path, GTL type-boundary correction, target-carrier
 binding path, saga-frontier substrate, release snapshot builder, and T-143
 compute notation typing.
 
-RC5 for `3.8.0` adds:
+RC4 for `3.8.0` adds:
 
 - product, requirement, design, and docs language for ABG as an opinionated
   probabilistic eventual-consistency monad over selected GTL composition;
 - explicit notation that `C` means selected `abg.fn_composition` identity at
   an owning GTL boundary, not a new public compute unit;
-- fail-closed resolution of selected `abg.fn_composition` declarations from
-  GTL graph-vector, graph-function, job, role, and module hook surfaces;
 - strong plugin-stage category typing for `transform.C`, `evaluate.C`, and
   `consequence.C`;
 - `EnginePluginInput` propagation of selected composition ref, selected
   composition digest, selected composition selection ref, and selected regime
   binding ref;
-- exported constructors for explicit `abg.fn_composition` declaration attrs so
-  installed package proofs and downstream scenarios do not rely on synthesized
-  runtime identity;
-- a runner-consumed `consequence_projection` plugin stage with typed outcome
-  admission and blocking behavior;
 - stage-purpose metadata that separates transform value production, evaluation
   finding production, and consequence projection over ABG-admitted facts;
 - `F_H` clarification as an external human-callout regime whose callout and
@@ -95,9 +87,9 @@ downstream active migration ticket:
 ## Versioned Artifacts
 
 - RC branch: `rc/3.8.0`
-- RC identity: `3.8.0-rc.5`
-- Candidate package version: `3.8.0-rc.5`
-- Candidate tag: `v3.8.0-rc.5`
+- RC identity: `3.8.0-rc.4`
+- Candidate package version: `3.8.0-rc.4`
+- Candidate tag: `v3.8.0-rc.4`
 
 ## Verification
 
@@ -108,10 +100,7 @@ npm run test:t132
 passed
 
 npm run test:semantic
-608 passed
-
-npm run test:t144
-6 passed
+606 passed
 
 npm run lint:semantic
 passed
@@ -126,7 +115,6 @@ immutable local snapshot directory.
 
 ## RC Decision
 
-The release operator preserves the existing `3.8.0-rc.4` snapshot as immutable
-source history and cuts `3.8.0-rc.5` as the next release-candidate checkpoint
-after post-review T-144 remediation. This is not the final tapped `3.8.0`
-release.
+The release operator preserves the existing `3.8.0-rc.3` snapshot as immutable
+source history and cuts `3.8.0-rc.4` as the next release-candidate checkpoint
+after closing T-144. This is not the final tapped `3.8.0` release.

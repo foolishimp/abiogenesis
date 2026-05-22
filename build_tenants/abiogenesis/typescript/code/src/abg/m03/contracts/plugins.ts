@@ -38,6 +38,10 @@ import { resolveEdgeAssuranceContract } from "./edge_assurance_contract.js";
 import type { RetryFrontierProjection } from "./retry_frontier.js";
 import { deriveRetryFrontierProjection } from "./retry_frontier.js";
 import {
+  resolveAbgFnCompositionSelection,
+  selectedAbgFnRegimeBindingForCompute
+} from "./fn_composition.js";
+import {
   parseBoolean,
   parseNonEmptyString,
   parseOptionalField,
@@ -60,6 +64,7 @@ export const ENGINE_PLUGIN_KIND_VALUES = Object.freeze([
   "fd_evaluator",
   "fp_dispatch",
   "fh_admission",
+  "consequence_projection",
   "result_assessment",
   "event_ingress",
   "continuation_repair",
@@ -96,6 +101,28 @@ export type EnginePluginEventAuthority =
   | "sink_receive_only"
   | "none";
 
+export const ENGINE_COMPUTE_STAGE_ROLE_VALUES = Object.freeze([
+  "transform",
+  "evaluate",
+  "consequence",
+  "human_callout"
+] as const);
+
+export type EngineComputeStageRole =
+  (typeof ENGINE_COMPUTE_STAGE_ROLE_VALUES)[number];
+
+export const ENGINE_COMPUTE_STAGE_PURPOSE_VALUES = Object.freeze([
+  "candidate_construction",
+  "candidate_evaluation",
+  "consequence_projection",
+  "external_human_callout"
+] as const);
+
+export type EngineComputeStagePurpose =
+  (typeof ENGINE_COMPUTE_STAGE_PURPOSE_VALUES)[number];
+
+export type EngineHumanBoundary = "external_callout";
+
 export const ENGINE_PLUGIN_RUNTIME_BINDING_STATUS_VALUES = Object.freeze([
   "runner_consumed",
   "public_runtime_consumed",
@@ -116,10 +143,34 @@ export interface EnginePluginContract {
   readonly inputCarrier: string;
   readonly outputCarrier: string;
   readonly eventAuthority: EnginePluginEventAuthority;
+  readonly computeStageRole: EngineComputeStageRole | null;
+  readonly computeMeans: RuntimeRegime | null;
+  readonly computeStagePurpose: EngineComputeStagePurpose | null;
+  readonly humanBoundary: EngineHumanBoundary | null;
   readonly maySelectNextVector: false;
   readonly mayEmitRuntimeEvents: false;
   readonly mayCloseTraversal: false;
   readonly mayOwnIterationLoop: false;
+}
+
+export interface EngineComputeStageBinding {
+  readonly kind: "engine_compute_stage_binding";
+  readonly stageRole: EngineComputeStageRole;
+  readonly computeMeans: RuntimeRegime | null;
+  readonly purpose: EngineComputeStagePurpose;
+  readonly selectedCompositionRef: string;
+  readonly selectedCompositionDigest: string;
+  readonly selectedCompositionSelectionRef: string;
+  readonly selectedRegimeBindingRef: string | null;
+  readonly inputCarrierRefs: readonly string[];
+  readonly outputCarrierRefs: readonly string[];
+  readonly predecessorRefs: readonly string[];
+  readonly externalHumanCallout: boolean;
+  readonly responseAdmissionRequired: boolean;
+  readonly mayWriteLedgers: false;
+  readonly mayEmitRuntimeEvents: false;
+  readonly maySelectTraversal: false;
+  readonly mayCloseTraversal: false;
 }
 
 export interface EnginePluginInventoryEntry {
@@ -138,6 +189,11 @@ export interface EnginePluginInventoryEntry {
 export interface EnginePluginInput {
   readonly kind: "engine_plugin_input";
   readonly contract: EnginePluginContract;
+  readonly selectedCompositionRef: string;
+  readonly selectedCompositionDigest: string;
+  readonly selectedCompositionSelectionRef: string;
+  readonly selectedRegimeBindingRef: string | null;
+  readonly computeStageBinding: EngineComputeStageBinding | null;
   readonly basisId: string;
   readonly graphCallId: string | null;
   readonly frameId: string | null;
@@ -196,10 +252,18 @@ export interface FhAdmissionOutcome extends EnginePluginOutcomeBase {
   readonly status: "escalated" | "blocked";
 }
 
+export interface ConsequenceProjectionOutcome extends EnginePluginOutcomeBase {
+  readonly kind: "consequence_projection";
+  readonly status: "projected" | "blocked";
+  readonly consequenceRef: string | null;
+  readonly domainReadModelRefs: readonly string[];
+}
+
 export type EnginePluginOutcome =
   | FdEvaluationOutcome
   | FpDispatchOutcome
-  | FhAdmissionOutcome;
+  | FhAdmissionOutcome
+  | ConsequenceProjectionOutcome;
 
 export type EnginePluginMaybePromise<T> = T | Promise<T>;
 
@@ -225,10 +289,18 @@ export interface FhAdmissionPlugin {
   ) => EnginePluginMaybePromise<FhAdmissionOutcome>;
 }
 
+export interface ConsequenceProjectionPlugin {
+  readonly contract: EnginePluginContract;
+  readonly project: (
+    input: EnginePluginInput
+  ) => EnginePluginMaybePromise<ConsequenceProjectionOutcome>;
+}
+
 export interface EngineRunnerPluginSet {
   readonly fdEvaluator?: FdEvaluatorPlugin;
   readonly fpDispatch?: FpDispatchPlugin;
   readonly fhAdmission?: FhAdmissionPlugin;
+  readonly consequenceProjection?: ConsequenceProjectionPlugin;
 }
 
 interface EnginePluginContractInput {
@@ -238,6 +310,10 @@ interface EnginePluginContractInput {
   readonly inputCarrier: string;
   readonly outputCarrier: string;
   readonly eventAuthority?: EnginePluginEventAuthority | undefined;
+  readonly computeStageRole?: EngineComputeStageRole | null | undefined;
+  readonly computeMeans?: RuntimeRegime | null | undefined;
+  readonly computeStagePurpose?: EngineComputeStagePurpose | null | undefined;
+  readonly humanBoundary?: EngineHumanBoundary | null | undefined;
   readonly maySelectNextVector?: false | undefined;
   readonly mayEmitRuntimeEvents?: false | undefined;
   readonly mayCloseTraversal?: false | undefined;
@@ -264,6 +340,7 @@ function assertPluginKind(kind: string, label: string): EnginePluginKind {
     case "fd_evaluator":
     case "fp_dispatch":
     case "fh_admission":
+    case "consequence_projection":
     case "result_assessment":
     case "event_ingress":
     case "continuation_repair":
@@ -318,6 +395,55 @@ function assertEventAuthority(
   }
   throw new TypeError(
     `${label}: expected plugin event authority, got ${JSON.stringify(authority)}`
+  );
+}
+
+function assertComputeStageRole(
+  value: string,
+  label: string
+): EngineComputeStageRole {
+  for (const candidate of ENGINE_COMPUTE_STAGE_ROLE_VALUES) {
+    if (value === candidate) {
+      return candidate;
+    }
+  }
+  throw new TypeError(
+    `${label}: expected compute stage role, got ${JSON.stringify(value)}`
+  );
+}
+
+function assertComputeStagePurpose(
+  value: string,
+  label: string
+): EngineComputeStagePurpose {
+  for (const candidate of ENGINE_COMPUTE_STAGE_PURPOSE_VALUES) {
+    if (value === candidate) {
+      return candidate;
+    }
+  }
+  throw new TypeError(
+    `${label}: expected compute stage purpose, got ${JSON.stringify(value)}`
+  );
+}
+
+function assertRuntimeRegime(value: string, label: string): RuntimeRegime {
+  if (value === "F_D" || value === "F_P" || value === "F_H") {
+    return value;
+  }
+  throw new TypeError(
+    `${label}: expected runtime regime, got ${JSON.stringify(value)}`
+  );
+}
+
+function assertHumanBoundary(
+  value: string,
+  label: string
+): EngineHumanBoundary {
+  if (value === "external_callout") {
+    return value;
+  }
+  throw new TypeError(
+    `${label}: expected external_callout, got ${JSON.stringify(value)}`
   );
 }
 
@@ -466,7 +592,173 @@ export function deriveFdPressureRoutingDecision(input: {
   }
 }
 
+interface EngineComputeStageDefaults {
+  readonly computeStageRole: EngineComputeStageRole | null;
+  readonly computeMeans: RuntimeRegime | null;
+  readonly computeStagePurpose: EngineComputeStagePurpose | null;
+  readonly humanBoundary: EngineHumanBoundary | null;
+}
+
+function defaultComputeStageForPluginKind(
+  pluginKind: EnginePluginKind
+): EngineComputeStageDefaults {
+  switch (pluginKind) {
+    case "fd_evaluator":
+      return Object.freeze({
+        computeStageRole: "evaluate",
+        computeMeans: "F_D",
+        computeStagePurpose: "candidate_evaluation",
+        humanBoundary: null
+      });
+    case "fp_dispatch":
+      return Object.freeze({
+        computeStageRole: "transform",
+        computeMeans: "F_P",
+        computeStagePurpose: "candidate_construction",
+        humanBoundary: null
+      });
+    case "fh_admission":
+      return Object.freeze({
+        computeStageRole: "human_callout",
+        computeMeans: "F_H",
+        computeStagePurpose: "external_human_callout",
+        humanBoundary: "external_callout"
+      });
+    case "consequence_projection":
+      return Object.freeze({
+        computeStageRole: "consequence",
+        computeMeans: "F_D",
+        computeStagePurpose: "consequence_projection",
+        humanBoundary: null
+      });
+    case "projection_consumer":
+      return Object.freeze({
+        computeStageRole: "consequence",
+        computeMeans: "F_D",
+        computeStagePurpose: "consequence_projection",
+        humanBoundary: null
+      });
+    case "runtime_event_sink":
+    case "result_assessment":
+    case "event_ingress":
+    case "continuation_repair":
+    case "policy_provider":
+    case "assurance_authority_snapshot_provider":
+    case "assurance_evidence_adapter":
+    case "assurance_ambiguity_classifier":
+    case "assurance_closure_policy_provider":
+    case "assurance_gain_function_adapter":
+    case "runtime_identity_provider":
+    case "operator_asset_resolver":
+    case "context_resolver":
+    case "hook_ref":
+      return Object.freeze({
+        computeStageRole: null,
+        computeMeans: null,
+        computeStagePurpose: null,
+        humanBoundary: null
+      });
+    default: {
+      const exhaustive: never = pluginKind;
+      throw new TypeError(
+        `Unsupported engine plugin kind ${JSON.stringify(exhaustive)}`
+      );
+    }
+  }
+}
+
+function expectedPurposeForStageRole(
+  role: EngineComputeStageRole
+): EngineComputeStagePurpose {
+  switch (role) {
+    case "transform":
+      return "candidate_construction";
+    case "evaluate":
+      return "candidate_evaluation";
+    case "consequence":
+      return "consequence_projection";
+    case "human_callout":
+      return "external_human_callout";
+    default: {
+      const exhaustive: never = role;
+      throw new TypeError(
+        `Unsupported compute stage role ${JSON.stringify(exhaustive)}`
+      );
+    }
+  }
+}
+
+function normalizeComputeStageContract(
+  input: EnginePluginContractInput
+): EngineComputeStageDefaults {
+  const defaults = defaultComputeStageForPluginKind(input.pluginKind);
+  const role = input.computeStageRole ?? defaults.computeStageRole;
+  const means = input.computeMeans ?? defaults.computeMeans;
+  const purpose = input.computeStagePurpose ?? defaults.computeStagePurpose;
+  const humanBoundary = input.humanBoundary ?? defaults.humanBoundary;
+  if (
+    defaults.computeStageRole !== null &&
+    (role !== defaults.computeStageRole ||
+      means !== defaults.computeMeans ||
+      purpose !== defaults.computeStagePurpose ||
+      humanBoundary !== defaults.humanBoundary)
+  ) {
+    throw new TypeError(
+      "EnginePluginContract compute category contradicts pluginKind"
+    );
+  }
+  if (role === null) {
+    if (purpose !== null || means !== null || humanBoundary !== null) {
+      throw new TypeError(
+        "EnginePluginContract compute category requires computeStageRole"
+      );
+    }
+    return Object.freeze({
+      computeStageRole: null,
+      computeMeans: null,
+      computeStagePurpose: null,
+      humanBoundary: null
+    });
+  }
+  if (purpose === null) {
+    throw new TypeError(
+      "EnginePluginContract compute category requires computeStagePurpose"
+    );
+  }
+  const expectedPurpose = expectedPurposeForStageRole(role);
+  if (purpose !== expectedPurpose) {
+    throw new TypeError(
+      "EnginePluginContract computeStagePurpose contradicts computeStageRole"
+    );
+  }
+  if (role === "human_callout") {
+    if (means !== "F_H" || humanBoundary !== "external_callout") {
+      throw new TypeError(
+        "EnginePluginContract human_callout requires F_H external_callout"
+      );
+    }
+  } else {
+    if (humanBoundary !== null) {
+      throw new TypeError(
+        "EnginePluginContract humanBoundary is only lawful for human_callout"
+      );
+    }
+    if (means === "F_H") {
+      throw new TypeError(
+        "EnginePluginContract F_H compute is only lawful as human_callout"
+      );
+    }
+  }
+  return Object.freeze({
+    computeStageRole: role,
+    computeMeans: means,
+    computeStagePurpose: purpose,
+    humanBoundary
+  });
+}
+
 function pluginContract(input: EnginePluginContractInput): EnginePluginContract {
+  const compute = normalizeComputeStageContract(input);
   return Object.freeze({
     kind: "engine_plugin_contract",
     ref: input.ref,
@@ -475,6 +767,10 @@ function pluginContract(input: EnginePluginContractInput): EnginePluginContract 
     inputCarrier: input.inputCarrier,
     outputCarrier: input.outputCarrier,
     eventAuthority: input.eventAuthority ?? "engine_emit_only",
+    computeStageRole: compute.computeStageRole,
+    computeMeans: compute.computeMeans,
+    computeStagePurpose: compute.computeStagePurpose,
+    humanBoundary: compute.humanBoundary,
     maySelectNextVector: input.maySelectNextVector ?? false,
     mayEmitRuntimeEvents: input.mayEmitRuntimeEvents ?? false,
     mayCloseTraversal: input.mayCloseTraversal ?? false,
@@ -510,6 +806,35 @@ export function constructEnginePluginContract(
             input.eventAuthority,
             "EnginePluginContract.eventAuthority"
           ),
+    computeStageRole:
+      input.computeStageRole === undefined || input.computeStageRole === null
+        ? input.computeStageRole
+        : assertComputeStageRole(
+            input.computeStageRole,
+            "EnginePluginContract.computeStageRole"
+          ),
+    computeMeans:
+      input.computeMeans === undefined || input.computeMeans === null
+        ? input.computeMeans
+        : assertRuntimeRegime(
+            input.computeMeans,
+            "EnginePluginContract.computeMeans"
+          ),
+    computeStagePurpose:
+      input.computeStagePurpose === undefined ||
+      input.computeStagePurpose === null
+        ? input.computeStagePurpose
+        : assertComputeStagePurpose(
+            input.computeStagePurpose,
+            "EnginePluginContract.computeStagePurpose"
+          ),
+    humanBoundary:
+      input.humanBoundary === undefined || input.humanBoundary === null
+        ? input.humanBoundary
+        : assertHumanBoundary(
+            input.humanBoundary,
+            "EnginePluginContract.humanBoundary"
+          ),
     maySelectNextVector: false,
     mayEmitRuntimeEvents: false,
     mayCloseTraversal: false,
@@ -529,6 +854,13 @@ export function admitEnginePluginContract(
     );
   }
   const eventAuthorityInput = parseOptionalField(contractObject, "eventAuthority");
+  const computeStageRoleInput = parseOptionalField(contractObject, "computeStageRole");
+  const computeMeansInput = parseOptionalField(contractObject, "computeMeans");
+  const computeStagePurposeInput = parseOptionalField(
+    contractObject,
+    "computeStagePurpose"
+  );
+  const humanBoundaryInput = parseOptionalField(contractObject, "humanBoundary");
   return pluginContract({
     ref: parseNonEmptyString(contractObject["ref"], `${label}.ref`),
     pluginKind: assertPluginKind(
@@ -554,6 +886,37 @@ export function admitEnginePluginContract(
             parseString(eventAuthorityInput, `${label}.eventAuthority`),
             `${label}.eventAuthority`
           ),
+    computeStageRole:
+      computeStageRoleInput === undefined || computeStageRoleInput === null
+        ? computeStageRoleInput
+        : assertComputeStageRole(
+            parseString(computeStageRoleInput, `${label}.computeStageRole`),
+            `${label}.computeStageRole`
+          ),
+    computeMeans:
+      computeMeansInput === undefined || computeMeansInput === null
+        ? computeMeansInput
+        : assertRuntimeRegime(
+            parseString(computeMeansInput, `${label}.computeMeans`),
+            `${label}.computeMeans`
+          ),
+    computeStagePurpose:
+      computeStagePurposeInput === undefined || computeStagePurposeInput === null
+        ? computeStagePurposeInput
+        : assertComputeStagePurpose(
+            parseString(
+              computeStagePurposeInput,
+              `${label}.computeStagePurpose`
+            ),
+            `${label}.computeStagePurpose`
+          ),
+    humanBoundary:
+      humanBoundaryInput === undefined || humanBoundaryInput === null
+        ? humanBoundaryInput
+        : assertHumanBoundary(
+            parseString(humanBoundaryInput, `${label}.humanBoundary`),
+            `${label}.humanBoundary`
+          ),
     maySelectNextVector: assertFalseAuthorityFlag(
       parseOptionalField(contractObject, "maySelectNextVector"),
       `${label}.maySelectNextVector`
@@ -570,6 +933,44 @@ export function admitEnginePluginContract(
       parseOptionalField(contractObject, "mayOwnIterationLoop"),
       `${label}.mayOwnIterationLoop`
     )
+  });
+}
+
+function computeStageBinding(input: {
+  readonly contract: EnginePluginContract;
+  readonly selectedCompositionRef: string;
+  readonly selectedCompositionDigest: string;
+  readonly selectedCompositionSelectionRef: string;
+  readonly selectedRegimeBindingRef: string | null;
+  readonly sourceProjectionRef: string;
+  readonly inputCarrierRefs: readonly string[];
+  readonly outputCarrierRefs: readonly string[];
+}): EngineComputeStageBinding | null {
+  if (
+    input.contract.computeStageRole === null ||
+    input.contract.computeStagePurpose === null
+  ) {
+    return null;
+  }
+  return Object.freeze({
+    kind: "engine_compute_stage_binding",
+    stageRole: input.contract.computeStageRole,
+    computeMeans: input.contract.computeMeans,
+    purpose: input.contract.computeStagePurpose,
+    selectedCompositionRef: input.selectedCompositionRef,
+    selectedCompositionDigest: input.selectedCompositionDigest,
+    selectedCompositionSelectionRef: input.selectedCompositionSelectionRef,
+    selectedRegimeBindingRef: input.selectedRegimeBindingRef,
+    inputCarrierRefs: freezeStringArray(input.inputCarrierRefs),
+    outputCarrierRefs: freezeStringArray(input.outputCarrierRefs),
+    predecessorRefs: freezeStringArray([input.sourceProjectionRef]),
+    externalHumanCallout: input.contract.humanBoundary === "external_callout",
+    responseAdmissionRequired:
+      input.contract.humanBoundary === "external_callout",
+    mayWriteLedgers: false,
+    mayEmitRuntimeEvents: false,
+    maySelectTraversal: false,
+    mayCloseTraversal: false
   });
 }
 
@@ -624,12 +1025,43 @@ export function constructEnginePluginInput(input: {
           dispatchRef: input.actorInvocationRef.dispatchRef,
           resultRef: input.actorInvocationRef.resultRef
         });
+  const compositionSelection = resolveAbgFnCompositionSelection({
+    vector,
+    graphFunction: input.basis.graphFunction,
+    job: input.basis.job,
+    roles: input.basis.job.roles,
+    module: {
+      name: input.basis.moduleName,
+      policyHooks: input.basis.modulePolicyHooks
+    }
+  });
+  const selectedRegimeBinding =
+    contract.computeStageRole === null
+      ? null
+      : selectedAbgFnRegimeBindingForCompute({
+          selection: compositionSelection,
+          stageRole: contract.computeStageRole,
+          computeMeans: contract.computeMeans
+        });
+  const regimeBindingRef = selectedRegimeBinding?.bindingRef ?? null;
+  const sourceRef = sourceProjectionRef(input.projection);
+  const stageBinding = computeStageBinding({
+    contract,
+    selectedCompositionRef: compositionSelection.contract.contractRef,
+    selectedCompositionDigest: compositionSelection.contract.contractDigest,
+    selectedCompositionSelectionRef:
+      compositionSelection.selectionRef,
+    selectedRegimeBindingRef: regimeBindingRef,
+    sourceProjectionRef: sourceRef,
+    inputCarrierRefs: [contract.inputCarrier],
+    outputCarrierRefs: [contract.outputCarrier]
+  });
   const pluginTraversalKind: PluginTraversalKind | null =
-    input.regime === "F_P"
-      ? "transform"
-      : input.regime === "F_D"
-        ? "eval"
-        : null;
+    contract.computeStageRole === "transform" ||
+    contract.computeStageRole === "evaluate" ||
+    contract.computeStageRole === "consequence"
+      ? contract.computeStageRole
+      : null;
   const pluginTraversalObserverBinding =
     pluginTraversalKind !== null
       ? tryResolvePluginTraversalObserverBinding({
@@ -654,7 +1086,7 @@ export function constructEnginePluginInput(input: {
           vectorIndex: input.vectorIndex,
           edge: input.edge,
           actorInvocationRef: normalizedActorInvocationRef,
-          sourceProjectionRef: sourceProjectionRef(input.projection),
+          sourceProjectionRef: sourceRef,
           expectedAssessmentIds: vector.evaluators.map(
             (evaluator) => evaluator.name
           ),
@@ -676,6 +1108,11 @@ export function constructEnginePluginInput(input: {
   return Object.freeze({
     kind: "engine_plugin_input",
     contract,
+    selectedCompositionRef: compositionSelection.contract.contractRef,
+    selectedCompositionDigest: compositionSelection.contract.contractDigest,
+    selectedCompositionSelectionRef: compositionSelection.selectionRef,
+    selectedRegimeBindingRef: regimeBindingRef,
+    computeStageBinding: stageBinding,
     basisId: input.basis.id,
     graphCallId: input.projection.graphCallId ?? graphCallIdForBasis(input.basis),
     frameId: input.projection.frameId ?? frameIdForBasis(input.basis),
@@ -684,7 +1121,7 @@ export function constructEnginePluginInput(input: {
     vectorIndex: input.vectorIndex,
     edge: input.edge,
     regime: input.regime,
-    sourceProjectionRef: sourceProjectionRef(input.projection),
+    sourceProjectionRef: sourceRef,
     expectedEdge: input.edge,
     expectedAssessmentIds: freezeStringArray(
       vector.evaluators.map((evaluator) => evaluator.name)
@@ -806,6 +1243,28 @@ export function constructFhAdmissionOutcome(input: {
     status: input.status,
     evidenceRefs: freezeStringArray(input.evidenceRefs ?? Object.freeze([])),
     reason: normalizeReason(input.reason, "FhAdmissionOutcome.reason")
+  });
+}
+
+export function constructConsequenceProjectionOutcome(input: {
+  readonly status: ConsequenceProjectionOutcome["status"];
+  readonly consequenceRef?: string | null;
+  readonly domainReadModelRefs?: readonly string[] | undefined;
+  readonly evidenceRefs?: readonly string[];
+  readonly reason?: string | null;
+}): ConsequenceProjectionOutcome {
+  return Object.freeze({
+    kind: "consequence_projection",
+    status: input.status,
+    consequenceRef: normalizeReason(
+      input.consequenceRef,
+      "ConsequenceProjectionOutcome.consequenceRef"
+    ),
+    domainReadModelRefs: freezeStringArray(
+      input.domainReadModelRefs ?? Object.freeze([])
+    ),
+    evidenceRefs: freezeStringArray(input.evidenceRefs ?? Object.freeze([])),
+    reason: normalizeReason(input.reason, "ConsequenceProjectionOutcome.reason")
   });
 }
 
@@ -945,6 +1404,40 @@ export function admitFhAdmissionOutcome(
   });
 }
 
+export function admitConsequenceProjectionOutcome(
+  input: unknown,
+  label = "ConsequenceProjectionOutcome"
+): ConsequenceProjectionOutcome {
+  const outcomeObject = parsePlainObject(input, label);
+  rejectForbiddenOutcomeAuthorityFields(outcomeObject, label);
+  const kind = parseString(outcomeObject["kind"], `${label}.kind`);
+  if (kind !== "consequence_projection") {
+    throw new TypeError(
+      `${label}.kind: expected "consequence_projection", got ${JSON.stringify(kind)}`
+    );
+  }
+  const status = parseString(outcomeObject["status"], `${label}.status`);
+  if (status !== "projected" && status !== "blocked") {
+    throw new TypeError(
+      `${label}.status: expected projected or blocked, got ${JSON.stringify(status)}`
+    );
+  }
+  const consequenceRef = parseOptionalField(outcomeObject, "consequenceRef");
+  return constructConsequenceProjectionOutcome({
+    status,
+    consequenceRef:
+      consequenceRef === undefined || consequenceRef === null
+        ? null
+        : parseNonEmptyString(consequenceRef, `${label}.consequenceRef`),
+    domainReadModelRefs: parseStringArray(
+      parseOptionalField(outcomeObject, "domainReadModelRefs") ?? [],
+      `${label}.domainReadModelRefs`
+    ),
+    evidenceRefs: parseOptionalEvidenceRefs(outcomeObject, label),
+    reason: parseOptionalReason(outcomeObject, label)
+  });
+}
+
 const runtimeEventSinkContract = constructEnginePluginContract({
   ref: "plugin://abg/runtime-event-sink",
   pluginKind: "runtime_event_sink",
@@ -978,6 +1471,14 @@ const fhAdmissionContract = constructEnginePluginContract({
   outputCarrier: "FhAdmissionOutcome"
 });
 
+const consequenceProjectionContract = constructEnginePluginContract({
+  ref: "plugin://abg/consequence-projection",
+  pluginKind: "consequence_projection",
+  authority: "effect_plugin",
+  inputCarrier: "EnginePluginInput",
+  outputCarrier: "ConsequenceProjectionOutcome"
+});
+
 const inventoryInputs = Object.freeze([
   {
     contract: runtimeEventSinkContract,
@@ -1009,6 +1510,14 @@ const inventoryInputs = Object.freeze([
     pluginOwnedScope: "Bind the human approval or escalation surface.",
     positiveProof: "test_m03_plugin_contract_inventory_unit.fh_admission.positive",
     negativeProof: "t072-m03-plugin-contract-negative.fh_admission.authority",
+    distinctAuthorityReason: null
+  },
+  {
+    contract: consequenceProjectionContract,
+    engineOwnedLaw: "ABG invokes consequence projection after admitted transform/evaluation facts and before returning traversal truth.",
+    pluginOwnedScope: "Project product read-model refs over ABG-admitted facts without mutating runtime truth.",
+    positiveProof: "test_t144_abg_probabilistic_monad_plugin_boundary.consequence_projection.positive",
+    negativeProof: "test_t144_abg_probabilistic_monad_plugin_boundary.consequence_projection.authority",
     distinctAuthorityReason: null
   },
   {
@@ -1219,6 +1728,7 @@ function runtimeBindingStatusFor(
     case "fd_evaluator":
     case "fp_dispatch":
     case "fh_admission":
+    case "consequence_projection":
       return "runner_consumed";
     case "result_assessment":
     case "event_ingress":
@@ -1322,3 +1832,19 @@ export const defaultFhAdmissionPlugin: FhAdmissionPlugin = Object.freeze({
       evidenceRefs: [input.sourceProjectionRef]
     })
 });
+
+export const defaultConsequenceProjectionPlugin: ConsequenceProjectionPlugin =
+  Object.freeze({
+    contract: consequenceProjectionContract,
+    project: (input: EnginePluginInput): ConsequenceProjectionOutcome =>
+      constructConsequenceProjectionOutcome({
+        status: "projected",
+        consequenceRef: `consequence:${JSON.stringify({
+          compositionRef: input.selectedCompositionRef,
+          vectorIndex: input.vectorIndex,
+          edge: input.edge
+        })}`,
+        domainReadModelRefs: [input.sourceProjectionRef],
+        evidenceRefs: [input.sourceProjectionRef]
+      })
+  });
