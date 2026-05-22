@@ -122,6 +122,37 @@ the proving obligations over that product contract.
 
 ---
 
+## Release Snapshot Bundles
+
+Release snapshot bundles are release-process artifacts. They record one
+published RC cut or tapped release cut without making the version identifier
+live constitutional project truth.
+
+**REQ-P-QUAL-050**: Each package-first RC or tapped release snapshot shall be
+materialized as one immutable, versioned snapshot bundle.
+
+**REQ-P-QUAL-051**: The snapshot bundle shall include, at minimum, the package
+tarball, release snapshot manifest, checksum file, release note copy when one
+exists, package identity, source ref, source commit, build command, pack command,
+and verification facts.
+
+**REQ-P-QUAL-052**: The release snapshot manifest shall be the authoritative
+read model for the snapshot artifact set. Stray tenant-root tarballs, dry-run
+pack output, or release-note prose shall not substitute for the manifest.
+
+**REQ-P-QUAL-053**: Snapshot creation shall fail closed when the source tree is
+dirty, when the package identity does not match the requested release identity,
+or when the target versioned snapshot root already contains files.
+
+**REQ-P-QUAL-054**: Snapshot creation shall compute and record deterministic
+checksums for the package tarball and generated release snapshot files.
+
+**REQ-P-QUAL-055**: Release snapshot tooling shall package an explicit source
+root/ref and shall not silently reinterpret the mutable development checkout as
+an already tagged release cut.
+
+---
+
 ## Live Test Authority
 
 **REQ-P-QUAL-021**: Live F_P qualification tests are the **gold standard** for product correctness. Any failure must be root-caused — never dismissed as flaky, pre-existing, or environmental without diagnosis.

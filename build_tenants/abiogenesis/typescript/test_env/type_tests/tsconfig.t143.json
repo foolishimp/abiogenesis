@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.semantic-strict.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "rootDir": "../.."
+  },
+  "include": [
+    "./t143_compute_notation_types.ts"
+  ]
+}

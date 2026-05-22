@@ -1,5 +1,6 @@
 // Implements: REQ-P-POLICY-017
 
+import { spawnSync } from "node:child_process";
 import { access, appendFile, mkdir, readFile } from "node:fs/promises";
 import { dirname, isAbsolute, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -31,6 +32,7 @@ import {
   resolvePublicAssetTarget,
   resultAssessment
 } from "../app/m04/index.js";
+import { createReleaseSnapshotBundle } from "../qualification/m05/index.js";
 import type { OperatorAssetQueryContract } from "../app/m04/asset_addressing/carriers.js";
 import type {
   FhMode,
@@ -55,7 +57,8 @@ type ParsedCommand =
   | ParsedInstallCommand
   | ParsedStartCommand
   | ParsedGapsCommand
-  | ParsedAssessResultCommand;
+  | ParsedAssessResultCommand
+  | ParsedReleaseSnapshotCommand;
 
 interface ParsedInstallCommand {
   readonly kind: "install";
@@ -84,6 +87,22 @@ interface ParsedAssessResultCommand {
   readonly kind: "assess-result";
   readonly workspace: string;
   readonly result: string;
+}
+
+interface ParsedReleaseSnapshotCommand {
+  readonly kind: "release-snapshot";
+  readonly packageSource: string | null;
+  readonly snapshotRoot: string;
+  readonly releaseIdentity: string;
+  readonly sourceRef: string | null;
+  readonly sourceCommit: string | null;
+  readonly rcBranch: string | null;
+  readonly releaseNote: string | null;
+  readonly expectedPackageName: string | null;
+  readonly expectedPackageVersion: string | null;
+  readonly runBuild: boolean;
+  readonly allowDirtySource: boolean;
+  readonly npmCacheRoot: string | null;
 }
 
 type CliStartTarget =
@@ -221,6 +240,16 @@ function optionalNullableFlag(parsed: ParsedFlags, name: string): string | null 
   return value === undefined ? null : value;
 }
 
+function parseBooleanFlag(input: string, name: string): boolean {
+  if (input === "true") {
+    return true;
+  }
+  if (input === "false") {
+    return false;
+  }
+  throw new CliError(`--${name} must be true or false`);
+}
+
 function parseUntil(input: string): StartIntent["until"] {
   if (
     input === "first_traversal" ||
@@ -349,6 +378,48 @@ function parseAssessResultCommand(
   });
 }
 
+function parseReleaseSnapshotCommand(
+  args: readonly string[]
+): ParsedReleaseSnapshotCommand {
+  const parsed = parseFlags(args);
+  requireNoPositionals(parsed, "release-snapshot");
+  requireAllowedFlags(parsed, "release-snapshot", [
+    "package-source",
+    "snapshot-root",
+    "release-identity",
+    "source-ref",
+    "source-commit",
+    "rc-branch",
+    "release-note",
+    "expected-package-name",
+    "expected-package-version",
+    "build",
+    "allow-dirty-source",
+    "npm-cache-root"
+  ]);
+  return Object.freeze({
+    kind: "release-snapshot",
+    packageSource: optionalNullableFlag(parsed, "package-source"),
+    snapshotRoot: requiredFlag(parsed, "snapshot-root"),
+    releaseIdentity: requiredFlag(parsed, "release-identity"),
+    sourceRef: optionalNullableFlag(parsed, "source-ref"),
+    sourceCommit: optionalNullableFlag(parsed, "source-commit"),
+    rcBranch: optionalNullableFlag(parsed, "rc-branch"),
+    releaseNote: optionalNullableFlag(parsed, "release-note"),
+    expectedPackageName: optionalNullableFlag(parsed, "expected-package-name"),
+    expectedPackageVersion: optionalNullableFlag(
+      parsed,
+      "expected-package-version"
+    ),
+    runBuild: parseBooleanFlag(optionalFlag(parsed, "build", "true"), "build"),
+    allowDirtySource: parseBooleanFlag(
+      optionalFlag(parsed, "allow-dirty-source", "false"),
+      "allow-dirty-source"
+    ),
+    npmCacheRoot: optionalNullableFlag(parsed, "npm-cache-root")
+  });
+}
+
 function parseCommand(argv: readonly string[]): ParsedCommand {
   const command = argv[0];
   if (command === undefined) {
@@ -364,6 +435,8 @@ function parseCommand(argv: readonly string[]): ParsedCommand {
       return parseGapsCommand(args);
     case "assess-result":
       return parseAssessResultCommand(args);
+    case "release-snapshot":
+      return parseReleaseSnapshotCommand(args);
     default:
       throw new CliError(`unsupported command ${JSON.stringify(command)}`);
   }
@@ -371,6 +444,16 @@ function parseCommand(argv: readonly string[]): ParsedCommand {
 
 function resolveWorkspace(cwd: string, workspace: string): string {
   return isAbsolute(workspace) ? resolve(workspace) : resolve(cwd, workspace);
+}
+
+function resolveOptionalWorkspace(
+  cwd: string,
+  workspace: string | null
+): string | null {
+  if (workspace === null) {
+    return null;
+  }
+  return resolveWorkspace(cwd, workspace);
 }
 
 async function pathExists(path: string): Promise<boolean> {
@@ -406,6 +489,48 @@ async function resolvePackageSource(
   return isAbsolute(packageSource)
     ? resolve(packageSource)
     : resolve(cwd, packageSource);
+}
+
+function gitOutput(
+  packageSourceRoot: string,
+  args: readonly string[]
+): string | null {
+  const run = spawnSync("git", ["-C", packageSourceRoot, ...args], {
+    encoding: "utf8"
+  });
+  if (run.status !== 0) {
+    return null;
+  }
+  const output = run.stdout.trim();
+  return output.length === 0 ? null : output;
+}
+
+function requiredGitOutput(
+  packageSourceRoot: string,
+  args: readonly string[],
+  label: string
+): string {
+  const output = gitOutput(packageSourceRoot, args);
+  if (output === null) {
+    throw new CliError(`unable to resolve ${label} for ${packageSourceRoot}`);
+  }
+  return output;
+}
+
+function gitSourceRef(packageSourceRoot: string): string {
+  return (
+    gitOutput(packageSourceRoot, ["describe", "--tags", "--exact-match", "HEAD"]) ??
+    "HEAD"
+  );
+}
+
+function gitSourceDirty(packageSourceRoot: string): boolean {
+  const output = gitOutput(packageSourceRoot, [
+    "status",
+    "--porcelain",
+    "--untracked-files=normal"
+  ]);
+  return output !== null && output.length > 0;
 }
 
 function eventsPath(workspaceRoot: string): string {
@@ -1162,6 +1287,46 @@ async function runInstallCommand(
   return outcome.kind === "installed" ? 0 : 1;
 }
 
+async function runReleaseSnapshotCommand(
+  command: ParsedReleaseSnapshotCommand,
+  io: AbiogenesisCliIo
+): Promise<number> {
+  const packageSourceRoot = await resolvePackageSource(
+    io.cwd(),
+    command.packageSource
+  );
+  const sourceCommit =
+    command.sourceCommit ??
+    requiredGitOutput(packageSourceRoot, ["rev-parse", "HEAD"], "source commit");
+  const outcome = await createReleaseSnapshotBundle({
+    releaseIdentity: command.releaseIdentity,
+    packageSourceRoot,
+    snapshotRoot: resolveWorkspace(io.cwd(), command.snapshotRoot),
+    sourceRef: command.sourceRef ?? gitSourceRef(packageSourceRoot),
+    sourceCommit,
+    sourceDirty: gitSourceDirty(packageSourceRoot),
+    allowDirtySource: command.allowDirtySource,
+    rcBranch: command.rcBranch,
+    releaseNotePath: resolveOptionalWorkspace(io.cwd(), command.releaseNote),
+    expectedPackageName: command.expectedPackageName,
+    expectedPackageVersion: command.expectedPackageVersion,
+    runBuild: command.runBuild,
+    npmCacheRoot: resolveOptionalWorkspace(io.cwd(), command.npmCacheRoot),
+    createdAt: new Date().toISOString()
+  });
+  io.stdout(
+    `${JSON.stringify({
+      command: "release-snapshot",
+      status: outcome.kind,
+      release_identity: command.releaseIdentity,
+      package_source_root: packageSourceRoot,
+      snapshot_root: resolveWorkspace(io.cwd(), command.snapshotRoot),
+      outcome
+    })}\n`
+  );
+  return outcome.kind === "created" ? 0 : 1;
+}
+
 async function runParsedCommand(
   command: ParsedCommand,
   io: AbiogenesisCliIo
@@ -1175,6 +1340,8 @@ async function runParsedCommand(
       return runGapsCommand(command, io);
     case "assess-result":
       return runAssessResultCommand(command, io);
+    case "release-snapshot":
+      return runReleaseSnapshotCommand(command, io);
     default: {
       const exhaustive: never = command;
       throw new CliError(`unsupported command ${JSON.stringify(exhaustive)}`);

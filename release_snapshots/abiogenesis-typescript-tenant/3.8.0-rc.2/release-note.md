@@ -1,10 +1,9 @@
-# abiogenesis 3.8.0-rc.3 Release Candidate Note
+# abiogenesis 3.8.0-rc.2 Release Candidate Note
 
 This checkpoint is the current TypeScript ABG release-candidate source state.
-It advances the release line from `3.8.0-rc.2` to `3.8.0-rc.3` because ABG now
-records package-first release snapshots and GTL now exposes a type-only
-compute-notation surface over the existing GraphFunction/Job/GraphVector and
-selected `abg.fn_composition` carriers.
+It advances the release line from `3.7.1-rc.4` to `3.8.0-rc.2` because ABG now
+declares and realizes an event-sourced saga frontier for dependency-aware
+system parallelism over a shared mutable workspace.
 
 The `3.7.0-rc.1` line introduced the generic F_P construction evaluator and
 read-only public gaps over evaluator truth. The `3.7.1-rc.1` candidate
@@ -15,11 +14,10 @@ both lines and added edge-level gain/close assurance contracts with live
 installed proof. The `3.7.1-rc.3` candidate repaired the constitutional/docs
 model so GTL topology anchors do not collapse the wider first-class declaration
 surface. The `3.7.1-rc.4` candidate preserved those cuts and added mandatory
-target-carrier contract bindings for graph-vector outputs. The `3.8.0-rc.2`
-candidate added T-141 saga-frontier law, typed carriers, evented native async
-orchestration, and synthetic/live proofs for transparent serial-vs-parallel
-realization. This `3.8.0-rc.3` candidate preserves those cuts and adds T-142
-release snapshot packaging plus T-143 GTL compute-notation typing.
+target-carrier contract bindings for graph-vector outputs. This
+`3.8.0-rc.2` candidate preserves those cuts and adds T-141 saga-frontier law,
+typed carriers, evented native async orchestration, and synthetic/live proofs
+for transparent serial-vs-parallel realization.
 
 It is an RC candidate, not the final tapped `3.8.0` release. The release
 identity remains explicit until the cut is committed, tagged, and accepted.
@@ -114,29 +112,6 @@ RC2 for `3.8.0` adds:
   replay-visible frontier truth, preserve failure evidence refs, release
   leases, block dependents, and do not halt independent ready rows.
 
-RC3 for `3.8.0` adds:
-
-- `REQ-P-QUAL-050` through `REQ-P-QUAL-055` as package-first release snapshot
-  obligations for immutable local artifact bundles;
-- an M05 release-snapshot builder that binds package identity, source ref,
-  source commit, release note, tarball, checksums, build command, and pack
-  command evidence into one manifest-centered snapshot;
-- fail-closed release snapshot behavior for dirty sources, package identity
-  mismatch, release identity mismatch, missing release notes, failed builds,
-  failed packs, invalid pack output, existing snapshot roots, and write
-  failures;
-- a CLI/package-script entrypoint for creating release snapshots without
-  replacing the RC tap/tag flow;
-- a local `v3.8.0-rc.2` snapshot archive generated from the already-tagged
-  clean source identity;
-- a type-only GTL compute-notation surface that names `transform.C`,
-  `evaluate.C`, and `consequence.C` over existing GTL/ABG carriers without
-  introducing a new public compute unit, topology object, runtime carrier, or
-  execution target;
-- type regressions that reject non-`F_D` closure authority, hooks as selected
-  composition hosts, closure-shaped boolean evaluator output, and admitted or
-  consequence refs that lose selected-composition identity.
-
 ## Non-Claims
 
 The T-141 saga-frontier slice does not claim that downstream product changes
@@ -162,23 +137,23 @@ session affinity. Those remain outside this cut unless separately ticketed.
 ## Versioned Artifacts
 
 - RC branch: `rc/3.8.0`
-- RC identity: `3.8.0-rc.3`
-- Candidate package version: `3.8.0-rc.3`
-- Candidate tag: `v3.8.0-rc.3`
+- RC identity: `3.8.0-rc.2`
+- Candidate package version: `3.8.0-rc.2`
+- Candidate tag: `v3.8.0-rc.2`
 
 ## Verification
 
 Current qualification evidence for this cut:
 
 ```text
-npm run test:t142
-4 passed
-
-npm run test:t143
-1 passed
+npm run test:t141
+34 passed
 
 npm run test:semantic
-602 passed
+597 passed
+
+npm run test:t141:live
+5 passed
 
 npm run lint:test-harness
 passed
@@ -186,25 +161,23 @@ passed
 npm run lint:semantic
 passed
 
-npx eslint --max-warnings=0 test_env/tests/test_t143_gtl_compute_notation_types.test.mjs
-passed
-
 git diff --check
 passed
 
-npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run --json
-passed, version 3.8.0-rc.3, files 382, package abiogenesis-typescript-tenant-3.8.0-rc.3.tgz
+npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run
+passed, version 3.8.0-rc.2, files 374, package abiogenesis-typescript-tenant-3.8.0-rc.2.tgz
 ```
 
-The prior full live sweep remains historical release evidence, including the
-focused T-141 live lane rerun after the RC2 ABG-contained scenario update. The
+The prior full live sweep remains historical release evidence, and the focused
+T-141 live lane was rerun after the RC2 ABG-contained scenario update. The
 previous `3.7.0-rc.1` construction evaluator proof, `3.7.1-rc.1` liveness
 proof, `3.7.1-rc.2` edge-assurance proof, `3.7.1-rc.3` GTL type-boundary
-proof, `3.7.1-rc.4` target-carrier proof, and `3.8.0-rc.2` saga-frontier proof
-remain historical release evidence for the substrate preserved by this line.
+proof, and `3.7.1-rc.4` target-carrier proof remain historical release evidence
+for the substrate preserved by this line.
 
 ## RC Decision
 
-The release operator preserved the existing `v3.8.0-rc.2` tag as a closed
-source identity and cut `v3.8.0-rc.3` as the next release-candidate checkpoint
-after closing T-142 and T-143. This is not the final tapped `3.8.0` release.
+The release operator repriced the saga-frontier work as a release-candidate
+correction over the accepted `3.7.1-rc.4` target-carrier line. Cut
+`v3.8.0-rc.2` as the next release-candidate checkpoint after committing this
+source state. This is not the final tapped `3.8.0` release.

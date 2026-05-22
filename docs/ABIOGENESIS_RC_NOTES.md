@@ -1,7 +1,7 @@
-# abiogenesis 3.8.0-rc.2 RC Notes
+# abiogenesis 3.8.0-rc.3 RC Notes
 
-This note records accepted RC behavior for the current `v3.8.0-rc.2` line.
-The package cut is `3.8.0-rc.2`.
+This note records accepted RC behavior for the current `v3.8.0-rc.3` line.
+The package cut is `3.8.0-rc.3`.
 
 ## Accepted Framework Behavior
 
@@ -592,6 +592,42 @@ Non-claim:
   truth. It also does not complete cloud durable providers, final atomic
   workspace publish/merge, or the full timeout/cancellation/retry runtime.
 
+### Release Snapshot And Compute Notation Close 3.8.0 RC3
+
+The RC3 correction preserves the `v3.8.0-rc.2` saga-frontier source identity
+and adds two release-readiness surfaces:
+
+- package-first release snapshots are now governed by M05 qualification
+  requirements and a manifest-centered bundle builder;
+- GTL compute notation is now a type-only surface over existing
+  GraphFunction/Job/GraphVector and selected `abg.fn_composition` truth.
+
+Accepted behavior:
+
+- release snapshots carry package identity, source ref, source commit, clean
+  source status, release note, package tarball, checksums, build command, pack
+  command, and pack summary as one immutable local artifact directory;
+- dirty sources, package identity mismatches, release identity mismatches,
+  missing release notes, failed builds, failed packs, invalid pack output, and
+  existing snapshot roots fail closed;
+- the local `v3.8.0-rc.2` snapshot archive is preserved as an artifact over the
+  already-tagged clean source identity;
+- `C` remains notation over selected `abg.fn_composition`, not a new GTL
+  topology object, runtime carrier, or execution target;
+- `transform.C` emits candidates/evidence, `evaluate.C` emits constrained
+  finding refs, and `consequence.C` projects ABG-admitted assurance/traversal
+  truth;
+- only `F_D` can type closure authority, hooks are declaration sources rather
+  than selected composition hosts, evaluator output is not closure-by-boolean,
+  and selected composition identity is preserved through admitted/consequence
+  refs.
+
+Non-claim:
+
+- RC3 does not tap final `3.8.0`, publish to npm, or rename the existing GTL and
+  ABG ontology. It clarifies the epistemic notation and release artifact
+  packaging under the current ontology.
+
 ## Current Verification Footer
 
 The current RC proving footer is:
@@ -619,8 +655,13 @@ The current RC proving footer is:
 - `npm run test:t133`: `9 passed`
 - `npm run test:t141`: `34 passed`
 - `npm run test:semantic`: `597 passed`
+- `npm run test:t142`: `4 passed`
+- `npm run test:t143`: `1 passed`
+- `npm run test:semantic`: `602 passed`
 - `npm run test:t141:live`: `5 passed`
 - `npm run lint:test-harness`: `passed`
+- `npm run lint:semantic`: `passed`
+- `npx eslint --max-warnings=0 test_env/tests/test_t143_gtl_compute_notation_types.test.mjs`: `passed`
 - `ABG_TS_T132_LIVE=1 CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_LIVE_TIMEOUT_MS=120000 npm run test:t132:live`: `1 passed`
 - `npm run test:t058`: `11 passed`
 - `npm run test:t127:live`: `6 passed`
@@ -631,8 +672,8 @@ The current RC proving footer is:
 - `npm run test:t116:live`: `1 passed`
 - full live sweep including `test:t141:live`: `passed`
 - `git diff --check`: `passed`
-- `npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run`: `passed`,
-  package `3.8.0-rc.2`, `374 files`
+- `npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run --json`: `passed`,
+  package `3.8.0-rc.3`, `382 files`
 
 Fresh 3.5.0-rc.2 live PTY plugin/actor matrix:
 

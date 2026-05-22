@@ -1,6 +1,6 @@
 {
   "name": "@abiogenesis/typescript-tenant",
-  "version": "3.8.0-rc.2",
+  "version": "3.8.0-rc.3",
   "private": true,
   "type": "module",
   "types": "./build/semantic/code/src/index.d.ts",
@@ -91,6 +91,7 @@
     "lint:test-harness": "eslint --max-warnings=0 \"test_env/live/**/*.mjs\" \"test_env/sandbox/**/*.mjs\" \"test_env/tests/support/**/*.mjs\"",
     "lint:t087": "npm run lint:semantic && eslint --max-warnings=0 \"test_env/live/test_t087_supervised_actor_invocation_live.test.mjs\"",
     "test:semantic": "npm run build:semantic && node --test test_env/tests/*.test.mjs",
+    "snapshot:release": "npm run build:semantic && node build/semantic/code/src/bin/abiogenesis.js release-snapshot",
     "test:live": "npm run build:semantic && node --test test_env/live/test_m05_rc_live_portfolio.test.mjs",
     "test:live:uat": "npm run build:semantic && node --test test_env/live/test_m05_rc_live_uat.test.mjs",
     "test:t009": "npm run build:semantic && node --test test_env/tests/t009-m01-negative-ingress.test.mjs test_env/tests/t009-m01-roundtrip.test.mjs test_env/tests/test_m01_gtl_core_integration.test.mjs",
@@ -207,6 +208,8 @@
     "test:t141:async": "npm run build:semantic && node --test test_env/tests/test_t141_saga_frontier_async.test.mjs",
     "test:t141": "npm run build:semantic && node --test test_env/tests/test_t141_saga_frontier.test.mjs test_env/tests/test_t141_saga_frontier_async.test.mjs",
     "test:t141:live": "npm run build:semantic && CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_AGENT_EXECUTOR_PROFILE=pty-terminal node --test test_env/live/test_t141_saga_frontier_live.test.mjs",
+    "test:t142": "npm run build:semantic && node --test test_env/tests/test_t142_release_snapshot_bundle.test.mjs",
+    "test:t143": "npm run build:semantic && node --test test_env/tests/test_t143_gtl_compute_notation_types.test.mjs",
     "test:t125:live": "npm run build:semantic && node --test test_env/live/test_t125_temporal_and_non_temporal_gtl_live.test.mjs",
     "test:t125": "npm run test:t125:live"
   },
