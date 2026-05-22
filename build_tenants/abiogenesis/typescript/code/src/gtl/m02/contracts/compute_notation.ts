@@ -1,5 +1,6 @@
 // Implements: REQ-L-GTL3-GRAPHFUNCTION
 // Implements: REQ-L-GTL3-JOB
+// Implements: REQ-L-GTL3-COMPUTE-NOTATION
 // Implements: REQ-R-ABG3-FN-COMPOSITION
 
 import type {

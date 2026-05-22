@@ -17,6 +17,10 @@ builder guidance over that source.
   constraints, TypeScript-primary package guidance, and the GTL hook/ABG plugin
   setup needed for agent bootstrap.
 
+Both live guides include the current ontology/epistemology boundary: GTL names
+the authored carriers, ABG owns admitted runtime truth, and `C` is selected
+`abg.fn_composition` notation rather than a new public carrier.
+
 ## Release Notes
 
 - [ABIOGENESIS_RC_RELEASE_NOTE.md](./ABIOGENESIS_RC_RELEASE_NOTE.md) records

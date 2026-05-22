@@ -1,4 +1,5 @@
 // Validates: T-143
+// Validates: REQ-L-GTL3-COMPUTE-NOTATION
 // Validates: REQ-R-ABG3-FN-COMPOSITION
 // Validates: REQ-L-GTL3-EVALUATOR
 // Validates: REQ-R-ABG3-PAYLOAD

@@ -612,6 +612,9 @@ Accepted behavior:
   existing snapshot roots fail closed;
 - the local `v3.8.0-rc.2` snapshot archive is preserved as an artifact over the
   already-tagged clean source identity;
+- the ontology/epistemology boundary is explicit: GTL names authored carriers,
+  ABG owns admitted runtime truth, products own downstream pressure/read-model
+  meaning, and compute notation describes how claims move across those surfaces;
 - `C` remains notation over selected `abg.fn_composition`, not a new GTL
   topology object, runtime carrier, or execution target;
 - `transform.C` emits candidates/evidence, `evaluate.C` emits constrained

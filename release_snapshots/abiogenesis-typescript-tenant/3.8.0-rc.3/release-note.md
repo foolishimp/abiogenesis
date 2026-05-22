@@ -133,10 +133,6 @@ RC3 for `3.8.0` adds:
   `evaluate.C`, and `consequence.C` over existing GTL/ABG carriers without
   introducing a new public compute unit, topology object, runtime carrier, or
   execution target;
-- an explicit ontology/epistemology boundary: GTL names authored carriers, ABG
-  owns admitted runtime truth, products own downstream pressure/read-model
-  meaning, and `C` is selected `abg.fn_composition` notation rather than a
-  new carrier;
 - type regressions that reject non-`F_D` closure authority, hooks as selected
   composition hosts, closure-shaped boolean evaluator output, and admitted or
   consequence refs that lose selected-composition identity.

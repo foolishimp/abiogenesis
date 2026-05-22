@@ -7,7 +7,8 @@ Python-native declarative syntax.
 
 Use these families for semantic truth about language identity, attrs, contexts,
 graphs, graph vectors, graph functions, hook surfaces, semantic work
-declarations, algebra, publication boundaries, and the GTL/ABG boundary.
+declarations, algebra, publication boundaries, epistemic notation over the
+ratified ontology, and the GTL/ABG boundary.
 
 ## Scope
 
@@ -17,6 +18,9 @@ declarations, algebra, publication boundaries, and the GTL/ABG boundary.
 - graph functions, selection boundaries, synthesis, and bounded sub-work
 - algebraic composition, substitution, recursion, and higher-order graph
   operations
+- epistemic notation that distinguishes transform candidates, evaluator
+  findings, ABG admission, runtime ledgers/projections, and consequence
+  projections without adding new topology objects or runtime carriers
 - semantic work declarations and module publication boundaries
 
 ## Families
@@ -33,6 +37,7 @@ declarations, algebra, publication boundaries, and the GTL/ABG boundary.
 - `REQ-L-GTL3-RULE.md`
 - `REQ-L-GTL3-GRAPHFUNCTION.md`
 - `REQ-L-GTL3-HOOKS.md`
+- `REQ-L-GTL3-COMPUTE-NOTATION.md`
 - `REQ-L-GTL3-ROLE.md`
 - `REQ-L-GTL3-JOB.md`
 - `REQ-L-GTL3-IDENTITY.md`

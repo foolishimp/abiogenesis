@@ -14,18 +14,26 @@ The repo is organized around spec-driven development:
   harness
 - `build_tenants/abiogenesis/python/` is a paused released reference line
 
-The active engine and language surface is GTL 3 / ABG 3.5.0-rc.2:
-- GTL: `Module`, `Graph`, `Node`, `GraphVector`, `Context`, `Job`, `Role`
+The active engine and language surface is GTL 3 / ABG 3.8.0-rc.3:
+- GTL: `Module`, `Graph`, `Node`, `GraphVector`, `Context`, `Operator`,
+  `Evaluator`, `Rule`, `GraphFunction`, `RefinementBoundary`,
+  `CandidateFamily`, `ContractRef`, `Job`, `Role`
 - ABG: interpreter, typed runtime carriers, event stream, projection,
   convergence, regime binding, run, graph call, continuation, transport,
   provenance, payload ledger, assurance projection
 
-The 3.5.0 RC runtime boundary is carrier and event owned. Public execution
+The 3.8.0 RC runtime boundary is carrier and event owned. Public execution
 still enters through published `GraphFunction` work, but advancement, dispatch,
 convergence, completion, and projection consume typed runtime truth rather than
 controller-local state or `runtime_config` side channels. In the TypeScript RC
 line, `start(...)` owns the public `start -> iterate` engine path and
 `publicStart(...)` is only a compatibility adapter over that path.
+
+The epistemic notation layer is deliberately not new ontology. `C` means the
+selected `abg.fn_composition` identity at an owning GTL boundary. `transform.C`
+and `evaluate.C` produce candidates, evidence, and findings; ABG admission is
+where those payloads become runtime truth; `consequence.C` is a projection ref
+over ABG-admitted assurance, traversal, and downstream read-model facts.
 
 Downstream ODD domain builders declare hook refs in GTL and bind executable
 behavior through ABG plugin contracts. Payloads that influence authority,

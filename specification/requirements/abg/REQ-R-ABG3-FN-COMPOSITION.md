@@ -53,3 +53,7 @@ identity is absent, stale, malformed, or mismatched.
 **REQ-R-ABG3-FN-COMP-011**: Runtime events, payload ledgers, assurance projections, traversal envelopes, construction observations, and construction pressure packages that consume composition truth shall carry the selected composition ref and digest or a causally linked selection ref. Replaying the same admitted events shall project the same selected composition identity.
 
 **REQ-R-ABG3-FN-COMP-012**: Implementation shall preserve the composition grammar as an Irreducible Architectural Carrier Set with a structural carrier diagram before design-method closure. Parser, admission, projection, and typed export surfaces shall derive from that carrier set rather than from helper layout or prompt shape.
+
+**REQ-R-ABG3-FN-COMP-013**: ABG shall interpret GTL compute notation such as `fn<A, B>.C`, `transform.C`, `evaluate.C`, and `consequence.C` as epistemic notation over selected `abg.fn_composition` and admitted runtime truth. The notation shall not create a new ABG carrier, execution target, closure path, ledger writer, or controller surface.
+
+**REQ-R-ABG3-FN-COMP-014**: ABG shall preserve the ontology/epistemology split for composition-governed boundaries. GTL and product declarations identify lawful hosts, hooks, policy refs, and product read-model intent; ABG admits candidate/evaluation payloads, emits events, derives payload ledgers, derives assurance and traversal projections, folds closure, and records replay truth.

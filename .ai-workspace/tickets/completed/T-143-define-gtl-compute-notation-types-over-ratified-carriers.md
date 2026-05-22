@@ -26,7 +26,7 @@
   - T-134
   - T-135
   - T-141
-- affected_boundary: `build_tenants/abiogenesis/typescript/code/src/gtl/m02/contracts/**`, `.ai-workspace/comments/codex/20260522T103912Z_ANALYSIS_reliable_compute_model_syntax_review.md`
+- affected_boundary: `specification/PRODUCT.md`, `specification/requirements/gtl/REQ-L-GTL3-COMPUTE-NOTATION.md`, `specification/requirements/gtl/README.md`, `specification/requirements/abg/REQ-R-ABG3-FN-COMPOSITION.md`, `docs/USER_GUIDE.md`, `docs/LLM_GTL_APP_BUILDER_GUIDE.md`, `docs/README.md`, `docs/ABIOGENESIS_RC_NOTES.md`, `docs/ABIOGENESIS_RC_RELEASE_NOTE.md`, `README.md`, `build_tenants/abiogenesis/typescript/code/src/gtl/m02/contracts/**`, `.ai-workspace/comments/codex/20260522T103912Z_ANALYSIS_reliable_compute_model_syntax_review.md`
 - target_truth: GTL-facing TypeScript types expose the epistemic notation over ratified GTL/ABG carriers without introducing a new public topology object, runtime carrier, or execution target.
 - superseded_truth: Agents infer whether `F_D`, `F_P`, `F_H`, transformer output, evaluator output, ABG ledgers, assurance decisions, and downstream read models are distinct authority surfaces.
 - closure_law: Closes only when the type surface compiles, is exported through the existing GTL module surface, keeps `C` as notation for selected `abg.fn_composition`, preserves ABG ownership of writes and ledgers, and has no runtime behavior change.
@@ -107,10 +107,53 @@ boundary.
 - Split selected composition host binding from declaration source so hooks do
   not appear as owning composition hosts.
 
+## Specification Method Repair: 2026-05-22
+
+Post-closure review found the code/type slice had outpaced its product,
+requirement, and documentation authority. The repair expands T-143 from a
+narrow TypeScript type proof into the full epistemology-over-ontology surface.
+
+Added and aligned:
+
+- `specification/requirements/gtl/REQ-L-GTL3-COMPUTE-NOTATION.md` now defines
+  the full ontology/epistemology boundary:
+  - GTL ontology: `Graph`, `Node`, `GraphVector`, `Context`, `Operator`,
+    `Evaluator`, `Rule`, `GraphFunction`, `RefinementBoundary`,
+    `CandidateFamily`, `ContractRef`, `Role`, `Job`, and `Module`.
+  - ABG runtime ontology: selected `abg.fn_composition`, runtime events,
+    `Run`, `GraphCall`, `Frame`, `ExecutionBasis`,
+    `AdvancementTransition`, `IterationAdvanceDecision`, `Continuation`,
+    payload admission, payload ledgers, assurance projection, closure fold,
+    traversal transition, and replay projection.
+  - Epistemic flow:
+    `A -> transform.C -> candidate/evidence refs -> evaluate.C -> finding refs -> ABG admission -> events/ledgers/projections -> consequence.C -> product read model -> B or lawful continuation`.
+- `specification/PRODUCT.md` now carries the same ontology/epistemology surface
+  as product law.
+- `specification/requirements/abg/REQ-R-ABG3-FN-COMPOSITION.md` now states that
+  ABG interprets `fn<A, B>.C`, `transform.C`, `evaluate.C`, and
+  `consequence.C` as epistemic notation over selected `abg.fn_composition`,
+  not as a new ABG carrier, execution target, closure path, ledger writer, or
+  controller surface.
+- `docs/USER_GUIDE.md`, `docs/LLM_GTL_APP_BUILDER_GUIDE.md`, `docs/README.md`,
+  `docs/ABIOGENESIS_RC_NOTES.md`, `docs/ABIOGENESIS_RC_RELEASE_NOTE.md`, and
+  `README.md` now expose the same boundary for humans and agent builders.
+- Type and test headers now reference `REQ-L-GTL3-COMPUTE-NOTATION`.
+
+This preserves the existing ontology and clarifies how claims become known and
+authorized over it. It does not add runtime behavior.
+
 ## Closure Evidence
 
 - [x] `npm run test:t143`
   - pass: 1 test
+- [x] `npm run build:semantic`
+- [x] `npm run lint:semantic`
+- [x] `npx eslint --max-warnings=0 test_env/tests/test_t143_gtl_compute_notation_types.test.mjs`
+- [x] `git diff --check`
+
+Specification repair proof on 2026-05-22:
+
+- [x] `npm run test:t143`
 - [x] `npm run build:semantic`
 - [x] `npm run lint:semantic`
 - [x] `npx eslint --max-warnings=0 test_env/tests/test_t143_gtl_compute_notation_types.test.mjs`

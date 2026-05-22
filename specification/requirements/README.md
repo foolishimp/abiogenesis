@@ -25,7 +25,7 @@ Use [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blo
 
 | Domain | Path | Scope |
 | --- | --- | --- |
-| GTL | `specification/requirements/gtl/` | language semantics, graph law, jobs, roles, operators, identity |
+| GTL | `specification/requirements/gtl/` | language semantics, graph law, jobs, roles, operators, identity, epistemic notation over ratified ontology |
 | ABG | `specification/requirements/abg/` | engine transport, binding, run model, projection, provenance, convergence |
 | Mapping | `specification/requirements/mapping/` | bridge law between GTL constitutional surfaces and runtime realization |
 | Product | `specification/requirements/product/` | policy, qualification, and end-to-end scenario obligations |

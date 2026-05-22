@@ -191,6 +191,50 @@ GTL uses three regime markers across operators and evaluators:
 These regimes classify the ambiguity class of the work. They do not implement
 policy by themselves.
 
+### Ontology And Epistemology
+
+Ontology names the carriers. Epistemology names how claims over those carriers
+become candidates, evidence, admitted facts, projections, and consequences.
+
+GTL ontology is the authored language surface: `Graph`, `Node`, `GraphVector`,
+`Context`, `Operator`, `Evaluator`, `Rule`, `GraphFunction`,
+`RefinementBoundary`, `CandidateFamily`, `ContractRef`, `Role`, `Job`, and
+`Module`.
+
+ABG runtime ontology is the interpreter-owned truth surface: selected
+`abg.fn_composition`, runtime events, `Run`, `GraphCall`, `Frame`,
+`ExecutionBasis`, `AdvancementTransition`, `IterationAdvanceDecision`,
+`Continuation`, payload admission, payload ledgers, assurance projection,
+closure fold, traversal transition, and replay projection.
+
+Product ontology is downstream-owned. Pressure maps, gain lenses, acceptance
+registers, lifecycle views, and domain read models are product projections over
+ABG-admitted facts.
+
+`C` is selected-composition notation. It is shorthand over selected
+`abg.fn_composition`, not a new public object or runtime carrier.
+
+The epistemic flow is:
+
+```text
+A
+  -> transform.C
+  -> candidate/evidence refs
+  -> evaluate.C
+  -> evaluation finding refs
+  -> ABG admission
+  -> ABG events, ledgers, assurance projection, traversal projection
+  -> consequence.C
+  -> product read-model interpretation
+  -> B or lawful continuation
+```
+
+`transform.C` produces candidates and evidence. `evaluate.C` produces findings.
+ABG admission turns lawful plugin/evaluator payloads into runtime facts.
+`consequence.C` references ABG-derived assurance, traversal, and product
+read-model projections. It does not write ledgers, emit events, select
+traversal, or close the boundary.
+
 ### Core Types
 
 `Attrs` is the immutable metadata carrier for public declaration surfaces. Use

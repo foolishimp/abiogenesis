@@ -120,7 +120,67 @@ This boundary derives from `REQ-L-GTL3-GRAPH`, `REQ-L-GTL3-NODE`,
 `REQ-L-GTL3-JOB`, `REQ-L-GTL3-MODULE`, `REQ-L-GTL3-CONTEXT`,
 `REQ-L-GTL3-OPERATOR`, `REQ-L-GTL3-EVALUATOR`, `REQ-L-GTL3-RULE`,
 `REQ-L-GTL3-ROLE`, `REQ-L-GTL3-SYNTHESIS`, `REQ-L-GTL3-LAWS`,
-`REQ-L-GTL3-LANGUAGE`, and `REQ-R-ABG3-INTERPRET`.
+`REQ-L-GTL3-LANGUAGE`, `REQ-L-GTL3-COMPUTE-NOTATION`, and
+`REQ-R-ABG3-INTERPRET`.
+
+---
+
+## Ontology And Epistemology
+
+Ontology names the lawful carriers. Epistemology names how facts are known,
+admitted, projected, and authorized over those carriers.
+
+The GTL ontology is the authored language surface: `Graph`, `Node`,
+`GraphVector`, `Context`, `Operator`, `Evaluator`, `Rule`, `GraphFunction`,
+`RefinementBoundary`, `CandidateFamily`, `ContractRef`, `Role`, `Job`, and
+`Module`.
+
+The ABG runtime ontology is the interpreter-owned truth surface: selected
+`abg.fn_composition`, runtime events, `Run`, `GraphCall`, `Frame`,
+`ExecutionBasis`, `AdvancementTransition`, `IterationAdvanceDecision`,
+`Continuation`, payload admission, payload ledgers, assurance projection,
+closure fold, traversal transition, and replay projection.
+
+Downstream product ontology remains product-owned. A product may define pressure
+maps, gain lenses, acceptance registers, lifecycle views, and domain read
+models. Those are product projections over ABG-admitted facts, not new GTL or
+ABG authority.
+
+`C` is the GTL-facing notation for selected composition identity at the owning
+boundary. It is shorthand over selected `abg.fn_composition`; it is not
+`ComputeUnit`, not `ReliableCompute`, not a topology anchor, not a public
+callable carrier, and not an ABG runtime carrier.
+
+The epistemic flow is:
+
+```text
+A
+  -> transform.C
+  -> candidate/evidence refs
+  -> evaluate.C
+  -> evaluation finding refs
+  -> ABG admission
+  -> ABG events, ledgers, assurance projection, traversal projection
+  -> consequence.C
+  -> product read-model interpretation
+  -> B or lawful continuation
+```
+
+`transform.C` may produce candidates and evidence. `evaluate.C` may produce
+findings, including gain, residual pressure, continuation, evidence, authority,
+diagnostic, and proposed disposition refs. Neither stage writes ledgers, emits
+runtime events, selects traversal, or closes the boundary.
+
+ABG admission is the boundary where proposed candidate/evaluation payloads
+become runtime facts. ABG owns event emission, payload ledger projection,
+assurance fold, traversal transition, continuation, closure, correction, and
+replay truth. `consequence.C` is a projection reference over those ABG-admitted
+facts plus downstream read-model refs; it is not an independent action stage.
+
+This boundary derives from `REQ-L-GTL3-COMPUTE-NOTATION`,
+`REQ-L-GTL3-HOOKS`, `REQ-L-GTL3-EVALUATOR`,
+`REQ-R-ABG3-FN-COMPOSITION`, `REQ-R-ABG3-PAYLOAD`, and
+`REQ-R-ABG3-ASSURANCE`.
 
 ---
 

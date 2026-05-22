@@ -325,6 +325,79 @@ ABG materializes and traverses internal `GraphVector` structure under the public
 
 `GraphFunction.environment` is the cumulative typed environment contract.
 
+## Ontology And Epistemology
+
+Ontology names what exists. Epistemology names how facts become known and
+authorized over what exists.
+
+GTL ontology is the authored language surface:
+
+- `Graph`
+- `Node`
+- `GraphVector`
+- `Context`
+- `Operator`
+- `Evaluator`
+- `Rule`
+- `GraphFunction`
+- `RefinementBoundary`
+- `CandidateFamily`
+- `ContractRef`
+- `Role`
+- `Job`
+- `Module`
+
+ABG runtime ontology is the interpreter-owned truth surface:
+
+- selected `abg.fn_composition`
+- runtime events
+- `Run`
+- `GraphCall`
+- `Frame`
+- `ExecutionBasis`
+- `AdvancementTransition`
+- `IterationAdvanceDecision`
+- `Continuation`
+- payload admission and payload ledgers
+- assurance projection and closure fold
+- traversal transition and replay projection
+
+Product ontology is downstream-owned. Pressure maps, gain lenses, acceptance
+registers, lifecycle views, and domain read models are product projections over
+ABG-admitted facts.
+
+`C` is selected-composition notation. It is shorthand over selected
+`abg.fn_composition`, not a new `ComputeUnit`, not `ReliableCompute`, not a
+topology anchor, not a public callable carrier, and not an ABG runtime carrier.
+
+The epistemic flow is:
+
+```text
+A
+  -> transform.C
+  -> candidate/evidence refs
+  -> evaluate.C
+  -> evaluation finding refs
+  -> ABG admission
+  -> ABG events, ledgers, assurance projection, traversal projection
+  -> consequence.C
+  -> product read-model interpretation
+  -> B or lawful continuation
+```
+
+`transform.C` produces candidates and evidence under the selected composition.
+`evaluate.C` produces findings under the selected composition. Findings may
+propose close, retry, reprice, block, defer, or human-required dispositions, but
+they do not directly close, write ledgers, emit events, select traversal, or
+transition the runtime.
+
+ABG admission is the epistemic authority boundary. Before admission, plugin and
+evaluator returns are proposed evidence. After admission, ABG owns the events,
+payload ledgers, assurance projection, traversal transition, continuation,
+closure fold, correction, and replay truth. `consequence.C` is only a
+projection reference over those ABG-admitted facts plus downstream read-model
+refs.
+
 ## Cumulative Environment Law
 
 Do not model GTL composition as "the last output feeds the next input".
