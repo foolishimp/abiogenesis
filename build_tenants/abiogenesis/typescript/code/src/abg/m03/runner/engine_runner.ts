@@ -105,6 +105,7 @@ import {
   constructComposedStageTaskDeclaration,
   constructComposedStageTaskOutcome,
   type ComposedStageAdmission,
+  type ComposedStageProjection,
   type ComposedStageRole,
   type ComposedStageSetPlan,
   type ComposedStageTaskDeclaration,
@@ -512,6 +513,8 @@ function deriveFpDispatchAttemptInput(input: {
   readonly pluginTraversalObserverFallbackEnabled: boolean;
   readonly pluginTraversalObserverFallbackKinds: readonly PluginTraversalKind[];
   readonly constructionPressurePackage: ConstructionPressurePackage | null;
+  readonly priorStageProjectionRefs: readonly string[];
+  readonly priorStageFoldInputRefs: readonly string[];
 }): FpDispatchAttemptInput {
   const actorInvocation = actorInvocationForTransition({
     projection: input.projection,
@@ -539,7 +542,9 @@ function deriveFpDispatchAttemptInput(input: {
     pluginTraversalObserverFallbackEnabled:
       input.pluginTraversalObserverFallbackEnabled,
     pluginTraversalObserverFallbackKinds:
-      input.pluginTraversalObserverFallbackKinds
+      input.pluginTraversalObserverFallbackKinds,
+    priorStageProjectionRefs: input.priorStageProjectionRefs,
+    priorStageFoldInputRefs: input.priorStageFoldInputRefs
   });
   return Object.freeze({
     actorInvocation,
@@ -851,6 +856,50 @@ interface PlannedComposedStageTask {
   readonly declaration: ComposedStageTaskDeclaration;
 }
 
+function stageProjectionRefs(
+  projection: ComposedStageProjection | EvaluationSetProjection | null
+): readonly string[] {
+  if (projection === null) {
+    return Object.freeze([]);
+  }
+  return Object.freeze([projection.projectionRef]);
+}
+
+function stageProjectionFoldInputRefs(
+  projection: ComposedStageProjection | EvaluationSetProjection | null
+): readonly string[] {
+  if (projection === null) {
+    return Object.freeze([]);
+  }
+  return projection.foldInputRefs;
+}
+
+function composedStageProjectionForCurrentOutcomes(
+  plan: ComposedStageSetPlan,
+  outcomes: readonly ComposedStageTaskOutcome[]
+): ComposedStageProjection | null {
+  if (outcomes.length === 0) {
+    return null;
+  }
+  return constructComposedStageProjection({
+    plan,
+    admission: constructComposedStageAdmission({ plan, outcomes })
+  });
+}
+
+function evaluationSetProjectionForCurrentOutcomes(
+  plan: EvaluationSetPlan,
+  outcomes: readonly EvaluationRuleOutcome[]
+): EvaluationSetProjection | null {
+  if (outcomes.length === 0) {
+    return null;
+  }
+  return constructEvaluationSetProjection({
+    plan,
+    admission: constructEvaluationSetAdmission({ plan, outcomes })
+  });
+}
+
 function plannedComposedStageTaskForPlugin(input: {
   readonly stageRole: ComposedStageRole;
   readonly plugin: ComposedStageTaskPlugin;
@@ -874,7 +923,11 @@ function plannedComposedStageTaskForPlugin(input: {
     selectedRegimeBindingRef: input.pluginInput.selectedRegimeBindingRef,
     computeMeans: input.plugin.contract.computeMeans,
     inputLedgerRefs:
-      input.plugin.inputLedgerRefs ?? [input.pluginInput.sourceProjectionRef],
+      input.plugin.inputLedgerRefs ??
+      uniqueStrings([
+        input.pluginInput.sourceProjectionRef,
+        ...input.pluginInput.priorStageFoldInputRefs
+      ]),
     outputCarrierRefs:
       input.plugin.outputCarrierRefs ?? [input.plugin.contract.outputCarrier],
     required: input.plugin.required ?? true,
@@ -906,7 +959,10 @@ function scalarTransformTaskDeclaration(
     selectedCompositionSelectionRef: pluginInput.selectedCompositionSelectionRef,
     selectedRegimeBindingRef: pluginInput.selectedRegimeBindingRef,
     computeMeans: "F_P",
-    inputLedgerRefs: [pluginInput.sourceProjectionRef],
+    inputLedgerRefs: uniqueStrings([
+      pluginInput.sourceProjectionRef,
+      ...pluginInput.priorStageFoldInputRefs
+    ]),
     outputCarrierRefs: ["FpDispatchOutcome"],
     required: false,
     parallelGroupRef: null,
@@ -931,7 +987,10 @@ function scalarConsequenceTaskDeclaration(
     selectedCompositionSelectionRef: pluginInput.selectedCompositionSelectionRef,
     selectedRegimeBindingRef: pluginInput.selectedRegimeBindingRef,
     computeMeans: "F_D",
-    inputLedgerRefs: [pluginInput.sourceProjectionRef],
+    inputLedgerRefs: uniqueStrings([
+      pluginInput.sourceProjectionRef,
+      ...pluginInput.priorStageFoldInputRefs
+    ]),
     outputCarrierRefs: ["ConsequenceProjectionOutcome"],
     required: true,
     parallelGroupRef: null,
@@ -1203,7 +1262,11 @@ function plannedEvaluationRuleForPlugin(input: {
     selectedRegimeBindingRef: input.pluginInput.selectedRegimeBindingRef,
     computeMeans: input.plugin.contract.computeMeans,
     inputLedgerRefs:
-      input.plugin.inputLedgerRefs ?? [input.pluginInput.sourceProjectionRef],
+      input.plugin.inputLedgerRefs ??
+      uniqueStrings([
+        input.pluginInput.sourceProjectionRef,
+        ...input.pluginInput.priorStageFoldInputRefs
+      ]),
     outputCarrierRefs:
       input.plugin.outputCarrierRefs ?? [input.plugin.contract.outputCarrier],
     required: input.plugin.required ?? true,
@@ -1234,7 +1297,10 @@ function scalarFpEvaluationRuleDeclaration(
     selectedCompositionSelectionRef: pluginInput.selectedCompositionSelectionRef,
     selectedRegimeBindingRef: pluginInput.selectedRegimeBindingRef,
     computeMeans: "F_P",
-    inputLedgerRefs: [pluginInput.sourceProjectionRef],
+    inputLedgerRefs: uniqueStrings([
+      pluginInput.sourceProjectionRef,
+      ...pluginInput.priorStageFoldInputRefs
+    ]),
     outputCarrierRefs: ["FpEvaluationOutcome"],
     required: true,
     parallelGroupRef: null,
@@ -1258,7 +1324,10 @@ function scalarFdEvaluationRuleDeclaration(
     selectedCompositionSelectionRef: pluginInput.selectedCompositionSelectionRef,
     selectedRegimeBindingRef: pluginInput.selectedRegimeBindingRef,
     computeMeans: "F_D",
-    inputLedgerRefs: [pluginInput.sourceProjectionRef],
+    inputLedgerRefs: uniqueStrings([
+      pluginInput.sourceProjectionRef,
+      ...pluginInput.priorStageFoldInputRefs
+    ]),
     outputCarrierRefs: ["FdEvaluationOutcome"],
     required: true,
     parallelGroupRef: null,
@@ -2122,6 +2191,8 @@ function* runEngineIterateMachine(input: {
     replayEvents: Object.freeze([...(request.runtimeEvents ?? Object.freeze([]))])
   });
   let iterationCount = 0;
+  let continuationStageProjectionRefs: readonly string[] = Object.freeze([]);
+  let continuationStageFoldInputRefs: readonly string[] = Object.freeze([]);
 
   const emitRunnerEvents = (
     state: EngineEventEmissionState,
@@ -2272,7 +2343,9 @@ function* runEngineIterateMachine(input: {
           pluginTraversalObserverFallbackEnabled:
             request.pluginTraversalObserverFallbackEnabled ?? false,
           pluginTraversalObserverFallbackKinds:
-            request.pluginTraversalObserverFallbackKinds ?? Object.freeze([])
+            request.pluginTraversalObserverFallbackKinds ?? Object.freeze([]),
+          priorStageProjectionRefs: continuationStageProjectionRefs,
+          priorStageFoldInputRefs: continuationStageFoldInputRefs
         });
         if (input.pluginTraversalObserverBinding !== null) {
           eventState = emitRunnerEvents(eventState,
@@ -2316,7 +2389,9 @@ function* runEngineIterateMachine(input: {
               pluginTraversalObserverFallbackEnabled:
                 request.pluginTraversalObserverFallbackEnabled ?? false,
               pluginTraversalObserverFallbackKinds:
-                request.pluginTraversalObserverFallbackKinds ?? Object.freeze([])
+                request.pluginTraversalObserverFallbackKinds ?? Object.freeze([]),
+              priorStageProjectionRefs: continuationStageProjectionRefs,
+              priorStageFoldInputRefs: continuationStageFoldInputRefs
             });
             return plannedEvaluationRuleForPlugin({
               plugin,
@@ -2357,24 +2432,60 @@ function* runEngineIterateMachine(input: {
           if (plannedBatch.length === 0) {
             continue;
           }
+          const batchEvaluationProjection = deriveRuntimeAggregateProjection(
+            request.basis,
+            eventState.replayEvents
+          );
+          const priorEvaluationSetProjection =
+            evaluationSetProjectionForCurrentOutcomes(
+              evaluationSetPlan,
+              evaluationRuleOutcomes
+            );
+          const plannedBatchWithInputs = plannedBatch.map(
+            ({ declaration, plannedRule }) => {
+              const ruleInput = constructEnginePluginInput({
+                contract: plannedRule.plugin.contract,
+                basis: request.basis,
+                projection: batchEvaluationProjection,
+                replayEvents: eventState.replayEvents,
+                vectorIndex: transition.vectorIndex,
+                edge: transition.edge,
+                regime: plannedRule.plugin.contract.computeMeans ?? "F_D",
+                abgFallbackBundle: request.abgFallbackBundle ?? null,
+                edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
+                constructionPressurePackage:
+                  request.constructionPressurePackage ?? null,
+                pluginTraversalObserverFallbackEnabled:
+                  request.pluginTraversalObserverFallbackEnabled ?? false,
+                pluginTraversalObserverFallbackKinds:
+                  request.pluginTraversalObserverFallbackKinds ?? Object.freeze([]),
+                priorStageProjectionRefs: continuationStageProjectionRefs,
+                priorStageFoldInputRefs: continuationStageFoldInputRefs,
+                stageSetDependencyRefs: stageProjectionFoldInputRefs(
+                  priorEvaluationSetProjection
+                )
+              });
+              return { declaration, plannedRule, ruleInput };
+            }
+          );
           const batchOutcomes = evaluationRuleBatchOutcomesFromEffectResult({
             result: yield Object.freeze({
               kind: "evaluation_rule_batch_evaluate",
-              items: plannedBatch.map(({ plannedRule }) =>
+              items: plannedBatchWithInputs.map(({ plannedRule, ruleInput }) =>
                 Object.freeze({
                   pluginIndex: plannedRule.pluginIndex,
-                  input: plannedRule.pluginInput
+                  input: ruleInput
                 })
               )
             }),
-            pluginIndexes: plannedBatch.map(
+            pluginIndexes: plannedBatchWithInputs.map(
               ({ plannedRule }) => plannedRule.pluginIndex
             )
           });
           for (const [
             index,
-            { declaration, plannedRule }
-          ] of plannedBatch.entries()) {
+            { declaration, ruleInput }
+          ] of plannedBatchWithInputs.entries()) {
             const ruleOutcome = batchOutcomes[index];
             if (ruleOutcome === undefined) {
               throw new TypeError("Evaluation rule batch omitted outcome");
@@ -2388,7 +2499,7 @@ function* runEngineIterateMachine(input: {
               eventState,
               evaluationRuleOutcomeCoreEvents({
                 basis: request.basis,
-                pluginInput: plannedRule.pluginInput,
+                pluginInput: ruleInput,
                 outcome: ruleOutcome
               })
             );
@@ -2454,7 +2565,6 @@ function* runEngineIterateMachine(input: {
           plan: evaluationSetPlan,
           admission: evaluationSetAdmission
         });
-        void evaluationSetProjection;
         const evaluationSetBlockReason = evaluationSetBlockingReason({
           admission: evaluationSetAdmission,
           requiredRuleRefs: evaluationSetPlan.requiredRuleRefs
@@ -2531,7 +2641,10 @@ function* runEngineIterateMachine(input: {
           pluginTraversalObserverFallbackEnabled:
             request.pluginTraversalObserverFallbackEnabled ?? false,
           pluginTraversalObserverFallbackKinds:
-            request.pluginTraversalObserverFallbackKinds ?? Object.freeze([])
+            request.pluginTraversalObserverFallbackKinds ?? Object.freeze([]),
+          priorStageProjectionRefs: stageProjectionRefs(evaluationSetProjection),
+          priorStageFoldInputRefs:
+            stageProjectionFoldInputRefs(evaluationSetProjection)
         });
         if (consequenceInput.pluginTraversalObserverBinding !== null) {
           eventState = emitRunnerEvents(eventState,
@@ -2617,25 +2730,63 @@ function* runEngineIterateMachine(input: {
           if (plannedBatch.length === 0) {
             continue;
           }
+          const batchConsequenceProjection = deriveRuntimeAggregateProjection(
+            request.basis,
+            eventState.replayEvents
+          );
+          const priorConsequenceStageProjection =
+            composedStageProjectionForCurrentOutcomes(
+              consequenceStagePlan,
+              consequenceStageOutcomes
+            );
+          const plannedBatchWithInputs = plannedBatch.map(
+            ({ declaration, plannedTask }) => {
+              const taskInput = constructEnginePluginInput({
+                contract: plannedTask.plugin.contract,
+                basis: request.basis,
+                projection: batchConsequenceProjection,
+                replayEvents: eventState.replayEvents,
+                vectorIndex: transition.vectorIndex,
+                edge: transition.edge,
+                regime: plannedTask.plugin.contract.computeMeans ?? "F_D",
+                abgFallbackBundle: request.abgFallbackBundle ?? null,
+                edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
+                constructionPressurePackage:
+                  request.constructionPressurePackage ?? null,
+                pluginTraversalObserverFallbackEnabled:
+                  request.pluginTraversalObserverFallbackEnabled ?? false,
+                pluginTraversalObserverFallbackKinds:
+                  request.pluginTraversalObserverFallbackKinds ?? Object.freeze([]),
+                priorStageProjectionRefs:
+                  stageProjectionRefs(evaluationSetProjection),
+                priorStageFoldInputRefs:
+                  stageProjectionFoldInputRefs(evaluationSetProjection),
+                stageSetDependencyRefs: stageProjectionFoldInputRefs(
+                  priorConsequenceStageProjection
+                )
+              });
+              return { declaration, plannedTask, taskInput };
+            }
+          );
           const batchOutcomes = composedStageTaskBatchOutcomesFromEffectResult({
             result: yield Object.freeze({
               kind: "composed_stage_task_batch_run",
               stageRole: "consequence",
-              items: plannedBatch.map(({ plannedTask }) =>
+              items: plannedBatchWithInputs.map(({ plannedTask, taskInput }) =>
                 Object.freeze({
                   pluginIndex: plannedTask.pluginIndex,
-                  input: plannedTask.pluginInput
+                  input: taskInput
                 })
               )
             }),
-            pluginIndexes: plannedBatch.map(
+            pluginIndexes: plannedBatchWithInputs.map(
               ({ plannedTask }) => plannedTask.pluginIndex
             )
           });
           for (const [
             index,
-            { declaration, plannedTask }
-          ] of plannedBatch.entries()) {
+            { declaration, taskInput }
+          ] of plannedBatchWithInputs.entries()) {
             const taskOutcome = batchOutcomes[index];
             if (taskOutcome === undefined) {
               throw new TypeError("Composed stage task batch omitted outcome");
@@ -2649,7 +2800,7 @@ function* runEngineIterateMachine(input: {
               eventState,
               composedStageTaskOutcomeCoreEvents({
                 basis: request.basis,
-                pluginInput: plannedTask.pluginInput,
+                pluginInput: taskInput,
                 outcome: taskOutcome
               })
             );
@@ -2713,7 +2864,6 @@ function* runEngineIterateMachine(input: {
           plan: consequenceStagePlan,
           admission: consequenceStageAdmission
         });
-        void consequenceStageProjection;
         const consequenceStageBlockingReason = composedStageSetBlockingReason({
           admission: consequenceStageAdmission,
           requiredTaskRefs: consequenceStagePlan.requiredTaskRefs
@@ -2750,6 +2900,9 @@ function* runEngineIterateMachine(input: {
             iterationCount
           });
         }
+        continuationStageProjectionRefs = stageProjectionRefs(consequenceStageProjection);
+        continuationStageFoldInputRefs =
+          stageProjectionFoldInputRefs(consequenceStageProjection);
         iterationCount += 1;
         if (request.basis.startIntent.until === "first_traversal") {
           return constructResult({
@@ -2777,7 +2930,9 @@ function* runEngineIterateMachine(input: {
           pluginTraversalObserverFallbackEnabled:
             request.pluginTraversalObserverFallbackEnabled ?? false,
           pluginTraversalObserverFallbackKinds:
-            request.pluginTraversalObserverFallbackKinds ?? Object.freeze([])
+            request.pluginTraversalObserverFallbackKinds ?? Object.freeze([]),
+          priorStageProjectionRefs: continuationStageProjectionRefs,
+          priorStageFoldInputRefs: continuationStageFoldInputRefs
         });
         const { actorInvocation, modulatedAttempt, pluginInput: input } = attempt;
         const transformBaseProjection = deriveRuntimeAggregateProjection(
@@ -2808,7 +2963,9 @@ function* runEngineIterateMachine(input: {
               pluginTraversalObserverFallbackEnabled:
                 request.pluginTraversalObserverFallbackEnabled ?? false,
               pluginTraversalObserverFallbackKinds:
-                request.pluginTraversalObserverFallbackKinds ?? Object.freeze([])
+                request.pluginTraversalObserverFallbackKinds ?? Object.freeze([]),
+              priorStageProjectionRefs: continuationStageProjectionRefs,
+              priorStageFoldInputRefs: continuationStageFoldInputRefs
             });
             return plannedComposedStageTaskForPlugin({
               stageRole: "transform",
@@ -2851,25 +3008,63 @@ function* runEngineIterateMachine(input: {
           if (plannedBatch.length === 0) {
             continue;
           }
+          const batchTransformProjection = deriveRuntimeAggregateProjection(
+            request.basis,
+            eventState.replayEvents
+          );
+          const priorTransformStageProjection =
+            composedStageProjectionForCurrentOutcomes(
+              transformStagePlan,
+              transformStageOutcomes
+            );
+          const plannedBatchWithInputs = plannedBatch.map(
+            ({ declaration, plannedTask }) => {
+              const taskInput = constructEnginePluginInput({
+                contract: plannedTask.plugin.contract,
+                basis: request.basis,
+                projection: batchTransformProjection,
+                replayEvents: eventState.replayEvents,
+                vectorIndex: transition.vectorIndex,
+                edge: transition.edge,
+                regime: plannedTask.plugin.contract.computeMeans ?? "F_D",
+                traversalStrategySelection: modulatedAttempt?.selection ?? null,
+                traversalAttemptEnvelope: modulatedAttempt?.envelope ?? null,
+                abgFallbackBundle: request.abgFallbackBundle ?? null,
+                edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
+                constructionPressurePackage:
+                  request.constructionPressurePackage ?? null,
+                pluginTraversalObserverFallbackEnabled:
+                  request.pluginTraversalObserverFallbackEnabled ?? false,
+                pluginTraversalObserverFallbackKinds:
+                  request.pluginTraversalObserverFallbackKinds ?? Object.freeze([]),
+                priorStageProjectionRefs: continuationStageProjectionRefs,
+                priorStageFoldInputRefs: continuationStageFoldInputRefs,
+                stageSetDependencyRefs: stageProjectionFoldInputRefs(
+                  priorTransformStageProjection
+                )
+              });
+              return { declaration, plannedTask, taskInput };
+            }
+          );
           const batchOutcomes = composedStageTaskBatchOutcomesFromEffectResult({
             result: yield Object.freeze({
               kind: "composed_stage_task_batch_run",
               stageRole: "transform",
-              items: plannedBatch.map(({ plannedTask }) =>
+              items: plannedBatchWithInputs.map(({ plannedTask, taskInput }) =>
                 Object.freeze({
                   pluginIndex: plannedTask.pluginIndex,
-                  input: plannedTask.pluginInput
+                  input: taskInput
                 })
               )
             }),
-            pluginIndexes: plannedBatch.map(
+            pluginIndexes: plannedBatchWithInputs.map(
               ({ plannedTask }) => plannedTask.pluginIndex
             )
           });
           for (const [
             index,
-            { declaration, plannedTask }
-          ] of plannedBatch.entries()) {
+            { declaration, taskInput }
+          ] of plannedBatchWithInputs.entries()) {
             const taskOutcome = batchOutcomes[index];
             if (taskOutcome === undefined) {
               throw new TypeError("Composed stage task batch omitted outcome");
@@ -2883,7 +3078,7 @@ function* runEngineIterateMachine(input: {
               eventState,
               composedStageTaskOutcomeCoreEvents({
                 basis: request.basis,
-                pluginInput: plannedTask.pluginInput,
+                pluginInput: taskInput,
                 outcome: taskOutcome
               })
             );
@@ -2952,7 +3147,6 @@ function* runEngineIterateMachine(input: {
           plan: transformStagePlan,
           admission: transformStageAdmission
         });
-        void transformStageProjection;
         const transformStageBlockingReason = composedStageSetBlockingReason({
           admission: transformStageAdmission,
           requiredTaskRefs: transformStagePlan.requiredTaskRefs
@@ -3036,7 +3230,11 @@ function* runEngineIterateMachine(input: {
                   pluginTraversalObserverFallbackEnabled:
                     request.pluginTraversalObserverFallbackEnabled ?? false,
                   pluginTraversalObserverFallbackKinds:
-                    request.pluginTraversalObserverFallbackKinds ?? Object.freeze([])
+                    request.pluginTraversalObserverFallbackKinds ?? Object.freeze([]),
+                  priorStageProjectionRefs:
+                    stageProjectionRefs(transformStageProjection),
+                  priorStageFoldInputRefs:
+                    stageProjectionFoldInputRefs(transformStageProjection)
                 });
                 return plannedEvaluationRuleForPlugin({
                   plugin,
@@ -3063,7 +3261,10 @@ function* runEngineIterateMachine(input: {
               pluginTraversalObserverFallbackEnabled:
                 request.pluginTraversalObserverFallbackEnabled ?? false,
               pluginTraversalObserverFallbackKinds:
-                request.pluginTraversalObserverFallbackKinds ?? Object.freeze([])
+                request.pluginTraversalObserverFallbackKinds ?? Object.freeze([]),
+              priorStageProjectionRefs: stageProjectionRefs(transformStageProjection),
+              priorStageFoldInputRefs:
+                stageProjectionFoldInputRefs(transformStageProjection)
             });
             const evaluationSetPlan = evaluationSetPlanForPhase({
               basis: request.basis,
@@ -3102,24 +3303,64 @@ function* runEngineIterateMachine(input: {
               if (plannedBatch.length === 0) {
                 continue;
               }
+              const batchEvaluationProjection = deriveRuntimeAggregateProjection(
+                request.basis,
+                eventState.replayEvents
+              );
+              const priorEvaluationSetProjection =
+                evaluationSetProjectionForCurrentOutcomes(
+                  evaluationSetPlan,
+                  evaluationRuleOutcomes
+                );
+              const plannedBatchWithInputs = plannedBatch.map(
+                ({ declaration, plannedRule }) => {
+                  const ruleInput = constructEnginePluginInput({
+                    contract: plannedRule.plugin.contract,
+                    basis: request.basis,
+                    projection: batchEvaluationProjection,
+                    replayEvents: eventState.replayEvents,
+                    vectorIndex: transition.vectorIndex,
+                    edge: transition.edge,
+                    regime: plannedRule.plugin.contract.computeMeans ?? "F_D",
+                    traversalStrategySelection: modulatedAttempt?.selection ?? null,
+                    traversalAttemptEnvelope: modulatedAttempt?.envelope ?? null,
+                    abgFallbackBundle: request.abgFallbackBundle ?? null,
+                    edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
+                    constructionPressurePackage:
+                      request.constructionPressurePackage ?? null,
+                    pluginTraversalObserverFallbackEnabled:
+                      request.pluginTraversalObserverFallbackEnabled ?? false,
+                    pluginTraversalObserverFallbackKinds:
+                      request.pluginTraversalObserverFallbackKinds ?? Object.freeze([]),
+                    priorStageProjectionRefs:
+                      stageProjectionRefs(transformStageProjection),
+                    priorStageFoldInputRefs:
+                      stageProjectionFoldInputRefs(transformStageProjection),
+                    stageSetDependencyRefs: stageProjectionFoldInputRefs(
+                      priorEvaluationSetProjection
+                    )
+                  });
+                  return { declaration, plannedRule, ruleInput };
+                }
+              );
               const batchOutcomes = evaluationRuleBatchOutcomesFromEffectResult({
                 result: yield Object.freeze({
                   kind: "evaluation_rule_batch_evaluate",
-                  items: plannedBatch.map(({ plannedRule }) =>
+                  items: plannedBatchWithInputs.map(({ plannedRule, ruleInput }) =>
                     Object.freeze({
                       pluginIndex: plannedRule.pluginIndex,
-                      input: plannedRule.pluginInput
+                      input: ruleInput
                     })
                   )
                 }),
-                pluginIndexes: plannedBatch.map(
+                pluginIndexes: plannedBatchWithInputs.map(
                   ({ plannedRule }) => plannedRule.pluginIndex
                 )
               });
               for (const [
                 index,
-                { declaration, plannedRule }
-              ] of plannedBatch.entries()) {
+                { declaration, ruleInput }
+              ] of plannedBatchWithInputs.entries()) {
                 const ruleOutcome = batchOutcomes[index];
                 if (ruleOutcome === undefined) {
                   throw new TypeError("Evaluation rule batch omitted outcome");
@@ -3133,7 +3374,7 @@ function* runEngineIterateMachine(input: {
                   eventState,
                   evaluationRuleOutcomeCoreEvents({
                     basis: request.basis,
-                    pluginInput: plannedRule.pluginInput,
+                    pluginInput: ruleInput,
                     outcome: ruleOutcome
                   })
                 );
@@ -3192,7 +3433,10 @@ function* runEngineIterateMachine(input: {
               pluginTraversalObserverFallbackEnabled:
                 request.pluginTraversalObserverFallbackEnabled ?? false,
               pluginTraversalObserverFallbackKinds:
-                request.pluginTraversalObserverFallbackKinds ?? Object.freeze([])
+                request.pluginTraversalObserverFallbackKinds ?? Object.freeze([]),
+              priorStageProjectionRefs: stageProjectionRefs(transformStageProjection),
+              priorStageFoldInputRefs:
+                stageProjectionFoldInputRefs(transformStageProjection)
             });
             if (fpEvaluationInput.pluginTraversalObserverBinding !== null) {
               eventState = emitRunnerEvents(eventState,
@@ -3303,6 +3547,7 @@ function* runEngineIterateMachine(input: {
                 rowRefs: assuranceFold.closureDecision.rowIds,
                 sourceProjectionRefs: [
                   fpEvaluationInput.sourceProjectionRef,
+                  transformStageProjection.projectionRef,
                   evaluationSetProjection.projectionRef,
                   assuranceFold.payloadLedger.projectionRef
                 ],
@@ -3370,7 +3615,10 @@ function* runEngineIterateMachine(input: {
               pluginTraversalObserverFallbackEnabled:
                 request.pluginTraversalObserverFallbackEnabled ?? false,
               pluginTraversalObserverFallbackKinds:
-                request.pluginTraversalObserverFallbackKinds ?? Object.freeze([])
+                request.pluginTraversalObserverFallbackKinds ?? Object.freeze([]),
+              priorStageProjectionRefs: stageProjectionRefs(evaluationSetProjection),
+              priorStageFoldInputRefs:
+                stageProjectionFoldInputRefs(evaluationSetProjection)
             });
             if (consequenceInput.pluginTraversalObserverBinding !== null) {
               eventState = emitRunnerEvents(eventState,
@@ -3414,7 +3662,11 @@ function* runEngineIterateMachine(input: {
                   pluginTraversalObserverFallbackEnabled:
                     request.pluginTraversalObserverFallbackEnabled ?? false,
                   pluginTraversalObserverFallbackKinds:
-                    request.pluginTraversalObserverFallbackKinds ?? Object.freeze([])
+                    request.pluginTraversalObserverFallbackKinds ?? Object.freeze([]),
+                  priorStageProjectionRefs:
+                    stageProjectionRefs(evaluationSetProjection),
+                  priorStageFoldInputRefs:
+                    stageProjectionFoldInputRefs(evaluationSetProjection)
                 });
                 return plannedComposedStageTaskForPlugin({
                   stageRole: "consequence",
@@ -3458,25 +3710,65 @@ function* runEngineIterateMachine(input: {
               if (plannedBatch.length === 0) {
                 continue;
               }
+              const batchConsequenceProjection = deriveRuntimeAggregateProjection(
+                request.basis,
+                eventState.replayEvents
+              );
+              const priorConsequenceStageProjection =
+                composedStageProjectionForCurrentOutcomes(
+                  consequenceStagePlan,
+                  consequenceStageOutcomes
+                );
+              const plannedBatchWithInputs = plannedBatch.map(
+                ({ declaration, plannedTask }) => {
+                  const taskInput = constructEnginePluginInput({
+                    contract: plannedTask.plugin.contract,
+                    basis: request.basis,
+                    projection: batchConsequenceProjection,
+                    replayEvents: eventState.replayEvents,
+                    vectorIndex: transition.vectorIndex,
+                    edge: transition.edge,
+                    regime: plannedTask.plugin.contract.computeMeans ?? "F_D",
+                    traversalStrategySelection: modulatedAttempt?.selection ?? null,
+                    traversalAttemptEnvelope: modulatedAttempt?.envelope ?? null,
+                    abgFallbackBundle: request.abgFallbackBundle ?? null,
+                    edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
+                    constructionPressurePackage:
+                      request.constructionPressurePackage ?? null,
+                    pluginTraversalObserverFallbackEnabled:
+                      request.pluginTraversalObserverFallbackEnabled ?? false,
+                    pluginTraversalObserverFallbackKinds:
+                      request.pluginTraversalObserverFallbackKinds ?? Object.freeze([]),
+                    priorStageProjectionRefs:
+                      stageProjectionRefs(evaluationSetProjection),
+                    priorStageFoldInputRefs:
+                      stageProjectionFoldInputRefs(evaluationSetProjection),
+                    stageSetDependencyRefs: stageProjectionFoldInputRefs(
+                      priorConsequenceStageProjection
+                    )
+                  });
+                  return { declaration, plannedTask, taskInput };
+                }
+              );
               const batchOutcomes = composedStageTaskBatchOutcomesFromEffectResult({
                 result: yield Object.freeze({
                   kind: "composed_stage_task_batch_run",
                   stageRole: "consequence",
-                  items: plannedBatch.map(({ plannedTask }) =>
+                  items: plannedBatchWithInputs.map(({ plannedTask, taskInput }) =>
                     Object.freeze({
                       pluginIndex: plannedTask.pluginIndex,
-                      input: plannedTask.pluginInput
+                      input: taskInput
                     })
                   )
                 }),
-                pluginIndexes: plannedBatch.map(
+                pluginIndexes: plannedBatchWithInputs.map(
                   ({ plannedTask }) => plannedTask.pluginIndex
                 )
               });
               for (const [
                 index,
-                { declaration, plannedTask }
-              ] of plannedBatch.entries()) {
+                { declaration, taskInput }
+              ] of plannedBatchWithInputs.entries()) {
                 const taskOutcome = batchOutcomes[index];
                 if (taskOutcome === undefined) {
                   throw new TypeError("Composed stage task batch omitted outcome");
@@ -3490,7 +3782,7 @@ function* runEngineIterateMachine(input: {
                   eventState,
                   composedStageTaskOutcomeCoreEvents({
                     basis: request.basis,
-                    pluginInput: plannedTask.pluginInput,
+                    pluginInput: taskInput,
                     outcome: taskOutcome
                   })
                 );
@@ -3556,7 +3848,6 @@ function* runEngineIterateMachine(input: {
               plan: consequenceStagePlan,
               admission: consequenceStageAdmission
             });
-            void consequenceStageProjection;
             const consequenceStageBlockingReason = composedStageSetBlockingReason({
               admission: consequenceStageAdmission,
               requiredTaskRefs: consequenceStagePlan.requiredTaskRefs
@@ -3593,6 +3884,11 @@ function* runEngineIterateMachine(input: {
                 iterationCount
               });
             }
+            continuationStageProjectionRefs = stageProjectionRefs(
+              consequenceStageProjection
+            );
+            continuationStageFoldInputRefs =
+              stageProjectionFoldInputRefs(consequenceStageProjection);
             iterationCount += 1;
             if (request.basis.startIntent.until === "first_traversal") {
               const applied = terminalTransition(
@@ -3738,7 +4034,9 @@ function* runEngineIterateMachine(input: {
           regime: "F_H",
           edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
           constructionPressurePackage:
-            request.constructionPressurePackage ?? null
+            request.constructionPressurePackage ?? null,
+          priorStageProjectionRefs: continuationStageProjectionRefs,
+          priorStageFoldInputRefs: continuationStageFoldInputRefs
         });
         const outcome = fhAdmissionOutcomeFromEffectResult(
           yield Object.freeze({ kind: "fh_admit", input }),

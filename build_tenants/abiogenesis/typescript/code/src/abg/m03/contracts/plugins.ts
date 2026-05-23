@@ -222,6 +222,9 @@ export interface EnginePluginInput {
   readonly consumedFieldRefs: readonly string[];
   readonly observedStateProjectionRef: string;
   readonly observedStateRefs: readonly string[];
+  readonly priorStageProjectionRefs: readonly string[];
+  readonly priorStageFoldInputRefs: readonly string[];
+  readonly stageSetDependencyRefs: readonly string[];
   readonly constructionPressurePackage: ConstructionPressurePackage | null;
   readonly constructionPressurePackageRef: string | null;
   readonly constructionPressureRefs: readonly string[];
@@ -1135,6 +1138,9 @@ export function constructEnginePluginInput(input: {
     | ConstructionPressurePackage
     | null
     | undefined;
+  readonly priorStageProjectionRefs?: readonly string[] | undefined;
+  readonly priorStageFoldInputRefs?: readonly string[] | undefined;
+  readonly stageSetDependencyRefs?: readonly string[] | undefined;
 }): EnginePluginInput {
   const contract = admitEnginePluginContract(input.contract);
   assertProjectionBasis(input.basis, input.projection, "EnginePluginInput");
@@ -1268,6 +1274,15 @@ export function constructEnginePluginInput(input: {
     observedStateProjectionRef: input.projection.observedState.projectionRef,
     observedStateRefs: freezeStringArray(
       input.projection.observedState.observedStateRefs
+    ),
+    priorStageProjectionRefs: freezeStringArray(
+      input.priorStageProjectionRefs ?? Object.freeze([])
+    ),
+    priorStageFoldInputRefs: freezeStringArray(
+      input.priorStageFoldInputRefs ?? Object.freeze([])
+    ),
+    stageSetDependencyRefs: freezeStringArray(
+      input.stageSetDependencyRefs ?? Object.freeze([])
     ),
     constructionPressurePackage: input.constructionPressurePackage ?? null,
     constructionPressurePackageRef:

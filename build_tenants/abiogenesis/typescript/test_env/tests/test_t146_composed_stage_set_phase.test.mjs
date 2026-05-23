@@ -72,10 +72,11 @@ function firstFdBasis() {
   });
 }
 
-function fdEvaluatorPlugin() {
+function fdEvaluatorPlugin(observe = () => undefined) {
   return Object.freeze({
     contract: pluginContract("fd_evaluator", "plugin://t146/fd", "FdEvaluationOutcome"),
     evaluate(input) {
+      observe(input);
       return constructFdEvaluationOutcome({
         status: "accepted",
         evidenceRefs: [input.sourceProjectionRef]
@@ -134,10 +135,11 @@ function findingForInput(input) {
   });
 }
 
-function fpEvaluatorPlugin() {
+function fpEvaluatorPlugin(observe = () => undefined) {
   return Object.freeze({
     contract: pluginContract("fp_evaluator", "plugin://t146/fp-evaluator", "FpEvaluationOutcome"),
     evaluate(input) {
+      observe(input);
       return constructFpEvaluationOutcome({
         status: "evaluated",
         findings: [findingForInput(input)],
@@ -360,6 +362,44 @@ test("T-146 parallel transform tasks invoke concurrently and admit by task ref",
   );
 });
 
+test("T-146 dependent transform tasks can read admitted predecessor refs", () => {
+  const firstTaskRef = "stage-task://t146/dependent-transform/first";
+  const secondTaskRef = "stage-task://t146/dependent-transform/second";
+  let secondInput = null;
+  const result = runEngineIterate({
+    basis: firstFpBasis(),
+    eventSink: () => undefined,
+    plugins: {
+      fpDispatch: fpDispatchPlugin(),
+      fdEvaluator: fdEvaluatorPlugin(),
+      fpEvaluator: fpEvaluatorPlugin(),
+      transformTasks: [
+        stageTaskPlugin({
+          stageRole: "transform",
+          taskRole: "candidate",
+          taskRef: firstTaskRef
+        }),
+        stageTaskPlugin({
+          stageRole: "transform",
+          taskRole: "candidate",
+          taskRef: secondTaskRef,
+          dependencyRefs: [firstTaskRef],
+          observe: (input) => {
+            secondInput = input;
+          }
+        })
+      ]
+    }
+  });
+
+  assert.equal(result.transition.terminalKind, "converged");
+  assert.notEqual(secondInput, null);
+  assert.equal(
+    secondInput.stageSetDependencyRefs.some((ref) => ref.includes(firstTaskRef)),
+    true
+  );
+});
+
 test("T-146 missing required transform task blocks before F_P dispatch", () => {
   let dispatchCount = 0;
   const result = runEngineIterate({
@@ -378,6 +418,41 @@ test("T-146 missing required transform task blocks before F_P dispatch", () => {
   assert.equal(result.transition.terminalKind, "gap_stop");
   assert.match(result.transition.reason, /missing:stage-task:\/\/t146\/transform\/missing/u);
   assert.equal(dispatchCount, 0);
+});
+
+test("T-146 transform and evaluation projections feed later stage inputs", () => {
+  let fpEvaluationInput = null;
+  let consequenceInput = null;
+  const result = runEngineIterate({
+    basis: firstFpBasis(),
+    eventSink: () => undefined,
+    plugins: {
+      fpDispatch: fpDispatchPlugin(),
+      fdEvaluator: fdEvaluatorPlugin(),
+      fpEvaluator: fpEvaluatorPlugin((input) => {
+        fpEvaluationInput = input;
+      }),
+      consequenceProjection: consequenceProjectionPlugin((input) => {
+        consequenceInput = input;
+      })
+    }
+  });
+
+  assert.equal(result.transition.terminalKind, "converged");
+  assert.notEqual(fpEvaluationInput, null);
+  assert.notEqual(consequenceInput, null);
+  assert.equal(
+    fpEvaluationInput.priorStageProjectionRefs.some((ref) =>
+      ref.startsWith("composed-stage-projection:")
+    ),
+    true
+  );
+  assert.equal(
+    consequenceInput.priorStageProjectionRefs.some((ref) =>
+      ref.startsWith("evaluation-set-projection:")
+    ),
+    true
+  );
 });
 
 test("T-146 consequence.C tasks run before scalar consequence projection", () => {
@@ -409,6 +484,71 @@ test("T-146 consequence.C tasks run before scalar consequence projection", () =>
       true
     );
   }
+});
+
+test("T-146 dependent consequence tasks can read admitted predecessor refs", () => {
+  const firstTaskRef = "stage-task://t146/dependent-consequence/first";
+  const secondTaskRef = "stage-task://t146/dependent-consequence/second";
+  let secondInput = null;
+  const result = runEngineIterate({
+    basis: firstFdBasis(),
+    eventSink: () => undefined,
+    plugins: {
+      fdEvaluator: fdEvaluatorPlugin(),
+      consequenceProjection: consequenceProjectionPlugin(),
+      consequenceTasks: [
+        stageTaskPlugin({
+          stageRole: "consequence",
+          taskRole: "projection",
+          taskRef: firstTaskRef
+        }),
+        stageTaskPlugin({
+          stageRole: "consequence",
+          taskRole: "projection",
+          taskRef: secondTaskRef,
+          dependencyRefs: [firstTaskRef],
+          observe: (input) => {
+            secondInput = input;
+          }
+        })
+      ]
+    }
+  });
+
+  assert.equal(result.transition.terminalKind, "converged");
+  assert.notEqual(secondInput, null);
+  assert.equal(
+    secondInput.stageSetDependencyRefs.some((ref) => ref.includes(firstTaskRef)),
+    true
+  );
+});
+
+test("T-146 consequence projection feeds replay continuation inputs", () => {
+  const fdInputs = [];
+  const result = runEngineIterate({
+    basis: firstFdBasis(),
+    eventSink: () => undefined,
+    plugins: {
+      fdEvaluator: fdEvaluatorPlugin((input) => {
+        fdInputs.push(input);
+      }),
+      consequenceProjection: consequenceProjectionPlugin()
+    }
+  });
+  const vectorOneInput = fdInputs.find((input) => input.vectorIndex === 1);
+
+  assert.equal(result.transition.terminalKind, "converged");
+  assert.notEqual(vectorOneInput, undefined);
+  assert.equal(
+    vectorOneInput.priorStageProjectionRefs.some((ref) =>
+      ref.startsWith("composed-stage-projection:")
+    ),
+    true
+  );
+  assert.equal(
+    vectorOneInput.priorStageFoldInputRefs.includes("consequence://t146/0"),
+    true
+  );
 });
 
 test("T-146 missing required consequence task blocks before projection", () => {

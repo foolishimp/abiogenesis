@@ -130,6 +130,7 @@ function registerRulePlugin(input) {
     ruleRole: "register",
     required: input.required ?? true,
     parallelGroupRef: input.parallelGroupRef ?? null,
+    dependencyRefs: input.dependencyRefs ?? [],
     outputCarrierRefs: ["EvaluationRuleOutcome"],
     evaluate(pluginInput) {
       input.observe?.(pluginInput);
@@ -301,6 +302,38 @@ test("T-145 F_D advance uses evaluation-set register phase before scalar F_D aut
         event.vectorIndex === 0
     ).length,
     2
+  );
+});
+
+test("T-145 dependent evaluation rules can read admitted predecessor refs", () => {
+  const firstRuleRef = "evaluation-rule://t145/dependent-input/first";
+  const secondRuleRef = "evaluation-rule://t145/dependent-input/second";
+  let secondInput = null;
+  const result = runEngineIterate({
+    basis: firstFpBasis(),
+    eventSink: () => undefined,
+    plugins: {
+      fpDispatch: fpDispatchPlugin(),
+      fdEvaluator: fdEvaluatorPlugin(),
+      fpEvaluator: fpEvaluatorPlugin(),
+      evaluationRules: [
+        registerRulePlugin({ ruleRef: firstRuleRef }),
+        registerRulePlugin({
+          ruleRef: secondRuleRef,
+          dependencyRefs: [firstRuleRef],
+          observe: (input) => {
+            secondInput = input;
+          }
+        })
+      ]
+    }
+  });
+
+  assert.equal(result.transition.terminalKind, "converged");
+  assert.notEqual(secondInput, null);
+  assert.equal(
+    secondInput.stageSetDependencyRefs.some((ref) => ref.includes(firstRuleRef)),
+    true
   );
 });
 

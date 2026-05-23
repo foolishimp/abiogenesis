@@ -217,6 +217,10 @@ truth.
   contradictory, rejected, or mismatched.
 - [x] Parallel task execution is replay-stable and independent of wall-clock
   completion order.
+- [x] Ordered dependency batches carry admitted predecessor fold refs into the
+  dependent task input, not only ordering metadata.
+- [x] Collected transform, evaluation, and consequence projections feed the
+  next ABG system/plugin bind instead of being discarded side observations.
 - [x] No plugin task can write ledgers, emit events, select traversal, replay
   continuation, mutate graph call/frame state, or close.
 - [x] Tests prove the scalar reductions and multi-task/parallel forms.
@@ -260,5 +264,38 @@ Verified:
 - `npm run test:t145` passed, 10 tests.
 - `npm run test:t146` passed, 8 tests.
 - `npm run test:semantic` passed, 634 tests.
+- `npm run lint:semantic` passed.
+- `git diff --check` passed.
+
+## Post-Review Re-Entry Evidence
+
+Reopened closure scrutiny found that the first T-146 implementation still used
+stage-set dependencies partly as ordering metadata. Batch inputs could be
+materialized before predecessor outcomes were admitted, and collected stage
+projections were not consistently consumed by the next bind.
+
+The runner now constructs plugin inputs per batch after prior batch outcomes
+are admitted. Dependent transform, evaluation, and consequence tasks receive
+`stageSetDependencyRefs` derived from the collected predecessor projection
+fold input. `EnginePluginInput` also carries `priorStageProjectionRefs` and
+`priorStageFoldInputRefs`, so collected transform projections feed
+`evaluate.C`, evaluation-set projections feed `consequence.C`, and collected
+consequence projections feed replay continuation into the next vector.
+
+Regression proof added:
+
+- T-145: dependent evaluation rules can read admitted predecessor refs.
+- T-146: dependent transform tasks can read admitted predecessor refs.
+- T-146: dependent consequence tasks can read admitted predecessor refs.
+- T-146: transform/evaluation projections feed later stage inputs.
+- T-146: consequence projection feeds replay continuation inputs.
+
+Verified after the post-review fix:
+
+- `npm run build:semantic` passed.
+- `npm run test:t144` passed, 14 tests.
+- `npm run test:t145` passed, 11 tests.
+- `npm run test:t146` passed, 12 tests.
+- `npm run test:semantic` passed, 639 tests.
 - `npm run lint:semantic` passed.
 - `git diff --check` passed.
