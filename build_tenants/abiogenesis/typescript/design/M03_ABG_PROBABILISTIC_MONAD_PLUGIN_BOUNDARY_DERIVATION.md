@@ -18,9 +18,11 @@ ABG.start(fn<A, B>.C)
   .bind(plugin.transform.C)
   .bind(system.admitTransform)
   .bind(system.writeTransformEventsAndLedgers)
-  .bind(plugin.evaluate.C)
-  .bind(system.admitEvaluation)
+  .bind(system.planEvaluationSet)
+  .bind(plugin.evaluate.C.rule[*])
+  .bind(system.admitEvaluationRuleResult[*])
   .bind(system.writeEvaluationLedgers)
+  .bind(system.collectEvaluationSet)
   .bind(system.assuranceFold)
   .bind(plugin.consequence.C)
   .bind(system.admitConsequenceProjection)
@@ -37,6 +39,10 @@ ABG.start(fn<A, B>.C)
 | `EnginePluginContract` | ABG | admitted plugin contract with compute stage role, means, purpose, and denied engine authority flags | none |
 | `EngineComputeStageBinding` | ABG | invocation-time selected composition identity plus stage category and regime binding ref | none |
 | `EnginePluginInput` | ABG | one plugin invocation input carrying composition identity, stage binding, projection, policy, assurance, and traversal context | none |
+| `EvaluationRuleDeclaration` | ABG | one selected evaluation rule with role, compute means, input refs, output refs, requirement status, batch group, and dependency refs | none |
+| `EvaluationSetPlan` | ABG | replay-stable ordered/parallel evaluation rule plan for one vector under selected composition | none |
+| `EvaluationRuleOutcome` | ABG | admitted candidate rule result refs for registers, findings, evidence, residual pressure, continuation, diagnostics, and rejection reason | none |
+| `EvaluationSetAdmission` / `EvaluationSetProjection` | ABG | admitted and rejected rule outcomes, missing required rules, projected register/finding/response/fold input refs | none |
 | `HookActionRecord` / `HookFindingAdmission` | ABG | replay-visible plugin hook output admission chain | none |
 | Payload and evidence events | ABG | admitted runtime facts projected into payload ledgers and assurance | none |
 | Assurance projection and closure fold | ABG | deterministic fold over admitted evidence and policy | ABG only |
@@ -47,9 +53,9 @@ ABG.start(fn<A, B>.C)
 Plugin stages compute values. ABG.system writes facts.
 
 - `plugin.transform.C` may produce candidate/evidence payloads.
-- `plugin.evaluate.C` may produce evaluation findings, gain refs, residual
-  pressure refs, continuation refs, evidence refs, authority refs, diagnostics,
-  and proposed disposition.
+- `plugin.evaluate.C.rule[*]` may produce deterministic registers, evaluation
+  findings, gain refs, residual pressure refs, continuation refs, evidence refs,
+  authority refs, diagnostics, and proposed disposition.
 - `plugin.consequence.C` may produce product read-model projection refs over
   ABG-admitted state.
 - No plugin may write ledgers, emit runtime events, select traversal, own replay,
@@ -59,6 +65,22 @@ Plugin stages compute values. ABG.system writes facts.
 and later admit a response event/carrier. The human-facing work surface is not
 an ABG plugin performing human work inside the runtime.
 
+`evaluate.C` is a phase, not a scalar callback. ABG plans the evaluation set,
+invokes selected rules over read-only admitted state, admits each rule outcome,
+writes evaluation ledger payloads in stable order, and collects one evaluation
+set projection for assurance. The scalar `FpEvaluationOutcome` path is the
+one-rule `F_P` semantic judgment reduction of this phase.
+
+T-146 generalizes this from evaluation to every composed `.C` stage.
+`transform.C`, `evaluate.C`, and `consequence.C` converge through a shared
+stage-set law; scalar plugin hooks are one-task reductions of that law rather
+than privileged alternate execution paths.
+
+Evaluation rule batches may be parallel when every rule is read-only over
+workspace/runtime state and writes only by returning an outcome for ABG
+admission. Replay order is by declared batch order and stable rule ref ordering,
+not by wall-clock completion.
+
 ## Realization Mapping
 
 - `gtl/m02/contracts/compute_notation.ts` exposes
@@ -66,6 +88,8 @@ an ABG plugin performing human work inside the runtime.
 - `abg/m03/contracts/plugins.ts` exposes compute stage category on
   `EnginePluginContract` and `EngineComputeStageBinding` on
   `EnginePluginInput`.
+- `abg/m03/contracts/evaluation_set.ts` exposes evaluation rule declarations,
+  evaluation-set plans, rule outcomes, admissions, and projections.
 - `abg/m03/contracts/plugin_traversal_observer.ts` uses stage names
   `transform`, `evaluate`, and `consequence`.
 - `abg/m03/contracts/hook_actions.ts` uses `evaluate` as the hook action class
@@ -82,6 +106,9 @@ The implementation must reject:
 - `F_H` as an internal transform/evaluate/consequence compute regime;
 - plugin outcomes containing runtime events, ledger writes, transitions, vector
   selection, closure, graph call, frame, or actor authority;
+- evaluation rule outcomes with stale or mismatched selected composition
+  identity or selected regime-binding contribution identity;
+- missing, malformed, rejected, or contradictory required evaluation rules;
 - fallback bundles that omit any stage observer row;
 - hook actions using a legacy ambiguous stage category for admitted evaluation
   findings.
@@ -91,3 +118,8 @@ The implementation must reject:
 `test_t144_abg_probabilistic_monad_plugin_boundary.test.mjs` proves stage
 category typing, selected composition identity, external `F_H` callout semantics,
 and malformed-category failure.
+
+`test_t145_evaluation_set_phase.test.mjs` proves scalar one-rule reduction,
+F_D register rules before F_P semantic judgment, replay-stable parallel rule
+ordering, fail-closed required rules, and rejection of evaluation rule outcomes
+that attempt to own engine authority.

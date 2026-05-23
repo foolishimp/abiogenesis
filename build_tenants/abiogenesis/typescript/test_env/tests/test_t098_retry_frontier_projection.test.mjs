@@ -10,6 +10,7 @@ import {
   assertFullRetryFrontierProjection,
   constructEnginePluginContract,
   constructFpDispatchOutcome,
+  defaultFpEvaluatorPlugin,
   deriveRetryFrontierProjection,
   runEngineIterate
 } from "../../build/semantic/code/src/index.js";
@@ -133,7 +134,7 @@ test("T-098 retry frontier: next F_P input receives full prior failure frontier"
   const result = runEngineIterate({
     basis,
     eventSink: (event) => events.push(event),
-    plugins: { fpDispatch },
+    plugins: { fpDispatch, fpEvaluator: defaultFpEvaluatorPlugin },
     maxAttachedFpAttempts: 3
   });
 

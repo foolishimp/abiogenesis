@@ -93,3 +93,5 @@ not widen the product compute boundary without product reprice.
 **REQ-R-ABG3-ASSURANCE-032**: Edge assurance contracts may contribute gain, residual pressure, continuation, and proposed close disposition only under the selected composition identity. The actual close/retry/reprice/block/defer decision remains the ABG assurance fold over admitted evidence and deterministic closure law.
 
 **REQ-R-ABG3-ASSURANCE-033**: Human-required assurance states shall be represented as external `F_H` callout boundaries. A human-facing system may perform and return the work, but ABG shall only consume an admitted response event or carrier; no external human response directly mutates assurance projection, traversal transition, replay truth, or closure.
+
+**REQ-R-ABG3-ASSURANCE-034**: For composition-governed evaluation, ABG assurance fold shall consume the admitted evaluation-set projection. Raw plugin returns, unadmitted rule outcomes, missing required rule results, and rule outcomes admitted under stale or mismatched composition identity shall not close a traversal boundary.

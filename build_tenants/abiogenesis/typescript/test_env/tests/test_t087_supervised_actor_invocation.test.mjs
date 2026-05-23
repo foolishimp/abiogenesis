@@ -13,6 +13,7 @@ import {
   admitFpDispatchOutcome,
   constructEnginePluginContract,
   constructFpDispatchOutcome,
+  defaultFpEvaluatorPlugin,
   runEngineIterate
 } from "../../build/semantic/code/src/index.js";
 import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
@@ -91,7 +92,7 @@ test("T-087 actor invocation: same-edge retry creates fresh one-to-one actor ide
     eventSink: (event) => {
       events.push(event);
     },
-    plugins: { fpDispatch }
+    plugins: { fpDispatch, fpEvaluator: defaultFpEvaluatorPlugin }
   });
 
   assert.equal(result.transition.kind, "terminal");
@@ -143,7 +144,7 @@ test("T-087 actor invocation: blocked transport with a valid artifact is salvage
     eventSink: (event) => {
       events.push(event);
     },
-    plugins: { fpDispatch }
+    plugins: { fpDispatch, fpEvaluator: defaultFpEvaluatorPlugin }
   });
 
   assert.equal(result.transition.kind, "terminal");

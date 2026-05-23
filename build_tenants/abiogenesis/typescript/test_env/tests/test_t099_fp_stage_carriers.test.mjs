@@ -16,6 +16,7 @@ import {
   constructFpDispatchOutcome,
   constructPayloadObservedEvent,
   constructPayloadValidatedEvent,
+  defaultFpEvaluatorPlugin,
   deriveAdvancementTransition,
   dispatchRequestsForTransition,
   loadGtlTargetCarrierDefaultsBundle,
@@ -132,7 +133,7 @@ test("T-099 F_P input exposes transform request and ABG admits transform evidenc
   const result = runEngineIterate({
     basis,
     eventSink: (event) => events.push(event),
-    plugins: { fpDispatch }
+    plugins: { fpDispatch, fpEvaluator: defaultFpEvaluatorPlugin }
   });
 
   assert.equal(result.transition.kind, "terminal");
@@ -145,11 +146,61 @@ test("T-099 F_P input exposes transform request and ABG admits transform evidenc
   const authority = events.filter(
     (event) => event.kind === "authority_snapshot_admitted"
   );
+  const ambiguity = events.filter(
+    (event) => event.kind === "ambiguity_observation_admitted"
+  );
+  const closureInputs = events.filter(
+    (event) => event.kind === "closure_input_published"
+  );
+  const transformObserved = observed.filter(
+    (event) => event.contractRef === "contract://abg/fp-transform-evidence"
+  );
+  const evaluationObserved = observed.filter(
+    (event) => event.payloadClass === "fp_evaluation_finding"
+  );
+  const evaluationRuleObserved = observed.filter(
+    (event) => event.payloadClass === "evaluation_rule_outcome"
+  );
+  const transformValidated = validated.filter(
+    (event) => event.contractRef === "contract://abg/fp-transform-evidence"
+  );
+  const evaluationValidated = validated.filter(
+    (event) => event.contractRef === "contract://abg/fp-evaluation-finding"
+  );
+  const evaluationRuleValidated = validated.filter(
+    (event) => event.contractRef === "contract://abg/evaluation-rule-outcome"
+  );
+  const transformEvidence = evidence.filter((event) =>
+    /^authority:fp_transform:[a-f0-9]{64}$/.test(event.authorityDigest ?? "")
+  );
+  const evaluationEvidence = evidence.filter((event) =>
+    /^authority:fp_evaluation:sha256:[a-f0-9]{64}$/.test(
+      event.authorityDigest ?? ""
+    )
+  );
+  const transformAuthority = authority.filter((event) =>
+    /^authority:fp_transform:[a-f0-9]{64}$/.test(event.authorityDigest)
+  );
+  const evaluationAuthority = authority.filter((event) =>
+    /^authority:fp_evaluation:sha256:[a-f0-9]{64}$/.test(event.authorityDigest)
+  );
 
-  assert.equal(observed.length, 3);
-  assert.equal(validated.length, 3);
-  assert.equal(evidence.length, 3);
-  assert.equal(authority.length, 3);
+  assert.equal(observed.length, 9);
+  assert.equal(validated.length, 9);
+  assert.equal(evidence.length, 9);
+  assert.equal(authority.length, 6);
+  assert.equal(transformObserved.length, 3);
+  assert.equal(evaluationObserved.length, 3);
+  assert.equal(evaluationRuleObserved.length, 3);
+  assert.equal(transformValidated.length, 3);
+  assert.equal(evaluationValidated.length, 3);
+  assert.equal(evaluationRuleValidated.length, 3);
+  assert.equal(transformEvidence.length, 3);
+  assert.equal(evaluationEvidence.length, 6);
+  assert.equal(transformAuthority.length, 3);
+  assert.equal(evaluationAuthority.length, 3);
+  assert.equal(ambiguity.length, 3);
+  assert.equal(closureInputs.length, 3);
   assert.equal(
     inputs.every((input) =>
       /^fp-transform-request:[a-f0-9]{64}$/.test(
@@ -159,21 +210,21 @@ test("T-099 F_P input exposes transform request and ABG admits transform evidenc
     true
   );
   assert.equal(
-    authority.every((event) =>
+    transformAuthority.every((event) =>
       /^authority:fp_transform:[a-f0-9]{64}$/.test(event.authorityDigest) &&
       /^input:fp_transform:[a-f0-9]{64}$/.test(event.inputDigest)
     ),
     true
   );
   assert.equal(
-    observed.every((event) =>
+    transformObserved.every((event) =>
       /^payload:fp_transform:[a-f0-9]{64}$/.test(event.payloadRef) &&
       /^digest:fp_transform:[a-f0-9]{64}$/.test(event.digest)
     ),
     true
   );
   assert.equal(
-    observed.every(
+    transformObserved.every(
       (event) => event.contractRef === "contract://abg/fp-transform-evidence"
     ),
     true
@@ -243,7 +294,7 @@ test("T-099 negative: request-scoped transform admission rejects mismatched resu
   const result = runEngineIterate({
     basis,
     eventSink: () => {},
-    plugins: { fpDispatch }
+    plugins: { fpDispatch, fpEvaluator: defaultFpEvaluatorPlugin }
   });
 
   assert.equal(result.transition.kind, "terminal");
@@ -315,7 +366,7 @@ test("T-099 negative: blocked attached outcomes enter retry through typed transf
   const result = runEngineIterate({
     basis,
     eventSink: (event) => events.push(event),
-    plugins: { fpDispatch },
+    plugins: { fpDispatch, fpEvaluator: defaultFpEvaluatorPlugin },
     maxAttachedFpAttempts: 2
   });
   const progress = events.filter(
@@ -358,7 +409,7 @@ test("T-099 negative: worker fulfilled self-report cannot override assurance aut
     basis,
     runtimeEvents: targetCarrierFulfillmentEvents(basis),
     eventSink: () => {},
-    plugins: { fpDispatch },
+    plugins: { fpDispatch, fpEvaluator: defaultFpEvaluatorPlugin },
     assuranceProvider: externalAuthorityProvider()
   });
 

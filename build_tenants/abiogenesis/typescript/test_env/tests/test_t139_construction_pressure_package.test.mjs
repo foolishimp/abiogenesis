@@ -29,6 +29,7 @@ import {
   constructOverlayFrameEvaluatedEvent,
   constructOverlayFramePredicateBinding,
   constructOverlayFrameScopeRef,
+  defaultFpEvaluatorPlugin,
   deriveConstructionPressurePackage,
   deriveConstructionPressureProjection,
   deriveConstructionPriorityProjection,
@@ -456,7 +457,8 @@ test("T-139 runner passes pressure package through the F_P plugin boundary", () 
             status: "accepted",
             evidenceRefs: ["proof://t139/fd"]
           })
-      })
+      }),
+      fpEvaluator: defaultFpEvaluatorPlugin
     }
   });
 

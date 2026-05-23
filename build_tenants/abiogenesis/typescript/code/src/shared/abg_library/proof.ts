@@ -181,7 +181,7 @@ function defaultFixtureFnCompositionPolicyHooks(
                         role: "validate",
                         order: 2,
                         authority: "judgment",
-                        outputCarrierRef: "FpEdgeAssuranceEvalFinding"
+                        outputCarrierRef: "FpEvaluationOutcome"
                       }),
                       regimeBindingJson({
                         scopeRef,

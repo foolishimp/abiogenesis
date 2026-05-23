@@ -160,9 +160,11 @@ ABG.start(fn<A, B>.C)
   .bind(plugin.transform.C)
   .bind(system.admitTransform)
   .bind(system.writeTransformEventsAndLedgers)
-  .bind(plugin.evaluate.C)
-  .bind(system.admitEvaluation)
+  .bind(system.planEvaluationSet)
+  .bind(plugin.evaluate.C.rule[*])
+  .bind(system.admitEvaluationRuleResult[*])
   .bind(system.writeEvaluationLedgers)
+  .bind(system.collectEvaluationSet)
   .bind(system.assuranceFold)
   .bind(plugin.consequence.C)
   .bind(system.admitConsequenceProjection)
@@ -174,9 +176,16 @@ ABG is the opinionated probabilistic eventual-consistency monad over selected
 GTL composition. A purely deterministic event-sourced `F_D` run is a lawful
 reduction of that model, not a separate execution surface.
 
+Composed `.C` stages share one stage-set shape. `transform.C`, `evaluate.C`,
+and `consequence.C` may each plan ordered or parallel task sets under selected
+composition. A scalar stage plugin is the one-task reduction of that shape, not
+a second execution surface.
+
 `plugin.transform.C` may produce candidates and evidence. `plugin.evaluate.C`
-may produce findings, including gain, residual pressure, continuation,
-evidence, authority, diagnostic, and proposed disposition refs.
+is an evaluation-set phase over read-only admitted facts. Its rules may
+produce deterministic registers, semantic findings, gain, residual pressure,
+continuation, evidence, authority, diagnostic, and proposed disposition refs.
+The scalar F_P evaluator is only the one-rule reduction of that phase.
 `plugin.consequence.C` may produce product read-model projection refs over
 ABG-admitted state. Plugins do not write ledgers, emit runtime events, select
 traversal, own replay, or close the boundary.

@@ -31,9 +31,14 @@ line, `start(...)` owns the public `start -> iterate` engine path and
 
 The epistemic notation layer is deliberately not new ontology. `C` means the
 selected `abg.fn_composition` identity at an owning GTL boundary.
-`plugin.transform.C`, `plugin.evaluate.C`, and `plugin.consequence.C` compute
-typed values; ABG.system admits those values, writes events and ledgers, folds
-assurance, derives traversal, and replays continuation.
+Composed `.C` stages share one stage-set law; scalar stage plugins are one-task
+reductions.
+`plugin.transform.C` computes candidates and evidence. `plugin.evaluate.C` is
+an evaluation-set phase whose rules compute deterministic registers and
+semantic findings; the scalar F_P evaluator is the one-rule reduction of that
+phase. `plugin.consequence.C` computes projection refs. ABG.system admits those
+values, writes events and ledgers, folds assurance, derives traversal, and
+replays continuation.
 
 Downstream ODD domain builders declare hook refs in GTL and bind executable
 behavior through ABG plugin contracts. Payloads that influence authority,

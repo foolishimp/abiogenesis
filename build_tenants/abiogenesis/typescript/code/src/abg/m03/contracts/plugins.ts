@@ -7,6 +7,8 @@ import type {
   ExecutionBasis,
   FdAuthoritySeverityClass,
   FdPressureRoutingDecision,
+  PayloadAmbiguityStatus,
+  PayloadClosureDecisionKind,
   PluginTraversalKind,
   RuntimeAggregateProjection,
   RuntimeEvent,
@@ -14,7 +16,9 @@ import type {
 } from "./carriers.js";
 import {
   FD_AUTHORITY_SEVERITY_CLASS_VALUES,
-  FD_PRESSURE_ROUTING_DECISION_VALUES
+  FD_PRESSURE_ROUTING_DECISION_VALUES,
+  PAYLOAD_AMBIGUITY_STATUS_VALUES,
+  PAYLOAD_CLOSURE_DECISION_KIND_VALUES
 } from "./carriers.js";
 import type { FpTransformRequest } from "./fp_stages.js";
 import { constructFpTransformRequest } from "./fp_stages.js";
@@ -37,6 +41,10 @@ import type { ConstructionPressurePackage } from "./construction_pressure_packag
 import { resolveEdgeAssuranceContract } from "./edge_assurance_contract.js";
 import type { RetryFrontierProjection } from "./retry_frontier.js";
 import { deriveRetryFrontierProjection } from "./retry_frontier.js";
+import type {
+  EvaluationRuleOutcome,
+  EvaluationRuleRole
+} from "./evaluation_set.js";
 import {
   resolveAbgFnCompositionSelection,
   selectedAbgFnRegimeBindingForCompute
@@ -58,10 +66,12 @@ import {
   graphCallIdForBasis
 } from "./runtime_support.js";
 import { sourceProjectionRef } from "./projection.js";
+import { stableSha256Digest } from "../../../shared/runtime_identity.js";
 
 export const ENGINE_PLUGIN_KIND_VALUES = Object.freeze([
   "runtime_event_sink",
   "fd_evaluator",
+  "fp_evaluator",
   "fp_dispatch",
   "fh_admission",
   "consequence_projection",
@@ -240,6 +250,37 @@ export interface FdEvaluationOutcome extends EnginePluginOutcomeBase {
   readonly diagnosticRefs: readonly string[];
 }
 
+export type FpEvaluationCloseDisposition =
+  | PayloadClosureDecisionKind
+  | "no_close"
+  | "human_required";
+
+export interface FpEvaluationFinding {
+  readonly kind: "fp_evaluation_finding";
+  readonly findingRef: string;
+  readonly evaluatorRef: string;
+  readonly hookActionRef: string | null;
+  readonly gainReportRef: string | null;
+  readonly metricRefs: readonly string[];
+  readonly closeDisposition: FpEvaluationCloseDisposition;
+  readonly residualPressureRefs: readonly string[];
+  readonly continuationRefs: readonly string[];
+  readonly evidenceRefs: readonly string[];
+  readonly authorityRefs: readonly string[];
+  readonly compositionContributionRef: string;
+  readonly compositionRef: string;
+  readonly compositionDigest: string;
+  readonly diagnosticRefs: readonly string[];
+}
+
+export interface FpEvaluationOutcome extends EnginePluginOutcomeBase {
+  readonly kind: "fp_evaluation";
+  readonly status: "evaluated" | "blocked";
+  readonly findings: readonly FpEvaluationFinding[];
+  readonly ambiguityStatus: PayloadAmbiguityStatus;
+  readonly diagnosticRefs: readonly string[];
+}
+
 export interface FpDispatchOutcome extends EnginePluginOutcomeBase {
   readonly kind: "fp_dispatch";
   readonly status: "dispatched" | "blocked";
@@ -261,6 +302,7 @@ export interface ConsequenceProjectionOutcome extends EnginePluginOutcomeBase {
 
 export type EnginePluginOutcome =
   | FdEvaluationOutcome
+  | FpEvaluationOutcome
   | FpDispatchOutcome
   | FhAdmissionOutcome
   | ConsequenceProjectionOutcome;
@@ -272,6 +314,13 @@ export interface FdEvaluatorPlugin {
   readonly evaluate: (
     input: EnginePluginInput
   ) => EnginePluginMaybePromise<FdEvaluationOutcome>;
+}
+
+export interface FpEvaluatorPlugin {
+  readonly contract: EnginePluginContract;
+  readonly evaluate: (
+    input: EnginePluginInput
+  ) => EnginePluginMaybePromise<FpEvaluationOutcome>;
 }
 
 export interface FpDispatchPlugin {
@@ -296,11 +345,28 @@ export interface ConsequenceProjectionPlugin {
   ) => EnginePluginMaybePromise<ConsequenceProjectionOutcome>;
 }
 
+export interface EvaluationRulePlugin {
+  readonly contract: EnginePluginContract;
+  readonly ruleRef: string;
+  readonly ruleRole?: EvaluationRuleRole | undefined;
+  readonly required?: boolean | undefined;
+  readonly parallelGroupRef?: string | null | undefined;
+  readonly dependencyRefs?: readonly string[] | undefined;
+  readonly inputLedgerRefs?: readonly string[] | undefined;
+  readonly outputCarrierRefs?: readonly string[] | undefined;
+  readonly evaluate: (
+    input: EnginePluginInput
+  ) => EnginePluginMaybePromise<EvaluationRuleOutcome>;
+}
+
 export interface EngineRunnerPluginSet {
   readonly fdEvaluator?: FdEvaluatorPlugin;
+  readonly fpEvaluator?: FpEvaluatorPlugin;
   readonly fpDispatch?: FpDispatchPlugin;
   readonly fhAdmission?: FhAdmissionPlugin;
   readonly consequenceProjection?: ConsequenceProjectionPlugin;
+  readonly evaluationRules?: readonly EvaluationRulePlugin[] | undefined;
+  readonly requiredEvaluationRuleRefs?: readonly string[] | undefined;
 }
 
 interface EnginePluginContractInput {
@@ -338,6 +404,7 @@ function assertPluginKind(kind: string, label: string): EnginePluginKind {
   switch (kind) {
     case "runtime_event_sink":
     case "fd_evaluator":
+    case "fp_evaluator":
     case "fp_dispatch":
     case "fh_admission":
     case "consequence_projection":
@@ -533,6 +600,44 @@ function assertFdPressureRoutingDecision(
   );
 }
 
+function assertPayloadAmbiguityStatus(
+  input: string,
+  label: string
+): PayloadAmbiguityStatus {
+  for (const ambiguityStatus of PAYLOAD_AMBIGUITY_STATUS_VALUES) {
+    if (input === ambiguityStatus) {
+      return ambiguityStatus;
+    }
+  }
+  throw new TypeError(
+    `${label}: expected payload ambiguity status, got ${JSON.stringify(input)}`
+  );
+}
+
+function assertPayloadClosureDecisionKind(
+  input: string,
+  label: string
+): PayloadClosureDecisionKind {
+  for (const decision of PAYLOAD_CLOSURE_DECISION_KIND_VALUES) {
+    if (input === decision) {
+      return decision;
+    }
+  }
+  throw new TypeError(
+    `${label}: expected payload closure decision, got ${JSON.stringify(input)}`
+  );
+}
+
+function assertFpEvaluationCloseDisposition(
+  input: string,
+  label: string
+): FpEvaluationCloseDisposition {
+  if (input === "no_close" || input === "human_required") {
+    return input;
+  }
+  return assertPayloadClosureDecisionKind(input, label);
+}
+
 function fieldRefsIntersect(
   left: readonly string[],
   right: readonly string[]
@@ -607,6 +712,13 @@ function defaultComputeStageForPluginKind(
       return Object.freeze({
         computeStageRole: "evaluate",
         computeMeans: "F_D",
+        computeStagePurpose: "candidate_evaluation",
+        humanBoundary: null
+      });
+    case "fp_evaluator":
+      return Object.freeze({
+        computeStageRole: "evaluate",
+        computeMeans: "F_P",
         computeStagePurpose: "candidate_evaluation",
         humanBoundary: null
       });
@@ -1079,7 +1191,9 @@ export function constructEnginePluginInput(input: {
         })
       : null;
   const fpTransformRequest =
-    input.regime === "F_P" && normalizedActorInvocationRef !== null
+    input.regime === "F_P" &&
+    contract.computeStageRole === "transform" &&
+    normalizedActorInvocationRef !== null
       ? constructFpTransformRequest({
           basis: input.basis,
           projection: input.projection,
@@ -1206,6 +1320,114 @@ export function constructFdEvaluationOutcome(input: {
     diagnosticRefs,
     evidenceRefs: freezeStringArray(input.evidenceRefs ?? Object.freeze([])),
     reason: normalizeReason(input.reason, "FdEvaluationOutcome.reason")
+  });
+}
+
+export function constructFpEvaluationFinding(input: {
+  readonly findingRef: string;
+  readonly evaluatorRef: string;
+  readonly hookActionRef?: string | null | undefined;
+  readonly gainReportRef?: string | null | undefined;
+  readonly metricRefs?: readonly string[] | undefined;
+  readonly closeDisposition: FpEvaluationCloseDisposition;
+  readonly residualPressureRefs?: readonly string[] | undefined;
+  readonly continuationRefs?: readonly string[] | undefined;
+  readonly evidenceRefs: readonly string[];
+  readonly authorityRefs: readonly string[];
+  readonly compositionContributionRef: string;
+  readonly compositionRef: string;
+  readonly compositionDigest: string;
+  readonly diagnosticRefs?: readonly string[] | undefined;
+}): FpEvaluationFinding {
+  const evidenceRefs = freezeStringArray(input.evidenceRefs);
+  const authorityRefs = freezeStringArray(input.authorityRefs);
+  if (evidenceRefs.length === 0) {
+    throw new TypeError("FpEvaluationFinding.evidenceRefs must not be empty");
+  }
+  if (authorityRefs.length === 0) {
+    throw new TypeError("FpEvaluationFinding.authorityRefs must not be empty");
+  }
+  return Object.freeze({
+    kind: "fp_evaluation_finding",
+    findingRef: parseNonEmptyString(
+      input.findingRef,
+      "FpEvaluationFinding.findingRef"
+    ),
+    evaluatorRef: parseNonEmptyString(
+      input.evaluatorRef,
+      "FpEvaluationFinding.evaluatorRef"
+    ),
+    hookActionRef: normalizeReason(
+      input.hookActionRef,
+      "FpEvaluationFinding.hookActionRef"
+    ),
+    gainReportRef: normalizeReason(
+      input.gainReportRef,
+      "FpEvaluationFinding.gainReportRef"
+    ),
+    metricRefs: freezeStringArray(input.metricRefs ?? Object.freeze([])),
+    closeDisposition: assertFpEvaluationCloseDisposition(
+      input.closeDisposition,
+      "FpEvaluationFinding.closeDisposition"
+    ),
+    residualPressureRefs: freezeStringArray(
+      input.residualPressureRefs ?? Object.freeze([])
+    ),
+    continuationRefs: freezeStringArray(
+      input.continuationRefs ?? Object.freeze([])
+    ),
+    evidenceRefs,
+    authorityRefs,
+    compositionContributionRef: parseNonEmptyString(
+      input.compositionContributionRef,
+      "FpEvaluationFinding.compositionContributionRef"
+    ),
+    compositionRef: parseNonEmptyString(
+      input.compositionRef,
+      "FpEvaluationFinding.compositionRef"
+    ),
+    compositionDigest: parseNonEmptyString(
+      input.compositionDigest,
+      "FpEvaluationFinding.compositionDigest"
+    ),
+    diagnosticRefs: freezeStringArray(input.diagnosticRefs ?? Object.freeze([]))
+  });
+}
+
+export function constructFpEvaluationOutcome(input: {
+  readonly status: FpEvaluationOutcome["status"];
+  readonly findings?: readonly FpEvaluationFinding[] | undefined;
+  readonly ambiguityStatus?: PayloadAmbiguityStatus | undefined;
+  readonly diagnosticRefs?: readonly string[] | undefined;
+  readonly evidenceRefs?: readonly string[];
+  readonly reason?: string | null;
+}): FpEvaluationOutcome {
+  if (input.status !== "evaluated" && input.status !== "blocked") {
+    throw new TypeError(
+      `FpEvaluationOutcome.status: expected evaluated or blocked, got ${JSON.stringify(input.status)}`
+    );
+  }
+  const findings = Object.freeze([...(input.findings ?? Object.freeze([]))]);
+  if (input.status === "evaluated" && findings.length === 0) {
+    throw new TypeError("FpEvaluationOutcome evaluated status requires findings");
+  }
+  const ambiguityStatus =
+    input.ambiguityStatus === undefined
+      ? input.status === "evaluated"
+        ? "fulfilled"
+        : "partial"
+      : assertPayloadAmbiguityStatus(
+          input.ambiguityStatus,
+          "FpEvaluationOutcome.ambiguityStatus"
+        );
+  return Object.freeze({
+    kind: "fp_evaluation",
+    status: input.status,
+    findings,
+    ambiguityStatus,
+    diagnosticRefs: freezeStringArray(input.diagnosticRefs ?? Object.freeze([])),
+    evidenceRefs: freezeStringArray(input.evidenceRefs ?? Object.freeze([])),
+    reason: normalizeReason(input.reason, "FpEvaluationOutcome.reason")
   });
 }
 
@@ -1338,6 +1560,123 @@ export function admitFdEvaluationOutcome(
   return admitted;
 }
 
+function admitFpEvaluationFinding(
+  input: unknown,
+  label = "FpEvaluationFinding"
+): FpEvaluationFinding {
+  const finding = parsePlainObject(input, label);
+  rejectForbiddenOutcomeAuthorityFields(finding, label);
+  const kind = parseString(finding["kind"], `${label}.kind`);
+  if (kind !== "fp_evaluation_finding") {
+    throw new TypeError(
+      `${label}.kind: expected "fp_evaluation_finding", got ${JSON.stringify(kind)}`
+    );
+  }
+  const hookActionRef = parseOptionalField(finding, "hookActionRef");
+  const gainReportRef = parseOptionalField(finding, "gainReportRef");
+  return constructFpEvaluationFinding({
+    findingRef: parseNonEmptyString(finding["findingRef"], `${label}.findingRef`),
+    evaluatorRef: parseNonEmptyString(
+      finding["evaluatorRef"],
+      `${label}.evaluatorRef`
+    ),
+    hookActionRef:
+      hookActionRef === undefined || hookActionRef === null
+        ? null
+        : parseNonEmptyString(hookActionRef, `${label}.hookActionRef`),
+    gainReportRef:
+      gainReportRef === undefined || gainReportRef === null
+        ? null
+        : parseNonEmptyString(gainReportRef, `${label}.gainReportRef`),
+    metricRefs: parseStringArray(
+      parseOptionalField(finding, "metricRefs") ?? [],
+      `${label}.metricRefs`
+    ),
+    closeDisposition: assertFpEvaluationCloseDisposition(
+      parseString(finding["closeDisposition"], `${label}.closeDisposition`),
+      `${label}.closeDisposition`
+    ),
+    residualPressureRefs: parseStringArray(
+      parseOptionalField(finding, "residualPressureRefs") ?? [],
+      `${label}.residualPressureRefs`
+    ),
+    continuationRefs: parseStringArray(
+      parseOptionalField(finding, "continuationRefs") ?? [],
+      `${label}.continuationRefs`
+    ),
+    evidenceRefs: parseStringArray(
+      finding["evidenceRefs"],
+      `${label}.evidenceRefs`
+    ),
+    authorityRefs: parseStringArray(
+      finding["authorityRefs"],
+      `${label}.authorityRefs`
+    ),
+    compositionContributionRef: parseNonEmptyString(
+      finding["compositionContributionRef"],
+      `${label}.compositionContributionRef`
+    ),
+    compositionRef: parseNonEmptyString(
+      finding["compositionRef"],
+      `${label}.compositionRef`
+    ),
+    compositionDigest: parseNonEmptyString(
+      finding["compositionDigest"],
+      `${label}.compositionDigest`
+    ),
+    diagnosticRefs: parseStringArray(
+      parseOptionalField(finding, "diagnosticRefs") ?? [],
+      `${label}.diagnosticRefs`
+    )
+  });
+}
+
+export function admitFpEvaluationOutcome(
+  input: unknown,
+  label = "FpEvaluationOutcome"
+): FpEvaluationOutcome {
+  const outcomeObject = parsePlainObject(input, label);
+  rejectForbiddenOutcomeAuthorityFields(outcomeObject, label);
+  const kind = parseString(outcomeObject["kind"], `${label}.kind`);
+  if (kind !== "fp_evaluation") {
+    throw new TypeError(
+      `${label}.kind: expected "fp_evaluation", got ${JSON.stringify(kind)}`
+    );
+  }
+  const status = parseString(outcomeObject["status"], `${label}.status`);
+  if (status !== "evaluated" && status !== "blocked") {
+    throw new TypeError(
+      `${label}.status: expected evaluated or blocked, got ${JSON.stringify(status)}`
+    );
+  }
+  const findingsRaw = parseOptionalField(outcomeObject, "findings") ?? [];
+  if (!Array.isArray(findingsRaw)) {
+    throw new TypeError(`${label}.findings: expected list`);
+  }
+  const ambiguityStatusRaw = parseOptionalField(outcomeObject, "ambiguityStatus");
+  return constructFpEvaluationOutcome({
+    status,
+    findings: Object.freeze(
+      findingsRaw.map((finding, index) =>
+        admitFpEvaluationFinding(finding, `${label}.findings[${index}]`)
+      )
+    ),
+    ambiguityStatus:
+      ambiguityStatusRaw === undefined
+        ? undefined
+        : assertPayloadAmbiguityStatus(
+            parseString(ambiguityStatusRaw, `${label}.ambiguityStatus`),
+            `${label}.ambiguityStatus`
+          ),
+    diagnosticRefs: parseStringArray(
+      parseOptionalField(outcomeObject, "diagnosticRefs") ?? [],
+      `${label}.diagnosticRefs`
+    ),
+    evidenceRefs: parseOptionalEvidenceRefs(outcomeObject, label),
+    reason: parseOptionalReason(outcomeObject, label)
+  });
+}
+
 export function admitFpDispatchOutcome(
   input: unknown,
   label = "FpDispatchOutcome"
@@ -1455,6 +1794,14 @@ const fdEvaluatorContract = constructEnginePluginContract({
   outputCarrier: "FdEvaluationOutcome"
 });
 
+const fpEvaluatorContract = constructEnginePluginContract({
+  ref: "plugin://abg/fp-evaluator",
+  pluginKind: "fp_evaluator",
+  authority: "effect_plugin",
+  inputCarrier: "EnginePluginInput",
+  outputCarrier: "FpEvaluationOutcome"
+});
+
 const fpDispatchContract = constructEnginePluginContract({
   ref: "plugin://abg/fp-dispatch",
   pluginKind: "fp_dispatch",
@@ -1494,6 +1841,14 @@ const inventoryInputs = Object.freeze([
     pluginOwnedScope: "Run deterministic checks and return accepted or blocked.",
     positiveProof: "test_m03_engine_owned_iterate_runner_unit.fd_evaluator.positive",
     negativeProof: "t072-m03-plugin-contract-negative.fd_evaluator.authority",
+    distinctAuthorityReason: null
+  },
+  {
+    contract: fpEvaluatorContract,
+    engineOwnedLaw: "ABG selects evaluate.C/F_P, admits findings, writes evaluation ledgers, folds assurance, and preserves traversal authority.",
+    pluginOwnedScope: "Produce probabilistic evaluation findings over admitted transform output and current ledgers.",
+    positiveProof: "test_t144_abg_probabilistic_monad_plugin_boundary.fp_evaluator.positive",
+    negativeProof: "test_t144_abg_probabilistic_monad_plugin_boundary.fp_evaluator.authority",
     distinctAuthorityReason: null
   },
   {
@@ -1726,6 +2081,7 @@ function runtimeBindingStatusFor(
   switch (pluginKind) {
     case "runtime_event_sink":
     case "fd_evaluator":
+    case "fp_evaluator":
     case "fp_dispatch":
     case "fh_admission":
     case "consequence_projection":
@@ -1807,6 +2163,52 @@ export const defaultFdEvaluatorPlugin: FdEvaluatorPlugin = Object.freeze({
     constructFdEvaluationOutcome({
       status: "accepted",
       evidenceRefs: [input.sourceProjectionRef]
+    })
+});
+
+export const defaultFpEvaluatorPlugin: FpEvaluatorPlugin = Object.freeze({
+  contract: fpEvaluatorContract,
+  evaluate: (input: EnginePluginInput): FpEvaluationOutcome =>
+    constructFpEvaluationOutcome({
+      status: "evaluated",
+      findings: [
+        constructFpEvaluationFinding({
+          findingRef: `finding:fp_evaluation:${stableSha256Digest({
+            basisId: input.basisId,
+            vectorIndex: input.vectorIndex,
+            edge: input.edge,
+            sourceProjectionRef: input.sourceProjectionRef
+          })}`,
+          evaluatorRef: input.contract.ref,
+          gainReportRef: `gain:fp_evaluation:${input.basisId}:${input.vectorIndex}`,
+          metricRefs: [`metric:fp_evaluation:${input.basisId}:${input.vectorIndex}`],
+          closeDisposition: "close",
+          evidenceRefs: [input.sourceProjectionRef],
+          authorityRefs: Object.freeze([
+            ...new Set([
+              ...input.expectedAssessmentIds,
+              `authority:fp_evaluation:${input.basisId}:${input.vectorIndex}`
+            ])
+          ]),
+          compositionContributionRef:
+            input.selectedRegimeBindingRef ?? input.selectedCompositionRef,
+          compositionRef: input.selectedCompositionRef,
+          compositionDigest: input.selectedCompositionDigest
+        })
+      ],
+      evidenceRefs: [input.sourceProjectionRef]
+    })
+});
+
+export const missingFpEvaluatorPlugin: FpEvaluatorPlugin = Object.freeze({
+  contract: fpEvaluatorContract,
+  evaluate: (input: EnginePluginInput): FpEvaluationOutcome =>
+    constructFpEvaluationOutcome({
+      status: "blocked",
+      reason: [
+        "missing fp_evaluator plugin for selected evaluate.C/F_P",
+        input.selectedRegimeBindingRef ?? input.selectedCompositionRef
+      ].join(": ")
     })
 });
 

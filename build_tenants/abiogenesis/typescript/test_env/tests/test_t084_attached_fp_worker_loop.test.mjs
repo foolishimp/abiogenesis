@@ -11,6 +11,7 @@ import {
   admitFpDispatchOutcome,
   constructEnginePluginContract,
   constructFpDispatchOutcome,
+  defaultFpEvaluatorPlugin,
   runEngineIterate,
   start
 } from "../../build/semantic/code/src/index.js";
@@ -103,7 +104,7 @@ test("T-084 engine runner: attached F_P worker retries from replay state, then c
     eventSink: (event) => {
       events.push(event);
     },
-    plugins: { fpDispatch }
+    plugins: { fpDispatch, fpEvaluator: defaultFpEvaluatorPlugin }
   });
 
   assert.equal(result.transition.kind, "terminal");
@@ -134,6 +135,23 @@ test("T-084 engine runner: attached F_P worker retries from replay state, then c
       sourceProjectionRef: `runtime_projection:${basis.id}:closed=:retry=0:leaf=0`
     }
   ]);
+  const successfulFpClosureEvents = [
+    "authority_snapshot_admitted",
+    "payload_observed",
+    "payload_validated",
+    "evidence_admitted",
+    "payload_observed",
+    "payload_validated",
+    "authority_snapshot_admitted",
+    "payload_observed",
+    "payload_validated",
+    "evidence_admitted",
+    "evidence_admitted",
+    "ambiguity_observation_admitted",
+    "closure_input_published",
+    "vector_evaluated",
+    "vector_closed"
+  ];
   assert.deepStrictEqual(
     events.map((event) => event.kind),
     [
@@ -158,12 +176,7 @@ test("T-084 engine runner: attached F_P worker retries from replay state, then c
       "actor_invocation_started",
       "actor_result_artifact_observed",
       "actor_invocation_closed",
-      "vector_evaluated",
-      "authority_snapshot_admitted",
-      "payload_observed",
-      "payload_validated",
-      "evidence_admitted",
-      "vector_closed",
+      ...successfulFpClosureEvents,
       "graph_call_opened",
       "frame_opened",
       "vector_traversal_planned",
@@ -171,12 +184,7 @@ test("T-084 engine runner: attached F_P worker retries from replay state, then c
       "actor_invocation_started",
       "actor_result_artifact_observed",
       "actor_invocation_closed",
-      "vector_evaluated",
-      "authority_snapshot_admitted",
-      "payload_observed",
-      "payload_validated",
-      "evidence_admitted",
-      "vector_closed",
+      ...successfulFpClosureEvents,
       "graph_call_opened",
       "frame_opened",
       "vector_traversal_planned",
@@ -184,12 +192,7 @@ test("T-084 engine runner: attached F_P worker retries from replay state, then c
       "actor_invocation_started",
       "actor_result_artifact_observed",
       "actor_invocation_closed",
-      "vector_evaluated",
-      "authority_snapshot_admitted",
-      "payload_observed",
-      "payload_validated",
-      "evidence_admitted",
-      "vector_closed",
+      ...successfulFpClosureEvents,
       "terminal_reached"
     ]
   );
@@ -218,7 +221,7 @@ test("T-084 public start: attached F_P graph converges without caller-owned loop
     (event) => {
       events.push(event);
     },
-    { fpDispatch }
+    { fpDispatch, fpEvaluator: defaultFpEvaluatorPlugin }
   );
 
   assert.equal(outcome.kind, "converged");

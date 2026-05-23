@@ -21,6 +21,7 @@ import {
   constructActorResultArtifactObservedEvent,
   constructFpDispatchOutcome,
   constructFrameOpenedEvent,
+  defaultFpEvaluatorPlugin,
   constructGraphCallOpenedEvent,
   constructRetryRepairPlannedEvent,
   constructVectorTraversalPlannedEvent,
@@ -707,7 +708,7 @@ test("T-106 runner path consumes silent process truth and retries same edge", ()
     eventSink: (event) => {
       events.push(event);
     },
-    plugins: { fpDispatch }
+    plugins: { fpDispatch, fpEvaluator: defaultFpEvaluatorPlugin }
   });
 
   assert.equal(result.transition.kind, "terminal");

@@ -88,7 +88,7 @@ function fnCompositionDeclarations() {
       order: 2,
       authority: "judgment",
       inputCarrierRefs: ["EnginePluginInput"],
-      outputCarrierRefs: ["FpEdgeAssuranceEvalFinding"],
+      outputCarrierRefs: ["FpEvaluationOutcome"],
       evidenceRefs: ["evidence://m03-iteration/fp-evaluate"]
     },
     {

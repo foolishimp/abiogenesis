@@ -379,9 +379,11 @@ ABG.start(fn<A, B>.C)
   .bind(plugin.transform.C)
   .bind(system.admitTransform)
   .bind(system.writeTransformEventsAndLedgers)
-  .bind(plugin.evaluate.C)
-  .bind(system.admitEvaluation)
+  .bind(system.planEvaluationSet)
+  .bind(plugin.evaluate.C.rule[*])
+  .bind(system.admitEvaluationRuleResult[*])
   .bind(system.writeEvaluationLedgers)
+  .bind(system.collectEvaluationSet)
   .bind(system.assuranceFold)
   .bind(plugin.consequence.C)
   .bind(system.admitConsequenceProjection)
@@ -393,9 +395,15 @@ ABG is the opinionated probabilistic eventual-consistency monad over selected
 composition. A fully deterministic `F_D` graph is the same event-sourced model
 reduced to deterministic compute.
 
+Composed `.C` stages share one stage-set law. Scalar stage plugins are one-task
+reductions of `transform.C`, `evaluate.C`, or `consequence.C`, not separate
+execution authorities.
+
 `plugin.transform.C` produces candidates and evidence under the selected
-composition. `plugin.evaluate.C` produces findings under the selected
-composition. `plugin.consequence.C` produces product projection refs over
+composition. `plugin.evaluate.C` is an evaluation-set phase: rules may produce
+deterministic registers and F_P semantic findings under the selected
+composition, and the scalar F_P evaluator is only the one-rule reduction of
+that phase. `plugin.consequence.C` produces product projection refs over
 ABG-admitted state. Plugins do not directly close, write ledgers, emit events,
 select traversal, own replay, or transition the runtime.
 
@@ -1965,8 +1973,10 @@ GTL temporal constraint
   -> ABG decides eligibility and continuation
 ```
 
-Two-stage evaluation. `plugin.evaluate.C` proposes evaluation findings and the
-ABG assurance fold decides traversal completeness over an edge.
+Evaluation-set assurance. `plugin.evaluate.C` runs evaluation rules over
+admitted transform truth and read-only ledgers. ABG admits those rule outcomes,
+collects the evaluation-set projection, and the ABG assurance fold decides
+traversal completeness over an edge.
 Schedule/SLA drift, missed windows, recurrence debt, and deadline pressure
 feed a separate homeostatic evaluation surface (`TemporalDriftObservation`
 in F_H regime). A graph function can be locally complete and still create

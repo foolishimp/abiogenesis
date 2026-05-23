@@ -15,6 +15,7 @@ import {
   constructEnginePluginContract,
   constructFpDispatchOutcome,
   constructFdEvaluationOutcome,
+  defaultFpEvaluatorPlugin,
   constructObservationPressureRow,
   deriveConstructionPriorityProjection,
   deriveObservationToActionBindingProjection,
@@ -321,7 +322,8 @@ test("T-128 construction runner consumes admitted intent and closes mixed F_P/F_
             evidenceRefs: [input.sourceProjectionRef]
           });
         }
-      })
+      }),
+      fpEvaluator: defaultFpEvaluatorPlugin
     }
   });
 
@@ -378,15 +380,26 @@ test("T-128 construction runner consumes admitted intent and closes mixed F_P/F_
       "actor_invocation_started",
       "actor_result_artifact_observed",
       "actor_invocation_closed",
-      "vector_evaluated",
       "authority_snapshot_admitted",
       "payload_observed",
       "payload_validated",
       "evidence_admitted",
+      "payload_observed",
+      "payload_validated",
+      "authority_snapshot_admitted",
+      "payload_observed",
+      "payload_validated",
+      "evidence_admitted",
+      "evidence_admitted",
+      "ambiguity_observation_admitted",
+      "closure_input_published",
+      "vector_evaluated",
       "vector_closed",
       "graph_call_opened",
       "frame_opened",
       "vector_traversal_planned",
+      "payload_observed",
+      "payload_validated",
       "fd_authority_outcome_admitted",
       "vector_evaluated",
       "vector_closed",
@@ -394,6 +407,8 @@ test("T-128 construction runner consumes admitted intent and closes mixed F_P/F_
       "graph_call_opened",
       "frame_opened",
       "vector_traversal_planned",
+      "payload_observed",
+      "payload_validated",
       "fd_authority_outcome_admitted",
       "vector_evaluated",
       "vector_closed",

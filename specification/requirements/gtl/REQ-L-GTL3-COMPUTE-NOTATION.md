@@ -99,7 +99,7 @@ contract identity for the owning boundary.
 
 **REQ-L-GTL3-COMPUTE-NOTATION-005**: `transform.C` shall denote candidate and evidence production under the selected composition. It shall not emit runtime events, write ledgers, select traversal, or close a boundary.
 
-**REQ-L-GTL3-COMPUTE-NOTATION-006**: `evaluate.C` shall denote evaluation finding production under the selected composition. Findings may carry gain, metrics, close disposition proposal, residual pressure, continuation refs, evidence refs, authority refs, and diagnostics, but they shall not directly close, write, select, transition, or emit runtime truth.
+**REQ-L-GTL3-COMPUTE-NOTATION-006**: `evaluate.C` shall denote an evaluation-set phase under the selected composition. Evaluation rules may produce deterministic registers, semantic findings, gain, metrics, close disposition proposals, residual pressure, continuation refs, evidence refs, authority refs, and diagnostics, but they shall not directly close, write, select, transition, or emit runtime truth.
 
 **REQ-L-GTL3-COMPUTE-NOTATION-007**: ABG admission shall be the epistemic boundary where candidate/evaluation payloads become runtime facts. Before ABG admission, plugin and evaluator returns are proposed evidence, not event truth, ledger truth, projection truth, traversal truth, or closure truth.
 
@@ -119,10 +119,20 @@ contract identity for the owning boundary.
 
 **REQ-L-GTL3-COMPUTE-NOTATION-015**: GTL compute notation shall expose compute plugin categories for `transform.C`, `evaluate.C`, and `consequence.C`. Each category shall preserve selected composition ref, digest, selection ref, regime binding ref when present, input carrier refs, output carrier refs, evidence refs, and non-authority flags proving the plugin cannot write ledgers, emit runtime events, select traversal, or close the boundary.
 
-**REQ-L-GTL3-COMPUTE-NOTATION-016**: `plugin.transform.C` shall denote candidate/evidence computation, `plugin.evaluate.C` shall denote evaluation finding computation, and `plugin.consequence.C` shall denote consequence/read-model projection computation. These category names shall be used on public runtime observer and hook/action surfaces instead of the ambiguous `eval` stage name.
+**REQ-L-GTL3-COMPUTE-NOTATION-016**: `plugin.transform.C` shall denote candidate/evidence computation, `plugin.evaluate.C` shall denote evaluation-rule computation inside the evaluation-set phase, and `plugin.consequence.C` shall denote consequence/read-model projection computation. These category names shall be used on public runtime observer and hook/action surfaces instead of the ambiguous `eval` stage name.
 
 **REQ-L-GTL3-COMPUTE-NOTATION-017**: `F_H` shall be represented as an external human-callout compute category when it participates in composition. The category shall require `F_H`, shall state that human work is external to ABG, and shall require response admission before any human result can affect runtime truth.
 
 **REQ-L-GTL3-COMPUTE-NOTATION-018**: ABG.system side effects shall appear between plugin compute categories. A product plugin may compute and return typed values or refs, but only ABG.system may admit them, write events, derive ledgers, fold assurance, select traversal, replay continuation, or close.
 
 **REQ-L-GTL3-COMPUTE-NOTATION-019**: The deterministic event-sourced case shall be represented as a lawful reduction of the same composition notation. A fully `F_D` graph remains a program graph over ABG admission/events/replay, not a separate API or shortcut around selected composition identity.
+
+**REQ-L-GTL3-COMPUTE-NOTATION-020**: `evaluate.C.F_D.register_rule[*]` shall be first-class evaluation work when declared by selected composition. Deterministic register rules may derive read-only shape, lineage, coverage, target-carrier, observed-state, and domain register facts, but their outputs remain proposed values until ABG admission.
+
+**REQ-L-GTL3-COMPUTE-NOTATION-021**: `evaluate.C.F_P.semantic_judgment_rule[*]` shall evaluate over admitted transform truth plus admitted evaluation registers when ambiguity remains. F_P semantic judgment may propose disposition and residual pressure, but closure remains ABG-owned assurance fold truth.
+
+**REQ-L-GTL3-COMPUTE-NOTATION-022**: Evaluation-set notation shall allow ordered and parallel rule batches only over read-only admitted facts. Replay identity shall derive from the selected composition identity, declared rule refs, batch/dependency refs, and admitted outcomes, not from wall-clock completion order.
+
+**REQ-L-GTL3-COMPUTE-NOTATION-023**: A scalar `FpEvaluationOutcome` shall be treated as a lawful one-rule reduction of `evaluate.C`, not as a second public evaluation carrier or a product-local runtime loop.
+
+**REQ-L-GTL3-COMPUTE-NOTATION-024**: Any composed `.C` stage shall be representable as a stage-set phase under selected composition. Scalar `transform.C`, `evaluate.C`, and `consequence.C` plugin calls shall be one-task reductions of the stage-set law, not privileged alternate execution paths.

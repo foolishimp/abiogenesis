@@ -218,6 +218,20 @@ constraint.
    - replay continuation
 5. Preserve the pure event-sourced `F_D` case: `C = F_D` remains a valid
    deterministic event-sourced system.
+
+## Post-Review Completion Notes
+
+T-145 completes the `evaluate.C` realization gap identified after T-144 review:
+evaluation is now an evaluation-set phase over read-only admitted facts, with
+scalar `FpEvaluationOutcome` treated as the one-rule F_P semantic judgment
+reduction. ABG plans the evaluation set, invokes rule batches, admits rule
+outcomes, writes evaluation payload/ledger events in stable order, and folds
+assurance over the admitted evaluation-set projection.
+
+T-146 captures the generalized Design Module Method follow-up: every composed
+`.C` stage should converge through the same stage-set law. T-145 closes the
+evaluation specialization; transform/consequence symmetry remains active under
+T-146.
 6. State the general ABG shape as probabilistic eventual consistency: `C` may
    include `F_P` and `F_H`, but ABG owns the bind points where probabilistic or
    human outputs become runtime truth.
@@ -642,7 +656,7 @@ closure.
 - [x] Add/extend deterministic tests proving stage-category typing rejects a
   plugin that claims runtime events, ledger writes, traversal selection,
   continuation, replay, or closure authority.
-- [x] Add/extend tests proving `F_P.evaluate` can populate evaluation findings
+- [x] Add/extend tests proving `evaluate.C/F_P` can populate evaluation findings
   and pressure/evidence refs without becoming closure authority.
 - [x] Add/extend tests proving `F_D.evaluate` is a lawful deterministic
   optimization only under selected composition/binding proof.
@@ -816,3 +830,189 @@ Residual boundary:
   authority boundary. ODD SDLC runtime migration remains in T-180 because SDLC
   owns product plugin implementation, product pressure/gain interpretation, and
   product read-model proof surfaces.
+
+## Evaluate.C Composition Clarification
+
+Clarified at: 2026-05-23
+
+Downstream review of T-180 exposed a wording ambiguity in this ticket. The
+intended T-144 model is not a new public runner plugin name such as
+`F_P.evaluate` or `fpEvaluate`.
+
+The stable model is GTL composition of plugin-stage categories:
+
+```text
+evaluate.C = compose(
+  F_D validate/evidence register,
+  F_P validate/judgment over admitted transform truth,
+  F_H human_callout escalation when GTL composition requires it
+)
+```
+
+`evaluate.C` is the compute-stage category. GTL composes the plugin-stage
+categories and regime bindings. `abg.fn_composition` is the ABG-selected runtime
+contract over that GTL composition: it preserves stage role, regime, role,
+authority, input/output carrier refs, evidence refs, selected composition ref,
+selected composition digest, and selected regime binding ref. `F_H` remains an
+external human-callout boundary, not internal human work.
+
+Runner plugin-kind names are implementation edges. They must not be treated as
+the ontology. A product may not relabel `fp_dispatch` transform output as
+evaluation truth. If a downstream product needs ambiguous evaluation, it must
+declare the `evaluate/F_P` binding through GTL composition and let ABG select,
+invoke, admit, ledger, fold, transition, and replay that composition. If the
+runner cannot execute that selected binding, the defect is an ABG
+runner/composition realization gap, not permission for a downstream product to
+simulate ABG admission, ledgers, assurance fold, closure, traversal, or replay.
+
+Additional composed-behavior proof:
+
+- `T-144 evaluate.C plugins are composed through GTL regime bindings` proves
+  `evaluate/F_D`, `evaluate/F_P`, and `human_callout/F_H` are separate ordered
+  GTL-composed regime bindings selected by ABG at runtime.
+- `T-144 GTL compose syntax keeps F_P transform dispatch distinct from evaluate.C`
+  proves `fp_dispatch` remains `transform/F_P` and cannot be reclassified as
+  `evaluate/F_P`.
+- `T-144 GTL-composed evaluate.C rejects non-F_D closure and internal F_H
+  evaluation` proves non-`F_D` closure and internal `F_H` evaluation fail closed.
+- `T-144 downstream steel thread constructs GTL-composed C for ABG plugin stages`
+  is the downstream consumer example. It constructs a GTL-composed graph function
+  over three vectors, declares the selected composition/regime bindings, runs it
+  through ABG, and observes:
+  - vector 0: `transform/F_P` via `fp_dispatch`;
+  - vector 0: `evaluate/F_P` via `fp_evaluator`;
+  - vector 0: `consequence/F_D` via `consequence_projection`;
+  - vector 1: `evaluate/F_D` via `fd_evaluator`;
+  - vector 1: `consequence/F_D` via `consequence_projection`;
+  - vector 2: `human_callout/F_H` via `fh_admission`.
+- `T-144 downstream steel thread projects ABG ledgers for composed C` is the
+  ledgered consumer example. It reuses the same steel-thread run and proves
+  downstream consumers can derive the ledger/projection stack without writing
+  hidden product ledgers:
+  - runtime event ledger includes `basis_admitted`, `fp_dispatch_requested`,
+    `payload_observed`, `payload_validated`, `authority_snapshot_admitted`,
+    `evidence_admitted`, `ambiguity_observation_admitted`,
+    `closure_input_published`, `fd_authority_outcome_admitted`, and
+    `fh_escalated`;
+  - payload ledger contains observed payload, validated payload, authority
+    snapshots, ambiguity observation, closure input, and evidence rows;
+  - assurance projection over the payload ledger derives fulfilled rows and
+    closure decision `close`.
+
+The downstream construction recipe proven by the steel thread is:
+
+```text
+GTL.compose(graphFunctionA, graphFunctionB, graphFunctionC)
+  -> graph_function_declarations["abg.fn_composition"]
+  -> ordered regime bindings
+  -> ABG-selected composition ref/digest/selection ref
+  -> EnginePluginInput.computeStageBinding
+  -> product plugin stage invocation
+  -> ABG-owned runtime event ledger
+  -> ABG-derived payload/evidence ledger
+  -> ABG-derived assurance projection/fold
+  -> ABG-owned traversal/replay truth
+```
+
+Clarification proof:
+
+- `npm run test:t144` passed: 11 tests.
+
+## Post-Clarification Runner Realization
+
+Reopened at: 2026-05-23
+
+The clarification proof still over-relied on static composition and metadata.
+It proved GTL could declare `evaluate.C/F_P`, but it did not prove the ABG
+runner could execute that selected binding as an admitted stage.
+
+Additional remediation completed:
+
+- Added runner-consumed `fp_evaluator` plugin kind, default plugin, typed
+  `FpEvaluationOutcome`, typed `FpEvaluationFinding`, and admission checks.
+- Added `fp_evaluate` to the runner effect algebra and both sync/async effect
+  resolution paths.
+- The F_P transform path now runs the required ABG.system sequence:
+  transform plugin return -> ABG transform admission/events -> `evaluate.C/F_P`
+  plugin invocation -> ABG evaluation admission/events -> payload/evidence
+  ledger projection -> assurance fold -> `consequence.C` plugin invocation.
+- `FpEvaluationFinding` now fails closed when evidence refs or authority refs
+  are absent, and preserves selected composition ref/digest plus the selected
+  regime-binding contribution ref.
+- Evaluation admission writes ABG-owned payload observed/validated, authority
+  snapshot, evidence, ambiguity observation, and closure-input facts. Product
+  plugins still cannot write ledgers, emit runtime events, select traversal, or
+  close traversal.
+- The steel thread now asserts actual runner invocation order:
+  `fp_dispatch` (`transform/F_P`) -> `fp_evaluator` (`evaluate/F_P`) ->
+  `consequence_projection` (`consequence/F_D`) -> `fd_evaluator`
+  (`evaluate/F_D`) -> `consequence_projection` (`consequence/F_D`) ->
+  `fh_admission` (`human_callout/F_H`).
+
+Post-clarification deterministic proof:
+
+- `npm run build:semantic` passed.
+- `npm run test:t144` passed: 11 tests.
+- `npm run test:t072` passed: 14 tests.
+- `npm run test:t143` passed: 1 test.
+- `npm run test:t141` passed: 34 tests.
+- `npm run test:t116` passed: 5 tests.
+- `npm run test:t130:t131` passed: 20 tests.
+- `npm run test:t132` passed: 1 test.
+- `npm run test:semantic` passed: 613 tests.
+- `npm run lint:semantic` passed.
+- `git diff --check` passed.
+
+## Evaluation-Set Follow-Up
+
+Captured at: 2026-05-23
+
+T-144 proves the missing runner-consumed `evaluate.C/F_P` steel thread, but
+`evaluate.C` is not ultimately a scalar evaluator call. The evaluation phase is
+a rule-set phase over selected composition. It may contain many read-only
+deterministic register builders, probabilistic semantic judgment rules, and
+external human-callout rules.
+
+The retained deterministic evaluation/register builders are intentional. They
+create the register and ledger surface that prevents shallow evaluation and
+early closure. Data-heavy products may need hundreds of `evaluate.C.F_D`
+register rules before `evaluate.C.F_P` judges transform truth plus the admitted
+register set.
+
+The follow-up ticket is:
+
+```text
+.ai-workspace/tickets/active/T-145-realize-evaluate-c-as-evaluation-set-phase-over-read-only-ledgers.md
+```
+
+## Post-Review Hardening
+
+Captured at: 2026-05-23
+
+Code review found four remaining runner-boundary risks after `fp_evaluator`
+was introduced. These were treated as T-144 hardening because they affect the
+steel-thread correctness before the broader T-145 evaluation-set work:
+
+- `FpEvaluationFinding` composition identity is now runner-validated against
+  the selected ABG plugin input before ABG writes evaluation events. The runner
+  rejects mismatched selected composition ref, selected composition digest, or
+  selected regime-binding contribution ref.
+- The shared proof library default composition now publishes
+  `FpEvaluationOutcome` for `evaluate/F_P`. `FpEdgeAssuranceEvalFinding`
+  remains available only for the edge-assurance hook/finding surface; it is not
+  the default composition carrier for runner-consumed `evaluate.C/F_P`.
+- `closeDisposition` now affects emitted evaluation ledger facts. `no_close`
+  maps to non-closing partial evidence, `human_required` maps to deferred
+  authority, and neither can silently close by being wrapped in an otherwise
+  fulfilled outcome.
+- The runner no longer installs the closing `defaultFpEvaluatorPlugin` when a
+  product omits `fpEvaluator`. Missing product `fpEvaluator` resolves to a
+  blocked evaluator and fails closed. Synthetic legacy tests that need the old
+  closing behavior now install `defaultFpEvaluatorPlugin` explicitly.
+
+Post-review deterministic proof:
+
+- `npm run test:t144` passed: 14 tests.
+- `npm run test:semantic` passed: 616 tests.
+- `npm run lint:semantic` passed.
+- `git diff --check` passed.

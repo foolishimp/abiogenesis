@@ -178,6 +178,24 @@ function runtimeEventRef(event: RuntimeEvent, index: number): string {
   if ("outcomeRef" in event) {
     return event.outcomeRef;
   }
+  if ("validationRef" in event) {
+    return `${event.kind}:${event.validationRef}`;
+  }
+  if ("authoritySnapshotRef" in event) {
+    return `${event.kind}:${event.authoritySnapshotRef}`;
+  }
+  if ("ambiguityRef" in event) {
+    return `${event.kind}:${event.ambiguityRef}`;
+  }
+  if ("evidenceRef" in event && "payloadRef" in event) {
+    return `${event.kind}:${event.payloadRef}:${event.authorityRef ?? "none"}:${event.evidenceRef}`;
+  }
+  if ("closureInputRef" in event) {
+    return `${event.kind}:${event.closureInputRef}`;
+  }
+  if ("payloadRef" in event) {
+    return `${event.kind}:${event.payloadRef}`;
+  }
   if ("actorInvocationId" in event) {
     return `${event.kind}:${event.actorInvocationId}`;
   }

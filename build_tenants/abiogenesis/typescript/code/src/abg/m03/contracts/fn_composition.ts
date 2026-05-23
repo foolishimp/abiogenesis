@@ -372,7 +372,7 @@ export function constructDefaultAbgFnCompositionDeclarations(
         role: "validate",
         order: 2,
         authority: "judgment",
-        outputCarrierRef: "FpEdgeAssuranceEvalFinding"
+        outputCarrierRef: "FpEvaluationOutcome"
       }),
       defaultRegimeBinding({
         scopeRef: input.scopeRef,

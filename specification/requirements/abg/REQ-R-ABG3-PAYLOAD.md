@@ -70,3 +70,7 @@ meaning, product-specific gain functions, or downstream release interpretation.
 **REQ-R-ABG3-PAYLOAD-020**: Payload and evidence facts that participate in an `abg.fn_composition`-governed traversal shall carry the selected composition ref and digest, or a causally linked composition selection ref. Payloads admitted under a different composition identity shall be projected as wrong-contract evidence, not as closure satisfaction.
 
 **REQ-R-ABG3-PAYLOAD-021**: Payloads produced by `plugin.transform.C`, `plugin.evaluate.C`, `plugin.consequence.C`, or an external `F_H` response shall remain proposed payloads until ABG admits them. The admitted payload envelope shall preserve compute-stage category or causally linked category selection when that payload can affect ledgers, assurance, traversal, replay, or downstream read-model consequence.
+
+**REQ-R-ABG3-PAYLOAD-022**: Evaluation rule outcomes shall enter payload/ledger truth only through ABG admission. Their admitted payload envelope shall preserve rule ref, rule role, compute means, selected composition ref/digest, selected composition selection ref, selected regime binding ref, contribution ref, produced register/finding/evidence refs, residual pressure refs, continuation refs, diagnostics, and rejection reason when present.
+
+**REQ-R-ABG3-PAYLOAD-023**: Evaluation rule outcomes shall reject side-door runtime authority fields including event emission, ledger writes, graph call/frame mutation, vector selection, traversal transition, continuation replay, and closure authority.

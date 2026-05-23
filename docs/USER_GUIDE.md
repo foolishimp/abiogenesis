@@ -223,9 +223,11 @@ ABG.start(fn<A, B>.C)
   .bind(plugin.transform.C)
   .bind(system.admitTransform)
   .bind(system.writeTransformEventsAndLedgers)
-  .bind(plugin.evaluate.C)
-  .bind(system.admitEvaluation)
+  .bind(system.planEvaluationSet)
+  .bind(plugin.evaluate.C.rule[*])
+  .bind(system.admitEvaluationRuleResult[*])
   .bind(system.writeEvaluationLedgers)
+  .bind(system.collectEvaluationSet)
   .bind(system.assuranceFold)
   .bind(plugin.consequence.C)
   .bind(system.admitConsequenceProjection)
@@ -233,12 +235,18 @@ ABG.start(fn<A, B>.C)
   .bind(system.replayContinuation)
 ```
 
-`plugin.transform.C` produces candidates and evidence. `plugin.evaluate.C`
-produces findings. `plugin.consequence.C` produces projection refs over
-ABG-admitted state. ABG admission turns lawful plugin/evaluator payloads into
-runtime facts. Plugins do not write ledgers, emit events, select traversal,
-own replay, or close the boundary. `F_H` is an external human-callout regime;
-ABG admits the callout and later admits the response event/carrier.
+Composed `.C` stages share one stage-set law. Scalar stage plugins are one-task
+reductions of `transform.C`, `evaluate.C`, or `consequence.C`, not separate
+execution authorities.
+
+`plugin.transform.C` produces candidates and evidence. `plugin.evaluate.C` is
+an evaluation-set phase whose rules may produce deterministic registers and
+F_P semantic findings. The scalar F_P evaluator is the one-rule reduction of
+that phase. `plugin.consequence.C` produces projection refs over ABG-admitted
+state. ABG admission turns lawful plugin/evaluator payloads into runtime facts.
+Plugins do not write ledgers, emit events, select traversal, own replay, or
+close the boundary. `F_H` is an external human-callout regime; ABG admits the
+callout and later admits the response event/carrier.
 
 ### Core Types
 
@@ -590,12 +598,14 @@ Cron, EventBridge, Step Functions, Temporal, and saga orchestrators are
 delivery effects. They never select the next vector or close a traversal
 without ABG admission.
 
-Two-stage evaluation. `plugin.evaluate.C` proposes edge findings and ABG's
-assurance fold decides whether a graph edge locally completed. Schedule and SLA
-drift, missed windows, deadline pressure, and recurrence debt feed a separate
-homeostatic evaluation after local edge assurance. A graph function can be
-locally complete and still create homeostatic pressure that triggers re-entry,
-mitigation, or repricing. Drift never folds into edge-completeness closure.
+Evaluation-set assurance. `plugin.evaluate.C` runs evaluation rules over
+admitted transform truth and read-only ledgers. ABG admits those rule outcomes,
+collects the evaluation-set projection, and ABG's assurance fold decides
+whether a graph edge locally completed. Schedule and SLA drift, missed windows,
+deadline pressure, and recurrence debt feed a separate homeostatic evaluation
+after local edge assurance. A graph function can be locally complete and still
+create homeostatic pressure that triggers re-entry, mitigation, or repricing.
+Drift never folds into edge-completeness closure.
 
 What is intentionally not in the first slice. The deeper operators
 (`window`, `deadline`, `not_after`, `retry_after`, `cooldown`, `recurs`,

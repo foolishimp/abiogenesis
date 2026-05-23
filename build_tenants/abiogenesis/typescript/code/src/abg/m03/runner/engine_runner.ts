@@ -10,6 +10,8 @@ import type {
   ActorInvocation,
   ActorInvocationRef,
   ExecutionBasis,
+  PayloadAmbiguityStatus,
+  PayloadClosureDecisionKind,
   PluginTraversalKind,
   RuntimeAggregateProjection,
   RuntimeEvent,
@@ -19,11 +21,17 @@ import {
   constructActorInvocationClosedEvent,
   constructActorInvocationStartedEvent,
   constructActorResultArtifactObservedEvent,
+  constructAmbiguityObservationAdmittedEvent,
+  constructAuthoritySnapshotAdmittedEvent,
   constructBasisAdmittedEvent,
+  constructClosureInputPublishedEvent,
+  constructEvidenceAdmittedEvent,
   constructFdAuthorityOutcomeAdmittedEvent,
   constructFdAdvanceReadyEvent,
   constructFhEscalatedEvent,
   constructFpDispatchRequestedEvent,
+  constructPayloadObservedEvent,
+  constructPayloadValidatedEvent,
   constructPluginTraversalPromptMaterializedEvent,
   constructTerminalReachedEvent,
   constructVectorClosedEvent,
@@ -47,6 +55,7 @@ import {
 } from "../contracts/runtime_support.js";
 import {
   admitFdEvaluationOutcome,
+  admitFpEvaluationOutcome,
   admitFhAdmissionOutcome,
   admitFpDispatchOutcome,
   admitConsequenceProjectionOutcome,
@@ -55,24 +64,53 @@ import {
   defaultFdEvaluatorPlugin,
   defaultFhAdmissionPlugin,
   defaultFpDispatchPlugin,
+  missingFpEvaluatorPlugin,
   type ConsequenceProjectionOutcome,
   type ConsequenceProjectionPlugin,
   type EnginePluginContract,
   type EnginePluginInput,
   type EnginePluginMaybePromise,
   type EngineRunnerPluginSet,
+  type EvaluationRulePlugin,
   type FdEvaluationOutcome,
   type FdEvaluatorPlugin,
+  type FpEvaluationFinding,
+  type FpEvaluationOutcome,
+  type FpEvaluatorPlugin,
   type FpDispatchOutcome,
   type FhAdmissionOutcome,
   type FhAdmissionPlugin,
   type FpDispatchPlugin
 } from "../contracts/plugins.js";
+import {
+  admitEvaluationRuleOutcome,
+  constructEvaluationRuleDeclaration,
+  constructEvaluationRuleOutcome,
+  constructEvaluationSetAdmission,
+  constructEvaluationSetPlan,
+  constructEvaluationSetProjection,
+  type EvaluationRuleDeclaration,
+  type EvaluationRuleOutcome,
+  type EvaluationRuleRole,
+  type EvaluationSetPlan,
+  type EvaluationSetProjection
+} from "../contracts/evaluation_set.js";
 import type { AbgFallbackBundle } from "../contracts/plugin_traversal_observer.js";
 import type { EdgeAssuranceDefaultContract } from "../contracts/edge_assurance_contract.js";
 import type { ConstructionPressurePackage } from "../contracts/construction_pressure_package.js";
 import type { GtlTargetCarrierDefaultsBundle } from "../../../gtl/m01/contracts/index.js";
 import { loadGtlTargetCarrierDefaultsBundle } from "../../../gtl/m01/contracts/index.js";
+import {
+  constructAssuranceAuthoritySnapshot,
+  deriveAssuranceClosureDecision,
+  deriveAssuranceProjection,
+  deriveAssuranceScopeRef
+} from "../contracts/assurance.js";
+import {
+  deriveAssuranceAuthoritySnapshotFromPayloadLedger,
+  deriveAssuranceEvidenceRowsFromPayloadLedger,
+  derivePayloadLedgerProjection
+} from "../contracts/payload_ledger.js";
 import {
   deriveRetryRepairDecision,
   runtimeEventsForRetryRepairDecision
@@ -112,6 +150,7 @@ import {
   type EngineAssuranceGateResult,
   type EngineAssuranceProvider
 } from "./assurance_gate.js";
+import { stableSha256Digest } from "../../../shared/runtime_identity.js";
 
 export interface EngineIterateRequest {
   readonly basis: ExecutionBasis;
@@ -171,9 +210,12 @@ export interface EngineIterateResult {
 
 interface ResolvedRunnerPlugins {
   readonly fdEvaluator: FdEvaluatorPlugin;
+  readonly fpEvaluator: FpEvaluatorPlugin;
   readonly fpDispatch: FpDispatchPlugin;
   readonly fhAdmission: FhAdmissionPlugin;
   readonly consequenceProjection: ConsequenceProjectionPlugin;
+  readonly evaluationRules: readonly EvaluationRulePlugin[];
+  readonly requiredEvaluationRuleRefs: readonly string[];
 }
 
 function resolveRunnerPlugins(
@@ -181,10 +223,15 @@ function resolveRunnerPlugins(
 ): ResolvedRunnerPlugins {
   return Object.freeze({
     fdEvaluator: plugins?.fdEvaluator ?? defaultFdEvaluatorPlugin,
+    fpEvaluator: plugins?.fpEvaluator ?? missingFpEvaluatorPlugin,
     fpDispatch: plugins?.fpDispatch ?? defaultFpDispatchPlugin,
     fhAdmission: plugins?.fhAdmission ?? defaultFhAdmissionPlugin,
     consequenceProjection:
-      plugins?.consequenceProjection ?? defaultConsequenceProjectionPlugin
+      plugins?.consequenceProjection ?? defaultConsequenceProjectionPlugin,
+    evaluationRules: Object.freeze([...(plugins?.evaluationRules ?? Object.freeze([]))]),
+    requiredEvaluationRuleRefs: Object.freeze([
+      ...(plugins?.requiredEvaluationRuleRefs ?? Object.freeze([]))
+    ])
   });
 }
 
@@ -743,6 +790,682 @@ function fdAuthorityOutcomeEvent(input: {
   });
 }
 
+function fpEvaluationDigest(input: unknown): string {
+  return stableSha256Digest(input);
+}
+
+function fpEvaluationFindingPayloadRef(input: {
+  readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
+  readonly finding: FpEvaluationFinding;
+}): string {
+  return `payload:fp_evaluation:${fpEvaluationDigest({
+    basisId: input.basis.id,
+    vectorIndex: input.vectorIndex,
+    findingRef: input.finding.findingRef
+  })}`;
+}
+
+function uniqueStrings(values: readonly string[]): readonly string[] {
+  return Object.freeze([...new Set(values)]);
+}
+
+interface PlannedEvaluationRule {
+  readonly pluginIndex: number;
+  readonly plugin: EvaluationRulePlugin;
+  readonly pluginInput: EnginePluginInput;
+  readonly declaration: EvaluationRuleDeclaration;
+}
+
+function evaluationRuleRoleForPlugin(
+  plugin: EvaluationRulePlugin
+): EvaluationRuleRole | undefined {
+  if (plugin.ruleRole !== undefined) {
+    return plugin.ruleRole;
+  }
+  switch (plugin.contract.computeMeans) {
+    case "F_D":
+      return "register";
+    case "F_P":
+      return "semantic_judgment";
+    case "F_H":
+      return "external_human_callout";
+    case null:
+      return undefined;
+    default: {
+      const exhaustive: never = plugin.contract.computeMeans;
+      throw new TypeError(
+        `Unsupported evaluation rule compute means ${JSON.stringify(exhaustive)}`
+      );
+    }
+  }
+}
+
+function plannedEvaluationRuleForPlugin(input: {
+  readonly plugin: EvaluationRulePlugin;
+  readonly pluginIndex: number;
+  readonly pluginInput: EnginePluginInput;
+}): PlannedEvaluationRule {
+  if (input.plugin.contract.computeStageRole !== "evaluate") {
+    throw new TypeError("Evaluation rule plugin contract must be evaluate.C");
+  }
+  if (input.plugin.contract.computeMeans === null) {
+    throw new TypeError("Evaluation rule plugin contract requires compute means");
+  }
+  const declaration = constructEvaluationRuleDeclaration({
+    ruleRef: input.plugin.ruleRef,
+    ruleRole: evaluationRuleRoleForPlugin(input.plugin),
+    selectedCompositionRef: input.pluginInput.selectedCompositionRef,
+    selectedCompositionDigest: input.pluginInput.selectedCompositionDigest,
+    selectedCompositionSelectionRef:
+      input.pluginInput.selectedCompositionSelectionRef,
+    selectedRegimeBindingRef: input.pluginInput.selectedRegimeBindingRef,
+    computeMeans: input.plugin.contract.computeMeans,
+    inputLedgerRefs:
+      input.plugin.inputLedgerRefs ?? [input.pluginInput.sourceProjectionRef],
+    outputCarrierRefs:
+      input.plugin.outputCarrierRefs ?? [input.plugin.contract.outputCarrier],
+    required: input.plugin.required ?? true,
+    parallelGroupRef: input.plugin.parallelGroupRef ?? null,
+    dependencyRefs: input.plugin.dependencyRefs ?? Object.freeze([])
+  });
+  return Object.freeze({
+    pluginIndex: input.pluginIndex,
+    plugin: input.plugin,
+    pluginInput: input.pluginInput,
+    declaration
+  });
+}
+
+function scalarFpEvaluationRuleDeclaration(
+  pluginInput: EnginePluginInput
+): EvaluationRuleDeclaration {
+  return constructEvaluationRuleDeclaration({
+    ruleRef: `evaluation-rule:fp-semantic:${fpEvaluationDigest({
+      selectedCompositionRef: pluginInput.selectedCompositionRef,
+      selectedRegimeBindingRef: pluginInput.selectedRegimeBindingRef,
+      vectorIndex: pluginInput.vectorIndex,
+      edge: pluginInput.edge
+    })}`,
+    ruleRole: "semantic_judgment",
+    selectedCompositionRef: pluginInput.selectedCompositionRef,
+    selectedCompositionDigest: pluginInput.selectedCompositionDigest,
+    selectedCompositionSelectionRef: pluginInput.selectedCompositionSelectionRef,
+    selectedRegimeBindingRef: pluginInput.selectedRegimeBindingRef,
+    computeMeans: "F_P",
+    inputLedgerRefs: [pluginInput.sourceProjectionRef],
+    outputCarrierRefs: ["FpEvaluationOutcome"],
+    required: true,
+    parallelGroupRef: null,
+    dependencyRefs: Object.freeze([])
+  });
+}
+
+function scalarFdEvaluationRuleDeclaration(
+  pluginInput: EnginePluginInput
+): EvaluationRuleDeclaration {
+  return constructEvaluationRuleDeclaration({
+    ruleRef: `evaluation-rule:fd-authority:${fpEvaluationDigest({
+      selectedCompositionRef: pluginInput.selectedCompositionRef,
+      selectedRegimeBindingRef: pluginInput.selectedRegimeBindingRef,
+      vectorIndex: pluginInput.vectorIndex,
+      edge: pluginInput.edge
+    })}`,
+    ruleRole: "register",
+    selectedCompositionRef: pluginInput.selectedCompositionRef,
+    selectedCompositionDigest: pluginInput.selectedCompositionDigest,
+    selectedCompositionSelectionRef: pluginInput.selectedCompositionSelectionRef,
+    selectedRegimeBindingRef: pluginInput.selectedRegimeBindingRef,
+    computeMeans: "F_D",
+    inputLedgerRefs: [pluginInput.sourceProjectionRef],
+    outputCarrierRefs: ["FdEvaluationOutcome"],
+    required: true,
+    parallelGroupRef: null,
+    dependencyRefs: Object.freeze([])
+  });
+}
+
+function evaluationRuleBatches(
+  plannedRules: readonly PlannedEvaluationRule[],
+  scalarRule: EvaluationRuleDeclaration
+): readonly (readonly EvaluationRuleDeclaration[])[] {
+  const grouped = new Map<string, EvaluationRuleDeclaration[]>();
+  const order: string[] = [];
+  plannedRules.forEach((plannedRule, index) => {
+    const key =
+      plannedRule.declaration.parallelGroupRef ?? `serial:${String(index)}`;
+    if (!grouped.has(key)) {
+      grouped.set(key, []);
+      order.push(key);
+    }
+    grouped.get(key)?.push(plannedRule.declaration);
+  });
+  const batches = order.map((key) =>
+    Object.freeze(
+      [...(grouped.get(key) ?? [])].sort((left, right) =>
+        left.ruleRef.localeCompare(right.ruleRef)
+      )
+    )
+  );
+  return Object.freeze([...batches, Object.freeze([scalarRule])]);
+}
+
+function evaluationSetPlanForPhase(input: {
+  readonly basis: ExecutionBasis;
+  readonly scalarEvaluationInput: EnginePluginInput;
+  readonly scalarRule: EvaluationRuleDeclaration;
+  readonly plannedRules: readonly PlannedEvaluationRule[];
+  readonly requiredRuleRefs: readonly string[];
+}): EvaluationSetPlan {
+  return constructEvaluationSetPlan({
+    basisId: input.basis.id,
+    graphFunctionId: input.basis.graphFunction.id,
+    vectorIndex: input.scalarEvaluationInput.vectorIndex,
+    edge: input.scalarEvaluationInput.edge,
+    selectedCompositionRef: input.scalarEvaluationInput.selectedCompositionRef,
+    selectedCompositionDigest: input.scalarEvaluationInput.selectedCompositionDigest,
+    selectedCompositionSelectionRef:
+      input.scalarEvaluationInput.selectedCompositionSelectionRef,
+    ruleBatches: evaluationRuleBatches(input.plannedRules, input.scalarRule),
+    requiredRuleRefs: input.requiredRuleRefs,
+    readOnlyInputRefs: uniqueStrings([
+      input.scalarEvaluationInput.sourceProjectionRef,
+      ...input.plannedRules.flatMap(
+        (plannedRule) => plannedRule.declaration.inputLedgerRefs
+      )
+    ])
+  });
+}
+
+function evaluationRuleOutcomePayloadRef(input: {
+  readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
+  readonly outcome: EvaluationRuleOutcome;
+}): string {
+  return `payload:evaluation_rule:${fpEvaluationDigest({
+    basisId: input.basis.id,
+    vectorIndex: input.vectorIndex,
+    ruleRef: input.outcome.ruleRef,
+    status: input.outcome.status
+  })}`;
+}
+
+function evaluationRuleOutcomeCoreEvents(input: {
+  readonly basis: ExecutionBasis;
+  readonly pluginInput: EnginePluginInput;
+  readonly outcome: EvaluationRuleOutcome;
+}): readonly RuntimeEvent[] {
+  const payloadRef = evaluationRuleOutcomePayloadRef({
+    basis: input.basis,
+    vectorIndex: input.pluginInput.vectorIndex,
+    outcome: input.outcome
+  });
+  const digest = `digest:evaluation_rule:${fpEvaluationDigest(input.outcome)}`;
+  return Object.freeze([
+    constructPayloadObservedEvent({
+      basis: input.basis,
+      vectorIndex: input.pluginInput.vectorIndex,
+      payloadRef,
+      payloadClass: "evaluation_rule_outcome",
+      contractRef: "contract://abg/evaluation-rule-outcome",
+      digest,
+      producerRef: input.pluginInput.contract.ref,
+      sourceEventRef: input.pluginInput.sourceProjectionRef,
+      actorInvocationId:
+        input.pluginInput.actorInvocationRef?.actorInvocationId ?? null,
+      authorityRef: input.outcome.ruleRef,
+      inputDigest: `input:evaluation_rule:${fpEvaluationDigest({
+        sourceProjectionRef: input.pluginInput.sourceProjectionRef,
+        selectedCompositionDigest: input.pluginInput.selectedCompositionDigest
+      })}`,
+      policyRefs: [input.basis.resolvedPolicy.resolvedPolicyBundleRef]
+    }),
+    constructPayloadValidatedEvent({
+      basis: input.basis,
+      vectorIndex: input.pluginInput.vectorIndex,
+      payloadRef,
+      contractRef: "contract://abg/evaluation-rule-outcome",
+      digest,
+      validationRef: `validation:evaluation_rule:${payloadRef}`,
+      evidenceRef: input.outcome.evidenceRefs[0] ?? null,
+      policyRefs: [input.basis.resolvedPolicy.resolvedPolicyBundleRef]
+    })
+  ]);
+}
+
+function assertEvaluationRuleOutcomeMatchesDeclaration(input: {
+  readonly declaration: EvaluationRuleDeclaration;
+  readonly outcome: EvaluationRuleOutcome;
+}): void {
+  if (input.outcome.ruleRef !== input.declaration.ruleRef) {
+    throw new TypeError("EvaluationRuleOutcome.ruleRef does not match declaration");
+  }
+  if (input.outcome.ruleRole !== input.declaration.ruleRole) {
+    throw new TypeError(
+      "EvaluationRuleOutcome.ruleRole does not match declaration"
+    );
+  }
+  if (input.outcome.computeMeans !== input.declaration.computeMeans) {
+    throw new TypeError(
+      "EvaluationRuleOutcome.computeMeans does not match declaration"
+    );
+  }
+  if (
+    input.outcome.selectedCompositionRef !==
+    input.declaration.selectedCompositionRef
+  ) {
+    throw new TypeError(
+      "EvaluationRuleOutcome.selectedCompositionRef does not match selected abg.fn_composition"
+    );
+  }
+  if (
+    input.outcome.selectedCompositionDigest !==
+    input.declaration.selectedCompositionDigest
+  ) {
+    throw new TypeError(
+      "EvaluationRuleOutcome.selectedCompositionDigest does not match selected abg.fn_composition"
+    );
+  }
+  if (
+    input.outcome.selectedCompositionSelectionRef !==
+    input.declaration.selectedCompositionSelectionRef
+  ) {
+    throw new TypeError(
+      "EvaluationRuleOutcome.selectedCompositionSelectionRef does not match selected abg.fn_composition"
+    );
+  }
+  if (
+    input.outcome.selectedRegimeBindingRef !==
+    input.declaration.selectedRegimeBindingRef
+  ) {
+    throw new TypeError(
+      "EvaluationRuleOutcome.selectedRegimeBindingRef does not match declaration"
+    );
+  }
+  const expectedContributionRef =
+    input.declaration.selectedRegimeBindingRef ??
+    input.declaration.selectedCompositionRef;
+  if (input.outcome.compositionContributionRef !== expectedContributionRef) {
+    throw new TypeError(
+      "EvaluationRuleOutcome.compositionContributionRef does not match selected regime binding"
+    );
+  }
+}
+
+function evaluationRuleOutcomeFromFpEvaluation(input: {
+  readonly declaration: EvaluationRuleDeclaration;
+  readonly pluginInput: EnginePluginInput;
+  readonly outcome: FpEvaluationOutcome;
+}): EvaluationRuleOutcome {
+  const blocked = input.outcome.status === "blocked";
+  return constructEvaluationRuleOutcome({
+    status: blocked ? "blocked" : "accepted",
+    ruleRef: input.declaration.ruleRef,
+    ruleRole: "semantic_judgment",
+    computeMeans: "F_P",
+    findingRefs: input.outcome.findings.map((finding) => finding.findingRef),
+    evidenceRefs:
+      input.outcome.status === "evaluated"
+        ? input.outcome.findings.flatMap((finding) => finding.evidenceRefs)
+        : Object.freeze([]),
+    residualPressureRefs:
+      input.outcome.status === "evaluated"
+        ? input.outcome.findings.flatMap(
+            (finding) => finding.residualPressureRefs
+          )
+        : Object.freeze([]),
+    continuationRefs:
+      input.outcome.status === "evaluated"
+        ? input.outcome.findings.flatMap((finding) => finding.continuationRefs)
+        : Object.freeze([]),
+    diagnosticRefs: input.outcome.diagnosticRefs,
+    selectedCompositionRef: input.pluginInput.selectedCompositionRef,
+    selectedCompositionDigest: input.pluginInput.selectedCompositionDigest,
+    selectedCompositionSelectionRef:
+      input.pluginInput.selectedCompositionSelectionRef,
+    selectedRegimeBindingRef: input.pluginInput.selectedRegimeBindingRef,
+    compositionContributionRef:
+      input.pluginInput.selectedRegimeBindingRef ??
+      input.pluginInput.selectedCompositionRef,
+    reason: input.outcome.reason
+  });
+}
+
+function evaluationRuleOutcomeFromFdEvaluation(input: {
+  readonly declaration: EvaluationRuleDeclaration;
+  readonly pluginInput: EnginePluginInput;
+  readonly outcome: FdEvaluationOutcome;
+}): EvaluationRuleOutcome {
+  const accepted = fdEvaluationEventStatus(input.outcome) === "accepted";
+  return constructEvaluationRuleOutcome({
+    status: accepted ? "accepted" : "blocked",
+    ruleRef: input.declaration.ruleRef,
+    ruleRole: "register",
+    computeMeans: "F_D",
+    producedRegisterRefs: accepted
+      ? [
+          `register:fd-authority:${fpEvaluationDigest({
+            basisId: input.pluginInput.basisId,
+            vectorIndex: input.pluginInput.vectorIndex,
+            routingDecision: input.outcome.routingDecision
+          })}`
+        ]
+      : Object.freeze([]),
+    evidenceRefs: input.outcome.evidenceRefs,
+    residualPressureRefs: input.outcome.pressureRefs,
+    diagnosticRefs: input.outcome.diagnosticRefs,
+    selectedCompositionRef: input.pluginInput.selectedCompositionRef,
+    selectedCompositionDigest: input.pluginInput.selectedCompositionDigest,
+    selectedCompositionSelectionRef:
+      input.pluginInput.selectedCompositionSelectionRef,
+    selectedRegimeBindingRef: input.pluginInput.selectedRegimeBindingRef,
+    compositionContributionRef:
+      input.pluginInput.selectedRegimeBindingRef ??
+      input.pluginInput.selectedCompositionRef,
+    reason: input.outcome.reason
+  });
+}
+
+function evaluationSetBlockingReason(input: {
+  readonly admission: ReturnType<typeof constructEvaluationSetAdmission>;
+  readonly requiredRuleRefs: readonly string[];
+  readonly ignoreMissingRuleRefs?: readonly string[] | undefined;
+}): string | null {
+  const ignoredMissing = new Set(input.ignoreMissingRuleRefs ?? Object.freeze([]));
+  const requiredRuleRefs = new Set(input.requiredRuleRefs);
+  const missingRequiredRuleRefs = input.admission.missingRequiredRuleRefs.filter(
+    (ruleRef) => !ignoredMissing.has(ruleRef)
+  );
+  const rejectedRequiredRuleRefs = input.admission.rejectedRuleOutcomes
+    .filter((ruleOutcome) => requiredRuleRefs.has(ruleOutcome.ruleRef))
+    .map((ruleOutcome) =>
+      [`blocked:${ruleOutcome.ruleRef}`, ruleOutcome.reason ?? null]
+        .filter((part): part is string => part !== null)
+        .join(":")
+    );
+  if (
+    missingRequiredRuleRefs.length === 0 &&
+    rejectedRequiredRuleRefs.length === 0
+  ) {
+    return null;
+  }
+  return [
+    "evaluation_set_incomplete",
+    ...missingRequiredRuleRefs.map((ruleRef) => `missing:${ruleRef}`),
+    ...rejectedRequiredRuleRefs
+  ].join(" ");
+}
+
+function fpEvaluationFindingAmbiguityStatus(input: {
+  readonly outcomeStatus: PayloadAmbiguityStatus;
+  readonly finding: FpEvaluationFinding;
+}): PayloadAmbiguityStatus {
+  switch (input.finding.closeDisposition) {
+    case "close":
+      return input.outcomeStatus;
+    case "retry":
+    case "no_close":
+      return "partial";
+    case "qualified_defer":
+    case "human_required":
+      return "deferred";
+    case "reprice":
+      return "contradictory_authority";
+    case "block":
+      return "contradictory_evidence";
+    default: {
+      const exhaustive: never = input.finding.closeDisposition;
+      throw new TypeError(
+        `Unsupported F_P evaluation close disposition ${JSON.stringify(exhaustive)}`
+      );
+    }
+  }
+}
+
+function assertFpEvaluationOutcomeMatchesSelectedComposition(input: {
+  readonly pluginInput: EnginePluginInput;
+  readonly outcome: FpEvaluationOutcome;
+}): void {
+  const expectedContributionRef =
+    input.pluginInput.selectedRegimeBindingRef ??
+    input.pluginInput.selectedCompositionRef;
+  for (const finding of input.outcome.findings) {
+    if (finding.compositionRef !== input.pluginInput.selectedCompositionRef) {
+      throw new TypeError(
+        "FpEvaluationFinding.compositionRef does not match selected abg.fn_composition"
+      );
+    }
+    if (finding.compositionDigest !== input.pluginInput.selectedCompositionDigest) {
+      throw new TypeError(
+        "FpEvaluationFinding.compositionDigest does not match selected abg.fn_composition"
+      );
+    }
+    if (finding.compositionContributionRef !== expectedContributionRef) {
+      throw new TypeError(
+        "FpEvaluationFinding.compositionContributionRef does not match selected regime binding"
+      );
+    }
+  }
+}
+
+function fpEvaluationCoreEvents(input: {
+  readonly basis: ExecutionBasis;
+  readonly pluginInput: EnginePluginInput;
+  readonly outcome: FpEvaluationOutcome;
+}): readonly RuntimeEvent[] {
+  const authorityRefs = uniqueStrings(
+    input.outcome.findings.flatMap((finding) => finding.authorityRefs)
+  );
+  const deferredAuthorityRefs = uniqueStrings(
+    input.outcome.findings
+      .filter((finding) =>
+        finding.closeDisposition === "human_required" ||
+        finding.closeDisposition === "qualified_defer"
+      )
+      .flatMap((finding) => finding.authorityRefs)
+  );
+  const policyRefs = Object.freeze([
+    input.basis.resolvedPolicy.resolvedPolicyBundleRef
+  ]);
+  const authorityDigest = `authority:fp_evaluation:${fpEvaluationDigest({
+    basisId: input.basis.id,
+    vectorIndex: input.pluginInput.vectorIndex,
+    authorityRefs
+  })}`;
+  const inputDigest = `input:fp_evaluation:${fpEvaluationDigest({
+    sourceProjectionRef: input.pluginInput.sourceProjectionRef,
+    selectedCompositionDigest: input.pluginInput.selectedCompositionDigest
+  })}`;
+  const events: RuntimeEvent[] = [
+    constructAuthoritySnapshotAdmittedEvent({
+      basis: input.basis,
+      vectorIndex: input.pluginInput.vectorIndex,
+      authoritySnapshotRef: `authority-snapshot:fp_evaluation:${fpEvaluationDigest({
+        basisId: input.basis.id,
+        vectorIndex: input.pluginInput.vectorIndex,
+        authorityRefs
+      })}`,
+      authorityRefs,
+      inputRefs: [input.pluginInput.sourceProjectionRef],
+      authorityDigest,
+      inputDigest,
+      deferredAuthorityRefs,
+      providerRefs: [input.pluginInput.contract.ref],
+      policyRefs
+    })
+  ];
+
+  for (const finding of input.outcome.findings) {
+    const ambiguityStatus = fpEvaluationFindingAmbiguityStatus({
+      outcomeStatus: input.outcome.ambiguityStatus,
+      finding
+    });
+    const payloadRef = fpEvaluationFindingPayloadRef({
+      basis: input.basis,
+      vectorIndex: input.pluginInput.vectorIndex,
+      finding
+    });
+    const digest = `digest:fp_evaluation:${fpEvaluationDigest(finding)}`;
+    const authorityRef = finding.authorityRefs[0] ?? null;
+    const evidenceRef = finding.evidenceRefs[0] ?? null;
+    events.push(
+      constructPayloadObservedEvent({
+        basis: input.basis,
+        vectorIndex: input.pluginInput.vectorIndex,
+        payloadRef,
+        payloadClass: "fp_evaluation_finding",
+        contractRef: "contract://abg/fp-evaluation-finding",
+        digest,
+        producerRef: input.pluginInput.contract.ref,
+        sourceEventRef: input.pluginInput.sourceProjectionRef,
+        actorInvocationId:
+          input.pluginInput.actorInvocationRef?.actorInvocationId ?? null,
+        authorityRef,
+        inputDigest,
+        policyRefs
+      }),
+      constructPayloadValidatedEvent({
+        basis: input.basis,
+        vectorIndex: input.pluginInput.vectorIndex,
+        payloadRef,
+        contractRef: "contract://abg/fp-evaluation-finding",
+        digest,
+        validationRef: `validation:fp_evaluation:${payloadRef}`,
+        evidenceRef,
+        policyRefs
+      })
+    );
+    for (const candidateAuthorityRef of finding.authorityRefs) {
+      for (const candidateEvidenceRef of finding.evidenceRefs) {
+        events.push(
+          constructEvidenceAdmittedEvent({
+            basis: input.basis,
+            vectorIndex: input.pluginInput.vectorIndex,
+            evidenceRef: candidateEvidenceRef,
+            payloadRef,
+            authorityRef: candidateAuthorityRef,
+            authorityDigest,
+            inputDigest,
+            providerRefs: [input.pluginInput.contract.ref],
+            policyRefs,
+            complete: ambiguityStatus === "fulfilled",
+            shallow: ambiguityStatus === "partial",
+            contradictsAuthority: ambiguityStatus === "contradictory_evidence",
+            deferred: ambiguityStatus === "deferred"
+          })
+        );
+      }
+    }
+    events.push(
+      constructAmbiguityObservationAdmittedEvent({
+        basis: input.basis,
+        vectorIndex: input.pluginInput.vectorIndex,
+        ambiguityRef: `ambiguity:fp_evaluation:${fpEvaluationDigest({
+          findingRef: finding.findingRef,
+          status: ambiguityStatus
+        })}`,
+        ambiguityStatus,
+        authorityRef,
+        evidenceRef,
+        payloadRef,
+        reason:
+          input.outcome.reason ??
+          `fp_evaluation_${finding.closeDisposition}_${ambiguityStatus}`,
+        providerRefs: [input.pluginInput.contract.ref],
+        policyRefs
+      })
+    );
+  }
+
+  return Object.freeze(events);
+}
+
+function assuranceDecisionForCurrentVector(input: {
+  readonly basis: ExecutionBasis;
+  readonly runtimeProjection: RuntimeAggregateProjection;
+  readonly replayEvents: readonly RuntimeEvent[];
+  readonly vectorIndex: number;
+  readonly targetCarrierDefaults: GtlTargetCarrierDefaultsBundle;
+  readonly evaluationSetProjection?: EvaluationSetProjection | null | undefined;
+}) {
+  const assuranceScope = deriveAssuranceScopeRef({
+    basis: input.basis,
+    projection: input.runtimeProjection,
+    vectorIndex: input.vectorIndex
+  });
+  const payloadLedger = derivePayloadLedgerProjection({
+    basis: input.basis,
+    runtimeProjection: input.runtimeProjection,
+    events: input.replayEvents,
+    vectorIndex: input.vectorIndex,
+    targetCarrierDefaults: input.targetCarrierDefaults
+  });
+  const baseAuthoritySnapshot = deriveAssuranceAuthoritySnapshotFromPayloadLedger({
+    assuranceScope,
+    ledger: payloadLedger
+  });
+  const authoritySnapshot =
+    input.evaluationSetProjection === undefined ||
+    input.evaluationSetProjection === null
+      ? baseAuthoritySnapshot
+      : constructAssuranceAuthoritySnapshot({
+          scope: baseAuthoritySnapshot.scope,
+          authorityRefs: baseAuthoritySnapshot.authorityRefs,
+          inputRefs: uniqueStrings([
+            ...baseAuthoritySnapshot.inputRefs,
+            input.evaluationSetProjection.projectionRef,
+            ...input.evaluationSetProjection.foldInputRefs
+          ]),
+          authorityDigest: baseAuthoritySnapshot.authorityDigest,
+          inputDigest: baseAuthoritySnapshot.inputDigest,
+          closureCapable: baseAuthoritySnapshot.closureCapable,
+          contradictoryAuthority:
+            baseAuthoritySnapshot.contradictoryAuthority,
+          deferredAuthorityRefs: baseAuthoritySnapshot.deferredAuthorityRefs,
+          providerRefs: baseAuthoritySnapshot.providerRefs,
+          policyRefs: baseAuthoritySnapshot.policyRefs
+        });
+  const evidenceRows = deriveAssuranceEvidenceRowsFromPayloadLedger({
+    assuranceScope,
+    ledger: payloadLedger
+  });
+  const assuranceProjection = deriveAssuranceProjection({
+    basis: input.basis,
+    runtimeProjection: input.runtimeProjection,
+    authoritySnapshot,
+    evidenceRows
+  });
+  const closureDecision = deriveAssuranceClosureDecision(assuranceProjection);
+  return Object.freeze({
+    payloadLedger,
+    assuranceProjection,
+    closureDecision
+  });
+}
+
+function terminalForAssuranceDecision(input: {
+  readonly basis: ExecutionBasis;
+  readonly decision: PayloadClosureDecisionKind;
+  readonly reason: string;
+}): TerminalTransition | null {
+  switch (input.decision) {
+    case "close":
+      return null;
+    case "retry":
+    case "qualified_defer":
+      return terminalTransition(input.basis, "yielded", input.reason);
+    case "reprice":
+    case "block":
+      return terminalTransition(input.basis, "gap_stop", input.reason);
+    default: {
+      const exhaustive: never = input.decision;
+      throw new TypeError(
+        `Unsupported assurance closure decision ${JSON.stringify(exhaustive)}`
+      );
+    }
+  }
+}
+
 function constructResult(input: {
   readonly basis: ExecutionBasis;
   readonly transition: AdvancementTransition;
@@ -791,6 +1514,22 @@ type EnginePluginEffect =
       readonly input: EnginePluginInput;
     }
   | {
+      readonly kind: "evaluation_rule_evaluate";
+      readonly pluginIndex: number;
+      readonly input: EnginePluginInput;
+    }
+  | {
+      readonly kind: "evaluation_rule_batch_evaluate";
+      readonly items: readonly {
+        readonly pluginIndex: number;
+        readonly input: EnginePluginInput;
+      }[];
+    }
+  | {
+      readonly kind: "fp_evaluate";
+      readonly input: EnginePluginInput;
+    }
+  | {
       readonly kind: "fp_dispatch";
       readonly input: EnginePluginInput;
     }
@@ -807,6 +1546,22 @@ type EnginePluginEffectResult =
   | {
       readonly kind: "fd_evaluate";
       readonly outcome: FdEvaluationOutcome;
+    }
+  | {
+      readonly kind: "evaluation_rule_evaluate";
+      readonly pluginIndex: number;
+      readonly outcome: EvaluationRuleOutcome;
+    }
+  | {
+      readonly kind: "evaluation_rule_batch_evaluate";
+      readonly outcomes: readonly {
+        readonly pluginIndex: number;
+        readonly outcome: EvaluationRuleOutcome;
+      }[];
+    }
+  | {
+      readonly kind: "fp_evaluate";
+      readonly outcome: FpEvaluationOutcome;
     }
   | {
       readonly kind: "fp_dispatch";
@@ -839,11 +1594,69 @@ function fdEvaluationOutcomeFromEffectResult(
   switch (result.kind) {
     case "fd_evaluate":
       return result.outcome;
+    case "evaluation_rule_evaluate":
+      throw new TypeError("Engine plugin effect expected fd_evaluate");
+    case "evaluation_rule_batch_evaluate":
+      throw new TypeError("Engine plugin effect expected fd_evaluate");
+    case "fp_evaluate":
+      throw new TypeError("Engine plugin effect expected fd_evaluate");
     case "fp_dispatch":
     case "fh_admit":
       throw new TypeError("Engine plugin effect expected fd_evaluate");
     case "consequence_project":
       throw new TypeError("Engine plugin effect expected fd_evaluate");
+  }
+}
+
+function evaluationRuleBatchOutcomesFromEffectResult(input: {
+  readonly result: EnginePluginEffectResult;
+  readonly pluginIndexes: readonly number[];
+}): readonly EvaluationRuleOutcome[] {
+  assertEnginePluginEffectKind(input.result, "evaluation_rule_batch_evaluate");
+  switch (input.result.kind) {
+    case "evaluation_rule_batch_evaluate": {
+      if (input.result.outcomes.length !== input.pluginIndexes.length) {
+        throw new TypeError(
+          "Engine plugin effect returned wrong evaluation rule batch length"
+        );
+      }
+      return Object.freeze(
+        input.result.outcomes.map((entry, index) => {
+          if (entry.pluginIndex !== input.pluginIndexes[index]) {
+            throw new TypeError(
+              "Engine plugin effect returned wrong evaluation rule batch order"
+            );
+          }
+          return entry.outcome;
+        })
+      );
+    }
+    case "fd_evaluate":
+    case "evaluation_rule_evaluate":
+    case "fp_evaluate":
+    case "fp_dispatch":
+    case "fh_admit":
+    case "consequence_project":
+      throw new TypeError(
+        "Engine plugin effect expected evaluation_rule_batch_evaluate"
+      );
+  }
+}
+
+function fpEvaluationOutcomeFromEffectResult(
+  result: EnginePluginEffectResult
+): FpEvaluationOutcome {
+  assertEnginePluginEffectKind(result, "fp_evaluate");
+  switch (result.kind) {
+    case "fp_evaluate":
+      return result.outcome;
+    case "fd_evaluate":
+    case "evaluation_rule_evaluate":
+    case "evaluation_rule_batch_evaluate":
+    case "fp_dispatch":
+    case "fh_admit":
+    case "consequence_project":
+      throw new TypeError("Engine plugin effect expected fp_evaluate");
   }
 }
 
@@ -855,6 +1668,9 @@ function fpDispatchOutcomeFromEffectResult(
     case "fp_dispatch":
       return result.outcome;
     case "fd_evaluate":
+    case "evaluation_rule_evaluate":
+    case "evaluation_rule_batch_evaluate":
+    case "fp_evaluate":
     case "fh_admit":
       throw new TypeError("Engine plugin effect expected fp_dispatch");
     case "consequence_project":
@@ -870,6 +1686,9 @@ function fhAdmissionOutcomeFromEffectResult(
     case "fh_admit":
       return result.outcome;
     case "fd_evaluate":
+    case "evaluation_rule_evaluate":
+    case "evaluation_rule_batch_evaluate":
+    case "fp_evaluate":
     case "fp_dispatch":
     case "consequence_project":
       throw new TypeError("Engine plugin effect expected fh_admit");
@@ -884,6 +1703,9 @@ function consequenceProjectionOutcomeFromEffectResult(
     case "consequence_project":
       return result.outcome;
     case "fd_evaluate":
+    case "evaluation_rule_evaluate":
+    case "evaluation_rule_batch_evaluate":
+    case "fp_evaluate":
     case "fp_dispatch":
     case "fh_admit":
       throw new TypeError("Engine plugin effect expected consequence_project");
@@ -1069,9 +1891,175 @@ function* runEngineIterateMachine(input: {
             })
           );
         }
+        const fdEvaluationBaseProjection = deriveRuntimeAggregateProjection(
+          request.basis,
+          eventState.replayEvents
+        );
+        const plannedEvaluationRules = plugins.evaluationRules.map(
+          (plugin, pluginIndex) => {
+            if (plugin.contract.computeMeans === null) {
+              throw new TypeError(
+                "Evaluation rule plugin contract requires compute means"
+              );
+            }
+            const ruleInput = constructEnginePluginInput({
+              contract: plugin.contract,
+              basis: request.basis,
+              projection: fdEvaluationBaseProjection,
+              replayEvents: eventState.replayEvents,
+              vectorIndex: transition.vectorIndex,
+              edge: transition.edge,
+              regime: plugin.contract.computeMeans,
+              abgFallbackBundle: request.abgFallbackBundle ?? null,
+              edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
+              constructionPressurePackage:
+                request.constructionPressurePackage ?? null,
+              pluginTraversalObserverFallbackEnabled:
+                request.pluginTraversalObserverFallbackEnabled ?? false,
+              pluginTraversalObserverFallbackKinds:
+                request.pluginTraversalObserverFallbackKinds ?? Object.freeze([])
+            });
+            return plannedEvaluationRuleForPlugin({
+              plugin,
+              pluginIndex,
+              pluginInput: ruleInput
+            });
+          }
+        );
+        const scalarFdRule = scalarFdEvaluationRuleDeclaration(input);
+        const evaluationSetPlan = evaluationSetPlanForPhase({
+          basis: request.basis,
+          scalarEvaluationInput: input,
+          scalarRule: scalarFdRule,
+          plannedRules: plannedEvaluationRules,
+          requiredRuleRefs: plugins.requiredEvaluationRuleRefs
+        });
+        const plannedRuleByRef = new Map<string, PlannedEvaluationRule>();
+        for (const plannedRule of plannedEvaluationRules) {
+          if (plannedRuleByRef.has(plannedRule.declaration.ruleRef)) {
+            throw new TypeError(
+              `Duplicate evaluation rule ref ${plannedRule.declaration.ruleRef}`
+            );
+          }
+          plannedRuleByRef.set(plannedRule.declaration.ruleRef, plannedRule);
+        }
+        const evaluationRuleOutcomes: EvaluationRuleOutcome[] = [];
+        for (const batch of evaluationSetPlan.ruleBatches) {
+          const plannedBatch = batch.flatMap((declaration) => {
+            if (declaration.ruleRef === scalarFdRule.ruleRef) {
+              return [];
+            }
+            const plannedRule = plannedRuleByRef.get(declaration.ruleRef);
+            if (plannedRule === undefined) {
+              return [];
+            }
+            return [{ declaration, plannedRule }];
+          });
+          if (plannedBatch.length === 0) {
+            continue;
+          }
+          const batchOutcomes = evaluationRuleBatchOutcomesFromEffectResult({
+            result: yield Object.freeze({
+              kind: "evaluation_rule_batch_evaluate",
+              items: plannedBatch.map(({ plannedRule }) =>
+                Object.freeze({
+                  pluginIndex: plannedRule.pluginIndex,
+                  input: plannedRule.pluginInput
+                })
+              )
+            }),
+            pluginIndexes: plannedBatch.map(
+              ({ plannedRule }) => plannedRule.pluginIndex
+            )
+          });
+          for (const [
+            index,
+            { declaration, plannedRule }
+          ] of plannedBatch.entries()) {
+            const ruleOutcome = batchOutcomes[index];
+            if (ruleOutcome === undefined) {
+              throw new TypeError("Evaluation rule batch omitted outcome");
+            }
+            assertEvaluationRuleOutcomeMatchesDeclaration({
+              declaration,
+              outcome: ruleOutcome
+            });
+            evaluationRuleOutcomes.push(ruleOutcome);
+            eventState = emitRunnerEvents(
+              eventState,
+              evaluationRuleOutcomeCoreEvents({
+                basis: request.basis,
+                pluginInput: plannedRule.pluginInput,
+                outcome: ruleOutcome
+              })
+            );
+          }
+        }
+        const preScalarAdmission = constructEvaluationSetAdmission({
+          plan: evaluationSetPlan,
+          outcomes: evaluationRuleOutcomes
+        });
+        const preScalarBlockingReason = evaluationSetBlockingReason({
+          admission: preScalarAdmission,
+          requiredRuleRefs: evaluationSetPlan.requiredRuleRefs,
+          ignoreMissingRuleRefs: [scalarFdRule.ruleRef]
+        });
+        if (preScalarBlockingReason !== null) {
+          const blocked = terminalTransition(
+            request.basis,
+            "gap_stop",
+            preScalarBlockingReason
+          );
+          eventState = emitRunnerEvents(
+            eventState,
+            constructTerminalReachedEvent(blocked)
+          );
+          return constructResult({
+            basis: request.basis,
+            transition: blocked,
+            projection: deriveRuntimeAggregateProjection(
+              request.basis,
+              eventState.replayEvents
+            ),
+            emittedEvents: eventState.emittedEvents,
+            replayEvents: eventState.replayEvents,
+            iterationCount
+          });
+        }
         const outcome = fdEvaluationOutcomeFromEffectResult(
           yield Object.freeze({ kind: "fd_evaluate", input }),
         );
+        const fdEvaluationRuleOutcome = evaluationRuleOutcomeFromFdEvaluation({
+          declaration: scalarFdRule,
+          pluginInput: input,
+          outcome
+        });
+        assertEvaluationRuleOutcomeMatchesDeclaration({
+          declaration: scalarFdRule,
+          outcome: fdEvaluationRuleOutcome
+        });
+        evaluationRuleOutcomes.push(fdEvaluationRuleOutcome);
+        eventState = emitRunnerEvents(
+          eventState,
+          evaluationRuleOutcomeCoreEvents({
+            basis: request.basis,
+            pluginInput: input,
+            outcome: fdEvaluationRuleOutcome
+          })
+        );
+        const evaluationSetAdmission = constructEvaluationSetAdmission({
+          plan: evaluationSetPlan,
+          outcomes: evaluationRuleOutcomes
+        });
+        const evaluationSetProjection = constructEvaluationSetProjection({
+          plan: evaluationSetPlan,
+          admission: evaluationSetAdmission
+        });
+        void evaluationSetProjection;
+        const evaluationSetBlockReason = evaluationSetBlockingReason({
+          admission: evaluationSetAdmission,
+          requiredRuleRefs: evaluationSetPlan.requiredRuleRefs
+        });
         eventState = emitRunnerEvents(eventState,
           fdAuthorityOutcomeEvent({
             basis: request.basis,
@@ -1095,6 +2083,22 @@ function* runEngineIterateMachine(input: {
           return constructResult({
             basis: request.basis,
             transition: fdTerminal,
+            projection: deriveRuntimeAggregateProjection(request.basis, eventState.replayEvents),
+            emittedEvents: eventState.emittedEvents,
+            replayEvents: eventState.replayEvents,
+            iterationCount
+          });
+        }
+        if (evaluationSetBlockReason !== null) {
+          const blocked = terminalTransition(
+            request.basis,
+            "gap_stop",
+            evaluationSetBlockReason
+          );
+          eventState = emitRunnerEvents(eventState, constructTerminalReachedEvent(blocked));
+          return constructResult({
+            basis: request.basis,
+            transition: blocked,
             projection: deriveRuntimeAggregateProjection(request.basis, eventState.replayEvents),
             emittedEvents: eventState.emittedEvents,
             replayEvents: eventState.replayEvents,
@@ -1246,6 +2250,336 @@ function* runEngineIterateMachine(input: {
             })
           );
           if (attachedDecision.kind === "accepted") {
+            eventState = emitRunnerEvents(eventState, attachedDecision.payloadEvents);
+            const evaluationBaseProjection = deriveRuntimeAggregateProjection(
+              request.basis,
+              eventState.replayEvents
+            );
+            const plannedEvaluationRules = plugins.evaluationRules.map(
+              (plugin, pluginIndex) => {
+                if (plugin.contract.computeMeans === null) {
+                  throw new TypeError(
+                    "Evaluation rule plugin contract requires compute means"
+                  );
+                }
+                const ruleInput = constructEnginePluginInput({
+                  contract: plugin.contract,
+                  basis: request.basis,
+                  projection: evaluationBaseProjection,
+                  replayEvents: eventState.replayEvents,
+                  vectorIndex: transition.vectorIndex,
+                  edge: transition.edge,
+                  regime: plugin.contract.computeMeans,
+                  traversalStrategySelection: modulatedAttempt?.selection ?? null,
+                  traversalAttemptEnvelope: modulatedAttempt?.envelope ?? null,
+                  abgFallbackBundle: request.abgFallbackBundle ?? null,
+                  edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
+                  constructionPressurePackage:
+                    request.constructionPressurePackage ?? null,
+                  pluginTraversalObserverFallbackEnabled:
+                    request.pluginTraversalObserverFallbackEnabled ?? false,
+                  pluginTraversalObserverFallbackKinds:
+                    request.pluginTraversalObserverFallbackKinds ?? Object.freeze([])
+                });
+                return plannedEvaluationRuleForPlugin({
+                  plugin,
+                  pluginIndex,
+                  pluginInput: ruleInput
+                });
+              }
+            );
+            const fpEvaluationPlanInput = constructEnginePluginInput({
+              contract: plugins.fpEvaluator.contract,
+              basis: request.basis,
+              projection: evaluationBaseProjection,
+              replayEvents: eventState.replayEvents,
+              vectorIndex: transition.vectorIndex,
+              edge: transition.edge,
+              regime: "F_P",
+              actorInvocationRef: actorInvocationRef(actorInvocation),
+              traversalStrategySelection: modulatedAttempt?.selection ?? null,
+              traversalAttemptEnvelope: modulatedAttempt?.envelope ?? null,
+              abgFallbackBundle: request.abgFallbackBundle ?? null,
+              edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
+              constructionPressurePackage:
+                request.constructionPressurePackage ?? null,
+              pluginTraversalObserverFallbackEnabled:
+                request.pluginTraversalObserverFallbackEnabled ?? false,
+              pluginTraversalObserverFallbackKinds:
+                request.pluginTraversalObserverFallbackKinds ?? Object.freeze([])
+            });
+            const evaluationSetPlan = evaluationSetPlanForPhase({
+              basis: request.basis,
+              scalarEvaluationInput: fpEvaluationPlanInput,
+              scalarRule:
+                scalarFpEvaluationRuleDeclaration(fpEvaluationPlanInput),
+              plannedRules: plannedEvaluationRules,
+              requiredRuleRefs: plugins.requiredEvaluationRuleRefs
+            });
+            const plannedRuleByRef = new Map<string, PlannedEvaluationRule>();
+            for (const plannedRule of plannedEvaluationRules) {
+              if (plannedRuleByRef.has(plannedRule.declaration.ruleRef)) {
+                throw new TypeError(
+                  `Duplicate evaluation rule ref ${plannedRule.declaration.ruleRef}`
+                );
+              }
+              plannedRuleByRef.set(plannedRule.declaration.ruleRef, plannedRule);
+            }
+            const scalarFpRule =
+              evaluationSetPlan.ruleBatches.at(-1)?.at(0) ?? null;
+            if (scalarFpRule === null) {
+              throw new TypeError("Evaluation set plan requires scalar F_P rule");
+            }
+            const evaluationRuleOutcomes: EvaluationRuleOutcome[] = [];
+            for (const batch of evaluationSetPlan.ruleBatches) {
+              const plannedBatch = batch.flatMap((declaration) => {
+                if (declaration.ruleRef === scalarFpRule.ruleRef) {
+                  return [];
+                }
+                const plannedRule = plannedRuleByRef.get(declaration.ruleRef);
+                if (plannedRule === undefined) {
+                  return [];
+                }
+                return [{ declaration, plannedRule }];
+              });
+              if (plannedBatch.length === 0) {
+                continue;
+              }
+              const batchOutcomes = evaluationRuleBatchOutcomesFromEffectResult({
+                result: yield Object.freeze({
+                  kind: "evaluation_rule_batch_evaluate",
+                  items: plannedBatch.map(({ plannedRule }) =>
+                    Object.freeze({
+                      pluginIndex: plannedRule.pluginIndex,
+                      input: plannedRule.pluginInput
+                    })
+                  )
+                }),
+                pluginIndexes: plannedBatch.map(
+                  ({ plannedRule }) => plannedRule.pluginIndex
+                )
+              });
+              for (const [
+                index,
+                { declaration, plannedRule }
+              ] of plannedBatch.entries()) {
+                const ruleOutcome = batchOutcomes[index];
+                if (ruleOutcome === undefined) {
+                  throw new TypeError("Evaluation rule batch omitted outcome");
+                }
+                assertEvaluationRuleOutcomeMatchesDeclaration({
+                  declaration,
+                  outcome: ruleOutcome
+                });
+                evaluationRuleOutcomes.push(ruleOutcome);
+                eventState = emitRunnerEvents(
+                  eventState,
+                  evaluationRuleOutcomeCoreEvents({
+                    basis: request.basis,
+                    pluginInput: plannedRule.pluginInput,
+                    outcome: ruleOutcome
+                  })
+                );
+              }
+            }
+            const preSemanticAdmission = constructEvaluationSetAdmission({
+              plan: evaluationSetPlan,
+              outcomes: evaluationRuleOutcomes
+            });
+            const preSemanticBlockingReason = evaluationSetBlockingReason({
+              admission: preSemanticAdmission,
+              requiredRuleRefs: evaluationSetPlan.requiredRuleRefs,
+              ignoreMissingRuleRefs: [scalarFpRule.ruleRef]
+            });
+            if (preSemanticBlockingReason !== null) {
+              const blocked = terminalTransition(
+                request.basis,
+                "gap_stop",
+                preSemanticBlockingReason
+              );
+              eventState = emitRunnerEvents(
+                eventState,
+                constructTerminalReachedEvent(blocked)
+              );
+              return constructResult({
+                basis: request.basis,
+                transition: blocked,
+                projection: deriveRuntimeAggregateProjection(
+                  request.basis,
+                  eventState.replayEvents
+                ),
+                emittedEvents: eventState.emittedEvents,
+                replayEvents: eventState.replayEvents,
+                iterationCount
+              });
+            }
+            const fpSemanticEvaluationProjection = deriveRuntimeAggregateProjection(
+              request.basis,
+              eventState.replayEvents
+            );
+            const fpEvaluationInput = constructEnginePluginInput({
+              contract: plugins.fpEvaluator.contract,
+              basis: request.basis,
+              projection: fpSemanticEvaluationProjection,
+              replayEvents: eventState.replayEvents,
+              vectorIndex: transition.vectorIndex,
+              edge: transition.edge,
+              regime: "F_P",
+              actorInvocationRef: actorInvocationRef(actorInvocation),
+              traversalStrategySelection: modulatedAttempt?.selection ?? null,
+              traversalAttemptEnvelope: modulatedAttempt?.envelope ?? null,
+              abgFallbackBundle: request.abgFallbackBundle ?? null,
+              edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
+              constructionPressurePackage:
+                request.constructionPressurePackage ?? null,
+              pluginTraversalObserverFallbackEnabled:
+                request.pluginTraversalObserverFallbackEnabled ?? false,
+              pluginTraversalObserverFallbackKinds:
+                request.pluginTraversalObserverFallbackKinds ?? Object.freeze([])
+            });
+            if (fpEvaluationInput.pluginTraversalObserverBinding !== null) {
+              eventState = emitRunnerEvents(eventState,
+                constructPluginTraversalPromptMaterializedEvent({
+                  basis: request.basis,
+                  vectorIndex: transition.vectorIndex,
+                  selection: fpEvaluationInput.pluginTraversalObserverBinding,
+                  invocation: actorInvocation,
+                  causationEventRefs: Object.freeze([
+                    fpEvaluationInput.sourceProjectionRef
+                  ]),
+                  correlationId: [
+                    "plugin-traversal",
+                    request.basis.id,
+                    String(transition.vectorIndex),
+                    "evaluate"
+                  ].join(":")
+                })
+              );
+            }
+            const fpEvaluationOutcome = fpEvaluationOutcomeFromEffectResult(
+              yield Object.freeze({
+                kind: "fp_evaluate",
+                input: fpEvaluationInput
+              })
+            );
+            const fpEvaluationRuleOutcome = evaluationRuleOutcomeFromFpEvaluation({
+              declaration: scalarFpRule,
+              pluginInput: fpEvaluationInput,
+              outcome: fpEvaluationOutcome
+            });
+            assertEvaluationRuleOutcomeMatchesDeclaration({
+              declaration: scalarFpRule,
+              outcome: fpEvaluationRuleOutcome
+            });
+            evaluationRuleOutcomes.push(fpEvaluationRuleOutcome);
+            eventState = emitRunnerEvents(
+              eventState,
+              evaluationRuleOutcomeCoreEvents({
+                basis: request.basis,
+                pluginInput: fpEvaluationInput,
+                outcome: fpEvaluationRuleOutcome
+              })
+            );
+            const evaluationSetAdmission = constructEvaluationSetAdmission({
+              plan: evaluationSetPlan,
+              outcomes: evaluationRuleOutcomes
+            });
+            const evaluationSetProjection = constructEvaluationSetProjection({
+              plan: evaluationSetPlan,
+              admission: evaluationSetAdmission
+            });
+            const evaluationSetBlockReason = evaluationSetBlockingReason({
+              admission: evaluationSetAdmission,
+              requiredRuleRefs: evaluationSetPlan.requiredRuleRefs
+            });
+            if (evaluationSetBlockReason !== null) {
+              const blocked = terminalTransition(
+                request.basis,
+                "gap_stop",
+                evaluationSetBlockReason
+              );
+              eventState = emitRunnerEvents(eventState, constructTerminalReachedEvent(blocked));
+              return constructResult({
+                basis: request.basis,
+                transition: blocked,
+                projection: deriveRuntimeAggregateProjection(request.basis, eventState.replayEvents),
+                emittedEvents: eventState.emittedEvents,
+                replayEvents: eventState.replayEvents,
+                iterationCount
+              });
+            }
+            assertFpEvaluationOutcomeMatchesSelectedComposition({
+              pluginInput: fpEvaluationInput,
+              outcome: fpEvaluationOutcome
+            });
+            eventState = emitRunnerEvents(
+              eventState,
+              fpEvaluationCoreEvents({
+                basis: request.basis,
+                pluginInput: fpEvaluationInput,
+                outcome: fpEvaluationOutcome
+              })
+            );
+            const evaluationProjection = deriveRuntimeAggregateProjection(
+              request.basis,
+              eventState.replayEvents
+            );
+            const assuranceFold = assuranceDecisionForCurrentVector({
+              basis: request.basis,
+              runtimeProjection: evaluationProjection,
+              replayEvents: eventState.replayEvents,
+              vectorIndex: transition.vectorIndex,
+              targetCarrierDefaults,
+              evaluationSetProjection
+            });
+            eventState = emitRunnerEvents(eventState,
+              constructClosureInputPublishedEvent({
+                basis: request.basis,
+                vectorIndex: transition.vectorIndex,
+                closureInputRef: `closure-input:fp_evaluation:${fpEvaluationDigest({
+                  basisId: request.basis.id,
+                  vectorIndex: transition.vectorIndex,
+                  projectionRef: assuranceFold.assuranceProjection.projectionRef
+                })}`,
+                projectionRef: assuranceFold.assuranceProjection.projectionRef,
+                closureDecision: assuranceFold.closureDecision.decision,
+                rowRefs: assuranceFold.closureDecision.rowIds,
+                sourceProjectionRefs: [
+                  fpEvaluationInput.sourceProjectionRef,
+                  evaluationSetProjection.projectionRef,
+                  assuranceFold.payloadLedger.projectionRef
+                ],
+                policyRefs: [
+                  request.basis.resolvedPolicy.resolvedPolicyBundleRef
+                ]
+              })
+            );
+            const assuranceTerminal = terminalForAssuranceDecision({
+              basis: request.basis,
+              decision: assuranceFold.closureDecision.decision,
+              reason: assuranceFold.closureDecision.reason
+            });
+            if (assuranceTerminal !== null) {
+              eventState = emitRunnerEvents(eventState,
+                constructVectorEvaluatedEvent({
+                  basis: request.basis,
+                  vectorIndex: transition.vectorIndex,
+                  status: "blocked"
+                })
+              );
+              eventState = emitRunnerEvents(
+                eventState,
+                constructTerminalReachedEvent(assuranceTerminal)
+              );
+              return constructResult({
+                basis: request.basis,
+                transition: assuranceTerminal,
+                projection: deriveRuntimeAggregateProjection(request.basis, eventState.replayEvents),
+                emittedEvents: eventState.emittedEvents,
+                replayEvents: eventState.replayEvents,
+                iterationCount
+              });
+            }
             eventState = emitRunnerEvents(eventState,
               constructVectorEvaluatedEvent({
                 basis: request.basis,
@@ -1253,7 +2587,6 @@ function* runEngineIterateMachine(input: {
                 status: "accepted"
               })
             );
-            eventState = emitRunnerEvents(eventState, attachedDecision.payloadEvents);
             eventState = emitRunnerEvents(eventState,
               constructVectorClosedEvent({
                 basis: request.basis,
@@ -1533,6 +2866,53 @@ function resolveSyncEnginePluginEffect(
           )
         )
       });
+    case "evaluation_rule_evaluate": {
+      const plugin = plugins.evaluationRules[effect.pluginIndex];
+      if (plugin === undefined) {
+        throw new TypeError("Unknown evaluation rule plugin index");
+      }
+      return Object.freeze({
+        kind: "evaluation_rule_evaluate",
+        pluginIndex: effect.pluginIndex,
+        outcome: admitEvaluationRuleOutcome(
+          resolveSyncPluginOutcome(
+            plugin.evaluate(effect.input),
+            "evaluation rule plugin"
+          )
+        )
+      });
+    }
+    case "evaluation_rule_batch_evaluate":
+      return Object.freeze({
+        kind: "evaluation_rule_batch_evaluate",
+        outcomes: Object.freeze(
+          effect.items.map((item) => {
+            const plugin = plugins.evaluationRules[item.pluginIndex];
+            if (plugin === undefined) {
+              throw new TypeError("Unknown evaluation rule plugin index");
+            }
+            return Object.freeze({
+              pluginIndex: item.pluginIndex,
+              outcome: admitEvaluationRuleOutcome(
+                resolveSyncPluginOutcome(
+                  plugin.evaluate(item.input),
+                  "evaluation rule plugin"
+                )
+              )
+            });
+          })
+        )
+      });
+    case "fp_evaluate":
+      return Object.freeze({
+        kind: "fp_evaluate",
+        outcome: admitFpEvaluationOutcome(
+          resolveSyncPluginOutcome(
+            plugins.fpEvaluator.evaluate(effect.input),
+            "fp evaluator plugin"
+          )
+        )
+      });
     case "fp_dispatch":
       return Object.freeze({
         kind: "fp_dispatch",
@@ -1576,6 +2956,44 @@ async function resolveAsyncEnginePluginEffect(
         kind: "fd_evaluate",
         outcome: admitFdEvaluationOutcome(
           await plugins.fdEvaluator.evaluate(effect.input)
+        )
+      });
+    case "evaluation_rule_evaluate": {
+      const plugin = plugins.evaluationRules[effect.pluginIndex];
+      if (plugin === undefined) {
+        throw new TypeError("Unknown evaluation rule plugin index");
+      }
+      return Object.freeze({
+        kind: "evaluation_rule_evaluate",
+        pluginIndex: effect.pluginIndex,
+        outcome: admitEvaluationRuleOutcome(await plugin.evaluate(effect.input))
+      });
+    }
+    case "evaluation_rule_batch_evaluate":
+      return Object.freeze({
+        kind: "evaluation_rule_batch_evaluate",
+        outcomes: Object.freeze(
+          await Promise.all(
+            effect.items.map(async (item) => {
+              const plugin = plugins.evaluationRules[item.pluginIndex];
+              if (plugin === undefined) {
+                throw new TypeError("Unknown evaluation rule plugin index");
+              }
+              return Object.freeze({
+                pluginIndex: item.pluginIndex,
+                outcome: admitEvaluationRuleOutcome(
+                  await plugin.evaluate(item.input)
+                )
+              });
+            })
+          )
+        )
+      });
+    case "fp_evaluate":
+      return Object.freeze({
+        kind: "fp_evaluate",
+        outcome: admitFpEvaluationOutcome(
+          await plugins.fpEvaluator.evaluate(effect.input)
         )
       });
     case "fp_dispatch":

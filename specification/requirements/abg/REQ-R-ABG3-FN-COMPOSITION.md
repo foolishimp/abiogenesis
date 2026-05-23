@@ -58,10 +58,16 @@ identity is absent, stale, malformed, or mismatched.
 
 **REQ-R-ABG3-FN-COMP-014**: ABG shall preserve the ontology/epistemology split for composition-governed boundaries. GTL and product declarations identify lawful hosts, hooks, policy refs, and product read-model intent; ABG admits candidate/evaluation payloads, emits events, derives payload ledgers, derives assurance and traversal projections, folds closure, and records replay truth.
 
-**REQ-R-ABG3-FN-COMP-015**: ABG shall interpret selected composition execution as an event-sourced bind chain: start composition, open graph call, open frame, invoke `plugin.transform.C`, admit transform, write transform events and ledgers, invoke `plugin.evaluate.C`, admit evaluation, write evaluation ledgers, fold assurance, invoke `plugin.consequence.C`, admit consequence projection, derive traversal transition, and replay continuation.
+**REQ-R-ABG3-FN-COMP-015**: ABG shall interpret selected composition execution as an event-sourced bind chain: start composition, open graph call, open frame, invoke `plugin.transform.C`, admit transform, write transform events and ledgers, plan the evaluation set, invoke `plugin.evaluate.C.rule[*]`, admit evaluation rule results, write evaluation ledgers, collect the evaluation-set projection, fold assurance, invoke `plugin.consequence.C`, admit consequence projection, derive traversal transition, and replay continuation.
 
 **REQ-R-ABG3-FN-COMP-016**: Engine plugin contracts that participate in composition-governed compute shall carry explicit compute-stage category, compute means, purpose, selected composition identity at invocation, and authority-denial flags. The current ABG runtime categories are transform/candidate construction, evaluate/candidate evaluation, consequence/projection, and external human callout.
 
 **REQ-R-ABG3-FN-COMP-017**: ABG shall treat `F_H` as an external callout regime. ABG may emit or admit callout/request/response boundary events and carriers, but the human work surface itself is outside ABG; no human callout may directly write runtime events, ledgers, traversal transitions, replay truth, or closure.
 
 **REQ-R-ABG3-FN-COMP-018**: The plugin traversal observer and hook/action category surfaces shall use `evaluate` for the evaluation stage. ABG shall reject malformed or legacy stage-category names on the admitted category surfaces rather than silently mapping them to current authority.
+
+**REQ-R-ABG3-FN-COMP-019**: ABG shall own evaluation-set planning, stable rule scheduling, evaluation rule admission, evaluation ledger writes, and evaluation-set projection. Product plugins may compute rule outcomes inside selected composition boundaries, but they shall not own the evaluation loop, replay order, ledger writes, assurance fold, traversal transition, or closure.
+
+**REQ-R-ABG3-FN-COMP-020**: Required evaluation rules shall fail closed when absent, stale, malformed, contradictory, rejected, or admitted under a mismatched selected composition ref/digest or selected regime-binding contribution ref.
+
+**REQ-R-ABG3-FN-COMP-021**: ABG shall converge composed `transform.C`, `evaluate.C`, and `consequence.C` stages through one stage-set law: plan tasks, invoke task plugins, admit task results, derive ledgers/projections, and pass only admitted projections to the next system bind. Existing scalar stage hooks are one-task reductions of this law.

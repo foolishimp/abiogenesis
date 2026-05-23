@@ -872,21 +872,37 @@ export {
   admitEnginePluginContract,
   admitConsequenceProjectionOutcome,
   admitFdEvaluationOutcome,
+  admitFpEvaluationOutcome,
   admitFhAdmissionOutcome,
   admitFpDispatchOutcome,
   constructConsequenceProjectionOutcome,
   constructEnginePluginContract,
   constructEnginePluginInput,
   constructFdEvaluationOutcome,
+  constructFpEvaluationFinding,
+  constructFpEvaluationOutcome,
   constructFhAdmissionOutcome,
   constructFpDispatchOutcome,
   defaultConsequenceProjectionPlugin,
   deriveFdPressureRoutingDecision,
   defaultFdEvaluatorPlugin,
+  defaultFpEvaluatorPlugin,
   defaultFhAdmissionPlugin,
   defaultFpDispatchPlugin,
+  missingFpEvaluatorPlugin,
   enginePluginInventory
 } from "./plugins.js";
+export {
+  admitEvaluationRuleDeclaration,
+  admitEvaluationRuleOutcome,
+  admitEvaluationSetPlan,
+  constructEvaluationRuleDeclaration,
+  constructEvaluationRuleOutcome,
+  constructEvaluationSetAdmission,
+  constructEvaluationSetPlan,
+  constructEvaluationSetProjection,
+  EVALUATION_RULE_ROLE_VALUES
+} from "./evaluation_set.js";
 export {
   ENGINE_COMPUTE_STAGE_PURPOSE_VALUES,
   ENGINE_COMPUTE_STAGE_ROLE_VALUES,
@@ -910,13 +926,26 @@ export type {
   EnginePluginOutcome,
   EnginePluginRuntimeBindingStatus,
   EngineRunnerPluginSet,
+  EvaluationRulePlugin,
   FdEvaluationOutcome,
   FdEvaluatorPlugin,
+  FpEvaluationCloseDisposition,
+  FpEvaluationFinding,
+  FpEvaluationOutcome,
+  FpEvaluatorPlugin,
   FhAdmissionOutcome,
   FhAdmissionPlugin,
   FpDispatchOutcome,
   FpDispatchPlugin
 } from "./plugins.js";
+export type {
+  EvaluationRuleDeclaration,
+  EvaluationRuleOutcome,
+  EvaluationRuleRole,
+  EvaluationSetAdmission,
+  EvaluationSetPlan,
+  EvaluationSetProjection
+} from "./evaluation_set.js";
 export {
   ABG_FN_COMPOSITION_DECLARATION_KEY,
   ABG_FN_COMPOSITION_SOURCE_VALUES,

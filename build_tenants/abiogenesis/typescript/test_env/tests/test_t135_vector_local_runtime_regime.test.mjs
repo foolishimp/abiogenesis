@@ -13,6 +13,7 @@ import {
   constructFpDispatchOutcome,
   constructVectorClosedEvent,
   constructVectorEvaluatedEvent,
+  defaultFpEvaluatorPlugin,
   deriveAdvancementTransition,
   deriveEffectiveVectorRegime,
   deriveIterationAdvanceDecision,
@@ -141,7 +142,7 @@ test("T-135 mixed F_P then F_D graph drains under one ABG runner", () => {
     eventSink: (event) => {
       events.push(event);
     },
-    plugins: { fpDispatch, fdEvaluator }
+    plugins: { fpDispatch, fpEvaluator: defaultFpEvaluatorPlugin, fdEvaluator }
   });
 
   assert.equal(result.transition.kind, "terminal");
