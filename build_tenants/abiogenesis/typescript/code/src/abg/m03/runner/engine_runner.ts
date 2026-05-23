@@ -842,6 +842,29 @@ function uniqueStrings(values: readonly string[]): readonly string[] {
   return Object.freeze([...new Set(values)]);
 }
 
+function pluginInputLedgerRefs(input: EnginePluginInput): readonly string[] {
+  return uniqueStrings([
+    input.sourceProjectionRef,
+    ...input.priorStageFoldInputRefs,
+    ...input.stageSetDependencyRefs
+  ]);
+}
+
+function pluginInputIdentity(input: EnginePluginInput): Readonly<Record<string, unknown>> {
+  return Object.freeze({
+    sourceProjectionRef: input.sourceProjectionRef,
+    selectedCompositionRef: input.selectedCompositionRef,
+    selectedCompositionDigest: input.selectedCompositionDigest,
+    selectedCompositionSelectionRef: input.selectedCompositionSelectionRef,
+    selectedRegimeBindingRef: input.selectedRegimeBindingRef,
+    priorStageProjectionRefs: input.priorStageProjectionRefs,
+    priorStageFoldInputRefs: input.priorStageFoldInputRefs,
+    stageSetDependencyRefs: input.stageSetDependencyRefs,
+    computeStageBindingPredecessorRefs:
+      input.computeStageBinding?.predecessorRefs ?? Object.freeze([])
+  });
+}
+
 interface PlannedEvaluationRule {
   readonly pluginIndex: number;
   readonly plugin: EvaluationRulePlugin;
@@ -924,10 +947,7 @@ function plannedComposedStageTaskForPlugin(input: {
     computeMeans: input.plugin.contract.computeMeans,
     inputLedgerRefs:
       input.plugin.inputLedgerRefs ??
-      uniqueStrings([
-        input.pluginInput.sourceProjectionRef,
-        ...input.pluginInput.priorStageFoldInputRefs
-      ]),
+      pluginInputLedgerRefs(input.pluginInput),
     outputCarrierRefs:
       input.plugin.outputCarrierRefs ?? [input.plugin.contract.outputCarrier],
     required: input.plugin.required ?? true,
@@ -959,10 +979,7 @@ function scalarTransformTaskDeclaration(
     selectedCompositionSelectionRef: pluginInput.selectedCompositionSelectionRef,
     selectedRegimeBindingRef: pluginInput.selectedRegimeBindingRef,
     computeMeans: "F_P",
-    inputLedgerRefs: uniqueStrings([
-      pluginInput.sourceProjectionRef,
-      ...pluginInput.priorStageFoldInputRefs
-    ]),
+    inputLedgerRefs: pluginInputLedgerRefs(pluginInput),
     outputCarrierRefs: ["FpDispatchOutcome"],
     required: false,
     parallelGroupRef: null,
@@ -987,10 +1004,7 @@ function scalarConsequenceTaskDeclaration(
     selectedCompositionSelectionRef: pluginInput.selectedCompositionSelectionRef,
     selectedRegimeBindingRef: pluginInput.selectedRegimeBindingRef,
     computeMeans: "F_D",
-    inputLedgerRefs: uniqueStrings([
-      pluginInput.sourceProjectionRef,
-      ...pluginInput.priorStageFoldInputRefs
-    ]),
+    inputLedgerRefs: pluginInputLedgerRefs(pluginInput),
     outputCarrierRefs: ["ConsequenceProjectionOutcome"],
     required: true,
     parallelGroupRef: null,
@@ -1091,8 +1105,7 @@ function composedStageTaskOutcomeCoreEvents(input: {
         input.pluginInput.actorInvocationRef?.actorInvocationId ?? null,
       authorityRef: input.outcome.taskRef,
       inputDigest: `input:composed_stage_task:${fpEvaluationDigest({
-        sourceProjectionRef: input.pluginInput.sourceProjectionRef,
-        selectedCompositionDigest: input.pluginInput.selectedCompositionDigest,
+        pluginInput: pluginInputIdentity(input.pluginInput),
         stageRole: input.outcome.stageRole
       })}`,
       policyRefs: [input.basis.resolvedPolicy.resolvedPolicyBundleRef]
@@ -1263,10 +1276,7 @@ function plannedEvaluationRuleForPlugin(input: {
     computeMeans: input.plugin.contract.computeMeans,
     inputLedgerRefs:
       input.plugin.inputLedgerRefs ??
-      uniqueStrings([
-        input.pluginInput.sourceProjectionRef,
-        ...input.pluginInput.priorStageFoldInputRefs
-      ]),
+      pluginInputLedgerRefs(input.pluginInput),
     outputCarrierRefs:
       input.plugin.outputCarrierRefs ?? [input.plugin.contract.outputCarrier],
     required: input.plugin.required ?? true,
@@ -1297,10 +1307,7 @@ function scalarFpEvaluationRuleDeclaration(
     selectedCompositionSelectionRef: pluginInput.selectedCompositionSelectionRef,
     selectedRegimeBindingRef: pluginInput.selectedRegimeBindingRef,
     computeMeans: "F_P",
-    inputLedgerRefs: uniqueStrings([
-      pluginInput.sourceProjectionRef,
-      ...pluginInput.priorStageFoldInputRefs
-    ]),
+    inputLedgerRefs: pluginInputLedgerRefs(pluginInput),
     outputCarrierRefs: ["FpEvaluationOutcome"],
     required: true,
     parallelGroupRef: null,
@@ -1324,10 +1331,7 @@ function scalarFdEvaluationRuleDeclaration(
     selectedCompositionSelectionRef: pluginInput.selectedCompositionSelectionRef,
     selectedRegimeBindingRef: pluginInput.selectedRegimeBindingRef,
     computeMeans: "F_D",
-    inputLedgerRefs: uniqueStrings([
-      pluginInput.sourceProjectionRef,
-      ...pluginInput.priorStageFoldInputRefs
-    ]),
+    inputLedgerRefs: pluginInputLedgerRefs(pluginInput),
     outputCarrierRefs: ["FdEvaluationOutcome"],
     required: true,
     parallelGroupRef: null,
@@ -1425,8 +1429,7 @@ function evaluationRuleOutcomeCoreEvents(input: {
         input.pluginInput.actorInvocationRef?.actorInvocationId ?? null,
       authorityRef: input.outcome.ruleRef,
       inputDigest: `input:evaluation_rule:${fpEvaluationDigest({
-        sourceProjectionRef: input.pluginInput.sourceProjectionRef,
-        selectedCompositionDigest: input.pluginInput.selectedCompositionDigest
+        pluginInput: pluginInputIdentity(input.pluginInput)
       })}`,
       policyRefs: [input.basis.resolvedPolicy.resolvedPolicyBundleRef]
     }),
@@ -1683,8 +1686,7 @@ function fpEvaluationCoreEvents(input: {
     authorityRefs
   })}`;
   const inputDigest = `input:fp_evaluation:${fpEvaluationDigest({
-    sourceProjectionRef: input.pluginInput.sourceProjectionRef,
-    selectedCompositionDigest: input.pluginInput.selectedCompositionDigest
+    pluginInput: pluginInputIdentity(input.pluginInput)
   })}`;
   const events: RuntimeEvent[] = [
     constructAuthoritySnapshotAdmittedEvent({
@@ -1696,7 +1698,7 @@ function fpEvaluationCoreEvents(input: {
         authorityRefs
       })}`,
       authorityRefs,
-      inputRefs: [input.pluginInput.sourceProjectionRef],
+      inputRefs: pluginInputLedgerRefs(input.pluginInput),
       authorityDigest,
       inputDigest,
       deferredAuthorityRefs,
@@ -2646,24 +2648,6 @@ function* runEngineIterateMachine(input: {
           priorStageFoldInputRefs:
             stageProjectionFoldInputRefs(evaluationSetProjection)
         });
-        if (consequenceInput.pluginTraversalObserverBinding !== null) {
-          eventState = emitRunnerEvents(eventState,
-            constructPluginTraversalPromptMaterializedEvent({
-              basis: request.basis,
-              vectorIndex: transition.vectorIndex,
-              selection: consequenceInput.pluginTraversalObserverBinding,
-              causationEventRefs: Object.freeze([
-                consequenceInput.sourceProjectionRef
-              ]),
-              correlationId: [
-                "plugin-traversal",
-                request.basis.id,
-                String(transition.vectorIndex),
-                "consequence"
-              ].join(":")
-            })
-          );
-        }
         const plannedConsequenceTasks = plugins.consequenceTasks.map(
           (plugin, pluginIndex) => {
             if (plugin.contract.computeMeans === null) {
@@ -2686,7 +2670,10 @@ function* runEngineIterateMachine(input: {
               pluginTraversalObserverFallbackEnabled:
                 request.pluginTraversalObserverFallbackEnabled ?? false,
               pluginTraversalObserverFallbackKinds:
-                request.pluginTraversalObserverFallbackKinds ?? Object.freeze([])
+                request.pluginTraversalObserverFallbackKinds ?? Object.freeze([]),
+              priorStageProjectionRefs: stageProjectionRefs(evaluationSetProjection),
+              priorStageFoldInputRefs:
+                stageProjectionFoldInputRefs(evaluationSetProjection)
             });
             return plannedComposedStageTaskForPlugin({
               stageRole: "consequence",
@@ -2832,15 +2819,65 @@ function* runEngineIterateMachine(input: {
             iterationCount
           });
         }
+        const preProjectionConsequenceProjection =
+          composedStageProjectionForCurrentOutcomes(
+            consequenceStagePlan,
+            consequenceStageOutcomes
+          );
+        const scalarConsequenceProjection = deriveRuntimeAggregateProjection(
+          request.basis,
+          eventState.replayEvents
+        );
+        const scalarConsequenceInput = constructEnginePluginInput({
+          contract: plugins.consequenceProjection.contract,
+          basis: request.basis,
+          projection: scalarConsequenceProjection,
+          replayEvents: eventState.replayEvents,
+          vectorIndex: transition.vectorIndex,
+          edge: transition.edge,
+          regime: "F_D",
+          abgFallbackBundle: request.abgFallbackBundle ?? null,
+          edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
+          constructionPressurePackage:
+            request.constructionPressurePackage ?? null,
+          pluginTraversalObserverFallbackEnabled:
+            request.pluginTraversalObserverFallbackEnabled ?? false,
+          pluginTraversalObserverFallbackKinds:
+            request.pluginTraversalObserverFallbackKinds ?? Object.freeze([]),
+          priorStageProjectionRefs: stageProjectionRefs(evaluationSetProjection),
+          priorStageFoldInputRefs:
+            stageProjectionFoldInputRefs(evaluationSetProjection),
+          stageSetDependencyRefs: stageProjectionFoldInputRefs(
+            preProjectionConsequenceProjection
+          )
+        });
+        if (scalarConsequenceInput.pluginTraversalObserverBinding !== null) {
+          eventState = emitRunnerEvents(eventState,
+            constructPluginTraversalPromptMaterializedEvent({
+              basis: request.basis,
+              vectorIndex: transition.vectorIndex,
+              selection: scalarConsequenceInput.pluginTraversalObserverBinding,
+              causationEventRefs: Object.freeze([
+                scalarConsequenceInput.sourceProjectionRef
+              ]),
+              correlationId: [
+                "plugin-traversal",
+                request.basis.id,
+                String(transition.vectorIndex),
+                "consequence"
+              ].join(":")
+            })
+          );
+        }
         const consequenceOutcome = consequenceProjectionOutcomeFromEffectResult(
           yield Object.freeze({
             kind: "consequence_project",
-            input: consequenceInput
+            input: scalarConsequenceInput
           })
         );
         const scalarConsequenceOutcome = composedStageTaskOutcomeFromConsequence({
           declaration: scalarConsequenceTask,
-          pluginInput: consequenceInput,
+          pluginInput: scalarConsequenceInput,
           outcome: consequenceOutcome
         });
         assertComposedStageTaskOutcomeMatchesDeclaration({
@@ -2852,7 +2889,7 @@ function* runEngineIterateMachine(input: {
           eventState,
           composedStageTaskOutcomeCoreEvents({
             basis: request.basis,
-            pluginInput: consequenceInput,
+            pluginInput: scalarConsequenceInput,
             outcome: scalarConsequenceOutcome
           })
         );
@@ -3109,21 +3146,55 @@ function* runEngineIterateMachine(input: {
             iterationCount
           });
         }
+        const preDispatchTransformProjection =
+          composedStageProjectionForCurrentOutcomes(
+            transformStagePlan,
+            transformStageOutcomes
+          );
+        const scalarTransformProjection = deriveRuntimeAggregateProjection(
+          request.basis,
+          eventState.replayEvents
+        );
+        const scalarTransformInput = constructEnginePluginInput({
+          contract: plugins.fpDispatch.contract,
+          basis: request.basis,
+          projection: scalarTransformProjection,
+          replayEvents: eventState.replayEvents,
+          vectorIndex: transition.vectorIndex,
+          edge: transition.edge,
+          regime: "F_P",
+          actorInvocationRef: actorInvocationRef(actorInvocation),
+          traversalStrategySelection: modulatedAttempt?.selection ?? null,
+          traversalAttemptEnvelope: modulatedAttempt?.envelope ?? null,
+          abgFallbackBundle: request.abgFallbackBundle ?? null,
+          edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
+          constructionPressurePackage:
+            request.constructionPressurePackage ?? null,
+          pluginTraversalObserverFallbackEnabled:
+            request.pluginTraversalObserverFallbackEnabled ?? false,
+          pluginTraversalObserverFallbackKinds:
+            request.pluginTraversalObserverFallbackKinds ?? Object.freeze([]),
+          priorStageProjectionRefs: continuationStageProjectionRefs,
+          priorStageFoldInputRefs: continuationStageFoldInputRefs,
+          stageSetDependencyRefs: stageProjectionFoldInputRefs(
+            preDispatchTransformProjection
+          )
+        });
         eventState = emitRunnerEvents(eventState,
           fpDispatchAttemptStartedEvents({
             basis: request.basis,
             transition,
             actorInvocation,
             modulatedAttempt,
-            pluginInput: input
+            pluginInput: scalarTransformInput
           })
         );
         const outcome = fpDispatchOutcomeFromEffectResult(
-          yield Object.freeze({ kind: "fp_dispatch", input }),
+          yield Object.freeze({ kind: "fp_dispatch", input: scalarTransformInput }),
         );
         const scalarTransformOutcome = composedStageTaskOutcomeFromFpDispatch({
           declaration: scalarTransformTask,
-          pluginInput: input,
+          pluginInput: scalarTransformInput,
           outcome
         });
         assertComposedStageTaskOutcomeMatchesDeclaration({
@@ -3135,7 +3206,7 @@ function* runEngineIterateMachine(input: {
           eventState,
           composedStageTaskOutcomeCoreEvents({
             basis: request.basis,
-            pluginInput: input,
+            pluginInput: scalarTransformInput,
             outcome: scalarTransformOutcome
           })
         );
@@ -3178,7 +3249,7 @@ function* runEngineIterateMachine(input: {
               artifactRef: resultRef
             })
           );
-          if (input.fpTransformRequest === null) {
+          if (scalarTransformInput.fpTransformRequest === null) {
             throw new TypeError("F_P dispatch requires a transform request carrier");
           }
           const attachedDecision = deriveAttachedFpResultDecision({
@@ -3186,7 +3257,7 @@ function* runEngineIterateMachine(input: {
             projection,
             transition,
             outcome,
-            transformRequest: input.fpTransformRequest,
+            transformRequest: scalarTransformInput.fpTransformRequest,
             maxAttempts: request.maxAttachedFpAttempts
           });
           eventState = emitRunnerEvents(eventState,
@@ -3620,24 +3691,6 @@ function* runEngineIterateMachine(input: {
               priorStageFoldInputRefs:
                 stageProjectionFoldInputRefs(evaluationSetProjection)
             });
-            if (consequenceInput.pluginTraversalObserverBinding !== null) {
-              eventState = emitRunnerEvents(eventState,
-                constructPluginTraversalPromptMaterializedEvent({
-                  basis: request.basis,
-                  vectorIndex: transition.vectorIndex,
-                  selection: consequenceInput.pluginTraversalObserverBinding,
-                  causationEventRefs: Object.freeze([
-                    consequenceInput.sourceProjectionRef
-                  ]),
-                  correlationId: [
-                    "plugin-traversal",
-                    request.basis.id,
-                    String(transition.vectorIndex),
-                    "consequence"
-                  ].join(":")
-                })
-              );
-            }
             const plannedConsequenceTasks = plugins.consequenceTasks.map(
               (plugin, pluginIndex) => {
                 if (plugin.contract.computeMeans === null) {
@@ -3815,16 +3868,66 @@ function* runEngineIterateMachine(input: {
                 iterationCount
               });
             }
+            const preProjectionConsequenceProjection =
+              composedStageProjectionForCurrentOutcomes(
+                consequenceStagePlan,
+                consequenceStageOutcomes
+              );
+            const scalarConsequenceProjection = deriveRuntimeAggregateProjection(
+              request.basis,
+              eventState.replayEvents
+            );
+            const scalarConsequenceInput = constructEnginePluginInput({
+              contract: plugins.consequenceProjection.contract,
+              basis: request.basis,
+              projection: scalarConsequenceProjection,
+              replayEvents: eventState.replayEvents,
+              vectorIndex: transition.vectorIndex,
+              edge: transition.edge,
+              regime: "F_D",
+              abgFallbackBundle: request.abgFallbackBundle ?? null,
+              edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
+              constructionPressurePackage:
+                request.constructionPressurePackage ?? null,
+              pluginTraversalObserverFallbackEnabled:
+                request.pluginTraversalObserverFallbackEnabled ?? false,
+              pluginTraversalObserverFallbackKinds:
+                request.pluginTraversalObserverFallbackKinds ?? Object.freeze([]),
+              priorStageProjectionRefs: stageProjectionRefs(evaluationSetProjection),
+              priorStageFoldInputRefs:
+                stageProjectionFoldInputRefs(evaluationSetProjection),
+              stageSetDependencyRefs: stageProjectionFoldInputRefs(
+                preProjectionConsequenceProjection
+              )
+            });
+            if (scalarConsequenceInput.pluginTraversalObserverBinding !== null) {
+              eventState = emitRunnerEvents(eventState,
+                constructPluginTraversalPromptMaterializedEvent({
+                  basis: request.basis,
+                  vectorIndex: transition.vectorIndex,
+                  selection: scalarConsequenceInput.pluginTraversalObserverBinding,
+                  causationEventRefs: Object.freeze([
+                    scalarConsequenceInput.sourceProjectionRef
+                  ]),
+                  correlationId: [
+                    "plugin-traversal",
+                    request.basis.id,
+                    String(transition.vectorIndex),
+                    "consequence"
+                  ].join(":")
+                })
+              );
+            }
             const consequenceOutcome = consequenceProjectionOutcomeFromEffectResult(
               yield Object.freeze({
                 kind: "consequence_project",
-                input: consequenceInput
+                input: scalarConsequenceInput
               })
             );
             const scalarConsequenceOutcome =
               composedStageTaskOutcomeFromConsequence({
                 declaration: scalarConsequenceTask,
-                pluginInput: consequenceInput,
+                pluginInput: scalarConsequenceInput,
                 outcome: consequenceOutcome
               });
             assertComposedStageTaskOutcomeMatchesDeclaration({
@@ -3834,11 +3937,11 @@ function* runEngineIterateMachine(input: {
             consequenceStageOutcomes.push(scalarConsequenceOutcome);
             eventState = emitRunnerEvents(
               eventState,
-              composedStageTaskOutcomeCoreEvents({
-                basis: request.basis,
-                pluginInput: consequenceInput,
-                outcome: scalarConsequenceOutcome
-              })
+                composedStageTaskOutcomeCoreEvents({
+                  basis: request.basis,
+                  pluginInput: scalarConsequenceInput,
+                  outcome: scalarConsequenceOutcome
+                })
             );
             const consequenceStageAdmission = constructComposedStageAdmission({
               plan: consequenceStagePlan,

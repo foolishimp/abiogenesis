@@ -1079,7 +1079,7 @@ function computeStageBinding(input: {
   readonly selectedCompositionDigest: string;
   readonly selectedCompositionSelectionRef: string;
   readonly selectedRegimeBindingRef: string | null;
-  readonly sourceProjectionRef: string;
+  readonly predecessorRefs: readonly string[];
   readonly inputCarrierRefs: readonly string[];
   readonly outputCarrierRefs: readonly string[];
 }): EngineComputeStageBinding | null {
@@ -1100,7 +1100,7 @@ function computeStageBinding(input: {
     selectedRegimeBindingRef: input.selectedRegimeBindingRef,
     inputCarrierRefs: freezeStringArray(input.inputCarrierRefs),
     outputCarrierRefs: freezeStringArray(input.outputCarrierRefs),
-    predecessorRefs: freezeStringArray([input.sourceProjectionRef]),
+    predecessorRefs: freezeStringArray(input.predecessorRefs),
     externalHumanCallout: input.contract.humanBoundary === "external_callout",
     responseAdmissionRequired:
       input.contract.humanBoundary === "external_callout",
@@ -1185,6 +1185,23 @@ export function constructEnginePluginInput(input: {
         });
   const regimeBindingRef = selectedRegimeBinding?.bindingRef ?? null;
   const sourceRef = sourceProjectionRef(input.projection);
+  const priorStageProjectionRefs = freezeStringArray(
+    input.priorStageProjectionRefs ?? Object.freeze([])
+  );
+  const priorStageFoldInputRefs = freezeStringArray(
+    input.priorStageFoldInputRefs ?? Object.freeze([])
+  );
+  const stageSetDependencyRefs = freezeStringArray(
+    input.stageSetDependencyRefs ?? Object.freeze([])
+  );
+  const predecessorRefs = freezeStringArray([
+    ...new Set([
+      sourceRef,
+      ...priorStageProjectionRefs,
+      ...priorStageFoldInputRefs,
+      ...stageSetDependencyRefs
+    ])
+  ]);
   const stageBinding = computeStageBinding({
     contract,
     selectedCompositionRef: compositionSelection.contract.contractRef,
@@ -1192,7 +1209,7 @@ export function constructEnginePluginInput(input: {
     selectedCompositionSelectionRef:
       compositionSelection.selectionRef,
     selectedRegimeBindingRef: regimeBindingRef,
-    sourceProjectionRef: sourceRef,
+    predecessorRefs,
     inputCarrierRefs: [contract.inputCarrier],
     outputCarrierRefs: [contract.outputCarrier]
   });
@@ -1275,15 +1292,9 @@ export function constructEnginePluginInput(input: {
     observedStateRefs: freezeStringArray(
       input.projection.observedState.observedStateRefs
     ),
-    priorStageProjectionRefs: freezeStringArray(
-      input.priorStageProjectionRefs ?? Object.freeze([])
-    ),
-    priorStageFoldInputRefs: freezeStringArray(
-      input.priorStageFoldInputRefs ?? Object.freeze([])
-    ),
-    stageSetDependencyRefs: freezeStringArray(
-      input.stageSetDependencyRefs ?? Object.freeze([])
-    ),
+    priorStageProjectionRefs,
+    priorStageFoldInputRefs,
+    stageSetDependencyRefs,
     constructionPressurePackage: input.constructionPressurePackage ?? null,
     constructionPressurePackageRef:
       input.constructionPressurePackage?.packageRef ?? null,

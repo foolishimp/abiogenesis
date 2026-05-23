@@ -335,6 +335,50 @@ test("T-145 dependent evaluation rules can read admitted predecessor refs", () =
     secondInput.stageSetDependencyRefs.some((ref) => ref.includes(firstRuleRef)),
     true
   );
+  assert.equal(
+    secondInput.computeStageBinding.predecessorRefs.some((ref) =>
+      ref.includes(firstRuleRef)
+    ),
+    true
+  );
+});
+
+test("T-145 evaluation rule replay identity includes dependency refs", () => {
+  const secondRuleRef = "evaluation-rule://t145/dependent-identity/second";
+  const digestForFirstRule = (firstRuleRef) => {
+    const events = [];
+    const result = runEngineIterate({
+      basis: firstFpBasis(),
+      eventSink: (event) => events.push(event),
+      plugins: {
+        fpDispatch: fpDispatchPlugin(),
+        fdEvaluator: fdEvaluatorPlugin(),
+        fpEvaluator: fpEvaluatorPlugin(),
+        evaluationRules: [
+          registerRulePlugin({ ruleRef: firstRuleRef }),
+          registerRulePlugin({
+            ruleRef: secondRuleRef,
+            dependencyRefs: [firstRuleRef]
+          })
+        ]
+      }
+    });
+    const observed = events.find(
+      (event) =>
+        event.kind === "payload_observed" &&
+        event.payloadClass === "evaluation_rule_outcome" &&
+        event.authorityRef === secondRuleRef
+    );
+
+    assert.equal(result.transition.terminalKind, "converged");
+    assert.notEqual(observed, undefined);
+    return observed.inputDigest;
+  };
+
+  assert.notEqual(
+    digestForFirstRule("evaluation-rule://t145/dependent-identity/first-a"),
+    digestForFirstRule("evaluation-rule://t145/dependent-identity/first-b")
+  );
 });
 
 test("T-145 parallel register batches replay in stable rule-ref order", () => {

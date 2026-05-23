@@ -221,6 +221,10 @@ truth.
   dependent task input, not only ordering metadata.
 - [x] Collected transform, evaluation, and consequence projections feed the
   next ABG system/plugin bind instead of being discarded side observations.
+- [x] Scalar transform and consequence reductions are rebuilt after same-stage
+  predecessor admission, so scalar plugin calls see predecessor refs.
+- [x] Replay-visible input identity and `EngineComputeStageBinding` predecessor
+  refs include prior stage and same-stage dependency refs.
 - [x] No plugin task can write ledgers, emit events, select traversal, replay
   continuation, mutate graph call/frame state, or close.
 - [x] Tests prove the scalar reductions and multi-task/parallel forms.
@@ -297,5 +301,43 @@ Verified after the post-review fix:
 - `npm run test:t145` passed, 11 tests.
 - `npm run test:t146` passed, 12 tests.
 - `npm run test:semantic` passed, 639 tests.
+- `npm run lint:semantic` passed.
+- `git diff --check` passed.
+
+## Scalar Reduction Re-Entry Evidence
+
+Further closure scrutiny found that scalar reductions still used inputs created
+before same-stage predecessor batches ran. Deterministic transform prep could
+execute before scalar `transform.C.F_P`, but the scalar dispatch input did not
+receive the admitted prep refs. The same timing bug existed for scalar
+`consequence.C.F_D`.
+
+The runner now rebuilds scalar transform and scalar consequence inputs after
+predecessor stage-set admission. Those scalar inputs receive
+`stageSetDependencyRefs` from the collected predecessor projection fold input,
+and their `EngineComputeStageBinding.predecessorRefs` carries the same chain.
+Payload input digests for composed stage tasks, evaluation rule outcomes, and
+F_P evaluation authority now hash the canonical plugin input identity,
+including prior stage refs, prior fold-input refs, and same-stage dependency
+refs.
+
+Regression proof added:
+
+- T-145: evaluation rule replay identity changes when dependency refs change.
+- T-146: scalar `transform.C.F_P` dispatch sees deterministic transform prep
+  refs through both `stageSetDependencyRefs` and stage-binding predecessors.
+- T-146: scalar transform replay identity changes when predecessor refs change.
+- T-146: scalar `consequence.C.F_D` projection sees consequence task refs
+  through both `stageSetDependencyRefs` and stage-binding predecessors.
+- T-146: scalar consequence replay identity changes when predecessor refs
+  change.
+
+Verified after the scalar reduction fix:
+
+- `npm run build:semantic` passed.
+- `npm run test:t144` passed, 14 tests.
+- `npm run test:t145` passed, 12 tests.
+- `npm run test:t146` passed, 14 tests.
+- `npm run test:semantic` passed, 642 tests.
 - `npm run lint:semantic` passed.
 - `git diff --check` passed.

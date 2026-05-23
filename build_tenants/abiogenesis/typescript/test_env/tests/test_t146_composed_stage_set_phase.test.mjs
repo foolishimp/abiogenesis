@@ -292,18 +292,23 @@ test("T-146 scalar transform, evaluate, and consequence are stage-set reductions
 
 test("T-146 transform.C.F_D tasks run before scalar transform.C.F_P dispatch", () => {
   const observed = [];
+  let dispatchInput = null;
+  const prepTaskRef = "stage-task://t146/transform/fd-prep";
   const result = runEngineIterate({
     basis: firstFpBasis(),
     eventSink: () => undefined,
     plugins: {
-      fpDispatch: fpDispatchPlugin((input) => observed.push(`dispatch:${input.vectorIndex}`)),
+      fpDispatch: fpDispatchPlugin((input) => {
+        dispatchInput = input;
+        observed.push(`dispatch:${input.vectorIndex}`);
+      }),
       fdEvaluator: fdEvaluatorPlugin(),
       fpEvaluator: fpEvaluatorPlugin(),
       transformTasks: [
         stageTaskPlugin({
           stageRole: "transform",
           taskRole: "candidate",
-          taskRef: "stage-task://t146/transform/fd-prep",
+          taskRef: prepTaskRef,
           observe: (input) => observed.push(`prep:${input.vectorIndex}`)
         })
       ]
@@ -312,6 +317,54 @@ test("T-146 transform.C.F_D tasks run before scalar transform.C.F_P dispatch", (
 
   assert.equal(result.transition.terminalKind, "converged");
   assert.deepEqual(observed.slice(0, 2), ["prep:0", "dispatch:0"]);
+  assert.notEqual(dispatchInput, null);
+  assert.equal(
+    dispatchInput.stageSetDependencyRefs.some((ref) => ref.includes(prepTaskRef)),
+    true
+  );
+  assert.equal(
+    dispatchInput.computeStageBinding.predecessorRefs.some((ref) =>
+      ref.includes(prepTaskRef)
+    ),
+    true
+  );
+});
+
+test("T-146 scalar transform replay identity includes predecessor refs", () => {
+  const digestForPrepTask = (prepTaskRef) => {
+    const events = [];
+    const result = runEngineIterate({
+      basis: firstFpBasis(),
+      eventSink: (event) => events.push(event),
+      plugins: {
+        fpDispatch: fpDispatchPlugin(),
+        fdEvaluator: fdEvaluatorPlugin(),
+        fpEvaluator: fpEvaluatorPlugin(),
+        transformTasks: [
+          stageTaskPlugin({
+            stageRole: "transform",
+            taskRole: "candidate",
+            taskRef: prepTaskRef
+          })
+        ]
+      }
+    });
+    const observed = events.find(
+      (event) =>
+        event.kind === "payload_observed" &&
+        event.payloadClass === "composed_stage_task_outcome" &&
+        event.authorityRef.startsWith("stage-task:transform:fp-dispatch:")
+    );
+
+    assert.equal(result.transition.terminalKind, "converged");
+    assert.notEqual(observed, undefined);
+    return observed.inputDigest;
+  };
+
+  assert.notEqual(
+    digestForPrepTask("stage-task://t146/scalar-transform-identity/prep-a"),
+    digestForPrepTask("stage-task://t146/scalar-transform-identity/prep-b")
+  );
 });
 
 test("T-146 parallel transform tasks invoke concurrently and admit by task ref", async () => {
@@ -457,19 +510,22 @@ test("T-146 transform and evaluation projections feed later stage inputs", () =>
 
 test("T-146 consequence.C tasks run before scalar consequence projection", () => {
   const observed = [];
+  const projectionInputs = [];
+  const taskRef = "stage-task://t146/consequence/project-register";
   const result = runEngineIterate({
     basis: firstFdBasis(),
     eventSink: () => undefined,
     plugins: {
       fdEvaluator: fdEvaluatorPlugin(),
-      consequenceProjection: consequenceProjectionPlugin((input) =>
-        observed.push(`projection:${input.vectorIndex}`)
-      ),
+      consequenceProjection: consequenceProjectionPlugin((input) => {
+        projectionInputs.push(input);
+        observed.push(`projection:${input.vectorIndex}`);
+      }),
       consequenceTasks: [
         stageTaskPlugin({
           stageRole: "consequence",
           taskRole: "projection",
-          taskRef: "stage-task://t146/consequence/project-register",
+          taskRef,
           observe: (input) => observed.push(`task:${input.vectorIndex}`)
         })
       ]
@@ -484,6 +540,54 @@ test("T-146 consequence.C tasks run before scalar consequence projection", () =>
       true
     );
   }
+  assert.equal(
+    projectionInputs.every((input) =>
+      input.stageSetDependencyRefs.some((ref) => ref.includes(taskRef))
+    ),
+    true
+  );
+  assert.equal(
+    projectionInputs.every((input) =>
+      input.computeStageBinding.predecessorRefs.some((ref) => ref.includes(taskRef))
+    ),
+    true
+  );
+});
+
+test("T-146 scalar consequence replay identity includes predecessor refs", () => {
+  const digestForConsequenceTask = (taskRef) => {
+    const events = [];
+    const result = runEngineIterate({
+      basis: firstFdBasis(),
+      eventSink: (event) => events.push(event),
+      plugins: {
+        fdEvaluator: fdEvaluatorPlugin(),
+        consequenceProjection: consequenceProjectionPlugin(),
+        consequenceTasks: [
+          stageTaskPlugin({
+            stageRole: "consequence",
+            taskRole: "projection",
+            taskRef
+          })
+        ]
+      }
+    });
+    const observed = events.find(
+      (event) =>
+        event.kind === "payload_observed" &&
+        event.payloadClass === "composed_stage_task_outcome" &&
+        event.authorityRef.startsWith("stage-task:consequence:projection:")
+    );
+
+    assert.equal(result.transition.terminalKind, "converged");
+    assert.notEqual(observed, undefined);
+    return observed.inputDigest;
+  };
+
+  assert.notEqual(
+    digestForConsequenceTask("stage-task://t146/scalar-consequence-identity/task-a"),
+    digestForConsequenceTask("stage-task://t146/scalar-consequence-identity/task-b")
+  );
 });
 
 test("T-146 dependent consequence tasks can read admitted predecessor refs", () => {
