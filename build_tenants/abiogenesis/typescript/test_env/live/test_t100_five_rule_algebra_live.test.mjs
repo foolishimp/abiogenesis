@@ -31,6 +31,7 @@ import {
   admitResolvedRuntimeIdentity,
   admitScheduledSliceAssessment,
   admitWorkspaceAssetBinding,
+  constructDefaultAbgFnCompositionDeclarations,
   constructOutputBindingAdmittedEvent,
   constructOutputInstanceAllocatedEvent,
   constructOutputMaterializationObservedEvent,
@@ -199,7 +200,10 @@ function fiveRuleModule() {
         tags: ["t100", "five-rule"]
       }
     ],
-    declarations: { entries: [] },
+    declarations: constructDefaultAbgFnCompositionDeclarations({
+      scopeRef: "t100/five-rule/bootstrap-to-design",
+      hostGraphVectorRef: "vector:t100-five-rule/bootstrap-to-design"
+    }),
     tags: ["t100", "five-rule"]
   }).vectors[0];
   const lifecycle = graphFunctionForVector(vector, {

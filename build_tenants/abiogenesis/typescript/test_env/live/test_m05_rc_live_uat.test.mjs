@@ -30,6 +30,8 @@ const EXPECTED_DISPATCH_EVENT_CHAIN = [
   "vector_traversal_planned",
   "fp_dispatch_requested",
   "actor_invocation_started",
+  "payload_observed",
+  "payload_validated",
   "actor_invocation_closed"
 ];
 const EXPECTED_ASSESSMENT_EVENT_CHAIN = [
@@ -357,6 +359,7 @@ function rcLiveDispatchSource(agentKey) {
       dispatchRequestsForTransition,
       admitResolvedPolicyIdentity,
       admitResolvedRuntimeIdentity,
+      constructDefaultAbgFnCompositionDeclarations,
       admitPublicStartRequest,
       publicStart
     } from "@abiogenesis/typescript-tenant";
@@ -404,7 +407,10 @@ function rcLiveDispatchSource(agentKey) {
             tags: ["fulfillment", "uat"]
           }
         ],
-        declarations: { entries: [] }
+        declarations: constructDefaultAbgFnCompositionDeclarations({
+          scopeRef: "m05/rc-live-uat/requirements-to-uat",
+          hostGraphVectorRef: "graph-rc-live-requirements-to-uat"
+        })
       }).vectors[0],
       {
         id: "graph-function-rc-live-requirements-to-uat",

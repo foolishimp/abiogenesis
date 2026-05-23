@@ -165,11 +165,14 @@ function liveSandboxSource(agentKey, executorProfile) {
       admitPublicStartRequest,
       admitResolvedPolicyIdentity,
       admitResolvedRuntimeIdentity,
-      constructEnginePluginContract,
-      constructFpDispatchOutcome,
-      deriveRuntimeAggregateProjection,
-      deriveAdvancementTransition,
-      dispatchRequestsForTransition,
+          constructDefaultAbgFnCompositionDeclarations,
+          constructEnginePluginContract,
+          constructFpDispatchOutcome,
+          constructFpEvaluationFinding,
+          constructFpEvaluationOutcome,
+          deriveRuntimeAggregateProjection,
+          deriveAdvancementTransition,
+          dispatchRequestsForTransition,
       edge,
       graphFunctionForVector,
       publicStartAsync,
@@ -304,7 +307,10 @@ function liveSandboxSource(agentKey, executorProfile) {
           tags: ["fulfillment", "t087"]
         }
       ],
-      declarations: { entries: [] },
+      declarations: constructDefaultAbgFnCompositionDeclarations({
+        scopeRef: "t087/live-actor-single-edge",
+        hostGraphVectorRef: "graph-t087-live"
+      }),
       tags: ["live", "t087"]
     }).vectors[0];
     const graphFunction = graphFunctionForVector(vector, {
@@ -482,22 +488,59 @@ function liveSandboxSource(agentKey, executorProfile) {
           resultRef: input.actorInvocationRef.resultRef,
           attachedResultArtifact: rawArtifact,
           evidenceRefs: [input.sourceProjectionRef, "live://t087/supervised-actor"]
+            });
+          }
         });
-      }
-    });
 
-    const outcome = await publicStartAsync(
-      startInput,
+        const fpEvaluator = Object.freeze({
+          contract: constructEnginePluginContract({
+            ref: "plugin://t087/live-fp-evaluator",
+            pluginKind: "fp_evaluator",
+            authority: "effect_plugin",
+            inputCarrier: "EnginePluginInput",
+            outputCarrier: "FpEvaluationOutcome"
+          }),
+          evaluate: (input) =>
+            constructFpEvaluationOutcome({
+              status: "evaluated",
+              findings: [
+                constructFpEvaluationFinding({
+                  findingRef:
+                    "finding://t087/live/" + encodeURIComponent(input.edge),
+                  evaluatorRef: "plugin://t087/live-fp-evaluator",
+                  gainReportRef:
+                    "gain://t087/live/" + encodeURIComponent(input.edge),
+                  metricRefs: [
+                    "metric://t087/live/" + encodeURIComponent(input.edge)
+                  ],
+                  closeDisposition: "close",
+                  evidenceRefs: [input.sourceProjectionRef, "live://t087/supervised-actor"],
+                  authorityRefs:
+                    input.expectedAssessmentIds.length > 0
+                      ? input.expectedAssessmentIds
+                      : ["authority://t087/live-fp-evaluator"],
+                  compositionContributionRef:
+                    input.selectedRegimeBindingRef ?? input.selectedCompositionRef,
+                  compositionRef: input.selectedCompositionRef,
+                  compositionDigest: input.selectedCompositionDigest
+                })
+              ],
+              evidenceRefs: [input.sourceProjectionRef, "live://t087/supervised-actor"]
+            })
+        });
+
+        const outcome = await publicStartAsync(
+          startInput,
       {
         module,
         runtimeIdentity,
         resolvedPolicy,
         runId: "run://t087-supervised-actor-live",
         workKey: "wk://t087-supervised-actor-live"
-      },
-      (event) => events.push(event),
-      { fpDispatch }
-    );
+          },
+          (event) => events.push(event),
+          { fpDispatch, fpEvaluator }
+        );
     const projection = deriveRuntimeAggregateProjection(basis, events);
     const actorLedger = {
       actorInvocationRefs: projection.actorInvocationRefs,
@@ -568,9 +611,13 @@ function liveSandboxSource(agentKey, executorProfile) {
         nextVectorIndex: projection.nextVectorIndex
       },
       assetIndexSummary: assetIndexSummary(assetIndex),
-      assessedEdges: events
-        .filter((event) => event.kind === "assessed")
-        .map((event) => event.edge),
+          assessedEdges: events
+            .filter(
+              (event) =>
+                event.kind === "assessed" ||
+                (event.kind === "vector_closed" && event.closureKind === "assessed")
+            )
+            .map((event) => event.edge),
       closedEdges: events
         .filter((event) => event.kind === "vector_closed")
         .map((event) => event.edge),
@@ -707,23 +754,36 @@ test("T-087 live: real agent transport runs inside one ABG supervised actor invo
   assert.equal(payload.status, "completed");
   assert.equal(payload.outcome.kind, "converged");
   assert.equal(payload.outcome.terminalKind, "converged");
-  assert.deepStrictEqual(payload.eventKinds, [
-    "basis_admitted",
-    "graph_call_opened",
-    "frame_opened",
-    "vector_traversal_planned",
-    "fp_dispatch_requested",
-    "actor_invocation_started",
-    "actor_result_artifact_observed",
-    "actor_invocation_closed",
-    "vector_evaluated",
-    "authority_snapshot_admitted",
-    "payload_observed",
-    "payload_validated",
-    "evidence_admitted",
-    "vector_closed",
-    "terminal_reached"
-  ]);
+      assert.deepStrictEqual(payload.eventKinds, [
+        "basis_admitted",
+        "graph_call_opened",
+        "frame_opened",
+        "vector_traversal_planned",
+        "fp_dispatch_requested",
+        "actor_invocation_started",
+        "payload_observed",
+        "payload_validated",
+        "actor_result_artifact_observed",
+        "actor_invocation_closed",
+        "authority_snapshot_admitted",
+        "payload_observed",
+        "payload_validated",
+        "evidence_admitted",
+        "payload_observed",
+        "payload_validated",
+        "authority_snapshot_admitted",
+        "payload_observed",
+        "payload_validated",
+        "evidence_admitted",
+        "evidence_admitted",
+        "ambiguity_observation_admitted",
+        "closure_input_published",
+        "vector_evaluated",
+        "vector_closed",
+        "payload_observed",
+        "payload_validated",
+        "terminal_reached"
+      ]);
   assert.equal(payload.actorEvents.length, 3);
   assert.deepStrictEqual(payload.projectionSummary.plannedVectorIndexes, [0]);
   assert.deepStrictEqual(payload.projectionSummary.evaluatedVectorIndexes, [0]);
@@ -761,7 +821,7 @@ test("T-087 live: real agent transport runs inside one ABG supervised actor invo
     payload.projectionSummary.observedActorArtifactRefs[0].actorInvocationId,
     payload.actorEvents[0].actorInvocationId
   );
-  assert.deepStrictEqual(payload.assessedEdges, []);
+      assert.deepStrictEqual(payload.assessedEdges, ["live_source→live_result"]);
   assert.deepStrictEqual(payload.closedEdges, ["live_source→live_result"]);
   assert.equal(
     payload.assetIndexSummary.liveArtifactFiles.includes("event_log.json"),

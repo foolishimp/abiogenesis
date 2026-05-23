@@ -9,12 +9,18 @@
 // F_P/F_D plugins, the semantic evaluator, and the harness consume both.
 
 import {
-  admitModule,
-  admitNode,
-  compose,
-  edge,
-  graphFunctionForVector
-} from "../../../build/semantic/code/src/index.js";
+      admitModule,
+      admitNode,
+      compose,
+      constructDefaultAbgFnCompositionDeclarations,
+      constructGraph,
+      constructGraphFunction,
+      constructGraphVector,
+      constructTemplateRef,
+      edge,
+      graphFunctionForVector,
+      materializeGraphFunction
+    } from "../../../build/semantic/code/src/index.js";
 
 export const MINI_DM_TAGS = Object.freeze(["t101", "mini-dm-redux"]);
 
@@ -129,15 +135,63 @@ function buildGraphFunctionFor(edgeDef, sourceNode, targetNode) {
         tags: [...MINI_DM_TAGS]
       }
     ],
-    declarations: { entries: [] },
-    tags: [...MINI_DM_TAGS]
-  }).vectors[0];
-  return graphFunctionForVector(vector, {
+        tags: [...MINI_DM_TAGS]
+      }).vectors[0];
+      return graphFunctionForVector(vector, {
     name: edgeDef.name,
     declarations: { entries: [] },
     tags: [...MINI_DM_TAGS]
-  });
-}
+      });
+    }
+
+    function vectorWithCompositionDeclarations(vector) {
+      return constructGraphVector({
+        id: vector.id,
+        name: vector.name,
+        source: vector.source,
+        target: vector.target,
+        operators: vector.operators,
+        evaluators: vector.evaluators,
+        contexts: vector.contexts,
+        rule: vector.rule,
+        allowsSubwork: vector.allowsSubwork,
+        declarations: constructDefaultAbgFnCompositionDeclarations({
+          scopeRef: `t101/mini-dm-redux/${vector.id}`,
+          hostGraphVectorRef: vector.id
+        }),
+        tags: vector.tags
+      });
+    }
+
+    function graphFunctionWithVectorCompositionDeclarations(graphFunction) {
+      const graph = materializeGraphFunction(graphFunction);
+      const graphWithDeclarations = constructGraph({
+        name: graph.name,
+        inputs: graph.inputs,
+        outputs: graph.outputs,
+        nodes: graph.nodes,
+        vectors: graph.vectors.map(vectorWithCompositionDeclarations),
+        contexts: graph.contexts,
+        rules: graph.rules,
+        effects: graph.effects,
+        tags: graph.tags
+      });
+      return constructGraphFunction({
+        name: graphFunction.name,
+        environment: graphFunction.environment,
+        inputs: graphFunction.inputs,
+        outputs: graphFunction.outputs,
+        template: constructTemplateRef({
+          kind: "inline_graph",
+          ref: graphFunction.template.ref,
+          graph: graphWithDeclarations,
+          version: null
+        }),
+        effects: graphFunction.effects,
+        declarations: graphFunction.declarations,
+        tags: graphFunction.tags
+      });
+    }
 
 export function buildMiniDmReduxModule() {
   const rawProblem = buildNode("RawProblem", "raw_problem", "raw_problem_admitted");
@@ -169,11 +223,13 @@ export function buildMiniDmReduxModule() {
       targetByEdge[edgeDef.name]
     )
   );
-  const lifecycle = compose(
-    graphFunctions[0],
-    graphFunctions[1],
-    graphFunctions[2]
-  );
+      const baseLifecycle = compose(
+        graphFunctions[0],
+        graphFunctions[1],
+        graphFunctions[2]
+      );
+      const lifecycle =
+        graphFunctionWithVectorCompositionDeclarations(baseLifecycle);
   const module = admitModule({
     name: "t101_mini_dm_redux_module",
     graphs: [],

@@ -23,21 +23,26 @@ import {
   admitScheduledSliceAssessment,
   admitWorkspaceAssetBinding,
   compose,
-  constructOutputBindingAdmittedEvent,
-  constructEvalGradeVector,
-  constructEvalOutcome,
-  constructEvalSuiteSpec,
-  constructEvalTask,
-  constructEvalTrial,
-  constructOutputInstanceAllocatedEvent,
-  constructOutputMaterializationObservedEvent,
-  constructOutputPluginHandoffManifest,
-  constructScheduledSliceAssessedEvent,
-  constructScheduledSliceDispatchedEvent,
-  constructScheduledSlicePluginHandoff,
-  constructWorkspaceObligationLedgerAdmittedEvent,
-  constructWorkspaceObligationScheduleDerivedEvent,
-  constructZoomFoldbackEvaluatedEvent,
+      constructDefaultAbgFnCompositionDeclarations,
+      constructOutputBindingAdmittedEvent,
+      constructEvalGradeVector,
+      constructEvalOutcome,
+      constructEvalSuiteSpec,
+      constructEvalTask,
+      constructEvalTrial,
+      constructGraph,
+      constructGraphFunction,
+      constructGraphVector,
+      constructOutputInstanceAllocatedEvent,
+      constructOutputMaterializationObservedEvent,
+      constructOutputPluginHandoffManifest,
+      constructScheduledSliceAssessedEvent,
+      constructScheduledSliceDispatchedEvent,
+      constructScheduledSlicePluginHandoff,
+      constructTemplateRef,
+      constructWorkspaceObligationLedgerAdmittedEvent,
+      constructWorkspaceObligationScheduleDerivedEvent,
+      constructZoomFoldbackEvaluatedEvent,
   constructZoomFrameOpenedEvent,
   deriveObligationLedgerAsset,
   deriveObligationSchedule,
@@ -48,11 +53,12 @@ import {
   deriveWorkspaceSystemProjection,
   deriveWorkspaceZoomProjection,
   deriveZoomFoldbackEvaluationFromEvents,
-  edge,
-  emit,
-  graphFunctionForVector,
-  openZoomFrame
-} from "../../build/semantic/code/src/index.js";
+      edge,
+      emit,
+      graphFunctionForVector,
+      materializeGraphFunction,
+      openZoomFrame
+    } from "../../build/semantic/code/src/index.js";
 
 const TEST_DIR = path.dirname(fileURLToPath(import.meta.url));
 const TEST_ENV_ROOT = path.resolve(TEST_DIR, "..");
@@ -172,18 +178,66 @@ function stageGraphFunction(name, source, target, edgeName, evaluatorId) {
         tags: ["t100", "mini-data-mapper"]
       }
     ],
-    declarations: { entries: [] },
-    tags: ["t100", "mini-data-mapper"]
-  }).vectors[0];
+        tags: ["t100", "mini-data-mapper"]
+      }).vectors[0];
 
   return graphFunctionForVector(vector, {
     name,
     declarations: { entries: [] },
     tags: ["t100", "mini-data-mapper"]
-  });
-}
+      });
+    }
 
-function miniLifecycleModule() {
+    function vectorWithCompositionDeclarations(vector) {
+      return constructGraphVector({
+        id: vector.id,
+        name: vector.name,
+        source: vector.source,
+        target: vector.target,
+        operators: vector.operators,
+        evaluators: vector.evaluators,
+        contexts: vector.contexts,
+        rule: vector.rule,
+        allowsSubwork: vector.allowsSubwork,
+        declarations: constructDefaultAbgFnCompositionDeclarations({
+          scopeRef: `t100/mini-data-mapper/${vector.id}`,
+          hostGraphVectorRef: vector.id
+        }),
+        tags: vector.tags
+      });
+    }
+
+    function graphFunctionWithVectorCompositionDeclarations(graphFunction) {
+      const graph = materializeGraphFunction(graphFunction);
+      const graphWithDeclarations = constructGraph({
+        name: graph.name,
+        inputs: graph.inputs,
+        outputs: graph.outputs,
+        nodes: graph.nodes,
+        vectors: graph.vectors.map(vectorWithCompositionDeclarations),
+        contexts: graph.contexts,
+        rules: graph.rules,
+        effects: graph.effects,
+        tags: graph.tags
+      });
+      return constructGraphFunction({
+        name: graphFunction.name,
+        environment: graphFunction.environment,
+        inputs: graphFunction.inputs,
+        outputs: graphFunction.outputs,
+        template: constructTemplateRef({
+          kind: "inline_graph",
+          ref: graphFunction.template.ref,
+          graph: graphWithDeclarations,
+          version: null
+        }),
+        effects: graphFunction.effects,
+        declarations: graphFunction.declarations,
+        tags: graphFunction.tags
+      });
+    }
+
+    function miniLifecycleModule() {
   const bootstrap = node(
     "node:t100-mini/bootstrap",
     "BootstrapInputSet",
@@ -221,10 +275,10 @@ function miniLifecycleModule() {
     "archived"
   );
 
-  const lifecycle = compose(
-    stageGraphFunction(
-      "bootstrap_mini_data_mapper_requirements",
-      bootstrap,
+      const baseLifecycle = compose(
+        stageGraphFunction(
+          "bootstrap_mini_data_mapper_requirements",
+          bootstrap,
       requirements,
       "bootstrap_input_to_requirements",
       "requirements_ready"
@@ -255,9 +309,11 @@ function miniLifecycleModule() {
       tests,
       archive,
       "tests_to_archive",
-      "archive_ready"
-    )
-  );
+          "archive_ready"
+        )
+      );
+      const lifecycle =
+        graphFunctionWithVectorCompositionDeclarations(baseLifecycle);
 
   const module = admitModule({
     name: "t100_mini_data_mapper_lifecycle_module",

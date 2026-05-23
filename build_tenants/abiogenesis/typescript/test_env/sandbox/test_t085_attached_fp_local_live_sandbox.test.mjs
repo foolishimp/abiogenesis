@@ -37,17 +37,24 @@ function attachedFpLocalLiveSandboxSource() {
     import { fileURLToPath } from "node:url";
     import {
       admitModule,
-      admitNode,
-      admitResolvedPolicyIdentity,
-      admitResolvedRuntimeIdentity,
-      compose,
-      constructEnginePluginContract,
-      constructFpDispatchOutcome,
-      edge,
-      graphFunctionForVector,
-      materializeGraphFunction,
-      publicStart
-    } from "@abiogenesis/typescript-tenant";
+          admitNode,
+          admitResolvedPolicyIdentity,
+          admitResolvedRuntimeIdentity,
+          compose,
+          constructDefaultAbgFnCompositionDeclarations,
+          constructEnginePluginContract,
+          constructFpDispatchOutcome,
+          constructFpEvaluationFinding,
+          constructFpEvaluationOutcome,
+          constructGraph,
+          constructGraphFunction,
+          constructGraphVector,
+          constructTemplateRef,
+          edge,
+          graphFunctionForVector,
+          materializeGraphFunction,
+          publicStart
+        } from "@abiogenesis/typescript-tenant";
 
     const packageEntryPath = fileURLToPath(
       import.meta.resolve("@abiogenesis/typescript-tenant")
@@ -90,11 +97,10 @@ function attachedFpLocalLiveSandboxSource() {
             tags: ["fulfillment", "t085"]
           }
         ],
-        declarations: { entries: [] },
-        tags: ["sandbox", "attached_fp", "t085"]
-      }).vectors[0];
+            tags: ["sandbox", "attached_fp", "t085"]
+          }).vectors[0];
 
-      return graphFunctionForVector(vector, {
+          return graphFunctionForVector(vector, {
         name,
         declarations: { entries: [] },
         tags: ["sandbox", "attached_fp", "t085"]
@@ -102,14 +108,63 @@ function attachedFpLocalLiveSandboxSource() {
     }
 
     const inputSet = node("node-t085-input-set", "InputSet", "input_set", "declared");
-    const requirements = node("node-t085-requirements", "Requirements", "requirements", "captured");
-    const design = node("node-t085-design", "Design", "design", "derived");
-    const code = node("node-t085-code", "Code", "code", "implemented");
+        const requirements = node("node-t085-requirements", "Requirements", "requirements", "captured");
+        const design = node("node-t085-design", "Design", "design", "derived");
+        const code = node("node-t085-code", "Code", "code", "implemented");
 
-    const executive = compose(
-      stageGraphFunction(
-        "capture_requirements",
-        inputSet,
+        function vectorWithCompositionDeclarations(vector) {
+          return constructGraphVector({
+            id: vector.id,
+            name: vector.name,
+            source: vector.source,
+            target: vector.target,
+            operators: vector.operators,
+            evaluators: vector.evaluators,
+            contexts: vector.contexts,
+            rule: vector.rule,
+            allowsSubwork: vector.allowsSubwork,
+            declarations: constructDefaultAbgFnCompositionDeclarations({
+              scopeRef: "t085/attached-fp/" + vector.id,
+              hostGraphVectorRef: vector.id
+            }),
+            tags: vector.tags
+          });
+        }
+
+        function graphFunctionWithVectorCompositionDeclarations(graphFunction) {
+          const graph = materializeGraphFunction(graphFunction);
+          const graphWithDeclarations = constructGraph({
+            name: graph.name,
+            inputs: graph.inputs,
+            outputs: graph.outputs,
+            nodes: graph.nodes,
+            vectors: graph.vectors.map(vectorWithCompositionDeclarations),
+            contexts: graph.contexts,
+            rules: graph.rules,
+            effects: graph.effects,
+            tags: graph.tags
+          });
+          return constructGraphFunction({
+            name: graphFunction.name,
+            environment: graphFunction.environment,
+            inputs: graphFunction.inputs,
+            outputs: graphFunction.outputs,
+            template: constructTemplateRef({
+              kind: "inline_graph",
+              ref: graphFunction.template.ref,
+              graph: graphWithDeclarations,
+              version: null
+            }),
+            effects: graphFunction.effects,
+            declarations: graphFunction.declarations,
+            tags: graphFunction.tags
+          });
+        }
+
+        const baseExecutive = compose(
+          stageGraphFunction(
+            "capture_requirements",
+            inputSet,
         requirements,
         "input_set→requirements",
         "requirements_ready"
@@ -126,10 +181,11 @@ function attachedFpLocalLiveSandboxSource() {
         design,
         code,
         "design→code",
-        "code_ready"
-      )
-    );
-    const executiveGraph = materializeGraphFunction(executive);
+            "code_ready"
+          )
+        );
+        const executive = graphFunctionWithVectorCompositionDeclarations(baseExecutive);
+        const executiveGraph = materializeGraphFunction(executive);
 
     const module = admitModule({
       name: "t085_attached_fp_local_live_sandbox",
@@ -216,9 +272,9 @@ function attachedFpLocalLiveSandboxSource() {
       "# Partial requirements\\nstate=created-before-first-dispatch\\n"
     );
 
-    const fpDispatch = Object.freeze({
-      contract: constructEnginePluginContract({
-        ref: "plugin://t085/local-live-attached-worker",
+        const fpDispatch = Object.freeze({
+          contract: constructEnginePluginContract({
+            ref: "plugin://t085/local-live-attached-worker",
         pluginKind: "fp_dispatch",
         authority: "effect_plugin",
         inputCarrier: "EnginePluginInput",
@@ -285,26 +341,78 @@ function attachedFpLocalLiveSandboxSource() {
           ),
           evidenceRefs: [input.sourceProjectionRef, evidenceRef]
         });
-      }
-    });
+          }
+        });
 
-    const outcome = publicStart(
-      startInput,
+        const fpEvaluator = Object.freeze({
+          contract: constructEnginePluginContract({
+            ref: "plugin://t085/local-live-fp-evaluator",
+            pluginKind: "fp_evaluator",
+            authority: "effect_plugin",
+            inputCarrier: "EnginePluginInput",
+            outputCarrier: "FpEvaluationOutcome"
+          }),
+          evaluate: (input) => {
+            const attempt = attemptByEdge.get(input.edge) ?? 0;
+            return constructFpEvaluationOutcome({
+              status: "evaluated",
+              findings: [
+                constructFpEvaluationFinding({
+                  findingRef:
+                    "finding://t085/" +
+                    encodeURIComponent(input.edge) +
+                    "/attempt-" +
+                    attempt,
+                  evaluatorRef: "plugin://t085/local-live-fp-evaluator",
+                  gainReportRef:
+                    "gain://t085/" +
+                    encodeURIComponent(input.edge) +
+                    "/attempt-" +
+                    attempt,
+                  metricRefs: [
+                    "metric://t085/" +
+                      encodeURIComponent(input.edge) +
+                      "/attempt-" +
+                      attempt
+                  ],
+                  closeDisposition: "close",
+                  evidenceRefs: [input.sourceProjectionRef],
+                  authorityRefs:
+                    input.expectedAssessmentIds.length > 0
+                      ? input.expectedAssessmentIds
+                      : ["authority://t085/local-live-fp-evaluator"],
+                  compositionContributionRef:
+                    input.selectedRegimeBindingRef ?? input.selectedCompositionRef,
+                  compositionRef: input.selectedCompositionRef,
+                  compositionDigest: input.selectedCompositionDigest
+                })
+              ],
+              evidenceRefs: [input.sourceProjectionRef]
+            });
+          }
+        });
+
+        const outcome = publicStart(
+          startInput,
       {
         module,
         runtimeIdentity,
         resolvedPolicy,
         runId: "run://t085-attached-fp-local-live",
         workKey: "wk://t085-attached-fp-local-live"
-      },
-      (event) => events.push(event),
-      { fpDispatch }
-    );
+          },
+          (event) => events.push(event),
+          { fpDispatch, fpEvaluator }
+        );
 
-    const eventKinds = events.map((event) => event.kind);
-    const assessedEdges = events
-      .filter((event) => event.kind === "assessed")
-      .map((event) => event.edge);
+        const eventKinds = events.map((event) => event.kind);
+        const assessedEdges = events
+          .filter(
+            (event) =>
+              event.kind === "assessed" ||
+              (event.kind === "vector_closed" && event.closureKind === "assessed")
+          )
+          .map((event) => event.edge);
     const payload = {
       passed:
         outcome.kind === "converged" &&

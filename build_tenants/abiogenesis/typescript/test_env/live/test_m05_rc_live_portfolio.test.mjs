@@ -35,6 +35,8 @@ const EXPECTED_STAGE_EVENT_PREFIX = [
   "vector_traversal_planned",
   "fp_dispatch_requested",
   "actor_invocation_started",
+  "payload_observed",
+  "payload_validated",
   "actor_invocation_closed"
 ];
 const EXPECTED_ASSESSMENT_PAYLOAD_EVENT_CHAIN_PER_ID = [
@@ -196,6 +198,7 @@ function dispatchSource(scenario, stage, stageIndex, agentKey) {
       dispatchRequestsForTransition,
       admitResolvedPolicyIdentity,
       admitResolvedRuntimeIdentity,
+      constructDefaultAbgFnCompositionDeclarations,
       admitOperatorAssetQueryContract,
       admitPublicStartRequest,
       publicStart,
@@ -235,7 +238,10 @@ function dispatchSource(scenario, stage, stageIndex, agentKey) {
         binding: \`binding://\${scenario.scenarioName}/\${id}\`,
         tags: ["fulfillment", scenario.mode]
       })),
-      declarations: { entries: [] }
+      declarations: constructDefaultAbgFnCompositionDeclarations({
+        scopeRef: \`m05/rc-live-portfolio/\${scenario.scenarioName}/\${stageIndex}\`,
+        hostGraphVectorRef: \`graph-\${scenario.scenarioName}-\${stageIndex}\`
+      })
     }).vectors[0];
     const graphFunction = graphFunctionForVector(vector, {
       id: \`graph-function-\${scenario.scenarioName}-\${stageIndex}\`,

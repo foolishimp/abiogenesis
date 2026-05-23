@@ -21,6 +21,7 @@ import {
   admitNode,
   admitResolvedPolicyIdentity,
   admitResolvedRuntimeIdentity,
+  constructDefaultAbgFnCompositionDeclarations,
   constructFrameOpenedEvent,
   constructGraphCallOpenedEvent,
   constructTimerIntent,
@@ -97,6 +98,16 @@ function temporalHookEntry(namespace) {
   });
 }
 
+function compositionDeclarations(scopeRef, vectorRef, declarations) {
+  return attrs([
+    ...constructDefaultAbgFnCompositionDeclarations({
+      scopeRef,
+      hostGraphVectorRef: vectorRef
+    }).entries,
+    ...declarations.entries
+  ]);
+}
+
 function node(id, name, kind, markov) {
   return admitNode({
     id,
@@ -138,7 +149,11 @@ function buildLiveGtlBasis(input) {
         tags: ["t125", "live"]
       }
     ],
-    declarations: input.declarations,
+    declarations: compositionDeclarations(
+      `t125/live/${input.name}`,
+      `vector:t125/${input.name}/source-to-target`,
+      input.declarations
+    ),
     tags: ["t125", "live", input.name]
   });
   const vector = graph.vectors[0];
