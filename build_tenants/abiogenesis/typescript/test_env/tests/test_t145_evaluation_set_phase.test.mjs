@@ -222,13 +222,16 @@ test("T-145 scalar F_P evaluator remains a one-rule evaluation-set reduction", (
 test("T-145 F_D register rules are admitted before final F_P semantic judgment", () => {
   const basis = firstFpBasis();
   const events = [];
+  let fpEvaluationInput = null;
   const result = runEngineIterate({
     basis,
     eventSink: (event) => events.push(event),
     plugins: {
       fpDispatch: fpDispatchPlugin(),
       fdEvaluator: fdEvaluatorPlugin(),
-      fpEvaluator: fpEvaluatorPlugin(),
+      fpEvaluator: fpEvaluatorPlugin((input) => {
+        fpEvaluationInput = input;
+      }),
       evaluationRules: [
         registerRulePlugin({ ruleRef: "evaluation-rule://t145/register/a" }),
         registerRulePlugin({ ruleRef: "evaluation-rule://t145/register/b" })
@@ -263,19 +266,39 @@ test("T-145 F_D register rules are admitted before final F_P semantic judgment",
     ),
     true
   );
+  assert.notEqual(fpEvaluationInput, null);
+  for (const ruleRef of [
+    "evaluation-rule://t145/register/a",
+    "evaluation-rule://t145/register/b"
+  ]) {
+    assert.equal(
+      fpEvaluationInput.stageSetDependencyRefs.some((ref) =>
+        ref.includes(ruleRef)
+      ),
+      true
+    );
+    assert.equal(
+      fpEvaluationInput.computeStageBinding.predecessorRefs.some((ref) =>
+        ref.includes(ruleRef)
+      ),
+      true
+    );
+  }
 });
 
 test("T-145 F_D advance uses evaluation-set register phase before scalar F_D authority", () => {
   const basis = firstFdBasis();
   const events = [];
   const observedOrder = [];
+  const fdEvaluationInputs = [];
   const result = runEngineIterate({
     basis,
     eventSink: (event) => events.push(event),
     plugins: {
-      fdEvaluator: fdEvaluatorPlugin((input) =>
-        observedOrder.push(`fd:${input.vectorIndex}`)
-      ),
+      fdEvaluator: fdEvaluatorPlugin((input) => {
+        fdEvaluationInputs.push(input);
+        observedOrder.push(`fd:${input.vectorIndex}`);
+      }),
       evaluationRules: [
         registerRulePlugin({
           ruleRef: "evaluation-rule://t145/fd-register",
@@ -302,6 +325,23 @@ test("T-145 F_D advance uses evaluation-set register phase before scalar F_D aut
         event.vectorIndex === 0
     ).length,
     2
+  );
+  assert.equal(fdEvaluationInputs.length, 3);
+  assert.equal(
+    fdEvaluationInputs.every((input) =>
+      input.stageSetDependencyRefs.some((ref) =>
+        ref.includes("evaluation-rule://t145/fd-register")
+      )
+    ),
+    true
+  );
+  assert.equal(
+    fdEvaluationInputs.every((input) =>
+      input.computeStageBinding.predecessorRefs.some((ref) =>
+        ref.includes("evaluation-rule://t145/fd-register")
+      )
+    ),
+    true
   );
 });
 
@@ -378,6 +418,66 @@ test("T-145 evaluation rule replay identity includes dependency refs", () => {
   assert.notEqual(
     digestForFirstRule("evaluation-rule://t145/dependent-identity/first-a"),
     digestForFirstRule("evaluation-rule://t145/dependent-identity/first-b")
+  );
+});
+
+test("T-145 scalar F_D replay identity includes register refs", () => {
+  const digestForRegisterRule = (ruleRef) => {
+    const events = [];
+    const result = runEngineIterate({
+      basis: firstFdBasis(),
+      eventSink: (event) => events.push(event),
+      plugins: {
+        fdEvaluator: fdEvaluatorPlugin(),
+        evaluationRules: [registerRulePlugin({ ruleRef })]
+      }
+    });
+    const observed = events.find(
+      (event) =>
+        event.kind === "payload_observed" &&
+        event.payloadClass === "evaluation_rule_outcome" &&
+        event.authorityRef.startsWith("evaluation-rule:fd-authority:")
+    );
+
+    assert.equal(result.transition.terminalKind, "converged");
+    assert.notEqual(observed, undefined);
+    return observed.inputDigest;
+  };
+
+  assert.notEqual(
+    digestForRegisterRule("evaluation-rule://t145/scalar-fd-identity/register-a"),
+    digestForRegisterRule("evaluation-rule://t145/scalar-fd-identity/register-b")
+  );
+});
+
+test("T-145 scalar F_P replay identity includes register refs", () => {
+  const digestForRegisterRule = (ruleRef) => {
+    const events = [];
+    const result = runEngineIterate({
+      basis: firstFpBasis(),
+      eventSink: (event) => events.push(event),
+      plugins: {
+        fpDispatch: fpDispatchPlugin(),
+        fdEvaluator: fdEvaluatorPlugin(),
+        fpEvaluator: fpEvaluatorPlugin(),
+        evaluationRules: [registerRulePlugin({ ruleRef })]
+      }
+    });
+    const observed = events.find(
+      (event) =>
+        event.kind === "payload_observed" &&
+        event.payloadClass === "evaluation_rule_outcome" &&
+        event.authorityRef.startsWith("evaluation-rule:fp-semantic:")
+    );
+
+    assert.equal(result.transition.terminalKind, "converged");
+    assert.notEqual(observed, undefined);
+    return observed.inputDigest;
+  };
+
+  assert.notEqual(
+    digestForRegisterRule("evaluation-rule://t145/scalar-fp-identity/register-a"),
+    digestForRegisterRule("evaluation-rule://t145/scalar-fp-identity/register-b")
   );
 });
 

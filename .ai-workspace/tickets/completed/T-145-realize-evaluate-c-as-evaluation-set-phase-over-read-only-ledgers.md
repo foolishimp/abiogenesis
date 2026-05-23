@@ -350,3 +350,37 @@ Verified before closure:
 The broader symmetry that every composed `.C` stage should use the same
 stage-set law is not hidden in this ticket. It is captured as T-146 and remains
 active for transform/consequence convergence.
+
+## Scalar Evaluate Re-Entry Evidence
+
+Post-closure review found that scalar `evaluate.C` was asymmetric with the
+stage-set dataflow law. Register rules were admitted before scalar F_D/F_P
+evaluation, but the final scalar evaluator inputs did not receive same-stage
+register fold refs in `stageSetDependencyRefs` and
+`EngineComputeStageBinding.predecessorRefs`.
+
+The runner now constructs scalar F_D evaluator input after pre-scalar register
+admission, and scalar F_P evaluator input after pre-semantic register
+admission. Both scalar reductions consume the current
+`EvaluationSetProjection` fold input as same-stage dependency truth.
+
+Regression proof added:
+
+- T-145: scalar F_D evaluator inputs carry admitted register refs through
+  `stageSetDependencyRefs` and `computeStageBinding.predecessorRefs`.
+- T-145: scalar F_P evaluator inputs carry admitted register refs through
+  `stageSetDependencyRefs` and `computeStageBinding.predecessorRefs`.
+- T-145: scalar F_D replay input identity changes when admitted register refs
+  change.
+- T-145: scalar F_P replay input identity changes when admitted register refs
+  change.
+
+Verified after the scalar evaluate fix:
+
+- `npm run build:semantic` passed.
+- `npm run test:t144` passed, 14 tests.
+- `npm run test:t145` passed, 14 tests.
+- `npm run test:t146` passed, 14 tests.
+- `npm run test:semantic` passed, 644 tests.
+- `npm run lint:semantic` passed.
+- `git diff --check` passed.

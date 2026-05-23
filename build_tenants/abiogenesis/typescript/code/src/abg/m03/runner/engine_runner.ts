@@ -2349,22 +2349,6 @@ function* runEngineIterateMachine(input: {
           priorStageProjectionRefs: continuationStageProjectionRefs,
           priorStageFoldInputRefs: continuationStageFoldInputRefs
         });
-        if (input.pluginTraversalObserverBinding !== null) {
-          eventState = emitRunnerEvents(eventState,
-            constructPluginTraversalPromptMaterializedEvent({
-              basis: request.basis,
-              vectorIndex: transition.vectorIndex,
-              selection: input.pluginTraversalObserverBinding,
-              causationEventRefs: Object.freeze([input.sourceProjectionRef]),
-              correlationId: [
-                "plugin-traversal",
-                request.basis.id,
-                String(transition.vectorIndex),
-                "evaluate"
-              ].join(":")
-            })
-          );
-        }
         const fdEvaluationBaseProjection = deriveRuntimeAggregateProjection(
           request.basis,
           eventState.replayEvents
@@ -2538,12 +2522,64 @@ function* runEngineIterateMachine(input: {
             iterationCount
           });
         }
+        const preScalarEvaluationSetProjection =
+          evaluationSetProjectionForCurrentOutcomes(
+            evaluationSetPlan,
+            evaluationRuleOutcomes
+          );
+        const scalarFdEvaluationProjection = deriveRuntimeAggregateProjection(
+          request.basis,
+          eventState.replayEvents
+        );
+        const scalarFdEvaluationInput = constructEnginePluginInput({
+          contract: plugins.fdEvaluator.contract,
+          basis: request.basis,
+          projection: scalarFdEvaluationProjection,
+          replayEvents: eventState.replayEvents,
+          vectorIndex: transition.vectorIndex,
+          edge: transition.edge,
+          regime: "F_D",
+          abgFallbackBundle: request.abgFallbackBundle ?? null,
+          edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
+          constructionPressurePackage:
+            request.constructionPressurePackage ?? null,
+          pluginTraversalObserverFallbackEnabled:
+            request.pluginTraversalObserverFallbackEnabled ?? false,
+          pluginTraversalObserverFallbackKinds:
+            request.pluginTraversalObserverFallbackKinds ?? Object.freeze([]),
+          priorStageProjectionRefs: continuationStageProjectionRefs,
+          priorStageFoldInputRefs: continuationStageFoldInputRefs,
+          stageSetDependencyRefs: stageProjectionFoldInputRefs(
+            preScalarEvaluationSetProjection
+          )
+        });
+        if (scalarFdEvaluationInput.pluginTraversalObserverBinding !== null) {
+          eventState = emitRunnerEvents(eventState,
+            constructPluginTraversalPromptMaterializedEvent({
+              basis: request.basis,
+              vectorIndex: transition.vectorIndex,
+              selection: scalarFdEvaluationInput.pluginTraversalObserverBinding,
+              causationEventRefs: Object.freeze([
+                scalarFdEvaluationInput.sourceProjectionRef
+              ]),
+              correlationId: [
+                "plugin-traversal",
+                request.basis.id,
+                String(transition.vectorIndex),
+                "evaluate"
+              ].join(":")
+            })
+          );
+        }
         const outcome = fdEvaluationOutcomeFromEffectResult(
-          yield Object.freeze({ kind: "fd_evaluate", input }),
+          yield Object.freeze({
+            kind: "fd_evaluate",
+            input: scalarFdEvaluationInput
+          }),
         );
         const fdEvaluationRuleOutcome = evaluationRuleOutcomeFromFdEvaluation({
           declaration: scalarFdRule,
-          pluginInput: input,
+          pluginInput: scalarFdEvaluationInput,
           outcome
         });
         assertEvaluationRuleOutcomeMatchesDeclaration({
@@ -2555,7 +2591,7 @@ function* runEngineIterateMachine(input: {
           eventState,
           evaluationRuleOutcomeCoreEvents({
             basis: request.basis,
-            pluginInput: input,
+            pluginInput: scalarFdEvaluationInput,
             outcome: fdEvaluationRuleOutcome
           })
         );
@@ -3482,6 +3518,11 @@ function* runEngineIterateMachine(input: {
                 iterationCount
               });
             }
+            const preSemanticEvaluationSetProjection =
+              evaluationSetProjectionForCurrentOutcomes(
+                evaluationSetPlan,
+                evaluationRuleOutcomes
+              );
             const fpSemanticEvaluationProjection = deriveRuntimeAggregateProjection(
               request.basis,
               eventState.replayEvents
@@ -3507,7 +3548,10 @@ function* runEngineIterateMachine(input: {
                 request.pluginTraversalObserverFallbackKinds ?? Object.freeze([]),
               priorStageProjectionRefs: stageProjectionRefs(transformStageProjection),
               priorStageFoldInputRefs:
-                stageProjectionFoldInputRefs(transformStageProjection)
+                stageProjectionFoldInputRefs(transformStageProjection),
+              stageSetDependencyRefs: stageProjectionFoldInputRefs(
+                preSemanticEvaluationSetProjection
+              )
             });
             if (fpEvaluationInput.pluginTraversalObserverBinding !== null) {
               eventState = emitRunnerEvents(eventState,

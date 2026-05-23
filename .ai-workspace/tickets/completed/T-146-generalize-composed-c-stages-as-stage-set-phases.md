@@ -341,3 +341,42 @@ Verified after the scalar reduction fix:
 - `npm run test:semantic` passed, 642 tests.
 - `npm run lint:semantic` passed.
 - `git diff --check` passed.
+
+## Scalar Evaluate Symmetry Re-Entry Evidence
+
+Further review found the remaining scalar reduction asymmetry in
+`evaluate.C`. Scalar transform and consequence had been rebuilt after
+same-stage predecessor admission, but scalar F_D/F_P evaluation still used
+inputs that did not include admitted evaluation-register fold refs.
+
+The runner now applies the same rule to scalar evaluation:
+
+- scalar `evaluate.C.F_D` is invoked only after pre-scalar register admission
+  and receives the current evaluation-set fold refs as
+  `stageSetDependencyRefs`
+- scalar `evaluate.C.F_P` is invoked only after pre-semantic register admission
+  and receives the current evaluation-set fold refs as
+  `stageSetDependencyRefs`
+- both scalar evaluate inputs carry those refs through
+  `EngineComputeStageBinding.predecessorRefs`
+- scalar F_D and F_P evaluation-rule payload input digests include those refs
+  through the canonical plugin input identity
+
+Regression proof added:
+
+- T-145: F_D register rules are admitted before scalar F_D authority, and the
+  scalar F_D input sees their fold refs.
+- T-145: F_D register rules are admitted before scalar F_P semantic judgment,
+  and the scalar F_P input sees their fold refs.
+- T-145: scalar F_D replay identity changes when register refs change.
+- T-145: scalar F_P replay identity changes when register refs change.
+
+Verified after the scalar evaluate symmetry fix:
+
+- `npm run build:semantic` passed.
+- `npm run test:t144` passed, 14 tests.
+- `npm run test:t145` passed, 14 tests.
+- `npm run test:t146` passed, 14 tests.
+- `npm run test:semantic` passed, 644 tests.
+- `npm run lint:semantic` passed.
+- `git diff --check` passed.
