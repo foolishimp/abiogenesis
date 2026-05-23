@@ -1,12 +1,13 @@
-# abiogenesis 3.8.0-rc.5 Release Candidate Note
+# abiogenesis 3.9.0-rc.1 Release Candidate Note
 
 This checkpoint is the current TypeScript ABG release-candidate source state.
-It advances the release line from `3.8.0-rc.4` to `3.8.0-rc.5` because the
-post-review T-144 remediation now makes selected `abg.fn_composition` contract
-truth the runtime source for selected composition identity and makes
-`consequence.C` a runner-consumed plugin stage.
+It opens the `3.9.0` release line from `3.8.0-rc.5` because ABG now realizes
+the staged compute boundary as a symmetric stage-set runtime law:
+`transform.C -> evaluate.C -> consequence.C`, with scalar stage plugins as
+one-task or one-rule reductions over the same selected `abg.fn_composition`
+identity.
 
-It is an RC candidate, not the final tapped `3.8.0` release. The release
+It is an RC candidate, not the final tapped `3.9.0` release. The release
 identity remains explicit until the cut is committed, tagged, pushed, and
 accepted.
 
@@ -18,7 +19,7 @@ edge-assurance runtime path, GTL type-boundary correction, target-carrier
 binding path, saga-frontier substrate, release snapshot builder, and T-143
 compute notation typing.
 
-RC5 for `3.8.0` adds:
+RC1 for `3.9.0` adds:
 
 - product, requirement, design, and docs language for ABG as an opinionated
   probabilistic eventual-consistency monad over selected GTL composition;
@@ -47,7 +48,21 @@ RC5 for `3.8.0` adds:
   do not create a second authority surface;
 - deterministic tests that reject non-`F_D` closure authority, ambiguous
   plugin purpose, missing selected-composition identity, plugin-side runtime
-  ownership, and legacy `eval` stage-category leakage.
+  ownership, and legacy `eval` stage-category leakage;
+- `EvaluationSetPlan`, `EvaluationRuleOutcome`, `EvaluationSetAdmission`, and
+  `EvaluationSetProjection` as the first stage-set specialization for
+  `evaluate.C`;
+- generic composed-stage planning, task admission, and projection for
+  `transform.C` and `consequence.C`;
+- scalar `transform.C.F_P`, scalar `evaluate.C.F_D/F_P`, and scalar
+  `consequence.C.F_D` reductions that are rebuilt after predecessor admission
+  so their inputs carry same-stage fold refs;
+- replay-visible plugin input identity that includes source projection refs,
+  prior stage refs, prior fold-input refs, same-stage dependency refs, selected
+  composition identity, and compute-stage predecessor refs;
+- regression tests proving dependent stage-set visibility, scalar replay
+  identity changes when predecessor refs change, fail-closed missing required
+  rules/tasks, and authority-smuggling rejection.
 
 ## Boundary
 
@@ -85,8 +100,8 @@ runtime events, ledgers, projections, assurance folds, traversal transitions,
 continuation, replay, and admission. Products own domain meaning and plugin
 behavior inside declared boundaries.
 
-This cut does not complete downstream ODD_SDLC migration. It creates the
-downstream active migration ticket:
+This cut does not complete downstream ODD_SDLC migration. It supplies the
+upstream package boundary for the downstream active migration ticket:
 
 ```text
 /Users/jim/src/apps/odd_sdlc/.ai-workspace/tickets/active/T-180-align-sdlc-plugin-stages-with-abg-t144-boundary.md
@@ -94,24 +109,27 @@ downstream active migration ticket:
 
 ## Versioned Artifacts
 
-- RC branch: `rc/3.8.0`
-- RC identity: `3.8.0-rc.5`
-- Candidate package version: `3.8.0-rc.5`
-- Candidate tag: `v3.8.0-rc.5`
+- RC branch: `rc/3.9.0`
+- RC identity: `3.9.0-rc.1`
+- Candidate package version: `3.9.0-rc.1`
+- Candidate tag: `v3.9.0-rc.1`
 
 ## Verification
 
 Current qualification evidence for this cut:
 
 ```text
-npm run test:t132
-passed
-
 npm run test:semantic
-608 passed
+644 passed
 
 npm run test:t144
-6 passed
+14 passed
+
+npm run test:t145
+14 passed
+
+npm run test:t146
+14 passed
 
 npm run lint:semantic
 passed
@@ -126,7 +144,7 @@ immutable local snapshot directory.
 
 ## RC Decision
 
-The release operator preserves the existing `3.8.0-rc.4` snapshot as immutable
-source history and cuts `3.8.0-rc.5` as the next release-candidate checkpoint
-after post-review T-144 remediation. This is not the final tapped `3.8.0`
-release.
+The release operator preserves the existing `3.8.0-rc.5` snapshot as immutable
+source history and cuts `3.9.0-rc.1` as the first release-candidate checkpoint
+for the symmetric staged compute boundary. This is not the final tapped
+`3.9.0` release.

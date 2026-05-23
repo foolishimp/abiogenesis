@@ -1,9 +1,31 @@
-# abiogenesis 3.8.0-rc.5 RC Notes
+# abiogenesis 3.9.0-rc.1 RC Notes
 
-This note records accepted RC behavior for the current `v3.8.0-rc.5` line.
-The package cut is `3.8.0-rc.5`.
+This note records accepted RC behavior for the current `v3.9.0-rc.1` line.
+The package cut is `3.9.0-rc.1`.
 
 ## Accepted Framework Behavior
+
+### Stage-Set Compute Boundary Opens 3.9.0 RC1
+
+The current RC line opens `3.9.0` because ABG now exposes the staged
+`transform.C -> evaluate.C -> consequence.C` runtime boundary as a symmetric
+stage-set law over selected `abg.fn_composition` identity. Scalar stage plugins
+remain lawful one-task or one-rule reductions, but their replay-visible inputs
+now carry the same prior-stage and same-stage predecessor fold refs as
+multi-task stage sets.
+
+Accepted behavior:
+
+- `transform.C`, `evaluate.C`, and `consequence.C` each plan a stage set before
+  scalar reduction;
+- evaluation registers are admitted before scalar F_D authority and scalar F_P
+  semantic judgment;
+- scalar F_D and F_P evaluation inputs include admitted register fold refs in
+  `stageSetDependencyRefs` and `EngineComputeStageBinding.predecessorRefs`;
+- replay input digests include prior stage refs, prior fold-input refs, and
+  same-stage dependency refs;
+- collected transform, evaluation, and consequence projections feed the next
+  ABG system/plugin bind instead of acting as side observations.
 
 ### ABG Is The Event-Sourced Monad Over Selected GTL Composition
 
@@ -26,10 +48,10 @@ Accepted behavior:
 - a purely deterministic event-sourced program is a valid reduction of the same
   shape, not a separate product model.
 
-RC5 tightens the T-144 closure boundary after review: selected composition
-identity is consumed from selected `abg.fn_composition` declaration truth,
-`consequence.C` is runner-consumed, and internal `F_H` compute roles are not
-representable outside the external human-callout category.
+The prior RC5 work tightened the T-144 closure boundary after review: selected
+composition identity is consumed from selected `abg.fn_composition` declaration
+truth, `consequence.C` is runner-consumed, and internal `F_H` compute roles are
+not representable outside the external human-callout category.
 
 ### TypeScript Is The Primary Package-First RC Carrier
 

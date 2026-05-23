@@ -14,7 +14,7 @@ The repo is organized around spec-driven development:
   harness
 - `build_tenants/abiogenesis/python/` is a paused released reference line
 
-The active engine and language surface is GTL 3 / ABG 3.8.0-rc.5:
+The active engine and language surface is GTL 3 / ABG 3.9.0-rc.1:
 - GTL: `Module`, `Graph`, `Node`, `GraphVector`, `Context`, `Operator`,
   `Evaluator`, `Rule`, `GraphFunction`, `RefinementBoundary`,
   `CandidateFamily`, `ContractRef`, `Job`, `Role`
@@ -22,7 +22,7 @@ The active engine and language surface is GTL 3 / ABG 3.8.0-rc.5:
   convergence, regime binding, run, graph call, continuation, transport,
   provenance, payload ledger, assurance projection
 
-The 3.8.0 RC runtime boundary is carrier and event owned. Public execution
+The 3.9.0 RC runtime boundary is carrier and event owned. Public execution
 still enters through published `GraphFunction` work, but advancement, dispatch,
 convergence, completion, and projection consume typed runtime truth rather than
 controller-local state or `runtime_config` side channels. In the TypeScript RC

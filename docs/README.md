@@ -1,4 +1,4 @@
-# Abiogenesis 3.8.0-rc.5 Docs
+# Abiogenesis 3.9.0-rc.1 Docs
 
 Live supporting project documentation lives here.
 
@@ -24,7 +24,7 @@ the authored carriers, ABG owns admitted runtime truth, and `C` is selected
 ## Release Notes
 
 - [ABIOGENESIS_RC_RELEASE_NOTE.md](./ABIOGENESIS_RC_RELEASE_NOTE.md) records
-  the current 3.8.0 release-candidate boundary.
+  the current 3.9.0 release-candidate boundary.
 - [ABIOGENESIS_RC_NOTES.md](./ABIOGENESIS_RC_NOTES.md) records accepted
   release-candidate behavior and caveats.
 
@@ -36,4 +36,4 @@ the authored carriers, ABG owns admitted runtime truth, and `C` is selected
 ## Archive
 
 - [old/](./old/) contains superseded drafts and generated renders that are not
-  live guidance for the 3.8.0 RC line.
+  live guidance for the 3.9.0 RC line.
