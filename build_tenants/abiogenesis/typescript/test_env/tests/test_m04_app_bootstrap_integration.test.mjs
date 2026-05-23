@@ -72,6 +72,8 @@ test("M04 integration: publicStart routes through engine-owned M03 iteration for
     "vector_evaluated",
     "vector_closed",
     "fd_advance_ready",
+    "payload_observed",
+    "payload_validated",
     "terminal_reached"
   ]);
   assert.equal(outcome.runtimeIdentity.resolvedRuntimeRef, "runtime://typescript/node");
@@ -127,6 +129,8 @@ test("M04 integration: publicStart preserves kernel dispatch truth as a blocked 
     "vector_traversal_planned",
     "fp_dispatch_requested",
     "actor_invocation_started",
+    "payload_observed",
+    "payload_validated",
     "actor_invocation_closed"
   ]);
   assert.equal(outcome.stopDetail.dispatchRef, "dispatch://public-fp");

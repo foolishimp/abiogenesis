@@ -51,6 +51,8 @@ test("M04 complete-start integration: bare callable start advances through subst
       "vector_evaluated",
       "vector_closed",
       "fd_advance_ready",
+      "payload_observed",
+      "payload_validated",
       "terminal_reached"
     ]
   );
@@ -85,6 +87,8 @@ test("M04 complete-start integration: F_P bare callable start projects worker di
       "vector_traversal_planned",
       "fp_dispatch_requested",
       "actor_invocation_started",
+      "payload_observed",
+      "payload_validated",
       "actor_invocation_closed"
     ]
   );

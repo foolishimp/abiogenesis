@@ -4,8 +4,8 @@
 - title: Generalize composed `.C` stages as stage-set phases
 - type: design_reframe
 - ticket_category: specification_compliance
-- status: active
-- proof_status: not_started
+- status: completed
+- proof_status: passed
 - build_tenant: typescript
 - created_at: 2026-05-23
 - updated_at: 2026-05-23
@@ -202,24 +202,24 @@ truth.
 
 ## Acceptance Criteria
 
-- [ ] Product and requirements state that every composed `.C` stage is a
+- [x] Product and requirements state that every composed `.C` stage is a
   stage-set phase, with scalar calls as one-task reductions.
-- [ ] Design module defines the shared stage-set IACS before transform-set code
+- [x] Design module defines the shared stage-set IACS before transform-set code
   lands.
-- [ ] `evaluate.C` T-145 carriers are mapped as the first specialization.
-- [ ] `transform.C` supports deterministic task batches and F_P task batches
+- [x] `evaluate.C` T-145 carriers are mapped as the first specialization.
+- [x] `transform.C` supports deterministic task batches and F_P task batches
   under selected composition.
-- [ ] `consequence.C` is represented as a projection task set and cannot mutate
+- [x] `consequence.C` is represented as a projection task set and cannot mutate
   runtime truth.
-- [ ] All task outcomes preserve selected composition identity and selected
+- [x] All task outcomes preserve selected composition identity and selected
   regime-binding contribution identity.
-- [ ] Required stage tasks fail closed when absent, stale, malformed,
+- [x] Required stage tasks fail closed when absent, stale, malformed,
   contradictory, rejected, or mismatched.
-- [ ] Parallel task execution is replay-stable and independent of wall-clock
+- [x] Parallel task execution is replay-stable and independent of wall-clock
   completion order.
-- [ ] No plugin task can write ledgers, emit events, select traversal, replay
+- [x] No plugin task can write ledgers, emit events, select traversal, replay
   continuation, mutate graph call/frame state, or close.
-- [ ] Tests prove the scalar reductions and multi-task/parallel forms.
+- [x] Tests prove the scalar reductions and multi-task/parallel forms.
 
 ## Closure Law
 
@@ -227,3 +227,38 @@ This ticket closes only when transform, evaluate, and consequence all converge
 through the shared composed-stage-set law. T-145 may close the evaluation
 specialization, but T-146 remains open until the symmetry is realized across
 the stage family.
+
+## Closure Evidence
+
+Closed on 2026-05-23.
+
+Implementation converges `transform.C` and `consequence.C` through
+`ComposedStageSetPlan`, `ComposedStageTaskDeclaration`,
+`ComposedStageTaskOutcome`, `ComposedStageAdmission`, and
+`ComposedStageProjection`. T-145 `evaluate.C` remains the evaluation-set
+specialization under the same selected-composition discipline.
+
+The scalar reductions are now runtime-visible as admitted stage task payloads:
+
+- scalar `fpDispatch` is observed as a `transform.C.F_P` task without taking
+  traversal authority from the existing retry/non-progress path
+- scalar `FpEvaluationOutcome` remains the `evaluate.C.F_P` semantic rule
+- scalar `consequenceProjection` is observed as a `consequence.C.F_D`
+  projection task
+
+During full-suite verification a runtime bug was fixed: the first
+implementation treated the scalar F_P dispatch task as a required accepted
+stage task. That converted normal blocked dispatch results into an early
+`transform_stage_set_incomplete` terminal and bypassed retry/non-progress
+handling. The scalar transform reduction now records the task outcome without
+using stage-set admission as traversal authority; required pre-transform tasks
+still fail closed before F_P dispatch.
+
+Verified:
+
+- `npm run test:t144` passed, 14 tests.
+- `npm run test:t145` passed, 10 tests.
+- `npm run test:t146` passed, 8 tests.
+- `npm run test:semantic` passed, 634 tests.
+- `npm run lint:semantic` passed.
+- `git diff --check` passed.

@@ -221,6 +221,26 @@ export type {
   FpTransformStatus
 } from "./fp_stages.js";
 export {
+  COMPOSED_STAGE_ROLE_VALUES,
+  COMPOSED_STAGE_TASK_ROLE_VALUES,
+  admitComposedStageTaskOutcome,
+  assertComposedStageTaskOutcomeMatchesDeclaration,
+  constructComposedStageAdmission,
+  constructComposedStageProjection,
+  constructComposedStageSetPlan,
+  constructComposedStageTaskDeclaration,
+  constructComposedStageTaskOutcome
+} from "./composed_stage_set.js";
+export type {
+  ComposedStageAdmission,
+  ComposedStageProjection,
+  ComposedStageRole,
+  ComposedStageSetPlan,
+  ComposedStageTaskDeclaration,
+  ComposedStageTaskOutcome,
+  ComposedStageTaskRole
+} from "./composed_stage_set.js";
+export {
   HOOK_ACTION_CLASS_VALUES,
   HOOK_FINDING_ADMISSION_STATUS_VALUES,
   admitHookActionRecord,

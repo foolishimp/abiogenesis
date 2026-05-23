@@ -42,6 +42,8 @@ test("M05 installed graph-function target integration: packaged sandbox start se
     "vector_traversal_planned",
     "fp_dispatch_requested",
     "actor_invocation_started",
+    "payload_observed",
+    "payload_validated",
     "actor_invocation_closed",
     "authority_snapshot_admitted",
     "payload_observed",

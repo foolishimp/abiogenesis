@@ -161,6 +161,9 @@ test("T-099 F_P input exposes transform request and ABG admits transform evidenc
   const evaluationRuleObserved = observed.filter(
     (event) => event.payloadClass === "evaluation_rule_outcome"
   );
+  const composedStageObserved = observed.filter(
+    (event) => event.payloadClass === "composed_stage_task_outcome"
+  );
   const transformValidated = validated.filter(
     (event) => event.contractRef === "contract://abg/fp-transform-evidence"
   );
@@ -169,6 +172,9 @@ test("T-099 F_P input exposes transform request and ABG admits transform evidenc
   );
   const evaluationRuleValidated = validated.filter(
     (event) => event.contractRef === "contract://abg/evaluation-rule-outcome"
+  );
+  const composedStageValidated = validated.filter(
+    (event) => event.contractRef === "contract://abg/composed-stage-task-outcome"
   );
   const transformEvidence = evidence.filter((event) =>
     /^authority:fp_transform:[a-f0-9]{64}$/.test(event.authorityDigest ?? "")
@@ -185,16 +191,18 @@ test("T-099 F_P input exposes transform request and ABG admits transform evidenc
     /^authority:fp_evaluation:sha256:[a-f0-9]{64}$/.test(event.authorityDigest)
   );
 
-  assert.equal(observed.length, 9);
-  assert.equal(validated.length, 9);
+  assert.equal(observed.length, 15);
+  assert.equal(validated.length, 15);
   assert.equal(evidence.length, 9);
   assert.equal(authority.length, 6);
   assert.equal(transformObserved.length, 3);
   assert.equal(evaluationObserved.length, 3);
   assert.equal(evaluationRuleObserved.length, 3);
+  assert.equal(composedStageObserved.length, 6);
   assert.equal(transformValidated.length, 3);
   assert.equal(evaluationValidated.length, 3);
   assert.equal(evaluationRuleValidated.length, 3);
+  assert.equal(composedStageValidated.length, 6);
   assert.equal(transformEvidence.length, 3);
   assert.equal(evaluationEvidence.length, 6);
   assert.equal(transformAuthority.length, 3);
@@ -230,7 +238,13 @@ test("T-099 F_P input exposes transform request and ABG admits transform evidenc
     true
   );
   assert.equal(
-    observed.every((event) => event.actorInvocationId !== null),
+    observed
+      .filter(
+        (event) =>
+          event.payloadClass !== "composed_stage_task_outcome" ||
+          !event.authorityRef.startsWith("stage-task:consequence:")
+      )
+      .every((event) => event.actorInvocationId !== null),
     true
   );
   assert.equal(

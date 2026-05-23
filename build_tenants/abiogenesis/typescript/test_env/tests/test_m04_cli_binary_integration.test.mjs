@@ -219,6 +219,8 @@ test("M04 CLI binary integration: installed package publishes TS binary aliases 
     "vector_traversal_planned",
     "fp_dispatch_requested",
     "actor_invocation_started",
+    "payload_observed",
+    "payload_validated",
     "actor_invocation_closed"
   ]);
   assert.deepStrictEqual(await eventKinds(targetRoot), payload.event_kinds);

@@ -133,6 +133,8 @@ test("M04 public asset addressing integration: resolved asset ownership drives t
     "vector_evaluated",
     "vector_closed",
     "fd_advance_ready",
+    "payload_observed",
+    "payload_validated",
     "terminal_reached"
   ]);
   assert.deepStrictEqual(events[0], {

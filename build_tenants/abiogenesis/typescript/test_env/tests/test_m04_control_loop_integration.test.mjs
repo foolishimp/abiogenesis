@@ -74,6 +74,8 @@ test("M04 control integration: supervised control delegates to ABG-owned start-t
     "vector_evaluated",
     "vector_closed",
     "fd_advance_ready",
+    "payload_observed",
+    "payload_validated",
     "terminal_reached"
   ]);
 
@@ -131,6 +133,8 @@ test("M04 control integration: dispatch-required seam remains explicit control t
     "vector_traversal_planned",
     "fp_dispatch_requested",
     "actor_invocation_started",
+    "payload_observed",
+    "payload_validated",
     "actor_invocation_closed"
   ]);
 });

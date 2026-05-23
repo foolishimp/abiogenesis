@@ -152,6 +152,7 @@ test("T-084 engine runner: attached F_P worker retries from replay state, then c
     "vector_evaluated",
     "vector_closed"
   ];
+  const composedStageOutcomeEvents = ["payload_observed", "payload_validated"];
   assert.deepStrictEqual(
     events.map((event) => event.kind),
     [
@@ -161,6 +162,7 @@ test("T-084 engine runner: attached F_P worker retries from replay state, then c
       "vector_traversal_planned",
       "fp_dispatch_requested",
       "actor_invocation_started",
+      ...composedStageOutcomeEvents,
       "actor_result_artifact_observed",
       "actor_invocation_closed",
       "vector_evaluated",
@@ -174,25 +176,31 @@ test("T-084 engine runner: attached F_P worker retries from replay state, then c
       "vector_traversal_planned",
       "fp_dispatch_requested",
       "actor_invocation_started",
+      ...composedStageOutcomeEvents,
       "actor_result_artifact_observed",
       "actor_invocation_closed",
       ...successfulFpClosureEvents,
+      ...composedStageOutcomeEvents,
       "graph_call_opened",
       "frame_opened",
       "vector_traversal_planned",
       "fp_dispatch_requested",
       "actor_invocation_started",
+      ...composedStageOutcomeEvents,
       "actor_result_artifact_observed",
       "actor_invocation_closed",
       ...successfulFpClosureEvents,
+      ...composedStageOutcomeEvents,
       "graph_call_opened",
       "frame_opened",
       "vector_traversal_planned",
       "fp_dispatch_requested",
       "actor_invocation_started",
+      ...composedStageOutcomeEvents,
       "actor_result_artifact_observed",
       "actor_invocation_closed",
       ...successfulFpClosureEvents,
+      ...composedStageOutcomeEvents,
       "terminal_reached"
     ]
   );

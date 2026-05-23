@@ -165,10 +165,16 @@ test("T-087 actor invocation: blocked transport with a valid artifact is salvage
       (event) => event.kind === "authority_snapshot_admitted" && event.edge === edge
     );
     const observed = events.find(
-      (event) => event.kind === "payload_observed" && event.edge === edge
+      (event) =>
+        event.kind === "payload_observed" &&
+        event.edge === edge &&
+        event.contractRef === "contract://abg/fp-transform-evidence"
     );
     const validated = events.find(
-      (event) => event.kind === "payload_validated" && event.edge === edge
+      (event) =>
+        event.kind === "payload_validated" &&
+        event.edge === edge &&
+        event.contractRef === "contract://abg/fp-transform-evidence"
     );
     const evidence = events.find(
       (event) => event.kind === "evidence_admitted" && event.edge === edge

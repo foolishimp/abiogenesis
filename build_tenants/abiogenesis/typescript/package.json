@@ -212,6 +212,7 @@
     "test:t143": "npm run build:semantic && node --test test_env/tests/test_t143_gtl_compute_notation_types.test.mjs",
     "test:t144": "npm run build:semantic && node --test test_env/tests/test_t144_abg_probabilistic_monad_plugin_boundary.test.mjs",
     "test:t145": "npm run build:semantic && node --test test_env/tests/test_t145_evaluation_set_phase.test.mjs",
+    "test:t146": "npm run build:semantic && node --test test_env/tests/test_t146_composed_stage_set_phase.test.mjs",
     "test:t125:live": "npm run build:semantic && node --test test_env/live/test_t125_temporal_and_non_temporal_gtl_live.test.mjs",
     "test:t125": "npm run test:t125:live"
   },

@@ -51,6 +51,8 @@ test("T-072 M04 start: public start delegates to the ABG-owned iterate runner", 
       "vector_evaluated",
       "vector_closed",
       "fd_advance_ready",
+      "payload_observed",
+      "payload_validated",
       "graph_call_opened",
       "frame_opened",
       "vector_traversal_planned",
@@ -60,6 +62,8 @@ test("T-072 M04 start: public start delegates to the ABG-owned iterate runner", 
       "vector_evaluated",
       "vector_closed",
       "fd_advance_ready",
+      "payload_observed",
+      "payload_validated",
       "graph_call_opened",
       "frame_opened",
       "vector_traversal_planned",
@@ -69,6 +73,8 @@ test("T-072 M04 start: public start delegates to the ABG-owned iterate runner", 
       "vector_evaluated",
       "vector_closed",
       "fd_advance_ready",
+      "payload_observed",
+      "payload_validated",
       "terminal_reached"
     ]
   );
@@ -96,6 +102,8 @@ test("T-072 M04 start: F_P remains a lawful dispatch stop from the same engine p
       "vector_traversal_planned",
       "fp_dispatch_requested",
       "actor_invocation_started",
+      "payload_observed",
+      "payload_validated",
       "actor_invocation_closed"
     ]
   );
@@ -167,6 +175,8 @@ test("T-072 M04 start: vector-closed F_P replay advances on re-entry without red
       "vector_traversal_planned",
       "fp_dispatch_requested",
       "actor_invocation_started",
+      "payload_observed",
+      "payload_validated",
       "actor_invocation_closed"
     ]
   );

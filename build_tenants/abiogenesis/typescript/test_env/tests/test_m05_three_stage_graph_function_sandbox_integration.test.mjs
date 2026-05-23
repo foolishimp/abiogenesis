@@ -63,6 +63,8 @@ test("M05 installed sandbox: one composed three-stage GTL graph function can be 
     "vector_traversal_planned",
     "fp_dispatch_requested",
     "actor_invocation_started",
+    "payload_observed",
+    "payload_validated",
     "actor_invocation_closed",
     "authority_snapshot_admitted",
     "payload_observed",

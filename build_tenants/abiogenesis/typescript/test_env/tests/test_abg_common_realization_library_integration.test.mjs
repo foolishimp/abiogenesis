@@ -109,6 +109,8 @@ test("ABG common library integration: M04 proof adapter consumes reusable profil
     "vector_evaluated",
     "vector_closed",
     "fd_advance_ready",
+    "payload_observed",
+    "payload_validated",
     "terminal_reached"
   ]);
 });

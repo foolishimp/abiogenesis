@@ -493,7 +493,7 @@ test("T-144 evaluate.C plugins are composed through GTL regime bindings", () => 
         stageRole: "evaluate",
         regime: "F_D",
         role: "validate",
-        order: 1,
+        order: 2,
         authority: "closure",
         outputs: ["FdEvaluationOutcome"]
       },
@@ -502,7 +502,7 @@ test("T-144 evaluate.C plugins are composed through GTL regime bindings", () => 
         stageRole: "evaluate",
         regime: "F_P",
         role: "validate",
-        order: 2,
+        order: 3,
         authority: "judgment",
         outputs: ["FpEvaluationOutcome"]
       }
@@ -515,7 +515,7 @@ test("T-144 evaluate.C plugins are composed through GTL regime bindings", () => 
       stageRole: "human_callout",
       regime: "F_H",
       role: "escalate",
-      order: 4,
+      order: 5,
       authority: "judgment",
       outputs: ["FhAdmissionOutcome"]
     }

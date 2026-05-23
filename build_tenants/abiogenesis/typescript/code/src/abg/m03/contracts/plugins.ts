@@ -45,6 +45,10 @@ import type {
   EvaluationRuleOutcome,
   EvaluationRuleRole
 } from "./evaluation_set.js";
+import type {
+  ComposedStageTaskOutcome,
+  ComposedStageTaskRole
+} from "./composed_stage_set.js";
 import {
   resolveAbgFnCompositionSelection,
   selectedAbgFnRegimeBindingForCompute
@@ -359,14 +363,32 @@ export interface EvaluationRulePlugin {
   ) => EnginePluginMaybePromise<EvaluationRuleOutcome>;
 }
 
+export interface ComposedStageTaskPlugin {
+  readonly contract: EnginePluginContract;
+  readonly taskRef: string;
+  readonly taskRole: ComposedStageTaskRole;
+  readonly required?: boolean | undefined;
+  readonly parallelGroupRef?: string | null | undefined;
+  readonly dependencyRefs?: readonly string[] | undefined;
+  readonly inputLedgerRefs?: readonly string[] | undefined;
+  readonly outputCarrierRefs?: readonly string[] | undefined;
+  readonly run: (
+    input: EnginePluginInput
+  ) => EnginePluginMaybePromise<ComposedStageTaskOutcome>;
+}
+
 export interface EngineRunnerPluginSet {
   readonly fdEvaluator?: FdEvaluatorPlugin;
   readonly fpEvaluator?: FpEvaluatorPlugin;
   readonly fpDispatch?: FpDispatchPlugin;
   readonly fhAdmission?: FhAdmissionPlugin;
   readonly consequenceProjection?: ConsequenceProjectionPlugin;
+  readonly transformTasks?: readonly ComposedStageTaskPlugin[] | undefined;
+  readonly requiredTransformTaskRefs?: readonly string[] | undefined;
   readonly evaluationRules?: readonly EvaluationRulePlugin[] | undefined;
   readonly requiredEvaluationRuleRefs?: readonly string[] | undefined;
+  readonly consequenceTasks?: readonly ComposedStageTaskPlugin[] | undefined;
+  readonly requiredConsequenceTaskRefs?: readonly string[] | undefined;
 }
 
 interface EnginePluginContractInput {

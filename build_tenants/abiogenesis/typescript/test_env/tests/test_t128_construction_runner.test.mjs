@@ -367,6 +367,7 @@ test("T-128 construction runner consumes admitted intent and closes mixed F_P/F_
   assert.equal(gaps.status, "converged");
   assert.equal(gaps.gaps[0].status, "converged");
   assert.equal(gaps.eventCount, outcome.graphActionResult.replayEvents.length);
+  const composedStageOutcomeEvents = ["payload_observed", "payload_validated"];
   assert.deepEqual(
     emittedEvents.map((event) => event.kind),
     [
@@ -378,6 +379,7 @@ test("T-128 construction runner consumes admitted intent and closes mixed F_P/F_
       "vector_traversal_planned",
       "fp_dispatch_requested",
       "actor_invocation_started",
+      ...composedStageOutcomeEvents,
       "actor_result_artifact_observed",
       "actor_invocation_closed",
       "authority_snapshot_admitted",
@@ -395,6 +397,7 @@ test("T-128 construction runner consumes admitted intent and closes mixed F_P/F_
       "closure_input_published",
       "vector_evaluated",
       "vector_closed",
+      ...composedStageOutcomeEvents,
       "graph_call_opened",
       "frame_opened",
       "vector_traversal_planned",
@@ -404,6 +407,7 @@ test("T-128 construction runner consumes admitted intent and closes mixed F_P/F_
       "vector_evaluated",
       "vector_closed",
       "fd_advance_ready",
+      ...composedStageOutcomeEvents,
       "graph_call_opened",
       "frame_opened",
       "vector_traversal_planned",
@@ -413,6 +417,7 @@ test("T-128 construction runner consumes admitted intent and closes mixed F_P/F_
       "vector_evaluated",
       "vector_closed",
       "fd_advance_ready",
+      ...composedStageOutcomeEvents,
       "terminal_reached",
       "construction_delta_observed"
     ]

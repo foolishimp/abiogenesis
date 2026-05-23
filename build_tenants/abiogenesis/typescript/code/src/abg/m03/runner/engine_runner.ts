@@ -71,6 +71,7 @@ import {
   type EnginePluginInput,
   type EnginePluginMaybePromise,
   type EngineRunnerPluginSet,
+  type ComposedStageTaskPlugin,
   type EvaluationRulePlugin,
   type FdEvaluationOutcome,
   type FdEvaluatorPlugin,
@@ -95,6 +96,20 @@ import {
   type EvaluationSetPlan,
   type EvaluationSetProjection
 } from "../contracts/evaluation_set.js";
+import {
+  admitComposedStageTaskOutcome,
+  assertComposedStageTaskOutcomeMatchesDeclaration,
+  constructComposedStageAdmission,
+  constructComposedStageProjection,
+  constructComposedStageSetPlan,
+  constructComposedStageTaskDeclaration,
+  constructComposedStageTaskOutcome,
+  type ComposedStageAdmission,
+  type ComposedStageRole,
+  type ComposedStageSetPlan,
+  type ComposedStageTaskDeclaration,
+  type ComposedStageTaskOutcome
+} from "../contracts/composed_stage_set.js";
 import type { AbgFallbackBundle } from "../contracts/plugin_traversal_observer.js";
 import type { EdgeAssuranceDefaultContract } from "../contracts/edge_assurance_contract.js";
 import type { ConstructionPressurePackage } from "../contracts/construction_pressure_package.js";
@@ -214,8 +229,12 @@ interface ResolvedRunnerPlugins {
   readonly fpDispatch: FpDispatchPlugin;
   readonly fhAdmission: FhAdmissionPlugin;
   readonly consequenceProjection: ConsequenceProjectionPlugin;
+  readonly transformTasks: readonly ComposedStageTaskPlugin[];
+  readonly requiredTransformTaskRefs: readonly string[];
   readonly evaluationRules: readonly EvaluationRulePlugin[];
   readonly requiredEvaluationRuleRefs: readonly string[];
+  readonly consequenceTasks: readonly ComposedStageTaskPlugin[];
+  readonly requiredConsequenceTaskRefs: readonly string[];
 }
 
 function resolveRunnerPlugins(
@@ -228,9 +247,17 @@ function resolveRunnerPlugins(
     fhAdmission: plugins?.fhAdmission ?? defaultFhAdmissionPlugin,
     consequenceProjection:
       plugins?.consequenceProjection ?? defaultConsequenceProjectionPlugin,
+    transformTasks: Object.freeze([...(plugins?.transformTasks ?? Object.freeze([]))]),
+    requiredTransformTaskRefs: Object.freeze([
+      ...(plugins?.requiredTransformTaskRefs ?? Object.freeze([]))
+    ]),
     evaluationRules: Object.freeze([...(plugins?.evaluationRules ?? Object.freeze([]))]),
     requiredEvaluationRuleRefs: Object.freeze([
       ...(plugins?.requiredEvaluationRuleRefs ?? Object.freeze([]))
+    ]),
+    consequenceTasks: Object.freeze([...(plugins?.consequenceTasks ?? Object.freeze([]))]),
+    requiredConsequenceTaskRefs: Object.freeze([
+      ...(plugins?.requiredConsequenceTaskRefs ?? Object.freeze([]))
     ])
   });
 }
@@ -815,6 +842,320 @@ interface PlannedEvaluationRule {
   readonly plugin: EvaluationRulePlugin;
   readonly pluginInput: EnginePluginInput;
   readonly declaration: EvaluationRuleDeclaration;
+}
+
+interface PlannedComposedStageTask {
+  readonly pluginIndex: number;
+  readonly plugin: ComposedStageTaskPlugin;
+  readonly pluginInput: EnginePluginInput;
+  readonly declaration: ComposedStageTaskDeclaration;
+}
+
+function plannedComposedStageTaskForPlugin(input: {
+  readonly stageRole: ComposedStageRole;
+  readonly plugin: ComposedStageTaskPlugin;
+  readonly pluginIndex: number;
+  readonly pluginInput: EnginePluginInput;
+}): PlannedComposedStageTask {
+  if (input.plugin.contract.computeStageRole !== input.stageRole) {
+    throw new TypeError("Composed stage task plugin contract stage mismatch");
+  }
+  if (input.plugin.contract.computeMeans === null) {
+    throw new TypeError("Composed stage task plugin contract requires compute means");
+  }
+  const declaration = constructComposedStageTaskDeclaration({
+    taskRef: input.plugin.taskRef,
+    stageRole: input.stageRole,
+    taskRole: input.plugin.taskRole,
+    selectedCompositionRef: input.pluginInput.selectedCompositionRef,
+    selectedCompositionDigest: input.pluginInput.selectedCompositionDigest,
+    selectedCompositionSelectionRef:
+      input.pluginInput.selectedCompositionSelectionRef,
+    selectedRegimeBindingRef: input.pluginInput.selectedRegimeBindingRef,
+    computeMeans: input.plugin.contract.computeMeans,
+    inputLedgerRefs:
+      input.plugin.inputLedgerRefs ?? [input.pluginInput.sourceProjectionRef],
+    outputCarrierRefs:
+      input.plugin.outputCarrierRefs ?? [input.plugin.contract.outputCarrier],
+    required: input.plugin.required ?? true,
+    parallelGroupRef: input.plugin.parallelGroupRef ?? null,
+    dependencyRefs: input.plugin.dependencyRefs ?? Object.freeze([])
+  });
+  return Object.freeze({
+    pluginIndex: input.pluginIndex,
+    plugin: input.plugin,
+    pluginInput: input.pluginInput,
+    declaration
+  });
+}
+
+function scalarTransformTaskDeclaration(
+  pluginInput: EnginePluginInput
+): ComposedStageTaskDeclaration {
+  return constructComposedStageTaskDeclaration({
+    taskRef: `stage-task:transform:fp-dispatch:${fpEvaluationDigest({
+      selectedCompositionRef: pluginInput.selectedCompositionRef,
+      selectedRegimeBindingRef: pluginInput.selectedRegimeBindingRef,
+      vectorIndex: pluginInput.vectorIndex,
+      edge: pluginInput.edge
+    })}`,
+    stageRole: "transform",
+    taskRole: "candidate",
+    selectedCompositionRef: pluginInput.selectedCompositionRef,
+    selectedCompositionDigest: pluginInput.selectedCompositionDigest,
+    selectedCompositionSelectionRef: pluginInput.selectedCompositionSelectionRef,
+    selectedRegimeBindingRef: pluginInput.selectedRegimeBindingRef,
+    computeMeans: "F_P",
+    inputLedgerRefs: [pluginInput.sourceProjectionRef],
+    outputCarrierRefs: ["FpDispatchOutcome"],
+    required: false,
+    parallelGroupRef: null,
+    dependencyRefs: Object.freeze([])
+  });
+}
+
+function scalarConsequenceTaskDeclaration(
+  pluginInput: EnginePluginInput
+): ComposedStageTaskDeclaration {
+  return constructComposedStageTaskDeclaration({
+    taskRef: `stage-task:consequence:projection:${fpEvaluationDigest({
+      selectedCompositionRef: pluginInput.selectedCompositionRef,
+      selectedRegimeBindingRef: pluginInput.selectedRegimeBindingRef,
+      vectorIndex: pluginInput.vectorIndex,
+      edge: pluginInput.edge
+    })}`,
+    stageRole: "consequence",
+    taskRole: "projection",
+    selectedCompositionRef: pluginInput.selectedCompositionRef,
+    selectedCompositionDigest: pluginInput.selectedCompositionDigest,
+    selectedCompositionSelectionRef: pluginInput.selectedCompositionSelectionRef,
+    selectedRegimeBindingRef: pluginInput.selectedRegimeBindingRef,
+    computeMeans: "F_D",
+    inputLedgerRefs: [pluginInput.sourceProjectionRef],
+    outputCarrierRefs: ["ConsequenceProjectionOutcome"],
+    required: true,
+    parallelGroupRef: null,
+    dependencyRefs: Object.freeze([])
+  });
+}
+
+function composedStageTaskBatches(
+  plannedTasks: readonly PlannedComposedStageTask[],
+  scalarTask: ComposedStageTaskDeclaration
+): readonly (readonly ComposedStageTaskDeclaration[])[] {
+  const grouped = new Map<string, ComposedStageTaskDeclaration[]>();
+  const order: string[] = [];
+  plannedTasks.forEach((plannedTask, index) => {
+    const key =
+      plannedTask.declaration.parallelGroupRef ?? `serial:${String(index)}`;
+    if (!grouped.has(key)) {
+      grouped.set(key, []);
+      order.push(key);
+    }
+    grouped.get(key)?.push(plannedTask.declaration);
+  });
+  const batches = order.map((key) =>
+    Object.freeze(
+      [...(grouped.get(key) ?? [])].sort((left, right) =>
+        left.taskRef.localeCompare(right.taskRef)
+      )
+    )
+  );
+  return Object.freeze([...batches, Object.freeze([scalarTask])]);
+}
+
+function composedStageSetPlanForStage(input: {
+  readonly basis: ExecutionBasis;
+  readonly stageRole: ComposedStageRole;
+  readonly scalarStageInput: EnginePluginInput;
+  readonly scalarTask: ComposedStageTaskDeclaration;
+  readonly plannedTasks: readonly PlannedComposedStageTask[];
+  readonly requiredTaskRefs: readonly string[];
+}): ComposedStageSetPlan {
+  return constructComposedStageSetPlan({
+    basisId: input.basis.id,
+    graphFunctionId: input.basis.graphFunction.id,
+    vectorIndex: input.scalarStageInput.vectorIndex,
+    edge: input.scalarStageInput.edge,
+    stageRole: input.stageRole,
+    selectedCompositionRef: input.scalarStageInput.selectedCompositionRef,
+    selectedCompositionDigest: input.scalarStageInput.selectedCompositionDigest,
+    selectedCompositionSelectionRef:
+      input.scalarStageInput.selectedCompositionSelectionRef,
+    taskBatches: composedStageTaskBatches(input.plannedTasks, input.scalarTask),
+    requiredTaskRefs: input.requiredTaskRefs,
+    readOnlyInputRefs: uniqueStrings([
+      input.scalarStageInput.sourceProjectionRef,
+      ...input.plannedTasks.flatMap(
+        (plannedTask) => plannedTask.declaration.inputLedgerRefs
+      )
+    ])
+  });
+}
+
+function composedStageTaskOutcomePayloadRef(input: {
+  readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
+  readonly outcome: ComposedStageTaskOutcome;
+}): string {
+  return `payload:composed_stage_task:${fpEvaluationDigest({
+    basisId: input.basis.id,
+    vectorIndex: input.vectorIndex,
+    stageRole: input.outcome.stageRole,
+    taskRef: input.outcome.taskRef,
+    status: input.outcome.status
+  })}`;
+}
+
+function composedStageTaskOutcomeCoreEvents(input: {
+  readonly basis: ExecutionBasis;
+  readonly pluginInput: EnginePluginInput;
+  readonly outcome: ComposedStageTaskOutcome;
+}): readonly RuntimeEvent[] {
+  const payloadRef = composedStageTaskOutcomePayloadRef({
+    basis: input.basis,
+    vectorIndex: input.pluginInput.vectorIndex,
+    outcome: input.outcome
+  });
+  const digest = `digest:composed_stage_task:${fpEvaluationDigest(input.outcome)}`;
+  return Object.freeze([
+    constructPayloadObservedEvent({
+      basis: input.basis,
+      vectorIndex: input.pluginInput.vectorIndex,
+      payloadRef,
+      payloadClass: "composed_stage_task_outcome",
+      contractRef: "contract://abg/composed-stage-task-outcome",
+      digest,
+      producerRef: input.pluginInput.contract.ref,
+      sourceEventRef: input.pluginInput.sourceProjectionRef,
+      actorInvocationId:
+        input.pluginInput.actorInvocationRef?.actorInvocationId ?? null,
+      authorityRef: input.outcome.taskRef,
+      inputDigest: `input:composed_stage_task:${fpEvaluationDigest({
+        sourceProjectionRef: input.pluginInput.sourceProjectionRef,
+        selectedCompositionDigest: input.pluginInput.selectedCompositionDigest,
+        stageRole: input.outcome.stageRole
+      })}`,
+      policyRefs: [input.basis.resolvedPolicy.resolvedPolicyBundleRef]
+    }),
+    constructPayloadValidatedEvent({
+      basis: input.basis,
+      vectorIndex: input.pluginInput.vectorIndex,
+      payloadRef,
+      contractRef: "contract://abg/composed-stage-task-outcome",
+      digest,
+      validationRef: `validation:composed_stage_task:${payloadRef}`,
+      evidenceRef: input.outcome.evidenceRefs[0] ?? null,
+      policyRefs: [input.basis.resolvedPolicy.resolvedPolicyBundleRef]
+    })
+  ]);
+}
+
+function composedStageSetBlockingReason(input: {
+  readonly admission: ComposedStageAdmission;
+  readonly requiredTaskRefs: readonly string[];
+  readonly ignoreMissingTaskRefs?: readonly string[] | undefined;
+}): string | null {
+  const ignoredMissing = new Set(input.ignoreMissingTaskRefs ?? Object.freeze([]));
+  const requiredTaskRefs = new Set(input.requiredTaskRefs);
+  const missingRequiredTaskRefs = input.admission.missingRequiredTaskRefs.filter(
+    (taskRef) => !ignoredMissing.has(taskRef)
+  );
+  const rejectedRequiredTaskRefs = input.admission.rejectedTaskOutcomes
+    .filter((taskOutcome) => requiredTaskRefs.has(taskOutcome.taskRef))
+    .map((taskOutcome) =>
+      [`blocked:${taskOutcome.taskRef}`, taskOutcome.reason ?? null]
+        .filter((part): part is string => part !== null)
+        .join(":")
+    );
+  if (
+    missingRequiredTaskRefs.length === 0 &&
+    rejectedRequiredTaskRefs.length === 0
+  ) {
+    return null;
+  }
+  return [
+    `${input.admission.stageRole}_stage_set_incomplete`,
+    ...missingRequiredTaskRefs.map((taskRef) => `missing:${taskRef}`),
+    ...rejectedRequiredTaskRefs
+  ].join(" ");
+}
+
+function composedStageTaskOutcomeFromFpDispatch(input: {
+  readonly declaration: ComposedStageTaskDeclaration;
+  readonly pluginInput: EnginePluginInput;
+  readonly outcome: FpDispatchOutcome;
+}): ComposedStageTaskOutcome {
+  return constructComposedStageTaskOutcome({
+    status: input.outcome.status === "dispatched" ? "accepted" : "blocked",
+    taskRef: input.declaration.taskRef,
+    stageRole: "transform",
+    taskRole: "candidate",
+    computeMeans: "F_P",
+    candidateRefs:
+      input.outcome.status === "dispatched" && input.outcome.resultRef !== null
+        ? uniqueStrings([
+            input.outcome.resultRef,
+            ...(input.pluginInput.fpTransformRequest === null
+              ? []
+              : [input.pluginInput.fpTransformRequest.resultRef]),
+            ...(input.pluginInput.actorInvocationRef === null
+              ? []
+              : [input.pluginInput.actorInvocationRef.resultRef])
+          ])
+        : input.outcome.status === "dispatched" &&
+            input.pluginInput.fpTransformRequest !== null
+          ? uniqueStrings([
+              input.pluginInput.fpTransformRequest.resultRef,
+              ...(input.pluginInput.actorInvocationRef === null
+                ? []
+                : [input.pluginInput.actorInvocationRef.resultRef])
+            ])
+        : Object.freeze([]),
+    evidenceRefs: input.outcome.evidenceRefs,
+    selectedCompositionRef: input.pluginInput.selectedCompositionRef,
+    selectedCompositionDigest: input.pluginInput.selectedCompositionDigest,
+    selectedCompositionSelectionRef:
+      input.pluginInput.selectedCompositionSelectionRef,
+    selectedRegimeBindingRef: input.pluginInput.selectedRegimeBindingRef,
+    compositionContributionRef:
+      input.pluginInput.selectedRegimeBindingRef ??
+      input.pluginInput.selectedCompositionRef,
+    reason: input.outcome.reason
+  });
+}
+
+function composedStageTaskOutcomeFromConsequence(input: {
+  readonly declaration: ComposedStageTaskDeclaration;
+  readonly pluginInput: EnginePluginInput;
+  readonly outcome: ConsequenceProjectionOutcome;
+}): ComposedStageTaskOutcome {
+  return constructComposedStageTaskOutcome({
+    status: input.outcome.status === "projected" ? "accepted" : "blocked",
+    taskRef: input.declaration.taskRef,
+    stageRole: "consequence",
+    taskRole: "projection",
+    computeMeans: "F_D",
+    projectionRefs:
+      input.outcome.status === "projected"
+        ? uniqueStrings([
+            ...(input.outcome.consequenceRef === null
+              ? []
+              : [input.outcome.consequenceRef]),
+            ...input.outcome.domainReadModelRefs
+          ])
+        : Object.freeze([]),
+    evidenceRefs: input.outcome.evidenceRefs,
+    selectedCompositionRef: input.pluginInput.selectedCompositionRef,
+    selectedCompositionDigest: input.pluginInput.selectedCompositionDigest,
+    selectedCompositionSelectionRef:
+      input.pluginInput.selectedCompositionSelectionRef,
+    selectedRegimeBindingRef: input.pluginInput.selectedRegimeBindingRef,
+    compositionContributionRef:
+      input.pluginInput.selectedRegimeBindingRef ??
+      input.pluginInput.selectedCompositionRef,
+    reason: input.outcome.reason
+  });
 }
 
 function evaluationRuleRoleForPlugin(
@@ -1514,6 +1855,14 @@ type EnginePluginEffect =
       readonly input: EnginePluginInput;
     }
   | {
+      readonly kind: "composed_stage_task_batch_run";
+      readonly stageRole: "transform" | "consequence";
+      readonly items: readonly {
+        readonly pluginIndex: number;
+        readonly input: EnginePluginInput;
+      }[];
+    }
+  | {
       readonly kind: "evaluation_rule_evaluate";
       readonly pluginIndex: number;
       readonly input: EnginePluginInput;
@@ -1546,6 +1895,13 @@ type EnginePluginEffectResult =
   | {
       readonly kind: "fd_evaluate";
       readonly outcome: FdEvaluationOutcome;
+    }
+  | {
+      readonly kind: "composed_stage_task_batch_run";
+      readonly outcomes: readonly {
+        readonly pluginIndex: number;
+        readonly outcome: ComposedStageTaskOutcome;
+      }[];
     }
   | {
       readonly kind: "evaluation_rule_evaluate";
@@ -1594,6 +1950,8 @@ function fdEvaluationOutcomeFromEffectResult(
   switch (result.kind) {
     case "fd_evaluate":
       return result.outcome;
+    case "composed_stage_task_batch_run":
+      throw new TypeError("Engine plugin effect expected fd_evaluate");
     case "evaluation_rule_evaluate":
       throw new TypeError("Engine plugin effect expected fd_evaluate");
     case "evaluation_rule_batch_evaluate":
@@ -1605,6 +1963,42 @@ function fdEvaluationOutcomeFromEffectResult(
       throw new TypeError("Engine plugin effect expected fd_evaluate");
     case "consequence_project":
       throw new TypeError("Engine plugin effect expected fd_evaluate");
+  }
+}
+
+function composedStageTaskBatchOutcomesFromEffectResult(input: {
+  readonly result: EnginePluginEffectResult;
+  readonly pluginIndexes: readonly number[];
+}): readonly ComposedStageTaskOutcome[] {
+  assertEnginePluginEffectKind(input.result, "composed_stage_task_batch_run");
+  switch (input.result.kind) {
+    case "composed_stage_task_batch_run": {
+      if (input.result.outcomes.length !== input.pluginIndexes.length) {
+        throw new TypeError(
+          "Engine plugin effect returned wrong composed stage task batch length"
+        );
+      }
+      return Object.freeze(
+        input.result.outcomes.map((entry, index) => {
+          if (entry.pluginIndex !== input.pluginIndexes[index]) {
+            throw new TypeError(
+              "Engine plugin effect returned wrong composed stage task batch order"
+            );
+          }
+          return entry.outcome;
+        })
+      );
+    }
+    case "fd_evaluate":
+    case "evaluation_rule_evaluate":
+    case "evaluation_rule_batch_evaluate":
+    case "fp_evaluate":
+    case "fp_dispatch":
+    case "fh_admit":
+    case "consequence_project":
+      throw new TypeError(
+        "Engine plugin effect expected composed_stage_task_batch_run"
+      );
   }
 }
 
@@ -1632,6 +2026,7 @@ function evaluationRuleBatchOutcomesFromEffectResult(input: {
       );
     }
     case "fd_evaluate":
+    case "composed_stage_task_batch_run":
     case "evaluation_rule_evaluate":
     case "fp_evaluate":
     case "fp_dispatch":
@@ -1651,6 +2046,7 @@ function fpEvaluationOutcomeFromEffectResult(
     case "fp_evaluate":
       return result.outcome;
     case "fd_evaluate":
+    case "composed_stage_task_batch_run":
     case "evaluation_rule_evaluate":
     case "evaluation_rule_batch_evaluate":
     case "fp_dispatch":
@@ -1668,6 +2064,7 @@ function fpDispatchOutcomeFromEffectResult(
     case "fp_dispatch":
       return result.outcome;
     case "fd_evaluate":
+    case "composed_stage_task_batch_run":
     case "evaluation_rule_evaluate":
     case "evaluation_rule_batch_evaluate":
     case "fp_evaluate":
@@ -1686,6 +2083,7 @@ function fhAdmissionOutcomeFromEffectResult(
     case "fh_admit":
       return result.outcome;
     case "fd_evaluate":
+    case "composed_stage_task_batch_run":
     case "evaluation_rule_evaluate":
     case "evaluation_rule_batch_evaluate":
     case "fp_evaluate":
@@ -1703,6 +2101,7 @@ function consequenceProjectionOutcomeFromEffectResult(
     case "consequence_project":
       return result.outcome;
     case "fd_evaluate":
+    case "composed_stage_task_batch_run":
     case "evaluation_rule_evaluate":
     case "evaluation_rule_batch_evaluate":
     case "fp_evaluate":
@@ -2152,12 +2551,189 @@ function* runEngineIterateMachine(input: {
             })
           );
         }
+        const plannedConsequenceTasks = plugins.consequenceTasks.map(
+          (plugin, pluginIndex) => {
+            if (plugin.contract.computeMeans === null) {
+              throw new TypeError(
+                "Consequence task plugin contract requires compute means"
+              );
+            }
+            const taskInput = constructEnginePluginInput({
+              contract: plugin.contract,
+              basis: request.basis,
+              projection: consequenceProjection,
+              replayEvents: eventState.replayEvents,
+              vectorIndex: transition.vectorIndex,
+              edge: transition.edge,
+              regime: plugin.contract.computeMeans,
+              abgFallbackBundle: request.abgFallbackBundle ?? null,
+              edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
+              constructionPressurePackage:
+                request.constructionPressurePackage ?? null,
+              pluginTraversalObserverFallbackEnabled:
+                request.pluginTraversalObserverFallbackEnabled ?? false,
+              pluginTraversalObserverFallbackKinds:
+                request.pluginTraversalObserverFallbackKinds ?? Object.freeze([])
+            });
+            return plannedComposedStageTaskForPlugin({
+              stageRole: "consequence",
+              plugin,
+              pluginIndex,
+              pluginInput: taskInput
+            });
+          }
+        );
+        const scalarConsequenceTask =
+          scalarConsequenceTaskDeclaration(consequenceInput);
+        const consequenceStagePlan = composedStageSetPlanForStage({
+          basis: request.basis,
+          stageRole: "consequence",
+          scalarStageInput: consequenceInput,
+          scalarTask: scalarConsequenceTask,
+          plannedTasks: plannedConsequenceTasks,
+          requiredTaskRefs: plugins.requiredConsequenceTaskRefs
+        });
+        const plannedConsequenceTaskByRef = new Map<string, PlannedComposedStageTask>();
+        for (const plannedTask of plannedConsequenceTasks) {
+          if (plannedConsequenceTaskByRef.has(plannedTask.declaration.taskRef)) {
+            throw new TypeError(
+              `Duplicate consequence task ref ${plannedTask.declaration.taskRef}`
+            );
+          }
+          plannedConsequenceTaskByRef.set(plannedTask.declaration.taskRef, plannedTask);
+        }
+        const consequenceStageOutcomes: ComposedStageTaskOutcome[] = [];
+        for (const batch of consequenceStagePlan.taskBatches) {
+          const plannedBatch = batch.flatMap((declaration) => {
+            if (declaration.taskRef === scalarConsequenceTask.taskRef) {
+              return [];
+            }
+            const plannedTask = plannedConsequenceTaskByRef.get(declaration.taskRef);
+            if (plannedTask === undefined) {
+              return [];
+            }
+            return [{ declaration, plannedTask }];
+          });
+          if (plannedBatch.length === 0) {
+            continue;
+          }
+          const batchOutcomes = composedStageTaskBatchOutcomesFromEffectResult({
+            result: yield Object.freeze({
+              kind: "composed_stage_task_batch_run",
+              stageRole: "consequence",
+              items: plannedBatch.map(({ plannedTask }) =>
+                Object.freeze({
+                  pluginIndex: plannedTask.pluginIndex,
+                  input: plannedTask.pluginInput
+                })
+              )
+            }),
+            pluginIndexes: plannedBatch.map(
+              ({ plannedTask }) => plannedTask.pluginIndex
+            )
+          });
+          for (const [
+            index,
+            { declaration, plannedTask }
+          ] of plannedBatch.entries()) {
+            const taskOutcome = batchOutcomes[index];
+            if (taskOutcome === undefined) {
+              throw new TypeError("Composed stage task batch omitted outcome");
+            }
+            assertComposedStageTaskOutcomeMatchesDeclaration({
+              declaration,
+              outcome: taskOutcome
+            });
+            consequenceStageOutcomes.push(taskOutcome);
+            eventState = emitRunnerEvents(
+              eventState,
+              composedStageTaskOutcomeCoreEvents({
+                basis: request.basis,
+                pluginInput: plannedTask.pluginInput,
+                outcome: taskOutcome
+              })
+            );
+          }
+        }
+        const preProjectionConsequenceAdmission = constructComposedStageAdmission({
+          plan: consequenceStagePlan,
+          outcomes: consequenceStageOutcomes
+        });
+        const preProjectionConsequenceBlockingReason =
+          composedStageSetBlockingReason({
+            admission: preProjectionConsequenceAdmission,
+            requiredTaskRefs: consequenceStagePlan.requiredTaskRefs,
+            ignoreMissingTaskRefs: [scalarConsequenceTask.taskRef]
+          });
+        if (preProjectionConsequenceBlockingReason !== null) {
+          const blocked = terminalTransition(
+            request.basis,
+            "gap_stop",
+            preProjectionConsequenceBlockingReason
+          );
+          eventState = emitRunnerEvents(eventState, constructTerminalReachedEvent(blocked));
+          return constructResult({
+            basis: request.basis,
+            transition: blocked,
+            projection: deriveRuntimeAggregateProjection(request.basis, eventState.replayEvents),
+            emittedEvents: eventState.emittedEvents,
+            replayEvents: eventState.replayEvents,
+            iterationCount
+          });
+        }
         const consequenceOutcome = consequenceProjectionOutcomeFromEffectResult(
           yield Object.freeze({
             kind: "consequence_project",
             input: consequenceInput
           })
         );
+        const scalarConsequenceOutcome = composedStageTaskOutcomeFromConsequence({
+          declaration: scalarConsequenceTask,
+          pluginInput: consequenceInput,
+          outcome: consequenceOutcome
+        });
+        assertComposedStageTaskOutcomeMatchesDeclaration({
+          declaration: scalarConsequenceTask,
+          outcome: scalarConsequenceOutcome
+        });
+        consequenceStageOutcomes.push(scalarConsequenceOutcome);
+        eventState = emitRunnerEvents(
+          eventState,
+          composedStageTaskOutcomeCoreEvents({
+            basis: request.basis,
+            pluginInput: consequenceInput,
+            outcome: scalarConsequenceOutcome
+          })
+        );
+        const consequenceStageAdmission = constructComposedStageAdmission({
+          plan: consequenceStagePlan,
+          outcomes: consequenceStageOutcomes
+        });
+        const consequenceStageProjection = constructComposedStageProjection({
+          plan: consequenceStagePlan,
+          admission: consequenceStageAdmission
+        });
+        void consequenceStageProjection;
+        const consequenceStageBlockingReason = composedStageSetBlockingReason({
+          admission: consequenceStageAdmission,
+          requiredTaskRefs: consequenceStagePlan.requiredTaskRefs
+        });
+        if (consequenceStageBlockingReason !== null) {
+          const blocked = terminalTransition(
+            request.basis,
+            "gap_stop",
+            consequenceStageBlockingReason
+          );
+          eventState = emitRunnerEvents(eventState, constructTerminalReachedEvent(blocked));
+          return constructResult({
+            basis: request.basis,
+            transition: blocked,
+            projection: deriveRuntimeAggregateProjection(request.basis, eventState.replayEvents),
+            emittedEvents: eventState.emittedEvents,
+            replayEvents: eventState.replayEvents,
+            iterationCount
+          });
+        }
         if (consequenceOutcome.status === "blocked") {
           const blocked = terminalTransition(
             request.basis,
@@ -2204,6 +2780,140 @@ function* runEngineIterateMachine(input: {
             request.pluginTraversalObserverFallbackKinds ?? Object.freeze([])
         });
         const { actorInvocation, modulatedAttempt, pluginInput: input } = attempt;
+        const transformBaseProjection = deriveRuntimeAggregateProjection(
+          request.basis,
+          eventState.replayEvents
+        );
+        const plannedTransformTasks = plugins.transformTasks.map(
+          (plugin, pluginIndex) => {
+            if (plugin.contract.computeMeans === null) {
+              throw new TypeError(
+                "Transform task plugin contract requires compute means"
+              );
+            }
+            const taskInput = constructEnginePluginInput({
+              contract: plugin.contract,
+              basis: request.basis,
+              projection: transformBaseProjection,
+              replayEvents: eventState.replayEvents,
+              vectorIndex: transition.vectorIndex,
+              edge: transition.edge,
+              regime: plugin.contract.computeMeans,
+              traversalStrategySelection: modulatedAttempt?.selection ?? null,
+              traversalAttemptEnvelope: modulatedAttempt?.envelope ?? null,
+              abgFallbackBundle: request.abgFallbackBundle ?? null,
+              edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
+              constructionPressurePackage:
+                request.constructionPressurePackage ?? null,
+              pluginTraversalObserverFallbackEnabled:
+                request.pluginTraversalObserverFallbackEnabled ?? false,
+              pluginTraversalObserverFallbackKinds:
+                request.pluginTraversalObserverFallbackKinds ?? Object.freeze([])
+            });
+            return plannedComposedStageTaskForPlugin({
+              stageRole: "transform",
+              plugin,
+              pluginIndex,
+              pluginInput: taskInput
+            });
+          }
+        );
+        const scalarTransformTask = scalarTransformTaskDeclaration(input);
+        const transformStagePlan = composedStageSetPlanForStage({
+          basis: request.basis,
+          stageRole: "transform",
+          scalarStageInput: input,
+          scalarTask: scalarTransformTask,
+          plannedTasks: plannedTransformTasks,
+          requiredTaskRefs: plugins.requiredTransformTaskRefs
+        });
+        const plannedTransformTaskByRef = new Map<string, PlannedComposedStageTask>();
+        for (const plannedTask of plannedTransformTasks) {
+          if (plannedTransformTaskByRef.has(plannedTask.declaration.taskRef)) {
+            throw new TypeError(
+              `Duplicate transform task ref ${plannedTask.declaration.taskRef}`
+            );
+          }
+          plannedTransformTaskByRef.set(plannedTask.declaration.taskRef, plannedTask);
+        }
+        const transformStageOutcomes: ComposedStageTaskOutcome[] = [];
+        for (const batch of transformStagePlan.taskBatches) {
+          const plannedBatch = batch.flatMap((declaration) => {
+            if (declaration.taskRef === scalarTransformTask.taskRef) {
+              return [];
+            }
+            const plannedTask = plannedTransformTaskByRef.get(declaration.taskRef);
+            if (plannedTask === undefined) {
+              return [];
+            }
+            return [{ declaration, plannedTask }];
+          });
+          if (plannedBatch.length === 0) {
+            continue;
+          }
+          const batchOutcomes = composedStageTaskBatchOutcomesFromEffectResult({
+            result: yield Object.freeze({
+              kind: "composed_stage_task_batch_run",
+              stageRole: "transform",
+              items: plannedBatch.map(({ plannedTask }) =>
+                Object.freeze({
+                  pluginIndex: plannedTask.pluginIndex,
+                  input: plannedTask.pluginInput
+                })
+              )
+            }),
+            pluginIndexes: plannedBatch.map(
+              ({ plannedTask }) => plannedTask.pluginIndex
+            )
+          });
+          for (const [
+            index,
+            { declaration, plannedTask }
+          ] of plannedBatch.entries()) {
+            const taskOutcome = batchOutcomes[index];
+            if (taskOutcome === undefined) {
+              throw new TypeError("Composed stage task batch omitted outcome");
+            }
+            assertComposedStageTaskOutcomeMatchesDeclaration({
+              declaration,
+              outcome: taskOutcome
+            });
+            transformStageOutcomes.push(taskOutcome);
+            eventState = emitRunnerEvents(
+              eventState,
+              composedStageTaskOutcomeCoreEvents({
+                basis: request.basis,
+                pluginInput: plannedTask.pluginInput,
+                outcome: taskOutcome
+              })
+            );
+          }
+        }
+        const preDispatchTransformAdmission = constructComposedStageAdmission({
+          plan: transformStagePlan,
+          outcomes: transformStageOutcomes
+        });
+        const preDispatchTransformBlockingReason = composedStageSetBlockingReason({
+          admission: preDispatchTransformAdmission,
+          requiredTaskRefs: transformStagePlan.requiredTaskRefs,
+          ignoreMissingTaskRefs: [scalarTransformTask.taskRef]
+        });
+        if (preDispatchTransformBlockingReason !== null) {
+          const blocked = terminalTransition(
+            request.basis,
+            "gap_stop",
+            preDispatchTransformBlockingReason
+          );
+          eventState = emitRunnerEvents(eventState, constructTerminalReachedEvent(blocked));
+          return constructResult({
+            basis: request.basis,
+            transition: blocked,
+            projection: deriveRuntimeAggregateProjection(request.basis, eventState.replayEvents),
+            emittedEvents: eventState.emittedEvents,
+            replayEvents: eventState.replayEvents,
+            iterationCount
+          });
+        }
         eventState = emitRunnerEvents(eventState,
           fpDispatchAttemptStartedEvents({
             basis: request.basis,
@@ -2216,6 +2926,53 @@ function* runEngineIterateMachine(input: {
         const outcome = fpDispatchOutcomeFromEffectResult(
           yield Object.freeze({ kind: "fp_dispatch", input }),
         );
+        const scalarTransformOutcome = composedStageTaskOutcomeFromFpDispatch({
+          declaration: scalarTransformTask,
+          pluginInput: input,
+          outcome
+        });
+        assertComposedStageTaskOutcomeMatchesDeclaration({
+          declaration: scalarTransformTask,
+          outcome: scalarTransformOutcome
+        });
+        transformStageOutcomes.push(scalarTransformOutcome);
+        eventState = emitRunnerEvents(
+          eventState,
+          composedStageTaskOutcomeCoreEvents({
+            basis: request.basis,
+            pluginInput: input,
+            outcome: scalarTransformOutcome
+          })
+        );
+        const transformStageAdmission = constructComposedStageAdmission({
+          plan: transformStagePlan,
+          outcomes: transformStageOutcomes
+        });
+        const transformStageProjection = constructComposedStageProjection({
+          plan: transformStagePlan,
+          admission: transformStageAdmission
+        });
+        void transformStageProjection;
+        const transformStageBlockingReason = composedStageSetBlockingReason({
+          admission: transformStageAdmission,
+          requiredTaskRefs: transformStagePlan.requiredTaskRefs
+        });
+        if (transformStageBlockingReason !== null) {
+          const blocked = terminalTransition(
+            request.basis,
+            "gap_stop",
+            transformStageBlockingReason
+          );
+          eventState = emitRunnerEvents(eventState, constructTerminalReachedEvent(blocked));
+          return constructResult({
+            basis: request.basis,
+            transition: blocked,
+            projection: deriveRuntimeAggregateProjection(request.basis, eventState.replayEvents),
+            emittedEvents: eventState.emittedEvents,
+            replayEvents: eventState.replayEvents,
+            iterationCount
+          });
+        }
         if (outcome.attachedResultArtifact !== null) {
           const resultRef = resultRefForActorOutcome({
             invocation: actorInvocation,
@@ -2633,12 +3390,193 @@ function* runEngineIterateMachine(input: {
                 })
               );
             }
+            const plannedConsequenceTasks = plugins.consequenceTasks.map(
+              (plugin, pluginIndex) => {
+                if (plugin.contract.computeMeans === null) {
+                  throw new TypeError(
+                    "Consequence task plugin contract requires compute means"
+                  );
+                }
+                const taskInput = constructEnginePluginInput({
+                  contract: plugin.contract,
+                  basis: request.basis,
+                  projection: consequenceProjection,
+                  replayEvents: eventState.replayEvents,
+                  vectorIndex: transition.vectorIndex,
+                  edge: transition.edge,
+                  regime: plugin.contract.computeMeans,
+                  traversalStrategySelection: modulatedAttempt?.selection ?? null,
+                  traversalAttemptEnvelope: modulatedAttempt?.envelope ?? null,
+                  abgFallbackBundle: request.abgFallbackBundle ?? null,
+                  edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
+                  constructionPressurePackage:
+                    request.constructionPressurePackage ?? null,
+                  pluginTraversalObserverFallbackEnabled:
+                    request.pluginTraversalObserverFallbackEnabled ?? false,
+                  pluginTraversalObserverFallbackKinds:
+                    request.pluginTraversalObserverFallbackKinds ?? Object.freeze([])
+                });
+                return plannedComposedStageTaskForPlugin({
+                  stageRole: "consequence",
+                  plugin,
+                  pluginIndex,
+                  pluginInput: taskInput
+                });
+              }
+            );
+            const scalarConsequenceTask =
+              scalarConsequenceTaskDeclaration(consequenceInput);
+            const consequenceStagePlan = composedStageSetPlanForStage({
+              basis: request.basis,
+              stageRole: "consequence",
+              scalarStageInput: consequenceInput,
+              scalarTask: scalarConsequenceTask,
+              plannedTasks: plannedConsequenceTasks,
+              requiredTaskRefs: plugins.requiredConsequenceTaskRefs
+            });
+            const plannedConsequenceTaskByRef = new Map<string, PlannedComposedStageTask>();
+            for (const plannedTask of plannedConsequenceTasks) {
+              if (plannedConsequenceTaskByRef.has(plannedTask.declaration.taskRef)) {
+                throw new TypeError(
+                  `Duplicate consequence task ref ${plannedTask.declaration.taskRef}`
+                );
+              }
+              plannedConsequenceTaskByRef.set(plannedTask.declaration.taskRef, plannedTask);
+            }
+            const consequenceStageOutcomes: ComposedStageTaskOutcome[] = [];
+            for (const batch of consequenceStagePlan.taskBatches) {
+              const plannedBatch = batch.flatMap((declaration) => {
+                if (declaration.taskRef === scalarConsequenceTask.taskRef) {
+                  return [];
+                }
+                const plannedTask = plannedConsequenceTaskByRef.get(declaration.taskRef);
+                if (plannedTask === undefined) {
+                  return [];
+                }
+                return [{ declaration, plannedTask }];
+              });
+              if (plannedBatch.length === 0) {
+                continue;
+              }
+              const batchOutcomes = composedStageTaskBatchOutcomesFromEffectResult({
+                result: yield Object.freeze({
+                  kind: "composed_stage_task_batch_run",
+                  stageRole: "consequence",
+                  items: plannedBatch.map(({ plannedTask }) =>
+                    Object.freeze({
+                      pluginIndex: plannedTask.pluginIndex,
+                      input: plannedTask.pluginInput
+                    })
+                  )
+                }),
+                pluginIndexes: plannedBatch.map(
+                  ({ plannedTask }) => plannedTask.pluginIndex
+                )
+              });
+              for (const [
+                index,
+                { declaration, plannedTask }
+              ] of plannedBatch.entries()) {
+                const taskOutcome = batchOutcomes[index];
+                if (taskOutcome === undefined) {
+                  throw new TypeError("Composed stage task batch omitted outcome");
+                }
+                assertComposedStageTaskOutcomeMatchesDeclaration({
+                  declaration,
+                  outcome: taskOutcome
+                });
+                consequenceStageOutcomes.push(taskOutcome);
+                eventState = emitRunnerEvents(
+                  eventState,
+                  composedStageTaskOutcomeCoreEvents({
+                    basis: request.basis,
+                    pluginInput: plannedTask.pluginInput,
+                    outcome: taskOutcome
+                  })
+                );
+              }
+            }
+            const preProjectionConsequenceAdmission =
+              constructComposedStageAdmission({
+                plan: consequenceStagePlan,
+                outcomes: consequenceStageOutcomes
+              });
+            const preProjectionConsequenceBlockingReason =
+              composedStageSetBlockingReason({
+                admission: preProjectionConsequenceAdmission,
+                requiredTaskRefs: consequenceStagePlan.requiredTaskRefs,
+                ignoreMissingTaskRefs: [scalarConsequenceTask.taskRef]
+              });
+            if (preProjectionConsequenceBlockingReason !== null) {
+              const blocked = terminalTransition(
+                request.basis,
+                "gap_stop",
+                preProjectionConsequenceBlockingReason
+              );
+              eventState = emitRunnerEvents(eventState, constructTerminalReachedEvent(blocked));
+              return constructResult({
+                basis: request.basis,
+                transition: blocked,
+                projection: deriveRuntimeAggregateProjection(request.basis, eventState.replayEvents),
+                emittedEvents: eventState.emittedEvents,
+                replayEvents: eventState.replayEvents,
+                iterationCount
+              });
+            }
             const consequenceOutcome = consequenceProjectionOutcomeFromEffectResult(
               yield Object.freeze({
                 kind: "consequence_project",
                 input: consequenceInput
               })
             );
+            const scalarConsequenceOutcome =
+              composedStageTaskOutcomeFromConsequence({
+                declaration: scalarConsequenceTask,
+                pluginInput: consequenceInput,
+                outcome: consequenceOutcome
+              });
+            assertComposedStageTaskOutcomeMatchesDeclaration({
+              declaration: scalarConsequenceTask,
+              outcome: scalarConsequenceOutcome
+            });
+            consequenceStageOutcomes.push(scalarConsequenceOutcome);
+            eventState = emitRunnerEvents(
+              eventState,
+              composedStageTaskOutcomeCoreEvents({
+                basis: request.basis,
+                pluginInput: consequenceInput,
+                outcome: scalarConsequenceOutcome
+              })
+            );
+            const consequenceStageAdmission = constructComposedStageAdmission({
+              plan: consequenceStagePlan,
+              outcomes: consequenceStageOutcomes
+            });
+            const consequenceStageProjection = constructComposedStageProjection({
+              plan: consequenceStagePlan,
+              admission: consequenceStageAdmission
+            });
+            void consequenceStageProjection;
+            const consequenceStageBlockingReason = composedStageSetBlockingReason({
+              admission: consequenceStageAdmission,
+              requiredTaskRefs: consequenceStagePlan.requiredTaskRefs
+            });
+            if (consequenceStageBlockingReason !== null) {
+              const blocked = terminalTransition(
+                request.basis,
+                "gap_stop",
+                consequenceStageBlockingReason
+              );
+              eventState = emitRunnerEvents(eventState, constructTerminalReachedEvent(blocked));
+              return constructResult({
+                basis: request.basis,
+                transition: blocked,
+                projection: deriveRuntimeAggregateProjection(request.basis, eventState.replayEvents),
+                emittedEvents: eventState.emittedEvents,
+                replayEvents: eventState.replayEvents,
+                iterationCount
+              });
+            }
             if (consequenceOutcome.status === "blocked") {
               const blocked = terminalTransition(
                 request.basis,
@@ -2866,6 +3804,31 @@ function resolveSyncEnginePluginEffect(
           )
         )
       });
+    case "composed_stage_task_batch_run":
+      return Object.freeze({
+        kind: "composed_stage_task_batch_run",
+        outcomes: Object.freeze(
+          effect.items.map((item) => {
+            const sourcePlugins =
+              effect.stageRole === "transform"
+                ? plugins.transformTasks
+                : plugins.consequenceTasks;
+            const plugin = sourcePlugins[item.pluginIndex];
+            if (plugin === undefined) {
+              throw new TypeError("Unknown composed stage task plugin index");
+            }
+            return Object.freeze({
+              pluginIndex: item.pluginIndex,
+              outcome: admitComposedStageTaskOutcome(
+                resolveSyncPluginOutcome(
+                  plugin.run(item.input),
+                  "composed stage task plugin"
+                )
+              )
+            });
+          })
+        )
+      });
     case "evaluation_rule_evaluate": {
       const plugin = plugins.evaluationRules[effect.pluginIndex];
       if (plugin === undefined) {
@@ -2956,6 +3919,28 @@ async function resolveAsyncEnginePluginEffect(
         kind: "fd_evaluate",
         outcome: admitFdEvaluationOutcome(
           await plugins.fdEvaluator.evaluate(effect.input)
+        )
+      });
+    case "composed_stage_task_batch_run":
+      return Object.freeze({
+        kind: "composed_stage_task_batch_run",
+        outcomes: Object.freeze(
+          await Promise.all(
+            effect.items.map(async (item) => {
+              const sourcePlugins =
+                effect.stageRole === "transform"
+                  ? plugins.transformTasks
+                  : plugins.consequenceTasks;
+              const plugin = sourcePlugins[item.pluginIndex];
+              if (plugin === undefined) {
+                throw new TypeError("Unknown composed stage task plugin index");
+              }
+              return Object.freeze({
+                pluginIndex: item.pluginIndex,
+                outcome: admitComposedStageTaskOutcome(await plugin.run(item.input))
+              });
+            })
+          )
         )
       });
     case "evaluation_rule_evaluate": {

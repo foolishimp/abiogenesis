@@ -48,6 +48,8 @@ test("T-072 engine runner: ABG owns F_D iteration over a three-stage graph funct
       "vector_evaluated",
       "vector_closed",
       "fd_advance_ready",
+      "payload_observed",
+      "payload_validated",
       "graph_call_opened",
       "frame_opened",
       "vector_traversal_planned",
@@ -57,6 +59,8 @@ test("T-072 engine runner: ABG owns F_D iteration over a three-stage graph funct
       "vector_evaluated",
       "vector_closed",
       "fd_advance_ready",
+      "payload_observed",
+      "payload_validated",
       "graph_call_opened",
       "frame_opened",
       "vector_traversal_planned",
@@ -66,6 +70,8 @@ test("T-072 engine runner: ABG owns F_D iteration over a three-stage graph funct
       "vector_evaluated",
       "vector_closed",
       "fd_advance_ready",
+      "payload_observed",
+      "payload_validated",
       "terminal_reached"
     ]
   );

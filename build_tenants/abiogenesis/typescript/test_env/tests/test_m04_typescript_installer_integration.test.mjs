@@ -437,6 +437,8 @@ test("T-076 public TypeScript installer populates a package-backed ABG install a
     "vector_evaluated",
     "vector_closed",
     "fd_advance_ready",
+    "payload_observed",
+    "payload_validated",
     "terminal_reached"
   ]);
 
