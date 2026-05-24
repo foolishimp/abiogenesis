@@ -162,6 +162,46 @@ function registerRulePlugin(input) {
   });
 }
 
+function fpEvaluationRulePlugin(input) {
+  const contract = pluginContract(
+    "fp_evaluator",
+    input.contractRef ?? `plugin://t145/fp-rule/${input.ruleRef}`,
+    "EvaluationRuleOutcome"
+  );
+  return Object.freeze({
+    contract,
+    ruleRef: input.ruleRef,
+    ruleRole: "semantic_judgment",
+    required: input.required ?? true,
+    parallelGroupRef: input.parallelGroupRef ?? null,
+    dependencyRefs: input.dependencyRefs ?? [],
+    outputCarrierRefs: ["EvaluationRuleOutcome"],
+    evaluate(pluginInput) {
+      input.observe?.(pluginInput);
+      return constructEvaluationRuleOutcome({
+        status: "accepted",
+        ruleRef: input.ruleRef,
+        ruleRole: "semantic_judgment",
+        computeMeans: "F_P",
+        producedRegisterRefs: [`register://t145/${input.ruleRef}`],
+        evidenceRefs:
+          pluginInput.actorInvocationRef === null
+            ? [pluginInput.sourceProjectionRef]
+            : [pluginInput.actorInvocationRef.resultRef],
+        findingRefs: [`finding://t145/${input.ruleRef}`],
+        selectedCompositionRef: pluginInput.selectedCompositionRef,
+        selectedCompositionDigest: pluginInput.selectedCompositionDigest,
+        selectedCompositionSelectionRef:
+          pluginInput.selectedCompositionSelectionRef,
+        selectedRegimeBindingRef: pluginInput.selectedRegimeBindingRef,
+        compositionContributionRef:
+          pluginInput.selectedRegimeBindingRef ??
+          pluginInput.selectedCompositionRef
+      });
+    }
+  });
+}
+
 function firstFpBasis() {
   return buildThreeStageBasis({
     defaultRegime: "F_D",
@@ -380,6 +420,46 @@ test("T-145 dependent evaluation rules can read admitted predecessor refs", () =
       ref.includes(firstRuleRef)
     ),
     true
+  );
+});
+
+test("T-145 F_P evaluation rules receive ABG actor invocation provenance", () => {
+  const ruleRef = "evaluation-rule://t145/fp-actor-provenance";
+  const observedInputs = [];
+  const events = [];
+  const result = runEngineIterate({
+    basis: firstFpBasis(),
+    eventSink: (event) => events.push(event),
+    plugins: {
+      fpDispatch: fpDispatchPlugin(),
+      fdEvaluator: fdEvaluatorPlugin(),
+      fpEvaluator: fpEvaluatorPlugin(),
+      evaluationRules: [
+        fpEvaluationRulePlugin({
+          ruleRef,
+          observe: (input) => {
+            observedInputs.push(input);
+          }
+        })
+      ]
+    }
+  });
+
+  assert.equal(result.transition.terminalKind, "converged");
+  const observedInput =
+    observedInputs.find((input) => input.actorInvocationRef !== null) ?? null;
+  assert.notEqual(observedInput, null);
+  const observedEvent = events.find(
+    (event) =>
+      event.kind === "payload_observed" &&
+      event.payloadClass === "evaluation_rule_outcome" &&
+      event.authorityRef === ruleRef &&
+      event.actorInvocationId === observedInput.actorInvocationRef.actorInvocationId
+  );
+  assert.notEqual(observedEvent, undefined);
+  assert.equal(
+    observedEvent.actorInvocationId,
+    observedInput.actorInvocationRef.actorInvocationId
   );
 });
 

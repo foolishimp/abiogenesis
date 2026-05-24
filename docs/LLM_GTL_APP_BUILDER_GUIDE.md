@@ -1,6 +1,6 @@
 # LLM GTL App Builder Guide
 
-**Status**: Current compressed technical GTL 3 / ABG 3.9.0-rc.1 guide for LLMs
+**Status**: Current compressed technical GTL 3 / ABG 3.9.0-rc.3 guide for LLMs
 **Audience**: LLM agentic coders and agent bootstraps building GTL/ABG domain apps
 **Purpose**: Compress the human GTL/ABG guide into the ontology, operating rules, fail-closed constraints, and language-specific syntax needed by LLM agents
 
@@ -59,6 +59,343 @@ Do not treat `ODD_METHOD.md` as a replacement for local product authority.
 
 Do not treat the appendices as exhaustive APIs. They are syntax anchors for
 agents. When exact signatures matter, read the TypeScript or Python source.
+
+## Current Agent Load Contract
+
+Use this section as the one-surface ABG/GTL ontology and epistemology handoff.
+
+Current source package identity:
+
+```text
+@abiogenesis/typescript-tenant@3.9.0-rc.3
+```
+
+Current model shape:
+
+```text
+GTL authored ontology
+-> selected abg.fn_composition identity
+-> ABG event-sourced stage-set interpreter
+-> admitted events, payload ledgers, and projections
+-> assurance fold and traversal transition
+-> downstream product read models
+```
+
+The governing recent changes are:
+
+| Ticket | Current law |
+| --- | --- |
+| `T-143` | `C` is GTL-facing notation over selected `abg.fn_composition`; it is not a new GTL topology object, ABG carrier, execution target, or closure path. |
+| `T-144` | ABG is the event-sourced monad over selected GTL composition. Product plugins compute stage values; ABG.system admits values, writes events and ledgers, folds assurance, derives traversal, and replays continuation. |
+| `T-145` | `evaluate.C` is an evaluation-set phase over read-only admitted facts. Scalar `FpEvaluationOutcome` is one `evaluate.C.F_P` semantic judgment rule, not a separate evaluator authority. |
+| `T-146` | Every composed `.C` stage is a stage-set phase. Scalar transform, evaluate, and consequence plugin hooks are one-task reductions of the shared stage-set law. |
+
+### Current Architecture Spine
+
+```mermaid
+flowchart TD
+  GtlModule["GTL Module"]
+  GraphFunction["Published GraphFunction"]
+  Job["Job / semantic work contract"]
+  Composition["Selected abg.fn_composition C"]
+  GraphCall["ABG GraphCall"]
+  Frame["ABG Frame"]
+  TransformSet["transform.C stage set"]
+  TransformAdmission["ABG transform admission + ledgers"]
+  EvaluationSet["evaluate.C evaluation set"]
+  EvaluationAdmission["ABG evaluation admission + ledgers"]
+  AssuranceFold["ABG assurance fold"]
+  ConsequenceSet["consequence.C stage set"]
+  ConsequenceAdmission["ABG consequence admission"]
+  Transition["Traversal transition"]
+  Replay["Replay / continuation projection"]
+  ProductReadModels["Product read models"]
+
+  GtlModule --> GraphFunction
+  Job --> GraphFunction
+  GraphFunction --> Composition
+  Composition --> GraphCall
+  GraphCall --> Frame
+  Frame --> TransformSet
+  TransformSet --> TransformAdmission
+  TransformAdmission --> EvaluationSet
+  EvaluationSet --> EvaluationAdmission
+  EvaluationAdmission --> AssuranceFold
+  AssuranceFold --> ConsequenceSet
+  ConsequenceSet --> ConsequenceAdmission
+  ConsequenceAdmission --> Transition
+  Transition --> Replay
+  Replay --> ProductReadModels
+```
+
+The architecture rule is simple:
+
+```text
+plugins compute proposed values;
+ABG admits and writes truth;
+products interpret admitted truth.
+```
+
+### Ontology Boundary
+
+GTL ontology is the authored language surface:
+
+- `Graph`
+- `Node`
+- `GraphVector`
+- `Context`
+- `Operator`
+- `Evaluator`
+- `Rule`
+- `GraphFunction`
+- `RefinementBoundary`
+- `CandidateFamily`
+- `ContractRef`
+- `Role`
+- `Job`
+- `Module`
+
+ABG runtime ontology is the interpreter-owned truth surface:
+
+- selected `abg.fn_composition`
+- runtime events
+- `Run`
+- `GraphCall`
+- `Frame`
+- `ExecutionBasis`
+- `AdvancementTransition`
+- `IterationAdvanceDecision`
+- `Continuation`
+- payload admission and payload ledgers
+- assurance projection and closure fold
+- traversal transition and replay projection
+- `ComposedStageSetPlan`
+- `ComposedStageTaskDeclaration`
+- `ComposedStageTaskOutcome`
+- `ComposedStageAdmission`
+- `ComposedStageProjection`
+- `EvaluationRuleDeclaration`
+- `EvaluationSetPlan`
+- `EvaluationRuleOutcome`
+- `EvaluationSetAdmission`
+- `EvaluationSetProjection`
+
+Product ontology is downstream-owned. A product may define pressure maps, gain
+lenses, acceptance registers, lifecycle views, and domain read models. Those
+surfaces are projections over ABG-admitted facts. They do not become GTL
+language ontology or ABG runtime authority.
+
+### Epistemology Boundary
+
+Ontology names what exists. Epistemology names how facts become known and
+authorized over what exists.
+
+The current epistemic bind chain is:
+
+```text
+ABG.start(fn<A, B>.C)
+  .bind(system.openGraphCall)
+  .bind(system.openFrame)
+  .bind(system.planTransformSet)
+  .bind(plugin.transform.C.task[*])
+  .bind(system.admitTransformTaskResult[*])
+  .bind(system.writeTransformEventsAndLedgers)
+  .bind(system.collectTransformSet)
+  .bind(system.planEvaluationSet)
+  .bind(plugin.evaluate.C.rule[*])
+  .bind(system.admitEvaluationRuleResult[*])
+  .bind(system.writeEvaluationLedgers)
+  .bind(system.collectEvaluationSet)
+  .bind(system.assuranceFold)
+  .bind(system.planConsequenceSet)
+  .bind(plugin.consequence.C.task[*])
+  .bind(system.admitConsequenceTaskResult[*])
+  .bind(system.collectConsequenceSet)
+  .bind(system.admitConsequenceProjection)
+  .bind(system.traversalTransition)
+  .bind(system.replayContinuation)
+```
+
+`C` is selected composition notation. It denotes the selected
+`abg.fn_composition` identity at the owning boundary. It is not `ComputeUnit`,
+not `ReliableCompute`, not a topology anchor, not a public callable carrier,
+not a runtime carrier, and not a second execution API.
+
+`fn<A, B>.C` is notation over:
+
+- a published `GraphFunction`
+- the `Job` binding the semantic work contract
+- the realized `GraphVector` context when applicable
+- the selected `abg.fn_composition` contract ref, digest, selection ref, host
+  binding, declaration source, ordered regime bindings, policy context, carrier
+  context, assurance context, and closure contract
+
+### Stage-Set Law
+
+Every composed `.C` stage follows one shape:
+
+```text
+stage.C =
+  system.planStageSet(stage)
+  -> plugin.stage.C.task[*]
+  -> system.admitStageTaskResult[*]
+  -> system.writeStageLedgers(stage)
+  -> system.collectStageSet(stage)
+```
+
+This applies to `transform.C`, `evaluate.C`, and `consequence.C`.
+
+The shared stage-set carrier family is the authority surface:
+
+| Carrier | Owner | Purpose |
+| --- | --- | --- |
+| `ComposedStageSetPlan` | ABG | selected stage, selected composition identity, ordered/parallel task batches, required task refs, read-only input refs |
+| `ComposedStageTaskDeclaration` | ABG | one stage task with stage role, task role, compute means, selected regime binding, input refs, output refs, batch/dependency refs |
+| `ComposedStageTaskOutcome` | ABG | proposed task result refs, diagnostics, selected composition identity, and selected contribution identity |
+| `ComposedStageAdmission` | ABG | admitted, rejected, missing, stale, and contradictory stage task outcomes |
+| `ComposedStageProjection` | ABG | stable fold input over admitted task outcomes for the next ABG system bind |
+
+Stage-specific projections are read models over the shared law:
+
+| Projection | Meaning |
+| --- | --- |
+| `TransformSetProjection` | admitted candidate, evidence, register, and transform-result refs |
+| `EvaluationSetProjection` | admitted register, finding, evidence, residual, continuation, and human-response refs |
+| `ConsequenceSetProjection` | admitted consequence and downstream read-model projection refs |
+
+Scalar reductions are lawful only as reductions:
+
+- scalar `fpDispatch` is one `transform.C.F_P` task
+- scalar `FpEvaluationOutcome` is one `evaluate.C.F_P` semantic judgment rule
+- scalar `consequenceProjection` is one `consequence.C.F_D` projection task
+
+They are not privileged alternate paths and not compatibility layers that keep
+old authority alive.
+
+### Stage Semantics
+
+`transform.C` produces candidate/evidence payloads under selected composition.
+It may include deterministic read-only tasks for input normalization,
+extraction, schema-derived candidate construction, static data shaping,
+preparatory register construction, or F_P tasks for ambiguous construction.
+
+`evaluate.C` consumes admitted transform truth and read-only ledgers. It is an
+evaluation-set phase:
+
+```text
+evaluate.C =
+  compose(
+    evaluate.C.F_D.register_rule[*],
+    evaluate.C.F_P.semantic_judgment_rule[*],
+    evaluate.C.F_H.external_callout?
+  )
+```
+
+`evaluate.C.F_D.register_rule[*]` builds deterministic registers, coverage
+rows, lineage checks, target-carrier checks, observed-state facts, and other
+read-only evaluation facts. These are proposed values until ABG admission.
+
+`evaluate.C.F_P.semantic_judgment_rule[*]` judges over admitted transform truth
+plus the admitted evaluation register set. It may propose gain, residual
+pressure, continuation refs, evidence refs, authority refs, diagnostic refs,
+and close dispositions. Closure remains ABG assurance-fold truth.
+
+`consequence.C` projects product-facing consequence refs over ABG-admitted
+state after assurance fold. It is not an imperative product action stage and
+cannot mutate runtime truth, select traversal, own replay, or close.
+
+`F_H` is external human callout. ABG may admit or emit the callout boundary and
+later admit a response event/carrier. Human work itself is outside ABG.
+
+### Plugin Boundary
+
+The plugin boundary is intentionally narrow.
+
+Product plugins may:
+
+- compute typed candidate, register, finding, evidence, continuation,
+  residual-pressure, diagnostic, human-response, and projection refs
+- interpret product domain meaning inside declared input/output contracts
+- return typed values for ABG admission
+
+Product plugins must not:
+
+- emit runtime events
+- write ledgers
+- mutate graph calls or frames
+- select graph vectors
+- transition traversal
+- replay continuation
+- close a boundary
+- create product-local runtime loops that compete with ABG
+
+ABG plugin invocation surfaces preserve selected composition identity through
+`EnginePluginContract`, `EngineComputeStageBinding`, and `EnginePluginInput`.
+Inputs also carry prior stage projection refs, prior stage fold-input refs, and
+same-stage dependency refs so dependent batches and scalar reductions see the
+admitted predecessor truth they depend on.
+
+Replay-visible identity comes from selected composition identity, stage role,
+task/rule refs, batch/dependency refs, prior stage refs, same-stage dependency
+refs, and admitted outcomes. It does not come from wall-clock completion order,
+prompt wording, local controller state, or hidden runtime config.
+
+### Closure And Authority
+
+Only ABG owns event emission, payload admission, payload ledger projection,
+assurance fold, traversal transition, continuation, closure, correction, and
+replay truth.
+
+`F_D` may own deterministic closure predicates when the selected composition
+contract grants that authority. `F_P` may construct, diagnose, repair, rank,
+judge, supply evidence, or propose dispositions. `F_H` may be present,
+deferred, or absentia. Non-`F_D` regimes do not own closure authority.
+
+Closure must not derive from:
+
+- worker success
+- transport success
+- prompt-side self-assessment
+- `unresolvedReasons: []`
+- report shape
+- passing tests without admitted evidence binding
+- file presence without selected target-carrier satisfaction
+- product-local ledgers that did not enter ABG admission
+
+Closure derives from ABG replay over selected composition identity, admitted
+payload/evidence facts, evaluation-set projection, assurance projection, and
+the selected deterministic closure contract.
+
+### Agent Build Checklist
+
+When building or modifying a GTL/ABG app:
+
+1. Publish work through `GraphFunction` and bind durable work through `Job`.
+2. Keep `GraphVector` as realized internal traversal structure.
+3. Declare selected composition and hook refs on GTL surfaces.
+4. Bind executable behavior through ABG plugin contracts.
+5. Treat plugin returns as proposed values until ABG admission.
+6. Use stage-set tasks for transform/evaluate/consequence work.
+7. Use evaluation rules for deterministic registers and F_P semantic judgment.
+8. Read ABG events, payload ledgers, assurance projections, traversal
+   transitions, and replay projections for truth.
+9. Put product meaning in product read models over ABG-admitted facts.
+10. Reprice the declaration or design when authority is ambiguous.
+
+Fail closed when any of these are true:
+
+- a public job targets a bare vector
+- `C` is treated as a new carrier or execution API
+- a plugin writes events, ledgers, traversal, replay, or closure truth
+- a product service owns a second runtime loop
+- `evaluate.C` collapses to one scalar callback when declared register rules
+  are needed
+- transform/evaluate/consequence use different authority sources for the same
+  selected composition
+- same-stage dependency refs are not visible in dependent task or scalar
+  reduction inputs
+- completion depends on prompt prose, worker narrative, or local state instead
+  of ABG-admitted facts
 
 ## Axiomatic Substrate
 
@@ -138,7 +475,7 @@ as local vocabulary, then bind them back to a GTL topology anchor or first-class
 declaration surface before declaring GTL or ABG behavior.
 
 `ExecutionBasis`, `AdvancementTransition`, `IterationAdvanceDecision`, and
-`RegimeBindingSet` carry ABG 3.5 runtime law.
+`RegimeBindingSet` carry current ABG 3 runtime law.
 
 Do not rebuild those meanings from result dictionaries, controller state, prompt
 text, or `runtime_config`.
@@ -1205,7 +1542,7 @@ though each edge looks fine in isolation.
 Anthropic vocabulary mapping
 (`.ai-workspace/comments/claude/20260502T053000Z_DESIGN_eval-framework-from-anthropic-demystifying-evals.md`):
 
-| Anthropic | ABG 3.5 RC carrier |
+| Anthropic | ABG carrier |
 | --- | --- |
 | Task | `EvalTask` over a graph-function edge or chain |
 | Input | `EvalTask.inputRefs` resolving to admitted `WorkspaceAssetBinding`s |
@@ -1248,6 +1585,10 @@ ABG owns:
 - correction and supersession fact emission
 - payload identity and event-sourced payload-ledger projection
 - total assurance projection and closure-fold gating
+- selected `abg.fn_composition` identity and compute-stage binding
+- transform, evaluate, and consequence stage-set planning
+- stage task admission and replay-stable stage projection
+- evaluation-set planning, rule scheduling, rule admission, and evaluation-set projection
 - attempt-envelope derivation from the GTL traversal-modulation qualifier
 - one shared dispatch-attempt law across sync and async runner modes
 - typed non-progress classification and continuation-action projection
@@ -1257,7 +1598,7 @@ ABG owns:
   silently continue into retry repair
 - supervised actor/worker call-out identity, process facts, terminal session
   facts, and replay-derived process projection
-- Transform/Eval plugin traversal observer binding selection,
+- transform/evaluate/consequence plugin traversal observer binding selection,
   materialization, provenance, and plugin-input handoff
 - visible `abg_defaults` fallback bundle admission and default-source
   provenance
@@ -1266,7 +1607,7 @@ ABG does not own domain semantics beyond declared law.
 
 ABG interprets and enforces declared law.
 
-### ABG 3.6.0 RC carrier law retained in 3.7
+### Current carrier law
 
 The live runtime boundary is carrier and event owned.
 
@@ -1284,19 +1625,19 @@ Do not rebuild these meanings from result dictionaries, controller state, or
 runtime policy, asset-binding, proof-hold, dispatch, and convergence truth must
 be carried by typed or resolved runtime surfaces.
 
-### ABG 3.6.0-rc.1 carrier extensions retained in 3.7
+### Current carrier extensions
 
 The carrier surface covers output allocation, zoom-foldback, graph-span
 foldback and reentry, cross-workspace allocation, eval-suite projection, typed
 non-progress continuation, traversal modulation, bounded-attempt exit,
 supervised actor/worker call-out projection, PTY terminal execution,
-Transform/Eval plugin traversal observer materialization, and the visible
+transform/evaluate/consequence plugin traversal observer materialization, and the visible
 `abg_defaults` fallback bundle. These are not optional. A graph function that
 takes inputs, produces typed outputs, runs per-edge zoom work, routes agentic
 F_P work, invokes supervised agent actors/workers, or relies on observer
 fallbacks must consume them.
 
-### ABG 3.7.0-rc.1 construction evaluator extensions
+### Construction evaluator extensions retained in the current RC
 
 The F_P construction evaluator is now the single ranking surface for typed
 asset gaps and lawful candidate graph actions. Public gaps is a read-only view
@@ -1717,12 +2058,12 @@ wrong-kind bundle fails closed. Installer refresh copies the reference bundle
 only when the installed file does not already exist, so local edits are
 preserved.
 
-The T-117 bundle currently covers only plugin traversal observer fallbacks for
-`transform` and `eval`. Full ABG defaults expansion for transport executor,
-PTY commands/probes, parser inference, worker binding, trace paths, retry
-budgets, traversal modulation defaults, M04 request defaults, and broader
-installer defaults is future T-118 work. Do not document those as current
-runtime defaults.
+The T-117 bundle currently covers plugin traversal observer fallbacks for
+`transform`, `evaluate`, and `consequence`. Full ABG defaults expansion for
+transport executor, PTY commands/probes, parser inference, worker binding,
+trace paths, retry budgets, traversal modulation defaults, M04 request
+defaults, and broader installer defaults is future work. Do not document those
+as current runtime defaults.
 
 #### T-133 visible GTL target carrier defaults
 
@@ -2217,7 +2558,7 @@ The UX should expose lawful next moves from runtime facts.
 
 The live kernel in this repo is `abiogenesis`.
 
-The current source version is `3.9.0-rc.1`.
+The current source package version is `3.9.0-rc.3`.
 
 ### Run from source
 
@@ -2419,7 +2760,7 @@ to know whether convergence is real or constitutional reentry was routed:
 | `graph_reentry_applied` | Reentry applied; shadowed vectors recorded for downstream replay. |
 | `traversal_modulation_resolved` | Strategy directive resolved from the GTL qualifier. |
 | `traversal_attempt_envelope_derived` | Typed envelope derived from the modulation profile and passed to the F_P plugin. |
-| `plugin_traversal_prompt_materialized` | Transform/Eval observer prompt materialized from GTL declaration or visible `abg_defaults` fallback, with digest and provenance. |
+| `plugin_traversal_prompt_materialized` | Transform/evaluate/consequence observer prompt materialized from GTL declaration or visible `abg_defaults` fallback, with digest and provenance. |
 | `traversal_attempt_dispatched` | Modulated F_P attempt dispatched under the envelope. |
 | `traversal_attempt_progress_observed` | Typed per-attempt progress row admitted. |
 | `traversal_attempt_non_progress_classified` | Non-progress carrier classified into a typed continuation action. |
@@ -3334,7 +3675,7 @@ cd /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript
 npm run build:semantic
 npm pack
 cd /path/to/project
-npm install /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/abiogenesis-typescript-tenant-3.9.0-rc.1.tgz
+npm install /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/abiogenesis-typescript-tenant-3.9.0-rc.3.tgz
 ```
 
 For product-owned bootstrap, use the package API:
@@ -3348,8 +3689,8 @@ const installOutcome = await installBootstrap(
     installedPackageName: "@example/delivery-app",
     runtimePackage: {
       packageName: "@abiogenesis/typescript-tenant",
-      packageVersion: "3.9.0-rc.1",
-      dependencyRef: "file:./abiogenesis-typescript-tenant-3.9.0-rc.1.tgz",
+      packageVersion: "3.9.0-rc.3",
+      dependencyRef: "file:./abiogenesis-typescript-tenant-3.9.0-rc.3.tgz",
       appExportSubpath: "./app/m04",
       requiredExports: [".", "./app/m04"]
     }
