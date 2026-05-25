@@ -409,11 +409,29 @@ function screenTerminalCapability(
   }
 }
 
+const TERMINAL_LOST_GRACE_MS = 5_000;
+
+function processTableMentionsTerminalSession(sessionId: string): boolean {
+  const out = spawnSync("ps", ["-axo", "command"], { encoding: "utf8" });
+  if (out.status !== 0) {
+    return false;
+  }
+  const text = `${out.stdout ?? ""}${out.stderr ?? ""}`;
+  const escaped = sessionId.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&");
+  if (new RegExp(`\\bSCREEN\\b.*\\s-dmS\\s+${escaped}(?:\\s|$)`, "u").test(text)) {
+    return true;
+  }
+  return text.includes(`__ABG_PTY_EXIT_${sessionId}:`);
+}
+
 function screenSessionLive(screenCommand: string, sessionId: string): boolean {
   const out = spawnSync(screenCommand, ["-ls"], { encoding: "utf8" });
   const text = `${out.stdout ?? ""}${out.stderr ?? ""}`;
   const escaped = sessionId.replace(/[.*+?^${}()|[\]\\]/gu, "\\$&");
-  return new RegExp(`\\d+\\.${escaped}\\s+\\((?:Attached|Detached)\\)`, "u").test(text);
+  if (new RegExp(`\\d+\\.${escaped}\\s+\\((?:Attached|Detached)\\)`, "u").test(text)) {
+    return true;
+  }
+  return processTableMentionsTerminalSession(sessionId);
 }
 
 function stopScreenSession(screenCommand: string, sessionId: string): void {
@@ -1027,7 +1045,7 @@ async function runPtyTerminalExecutor(
       }
       if (!screenSessionLive(screenCommand, terminalSessionId)) {
         terminalExitObservedAt = terminalExitObservedAt ?? now;
-        if (now - terminalExitObservedAt >= 500) {
+        if (now - terminalExitObservedAt >= TERMINAL_LOST_GRACE_MS) {
           observeTranscript();
           if (finalStatus === null) {
             const error =

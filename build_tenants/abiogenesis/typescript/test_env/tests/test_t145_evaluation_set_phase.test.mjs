@@ -729,6 +729,37 @@ test("T-145 missing required evaluation rule blocks scalar F_D authority", () =>
   assert.equal(fdEvaluateCount, 0);
 });
 
+test("T-145 blocked required evaluation rule vetoes scalar F_D closure", () => {
+  const basis = firstFdBasis();
+  let fdEvaluateCount = 0;
+  const blockedRuleRef = "evaluation-rule://t145/blocked-fd-required-register";
+  const result = runEngineIterate({
+    basis,
+    eventSink: () => undefined,
+    plugins: {
+      fdEvaluator: fdEvaluatorPlugin(() => {
+        fdEvaluateCount += 1;
+      }),
+      evaluationRules: [
+        registerRulePlugin({
+          ruleRef: blockedRuleRef,
+          status: "blocked",
+          reason: "required_register_failed"
+        })
+      ],
+      requiredEvaluationRuleRefs: [blockedRuleRef]
+    }
+  });
+
+  assert.equal(fdEvaluateCount, 0);
+  assert.equal(result.transition.kind, "terminal");
+  assert.equal(result.transition.terminalKind, "gap_stop");
+  assert.match(
+    result.transition.reason,
+    /blocked:evaluation-rule:\/\/t145\/blocked-fd-required-register:required_register_failed/u
+  );
+});
+
 test("T-145 evaluation-set dependency refs must be declared in earlier batches", () => {
   const base = Object.freeze({
     selectedCompositionRef: "composition://t145/dependency",

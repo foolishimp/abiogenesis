@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
-import { mkdir, mkdtemp, readFile, rm } from "node:fs/promises";
+import { chmod, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -64,6 +64,39 @@ async function runRoot(label) {
   const root = path.join(TEST_RUNS_ROOT, `${timestampId()}-${label}`);
   await mkdir(root, { recursive: true });
   return root;
+}
+
+async function hiddenListingScreenCommand(root) {
+  const commandPath = path.join(root, "hidden-listing-screen.sh");
+  await writeFile(
+    commandPath,
+    [
+      "#!/bin/sh",
+      "set -eu",
+      "if [ \"${1:-}\" = \"-ls\" ]; then",
+      "  exit 0",
+      "fi",
+      "if [ \"${1:-}\" = \"-S\" ]; then",
+      "  exit 0",
+      "fi",
+      "if [ \"${1:-}\" = \"-dmS\" ]; then",
+      "  shift 2",
+      "  ( \"$@\" >> screenlog.0 2>&1 ) &",
+      "  exit 0",
+      "fi",
+      "if [ \"${1:-}\" = \"-L\" ] && [ \"${2:-}\" = \"-dmS\" ]; then",
+      "  shift 3",
+      "  ( \"$@\" >> screenlog.0 2>&1 ) &",
+      "  exit 0",
+      "fi",
+      "echo \"unsupported fake screen args: $*\" >&2",
+      "exit 2",
+      ""
+    ].join("\n"),
+    "utf8"
+  );
+  await chmod(commandPath, 0o755);
+  return commandPath;
 }
 
 function nodePrintJsonLinesScript(events) {
@@ -131,6 +164,53 @@ test(
 
     const stdout = await readFile(result.paths.stdout, "utf8");
     assert.doesNotMatch(stdout, /__ABG_PTY_EXIT_/u);
+  }
+);
+
+test(
+  "T-111 pty-terminal executor does not mark a live terminal lost on transient hidden screen listings",
+  { skip: process.platform === "win32" },
+  async () => {
+    const archiveRoot = await runRoot("pty-terminal-hidden-screen-listing");
+    const fakeScreenRoot = await mkdtemp(path.join(os.tmpdir(), "abg-t111-fake-screen-"));
+    try {
+      const terminalScreenCommand = await hiddenListingScreenCommand(fakeScreenRoot);
+      const result = await runAgentActorWorkerCallout({
+        agentCalloutKind: "agent_worker",
+        workerRef: "worker://fixture-pty-hidden-listing",
+        executorProfile: "pty-terminal",
+        terminalScreenCommand,
+        terminalSessionKey: `abg-t111-hidden-${process.pid}-${Date.now()}`,
+        command: process.execPath,
+        args: [
+          "-e",
+          [
+            "setTimeout(() => {",
+            "  console.log(JSON.stringify({ type: 'result', subtype: 'success', result: 'hidden listing final' }));",
+            "}, 6500);"
+          ].join("\n")
+        ],
+        cwd: archiveRoot,
+        env: process.env,
+        archiveRoot,
+        label: "fixture-pty-hidden-listing",
+        parser: "claude-stream-json",
+        timeoutMs: 15000,
+        terminalPollMs: 50
+      });
+
+      assert.equal(result.executorProfile, "pty-terminal");
+      assert.equal(result.outcome.kind, "exited");
+      assert.equal(result.status, 0);
+      assert.equal(result.error, null);
+      assert.equal(result.finalOutput, "hidden listing final");
+
+      const traceEvents = await readFile(result.paths.events, "utf8");
+      assert.doesNotMatch(traceEvents, /lost_terminal/u);
+      assert.match(traceEvents, /terminal_exit_sentinel_observed/u);
+    } finally {
+      await rm(fakeScreenRoot, { recursive: true, force: true });
+    }
   }
 );
 

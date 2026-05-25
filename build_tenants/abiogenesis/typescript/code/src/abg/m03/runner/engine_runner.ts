@@ -2607,6 +2607,28 @@ function* runEngineIterateMachine(input: {
           admission: evaluationSetAdmission,
           requiredRuleRefs: evaluationSetPlan.requiredRuleRefs
         });
+        if (evaluationSetBlockReason !== null) {
+          const blocked = terminalTransition(
+            request.basis,
+            "gap_stop",
+            evaluationSetBlockReason
+          );
+          eventState = emitRunnerEvents(
+            eventState,
+            constructTerminalReachedEvent(blocked)
+          );
+          return constructResult({
+            basis: request.basis,
+            transition: blocked,
+            projection: deriveRuntimeAggregateProjection(
+              request.basis,
+              eventState.replayEvents
+            ),
+            emittedEvents: eventState.emittedEvents,
+            replayEvents: eventState.replayEvents,
+            iterationCount
+          });
+        }
         eventState = emitRunnerEvents(eventState,
           fdAuthorityOutcomeEvent({
             basis: request.basis,
