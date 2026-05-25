@@ -1,29 +1,28 @@
-# abiogenesis 3.9.0-rc.3 Release Candidate Note
+# abiogenesis 3.9.0-rc.4 Release Candidate Note
 
-This checkpoint is the third TypeScript ABG `3.9.0` release candidate.
-It follows `3.9.0-rc.2` with a runner provenance fix for composed
-`evaluate.C/F_P` evaluation-rule work.
+This checkpoint is the fourth TypeScript ABG `3.9.0` release candidate.
+It follows `3.9.0-rc.3` with runner and PTY fixes found while exercising the
+ODD SDLC live lanes.
 
 It is an RC candidate, not the final tapped `3.9.0` release.
 
 ## Release Claim
 
-The TypeScript tenant remains the package-first GTL/ABG RC candidate. RC3
-preserves the staged compute runtime law introduced in RC1 and the proof-harness
-alignment from RC2, then fixes the ABG-owned provenance supplied to
-evaluation-rule plugins.
+The TypeScript tenant remains the package-first GTL/ABG RC candidate. RC4
+preserves the staged compute runtime law introduced in RC1, the proof-harness
+alignment from RC2, and the evaluation-rule provenance fix from RC3. It then
+adds two downstream-critical corrections:
 
-RC3 adds:
+RC4 adds:
 
-- `actorInvocationRef` propagation into planned evaluation-rule plugin inputs;
-- replay-visible linkage between F_P evaluation-rule execution and the ABG actor
-  invocation that produced it;
-- a T-145 regression proving F_P evaluation rules receive actor invocation
-  provenance and that payload events record the same actor invocation id;
-- package version advancement to `3.9.0-rc.3` for downstream consumers that need
-  the corrected `evaluate.C/F_P` evaluation-rule provenance boundary;
-- updated LLM builder guidance for the current ABG/GTL ontology and epistemology
-  handoff.
+- fail-closed handling for blocked evaluation-set admission before F_D vector
+  advance/close in the runner;
+- PTY terminal liveness handling that gives terminal-backed workers a short
+  grace window and process-table confirmation before declaring `lost_terminal`;
+- T-111 regression coverage for PTY terminal liveness behavior;
+- T-145 regression coverage for evaluation-set blocking before F_D advance;
+- package version advancement to `3.9.0-rc.4` for downstream consumers that need
+  the corrected runner and PTY behavior.
 
 ## Boundary
 
@@ -53,16 +52,16 @@ ABG.start(fn<A, B>.C)
   .bind(system.replayContinuation)
 ```
 
-RC3 does not introduce a new GTL ontology object, a public `ComputeUnit`
+RC4 does not introduce a new GTL ontology object, a public `ComputeUnit`
 aggregate, a public `Vector` execution target, or product-owned ABG system
 effects.
 
 ## Versioned Artifacts
 
 - RC branch: `rc/3.9.0`
-- RC identity: `3.9.0-rc.3`
-- Candidate package version: `3.9.0-rc.3`
-- Candidate tag: `v3.9.0-rc.3`
+- RC identity: `3.9.0-rc.4`
+- Candidate package version: `3.9.0-rc.4`
+- Candidate tag: `v3.9.0-rc.4`
 
 ## Verification
 
@@ -72,8 +71,11 @@ Current qualification evidence for this cut:
 npm run build:semantic
 passed
 
+npm run test:t111
+5 passed
+
 npm run test:t145
-15 passed
+16 passed
 
 npm run lint:semantic
 passed
@@ -89,6 +91,6 @@ immutable local snapshot directory.
 ## RC Decision
 
 The release operator preserves `3.9.0-rc.1` as the first staged-compute runtime
-candidate and `3.9.0-rc.2` as the live-proof harness alignment candidate. RC3
-is the follow-up release candidate for ABG-owned actor invocation provenance in
-runner-consumed `evaluate.C/F_P` evaluation-rule plugins.
+candidate, `3.9.0-rc.2` as the live-proof harness alignment candidate, and
+`3.9.0-rc.3` as the ABG-owned actor invocation provenance candidate. RC4 is the
+follow-up release candidate for downstream live-lane runner and PTY stability.
