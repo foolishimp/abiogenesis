@@ -30,6 +30,7 @@ import {
   buildThreeStageBasis,
   buildThreeStageStartContext
 } from "./support/m03-iteration-fixtures.mjs";
+import { canonicalRuntimeEvents } from "./support/canonical-runtime-events.mjs";
 
 function snapshotForScope(scope) {
   return constructAssuranceAuthoritySnapshot({
@@ -111,7 +112,7 @@ function targetCarrierFulfillmentEvents(basis) {
       })
     );
   }
-  return Object.freeze(events);
+  return canonicalRuntimeEvents(events);
 }
 
 function eventSourcedFulfillmentEvents(basis) {
@@ -172,7 +173,7 @@ function eventSourcedFulfillmentEvents(basis) {
       })
     );
   }
-  return Object.freeze(events);
+  return canonicalRuntimeEvents(events);
 }
 
 function memoryWriter() {

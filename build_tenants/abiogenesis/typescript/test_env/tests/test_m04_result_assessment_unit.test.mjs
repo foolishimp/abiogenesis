@@ -8,10 +8,26 @@ import {
   admitPublicResultAssessmentRequest,
   resultAssessmentFromRequest
 } from "../../build/semantic/code/src/app/m04/index.js";
+import { assertCanonicalRuntimeEvent } from "../../build/semantic/code/src/abg/m03/index.js";
 import {
   fpDispatchRequest,
   resultAssessmentPayload
 } from "./support/m04-fixtures.mjs";
+
+function canonicalEventBody(event) {
+  assertCanonicalRuntimeEvent(event);
+  const {
+    eventId,
+    eventTime,
+    eventTimeUnixMs,
+    eventAdmissionOrdinal,
+    ...body
+  } = event;
+  assert.notEqual(eventId, "");
+  assert.equal(Date.parse(eventTime), eventTimeUnixMs);
+  assert.equal(Number.isInteger(eventAdmissionOrdinal), true);
+  return body;
+}
 
 test("M04 result-assessment unit: admitted request preserves manifest, ledger, and fulfillment reference truth", () => {
   const dispatchRequest = fpDispatchRequest();
@@ -52,7 +68,7 @@ test("M04 result-assessment unit: accepted route emits payload ledger facts and 
     "evidence_admitted",
     "assessed"
   ]);
-  assert.deepStrictEqual(events.at(-1), {
+  assert.deepStrictEqual(canonicalEventBody(events.at(-1)), {
     kind: "assessed",
     assessmentKind: "fp",
     edge: "design→code:result-profile",

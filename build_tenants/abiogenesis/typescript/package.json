@@ -1,6 +1,6 @@
 {
   "name": "@abiogenesis/typescript-tenant",
-  "version": "3.9.0-rc.4",
+  "version": "3.9.0-rc.5",
   "private": true,
   "type": "module",
   "types": "./build/semantic/code/src/index.d.ts",

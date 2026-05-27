@@ -23,6 +23,7 @@ import {
   runEngineIterate,
   observedStateRecordFromEvent
 } from "../../build/semantic/code/src/abg/m03/index.js";
+import { canonicalRuntimeEvents } from "./support/canonical-runtime-events.mjs";
 import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
 
 const basis = buildThreeStageBasis({
@@ -167,7 +168,7 @@ test("T-136 engine runner exposes admitted observed state without refresh pollin
 
   const result = runEngineIterate({
     basis,
-    runtimeEvents: [event],
+    runtimeEvents: canonicalRuntimeEvents([event]),
     eventSink: () => {},
     plugins: { fdEvaluator }
   });

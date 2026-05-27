@@ -125,6 +125,8 @@ export type {
   RetryRepairStoppedDecision,
   ContinuationProjection,
   RunProjection,
+  CanonicalRuntimeEvent,
+  CanonicalRuntimeEventEnvelope,
   RuntimeActivityProbeObservedEvent,
   RuntimeActivityProbeSource,
   RuntimeAggregateProjection,
@@ -361,6 +363,8 @@ export type {
   TargetCarrierAdmissionStatus
 } from "./payload_ledger.js";
 export {
+  assertCanonicalRuntimeEvent,
+  assertCanonicalRuntimeEventSequence,
   assertRuntimeEvent,
   parseRuntimeEventKind,
   parseRuntimeFailureClass,

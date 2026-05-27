@@ -15,6 +15,7 @@ import {
   resetEventPayload,
   revokedEventPayload
 } from "./support/m04-fixtures.mjs";
+import { canonicalEventBody } from "./support/canonical-runtime-events.mjs";
 
 test("M04 event-ingress integration: approved command routes through canonical emit and root exports", async () => {
   const events = [];
@@ -30,7 +31,7 @@ test("M04 event-ingress integration: approved command routes through canonical e
 
   assert.equal(outcome.kind, "accepted");
   assert.equal(outcome.commandKind, "approved");
-  assert.deepStrictEqual(events, [
+  assert.deepStrictEqual(events.map((event) => canonicalEventBody(event)), [
     {
       kind: "approved",
       approvalKind: "fh_review",
@@ -83,7 +84,7 @@ test("M04 event-ingress integration: reset command preserves explicit correction
 
   assert.equal(outcome.kind, "accepted");
   assert.equal(outcome.commandKind, "reset");
-  assert.deepStrictEqual(events, [
+  assert.deepStrictEqual(events.map((event) => canonicalEventBody(event)), [
     {
       kind: "reset",
       scope: "edge",

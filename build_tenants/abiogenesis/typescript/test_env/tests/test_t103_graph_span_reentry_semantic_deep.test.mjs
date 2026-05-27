@@ -26,6 +26,7 @@ import {
   foldGraphSpanAssessments,
   runEngineIterate
 } from "../../build/semantic/code/src/abg/m03/index.js";
+import { canonicalRuntimeEvents } from "./support/canonical-runtime-events.mjs";
 import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
 import {
   assessmentFor,
@@ -747,12 +748,12 @@ test("T-103 semantic runner consumes active reentry frontier and applies graph r
 
   const result = runEngineIterate({
     basis,
-    runtimeEvents: [
+    runtimeEvents: canonicalRuntimeEvents([
       constructVectorClosedEvent({ basis, vectorIndex: 0, closureKind: "assessed" }),
       constructVectorClosedEvent({ basis, vectorIndex: 1, closureKind: "assessed" }),
       constructVectorClosedEvent({ basis, vectorIndex: 2, closureKind: "assessed" }),
       ...reentryEvents
-    ],
+    ]),
     eventSink: (event) => {
       emittedEvents.push(event);
     }

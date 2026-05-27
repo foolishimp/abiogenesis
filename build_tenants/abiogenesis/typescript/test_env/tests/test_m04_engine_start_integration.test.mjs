@@ -11,6 +11,7 @@ import {
   publicStart,
   start
 } from "../../build/semantic/code/src/index.js";
+import { canonicalRuntimeEvents } from "./support/canonical-runtime-events.mjs";
 import { buildThreeStageStartContext } from "./support/m03-iteration-fixtures.mjs";
 
 function vectorClosedEvent(plannedEvent) {
@@ -118,7 +119,7 @@ test("T-072 M04 start: vector-closed F_P replay advances on re-entry without red
   const firstOutcome = start(input, context, (event) => {
     firstEvents.push(event);
   });
-  const replayEvents = Object.freeze([
+  const replayEvents = canonicalRuntimeEvents([
     ...firstEvents,
     vectorClosedEvent(
       firstEvents.find(

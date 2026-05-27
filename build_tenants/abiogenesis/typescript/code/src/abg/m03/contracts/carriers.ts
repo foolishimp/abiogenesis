@@ -2264,6 +2264,15 @@ export type RuntimeEvent =
   | ConstructionTerminalDispositionProjectedEvent
   | WorkspaceInstallationAdmittedRuntimeEvent;
 
+export interface CanonicalRuntimeEventEnvelope {
+  readonly eventId: string;
+  readonly eventTime: string;
+  readonly eventTimeUnixMs: number;
+  readonly eventAdmissionOrdinal: number;
+}
+
+export type CanonicalRuntimeEvent = RuntimeEvent & CanonicalRuntimeEventEnvelope;
+
 export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "basis_admitted",
   "fd_advance_ready",

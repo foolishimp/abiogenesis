@@ -1,4 +1,5 @@
 import type {
+  CanonicalRuntimeEvent,
   RuntimeEvent,
   RuntimeFailureClass,
   TerminalKind
@@ -118,6 +119,49 @@ function assertNullableNonEmptyString(value: unknown, label: string): void {
     return;
   }
   assertNonEmptyString(value, label);
+}
+
+const ISO_UTC_MILLISECOND_DATETIME = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/u;
+
+function assertIsoUtcMillisecondDateTime(value: unknown, label: string): void {
+  assertNonEmptyString(value, label);
+  if (
+    typeof value !== "string" ||
+    !ISO_UTC_MILLISECOND_DATETIME.test(value) ||
+    Number.isNaN(Date.parse(value))
+  ) {
+    throw new TypeError(`${label} must be an ISO UTC datetime with milliseconds`);
+  }
+}
+
+function hasCanonicalRuntimeEventEnvelope(event: RuntimeEventRecord): boolean {
+  return (
+    "eventId" in event ||
+    "eventTime" in event ||
+    "eventTimeUnixMs" in event ||
+    "eventAdmissionOrdinal" in event
+  );
+}
+
+function assertCanonicalRuntimeEventEnvelope(
+  event: RuntimeEventRecord,
+  label: string
+): void {
+  assertNonEmptyString(event["eventId"], `${label}.eventId`);
+  assertIsoUtcMillisecondDateTime(event["eventTime"], `${label}.eventTime`);
+  assertNonNegativeInteger(event["eventTimeUnixMs"], `${label}.eventTimeUnixMs`);
+  assertNonNegativeInteger(
+    event["eventAdmissionOrdinal"],
+    `${label}.eventAdmissionOrdinal`
+  );
+  const eventTime = event["eventTime"];
+  const eventTimeUnixMs = event["eventTimeUnixMs"];
+  if (typeof eventTime !== "string" || typeof eventTimeUnixMs !== "number") {
+    throw new TypeError(`${label}.eventTime envelope must be typed`);
+  }
+  if (Date.parse(eventTime) !== eventTimeUnixMs) {
+    throw new TypeError(`${label}.eventTime must match eventTimeUnixMs`);
+  }
 }
 
 function assertGraphConstitutionalReentry(
@@ -2076,4 +2120,31 @@ export function assertRuntimeEvent(event: unknown): asserts event is RuntimeEven
   }
   const kind = parseRuntimeEventKind(event["kind"], "RuntimeEvent.kind");
   RUNTIME_EVENT_ADMITTERS[kind](event);
+  if (hasCanonicalRuntimeEventEnvelope(event)) {
+    assertCanonicalRuntimeEventEnvelope(event, "RuntimeEvent");
+  }
+}
+
+export function assertCanonicalRuntimeEvent(
+  event: unknown
+): asserts event is CanonicalRuntimeEvent {
+  assertRuntimeEvent(event);
+  if (!isPlainObject(event)) {
+    throw new TypeError("RuntimeEvent must be a plain object");
+  }
+  assertCanonicalRuntimeEventEnvelope(event, "RuntimeEvent");
+}
+
+export function assertCanonicalRuntimeEventSequence(
+  events: readonly unknown[],
+  label = "RuntimeEventSequence"
+): asserts events is readonly CanonicalRuntimeEvent[] {
+  const eventIds = new Set<string>();
+  events.forEach((event, index) => {
+    assertCanonicalRuntimeEvent(event);
+    if (eventIds.has(event.eventId)) {
+      throw new TypeError(`${label}[${String(index)}].eventId must be unique`);
+    }
+    eventIds.add(event.eventId);
+  });
 }

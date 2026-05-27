@@ -32,6 +32,7 @@ import {
   runtimeFailureClassForTraversalTimeout,
   runEngineIterate
 } from "../../build/semantic/code/src/abg/m03/index.js";
+import { canonicalRuntimeEvents } from "./support/canonical-runtime-events.mjs";
 import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
 
 function invocationFor({ basis, vectorIndex = 1, actorInvocationId = "actor://t106/1", attemptIndex = 1 } = {}) {
@@ -163,7 +164,7 @@ function silentTimeoutEvents({ basis, invocation, vectorIndex = 1 } = {}) {
 }
 
 function silentProcessTimeoutEvents({ invocation } = {}) {
-  return [
+  return canonicalRuntimeEvents([
     processStartedEvent({ invocation }),
     constructActorProcessTimeoutEvent({
       invocation,
@@ -183,7 +184,7 @@ function silentProcessTimeoutEvents({ invocation } = {}) {
       timedOut: true,
       error: null
     })
-  ];
+  ]);
 }
 
 function deriveSilentProjection() {

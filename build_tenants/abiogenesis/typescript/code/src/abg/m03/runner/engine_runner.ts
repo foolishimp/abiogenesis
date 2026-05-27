@@ -37,6 +37,7 @@ import {
   constructVectorClosedEvent,
   constructVectorEvaluatedEvent
 } from "../contracts/event_factories.js";
+import { assertCanonicalRuntimeEventSequence } from "../contracts/event_admission.js";
 import {
   deriveAdvancementTransition,
   runtimeEventsForIterationDecision
@@ -1920,6 +1921,16 @@ function appendEngineRunnerEvents(input: {
   });
 }
 
+function canonicalReplayEvents(
+  events: readonly RuntimeEvent[]
+): readonly RuntimeEvent[] {
+  assertCanonicalRuntimeEventSequence(
+    events,
+    "EngineIterateRequest.runtimeEvents"
+  );
+  return Object.freeze([...events]);
+}
+
 type EnginePluginEffect =
   | {
       readonly kind: "fd_evaluate";
@@ -2190,7 +2201,9 @@ function* runEngineIterateMachine(input: {
   const { request, plugins, targetCarrierDefaults } = input;
   let eventState: EngineEventEmissionState = Object.freeze({
     emittedEvents: Object.freeze([]),
-    replayEvents: Object.freeze([...(request.runtimeEvents ?? Object.freeze([]))])
+    replayEvents: canonicalReplayEvents(
+      request.runtimeEvents ?? Object.freeze([])
+    )
   });
   let iterationCount = 0;
   let continuationStageProjectionRefs: readonly string[] = Object.freeze([]);
@@ -2607,28 +2620,6 @@ function* runEngineIterateMachine(input: {
           admission: evaluationSetAdmission,
           requiredRuleRefs: evaluationSetPlan.requiredRuleRefs
         });
-        if (evaluationSetBlockReason !== null) {
-          const blocked = terminalTransition(
-            request.basis,
-            "gap_stop",
-            evaluationSetBlockReason
-          );
-          eventState = emitRunnerEvents(
-            eventState,
-            constructTerminalReachedEvent(blocked)
-          );
-          return constructResult({
-            basis: request.basis,
-            transition: blocked,
-            projection: deriveRuntimeAggregateProjection(
-              request.basis,
-              eventState.replayEvents
-            ),
-            emittedEvents: eventState.emittedEvents,
-            replayEvents: eventState.replayEvents,
-            iterationCount
-          });
-        }
         eventState = emitRunnerEvents(eventState,
           fdAuthorityOutcomeEvent({
             basis: request.basis,

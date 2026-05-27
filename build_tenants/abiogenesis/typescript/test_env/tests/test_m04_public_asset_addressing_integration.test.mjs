@@ -9,6 +9,7 @@ import {
   publicStart,
   resolvePublicAssetTarget
 } from "../../build/semantic/code/src/app/m04/index.js";
+import { assertCanonicalRuntimeEvent } from "../../build/semantic/code/src/abg/m03/index.js";
 import {
   assetAddressingStartContext,
   operatorAssetContractPayload,
@@ -16,6 +17,21 @@ import {
   publicAssetAddressingPayload,
   registryRunnerFromPayload
 } from "./support/asset-addressing-fixtures.mjs";
+
+function canonicalEventBody(event) {
+  assertCanonicalRuntimeEvent(event);
+  const {
+    eventId,
+    eventTime,
+    eventTimeUnixMs,
+    eventAdmissionOrdinal,
+    ...body
+  } = event;
+  assert.notEqual(eventId, "");
+  assert.equal(Date.parse(eventTime), eventTimeUnixMs);
+  assert.equal(Number.isInteger(eventAdmissionOrdinal), true);
+  return body;
+}
 
 test("M04 public asset addressing integration: package export surface stays aligned at root, m04, and asset-addressing subpath", async () => {
   const root = await import("@abiogenesis/typescript-tenant");
@@ -137,7 +153,7 @@ test("M04 public asset addressing integration: resolved asset ownership drives t
     "payload_validated",
     "terminal_reached"
   ]);
-  assert.deepStrictEqual(events[0], {
+  assert.deepStrictEqual(canonicalEventBody(events[0]), {
     kind: "basis_admitted",
     basisId: events[0].basisId,
     graphFunctionId: codeProfile.id,

@@ -23,6 +23,7 @@ import {
   resolveTargetCarrierContractBinding,
   runEngineIterate
 } from "../../build/semantic/code/src/index.js";
+import { canonicalRuntimeEvents } from "./support/canonical-runtime-events.mjs";
 import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
 
 function fpDispatchContract(ref) {
@@ -103,7 +104,7 @@ function targetCarrierFulfillmentEvents(basis) {
       })
     );
   }
-  return Object.freeze(events);
+  return canonicalRuntimeEvents(events);
 }
 
 test("T-099 F_P input exposes transform request and ABG admits transform evidence", () => {

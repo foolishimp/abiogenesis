@@ -14,6 +14,7 @@ import {
   admitResolvedPolicyIdentity,
   admitResolvedRuntimeIdentity,
   admitStartIntent,
+  assertCanonicalRuntimeEvent,
   deriveAdvancementTransition,
   dispatch,
   dispatchRequestsForTransition,
@@ -251,9 +252,31 @@ test("M03 integration: public ingress admits one request into one F_D execution 
   assert.equal(basis.graphFunction.id, profile.id);
   assert.equal(basis.job.id, "job-fd-profile");
   assert.equal(events.length, 2);
-  assert.deepStrictEqual(written, events);
+  assert.notDeepStrictEqual(written, events);
+  assert.equal("eventTime" in events[0], false);
+  for (const event of written) {
+    assertCanonicalRuntimeEvent(event);
+    assert.match(
+      event.eventTime,
+      /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/u
+    );
+    assert.equal(Date.parse(event.eventTime), event.eventTimeUnixMs);
+    assert.equal(typeof event.eventId, "string");
+    assert.equal(event.eventId.length > 0, true);
+  }
+  assert.equal(new Set(written.map((event) => event.eventId)).size, written.length);
+  assert.equal(
+    new Set(written.map((event) => event.eventAdmissionOrdinal)).size,
+    written.length
+  );
   assert.equal(emitted[0].kind, "basis_admitted");
   assert.equal(emitted[1].kind, "fd_advance_ready");
+  assert.equal(emitted[0].eventId, written[0].eventId);
+  assert.equal(emitted[1].eventId, written[1].eventId);
+  assert.equal(emitted[0].eventTime, written[0].eventTime);
+  assert.equal(emitted[1].eventTime, written[1].eventTime);
+
+  assert.throws(() => emit([written[0], written[0]], () => {}), /eventId.*unique/);
 
   const root = await import("@abiogenesis/typescript-tenant");
   const m03 = await import("@abiogenesis/typescript-tenant/abg/m03");

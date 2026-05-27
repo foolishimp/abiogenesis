@@ -15,6 +15,7 @@ import {
   runtimeEventsForRetryRepairDecision,
   runEngineIterate
 } from "../../build/semantic/code/src/index.js";
+import { canonicalRuntimeEvents } from "./support/canonical-runtime-events.mjs";
 import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
 
 test("T-072 engine runner: ABG owns F_D iteration over a three-stage graph function", () => {
@@ -142,7 +143,9 @@ test("T-072 engine runner: retry and continuation replay facts remain ABG projec
       reopenedContinuationId: "continuation://new"
     }
   });
-  const replayEvents = runtimeEventsForRetryRepairDecision(retryDecision);
+  const replayEvents = canonicalRuntimeEvents(
+    runtimeEventsForRetryRepairDecision(retryDecision)
+  );
 
   const result = runEngineIterate({
     basis,
