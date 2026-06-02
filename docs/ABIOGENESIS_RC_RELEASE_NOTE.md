@@ -1,8 +1,8 @@
-# abiogenesis 3.9.0-rc.7 Release Candidate Note
+# abiogenesis 3.9.0-rc.8 Release Candidate Note
 
-This checkpoint is the seventh TypeScript ABG `3.9.0` release candidate. It
-follows `3.9.0-rc.6` with PTY supervisor hardening, heartbeat/progress lease
-separation, and trace-visible inactivity cleanup for agent worker processes.
+This checkpoint is the eighth TypeScript ABG `3.9.0` release candidate. It
+follows `3.9.0-rc.7` with owner-exit cleanup for PTY-supervised agent worker
+processes.
 
 It is an RC candidate, not the final tapped `3.9.0` release.
 
@@ -15,9 +15,11 @@ corrections from RC4, and the canonical runtime event identity boundary from
 RC5. It then realizes the T-147 runtime-authority invariants inside ABG rather
 than leaving them as downstream adapter precedent. RC7 keeps that authority
 surface and hardens the worker process supervision path that executes those
-runtime plugin calls.
+runtime plugin calls. RC8 closes the observed orphan class where the owning ABG
+runtime process exits while the detached PTY supervisor and local-spawned
+worker remain live.
 
-RC7 adds:
+RC8 adds:
 
 - PTY execution topology
   `pty_terminal -> agent_supervisor -> local-spawn -> worker`, so the terminal
@@ -36,8 +38,13 @@ RC7 adds:
 - PTY request archive hygiene: the generated supervisor request does not
   serialize `env`, while the worker still inherits the supervisor process
   environment normally;
-- package version advancement to `3.9.0-rc.7` for downstream consumers that
-  need the corrected worker-supervision boundary.
+- owner PID projection into the PTY supervisor request;
+- supervisor-side owner-liveness polling, so a dead parent runtime causes the
+  supervisor to terminate the worker process group and escalate to `SIGKILL`
+  after the declared grace interval;
+- host-signal shutdown escalation for the same worker process group;
+- package version advancement to `3.9.0-rc.8` for downstream consumers that
+  need the corrected worker-supervision boundary and owner-exit cleanup.
 
 ## Boundary
 
@@ -73,9 +80,9 @@ authority law.
 ## Versioned Artifacts
 
 - RC branch: `main`
-- RC identity: `3.9.0-rc.7`
-- Candidate package version: `3.9.0-rc.7`
-- Candidate tag: `v3.9.0-rc.7`
+- RC identity: `3.9.0-rc.8`
+- Candidate package version: `3.9.0-rc.8`
+- Candidate tag: `v3.9.0-rc.8`
 
 ## Verification
 
@@ -97,16 +104,16 @@ npm run test:t147
 node --test test_env/tests/test_t111_pty_terminal_executor.test.mjs \
   test_env/tests/test_t097_supervised_process_actor.test.mjs \
   test_env/tests/test_t129_runtime_liveness_observer.test.mjs
-24 passed
+25 passed
 
 npm run test:semantic
-657 passed
+658 passed
 
 npm pack --dry-run
-passed, package `3.9.0-rc.7`, 388 entries
+passed, package `3.9.0-rc.8`, 388 entries
 
 git diff --check
-pending before the snapshot commit
+passed
 ```
 
 The release snapshot command rebuilds the semantic package, runs `npm pack`,
@@ -118,10 +125,11 @@ immutable local snapshot directory.
 The release operator preserves `3.9.0-rc.1` as the first staged-compute runtime
 candidate, `3.9.0-rc.2` as the live-proof harness alignment candidate,
 `3.9.0-rc.3` as the ABG-owned actor invocation provenance candidate, RC4 as the
-downstream live-lane runner and PTY stability candidate, and RC5 as the
-downstream live-lane runner and PTY stability candidate, and RC5 as the
-event-source identity and millisecond timestamp boundary candidate. RC6 is the
+downstream live-lane runner and PTY stability candidate, RC5 as the event-source
+identity and millisecond timestamp boundary candidate, and RC6 as the
 runtime-authority wiring candidate for retry freshness, output authority, and
 projection-output admission before closure. RC7 is the worker-supervision
 candidate for PTY/local-spawn topology, heartbeat/progress separation, and
-bounded process cleanup.
+bounded process cleanup. RC8 is the owner-exit cleanup candidate that prevents
+detached PTY supervisors from leaving local-spawned workers behind after the
+owning runtime is interrupted.

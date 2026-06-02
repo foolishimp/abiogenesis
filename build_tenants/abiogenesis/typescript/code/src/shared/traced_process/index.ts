@@ -473,6 +473,10 @@ const PTY_AGENT_SUPERVISOR_HARD_TIMEOUT_PREFIX =
   "__ABG_PTY_AGENT_SUPERVISOR_HARD_TIMEOUT:";
 const PTY_AGENT_SUPERVISOR_INACTIVITY_TIMEOUT_PREFIX =
   "__ABG_PTY_AGENT_SUPERVISOR_INACTIVITY_TIMEOUT:";
+const PTY_AGENT_SUPERVISOR_OWNER_EXIT_PREFIX =
+  "__ABG_PTY_AGENT_SUPERVISOR_OWNER_EXIT:";
+const PTY_AGENT_SUPERVISOR_HOST_SHUTDOWN_PREFIX =
+  "__ABG_PTY_AGENT_SUPERVISOR_HOST_SHUTDOWN:";
 
 function ptyAgentSupervisorScriptSource(): string {
   return [
@@ -524,9 +528,21 @@ function ptyAgentSupervisorScriptSource(): string {
     "      elapsedMs: now - startedAt,",
     "      elapsedSinceLastOutputMs: now - lastOutputAt",
     "    });",
-    "  } else {",
+    "  } else if (kind === 'inactivity_timeout') {",
     `    writeControl('${PTY_AGENT_SUPERVISOR_INACTIVITY_TIMEOUT_PREFIX}', {`,
     "      inactivityTimeoutMs: config.inactivityTimeoutMs,",
+    "      elapsedMs: now - startedAt,",
+    "      elapsedSinceLastOutputMs: now - lastOutputAt",
+    "    });",
+    "  } else if (kind === 'owner_exit') {",
+    `    writeControl('${PTY_AGENT_SUPERVISOR_OWNER_EXIT_PREFIX}', {`,
+    "      ownerPid: config.ownerPid,",
+    "      elapsedMs: now - startedAt,",
+    "      elapsedSinceLastOutputMs: now - lastOutputAt",
+    "    });",
+    "  } else {",
+    `    writeControl('${PTY_AGENT_SUPERVISOR_HOST_SHUTDOWN_PREFIX}', {`,
+    "      reason: kind,",
     "      elapsedMs: now - startedAt,",
     "      elapsedSinceLastOutputMs: now - lastOutputAt",
     "    });",
@@ -544,10 +560,20 @@ function ptyAgentSupervisorScriptSource(): string {
     "  }",
     "}",
     "",
-    "function shutdownFromHost() {",
-    "  if (!settled) {",
-    "    killChild('SIGTERM');",
+    "function ownerProcessIsLive() {",
+    "  if (!Number.isInteger(config.ownerPid) || config.ownerPid <= 0) {",
+    "    return true;",
     "  }",
+    "  try {",
+    "    process.kill(config.ownerPid, 0);",
+    "    return true;",
+    "  } catch (error) {",
+    "    return error?.code === 'EPERM';",
+    "  }",
+    "}",
+    "",
+    "function shutdownFromHost() {",
+    "  terminate('host_shutdown');",
     "}",
     "",
     "for (const signal of ['SIGTERM', 'SIGINT', 'SIGHUP']) {",
@@ -615,6 +641,10 @@ function ptyAgentSupervisorScriptSource(): string {
     "    return;",
     "  }",
     "  const now = Date.now();",
+    "  if (!ownerProcessIsLive()) {",
+    "    terminate('owner_exit');",
+    "    return;",
+    "  }",
     "  if (Number.isInteger(config.timeoutMs) && now - startedAt >= config.timeoutMs) {",
     "    terminate('hard_timeout');",
     "    return;",
@@ -970,6 +1000,7 @@ async function runPtyTerminalExecutor(
     args: request.args,
     cwd: request.cwd,
     stdin: request.stdin ?? null,
+    ownerPid: process.pid,
     timeoutMs: request.timeoutMs ?? null,
     inactivityTimeoutMs: request.inactivityTimeoutMs ?? null,
     terminationGraceMs: request.terminationGraceMs ?? null
@@ -1042,6 +1073,7 @@ async function runPtyTerminalExecutor(
     workerCommand: request.command,
     workerArgs: request.args,
     workerCwd: request.cwd,
+    ownerPid: process.pid,
     timeoutMs: request.timeoutMs ?? null,
     inactivityTimeoutMs: request.inactivityTimeoutMs ?? null,
     terminationGraceMs: request.terminationGraceMs ?? null

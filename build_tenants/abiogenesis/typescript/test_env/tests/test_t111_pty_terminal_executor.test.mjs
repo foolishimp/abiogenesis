@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { spawnSync } from "node:child_process";
+import { spawn, spawnSync } from "node:child_process";
 import { chmod, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
@@ -68,6 +68,18 @@ async function runRoot(label) {
 
 async function wait(milliseconds) {
   await new Promise((resolve) => setTimeout(resolve, milliseconds));
+}
+
+async function waitForFile(filePath, timeoutMs) {
+  const start = Date.now();
+  while (Date.now() - start < timeoutMs) {
+    try {
+      return await readFile(filePath, "utf8");
+    } catch {
+      await wait(100);
+    }
+  }
+  throw new Error(`timed out waiting for file: ${filePath}`);
 }
 
 function processIsLive(pid) {
@@ -397,5 +409,83 @@ test(
 
     const traceEvents = await readFile(result.paths.events, "utf8");
     assert.match(traceEvents, /terminal_agent_supervisor_inactivity_timeout/u);
+  }
+);
+
+test(
+  "T-188 pty-terminal supervisor kills worker when the owning runtime exits",
+  { skip: !SCREEN_AVAILABLE },
+  async () => {
+    const archiveRoot = await runRoot("pty-terminal-owner-exit-kills-child");
+    const pidPath = path.join(archiveRoot, "worker.pid");
+    const parentScriptPath = path.join(archiveRoot, "parent.mjs");
+    const modulePath = path.resolve(
+      TEST_DIR,
+      "../../build/semantic/code/src/shared/traced_process/index.js"
+    );
+    const terminalSessionKey = `abg-t188-owner-exit-${process.pid}-${Date.now()}`;
+    await writeFile(
+      parentScriptPath,
+      [
+        `import { runAgentActorWorkerCallout } from ${JSON.stringify(modulePath)};`,
+        "await runAgentActorWorkerCallout({",
+        "  agentCalloutKind: 'agent_worker',",
+        "  workerRef: 'worker://fixture-pty-owner-exit',",
+        "  executorProfile: 'pty-terminal',",
+        `  terminalSessionKey: ${JSON.stringify(terminalSessionKey)},`,
+        `  command: ${JSON.stringify(process.execPath)},`,
+        "  args: [",
+        "    '-e',",
+        `    ${JSON.stringify(
+          [
+            "const { writeFileSync } = require('node:fs');",
+            "writeFileSync(process.argv[1], String(process.pid));",
+            "process.on('SIGTERM', () => {});",
+            "setInterval(() => {}, 1000);"
+          ].join("\n")
+        )},`,
+        `    ${JSON.stringify(pidPath)}`,
+        "  ],",
+        `  cwd: ${JSON.stringify(archiveRoot)},`,
+        "  env: process.env,",
+        `  archiveRoot: ${JSON.stringify(archiveRoot)},`,
+        "  label: 'fixture-pty-owner-exit',",
+        "  parser: 'generic-text',",
+        "  timeoutMs: 30000,",
+        "  inactivityTimeoutMs: 30000,",
+        "  terminationGraceMs: 100",
+        "});",
+        ""
+      ].join("\n"),
+      "utf8"
+    );
+
+    const parent = spawn(process.execPath, [parentScriptPath], {
+      cwd: archiveRoot,
+      stdio: "ignore"
+    });
+    let childPid = 0;
+    try {
+      childPid = Number.parseInt(await waitForFile(pidPath, 10000), 10);
+      assert.equal(Number.isInteger(childPid), true);
+      assert.equal(processIsLive(childPid), true);
+
+      parent.kill("SIGKILL");
+      await wait(2500);
+      assert.equal(processIsLive(childPid), false);
+
+      const screenList = spawnSync("screen", ["-ls"], { encoding: "utf8" });
+      assert.doesNotMatch(`${screenList.stdout}${screenList.stderr}`, new RegExp(terminalSessionKey, "u"));
+    } finally {
+      if (parent.exitCode === null) {
+        parent.kill("SIGKILL");
+      }
+      if (childPid > 0 && processIsLive(childPid)) {
+        spawnSync("kill", ["-KILL", String(childPid)], { encoding: "utf8" });
+      }
+      spawnSync("screen", ["-S", terminalSessionKey, "-X", "quit"], {
+        encoding: "utf8"
+      });
+    }
   }
 );

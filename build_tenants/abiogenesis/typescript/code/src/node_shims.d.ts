@@ -1,6 +1,7 @@
 declare const process: {
   readonly argv: readonly string[];
   readonly execPath: string;
+  readonly pid: number;
   readonly stdout: { write(chunk: string): void };
   readonly stderr: { write(chunk: string): void };
   readonly env: Record<string, string | undefined>;
