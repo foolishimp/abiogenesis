@@ -107,6 +107,12 @@ write runtime truth, select traversal, or close.
   rejected, or admitted under mismatched selected composition identity.
 - Parallel batches invoke concurrently only when their declared inputs are
   read-only and outputs are ABG-admitted values.
+- Any graph-vector target payload, projection output, or no-dispatch/system
+  projection output that can satisfy closure must be admitted as ABG payload
+  truth under the selected target-carrier or payload contract before
+  `system.assuranceFold` and before traversal transition. Read-model and
+  consequence projections emitted after the assurance fold cannot backfill
+  closure satisfaction for the already-folded edge.
 - Replay order is stable by plan batch order and task ref order, never
   wall-clock completion order.
 

@@ -303,9 +303,12 @@ export type {
 export {
   RETRY_FRONTIER_REASON_CLASS_VALUES,
   assertFullRetryFrontierProjection,
+  deriveFreshRetryContextProjection,
   deriveRetryFrontierProjection
 } from "./retry_frontier.js";
 export type {
+  FreshRetryContextProjection,
+  RetryContextFreshnessStatus,
   RetryFrontierOwnerSurface,
   RetryFrontierProjection,
   RetryFrontierReasonClass,
@@ -347,6 +350,7 @@ export type {
   AssuranceRegisterHop
 } from "./assurance_register.js";
 export {
+  deriveAdmittedOutputAuthorityProjection,
   deriveAssuranceAuthoritySnapshotFromPayloadLedger,
   deriveAssuranceEvidenceRowsFromPayloadLedger,
   derivePayloadLedgerProjection,
@@ -356,6 +360,8 @@ export {
   TargetCarrierClosureRejectedError
 } from "./payload_ledger.js";
 export type {
+  AdmittedOutputAuthorityProjection,
+  AdmittedOutputAuthorityStatus,
   PayloadLedgerProjection,
   PayloadLedgerScope,
   PayloadLedgerSourceEvent,

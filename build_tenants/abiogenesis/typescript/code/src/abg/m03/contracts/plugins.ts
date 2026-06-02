@@ -39,8 +39,21 @@ import type {
 } from "./edge_assurance_contract.js";
 import type { ConstructionPressurePackage } from "./construction_pressure_package.js";
 import { resolveEdgeAssuranceContract } from "./edge_assurance_contract.js";
-import type { RetryFrontierProjection } from "./retry_frontier.js";
-import { deriveRetryFrontierProjection } from "./retry_frontier.js";
+import type {
+  FreshRetryContextProjection,
+  RetryFrontierProjection
+} from "./retry_frontier.js";
+import { deriveFreshRetryContextProjection } from "./retry_frontier.js";
+import type {
+  AdmittedOutputAuthorityProjection
+} from "./payload_ledger.js";
+import {
+  deriveAdmittedOutputAuthorityProjection,
+  derivePayloadLedgerProjection
+} from "./payload_ledger.js";
+import type {
+  GtlTargetCarrierDefaultsBundle
+} from "../../../gtl/m01/contracts/index.js";
 import type {
   EvaluationRuleOutcome,
   EvaluationRuleRole
@@ -232,7 +245,9 @@ export interface EnginePluginInput {
   readonly assessedEdges: readonly string[];
   readonly retryAttemptRefs: RuntimeAggregateProjection["retryAttemptRefs"];
   readonly retryProgressRefs: RuntimeAggregateProjection["retryProgressRefs"];
+  readonly retryContext: FreshRetryContextProjection;
   readonly retryFrontier: RetryFrontierProjection;
+  readonly outputAuthorityProjections: readonly AdmittedOutputAuthorityProjection[];
   readonly actorInvocationRef: ActorInvocationRef | null;
   readonly fpTransformRequest: FpTransformRequest | null;
   readonly pluginTraversalObserverBinding: PluginTraversalObserverBindingSelection | null;
@@ -1138,6 +1153,10 @@ export function constructEnginePluginInput(input: {
     | ConstructionPressurePackage
     | null
     | undefined;
+  readonly targetCarrierDefaults?:
+    | GtlTargetCarrierDefaultsBundle
+    | null
+    | undefined;
   readonly priorStageProjectionRefs?: readonly string[] | undefined;
   readonly priorStageFoldInputRefs?: readonly string[] | undefined;
   readonly stageSetDependencyRefs?: readonly string[] | undefined;
@@ -1149,12 +1168,37 @@ export function constructEnginePluginInput(input: {
   if (vector === undefined) {
     throw new TypeError("EnginePluginInput requires a graph vector");
   }
-  const retryFrontier = deriveRetryFrontierProjection({
+  const replayEvents = input.replayEvents ?? Object.freeze([]);
+  const retryContext = deriveFreshRetryContextProjection({
     basis: input.basis,
     runtimeProjection: input.projection,
-    events: input.replayEvents ?? Object.freeze([]),
+    events: replayEvents,
     vectorIndex: input.vectorIndex
   });
+  const retryFrontier = retryContext.frontier;
+  const outputAuthorityVectorIndexes = Object.freeze([
+    ...new Set([
+      ...input.projection.closedVectorIndexes,
+      input.vectorIndex
+    ])
+  ]);
+  const targetCarrierDefaults = input.targetCarrierDefaults ?? null;
+  const outputAuthorityProjections =
+    targetCarrierDefaults === null
+      ? Object.freeze([])
+      : Object.freeze(
+          outputAuthorityVectorIndexes.map((vectorIndex) =>
+            deriveAdmittedOutputAuthorityProjection({
+              ledger: derivePayloadLedgerProjection({
+                basis: input.basis,
+                runtimeProjection: input.projection,
+                events: replayEvents,
+                vectorIndex,
+                targetCarrierDefaults
+              })
+            })
+          )
+        );
   const normalizedActorInvocationRef =
     input.actorInvocationRef === undefined ||
     input.actorInvocationRef === null
@@ -1307,7 +1351,9 @@ export function constructEnginePluginInput(input: {
     assessedEdges: freezeStringArray(input.projection.assessedEdges),
     retryAttemptRefs: Object.freeze([...input.projection.retryAttemptRefs]),
     retryProgressRefs: Object.freeze([...input.projection.retryProgressRefs]),
+    retryContext,
     retryFrontier,
+    outputAuthorityProjections,
     actorInvocationRef: normalizedActorInvocationRef,
     fpTransformRequest,
     pluginTraversalObserverBinding,

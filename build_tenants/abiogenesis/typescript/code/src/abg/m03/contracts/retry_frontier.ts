@@ -79,6 +79,28 @@ export interface RetryFrontierProjection {
   readonly latestAttemptIndex: number | null;
 }
 
+export type RetryContextFreshnessStatus =
+  | "fresh"
+  | "stale_supplied_projection"
+  | "invalid_supplied_projection";
+
+export interface FreshRetryContextProjection {
+  readonly kind: "fresh_retry_context_projection";
+  readonly basisId: string;
+  readonly graphFunctionId: string;
+  readonly graphCallId: string | null;
+  readonly frameId: string | null;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly status: RetryContextFreshnessStatus;
+  readonly reason: string | null;
+  readonly replayFrontierRef: string;
+  readonly suppliedFrontierRef: string | null;
+  readonly frontier: RetryFrontierProjection;
+  readonly selectedRows: readonly RetryFrontierRow[];
+  readonly selectedEvidenceRefs: readonly string[];
+}
+
 function rowId(input: {
   readonly basis: ExecutionBasis;
   readonly vectorIndex: number;
@@ -208,6 +230,10 @@ function sortedReasonClasses(
   return Object.freeze(
     [...seen].sort((left, right) => left.localeCompare(right))
   );
+}
+
+function uniqueStringArray(input: readonly string[]): readonly string[] {
+  return Object.freeze([...new Set(input)]);
 }
 
 function isRetryFrontierReasonClass(
@@ -741,6 +767,100 @@ export function deriveRetryFrontierProjection(input: {
     reasonClasses: sortedReasonClasses(frozenRows),
     attemptCount: attempts.length,
     latestAttemptIndex
+  });
+}
+
+function retryFrontierMatchesReplay(input: {
+  readonly replay: RetryFrontierProjection;
+  readonly supplied: RetryFrontierProjection;
+}): boolean {
+  return (
+    input.replay.basisId === input.supplied.basisId &&
+    input.replay.graphFunctionId === input.supplied.graphFunctionId &&
+    input.replay.graphCallId === input.supplied.graphCallId &&
+    input.replay.frameId === input.supplied.frameId &&
+    input.replay.vectorIndex === input.supplied.vectorIndex &&
+    input.replay.edge === input.supplied.edge &&
+    input.replay.frontierRef === input.supplied.frontierRef
+  );
+}
+
+function selectedRetryContextRows(
+  frontier: RetryFrontierProjection
+): readonly RetryFrontierRow[] {
+  const unclearedRows = frontier.rows.filter((row) => !row.clearedByClosure);
+  return Object.freeze(unclearedRows.length === 0 ? [...frontier.rows] : unclearedRows);
+}
+
+export function deriveFreshRetryContextProjection(input: {
+  readonly basis: ExecutionBasis;
+  readonly runtimeProjection: RuntimeAggregateProjection;
+  readonly events: readonly RuntimeEvent[];
+  readonly vectorIndex: number;
+  readonly suppliedProjection?: RetryFrontierProjection | null;
+  readonly suppliedFrontierRef?: string | null;
+}): FreshRetryContextProjection {
+  const replayFrontier = deriveRetryFrontierProjection({
+    basis: input.basis,
+    runtimeProjection: input.runtimeProjection,
+    events: input.events,
+    vectorIndex: input.vectorIndex
+  });
+  assertFullRetryFrontierProjection({ projection: replayFrontier });
+
+  let status: RetryContextFreshnessStatus = "fresh";
+  let reason: string | null = null;
+  let suppliedFrontierRef: string | null = input.suppliedFrontierRef ?? null;
+  const suppliedProjection = input.suppliedProjection ?? null;
+
+  if (suppliedProjection !== null) {
+    suppliedFrontierRef = suppliedProjection.frontierRef ?? null;
+    try {
+      assertFullRetryFrontierProjection({ projection: suppliedProjection });
+      if (
+        !retryFrontierMatchesReplay({
+          replay: replayFrontier,
+          supplied: suppliedProjection
+        })
+      ) {
+        status = "stale_supplied_projection";
+        reason =
+          "supplied retry frontier does not match replay-derived current frontier";
+      }
+    } catch (error) {
+      status = "invalid_supplied_projection";
+      reason =
+        error instanceof Error
+          ? error.message
+          : "supplied retry frontier is not a full frontier projection";
+    }
+  } else if (
+    suppliedFrontierRef !== null &&
+    suppliedFrontierRef !== replayFrontier.frontierRef
+  ) {
+    status = "stale_supplied_projection";
+    reason =
+      "supplied retry frontier ref does not match replay-derived current frontier";
+  }
+
+  const selectedRows = selectedRetryContextRows(replayFrontier);
+  return Object.freeze({
+    kind: "fresh_retry_context_projection",
+    basisId: replayFrontier.basisId,
+    graphFunctionId: replayFrontier.graphFunctionId,
+    graphCallId: replayFrontier.graphCallId,
+    frameId: replayFrontier.frameId,
+    vectorIndex: replayFrontier.vectorIndex,
+    edge: replayFrontier.edge,
+    status,
+    reason,
+    replayFrontierRef: replayFrontier.frontierRef,
+    suppliedFrontierRef,
+    frontier: replayFrontier,
+    selectedRows,
+    selectedEvidenceRefs: uniqueStringArray(
+      selectedRows.flatMap((row) => row.evidenceRefs)
+    )
   });
 }
 

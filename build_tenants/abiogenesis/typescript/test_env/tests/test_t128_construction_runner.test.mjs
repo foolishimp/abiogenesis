@@ -388,6 +388,8 @@ test("T-128 construction runner consumes admitted intent and closes mixed F_P/F_
       "evidence_admitted",
       "payload_observed",
       "payload_validated",
+      "payload_observed",
+      "payload_validated",
       "authority_snapshot_admitted",
       "payload_observed",
       "payload_validated",

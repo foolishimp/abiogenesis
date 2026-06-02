@@ -142,6 +142,8 @@ test("T-084 engine runner: attached F_P worker retries from replay state, then c
     "evidence_admitted",
     "payload_observed",
     "payload_validated",
+    "payload_observed",
+    "payload_validated",
     "authority_snapshot_admitted",
     "payload_observed",
     "payload_validated",

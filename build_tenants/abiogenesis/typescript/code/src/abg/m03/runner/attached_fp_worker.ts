@@ -16,13 +16,18 @@ import type { FpDispatchOutcome } from "../contracts/plugins.js";
 import type { FpTransformRequest, FpTransformResult } from "../contracts/index.js";
 import {
   admitFpTransformResultForRequest,
+  constructPayloadObservedEvent,
+  constructPayloadValidatedEvent,
   constructRetryProgressRecordedEvent,
   constructFpTransformResult,
+  deriveFreshRetryContextProjection,
   deriveRetryRepairDecision,
   RETRYABLE_RUNTIME_FAILURE_CLASSES,
   runtimeEventsForFpTransformResult,
   runtimeEventsForRetryRepairDecision
 } from "../contracts/index.js";
+import type { GtlTargetCarrierDefaultsBundle } from "../../../gtl/m01/contracts/index.js";
+import { resolveTargetCarrierContractBinding } from "../../../gtl/m01/contracts/index.js";
 import {
   admitResultArtifact,
   constructResultArtifact,
@@ -32,6 +37,7 @@ import {
   type ResultArtifact,
   type ResultIngestOutcome
 } from "../transport/index.js";
+import { stableSha256Digest } from "../../../shared/runtime_identity.js";
 
 export const DEFAULT_ATTACHED_FP_MAX_RETRY_ATTEMPTS = 3;
 
@@ -226,8 +232,24 @@ function payloadEventsForAcceptedResult(input: {
   readonly basis: ExecutionBasis;
   readonly transformRequest: FpTransformRequest;
   readonly artifact: ResultArtifact;
+  readonly targetCarrierDefaults: GtlTargetCarrierDefaultsBundle;
 }): readonly RuntimeEvent[] {
-  return runtimeEventsForFpTransformResult({
+  const vector = input.basis.graph.vectors[input.transformRequest.vectorIndex];
+  if (vector === undefined) {
+    throw new TypeError("accepted F_P result requires graph vector");
+  }
+  const targetCarrierContract = resolveTargetCarrierContractBinding({
+    vector,
+    defaults: input.targetCarrierDefaults
+  });
+  const targetPayloadDigest = stableSha256Digest({
+    resultRef: input.artifact.resultRef,
+    artifactPayload: input.artifact.artifactPayload,
+    targetCarrierContractRef: targetCarrierContract.contractRef,
+    targetCarrierContractDigest: targetCarrierContract.configDigest
+  });
+  const targetPayloadRef = `payload:target_carrier:${targetPayloadDigest}`;
+  const transformEvents = runtimeEventsForFpTransformResult({
     basis: input.basis,
     request: input.transformRequest,
     result: scopedTransformResult({
@@ -236,6 +258,36 @@ function payloadEventsForAcceptedResult(input: {
       status: "returned"
     })
   });
+  return Object.freeze([
+    ...transformEvents,
+    constructPayloadObservedEvent({
+      basis: input.basis,
+      vectorIndex: input.transformRequest.vectorIndex,
+      payloadRef: targetPayloadRef,
+      payloadClass: targetCarrierContract.outputCarrierKind,
+      contractRef: targetCarrierContract.contractRef,
+      digest: `digest:target_carrier:${targetPayloadDigest}`,
+      producerRef:
+        input.artifact.artifactPayload?.workerId ??
+        input.transformRequest.workerId,
+      sourceEventRef: input.artifact.resultRef,
+      actorInvocationId: input.transformRequest.actorInvocationId,
+      authorityRef: input.transformRequest.resultRef,
+      inputDigest: input.transformRequest.sourceProjectionRef,
+      policyRefs: [input.basis.resolvedPolicy.resolvedPolicyBundleRef]
+    }),
+    constructPayloadValidatedEvent({
+      basis: input.basis,
+      vectorIndex: input.transformRequest.vectorIndex,
+      payloadRef: targetPayloadRef,
+      contractRef: targetCarrierContract.contractRef,
+      contractDigest: targetCarrierContract.configDigest,
+      digest: `digest:target_carrier:${targetPayloadDigest}`,
+      validationRef: `validation:target_carrier:${targetPayloadRef}`,
+      evidenceRef: null,
+      policyRefs: [input.basis.resolvedPolicy.resolvedPolicyBundleRef]
+    })
+  ]);
 }
 
 function progressSignalRefsForBlockedResult(input: {
@@ -383,12 +435,26 @@ function blockedResultFromIngestOutcome(
 function retryDecisionForBlockedResult(input: {
   readonly basis: ExecutionBasis;
   readonly projection: RuntimeAggregateProjection;
+  readonly replayEvents: readonly RuntimeEvent[];
   readonly transition: FpDispatchTransition;
   readonly request: DispatchRequest;
+  readonly transformRequest: FpTransformRequest;
   readonly outcome: FpDispatchOutcome;
   readonly retryable: boolean;
   readonly maxAttempts: number;
 }): RetryRepairDecision {
+  const retryContext = deriveFreshRetryContextProjection({
+    basis: input.basis,
+    runtimeProjection: input.projection,
+    events: input.replayEvents,
+    vectorIndex: input.transition.vectorIndex,
+    suppliedFrontierRef: input.transformRequest.retryFrontierRef
+  });
+  if (retryContext.status !== "fresh") {
+    throw new TypeError(
+      `Retry repair rejects ${retryContext.status}: ${retryContext.reason ?? "retry context is not fresh"}`
+    );
+  }
   return deriveRetryRepairDecision({
     basis: input.basis,
     projection: input.projection,
@@ -439,9 +505,11 @@ function retryEventsForBlockedResult(input: {
 export function deriveAttachedFpResultDecision(input: {
   readonly basis: ExecutionBasis;
   readonly projection: RuntimeAggregateProjection;
+  readonly replayEvents: readonly RuntimeEvent[];
   readonly transition: FpDispatchTransition;
   readonly outcome: FpDispatchOutcome;
   readonly transformRequest: FpTransformRequest;
+  readonly targetCarrierDefaults: GtlTargetCarrierDefaultsBundle;
   readonly maxAttempts?: number | undefined;
 }): AttachedFpResultDecision {
   const request = dispatchRequestForTransition(input.transition);
@@ -462,7 +530,8 @@ export function deriveAttachedFpResultDecision(input: {
       payloadEvents: payloadEventsForAcceptedResult({
         basis: input.basis,
         artifact,
-        transformRequest: input.transformRequest
+        transformRequest: input.transformRequest,
+        targetCarrierDefaults: input.targetCarrierDefaults
       })
     });
   }
@@ -470,8 +539,10 @@ export function deriveAttachedFpResultDecision(input: {
   const retryDecision = retryDecisionForBlockedResult({
     basis: input.basis,
     projection: input.projection,
+    replayEvents: input.replayEvents,
     transition: input.transition,
     request,
+    transformRequest: input.transformRequest,
     outcome: input.outcome,
     retryable:
       ingestOutcome.kind !== "runtime_failure" ||

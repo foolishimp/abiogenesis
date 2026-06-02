@@ -121,9 +121,11 @@ import {
   constructAssuranceAuthoritySnapshot,
   deriveAssuranceClosureDecision,
   deriveAssuranceProjection,
-  deriveAssuranceScopeRef
+  deriveAssuranceScopeRef,
+  type AssuranceClosureDecision
 } from "../contracts/assurance.js";
 import {
+  deriveAdmittedOutputAuthorityProjection,
   deriveAssuranceAuthoritySnapshotFromPayloadLedger,
   deriveAssuranceEvidenceRowsFromPayloadLedger,
   derivePayloadLedgerProjection
@@ -132,6 +134,7 @@ import {
   deriveRetryRepairDecision,
   runtimeEventsForRetryRepairDecision
 } from "../contracts/retry_repair.js";
+import { deriveFreshRetryContextProjection } from "../contracts/retry_frontier.js";
 import {
   constructAgenticBackendProgressProfile,
   constructTraversalAttemptDispatchedEvent,
@@ -514,6 +517,7 @@ function deriveFpDispatchAttemptInput(input: {
   readonly pluginTraversalObserverFallbackEnabled: boolean;
   readonly pluginTraversalObserverFallbackKinds: readonly PluginTraversalKind[];
   readonly constructionPressurePackage: ConstructionPressurePackage | null;
+  readonly targetCarrierDefaults: GtlTargetCarrierDefaultsBundle;
   readonly priorStageProjectionRefs: readonly string[];
   readonly priorStageFoldInputRefs: readonly string[];
 }): FpDispatchAttemptInput {
@@ -540,6 +544,7 @@ function deriveFpDispatchAttemptInput(input: {
     abgFallbackBundle: input.abgFallbackBundle,
     edgeAssuranceDefaults: input.edgeAssuranceDefaults,
     constructionPressurePackage: input.constructionPressurePackage,
+    targetCarrierDefaults: input.targetCarrierDefaults,
     pluginTraversalObserverFallbackEnabled:
       input.pluginTraversalObserverFallbackEnabled,
     pluginTraversalObserverFallbackKinds:
@@ -699,6 +704,7 @@ type BlockedFpNoArtifactContinuation =
 function deriveBlockedFpNoArtifactContinuation(input: {
   readonly basis: ExecutionBasis;
   readonly projection: RuntimeAggregateProjection;
+  readonly replayEvents: readonly RuntimeEvent[];
   readonly transition: FpDispatchTransition;
   readonly actorInvocation: ActorInvocation;
   readonly outcome: FpDispatchOutcome;
@@ -723,6 +729,17 @@ function deriveBlockedFpNoArtifactContinuation(input: {
   });
 
   if (summary.action === "retry_same_edge") {
+    const retryContext = deriveFreshRetryContextProjection({
+      basis: input.basis,
+      runtimeProjection: input.projection,
+      events: input.replayEvents,
+      vectorIndex: input.transition.vectorIndex
+    });
+    if (retryContext.status !== "fresh") {
+      throw new TypeError(
+        `Traversal no-progress retry rejects ${retryContext.status}: ${retryContext.reason ?? "retry context is not fresh"}`
+      );
+    }
     const retryDecision = deriveRetryRepairDecision({
       basis: input.basis,
       projection: input.projection,
@@ -1813,6 +1830,9 @@ function assuranceDecisionForCurrentVector(input: {
     vectorIndex: input.vectorIndex,
     targetCarrierDefaults: input.targetCarrierDefaults
   });
+  const outputAuthority = deriveAdmittedOutputAuthorityProjection({
+    ledger: payloadLedger
+  });
   const baseAuthoritySnapshot = deriveAssuranceAuthoritySnapshotFromPayloadLedger({
     assuranceScope,
     ledger: payloadLedger
@@ -1848,9 +1868,23 @@ function assuranceDecisionForCurrentVector(input: {
     authoritySnapshot,
     evidenceRows
   });
-  const closureDecision = deriveAssuranceClosureDecision(assuranceProjection);
+  const closureDecision: AssuranceClosureDecision =
+    outputAuthority.status === "admitted"
+      ? deriveAssuranceClosureDecision(assuranceProjection)
+      : Object.freeze({
+          kind: "assurance_closure_decision" as const,
+          decision: "block",
+          scope: assuranceProjection.scope,
+          projectionRef: assuranceProjection.projectionRef,
+          blockingStatuses: Object.freeze(["missing" as const]),
+          rowIds: Object.freeze([]),
+          reason:
+            outputAuthority.reason ??
+            "target carrier output payload is not admitted"
+        });
   return Object.freeze({
     payloadLedger,
+    outputAuthority,
     assuranceProjection,
     closureDecision
   });
@@ -2355,6 +2389,7 @@ function* runEngineIterateMachine(input: {
           edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
           constructionPressurePackage:
             request.constructionPressurePackage ?? null,
+          targetCarrierDefaults,
           pluginTraversalObserverFallbackEnabled:
             request.pluginTraversalObserverFallbackEnabled ?? false,
           pluginTraversalObserverFallbackKinds:
@@ -2385,6 +2420,7 @@ function* runEngineIterateMachine(input: {
               edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
               constructionPressurePackage:
                 request.constructionPressurePackage ?? null,
+          targetCarrierDefaults,
               pluginTraversalObserverFallbackEnabled:
                 request.pluginTraversalObserverFallbackEnabled ?? false,
               pluginTraversalObserverFallbackKinds:
@@ -2454,6 +2490,7 @@ function* runEngineIterateMachine(input: {
                 edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
                 constructionPressurePackage:
                   request.constructionPressurePackage ?? null,
+          targetCarrierDefaults,
                 pluginTraversalObserverFallbackEnabled:
                   request.pluginTraversalObserverFallbackEnabled ?? false,
                 pluginTraversalObserverFallbackKinds:
@@ -2556,6 +2593,7 @@ function* runEngineIterateMachine(input: {
           edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
           constructionPressurePackage:
             request.constructionPressurePackage ?? null,
+          targetCarrierDefaults,
           pluginTraversalObserverFallbackEnabled:
             request.pluginTraversalObserverFallbackEnabled ?? false,
           pluginTraversalObserverFallbackKinds:
@@ -2689,6 +2727,7 @@ function* runEngineIterateMachine(input: {
           edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
           constructionPressurePackage:
             request.constructionPressurePackage ?? null,
+          targetCarrierDefaults,
           pluginTraversalObserverFallbackEnabled:
             request.pluginTraversalObserverFallbackEnabled ?? false,
           pluginTraversalObserverFallbackKinds:
@@ -2716,6 +2755,7 @@ function* runEngineIterateMachine(input: {
               edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
               constructionPressurePackage:
                 request.constructionPressurePackage ?? null,
+          targetCarrierDefaults,
               pluginTraversalObserverFallbackEnabled:
                 request.pluginTraversalObserverFallbackEnabled ?? false,
               pluginTraversalObserverFallbackKinds:
@@ -2789,6 +2829,7 @@ function* runEngineIterateMachine(input: {
                 edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
                 constructionPressurePackage:
                   request.constructionPressurePackage ?? null,
+          targetCarrierDefaults,
                 pluginTraversalObserverFallbackEnabled:
                   request.pluginTraversalObserverFallbackEnabled ?? false,
                 pluginTraversalObserverFallbackKinds:
@@ -2889,6 +2930,7 @@ function* runEngineIterateMachine(input: {
           edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
           constructionPressurePackage:
             request.constructionPressurePackage ?? null,
+          targetCarrierDefaults,
           pluginTraversalObserverFallbackEnabled:
             request.pluginTraversalObserverFallbackEnabled ?? false,
           pluginTraversalObserverFallbackKinds:
@@ -3013,6 +3055,7 @@ function* runEngineIterateMachine(input: {
           edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
           constructionPressurePackage:
             request.constructionPressurePackage ?? null,
+          targetCarrierDefaults,
           pluginTraversalObserverFallbackEnabled:
             request.pluginTraversalObserverFallbackEnabled ?? false,
           pluginTraversalObserverFallbackKinds:
@@ -3046,6 +3089,7 @@ function* runEngineIterateMachine(input: {
               edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
               constructionPressurePackage:
                 request.constructionPressurePackage ?? null,
+          targetCarrierDefaults,
               pluginTraversalObserverFallbackEnabled:
                 request.pluginTraversalObserverFallbackEnabled ?? false,
               pluginTraversalObserverFallbackKinds:
@@ -3119,6 +3163,7 @@ function* runEngineIterateMachine(input: {
                 edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
                 constructionPressurePackage:
                   request.constructionPressurePackage ?? null,
+          targetCarrierDefaults,
                 pluginTraversalObserverFallbackEnabled:
                   request.pluginTraversalObserverFallbackEnabled ?? false,
                 pluginTraversalObserverFallbackKinds:
@@ -3219,6 +3264,7 @@ function* runEngineIterateMachine(input: {
           edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
           constructionPressurePackage:
             request.constructionPressurePackage ?? null,
+          targetCarrierDefaults,
           pluginTraversalObserverFallbackEnabled:
             request.pluginTraversalObserverFallbackEnabled ?? false,
           pluginTraversalObserverFallbackKinds:
@@ -3304,9 +3350,11 @@ function* runEngineIterateMachine(input: {
           const attachedDecision = deriveAttachedFpResultDecision({
             basis: request.basis,
             projection,
+            replayEvents: eventState.replayEvents,
             transition,
             outcome,
             transformRequest: scalarTransformInput.fpTransformRequest,
+            targetCarrierDefaults,
             maxAttempts: request.maxAttachedFpAttempts
           });
           eventState = emitRunnerEvents(eventState,
@@ -3348,6 +3396,7 @@ function* runEngineIterateMachine(input: {
                   edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
                   constructionPressurePackage:
                     request.constructionPressurePackage ?? null,
+          targetCarrierDefaults,
                   pluginTraversalObserverFallbackEnabled:
                     request.pluginTraversalObserverFallbackEnabled ?? false,
                   pluginTraversalObserverFallbackKinds:
@@ -3379,6 +3428,7 @@ function* runEngineIterateMachine(input: {
               edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
               constructionPressurePackage:
                 request.constructionPressurePackage ?? null,
+          targetCarrierDefaults,
               pluginTraversalObserverFallbackEnabled:
                 request.pluginTraversalObserverFallbackEnabled ?? false,
               pluginTraversalObserverFallbackKinds:
@@ -3450,6 +3500,7 @@ function* runEngineIterateMachine(input: {
                     edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
                     constructionPressurePackage:
                       request.constructionPressurePackage ?? null,
+          targetCarrierDefaults,
                     pluginTraversalObserverFallbackEnabled:
                       request.pluginTraversalObserverFallbackEnabled ?? false,
                     pluginTraversalObserverFallbackKinds:
@@ -3557,6 +3608,7 @@ function* runEngineIterateMachine(input: {
               edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
               constructionPressurePackage:
                 request.constructionPressurePackage ?? null,
+          targetCarrierDefaults,
               pluginTraversalObserverFallbackEnabled:
                 request.pluginTraversalObserverFallbackEnabled ?? false,
               pluginTraversalObserverFallbackKinds:
@@ -3742,6 +3794,7 @@ function* runEngineIterateMachine(input: {
               edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
               constructionPressurePackage:
                 request.constructionPressurePackage ?? null,
+          targetCarrierDefaults,
               pluginTraversalObserverFallbackEnabled:
                 request.pluginTraversalObserverFallbackEnabled ?? false,
               pluginTraversalObserverFallbackKinds:
@@ -3771,6 +3824,7 @@ function* runEngineIterateMachine(input: {
                   edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
                   constructionPressurePackage:
                     request.constructionPressurePackage ?? null,
+          targetCarrierDefaults,
                   pluginTraversalObserverFallbackEnabled:
                     request.pluginTraversalObserverFallbackEnabled ?? false,
                   pluginTraversalObserverFallbackKinds:
@@ -3847,6 +3901,7 @@ function* runEngineIterateMachine(input: {
                     edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
                     constructionPressurePackage:
                       request.constructionPressurePackage ?? null,
+          targetCarrierDefaults,
                     pluginTraversalObserverFallbackEnabled:
                       request.pluginTraversalObserverFallbackEnabled ?? false,
                     pluginTraversalObserverFallbackKinds:
@@ -3948,6 +4003,7 @@ function* runEngineIterateMachine(input: {
               edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
               constructionPressurePackage:
                 request.constructionPressurePackage ?? null,
+          targetCarrierDefaults,
               pluginTraversalObserverFallbackEnabled:
                 request.pluginTraversalObserverFallbackEnabled ?? false,
               pluginTraversalObserverFallbackKinds:
@@ -4126,6 +4182,7 @@ function* runEngineIterateMachine(input: {
           const continuation = deriveBlockedFpNoArtifactContinuation({
             basis: request.basis,
             projection: deriveRuntimeAggregateProjection(request.basis, eventState.replayEvents),
+            replayEvents: eventState.replayEvents,
             transition,
             actorInvocation,
             outcome,
@@ -4197,6 +4254,7 @@ function* runEngineIterateMachine(input: {
           edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
           constructionPressurePackage:
             request.constructionPressurePackage ?? null,
+          targetCarrierDefaults,
           priorStageProjectionRefs: continuationStageProjectionRefs,
           priorStageFoldInputRefs: continuationStageFoldInputRefs
         });

@@ -1,33 +1,37 @@
-# abiogenesis 3.9.0-rc.5 Release Candidate Note
+# abiogenesis 3.9.0-rc.6 Release Candidate Note
 
-This checkpoint is the fifth TypeScript ABG `3.9.0` release candidate.
-It follows `3.9.0-rc.4` with event-sourcing hardening for canonical ABG runtime
-events and a runner ordering correction found while exercising downstream SDLC
-lanes.
+This checkpoint is the sixth TypeScript ABG `3.9.0` release candidate. It
+follows `3.9.0-rc.5` with runtime-authority wiring for replay-stable retry
+context, admitted output authority projection, and target-carrier output
+admission before closure.
 
 It is an RC candidate, not the final tapped `3.9.0` release.
 
 ## Release Claim
 
-The TypeScript tenant remains the package-first GTL/ABG RC candidate. RC5
+The TypeScript tenant remains the package-first GTL/ABG RC candidate. RC6
 preserves the staged compute runtime law introduced in RC1, the proof-harness
-alignment from RC2, the evaluation-rule provenance fix from RC3, and the
-runner/PTY corrections from RC4. It then makes canonical runtime event identity
-and time explicit at ABG emission and replay boundaries.
+alignment from RC2, the evaluation-rule provenance fix from RC3, the runner/PTY
+corrections from RC4, and the canonical runtime event identity boundary from
+RC5. It then realizes the T-147 runtime-authority invariants inside ABG rather
+than leaving them as downstream adapter precedent.
 
-RC5 adds:
+RC6 adds:
 
-- canonical runtime event envelopes with immutable `eventId`, ISO UTC
-  millisecond `eventTime`, numeric `eventTimeUnixMs`, and
-  `eventAdmissionOrdinal`;
-- duplicate-`eventId` rejection for canonical emitted event batches and runner
-  replay inputs;
-- a strict `EngineIterateRequest.runtimeEvents` boundary that rejects raw
-  event-shaped objects as replay history;
-- runner ordering that emits and evaluates F_D authority outcome truth before
-  generic evaluation-set blocking can terminate traversal;
-- package version advancement to `3.9.0-rc.5` for downstream consumers that need
-  the corrected ABG event-sourcing boundary.
+- replay-derived `EnginePluginInput.retryContext`, so plugin workers receive
+  ABG current retry frontier truth rather than a caller-local alias;
+- stale supplied `FpTransformRequest.retryFrontierRef` rejection in attached
+  and no-artifact retry decision paths;
+- replay-derived `EnginePluginInput.outputAuthorityProjections` for current
+  and closed vector outputs;
+- accepted attached F_P result target-carrier `payload_observed` and
+  `payload_validated` events before assurance fold and traversal transition;
+- a current-vector assurance fold block when the selected target-carrier output
+  authority is not admitted;
+- focused T-147 runtime proof that the new projections are consumed by the
+  runner, not just exported as pure helpers;
+- package version advancement to `3.9.0-rc.6` for downstream consumers that
+  need the corrected ABG runtime-authority boundary.
 
 ## Boundary
 
@@ -48,25 +52,24 @@ ABG.start(fn<A, B>.C)
   .bind(system.writeEvaluationLedgers)
   .bind(system.collectEvaluationSet)
   .bind(system.assuranceFold)
-  .bind(system.planConsequenceSet)
-  .bind(plugin.consequence.C.task[*])
-  .bind(system.admitConsequenceTaskResult[*])
-  .bind(system.collectConsequenceSet)
+  .bind(plugin.consequence.C)
   .bind(system.admitConsequenceProjection)
   .bind(system.traversalTransition)
   .bind(system.replayContinuation)
 ```
 
-RC5 does not introduce a new GTL ontology object, a public `ComputeUnit`
+RC6 does not introduce a new GTL ontology object, a public `ComputeUnit`
 aggregate, a public `Vector` execution target, or product-owned ABG system
-effects.
+effects. The new surfaces are ABG runtime projections and admission/fold
+mechanics over existing retry frontier, payload ledger, and target-carrier
+authority law.
 
 ## Versioned Artifacts
 
-- RC branch: `rc/3.9.0`
-- RC identity: `3.9.0-rc.5`
-- Candidate package version: `3.9.0-rc.5`
-- Candidate tag: `v3.9.0-rc.5`
+- RC branch: `main`
+- RC identity: `3.9.0-rc.6`
+- Candidate package version: `3.9.0-rc.6`
+- Candidate tag: `v3.9.0-rc.6`
 
 ## Verification
 
@@ -82,27 +85,19 @@ passed
 npm run lint:test-harness
 passed
 
+npm run test:t147
+7 passed
+
+node --test test_env/tests/test_t099_fp_stage_carriers.test.mjs test_env/tests/test_t128_construction_runner.test.mjs
+8 passed
+
 npm run test:semantic
-647 passed
+654 passed
 
-CODEX_LIVE_FP=1 npm run test:live
-1 passed
-
-CODEX_LIVE_FP=1 npm run test:live:uat
-2 passed
-
-CODEX_LIVE_FP=1 ABG_TS_LIVE_AGENT=claude ABG_TS_AGENT_EXECUTOR_PROFILE=pty-terminal node --test test_env/live/test_t087_supervised_actor_invocation_live.test.mjs test_env/live/test_t094_assurance_register_two_hop_live.test.mjs test_env/live/test_t100_five_rule_algebra_live.test.mjs test_env/live/test_t113_live_pty_claude_actor_worker.test.mjs test_env/live/test_t119_temporal_gtl_live.test.mjs test_env/live/test_t125_temporal_and_non_temporal_gtl_live.test.mjs test_env/live/test_t127_fp_consciousness_scenarios_live.test.mjs test_env/live/test_t132_edge_assurance_installed_live.test.mjs test_env/live/test_t141_saga_frontier_live.test.mjs
-24 passed
-
-git diff --check
+npm pack --dry-run
 passed
 
-No orphan live worker process remained after the live matrix.
-
-The RC live portfolio remains a live transport/admission/projection smoke lane:
-it runs real Codex subprocesses but uses constrained JSON-response prompts. The
-additional live matrix above covers the PTY, temporal, assurance, edge-assurance,
-consciousness, and saga-frontier lanes.
+git diff --check
 passed
 ```
 
@@ -113,7 +108,9 @@ immutable local snapshot directory.
 ## RC Decision
 
 The release operator preserves `3.9.0-rc.1` as the first staged-compute runtime
-candidate, `3.9.0-rc.2` as the live-proof harness alignment candidate, and
-`3.9.0-rc.3` as the ABG-owned actor invocation provenance candidate. RC4 is the
-downstream live-lane runner and PTY stability candidate. RC5 is the event-source
-identity and millisecond timestamp boundary candidate.
+candidate, `3.9.0-rc.2` as the live-proof harness alignment candidate,
+`3.9.0-rc.3` as the ABG-owned actor invocation provenance candidate, RC4 as the
+downstream live-lane runner and PTY stability candidate, and RC5 as the
+event-source identity and millisecond timestamp boundary candidate. RC6 is the
+runtime-authority wiring candidate for retry freshness, output authority, and
+projection-output admission before closure.

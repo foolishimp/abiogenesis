@@ -87,6 +87,32 @@ export interface TargetCarrierAdmissionProjection {
   readonly reason: string | null;
 }
 
+export type AdmittedOutputAuthorityStatus =
+  | "admitted"
+  | "missing"
+  | "rejected";
+
+export interface AdmittedOutputAuthorityProjection {
+  readonly kind: "admitted_output_authority_projection";
+  readonly scope: PayloadLedgerScope;
+  readonly targetCarrierContractRef: string;
+  readonly targetCarrierContractDigest: string;
+  readonly status: AdmittedOutputAuthorityStatus;
+  readonly reason: string | null;
+  readonly payloadRef: string | null;
+  readonly payloadClass: string | null;
+  readonly payloadDigest: string | null;
+  readonly payloadContractRef: string | null;
+  readonly producerRef: string | null;
+  readonly sourceEventRef: string | null;
+  readonly authorityRef: string | null;
+  readonly inputDigest: string | null;
+  readonly validationRefs: readonly string[];
+  readonly evidenceRefs: readonly string[];
+  readonly relatedPayloadRefs: readonly string[];
+  readonly projectionRef: string;
+}
+
 export class TargetCarrierClosureRejectedError extends Error {
   readonly targetCarrierContractRef: string;
   readonly status: TargetCarrierAdmissionStatus;
@@ -170,6 +196,28 @@ function payloadLedgerProjectionRef(input: PayloadLedgerProjection): string {
     `evidence=${input.evidenceRows.map((event) => event.evidenceRef).join(",")}`,
     `ambiguity=${input.ambiguityObservations.map((event) => event.ambiguityRef).join(",")}`,
     `closure=${input.closureInputs.map((event) => event.closureInputRef).join(",")}`
+  ].join(":");
+}
+
+function uniqueStringArray(values: readonly string[]): readonly string[] {
+  return Object.freeze([...new Set(values)]);
+}
+
+function admittedOutputAuthorityProjectionRef(
+  input: Omit<AdmittedOutputAuthorityProjection, "projectionRef">
+): string {
+  return [
+    "admitted_output_authority_projection",
+    input.scope.basisId,
+    input.scope.graphCallId,
+    input.scope.frameId,
+    String(input.scope.vectorIndex),
+    `target_carrier=${input.targetCarrierContractRef}`,
+    `target_carrier_digest=${input.targetCarrierContractDigest}`,
+    `status=${input.status}`,
+    `payload=${input.payloadRef ?? "null"}`,
+    `validations=${input.validationRefs.join(",")}`,
+    `evidence=${input.evidenceRefs.join(",")}`
   ].join(":");
 }
 
@@ -339,6 +387,90 @@ export function deriveTargetCarrierAdmissionProjection(input: {
     validationRefs: freezeStringArray([]),
     rejectedPayloadRefs: freezeStringArray([]),
     reason: "target carrier contract has no admitted payload"
+  });
+}
+
+export function deriveAdmittedOutputAuthorityProjection(input: {
+  readonly ledger: PayloadLedgerProjection;
+  readonly payloadRef?: string | null | undefined;
+}): AdmittedOutputAuthorityProjection {
+  const targetCarrierAdmission = deriveTargetCarrierAdmissionProjection({
+    ledger: input.ledger,
+    payloadRef: input.payloadRef
+  });
+  const relatedPayloadRefs = uniqueStringArray([
+    ...input.ledger.observedPayloads.map((event) => event.payloadRef),
+    ...input.ledger.validatedPayloads.map((event) => event.payloadRef),
+    ...input.ledger.rejectedPayloads.map((event) => event.payloadRef)
+  ]);
+  const targetPayloadRef = targetCarrierAdmission.payloadRef;
+  const observed =
+    targetPayloadRef === null
+      ? undefined
+      : input.ledger.observedPayloads
+          .filter((event) => event.payloadRef === targetPayloadRef)
+          .at(-1);
+  const validated =
+    targetPayloadRef === null
+      ? undefined
+      : input.ledger.validatedPayloads
+          .filter(
+            (event) =>
+              event.payloadRef === targetPayloadRef &&
+              event.contractRef === targetCarrierAdmission.targetCarrierContractRef &&
+              event.contractDigest ===
+                targetCarrierAdmission.targetCarrierContractDigest
+          )
+          .at(-1);
+  const evidenceRefs =
+    targetPayloadRef === null
+      ? Object.freeze([])
+      : uniqueStringArray(
+          input.ledger.evidenceRows
+            .filter((event) => event.payloadRef === targetPayloadRef)
+            .map((event) => event.evidenceRef)
+        );
+
+  let status: AdmittedOutputAuthorityStatus = targetCarrierAdmission.status;
+  let reason = targetCarrierAdmission.reason;
+  if (
+    targetCarrierAdmission.status === "admitted" &&
+    (observed === undefined || validated === undefined)
+  ) {
+    status = "missing";
+    reason =
+      observed === undefined
+        ? "target carrier payload validation lacks observed payload envelope"
+        : "target carrier payload validation is not current ledger evidence";
+  }
+  const isAdmitted = status === "admitted" && observed !== undefined;
+  const partial = Object.freeze({
+    kind: "admitted_output_authority_projection" as const,
+    scope: input.ledger.scope,
+    targetCarrierContractRef: targetCarrierAdmission.targetCarrierContractRef,
+    targetCarrierContractDigest:
+      targetCarrierAdmission.targetCarrierContractDigest,
+    status,
+    reason,
+    payloadRef: isAdmitted ? observed.payloadRef : null,
+    payloadClass: isAdmitted ? observed.payloadClass : null,
+    payloadDigest: isAdmitted ? observed.digest : null,
+    payloadContractRef: isAdmitted ? observed.contractRef : null,
+    producerRef: isAdmitted ? observed.producerRef : null,
+    sourceEventRef: isAdmitted ? observed.sourceEventRef : null,
+    authorityRef: isAdmitted ? observed.authorityRef : null,
+    inputDigest: isAdmitted ? observed.inputDigest : null,
+    validationRefs:
+      status === "admitted"
+        ? targetCarrierAdmission.validationRefs
+        : freezeStringArray([]),
+    evidenceRefs: status === "admitted" ? evidenceRefs : freezeStringArray([]),
+    relatedPayloadRefs
+  });
+
+  return Object.freeze({
+    ...partial,
+    projectionRef: admittedOutputAuthorityProjectionRef(partial)
   });
 }
 
