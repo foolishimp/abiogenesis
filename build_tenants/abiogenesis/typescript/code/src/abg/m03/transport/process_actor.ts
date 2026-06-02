@@ -55,6 +55,7 @@ export interface SupervisedProcessActorRequest {
   readonly terminalScreenCommand?: string | undefined;
   readonly terminalPollMs?: number | undefined;
   readonly timeoutMs?: number | undefined;
+  readonly inactivityTimeoutMs?: number | undefined;
   readonly terminationGraceMs?: number | undefined;
   readonly heartbeatMs?: number | undefined;
   readonly eventSink?: RuntimeEventSink | undefined;
@@ -246,6 +247,7 @@ export async function invokeSupervisedProcessActor(
   }
 
   const timeoutMs = request.timeoutMs ?? DEFAULT_TIMEOUT_MS;
+  const inactivityTimeoutMs = request.inactivityTimeoutMs;
   const terminationGraceMs =
     request.terminationGraceMs ?? DEFAULT_TERMINATION_GRACE_MS;
   const heartbeatMs = request.heartbeatMs ?? DEFAULT_HEARTBEAT_MS;
@@ -280,6 +282,7 @@ export async function invokeSupervisedProcessActor(
     : `${request.processEventsPath}.trace`;
   let pid: number | null = null;
   let timedOut = false;
+  let inactivityTimedOut = false;
   let errorMessage: string | null = null;
   let stdoutChunkIndex = 0;
   let stderrChunkIndex = 0;
@@ -351,6 +354,7 @@ export async function invokeSupervisedProcessActor(
         : { terminalPollMs: request.terminalPollMs }),
       stdin: request.stdin ?? null,
       timeoutMs,
+      ...(inactivityTimeoutMs === undefined ? {} : { inactivityTimeoutMs }),
       terminationGraceMs,
       onProcessStarted: (event) => {
         processStartObserved = true;
@@ -471,6 +475,26 @@ export async function invokeSupervisedProcessActor(
           eventSink
         );
       },
+      onInactivityTimeout: (event) => {
+        inactivityTimedOut = true;
+        const elapsedMs = roundElapsedMs(startedAt);
+        emit(
+          runtimeExternalInterruption({
+            invocation: request.invocation,
+            interruptionSource: "harness_safety_cap",
+            interruptionRef:
+              `runtime-interruption:${request.invocation.actorInvocationId}:inactivity:${elapsedMs}`,
+            signal: null,
+            elapsedMs,
+            evidenceRefs: [
+              `inactivity:${request.invocation.actorInvocationId}:${event.inactivityTimeoutMs ?? "unknown"}`
+            ],
+            detail:
+              `inactivityTimeoutMs=${event.inactivityTimeoutMs ?? "unknown"}; elapsedSinceLastOutputMs=${event.elapsedSinceLastOutputMs}`
+          }),
+          eventSink
+        );
+      },
       onSignalSent: (event) => {
         const elapsedMs = roundElapsedMs(startedAt);
         const signalEvent = constructActorProcessSignalSentEvent({
@@ -483,7 +507,8 @@ export async function invokeSupervisedProcessActor(
             signalEvent,
             runtimeExternalInterruption({
               invocation: request.invocation,
-              interruptionSource: timedOut ? "harness_safety_cap" : "host_signal",
+              interruptionSource:
+                timedOut || inactivityTimedOut ? "harness_safety_cap" : "host_signal",
               interruptionRef:
                 `runtime-interruption:${request.invocation.actorInvocationId}:signal:${event.signal}:${elapsedMs}`,
               signal: event.signal,
@@ -493,7 +518,9 @@ export async function invokeSupervisedProcessActor(
               ],
               detail: timedOut
                 ? "supervisor signal after timeout"
-                : "supervisor signal"
+                : inactivityTimedOut
+                  ? "supervisor signal after inactivity timeout"
+                  : "supervisor signal"
             })
           ],
           eventSink

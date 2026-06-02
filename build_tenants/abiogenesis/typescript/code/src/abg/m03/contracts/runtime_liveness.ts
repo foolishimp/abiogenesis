@@ -598,8 +598,36 @@ function latestActivity(
   }).at(-1) ?? null;
 }
 
+const RUNTIME_LEASE_PROGRESS_SOURCES = Object.freeze([
+  "local_spawn_stdout",
+  "local_spawn_stderr",
+  "pty_transcript",
+  "structured_agent_stream",
+  "tool_call",
+  "result_artifact"
+] as const satisfies readonly RuntimeActivityProbeSource[]);
+
+const RUNTIME_LEASE_PROGRESS_SOURCE_SET: ReadonlySet<RuntimeActivityProbeSource> =
+  new Set(RUNTIME_LEASE_PROGRESS_SOURCES);
+
+function isLeaseProgressActivity(row: RuntimeLivenessActivityRow): boolean {
+  return RUNTIME_LEASE_PROGRESS_SOURCE_SET.has(row.source);
+}
+
 function activityLeaseTime(row: RuntimeLivenessActivityRow): number | null {
   return row.elapsedMs ?? row.observedAtMs;
+}
+
+function latestLeaseResetActivity(
+  rows: readonly RuntimeLivenessActivityRow[]
+): RuntimeLivenessActivityRow | null {
+  const progressActivity = latestActivity(rows.filter(isLeaseProgressActivity));
+  if (progressActivity !== null) {
+    return progressActivity;
+  }
+  return latestActivity(
+    rows.filter((row) => row.source === "actor_process_lifecycle")
+  );
 }
 
 function latestArtifactActivity(
@@ -627,7 +655,7 @@ function leaseStateFor(input: {
   readonly policy: RuntimeWatchdogPolicy;
   readonly activityRows: readonly RuntimeLivenessActivityRow[];
   readonly interruptionRows: readonly RuntimeLivenessInterruptionRow[];
-  readonly lastActivity: RuntimeLivenessActivityRow | null;
+  readonly lastLeaseResetActivity: RuntimeLivenessActivityRow | null;
   readonly hardSafetyCapExceeded: boolean;
 }): RuntimeLivenessLeaseState {
   if (input.interruptionRows.length > 0) {
@@ -644,9 +672,9 @@ function leaseStateFor(input: {
       ? "startup_silence_exceeded"
       : "active";
   }
-  const lastElapsed = input.lastActivity === null
+  const lastElapsed = input.lastLeaseResetActivity === null
     ? 0
-    : activityLeaseTime(input.lastActivity);
+    : activityLeaseTime(input.lastLeaseResetActivity);
   if (lastElapsed === null) {
     return input.policy.nowElapsedMs >= input.policy.inactivityLeaseMs
       ? "inactivity_exceeded"
@@ -825,6 +853,7 @@ export function deriveRuntimeLivenessObserverProjection(
   ]);
   assertDeclaredProbeActivity({ activityRows, probeContracts });
   const lastActivity = latestActivity(activityRows);
+  const lastLeaseResetActivity = latestLeaseResetActivity(activityRows);
   const lastArtifactActivity = latestArtifactActivity(activityRows);
   const safetyExceeded = hardSafetyCapExceeded(input.policy);
   const requiresExternalInterruptionEvent =
@@ -833,7 +862,7 @@ export function deriveRuntimeLivenessObserverProjection(
     policy: input.policy,
     activityRows,
     interruptionRows,
-    lastActivity,
+    lastLeaseResetActivity,
     hardSafetyCapExceeded: safetyExceeded
   });
   const interruptedSystemRefs = uniqueSorted(

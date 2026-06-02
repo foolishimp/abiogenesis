@@ -66,6 +66,21 @@ async function runRoot(label) {
   return root;
 }
 
+async function wait(milliseconds) {
+  await new Promise((resolve) => setTimeout(resolve, milliseconds));
+}
+
+function processIsLive(pid) {
+  const out = spawnSync("ps", ["-p", String(pid), "-o", "stat="], {
+    encoding: "utf8"
+  });
+  if (out.status !== 0) {
+    return false;
+  }
+  const state = out.stdout.trim();
+  return state.length > 0 && !state.startsWith("Z");
+}
+
 async function hiddenListingScreenCommand(root) {
   const commandPath = path.join(root, "hidden-listing-screen.sh");
   await writeFile(
@@ -123,21 +138,24 @@ test(
       command: process.execPath,
       args: [
         "-e",
-        nodePrintJsonLinesScript([
-          {
-            type: "system",
-            subtype: "init",
-            session_id: "fixture-pty-session"
-          },
-          {
-            type: "result",
-            subtype: "success",
-            result: "pty fixture final"
-          }
-        ])
+        [
+          "console.log(JSON.stringify({",
+          "  type: 'system',",
+          "  subtype: 'init',",
+          "  session_id: 'fixture-pty-session'",
+          "}));",
+          "console.log(JSON.stringify({",
+          "  type: 'result',",
+          "  subtype: 'success',",
+          "  result: process.env.ABG_T111_SUPERVISOR_ENV_SENTINEL ?? 'missing'",
+          "}));"
+        ].join("\n")
       ],
       cwd: archiveRoot,
-      env: process.env,
+      env: {
+        ...process.env,
+        ABG_T111_SUPERVISOR_ENV_SENTINEL: "pty fixture final"
+      },
       archiveRoot,
       label: "fixture-pty-terminal",
       parser: "claude-stream-json",
@@ -154,6 +172,11 @@ test(
 
     const traceEvents = await readFile(result.paths.events, "utf8");
     assert.match(traceEvents, /terminal_session_started/u);
+    assert.match(traceEvents, /terminal_agent_supervisor_configured/u);
+    assert.match(
+      traceEvents,
+      /pty_terminal_agent_supervisor_local_spawn_worker/u
+    );
     assert.match(traceEvents, /terminal_turn_started/u);
     assert.match(traceEvents, /terminal_exit_sentinel_observed/u);
     assert.match(traceEvents, /terminal_turn_completed/u);
@@ -164,6 +187,14 @@ test(
 
     const stdout = await readFile(result.paths.stdout, "utf8");
     assert.doesNotMatch(stdout, /__ABG_PTY_EXIT_/u);
+
+    const supervisorConfig = JSON.parse(
+      await readFile(
+        path.join(archiveRoot, "terminal_session", "agent_supervisor_request.json"),
+        "utf8"
+      )
+    );
+    assert.equal(Object.hasOwn(supervisorConfig, "env"), false);
   }
 );
 
@@ -241,6 +272,8 @@ test(
     assert.equal(result.outcome.kind, "hard_timeout");
 
     const traceEvents = await readFile(result.paths.events, "utf8");
+    assert.match(traceEvents, /terminal_agent_supervisor_configured/u);
+    assert.match(traceEvents, /terminal_agent_supervisor_hard_timeout/u);
     assert.match(traceEvents, /timeout_escalated/u);
     assert.match(traceEvents, /terminal_turn_completed/u);
   }
@@ -317,7 +350,52 @@ test(
     assert.equal(result.outcome.kind, "inactivity_timeout");
 
     const traceEvents = await readFile(result.paths.events, "utf8");
+    assert.match(traceEvents, /terminal_agent_supervisor_configured/u);
+    assert.match(traceEvents, /terminal_agent_supervisor_inactivity_timeout/u);
     assert.match(traceEvents, /inactivity_timeout_escalated/u);
     assert.match(traceEvents, /terminal_turn_completed/u);
+  }
+);
+
+test(
+  "T-188 pty-terminal supervisor kills a non-cooperative worker child",
+  { skip: !SCREEN_AVAILABLE },
+  async () => {
+    const archiveRoot = await runRoot("pty-terminal-supervisor-kills-child");
+    const pidPath = path.join(archiveRoot, "worker.pid");
+    const result = await runAgentActorWorkerCallout({
+      agentCalloutKind: "agent_worker",
+      workerRef: "worker://fixture-pty-supervisor-kill-child",
+      executorProfile: "pty-terminal",
+      terminalSessionKey: `abg-t188-supervisor-kill-${process.pid}-${Date.now()}`,
+      command: process.execPath,
+      args: [
+        "-e",
+        [
+          "const { writeFileSync } = require('node:fs');",
+          "writeFileSync(process.argv[1], String(process.pid));",
+          "process.on('SIGTERM', () => {});",
+          "setInterval(() => {}, 1000);"
+        ].join("\n"),
+        pidPath
+      ],
+      cwd: archiveRoot,
+      env: process.env,
+      archiveRoot,
+      label: "fixture-pty-supervisor-kill-child",
+      parser: "generic-text",
+      timeoutMs: 5000,
+      inactivityTimeoutMs: 250,
+      terminationGraceMs: 100
+    });
+
+    assert.equal(result.outcome.kind, "inactivity_timeout");
+    const childPid = Number.parseInt(await readFile(pidPath, "utf8"), 10);
+    assert.equal(Number.isInteger(childPid), true);
+    await wait(250);
+    assert.equal(processIsLive(childPid), false);
+
+    const traceEvents = await readFile(result.paths.events, "utf8");
+    assert.match(traceEvents, /terminal_agent_supervisor_inactivity_timeout/u);
   }
 );

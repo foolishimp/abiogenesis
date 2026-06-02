@@ -222,6 +222,59 @@ test("T-097 supervised process actor times out with governed signal events", asy
   assert.notEqual(result.signal, null);
 });
 
+test("T-188 supervised process actor terminates heartbeat-only inactivity", async () => {
+  const root = await tempWorkspace();
+  const script = path.join(root, "worker.mjs");
+  await writeFile(script, "setInterval(() => {}, 1000);\n", "utf8");
+
+  const stdoutPath = path.join(root, "worker_stdout.log");
+  const stderrPath = path.join(root, "worker_stderr.log");
+  const observed = [];
+  const result = await invokeSupervisedProcessActor({
+    invocation: invocation(),
+    command: process.execPath,
+    args: [script],
+    cwd: root,
+    environment: process.env,
+    stdoutPath,
+    stderrPath,
+    stdoutRef: pathToFileURL(stdoutPath).href,
+    stderrRef: pathToFileURL(stderrPath).href,
+    timeoutMs: 5000,
+    inactivityTimeoutMs: 80,
+    terminationGraceMs: 50,
+    heartbeatMs: 20,
+    eventSink: (event) => {
+      observed.push(event);
+    }
+  });
+
+  assert.equal(result.timedOut, false);
+  assert.equal(result.outcome.kind, "inactivity_timeout");
+  assert.equal(result.signal, "SIGTERM");
+  assert.equal(
+    observed.some((event) => event.kind === "actor_process_heartbeat"),
+    true
+  );
+  assert.equal(
+    runtimeInterruptionEvents(observed).some(
+      (event) =>
+        event.interruptionSource === "harness_safety_cap" &&
+        event.signal === null &&
+        event.detail?.includes("inactivityTimeoutMs=") === true
+    ),
+    true
+  );
+  assert.equal(
+    runtimeInterruptionEvents(observed).some(
+      (event) =>
+        event.interruptionSource === "harness_safety_cap" &&
+        event.signal === "SIGTERM"
+    ),
+    true
+  );
+});
+
 test("T-097 supervised process actor records missing command as typed runtime failure evidence", async () => {
   const root = await tempWorkspace();
   const stdoutPath = path.join(root, "worker_stdout.log");

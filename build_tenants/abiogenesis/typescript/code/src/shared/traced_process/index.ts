@@ -301,6 +301,18 @@ function numberOrNull(value: number | undefined): number | null {
   return value === undefined ? null : value;
 }
 
+function unknownRecord(value: unknown): value is Readonly<Record<string, unknown>> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function numberFromRecord(
+  record: Readonly<Record<string, unknown>>,
+  key: string
+): number | undefined {
+  const value = record[key];
+  return typeof value === "number" && Number.isFinite(value) ? value : undefined;
+}
+
 function sleepSync(milliseconds: number): void {
   Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, milliseconds);
 }
@@ -410,6 +422,7 @@ function screenTerminalCapability(
 }
 
 const TERMINAL_LOST_GRACE_MS = 5_000;
+const PTY_AGENT_SUPERVISOR_DECISION_GRACE_MS = 5_000;
 
 function processTableMentionsTerminalSession(sessionId: string): boolean {
   const out = spawnSync("ps", ["-axo", "command"], { encoding: "utf8" });
@@ -454,6 +467,189 @@ function statusFromTerminalSentinel(
 function textBeforeTerminalSentinel(text: string, sentinelPrefix: string): string {
   const index = text.indexOf(sentinelPrefix);
   return index < 0 ? text : text.slice(0, index);
+}
+
+const PTY_AGENT_SUPERVISOR_HARD_TIMEOUT_PREFIX =
+  "__ABG_PTY_AGENT_SUPERVISOR_HARD_TIMEOUT:";
+const PTY_AGENT_SUPERVISOR_INACTIVITY_TIMEOUT_PREFIX =
+  "__ABG_PTY_AGENT_SUPERVISOR_INACTIVITY_TIMEOUT:";
+
+function ptyAgentSupervisorScriptSource(): string {
+  return [
+    'import { spawn } from "node:child_process";',
+    'import { readFileSync } from "node:fs";',
+    "",
+    "const config = JSON.parse(readFileSync(process.argv[2], 'utf8'));",
+    "const startedAt = Date.now();",
+    "let lastOutputAt = startedAt;",
+    "let settled = false;",
+    "let terminating = false;",
+    "let killTimer = null;",
+    "const child = spawn(config.command, config.args, {",
+    "  cwd: config.cwd,",
+    "  env: process.env,",
+    "  stdio: ['pipe', 'pipe', 'pipe'],",
+    "  detached: true",
+    "});",
+    "",
+    "function writeControl(prefix, payload) {",
+    "  process.stderr.write('\\n' + prefix + JSON.stringify(payload) + '\\n');",
+    "}",
+    "",
+    "function killChild(signal) {",
+    "  if (typeof child.pid === 'number') {",
+    "    try {",
+    "      process.kill(-child.pid, signal);",
+    "      return;",
+    "    } catch {",
+    "      // Fall through to direct child signaling.",
+    "    }",
+    "  }",
+    "  try {",
+    "    child.kill(signal);",
+    "  } catch {",
+    "    // Child may already be gone.",
+    "  }",
+    "}",
+    "",
+    "function terminate(kind) {",
+    "  if (settled || terminating) {",
+    "    return;",
+    "  }",
+    "  terminating = true;",
+    "  const now = Date.now();",
+    "  if (kind === 'hard_timeout') {",
+    `    writeControl('${PTY_AGENT_SUPERVISOR_HARD_TIMEOUT_PREFIX}', {`,
+    "      timeoutMs: config.timeoutMs,",
+    "      elapsedMs: now - startedAt,",
+    "      elapsedSinceLastOutputMs: now - lastOutputAt",
+    "    });",
+    "  } else {",
+    `    writeControl('${PTY_AGENT_SUPERVISOR_INACTIVITY_TIMEOUT_PREFIX}', {`,
+    "      inactivityTimeoutMs: config.inactivityTimeoutMs,",
+    "      elapsedMs: now - startedAt,",
+    "      elapsedSinceLastOutputMs: now - lastOutputAt",
+    "    });",
+    "  }",
+    "  killChild('SIGTERM');",
+    "  const graceMs = Number.isInteger(config.terminationGraceMs)",
+    "    ? config.terminationGraceMs",
+    "    : 0;",
+    "  if (graceMs > 0) {",
+    "    killTimer = setTimeout(() => {",
+    "      if (!settled) {",
+    "        killChild('SIGKILL');",
+    "      }",
+    "    }, graceMs);",
+    "  }",
+    "}",
+    "",
+    "function shutdownFromHost() {",
+    "  if (!settled) {",
+    "    killChild('SIGTERM');",
+    "  }",
+    "}",
+    "",
+    "for (const signal of ['SIGTERM', 'SIGINT', 'SIGHUP']) {",
+    "  process.on(signal, () => {",
+    "    shutdownFromHost();",
+    "  });",
+    "}",
+    "process.on('exit', shutdownFromHost);",
+    "",
+    "child.stdout.on('data', (chunk) => {",
+    "  lastOutputAt = Date.now();",
+    "  process.stdout.write(chunk);",
+    "});",
+    "child.stderr.on('data', (chunk) => {",
+    "  lastOutputAt = Date.now();",
+    "  process.stderr.write(chunk);",
+    "});",
+    "child.once('error', (error) => {",
+    "  settled = true;",
+    "  process.stderr.write(String(error?.stack ?? error) + '\\n');",
+    "  process.exit(127);",
+    "});",
+    "child.once('close', (code, signal) => {",
+    "  settled = true;",
+    "  if (killTimer !== null) {",
+    "    clearTimeout(killTimer);",
+    "  }",
+    "  if (pollTimer !== null) {",
+    "    clearInterval(pollTimer);",
+    "  }",
+    "  if (code !== null) {",
+    "    process.exit(code);",
+    "  }",
+    "  if (signal === 'SIGKILL') {",
+    "    process.exit(137);",
+    "  }",
+    "  if (signal === 'SIGTERM') {",
+    "    process.exit(143);",
+    "  }",
+    "  process.exit(1);",
+    "});",
+    "",
+    "if (config.stdin !== null && config.stdin !== undefined) {",
+    "  child.stdin.end(config.stdin);",
+    "} else {",
+    "  child.stdin.end();",
+    "}",
+    "",
+    "const pollMs = Math.min(",
+    "  Math.max(",
+    "    Math.floor(",
+    "      Math.min(",
+    "        Number.isInteger(config.timeoutMs) ? config.timeoutMs : 30_000,",
+    "        Number.isInteger(config.inactivityTimeoutMs)",
+    "          ? config.inactivityTimeoutMs",
+    "          : 30_000",
+    "      ) / 3",
+    "    ),",
+    "    100",
+    "  ),",
+    "  1000",
+    ");",
+    "const pollTimer = setInterval(() => {",
+    "  if (settled || terminating) {",
+    "    return;",
+    "  }",
+    "  const now = Date.now();",
+    "  if (Number.isInteger(config.timeoutMs) && now - startedAt >= config.timeoutMs) {",
+    "    terminate('hard_timeout');",
+    "    return;",
+    "  }",
+    "  if (",
+    "    Number.isInteger(config.inactivityTimeoutMs) &&",
+    "    now - lastOutputAt >= config.inactivityTimeoutMs",
+    "  ) {",
+    "    terminate('inactivity_timeout');",
+    "  }",
+    "}, pollMs);",
+    ""
+  ].join("\n");
+}
+
+function parsedTerminalSupervisorPayload(
+  text: string,
+  prefix: string
+): Readonly<Record<string, unknown>> | null {
+  const index = text.lastIndexOf(prefix);
+  if (index < 0) {
+    return null;
+  }
+  const payloadStart = index + prefix.length;
+  const payloadEnd = text.indexOf("\n", payloadStart);
+  const rawPayload = text.slice(
+    payloadStart,
+    payloadEnd < 0 ? undefined : payloadEnd
+  ).trim();
+  try {
+    const parsed: unknown = JSON.parse(rawPayload);
+    return unknownRecord(parsed) ? parsed : null;
+  } catch {
+    return null;
+  }
 }
 
 function shortStableHash(value: string): string {
@@ -762,9 +958,22 @@ async function runPtyTerminalExecutor(
   );
   const terminalDir = join(request.archiveRoot, "terminal_session");
   const screenLogPath = join(terminalDir, "screenlog.0");
+  const supervisorScriptPath = join(terminalDir, "agent_supervisor.mjs");
+  const supervisorConfigPath = join(terminalDir, "agent_supervisor_request.json");
   const sentinelPrefix = `__ABG_PTY_EXIT_${terminalSessionId}:`;
   mkdirSync(terminalDir, { recursive: true });
   writeFileSync(screenLogPath, "", "utf8");
+  writeFileSync(supervisorScriptPath, ptyAgentSupervisorScriptSource(), "utf8");
+  writeJson(supervisorConfigPath, {
+    topology: "pty_terminal_agent_supervisor_local_spawn_worker",
+    command: request.command,
+    args: request.args,
+    cwd: request.cwd,
+    stdin: request.stdin ?? null,
+    timeoutMs: request.timeoutMs ?? null,
+    inactivityTimeoutMs: request.inactivityTimeoutMs ?? null,
+    terminationGraceMs: request.terminationGraceMs ?? null
+  });
   if (paths.terminalTranscript !== undefined) {
     writeFileSync(paths.terminalTranscript, "", "utf8");
   }
@@ -825,6 +1034,18 @@ async function runPtyTerminalExecutor(
     args: request.args,
     cwd: request.cwd
   });
+  writeEvent(state, "terminal_agent_supervisor_configured", {
+    terminalSessionId,
+    topology: "pty_terminal_agent_supervisor_local_spawn_worker",
+    supervisorScriptPath,
+    supervisorConfigPath,
+    workerCommand: request.command,
+    workerArgs: request.args,
+    workerCwd: request.cwd,
+    timeoutMs: request.timeoutMs ?? null,
+    inactivityTimeoutMs: request.inactivityTimeoutMs ?? null,
+    terminationGraceMs: request.terminationGraceMs ?? null
+  });
   writeEvent(state, "terminal_turn_started", {
     terminalSessionId,
     turnIndex: 0
@@ -851,8 +1072,9 @@ async function runPtyTerminalExecutor(
     shellProgram,
     "abg-pty-terminal",
     request.cwd,
-    request.command,
-    ...request.args
+    process.execPath,
+    supervisorScriptPath,
+    supervisorConfigPath
   ];
   const spawned = spawnSync(screenCommand, screenArgs, {
     cwd: terminalDir,
@@ -908,13 +1130,9 @@ async function runPtyTerminalExecutor(
   request.onProcessStarted?.({ pid: null, terminalSessionId });
 
   if (request.stdin !== null && request.stdin !== undefined) {
-    const sent = spawnSync(screenCommand, ["-S", terminalSessionId, "-X", "stuff", request.stdin], {
-      encoding: "utf8"
-    });
-    writeEvent(state, "terminal_input_written", {
+    writeEvent(state, "terminal_input_assigned_to_supervisor_child", {
       terminalSessionId,
-      byteLength: request.stdin.length,
-      status: sent.status
+      byteLength: request.stdin.length
     });
   }
 
@@ -927,6 +1145,9 @@ async function runPtyTerminalExecutor(
     let inactivityTimedOut = false;
     let settled = false;
     let finalStatus: number | null = null;
+    let supervisorSignal: "SIGTERM" | null = null;
+    let supervisorHardTimeoutObserved = false;
+    let supervisorInactivityObserved = false;
     let terminalExitObservedAt: number | null = null;
 
     const finish = (
@@ -1013,6 +1234,72 @@ async function runPtyTerminalExecutor(
         writeFileSync(paths.terminalTranscript, transcript, "utf8");
         lastTranscriptLength = transcript.length;
       }
+      const supervisorHardTimeout = parsedTerminalSupervisorPayload(
+        transcript,
+        PTY_AGENT_SUPERVISOR_HARD_TIMEOUT_PREFIX
+      );
+      if (supervisorHardTimeout !== null && !supervisorHardTimeoutObserved) {
+        supervisorHardTimeoutObserved = true;
+        timedOut = true;
+        supervisorSignal = "SIGTERM";
+        const elapsedSinceLastOutputMs =
+          numberFromRecord(supervisorHardTimeout, "elapsedSinceLastOutputMs") ?? 0;
+        writeEvent(state, "terminal_agent_supervisor_hard_timeout", {
+          terminalSessionId,
+          ...supervisorHardTimeout
+        });
+        writeEvent(state, "hard_timeout", {
+          timeoutMs: numberFromRecord(supervisorHardTimeout, "timeoutMs"),
+          elapsedSinceLastOutputMs,
+          terminalSessionId
+        });
+        writeEvent(state, "timeout_escalated", {
+          timeoutMs: numberFromRecord(supervisorHardTimeout, "timeoutMs"),
+          elapsedSinceLastOutputMs,
+          terminalSessionId
+        });
+        request.onTimeout?.({
+          timeoutMs: numberFromRecord(supervisorHardTimeout, "timeoutMs"),
+          elapsedSinceLastOutputMs
+        });
+        request.onSignalSent?.({ signal: "SIGTERM" });
+      }
+      const supervisorInactivityTimeout = parsedTerminalSupervisorPayload(
+        transcript,
+        PTY_AGENT_SUPERVISOR_INACTIVITY_TIMEOUT_PREFIX
+      );
+      if (
+        supervisorInactivityTimeout !== null &&
+        !supervisorInactivityObserved
+      ) {
+        supervisorInactivityObserved = true;
+        inactivityTimedOut = true;
+        supervisorSignal = "SIGTERM";
+        const elapsedSinceLastOutputMs =
+          numberFromRecord(supervisorInactivityTimeout, "elapsedSinceLastOutputMs") ?? 0;
+        writeEvent(state, "terminal_agent_supervisor_inactivity_timeout", {
+          terminalSessionId,
+          ...supervisorInactivityTimeout
+        });
+        writeEvent(state, "idle", {
+          inactivityTimeoutMs:
+            numberFromRecord(supervisorInactivityTimeout, "inactivityTimeoutMs"),
+          elapsedSinceLastOutputMs,
+          terminalSessionId
+        });
+        writeEvent(state, "inactivity_timeout_escalated", {
+          inactivityTimeoutMs:
+            numberFromRecord(supervisorInactivityTimeout, "inactivityTimeoutMs"),
+          elapsedSinceLastOutputMs,
+          terminalSessionId
+        });
+        request.onInactivityTimeout?.({
+          inactivityTimeoutMs:
+            numberFromRecord(supervisorInactivityTimeout, "inactivityTimeoutMs"),
+          elapsedSinceLastOutputMs
+        });
+        request.onSignalSent?.({ signal: "SIGTERM" });
+      }
       const sentinelStatus = statusFromTerminalSentinel(transcript, sentinelPrefix);
       const agentText = textBeforeTerminalSentinel(transcript, sentinelPrefix);
       if (agentText.length > lastAgentTextLength) {
@@ -1040,7 +1327,11 @@ async function runPtyTerminalExecutor(
       observeTranscript();
       const now = Date.now();
       if (finalStatus !== null) {
-        finish(finalStatus, null, null);
+        finish(
+          supervisorSignal === null ? finalStatus : null,
+          supervisorSignal,
+          null
+        );
         return;
       }
       if (!screenSessionLive(screenCommand, terminalSessionId)) {
@@ -1057,12 +1348,20 @@ async function runPtyTerminalExecutor(
             });
             finish(null, null, error, { kind: "lost_terminal", detail: error });
           } else {
-            finish(finalStatus, null, null);
+            finish(
+              supervisorSignal === null ? finalStatus : null,
+              supervisorSignal,
+              null
+            );
           }
         }
         return;
       }
-      if (request.timeoutMs !== undefined && now - startedAt >= request.timeoutMs) {
+      if (
+        request.timeoutMs !== undefined &&
+        now - startedAt >=
+          request.timeoutMs + PTY_AGENT_SUPERVISOR_DECISION_GRACE_MS
+      ) {
         timedOut = true;
         // hard_timeout is canonical; timeout_escalated remains for legacy traces.
         writeEvent(state, "hard_timeout", {
@@ -1090,7 +1389,8 @@ async function runPtyTerminalExecutor(
       }
       if (
         request.inactivityTimeoutMs !== undefined &&
-        now - lastOutputAt >= request.inactivityTimeoutMs
+        now - lastOutputAt >=
+          request.inactivityTimeoutMs + PTY_AGENT_SUPERVISOR_DECISION_GRACE_MS
       ) {
         inactivityTimedOut = true;
         // idle is canonical; inactivity_timeout_escalated remains for legacy traces.

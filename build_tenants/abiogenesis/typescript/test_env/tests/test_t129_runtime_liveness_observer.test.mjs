@@ -345,10 +345,11 @@ test("T-129 no activity past startup lease becomes retryable inactivity truth", 
   assert.equal(projection.disposition.reason, "startup_silence_exceeded");
 });
 
-test("T-129 admitted sensor activity resets an otherwise expired inactivity lease", () => {
+test("T-129 admitted worker progress resets an otherwise expired inactivity lease", () => {
   const { basis, invocation, baseEvents } = runtimeFixture();
   const staleEvents = [
     ...baseEvents,
+    processStartedEvent(invocation),
     constructActorProcessHeartbeatEvent({
       invocation,
       heartbeatIndex: 0,
@@ -362,10 +363,10 @@ test("T-129 admitted sensor activity resets an otherwise expired inactivity leas
   });
   const sensorEvent = explicitProbe({
     invocation,
-    source: "runtime_ledger_write",
-    activityRef: "ledger://t129/sensor-reset",
+    source: "structured_agent_stream",
+    activityRef: "structured://t129/worker-progress",
     elapsedMs: 5_200,
-    evidenceRefs: ["ledger://t129/sensor-reset"]
+    evidenceRefs: ["structured://t129/worker-progress"]
   });
   const resetEvents = [...staleEvents, sensorEvent];
   const resetProjection = deriveRuntimeLivenessObserverProjection({
@@ -379,7 +380,42 @@ test("T-129 admitted sensor activity resets an otherwise expired inactivity leas
   assert.equal(expiredProjection.disposition.action, "retry");
   assert.equal(resetProjection.leaseState, "active");
   assert.equal(resetProjection.disposition.action, "continue_waiting");
-  assert.equal(resetProjection.lastActivity.activityRef, "ledger://t129/sensor-reset");
+  assert.equal(resetProjection.lastActivity.activityRef, "structured://t129/worker-progress");
+});
+
+test("T-188 heartbeat-only liveness does not reset worker progress inactivity lease", () => {
+  const { basis, invocation, baseEvents } = runtimeFixture();
+  const heartbeat = constructActorProcessHeartbeatEvent({
+    invocation,
+    heartbeatIndex: 1,
+    elapsedMs: 7_000
+  });
+  const heartbeatProbe = explicitProbe({
+    invocation,
+    source: "actor_process_heartbeat",
+    activityRef: `actor-process-heartbeat:${invocation.actorInvocationId}:1`,
+    elapsedMs: 7_000,
+    evidenceRefs: [`event:${heartbeat.kind}:${invocation.actorInvocationId}:1`]
+  });
+  const events = [
+    ...baseEvents,
+    processStartedEvent(invocation),
+    heartbeat,
+    heartbeatProbe
+  ];
+  const projection = deriveRuntimeLivenessObserverProjection({
+    basis,
+    events,
+    probeContracts: probeContractsFor([heartbeatProbe]),
+    policy: policy({ nowElapsedMs: 7_500, retryBudgetRemaining: 1 })
+  });
+
+  assert.equal(projection.lastActivity.source, "actor_process_heartbeat");
+  assert.equal(projection.leaseState, "inactivity_exceeded");
+  assert.equal(projection.disposition.action, "retry");
+  assert.equal(projection.disposition.reason, "inactivity_lease_exceeded");
+  assert.deepEqual(projection.activeSystemRefs, []);
+  assert.equal(projection.inactiveSystemRefs.includes(invocation.actorInvocationId), true);
 });
 
 test("T-129 legacy activity without elapsed time cannot suppress inactivity forever", () => {
