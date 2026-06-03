@@ -165,6 +165,66 @@ test("T-098 retry frontier: next F_P input receives full prior failure frontier"
   );
 });
 
+test("T-098 retry frontier: zero-attempt stop is evidence, not attempt coverage", () => {
+  const basis = buildThreeStageBasis({
+    defaultRegime: "F_P",
+    dispatchRef: "dispatch://t098-zero-attempt-stop"
+  });
+  const events = [];
+  let dispatchCount = 0;
+  const fpDispatch = Object.freeze({
+    contract: fpDispatchContract("plugin://test/t098-zero-attempt-stop"),
+    dispatch: (input) => {
+      dispatchCount += 1;
+      return constructFpDispatchOutcome({
+        status: "blocked",
+        resultRef: `result://t098-zero-attempt/${encodeURIComponent(input.edge)}`,
+        attachedResultArtifact: {
+          kind: "runtime_failure",
+          failureClass: "runtime_failure",
+          detail: "worker failed before an admitted retry attempt opened"
+        },
+        evidenceRefs: [input.sourceProjectionRef],
+        reason: "worker failed before an admitted retry attempt opened"
+      });
+    }
+  });
+
+  const result = runEngineIterate({
+    basis,
+    eventSink: (event) => events.push(event),
+    plugins: { fpDispatch },
+    maxAttachedFpAttempts: 1
+  });
+
+  assert.equal(dispatchCount, 1);
+  assert.equal(result.transition.kind, "terminal");
+  assert.equal(result.transition.terminalKind, "gap_stop");
+  const stopped = events.find((event) => event.kind === "retry_attempt_stopped");
+  assert(stopped);
+  assert.equal(stopped.observedAttemptCount, 0);
+
+  const frontier = deriveRetryFrontierProjection({
+    basis,
+    runtimeProjection: result.projection,
+    events: result.replayEvents,
+    vectorIndex: 0
+  });
+
+  assertFullRetryFrontierProjection({
+    projection: frontier,
+    requiredReasonClasses: ["retry_stopped"]
+  });
+  assert.equal(frontier.attemptCount, 0);
+  assert.equal(frontier.latestAttemptIndex, null);
+  assert.deepStrictEqual(
+    frontier.rows
+      .filter((row) => row.reasonClass === "retry_stopped")
+      .map((row) => row.attemptIndex),
+    [null]
+  );
+});
+
 test("T-098 negative: latest-only objects are not full retry frontier projections", () => {
   assert.throws(
     () =>

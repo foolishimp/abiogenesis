@@ -160,6 +160,12 @@ function priorManifestIdForRetryRun(
   return attempt?.priorManifestId ?? null;
 }
 
+function observedRetryAttemptCoverageIndex(
+  observedAttemptCount: number
+): number | null {
+  return observedAttemptCount > 0 ? observedAttemptCount : null;
+}
+
 function makeRow(input: {
   readonly basis: ExecutionBasis;
   readonly ordinal: number;
@@ -496,7 +502,9 @@ export function deriveRetryFrontierProjection(input: {
               ordinal: rows.length,
               vectorIndex: input.vectorIndex,
               edge,
-              attemptIndex: event.observedAttemptCount,
+              attemptIndex: observedRetryAttemptCoverageIndex(
+                event.observedAttemptCount
+              ),
               retryRunId: null,
               manifestId: null,
               priorManifestId: null,
@@ -517,7 +525,9 @@ export function deriveRetryFrontierProjection(input: {
               ordinal: rows.length,
               vectorIndex: input.vectorIndex,
               edge,
-              attemptIndex: event.observedAttemptCount,
+              attemptIndex: observedRetryAttemptCoverageIndex(
+                event.observedAttemptCount
+              ),
               retryRunId: null,
               manifestId: null,
               priorManifestId: null,
@@ -911,7 +921,10 @@ export function assertFullRetryFrontierProjection(input: {
     ...new Set(
       input.projection.rows
         .map((row) => row.attemptIndex)
-        .filter((attemptIndex): attemptIndex is number => attemptIndex !== null)
+        .filter(
+          (attemptIndex): attemptIndex is number =>
+            attemptIndex !== null && attemptIndex > 0
+        )
     )
   ].sort((left, right) => left - right);
   if (input.projection.attemptCount === 0) {

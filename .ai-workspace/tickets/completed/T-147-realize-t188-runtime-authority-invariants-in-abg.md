@@ -255,6 +255,13 @@ Required work:
   construction and the current-vector assurance fold. `EnginePluginInput` now
   carries replay-derived `outputAuthorityProjections`, and internal closure
   blocks when the selected target-carrier output is not admitted.
+- Follow-up RC9 fix from the T-188 data_mapper-lite proof: a
+  `retry_attempt_stopped` or `retry_attempt_escalated` event with
+  `observedAttemptCount=0` is admitted retry evidence, but it is not retry
+  attempt coverage. Retry attempts are one-based; zero means no retry attempt
+  opened. `RetryFrontierProjection` now records those stop/escalation rows with
+  `attemptIndex=null`, and full-frontier assertion ignores nonpositive attempt
+  indexes.
 
 ## Current Verification
 
@@ -262,3 +269,7 @@ Required work:
 - `node --test test_env/tests/test_t099_fp_stage_carriers.test.mjs test_env/tests/test_t128_construction_runner.test.mjs` -> 8/8 passing.
 - `npm run build:semantic && node --test test_env/tests/test_t084_attached_fp_worker_loop.test.mjs test_env/tests/test_t098_retry_frontier_projection.test.mjs test_env/tests/test_t095_payload_ledger_unit.test.mjs test_env/tests/test_t133_target_carrier_contract.test.mjs test_env/tests/test_t146_composed_stage_set_phase.test.mjs test_env/tests/test_t147_runtime_authority_invariants.test.mjs` -> 54/54 passing.
 - `npm run test:semantic` -> 654/654 passing.
+- `npm run build:semantic && node --test test_env/tests/test_t098_retry_frontier_projection.test.mjs` -> 3/3 passing with the zero-attempt stop regression.
+- 2026-06-03 RC9 qualification: `npm run lint:semantic`,
+  `npm run lint:test-harness`, `npm run test:semantic`, `npm pack --dry-run`,
+  and `git diff --check` all passed before release-source commit.
