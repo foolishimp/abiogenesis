@@ -136,6 +136,11 @@ import {
 } from "../contracts/retry_repair.js";
 import { deriveFreshRetryContextProjection } from "../contracts/retry_frontier.js";
 import {
+  deriveRuntimeContinuationTransitionProjection,
+  terminalTransitionForRuntimeContinuationProjection,
+  type RuntimeContinuationTransitionProjection
+} from "../contracts/continuation_transition.js";
+import {
   constructAgenticBackendProgressProfile,
   constructTraversalAttemptDispatchedEvent,
   constructTraversalAttemptEnvelopeDerivedEvent,
@@ -691,6 +696,7 @@ type BlockedFpNoArtifactContinuation =
       readonly summary: TraversalContinuationSummary;
       readonly carrier: TraversalNonProgressCarrier;
       readonly action: TraversalContinuationActionProjection;
+      readonly transitionProjection: RuntimeContinuationTransitionProjection;
       readonly retryEvents: readonly RuntimeEvent[];
     }
   | {
@@ -698,6 +704,7 @@ type BlockedFpNoArtifactContinuation =
       readonly summary: TraversalContinuationSummary;
       readonly carrier: TraversalNonProgressCarrier;
       readonly action: TraversalContinuationActionProjection;
+      readonly transitionProjection: RuntimeContinuationTransitionProjection;
       readonly transition: TerminalTransition;
     };
 
@@ -727,8 +734,14 @@ function deriveBlockedFpNoArtifactContinuation(input: {
     projection: action,
     summary
   });
+  const transitionProjection = deriveRuntimeContinuationTransitionProjection({
+    basis: input.basis,
+    runtimeProjection: input.projection,
+    vectorIndex: input.transition.vectorIndex,
+    traversalContinuationAction: action
+  });
 
-  if (summary.action === "retry_same_edge") {
+  if (transitionProjection.disposition === "retry_same_edge") {
     const retryContext = deriveFreshRetryContextProjection({
       basis: input.basis,
       runtimeProjection: input.projection,
@@ -769,22 +782,27 @@ function deriveBlockedFpNoArtifactContinuation(input: {
       summary,
       carrier,
       action,
+      transitionProjection,
       retryEvents: runtimeEventsForRetryRepairDecision(retryDecision)
     });
   }
 
-  const terminalKind: TerminalTransition["terminalKind"] =
-    summary.action === "yield_same_edge_continuation" ? "yielded" : "gap_stop";
+  const transition = terminalTransitionForRuntimeContinuationProjection({
+    basis: input.basis,
+    projection: transitionProjection
+  });
+  if (transition === null) {
+    throw new TypeError(
+      "Runtime continuation transition produced no terminal for non-retry disposition"
+    );
+  }
   return Object.freeze({
     kind: "terminal",
     summary,
     carrier,
     action,
-    transition: terminalTransition(
-      input.basis,
-      terminalKind,
-      `traversal_continuation:${summary.action}:${summary.reason}`
-    )
+    transitionProjection,
+    transition
   });
 }
 

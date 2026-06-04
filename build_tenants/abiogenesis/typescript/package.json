@@ -1,6 +1,6 @@
 {
   "name": "@abiogenesis/typescript-tenant",
-  "version": "3.9.0-rc.9",
+  "version": "3.9.0-rc.10",
   "private": true,
   "type": "module",
   "types": "./build/semantic/code/src/index.d.ts",
@@ -214,6 +214,7 @@
     "test:t145": "npm run build:semantic && node --test test_env/tests/test_t145_evaluation_set_phase.test.mjs",
     "test:t146": "npm run build:semantic && node --test test_env/tests/test_t146_composed_stage_set_phase.test.mjs",
     "test:t147": "npm run build:semantic && node --test test_env/tests/test_t147_runtime_authority_invariants.test.mjs",
+    "test:t148": "npm run build:semantic && node --test test_env/tests/test_t148_runtime_continuation_transition.test.mjs",
     "test:t125:live": "npm run build:semantic && node --test test_env/live/test_t125_temporal_and_non_temporal_gtl_live.test.mjs",
     "test:t125": "npm run test:t125:live"
   },

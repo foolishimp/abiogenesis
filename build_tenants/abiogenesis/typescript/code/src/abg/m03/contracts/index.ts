@@ -167,6 +167,20 @@ export type {
   ScheduledSliceAssessedRuntimeEvent,
   ScheduledSliceDispatchedRuntimeEvent
 } from "./carriers.js";
+
+export {
+  RUNTIME_CONTINUATION_TRANSITION_DISPOSITION_VALUES,
+  RUNTIME_CONTINUATION_TRANSITION_REASON_VALUES,
+  deriveRuntimeContinuationTransitionProjection,
+  terminalTransitionForRuntimeContinuationProjection
+} from "./continuation_transition.js";
+
+export type {
+  RuntimeContinuationTransitionDisposition,
+  RuntimeContinuationTransitionInput,
+  RuntimeContinuationTransitionProjection,
+  RuntimeContinuationTransitionReason
+} from "./continuation_transition.js";
 export {
   COMPUTE_BASIS_FAILURE_CLASS_VALUES,
   FD_AUTHORITY_SEVERITY_CLASS_VALUES,
