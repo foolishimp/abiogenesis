@@ -15,6 +15,7 @@ import type {
   RuntimeEvent,
   RuntimeExternalInterruptionSource
 } from "./carriers.js";
+import { deriveIterationOutcomeFromRows } from "./iteration_state_action.js";
 import {
   assertVectorIndexInRange,
   freezeStringArray
@@ -709,6 +710,68 @@ function dispositionFor(input: {
 }): RuntimeInvocationDisposition {
   const evidenceRefs = evidenceForDisposition(input);
   const retryBudgetRemaining = input.policy.retryBudgetRemaining;
+  const vectorIndex =
+    input.lastActivity?.vectorIndex ??
+    input.lastArtifactActivity?.vectorIndex ??
+    0;
+  const fold =
+    input.lastArtifactActivity !== null && input.leaseState !== "active"
+      ? deriveIterationOutcomeFromRows({
+          vectorIndex,
+          runtimeRows: [
+            {
+              boundary: "transport",
+              status: "failed",
+              reason: "runtime_failure",
+              retryable: false,
+              evidenceRefs
+            }
+          ]
+        })
+      : input.leaseState === "externally_interrupted" ||
+          input.leaseState === "hard_safety_cap_requires_interruption_event"
+        ? deriveIterationOutcomeFromRows({
+            vectorIndex,
+            runtimeRows: [
+              {
+                boundary: "transport",
+                status: "failed",
+                reason: "runtime_failure",
+                retryable: false,
+                evidenceRefs
+              }
+            ]
+          })
+        : input.leaseState === "startup_silence_exceeded" ||
+            input.leaseState === "inactivity_exceeded"
+          ? deriveIterationOutcomeFromRows({
+              vectorIndex,
+              runtimeRows: [
+                {
+                  boundary: "liveness",
+                  status: "failed",
+                  reason:
+                    retryBudgetRemaining !== null && retryBudgetRemaining <= 0
+                      ? "retry_exhausted"
+                      : "runtime_failure",
+                  retryable:
+                    retryBudgetRemaining === null || retryBudgetRemaining > 0,
+                  evidenceRefs
+                }
+              ]
+            })
+          : deriveIterationOutcomeFromRows({
+              vectorIndex,
+              runtimeRows: [
+                {
+                  boundary: "liveness",
+                  status: "progressing",
+                  reason: null,
+                  retryable: false,
+                  evidenceRefs
+                }
+              ]
+            });
   const refBase = [
     input.basis.id,
     input.policy.policyRef,
@@ -726,6 +789,9 @@ function dispositionFor(input: {
     requiresExternalInterruptionEvent: input.requiresExternalInterruptionEvent
   };
   if (input.lastArtifactActivity !== null && input.leaseState !== "active") {
+    if (fold.kind !== "terminate" || fold.disposition !== "blocked") {
+      throw new TypeError("Runtime liveness archive inspection did not fold to block");
+    }
     return Object.freeze({
       ...common,
       action: "inspect_archive",
@@ -733,6 +799,9 @@ function dispositionFor(input: {
     });
   }
   if (input.leaseState === "externally_interrupted") {
+    if (fold.kind !== "terminate" || fold.disposition !== "blocked") {
+      throw new TypeError("Runtime liveness interruption did not fold to block");
+    }
     return Object.freeze({
       ...common,
       action: "block",
@@ -740,6 +809,9 @@ function dispositionFor(input: {
     });
   }
   if (input.leaseState === "hard_safety_cap_requires_interruption_event") {
+    if (fold.kind !== "terminate" || fold.disposition !== "blocked") {
+      throw new TypeError("Runtime liveness hard cap did not fold to block");
+    }
     return Object.freeze({
       ...common,
       action: "controlled_terminate",
@@ -751,11 +823,17 @@ function dispositionFor(input: {
     input.leaseState === "inactivity_exceeded"
   ) {
     if (retryBudgetRemaining !== null && retryBudgetRemaining <= 0) {
+      if (fold.kind !== "terminate" || fold.disposition !== "blocked") {
+        throw new TypeError("Runtime liveness retry exhaustion did not fold to block");
+      }
       return Object.freeze({
         ...common,
         action: "block",
         reason: "retry_budget_exhausted_before_dispatch"
       });
+    }
+    if (fold.kind !== "redispatch") {
+      throw new TypeError("Runtime liveness retryable lease did not fold to retry");
     }
     return Object.freeze({
       ...common,
@@ -765,6 +843,9 @@ function dispositionFor(input: {
           ? "startup_silence_exceeded"
           : "inactivity_lease_exceeded"
     });
+  }
+  if (fold.kind !== "suspend") {
+    throw new TypeError("Runtime liveness active lease did not fold to suspend");
   }
   return Object.freeze({
     ...common,

@@ -20,11 +20,13 @@ related engine behavior.
 - event-sourced payload envelope, admission, and ledger projection law
 - replay-stable ABG.Fn regime composition grammar
 - correction, supersession, and self-hosting behavior
+- one replay-derived active-iteration outcome algebra
 
 ## Families
 
 - `REQ-R-ABG3-EVENTS.md`
 - `REQ-R-ABG3-PROJECTION.md`
+- `REQ-R-ABG3-ITERATION.md`
 - `REQ-R-ABG3-SAGA-FRONTIER.md`
 - `REQ-R-ABG3-BINDING.md`
 - `REQ-R-ABG3-WORKER.md`

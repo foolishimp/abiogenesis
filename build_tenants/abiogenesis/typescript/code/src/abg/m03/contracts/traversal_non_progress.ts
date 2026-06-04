@@ -3,6 +3,7 @@ import type {
   RuntimeAggregateProjection,
   RuntimeFailureClass
 } from "./carriers.js";
+import { deriveIterationOutcomeFromRows } from "./iteration_state_action.js";
 import { countRetryAttemptsForVector } from "./projection.js";
 import { RETRYABLE_RUNTIME_FAILURE_CLASSES } from "./workspace_zoom_foldback.js";
 import {
@@ -584,42 +585,125 @@ export function deriveTraversalContinuationActionProjection(
     maxAttempts: input.maxAttempts,
     stationary: input.stationary ?? false
   });
-  let action: TraversalContinuationAction;
-  let retryEligible = false;
-  let terminal = true;
-  let reason = "traversal_non_progress";
-
+  const evidenceRefs = uniqueNonEmptyStrings([
+    input.carrier.carrierRef,
+    ...input.carrier.evidenceRefs
+  ]);
+  const sourceProjectionRefs = uniqueNonEmptyStrings([
+    input.carrier.carrierRef
+  ]);
+  let inspectArchive = false;
+  let inspectReason: string | null = null;
+  let policyReprice = false;
+  const satisfactionRows = [];
+  const runtimeRows = [];
   if (input.runtimePolicyContradiction === true) {
-    action = "reprice_runtime_policy";
-    reason = "runtime_policy_contradiction";
+    policyReprice = true;
+    satisfactionRows.push({
+      authorityRef: input.carrier.carrierRef,
+      status: "unsatisfied" as const,
+      reason: "missing_authority" as const,
+      lifecycle: "active" as const,
+      evidenceRefs,
+      sourceProjectionRefs,
+      reEntryPoint: "requirements" as const
+    });
   } else if (!input.carrier.processEvidenceComplete) {
-    action = "inspect_runtime_archive";
-    reason = "missing_process_evidence";
+    inspectArchive = true;
+    inspectReason = "missing_process_evidence";
+    runtimeRows.push({
+      boundary: "transport" as const,
+      status: "failed" as const,
+      reason: "runtime_failure" as const,
+      retryable: false,
+      evidenceRefs,
+      sourceProjectionRefs
+    });
   } else if (input.carrier.classification === "progress_without_result") {
-    action = "yield_same_edge_continuation";
-    terminal = false;
-    reason = "progress_observed_without_result";
+    runtimeRows.push({
+      boundary: "worker" as const,
+      status: "progressing" as const,
+      reason: null,
+      retryable: false,
+      evidenceRefs,
+      sourceProjectionRefs
+    });
   } else if (
     input.carrier.classification === "incomplete_runtime_archive"
   ) {
-    action = "inspect_runtime_archive";
-    reason = "process_progress_requires_archive_inspection";
+    inspectArchive = true;
+    inspectReason = "process_progress_requires_archive_inspection";
+    runtimeRows.push({
+      boundary: "transport" as const,
+      status: "failed" as const,
+      reason: "runtime_failure" as const,
+      retryable: false,
+      evidenceRefs,
+      sourceProjectionRefs
+    });
   } else if (
     !runtimeFailureIsRetryable({
       runtimeFailureClass: input.carrier.runtimeFailureClass,
       retryableRuntimeFailureClasses
     })
   ) {
-    action = "blocked";
-    reason = "runtime_failure_class_not_retryable";
+    runtimeRows.push({
+      boundary: "worker" as const,
+      status: "failed" as const,
+      reason: "runtime_failure" as const,
+      retryable: false,
+      evidenceRefs,
+      sourceProjectionRefs
+    });
   } else if (budget.stationary || budget.observedAttemptCount >= budget.maxAttempts) {
-    action = "retry_exhausted";
-    reason = budget.stationary ? "stationary_retry" : "retry_budget_exhausted";
+    runtimeRows.push({
+      boundary: "worker" as const,
+      status: "failed" as const,
+      reason: "retry_exhausted" as const,
+      retryable: false,
+      evidenceRefs,
+      sourceProjectionRefs
+    });
   } else {
+    runtimeRows.push({
+      boundary: "worker" as const,
+      status: "failed" as const,
+      reason: "runtime_failure" as const,
+      retryable: true,
+      evidenceRefs,
+      sourceProjectionRefs
+    });
+  }
+  const outcome = deriveIterationOutcomeFromRows({
+    vectorIndex: input.carrier.vectorIndex,
+    satisfactionRows,
+    runtimeRows
+  });
+  let action: TraversalContinuationAction;
+  let retryEligible = false;
+  let terminal = true;
+  let reason = "traversal_non_progress";
+  if (outcome.kind === "suspend") {
+    action = "yield_same_edge_continuation";
+    terminal = false;
+    reason = "progress_observed_without_result";
+  } else if (outcome.kind === "redispatch") {
     action = "retry_same_edge";
     retryEligible = true;
     terminal = false;
     reason = "retryable_traversal_non_progress";
+  } else if (policyReprice && outcome.reEntryPoint !== null) {
+    action = "reprice_runtime_policy";
+    reason = "runtime_policy_contradiction";
+  } else if (inspectArchive) {
+    action = "inspect_runtime_archive";
+    reason = inspectReason ?? "missing_process_evidence";
+  } else if (outcome.reason === "retry_exhausted") {
+    action = "retry_exhausted";
+    reason = budget.stationary ? "stationary_retry" : "retry_budget_exhausted";
+  } else {
+    action = "blocked";
+    reason = "runtime_failure_class_not_retryable";
   }
 
   const reasonRefs = uniqueNonEmptyStrings([

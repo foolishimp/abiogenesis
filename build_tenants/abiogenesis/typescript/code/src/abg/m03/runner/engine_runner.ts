@@ -40,8 +40,9 @@ import {
 import { assertCanonicalRuntimeEventSequence } from "../contracts/event_admission.js";
 import {
   deriveAdvancementTransition,
+  deriveIterationOutcomeFromRows,
   runtimeEventsForIterationDecision
-} from "../contracts/iteration.js";
+} from "../contracts/iteration_state_action.js";
 import {
   constructGraphReentryAppliedEvent,
   constructGraphReentryPlannedEvent,
@@ -643,8 +644,24 @@ function mustExitAfterBoundedAttempt(
 
 function boundedAttemptExitTransition(input: {
   readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
   readonly reason: string | null;
 }): TerminalTransition {
+  const outcome = deriveIterationOutcomeFromRows({
+    vectorIndex: input.vectorIndex,
+    runtimeRows: [
+      {
+        boundary: "worker",
+        status: "failed",
+        reason: "retry_exhausted",
+        retryable: false,
+        evidenceRefs: input.reason === null ? [] : [input.reason]
+      }
+    ]
+  });
+  if (outcome.kind !== "terminate" || outcome.disposition !== "blocked") {
+    throw new TypeError("Bounded attempt exit drifted from iteration fold");
+  }
   return terminalTransition(
     input.basis,
     "gap_stop",
@@ -817,9 +834,46 @@ function fdEvaluationEventStatus(
 
 function fdAuthorityTerminalTransition(input: {
   readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
   readonly outcome: FdEvaluationOutcome;
 }): TerminalTransition | null {
-  if (input.outcome.routingDecision === "block") {
+  const reasonRefs = [
+    input.outcome.reason ?? null,
+    input.outcome.severityClass ?? null
+  ].filter((ref): ref is string => ref !== null && ref.length > 0);
+  const outcome =
+    input.outcome.routingDecision === "block"
+      ? deriveIterationOutcomeFromRows({
+          vectorIndex: input.vectorIndex,
+          runtimeRows: [
+            {
+              boundary: "worker",
+              status: "failed",
+              reason: "runtime_failure",
+              retryable: false,
+              evidenceRefs: reasonRefs
+            }
+          ]
+        })
+      : input.outcome.routingDecision === "route_to_fp"
+        ? deriveIterationOutcomeFromRows({
+            vectorIndex: input.vectorIndex,
+            runtimeRows: [
+              {
+                boundary: "worker",
+                status: "handoff",
+                reason: null,
+                retryable: false,
+                evidenceRefs: reasonRefs
+              }
+            ]
+          })
+        : null;
+  if (
+    outcome !== null &&
+    outcome.kind === "terminate" &&
+    outcome.disposition === "blocked"
+  ) {
     return terminalTransition(
       input.basis,
       "gap_stop",
@@ -827,7 +881,7 @@ function fdAuthorityTerminalTransition(input: {
         `fd authority blocked traversal: ${input.outcome.severityClass ?? "unknown"}`
     );
   }
-  if (input.outcome.routingDecision === "route_to_fp") {
+  if (outcome !== null && outcome.kind === "suspend") {
     return terminalTransition(
       input.basis,
       "yielded",
@@ -2692,6 +2746,7 @@ function* runEngineIterateMachine(input: {
         );
         const fdTerminal = fdAuthorityTerminalTransition({
           basis: request.basis,
+          vectorIndex: transition.vectorIndex,
           outcome
         });
         if (fdTerminal !== null) {
@@ -4157,6 +4212,7 @@ function* runEngineIterateMachine(input: {
           ) {
             const bounded = boundedAttemptExitTransition({
               basis: request.basis,
+              vectorIndex: transition.vectorIndex,
               reason: attachedDecision.reason
             });
             eventState = emitRunnerEvents(eventState, constructTerminalReachedEvent(bounded));
@@ -4219,6 +4275,7 @@ function* runEngineIterateMachine(input: {
             if (mustExitAfterBoundedAttempt(modulatedAttempt)) {
               const bounded = boundedAttemptExitTransition({
                 basis: request.basis,
+                vectorIndex: transition.vectorIndex,
                 reason: continuation.summary.reason
               });
               eventState = emitRunnerEvents(eventState, constructTerminalReachedEvent(bounded));

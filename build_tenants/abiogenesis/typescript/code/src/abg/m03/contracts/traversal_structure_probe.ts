@@ -14,7 +14,7 @@ import {
   deriveAdvancementTransition,
   deriveIterationAdvanceDecision,
   runtimeEventsForIterationDecision
-} from "./iteration.js";
+} from "./iteration_state_action.js";
 import { deriveRuntimeAggregateProjection, sourceProjectionRef } from "./projection.js";
 import type { Evaluator, GraphVector, Node, Operator, Rule } from "../../../gtl/m01/contracts/carriers.js";
 

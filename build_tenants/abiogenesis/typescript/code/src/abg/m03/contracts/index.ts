@@ -182,6 +182,41 @@ export type {
   RuntimeContinuationTransitionReason
 } from "./continuation_transition.js";
 export {
+  ITERATION_EVIDENCE_LIFECYCLE_VALUES,
+  ITERATION_REASON_VALUES,
+  ITERATION_RUNTIME_BOUNDARY_VALUES,
+  ITERATION_RUNTIME_STATUS_VALUES,
+  ITERATION_SATISFACTION_STATUS_VALUES,
+  ITERATION_SUSPEND_REASON_VALUES,
+  ITERATION_TERMINATE_DISPOSITION_VALUES,
+  deriveAdvancementTransition,
+  deriveIterationAdvanceDecision,
+  deriveIterationOutcomeFromRows,
+  deriveIterationOutcomeProjection,
+  deriveIterationRowProjection,
+  iterationReasonToReEntryPoint,
+  runtimeEventsForIterationDecision
+} from "./iteration_state_action.js";
+export type {
+  IterationBindingGuardRow,
+  IterationEvidenceLifecycle,
+  IterationOutcome,
+  IterationOutcomeFoldInput,
+  IterationOutcomeProjection,
+  IterationOutcomeProjectionInput,
+  IterationReason,
+  IterationRedispatchTarget,
+  IterationRedispatchTargetRow,
+  IterationRowProjection,
+  IterationRuntimeBoundary,
+  IterationRuntimeRow,
+  IterationRuntimeStatus,
+  IterationSatisfactionRow,
+  IterationSatisfactionStatus,
+  IterationSuspendReason,
+  IterationTerminateDisposition
+} from "./iteration_state_action.js";
+export {
   COMPUTE_BASIS_FAILURE_CLASS_VALUES,
   FD_AUTHORITY_SEVERITY_CLASS_VALUES,
   FD_PRESSURE_ROUTING_DECISION_VALUES,
@@ -600,11 +635,6 @@ export type {
   WriteTerritoryConflictProjection,
   WriteTerritoryConflictRow
 } from "./saga_frontier.js";
-export {
-  deriveAdvancementTransition,
-  deriveIterationAdvanceDecision,
-  runtimeEventsForIterationDecision
-} from "./iteration.js";
 export {
   deriveEffectiveVectorRegime,
   VECTOR_RUNTIME_REGIME_DECLARATION_KEY

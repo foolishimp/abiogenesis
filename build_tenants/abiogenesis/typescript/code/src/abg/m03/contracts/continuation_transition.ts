@@ -19,6 +19,13 @@ import {
   graphCallIdForBasis,
   vectorEdge
 } from "./runtime_support.js";
+import {
+  deriveIterationOutcomeProjection,
+  type IterationOutcomeProjection,
+  type IterationRedispatchTargetRow,
+  type IterationRuntimeRow,
+  type IterationSatisfactionRow
+} from "./iteration_state_action.js";
 
 export const RUNTIME_CONTINUATION_TRANSITION_DISPOSITION_VALUES = Object.freeze([
   "close",
@@ -285,6 +292,421 @@ function assertTraversalActionScope(input: {
   }
 }
 
+function satisfactionRow(input: {
+  readonly authorityRef: string;
+  readonly status: IterationSatisfactionRow["status"];
+  readonly reason: IterationSatisfactionRow["reason"];
+  readonly evidenceRefs: readonly string[];
+  readonly sourceProjectionRefs?: readonly string[] | undefined;
+  readonly reEntryPoint?: IterationSatisfactionRow["reEntryPoint"] | undefined;
+}): IterationSatisfactionRow {
+  return Object.freeze({
+    authorityRef: input.authorityRef,
+    status: input.status,
+    reason: input.reason,
+    lifecycle: "active" as const,
+    evidenceRefs: uniqueStrings(input.evidenceRefs),
+    sourceProjectionRefs: uniqueStrings(input.sourceProjectionRefs ?? Object.freeze([])),
+    reEntryPoint: input.reEntryPoint ?? null
+  });
+}
+
+function runtimeRow(input: {
+  readonly boundary: IterationRuntimeRow["boundary"];
+  readonly status: IterationRuntimeRow["status"];
+  readonly reason: IterationRuntimeRow["reason"];
+  readonly retryable: boolean;
+  readonly evidenceRefs?: readonly string[] | undefined;
+  readonly sourceProjectionRefs?: readonly string[] | undefined;
+}): IterationRuntimeRow {
+  return Object.freeze({
+    boundary: input.boundary,
+    status: input.status,
+    reason: input.reason,
+    retryable: input.retryable,
+    evidenceRefs: uniqueStrings(input.evidenceRefs ?? Object.freeze([])),
+    sourceProjectionRefs: uniqueStrings(input.sourceProjectionRefs ?? Object.freeze([]))
+  });
+}
+
+function redispatchTargetRow(input: {
+  readonly vectorIndex: number;
+  readonly reason: IterationRedispatchTargetRow["reason"];
+  readonly evidenceRefs?: readonly string[] | undefined;
+  readonly sourceProjectionRefs?: readonly string[] | undefined;
+}): IterationRedispatchTargetRow {
+  return Object.freeze({
+    target: Object.freeze({
+      reEntryPoint: "realization" as const,
+      targetVectorIndex: input.vectorIndex
+    }),
+    reason: input.reason,
+    retryable: true,
+    provenanceChangeClass: "realization_refactor" as const,
+    evidenceRefs: uniqueStrings(input.evidenceRefs ?? Object.freeze([])),
+    sourceProjectionRefs: uniqueStrings(input.sourceProjectionRefs ?? Object.freeze([]))
+  });
+}
+
+function rowsForAssuranceDecision(
+  decision: AssuranceClosureDecision | null | undefined
+): readonly IterationSatisfactionRow[] {
+  if (decision === undefined || decision === null) {
+    return Object.freeze([]);
+  }
+  const refs = assuranceRefs(decision);
+  switch (decision.decision) {
+    case "block":
+      return Object.freeze([
+        satisfactionRow({
+          authorityRef: decision.projectionRef,
+          status: "unsatisfied",
+          reason: "unsupported_state",
+          evidenceRefs: [decision.reason, ...refs],
+          sourceProjectionRefs: [decision.projectionRef]
+        })
+      ]);
+    case "reprice":
+      return Object.freeze([
+        satisfactionRow({
+          authorityRef: decision.projectionRef,
+          status: "unsatisfied",
+          reason: "missing_authority",
+          evidenceRefs: [decision.reason, ...refs],
+          sourceProjectionRefs: [decision.projectionRef],
+          reEntryPoint: "requirements"
+        })
+      ]);
+    case "qualified_defer":
+      return Object.freeze([
+        satisfactionRow({
+          authorityRef: decision.projectionRef,
+          status: "deferred",
+          reason: null,
+          evidenceRefs: [decision.reason, ...refs],
+          sourceProjectionRefs: [decision.projectionRef]
+        })
+      ]);
+    case "retry":
+      return Object.freeze([
+        satisfactionRow({
+          authorityRef: decision.projectionRef,
+          status: "unsatisfied",
+          reason: "missing_evidence",
+          evidenceRefs: [decision.reason, ...refs],
+          sourceProjectionRefs: [decision.projectionRef]
+        })
+      ]);
+    case "close":
+      return Object.freeze([
+        satisfactionRow({
+          authorityRef: decision.projectionRef,
+          status: "satisfied",
+          reason: null,
+          evidenceRefs: [decision.reason, ...refs],
+          sourceProjectionRefs: [decision.projectionRef]
+        })
+      ]);
+    default: {
+      const exhaustive: never = decision.decision;
+      throw new TypeError(
+        `Unsupported assurance closure decision ${JSON.stringify(exhaustive)}`
+      );
+    }
+  }
+}
+
+function rowsForTraversalAction(input: {
+  readonly vectorIndex: number;
+  readonly action: TraversalContinuationActionProjection | null | undefined;
+}): {
+  readonly runtimeRows: readonly IterationRuntimeRow[];
+  readonly redispatchTargetRows: readonly IterationRedispatchTargetRow[];
+} {
+  const action = input.action;
+  if (action === undefined || action === null) {
+    return Object.freeze({
+      runtimeRows: Object.freeze([]),
+      redispatchTargetRows: Object.freeze([])
+    });
+  }
+  const refs = traversalActionRefs(action);
+  switch (action.action) {
+    case "inspect_runtime_archive":
+      return Object.freeze({
+        runtimeRows: Object.freeze([
+          runtimeRow({
+            boundary: "worker",
+            status: "failed",
+            reason: "runtime_failure",
+            retryable: false,
+            evidenceRefs: [action.reason, ...action.evidenceRefs, ...refs],
+            sourceProjectionRefs: [action.projectionRef]
+          })
+        ]),
+        redispatchTargetRows: Object.freeze([])
+      });
+    case "retry_exhausted":
+      return Object.freeze({
+        runtimeRows: Object.freeze([
+          runtimeRow({
+            boundary: "worker",
+            status: "failed",
+            reason: "retry_exhausted",
+            retryable: false,
+            evidenceRefs: [action.reason, ...action.evidenceRefs, ...refs],
+            sourceProjectionRefs: [action.projectionRef]
+          })
+        ]),
+        redispatchTargetRows: Object.freeze([])
+      });
+    case "blocked":
+      return Object.freeze({
+        runtimeRows: Object.freeze([
+          runtimeRow({
+            boundary: "worker",
+            status: "failed",
+            reason: "runtime_failure",
+            retryable: false,
+            evidenceRefs: [action.reason, ...action.evidenceRefs, ...refs],
+            sourceProjectionRefs: [action.projectionRef]
+          })
+        ]),
+        redispatchTargetRows: Object.freeze([])
+      });
+    case "reprice_runtime_policy":
+      return Object.freeze({
+        runtimeRows: Object.freeze([]),
+        redispatchTargetRows: Object.freeze([])
+      });
+    case "yield_same_edge_continuation":
+      return Object.freeze({
+        runtimeRows: Object.freeze([
+          runtimeRow({
+            boundary: "worker",
+            status: "handoff",
+            reason: null,
+            retryable: false,
+            evidenceRefs: [action.reason, ...action.evidenceRefs, ...refs],
+            sourceProjectionRefs: [action.projectionRef]
+          })
+        ]),
+        redispatchTargetRows: Object.freeze([])
+      });
+    case "retry_same_edge":
+      return Object.freeze({
+        runtimeRows: Object.freeze([]),
+        redispatchTargetRows: Object.freeze([
+          redispatchTargetRow({
+            vectorIndex: input.vectorIndex,
+            reason: "missing_evidence",
+            evidenceRefs: [action.reason, ...action.evidenceRefs, ...refs],
+            sourceProjectionRefs: [action.projectionRef]
+          })
+        ])
+      });
+    default: {
+      const exhaustive: never = action.action;
+      throw new TypeError(
+        `Unsupported traversal continuation action ${JSON.stringify(exhaustive)}`
+      );
+    }
+  }
+}
+
+function continuationRows(input: RuntimeContinuationTransitionInput): {
+  readonly satisfactionRows: readonly IterationSatisfactionRow[];
+  readonly runtimeRows: readonly IterationRuntimeRow[];
+  readonly redispatchTargetRows: readonly IterationRedispatchTargetRow[];
+} {
+  const typedBlockRefs = uniqueStrings(input.typedBlockRefs ?? Object.freeze([]));
+  const typedRepriceRefs = uniqueStrings(input.typedRepriceRefs ?? Object.freeze([]));
+  const typedYieldRefs = uniqueStrings(input.typedYieldRefs ?? Object.freeze([]));
+  const typedRetryRefs = uniqueStrings(input.typedRetryRefs ?? Object.freeze([]));
+  const actionRows = rowsForTraversalAction({
+    vectorIndex: input.vectorIndex,
+    action: input.traversalContinuationAction
+  });
+  const action = input.traversalContinuationAction ?? null;
+  const repricePolicyRows =
+    action?.action === "reprice_runtime_policy"
+      ? [
+          satisfactionRow({
+            authorityRef: action.projectionRef,
+            status: "unsatisfied",
+            reason: "missing_authority",
+            evidenceRefs: [action.reason, ...action.evidenceRefs],
+            sourceProjectionRefs: [action.projectionRef],
+            reEntryPoint: "requirements"
+          })
+        ]
+      : [];
+
+  return Object.freeze({
+    satisfactionRows: Object.freeze([
+      ...rowsForAssuranceDecision(input.assuranceClosureDecision),
+      ...typedRepriceRefs.map((ref) =>
+        satisfactionRow({
+          authorityRef: ref,
+          status: "unsatisfied",
+          reason: "missing_authority",
+          evidenceRefs: [ref],
+          reEntryPoint: "requirements"
+        })
+      ),
+      ...repricePolicyRows
+    ]),
+    runtimeRows: Object.freeze([
+      ...typedBlockRefs.map((ref) =>
+        runtimeRow({
+          boundary: "worker",
+          status: "failed",
+          reason: "runtime_failure",
+          retryable: false,
+          evidenceRefs: [ref]
+        })
+      ),
+      ...typedYieldRefs.map((ref) =>
+        runtimeRow({
+          boundary: "worker",
+          status: "handoff",
+          reason: null,
+          retryable: false,
+          evidenceRefs: [ref]
+        })
+      ),
+      ...actionRows.runtimeRows
+    ]),
+    redispatchTargetRows: Object.freeze([
+      ...typedRetryRefs.map((ref) =>
+        redispatchTargetRow({
+          vectorIndex: input.vectorIndex,
+          reason: "missing_evidence",
+          evidenceRefs: [ref]
+        })
+      ),
+      ...actionRows.redispatchTargetRows
+    ])
+  });
+}
+
+function transitionForIterationOutcome(input: {
+  readonly continuationInput: RuntimeContinuationTransitionInput;
+  readonly outcomeProjection: IterationOutcomeProjection;
+}): RuntimeContinuationTransitionProjection {
+  const continuationInput = input.continuationInput;
+  const outcome = input.outcomeProjection.outcome;
+  const action = continuationInput.traversalContinuationAction ?? null;
+  const common = {
+    basis: continuationInput.basis,
+    runtimeProjection: continuationInput.runtimeProjection,
+    vectorIndex: continuationInput.vectorIndex,
+    reasonRefs: input.outcomeProjection.reasonRefs,
+    evidenceRefs: input.outcomeProjection.evidenceRefs,
+    sourceProjectionRefs: input.outcomeProjection.sourceProjectionRefs
+  };
+
+  if (outcome.kind === "redispatch") {
+    const terminalRetryRefs = uniqueStrings(
+      continuationInput.terminalRetryRefs ?? Object.freeze([])
+    );
+    const typedRetryRefs = uniqueStrings(
+      continuationInput.typedRetryRefs ?? Object.freeze([])
+    );
+    return transition({
+      ...common,
+      disposition: "retry_same_edge",
+      reason:
+        outcome.reason === "terminal_retry_fallback" && terminalRetryRefs.length > 0
+          ? "terminal_retry_fallback"
+          : action?.action === "retry_same_edge"
+            ? "traversal_retry"
+            : typedRetryRefs.length > 0
+              ? "typed_retry"
+              : continuationInput.assuranceClosureDecision?.decision === "retry"
+                ? "assurance_retry"
+                : "typed_retry"
+    });
+  }
+
+  if (outcome.kind === "suspend") {
+    const typedYieldRefs = uniqueStrings(
+      continuationInput.typedYieldRefs ?? Object.freeze([])
+    );
+    return transition({
+      ...common,
+      disposition: "yield_continuation",
+      reason:
+        typedYieldRefs.length > 0
+          ? "typed_yield"
+          : action?.action === "yield_same_edge_continuation"
+            ? "traversal_yield"
+            : "typed_yield"
+    });
+  }
+
+  if (outcome.disposition === "converged") {
+    return transition({
+      ...common,
+      disposition: "close",
+      reason:
+        continuationInput.assuranceClosureDecision?.decision === "close"
+          ? "assurance_close"
+          : "edge_close"
+    });
+  }
+
+  if (outcome.disposition === "deferred") {
+    return transition({
+      ...common,
+      disposition: "yield_continuation",
+      reason: "assurance_qualified_defer"
+    });
+  }
+
+  if (outcome.reEntryPoint !== null) {
+    const typedRepriceRefs = uniqueStrings(
+      continuationInput.typedRepriceRefs ?? Object.freeze([])
+    );
+    return transition({
+      ...common,
+      disposition: "reprice",
+      reason:
+        typedRepriceRefs.length > 0
+          ? "typed_reprice"
+          : action?.action === "reprice_runtime_policy"
+            ? "runtime_policy_reprice"
+            : "assurance_reprice"
+    });
+  }
+
+  if (action?.action === "inspect_runtime_archive") {
+    return transition({
+      ...common,
+      disposition: "inspect_runtime_archive",
+      reason: "inspect_runtime_archive"
+    });
+  }
+
+  const typedBlockRefs = uniqueStrings(
+    continuationInput.typedBlockRefs ?? Object.freeze([])
+  );
+  return transition({
+    ...common,
+    disposition: "block",
+    reason:
+      typedBlockRefs.length > 0
+        ? "typed_block"
+        : continuationInput.assuranceClosureDecision?.decision === "block"
+          ? "assurance_block"
+          : action?.action === "retry_exhausted"
+            ? "retry_exhausted"
+            : action?.action === "blocked"
+              ? "runtime_blocked"
+              : "unsupported_state"
+  });
+}
+
 export function deriveRuntimeContinuationTransitionProjection(
   input: RuntimeContinuationTransitionInput
 ): RuntimeContinuationTransitionProjection {
@@ -305,231 +727,20 @@ export function deriveRuntimeContinuationTransitionProjection(
     traversalContinuationAction: input.traversalContinuationAction
   });
 
-  const typedBlockRefs = uniqueStrings(input.typedBlockRefs ?? Object.freeze([]));
-  if (typedBlockRefs.length > 0) {
-    return transition({
-      basis: input.basis,
-      runtimeProjection: input.runtimeProjection,
-      vectorIndex: input.vectorIndex,
-      disposition: "block",
-      reason: "typed_block",
-      reasonRefs: typedBlockRefs
-    });
-  }
-
-  if (input.assuranceClosureDecision?.decision === "block") {
-    return transition({
-      basis: input.basis,
-      runtimeProjection: input.runtimeProjection,
-      vectorIndex: input.vectorIndex,
-      disposition: "block",
-      reason: "assurance_block",
-      reasonRefs: assuranceRefs(input.assuranceClosureDecision),
-      evidenceRefs: [input.assuranceClosureDecision.reason],
-      sourceProjectionRefs: [input.assuranceClosureDecision.projectionRef]
-    });
-  }
-
-  const typedRepriceRefs = uniqueStrings(input.typedRepriceRefs ?? Object.freeze([]));
-  if (typedRepriceRefs.length > 0) {
-    return transition({
-      basis: input.basis,
-      runtimeProjection: input.runtimeProjection,
-      vectorIndex: input.vectorIndex,
-      disposition: "reprice",
-      reason: "typed_reprice",
-      reasonRefs: typedRepriceRefs
-    });
-  }
-
-  if (input.assuranceClosureDecision?.decision === "reprice") {
-    return transition({
-      basis: input.basis,
-      runtimeProjection: input.runtimeProjection,
-      vectorIndex: input.vectorIndex,
-      disposition: "reprice",
-      reason: "assurance_reprice",
-      reasonRefs: assuranceRefs(input.assuranceClosureDecision),
-      evidenceRefs: [input.assuranceClosureDecision.reason],
-      sourceProjectionRefs: [input.assuranceClosureDecision.projectionRef]
-    });
-  }
-
-  const action = input.traversalContinuationAction ?? null;
-  if (action !== null) {
-    switch (action.action) {
-      case "inspect_runtime_archive":
-        return transition({
-          basis: input.basis,
-          runtimeProjection: input.runtimeProjection,
-          vectorIndex: input.vectorIndex,
-          disposition: "inspect_runtime_archive",
-          reason: "inspect_runtime_archive",
-          reasonRefs: traversalActionRefs(action),
-          evidenceRefs: [action.reason, ...action.evidenceRefs],
-          sourceProjectionRefs: [action.projectionRef]
-        });
-      case "retry_exhausted":
-        return transition({
-          basis: input.basis,
-          runtimeProjection: input.runtimeProjection,
-          vectorIndex: input.vectorIndex,
-          disposition: "block",
-          reason: "retry_exhausted",
-          reasonRefs: traversalActionRefs(action),
-          evidenceRefs: [action.reason, ...action.evidenceRefs],
-          sourceProjectionRefs: [action.projectionRef]
-        });
-      case "blocked":
-        return transition({
-          basis: input.basis,
-          runtimeProjection: input.runtimeProjection,
-          vectorIndex: input.vectorIndex,
-          disposition: "block",
-          reason: "runtime_blocked",
-          reasonRefs: traversalActionRefs(action),
-          evidenceRefs: [action.reason, ...action.evidenceRefs],
-          sourceProjectionRefs: [action.projectionRef]
-        });
-      case "reprice_runtime_policy":
-        return transition({
-          basis: input.basis,
-          runtimeProjection: input.runtimeProjection,
-          vectorIndex: input.vectorIndex,
-          disposition: "reprice",
-          reason: "runtime_policy_reprice",
-          reasonRefs: traversalActionRefs(action),
-          evidenceRefs: [action.reason, ...action.evidenceRefs],
-          sourceProjectionRefs: [action.projectionRef]
-        });
-      case "yield_same_edge_continuation":
-        return transition({
-          basis: input.basis,
-          runtimeProjection: input.runtimeProjection,
-          vectorIndex: input.vectorIndex,
-          disposition: "yield_continuation",
-          reason: "traversal_yield",
-          reasonRefs: traversalActionRefs(action),
-          evidenceRefs: [action.reason, ...action.evidenceRefs],
-          sourceProjectionRefs: [action.projectionRef]
-        });
-      case "retry_same_edge":
-        break;
-      default: {
-        const exhaustive: never = action.action;
-        throw new TypeError(
-          `Unsupported traversal continuation action ${JSON.stringify(exhaustive)}`
-        );
-      }
-    }
-  }
-
-  const typedYieldRefs = uniqueStrings(input.typedYieldRefs ?? Object.freeze([]));
-  if (typedYieldRefs.length > 0) {
-    return transition({
-      basis: input.basis,
-      runtimeProjection: input.runtimeProjection,
-      vectorIndex: input.vectorIndex,
-      disposition: "yield_continuation",
-      reason: "typed_yield",
-      reasonRefs: typedYieldRefs
-    });
-  }
-
-  if (action?.action === "retry_same_edge") {
-    return transition({
-      basis: input.basis,
-      runtimeProjection: input.runtimeProjection,
-      vectorIndex: input.vectorIndex,
-      disposition: "retry_same_edge",
-      reason: "traversal_retry",
-      reasonRefs: traversalActionRefs(action),
-      evidenceRefs: [action.reason, ...action.evidenceRefs],
-      sourceProjectionRefs: [action.projectionRef]
-    });
-  }
-
-  if (input.assuranceClosureDecision?.decision === "qualified_defer") {
-    return transition({
-      basis: input.basis,
-      runtimeProjection: input.runtimeProjection,
-      vectorIndex: input.vectorIndex,
-      disposition: "yield_continuation",
-      reason: "assurance_qualified_defer",
-      reasonRefs: assuranceRefs(input.assuranceClosureDecision),
-      evidenceRefs: [input.assuranceClosureDecision.reason],
-      sourceProjectionRefs: [input.assuranceClosureDecision.projectionRef]
-    });
-  }
-
-  const typedRetryRefs = uniqueStrings(input.typedRetryRefs ?? Object.freeze([]));
-  if (typedRetryRefs.length > 0) {
-    return transition({
-      basis: input.basis,
-      runtimeProjection: input.runtimeProjection,
-      vectorIndex: input.vectorIndex,
-      disposition: "retry_same_edge",
-      reason: "typed_retry",
-      reasonRefs: typedRetryRefs
-    });
-  }
-
-  if (input.assuranceClosureDecision?.decision === "retry") {
-    return transition({
-      basis: input.basis,
-      runtimeProjection: input.runtimeProjection,
-      vectorIndex: input.vectorIndex,
-      disposition: "retry_same_edge",
-      reason: "assurance_retry",
-      reasonRefs: assuranceRefs(input.assuranceClosureDecision),
-      evidenceRefs: [input.assuranceClosureDecision.reason],
-      sourceProjectionRefs: [input.assuranceClosureDecision.projectionRef]
-    });
-  }
-
-  const terminalRetryRefs = uniqueStrings(
-    input.terminalRetryRefs ?? Object.freeze([])
-  );
-  if (terminalRetryRefs.length > 0) {
-    return transition({
-      basis: input.basis,
-      runtimeProjection: input.runtimeProjection,
-      vectorIndex: input.vectorIndex,
-      disposition: "retry_same_edge",
-      reason: "terminal_retry_fallback",
-      reasonRefs: terminalRetryRefs
-    });
-  }
-
-  if (input.assuranceClosureDecision?.decision === "close") {
-    return transition({
-      basis: input.basis,
-      runtimeProjection: input.runtimeProjection,
-      vectorIndex: input.vectorIndex,
-      disposition: "close",
-      reason: "assurance_close",
-      reasonRefs: assuranceRefs(input.assuranceClosureDecision),
-      evidenceRefs: [input.assuranceClosureDecision.reason],
-      sourceProjectionRefs: [input.assuranceClosureDecision.projectionRef]
-    });
-  }
-
-  if (input.edgeCanClose === true) {
-    return transition({
-      basis: input.basis,
-      runtimeProjection: input.runtimeProjection,
-      vectorIndex: input.vectorIndex,
-      disposition: "close",
-      reason: "edge_close"
-    });
-  }
-
-  return transition({
+  const rows = continuationRows(input);
+  const outcomeProjection = deriveIterationOutcomeProjection({
     basis: input.basis,
     runtimeProjection: input.runtimeProjection,
     vectorIndex: input.vectorIndex,
-    disposition: "block",
-    reason: "unsupported_state"
+    satisfactionRows: rows.satisfactionRows,
+    runtimeRows: rows.runtimeRows,
+    redispatchTargetRows: rows.redispatchTargetRows,
+    terminalFallbackRefs: input.terminalRetryRefs,
+    edgeCanClose: input.edgeCanClose
+  });
+  return transitionForIterationOutcome({
+    continuationInput: input,
+    outcomeProjection
   });
 }
 

@@ -1,0 +1,49 @@
+# REQ-R-ABG3-ITERATION — Iteration Outcome Algebra
+
+**Status**: Active
+**Category**: Constraint / Guarantee
+**Date**: 2026-06-05
+**Derives from**: [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md)
+
+---
+
+## Purpose
+
+Define one ABG-owned replay-derived outcome algebra for an active iteration
+boundary.
+
+The iteration outcome algebra is the single runtime truth surface that chooses
+whether the active boundary terminates, redispatches, or suspends. Requirement,
+design, and realization must keep semantic satisfaction facts, runtime facts,
+authority/evidence facts, and attempt lineage orthogonal until the total fold
+selects the outcome.
+
+## Acceptance Criteria
+
+**REQ-R-ABG3-ITERATION-001**: ABG shall derive one active-boundary iteration outcome projection from admitted replay truth.
+
+**REQ-R-ABG3-ITERATION-002**: Evaluator outputs shall contribute semantic satisfaction rows only. They shall not emit runtime, transport, liveness, or evidence-lifecycle authority.
+
+**REQ-R-ABG3-ITERATION-003**: ABG shall derive evidence lifecycle as active, preserved/rebased, or superseded before evidence participates in a closure satisfaction fold. Orphan evidence shall be represented as a failed current-authority binding guard, not as a lifecycle or evaluator category.
+
+**REQ-R-ABG3-ITERATION-004**: ABG shall derive the next iteration outcome from one total priority fold over typed rows. Terminal fallback shall not outrank typed row state and shall not redispatch an active boundary whose current active or preserved/rebased rows already converge or defer.
+
+**REQ-R-ABG3-ITERATION-005**: Every non-close outcome projection shall expose the category, lifecycle, provenance, and failed binding facts needed for replay-visible diagnosis.
+
+**REQ-R-ABG3-ITERATION-006**: Evaluator retry, when allowed by policy, shall be a first-class redispatch target of the same iteration algebra. It shall be distinct from product-worker same-edge redispatch and shall fold to terminate-blocked when its retry policy is exhausted or when the evaluator failure is non-retryable.
+
+**REQ-R-ABG3-ITERATION-007**: Reports, summaries, pressure refs, terminal fallback refs, plugin outcomes, and runner branches may provide source facts or read models for iteration state, but they shall not become rival next-transition truth surfaces.
+
+**REQ-R-ABG3-ITERATION-008**: The public iteration outcome carrier shall expose only primitive outcome constructors: terminate, redispatch, or suspend. Named cases such as close, block, defer, retry, evaluator retry, graph re-entry, and reprice shall be represented as dispositions, redispatch targets, lawful re-entry refs, or reasons over those constructors.
+
+**REQ-R-ABG3-ITERATION-009**: Redispatch targets shall reuse existing `GraphReentryPoint` and target-vector identity. `GraphChangeClass` remains provenance/classification for why that surface was selected; it shall not become a parallel redispatch discriminator.
+
+**REQ-R-ABG3-ITERATION-010**: The total fold shall declare an explicit precedence order for mixed rows. Convergence shall be selected only when no blocking, constitutional re-entry, redispatch, or suspend row remains.
+
+**REQ-R-ABG3-ITERATION-011**: Preserved/rebased evidence shall remain eligible to satisfy current closure only when its authority binding is still current after re-entry. Evidence invalidated by the re-entry scope shall become superseded, and evidence with no lawful current binding shall surface through the binding guard.
+
+**REQ-R-ABG3-ITERATION-012**: Suspend shall be derived from runtime rows such as progressing, awaiting observer, or handoff. Suspend shall not be inferred from semantic satisfaction rows.
+
+**REQ-R-ABG3-ITERATION-013**: Internal compatibility layers shall not remain in the iteration-boundary transition path. In-scope callers shall migrate to the one outcome projection or to source-row projection.
+
+**REQ-R-ABG3-ITERATION-014**: A caller-provided close-eligible flag may only act as compact evidence that the current active or preserved/rebased satisfaction set is fully satisfied. It shall not converge a boundary when any current satisfaction row is unsatisfied, deferred, orphan-bound, or blocked by runtime facts.

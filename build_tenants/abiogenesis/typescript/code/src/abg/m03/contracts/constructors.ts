@@ -53,7 +53,7 @@ export function constructExecutionBasis(input: ExecutionBasisInit): ExecutionBas
 }
 
 export * from "./event_factories.js";
-export * from "./iteration.js";
+export * from "./iteration_state_action.js";
 export * from "./leaf_task.js";
 export * from "./projection.js";
 export * from "./retry_repair.js";

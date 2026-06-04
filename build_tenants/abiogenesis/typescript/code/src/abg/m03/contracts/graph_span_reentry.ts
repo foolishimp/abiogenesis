@@ -24,7 +24,10 @@ import type {
   RuntimeEvent,
   RuntimeRegime
 } from "./carriers.js";
-import { deriveIterationAdvanceDecision } from "./iteration.js";
+import {
+  deriveIterationAdvanceDecision,
+  deriveIterationOutcomeFromRows
+} from "./iteration_state_action.js";
 import {
   assertBasisEvent,
   assertNonEmptyString,
@@ -1331,7 +1334,35 @@ export function deriveAdvancementTransitionWithReentry(input: {
   readonly runtimeProjection: RuntimeAggregateProjection;
   readonly frontier: GraphReentryFrontierProjection;
 }): GraphReentryAdvanceDecision {
+  if (input.frontier.decision === "advance") {
+    return Object.freeze({
+      kind: "default_iteration",
+      decision: deriveIterationAdvanceDecision(input.basis, input.runtimeProjection)
+    });
+  }
+  const activeRow = input.frontier.activeRows[0] ?? null;
+  const frontierRefs = freezeStringArray([
+    input.frontier.projectionRef,
+    ...(activeRow?.rowId === undefined
+      ? []
+      : [activeRow.rowId])
+  ]);
   if (input.frontier.decision === "block") {
+    const outcome = deriveIterationOutcomeFromRows({
+      vectorIndex: input.runtimeProjection.nextVectorIndex ?? 0,
+      runtimeRows: [
+        {
+          boundary: "worker",
+          status: "failed",
+          reason: "runtime_failure",
+          retryable: false,
+          sourceProjectionRefs: frontierRefs
+        }
+      ]
+    });
+    if (outcome.kind !== "terminate" || outcome.disposition !== "blocked") {
+      throw new TypeError("Graph reentry block frontier did not fold to block");
+    }
     return Object.freeze({
       kind: "blocked",
       basis: input.basis,
@@ -1340,6 +1371,27 @@ export function deriveAdvancementTransitionWithReentry(input: {
     });
   }
   if (input.frontier.decision === "reprice") {
+    const outcome = deriveIterationOutcomeFromRows({
+      vectorIndex: input.runtimeProjection.nextVectorIndex ?? 0,
+      satisfactionRows: [
+        {
+          authorityRef: input.frontier.projectionRef,
+          status: "unsatisfied",
+          reason: "missing_authority",
+          lifecycle: "active",
+          evidenceRefs: frontierRefs,
+          sourceProjectionRefs: frontierRefs,
+          reEntryPoint: "requirements"
+        }
+      ]
+    });
+    if (
+      outcome.kind !== "terminate" ||
+      outcome.disposition !== "blocked" ||
+      outcome.reEntryPoint === null
+    ) {
+      throw new TypeError("Graph reentry reprice frontier did not fold to reprice");
+    }
     return Object.freeze({
       kind: "reprice_required",
       basis: input.basis,
@@ -1356,6 +1408,26 @@ export function deriveAdvancementTransitionWithReentry(input: {
     const activeRow = input.frontier.activeRows.find(
       (row) => row.severity === "constitutional_reentry"
     );
+    const outcome = deriveIterationOutcomeFromRows({
+      vectorIndex: input.runtimeProjection.nextVectorIndex ?? 0,
+      redispatchTargetRows: [
+        {
+          target: {
+            reEntryPoint,
+            targetVectorIndex: null
+          },
+          reason: "missing_authority",
+          retryable: true,
+          provenanceChangeClass: changeClass,
+          sourceProjectionRefs: frontierRefs
+        }
+      ]
+    });
+    if (outcome.kind !== "redispatch" || outcome.target.reEntryPoint !== reEntryPoint) {
+      throw new TypeError(
+        "Graph constitutional reentry frontier did not fold to redispatch"
+      );
+    }
     return Object.freeze({
       kind: "reenter_constitutional_route",
       basis: input.basis,
@@ -1372,6 +1444,27 @@ export function deriveAdvancementTransitionWithReentry(input: {
       throw new TypeError("Graph reentry frontier requires target vector");
     }
     assertVectorIndexInRange(input.basis, targetVectorIndex);
+    const outcome = deriveIterationOutcomeFromRows({
+      vectorIndex: input.runtimeProjection.nextVectorIndex ?? targetVectorIndex,
+      redispatchTargetRows: [
+        {
+          target: {
+            reEntryPoint: "realization",
+            targetVectorIndex
+          },
+          reason: "missing_evidence",
+          retryable: true,
+          provenanceChangeClass: "realization_refactor",
+          sourceProjectionRefs: frontierRefs
+        }
+      ]
+    });
+    if (
+      outcome.kind !== "redispatch" ||
+      outcome.target.targetVectorIndex !== targetVectorIndex
+    ) {
+      throw new TypeError("Graph vector reentry frontier did not fold to redispatch");
+    }
     return Object.freeze({
       kind: "reenter_graph_vector",
       basis: input.basis,
@@ -1381,10 +1474,8 @@ export function deriveAdvancementTransitionWithReentry(input: {
       frontierRef: input.frontier.projectionRef
     });
   }
-  return Object.freeze({
-    kind: "default_iteration",
-    decision: deriveIterationAdvanceDecision(input.basis, input.runtimeProjection)
-  });
+  const exhaustive: never = input.frontier.decision;
+  throw new TypeError(`Unsupported graph reentry frontier ${JSON.stringify(exhaustive)}`);
 }
 
 export function deriveGraphSpanFoldbackEvaluationFromEvents(input: {

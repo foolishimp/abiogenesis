@@ -7,6 +7,15 @@ import type {
   ExecutionBasis,
   RuntimeAggregateProjection
 } from "./carriers.js";
+import {
+  deriveIterationOutcomeFromRows,
+  ITERATION_EVIDENCE_LIFECYCLE_VALUES,
+  type IterationBindingGuardRow,
+  type IterationEvidenceLifecycle,
+  type IterationOutcome,
+  type IterationRuntimeRow,
+  type IterationSatisfactionRow
+} from "./iteration_state_action.js";
 import { sourceProjectionRef } from "./projection.js";
 import {
   assertNonEmptyString,
@@ -86,6 +95,7 @@ export interface AssuranceEvidenceRow {
   readonly shallow: boolean;
   readonly contradictsAuthority: boolean;
   readonly deferred: boolean;
+  readonly lifecycle: IterationEvidenceLifecycle;
 }
 
 export interface AssuranceAmbiguityRow {
@@ -169,6 +179,19 @@ function normalizeNullableString(
     return null;
   }
   assertNonEmptyString(value, label);
+  return value;
+}
+
+function normalizeEvidenceLifecycle(
+  value: IterationEvidenceLifecycle | undefined,
+  label: string
+): IterationEvidenceLifecycle {
+  if (value === undefined) {
+    return "active";
+  }
+  if (!ITERATION_EVIDENCE_LIFECYCLE_VALUES.includes(value)) {
+    throw new TypeError(`${label}: unsupported evidence lifecycle`);
+  }
   return value;
 }
 
@@ -387,6 +410,7 @@ export function constructAssuranceEvidenceRow(input: {
   readonly shallow?: boolean;
   readonly contradictsAuthority?: boolean;
   readonly deferred?: boolean;
+  readonly lifecycle?: IterationEvidenceLifecycle | undefined;
 }): AssuranceEvidenceRow {
   assertNonEmptyString(input.evidenceRef, "AssuranceEvidenceRow.evidenceRef");
   return Object.freeze({
@@ -421,7 +445,11 @@ export function constructAssuranceEvidenceRow(input: {
     complete: input.complete ?? true,
     shallow: input.shallow ?? false,
     contradictsAuthority: input.contradictsAuthority ?? false,
-    deferred: input.deferred ?? false
+    deferred: input.deferred ?? false,
+    lifecycle: normalizeEvidenceLifecycle(
+      input.lifecycle,
+      "AssuranceEvidenceRow.lifecycle"
+    )
   });
 }
 
@@ -544,7 +572,8 @@ export function deriveAssuranceProjection(input: {
       !evidence.boundToScope ||
       !sameScope(evidence.scope, scope) ||
       evidence.authorityRef === null ||
-      !authorityRefs.has(evidence.authorityRef)
+      (!authorityRefs.has(evidence.authorityRef) &&
+        evidence.lifecycle !== "superseded")
     ) {
       rows.push(
         constructAmbiguityRow({
@@ -679,99 +708,187 @@ export function deriveAssuranceProjection(input: {
   });
 }
 
-export function deriveAssuranceClosureDecision(
+function assuranceAuthorityRef(row: AssuranceAmbiguityRow): string {
+  return row.authorityRef ?? row.rowId;
+}
+
+function assuranceSatisfactionRow(input: {
+  readonly row: AssuranceAmbiguityRow;
+  readonly status: IterationSatisfactionRow["status"];
+  readonly reason: IterationSatisfactionRow["reason"];
+  readonly reEntryPoint?: IterationSatisfactionRow["reEntryPoint"] | undefined;
+}): IterationSatisfactionRow {
+  return Object.freeze({
+    authorityRef: assuranceAuthorityRef(input.row),
+    status: input.status,
+    reason: input.reason,
+    lifecycle: "active" as const,
+    evidenceRefs: freezeStringArray(input.row.evidenceRefs),
+    sourceProjectionRefs: freezeStringArray([input.row.rowId]),
+    reEntryPoint: input.reEntryPoint ?? null
+  });
+}
+
+function assuranceRuntimeRow(input: {
+  readonly row: AssuranceAmbiguityRow;
+  readonly reason: IterationRuntimeRow["reason"];
+}): IterationRuntimeRow {
+  return Object.freeze({
+    boundary: "worker" as const,
+    status: "failed" as const,
+    reason: input.reason,
+    retryable: false,
+    evidenceRefs: freezeStringArray(input.row.evidenceRefs),
+    sourceProjectionRefs: freezeStringArray([input.row.rowId])
+  });
+}
+
+function assuranceBindingGuardRow(
+  row: AssuranceAmbiguityRow
+): IterationBindingGuardRow {
+  return Object.freeze({
+    status: "orphan" as const,
+    authorityRef: row.authorityRef,
+    evidenceRef: row.evidenceRefs[0] ?? null,
+    failedCondition: row.reason,
+    eventRefs: freezeStringArray(row.eventRefs),
+    sourceProjectionRefs: freezeStringArray([row.rowId])
+  });
+}
+
+function iterationRowsForAssuranceProjection(
   projection: AssuranceProjection
-): AssuranceClosureDecision {
-  const invalidLedger = statusRows(projection, "event_ledger_invalid");
-  if (invalidLedger.length > 0) {
-    return decision({
-      projection,
-      decision: "block",
-      reason: "event_ledger_invalid_blocks_assurance",
-      rows: invalidLedger
-    });
+): {
+  readonly satisfactionRows: readonly IterationSatisfactionRow[];
+  readonly runtimeRows: readonly IterationRuntimeRow[];
+  readonly bindingGuardRows: readonly IterationBindingGuardRow[];
+} {
+  const satisfactionRows: IterationSatisfactionRow[] = [];
+  const runtimeRows: IterationRuntimeRow[] = [];
+  const bindingGuardRows: IterationBindingGuardRow[] = [];
+
+  for (const row of projection.ambiguityRows) {
+    switch (row.status) {
+      case "fulfilled":
+        satisfactionRows.push(
+          assuranceSatisfactionRow({ row, status: "satisfied", reason: null })
+        );
+        break;
+      case "deferred":
+        satisfactionRows.push(
+          assuranceSatisfactionRow({ row, status: "deferred", reason: null })
+        );
+        break;
+      case "missing":
+        satisfactionRows.push(
+          assuranceSatisfactionRow({
+            row,
+            status: "unsatisfied",
+            reason: "missing_evidence"
+          })
+        );
+        break;
+      case "partial":
+        satisfactionRows.push(
+          assuranceSatisfactionRow({
+            row,
+            status: "unsatisfied",
+            reason: "partial_evidence"
+          })
+        );
+        break;
+      case "stale_input":
+        satisfactionRows.push(
+          assuranceSatisfactionRow({
+            row,
+            status: "unsatisfied",
+            reason: "stale_input"
+          })
+        );
+        break;
+      case "authority_missing":
+        satisfactionRows.push(
+          assuranceSatisfactionRow({
+            row,
+            status: "unsatisfied",
+            reason: "missing_authority",
+            reEntryPoint: "requirements"
+          })
+        );
+        break;
+      case "contradictory_authority":
+        satisfactionRows.push(
+          assuranceSatisfactionRow({
+            row,
+            status: "unsatisfied",
+            reason: "contradiction",
+            reEntryPoint: "requirements"
+          })
+        );
+        break;
+      case "contradictory_evidence":
+      case "event_ledger_invalid":
+        runtimeRows.push(assuranceRuntimeRow({ row, reason: "runtime_failure" }));
+        break;
+      case "orphan_evidence":
+        bindingGuardRows.push(assuranceBindingGuardRow(row));
+        break;
+      default: {
+        const exhaustive: never = row.status;
+        throw new TypeError(
+          `Unsupported assurance ambiguity status ${JSON.stringify(exhaustive)}`
+        );
+      }
+    }
   }
 
-  const contradictoryAuthority = statusRows(projection, "contradictory_authority");
-  if (contradictoryAuthority.length > 0) {
-    return decision({
-      projection,
-      decision: "reprice",
-      reason: "contradictory_authority_requires_reprice",
-      rows: contradictoryAuthority
-    });
-  }
+  return Object.freeze({
+    satisfactionRows: Object.freeze(satisfactionRows),
+    runtimeRows: Object.freeze(runtimeRows),
+    bindingGuardRows: Object.freeze(bindingGuardRows)
+  });
+}
 
-  const staleInput = statusRows(projection, "stale_input");
-  if (staleInput.length > 0) {
-    return decision({
-      projection,
-      decision: "retry",
-      reason: "stale_input_invalidates_prior_closure",
-      rows: staleInput
-    });
-  }
-
-  const authorityMissing = statusRows(projection, "authority_missing");
-  if (authorityMissing.length > 0) {
-    return decision({
-      projection,
-      decision: "reprice",
-      reason: "missing_authority_requires_reprice",
-      rows: authorityMissing
-    });
-  }
-
-  const contradictoryEvidence = statusRows(projection, "contradictory_evidence");
-  if (contradictoryEvidence.length > 0) {
-    return decision({
-      projection,
-      decision: "block",
-      reason: "contradictory_evidence_blocks_assurance",
-      rows: contradictoryEvidence
-    });
-  }
-
-  const orphanEvidence = statusRows(projection, "orphan_evidence");
-  if (orphanEvidence.length > 0) {
-    return decision({
-      projection,
-      decision: "block",
-      reason: "orphan_evidence_cannot_satisfy_authority",
-      rows: orphanEvidence
-    });
-  }
-
-  const incompleteRows = projection.ambiguityRows.filter(
-    (row) => row.status === "partial" || row.status === "missing"
+function firstRows(
+  projection: AssuranceProjection,
+  statuses: readonly AssuranceAmbiguityStatus[]
+): readonly AssuranceAmbiguityRow[] {
+  const rows = projection.ambiguityRows.filter((row) =>
+    statuses.includes(row.status)
   );
-  if (incompleteRows.length > 0) {
+  return rows.length === 0 ? projection.ambiguityRows : Object.freeze(rows);
+}
+
+function assuranceDecisionForIterationOutcome(input: {
+  readonly projection: AssuranceProjection;
+  readonly outcome: IterationOutcome;
+}): AssuranceClosureDecision {
+  const { projection, outcome } = input;
+  if (outcome.kind === "redispatch") {
+    if (outcome.reason === "stale_input") {
+      return decision({
+        projection,
+        decision: "retry",
+        reason: "stale_input_invalidates_prior_closure",
+        rows: firstRows(projection, ["stale_input"])
+      });
+    }
     return decision({
       projection,
       decision: "retry",
       reason: "partial_or_missing_evidence_requires_retry_or_repair",
-      rows: incompleteRows
+      rows: firstRows(projection, ["partial", "missing"])
     });
   }
-
-  const deferredRows = statusRows(projection, "deferred");
-  const requiredNonClosingRows = projection.ambiguityRows.filter(
-    (row) => row.status !== "fulfilled" && row.status !== "deferred"
-  );
-  if (requiredNonClosingRows.length === 0 && deferredRows.length > 0) {
+  if (outcome.kind === "suspend") {
     return decision({
       projection,
       decision: "qualified_defer",
-      reason: "all_unfulfilled_rows_are_lawfully_deferred",
-      rows: deferredRows
+      reason: "iteration_outcome_suspended",
+      rows: projection.ambiguityRows
     });
   }
-
-  const fulfilledRows = statusRows(projection, "fulfilled");
-  if (
-    fulfilledRows.length > 0 &&
-    fulfilledRows.length === projection.ambiguityRows.length
-  ) {
+  if (outcome.disposition === "converged") {
     return decision({
       projection,
       decision: "close",
@@ -779,12 +896,75 @@ export function deriveAssuranceClosureDecision(
       rows: Object.freeze([])
     });
   }
-
+  if (outcome.disposition === "deferred") {
+    return decision({
+      projection,
+      decision: "qualified_defer",
+      reason: "all_unfulfilled_rows_are_lawfully_deferred",
+      rows: firstRows(projection, ["deferred"])
+    });
+  }
+  if (outcome.reEntryPoint !== null) {
+    if (outcome.reason === "contradiction") {
+      return decision({
+        projection,
+        decision: "reprice",
+        reason: "contradictory_authority_requires_reprice",
+        rows: firstRows(projection, ["contradictory_authority"])
+      });
+    }
+    return decision({
+      projection,
+      decision: "reprice",
+      reason: "missing_authority_requires_reprice",
+      rows: firstRows(projection, ["authority_missing"])
+    });
+  }
+  if (outcome.reason === "orphan_current_binding") {
+    return decision({
+      projection,
+      decision: "block",
+      reason: "orphan_evidence_cannot_satisfy_authority",
+      rows: firstRows(projection, ["orphan_evidence"])
+    });
+  }
+  if (statusRows(projection, "event_ledger_invalid").length > 0) {
+    return decision({
+      projection,
+      decision: "block",
+      reason: "event_ledger_invalid_blocks_assurance",
+      rows: firstRows(projection, ["event_ledger_invalid"])
+    });
+  }
+  if (statusRows(projection, "contradictory_evidence").length > 0) {
+    return decision({
+      projection,
+      decision: "block",
+      reason: "contradictory_evidence_blocks_assurance",
+      rows: firstRows(projection, ["contradictory_evidence"])
+    });
+  }
   return decision({
     projection,
     decision: "block",
     reason: "assurance_projection_has_no_closing_rows",
     rows: projection.ambiguityRows
+  });
+}
+
+export function deriveAssuranceClosureDecision(
+  projection: AssuranceProjection
+): AssuranceClosureDecision {
+  const rowInput = iterationRowsForAssuranceProjection(projection);
+  const outcome = deriveIterationOutcomeFromRows({
+    vectorIndex: projection.scope.vectorIndex,
+    satisfactionRows: rowInput.satisfactionRows,
+    runtimeRows: rowInput.runtimeRows,
+    bindingGuardRows: rowInput.bindingGuardRows
+  });
+  return assuranceDecisionForIterationOutcome({
+    projection,
+    outcome
   });
 }
 

@@ -21,6 +21,7 @@ import {
   constructRetryProgressRecordedEvent,
   constructFpTransformResult,
   deriveFreshRetryContextProjection,
+  deriveIterationOutcomeFromRows,
   deriveRetryRepairDecision,
   RETRYABLE_RUNTIME_FAILURE_CLASSES,
   runtimeEventsForFpTransformResult,
@@ -502,6 +503,70 @@ function retryEventsForBlockedResult(input: {
   ]);
 }
 
+function assertBlockedResultFoldAgreement(input: {
+  readonly vectorIndex: number;
+  readonly retryDecision: RetryRepairDecision;
+  readonly retryableRuntime: boolean;
+  readonly evidenceRefs: readonly string[];
+}): void {
+  const outcome =
+    input.retryDecision.kind === "retry_escalated"
+      ? deriveIterationOutcomeFromRows({
+          vectorIndex: input.vectorIndex,
+          runtimeRows: [
+            {
+              boundary: "worker",
+              status: "handoff",
+              reason: null,
+              retryable: false,
+              evidenceRefs: input.evidenceRefs
+            }
+          ]
+        })
+      : deriveIterationOutcomeFromRows({
+          vectorIndex: input.vectorIndex,
+          runtimeRows: [
+            {
+              boundary: "worker",
+              status: "failed",
+              reason:
+                input.retryDecision.kind === "retry_stopped" &&
+                input.retryableRuntime
+                  ? "retry_exhausted"
+                  : "runtime_failure",
+              retryable:
+                input.retryDecision.kind === "retry_planned" &&
+                input.retryableRuntime,
+              evidenceRefs: input.evidenceRefs
+            }
+          ]
+        });
+
+  if (input.retryDecision.kind === "retry_planned") {
+    if (outcome.kind !== "redispatch") {
+      throw new TypeError(
+        "Attached F_P blocked-result retry decision drifted from iteration fold"
+      );
+    }
+    return;
+  }
+
+  if (input.retryDecision.kind === "retry_escalated") {
+    if (outcome.kind !== "suspend") {
+      throw new TypeError(
+        "Attached F_P blocked-result escalation drifted from iteration fold"
+      );
+    }
+    return;
+  }
+
+  if (outcome.kind !== "terminate" || outcome.disposition !== "blocked") {
+    throw new TypeError(
+      "Attached F_P blocked-result terminal decision drifted from iteration fold"
+    );
+  }
+}
+
 export function deriveAttachedFpResultDecision(input: {
   readonly basis: ExecutionBasis;
   readonly projection: RuntimeAggregateProjection;
@@ -536,6 +601,9 @@ export function deriveAttachedFpResultDecision(input: {
     });
   }
 
+  const retryableRuntime =
+    ingestOutcome.kind !== "runtime_failure" ||
+    runtimeFailureClassIsRetryable(ingestOutcome.failureClass);
   const retryDecision = retryDecisionForBlockedResult({
     basis: input.basis,
     projection: input.projection,
@@ -544,10 +612,18 @@ export function deriveAttachedFpResultDecision(input: {
     request,
     transformRequest: input.transformRequest,
     outcome: input.outcome,
-    retryable:
-      ingestOutcome.kind !== "runtime_failure" ||
-      runtimeFailureClassIsRetryable(ingestOutcome.failureClass),
+    retryable: retryableRuntime,
     maxAttempts: input.maxAttempts ?? DEFAULT_ATTACHED_FP_MAX_RETRY_ATTEMPTS
+  });
+  assertBlockedResultFoldAgreement({
+    vectorIndex: input.transition.vectorIndex,
+    retryDecision,
+    retryableRuntime,
+    evidenceRefs: [
+      blocked.reason,
+      blocked.artifact.resultRef,
+      ...blocked.progressSignalRefs
+    ]
   });
   const retryEvents = retryEventsForBlockedResult({
     retryDecision,
