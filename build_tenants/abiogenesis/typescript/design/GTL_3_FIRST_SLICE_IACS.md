@@ -57,7 +57,8 @@ It produces authoritative declaration truth only.
 | Shape | Status | Why not prime | Admission rule |
 | --- | --- | --- | --- |
 | `SchemaRef` | subordinate | nested node declaration payload; not an independently traversed boundary | admitted once by `admitSchemaRef(...)` |
-| `AssetSurface` | subordinate | nested node declaration payload; not an independently traversed boundary | admitted once by `admitAssetSurface(...)` |
+| `AssetSurface` | subordinate | nested typed asset interface under `Node`; not an independently traversed boundary | admitted once by `admitAssetSurface(...)`; renderer/constructor/authority-slot fields default empty for ordinary assets |
+| `AssetSurfaceAuthoritySlot` | subordinate | policy-shape row inside `AssetSurface`; not product authority vocabulary | admitted only as part of `AssetSurface`; bounded fallback slots require a fallback precondition ref |
 | `SerializedAttrs` | subordinate | declaration payload detail; not identity-bearing | admitted once by `admitSerializedAttrs(...)` |
 | `SerializedAttrEntry` | subordinate | nested entry detail only | admitted only as part of `SerializedAttrs` |
 | `SerializedJsonValue` | subordinate | serialized ingress payload only | parsed once, never inspected directly in semantic kernels |
@@ -92,6 +93,10 @@ It produces authoritative declaration truth only.
 - `GraphFunction.environment`, `GraphFunction.template`, and
   `Node.assetSurface` are required subordinate declaration surfaces in this
   wave. They are not optional implementation detail.
+- `AssetSurface` owns typed asset interface shape only. It may declare
+  constructor refs, renderer refs, section/clause kind refs, authority slots,
+  and proof obligations. It must not encode downstream product authority
+  vocabulary as GTL law.
 - `Operator`, `Evaluator`, and `Rule` are real first-class GTL declaration
   surfaces in this wave, but they remain subordinate to the five prime outer
   carriers rather than becoming peer prime carriers themselves.

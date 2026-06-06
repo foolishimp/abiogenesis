@@ -1,5 +1,6 @@
 // Implements: REQ-L-GTL3-ATTRS
 // Implements: REQ-L-GTL3-CONTEXT
+// Implements: REQ-L-GTL3-ASSET-SURFACE
 // Implements: REQ-L-GTL3-GRAPH
 // Implements: REQ-L-GTL3-NODE
 // Implements: REQ-L-GTL3-GRAPHVECTOR
@@ -78,6 +79,29 @@ export interface AssetSurface {
   readonly requiredContexts: readonly string[];
   readonly standardsRefs: readonly string[];
   readonly outputContractRefs: readonly string[];
+  readonly constructorRefs: readonly string[];
+  readonly constructorInputAssetKinds: readonly string[];
+  readonly rendererRefs: readonly string[];
+  readonly renderedViewDigestPolicyRef: string | null;
+  readonly sectionKindRefs: readonly string[];
+  readonly clauseKindRefs: readonly string[];
+  readonly authoritySlots: readonly AssetSurfaceAuthoritySlot[];
+  readonly proofObligationRefs: readonly string[];
+}
+
+export const ASSET_SURFACE_AUTHORITY_SLOT_DISPOSITIONS = Object.freeze([
+  "normal",
+  "bounded_fallback",
+  "forbidden_routine"
+] as const);
+
+export type AssetSurfaceAuthoritySlotDisposition =
+  (typeof ASSET_SURFACE_AUTHORITY_SLOT_DISPOSITIONS)[number];
+
+export interface AssetSurfaceAuthoritySlot {
+  readonly authorityKindRef: string;
+  readonly disposition: AssetSurfaceAuthoritySlotDisposition;
+  readonly fallbackPreconditionRefs: readonly string[];
 }
 
 export interface Node {

@@ -14,6 +14,7 @@ ratified ontology, and the GTL/ABG boundary.
 
 - language identity, declarative form, attrs, contexts, and engine boundary
 - graph structure, typed loci, interfaces, graph vectors, and identities
+- typed asset-surface interfaces, including renderer-backed asset contracts
 - operators, evaluators, rules, and governance hook surfaces
 - graph functions, selection boundaries, synthesis, and bounded sub-work
 - algebraic composition, substitution, recursion, and higher-order graph
@@ -30,6 +31,7 @@ ratified ontology, and the GTL/ABG boundary.
 - `REQ-L-GTL3-CONTEXT.md`
 - `REQ-L-GTL3-GRAPH.md`
 - `REQ-L-GTL3-NODE.md`
+- `REQ-L-GTL3-ASSET-SURFACE.md`
 - `REQ-L-GTL3-GRAPHVECTOR.md`
 - `REQ-L-GTL3-INTERFACE.md`
 - `REQ-L-GTL3-OPERATOR.md`

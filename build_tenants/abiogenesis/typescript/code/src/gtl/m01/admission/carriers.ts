@@ -1,11 +1,13 @@
 // Implements: REQ-L-GTL3-ATTRS
 // Implements: REQ-L-GTL3-CONTEXT
+// Implements: REQ-L-GTL3-ASSET-SURFACE
 // Implements: REQ-L-GTL3-NODE
 // Implements: REQ-L-GTL3-GRAPHVECTOR
 // Implements: REQ-L-GTL3-GRAPH
 // Implements: REQ-L-GTL3-GRAPHFUNCTION
 
 import {
+  constructAssetSurface,
   constructEnvRef,
   constructGraph,
   constructGraphFunction,
@@ -14,7 +16,9 @@ import {
   constructTemplateRef
 } from "../contracts/constructors.js";
 import {
+  ASSET_SURFACE_AUTHORITY_SLOT_DISPOSITIONS,
   type AssetSurface,
+  type AssetSurfaceAuthoritySlotDisposition,
   type Context,
   type EnvRef,
   type Evaluator,
@@ -46,6 +50,14 @@ import {
 } from "../../../shared/validation/primitives.js";
 
 const CONTEXT_SCHEMES = ["git://", "workspace://", "event://", "registry://"];
+
+function isAssetSurfaceAuthoritySlotDisposition(
+  value: string
+): value is AssetSurfaceAuthoritySlotDisposition {
+  return ASSET_SURFACE_AUTHORITY_SLOT_DISPOSITIONS.some(
+    (disposition) => disposition === value
+  );
+}
 
 function parseOptionalId(input: unknown, label: string): string | undefined {
   if (input === undefined) {
@@ -232,7 +244,11 @@ export function admitAssetSurface(
   label = "AssetSurface"
 ): AssetSurface {
   const assetObject = parsePlainObject(input, label);
-  return Object.freeze({
+  const authoritySlotsInput = parseUnknownArray(
+    parseOptionalField(assetObject, "authoritySlots") ?? [],
+    `${label}.authoritySlots`
+  );
+  return constructAssetSurface({
     kind: parseString(parseOptionalField(assetObject, "kind") ?? "", `${label}.kind`),
     requiredContexts: parseStringArray(
       parseOptionalField(assetObject, "requiredContexts") ?? [],
@@ -245,6 +261,62 @@ export function admitAssetSurface(
     outputContractRefs: parseStringArray(
       parseOptionalField(assetObject, "outputContractRefs") ?? [],
       `${label}.outputContractRefs`
+    ),
+    constructorRefs: parseStringArray(
+      parseOptionalField(assetObject, "constructorRefs") ?? [],
+      `${label}.constructorRefs`
+    ),
+    constructorInputAssetKinds: parseStringArray(
+      parseOptionalField(assetObject, "constructorInputAssetKinds") ?? [],
+      `${label}.constructorInputAssetKinds`
+    ),
+    rendererRefs: parseStringArray(
+      parseOptionalField(assetObject, "rendererRefs") ?? [],
+      `${label}.rendererRefs`
+    ),
+    renderedViewDigestPolicyRef: parseNullableString(
+      parseOptionalField(assetObject, "renderedViewDigestPolicyRef") ?? null,
+      `${label}.renderedViewDigestPolicyRef`
+    ),
+    sectionKindRefs: parseStringArray(
+      parseOptionalField(assetObject, "sectionKindRefs") ?? [],
+      `${label}.sectionKindRefs`
+    ),
+    clauseKindRefs: parseStringArray(
+      parseOptionalField(assetObject, "clauseKindRefs") ?? [],
+      `${label}.clauseKindRefs`
+    ),
+    authoritySlots: Object.freeze(
+      authoritySlotsInput.map((slotInput, index) => {
+        const slotObject = parsePlainObject(
+          slotInput,
+          `${label}.authoritySlots[${index}]`
+        );
+        const disposition = parseString(
+          slotObject["disposition"],
+          `${label}.authoritySlots[${index}].disposition`
+        );
+        if (!isAssetSurfaceAuthoritySlotDisposition(disposition)) {
+          throw new TypeError(
+            `${label}.authoritySlots[${index}].disposition: unsupported asset-surface authority slot disposition ${disposition}`
+          );
+        }
+        return Object.freeze({
+          authorityKindRef: parseNonEmptyString(
+            slotObject["authorityKindRef"],
+            `${label}.authoritySlots[${index}].authorityKindRef`
+          ),
+          disposition,
+          fallbackPreconditionRefs: parseStringArray(
+            parseOptionalField(slotObject, "fallbackPreconditionRefs") ?? [],
+            `${label}.authoritySlots[${index}].fallbackPreconditionRefs`
+          )
+        });
+      })
+    ),
+    proofObligationRefs: parseStringArray(
+      parseOptionalField(assetObject, "proofObligationRefs") ?? [],
+      `${label}.proofObligationRefs`
     )
   });
 }

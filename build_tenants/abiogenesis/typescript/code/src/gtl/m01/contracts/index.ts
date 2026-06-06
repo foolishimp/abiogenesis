@@ -1,5 +1,7 @@
 export type {
   AssetSurface,
+  AssetSurfaceAuthoritySlot,
+  AssetSurfaceAuthoritySlotDisposition,
   Context,
   EnvRef,
   Evaluator,
@@ -20,12 +22,14 @@ export type {
   TemplateRef
 } from "./carriers.js";
 export {
+  ASSET_SURFACE_AUTHORITY_SLOT_DISPOSITIONS,
   interfaceContract,
   materializeGraphFunction,
   materializeTemplateRef,
   nodeContractKey
 } from "./carriers.js";
 export {
+  constructAssetSurface,
   constructEnvRef,
   constructGraph,
   constructGraphFunction,

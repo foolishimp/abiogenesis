@@ -129,6 +129,21 @@ class AssetSurface {
   -requiredContexts
   -standardsRefs
   -outputContractRefs
+  -constructorRefs
+  -constructorInputAssetKinds
+  -rendererRefs
+  -renderedViewDigestPolicyRef
+  -sectionKindRefs
+  -clauseKindRefs
+  -authoritySlots
+  -proofObligationRefs
+}
+
+class AssetSurfaceAuthoritySlot {
+  <<subordinate>>
+  -authorityKindRef
+  -disposition
+  -fallbackPreconditionRefs
 }
 
 class SerializedAttrs {
@@ -204,6 +219,7 @@ class ExecutionBasis {
 
 Node *-- SchemaRef
 Node *-- AssetSurface
+AssetSurface *-- AssetSurfaceAuthoritySlot
 GraphVector *-- SerializedAttrs
 SerializedAttrs *-- SerializedAttrEntry
 SerializedAttrEntry *-- HookRef

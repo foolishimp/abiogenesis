@@ -16,6 +16,7 @@ inventing semantics.
 
 - `REQ-L-GTL3-ATTRS`
 - `REQ-L-GTL3-CONTEXT`
+- `REQ-L-GTL3-ASSET-SURFACE`
 - `REQ-L-GTL3-GRAPHVECTOR`
 - `REQ-L-GTL3-GRAPHFUNCTION`
 - `REQ-L-GTL3-HOOKS`
@@ -102,6 +103,25 @@ export interface AssetSurface {
   readonly requiredContexts: readonly string[];
   readonly standardsRefs: readonly string[];
   readonly outputContractRefs: readonly string[];
+  readonly constructorRefs: readonly string[];
+  readonly constructorInputAssetKinds: readonly string[];
+  readonly rendererRefs: readonly string[];
+  readonly renderedViewDigestPolicyRef: string | null;
+  readonly sectionKindRefs: readonly string[];
+  readonly clauseKindRefs: readonly string[];
+  readonly authoritySlots: readonly AssetSurfaceAuthoritySlot[];
+  readonly proofObligationRefs: readonly string[];
+}
+
+export type AssetSurfaceAuthoritySlotDisposition =
+  | "normal"
+  | "bounded_fallback"
+  | "forbidden_routine";
+
+export interface AssetSurfaceAuthoritySlot {
+  readonly authorityKindRef: string;
+  readonly disposition: AssetSurfaceAuthoritySlotDisposition;
+  readonly fallbackPreconditionRefs: readonly string[];
 }
 
 export interface Node {
@@ -118,6 +138,15 @@ Contract truths:
 
 - `Node.schema` preserves both symbolic and runtime-reference shape without
   semantic loss
+- `Node.assetSurface` hosts the subordinate GTL typed asset interface. Existing
+  non-rendered assets may leave constructor, renderer, authority, section,
+  clause, and proof fields empty. Renderer-backed prompt assets use those
+  fields to declare shape before rendering.
+- `AssetSurface.authoritySlots` carries opaque authority-kind refs and generic
+  disposition labels only. Product-specific authority vocabulary and assignment
+  policy do not belong to GTL.
+- GTL admission validates authority-slot shape and fallback-precondition
+  presence. ABG/downstream assurance enforces concrete runtime use.
 - `markov` remains GTL declaration truth, not engine-owned metadata
 - `assetSurface` remains GTL declaration truth and is preserved across
   serialization and replay

@@ -17,6 +17,7 @@ import {
   type SerializedJsonValue,
   type TemplateRef
 } from "../contracts/carriers.js";
+import { constructAssetSurface } from "../contracts/constructors.js";
 
 export function serializeSerializedJsonValue(
   value: SerializedJsonValue
@@ -118,11 +119,33 @@ export function serializeSchemaRef(schema: SchemaRef): SchemaRef {
 }
 
 export function serializeAssetSurface(surface: AssetSurface): AssetSurface {
+  const normalized = constructAssetSurface(surface);
+
   return Object.freeze({
-    kind: surface.kind,
-    requiredContexts: Object.freeze([...surface.requiredContexts]),
-    standardsRefs: Object.freeze([...surface.standardsRefs]),
-    outputContractRefs: Object.freeze([...surface.outputContractRefs])
+    kind: normalized.kind,
+    requiredContexts: Object.freeze([...normalized.requiredContexts]),
+    standardsRefs: Object.freeze([...normalized.standardsRefs]),
+    outputContractRefs: Object.freeze([...normalized.outputContractRefs]),
+    constructorRefs: Object.freeze([...normalized.constructorRefs]),
+    constructorInputAssetKinds: Object.freeze([
+      ...normalized.constructorInputAssetKinds
+    ]),
+    rendererRefs: Object.freeze([...normalized.rendererRefs]),
+    renderedViewDigestPolicyRef: normalized.renderedViewDigestPolicyRef,
+    sectionKindRefs: Object.freeze([...normalized.sectionKindRefs]),
+    clauseKindRefs: Object.freeze([...normalized.clauseKindRefs]),
+    authoritySlots: Object.freeze(
+      normalized.authoritySlots.map((slot) =>
+        Object.freeze({
+          authorityKindRef: slot.authorityKindRef,
+          disposition: slot.disposition,
+          fallbackPreconditionRefs: Object.freeze([
+            ...slot.fallbackPreconditionRefs
+          ])
+        })
+      )
+    ),
+    proofObligationRefs: Object.freeze([...normalized.proofObligationRefs])
   });
 }
 

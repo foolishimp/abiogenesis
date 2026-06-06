@@ -35,3 +35,5 @@ asset-surface declaration in GTL 3.
 **REQ-L-GTL3-NODE-010**: `asset_surface` belongs to GTL declaration truth, not ABG runtime invention. ABG may resolve, project, or validate it, but shall not invent missing `asset_surface` law at runtime.
 
 **REQ-L-GTL3-NODE-011**: Any lawful GTL interpretation, serialization surface, or GTL to ABG bridge shall preserve declared `asset_surface` contract without semantic loss.
+
+**REQ-L-GTL3-NODE-012**: When a node declares a renderer-backed, prompt-like, or otherwise policy-rich `asset_surface`, the detailed asset interface shall be governed by `REQ-L-GTL3-ASSET-SURFACE`. The node remains the typed locus; the asset surface remains subordinate declaration truth.
