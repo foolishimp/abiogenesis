@@ -9,6 +9,9 @@ import type {
   Regime
 } from "../../m01/contracts/carriers.js";
 import type { Job } from "./carriers.js";
+import {
+  isEngineAuthorityFieldKey
+} from "../../../shared/engine_authority_fields.js";
 
 export type GtlComputeMeans = Regime;
 
@@ -353,36 +356,40 @@ function isPlainRecord(input: unknown): input is Readonly<Record<string, unknown
   return typeof input === "object" && input !== null && !Array.isArray(input);
 }
 
-function assertNoForbiddenEngineAuthorityFields(
+const GTL_CONTRACT_FULFILLMENT_BINDING_FIELD_KEYS = Object.freeze([
+  "kind",
+  "bindingRef",
+  "obligationRef",
+  "requirementRef",
+  "productRequirementRef",
+  "designObligationRef",
+  "componentRef",
+  "productTargetRef",
+  "outputSurfaceRef",
+  "functionOrEntrypointRef",
+  "realizationEvidenceRefs",
+  "testOrExecutionEvidenceRefs",
+  "evaluatorFindingRef",
+  "authorityRefs",
+  "evidenceRefs"
+] as const);
+
+const GTL_CONTRACT_FULFILLMENT_BINDING_FIELD_KEY_SET: ReadonlySet<string> =
+  new Set(GTL_CONTRACT_FULFILLMENT_BINDING_FIELD_KEYS);
+
+function assertOnlyContractFulfillmentBindingFields(
   record: Readonly<Record<string, unknown>>,
   label: string
 ): void {
-  for (const field of [
-    "runtimeEvents",
-    "events",
-    "ledger",
-    "projection",
-    "runtimeProjection",
-    "graphCall",
-    "graphCallId",
-    "frame",
-    "frameId",
-    "closureDecision",
-    "closureKind",
-    "terminalKind",
-    "terminalReason",
-    "transition",
-    "transitionKind",
-    "nextVectorIndex",
-    "closedVectorIndexes",
-    "mayCloseTraversal",
-    "mayEmitRuntimeEvents",
-    "mayWriteLedger",
-    "maySelectNextVector"
-  ] as const) {
-    if (Object.hasOwn(record, field)) {
+  for (const field of Object.keys(record)) {
+    if (!GTL_CONTRACT_FULFILLMENT_BINDING_FIELD_KEY_SET.has(field)) {
+      if (isEngineAuthorityFieldKey(field)) {
+        throw new TypeError(
+          `${label}.${field}: GTL contract fulfillment binding cannot own engine authority`
+        );
+      }
       throw new TypeError(
-        `${label}.${field}: GTL contract fulfillment binding cannot own engine authority`
+        `${label}.${field}: unknown GTL contract fulfillment binding field`
       );
     }
   }
@@ -535,7 +542,7 @@ export function constructGtlContractFulfillmentBinding(
   input: GtlContractFulfillmentBindingInit
 ): GtlContractFulfillmentBinding {
   if (isPlainRecord(input)) {
-    assertNoForbiddenEngineAuthorityFields(
+    assertOnlyContractFulfillmentBindingFields(
       input,
       "GtlContractFulfillmentBinding"
     );
@@ -624,7 +631,7 @@ export function admitGtlContractFulfillmentBinding(
     throw new TypeError(`${label}: expected a plain object`);
   }
   const record = input;
-  assertNoForbiddenEngineAuthorityFields(record, label);
+  assertOnlyContractFulfillmentBindingFields(record, label);
   const kind = nonEmptyString(record["kind"], `${label}.kind`);
   if (kind !== "gtl_contract_fulfillment_binding") {
     throw new TypeError(

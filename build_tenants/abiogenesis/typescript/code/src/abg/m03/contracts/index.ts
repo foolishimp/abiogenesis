@@ -969,6 +969,27 @@ export {
   enginePluginInventory
 } from "./plugins.js";
 export {
+  admitGtlProgramConformanceInput,
+  formatGtlProgramConformanceIssues,
+  typecheckGtlProgram
+} from "./gtl_program_conformance.js";
+export type {
+  GtlProgramConformanceCoverage,
+  GtlProgramConformanceInput,
+  GtlProgramConformanceInputAdmission,
+  GtlProgramConformanceIssue,
+  GtlProgramConformanceReport,
+  GtlProgramConformanceSurfaceKind,
+  GtlProgramEdgeClosureRow,
+  GtlProgramExpectedCoverage,
+  GtlProgramInventoryDigests,
+  GtlProgramOverlayRow,
+  GtlProgramPromptAssetRow,
+  GtlProgramPublicStartRow,
+  GtlProgramSourceIdentityRow,
+  GtlProgramTargetCarrierRow
+} from "./gtl_program_conformance.js";
+export {
   admitEvaluationRuleDeclaration,
   admitEvaluationRuleOutcome,
   admitEvaluationSetPlan,

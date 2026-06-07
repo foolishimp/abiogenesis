@@ -62,11 +62,34 @@ test("T-152 negative: fulfillment binding rejects engine authority fields", () =
     /cannot own engine authority/u
   );
   assert.throws(
+    () => binding({ mayWriteLedgers: true }),
+    /cannot own engine authority/u
+  );
+  assert.throws(
+    () => binding({ maySelectTraversal: false }),
+    /cannot own engine authority/u
+  );
+  assert.throws(
     () =>
       admitGtlContractFulfillmentBinding({
         ...binding(),
-        closureDecision: "close"
+        mayWriteLedgers: true
       }),
     /cannot own engine authority/u
+  );
+});
+
+test("T-152 negative: fulfillment binding rejects unknown fields instead of stripping them", () => {
+  assert.throws(
+    () => binding({ localShortcut: "silent-strip" }),
+    /unknown GTL contract fulfillment binding field/u
+  );
+  assert.throws(
+    () =>
+      admitGtlContractFulfillmentBinding({
+        ...binding(),
+        localShortcut: "silent-strip"
+      }),
+    /unknown GTL contract fulfillment binding field/u
   );
 });

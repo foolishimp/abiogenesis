@@ -10,6 +10,9 @@ import {
   parseString,
   parseStringArray
 } from "../../../shared/validation/primitives.js";
+import {
+  ENGINE_AUTHORITY_FIELD_KEYS
+} from "../../../shared/engine_authority_fields.js";
 import { freezeStringArray } from "./runtime_support.js";
 
 export const HOOK_ACTION_CLASS_VALUES = Object.freeze([
@@ -58,25 +61,7 @@ export interface HookFindingAdmission {
   readonly reason: string | null;
 }
 
-const FORBIDDEN_HOOK_ACTION_AUTHORITY_FIELDS = Object.freeze([
-  "runtimeEvents",
-  "events",
-  "ledger",
-  "projection",
-  "intent",
-  "selectedIntentRef",
-  "actorInvocationEvent",
-  "closureDecision",
-  "closureKind",
-  "transition",
-  "nextVectorIndex",
-  "closedVectorIndexes",
-  "mayCloseTraversal",
-  "mayEmitRuntimeEvents",
-  "mayWriteLedger",
-  "mayWriteProjection",
-  "maySelectNextVector"
-] as const);
+const FORBIDDEN_HOOK_ACTION_AUTHORITY_FIELDS = ENGINE_AUTHORITY_FIELD_KEYS;
 
 function freezeUniqueStringArray(
   values: readonly string[],

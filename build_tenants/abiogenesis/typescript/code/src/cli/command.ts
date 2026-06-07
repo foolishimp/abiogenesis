@@ -18,6 +18,8 @@ import {
   admitAffectPriorityPolicies,
   admitConstructionPriorityScheme,
   admitAbgFallbackBundle,
+  formatGtlProgramConformanceIssues,
+  typecheckGtlProgram,
   type AbgFallbackBundle
 } from "../abg/m03/index.js";
 import type { Module } from "../gtl/m02/contracts/carriers.js";
@@ -70,6 +72,7 @@ type ParsedCommand =
   | ParsedGapsCommand
   | ParsedGenConfigCommand
   | ParsedAssessResultCommand
+  | ParsedTypecheckGtlProgramCommand
   | ParsedReleaseSnapshotCommand;
 
 interface ParsedInstallCommand {
@@ -108,6 +111,12 @@ interface ParsedAssessResultCommand {
   readonly kind: "assess-result";
   readonly workspace: string;
   readonly result: string;
+}
+
+interface ParsedTypecheckGtlProgramCommand {
+  readonly kind: "typecheck-gtl-program";
+  readonly input: string;
+  readonly format: "json" | "text";
 }
 
 interface ParsedReleaseSnapshotCommand {
@@ -416,6 +425,23 @@ function parseAssessResultCommand(
   });
 }
 
+function parseTypecheckGtlProgramCommand(
+  args: readonly string[]
+): ParsedTypecheckGtlProgramCommand {
+  const parsed = parseFlags(args);
+  requireNoPositionals(parsed, "typecheck-gtl-program");
+  requireAllowedFlags(parsed, "typecheck-gtl-program", ["input", "format"]);
+  const format = optionalFlag(parsed, "format", "json");
+  if (format !== "json" && format !== "text") {
+    throw new CliError('typecheck-gtl-program --format must be "json" or "text"');
+  }
+  return Object.freeze({
+    kind: "typecheck-gtl-program",
+    input: requiredFlag(parsed, "input"),
+    format
+  });
+}
+
 function parseReleaseSnapshotCommand(
   args: readonly string[]
 ): ParsedReleaseSnapshotCommand {
@@ -475,6 +501,8 @@ function parseCommand(argv: readonly string[]): ParsedCommand {
       return parseGenConfigCommand(args);
     case "assess-result":
       return parseAssessResultCommand(args);
+    case "typecheck-gtl-program":
+      return parseTypecheckGtlProgramCommand(args);
     case "release-snapshot":
       return parseReleaseSnapshotCommand(args);
     default:
@@ -1331,6 +1359,36 @@ async function runAssessResultCommand(
   return outcome.kind === "accepted" ? 0 : 1;
 }
 
+async function runTypecheckGtlProgramCommand(
+  command: ParsedTypecheckGtlProgramCommand,
+  io: AbiogenesisCliIo
+): Promise<number> {
+  const inputPath = resolveWorkspace(io.cwd(), command.input);
+  const input = JSON.parse(await readFile(inputPath, "utf8")) as unknown;
+  const report = typecheckGtlProgram(input);
+  if (command.format === "text") {
+    io.stdout(
+      [
+        `status=${report.passed ? "passed" : "failed"}`,
+        `reportRef=${report.reportRef}`,
+        `inventoryDigest=${report.inventoryDigest}`,
+        `issueCount=${report.issueCount}`,
+        formatGtlProgramConformanceIssues(report.issues)
+      ].join("\n") + "\n"
+    );
+  } else {
+    io.stdout(
+      `${JSON.stringify({
+        command: "typecheck-gtl-program",
+        status: report.passed ? "passed" : "failed",
+        input: inputPath,
+        report
+      })}\n`
+    );
+  }
+  return report.passed ? 0 : 1;
+}
+
 async function runInstallCommand(
   command: ParsedInstallCommand,
   io: AbiogenesisCliIo
@@ -1414,6 +1472,8 @@ async function runParsedCommand(
       return runGenConfigCommand(command, io);
     case "assess-result":
       return runAssessResultCommand(command, io);
+    case "typecheck-gtl-program":
+      return runTypecheckGtlProgramCommand(command, io);
     case "release-snapshot":
       return runReleaseSnapshotCommand(command, io);
     default: {

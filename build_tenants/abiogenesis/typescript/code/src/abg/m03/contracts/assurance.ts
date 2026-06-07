@@ -26,6 +26,9 @@ import {
   graphCallIdForBasis,
   vectorEdge
 } from "./runtime_support.js";
+import {
+  ENGINE_AUTHORITY_FIELD_KEYS
+} from "../../../shared/engine_authority_fields.js";
 import { parsePlainObject } from "../../../shared/validation/primitives.js";
 
 export const ASSURANCE_AMBIGUITY_STATUS_VALUES = Object.freeze([
@@ -147,19 +150,7 @@ export interface PriorClosureSnapshotRef {
   readonly projectionRef: string;
 }
 
-const FORBIDDEN_ASSURANCE_PROVIDER_FIELDS = Object.freeze([
-  "runtimeEvents",
-  "events",
-  "nextVectorIndex",
-  "closedVectorIndexes",
-  "transition",
-  "closureKind",
-  "closureDecision",
-  "decision",
-  "mayCloseTraversal",
-  "mayEmitRuntimeEvents",
-  "maySelectNextVector"
-] as const);
+const FORBIDDEN_ASSURANCE_PROVIDER_FIELDS = ENGINE_AUTHORITY_FIELD_KEYS;
 
 function freezeNonEmptyStrings(
   values: readonly string[],

@@ -77,7 +77,7 @@ non_closure_conditions:
   - GTL carriers bake in downstream authority-kind values such as bootstrap, intent, runtime forensics, or sibling workspace history
   - GTL admission enforces concrete downstream authority-policy values instead of only validating declaration shape and fallback-precondition presence
   - downstream products must maintain a parallel prompt registry after the GTL typed asset interface exists
-  - compatibility wrappers preserve two prompt asset truth surfaces instead of migrating callers to the GTL interface
+  - legacy wrappers preserve two prompt asset truth surfaces instead of migrating callers to the GTL interface
   - prompt, review, or handoff contract fulfillment bindings remain owned by downstream prompt prose, local JSON convention, MCP tool schema, or SDLC-only validator code instead of the GTL contract API gate
 review_gate: implementation review required before release
 ---
@@ -391,7 +391,7 @@ surfaces, not a new prime and not an SDLC-local control plane.
 - `npm run test:t150` passes: 7/7, including declaration-shape rejection,
   GTL source purity, local live-style rendered-view proof, graph-function
   chain composition, anti-topology guard, and M02 module publication.
-- `npm run test:t009` passes: 25/25, proving M01 compatibility and canonical
+- `npm run test:t009` passes: 25/25, proving M01 integration and canonical
   identity across existing graph-function composition paths.
 - `npm run test:t010` passes: 5/5, proving M02 publication still preserves
   graph-function-first work truth.
@@ -514,6 +514,17 @@ Verification:
   test_env/tests/test_t182_fp_review_grade_edge_fulfillment.test.mjs
   test_env/tests/test_t172_decomposition_admission.test.mjs` -> `41/41`.
 - `git diff --check` clean.
+
+## Follow-On Moved To T-152 - 2026-06-08
+
+The ABG-owned GTL program typecheck/admission function discovered during
+odd_sdlc T-194 is not part of this completed T-150 closure. It is successor
+scope under active ticket `T-152`.
+
+T-150 closure is limited to the AssetSurface promotion and the typed prompt
+asset steel thread. Any downstream claim that relies on
+`typecheckGtlProgram(...)`, the `typecheck-gtl-program` CLI wrapper, or the
+engine-authority vocabulary cleanup must close and release T-152 first.
 
 ## Notes
 

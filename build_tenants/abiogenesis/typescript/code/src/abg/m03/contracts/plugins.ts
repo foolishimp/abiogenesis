@@ -91,6 +91,10 @@ import {
 } from "./runtime_support.js";
 import { sourceProjectionRef } from "./projection.js";
 import { stableSha256Digest } from "../../../shared/runtime_identity.js";
+import {
+  ENGINE_AUTHORITY_FIELD_KEYS,
+  isEngineAuthorityFieldKey
+} from "../../../shared/engine_authority_fields.js";
 
 export const ENGINE_PLUGIN_KIND_VALUES = Object.freeze([
   "runtime_event_sink",
@@ -434,19 +438,49 @@ interface EnginePluginContractInput {
   readonly mayOwnIterationLoop?: false | undefined;
 }
 
-const FORBIDDEN_OUTCOME_AUTHORITY_FIELDS = Object.freeze([
-  "runtimeEvents",
-  "events",
-  "nextVectorIndex",
-  "closedVectorIndexes",
-  "transition",
-  "closureKind",
-  "graphCallId",
-  "frameId",
-  "vectorIndex",
-  "actorInvocationId",
-  "actorInvocationRef"
+const ENGINE_PLUGIN_CONTRACT_FIELD_KEYS = Object.freeze([
+  "kind",
+  "ref",
+  "pluginKind",
+  "authority",
+  "inputCarrier",
+  "outputCarrier",
+  "eventAuthority",
+  "computeStageRole",
+  "computeMeans",
+  "computeStagePurpose",
+  "humanBoundary",
+  "maySelectNextVector",
+  "mayEmitRuntimeEvents",
+  "mayCloseTraversal",
+  "mayOwnIterationLoop"
 ] as const);
+
+const ENGINE_PLUGIN_CONTRACT_FIELD_KEY_SET: ReadonlySet<string> = new Set(
+  ENGINE_PLUGIN_CONTRACT_FIELD_KEYS
+);
+
+function isReadonlyRecord(
+  input: unknown
+): input is Readonly<Record<string, unknown>> {
+  return typeof input === "object" && input !== null && !Array.isArray(input);
+}
+
+function assertOnlyEnginePluginContractFields(
+  input: Readonly<Record<string, unknown>>,
+  label: string
+): void {
+  for (const field of Object.keys(input)) {
+    if (!ENGINE_PLUGIN_CONTRACT_FIELD_KEY_SET.has(field)) {
+      if (isEngineAuthorityFieldKey(field)) {
+        throw new TypeError(`${label}.${field}: plugin contract cannot own engine authority`);
+      }
+      throw new TypeError(`${label}.${field}: unknown engine plugin contract field`);
+    }
+  }
+}
+
+const FORBIDDEN_OUTCOME_AUTHORITY_FIELDS = ENGINE_AUTHORITY_FIELD_KEYS;
 
 function assertPluginKind(kind: string, label: string): EnginePluginKind {
   switch (kind) {
@@ -941,6 +975,9 @@ function pluginContract(input: EnginePluginContractInput): EnginePluginContract 
 export function constructEnginePluginContract(
   input: EnginePluginContractInput
 ): EnginePluginContract {
+  if (isReadonlyRecord(input)) {
+    assertOnlyEnginePluginContractFields(input, "EnginePluginContract");
+  }
   return pluginContract({
     ref: parseNonEmptyString(input.ref, "EnginePluginContract.ref"),
     pluginKind: assertPluginKind(
@@ -1007,6 +1044,7 @@ export function admitEnginePluginContract(
   label = "EnginePluginContract"
 ): EnginePluginContract {
   const contractObject = parsePlainObject(input, label);
+  assertOnlyEnginePluginContractFields(contractObject, label);
   const kind = parseString(contractObject["kind"], `${label}.kind`);
   if (kind !== "engine_plugin_contract") {
     throw new TypeError(

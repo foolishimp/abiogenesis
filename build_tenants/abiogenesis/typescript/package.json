@@ -1,6 +1,6 @@
 {
   "name": "@abiogenesis/typescript-tenant",
-  "version": "4.0.0-rc.1",
+  "version": "4.0.0-rc.2",
   "private": true,
   "type": "module",
   "types": "./build/semantic/code/src/index.d.ts",
@@ -216,7 +216,7 @@
     "test:t147": "npm run build:semantic && node --test test_env/tests/test_t147_runtime_authority_invariants.test.mjs",
     "test:t148": "npm run build:semantic && node --test test_env/tests/test_t148_runtime_continuation_transition.test.mjs",
     "test:t149": "npm run build:semantic && node --test test_env/tests/test_t149_iteration_state_action_algebra.test.mjs",
-    "test:t150": "npm run build:semantic && node --test test_env/tests/test_t150_gtl_prompt_asset_surface.test.mjs test_env/live/test_t150_gtl_prompt_asset_surface_live.test.mjs",
+    "test:t150": "npm run build:semantic && node --test test_env/tests/test_t150_gtl_prompt_asset_surface.test.mjs test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs test_env/live/test_t150_gtl_prompt_asset_surface_live.test.mjs",
     "test:t151": "npm run build:semantic && node --test test_env/tests/test_t151_segment_scoped_evaluation_redispatch.test.mjs test_env/live/test_t151_segment_scoped_evaluation_redispatch_live.test.mjs",
     "test:t125:live": "npm run build:semantic && node --test test_env/live/test_t125_temporal_and_non_temporal_gtl_live.test.mjs",
     "test:t125": "npm run test:t125:live"
