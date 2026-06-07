@@ -4,11 +4,12 @@ title: Complete ABG defaults bundle expansion after plugin observer slice
 type: feature
 ticket_category: ordinary
 status: active
+proof_status: partial_m04_proven_remaining_defaults_open
 goal: rc-next-visible-abg-defaults
 change_class: design_reframe
 re_entry_point: design
 created_at: 2026-05-06T02:14:45+10:00
-updated_at: 2026-06-07T15:47:18+10:00
+updated_at: 2026-06-07T21:00:00+10:00
 owning_repo: abiogenesis
 governance_scope: STDO Method
 priority: medium
@@ -237,15 +238,26 @@ Current runtime behavior is preserved exactly (user decision: keep behavior).
   `root_mode` rule. Surfaced for visibility; no override path (config keyed to a
   fixed lever fails closed).
 
-### Remaining for full M04 closure (tracked, not done)
+### M04 closure update (2026-06-07)
 
-- **Replay-event provenance** (non-closure §2): the resolved override provenance
-  is computed and surfaced via `gen-config`, but is not yet recorded into the
-  event stream per run. Deferred — no clean run-start event home; threading it
-  through the control loop into the M03 runner needs a new event type +
-  admission schema, out of scope for this pass. Encoded as a `todo` test
-  (`test_t118_override_consumption`: "override resolution provenance is
-  replay-visible") so the suite tracks the gap instead of giving false green.
+- **Replay-event provenance closed:** callable-start admission now carries the
+  resolved `M04RequestDefaultsResolution` on `PublicCallableStartRequest`, and
+  `publicCallableStartFromRequest` emits a canonical
+  `lever_resolution_admitted` runtime event before the control loop runs.
+- The event is admitted through the M03 `RuntimeEvent` union and
+  `RUNTIME_EVENT_ADMITTERS`; aggregate projection and retry-frontier replay
+  treat it as an explicit observational no-op.
+- The event records the consumed workspace/module/target, resolved `until`,
+  `fhMode`, `rootMode`, runtime/policy refs, bundle ref/digest/path, selected
+  lever keys, and source for each live M04 lever (`request`, `override`, or
+  `registry_default`).
+- The CLI start handoff no longer pre-expands omitted `fh_mode`; omitted CLI
+  flags reach callable-start admission as omitted fields so the event reports
+  the true override/default source.
+- Deferred live-lane levers remain classified and visible in the registry with
+  explicit `wiring: "deferred"` reasons. They are not accepted by the override
+  bundle until their live actor/PTY/traversal harness work is undertaken; a
+  config key for a non-live lever still fails closed.
 
 ### root_mode — ratified by requirement_reprice (2026-06-07)
 
@@ -257,6 +269,26 @@ Current runtime behavior is preserved exactly (user decision: keep behavior).
   applied by the governed control-mode gate (`admitPublicControlModes`); the
   duplicate defaults in `admission.ts` and the CLI are removed.
 
+### Codex review resolutions (2026-06-07)
+
+- **README contradiction** — fixed: `README.md` repriced to `fh_mode` defaults
+  `direct`, `root_mode` defaults `supervised` (was contradicting REQ-P-POLICY-013).
+- **Registry completeness** — fixed: added the missing families (asset-addressing
+  field-key defaults, worker ref-fallback, trace root suffix, env sanitation
+  policy, parser inference) as `fixed` levers → 43 levers; the header no longer
+  claims provable exhaustiveness.
+- **`abg.m04.until` CLI scope** — clarified: the CLI requires `--until`
+  (REQ-P-POLICY-009), so the `until` lever governs only the programmatic
+  max-autonomy callable-start, not the CLI; recorded in the lever reason.
+- **Config-section resolution asymmetry — intentional, not a defect:** the
+  `levers` and `targetCarriers` sections resolve installed → package → walk-up
+  (shipped defaults must always apply, and target-carrier is required); the
+  `fallbacks` section is installed-workspace-only and returns null when absent
+  (an installed workspace with an absent fallback config must not silently
+  inherit package plugin-observer bindings — `command.ts` `loadCliFallbackBundle`).
+- **CLI output** — already correct: the start output reports the resolved
+  `controlModes.fhMode/rootMode`, not the raw flags.
+
 ## Non-Closure Conditions
 
 - A runtime-affecting default remains as an unclassified `??`, local constant,
@@ -267,3 +299,10 @@ Current runtime behavior is preserved exactly (user decision: keep behavior).
   policy authority.
 - T-117 plugin traversal observer fallback behavior regresses while expanding
   the broader defaults bundle.
+
+## Closure Evidence (2026-06-07)
+
+- `npm run build:semantic` — passed.
+- `node --test test_env/tests/test_t118_lever_registry.test.mjs test_env/tests/test_t118_lever_overrides.test.mjs test_env/tests/test_t118_override_consumption.test.mjs test_env/tests/test_m04_complete_start_surface_integration.test.mjs test_env/tests/test_m04_cli_binary_integration.test.mjs` — passed, 22/22, 0 todo.
+- `test_t118_override_consumption` proves the `lever_resolution_admitted` event
+  is replay-visible and carries bundle ref, digest, selected keys, and source.

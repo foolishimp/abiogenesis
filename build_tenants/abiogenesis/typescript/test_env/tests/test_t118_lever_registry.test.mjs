@@ -61,6 +61,17 @@ const GOLDEN = {
   "abg.saga.frontier.lease_start_ms": 0,
   "abg.saga.frontier.release_start_ms": 500,
   "abg.runner.regime.default": "F_D",
+  "abg.asset_addressing.assets_key": "assets",
+  "abg.asset_addressing.handle_key": "asset_id",
+  "abg.asset_addressing.asset_id_key": "asset_id",
+  "abg.asset_addressing.uri_key": "uri",
+  "abg.asset_addressing.path_kind_key": "checkpoint.path_kind",
+  "abg.asset_addressing.exists_key": "checkpoint.exists",
+  "abg.asset_addressing.owner_kind_key": "operator_target.kind",
+  "abg.transport.worker.ref_fallback": "contract.agentKey",
+  "abg.transport.trace.root_suffix": ".trace",
+  "abg.transport.env.sanitation_policy": "(contract-carried)",
+  "abg.transport.parser.claude_stream_inference": "claude-stream-json",
   "abg.m04.root_mode.when_converged": "supervised",
   "abg.m04.root_mode.otherwise": "direct"
 };

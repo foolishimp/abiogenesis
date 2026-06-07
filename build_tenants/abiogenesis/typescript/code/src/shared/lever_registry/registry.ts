@@ -1,5 +1,7 @@
-// Unified ABG lever registry — the single governance + visibility source of
-// truth for every product-affecting runtime default ("lever").
+// Unified ABG lever registry — the single governance + visibility surface for
+// product-affecting runtime defaults ("levers"). The inventory is best-effort
+// (Explore sweep + review), not a provably exhaustive enumeration; new defaults
+// must be registered here as they are introduced.
 //
 // This module is a LEAF: it imports only `shared/validation`. It declares each
 // lever's dotted key, current value, classification, and where it is consumed.
@@ -53,7 +55,7 @@ const LEVERS: readonly LeverEntry[] = Object.freeze([
     valueKind: "enum",
     wiring: "live",
     reason:
-      "M04 callable-start convergence target default; operator-overridable.",
+      "M04 max-autonomy callable-start convergence-target default, used when a programmatic caller omits `until`. The CLI requires `--until` (REQ-P-POLICY-009), so the CLI start path does not consult this lever.",
     consumedAt: "app/m04/max_autonomy/admission.ts:43",
     enumValues: UNTIL_VALUES
   },
@@ -330,6 +332,109 @@ const LEVERS: readonly LeverEntry[] = Object.freeze([
     reason:
       "Default evaluator regime when a plugin declares none; F_D = deterministic. Not tunable — changing it would reclassify proof authority.",
     consumedAt: "abg/m03/runner/engine_runner.ts:2595"
+  },
+  {
+    dottedKey: "abg.asset_addressing.assets_key",
+    value: "assets",
+    leverClass: "fixed",
+    valueKind: "string",
+    wiring: "deferred",
+    reason:
+      "Asset-addressing contract field-key default (payload field holding assets). Structural contract key, not operator-tunable.",
+    consumedAt: "app/m04/asset_addressing/admission.ts:59"
+  },
+  {
+    dottedKey: "abg.asset_addressing.handle_key",
+    value: "asset_id",
+    leverClass: "fixed",
+    valueKind: "string",
+    wiring: "deferred",
+    reason: "Asset-addressing handle field-key default. Structural contract key.",
+    consumedAt: "app/m04/asset_addressing/admission.ts:63"
+  },
+  {
+    dottedKey: "abg.asset_addressing.asset_id_key",
+    value: "asset_id",
+    leverClass: "fixed",
+    valueKind: "string",
+    wiring: "deferred",
+    reason: "Asset-addressing asset-id field-key default. Structural contract key.",
+    consumedAt: "app/m04/asset_addressing/admission.ts:67"
+  },
+  {
+    dottedKey: "abg.asset_addressing.uri_key",
+    value: "uri",
+    leverClass: "fixed",
+    valueKind: "string",
+    wiring: "deferred",
+    reason: "Asset-addressing uri field-key default. Structural contract key.",
+    consumedAt: "app/m04/asset_addressing/admission.ts:71"
+  },
+  {
+    dottedKey: "abg.asset_addressing.path_kind_key",
+    value: "checkpoint.path_kind",
+    leverClass: "fixed",
+    valueKind: "string",
+    wiring: "deferred",
+    reason: "Asset-addressing path-kind field-key default. Structural contract key.",
+    consumedAt: "app/m04/asset_addressing/admission.ts:80"
+  },
+  {
+    dottedKey: "abg.asset_addressing.exists_key",
+    value: "checkpoint.exists",
+    leverClass: "fixed",
+    valueKind: "string",
+    wiring: "deferred",
+    reason: "Asset-addressing exists field-key default. Structural contract key.",
+    consumedAt: "app/m04/asset_addressing/admission.ts:84"
+  },
+  {
+    dottedKey: "abg.asset_addressing.owner_kind_key",
+    value: "operator_target.kind",
+    leverClass: "fixed",
+    valueKind: "string",
+    wiring: "deferred",
+    reason: "Asset-addressing owner-kind field-key default. Structural contract key.",
+    consumedAt: "app/m04/asset_addressing/admission.ts:88"
+  },
+  {
+    dottedKey: "abg.transport.worker.ref_fallback",
+    value: "contract.agentKey",
+    leverClass: "fixed",
+    valueKind: "string",
+    wiring: "deferred",
+    reason:
+      "Worker ref falls back to the contract's agentKey when unset. Structural identity derivation, not a value knob (value names the fallback source field).",
+    consumedAt: "shared/abg_library/agent_transport.ts:224"
+  },
+  {
+    dottedKey: "abg.transport.trace.root_suffix",
+    value: ".trace",
+    leverClass: "fixed",
+    valueKind: "string",
+    wiring: "deferred",
+    reason: "Default trace-root path suffix when traceRoot is unset.",
+    consumedAt: "shared/abg_library/agent_transport.ts:221"
+  },
+  {
+    dottedKey: "abg.transport.env.sanitation_policy",
+    value: "(contract-carried)",
+    leverClass: "fixed",
+    valueKind: "string",
+    wiring: "deferred",
+    reason:
+      "Sanitized-environment prefixes are carried by the transport contract; there is no in-code default value (value is a visibility placeholder).",
+    consumedAt: "abg/m03/transport/admission.ts:103"
+  },
+  {
+    dottedKey: "abg.transport.parser.claude_stream_inference",
+    value: "claude-stream-json",
+    leverClass: "fixed",
+    valueKind: "enum",
+    wiring: "deferred",
+    reason:
+      "Parser is inferred as claude-stream-json when the command is claude and args include stream-json. Inference heuristic, not a tunable.",
+    consumedAt: "abg/m03/transport/process_actor.ts:97"
   },
   {
     dottedKey: "abg.m04.root_mode.when_converged",

@@ -1,6 +1,7 @@
 // Implements: REQ-P-POLICY-017
 
 import { spawnSync } from "node:child_process";
+import { existsSync } from "node:fs";
 import { access, appendFile, mkdir, readFile } from "node:fs/promises";
 import { dirname, isAbsolute, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -35,18 +36,18 @@ import {
 import {
   leverEntries,
   loadAbgLeverOverridesBundle,
-  resolveM04RequestDefaults,
   getLeverOverride,
   type AbgLeverOverridesBundle,
   type LeverEntry
 } from "../shared/lever_registry/index.js";
-import { loadAbgConfigSectionsFromFile } from "../shared/abg_config/load.js";
-import { defaultRootMode } from "../shared/validation/governed_enums.js";
+import {
+  INSTALLED_ABG_CONFIG_RELATIVE_PATH,
+  loadAbgConfigSectionsFromFile
+} from "../shared/abg_config/load.js";
 import { createReleaseSnapshotBundle } from "../qualification/m05/index.js";
 import type { OperatorAssetQueryContract } from "../app/m04/asset_addressing/carriers.js";
 import type {
   FhMode,
-  PublicStartRequest,
   RootMode
 } from "../app/m04/contracts/carriers.js";
 import type { PublicCallableStartOutcome } from "../app/m04/max_autonomy/carriers.js";
@@ -151,12 +152,6 @@ interface RuntimeBinding {
   readonly operatorAssetContract?: OperatorAssetQueryContract;
   readonly operatorAssets?: unknown;
 }
-
-const INSTALLED_ABG_CONFIG_RELATIVE_PATH = join(
-  ".abiogenesis",
-  "config",
-  "abg.config.json"
-);
 
 interface ResolvedCliTarget {
   readonly inputRef: string;
@@ -754,6 +749,14 @@ function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
   if (Array.isArray(input["runtimeEvents"])) {
     result.runtimeEvents = Object.freeze([...input["runtimeEvents"]]) as readonly RuntimeEvent[];
   }
+  const abgConfigPath = coerceNullableStringField(
+    input,
+    "abgConfigPath",
+    label
+  );
+  if (abgConfigPath !== undefined) {
+    result.abgConfigPath = abgConfigPath;
+  }
   if (hasOwnField(input, "constructionPriorityScheme")) {
     result.constructionPriorityScheme = admitConstructionPriorityScheme(
       input["constructionPriorityScheme"],
@@ -767,14 +770,6 @@ function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
     );
   }
 
-  const abgConfigPath = coerceNullableStringField(
-    input,
-    "abgConfigPath",
-    label
-  );
-  if (abgConfigPath !== undefined) {
-    result.abgConfigPath = abgConfigPath;
-  }
   const pluginTraversalObserverFallbackEnabled = coerceOptionalBooleanField(
     input,
     "pluginTraversalObserverFallbackEnabled",
@@ -829,16 +824,7 @@ function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
   return Object.freeze(result);
 }
 
-function isNodeErrorCode(error: unknown, code: string): boolean {
-  return (
-    typeof error === "object" &&
-    error !== null &&
-    "code" in error &&
-    error["code"] === code
-  );
-}
-
-function resolveCliAbgConfigPath(
+function resolveCliInstalledAbgConfigPath(
   workspaceRoot: string,
   binding: RuntimeBinding
 ): string | null {
@@ -859,25 +845,22 @@ function loadCliFallbackBundle(
   workspaceRoot: string,
   binding: RuntimeBinding
 ): AbgFallbackBundle | null {
-  const fallbackPath = resolveCliAbgConfigPath(workspaceRoot, binding);
-  if (fallbackPath === null) {
+  // Fallbacks keep the T-117 installed-workspace-only absence law. Lever and
+  // target-carrier defaults may fall back to package/walk-up config, but plugin
+  // observer fallbacks must not silently read package defaults for an installed
+  // workspace whose local fallback config is absent.
+  const fallbackPath = resolveCliInstalledAbgConfigPath(workspaceRoot, binding);
+  if (fallbackPath === null || !existsSync(fallbackPath)) {
     return null;
   }
-  try {
-    const sections = loadAbgConfigSectionsFromFile(fallbackPath);
-    if (sections.fallbacks === null) {
-      return null;
-    }
-    return admitAbgFallbackBundle(sections.fallbacks.value, {
-      bundlePath: sections.fallbacks.bundlePath,
-      bundleDigest: sections.fallbacks.bundleDigest
-    });
-  } catch (error: unknown) {
-    if (isNodeErrorCode(error, "ENOENT")) {
-      return null;
-    }
-    throw error;
+  const sections = loadAbgConfigSectionsFromFile(fallbackPath);
+  if (sections.fallbacks === null) {
+    return null;
   }
+  return admitAbgFallbackBundle(sections.fallbacks.value, {
+    bundlePath: sections.fallbacks.bundlePath,
+    bundleDigest: sections.fallbacks.bundleDigest
+  });
 }
 
 async function loadRuntimeBinding(workspaceRoot: string): Promise<RuntimeBinding> {
@@ -1049,52 +1032,28 @@ function startContext(
   };
 }
 
-function startRequest(
+function callableInput(
   command: ParsedStartCommand,
   workspaceRoot: string,
   binding: RuntimeBinding,
-  target: ResolvedCliTarget,
-  fhMode: FhMode,
-  rootMode: RootMode
-): PublicStartRequest {
+  target: ResolvedCliTarget
+): unknown {
   if (command.scope !== "workspace") {
     throw new CliError("TypeScript CLI currently supports --scope workspace only");
   }
   return {
-    startIntent: {
-      scope: {
-        kind: "workspace",
-        workspaceRoot,
-        moduleName: binding.module.name
-      },
-      target: {
-        kind: "graph_function",
-        handle: target.graphFunctionHandle
-      },
-      until: command.until
-    },
-    controlModes: {
-      fhMode,
-      rootMode
-    },
-    runtimeSelector: null
-  };
-}
-
-function callableInput(request: PublicStartRequest): unknown {
-  return {
     scope: {
-      kind: request.startIntent.scope.kind,
-      workspaceRoot: request.startIntent.scope.workspaceRoot,
-      moduleName: request.startIntent.scope.moduleName
+      kind: "workspace",
+      workspaceRoot,
+      moduleName: binding.module.name
     },
     target: {
-      kind: request.startIntent.target.kind,
-      handle: request.startIntent.target.handle
+      kind: "graph_function",
+      handle: target.graphFunctionHandle
     },
-    until: request.startIntent.until,
-    fh_mode: request.controlModes.fhMode,
-    root_mode: request.controlModes.rootMode
+    until: command.until,
+    ...(command.fhMode === undefined ? {} : { fh_mode: command.fhMode }),
+    ...(command.rootMode === undefined ? {} : { root_mode: command.rootMode })
   };
 }
 
@@ -1162,29 +1121,9 @@ async function runStartCommand(
   const eventLogPath = eventsPath(workspaceRoot);
   const replayEvents = await readReplayEvents(eventLogPath);
   const target = await resolveCliTarget(workspaceRoot, binding, command.target);
-  // When --fh-mode is omitted, the lever override (abg.config.json) / registry
-  // default governs — not a hardcoded CLI default. (T-118 runtime authority.)
-  const fhMode =
-    command.fhMode ??
-    parseFhMode(
-      resolveM04RequestDefaults({
-        bundle: loadAbgLeverOverridesBundle(workspaceRoot)
-      }).fhMode
-    );
-  // root_mode default is REQ-P-POLICY-013 (supervised on converged), not a
-  // hardcoded CLI default.
-  const rootMode = command.rootMode ?? defaultRootMode(command.until);
-  const request = startRequest(
-    command,
-    workspaceRoot,
-    binding,
-    target,
-    fhMode,
-    rootMode
-  );
   const emitted: RuntimeEvent[] = [];
   const outcome = publicCallableStart(
-    callableInput(request),
+    callableInput(command, workspaceRoot, binding, target),
     startContext(workspaceRoot, binding, replayEvents),
     (event) => {
       emitted.push(event);
@@ -1201,8 +1140,8 @@ async function runStartCommand(
     asset_id: target.assetId,
     edge: firstEventEdge(emitted),
     stopped_by: outcome.controlOutcome.kind,
-    fh_mode: command.fhMode,
-    root_mode: command.rootMode,
+    fh_mode: outcome.request.startRequest.controlModes.fhMode,
+    root_mode: outcome.request.startRequest.controlModes.rootMode,
     event_kinds: emitted.map((event) => event.kind),
     events_path: eventLogPath,
     stop_class: outcome.stopClass,

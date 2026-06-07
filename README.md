@@ -78,9 +78,10 @@ The current public control-mode families are:
 - `fh_mode = direct | human-proxy`
 - `root_mode = direct | supervised`
 
-Both default to `direct`. Concrete spellings such as `--fh-mode` and
-`--root-mode` are adapter/build bindings for those same product-policy control
-families. In the current cut, both are lawful only with `until = converged`.
+`fh_mode` defaults to `direct`; `root_mode` defaults to `supervised`. Concrete
+spellings such as `--fh-mode` and `--root-mode` are adapter/build bindings for
+those same product-policy control families. In the current cut, both are lawful
+only with `until = converged`.
 
 Lower-level traversal or status hooks may still exist in the runtime and
 install line, but they are not the public human operator workflow.
