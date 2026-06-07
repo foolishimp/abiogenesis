@@ -17,6 +17,7 @@ import {
   stableJsonEquals,
   stableSha256Digest
 } from "../../../shared/runtime_identity.js";
+import { loadAbgConfigSections } from "../../../shared/abg_config/load.js";
 
 export const TARGET_CARRIER_CONTRACT_DECLARATION_KEY =
   "gtl.target_carrier_contract" as const;
@@ -784,9 +785,16 @@ export function resolveGtlTargetCarrierDefaultsPath(
 export function loadGtlTargetCarrierDefaultsBundle(
   workspaceRoot = process.cwd()
 ): GtlTargetCarrierDefaultsBundle {
-  return loadGtlTargetCarrierDefaultsBundleFromFile(
-    resolveGtlTargetCarrierDefaultsPath(workspaceRoot)
-  );
+  const sections = loadAbgConfigSections(workspaceRoot);
+  if (sections === null || sections.targetCarriers === null) {
+    throw new TypeError(
+      `GTL target-carrier defaults section not found in abg.config.json under ${workspaceRoot}`
+    );
+  }
+  return admitGtlTargetCarrierDefaultsBundle(sections.targetCarriers.value, {
+    bundlePath: sections.targetCarriers.bundlePath,
+    bundleDigest: sections.targetCarriers.bundleDigest
+  });
 }
 
 export function resolveTargetCarrierContractBinding(input: {

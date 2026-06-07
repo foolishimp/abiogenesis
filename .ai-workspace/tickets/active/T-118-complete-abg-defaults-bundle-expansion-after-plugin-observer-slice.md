@@ -204,15 +204,22 @@ Current runtime behavior is preserved exactly (user decision: keep behavior).
   (`abg/m03/admission/carriers.ts`) and control-mode gate
   (`app/m04/admission/public_start.ts`) now import it, so the override admitter
   validates against the SAME allowed-set (closes the schema-drift hole).
-- `shared/lever_registry/overrides.ts` + `config/abg.lever-overrides.json` —
-  registry-keyed override bundle; fail-closed at load (unknown key, fixed-lever
-  key, or out-of-enum value rejected); `request > override > registry-default`
-  precedence with provenance.
+- `shared/lever_registry/overrides.ts` — registry-keyed override bundle;
+  fail-closed at load (unknown key, fixed-lever key, or out-of-enum value
+  rejected); `request > override > registry-default` precedence with provenance.
+- **Single consolidated config file** `config/abg.config.json` (installed at
+  `.abiogenesis/config/abg.config.json`) holds three sections — `levers`,
+  `fallbacks` (T-117), `targetCarriers` — replacing the three separate files.
+  `shared/abg_config/load.ts` is a leaf returning raw sections; each existing
+  loader (lever, fallback, target-carrier) reads its section and hands it to its
+  own admitter, so admission/behavior is unchanged. Each loader keeps its prior
+  resolution semantics (fallback: installed-workspace-only; lever/targetCarrier:
+  installed → package → walk-up).
 - M04 request defaults (`until`, `fh_mode`) wired through the production path
   (`callable_start.ts` → context → admission). No longer dormant.
 - `gen-config` CLI projection prints the full tree with per-row source
   (`registry-default` vs `config-override`).
-- Installer copies + refresh-preserves `abg.lever-overrides.json`.
+- Installer copies + refresh-preserves the single `abg.config.json`.
 
 ### Classification (tunable = operator-overridable; fixed = internal/structural)
 

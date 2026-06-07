@@ -13,7 +13,6 @@ export {
 export {
   admitAbgLeverOverridesBundle,
   loadAbgLeverOverridesBundleFromFile,
-  resolveAbgLeverOverridesPath,
   loadAbgLeverOverridesBundle,
   getLeverOverride,
   resolveM04RequestDefaults,

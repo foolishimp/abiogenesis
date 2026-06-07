@@ -21,13 +21,14 @@ import {
   tryResolvePluginTraversalObserverBinding
 } from "../../build/semantic/code/src/abg/m03/index.js";
 import { buildFpBasis } from "./support/m03-fixtures.mjs";
+import { loadFallbackBundleFromConfig } from "./support/abg_config_fallback.mjs";
 
 const TEST_DIR = path.dirname(fileURLToPath(import.meta.url));
 const TYPESCRIPT_ROOT = path.resolve(TEST_DIR, "..", "..");
 const REFERENCE_FALLBACK_PATH = path.join(
   TYPESCRIPT_ROOT,
   "config",
-  "abg.reference-fallbacks.json"
+  "abg.config.json"
 );
 
 function attrs(entries = []) {
@@ -169,7 +170,7 @@ function fpDispatchContract() {
 }
 
 function bundle() {
-  return loadAbgFallbackBundleFromFile(REFERENCE_FALLBACK_PATH);
+  return loadFallbackBundleFromConfig(REFERENCE_FALLBACK_PATH);
 }
 
 test("T-116 fallback observer binding is opt-in; normal F_P runs have no observer binding", () => {

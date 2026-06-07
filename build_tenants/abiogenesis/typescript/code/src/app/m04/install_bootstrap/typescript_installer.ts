@@ -68,37 +68,14 @@ const REQUIRED_DOC_FILES = Object.freeze([
   "USER_GUIDE.md"
 ] as const);
 
-const REFERENCE_FALLBACK_CONFIG_RELATIVE_PATH = join(
-  "config",
-  "abg.reference-fallbacks.json"
-);
-
-const REFERENCE_TARGET_CARRIER_DEFAULTS_RELATIVE_PATH = join(
-  "config",
-  "gtl.target-carrier-defaults.json"
-);
+// One consolidated config file holds the levers / fallbacks / targetCarriers
+// sections. The manifest field names retain the legacy "fallback" naming.
+const REFERENCE_FALLBACK_CONFIG_RELATIVE_PATH = join("config", "abg.config.json");
 
 const INSTALLED_FALLBACK_CONFIG_RELATIVE_PATH = join(
   ".abiogenesis",
   "config",
-  "abg.fallbacks.json"
-);
-
-const INSTALLED_TARGET_CARRIER_DEFAULTS_RELATIVE_PATH = join(
-  ".abiogenesis",
-  "config",
-  "gtl.target-carrier-defaults.json"
-);
-
-const REFERENCE_LEVER_OVERRIDES_RELATIVE_PATH = join(
-  "config",
-  "abg.lever-overrides.json"
-);
-
-const INSTALLED_LEVER_OVERRIDES_RELATIVE_PATH = join(
-  ".abiogenesis",
-  "config",
-  "abg.lever-overrides.json"
+  "abg.config.json"
 );
 
 function isNodeErrorCode(error: unknown, code: string): boolean {
@@ -465,48 +442,6 @@ async function copyFallbackConfig(input: {
   });
 }
 
-async function copyTargetCarrierDefaultsConfig(input: {
-  readonly packageSourceRoot: string;
-  readonly targetRoot: string;
-}): Promise<void> {
-  const sourcePath = join(
-    input.packageSourceRoot,
-    REFERENCE_TARGET_CARRIER_DEFAULTS_RELATIVE_PATH
-  );
-  if (!(await pathIsFile(sourcePath))) {
-    throw new Error(`missing GTL target carrier defaults config source file ${sourcePath}`);
-  }
-  const targetPath = join(
-    input.targetRoot,
-    INSTALLED_TARGET_CARRIER_DEFAULTS_RELATIVE_PATH
-  );
-  await mkdir(dirname(targetPath), { recursive: true });
-  if (!(await pathIsFile(targetPath))) {
-    await cp(sourcePath, targetPath, { recursive: false });
-  }
-}
-
-async function copyLeverOverridesConfig(input: {
-  readonly packageSourceRoot: string;
-  readonly targetRoot: string;
-}): Promise<void> {
-  const sourcePath = join(
-    input.packageSourceRoot,
-    REFERENCE_LEVER_OVERRIDES_RELATIVE_PATH
-  );
-  if (!(await pathIsFile(sourcePath))) {
-    throw new Error(`missing ABG lever overrides config source file ${sourcePath}`);
-  }
-  const targetPath = join(
-    input.targetRoot,
-    INSTALLED_LEVER_OVERRIDES_RELATIVE_PATH
-  );
-  await mkdir(dirname(targetPath), { recursive: true });
-  // copy only when absent => user edits are preserved across refresh
-  if (!(await pathIsFile(targetPath))) {
-    await cp(sourcePath, targetPath, { recursive: false });
-  }
-}
 
 async function writeInstallProvenance(input: {
   readonly manifestPath: string;
@@ -742,7 +677,7 @@ export const runtimeBinding = {
     defaultRegime: "F_D",
     dispatchRef: null
   }),
-  abgFallbackConfigPath: ".abiogenesis/config/abg.fallbacks.json",
+  abgFallbackConfigPath: ".abiogenesis/config/abg.config.json",
   runId: "run://abiogenesis/installed-substrate-self-test",
   workKey: "wk://abiogenesis/installed-substrate-self-test"
 };
@@ -975,14 +910,6 @@ export async function installAbiogenesisTypescript(
     const standardsInstallRoot = join(docsInstallRoot, "standards");
     const docsFiles = await copyDocsFiles(docsSourceRoot, docsInstallRoot);
     const fallbackConfig = await copyFallbackConfig({
-      packageSourceRoot: request.packageSourceRoot,
-      targetRoot: request.targetRoot.rootPath
-    });
-    await copyTargetCarrierDefaultsConfig({
-      packageSourceRoot: request.packageSourceRoot,
-      targetRoot: request.targetRoot.rootPath
-    });
-    await copyLeverOverridesConfig({
       packageSourceRoot: request.packageSourceRoot,
       targetRoot: request.targetRoot.rootPath
     });

@@ -293,31 +293,15 @@ test("T-076 public TypeScript installer populates a package-backed ABG install a
   assert.equal(manifest.fallbackConfigPath, outcome.fallbackConfigPath);
   assert.equal(
     manifest.fallbackConfigSourcePath,
-    path.join(sourceRoot, "config", "abg.reference-fallbacks.json")
+    path.join(sourceRoot, "config", "abg.config.json")
   );
   assert.equal(
     manifest.fallbackConfigFile.relativePath,
-    path.join(".abiogenesis", "config", "abg.fallbacks.json")
+    path.join(".abiogenesis", "config", "abg.config.json")
   );
   assert.equal(
     await pathExists(
-      path.join(
-        targetRoot,
-        ".abiogenesis",
-        "config",
-        "gtl.target-carrier-defaults.json"
-      )
-    ),
-    true
-  );
-  assert.equal(
-    await pathExists(
-      path.join(
-        targetRoot,
-        ".abiogenesis",
-        "config",
-        "abg.lever-overrides.json"
-      )
+      path.join(targetRoot, ".abiogenesis", "config", "abg.config.json")
     ),
     true
   );
@@ -379,7 +363,7 @@ test("T-076 public TypeScript installer populates a package-backed ABG install a
     targetRoot,
     ".abiogenesis",
     "config",
-    "abg.fallbacks.json"
+    "abg.config.json"
   );
   assert.equal(await pathExists(installedFallbackPath), true);
 
@@ -458,11 +442,15 @@ test("T-076 public TypeScript installer populates a package-backed ABG install a
   );
   const malformedFallbackConfig = {
     ...originalFallbackConfig,
-    pluginTraversalObserverBindings: {
-      ...originalFallbackConfig.pluginTraversalObserverBindings,
-      transform: {
-        ...originalFallbackConfig.pluginTraversalObserverBindings.transform,
-        observerPromptRef: ""
+    fallbacks: {
+      ...originalFallbackConfig.fallbacks,
+      pluginTraversalObserverBindings: {
+        ...originalFallbackConfig.fallbacks.pluginTraversalObserverBindings,
+        transform: {
+          ...originalFallbackConfig.fallbacks.pluginTraversalObserverBindings
+            .transform,
+          observerPromptRef: ""
+        }
       }
     }
   };
@@ -527,34 +515,20 @@ test("T-078 public TypeScript installer refreshes repeated installs over admitte
   const firstDependency =
     firstPackageJson.dependencies["@abiogenesis/typescript-tenant"];
   assert.equal(firstDependency, `file:${path.relative(targetRoot, first.tarballPath)}`);
-  const fallbackConfigPath = path.join(
+  // T-118: the consolidated abg.config.json (fallbacks + levers + targetCarriers)
+  // must be preserved across refresh.
+  const abgConfigPath = path.join(
     targetRoot,
     ".abiogenesis",
     "config",
-    "abg.fallbacks.json"
+    "abg.config.json"
   );
-  const targetCarrierDefaultsPath = path.join(
-    targetRoot,
-    ".abiogenesis",
-    "config",
-    "gtl.target-carrier-defaults.json"
-  );
-  const customizedFallbackConfig = await readJson(fallbackConfigPath);
-  customizedFallbackConfig.bundleRef = "fallback-bundle://abg/t078-local-edit";
-  customizedFallbackConfig.pluginTraversalObserverBindings.transform.observerPromptRef =
+  const customizedConfig = await readJson(abgConfigPath);
+  customizedConfig.fallbacks.bundleRef = "fallback-bundle://abg/t078-local-edit";
+  customizedConfig.fallbacks.pluginTraversalObserverBindings.transform.observerPromptRef =
     "prompt://tenant/t078-local-transform-observer";
-  await writeJson(fallbackConfigPath, customizedFallbackConfig);
-
-  // T-118: the lever-overrides config must also be preserved across refresh.
-  const leverOverridesPath = path.join(
-    targetRoot,
-    ".abiogenesis",
-    "config",
-    "abg.lever-overrides.json"
-  );
-  const customizedLeverOverrides = await readJson(leverOverridesPath);
-  customizedLeverOverrides.bundleRef = "lever-overrides://abg/t078-local-edit";
-  await writeJson(leverOverridesPath, customizedLeverOverrides);
+  customizedConfig.levers.bundleRef = "lever-overrides://abg/t078-local-edit";
+  await writeJson(abgConfigPath, customizedConfig);
 
   const second = await installAbiogenesisTypescript({
     targetRoot: {
@@ -581,21 +555,18 @@ test("T-078 public TypeScript installer refreshes repeated installs over admitte
   const installerManifest = await readJson(second.installerManifestPath);
   assert.equal(installerManifest.installMode, "refresh");
   assert.equal(installerManifest.tarballPath, second.tarballPath);
-  assert.equal(await pathExists(fallbackConfigPath), true);
-  assert.equal(await pathExists(targetCarrierDefaultsPath), true);
-  const refreshedFallbackConfig = await readJson(fallbackConfigPath);
+  assert.equal(await pathExists(abgConfigPath), true);
+  const refreshedConfig = await readJson(abgConfigPath);
   assert.equal(
-    refreshedFallbackConfig.bundleRef,
+    refreshedConfig.fallbacks.bundleRef,
     "fallback-bundle://abg/t078-local-edit"
   );
   assert.equal(
-    refreshedFallbackConfig.pluginTraversalObserverBindings.transform.observerPromptRef,
+    refreshedConfig.fallbacks.pluginTraversalObserverBindings.transform.observerPromptRef,
     "prompt://tenant/t078-local-transform-observer"
   );
-  assert.equal(await pathExists(leverOverridesPath), true);
-  const refreshedLeverOverrides = await readJson(leverOverridesPath);
   assert.equal(
-    refreshedLeverOverrides.bundleRef,
+    refreshedConfig.levers.bundleRef,
     "lever-overrides://abg/t078-local-edit"
   );
 

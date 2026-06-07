@@ -38,13 +38,14 @@ import {
   selectedAbgFnRegimeBindingForCompute
 } from "../../build/semantic/code/src/index.js";
 import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
+import { loadFallbackBundleFromConfig } from "./support/abg_config_fallback.mjs";
 
 const TEST_DIR = path.dirname(fileURLToPath(import.meta.url));
 const TYPESCRIPT_ROOT = path.resolve(TEST_DIR, "..", "..");
 const REFERENCE_FALLBACK_PATH = path.join(
   TYPESCRIPT_ROOT,
   "config",
-  "abg.reference-fallbacks.json"
+  "abg.config.json"
 );
 
 function pluginContract(pluginKind) {
@@ -89,7 +90,7 @@ function firstVectorInput({ basis, contract, regime, fallbackKinds = [] }) {
             resultRef: "result://t144/fp"
           }
         : null,
-    abgFallbackBundle: loadAbgFallbackBundleFromFile(REFERENCE_FALLBACK_PATH),
+    abgFallbackBundle: loadFallbackBundleFromConfig(REFERENCE_FALLBACK_PATH),
     pluginTraversalObserverFallbackKinds: fallbackKinds
   });
 }
@@ -1100,7 +1101,7 @@ test("T-144 malformed compute categories and fallback surfaces fail closed", () 
     /authorityRefs must not be empty/u
   );
 
-  const raw = JSON.parse(readFileSync(REFERENCE_FALLBACK_PATH, "utf8"));
+  const raw = JSON.parse(readFileSync(REFERENCE_FALLBACK_PATH, "utf8")).fallbacks;
   delete raw.pluginTraversalObserverBindings.consequence;
   assert.throws(
     () => admitAbgFallbackBundle(raw),

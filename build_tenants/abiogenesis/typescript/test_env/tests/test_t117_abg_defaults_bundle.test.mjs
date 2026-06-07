@@ -16,13 +16,14 @@ import {
   resolvePluginTraversalObserverBinding
 } from "../../build/semantic/code/src/abg/m03/index.js";
 import { buildFpBasis } from "./support/m03-fixtures.mjs";
+import { loadFallbackBundleFromConfig } from "./support/abg_config_fallback.mjs";
 
 const TEST_DIR = path.dirname(fileURLToPath(import.meta.url));
 const TYPESCRIPT_ROOT = path.resolve(TEST_DIR, "..", "..");
 const REFERENCE_FALLBACK_PATH = path.join(
   TYPESCRIPT_ROOT,
   "config",
-  "abg.reference-fallbacks.json"
+  "abg.config.json"
 );
 
 async function tempRoot(label) {
@@ -40,7 +41,7 @@ function clone(value) {
 
 test("T-117 shipped fallback bundle is visible abg_defaults configuration with digest provenance", async () => {
   const raw = JSON.parse(await readFile(REFERENCE_FALLBACK_PATH, "utf8"));
-  const bundle = loadAbgFallbackBundleFromFile(REFERENCE_FALLBACK_PATH);
+  const bundle = loadFallbackBundleFromConfig(REFERENCE_FALLBACK_PATH);
 
   assert.equal(bundle.kind, "abg_fallback_bundle");
   assert.equal(bundle.abgDefaultsFamily, "abg_defaults");
@@ -59,7 +60,7 @@ test("T-117 shipped fallback bundle is visible abg_defaults configuration with d
     "prompt://abg/reference/generic-consequence-observer"
   );
 
-  const admitted = admitAbgFallbackBundle(raw);
+  const admitted = admitAbgFallbackBundle(raw.fallbacks);
   assert.equal(admitted.bundleRef, bundle.bundleRef);
   assert.equal(admitted.bundlePath, null);
   assert.match(admitted.bundleDigest, /^sha256:[a-f0-9]{64}$/u);
@@ -72,15 +73,15 @@ test("T-117 installed editable fallback copy can override prompt refs without co
     root,
     ".abiogenesis",
     "config",
-    "abg.fallbacks.json"
+    "abg.config.json"
   );
   const override = clone(source);
-  override.bundleRef = "fallback-bundle://abg/test-installed-override";
-  override.pluginTraversalObserverBindings.transform.observerPromptRef =
+  override.fallbacks.bundleRef = "fallback-bundle://abg/test-installed-override";
+  override.fallbacks.pluginTraversalObserverBindings.transform.observerPromptRef =
     "prompt://tenant/custom-transform-observer";
   await writeJson(installedPath, override);
 
-  const bundle = loadAbgFallbackBundleFromFile(installedPath);
+  const bundle = loadFallbackBundleFromConfig(installedPath);
   const { basis } = buildFpBasis();
   const selection = resolvePluginTraversalObserverBinding({
     traversalKind: "transform",
@@ -101,7 +102,7 @@ test("T-117 installed editable fallback copy can override prompt refs without co
 });
 
 test("T-117 malformed, missing, and partial defaults fail closed", async () => {
-  const source = JSON.parse(await readFile(REFERENCE_FALLBACK_PATH, "utf8"));
+  const source = JSON.parse(await readFile(REFERENCE_FALLBACK_PATH, "utf8")).fallbacks;
   const root = await tempRoot("malformed");
   const malformedPath = path.join(root, ".abiogenesis", "config", "bad.json");
   const partialPath = path.join(root, ".abiogenesis", "config", "partial.json");
@@ -127,7 +128,7 @@ test("T-117 malformed, missing, and partial defaults fail closed", async () => {
 });
 
 test("T-117 defaults bundle is data/config, not implicit runtime activation", () => {
-  const bundle = loadAbgFallbackBundleFromFile(REFERENCE_FALLBACK_PATH);
+  const bundle = loadFallbackBundleFromConfig(REFERENCE_FALLBACK_PATH);
   const { basis } = buildFpBasis();
 
   const selection = resolvePluginTraversalObserverBinding({

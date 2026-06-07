@@ -27,6 +27,7 @@ import {
   targetCarrierContractDeclarationForTarget,
   validateTargetCarrierCandidate
 } from "../../build/semantic/code/src/index.js";
+import { loadAbgConfigSectionsFromFile } from "../../build/semantic/code/src/shared/abg_config/load.js";
 import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
 
 function attrs(entries = []) {
@@ -231,10 +232,13 @@ test("T-133 config-backed generic declaration can be materialized explicitly", (
 
 test("T-133 defaults bundle identity is normalized across load and admission paths", () => {
   const loaded = loadGtlTargetCarrierDefaultsBundle();
-  const admitted = admitGtlTargetCarrierDefaultsBundle(
-    JSON.parse(readFileSync(loaded.bundlePath, "utf8")),
-    { bundlePath: loaded.bundlePath }
-  );
+  // The consolidated abg.config.json holds the bundle under its targetCarriers
+  // section; re-admit that section the same way the loader does.
+  const section = loadAbgConfigSectionsFromFile(loaded.bundlePath).targetCarriers;
+  const admitted = admitGtlTargetCarrierDefaultsBundle(section.value, {
+    bundlePath: section.bundlePath,
+    bundleDigest: section.bundleDigest
+  });
 
   assert.equal(loaded.bundleDigest, admitted.bundleDigest);
   assert.equal(loaded.bundleRef, admitted.bundleRef);
@@ -247,7 +251,7 @@ test("T-133 defaults loader is package-relative when caller cwd has no config", 
     process.chdir(tempRoot);
     const loaded = loadGtlTargetCarrierDefaultsBundle();
     assert.equal(loaded.kind, "gtl_target_carrier_defaults_bundle");
-    assert.match(loaded.bundlePath, /config[/\\]gtl\.target-carrier-defaults\.json$/u);
+    assert.match(loaded.bundlePath, /config[/\\]abg\.config\.json$/u);
   } finally {
     process.chdir(originalCwd);
     rmSync(tempRoot, { force: true, recursive: true });

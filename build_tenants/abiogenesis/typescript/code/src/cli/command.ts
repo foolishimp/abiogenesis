@@ -16,7 +16,7 @@ import type {
 import {
   admitAffectPriorityPolicies,
   admitConstructionPriorityScheme,
-  loadAbgFallbackBundleFromFile,
+  admitAbgFallbackBundle,
   type AbgFallbackBundle
 } from "../abg/m03/index.js";
 import type { Module } from "../gtl/m02/contracts/carriers.js";
@@ -39,6 +39,7 @@ import {
   type AbgLeverOverridesBundle,
   type LeverEntry
 } from "../shared/lever_registry/index.js";
+import { loadAbgConfigSectionsFromFile } from "../shared/abg_config/load.js";
 import { createReleaseSnapshotBundle } from "../qualification/m05/index.js";
 import type { OperatorAssetQueryContract } from "../app/m04/asset_addressing/carriers.js";
 import type {
@@ -149,7 +150,7 @@ interface RuntimeBinding {
 const INSTALLED_FALLBACK_CONFIG_RELATIVE_PATH = join(
   ".abiogenesis",
   "config",
-  "abg.fallbacks.json"
+  "abg.config.json"
 );
 
 interface ResolvedCliTarget {
@@ -856,7 +857,14 @@ function loadCliFallbackBundle(
     return null;
   }
   try {
-    return loadAbgFallbackBundleFromFile(fallbackPath);
+    const sections = loadAbgConfigSectionsFromFile(fallbackPath);
+    if (sections.fallbacks === null) {
+      return null;
+    }
+    return admitAbgFallbackBundle(sections.fallbacks.value, {
+      bundlePath: sections.fallbacks.bundlePath,
+      bundleDigest: sections.fallbacks.bundleDigest
+    });
   } catch (error: unknown) {
     if (isNodeErrorCode(error, "ENOENT")) {
       return null;

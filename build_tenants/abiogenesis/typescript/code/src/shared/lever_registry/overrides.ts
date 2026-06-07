@@ -9,14 +9,13 @@
 // `governed_enums`). This closes the "passes the bundle gate, fails at request
 // admission" hole.
 
-import { existsSync, readFileSync } from "node:fs";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { readFileSync } from "node:fs";
 import {
   parseNonEmptyString,
   parsePlainObject
 } from "../validation/primitives.js";
 import { stableSha256Digest } from "../runtime_identity.js";
+import { loadAbgConfigSections } from "../abg_config/load.js";
 import { getLever, leverEntries, type LeverEntry } from "./registry.js";
 
 export type LeverOverrideValue = string | number | boolean;
@@ -31,16 +30,6 @@ export interface AbgLeverOverridesBundle {
   readonly bundleDigest: string;
   readonly overrides: Readonly<Record<string, LeverOverrideValue>>;
 }
-
-const INSTALLED_LEVER_OVERRIDES_RELATIVE_PATH = join(
-  ".abiogenesis",
-  "config",
-  "abg.lever-overrides.json"
-);
-const PACKAGE_LEVER_OVERRIDES_RELATIVE_PATH = join(
-  "config",
-  "abg.lever-overrides.json"
-);
 
 /** Tunable levers whose override + provenance wiring is live (admittable). */
 function liveOverridableKeys(): ReadonlySet<string> {
@@ -176,45 +165,17 @@ export function loadAbgLeverOverridesBundleFromFile(
   });
 }
 
-export function resolveAbgLeverOverridesPath(
-  workspaceRoot: string = process.cwd()
-): string | null {
-  const installedPath = join(
-    workspaceRoot,
-    INSTALLED_LEVER_OVERRIDES_RELATIVE_PATH
-  );
-  if (existsSync(installedPath)) {
-    return installedPath;
-  }
-  const packagePath = join(workspaceRoot, PACKAGE_LEVER_OVERRIDES_RELATIVE_PATH);
-  if (existsSync(packagePath)) {
-    return packagePath;
-  }
-  let current = dirname(fileURLToPath(import.meta.url));
-  for (;;) {
-    const modulePackagePath = join(
-      current,
-      PACKAGE_LEVER_OVERRIDES_RELATIVE_PATH
-    );
-    if (existsSync(modulePackagePath)) {
-      return modulePackagePath;
-    }
-    const parent = dirname(current);
-    if (parent === current) {
-      return null;
-    }
-    current = parent;
-  }
-}
-
 export function loadAbgLeverOverridesBundle(
   workspaceRoot: string = process.cwd()
 ): AbgLeverOverridesBundle | null {
-  const resolvedPath = resolveAbgLeverOverridesPath(workspaceRoot);
-  if (resolvedPath === null) {
+  const sections = loadAbgConfigSections(workspaceRoot);
+  if (sections === null || sections.levers === null) {
     return null;
   }
-  return loadAbgLeverOverridesBundleFromFile(resolvedPath);
+  return admitAbgLeverOverridesBundle(sections.levers.value, {
+    bundlePath: sections.levers.bundlePath,
+    bundleDigest: sections.levers.bundleDigest
+  });
 }
 
 export function getLeverOverride(
