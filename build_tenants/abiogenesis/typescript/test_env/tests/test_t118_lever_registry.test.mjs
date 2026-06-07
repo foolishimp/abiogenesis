@@ -7,6 +7,17 @@
 
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const CODE_SRC = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "..",
+  "..",
+  "code",
+  "src"
+);
 
 import {
   LEVER_REGISTRY,
@@ -162,4 +173,38 @@ test("T-118 registry: tunable/fixed boundary", () => {
       `${entry.dottedKey}: tunableKeys disagrees with leverClass`
     );
   }
+});
+
+test("T-118 registry: file:line consumedAt anchors point at code, not comments", () => {
+  // Verifies the traceability anchors actually resolve to a real, non-comment
+  // source line (catches the "anchor drifted onto a comment / past EOF" class).
+  // Symbol anchors (file.ts:symbolName) and multi-site anchors (":N (also …)")
+  // are skipped — they are not single file:line references.
+  const fileCache = new Map();
+  let checked = 0;
+  for (const entry of leverEntries()) {
+    const match = /^([^:]+\.ts):(\d+)$/u.exec(entry.consumedAt);
+    if (match === null) {
+      continue;
+    }
+    const [, relPath, lineStr] = match;
+    if (!fileCache.has(relPath)) {
+      fileCache.set(
+        relPath,
+        readFileSync(path.join(CODE_SRC, relPath), "utf8").split("\n")
+      );
+    }
+    const lines = fileCache.get(relPath);
+    const line = lines[Number(lineStr) - 1];
+    assert.ok(
+      line !== undefined,
+      `${entry.dottedKey}: anchor ${entry.consumedAt} is past end of file`
+    );
+    assert.ok(
+      !line.trim().startsWith("//"),
+      `${entry.dottedKey}: anchor ${entry.consumedAt} points at a comment: ${line.trim()}`
+    );
+    checked += 1;
+  }
+  assert.ok(checked >= 10, `expected to verify many anchors, only ${checked}`);
 });

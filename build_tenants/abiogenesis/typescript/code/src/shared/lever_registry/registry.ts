@@ -80,7 +80,7 @@ const LEVERS: readonly LeverEntry[] = Object.freeze([
     wiring: "deferred",
     reason:
       "Process actor wall-clock timeout; behavior verifiable only under the live actor harness.",
-    consumedAt: "abg/m03/transport/process_actor.ts:82"
+    consumedAt: "abg/m03/transport/process_actor.ts:84"
   },
   {
     dottedKey: "abg.transport.actor.termination_grace_ms",
@@ -89,7 +89,7 @@ const LEVERS: readonly LeverEntry[] = Object.freeze([
     valueKind: "ms",
     wiring: "deferred",
     reason: "Actor termination grace; live-lane.",
-    consumedAt: "abg/m03/transport/process_actor.ts:83"
+    consumedAt: "abg/m03/transport/process_actor.ts:85"
   },
   {
     dottedKey: "abg.transport.actor.heartbeat_ms",
@@ -98,7 +98,7 @@ const LEVERS: readonly LeverEntry[] = Object.freeze([
     valueKind: "ms",
     wiring: "deferred",
     reason: "Actor heartbeat interval; live-lane.",
-    consumedAt: "abg/m03/transport/process_actor.ts:84"
+    consumedAt: "abg/m03/transport/process_actor.ts:86"
   },
   {
     dottedKey: "abg.runner.retry.max_attempts",
@@ -135,7 +135,7 @@ const LEVERS: readonly LeverEntry[] = Object.freeze([
     valueKind: "ms",
     wiring: "deferred",
     reason: "PTY terminal-lost grace; live PTY harness.",
-    consumedAt: "shared/traced_process/index.ts:424"
+    consumedAt: "shared/traced_process/index.ts:426"
   },
   {
     dottedKey: "abg.transport.pty.supervisor_decision_grace_ms",
@@ -144,7 +144,7 @@ const LEVERS: readonly LeverEntry[] = Object.freeze([
     valueKind: "ms",
     wiring: "deferred",
     reason: "PTY supervisor decision grace; live PTY harness.",
-    consumedAt: "shared/traced_process/index.ts:425"
+    consumedAt: "shared/traced_process/index.ts:427"
   },
   {
     dottedKey: "abg.transport.pty.screen_command",
@@ -331,7 +331,7 @@ const LEVERS: readonly LeverEntry[] = Object.freeze([
     wiring: "deferred",
     reason:
       "Default evaluator regime when a plugin declares none; F_D = deterministic. Not tunable — changing it would reclassify proof authority.",
-    consumedAt: "abg/m03/runner/engine_runner.ts:2595"
+    consumedAt: "abg/m03/runner/engine_runner.ts:2595 (also 2935, 3267, 3603, 4005)"
   },
   {
     dottedKey: "abg.asset_addressing.assets_key",
@@ -434,7 +434,7 @@ const LEVERS: readonly LeverEntry[] = Object.freeze([
     wiring: "deferred",
     reason:
       "Parser is inferred as claude-stream-json when the command is claude and args include stream-json. Inference heuristic, not a tunable.",
-    consumedAt: "abg/m03/transport/process_actor.ts:97"
+    consumedAt: "abg/m03/transport/process_actor.ts:101"
   },
   {
     dottedKey: "abg.m04.root_mode.when_converged",

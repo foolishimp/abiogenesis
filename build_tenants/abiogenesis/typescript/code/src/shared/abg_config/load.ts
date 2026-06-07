@@ -17,7 +17,10 @@
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { parsePlainObject } from "../validation/primitives.js";
+import {
+  parseNonEmptyString,
+  parsePlainObject
+} from "../validation/primitives.js";
 import { stableSha256Digest } from "../runtime_identity.js";
 
 export const INSTALLED_ABG_CONFIG_RELATIVE_PATH = join(
@@ -72,9 +75,31 @@ function toSection(value: unknown, path: string): AbgConfigSection | null {
   return { value, bundlePath: path, bundleDigest: stableSha256Digest(value) };
 }
 
+// Admit the wrapper envelope (kind + positive-integer version) before reading
+// sections, so a malformed/foreign config fails closed at load.
+function admitAbgConfigWrapper(parsed: ReturnType<typeof parsePlainObject>): void {
+  const kind = parseNonEmptyString(parsed["kind"], "abg.config.json.kind");
+  if (kind !== "abg_config_bundle") {
+    throw new TypeError(
+      "abg.config.json.kind: expected abg_config_bundle"
+    );
+  }
+  const version = parsed["version"];
+  if (
+    typeof version !== "number" ||
+    !Number.isInteger(version) ||
+    version < 1
+  ) {
+    throw new TypeError(
+      "abg.config.json.version: expected a positive integer"
+    );
+  }
+}
+
 export function loadAbgConfigSectionsFromFile(path: string): AbgConfigSections {
   const raw = readFileSync(path, "utf8");
   const parsed = parsePlainObject(JSON.parse(raw), "abg.config.json");
+  admitAbgConfigWrapper(parsed);
   return {
     path,
     levers: toSection(parsed["levers"], path),
