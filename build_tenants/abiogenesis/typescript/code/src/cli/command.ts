@@ -138,7 +138,7 @@ interface RuntimeBinding {
   readonly module: Module;
   readonly runtimeIdentity: PublicStartContext["runtimeIdentity"];
   readonly resolvedPolicy: PublicStartContext["resolvedPolicy"];
-  readonly abgFallbackConfigPath?: string | null;
+  readonly abgConfigPath?: string | null;
   readonly pluginTraversalObserverFallbackEnabled?: boolean;
   readonly pluginTraversalObserverFallbackKinds?: readonly PluginTraversalKind[];
   readonly runtimeEvents?: readonly RuntimeEvent[];
@@ -152,7 +152,7 @@ interface RuntimeBinding {
   readonly operatorAssets?: unknown;
 }
 
-const INSTALLED_FALLBACK_CONFIG_RELATIVE_PATH = join(
+const INSTALLED_ABG_CONFIG_RELATIVE_PATH = join(
   ".abiogenesis",
   "config",
   "abg.config.json"
@@ -733,7 +733,7 @@ function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
     module: Module;
     runtimeIdentity: PublicStartContext["runtimeIdentity"];
     resolvedPolicy: PublicStartContext["resolvedPolicy"];
-    abgFallbackConfigPath?: string | null;
+    abgConfigPath?: string | null;
     pluginTraversalObserverFallbackEnabled?: boolean;
     pluginTraversalObserverFallbackKinds?: readonly PluginTraversalKind[];
     runtimeEvents?: readonly RuntimeEvent[];
@@ -767,13 +767,13 @@ function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
     );
   }
 
-  const abgFallbackConfigPath = coerceNullableStringField(
+  const abgConfigPath = coerceNullableStringField(
     input,
-    "abgFallbackConfigPath",
+    "abgConfigPath",
     label
   );
-  if (abgFallbackConfigPath !== undefined) {
-    result.abgFallbackConfigPath = abgFallbackConfigPath;
+  if (abgConfigPath !== undefined) {
+    result.abgConfigPath = abgConfigPath;
   }
   const pluginTraversalObserverFallbackEnabled = coerceOptionalBooleanField(
     input,
@@ -838,12 +838,12 @@ function isNodeErrorCode(error: unknown, code: string): boolean {
   );
 }
 
-function resolveFallbackConfigPath(
+function resolveCliAbgConfigPath(
   workspaceRoot: string,
   binding: RuntimeBinding
 ): string | null {
   const configuredPath =
-    binding.abgFallbackConfigPath ?? INSTALLED_FALLBACK_CONFIG_RELATIVE_PATH;
+    binding.abgConfigPath ?? INSTALLED_ABG_CONFIG_RELATIVE_PATH;
   if (configuredPath === null) {
     return null;
   }
@@ -859,7 +859,7 @@ function loadCliFallbackBundle(
   workspaceRoot: string,
   binding: RuntimeBinding
 ): AbgFallbackBundle | null {
-  const fallbackPath = resolveFallbackConfigPath(workspaceRoot, binding);
+  const fallbackPath = resolveCliAbgConfigPath(workspaceRoot, binding);
   if (fallbackPath === null) {
     return null;
   }

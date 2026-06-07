@@ -97,7 +97,7 @@ async function writeInstallerArchive(input) {
     commandPaths: input.outcome.commandPaths,
     runtimeIdentity: input.outcome.runtimeIdentity,
     runtimeBindingPath: input.outcome.runtimeBindingPath,
-    fallbackConfigPath: input.outcome.fallbackConfigPath,
+    abgConfigPath: input.outcome.abgConfigPath,
     startedAt: new Date().toISOString(),
     command: "npm run test:t076"
   });
@@ -109,7 +109,7 @@ async function writeInstallerArchive(input) {
     installerManifestPath: input.outcome.installerManifestPath,
     installProvenancePath: input.outcome.installProvenancePath,
     runtimeBindingPath: input.outcome.runtimeBindingPath,
-    fallbackConfigPath: input.outcome.fallbackConfigPath,
+    abgConfigPath: input.outcome.abgConfigPath,
     standardsInstallRoot: input.outcome.standardsInstallRoot,
     docsInstallRoot: input.outcome.docsInstallRoot,
     eventEvidencePath: input.outcome.eventsPath,
@@ -153,9 +153,9 @@ async function writeInstallerArchive(input) {
     topologyVerification: input.outcome.topologyVerification
   });
   await writeJson(path.join(artifactsRoot, "fallback_config_inventory.json"), {
-    fallbackConfigSourcePath: input.outcome.fallbackConfigSourcePath,
-    fallbackConfigPath: input.outcome.fallbackConfigPath,
-    fallbackConfigFile: input.outcome.fallbackConfigFile
+    abgConfigSourcePath: input.outcome.abgConfigSourcePath,
+    abgConfigPath: input.outcome.abgConfigPath,
+    abgConfigFile: input.outcome.abgConfigFile
   });
   await copyTextFile(
     input.outcome.installerManifestPath,
@@ -185,7 +185,7 @@ async function writeInstallerArchive(input) {
       `- command paths: ${installerManifest.commandPaths.join(", ")}`,
     `- runtime: ${installerManifest.runtimeIdentity.resolvedRuntimeRef}`,
     `- runtime binding: ${installerManifest.runtimeBindingPath}`,
-    `- fallback config: ${installerManifest.fallbackConfigPath}`,
+    `- fallback config: ${installerManifest.abgConfigPath}`,
     `- standards: ${installerManifest.standardsInstallRoot}`,
       `- bootstrap dependency: ${installManifest.runtimePackage.dependencyRef}`
     ].join("\n"),
@@ -290,13 +290,13 @@ test("T-076 public TypeScript installer populates a package-backed ABG install a
   assert.equal(manifest.standardsInstallRoot, outcome.standardsInstallRoot);
   assert.equal(manifest.docsInstallRoot, outcome.docsInstallRoot);
   assert.equal(manifest.runtimeBindingPath, outcome.runtimeBindingPath);
-  assert.equal(manifest.fallbackConfigPath, outcome.fallbackConfigPath);
+  assert.equal(manifest.abgConfigPath, outcome.abgConfigPath);
   assert.equal(
-    manifest.fallbackConfigSourcePath,
+    manifest.abgConfigSourcePath,
     path.join(sourceRoot, "config", "abg.config.json")
   );
   assert.equal(
-    manifest.fallbackConfigFile.relativePath,
+    manifest.abgConfigFile.relativePath,
     path.join(".abiogenesis", "config", "abg.config.json")
   );
   assert.equal(
@@ -322,7 +322,7 @@ test("T-076 public TypeScript installer populates a package-backed ABG install a
   assert.equal(topology.standardsSmokeFilesPresent, true);
   assert.equal(topology.docsRootPresent, true);
   assert.equal(topology.runtimeBindingPresent, true);
-  assert.equal(topology.fallbackConfigPresent, true);
+  assert.equal(topology.abgConfigPresent, true);
   assert.deepStrictEqual(topology, outcome.topologyVerification);
 
   for (const relativePath of [
@@ -634,7 +634,7 @@ test("T-076 installed genesis-ts install command can create a second ABG TypeScr
   });
   assert.equal(topology.complete, true);
   assert.equal(topology.standardsSmokeFilesPresent, true);
-  assert.equal(topology.fallbackConfigPresent, true);
+  assert.equal(topology.abgConfigPresent, true);
   assert.equal(
     await pathExists(path.join(secondTarget, "node_modules", ".bin", "abiogenesis-ts")),
     true

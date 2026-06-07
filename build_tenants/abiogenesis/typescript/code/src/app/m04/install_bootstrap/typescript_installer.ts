@@ -69,10 +69,10 @@ const REQUIRED_DOC_FILES = Object.freeze([
 ] as const);
 
 // One consolidated config file holds the levers / fallbacks / targetCarriers
-// sections. The manifest field names retain the legacy "fallback" naming.
-const REFERENCE_FALLBACK_CONFIG_RELATIVE_PATH = join("config", "abg.config.json");
+// sections, installed at .abiogenesis/config/abg.config.json.
+const REFERENCE_ABG_CONFIG_RELATIVE_PATH = join("config", "abg.config.json");
 
-const INSTALLED_FALLBACK_CONFIG_RELATIVE_PATH = join(
+const INSTALLED_ABG_CONFIG_RELATIVE_PATH = join(
   ".abiogenesis",
   "config",
   "abg.config.json"
@@ -409,7 +409,7 @@ async function copyDocsFiles(
   return Object.freeze(evidence);
 }
 
-async function copyFallbackConfig(input: {
+async function copyAbgConfig(input: {
   readonly packageSourceRoot: string;
   readonly targetRoot: string;
 }): Promise<{
@@ -419,14 +419,14 @@ async function copyFallbackConfig(input: {
 }> {
   const sourcePath = join(
     input.packageSourceRoot,
-    REFERENCE_FALLBACK_CONFIG_RELATIVE_PATH
+    REFERENCE_ABG_CONFIG_RELATIVE_PATH
   );
   if (!(await pathIsFile(sourcePath))) {
     throw new Error(`missing ABG fallback config source file ${sourcePath}`);
   }
   const targetPath = join(
     input.targetRoot,
-    INSTALLED_FALLBACK_CONFIG_RELATIVE_PATH
+    INSTALLED_ABG_CONFIG_RELATIVE_PATH
   );
   await mkdir(dirname(targetPath), { recursive: true });
   if (!(await pathIsFile(targetPath))) {
@@ -437,7 +437,7 @@ async function copyFallbackConfig(input: {
     targetPath,
     evidence: await fileEvidence(
       input.targetRoot,
-      INSTALLED_FALLBACK_CONFIG_RELATIVE_PATH
+      INSTALLED_ABG_CONFIG_RELATIVE_PATH
     )
   });
 }
@@ -677,7 +677,7 @@ export const runtimeBinding = {
     defaultRegime: "F_D",
     dispatchRef: null
   }),
-  abgFallbackConfigPath: ".abiogenesis/config/abg.config.json",
+  abgConfigPath: ".abiogenesis/config/abg.config.json",
   runId: "run://abiogenesis/installed-substrate-self-test",
   workKey: "wk://abiogenesis/installed-substrate-self-test"
 };
@@ -789,10 +789,10 @@ export async function verifyAbiogenesisTypescriptInstallTopology(input: {
     typeof manifestObject["runtimeBindingPath"] === "string"
       ? manifestObject["runtimeBindingPath"]
       : join(targetRoot, ".abiogenesis", "cli-runtime.mjs");
-  const fallbackConfigPath =
-    typeof manifestObject["fallbackConfigPath"] === "string"
-      ? manifestObject["fallbackConfigPath"]
-      : join(targetRoot, INSTALLED_FALLBACK_CONFIG_RELATIVE_PATH);
+  const abgConfigPath =
+    typeof manifestObject["abgConfigPath"] === "string"
+      ? manifestObject["abgConfigPath"]
+      : join(targetRoot, INSTALLED_ABG_CONFIG_RELATIVE_PATH);
 
   const requiredPaths = Object.freeze([
     join(targetRoot, ".abiogenesis"),
@@ -805,7 +805,7 @@ export async function verifyAbiogenesisTypescriptInstallTopology(input: {
     eventsPath,
     runtimeDirectory,
     runtimeBindingPath,
-    fallbackConfigPath,
+    abgConfigPath,
     standardsInstallRoot,
     docsInstallRoot,
     ...REQUIRED_STANDARDS_SMOKE_FILES.map((relativePath) =>
@@ -832,7 +832,7 @@ export async function verifyAbiogenesisTypescriptInstallTopology(input: {
     eventsPathPresent: await pathIsFile(eventsPath),
     runtimeDirectoryPresent: await pathIsDirectory(runtimeDirectory),
     runtimeBindingPresent: await pathIsFile(runtimeBindingPath),
-    fallbackConfigPresent: await pathIsFile(fallbackConfigPath),
+    abgConfigPresent: await pathIsFile(abgConfigPath),
     standardsRootPresent: await pathIsDirectory(standardsInstallRoot),
     standardsSmokeFilesPresent: await allPathsPresent(
       REQUIRED_STANDARDS_SMOKE_FILES.map((relativePath) =>
@@ -909,7 +909,7 @@ export async function installAbiogenesisTypescript(
     const docsInstallRoot = join(request.targetRoot.rootPath, ".abiogenesis", "docs");
     const standardsInstallRoot = join(docsInstallRoot, "standards");
     const docsFiles = await copyDocsFiles(docsSourceRoot, docsInstallRoot);
-    const fallbackConfig = await copyFallbackConfig({
+    const abgConfig = await copyAbgConfig({
       packageSourceRoot: request.packageSourceRoot,
       targetRoot: request.targetRoot.rootPath
     });
@@ -945,9 +945,9 @@ export async function installAbiogenesisTypescript(
       docsSourceRoot,
       docsInstallRoot,
       docsFiles,
-      fallbackConfigSourcePath: fallbackConfig.sourcePath,
-      fallbackConfigPath: fallbackConfig.targetPath,
-      fallbackConfigFile: fallbackConfig.evidence,
+      abgConfigSourcePath: abgConfig.sourcePath,
+      abgConfigPath: abgConfig.targetPath,
+      abgConfigFile: abgConfig.evidence,
       runtimeIdentity,
       runtimeBindingPath,
       installManifestPath: join(
@@ -987,9 +987,9 @@ export async function installAbiogenesisTypescript(
         installManifestPath: manifest.installManifestPath,
         installerManifestPath,
         runtimeBindingPath,
-        fallbackConfigSourcePath: fallbackConfig.sourcePath,
-        fallbackConfigPath: fallbackConfig.targetPath,
-        fallbackConfigSha256: fallbackConfig.evidence.sha256,
+        abgConfigSourcePath: abgConfig.sourcePath,
+        abgConfigPath: abgConfig.targetPath,
+        abgConfigSha256: abgConfig.evidence.sha256,
         standardsInstallRoot,
         standardsFileCount: standardsFiles.length,
         docsInstallRoot,
@@ -1027,9 +1027,9 @@ export async function installAbiogenesisTypescript(
         docsSourceRoot,
         docsInstallRoot,
         docsFiles,
-        fallbackConfigSourcePath: fallbackConfig.sourcePath,
-        fallbackConfigPath: fallbackConfig.targetPath,
-        fallbackConfigFile: fallbackConfig.evidence,
+        abgConfigSourcePath: abgConfig.sourcePath,
+        abgConfigPath: abgConfig.targetPath,
+        abgConfigFile: abgConfig.evidence,
         runtimeIdentity,
         runtimeBindingPath,
         installManifestPath: manifest.installManifestPath,
