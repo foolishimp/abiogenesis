@@ -54,6 +54,10 @@ export function publicCallableStart(
   context: PublicStartContext,
   eventSink: RuntimeEventSink
 ): PublicCallableStartOutcome {
-  const request = admitPublicCallableStartRequest(input);
+  const request = admitPublicCallableStartRequest(
+    input,
+    "PublicCallableStartRequest",
+    context.leverOverridesBundle ?? null
+  );
   return publicCallableStartFromRequest(request, context, eventSink);
 }

@@ -2,7 +2,7 @@
 id: T-118
 title: Complete ABG defaults bundle expansion after plugin observer slice
 type: feature
-ticket_category: default_policy_visibility
+ticket_category: ordinary
 status: active
 goal: rc-next-visible-abg-defaults
 change_class: design_reframe
@@ -183,6 +183,64 @@ A runtime decision that consumes a CD records `bundleRef`, `bundleDigest`, confi
 - **Chosen first** because it is pure admission logic, deterministically testable (load/override/malformed/missing/precedence/provenance) without a live worker run. The actor-runtime-timeout family (#1) is high value but requires live-lane behavior proof, so it follows this steel thread.
 
 Remaining audit-table families inherit this framework and are ratified per-family as implemented.
+
+## Unified Lever Registry Realization (2026-06-07)
+
+The per-family bundle approach is superseded by a single **unified lever
+registry** (user decision: "one stop shop … visibility and consistency win").
+The registry is the single governance + visibility source of truth; it is a
+leaf module that mirrors values by default, so consumption sites keep their
+literals and a golden-equality test pins `registry value === live constant`.
+Current runtime behavior is preserved exactly (user decision: keep behavior).
+
+### Landed
+
+- `shared/lever_registry/registry.ts` — all 32 product-affecting defaults
+  declared under dotted keys (`abg.transport.actor.timeout_ms`, …) with class,
+  value, reason, consumed-at. This is the ratified classification (the
+  `design_reframe` deliverable).
+- `shared/validation/governed_enums.ts` — `parseUntil` / `parseFhMode` /
+  `parseRootMode` extracted to one leaf; the start-intent gate
+  (`abg/m03/admission/carriers.ts`) and control-mode gate
+  (`app/m04/admission/public_start.ts`) now import it, so the override admitter
+  validates against the SAME allowed-set (closes the schema-drift hole).
+- `shared/lever_registry/overrides.ts` + `config/abg.lever-overrides.json` —
+  registry-keyed override bundle; fail-closed at load (unknown key, fixed-lever
+  key, or out-of-enum value rejected); `request > override > registry-default`
+  precedence with provenance.
+- M04 request defaults (`until`, `fh_mode`) wired through the production path
+  (`callable_start.ts` → context → admission). No longer dormant.
+- `gen-config` CLI projection prints the full tree with per-row source
+  (`registry-default` vs `config-override`).
+- Installer copies + refresh-preserves `abg.lever-overrides.json`.
+
+### Classification (tunable = operator-overridable; fixed = internal/structural)
+
+- `tunable / live`: `abg.m04.until`, `abg.m04.fh_mode` (override + behavior wired).
+- `tunable / deferred`: actor timeouts/grace/heartbeat, retry budget, executor
+  profile, PTY graces + parser/screen/TERM, traversal-modulation budgets.
+  Surfaced + classified; override/event wiring deferred — behavior is verifiable
+  only under the live actor/PTY harness (currently blocked).
+- `fixed`: structural `?? seed` defaults (vector index, generation, scores,
+  weights, severity, saga lease/release), `regime ?? "F_D"`, and the derived
+  `root_mode` rule. Surfaced for visibility; no override path (config keyed to a
+  fixed lever fails closed).
+
+### Remaining for full M04 closure (tracked, not done)
+
+- **Replay-event provenance** (non-closure §2): the resolved override provenance
+  is computed and surfaced via `gen-config`, but is not yet recorded into the
+  event stream per run. Deferred — no clean run-start event home; threading it
+  through the control loop into the M03 runner needs a new event type +
+  admission schema, out of scope for this pass.
+
+### Flag (not acted on, per user)
+
+- `root_mode` defaults to `supervised` for `until=converged`
+  (`admission.ts:55`), which conflicts with REQ-P-POLICY-013 ("`direct` is the
+  default"). User chose to keep current behavior. Surfaced as the fixed lever
+  `abg.m04.root_mode.when_converged` with the conflict noted. Resolving it is a
+  separate decision (code conformance vs requirement reprice).
 
 ## Non-Closure Conditions
 

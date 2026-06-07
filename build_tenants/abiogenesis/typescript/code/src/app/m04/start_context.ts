@@ -11,6 +11,7 @@ import type {
   RuntimeEventSink
 } from "../../abg/m03/index.js";
 import type { AbgFallbackBundle } from "../../abg/m03/index.js";
+import type { AbgLeverOverridesBundle } from "../../shared/lever_registry/overrides.js";
 import type { Module } from "../../gtl/m02/contracts/carriers.js";
 
 export interface PublicStartContext {
@@ -26,6 +27,7 @@ export interface PublicStartContext {
   readonly frameLineageId?: string | null;
   readonly assuranceProvider?: EngineAssuranceProvider;
   readonly abgFallbackBundle?: AbgFallbackBundle | null;
+  readonly leverOverridesBundle?: AbgLeverOverridesBundle | null;
   readonly pluginTraversalObserverFallbackEnabled?: boolean;
   readonly pluginTraversalObserverFallbackKinds?: readonly PluginTraversalKind[];
 }

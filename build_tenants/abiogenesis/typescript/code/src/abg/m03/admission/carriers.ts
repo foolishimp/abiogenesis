@@ -26,6 +26,7 @@ import {
   parseString,
   parseUnknownArray
 } from "../../../shared/validation/primitives.js";
+import { parseUntil } from "../../../shared/validation/governed_enums.js";
 
 function parseNullableNonEmptyString(input: unknown, label: string): string | null {
   if (input === undefined || input === null) {
@@ -200,16 +201,7 @@ export function admitStartIntent(
     );
   }
 
-  const until = parseString(intentObject["until"], `${label}.until`);
-  if (
-    until !== "first_traversal" &&
-    until !== "blocked" &&
-    until !== "converged"
-  ) {
-    throw new TypeError(
-      `${label}.until: expected "first_traversal", "blocked", or "converged", got ${JSON.stringify(until)}`
-    );
-  }
+  const until = parseUntil(intentObject["until"], `${label}.until`);
   const inputBindings = parseStartInputBindings(
     readOptionalAlias(intentObject, "inputBindings", "input_bindings"),
     `${label}.inputBindings`

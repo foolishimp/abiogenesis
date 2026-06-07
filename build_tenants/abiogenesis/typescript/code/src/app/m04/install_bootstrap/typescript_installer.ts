@@ -90,6 +90,17 @@ const INSTALLED_TARGET_CARRIER_DEFAULTS_RELATIVE_PATH = join(
   "gtl.target-carrier-defaults.json"
 );
 
+const REFERENCE_LEVER_OVERRIDES_RELATIVE_PATH = join(
+  "config",
+  "abg.lever-overrides.json"
+);
+
+const INSTALLED_LEVER_OVERRIDES_RELATIVE_PATH = join(
+  ".abiogenesis",
+  "config",
+  "abg.lever-overrides.json"
+);
+
 function isNodeErrorCode(error: unknown, code: string): boolean {
   return (
     typeof error === "object" &&
@@ -470,6 +481,28 @@ async function copyTargetCarrierDefaultsConfig(input: {
     INSTALLED_TARGET_CARRIER_DEFAULTS_RELATIVE_PATH
   );
   await mkdir(dirname(targetPath), { recursive: true });
+  if (!(await pathIsFile(targetPath))) {
+    await cp(sourcePath, targetPath, { recursive: false });
+  }
+}
+
+async function copyLeverOverridesConfig(input: {
+  readonly packageSourceRoot: string;
+  readonly targetRoot: string;
+}): Promise<void> {
+  const sourcePath = join(
+    input.packageSourceRoot,
+    REFERENCE_LEVER_OVERRIDES_RELATIVE_PATH
+  );
+  if (!(await pathIsFile(sourcePath))) {
+    throw new Error(`missing ABG lever overrides config source file ${sourcePath}`);
+  }
+  const targetPath = join(
+    input.targetRoot,
+    INSTALLED_LEVER_OVERRIDES_RELATIVE_PATH
+  );
+  await mkdir(dirname(targetPath), { recursive: true });
+  // copy only when absent => user edits are preserved across refresh
   if (!(await pathIsFile(targetPath))) {
     await cp(sourcePath, targetPath, { recursive: false });
   }
@@ -946,6 +979,10 @@ export async function installAbiogenesisTypescript(
       targetRoot: request.targetRoot.rootPath
     });
     await copyTargetCarrierDefaultsConfig({
+      packageSourceRoot: request.packageSourceRoot,
+      targetRoot: request.targetRoot.rootPath
+    });
+    await copyLeverOverridesConfig({
       packageSourceRoot: request.packageSourceRoot,
       targetRoot: request.targetRoot.rootPath
     });

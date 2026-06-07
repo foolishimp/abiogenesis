@@ -79,9 +79,11 @@ export interface SupervisedProcessActorResult {
   readonly probeContracts: readonly RuntimeSystemProbeContract[];
 }
 
-const DEFAULT_TIMEOUT_MS = 1000 * 60 * 30;
-const DEFAULT_TERMINATION_GRACE_MS = 1000 * 10;
-const DEFAULT_HEARTBEAT_MS = 1000 * 30;
+// Mirrored by the lever registry (abg.transport.actor.*); exported so the
+// drift-guard test can pin registry value === this constant.
+export const DEFAULT_TIMEOUT_MS = 1000 * 60 * 30;
+export const DEFAULT_TERMINATION_GRACE_MS = 1000 * 10;
+export const DEFAULT_HEARTBEAT_MS = 1000 * 30;
 const PROCESS_ACTOR_SYSTEM_REF = "runtime-system:abg:process_actor";
 
 function inferredParserForActorRequest(

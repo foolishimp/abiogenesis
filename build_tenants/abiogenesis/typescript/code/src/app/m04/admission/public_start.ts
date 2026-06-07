@@ -12,37 +12,19 @@ import {
   parsePlainObject
 } from "../../../shared/validation/primitives.js";
 import {
+  parseFhMode,
+  parseRootMode
+} from "../../../shared/validation/governed_enums.js";
+import {
   constructConfiguredRuntimeSelector,
   constructPublicControlModes,
   constructPublicStartRequest
 } from "../contracts/constructors.js";
 import type {
   ConfiguredRuntimeSelector,
-  FhMode,
   PublicControlModes,
-  PublicStartRequest,
-  RootMode
+  PublicStartRequest
 } from "../contracts/carriers.js";
-
-function parseFhMode(input: unknown, label: string): FhMode {
-  const mode = parseNonEmptyString(input, label);
-  if (mode === "direct" || mode === "human-proxy") {
-    return mode;
-  }
-  throw new TypeError(
-    `${label}: expected "direct" or "human-proxy", got ${JSON.stringify(mode)}`
-  );
-}
-
-function parseRootMode(input: unknown, label: string): RootMode {
-  const mode = parseNonEmptyString(input, label);
-  if (mode === "direct" || mode === "supervised") {
-    return mode;
-  }
-  throw new TypeError(
-    `${label}: expected "direct" or "supervised", got ${JSON.stringify(mode)}`
-  );
-}
 
 function admitPublicControlModes(
   input: unknown,

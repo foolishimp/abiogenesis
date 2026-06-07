@@ -310,6 +310,17 @@ test("T-076 public TypeScript installer populates a package-backed ABG install a
     ),
     true
   );
+  assert.equal(
+    await pathExists(
+      path.join(
+        targetRoot,
+        ".abiogenesis",
+        "config",
+        "abg.lever-overrides.json"
+      )
+    ),
+    true
+  );
   assert(manifest.standardsFiles.length > 8);
   assert(manifest.docsFiles.length >= 3);
   assert.deepStrictEqual(manifest.commandPaths, outcome.commandPaths);
@@ -534,6 +545,17 @@ test("T-078 public TypeScript installer refreshes repeated installs over admitte
     "prompt://tenant/t078-local-transform-observer";
   await writeJson(fallbackConfigPath, customizedFallbackConfig);
 
+  // T-118: the lever-overrides config must also be preserved across refresh.
+  const leverOverridesPath = path.join(
+    targetRoot,
+    ".abiogenesis",
+    "config",
+    "abg.lever-overrides.json"
+  );
+  const customizedLeverOverrides = await readJson(leverOverridesPath);
+  customizedLeverOverrides.bundleRef = "lever-overrides://abg/t078-local-edit";
+  await writeJson(leverOverridesPath, customizedLeverOverrides);
+
   const second = await installAbiogenesisTypescript({
     targetRoot: {
       rootPath: targetRoot
@@ -569,6 +591,12 @@ test("T-078 public TypeScript installer refreshes repeated installs over admitte
   assert.equal(
     refreshedFallbackConfig.pluginTraversalObserverBindings.transform.observerPromptRef,
     "prompt://tenant/t078-local-transform-observer"
+  );
+  assert.equal(await pathExists(leverOverridesPath), true);
+  const refreshedLeverOverrides = await readJson(leverOverridesPath);
+  assert.equal(
+    refreshedLeverOverrides.bundleRef,
+    "lever-overrides://abg/t078-local-edit"
   );
 
   const provenance = await readJson(second.installProvenancePath);

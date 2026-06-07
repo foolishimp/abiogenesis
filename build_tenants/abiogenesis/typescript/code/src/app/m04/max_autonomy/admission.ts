@@ -8,9 +8,9 @@ import { admitPublicStartRequest } from "../admission/public_start.js";
 import { constructPublicCallableStartRequest } from "./constructors.js";
 import type { PublicCallableStartRequest } from "./carriers.js";
 import {
-  resolveAbgM04RequestDefaults,
-  type AbgM04RequestDefaultsBundle
-} from "./request_defaults_bundle.js";
+  resolveM04RequestDefaults,
+  type AbgLeverOverridesBundle
+} from "../../../shared/lever_registry/overrides.js";
 
 function assertNoAuthorityInjection(
   input: ReturnType<typeof parsePlainObject>,
@@ -36,13 +36,13 @@ function assertNoAuthorityInjection(
 export function admitPublicCallableStartRequest(
   input: unknown,
   label = "PublicCallableStartRequest",
-  requestDefaults: AbgM04RequestDefaultsBundle | null = null
+  requestDefaults: AbgLeverOverridesBundle | null = null
 ): PublicCallableStartRequest {
   const requestObject = parsePlainObject(input, label);
   assertNoAuthorityInjection(requestObject, label);
   const requestUntil = parseOptionalField(requestObject, "until");
   const requestFhMode = parseOptionalField(requestObject, "fh_mode");
-  const resolvedDefaults = resolveAbgM04RequestDefaults({
+  const resolvedDefaults = resolveM04RequestDefaults({
     requestUntil: typeof requestUntil === "string" ? requestUntil : undefined,
     requestFhMode: typeof requestFhMode === "string" ? requestFhMode : undefined,
     bundle: requestDefaults

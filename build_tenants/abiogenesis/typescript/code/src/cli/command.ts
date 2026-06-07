@@ -32,6 +32,13 @@ import {
   resolvePublicAssetTarget,
   resultAssessment
 } from "../app/m04/index.js";
+import {
+  leverEntries,
+  loadAbgLeverOverridesBundle,
+  getLeverOverride,
+  type AbgLeverOverridesBundle,
+  type LeverEntry
+} from "../shared/lever_registry/index.js";
 import { createReleaseSnapshotBundle } from "../qualification/m05/index.js";
 import type { OperatorAssetQueryContract } from "../app/m04/asset_addressing/carriers.js";
 import type {
@@ -57,6 +64,7 @@ type ParsedCommand =
   | ParsedInstallCommand
   | ParsedStartCommand
   | ParsedGapsCommand
+  | ParsedGenConfigCommand
   | ParsedAssessResultCommand
   | ParsedReleaseSnapshotCommand;
 
@@ -81,6 +89,12 @@ interface ParsedGapsCommand {
   readonly kind: "gaps";
   readonly workspace: string;
   readonly scope: string;
+}
+
+interface ParsedGenConfigCommand {
+  readonly kind: "gen-config";
+  readonly workspace: string;
+  readonly format: "json" | "text";
 }
 
 interface ParsedAssessResultCommand {
@@ -365,6 +379,23 @@ function parseGapsCommand(args: readonly string[]): ParsedGapsCommand {
   });
 }
 
+function parseGenConfigCommand(
+  args: readonly string[]
+): ParsedGenConfigCommand {
+  const parsed = parseFlags(args);
+  requireNoPositionals(parsed, "gen-config");
+  requireAllowedFlags(parsed, "gen-config", ["workspace", "format"]);
+  const format = optionalFlag(parsed, "format", "json");
+  if (format !== "json" && format !== "text") {
+    throw new CliError('gen-config --format must be "json" or "text"');
+  }
+  return Object.freeze({
+    kind: "gen-config",
+    workspace: optionalFlag(parsed, "workspace", "."),
+    format
+  });
+}
+
 function parseAssessResultCommand(
   args: readonly string[]
 ): ParsedAssessResultCommand {
@@ -433,6 +464,8 @@ function parseCommand(argv: readonly string[]): ParsedCommand {
       return parseStartCommand(args);
     case "gaps":
       return parseGapsCommand(args);
+    case "gen-config":
+      return parseGenConfigCommand(args);
     case "assess-result":
       return parseAssessResultCommand(args);
     case "release-snapshot":
@@ -973,6 +1006,7 @@ function startContext(
     resolvedPolicy: binding.resolvedPolicy,
     runtimeEvents,
     abgFallbackBundle: loadCliFallbackBundle(workspaceRoot, binding),
+    leverOverridesBundle: loadAbgLeverOverridesBundle(workspaceRoot),
     ...(binding.constructionPriorityScheme === undefined
       ? {}
       : { constructionPriorityScheme: binding.constructionPriorityScheme }),
@@ -1239,6 +1273,59 @@ async function runGapsCommand(
   return 0;
 }
 
+function leverProjectionRow(
+  entry: LeverEntry,
+  bundle: AbgLeverOverridesBundle | null
+): unknown {
+  const override = getLeverOverride(bundle, entry.dottedKey);
+  const overridden = override !== undefined;
+  return {
+    key: entry.dottedKey,
+    value: overridden ? override : entry.value,
+    class: entry.leverClass,
+    value_kind: entry.valueKind,
+    wiring: entry.wiring,
+    source: overridden ? "config-override" : "registry-default",
+    consumed_at: entry.consumedAt
+  };
+}
+
+async function runGenConfigCommand(
+  command: ParsedGenConfigCommand,
+  io: AbiogenesisCliIo
+): Promise<number> {
+  const workspaceRoot = resolveWorkspace(io.cwd(), command.workspace);
+  const bundle = loadAbgLeverOverridesBundle(workspaceRoot);
+  const entries = leverEntries();
+  if (command.format === "text") {
+    for (const entry of entries) {
+      const override = getLeverOverride(bundle, entry.dottedKey);
+      const value = override === undefined ? entry.value : override;
+      const source =
+        override === undefined ? "registry-default" : "config-override";
+      io.stdout(
+        `${entry.dottedKey}\t${JSON.stringify(value)}\t${entry.leverClass}\t${source}\n`
+      );
+    }
+    return 0;
+  }
+  io.stdout(
+    `${JSON.stringify({
+      command: "gen-config",
+      overrides_bundle:
+        bundle === null
+          ? null
+          : {
+              bundleRef: bundle.bundleRef,
+              bundleDigest: bundle.bundleDigest,
+              bundlePath: bundle.bundlePath
+            },
+      levers: entries.map((entry) => leverProjectionRow(entry, bundle))
+    })}\n`
+  );
+  return 0;
+}
+
 async function runAssessResultCommand(
   command: ParsedAssessResultCommand,
   io: AbiogenesisCliIo
@@ -1344,6 +1431,8 @@ async function runParsedCommand(
       return runStartCommand(command, io);
     case "gaps":
       return runGapsCommand(command, io);
+    case "gen-config":
+      return runGenConfigCommand(command, io);
     case "assess-result":
       return runAssessResultCommand(command, io);
     case "release-snapshot":

@@ -421,8 +421,10 @@ function screenTerminalCapability(
   }
 }
 
-const TERMINAL_LOST_GRACE_MS = 5_000;
-const PTY_AGENT_SUPERVISOR_DECISION_GRACE_MS = 5_000;
+// Mirrored by the lever registry (abg.transport.pty.*); exported so the
+// drift-guard test can pin registry value === this constant.
+export const TERMINAL_LOST_GRACE_MS = 5_000;
+export const PTY_AGENT_SUPERVISOR_DECISION_GRACE_MS = 5_000;
 
 function processTableMentionsTerminalSession(sessionId: string): boolean {
   const out = spawnSync("ps", ["-axo", "command"], { encoding: "utf8" });
