@@ -47,7 +47,7 @@ Those mode families are product-policy truth above the adapter. Literal flags or
 **REQ-P-POLICY-013**: The current public `root_mode` values shall be:
 - `direct`
 - `supervised`
-`direct` is the default. `supervised` is a public operator option for root-level convergence control around repeated `gen-start` advancement. `root_mode` shall remain outside `scope + target + until` and shall be lawful only when `until = converged`.
+`supervised` is the default. It is root-level convergence control around repeated `gen-start` advancement. `direct` is the public operator option to opt out of root supervision. `root_mode` shall remain outside `scope + target + until` and shall be lawful only when `until = converged`.
 
 **REQ-P-POLICY-014**: The primary operator workflow shall be an interactive
 start or observe loop over the public named compositions. An operator shall be

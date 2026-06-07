@@ -41,6 +41,7 @@ import {
   type LeverEntry
 } from "../shared/lever_registry/index.js";
 import { loadAbgConfigSectionsFromFile } from "../shared/abg_config/load.js";
+import { defaultRootMode } from "../shared/validation/governed_enums.js";
 import { createReleaseSnapshotBundle } from "../qualification/m05/index.js";
 import type { OperatorAssetQueryContract } from "../app/m04/asset_addressing/carriers.js";
 import type {
@@ -83,10 +84,11 @@ interface ParsedStartCommand {
   readonly scope: string;
   readonly target: CliStartTarget;
   readonly until: StartIntent["until"];
-  // undefined when --fh-mode is omitted, so the lever override/registry default
-  // governs instead of a hardcoded CLI default (T-118).
+  // undefined when the flag is omitted, so the governed default governs instead
+  // of a hardcoded CLI default: fh_mode via the lever override/registry,
+  // root_mode via REQ-P-POLICY-013 (T-118).
   readonly fhMode: FhMode | undefined;
-  readonly rootMode: RootMode;
+  readonly rootMode: RootMode | undefined;
 }
 
 interface ParsedGapsCommand {
@@ -342,6 +344,7 @@ function parseStartCommand(args: readonly string[]): ParsedStartCommand {
     "root-mode"
   ]);
   const fhModeFlag = optionalNullableFlag(parsed, "fh-mode");
+  const rootModeFlag = optionalNullableFlag(parsed, "root-mode");
   return Object.freeze({
     kind: "start",
     workspace: optionalFlag(parsed, "workspace", "."),
@@ -349,7 +352,7 @@ function parseStartCommand(args: readonly string[]): ParsedStartCommand {
     target: parseStartTarget(requiredFlag(parsed, "target")),
     until: parseUntil(requiredFlag(parsed, "until")),
     fhMode: fhModeFlag === null ? undefined : parseFhMode(fhModeFlag),
-    rootMode: parseRootMode(optionalFlag(parsed, "root-mode", "direct"))
+    rootMode: rootModeFlag === null ? undefined : parseRootMode(rootModeFlag)
   });
 }
 
@@ -1051,7 +1054,8 @@ function startRequest(
   workspaceRoot: string,
   binding: RuntimeBinding,
   target: ResolvedCliTarget,
-  fhMode: FhMode
+  fhMode: FhMode,
+  rootMode: RootMode
 ): PublicStartRequest {
   if (command.scope !== "workspace") {
     throw new CliError("TypeScript CLI currently supports --scope workspace only");
@@ -1071,7 +1075,7 @@ function startRequest(
     },
     controlModes: {
       fhMode,
-      rootMode: command.rootMode
+      rootMode
     },
     runtimeSelector: null
   };
@@ -1167,7 +1171,17 @@ async function runStartCommand(
         bundle: loadAbgLeverOverridesBundle(workspaceRoot)
       }).fhMode
     );
-  const request = startRequest(command, workspaceRoot, binding, target, fhMode);
+  // root_mode default is REQ-P-POLICY-013 (supervised on converged), not a
+  // hardcoded CLI default.
+  const rootMode = command.rootMode ?? defaultRootMode(command.until);
+  const request = startRequest(
+    command,
+    workspaceRoot,
+    binding,
+    target,
+    fhMode,
+    rootMode
+  );
   const emitted: RuntimeEvent[] = [];
   const outcome = publicCallableStart(
     callableInput(request),

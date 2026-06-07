@@ -61,3 +61,10 @@ export function parseRootMode(input: unknown, label: string): RootModeValue {
     `${label}: expected "direct" or "supervised", got ${JSON.stringify(mode)}`
   );
 }
+
+// REQ-P-POLICY-013: root_mode defaults to `supervised` (root-level convergence
+// control) and is lawful only when until = converged; non-converged starts have
+// no root supervision, so they resolve to `direct`. Single source of the rule.
+export function defaultRootMode(until: UntilValue): RootModeValue {
+  return until === "converged" ? "supervised" : "direct";
+}

@@ -338,8 +338,8 @@ const LEVERS: readonly LeverEntry[] = Object.freeze([
     valueKind: "enum",
     wiring: "deferred",
     reason:
-      "Derived root_mode rule: converged starts default to supervised. Kept per user; conflicts with REQ-P-POLICY-013 ('direct' default) — flagged, behavior preserved.",
-    consumedAt: "app/m04/max_autonomy/admission.ts:55"
+      "REQ-P-POLICY-013 ratified default: converged starts default to supervised (root-level convergence control). Not operator-tunable; it is product control-mode law.",
+    consumedAt: "shared/validation/governed_enums.ts:defaultRootMode"
   },
   {
     dottedKey: "abg.m04.root_mode.otherwise",
@@ -347,8 +347,9 @@ const LEVERS: readonly LeverEntry[] = Object.freeze([
     leverClass: "fixed",
     valueKind: "enum",
     wiring: "deferred",
-    reason: "Derived root_mode rule: non-converged starts default to direct.",
-    consumedAt: "app/m04/max_autonomy/admission.ts:56"
+    reason:
+      "REQ-P-POLICY-013: root supervision is lawful only when until=converged, so non-converged starts resolve to direct.",
+    consumedAt: "shared/validation/governed_enums.ts:defaultRootMode"
   }
 ]);
 

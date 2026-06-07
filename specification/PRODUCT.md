@@ -504,7 +504,8 @@ Their current public values are:
 - `fh_mode = direct | human-proxy`
 - `root_mode = direct | supervised`
 
-Both default to `direct`. Both are public control-mode truth above the adapter.
+`fh_mode` defaults to `direct`; `root_mode` defaults to `supervised`. Both are
+public control-mode truth above the adapter.
 Literal bindings such as `--fh-mode` and `--root-mode` are delivery bindings
 for those same mode families, not rival product law. In the current cut, both
 mode families are lawful only when `gen-start` is operating with

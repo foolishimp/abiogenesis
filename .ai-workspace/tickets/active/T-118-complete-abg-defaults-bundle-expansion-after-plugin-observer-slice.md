@@ -247,13 +247,15 @@ Current runtime behavior is preserved exactly (user decision: keep behavior).
   (`test_t118_override_consumption`: "override resolution provenance is
   replay-visible") so the suite tracks the gap instead of giving false green.
 
-### Flag (not acted on, per user)
+### root_mode — ratified by requirement_reprice (2026-06-07)
 
-- `root_mode` defaults to `supervised` for `until=converged`
-  (`admission.ts:55`), which conflicts with REQ-P-POLICY-013 ("`direct` is the
-  default"). User chose to keep current behavior. Surfaced as the fixed lever
-  `abg.m04.root_mode.when_converged` with the conflict noted. Resolving it is a
-  separate decision (code conformance vs requirement reprice).
+- `root_mode` default `supervised`-on-`converged` is now **product law**:
+  REQ-P-POLICY-013 and PRODUCT.md repriced so `supervised` is the converged
+  default (`direct` is the opt-out). The old `direct` default is deleted, not
+  kept as a compat path (CLI included). The supervised-on-converged rule is
+  single-sourced in `defaultRootMode` (`shared/validation/governed_enums.ts`),
+  applied by the governed control-mode gate (`admitPublicControlModes`); the
+  duplicate defaults in `admission.ts` and the CLI are removed.
 
 ## Non-Closure Conditions
 

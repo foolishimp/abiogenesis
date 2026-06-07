@@ -13,7 +13,8 @@ import {
 } from "../../../shared/validation/primitives.js";
 import {
   parseFhMode,
-  parseRootMode
+  parseRootMode,
+  defaultRootMode
 } from "../../../shared/validation/governed_enums.js";
 import {
   constructConfiguredRuntimeSelector,
@@ -40,7 +41,7 @@ function admitPublicControlModes(
       : parseFhMode(fhModeInput, `${label}.fh_mode`);
   const rootMode =
     rootModeInput === undefined
-      ? "direct"
+      ? defaultRootMode(until)
       : parseRootMode(rootModeInput, `${label}.root_mode`);
 
   if (until !== "converged" && fhMode !== "direct") {

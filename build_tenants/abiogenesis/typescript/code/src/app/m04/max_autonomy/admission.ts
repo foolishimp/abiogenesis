@@ -47,13 +47,13 @@ export function admitPublicCallableStartRequest(
     requestFhMode: typeof requestFhMode === "string" ? requestFhMode : undefined,
     bundle: requestDefaults
   });
+  // root_mode is not set here: the governed control-mode gate
+  // (admitPublicControlModes) applies the REQ-P-POLICY-013 default
+  // (supervised when until=converged) as the single source.
   const startRequestInput = {
     ...requestObject,
     until: resolvedDefaults.until,
-    fh_mode: resolvedDefaults.fhMode,
-    root_mode:
-      parseOptionalField(requestObject, "root_mode") ??
-      (resolvedDefaults.until === "converged" ? "supervised" : "direct")
+    fh_mode: resolvedDefaults.fhMode
   };
   return constructPublicCallableStartRequest(
     admitPublicStartRequest(startRequestInput, `${label}.start_request`)
