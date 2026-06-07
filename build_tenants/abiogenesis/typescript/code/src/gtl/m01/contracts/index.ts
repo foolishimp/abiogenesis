@@ -42,8 +42,6 @@ export {
   TARGET_CARRIER_CONTRACT_DECLARATION_KEY,
   admitGtlTargetCarrierDefaultsBundle,
   loadGtlTargetCarrierDefaultsBundle,
-  loadGtlTargetCarrierDefaultsBundleFromFile,
-  resolveGtlTargetCarrierDefaultsPath,
   resolveTargetCarrierContractBinding,
   targetCarrierContractDeclarationForTarget,
   validateTargetCarrierCandidate

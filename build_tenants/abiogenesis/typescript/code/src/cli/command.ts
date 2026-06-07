@@ -35,6 +35,7 @@ import {
 import {
   leverEntries,
   loadAbgLeverOverridesBundle,
+  resolveM04RequestDefaults,
   getLeverOverride,
   type AbgLeverOverridesBundle,
   type LeverEntry
@@ -82,7 +83,9 @@ interface ParsedStartCommand {
   readonly scope: string;
   readonly target: CliStartTarget;
   readonly until: StartIntent["until"];
-  readonly fhMode: FhMode;
+  // undefined when --fh-mode is omitted, so the lever override/registry default
+  // governs instead of a hardcoded CLI default (T-118).
+  readonly fhMode: FhMode | undefined;
   readonly rootMode: RootMode;
 }
 
@@ -338,13 +341,14 @@ function parseStartCommand(args: readonly string[]): ParsedStartCommand {
     "fh-mode",
     "root-mode"
   ]);
+  const fhModeFlag = optionalNullableFlag(parsed, "fh-mode");
   return Object.freeze({
     kind: "start",
     workspace: optionalFlag(parsed, "workspace", "."),
     scope: requiredFlag(parsed, "scope"),
     target: parseStartTarget(requiredFlag(parsed, "target")),
     until: parseUntil(requiredFlag(parsed, "until")),
-    fhMode: parseFhMode(optionalFlag(parsed, "fh-mode", "direct")),
+    fhMode: fhModeFlag === null ? undefined : parseFhMode(fhModeFlag),
     rootMode: parseRootMode(optionalFlag(parsed, "root-mode", "direct"))
   });
 }
@@ -1046,7 +1050,8 @@ function startRequest(
   command: ParsedStartCommand,
   workspaceRoot: string,
   binding: RuntimeBinding,
-  target: ResolvedCliTarget
+  target: ResolvedCliTarget,
+  fhMode: FhMode
 ): PublicStartRequest {
   if (command.scope !== "workspace") {
     throw new CliError("TypeScript CLI currently supports --scope workspace only");
@@ -1065,7 +1070,7 @@ function startRequest(
       until: command.until
     },
     controlModes: {
-      fhMode: command.fhMode,
+      fhMode,
       rootMode: command.rootMode
     },
     runtimeSelector: null
@@ -1153,7 +1158,16 @@ async function runStartCommand(
   const eventLogPath = eventsPath(workspaceRoot);
   const replayEvents = await readReplayEvents(eventLogPath);
   const target = await resolveCliTarget(workspaceRoot, binding, command.target);
-  const request = startRequest(command, workspaceRoot, binding, target);
+  // When --fh-mode is omitted, the lever override (abg.config.json) / registry
+  // default governs — not a hardcoded CLI default. (T-118 runtime authority.)
+  const fhMode =
+    command.fhMode ??
+    parseFhMode(
+      resolveM04RequestDefaults({
+        bundle: loadAbgLeverOverridesBundle(workspaceRoot)
+      }).fhMode
+    );
+  const request = startRequest(command, workspaceRoot, binding, target, fhMode);
   const emitted: RuntimeEvent[] = [];
   const outcome = publicCallableStart(
     callableInput(request),

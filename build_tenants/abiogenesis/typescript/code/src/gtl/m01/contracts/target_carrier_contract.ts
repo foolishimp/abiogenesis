@@ -2,9 +2,6 @@
 // Implements: REQ-L-GTL3-GRAPHVECTOR
 // Implements: REQ-L-GTL3-HOOKS
 
-import { existsSync, readFileSync } from "node:fs";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
 import type {
   GraphVector,
   HookRef,
@@ -21,17 +18,6 @@ import { loadAbgConfigSections } from "../../../shared/abg_config/load.js";
 
 export const TARGET_CARRIER_CONTRACT_DECLARATION_KEY =
   "gtl.target_carrier_contract" as const;
-
-const INSTALLED_TARGET_CARRIER_DEFAULTS_RELATIVE_PATH = join(
-  ".abiogenesis",
-  "config",
-  "gtl.target-carrier-defaults.json"
-);
-
-const PACKAGE_TARGET_CARRIER_DEFAULTS_RELATIVE_PATH = join(
-  "config",
-  "gtl.target-carrier-defaults.json"
-);
 
 export type TargetCarrierContractBindingSource =
   | "graph_vector_declarations"
@@ -735,51 +721,6 @@ export function admitGtlTargetCarrierDefaultsBundle(
     genericOutputTemplate
   } satisfies GtlTargetCarrierDefaultsBundle;
   return Object.freeze(normalized);
-}
-
-export function loadGtlTargetCarrierDefaultsBundleFromFile(
-  bundlePath: string
-): GtlTargetCarrierDefaultsBundle {
-  assertNonEmptyString(bundlePath, "GtlTargetCarrierDefaultsBundle.bundlePath");
-  const raw = readFileSync(bundlePath, "utf8");
-  return admitGtlTargetCarrierDefaultsBundle(JSON.parse(raw), {
-    bundlePath
-  });
-}
-
-export function resolveGtlTargetCarrierDefaultsPath(
-  workspaceRoot = process.cwd()
-): string {
-  const installedPath = join(
-    workspaceRoot,
-    INSTALLED_TARGET_CARRIER_DEFAULTS_RELATIVE_PATH
-  );
-  if (existsSync(installedPath)) {
-    return installedPath;
-  }
-  const packagePath = join(workspaceRoot, PACKAGE_TARGET_CARRIER_DEFAULTS_RELATIVE_PATH);
-  if (existsSync(packagePath)) {
-    return packagePath;
-  }
-  const modulePath = fileURLToPath(import.meta.url);
-  let current = dirname(modulePath);
-  while (true) {
-    const modulePackagePath = join(
-      current,
-      PACKAGE_TARGET_CARRIER_DEFAULTS_RELATIVE_PATH
-    );
-    if (existsSync(modulePackagePath)) {
-      return modulePackagePath;
-    }
-    const parent = dirname(current);
-    if (parent === current) {
-      break;
-    }
-    current = parent;
-  }
-  throw new TypeError(
-    `GTL target-carrier defaults config not found under ${workspaceRoot}`
-  );
 }
 
 export function loadGtlTargetCarrierDefaultsBundle(

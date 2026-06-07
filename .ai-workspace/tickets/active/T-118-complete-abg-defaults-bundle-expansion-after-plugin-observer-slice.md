@@ -216,7 +216,11 @@ Current runtime behavior is preserved exactly (user decision: keep behavior).
   resolution semantics (fallback: installed-workspace-only; lever/targetCarrier:
   installed → package → walk-up).
 - M04 request defaults (`until`, `fh_mode`) wired through the production path
-  (`callable_start.ts` → context → admission). No longer dormant.
+  (`callable_start.ts` → context → admission), and the CLI start path now
+  resolves `fh_mode` through the bundle when `--fh-mode` is omitted
+  (`runStartCommand`) — removing the parallel CLI default that previously made
+  the override inert on installed CLI starts. Deterministic consumption tests
+  prove the override is consumed (`test_t118_override_consumption`).
 - `gen-config` CLI projection prints the full tree with per-row source
   (`registry-default` vs `config-override`).
 - Installer copies + refresh-preserves the single `abg.config.json`.
@@ -239,7 +243,9 @@ Current runtime behavior is preserved exactly (user decision: keep behavior).
   is computed and surfaced via `gen-config`, but is not yet recorded into the
   event stream per run. Deferred — no clean run-start event home; threading it
   through the control loop into the M03 runner needs a new event type +
-  admission schema, out of scope for this pass.
+  admission schema, out of scope for this pass. Encoded as a `todo` test
+  (`test_t118_override_consumption`: "override resolution provenance is
+  replay-visible") so the suite tracks the gap instead of giving false green.
 
 ### Flag (not acted on, per user)
 
