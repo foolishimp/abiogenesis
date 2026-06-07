@@ -3,14 +3,15 @@ id: T-150
 title: Promote prompt assets into the GTL typed asset interface
 type: feature
 ticket_category: ordinary
-status: active
-proof_status: gtl_scope_closure_ready_contract_api_gate_live_passed_downstream_prompt_steel_thread_pending
+status: completed
+proof_status: passed
 goal: move the prompt-as-code contract proven in odd_sdlc T-191 into GTL as a first-class typed asset interface, so downstream products declare prompt invocation assets through GTL AssetSurface truth instead of local prompt registries
 change_class: requirement_reprice
 change_intent: Promote the prompt-as-code asset shape proven in odd_sdlc T-191 into GTL as generic typed asset interface law, while keeping downstream prompt authority values and runtime enforcement outside GTL.
 re_entry_point: requirements
 created_at: 2026-06-06
 updated_at: 2026-06-07
+completed_at: 2026-06-07
 triaged_at: 2026-06-06
 owning_repo: abiogenesis
 governance_scope: STDO Method
@@ -30,14 +31,14 @@ source_documents:
   - specification/requirements/gtl/REQ-L-GTL3-HOOKS.md
   - build_tenants/abiogenesis/typescript/design/GTL_3_STRUCTURAL_CARRIER_DIAGRAM.md
   - build_tenants/abiogenesis/typescript/code/src/gtl/m01/contracts/carriers.ts
-  - /Users/jim/src/apps/odd_sdlc/.ai-workspace/tickets/backlog/T-191-establish-typed-prompt-contract-model.md
+  - /Users/jim/src/apps/odd_sdlc/.ai-workspace/tickets/completed/T-191-establish-typed-prompt-contract-model.md
 related_tickets:
   - T-107
   - T-116
   - T-127
   - T-128
   - T-143
-  - /Users/jim/src/apps/odd_sdlc/.ai-workspace/tickets/backlog/T-191-establish-typed-prompt-contract-model.md
+  - /Users/jim/src/apps/odd_sdlc/.ai-workspace/tickets/completed/T-191-establish-typed-prompt-contract-model.md
 affected_boundary:
   requirements:
     - specification/requirements/gtl/REQ-L-GTL3-NODE.md
@@ -356,7 +357,7 @@ surfaces, not a new prime and not an SDLC-local control plane.
 | P-020 | Update GTL design surfaces with IACS and structural carrier diagram changes. | diagram shows `Node.assetSurface` plus subordinate prompt asset interface fields and no new public carrier | complete |
 | P-030 | Extend TypeScript GTL carriers, constructors, admission, and serialization. | semantic build and tests prove declarations round-trip and invalid prompt asset interfaces fail admission | complete |
 | P-040 | Add prompt asset declaration fixtures/tests. | tests cover normal authority, bounded fallback, forbidden routine authority, renderer refs, proof obligations, and chain composition | complete |
-| P-050 | Define and prove downstream migration seam for odd_sdlc T-191. | one odd_sdlc prompt family uses GTL prompt asset surfaces as the steel thread; local SDLC register is marked transitional | pending |
+| P-050 | Define and prove downstream migration seam for odd_sdlc T-191. | odd_sdlc completed T-191 consumes the released GTL AssetSurface interface through `prompt_assets.ts`; production prompt sidecars are GTL Node/AssetSurface views and the retired SDLC prompt register/admitter are absent | complete |
 | P-060 | Prove no F_D semantic drift. | tests/source review prove no Markdown parsing or semantic prompt classification in GTL/ABG deterministic code | complete |
 | P-070 | Add GTL contract fulfillment binding API for prompt/review handoff. | TypeScript GTL constructor/admitter freezes binding shape, rejects engine authority, and exposes one package export | complete |
 | P-080 | Consume the GTL binding gate in odd_sdlc review-grade closure. | component-code fulfilled findings with omitted or prompt-shaped structural bindings are admitted only when binding can be derived from an admitted component-depth target carrier | complete |
@@ -435,9 +436,84 @@ surfaces, not a new prime and not an SDLC-local control plane.
   parser boundaries (`requirementRef: null`, then
   `functionOrEntrypointRef: null`). Focused tests now encode both failure
   shapes, and the final live run closes without `review_grade_assessment_invalid`.
-- Remaining before full T-150 closure: P-050 downstream prompt-family steel
-  thread in odd_sdlc T-191. The contract API gate addendum is implemented and
-  live-proven.
+- `node --test test_env/tests/test_t191_typed_prompt_assets.test.mjs` passes
+  in `/Users/jim/src/apps/odd_sdlc/build_tenants/typescript`: 10/10. This
+  proves odd_sdlc pins `@abiogenesis/typescript-tenant@3.9.0-rc.13`, imports
+  `constructAssetSurface`, `constructNode`, and `admitAssetSurface` from the
+  released package, retires `SDLC_PROMPT_ASSET_TYPED_REGISTER` and
+  `admitSdlcPromptInvocationAsset`, archives prompt asset sidecars, and keeps
+  prompt construction on the F_D carrier side rather than rendered-Markdown
+  parsing.
+- P-050 is complete. The contract API gate addendum is implemented and
+  live-proven; the downstream prompt AssetSurface steel thread is implemented
+  and focused-test proven through completed odd_sdlc T-191.
+
+## Depth Review Fix - 2026-06-07
+
+Deep review found one remaining single-control-point defect in the contract API
+gate:
+
+- `admitGtlContractFulfillmentBinding(...)` rejected engine-authority fields,
+  but the exported `constructGtlContractFulfillmentBinding(...)` constructor did
+  not run the same check. A JavaScript caller or downstream adapter using a
+  spread payload could pass `closureDecision`, `events`, `ledger`, traversal, or
+  next-vector fields into the constructor and receive a frozen binding with the
+  illegal fields silently stripped. That made admission stricter than the public
+  constructor and weakened the "one known GTL API gate" claim.
+
+Fix:
+
+- `constructGtlContractFulfillmentBinding(...)` now rejects forbidden
+  engine-authority fields with the same guard used by admission.
+- `test_t152_contract_fulfillment_binding_api.test.mjs` now proves both
+  constructor-level and admission-level rejection.
+
+Verification:
+
+- `npm run build:semantic` passed.
+- `npm run test:t150` passed `7/7`.
+- `node --test test_env/tests/test_t152_contract_fulfillment_binding_api.test.mjs`
+  passed `4/4`.
+- Implementation-time snapshot: `npm run test:semantic` passed `717/717`.
+- Subsequent review rerun reported `npm run test:semantic` passed `721/721`.
+- `git diff --check` clean.
+
+## Final Close Proof - 2026-06-07
+
+Close-readiness review found that the contract API gate was locally fixed but
+not final-pack/downstream proven. Final implementation and proof close that
+boundary:
+
+- `constructGtlContractFulfillmentBinding(...)` and
+  `admitGtlContractFulfillmentBinding(...)` now share the same forbidden
+  engine-authority guard, extended across closure, event, ledger, runtime
+  projection, graph call/frame, terminal, transition, and next-vector fields.
+- T-150 tests now prove the m02 binding API is importable through the public
+  package surface, deterministic, frozen, and fail-closed through both
+  constructor and admission paths.
+- A final temporary package was cut from the current ABG source at
+  `/tmp/abg-t150-final-pack/abiogenesis-typescript-tenant-3.9.0-rc.13.tgz`.
+  `npm pack --dry-run --json` reported `403` package files and confirmed the
+  m02 compute-notation API, shared agent transport, and M04 lever-resolution
+  event files are included.
+- The final package was installed into the odd_sdlc TypeScript tenant with
+  `npm install --no-save --package-lock=false`; package metadata was not saved.
+- The consuming odd_sdlc adapter was migrated off the stale T-149
+  `edgeCanClose` argument so it consumes the ABG fold through admitted rows
+  instead of a product-supplied close flag.
+
+Verification:
+
+- `npm run lint:semantic` passed.
+- `npm run test:semantic` passed `728/728`, `0` skipped, `0` todo.
+- `npm run test:t150` passed `9/9`.
+- Downstream proving-domain pack in
+  `/Users/jim/src/apps/odd_sdlc/build_tenants/typescript` passed:
+  `npm run build:semantic && node --test
+  test_env/tests/test_t191_typed_prompt_assets.test.mjs
+  test_env/tests/test_t182_fp_review_grade_edge_fulfillment.test.mjs
+  test_env/tests/test_t172_decomposition_admission.test.mjs` -> `41/41`.
+- `git diff --check` clean.
 
 ## Notes
 

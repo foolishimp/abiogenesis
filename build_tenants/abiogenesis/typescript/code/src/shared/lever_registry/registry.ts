@@ -56,7 +56,7 @@ const LEVERS: readonly LeverEntry[] = Object.freeze([
     wiring: "live",
     reason:
       "M04 max-autonomy callable-start convergence-target default, used when a programmatic caller omits `until`. The CLI requires `--until` (REQ-P-POLICY-009), so the CLI start path does not consult this lever.",
-    consumedAt: "app/m04/max_autonomy/admission.ts:43",
+    consumedAt: "app/m04/max_autonomy/admission.ts:45",
     enumValues: UNTIL_VALUES
   },
   {
@@ -67,7 +67,7 @@ const LEVERS: readonly LeverEntry[] = Object.freeze([
     wiring: "live",
     reason:
       "M04 callable-start F_H proxy mode default; operator-overridable.",
-    consumedAt: "app/m04/max_autonomy/admission.ts:44",
+    consumedAt: "app/m04/max_autonomy/admission.ts:45",
     enumValues: FH_MODE_VALUES
   },
 

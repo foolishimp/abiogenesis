@@ -205,8 +205,9 @@ test("B-016 M04 publicStart compatibility: legacy entry delegates to the same en
   });
 
   assert.deepStrictEqual(publicOutcome, startOutcome);
+  assert.equal(publicEvents[0].kind, "lever_resolution_admitted");
   assert.deepStrictEqual(
-    publicEvents.map((event) => event.kind),
+    publicEvents.slice(1).map((event) => event.kind),
     startEvents.map((event) => event.kind)
   );
   assert.equal(publicOutcome.kind, "converged");

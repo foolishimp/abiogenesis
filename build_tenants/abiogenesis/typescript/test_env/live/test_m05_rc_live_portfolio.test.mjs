@@ -29,6 +29,7 @@ const TEST_ENV_ROOT = path.dirname(LIVE_DIR);
 const TENANT_ROOT = path.dirname(TEST_ENV_ROOT);
 const READY_TOKEN = "ABG_TS_READY";
 const EXPECTED_STAGE_EVENT_PREFIX = [
+  "lever_resolution_admitted",
   "basis_admitted",
   "graph_call_opened",
   "frame_opened",

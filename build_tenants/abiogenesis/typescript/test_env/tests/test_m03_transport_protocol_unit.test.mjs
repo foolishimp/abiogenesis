@@ -8,6 +8,7 @@ import {
   sanitizeEnvironment
 } from "../../build/semantic/code/src/abg/m03/transport/index.js";
 import {
+  claudeStreamJsonArgs,
   contractForKnownAgent
 } from "../../build/semantic/code/src/shared/abg_library/index.js";
 
@@ -79,6 +80,21 @@ test("M03 transport unit: Claude default contract preserves OAuth auth while str
     PATH: "/usr/bin",
     HOME: "/tmp/demo"
   });
+});
+
+test("M03 transport unit: Claude stream transport disables tools for closed prompt proofs", () => {
+  const args = claudeStreamJsonArgs("return-json");
+
+  assert.deepStrictEqual(args.slice(0, 6), [
+    "-p",
+    "--output-format",
+    "stream-json",
+    "--verbose",
+    "--permission-mode",
+    "bypassPermissions"
+  ]);
+  assert.equal(args.at(-2), "--tools=");
+  assert.equal(args.at(-1), "return-json");
 });
 
 test("M03 transport unit: Codex default contract pins the live model", () => {

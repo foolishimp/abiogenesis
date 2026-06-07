@@ -192,8 +192,12 @@ export function getLeverOverride(
 
 // ── M04 request-defaults resolution (the live wired family) ───────────────────
 
-const M04_UNTIL_KEY = "abg.m04.until";
-const M04_FH_MODE_KEY = "abg.m04.fh_mode";
+export const M04_UNTIL_KEY = "abg.m04.until";
+export const M04_FH_MODE_KEY = "abg.m04.fh_mode";
+export const M04_REQUEST_DEFAULT_LEVER_KEYS = Object.freeze([
+  M04_UNTIL_KEY,
+  M04_FH_MODE_KEY
+] as const);
 
 export interface AbgLeverProvenance {
   readonly bundleRef: string | null;

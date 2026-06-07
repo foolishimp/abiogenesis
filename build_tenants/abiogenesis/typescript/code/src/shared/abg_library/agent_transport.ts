@@ -118,6 +118,7 @@ export function claudeStreamJsonArgs(prompt: string): readonly string[] {
     "--verbose",
     "--permission-mode",
     "bypassPermissions",
+    "--tools=",
     prompt
   ]);
 }

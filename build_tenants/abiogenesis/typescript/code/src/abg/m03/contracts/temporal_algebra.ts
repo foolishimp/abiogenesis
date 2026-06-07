@@ -227,6 +227,21 @@ interface TemporalConstraintHookMatch {
   readonly hookRef: HookRef;
 }
 
+interface TemporalRuntimeScope {
+  readonly basisId: string;
+  readonly graphFunctionId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly vectorIndex: number;
+  readonly edge: string;
+}
+
+interface TemporalEventRuntimeScope extends TemporalRuntimeScope {
+  readonly frameLineageId: string | null;
+}
+
 function assertAllowed<T extends string>(
   value: T,
   allowedValues: readonly T[],
@@ -391,6 +406,103 @@ function assertVectorMatchesBasis(input: {
   const basisVector = input.basis.graph.vectors[input.vectorIndex];
   if (basisVector === undefined || basisVector.id !== input.vector.id) {
     throw new TypeError("Temporal GTL constraint vector must match ExecutionBasis vector");
+  }
+}
+
+function constructTemporalRuntimeScope(input: {
+  readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
+}): TemporalRuntimeScope {
+  assertVectorIndexInRange(input.basis, input.vectorIndex);
+  return Object.freeze({
+    basisId: input.basis.id,
+    graphFunctionId: input.basis.graphFunction.id,
+    graphCallId: graphCallIdForBasis(input.basis),
+    frameId: frameIdForBasis(input.basis),
+    runId: input.basis.runId,
+    workKey: input.basis.workKey,
+    vectorIndex: input.vectorIndex,
+    edge: vectorEdge(input.basis, input.vectorIndex)
+  } satisfies TemporalRuntimeScope);
+}
+
+function constructGraphVectorTemporalRuntimeScope(input: {
+  readonly basis: ExecutionBasis;
+  readonly constraint: TemporalConstraint;
+  readonly label: string;
+}): TemporalRuntimeScope {
+  assertTemporalConstraint(input.basis, input.constraint);
+  if (input.constraint.attachment !== "graph_vector" || input.constraint.vectorIndex === null) {
+    throw new TypeError(`${input.label} first slice requires graph-vector constraint`);
+  }
+  return constructTemporalRuntimeScope({
+    basis: input.basis,
+    vectorIndex: input.constraint.vectorIndex
+  });
+}
+
+function assertTemporalRuntimeScopeMatchesCarrier(
+  scope: TemporalRuntimeScope,
+  carrier: TemporalRuntimeScope,
+  label: string
+): void {
+  for (const key of [
+    "basisId",
+    "graphFunctionId",
+    "graphCallId",
+    "frameId",
+    "runId",
+    "workKey",
+    "vectorIndex",
+    "edge"
+  ] as const) {
+    if (scope[key] !== carrier[key]) {
+      throw new TypeError(`${label}.${key} contradicts temporal runtime scope`);
+    }
+  }
+}
+
+function constructTemporalRuntimeScopeFromCarrier(input: {
+  readonly basis: ExecutionBasis;
+  readonly carrier: TemporalRuntimeScope;
+  readonly label: string;
+}): TemporalRuntimeScope {
+  const scope = constructTemporalRuntimeScope({
+    basis: input.basis,
+    vectorIndex: input.carrier.vectorIndex
+  });
+  assertTemporalRuntimeScopeMatchesCarrier(scope, input.carrier, input.label);
+  return scope;
+}
+
+function constructTemporalEventRuntimeScope(input: {
+  readonly basis: ExecutionBasis;
+  readonly scope: TemporalRuntimeScope;
+}): TemporalEventRuntimeScope {
+  return Object.freeze({
+    ...input.scope,
+    frameLineageId: input.basis.frameLineageId
+  } satisfies TemporalEventRuntimeScope);
+}
+
+function assertTimerOutcomeMatchesIntent(
+  timerIntent: TimerIntent,
+  timerOutcome: TimerOutcome,
+  label: string
+): void {
+  for (const [field, expected, actual] of [
+    ["timerIntentRef", timerIntent.timerIntentRef, timerOutcome.timerIntentRef],
+    ["constraintRef", timerIntent.constraintRef, timerOutcome.constraintRef],
+    [
+      "schedulePolicyRef",
+      timerIntent.schedulePolicyRef,
+      timerOutcome.schedulePolicyRef
+    ],
+    ["providerRef", timerIntent.providerRef, timerOutcome.providerRef]
+  ] as const) {
+    if (expected !== actual) {
+      throw new TypeError(`${label}.${field} contradicts timer intent`);
+    }
   }
 }
 
@@ -581,10 +693,11 @@ export function constructTimerIntent(input: {
   readonly policy: SchedulePolicy;
   readonly timerIntentRef?: string | undefined;
 }): TimerIntent {
-  assertTemporalConstraint(input.basis, input.constraint);
-  if (input.constraint.attachment !== "graph_vector" || input.constraint.vectorIndex === null) {
-    throw new TypeError("TimerIntent first slice requires graph-vector constraint");
-  }
+  const scope = constructGraphVectorTemporalRuntimeScope({
+    basis: input.basis,
+    constraint: input.constraint,
+    label: "TimerIntent"
+  });
   if (input.constraint.schedulePolicyRef !== input.policy.schedulePolicyRef) {
     throw new TypeError("TimerIntent requires matching schedule policy");
   }
@@ -599,14 +712,14 @@ export function constructTimerIntent(input: {
         input.constraint.notBeforeRef
       ].join(":"),
     constraintRef: input.constraint.constraintRef,
-    basisId: input.basis.id,
-    graphFunctionId: input.basis.graphFunction.id,
-    graphCallId: graphCallIdForBasis(input.basis),
-    frameId: frameIdForBasis(input.basis),
-    runId: input.basis.runId,
-    workKey: input.basis.workKey,
-    vectorIndex: input.constraint.vectorIndex,
-    edge: vectorEdge(input.basis, input.constraint.vectorIndex),
+    basisId: scope.basisId,
+    graphFunctionId: scope.graphFunctionId,
+    graphCallId: scope.graphCallId,
+    frameId: scope.frameId,
+    runId: scope.runId,
+    workKey: scope.workKey,
+    vectorIndex: scope.vectorIndex,
+    edge: scope.edge,
     providerRef: input.policy.timerProviderRef,
     notBeforeRef: input.constraint.notBeforeRef,
     schedulePolicyRef: input.policy.schedulePolicyRef
@@ -619,18 +732,25 @@ export function constructTimerIntentAdmittedEvent(input: {
   readonly causationEventRefs?: readonly string[] | undefined;
   readonly correlationId?: string | undefined;
 }): TimerIntentAdmittedEvent {
-  assertVectorIndexInRange(input.basis, input.timerIntent.vectorIndex);
+  const scope = constructTemporalEventRuntimeScope({
+    basis: input.basis,
+    scope: constructTemporalRuntimeScopeFromCarrier({
+      basis: input.basis,
+      carrier: input.timerIntent,
+      label: "TimerIntentAdmittedEvent.timerIntent"
+    })
+  });
   return Object.freeze({
     kind: "timer_intent_admitted",
-    basisId: input.basis.id,
-    graphCallId: input.timerIntent.graphCallId,
-    frameId: input.timerIntent.frameId,
-    frameLineageId: input.basis.frameLineageId,
-    graphFunctionId: input.basis.graphFunction.id,
-    runId: input.basis.runId,
-    workKey: input.basis.workKey,
-    vectorIndex: input.timerIntent.vectorIndex,
-    edge: input.timerIntent.edge,
+    basisId: scope.basisId,
+    graphCallId: scope.graphCallId,
+    frameId: scope.frameId,
+    frameLineageId: scope.frameLineageId,
+    graphFunctionId: scope.graphFunctionId,
+    runId: scope.runId,
+    workKey: scope.workKey,
+    vectorIndex: scope.vectorIndex,
+    edge: scope.edge,
     constraintRef: input.timerIntent.constraintRef,
     timerIntentRef: input.timerIntent.timerIntentRef,
     providerRef: input.timerIntent.providerRef,
@@ -679,10 +799,11 @@ export function constructDeadlineBreach(input: {
   readonly deadlineBreachRef?: string | undefined;
   readonly providerReceiptRef: string;
 }): DeadlineBreach {
-  assertTemporalConstraint(input.basis, input.constraint);
-  if (input.constraint.attachment !== "graph_vector" || input.constraint.vectorIndex === null) {
-    throw new TypeError("DeadlineBreach first slice requires graph-vector constraint");
-  }
+  const scope = constructGraphVectorTemporalRuntimeScope({
+    basis: input.basis,
+    constraint: input.constraint,
+    label: "DeadlineBreach"
+  });
   if (input.constraint.deadlineRef === null) {
     throw new TypeError("DeadlineBreach requires TemporalConstraint.deadlineRef");
   }
@@ -707,14 +828,14 @@ export function constructDeadlineBreach(input: {
     schedulePolicyRef: input.policy.schedulePolicyRef,
     deadlineRef: input.constraint.deadlineRef,
     deadlineBreachAction: input.policy.deadlineBreachAction,
-    basisId: input.basis.id,
-    graphFunctionId: input.basis.graphFunction.id,
-    graphCallId: graphCallIdForBasis(input.basis),
-    frameId: frameIdForBasis(input.basis),
-    runId: input.basis.runId,
-    workKey: input.basis.workKey,
-    vectorIndex: input.constraint.vectorIndex,
-    edge: vectorEdge(input.basis, input.constraint.vectorIndex),
+    basisId: scope.basisId,
+    graphFunctionId: scope.graphFunctionId,
+    graphCallId: scope.graphCallId,
+    frameId: scope.frameId,
+    runId: scope.runId,
+    workKey: scope.workKey,
+    vectorIndex: scope.vectorIndex,
+    edge: scope.edge,
     providerRef: input.policy.timerProviderRef,
     providerReceiptRef: input.providerReceiptRef
   } satisfies DeadlineBreach);
@@ -726,18 +847,25 @@ export function constructDeadlineBreachAdmittedEvent(input: {
   readonly causationEventRefs?: readonly string[] | undefined;
   readonly correlationId?: string | undefined;
 }): DeadlineBreachAdmittedEvent {
-  assertVectorIndexInRange(input.basis, input.deadlineBreach.vectorIndex);
+  const scope = constructTemporalEventRuntimeScope({
+    basis: input.basis,
+    scope: constructTemporalRuntimeScopeFromCarrier({
+      basis: input.basis,
+      carrier: input.deadlineBreach,
+      label: "DeadlineBreachAdmittedEvent.deadlineBreach"
+    })
+  });
   return Object.freeze({
     kind: "deadline_breach_admitted",
-    basisId: input.basis.id,
-    graphCallId: input.deadlineBreach.graphCallId,
-    frameId: input.deadlineBreach.frameId,
-    frameLineageId: input.basis.frameLineageId,
-    graphFunctionId: input.basis.graphFunction.id,
-    runId: input.basis.runId,
-    workKey: input.basis.workKey,
-    vectorIndex: input.deadlineBreach.vectorIndex,
-    edge: input.deadlineBreach.edge,
+    basisId: scope.basisId,
+    graphCallId: scope.graphCallId,
+    frameId: scope.frameId,
+    frameLineageId: scope.frameLineageId,
+    graphFunctionId: scope.graphFunctionId,
+    runId: scope.runId,
+    workKey: scope.workKey,
+    vectorIndex: scope.vectorIndex,
+    edge: scope.edge,
     deadlineBreachRef: input.deadlineBreach.deadlineBreachRef,
     constraintRef: input.deadlineBreach.constraintRef,
     schedulePolicyRef: input.deadlineBreach.schedulePolicyRef,
@@ -757,18 +885,30 @@ export function constructTimerOutcomeAdmittedEvent(input: {
   readonly causationEventRefs?: readonly string[] | undefined;
   readonly correlationId?: string | undefined;
 }): TimerOutcomeAdmittedEvent {
-  assertVectorIndexInRange(input.basis, input.timerIntent.vectorIndex);
+  assertTimerOutcomeMatchesIntent(
+    input.timerIntent,
+    input.timerOutcome,
+    "TimerOutcomeAdmittedEvent.timerOutcome"
+  );
+  const scope = constructTemporalEventRuntimeScope({
+    basis: input.basis,
+    scope: constructTemporalRuntimeScopeFromCarrier({
+      basis: input.basis,
+      carrier: input.timerIntent,
+      label: "TimerOutcomeAdmittedEvent.timerIntent"
+    })
+  });
   return Object.freeze({
     kind: "timer_outcome_admitted",
-    basisId: input.basis.id,
-    graphCallId: input.timerIntent.graphCallId,
-    frameId: input.timerIntent.frameId,
-    frameLineageId: input.basis.frameLineageId,
-    graphFunctionId: input.basis.graphFunction.id,
-    runId: input.basis.runId,
-    workKey: input.basis.workKey,
-    vectorIndex: input.timerIntent.vectorIndex,
-    edge: input.timerIntent.edge,
+    basisId: scope.basisId,
+    graphCallId: scope.graphCallId,
+    frameId: scope.frameId,
+    frameLineageId: scope.frameLineageId,
+    graphFunctionId: scope.graphFunctionId,
+    runId: scope.runId,
+    workKey: scope.workKey,
+    vectorIndex: scope.vectorIndex,
+    edge: scope.edge,
     constraintRef: input.timerOutcome.constraintRef,
     schedulePolicyRef: input.timerOutcome.schedulePolicyRef,
     timerIntentRef: input.timerOutcome.timerIntentRef,
@@ -792,6 +932,16 @@ export function constructScheduledContinuation(input: {
   if (input.timerOutcome.outcome !== "timer_fired") {
     throw new TypeError("ScheduledContinuation requires timer_fired outcome");
   }
+  assertTimerOutcomeMatchesIntent(
+    input.timerIntent,
+    input.timerOutcome,
+    "ScheduledContinuation.timerOutcome"
+  );
+  const scope = constructTemporalRuntimeScopeFromCarrier({
+    basis: input.basis,
+    carrier: input.timerIntent,
+    label: "ScheduledContinuation.timerIntent"
+  });
   return Object.freeze({
     kind: "scheduled_continuation",
     scheduledContinuationRef:
@@ -804,14 +954,14 @@ export function constructScheduledContinuation(input: {
     constraintRef: input.timerIntent.constraintRef,
     timerIntentRef: input.timerIntent.timerIntentRef,
     timerOutcomeRef: input.timerOutcome.timerOutcomeRef,
-    basisId: input.basis.id,
-    graphFunctionId: input.basis.graphFunction.id,
-    graphCallId: input.timerIntent.graphCallId,
-    frameId: input.timerIntent.frameId,
-    runId: input.basis.runId,
-    workKey: input.basis.workKey,
-    vectorIndex: input.timerIntent.vectorIndex,
-    edge: input.timerIntent.edge,
+    basisId: scope.basisId,
+    graphFunctionId: scope.graphFunctionId,
+    graphCallId: scope.graphCallId,
+    frameId: scope.frameId,
+    runId: scope.runId,
+    workKey: scope.workKey,
+    vectorIndex: scope.vectorIndex,
+    edge: scope.edge,
     schedulePolicyRef: input.timerIntent.schedulePolicyRef,
     providerRef: input.timerIntent.providerRef
   } satisfies ScheduledContinuation);
@@ -823,18 +973,25 @@ export function constructScheduledContinuationReopenedEvent(input: {
   readonly causationEventRefs?: readonly string[] | undefined;
   readonly correlationId?: string | undefined;
 }): ScheduledContinuationReopenedEvent {
-  assertVectorIndexInRange(input.basis, input.scheduledContinuation.vectorIndex);
+  const scope = constructTemporalEventRuntimeScope({
+    basis: input.basis,
+    scope: constructTemporalRuntimeScopeFromCarrier({
+      basis: input.basis,
+      carrier: input.scheduledContinuation,
+      label: "ScheduledContinuationReopenedEvent.scheduledContinuation"
+    })
+  });
   return Object.freeze({
     kind: "scheduled_continuation_reopened",
-    basisId: input.basis.id,
-    graphCallId: input.scheduledContinuation.graphCallId,
-    frameId: input.scheduledContinuation.frameId,
-    frameLineageId: input.basis.frameLineageId,
-    graphFunctionId: input.basis.graphFunction.id,
-    runId: input.basis.runId,
-    workKey: input.basis.workKey,
-    vectorIndex: input.scheduledContinuation.vectorIndex,
-    edge: input.scheduledContinuation.edge,
+    basisId: scope.basisId,
+    graphCallId: scope.graphCallId,
+    frameId: scope.frameId,
+    frameLineageId: scope.frameLineageId,
+    graphFunctionId: scope.graphFunctionId,
+    runId: scope.runId,
+    workKey: scope.workKey,
+    vectorIndex: scope.vectorIndex,
+    edge: scope.edge,
     scheduledContinuationRef: input.scheduledContinuation.scheduledContinuationRef,
     constraintRef: input.scheduledContinuation.constraintRef,
     schedulePolicyRef: input.scheduledContinuation.schedulePolicyRef,
@@ -856,18 +1013,21 @@ export function temporalEligibleRuntimeFluent(input: {
   readonly timerIntentRef: string;
   readonly schedulePolicyRef: string;
 }): ReturnType<typeof constructRuntimeFluent> {
-  assertVectorIndexInRange(input.basis, input.vectorIndex);
+  const runtimeScope = constructTemporalRuntimeScope({
+    basis: input.basis,
+    vectorIndex: input.vectorIndex
+  });
   return constructRuntimeFluent({
     name: "temporal_eligible",
     scope: "vector",
-    basisId: input.basis.id,
-    graphFunctionId: input.basis.graphFunction.id,
-    graphCallId: graphCallIdForBasis(input.basis),
-    frameId: frameIdForBasis(input.basis),
-    runId: input.basis.runId,
-    workKey: input.basis.workKey,
-    vectorIndex: input.vectorIndex,
-    edge: vectorEdge(input.basis, input.vectorIndex),
+    basisId: runtimeScope.basisId,
+    graphFunctionId: runtimeScope.graphFunctionId,
+    graphCallId: runtimeScope.graphCallId,
+    frameId: runtimeScope.frameId,
+    runId: runtimeScope.runId,
+    workKey: runtimeScope.workKey,
+    vectorIndex: runtimeScope.vectorIndex,
+    edge: runtimeScope.edge,
     constraintRef: input.constraintRef,
     timerIntentRef: input.timerIntentRef,
     schedulePolicyRef: input.schedulePolicyRef

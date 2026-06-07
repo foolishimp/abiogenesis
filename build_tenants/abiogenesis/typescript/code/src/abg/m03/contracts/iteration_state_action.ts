@@ -221,10 +221,11 @@ export interface IterationOutcomeProjectionInput {
     | undefined;
   readonly terminalFallbackRefs?: readonly string[] | undefined;
   readonly sourceProjectionRefs?: readonly string[] | undefined;
-  readonly edgeCanClose?: boolean | undefined;
 }
 
 export interface IterationOutcomeFoldInput {
+  readonly basis?: ExecutionBasis | undefined;
+  readonly runtimeProjection?: RuntimeAggregateProjection | undefined;
   readonly vectorIndex: number;
   readonly satisfactionRows?: readonly IterationSatisfactionRow[] | undefined;
   readonly runtimeRows?: readonly IterationRuntimeRow[] | undefined;
@@ -233,7 +234,7 @@ export interface IterationOutcomeFoldInput {
     | readonly IterationRedispatchTargetRow[]
     | undefined;
   readonly terminalFallbackRefs?: readonly string[] | undefined;
-  readonly edgeCanClose?: boolean | undefined;
+  readonly sourceProjectionRefs?: readonly string[] | undefined;
 }
 
 function uniqueStrings(values: readonly (string | null | undefined)[]): readonly string[] {
@@ -607,6 +608,40 @@ function currentVectorTarget(input: {
   return Object.freeze(target);
 }
 
+function hasEvaluationScopeRef(
+  rows: readonly (
+    | IterationSatisfactionRow
+    | IterationRuntimeRow
+    | IterationBindingGuardRow
+  )[]
+): boolean {
+  return rows.some(
+    (row) => row.evaluationScopeRef !== undefined && row.evaluationScopeRef !== null
+  );
+}
+
+function assertFoldInputHasProjectionForScopedRows(input: {
+  readonly satisfactionRows: readonly IterationSatisfactionRow[];
+  readonly runtimeRows: readonly IterationRuntimeRow[];
+  readonly bindingGuardRows: readonly IterationBindingGuardRow[];
+  readonly redispatchTargetRows: readonly IterationRedispatchTargetRow[];
+}): void {
+  if (
+    hasEvaluationScopeRef(input.satisfactionRows) ||
+    hasEvaluationScopeRef(input.runtimeRows) ||
+    hasEvaluationScopeRef(input.bindingGuardRows) ||
+    input.redispatchTargetRows.some(
+      (row) =>
+        row.target.evaluationScopeRef !== undefined &&
+        row.target.evaluationScopeRef !== null
+    )
+  ) {
+    throw new TypeError(
+      "deriveIterationOutcomeFromRows with evaluationScopeRef requires basis and runtimeProjection"
+    );
+  }
+}
+
 function deriveOutcomeFromRows(input: {
   readonly rowProjection: Pick<
     IterationRowProjection,
@@ -617,7 +652,6 @@ function deriveOutcomeFromRows(input: {
     | "redispatchTargetRows"
     | "terminalFallbackRefs"
   >;
-  readonly edgeCanClose: boolean;
 }): IterationOutcome {
   const rows = currentSatisfactionRows(input.rowProjection.satisfactionRows);
   const orphan = input.rowProjection.bindingGuardRows.find(
@@ -733,10 +767,7 @@ function deriveOutcomeFromRows(input: {
     return terminate("deferred", null, null);
   }
 
-  if (
-    (rows.length > 0 && rows.every((row) => row.status === "satisfied")) ||
-    (input.edgeCanClose && rows.every((row) => row.status === "satisfied"))
-  ) {
+  if (rows.length > 0 && rows.every((row) => row.status === "satisfied")) {
     return terminate("converged", null, null);
   }
 
@@ -758,10 +789,7 @@ export function deriveIterationOutcomeProjection(
   input: IterationOutcomeProjectionInput
 ): IterationOutcomeProjection {
   const rowProjection = deriveIterationRowProjection(input);
-  const outcome = deriveOutcomeFromRows({
-    rowProjection,
-    edgeCanClose: input.edgeCanClose === true
-  });
+  const outcome = deriveOutcomeFromRows({ rowProjection });
   const reasonRefs = uniqueStrings([
     outcome.kind === "terminate" ? outcome.reason : outcome.reason,
     ...rowProjection.sourceProjectionRefs
@@ -806,24 +834,56 @@ export function deriveIterationOutcomeProjection(
 export function deriveIterationOutcomeFromRows(
   input: IterationOutcomeFoldInput
 ): IterationOutcome {
+  if (
+    (input.basis === undefined) !==
+    (input.runtimeProjection === undefined)
+  ) {
+    throw new TypeError(
+      "deriveIterationOutcomeFromRows requires basis and runtimeProjection together"
+    );
+  }
+  if (input.basis !== undefined && input.runtimeProjection !== undefined) {
+    return deriveOutcomeFromRows({
+      rowProjection: deriveIterationRowProjection({
+        basis: input.basis,
+        runtimeProjection: input.runtimeProjection,
+        vectorIndex: input.vectorIndex,
+        satisfactionRows: input.satisfactionRows,
+        runtimeRows: input.runtimeRows,
+        bindingGuardRows: input.bindingGuardRows,
+        redispatchTargetRows: input.redispatchTargetRows,
+        terminalFallbackRefs: input.terminalFallbackRefs,
+        sourceProjectionRefs: input.sourceProjectionRefs
+      })
+    });
+  }
+  const satisfactionRows = Object.freeze([
+    ...(input.satisfactionRows ?? Object.freeze([]))
+  ]);
+  const runtimeRows = Object.freeze([...(input.runtimeRows ?? Object.freeze([]))]);
+  const bindingGuardRows = Object.freeze([
+    ...(input.bindingGuardRows ?? Object.freeze([]))
+  ]);
+  const redispatchTargetRows = Object.freeze([
+    ...(input.redispatchTargetRows ?? Object.freeze([]))
+  ]);
+  assertFoldInputHasProjectionForScopedRows({
+    satisfactionRows,
+    runtimeRows,
+    bindingGuardRows,
+    redispatchTargetRows
+  });
   return deriveOutcomeFromRows({
     rowProjection: {
       vectorIndex: input.vectorIndex,
-      satisfactionRows: Object.freeze([
-        ...(input.satisfactionRows ?? Object.freeze([]))
-      ]),
-      runtimeRows: Object.freeze([...(input.runtimeRows ?? Object.freeze([]))]),
-      bindingGuardRows: Object.freeze([
-        ...(input.bindingGuardRows ?? Object.freeze([]))
-      ]),
-      redispatchTargetRows: Object.freeze([
-        ...(input.redispatchTargetRows ?? Object.freeze([]))
-      ]),
+      satisfactionRows,
+      runtimeRows,
+      bindingGuardRows,
+      redispatchTargetRows,
       terminalFallbackRefs: uniqueStrings(
         input.terminalFallbackRefs ?? Object.freeze([])
       )
-    },
-    edgeCanClose: input.edgeCanClose === true
+    }
   });
 }
 

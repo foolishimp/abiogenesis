@@ -35,7 +35,8 @@ type FieldRule =
   | "boolean"
   | "string_array"
   | "number_array"
-  | { readonly oneOf: readonly string[]; readonly nullable?: boolean };
+  | { readonly oneOf: readonly string[]; readonly nullable?: boolean }
+  | { readonly equalsArray: readonly string[] };
 
 type RuntimeEventRecord = Record<string, unknown>;
 type RuntimeEventFieldRules = Readonly<Record<string, FieldRule>>;
@@ -45,6 +46,12 @@ const SCHEDULED_SLICE_FINDING_CLASS_VALUES = Object.freeze([
   "fulfilled",
   "semantic_fulfillment_gap",
   "traceability_reference_gap"
+] as const);
+
+const LEVER_OVERRIDE_RESOLUTION_SOURCE_VALUES = Object.freeze([
+  "request",
+  "override",
+  "registry_default"
 ] as const);
 
 function isPlainObject(input: unknown): input is RuntimeEventRecord {
@@ -96,7 +103,10 @@ function assertOneOf<T extends string>(
   );
 }
 
-function assertStringArray(value: unknown, label: string): void {
+function assertStringArray(
+  value: unknown,
+  label: string
+): asserts value is readonly string[] {
   if (!Array.isArray(value)) {
     throw new TypeError(`${label} must be a list`);
   }
@@ -375,6 +385,20 @@ function applyFieldRule(value: unknown, label: string, rule: FieldRule): void {
     assertNumberArray(value, label);
     return;
   }
+  if ("equalsArray" in rule) {
+    assertStringArray(value, label);
+    const expected = rule.equalsArray;
+    const actual = value;
+    if (
+      actual.length !== expected.length ||
+      expected.some((entry, index) => actual[index] !== entry)
+    ) {
+      throw new TypeError(
+        `${label} must equal ${JSON.stringify(expected)}, got ${JSON.stringify(actual)}`
+      );
+    }
+    return;
+  }
   if (rule.nullable === true && value === null) {
     return;
   }
@@ -431,6 +455,29 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     resolvedPolicyBundleRef: "non_empty_string",
     runId: "nullable_string",
     workKey: "nullable_string"
+  }),
+  lever_resolution_admitted: applyFieldRules("LeverResolutionAdmittedEvent", {
+    workspaceRoot: "non_empty_string",
+    moduleName: "non_empty_string",
+    targetHandle: "non_empty_string",
+    until: { oneOf: ["first_traversal", "blocked", "converged"] },
+    fhMode: { oneOf: ["direct", "human-proxy"] },
+    rootMode: { oneOf: ["direct", "supervised"] },
+    resolvedRuntimeRef: "non_empty_string",
+    resolvedPolicyBundleRef: "non_empty_string",
+    runId: "nullable_string",
+    workKey: "nullable_string",
+    resolutionRef: "non_empty_string",
+    bundleRef: "nullable_string",
+    bundleDigest: "nullable_string",
+    bundlePath: "nullable_string",
+    untilLeverKey: { oneOf: ["abg.m04.until"] },
+    untilSource: { oneOf: LEVER_OVERRIDE_RESOLUTION_SOURCE_VALUES },
+    fhModeLeverKey: { oneOf: ["abg.m04.fh_mode"] },
+    fhModeSource: { oneOf: LEVER_OVERRIDE_RESOLUTION_SOURCE_VALUES },
+    selectedLeverKeys: { equalsArray: ["abg.m04.until", "abg.m04.fh_mode"] },
+    causationEventRefs: "string_array",
+    correlationId: "non_empty_string"
   }),
   fd_advance_ready: applyFieldRules("FdAdvanceReadyEvent", {
     basisId: "non_empty_string",

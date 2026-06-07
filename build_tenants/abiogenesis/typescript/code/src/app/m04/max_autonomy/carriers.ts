@@ -11,6 +11,7 @@ import type {
   PublicLiveStatusProjection,
   ProjectionResultAssessmentRef
 } from "../live_status/carriers.js";
+import type { M04RequestDefaultsResolution } from "../../../shared/lever_registry/overrides.js";
 
 export type PublicStopClassKind =
   | "not_started"
@@ -33,6 +34,7 @@ export interface PublicStopClass {
 export interface PublicCallableStartRequest {
   readonly kind: "callable_start_request";
   readonly startRequest: PublicStartRequest;
+  readonly leverResolution: M04RequestDefaultsResolution;
 }
 
 export interface PublicCallableStartTraceRef {

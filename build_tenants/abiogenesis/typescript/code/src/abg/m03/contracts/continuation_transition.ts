@@ -98,7 +98,6 @@ export interface RuntimeContinuationTransitionInput {
   readonly typedYieldRefs?: readonly string[] | undefined;
   readonly typedRetryRefs?: readonly string[] | undefined;
   readonly terminalRetryRefs?: readonly string[] | undefined;
-  readonly edgeCanClose?: boolean | undefined;
 }
 
 function uniqueStrings(values: readonly (string | null | undefined)[]): readonly string[] {
@@ -735,8 +734,7 @@ export function deriveRuntimeContinuationTransitionProjection(
     satisfactionRows: rows.satisfactionRows,
     runtimeRows: rows.runtimeRows,
     redispatchTargetRows: rows.redispatchTargetRows,
-    terminalFallbackRefs: input.terminalRetryRefs,
-    edgeCanClose: input.edgeCanClose
+    terminalFallbackRefs: input.terminalRetryRefs
   });
   return transitionForIterationOutcome({
     continuationInput: input,

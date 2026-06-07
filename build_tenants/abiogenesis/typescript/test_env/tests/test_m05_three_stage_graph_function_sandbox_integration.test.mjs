@@ -57,6 +57,7 @@ test("M05 installed sandbox: one composed three-stage GTL graph function can be 
     "code"
   ]);
   assert.deepStrictEqual(payload.eventKinds, [
+    "lever_resolution_admitted",
     "basis_admitted",
     "graph_call_opened",
     "frame_opened",

@@ -22,6 +22,10 @@ import {
   admitModule
 } from "../../build/semantic/code/src/gtl/m02/admission/carriers.js";
 import {
+  admitGtlContractFulfillmentBinding,
+  constructGtlContractFulfillmentBinding
+} from "../../build/semantic/code/src/gtl/m02/index.js";
+import {
   serializeModule
 } from "../../build/semantic/code/src/gtl/m02/serialization/carriers.js";
 
@@ -269,6 +273,30 @@ function promptChainGraphFunction() {
   };
 }
 
+function fulfillmentBinding(overrides = {}) {
+  return constructGtlContractFulfillmentBinding({
+    obligationRef: "requirement://t150/prompt-surface",
+    requirementRef: "requirement://t150/prompt-surface",
+    productRequirementRef: "requirement://t150/prompt-surface",
+    designObligationRef: "design://t150/prompt-surface",
+    componentRef: "component://t150/gtl-asset-surface",
+    productTargetRef: "workspace://code/src/gtl/m01/contracts/carriers.ts",
+    outputSurfaceRef: "workspace://code/src/gtl/m01/contracts/carriers.ts#AssetSurface",
+    functionOrEntrypointRef: "workspace://code/src/gtl/m01/admission/carriers.ts#admitAssetSurface",
+    realizationEvidenceRefs: [
+      "workspace://code/src/gtl/m01/contracts/carriers.ts",
+      "workspace://code/src/gtl/m01/admission/carriers.ts"
+    ],
+    testOrExecutionEvidenceRefs: [
+      "workspace://test_env/tests/test_t150_gtl_prompt_asset_surface.test.mjs"
+    ],
+    evaluatorFindingRef: "evaluation-finding://t150/prompt-surface",
+    authorityRefs: ["requirement://REQ-L-GTL3-ASSET-SURFACE"],
+    evidenceRefs: ["proof://t150/prompt-surface"],
+    ...overrides
+  });
+}
+
 test("T-150 defaults preserve existing minimal asset surfaces", () => {
   const admitted = admitNode(
     node("MinimalAsset", "schema://gtl/minimal", {
@@ -373,6 +401,27 @@ test("T-150 prompt asset surface remains subordinate, not a new GTL topology obj
     m02CarrierSource.includes("AssetSurface"),
     false,
     "M02 public work publication carriers must not promote AssetSurface as topology"
+  );
+});
+
+test("T-150 m02 fulfillment binding addendum exports guarded public API", () => {
+  const first = fulfillmentBinding();
+  const second = fulfillmentBinding();
+
+  assert.equal(first.kind, "gtl_contract_fulfillment_binding");
+  assert.equal(first.bindingRef, second.bindingRef);
+  assert.deepEqual(admitGtlContractFulfillmentBinding(first), first);
+  assert.throws(
+    () => fulfillmentBinding({ closureDecision: "close" }),
+    /cannot own engine authority/u
+  );
+  assert.throws(
+    () =>
+      admitGtlContractFulfillmentBinding({
+        ...first,
+        graphCallId: "graph-call://hidden-controller"
+      }),
+    /cannot own engine authority/u
   );
 });
 

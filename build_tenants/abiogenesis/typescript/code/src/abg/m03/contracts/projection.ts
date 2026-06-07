@@ -669,6 +669,7 @@ export function deriveRuntimeAggregateProjection(
         frameId = event.frameId;
         break;
       case "basis_admitted":
+      case "lever_resolution_admitted":
       case "fd_advance_ready":
       case "fp_dispatch_requested":
       case "fh_escalated":

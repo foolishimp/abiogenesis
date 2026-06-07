@@ -213,6 +213,7 @@ test("M04 CLI binary integration: installed package publishes TS binary aliases 
   assert.equal(payload.stopped_by, "dispatch_required");
   assert.equal(payload.control_outcome.stopDetail.dispatchRef, "dispatch://cli-binary");
   assert.deepStrictEqual(payload.event_kinds, [
+    "lever_resolution_admitted",
     "basis_admitted",
     "graph_call_opened",
     "frame_opened",

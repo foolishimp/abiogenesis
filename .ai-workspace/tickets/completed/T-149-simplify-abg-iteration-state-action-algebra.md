@@ -3,13 +3,14 @@ id: T-149
 title: Simplify ABG iteration state into one recursive outcome algebra
 type: bug
 ticket_category: implementation_migration
-status: active
+status: completed
 proof_status: passed
 goal: replace scattered assurance, payload-ledger, re-entry, continuation, and terminal-fallback transition inference with one ABG-owned replay-derived iteration outcome algebra over primitive rows, lifecycle filtering, and recursive redispatch targets
 change_class: requirement_reprice
 re_entry_point: requirements
 created_at: 2026-06-05
-updated_at: 2026-06-05
+updated_at: 2026-06-07
+completed_at: 2026-06-07
 owning_repo: abiogenesis
 governance_scope: STDO Method
 priority: critical
@@ -677,4 +678,72 @@ Final proof:
 - `npm run test:t149` passed `12/12`.
 - `npm run build:semantic && node --test test_env/tests/test_t084_attached_fp_worker_loop.test.mjs test_env/tests/test_t098_retry_frontier_projection.test.mjs test_env/tests/test_t107_traversal_modulation_unit.test.mjs test_env/tests/test_t149_iteration_state_action_algebra.test.mjs` passed `36/36`.
 - `npm run test:semantic` passed `676/676`.
+- `git diff --check` clean.
+
+## Depth Review Fix - 2026-06-07
+
+Deep review found two remaining boundary defects after the original proof:
+
+- The exported row-only fold helper could receive scoped rows without the
+  `ExecutionBasis` and runtime projection required to validate
+  `GtlEvaluationScopeRef` against graph call, frame, graph function, graph
+  vector, and vector index truth. That made `deriveIterationOutcomeFromRows`
+  an unvalidated entrance for the T-151 scoped-row substrate even though
+  `deriveIterationOutcomeProjection` validated the same rows.
+- `edgeCanClose: true` could still converge an empty current satisfaction row
+  set through vacuous `[].every(...)`. That overclaimed compact close evidence
+  when no active or preserved/rebased satisfaction set was present.
+
+Fix:
+
+- `deriveIterationOutcomeFromRows(...)` now accepts optional
+  `basis` + `runtimeProjection` together. If scoped rows or scoped redispatch
+  targets are supplied without that validation context, it fails closed. When
+  the context is supplied, it routes through `deriveIterationRowProjection(...)`
+  and reuses the same validation path as the authoritative projection helper.
+- The convergence branch now requires at least one current satisfaction row
+  before either normal satisfaction or compact `edgeCanClose` evidence can
+  converge.
+
+Verification:
+
+- `npm run build:semantic` passed.
+- `npm run test:t149` passed `14/14`.
+- Direct focused pack passed `33/33`:
+  `test_t149_iteration_state_action_algebra.test.mjs`,
+  `test_t152_contract_fulfillment_binding_api.test.mjs`,
+  `test_t126_temporal_runtime_scope_consolidation.test.mjs`,
+  `test_t122_temporal_deadline_policy.test.mjs`,
+  `test_t119_temporal_algebra_unit.test.mjs`.
+- Implementation-time snapshot: `npm run test:semantic` passed `717/717`.
+- Subsequent review rerun reported `npm run test:semantic` passed `721/721`.
+- `git diff --check` clean.
+
+## Final Close Proof - 2026-06-07
+
+Close-readiness review found three remaining proof/authority gaps:
+
+- runner-level proof was too thin;
+- `attached_fp_worker.ts` computed the fold but still let retry materialization
+  appear to choose the outcome;
+- `edgeCanClose` had become a dead compact-close parameter.
+
+Final implementation resolves those gaps:
+
+- `edgeCanClose` was removed from the public fold/projection inputs and from
+  continuation transition plumbing.
+- `attached_fp_worker.ts` now derives a blocked outcome from
+  `deriveIterationOutcomeFromRows(...)` and branches on that fold result;
+  retry repair only materializes the selected retry outcome and still checks
+  agreement with the retry decision.
+- `test_t149_iteration_state_action_algebra.test.mjs` now proves runner-level
+  convergence, F_D handoff suspension, graph re-entry redispatch, scoped-row
+  fail-closed behavior, empty satisfaction fail-closed behavior, and
+  fold-backed attached F_P blocked-artifact stop behavior.
+
+Verification:
+
+- `npm run test:t149` passed `17/17`.
+- `npm run lint:semantic` passed.
+- `npm run test:semantic` passed `728/728`, `0` skipped, `0` todo.
 - `git diff --check` clean.

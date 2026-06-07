@@ -422,13 +422,14 @@ test("T-076 public TypeScript installer populates a package-backed ABG install a
   assert.equal(selfTestStartPayload.status, "converged");
   assert.equal(selfTestStartPayload.stopped_by, "converged");
   assert.deepStrictEqual(selfTestStartPayload.event_kinds, [
+    "lever_resolution_admitted",
     "basis_admitted",
     "graph_call_opened",
     "frame_opened",
     "vector_traversal_planned",
-      "payload_observed",
-      "payload_validated",
-      "fd_authority_outcome_admitted",
+    "payload_observed",
+    "payload_validated",
+    "fd_authority_outcome_admitted",
     "vector_evaluated",
     "vector_closed",
     "fd_advance_ready",

@@ -7,6 +7,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 import {
+  constructFdEvaluationOutcome,
   constructEnginePluginContract,
   constructFpDispatchOutcome,
   runEngineIterate
@@ -16,14 +17,30 @@ import {
   constructAssuranceEvidenceRow,
   constructFrameOpenedEvent,
   constructGraphCallOpenedEvent,
+  constructVectorClosedEvent,
   constructVectorTraversalPlannedEvent,
   deriveAssuranceClosureDecision,
   deriveAssuranceProjection,
   deriveAssuranceScopeRef,
+  deriveIterationOutcomeFromRows,
   deriveIterationOutcomeProjection,
-  deriveRuntimeAggregateProjection
+  deriveRuntimeAggregateProjection,
+  foldGraphSpanAssessments
 } from "../../build/semantic/code/src/abg/m03/index.js";
+import {
+  constructGtlEvaluationScopeRef
+} from "../../build/semantic/code/src/gtl/m02/index.js";
+import { canonicalRuntimeEvents } from "./support/canonical-runtime-events.mjs";
 import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
+import {
+  assessmentFor,
+  buildSchedule,
+  dropped,
+  fulfilledRow,
+  gapRow,
+  materializeEvents,
+  spanBySource
+} from "./support/t103-graph-span-fixtures.mjs";
 
 function sourceFile(relativePath) {
   return readFileSync(join(process.cwd(), relativePath), "utf8");
@@ -88,6 +105,28 @@ function assertCallsFoldBackedHelper(relativePath, functionName, helperName) {
   assertFoldMaterializer(relativePath, helperName);
 }
 
+function assertAttachedWorkerConsumesFoldOutcome() {
+  const body = functionBody(
+    sourceFile("code/src/abg/m03/runner/attached_fp_worker.ts"),
+    "deriveAttachedFpResultDecision"
+  );
+  assert.match(
+    body,
+    /const\s+blockedOutcome\s*=\s*deriveBlockedResultFoldOutcome\s*\(/u,
+    "attached F_P worker must bind the blocked-result fold outcome"
+  );
+  assert.match(
+    body,
+    /\bblockedOutcome\.kind\b/u,
+    "attached F_P worker must branch on the fold outcome"
+  );
+  assert.doesNotMatch(
+    body,
+    /switch\s*\(\s*retryDecision\.kind\s*\)/u,
+    "attached F_P worker must not select retry/stop/escalation directly from retryDecision"
+  );
+}
+
 function runtimeFixture({ vectorIndex = 1 } = {}) {
   const basis = buildThreeStageBasis({
     defaultRegime: "F_P",
@@ -112,13 +151,38 @@ function derive(runtime, extra) {
 }
 
 function satisfaction(row) {
-  return Object.freeze({
+  const result = {
     authorityRef: row.authorityRef,
     status: row.status,
     reason: row.reason ?? null,
     lifecycle: row.lifecycle ?? "active",
     evidenceRefs: row.evidenceRefs ?? [`evidence://${row.authorityRef}`],
     reEntryPoint: row.reEntryPoint ?? null
+  };
+  if (Object.hasOwn(row, "evaluationScopeRef")) {
+    return Object.freeze({
+      ...result,
+      evaluationScopeRef: row.evaluationScopeRef
+    });
+  }
+  return Object.freeze(result);
+}
+
+function evaluationScope(runtime, overrides = {}) {
+  return constructGtlEvaluationScopeRef({
+    graphCallRef: runtime.projection.graphCallId,
+    frameRef: runtime.projection.frameId,
+    graphFunctionRef: runtime.basis.graphFunction.id,
+    graphVectorRef: runtime.basis.graph.vectors[runtime.vectorIndex].name,
+    vectorIndex: runtime.vectorIndex,
+    compositionRef: "abg.fn_composition://m03-iteration/default",
+    compositionDigest: "digest://m03-iteration/default",
+    scopeTopologyRef: "scope://t149/segment/one",
+    scopeKind: "segment",
+    segmentRef: "segment://t149/one",
+    dimensionRef: null,
+    relationRef: null,
+    ...overrides
   });
 }
 
@@ -171,6 +235,16 @@ function fpDispatchContract(ref) {
   });
 }
 
+function fdEvaluatorContract(ref) {
+  return constructEnginePluginContract({
+    ref,
+    pluginKind: "fd_evaluator",
+    authority: "effect_plugin",
+    inputCarrier: "EnginePluginInput",
+    outputCarrier: "FdEvaluationOutcome"
+  });
+}
+
 function attachedArtifact(input, options = {}) {
   const assessmentIds =
     input.expectedAssessmentIds.length > 0
@@ -193,6 +267,38 @@ function attachedArtifact(input, options = {}) {
     assignment_source: "policy_resolution",
     resolved_runtime_ref: "runtime://typescript/node"
   };
+}
+
+function graphReentryFoldFor(basis, schedule, assessments) {
+  return foldGraphSpanAssessments({
+    basis,
+    terminalVectorIndex: schedule.terminalVectorIndex,
+    schedule,
+    assessments
+  });
+}
+
+function graphReentryAssessments(basis, schedule) {
+  return [
+    assessmentFor({
+      basis,
+      span: spanBySource(schedule, 2),
+      assessmentId: "assessment://t149/runner/c-d/close",
+      rows: [fulfilledRow("C-REQ-1")]
+    }),
+    assessmentFor({
+      basis,
+      span: spanBySource(schedule, 1),
+      assessmentId: "assessment://t149/runner/b-d/gap",
+      rows: [gapRow("B-REQ-1", [dropped(1, 2)])]
+    }),
+    assessmentFor({
+      basis,
+      span: spanBySource(schedule, 0),
+      assessmentId: "assessment://t149/runner/a-d/close",
+      rows: [fulfilledRow("A-REQ-1")]
+    })
+  ];
 }
 
 test("T-149 mixed rows block before converged", () => {
@@ -324,10 +430,9 @@ test("T-149 terminal fallback cannot outrank current satisfied rows", () => {
   assert.equal(fallbackOnly.outcome.target.targetVectorIndex, runtime.vectorIndex);
 });
 
-test("T-149 edgeCanClose cannot bypass unsatisfied current rows", () => {
+test("T-149 unsatisfied current rows cannot close by external edge flag", () => {
   const runtime = runtimeFixture();
   const projection = derive(runtime, {
-    edgeCanClose: true,
     satisfactionRows: [
       satisfaction({
         authorityRef: "authority://uncaught-runtime",
@@ -345,6 +450,175 @@ test("T-149 edgeCanClose cannot bypass unsatisfied current rows", () => {
     reason: "unsupported_state",
     reEntryPoint: null
   });
+});
+
+test("T-149 empty satisfaction surface cannot converge", () => {
+  const runtime = runtimeFixture();
+  const projection = derive(runtime, {});
+
+  assert.deepEqual(projection.outcome, {
+    kind: "terminate",
+    disposition: "blocked",
+    reason: "unsupported_state",
+    reEntryPoint: null
+  });
+});
+
+test("T-149 runner path materializes converged terminal from the fold", () => {
+  const basis = buildThreeStageBasis({
+    defaultRegime: "F_D",
+    dispatchRef: null
+  });
+  const events = [];
+
+  const result = runEngineIterate({
+    basis,
+    eventSink: (event) => {
+      events.push(event);
+    }
+  });
+
+  assert.equal(result.transition.kind, "terminal");
+  assert.equal(result.transition.terminalKind, "converged");
+  assert.deepEqual(
+    events.filter((event) => event.kind === "vector_closed").map((event) => event.edge),
+    ["input_set→requirements", "requirements→design", "design→code"]
+  );
+});
+
+test("T-149 runner path materializes suspend from F_D handoff fold outcome", () => {
+  const basis = buildThreeStageBasis({
+    defaultRegime: "F_D",
+    dispatchRef: null
+  });
+  const events = [];
+  const fdEvaluator = Object.freeze({
+    contract: fdEvaluatorContract("plugin://test/t149-fd-handoff"),
+    evaluate: (input) =>
+      constructFdEvaluationOutcome({
+        status: "blocked",
+        severityClass: "content_unproven",
+        reason: "requires F_P evidence",
+        evidenceRefs: [input.sourceProjectionRef]
+      })
+  });
+
+  const result = runEngineIterate({
+    basis,
+    eventSink: (event) => {
+      events.push(event);
+    },
+    plugins: { fdEvaluator }
+  });
+
+  assert.equal(result.transition.kind, "terminal");
+  assert.equal(result.transition.terminalKind, "yielded");
+  assert.deepEqual(
+    events
+      .filter((event) => event.kind === "fd_authority_outcome_admitted")
+      .map((event) => event.routingDecision),
+    ["route_to_fp"]
+  );
+});
+
+test("T-149 runner path consumes graph re-entry redispatch before default iteration", () => {
+  const { basis, schedule } = buildSchedule({
+    runId: "run://t149/runner/reentry",
+    defaultRegime: "F_D",
+    dispatchRef: null
+  });
+  const assessments = graphReentryAssessments(basis, schedule);
+  const foldback = graphReentryFoldFor(basis, schedule, assessments);
+  const reentryEvents = materializeEvents(basis, schedule, assessments, foldback);
+  const emittedEvents = [];
+
+  const result = runEngineIterate({
+    basis,
+    runtimeEvents: canonicalRuntimeEvents([
+      constructVectorClosedEvent({ basis, vectorIndex: 0, closureKind: "assessed" }),
+      constructVectorClosedEvent({ basis, vectorIndex: 1, closureKind: "assessed" }),
+      constructVectorClosedEvent({ basis, vectorIndex: 2, closureKind: "assessed" }),
+      ...reentryEvents
+    ]),
+    eventSink: (event) => {
+      emittedEvents.push(event);
+    }
+  });
+
+  assert.equal(result.transition.kind, "terminal");
+  assert.equal(result.transition.terminalKind, "converged");
+  assert.deepEqual(
+    emittedEvents
+      .filter((event) => event.kind === "graph_reentry_planned")
+      .map((event) => event.targetVectorIndex),
+    [1]
+  );
+  assert.deepEqual(
+    emittedEvents
+      .filter((event) => event.kind === "graph_reentry_applied")
+      .map((event) => event.shadowedVectorIndexes),
+    [[1, 2]]
+  );
+  assert.deepEqual(
+    emittedEvents
+      .filter((event) => event.kind === "vector_traversal_planned")
+      .map((event) => event.vectorIndex),
+    [1, 2]
+  );
+});
+
+test("T-149 row-only helper fails closed for scoped rows without projection validation", () => {
+  const runtime = runtimeFixture();
+  const scope = evaluationScope(runtime);
+
+  assert.throws(
+    () =>
+      deriveIterationOutcomeFromRows({
+        vectorIndex: runtime.vectorIndex,
+        satisfactionRows: [
+          satisfaction({
+            authorityRef: "authority://scoped",
+            status: "satisfied",
+            evaluationScopeRef: scope
+          })
+        ]
+      }),
+    /requires basis and runtimeProjection/u
+  );
+
+  assert.throws(
+    () =>
+      deriveIterationOutcomeFromRows({
+        basis: runtime.basis,
+        runtimeProjection: runtime.projection,
+        vectorIndex: runtime.vectorIndex,
+        satisfactionRows: [
+          satisfaction({
+            authorityRef: "authority://wrong-scope",
+            status: "satisfied",
+            evaluationScopeRef: evaluationScope(runtime, {
+              graphCallRef: "graph-call://wrong"
+            })
+          })
+        ]
+      }),
+    /graphCallRef does not match iteration graph call/u
+  );
+
+  const outcome = deriveIterationOutcomeFromRows({
+    basis: runtime.basis,
+    runtimeProjection: runtime.projection,
+    vectorIndex: runtime.vectorIndex,
+    satisfactionRows: [
+      satisfaction({
+        authorityRef: "authority://scoped",
+        status: "satisfied",
+        evaluationScopeRef: scope
+      })
+    ]
+  });
+  assert.equal(outcome.kind, "terminate");
+  assert.equal(outcome.disposition, "converged");
 });
 
 test("T-149 orphan binding guard terminates blocked with diagnostics", () => {
@@ -577,8 +851,9 @@ test("T-149 structural guard: migrated transition surfaces use the one fold", ()
   assertCallsFoldBackedHelper(
     "code/src/abg/m03/runner/attached_fp_worker.ts",
     "deriveAttachedFpResultDecision",
-    "assertBlockedResultFoldAgreement"
+    "deriveBlockedResultFoldOutcome"
   );
+  assertAttachedWorkerConsumesFoldOutcome();
   assertFoldMaterializer(
     "code/src/abg/m03/runner/engine_runner.ts",
     "boundedAttemptExitTransition"
@@ -597,5 +872,10 @@ test("T-149 structural guard: migrated transition surfaces use the one fold", ()
     genericSurfaces,
     /odd_sdlc|data_mapper|SBT|JVM|Scala|hello_world|JavaScript/u,
     "iteration outcome surfaces must not import product or stack vocabulary"
+  );
+  assert.doesNotMatch(
+    genericSurfaces,
+    /\bedgeCanClose\b/u,
+    "iteration outcome surfaces must not retain dead edgeCanClose threading"
   );
 });

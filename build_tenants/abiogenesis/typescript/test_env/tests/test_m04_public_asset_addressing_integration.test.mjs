@@ -139,13 +139,14 @@ test("M04 public asset addressing integration: resolved asset ownership drives t
   assert.equal(outcome.kind, "converged");
   assert.equal(outcome.terminalKind, "converged");
   assert.deepStrictEqual(events.map((event) => event.kind), [
+    "lever_resolution_admitted",
     "basis_admitted",
     "graph_call_opened",
     "frame_opened",
     "vector_traversal_planned",
-      "payload_observed",
-      "payload_validated",
-      "fd_authority_outcome_admitted",
+    "payload_observed",
+    "payload_validated",
+    "fd_authority_outcome_admitted",
     "vector_evaluated",
     "vector_closed",
     "fd_advance_ready",
@@ -153,9 +154,9 @@ test("M04 public asset addressing integration: resolved asset ownership drives t
     "payload_validated",
     "terminal_reached"
   ]);
-  assert.deepStrictEqual(canonicalEventBody(events[0]), {
+  assert.deepStrictEqual(canonicalEventBody(events[1]), {
     kind: "basis_admitted",
-    basisId: events[0].basisId,
+    basisId: events[1].basisId,
     graphFunctionId: codeProfile.id,
     jobId: "job-m04-asset-code",
     resolvedRuntimeRef: "runtime://typescript/node",

@@ -78,6 +78,8 @@ export type {
   IterationAdvanceDecision,
   IterationAdvanceVectorDecision,
   IterationConvergedDecision,
+  LeverOverrideResolutionSource,
+  LeverResolutionAdmittedEvent,
   LeafTaskCompletedEvent,
   LeafTaskEnvelope,
   LeafTaskFailedEvent,

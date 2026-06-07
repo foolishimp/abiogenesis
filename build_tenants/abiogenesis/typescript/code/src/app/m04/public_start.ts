@@ -6,9 +6,13 @@
 // Implements: REQ-P-POLICY-012
 // Implements: REQ-P-POLICY-013
 
-import type { EngineRunnerPluginSet, RuntimeEventSink } from "../../abg/m03/index.js";
-import { admitPublicStartRequest } from "./admission/index.js";
+import {
+  type EngineRunnerPluginSet,
+  type RuntimeEventSink
+} from "../../abg/m03/index.js";
 import type { PublicStartOutcome, PublicStartRequest } from "./contracts/carriers.js";
+import { admitPublicCallableStartRequest } from "./max_autonomy/admission.js";
+import { emitLeverResolutionEvent } from "./max_autonomy/lever_resolution_event.js";
 import { startFromRequest, startFromRequestAsync } from "./start.js";
 export {
   assertRuntimeEventSink,
@@ -40,8 +44,13 @@ export function publicStart(
   eventSink: RuntimeEventSink,
   plugins?: EngineRunnerPluginSet
 ): PublicStartOutcome {
-  const request = admitPublicStartRequest(input);
-  return publicStartFromRequest(request, context, eventSink, plugins);
+  const request = admitPublicCallableStartRequest(
+    input,
+    "PublicStartRequest",
+    context.leverOverridesBundle ?? null
+  );
+  emitLeverResolutionEvent(request, context, eventSink);
+  return publicStartFromRequest(request.startRequest, context, eventSink, plugins);
 }
 
 export async function publicStartAsync(
@@ -50,6 +59,16 @@ export async function publicStartAsync(
   eventSink: RuntimeEventSink,
   plugins?: EngineRunnerPluginSet
 ): Promise<PublicStartOutcome> {
-  const request = admitPublicStartRequest(input);
-  return await publicStartFromRequestAsync(request, context, eventSink, plugins);
+  const request = admitPublicCallableStartRequest(
+    input,
+    "PublicStartRequest",
+    context.leverOverridesBundle ?? null
+  );
+  emitLeverResolutionEvent(request, context, eventSink);
+  return await publicStartFromRequestAsync(
+    request.startRequest,
+    context,
+    eventSink,
+    plugins
+  );
 }

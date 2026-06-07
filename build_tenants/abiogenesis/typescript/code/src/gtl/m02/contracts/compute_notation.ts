@@ -362,9 +362,17 @@ function assertNoForbiddenEngineAuthorityFields(
     "events",
     "ledger",
     "projection",
+    "runtimeProjection",
+    "graphCall",
+    "graphCallId",
+    "frame",
+    "frameId",
     "closureDecision",
     "closureKind",
+    "terminalKind",
+    "terminalReason",
     "transition",
+    "transitionKind",
     "nextVectorIndex",
     "closedVectorIndexes",
     "mayCloseTraversal",
@@ -526,6 +534,12 @@ export function constructGtlEvaluationScopeRef(
 export function constructGtlContractFulfillmentBinding(
   input: GtlContractFulfillmentBindingInit
 ): GtlContractFulfillmentBinding {
+  if (isPlainRecord(input)) {
+    assertNoForbiddenEngineAuthorityFields(
+      input,
+      "GtlContractFulfillmentBinding"
+    );
+  }
   const normalized = {
     obligationRef: nonEmptyString(
       input.obligationRef,

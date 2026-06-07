@@ -441,6 +441,36 @@ export interface BasisAdmittedEvent {
   readonly workKey: string | null;
 }
 
+export type LeverOverrideResolutionSource =
+  | "request"
+  | "override"
+  | "registry_default";
+
+export interface LeverResolutionAdmittedEvent {
+  readonly kind: "lever_resolution_admitted";
+  readonly workspaceRoot: string;
+  readonly moduleName: string;
+  readonly targetHandle: string;
+  readonly until: StartUntil;
+  readonly fhMode: "direct" | "human-proxy";
+  readonly rootMode: "direct" | "supervised";
+  readonly resolvedRuntimeRef: string;
+  readonly resolvedPolicyBundleRef: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly resolutionRef: string;
+  readonly bundleRef: string | null;
+  readonly bundleDigest: string | null;
+  readonly bundlePath: string | null;
+  readonly untilLeverKey: string;
+  readonly untilSource: LeverOverrideResolutionSource;
+  readonly fhModeLeverKey: string;
+  readonly fhModeSource: LeverOverrideResolutionSource;
+  readonly selectedLeverKeys: readonly string[];
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
 export interface FdAdvanceReadyEvent {
   readonly kind: "fd_advance_ready";
   readonly basisId: string;
@@ -2171,6 +2201,7 @@ export interface WorkspaceInstallationAdmittedRuntimeEvent {
 
 export type RuntimeEvent =
   | BasisAdmittedEvent
+  | LeverResolutionAdmittedEvent
   | FdAdvanceReadyEvent
   | FpDispatchRequestedEvent
   | ActorInvocationStartedEvent
@@ -2275,6 +2306,7 @@ export type CanonicalRuntimeEvent = RuntimeEvent & CanonicalRuntimeEventEnvelope
 
 export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "basis_admitted",
+  "lever_resolution_admitted",
   "fd_advance_ready",
   "fp_dispatch_requested",
   "actor_invocation_started",

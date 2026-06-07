@@ -99,13 +99,14 @@ test("ABG common library integration: M04 proof adapter consumes reusable profil
   assert.equal(outcome.kind, "converged");
   assert.equal(outcome.terminalKind, "converged");
   assert.deepStrictEqual(events.map((event) => event.kind), [
+    "lever_resolution_admitted",
     "basis_admitted",
     "graph_call_opened",
     "frame_opened",
     "vector_traversal_planned",
-      "payload_observed",
-      "payload_validated",
-      "fd_authority_outcome_admitted",
+    "payload_observed",
+    "payload_validated",
+    "fd_authority_outcome_admitted",
     "vector_evaluated",
     "vector_closed",
     "fd_advance_ready",

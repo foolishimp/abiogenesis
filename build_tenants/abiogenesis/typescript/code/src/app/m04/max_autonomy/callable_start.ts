@@ -12,6 +12,7 @@ import {
   constructPublicCallableStartOutcome,
   projectPublicStopClass
 } from "./constructors.js";
+import { emitLeverResolutionEvent } from "./lever_resolution_event.js";
 import type {
   PublicCallableStartOutcome,
   PublicCallableStartRequest
@@ -22,6 +23,7 @@ export function publicCallableStartFromRequest(
   context: PublicStartContext,
   eventSink: RuntimeEventSink
 ): PublicCallableStartOutcome {
+  emitLeverResolutionEvent(request, context, eventSink);
   const controlRequest = constructPublicControlLoopRequest(request.startRequest);
   const controlOutcome = publicControlLoopFromRequest(
     controlRequest,

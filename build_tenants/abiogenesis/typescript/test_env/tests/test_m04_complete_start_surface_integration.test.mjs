@@ -41,6 +41,7 @@ test("M04 complete-start integration: bare callable start advances through subst
   assert.deepStrictEqual(
     events.map((event) => event.kind),
     [
+      "lever_resolution_admitted",
       "basis_admitted",
       "graph_call_opened",
       "frame_opened",
@@ -81,6 +82,7 @@ test("M04 complete-start integration: F_P bare callable start projects worker di
   assert.deepStrictEqual(
     events.map((event) => event.kind),
     [
+      "lever_resolution_admitted",
       "basis_admitted",
       "graph_call_opened",
       "frame_opened",

@@ -62,13 +62,14 @@ test("M04 integration: publicStart routes through engine-owned M03 iteration for
   assert.equal(outcome.kind, "converged");
   assert.equal(outcome.terminalKind, "converged");
   assert.deepStrictEqual(events.map((event) => event.kind), [
+    "lever_resolution_admitted",
     "basis_admitted",
     "graph_call_opened",
     "frame_opened",
     "vector_traversal_planned",
-      "payload_observed",
-      "payload_validated",
-      "fd_authority_outcome_admitted",
+    "payload_observed",
+    "payload_validated",
+    "fd_authority_outcome_admitted",
     "vector_evaluated",
     "vector_closed",
     "fd_advance_ready",
@@ -123,6 +124,7 @@ test("M04 integration: publicStart preserves kernel dispatch truth as a blocked 
   assert.equal(outcome.kind, "blocked");
   assert.equal(outcome.stopPredicate, "dispatch_required");
   assert.deepStrictEqual(events.map((event) => event.kind), [
+    "lever_resolution_admitted",
     "basis_admitted",
     "graph_call_opened",
     "frame_opened",
@@ -175,7 +177,9 @@ test("M04 integration: explicit runtime selector mismatch rejects before kernel 
 
   assert.equal(outcome.kind, "rejected");
   assert.match(outcome.reason, /configured worker selector/i);
-  assert.equal(events.length, 0);
+  assert.deepStrictEqual(events.map((event) => event.kind), [
+    "lever_resolution_admitted"
+  ]);
   assert.equal(
     outcome.runtimeIdentity?.resolvedRuntimeRef,
     "runtime://typescript/node"

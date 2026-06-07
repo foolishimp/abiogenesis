@@ -56,6 +56,7 @@ export function admitPublicCallableStartRequest(
     fh_mode: resolvedDefaults.fhMode
   };
   return constructPublicCallableStartRequest(
-    admitPublicStartRequest(startRequestInput, `${label}.start_request`)
+    admitPublicStartRequest(startRequestInput, `${label}.start_request`),
+    resolvedDefaults
   );
 }

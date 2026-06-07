@@ -3,13 +3,14 @@ id: T-118
 title: Complete ABG defaults bundle expansion after plugin observer slice
 type: feature
 ticket_category: ordinary
-status: active
-proof_status: partial_m04_proven_remaining_defaults_open
+status: completed
+proof_status: passed
 goal: rc-next-visible-abg-defaults
 change_class: design_reframe
 re_entry_point: design
 created_at: 2026-05-06T02:14:45+10:00
-updated_at: 2026-06-07T21:00:00+10:00
+updated_at: 2026-06-07
+completed_at: 2026-06-07
 owning_repo: abiogenesis
 governance_scope: STDO Method
 priority: medium
@@ -92,18 +93,19 @@ Audit and close the remaining default families left visible by T-117:
 
 ## Defaults Audit And Completion Checklist (2026-06-07)
 
-**Status: partial — early.** The `abg_defaults` bundle mechanism and provenance
-pattern exist, with two externalized members:
+**Status: closed.** This initial audit is preserved as the intake baseline.
+It was superseded by the unified lever registry realization below. At intake,
+the `abg_defaults` bundle mechanism and provenance pattern existed with two
+externalized members:
 
 - `config/abg.reference-fallbacks.json` — T-117 plugin traversal observer
   fallback (`abgDefaultsFamily: abg_defaults`, `bundleRef`,
   transform/evaluate/consequence bindings).
 - `config/gtl.target-carrier-defaults.json` — target-carrier defaults.
 
-The §Scope families below are still in the superseded (hidden) state — local
-constants, raw `??` fallbacks, or inline heuristics with no bundle or
-provenance — and are unclassified. T-118 is essentially unstarted beyond T-117's
-first member.
+The §Scope families below were the starting hidden-default inventory. T-118
+closes by classifying them under the unified lever registry and by wiring the
+live M04 request levers through replay-visible provenance.
 
 ### Per-family audit + classification
 
@@ -127,30 +129,19 @@ Classify each `CD` (configurable_default), `CC` (code_constant, with reason), or
 | 12 | installer refresh defaults not closed by T-117 | `app/m04/install_bootstrap/` | CD |
 | 13 | live-test / harness defaults | `test_env/` | TO |
 
-### Complete each `configurable_default` family
+### Initial Closure Gate Resolution
 
-- [ ] declared in an `abg_defaults` bundle member with `bundleRef` + version (extend `abg.reference-fallbacks.json` or add a bundle file)
-- [ ] schema admission: malformed config fails closed; missing-optional follows a declared absence law
-- [ ] consuming runtime decision records provenance: `bundleRef`, `digest`, config path (if file-backed), selected key, override source
-- [ ] installed-workspace refresh preserves user edits to the new config file
-- [ ] deterministic tests: load · override · malformed · missing · refresh · projection/provenance
+The early per-family checklist is resolved by the unified lever registry
+rather than by one config file per family:
 
-### Complete each `code_constant` / `test_only_default` family
-
-- [ ] CC: record the non-configurability reason at the constant
-- [ ] TO: mark `test_only_default` and guard it cannot enter product runtime config (non-closure §3)
-
-### Design decision that must precede any code move (the `design_reframe`)
-
-- [ ] ratify the class column (CD/CC/TO + reasons) — §First Missing Layer requires declaring the family, classification, precedence, file/install surface, and replay-visible provenance rule **before** moving hidden defaults into code
-- [ ] decide default-origin for request-carried defaults (e.g. #2 actor inactivity is `request.inactivityTimeoutMs`, #4 transport executor is `request.executorProfile ??`): whether the default seeds from the `abg_defaults` bundle or remains a declared caller obligation, and where provenance is recorded for each
-
-### Closure gate
-
-- [ ] every family carries a ratified class with reason (AC-1)
-- [ ] no runtime-affecting default remains an unclassified `??`, local constant, prompt prose, or installer side effect (non-closure §1)
-- [ ] no configurable default affects behavior without replay-visible provenance (non-closure §2)
-- [ ] T-117 plugin-observer fallback behavior does not regress (non-closure §4)
+- every surfaced family has a registry key, class, value, reason, and consumed
+  location;
+- live M04 request levers have override admission, precedence, provenance, and
+  replay-visible event emission;
+- fixed levers are visible and fail closed when supplied as overrides;
+- malformed wrapper and lever configs fail closed at load;
+- installed refresh preserves the consolidated editable config file;
+- T-117 fallback behavior remains covered by the T-117 defaults tests.
 
 ## Ratified Bundle Design (design_reframe gate — 2026-06-07)
 
@@ -231,8 +222,9 @@ Current runtime behavior is preserved exactly (user decision: keep behavior).
 - `tunable / live`: `abg.m04.until`, `abg.m04.fh_mode` (override + behavior wired).
 - `tunable / deferred`: actor timeouts/grace/heartbeat, retry budget, executor
   profile, PTY graces + parser/screen/TERM, traversal-modulation budgets.
-  Surfaced + classified; override/event wiring deferred — behavior is verifiable
-  only under the live actor/PTY harness (currently blocked).
+  Surfaced + classified; override/event wiring is intentionally deferred to
+  the later live actor/PTY harness work; those levers are not accepted as live
+  overrides in this ticket.
 - `fixed`: structural `?? seed` defaults (vector index, generation, scores,
   weights, severity, saga lease/release), `regime ?? "F_D"`, and the derived
   `root_mode` rule. Surfaced for visibility; no override path (config keyed to a
@@ -306,3 +298,57 @@ Current runtime behavior is preserved exactly (user decision: keep behavior).
 - `node --test test_env/tests/test_t118_lever_registry.test.mjs test_env/tests/test_t118_lever_overrides.test.mjs test_env/tests/test_t118_override_consumption.test.mjs test_env/tests/test_m04_complete_start_surface_integration.test.mjs test_env/tests/test_m04_cli_binary_integration.test.mjs` — passed, 22/22, 0 todo.
 - `test_t118_override_consumption` proves the `lever_resolution_admitted` event
   is replay-visible and carries bundle ref, digest, selected keys, and source.
+
+## Final Close Review - 2026-06-07
+
+Close-readiness review found the final open slice in replay-visible M04 lever
+provenance:
+
+- `publicStart` / `publicStartAsync` consumed defaults without emitting the
+  `lever_resolution_admitted` event;
+- malformed lever-resolution event shapes needed negative proof;
+- `abg.m04.until` / `abg.m04.fh_mode` registry anchors had stale consumed-at
+  line refs;
+- repeated public starts needed an explicit invocation-boundary rule.
+
+Final implementation resolves those findings:
+
+- `publicStart` and `publicStartAsync` now admit the public callable-start
+  request with the optional `leverOverridesBundle`, emit
+  `lever_resolution_admitted`, and then delegate to the already-admitted
+  public-start path.
+- `publicCallableStartFromRequest` and public-start compatibility share the
+  same `emitLeverResolutionEvent(...)` helper, so event construction and
+  emission stay single-sourced.
+- `lever_resolution_admitted` remains an observational replay event: runtime
+  aggregate projection and retry-frontier projection ignore it for transition
+  authority.
+- Public start emits exactly one lever-resolution event per invocation. Repeated
+  invocations each emit their own provenance event; replay no-ops the event for
+  projection authority.
+- `test_t118_override_consumption.test.mjs` proves override consumption,
+  explicit-request precedence, replay-visible provenance, publicStart
+  provenance, malformed event rejection, and the once-per-invocation event
+  boundary.
+- `test_t118_lever_registry.test.mjs` pins registry completeness,
+  behavior-preservation, live-constant drift guards, tunable/fixed boundaries,
+  and consumed-at anchors.
+- `test_t118_lever_overrides.test.mjs` and
+  `test_t118_abg_config_wrapper.test.mjs` prove valid admission, fail-closed
+  malformed config, missing-default behavior, load provenance, and precedence.
+- `test_m04_typescript_installer_integration.test.mjs` proves installed refresh
+  preserves the consolidated editable `.abiogenesis/config/abg.config.json`.
+
+Final verification:
+
+- `npm run build:semantic` passed.
+- Focused closure pack passed `39/39`, `0` skipped, `0` todo:
+  `test_t118_lever_registry.test.mjs`,
+  `test_t118_lever_overrides.test.mjs`,
+  `test_t118_override_consumption.test.mjs`,
+  `test_t118_abg_config_wrapper.test.mjs`,
+  `test_t117_abg_defaults_bundle.test.mjs`,
+  `test_m04_complete_start_surface_integration.test.mjs`,
+  `test_m04_cli_binary_integration.test.mjs`,
+  `test_m04_typescript_installer_integration.test.mjs`,
+  `test_b016_ioc_hook_authority.test.mjs`.

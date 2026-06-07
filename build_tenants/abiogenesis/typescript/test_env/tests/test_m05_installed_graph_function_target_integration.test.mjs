@@ -36,6 +36,7 @@ test("M05 installed graph-function target integration: packaged sandbox start se
   assert.equal(payload.dispatchedEdges.includes("design→review"), false);
   assert.equal(payload.assessedEdges.includes("design→review"), false);
   assert.deepStrictEqual(payload.eventKinds, [
+    "lever_resolution_admitted",
     "basis_admitted",
     "graph_call_opened",
     "frame_opened",

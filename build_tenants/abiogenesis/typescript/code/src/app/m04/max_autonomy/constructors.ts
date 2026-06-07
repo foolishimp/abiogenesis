@@ -14,17 +14,20 @@ import type {
 import type { PublicStartRequest } from "../contracts/carriers.js";
 import type { PublicLiveStatusProjection } from "../live_status/carriers.js";
 import type { RuntimeFailureClass } from "../../../abg/m03/transport/index.js";
+import type { M04RequestDefaultsResolution } from "../../../shared/lever_registry/overrides.js";
 
 function freezeStringArray(values: readonly string[]): readonly string[] {
   return Object.freeze([...values]);
 }
 
 export function constructPublicCallableStartRequest(
-  startRequest: PublicStartRequest
+  startRequest: PublicStartRequest,
+  leverResolution: M04RequestDefaultsResolution
 ): PublicCallableStartRequest {
   return Object.freeze({
     kind: "callable_start_request",
-    startRequest
+    startRequest,
+    leverResolution
   });
 }
 

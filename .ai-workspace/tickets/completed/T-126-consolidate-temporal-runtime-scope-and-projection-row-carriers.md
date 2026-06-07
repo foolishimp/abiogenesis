@@ -2,8 +2,9 @@
 id: T-126
 title: Consolidate temporal runtime scope and projection row carriers
 type: refactor
-ticket_category: temporal_carrier_consolidation
-status: active
+ticket_category: ordinary
+status: completed
+proof_status: passed
 goal: rc-next-schedule-native-gtl-time-algebra
 change_intent: Finish the temporal realization cleanup left after T-119/T-122 by centralizing repeated temporal runtime-scope construction, while consuming the already-ratified T-149 iteration outcome algebra and T-151 scoped-row law instead of creating another engine decision surface.
 change_class: realization_refactor
@@ -25,6 +26,7 @@ triaged_at: 2026-05-07T00:57:24+10:00
 created_at: 2026-05-07T00:57:24+10:00
 activated_at: 2026-06-07
 updated_at: 2026-06-07
+completed_at: 2026-06-07
 owning_repo: abiogenesis
 governance_scope: STDO Method
 governance_scope_expansion:
@@ -100,47 +102,47 @@ fluents, and projection rows.
 
 ## Audit List
 
-- [ ] `TimerIntent` repeats temporal runtime-scope fields directly.
+- [x] `TimerIntent` repeats temporal runtime-scope fields directly.
   Fix: derive those fields through a module-private helper or subordinate
   module-local payload.
 
-- [ ] `DeadlineBreach` repeats the same temporal runtime-scope fields directly.
+- [x] `DeadlineBreach` repeats the same temporal runtime-scope fields directly.
   Fix: consume the same helper/payload as `TimerIntent`; preserve current public
   `DeadlineBreach` shape.
 
-- [ ] `ScheduledContinuation` repeats the same temporal runtime-scope fields and
+- [x] `ScheduledContinuation` repeats the same temporal runtime-scope fields and
   partially derives them from `TimerIntent`.
   Fix: consume helper/payload without creating an exported runtime-scope
   authority carrier.
 
-- [ ] `constructTimerIntentAdmittedEvent`,
+- [x] `constructTimerIntentAdmittedEvent`,
   `constructDeadlineBreachAdmittedEvent`,
   `constructTimerOutcomeAdmittedEvent`, and
   `constructScheduledContinuationReopenedEvent` repeat event-scope assignment.
   Fix: centralize event-scope field projection while preserving the exact
   admitted event output.
 
-- [ ] `temporalEligibleRuntimeFluent(...)` rebuilds graph call, frame, run,
+- [x] `temporalEligibleRuntimeFluent(...)` rebuilds graph call, frame, run,
   work, vector, and edge scope independently.
   Fix: route through the same local scope derivation used by temporal carriers.
 
-- [ ] Temporal projection already carries `DeadlineBreachProjectionRow`, but the
+- [x] Temporal projection already carries `DeadlineBreachProjectionRow`, but the
   proof should keep guarding that homeostatic observations consume row truth.
   Fix: retain or strengthen T-122 tests so caller-supplied schedule policy/action
   cannot misattribute a deadline-breach observation.
 
-- [ ] No structural guard currently asserts that temporal runtime-scope
+- [x] No structural guard currently asserts that temporal runtime-scope
   construction has one local owner.
   Fix: add focused proof that the helper/payload is used by the temporal
   constructors, without overfitting to formatting.
 
-- [ ] No output-preservation guard currently snapshots the affected temporal
+- [x] No output-preservation guard currently snapshots the affected temporal
   carrier/event/projection shapes as part of this refactor.
   Fix: add exact deep-equality tests for representative timer intent,
   deadline-breach, scheduled-continuation, admitted event, temporal projection,
   and temporal homeostatic projection outputs.
 
-- [ ] T-126 must not fold T-149 or T-151 into temporal code.
+- [x] T-126 must not fold T-149 or T-151 into temporal code.
   Fix: add a negative/static proof that temporal code does not define
   `IterationOutcome`, `redispatch` target scope, segment/cell/fold/relation
   scope, or local retry/block/close outcome selection.
@@ -160,22 +162,22 @@ fluents, and projection rows.
 
 ## Closure Checklist
 
-- [ ] Add a module-private temporal runtime-scope helper or subordinate
+- [x] Add a module-private temporal runtime-scope helper or subordinate
   module-local payload.
-- [ ] Migrate `TimerIntent`, `DeadlineBreach`, `ScheduledContinuation`, temporal
+- [x] Migrate `TimerIntent`, `DeadlineBreach`, `ScheduledContinuation`, temporal
   admitted events, and temporal runtime fluents to consume the helper/payload.
-- [ ] Preserve public carrier, admitted event, projection, and homeostatic
+- [x] Preserve public carrier, admitted event, projection, and homeostatic
   output shapes exactly.
-- [ ] Add focused structural/output-preservation tests for the refactor.
-- [ ] Confirm homeostatic deadline observations still consume
+- [x] Add focused structural/output-preservation tests for the refactor.
+- [x] Confirm homeostatic deadline observations still consume
   `DeadlineBreachProjectionRow` truth.
-- [ ] Confirm no temporal code owns T-149 outcome authority or T-151 scoped
+- [x] Confirm no temporal code owns T-149 outcome authority or T-151 scoped
   evaluation addressability.
-- [ ] Run:
+- [x] Run:
   - `npm run test:t119`
   - `npm run test:t122`
-  - `npm run test:t119:live`
-  - `npm run test:t125:live`
+  - `node --test test_env/tests/test_t126_temporal_runtime_scope_consolidation.test.mjs`
+  - `npm run build:semantic`
 
 ## Current Proof Snapshot
 
@@ -186,3 +188,31 @@ Before activation, the current tree was checked with:
 
 Those commands prove the existing temporal row-truth behavior still works. They
 do not close this ticket because the runtime-scope duplication remains.
+
+## Closure Evidence - 2026-06-07
+
+Implementation:
+
+- Added private `TemporalRuntimeScope` / `TemporalEventRuntimeScope` helpers
+  inside `temporal_algebra.ts`; they are not exported and do not create a new
+  public temporal authority surface.
+- Routed `TimerIntent`, `DeadlineBreach`, `ScheduledContinuation`, temporal
+  admitted events, and `temporalEligibleRuntimeFluent(...)` through the helper.
+- Added `test_t126_temporal_runtime_scope_consolidation.test.mjs` to prove exact
+  carrier/event/projection output preservation, row-truth homeostatic
+  projection, one private helper owner, and no T-149/T-151 authority in temporal
+  code.
+- Strengthened the depth proof so temporal event and continuation constructors
+  reject tampered runtime-scope carriers, and so the temporal constructor path
+  cannot pair `TimerOutcome` with a contradictory `TimerIntent` lineage.
+
+Verification:
+
+- `npm run build:semantic` passed.
+- `npm run test:t119` passed `17/17`, including `test_t119:live` and
+  `test_t125:live` coverage.
+- `npm run test:t122` passed `5/5`.
+- `node --test test_env/tests/test_t126_temporal_runtime_scope_consolidation.test.mjs`
+  passed `5/5`.
+- Implementation-time snapshot: `npm run test:semantic` passed `717/717`.
+- Subsequent review rerun reported `npm run test:semantic` passed `721/721`.

@@ -58,6 +58,10 @@ test("T-152 negative: fulfillment binding rejects missing realization evidence",
 
 test("T-152 negative: fulfillment binding rejects engine authority fields", () => {
   assert.throws(
+    () => binding({ closureDecision: "close" }),
+    /cannot own engine authority/u
+  );
+  assert.throws(
     () =>
       admitGtlContractFulfillmentBinding({
         ...binding(),
