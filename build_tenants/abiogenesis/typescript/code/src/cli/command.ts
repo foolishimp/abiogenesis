@@ -139,7 +139,11 @@ interface RuntimeBinding {
   readonly module: Module;
   readonly runtimeIdentity: PublicStartContext["runtimeIdentity"];
   readonly resolvedPolicy: PublicStartContext["resolvedPolicy"];
-  readonly abgConfigPath?: string | null;
+  // Scoped to plugin-observer FALLBACK resolution only (installed-workspace
+  // path for the abg.config.json `fallbacks` section). It is NOT global config
+  // authority: the lever and target-carrier sections resolve via
+  // loadAbgConfigSections (installed -> package -> walk-up).
+  readonly fallbackConfigPath?: string | null;
   readonly pluginTraversalObserverFallbackEnabled?: boolean;
   readonly pluginTraversalObserverFallbackKinds?: readonly PluginTraversalKind[];
   readonly runtimeEvents?: readonly RuntimeEvent[];
@@ -728,7 +732,7 @@ function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
     module: Module;
     runtimeIdentity: PublicStartContext["runtimeIdentity"];
     resolvedPolicy: PublicStartContext["resolvedPolicy"];
-    abgConfigPath?: string | null;
+    fallbackConfigPath?: string | null;
     pluginTraversalObserverFallbackEnabled?: boolean;
     pluginTraversalObserverFallbackKinds?: readonly PluginTraversalKind[];
     runtimeEvents?: readonly RuntimeEvent[];
@@ -749,13 +753,13 @@ function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
   if (Array.isArray(input["runtimeEvents"])) {
     result.runtimeEvents = Object.freeze([...input["runtimeEvents"]]) as readonly RuntimeEvent[];
   }
-  const abgConfigPath = coerceNullableStringField(
+  const fallbackConfigPath = coerceNullableStringField(
     input,
-    "abgConfigPath",
+    "fallbackConfigPath",
     label
   );
-  if (abgConfigPath !== undefined) {
-    result.abgConfigPath = abgConfigPath;
+  if (fallbackConfigPath !== undefined) {
+    result.fallbackConfigPath = fallbackConfigPath;
   }
   if (hasOwnField(input, "constructionPriorityScheme")) {
     result.constructionPriorityScheme = admitConstructionPriorityScheme(
@@ -829,7 +833,7 @@ function resolveCliInstalledAbgConfigPath(
   binding: RuntimeBinding
 ): string | null {
   const configuredPath =
-    binding.abgConfigPath ?? INSTALLED_ABG_CONFIG_RELATIVE_PATH;
+    binding.fallbackConfigPath ?? INSTALLED_ABG_CONFIG_RELATIVE_PATH;
   if (configuredPath === null) {
     return null;
   }

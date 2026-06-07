@@ -677,7 +677,7 @@ export const runtimeBinding = {
     defaultRegime: "F_D",
     dispatchRef: null
   }),
-  abgConfigPath: ".abiogenesis/config/abg.config.json",
+  fallbackConfigPath: ".abiogenesis/config/abg.config.json",
   runId: "run://abiogenesis/installed-substrate-self-test",
   workKey: "wk://abiogenesis/installed-substrate-self-test"
 };
