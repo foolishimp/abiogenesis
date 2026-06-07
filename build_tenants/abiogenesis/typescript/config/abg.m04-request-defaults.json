@@ -1,0 +1,10 @@
+{
+  "kind": "abg_m04_request_defaults_bundle",
+  "abgDefaultsFamily": "abg_defaults",
+  "version": 1,
+  "bundleRef": "fallback-bundle://abg/m04-request-defaults/typescript",
+  "m04RequestDefaults": {
+    "until": "converged",
+    "fhMode": "direct"
+  }
+}
