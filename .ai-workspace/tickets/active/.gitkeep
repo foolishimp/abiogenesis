@@ -1,0 +1,3 @@
+# Structural placeholder. `active/` is a permanent ticket surface (peer of
+# backlog/ and completed/). Keep this file so the directory survives when the
+# last active ticket is closed/moved out — git does not persist empty dirs.
