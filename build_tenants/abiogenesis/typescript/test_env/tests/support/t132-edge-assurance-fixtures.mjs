@@ -762,6 +762,117 @@ export function installedT132EdgeAssuranceThreeChainSource({
       });
     }
 
+    function liveTargetArtifact(stage) {
+      if (stage.id === "source_to_requirements") {
+        return Object.freeze({
+          kind: "synthesized_requirements",
+          schemaVersion: "t132.requirements.v1",
+          targetOutcomeRef: stage.targetOutcomeRef,
+          sourceInformationRefs: [stage.authorityRef],
+          requirements: Object.freeze([
+            Object.freeze({
+              requirementRef:
+                "requirement://t132/source-to-requirements/authority-trace",
+              statement:
+                "The synthesized requirements preserve source authority, target outcome, and explicit edge-assurance evidence.",
+              sourceRefs: [stage.authorityRef],
+              acceptanceRefs: [
+                "acceptance://t132/source-to-requirements/traceable",
+                "acceptance://t132/source-to-requirements/complete"
+              ]
+            })
+          ]),
+          coverage: Object.freeze({
+            sourceSurfaceRef: stage.inputRef,
+            authoritySurfaceRef: stage.authorityRef,
+            unresolvedSourceRefs: Object.freeze([])
+          })
+        });
+      }
+      if (stage.id === "requirements_to_logic") {
+        return Object.freeze({
+          kind: "formal_logical_requirements",
+          schemaVersion: "t132.logic.v1",
+          targetOutcomeRef: stage.targetOutcomeRef,
+          sourceRequirementRefs: [stage.authorityRef],
+          formulas: Object.freeze([
+            Object.freeze({
+              formulaRef:
+                "logic://t132/requirements-to-logic/authority-trace",
+              sourceRequirementRef: stage.authorityRef,
+              predicate:
+                "forall requirement r, traced(r) and has_explicit_acceptance(r)",
+              preservesAuthority: true,
+              ambiguityRefs: Object.freeze([])
+            })
+          ]),
+          proofObligations: Object.freeze([
+            "obligation://t132/requirements_to_logic"
+          ])
+        });
+      }
+      const designSyntaxPayload = expectedDesignSyntaxPayload(stage);
+      invariant(
+        designSyntaxPayload !== null,
+        "missing design syntax payload for " + stage.id
+      );
+      return designSyntaxPayload;
+    }
+
+    function liveEvidencePacket(stage, pluginInput) {
+      const selection = pluginInput.edgeAssuranceResolution;
+      const evidenceRef = "evidence://t132/live/" + stage.id;
+      return Object.freeze({
+        kind: "t132_live_edge_assurance_evidence_packet",
+        stageId: stage.id,
+        edge: stage.edgeName,
+        transform: stage.semanticTransform,
+        selectedContract: Object.freeze({
+          selectionRef: selection.selectionRef,
+          source: selection.source,
+          targetOutcomeRef: selection.contract.targetOutcomeRef,
+          evalFpContractRef: selection.contract.evalFpContractRef,
+          evalExpectedOutputContractRef:
+            selection.contract.evalExpectedOutputContractRef,
+          admissibleEvidencePolicyRef:
+            selection.contract.admissibleEvidencePolicyRef,
+          authoritySurfaceRefs: selection.contract.authoritySurfaceRefs,
+          targetObligationBindingRefs:
+            selection.contract.targetObligationBindingRefs,
+          compositionLawRef: selection.contract.compositionLawRef
+        }),
+        authoritySnapshot: Object.freeze({
+          authorityRefs: [stage.authorityRef],
+          inputRefs: [stage.inputRef],
+          authorityDigest: "authority-digest://t132/" + stage.id,
+          inputDigest: "input-digest://t132/" + stage.id
+        }),
+        evidenceArtifact: Object.freeze({
+          evidenceRef,
+          targetOutcomeRef: stage.targetOutcomeRef,
+          targetArtifact: liveTargetArtifact(stage),
+          checks: Object.freeze([
+            "authority_refs_match_selected_contract",
+            "target_outcome_matches_edge_contract",
+            "target_artifact_has_traceable_source_authority",
+            "composition_contribution_ref_is_edge_local",
+            "no_runtime_authority_fields_present"
+          ])
+        }),
+        evaluatorBoundary: Object.freeze({
+          closeDispositionMeaning:
+            "F_P evaluator proposal over this evidence packet only",
+          forbiddenAuthorityFields: Object.freeze([
+            "closureDecision",
+            "runtimeEvent",
+            "ledgerWrite",
+            "selectedVectorIndex",
+            "nextVectorIndex"
+          ])
+        })
+      });
+    }
+
     function livePrompt(stage, pluginInput) {
       const selection = pluginInput.edgeAssuranceResolution;
       const designSyntaxPayload = expectedDesignSyntaxPayload(stage);
@@ -769,16 +880,27 @@ export function installedT132EdgeAssuranceThreeChainSource({
         designSyntaxPayload === null
           ? null
           : "  \\"designSyntaxPayload\\": " + JSON.stringify(designSyntaxPayload) + ",";
+      const evidencePacket = liveEvidencePacket(stage, pluginInput);
       return [
         "Return only one JSON object. Do not include markdown or commentary.",
         "You are the ABG T-132 live F_P edge assurance evaluator.",
         "Evaluate only the declared edge assurance contract. Do not claim runtime closure authority.",
+        "The refs below identify the concrete evidence packet included in this prompt; they are not unresolved proof by themselves.",
+        "closeDisposition is an evaluator finding proposal over the evidence packet only. ABG runtime admission and closure folding happen after your response.",
         "Edge: " + stage.edgeName,
         "Transform: " + stage.semanticTransform,
         "Selection ref: " + selection.selectionRef,
         "Target outcome: " + selection.contract.targetOutcomeRef,
         "Authority ref: " + stage.authorityRef,
-        "Return exactly this JSON shape with these stable refs:",
+        "Concrete evidence packet:",
+        JSON.stringify(evidencePacket, null, 2),
+        "Evaluation checks:",
+        "- authority refs match the selected contract",
+        "- target outcome matches the edge contract",
+        "- target artifact carries traceable source authority",
+        "- composition contribution ref is edge-local",
+        "- no runtime authority fields are present",
+        "If the concrete evidence packet satisfies those checks, return this JSON object with closeDisposition close. If it does not satisfy them, return the same shape with closeDisposition no_close and explain the failed check in reason.",
         "{",
         "  \\"evidenceRef\\": \\"evidence://t132/live/" + stage.id + "\\",",
         "  \\"gainReportRef\\": \\"gain://t132/live/" + stage.id + "\\",",
@@ -1452,6 +1574,32 @@ export function installedT132EdgeAssuranceThreeChainSource({
           fact.record.artifact.designSyntaxPayload.closeFunction.ref
       }));
     const checks = negativeChecks(edgeFacts);
+    const livePromptEvidenceGuards = edgeFacts.map((fact) => {
+      const packet = liveEvidencePacket(fact.record.stage, fact.record.pluginInput);
+      const prompt = livePrompt(fact.record.stage, fact.record.pluginInput);
+      return Object.freeze({
+        stageId: fact.record.stage.id,
+        evidenceRef: packet.evidenceArtifact.evidenceRef,
+        targetArtifactKind:
+          packet.evidenceArtifact.targetArtifact.kind ?? "unknown",
+        concreteEvidencePacket:
+          prompt.includes("Concrete evidence packet:") &&
+          prompt.includes(packet.evidenceArtifact.evidenceRef),
+        evaluatorProposalBoundary: prompt.includes(
+          "closeDisposition is an evaluator finding proposal"
+        ),
+        unresolvedRefsAreNotEnough: prompt.includes(
+          "they are not unresolved proof by themselves"
+        ),
+        forbidsRuntimeAuthorityFields:
+          packet.evaluatorBoundary.forbiddenAuthorityFields.includes(
+            "closureDecision"
+          ) &&
+          packet.evaluatorBoundary.forbiddenAuthorityFields.includes(
+            "nextVectorIndex"
+          )
+      });
+    });
 
     console.log(JSON.stringify({
       mode: LIVE_MODE ? "live" : "deterministic",
@@ -1494,6 +1642,7 @@ export function installedT132EdgeAssuranceThreeChainSource({
       projectionRefs: edgeFacts.map((fact) => fact.edgeProjection.projectionRef),
       ledgerPayloadRefsByStage,
       designSyntaxFacts,
+      livePromptEvidenceGuards,
       reconstructed,
       compound,
       prematureCompoundCloseRejected:

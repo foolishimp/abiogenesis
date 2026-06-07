@@ -55,6 +55,13 @@ import type {
   GtlTargetCarrierDefaultsBundle
 } from "../../../gtl/m01/contracts/index.js";
 import type {
+  GtlEvaluationScopeRef
+} from "../../../gtl/m02/contracts/compute_notation.js";
+import {
+  admitGtlEvaluationScopeRef,
+  constructGtlEvaluationScopeRef
+} from "../../../gtl/m02/contracts/compute_notation.js";
+import type {
   EvaluationRuleOutcome,
   EvaluationRuleRole
 } from "./evaluation_set.js";
@@ -293,6 +300,7 @@ export interface FpEvaluationFinding {
   readonly compositionRef: string;
   readonly compositionDigest: string;
   readonly diagnosticRefs: readonly string[];
+  readonly evaluationScopeRef: GtlEvaluationScopeRef | null;
 }
 
 export interface FpEvaluationOutcome extends EnginePluginOutcomeBase {
@@ -1432,6 +1440,7 @@ export function constructFpEvaluationFinding(input: {
   readonly compositionRef: string;
   readonly compositionDigest: string;
   readonly diagnosticRefs?: readonly string[] | undefined;
+  readonly evaluationScopeRef?: GtlEvaluationScopeRef | null | undefined;
 }): FpEvaluationFinding {
   const evidenceRefs = freezeStringArray(input.evidenceRefs);
   const authorityRefs = freezeStringArray(input.authorityRefs);
@@ -1484,7 +1493,11 @@ export function constructFpEvaluationFinding(input: {
       input.compositionDigest,
       "FpEvaluationFinding.compositionDigest"
     ),
-    diagnosticRefs: freezeStringArray(input.diagnosticRefs ?? Object.freeze([]))
+    diagnosticRefs: freezeStringArray(input.diagnosticRefs ?? Object.freeze([])),
+    evaluationScopeRef:
+      input.evaluationScopeRef === undefined || input.evaluationScopeRef === null
+        ? null
+        : constructGtlEvaluationScopeRef(input.evaluationScopeRef)
   });
 }
 
@@ -1668,6 +1681,7 @@ function admitFpEvaluationFinding(
   }
   const hookActionRef = parseOptionalField(finding, "hookActionRef");
   const gainReportRef = parseOptionalField(finding, "gainReportRef");
+  const evaluationScopeRef = parseOptionalField(finding, "evaluationScopeRef");
   return constructFpEvaluationFinding({
     findingRef: parseNonEmptyString(finding["findingRef"], `${label}.findingRef`),
     evaluatorRef: parseNonEmptyString(
@@ -1721,7 +1735,14 @@ function admitFpEvaluationFinding(
     diagnosticRefs: parseStringArray(
       parseOptionalField(finding, "diagnosticRefs") ?? [],
       `${label}.diagnosticRefs`
-    )
+    ),
+    evaluationScopeRef:
+      evaluationScopeRef === undefined || evaluationScopeRef === null
+        ? null
+        : admitGtlEvaluationScopeRef(
+            evaluationScopeRef,
+            `${label}.evaluationScopeRef`
+          )
   });
 }
 

@@ -211,6 +211,518 @@ export type GtlEvaluationCloseDispositionKind =
   | "human_required"
   | "no_close";
 
+export const GTL_EVALUATION_SCOPE_KIND_VALUES = Object.freeze([
+  "edge",
+  "segment",
+  "dimension_cell",
+  "fold",
+  "relation"
+] as const);
+
+export type GtlEvaluationScopeKind =
+  (typeof GTL_EVALUATION_SCOPE_KIND_VALUES)[number];
+
+export interface GtlEvaluationScopeRef {
+  readonly kind: "gtl_evaluation_scope_ref";
+  readonly scopeRef: string;
+  readonly graphCallRef: string;
+  readonly frameRef: string;
+  readonly graphFunctionRef: string;
+  readonly graphVectorRef: string;
+  readonly vectorIndex: number;
+  readonly compositionRef: string;
+  readonly compositionDigest: string;
+  readonly scopeTopologyRef: string;
+  readonly scopeKind: GtlEvaluationScopeKind;
+  readonly segmentRef: string | null;
+  readonly dimensionRef: string | null;
+  readonly relationRef: string | null;
+}
+
+export interface GtlEvaluationScopeRefInit {
+  readonly scopeRef?: string | undefined;
+  readonly graphCallRef: string;
+  readonly frameRef: string;
+  readonly graphFunctionRef: string;
+  readonly graphVectorRef: string;
+  readonly vectorIndex: number;
+  readonly compositionRef: string;
+  readonly compositionDigest: string;
+  readonly scopeTopologyRef: string;
+  readonly scopeKind: GtlEvaluationScopeKind;
+  readonly segmentRef?: string | null | undefined;
+  readonly dimensionRef?: string | null | undefined;
+  readonly relationRef?: string | null | undefined;
+}
+
+export interface GtlContractFulfillmentBinding {
+  readonly kind: "gtl_contract_fulfillment_binding";
+  readonly bindingRef: string;
+  readonly obligationRef: string;
+  readonly requirementRef: string;
+  readonly productRequirementRef: string;
+  readonly designObligationRef: string;
+  readonly componentRef: string;
+  readonly productTargetRef: string;
+  readonly outputSurfaceRef: string;
+  readonly functionOrEntrypointRef: string;
+  readonly realizationEvidenceRefs: readonly string[];
+  readonly testOrExecutionEvidenceRefs: readonly string[];
+  readonly evaluatorFindingRef: string;
+  readonly authorityRefs: readonly string[];
+  readonly evidenceRefs: readonly string[];
+}
+
+export interface GtlContractFulfillmentBindingInit {
+  readonly bindingRef?: string | undefined;
+  readonly obligationRef: string;
+  readonly requirementRef: string;
+  readonly productRequirementRef: string;
+  readonly designObligationRef: string;
+  readonly componentRef: string;
+  readonly productTargetRef: string;
+  readonly outputSurfaceRef: string;
+  readonly functionOrEntrypointRef: string;
+  readonly realizationEvidenceRefs: readonly string[];
+  readonly testOrExecutionEvidenceRefs?: readonly string[] | undefined;
+  readonly evaluatorFindingRef: string;
+  readonly authorityRefs?: readonly string[] | undefined;
+  readonly evidenceRefs?: readonly string[] | undefined;
+}
+
+function nonEmptyString(input: unknown, label: string): string {
+  if (typeof input !== "string" || input.length === 0) {
+    throw new TypeError(`${label} must be a non-empty string`);
+  }
+  return input;
+}
+
+function nullableNonEmptyString(
+  input: unknown,
+  label: string
+): string | null {
+  if (input === undefined || input === null) {
+    return null;
+  }
+  return nonEmptyString(input, label);
+}
+
+function nonNegativeInteger(input: unknown, label: string): number {
+  if (typeof input !== "number" || !Number.isInteger(input) || input < 0) {
+    throw new TypeError(`${label} must be a non-negative integer`);
+  }
+  return input;
+}
+
+function nonEmptyStringArray(
+  input: unknown,
+  label: string,
+  options?: { readonly allowEmpty?: boolean }
+): readonly string[] {
+  if (!Array.isArray(input)) {
+    throw new TypeError(`${label} must be an array`);
+  }
+  if (input.length === 0 && options?.allowEmpty !== true) {
+    throw new TypeError(`${label} must contain at least one ref`);
+  }
+  const seen = new Set<string>();
+  const values: string[] = [];
+  for (const [index, value] of input.entries()) {
+    const ref = nonEmptyString(value, `${label}[${index}]`);
+    if (seen.has(ref)) {
+      throw new TypeError(`${label} contains duplicate ref ${JSON.stringify(ref)}`);
+    }
+    seen.add(ref);
+    values.push(ref);
+  }
+  return Object.freeze(values);
+}
+
+function scopeKind(input: unknown, label: string): GtlEvaluationScopeKind {
+  for (const value of GTL_EVALUATION_SCOPE_KIND_VALUES) {
+    if (input === value) {
+      return value;
+    }
+  }
+  throw new TypeError(
+    `${label}: expected evaluation scope kind, got ${JSON.stringify(input)}`
+  );
+}
+
+function isPlainRecord(input: unknown): input is Readonly<Record<string, unknown>> {
+  return typeof input === "object" && input !== null && !Array.isArray(input);
+}
+
+function assertNoForbiddenEngineAuthorityFields(
+  record: Readonly<Record<string, unknown>>,
+  label: string
+): void {
+  for (const field of [
+    "runtimeEvents",
+    "events",
+    "ledger",
+    "projection",
+    "closureDecision",
+    "closureKind",
+    "transition",
+    "nextVectorIndex",
+    "closedVectorIndexes",
+    "mayCloseTraversal",
+    "mayEmitRuntimeEvents",
+    "mayWriteLedger",
+    "maySelectNextVector"
+  ] as const) {
+    if (Object.hasOwn(record, field)) {
+      throw new TypeError(
+        `${label}.${field}: GTL contract fulfillment binding cannot own engine authority`
+      );
+    }
+  }
+}
+
+function assertNoValue(value: string | null, label: string): void {
+  if (value !== null) {
+    throw new TypeError(`${label} must be null for this evaluation scope kind`);
+  }
+}
+
+function assertHasValue(value: string | null, label: string): void {
+  if (value === null) {
+    throw new TypeError(`${label} is required for this evaluation scope kind`);
+  }
+}
+
+function assertEvaluationScopeShape(input: {
+  readonly scopeKind: GtlEvaluationScopeKind;
+  readonly segmentRef: string | null;
+  readonly dimensionRef: string | null;
+  readonly relationRef: string | null;
+}): void {
+  switch (input.scopeKind) {
+    case "edge":
+      assertNoValue(input.segmentRef, "GtlEvaluationScopeRef.segmentRef");
+      assertNoValue(input.dimensionRef, "GtlEvaluationScopeRef.dimensionRef");
+      assertNoValue(input.relationRef, "GtlEvaluationScopeRef.relationRef");
+      return;
+    case "segment":
+      assertHasValue(input.segmentRef, "GtlEvaluationScopeRef.segmentRef");
+      assertNoValue(input.dimensionRef, "GtlEvaluationScopeRef.dimensionRef");
+      assertNoValue(input.relationRef, "GtlEvaluationScopeRef.relationRef");
+      return;
+    case "dimension_cell":
+      assertHasValue(input.segmentRef, "GtlEvaluationScopeRef.segmentRef");
+      assertHasValue(input.dimensionRef, "GtlEvaluationScopeRef.dimensionRef");
+      assertNoValue(input.relationRef, "GtlEvaluationScopeRef.relationRef");
+      return;
+    case "fold":
+      assertNoValue(input.segmentRef, "GtlEvaluationScopeRef.segmentRef");
+      assertHasValue(input.dimensionRef, "GtlEvaluationScopeRef.dimensionRef");
+      assertNoValue(input.relationRef, "GtlEvaluationScopeRef.relationRef");
+      return;
+    case "relation":
+      assertNoValue(input.segmentRef, "GtlEvaluationScopeRef.segmentRef");
+      assertNoValue(input.dimensionRef, "GtlEvaluationScopeRef.dimensionRef");
+      assertHasValue(input.relationRef, "GtlEvaluationScopeRef.relationRef");
+      return;
+    default: {
+      const exhaustive: never = input.scopeKind;
+      throw new TypeError(
+        `Unsupported evaluation scope kind ${JSON.stringify(exhaustive)}`
+      );
+    }
+  }
+}
+
+function derivedEvaluationScopeRef(input: {
+  readonly graphCallRef: string;
+  readonly frameRef: string;
+  readonly graphFunctionRef: string;
+  readonly graphVectorRef: string;
+  readonly vectorIndex: number;
+  readonly compositionRef: string;
+  readonly compositionDigest: string;
+  readonly scopeTopologyRef: string;
+  readonly scopeKind: GtlEvaluationScopeKind;
+  readonly segmentRef: string | null;
+  readonly dimensionRef: string | null;
+  readonly relationRef: string | null;
+}): string {
+  return `gtl-evaluation-scope:${JSON.stringify(input)}`;
+}
+
+function derivedContractFulfillmentBindingRef(input: {
+  readonly obligationRef: string;
+  readonly requirementRef: string;
+  readonly productRequirementRef: string;
+  readonly designObligationRef: string;
+  readonly componentRef: string;
+  readonly productTargetRef: string;
+  readonly outputSurfaceRef: string;
+  readonly functionOrEntrypointRef: string;
+  readonly evaluatorFindingRef: string;
+}): string {
+  return `gtl-contract-fulfillment-binding:${JSON.stringify(input)}`;
+}
+
+export function constructGtlEvaluationScopeRef(
+  input: GtlEvaluationScopeRefInit
+): GtlEvaluationScopeRef {
+  const normalized = {
+    graphCallRef: nonEmptyString(
+      input.graphCallRef,
+      "GtlEvaluationScopeRef.graphCallRef"
+    ),
+    frameRef: nonEmptyString(input.frameRef, "GtlEvaluationScopeRef.frameRef"),
+    graphFunctionRef: nonEmptyString(
+      input.graphFunctionRef,
+      "GtlEvaluationScopeRef.graphFunctionRef"
+    ),
+    graphVectorRef: nonEmptyString(
+      input.graphVectorRef,
+      "GtlEvaluationScopeRef.graphVectorRef"
+    ),
+    vectorIndex: nonNegativeInteger(
+      input.vectorIndex,
+      "GtlEvaluationScopeRef.vectorIndex"
+    ),
+    compositionRef: nonEmptyString(
+      input.compositionRef,
+      "GtlEvaluationScopeRef.compositionRef"
+    ),
+    compositionDigest: nonEmptyString(
+      input.compositionDigest,
+      "GtlEvaluationScopeRef.compositionDigest"
+    ),
+    scopeTopologyRef: nonEmptyString(
+      input.scopeTopologyRef,
+      "GtlEvaluationScopeRef.scopeTopologyRef"
+    ),
+    scopeKind: scopeKind(input.scopeKind, "GtlEvaluationScopeRef.scopeKind"),
+    segmentRef: nullableNonEmptyString(
+      input.segmentRef,
+      "GtlEvaluationScopeRef.segmentRef"
+    ),
+    dimensionRef: nullableNonEmptyString(
+      input.dimensionRef,
+      "GtlEvaluationScopeRef.dimensionRef"
+    ),
+    relationRef: nullableNonEmptyString(
+      input.relationRef,
+      "GtlEvaluationScopeRef.relationRef"
+    )
+  } satisfies Omit<GtlEvaluationScopeRef, "kind" | "scopeRef">;
+  assertEvaluationScopeShape(normalized);
+  return Object.freeze({
+    kind: "gtl_evaluation_scope_ref" as const,
+    scopeRef:
+      input.scopeRef ??
+      derivedEvaluationScopeRef({
+        ...normalized
+      }),
+    ...normalized
+  });
+}
+
+export function constructGtlContractFulfillmentBinding(
+  input: GtlContractFulfillmentBindingInit
+): GtlContractFulfillmentBinding {
+  const normalized = {
+    obligationRef: nonEmptyString(
+      input.obligationRef,
+      "GtlContractFulfillmentBinding.obligationRef"
+    ),
+    requirementRef: nonEmptyString(
+      input.requirementRef,
+      "GtlContractFulfillmentBinding.requirementRef"
+    ),
+    productRequirementRef: nonEmptyString(
+      input.productRequirementRef,
+      "GtlContractFulfillmentBinding.productRequirementRef"
+    ),
+    designObligationRef: nonEmptyString(
+      input.designObligationRef,
+      "GtlContractFulfillmentBinding.designObligationRef"
+    ),
+    componentRef: nonEmptyString(
+      input.componentRef,
+      "GtlContractFulfillmentBinding.componentRef"
+    ),
+    productTargetRef: nonEmptyString(
+      input.productTargetRef,
+      "GtlContractFulfillmentBinding.productTargetRef"
+    ),
+    outputSurfaceRef: nonEmptyString(
+      input.outputSurfaceRef,
+      "GtlContractFulfillmentBinding.outputSurfaceRef"
+    ),
+    functionOrEntrypointRef: nonEmptyString(
+      input.functionOrEntrypointRef,
+      "GtlContractFulfillmentBinding.functionOrEntrypointRef"
+    ),
+    realizationEvidenceRefs: nonEmptyStringArray(
+      input.realizationEvidenceRefs,
+      "GtlContractFulfillmentBinding.realizationEvidenceRefs"
+    ),
+    testOrExecutionEvidenceRefs: nonEmptyStringArray(
+      input.testOrExecutionEvidenceRefs ?? Object.freeze([]),
+      "GtlContractFulfillmentBinding.testOrExecutionEvidenceRefs",
+      { allowEmpty: true }
+    ),
+    evaluatorFindingRef: nonEmptyString(
+      input.evaluatorFindingRef,
+      "GtlContractFulfillmentBinding.evaluatorFindingRef"
+    ),
+    authorityRefs: nonEmptyStringArray(
+      input.authorityRefs ?? Object.freeze([]),
+      "GtlContractFulfillmentBinding.authorityRefs",
+      { allowEmpty: true }
+    ),
+    evidenceRefs: nonEmptyStringArray(
+      input.evidenceRefs ?? Object.freeze([]),
+      "GtlContractFulfillmentBinding.evidenceRefs",
+      { allowEmpty: true }
+    )
+  } satisfies Omit<GtlContractFulfillmentBinding, "kind" | "bindingRef">;
+  return Object.freeze({
+    kind: "gtl_contract_fulfillment_binding" as const,
+    bindingRef:
+      input.bindingRef ??
+      derivedContractFulfillmentBindingRef({
+        obligationRef: normalized.obligationRef,
+        requirementRef: normalized.requirementRef,
+        productRequirementRef: normalized.productRequirementRef,
+        designObligationRef: normalized.designObligationRef,
+        componentRef: normalized.componentRef,
+        productTargetRef: normalized.productTargetRef,
+        outputSurfaceRef: normalized.outputSurfaceRef,
+        functionOrEntrypointRef: normalized.functionOrEntrypointRef,
+        evaluatorFindingRef: normalized.evaluatorFindingRef
+      }),
+    ...normalized
+  });
+}
+
+export function admitGtlContractFulfillmentBinding(
+  input: unknown,
+  label = "GtlContractFulfillmentBinding"
+): GtlContractFulfillmentBinding {
+  if (!isPlainRecord(input)) {
+    throw new TypeError(`${label}: expected a plain object`);
+  }
+  const record = input;
+  assertNoForbiddenEngineAuthorityFields(record, label);
+  const kind = nonEmptyString(record["kind"], `${label}.kind`);
+  if (kind !== "gtl_contract_fulfillment_binding") {
+    throw new TypeError(
+      `${label}.kind: expected "gtl_contract_fulfillment_binding", got ${JSON.stringify(kind)}`
+    );
+  }
+  return constructGtlContractFulfillmentBinding({
+    bindingRef: nonEmptyString(record["bindingRef"], `${label}.bindingRef`),
+    obligationRef: nonEmptyString(record["obligationRef"], `${label}.obligationRef`),
+    requirementRef: nonEmptyString(
+      record["requirementRef"],
+      `${label}.requirementRef`
+    ),
+    productRequirementRef: nonEmptyString(
+      record["productRequirementRef"],
+      `${label}.productRequirementRef`
+    ),
+    designObligationRef: nonEmptyString(
+      record["designObligationRef"],
+      `${label}.designObligationRef`
+    ),
+    componentRef: nonEmptyString(record["componentRef"], `${label}.componentRef`),
+    productTargetRef: nonEmptyString(
+      record["productTargetRef"],
+      `${label}.productTargetRef`
+    ),
+    outputSurfaceRef: nonEmptyString(
+      record["outputSurfaceRef"],
+      `${label}.outputSurfaceRef`
+    ),
+    functionOrEntrypointRef: nonEmptyString(
+      record["functionOrEntrypointRef"],
+      `${label}.functionOrEntrypointRef`
+    ),
+    realizationEvidenceRefs: nonEmptyStringArray(
+      record["realizationEvidenceRefs"],
+      `${label}.realizationEvidenceRefs`
+    ),
+    testOrExecutionEvidenceRefs: nonEmptyStringArray(
+      record["testOrExecutionEvidenceRefs"],
+      `${label}.testOrExecutionEvidenceRefs`,
+      { allowEmpty: true }
+    ),
+    evaluatorFindingRef: nonEmptyString(
+      record["evaluatorFindingRef"],
+      `${label}.evaluatorFindingRef`
+    ),
+    authorityRefs: nonEmptyStringArray(
+      record["authorityRefs"],
+      `${label}.authorityRefs`,
+      { allowEmpty: true }
+    ),
+    evidenceRefs: nonEmptyStringArray(
+      record["evidenceRefs"],
+      `${label}.evidenceRefs`,
+      { allowEmpty: true }
+    )
+  });
+}
+
+export function admitGtlEvaluationScopeRef(
+  input: unknown,
+  label = "GtlEvaluationScopeRef"
+): GtlEvaluationScopeRef {
+  if (!isPlainRecord(input)) {
+    throw new TypeError(`${label}: expected a plain object`);
+  }
+  const record = input;
+  const kind = nonEmptyString(record["kind"], `${label}.kind`);
+  if (kind !== "gtl_evaluation_scope_ref") {
+    throw new TypeError(
+      `${label}.kind: expected "gtl_evaluation_scope_ref", got ${JSON.stringify(kind)}`
+    );
+  }
+  return constructGtlEvaluationScopeRef({
+    scopeRef: nonEmptyString(record["scopeRef"], `${label}.scopeRef`),
+    graphCallRef: nonEmptyString(record["graphCallRef"], `${label}.graphCallRef`),
+    frameRef: nonEmptyString(record["frameRef"], `${label}.frameRef`),
+    graphFunctionRef: nonEmptyString(
+      record["graphFunctionRef"],
+      `${label}.graphFunctionRef`
+    ),
+    graphVectorRef: nonEmptyString(
+      record["graphVectorRef"],
+      `${label}.graphVectorRef`
+    ),
+    vectorIndex: nonNegativeInteger(record["vectorIndex"], `${label}.vectorIndex`),
+    compositionRef: nonEmptyString(
+      record["compositionRef"],
+      `${label}.compositionRef`
+    ),
+    compositionDigest: nonEmptyString(
+      record["compositionDigest"],
+      `${label}.compositionDigest`
+    ),
+    scopeTopologyRef: nonEmptyString(
+      record["scopeTopologyRef"],
+      `${label}.scopeTopologyRef`
+    ),
+    scopeKind: scopeKind(record["scopeKind"], `${label}.scopeKind`),
+    segmentRef: nullableNonEmptyString(record["segmentRef"], `${label}.segmentRef`),
+    dimensionRef: nullableNonEmptyString(
+      record["dimensionRef"],
+      `${label}.dimensionRef`
+    ),
+    relationRef: nullableNonEmptyString(
+      record["relationRef"],
+      `${label}.relationRef`
+    )
+  });
+}
+
 export interface GtlEvaluationFindingRef {
   readonly kind: "gtl_evaluation_finding_ref";
   readonly findingRef: string;
@@ -227,6 +739,7 @@ export interface GtlEvaluationFindingRef {
   readonly compositionRef: string;
   readonly compositionDigest: string;
   readonly diagnosticRefs: readonly string[];
+  readonly evaluationScopeRef?: GtlEvaluationScopeRef | null | undefined;
 }
 
 export interface GtlEvaluation {

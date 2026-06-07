@@ -22,6 +22,8 @@ export type {
   GtlComputePluginCategoryBinding,
   GtlComputePluginPurpose,
   GtlComputePluginStageRole,
+  GtlContractFulfillmentBinding,
+  GtlContractFulfillmentBindingInit,
   GtlConsequenceProjectionRef,
   GtlConsequenceComputePluginCategoryBinding,
   GtlConsequenceStage,
@@ -31,6 +33,9 @@ export type {
   GtlEvaluation,
   GtlEvaluationCloseDispositionKind,
   GtlEvaluationFindingRef,
+  GtlEvaluationScopeKind,
+  GtlEvaluationScopeRef,
+  GtlEvaluationScopeRefInit,
   GtlFunctionCompositionNotation,
   GtlHumanCalloutComputePluginCategoryBinding,
   GtlNonClosureCompositionRegimeAuthority,
@@ -50,3 +55,10 @@ export {
   constructRefinementBoundary,
   constructRole
 } from "./constructors.js";
+export {
+  admitGtlContractFulfillmentBinding,
+  admitGtlEvaluationScopeRef,
+  constructGtlContractFulfillmentBinding,
+  constructGtlEvaluationScopeRef,
+  GTL_EVALUATION_SCOPE_KIND_VALUES
+} from "./compute_notation.js";

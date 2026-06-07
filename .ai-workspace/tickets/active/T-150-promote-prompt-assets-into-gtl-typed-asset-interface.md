@@ -4,13 +4,13 @@ title: Promote prompt assets into the GTL typed asset interface
 type: feature
 ticket_category: ordinary
 status: active
-proof_status: gtl_scope_closure_ready_downstream_steel_thread_pending
+proof_status: gtl_scope_closure_ready_contract_api_gate_live_passed_downstream_prompt_steel_thread_pending
 goal: move the prompt-as-code contract proven in odd_sdlc T-191 into GTL as a first-class typed asset interface, so downstream products declare prompt invocation assets through GTL AssetSurface truth instead of local prompt registries
 change_class: requirement_reprice
 change_intent: Promote the prompt-as-code asset shape proven in odd_sdlc T-191 into GTL as generic typed asset interface law, while keeping downstream prompt authority values and runtime enforcement outside GTL.
 re_entry_point: requirements
 created_at: 2026-06-06
-updated_at: 2026-06-06
+updated_at: 2026-06-07
 triaged_at: 2026-06-06
 owning_repo: abiogenesis
 governance_scope: STDO Method
@@ -77,6 +77,7 @@ non_closure_conditions:
   - GTL admission enforces concrete downstream authority-policy values instead of only validating declaration shape and fallback-precondition presence
   - downstream products must maintain a parallel prompt registry after the GTL typed asset interface exists
   - compatibility wrappers preserve two prompt asset truth surfaces instead of migrating callers to the GTL interface
+  - prompt, review, or handoff contract fulfillment bindings remain owned by downstream prompt prose, local JSON convention, MCP tool schema, or SDLC-only validator code instead of the GTL contract API gate
 review_gate: implementation review required before release
 ---
 
@@ -135,6 +136,218 @@ surface shape, not a new GTL public work carrier.
 - F_D must not infer semantic meaning from rendered prompt text.
 - F_P owns semantic judgment inside the declared prompt contract.
 
+## Round Addendum: GTL Contract API Gate For Prompt And Review Handoff
+
+### Trigger Evidence
+
+The odd_sdlc T-132 hello-world live lane proved the product behavior but still
+blocked at closure. The component-code worker produced source, test, and an
+admitted component-depth target carrier. The F_P review-grade assessment marked
+the edge passed, but omitted repeated structural fulfillment bindings for
+module, requirement, and source-asset findings. Prompt prose already instructed
+the evaluator to include those bindings. The failure was therefore not missing
+context. It was a boundary placement defect: F_P-shaped prose was carrying a
+contract API field that belongs to deterministic GTL/ABG admission.
+
+This addendum extends T-150 from renderer-backed prompt asset truth to the
+adjacent handoff contract truth. The same single point of control applies:
+typed GTL API carrier first, downstream adapter second, rendered prompt and MCP
+surfaces as views or transports only.
+
+### STDO Grade Design
+
+#### Domain Model
+
+```mermaid
+classDiagram
+  class GtlContractApiGate {
+    +contractRef
+    +contractDigest
+    +admitCarrier(payload)
+    +rejectEngineAuthority(payload)
+  }
+
+  class GtlContractFulfillmentBinding {
+    +bindingRef
+    +obligationRef
+    +requirementRef
+    +productRequirementRef
+    +designObligationRef
+    +componentRef
+    +productTargetRef
+    +outputSurfaceRef
+    +functionOrEntrypointRef
+    +realizationEvidenceRefs
+    +testOrExecutionEvidenceRefs
+    +evaluatorFindingRef
+  }
+
+  class AbgPayloadAdmission {
+    +payloadEnvelopeRef
+    +evidenceRefs
+    +admissionStatus
+  }
+
+  class DownstreamAdapter {
+    +domainCarrier
+    +projectToGtlBinding()
+    +projectFromGtlBinding()
+  }
+
+  class FpEvaluator {
+    +semanticFinding
+    +fulfillmentStatus
+    +rationale
+  }
+
+  class ClosureProjection {
+    +edgeRef
+    +residualPressureRefs
+    +closureDisposition
+  }
+
+  GtlContractApiGate --> GtlContractFulfillmentBinding : owns shape
+  GtlContractApiGate --> AbgPayloadAdmission : admitted by
+  DownstreamAdapter --> GtlContractApiGate : consumes
+  FpEvaluator --> DownstreamAdapter : supplies semantic status only
+  AbgPayloadAdmission --> ClosureProjection : eligible evidence
+  ClosureProjection --> GtlContractFulfillmentBinding : reads admitted binding
+```
+
+#### Flow Diagram
+
+```mermaid
+flowchart TD
+  A[Downstream target carrier emitted] --> B[ABG admits payload envelope]
+  B --> C{Target carrier admitted?}
+  C -- no --> R[Reject closure input]
+  C -- yes --> D[F_P emits semantic findings]
+  D --> E{Fulfilled finding has binding?}
+  E -- yes --> F[Admit supplied binding through GTL API]
+  E -- no --> G[Derive binding from admitted target carrier and obligation context]
+  G --> F
+  F --> H{GTL binding admitted?}
+  H -- no --> R
+  H -- yes --> I[Project downstream binding view if needed]
+  I --> J[Review-grade admission]
+  J --> K[Edge closure projection]
+  K --> L{Residual pressure?}
+  L -- yes --> M[Retry, block, or reprice]
+  L -- no --> N[Close edge]
+```
+
+#### State Diagram
+
+```mermaid
+stateDiagram-v2
+  [*] --> TargetCarrierObserved
+  TargetCarrierObserved --> TargetCarrierRejected: ABG admission fails
+  TargetCarrierObserved --> TargetCarrierAdmitted: ABG admission passes
+  TargetCarrierRejected --> ClosureBlocked
+
+  TargetCarrierAdmitted --> FpAssessmentObserved
+  FpAssessmentObserved --> AssessmentRejected: schema invalid
+  FpAssessmentObserved --> BindingSupplied: finding carries binding
+  FpAssessmentObserved --> BindingDerived: fulfilled finding lacks binding
+
+  BindingSupplied --> GtlBindingAdmission
+  BindingDerived --> GtlBindingAdmission
+  GtlBindingAdmission --> AssessmentRejected: binding invalid or owns engine authority
+  GtlBindingAdmission --> AssessmentAdmitted: all required bindings admitted
+
+  AssessmentRejected --> ClosureBlocked
+  AssessmentAdmitted --> ClosureProjected
+  ClosureProjected --> ClosureBlocked: residual pressure remains
+  ClosureProjected --> Closed: no residual pressure
+  Closed --> [*]
+```
+
+#### Pseudocode
+
+```text
+function admitReviewHandoff(manifest, reviewAssessment, targetArtifact):
+  targetAdmission = ABG.admitPayloadEnvelope(targetArtifact)
+
+  parsedAssessment = parseAssessment(reviewAssessment)
+
+  for finding in parsedAssessment.findings:
+    if finding.fulfillmentStatus != "fulfilled":
+      continue
+
+    if manifest.targetAssetType requires contract fulfillment binding:
+      if finding.fulfillmentBinding exists:
+        binding = downstreamAdapter.projectToGtlBinding(finding.fulfillmentBinding)
+      else:
+        require targetAdmission.status == "admitted"
+        binding = deriveGtlBinding(
+          obligationContext = manifest.traversalObligationContext,
+          targetCarrier = targetAdmission.payload,
+          finding = finding
+        )
+
+      admittedBinding = GTL.admitContractFulfillmentBinding(binding)
+      finding.fulfillmentBinding =
+        downstreamAdapter.projectFromGtlBinding(admittedBinding)
+
+  require no fulfilled finding lacks an admitted binding
+  require no binding owns closure, event, ledger, projection, or traversal authority
+  return admitted assessment as closure input
+```
+
+The rule is intentionally asymmetric. F_P may decide whether an obligation is
+fulfilled, partial, blocked, or unassessed. F_D owns whether a fulfilled claim
+has an admitted contract binding to a target carrier, requirement, component,
+surface, and evidence refs.
+
+### Prime Law Confirmation
+
+This change does not create a new GTL topology prime. It introduces a
+subordinate contract API carrier under existing GTL interface and evaluator
+law:
+
+- `AssetSurface`, graph functions, graph vectors, modules, hooks, evaluators,
+  and target carriers remain the public constructive surfaces.
+- `GtlContractFulfillmentBinding` is not a traversal selector, ledger writer,
+  event emitter, closure decider, or new work carrier.
+- ABG remains the owner of payload admission, runtime facts, frames,
+  traversal, replay, assurance projection, and closure mechanics.
+- GTL owns the known deterministic contract ABI. Downstream products bind
+  product meaning to that ABI through adapters.
+- MCP, when introduced, can only act as a late-bound transport or discovery
+  provider behind a GTL/MCP gate. MCP output cannot bypass GTL contract
+  admission or become the source of contract truth.
+
+Prime law therefore holds: this is API algebra inside existing GTL/ABG
+surfaces, not a new prime and not an SDLC-local control plane.
+
+### Sole Source Of Truth Audit Checklist
+
+- [x] Exactly one exported GTL constructor/admitter owns contract fulfillment
+  binding shape.
+- [x] Downstream products may project domain-specific binding views, but those
+  views must round-trip through the GTL carrier before closure.
+- [x] Review-grade, prompt, and handoff prompts are rendered views over typed
+  contract truth, not schema authority.
+- [x] F_P outputs may supply semantic findings and rationale, but closure does
+  not trust F_P to be the sole source for deterministic binding structure.
+- [x] Missing fulfilled bindings are derived only from an admitted target
+  carrier plus declared obligation context.
+- [x] If the target carrier is missing or rejected, binding derivation fails
+  closed and existing closure pressure remains.
+- [x] No deterministic code infers obligation semantics from rendered Markdown.
+- [x] No SDLC-local parser, JSON convention, or prompt registry can accept a
+  binding that the GTL contract API rejects.
+- [x] No admitted binding may contain engine authority fields: closure
+  decision, events, ledgers, projections, traversal selection, or next-vector
+  state.
+- [x] MCP tools, if later added, must map to GTL contract inputs and be
+  admitted through the same API gate.
+- [x] Positive tests prove supplied and derived bindings admit through GTL.
+- [x] Negative tests prove missing target carriers, missing realization
+  evidence, undeclared requirement refs, and engine-authority fields reject.
+- [x] Live or live-style proof shows a product run closes from admitted target
+  carrier truth, not from prompt memory.
+
 ## Work Ledger
 
 | id | task | closure proof | status |
@@ -145,6 +358,9 @@ surface shape, not a new GTL public work carrier.
 | P-040 | Add prompt asset declaration fixtures/tests. | tests cover normal authority, bounded fallback, forbidden routine authority, renderer refs, proof obligations, and chain composition | complete |
 | P-050 | Define and prove downstream migration seam for odd_sdlc T-191. | one odd_sdlc prompt family uses GTL prompt asset surfaces as the steel thread; local SDLC register is marked transitional | pending |
 | P-060 | Prove no F_D semantic drift. | tests/source review prove no Markdown parsing or semantic prompt classification in GTL/ABG deterministic code | complete |
+| P-070 | Add GTL contract fulfillment binding API for prompt/review handoff. | TypeScript GTL constructor/admitter freezes binding shape, rejects engine authority, and exposes one package export | complete |
+| P-080 | Consume the GTL binding gate in odd_sdlc review-grade closure. | component-code fulfilled findings with omitted or prompt-shaped structural bindings are admitted only when binding can be derived from an admitted component-depth target carrier | complete |
+| P-090 | Prove single-control-point behavior. | focused ABG and odd_sdlc tests plus T-132 live prove positive derivation, prompt-null canonicalization, and negative fail-closed paths without MCP or prompt-memory schema authority | complete |
 
 ## Proof Requirements
 
@@ -160,6 +376,12 @@ surface shape, not a new GTL public work carrier.
   authority kind, or semantic intent.
 - Downstream proof: odd_sdlc T-191 can consume GTL prompt asset surface truth
   and remove or demote its local prompt register.
+- Contract API proof: review and handoff fulfillment bindings are constructed
+  and admitted through GTL before a downstream closure projection may consume
+  them.
+- Fail-closed proof: fulfilled findings without an explicit binding are
+  canonicalized only when an admitted target carrier supplies the deterministic
+  component, target, requirement, and evidence refs.
 
 ## Current Verification
 
@@ -182,7 +404,40 @@ surface shape, not a new GTL public work carrier.
 - Prompt asset support remains subordinate to `AssetSurface`; the T-150 test
   guards against prompt-specific topology tokens in GTL production source and
   against `AssetSurface` promotion into M02 public work carriers.
-- Remaining before closure: P-050 downstream steel thread in odd_sdlc T-191.
+- `npm run build:semantic` passes in
+  `build_tenants/abiogenesis/typescript`.
+- `node --test test_env/tests/test_t152_contract_fulfillment_binding_api.test.mjs`
+  passes: 4/4. This proves the GTL contract fulfillment binding API is frozen,
+  deterministic, admits serialized payloads, rejects missing realization
+  evidence, and rejects engine-authority fields.
+- Local verification pack built from the current source:
+  `/tmp/abg-t150-pack/abiogenesis-typescript-tenant-3.9.0-rc.13.tgz`.
+  It was installed into odd_sdlc with `npm install --no-save --package-lock=false`
+  for downstream proof. A clean release snapshot and package pin update remain
+  separate release work.
+- `npm run build:semantic` passes in
+  `/Users/jim/src/apps/odd_sdlc/build_tenants/typescript`.
+- `node --test test_env/tests/test_t182_fp_review_grade_edge_fulfillment.test.mjs`
+  passes: 15/15. This proves admitted target-carrier derivation, prompt-shaped
+  null canonicalization, fail-closed rejection without a carrier, undeclared
+  requirement rejection, and the existing review-grade closure gates.
+- `node --test test_env/tests/test_t172_decomposition_admission.test.mjs test_env/tests/test_t182_fp_review_grade_edge_fulfillment.test.mjs`
+  passes: 31/31. This preserves decomposition admission and review-grade
+  handoff behavior together.
+- `npm run test:t132:hello-world-live` passes from fresh run root
+  `/Users/jim/src/apps/odd_sdlc/build_tenants/typescript/test_env/test_runs/scenario_t132_hello_world_js_live/20260607T061055177Z_pid90098`.
+  The component-code edge
+  `operator-runs/20260607T061946295Z_pid90098` has
+  `targetCarrierAdmissionStatus: admitted`, `edgeResidualPressureRefs: []`,
+  `sdlc_edge_closure_decision.disposition: close`, and
+  `operator_summary.status: converged`.
+- The two earlier live attempts in this round blocked on prompt-shaped binding
+  parser boundaries (`requirementRef: null`, then
+  `functionOrEntrypointRef: null`). Focused tests now encode both failure
+  shapes, and the final live run closes without `review_grade_assessment_invalid`.
+- Remaining before full T-150 closure: P-050 downstream prompt-family steel
+  thread in odd_sdlc T-191. The contract API gate addendum is implemented and
+  live-proven.
 
 ## Notes
 

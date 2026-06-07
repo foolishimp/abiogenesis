@@ -1748,6 +1748,41 @@ function assertFpEvaluationOutcomeMatchesSelectedComposition(input: {
         "FpEvaluationFinding.compositionContributionRef does not match selected regime binding"
       );
     }
+    const scope = finding.evaluationScopeRef;
+    if (scope !== null) {
+      if (scope.graphCallRef !== input.pluginInput.graphCallId) {
+        throw new TypeError(
+          "FpEvaluationFinding.evaluationScopeRef.graphCallRef does not match current graph call"
+        );
+      }
+      if (scope.frameRef !== input.pluginInput.frameId) {
+        throw new TypeError(
+          "FpEvaluationFinding.evaluationScopeRef.frameRef does not match current frame"
+        );
+      }
+      if (scope.graphFunctionRef !== input.pluginInput.graphFunctionId) {
+        throw new TypeError(
+          "FpEvaluationFinding.evaluationScopeRef.graphFunctionRef does not match current graph function"
+        );
+      }
+      if (scope.vectorIndex !== input.pluginInput.vectorIndex) {
+        throw new TypeError(
+          "FpEvaluationFinding.evaluationScopeRef.vectorIndex does not match current vector"
+        );
+      }
+      if (scope.compositionRef !== input.pluginInput.selectedCompositionRef) {
+        throw new TypeError(
+          "FpEvaluationFinding.evaluationScopeRef.compositionRef does not match selected abg.fn_composition"
+        );
+      }
+      if (
+        scope.compositionDigest !== input.pluginInput.selectedCompositionDigest
+      ) {
+        throw new TypeError(
+          "FpEvaluationFinding.evaluationScopeRef.compositionDigest does not match selected abg.fn_composition"
+        );
+      }
+    }
   }
 }
 

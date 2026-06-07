@@ -80,6 +80,37 @@ The fold consumes orthogonal row families:
 Evaluator output contributes semantic satisfaction only. It never emits runtime
 authority, lifecycle authority, events, ledgers, or outcome truth.
 
+## Scoped Evaluation Addressability
+
+T-151 extends row metadata with `GtlEvaluationScopeRef`.
+
+The scope ref is a subordinate address inside the active graph-vector boundary.
+It binds to:
+
+- graph call
+- frame
+- graph function
+- graph vector / vector index
+- selected `abg.fn_composition`
+- declared scope topology
+- one scope kind: `edge`, `segment`, `dimension_cell`, `fold`, or `relation`
+
+Scope refs do not create a new topology object and do not widen the public
+execution target surface. They let ABG preserve and fold scoped evaluator facts
+without forcing downstream products to rerun a whole edge or create a local
+per-segment outcome state machine.
+
+Scoped redispatch remains the existing primitive:
+
+```text
+redispatch(targetVectorIndex, reEntryPoint, evaluationScopeRef?)
+```
+
+The optional scope is target metadata. It is not a fourth outcome constructor.
+Sibling scoped rows remain eligible after one failed scoped row unless
+authority, input, correction, or re-entry lineage makes those siblings stale,
+superseded, orphan-bound, or contradictory.
+
 ## Evidence Lifecycle
 
 Evidence lifecycle is applied before the satisfaction fold:

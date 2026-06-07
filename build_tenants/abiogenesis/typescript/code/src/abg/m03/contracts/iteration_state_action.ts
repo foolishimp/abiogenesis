@@ -2,6 +2,9 @@
 // Implements: REQ-R-ABG3-PROJECTION
 
 import type {
+  GtlEvaluationScopeRef
+} from "../../../gtl/m02/contracts/compute_notation.js";
+import type {
   AdvancementTransition,
   ExecutionBasis,
   FdAdvanceTransition,
@@ -110,6 +113,7 @@ export interface IterationSatisfactionRow {
   readonly evidenceRefs: readonly string[];
   readonly sourceProjectionRefs?: readonly string[] | undefined;
   readonly reEntryPoint?: GraphReentryPoint | null | undefined;
+  readonly evaluationScopeRef?: GtlEvaluationScopeRef | null | undefined;
 }
 
 export interface IterationRuntimeRow {
@@ -119,6 +123,7 @@ export interface IterationRuntimeRow {
   readonly retryable: boolean;
   readonly evidenceRefs?: readonly string[] | undefined;
   readonly sourceProjectionRefs?: readonly string[] | undefined;
+  readonly evaluationScopeRef?: GtlEvaluationScopeRef | null | undefined;
 }
 
 export interface IterationBindingGuardRow {
@@ -128,11 +133,13 @@ export interface IterationBindingGuardRow {
   readonly failedCondition: string | null;
   readonly eventRefs?: readonly string[] | undefined;
   readonly sourceProjectionRefs?: readonly string[] | undefined;
+  readonly evaluationScopeRef?: GtlEvaluationScopeRef | null | undefined;
 }
 
 export interface IterationRedispatchTarget {
   readonly reEntryPoint: GraphReentryPoint;
   readonly targetVectorIndex: number | null;
+  readonly evaluationScopeRef?: GtlEvaluationScopeRef | null | undefined;
 }
 
 export interface IterationRedispatchTargetRow {
@@ -289,6 +296,7 @@ function refsFromSatisfactionRows(
     rows.flatMap((row) => [
       row.authorityRef,
       row.reason,
+      row.evaluationScopeRef?.scopeRef,
       ...row.evidenceRefs,
       ...(row.sourceProjectionRefs ?? Object.freeze([]))
     ])
@@ -299,6 +307,7 @@ function refsFromRuntimeRows(rows: readonly IterationRuntimeRow[]): readonly str
   return uniqueStrings(
     rows.flatMap((row) => [
       row.reason,
+      row.evaluationScopeRef?.scopeRef,
       ...(row.evidenceRefs ?? Object.freeze([])),
       ...(row.sourceProjectionRefs ?? Object.freeze([]))
     ])
@@ -313,6 +322,7 @@ function refsFromBindingRows(
       row.authorityRef,
       row.evidenceRef,
       row.failedCondition,
+      row.evaluationScopeRef?.scopeRef,
       ...(row.eventRefs ?? Object.freeze([])),
       ...(row.sourceProjectionRefs ?? Object.freeze([]))
     ])
@@ -329,6 +339,7 @@ function refsFromRedispatchRows(
       row.target.targetVectorIndex === null
         ? null
         : String(row.target.targetVectorIndex),
+      row.target.evaluationScopeRef?.scopeRef,
       row.provenanceChangeClass,
       ...(row.evidenceRefs ?? Object.freeze([])),
       ...(row.sourceProjectionRefs ?? Object.freeze([]))
@@ -338,12 +349,65 @@ function refsFromRedispatchRows(
 
 function assertTargetVector(input: {
   readonly basis: ExecutionBasis;
+  readonly graphCallRef: string;
+  readonly frameRef: string;
   readonly target: IterationRedispatchTarget;
 }): void {
   if (input.target.targetVectorIndex === null) {
+    if (input.target.evaluationScopeRef !== null && input.target.evaluationScopeRef !== undefined) {
+      throw new TypeError(
+        "IterationRedispatchTarget.evaluationScopeRef requires targetVectorIndex"
+      );
+    }
     return;
   }
   assertVectorIndexInRange(input.basis, input.target.targetVectorIndex);
+  assertEvaluationScopeRef({
+    basis: input.basis,
+    graphCallRef: input.graphCallRef,
+    frameRef: input.frameRef,
+    vectorIndex: input.target.targetVectorIndex,
+    evaluationScopeRef: input.target.evaluationScopeRef
+  });
+}
+
+function assertEvaluationScopeRef(input: {
+  readonly basis: ExecutionBasis;
+  readonly graphCallRef: string;
+  readonly frameRef: string;
+  readonly vectorIndex: number;
+  readonly evaluationScopeRef?: GtlEvaluationScopeRef | null | undefined;
+}): void {
+  const scope = input.evaluationScopeRef;
+  if (scope === undefined || scope === null) {
+    return;
+  }
+  assertVectorIndexInRange(input.basis, scope.vectorIndex);
+  if (scope.graphCallRef !== input.graphCallRef) {
+    throw new TypeError(
+      "GtlEvaluationScopeRef.graphCallRef does not match iteration graph call"
+    );
+  }
+  if (scope.frameRef !== input.frameRef) {
+    throw new TypeError(
+      "GtlEvaluationScopeRef.frameRef does not match iteration frame"
+    );
+  }
+  if (scope.graphFunctionRef !== input.basis.graphFunction.id) {
+    throw new TypeError(
+      "GtlEvaluationScopeRef.graphFunctionRef does not match iteration graph function"
+    );
+  }
+  if (scope.vectorIndex !== input.vectorIndex) {
+    throw new TypeError(
+      "GtlEvaluationScopeRef.vectorIndex does not match iteration vector"
+    );
+  }
+  if (scope.graphVectorRef !== vectorEdge(input.basis, input.vectorIndex)) {
+    throw new TypeError(
+      "GtlEvaluationScopeRef.graphVectorRef does not match iteration edge"
+    );
+  }
 }
 
 export function iterationReasonToReEntryPoint(input: {
@@ -382,8 +446,38 @@ export function deriveIterationRowProjection(
 ): IterationRowProjection {
   assertProjectionBasis(input.basis, input.runtimeProjection, "IterationRowProjection");
   assertVectorIndexInRange(input.basis, input.vectorIndex);
+  const graphCallRef =
+    input.runtimeProjection.graphCallId ?? graphCallIdForBasis(input.basis);
+  const frameRef = input.runtimeProjection.frameId ?? frameIdForBasis(input.basis);
+  for (const row of input.satisfactionRows ?? Object.freeze([])) {
+    assertEvaluationScopeRef({
+      basis: input.basis,
+      graphCallRef,
+      frameRef,
+      vectorIndex: input.vectorIndex,
+      evaluationScopeRef: row.evaluationScopeRef
+    });
+  }
+  for (const row of input.runtimeRows ?? Object.freeze([])) {
+    assertEvaluationScopeRef({
+      basis: input.basis,
+      graphCallRef,
+      frameRef,
+      vectorIndex: input.vectorIndex,
+      evaluationScopeRef: row.evaluationScopeRef
+    });
+  }
+  for (const row of input.bindingGuardRows ?? Object.freeze([])) {
+    assertEvaluationScopeRef({
+      basis: input.basis,
+      graphCallRef,
+      frameRef,
+      vectorIndex: input.vectorIndex,
+      evaluationScopeRef: row.evaluationScopeRef
+    });
+  }
   for (const row of input.redispatchTargetRows ?? Object.freeze([])) {
-    assertTargetVector({ basis: input.basis, target: row.target });
+    assertTargetVector({ basis: input.basis, graphCallRef, frameRef, target: row.target });
   }
   const satisfactionRows = Object.freeze([
     ...(input.satisfactionRows ?? Object.freeze([]))
@@ -419,9 +513,8 @@ export function deriveIterationRowProjection(
     graphFunctionId: input.basis.graphFunction.id,
     runId: input.basis.runId,
     workKey: input.basis.workKey,
-    graphCallId:
-      input.runtimeProjection.graphCallId ?? graphCallIdForBasis(input.basis),
-    frameId: input.runtimeProjection.frameId ?? frameIdForBasis(input.basis),
+    graphCallId: graphCallRef,
+    frameId: frameRef,
     vectorIndex: input.vectorIndex,
     edge,
     satisfactionRows,
@@ -499,11 +592,19 @@ function firstRuntimeStatus(
 function currentVectorTarget(input: {
   readonly reEntryPoint: GraphReentryPoint;
   readonly vectorIndex: number;
+  readonly evaluationScopeRef?: GtlEvaluationScopeRef | null | undefined;
 }): IterationRedispatchTarget {
-  return Object.freeze({
+  const target: IterationRedispatchTarget = {
     reEntryPoint: input.reEntryPoint,
     targetVectorIndex: input.vectorIndex
-  });
+  };
+  if (input.evaluationScopeRef !== undefined && input.evaluationScopeRef !== null) {
+    return Object.freeze({
+      ...target,
+      evaluationScopeRef: input.evaluationScopeRef
+    });
+  }
+  return Object.freeze(target);
 }
 
 function deriveOutcomeFromRows(input: {
@@ -596,7 +697,8 @@ function deriveOutcomeFromRows(input: {
       currentVectorTarget({
         reEntryPoint:
           runtimeFailure.boundary === "evaluator" ? "proof" : "realization",
-        vectorIndex: input.rowProjection.vectorIndex
+        vectorIndex: input.rowProjection.vectorIndex,
+        evaluationScopeRef: runtimeFailure.evaluationScopeRef
       }),
       runtimeFailure.reason ?? "runtime_failure",
       "realization_refactor"
@@ -615,7 +717,8 @@ function deriveOutcomeFromRows(input: {
           reason: evidenceGap.reason,
           preferred: evidenceGap.reEntryPoint
         }) ?? "realization",
-        vectorIndex: input.rowProjection.vectorIndex
+        vectorIndex: input.rowProjection.vectorIndex,
+        evaluationScopeRef: evidenceGap.evaluationScopeRef
       }),
       evidenceGap.reason,
       "realization_refactor"

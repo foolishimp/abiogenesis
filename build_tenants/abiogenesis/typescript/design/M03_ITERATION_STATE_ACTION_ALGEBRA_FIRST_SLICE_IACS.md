@@ -26,6 +26,7 @@ module:
 5. `IterationEvidenceLifecycle`
 6. `IterationOutcome`
 7. `IterationOutcomeProjection`
+8. `GtlEvaluationScopeRef` as optional subordinate row/target metadata
 
 The prime truth surface is `IterationOutcomeProjection`. The row carriers are
 input facts; they do not select a transition independently.
@@ -38,6 +39,7 @@ input facts; they do not select a transition independently.
 | `AssuranceProjection` | `M03-engine-kernel` | authority/evidence ambiguity facts | assurance projection | none | satisfaction and binding rows |
 | `TraversalContinuationActionProjection` | `M03-engine-kernel` | typed runtime/non-progress facts | replay projection | none | runtime rows |
 | `GraphReentryFrontierProjection` | `M03-engine-kernel` | target-vector re-entry facts | replay projection | none | redispatch target rows |
+| `GtlEvaluationScopeRef` | `GTL M02` + `M03-engine-kernel` | admitted scoped evaluation address inside one graph-vector boundary | evaluator/assurance carrier admission | none | scoped rows and redispatch target metadata |
 | `IterationRowProjection` | `M03-engine-kernel` | normalized row input set | pure derivation | none | outcome projection |
 | `IterationOutcomeProjection` | `M03-engine-kernel` | one active-boundary next transition | pure derivation | none | runner, diagnostics, public/read models |
 | `TerminalTransition` | `M03-engine-kernel` | terminal event construction after outcome | outcome materialization | terminal event | runner |
@@ -73,6 +75,10 @@ primitive `terminate | redispatch | suspend` outcome constructors.
   allows it to satisfy closure
 - orphan evidence is modeled as a lifecycle or evaluator category
 - terminal fallback outranks typed rows
+- a scoped evaluation segment, cell, fold, or relation becomes a new outcome
+  constructor, public GTL topology object, or bare execution target
+- scope identity is inferred from prompt text, diagnostics, filenames, or
+  product-local naming convention instead of an admitted scope carrier
 
 ## Required Proof
 
@@ -85,3 +91,5 @@ primitive `terminate | redispatch | suspend` outcome constructors.
 | evaluator retry | retryable evaluator failure redispatches proof only; exhaustion blocks |
 | suspend rows | progressing, awaiting observer, and handoff map to suspend only below higher rows |
 | structural guard | no iteration-boundary local transition table remains outside the module |
+| scoped n>1 grid | one failed segment-dimension cell redispatches with its scope while sibling scoped rows remain current |
+| scoped negative admission | malformed, mismatched, stale, or topology-unbound scope refs fail closed before closure |

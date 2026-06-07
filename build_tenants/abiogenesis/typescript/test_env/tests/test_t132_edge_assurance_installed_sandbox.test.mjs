@@ -118,6 +118,31 @@ test("T-132 installed deterministic sandbox: ABG installer carries a three-edge 
       closeFunctionRef: "close://t132/design-syntax/fd-schema-and-fp-assurance"
     }
   ]);
+  assert.deepStrictEqual(
+    payload.livePromptEvidenceGuards.map((guard) => guard.stageId),
+    [
+      "source_to_requirements",
+      "requirements_to_logic",
+      "logic_to_design_encoding"
+    ]
+  );
+  assert.deepStrictEqual(
+    payload.livePromptEvidenceGuards.map((guard) => guard.targetArtifactKind),
+    [
+      "synthesized_requirements",
+      "formal_logical_requirements",
+      "gtl_disambiguated_design_syntax"
+    ]
+  );
+  assert.ok(
+    payload.livePromptEvidenceGuards.every(
+      (guard) =>
+        guard.concreteEvidencePacket &&
+        guard.evaluatorProposalBoundary &&
+        guard.unresolvedRefsAreNotEnough &&
+        guard.forbidsRuntimeAuthorityFields
+    )
+  );
   assert.deepStrictEqual(payload.negativeChecks, [
     "returned finding without recorded hook action fails closed",
     "unrecorded admission fails closed",

@@ -46,6 +46,22 @@ classDiagram
     +reEntryPoint
   }
 
+  class GtlEvaluationScopeRef {
+    <<subordinate>>
+    +scopeRef
+    +graphCallRef
+    +frameRef
+    +graphFunctionRef
+    +graphVectorRef
+    +vectorIndex
+    +compositionRef
+    +scopeTopologyRef
+    +scopeKind
+    +segmentRef
+    +dimensionRef
+    +relationRef
+  }
+
   class IterationRowProjection {
     <<row-set>>
     +satisfactionRows
@@ -61,6 +77,7 @@ classDiagram
     +reason
     +lifecycle
     +evidenceRefs
+    +evaluationScopeRef
   }
 
   class IterationRuntimeRow {
@@ -69,6 +86,7 @@ classDiagram
     +status
     +reason
     +retryable
+    +evaluationScopeRef
   }
 
   class IterationBindingGuardRow {
@@ -77,6 +95,7 @@ classDiagram
     +authorityRef
     +evidenceRef
     +failedCondition
+    +evaluationScopeRef
   }
 
   class IterationOutcomeProjection {
@@ -86,6 +105,7 @@ classDiagram
     +reason
     +reEntryPoint
     +targetVectorIndex
+    +evaluationScopeRef
     +diagnosticRefs
   }
 
@@ -106,6 +126,10 @@ classDiagram
   AssuranceProjection --> IterationRowProjection : satisfaction/binding facts
   TraversalContinuationActionProjection --> IterationRowProjection : runtime facts
   GraphReentryFrontierProjection --> IterationRowProjection : redispatch target facts
+  GtlEvaluationScopeRef --> IterationSatisfactionRow : optional scope metadata
+  GtlEvaluationScopeRef --> IterationRuntimeRow : optional scope metadata
+  GtlEvaluationScopeRef --> IterationBindingGuardRow : optional scope metadata
+  GtlEvaluationScopeRef --> IterationOutcomeProjection : redispatch target metadata
   IterationRowProjection --> IterationSatisfactionRow : owns rows
   IterationRowProjection --> IterationRuntimeRow : owns rows
   IterationRowProjection --> IterationBindingGuardRow : owns rows
@@ -155,6 +179,10 @@ stateDiagram-v2
 - `GraphReentryPoint` names redispatch or constitutional re-entry surface.
 - `GraphChangeClass` is provenance and never a parallel transition
   discriminator.
+- `GtlEvaluationScopeRef` is optional subordinate row/target metadata for
+  scoped evaluator facts inside one graph-vector boundary.
+- Scoped redispatch remains the `redispatch` outcome constructor with scope
+  metadata on the target, not a new outcome.
 - Superseded evidence remains replay-visible but is removed before satisfaction
   or blocking.
 - Orphan evidence is exposed as a binding guard failure.

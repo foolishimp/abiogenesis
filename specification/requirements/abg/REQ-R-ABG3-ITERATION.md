@@ -47,3 +47,11 @@ selects the outcome.
 **REQ-R-ABG3-ITERATION-013**: Internal compatibility layers shall not remain in the iteration-boundary transition path. In-scope callers shall migrate to the one outcome projection or to source-row projection.
 
 **REQ-R-ABG3-ITERATION-014**: A caller-provided close-eligible flag may only act as compact evidence that the current active or preserved/rebased satisfaction set is fully satisfied. It shall not converge a boundary when any current satisfaction row is unsatisfied, deferred, orphan-bound, or blocked by runtime facts.
+
+**REQ-R-ABG3-ITERATION-015**: Iteration satisfaction, runtime, binding-guard, and redispatch target rows may carry an admitted evaluation scope ref subordinate to the current graph call, frame, graph function, graph vector, vector index, and selected composition. Scoped rows shall remain facts for the active graph-vector boundary; they shall not create a public GTL topology object or a second traversal target family.
+
+**REQ-R-ABG3-ITERATION-016**: Scoped redispatch shall reuse the existing `redispatch` outcome constructor. Segment, dimension-cell, fold, or relation failures shall be represented as scope metadata on rows and redispatch targets, not as new iteration outcome constructors.
+
+**REQ-R-ABG3-ITERATION-017**: A failed scoped row may redispatch only that admitted scope when the scope binding is current and sibling scoped evidence remains current. ABG shall preserve sibling scoped rows unless authority, input, correction, or re-entry lineage makes them stale, superseded, orphan-bound, or contradictory.
+
+**REQ-R-ABG3-ITERATION-018**: Malformed, stale, mismatched, or topology-unbound evaluation scope refs shall fail closed as admission, binding-guard, stale-input, orphan, block, or re-entry truth. ABG shall not infer evaluation scope identity from prompt text, diagnostic strings, filenames, wall-clock completion order, or downstream product naming convention.
