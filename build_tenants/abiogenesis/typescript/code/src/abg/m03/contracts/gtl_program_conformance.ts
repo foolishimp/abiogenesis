@@ -1917,7 +1917,26 @@ function checkPluginContracts(input: {
 }
 
 function normalizedVersion(value: string): string {
-  return value.replaceAll("_", ".");
+  return value.replaceAll("_", ".").replaceAll("-", ".");
+}
+
+function pushStaleSourceIdentityIssue(input: {
+  readonly surfaceRef: string;
+  readonly lineNumber: number;
+  readonly ruleRef: string;
+  readonly message: string;
+  readonly evidenceRefs: readonly string[];
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  input.issues.push(
+    issue({
+      surfaceKind: "source_identity",
+      surfaceRef: `${input.surfaceRef}:${input.lineNumber}`,
+      ruleRef: input.ruleRef,
+      message: input.message,
+      evidenceRefs: input.evidenceRefs
+    })
+  );
 }
 
 function scanStaleIdentityLine(input: {
@@ -1935,15 +1954,11 @@ function scanStaleIdentityLine(input: {
     const token = match[0];
     const version = normalizedVersion(match[1] ?? "");
     if (!version.startsWith(currentMajorMinor)) {
-      input.issues.push(
-        issue({
-          surfaceKind: "source_identity",
-          surfaceRef: `${input.surfaceRef}:${input.lineNumber}`,
-          ruleRef: "abg://gtl-program/source-identity/current-abg-version",
-          message: `stale ABG identity ${JSON.stringify(token)} does not match ${input.abiPackageVersion}`,
-          evidenceRefs: input.evidenceRefs
-        })
-      );
+      pushStaleSourceIdentityIssue({
+        ...input,
+        ruleRef: "abg://gtl-program/source-identity/current-abg-version",
+        message: `stale ABG identity ${JSON.stringify(token)} does not match ${input.abiPackageVersion}`
+      });
     }
   }
 
@@ -1953,15 +1968,11 @@ function scanStaleIdentityLine(input: {
     const token = match[0];
     const version = normalizedVersion(match[1] ?? "");
     if (!version.startsWith(currentMajorMinor)) {
-      input.issues.push(
-        issue({
-          surfaceKind: "source_identity",
-          surfaceRef: `${input.surfaceRef}:${input.lineNumber}`,
-          ruleRef: "abg://gtl-program/source-identity/current-abg-version",
-          message: `stale ABG identity ${JSON.stringify(token)} does not match ${input.abiPackageVersion}`,
-          evidenceRefs: input.evidenceRefs
-        })
-      );
+      pushStaleSourceIdentityIssue({
+        ...input,
+        ruleRef: "abg://gtl-program/source-identity/current-abg-version",
+        message: `stale ABG identity ${JSON.stringify(token)} does not match ${input.abiPackageVersion}`
+      });
     }
   }
 
@@ -1970,15 +1981,44 @@ function scanStaleIdentityLine(input: {
     const token = match[0];
     const version = `${match[1]}.${match[2]}`;
     if (version !== currentMajorMinor) {
-      input.issues.push(
-        issue({
-          surfaceKind: "source_identity",
-          surfaceRef: `${input.surfaceRef}:${input.lineNumber}`,
-          ruleRef: "abg://gtl-program/source-identity/current-compact-abg-version",
-          message: `stale compact ABG identity ${JSON.stringify(token)} does not match ${input.abiPackageVersion}`,
-          evidenceRefs: input.evidenceRefs
-        })
-      );
+      pushStaleSourceIdentityIssue({
+        ...input,
+        ruleRef: "abg://gtl-program/source-identity/current-compact-abg-version",
+        message: `stale compact ABG identity ${JSON.stringify(token)} does not match ${input.abiPackageVersion}`
+      });
+    }
+  }
+
+  const uriAbgRefPatterns = Object.freeze([
+    /\bruntime:\/\/abg\/(\d+(?:[._-]\d+){1,2})(?:\/[^\s'"`)<\]]*)?/giu,
+    /\babg:\/\/(\d+(?:[._-]\d+){1,2})(?:\/[^\s'"`)<\]]*)?/giu,
+    /\bruntime:\/\/abg-(\d+[-_]\d+(?:[-_]\d+)?)(?:[A-Za-z0-9._~-]*)?/giu
+  ]);
+  for (const pattern of uriAbgRefPatterns) {
+    for (const match of input.line.matchAll(pattern)) {
+      const token = match[0];
+      const version = normalizedVersion(match[1] ?? "");
+      if (!version.startsWith(currentMajorMinor)) {
+        pushStaleSourceIdentityIssue({
+          ...input,
+          ruleRef: "abg://gtl-program/source-identity/current-abg-version",
+          message: `stale ABG identity ${JSON.stringify(token)} does not match ${input.abiPackageVersion}`
+        });
+      }
+    }
+  }
+
+  const abiogenesisPackageRefPattern =
+    /@abiogenesis\/[A-Za-z0-9._-]+@(\d+\.\d+\.\d+(?:-[0-9A-Za-z][0-9A-Za-z.-]*)?)/gu;
+  for (const match of input.line.matchAll(abiogenesisPackageRefPattern)) {
+    const token = match[0];
+    const version = match[1] ?? "";
+    if (version !== input.abiPackageVersion) {
+      pushStaleSourceIdentityIssue({
+        ...input,
+        ruleRef: "abg://gtl-program/source-identity/current-abi-package-version",
+        message: `stale ABI package identity ${JSON.stringify(token)} does not match ${input.abiPackageVersion}`
+      });
     }
   }
 
@@ -1993,15 +2033,11 @@ function scanStaleIdentityLine(input: {
   ]);
   for (const pattern of staleStagePatterns) {
     if (pattern.test(input.line)) {
-      input.issues.push(
-        issue({
-          surfaceKind: "source_identity",
-          surfaceRef: `${input.surfaceRef}:${input.lineNumber}`,
-          ruleRef: "abg://gtl-program/source-identity/stale-stage-label",
-          message: `stale ABG migration or stage label matched ${pattern}`,
-          evidenceRefs: input.evidenceRefs
-        })
-      );
+      pushStaleSourceIdentityIssue({
+        ...input,
+        ruleRef: "abg://gtl-program/source-identity/stale-stage-label",
+        message: `stale ABG migration or stage label matched ${pattern}`
+      });
     }
   }
 }

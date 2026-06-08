@@ -380,6 +380,34 @@ test("T-150 GTL program typechecker catches graph row, prompt, plugin, and ident
   assert(ruleRefs.has("abg://gtl-program/source-identity/stale-stage-label"));
 });
 
+test("T-152 GTL program typechecker rejects stale ABG URI and package identity forms", () => {
+  const report = typecheckGtlProgram(
+    compliantInput({
+      sourceIdentitySurfaces: [
+        {
+          surfaceRef: "workspace://code/stale-uri-identity.ts",
+          text: [
+            "const frontier = 'runtime://abg/3.8/saga-frontier';",
+            "const live = 'runtime://abg-3-6-live';",
+            "const packageRef = 'package:@abiogenesis/typescript-tenant@3.9.0-rc.13#old/fold';",
+            "const graphRef = 'abg://3.7/policy-carrier';"
+          ].join("\n")
+        }
+      ]
+    })
+  );
+
+  const ruleRefs = new Set(report.issues.map((entry) => entry.ruleRef));
+  const messages = report.issues.map((entry) => entry.message).join("\n");
+  assert.equal(report.passed, false);
+  assert(ruleRefs.has("abg://gtl-program/source-identity/current-abg-version"));
+  assert(ruleRefs.has("abg://gtl-program/source-identity/current-abi-package-version"));
+  assert.match(messages, /runtime:\/\/abg\/3\.8\/saga-frontier/u);
+  assert.match(messages, /runtime:\/\/abg-3-6-live/u);
+  assert.match(messages, /@abiogenesis\/typescript-tenant@3\.9\.0-rc\.13/u);
+  assert.match(messages, /abg:\/\/3\.7\/policy-carrier/u);
+});
+
 test("T-150 GTL program typechecker rejects empty inventory without expected coverage", () => {
   const report = typecheckGtlProgram({
     subjectRef: "workspace://t150/empty",

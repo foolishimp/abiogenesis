@@ -121,7 +121,8 @@ This is a hard admission/typecheck boundary for current GTL/ABG program shape.
 - [ ] Current engine-authority flags such as `mayWriteLedgers` and
   `maySelectTraversal` are rejected.
 - [ ] Unknown GTL fulfillment-binding fields fail instead of being stripped.
-- [ ] Active source identity rows reject stale ABG 3.x and pre-RC1 labels.
+- [x] Active source identity rows reject stale ABG 3.x URI/path/package forms
+  and pre-RC1 labels through the ABG programmatic gate.
 - [ ] Report identity includes normalized inventory digests.
 - [ ] odd_sdlc T-194 consumes this ABG function and no SDLC-local replacement.
 - [ ] A clean odd_sdlc live hello-world run passes after the graph inventory gate.
@@ -134,3 +135,52 @@ operation (`compose`, `substitute`, `recurse`, `fan_out`, `fan_in`, `gate`, and
 `promote`) may require a later normalized algebra AST carrier if the current
 published carriers cannot reconstruct the trace without adding caller-owned
 truth. This ticket must not claim more than it proves.
+
+## Bug Triage - 2026-06-08
+
+Finding: the 4.0.0-rc.2 `typecheckGtlProgram(...)` source-identity scanner
+rejected common prose labels such as `abg-3.7`, `ABG 3.7`, `ABG37`, `rc13`, and
+`3.9.0-rc.13`, but it missed active URI/path/package identities:
+
+- `runtime://abg/3.8/...`
+- `runtime://abg-3-6-live`
+- `abg://3.7/...`
+- `package:@abiogenesis/typescript-tenant@3.9.0-rc.13#...`
+
+STDO triage: `realization_refactor` inside this active T-152
+`requirement_reprice`. The requirement and target truth already require active
+source identity law to be enforced by the ABG-owned programmatic gate. No new
+constitutional product behavior is introduced; the realization failed to cover
+all known stale ABG identity spellings.
+
+F_D/F_P classification: F_D. The defect is deterministic lexical admission of
+active source identity rows. It must be caught by `typecheckGtlProgram(...)`
+before ABG runtime execution, not by F_P prompt memory, downstream-local scans,
+or MCP-shaped context.
+
+Prime law confirmation: the single truth surface remains
+`typecheckGtlProgram(...)`; the CLI is still a wrapper over that function.
+Downstream products must feed source identity rows into the ABG gate and must
+not duplicate this rule locally as their own GTL conformance truth.
+
+## Implementation Update - 2026-06-08
+
+Updated `gtl_program_conformance.ts` source identity scanning:
+
+- Normalizes `_` and `-` version separators before comparison.
+- Rejects stale `runtime://abg/<version>/...` URI identities.
+- Rejects stale `runtime://abg-<version>...` path identities.
+- Rejects stale `abg://<version>/...` graph/policy identities.
+- Rejects exact stale `@abiogenesis/...@<version>` package identities against
+  `abiPackageVersion`.
+- Emits deterministic `source_identity` issue rows from the programmatic gate,
+  preserving the full stale URI/package token in the issue message.
+
+Added regression coverage in
+`test_t150_gtl_program_conformance_tool.test.mjs`:
+
+- `T-152 GTL program typechecker rejects stale ABG URI and package identity forms`
+
+Proof:
+
+- `npm run test:t150` passed 23/23 on 2026-06-08 after the scanner update.
