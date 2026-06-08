@@ -68,7 +68,7 @@ primitive `terminate | redispatch | suspend` outcome constructors.
 
 - another module keeps a local priority table for active-boundary close, retry,
   re-entry, block, reprice, yield, or defer
-- a compatibility wrapper remains in the iteration-boundary transition path
+- a transitional wrapper remains in the iteration-boundary transition path
 - a read model or summary outranks `IterationOutcomeProjection`
 - superseded evidence can block current closure
 - preserved/rebased evidence is discarded when still-current authority binding

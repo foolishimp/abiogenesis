@@ -24,4 +24,4 @@ or approve GTL work.
 
 **REQ-L-GTL3-ROLE-005**: `Role.policy_hooks` may carry opaque hook references and opaque configuration for authority, approval, assignment, or related external policy concerns.
 
-**REQ-L-GTL3-ROLE-006**: GTL shall not implement authentication or authority resolution. Those remain external concerns resolved by ABG-compatible engines or other external systems.
+**REQ-L-GTL3-ROLE-006**: GTL shall not implement authentication or authority resolution. Those remain external concerns resolved by ABG-conformant engines or other external systems.

@@ -14,7 +14,7 @@ inventory before implementation.
 This slice is:
 
 - `M03-engine-kernel`
-- below public `M04` start compatibility
+- below public `M04` start adapter surface
 - over existing F_P dispatch, transport, result ingest, attached F_P loop,
   retry, and projection law
 - generic over downstream domains
@@ -128,4 +128,3 @@ carrier.
 - candidate artifact salvage happens outside `ResultArtifact` admission
 - retry is decided by the actor process or caller-local loop
 - tests prove only an attempt counter without actor event/projection truth
-

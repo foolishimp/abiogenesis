@@ -44,7 +44,7 @@ selects the outcome.
 
 **REQ-R-ABG3-ITERATION-012**: Suspend shall be derived from runtime rows such as progressing, awaiting observer, or handoff. Suspend shall not be inferred from semantic satisfaction rows.
 
-**REQ-R-ABG3-ITERATION-013**: Internal compatibility layers shall not remain in the iteration-boundary transition path. In-scope callers shall migrate to the one outcome projection or to source-row projection.
+**REQ-R-ABG3-ITERATION-013**: Internal transitional layers shall not remain in the iteration-boundary transition path. In-scope callers shall migrate to the one outcome projection or to source-row projection.
 
 **REQ-R-ABG3-ITERATION-014**: A caller-provided close-eligible flag may only act as compact evidence that the current active or preserved/rebased satisfaction set is fully satisfied. It shall not converge a boundary when any current satisfaction row is unsatisfied, deferred, orphan-bound, or blocked by runtime facts.
 

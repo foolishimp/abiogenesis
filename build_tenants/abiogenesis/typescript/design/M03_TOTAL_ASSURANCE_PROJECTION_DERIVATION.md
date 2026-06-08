@@ -220,6 +220,6 @@ T-091 must prove:
 - stale-input invalidation,
 - plugin authority limits,
 - old closure path bypass prevention,
-- T-086 envelope compatibility.
+- T-086 envelope conformance.
 
 Tenant implementation remains separate in T-092-PY and T-092-TS.

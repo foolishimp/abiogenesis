@@ -234,7 +234,7 @@ This asset is the visual check that:
   subordinate detail rather than rival public carriers
 - `M04` consumes `StartIntent`, `ExecutionBasis`, `AdvancementTransition`, and
   `RuntimeEvent` as upstream engine-runner truth instead of reconstructing them
-- `publicStart(...)` is a compatibility adapter over `start(...)`; it does not
+- `publicStart(...)` is a subordinate adapter over `start(...)`; it does not
   own a separate event-construction or single-transition path
 - loop, proxy, ingest, install, and qualification families remain explicitly
   deferred

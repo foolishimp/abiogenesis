@@ -16,7 +16,7 @@ This slice is:
 - `M03-engine-kernel` carrier law over GTL declarations,
 - pure immutable contract resolution and admission,
 - upstream of assurance projection and runner transition choice,
-- compatible with M01/M02 declaration carriers,
+- conformant with M01/M02 declaration carriers,
 - generic across downstream products.
 
 This slice does not include:

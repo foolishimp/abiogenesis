@@ -158,7 +158,7 @@ The TypeScript line must preserve the ABG interpretation split established by
 locates, admits, or resumes a lawful graph-function execution boundary and
 delegates to the M03-owned `start -> iterate` runner.
 
-`publicStart(...)` remains as a compatibility adapter over `start(...)`. It is
+`publicStart(...)` remains as a subordinate adapter over `start(...)`. It is
 not a separate execution engine and must not own one-step advancement law.
 
 The runtime engine must own the internal iteration law beneath that public

@@ -48,7 +48,7 @@ must not require a different public result API.
 
 ## PTY Backend Decision
 
-T-111 pins the first literal terminal backend to a Docker-compatible GNU
+T-111 pins the first literal terminal backend to a Docker-conformant GNU
 `screen` profile.
 
 Reason:

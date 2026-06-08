@@ -15,7 +15,7 @@ Define bounded sub-work as a lawful GTL 3 declaration capability.
 
 **REQ-L-GTL3-SUBWORK-001**: GTL shall be able to express that a graph vector or graph function supports bounded sub-work dispatch.
 
-**REQ-L-GTL3-SUBWORK-002**: The sub-work declaration is a language capability. ABG-compatible engines choose how to realize it operationally.
+**REQ-L-GTL3-SUBWORK-002**: The sub-work declaration is a language capability. ABG-conformant engines choose how to realize it operationally.
 
 **REQ-L-GTL3-SUBWORK-003**: The sub-work declaration shall express boundedness and schema validity. Execution scoping, lifecycle, and transport remain engine obligations.
 

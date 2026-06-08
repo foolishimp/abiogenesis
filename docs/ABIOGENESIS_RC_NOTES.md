@@ -1,13 +1,13 @@
-# abiogenesis 3.9.0-rc.1 RC Notes
+# abiogenesis 3.9.0-rc.1 Historical RC Notes
 
-This note records accepted RC behavior for the current `v3.9.0-rc.1` line.
-The package cut is `3.9.0-rc.1`.
+This note records accepted RC behavior for the historical `v3.9.0-rc.1` line.
+The historical package cut is `3.9.0-rc.1`.
 
 ## Accepted Framework Behavior
 
 ### Stage-Set Compute Boundary Opens 3.9.0 RC1
 
-The current RC line opens `3.9.0` because ABG now exposes the staged
+This historical RC line opens `3.9.0` because ABG exposes the staged
 `transform.C -> evaluate.C -> consequence.C` runtime boundary as a symmetric
 stage-set law over selected `abg.fn_composition` identity. Scalar stage plugins
 remain lawful one-task or one-rule reductions, but their replay-visible inputs

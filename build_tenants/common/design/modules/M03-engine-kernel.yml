@@ -44,6 +44,7 @@ primary_surfaces:
   - engine-kernel.interpret-surface
   - engine-kernel.selfhosting-surface
   - engine-kernel.materialization-surface
+  - engine-kernel.gtl-program-conformance-surface
 interfaces:
   - EventContext
   - EventStream
@@ -61,6 +62,9 @@ interfaces:
   - CompanionBundle
   - materialize_graph_function(request, module)
   - derive_bundle(record, kind)
+  - admitGtlProgramConformanceInput(...)
+  - typecheckGtlProgram(...)
+  - formatGtlProgramConformanceIssues(...)
   - Traversal
   - TraversalOutcome
   - traverse(traversal, runtime, surface)
@@ -74,13 +78,14 @@ invariants:
   - materialization fails closed on undeclared graph-function identity, profile, or structural parameter, and on outer-contract violation
   - recursive zoom/materialize/fold-back preserves outer contract, lineage, and replayable provenance end to end
   - graph-derived evaluator bundles come from refined or realized structure rather than hidden interpreter-local strategy
+  - downstream GTL/ABG program conformance is admitted through one ABG-owned static gate over admitted inventory, feature coverage, owner classification, and evidence-bound report identity
   - graph remains primary structural truth even when selected subgraphs or evaluator bundles are derived
   - public start/resume is an ignition boundary only; replay-derived graph-function iteration and next-edge advancement remain kernel-owned beneath it
   - next-edge selection is derived from event truth over graph-call, frame, vector-local traversal, evaluation, proof, and closure facts rather than package-local loop state or fixed first-vector shortcuts
   - retry/repair mints fresh attempt identity and regenerates prompt/manifest truth from current projection rather than redispatching stale controller state
   - bounded leaf-task execution remains parent-bound runtime work and not a rival top-level workflow ontology
   - workflow version, work key, and run id enter event emission through explicit event-context values rather than mutable hidden stream state
-  - compatibility build projection is neutral and resolves through runtime identity as build_id -> worker_id -> engine_id rather than through a hardcoded tool default
+  - neutral build projection resolves through runtime identity as build_id -> worker_id -> engine_id rather than through a hardcoded tool default
   - effect-edge F_P dispatch may contribute explicit WorkSurface fragments, but transport details remain outside the pure traversal/materialization kernels
   - selfhosting drift checks are structural: exported GTL surface, bootloader type table, and evaluator-regime declarations must agree
 composes_with:
@@ -101,6 +106,7 @@ test_obligations:
   - refinement tests for parent/child lineage, lawful fold-back, and refined evaluator-bundle derivation
   - provenance tests that preserve graph-function, materialization, bundle, and refined-boundary identity across execution
   - structural selfhosting tests that fail when bootloader sections drift from the exported GTL surface even if names still appear elsewhere in the document
+  - GTL program conformance tests reject malformed raw input, partial feature manifests, spoofed feature owners, lossy target-carrier rows, stale active source identities, and proxy observations that infer hooks or F-star composition from unrelated rows
 notes:
   - canonical ABG graph-function materialization and graph-derived companion bundle derivation are kernel-owned design obligations for the 1.1 line
   - the internal iteration engine is part of the kernel; M04 public start, resume, and control-loop surfaces may admit or resume work but do not substitute for graph traversal advancement

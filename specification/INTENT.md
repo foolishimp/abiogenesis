@@ -362,7 +362,7 @@ Coarse:  design → code
 Zoomed:  design → module_decomp → code_units → code
 ```
 
-The outer graph still sees input compatible with `design` and output compatible with `code`. The zoomed graph makes explicit additional stages, assets, and convergence surfaces. The kernel doesn't change — refinement is local.
+The outer graph still sees input conforming to `design` and output conforming to `code`. The zoomed graph makes explicit additional stages, assets, and convergence surfaces. The kernel doesn't change — refinement is local.
 
 ### Scope
 
@@ -372,7 +372,7 @@ The outer graph still sees input compatible with `design` and output compatible 
 - `Fragment` as a GTL type: reusable compositional subgraph with input/output contracts
 - Named graph functions: reusable graph-valued functions with explicit input/output interfaces (e.g., `requirements_to_design()`, `code_to_test_evidence()`)
 - Fragment libraries: ordinary reusable structural assets, catalogued and importable across Packages
-- Composition validation: interface satisfaction, DAG acyclicity, and type compatibility at spec-load time
+- Composition validation: interface satisfaction, DAG acyclicity, and type conformance at spec-load time
 - Zoom operation: expand an edge into a Fragment while preserving the outer contract
 - Spawn/fold-back: create child work_keys, project descendant results into parent
 - Event stream carries `work_key` and `run_id` on all events
@@ -558,7 +558,7 @@ The same protocol must hold whether one evaluator or an explicit evaluator set o
 
 **5. Consumer-pluggable synthesis without business logic in ABG**
 
-When a coarse contract is insufficient, GTL must be able to declare a lawful synthesis/refinement point where consumer logic can produce or select an interface-compatible inner graph.
+When a coarse contract is insufficient, GTL must be able to declare a lawful synthesis/refinement point where consumer logic can produce or select an interface-conformant inner graph.
 
 ABG may host the callback and record provenance.
 ABG must not contain hidden business-choice logic.

@@ -1,6 +1,6 @@
 # LLM GTL App Builder Guide
 
-**Status**: Current compressed technical GTL 3 / ABG 3.9.0-rc.3 guide for LLMs
+**Status**: Current compressed technical guide for GTL 3 / ABG 3 over the TypeScript 4.0.0-rc.4 release line
 **Audience**: LLM agentic coders and agent bootstraps building GTL/ABG domain apps
 **Purpose**: Compress the human GTL/ABG guide into the ontology, operating rules, fail-closed constraints, and language-specific syntax needed by LLM agents
 
@@ -269,7 +269,7 @@ Scalar reductions are lawful only as reductions:
 - scalar `FpEvaluationOutcome` is one `evaluate.C.F_P` semantic judgment rule
 - scalar `consequenceProjection` is one `consequence.C.F_D` projection task
 
-They are not privileged alternate paths and not compatibility layers that keep
+They are not privileged alternate paths and not transitional layers that keep
 old authority alive.
 
 ### Stage Semantics
@@ -498,7 +498,7 @@ Do not add:
 
 - imperative executive loops as shadow graph traversal
 - product-specific orchestration scripts as second runtime law
-- compatibility targets that keep old and new truth alive
+- alternate targets that keep old and new truth alive
 - hidden prompt-only policy
 - file-path lore where a typed asset surface or registry is required
 - derived projections that outrank emitted runtime facts
@@ -2520,7 +2520,7 @@ Stop and reprice when:
 - the public carrier is a bare vector or hidden service method
 - a required environment binding is not replay-visible
 - two surfaces claim authority over the same runtime truth
-- the runtime needs a compatibility bridge to keep old and new truth alive
+- the runtime needs a transitional bridge to keep old and new truth alive
 - proof or closure depends on prompt text instead of declared policy and emitted facts
 
 ## Operator UX
@@ -2558,7 +2558,7 @@ The UX should expose lawful next moves from runtime facts.
 
 The live kernel in this repo is `abiogenesis`.
 
-The current source package version is `3.9.0-rc.3`.
+The current TypeScript source package version is `4.0.0-rc.4`.
 
 ### Run from source
 
@@ -2615,8 +2615,8 @@ command suffix and flags as the Python CLI; only the executable prefix may
 differ.
 
 `start(...)` is the TypeScript RC entry that delegates to the ABG-owned
-`start -> iterate` runner. `publicStart(...)` is a compatibility adapter over
-that path, not a separate one-step execution loop.
+`start -> iterate` runner. `publicStart(...)` is a subordinate adapter over that
+path, not a separate one-step execution loop.
 
 The public operator contract is `gen-start`.
 

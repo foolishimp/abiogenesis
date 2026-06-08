@@ -73,6 +73,57 @@ through ABG, and replayable through event and provenance truth.
 
 ---
 
+## GTL Contract-Law API Reload Anchor
+
+`REQ-L-GTL3-CONTRACT-LAW-API` is the fast constitutional reload surface for GTL
+capability and boundary review. It indexes the detailed GTL requirement
+families rather than replacing them.
+
+GTL is the product's contract-law API and graph algebra for graph-native
+deterministic integrations. It owns graph algebra, typed graph program
+declarations, graph-function interfaces, graph-vector identity and target law,
+target-carrier contract definitions, hook and plugin boundary declarations,
+prompt and typed asset-surface interfaces, module publication, and job or
+public-start binding law.
+
+GTL must be complete enough as a language to configure every product-visible
+graph-program element that ABG admits or interprets. This includes graph
+structure and interface law, `Operator`/`Evaluator`/`Rule` declarations,
+selected `F_D`/`F_P`/`F_H` composition through `abg.fn_composition`, recursive
+graph functions, higher-order graph algebra, selection and refinement
+boundaries, prompt construction and typed assets, plugin/hook boundaries,
+module/job/public-start bindings, and external tool gates.
+
+ABG owns admission, interpretation, runtime events, payload ledgers, assurance
+fold, traversal transition, continuation, correction, and replay. Downstream
+products own domain meaning and product read models over admitted GTL/ABG
+facts. They must not replace GTL contract law with product-local parsers,
+prompt prose, plugin wrappers, or test-only inventories.
+
+GTL `Operator` declarations are not the same category as ABG runtime
+operations. Product-visible configuration for ABG runtime operations such as
+start, graph call, frame opening, iteration, traversal selection, retry,
+continuation, correction, replay, payload admission, worker binding, transport,
+projection, assurance, and saga/frontier control must trace to GTL declarations
+or ABG-admitted carriers over GTL declarations.
+
+The programmatic ABG proof surface for downstream graph assets is
+`typecheckGtlProgram(...)`, with raw input first admitted through
+`admitGtlProgramConformanceInput(...)`. External tool surfaces, including MCP
+endpoints, may be gated by GTL/ABG, but they are not the constitutional source
+of GTL contract law.
+
+This boundary derives from `REQ-L-GTL3-CONTRACT-LAW-API`,
+`REQ-L-GTL3-LANGUAGE`, `REQ-L-GTL3-LAWS`, `REQ-L-GTL3-GRAPHVECTOR`,
+`REQ-L-GTL3-GRAPHFUNCTION`, `REQ-L-GTL3-OPERATOR`,
+`REQ-L-GTL3-EVALUATOR`, `REQ-L-GTL3-RULE`, `REQ-L-GTL3-RECURSE`,
+`REQ-L-GTL3-HOF`, `REQ-L-GTL3-HOOKS`,
+`REQ-L-GTL3-COMPUTE-NOTATION`, `REQ-L-GTL3-ASSET-SURFACE`,
+`REQ-L-GTL3-MODULE`, `REQ-R-ABG3-FN-COMPOSITION`, and
+`REQ-R-ABG3-INTERPRET`.
+
+---
+
 ## Canonical GTL Topology Anchors
 
 The canonical GTL topology-anchoring types are `Graph`, `Node`, `GraphVector`,
@@ -580,8 +631,7 @@ Today that means:
 
 - the primary release realization is `build_tenants/abiogenesis/typescript/`
 - `build_tenants/abiogenesis/python/` is a paused released reference line
-  retained for history, comparison, and compatibility evidence, not an active
-  RC gate
+  retained for history and comparison evidence, not an active RC gate
 - `build_tenants/abiogenesis/codex/` remains a paused alternate realization
 - downstream proving domains are important evidence
   surfaces, but they are not the GTL + ABG product definition

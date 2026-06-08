@@ -46,7 +46,7 @@ The first TypeScript `M04` slice preserves these truths from the Python line:
 - operator input is normalized once at the public boundary
 - the app/bootstrap layer routes into kernel carriers rather than inventing a
   second runtime doctrine
-- `publicStart(...)` is a compatibility adapter over `start(...)`, not a
+- `publicStart(...)` is a subordinate adapter over `start(...)`, not a
   second execution route
 - runtime identity and configured worker resolution remain explicit public
   inputs or projections

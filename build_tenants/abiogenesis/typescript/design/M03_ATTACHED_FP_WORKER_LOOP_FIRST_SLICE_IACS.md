@@ -14,7 +14,7 @@ implementation.
 This slice is:
 
 - `M03-engine-kernel`
-- below public `M04` start compatibility
+- below public `M04` start adapter surface
 - over existing F_P dispatch, result-ingest, retry-repair, continuation, and
   projection law
 - generic over downstream domains
@@ -121,4 +121,3 @@ surface:
 - stateful retry is simulated only by an attempt counter hidden in the test
 - accepted attached F_P result stops at dispatch instead of continuing under
   `until = converged`
-

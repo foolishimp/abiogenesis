@@ -23,7 +23,7 @@ separate engine capability-profile surface as active constitutional runtime law.
 
 ## Acceptance Criteria
 
-**REQ-M-GTL3-CAPABILITY-001**: An ABG-compatible engine shall publish a capability profile declaring which GTL constructs it can interpret.
+**REQ-M-GTL3-CAPABILITY-001**: An ABG-conformant engine shall publish a capability profile declaring which GTL constructs it can interpret.
 
 **REQ-M-GTL3-CAPABILITY-002**: Capability profiles shall align with the active GTL, ABG, and mapping requirement families plus the ratified shared and tenant design surfaces that implement them.
 

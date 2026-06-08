@@ -5,6 +5,15 @@ This domain owns the constitutional language and graph law for GTL 3.
 GTL is an LLM-first, graph-first, algebraic governance control language with
 Python-native declarative syntax.
 
+Fast reload anchor:
+
+- `REQ-L-GTL3-CONTRACT-LAW-API.md` states GTL as the constitutional
+  contract-law API and graph algebra, then indexes the detailed requirement
+  families below. Load it first when reviewing GTL capability, ABG program
+  admission, downstream graph-asset conformance, target-carrier law, prompt
+  asset law, hook/plugin boundaries, `F_D`/`F_P`/`F_H` composition, recursive
+  graph functions, ABG runtime-operation configuration, or external tool gates.
+
 Use these families for semantic truth about language identity, attrs, contexts,
 graphs, graph vectors, graph functions, hook surfaces, semantic work
 declarations, algebra, publication boundaries, epistemic notation over the
@@ -13,6 +22,10 @@ ratified ontology, and the GTL/ABG boundary.
 ## Scope
 
 - language identity, declarative form, attrs, contexts, and engine boundary
+- contract-law API identity, reload boundary, and ownership split across GTL,
+  ABG, and downstream products
+- complete GTL language configuration for product-visible graph-program
+  elements admitted or interpreted by ABG
 - graph structure, typed loci, interfaces, graph vectors, and identities
 - typed asset-surface interfaces, including renderer-backed asset contracts
 - operators, evaluators, rules, and governance hook surfaces
@@ -26,6 +39,7 @@ ratified ontology, and the GTL/ABG boundary.
 
 ## Families
 
+- `REQ-L-GTL3-CONTRACT-LAW-API.md`
 - `REQ-L-GTL3-LANGUAGE.md`
 - `REQ-L-GTL3-ATTRS.md`
 - `REQ-L-GTL3-CONTEXT.md`

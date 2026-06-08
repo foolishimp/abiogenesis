@@ -14,7 +14,7 @@ turning ABG into a strategy engine.
 
 ## Acceptance Criteria
 
-**REQ-R-ABG3-SELECTION-APPLICATION-001**: ABG shall enumerate compatible graph or graph-function candidates for a contract boundary without making strategic choice.
+**REQ-R-ABG3-SELECTION-APPLICATION-001**: ABG shall enumerate interface-conformant graph or graph-function candidates for a contract boundary without making strategic choice.
 
 **REQ-R-ABG3-SELECTION-APPLICATION-002**: ABG shall accept externally provided selection from `F_D`, `F_P`, `F_H`, or domain/business policy and apply it lawfully.
 

@@ -768,7 +768,7 @@ flowchart LR
   `CandidateFamily`, or published traversal target authority
 - target outcome absent or contradictory
 - source/input asset ref not bound to current observation
-- expected output asset ref not compatible with selected action
+- expected output asset ref not conformant with selected action
 - hidden runtime config or unrecorded hook source
 - candidate that attempts to emit runtime events directly
 - candidate that attempts to close traversal without evaluator/assurance truth

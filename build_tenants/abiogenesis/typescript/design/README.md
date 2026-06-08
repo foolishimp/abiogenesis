@@ -115,6 +115,8 @@ Current tenant-local design truth and proposed next-boundary design packs live i
 - `M03_ABG_FN_COMPOSITION_DERIVATION.md`
 - `M03_ABG_FN_COMPOSITION_FIRST_SLICE_IACS.md`
 - `M03_ABG_FN_COMPOSITION_STRUCTURAL_CARRIER_DIAGRAM.md`
+- `M03_GTL_PROGRAM_CONFORMANCE_GATE_FIRST_SLICE_IACS.md`
+- `M03_GTL_PROGRAM_CONFORMANCE_GATE_STRUCTURAL_CARRIER_DIAGRAM.md`
 - `M03_ABG_PROBABILISTIC_MONAD_PLUGIN_BOUNDARY_DERIVATION.md`
 - `M03_COMPOSED_C_STAGE_SET_DERIVATION.md`
 - `M03_VECTOR_RUNTIME_REGIME_RESOLUTION_DERIVATION.md`
@@ -255,7 +257,7 @@ That completed code wave remains intentionally narrow:
 - one explicit configured runtime or worker identity projection path
 - one canonical route into completed `M03` `start -> iterate` engine carriers
 
-After T-072/T-074, `publicStart(...)` remains only a compatibility adapter over
+After T-072/T-074, `publicStart(...)` remains only a subordinate adapter over
 `startFromRequest(...)`; it does not authorize a rival one-step public-start
 runtime path or later `M04` auto/proxy/install/bootstrap widening.
 

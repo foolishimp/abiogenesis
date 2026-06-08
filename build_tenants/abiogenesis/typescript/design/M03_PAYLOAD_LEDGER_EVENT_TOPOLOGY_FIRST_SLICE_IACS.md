@@ -18,7 +18,7 @@ This slice is:
   truth,
 - upstream of assurance row projection,
 - upstream of downstream lifecycle registers,
-- compatible with external payload bodies by ref and digest.
+- conformant with external payload bodies by ref and digest.
 
 This slice is not:
 

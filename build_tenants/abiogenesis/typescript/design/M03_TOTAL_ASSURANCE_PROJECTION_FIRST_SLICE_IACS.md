@@ -121,7 +121,7 @@ GraphCall/Frame/Continuation/vector truth and is not a new product aggregate.
 | plugin authority limit | plugin IACS and this IACS | provider cannot emit events, choose vector, or close |
 | GTL hook completeness | GTL hook requirements | graph function/vector can declare assurance hook refs without side-door config |
 | report read-model limit | this IACS | report cannot replace projection or decision |
-| envelope compatibility | T-086 IACS | assurance scope derives from `TraversalEnvelopeView` |
+| envelope conformance | T-086 IACS | assurance scope derives from `TraversalEnvelopeView` |
 
 ## Fail-Closed Rules
 

@@ -74,7 +74,7 @@ carriers in this first slice.
 | `PublicControlModes` | subordinate | nested product-policy detail carried by `PublicStartRequest` | admitted once by the public-start parser |
 | `ConfiguredRuntimeSelector` | subordinate | explicit runtime/worker input detail, not an outer public carrier | admitted once by the public-start parser |
 | `KernelRouteBinding` | subordinate | app-bootstrap route detail that binds `PublicStartRequest` to completed `M03` engine start admission | constructed once by `M04`, not exposed as a rival public carrier |
-| `PublicStartContext` | subordinate | app-bootstrap route context shared by `start(...)` and the `publicStart(...)` compatibility adapter | carries admitted module, runtime identity, policy, and replay context but does not own traversal |
+| `PublicStartContext` | subordinate | app-bootstrap route context shared by `start(...)` and the `publicStart(...)` subordinate adapter | carries admitted module, runtime identity, policy, and replay context but does not own traversal |
 | `PublicRuntimeIdentityProjection` | subordinate | explicit projection detail inside the public outcome family | derived once from `ExecutionBasis.runtimeIdentity` |
 | `PublicKernelTraceRef` | subordinate | public trace/provenance detail over kernel truth, not an outer carrier | derived once from `ExecutionBasis` / `AdvancementTransition` / `RuntimeEvent` |
 | `PublicStopDetail` | subordinate | outcome-detail payload only | derived from kernel transition/event truth |
@@ -107,7 +107,7 @@ carriers in this first slice.
   directly.
 - `M04` code routes public execution through `start(...)`, which calls the
   completed `M03` engine-owned runner. It must not recreate kernel law locally.
-- `publicStart(...)` exists only as a compatibility adapter over
+- `publicStart(...)` exists only as a subordinate adapter over
   `startFromRequest(...)`. It must not call lower M03 admission, transition,
   or emit functions directly.
 

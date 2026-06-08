@@ -14,20 +14,25 @@ The repo is organized around spec-driven development:
   harness
 - `build_tenants/abiogenesis/python/` is a paused released reference line
 
-The active engine and language surface is GTL 3 / ABG 3.9.0-rc.1:
+The active TypeScript release line is `@abiogenesis/typescript-tenant`
+`4.0.0-rc.4`. The constitutional language/runtime requirement families remain
+GTL 3 / ABG 3. The fast reload authority for GTL contract-law/API review is
+[`REQ-L-GTL3-CONTRACT-LAW-API.md`](specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md).
+
+The active engine and language surface is:
 - GTL: `Module`, `Graph`, `Node`, `GraphVector`, `Context`, `Operator`,
   `Evaluator`, `Rule`, `GraphFunction`, `RefinementBoundary`,
   `CandidateFamily`, `ContractRef`, `Job`, `Role`
 - ABG: interpreter, typed runtime carriers, event stream, projection,
   convergence, regime binding, run, graph call, continuation, transport,
-  provenance, payload ledger, assurance projection
+  provenance, payload ledger, assurance projection, program conformance gate
 
-The 3.9.0 RC runtime boundary is carrier and event owned. Public execution
+The current TypeScript runtime boundary is carrier and event owned. Public execution
 still enters through published `GraphFunction` work, but advancement, dispatch,
 convergence, completion, and projection consume typed runtime truth rather than
 controller-local state or `runtime_config` side channels. In the TypeScript RC
 line, `start(...)` owns the public `start -> iterate` engine path and
-`publicStart(...)` is only a compatibility adapter over that path.
+`publicStart(...)` is only an adapter over that path.
 
 The epistemic notation layer is deliberately not new ontology. `C` means the
 selected `abg.fn_composition` identity at an owning GTL boundary.
@@ -98,6 +103,7 @@ Read these first:
 - Methodology standard: [SPEC_METHOD.md](https://github.com/foolishimp/specification_methodology/blob/main/specification/standards/SPEC_METHOD.md)
 - [INTENT.md](specification/INTENT.md)
 - [PRODUCT.md](specification/PRODUCT.md)
+- [REQ-L-GTL3-CONTRACT-LAW-API.md](specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md)
 - [requirements/gtl/](specification/requirements/gtl/)
 - [requirements/abg/](specification/requirements/abg/)
 - [requirements/mapping/](specification/requirements/mapping/)
@@ -217,5 +223,6 @@ closure, and ledger truth.
 ## Notes
 
 - Historical V1 doctrine and supersession history still exist in the specification where they matter constitutionally.
-- Compatibility debt is being pruned aggressively from shipping surfaces.
+- Alternate or legacy truth surfaces are being pruned aggressively from shipping
+  surfaces.
 - Live domain artifacts are versioned constitutional history and must change by supersession or withdrawal, not silent in-place mutation.

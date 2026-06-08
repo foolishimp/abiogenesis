@@ -36,7 +36,7 @@ The first slice is still written for the current primary operator UX:
 
 - agentic coder CLI backends `claude`, `codex`, and `gemini`
 
-So any stop-class claim in this slice must remain compatible with explicit
+So any stop-class claim in this slice must remain conformant with explicit
 transport/runtime identity over those backends.
 
 ## Upstream Authoritative Carriers Consumed By This Slice

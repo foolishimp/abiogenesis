@@ -153,7 +153,7 @@ the single loop. The package is admitted context for that loop.
 - `code/src/abg/m03/contracts/construction_event_causality.ts` owns
   construction event ordering and causality validation.
 - `code/src/abg/m03/contracts/fp_consciousness.ts` remains the construction
-  composition surface and compatibility export surface; it is not the pressure
+  composition surface and legacy export surface; it is not the pressure
   package semantic center.
 - `code/src/abg/m03/contracts/carriers.ts` declares the materialized runtime
   event.

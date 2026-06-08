@@ -13,7 +13,7 @@ from `SPEC_METHOD.md`:
 - migrate producer and consumer surfaces to the new contract
 - prove only after the old contract is no longer authoritative
 
-This wave does not treat compatibility aliases or mixed operator stories as
+This wave does not treat alias spellings or mixed operator stories as
 acceptable closure.
 
 The current completed wave is ABG construction-substrate. It turns the T-127

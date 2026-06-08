@@ -32,7 +32,7 @@ invariants:
   - app orchestration may loop and proxy approvals, but it must not redefine GTL or ABG kernel semantics
   - event and assessment ingress may validate and annotate payloads, but they shall still route through the canonical ABG emit surface rather than append directly to runtime truth
   - runtime identity and configured worker resolution are explicit inputs, not hidden build defaults
-  - when runtime build identity is absent, the app layer preserves the kernel's neutral compatibility projection rather than reintroducing a tenant-specific default
+  - when runtime build identity is absent, the app layer preserves the kernel's neutral build projection rather than reintroducing a tenant-specific default
 composes_with:
   - M03-engine-kernel provides the one-step engine progression and runtime truth being orchestrated
   - M02-work-publication provides installed module and runtime-config surfaces
@@ -49,4 +49,4 @@ notes:
   - event ingress remains app-owned, but event persistence is kernel-owned through the canonical emit surface
   - `F_P` handling is engine-owned through dispatch-runtime policy resolution; `F_H` proxy approval remains an app concern
   - runtime contract worker identity is first-class input; the app layer must not silently replace it with a build default
-  - absent explicit runtime build identity, the compatibility `build` projection resolves through engine/worker runtime truth rather than a historical tenant fallback
+  - absent explicit runtime build identity, the neutral `build` projection resolves through engine/worker runtime truth rather than a historical tenant fallback

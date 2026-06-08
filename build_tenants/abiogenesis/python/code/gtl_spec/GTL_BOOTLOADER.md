@@ -74,7 +74,7 @@ ABG runtime types such as `Traversal`, `ConvergenceResult`, `Worker`, `Run`, `Se
 | `Job` | `gtl.work_model` | Durable semantic work contract |
 | `Module` | `gtl.module_model` | Publication boundary for GTL artifacts |
 
-Public GTL algebra (`gtl.algebra`):
+Core GTL graph algebra:
 - `edge`
 - `compose`
 - `substitute`
@@ -84,20 +84,29 @@ Public GTL algebra (`gtl.algebra`):
 - `gate`
 - `promote`
 - `identity`
-- `deferred_refinement`
-- `candidate_family`
 - `same_object`
+
+Host-language APIs may spell `same_object` as `sameObject`. Selection,
+refinement, synthesis, and publication carriers such as `RefinementBoundary`
+and `CandidateFamily` are first-class GTL configuration surfaces, not core
+graph algebra operators. The main current contract-law/API reload authority is
+`specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md` in the source
+workspace.
 
 ## 4. GTL / ABG Boundary
 
 GTL declares:
 - graph structure
 - graph algebra
+- operator, evaluator, and rule declarations
+- selected `F_D`/`F_P`/`F_H` composition through `abg.fn_composition`
 - higher-order graph functions
 - refinement boundaries
 - candidate families
 - jobs
 - roles
+- prompt construction and typed asset surfaces
+- plugin and hook boundary declarations
 - module publication
 - recursion law: declared termination plus declared fold-back contract
 - semantic jobs over published graph functions, with graph vectors retained as

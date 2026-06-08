@@ -50,8 +50,9 @@ interfaces:
   - gate(target, rule, evaluators)
   - promote(source, to)
   - identity(interface)
-  - deferred_refinement(...)
-  - candidate_family(...)
+  - same_object(left, right)
+  - RefinementBoundary
+  - CandidateFamily
 invariants:
   - prime GTL declaration types are immutable value records
   - GraphVector is internal adjacency truth and a transition-governance declaration surface
@@ -60,6 +61,7 @@ invariants:
   - graph-function publication truth is symbolic and replayable rather than anonymous runtime closure state
   - structured higher-order semantics such as recursion termination, gate obligations, and governance hook attachment remain inspectable on GTL declarations
   - algebraic operators may change realized structure but must preserve declared outer contract where the law requires it
+  - RefinementBoundary and CandidateFamily are selection/refinement/publication carriers, not core graph algebra operators
   - GTL core does not depend on ABG runtime types or interpreter state
 composes_with:
   - M02-work-publication publishes GTL declarations for import and reuse

@@ -99,7 +99,7 @@ The TypeScript archive framework is the `T-030` repricing of that Python
 sandbox contract into explicit `M05` archive-finalization carriers.
 
 This RC live lane does not create new archive law. It must produce durable
-live-run evidence under `test_env/test_runs/` and keep that evidence compatible
+live-run evidence under `test_env/test_runs/` and keep that evidence conformant
 with the Python-sandbox-derived postmortem expectation. Canonical archive
 writer/finalizer parity remains owned by `T-030`.
 

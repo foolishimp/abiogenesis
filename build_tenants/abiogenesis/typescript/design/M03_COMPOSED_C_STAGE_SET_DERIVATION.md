@@ -70,7 +70,7 @@ ABG.start(fn<A, B>.C)
 - `FpEvaluationOutcome` is the one-rule `evaluate.C.F_P` reduction.
 - `consequenceProjection` is the one-task `consequence.C.F_D` reduction.
 
-These reductions preserve compatibility only when ABG still owns planning,
+These reductions preserve conformance only when ABG still owns planning,
 admission, event writes, ledgers, assurance, traversal, and replay.
 
 ## Stage Specializations

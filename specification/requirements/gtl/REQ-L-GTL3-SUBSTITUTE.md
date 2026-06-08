@@ -14,7 +14,7 @@ another.
 
 ## Acceptance Criteria
 
-**REQ-L-GTL3-SUBSTITUTE-001**: `substitute(outer_graph, contract_vector, inner_graph)` shall replace a coarse contract vector with an interface-compatible inner graph.
+**REQ-L-GTL3-SUBSTITUTE-001**: `substitute(outer_graph, contract_vector, inner_graph)` shall replace a coarse contract vector with an interface-conformant inner graph.
 
 **REQ-L-GTL3-SUBSTITUTE-002**: Substitution shall preserve the declared outer contract. Internal refinement may change structure but shall not alter the outer boundary observed by callers.
 

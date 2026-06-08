@@ -7,7 +7,8 @@ import type {
   Graph,
   GraphFunction,
   GraphVector,
-  Node
+  Node,
+  Regime
 } from "../../../gtl/m01/contracts/carriers.js";
 import {
   interfaceContract,
@@ -43,7 +44,18 @@ export type GtlProgramConformanceSurfaceKind =
   | "public_start"
   | "prompt_asset"
   | "plugin_contract"
-  | "source_identity";
+  | "source_identity"
+  | "same_object"
+  | "operator_declaration"
+  | "evaluator_declaration"
+  | "rule_declaration"
+  | "compute_composition"
+  | "hook_boundary"
+  | "selection_boundary"
+  | "job_binding"
+  | "role_binding"
+  | "external_tool_gate"
+  | "feature_coverage";
 
 export interface GtlProgramConformanceIssue {
   readonly kind: "gtl_program_conformance_issue";
@@ -63,6 +75,28 @@ export interface GtlProgramTargetCarrierRow {
   readonly graphVectorId: string;
   readonly targetAssetType: string;
   readonly targetCarrierContractRef: string;
+  readonly targetCarrierContractDigest: string;
+  readonly targetCarrierTemplateRef: string;
+  readonly outputSurfaceRef: string;
+  readonly outputCarrierFamilyRef: string;
+  readonly outputCarrierKind: string;
+  readonly envelopeContractRef: string;
+  readonly nestedPayloadPath: string;
+  readonly requiredFieldRefs: readonly string[];
+  readonly optionalFieldRefs: readonly string[];
+  readonly fixedProtocolFieldRefs: readonly string[];
+  readonly workerFillableFieldRefs: readonly string[];
+  readonly literalDomainRefs: readonly string[];
+  readonly enumDomainRefs: readonly string[];
+  readonly schemaRef: string;
+  readonly admissionRef: string;
+  readonly payloadLedgerBindingRef: string;
+  readonly edgeAssuranceBindingRef: string;
+  readonly handoffProjectionRef: string;
+  readonly constructionTemplateRef: string;
+  readonly replayDigestPolicyRef: string;
+  readonly materializationPolicyRef: string;
+  readonly closurePreconditionRef: string;
 }
 
 export interface GtlProgramEdgeClosureRow {
@@ -103,7 +137,211 @@ export interface GtlProgramSourceIdentityRow {
   readonly evidenceRefs?: readonly string[] | undefined;
 }
 
-export interface GtlProgramExpectedCoverage {
+export type GtlProgramHostSurfaceKind =
+  | "graph_function"
+  | "graph_vector"
+  | "operator"
+  | "evaluator"
+  | "rule"
+  | "job"
+  | "role"
+  | "module"
+  | "candidate_family"
+  | "refinement_boundary"
+  | "visible_defaults"
+  | "external_tool";
+
+export interface GtlProgramSameObjectRow {
+  readonly proofRef: string;
+  readonly leftRef: string;
+  readonly rightRef: string;
+  readonly equalityDigest: string;
+  readonly evidenceRefs?: readonly string[] | undefined;
+}
+
+export interface GtlProgramOperatorDeclarationRow {
+  readonly operatorRef: string;
+  readonly name: string;
+  readonly regime: Regime;
+  readonly binding: string;
+  readonly hostKind: GtlProgramHostSurfaceKind;
+  readonly hostRef: string;
+  readonly tagRefs: readonly string[];
+  readonly evidenceRefs?: readonly string[] | undefined;
+}
+
+export interface GtlProgramEvaluatorDeclarationRow {
+  readonly evaluatorRef: string;
+  readonly name: string;
+  readonly regime: Regime;
+  readonly description: string;
+  readonly binding: string;
+  readonly consumedFieldRefs: readonly string[];
+  readonly hostKind: GtlProgramHostSurfaceKind;
+  readonly hostRef: string;
+  readonly tagRefs: readonly string[];
+  readonly evidenceRefs?: readonly string[] | undefined;
+}
+
+export interface GtlProgramRuleDeclarationRow {
+  readonly ruleRef: string;
+  readonly name: string;
+  readonly ruleKind: string;
+  readonly configDigest: string;
+  readonly hostKind: GtlProgramHostSurfaceKind;
+  readonly hostRef: string;
+  readonly tagRefs: readonly string[];
+  readonly evidenceRefs?: readonly string[] | undefined;
+}
+
+export type GtlProgramCompositionDeclarationSourceKind =
+  | "graph_vector_declaration"
+  | "graph_function_declaration"
+  | "operator_declaration"
+  | "evaluator_declaration"
+  | "rule_declaration"
+  | "job_policy_hook"
+  | "role_policy_hook"
+  | "module_policy_hook"
+  | "visible_defaults"
+  | "published_template";
+
+export interface GtlProgramComputeCompositionRow {
+  readonly compositionRef: string;
+  readonly compositionDigest: string;
+  readonly hostKind: GtlProgramHostSurfaceKind;
+  readonly hostRef: string;
+  readonly declarationSourceKind: GtlProgramCompositionDeclarationSourceKind;
+  readonly declarationSourceRef: string;
+  readonly notationRefs: readonly string[];
+  readonly regimeBindingRefs: readonly string[];
+  readonly stageBindingRefs: readonly string[];
+  readonly closureContractRef: string;
+  readonly evidenceRefs?: readonly string[] | undefined;
+}
+
+export type GtlProgramHookDeclarationSourceKind =
+  | "graph_vector_declaration"
+  | "graph_function_declaration"
+  | "job_policy_hook"
+  | "role_policy_hook"
+  | "module_policy_hook"
+  | "candidate_family_policy_hint"
+  | "visible_defaults";
+
+export interface GtlProgramHookBoundaryRow {
+  readonly hookRef: string;
+  readonly hookKey: string;
+  readonly hostKind: GtlProgramHostSurfaceKind;
+  readonly hostRef: string;
+  readonly declarationSourceKind: GtlProgramHookDeclarationSourceKind;
+  readonly declarationRef: string;
+  readonly precedenceRank: number;
+  readonly concernRefs: readonly string[];
+  readonly pluginContractRefs: readonly string[];
+  readonly evidenceRefs?: readonly string[] | undefined;
+}
+
+export type GtlProgramSelectionBoundaryKind =
+  | "refinement_boundary"
+  | "candidate_family"
+  | "subwork"
+  | "synthesis";
+
+export interface GtlProgramSelectionBoundaryRow {
+  readonly boundaryRef: string;
+  readonly boundaryKind: GtlProgramSelectionBoundaryKind;
+  readonly hostRef: string;
+  readonly inputContractRefs: readonly string[];
+  readonly outputContractRefs: readonly string[];
+  readonly candidateRefs: readonly string[];
+  readonly evidenceRefs?: readonly string[] | undefined;
+}
+
+export interface GtlProgramJobBindingRow {
+  readonly jobRef: string;
+  readonly contractTargetRefs: readonly string[];
+  readonly roleRefs: readonly string[];
+  readonly policyHookRefs: readonly string[];
+  readonly publicCallableGraphFunctionRefs: readonly string[];
+  readonly evidenceRefs?: readonly string[] | undefined;
+}
+
+export interface GtlProgramRoleBindingRow {
+  readonly roleRef: string;
+  readonly capabilityRefs: readonly string[];
+  readonly policyHookRefs: readonly string[];
+  readonly evidenceRefs?: readonly string[] | undefined;
+}
+
+export interface GtlProgramExternalToolGateRow {
+  readonly toolGateRef: string;
+  readonly toolRef: string;
+  readonly boundaryRef: string;
+  readonly transportRef: string;
+  readonly payloadContractRef: string;
+  readonly admissionRef: string;
+  readonly notLanguageTruthEvidenceRefs: readonly string[];
+  readonly evidenceRefs?: readonly string[] | undefined;
+}
+
+export const GTL_PROGRAM_T153_FEATURE_KINDS = Object.freeze([
+  "graph_structure_interface",
+  "graph_algebra_edge",
+  "graph_algebra_compose",
+  "graph_algebra_substitute",
+  "graph_algebra_recurse",
+  "graph_algebra_fan_out",
+  "graph_algebra_fan_in",
+  "graph_algebra_gate",
+  "graph_algebra_promote",
+  "graph_algebra_identity",
+  "graph_algebra_same_object",
+  "operator_declarations",
+  "evaluator_declarations",
+  "rule_declarations",
+  "f_star_compute_composition",
+  "hook_boundaries",
+  "target_carrier_contract_law",
+  "edge_closure_contract_law",
+  "prompt_typed_asset_law",
+  "selection_refinement_synthesis_subwork",
+  "module_publication",
+  "public_start_binding",
+  "job_binding",
+  "role_binding",
+  "external_tool_gates",
+  "active_source_identity"
+] as const);
+
+export type GtlProgramT153FeatureKind =
+  (typeof GTL_PROGRAM_T153_FEATURE_KINDS)[number];
+
+export type GtlProgramFeatureDisposition = "present" | "not_used";
+
+export type GtlProgramFeatureOwnerClassification =
+  | "gtl_declared"
+  | "abg_admitted"
+  | "abg_interpreted"
+  | "downstream_product_meaning";
+
+export interface GtlProgramFeatureCoverageRow {
+  readonly featureKind: GtlProgramT153FeatureKind;
+  readonly disposition: GtlProgramFeatureDisposition;
+  readonly ownerClassification: GtlProgramFeatureOwnerClassification;
+  readonly requirementRefs: readonly string[];
+  readonly evidenceRefs: readonly string[];
+  readonly reasonRefs: readonly string[];
+}
+
+export interface GtlProgramFeatureCoverageManifest {
+  readonly kind: "gtl_program_feature_coverage_manifest";
+  readonly manifestRef: string;
+  readonly t153RequirementRef: "REQ-L-GTL3-CONTRACT-LAW-API";
+  readonly rows: readonly GtlProgramFeatureCoverageRow[];
+}
+
+export interface GtlProgramCoverageCounts {
   readonly catalogGraphFunctionCount: number;
   readonly publishedGraphFunctionCount: number;
   readonly graphVectorCount: number;
@@ -116,10 +354,13 @@ export interface GtlProgramExpectedCoverage {
   readonly sourceIdentitySurfaceCount: number;
 }
 
+export type GtlProgramExpectedCoverage = GtlProgramCoverageCounts;
+
 export interface GtlProgramConformanceInput {
   readonly subjectRef: string;
   readonly abiPackageVersion: string;
   readonly expectedCoverage: GtlProgramExpectedCoverage;
+  readonly featureCoverageManifest: GtlProgramFeatureCoverageManifest;
   readonly catalogGraphFunctionRefs?: readonly string[] | undefined;
   readonly graphFunctions?: readonly GraphFunction[] | undefined;
   readonly modules?: readonly Module[] | undefined;
@@ -136,22 +377,34 @@ export interface GtlProgramConformanceInput {
   readonly sourceIdentitySurfaces?:
     | readonly GtlProgramSourceIdentityRow[]
     | undefined;
+  readonly sameObjectProofs?: readonly GtlProgramSameObjectRow[] | undefined;
+  readonly operatorDeclarations?:
+    | readonly GtlProgramOperatorDeclarationRow[]
+    | undefined;
+  readonly evaluatorDeclarations?:
+    | readonly GtlProgramEvaluatorDeclarationRow[]
+    | undefined;
+  readonly ruleDeclarations?:
+    | readonly GtlProgramRuleDeclarationRow[]
+    | undefined;
+  readonly computeCompositions?:
+    | readonly GtlProgramComputeCompositionRow[]
+    | undefined;
+  readonly hookBoundaries?: readonly GtlProgramHookBoundaryRow[] | undefined;
+  readonly selectionBoundaries?:
+    | readonly GtlProgramSelectionBoundaryRow[]
+    | undefined;
+  readonly jobBindings?: readonly GtlProgramJobBindingRow[] | undefined;
+  readonly roleBindings?: readonly GtlProgramRoleBindingRow[] | undefined;
+  readonly externalToolGates?:
+    | readonly GtlProgramExternalToolGateRow[]
+    | undefined;
 }
 
-export interface GtlProgramConformanceCoverage {
-  readonly catalogGraphFunctionCount: number;
-  readonly publishedGraphFunctionCount: number;
-  readonly graphVectorCount: number;
-  readonly targetCarrierContractCount: number;
-  readonly edgeClosureContractCount: number;
-  readonly overlayCount: number;
-  readonly publicStartTargetCount: number;
-  readonly promptAssetCount: number;
-  readonly pluginContractCount: number;
-  readonly sourceIdentitySurfaceCount: number;
-}
+export type GtlProgramConformanceCoverage = GtlProgramCoverageCounts;
 
 export interface GtlProgramInventoryDigests {
+  readonly featureCoverageManifest: string;
   readonly catalogGraphFunctionRefs: string;
   readonly graphFunctions: string;
   readonly modules: string;
@@ -163,6 +416,16 @@ export interface GtlProgramInventoryDigests {
   readonly promptAssets: string;
   readonly pluginContracts: string;
   readonly sourceIdentitySurfaces: string;
+  readonly sameObjectProofs: string;
+  readonly operatorDeclarations: string;
+  readonly evaluatorDeclarations: string;
+  readonly ruleDeclarations: string;
+  readonly computeCompositions: string;
+  readonly hookBoundaries: string;
+  readonly selectionBoundaries: string;
+  readonly jobBindings: string;
+  readonly roleBindings: string;
+  readonly externalToolGates: string;
 }
 
 export interface GtlProgramConformanceReport {
@@ -176,6 +439,7 @@ export interface GtlProgramConformanceReport {
   readonly issueCount: number;
   readonly issues: readonly GtlProgramConformanceIssue[];
   readonly coverage: GtlProgramConformanceCoverage;
+  readonly featureCoverageManifest: GtlProgramFeatureCoverageManifest;
 }
 
 export interface GtlProgramConformanceInputAdmission {
@@ -194,7 +458,13 @@ interface GraphVectorProjection {
   readonly sourceAssetTypes: readonly string[];
   readonly sourceNodeContracts: readonly string[];
   readonly targetAssetType: string;
+  readonly targetSchemaRef: string;
   readonly targetNodeContract: string;
+  readonly operatorCount: number;
+  readonly evaluatorCount: number;
+  readonly hasRule: boolean;
+  readonly allowsSubwork: boolean;
+  readonly declarationKeyRefs: readonly string[];
 }
 
 function freezeStrings(values: readonly string[] | undefined): readonly string[] {
@@ -226,6 +496,225 @@ function errorMessage(error: unknown): string {
 function uniqueSorted(values: readonly string[]): readonly string[] {
   return Object.freeze([...new Set(values)].sort());
 }
+
+const GTL_PROGRAM_T153_FEATURE_KIND_SET = new Set<string>(
+  GTL_PROGRAM_T153_FEATURE_KINDS
+);
+
+const GTL_PROGRAM_FEATURE_DISPOSITION_VALUES = new Set<string>([
+  "present",
+  "not_used"
+]);
+
+const GTL_PROGRAM_FEATURE_OWNER_VALUES = new Set<string>([
+  "gtl_declared",
+  "abg_admitted",
+  "abg_interpreted",
+  "downstream_product_meaning"
+]);
+
+const GTL_PROGRAM_REGIME_VALUES = new Set<string>(["F_D", "F_P", "F_H"]);
+
+const GTL_PROGRAM_HOST_SURFACE_KIND_VALUES =
+  new Set<string>([
+    "graph_function",
+    "graph_vector",
+    "operator",
+    "evaluator",
+    "rule",
+    "job",
+    "role",
+    "module",
+    "candidate_family",
+    "refinement_boundary",
+    "visible_defaults",
+    "external_tool"
+  ]);
+
+const GTL_PROGRAM_COMPOSITION_DECLARATION_SOURCE_KIND_VALUES =
+  new Set<string>([
+    "graph_vector_declaration",
+    "graph_function_declaration",
+    "operator_declaration",
+    "evaluator_declaration",
+    "rule_declaration",
+    "job_policy_hook",
+    "role_policy_hook",
+    "module_policy_hook",
+    "visible_defaults",
+    "published_template"
+  ]);
+
+const GTL_PROGRAM_HOOK_DECLARATION_SOURCE_KIND_VALUES =
+  new Set<string>([
+    "graph_vector_declaration",
+    "graph_function_declaration",
+    "job_policy_hook",
+    "role_policy_hook",
+    "module_policy_hook",
+    "candidate_family_policy_hint",
+    "visible_defaults"
+  ]);
+
+const GTL_PROGRAM_SELECTION_BOUNDARY_KIND_VALUES =
+  new Set<string>([
+    "refinement_boundary",
+    "candidate_family",
+    "subwork",
+    "synthesis"
+  ]);
+
+function isGtlProgramT153FeatureKind(
+  value: unknown
+): value is GtlProgramT153FeatureKind {
+  return (
+    typeof value === "string" &&
+    GTL_PROGRAM_T153_FEATURE_KIND_SET.has(value)
+  );
+}
+
+function isGtlProgramFeatureDisposition(
+  value: unknown
+): value is GtlProgramFeatureDisposition {
+  return (
+    typeof value === "string" &&
+    GTL_PROGRAM_FEATURE_DISPOSITION_VALUES.has(value)
+  );
+}
+
+function isGtlProgramFeatureOwnerClassification(
+  value: unknown
+): value is GtlProgramFeatureOwnerClassification {
+  return (
+    typeof value === "string" &&
+    GTL_PROGRAM_FEATURE_OWNER_VALUES.has(value)
+  );
+}
+
+function isRegime(value: unknown): value is Regime {
+  return typeof value === "string" && GTL_PROGRAM_REGIME_VALUES.has(value);
+}
+
+function isGtlProgramHostSurfaceKind(
+  value: unknown
+): value is GtlProgramHostSurfaceKind {
+  return (
+    typeof value === "string" &&
+    GTL_PROGRAM_HOST_SURFACE_KIND_VALUES.has(value)
+  );
+}
+
+function isGtlProgramCompositionDeclarationSourceKind(
+  value: unknown
+): value is GtlProgramCompositionDeclarationSourceKind {
+  return (
+    typeof value === "string" &&
+    GTL_PROGRAM_COMPOSITION_DECLARATION_SOURCE_KIND_VALUES.has(value)
+  );
+}
+
+function isGtlProgramHookDeclarationSourceKind(
+  value: unknown
+): value is GtlProgramHookDeclarationSourceKind {
+  return (
+    typeof value === "string" &&
+    GTL_PROGRAM_HOOK_DECLARATION_SOURCE_KIND_VALUES.has(value)
+  );
+}
+
+function isGtlProgramSelectionBoundaryKind(
+  value: unknown
+): value is GtlProgramSelectionBoundaryKind {
+  return (
+    typeof value === "string" &&
+    GTL_PROGRAM_SELECTION_BOUNDARY_KIND_VALUES.has(value)
+  );
+}
+
+const T153_FEATURE_DEFAULT_REQUIREMENT_REFS:
+  Readonly<Record<GtlProgramT153FeatureKind, readonly string[]>> =
+  Object.freeze({
+    graph_structure_interface: Object.freeze([
+      "REQ-L-GTL3-GRAPH",
+      "REQ-L-GTL3-GRAPHVECTOR",
+      "REQ-L-GTL3-GRAPHFUNCTION"
+    ]),
+    graph_algebra_edge: Object.freeze(["REQ-L-GTL3-LAWS"]),
+    graph_algebra_compose: Object.freeze(["REQ-L-GTL3-COMPOSE"]),
+    graph_algebra_substitute: Object.freeze(["REQ-L-GTL3-SUBSTITUTE"]),
+    graph_algebra_recurse: Object.freeze(["REQ-L-GTL3-RECURSE"]),
+    graph_algebra_fan_out: Object.freeze(["REQ-L-GTL3-HOF"]),
+    graph_algebra_fan_in: Object.freeze(["REQ-L-GTL3-HOF"]),
+    graph_algebra_gate: Object.freeze(["REQ-L-GTL3-HOF"]),
+    graph_algebra_promote: Object.freeze(["REQ-L-GTL3-HOF"]),
+    graph_algebra_identity: Object.freeze(["REQ-L-GTL3-LAWS"]),
+    graph_algebra_same_object: Object.freeze(["REQ-L-GTL3-LAWS"]),
+    operator_declarations: Object.freeze(["REQ-L-GTL3-OPERATOR"]),
+    evaluator_declarations: Object.freeze(["REQ-L-GTL3-EVALUATOR"]),
+    rule_declarations: Object.freeze(["REQ-L-GTL3-RULE"]),
+    f_star_compute_composition: Object.freeze([
+      "REQ-L-GTL3-COMPUTE-NOTATION",
+      "REQ-R-ABG3-FN-COMPOSITION"
+    ]),
+    hook_boundaries: Object.freeze(["REQ-L-GTL3-HOOKS"]),
+    target_carrier_contract_law: Object.freeze([
+      "REQ-L-GTL3-GRAPHVECTOR",
+      "REQ-L-GTL3-CONTRACT-LAW-API"
+    ]),
+    edge_closure_contract_law: Object.freeze([
+      "REQ-R-ABG3-ASSURANCE",
+      "REQ-R-ABG3-INTERPRET"
+    ]),
+    prompt_typed_asset_law: Object.freeze(["REQ-L-GTL3-ASSET-SURFACE"]),
+    selection_refinement_synthesis_subwork: Object.freeze([
+      "REQ-L-GTL3-SELECTION-BOUNDARY",
+      "REQ-L-GTL3-SYNTHESIS",
+      "REQ-L-GTL3-SUBWORK"
+    ]),
+    module_publication: Object.freeze(["REQ-L-GTL3-MODULE"]),
+    public_start_binding: Object.freeze([
+      "REQ-L-GTL3-JOB",
+      "REQ-R-ABG3-RUN"
+    ]),
+    job_binding: Object.freeze(["REQ-L-GTL3-JOB"]),
+    role_binding: Object.freeze(["REQ-L-GTL3-ROLE"]),
+    external_tool_gates: Object.freeze([
+      "REQ-L-GTL3-HOOKS",
+      "REQ-R-ABG3-TRANSPORT"
+    ]),
+    active_source_identity: Object.freeze(["REQ-L-GTL3-IDENTITY"])
+  });
+
+export const GTL_PROGRAM_T153_FEATURE_OWNER_CLASSIFICATIONS:
+  Readonly<Record<GtlProgramT153FeatureKind, GtlProgramFeatureOwnerClassification>> =
+  Object.freeze({
+    graph_structure_interface: "gtl_declared",
+    graph_algebra_edge: "gtl_declared",
+    graph_algebra_compose: "gtl_declared",
+    graph_algebra_substitute: "gtl_declared",
+    graph_algebra_recurse: "gtl_declared",
+    graph_algebra_fan_out: "gtl_declared",
+    graph_algebra_fan_in: "gtl_declared",
+    graph_algebra_gate: "gtl_declared",
+    graph_algebra_promote: "gtl_declared",
+    graph_algebra_identity: "gtl_declared",
+    graph_algebra_same_object: "gtl_declared",
+    operator_declarations: "gtl_declared",
+    evaluator_declarations: "gtl_declared",
+    rule_declarations: "gtl_declared",
+    f_star_compute_composition: "gtl_declared",
+    hook_boundaries: "gtl_declared",
+    target_carrier_contract_law: "gtl_declared",
+    edge_closure_contract_law: "abg_admitted",
+    prompt_typed_asset_law: "gtl_declared",
+    selection_refinement_synthesis_subwork: "gtl_declared",
+    module_publication: "gtl_declared",
+    public_start_binding: "gtl_declared",
+    job_binding: "gtl_declared",
+    role_binding: "gtl_declared",
+    external_tool_gates: "abg_admitted",
+    active_source_identity: "abg_admitted"
+  });
 
 function isRecord(input: unknown): input is Readonly<Record<string, unknown>> {
   return typeof input === "object" && input !== null && !Array.isArray(input);
@@ -292,6 +781,40 @@ function optionalStringArrayField(input: {
   return values;
 }
 
+function requiredStringArrayField(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly surfaceKind: GtlProgramConformanceSurfaceKind;
+  readonly issues: GtlProgramConformanceIssue[];
+}): readonly string[] {
+  if (!Object.hasOwn(input.record, input.key)) {
+    input.issues.push(
+      issue({
+        surfaceKind: input.surfaceKind,
+        surfaceRef: input.subjectRef,
+        ruleRef: "abg://gtl-program/input/string-array",
+        message: `${input.label}.${input.key} is required and must be an array of strings`
+      })
+    );
+    return Object.freeze([]);
+  }
+  const values = stringArrayFromUnknown(input.record[input.key]);
+  if (values === null) {
+    input.issues.push(
+      issue({
+        surfaceKind: input.surfaceKind,
+        surfaceRef: input.subjectRef,
+        ruleRef: "abg://gtl-program/input/string-array",
+        message: `${input.label}.${input.key} must be an array of strings`
+      })
+    );
+    return Object.freeze([]);
+  }
+  return values;
+}
+
 function requiredStringField(input: {
   readonly record: Readonly<Record<string, unknown>>;
   readonly key: string;
@@ -313,6 +836,144 @@ function requiredStringField(input: {
     })
   );
   return "";
+}
+
+function requiredNonNegativeIntegerField(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly surfaceKind: GtlProgramConformanceSurfaceKind;
+  readonly issues: GtlProgramConformanceIssue[];
+}): number {
+  const value = input.record[input.key];
+  if (typeof value === "number" && Number.isInteger(value) && value >= 0) {
+    return value;
+  }
+  input.issues.push(
+    issue({
+      surfaceKind: input.surfaceKind,
+      surfaceRef: input.subjectRef,
+      ruleRef: "abg://gtl-program/input/non-negative-integer-field",
+      message: `${input.label}.${input.key} must be a non-negative integer`
+    })
+  );
+  return 0;
+}
+
+function requiredRegimeField(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly surfaceKind: GtlProgramConformanceSurfaceKind;
+  readonly issues: GtlProgramConformanceIssue[];
+}): Regime {
+  const value = input.record[input.key];
+  if (isRegime(value)) {
+    return value;
+  }
+  input.issues.push(
+    issue({
+      surfaceKind: input.surfaceKind,
+      surfaceRef: input.subjectRef,
+      ruleRef: "abg://gtl-program/input/regime-field",
+      message: `${input.label}.${input.key} must be F_D, F_P, or F_H`
+    })
+  );
+  return "F_D";
+}
+
+function requiredHostSurfaceKindField(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly surfaceKind: GtlProgramConformanceSurfaceKind;
+  readonly issues: GtlProgramConformanceIssue[];
+}): GtlProgramHostSurfaceKind {
+  const value = input.record[input.key];
+  if (isGtlProgramHostSurfaceKind(value)) {
+    return value;
+  }
+  input.issues.push(
+    issue({
+      surfaceKind: input.surfaceKind,
+      surfaceRef: input.subjectRef,
+      ruleRef: "abg://gtl-program/input/host-kind-field",
+      message: `${input.label}.${input.key} must name a GTL/ABG host surface kind`
+    })
+  );
+  return "module";
+}
+
+function requiredCompositionDeclarationSourceKindField(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly surfaceKind: GtlProgramConformanceSurfaceKind;
+  readonly issues: GtlProgramConformanceIssue[];
+}): GtlProgramCompositionDeclarationSourceKind {
+  const value = input.record[input.key];
+  if (isGtlProgramCompositionDeclarationSourceKind(value)) {
+    return value;
+  }
+  input.issues.push(
+    issue({
+      surfaceKind: input.surfaceKind,
+      surfaceRef: input.subjectRef,
+      ruleRef: "abg://gtl-program/input/composition-source-kind-field",
+      message: `${input.label}.${input.key} must name a composition declaration source kind`
+    })
+  );
+  return "visible_defaults";
+}
+
+function requiredHookDeclarationSourceKindField(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly surfaceKind: GtlProgramConformanceSurfaceKind;
+  readonly issues: GtlProgramConformanceIssue[];
+}): GtlProgramHookDeclarationSourceKind {
+  const value = input.record[input.key];
+  if (isGtlProgramHookDeclarationSourceKind(value)) {
+    return value;
+  }
+  input.issues.push(
+    issue({
+      surfaceKind: input.surfaceKind,
+      surfaceRef: input.subjectRef,
+      ruleRef: "abg://gtl-program/input/hook-source-kind-field",
+      message: `${input.label}.${input.key} must name a hook declaration source kind`
+    })
+  );
+  return "visible_defaults";
+}
+
+function requiredSelectionBoundaryKindField(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly surfaceKind: GtlProgramConformanceSurfaceKind;
+  readonly issues: GtlProgramConformanceIssue[];
+}): GtlProgramSelectionBoundaryKind {
+  const value = input.record[input.key];
+  if (isGtlProgramSelectionBoundaryKind(value)) {
+    return value;
+  }
+  input.issues.push(
+    issue({
+      surfaceKind: input.surfaceKind,
+      surfaceRef: input.subjectRef,
+      ruleRef: "abg://gtl-program/input/selection-boundary-kind-field",
+      message: `${input.label}.${input.key} must name a selection/refinement/synthesis/subwork boundary kind`
+    })
+  );
+  return "refinement_boundary";
 }
 
 function checkOptionalArrayField(input: {
@@ -374,7 +1035,15 @@ function isModuleLike(input: unknown): input is Module {
   return (
     isRecord(input) &&
     typeof input["name"] === "string" &&
-    Array.isArray(input["graphFunctions"])
+    Array.isArray(input["graphs"]) &&
+    Array.isArray(input["graphFunctions"]) &&
+    Array.isArray(input["refinementBoundaries"]) &&
+    Array.isArray(input["candidateFamilies"]) &&
+    Array.isArray(input["jobs"]) &&
+    Array.isArray(input["roles"]) &&
+    Array.isArray(input["operators"]) &&
+    Array.isArray(input["evaluators"]) &&
+    Array.isArray(input["rules"])
   );
 }
 
@@ -468,6 +1137,229 @@ function admitExpectedCoverage(
   return Object.freeze(admitted);
 }
 
+function emptyFeatureCoverageManifest(
+  manifestRef: string
+): GtlProgramFeatureCoverageManifest {
+  return Object.freeze({
+    kind: "gtl_program_feature_coverage_manifest" as const,
+    manifestRef,
+    t153RequirementRef: "REQ-L-GTL3-CONTRACT-LAW-API" as const,
+    rows: Object.freeze([])
+  });
+}
+
+function admitFeatureKind(input: {
+  readonly value: unknown;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly issues: GtlProgramConformanceIssue[];
+}): GtlProgramT153FeatureKind | null {
+  if (isGtlProgramT153FeatureKind(input.value)) {
+    return input.value;
+  }
+  input.issues.push(
+    issue({
+      surfaceKind: "feature_coverage",
+      surfaceRef: input.subjectRef,
+      ruleRef: "abg://gtl-program/feature-coverage/feature-kind",
+      message: `${input.label}.featureKind must name a T-153 feature kind`
+    })
+  );
+  return null;
+}
+
+function admitFeatureDisposition(input: {
+  readonly value: unknown;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly issues: GtlProgramConformanceIssue[];
+}): GtlProgramFeatureDisposition | null {
+  if (isGtlProgramFeatureDisposition(input.value)) {
+    return input.value;
+  }
+  input.issues.push(
+    issue({
+      surfaceKind: "feature_coverage",
+      surfaceRef: input.subjectRef,
+      ruleRef: "abg://gtl-program/feature-coverage/disposition",
+      message: `${input.label}.disposition must be present or not_used`
+    })
+  );
+  return null;
+}
+
+function admitFeatureOwner(input: {
+  readonly value: unknown;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly issues: GtlProgramConformanceIssue[];
+}): GtlProgramFeatureOwnerClassification | null {
+  if (isGtlProgramFeatureOwnerClassification(input.value)) {
+    return input.value;
+  }
+  input.issues.push(
+    issue({
+      surfaceKind: "feature_coverage",
+      surfaceRef: input.subjectRef,
+      ruleRef: "abg://gtl-program/feature-coverage/owner-classification",
+      message: `${input.label}.ownerClassification must classify GTL, ABG, or downstream ownership`
+    })
+  );
+  return null;
+}
+
+function admitFeatureCoverageRows(
+  input: readonly unknown[],
+  subjectRef: string,
+  issues: GtlProgramConformanceIssue[]
+): readonly GtlProgramFeatureCoverageRow[] {
+  return Object.freeze(
+    input.flatMap((entry, index) => {
+      const label = `featureCoverageManifest.rows[${index}]`;
+      if (!isRecord(entry)) {
+        issues.push(
+          issue({
+            surfaceKind: "feature_coverage",
+            surfaceRef: subjectRef,
+            ruleRef: "abg://gtl-program/feature-coverage/row",
+            message: `${label} must be an object`
+          })
+        );
+        return [];
+      }
+      const featureKind = admitFeatureKind({
+        value: entry["featureKind"],
+        label,
+        subjectRef,
+        issues
+      });
+      const disposition = admitFeatureDisposition({
+        value: entry["disposition"],
+        label,
+        subjectRef,
+        issues
+      });
+      const ownerClassification = admitFeatureOwner({
+        value: entry["ownerClassification"],
+        label,
+        subjectRef,
+        issues
+      });
+      if (
+        featureKind === null ||
+        disposition === null ||
+        ownerClassification === null
+      ) {
+        return [];
+      }
+      const expectedOwner =
+        GTL_PROGRAM_T153_FEATURE_OWNER_CLASSIFICATIONS[featureKind];
+      if (ownerClassification !== expectedOwner) {
+        issues.push(
+          issue({
+            surfaceKind: "feature_coverage",
+            surfaceRef: featureKind,
+            ruleRef: "abg://gtl-program/feature-coverage/owner-classification-truth",
+            message: `${featureKind} ownerClassification must be ${expectedOwner}, received ${ownerClassification}`
+          })
+        );
+      }
+      const requirementRefs = requiredStringArrayField({
+        record: entry,
+        key: "requirementRefs",
+        label,
+        subjectRef,
+        surfaceKind: "feature_coverage",
+        issues
+      });
+      const evidenceRefs = requiredStringArrayField({
+        record: entry,
+        key: "evidenceRefs",
+        label,
+        subjectRef,
+        surfaceKind: "feature_coverage",
+        issues
+      });
+      const reasonRefs = optionalStringArrayField({
+        record: entry,
+        key: "reasonRefs",
+        label,
+        subjectRef,
+        surfaceKind: "feature_coverage",
+        issues
+      });
+      return [
+        Object.freeze({
+          featureKind,
+          disposition,
+          ownerClassification,
+          requirementRefs,
+          evidenceRefs,
+          reasonRefs
+        })
+      ];
+    })
+  );
+}
+
+function admitFeatureCoverageManifest(
+  input: unknown,
+  subjectRef: string,
+  issues: GtlProgramConformanceIssue[]
+): GtlProgramFeatureCoverageManifest {
+  if (!isRecord(input)) {
+    issues.push(
+      issue({
+        surfaceKind: "feature_coverage",
+        surfaceRef: subjectRef,
+        ruleRef: "abg://gtl-program/feature-coverage/manifest-required",
+        message: "GTL program typecheck requires featureCoverageManifest for every T-153 capability family"
+      })
+    );
+    return emptyFeatureCoverageManifest("missing");
+  }
+  if (input["kind"] !== "gtl_program_feature_coverage_manifest") {
+    issues.push(
+      issue({
+        surfaceKind: "feature_coverage",
+        surfaceRef: subjectRef,
+        ruleRef: "abg://gtl-program/feature-coverage/kind",
+        message: "featureCoverageManifest.kind must be gtl_program_feature_coverage_manifest"
+      })
+    );
+  }
+  if (input["t153RequirementRef"] !== "REQ-L-GTL3-CONTRACT-LAW-API") {
+    issues.push(
+      issue({
+        surfaceKind: "feature_coverage",
+        surfaceRef: subjectRef,
+        ruleRef: "abg://gtl-program/feature-coverage/t153-requirement",
+        message: "featureCoverageManifest.t153RequirementRef must be REQ-L-GTL3-CONTRACT-LAW-API"
+      })
+    );
+  }
+  const manifestRef = requiredStringField({
+    record: input,
+    key: "manifestRef",
+    label: "featureCoverageManifest",
+    subjectRef,
+    surfaceKind: "feature_coverage",
+    issues
+  }) || "missing";
+  const rowInputs = checkOptionalArrayField({
+    record: input,
+    key: "rows",
+    subjectRef,
+    issues
+  });
+  return Object.freeze({
+    kind: "gtl_program_feature_coverage_manifest" as const,
+    manifestRef,
+    t153RequirementRef: "REQ-L-GTL3-CONTRACT-LAW-API" as const,
+    rows: admitFeatureCoverageRows(rowInputs, subjectRef, issues)
+  });
+}
+
 function admitTargetCarrierRows(
   input: readonly unknown[],
   subjectRef: string,
@@ -540,6 +1432,182 @@ function admitTargetCarrierRows(
           targetCarrierContractRef: requiredStringField({
             record: row,
             key: "targetCarrierContractRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "target_carrier_contract",
+            issues
+          }),
+          targetCarrierContractDigest: requiredStringField({
+            record: row,
+            key: "targetCarrierContractDigest",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "target_carrier_contract",
+            issues
+          }),
+          targetCarrierTemplateRef: requiredStringField({
+            record: row,
+            key: "targetCarrierTemplateRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "target_carrier_contract",
+            issues
+          }),
+          outputSurfaceRef: requiredStringField({
+            record: row,
+            key: "outputSurfaceRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "target_carrier_contract",
+            issues
+          }),
+          outputCarrierFamilyRef: requiredStringField({
+            record: row,
+            key: "outputCarrierFamilyRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "target_carrier_contract",
+            issues
+          }),
+          outputCarrierKind: requiredStringField({
+            record: row,
+            key: "outputCarrierKind",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "target_carrier_contract",
+            issues
+          }),
+          envelopeContractRef: requiredStringField({
+            record: row,
+            key: "envelopeContractRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "target_carrier_contract",
+            issues
+          }),
+          nestedPayloadPath: requiredStringField({
+            record: row,
+            key: "nestedPayloadPath",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "target_carrier_contract",
+            issues
+          }),
+          requiredFieldRefs: requiredStringArrayField({
+            record: row,
+            key: "requiredFieldRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "target_carrier_contract",
+            issues
+          }),
+          optionalFieldRefs: requiredStringArrayField({
+            record: row,
+            key: "optionalFieldRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "target_carrier_contract",
+            issues
+          }),
+          fixedProtocolFieldRefs: requiredStringArrayField({
+            record: row,
+            key: "fixedProtocolFieldRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "target_carrier_contract",
+            issues
+          }),
+          workerFillableFieldRefs: requiredStringArrayField({
+            record: row,
+            key: "workerFillableFieldRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "target_carrier_contract",
+            issues
+          }),
+          literalDomainRefs: requiredStringArrayField({
+            record: row,
+            key: "literalDomainRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "target_carrier_contract",
+            issues
+          }),
+          enumDomainRefs: requiredStringArrayField({
+            record: row,
+            key: "enumDomainRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "target_carrier_contract",
+            issues
+          }),
+          schemaRef: requiredStringField({
+            record: row,
+            key: "schemaRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "target_carrier_contract",
+            issues
+          }),
+          admissionRef: requiredStringField({
+            record: row,
+            key: "admissionRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "target_carrier_contract",
+            issues
+          }),
+          payloadLedgerBindingRef: requiredStringField({
+            record: row,
+            key: "payloadLedgerBindingRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "target_carrier_contract",
+            issues
+          }),
+          edgeAssuranceBindingRef: requiredStringField({
+            record: row,
+            key: "edgeAssuranceBindingRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "target_carrier_contract",
+            issues
+          }),
+          handoffProjectionRef: requiredStringField({
+            record: row,
+            key: "handoffProjectionRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "target_carrier_contract",
+            issues
+          }),
+          constructionTemplateRef: requiredStringField({
+            record: row,
+            key: "constructionTemplateRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "target_carrier_contract",
+            issues
+          }),
+          replayDigestPolicyRef: requiredStringField({
+            record: row,
+            key: "replayDigestPolicyRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "target_carrier_contract",
+            issues
+          }),
+          materializationPolicyRef: requiredStringField({
+            record: row,
+            key: "materializationPolicyRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "target_carrier_contract",
+            issues
+          }),
+          closurePreconditionRef: requiredStringField({
+            record: row,
+            key: "closurePreconditionRef",
             label: surfaceRef,
             subjectRef,
             surfaceKind: "target_carrier_contract",
@@ -889,6 +1957,892 @@ function admitSourceIdentityRows(
   );
 }
 
+function admitSameObjectRows(
+  input: readonly unknown[],
+  subjectRef: string,
+  issues: GtlProgramConformanceIssue[]
+): readonly GtlProgramSameObjectRow[] {
+  return Object.freeze(
+    input.flatMap((row, index) => {
+      const surfaceRef = `sameObjectProofs[${index}]`;
+      if (!isRecord(row)) {
+        issues.push(
+          issue({
+            surfaceKind: "same_object",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/same-object-row",
+            message: `${surfaceRef} must be an object`
+          })
+        );
+        return [];
+      }
+      return [
+        Object.freeze({
+          proofRef: requiredStringField({
+            record: row,
+            key: "proofRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "same_object",
+            issues
+          }),
+          leftRef: requiredStringField({
+            record: row,
+            key: "leftRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "same_object",
+            issues
+          }),
+          rightRef: requiredStringField({
+            record: row,
+            key: "rightRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "same_object",
+            issues
+          }),
+          equalityDigest: requiredStringField({
+            record: row,
+            key: "equalityDigest",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "same_object",
+            issues
+          }),
+          evidenceRefs: optionalStringArrayField({
+            record: row,
+            key: "evidenceRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "same_object",
+            issues
+          })
+        })
+      ];
+    })
+  );
+}
+
+function admitOperatorDeclarationRows(
+  input: readonly unknown[],
+  subjectRef: string,
+  issues: GtlProgramConformanceIssue[]
+): readonly GtlProgramOperatorDeclarationRow[] {
+  return Object.freeze(
+    input.flatMap((row, index) => {
+      const surfaceRef = `operatorDeclarations[${index}]`;
+      if (!isRecord(row)) {
+        issues.push(
+          issue({
+            surfaceKind: "operator_declaration",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/operator-declaration-row",
+            message: `${surfaceRef} must be an object`
+          })
+        );
+        return [];
+      }
+      return [
+        Object.freeze({
+          operatorRef: requiredStringField({
+            record: row,
+            key: "operatorRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "operator_declaration",
+            issues
+          }),
+          name: requiredStringField({
+            record: row,
+            key: "name",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "operator_declaration",
+            issues
+          }),
+          regime: requiredRegimeField({
+            record: row,
+            key: "regime",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "operator_declaration",
+            issues
+          }),
+          binding: requiredStringField({
+            record: row,
+            key: "binding",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "operator_declaration",
+            issues
+          }),
+          hostKind: requiredHostSurfaceKindField({
+            record: row,
+            key: "hostKind",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "operator_declaration",
+            issues
+          }),
+          hostRef: requiredStringField({
+            record: row,
+            key: "hostRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "operator_declaration",
+            issues
+          }),
+          tagRefs: requiredStringArrayField({
+            record: row,
+            key: "tagRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "operator_declaration",
+            issues
+          }),
+          evidenceRefs: optionalStringArrayField({
+            record: row,
+            key: "evidenceRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "operator_declaration",
+            issues
+          })
+        })
+      ];
+    })
+  );
+}
+
+function admitEvaluatorDeclarationRows(
+  input: readonly unknown[],
+  subjectRef: string,
+  issues: GtlProgramConformanceIssue[]
+): readonly GtlProgramEvaluatorDeclarationRow[] {
+  return Object.freeze(
+    input.flatMap((row, index) => {
+      const surfaceRef = `evaluatorDeclarations[${index}]`;
+      if (!isRecord(row)) {
+        issues.push(
+          issue({
+            surfaceKind: "evaluator_declaration",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/evaluator-declaration-row",
+            message: `${surfaceRef} must be an object`
+          })
+        );
+        return [];
+      }
+      return [
+        Object.freeze({
+          evaluatorRef: requiredStringField({
+            record: row,
+            key: "evaluatorRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "evaluator_declaration",
+            issues
+          }),
+          name: requiredStringField({
+            record: row,
+            key: "name",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "evaluator_declaration",
+            issues
+          }),
+          regime: requiredRegimeField({
+            record: row,
+            key: "regime",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "evaluator_declaration",
+            issues
+          }),
+          description: requiredStringField({
+            record: row,
+            key: "description",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "evaluator_declaration",
+            issues
+          }),
+          binding: requiredStringField({
+            record: row,
+            key: "binding",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "evaluator_declaration",
+            issues
+          }),
+          consumedFieldRefs: requiredStringArrayField({
+            record: row,
+            key: "consumedFieldRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "evaluator_declaration",
+            issues
+          }),
+          hostKind: requiredHostSurfaceKindField({
+            record: row,
+            key: "hostKind",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "evaluator_declaration",
+            issues
+          }),
+          hostRef: requiredStringField({
+            record: row,
+            key: "hostRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "evaluator_declaration",
+            issues
+          }),
+          tagRefs: requiredStringArrayField({
+            record: row,
+            key: "tagRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "evaluator_declaration",
+            issues
+          }),
+          evidenceRefs: optionalStringArrayField({
+            record: row,
+            key: "evidenceRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "evaluator_declaration",
+            issues
+          })
+        })
+      ];
+    })
+  );
+}
+
+function admitRuleDeclarationRows(
+  input: readonly unknown[],
+  subjectRef: string,
+  issues: GtlProgramConformanceIssue[]
+): readonly GtlProgramRuleDeclarationRow[] {
+  return Object.freeze(
+    input.flatMap((row, index) => {
+      const surfaceRef = `ruleDeclarations[${index}]`;
+      if (!isRecord(row)) {
+        issues.push(
+          issue({
+            surfaceKind: "rule_declaration",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/rule-declaration-row",
+            message: `${surfaceRef} must be an object`
+          })
+        );
+        return [];
+      }
+      return [
+        Object.freeze({
+          ruleRef: requiredStringField({
+            record: row,
+            key: "ruleRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "rule_declaration",
+            issues
+          }),
+          name: requiredStringField({
+            record: row,
+            key: "name",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "rule_declaration",
+            issues
+          }),
+          ruleKind: requiredStringField({
+            record: row,
+            key: "ruleKind",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "rule_declaration",
+            issues
+          }),
+          configDigest: requiredStringField({
+            record: row,
+            key: "configDigest",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "rule_declaration",
+            issues
+          }),
+          hostKind: requiredHostSurfaceKindField({
+            record: row,
+            key: "hostKind",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "rule_declaration",
+            issues
+          }),
+          hostRef: requiredStringField({
+            record: row,
+            key: "hostRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "rule_declaration",
+            issues
+          }),
+          tagRefs: requiredStringArrayField({
+            record: row,
+            key: "tagRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "rule_declaration",
+            issues
+          }),
+          evidenceRefs: optionalStringArrayField({
+            record: row,
+            key: "evidenceRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "rule_declaration",
+            issues
+          })
+        })
+      ];
+    })
+  );
+}
+
+function admitComputeCompositionRows(
+  input: readonly unknown[],
+  subjectRef: string,
+  issues: GtlProgramConformanceIssue[]
+): readonly GtlProgramComputeCompositionRow[] {
+  return Object.freeze(
+    input.flatMap((row, index) => {
+      const surfaceRef = `computeCompositions[${index}]`;
+      if (!isRecord(row)) {
+        issues.push(
+          issue({
+            surfaceKind: "compute_composition",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/compute-composition-row",
+            message: `${surfaceRef} must be an object`
+          })
+        );
+        return [];
+      }
+      return [
+        Object.freeze({
+          compositionRef: requiredStringField({
+            record: row,
+            key: "compositionRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_composition",
+            issues
+          }),
+          compositionDigest: requiredStringField({
+            record: row,
+            key: "compositionDigest",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_composition",
+            issues
+          }),
+          hostKind: requiredHostSurfaceKindField({
+            record: row,
+            key: "hostKind",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_composition",
+            issues
+          }),
+          hostRef: requiredStringField({
+            record: row,
+            key: "hostRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_composition",
+            issues
+          }),
+          declarationSourceKind: requiredCompositionDeclarationSourceKindField({
+            record: row,
+            key: "declarationSourceKind",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_composition",
+            issues
+          }),
+          declarationSourceRef: requiredStringField({
+            record: row,
+            key: "declarationSourceRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_composition",
+            issues
+          }),
+          notationRefs: requiredStringArrayField({
+            record: row,
+            key: "notationRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_composition",
+            issues
+          }),
+          regimeBindingRefs: requiredStringArrayField({
+            record: row,
+            key: "regimeBindingRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_composition",
+            issues
+          }),
+          stageBindingRefs: requiredStringArrayField({
+            record: row,
+            key: "stageBindingRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_composition",
+            issues
+          }),
+          closureContractRef: requiredStringField({
+            record: row,
+            key: "closureContractRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_composition",
+            issues
+          }),
+          evidenceRefs: optionalStringArrayField({
+            record: row,
+            key: "evidenceRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_composition",
+            issues
+          })
+        })
+      ];
+    })
+  );
+}
+
+function admitHookBoundaryRows(
+  input: readonly unknown[],
+  subjectRef: string,
+  issues: GtlProgramConformanceIssue[]
+): readonly GtlProgramHookBoundaryRow[] {
+  return Object.freeze(
+    input.flatMap((row, index) => {
+      const surfaceRef = `hookBoundaries[${index}]`;
+      if (!isRecord(row)) {
+        issues.push(
+          issue({
+            surfaceKind: "hook_boundary",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/hook-boundary-row",
+            message: `${surfaceRef} must be an object`
+          })
+        );
+        return [];
+      }
+      return [
+        Object.freeze({
+          hookRef: requiredStringField({
+            record: row,
+            key: "hookRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "hook_boundary",
+            issues
+          }),
+          hookKey: requiredStringField({
+            record: row,
+            key: "hookKey",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "hook_boundary",
+            issues
+          }),
+          hostKind: requiredHostSurfaceKindField({
+            record: row,
+            key: "hostKind",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "hook_boundary",
+            issues
+          }),
+          hostRef: requiredStringField({
+            record: row,
+            key: "hostRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "hook_boundary",
+            issues
+          }),
+          declarationSourceKind: requiredHookDeclarationSourceKindField({
+            record: row,
+            key: "declarationSourceKind",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "hook_boundary",
+            issues
+          }),
+          declarationRef: requiredStringField({
+            record: row,
+            key: "declarationRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "hook_boundary",
+            issues
+          }),
+          precedenceRank: requiredNonNegativeIntegerField({
+            record: row,
+            key: "precedenceRank",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "hook_boundary",
+            issues
+          }),
+          concernRefs: requiredStringArrayField({
+            record: row,
+            key: "concernRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "hook_boundary",
+            issues
+          }),
+          pluginContractRefs: requiredStringArrayField({
+            record: row,
+            key: "pluginContractRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "hook_boundary",
+            issues
+          }),
+          evidenceRefs: optionalStringArrayField({
+            record: row,
+            key: "evidenceRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "hook_boundary",
+            issues
+          })
+        })
+      ];
+    })
+  );
+}
+
+function admitSelectionBoundaryRows(
+  input: readonly unknown[],
+  subjectRef: string,
+  issues: GtlProgramConformanceIssue[]
+): readonly GtlProgramSelectionBoundaryRow[] {
+  return Object.freeze(
+    input.flatMap((row, index) => {
+      const surfaceRef = `selectionBoundaries[${index}]`;
+      if (!isRecord(row)) {
+        issues.push(
+          issue({
+            surfaceKind: "selection_boundary",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/selection-boundary-row",
+            message: `${surfaceRef} must be an object`
+          })
+        );
+        return [];
+      }
+      return [
+        Object.freeze({
+          boundaryRef: requiredStringField({
+            record: row,
+            key: "boundaryRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "selection_boundary",
+            issues
+          }),
+          boundaryKind: requiredSelectionBoundaryKindField({
+            record: row,
+            key: "boundaryKind",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "selection_boundary",
+            issues
+          }),
+          hostRef: requiredStringField({
+            record: row,
+            key: "hostRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "selection_boundary",
+            issues
+          }),
+          inputContractRefs: requiredStringArrayField({
+            record: row,
+            key: "inputContractRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "selection_boundary",
+            issues
+          }),
+          outputContractRefs: requiredStringArrayField({
+            record: row,
+            key: "outputContractRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "selection_boundary",
+            issues
+          }),
+          candidateRefs: requiredStringArrayField({
+            record: row,
+            key: "candidateRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "selection_boundary",
+            issues
+          }),
+          evidenceRefs: optionalStringArrayField({
+            record: row,
+            key: "evidenceRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "selection_boundary",
+            issues
+          })
+        })
+      ];
+    })
+  );
+}
+
+function admitJobBindingRows(
+  input: readonly unknown[],
+  subjectRef: string,
+  issues: GtlProgramConformanceIssue[]
+): readonly GtlProgramJobBindingRow[] {
+  return Object.freeze(
+    input.flatMap((row, index) => {
+      const surfaceRef = `jobBindings[${index}]`;
+      if (!isRecord(row)) {
+        issues.push(
+          issue({
+            surfaceKind: "job_binding",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/job-binding-row",
+            message: `${surfaceRef} must be an object`
+          })
+        );
+        return [];
+      }
+      return [
+        Object.freeze({
+          jobRef: requiredStringField({
+            record: row,
+            key: "jobRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "job_binding",
+            issues
+          }),
+          contractTargetRefs: requiredStringArrayField({
+            record: row,
+            key: "contractTargetRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "job_binding",
+            issues
+          }),
+          roleRefs: requiredStringArrayField({
+            record: row,
+            key: "roleRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "job_binding",
+            issues
+          }),
+          policyHookRefs: requiredStringArrayField({
+            record: row,
+            key: "policyHookRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "job_binding",
+            issues
+          }),
+          publicCallableGraphFunctionRefs: requiredStringArrayField({
+            record: row,
+            key: "publicCallableGraphFunctionRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "job_binding",
+            issues
+          }),
+          evidenceRefs: optionalStringArrayField({
+            record: row,
+            key: "evidenceRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "job_binding",
+            issues
+          })
+        })
+      ];
+    })
+  );
+}
+
+function admitRoleBindingRows(
+  input: readonly unknown[],
+  subjectRef: string,
+  issues: GtlProgramConformanceIssue[]
+): readonly GtlProgramRoleBindingRow[] {
+  return Object.freeze(
+    input.flatMap((row, index) => {
+      const surfaceRef = `roleBindings[${index}]`;
+      if (!isRecord(row)) {
+        issues.push(
+          issue({
+            surfaceKind: "role_binding",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/role-binding-row",
+            message: `${surfaceRef} must be an object`
+          })
+        );
+        return [];
+      }
+      return [
+        Object.freeze({
+          roleRef: requiredStringField({
+            record: row,
+            key: "roleRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "role_binding",
+            issues
+          }),
+          capabilityRefs: requiredStringArrayField({
+            record: row,
+            key: "capabilityRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "role_binding",
+            issues
+          }),
+          policyHookRefs: requiredStringArrayField({
+            record: row,
+            key: "policyHookRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "role_binding",
+            issues
+          }),
+          evidenceRefs: optionalStringArrayField({
+            record: row,
+            key: "evidenceRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "role_binding",
+            issues
+          })
+        })
+      ];
+    })
+  );
+}
+
+function admitExternalToolGateRows(
+  input: readonly unknown[],
+  subjectRef: string,
+  issues: GtlProgramConformanceIssue[]
+): readonly GtlProgramExternalToolGateRow[] {
+  return Object.freeze(
+    input.flatMap((row, index) => {
+      const surfaceRef = `externalToolGates[${index}]`;
+      if (!isRecord(row)) {
+        issues.push(
+          issue({
+            surfaceKind: "external_tool_gate",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/external-tool-gate-row",
+            message: `${surfaceRef} must be an object`
+          })
+        );
+        return [];
+      }
+      return [
+        Object.freeze({
+          toolGateRef: requiredStringField({
+            record: row,
+            key: "toolGateRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "external_tool_gate",
+            issues
+          }),
+          toolRef: requiredStringField({
+            record: row,
+            key: "toolRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "external_tool_gate",
+            issues
+          }),
+          boundaryRef: requiredStringField({
+            record: row,
+            key: "boundaryRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "external_tool_gate",
+            issues
+          }),
+          transportRef: requiredStringField({
+            record: row,
+            key: "transportRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "external_tool_gate",
+            issues
+          }),
+          payloadContractRef: requiredStringField({
+            record: row,
+            key: "payloadContractRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "external_tool_gate",
+            issues
+          }),
+          admissionRef: requiredStringField({
+            record: row,
+            key: "admissionRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "external_tool_gate",
+            issues
+          }),
+          notLanguageTruthEvidenceRefs: requiredStringArrayField({
+            record: row,
+            key: "notLanguageTruthEvidenceRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "external_tool_gate",
+            issues
+          }),
+          evidenceRefs: optionalStringArrayField({
+            record: row,
+            key: "evidenceRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "external_tool_gate",
+            issues
+          })
+        })
+      ];
+    })
+  );
+}
+
 export function admitGtlProgramConformanceInput(
   rawInput: unknown
 ): GtlProgramConformanceInputAdmission {
@@ -898,6 +2852,7 @@ export function admitGtlProgramConformanceInput(
       subjectRef: "unknown",
       abiPackageVersion: "",
       expectedCoverage: admitExpectedCoverage(undefined, "unknown", issues),
+      featureCoverageManifest: emptyFeatureCoverageManifest("missing"),
       catalogGraphFunctionRefs: Object.freeze([]),
       graphFunctions: Object.freeze([]),
       modules: Object.freeze([]),
@@ -907,7 +2862,17 @@ export function admitGtlProgramConformanceInput(
       publicStartTargets: Object.freeze([]),
       promptAssets: Object.freeze([]),
       pluginContracts: Object.freeze([]),
-      sourceIdentitySurfaces: Object.freeze([])
+      sourceIdentitySurfaces: Object.freeze([]),
+      sameObjectProofs: Object.freeze([]),
+      operatorDeclarations: Object.freeze([]),
+      evaluatorDeclarations: Object.freeze([]),
+      ruleDeclarations: Object.freeze([]),
+      computeCompositions: Object.freeze([]),
+      hookBoundaries: Object.freeze([]),
+      selectionBoundaries: Object.freeze([]),
+      jobBindings: Object.freeze([]),
+      roleBindings: Object.freeze([]),
+      externalToolGates: Object.freeze([])
     });
     issues.push(
       issue({
@@ -956,6 +2921,11 @@ export function admitGtlProgramConformanceInput(
     }),
     expectedCoverage: admitExpectedCoverage(
       rawInput["expectedCoverage"],
+      subjectRef,
+      issues
+    ),
+    featureCoverageManifest: admitFeatureCoverageManifest(
+      rawInput["featureCoverageManifest"],
       subjectRef,
       issues
     ),
@@ -1049,6 +3019,106 @@ export function admitGtlProgramConformanceInput(
       checkOptionalArrayField({
         record: rawInput,
         key: "sourceIdentitySurfaces",
+        subjectRef,
+        issues
+      }),
+      subjectRef,
+      issues
+    ),
+    sameObjectProofs: admitSameObjectRows(
+      checkOptionalArrayField({
+        record: rawInput,
+        key: "sameObjectProofs",
+        subjectRef,
+        issues
+      }),
+      subjectRef,
+      issues
+    ),
+    operatorDeclarations: admitOperatorDeclarationRows(
+      checkOptionalArrayField({
+        record: rawInput,
+        key: "operatorDeclarations",
+        subjectRef,
+        issues
+      }),
+      subjectRef,
+      issues
+    ),
+    evaluatorDeclarations: admitEvaluatorDeclarationRows(
+      checkOptionalArrayField({
+        record: rawInput,
+        key: "evaluatorDeclarations",
+        subjectRef,
+        issues
+      }),
+      subjectRef,
+      issues
+    ),
+    ruleDeclarations: admitRuleDeclarationRows(
+      checkOptionalArrayField({
+        record: rawInput,
+        key: "ruleDeclarations",
+        subjectRef,
+        issues
+      }),
+      subjectRef,
+      issues
+    ),
+    computeCompositions: admitComputeCompositionRows(
+      checkOptionalArrayField({
+        record: rawInput,
+        key: "computeCompositions",
+        subjectRef,
+        issues
+      }),
+      subjectRef,
+      issues
+    ),
+    hookBoundaries: admitHookBoundaryRows(
+      checkOptionalArrayField({
+        record: rawInput,
+        key: "hookBoundaries",
+        subjectRef,
+        issues
+      }),
+      subjectRef,
+      issues
+    ),
+    selectionBoundaries: admitSelectionBoundaryRows(
+      checkOptionalArrayField({
+        record: rawInput,
+        key: "selectionBoundaries",
+        subjectRef,
+        issues
+      }),
+      subjectRef,
+      issues
+    ),
+    jobBindings: admitJobBindingRows(
+      checkOptionalArrayField({
+        record: rawInput,
+        key: "jobBindings",
+        subjectRef,
+        issues
+      }),
+      subjectRef,
+      issues
+    ),
+    roleBindings: admitRoleBindingRows(
+      checkOptionalArrayField({
+        record: rawInput,
+        key: "roleBindings",
+        subjectRef,
+        issues
+      }),
+      subjectRef,
+      issues
+    ),
+    externalToolGates: admitExternalToolGateRows(
+      checkOptionalArrayField({
+        record: rawInput,
+        key: "externalToolGates",
         subjectRef,
         issues
       }),
@@ -1166,6 +3236,139 @@ function graphVectorIdentityRef(input: {
     input.vectorRef ?? input.graphVectorId
   ].join("/");
   return `${display}#${input.graphFunctionId}:${input.graphId}:${input.graphVectorId}`;
+}
+
+function fieldRefsMissing(
+  fieldRefs: readonly string[],
+  expected: readonly string[]
+): readonly string[] {
+  const fieldRefSet = new Set(fieldRefs);
+  return Object.freeze(expected.filter((fieldRef) => !fieldRefSet.has(fieldRef)));
+}
+
+function checkTargetCarrierContractLaw(input: {
+  readonly row: GtlProgramTargetCarrierRow;
+  readonly vector: GraphVectorProjection;
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  const { row, vector } = input;
+  const push = (ruleRef: string, message: string): void => {
+    input.issues.push(
+      issue({
+        surfaceKind: "target_carrier_contract",
+        surfaceRef: row.edgeRef,
+        ruleRef,
+        message
+      })
+    );
+  };
+  if (!row.targetCarrierContractRef.startsWith("gtl://target-carrier-contract/")) {
+    push(
+      "abg://gtl-program/target-carrier/gtl-ref",
+      "target carrier row must publish a gtl://target-carrier-contract/ ref"
+    );
+  }
+  if (!row.targetCarrierTemplateRef.startsWith("gtl://target-carrier-template/")) {
+    push(
+      "abg://gtl-program/target-carrier/template-ref",
+      "target carrier row must publish a gtl://target-carrier-template/ ref"
+    );
+  }
+  if (!row.outputCarrierFamilyRef.startsWith("gtl://target-carrier-family/")) {
+    push(
+      "abg://gtl-program/target-carrier/family-ref",
+      "target carrier row must publish a gtl://target-carrier-family/ ref"
+    );
+  }
+  if (!row.envelopeContractRef.startsWith("gtl://target-carrier-envelope/")) {
+    push(
+      "abg://gtl-program/target-carrier/envelope-ref",
+      "target carrier row must publish a gtl://target-carrier-envelope/ ref"
+    );
+  }
+  if (
+    !row.outputSurfaceRef.startsWith("asset-type://") ||
+    !row.outputSurfaceRef.endsWith(`/${row.targetAssetType}`)
+  ) {
+    push(
+      "abg://gtl-program/target-carrier/output-surface",
+      `outputSurfaceRef ${JSON.stringify(row.outputSurfaceRef)} does not match target asset ${JSON.stringify(row.targetAssetType)}`
+    );
+  }
+  const missingRequiredFields = fieldRefsMissing(row.requiredFieldRefs, [
+    "kind",
+    "targetAssetType",
+    "edgeRef",
+    "contractRef",
+    "contractDigest",
+    row.nestedPayloadPath
+  ]);
+  if (missingRequiredFields.length > 0) {
+    push(
+      "abg://gtl-program/target-carrier/required-fields",
+      `target carrier requiredFieldRefs missing ${missingRequiredFields.join(", ")}`
+    );
+  }
+  const missingProtocolFields = fieldRefsMissing(row.fixedProtocolFieldRefs, [
+    "kind",
+    "targetAssetType",
+    "edgeRef",
+    "contractRef",
+    "contractDigest"
+  ]);
+  if (missingProtocolFields.length > 0) {
+    push(
+      "abg://gtl-program/target-carrier/fixed-protocol-fields",
+      `target carrier fixedProtocolFieldRefs missing ${missingProtocolFields.join(", ")}`
+    );
+  }
+  const fixedProtocolSet = new Set(row.fixedProtocolFieldRefs);
+  const workerProtocolFields = row.workerFillableFieldRefs.filter((fieldRef) =>
+    fixedProtocolSet.has(fieldRef)
+  );
+  if (workerProtocolFields.length > 0) {
+    push(
+      "abg://gtl-program/target-carrier/worker-protocol-authority",
+      `workerFillableFieldRefs must not include fixed protocol fields ${workerProtocolFields.join(", ")}`
+    );
+  }
+  const literalDomainSet = new Set(row.literalDomainRefs);
+  const missingLiteralDomains = [
+    `kind:${row.outputCarrierKind}`,
+    `targetAssetType:${row.targetAssetType}`,
+    `edgeRef:${row.edgeRef}`,
+    `contractRef:${row.targetCarrierContractRef}`
+  ].filter((literalRef) => !literalDomainSet.has(literalRef));
+  if (missingLiteralDomains.length > 0) {
+    push(
+      "abg://gtl-program/target-carrier/literal-domain",
+      `target carrier literalDomainRefs missing ${missingLiteralDomains.join(", ")}`
+    );
+  }
+  if (row.schemaRef !== vector.targetSchemaRef) {
+    push(
+      "abg://gtl-program/target-carrier/schema-ref",
+      `target carrier schemaRef ${JSON.stringify(row.schemaRef)} does not match vector target schema ${JSON.stringify(vector.targetSchemaRef)}`
+    );
+  }
+  const requiredRefPrefixes = [
+    ["admissionRef", row.admissionRef, "admission://"],
+    ["payloadLedgerBindingRef", row.payloadLedgerBindingRef, "payload-ledger://"],
+    ["edgeAssuranceBindingRef", row.edgeAssuranceBindingRef, "edge-assurance://"],
+    ["handoffProjectionRef", row.handoffProjectionRef, "handoff-projection://"],
+    ["constructionTemplateRef", row.constructionTemplateRef, "construction-template://"],
+    ["replayDigestPolicyRef", row.replayDigestPolicyRef, "replay-digest://"],
+    ["materializationPolicyRef", row.materializationPolicyRef, "materialization://"],
+    ["closurePreconditionRef", row.closurePreconditionRef, "closure-precondition://"]
+  ] as const;
+  for (const [fieldName, value, prefix] of requiredRefPrefixes) {
+    if (!value.startsWith(prefix)) {
+      push(
+        `abg://gtl-program/target-carrier/${fieldName}`,
+        `target carrier ${fieldName} must declare a ${prefix} ref`
+      );
+    }
+  }
 }
 
 function checkGraphProgramClosure(input: {
@@ -1412,7 +3615,15 @@ function materializeGraphVectors(
             sourceAssetTypes: Object.freeze(vector.source.map((source) => source.name)),
             sourceNodeContracts: interfaceContract(vector.source),
             targetAssetType: vector.target.name,
-            targetNodeContract: nodeContractKey(vector.target)
+            targetSchemaRef: vector.target.schema.ref,
+            targetNodeContract: nodeContractKey(vector.target),
+            operatorCount: vector.operators.length,
+            evaluatorCount: vector.evaluators.length,
+            hasRule: vector.rule !== null,
+            allowsSubwork: vector.allowsSubwork,
+            declarationKeyRefs: Object.freeze(
+              vector.declarations.entries.map((entry) => entry.key)
+            )
           })
         );
       }
@@ -1500,16 +3711,11 @@ function checkVectorRows(input: {
           })
         );
       }
-      if (!targetCarrier.targetCarrierContractRef.startsWith("gtl://target-carrier-contract/")) {
-        input.issues.push(
-          issue({
-            surfaceKind: "target_carrier_contract",
-            surfaceRef: targetCarrier.edgeRef,
-            ruleRef: "abg://gtl-program/target-carrier/gtl-ref",
-            message: "target carrier row must publish a gtl://target-carrier-contract/ ref"
-          })
-        );
-      }
+      checkTargetCarrierContractLaw({
+        row: targetCarrier,
+        vector,
+        issues: input.issues
+      });
     }
 
     const edgeClosures = edgeClosureByIdentity.get(vectorKey) ?? [];
@@ -2070,6 +4276,666 @@ function checkSourceIdentities(input: {
   }
 }
 
+function pushRowIssue(input: {
+  readonly surfaceKind: GtlProgramConformanceSurfaceKind;
+  readonly surfaceRef: string;
+  readonly ruleRef: string;
+  readonly message: string;
+  readonly evidenceRefs?: readonly string[] | undefined;
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  input.issues.push(
+    issue({
+      surfaceKind: input.surfaceKind,
+      surfaceRef: input.surfaceRef,
+      ruleRef: input.ruleRef,
+      message: input.message,
+      evidenceRefs: input.evidenceRefs
+    })
+  );
+}
+
+function checkUniqueRows(
+  input: {
+    readonly rows: readonly { readonly ref: string }[];
+    readonly surfaceKind: GtlProgramConformanceSurfaceKind;
+    readonly ruleRef: string;
+    readonly label: string;
+    readonly issues: GtlProgramConformanceIssue[];
+  }
+): void {
+  const seen = new Set<string>();
+  for (const row of input.rows) {
+    if (seen.has(row.ref)) {
+      pushRowIssue({
+        surfaceKind: input.surfaceKind,
+        surfaceRef: row.ref,
+        ruleRef: input.ruleRef,
+        message: `${input.label} ${JSON.stringify(row.ref)} is declared more than once`,
+        issues: input.issues
+      });
+    }
+    seen.add(row.ref);
+  }
+}
+
+function checkDigestField(input: {
+  readonly surfaceKind: GtlProgramConformanceSurfaceKind;
+  readonly surfaceRef: string;
+  readonly ruleRef: string;
+  readonly fieldName: string;
+  readonly value: string;
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  if (!input.value.startsWith("sha256:")) {
+    pushRowIssue({
+      surfaceKind: input.surfaceKind,
+      surfaceRef: input.surfaceRef,
+      ruleRef: input.ruleRef,
+      message: `${input.fieldName} must be a sha256: digest`,
+      issues: input.issues
+    });
+  }
+}
+
+function checkNonEmptyArray(input: {
+  readonly surfaceKind: GtlProgramConformanceSurfaceKind;
+  readonly surfaceRef: string;
+  readonly ruleRef: string;
+  readonly fieldName: string;
+  readonly values: readonly string[];
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  if (input.values.length === 0) {
+    pushRowIssue({
+      surfaceKind: input.surfaceKind,
+      surfaceRef: input.surfaceRef,
+      ruleRef: input.ruleRef,
+      message: `${input.fieldName} must contain at least one ref`,
+      issues: input.issues
+    });
+  }
+}
+
+function moduleArrayEntryCount(
+  modules: readonly Module[],
+  key:
+    | "candidateFamilies"
+    | "evaluators"
+    | "jobs"
+    | "operators"
+    | "refinementBoundaries"
+    | "roles"
+    | "rules"
+): number {
+  return modules.reduce((count, module) => {
+    switch (key) {
+      case "candidateFamilies":
+        return count + module.candidateFamilies.length;
+      case "evaluators":
+        return count + module.evaluators.length;
+      case "jobs":
+        return count + module.jobs.length;
+      case "operators":
+        return count + module.operators.length;
+      case "refinementBoundaries":
+        return count + module.refinementBoundaries.length;
+      case "roles":
+        return count + module.roles.length;
+      case "rules":
+        return count + module.rules.length;
+    }
+  }, 0);
+}
+
+function modulePolicyHookCount(modules: readonly Module[]): number {
+  return modules.reduce((count, module) => count + module.policyHooks.entries.length, 0);
+}
+
+function moduleJobPolicyHookCount(modules: readonly Module[]): number {
+  return modules.reduce(
+    (count, module) =>
+      count +
+      module.jobs.reduce(
+        (jobCount, job) => jobCount + job.policyHooks.entries.length,
+        0
+      ),
+    0
+  );
+}
+
+function moduleRolePolicyHookCount(modules: readonly Module[]): number {
+  return modules.reduce(
+    (count, module) =>
+      count +
+      module.roles.reduce(
+        (roleCount, role) => roleCount + role.policyHooks.entries.length,
+        0
+      ),
+    0
+  );
+}
+
+function moduleHasPolicyHookKey(
+  modules: readonly Module[],
+  key: string
+): boolean {
+  return modules.some((module) =>
+    module.policyHooks.entries.some((entry) => entry.key === key) ||
+    module.jobs.some((job) =>
+      job.policyHooks.entries.some((entry) => entry.key === key)
+    ) ||
+    module.roles.some((role) =>
+      role.policyHooks.entries.some((entry) => entry.key === key)
+    )
+  );
+}
+
+function hostRefs(input: {
+  readonly graphFunctions: readonly GraphFunction[];
+  readonly modules: readonly Module[];
+  readonly vectors: readonly GraphVectorProjection[];
+}): ReadonlySet<string> {
+  const refs = new Set<string>(["visible_defaults"]);
+  for (const graphFunction of input.graphFunctions) {
+    refs.add(graphFunction.name);
+    refs.add(graphFunction.id);
+  }
+  for (const vector of input.vectors) {
+    refs.add(vector.vectorRef);
+    refs.add(vector.graphVectorId);
+    refs.add(graphVectorIdentityRef(vector));
+  }
+  for (const module of input.modules) {
+    refs.add(module.name);
+    for (const job of module.jobs) {
+      refs.add(job.name);
+      refs.add(job.id);
+    }
+    for (const role of module.roles) {
+      refs.add(role.name);
+      refs.add(role.id);
+    }
+    for (const operator of module.operators) {
+      refs.add(operator.name);
+    }
+    for (const evaluator of module.evaluators) {
+      refs.add(evaluator.name);
+    }
+    for (const rule of module.rules) {
+      refs.add(rule.name);
+    }
+    for (const refinementBoundary of module.refinementBoundaries) {
+      refs.add(refinementBoundary.name);
+      refs.add(refinementBoundary.id);
+    }
+    for (const candidateFamily of module.candidateFamilies) {
+      refs.add(candidateFamily.name);
+      refs.add(candidateFamily.id);
+    }
+  }
+  return refs;
+}
+
+function pluginContractRefs(pluginContracts: readonly unknown[]): ReadonlySet<string> {
+  const refs = new Set<string>();
+  for (const contract of pluginContracts) {
+    if (
+      typeof contract === "object" &&
+      contract !== null &&
+      "ref" in contract &&
+      typeof contract.ref === "string"
+    ) {
+      refs.add(contract.ref);
+    }
+  }
+  return refs;
+}
+
+function checkHostRef(input: {
+  readonly hostRef: string;
+  readonly hostKind: GtlProgramHostSurfaceKind;
+  readonly knownHostRefs: ReadonlySet<string>;
+  readonly surfaceKind: GtlProgramConformanceSurfaceKind;
+  readonly surfaceRef: string;
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  if (
+    input.hostKind !== "visible_defaults" &&
+    input.hostKind !== "external_tool" &&
+    !input.knownHostRefs.has(input.hostRef)
+  ) {
+    pushRowIssue({
+      surfaceKind: input.surfaceKind,
+      surfaceRef: input.surfaceRef,
+      ruleRef: "abg://gtl-program/declaration/host-ref-resolves",
+      message: `hostRef ${JSON.stringify(input.hostRef)} does not resolve to supplied GTL program inventory`,
+      issues: input.issues
+    });
+  }
+}
+
+function checkDeclarationRows(input: {
+  readonly operatorDeclarations: readonly GtlProgramOperatorDeclarationRow[];
+  readonly evaluatorDeclarations: readonly GtlProgramEvaluatorDeclarationRow[];
+  readonly ruleDeclarations: readonly GtlProgramRuleDeclarationRow[];
+  readonly knownHostRefs: ReadonlySet<string>;
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  checkUniqueRows({
+    rows: input.operatorDeclarations.map((row) => ({ ref: row.operatorRef })),
+    surfaceKind: "operator_declaration",
+    ruleRef: "abg://gtl-program/operator-declaration/unique-ref",
+    label: "operator declaration",
+    issues: input.issues
+  });
+  for (const row of input.operatorDeclarations) {
+    checkHostRef({
+      hostRef: row.hostRef,
+      hostKind: row.hostKind,
+      knownHostRefs: input.knownHostRefs,
+      surfaceKind: "operator_declaration",
+      surfaceRef: row.operatorRef,
+      issues: input.issues
+    });
+    checkNonEmptyArray({
+      surfaceKind: "operator_declaration",
+      surfaceRef: row.operatorRef,
+      ruleRef: "abg://gtl-program/operator-declaration/tag-refs",
+      fieldName: "tagRefs",
+      values: row.tagRefs,
+      issues: input.issues
+    });
+  }
+
+  checkUniqueRows({
+    rows: input.evaluatorDeclarations.map((row) => ({ ref: row.evaluatorRef })),
+    surfaceKind: "evaluator_declaration",
+    ruleRef: "abg://gtl-program/evaluator-declaration/unique-ref",
+    label: "evaluator declaration",
+    issues: input.issues
+  });
+  for (const row of input.evaluatorDeclarations) {
+    checkHostRef({
+      hostRef: row.hostRef,
+      hostKind: row.hostKind,
+      knownHostRefs: input.knownHostRefs,
+      surfaceKind: "evaluator_declaration",
+      surfaceRef: row.evaluatorRef,
+      issues: input.issues
+    });
+    checkNonEmptyArray({
+      surfaceKind: "evaluator_declaration",
+      surfaceRef: row.evaluatorRef,
+      ruleRef: "abg://gtl-program/evaluator-declaration/tag-refs",
+      fieldName: "tagRefs",
+      values: row.tagRefs,
+      issues: input.issues
+    });
+  }
+
+  checkUniqueRows({
+    rows: input.ruleDeclarations.map((row) => ({ ref: row.ruleRef })),
+    surfaceKind: "rule_declaration",
+    ruleRef: "abg://gtl-program/rule-declaration/unique-ref",
+    label: "rule declaration",
+    issues: input.issues
+  });
+  for (const row of input.ruleDeclarations) {
+    checkHostRef({
+      hostRef: row.hostRef,
+      hostKind: row.hostKind,
+      knownHostRefs: input.knownHostRefs,
+      surfaceKind: "rule_declaration",
+      surfaceRef: row.ruleRef,
+      issues: input.issues
+    });
+    checkDigestField({
+      surfaceKind: "rule_declaration",
+      surfaceRef: row.ruleRef,
+      ruleRef: "abg://gtl-program/rule-declaration/config-digest",
+      fieldName: "configDigest",
+      value: row.configDigest,
+      issues: input.issues
+    });
+    checkNonEmptyArray({
+      surfaceKind: "rule_declaration",
+      surfaceRef: row.ruleRef,
+      ruleRef: "abg://gtl-program/rule-declaration/tag-refs",
+      fieldName: "tagRefs",
+      values: row.tagRefs,
+      issues: input.issues
+    });
+  }
+}
+
+function checkComputeCompositionRows(input: {
+  readonly computeCompositions: readonly GtlProgramComputeCompositionRow[];
+  readonly knownHostRefs: ReadonlySet<string>;
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  checkUniqueRows({
+    rows: input.computeCompositions.map((row) => ({ ref: row.compositionRef })),
+    surfaceKind: "compute_composition",
+    ruleRef: "abg://gtl-program/compute-composition/unique-ref",
+    label: "compute composition",
+    issues: input.issues
+  });
+  for (const row of input.computeCompositions) {
+    checkHostRef({
+      hostRef: row.hostRef,
+      hostKind: row.hostKind,
+      knownHostRefs: input.knownHostRefs,
+      surfaceKind: "compute_composition",
+      surfaceRef: row.compositionRef,
+      issues: input.issues
+    });
+    checkDigestField({
+      surfaceKind: "compute_composition",
+      surfaceRef: row.compositionRef,
+      ruleRef: "abg://gtl-program/compute-composition/digest",
+      fieldName: "compositionDigest",
+      value: row.compositionDigest,
+      issues: input.issues
+    });
+    checkNonEmptyArray({
+      surfaceKind: "compute_composition",
+      surfaceRef: row.compositionRef,
+      ruleRef: "abg://gtl-program/compute-composition/regime-bindings",
+      fieldName: "regimeBindingRefs",
+      values: row.regimeBindingRefs,
+      issues: input.issues
+    });
+    for (const requiredNotation of ["fn<", "transform.C", "evaluate.C", "consequence.C"]) {
+      if (!row.notationRefs.some((ref) => ref.includes(requiredNotation))) {
+        pushRowIssue({
+          surfaceKind: "compute_composition",
+          surfaceRef: row.compositionRef,
+          ruleRef: "abg://gtl-program/compute-composition/notation-ref",
+          message: `notationRefs must include ${requiredNotation}`,
+          issues: input.issues
+        });
+      }
+    }
+    for (const requiredStage of ["transform", "evaluate", "consequence"]) {
+      if (!row.stageBindingRefs.some((ref) => ref.includes(requiredStage))) {
+        pushRowIssue({
+          surfaceKind: "compute_composition",
+          surfaceRef: row.compositionRef,
+          ruleRef: "abg://gtl-program/compute-composition/stage-binding",
+          message: `stageBindingRefs must include ${requiredStage}.C`,
+          issues: input.issues
+        });
+      }
+    }
+  }
+}
+
+function checkHookBoundaryRows(input: {
+  readonly hookBoundaries: readonly GtlProgramHookBoundaryRow[];
+  readonly knownHostRefs: ReadonlySet<string>;
+  readonly pluginContractRefs: ReadonlySet<string>;
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  checkUniqueRows({
+    rows: input.hookBoundaries.map((row) => ({
+      ref: `${row.hostRef}:${row.hookKey}:${row.hookRef}`
+    })),
+    surfaceKind: "hook_boundary",
+    ruleRef: "abg://gtl-program/hook-boundary/unique-host-hook",
+    label: "hook boundary",
+    issues: input.issues
+  });
+  for (const row of input.hookBoundaries) {
+    checkHostRef({
+      hostRef: row.hostRef,
+      hostKind: row.hostKind,
+      knownHostRefs: input.knownHostRefs,
+      surfaceKind: "hook_boundary",
+      surfaceRef: row.hookRef,
+      issues: input.issues
+    });
+    checkNonEmptyArray({
+      surfaceKind: "hook_boundary",
+      surfaceRef: row.hookRef,
+      ruleRef: "abg://gtl-program/hook-boundary/concern-refs",
+      fieldName: "concernRefs",
+      values: row.concernRefs,
+      issues: input.issues
+    });
+    for (const pluginRef of row.pluginContractRefs) {
+      if (!input.pluginContractRefs.has(pluginRef)) {
+        pushRowIssue({
+          surfaceKind: "hook_boundary",
+          surfaceRef: row.hookRef,
+          ruleRef: "abg://gtl-program/hook-boundary/plugin-contract-resolves",
+          message: `pluginContractRef ${JSON.stringify(pluginRef)} does not resolve to a supplied plugin contract`,
+          issues: input.issues
+        });
+      }
+    }
+  }
+}
+
+function checkSelectionBoundaryRows(input: {
+  readonly selectionBoundaries: readonly GtlProgramSelectionBoundaryRow[];
+  readonly knownHostRefs: ReadonlySet<string>;
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  checkUniqueRows({
+    rows: input.selectionBoundaries.map((row) => ({ ref: row.boundaryRef })),
+    surfaceKind: "selection_boundary",
+    ruleRef: "abg://gtl-program/selection-boundary/unique-ref",
+    label: "selection boundary",
+    issues: input.issues
+  });
+  for (const row of input.selectionBoundaries) {
+    if (!input.knownHostRefs.has(row.hostRef)) {
+      pushRowIssue({
+        surfaceKind: "selection_boundary",
+        surfaceRef: row.boundaryRef,
+        ruleRef: "abg://gtl-program/selection-boundary/host-ref-resolves",
+        message: `hostRef ${JSON.stringify(row.hostRef)} does not resolve to supplied GTL inventory`,
+        issues: input.issues
+      });
+    }
+    checkNonEmptyArray({
+      surfaceKind: "selection_boundary",
+      surfaceRef: row.boundaryRef,
+      ruleRef: "abg://gtl-program/selection-boundary/input-contracts",
+      fieldName: "inputContractRefs",
+      values: row.inputContractRefs,
+      issues: input.issues
+    });
+    checkNonEmptyArray({
+      surfaceKind: "selection_boundary",
+      surfaceRef: row.boundaryRef,
+      ruleRef: "abg://gtl-program/selection-boundary/output-contracts",
+      fieldName: "outputContractRefs",
+      values: row.outputContractRefs,
+      issues: input.issues
+    });
+    if (
+      (row.boundaryKind === "candidate_family" ||
+        row.boundaryKind === "synthesis") &&
+      row.candidateRefs.length === 0
+    ) {
+      pushRowIssue({
+        surfaceKind: "selection_boundary",
+        surfaceRef: row.boundaryRef,
+        ruleRef: "abg://gtl-program/selection-boundary/candidate-refs",
+        message: `${row.boundaryKind} rows require candidateRefs`,
+        issues: input.issues
+      });
+    }
+  }
+}
+
+function checkWorkBindingRows(input: {
+  readonly jobBindings: readonly GtlProgramJobBindingRow[];
+  readonly roleBindings: readonly GtlProgramRoleBindingRow[];
+  readonly graphFunctionRefs: ReadonlySet<string>;
+  readonly modules: readonly Module[];
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  const knownRoles = new Set<string>();
+  const knownJobs = new Set<string>();
+  for (const module of input.modules) {
+    for (const role of module.roles) {
+      knownRoles.add(role.name);
+      knownRoles.add(role.id);
+    }
+    for (const job of module.jobs) {
+      knownJobs.add(job.name);
+      knownJobs.add(job.id);
+    }
+  }
+
+  checkUniqueRows({
+    rows: input.jobBindings.map((row) => ({ ref: row.jobRef })),
+    surfaceKind: "job_binding",
+    ruleRef: "abg://gtl-program/job-binding/unique-ref",
+    label: "job binding",
+    issues: input.issues
+  });
+  for (const row of input.jobBindings) {
+    if (!knownJobs.has(row.jobRef)) {
+      pushRowIssue({
+        surfaceKind: "job_binding",
+        surfaceRef: row.jobRef,
+        ruleRef: "abg://gtl-program/job-binding/job-ref-resolves",
+        message: `jobRef ${JSON.stringify(row.jobRef)} does not resolve to a supplied GTL Job`,
+        issues: input.issues
+      });
+    }
+    for (const graphFunctionRef of [
+      ...row.contractTargetRefs,
+      ...row.publicCallableGraphFunctionRefs
+    ]) {
+      if (!input.graphFunctionRefs.has(graphFunctionRef)) {
+        pushRowIssue({
+          surfaceKind: "job_binding",
+          surfaceRef: row.jobRef,
+          ruleRef: "abg://gtl-program/job-binding/graph-function-resolves",
+          message: `graph function ref ${JSON.stringify(graphFunctionRef)} does not resolve to a published GraphFunction`,
+          issues: input.issues
+        });
+      }
+    }
+    for (const roleRef of row.roleRefs) {
+      if (!knownRoles.has(roleRef)) {
+        pushRowIssue({
+          surfaceKind: "job_binding",
+          surfaceRef: row.jobRef,
+          ruleRef: "abg://gtl-program/job-binding/role-ref-resolves",
+          message: `roleRef ${JSON.stringify(roleRef)} does not resolve to a supplied GTL Role`,
+          issues: input.issues
+        });
+      }
+    }
+  }
+
+  checkUniqueRows({
+    rows: input.roleBindings.map((row) => ({ ref: row.roleRef })),
+    surfaceKind: "role_binding",
+    ruleRef: "abg://gtl-program/role-binding/unique-ref",
+    label: "role binding",
+    issues: input.issues
+  });
+  for (const row of input.roleBindings) {
+    if (!knownRoles.has(row.roleRef)) {
+      pushRowIssue({
+        surfaceKind: "role_binding",
+        surfaceRef: row.roleRef,
+        ruleRef: "abg://gtl-program/role-binding/role-ref-resolves",
+        message: `roleRef ${JSON.stringify(row.roleRef)} does not resolve to a supplied GTL Role`,
+        issues: input.issues
+      });
+    }
+    checkNonEmptyArray({
+      surfaceKind: "role_binding",
+      surfaceRef: row.roleRef,
+      ruleRef: "abg://gtl-program/role-binding/capability-refs",
+      fieldName: "capabilityRefs",
+      values: row.capabilityRefs,
+      issues: input.issues
+    });
+  }
+}
+
+function checkSameObjectRows(input: {
+  readonly sameObjectProofs: readonly GtlProgramSameObjectRow[];
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  checkUniqueRows({
+    rows: input.sameObjectProofs.map((row) => ({ ref: row.proofRef })),
+    surfaceKind: "same_object",
+    ruleRef: "abg://gtl-program/same-object/unique-proof-ref",
+    label: "same_object proof",
+    issues: input.issues
+  });
+  for (const row of input.sameObjectProofs) {
+    checkDigestField({
+      surfaceKind: "same_object",
+      surfaceRef: row.proofRef,
+      ruleRef: "abg://gtl-program/same-object/equality-digest",
+      fieldName: "equalityDigest",
+      value: row.equalityDigest,
+      issues: input.issues
+    });
+    if (row.leftRef === row.rightRef) {
+      pushRowIssue({
+        surfaceKind: "same_object",
+        surfaceRef: row.proofRef,
+        ruleRef: "abg://gtl-program/same-object/nontrivial-proof",
+        message: "leftRef and rightRef must be distinct refs bound by the equality digest",
+        issues: input.issues
+      });
+    }
+  }
+}
+
+function checkExternalToolGateRows(input: {
+  readonly externalToolGates: readonly GtlProgramExternalToolGateRow[];
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  checkUniqueRows({
+    rows: input.externalToolGates.map((row) => ({ ref: row.toolGateRef })),
+    surfaceKind: "external_tool_gate",
+    ruleRef: "abg://gtl-program/external-tool-gate/unique-ref",
+    label: "external tool gate",
+    issues: input.issues
+  });
+  for (const row of input.externalToolGates) {
+    if (!row.transportRef.startsWith("transport://")) {
+      pushRowIssue({
+        surfaceKind: "external_tool_gate",
+        surfaceRef: row.toolGateRef,
+        ruleRef: "abg://gtl-program/external-tool-gate/transport-ref",
+        message: "transportRef must be a transport:// ref",
+        issues: input.issues
+      });
+    }
+    if (!row.admissionRef.startsWith("admission://")) {
+      pushRowIssue({
+        surfaceKind: "external_tool_gate",
+        surfaceRef: row.toolGateRef,
+        ruleRef: "abg://gtl-program/external-tool-gate/admission-ref",
+        message: "admissionRef must be an admission:// ref",
+        issues: input.issues
+      });
+    }
+    checkNonEmptyArray({
+      surfaceKind: "external_tool_gate",
+      surfaceRef: row.toolGateRef,
+      ruleRef: "abg://gtl-program/external-tool-gate/not-language-truth",
+      fieldName: "notLanguageTruthEvidenceRefs",
+      values: row.notLanguageTruthEvidenceRefs,
+      issues: input.issues
+    });
+  }
+}
+
 const EXACT_PACKAGE_VERSION_PATTERN =
   /^\d+\.\d+\.\d+(?:-[0-9A-Za-z][0-9A-Za-z.-]*)?$/u;
 
@@ -2176,6 +5042,433 @@ function checkExpectedCoverage(input: {
   }
 }
 
+const FEATURE_KINDS_WITH_DETERMINISTIC_OBSERVATION =
+  new Set<GtlProgramT153FeatureKind>([
+    "graph_structure_interface",
+    "graph_algebra_edge",
+    "graph_algebra_compose",
+    "graph_algebra_substitute",
+    "graph_algebra_recurse",
+    "graph_algebra_fan_out",
+    "graph_algebra_fan_in",
+    "graph_algebra_gate",
+    "graph_algebra_promote",
+    "graph_algebra_identity",
+    "graph_algebra_same_object",
+    "operator_declarations",
+    "evaluator_declarations",
+    "rule_declarations",
+    "f_star_compute_composition",
+    "hook_boundaries",
+    "target_carrier_contract_law",
+    "edge_closure_contract_law",
+    "prompt_typed_asset_law",
+    "selection_refinement_synthesis_subwork",
+    "module_publication",
+    "public_start_binding",
+    "job_binding",
+    "role_binding",
+    "external_tool_gates",
+    "active_source_identity"
+  ]);
+
+function graphFunctionDeclarationHasKey(
+  graphFunction: GraphFunction,
+  key: string
+): boolean {
+  return graphFunction.declarations.entries.some((entry) => entry.key === key);
+}
+
+function graphFunctionTemplateRefStartsWith(
+  graphFunction: GraphFunction,
+  prefix: string
+): boolean {
+  return graphFunction.template.ref.startsWith(prefix);
+}
+
+function graphFunctionNameStartsWith(
+  graphFunction: GraphFunction,
+  prefix: string
+): boolean {
+  return graphFunction.name.startsWith(prefix);
+}
+
+function moduleGraphTagStartsWith(
+  modules: readonly Module[],
+  prefix: string
+): boolean {
+  return modules.some((module) =>
+    module.graphs.some((graph) =>
+      graph.tags.some((tag) => tag.startsWith(prefix))
+    )
+  );
+}
+
+function observedFeatureKinds(input: {
+  readonly graphFunctions: readonly GraphFunction[];
+  readonly modules: readonly Module[];
+  readonly vectors: readonly GraphVectorProjection[];
+  readonly targetCarrierContracts: readonly GtlProgramTargetCarrierRow[];
+  readonly edgeClosureContracts: readonly GtlProgramEdgeClosureRow[];
+  readonly promptAssets: readonly GtlProgramPromptAssetRow[];
+  readonly sourceIdentitySurfaces: readonly GtlProgramSourceIdentityRow[];
+  readonly sameObjectProofs: readonly GtlProgramSameObjectRow[];
+  readonly operatorDeclarations: readonly GtlProgramOperatorDeclarationRow[];
+  readonly evaluatorDeclarations: readonly GtlProgramEvaluatorDeclarationRow[];
+  readonly ruleDeclarations: readonly GtlProgramRuleDeclarationRow[];
+  readonly computeCompositions: readonly GtlProgramComputeCompositionRow[];
+  readonly hookBoundaries: readonly GtlProgramHookBoundaryRow[];
+  readonly selectionBoundaries: readonly GtlProgramSelectionBoundaryRow[];
+  readonly publicStartTargets: readonly GtlProgramPublicStartRow[];
+  readonly jobBindings: readonly GtlProgramJobBindingRow[];
+  readonly roleBindings: readonly GtlProgramRoleBindingRow[];
+  readonly externalToolGates: readonly GtlProgramExternalToolGateRow[];
+}): ReadonlySet<GtlProgramT153FeatureKind> {
+  const observed = new Set<GtlProgramT153FeatureKind>();
+  if (input.graphFunctions.length > 0 && input.vectors.length > 0) {
+    observed.add("graph_structure_interface");
+    observed.add("graph_algebra_edge");
+  }
+  if (
+    input.graphFunctions.some((graphFunction) =>
+      graphFunctionTemplateRefStartsWith(graphFunction, "compose:")
+    )
+  ) {
+    observed.add("graph_algebra_compose");
+  }
+  if (moduleGraphTagStartsWith(input.modules, "substituted:")) {
+    observed.add("graph_algebra_substitute");
+  }
+  if (
+    input.graphFunctions.some((graphFunction) =>
+      graphFunctionDeclarationHasKey(graphFunction, "recursion") ||
+      graphFunctionNameStartsWith(graphFunction, "recurse(")
+    )
+  ) {
+    observed.add("graph_algebra_recurse");
+  }
+  if (
+    input.graphFunctions.some((graphFunction) =>
+      graphFunctionNameStartsWith(graphFunction, "fan_out(")
+    )
+  ) {
+    observed.add("graph_algebra_fan_out");
+  }
+  if (
+    input.graphFunctions.some((graphFunction) =>
+      graphFunctionNameStartsWith(graphFunction, "fan_in(")
+    )
+  ) {
+    observed.add("graph_algebra_fan_in");
+  }
+  if (
+    input.graphFunctions.some((graphFunction) =>
+      graphFunctionDeclarationHasKey(graphFunction, "gate") ||
+      graphFunctionNameStartsWith(graphFunction, "gate(")
+    )
+  ) {
+    observed.add("graph_algebra_gate");
+  }
+  if (
+    input.graphFunctions.some((graphFunction) =>
+      graphFunctionTemplateRefStartsWith(graphFunction, "promote:") ||
+      graphFunctionNameStartsWith(graphFunction, "promote(")
+    )
+  ) {
+    observed.add("graph_algebra_promote");
+  }
+  if (
+    input.graphFunctions.some((graphFunction) =>
+      graphFunctionNameStartsWith(graphFunction, "identity:")
+    )
+  ) {
+    observed.add("graph_algebra_identity");
+  }
+  if (input.sameObjectProofs.length > 0) {
+    observed.add("graph_algebra_same_object");
+  }
+  if (
+    input.operatorDeclarations.length > 0 ||
+    input.vectors.some((vector) => vector.operatorCount > 0) ||
+    moduleArrayEntryCount(input.modules, "operators") > 0
+  ) {
+    observed.add("operator_declarations");
+  }
+  if (
+    input.evaluatorDeclarations.length > 0 ||
+    input.vectors.some((vector) => vector.evaluatorCount > 0) ||
+    moduleArrayEntryCount(input.modules, "evaluators") > 0
+  ) {
+    observed.add("evaluator_declarations");
+  }
+  if (
+    input.ruleDeclarations.length > 0 ||
+    input.vectors.some((vector) => vector.hasRule) ||
+    moduleArrayEntryCount(input.modules, "rules") > 0
+  ) {
+    observed.add("rule_declarations");
+  }
+  if (
+    input.computeCompositions.length > 0 ||
+    input.vectors.some((vector) =>
+      vector.declarationKeyRefs.includes("abg.fn_composition")
+    ) ||
+    input.graphFunctions.some((graphFunction) =>
+      graphFunctionDeclarationHasKey(graphFunction, "abg.fn_composition")
+    ) ||
+    moduleHasPolicyHookKey(input.modules, "abg.fn_composition")
+  ) {
+    observed.add("f_star_compute_composition");
+  }
+  if (
+    input.hookBoundaries.length > 0 ||
+    input.vectors.some((vector) => vector.declarationKeyRefs.length > 0) ||
+    input.graphFunctions.some(
+      (graphFunction) => graphFunction.declarations.entries.length > 0
+    ) ||
+    modulePolicyHookCount(input.modules) > 0 ||
+    moduleJobPolicyHookCount(input.modules) > 0 ||
+    moduleRolePolicyHookCount(input.modules) > 0
+  ) {
+    observed.add("hook_boundaries");
+  }
+  if (input.targetCarrierContracts.length > 0) {
+    observed.add("target_carrier_contract_law");
+  }
+  if (input.edgeClosureContracts.length > 0) {
+    observed.add("edge_closure_contract_law");
+  }
+  if (input.promptAssets.length > 0) {
+    observed.add("prompt_typed_asset_law");
+  }
+  if (
+    input.selectionBoundaries.length > 0 ||
+    input.vectors.some((vector) => vector.allowsSubwork) ||
+    moduleArrayEntryCount(input.modules, "refinementBoundaries") > 0 ||
+    moduleArrayEntryCount(input.modules, "candidateFamilies") > 0
+  ) {
+    observed.add("selection_refinement_synthesis_subwork");
+  }
+  if (input.modules.length > 0) {
+    observed.add("module_publication");
+  }
+  if (input.publicStartTargets.length > 0) {
+    observed.add("public_start_binding");
+  }
+  if (
+    input.jobBindings.length > 0 ||
+    moduleArrayEntryCount(input.modules, "jobs") > 0
+  ) {
+    observed.add("job_binding");
+  }
+  if (
+    input.roleBindings.length > 0 ||
+    moduleArrayEntryCount(input.modules, "roles") > 0
+  ) {
+    observed.add("role_binding");
+  }
+  if (input.externalToolGates.length > 0) {
+    observed.add("external_tool_gates");
+  }
+  if (input.sourceIdentitySurfaces.length > 0) {
+    observed.add("active_source_identity");
+  }
+  return observed;
+}
+
+function inventoryBackedFeatureKinds(input: {
+  readonly graphFunctions: readonly GraphFunction[];
+  readonly modules: readonly Module[];
+  readonly vectors: readonly GraphVectorProjection[];
+  readonly targetCarrierContracts: readonly GtlProgramTargetCarrierRow[];
+  readonly edgeClosureContracts: readonly GtlProgramEdgeClosureRow[];
+  readonly promptAssets: readonly GtlProgramPromptAssetRow[];
+  readonly sourceIdentitySurfaces: readonly GtlProgramSourceIdentityRow[];
+  readonly sameObjectProofs: readonly GtlProgramSameObjectRow[];
+  readonly operatorDeclarations: readonly GtlProgramOperatorDeclarationRow[];
+  readonly evaluatorDeclarations: readonly GtlProgramEvaluatorDeclarationRow[];
+  readonly ruleDeclarations: readonly GtlProgramRuleDeclarationRow[];
+  readonly computeCompositions: readonly GtlProgramComputeCompositionRow[];
+  readonly hookBoundaries: readonly GtlProgramHookBoundaryRow[];
+  readonly selectionBoundaries: readonly GtlProgramSelectionBoundaryRow[];
+  readonly publicStartTargets: readonly GtlProgramPublicStartRow[];
+  readonly jobBindings: readonly GtlProgramJobBindingRow[];
+  readonly roleBindings: readonly GtlProgramRoleBindingRow[];
+  readonly externalToolGates: readonly GtlProgramExternalToolGateRow[];
+}): ReadonlySet<GtlProgramT153FeatureKind> {
+  const backed = new Set<GtlProgramT153FeatureKind>();
+  if (input.graphFunctions.length > 0 && input.vectors.length > 0) {
+    backed.add("graph_structure_interface");
+    backed.add("graph_algebra_edge");
+  }
+  const algebraObserved = observedFeatureKinds(input);
+  for (const featureKind of [
+    "graph_algebra_compose",
+    "graph_algebra_substitute",
+    "graph_algebra_recurse",
+    "graph_algebra_fan_out",
+    "graph_algebra_fan_in",
+    "graph_algebra_gate",
+    "graph_algebra_promote",
+    "graph_algebra_identity"
+  ] as const) {
+    if (algebraObserved.has(featureKind)) {
+      backed.add(featureKind);
+    }
+  }
+  if (input.sameObjectProofs.length > 0) {
+    backed.add("graph_algebra_same_object");
+  }
+  if (input.operatorDeclarations.length > 0) {
+    backed.add("operator_declarations");
+  }
+  if (input.evaluatorDeclarations.length > 0) {
+    backed.add("evaluator_declarations");
+  }
+  if (input.ruleDeclarations.length > 0) {
+    backed.add("rule_declarations");
+  }
+  if (input.computeCompositions.length > 0) {
+    backed.add("f_star_compute_composition");
+  }
+  if (input.hookBoundaries.length > 0) {
+    backed.add("hook_boundaries");
+  }
+  if (input.targetCarrierContracts.length > 0) {
+    backed.add("target_carrier_contract_law");
+  }
+  if (input.edgeClosureContracts.length > 0) {
+    backed.add("edge_closure_contract_law");
+  }
+  if (input.promptAssets.length > 0) {
+    backed.add("prompt_typed_asset_law");
+  }
+  if (input.selectionBoundaries.length > 0) {
+    backed.add("selection_refinement_synthesis_subwork");
+  }
+  if (input.modules.length > 0) {
+    backed.add("module_publication");
+  }
+  if (input.publicStartTargets.length > 0) {
+    backed.add("public_start_binding");
+  }
+  if (input.jobBindings.length > 0) {
+    backed.add("job_binding");
+  }
+  if (input.roleBindings.length > 0) {
+    backed.add("role_binding");
+  }
+  if (input.externalToolGates.length > 0) {
+    backed.add("external_tool_gates");
+  }
+  if (input.sourceIdentitySurfaces.length > 0) {
+    backed.add("active_source_identity");
+  }
+  return backed;
+}
+
+function checkFeatureCoverage(input: {
+  readonly subjectRef: string;
+  readonly manifest: GtlProgramFeatureCoverageManifest;
+  readonly observedFeatures: ReadonlySet<GtlProgramT153FeatureKind>;
+  readonly inventoryBackedFeatures: ReadonlySet<GtlProgramT153FeatureKind>;
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  const byFeature = new Map<GtlProgramT153FeatureKind, GtlProgramFeatureCoverageRow[]>();
+  for (const row of input.manifest.rows) {
+    byFeature.set(row.featureKind, [
+      ...(byFeature.get(row.featureKind) ?? []),
+      row
+    ]);
+  }
+  for (const featureKind of GTL_PROGRAM_T153_FEATURE_KINDS) {
+    const rows = byFeature.get(featureKind) ?? [];
+    if (rows.length === 0) {
+      input.issues.push(
+        issue({
+          surfaceKind: "feature_coverage",
+          surfaceRef: input.manifest.manifestRef,
+          ruleRef: "abg://gtl-program/feature-coverage/t153-feature-required",
+          message: `featureCoverageManifest must classify T-153 feature ${featureKind}`
+        })
+      );
+      continue;
+    }
+    if (rows.length > 1) {
+      input.issues.push(
+        issue({
+          surfaceKind: "feature_coverage",
+          surfaceRef: input.manifest.manifestRef,
+          ruleRef: "abg://gtl-program/feature-coverage/unique-feature-row",
+          message: `featureCoverageManifest has ${rows.length} rows for ${featureKind}`
+        })
+      );
+    }
+    const row = rows[0]!;
+    const requiredRefs = T153_FEATURE_DEFAULT_REQUIREMENT_REFS[featureKind];
+    const suppliedRefs = new Set(row.requirementRefs);
+    const missingRefs = requiredRefs.filter((ref) => !suppliedRefs.has(ref));
+    if (missingRefs.length > 0) {
+      input.issues.push(
+        issue({
+          surfaceKind: "feature_coverage",
+          surfaceRef: featureKind,
+          ruleRef: "abg://gtl-program/feature-coverage/requirement-trace",
+          message: `${featureKind} missing requirement refs ${missingRefs.join(", ")}`
+        })
+      );
+    }
+    if (row.disposition === "present" && row.evidenceRefs.length === 0) {
+      input.issues.push(
+        issue({
+          surfaceKind: "feature_coverage",
+          surfaceRef: featureKind,
+          ruleRef: "abg://gtl-program/feature-coverage/present-evidence",
+          message: `${featureKind} marked present without evidenceRefs`
+        })
+      );
+    }
+    if (row.disposition === "not_used" && row.reasonRefs.length === 0) {
+      input.issues.push(
+        issue({
+          surfaceKind: "feature_coverage",
+          surfaceRef: featureKind,
+          ruleRef: "abg://gtl-program/feature-coverage/not-used-reason",
+          message: `${featureKind} marked not_used without reasonRefs`
+        })
+      );
+    }
+    if (
+      row.disposition === "not_used" &&
+      FEATURE_KINDS_WITH_DETERMINISTIC_OBSERVATION.has(featureKind) &&
+      input.observedFeatures.has(featureKind)
+    ) {
+      input.issues.push(
+        issue({
+          surfaceKind: "feature_coverage",
+          surfaceRef: featureKind,
+          ruleRef: "abg://gtl-program/feature-coverage/not-used-contradiction",
+          message: `${featureKind} marked not_used but matching inventory rows are present`
+        })
+      );
+    }
+    if (
+      row.disposition === "present" &&
+      FEATURE_KINDS_WITH_DETERMINISTIC_OBSERVATION.has(featureKind) &&
+      !input.inventoryBackedFeatures.has(featureKind)
+    ) {
+      input.issues.push(
+        issue({
+          surfaceKind: "feature_coverage",
+          surfaceRef: featureKind,
+          ruleRef: "abg://gtl-program/feature-coverage/present-without-inventory",
+          message: `${featureKind} marked present but no matching inventory rows were supplied`
+        })
+      );
+    }
+  }
+}
+
 function sourceIdentityDigestRows(
   rows: readonly GtlProgramSourceIdentityRow[]
 ): readonly {
@@ -2195,6 +5488,7 @@ function sourceIdentityDigestRows(
 }
 
 function computeInventoryDigests(input: {
+  readonly featureCoverageManifest: GtlProgramFeatureCoverageManifest;
   readonly catalogGraphFunctionRefs: readonly string[];
   readonly graphFunctions: readonly GraphFunction[];
   readonly modules: readonly Module[];
@@ -2206,8 +5500,19 @@ function computeInventoryDigests(input: {
   readonly promptAssets: readonly GtlProgramPromptAssetRow[];
   readonly pluginContracts: readonly unknown[];
   readonly sourceIdentitySurfaces: readonly GtlProgramSourceIdentityRow[];
+  readonly sameObjectProofs: readonly GtlProgramSameObjectRow[];
+  readonly operatorDeclarations: readonly GtlProgramOperatorDeclarationRow[];
+  readonly evaluatorDeclarations: readonly GtlProgramEvaluatorDeclarationRow[];
+  readonly ruleDeclarations: readonly GtlProgramRuleDeclarationRow[];
+  readonly computeCompositions: readonly GtlProgramComputeCompositionRow[];
+  readonly hookBoundaries: readonly GtlProgramHookBoundaryRow[];
+  readonly selectionBoundaries: readonly GtlProgramSelectionBoundaryRow[];
+  readonly jobBindings: readonly GtlProgramJobBindingRow[];
+  readonly roleBindings: readonly GtlProgramRoleBindingRow[];
+  readonly externalToolGates: readonly GtlProgramExternalToolGateRow[];
 }): GtlProgramInventoryDigests {
   return Object.freeze({
+    featureCoverageManifest: stableSha256Digest(input.featureCoverageManifest),
     catalogGraphFunctionRefs: stableSha256Digest(input.catalogGraphFunctionRefs),
     graphFunctions: stableSha256Digest(input.graphFunctions),
     modules: stableSha256Digest(input.modules),
@@ -2220,7 +5525,17 @@ function computeInventoryDigests(input: {
     pluginContracts: stableSha256Digest(input.pluginContracts),
     sourceIdentitySurfaces: stableSha256Digest(
       sourceIdentityDigestRows(input.sourceIdentitySurfaces)
-    )
+    ),
+    sameObjectProofs: stableSha256Digest(input.sameObjectProofs),
+    operatorDeclarations: stableSha256Digest(input.operatorDeclarations),
+    evaluatorDeclarations: stableSha256Digest(input.evaluatorDeclarations),
+    ruleDeclarations: stableSha256Digest(input.ruleDeclarations),
+    computeCompositions: stableSha256Digest(input.computeCompositions),
+    hookBoundaries: stableSha256Digest(input.hookBoundaries),
+    selectionBoundaries: stableSha256Digest(input.selectionBoundaries),
+    jobBindings: stableSha256Digest(input.jobBindings),
+    roleBindings: stableSha256Digest(input.roleBindings),
+    externalToolGates: stableSha256Digest(input.externalToolGates)
   });
 }
 
@@ -2263,6 +5578,29 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
   const sourceIdentitySurfaces = Object.freeze([
     ...(input.sourceIdentitySurfaces ?? [])
   ]);
+  const sameObjectProofs = Object.freeze([...(input.sameObjectProofs ?? [])]);
+  const operatorDeclarations = Object.freeze([
+    ...(input.operatorDeclarations ?? [])
+  ]);
+  const evaluatorDeclarations = Object.freeze([
+    ...(input.evaluatorDeclarations ?? [])
+  ]);
+  const ruleDeclarations = Object.freeze([...(input.ruleDeclarations ?? [])]);
+  const computeCompositions = Object.freeze([
+    ...(input.computeCompositions ?? [])
+  ]);
+  const hookBoundaries = Object.freeze([...(input.hookBoundaries ?? [])]);
+  const selectionBoundaries = Object.freeze([
+    ...(input.selectionBoundaries ?? [])
+  ]);
+  const jobBindings = Object.freeze([...(input.jobBindings ?? [])]);
+  const roleBindings = Object.freeze([...(input.roleBindings ?? [])]);
+  const externalToolGates = Object.freeze([
+    ...(input.externalToolGates ?? [])
+  ]);
+  const featureCoverageManifest = input.featureCoverageManifest;
+  const knownHostRefs = hostRefs({ graphFunctions, modules, vectors });
+  const suppliedPluginContractRefs = pluginContractRefs(pluginContracts);
 
   checkVectorRows({
     vectors,
@@ -2291,6 +5629,89 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     abiPackageVersion: input.abiPackageVersion,
     issues
   });
+  checkSameObjectRows({
+    sameObjectProofs,
+    issues
+  });
+  checkDeclarationRows({
+    operatorDeclarations,
+    evaluatorDeclarations,
+    ruleDeclarations,
+    knownHostRefs,
+    issues
+  });
+  checkComputeCompositionRows({
+    computeCompositions,
+    knownHostRefs,
+    issues
+  });
+  checkHookBoundaryRows({
+    hookBoundaries,
+    knownHostRefs,
+    pluginContractRefs: suppliedPluginContractRefs,
+    issues
+  });
+  checkSelectionBoundaryRows({
+    selectionBoundaries,
+    knownHostRefs,
+    issues
+  });
+  checkWorkBindingRows({
+    jobBindings,
+    roleBindings,
+    graphFunctionRefs: publishedGraphFunctionRefs,
+    modules,
+    issues
+  });
+  checkExternalToolGateRows({
+    externalToolGates,
+    issues
+  });
+  checkFeatureCoverage({
+    subjectRef: input.subjectRef,
+    manifest: featureCoverageManifest,
+    observedFeatures: observedFeatureKinds({
+      graphFunctions,
+      modules,
+      vectors,
+      targetCarrierContracts,
+      edgeClosureContracts,
+      promptAssets,
+      sourceIdentitySurfaces,
+      sameObjectProofs,
+      operatorDeclarations,
+      evaluatorDeclarations,
+      ruleDeclarations,
+      computeCompositions,
+      hookBoundaries,
+      selectionBoundaries,
+      publicStartTargets,
+      jobBindings,
+      roleBindings,
+      externalToolGates
+    }),
+    inventoryBackedFeatures: inventoryBackedFeatureKinds({
+      graphFunctions,
+      modules,
+      vectors,
+      targetCarrierContracts,
+      edgeClosureContracts,
+      promptAssets,
+      sourceIdentitySurfaces,
+      sameObjectProofs,
+      operatorDeclarations,
+      evaluatorDeclarations,
+      ruleDeclarations,
+      computeCompositions,
+      hookBoundaries,
+      selectionBoundaries,
+      publicStartTargets,
+      jobBindings,
+      roleBindings,
+      externalToolGates
+    }),
+    issues
+  });
 
   const coverage = Object.freeze({
     catalogGraphFunctionCount: catalogGraphFunctionRefs.length,
@@ -2311,6 +5732,7 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     issues
   });
   const inventoryDigests = computeInventoryDigests({
+    featureCoverageManifest,
     catalogGraphFunctionRefs,
     graphFunctions,
     modules,
@@ -2321,7 +5743,17 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     publicStartTargets,
     promptAssets,
     pluginContracts,
-    sourceIdentitySurfaces
+    sourceIdentitySurfaces,
+    sameObjectProofs,
+    operatorDeclarations,
+    evaluatorDeclarations,
+    ruleDeclarations,
+    computeCompositions,
+    hookBoundaries,
+    selectionBoundaries,
+    jobBindings,
+    roleBindings,
+    externalToolGates
   });
   const inventoryDigest = stableSha256Digest(inventoryDigests);
   const frozenIssues = Object.freeze([...issues]);
@@ -2344,7 +5776,8 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     passed: frozenIssues.length === 0,
     issueCount: frozenIssues.length,
     issues: frozenIssues,
-    coverage
+    coverage,
+    featureCoverageManifest
   });
 }
 

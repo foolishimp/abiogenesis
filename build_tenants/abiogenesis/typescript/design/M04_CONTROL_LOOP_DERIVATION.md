@@ -39,7 +39,7 @@ It starts from the paused Python reference design truths:
 
 The next TypeScript `M04` slice preserves these truths from the Python line:
 
-- `publicStart(...)` remains a compatibility adapter over the same engine-owned
+- `publicStart(...)` remains a subordinate adapter over the same engine-owned
   route as `start(...)`
 - `start(...)` is the ABG-owned start-to-iterate public entry
 - root supervision consumes closed public outcome truth rather than raw kernel

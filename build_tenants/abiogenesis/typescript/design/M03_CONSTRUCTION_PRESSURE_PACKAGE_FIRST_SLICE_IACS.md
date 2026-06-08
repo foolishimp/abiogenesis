@@ -102,4 +102,4 @@ The pressure package first slice is deliberately not owned by
 - `construction_event_causality.ts`: replay ordering and causality validation;
 - `construction_pressure_package.ts`: package derivation, admission,
   materialized event, and pressure projection;
-- `fp_consciousness.ts`: construction composition and compatibility exports.
+- `fp_consciousness.ts`: construction composition and legacy export surface.

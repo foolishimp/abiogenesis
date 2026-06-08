@@ -169,7 +169,7 @@ The runner lives below `M04` and owns:
 wrapper admits the public request and delegates to the M03 runner. It does not
 own iteration.
 
-`publicControlLoop(...)` remains a public compatibility/control projection. It
+`publicControlLoop(...)` remains a public control projection. It
 calls `start(...)` once and derives `PublicControlLoopOutcome` from that public
 outcome.
 

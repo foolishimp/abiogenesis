@@ -56,7 +56,7 @@ GraphVector.declarations["abg.traversal_strategy"]
 Absence of all three surfaces means no strategy-qualified modulation applies
 and the `F_P` attempt remains unqualified. A malformed present qualifier fails
 closed. A duplicate qualifier fails closed. Older traversal-modulation key
-spellings are not compatibility aliases.
+spellings are not alternate aliases.
 
 The hook config yields a `TraversalStrategyDirective`. Strategy labels are
 descriptive metadata owned by downstream strategy layers. ABG switches only on

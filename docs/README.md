@@ -1,4 +1,4 @@
-# Abiogenesis 3.9.0-rc.1 Docs
+# Abiogenesis Docs
 
 Live supporting project documentation lives here.
 
@@ -6,6 +6,10 @@ Use this root for explanatory, operational, or supporting material that is not i
 
 The constitutional source remains `specification/`. These docs are operator and
 builder guidance over that source.
+
+The current TypeScript release line is `@abiogenesis/typescript-tenant`
+`4.0.0-rc.4`. For GTL contract-law/API reload, start from
+[`REQ-L-GTL3-CONTRACT-LAW-API.md`](../specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md).
 
 ## Live Guides
 
@@ -24,9 +28,9 @@ the authored carriers, ABG owns admitted runtime truth, and `C` is selected
 ## Release Notes
 
 - [ABIOGENESIS_RC_RELEASE_NOTE.md](./ABIOGENESIS_RC_RELEASE_NOTE.md) records
-  the current 3.9.0 release-candidate boundary.
+  historical 3.9.0 release-candidate boundaries.
 - [ABIOGENESIS_RC_NOTES.md](./ABIOGENESIS_RC_NOTES.md) records accepted
-  release-candidate behavior and caveats.
+  release-candidate behavior and caveats across release lines.
 
 ## Methodology Master
 
@@ -36,4 +40,4 @@ the authored carriers, ABG owns admitted runtime truth, and `C` is selected
 ## Archive
 
 - [old/](./old/) contains superseded drafts and generated renders that are not
-  live guidance for the 3.9.0 RC line.
+  live guidance for the current TypeScript release line.

@@ -1,6 +1,6 @@
 # GTL/ABG User Guide
 
-**Status**: Current single human guide for GTL 3 / ABG 3.9.0-rc.1
+**Status**: Current single human guide for GTL 3 / ABG 3 over the TypeScript 4.0.0-rc.4 release line
 **Audience**: People building, operating, or reviewing GTL/ABG applications
 **Purpose**: Explain what GTL/ABG is for, what it builds, the technical GTL/ABG model, how the build loop works, what the runtime gives you, and how to run the current kernel
 
@@ -378,7 +378,7 @@ the next vector, close a traversal, or own the iteration loop.
 
 The GTL side stops at declaration and publication.
 
-ABG-compatible engines own:
+ABG-conformant engines own:
 
 - graph-call execution
 - `ExecutionBasis`
@@ -481,8 +481,8 @@ The runtime source carriers are:
 - `RegimeBindingSet`
 
 In the TypeScript RC line, `start(...)` delegates to the M03-owned
-`start -> iterate` runner. `publicStart(...)` remains as a compatibility
-adapter over that path; it does not own a separate one-step advancement loop.
+`start -> iterate` runner. `publicStart(...)` remains a subordinate adapter
+over that path; it does not own a separate one-step advancement loop.
 
 The primary event rule is unchanged:
 

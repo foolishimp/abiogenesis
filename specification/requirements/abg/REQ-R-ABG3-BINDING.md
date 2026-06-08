@@ -22,7 +22,7 @@ runtime execution aggregates.
 
 **REQ-R-ABG3-BINDING-004**: When ABG realizes a job over a published graph function, binding truth shall preserve the graph-function identity, graph-call identity, and materialization identity associated to execution.
 
-**REQ-R-ABG3-BINDING-005**: Binding compatibility shall be validated against GTL declarations and resolved runtime policy before execution or approval.
+**REQ-R-ABG3-BINDING-005**: Binding conformance shall be validated against GTL declarations and resolved runtime policy before execution or approval.
 
 **REQ-R-ABG3-BINDING-006**: Authentication and authority resolution remain external. ABG consumes and records resolved identity/authority inputs; it does not implement those systems.
 
