@@ -762,6 +762,23 @@ export interface VectorClosedEvent {
   readonly closureKind: "advanced" | "assessed";
 }
 
+export interface GraphVectorResumeCursorAppliedEvent {
+  readonly kind: "graph_vector_resume_cursor_applied";
+  readonly basisId: string;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly frameLineageId: string | null;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly targetVectorIndex: number;
+  readonly targetEdge: string;
+  readonly resumeCursorRef: string;
+  readonly reason: string;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
 export interface RetryAttemptIdentity {
   readonly runId: string;
   readonly callId: string;
@@ -2224,6 +2241,7 @@ export type RuntimeEvent =
   | VectorTraversalPlannedEvent
   | VectorEvaluatedEvent
   | VectorClosedEvent
+  | GraphVectorResumeCursorAppliedEvent
   | RetryRepairPlannedEvent
   | RetryAttemptOpenedEvent
   | RetryAttemptStoppedEvent
@@ -2329,6 +2347,7 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "vector_traversal_planned",
   "vector_evaluated",
   "vector_closed",
+  "graph_vector_resume_cursor_applied",
   "retry_repair_planned",
   "retry_attempt_opened",
   "retry_attempt_stopped",

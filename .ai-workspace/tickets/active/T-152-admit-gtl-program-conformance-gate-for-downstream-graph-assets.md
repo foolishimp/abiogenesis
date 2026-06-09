@@ -36,11 +36,9 @@ source_documents:
   - specification/requirements/abg/REQ-R-ABG3-PAYLOAD.md
   - specification/requirements/abg/REQ-R-ABG3-ASSURANCE.md
   - .ai-workspace/tickets/completed/T-150-promote-prompt-assets-into-gtl-typed-asset-interface.md
-  - /Users/jim/src/apps/odd_sdlc/.ai-workspace/tickets/completed/T-194-migrate-typescript-tenant-to-abg-4-0-0-rc-3.md
 related_tickets:
   - T-150
   - T-151
-  - /Users/jim/src/apps/odd_sdlc/.ai-workspace/tickets/completed/T-194-migrate-typescript-tenant-to-abg-4-0-0-rc-3.md
 affected_boundary:
   requirements:
     - specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md
@@ -66,7 +64,7 @@ affected_boundary:
     - build_tenants/abiogenesis/typescript/test_env/tests/test_t152_contract_fulfillment_binding_api.test.mjs
 target_truth: Downstream GTL/ABG programs are admitted through one ABG-owned programmatic API, `typecheckGtlProgram(...)`, with `admitGtlProgramConformanceInput(...)` as its raw-input gate and `abiogenesis-ts typecheck-gtl-program` as a thin CLI wrapper. The function evaluates the supplied GTL program inventory against GTL graph interface law, graph-vector identity law, target-carrier row law, closure row law, prompt AssetSurface view law where the downstream row declares a prompt invocation asset, supplied plugin/public-start/overlay row law, active source identity law, feature-coverage owner law, and expected coverage. Report identity is evidence-bound to the normalized audited inventory. Features without first-class inventory fields remain explicit manifest attestations until this ticket admits those fields.
 superseded_truth: Downstream products can prove GTL/ABG graph conformance by local scans, prompt prose, method-in-context, or partial inventories that pass when omitted.
-closure_law: This ticket closes only when the TypeScript source is tracked, exported, buildable, callable programmatically, callable through the CLI wrapper, and tested against empty/partial inventories, malformed raw input, unsatisfied graph dependencies, duplicate target/closure rows, duplicate display labels with distinct opaque vector identity, current ABG engine-authority flag bypasses, prompt asset row completeness, plugin admission, exact ABI package version, stale active ABG identity, evidence-bound report identity, and the odd_sdlc T-194 graph-asset inventory gate.
+closure_law: This ticket closes only when the TypeScript source is tracked, exported, buildable, callable programmatically, callable through the CLI wrapper, and tested against empty/partial inventories, malformed raw input, unsatisfied graph dependencies, duplicate target/closure rows, duplicate display labels with distinct opaque vector identity, current ABG engine-authority flag bypasses, prompt asset row completeness, plugin admission, exact ABI package version, stale active ABG identity, evidence-bound report identity, and a downstream-shaped production graph-asset inventory gate.
 non_closure_conditions:
   - the function is only present in build output, a temporary package, or an untracked source file
   - the CLI owns rules that the programmatic function does not own
@@ -78,8 +76,8 @@ non_closure_conditions:
   - engine-authority fields are hand-copied across guards or silently stripped
   - prompt asset row completeness is claimed as GTL AssetSurface constitutional law without an explicit requirement home or scoped row policy
   - proof depends on a local `/tmp` package instead of the source under review or a recut release snapshot
-  - odd_sdlc T-194 passes by excluding current TypeScript graph assets, prompt construction assets, plugin contracts, or active source identity surfaces
-review_gate: high-bar code review and downstream T-194 proof required before release
+  - a downstream-shaped proof passes by excluding current TypeScript graph assets, prompt construction assets, plugin contracts, or active source identity surfaces
+review_gate: high-bar code review and downstream-shaped production-inventory proof required before release
 ---
 
 # T-152: Admit GTL Program Conformance Gate For Downstream Graph Assets
@@ -89,9 +87,9 @@ review_gate: high-bar code review and downstream T-194 proof required before rel
 Smallest lawful re-entry point: `requirement_reprice`.
 
 Reason: T-150 promoted prompt `AssetSurface` into a GTL typed asset interface.
-odd_sdlc T-194 then exposed a broader single-control-point requirement: a
-downstream ODD product needs a deterministic ABG function that checks its GTL
-program inventory before ABG runtime execution.
+A downstream ODD product integration exposed a broader single-control-point
+requirement: downstream products need a deterministic ABG function that checks
+their GTL program inventory before ABG runtime execution.
 
 This is a hard admission/typecheck boundary for current GTL/ABG program shape.
 
@@ -104,7 +102,8 @@ This is a hard admission/typecheck boundary for current GTL/ABG program shape.
   wrapper over the programmatic function.
 - Single-source engine-authority field vocabulary for GTL binding rows, ABG
   plugin contracts, provider outputs, and hook findings.
-- Use odd_sdlc T-194 as the downstream proving domain.
+- Use a downstream-shaped production inventory as the proving domain without
+  naming or depending on any downstream ticket.
 
 ## Audit Checklist
 
@@ -134,8 +133,9 @@ This is a hard admission/typecheck boundary for current GTL/ABG program shape.
 - [x] Active source identity rows reject stale ABG 3.x URI/path/package forms
   and pre-RC1 labels through the ABG programmatic gate.
 - [x] Report identity includes normalized inventory digests.
-- [ ] odd_sdlc T-194 consumes this ABG function and no SDLC-local replacement.
-- [ ] A clean odd_sdlc live hello-world run passes after the graph inventory gate.
+- [ ] A downstream consumer consumes this ABG function and no product-local
+  replacement.
+- [ ] A clean downstream live lane passes after the graph inventory gate.
 
 ## T-153 Feature-Coverage Checklist
 
@@ -213,8 +213,8 @@ inventory is not admissible.
   observation rule, and structural carrier diagram.
 - [x] Negative tests prove every open T-153 feature family fails when omitted
   from a program that claims full GTL/ABG conformance.
-- [ ] odd_sdlc T-194 or successor supplies the feature manifest from production
-  graph assets, prompt assets, plugin contracts, overlays, public starts,
+- [ ] A downstream consumer supplies the feature manifest from production graph
+  assets, prompt assets, plugin contracts, overlays, public starts,
   target-carrier rows, and source identity rows.
 
 ## Non-Closure Carried Open
@@ -441,9 +441,9 @@ those carrier signatures are present. This is not yet full semantic
 typechecking of every algebra operation and `same_object` remains manifest-only.
 
 Release/consumer note: this manifest gate is now part of the `4.0.0-rc.4`
-source cut and still requires an immutable release snapshot plus odd_sdlc
-re-pin before T-194/T-195 can prove the production SDLC graph inventory through
-the strengthened gate.
+source cut and still requires an immutable release snapshot plus downstream
+consumer re-pin before a production graph inventory can prove through the
+strengthened gate.
 
 Proof:
 
@@ -499,11 +499,10 @@ Added regression coverage in
 
 Current non-closure:
 
-- odd_sdlc must consume the strengthened ABG function from a released package
-  and supply the production graph/prompt/plugin/overlay/start/target-carrier
-  inventory rows through T-194/T-195 or a successor.
-- A clean odd_sdlc live hello-world lane must pass against that released
-  package.
+- A downstream consumer must consume the strengthened ABG function from a
+  released package and supply production graph/prompt/plugin/overlay/start/
+  target-carrier inventory rows.
+- A clean downstream live lane must pass against that released package.
 
 Proof:
 

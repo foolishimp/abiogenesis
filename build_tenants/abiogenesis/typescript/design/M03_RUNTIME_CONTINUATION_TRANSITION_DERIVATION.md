@@ -158,3 +158,29 @@ function deriveRuntimeContinuationTransitionProjection(input) {
 - Regression proving terminal retry fallback loses to typed block/reprice/yield.
 - Runtime runner proof for supervised F_P no-artifact continuation using the
   projection before retry or terminal selection.
+
+## T-154 Consumer Route Addendum
+
+Downstream products may need to resume a published graph function at an explicit
+graph-vector target without pretending earlier vectors were evaluated or closed.
+That is runtime cursor truth, so ABG owns it.
+
+ABG exposes `applyExplicitGraphVectorResumeCursor(...)` as the consumer-safe
+route. The downstream product supplies a target vector and reason; ABG emits
+`graph_vector_resume_cursor_applied` through the runtime event sink and replay
+projection derives the next vector from that event. The event does not add
+`vector_evaluated` or `vector_closed` facts for earlier vectors.
+
+The route returns the replay projection and a stable `transitionRef` derived
+from the ABG resume-cursor event. Downstream consequence projections may cite
+that ref; they must not substitute a product next-action/read-model ref as ABG
+transition truth.
+
+```mermaid
+flowchart TD
+  Product[Downstream target resume intent] --> Route[ABG applyExplicitGraphVectorResumeCursor]
+  Route --> Event[graph_vector_resume_cursor_applied]
+  Event --> Projection[RuntimeAggregateProjection]
+  Projection --> Next[advance target vector]
+  Event --> Ref[ABG transitionRef]
+```

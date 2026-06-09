@@ -180,6 +180,7 @@ export function deriveRuntimeAggregateProjection(
   const evaluated = new Set<number>();
   const closed = new Set<number>();
   const closedBy = new Map<number, RuntimeProjectionClosureSource>();
+  let resumeCursorVectorIndex: number | null = null;
   const assessedEdges: string[] = [];
   const retryAttemptRunIds = new Set<string>();
   const retryAttemptManifestIds = new Set<string>();
@@ -664,7 +665,21 @@ export function deriveRuntimeAggregateProjection(
             planned.delete(index);
             evaluated.delete(index);
           }
+          resumeCursorVectorIndex = event.targetVectorIndex;
+        } else {
+          resumeCursorVectorIndex = null;
         }
+        graphCallId = event.graphCallId;
+        frameId = event.frameId;
+        break;
+      case "graph_vector_resume_cursor_applied":
+        assertVectorIndexInRange(basis, event.targetVectorIndex);
+        if (event.targetEdge !== vectorEdge(basis, event.targetVectorIndex)) {
+          throw new TypeError(
+            "Runtime aggregate projection rejects graph-vector resume cursor edge drift"
+          );
+        }
+        resumeCursorVectorIndex = event.targetVectorIndex;
         graphCallId = event.graphCallId;
         frameId = event.frameId;
         break;
@@ -714,7 +729,8 @@ export function deriveRuntimeAggregateProjection(
   }
 
   let nextVectorIndex: number | null = null;
-  for (let index = 0; index < basis.graph.vectors.length; index += 1) {
+  const nextSearchStart = resumeCursorVectorIndex ?? 0;
+  for (let index = nextSearchStart; index < basis.graph.vectors.length; index += 1) {
     if (!closed.has(index)) {
       nextVectorIndex = index;
       break;

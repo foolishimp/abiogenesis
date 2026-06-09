@@ -29,6 +29,7 @@ import type {
   FpDispatchTransition,
   FrameOpenedEvent,
   GraphCallOpenedEvent,
+  GraphVectorResumeCursorAppliedEvent,
   ObservedStateAdmittedRuntimeEvent,
   ObservedStateSourceKind,
   PayloadObservedRuntimeEvent,
@@ -163,6 +164,42 @@ export function constructVectorClosedEvent(input: {
     edge: vectorEdge(input.basis, input.vectorIndex),
     closureKind: input.closureKind
   });
+}
+
+export function constructGraphVectorResumeCursorAppliedEvent(input: {
+  readonly basis: ExecutionBasis;
+  readonly targetVectorIndex: number;
+  readonly reason: string;
+  readonly causationEventRefs?: readonly string[] | undefined;
+  readonly correlationId?: string | undefined;
+}): GraphVectorResumeCursorAppliedEvent {
+  assertVectorIndexInRange(input.basis, input.targetVectorIndex);
+  assertNonEmptyString(input.reason, "GraphVectorResumeCursorAppliedEvent.reason");
+  const targetEdge = vectorEdge(input.basis, input.targetVectorIndex);
+  const resumeCursorRef = `graph-vector-resume-cursor:${JSON.stringify({
+    basisId: input.basis.id,
+    graphFunctionId: input.basis.graphFunction.id,
+    targetVectorIndex: input.targetVectorIndex,
+    reason: input.reason
+  })}`;
+  return Object.freeze({
+    kind: "graph_vector_resume_cursor_applied",
+    basisId: input.basis.id,
+    graphCallId: graphCallIdForBasis(input.basis),
+    frameId: frameIdForBasis(input.basis),
+    frameLineageId: input.basis.frameLineageId,
+    graphFunctionId: input.basis.graphFunction.id,
+    runId: input.basis.runId,
+    workKey: input.basis.workKey,
+    targetVectorIndex: input.targetVectorIndex,
+    targetEdge,
+    resumeCursorRef,
+    reason: input.reason,
+    causationEventRefs: freezeStringArray(
+      input.causationEventRefs ?? Object.freeze([])
+    ),
+    correlationId: input.correlationId ?? resumeCursorRef
+  } satisfies GraphVectorResumeCursorAppliedEvent);
 }
 
 export function constructBasisAdmittedEvent(basis: ExecutionBasis): BasisAdmittedEvent {

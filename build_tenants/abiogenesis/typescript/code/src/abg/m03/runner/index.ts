@@ -24,6 +24,10 @@ export {
   runEventedNativeSagaFrontier,
   runNativeSagaFrontier
 } from "./saga_frontier_runner.js";
+export {
+  applyExplicitGraphVectorResumeCursor,
+  applyGraphSpanReentryRoute
+} from "./runtime_authoring_routes.js";
 export type { AttachedFpResultDecision } from "./attached_fp_worker.js";
 export type {
   ConstructionIntentRunnerRequest,
@@ -57,3 +61,9 @@ export type {
   EngineIterateResult,
   EngineStartRequest
 } from "./engine_runner.js";
+export type {
+  ExplicitGraphVectorResumeCursorRequest,
+  ExplicitGraphVectorResumeCursorResult,
+  GraphSpanReentryApplicationRequest,
+  GraphSpanReentryApplicationResult
+} from "./runtime_authoring_routes.js";

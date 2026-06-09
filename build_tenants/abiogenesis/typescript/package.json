@@ -1,6 +1,6 @@
 {
   "name": "@abiogenesis/typescript-tenant",
-  "version": "4.0.0-rc.4",
+  "version": "4.0.0-rc.5",
   "private": true,
   "type": "module",
   "types": "./build/semantic/code/src/index.d.ts",
@@ -160,6 +160,7 @@
     "test:t101:gaps": "node test_env/sandbox/mini_dm_redux/run.mjs --gaps",
     "test:t102": "npm run build:semantic && node --test test_env/tests/test_t102_eval_suite_projection_unit.test.mjs && T100_MINI_SANDBOX_REPEAT=2 node --test test_env/sandbox/test_t100_mini_data_mapper_lifecycle_sandbox.test.mjs",
     "test:t103": "npm run build:semantic && node --test test_env/tests/test_t103_graph_span_reentry_unit.test.mjs test_env/tests/test_t103_graph_span_reentry_semantic_deep.test.mjs",
+    "test:t154": "npm run build:semantic && node --test test_env/tests/test_t154_runtime_authoring_routes.test.mjs",
     "test:t104:unit": "npm run build:semantic && node --test test_env/tests/test_t104_cross_workspace_output_allocation_unit.test.mjs",
     "test:t104:sandbox": "npm run build:semantic && node --test test_env/sandbox/test_t104_cross_workspace_mini_dm_forensics_sandbox.test.mjs",
     "test:t104": "npm run build:semantic && node --test test_env/tests/test_t104_cross_workspace_output_allocation_unit.test.mjs test_env/sandbox/test_t104_cross_workspace_mini_dm_forensics_sandbox.test.mjs",

@@ -1059,3 +1059,36 @@ stateDiagram-v2
   SpansRechecked --> Converged: all active generation spans close
   Converged --> [*]
 ```
+
+## T-154 Consumer Route Addendum
+
+Downstream products may supply semantic span assessment candidates, but they do
+not own graph-span runtime event authorship, foldback event ordering, frontier
+projection, or reentry plan/apply events.
+
+ABG exposes `applyGraphSpanReentryRoute(...)` as the consumer-safe route. The
+route derives the endpoint span schedule, admits/folds supplied
+`GraphSpanAssessment` carriers, emits schedule/assessment/foldback events
+through the ABG event sink, derives the reentry frontier, emits plan/apply
+events when a frontier row requires graph or constitutional reentry, and returns
+the replay projection plus a stable `transitionRef`.
+
+The downstream product may keep product-domain evidence and assessment meaning.
+It must not call graph-span or graph-reentry event constructors directly as a
+substitute for this route.
+
+```mermaid
+sequenceDiagram
+  participant Product as Downstream product
+  participant Route as ABG applyGraphSpanReentryRoute
+  participant Events as ABG event sink
+  participant Replay as Replay projection
+
+  Product->>Route: admitted GraphSpanAssessment candidates
+  Route->>Events: graph_span_evaluation_scheduled
+  Route->>Events: graph_span_assessed[*]
+  Route->>Events: graph_span_foldback_evaluated
+  Route->>Replay: derive frontier
+  Route->>Events: graph_reentry_planned/applied when needed
+  Route-->>Product: projection + ABG transitionRef
+```

@@ -713,6 +713,7 @@ export function deriveRetryFrontierProjection(input: {
       case "graph_span_foldback_evaluated":
       case "graph_reentry_planned":
       case "graph_reentry_applied":
+      case "graph_vector_resume_cursor_applied":
       case "timer_intent_admitted":
       case "timer_outcome_admitted":
       case "deadline_breach_admitted":

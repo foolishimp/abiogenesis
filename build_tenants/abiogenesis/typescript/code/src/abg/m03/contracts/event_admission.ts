@@ -842,6 +842,24 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     edge: "non_empty_string",
     closureKind: { oneOf: ["advanced", "assessed"] }
   }),
+  graph_vector_resume_cursor_applied: applyFieldRules(
+    "GraphVectorResumeCursorAppliedEvent",
+    {
+      basisId: "non_empty_string",
+      graphCallId: "non_empty_string",
+      frameId: "non_empty_string",
+      frameLineageId: "nullable_string",
+      graphFunctionId: "non_empty_string",
+      runId: "nullable_string",
+      workKey: "nullable_string",
+      targetVectorIndex: "non_negative_integer",
+      targetEdge: "non_empty_string",
+      resumeCursorRef: "non_empty_string",
+      reason: "non_empty_string",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string"
+    }
+  ),
   retry_repair_planned: applyFieldRules("RetryRepairPlannedEvent", {
     basisId: "non_empty_string",
     graphCallId: "non_empty_string",
