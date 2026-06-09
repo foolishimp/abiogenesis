@@ -1,13 +1,13 @@
 ---
 id: T-154
-title: Expose runtime authorship routes for downstream resume and span reentry
+title: Expose runtime authorship routes for downstream resume, span reentry, and transition refs
 type: feature
 ticket_category: ordinary
 status: backlog
 proof_status: pending
-goal: let downstream ODD products remove local runtime-event construction by consuming ABG-owned routes for explicit graph-vector resume and graph-span reentry application
+goal: let downstream ODD products remove local runtime-event construction and fake transition refs by consuming ABG-owned routes for explicit graph-vector resume, graph-span reentry application, and replay-visible traversal transition identity
 change_class: design_reframe
-change_intent: Close the consumer gap found by odd_sdlc T-197 W-105: SDLC has ABG primitives and constructors, but still assembles selected runtime lifecycle and graph-span/reentry events locally before emit. ABG should expose consumer-safe runtime authorship functions or runner entries so downstream products supply product candidates and ABG emits/adopts the runtime facts.
+change_intent: Close the consumer gap found by odd_sdlc T-197 W-105/W-110: SDLC has ABG primitives and constructors, but still assembles selected runtime lifecycle and graph-span/reentry events locally before emit, and its consequence projection has no first-class ABG traversal-transition ref to consume. ABG should expose consumer-safe runtime authorship functions or runner entries so downstream products supply product candidates and ABG emits/adopts the runtime facts and returns replay-visible transition identity.
 re_entry_point: design
 created_at: 2026-06-09
 updated_at: 2026-06-09
@@ -45,19 +45,20 @@ affected_boundary:
     - build_tenants/abiogenesis/typescript/code/src/abg/m03/runner/engine_runner.ts
     - build_tenants/abiogenesis/typescript/code/src/abg/m03/contracts/iteration_state_action.ts
     - build_tenants/abiogenesis/typescript/code/src/abg/m03/contracts/graph_span_reentry.ts
-target_truth: ABG remains the sole runtime fact author for graph-vector lifecycle, explicit graph-vector resume, graph-span foldback, graph reentry plan/apply, continuation, and traversal transition facts. Downstream products may supply admitted product candidates, graph-span assessment rows, or target resume intent, but they consume ABG-owned runtime authorship routes instead of calling event constructors and appending those events themselves.
+target_truth: ABG remains the sole runtime fact author for graph-vector lifecycle, explicit graph-vector resume, graph-span foldback, graph reentry plan/apply, continuation, traversal transition facts, and replay-visible traversal transition identity. Downstream products may supply admitted product candidates, graph-span assessment rows, target resume intent, or domain consequence candidates, but they consume ABG-owned runtime authorship routes and transition refs instead of calling event constructors, appending those events themselves, or substituting local projection refs as traversal transition refs.
 superseded_truth: Downstream products call ABG event constructors directly for lifecycle cursor catch-up, graph-span schedule/assessment/foldback events, and graph reentry plan/apply events, then append those facts through an ABG emit sink while still owning event assembly.
-closure_law: This ticket closes only when ABG exposes and proves consumer-safe API routes for explicit graph-vector resume/cursor and graph-span reentry application, or explicitly proves existing runner routes cover those consumers without downstream event assembly. The proof must include a downstream-shaped fixture showing odd_sdlc can remove synthetic cursor events and graph-span/reentry event construction while preserving replay, continuation, and graph-span foldback behavior.
+closure_law: This ticket closes only when ABG exposes and proves consumer-safe API routes for explicit graph-vector resume/cursor, graph-span reentry application, and replay-visible traversal transition identity, or explicitly proves existing runner routes cover those consumers without downstream event assembly or local transition-ref substitution. The proof must include a downstream-shaped fixture showing odd_sdlc can remove synthetic cursor events and graph-span/reentry event construction while preserving replay, continuation, graph-span foldback behavior, and consequence projection binding to ABG transition identity.
 non_closure_conditions:
   - downstream products must still construct vector lifecycle, graph-span foldback, or graph reentry runtime events before calling emit
   - explicit graph-vector resume is represented by downstream synthetic closure of earlier vectors
   - graph-span assessment candidates can select reentry or emit plan/apply events without ABG admission/fold/projection
+  - downstream consequence projections must use a local next-action/read-model ref as the traversal transition ref because ABG exposes no stable transition identity
   - API shape requires downstream products to copy ABG event-construction policy or event kind ordering
   - proof is limited to unit helpers and does not cover a downstream-shaped resume/reentry consumer
 review_gate: odd_sdlc T-197 W-105 and W-110 must consume the resulting route or explicitly defer affected rows on this ticket
 ---
 
-# T-154: Runtime Authorship Routes For Downstream Resume And Span Reentry
+# T-154: Runtime Authorship Routes For Downstream Resume, Span Reentry, And Transition Refs
 
 ## Intake Triage
 
@@ -78,6 +79,9 @@ constructors and assembles runtime events locally before append:
 - explicit graph-vector resume/cursor catch-up for direct target starts
 - graph-span schedule/assessment/foldback events for repair/post-action reentry
 - graph reentry planned/applied events after product consequence pressure
+- consequence projection transition refs, where the downstream product has
+  domain next-action/read-model refs but needs a stable ABG-owned traversal
+  transition identity
 
 ABG needs a consumer-safe route for those cases so downstream products provide
 typed candidate input and ABG authors or admits the runtime facts.
@@ -95,6 +99,9 @@ typed candidate input and ABG authors or admits the runtime facts.
    - admit product graph-span assessment candidates and emit/fold graph-span
      runtime truth under ABG;
    - derive graph reentry plan/apply events from ABG frontier projection;
+   - return or project a replay-visible traversal transition identity/ref that
+     downstream consequence projections can cite instead of substituting a
+     product next-action projection ref;
    - return replay-visible runtime events through the same ordering/admission
      law as `runEngineIterateAsync(...)`.
 4. Export the route from the TypeScript tenant package.
