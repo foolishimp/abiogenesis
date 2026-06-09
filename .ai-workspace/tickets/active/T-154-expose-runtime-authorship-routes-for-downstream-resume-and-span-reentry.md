@@ -156,23 +156,29 @@ exists, the implementation belongs here.
   `runtime_authoring_routes.ts`. The route emits through ABG `emit(...)` and
   returns the replay projection plus a stable resume-cursor `transitionRef`.
 - Added `applyGraphSpanReentryRoute(...)` in
-  `runtime_authoring_routes.ts`. The route derives endpoint span schedule,
-  emits graph-span schedule/assessment/foldback events, derives frontier,
-  emits graph reentry plan/apply events when needed, and returns an ABG-owned
-  `transitionRef`.
+  `runtime_authoring_routes.ts`. The route derives an assessment-span schedule
+  for downstream product candidates, emits graph-span
+  schedule/assessment/foldback events, derives frontier, emits graph reentry
+  plan/apply events when needed, and returns an ABG-owned `transitionRef`.
+  Endpoint-closed scheduling remains available when callers supply
+  `closedVectorIndexes` explicitly.
 - Exported both routes from the M03 runner package surface.
 - Added `test:t154` with a downstream-shaped proof that route consumers do not
   call graph-span or graph-reentry event constructors.
+- Added the SDLC-discovered regression proof: open downstream assessment spans
+  with no closed replay facts still flow through ABG-authored graph-span and
+  graph-reentry events instead of forcing downstream products to fake closure
+  indexes.
 
 ## Verification - 2026-06-10
 
 | Command | Result |
 | --- | --- |
-| `npm run test:t154` | passed 3/3 |
+| `npm run test:t154` | passed 4/4 |
 | `npm run test:t103` | passed 24/24 |
 | `npm run test:t148` | passed 5/5 |
 | `npm run lint:semantic` | passed |
-| `npm run test:semantic` | passed 768/768 |
+| `npm run test:semantic` | passed 769/769 |
 
 Downstream consumption remains owned by odd_sdlc T-197. This ABI slice removes
 the requirement for downstream products to construct cursor/span/reentry events

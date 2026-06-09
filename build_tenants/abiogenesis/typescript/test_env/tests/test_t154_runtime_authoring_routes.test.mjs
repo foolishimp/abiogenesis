@@ -142,3 +142,44 @@ test("T-154 graph-span route authors foldback and reentry events for downstream-
     1
   );
 });
+
+test("T-154 graph-span route accepts open downstream assessment spans", () => {
+  const { basis, schedule } = buildSchedule({
+    runId: "run://t154/open-graph-span-route"
+  });
+  const assessments = [
+    assessmentFor({
+      basis,
+      span: spanBySource(schedule, 1),
+      assessmentId: "assessment://t154/open/b-d/gap",
+      rows: [gapRow("B-REQ-1", [dropped(1, 2)])]
+    })
+  ];
+  const collector = collectSink();
+
+  const result = applyGraphSpanReentryRoute({
+    basis,
+    runtimeEvents: [],
+    eventSink: collector.sink,
+    terminalVectorIndex: 2,
+    assessments
+  });
+
+  assert.deepEqual(
+    result.emittedEvents.map((event) => event.kind),
+    [
+      "basis_admitted",
+      "graph_span_evaluation_scheduled",
+      "graph_span_assessed",
+      "graph_span_foldback_evaluated",
+      "graph_reentry_planned",
+      "graph_reentry_applied"
+    ]
+  );
+  assert.equal(result.schedule.spanRefs.length, 1);
+  assert.equal(result.schedule.spanRefs[0]?.spanId, assessments[0].spanId);
+  assert.equal(result.foldback.decision, "reenter_at_vector");
+  assert.equal(result.transition.kind, "reenter_graph_vector");
+  assert.equal(result.transition.vectorIndex, 1);
+  assert.deepEqual(result.projection.closedVectorIndexes, []);
+});

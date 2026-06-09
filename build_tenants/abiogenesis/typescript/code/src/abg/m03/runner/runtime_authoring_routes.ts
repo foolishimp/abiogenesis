@@ -30,7 +30,8 @@ import {
   type GraphReentryPlan,
   type GraphSpanAssessment,
   type GraphSpanEvaluationSchedule,
-  type GraphSpanFoldbackEvaluation
+  type GraphSpanFoldbackEvaluation,
+  type GraphSpanRef
 } from "../contracts/graph_span_reentry.js";
 import { deriveRuntimeAggregateProjection } from "../contracts/projection.js";
 import { assertVectorIndexInRange } from "../contracts/runtime_support.js";
@@ -112,6 +113,68 @@ function appendEmittedReplay(
   return Object.freeze([...replayEvents, ...emittedEvents]);
 }
 
+function graphSpanRefFromAssessment(input: {
+  readonly basis: ExecutionBasis;
+  readonly terminalVectorIndex: number;
+  readonly assessment: GraphSpanAssessment;
+}): GraphSpanRef {
+  assertVectorIndexInRange(input.basis, input.assessment.sourceVectorIndex);
+  assertVectorIndexInRange(input.basis, input.assessment.terminalVectorIndex);
+  if (input.assessment.terminalVectorIndex !== input.terminalVectorIndex) {
+    throw new TypeError("Graph span route assessment terminal must match route terminal");
+  }
+  return Object.freeze({
+    kind: "graph_span_ref",
+    spanId: input.assessment.spanId,
+    basisId: input.basis.id,
+    graphFunctionId: input.basis.graphFunction.id,
+    sourceVectorIndex: input.assessment.sourceVectorIndex,
+    terminalVectorIndex: input.assessment.terminalVectorIndex,
+    sourceNodeRef: input.assessment.sourceNodeRef,
+    terminalNodeRef: input.assessment.terminalNodeRef,
+    coveredVectorIndexes: input.assessment.coveredVectorIndexes
+  });
+}
+
+function deriveAssessmentSpanSchedule(input: {
+  readonly basis: ExecutionBasis;
+  readonly terminalVectorIndex: number;
+  readonly assessments: readonly GraphSpanAssessment[];
+  readonly generation: number;
+}): GraphSpanEvaluationSchedule {
+  if (input.assessments.length === 0) {
+    throw new TypeError("Graph span route requires assessment candidates");
+  }
+  const spanRefsById = new Map<string, GraphSpanRef>();
+  for (const assessment of input.assessments) {
+    const span = graphSpanRefFromAssessment({
+      basis: input.basis,
+      terminalVectorIndex: input.terminalVectorIndex,
+      assessment
+    });
+    spanRefsById.set(span.spanId, span);
+  }
+  const spanRefs = Object.freeze(
+    [...spanRefsById.values()].sort(
+      (left, right) => right.sourceVectorIndex - left.sourceVectorIndex
+    )
+  );
+  return Object.freeze({
+    kind: "graph_span_evaluation_schedule",
+    scheduleRef: `graph-span-schedule:${JSON.stringify({
+      basisId: input.basis.id,
+      terminalVectorIndex: input.terminalVectorIndex,
+      generation: input.generation,
+      spans: spanRefs.map((span) => span.spanId)
+    })}`,
+    basisId: input.basis.id,
+    graphFunctionId: input.basis.graphFunction.id,
+    terminalVectorIndex: input.terminalVectorIndex,
+    spanRefs,
+    generation: input.generation
+  });
+}
+
 export function applyExplicitGraphVectorResumeCursor(
   input: ExplicitGraphVectorResumeCursorRequest
 ): ExplicitGraphVectorResumeCursorResult {
@@ -147,23 +210,27 @@ export function applyGraphSpanReentryRoute(
 ): GraphSpanReentryApplicationResult {
   assertVectorIndexInRange(input.basis, input.terminalVectorIndex);
   const replayEvents = Object.freeze([...(input.runtimeEvents ?? Object.freeze([]))]);
-  const currentProjection = deriveRuntimeAggregateProjection(
-    input.basis,
-    replayEvents
-  );
-  const schedule = deriveEndpointSpanSchedule({
-    basis: input.basis,
-    terminalVectorIndex: input.terminalVectorIndex,
-    closedVectorIndexes:
-      input.closedVectorIndexes ?? currentProjection.closedVectorIndexes,
-    generation: input.generation ?? 0
-  });
+  const generation = input.generation ?? 0;
+  const schedule =
+    input.closedVectorIndexes === undefined
+      ? deriveAssessmentSpanSchedule({
+          basis: input.basis,
+          terminalVectorIndex: input.terminalVectorIndex,
+          assessments: input.assessments,
+          generation
+        })
+      : deriveEndpointSpanSchedule({
+          basis: input.basis,
+          terminalVectorIndex: input.terminalVectorIndex,
+          closedVectorIndexes: input.closedVectorIndexes,
+          generation
+        });
   const foldbackInput = {
     basis: input.basis,
     terminalVectorIndex: input.terminalVectorIndex,
     schedule,
     assessments: input.assessments,
-    ...(input.generation === undefined ? {} : { generation: input.generation })
+    ...(input.generation === undefined ? {} : { generation })
   };
   const foldback = foldGraphSpanAssessments(
     input.edgeFoldbacks === undefined
