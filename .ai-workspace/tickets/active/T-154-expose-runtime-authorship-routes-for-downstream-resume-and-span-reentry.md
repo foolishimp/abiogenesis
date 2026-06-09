@@ -4,7 +4,7 @@ title: Expose runtime authorship routes for downstream resume, span reentry, and
 type: feature
 ticket_category: ordinary
 status: active
-proof_status: implementation_passed_downstream_consumption_pending
+proof_status: release_snapshot_cut_downstream_consumption_pending
 goal: let downstream ODD products remove local runtime-event construction and fake transition refs by consuming ABG-owned routes for explicit graph-vector resume, graph-span reentry application, and replay-visible traversal transition identity
 change_class: design_reframe
 change_intent: Close the consumer gap found by odd_sdlc T-197 W-105/W-110: SDLC has ABG primitives and constructors, but still assembles selected runtime lifecycle and graph-span/reentry events locally before emit, and its consequence projection has no first-class ABG traversal-transition ref to consume. ABG should expose consumer-safe runtime authorship functions or runner entries so downstream products supply product candidates and ABG emits/adopts the runtime facts and returns replay-visible transition identity.
@@ -132,9 +132,9 @@ exists, the implementation belongs here.
 4. **Done 2026-06-10** — Export the route from the TypeScript tenant package.
 5. **Done 2026-06-10** — Add focused tests and a downstream-shaped consumer
    fixture.
-6. **Open** — Cut an immutable TypeScript tenant release snapshot containing the
-   route exports and make the release manifest/checksum the dependency proof for
-   downstream consumption.
+6. **Done 2026-06-10** — Cut an immutable TypeScript tenant release snapshot
+   containing the route exports and made the release manifest/checksum the
+   dependency proof for downstream consumption.
 
 ## Audit Result - 2026-06-10
 
@@ -180,11 +180,24 @@ exists, the implementation belongs here.
 | `npm run lint:semantic` | passed |
 | `npm run test:semantic` | passed 769/769 |
 
+## Release Snapshot Evidence - 2026-06-10
+
+| Field | Value |
+| --- | --- |
+| release identity | `4.0.0-rc.6` |
+| source commit | `8a82be76d9c957dc2b427ca15aa850d4ef46f1b9` |
+| source dirty | `false` |
+| tarball | `release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.6/abiogenesis-typescript-tenant-4.0.0-rc.6.tgz` |
+| tarball sha256 | `6e67842357671d6fa86686279b6cd123a70904c301f0ec8aa5124971aa551fb7` |
+| manifest sha256 | `0b089888099ca9ed1e02316dfbf8d346b3bb27ae0204f248ea273161922c1682` |
+| latest pointer | `release_snapshots/abiogenesis-typescript-tenant/latest -> 4.0.0-rc.6` |
+
 Downstream consumption remains owned by odd_sdlc T-197. This ABI slice removes
 the requirement for downstream products to construct cursor/span/reentry events
 locally; it does not claim the old odd_sdlc call sites have already been
-deleted. It also does not claim downstream release consumption until the route is
-present in an immutable TypeScript tenant release snapshot.
+deleted. It also does not claim downstream release consumption until odd_sdlc
+updates its ABG pin and proves the T-197 call sites against this immutable
+snapshot.
 
 ## Execution Plan
 
