@@ -160,6 +160,7 @@ interface RuntimeBinding {
   readonly constructionPriorityScheme?: ConstructionPriorityScheme;
   readonly constructionAffectPolicies?: readonly AffectPriorityPolicy[];
   readonly plugins?: EngineRunnerPluginSet;
+  readonly createPlugins?: RuntimeBindingPluginFactory;
   readonly runId?: string | null;
   readonly workKey?: string | null;
   readonly frameId?: string | null;
@@ -167,6 +168,18 @@ interface RuntimeBinding {
   readonly operatorAssetContract?: OperatorAssetQueryContract;
   readonly operatorAssets?: unknown;
 }
+
+interface RuntimeBindingPluginFactoryInput {
+  readonly workspaceRoot: string;
+  readonly command: ParsedStartCommand;
+  readonly target: ResolvedCliTarget;
+  readonly replayEvents: readonly RuntimeEvent[];
+  readonly eventSink: (event: RuntimeEvent) => void;
+}
+
+type RuntimeBindingPluginFactory = (
+  input: RuntimeBindingPluginFactoryInput
+) => EngineRunnerPluginSet | Promise<EngineRunnerPluginSet>;
 
 interface ResolvedCliTarget {
   readonly inputRef: string;
@@ -769,6 +782,7 @@ function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
     constructionPriorityScheme?: ConstructionPriorityScheme;
     constructionAffectPolicies?: readonly AffectPriorityPolicy[];
     plugins?: EngineRunnerPluginSet;
+    createPlugins?: RuntimeBindingPluginFactory;
     runId?: string | null;
     workKey?: string | null;
     frameId?: string | null;
@@ -809,6 +823,17 @@ function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
       throw new CliError(`${label}.plugins must be an object`);
     }
     result.plugins = input["plugins"] as unknown as EngineRunnerPluginSet;
+  }
+  if (hasOwnField(input, "createPlugins")) {
+    if (typeof input["createPlugins"] !== "function") {
+      throw new CliError(`${label}.createPlugins must be a function`);
+    }
+    if (result.plugins !== undefined) {
+      throw new CliError(
+        `${label} must declare plugins or createPlugins, not both`
+      );
+    }
+    result.createPlugins = input["createPlugins"] as RuntimeBindingPluginFactory;
   }
 
   const pluginTraversalObserverFallbackEnabled = coerceOptionalBooleanField(
@@ -918,6 +943,26 @@ async function loadRuntimeBinding(workspaceRoot: string): Promise<RuntimeBinding
   throw new CliError(
     `TypeScript CLI requires an app-owned runtime binding at ${candidates.join(" or ")}`
   );
+}
+
+async function runtimePluginsForStart(input: {
+  readonly binding: RuntimeBinding;
+  readonly workspaceRoot: string;
+  readonly command: ParsedStartCommand;
+  readonly target: ResolvedCliTarget;
+  readonly replayEvents: readonly RuntimeEvent[];
+  readonly eventSink: (event: RuntimeEvent) => void;
+}): Promise<EngineRunnerPluginSet | undefined> {
+  if (input.binding.createPlugins === undefined) {
+    return input.binding.plugins;
+  }
+  return input.binding.createPlugins({
+    workspaceRoot: input.workspaceRoot,
+    command: input.command,
+    target: input.target,
+    replayEvents: input.replayEvents,
+    eventSink: input.eventSink
+  });
 }
 
 function defaultOperatorAssetContract(): OperatorAssetQueryContract {
@@ -1163,13 +1208,22 @@ async function runStartCommand(
   const replayEvents = await readReplayEvents(eventLogPath);
   const target = await resolveCliTarget(workspaceRoot, binding, command.target);
   const emitted: RuntimeEvent[] = [];
+  const eventSink = (event: RuntimeEvent): void => {
+    emitted.push(event);
+  };
+  const plugins = await runtimePluginsForStart({
+    binding,
+    workspaceRoot,
+    command,
+    target,
+    replayEvents,
+    eventSink
+  });
   const outcome = await publicCallableStartAsync(
     callableInput(command, workspaceRoot, binding, target),
     startContext(workspaceRoot, binding, replayEvents),
-    (event) => {
-      emitted.push(event);
-    },
-    binding.plugins
+    eventSink,
+    plugins
   );
   await appendRuntimeEvents(eventLogPath, emitted);
 

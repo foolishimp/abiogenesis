@@ -16,9 +16,14 @@ import {
   runInstalledNodeScript
 } from "./support/m05-installed-fixtures.mjs";
 
-function runtimeBindingSource({ withPlugins = false } = {}) {
-  const pluginSource = withPlugins
+function runtimeBindingSource({ withPlugins = false, withPluginFactory = false } = {}) {
+  const includePluginSource = withPlugins || withPluginFactory;
+  const pluginSource = includePluginSource
     ? `
+    let factoryEventSink = null;
+    let factoryWorkspaceRoot = null;
+    let factoryTarget = null;
+
     const fpDispatchPlugin = Object.freeze({
       contract: constructEnginePluginContract({
         ref: "plugin://cli-binary/runtime-binding/fp-dispatch",
@@ -27,32 +32,59 @@ function runtimeBindingSource({ withPlugins = false } = {}) {
         inputCarrier: "EnginePluginInput",
         outputCarrier: "FpDispatchOutcome"
       }),
-      dispatch: (input) => constructFpDispatchOutcome({
-        status: "dispatched",
-        resultRef: \`result://cli-binary/\${encodeURIComponent(input.edge)}\`,
-        attachedResultArtifact: {
-          edge: input.expectedEdge ?? input.edge,
-          actor: "codex",
-          fulfillment_assessments: (
-            input.expectedAssessmentIds.length > 0
-              ? input.expectedAssessmentIds
-              : ["runtime_fulfilled"]
-          ).map((assessmentId) => ({
-            id: assessmentId,
-            evaluator: assessmentId,
-            fulfillment_status: "fulfilled",
-            fulfillment_detail: "runtime binding plugin result accepted",
-            blocking_reasons: [],
-            evidence_refs: [\`proof://cli-binary/\${assessmentId}\`]
-          })),
-          selected_worker_id: input.workerId,
-          selected_backend: input.backendId,
-          role_id: "role://runtime",
-          assignment_source: "policy_resolution",
-          resolved_runtime_ref: input.resolvedRuntimeRef
-        },
-        evidenceRefs: [input.sourceProjectionRef]
-      })
+      dispatch: (input) => {
+        if (factoryEventSink !== null) {
+          factoryEventSink(constructRuntimeActivityProbeObservedEvent({
+            basisId: input.basisId,
+            graphFunctionId: input.graphFunctionId,
+            runId: null,
+            workKey: null,
+            graphCallId: input.graphCallId,
+            frameId: input.frameId,
+            vectorIndex: input.vectorIndex,
+            edge: input.edge,
+            actorInvocationId: input.actorInvocationRef?.actorInvocationId ?? null,
+            workerId: null,
+            backendId: null,
+            systemRef: "system://abiogenesis/cli/runtime-binding-plugin-factory",
+            probeRef: \`probe://cli-binary/factory/\${encodeURIComponent(input.edge)}\`,
+            probeSource: "runtime_event_append",
+            activityRef: factoryTarget?.graphFunctionId ?? input.graphFunctionId,
+            elapsedMs: 0,
+            observedAtMs: 0,
+            evidenceRefs: [factoryWorkspaceRoot ?? "workspace://unknown"],
+            detail: "runtime binding factory supplied plugin set with ABG event sink",
+            causationEventRefs: [input.sourceProjectionRef],
+            correlationId: \`runtime-binding-plugin-factory:\${input.vectorIndex}\`
+          }));
+        }
+        return constructFpDispatchOutcome({
+          status: "dispatched",
+          resultRef: \`result://cli-binary/\${encodeURIComponent(input.edge)}\`,
+          attachedResultArtifact: {
+            edge: input.expectedEdge ?? input.edge,
+            actor: "codex",
+            fulfillment_assessments: (
+              input.expectedAssessmentIds.length > 0
+                ? input.expectedAssessmentIds
+                : ["runtime_fulfilled"]
+            ).map((assessmentId) => ({
+              id: assessmentId,
+              evaluator: assessmentId,
+              fulfillment_status: "fulfilled",
+              fulfillment_detail: "runtime binding plugin result accepted",
+              blocking_reasons: [],
+              evidence_refs: [\`proof://cli-binary/\${assessmentId}\`]
+            })),
+            selected_worker_id: input.workerId,
+            selected_backend: input.backendId,
+            role_id: "role://runtime",
+            assignment_source: "policy_resolution",
+            resolved_runtime_ref: input.resolvedRuntimeRef
+          },
+          evidenceRefs: [input.sourceProjectionRef]
+        });
+      }
     });
     `
     : "";
@@ -63,6 +95,18 @@ function runtimeBindingSource({ withPlugins = false } = {}) {
         fpEvaluator: defaultFpEvaluatorPlugin
       },
     `
+    : withPluginFactory
+      ? `
+      createPlugins: ({ eventSink, workspaceRoot, target }) => {
+        factoryEventSink = eventSink;
+        factoryWorkspaceRoot = workspaceRoot;
+        factoryTarget = target;
+        return {
+          fpDispatch: fpDispatchPlugin,
+          fpEvaluator: defaultFpEvaluatorPlugin
+        };
+      },
+      `
     : "";
   return `
     import {
@@ -73,6 +117,7 @@ function runtimeBindingSource({ withPlugins = false } = {}) {
       constructEnginePluginContract,
       constructDefaultAbgFnCompositionDeclarations,
       constructFpDispatchOutcome,
+      constructRuntimeActivityProbeObservedEvent,
       defaultFpEvaluatorPlugin,
       edge,
       graphFunctionForVector
@@ -358,6 +403,41 @@ test("M04 CLI binary integration: runtime binding plugins execute through ABG CL
     true
   );
   assert.equal(payload.event_kinds.includes("vector_closed"), true);
+  assert.deepStrictEqual(await eventKinds(targetRoot), payload.event_kinds);
+});
+
+test("M04 CLI binary integration: runtime binding plugin factory receives ABG event sink", async () => {
+  const { targetRoot, packageRoot } = await installCliRuntime();
+  await writeFile(
+    path.join(targetRoot, ".abiogenesis", "typescript-runtime.mjs"),
+    runtimeBindingSource({ withPluginFactory: true }),
+    "utf8"
+  );
+
+  const run = runCli(targetRoot, packageRoot, [
+    "start",
+    "--workspace",
+    ".",
+    "--scope",
+    "workspace",
+    "--target",
+    "graph_function:code_flow",
+    "--until",
+    "converged"
+  ]);
+  assert.equal(run.status, 0, run.stderr);
+  const payload = parsePayload(run);
+
+  assert.equal(payload.command, "start");
+  assert.equal(payload.status, "converged");
+  assert.equal(
+    payload.event_kinds.includes("runtime_activity_probe_observed"),
+    true
+  );
+  assert.equal(
+    payload.event_kinds.includes("actor_result_artifact_observed"),
+    true
+  );
   assert.deepStrictEqual(await eventKinds(targetRoot), payload.event_kinds);
 });
 
