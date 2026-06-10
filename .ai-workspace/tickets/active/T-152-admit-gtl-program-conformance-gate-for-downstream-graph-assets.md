@@ -685,3 +685,35 @@ Current non-closure:
   runtime binding row, and plugin providers to ABG command/control.
 - A clean downstream live lane must run through ABG command/control rather than
   a product-local CLI loop.
+
+## Implementation Update - 2026-06-11 M03 Assurance Retry Ownership
+
+Downstream live proof exposed an ABG runtime ownership gap after command/control
+was wired correctly: an accepted F_P artifact whose admitted assurance fold
+returned `retry` was being projected as a terminal `yielded` outcome. That let a
+downstream product-local loop hide the missing ABG-owned same-edge iteration.
+
+Updated `engine_runner.ts`:
+
+- Assurance closure decisions with `decision: "retry"` now derive a runtime
+  continuation-transition projection and route `retry_same_edge` inside M03.
+- The runner emits the blocked vector evaluation, ABG-owned retry-repair events,
+  and retry progress, then redispatches the same graph vector through the normal
+  runner loop instead of yielding to an outer product controller.
+- Bounded exhaustion remains an ABG terminal stop (`gap_stop`) and
+  `qualified_defer` remains a yielded terminal outcome.
+
+Added regression coverage:
+
+- `T-084 engine runner: assurance retry over an accepted artifact redispatches inside ABG`
+- Updated the T-144 close-disposition regression so `no_close` proves bounded
+  ABG retry exhaustion and `human_required` proves yielded deferral.
+
+Proof:
+
+- Focused ABG pack passed 34/34 on 2026-06-11 for `test_t084`,
+  `test_t093`, `test_t148`, and `test_t149`.
+- `test_t144_abg_probabilistic_monad_plugin_boundary` passed 14/14 after the
+  terminal taxonomy assertion was updated.
+- `npm run test:semantic` passed 782/782 and `npm run lint:semantic` passed on
+  2026-06-11 before the `4.0.0-rc.15` release-basis commit.

@@ -133,6 +133,7 @@ import {
   derivePayloadLedgerProjection
 } from "../contracts/payload_ledger.js";
 import {
+  constructRetryProgressRecordedEvent,
   deriveRetryRepairDecision,
   runtimeEventsForRetryRepairDecision
 } from "../contracts/retry_repair.js";
@@ -693,6 +694,22 @@ function candidateNoProgressRetryManifestId(input: {
   })}`;
 }
 
+function candidateAssuranceRetryManifestId(input: {
+  readonly basis: ExecutionBasis;
+  readonly projection: RuntimeAggregateProjection;
+  readonly vectorIndex: number;
+}): string {
+  const attemptIndex =
+    input.projection.retryAttemptRefs.filter(
+      (attempt) => attempt.vectorIndex === input.vectorIndex
+    ).length + 1;
+  return `manifest:assurance_retry:${JSON.stringify({
+    basisId: input.basis.id,
+    vectorIndex: input.vectorIndex,
+    attemptIndex
+  })}`;
+}
+
 function noProgressContinuationRepair(input: {
   readonly basis: ExecutionBasis;
   readonly projection: RuntimeAggregateProjection;
@@ -702,6 +719,21 @@ function noProgressContinuationRepair(input: {
     (attempt) => attempt.vectorIndex === input.vectorIndex
   ).length;
   const prefix = `continuation:${input.basis.id}:${input.vectorIndex}:no_progress`;
+  return Object.freeze({
+    terminatedContinuationId: `${prefix}:attempt:${observedAttemptCount}`,
+    reopenedContinuationId: `${prefix}:attempt:${observedAttemptCount + 1}`
+  });
+}
+
+function assuranceRetryContinuationRepair(input: {
+  readonly basis: ExecutionBasis;
+  readonly projection: RuntimeAggregateProjection;
+  readonly vectorIndex: number;
+}) {
+  const observedAttemptCount = input.projection.retryAttemptRefs.filter(
+    (attempt) => attempt.vectorIndex === input.vectorIndex
+  ).length;
+  const prefix = `continuation:${input.basis.id}:${input.vectorIndex}:assurance_retry`;
   return Object.freeze({
     terminatedContinuationId: `${prefix}:attempt:${observedAttemptCount}`,
     reopenedContinuationId: `${prefix}:attempt:${observedAttemptCount + 1}`
@@ -2016,6 +2048,101 @@ function terminalForAssuranceDecision(input: {
       const exhaustive: never = input.decision;
       throw new TypeError(
         `Unsupported assurance closure decision ${JSON.stringify(exhaustive)}`
+      );
+    }
+  }
+}
+
+function assuranceRetryProgressSignalRefs(input: {
+  readonly fold: ReturnType<typeof assuranceDecisionForCurrentVector>;
+}): readonly string[] {
+  return Object.freeze([
+    input.fold.closureDecision.reason,
+    input.fold.assuranceProjection.projectionRef,
+    input.fold.payloadLedger.projectionRef,
+    ...input.fold.closureDecision.rowIds,
+    ...input.fold.closureDecision.blockingStatuses
+  ]);
+}
+
+function assuranceRetryEvents(input: {
+  readonly basis: ExecutionBasis;
+  readonly runtimeProjection: RuntimeAggregateProjection;
+  readonly replayEvents: readonly RuntimeEvent[];
+  readonly vectorIndex: number;
+  readonly priorManifestId: string;
+  readonly assuranceFold: ReturnType<typeof assuranceDecisionForCurrentVector>;
+  readonly maxAttempts: number;
+}): readonly RuntimeEvent[] | TerminalTransition {
+  const transitionProjection = deriveRuntimeContinuationTransitionProjection({
+    basis: input.basis,
+    runtimeProjection: input.runtimeProjection,
+    vectorIndex: input.vectorIndex,
+    assuranceClosureDecision: input.assuranceFold.closureDecision
+  });
+  if (transitionProjection.disposition !== "retry_same_edge") {
+    const transition = terminalTransitionForRuntimeContinuationProjection({
+      basis: input.basis,
+      projection: transitionProjection
+    });
+    if (transition === null) {
+      throw new TypeError(
+        "Assurance continuation transition produced no terminal for non-retry disposition"
+      );
+    }
+    return transition;
+  }
+  const retryContext = deriveFreshRetryContextProjection({
+    basis: input.basis,
+    runtimeProjection: input.runtimeProjection,
+    events: input.replayEvents,
+    vectorIndex: input.vectorIndex
+  });
+  if (retryContext.status !== "fresh") {
+    throw new TypeError(
+      `Assurance retry rejects ${retryContext.status}: ${retryContext.reason ?? "retry context is not fresh"}`
+    );
+  }
+  const retryDecision = deriveRetryRepairDecision({
+    basis: input.basis,
+    projection: input.runtimeProjection,
+    failedVectorIndex: input.vectorIndex,
+    priorManifestId: input.priorManifestId,
+    candidateManifestId: candidateAssuranceRetryManifestId({
+      basis: input.basis,
+      projection: input.runtimeProjection,
+      vectorIndex: input.vectorIndex
+    }),
+    maxAttempts: input.maxAttempts,
+    stationary: false,
+    escalationSubjectRef: input.basis.resolvedPolicy.approvalSubjectRef,
+    continuationRepair: assuranceRetryContinuationRepair({
+      basis: input.basis,
+      projection: input.runtimeProjection,
+      vectorIndex: input.vectorIndex
+    })
+  });
+  const retryEvents = runtimeEventsForRetryRepairDecision(retryDecision);
+  switch (retryDecision.kind) {
+    case "retry_planned":
+      return Object.freeze([
+        ...retryEvents,
+        constructRetryProgressRecordedEvent({
+          decision: retryDecision,
+          progressSignalRefs: assuranceRetryProgressSignalRefs({
+            fold: input.assuranceFold
+          }),
+          stationary: false
+        })
+      ]);
+    case "retry_escalated":
+      return terminalTransition(input.basis, "yielded", retryDecision.gateReason);
+    case "retry_stopped":
+      return terminalTransition(input.basis, "gap_stop", retryDecision.reason);
+    default: {
+      const exhaustive: never = retryDecision;
+      throw new TypeError(
+        `Unsupported assurance retry decision ${JSON.stringify(exhaustive)}`
       );
     }
   }
@@ -3852,6 +3979,68 @@ function* runEngineIterateMachine(input: {
               decision: assuranceFold.closureDecision.decision,
               reason: assuranceFold.closureDecision.reason
             });
+            if (assuranceFold.closureDecision.decision === "retry") {
+              eventState = emitRunnerEvents(eventState,
+                constructVectorEvaluatedEvent({
+                  basis: request.basis,
+                  vectorIndex: transition.vectorIndex,
+                  status: "blocked"
+                })
+              );
+              const retryProjection = deriveRuntimeAggregateProjection(
+                request.basis,
+                eventState.replayEvents
+              );
+              const assuranceRetry = assuranceRetryEvents({
+                basis: request.basis,
+                runtimeProjection: retryProjection,
+                replayEvents: eventState.replayEvents,
+                vectorIndex: transition.vectorIndex,
+                priorManifestId: resultRef,
+                assuranceFold,
+                maxAttempts:
+                  request.maxAttachedFpAttempts ??
+                  DEFAULT_ATTACHED_FP_MAX_RETRY_ATTEMPTS
+              });
+              if (!("kind" in assuranceRetry)) {
+                if (mustExitAfterBoundedAttempt(modulatedAttempt)) {
+                  const bounded = boundedAttemptExitTransition({
+                    basis: request.basis,
+                    vectorIndex: transition.vectorIndex,
+                    reason: assuranceFold.closureDecision.reason
+                  });
+                  eventState = emitRunnerEvents(
+                    eventState,
+                    constructTerminalReachedEvent(bounded)
+                  );
+                  return constructResult({
+                    basis: request.basis,
+                    transition: bounded,
+                    projection: deriveRuntimeAggregateProjection(
+                      request.basis,
+                      eventState.replayEvents
+                    ),
+                    emittedEvents: eventState.emittedEvents,
+                    replayEvents: eventState.replayEvents,
+                    iterationCount
+                  });
+                }
+                eventState = emitRunnerEvents(eventState, assuranceRetry);
+                break;
+              }
+              eventState = emitRunnerEvents(
+                eventState,
+                constructTerminalReachedEvent(assuranceRetry)
+              );
+              return constructResult({
+                basis: request.basis,
+                transition: assuranceRetry,
+                projection: deriveRuntimeAggregateProjection(request.basis, eventState.replayEvents),
+                emittedEvents: eventState.emittedEvents,
+                replayEvents: eventState.replayEvents,
+                iterationCount
+              });
+            }
             if (assuranceTerminal !== null) {
               eventState = emitRunnerEvents(eventState,
                 constructVectorEvaluatedEvent({

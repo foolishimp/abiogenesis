@@ -11,6 +11,8 @@ import {
   admitFpDispatchOutcome,
   constructEnginePluginContract,
   constructFpDispatchOutcome,
+  constructFpEvaluationFinding,
+  constructFpEvaluationOutcome,
   defaultFpEvaluatorPlugin,
   runEngineIterate,
   start
@@ -47,6 +49,55 @@ function attachedArtifact(input, options = {}) {
     assignment_source: "policy_resolution",
     resolved_runtime_ref: "runtime://typescript/node"
   };
+}
+
+function fpEvaluationFinding(input, closeDisposition, attempt) {
+  return constructFpEvaluationFinding({
+    findingRef: [
+      "finding://t084/assurance-retry",
+      encodeURIComponent(input.edge),
+      String(attempt)
+    ].join("/"),
+    evaluatorRef: input.contract.ref,
+    gainReportRef: [
+      "gain://t084/assurance-retry",
+      encodeURIComponent(input.edge),
+      String(attempt)
+    ].join("/"),
+    metricRefs: [
+      [
+        "metric://t084/assurance-retry",
+        encodeURIComponent(input.edge),
+        String(attempt)
+      ].join("/")
+    ],
+    closeDisposition,
+    residualPressureRefs:
+      closeDisposition === "retry"
+        ? [
+            [
+              "pressure://t084/assurance-retry",
+              encodeURIComponent(input.edge),
+              String(attempt)
+            ].join("/")
+          ]
+        : [],
+    evidenceRefs: [input.sourceProjectionRef],
+    authorityRefs:
+      input.expectedAssessmentIds.length > 0
+        ? input.expectedAssessmentIds
+        : [
+            [
+              "authority://t084/assurance-retry",
+              encodeURIComponent(input.edge),
+              String(attempt)
+            ].join("/")
+          ],
+    compositionContributionRef:
+      input.selectedRegimeBindingRef ?? input.selectedCompositionRef,
+    compositionRef: input.selectedCompositionRef,
+    compositionDigest: input.selectedCompositionDigest
+  });
 }
 
 function fpDispatchContract(ref) {
@@ -205,6 +256,93 @@ test("T-084 engine runner: attached F_P worker retries from replay state, then c
       ...composedStageOutcomeEvents,
       "terminal_reached"
     ]
+  );
+});
+
+test("T-084 engine runner: assurance retry over an accepted artifact redispatches inside ABG", () => {
+  const basis = buildThreeStageBasis({
+    defaultRegime: "F_P",
+    dispatchRef: "dispatch://attached-worker-assurance-retry"
+  });
+  const events = [];
+  const dispatchAttemptByEdge = new Map();
+  const evaluationAttemptByEdge = new Map();
+  const fpDispatch = Object.freeze({
+    contract: fpDispatchContract("plugin://test/t084-assurance-retry-dispatch"),
+    dispatch: (input) => {
+      const nextAttempt = (dispatchAttemptByEdge.get(input.edge) ?? 0) + 1;
+      dispatchAttemptByEdge.set(input.edge, nextAttempt);
+      return constructFpDispatchOutcome({
+        status: "dispatched",
+        resultRef: `result://t084/assurance/${encodeURIComponent(input.edge)}/${nextAttempt}`,
+        attachedResultArtifact: attachedArtifact(input),
+        evidenceRefs: [input.sourceProjectionRef]
+      });
+    }
+  });
+  const fpEvaluator = Object.freeze({
+    contract: defaultFpEvaluatorPlugin.contract,
+    evaluate: (input) => {
+      const nextAttempt = (evaluationAttemptByEdge.get(input.edge) ?? 0) + 1;
+      evaluationAttemptByEdge.set(input.edge, nextAttempt);
+      if (input.edge !== "input_set→requirements" || nextAttempt > 1) {
+        return defaultFpEvaluatorPlugin.evaluate(input);
+      }
+      return constructFpEvaluationOutcome({
+        status: "evaluated",
+        findings: [fpEvaluationFinding(input, "retry", nextAttempt)],
+        evidenceRefs: [input.sourceProjectionRef]
+      });
+    }
+  });
+
+  const result = runEngineIterate({
+    basis,
+    eventSink: (event) => {
+      events.push(event);
+    },
+    plugins: { fpDispatch, fpEvaluator }
+  });
+
+  assert.equal(result.transition.kind, "terminal");
+  assert.equal(result.transition.terminalKind, "converged");
+  assert.deepStrictEqual([...dispatchAttemptByEdge.entries()], [
+    ["input_set→requirements", 2],
+    ["requirements→design", 1],
+    ["design→code", 1]
+  ]);
+  assert.deepStrictEqual(result.projection.retryAttemptRefs, [
+    {
+      vectorIndex: 0,
+      retryRunId: "run://m03-iteration:retry:1",
+      retryCallId: `graph-call:${basis.id}:retry:1`,
+      manifestId: `manifest:assurance_retry:${JSON.stringify({
+        basisId: basis.id,
+        vectorIndex: 0,
+        attemptIndex: 1
+      })}`,
+      priorManifestId: "result://t084/assurance/input_set%E2%86%92requirements/1",
+      attemptIndex: 1,
+      sourceProjectionRef: `runtime_projection:${basis.id}:closed=:retry=0:leaf=0`
+    }
+  ]);
+  assert.equal(
+    events.some((event) => event.kind === "retry_repair_planned"),
+    true
+  );
+  assert.equal(
+    events.some(
+      (event) =>
+        event.kind === "retry_progress_recorded" &&
+        event.progressSignalRefs.includes(
+          "partial_or_missing_evidence_requires_retry_or_repair"
+        )
+    ),
+    true
+  );
+  assert.equal(
+    events.filter((event) => event.kind === "terminal_reached").length,
+    1
   );
 });
 

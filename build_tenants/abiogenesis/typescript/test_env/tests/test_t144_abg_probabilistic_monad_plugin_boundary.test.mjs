@@ -870,12 +870,14 @@ test("T-144 F_P evaluation close dispositions cannot close by omission", () => {
     {
       disposition: "no_close",
       expectedAmbiguityStatus: "partial",
-      expectedDecision: "retry"
+      expectedDecision: "retry",
+      expectedTerminalKind: "gap_stop"
     },
     {
       disposition: "human_required",
       expectedAmbiguityStatus: "deferred",
-      expectedDecision: "qualified_defer"
+      expectedDecision: "qualified_defer",
+      expectedTerminalKind: "yielded"
     }
   ];
 
@@ -915,7 +917,7 @@ test("T-144 F_P evaluation close dispositions cannot close by omission", () => {
     );
 
     assert.equal(result.transition.kind, "terminal");
-    assert.equal(result.transition.terminalKind, "yielded");
+    assert.equal(result.transition.terminalKind, testCase.expectedTerminalKind);
     assert.equal(closureInput.closureDecision, testCase.expectedDecision);
     assert.equal(ambiguity.ambiguityStatus, testCase.expectedAmbiguityStatus);
     assert.equal(

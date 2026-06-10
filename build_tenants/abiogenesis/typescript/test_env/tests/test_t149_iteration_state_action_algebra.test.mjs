@@ -47,8 +47,11 @@ function sourceFile(relativePath) {
 }
 
 function functionBody(source, functionName) {
-  const start = source.indexOf(`function ${functionName}`);
-  assert.notEqual(start, -1, `${functionName} must exist`);
+  const functionMatch = new RegExp(`function\\s+${functionName}\\s*\\(`, "u").exec(
+    source
+  );
+  assert.notEqual(functionMatch, null, `${functionName} must exist`);
+  const start = functionMatch.index;
   let parenDepth = 0;
   let openBrace = -1;
   for (let index = start; index < source.length; index += 1) {
