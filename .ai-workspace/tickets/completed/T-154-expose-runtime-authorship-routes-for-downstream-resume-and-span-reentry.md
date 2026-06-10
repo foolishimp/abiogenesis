@@ -3,14 +3,15 @@ id: T-154
 title: Expose runtime authorship routes for downstream resume, span reentry, and transition refs
 type: feature
 ticket_category: ordinary
-status: active
-proof_status: release_snapshot_cut_downstream_consumption_pending
+status: completed
+proof_status: passed
 goal: let downstream ODD products remove local runtime-event construction and fake transition refs by consuming ABG-owned routes for explicit graph-vector resume, graph-span reentry application, and replay-visible traversal transition identity
 change_class: design_reframe
 change_intent: Close the consumer gap found by odd_sdlc T-197 W-105/W-110: SDLC has ABG primitives and constructors, but still assembles selected runtime lifecycle and graph-span/reentry events locally before emit, and its consequence projection has no first-class ABG traversal-transition ref to consume. ABG should expose consumer-safe runtime authorship functions or runner entries so downstream products supply product candidates and ABG emits/adopts the runtime facts and returns replay-visible transition identity.
 re_entry_point: design
 created_at: 2026-06-09
 updated_at: 2026-06-10
+completed_at: 2026-06-10
 owning_repo: abiogenesis
 governance_scope: STDO Method
 priority: high
@@ -98,11 +99,11 @@ it must not close these rows by reassembling ABG runtime facts locally.
 
 | T-197 row | Blocked SDLC surface | ABG/GTL target route | T-154 disposition |
 | --- | --- | --- | --- |
-| `A1` | synthetic vector lifecycle cursor events in `replayEventsWithGraphContinuationCursor(...)` | explicit graph-vector resume/cursor route that admits target resume intent and returns replay-visible lifecycle/transition truth | active work |
-| `A4` vector lifecycle subset | downstream construct-before-emit of vector lifecycle runtime events | ABG-owned runtime authorship function or runner entry for vector lifecycle catch-up/resume | active work |
-| `A4` graph-span/reentry subset | downstream construct-before-emit of graph-span foldback and graph reentry plan/apply events | graph-span assessment candidate admission plus ABG foldback/reentry projection and event authorship | active work |
-| `A5` | downstream consequence projection lacks first-class ABG traversal transition/ref identity | replay-visible traversal transition projection/ref returned by ABG and consumable by consequence projections | active work |
-| `A2` | installed re-entry loop classification depends on the A5 transition boundary | evaluate after ABG transition/ref route exists; no standalone SDLC controller rewrite before this ticket | dependent |
+| `A1` | synthetic vector lifecycle cursor events in `replayEventsWithGraphContinuationCursor(...)` | explicit graph-vector resume/cursor route that admits target resume intent and returns replay-visible lifecycle/transition truth | done in ABI 4.0.0-rc.7 and consumed by odd_sdlc T-197 |
+| `A4` vector lifecycle subset | downstream construct-before-emit of vector lifecycle runtime events | ABG-owned runtime authorship function or runner entry for vector lifecycle catch-up/resume | done in ABI 4.0.0-rc.7 and consumed by odd_sdlc T-197 |
+| `A4` graph-span/reentry subset | downstream construct-before-emit of graph-span foldback and graph reentry plan/apply events | graph-span assessment candidate admission plus ABG foldback/reentry projection and event authorship | done in ABI 4.0.0-rc.7 and consumed by odd_sdlc T-197 |
+| `A5` | downstream consequence projection lacks first-class ABG traversal transition/ref identity | replay-visible traversal transition projection/ref returned by ABG and consumable by consequence projections | done in ABI 4.0.0-rc.7 and consumed by odd_sdlc T-197 |
+| `A2` | installed re-entry loop classification depends on the A5 transition boundary | evaluate after ABG transition/ref route exists; no standalone SDLC controller rewrite before this ticket | unblocked downstream; not an ABG route gap |
 
 If an audit proves an existing ABG route already satisfies a row, the closure
 artifact is the consumer recipe plus a downstream-shaped proof. If no route
@@ -202,12 +203,36 @@ exists, the implementation belongs here.
 | manifest sha256 | `9286a95b6940cfb502ea0623cbe738919e19cc2fa2e63f09af29a436d173c1e6` |
 | latest pointer | `release_snapshots/abiogenesis-typescript-tenant/latest -> 4.0.0-rc.7` |
 
-Downstream consumption remains owned by odd_sdlc T-197. This ABI slice removes
-the requirement for downstream products to construct cursor/span/reentry events
-locally; it does not claim the old odd_sdlc call sites have already been
-deleted. It also does not claim downstream release consumption until odd_sdlc
-updates its ABG pin and proves the T-197 call sites against this immutable
-snapshot.
+## Downstream Consumption Evidence - 2026-06-10
+
+odd_sdlc consumed the immutable rc.7 snapshot from its TypeScript package pin:
+
+```text
+file:../../../abiogenesis/release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.7/abiogenesis-typescript-tenant-4.0.0-rc.7.tgz
+```
+
+The downstream T-197 W-110 slice removed production-local vector lifecycle,
+graph-span, and graph-reentry constructor sites and now consumes:
+
+- `applyExplicitGraphVectorResumeCursor(...)` for explicit graph-vector resume;
+- `applyGraphSpanReentryRoute(...)` for repair and post-action graph-span
+  reentry;
+- `deriveRuntimeContinuationTransitionProjectionFromDisposition(...)` for
+  consequence `traversalTransitionRef`.
+
+Downstream proof:
+
+| Command / proof | Result |
+| --- | --- |
+| `npm run test:t197` in odd_sdlc TypeScript tenant | passed 18/18; source guard rejects local vector lifecycle, graph-span, graph-reentry constructors, local next-action transition substitutes, runtime-authoring inside the A2 loop, and B2/B3 parallel GTL law |
+| `npm run test:t164` in odd_sdlc TypeScript tenant | passed 22/22 edge-contract tests plus 1/1 Rust-service sandbox |
+| `npm run test:t164:rust-service-live` in odd_sdlc TypeScript tenant | passed on archive `build_tenants/typescript/test_env/test_runs/scenario_t164_rust_hello_service_lite_live/20260610T015117386Z_pid56728`; final execution evidence succeeded with `testsObserved: 1`, `passedCount: 1`, `failedCount: 0`, and stdout `helloworld` |
+
+This satisfies the closure law: the route exists in an immutable release
+snapshot, and a downstream-shaped consumer removed synthetic cursor events,
+graph-span/reentry event construction, and local transition-ref substitution
+while preserving replay, continuation, graph-span foldback behavior, and
+consequence projection binding to ABG transition identity.
 
 ## Execution Plan
 
