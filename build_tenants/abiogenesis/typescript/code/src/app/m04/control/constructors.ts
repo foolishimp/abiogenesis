@@ -1,6 +1,7 @@
 import type {
   PublicControlLoopConverged,
   PublicControlLoopDispatchRequired,
+  PublicControlLoopBlocked,
   PublicControlLoopOutcome,
   PublicControlLoopRejected,
   PublicControlLoopRequest,
@@ -191,6 +192,18 @@ function constructHumanGateRequiredOutcome(
   });
 }
 
+function constructBlockedOutcome(
+  outcomes: readonly PublicStartOutcome[],
+  stopDetail: PublicControlLoopStopDetail
+): PublicControlLoopBlocked {
+  return Object.freeze({
+    kind: "blocked",
+    runtimeIdentity: requireRuntimeIdentity(outcomes),
+    trace: constructPublicControlLoopTraceRef(outcomes),
+    stopDetail
+  });
+}
+
 function constructRejectedOutcome(
   outcomes: readonly PublicStartOutcome[],
   reason: string,
@@ -244,9 +257,8 @@ export function constructPublicControlLoopOutcome(
           );
         }
         case "gap_stop":
-          return constructRejectedOutcome(
+          return constructBlockedOutcome(
             outcomes,
-            "unsupported control-loop stop predicate: gap_stop",
             constructStopDetailFromBlocked("gap_stop", last)
           );
         default: {

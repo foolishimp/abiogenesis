@@ -161,7 +161,7 @@ test("M04 control unit: repeated advanced public-start truth stays explicit as y
   assert.deepStrictEqual(outcome.trace.stepKinds, ["advanced", "advanced"]);
 });
 
-test("M04 control unit: gap-stop public-start truth stays explicit inside rejected control stop detail", () => {
+test("M04 control unit: gap-stop public-start truth stays explicit as blocked control stop detail", () => {
   const outcome = constructPublicControlLoopOutcome(
     [
       Object.freeze({
@@ -190,7 +190,7 @@ test("M04 control unit: gap-stop public-start truth stays explicit inside reject
     })
   );
 
-  assert.equal(outcome.kind, "rejected");
+  assert.equal(outcome.kind, "blocked");
   assert.equal(outcome.stopDetail.kind, "gap_stop");
   assert.equal(outcome.stopDetail.terminalKind, "gap_stop");
 });

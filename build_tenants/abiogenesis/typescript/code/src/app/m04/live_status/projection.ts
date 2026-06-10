@@ -199,6 +199,19 @@ export function projectLiveStatusFromRequest(
             reason: request.controlOutcome.kind
           })
         );
+      case "blocked":
+        return constructPublicLiveStatusProjection(
+          constructAttentionPublicLiveStatusProjection({
+            request,
+            trace,
+            runtimeIdentity,
+            resultAssessment,
+            targetHandle,
+            activeEdge,
+            runStatus: "blocked",
+            reason: request.controlOutcome.stopDetail.kind
+          })
+        );
       case "rejected":
         return constructPublicLiveStatusProjection(
           constructAttentionPublicLiveStatusProjection({

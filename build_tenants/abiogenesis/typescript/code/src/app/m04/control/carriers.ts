@@ -70,6 +70,13 @@ export interface PublicControlLoopHumanGateRequired {
   readonly approvalHint: HumanProxyApprovalHint | null;
 }
 
+export interface PublicControlLoopBlocked {
+  readonly kind: "blocked";
+  readonly runtimeIdentity: PublicRuntimeIdentityProjection;
+  readonly trace: PublicControlLoopTraceRef;
+  readonly stopDetail: PublicControlLoopStopDetail;
+}
+
 export interface PublicControlLoopRejected {
   readonly kind: "rejected";
   readonly reason: string;
@@ -83,4 +90,5 @@ export type PublicControlLoopOutcome =
   | PublicControlLoopYielded
   | PublicControlLoopDispatchRequired
   | PublicControlLoopHumanGateRequired
+  | PublicControlLoopBlocked
   | PublicControlLoopRejected;

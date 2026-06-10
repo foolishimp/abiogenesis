@@ -412,6 +412,19 @@ function admitPublicControlLoopOutcome(
         approvalHint
       });
     }
+    case "blocked":
+      if (runtimeIdentity === null) {
+        throw new TypeError(`${label}.runtimeIdentity: required`);
+      }
+      return Object.freeze({
+        kind: "blocked",
+        runtimeIdentity,
+        trace,
+        stopDetail: admitControlStopDetail(
+          outcome["stopDetail"],
+          `${label}.stopDetail`
+        )
+      });
     case "rejected":
       return Object.freeze({
         kind,

@@ -112,6 +112,13 @@ export function projectPublicStopClass(
               source: "live_status"
             });
           }
+          if (liveStatus.reason === "gap_stop") {
+            return constructPublicStopClass({
+              kind: "blocked",
+              detail: liveStatus.reason,
+              source: "live_status"
+            });
+          }
           return constructPublicStopClass({
             kind: "rejected",
             detail: liveStatus.reason,

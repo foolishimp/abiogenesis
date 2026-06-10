@@ -97,3 +97,23 @@ test("M04 complete-start unit: stop-class projection hides raw public-control st
   assert.equal(dispatchStop.kind, "worker_dispatch_required");
   assert.equal(humanStop.kind, "human_decision_required");
 });
+
+test("M04 complete-start unit: gap-stop stop-class remains a lawful blocked terminal", () => {
+  const stopClass = projectPublicStopClass({
+    kind: "attention",
+    assetType: "run_status",
+    runStatus: "blocked",
+    reason: "gap_stop",
+    targetHandle: "demo",
+    activeEdge: null,
+    runtimeIdentity: null,
+    resultAssessment: null,
+    trace: {
+      sourceKinds: ["control_outcome:blocked"]
+    }
+  });
+
+  assert.equal(stopClass.kind, "blocked");
+  assert.equal(stopClass.detail, "gap_stop");
+  assert.equal(stopClass.source, "live_status");
+});

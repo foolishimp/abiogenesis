@@ -1194,6 +1194,7 @@ function statusForStartOutcome(
       return outcome.controlOutcome.terminalKind;
     case "dispatch_required":
     case "human_gate_required":
+    case "blocked":
       return "blocked";
     case "yielded":
       return "yielded";
@@ -1216,6 +1217,8 @@ function exitCodeForStart(outcome: PublicCallableStartOutcome): number {
       return 2;
     case "human_gate_required":
       return 3;
+    case "blocked":
+      return outcome.controlOutcome.stopDetail.kind === "gap_stop" ? 4 : 2;
     case "yielded":
       return 6;
     case "rejected":

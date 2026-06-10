@@ -18,6 +18,7 @@ export type PublicStopClassKind =
   | "advanced"
   | "assessed"
   | "converged"
+  | "blocked"
   | "worker_dispatch_required"
   | "human_decision_required"
   | "yielded"
