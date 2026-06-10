@@ -159,6 +159,7 @@ interface RuntimeBinding {
   readonly runtimeEvents?: readonly RuntimeEvent[];
   readonly constructionPriorityScheme?: ConstructionPriorityScheme;
   readonly constructionAffectPolicies?: readonly AffectPriorityPolicy[];
+  readonly resolvePolicy?: RuntimeBindingPolicyFactory;
   readonly plugins?: EngineRunnerPluginSet;
   readonly createPlugins?: RuntimeBindingPluginFactory;
   readonly runId?: string | null;
@@ -177,9 +178,22 @@ interface RuntimeBindingPluginFactoryInput {
   readonly eventSink: (event: RuntimeEvent) => void;
 }
 
+interface RuntimeBindingPolicyFactoryInput {
+  readonly workspaceRoot: string;
+  readonly command: ParsedStartCommand;
+  readonly target: ResolvedCliTarget;
+  readonly replayEvents: readonly RuntimeEvent[];
+}
+
 type RuntimeBindingPluginFactory = (
   input: RuntimeBindingPluginFactoryInput
 ) => EngineRunnerPluginSet | Promise<EngineRunnerPluginSet>;
+
+type RuntimeBindingPolicyFactory = (
+  input: RuntimeBindingPolicyFactoryInput
+) =>
+  | PublicStartContext["resolvedPolicy"]
+  | Promise<PublicStartContext["resolvedPolicy"]>;
 
 interface ResolvedCliTarget {
   readonly inputRef: string;
@@ -781,6 +795,7 @@ function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
     runtimeEvents?: readonly RuntimeEvent[];
     constructionPriorityScheme?: ConstructionPriorityScheme;
     constructionAffectPolicies?: readonly AffectPriorityPolicy[];
+    resolvePolicy?: RuntimeBindingPolicyFactory;
     plugins?: EngineRunnerPluginSet;
     createPlugins?: RuntimeBindingPluginFactory;
     runId?: string | null;
@@ -823,6 +838,12 @@ function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
       throw new CliError(`${label}.plugins must be an object`);
     }
     result.plugins = input["plugins"] as unknown as EngineRunnerPluginSet;
+  }
+  if (hasOwnField(input, "resolvePolicy")) {
+    if (typeof input["resolvePolicy"] !== "function") {
+      throw new CliError(`${label}.resolvePolicy must be a function`);
+    }
+    result.resolvePolicy = input["resolvePolicy"] as RuntimeBindingPolicyFactory;
   }
   if (hasOwnField(input, "createPlugins")) {
     if (typeof input["createPlugins"] !== "function") {
@@ -943,6 +964,24 @@ async function loadRuntimeBinding(workspaceRoot: string): Promise<RuntimeBinding
   throw new CliError(
     `TypeScript CLI requires an app-owned runtime binding at ${candidates.join(" or ")}`
   );
+}
+
+async function runtimePolicyForStart(input: {
+  readonly binding: RuntimeBinding;
+  readonly workspaceRoot: string;
+  readonly command: ParsedStartCommand;
+  readonly target: ResolvedCliTarget;
+  readonly replayEvents: readonly RuntimeEvent[];
+}): Promise<PublicStartContext["resolvedPolicy"]> {
+  if (input.binding.resolvePolicy === undefined) {
+    return input.binding.resolvedPolicy;
+  }
+  return input.binding.resolvePolicy({
+    workspaceRoot: input.workspaceRoot,
+    command: input.command,
+    target: input.target,
+    replayEvents: input.replayEvents
+  });
 }
 
 async function runtimePluginsForStart(input: {
@@ -1078,7 +1117,8 @@ async function resolveCliTarget(
 function startContext(
   workspaceRoot: string,
   binding: RuntimeBinding,
-  replayEvents: readonly RuntimeEvent[]
+  replayEvents: readonly RuntimeEvent[],
+  resolvedPolicy: PublicStartContext["resolvedPolicy"]
 ): PublicStartContext {
   const runtimeEvents = Object.freeze([
     ...replayEvents,
@@ -1087,7 +1127,7 @@ function startContext(
   return {
     module: binding.module,
     runtimeIdentity: binding.runtimeIdentity,
-    resolvedPolicy: binding.resolvedPolicy,
+    resolvedPolicy,
     runtimeEvents,
     abgFallbackBundle: loadCliFallbackBundle(workspaceRoot, binding),
     leverOverridesBundle: loadAbgLeverOverridesBundle(workspaceRoot),
@@ -1211,6 +1251,13 @@ async function runStartCommand(
   const eventSink = (event: RuntimeEvent): void => {
     emitted.push(event);
   };
+  const resolvedPolicy = await runtimePolicyForStart({
+    binding,
+    workspaceRoot,
+    command,
+    target,
+    replayEvents
+  });
   const plugins = await runtimePluginsForStart({
     binding,
     workspaceRoot,
@@ -1221,7 +1268,7 @@ async function runStartCommand(
   });
   const outcome = await publicCallableStartAsync(
     callableInput(command, workspaceRoot, binding, target),
-    startContext(workspaceRoot, binding, replayEvents),
+    startContext(workspaceRoot, binding, replayEvents, resolvedPolicy),
     eventSink,
     plugins
   );
@@ -1337,7 +1384,8 @@ async function runGapsCommand(
     startContext(
       workspaceRoot,
       binding,
-      await readReplayEvents(eventsPath(workspaceRoot))
+      await readReplayEvents(eventsPath(workspaceRoot)),
+      binding.resolvedPolicy
     )
   );
   io.stdout(`${JSON.stringify(gapsOutput(projection))}\n`);

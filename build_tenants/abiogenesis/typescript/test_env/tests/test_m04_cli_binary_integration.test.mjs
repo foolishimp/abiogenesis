@@ -16,7 +16,11 @@ import {
   runInstalledNodeScript
 } from "./support/m05-installed-fixtures.mjs";
 
-function runtimeBindingSource({ withPlugins = false, withPluginFactory = false } = {}) {
+function runtimeBindingSource({
+  withPlugins = false,
+  withPluginFactory = false,
+  withPolicyFactory = false
+} = {}) {
   const includePluginSource = withPlugins || withPluginFactory;
   const pluginSource = includePluginSource
     ? `
@@ -107,6 +111,15 @@ function runtimeBindingSource({ withPlugins = false, withPluginFactory = false }
         };
       },
       `
+    : "";
+  const policyProperty = withPolicyFactory
+    ? `
+      resolvePolicy: ({ target }) => admitResolvedPolicyIdentity({
+        resolvedPolicyBundleRef: \`policy://cli-policy-factory/\${target.graphFunctionHandle}\`,
+        defaultRegime: "F_P",
+        dispatchRef: \`dispatch://cli-policy-factory/\${target.graphFunctionHandle}\`
+      }),
+    `
     : "";
   return `
     import {
@@ -213,6 +226,7 @@ function runtimeBindingSource({ withPlugins = false, withPluginFactory = false }
         defaultRegime: "F_P",
         dispatchRef: "dispatch://cli-binary"
       }),
+      ${policyProperty}
       ${pluginProperty}
       runId: "run://cli-binary",
       workKey: "wk://cli-binary",
@@ -439,6 +453,38 @@ test("M04 CLI binary integration: runtime binding plugin factory receives ABG ev
     true
   );
   assert.deepStrictEqual(await eventKinds(targetRoot), payload.event_kinds);
+});
+
+test("M04 CLI binary integration: runtime binding policy factory selects target policy", async () => {
+  const { targetRoot, packageRoot } = await installCliRuntime();
+  await writeFile(
+    path.join(targetRoot, ".abiogenesis", "typescript-runtime.mjs"),
+    runtimeBindingSource({ withPolicyFactory: true }),
+    "utf8"
+  );
+
+  const run = runCli(targetRoot, packageRoot, [
+    "start",
+    "--workspace",
+    ".",
+    "--scope",
+    "workspace",
+    "--target",
+    "graph_function:code_flow",
+    "--until",
+    "first_traversal"
+  ]);
+  assert.equal(run.status, 2, run.stderr);
+  const payload = parsePayload(run);
+
+  assert.equal(payload.command, "start");
+  assert.equal(payload.status, "blocked");
+  assert.equal(payload.resolved_target, "graph_function:code_flow");
+  assert.equal(
+    payload.control_outcome.stopDetail.dispatchRef,
+    "dispatch://cli-policy-factory/code_flow"
+  );
+  assert.equal(payload.stopped_by, "dispatch_required");
 });
 
 test("M04 CLI binary integration: assess-result uses the shared workspace/result suffix and appends assessed event truth", async () => {
