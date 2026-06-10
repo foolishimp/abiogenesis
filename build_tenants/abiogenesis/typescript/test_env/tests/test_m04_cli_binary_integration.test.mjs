@@ -16,14 +16,64 @@ import {
   runInstalledNodeScript
 } from "./support/m05-installed-fixtures.mjs";
 
-function runtimeBindingSource() {
+function runtimeBindingSource({ withPlugins = false } = {}) {
+  const pluginSource = withPlugins
+    ? `
+    const fpDispatchPlugin = Object.freeze({
+      contract: constructEnginePluginContract({
+        ref: "plugin://cli-binary/runtime-binding/fp-dispatch",
+        pluginKind: "fp_dispatch",
+        authority: "effect_plugin",
+        inputCarrier: "EnginePluginInput",
+        outputCarrier: "FpDispatchOutcome"
+      }),
+      dispatch: (input) => constructFpDispatchOutcome({
+        status: "dispatched",
+        resultRef: \`result://cli-binary/\${encodeURIComponent(input.edge)}\`,
+        attachedResultArtifact: {
+          edge: input.expectedEdge ?? input.edge,
+          actor: "codex",
+          fulfillment_assessments: (
+            input.expectedAssessmentIds.length > 0
+              ? input.expectedAssessmentIds
+              : ["runtime_fulfilled"]
+          ).map((assessmentId) => ({
+            id: assessmentId,
+            evaluator: assessmentId,
+            fulfillment_status: "fulfilled",
+            fulfillment_detail: "runtime binding plugin result accepted",
+            blocking_reasons: [],
+            evidence_refs: [\`proof://cli-binary/\${assessmentId}\`]
+          })),
+          selected_worker_id: input.workerId,
+          selected_backend: input.backendId,
+          role_id: "role://runtime",
+          assignment_source: "policy_resolution",
+          resolved_runtime_ref: input.resolvedRuntimeRef
+        },
+        evidenceRefs: [input.sourceProjectionRef]
+      })
+    });
+    `
+    : "";
+  const pluginProperty = withPlugins
+    ? `
+      plugins: {
+        fpDispatch: fpDispatchPlugin,
+        fpEvaluator: defaultFpEvaluatorPlugin
+      },
+    `
+    : "";
   return `
     import {
       admitModule,
       admitNode,
       admitResolvedPolicyIdentity,
       admitResolvedRuntimeIdentity,
+      constructEnginePluginContract,
       constructDefaultAbgFnCompositionDeclarations,
+      constructFpDispatchOutcome,
+      defaultFpEvaluatorPlugin,
       edge,
       graphFunctionForVector
     } from "@abiogenesis/typescript-tenant";
@@ -103,6 +153,8 @@ function runtimeBindingSource() {
       metadata: { entries: [] }
     });
 
+    ${pluginSource}
+
     export const runtimeBinding = {
       module,
       runtimeIdentity: admitResolvedRuntimeIdentity({
@@ -116,6 +168,7 @@ function runtimeBindingSource() {
         defaultRegime: "F_P",
         dispatchRef: "dispatch://cli-binary"
       }),
+      ${pluginProperty}
       runId: "run://cli-binary",
       workKey: "wk://cli-binary",
       operatorAssetContract: {
@@ -272,6 +325,40 @@ test("M04 CLI binary integration: asset target resolves through the runtime oper
   assert.equal(payload.asset_id, "code_surface");
   assert.equal(payload.edge, "design_to_code");
   assert.equal(payload.stopped_by, "dispatch_required");
+});
+
+test("M04 CLI binary integration: runtime binding plugins execute through ABG CLI command/control", async () => {
+  const { targetRoot, packageRoot } = await installCliRuntime();
+  await writeFile(
+    path.join(targetRoot, ".abiogenesis", "typescript-runtime.mjs"),
+    runtimeBindingSource({ withPlugins: true }),
+    "utf8"
+  );
+
+  const run = runCli(targetRoot, packageRoot, [
+    "start",
+    "--workspace",
+    ".",
+    "--scope",
+    "workspace",
+    "--target",
+    "graph_function:code_flow",
+    "--until",
+    "converged"
+  ]);
+  assert.equal(run.status, 0, run.stderr);
+  const payload = parsePayload(run);
+
+  assert.equal(payload.command, "start");
+  assert.equal(payload.status, "converged");
+  assert.equal(payload.stopped_by, "converged");
+  assert.equal(payload.control_outcome.kind, "converged");
+  assert.equal(
+    payload.event_kinds.includes("actor_result_artifact_observed"),
+    true
+  );
+  assert.equal(payload.event_kinds.includes("vector_closed"), true);
+  assert.deepStrictEqual(await eventKinds(targetRoot), payload.event_kinds);
 });
 
 test("M04 CLI binary integration: assess-result uses the shared workspace/result suffix and appends assessed event truth", async () => {

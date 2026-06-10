@@ -992,6 +992,7 @@ export type {
   GtlProgramConformanceSurfaceKind,
   GtlProgramCompositionDeclarationSourceKind,
   GtlProgramComputeCompositionRow,
+  GtlProgramComputeStageBindingRow,
   GtlProgramEdgeClosureRow,
   GtlProgramEvaluatorDeclarationRow,
   GtlProgramExpectedCoverage,
@@ -1007,10 +1008,14 @@ export type {
   GtlProgramPublicStartRow,
   GtlProgramRoleBindingRow,
   GtlProgramRuleDeclarationRow,
+  GtlProgramRuntimeBindingKind,
+  GtlProgramRuntimeBindingRow,
   GtlProgramSameObjectRow,
   GtlProgramSelectionBoundaryKind,
   GtlProgramSelectionBoundaryRow,
   GtlProgramSourceIdentityRow,
+  GtlProgramStageRegimeDisposition,
+  GtlProgramStageRegimeDispositionRow,
   GtlProgramT153FeatureKind,
   GtlProgramTargetCarrierRow
 } from "./gtl_program_conformance.js";

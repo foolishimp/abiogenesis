@@ -22,10 +22,14 @@ import type {
   Module
 } from "../../../gtl/m02/contracts/carriers.js";
 import type {
+  EngineComputeStagePurpose,
+  EngineComputeStageRole,
   EnginePluginContract
 } from "./plugins.js";
 import {
-  admitEnginePluginContract
+  admitEnginePluginContract,
+  ENGINE_COMPUTE_STAGE_PURPOSE_VALUES,
+  ENGINE_COMPUTE_STAGE_ROLE_VALUES
 } from "./plugins.js";
 import {
   stableJson,
@@ -50,11 +54,13 @@ export type GtlProgramConformanceSurfaceKind =
   | "evaluator_declaration"
   | "rule_declaration"
   | "compute_composition"
+  | "compute_stage_binding"
   | "hook_boundary"
   | "selection_boundary"
   | "job_binding"
   | "role_binding"
   | "external_tool_gate"
+  | "runtime_binding"
   | "feature_coverage";
 
 export interface GtlProgramConformanceIssue {
@@ -220,6 +226,41 @@ export interface GtlProgramComputeCompositionRow {
   readonly evidenceRefs?: readonly string[] | undefined;
 }
 
+export type GtlProgramStageRegimeDisposition =
+  | "participates"
+  | "not_used"
+  | "external_callout";
+
+export interface GtlProgramStageRegimeDispositionRow {
+  readonly regime: Regime;
+  readonly disposition: GtlProgramStageRegimeDisposition;
+  readonly selectedRegimeBindingRefs: readonly string[];
+  readonly reasonRefs: readonly string[];
+  readonly evidenceRefs: readonly string[];
+}
+
+export interface GtlProgramComputeStageBindingRow {
+  readonly stageBindingRef: string;
+  readonly compositionRef: string;
+  readonly compositionDigest: string;
+  readonly stageRole: EngineComputeStageRole;
+  readonly stageNotationRef: string;
+  readonly stagePurpose: EngineComputeStagePurpose;
+  readonly computeMeans: Regime;
+  readonly inputCarrierRefs: readonly string[];
+  readonly outputCarrierRefs: readonly string[];
+  readonly predecessorStageBindingRefs: readonly string[];
+  readonly pluginContractRefs: readonly string[];
+  readonly hookRefs: readonly string[];
+  readonly regimeDispositions: readonly GtlProgramStageRegimeDispositionRow[];
+  readonly mayWriteLedgers: false;
+  readonly mayEmitRuntimeEvents: false;
+  readonly maySelectTraversal: false;
+  readonly mayCloseTraversal: false;
+  readonly mayOwnIterationLoop: false;
+  readonly evidenceRefs?: readonly string[] | undefined;
+}
+
 export type GtlProgramHookDeclarationSourceKind =
   | "graph_vector_declaration"
   | "graph_function_declaration"
@@ -282,6 +323,24 @@ export interface GtlProgramExternalToolGateRow {
   readonly payloadContractRef: string;
   readonly admissionRef: string;
   readonly notLanguageTruthEvidenceRefs: readonly string[];
+  readonly evidenceRefs?: readonly string[] | undefined;
+}
+
+export type GtlProgramRuntimeBindingKind =
+  | "abg_cli_runtime_binding"
+  | "abg_public_callable_start"
+  | "abg_public_control_loop";
+
+export interface GtlProgramRuntimeBindingRow {
+  readonly bindingRef: string;
+  readonly runtimeBindingKind: GtlProgramRuntimeBindingKind;
+  readonly moduleRef: string;
+  readonly publicStartRef: string;
+  readonly commandRef: string;
+  readonly pluginContractRefs: readonly string[];
+  readonly stageBindingRefs: readonly string[];
+  readonly consumesPluginsThroughAbg: true;
+  readonly forbidsProductLocalIteration: true;
   readonly evidenceRefs?: readonly string[] | undefined;
 }
 
@@ -390,6 +449,9 @@ export interface GtlProgramConformanceInput {
   readonly computeCompositions?:
     | readonly GtlProgramComputeCompositionRow[]
     | undefined;
+  readonly computeStageBindings?:
+    | readonly GtlProgramComputeStageBindingRow[]
+    | undefined;
   readonly hookBoundaries?: readonly GtlProgramHookBoundaryRow[] | undefined;
   readonly selectionBoundaries?:
     | readonly GtlProgramSelectionBoundaryRow[]
@@ -399,6 +461,7 @@ export interface GtlProgramConformanceInput {
   readonly externalToolGates?:
     | readonly GtlProgramExternalToolGateRow[]
     | undefined;
+  readonly runtimeBindings?: readonly GtlProgramRuntimeBindingRow[] | undefined;
 }
 
 export type GtlProgramConformanceCoverage = GtlProgramCoverageCounts;
@@ -421,11 +484,13 @@ export interface GtlProgramInventoryDigests {
   readonly evaluatorDeclarations: string;
   readonly ruleDeclarations: string;
   readonly computeCompositions: string;
+  readonly computeStageBindings: string;
   readonly hookBoundaries: string;
   readonly selectionBoundaries: string;
   readonly jobBindings: string;
   readonly roleBindings: string;
   readonly externalToolGates: string;
+  readonly runtimeBindings: string;
 }
 
 export interface GtlProgramConformanceReport {
@@ -515,6 +580,26 @@ const GTL_PROGRAM_FEATURE_OWNER_VALUES = new Set<string>([
 
 const GTL_PROGRAM_REGIME_VALUES = new Set<string>(["F_D", "F_P", "F_H"]);
 
+const GTL_PROGRAM_STAGE_REGIME_DISPOSITION_VALUES = new Set<string>([
+  "participates",
+  "not_used",
+  "external_callout"
+]);
+
+const GTL_PROGRAM_COMPUTE_STAGE_ROLE_SET = new Set<string>(
+  ENGINE_COMPUTE_STAGE_ROLE_VALUES
+);
+
+const GTL_PROGRAM_COMPUTE_STAGE_PURPOSE_SET = new Set<string>(
+  ENGINE_COMPUTE_STAGE_PURPOSE_VALUES
+);
+
+const GTL_PROGRAM_RUNTIME_BINDING_KIND_VALUES = new Set<string>([
+  "abg_cli_runtime_binding",
+  "abg_public_callable_start",
+  "abg_public_control_loop"
+]);
+
 const GTL_PROGRAM_HOST_SURFACE_KIND_VALUES =
   new Set<string>([
     "graph_function",
@@ -593,6 +678,40 @@ function isGtlProgramFeatureOwnerClassification(
 
 function isRegime(value: unknown): value is Regime {
   return typeof value === "string" && GTL_PROGRAM_REGIME_VALUES.has(value);
+}
+
+function isGtlProgramStageRegimeDisposition(
+  value: unknown
+): value is GtlProgramStageRegimeDisposition {
+  return (
+    typeof value === "string" &&
+    GTL_PROGRAM_STAGE_REGIME_DISPOSITION_VALUES.has(value)
+  );
+}
+
+function isEngineComputeStageRole(value: unknown): value is EngineComputeStageRole {
+  return (
+    typeof value === "string" &&
+    GTL_PROGRAM_COMPUTE_STAGE_ROLE_SET.has(value)
+  );
+}
+
+function isEngineComputeStagePurpose(
+  value: unknown
+): value is EngineComputeStagePurpose {
+  return (
+    typeof value === "string" &&
+    GTL_PROGRAM_COMPUTE_STAGE_PURPOSE_SET.has(value)
+  );
+}
+
+function isGtlProgramRuntimeBindingKind(
+  value: unknown
+): value is GtlProgramRuntimeBindingKind {
+  return (
+    typeof value === "string" &&
+    GTL_PROGRAM_RUNTIME_BINDING_KIND_VALUES.has(value)
+  );
 }
 
 function isGtlProgramHostSurfaceKind(
@@ -861,6 +980,48 @@ function requiredNonNegativeIntegerField(input: {
   return 0;
 }
 
+function requiredBooleanField(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly expected: true;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly surfaceKind: GtlProgramConformanceSurfaceKind;
+  readonly issues: GtlProgramConformanceIssue[];
+}): true;
+function requiredBooleanField(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly expected: false;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly surfaceKind: GtlProgramConformanceSurfaceKind;
+  readonly issues: GtlProgramConformanceIssue[];
+}): false;
+function requiredBooleanField(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly expected: boolean;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly surfaceKind: GtlProgramConformanceSurfaceKind;
+  readonly issues: GtlProgramConformanceIssue[];
+}): boolean {
+  const value = input.record[input.key];
+  if (value === input.expected) {
+    return input.expected;
+  }
+  input.issues.push(
+    issue({
+      surfaceKind: input.surfaceKind,
+      surfaceRef: input.subjectRef,
+      ruleRef: "abg://gtl-program/input/boolean-field",
+      message: `${input.label}.${input.key} must be ${String(input.expected)}`
+    })
+  );
+  return input.expected;
+}
+
 function requiredRegimeField(input: {
   readonly record: Readonly<Record<string, unknown>>;
   readonly key: string;
@@ -882,6 +1043,98 @@ function requiredRegimeField(input: {
     })
   );
   return "F_D";
+}
+
+function requiredStageRegimeDispositionField(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly surfaceKind: GtlProgramConformanceSurfaceKind;
+  readonly issues: GtlProgramConformanceIssue[];
+}): GtlProgramStageRegimeDisposition {
+  const value = input.record[input.key];
+  if (isGtlProgramStageRegimeDisposition(value)) {
+    return value;
+  }
+  input.issues.push(
+    issue({
+      surfaceKind: input.surfaceKind,
+      surfaceRef: input.subjectRef,
+      ruleRef: "abg://gtl-program/input/stage-regime-disposition-field",
+      message: `${input.label}.${input.key} must be participates, not_used, or external_callout`
+    })
+  );
+  return "not_used";
+}
+
+function requiredComputeStageRoleField(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly surfaceKind: GtlProgramConformanceSurfaceKind;
+  readonly issues: GtlProgramConformanceIssue[];
+}): EngineComputeStageRole {
+  const value = input.record[input.key];
+  if (isEngineComputeStageRole(value)) {
+    return value;
+  }
+  input.issues.push(
+    issue({
+      surfaceKind: input.surfaceKind,
+      surfaceRef: input.subjectRef,
+      ruleRef: "abg://gtl-program/input/compute-stage-role-field",
+      message: `${input.label}.${input.key} must name an ABG compute stage role`
+    })
+  );
+  return "transform";
+}
+
+function requiredComputeStagePurposeField(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly surfaceKind: GtlProgramConformanceSurfaceKind;
+  readonly issues: GtlProgramConformanceIssue[];
+}): EngineComputeStagePurpose {
+  const value = input.record[input.key];
+  if (isEngineComputeStagePurpose(value)) {
+    return value;
+  }
+  input.issues.push(
+    issue({
+      surfaceKind: input.surfaceKind,
+      surfaceRef: input.subjectRef,
+      ruleRef: "abg://gtl-program/input/compute-stage-purpose-field",
+      message: `${input.label}.${input.key} must name an ABG compute stage purpose`
+    })
+  );
+  return "candidate_construction";
+}
+
+function requiredRuntimeBindingKindField(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly surfaceKind: GtlProgramConformanceSurfaceKind;
+  readonly issues: GtlProgramConformanceIssue[];
+}): GtlProgramRuntimeBindingKind {
+  const value = input.record[input.key];
+  if (isGtlProgramRuntimeBindingKind(value)) {
+    return value;
+  }
+  input.issues.push(
+    issue({
+      surfaceKind: input.surfaceKind,
+      surfaceRef: input.subjectRef,
+      ruleRef: "abg://gtl-program/input/runtime-binding-kind-field",
+      message: `${input.label}.${input.key} must name an ABG public runtime binding kind`
+    })
+  );
+  return "abg_cli_runtime_binding";
 }
 
 function requiredHostSurfaceKindField(input: {
@@ -2428,6 +2681,261 @@ function admitComputeCompositionRows(
   );
 }
 
+function admitStageRegimeDispositionRows(
+  input: readonly unknown[],
+  subjectRef: string,
+  parentLabel: string,
+  issues: GtlProgramConformanceIssue[]
+): readonly GtlProgramStageRegimeDispositionRow[] {
+  return Object.freeze(
+    input.flatMap((row, index) => {
+      const surfaceRef = `${parentLabel}.regimeDispositions[${index}]`;
+      if (!isRecord(row)) {
+        issues.push(
+          issue({
+            surfaceKind: "compute_stage_binding",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/stage-regime-disposition-row",
+            message: `${surfaceRef} must be an object`
+          })
+        );
+        return [];
+      }
+      return [
+        Object.freeze({
+          regime: requiredRegimeField({
+            record: row,
+            key: "regime",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_stage_binding",
+            issues
+          }),
+          disposition: requiredStageRegimeDispositionField({
+            record: row,
+            key: "disposition",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_stage_binding",
+            issues
+          }),
+          selectedRegimeBindingRefs: requiredStringArrayField({
+            record: row,
+            key: "selectedRegimeBindingRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_stage_binding",
+            issues
+          }),
+          reasonRefs: requiredStringArrayField({
+            record: row,
+            key: "reasonRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_stage_binding",
+            issues
+          }),
+          evidenceRefs: requiredStringArrayField({
+            record: row,
+            key: "evidenceRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_stage_binding",
+            issues
+          })
+        })
+      ];
+    })
+  );
+}
+
+function admitComputeStageBindingRows(
+  input: readonly unknown[],
+  subjectRef: string,
+  issues: GtlProgramConformanceIssue[]
+): readonly GtlProgramComputeStageBindingRow[] {
+  return Object.freeze(
+    input.flatMap((row, index) => {
+      const surfaceRef = `computeStageBindings[${index}]`;
+      if (!isRecord(row)) {
+        issues.push(
+          issue({
+            surfaceKind: "compute_stage_binding",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/compute-stage-binding-row",
+            message: `${surfaceRef} must be an object`
+          })
+        );
+        return [];
+      }
+      return [
+        Object.freeze({
+          stageBindingRef: requiredStringField({
+            record: row,
+            key: "stageBindingRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_stage_binding",
+            issues
+          }),
+          compositionRef: requiredStringField({
+            record: row,
+            key: "compositionRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_stage_binding",
+            issues
+          }),
+          compositionDigest: requiredStringField({
+            record: row,
+            key: "compositionDigest",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_stage_binding",
+            issues
+          }),
+          stageRole: requiredComputeStageRoleField({
+            record: row,
+            key: "stageRole",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_stage_binding",
+            issues
+          }),
+          stageNotationRef: requiredStringField({
+            record: row,
+            key: "stageNotationRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_stage_binding",
+            issues
+          }),
+          stagePurpose: requiredComputeStagePurposeField({
+            record: row,
+            key: "stagePurpose",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_stage_binding",
+            issues
+          }),
+          computeMeans: requiredRegimeField({
+            record: row,
+            key: "computeMeans",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_stage_binding",
+            issues
+          }),
+          inputCarrierRefs: requiredStringArrayField({
+            record: row,
+            key: "inputCarrierRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_stage_binding",
+            issues
+          }),
+          outputCarrierRefs: requiredStringArrayField({
+            record: row,
+            key: "outputCarrierRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_stage_binding",
+            issues
+          }),
+          predecessorStageBindingRefs: requiredStringArrayField({
+            record: row,
+            key: "predecessorStageBindingRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_stage_binding",
+            issues
+          }),
+          pluginContractRefs: requiredStringArrayField({
+            record: row,
+            key: "pluginContractRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_stage_binding",
+            issues
+          }),
+          hookRefs: requiredStringArrayField({
+            record: row,
+            key: "hookRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_stage_binding",
+            issues
+          }),
+          regimeDispositions: admitStageRegimeDispositionRows(
+            checkOptionalArrayField({
+              record: row,
+              key: "regimeDispositions",
+              subjectRef,
+              issues
+            }),
+            subjectRef,
+            surfaceRef,
+            issues
+          ),
+          mayWriteLedgers: requiredBooleanField({
+            record: row,
+            key: "mayWriteLedgers",
+            expected: false,
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_stage_binding",
+            issues
+          }),
+          mayEmitRuntimeEvents: requiredBooleanField({
+            record: row,
+            key: "mayEmitRuntimeEvents",
+            expected: false,
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_stage_binding",
+            issues
+          }),
+          maySelectTraversal: requiredBooleanField({
+            record: row,
+            key: "maySelectTraversal",
+            expected: false,
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_stage_binding",
+            issues
+          }),
+          mayCloseTraversal: requiredBooleanField({
+            record: row,
+            key: "mayCloseTraversal",
+            expected: false,
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_stage_binding",
+            issues
+          }),
+          mayOwnIterationLoop: requiredBooleanField({
+            record: row,
+            key: "mayOwnIterationLoop",
+            expected: false,
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_stage_binding",
+            issues
+          }),
+          evidenceRefs: optionalStringArrayField({
+            record: row,
+            key: "evidenceRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "compute_stage_binding",
+            issues
+          })
+        })
+      ];
+    })
+  );
+}
+
 function admitHookBoundaryRows(
   input: readonly unknown[],
   subjectRef: string,
@@ -2843,6 +3351,115 @@ function admitExternalToolGateRows(
   );
 }
 
+function admitRuntimeBindingRows(
+  input: readonly unknown[],
+  subjectRef: string,
+  issues: GtlProgramConformanceIssue[]
+): readonly GtlProgramRuntimeBindingRow[] {
+  return Object.freeze(
+    input.flatMap((row, index) => {
+      const surfaceRef = `runtimeBindings[${index}]`;
+      if (!isRecord(row)) {
+        issues.push(
+          issue({
+            surfaceKind: "runtime_binding",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/runtime-binding-row",
+            message: `${surfaceRef} must be an object`
+          })
+        );
+        return [];
+      }
+      return [
+        Object.freeze({
+          bindingRef: requiredStringField({
+            record: row,
+            key: "bindingRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "runtime_binding",
+            issues
+          }),
+          runtimeBindingKind: requiredRuntimeBindingKindField({
+            record: row,
+            key: "runtimeBindingKind",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "runtime_binding",
+            issues
+          }),
+          moduleRef: requiredStringField({
+            record: row,
+            key: "moduleRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "runtime_binding",
+            issues
+          }),
+          publicStartRef: requiredStringField({
+            record: row,
+            key: "publicStartRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "runtime_binding",
+            issues
+          }),
+          commandRef: requiredStringField({
+            record: row,
+            key: "commandRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "runtime_binding",
+            issues
+          }),
+          pluginContractRefs: requiredStringArrayField({
+            record: row,
+            key: "pluginContractRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "runtime_binding",
+            issues
+          }),
+          stageBindingRefs: requiredStringArrayField({
+            record: row,
+            key: "stageBindingRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "runtime_binding",
+            issues
+          }),
+          consumesPluginsThroughAbg: requiredBooleanField({
+            record: row,
+            key: "consumesPluginsThroughAbg",
+            expected: true,
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "runtime_binding",
+            issues
+          }),
+          forbidsProductLocalIteration: requiredBooleanField({
+            record: row,
+            key: "forbidsProductLocalIteration",
+            expected: true,
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "runtime_binding",
+            issues
+          }),
+          evidenceRefs: optionalStringArrayField({
+            record: row,
+            key: "evidenceRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "runtime_binding",
+            issues
+          })
+        })
+      ];
+    })
+  );
+}
+
 export function admitGtlProgramConformanceInput(
   rawInput: unknown
 ): GtlProgramConformanceInputAdmission {
@@ -2868,11 +3485,13 @@ export function admitGtlProgramConformanceInput(
       evaluatorDeclarations: Object.freeze([]),
       ruleDeclarations: Object.freeze([]),
       computeCompositions: Object.freeze([]),
+      computeStageBindings: Object.freeze([]),
       hookBoundaries: Object.freeze([]),
       selectionBoundaries: Object.freeze([]),
       jobBindings: Object.freeze([]),
       roleBindings: Object.freeze([]),
-      externalToolGates: Object.freeze([])
+      externalToolGates: Object.freeze([]),
+      runtimeBindings: Object.freeze([])
     });
     issues.push(
       issue({
@@ -3075,6 +3694,16 @@ export function admitGtlProgramConformanceInput(
       subjectRef,
       issues
     ),
+    computeStageBindings: admitComputeStageBindingRows(
+      checkOptionalArrayField({
+        record: rawInput,
+        key: "computeStageBindings",
+        subjectRef,
+        issues
+      }),
+      subjectRef,
+      issues
+    ),
     hookBoundaries: admitHookBoundaryRows(
       checkOptionalArrayField({
         record: rawInput,
@@ -3119,6 +3748,16 @@ export function admitGtlProgramConformanceInput(
       checkOptionalArrayField({
         record: rawInput,
         key: "externalToolGates",
+        subjectRef,
+        issues
+      }),
+      subjectRef,
+      issues
+    ),
+    runtimeBindings: admitRuntimeBindingRows(
+      checkOptionalArrayField({
+        record: rawInput,
+        key: "runtimeBindings",
         subjectRef,
         issues
       }),
@@ -4671,10 +5310,215 @@ function checkComputeCompositionRows(input: {
   }
 }
 
+function stageBindingRefs(
+  computeStageBindings: readonly GtlProgramComputeStageBindingRow[]
+): ReadonlySet<string> {
+  return new Set(
+    computeStageBindings.map((row) => row.stageBindingRef)
+  );
+}
+
+function checkStageRegimeDispositions(input: {
+  readonly row: GtlProgramComputeStageBindingRow;
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  const byRegime = new Map<Regime, GtlProgramStageRegimeDispositionRow[]>();
+  for (const disposition of input.row.regimeDispositions) {
+    byRegime.set(disposition.regime, [
+      ...(byRegime.get(disposition.regime) ?? []),
+      disposition
+    ]);
+  }
+  for (const regime of ["F_D", "F_P", "F_H"] as const) {
+    const rows = byRegime.get(regime) ?? [];
+    if (rows.length === 0) {
+      pushRowIssue({
+        surfaceKind: "compute_stage_binding",
+        surfaceRef: input.row.stageBindingRef,
+        ruleRef: "abg://gtl-program/compute-stage/regime-disposition-required",
+        message: `stage ${input.row.stageBindingRef} must declare ${regime} participation, not_used, or external_callout disposition`,
+        issues: input.issues
+      });
+      continue;
+    }
+    if (rows.length > 1) {
+      pushRowIssue({
+        surfaceKind: "compute_stage_binding",
+        surfaceRef: input.row.stageBindingRef,
+        ruleRef: "abg://gtl-program/compute-stage/regime-disposition-unique",
+        message: `stage ${input.row.stageBindingRef} has ${rows.length} ${regime} dispositions`,
+        issues: input.issues
+      });
+    }
+    const row = rows[0]!;
+    if (
+      row.disposition === "participates" &&
+      row.selectedRegimeBindingRefs.length === 0
+    ) {
+      pushRowIssue({
+        surfaceKind: "compute_stage_binding",
+        surfaceRef: input.row.stageBindingRef,
+        ruleRef: "abg://gtl-program/compute-stage/participating-regime-binding",
+        message: `${regime} participates in ${input.row.stageBindingRef} without selectedRegimeBindingRefs`,
+        issues: input.issues
+      });
+    }
+    if (
+      (row.disposition === "not_used" ||
+        row.disposition === "external_callout") &&
+      row.reasonRefs.length === 0
+    ) {
+      pushRowIssue({
+        surfaceKind: "compute_stage_binding",
+        surfaceRef: input.row.stageBindingRef,
+        ruleRef: "abg://gtl-program/compute-stage/nonparticipation-reason",
+        message: `${regime} ${row.disposition} in ${input.row.stageBindingRef} without reasonRefs`,
+        issues: input.issues
+      });
+    }
+  }
+}
+
+function checkComputeStageBindingRows(input: {
+  readonly computeCompositions: readonly GtlProgramComputeCompositionRow[];
+  readonly computeStageBindings: readonly GtlProgramComputeStageBindingRow[];
+  readonly pluginContractRefs: ReadonlySet<string>;
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  checkUniqueRows({
+    rows: input.computeStageBindings.map((row) => ({
+      ref: row.stageBindingRef
+    })),
+    surfaceKind: "compute_stage_binding",
+    ruleRef: "abg://gtl-program/compute-stage/unique-ref",
+    label: "compute stage binding",
+    issues: input.issues
+  });
+
+  const compositionsByRef = new Map<string, GtlProgramComputeCompositionRow>();
+  for (const row of input.computeCompositions) {
+    compositionsByRef.set(row.compositionRef, row);
+  }
+  const stagesByRef = stageBindingRefs(input.computeStageBindings);
+  for (const composition of input.computeCompositions) {
+    for (const stageBindingRef of composition.stageBindingRefs) {
+      if (!stagesByRef.has(stageBindingRef)) {
+        pushRowIssue({
+          surfaceKind: "compute_composition",
+          surfaceRef: composition.compositionRef,
+          ruleRef: "abg://gtl-program/compute-composition/stage-binding-resolves",
+          message: `stageBindingRef ${JSON.stringify(stageBindingRef)} does not resolve to a supplied computeStageBindings row`,
+          issues: input.issues
+        });
+      }
+    }
+    for (const requiredStage of ["transform", "evaluate", "consequence"] as const) {
+      const hasStage = input.computeStageBindings.some(
+        (row) =>
+          row.compositionRef === composition.compositionRef &&
+          row.stageRole === requiredStage
+      );
+      if (!hasStage) {
+        pushRowIssue({
+          surfaceKind: "compute_composition",
+          surfaceRef: composition.compositionRef,
+          ruleRef: "abg://gtl-program/compute-composition/required-stage-row",
+          message: `${composition.compositionRef} must supply a ${requiredStage}.C computeStageBindings row`,
+          issues: input.issues
+        });
+      }
+    }
+  }
+
+  for (const row of input.computeStageBindings) {
+    const composition = compositionsByRef.get(row.compositionRef);
+    if (composition === undefined) {
+      pushRowIssue({
+        surfaceKind: "compute_stage_binding",
+        surfaceRef: row.stageBindingRef,
+        ruleRef: "abg://gtl-program/compute-stage/composition-resolves",
+        message: `compositionRef ${JSON.stringify(row.compositionRef)} does not resolve to a supplied computeCompositions row`,
+        issues: input.issues
+      });
+    } else {
+      if (composition.compositionDigest !== row.compositionDigest) {
+        pushRowIssue({
+          surfaceKind: "compute_stage_binding",
+          surfaceRef: row.stageBindingRef,
+          ruleRef: "abg://gtl-program/compute-stage/composition-digest",
+          message: `compositionDigest for ${row.stageBindingRef} must match ${composition.compositionRef}`,
+          issues: input.issues
+        });
+      }
+      if (!composition.stageBindingRefs.includes(row.stageBindingRef)) {
+        pushRowIssue({
+          surfaceKind: "compute_stage_binding",
+          surfaceRef: row.stageBindingRef,
+          ruleRef: "abg://gtl-program/compute-stage/composition-stage-membership",
+          message: `${row.stageBindingRef} is not listed by ${composition.compositionRef}.stageBindingRefs`,
+          issues: input.issues
+        });
+      }
+    }
+    if (
+      row.stageRole !== "human_callout" &&
+      !row.stageNotationRef.includes(`${row.stageRole}.C`)
+    ) {
+      pushRowIssue({
+        surfaceKind: "compute_stage_binding",
+        surfaceRef: row.stageBindingRef,
+        ruleRef: "abg://gtl-program/compute-stage/notation-ref",
+        message: `stageNotationRef for ${row.stageBindingRef} must include ${row.stageRole}.C`,
+        issues: input.issues
+      });
+    }
+    checkNonEmptyArray({
+      surfaceKind: "compute_stage_binding",
+      surfaceRef: row.stageBindingRef,
+      ruleRef: "abg://gtl-program/compute-stage/input-carriers",
+      fieldName: "inputCarrierRefs",
+      values: row.inputCarrierRefs,
+      issues: input.issues
+    });
+    checkNonEmptyArray({
+      surfaceKind: "compute_stage_binding",
+      surfaceRef: row.stageBindingRef,
+      ruleRef: "abg://gtl-program/compute-stage/output-carriers",
+      fieldName: "outputCarrierRefs",
+      values: row.outputCarrierRefs,
+      issues: input.issues
+    });
+    for (const predecessorRef of row.predecessorStageBindingRefs) {
+      if (!stagesByRef.has(predecessorRef)) {
+        pushRowIssue({
+          surfaceKind: "compute_stage_binding",
+          surfaceRef: row.stageBindingRef,
+          ruleRef: "abg://gtl-program/compute-stage/predecessor-resolves",
+          message: `predecessorStageBindingRef ${JSON.stringify(predecessorRef)} does not resolve to a supplied computeStageBindings row`,
+          issues: input.issues
+        });
+      }
+    }
+    for (const pluginRef of row.pluginContractRefs) {
+      if (!input.pluginContractRefs.has(pluginRef)) {
+        pushRowIssue({
+          surfaceKind: "compute_stage_binding",
+          surfaceRef: row.stageBindingRef,
+          ruleRef: "abg://gtl-program/compute-stage/plugin-contract-resolves",
+          message: `pluginContractRef ${JSON.stringify(pluginRef)} does not resolve to a supplied plugin contract`,
+          issues: input.issues
+        });
+      }
+    }
+    checkStageRegimeDispositions({ row, issues: input.issues });
+  }
+}
+
 function checkHookBoundaryRows(input: {
   readonly hookBoundaries: readonly GtlProgramHookBoundaryRow[];
   readonly knownHostRefs: ReadonlySet<string>;
   readonly pluginContractRefs: ReadonlySet<string>;
+  readonly stageBoundPluginRefs: ReadonlySet<string>;
   readonly issues: GtlProgramConformanceIssue[];
 }): void {
   checkUniqueRows({
@@ -4713,6 +5557,135 @@ function checkHookBoundaryRows(input: {
           issues: input.issues
         });
       }
+      if (!input.stageBoundPluginRefs.has(pluginRef)) {
+        pushRowIssue({
+          surfaceKind: "hook_boundary",
+          surfaceRef: row.hookRef,
+          ruleRef: "abg://gtl-program/hook-boundary/plugin-stage-binding-resolves",
+          message: `pluginContractRef ${JSON.stringify(pluginRef)} is not bound by a supplied computeStageBindings row`,
+          issues: input.issues
+        });
+      }
+    }
+  }
+}
+
+function pluginRefsBoundByStages(
+  rows: readonly GtlProgramComputeStageBindingRow[]
+): ReadonlySet<string> {
+  const refs = new Set<string>();
+  for (const row of rows) {
+    for (const pluginRef of row.pluginContractRefs) {
+      refs.add(pluginRef);
+    }
+  }
+  return refs;
+}
+
+function pluginRefsBoundByRuntime(
+  rows: readonly GtlProgramRuntimeBindingRow[]
+): ReadonlySet<string> {
+  const refs = new Set<string>();
+  for (const row of rows) {
+    for (const pluginRef of row.pluginContractRefs) {
+      refs.add(pluginRef);
+    }
+  }
+  return refs;
+}
+
+function checkRuntimeBindingRows(input: {
+  readonly runtimeBindings: readonly GtlProgramRuntimeBindingRow[];
+  readonly publicStartTargets: readonly GtlProgramPublicStartRow[];
+  readonly modules: readonly Module[];
+  readonly pluginContractRefs: ReadonlySet<string>;
+  readonly computeStageBindingRefs: ReadonlySet<string>;
+  readonly pluginRefsBoundByStages: ReadonlySet<string>;
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  checkUniqueRows({
+    rows: input.runtimeBindings.map((row) => ({ ref: row.bindingRef })),
+    surfaceKind: "runtime_binding",
+    ruleRef: "abg://gtl-program/runtime-binding/unique-ref",
+    label: "runtime binding",
+    issues: input.issues
+  });
+
+  const moduleRefs = new Set(input.modules.flatMap((module) => [module.name]));
+  const publicStartRefs = new Set(
+    input.publicStartTargets.flatMap((row) => [row.name, row.graphFunctionRef])
+  );
+  for (const row of input.runtimeBindings) {
+    if (!moduleRefs.has(row.moduleRef)) {
+      pushRowIssue({
+        surfaceKind: "runtime_binding",
+        surfaceRef: row.bindingRef,
+        ruleRef: "abg://gtl-program/runtime-binding/module-ref-resolves",
+        message: `moduleRef ${JSON.stringify(row.moduleRef)} does not resolve to a supplied module`,
+        issues: input.issues
+      });
+    }
+    if (!publicStartRefs.has(row.publicStartRef)) {
+      pushRowIssue({
+        surfaceKind: "runtime_binding",
+        surfaceRef: row.bindingRef,
+        ruleRef: "abg://gtl-program/runtime-binding/public-start-ref-resolves",
+        message: `publicStartRef ${JSON.stringify(row.publicStartRef)} does not resolve to a supplied public start target`,
+        issues: input.issues
+      });
+    }
+    for (const pluginRef of row.pluginContractRefs) {
+      if (!input.pluginContractRefs.has(pluginRef)) {
+        pushRowIssue({
+          surfaceKind: "runtime_binding",
+          surfaceRef: row.bindingRef,
+          ruleRef: "abg://gtl-program/runtime-binding/plugin-contract-resolves",
+          message: `pluginContractRef ${JSON.stringify(pluginRef)} does not resolve to a supplied plugin contract`,
+          issues: input.issues
+        });
+      }
+      if (!input.pluginRefsBoundByStages.has(pluginRef)) {
+        pushRowIssue({
+          surfaceKind: "runtime_binding",
+          surfaceRef: row.bindingRef,
+          ruleRef: "abg://gtl-program/runtime-binding/plugin-stage-binding-resolves",
+          message: `pluginContractRef ${JSON.stringify(pluginRef)} is not bound to a supplied compute stage`,
+          issues: input.issues
+        });
+      }
+    }
+    for (const stageBindingRef of row.stageBindingRefs) {
+      if (!input.computeStageBindingRefs.has(stageBindingRef)) {
+        pushRowIssue({
+          surfaceKind: "runtime_binding",
+          surfaceRef: row.bindingRef,
+          ruleRef: "abg://gtl-program/runtime-binding/stage-binding-resolves",
+          message: `stageBindingRef ${JSON.stringify(stageBindingRef)} does not resolve to a supplied compute stage`,
+          issues: input.issues
+        });
+      }
+    }
+  }
+
+  const runtimeBoundPluginRefs = pluginRefsBoundByRuntime(input.runtimeBindings);
+  for (const pluginRef of input.pluginContractRefs) {
+    if (!input.pluginRefsBoundByStages.has(pluginRef)) {
+      pushRowIssue({
+        surfaceKind: "plugin_contract",
+        surfaceRef: pluginRef,
+        ruleRef: "abg://gtl-program/plugin-contract/stage-binding-required",
+        message: `plugin contract ${JSON.stringify(pluginRef)} is not bound by any computeStageBindings row`,
+        issues: input.issues
+      });
+    }
+    if (!runtimeBoundPluginRefs.has(pluginRef)) {
+      pushRowIssue({
+        surfaceKind: "plugin_contract",
+        surfaceRef: pluginRef,
+        ruleRef: "abg://gtl-program/plugin-contract/runtime-binding-required",
+        message: `plugin contract ${JSON.stringify(pluginRef)} is not consumed by any ABG runtime binding row`,
+        issues: input.issues
+      });
     }
   }
 }
@@ -5117,12 +6090,14 @@ function observedFeatureKinds(input: {
   readonly evaluatorDeclarations: readonly GtlProgramEvaluatorDeclarationRow[];
   readonly ruleDeclarations: readonly GtlProgramRuleDeclarationRow[];
   readonly computeCompositions: readonly GtlProgramComputeCompositionRow[];
+  readonly computeStageBindings: readonly GtlProgramComputeStageBindingRow[];
   readonly hookBoundaries: readonly GtlProgramHookBoundaryRow[];
   readonly selectionBoundaries: readonly GtlProgramSelectionBoundaryRow[];
   readonly publicStartTargets: readonly GtlProgramPublicStartRow[];
   readonly jobBindings: readonly GtlProgramJobBindingRow[];
   readonly roleBindings: readonly GtlProgramRoleBindingRow[];
   readonly externalToolGates: readonly GtlProgramExternalToolGateRow[];
+  readonly runtimeBindings: readonly GtlProgramRuntimeBindingRow[];
 }): ReadonlySet<GtlProgramT153FeatureKind> {
   const observed = new Set<GtlProgramT153FeatureKind>();
   if (input.graphFunctions.length > 0 && input.vectors.length > 0) {
@@ -5210,6 +6185,7 @@ function observedFeatureKinds(input: {
   }
   if (
     input.computeCompositions.length > 0 ||
+    input.computeStageBindings.length > 0 ||
     input.vectors.some((vector) =>
       vector.declarationKeyRefs.includes("abg.fn_composition")
     ) ||
@@ -5289,12 +6265,14 @@ function inventoryBackedFeatureKinds(input: {
   readonly evaluatorDeclarations: readonly GtlProgramEvaluatorDeclarationRow[];
   readonly ruleDeclarations: readonly GtlProgramRuleDeclarationRow[];
   readonly computeCompositions: readonly GtlProgramComputeCompositionRow[];
+  readonly computeStageBindings: readonly GtlProgramComputeStageBindingRow[];
   readonly hookBoundaries: readonly GtlProgramHookBoundaryRow[];
   readonly selectionBoundaries: readonly GtlProgramSelectionBoundaryRow[];
   readonly publicStartTargets: readonly GtlProgramPublicStartRow[];
   readonly jobBindings: readonly GtlProgramJobBindingRow[];
   readonly roleBindings: readonly GtlProgramRoleBindingRow[];
   readonly externalToolGates: readonly GtlProgramExternalToolGateRow[];
+  readonly runtimeBindings: readonly GtlProgramRuntimeBindingRow[];
 }): ReadonlySet<GtlProgramT153FeatureKind> {
   const backed = new Set<GtlProgramT153FeatureKind>();
   if (input.graphFunctions.length > 0 && input.vectors.length > 0) {
@@ -5328,7 +6306,10 @@ function inventoryBackedFeatureKinds(input: {
   if (input.ruleDeclarations.length > 0) {
     backed.add("rule_declarations");
   }
-  if (input.computeCompositions.length > 0) {
+  if (
+    input.computeCompositions.length > 0 &&
+    input.computeStageBindings.length > 0
+  ) {
     backed.add("f_star_compute_composition");
   }
   if (input.hookBoundaries.length > 0) {
@@ -5349,7 +6330,7 @@ function inventoryBackedFeatureKinds(input: {
   if (input.modules.length > 0) {
     backed.add("module_publication");
   }
-  if (input.publicStartTargets.length > 0) {
+  if (input.publicStartTargets.length > 0 && input.runtimeBindings.length > 0) {
     backed.add("public_start_binding");
   }
   if (input.jobBindings.length > 0) {
@@ -5505,11 +6486,13 @@ function computeInventoryDigests(input: {
   readonly evaluatorDeclarations: readonly GtlProgramEvaluatorDeclarationRow[];
   readonly ruleDeclarations: readonly GtlProgramRuleDeclarationRow[];
   readonly computeCompositions: readonly GtlProgramComputeCompositionRow[];
+  readonly computeStageBindings: readonly GtlProgramComputeStageBindingRow[];
   readonly hookBoundaries: readonly GtlProgramHookBoundaryRow[];
   readonly selectionBoundaries: readonly GtlProgramSelectionBoundaryRow[];
   readonly jobBindings: readonly GtlProgramJobBindingRow[];
   readonly roleBindings: readonly GtlProgramRoleBindingRow[];
   readonly externalToolGates: readonly GtlProgramExternalToolGateRow[];
+  readonly runtimeBindings: readonly GtlProgramRuntimeBindingRow[];
 }): GtlProgramInventoryDigests {
   return Object.freeze({
     featureCoverageManifest: stableSha256Digest(input.featureCoverageManifest),
@@ -5531,11 +6514,13 @@ function computeInventoryDigests(input: {
     evaluatorDeclarations: stableSha256Digest(input.evaluatorDeclarations),
     ruleDeclarations: stableSha256Digest(input.ruleDeclarations),
     computeCompositions: stableSha256Digest(input.computeCompositions),
+    computeStageBindings: stableSha256Digest(input.computeStageBindings),
     hookBoundaries: stableSha256Digest(input.hookBoundaries),
     selectionBoundaries: stableSha256Digest(input.selectionBoundaries),
     jobBindings: stableSha256Digest(input.jobBindings),
     roleBindings: stableSha256Digest(input.roleBindings),
-    externalToolGates: stableSha256Digest(input.externalToolGates)
+    externalToolGates: stableSha256Digest(input.externalToolGates),
+    runtimeBindings: stableSha256Digest(input.runtimeBindings)
   });
 }
 
@@ -5589,6 +6574,9 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
   const computeCompositions = Object.freeze([
     ...(input.computeCompositions ?? [])
   ]);
+  const computeStageBindings = Object.freeze([
+    ...(input.computeStageBindings ?? [])
+  ]);
   const hookBoundaries = Object.freeze([...(input.hookBoundaries ?? [])]);
   const selectionBoundaries = Object.freeze([
     ...(input.selectionBoundaries ?? [])
@@ -5598,9 +6586,12 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
   const externalToolGates = Object.freeze([
     ...(input.externalToolGates ?? [])
   ]);
+  const runtimeBindings = Object.freeze([...(input.runtimeBindings ?? [])]);
   const featureCoverageManifest = input.featureCoverageManifest;
   const knownHostRefs = hostRefs({ graphFunctions, modules, vectors });
   const suppliedPluginContractRefs = pluginContractRefs(pluginContracts);
+  const stageBoundPluginRefs = pluginRefsBoundByStages(computeStageBindings);
+  const suppliedStageBindingRefs = stageBindingRefs(computeStageBindings);
 
   checkVectorRows({
     vectors,
@@ -5645,10 +6636,17 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     knownHostRefs,
     issues
   });
+  checkComputeStageBindingRows({
+    computeCompositions,
+    computeStageBindings,
+    pluginContractRefs: suppliedPluginContractRefs,
+    issues
+  });
   checkHookBoundaryRows({
     hookBoundaries,
     knownHostRefs,
     pluginContractRefs: suppliedPluginContractRefs,
+    stageBoundPluginRefs,
     issues
   });
   checkSelectionBoundaryRows({
@@ -5667,6 +6665,15 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     externalToolGates,
     issues
   });
+  checkRuntimeBindingRows({
+    runtimeBindings,
+    publicStartTargets,
+    modules,
+    pluginContractRefs: suppliedPluginContractRefs,
+    computeStageBindingRefs: suppliedStageBindingRefs,
+    pluginRefsBoundByStages: stageBoundPluginRefs,
+    issues
+  });
   checkFeatureCoverage({
     subjectRef: input.subjectRef,
     manifest: featureCoverageManifest,
@@ -5683,12 +6690,14 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
       evaluatorDeclarations,
       ruleDeclarations,
       computeCompositions,
+      computeStageBindings,
       hookBoundaries,
       selectionBoundaries,
       publicStartTargets,
       jobBindings,
       roleBindings,
-      externalToolGates
+      externalToolGates,
+      runtimeBindings
     }),
     inventoryBackedFeatures: inventoryBackedFeatureKinds({
       graphFunctions,
@@ -5703,12 +6712,14 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
       evaluatorDeclarations,
       ruleDeclarations,
       computeCompositions,
+      computeStageBindings,
       hookBoundaries,
       selectionBoundaries,
       publicStartTargets,
       jobBindings,
       roleBindings,
-      externalToolGates
+      externalToolGates,
+      runtimeBindings
     }),
     issues
   });
@@ -5749,11 +6760,13 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     evaluatorDeclarations,
     ruleDeclarations,
     computeCompositions,
+    computeStageBindings,
     hookBoundaries,
     selectionBoundaries,
     jobBindings,
     roleBindings,
-    externalToolGates
+    externalToolGates,
+    runtimeBindings
   });
   const inventoryDigest = stableSha256Digest(inventoryDigests);
   const frozenIssues = Object.freeze([...issues]);

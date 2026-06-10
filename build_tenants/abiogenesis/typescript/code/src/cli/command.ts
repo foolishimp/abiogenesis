@@ -12,7 +12,8 @@ import type {
 } from "../abg/m03/contracts/carriers.js";
 import type {
   AffectPriorityPolicy,
-  ConstructionPriorityScheme
+  ConstructionPriorityScheme,
+  EngineRunnerPluginSet
 } from "../abg/m03/index.js";
 import {
   admitAffectPriorityPolicies,
@@ -31,7 +32,7 @@ import {
   admitOperatorAssetQueryContract,
   installAbiogenesisTypescript,
   publicGaps,
-  publicCallableStart,
+  publicCallableStartAsync,
   resolvePublicAssetTarget,
   resultAssessment
 } from "../app/m04/index.js";
@@ -158,6 +159,7 @@ interface RuntimeBinding {
   readonly runtimeEvents?: readonly RuntimeEvent[];
   readonly constructionPriorityScheme?: ConstructionPriorityScheme;
   readonly constructionAffectPolicies?: readonly AffectPriorityPolicy[];
+  readonly plugins?: EngineRunnerPluginSet;
   readonly runId?: string | null;
   readonly workKey?: string | null;
   readonly frameId?: string | null;
@@ -766,6 +768,7 @@ function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
     runtimeEvents?: readonly RuntimeEvent[];
     constructionPriorityScheme?: ConstructionPriorityScheme;
     constructionAffectPolicies?: readonly AffectPriorityPolicy[];
+    plugins?: EngineRunnerPluginSet;
     runId?: string | null;
     workKey?: string | null;
     frameId?: string | null;
@@ -800,6 +803,12 @@ function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
       input["constructionAffectPolicies"],
       `${label}.constructionAffectPolicies`
     );
+  }
+  if (hasOwnField(input, "plugins")) {
+    if (!isRecord(input["plugins"])) {
+      throw new CliError(`${label}.plugins must be an object`);
+    }
+    result.plugins = input["plugins"] as unknown as EngineRunnerPluginSet;
   }
 
   const pluginTraversalObserverFallbackEnabled = coerceOptionalBooleanField(
@@ -1154,12 +1163,13 @@ async function runStartCommand(
   const replayEvents = await readReplayEvents(eventLogPath);
   const target = await resolveCliTarget(workspaceRoot, binding, command.target);
   const emitted: RuntimeEvent[] = [];
-  const outcome = publicCallableStart(
+  const outcome = await publicCallableStartAsync(
     callableInput(command, workspaceRoot, binding, target),
     startContext(workspaceRoot, binding, replayEvents),
     (event) => {
       emitted.push(event);
-    }
+    },
+    binding.plugins
   );
   await appendRuntimeEvents(eventLogPath, emitted);
 

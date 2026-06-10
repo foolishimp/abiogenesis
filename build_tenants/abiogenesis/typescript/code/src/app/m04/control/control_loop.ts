@@ -7,6 +7,7 @@
 // Implements: REQ-P-POLICY-013
 
 import type {
+  EngineRunnerPluginSet,
   RuntimeEventSink
 } from "../../../abg/m03/index.js";
 import { assertRuntimeEventSink } from "../public_start.js";
@@ -17,12 +18,13 @@ import type {
   PublicControlLoopOutcome,
   PublicControlLoopRequest
 } from "./carriers.js";
-import { startFromRequest } from "../start.js";
+import { startFromRequest, startFromRequestAsync } from "../start.js";
 
 function runControlLoop(
   request: PublicControlLoopRequest,
   context: PublicStartContext,
-  eventSink: RuntimeEventSink
+  eventSink: RuntimeEventSink,
+  plugins?: EngineRunnerPluginSet
 ): readonly ReturnType<typeof startFromRequest>[] {
   return Object.freeze([
     startFromRequest(
@@ -31,7 +33,27 @@ function runControlLoop(
         ...context,
         runtimeEvents: Object.freeze([...(context.runtimeEvents ?? [])])
       },
-      eventSink
+      eventSink,
+      plugins
+    )
+  ]);
+}
+
+async function runControlLoopAsync(
+  request: PublicControlLoopRequest,
+  context: PublicStartContext,
+  eventSink: RuntimeEventSink,
+  plugins?: EngineRunnerPluginSet
+): Promise<readonly Awaited<ReturnType<typeof startFromRequestAsync>>[]> {
+  return Object.freeze([
+    await startFromRequestAsync(
+      request.startRequest,
+      {
+        ...context,
+        runtimeEvents: Object.freeze([...(context.runtimeEvents ?? [])])
+      },
+      eventSink,
+      plugins
     )
   ]);
 }
@@ -39,10 +61,25 @@ function runControlLoop(
 export function publicControlLoopFromRequest(
   request: PublicControlLoopRequest,
   context: PublicStartContext,
-  eventSink: RuntimeEventSink
+  eventSink: RuntimeEventSink,
+  plugins?: EngineRunnerPluginSet
 ): PublicControlLoopOutcome {
   const sink = assertRuntimeEventSink(eventSink);
-  const outcomes = runControlLoop(request, context, sink);
+  const outcomes = runControlLoop(request, context, sink, plugins);
+  return constructPublicControlLoopOutcome(
+    outcomes,
+    request.startRequest.controlModes
+  );
+}
+
+export async function publicControlLoopFromRequestAsync(
+  request: PublicControlLoopRequest,
+  context: PublicStartContext,
+  eventSink: RuntimeEventSink,
+  plugins?: EngineRunnerPluginSet
+): Promise<PublicControlLoopOutcome> {
+  const sink = assertRuntimeEventSink(eventSink);
+  const outcomes = await runControlLoopAsync(request, context, sink, plugins);
   return constructPublicControlLoopOutcome(
     outcomes,
     request.startRequest.controlModes
@@ -52,8 +89,24 @@ export function publicControlLoopFromRequest(
 export function publicControlLoop(
   input: unknown,
   context: PublicStartContext,
-  eventSink: RuntimeEventSink
+  eventSink: RuntimeEventSink,
+  plugins?: EngineRunnerPluginSet
 ): PublicControlLoopOutcome {
   const request = admitPublicControlLoopRequest(input);
-  return publicControlLoopFromRequest(request, context, eventSink);
+  return publicControlLoopFromRequest(request, context, eventSink, plugins);
+}
+
+export async function publicControlLoopAsync(
+  input: unknown,
+  context: PublicStartContext,
+  eventSink: RuntimeEventSink,
+  plugins?: EngineRunnerPluginSet
+): Promise<PublicControlLoopOutcome> {
+  const request = admitPublicControlLoopRequest(input);
+  return await publicControlLoopFromRequestAsync(
+    request,
+    context,
+    eventSink,
+    plugins
+  );
 }

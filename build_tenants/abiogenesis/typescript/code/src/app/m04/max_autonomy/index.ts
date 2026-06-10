@@ -10,5 +10,7 @@ export {
 } from "./constructors.js";
 export {
   publicCallableStart,
-  publicCallableStartFromRequest
+  publicCallableStartAsync,
+  publicCallableStartFromRequest,
+  publicCallableStartFromRequestAsync
 } from "./callable_start.js";

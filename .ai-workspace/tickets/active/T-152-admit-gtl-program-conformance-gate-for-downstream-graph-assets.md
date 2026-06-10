@@ -10,7 +10,7 @@ change_class: requirement_reprice
 change_intent: Make GTL program conformance a deterministic ABG API function with a thin CLI wrapper instead of downstream-local lint rules, MCP-shaped prompt schema, or agent-memory checks.
 re_entry_point: requirements
 created_at: 2026-06-08
-updated_at: 2026-06-09
+updated_at: 2026-06-11
 owning_repo: abiogenesis
 governance_scope: STDO Method
 priority: high
@@ -64,7 +64,7 @@ affected_boundary:
     - build_tenants/abiogenesis/typescript/test_env/tests/test_t152_contract_fulfillment_binding_api.test.mjs
 target_truth: Downstream GTL/ABG programs are admitted through one ABG-owned programmatic API, `typecheckGtlProgram(...)`, with `admitGtlProgramConformanceInput(...)` as its raw-input gate and `abiogenesis-ts typecheck-gtl-program` as a thin CLI wrapper. The function evaluates the supplied GTL program inventory against GTL graph interface law, graph-vector identity law, target-carrier row law, closure row law, prompt AssetSurface view law where the downstream row declares a prompt invocation asset, supplied plugin/public-start/overlay row law, active source identity law, feature-coverage owner law, and expected coverage. Report identity is evidence-bound to the normalized audited inventory. Features without first-class inventory fields remain explicit manifest attestations until this ticket admits those fields.
 superseded_truth: Downstream products can prove GTL/ABG graph conformance by local scans, prompt prose, method-in-context, or partial inventories that pass when omitted.
-closure_law: This ticket closes only when the TypeScript source is tracked, exported, buildable, callable programmatically, callable through the CLI wrapper, and tested against empty/partial inventories, malformed raw input, unsatisfied graph dependencies, duplicate target/closure rows, duplicate display labels with distinct opaque vector identity, current ABG engine-authority flag bypasses, prompt asset row completeness, plugin admission, exact ABI package version, stale active ABG identity, evidence-bound report identity, and a downstream-shaped production graph-asset inventory gate.
+closure_law: This ticket closes only when the TypeScript source is tracked, exported, buildable, callable programmatically, callable through the CLI wrapper, and tested against empty/partial inventories, malformed raw input, unsatisfied graph dependencies, duplicate target/closure rows, duplicate display labels with distinct opaque vector identity, current ABG engine-authority flag bypasses, prompt asset row completeness, plugin admission, exact ABI package version, stale active ABG identity, evidence-bound report identity, stage-compute composition contracts binding `transform.C`, `evaluate.C`, and `consequence.C` to selected `F_D`/`F_P`/`F_H` regime participation and governed plugin contracts, and a downstream-shaped production graph-asset inventory gate.
 non_closure_conditions:
   - the function is only present in build output, a temporary package, or an untracked source file
   - the CLI owns rules that the programmatic function does not own
@@ -75,6 +75,8 @@ non_closure_conditions:
   - raw malformed JSON can throw uncaught instead of producing deterministic issue rows
   - engine-authority fields are hand-copied across guards or silently stripped
   - prompt asset row completeness is claimed as GTL AssetSurface constitutional law without an explicit requirement home or scoped row policy
+  - `F_*` compute composition can pass with only coarse notation/stage-name strings instead of admitted stage contracts that preserve selected composition identity, `F_D`/`F_P`/`F_H` participation, compute means, stage purpose, input/output carrier refs, evidence refs, and authority-denial flags
+  - plugin contracts can be accepted as standalone rows without resolving through the selected `abg.fn_composition`/stage binding chain that authorizes their `transform.C`, `evaluate.C`, `consequence.C`, or external human-callout role
   - proof depends on a local `/tmp` package instead of the source under review or a recut release snapshot
   - a downstream-shaped proof passes by excluding current TypeScript graph assets, prompt construction assets, plugin contracts, or active source identity surfaces
 review_gate: high-bar code review and downstream-shaped production-inventory proof required before release
@@ -179,9 +181,35 @@ inventory is not admissible.
   binding, consumed-field refs, tags, and vector/module attachment.
 - [x] Rule declarations: verify first-class rule identity, rule kind, config
   digest, tags, and vector/module attachment.
-- [x] `F_*` compute composition: verify `abg.fn_composition`, `fn<A, B>.C`,
+- [ ] `F_*` compute composition: verify `abg.fn_composition`, `fn<A, B>.C`,
   `transform.C`, `evaluate.C`, `consequence.C`, regime-binding refs,
   stage-binding refs, and closure contract refs as first-class rows.
+  Current status: first-class `computeCompositions` rows exist and reject
+  malformed row shape, missing notation, missing stage names, empty regime
+  refs, and bad digests. Closure remains open until the row is a real
+  composition contract chain, not a coarse inventory row:
+  - [x] Admit `computeCompositions` rows as deterministic issue-producing raw
+    input.
+  - [x] Require `fn<A, B>.C`, `transform.C`, `evaluate.C`, and `consequence.C`
+    notation refs.
+  - [x] Require non-empty regime-binding refs, stage-binding refs, and
+    closure-contract refs.
+  - [x] Require each `transform.C`, `evaluate.C`, and `consequence.C` stage to
+    declare `F_D`, `F_P`, and `F_H` participation or explicit `not_used` /
+    external-callout disposition through typed regime rows, not by non-empty
+    string arrays.
+  - [x] Admit stage-binding rows that preserve selected composition identity,
+    compute means, stage purpose, input carrier refs, output carrier refs,
+    evidence refs, and authority-denial flags.
+  - [x] Require supplied plugin contracts and hook-boundary plugin refs to
+    resolve to an admitted stage-binding/composition contract; plugin rows must
+    not satisfy composition law by themselves.
+  - [x] Require public runtime-binding rows to prove supplied plugin contracts
+    are consumed through ABG command/control rather than product-local
+    iteration loops.
+  - [x] Bind composition/stage/plugin/runtime rows into report identity and add
+    negative tests for missing stage rows, missing regime dispositions,
+    plugin-without-composition, and local product wrapper composition law.
 - [x] Plugin contracts: ABG `EnginePluginContract` admission is checked today
   for supplied plugin rows.
 - [x] Hook boundary declarations: verify hook refs, host refs,
@@ -516,3 +544,144 @@ Proof:
   T-153 row update.
 - `git diff --check` passed on 2026-06-09 after the first-class T-153 row
   update.
+
+## Bug Triage - 2026-06-11 Stage Compute Composition Contract Chain
+
+Finding: the current `typecheckGtlProgram(...)` supports a first-class
+`computeCompositions` row family, but it is not yet the full GTL/ABG
+composition contract the product now requires. The row currently admits
+`compositionRef`, digest, host, declaration source, `notationRefs`,
+`regimeBindingRefs`, `stageBindingRefs`, `closureContractRef`, and evidence.
+It validates that notation strings include `fn<`, `transform.C`, `evaluate.C`,
+and `consequence.C`, that stage-binding strings contain transform/evaluate/
+consequence names, and that regime refs are non-empty.
+
+That is not enough to prove the intended law:
+
+- `transform.C`, `evaluate.C`, and `consequence.C` are not yet admitted stage
+  contracts with typed `F_D`/`F_P`/`F_H` participation or explicit
+  `not_used` / external-callout dispositions.
+- `EnginePluginContract` rows are admitted and authority-denied, but the
+  conformance gate does not yet require those plugin rows to resolve through a
+  selected `abg.fn_composition` stage binding.
+- Stage purpose, compute means, input carrier refs, output carrier refs,
+  evidence refs, and authority-denial flags exist in ABG plugin/stage carrier
+  shapes, but the GTL program conformance input does not yet make them the
+  sole source of compute-composition truth for downstream programs.
+
+STDO triage: `design_reframe` within this active T-152
+`requirement_reprice`, followed by `realization_refactor` in
+`gtl_program_conformance.ts`. The requirement already exists in
+`REQ-L-GTL3-CONTRACT-LAW-API-005`, `-007`, `-010`, and `-012`; the missing
+layer is the ABG-owned admitted carrier surface that ties compute notation,
+stage composition, hook/plugin rows, and authority denial into one typechecked
+chain.
+
+F_D/F_P classification: F_D. This is not prompt context. It is a static
+program-admission failure: a downstream program that supplies plugins or
+compute-stage declarations must fail closed unless the GTL program inventory
+contains the selected composition contract and stage bindings.
+
+Prime law confirmation: the single truth surface remains
+`typecheckGtlProgram(...)` and `admitGtlProgramConformanceInput(...)`. The CLI
+stays a wrapper. Downstream products may supply inventory rows, but ABG owns
+the admitted compute-composition contract law and must not infer it from
+plugin counts, prompt prose, SDLC wrappers, or local scan rules.
+
+Required work:
+
+- Add or admit a normalized stage-composition carrier for `transform.C`,
+  `evaluate.C`, `consequence.C`, and external `human_callout` boundaries.
+- Require each stage row to bind to one selected `compositionRef` and declare
+  `F_D`, `F_P`, and `F_H` participation or explicit non-use with reason refs.
+- Require stage rows to carry compute means, stage purpose, input carrier refs,
+  output carrier refs, evidence refs, predecessor refs where applicable, and
+  authority-denial flags.
+- Require plugin contracts and hook-boundary plugin refs to resolve to admitted
+  stage rows; a plugin contract without a selected composition/stage binding
+  must fail.
+- Require the feature manifest's `f_star_compute_composition: present`
+  disposition to be backed by the normalized stage-composition rows, not only
+  by coarse `computeCompositions` rows.
+- Bind normalized composition/stage/plugin inventories into
+  `inventoryDigests` and `reportRef`.
+- Add negative tests for missing transform/evaluate/consequence stage rows,
+  missing `F_D`/`F_P`/`F_H` disposition, plugin-without-composition,
+  hook-boundary plugin ref without a stage binding, and downstream-local
+  wrapper composition law.
+- Add a downstream-shaped fixture that proves a GTL/ABG product cannot pass
+  the gate with SDLC-local plugin composition truth and does pass after
+  supplying the admitted composition/stage inventory.
+
+Non-closure:
+
+- `typecheckGtlProgram(...)` passes `f_star_compute_composition: present` with
+  only non-empty `regimeBindingRefs` and string-matched `stageBindingRefs`.
+- `pluginContracts` or `hookBoundaries.pluginContractRefs` pass without a
+  selected stage-composition binding.
+- A downstream product can preserve `transform.C`/`evaluate.C`/`consequence.C`
+  composition law in local wrappers, prompts, or CLI control flow instead of
+  supplying GTL/ABG-admitted composition inventory.
+
+## Implementation Update - 2026-06-11 Stage/Runtime Binding Gate
+
+Updated `gtl_program_conformance.ts`:
+
+- Added first-class `computeStageBindings` rows for `transform.C`,
+  `evaluate.C`, `consequence.C`, and `human_callout` stage contracts.
+- Each stage row now binds to a selected `compositionRef`, preserves the
+  selected composition digest, names stage role, notation, purpose, compute
+  means, input/output carriers, predecessor stage refs, plugin refs, hook refs,
+  evidence refs, and typed `F_D`/`F_P`/`F_H` dispositions.
+- Stage rows reject local engine authority flags:
+  `mayWriteLedgers`, `mayEmitRuntimeEvents`, `maySelectTraversal`,
+  `mayCloseTraversal`, and `mayOwnIterationLoop` must all be false.
+- `computeCompositions.stageBindingRefs` must resolve to supplied stage rows,
+  and every composition must supply `transform`, `evaluate`, and `consequence`
+  stage rows.
+- Supplied plugin contract refs must resolve through admitted stage rows; hook
+  plugin refs must also resolve through those same stage rows.
+- Added first-class `runtimeBindings` rows for public ABG runtime binding
+  surfaces. Supplied plugin contracts must be consumed by an ABG runtime binding
+  row, and the row must assert `consumesPluginsThroughAbg: true` and
+  `forbidsProductLocalIteration: true`.
+- `f_star_compute_composition: present` now requires both composition rows and
+  stage rows. `public_start_binding: present` now requires public-start rows and
+  runtime-binding rows.
+- Report identity now includes `computeStageBindings` and `runtimeBindings`
+  inventory digests.
+
+Added regression coverage:
+
+- `T-152 GTL program typechecker requires selected transform/evaluate/consequence stage rows`
+- `T-152 GTL program typechecker rejects plugin contracts without stage and ABG runtime binding`
+- `T-152 GTL program typechecker rejects product-local wrapper runtime binding claims`
+- Extended malformed-row coverage for stage rows and runtime binding rows.
+
+M04 public command/control fix:
+
+- `publicCallableStartAsync(...)` and async control-loop APIs now carry
+  `EngineRunnerPluginSet` through public ABG command/control.
+- The TypeScript CLI runtime binding loader accepts a `plugins` provider and
+  passes it into `publicCallableStartAsync(...)`.
+- This closes the ABG-side defect where a downstream product could only prove
+  plugin execution by calling runner internals directly.
+
+Proof:
+
+- `npm run test:t150` passed 47/47 on 2026-06-11 after the stage/runtime
+  binding update.
+- `npm run test:b030` passed 11/11 on 2026-06-11 after public callable plugin
+  flow was added.
+- `npm run test:t057` passed 9/9 on 2026-06-11, including
+  `runtime binding plugins execute through ABG CLI command/control`.
+- `npm run test:t013` passed 10/10 on 2026-06-11 after control-loop plugin
+  carry-through.
+
+Current non-closure:
+
+- A downstream consumer still must publish a production runtime binding that
+  supplies the GTL module, public start target, plugin contracts, stage rows,
+  runtime binding row, and plugin providers to ABG command/control.
+- A clean downstream live lane must run through ABG command/control rather than
+  a product-local CLI loop.

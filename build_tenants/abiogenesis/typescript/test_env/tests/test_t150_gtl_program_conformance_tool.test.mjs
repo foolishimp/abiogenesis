@@ -487,6 +487,54 @@ function completeFeatureRows(input) {
   assert.notEqual(roleEntry, undefined);
   assert.notEqual(refinementBoundary, undefined);
   assert.notEqual(candidateFamily, undefined);
+  const compositionRef = `abg.fn_composition://t150/${programRef}/default`;
+  const compositionDigest = "sha256:composition";
+  const stageBindingRefs = [
+    `stage-binding://t150/${programRef}/transform.C`,
+    `stage-binding://t150/${programRef}/evaluate.C`,
+    `stage-binding://t150/${programRef}/consequence.C`
+  ];
+  const stageRegimes = (activeRegime) => [
+    {
+      regime: "F_D",
+      disposition: activeRegime === "F_D" ? "participates" : "not_used",
+      selectedRegimeBindingRefs:
+        activeRegime === "F_D"
+          ? [`regime-binding://t150/${programRef}/F_D/close`]
+          : [],
+      reasonRefs:
+        activeRegime === "F_D"
+          ? []
+          : [`reason://t150/${programRef}/F_D/not-used`],
+      evidenceRefs:
+        activeRegime === "F_D"
+          ? [`test://t150/${programRef}/F_D/participates`]
+          : []
+    },
+    {
+      regime: "F_P",
+      disposition: activeRegime === "F_P" ? "participates" : "not_used",
+      selectedRegimeBindingRefs:
+        activeRegime === "F_P"
+          ? [`regime-binding://t150/${programRef}/F_P/construct`]
+          : [],
+      reasonRefs:
+        activeRegime === "F_P"
+          ? []
+          : [`reason://t150/${programRef}/F_P/not-used`],
+      evidenceRefs:
+        activeRegime === "F_P"
+          ? [`test://t150/${programRef}/F_P/participates`]
+          : []
+    },
+    {
+      regime: "F_H",
+      disposition: "not_used",
+      selectedRegimeBindingRefs: [],
+      reasonRefs: [`reason://t150/${programRef}/F_H/not-used`],
+      evidenceRefs: []
+    }
+  ];
   return {
     sameObjectProofs: [
       {
@@ -537,8 +585,8 @@ function completeFeatureRows(input) {
     ],
     computeCompositions: [
       {
-        compositionRef: `abg.fn_composition://t150/${programRef}/default`,
-        compositionDigest: "sha256:composition",
+        compositionRef,
+        compositionDigest,
         hostKind: "graph_vector",
         hostRef: vector.name,
         declarationSourceKind: "visible_defaults",
@@ -553,13 +601,74 @@ function completeFeatureRows(input) {
           `regime-binding://t150/${programRef}/F_P/construct`,
           `regime-binding://t150/${programRef}/F_D/close`
         ],
-        stageBindingRefs: [
-          `stage-binding://t150/${programRef}/transform.C`,
-          `stage-binding://t150/${programRef}/evaluate.C`,
-          `stage-binding://t150/${programRef}/consequence.C`
-        ],
+        stageBindingRefs,
         closureContractRef: `closure-contract://t150/${programRef}/fd-close`,
         evidenceRefs: ["test://t150/composition"]
+      }
+    ],
+    computeStageBindings: [
+      {
+        stageBindingRef: stageBindingRefs[0],
+        compositionRef,
+        compositionDigest,
+        stageRole: "transform",
+        stageNotationRef: "transform.C",
+        stagePurpose: "candidate_construction",
+        computeMeans: "F_P",
+        inputCarrierRefs: ["EnginePluginInput"],
+        outputCarrierRefs: ["FpDispatchOutcome"],
+        predecessorStageBindingRefs: [],
+        pluginContractRefs: ["plugin://t150/fp-dispatch"],
+        hookRefs: [`hook://t150/${programRef}/fp-dispatch`],
+        regimeDispositions: stageRegimes("F_P"),
+        mayWriteLedgers: false,
+        mayEmitRuntimeEvents: false,
+        maySelectTraversal: false,
+        mayCloseTraversal: false,
+        mayOwnIterationLoop: false,
+        evidenceRefs: ["test://t150/transform-stage"]
+      },
+      {
+        stageBindingRef: stageBindingRefs[1],
+        compositionRef,
+        compositionDigest,
+        stageRole: "evaluate",
+        stageNotationRef: "evaluate.C",
+        stagePurpose: "candidate_evaluation",
+        computeMeans: "F_P",
+        inputCarrierRefs: ["EnginePluginInput"],
+        outputCarrierRefs: ["FpEvaluationOutcome", "EvaluationRuleOutcome"],
+        predecessorStageBindingRefs: [stageBindingRefs[0]],
+        pluginContractRefs: [],
+        hookRefs: [],
+        regimeDispositions: stageRegimes("F_P"),
+        mayWriteLedgers: false,
+        mayEmitRuntimeEvents: false,
+        maySelectTraversal: false,
+        mayCloseTraversal: false,
+        mayOwnIterationLoop: false,
+        evidenceRefs: ["test://t150/evaluate-stage"]
+      },
+      {
+        stageBindingRef: stageBindingRefs[2],
+        compositionRef,
+        compositionDigest,
+        stageRole: "consequence",
+        stageNotationRef: "consequence.C",
+        stagePurpose: "consequence_projection",
+        computeMeans: "F_D",
+        inputCarrierRefs: ["EnginePluginInput"],
+        outputCarrierRefs: ["ConsequenceProjectionOutcome"],
+        predecessorStageBindingRefs: [stageBindingRefs[1]],
+        pluginContractRefs: [],
+        hookRefs: [],
+        regimeDispositions: stageRegimes("F_D"),
+        mayWriteLedgers: false,
+        mayEmitRuntimeEvents: false,
+        maySelectTraversal: false,
+        mayCloseTraversal: false,
+        mayOwnIterationLoop: false,
+        evidenceRefs: ["test://t150/consequence-stage"]
       }
     ],
     hookBoundaries: [
@@ -625,6 +734,20 @@ function completeFeatureRows(input) {
         notLanguageTruthEvidenceRefs: ["REQ-L-GTL3-CONTRACT-LAW-API-014"],
         evidenceRefs: ["test://t150/external-tool-gate"]
       }
+    ],
+    runtimeBindings: [
+      {
+        bindingRef: `runtime-binding://t150/${programRef}/abg-cli`,
+        runtimeBindingKind: "abg_cli_runtime_binding",
+        moduleRef: module.name,
+        publicStartRef: "prompt",
+        commandRef: "abiogenesis-ts start",
+        pluginContractRefs: ["plugin://t150/fp-dispatch"],
+        stageBindingRefs,
+        consumesPluginsThroughAbg: true,
+        forbidsProductLocalIteration: true,
+        evidenceRefs: ["test://t150/runtime-binding"]
+      }
     ]
   };
 }
@@ -636,11 +759,13 @@ function mergeFeatureRows(...rowSets) {
     evaluatorDeclarations: rowSets.flatMap((rows) => rows.evaluatorDeclarations),
     ruleDeclarations: rowSets.flatMap((rows) => rows.ruleDeclarations),
     computeCompositions: rowSets.flatMap((rows) => rows.computeCompositions),
+    computeStageBindings: rowSets.flatMap((rows) => rows.computeStageBindings),
     hookBoundaries: rowSets.flatMap((rows) => rows.hookBoundaries),
     selectionBoundaries: rowSets.flatMap((rows) => rows.selectionBoundaries),
     jobBindings: rowSets.flatMap((rows) => rows.jobBindings),
     roleBindings: rowSets.flatMap((rows) => rows.roleBindings),
-    externalToolGates: rowSets.flatMap((rows) => rows.externalToolGates)
+    externalToolGates: rowSets.flatMap((rows) => rows.externalToolGates),
+    runtimeBindings: rowSets.flatMap((rows) => rows.runtimeBindings)
   };
 }
 
@@ -891,7 +1016,9 @@ test("T-152 GTL program typechecker does not infer hooks or F-star composition f
   const report = typecheckGtlProgram(
     compliantInput({
       computeCompositions: [],
+      computeStageBindings: [],
       hookBoundaries: [],
+      runtimeBindings: [],
       featureCoverageManifest: featureCoverageManifest({
         dispositions: {
           f_star_compute_composition: "not_used",
@@ -901,11 +1028,101 @@ test("T-152 GTL program typechecker does not infer hooks or F-star composition f
     })
   );
 
+  const fStarOrHookContradictions = report.issues.filter(
+    (entry) =>
+      entry.ruleRef ===
+        "abg://gtl-program/feature-coverage/not-used-contradiction" &&
+      (entry.surfaceRef === "f_star_compute_composition" ||
+        entry.surfaceRef === "hook_boundaries")
+  );
+  const ruleRefs = new Set(report.issues.map((entry) => entry.ruleRef));
+  assert.equal(report.passed, false);
   assert.equal(
-    report.passed,
-    true,
+    fStarOrHookContradictions.length,
+    0,
     formatGtlProgramConformanceIssues(report.issues)
   );
+  assert(
+    ruleRefs.has("abg://gtl-program/plugin-contract/stage-binding-required")
+  );
+});
+
+test("T-152 GTL program typechecker requires selected transform/evaluate/consequence stage rows", () => {
+  const report = typecheckGtlProgram(
+    compliantInput({
+      computeStageBindings: [],
+      runtimeBindings: [],
+      featureCoverageManifest: featureCoverageManifest({
+        dispositions: {
+          f_star_compute_composition: "present",
+          public_start_binding: "present"
+        }
+      })
+    })
+  );
+
+  const ruleRefs = new Set(report.issues.map((entry) => entry.ruleRef));
+  const messages = report.issues.map((entry) => entry.message).join("\n");
+  assert.equal(report.passed, false);
+  assert(
+    ruleRefs.has("abg://gtl-program/compute-composition/required-stage-row")
+  );
+  assert(
+    ruleRefs.has("abg://gtl-program/feature-coverage/present-without-inventory")
+  );
+  assert.match(messages, /transform\.C/u);
+  assert.match(messages, /evaluate\.C/u);
+  assert.match(messages, /consequence\.C/u);
+});
+
+test("T-152 GTL program typechecker rejects plugin contracts without stage and ABG runtime binding", () => {
+  const report = typecheckGtlProgram(
+    compliantInput({
+      computeStageBindings: [],
+      runtimeBindings: []
+    })
+  );
+
+  const ruleRefs = new Set(report.issues.map((entry) => entry.ruleRef));
+  assert.equal(report.passed, false);
+  assert(
+    ruleRefs.has("abg://gtl-program/plugin-contract/stage-binding-required")
+  );
+  assert(
+    ruleRefs.has("abg://gtl-program/plugin-contract/runtime-binding-required")
+  );
+});
+
+test("T-152 GTL program typechecker rejects product-local wrapper runtime binding claims", () => {
+  const base = compliantInput();
+  const runtimeBinding = base.runtimeBindings[0];
+  const stageBinding = base.computeStageBindings[0];
+  assert.notEqual(runtimeBinding, undefined);
+  assert.notEqual(stageBinding, undefined);
+  const report = typecheckGtlProgram(
+    compliantInput({
+      runtimeBindings: [
+        {
+          ...runtimeBinding,
+          consumesPluginsThroughAbg: false,
+          forbidsProductLocalIteration: false
+        }
+      ],
+      computeStageBindings: [
+        {
+          ...stageBinding,
+          mayOwnIterationLoop: true
+        },
+        ...base.computeStageBindings.slice(1)
+      ]
+    })
+  );
+
+  const messages = report.issues.map((entry) => entry.message).join("\n");
+  assert.equal(report.passed, false);
+  assert.match(messages, /consumesPluginsThroughAbg must be true/u);
+  assert.match(messages, /forbidsProductLocalIteration must be true/u);
+  assert.match(messages, /mayOwnIterationLoop must be false/u);
 });
 
 test("T-152 GTL program typechecker requires first-class same_object proof rows", () => {
@@ -998,6 +1215,7 @@ test("T-152 GTL program typechecker rejects malformed first-class T-153 inventor
   const evaluatorDeclaration = base.evaluatorDeclarations[0];
   const ruleDeclaration = base.ruleDeclarations[0];
   const computeComposition = base.computeCompositions[0];
+  const computeStageBinding = base.computeStageBindings[0];
   const hookBoundary = base.hookBoundaries[0];
   const selectionBoundary = base.selectionBoundaries.find(
     (row) => row.boundaryKind === "candidate_family"
@@ -1005,16 +1223,19 @@ test("T-152 GTL program typechecker rejects malformed first-class T-153 inventor
   const jobBinding = base.jobBindings[0];
   const roleBinding = base.roleBindings[0];
   const externalToolGate = base.externalToolGates[0];
+  const runtimeBinding = base.runtimeBindings[0];
   assert.notEqual(sameObjectProof, undefined);
   assert.notEqual(operatorDeclaration, undefined);
   assert.notEqual(evaluatorDeclaration, undefined);
   assert.notEqual(ruleDeclaration, undefined);
   assert.notEqual(computeComposition, undefined);
+  assert.notEqual(computeStageBinding, undefined);
   assert.notEqual(hookBoundary, undefined);
   assert.notEqual(selectionBoundary, undefined);
   assert.notEqual(jobBinding, undefined);
   assert.notEqual(roleBinding, undefined);
   assert.notEqual(externalToolGate, undefined);
+  assert.notEqual(runtimeBinding, undefined);
 
   const report = typecheckGtlProgram({
     ...base,
@@ -1052,11 +1273,33 @@ test("T-152 GTL program typechecker rejects malformed first-class T-153 inventor
         stageBindingRefs: ["stage-binding://t150/transform.C"]
       }
     ],
+    computeStageBindings: [
+      {
+        ...computeStageBinding,
+        compositionRef: "abg.fn_composition://t150/missing",
+        stageNotationRef: "dispatch.C",
+        inputCarrierRefs: [],
+        outputCarrierRefs: [],
+        predecessorStageBindingRefs: ["stage-binding://t150/missing"],
+        pluginContractRefs: ["plugin://t150/missing"],
+        regimeDispositions: [
+          {
+            regime: "F_P",
+            disposition: "participates",
+            selectedRegimeBindingRefs: [],
+            reasonRefs: [],
+            evidenceRefs: []
+          }
+        ],
+        maySelectTraversal: true,
+        mayOwnIterationLoop: true
+      }
+    ],
     hookBoundaries: [
       {
         ...hookBoundary,
         concernRefs: [],
-        pluginContractRefs: ["plugin://t150/missing"]
+        pluginContractRefs: ["plugin://t150/hook-missing"]
       }
     ],
     selectionBoundaries: [
@@ -1085,6 +1328,17 @@ test("T-152 GTL program typechecker rejects malformed first-class T-153 inventor
         admissionRef: "gate://t150/not-admission",
         notLanguageTruthEvidenceRefs: []
       }
+    ],
+    runtimeBindings: [
+      {
+        ...runtimeBinding,
+        moduleRef: "missing_module",
+        publicStartRef: "missing_public_start",
+        pluginContractRefs: ["plugin://t150/runtime-missing"],
+        stageBindingRefs: ["stage-binding://t150/missing"],
+        consumesPluginsThroughAbg: false,
+        forbidsProductLocalIteration: false
+      }
     ]
   });
 
@@ -1100,15 +1354,29 @@ test("T-152 GTL program typechecker rejects malformed first-class T-153 inventor
     "abg://gtl-program/compute-composition/regime-bindings",
     "abg://gtl-program/compute-composition/notation-ref",
     "abg://gtl-program/compute-composition/stage-binding",
+    "abg://gtl-program/compute-stage/composition-resolves",
+    "abg://gtl-program/compute-stage/notation-ref",
+    "abg://gtl-program/compute-stage/input-carriers",
+    "abg://gtl-program/compute-stage/output-carriers",
+    "abg://gtl-program/compute-stage/predecessor-resolves",
+    "abg://gtl-program/compute-stage/plugin-contract-resolves",
+    "abg://gtl-program/compute-stage/regime-disposition-required",
+    "abg://gtl-program/compute-stage/participating-regime-binding",
     "abg://gtl-program/hook-boundary/concern-refs",
     "abg://gtl-program/hook-boundary/plugin-contract-resolves",
+    "abg://gtl-program/hook-boundary/plugin-stage-binding-resolves",
     "abg://gtl-program/selection-boundary/candidate-refs",
     "abg://gtl-program/job-binding/graph-function-resolves",
     "abg://gtl-program/job-binding/role-ref-resolves",
     "abg://gtl-program/role-binding/capability-refs",
     "abg://gtl-program/external-tool-gate/transport-ref",
     "abg://gtl-program/external-tool-gate/admission-ref",
-    "abg://gtl-program/external-tool-gate/not-language-truth"
+    "abg://gtl-program/external-tool-gate/not-language-truth",
+    "abg://gtl-program/runtime-binding/module-ref-resolves",
+    "abg://gtl-program/runtime-binding/public-start-ref-resolves",
+    "abg://gtl-program/runtime-binding/plugin-contract-resolves",
+    "abg://gtl-program/runtime-binding/plugin-stage-binding-resolves",
+    "abg://gtl-program/runtime-binding/stage-binding-resolves"
   ]) {
     assert(ruleRefs.has(ruleRef), ruleRef);
   }
