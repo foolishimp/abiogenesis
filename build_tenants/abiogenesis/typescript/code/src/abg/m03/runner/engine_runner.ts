@@ -53,7 +53,8 @@ import {
 import { deriveRuntimeAggregateProjection } from "../contracts/projection.js";
 import {
   frameIdForBasis,
-  graphCallIdForBasis
+  graphCallIdForBasis,
+  runtimeEventsForBasis
 } from "../contracts/runtime_support.js";
 import {
   admitFdEvaluationOutcome,
@@ -2072,25 +2073,6 @@ function canonicalReplayEvents(
   return Object.freeze([...events]);
 }
 
-function eventBasisId(event: RuntimeEvent): string | null {
-  if ("basisId" in event) {
-    return event.basisId;
-  }
-  return null;
-}
-
-function replayEventsForBasis(
-  basis: ExecutionBasis,
-  events: readonly RuntimeEvent[]
-): readonly RuntimeEvent[] {
-  return Object.freeze(
-    events.filter((event) => {
-      const basisId = eventBasisId(event);
-      return basisId === null || basisId === basis.id;
-    })
-  );
-}
-
 type EnginePluginEffect =
   | {
       readonly kind: "fd_evaluate";
@@ -2362,7 +2344,7 @@ function* runEngineIterateMachine(input: {
   let eventState: EngineEventEmissionState = Object.freeze({
     emittedEvents: Object.freeze([]),
     replayEvents: canonicalReplayEvents(
-      replayEventsForBasis(request.basis, request.runtimeEvents ?? Object.freeze([]))
+      runtimeEventsForBasis(request.basis, request.runtimeEvents ?? Object.freeze([]))
     )
   });
   let iterationCount = 0;

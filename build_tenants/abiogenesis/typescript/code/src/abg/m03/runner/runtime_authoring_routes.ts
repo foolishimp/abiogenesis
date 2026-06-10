@@ -38,7 +38,10 @@ import {
   type GraphSpanRef
 } from "../contracts/graph_span_reentry.js";
 import { deriveRuntimeAggregateProjection } from "../contracts/projection.js";
-import { assertVectorIndexInRange } from "../contracts/runtime_support.js";
+import {
+  assertVectorIndexInRange,
+  runtimeEventsForBasis
+} from "../contracts/runtime_support.js";
 import type { ZoomFoldbackEvaluation } from "../contracts/workspace_zoom_foldback.js";
 import { emit, type RuntimeEventSink } from "../events/index.js";
 
@@ -266,7 +269,10 @@ export function applyExplicitGraphVectorResumeCursor(
   input: ExplicitGraphVectorResumeCursorRequest
 ): ExplicitGraphVectorResumeCursorResult {
   assertVectorIndexInRange(input.basis, input.targetVectorIndex);
-  const replayEvents = Object.freeze([...(input.runtimeEvents ?? Object.freeze([]))]);
+  const replayEvents = runtimeEventsForBasis(
+    input.basis,
+    input.runtimeEvents ?? Object.freeze([])
+  );
   const cursorEvent = constructGraphVectorResumeCursorAppliedEvent({
     basis: input.basis,
     targetVectorIndex: input.targetVectorIndex,
@@ -296,7 +302,10 @@ export function applyGraphSpanReentryRoute(
   input: GraphSpanReentryApplicationRequest
 ): GraphSpanReentryApplicationResult {
   assertVectorIndexInRange(input.basis, input.terminalVectorIndex);
-  const replayEvents = Object.freeze([...(input.runtimeEvents ?? Object.freeze([]))]);
+  const replayEvents = runtimeEventsForBasis(
+    input.basis,
+    input.runtimeEvents ?? Object.freeze([])
+  );
   const generation = input.generation ?? 0;
   const schedule =
     input.closedVectorIndexes === undefined

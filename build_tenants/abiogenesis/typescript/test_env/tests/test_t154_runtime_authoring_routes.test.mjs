@@ -76,6 +76,37 @@ test("T-154 explicit resume cursor rejects out-of-range target", () => {
   assert.deepEqual(collector.events, []);
 });
 
+test("T-154 explicit resume cursor ignores replay rows from other bases", () => {
+  const previousBasis = buildThreeStageBasis({
+    runId: "run://t154/resume-previous"
+  });
+  const basis = buildThreeStageBasis({ runId: "run://t154/resume-current" });
+  const previousRuntimeEvent = constructVectorClosedEvent({
+    basis: previousBasis,
+    vectorIndex: 0,
+    closureKind: "assessed"
+  });
+  const collector = collectSink();
+
+  const result = applyExplicitGraphVectorResumeCursor({
+    basis,
+    runtimeEvents: [previousRuntimeEvent],
+    eventSink: collector.sink,
+    targetVectorIndex: 2,
+    reason: "downstream requested direct proof resume"
+  });
+
+  assert.equal(result.projection.basisId, basis.id);
+  assert.deepEqual(
+    result.emittedEvents.map((event) => event.kind),
+    ["basis_admitted", "graph_vector_resume_cursor_applied"]
+  );
+  assert.equal(
+    result.replayEvents.some((event) => event.basisId === previousBasis.id),
+    false
+  );
+});
+
 test("T-154 graph-span route authors foldback and reentry events for downstream-shaped assessment candidates", () => {
   const { basis, schedule } = buildSchedule({
     runId: "run://t154/graph-span-route"
@@ -224,4 +255,42 @@ test("T-154 graph-span route returns transition projection for default iteration
   assert.equal(result.transitionRef, result.transitionProjection.projectionRef);
   assert.match(result.transitionRef, /^runtime-continuation-transition:/u);
   assert.doesNotMatch(result.transitionRef, /^default-iteration:/u);
+});
+
+test("T-154 graph-span route ignores replay rows from parent or sibling bases", () => {
+  const previous = buildSchedule({
+    runId: "run://t154/graph-span-previous"
+  });
+  const { basis, schedule } = buildSchedule({
+    runId: "run://t154/graph-span-current"
+  });
+  const assessments = [
+    assessmentFor({
+      basis,
+      span: spanBySource(schedule, 2),
+      assessmentId: "assessment://t154/scoped/c-d/close",
+      rows: [fulfilledRow("C-REQ-1")]
+    })
+  ];
+  const previousRuntimeEvent = constructVectorClosedEvent({
+    basis: previous.basis,
+    vectorIndex: 0,
+    closureKind: "assessed"
+  });
+  const collector = collectSink();
+
+  const result = applyGraphSpanReentryRoute({
+    basis,
+    runtimeEvents: [previousRuntimeEvent],
+    eventSink: collector.sink,
+    terminalVectorIndex: 2,
+    assessments
+  });
+
+  assert.equal(result.projection.basisId, basis.id);
+  assert.equal(
+    result.replayEvents.some((event) => event.basisId === previous.basis.id),
+    false
+  );
+  assert.equal(result.transitionRef, result.transitionProjection.projectionRef);
 });

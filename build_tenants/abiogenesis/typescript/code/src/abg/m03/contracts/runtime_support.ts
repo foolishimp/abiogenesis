@@ -109,6 +109,25 @@ export function assertBasisEvent(
   }
 }
 
+export function runtimeEventBasisId(event: RuntimeEvent): string | null {
+  if ("basisId" in event) {
+    return event.basisId;
+  }
+  return null;
+}
+
+export function runtimeEventsForBasis(
+  basis: ExecutionBasis,
+  events: readonly RuntimeEvent[]
+): readonly RuntimeEvent[] {
+  return Object.freeze(
+    events.filter((event) => {
+      const basisId = runtimeEventBasisId(event);
+      return basisId === null || basisId === basis.id;
+    })
+  );
+}
+
 export function assertProjectionBasis(
   basis: ExecutionBasis,
   projection: RuntimeAggregateProjection,
