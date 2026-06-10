@@ -430,6 +430,10 @@ export {
   parseTerminalKind
 } from "./event_admission.js";
 export {
+  runtimeEventBasisId,
+  runtimeEventsForBasis
+} from "./runtime_support.js";
+export {
   ObservedStateAdmissionRejectedError,
   ObservedStateSnapshotCoverageRejectedError,
   admitObservedStateRecord,
