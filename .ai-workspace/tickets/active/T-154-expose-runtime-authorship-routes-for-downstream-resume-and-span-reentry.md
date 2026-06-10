@@ -117,7 +117,7 @@ exists, the implementation belongs here.
    consumer-safe route existed. Explicit graph-vector resume/cursor was
    insufficient because replay projection had no native target cursor event
    that could advance without closing earlier vectors.
-3. **Done 2026-06-10** — Added API functions or runner entries
+3. **Done 2026-06-10; completed for transition projection in rc.7** — Added API functions or runner entries
    that:
    - admit explicit graph-vector resume intent without synthetic closure of
      earlier vectors;
@@ -162,6 +162,14 @@ exists, the implementation belongs here.
   plan/apply events when needed, and returns an ABG-owned `transitionRef`.
   Endpoint-closed scheduling remains available when callers supply
   `closedVectorIndexes` explicitly.
+- rc.7 replaces the prior graph-span route fallback string with
+  `RuntimeContinuationTransitionProjection`. `transitionRef` is now
+  `transitionProjection.projectionRef` for graph reentry, repricing, blocking,
+  close, and ordinary default-iteration advancement.
+- Added `advance_vector` as a non-terminal runtime continuation transition
+  disposition with reason `default_iteration_advance`. Graph-span frontier
+  pressure maps to the existing continuation dispositions with reason
+  `graph_reentry`.
 - Exported both routes from the M03 runner package surface.
 - Added `test:t154` with a downstream-shaped proof that route consumers do not
   call graph-span or graph-reentry event constructors.
@@ -169,28 +177,30 @@ exists, the implementation belongs here.
   with no closed replay facts still flow through ABG-authored graph-span and
   graph-reentry events instead of forcing downstream products to fake closure
   indexes.
+- Added the SDLC-discovered A5 proof: default graph-span continuation returns a
+  first-class runtime continuation projection ref and rejects the old
+  `default-iteration:` fallback identity.
 
 ## Verification - 2026-06-10
 
 | Command | Result |
 | --- | --- |
-| `npm run test:t154` | passed 4/4 |
+| `npm run test:t154` | passed 5/5 |
 | `npm run test:t103` | passed 24/24 |
 | `npm run test:t148` | passed 5/5 |
 | `npm run lint:semantic` | passed |
-| `npm run test:semantic` | passed 769/769 |
 
 ## Release Snapshot Evidence - 2026-06-10
 
 | Field | Value |
 | --- | --- |
-| release identity | `4.0.0-rc.6` |
-| source commit | `8a82be76d9c957dc2b427ca15aa850d4ef46f1b9` |
+| release identity | `4.0.0-rc.7` |
+| source commit | `e348aa996bd0eae541acebdf44866c38cc37b9e9` |
 | source dirty | `false` |
-| tarball | `release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.6/abiogenesis-typescript-tenant-4.0.0-rc.6.tgz` |
-| tarball sha256 | `6e67842357671d6fa86686279b6cd123a70904c301f0ec8aa5124971aa551fb7` |
-| manifest sha256 | `0b089888099ca9ed1e02316dfbf8d346b3bb27ae0204f248ea273161922c1682` |
-| latest pointer | `release_snapshots/abiogenesis-typescript-tenant/latest -> 4.0.0-rc.6` |
+| tarball | `release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.7/abiogenesis-typescript-tenant-4.0.0-rc.7.tgz` |
+| tarball sha256 | `52f3836a900e2fb73c243244e59d174efcd8922525cf676f9edb015d635da2b1` |
+| manifest sha256 | `9286a95b6940cfb502ea0623cbe738919e19cc2fa2e63f09af29a436d173c1e6` |
+| latest pointer | `release_snapshots/abiogenesis-typescript-tenant/latest -> 4.0.0-rc.7` |
 
 Downstream consumption remains owned by odd_sdlc T-197. This ABI slice removes
 the requirement for downstream products to construct cursor/span/reentry events
