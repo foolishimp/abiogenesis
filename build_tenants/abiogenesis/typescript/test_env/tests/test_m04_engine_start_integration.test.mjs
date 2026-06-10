@@ -189,6 +189,50 @@ test("T-072 M04 start: vector-closed F_P replay advances on re-entry without red
   );
 });
 
+test("T-072 M04 start scopes a mixed workspace replay log to the active basis", () => {
+  const first = buildThreeStageStartContext({
+    defaultRegime: "F_D",
+    dispatchRef: null,
+    runId: "run://m03-iteration/previous"
+  });
+  const previousEvents = [];
+  const firstOutcome = start(first.input, first.context, (event) => {
+    previousEvents.push(event);
+  });
+  assert.equal(firstOutcome.kind, "converged");
+
+  const second = buildThreeStageStartContext({
+    defaultRegime: "F_D",
+    dispatchRef: null,
+    runId: "run://m03-iteration/current"
+  });
+  const secondEvents = [];
+  const secondOutcome = start(
+    second.input,
+    {
+      ...second.context,
+      runtimeEvents: canonicalRuntimeEvents(previousEvents)
+    },
+    (event) => {
+      secondEvents.push(event);
+    }
+  );
+
+  assert.equal(secondOutcome.kind, "converged");
+  assert.equal(secondOutcome.terminalKind, "converged");
+  assert.deepStrictEqual(
+    secondEvents.filter((event) => event.kind === "basis_admitted").length,
+    1
+  );
+  assert(
+    secondEvents.every(
+      (event) =>
+        !("basisId" in event) ||
+        event.basisId.includes("run://m03-iteration/current")
+    )
+  );
+});
+
 test("B-016 M04 publicStart compatibility: legacy entry delegates to the same engine path", () => {
   const { input, context } = buildThreeStageStartContext({
     defaultRegime: "F_D",
