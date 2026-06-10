@@ -134,7 +134,11 @@ test("T-154 graph-span route authors foldback and reentry events for downstream-
   assert.equal(result.plan.targetVectorIndex, 1);
   assert.equal(result.transition.kind, "reenter_graph_vector");
   assert.equal(result.transition.vectorIndex, 1);
-  assert.equal(result.transitionRef, result.plan.planRef);
+  assert.equal(result.transitionProjection.kind, "runtime_continuation_transition_projection");
+  assert.equal(result.transitionProjection.disposition, "retry_same_edge");
+  assert.equal(result.transitionProjection.reason, "graph_reentry");
+  assert.equal(result.transitionProjection.vectorIndex, 1);
+  assert.equal(result.transitionRef, result.transitionProjection.projectionRef);
   assert.equal(result.projection.nextVectorIndex, 1);
   assert.deepEqual(result.projection.closedVectorIndexes, [0]);
   assert.equal(
@@ -181,5 +185,43 @@ test("T-154 graph-span route accepts open downstream assessment spans", () => {
   assert.equal(result.foldback.decision, "reenter_at_vector");
   assert.equal(result.transition.kind, "reenter_graph_vector");
   assert.equal(result.transition.vectorIndex, 1);
+  assert.equal(result.transitionProjection.disposition, "retry_same_edge");
+  assert.equal(result.transitionProjection.reason, "graph_reentry");
+  assert.equal(result.transitionRef, result.transitionProjection.projectionRef);
   assert.deepEqual(result.projection.closedVectorIndexes, []);
+});
+
+test("T-154 graph-span route returns transition projection for default iteration", () => {
+  const { basis, schedule } = buildSchedule({
+    runId: "run://t154/default-transition-ref"
+  });
+  const assessments = [
+    assessmentFor({
+      basis,
+      span: spanBySource(schedule, 2),
+      assessmentId: "assessment://t154/default/c-d/close",
+      rows: [fulfilledRow("C-REQ-1")]
+    })
+  ];
+  const collector = collectSink();
+
+  const result = applyGraphSpanReentryRoute({
+    basis,
+    runtimeEvents: [],
+    eventSink: collector.sink,
+    terminalVectorIndex: 2,
+    assessments
+  });
+
+  assert.equal(result.foldback.decision, "close");
+  assert.equal(result.frontier.decision, "advance");
+  assert.equal(result.plan, null);
+  assert.equal(result.transition.kind, "default_iteration");
+  assert.equal(result.transition.decision.kind, "advance_vector");
+  assert.equal(result.transitionProjection.disposition, "advance_vector");
+  assert.equal(result.transitionProjection.reason, "default_iteration_advance");
+  assert.equal(result.transitionProjection.vectorIndex, 0);
+  assert.equal(result.transitionRef, result.transitionProjection.projectionRef);
+  assert.match(result.transitionRef, /^runtime-continuation-transition:/u);
+  assert.doesNotMatch(result.transitionRef, /^default-iteration:/u);
 });

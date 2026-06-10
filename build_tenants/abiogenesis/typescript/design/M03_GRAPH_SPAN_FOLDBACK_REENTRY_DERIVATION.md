@@ -1070,8 +1070,9 @@ ABG exposes `applyGraphSpanReentryRoute(...)` as the consumer-safe route. The
 route derives the endpoint span schedule, admits/folds supplied
 `GraphSpanAssessment` carriers, emits schedule/assessment/foldback events
 through the ABG event sink, derives the reentry frontier, emits plan/apply
-events when a frontier row requires graph or constitutional reentry, and returns
-the replay projection plus a stable `transitionRef`.
+events when a frontier row requires graph or constitutional reentry, derives the
+runtime continuation transition projection, and returns the replay projection
+plus `transitionProjection.projectionRef` as the stable `transitionRef`.
 
 The downstream product may keep product-domain evidence and assessment meaning.
 It must not call graph-span or graph-reentry event constructors directly as a
@@ -1090,5 +1091,5 @@ sequenceDiagram
   Route->>Events: graph_span_foldback_evaluated
   Route->>Replay: derive frontier
   Route->>Events: graph_reentry_planned/applied when needed
-  Route-->>Product: projection + ABG transitionRef
+  Route-->>Product: projection + RuntimeContinuationTransitionProjection.projectionRef
 ```

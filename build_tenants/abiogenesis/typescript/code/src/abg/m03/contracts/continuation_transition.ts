@@ -28,6 +28,7 @@ import {
 } from "./iteration_state_action.js";
 
 export const RUNTIME_CONTINUATION_TRANSITION_DISPOSITION_VALUES = Object.freeze([
+  "advance_vector",
   "close",
   "retry_same_edge",
   "yield_continuation",
@@ -40,6 +41,8 @@ export type RuntimeContinuationTransitionDisposition =
   (typeof RUNTIME_CONTINUATION_TRANSITION_DISPOSITION_VALUES)[number];
 
 export const RUNTIME_CONTINUATION_TRANSITION_REASON_VALUES = Object.freeze([
+  "default_iteration_advance",
+  "graph_reentry",
   "typed_block",
   "assurance_block",
   "typed_reprice",
@@ -133,6 +136,8 @@ function terminalKindForDisposition(
   disposition: RuntimeContinuationTransitionDisposition
 ): TerminalKind | null {
   switch (disposition) {
+    case "advance_vector":
+      return null;
     case "close":
       return "converged";
     case "yield_continuation":
@@ -155,7 +160,11 @@ function terminalKindForDisposition(
 function terminalityForDisposition(
   disposition: RuntimeContinuationTransitionDisposition
 ): boolean {
-  return disposition !== "retry_same_edge" && disposition !== "yield_continuation";
+  return (
+    disposition !== "advance_vector" &&
+    disposition !== "retry_same_edge" &&
+    disposition !== "yield_continuation"
+  );
 }
 
 function transition(input: {
@@ -204,6 +213,25 @@ function transition(input: {
     evidenceRefs,
     sourceProjectionRefs
   } satisfies RuntimeContinuationTransitionProjection);
+}
+
+export function deriveRuntimeContinuationTransitionProjectionFromDisposition(input: {
+  readonly basis: ExecutionBasis;
+  readonly runtimeProjection: RuntimeAggregateProjection;
+  readonly vectorIndex: number;
+  readonly disposition: RuntimeContinuationTransitionDisposition;
+  readonly reason: RuntimeContinuationTransitionReason;
+  readonly reasonRefs?: readonly string[] | undefined;
+  readonly evidenceRefs?: readonly string[] | undefined;
+  readonly sourceProjectionRefs?: readonly string[] | undefined;
+}): RuntimeContinuationTransitionProjection {
+  assertProjectionBasis(
+    input.basis,
+    input.runtimeProjection,
+    "RuntimeContinuationTransitionProjection"
+  );
+  assertVectorIndexInRange(input.basis, input.vectorIndex);
+  return transition(input);
 }
 
 function sourceProjectionRefForRuntime(

@@ -175,6 +175,7 @@ export {
   RUNTIME_CONTINUATION_TRANSITION_DISPOSITION_VALUES,
   RUNTIME_CONTINUATION_TRANSITION_REASON_VALUES,
   deriveRuntimeContinuationTransitionProjection,
+  deriveRuntimeContinuationTransitionProjectionFromDisposition,
   terminalTransitionForRuntimeContinuationProjection
 } from "./continuation_transition.js";
 

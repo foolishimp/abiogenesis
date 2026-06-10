@@ -15,6 +15,10 @@ import {
   constructGraphVectorResumeCursorAppliedEvent
 } from "../contracts/event_factories.js";
 import {
+  deriveRuntimeContinuationTransitionProjectionFromDisposition,
+  type RuntimeContinuationTransitionProjection
+} from "../contracts/continuation_transition.js";
+import {
   constructGraphReentryAppliedEvent,
   constructGraphReentryPlannedEvent,
   constructGraphSpanAssessedEvent,
@@ -80,6 +84,7 @@ export interface GraphSpanReentryApplicationResult {
   readonly frontier: GraphReentryFrontierProjection;
   readonly plan: GraphReentryPlan | null;
   readonly transition: GraphReentryAdvanceDecision;
+  readonly transitionProjection: RuntimeContinuationTransitionProjection;
   readonly transitionRef: string;
   readonly projection: RuntimeAggregateProjection;
   readonly emittedEvents: readonly CanonicalRuntimeEvent[];
@@ -173,6 +178,88 @@ function deriveAssessmentSpanSchedule(input: {
     spanRefs,
     generation: input.generation
   });
+}
+
+function graphSpanTransitionProjection(input: {
+  readonly basis: ExecutionBasis;
+  readonly runtimeProjection: RuntimeAggregateProjection;
+  readonly terminalVectorIndex: number;
+  readonly frontier: GraphReentryFrontierProjection;
+  readonly transition: GraphReentryAdvanceDecision;
+}): RuntimeContinuationTransitionProjection {
+  const frontierRefs = Object.freeze([input.frontier.projectionRef]);
+  switch (input.transition.kind) {
+    case "default_iteration": {
+      if (input.transition.decision.kind === "advance_vector") {
+        return deriveRuntimeContinuationTransitionProjectionFromDisposition({
+          basis: input.basis,
+          runtimeProjection: input.runtimeProjection,
+          vectorIndex: input.transition.decision.vectorIndex,
+          disposition: "advance_vector",
+          reason: "default_iteration_advance",
+          reasonRefs: frontierRefs,
+          sourceProjectionRefs: frontierRefs
+        });
+      }
+      return deriveRuntimeContinuationTransitionProjectionFromDisposition({
+        basis: input.basis,
+        runtimeProjection: input.runtimeProjection,
+        vectorIndex: input.terminalVectorIndex,
+        disposition: "close",
+        reason: "edge_close",
+        reasonRefs: frontierRefs,
+        sourceProjectionRefs: frontierRefs
+      });
+    }
+    case "reenter_graph_vector":
+      return deriveRuntimeContinuationTransitionProjectionFromDisposition({
+        basis: input.basis,
+        runtimeProjection: input.runtimeProjection,
+        vectorIndex: input.transition.vectorIndex,
+        disposition: "retry_same_edge",
+        reason: "graph_reentry",
+        reasonRefs: frontierRefs,
+        evidenceRefs: [input.transition.frontierRef],
+        sourceProjectionRefs: frontierRefs
+      });
+    case "reenter_constitutional_route":
+      return deriveRuntimeContinuationTransitionProjectionFromDisposition({
+        basis: input.basis,
+        runtimeProjection: input.runtimeProjection,
+        vectorIndex: input.terminalVectorIndex,
+        disposition: "reprice",
+        reason: "graph_reentry",
+        reasonRefs: frontierRefs,
+        evidenceRefs: input.transition.routeContractRefs,
+        sourceProjectionRefs: frontierRefs
+      });
+    case "reprice_required":
+      return deriveRuntimeContinuationTransitionProjectionFromDisposition({
+        basis: input.basis,
+        runtimeProjection: input.runtimeProjection,
+        vectorIndex: input.terminalVectorIndex,
+        disposition: "reprice",
+        reason: "graph_reentry",
+        reasonRefs: frontierRefs,
+        evidenceRefs: [input.transition.frontierRef],
+        sourceProjectionRefs: frontierRefs
+      });
+    case "blocked":
+      return deriveRuntimeContinuationTransitionProjectionFromDisposition({
+        basis: input.basis,
+        runtimeProjection: input.runtimeProjection,
+        vectorIndex: input.terminalVectorIndex,
+        disposition: "block",
+        reason: "graph_reentry",
+        reasonRefs: frontierRefs,
+        evidenceRefs: [input.transition.frontierRef],
+        sourceProjectionRefs: frontierRefs
+      });
+    default: {
+      const exhaustive: never = input.transition;
+      throw new TypeError(`Unsupported graph-span transition ${JSON.stringify(exhaustive)}`);
+    }
+  }
 }
 
 export function applyExplicitGraphVectorResumeCursor(
@@ -292,14 +379,13 @@ export function applyGraphSpanReentryRoute(
     runtimeProjection: projection,
     frontier
   });
-  const transitionRef =
-    plan?.planRef ??
-    ("frontierRef" in transition
-      ? transition.frontierRef
-      : `default-iteration:${JSON.stringify({
-          basisId: input.basis.id,
-          nextVectorIndex: projection.nextVectorIndex
-        })}`);
+  const transitionProjection = graphSpanTransitionProjection({
+    basis: input.basis,
+    runtimeProjection: projection,
+    terminalVectorIndex: input.terminalVectorIndex,
+    frontier,
+    transition
+  });
   return Object.freeze({
     kind: "graph_span_reentry_application_result",
     basis: input.basis,
@@ -308,7 +394,8 @@ export function applyGraphSpanReentryRoute(
     frontier,
     plan,
     transition,
-    transitionRef,
+    transitionProjection,
+    transitionRef: transitionProjection.projectionRef,
     projection,
     emittedEvents: Object.freeze([...emittedSpanEvents, ...emittedReentryEvents]),
     replayEvents: nextReplayEvents

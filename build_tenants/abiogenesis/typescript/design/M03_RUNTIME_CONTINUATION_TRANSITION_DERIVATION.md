@@ -105,9 +105,11 @@ stateDiagram-v2
   FoldInputs --> InspectArchive: archive inspection action
   FoldInputs --> Yield: typed yield or qualified defer
   FoldInputs --> Retry: typed retry or terminal fallback only
+  FoldInputs --> Advance: default iteration advances to next vector
   FoldInputs --> Close: close with no higher pressure
   FoldInputs --> Block: unsupported mixed state
   Retry --> [*]
+  Advance --> [*]
   Yield --> [*]
   InspectArchive --> [*]
   Reprice --> [*]
@@ -134,6 +136,7 @@ function deriveRuntimeContinuationTransitionProjection(input) {
 
   if (typedYieldRefs) return yield;
   if (assurance.qualified_defer) return yield;
+  if (defaultIteration.advanceVector) return advance;
   if (assurance.retry) return retry;
   if (terminalRetryRefs.length > 0) return retry;
   if (assurance.close || edgeCanClose) return close;
@@ -175,6 +178,15 @@ The route returns the replay projection and a stable `transitionRef` derived
 from the ABG resume-cursor event. Downstream consequence projections may cite
 that ref; they must not substitute a product next-action/read-model ref as ABG
 transition truth.
+
+Graph-span reentry routes return a full
+`RuntimeContinuationTransitionProjection`. When the graph-span frontier selects
+ordinary default iteration, the projection disposition is `advance_vector` and
+the reason is `default_iteration_advance`; when the frontier selects graph
+reentry, repricing, or blocking, the projection uses the corresponding
+continuation disposition with `graph_reentry` reason. Downstream products cite
+`transitionProjection.projectionRef`, not plan refs, frontier refs, or
+locally-authored default-iteration strings.
 
 ```mermaid
 flowchart TD
