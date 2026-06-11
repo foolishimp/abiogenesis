@@ -1,4 +1,5 @@
 // Implements: T-128
+// Implements: T-152
 // Implements: REQ-R-ABG3-FP-CONSCIOUSNESS
 
 import type {
@@ -6,8 +7,21 @@ import type {
   ConstructionGraphActionInvokedEvent,
   ConstructionPressurePackageMaterializedEvent,
   ExecutionBasis,
+  GraphReentryAppliedEvent,
+  GraphReentryPoint,
   RuntimeEvent
 } from "../contracts/carriers.js";
+import {
+  GRAPH_REENTRY_POINT_VALUES
+} from "../contracts/carriers.js";
+import {
+  constructBasisAdmittedEvent
+} from "../contracts/event_factories.js";
+import {
+  constructGraphReentryAppliedEvent,
+  constructGraphReentryPlannedEvent,
+  type GraphReentryPlan
+} from "../contracts/graph_span_reentry.js";
 import type { ConstructionActionCatalogProjection } from "../contracts/construction_action_catalog.js";
 import type {
   AdmittedConstructionIntent,
@@ -45,6 +59,7 @@ import {
 import { deriveRuntimeAggregateProjection } from "../contracts/projection.js";
 import { sourceProjectionRef } from "../contracts/projection.js";
 import {
+  assertVectorIndexInRange,
   frameIdForBasis,
   graphCallIdForBasis
 } from "../contracts/runtime_support.js";
@@ -92,6 +107,8 @@ export interface ConstructionInvocationEvents {
 export interface ConstructionRuntimeEffectResult {
   readonly kind: "construction_runtime_effect_result";
   readonly graphActionResult: EngineIterateResult;
+  readonly preRunRuntimeEvents: readonly RuntimeEvent[];
+  readonly reentryAppliedEvent: GraphReentryAppliedEvent | null;
   readonly deltaEvent: ConstructionDeltaObservedEvent;
   readonly emittedEvents: readonly RuntimeEvent[];
   readonly constructionReplayEvents: readonly RuntimeEvent[];
@@ -106,6 +123,7 @@ export interface ConstructionRunnerStepOutcome {
   readonly pressurePackage: ConstructionPressurePackage;
   readonly pressurePackageEvent: RuntimeEvent;
   readonly invokedEvent: ConstructionGraphActionInvokedEvent;
+  readonly reentryAppliedEvent: GraphReentryAppliedEvent | null;
   readonly deltaEvent: ConstructionDeltaObservedEvent;
   readonly constructionProjection: ConstructionProjection;
   readonly pressureProjection: ConstructionPressureProjection;
@@ -228,6 +246,169 @@ function constructionStatusForProjection(
         throw new TypeError(`Unsupported construction projection state ${exhaustive}`);
       }
   }
+}
+
+const GRAPH_REENTRY_TARGET_REF_PATTERN =
+  /^graph-reentry-point:\/\/([^/]+)\/([0-9]+)$/u;
+
+function isGraphReentryPoint(value: string): value is GraphReentryPoint {
+  return GRAPH_REENTRY_POINT_VALUES.some((candidate) => candidate === value);
+}
+
+function parseConstructionReentryTargetRef(ref: string): {
+  readonly graphReentryPoint: GraphReentryPoint;
+  readonly targetVectorIndex: number;
+} {
+  const match = GRAPH_REENTRY_TARGET_REF_PATTERN.exec(ref);
+  if (match === null) {
+    throw new TypeError(
+      `Construction re-entry target ref must be graph-reentry-point://<point>/<vectorIndex>, got ${JSON.stringify(ref)}`
+    );
+  }
+  const graphReentryPoint = match[1] ?? "";
+  if (!isGraphReentryPoint(graphReentryPoint)) {
+    throw new TypeError(
+      `Construction re-entry target ref names unsupported GraphReentryPoint ${JSON.stringify(graphReentryPoint)}`
+    );
+  }
+  return Object.freeze({
+    graphReentryPoint,
+    targetVectorIndex: Number(match[2])
+  });
+}
+
+function hasBasisAdmittedEvent(
+  basis: ExecutionBasis,
+  events: readonly RuntimeEvent[]
+): boolean {
+  return events.some(
+    (event) => event.kind === "basis_admitted" && event.basisId === basis.id
+  );
+}
+
+function shadowedVectorIndexes(
+  basis: ExecutionBasis,
+  targetVectorIndex: number
+): readonly number[] {
+  const indexes: number[] = [];
+  for (
+    let index = targetVectorIndex;
+    index < basis.graph.vectors.length;
+    index += 1
+  ) {
+    indexes.push(index);
+  }
+  return Object.freeze(indexes);
+}
+
+function constructionReentryPlan(input: {
+  readonly request: ConstructionIntentRunnerRequest;
+  readonly invocationEvents: ConstructionInvocationEvents;
+  readonly targetVectorIndex: number;
+  readonly graphReentryPoint: GraphReentryPoint;
+}): GraphReentryPlan {
+  assertVectorIndexInRange(input.request.graphActionBasis, input.targetVectorIndex);
+  const lastVectorIndex = input.request.graphActionBasis.graph.vectors.length - 1;
+  assertVectorIndexInRange(input.request.graphActionBasis, lastVectorIndex);
+  return Object.freeze({
+    kind: "graph_reentry_plan",
+    planRef: `graph-reentry-plan:construction:${input.request.admittedIntent.intentId}:${input.targetVectorIndex}`,
+    basisId: input.request.graphActionBasis.id,
+    graphFunctionId: input.request.graphActionBasis.graphFunction.id,
+    fromTerminalVectorIndex: lastVectorIndex,
+    targetVectorIndex: input.targetVectorIndex,
+    changeClass: null,
+    reEntryPoint: input.graphReentryPoint,
+    routeContractRefs: Object.freeze([
+      input.request.admittedIntent.selectedActionRef
+    ]),
+    generation: 1,
+    causingFrontierRowRefs: Object.freeze([
+      input.invocationEvents.invokedEvent.constructionEventRef
+    ]),
+    shadowedVectorIndexes: shadowedVectorIndexes(
+      input.request.graphActionBasis,
+      input.targetVectorIndex
+    ),
+    reason: "construction reenter_graph_span"
+  });
+}
+
+function applySelectedConstructionReentry(input: {
+  readonly request: ConstructionIntentRunnerRequest;
+  readonly invocationEvents: ConstructionInvocationEvents;
+}): {
+  readonly runtimeEvents: readonly RuntimeEvent[];
+  readonly emittedEvents: readonly RuntimeEvent[];
+  readonly reentryAppliedEvent: GraphReentryAppliedEvent | null;
+} {
+  const graphRuntimeEvents = Object.freeze([
+    ...(input.request.graphRuntimeEvents ?? Object.freeze([]))
+  ]);
+  const selectedAction = input.request.actionCatalog.rows.find(
+    (row) =>
+      row.actionRef === input.request.admittedIntent.selectedActionRef
+  );
+  if (selectedAction?.actionKind !== "reenter_graph_span") {
+    return Object.freeze({
+      runtimeEvents: graphRuntimeEvents,
+      emittedEvents: Object.freeze([]),
+      reentryAppliedEvent: null
+    });
+  }
+  const targetReentryRef = input.request.admittedIntent.selectedReentryRef;
+  if (targetReentryRef === null) {
+    throw new TypeError(
+      "Construction reenter_graph_span action requires an admitted target re-entry ref"
+    );
+  }
+  const reentryTarget = parseConstructionReentryTargetRef(targetReentryRef);
+  const targetVector =
+    input.request.graphActionBasis.graph.vectors[reentryTarget.targetVectorIndex];
+  if (targetVector === undefined) {
+    throw new TypeError(
+      `Construction re-entry target vector index ${reentryTarget.targetVectorIndex} is outside graph vector range`
+    );
+  }
+  if (
+    input.request.admittedIntent.selectedVectorRef !== targetVector.id &&
+    input.request.admittedIntent.selectedVectorRef !== targetVector.name
+  ) {
+    throw new TypeError(
+      "Construction re-entry target vector contradicts admitted graph vector identity"
+    );
+  }
+  const plan = constructionReentryPlan({
+    request: input.request,
+    invocationEvents: input.invocationEvents,
+    targetVectorIndex: reentryTarget.targetVectorIndex,
+    graphReentryPoint: reentryTarget.graphReentryPoint
+  });
+  const plannedEvent = constructGraphReentryPlannedEvent({
+    basis: input.request.graphActionBasis,
+    plan,
+    causationEventRefs: [input.invocationEvents.invokedEvent.constructionEventRef],
+    correlationId: input.invocationEvents.invokedEvent.correlationId
+  });
+  const appliedEvent = constructGraphReentryAppliedEvent({
+    basis: input.request.graphActionBasis,
+    plan,
+    causationEventRefs: [plannedEvent.planRef],
+    correlationId: input.invocationEvents.invokedEvent.correlationId
+  });
+  const preRunEvents = Object.freeze([
+    ...(hasBasisAdmittedEvent(input.request.graphActionBasis, graphRuntimeEvents)
+      ? []
+      : [constructBasisAdmittedEvent(input.request.graphActionBasis)]),
+    plannedEvent,
+    appliedEvent
+  ]);
+  const emittedEvents = emit(preRunEvents, input.request.eventSink);
+  return Object.freeze({
+    runtimeEvents: Object.freeze([...graphRuntimeEvents, ...emittedEvents]),
+    emittedEvents,
+    reentryAppliedEvent: appliedEvent
+  });
 }
 
 function assertSelectedIntent(input: {
@@ -363,6 +544,8 @@ export function materializeConstructionInvocationEvents(
 export function deriveConstructionDeltaFromGraphResult(input: {
   readonly plan: ConstructionRuntimeEffectPlan;
   readonly invokedEvent: ConstructionGraphActionInvokedEvent;
+  readonly preRunEmittedEvents?: readonly RuntimeEvent[] | undefined;
+  readonly reentryMoved?: boolean | undefined;
   readonly graphActionResult: EngineIterateResult;
   readonly cursor: ConstructionEventSequenceCursor;
 }): ConstructionDeltaObservedEvent {
@@ -381,7 +564,6 @@ export function deriveConstructionDeltaFromGraphResult(input: {
     assetDeltaRefs: graphClosed
       ? [`construction-asset-delta:${plan.admittedIntent.selectedOutcomeRef}`]
       : [],
-    runtimeEventRefs: graphActionResult.emittedEvents.map(runtimeEventRef),
     beforeProjectionRef: plan.beforeConstructionProjection.projectionRef,
     afterProjectionRef: afterRuntimeProjectionRef,
     artifactDigestBefore: plan.beforeRuntimeProjectionRef,
@@ -393,6 +575,15 @@ export function deriveConstructionDeltaFromGraphResult(input: {
       ? []
       : [plan.admittedIntent.selectedOutcomeRef],
     newEvidenceRefs: [afterRuntimeProjectionRef],
+    runtimeEventRefs: [
+      ...(input.preRunEmittedEvents ?? Object.freeze([])),
+      ...graphActionResult.emittedEvents
+    ].map(runtimeEventRef),
+    reentryMoved:
+      input.reentryMoved ??
+      graphActionResult.emittedEvents.some(
+        (event) => event.kind === "graph_reentry_applied"
+      ),
     closed: graphClosed
   });
 }
@@ -407,9 +598,19 @@ export function runConstructionEffectPlan(input: {
     [invocationEvents.pressurePackageEvent, invocationEvents.invokedEvent],
     request.eventSink
   );
+  const selectedReentry = applySelectedConstructionReentry({
+    request,
+    invocationEvents
+  });
+  const runtimeEventsForEngine =
+    selectedReentry.runtimeEvents.length === 0
+      ? undefined
+      : selectedReentry.runtimeEvents;
   const graphActionResult = runEngineIterate({
     basis: request.graphActionBasis,
-    runtimeEvents: request.graphRuntimeEvents,
+    ...(runtimeEventsForEngine === undefined
+      ? {}
+      : { runtimeEvents: runtimeEventsForEngine }),
     eventSink: request.eventSink,
     plugins: request.graphRunnerPlugins,
     maxAttachedFpAttempts: request.maxAttachedFpAttempts,
@@ -418,6 +619,8 @@ export function runConstructionEffectPlan(input: {
   const deltaEvent = deriveConstructionDeltaFromGraphResult({
     plan: planDerivation.plan,
     invokedEvent: invocationEvents.invokedEvent,
+    preRunEmittedEvents: selectedReentry.emittedEvents,
+    reentryMoved: selectedReentry.reentryAppliedEvent !== null,
     graphActionResult,
     cursor: invocationEvents.nextCursor
   });
@@ -425,9 +628,12 @@ export function runConstructionEffectPlan(input: {
   return Object.freeze({
     kind: "construction_runtime_effect_result",
     graphActionResult,
+    preRunRuntimeEvents: selectedReentry.runtimeEvents,
+    reentryAppliedEvent: selectedReentry.reentryAppliedEvent,
     deltaEvent,
     emittedEvents: Object.freeze([
       ...initialEmittedEvents,
+      ...selectedReentry.emittedEvents,
       ...graphActionResult.emittedEvents,
       ...deltaEmittedEvents
     ]),
@@ -480,6 +686,7 @@ export function composeConstructionRunnerOutcome(input: {
     pressurePackage: plan.pressurePackage,
     pressurePackageEvent: invocationEvents.pressurePackageEvent,
     invokedEvent: invocationEvents.invokedEvent,
+    reentryAppliedEvent: effectResult.reentryAppliedEvent,
     deltaEvent: effectResult.deltaEvent,
     constructionProjection,
     pressureProjection,

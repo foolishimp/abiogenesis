@@ -1,4 +1,5 @@
 // Implements: T-140
+// Implements: T-152
 // Implements: REQ-R-ABG3-FP-CONSCIOUSNESS
 
 import {
@@ -325,6 +326,10 @@ const CONSTRUCTION_INTENT_ADMISSION_RULES: readonly ConstructionIntentAdmissionR
           : null,
         binding.targetOutcomeRef !== candidate.selectedOutcomeRef
           ? "selected_binding_contradicts_outcome"
+          : null,
+        binding.targetReentryRef !== null &&
+        binding.targetReentryRef !== candidate.targetReentryRef
+          ? "target_reentry_ref_contradicts_binding"
           : null,
         binding.missingInputRefs.length > 0 ? "binding_has_missing_inputs" : null,
         binding.ineligibleReasonRefs.length > 0 ? "binding_ineligible" : null

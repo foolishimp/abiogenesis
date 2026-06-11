@@ -1,7 +1,12 @@
 // Implements: T-140
+// Implements: T-152
 // Implements: REQ-R-ABG3-FP-CONSCIOUSNESS
 
-import type { ConstructionObservationSnapshot } from "./construction_observation.js";
+import type {
+  ConstructionObservationSnapshot,
+  ConstructionRepairSurfaceTriageRow,
+  ObservationPressureRow
+} from "./construction_observation.js";
 import {
   CONSTRUCTION_ACTION_KIND_VALUES,
   isConstructiveConstructionActionKind,
@@ -65,6 +70,7 @@ export interface ObservationToActionBindingRow {
   readonly requiredInputRefs: readonly string[];
   readonly availableInputRefs: readonly string[];
   readonly missingInputRefs: readonly string[];
+  readonly targetReentryRef: string | null;
   readonly matchReasonRefs: readonly string[];
   readonly ineligibleReasonRefs: readonly string[];
   readonly bindingScore: number;
@@ -221,6 +227,42 @@ export function constructConstructionActionCatalogProjection(input: {
   });
 }
 
+function upstreamReentryTriageMatchesAction(input: {
+  readonly triage: ConstructionRepairSurfaceTriageRow;
+  readonly pressure: ObservationPressureRow;
+  readonly action: ConstructionActionRow;
+}): boolean {
+  const { triage, pressure, action } = input;
+  if (triage.repairSurfaceDisposition !== "upstream_reentry") {
+    return true;
+  }
+  if (pressure.pressureKind !== "reentry_frontier") {
+    return false;
+  }
+  if (
+    pressure.affectedAssetRefs.length > 0 &&
+    !pressure.affectedAssetRefs.includes(triage.repairAssetRef)
+  ) {
+    return false;
+  }
+  return (
+    action.actionKind === "reenter_graph_span" &&
+    action.graphFunctionRef === triage.repairGraphFunctionRef &&
+    action.graphVectorRef === triage.repairGraphVectorRef &&
+    action.targetOutcomeRef === triage.targetOutcomeRef &&
+    action.expectedOutputAssetRefs.includes(triage.repairAssetRef)
+  );
+}
+
+function targetReentryRefForTriage(
+  triage: ConstructionRepairSurfaceTriageRow | null
+): string | null {
+  if (triage?.repairSurfaceDisposition !== "upstream_reentry") {
+    return null;
+  }
+  return `graph-reentry-point://${triage.graphReentryPoint}/${triage.reentryTargetVectorIndex}`;
+}
+
 export function deriveObservationToActionBindingProjection(input: {
   readonly observation: ConstructionObservationSnapshot;
   readonly actionCatalog: ConstructionActionCatalogProjection;
@@ -238,10 +280,28 @@ export function deriveObservationToActionBindingProjection(input: {
     "deriveObservationToActionBindingProjection.availableInputRefs"
   );
   const available = new Set(availableInputRefs);
+  const repairSurfaceTriageByPressureRef = new Map(
+    input.observation.repairSurfaceTriageRows.map((row) => [
+      row.pressureRef,
+      row
+    ])
+  );
   const rows: ObservationToActionBindingRow[] = [];
   for (const pressure of input.observation.pressureRows) {
+    const repairSurfaceTriage =
+      repairSurfaceTriageByPressureRef.get(pressure.pressureRef) ?? null;
     for (const action of input.actionCatalog.rows) {
       if (!pressure.targetOutcomeRefs.includes(action.targetOutcomeRef)) {
+        continue;
+      }
+      if (
+        repairSurfaceTriage !== null &&
+        !upstreamReentryTriageMatchesAction({
+          triage: repairSurfaceTriage,
+          pressure,
+          action
+        })
+      ) {
         continue;
       }
       if (
@@ -268,6 +328,7 @@ export function deriveObservationToActionBindingProjection(input: {
         continue;
       }
       const missingInputRefs = action.inputAssetRefs.filter((ref) => !available.has(ref));
+      const targetReentryRef = targetReentryRefForTriage(repairSurfaceTriage);
       const ineligibleReasonRefs = [
         ...action.ineligibleReasonRefs,
         ...missingInputRefs.map((ref) => `missing_input:${ref}`)
@@ -275,6 +336,19 @@ export function deriveObservationToActionBindingProjection(input: {
       const matchReasonRefs = [
         `pressure:${pressure.pressureKind}`,
         `outcome:${action.targetOutcomeRef}`,
+        ...(repairSurfaceTriage === null
+          ? []
+          : [
+              `repair_surface:${repairSurfaceTriage.repairSurfaceDisposition}`,
+              `graph_reentry_point:${repairSurfaceTriage.graphReentryPoint}`,
+              `repair_graph_function:${repairSurfaceTriage.repairGraphFunctionRef}`,
+              `repair_graph_vector:${repairSurfaceTriage.repairGraphVectorRef}`,
+              `reentry_target_vector_index:${repairSurfaceTriage.reentryTargetVectorIndex}`,
+              `repair_asset:${repairSurfaceTriage.repairAssetRef}`,
+              ...repairSurfaceTriage.evidenceRefs.map(
+                (ref) => `triage_evidence:${ref}`
+              )
+            ]),
         ...pressure.evidenceRefs.map((ref) => `evidence:${ref}`)
       ];
       const bindingScore = Math.max(
@@ -297,6 +371,10 @@ export function deriveObservationToActionBindingProjection(input: {
           requiredInputRefs: freezeStringArray(action.inputAssetRefs),
           availableInputRefs: freezeStringArray(availableInputRefs),
           missingInputRefs: freezeStringArray(missingInputRefs),
+          targetReentryRef: nullableString(
+            targetReentryRef,
+            "ObservationToActionBindingRow.targetReentryRef"
+          ),
           matchReasonRefs: freezeStringArray(matchReasonRefs),
           ineligibleReasonRefs: freezeStringArray(ineligibleReasonRefs),
           bindingScore

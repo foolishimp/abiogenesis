@@ -1,10 +1,13 @@
 // Implements: T-139
+// Implements: T-152
 // Implements: REQ-R-ABG3-FP-CONSCIOUSNESS
 
 import type {
   ExecutionBasis,
+  GraphReentryPoint,
   RuntimeAggregateProjection
 } from "./carriers.js";
+import { GRAPH_REENTRY_POINT_VALUES } from "./carriers.js";
 import {
   assertNonEmptyString,
   assertNonNegativeInteger,
@@ -25,6 +28,16 @@ export const CONSTRUCTION_PRESSURE_KIND_VALUES = Object.freeze([
 
 export type ConstructionPressureKind =
   (typeof CONSTRUCTION_PRESSURE_KIND_VALUES)[number];
+
+export const CONSTRUCTION_REPAIR_SURFACE_DISPOSITION_VALUES = Object.freeze([
+  "current_edge_repair",
+  "upstream_reentry",
+  "downstream_deferred",
+  "external_blocked"
+] as const);
+
+export type ConstructionRepairSurfaceDisposition =
+  (typeof CONSTRUCTION_REPAIR_SURFACE_DISPOSITION_VALUES)[number];
 
 export const CONSTRUCTION_AMBIGUITY_CLASS_VALUES = Object.freeze([
   "none",
@@ -77,6 +90,7 @@ export interface ConstructionObservationSnapshot {
   readonly actionCatalogRef: string;
   readonly authorityDigest: string;
   readonly pressureRows: readonly ObservationPressureRow[];
+  readonly repairSurfaceTriageRows: readonly ConstructionRepairSurfaceTriageRow[];
 }
 
 export interface ConstructionObservationAssetRefs {
@@ -96,6 +110,21 @@ export interface ObservationPressureRow {
   readonly ambiguityClass: ConstructionAmbiguityClass;
   readonly authorityRefs: readonly string[];
   readonly affectSignalKind: ConstructionAffectSignalKind | null;
+}
+
+export interface ConstructionRepairSurfaceTriageRow {
+  readonly kind: "construction_repair_surface_triage_row";
+  readonly triageRef: string;
+  readonly pressureRef: string;
+  readonly repairSurfaceDisposition: ConstructionRepairSurfaceDisposition;
+  readonly graphReentryPoint: GraphReentryPoint;
+  readonly repairGraphFunctionRef: string;
+  readonly repairGraphVectorRef: string;
+  readonly reentryTargetVectorIndex: number;
+  readonly repairAssetRef: string;
+  readonly targetOutcomeRef: string;
+  readonly evidenceRefs: readonly string[];
+  readonly authorityRefs: readonly string[];
 }
 
 function assertAllowedString<T extends string>(
@@ -217,6 +246,79 @@ export function constructObservationPressureRow(input: {
   });
 }
 
+export function constructConstructionRepairSurfaceTriageRow(input: {
+  readonly triageRef: string;
+  readonly pressureRef: string;
+  readonly repairSurfaceDisposition: ConstructionRepairSurfaceDisposition;
+  readonly graphReentryPoint: GraphReentryPoint;
+  readonly repairGraphFunctionRef: string;
+  readonly repairGraphVectorRef: string;
+  readonly reentryTargetVectorIndex: number;
+  readonly repairAssetRef: string;
+  readonly targetOutcomeRef: string;
+  readonly evidenceRefs?: readonly string[];
+  readonly authorityRefs?: readonly string[];
+}): ConstructionRepairSurfaceTriageRow {
+  assertNonEmptyString(
+    input.triageRef,
+    "ConstructionRepairSurfaceTriageRow.triageRef"
+  );
+  assertNonEmptyString(
+    input.pressureRef,
+    "ConstructionRepairSurfaceTriageRow.pressureRef"
+  );
+  assertAllowedString(
+    input.repairSurfaceDisposition,
+    CONSTRUCTION_REPAIR_SURFACE_DISPOSITION_VALUES,
+    "ConstructionRepairSurfaceTriageRow.repairSurfaceDisposition"
+  );
+  assertAllowedString(
+    input.graphReentryPoint,
+    GRAPH_REENTRY_POINT_VALUES,
+    "ConstructionRepairSurfaceTriageRow.graphReentryPoint"
+  );
+  assertNonEmptyString(
+    input.repairGraphFunctionRef,
+    "ConstructionRepairSurfaceTriageRow.repairGraphFunctionRef"
+  );
+  assertNonEmptyString(
+    input.repairGraphVectorRef,
+    "ConstructionRepairSurfaceTriageRow.repairGraphVectorRef"
+  );
+  assertNonNegativeInteger(
+    input.reentryTargetVectorIndex,
+    "ConstructionRepairSurfaceTriageRow.reentryTargetVectorIndex"
+  );
+  assertNonEmptyString(
+    input.repairAssetRef,
+    "ConstructionRepairSurfaceTriageRow.repairAssetRef"
+  );
+  assertNonEmptyString(
+    input.targetOutcomeRef,
+    "ConstructionRepairSurfaceTriageRow.targetOutcomeRef"
+  );
+  return Object.freeze({
+    kind: "construction_repair_surface_triage_row",
+    triageRef: input.triageRef,
+    pressureRef: input.pressureRef,
+    repairSurfaceDisposition: input.repairSurfaceDisposition,
+    graphReentryPoint: input.graphReentryPoint,
+    repairGraphFunctionRef: input.repairGraphFunctionRef,
+    repairGraphVectorRef: input.repairGraphVectorRef,
+    reentryTargetVectorIndex: input.reentryTargetVectorIndex,
+    repairAssetRef: input.repairAssetRef,
+    targetOutcomeRef: input.targetOutcomeRef,
+    evidenceRefs: freezeNonEmptyStrings(
+      input.evidenceRefs ?? [],
+      "ConstructionRepairSurfaceTriageRow.evidenceRefs"
+    ),
+    authorityRefs: freezeNonEmptyStrings(
+      input.authorityRefs ?? [],
+      "ConstructionRepairSurfaceTriageRow.authorityRefs"
+    )
+  });
+}
+
 export function constructConstructionObservationSnapshot(input: {
   readonly episodeId: string;
   readonly observationId: string;
@@ -242,6 +344,7 @@ export function constructConstructionObservationSnapshot(input: {
   readonly actionCatalogRef: string;
   readonly authorityDigest: string;
   readonly pressureRows: readonly ObservationPressureRow[];
+  readonly repairSurfaceTriageRows?: readonly ConstructionRepairSurfaceTriageRow[];
 }): ConstructionObservationSnapshot {
   assertNonEmptyString(input.episodeId, "ConstructionObservationSnapshot.episodeId");
   assertNonEmptyString(input.observationId, "ConstructionObservationSnapshot.observationId");
@@ -283,6 +386,27 @@ export function constructConstructionObservationSnapshot(input: {
       );
     }
     pressureRefs.add(row.pressureRef);
+  }
+  const triageRefs = new Set<string>();
+  const triagePressureRefs = new Set<string>();
+  for (const row of input.repairSurfaceTriageRows ?? []) {
+    if (triageRefs.has(row.triageRef)) {
+      throw new TypeError(
+        `ConstructionObservationSnapshot has duplicate triageRef ${JSON.stringify(row.triageRef)}`
+      );
+    }
+    if (triagePressureRefs.has(row.pressureRef)) {
+      throw new TypeError(
+        `ConstructionObservationSnapshot has duplicate repair-surface triage pressureRef ${JSON.stringify(row.pressureRef)}`
+      );
+    }
+    if (!pressureRefs.has(row.pressureRef)) {
+      throw new TypeError(
+        `ConstructionObservationSnapshot repair-surface triage ${JSON.stringify(row.triageRef)} references unknown pressureRef ${JSON.stringify(row.pressureRef)}`
+      );
+    }
+    triageRefs.add(row.triageRef);
+    triagePressureRefs.add(row.pressureRef);
   }
   return Object.freeze({
     kind: "construction_observation_snapshot",
@@ -348,7 +472,10 @@ export function constructConstructionObservationSnapshot(input: {
     ),
     actionCatalogRef: input.actionCatalogRef,
     authorityDigest: input.authorityDigest,
-    pressureRows: Object.freeze([...input.pressureRows])
+    pressureRows: Object.freeze([...input.pressureRows]),
+    repairSurfaceTriageRows: Object.freeze([
+      ...(input.repairSurfaceTriageRows ?? [])
+    ])
   });
 }
 

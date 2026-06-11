@@ -35,6 +35,10 @@ import {
   stableJson,
   stableSha256Digest
 } from "../../../shared/runtime_identity.js";
+import {
+  GRAPH_REENTRY_POINT_VALUES,
+  type GraphReentryPoint
+} from "./carriers.js";
 
 export type GtlProgramConformanceSurfaceKind =
   | "graph_function"
@@ -61,6 +65,7 @@ export type GtlProgramConformanceSurfaceKind =
   | "role_binding"
   | "external_tool_gate"
   | "runtime_binding"
+  | "runtime_reentry_route"
   | "feature_coverage";
 
 export interface GtlProgramConformanceIssue {
@@ -344,6 +349,30 @@ export interface GtlProgramRuntimeBindingRow {
   readonly evidenceRefs?: readonly string[] | undefined;
 }
 
+export type GtlProgramRepairSurfaceDisposition =
+  | "current_edge_repair"
+  | "upstream_reentry"
+  | "downstream_deferred"
+  | "external_blocked";
+
+export interface GtlProgramRuntimeReentryRouteRow {
+  readonly routeRef: string;
+  readonly repairSurfaceDisposition: GtlProgramRepairSurfaceDisposition;
+  readonly selectedActionKind: "reenter_graph_span";
+  readonly graphReentryPoint: GraphReentryPoint;
+  readonly repairGraphFunctionRef: string;
+  readonly repairGraphVectorRef: string;
+  readonly repairGraphFunctionId: string;
+  readonly repairGraphId: string;
+  readonly repairGraphVectorId: string;
+  readonly reentryTargetVectorIndex: number;
+  readonly repairAssetRef: string;
+  readonly targetOutcomeRef: string;
+  readonly observationBindingRef: string;
+  readonly lawfulBasisRefs: readonly string[];
+  readonly evidenceRefs?: readonly string[] | undefined;
+}
+
 export const GTL_PROGRAM_T153_FEATURE_KINDS = Object.freeze([
   "graph_structure_interface",
   "graph_algebra_edge",
@@ -462,6 +491,9 @@ export interface GtlProgramConformanceInput {
     | readonly GtlProgramExternalToolGateRow[]
     | undefined;
   readonly runtimeBindings?: readonly GtlProgramRuntimeBindingRow[] | undefined;
+  readonly runtimeReentryRoutes?:
+    | readonly GtlProgramRuntimeReentryRouteRow[]
+    | undefined;
 }
 
 export type GtlProgramConformanceCoverage = GtlProgramCoverageCounts;
@@ -491,6 +523,7 @@ export interface GtlProgramInventoryDigests {
   readonly roleBindings: string;
   readonly externalToolGates: string;
   readonly runtimeBindings: string;
+  readonly runtimeReentryRoutes: string;
 }
 
 export interface GtlProgramConformanceReport {
@@ -599,6 +632,17 @@ const GTL_PROGRAM_RUNTIME_BINDING_KIND_VALUES = new Set<string>([
   "abg_public_callable_start",
   "abg_public_control_loop"
 ]);
+
+const GTL_PROGRAM_REPAIR_SURFACE_DISPOSITION_VALUES = new Set<string>([
+  "current_edge_repair",
+  "upstream_reentry",
+  "downstream_deferred",
+  "external_blocked"
+]);
+
+const GTL_PROGRAM_GRAPH_REENTRY_POINT_VALUES = new Set<string>(
+  GRAPH_REENTRY_POINT_VALUES
+);
 
 const GTL_PROGRAM_HOST_SURFACE_KIND_VALUES =
   new Set<string>([
@@ -711,6 +755,22 @@ function isGtlProgramRuntimeBindingKind(
   return (
     typeof value === "string" &&
     GTL_PROGRAM_RUNTIME_BINDING_KIND_VALUES.has(value)
+  );
+}
+
+function isGtlProgramRepairSurfaceDisposition(
+  value: unknown
+): value is GtlProgramRepairSurfaceDisposition {
+  return (
+    typeof value === "string" &&
+    GTL_PROGRAM_REPAIR_SURFACE_DISPOSITION_VALUES.has(value)
+  );
+}
+
+function isGraphReentryPoint(value: unknown): value is GraphReentryPoint {
+  return (
+    typeof value === "string" &&
+    GTL_PROGRAM_GRAPH_REENTRY_POINT_VALUES.has(value)
   );
 }
 
@@ -1135,6 +1195,52 @@ function requiredRuntimeBindingKindField(input: {
     })
   );
   return "abg_cli_runtime_binding";
+}
+
+function requiredRepairSurfaceDispositionField(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly surfaceKind: GtlProgramConformanceSurfaceKind;
+  readonly issues: GtlProgramConformanceIssue[];
+}): GtlProgramRepairSurfaceDisposition {
+  const value = input.record[input.key];
+  if (isGtlProgramRepairSurfaceDisposition(value)) {
+    return value;
+  }
+  input.issues.push(
+    issue({
+      surfaceKind: input.surfaceKind,
+      surfaceRef: input.subjectRef,
+      ruleRef: "abg://gtl-program/input/repair-surface-disposition-field",
+      message: `${input.label}.${input.key} must classify current_edge_repair, upstream_reentry, downstream_deferred, or external_blocked`
+    })
+  );
+  return "external_blocked";
+}
+
+function requiredGraphReentryPointField(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly surfaceKind: GtlProgramConformanceSurfaceKind;
+  readonly issues: GtlProgramConformanceIssue[];
+}): GraphReentryPoint {
+  const value = input.record[input.key];
+  if (isGraphReentryPoint(value)) {
+    return value;
+  }
+  input.issues.push(
+    issue({
+      surfaceKind: input.surfaceKind,
+      surfaceRef: input.subjectRef,
+      ruleRef: "abg://gtl-program/input/graph-reentry-point-field",
+      message: `${input.label}.${input.key} must name an ABG GraphReentryPoint`
+    })
+  );
+  return "realization";
 }
 
 function requiredHostSurfaceKindField(input: {
@@ -3460,6 +3566,174 @@ function admitRuntimeBindingRows(
   );
 }
 
+function admitRuntimeReentryRouteRows(
+  input: readonly unknown[],
+  subjectRef: string,
+  issues: GtlProgramConformanceIssue[]
+): readonly GtlProgramRuntimeReentryRouteRow[] {
+  return Object.freeze(
+    input.flatMap((row, index) => {
+      const surfaceRef = `runtimeReentryRoutes[${index}]`;
+      if (!isRecord(row)) {
+        issues.push(
+          issue({
+            surfaceKind: "runtime_reentry_route",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/runtime-reentry-route-row",
+            message: `${surfaceRef} must be an object`
+          })
+        );
+        return [];
+      }
+      if (Object.hasOwn(row, "relativeCursorOffset")) {
+        issues.push(
+          issue({
+            surfaceKind: "runtime_reentry_route",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/runtime-reentry/relative-offset-not-authority",
+            message: `${surfaceRef}.relativeCursorOffset is read-model shorthand and cannot be admitted as re-entry authority`
+          })
+        );
+      }
+      const selectedActionKind = requiredStringField({
+        record: row,
+        key: "selectedActionKind",
+        label: surfaceRef,
+        subjectRef,
+        surfaceKind: "runtime_reentry_route",
+        issues
+      });
+      if (selectedActionKind !== "reenter_graph_span") {
+        issues.push(
+          issue({
+            surfaceKind: "runtime_reentry_route",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/runtime-reentry/selected-action-kind",
+            message: `${surfaceRef}.selectedActionKind must be reenter_graph_span`
+          })
+        );
+      }
+      return [
+        Object.freeze({
+          routeRef: requiredStringField({
+            record: row,
+            key: "routeRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "runtime_reentry_route",
+            issues
+          }),
+          repairSurfaceDisposition: requiredRepairSurfaceDispositionField({
+            record: row,
+            key: "repairSurfaceDisposition",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "runtime_reentry_route",
+            issues
+          }),
+          selectedActionKind: "reenter_graph_span" as const,
+          graphReentryPoint: requiredGraphReentryPointField({
+            record: row,
+            key: "graphReentryPoint",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "runtime_reentry_route",
+            issues
+          }),
+          repairGraphFunctionRef: requiredStringField({
+            record: row,
+            key: "repairGraphFunctionRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "runtime_reentry_route",
+            issues
+          }),
+          repairGraphVectorRef: requiredStringField({
+            record: row,
+            key: "repairGraphVectorRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "runtime_reentry_route",
+            issues
+          }),
+          repairGraphFunctionId: requiredStringField({
+            record: row,
+            key: "repairGraphFunctionId",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "runtime_reentry_route",
+            issues
+          }),
+          repairGraphId: requiredStringField({
+            record: row,
+            key: "repairGraphId",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "runtime_reentry_route",
+            issues
+          }),
+          repairGraphVectorId: requiredStringField({
+            record: row,
+            key: "repairGraphVectorId",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "runtime_reentry_route",
+            issues
+          }),
+          reentryTargetVectorIndex: requiredNonNegativeIntegerField({
+            record: row,
+            key: "reentryTargetVectorIndex",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "runtime_reentry_route",
+            issues
+          }),
+          repairAssetRef: requiredStringField({
+            record: row,
+            key: "repairAssetRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "runtime_reentry_route",
+            issues
+          }),
+          targetOutcomeRef: requiredStringField({
+            record: row,
+            key: "targetOutcomeRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "runtime_reentry_route",
+            issues
+          }),
+          observationBindingRef: requiredStringField({
+            record: row,
+            key: "observationBindingRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "runtime_reentry_route",
+            issues
+          }),
+          lawfulBasisRefs: requiredStringArrayField({
+            record: row,
+            key: "lawfulBasisRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "runtime_reentry_route",
+            issues
+          }),
+          evidenceRefs: optionalStringArrayField({
+            record: row,
+            key: "evidenceRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "runtime_reentry_route",
+            issues
+          })
+        })
+      ];
+    })
+  );
+}
+
 export function admitGtlProgramConformanceInput(
   rawInput: unknown
 ): GtlProgramConformanceInputAdmission {
@@ -3491,7 +3765,8 @@ export function admitGtlProgramConformanceInput(
       jobBindings: Object.freeze([]),
       roleBindings: Object.freeze([]),
       externalToolGates: Object.freeze([]),
-      runtimeBindings: Object.freeze([])
+      runtimeBindings: Object.freeze([]),
+      runtimeReentryRoutes: Object.freeze([])
     });
     issues.push(
       issue({
@@ -3758,6 +4033,16 @@ export function admitGtlProgramConformanceInput(
       checkOptionalArrayField({
         record: rawInput,
         key: "runtimeBindings",
+        subjectRef,
+        issues
+      }),
+      subjectRef,
+      issues
+    ),
+    runtimeReentryRoutes: admitRuntimeReentryRouteRows(
+      checkOptionalArrayField({
+        record: rawInput,
+        key: "runtimeReentryRoutes",
         subjectRef,
         issues
       }),
@@ -5690,6 +5975,91 @@ function checkRuntimeBindingRows(input: {
   }
 }
 
+function checkRuntimeReentryRouteRows(input: {
+  readonly runtimeReentryRoutes: readonly GtlProgramRuntimeReentryRouteRow[];
+  readonly vectors: readonly GraphVectorProjection[];
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  checkUniqueRows({
+    rows: input.runtimeReentryRoutes.map((row) => ({ ref: row.routeRef })),
+    surfaceKind: "runtime_reentry_route",
+    ruleRef: "abg://gtl-program/runtime-reentry/unique-ref",
+    label: "runtime re-entry route",
+    issues: input.issues
+  });
+
+  for (const row of input.runtimeReentryRoutes) {
+    if (row.repairSurfaceDisposition !== "upstream_reentry") {
+      pushRowIssue({
+        surfaceKind: "runtime_reentry_route",
+        surfaceRef: row.routeRef,
+        ruleRef: "abg://gtl-program/runtime-reentry/upstream-disposition",
+        message: "runtime re-entry routes must be classified as upstream_reentry",
+        evidenceRefs: row.evidenceRefs,
+        issues: input.issues
+      });
+    }
+    checkNonEmptyArray({
+      surfaceKind: "runtime_reentry_route",
+      surfaceRef: row.routeRef,
+      ruleRef: "abg://gtl-program/runtime-reentry/lawful-basis",
+      fieldName: "lawfulBasisRefs",
+      values: row.lawfulBasisRefs,
+      issues: input.issues
+    });
+    for (const requiredRef of [
+      "REQ-R-ABG3-ITERATION-009",
+      "REQ-R-ABG3-FPC-004B"
+    ]) {
+      if (!row.lawfulBasisRefs.includes(requiredRef)) {
+        pushRowIssue({
+          surfaceKind: "runtime_reentry_route",
+          surfaceRef: row.routeRef,
+          ruleRef: "abg://gtl-program/runtime-reentry/lawful-basis",
+          message: `runtime re-entry route must cite ${requiredRef}`,
+          evidenceRefs: row.evidenceRefs,
+          issues: input.issues
+        });
+      }
+    }
+
+    const graphVectors = input.vectors.filter(
+      (vector) =>
+        vector.graphFunctionId === row.repairGraphFunctionId &&
+        vector.graphId === row.repairGraphId
+    );
+    const targetVector = graphVectors[row.reentryTargetVectorIndex] ?? null;
+    if (targetVector === null) {
+      pushRowIssue({
+        surfaceKind: "runtime_reentry_route",
+        surfaceRef: row.routeRef,
+        ruleRef: "abg://gtl-program/runtime-reentry/target-vector-index-resolves",
+        message: `reentryTargetVectorIndex ${row.reentryTargetVectorIndex} does not resolve in graph function ${JSON.stringify(row.repairGraphFunctionRef)}`,
+        evidenceRefs: row.evidenceRefs,
+        issues: input.issues
+      });
+      continue;
+    }
+
+    if (
+      targetVector.graphFunctionRef !== row.repairGraphFunctionRef ||
+      targetVector.vectorRef !== row.repairGraphVectorRef ||
+      targetVector.graphFunctionId !== row.repairGraphFunctionId ||
+      targetVector.graphId !== row.repairGraphId ||
+      targetVector.graphVectorId !== row.repairGraphVectorId
+    ) {
+      pushRowIssue({
+        surfaceKind: "runtime_reentry_route",
+        surfaceRef: row.routeRef,
+        ruleRef: "abg://gtl-program/runtime-reentry/absolute-target-identity",
+        message: `runtime re-entry route ${JSON.stringify(row.routeRef)} must resolve to the absolute target graph/vector identity at reentryTargetVectorIndex`,
+        evidenceRefs: row.evidenceRefs,
+        issues: input.issues
+      });
+    }
+  }
+}
+
 function checkSelectionBoundaryRows(input: {
   readonly selectionBoundaries: readonly GtlProgramSelectionBoundaryRow[];
   readonly knownHostRefs: ReadonlySet<string>;
@@ -6098,6 +6468,7 @@ function observedFeatureKinds(input: {
   readonly roleBindings: readonly GtlProgramRoleBindingRow[];
   readonly externalToolGates: readonly GtlProgramExternalToolGateRow[];
   readonly runtimeBindings: readonly GtlProgramRuntimeBindingRow[];
+  readonly runtimeReentryRoutes: readonly GtlProgramRuntimeReentryRouteRow[];
 }): ReadonlySet<GtlProgramT153FeatureKind> {
   const observed = new Set<GtlProgramT153FeatureKind>();
   if (input.graphFunctions.length > 0 && input.vectors.length > 0) {
@@ -6273,6 +6644,7 @@ function inventoryBackedFeatureKinds(input: {
   readonly roleBindings: readonly GtlProgramRoleBindingRow[];
   readonly externalToolGates: readonly GtlProgramExternalToolGateRow[];
   readonly runtimeBindings: readonly GtlProgramRuntimeBindingRow[];
+  readonly runtimeReentryRoutes: readonly GtlProgramRuntimeReentryRouteRow[];
 }): ReadonlySet<GtlProgramT153FeatureKind> {
   const backed = new Set<GtlProgramT153FeatureKind>();
   if (input.graphFunctions.length > 0 && input.vectors.length > 0) {
@@ -6493,6 +6865,7 @@ function computeInventoryDigests(input: {
   readonly roleBindings: readonly GtlProgramRoleBindingRow[];
   readonly externalToolGates: readonly GtlProgramExternalToolGateRow[];
   readonly runtimeBindings: readonly GtlProgramRuntimeBindingRow[];
+  readonly runtimeReentryRoutes: readonly GtlProgramRuntimeReentryRouteRow[];
 }): GtlProgramInventoryDigests {
   return Object.freeze({
     featureCoverageManifest: stableSha256Digest(input.featureCoverageManifest),
@@ -6520,7 +6893,8 @@ function computeInventoryDigests(input: {
     jobBindings: stableSha256Digest(input.jobBindings),
     roleBindings: stableSha256Digest(input.roleBindings),
     externalToolGates: stableSha256Digest(input.externalToolGates),
-    runtimeBindings: stableSha256Digest(input.runtimeBindings)
+    runtimeBindings: stableSha256Digest(input.runtimeBindings),
+    runtimeReentryRoutes: stableSha256Digest(input.runtimeReentryRoutes)
   });
 }
 
@@ -6587,6 +6961,9 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     ...(input.externalToolGates ?? [])
   ]);
   const runtimeBindings = Object.freeze([...(input.runtimeBindings ?? [])]);
+  const runtimeReentryRoutes = Object.freeze([
+    ...(input.runtimeReentryRoutes ?? [])
+  ]);
   const featureCoverageManifest = input.featureCoverageManifest;
   const knownHostRefs = hostRefs({ graphFunctions, modules, vectors });
   const suppliedPluginContractRefs = pluginContractRefs(pluginContracts);
@@ -6674,6 +7051,11 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     pluginRefsBoundByStages: stageBoundPluginRefs,
     issues
   });
+  checkRuntimeReentryRouteRows({
+    runtimeReentryRoutes,
+    vectors,
+    issues
+  });
   checkFeatureCoverage({
     subjectRef: input.subjectRef,
     manifest: featureCoverageManifest,
@@ -6697,7 +7079,8 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
       jobBindings,
       roleBindings,
       externalToolGates,
-      runtimeBindings
+      runtimeBindings,
+      runtimeReentryRoutes
     }),
     inventoryBackedFeatures: inventoryBackedFeatureKinds({
       graphFunctions,
@@ -6719,7 +7102,8 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
       jobBindings,
       roleBindings,
       externalToolGates,
-      runtimeBindings
+      runtimeBindings,
+      runtimeReentryRoutes
     }),
     issues
   });
@@ -6766,7 +7150,8 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     jobBindings,
     roleBindings,
     externalToolGates,
-    runtimeBindings
+    runtimeBindings,
+    runtimeReentryRoutes
   });
   const inventoryDigest = stableSha256Digest(inventoryDigests);
   const frozenIssues = Object.freeze([...issues]);

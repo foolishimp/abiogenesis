@@ -10,7 +10,7 @@ change_class: requirement_reprice
 change_intent: Make GTL program conformance a deterministic ABG API function with a thin CLI wrapper instead of downstream-local lint rules, MCP-shaped prompt schema, or agent-memory checks.
 re_entry_point: requirements
 created_at: 2026-06-08
-updated_at: 2026-06-11
+updated_at: 2026-06-12
 owning_repo: abiogenesis
 governance_scope: STDO Method
 priority: high
@@ -33,12 +33,15 @@ source_documents:
   - specification/requirements/gtl/REQ-L-GTL3-HOOKS.md
   - specification/requirements/abg/REQ-R-ABG3-FN-COMPOSITION.md
   - specification/requirements/abg/REQ-R-ABG3-INTERPRET.md
+  - specification/requirements/abg/REQ-R-ABG3-ITERATION.md
+  - specification/requirements/abg/REQ-R-ABG3-FP-CONSCIOUSNESS.md
   - specification/requirements/abg/REQ-R-ABG3-PAYLOAD.md
   - specification/requirements/abg/REQ-R-ABG3-ASSURANCE.md
   - .ai-workspace/tickets/completed/T-150-promote-prompt-assets-into-gtl-typed-asset-interface.md
 related_tickets:
   - T-150
   - T-151
+  - T-149
 affected_boundary:
   requirements:
     - specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md
@@ -46,6 +49,8 @@ affected_boundary:
     - specification/requirements/gtl/REQ-L-GTL3-ASSET-SURFACE.md
     - specification/requirements/gtl/REQ-L-GTL3-HOOKS.md
     - specification/requirements/abg/REQ-R-ABG3-INTERPRET.md
+    - specification/requirements/abg/REQ-R-ABG3-ITERATION.md
+    - specification/requirements/abg/REQ-R-ABG3-FP-CONSCIOUSNESS.md
     - specification/requirements/abg/REQ-R-ABG3-PAYLOAD.md
   design:
     - build_tenants/abiogenesis/typescript/design/README.md
@@ -54,7 +59,12 @@ affected_boundary:
     - build_tenants/common/design/modules/M03-engine-kernel.yml
   realization:
     - build_tenants/abiogenesis/typescript/code/src/abg/m03/contracts/gtl_program_conformance.ts
+    - build_tenants/abiogenesis/typescript/code/src/abg/m03/contracts/construction_intent.ts
+    - build_tenants/abiogenesis/typescript/code/src/abg/m03/contracts/graph_span_reentry.ts
+    - build_tenants/abiogenesis/typescript/code/src/abg/m03/contracts/iteration_state_action.ts
     - build_tenants/abiogenesis/typescript/code/src/abg/m03/contracts/index.ts
+    - build_tenants/abiogenesis/typescript/code/src/abg/m03/runner/engine_runner.ts
+    - build_tenants/abiogenesis/typescript/code/src/abg/m03/runner/construction_runner.ts
     - build_tenants/abiogenesis/typescript/code/src/cli/command.ts
     - build_tenants/abiogenesis/typescript/code/src/gtl/m02/contracts/compute_notation.ts
     - build_tenants/abiogenesis/typescript/code/src/abg/m03/contracts/plugins.ts
@@ -62,9 +72,13 @@ affected_boundary:
   proof:
     - build_tenants/abiogenesis/typescript/test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs
     - build_tenants/abiogenesis/typescript/test_env/tests/test_t152_contract_fulfillment_binding_api.test.mjs
-target_truth: Downstream GTL/ABG programs are admitted through one ABG-owned programmatic API, `typecheckGtlProgram(...)`, with `admitGtlProgramConformanceInput(...)` as its raw-input gate and `abiogenesis-ts typecheck-gtl-program` as a thin CLI wrapper. The function evaluates the supplied GTL program inventory against GTL graph interface law, graph-vector identity law, target-carrier row law, closure row law, prompt AssetSurface view law where the downstream row declares a prompt invocation asset, supplied plugin/public-start/overlay row law, active source identity law, feature-coverage owner law, and expected coverage. Report identity is evidence-bound to the normalized audited inventory. Features without first-class inventory fields remain explicit manifest attestations until this ticket admits those fields.
+    - build_tenants/abiogenesis/typescript/test_env/tests/test_t103_graph_span_reentry_unit.test.mjs
+    - build_tenants/abiogenesis/typescript/test_env/tests/test_t127_fp_consciousness_loop_unit.test.mjs
+    - build_tenants/abiogenesis/typescript/test_env/tests/test_t139_construction_pressure_package.test.mjs
+    - build_tenants/abiogenesis/typescript/test_env/tests/test_t149_iteration_state_action_algebra.test.mjs
+target_truth: Downstream GTL/ABG programs are admitted through one ABG-owned programmatic API, `typecheckGtlProgram(...)`, with `admitGtlProgramConformanceInput(...)` as its raw-input gate and `abiogenesis-ts typecheck-gtl-program` as a thin CLI wrapper. The function evaluates the supplied GTL program inventory against GTL graph interface law, graph-vector identity law, target-carrier row law, closure row law, prompt AssetSurface view law where the downstream row declares a prompt invocation asset, supplied plugin/public-start/overlay row law, active source identity law, feature-coverage owner law, expected coverage, and the runtime re-entry surfaces needed to route nonlocal repair pressure through ABG construction intent and graph-vector re-entry. Report identity is evidence-bound to the normalized audited inventory. Features without first-class inventory fields remain explicit manifest attestations until this ticket admits those fields.
 superseded_truth: Downstream products can prove GTL/ABG graph conformance by local scans, prompt prose, method-in-context, or partial inventories that pass when omitted.
-closure_law: This ticket closes only when the TypeScript source is tracked, exported, buildable, callable programmatically, callable through the CLI wrapper, and tested against empty/partial inventories, malformed raw input, unsatisfied graph dependencies, duplicate target/closure rows, duplicate display labels with distinct opaque vector identity, current ABG engine-authority flag bypasses, prompt asset row completeness, plugin admission, exact ABI package version, stale active ABG identity, evidence-bound report identity, stage-compute composition contracts binding `transform.C`, `evaluate.C`, and `consequence.C` to selected `F_D`/`F_P`/`F_H` regime participation and governed plugin contracts, and a downstream-shaped production graph-asset inventory gate.
+closure_law: This ticket closes only when the TypeScript source is tracked, exported, buildable, callable programmatically, callable through the CLI wrapper, and tested against empty/partial inventories, malformed raw input, unsatisfied graph dependencies, duplicate target/closure rows, duplicate display labels with distinct opaque vector identity, current ABG engine-authority flag bypasses, prompt asset row completeness, plugin admission, exact ABI package version, stale active ABG identity, evidence-bound report identity, stage-compute composition contracts binding `transform.C`, `evaluate.C`, and `consequence.C` to selected `F_D`/`F_P`/`F_H` regime participation and governed plugin contracts, runtime re-entry inventory proving nonlocal repair-surface pressure can select `reenter_graph_span` through admitted construction intent and existing `GraphReentryPoint` plus target-vector identity, and a downstream-shaped production graph-asset inventory gate.
 non_closure_conditions:
   - the function is only present in build output, a temporary package, or an untracked source file
   - the CLI owns rules that the programmatic function does not own
@@ -79,6 +93,8 @@ non_closure_conditions:
   - plugin contracts can be accepted as standalone rows without resolving through the selected `abg.fn_composition`/stage binding chain that authorizes their `transform.C`, `evaluate.C`, `consequence.C`, or external human-callout role
   - proof depends on a local `/tmp` package instead of the source under review or a recut release snapshot
   - a downstream-shaped proof passes by excluding current TypeScript graph assets, prompt construction assets, plugin contracts, or active source identity surfaces
+  - nonlocal repair-surface triage collapses to same-edge retry instead of admitted ABG graph-vector re-entry
+  - products must implement private retry/re-entry loops because ABG does not consume admitted triage as construction intent
 review_gate: high-bar code review and downstream-shaped production-inventory proof required before release
 ---
 
@@ -106,6 +122,8 @@ This is a hard admission/typecheck boundary for current GTL/ABG program shape.
   plugin contracts, provider outputs, and hook findings.
 - Use a downstream-shaped production inventory as the proving domain without
   naming or depending on any downstream ticket.
+- Admit runtime re-entry inventory sufficient to prove that nonlocal repair
+  pressure is routed by ABG, not by downstream product control loops.
 
 ## Audit Checklist
 
@@ -138,6 +156,13 @@ This is a hard admission/typecheck boundary for current GTL/ABG program shape.
 - [ ] A downstream consumer consumes this ABG function and no product-local
   replacement.
 - [ ] A clean downstream live lane passes after the graph inventory gate.
+- [x] Runtime re-entry inventory exposes the `GraphReentryPoint` and
+  `reentryTargetVectorIndex` surfaces needed to route nonlocal repair pressure.
+- [x] Repair-surface triage classified as `upstream_reentry` binds to an
+  admitted construction intent whose selected action row is
+  `actionKind = reenter_graph_span` rather than defaulting to same-edge retry.
+- [x] The ABG engine applies the selected graph-vector re-entry before ordinary
+  retry fallback and records replay-visible transition/progress truth.
 
 ## T-153 Feature-Coverage Checklist
 
@@ -717,3 +742,173 @@ Proof:
   terminal taxonomy assertion was updated.
 - `npm run test:semantic` passed 782/782 and `npm run lint:semantic` passed on
   2026-06-11 before the `4.0.0-rc.15` release-basis commit.
+
+## Extension Triage - 2026-06-12 Runtime Re-Entry From Repair-Surface Triage
+
+Finding: downstream live proof now exposes the next ABG-owned routing gap. A
+current edge can emit a typed repair-surface triage row that says the lawful
+repair surface is not the current vector. The row may classify pressure as:
+
+- `current_edge_repair`
+- `upstream_reentry`
+- `downstream_deferred`
+- `external_blocked`
+
+When the classification is `upstream_reentry`, the carrier must name:
+
+- `repairGraphFunctionRef`
+- `repairGraphVectorRef`
+- `reentryTargetVectorIndex` or equivalent absolute graph-vector identity
+- `repairAssetRef`
+
+That is not downstream product control flow. It is admitted observation truth
+that ABG must consume through construction observation, construction intent
+admission, graph-span re-entry, and runtime transition. The product may emit the
+typed triage evidence; ABG owns cursor movement.
+
+Relative phrases such as "go back two nodes" are read-model shorthand only. They
+are not dispatch authority. Runtime truth must resolve to an absolute
+`GraphReentryPoint`, target graph function/vector identity, and target vector
+index before ABG can admit or apply re-entry.
+
+Zoom-in/zoom-out adjacency may explain how a product derived the repair span or
+made two work nodes locally adjacent for evaluation. It is evidence or
+derivation context, not a new dispatch operator. The prime runtime operator
+remains graph-vector re-entry over absolute graph function, vector, re-entry
+point, and target-vector identity.
+
+STDO triage: `realization_refactor` inside active T-152 `requirement_reprice`.
+The governing requirements already exist:
+
+- `REQ-R-ABG3-ITERATION-009`: redispatch targets reuse `GraphReentryPoint` and
+  target-vector identity.
+- `REQ-R-ABG3-FPC-004B`: observation-to-action binding maps gap/retry/reentry
+  pressure rows to lawful action catalog rows before construction evaluator
+  ranking.
+- `REQ-R-ABG3-FPC-005`: construction intent candidates bind graph function or
+  re-entry target, input asset refs, expected output asset refs, gap/progress
+  refs, value, lawful basis, and stop/escalation conditions.
+- `REQ-R-ABG3-FPC-014`: construction may select same-edge repair,
+  graph-span reentry, earlier/later graph-function invocation, F_H gate,
+  ticket creation, or constitutional reprice only through admitted construction
+  intent and existing reentry/change-class law.
+
+The missing behavior is not a new downstream SDLC runner. It is ABG dispatch:
+
+```text
+repair-surface triage
+-> construction observation
+-> observation-to-action binding
+-> admitted ConstructionIntentCandidate
+-> selectedActionKind = reenter_graph_span
+-> GraphReentryFrontierProjection
+-> GraphReentryPoint + reentryTargetVectorIndex
+-> engine transition reenter_graph_vector
+```
+
+F_D/F_P classification: mixed ABG runtime/projection realization. The triage
+carrier is deterministic admission truth once emitted; the construction
+evaluator may rank among lawful actions, but ABG must admit the candidate and
+apply only existing re-entry targets. Hidden product-local loops and same-edge
+retry fallback are not lawful substitutes.
+
+Prime law confirmation: downstream products may publish repair-surface triage
+as payload/evidence, but they must not own graph cursor movement. ABG consumes
+the triage into construction action selection and applies re-entry through the
+existing graph-span/re-entry substrate.
+
+Required implementation scope:
+
+- Extend the T-152 conformance inventory with runtime re-entry rows sufficient
+  to prove the program publishes the re-entry surfaces it expects ABG to use.
+- Bind `upstream_reentry` repair-surface triage into construction observation
+  pressure, not same-edge retry pressure.
+- Teach observation-to-action binding to match a triage row's
+  `repairGraphFunctionRef`, `repairGraphVectorRef`, `reentryTargetVectorIndex`,
+  and `repairAssetRef` to a lawful graph/action catalog row.
+- Admit the selected action as a `ConstructionIntentCandidate` with
+  `selectedActionKind = reenter_graph_span` and target re-entry refs.
+- Project or consume a `GraphReentryFrontierProjection` using existing
+  `GraphReentryPoint` plus `reentryTargetVectorIndex`.
+- Apply `reenter_graph_vector` in the engine before default same-edge retry
+  fallback.
+- Preserve replay-visible transition/progress truth so public projection shows
+  yielded/re-entering progress, blocked, or stalled state without product-local
+  controller logic.
+
+Proof requirements:
+
+- Static gate proof complete: `typecheckGtlProgram(...)` now admits
+  `runtimeReentryRoutes` with `GraphReentryPoint`,
+  `reentryTargetVectorIndex`, selected `reenter_graph_span`, absolute
+  graph/vector identity, repair asset ref, observation binding ref, and lawful
+  basis refs in report identity.
+- Static negative proof complete: a relative offset such as `-2` with no
+  absolute target vector identity fails closed and cannot become dispatch truth.
+- Static negative proof complete: missing or unbound absolute target vector refs
+  fail closed at the GTL program conformance gate.
+- Runtime unit proof complete: `constructConstructionRepairSurfaceTriageRow(...)`
+  adds deterministic repair-surface triage to construction observation;
+  `deriveObservationToActionBindingProjection(...)` binds `upstream_reentry`
+  only to a lawful `reenter_graph_span` action with matching graph function,
+  graph vector, repair asset, target outcome, `GraphReentryPoint`, and
+  `reentryTargetVectorIndex`; `admitConstructionIntentCandidate(...)` rejects
+  evaluator candidates whose `targetReentryRef` contradicts the binding row.
+- Runtime negative proof complete: the same triage with missing or unbound
+  graph/vector refs fails closed with no observation-to-action binding, no
+  priority row, rejected construction intent, and no same-edge fallback.
+- Construction projection unit proof complete: the admitted re-entry intent
+  projects `construction_progressing_yield` and the selected
+  `reenter_graph_span` action ref without downstream product loop state.
+- Runner proof complete: an active construction episode applies graph-vector
+  re-entry before default same-edge retry. The focused sandbox starts from a
+  fully replayed three-vector graph, admits `reenter_graph_span` for the
+  code-generation vector, shadows the prior code-vector closure, and runs only
+  the selected `design->code` vector through the graph engine.
+- Replay-visible transition proof complete: the runner emits
+  `graph_reentry_planned` and `graph_reentry_applied` before engine iteration,
+  includes `graph_reentry_applied` in graph replay, and records the transition
+  in the construction delta through `runtimeEventRefs` and `reentryMoved`.
+  When the re-entered graph closes in the same step, the final public
+  construction projection is `construction_closed`; the replay-visible movement
+  remains preserved in the delta and graph event stream.
+- Downstream-shaped proof complete: the generic code-generation fixture routes
+  missing nonlocal tranche pressure to another graph node without naming
+  `odd_sdlc`, `data_mapper`, Scala, SBT, or any downstream module.
+
+Validation on 2026-06-12:
+
+- `npm run test:t127:unit` passed 29/29, including the T-152 runtime positive,
+  mismatched `targetReentryRef`, and unbound-vector no-fallback cases.
+- `npm run test:t128` passed 3/3, including the T-152 construction-runner
+  replay sandbox that re-enters the code-generation vector after all prior
+  vectors already exist in replay.
+- `npm run test:t150` passed 49/49, including static runtime re-entry route
+  admission and negative proofs.
+- `npm run test:t139` passed 2/2.
+- `npm run test:t149` passed 17/17.
+- `npm run test:t103` passed 24/24.
+- `npm run lint:semantic` passed.
+- `npm run test:semantic` passed 787/787.
+- `git diff --check` passed.
+
+Current non-closure:
+
+- A downstream consumer must still consume the strengthened ABG function from a
+  released package and supply production graph/prompt/plugin/overlay/start/
+  target-carrier/source-identity inventory rows.
+- A clean downstream live lane must still pass against that released ABG
+  package and ABG command/control path.
+- A production downstream inventory proof must still show that no local
+  product-specific conformance or retry/re-entry loop substitutes for the ABG
+  gate and construction runner.
+
+Regression guards:
+
+- `GraphChangeClass` or product disposition strings must not become a parallel
+  dispatch discriminator instead of reusing `GraphReentryPoint` and
+  target-vector identity.
+- A relative cursor offset must not be admitted as re-entry authority without
+  resolving to an absolute `GraphReentryPoint` and target vector identity.
+- Proof must stay on generic graph/action/repair-surface/re-entry carriers
+  rather than downstream product vocabulary.

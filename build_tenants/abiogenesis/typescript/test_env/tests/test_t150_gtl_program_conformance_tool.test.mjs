@@ -323,6 +323,31 @@ function targetCarrierContractRow(input) {
   };
 }
 
+function runtimeReentryRouteRow(input) {
+  const programRef = input.graphFunction.name;
+  return {
+    routeRef: `runtime-reentry://t150/${programRef}/upstream-reentry`,
+    repairSurfaceDisposition: "upstream_reentry",
+    selectedActionKind: "reenter_graph_span",
+    graphReentryPoint: "realization",
+    repairGraphFunctionRef: input.graphFunction.name,
+    repairGraphVectorRef: input.vector.name,
+    repairGraphFunctionId: input.graphFunction.id,
+    repairGraphId: input.graph.id,
+    repairGraphVectorId: input.vector.id,
+    reentryTargetVectorIndex: 0,
+    repairAssetRef: `asset://t150/${programRef}/${input.vector.target.name}`,
+    targetOutcomeRef: `outcome://t150/${programRef}/repair-target`,
+    observationBindingRef: `construction-binding://t150/${programRef}/upstream-reentry`,
+    lawfulBasisRefs: [
+      "REQ-R-ABG3-ITERATION-009",
+      "REQ-R-ABG3-FPC-004B",
+      "REQ-R-ABG3-FPC-014"
+    ],
+    evidenceRefs: ["test://t150/runtime-reentry"]
+  };
+}
+
 function pluginContract(overrides = {}) {
   return constructEnginePluginContract({
     ref: "plugin://t150/fp-dispatch",
@@ -748,6 +773,13 @@ function completeFeatureRows(input) {
         forbidsProductLocalIteration: true,
         evidenceRefs: ["test://t150/runtime-binding"]
       }
+    ],
+    runtimeReentryRoutes: [
+      runtimeReentryRouteRow({
+        graphFunction,
+        graph,
+        vector
+      })
     ]
   };
 }
@@ -765,7 +797,8 @@ function mergeFeatureRows(...rowSets) {
     jobBindings: rowSets.flatMap((rows) => rows.jobBindings),
     roleBindings: rowSets.flatMap((rows) => rows.roleBindings),
     externalToolGates: rowSets.flatMap((rows) => rows.externalToolGates),
-    runtimeBindings: rowSets.flatMap((rows) => rows.runtimeBindings)
+    runtimeBindings: rowSets.flatMap((rows) => rows.runtimeBindings),
+    runtimeReentryRoutes: rowSets.flatMap((rows) => rows.runtimeReentryRoutes)
   };
 }
 
@@ -908,6 +941,7 @@ test("T-150 GTL program typechecker admits a complete graph prompt plugin invent
   assert.equal(report.coverage.graphVectorCount, 1);
   assert.equal(report.coverage.promptAssetCount, 1);
   assert.equal(report.coverage.pluginContractCount, 1);
+  assert.match(report.inventoryDigests.runtimeReentryRoutes, /^sha256:/u);
   assert.match(report.reportRef, /^abg:\/\/gtl-program-conformance-report\/sha256:/u);
 });
 
@@ -1123,6 +1157,76 @@ test("T-152 GTL program typechecker rejects product-local wrapper runtime bindin
   assert.match(messages, /consumesPluginsThroughAbg must be true/u);
   assert.match(messages, /forbidsProductLocalIteration must be true/u);
   assert.match(messages, /mayOwnIterationLoop must be false/u);
+});
+
+test("T-152 GTL program typechecker rejects relative cursor offset as re-entry authority", () => {
+  const base = compliantInput();
+  const route = { ...base.runtimeReentryRoutes[0] };
+  delete route.reentryTargetVectorIndex;
+  route.relativeCursorOffset = -2;
+
+  const report = typecheckGtlProgram(
+    compliantInput({
+      runtimeReentryRoutes: [route]
+    })
+  );
+
+  const ruleRefs = new Set(report.issues.map((entry) => entry.ruleRef));
+  const messages = report.issues.map((entry) => entry.message).join("\n");
+  assert.equal(report.passed, false);
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/runtime-reentry/relative-offset-not-authority"
+    )
+  );
+  assert(
+    ruleRefs.has("abg://gtl-program/input/non-negative-integer-field")
+  );
+  assert.match(messages, /relativeCursorOffset/u);
+  assert.match(messages, /reentryTargetVectorIndex/u);
+});
+
+test("T-152 GTL program typechecker rejects unbound runtime re-entry vector identity", () => {
+  const base = compliantInput();
+  const route = base.runtimeReentryRoutes[0];
+
+  const missingIndex = typecheckGtlProgram(
+    compliantInput({
+      runtimeReentryRoutes: [
+        {
+          ...route,
+          reentryTargetVectorIndex: 3
+        }
+      ]
+    })
+  );
+  const mismatchedIdentity = typecheckGtlProgram(
+    compliantInput({
+      runtimeReentryRoutes: [
+        {
+          ...route,
+          repairGraphVectorRef: "other_vector"
+        }
+      ]
+    })
+  );
+
+  const missingRuleRefs = new Set(missingIndex.issues.map((entry) => entry.ruleRef));
+  const mismatchRuleRefs = new Set(
+    mismatchedIdentity.issues.map((entry) => entry.ruleRef)
+  );
+  assert.equal(missingIndex.passed, false);
+  assert.equal(mismatchedIdentity.passed, false);
+  assert(
+    missingRuleRefs.has(
+      "abg://gtl-program/runtime-reentry/target-vector-index-resolves"
+    )
+  );
+  assert(
+    mismatchRuleRefs.has(
+      "abg://gtl-program/runtime-reentry/absolute-target-identity"
+    )
+  );
 });
 
 test("T-152 GTL program typechecker requires first-class same_object proof rows", () => {

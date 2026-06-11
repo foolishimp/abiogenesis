@@ -12,9 +12,11 @@ import {
   constructConstructionIntentCandidate,
   constructConstructionObservationSnapshot,
   constructConstructionPriorityScheme,
+  constructConstructionRepairSurfaceTriageRow,
   constructEnginePluginContract,
   constructFpDispatchOutcome,
   constructFdEvaluationOutcome,
+  constructVectorClosedEvent,
   defaultFpEvaluatorPlugin,
   constructObservationPressureRow,
   deriveConstructionPriorityProjection,
@@ -27,6 +29,7 @@ import {
   buildThreeStageBasis,
   buildThreeStageStartContext
 } from "./support/m03-iteration-fixtures.mjs";
+import { emit } from "../../build/semantic/code/src/abg/m03/events/index.js";
 
 const EPISODE_ID = "construction-episode://t128/1";
 const OBSERVATION_ID = "construction-observation://t128/1";
@@ -194,6 +197,133 @@ function buildConstructionWorld(basis) {
   return Object.freeze({ catalog, observation, binding, priority, admission });
 }
 
+function buildReentryConstructionWorld(basis, targetVectorIndex) {
+  const targetVector = basis.graph.vectors[targetVectorIndex];
+  assert.ok(targetVector);
+  const hookResolution = resolveConstructionHookDeclaration({
+    installedFallback: {
+      hookRef: "hook://t128/construction/reentry",
+      sourceRef: "installed-fallback://t128/reentry",
+      concerns: ["runner"],
+      config: {}
+    }
+  });
+  const action = constructConstructionActionRow({
+    actionRef: "action://t152/reenter-design",
+    actionKind: "reenter_graph_span",
+    graphFunctionRef: basis.graphFunction.id,
+    graphVectorRef: targetVector.id,
+    refinementBoundaryRef: "refinement-boundary://t152/reenter-design",
+    targetOutcomeRef: "outcome://t152/reentry-complete",
+    inputAssetRefs: ["asset://t152/source"],
+    expectedOutputAssetRefs: ["asset://t152/output"],
+    requiredAuthorityRefs: [
+      "REQ-R-ABG3-ITERATION-009",
+      "REQ-R-ABG3-FPC-004B"
+    ],
+    eligibleReasonRefs: ["eligible://t152/reentry"]
+  });
+  const catalog = constructConstructionActionCatalogProjection({
+    catalogRef: "construction-catalog://t152/reentry",
+    episodeId: EPISODE_ID,
+    hookResolutionRef: hookResolution.resolutionRef,
+    fallbackConfigDigest: hookResolution.configDigest,
+    rows: [action]
+  });
+  const pressure = constructObservationPressureRow({
+    pressureRef: "pressure://t152/upstream-reentry",
+    pressureKind: "reentry_frontier",
+    sourceRef: "repair-surface-triage://t152/upstream-reentry",
+    affectedAssetRefs: ["asset://t152/output"],
+    targetOutcomeRefs: ["outcome://t152/reentry-complete"],
+    evidenceRefs: ["evidence://t152/upstream-reentry"],
+    severity: 4,
+    ambiguityClass: "none",
+    authorityRefs: [
+      "REQ-R-ABG3-ITERATION-009",
+      "REQ-R-ABG3-FPC-004B"
+    ]
+  });
+  const triage = constructConstructionRepairSurfaceTriageRow({
+    triageRef: "repair-surface-triage://t152/upstream-reentry",
+    pressureRef: pressure.pressureRef,
+    repairSurfaceDisposition: "upstream_reentry",
+    graphReentryPoint: "realization",
+    repairGraphFunctionRef: basis.graphFunction.id,
+    repairGraphVectorRef: targetVector.id,
+    reentryTargetVectorIndex: targetVectorIndex,
+    repairAssetRef: "asset://t152/output",
+    targetOutcomeRef: "outcome://t152/reentry-complete",
+    evidenceRefs: ["evidence://t152/triage"],
+    authorityRefs: [
+      "REQ-R-ABG3-ITERATION-009",
+      "REQ-R-ABG3-FPC-004B"
+    ]
+  });
+  const observation = constructConstructionObservationSnapshot({
+    episodeId: EPISODE_ID,
+    observationId: "construction-observation://t152/reentry",
+    basisRef: basis.id,
+    currentProjectionRef: "runtime-projection://t152/reentry/0",
+    iterationOrdinal: 0,
+    basisProjectionRef: "basis-projection://t152/reentry/0",
+    priorIntentId: null,
+    causationRef: "event://t152/reentry/root",
+    correlationId: "correlation://t152/reentry/root",
+    observedStateRefs: ["observed-state://t152/reentry"],
+    linkedAssetRefs: ["asset://t152/source"],
+    actionCatalogRef: catalog.catalogRef,
+    authorityDigest: "sha256:t152-reentry-authority",
+    pressureRows: [pressure],
+    repairSurfaceTriageRows: [triage]
+  });
+  const binding = deriveObservationToActionBindingProjection({
+    observation,
+    actionCatalog: catalog,
+    availableInputRefs: []
+  });
+  const priority = deriveConstructionPriorityProjection({
+    observation,
+    actionCatalog: catalog,
+    bindingProjection: binding,
+    priorityScheme: constructConstructionPriorityScheme({
+      schemeRef: "priority-scheme://t152/reentry",
+      sourcePolicyRef: "policy://t152/reentry",
+      rules: []
+    }),
+    affectPolicies: []
+  });
+  const priorityRow = priority.rows[0];
+  assert.ok(priorityRow);
+  const candidate = constructConstructionIntentCandidate({
+    candidateId: "candidate://t152/reentry",
+    episodeId: EPISODE_ID,
+    rank: priorityRow.rankOrdinal,
+    valueScore: 10,
+    priorityScore: priorityRow.finalScore,
+    selectedActionRef: priorityRow.actionRef,
+    selectedBindingRef: priorityRow.bindingRef,
+    selectedOutcomeRef: priorityRow.targetOutcomeRef,
+    targetGraphFunctionRef: basis.graphFunction.id,
+    targetVectorRef: targetVector.id,
+    targetReentryRef: `graph-reentry-point://realization/${targetVectorIndex}`,
+    inputAssetRefs: action.inputAssetRefs,
+    expectedOutputAssetRefs: action.expectedOutputAssetRefs,
+    gapRefs: ["gap://t152/reentry"],
+    obligationRefs: ["obligation://t152/reentry"],
+    lawfulBasisRefs: triage.authorityRefs
+  });
+  const admission = admitConstructionIntentCandidate({
+    candidate,
+    observation,
+    actionCatalog: catalog,
+    bindingProjection: binding,
+    priorityProjection: priority
+  });
+  assert.ok(admission.admittedIntent);
+  return Object.freeze({ catalog, observation, binding, priority, admission });
+}
+
 function admittedConstructionEvents(world, basis) {
   return [
     constructionEvent("construction_episode_started", {
@@ -254,6 +384,10 @@ function admittedConstructionEvents(world, basis) {
       selectionPolicyRef: "policy://t128/priority"
     })
   ];
+}
+
+function canonicalRuntimeEvents(events) {
+  return emit(events, () => {});
 }
 
 test("T-128 construction runner consumes admitted intent and closes mixed F_P/F_D graph work from replay", () => {
@@ -427,6 +561,81 @@ test("T-128 construction runner consumes admitted intent and closes mixed F_P/F_
   assert.deepEqual(
     outcome.emittedEvents.map((event) => event.kind),
     emittedEvents.map((event) => event.kind)
+  );
+});
+
+test("T-152 construction runner applies admitted graph-vector re-entry before default traversal", () => {
+  const basis = buildThreeStageBasis({
+    defaultRegime: "F_D",
+    dispatchRef: null,
+    vectorRegimes: ["F_D", "F_D", "F_D"],
+    runId: "run://t152/reentry-runner",
+    workKey: "work-key://t152/reentry-runner"
+  });
+  const targetVectorIndex = 2;
+  const world = buildReentryConstructionWorld(basis, targetVectorIndex);
+  const emittedEvents = [];
+  const fdEdges = [];
+
+  const outcome = runConstructionIntentStep({
+    basis,
+    graphActionBasis: basis,
+    observation: world.observation,
+    admittedIntent: world.admission.admittedIntent,
+    admissions: [world.admission],
+    priorityProjection: world.priority,
+    actionCatalog: world.catalog,
+    constructionEvents: admittedConstructionEvents(world, basis),
+    graphRuntimeEvents: canonicalRuntimeEvents([
+      constructVectorClosedEvent({ basis, vectorIndex: 0, closureKind: "assessed" }),
+      constructVectorClosedEvent({ basis, vectorIndex: 1, closureKind: "assessed" }),
+      constructVectorClosedEvent({ basis, vectorIndex: 2, closureKind: "assessed" })
+    ]),
+    eventSink: (event) => {
+      emittedEvents.push(event);
+    },
+    graphRunnerPlugins: {
+      fdEvaluator: Object.freeze({
+        contract: fdEvaluatorContract("plugin://t152/fd"),
+        evaluate: (input) => {
+          fdEdges.push(input.edge);
+          return constructFdEvaluationOutcome({
+            status: "accepted",
+            evidenceRefs: [input.sourceProjectionRef]
+          });
+        }
+      }),
+      fpEvaluator: defaultFpEvaluatorPlugin
+    }
+  });
+
+  assert.equal(outcome.reentryAppliedEvent?.targetVectorIndex, targetVectorIndex);
+  assert.deepEqual(outcome.reentryAppliedEvent?.shadowedVectorIndexes, [2]);
+  assert.equal(outcome.deltaEvent.reentryMoved, true);
+  assert.equal(outcome.status, "closed");
+  assert.equal(outcome.graphActionResult.transition.kind, "terminal");
+  assert.equal(outcome.graphActionResult.transition.terminalKind, "converged");
+  assert.deepEqual(fdEdges, ["design→code"]);
+  assert.deepEqual(
+    emittedEvents.slice(0, 5).map((event) => event.kind),
+    [
+      "construction_pressure_package_materialized",
+      "construction_graph_action_invoked",
+      "basis_admitted",
+      "graph_reentry_planned",
+      "graph_reentry_applied"
+    ]
+  );
+  assert.equal(
+    outcome.graphActionResult.replayEvents.some(
+      (event) => event.kind === "graph_reentry_applied"
+    ),
+    true
+  );
+  assert.ok(
+    outcome.deltaEvent.runtimeEventRefs.some((ref) =>
+      ref.includes("graph_reentry_applied")
+    )
   );
 });
 

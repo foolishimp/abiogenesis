@@ -18,6 +18,7 @@ import {
   constructConstructionObservationSnapshot,
   constructConstructionPriorityRule,
   constructConstructionPriorityScheme,
+  constructConstructionRepairSurfaceTriageRow,
   constructObservationPressureRow,
   constructRuntimeFluent,
   deriveConstructionEventCalculusProjection,
@@ -290,7 +291,8 @@ function buildWorld(input = {}) {
     passedInputRefs: input.passedInputRefs ?? [],
     actionCatalogRef: catalog.catalogRef,
     authorityDigest: "sha256:t127-authority",
-    pressureRows: pressures
+    pressureRows: pressures,
+    repairSurfaceTriageRows: input.repairSurfaceTriageRows ?? []
   });
   const binding = deriveObservationToActionBindingProjection({
     observation,
@@ -399,6 +401,224 @@ test("T-127 binds obligation pressure to a lawful graph action and admits the se
     projection,
     summary: deriveConstructionProjectionSummary(projection)
   });
+});
+
+test("T-152 upstream repair-surface triage binds only to graph-vector re-entry intent", () => {
+  const sameEdgeRepair = graphAction({
+    actionRef: "action://repair/same-edge",
+    actionKind: "repair_same_edge",
+    graphVectorRef: "graph-vector://build-site/current",
+    refinementBoundaryRef: "refinement-boundary://build-site/current",
+    targetOutcomeRef: "outcome://upstream-reentry",
+    expectedOutputAssetRefs: ["asset://implementation/site"]
+  });
+  const reentryAction = graphAction({
+    actionRef: "action://reenter/design",
+    actionKind: "reenter_graph_span",
+    graphVectorRef: "graph-vector://build-site/design",
+    refinementBoundaryRef: "refinement-boundary://build-site/design",
+    targetOutcomeRef: "outcome://upstream-reentry",
+    expectedOutputAssetRefs: ["asset://implementation/site"],
+    requiredAuthorityRefs: [
+      "REQ-R-ABG3-ITERATION-009",
+      "REQ-R-ABG3-FPC-004B"
+    ]
+  });
+  const reentryPressure = pressure({
+    pressureRef: "pressure://triage/upstream-reentry",
+    pressureKind: "reentry_frontier",
+    sourceRef: "repair-surface-triage://t127/upstream-reentry",
+    affectedAssetRefs: ["asset://implementation/site"],
+    targetOutcomeRefs: ["outcome://upstream-reentry"],
+    authorityRefs: [
+      "REQ-R-ABG3-ITERATION-009",
+      "REQ-R-ABG3-FPC-004B"
+    ]
+  });
+  const triage = constructConstructionRepairSurfaceTriageRow({
+    triageRef: "repair-surface-triage://t127/upstream-reentry",
+    pressureRef: reentryPressure.pressureRef,
+    repairSurfaceDisposition: "upstream_reentry",
+    graphReentryPoint: "realization",
+    repairGraphFunctionRef: "graph-function://build-site",
+    repairGraphVectorRef: "graph-vector://build-site/design",
+    reentryTargetVectorIndex: 0,
+    repairAssetRef: "asset://implementation/site",
+    targetOutcomeRef: "outcome://upstream-reentry",
+    evidenceRefs: ["evidence://triage/upstream-reentry"],
+    authorityRefs: [
+      "REQ-R-ABG3-ITERATION-009",
+      "REQ-R-ABG3-FPC-004B"
+    ]
+  });
+  const world = buildWorld({
+    actions: [sameEdgeRepair, reentryAction],
+    pressures: [reentryPressure],
+    repairSurfaceTriageRows: [triage]
+  });
+
+  assert.deepEqual(
+    world.binding.rows.map((row) => row.actionRef),
+    ["action://reenter/design"]
+  );
+  assert.ok(
+    world.binding.rows[0].matchReasonRefs.includes(
+      "repair_surface:upstream_reentry"
+    )
+  );
+  assert.ok(
+    world.binding.rows[0].matchReasonRefs.includes(
+      "reentry_target_vector_index:0"
+    )
+  );
+  assert.equal(
+    world.binding.rows[0].targetReentryRef,
+    "graph-reentry-point://realization/0"
+  );
+
+  const admission = admitConstructionIntentCandidate({
+    candidate: candidateFor(world, {
+      targetReentryRef: "graph-reentry-point://realization/0",
+      lawfulBasisRefs: triage.authorityRefs
+    }),
+    observation: world.observation,
+    actionCatalog: world.catalog,
+    bindingProjection: world.binding,
+    priorityProjection: world.priority
+  });
+
+  assert.equal(admission.decision, "admitted");
+  assert.ok(admission.admittedIntent);
+  assert.equal(
+    admission.admittedIntent.selectedActionRef,
+    "action://reenter/design"
+  );
+  assert.equal(
+    admission.admittedIntent.selectedGraphFunctionRef,
+    "graph-function://build-site"
+  );
+  assert.equal(
+    admission.admittedIntent.selectedVectorRef,
+    "graph-vector://build-site/design"
+  );
+  assert.equal(
+    admission.admittedIntent.selectedReentryRef,
+    "graph-reentry-point://realization/0"
+  );
+
+  const projection = deriveConstructionProjection({
+    episodeId: EPISODE_ID,
+    priorityProjection: world.priority,
+    admissions: [admission],
+    actionCatalog: world.catalog
+  });
+  assert.equal(projection.publicState, "construction_progressing_yield");
+  assert.equal(projection.nextActionRef, "action://reenter/design");
+
+  const mismatchedReentryAdmission = admitConstructionIntentCandidate({
+    candidate: candidateFor(world, {
+      candidateId: "candidate://t127/mismatched-reentry",
+      targetReentryRef: "graph-reentry-point://proof/0",
+      lawfulBasisRefs: triage.authorityRefs
+    }),
+    observation: world.observation,
+    actionCatalog: world.catalog,
+    bindingProjection: world.binding,
+    priorityProjection: world.priority
+  });
+  assert.equal(mismatchedReentryAdmission.decision, "rejected");
+  assert.ok(
+    mismatchedReentryAdmission.rejectionReasonRefs.includes(
+      "target_reentry_ref_contradicts_binding"
+    )
+  );
+});
+
+test("T-152 upstream repair-surface triage with unbound vector identity does not fall back to same-edge repair", () => {
+  const sameEdgeRepair = graphAction({
+    actionRef: "action://repair/same-edge",
+    actionKind: "repair_same_edge",
+    graphVectorRef: "graph-vector://build-site/current",
+    refinementBoundaryRef: "refinement-boundary://build-site/current",
+    targetOutcomeRef: "outcome://upstream-reentry",
+    expectedOutputAssetRefs: ["asset://implementation/site"]
+  });
+  const reentryAction = graphAction({
+    actionRef: "action://reenter/design",
+    actionKind: "reenter_graph_span",
+    graphVectorRef: "graph-vector://build-site/design",
+    refinementBoundaryRef: "refinement-boundary://build-site/design",
+    targetOutcomeRef: "outcome://upstream-reentry",
+    expectedOutputAssetRefs: ["asset://implementation/site"]
+  });
+  const reentryPressure = pressure({
+    pressureRef: "pressure://triage/unbound-reentry",
+    pressureKind: "reentry_frontier",
+    sourceRef: "repair-surface-triage://t127/unbound-reentry",
+    affectedAssetRefs: ["asset://implementation/site"],
+    targetOutcomeRefs: ["outcome://upstream-reentry"]
+  });
+  const triage = constructConstructionRepairSurfaceTriageRow({
+    triageRef: "repair-surface-triage://t127/unbound-reentry",
+    pressureRef: reentryPressure.pressureRef,
+    repairSurfaceDisposition: "upstream_reentry",
+    graphReentryPoint: "realization",
+    repairGraphFunctionRef: "graph-function://build-site",
+    repairGraphVectorRef: "graph-vector://build-site/missing",
+    reentryTargetVectorIndex: 0,
+    repairAssetRef: "asset://implementation/site",
+    targetOutcomeRef: "outcome://upstream-reentry"
+  });
+  const world = buildWorld({
+    actions: [sameEdgeRepair, reentryAction],
+    pressures: [reentryPressure],
+    repairSurfaceTriageRows: [triage]
+  });
+
+  assert.deepEqual(world.binding.rows, []);
+  assert.deepEqual(world.priority.rows, []);
+
+  const rejectedAdmission = admitConstructionIntentCandidate({
+    candidate: constructConstructionIntentCandidate({
+      candidateId: "candidate://t127/unbound-reentry",
+      episodeId: EPISODE_ID,
+      rank: 0,
+      selectedActionRef: reentryAction.actionRef,
+      selectedBindingRef: [
+        "construction-binding",
+        EPISODE_ID,
+        reentryPressure.pressureRef,
+        reentryAction.actionRef
+      ].join(":"),
+      selectedOutcomeRef: reentryAction.targetOutcomeRef,
+      targetGraphFunctionRef: reentryAction.graphFunctionRef,
+      targetVectorRef: reentryAction.graphVectorRef,
+      targetReentryRef: "graph-reentry-point://realization/0",
+      inputAssetRefs: reentryAction.inputAssetRefs,
+      expectedOutputAssetRefs: reentryAction.expectedOutputAssetRefs,
+      lawfulBasisRefs: ["REQ-R-ABG3-FPC-004B"]
+    }),
+    observation: world.observation,
+    actionCatalog: world.catalog,
+    bindingProjection: world.binding,
+    priorityProjection: world.priority
+  });
+
+  assert.equal(rejectedAdmission.decision, "rejected");
+  assert.ok(
+    rejectedAdmission.rejectionReasonRefs.includes(
+      "candidate_without_observation_action_binding"
+    )
+  );
+
+  const projection = deriveConstructionProjection({
+    episodeId: EPISODE_ID,
+    priorityProjection: world.priority,
+    admissions: [rejectedAdmission],
+    actionCatalog: world.catalog
+  });
+  assert.equal(projection.publicState, "construction_blocked");
+  assert.equal(projection.nextActionRef, null);
 });
 
 test("T-127 graph-action invocation events derive only from admitted construction intent", () => {
