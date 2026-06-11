@@ -892,11 +892,22 @@ Validation on 2026-06-12:
 - `npm run test:semantic` passed 787/787.
 - `git diff --check` passed.
 
+Release snapshot on 2026-06-12:
+
+- Source cut committed as `56eddda437573895eca67f92f2878ea9f60e44dc`
+  with package identity `@abiogenesis/typescript-tenant@4.0.0-rc.16`.
+- Snapshot created at
+  `release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.16/`.
+- `release_snapshots/abiogenesis-typescript-tenant/latest` now resolves to
+  `4.0.0-rc.16`.
+- Tarball SHA256:
+  `43e5e932bcd9f6914572167e0ed0f4acc82d17355a93586ccf38f873667c2d66`.
+
 Current non-closure:
 
-- A downstream consumer must still consume the strengthened ABG function from a
-  released package and supply production graph/prompt/plugin/overlay/start/
-  target-carrier/source-identity inventory rows.
+- A downstream consumer must still consume `4.0.0-rc.16` and supply production
+  graph/prompt/plugin/overlay/start/target-carrier/source-identity inventory
+  rows.
 - A clean downstream live lane must still pass against that released ABG
   package and ABG command/control path.
 - A production downstream inventory proof must still show that no local
