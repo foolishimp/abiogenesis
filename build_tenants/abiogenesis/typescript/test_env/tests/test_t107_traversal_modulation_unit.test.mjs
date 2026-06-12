@@ -79,6 +79,22 @@ function hookEntry(key, input) {
   if (input.maxItemCount !== undefined) {
     configEntries.push(scalarEntry("max_item_count", input.maxItemCount));
   }
+  if (input.sameEdgeUntil !== undefined) {
+    configEntries.push(scalarEntry("same_edge_until", input.sameEdgeUntil));
+  }
+  if (input.maxAttemptsWithoutNewSignal !== undefined) {
+    configEntries.push(
+      scalarEntry(
+        "max_attempts_without_new_signal",
+        input.maxAttemptsWithoutNewSignal
+      )
+    );
+  }
+  if (input.maxTotalAttempts !== undefined) {
+    configEntries.push(
+      scalarEntry("max_total_attempts", input.maxTotalAttempts)
+    );
+  }
   if (input.orderingConstraintRefs !== undefined) {
     configEntries.push(
       stringListEntry("ordering_constraint_refs", input.orderingConstraintRefs)
@@ -440,6 +456,95 @@ test("T-107 strategy labels are descriptive; ABG enforces primitives and schedul
 
   assert.deepEqual(selections[0], selections[1]);
   assert.deepEqual(selections[0], ["schedule://1", "schedule://2"]);
+});
+
+test("T-107 GTL traversal strategy hook config carries continuation budget into attempt envelope", () => {
+  const basis = buildThreeStageBasis();
+  const vector = withVectorDeclarations(
+    basis,
+    attrs([
+      hookEntry("abg.traversal_strategy", {
+        ref: "strategy://odd_sdlc/deep-codegen",
+        label: "full_breadth",
+        primitives: ["bounded_batch"],
+        maxAttemptsWithoutNewSignal: 1,
+        maxTotalAttempts: 8
+      })
+    ])
+  );
+  const profile = deriveTraversalModulationProfileFromGtl({
+    basis,
+    vector,
+    graphFunction: withGraphFunctionDeclarations(basis, attrs()),
+    vectorIndex: 0,
+    backendProfile: backendProfile(),
+    obligationScheduleRefs: ["schedule://1", "schedule://2"],
+    batch: { targetItemCount: 2, maxItemCount: 2 },
+    progressContract: {
+      progressArtifactRequired: true,
+      allowedProgressArtifactKinds: ["progress_report"]
+    }
+  });
+  const envelope = deriveTraversalAttemptEnvelope({
+    basis,
+    profile,
+    actorInvocationId: "actor://t107/deep-codegen",
+    retryBudgetRemaining: profile.continuation.maxTotalAttempts - 3
+  });
+
+  assert.equal(profile.continuation.sameEdgeUntil, "foldback_closed");
+  assert.equal(profile.continuation.maxAttemptsWithoutNewSignal, 1);
+  assert.equal(profile.continuation.maxTotalAttempts, 8);
+  assert.equal(envelope.retryBudgetRemaining, 5);
+});
+
+test("T-107 explicit runtime continuation overrides GTL traversal strategy defaults", () => {
+  const profile = buildProfile({
+    vectorAttrs: attrs([
+      hookEntry("abg.traversal_strategy", {
+        ref: "strategy://odd_sdlc/deep-codegen",
+        label: "full_breadth",
+        primitives: ["bounded_batch"],
+        maxTotalAttempts: 8
+      })
+    ]),
+    continuation: {
+      sameEdgeUntil: "retry_budget_exhausted",
+      maxAttemptsWithoutNewSignal: 2,
+      maxTotalAttempts: 4
+    }
+  });
+
+  assert.equal(profile.continuation.sameEdgeUntil, "retry_budget_exhausted");
+  assert.equal(profile.continuation.maxAttemptsWithoutNewSignal, 2);
+  assert.equal(profile.continuation.maxTotalAttempts, 4);
+});
+
+test("T-107 malformed GTL traversal continuation config fails closed", () => {
+  const basis = buildThreeStageBasis();
+  const vector = withVectorDeclarations(
+    basis,
+    attrs([
+      hookEntry("abg.traversal_strategy", {
+        ref: "strategy://odd_sdlc/bad-continuation",
+        label: "bad_continuation",
+        primitives: ["bounded_batch"],
+        sameEdgeUntil: "until_everything_feels_done"
+      })
+    ])
+  );
+
+  assert.throws(
+    () =>
+      deriveTraversalModulationProfileFromGtl({
+        basis,
+        vector,
+        graphFunction: withGraphFunctionDeclarations(basis, attrs()),
+        vectorIndex: 0,
+        backendProfile: backendProfile()
+      }),
+    /Unsupported sameEdgeUntil/
+  );
 });
 
 test("T-107 agent-proposed slices require admission evidence", () => {

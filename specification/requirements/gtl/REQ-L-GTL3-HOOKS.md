@@ -34,7 +34,7 @@ semantic language.
 
 **REQ-L-GTL3-HOOKS-010**: Traversal modulation shall be declared as governance hook/config truth, not as hidden runtime configuration or prompt prose. `GraphVector.declarations` is the primary edge-traversal qualifier surface; `GraphFunction.declarations` and `Role.policy_hooks` may provide defaults by explicit precedence.
 
-**REQ-L-GTL3-HOOKS-011**: Traversal modulation hook configuration may carry strategy owner refs, descriptive strategy labels, scheduling primitive refs, obligation schedule refs, ordering constraints, phase gates, and bounded batch parameters, but GTL shall not define downstream product strategy semantics such as steel-thread or waterfall as language law.
+**REQ-L-GTL3-HOOKS-011**: Traversal modulation hook configuration may carry strategy owner refs, descriptive strategy labels, scheduling primitive refs, obligation schedule refs, ordering constraints, phase gates, bounded batch parameters, and bounded same-edge continuation parameters, but GTL shall not define downstream product strategy semantics such as steel-thread or waterfall as language law.
 
 **REQ-L-GTL3-HOOKS-012**: A published GTL surface may declare `abg.fp_consciousness` hook/config truth for generic `F_P` construction evaluation. The hook may declare refs and opaque config for observation adaptation, action-catalog adaptation, observation-to-action binding, construction priority scheme, affect priority policy, construction-intent admissibility, value scoring, progress classification, escalation, and intent rendering, while ABG remains the runtime admission and projection owner. Affect priority adjustments are ABG-derived projection rows, not GTL-emitted authority.
 

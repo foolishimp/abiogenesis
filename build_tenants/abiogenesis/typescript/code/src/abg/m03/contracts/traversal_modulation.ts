@@ -79,7 +79,10 @@ export const TRAVERSAL_MODULATION_CONFIG_KEY_VALUES = Object.freeze([
   "phase_gate_refs",
   "target_item_count",
   "max_item_count",
-  "max_token_pressure"
+  "max_token_pressure",
+  "same_edge_until",
+  "max_attempts_without_new_signal",
+  "max_total_attempts"
 ] as const);
 
 export const TRAVERSAL_ATTEMPT_PROGRESS_OUTCOME_VALUES = Object.freeze([
@@ -153,6 +156,7 @@ export interface TraversalStrategyDirective {
   readonly orderingConstraintRefs: readonly string[];
   readonly phaseGateRefs: readonly string[];
   readonly batch: TraversalModulationBatch;
+  readonly continuation: TraversalContinuationContract;
 }
 
 export interface TraversalModulationGtlQualifierResolution {
@@ -185,6 +189,7 @@ export interface TraversalStrategySelection {
   readonly orderingConstraintRefs: readonly string[];
   readonly phaseGateRefs: readonly string[];
   readonly batch: TraversalModulationBatch;
+  readonly continuation: TraversalContinuationContract;
   readonly configDigest: string;
 }
 
@@ -479,6 +484,22 @@ function configScalarString(
   return value.value;
 }
 
+function configOptionalScalarString(
+  attrs: SerializedAttrs,
+  key: string,
+  label: string
+): string | undefined {
+  const value = attrValueForKey(attrs, key);
+  if (value === null) {
+    return undefined;
+  }
+  if (value.kind !== "scalar" || typeof value.value !== "string") {
+    throw new TypeError(`${label}.${key} must be a scalar string`);
+  }
+  assertNonEmptyString(value.value, `${label}.${key}`);
+  return value.value;
+}
+
 function configOptionalNonNegativeInteger(
   attrs: SerializedAttrs,
   key: string,
@@ -519,6 +540,21 @@ function configStringList(
   });
 }
 
+function configOptionalSameEdgeUntil(
+  attrs: SerializedAttrs,
+  key: string,
+  label: string
+): TraversalContinuationContract["sameEdgeUntil"] | undefined {
+  const value = configOptionalScalarString(attrs, key, label);
+  if (value === undefined) {
+    return undefined;
+  }
+  if (value !== "foldback_closed" && value !== "retry_budget_exhausted") {
+    throw new TypeError(`Unsupported sameEdgeUntil ${JSON.stringify(value)}`);
+  }
+  return value;
+}
+
 function batchFromHookConfig(attrs: SerializedAttrs): TraversalModulationBatch {
   const targetItemCount = configOptionalNonNegativeInteger(
     attrs,
@@ -539,6 +575,33 @@ function batchFromHookConfig(attrs: SerializedAttrs): TraversalModulationBatch {
     ...(targetItemCount === undefined ? {} : { targetItemCount }),
     ...(maxItemCount === undefined ? {} : { maxItemCount }),
     ...(maxTokenPressure === undefined ? {} : { maxTokenPressure })
+  });
+}
+
+function continuationFromHookConfig(
+  attrs: SerializedAttrs
+): Partial<TraversalContinuationContract> {
+  const sameEdgeUntil = configOptionalSameEdgeUntil(
+    attrs,
+    "same_edge_until",
+    "TraversalStrategyDirective"
+  );
+  const maxAttemptsWithoutNewSignal = configOptionalNonNegativeInteger(
+    attrs,
+    "max_attempts_without_new_signal",
+    "TraversalStrategyDirective"
+  );
+  const maxTotalAttempts = configOptionalNonNegativeInteger(
+    attrs,
+    "max_total_attempts",
+    "TraversalStrategyDirective"
+  );
+  return Object.freeze({
+    ...(sameEdgeUntil === undefined ? {} : { sameEdgeUntil }),
+    ...(maxAttemptsWithoutNewSignal === undefined
+      ? {}
+      : { maxAttemptsWithoutNewSignal }),
+    ...(maxTotalAttempts === undefined ? {} : { maxTotalAttempts })
   });
 }
 
@@ -620,7 +683,8 @@ function directiveFromHook(match: TraversalHookMatch): TraversalStrategyDirectiv
     obligationScheduleRefs,
     orderingConstraintRefs,
     phaseGateRefs,
-    batch: batchFromHookConfig(config)
+    batch: batchFromHookConfig(config),
+    continuation: continuationFromHookConfig(config)
   });
 }
 
@@ -949,6 +1013,7 @@ export function admitTraversalStrategyDirective(input: {
   readonly orderingConstraintRefs?: readonly string[];
   readonly phaseGateRefs?: readonly string[];
   readonly batch?: TraversalModulationBatch;
+  readonly continuation?: Partial<TraversalContinuationContract>;
 }): TraversalStrategyDirective {
   assertNonEmptyString(input.directiveRef, "TraversalStrategyDirective.directiveRef");
   assertNonEmptyString(
@@ -980,7 +1045,8 @@ export function admitTraversalStrategyDirective(input: {
       input.phaseGateRefs,
       "TraversalStrategyDirective.phaseGateRefs"
     ),
-    batch: batchWithDefaults(input.batch)
+    batch: batchWithDefaults(input.batch),
+    continuation: continuationWithDefaults(input.continuation)
   } satisfies TraversalStrategyDirective);
 }
 
@@ -995,7 +1061,8 @@ function directiveFromSelection(
     obligationScheduleRefs: selection.obligationScheduleRefs,
     orderingConstraintRefs: selection.orderingConstraintRefs,
     phaseGateRefs: selection.phaseGateRefs,
-    batch: selection.batch
+    batch: selection.batch,
+    continuation: selection.continuation
   });
 }
 
@@ -1082,6 +1149,7 @@ function selectionFromDirective(input: {
     orderingConstraintRefs: directive.orderingConstraintRefs,
     phaseGateRefs: directive.phaseGateRefs,
     batch: directive.batch,
+    continuation: directive.continuation,
     configDigest
   } satisfies TraversalStrategySelection);
 }
@@ -1231,7 +1299,7 @@ export function deriveTraversalModulationProfileFromGtl(input: Omit<
     ...(input.progressContract !== undefined
       ? { progressContract: input.progressContract }
       : {}),
-    ...(input.continuation !== undefined ? { continuation: input.continuation } : {}),
+    continuation: input.continuation ?? selection.continuation,
     ...(input.profileRef !== undefined ? { profileRef: input.profileRef } : {})
   } satisfies TraversalModulationProfileInput;
   return deriveTraversalModulationProfile(profileInput);

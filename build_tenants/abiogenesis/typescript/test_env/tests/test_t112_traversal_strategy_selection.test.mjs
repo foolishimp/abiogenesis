@@ -123,7 +123,8 @@ function directiveFromSelection(selection) {
     obligationScheduleRefs: selection.obligationScheduleRefs,
     orderingConstraintRefs: selection.orderingConstraintRefs,
     phaseGateRefs: selection.phaseGateRefs,
-    batch: selection.batch
+    batch: selection.batch,
+    continuation: selection.continuation
   });
 }
 
