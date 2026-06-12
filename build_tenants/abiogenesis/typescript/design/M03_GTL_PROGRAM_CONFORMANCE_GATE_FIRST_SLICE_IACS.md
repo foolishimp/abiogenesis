@@ -78,6 +78,42 @@ separate pass/fail truth.
 | `GtlProgramSourceIdentityRow` | subordinate under `GtlProgramConformanceInput` | source text is scanned for identity drift but does not become source authority |
 | raw plugin contract rows | subordinate under `GtlProgramConformanceInput` | plugins are boundary inventory; engine authority remains denied by ABG plugin admission |
 
+## Runtime Re-Entry Inventory Boundary
+
+T-152 also verifies that a downstream program inventory exposes enough runtime
+re-entry truth for ABG to route nonlocal repair pressure after the static gate
+admits the program. That inventory is static proof of available ABG surfaces,
+not a second execution law.
+
+`ConsequenceTraversalAction` is therefore not an eighth prime conformance-gate
+carrier. It is a runtime-authorship adjunct under the M03 construction and
+continuation designs. The static gate proves the necessary plugin, graph-vector,
+target-carrier, overlay, and re-entry route rows exist; runtime execution occurs
+only when an admitted `ConsequenceProjectionOutcome` carries an admitted
+`ConsequenceTraversalAction` and the engine projects it into:
+
+1. `ConstructionActionRow`
+2. `ConstructionObservationSnapshot` pressure and upstream-reentry triage
+3. `ObservationToActionBindingProjection`
+4. `ConstructionPriorityProjection`
+5. `ConstructionIntentCandidate`
+6. `ConstructionIntentAdmission`
+7. `AdmittedConstructionIntent`
+8. `ConstructionGraphActionInvocation`
+
+The bridge rejects engine-authority payloads at consequence-action admission,
+requires absolute `graph-reentry-point://<GraphReentryPoint>/<vectorIndex>`
+targets for `reenter_graph_span`, preserves `graphSpanRef` as provenance in the
+construction observation/action/intent surfaces, and invokes the selected action
+through the construction runner. The runner records construction events,
+`graph_reentry_planned`, `graph_reentry_applied`, graph runtime events, and
+`construction_delta_observed` as replay-visible truth before deriving the next
+projection.
+
+The gate may report that the route inventory is present. It must not infer that
+a product is allowed to issue private cursor moves, local retry loops, or
+product-owned re-entry events.
+
 ## Deterministic Observation Rule
 
 Only features with first-class graph/algebra carriers or first-class inventory
@@ -121,4 +157,3 @@ ticket admits first-class inventory fields for that feature.
 | inventory identity | inventory digests | report ref changes when audited inventory changes |
 | target-carrier law | target row subordinate payload | lossy target-carrier rows fail closed |
 | source identity law | source identity row subordinate payload | stale active ABG identity forms fail closed |
-

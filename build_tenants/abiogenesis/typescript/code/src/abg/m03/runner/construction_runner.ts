@@ -149,6 +149,24 @@ export interface ConstructionIntentRunnerRequest {
   readonly graphRuntimeEvents?: readonly RuntimeEvent[] | undefined;
   readonly graphRunnerPlugins?: EngineIterateRequest["plugins"] | undefined;
   readonly maxAttachedFpAttempts?: number | undefined;
+  readonly graphAssuranceProvider?:
+    | EngineIterateRequest["assuranceProvider"]
+    | undefined;
+  readonly graphTargetCarrierDefaults?:
+    | EngineIterateRequest["targetCarrierDefaults"]
+    | undefined;
+  readonly graphAbgFallbackBundle?:
+    | EngineIterateRequest["abgFallbackBundle"]
+    | undefined;
+  readonly graphEdgeAssuranceDefaults?:
+    | EngineIterateRequest["edgeAssuranceDefaults"]
+    | undefined;
+  readonly graphPluginTraversalObserverFallbackEnabled?:
+    | EngineIterateRequest["pluginTraversalObserverFallbackEnabled"]
+    | undefined;
+  readonly graphPluginTraversalObserverFallbackKinds?:
+    | EngineIterateRequest["pluginTraversalObserverFallbackKinds"]
+    | undefined;
 }
 
 function maxConstructionEventSequence(events: readonly RuntimeEvent[]): number {
@@ -614,6 +632,14 @@ export function runConstructionEffectPlan(input: {
     eventSink: request.eventSink,
     plugins: request.graphRunnerPlugins,
     maxAttachedFpAttempts: request.maxAttachedFpAttempts,
+    assuranceProvider: request.graphAssuranceProvider,
+    targetCarrierDefaults: request.graphTargetCarrierDefaults,
+    abgFallbackBundle: request.graphAbgFallbackBundle,
+    edgeAssuranceDefaults: request.graphEdgeAssuranceDefaults,
+    pluginTraversalObserverFallbackEnabled:
+      request.graphPluginTraversalObserverFallbackEnabled,
+    pluginTraversalObserverFallbackKinds:
+      request.graphPluginTraversalObserverFallbackKinds,
     constructionPressurePackage: planDerivation.plan.pressurePackage
   });
   const deltaEvent = deriveConstructionDeltaFromGraphResult({

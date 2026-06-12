@@ -832,6 +832,17 @@ export type {
   ObservationToActionBindingProjection,
   ObservationToActionBindingRow
 } from "./fp_consciousness.js";
+export {
+  CONSEQUENCE_TRAVERSAL_ACTION_KIND_VALUES,
+  admitConsequenceTraversalAction,
+  constructConsequenceTraversalAction,
+  constructConstructionActionRowFromConsequenceTraversalAction,
+  constructConstructionIntentCandidateFromConsequenceTraversalAction
+} from "./consequence_traversal_action.js";
+export type {
+  ConsequenceTraversalAction,
+  ConsequenceTraversalActionKind
+} from "./consequence_traversal_action.js";
 export { deriveRuntimeAggregateProjection } from "./projection.js";
 export {
   admitOutputWorkspaceBinding,

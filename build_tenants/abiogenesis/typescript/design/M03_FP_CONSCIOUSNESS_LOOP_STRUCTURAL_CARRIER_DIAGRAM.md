@@ -94,6 +94,26 @@ classDiagram
     -candidateSetDigest
   }
 
+  class ConsequenceProjectionOutcome {
+    <<effect-edge>>
+    <<subordinate>>
+    -consequenceRef
+    -domainReadModelRefs
+    -traversalActionRef
+  }
+
+  class ConsequenceTraversalAction {
+    <<effect-edge>>
+    <<subordinate>>
+    -actionRef
+    -actionKind
+    -selectedGraphFunctionRef
+    -graphVectorRef
+    -graphSpanRef
+    -reentryTargetRef
+    -requiredAuthorityRefs
+  }
+
   class ConstructionIntentCandidate {
     <<subordinate>>
     <<authoritative>>
@@ -305,6 +325,9 @@ classDiagram
   ConstructionEvaluatorInput --> ConstructionActionCatalogProjection
   ConstructionEvaluatorInput --> ConstructionPriorityProjection
   ConstructionEvaluatorOutcome *-- ConstructionIntentCandidate
+  ConsequenceProjectionOutcome *-- ConsequenceTraversalAction
+  ConsequenceTraversalAction --> ConstructionActionRow : projects to
+  ConsequenceTraversalAction --> ConstructionIntentCandidate : projects to
   ConstructionIntentAdmission --> ConstructionIntentCandidate
   AdmittedConstructionIntent --> ConstructionIntentAdmission
   AdmittedConstructionIntent --> ConstructionActionRow
@@ -344,6 +367,9 @@ flowchart TD
   EvalInput[ConstructionEvaluatorInput]
   Plugin[F_P construction evaluator plugin]
   Outcome[ConstructionEvaluatorOutcome]
+  ConsequencePlugin[Consequence.C plugin]
+  Consequence[ConsequenceProjectionOutcome]
+  TraversalAction[ConsequenceTraversalAction]
   Candidates[ConstructionIntentCandidate ranked set]
   Admission[ConstructionIntentAdmission]
   Intent[AdmittedConstructionIntent]
@@ -376,6 +402,11 @@ flowchart TD
   EvalInput --> Plugin
   Plugin --> Outcome
   Outcome --> Candidates
+  Projection --> ConsequencePlugin
+  ConsequencePlugin --> Consequence
+  Consequence --> TraversalAction
+  TraversalAction --> Catalog
+  TraversalAction --> Candidates
   Candidates --> Admission
   Admission --> Intent
   Admission --> Public
@@ -464,6 +495,8 @@ sequenceDiagram
 - `ConstructionProjection` is the public next-action authority for a
   construction episode.
 - `ConstructionIntentCandidate` is product evaluator intent, not runtime truth.
+- `ConsequenceTraversalAction` is consequence-stage selection intent admitted by
+  ABG and projected into construction carriers. It is not direct runtime truth.
 - `AdmittedConstructionIntent` is ABG runtime authority to invoke one graph
   action.
 - `TypedAssetGapProjection` is a public read-only evaluator preview. It may

@@ -188,6 +188,18 @@ continuation disposition with `graph_reentry` reason. Downstream products cite
 `transitionProjection.projectionRef`, not plan refs, frontier refs, or
 locally-authored default-iteration strings.
 
+T-152 adds the runner-consumed bridge from consequence selection to this
+runtime surface. A consequence plugin may return an admitted
+`ConsequenceTraversalAction`; ABG then projects that selection into construction
+observation, action catalog, binding, priority, intent candidate, and admitted
+construction intent before invoking `runConstructionIntentStep(...)`. The
+construction runner applies `graph_reentry_planned` and
+`graph_reentry_applied` before ordinary retry or default traversal fallback, and
+the nested graph runner derives continuation from replay. The consequence
+outcome therefore carries intent to select a route, while ABG remains the only
+owner of cursor movement, graph-span re-entry events, transition refs, and
+projection truth.
+
 ```mermaid
 flowchart TD
   Product[Downstream target resume intent] --> Route[ABG applyExplicitGraphVectorResumeCursor]

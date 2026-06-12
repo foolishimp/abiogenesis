@@ -56,11 +56,15 @@ affected_boundary:
     - build_tenants/abiogenesis/typescript/design/README.md
     - build_tenants/abiogenesis/typescript/design/M03_GTL_PROGRAM_CONFORMANCE_GATE_FIRST_SLICE_IACS.md
     - build_tenants/abiogenesis/typescript/design/M03_GTL_PROGRAM_CONFORMANCE_GATE_STRUCTURAL_CARRIER_DIAGRAM.md
+    - build_tenants/abiogenesis/typescript/design/M03_FP_CONSCIOUSNESS_LOOP_FIRST_SLICE_IACS.md
+    - build_tenants/abiogenesis/typescript/design/M03_FP_CONSCIOUSNESS_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md
+    - build_tenants/abiogenesis/typescript/design/M03_RUNTIME_CONTINUATION_TRANSITION_DERIVATION.md
     - build_tenants/common/design/modules/M03-engine-kernel.yml
   realization:
     - build_tenants/abiogenesis/typescript/code/src/abg/m03/contracts/gtl_program_conformance.ts
     - build_tenants/abiogenesis/typescript/code/src/abg/m03/contracts/construction_intent.ts
     - build_tenants/abiogenesis/typescript/code/src/abg/m03/contracts/graph_span_reentry.ts
+    - build_tenants/abiogenesis/typescript/code/src/abg/m03/contracts/consequence_traversal_action.ts
     - build_tenants/abiogenesis/typescript/code/src/abg/m03/contracts/iteration_state_action.ts
     - build_tenants/abiogenesis/typescript/code/src/abg/m03/contracts/index.ts
     - build_tenants/abiogenesis/typescript/code/src/abg/m03/runner/engine_runner.ts
@@ -76,7 +80,8 @@ affected_boundary:
     - build_tenants/abiogenesis/typescript/test_env/tests/test_t127_fp_consciousness_loop_unit.test.mjs
     - build_tenants/abiogenesis/typescript/test_env/tests/test_t139_construction_pressure_package.test.mjs
     - build_tenants/abiogenesis/typescript/test_env/tests/test_t149_iteration_state_action_algebra.test.mjs
-target_truth: Downstream GTL/ABG programs are admitted through one ABG-owned programmatic API, `typecheckGtlProgram(...)`, with `admitGtlProgramConformanceInput(...)` as its raw-input gate and `abiogenesis-ts typecheck-gtl-program` as a thin CLI wrapper. The function evaluates the supplied GTL program inventory against GTL graph interface law, graph-vector identity law, target-carrier row law, closure row law, prompt AssetSurface view law where the downstream row declares a prompt invocation asset, supplied plugin/public-start/overlay row law, active source identity law, feature-coverage owner law, expected coverage, and the runtime re-entry surfaces needed to route nonlocal repair pressure through ABG construction intent and graph-vector re-entry. Report identity is evidence-bound to the normalized audited inventory. Features without first-class inventory fields remain explicit manifest attestations until this ticket admits those fields.
+    - build_tenants/abiogenesis/typescript/test_env/tests/test_t152_consequence_traversal_action_bridge.test.mjs
+target_truth: Downstream GTL/ABG programs are admitted through one ABG-owned programmatic API, `typecheckGtlProgram(...)`, with `admitGtlProgramConformanceInput(...)` as its raw-input gate and `abiogenesis-ts typecheck-gtl-program` as a thin CLI wrapper. The function evaluates the supplied GTL program inventory against GTL graph interface law, graph-vector identity law, target-carrier row law, closure row law, prompt AssetSurface view law where the downstream row declares a prompt invocation asset, supplied plugin/public-start/overlay row law, active source identity law, feature-coverage owner law, expected coverage, and the runtime re-entry surfaces needed to route nonlocal repair pressure through ABG construction intent and graph-vector re-entry. Consequence projection may carry an admitted traversal action selection, but ABG rejects authority-owning payloads and the engine consumes the selection only after projecting it into construction observation, action, binding, priority, and admitted construction-intent carriers. `ConsequenceTraversalAction` is a runtime-authorship adjunct under M03 construction/continuation design, not an extra prime carrier of the static conformance gate. Report identity is evidence-bound to the normalized audited inventory. Features without first-class inventory fields remain explicit manifest attestations until this ticket admits those fields.
 superseded_truth: Downstream products can prove GTL/ABG graph conformance by local scans, prompt prose, method-in-context, or partial inventories that pass when omitted.
 closure_law: This ticket closes only when the TypeScript source is tracked, exported, buildable, callable programmatically, callable through the CLI wrapper, and tested against empty/partial inventories, malformed raw input, unsatisfied graph dependencies, duplicate target/closure rows, duplicate display labels with distinct opaque vector identity, current ABG engine-authority flag bypasses, prompt asset row completeness, plugin admission, exact ABI package version, stale active ABG identity, evidence-bound report identity, stage-compute composition contracts binding `transform.C`, `evaluate.C`, and `consequence.C` to selected `F_D`/`F_P`/`F_H` regime participation and governed plugin contracts, runtime re-entry inventory proving nonlocal repair-surface pressure can select `reenter_graph_span` through admitted construction intent and existing `GraphReentryPoint` plus target-vector identity, and a downstream-shaped production graph-asset inventory gate.
 non_closure_conditions:
@@ -163,6 +168,15 @@ This is a hard admission/typecheck boundary for current GTL/ABG program shape.
   `actionKind = reenter_graph_span` rather than defaulting to same-edge retry.
 - [x] The ABG engine applies the selected graph-vector re-entry before ordinary
   retry fallback and records replay-visible transition/progress truth.
+- [x] Consequence projection admits an optional typed traversal action selection
+  and rejects nested engine-authority payloads such as runtime events,
+  projection ownership, or traversal-selection flags.
+- [x] A consequence-selected depth/re-entry action projects into construction
+  action and admitted construction intent, then ABG executes the selected graph
+  re-entry with replay-visible provenance and foldback evidence.
+- [x] The engine runner consumes `ConsequenceProjectionOutcome.traversalAction`
+  through the construction runner rather than requiring a caller or test harness
+  to manually invoke the bridge.
 
 ## T-153 Feature-Coverage Checklist
 
@@ -860,11 +874,13 @@ Proof requirements:
 - Construction projection unit proof complete: the admitted re-entry intent
   projects `construction_progressing_yield` and the selected
   `reenter_graph_span` action ref without downstream product loop state.
-- Runner proof complete: an active construction episode applies graph-vector
-  re-entry before default same-edge retry. The focused sandbox starts from a
-  fully replayed three-vector graph, admits `reenter_graph_span` for the
-  code-generation vector, shadows the prior code-vector closure, and runs only
-  the selected `design->code` vector through the graph engine.
+- Runner proof complete: the engine runner consumes a consequence-selected
+  traversal action without caller glue. The focused regression first closes a
+  three-vector graph, admits `reenter_graph_span` from the consequence stage,
+  projects it through construction observation, action catalog, binding,
+  priority, admitted intent, and `runConstructionIntentStep(...)`, applies
+  `graph_reentry_applied` to the upstream design span, and replays that span
+  plus its downstream code edge through the graph engine.
 - Replay-visible transition proof complete: the runner emits
   `graph_reentry_planned` and `graph_reentry_applied` before engine iteration,
   includes `graph_reentry_applied` in graph replay, and records the transition
@@ -891,6 +907,37 @@ Validation on 2026-06-12:
 - `npm run lint:semantic` passed.
 - `npm run test:semantic` passed 787/787.
 - `git diff --check` passed.
+
+Runner-consumption correction on 2026-06-12:
+
+- Design ownership was made explicit in
+  `M03_GTL_PROGRAM_CONFORMANCE_GATE_FIRST_SLICE_IACS.md`,
+  `M03_FP_CONSCIOUSNESS_LOOP_FIRST_SLICE_IACS.md`,
+  `M03_FP_CONSCIOUSNESS_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md`, and
+  `M03_RUNTIME_CONTINUATION_TRANSITION_DERIVATION.md`. The static gate owns
+  inventory proof; M03 construction/continuation owns runtime consumption.
+- `engine_runner.ts` now consumes
+  `ConsequenceProjectionOutcome.traversalAction` by building construction
+  observation/action/binding/priority/intent carriers and invoking
+  `runConstructionIntentStep(...)`.
+- `construction_runner.ts` now carries the caller's graph-runner plugins,
+  assurance provider, target-carrier defaults, fallback bundle, edge assurance
+  defaults, and plugin traversal observer settings into the nested graph action.
+- `consequence_traversal_action.ts` now preserves `graphSpanRef` through
+  construction action provenance and construction-intent gap refs.
+- `test_t152_consequence_traversal_action_bridge.test.mjs` now tests the live
+  engine path: the consequence plugin selects an upstream span after code
+  closure, ABG applies re-entry through the construction runner, then replays
+  the selected upstream span and downstream code edge.
+- `npm run build:semantic` passed.
+- `node --test test_env/tests/test_t152_consequence_traversal_action_bridge.test.mjs`
+  passed 3/3, including the out-of-range re-entry target fail-closed
+  regression.
+- `node --test test_env/tests/test_t128_construction_runner.test.mjs test_env/tests/test_t139_construction_pressure_package.test.mjs test_env/tests/test_t144_abg_probabilistic_monad_plugin_boundary.test.mjs test_env/tests/test_t146_composed_stage_set_phase.test.mjs test_env/tests/test_t152_contract_fulfillment_binding_api.test.mjs test_env/tests/test_t154_runtime_authoring_routes.test.mjs`
+  passed 45/45.
+- `npm run test:semantic` passed 793/793.
+- `npm run lint:semantic` passed.
+- `git diff --check` passed in `abiogenesis` and `odd_sdlc`.
 
 Release snapshot on 2026-06-12:
 

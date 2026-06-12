@@ -62,6 +62,13 @@ import {
   constructGtlEvaluationScopeRef
 } from "../../../gtl/m02/contracts/compute_notation.js";
 import type {
+  ConsequenceTraversalAction
+} from "./consequence_traversal_action.js";
+import {
+  admitConsequenceTraversalAction,
+  constructConsequenceTraversalAction
+} from "./consequence_traversal_action.js";
+import type {
   EvaluationRuleOutcome,
   EvaluationRuleRole
 } from "./evaluation_set.js";
@@ -332,6 +339,7 @@ export interface ConsequenceProjectionOutcome extends EnginePluginOutcomeBase {
   readonly status: "projected" | "blocked";
   readonly consequenceRef: string | null;
   readonly domainReadModelRefs: readonly string[];
+  readonly traversalAction: ConsequenceTraversalAction | null;
 }
 
 export type EnginePluginOutcome =
@@ -1617,9 +1625,19 @@ export function constructConsequenceProjectionOutcome(input: {
   readonly status: ConsequenceProjectionOutcome["status"];
   readonly consequenceRef?: string | null;
   readonly domainReadModelRefs?: readonly string[] | undefined;
+  readonly traversalAction?: ConsequenceTraversalAction | null | undefined;
   readonly evidenceRefs?: readonly string[];
   readonly reason?: string | null;
 }): ConsequenceProjectionOutcome {
+  const traversalAction =
+    input.traversalAction === undefined || input.traversalAction === null
+      ? null
+      : constructConsequenceTraversalAction(input.traversalAction);
+  if (input.status === "blocked" && traversalAction !== null) {
+    throw new TypeError(
+      "ConsequenceProjectionOutcome.traversalAction cannot be supplied for a blocked outcome"
+    );
+  }
   return Object.freeze({
     kind: "consequence_projection",
     status: input.status,
@@ -1630,6 +1648,7 @@ export function constructConsequenceProjectionOutcome(input: {
     domainReadModelRefs: freezeStringArray(
       input.domainReadModelRefs ?? Object.freeze([])
     ),
+    traversalAction,
     evidenceRefs: freezeStringArray(input.evidenceRefs ?? Object.freeze([])),
     reason: normalizeReason(input.reason, "ConsequenceProjectionOutcome.reason")
   });
@@ -1915,6 +1934,7 @@ export function admitConsequenceProjectionOutcome(
     );
   }
   const consequenceRef = parseOptionalField(outcomeObject, "consequenceRef");
+  const traversalAction = parseOptionalField(outcomeObject, "traversalAction");
   return constructConsequenceProjectionOutcome({
     status,
     consequenceRef:
@@ -1925,6 +1945,13 @@ export function admitConsequenceProjectionOutcome(
       parseOptionalField(outcomeObject, "domainReadModelRefs") ?? [],
       `${label}.domainReadModelRefs`
     ),
+    traversalAction:
+      traversalAction === undefined || traversalAction === null
+        ? null
+        : admitConsequenceTraversalAction(
+            traversalAction,
+            `${label}.traversalAction`
+          ),
     evidenceRefs: parseOptionalEvidenceRefs(outcomeObject, label),
     reason: parseOptionalReason(outcomeObject, label)
   });

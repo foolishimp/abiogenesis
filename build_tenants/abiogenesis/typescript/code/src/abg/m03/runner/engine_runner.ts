@@ -10,6 +10,7 @@ import type {
   ActorInvocation,
   ActorInvocationRef,
   ExecutionBasis,
+  GraphReentryPoint,
   PayloadAmbiguityStatus,
   PayloadClosureDecisionKind,
   PluginTraversalKind,
@@ -17,6 +18,7 @@ import type {
   RuntimeEvent,
   TerminalTransition
 } from "../contracts/carriers.js";
+import { GRAPH_REENTRY_POINT_VALUES } from "../contracts/carriers.js";
 import {
   constructActorInvocationClosedEvent,
   constructActorInvocationStartedEvent,
@@ -50,7 +52,10 @@ import {
   deriveGraphReentryFrontierProjection,
   deriveGraphReentryPlan
 } from "../contracts/graph_span_reentry.js";
-import { deriveRuntimeAggregateProjection } from "../contracts/projection.js";
+import {
+  deriveRuntimeAggregateProjection,
+  sourceProjectionRef
+} from "../contracts/projection.js";
 import {
   frameIdForBasis,
   graphCallIdForBasis,
@@ -114,6 +119,27 @@ import {
   type ComposedStageTaskDeclaration,
   type ComposedStageTaskOutcome
 } from "../contracts/composed_stage_set.js";
+import {
+  constructConstructionActionCatalogProjection,
+  deriveObservationToActionBindingProjection
+} from "../contracts/construction_action_catalog.js";
+import {
+  admitConstructionIntentCandidate
+} from "../contracts/construction_intent.js";
+import {
+  constructConstructionObservationSnapshot,
+  constructConstructionRepairSurfaceTriageRow,
+  constructObservationPressureRow
+} from "../contracts/construction_observation.js";
+import {
+  constructConstructionPriorityScheme,
+  deriveConstructionPriorityProjection
+} from "../contracts/construction_priority.js";
+import {
+  constructConstructionActionRowFromConsequenceTraversalAction,
+  constructConstructionIntentCandidateFromConsequenceTraversalAction,
+  type ConsequenceTraversalAction
+} from "../contracts/consequence_traversal_action.js";
 import type { AbgFallbackBundle } from "../contracts/plugin_traversal_observer.js";
 import type { EdgeAssuranceDefaultContract } from "../contracts/edge_assurance_contract.js";
 import type { ConstructionPressurePackage } from "../contracts/construction_pressure_package.js";
@@ -178,6 +204,7 @@ import {
   type EngineAssuranceGateResult,
   type EngineAssuranceProvider
 } from "./assurance_gate.js";
+import { runConstructionIntentStep } from "./construction_runner.js";
 import { stableSha256Digest } from "../../../shared/runtime_identity.js";
 
 export interface EngineIterateRequest {
@@ -2191,6 +2218,16 @@ function appendEngineRunnerEvents(input: {
   });
 }
 
+function appendAlreadyEmittedEngineRunnerEvents(input: {
+  readonly state: EngineEventEmissionState;
+  readonly events: readonly RuntimeEvent[];
+}): EngineEventEmissionState {
+  return Object.freeze({
+    emittedEvents: Object.freeze([...input.state.emittedEvents, ...input.events]),
+    replayEvents: Object.freeze([...input.state.replayEvents, ...input.events])
+  });
+}
+
 function canonicalReplayEvents(
   events: readonly RuntimeEvent[]
 ): readonly RuntimeEvent[] {
@@ -2199,6 +2236,540 @@ function canonicalReplayEvents(
     "EngineIterateRequest.runtimeEvents"
   );
   return Object.freeze([...events]);
+}
+
+interface ParsedConsequenceReentryTarget {
+  readonly graphReentryPoint: GraphReentryPoint;
+  readonly targetVectorIndex: number;
+}
+
+interface ConsequenceTraversalConstructionWorld {
+  readonly episodeId: string;
+  readonly observation: ReturnType<typeof constructConstructionObservationSnapshot>;
+  readonly actionCatalog: ReturnType<typeof constructConstructionActionCatalogProjection>;
+  readonly priorityProjection: ReturnType<typeof deriveConstructionPriorityProjection>;
+  readonly admission: ReturnType<typeof admitConstructionIntentCandidate>;
+  readonly constructionEvents: readonly RuntimeEvent[];
+}
+
+type ConsequenceTraversalConstructionBuildResult =
+  | {
+      readonly status: "ready";
+      readonly world: ConsequenceTraversalConstructionWorld;
+    }
+  | {
+      readonly status: "blocked";
+      readonly reason: string;
+    };
+
+function consequenceTraversalBlockedResult(input: {
+  readonly request: EngineIterateRequest;
+  readonly eventState: EngineEventEmissionState;
+  readonly reason: string;
+  readonly iterationCount: number;
+}): {
+  readonly eventState: EngineEventEmissionState;
+  readonly result: EngineIterateResult;
+} {
+  const blocked = terminalTransition(input.request.basis, "gap_stop", input.reason);
+  const eventState = appendEngineRunnerEvents({
+    state: input.eventState,
+    events: constructTerminalReachedEvent(blocked),
+    sink: input.request.eventSink
+  });
+  return Object.freeze({
+    eventState,
+    result: constructResult({
+      basis: input.request.basis,
+      transition: blocked,
+      projection: deriveRuntimeAggregateProjection(
+        input.request.basis,
+        eventState.replayEvents
+      ),
+      emittedEvents: eventState.emittedEvents,
+      replayEvents: eventState.replayEvents,
+      iterationCount: input.iterationCount
+    })
+  });
+}
+
+function graphReentryPointFromString(input: string): GraphReentryPoint | null {
+  return GRAPH_REENTRY_POINT_VALUES.find((value) => value === input) ?? null;
+}
+
+function parseConsequenceReentryTarget(input: {
+  readonly basis: ExecutionBasis;
+  readonly action: ConsequenceTraversalAction;
+}): ParsedConsequenceReentryTarget | null {
+  if (input.action.reentryTargetRef === null) {
+    return null;
+  }
+  const match = /^graph-reentry-point:\/\/([^/]+)\/([0-9]+)$/u.exec(
+    input.action.reentryTargetRef
+  );
+  if (match === null) {
+    return null;
+  }
+  const graphReentryPoint = graphReentryPointFromString(match[1] ?? "");
+  if (graphReentryPoint === null) {
+    return null;
+  }
+  const targetVectorIndex = Number(match[2]);
+  if (!Number.isSafeInteger(targetVectorIndex) || targetVectorIndex < 0) {
+    return null;
+  }
+  if (input.basis.graph.vectors[targetVectorIndex] === undefined) {
+    return null;
+  }
+  return Object.freeze({ graphReentryPoint, targetVectorIndex });
+}
+
+function consequenceConstructionEventScope(input: {
+  readonly basis: ExecutionBasis;
+  readonly episodeId: string;
+  readonly eventRef: string;
+  readonly eventSequence: number;
+  readonly basisProjectionRef: string;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}): {
+  readonly constructionEventRef: string;
+  readonly basisId: string;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly episodeId: string;
+  readonly iterationOrdinal: number;
+  readonly eventSequence: number;
+  readonly basisProjectionRef: string;
+  readonly priorIntentId: null;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+} {
+  return Object.freeze({
+    constructionEventRef: input.eventRef,
+    basisId: input.basis.id,
+    graphFunctionId: input.basis.graphFunction.id,
+    runId: input.basis.runId,
+    workKey: input.basis.workKey,
+    episodeId: input.episodeId,
+    iterationOrdinal: 0,
+    eventSequence: input.eventSequence,
+    basisProjectionRef: input.basisProjectionRef,
+    priorIntentId: null,
+    causationEventRefs: input.causationEventRefs,
+    correlationId: input.correlationId
+  });
+}
+
+function consequenceConstructionPreludeEvents(input: {
+  readonly basis: ExecutionBasis;
+  readonly action: ConsequenceTraversalAction;
+  readonly observation: ReturnType<typeof constructConstructionObservationSnapshot>;
+  readonly actionCatalog: ReturnType<typeof constructConstructionActionCatalogProjection>;
+  readonly admission: ReturnType<typeof admitConstructionIntentCandidate>;
+  readonly candidateId: string;
+  readonly evaluatorOutcomeRef: string;
+  readonly priorityPolicyRef: string;
+  readonly digest: string;
+}): readonly RuntimeEvent[] {
+  const admittedIntent = input.admission.admittedIntent;
+  if (admittedIntent === null) {
+    throw new TypeError("Consequence traversal construction prelude requires admitted intent");
+  }
+  const prefix = `construction-event:consequence:${input.digest}`;
+  const basisProjectionRef = input.observation.basisProjectionRef;
+  const causationEventRefs = Object.freeze([
+    input.action.consequenceRef,
+    input.action.actionRef
+  ]);
+  const correlationId = input.observation.correlationId;
+  const scope = (eventSequence: number, suffix: string) =>
+    consequenceConstructionEventScope({
+      basis: input.basis,
+      episodeId: input.observation.episodeId,
+      eventRef: `${prefix}:${suffix}`,
+      eventSequence,
+      basisProjectionRef,
+      causationEventRefs,
+      correlationId
+    });
+
+  return Object.freeze([
+    Object.freeze({
+      ...scope(0, "episode-started"),
+      kind: "construction_episode_started",
+      startProjectionRef: input.observation.currentProjectionRef
+    }),
+    Object.freeze({
+      ...scope(1, "observation-materialized"),
+      kind: "construction_observation_snapshot_materialized",
+      observationId: input.observation.observationId,
+      currentProjectionRef: input.observation.currentProjectionRef,
+      observedStateRefs: input.observation.observedStateRefs,
+      linkedAssetRefs: input.observation.linkedAssetRefs,
+      authorityDigest: input.observation.authorityDigest
+    }),
+    Object.freeze({
+      ...scope(2, "action-catalog-projected"),
+      kind: "construction_action_catalog_projected",
+      catalogRef: input.actionCatalog.catalogRef,
+      hookResolutionRef: input.actionCatalog.hookResolutionRef,
+      fallbackConfigDigest: input.actionCatalog.fallbackConfigDigest,
+      traversalPublicationRefs: uniqueStrings(
+        input.actionCatalog.rows.flatMap((row) => [
+          row.graphFunctionRef,
+          row.graphVectorRef,
+          row.refinementBoundaryRef,
+          row.candidateFamilyRef,
+          row.publishedTraversalTargetRef,
+          ...row.hookSourceRefs
+        ].filter((ref): ref is string => ref !== null))
+      )
+    }),
+    Object.freeze({
+      ...scope(3, "evaluator-invoked"),
+      kind: "construction_evaluator_invoked",
+      observationId: input.observation.observationId,
+      catalogRef: input.actionCatalog.catalogRef,
+      evaluatorPluginRef: "consequence_projection",
+      inputDigest: `consequence-construction-input:${input.digest}`
+    }),
+    Object.freeze({
+      ...scope(4, "candidate-returned"),
+      kind: "construction_intent_candidate_returned",
+      evaluatorPluginRef: "consequence_projection",
+      evaluatorOutcomeRef: input.evaluatorOutcomeRef,
+      candidateSetDigest: `consequence-construction-candidates:${input.digest}`,
+      candidateRefs: [input.candidateId]
+    }),
+    Object.freeze({
+      ...scope(5, "candidate-admitted"),
+      kind: "construction_intent_candidate_admitted",
+      candidateId: input.candidateId,
+      admissionRef: input.admission.admissionRef,
+      intentId: admittedIntent.intentId,
+      authorityRefs: admittedIntent.authorityRefs
+    }),
+    Object.freeze({
+      ...scope(6, "intent-selected"),
+      kind: "construction_intent_selected",
+      intentId: admittedIntent.intentId,
+      selectedActionRef: admittedIntent.selectedActionRef,
+      selectedBindingRef: admittedIntent.selectedBindingRef,
+      selectionPolicyRef: input.priorityPolicyRef
+    })
+  ] satisfies readonly RuntimeEvent[]);
+}
+
+function buildConsequenceTraversalConstructionWorld(input: {
+  readonly request: EngineIterateRequest;
+  readonly runtimeProjection: RuntimeAggregateProjection;
+  readonly action: ConsequenceTraversalAction;
+  readonly outcome: ConsequenceProjectionOutcome;
+  readonly vectorIndex: number;
+  readonly replayEventCount: number;
+}): ConsequenceTraversalConstructionBuildResult {
+  if (input.action.actionKind === "non_admit") {
+    return Object.freeze({
+      status: "blocked",
+      reason: `consequence traversal action ${input.action.actionRef} was not admitted for execution`
+    });
+  }
+  if (input.action.selectedGraphFunctionRef !== input.request.basis.graphFunction.id) {
+    return Object.freeze({
+      status: "blocked",
+      reason: "consequence traversal action targets a graph function outside the current engine basis"
+    });
+  }
+  if (input.action.expectedOutputAssetRefs.length === 0) {
+    return Object.freeze({
+      status: "blocked",
+      reason: "consequence traversal action execution requires expected output asset refs"
+    });
+  }
+  const reentryTarget = parseConsequenceReentryTarget({
+    basis: input.request.basis,
+    action: input.action
+  });
+  const reentryGraphVectorRef =
+    input.action.actionKind === "reenter_graph_span"
+      ? input.action.graphVectorRef
+      : null;
+  if (
+    input.action.actionKind === "reenter_graph_span" &&
+    (reentryTarget === null || reentryGraphVectorRef === null)
+  ) {
+    return Object.freeze({
+      status: "blocked",
+      reason: "consequence traversal action has no admitted graph reentry target"
+    });
+  }
+
+  const digest = fpEvaluationDigest({
+    basisId: input.request.basis.id,
+    graphFunctionId: input.request.basis.graphFunction.id,
+    vectorIndex: input.vectorIndex,
+    replayEventCount: input.replayEventCount,
+    actionRef: input.action.actionRef,
+    consequenceRef: input.action.consequenceRef,
+    strategyDecisionRef: input.action.strategyDecisionRef
+  });
+  const episodeId = `construction-episode:consequence:${digest}`;
+  const runtimeProjectionRef = sourceProjectionRef(input.runtimeProjection);
+  const action = constructConstructionActionRowFromConsequenceTraversalAction(
+    input.action
+  );
+  const actionCatalog = constructConstructionActionCatalogProjection({
+    catalogRef: `construction-catalog:consequence:${digest}`,
+    episodeId,
+    hookResolutionRef: `construction-hook-resolution:consequence:${digest}`,
+    fallbackConfigDigest: `construction-hook-digest:${fpEvaluationDigest({
+      actionRef: input.action.actionRef,
+      evidencePolicyRef: input.action.evidencePolicyRef,
+      foldbackPolicyRef: input.action.foldbackPolicyRef,
+      hookSourceRefs: action.hookSourceRefs
+    })}`,
+    rows: [action]
+  });
+  const pressure = constructObservationPressureRow({
+    pressureRef: `pressure:consequence-traversal:${digest}`,
+    pressureKind:
+      input.action.actionKind === "reenter_graph_span"
+        ? "reentry_frontier"
+        : "gap_row",
+    sourceRef: input.outcome.consequenceRef ?? input.action.consequenceRef,
+    affectedAssetRefs: input.action.expectedOutputAssetRefs,
+    targetOutcomeRefs: [input.action.targetOutcomeRef],
+    evidenceRefs: input.outcome.evidenceRefs,
+    severity: 5,
+    ambiguityClass: "none",
+    authorityRefs: input.action.requiredAuthorityRefs
+  });
+  const triage =
+    reentryTarget === null || reentryGraphVectorRef === null
+      ? null
+      : constructConstructionRepairSurfaceTriageRow({
+          triageRef: `repair-surface-triage:consequence-traversal:${digest}`,
+          pressureRef: pressure.pressureRef,
+          repairSurfaceDisposition: "upstream_reentry",
+          graphReentryPoint: reentryTarget.graphReentryPoint,
+          repairGraphFunctionRef: input.request.basis.graphFunction.id,
+          repairGraphVectorRef: reentryGraphVectorRef,
+          reentryTargetVectorIndex: reentryTarget.targetVectorIndex,
+          repairAssetRef: input.action.expectedOutputAssetRefs[0] ?? "",
+          targetOutcomeRef: input.action.targetOutcomeRef,
+          evidenceRefs: uniqueStrings([
+            input.action.consequenceRef,
+            input.action.strategyDecisionRef,
+            ...input.action.proportionalityBasisRefs,
+            ...input.outcome.evidenceRefs
+          ]),
+          authorityRefs: input.action.requiredAuthorityRefs
+        });
+  const observation = constructConstructionObservationSnapshot({
+    episodeId,
+    observationId: `construction-observation:consequence:${digest}`,
+    basisRef: input.request.basis.id,
+    currentProjectionRef: runtimeProjectionRef,
+    iterationOrdinal: 0,
+    basisProjectionRef: runtimeProjectionRef,
+    priorIntentId: null,
+    causationRef: input.action.consequenceRef,
+    correlationId: `correlation:consequence-construction:${digest}`,
+    observedStateRefs: uniqueStrings([
+      runtimeProjectionRef,
+      input.outcome.consequenceRef ?? input.action.consequenceRef,
+      ...input.outcome.domainReadModelRefs
+    ]),
+    runtimeAggregateRefs: [runtimeProjectionRef],
+    linkedAssetRefs: input.action.inputAssetRefs,
+    gapProjectionRefs: uniqueStrings([
+      input.action.consequenceRef,
+      input.action.strategyDecisionRef,
+      ...[input.action.graphSpanRef].filter((ref): ref is string => ref !== null)
+    ]),
+    foldbackRefs: uniqueStrings([
+      input.action.foldbackPolicyRef,
+      ...[input.action.graphSpanRef].filter((ref): ref is string => ref !== null)
+    ]),
+    reentryFrontierRefs:
+      input.action.reentryTargetRef === null ? [] : [input.action.reentryTargetRef],
+    actionCatalogRef: actionCatalog.catalogRef,
+    authorityDigest: `authority:consequence-traversal:${fpEvaluationDigest({
+      actionRef: input.action.actionRef,
+      requiredAuthorityRefs: input.action.requiredAuthorityRefs
+    })}`,
+    pressureRows: [pressure],
+    repairSurfaceTriageRows: triage === null ? [] : [triage]
+  });
+  const bindingProjection = deriveObservationToActionBindingProjection({
+    observation,
+    actionCatalog
+  });
+  const bindingRow = bindingProjection.rows.find(
+    (row) =>
+      row.actionRef === input.action.actionRef &&
+      row.targetOutcomeRef === input.action.targetOutcomeRef
+  );
+  if (bindingRow === undefined) {
+    return Object.freeze({
+      status: "blocked",
+      reason: `consequence traversal action ${input.action.actionRef} produced no lawful construction binding`
+    });
+  }
+  const priorityScheme = constructConstructionPriorityScheme({
+    schemeRef: `priority-scheme:consequence:${digest}`,
+    sourcePolicyRef: input.action.evidencePolicyRef,
+    rules: []
+  });
+  const priorityProjection = deriveConstructionPriorityProjection({
+    observation,
+    actionCatalog,
+    bindingProjection,
+    priorityScheme,
+    affectPolicies: []
+  });
+  const priorityRow = priorityProjection.rows.find(
+    (row) => row.bindingRef === bindingRow.bindingRef
+  );
+  if (priorityRow === undefined) {
+    return Object.freeze({
+      status: "blocked",
+      reason: `consequence traversal action ${input.action.actionRef} produced no construction priority row`
+    });
+  }
+  const candidateId = `candidate:consequence:${digest}`;
+  const candidate = constructConstructionIntentCandidateFromConsequenceTraversalAction({
+    action: input.action,
+    episodeId,
+    bindingRow,
+    priorityRow,
+    candidateId
+  });
+  const admission = admitConstructionIntentCandidate({
+    candidate,
+    observation,
+    actionCatalog,
+    bindingProjection,
+    priorityProjection
+  });
+  if (admission.admittedIntent === null) {
+    return Object.freeze({
+      status: "blocked",
+      reason: `consequence traversal action ${input.action.actionRef} rejected by construction intent admission: ${admission.rejectionReasonRefs.join(",")}`
+    });
+  }
+  const constructionEvents = consequenceConstructionPreludeEvents({
+    basis: input.request.basis,
+    action: input.action,
+    observation,
+    actionCatalog,
+    admission,
+    candidateId,
+    evaluatorOutcomeRef: input.outcome.consequenceRef ?? input.action.consequenceRef,
+    priorityPolicyRef: priorityRow.sourcePolicyRef,
+    digest
+  });
+  return Object.freeze({
+    status: "ready",
+    world: Object.freeze({
+      episodeId,
+      observation,
+      actionCatalog,
+      priorityProjection,
+      admission,
+      constructionEvents
+    })
+  });
+}
+
+function consumeConsequenceTraversalAction(input: {
+  readonly request: EngineIterateRequest;
+  readonly eventState: EngineEventEmissionState;
+  readonly runtimeProjection: RuntimeAggregateProjection;
+  readonly outcome: ConsequenceProjectionOutcome;
+  readonly vectorIndex: number;
+  readonly iterationCount: number;
+}): {
+  readonly eventState: EngineEventEmissionState;
+  readonly result: EngineIterateResult;
+} | null {
+  if (input.outcome.traversalAction === null) {
+    return null;
+  }
+  const action = input.outcome.traversalAction;
+  const build = buildConsequenceTraversalConstructionWorld({
+    request: input.request,
+    runtimeProjection: input.runtimeProjection,
+    action,
+    outcome: input.outcome,
+    vectorIndex: input.vectorIndex,
+    replayEventCount: input.eventState.replayEvents.length
+  });
+  if (build.status === "blocked") {
+    return consequenceTraversalBlockedResult({
+      request: input.request,
+      eventState: input.eventState,
+      reason: build.reason,
+      iterationCount: input.iterationCount
+    });
+  }
+
+  const preludeState = appendEngineRunnerEvents({
+    state: input.eventState,
+    events: build.world.constructionEvents,
+    sink: input.request.eventSink
+  });
+  const admittedIntent = build.world.admission.admittedIntent;
+  if (admittedIntent === null) {
+    throw new TypeError("Consequence traversal construction world lost admitted intent");
+  }
+  const constructionOutcome = runConstructionIntentStep({
+    basis: input.request.basis,
+    graphActionBasis: input.request.basis,
+    observation: build.world.observation,
+    admittedIntent,
+    admissions: [build.world.admission],
+    priorityProjection: build.world.priorityProjection,
+    actionCatalog: build.world.actionCatalog,
+    constructionEvents: build.world.constructionEvents,
+    graphRuntimeEvents: input.eventState.replayEvents,
+    eventSink: input.request.eventSink,
+    graphRunnerPlugins: input.request.plugins,
+    maxAttachedFpAttempts: input.request.maxAttachedFpAttempts,
+    graphAssuranceProvider: input.request.assuranceProvider,
+    graphTargetCarrierDefaults: input.request.targetCarrierDefaults,
+    graphAbgFallbackBundle: input.request.abgFallbackBundle,
+    graphEdgeAssuranceDefaults: input.request.edgeAssuranceDefaults,
+    graphPluginTraversalObserverFallbackEnabled:
+      input.request.pluginTraversalObserverFallbackEnabled,
+    graphPluginTraversalObserverFallbackKinds:
+      input.request.pluginTraversalObserverFallbackKinds
+  });
+  const eventState = appendAlreadyEmittedEngineRunnerEvents({
+    state: preludeState,
+    events: constructionOutcome.emittedEvents
+  });
+  const projection = deriveRuntimeAggregateProjection(
+    input.request.basis,
+    eventState.replayEvents
+  );
+  return Object.freeze({
+    eventState,
+    result: constructResult({
+      basis: input.request.basis,
+      transition: constructionOutcome.graphActionResult.transition,
+      projection,
+      emittedEvents: eventState.emittedEvents,
+      replayEvents: eventState.replayEvents,
+      iterationCount:
+        input.iterationCount +
+        1 +
+        constructionOutcome.graphActionResult.iterationCount,
+      assuranceGate: constructionOutcome.graphActionResult.assuranceGate
+    })
+  });
 }
 
 type EnginePluginEffect =
@@ -3264,6 +3835,20 @@ function* runEngineIterateMachine(input: {
             replayEvents: eventState.replayEvents,
             iterationCount
           });
+        }
+        const consequenceTraversalConsumption = consumeConsequenceTraversalAction({
+          request,
+          eventState,
+          runtimeProjection: deriveRuntimeAggregateProjection(
+            request.basis,
+            eventState.replayEvents
+          ),
+          outcome: consequenceOutcome,
+          vectorIndex: transition.vectorIndex,
+          iterationCount
+        });
+        if (consequenceTraversalConsumption !== null) {
+          return consequenceTraversalConsumption.result;
         }
         continuationStageProjectionRefs = stageProjectionRefs(consequenceStageProjection);
         continuationStageFoldInputRefs =
@@ -4400,6 +4985,20 @@ function* runEngineIterateMachine(input: {
                 replayEvents: eventState.replayEvents,
                 iterationCount
               });
+            }
+            const consequenceTraversalConsumption = consumeConsequenceTraversalAction({
+              request,
+              eventState,
+              runtimeProjection: deriveRuntimeAggregateProjection(
+                request.basis,
+                eventState.replayEvents
+              ),
+              outcome: consequenceOutcome,
+              vectorIndex: transition.vectorIndex,
+              iterationCount
+            });
+            if (consequenceTraversalConsumption !== null) {
+              return consequenceTraversalConsumption.result;
             }
             continuationStageProjectionRefs = stageProjectionRefs(
               consequenceStageProjection

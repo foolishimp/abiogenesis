@@ -28,6 +28,7 @@ downstream odd_sdlc repair parity or live agent closure.
 | `ConstructionPriorityProjection` | ABG M03 projection | ranked evaluator input after configured priority and affect adjustment | none |
 | `ConstructionEvaluatorInput` | ABG M03 plugin input | admitted input to the F_P evaluator plugin | plugin call |
 | `ConstructionEvaluatorOutcome` | ABG M03 plugin outcome | ranked candidate set or terminal signal returned by plugin | plugin output admission |
+| `ConsequenceTraversalAction` | ABG M03 admission over consequence plugin output | typed traversal/action selection projected into construction action and intent carriers | plugin output admission -> construction runner |
 | `ConstructionIntentCandidate` | product/F_P evaluator | proposed next construction action | event admission candidate |
 | `ConstructionIntentAdmission` | ABG M03 | accept/reject row for one candidate | none |
 | `AdmittedConstructionIntent` | ABG M03 | selected lawful next action | graph invocation |
@@ -127,6 +128,38 @@ Observation-to-action binding, configured priority ranking, and affect
 adjustment are derived projection truth. They may feed evaluator input and
 candidate admission, but they do not dispatch work or write runtime truth
 directly.
+
+## T-152 Consequence-To-Construction Bridge Addendum
+
+The consequence stage may discover that the next lawful move is not an ordinary
+same-edge retry or default vector advance. When that happens, the consequence
+plugin may return a `ConsequenceTraversalAction` inside the admitted
+`ConsequenceProjectionOutcome`.
+
+That action is selection intent, not runtime authority. ABG admits the action,
+rejects nested engine-authority fields, and derives construction truth from it:
+
+- `constructConstructionActionRowFromConsequenceTraversalAction(...)` projects
+  the selected graph function, vector, target outcome, authority refs,
+  evidence/foldback policies, and `graphSpanRef` provenance into the action
+  catalog.
+- ABG materializes an observation snapshot with a pressure row and, for
+  `reenter_graph_span`, an `upstream_reentry` triage row carrying
+  `GraphReentryPoint` and target-vector identity.
+- Observation-to-action binding and priority projection must select the
+  consequence action before a construction intent candidate can be admitted.
+- `constructConstructionIntentCandidateFromConsequenceTraversalAction(...)`
+  preserves the consequence, strategy, proportionality, graph span, binding,
+  and priority refs as lawful basis and rationale.
+- The engine consumes the admitted construction intent through
+  `runConstructionIntentStep(...)`; it does not execute the consequence action
+  directly.
+
+`reenter_graph_span` requires an absolute
+`graph-reentry-point://<GraphReentryPoint>/<vectorIndex>` target. A target whose
+predecessor vector closures do not exist in replay is not a valid shortcut to a
+later vector; the selected re-entry replays from the target span and then lets
+ordinary graph iteration close dependent downstream vectors.
 
 ## Projection Contract
 
@@ -233,6 +266,8 @@ The runner consumes `AdmittedConstructionIntent`.
 
 It may:
 
+- consume an admitted consequence traversal action only after projecting it into
+  construction observation, binding, priority, and admitted intent carriers
 - create graph-call/frame/continuation-bound invocation plans
 - append admitted construction events
 - dispatch selected graph action through existing plugin/transport law
@@ -242,6 +277,8 @@ It may not:
 
 - rank product outcomes
 - switch on downstream domain strategy labels
+- treat a consequence action as executable without construction-intent admission
+- issue product-local cursor moves or relative vector offsets
 - publish public next action outside `ConstructionProjection`
 - retry privately after a terminal/stalled projection
 - treat worker prose as progress without admitted progress rows
