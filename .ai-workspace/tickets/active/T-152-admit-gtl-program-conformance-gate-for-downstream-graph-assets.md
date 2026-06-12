@@ -10,7 +10,7 @@ change_class: requirement_reprice
 change_intent: Make GTL program conformance a deterministic ABG API function with a thin CLI wrapper instead of downstream-local lint rules, MCP-shaped prompt schema, or agent-memory checks.
 re_entry_point: requirements
 created_at: 2026-06-08
-updated_at: 2026-06-12
+updated_at: 2026-06-13
 owning_repo: abiogenesis
 governance_scope: STDO Method
 priority: high
@@ -42,6 +42,7 @@ related_tickets:
   - T-150
   - T-151
   - T-149
+  - T-155
 affected_boundary:
   requirements:
     - specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md
@@ -960,6 +961,12 @@ Current non-closure:
 - A production downstream inventory proof must still show that no local
   product-specific conformance or retry/re-entry loop substitutes for the ABG
   gate and construction runner.
+- The first-class graph-function zoom gap is owned by active ticket T-155.
+  T-152 must not claim or own generic typed zoom merely because the conformance
+  gate observes graph-function, candidate/refinement, and re-entry inventory.
+  Downstream depth traversal must consume the T-155 graph-function-level zoom
+  surface after it is reviewed and released; it must not represent zoom as
+  product-local vector cursor movement or a hidden consequence-plugin planner.
 
 Regression guards:
 
@@ -970,3 +977,40 @@ Regression guards:
   resolving to an absolute `GraphReentryPoint` and target vector identity.
 - Proof must stay on generic graph/action/repair-surface/re-entry carriers
   rather than downstream product vocabulary.
+- Any future claim that ABG supports `zoom` must cite T-155 or an equivalent
+  completed ABG/GTL graph-function zoom plan. `GraphVector` and
+  `targetVectorIndex` remain internal ABG resolution truth under a published
+  `GraphFunction`, not public callable path authority.
+
+## Recorded ABG Gap - 2026-06-12 UTC Graph-Function Zoom
+
+Audit reference:
+`.ai-workspace/comments/codex/20260612T174004Z_ABG_GTL_ZOOM_PRIME_FUNCTION_VECTOR_AUDIT.md`.
+
+Result: the current ABG/GTL law and realization preserve the prime
+function/vector split:
+
+- `GraphFunction` is the public named callable workflow carrier.
+- `GraphVector` is an internal adjacency and transition-governance carrier.
+- Public starts and job bindings resolve callable work to graph functions.
+- Runtime vector routes exist only as ABG-owned re-entry/authorship routes over
+  an execution basis.
+
+Recorded gap and follow-through: generic typed zoom required a first-class
+graph-function-level API rather than only the graph-level
+`substitute(outer: Graph, contractVectorId: string, inner: Graph)` operation.
+Active T-155 owns the ABG graph-function zoom plan and proof for this use case:
+
+- takes a parent `GraphFunction<A, B>`
+- selects a declared target through `RefinementBoundary`, `CandidateFamily`, or
+  an equivalent published traversal target
+- resolves the internal `GraphVector` inside ABG
+- materializes the refinement `GraphFunction`
+- applies lawful substitution or equivalent refinement
+- returns or admits a `GraphFunction<A, B>` preserving the parent outer
+  contract
+
+Ticket boundary: T-152 records the gap because it was discovered while proving
+conformance/re-entry inventory, but T-152 does not own the zoom implementation.
+Active T-155 owns the design/reframe and proof. This avoids turning T-152 into a
+catch-all runtime feature ticket and preserves the conformance gate target truth.

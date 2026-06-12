@@ -29,9 +29,68 @@ import {
   type SerializedJsonValue
 } from "../contracts/carriers.js";
 import {
+  interfaceContract,
   materializeGraphFunction,
   nodeContractKey
 } from "../contracts/carriers.js";
+
+export const GRAPH_FUNCTION_ZOOM_REFINEMENT_BOUNDARY_DECLARATION_KEY =
+  "gtl.zoom.refinement_boundary_ref";
+export const GRAPH_FUNCTION_ZOOM_CANDIDATE_FAMILY_DECLARATION_KEY =
+  "gtl.zoom.candidate_family_ref";
+export const GRAPH_FUNCTION_ZOOM_PUBLISHED_TRAVERSAL_TARGET_DECLARATION_KEY =
+  "gtl.zoom.published_traversal_target_ref";
+
+export interface GraphFunctionZoomAuthority {
+  readonly refinementBoundaryRef?: string | null | undefined;
+  readonly candidateFamilyRef?: string | null | undefined;
+  readonly publishedTraversalTargetRef?: string | null | undefined;
+}
+
+export interface GraphFunctionZoomPlan {
+  readonly kind: "graph_function_zoom_plan";
+  readonly planRef: string;
+  readonly parentGraphFunctionRef: string;
+  readonly parentGraphRef: string;
+  readonly targetGraphVectorRef: string;
+  readonly targetGraphVectorName: string;
+  readonly targetSourceNodeRefs: readonly string[];
+  readonly targetNodeRef: string;
+  readonly refinementGraphFunctionRef: string;
+  readonly refinementGraphRef: string;
+  readonly substitutedGraphRef: string;
+  readonly refinementBoundaryRef: string | null;
+  readonly candidateFamilyRef: string | null;
+  readonly publishedTraversalTargetRef: string | null;
+  readonly authorityRefs: readonly string[];
+}
+
+export interface GraphFunctionZoomPlanInput extends GraphFunctionZoomAuthority {
+  readonly parent: GraphFunction;
+  readonly refinement: GraphFunction;
+  readonly planRef?: string | undefined;
+}
+
+export interface GraphFunctionZoomApplyInput {
+  readonly parent: GraphFunction;
+  readonly refinement: GraphFunction;
+  readonly plan: GraphFunctionZoomPlan;
+  readonly name?: string | undefined;
+  readonly declarations?: SerializedAttrs | undefined;
+  readonly tags?: readonly string[] | undefined;
+}
+
+export interface GraphFunctionZoomInput extends GraphFunctionZoomPlanInput {
+  readonly name?: string | undefined;
+  readonly declarations?: SerializedAttrs | undefined;
+  readonly tags?: readonly string[] | undefined;
+}
+
+export interface GraphFunctionZoomResult {
+  readonly kind: "graph_function_zoom_result";
+  readonly plan: GraphFunctionZoomPlan;
+  readonly graphFunction: GraphFunction;
+}
 
 function stableUnion(values: readonly (readonly string[])[]): readonly string[] {
   const seen = new Set<string>();
@@ -151,6 +210,199 @@ function jsonBlobEntry(
       value: jsonObjectValue(entries)
     })
   });
+}
+
+function optionalNonEmptyString(
+  value: string | null | undefined,
+  label: string
+): string | null {
+  if (value === undefined || value === null) {
+    return null;
+  }
+  if (value.length === 0) {
+    throw new TypeError(`${label}: expected non-empty string`);
+  }
+  return value;
+}
+
+function graphFunctionZoomAuthority(
+  input: GraphFunctionZoomAuthority
+): {
+  readonly refinementBoundaryRef: string | null;
+  readonly candidateFamilyRef: string | null;
+  readonly publishedTraversalTargetRef: string | null;
+  readonly authorityRefs: readonly string[];
+} {
+  const refinementBoundaryRef = optionalNonEmptyString(
+    input.refinementBoundaryRef,
+    "GraphFunctionZoomAuthority.refinementBoundaryRef"
+  );
+  const candidateFamilyRef = optionalNonEmptyString(
+    input.candidateFamilyRef,
+    "GraphFunctionZoomAuthority.candidateFamilyRef"
+  );
+  const publishedTraversalTargetRef = optionalNonEmptyString(
+    input.publishedTraversalTargetRef,
+    "GraphFunctionZoomAuthority.publishedTraversalTargetRef"
+  );
+  const authorityRefs = stableUnion([
+    [
+      ...[refinementBoundaryRef].filter((ref): ref is string => ref !== null),
+      ...[candidateFamilyRef].filter((ref): ref is string => ref !== null),
+      ...[publishedTraversalTargetRef].filter(
+        (ref): ref is string => ref !== null
+      )
+    ]
+  ]);
+  if (authorityRefs.length === 0) {
+    throw new TypeError(
+      "GraphFunction zoom requires RefinementBoundary, CandidateFamily, or published traversal target authority"
+    );
+  }
+  return Object.freeze({
+    refinementBoundaryRef,
+    candidateFamilyRef,
+    publishedTraversalTargetRef,
+    authorityRefs
+  });
+}
+
+function attrStringValues(entry: SerializedAttrEntry | undefined): readonly string[] {
+  if (entry === undefined) {
+    return Object.freeze([]);
+  }
+  if (entry.value.kind === "scalar") {
+    return typeof entry.value.value === "string"
+      ? Object.freeze([entry.value.value])
+      : Object.freeze([]);
+  }
+  if (entry.value.kind === "string_list") {
+    return entry.value.value;
+  }
+  return Object.freeze([]);
+}
+
+function attrsContainString(
+  attrs: SerializedAttrs,
+  key: string,
+  expected: string
+): boolean {
+  return attrStringValues(
+    attrs.entries.find((entry) => entry.key === key)
+  ).includes(expected);
+}
+
+function vectorMatchesZoomAuthority(input: {
+  readonly vector: GraphVector;
+  readonly authority: ReturnType<typeof graphFunctionZoomAuthority>;
+}): boolean {
+  const checks: readonly {
+    readonly ref: string | null;
+    readonly key: string;
+  }[] = Object.freeze([
+    Object.freeze({
+      ref: input.authority.refinementBoundaryRef,
+      key: GRAPH_FUNCTION_ZOOM_REFINEMENT_BOUNDARY_DECLARATION_KEY
+    }),
+    Object.freeze({
+      ref: input.authority.candidateFamilyRef,
+      key: GRAPH_FUNCTION_ZOOM_CANDIDATE_FAMILY_DECLARATION_KEY
+    }),
+    Object.freeze({
+      ref: input.authority.publishedTraversalTargetRef,
+      key: GRAPH_FUNCTION_ZOOM_PUBLISHED_TRAVERSAL_TARGET_DECLARATION_KEY
+    })
+  ]);
+
+  return checks.every(
+    (check) =>
+      check.ref === null ||
+      attrsContainString(input.vector.declarations, check.key, check.ref)
+  );
+}
+
+function resolveGraphFunctionZoomTargetVector(input: {
+  readonly graph: Graph;
+  readonly authority: ReturnType<typeof graphFunctionZoomAuthority>;
+}): GraphVector {
+  const matches = input.graph.vectors.filter((vector) =>
+    vectorMatchesZoomAuthority({ vector, authority: input.authority })
+  );
+  if (matches.length === 0) {
+    throw new TypeError(
+      `GraphFunction zoom target did not resolve in graph ${JSON.stringify(input.graph.name)} for authority refs ${JSON.stringify(input.authority.authorityRefs)}`
+    );
+  }
+  if (matches.length > 1) {
+    throw new TypeError(
+      `GraphFunction zoom target is ambiguous in graph ${JSON.stringify(input.graph.name)} for authority refs ${JSON.stringify(input.authority.authorityRefs)}`
+    );
+  }
+  const match = matches[0];
+  if (match === undefined) {
+    throw new TypeError("GraphFunction zoom target resolution lost match");
+  }
+  return match;
+}
+
+function defaultGraphFunctionZoomPlanRef(input: {
+  readonly parent: GraphFunction;
+  readonly targetVector: GraphVector;
+  readonly refinement: GraphFunction;
+  readonly authorityRefs: readonly string[];
+}): string {
+  return [
+    "graph-function-zoom-plan",
+    input.parent.name,
+    input.targetVector.name,
+    input.refinement.name,
+    ...input.authorityRefs
+  ].join(":");
+}
+
+function graphFunctionZoomDeclaration(plan: GraphFunctionZoomPlan): SerializedAttrs {
+  return attrsFromEntries([
+    jsonBlobEntry(`graph_function_zoom:${plan.planRef}`, [
+      { key: "plan_ref", value: plan.planRef },
+      { key: "parent_graph_function_ref", value: plan.parentGraphFunctionRef },
+      { key: "parent_graph_ref", value: plan.parentGraphRef },
+      { key: "target_graph_vector_ref", value: plan.targetGraphVectorRef },
+      { key: "target_graph_vector_name", value: plan.targetGraphVectorName },
+      {
+        key: "target_source_node_refs",
+        value: jsonArrayValue(plan.targetSourceNodeRefs)
+      },
+      { key: "target_node_ref", value: plan.targetNodeRef },
+      {
+        key: "refinement_graph_function_ref",
+        value: plan.refinementGraphFunctionRef
+      },
+      { key: "refinement_graph_ref", value: plan.refinementGraphRef },
+      { key: "substituted_graph_ref", value: plan.substitutedGraphRef },
+      {
+        key: "refinement_boundary_ref",
+        value: plan.refinementBoundaryRef
+      },
+      { key: "candidate_family_ref", value: plan.candidateFamilyRef },
+      {
+        key: "published_traversal_target_ref",
+        value: plan.publishedTraversalTargetRef
+      },
+      { key: "authority_refs", value: jsonArrayValue(plan.authorityRefs) },
+      { key: "operation", value: "substitute" },
+      { key: "preserves_outer_contract", value: true }
+    ])
+  ]);
+}
+
+function assertSameInterface(
+  label: string,
+  left: readonly Node[],
+  right: readonly Node[]
+): void {
+  if (JSON.stringify(interfaceContract(left)) !== JSON.stringify(interfaceContract(right))) {
+    throw new TypeError(`${label}: interface contract mismatch`);
+  }
 }
 
 function stableNodes(values: readonly (readonly Node[])[]): readonly Node[] {
@@ -543,6 +795,165 @@ export function substitute(
     rules: outer.rules,
     effects: outer.effects,
     tags: stableUnion([outer.tags, [`substituted:${targetVector.name}`]])
+  });
+}
+
+export function constructGraphFunctionZoomPlan(
+  input: GraphFunctionZoomPlanInput
+): GraphFunctionZoomPlan {
+  const authority = graphFunctionZoomAuthority(input);
+  const suppliedPlanRef = optionalNonEmptyString(
+    input.planRef,
+    "GraphFunctionZoomPlan.planRef"
+  );
+  const parentGraph = materializeGraphFunction(input.parent);
+  const refinementGraph = materializeGraphFunction(input.refinement);
+  const targetVector = resolveGraphFunctionZoomTargetVector({
+    graph: parentGraph,
+    authority
+  });
+  const substitutedGraph = substitute(
+    parentGraph,
+    targetVector.id,
+    refinementGraph
+  );
+  assertSameInterface(
+    "GraphFunction zoom parent inputs",
+    substitutedGraph.inputs,
+    input.parent.inputs
+  );
+  assertSameInterface(
+    "GraphFunction zoom parent outputs",
+    substitutedGraph.outputs,
+    input.parent.outputs
+  );
+
+  return Object.freeze({
+    kind: "graph_function_zoom_plan",
+    planRef:
+      suppliedPlanRef ??
+      defaultGraphFunctionZoomPlanRef({
+        parent: input.parent,
+        targetVector,
+        refinement: input.refinement,
+        authorityRefs: authority.authorityRefs
+      }),
+    parentGraphFunctionRef: input.parent.id,
+    parentGraphRef: parentGraph.id,
+    targetGraphVectorRef: targetVector.id,
+    targetGraphVectorName: targetVector.name,
+    targetSourceNodeRefs: Object.freeze(
+      targetVector.source.map((node) => node.id)
+    ),
+    targetNodeRef: targetVector.target.id,
+    refinementGraphFunctionRef: input.refinement.id,
+    refinementGraphRef: refinementGraph.id,
+    substitutedGraphRef: substitutedGraph.id,
+    refinementBoundaryRef: authority.refinementBoundaryRef,
+    candidateFamilyRef: authority.candidateFamilyRef,
+    publishedTraversalTargetRef: authority.publishedTraversalTargetRef,
+    authorityRefs: authority.authorityRefs
+  });
+}
+
+export function applyGraphFunctionZoomPlan(
+  input: GraphFunctionZoomApplyInput
+): GraphFunction {
+  if (input.plan.kind !== "graph_function_zoom_plan") {
+    throw new TypeError("GraphFunctionZoomPlan kind mismatch");
+  }
+  const planAuthority = graphFunctionZoomAuthority(input.plan);
+  const parentGraph = materializeGraphFunction(input.parent);
+  const refinementGraph = materializeGraphFunction(input.refinement);
+  if (input.plan.parentGraphFunctionRef !== input.parent.id) {
+    throw new TypeError("GraphFunctionZoomPlan parent graph function mismatch");
+  }
+  if (input.plan.parentGraphRef !== parentGraph.id) {
+    throw new TypeError("GraphFunctionZoomPlan parent graph mismatch");
+  }
+  if (input.plan.refinementGraphFunctionRef !== input.refinement.id) {
+    throw new TypeError("GraphFunctionZoomPlan refinement graph function mismatch");
+  }
+  if (input.plan.refinementGraphRef !== refinementGraph.id) {
+    throw new TypeError("GraphFunctionZoomPlan refinement graph mismatch");
+  }
+  const targetVector = parentGraph.vectors.find(
+    (vector) => vector.id === input.plan.targetGraphVectorRef
+  );
+  if (targetVector === undefined) {
+    throw new TypeError("GraphFunctionZoomPlan target vector does not resolve");
+  }
+  const authoritativeTargetVector = resolveGraphFunctionZoomTargetVector({
+    graph: parentGraph,
+    authority: planAuthority
+  });
+  if (authoritativeTargetVector.id !== targetVector.id) {
+    throw new TypeError("GraphFunctionZoomPlan target vector authority mismatch");
+  }
+  if (input.plan.targetGraphVectorName !== targetVector.name) {
+    throw new TypeError("GraphFunctionZoomPlan target vector name mismatch");
+  }
+  if (
+    JSON.stringify(input.plan.targetSourceNodeRefs) !==
+    JSON.stringify(targetVector.source.map((node) => node.id))
+  ) {
+    throw new TypeError("GraphFunctionZoomPlan target source node refs mismatch");
+  }
+  if (input.plan.targetNodeRef !== targetVector.target.id) {
+    throw new TypeError("GraphFunctionZoomPlan target node ref mismatch");
+  }
+  const substitutedGraph = substitute(
+    parentGraph,
+    input.plan.targetGraphVectorRef,
+    refinementGraph
+  );
+  if (substitutedGraph.id !== input.plan.substitutedGraphRef) {
+    throw new TypeError("GraphFunctionZoomPlan substituted graph mismatch");
+  }
+
+  return constructGraphFunction({
+    name:
+      input.name ??
+      `zoom(${input.parent.name}:${targetVector.name}->${input.refinement.name})`,
+    environment: input.parent.environment,
+    inputs: input.parent.inputs,
+    outputs: input.parent.outputs,
+    template: constructTemplateRef({
+      kind: "inline_graph",
+      ref: `zoom:${input.plan.planRef}`,
+      graph: substitutedGraph,
+      version: null
+    }),
+    effects: stableUnion([input.parent.effects, input.refinement.effects]),
+    declarations: mergeSerializedAttrs([
+      input.parent.declarations,
+      input.declarations ?? emptySerializedAttrs(),
+      graphFunctionZoomDeclaration(input.plan)
+    ]),
+    tags: stableUnion([
+      input.parent.tags,
+      input.refinement.tags,
+      input.tags ?? [],
+      ["zoom:graph-function", `zoom-target:${targetVector.name}`]
+    ])
+  });
+}
+
+export function zoomGraphFunction(
+  input: GraphFunctionZoomInput
+): GraphFunctionZoomResult {
+  const plan = constructGraphFunctionZoomPlan(input);
+  return Object.freeze({
+    kind: "graph_function_zoom_result",
+    plan,
+    graphFunction: applyGraphFunctionZoomPlan({
+      parent: input.parent,
+      refinement: input.refinement,
+      plan,
+      name: input.name,
+      declarations: input.declarations,
+      tags: input.tags
+    })
   });
 }
 
