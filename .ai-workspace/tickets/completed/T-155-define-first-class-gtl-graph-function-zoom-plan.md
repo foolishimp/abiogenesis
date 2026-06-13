@@ -3,9 +3,9 @@ id: T-155
 title: Define first-class GTL graph-function zoom plan over prime carriers
 type: feature
 ticket_category: graph_function_zoom_algebra
-status: active
-review_status: ready_for_review
-proof_status: implemented_verified
+status: completed
+review_status: accepted
+proof_status: passed
 goal: define and prove a first-class ABG/GTL graph-function zoom capability that preserves `GraphFunction` as the public callable carrier and resolves `GraphVector` only as internal ABG materialized structure
 build_tenant: typescript
 release_scope: post-rc18
@@ -43,6 +43,7 @@ affected_boundary:
     - build_tenants/abiogenesis/typescript/test_env/live/test_t155_graph_function_zoom_plan_live.test.mjs
 created_at: 2026-06-13
 updated_at: 2026-06-13
+completed_at: 2026-06-13
 governance_scope: STDO Method
 priority: high
 dependencies:
@@ -177,8 +178,10 @@ Proof:
 - `npx eslint --max-warnings=0 "test_env/tests/test_t155_graph_function_zoom_plan.test.mjs"` passed.
 - `git diff --check` passed.
 
-Release status: no release cut has been made from this work. The implementation
-is ready for STDO review before any release.
+Release status: shipped in `@abiogenesis/typescript-tenant@4.0.0-rc.19`.
+The release snapshot lives at
+`release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.19/`, with `latest`
+pointing to `4.0.0-rc.19`.
 
 ## Relationship To T-152
 
