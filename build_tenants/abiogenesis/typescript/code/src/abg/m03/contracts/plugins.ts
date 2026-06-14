@@ -69,6 +69,12 @@ import {
   constructConsequenceTraversalAction
 } from "./consequence_traversal_action.js";
 import type {
+  AllowedConsequenceTraversalCatalog
+} from "./allowed_consequence_traversal_catalog.js";
+import {
+  deriveAllowedConsequenceTraversalCatalogFromGtl
+} from "./allowed_consequence_traversal_catalog.js";
+import type {
   EvaluationRuleOutcome,
   EvaluationRuleRole
 } from "./evaluation_set.js";
@@ -270,6 +276,7 @@ export interface EnginePluginInput {
   readonly fpTransformRequest: FpTransformRequest | null;
   readonly pluginTraversalObserverBinding: PluginTraversalObserverBindingSelection | null;
   readonly edgeAssuranceResolution: EdgeAssuranceResolution;
+  readonly allowedConsequenceTraversalCatalog: AllowedConsequenceTraversalCatalog;
   readonly traversalStrategySelection: TraversalStrategySelection | null;
   readonly traversalAttemptEnvelope: TraversalAttemptEnvelope | null;
 }
@@ -1362,6 +1369,13 @@ export function constructEnginePluginInput(input: {
     },
     defaults: input.edgeAssuranceDefaults ?? null
   });
+  const allowedConsequenceTraversalCatalog =
+    deriveAllowedConsequenceTraversalCatalogFromGtl({
+      graphFunction: input.basis.graphFunction,
+      graphVector: vector,
+      vectorIndex: input.vectorIndex,
+      edgeRef: input.edge
+    });
   return Object.freeze({
     kind: "engine_plugin_input",
     contract,
@@ -1412,6 +1426,7 @@ export function constructEnginePluginInput(input: {
     fpTransformRequest,
     pluginTraversalObserverBinding,
     edgeAssuranceResolution,
+    allowedConsequenceTraversalCatalog,
     traversalStrategySelection: input.traversalStrategySelection ?? null,
     traversalAttemptEnvelope: input.traversalAttemptEnvelope ?? null
   });

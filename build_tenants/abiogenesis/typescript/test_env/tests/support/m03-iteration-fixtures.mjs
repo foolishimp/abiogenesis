@@ -188,7 +188,8 @@ function stageGraphFunction(
   edgeName,
   evaluatorId,
   regime,
-  includeComposition
+  includeComposition,
+  vectorDeclarationEntries = []
 ) {
   const vector = edge([source], target, {
     id: `graph-${name}`,
@@ -202,7 +203,7 @@ function stageGraphFunction(
         tags: ["fulfillment"]
       }
     ],
-    declarations: { entries: [] },
+    declarations: { entries: Object.freeze([...vectorDeclarationEntries]) },
     tags: ["m03_iteration"]
   }).vectors[0];
 
@@ -237,7 +238,8 @@ export function buildThreeStageModule(options = {}) {
       "input_set→requirements",
       "requirements_ready",
       vectorRegimes[0],
-      options.includeComposition !== false
+      options.includeComposition !== false,
+      options.vectorDeclarationEntriesByIndex?.[0] ?? []
     ),
     stageGraphFunction(
       "synthesize_design",
@@ -246,7 +248,8 @@ export function buildThreeStageModule(options = {}) {
       "requirements→design",
       "design_ready",
       vectorRegimes[1],
-      options.includeComposition !== false
+      options.includeComposition !== false,
+      options.vectorDeclarationEntriesByIndex?.[1] ?? []
     ),
     stageGraphFunction(
       "implement_code",
@@ -255,7 +258,8 @@ export function buildThreeStageModule(options = {}) {
       "design→code",
       "code_ready",
       vectorRegimes[2],
-      options.includeComposition !== false
+      options.includeComposition !== false,
+      options.vectorDeclarationEntriesByIndex?.[2] ?? []
     )
   );
 
@@ -290,7 +294,8 @@ export function buildThreeStageBasis(options = {}) {
   const { module, executive } = buildThreeStageModule({
     defaultRegime,
     vectorRegimes: options.vectorRegimes,
-    includeComposition: options.includeComposition
+    includeComposition: options.includeComposition,
+    vectorDeclarationEntriesByIndex: options.vectorDeclarationEntriesByIndex
   });
   const dispatchRef =
     Object.hasOwn(options, "dispatchRef")
@@ -343,7 +348,8 @@ export function buildThreeStageStartContext(options = {}) {
   const { module, executive } = buildThreeStageModule({
     defaultRegime,
     vectorRegimes: options.vectorRegimes,
-    includeComposition: options.includeComposition
+    includeComposition: options.includeComposition,
+    vectorDeclarationEntriesByIndex: options.vectorDeclarationEntriesByIndex
   });
   const dispatchRef =
     Object.hasOwn(options, "dispatchRef")

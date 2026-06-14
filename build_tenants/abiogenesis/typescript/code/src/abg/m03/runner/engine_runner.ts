@@ -136,10 +136,14 @@ import {
   deriveConstructionPriorityProjection
 } from "../contracts/construction_priority.js";
 import {
+  admitConsequenceTraversalActionForAllowedCatalog,
   constructConstructionActionRowFromConsequenceTraversalAction,
   constructConstructionIntentCandidateFromConsequenceTraversalAction,
   type ConsequenceTraversalAction
 } from "../contracts/consequence_traversal_action.js";
+import type {
+  AllowedConsequenceTraversalCatalog
+} from "../contracts/allowed_consequence_traversal_catalog.js";
 import type { AbgFallbackBundle } from "../contracts/plugin_traversal_observer.js";
 import type { EdgeAssuranceDefaultContract } from "../contracts/edge_assurance_contract.js";
 import type { ConstructionPressurePackage } from "../contracts/construction_pressure_package.js";
@@ -2466,10 +2470,25 @@ function buildConsequenceTraversalConstructionWorld(input: {
   readonly request: EngineIterateRequest;
   readonly runtimeProjection: RuntimeAggregateProjection;
   readonly action: ConsequenceTraversalAction;
+  readonly allowedTraversalCatalog: AllowedConsequenceTraversalCatalog;
   readonly outcome: ConsequenceProjectionOutcome;
   readonly vectorIndex: number;
   readonly replayEventCount: number;
 }): ConsequenceTraversalConstructionBuildResult {
+  try {
+    admitConsequenceTraversalActionForAllowedCatalog({
+      catalog: input.allowedTraversalCatalog,
+      action: input.action
+    });
+  } catch (error) {
+    return Object.freeze({
+      status: "blocked",
+      reason:
+        error instanceof Error
+          ? error.message
+          : "consequence traversal action was not admitted by the allowed traversal catalog"
+    });
+  }
   if (input.action.actionKind === "non_admit") {
     return Object.freeze({
       status: "blocked",
@@ -2689,6 +2708,7 @@ function consumeConsequenceTraversalAction(input: {
   readonly eventState: EngineEventEmissionState;
   readonly runtimeProjection: RuntimeAggregateProjection;
   readonly outcome: ConsequenceProjectionOutcome;
+  readonly allowedTraversalCatalog: AllowedConsequenceTraversalCatalog;
   readonly vectorIndex: number;
   readonly iterationCount: number;
 }): {
@@ -2703,6 +2723,7 @@ function consumeConsequenceTraversalAction(input: {
     request: input.request,
     runtimeProjection: input.runtimeProjection,
     action,
+    allowedTraversalCatalog: input.allowedTraversalCatalog,
     outcome: input.outcome,
     vectorIndex: input.vectorIndex,
     replayEventCount: input.eventState.replayEvents.length
@@ -3844,6 +3865,8 @@ function* runEngineIterateMachine(input: {
             eventState.replayEvents
           ),
           outcome: consequenceOutcome,
+          allowedTraversalCatalog:
+            scalarConsequenceInput.allowedConsequenceTraversalCatalog,
           vectorIndex: transition.vectorIndex,
           iterationCount
         });
@@ -4994,6 +5017,8 @@ function* runEngineIterateMachine(input: {
                 eventState.replayEvents
               ),
               outcome: consequenceOutcome,
+              allowedTraversalCatalog:
+                scalarConsequenceInput.allowedConsequenceTraversalCatalog,
               vectorIndex: transition.vectorIndex,
               iterationCount
             });

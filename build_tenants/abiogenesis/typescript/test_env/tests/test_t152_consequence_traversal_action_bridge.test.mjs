@@ -5,12 +5,33 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import {
+  ABG_ALLOWED_CONSEQUENCE_TRAVERSAL_FAMILIES_DECLARATION_KEY,
   admitConsequenceProjectionOutcome,
   constructEnginePluginContract,
   constructFdEvaluationOutcome,
   runEngineIterate
 } from "../../build/semantic/code/src/index.js";
 import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
+
+function allowedTraversalFamiliesEntry(families) {
+  return Object.freeze({
+    key: ABG_ALLOWED_CONSEQUENCE_TRAVERSAL_FAMILIES_DECLARATION_KEY,
+    value: Object.freeze({
+      kind: "string_list",
+      value: Object.freeze([...families])
+    })
+  });
+}
+
+function buildConsequenceCatalogBasis(options = {}) {
+  return buildThreeStageBasis({
+    ...options,
+    vectorDeclarationEntriesByIndex: Object.freeze({
+      1: Object.freeze([allowedTraversalFamiliesEntry(["depth_traversal"])]),
+      2: Object.freeze([allowedTraversalFamiliesEntry(["depth_traversal"])])
+    })
+  });
+}
 
 function fdEvaluatorContract(ref) {
   return constructEnginePluginContract({
@@ -34,6 +55,7 @@ function rawTraversalAction(basis, targetVectorIndex, extra = {}) {
     strategyDecisionRef: "strategy-decision://t152/simple-then-depth",
     parentObligationRef: "obligation://t152/feature-depth",
     actionKind: "reenter_graph_span",
+    selectedTraversalFamily: "depth_traversal",
     selectedGraphFunctionRef: basis.graphFunction.id,
     selectedOverlayRef: "overlay://t152/depth",
     selectedRefinementBoundaryRef: "refinement-boundary://t152/depth-reentry",
@@ -58,7 +80,7 @@ function rawTraversalAction(basis, targetVectorIndex, extra = {}) {
 }
 
 test("T-152 engine consumes consequence traversal action through construction re-entry", () => {
-  const basis = buildThreeStageBasis({
+  const basis = buildConsequenceCatalogBasis({
     defaultRegime: "F_D",
     dispatchRef: null,
     vectorRegimes: ["F_D", "F_D", "F_D"],
@@ -152,7 +174,7 @@ test("T-152 engine consumes consequence traversal action through construction re
 });
 
 test("T-152 consequence traversal action admission rejects engine-authority payloads", () => {
-  const basis = buildThreeStageBasis({
+  const basis = buildConsequenceCatalogBasis({
     defaultRegime: "F_D",
     dispatchRef: null,
     vectorRegimes: ["F_D", "F_D", "F_D"],
@@ -177,7 +199,7 @@ test("T-152 consequence traversal action admission rejects engine-authority payl
 });
 
 test("T-152 engine blocks out-of-range consequence re-entry targets without throwing", () => {
-  const basis = buildThreeStageBasis({
+  const basis = buildConsequenceCatalogBasis({
     defaultRegime: "F_D",
     dispatchRef: null,
     vectorRegimes: ["F_D", "F_D", "F_D"],

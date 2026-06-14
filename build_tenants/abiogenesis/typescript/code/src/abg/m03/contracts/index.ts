@@ -833,7 +833,26 @@ export type {
   ObservationToActionBindingRow
 } from "./fp_consciousness.js";
 export {
+  ABG_ALLOWED_CONSEQUENCE_TRAVERSAL_FAMILIES_DECLARATION_KEY,
+  ABG_ALLOWED_CONSEQUENCE_TRAVERSAL_ROWS_DECLARATION_KEY,
+  ALLOWED_CONSEQUENCE_TRAVERSAL_ACTION_KIND_VALUES,
+  ALLOWED_CONSEQUENCE_TRAVERSAL_FAMILY_VALUES,
+  admitConsequenceTraversalActionAgainstAllowedCatalog,
+  constructAllowedConsequenceTraversalCatalog,
+  constructAllowedConsequenceTraversalRow,
+  deriveAllowedConsequenceTraversalCatalogFromGtl
+} from "./allowed_consequence_traversal_catalog.js";
+export type {
+  AllowedConsequenceTraversalActionKind,
+  AllowedConsequenceTraversalAdmission,
+  AllowedConsequenceTraversalCatalog,
+  AllowedConsequenceTraversalFamily,
+  AllowedConsequenceTraversalRow,
+  ConsequenceTraversalActionCatalogSelection
+} from "./allowed_consequence_traversal_catalog.js";
+export {
   CONSEQUENCE_TRAVERSAL_ACTION_KIND_VALUES,
+  admitConsequenceTraversalActionForAllowedCatalog,
   admitConsequenceTraversalAction,
   constructConsequenceTraversalAction,
   constructConstructionActionRowFromConsequenceTraversalAction,

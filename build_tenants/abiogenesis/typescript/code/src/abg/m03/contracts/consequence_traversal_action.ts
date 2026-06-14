@@ -27,6 +27,13 @@ import {
   requiredStringField
 } from "./construction_validation.js";
 import { assertNoEngineAuthorityFields } from "../../../shared/engine_authority_fields.js";
+import {
+  ALLOWED_CONSEQUENCE_TRAVERSAL_FAMILY_VALUES,
+  admitConsequenceTraversalActionAgainstAllowedCatalog,
+  type AllowedConsequenceTraversalAdmission,
+  type AllowedConsequenceTraversalCatalog,
+  type AllowedConsequenceTraversalFamily
+} from "./allowed_consequence_traversal_catalog.js";
 
 export const CONSEQUENCE_TRAVERSAL_ACTION_KIND_VALUES = Object.freeze([
   ...CONSTRUCTIVE_CONSTRUCTION_ACTION_KIND_VALUES,
@@ -43,6 +50,7 @@ export interface ConsequenceTraversalAction {
   readonly strategyDecisionRef: string;
   readonly parentObligationRef: string;
   readonly actionKind: ConsequenceTraversalActionKind;
+  readonly selectedTraversalFamily: AllowedConsequenceTraversalFamily | null;
   readonly selectedGraphFunctionRef: string | null;
   readonly selectedOverlayRef: string | null;
   readonly selectedCandidateFamilyRef: string | null;
@@ -133,6 +141,7 @@ export function constructConsequenceTraversalAction(input: {
   readonly strategyDecisionRef: string;
   readonly parentObligationRef: string;
   readonly actionKind: ConsequenceTraversalActionKind;
+  readonly selectedTraversalFamily?: AllowedConsequenceTraversalFamily | null;
   readonly selectedGraphFunctionRef?: string | null;
   readonly selectedOverlayRef?: string | null;
   readonly selectedCandidateFamilyRef?: string | null;
@@ -188,6 +197,15 @@ export function constructConsequenceTraversalAction(input: {
     strategyDecisionRef: input.strategyDecisionRef,
     parentObligationRef: input.parentObligationRef,
     actionKind,
+    selectedTraversalFamily:
+      input.selectedTraversalFamily === undefined ||
+      input.selectedTraversalFamily === null
+        ? null
+        : assertAllowedString(
+            input.selectedTraversalFamily,
+            ALLOWED_CONSEQUENCE_TRAVERSAL_FAMILY_VALUES,
+            "ConsequenceTraversalAction.selectedTraversalFamily"
+          ),
     selectedGraphFunctionRef: nullableString(
       input.selectedGraphFunctionRef ?? null,
       "ConsequenceTraversalAction.selectedGraphFunctionRef"
@@ -263,6 +281,11 @@ export function admitConsequenceTraversalAction(
   if (record["kind"] !== "consequence_traversal_action") {
     throw new TypeError(`${label}.kind must be consequence_traversal_action`);
   }
+  const selectedTraversalFamily = optionalNullableStringField(
+    record,
+    "selectedTraversalFamily",
+    label
+  );
   return constructConsequenceTraversalAction({
     actionRef: requiredStringField(record, "actionRef", label),
     consequenceRef: requiredStringField(record, "consequenceRef", label),
@@ -273,6 +296,14 @@ export function admitConsequenceTraversalAction(
       CONSEQUENCE_TRAVERSAL_ACTION_KIND_VALUES,
       `${label}.actionKind`
     ),
+    selectedTraversalFamily:
+      selectedTraversalFamily === null
+        ? null
+        : assertAllowedString(
+            selectedTraversalFamily,
+            ALLOWED_CONSEQUENCE_TRAVERSAL_FAMILY_VALUES,
+            `${label}.selectedTraversalFamily`
+          ),
     selectedGraphFunctionRef: optionalNullableStringField(
       record,
       "selectedGraphFunctionRef",
@@ -323,6 +354,16 @@ export function admitConsequenceTraversalAction(
       "nonAdmissionReasonRefs",
       label
     )
+  });
+}
+
+export function admitConsequenceTraversalActionForAllowedCatalog(input: {
+  readonly catalog: AllowedConsequenceTraversalCatalog;
+  readonly action: ConsequenceTraversalAction;
+}): AllowedConsequenceTraversalAdmission {
+  return admitConsequenceTraversalActionAgainstAllowedCatalog({
+    catalog: input.catalog,
+    action: input.action
   });
 }
 
