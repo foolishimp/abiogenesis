@@ -32,6 +32,9 @@ import {
   ENGINE_COMPUTE_STAGE_ROLE_VALUES
 } from "./plugins.js";
 import {
+  deriveAllowedConsequenceTraversalCatalogFromGtl
+} from "./allowed_consequence_traversal_catalog.js";
+import {
   stableJson,
   stableSha256Digest
 } from "../../../shared/runtime_identity.js";
@@ -4565,6 +4568,45 @@ function materializeGraphVectors(
   return Object.freeze(vectors);
 }
 
+function checkAllowedConsequenceTraversalDeclarations(input: {
+  readonly graphFunctions: readonly GraphFunction[];
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  for (const graphFunction of input.graphFunctions) {
+    let graph: Graph;
+    try {
+      graph = materializeGraphFunction(graphFunction);
+    } catch {
+      continue;
+    }
+    graph.vectors.forEach((vector, vectorIndex) => {
+      try {
+        deriveAllowedConsequenceTraversalCatalogFromGtl({
+          graphFunction,
+          graphVector: vector,
+          vectorIndex,
+          edgeRef: vector.name
+        });
+      } catch (error: unknown) {
+        input.issues.push(
+          issue({
+            surfaceKind: "graph_vector",
+            surfaceRef: vector.name,
+            ruleRef:
+              "abg://gtl-program/allowed-consequence-traversal/declaration",
+            message: errorMessage(error),
+            evidenceRefs: [
+              graphFunction.name,
+              graphFunction.id,
+              vector.id
+            ]
+          })
+        );
+      }
+    });
+  }
+}
+
 function checkVectorRows(input: {
   readonly vectors: readonly GraphVectorProjection[];
   readonly targetCarrierContracts: readonly GtlProgramTargetCarrierRow[];
@@ -6923,6 +6965,10 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
   }
 
   const vectors = materializeGraphVectors(graphFunctions, issues);
+  checkAllowedConsequenceTraversalDeclarations({
+    graphFunctions,
+    issues
+  });
   const graphVectorRefs = new Set(vectors.map((vector) => vector.vectorRef));
   const targetCarrierContracts = Object.freeze([
     ...(input.targetCarrierContracts ?? [])

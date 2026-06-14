@@ -1,6 +1,6 @@
 {
   "name": "@abiogenesis/typescript-tenant",
-  "version": "4.0.0-rc.20",
+  "version": "4.0.0-rc.21",
   "private": true,
   "type": "module",
   "types": "./build/semantic/code/src/index.d.ts",
@@ -91,7 +91,7 @@
     "lint:test-harness": "eslint --max-warnings=0 \"test_env/live/**/*.mjs\" \"test_env/sandbox/**/*.mjs\" \"test_env/tests/support/**/*.mjs\"",
     "lint:t087": "npm run lint:semantic && eslint --max-warnings=0 \"test_env/live/test_t087_supervised_actor_invocation_live.test.mjs\"",
     "test:semantic": "npm run build:semantic && node --test test_env/tests/*.test.mjs",
-    "test:t156": "npm run build:semantic && node --test test_env/tests/test_t156_consequence_allowed_traversal_catalog.test.mjs test_env/tests/test_t156_consequence_ticket_traversal_bridge.test.mjs test_env/tests/test_t152_consequence_traversal_action_bridge.test.mjs",
+    "test:t156": "npm run build:semantic && node --test test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs test_env/tests/test_t156_consequence_allowed_traversal_catalog.test.mjs test_env/tests/test_t156_consequence_ticket_traversal_bridge.test.mjs test_env/tests/test_t152_consequence_traversal_action_bridge.test.mjs",
     "snapshot:release": "npm run build:semantic && node build/semantic/code/src/bin/abiogenesis.js release-snapshot",
     "test:live": "npm run build:semantic && node --test test_env/live/test_m05_rc_live_portfolio.test.mjs",
     "test:live:uat": "npm run build:semantic && node --test test_env/live/test_m05_rc_live_uat.test.mjs",

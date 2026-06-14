@@ -29,9 +29,11 @@ affected_boundary:
     - build_tenants/abiogenesis/typescript/code/src/abg/m03/contracts/plugins.ts
     - build_tenants/abiogenesis/typescript/code/src/abg/m03/contracts/construction_action_catalog.ts
     - build_tenants/abiogenesis/typescript/code/src/abg/m03/contracts/construction_action_kinds.ts
+    - build_tenants/abiogenesis/typescript/code/src/abg/m03/contracts/gtl_program_conformance.ts
     - build_tenants/abiogenesis/typescript/code/src/abg/m03/contracts/index.ts
     - build_tenants/abiogenesis/typescript/code/src/abg/m03/runner/engine_runner.ts
   proof:
+    - build_tenants/abiogenesis/typescript/test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs
     - build_tenants/abiogenesis/typescript/test_env/tests/test_t156_consequence_allowed_traversal_catalog.test.mjs
     - build_tenants/abiogenesis/typescript/test_env/tests/test_t156_consequence_ticket_traversal_bridge.test.mjs
     - build_tenants/abiogenesis/typescript/test_env/tests/test_t152_consequence_traversal_action_bridge.test.mjs
@@ -44,9 +46,9 @@ dependencies:
   - T-154 runtime authorship routes for downstream resume/span reentry
   - T-155 first-class GTL graph-function zoom plan
 intake_source: Downstream SDLC depth and ticket-workflow proof exposed the missing generic abstraction: every traversal should run evaluation, project consequence pressure, and choose from a typed finite catalog of allowed graph traversals. Depth traversal and ticket traversal are sibling consequence outcomes, not annotation side effects or product-local controllers.
-target_truth: ABG exposes an admitted `AllowedConsequenceTraversalCatalog` or equivalent carrier that binds an evaluation/consequence context to a finite set of lawful traversal families: same-edge retry, graph-function zoom/depth traversal, graph-span reentry, public-start/current-full reentry, downstream ticket traversal, F_H/escalation/reprice proposal, gap stop, and non-admission. A consequence plugin may propose one selection only from this admitted catalog. ABG admits the selection, rejects engine-authority payloads, projects it into existing construction action/intent carriers, and executes or stops through replay-visible ABG runtime law. Overlay or graph-function annotations are policy inputs to the catalog, not execution triggers.
+target_truth: ABG exposes an admitted `AllowedConsequenceTraversalCatalog` or equivalent carrier that binds an evaluation/consequence context to a finite set of lawful traversal families: same-edge retry, graph-function zoom/depth traversal, graph-span reentry, public-start/current-full reentry, downstream ticket traversal, F_H/escalation/reprice proposal, gap stop, and non-admission. A consequence plugin may propose one selection only from this admitted catalog. ABG admits the selection, rejects engine-authority payloads, projects it into existing construction action/intent carriers, and executes or stops through replay-visible ABG runtime law. Overlay or graph-function annotations are policy inputs to the catalog, not execution triggers. The static `typecheckGtlProgram(...)` gate validates the same GTL declaration annotations by deriving the catalog through the same ABG parser before downstream products rely on them.
 superseded_truth: Consequence plugins decide traversal by hidden imperative logic, annotations directly create tickets or move cursors, depth traversal is special-cased separately from ticket traversal, downstream products run recursive controllers, or ABG falls back to same-edge retry because it lacks a typed admitted traversal option.
-closure_law: Close only when design/IACS defines the allowed traversal catalog owners, states, admission law, and non-closure signals; TypeScript realization admits catalog rows and consequence selections for at least same-edge retry, depth/zoom, graph-span reentry, ticket traversal, terminal gap stop, and non-admit; runner consumption proves each executable family projects through existing construction action/intent and ABG runtime events without plugin-owned execution; negative proof rejects annotation-only ticket creation, bare vector targets, relative cursors, product-local ticket mechanics, hidden engine-authority fields, unavailable action refs, and consequence selections not present in the admitted catalog.
+closure_law: Close only when design/IACS defines the allowed traversal catalog owners, states, admission law, and non-closure signals; TypeScript realization admits catalog rows and consequence selections for at least same-edge retry, depth/zoom, graph-span reentry, ticket traversal, terminal gap stop, and non-admit; `typecheckGtlProgram(...)` rejects malformed allowed traversal family/row declarations using the same ABG catalog derivation as runtime admission; runner consumption proves each executable family projects through existing construction action/intent and ABG runtime events without plugin-owned execution; negative proof rejects annotation-only ticket creation, bare vector targets, relative cursors, product-local ticket mechanics, hidden engine-authority fields, unavailable action refs, and consequence selections not present in the admitted catalog.
 evaluation_criteria:
   - `plugin.consequence.C` remains a proposed payload/read-model phase until ABG admission.
   - ABG derives traversal transition and replay continuation from admitted consequence selection, not from plugin side effects.
@@ -165,6 +167,8 @@ ticket explicitly re-enters them.
   catalog-gated consequence traversal admission.
 - [x] Derive the allowed traversal catalog from current GTL graph-function and
   graph-vector declarations.
+- [x] Validate allowed traversal family and row declarations in
+  `typecheckGtlProgram(...)` before downstream products consume a release.
 - [x] Add `EnginePluginInput.allowedConsequenceTraversalCatalog` so downstream
   product-owned consequence plugins receive the declared catalog for the edge
   they are evaluating.
@@ -191,6 +195,8 @@ Close T-156 only when all of the following are true:
 - The singular design remains the only T-156 design owner, with older M03/T155
   surfaces referenced only as dependencies.
 - Catalog rows can be derived from GTL declarations and admitted directly.
+- The static GTL program conformance gate rejects malformed allowed traversal
+  family or row declarations by reusing ABG catalog derivation.
 - Consequence selections are rejected unless the selected family, action kind,
   route constraints, and required authority refs match an admitted catalog row.
 - Product-owned consequence plugins can inspect the catalog and select a route,
@@ -216,8 +222,9 @@ Close T-156 only when all of the following are true:
 
 2026-06-15 proof:
 
-- Package version under verification: `@abiogenesis/typescript-tenant@4.0.0-rc.20`
+- Package version under verification: `@abiogenesis/typescript-tenant@4.0.0-rc.21`
 - `npm run build:semantic`
+- `node --test test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs`
 - `npm run lint:semantic`
 - `npm run test:t156`
 - `node --test test_env/tests/test_t155_graph_function_zoom_plan.test.mjs`
@@ -226,13 +233,16 @@ Close T-156 only when all of the following are true:
 
 Observed result:
 
-- focused T-156/T-152 bridge proof: 11/11 passing
+- focused T-156/T-150/T-152 bridge proof: 54/54 passing
 - T-155 graph-function zoom regression: 13/13 passing
-- full semantic suite: 814/814 passing
+- full semantic suite: 817/817 passing
 
 Functional proof covered:
 
 - GTL declaration-derived allowed traversal catalog.
+- Static `typecheckGtlProgram(...)` validation for the same allowed traversal
+  declaration annotations, including valid declarations, unknown family
+  rejection, and malformed row declaration rejection.
 - Catalog-gated depth traversal admission.
 - Direct catalog admission for same-edge retry, graph-span reentry, terminal
   gap stop, and non-admit.
@@ -264,6 +274,8 @@ Current non-closure:
   surfaces enter catalog construction.
 - [x] Admit a catalog with finite allowed traversal families and explicit
   proportionality/ranking basis refs.
+- [x] Prove the static GTL conformance compiler rejects malformed allowed
+  traversal declaration annotations before runtime/plugin consumption.
 - [x] Admit a consequence selection only when its selected family is present in
   the catalog and all required authority refs are present.
 - [x] Project executable selections into existing construction action/intent

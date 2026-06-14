@@ -9,6 +9,8 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 
 import {
+  ABG_ALLOWED_CONSEQUENCE_TRAVERSAL_FAMILIES_DECLARATION_KEY,
+  ABG_ALLOWED_CONSEQUENCE_TRAVERSAL_ROWS_DECLARATION_KEY,
   compose,
   constructAssetSurface,
   constructCandidateFamily,
@@ -107,6 +109,63 @@ function rule(name) {
   });
 }
 
+function serializedAttrs(entries) {
+  return Object.freeze({
+    entries: Object.freeze(entries)
+  });
+}
+
+function stringListAttr(key, value) {
+  return Object.freeze({
+    key,
+    value: Object.freeze({
+      kind: "string_list",
+      value: Object.freeze([...value])
+    })
+  });
+}
+
+function scalarAttr(key, value) {
+  return Object.freeze({
+    key,
+    value: Object.freeze({
+      kind: "scalar",
+      value
+    })
+  });
+}
+
+function jsonBlobAttr(key, value) {
+  return Object.freeze({
+    key,
+    value: Object.freeze({
+      kind: "json_blob",
+      value
+    })
+  });
+}
+
+function jsonArray(items) {
+  return Object.freeze({
+    kind: "array",
+    items: Object.freeze(items)
+  });
+}
+
+function jsonObject(entries) {
+  return Object.freeze({
+    kind: "object",
+    entries: Object.freeze(
+      Object.entries(entries).map(([key, value]) =>
+        Object.freeze({
+          key,
+          value
+        })
+      )
+    )
+  });
+}
+
 function vectorBoundaryNode(name) {
   return constructNode({
     name,
@@ -140,7 +199,7 @@ function graphFunctionFixture(options = {}) {
     ],
     rule: rule(`${vectorName}_rule`),
     allowsSubwork: false,
-    declarations: emptySerializedAttrs(),
+    declarations: options.vectorDeclarations ?? emptySerializedAttrs(),
     tags: ["t150-program-conformance-tool"]
   });
   const graph = constructGraph({
@@ -170,7 +229,7 @@ function graphFunctionFixture(options = {}) {
       version: null
     }),
     effects: ["prompt-construction"],
-    declarations: emptySerializedAttrs(),
+    declarations: options.graphFunctionDeclarations ?? emptySerializedAttrs(),
     tags: ["t150-program-conformance-tool"]
   });
 }
@@ -943,6 +1002,93 @@ test("T-150 GTL program typechecker admits a complete graph prompt plugin invent
   assert.equal(report.coverage.pluginContractCount, 1);
   assert.match(report.inventoryDigests.runtimeReentryRoutes, /^sha256:/u);
   assert.match(report.reportRef, /^abg:\/\/gtl-program-conformance-report\/sha256:/u);
+});
+
+test("T-156 GTL program typechecker admits allowed consequence traversal declarations", () => {
+  const report = typecheckGtlProgram(
+    compliantInput(
+      {},
+      {
+        graphFunctionDeclarations: serializedAttrs([
+          stringListAttr(
+            ABG_ALLOWED_CONSEQUENCE_TRAVERSAL_FAMILIES_DECLARATION_KEY,
+            ["same_edge_retry"]
+          )
+        ]),
+        vectorDeclarations: serializedAttrs([
+          jsonBlobAttr(
+            ABG_ALLOWED_CONSEQUENCE_TRAVERSAL_ROWS_DECLARATION_KEY,
+            jsonArray([
+              jsonObject({
+                traversalFamily: "ticket_traversal",
+                allowedActionKinds: jsonArray(["create_ticket"]),
+                allowedTraversalTargetRefs: jsonArray(["asset:ticket/T-156"]),
+                requiredAuthorityRefs: jsonArray(["authority://t156/ticket"]),
+                proportionalityBasisRefs: jsonArray([
+                  "proof://t156/compiler-static-gate"
+                ])
+              })
+            ])
+          )
+        ])
+      }
+    )
+  );
+
+  assert.equal(report.passed, true, formatGtlProgramConformanceIssues(report.issues));
+  assert.equal(report.issueCount, 0);
+});
+
+test("T-156 GTL program typechecker rejects unknown consequence traversal family declarations", () => {
+  const report = typecheckGtlProgram(
+    compliantInput(
+      {},
+      {
+        vectorDeclarations: serializedAttrs([
+          stringListAttr(
+            ABG_ALLOWED_CONSEQUENCE_TRAVERSAL_FAMILIES_DECLARATION_KEY,
+            ["same_edge_retry", "cursor_jump"]
+          )
+        ])
+      }
+    )
+  );
+  const ruleRefs = new Set(report.issues.map((entry) => entry.ruleRef));
+  const messages = report.issues.map((entry) => entry.message).join("\n");
+
+  assert.equal(report.passed, false);
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/allowed-consequence-traversal/declaration"
+    )
+  );
+  assert.match(messages, /cursor_jump/u);
+});
+
+test("T-156 GTL program typechecker rejects malformed allowed traversal row declarations", () => {
+  const report = typecheckGtlProgram(
+    compliantInput(
+      {},
+      {
+        vectorDeclarations: serializedAttrs([
+          scalarAttr(
+            ABG_ALLOWED_CONSEQUENCE_TRAVERSAL_ROWS_DECLARATION_KEY,
+            "not-json"
+          )
+        ])
+      }
+    )
+  );
+  const ruleRefs = new Set(report.issues.map((entry) => entry.ruleRef));
+  const messages = report.issues.map((entry) => entry.message).join("\n");
+
+  assert.equal(report.passed, false);
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/allowed-consequence-traversal/declaration"
+    )
+  );
+  assert.match(messages, /must be a json_blob declaration/u);
 });
 
 test("T-152 GTL program typechecker requires a complete T-153 feature manifest", () => {

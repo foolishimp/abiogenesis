@@ -28,6 +28,7 @@ The desired control shape is:
 
 ```text
 current graph traversal
+  -> typecheckGtlProgram validates allowed traversal declarations
   -> evaluation set and assurance fold
   -> plugin.consequence.C proposes one traversal selection
   -> ABG admits that selection against the edge's allowed traversal catalog
@@ -55,6 +56,7 @@ Inputs:
 
 Non-closure signals:
 
+- static conformance cannot parse or validate the declared catalog rows
 - no catalog row exists for a consequence-selected family
 - a row exists but does not allow the selected construction action kind
 - a row requires authority refs not carried by the selected action
@@ -108,6 +110,20 @@ The action remains a proposed plugin payload until admitted. It cannot carry
 engine-authority fields, runtime events, ledgers, cursor movement, closure
 flags, or replay mutation.
 
+### `typecheckGtlProgram(...)` allowed traversal declaration check
+
+Owner: ABG.
+
+Purpose: static conformance validation for the same GTL annotations that build
+the runtime catalog. The compiler gate materializes each published graph
+function, derives the allowed traversal catalog for each graph vector through
+`deriveAllowedConsequenceTraversalCatalogFromGtl`, and reports a
+`gtl_program_conformance_issue` if a family or row declaration is malformed.
+
+This check is not a second parser or a product-local rule. It reuses the
+runtime catalog derivation so static validation and runtime admission share one
+ABG truth.
+
 ## Allowed Families
 
 Initial families:
@@ -132,6 +148,7 @@ meaning.
 ```text
 GTL graph vector declarations
   + GTL graph function declarations
+  -> typecheckGtlProgram validates declarations through catalog derivation
   -> deriveAllowedConsequenceTraversalCatalogFromGtl
   -> EnginePluginInput.allowedConsequenceTraversalCatalog
   -> SDLC or product consequence plugin selects one family/action
@@ -144,6 +161,8 @@ GTL graph vector declarations
 ## Boundary Law
 
 - GTL declares which traversal families are available for the current edge.
+- ABG's static conformance gate rejects malformed traversal-family and row
+  declarations before a downstream product treats the release as valid.
 - A downstream product consequence plugin may select one declared family using
   domain pressure and policy.
 - ABG admits or rejects the selected action against the catalog.
@@ -159,6 +178,7 @@ Rejected paths:
 
 - product-local consequence switch that is not checked against GTL declaration
   truth
+- separate static compiler parser that can drift from runtime catalog admission
 - annotation-only ticket creation
 - downstream cursor movement or relative vector offsets
 - bare graph-vector starts
@@ -171,6 +191,8 @@ Rejected paths:
 Focused proof must show:
 
 - catalog construction from GTL declarations
+- static `typecheckGtlProgram(...)` validation that admits valid declarations
+  and rejects unknown families or malformed row declaration shapes
 - catalog-gated admission of a depth traversal action
 - catalog-gated admission of a ticket traversal route
 - rejection when the selected family is not declared
