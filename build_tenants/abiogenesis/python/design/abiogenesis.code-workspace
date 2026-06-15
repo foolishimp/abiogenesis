@@ -32,6 +32,12 @@
 		},
 		{
 			"path": "../../../../../odd_trading_eval"
+		},
+		{
+			"path": "../../../../../imagine_scrapper"
+		},
+		{
+			"path": "../../../../../movie_catalog"
 		}
 	],
 	"settings": {
