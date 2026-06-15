@@ -45,18 +45,26 @@ The primary qualifier is:
 GraphVector.declarations["abg.traversal_strategy"]
 ```
 
-Fallback precedence is:
+Runtime-start selection extends that qualifier law. GTL qualifiers remain the
+default module policy, but a public start may carry an admitted
+`StartIntent.runtimeTraversalSelections[]` item for the current run. When that
+runtime selection explicitly matches the current vector by vector index or
+edge/vector ref, it is the selected strategy source for that run.
+
+Selection precedence is:
 
 ```text
-GraphVector.declarations["abg.traversal_strategy"]
+StartIntent.runtimeTraversalSelections[current vector]
+  > GraphVector.declarations["abg.traversal_strategy"]
   > GraphFunction.declarations["abg.default_traversal_strategy"]
   > Role.policyHooks["abg.traversal_strategy"]
 ```
 
-Absence of all three surfaces means no strategy-qualified modulation applies
-and the `F_P` attempt remains unqualified. A malformed present qualifier fails
-closed. A duplicate qualifier fails closed. Older traversal-modulation key
-spellings are not alternate aliases.
+Absence of all four surfaces means no strategy-qualified modulation applies
+and the `F_P` attempt remains unqualified. A malformed present qualifier or
+runtime selection fails closed. A duplicate or ambiguous runtime selection for
+one vector fails closed. Older traversal-modulation key spellings are not
+alternate aliases.
 
 The hook config yields a `TraversalStrategyDirective`. Strategy labels are
 descriptive metadata owned by downstream strategy layers. ABG switches only on
@@ -89,6 +97,31 @@ The hook config may carry:
 
 GTL remains a hook/config carrier. It does not become a downstream product
 strategy language.
+
+## Runtime Start Selection Surface
+
+`StartIntent.runtimeTraversalSelections[]` is an ABG-admitted runtime carrier.
+It carries:
+
+| Field | Meaning |
+|---|---|
+| `selectionRef` | stable runtime selection identity |
+| `strategyOwnerRef` | product or policy owner of strategy meaning |
+| `strategyLabel` | descriptive label only |
+| `enforcementPrimitives` | ABG-enforced primitive set |
+| `selectedScheduleItemRefs` | selected refs for this runtime attempt |
+| `requiredProgressArtifactRefs` | progress artifacts expected from the worker |
+| `vectorIndexes` / `edgeRefs` | explicit matchers for the vectors this selection governs |
+| `batch` / `continuation` | optional bounded batch and same-edge continuation constraints |
+| `basisRefs` | provenance such as downstream dependency-map or strategy evidence refs |
+
+ABG does not interpret product dependency meaning. A downstream product may
+derive `selectedScheduleItemRefs` from requirement, module, test, or UAT
+dependency maps, including a steel-thread selection of N dependent
+requirements. ABG admits those selected refs as schedule refs, lowers the
+selection into `TraversalStrategySelection`, derives the normal
+`TraversalAttemptEnvelope`, emits replay-visible traversal modulation events,
+and passes the envelope to the plugin.
 
 ## Core Carriers
 

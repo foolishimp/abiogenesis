@@ -11,6 +11,7 @@ import {
   TRAVERSAL_STRATEGY_GRAPH_FUNCTION_DEFAULT_ATTR_KEYS,
   TRAVERSAL_STRATEGY_ROLE_ATTR_KEYS,
   TRAVERSAL_STRATEGY_VECTOR_ATTR_KEYS,
+  admitStartIntent,
   constructAgenticBackendProgressProfile,
   constructEnginePluginContract,
   constructEnginePluginInput,
@@ -20,7 +21,8 @@ import {
   deriveTraversalAttemptEnvelope,
   deriveTraversalModulationProfile,
   deriveTraversalStrategySelectionFromGtl,
-  resolveTraversalStrategyDirectiveFromGtl
+  resolveTraversalStrategyDirectiveFromGtl,
+  tryDeriveTraversalStrategySelectionFromRuntimeStart
 } from "../../build/semantic/code/src/abg/m03/index.js";
 import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
 
@@ -288,6 +290,52 @@ test("T-112 carries selected strategy to profile, envelope, and plugin input", (
     pluginInput.traversalAttemptEnvelope.strategyConfigDigest,
     selection.configDigest
   );
+});
+
+test("T-112 admits runtime start traversal selection as run-scoped strategy truth", () => {
+  const basis = buildThreeStageBasis();
+  const runtimeStartIntent = admitStartIntent({
+    ...basis.startIntent,
+    runtimeTraversalSelections: [
+      {
+        kind: "start_runtime_traversal_strategy_selection",
+        selectionRef: "runtime-traversal-selection://t112/req-04",
+        strategyOwnerRef: "product://odd-sdlc",
+        strategyLabel: "steel_thread",
+        enforcementPrimitives: ["bounded_batch", "ordered_schedule_prefix"],
+        selectedScheduleItemRefs: [
+          "requirement://odd-sdlc/req-04",
+          "requirement://odd-sdlc/req-04/dep-a"
+        ],
+        vectorIndexes: [0],
+        batch: {
+          targetItemCount: 2,
+          maxItemCount: 2
+        },
+        basisRefs: ["dependency-map://odd-sdlc/requirements/req-04"]
+      }
+    ]
+  });
+  const runtimeBasis = Object.freeze({
+    ...basis,
+    startIntent: runtimeStartIntent
+  });
+
+  const selection = tryDeriveTraversalStrategySelectionFromRuntimeStart({
+    basis: runtimeBasis,
+    vectorIndex: 0
+  });
+
+  assert.ok(selection);
+  assert.equal(selection.source, "runtime_start");
+  assert.equal(
+    selection.selectionRef,
+    "runtime-traversal-selection://t112/req-04"
+  );
+  assert.deepEqual(selection.obligationScheduleRefs, [
+    "requirement://odd-sdlc/req-04",
+    "requirement://odd-sdlc/req-04/dep-a"
+  ]);
 });
 
 test("T-112 carries labels without making ABG branch on downstream label meaning", () => {

@@ -97,7 +97,9 @@ export function admitPublicStartRequest(
     "inputBindings",
     "input_bindings",
     "requestedOutputs",
-    "requested_outputs"
+    "requested_outputs",
+    "runtimeTraversalSelections",
+    "runtime_traversal_selections"
   ]) {
     if (Object.hasOwn(requestObject, field)) {
       startIntentInput[field] = requestObject[field];

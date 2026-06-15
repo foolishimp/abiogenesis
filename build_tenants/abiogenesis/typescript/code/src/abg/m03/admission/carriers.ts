@@ -16,7 +16,8 @@ import type {
   StartInputAssetBinding,
   StartIntent,
   StartOutputWorkspaceBinding,
-  StartRequestedOutput
+  StartRequestedOutput,
+  StartRuntimeTraversalStrategySelection
 } from "../contracts/carriers.js";
 import { COMPUTE_BASIS_FAILURE_CLASS_VALUES } from "../contracts/carriers.js";
 import {
@@ -146,6 +147,240 @@ function parseStartRequestedOutputs(
   );
 }
 
+function parseOptionalStringArray(
+  input: unknown,
+  label: string
+): readonly string[] | undefined {
+  if (input === undefined) {
+    return undefined;
+  }
+  return Object.freeze(
+    parseUnknownArray(input, label).map((item, index) =>
+      parseNonEmptyString(item, `${label}[${index}]`)
+    )
+  );
+}
+
+function parseRequiredStringArray(input: unknown, label: string): readonly string[] {
+  const values = parseOptionalStringArray(input, label);
+  if (values === undefined || values.length === 0) {
+    throw new TypeError(`${label}: expected at least one ref`);
+  }
+  return values;
+}
+
+function parseOptionalNonNegativeIntegerArray(
+  input: unknown,
+  label: string
+): readonly number[] | undefined {
+  if (input === undefined) {
+    return undefined;
+  }
+  return Object.freeze(
+    parseUnknownArray(input, label).map((item, index) => {
+      if (typeof item !== "number" || !Number.isInteger(item) || item < 0) {
+        throw new TypeError(`${label}[${index}]: expected non-negative integer`);
+      }
+      return item;
+    })
+  );
+}
+
+function parseOptionalPositiveInteger(input: unknown, label: string): number | undefined {
+  if (input === undefined || input === null) {
+    return undefined;
+  }
+  if (typeof input !== "number" || !Number.isInteger(input) || input <= 0) {
+    throw new TypeError(`${label}: expected positive integer`);
+  }
+  return input;
+}
+
+function parseStartRuntimeTraversalSelectionBatch(
+  input: unknown,
+  label: string
+): StartRuntimeTraversalStrategySelection["batch"] | undefined {
+  if (input === undefined) {
+    return undefined;
+  }
+  const batchObject = parsePlainObject(input, label);
+  const targetItemCount = parseOptionalPositiveInteger(
+    readOptionalAlias(batchObject, "targetItemCount", "target_item_count"),
+    `${label}.targetItemCount`
+  );
+  const maxItemCount = parseOptionalPositiveInteger(
+    readOptionalAlias(batchObject, "maxItemCount", "max_item_count"),
+    `${label}.maxItemCount`
+  );
+  const maxTokenPressure = parseOptionalPositiveInteger(
+    readOptionalAlias(batchObject, "maxTokenPressure", "max_token_pressure"),
+    `${label}.maxTokenPressure`
+  );
+  return Object.freeze({
+    ...(targetItemCount === undefined ? {} : { targetItemCount }),
+    ...(maxItemCount === undefined ? {} : { maxItemCount }),
+    ...(maxTokenPressure === undefined ? {} : { maxTokenPressure })
+  });
+}
+
+function parseStartRuntimeTraversalSelectionContinuation(
+  input: unknown,
+  label: string
+): StartRuntimeTraversalStrategySelection["continuation"] | undefined {
+  if (input === undefined) {
+    return undefined;
+  }
+  const continuationObject = parsePlainObject(input, label);
+  const sameEdgeUntilInput = readOptionalAlias(
+    continuationObject,
+    "sameEdgeUntil",
+    "same_edge_until"
+  );
+  const sameEdgeUntil =
+    sameEdgeUntilInput === undefined
+      ? undefined
+      : parseString(sameEdgeUntilInput, `${label}.sameEdgeUntil`);
+  if (
+    sameEdgeUntil !== undefined &&
+    sameEdgeUntil !== "foldback_closed" &&
+    sameEdgeUntil !== "retry_budget_exhausted"
+  ) {
+    throw new TypeError(
+      `${label}.sameEdgeUntil: expected foldback_closed or retry_budget_exhausted`
+    );
+  }
+  const maxAttemptsWithoutNewSignal = parseOptionalPositiveInteger(
+    readOptionalAlias(
+      continuationObject,
+      "maxAttemptsWithoutNewSignal",
+      "max_attempts_without_new_signal"
+    ),
+    `${label}.maxAttemptsWithoutNewSignal`
+  );
+  const maxTotalAttempts = parseOptionalPositiveInteger(
+    readOptionalAlias(
+      continuationObject,
+      "maxTotalAttempts",
+      "max_total_attempts"
+    ),
+    `${label}.maxTotalAttempts`
+  );
+  return Object.freeze({
+    ...(sameEdgeUntil === undefined ? {} : { sameEdgeUntil }),
+    ...(maxAttemptsWithoutNewSignal === undefined
+      ? {}
+      : { maxAttemptsWithoutNewSignal }),
+    ...(maxTotalAttempts === undefined ? {} : { maxTotalAttempts })
+  });
+}
+
+function parseStartRuntimeTraversalSelections(
+  input: unknown,
+  label: string
+): readonly StartRuntimeTraversalStrategySelection[] | undefined {
+  if (input === undefined) {
+    return undefined;
+  }
+  return Object.freeze(
+    parseUnknownArray(input, label).map((item, index) => {
+      const itemObject = parsePlainObject(item, `${label}[${index}]`);
+      const kind = parseString(itemObject["kind"], `${label}[${index}].kind`);
+      if (kind !== "start_runtime_traversal_strategy_selection") {
+        throw new TypeError(
+          `${label}[${index}].kind: expected start_runtime_traversal_strategy_selection`
+        );
+      }
+      const requiredProgressArtifactRefs = parseOptionalStringArray(
+        readOptionalAlias(
+          itemObject,
+          "requiredProgressArtifactRefs",
+          "required_progress_artifact_refs"
+        ),
+        `${label}[${index}].requiredProgressArtifactRefs`
+      );
+      const orderingConstraintRefs = parseOptionalStringArray(
+        readOptionalAlias(
+          itemObject,
+          "orderingConstraintRefs",
+          "ordering_constraint_refs"
+        ),
+        `${label}[${index}].orderingConstraintRefs`
+      );
+      const phaseGateRefs = parseOptionalStringArray(
+        readOptionalAlias(itemObject, "phaseGateRefs", "phase_gate_refs"),
+        `${label}[${index}].phaseGateRefs`
+      );
+      const basisRefs = parseOptionalStringArray(
+        readOptionalAlias(itemObject, "basisRefs", "basis_refs"),
+        `${label}[${index}].basisRefs`
+      );
+      const vectorIndexes = parseOptionalNonNegativeIntegerArray(
+        readOptionalAlias(itemObject, "vectorIndexes", "vector_indexes"),
+        `${label}[${index}].vectorIndexes`
+      );
+      const edgeRefs = parseOptionalStringArray(
+        readOptionalAlias(itemObject, "edgeRefs", "edge_refs"),
+        `${label}[${index}].edgeRefs`
+      );
+      const batch = parseStartRuntimeTraversalSelectionBatch(
+        readOptionalAlias(itemObject, "batch", "batch"),
+        `${label}[${index}].batch`
+      );
+      const continuation = parseStartRuntimeTraversalSelectionContinuation(
+        readOptionalAlias(itemObject, "continuation", "continuation"),
+        `${label}[${index}].continuation`
+      );
+      return Object.freeze({
+        kind: "start_runtime_traversal_strategy_selection" as const,
+        selectionRef: readRequiredStringAlias(
+          itemObject,
+          "selectionRef",
+          "selection_ref",
+          `${label}[${index}].selectionRef`
+        ),
+        strategyOwnerRef: readRequiredStringAlias(
+          itemObject,
+          "strategyOwnerRef",
+          "strategy_owner_ref",
+          `${label}[${index}].strategyOwnerRef`
+        ),
+        strategyLabel: readRequiredStringAlias(
+          itemObject,
+          "strategyLabel",
+          "strategy_label",
+          `${label}[${index}].strategyLabel`
+        ),
+        enforcementPrimitives: parseRequiredStringArray(
+          readOptionalAlias(
+            itemObject,
+            "enforcementPrimitives",
+            "enforcement_primitives"
+          ),
+          `${label}[${index}].enforcementPrimitives`
+        ),
+        selectedScheduleItemRefs: parseRequiredStringArray(
+          readOptionalAlias(
+            itemObject,
+            "selectedScheduleItemRefs",
+            "selected_schedule_item_refs"
+          ),
+          `${label}[${index}].selectedScheduleItemRefs`
+        ),
+        ...(requiredProgressArtifactRefs === undefined
+          ? {}
+          : { requiredProgressArtifactRefs }),
+        ...(orderingConstraintRefs === undefined ? {} : { orderingConstraintRefs }),
+        ...(phaseGateRefs === undefined ? {} : { phaseGateRefs }),
+        ...(basisRefs === undefined ? {} : { basisRefs }),
+        ...(vectorIndexes === undefined ? {} : { vectorIndexes }),
+        ...(edgeRefs === undefined ? {} : { edgeRefs }),
+        ...(batch === undefined ? {} : { batch }),
+        ...(continuation === undefined ? {} : { continuation })
+      } satisfies StartRuntimeTraversalStrategySelection);
+    })
+  );
+}
+
 function parseStartOutputWorkspaceBinding(
   input: unknown,
   label: string
@@ -210,6 +445,14 @@ export function admitStartIntent(
     readOptionalAlias(intentObject, "requestedOutputs", "requested_outputs"),
     `${label}.requestedOutputs`
   );
+  const runtimeTraversalSelections = parseStartRuntimeTraversalSelections(
+    readOptionalAlias(
+      intentObject,
+      "runtimeTraversalSelections",
+      "runtime_traversal_selections"
+    ),
+    `${label}.runtimeTraversalSelections`
+  );
 
   return Object.freeze({
     scope: Object.freeze({
@@ -229,7 +472,10 @@ export function admitStartIntent(
     }),
     until,
     ...(inputBindings === undefined ? {} : { inputBindings }),
-    ...(requestedOutputs === undefined ? {} : { requestedOutputs })
+    ...(requestedOutputs === undefined ? {} : { requestedOutputs }),
+    ...(runtimeTraversalSelections === undefined
+      ? {}
+      : { runtimeTraversalSelections })
   });
 }
 

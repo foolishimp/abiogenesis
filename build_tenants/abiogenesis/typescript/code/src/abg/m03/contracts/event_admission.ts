@@ -1354,7 +1354,13 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       profileRef: "non_empty_string",
       strategySelectionRef: "non_empty_string",
       strategySelectionSource: {
-        oneOf: ["graph_vector", "graph_function", "role_policy", "runtime_default"]
+        oneOf: [
+          "graph_vector",
+          "graph_function",
+          "role_policy",
+          "runtime_start",
+          "runtime_default"
+        ]
       },
       strategySelectionSourceRef: "non_empty_string",
       strategySelectionAttrKey: "nullable_string",
@@ -1391,7 +1397,13 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       profileRef: "non_empty_string",
       strategySelectionRef: "non_empty_string",
       strategySelectionSource: {
-        oneOf: ["graph_vector", "graph_function", "role_policy", "runtime_default"]
+        oneOf: [
+          "graph_vector",
+          "graph_function",
+          "role_policy",
+          "runtime_start",
+          "runtime_default"
+        ]
       },
       strategyConfigDigest: "non_empty_string",
       strategyDirectiveRef: "non_empty_string",

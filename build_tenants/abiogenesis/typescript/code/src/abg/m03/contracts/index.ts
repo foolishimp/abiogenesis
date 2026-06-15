@@ -143,6 +143,9 @@ export type {
   StartIntent,
   StartOutputWorkspaceBinding,
   StartRequestedOutput,
+  StartRuntimeTraversalStrategySelection,
+  StartRuntimeTraversalStrategySelectionBatch,
+  StartRuntimeTraversalStrategySelectionContinuation,
   StartUntil,
   TerminalKind,
   TerminalReachedEvent,
@@ -700,6 +703,7 @@ export {
   deriveTraversalModulationSummary,
   deriveTraversalStrategySelectionFromGtl,
   resolveTraversalStrategyDirectiveFromGtl,
+  tryDeriveTraversalStrategySelectionFromRuntimeStart,
   tryDeriveTraversalStrategySelectionFromGtl,
   tryResolveTraversalStrategyDirectiveFromGtl
 } from "./traversal_modulation.js";

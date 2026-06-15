@@ -301,6 +301,35 @@ export interface StartRequestedOutput {
   readonly outputWorkspace?: StartOutputWorkspaceBinding;
 }
 
+export interface StartRuntimeTraversalStrategySelectionBatch {
+  readonly targetItemCount?: number;
+  readonly maxItemCount?: number;
+  readonly maxTokenPressure?: number;
+}
+
+export interface StartRuntimeTraversalStrategySelectionContinuation {
+  readonly sameEdgeUntil?: "foldback_closed" | "retry_budget_exhausted";
+  readonly maxAttemptsWithoutNewSignal?: number;
+  readonly maxTotalAttempts?: number;
+}
+
+export interface StartRuntimeTraversalStrategySelection {
+  readonly kind: "start_runtime_traversal_strategy_selection";
+  readonly selectionRef: string;
+  readonly strategyOwnerRef: string;
+  readonly strategyLabel: string;
+  readonly enforcementPrimitives: readonly string[];
+  readonly selectedScheduleItemRefs: readonly string[];
+  readonly requiredProgressArtifactRefs?: readonly string[];
+  readonly orderingConstraintRefs?: readonly string[];
+  readonly phaseGateRefs?: readonly string[];
+  readonly basisRefs?: readonly string[];
+  readonly vectorIndexes?: readonly number[];
+  readonly edgeRefs?: readonly string[];
+  readonly batch?: StartRuntimeTraversalStrategySelectionBatch;
+  readonly continuation?: StartRuntimeTraversalStrategySelectionContinuation;
+}
+
 export interface StartIntent {
   readonly scope: {
     readonly kind: "workspace";
@@ -314,6 +343,7 @@ export interface StartIntent {
   readonly until: StartUntil;
   readonly inputBindings?: readonly StartInputAssetBinding[];
   readonly requestedOutputs?: readonly StartRequestedOutput[];
+  readonly runtimeTraversalSelections?: readonly StartRuntimeTraversalStrategySelection[];
 }
 
 export interface ExecutionBasis {
@@ -1486,7 +1516,7 @@ export interface TraversalModulationResolvedEvent {
   readonly edge: string;
   readonly profileRef: string;
   readonly strategySelectionRef: string;
-  readonly strategySelectionSource: "graph_vector" | "graph_function" | "role_policy" | "runtime_default";
+  readonly strategySelectionSource: "graph_vector" | "graph_function" | "role_policy" | "runtime_start" | "runtime_default";
   readonly strategySelectionSourceRef: string;
   readonly strategySelectionAttrKey: string | null;
   readonly strategySelectionHookRef: string | null;
@@ -1520,7 +1550,7 @@ export interface TraversalAttemptEnvelopeDerivedEvent {
   readonly envelopeRef: string;
   readonly profileRef: string;
   readonly strategySelectionRef: string;
-  readonly strategySelectionSource: "graph_vector" | "graph_function" | "role_policy" | "runtime_default";
+  readonly strategySelectionSource: "graph_vector" | "graph_function" | "role_policy" | "runtime_start" | "runtime_default";
   readonly strategyConfigDigest: string;
   readonly strategyDirectiveRef: string;
   readonly backendProfileRef: string;

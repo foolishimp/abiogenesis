@@ -181,6 +181,7 @@ import {
   constructTraversalModulationResolvedEvent,
   deriveTraversalAttemptEnvelope,
   deriveTraversalModulationProfile,
+  tryDeriveTraversalStrategySelectionFromRuntimeStart,
   tryDeriveTraversalStrategySelectionFromGtl,
   type AgenticBackendKind,
   type TraversalAttemptEnvelope,
@@ -504,13 +505,18 @@ function deriveModulatedFpAttempt(input: {
   if (vector === undefined) {
     throw new TypeError("Traversal modulation requires a graph vector");
   }
-  const selection = tryDeriveTraversalStrategySelectionFromGtl({
-    basis: input.basis,
-    vectorIndex: input.transition.vectorIndex,
-    vector,
-    graphFunction: input.basis.graphFunction,
-    roles: input.basis.job.roles
-  });
+  const selection =
+    tryDeriveTraversalStrategySelectionFromRuntimeStart({
+      basis: input.basis,
+      vectorIndex: input.transition.vectorIndex
+    }) ??
+    tryDeriveTraversalStrategySelectionFromGtl({
+      basis: input.basis,
+      vectorIndex: input.transition.vectorIndex,
+      vector,
+      graphFunction: input.basis.graphFunction,
+      roles: input.basis.job.roles
+    });
   if (selection === null) {
     return null;
   }

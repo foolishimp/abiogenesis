@@ -933,6 +933,110 @@ test("T-107 runner derives envelope from GTL qualifier and passes it to F_P plug
   assert.equal(result.transition.kind, "terminal");
 });
 
+test("T-107 runner lets runtime start selection choose N dependency refs", () => {
+  const staticQualifiedBasis = withBasisGraphVectorDeclarations(
+    buildThreeStageBasis({
+      defaultRegime: "F_P",
+      dispatchRef: "dispatch://t107-runtime-start"
+    }),
+    attrs([
+      hookEntry("abg.traversal_strategy", {
+        ref: "strategy://odd_sdlc/static-full-breadth",
+        label: "full_breadth",
+        primitives: ["bounded_batch"],
+        obligationScheduleRefs: [
+          "schedule://static/1",
+          "schedule://static/2",
+          "schedule://static/3"
+        ],
+        targetItemCount: 3,
+        maxItemCount: 3
+      })
+    ])
+  );
+  const basis = Object.freeze({
+    ...staticQualifiedBasis,
+    startIntent: Object.freeze({
+      ...staticQualifiedBasis.startIntent,
+      runtimeTraversalSelections: Object.freeze([
+        Object.freeze({
+          kind: "start_runtime_traversal_strategy_selection",
+          selectionRef:
+            "runtime-traversal-selection://odd-sdlc/req-04/steel-thread",
+          strategyOwnerRef: "product://odd-sdlc",
+          strategyLabel: "steel_thread",
+          enforcementPrimitives: Object.freeze([
+            "bounded_batch",
+            "ordered_schedule_prefix"
+          ]),
+          selectedScheduleItemRefs: Object.freeze([
+            "requirement://odd-sdlc/req-04",
+            "requirement://odd-sdlc/req-04/dep-01",
+            "requirement://odd-sdlc/req-04/dep-02"
+          ]),
+          requiredProgressArtifactRefs: Object.freeze([
+            "operator-run-artifact://module-dependency-map"
+          ]),
+          vectorIndexes: Object.freeze([0]),
+          batch: Object.freeze({
+            targetItemCount: 3,
+            maxItemCount: 3
+          }),
+          basisRefs: Object.freeze([
+            "dependency-map://odd-sdlc/requirements/req-04"
+          ])
+        })
+      ])
+    })
+  });
+  const pluginInputs = [];
+  const emittedEvents = [];
+  const fpDispatch = Object.freeze({
+    contract: fpDispatchContract("plugin://test/t107-runtime-start-selection"),
+    dispatch: (input) => {
+      pluginInputs.push(input);
+      assert.ok(input.traversalAttemptEnvelope);
+      return constructFpDispatchOutcome({
+        status: "blocked",
+        resultRef: "result://t107-runtime-start/no-output",
+        reason: "worker produced no output"
+      });
+    }
+  });
+
+  runEngineIterate({
+    basis,
+    eventSink: (event) => {
+      emittedEvents.push(event);
+    },
+    plugins: { fpDispatch },
+    maxAttachedFpAttempts: 1
+  });
+
+  assert.equal(pluginInputs.length, 1);
+  assert.equal(
+    pluginInputs[0].traversalStrategySelection.source,
+    "runtime_start"
+  );
+  assert.equal(
+    pluginInputs[0].traversalAttemptEnvelope.strategySelectionSource,
+    "runtime_start"
+  );
+  assert.deepEqual(
+    pluginInputs[0].traversalAttemptEnvelope.selectedScheduleItemRefs,
+    [
+      "requirement://odd-sdlc/req-04",
+      "requirement://odd-sdlc/req-04/dep-01",
+      "requirement://odd-sdlc/req-04/dep-02"
+    ]
+  );
+  assert.equal(
+    emittedEvents.find((event) => event.kind === "traversal_modulation_resolved")
+      ?.strategySelectionSource,
+    "runtime_start"
+  );
+});
+
 test("T-107 runner leaves unqualified F_P vectors on the unqualified path", () => {
   const basis = buildThreeStageBasis({
     defaultRegime: "F_P",

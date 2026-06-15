@@ -7,6 +7,7 @@
 
 import type {
   ExecutionBasis,
+  StartRuntimeTraversalStrategySelection,
   TraversalAttemptDispatchedEvent,
   TraversalAttemptEnvelopeDerivedEvent,
   TraversalAttemptNonProgressClassifiedEvent,
@@ -144,6 +145,7 @@ export type TraversalStrategySelectionSource =
   | "graph_vector"
   | "graph_function"
   | "role_policy"
+  | "runtime_start"
   | "runtime_default";
 
 export interface TraversalStrategyDirective {
@@ -734,6 +736,31 @@ function hasPrimitive(
   return primitives.some((candidate) => candidate === primitive);
 }
 
+function parseSchedulingPrimitive(input: string): TraversalSchedulingPrimitive {
+  switch (input) {
+    case "atomic_attempt":
+    case "bounded_batch":
+    case "ordered_schedule_prefix":
+    case "single_vertical_slice":
+    case "phase_gate":
+    case "gap_repair_slice":
+    case "agent_proposed_slice_requires_admission":
+      return input;
+    default:
+      throw new TypeError(
+        `Unsupported traversal scheduling primitive ${JSON.stringify(input)}`
+      );
+  }
+}
+
+function runtimeStartEnforcementPrimitives(
+  values: readonly string[]
+): readonly TraversalSchedulingPrimitive[] {
+  return Object.freeze(
+    freezeStringArray(values).map((value) => parseSchedulingPrimitive(value))
+  );
+}
+
 function sortedUniqueStrings(values: Iterable<string>): readonly string[] {
   return freezeStringArray([...new Set(values)].sort());
 }
@@ -1264,6 +1291,94 @@ export function deriveTraversalStrategySelectionFromGtl(input: {
     );
   }
   return selection;
+}
+
+function runtimeStartSelectionMatches(input: {
+  readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
+  readonly selection: StartRuntimeTraversalStrategySelection;
+}): boolean {
+  const vector = input.basis.graph.vectors[input.vectorIndex];
+  if (vector === undefined) {
+    throw new TypeError("Runtime start traversal selection requires a graph vector");
+  }
+  const vectorIndexes = input.selection.vectorIndexes ?? Object.freeze([]);
+  if (
+    vectorIndexes.length > 0 &&
+    !vectorIndexes.includes(input.vectorIndex)
+  ) {
+    return false;
+  }
+  const edgeRefs = input.selection.edgeRefs ?? Object.freeze([]);
+  if (edgeRefs.length === 0) {
+    return true;
+  }
+  const edge = vectorEdge(input.basis, input.vectorIndex);
+  return edgeRefs.includes(edge) || edgeRefs.includes(vector.id);
+}
+
+export function tryDeriveTraversalStrategySelectionFromRuntimeStart(input: {
+  readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
+}): TraversalStrategySelection | null {
+  const selections =
+    input.basis.startIntent.runtimeTraversalSelections ?? Object.freeze([]);
+  if (selections.length === 0) {
+    return null;
+  }
+  const matches = selections.filter((selection) =>
+    runtimeStartSelectionMatches({
+      basis: input.basis,
+      vectorIndex: input.vectorIndex,
+      selection
+    })
+  );
+  if (matches.length === 0) {
+    return null;
+  }
+  if (matches.length > 1) {
+    throw new TypeError(
+      "Runtime start traversal selection is ambiguous for current vector"
+    );
+  }
+  const match = matches[0];
+  if (match === undefined) {
+    return null;
+  }
+  const directive = admitTraversalStrategyDirective({
+    directiveRef: match.selectionRef,
+    strategyOwnerRef: match.strategyOwnerRef,
+    strategyLabel: match.strategyLabel,
+    enforcementPrimitives: runtimeStartEnforcementPrimitives(
+      match.enforcementPrimitives
+    ),
+    obligationScheduleRefs: match.selectedScheduleItemRefs,
+    ...(match.orderingConstraintRefs === undefined
+      ? {}
+      : { orderingConstraintRefs: match.orderingConstraintRefs }),
+    ...(match.phaseGateRefs === undefined
+      ? {}
+      : { phaseGateRefs: match.phaseGateRefs }),
+    batch:
+      match.batch ??
+      Object.freeze({
+        targetItemCount: match.selectedScheduleItemRefs.length,
+        maxItemCount: match.selectedScheduleItemRefs.length
+      }),
+    ...(match.continuation === undefined
+      ? {}
+      : { continuation: match.continuation })
+  });
+  return selectionFromDirective({
+    basis: input.basis,
+    vectorIndex: input.vectorIndex,
+    source: "runtime_start",
+    sourceRef: match.selectionRef,
+    attrKey: null,
+    hookRef: null,
+    directive,
+    selectionRef: match.selectionRef
+  });
 }
 
 export function deriveTraversalModulationProfileFromGtl(input: Omit<

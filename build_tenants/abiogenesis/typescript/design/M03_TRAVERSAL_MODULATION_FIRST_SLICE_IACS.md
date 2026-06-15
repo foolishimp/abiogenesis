@@ -20,6 +20,7 @@ Codex backend parity. Those are release proof lanes above this first slice.
 
 | Carrier | Owner | Role | Effect boundary |
 |---|---|---|---|
+| `StartIntent.runtimeTraversalSelections[]` | ABG M03 admission / M04 public start | admitted run-scoped traversal strategy selection over selected schedule refs | none |
 | `GraphVector.declarations` | GTL | primary qualifier for one vector | none |
 | `GraphFunction.declarations` | GTL | default qualifier for a graph function | none |
 | `Role.policyHooks` | GTL/M02 work publication | last-precedence default qualifier | none |
@@ -37,8 +38,9 @@ Codex backend parity. Those are release proof lanes above this first slice.
 
 | Code surface | Responsibility |
 |---|---|
-| `code/src/abg/m03/contracts/traversal_modulation.ts` | pure directive resolution, profile/envelope derivation, backend progress classification, progress-row admission, forced-review projection, event constructors |
+| `code/src/abg/m03/contracts/traversal_modulation.ts` | pure directive resolution, runtime-start selection resolution, profile/envelope derivation, backend progress classification, progress-row admission, forced-review projection, event constructors |
 | `code/src/abg/m03/contracts/carriers.ts` | runtime event union and T-107 event interfaces |
+| `code/src/abg/m03/admission/carriers.ts` | start-intent admission, including runtime traversal selections |
 | `code/src/abg/m03/contracts/event_admission.ts` | fail-closed admission rules for T-107 events |
 | `code/src/abg/m03/contracts/plugins.ts` | `EnginePluginInput.traversalStrategySelection` and `traversalAttemptEnvelope` handoff fields |
 | `code/src/abg/m03/transport/carriers.ts` | dispatch request fields for envelope refs and scheduling primitives |
@@ -50,7 +52,8 @@ Codex backend parity. Those are release proof lanes above this first slice.
 ## Precedence Contract
 
 ```text
-GraphVector.declarations["abg.traversal_strategy"]
+StartIntent.runtimeTraversalSelections[current vector]
+  > GraphVector.declarations["abg.traversal_strategy"]
   > GraphFunction.declarations["abg.default_traversal_strategy"]
   > Role.policyHooks["abg.traversal_strategy"]
 ```
@@ -60,6 +63,9 @@ Tests must prove:
 - vector qualifier wins over graph-function and role defaults
 - graph-function default wins over role default
 - role default applies only when no vector or graph-function qualifier exists
+- matching runtime-start selection wins over static GTL qualifier truth for
+  that run
+- ambiguous runtime-start selections fail closed
 - malformed present qualifier fails closed
 - duplicate qualifier fails closed
 - no qualifier means no envelope is derived
