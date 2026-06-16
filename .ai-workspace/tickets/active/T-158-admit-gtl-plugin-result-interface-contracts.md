@@ -173,13 +173,23 @@ law.
 - [x] 2026-06-16: Cut
   `release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.28/` from source
   commit `b5a23f0fe44f0d2892d6d054009c32b1ce247340` with
-  `sourceDirty: false`; `latest` points at rc.28.
+  `sourceDirty: false`; rc.28 is superseded by the assurance-lineage fix in
+  rc.29.
 - [x] 2026-06-16: `odd_sdlc.TS` consumes ABIogenesis `4.0.0-rc.28`, passes
   `typecheckGtlProgram(...)`'s admitted `pluginResultInterfaceCatalog` to the
   ABG runner, and accepts design-depth evaluator registers only when replay
   exposes an `admitted_plugin_result_envelope` whose authority ref,
   envelope-contract ref, and contract digest match the admitted interface
   contract.
+- [x] 2026-06-16: ABG assurance now preserves admitted plugin-result-envelope
+  interface evidence as replay-visible lineage instead of classifying it as
+  orphan evidence against the current target-carrier authority snapshot. This
+  keeps compiler-declared interface validation in ABG and prevents downstream
+  products from recreating parallel result-file selector APIs.
+- [x] 2026-06-16: Cut
+  `release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.29/` from source
+  commit `2aa706b5de9723411514677291f6f22cb6fee3f5` with
+  `sourceDirty: false`; `latest` points at rc.29.
 
 ## Current Proof
 
@@ -222,6 +232,19 @@ law.
   `19b164fa89809ab63aa07cfdddd63138b15d280b15e54dc94d37af9bb5ab7ae2` for
   `abiogenesis-typescript-tenant-4.0.0-rc.28.tgz`; the manifest records
   `sourceDirty: false`.
+- `cd build_tenants/abiogenesis/typescript && npm run build:semantic && node
+  --test test_env/tests/test_t095_payload_ledger_unit.test.mjs
+  test_env/tests/test_t092_total_assurance_projection_unit.test.mjs
+  test_env/tests/test_t149_iteration_state_action_algebra.test.mjs
+  test_env/tests/test_t158_plugin_result_envelope_admission.test.mjs` passed
+  54/54 on 2026-06-16 after adding the plugin-result interface evidence
+  preservation regression.
+- `cd build_tenants/abiogenesis/typescript && npm run lint:semantic` passed on
+  2026-06-16 after the rc.29 assurance-lineage fix.
+- rc.29 snapshot checksum file records
+  `5435c69a866a4116ffd857be211c7455aeca4764b212528e502496166fc8c0e3` for
+  `abiogenesis-typescript-tenant-4.0.0-rc.29.tgz`; the manifest records
+  `sourceDirty: false`.
 - Downstream proof: `cd build_tenants/typescript && node --test
   test_env/tests/test_t028_abiogenesis_substrate_binding.test.mjs
   test_env/tests/test_t059_install_release_adapter.test.mjs
@@ -234,7 +257,8 @@ law.
 
 The static compiler gate, admitted plugin result-interface catalog, runtime
 result-envelope admission API, and ABG runner replay-visible result-envelope
-ingress are implemented and published in rc.28. The downstream SDLC consumer
+ingress are implemented and published in rc.29. The downstream SDLC consumer
 now uses the admitted catalog/envelope events instead of local archive/result
-file selectors. No known T-158 non-closure remains after final semantic/lint
-verification.
+file selectors, and ABG assurance preserves those interface events as lineage
+rather than orphaning them against the target-carrier closure authority. No
+known T-158 non-closure remains after final semantic/lint verification.
