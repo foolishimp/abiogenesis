@@ -134,6 +134,68 @@ test("T-095 payload ledger: accepted payload evidence projects fulfilled assuran
   assert.equal(result.decision.decision, "close");
 });
 
+test("T-095 payload ledger: plugin result interface evidence is preserved, not orphaned", () => {
+  const context = base();
+  const authorityRef = "req://t095/current-target-authority";
+  const resultInterfaceRef = "result-interface://t095/evaluate/fp";
+  const payloadRef = "plugin-result-envelope://t095/evaluate/fp";
+  const events = [
+    constructAuthoritySnapshotAdmittedEvent({
+      basis: context.basis,
+      vectorIndex: context.scope.vectorIndex,
+      authoritySnapshotRef: "authority-snapshot://t095/current-target",
+      authorityRefs: [authorityRef],
+      inputRefs: ["input://t095/current"],
+      authorityDigest: "authority-digest-current-target",
+      inputDigest: "input-digest-current-target",
+      providerRefs: ["provider://t095/authority"],
+      policyRefs: ["policy://t095"]
+    }),
+    constructPayloadObservedEvent({
+      basis: context.basis,
+      vectorIndex: context.scope.vectorIndex,
+      payloadRef,
+      payloadClass: "admitted_plugin_result_envelope",
+      contractRef: "result-envelope://t095/evaluate/fp",
+      digest: "digest://t095/plugin-result-envelope",
+      producerRef: "plugin://t095/evaluate/fp",
+      authorityRef: resultInterfaceRef,
+      inputDigest: "input:plugin_result_envelope:t095",
+      policyRefs: ["policy://t095"]
+    }),
+    constructPayloadValidatedEvent({
+      basis: context.basis,
+      vectorIndex: context.scope.vectorIndex,
+      payloadRef,
+      contractRef: "result-envelope://t095/evaluate/fp",
+      contractDigest: "sha256:t095-result-interface",
+      digest: "digest://t095/plugin-result-envelope",
+      validationRef: "validation://t095/plugin-result-envelope",
+      evidenceRef: "evidence://t095/plugin-result-envelope",
+      policyRefs: ["policy://t095"]
+    }),
+    constructEvidenceAdmittedEvent({
+      basis: context.basis,
+      vectorIndex: context.scope.vectorIndex,
+      evidenceRef: "evidence://t095/plugin-result-envelope",
+      payloadRef,
+      authorityRef: resultInterfaceRef,
+      authorityDigest: "sha256:t095-result-interface",
+      inputDigest: "input:plugin_result_envelope:t095",
+      providerRefs: ["plugin://t095/evaluate/fp"],
+      policyRefs: ["policy://t095"]
+    })
+  ];
+
+  const result = project({ ...context, events });
+  const statuses = result.assurance.ambiguityRows.map((row) => row.status);
+
+  assert.equal(result.assurance.evidenceRows[0]?.lifecycle, "preserved_rebased");
+  assert.equal(statuses.includes("orphan_evidence"), false);
+  assert.deepStrictEqual(statuses, ["missing"]);
+  assert.equal(result.decision.decision, "retry");
+});
+
 test("T-095 payload ledger: evidence without accepted payload stays non-closing", () => {
   const context = base();
   const authorityRef = "req://t095/shadow-ledger";

@@ -284,6 +284,19 @@ function isCurrentFulfillmentEvidence(
   );
 }
 
+function evidenceCarriesCurrentOrPreservedAuthority(input: {
+  readonly evidence: AssuranceEvidenceRow;
+  readonly authorityRefs: ReadonlySet<string>;
+}): boolean {
+  if (input.evidence.authorityRef === null) {
+    return false;
+  }
+  return (
+    input.authorityRefs.has(input.evidence.authorityRef) ||
+    input.evidence.lifecycle !== "active"
+  );
+}
+
 function statusRows(
   projection: AssuranceProjection,
   status: AssuranceAmbiguityStatus
@@ -562,9 +575,10 @@ export function deriveAssuranceProjection(input: {
     if (
       !evidence.boundToScope ||
       !sameScope(evidence.scope, scope) ||
-      evidence.authorityRef === null ||
-      (!authorityRefs.has(evidence.authorityRef) &&
-        evidence.lifecycle !== "superseded")
+      !evidenceCarriesCurrentOrPreservedAuthority({
+        evidence,
+        authorityRefs
+      })
     ) {
       rows.push(
         constructAmbiguityRow({

@@ -29,6 +29,9 @@ import {
   constructAssuranceAuthoritySnapshot,
   constructAssuranceEvidenceRow
 } from "./assurance.js";
+import type {
+  IterationEvidenceLifecycle
+} from "./iteration_state_action.js";
 import {
   assertProjectionBasis,
   assertVectorIndexInRange,
@@ -201,6 +204,14 @@ function payloadLedgerProjectionRef(input: PayloadLedgerProjection): string {
 
 function uniqueStringArray(values: readonly string[]): readonly string[] {
   return Object.freeze([...new Set(values)]);
+}
+
+function lifecycleForObservedPayload(
+  event: PayloadObservedRuntimeEvent | undefined
+): IterationEvidenceLifecycle {
+  return event?.payloadClass === "admitted_plugin_result_envelope"
+    ? "preserved_rebased"
+    : "active";
 }
 
 function admittedOutputAuthorityProjectionRef(
@@ -584,7 +595,8 @@ export function deriveAssuranceEvidenceRowsFromPayloadLedger(input: {
         complete: payloadAccepted && event.complete,
         shallow: !payloadAccepted || event.shallow,
         contradictsAuthority: event.contradictsAuthority,
-        deferred: event.deferred
+        deferred: event.deferred,
+        lifecycle: lifecycleForObservedPayload(observed)
       });
     })
   );
