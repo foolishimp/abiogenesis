@@ -55,6 +55,7 @@ export type GtlProgramConformanceSurfaceKind =
   | "public_start"
   | "prompt_asset"
   | "plugin_contract"
+  | "plugin_result_interface"
   | "source_identity"
   | "same_object"
   | "operator_declaration"
@@ -269,6 +270,27 @@ export interface GtlProgramComputeStageBindingRow {
   readonly evidenceRefs?: readonly string[] | undefined;
 }
 
+export interface GtlProgramPluginResultInterfaceRow {
+  readonly resultInterfaceRef: string;
+  readonly stageBindingRef: string;
+  readonly compositionRef: string;
+  readonly compositionDigest: string;
+  readonly stageRole: EngineComputeStageRole;
+  readonly computeMeans: Regime;
+  readonly resultEnvelopeContractRef: string;
+  readonly resultCarrierKind: string;
+  readonly outputCarrierRefs: readonly string[];
+  readonly producedCarrierRefs: readonly string[];
+  readonly requiredIdentityFieldRefs: readonly string[];
+  readonly selectorAuthorityRefs: readonly string[];
+  readonly evidenceRefs: readonly string[];
+  readonly mayWriteLedgers: false;
+  readonly mayEmitRuntimeEvents: false;
+  readonly maySelectTraversal: false;
+  readonly mayCloseTraversal: false;
+  readonly mayOwnIterationLoop: false;
+}
+
 export type GtlProgramHookDeclarationSourceKind =
   | "graph_vector_declaration"
   | "graph_function_declaration"
@@ -465,6 +487,9 @@ export interface GtlProgramConformanceInput {
   readonly publicStartTargets?: readonly GtlProgramPublicStartRow[] | undefined;
   readonly promptAssets?: readonly GtlProgramPromptAssetRow[] | undefined;
   readonly pluginContracts?: readonly unknown[] | undefined;
+  readonly pluginResultInterfaces?:
+    | readonly GtlProgramPluginResultInterfaceRow[]
+    | undefined;
   readonly sourceIdentitySurfaces?:
     | readonly GtlProgramSourceIdentityRow[]
     | undefined;
@@ -513,6 +538,7 @@ export interface GtlProgramInventoryDigests {
   readonly publicStartTargets: string;
   readonly promptAssets: string;
   readonly pluginContracts: string;
+  readonly pluginResultInterfaces: string;
   readonly sourceIdentitySurfaces: string;
   readonly sameObjectProofs: string;
   readonly operatorDeclarations: string;
@@ -3045,6 +3071,182 @@ function admitComputeStageBindingRows(
   );
 }
 
+function admitPluginResultInterfaceRows(
+  input: readonly unknown[],
+  subjectRef: string,
+  issues: GtlProgramConformanceIssue[]
+): readonly GtlProgramPluginResultInterfaceRow[] {
+  return Object.freeze(
+    input.flatMap((row, index) => {
+      const surfaceRef = `pluginResultInterfaces[${index}]`;
+      if (!isRecord(row)) {
+        issues.push(
+          issue({
+            surfaceKind: "plugin_result_interface",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/plugin-result-interface-row",
+            message: `${surfaceRef} must be an object`
+          })
+        );
+        return [];
+      }
+      return [
+        Object.freeze({
+          resultInterfaceRef: requiredStringField({
+            record: row,
+            key: "resultInterfaceRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "plugin_result_interface",
+            issues
+          }),
+          stageBindingRef: requiredStringField({
+            record: row,
+            key: "stageBindingRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "plugin_result_interface",
+            issues
+          }),
+          compositionRef: requiredStringField({
+            record: row,
+            key: "compositionRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "plugin_result_interface",
+            issues
+          }),
+          compositionDigest: requiredStringField({
+            record: row,
+            key: "compositionDigest",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "plugin_result_interface",
+            issues
+          }),
+          stageRole: requiredComputeStageRoleField({
+            record: row,
+            key: "stageRole",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "plugin_result_interface",
+            issues
+          }),
+          computeMeans: requiredRegimeField({
+            record: row,
+            key: "computeMeans",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "plugin_result_interface",
+            issues
+          }),
+          resultEnvelopeContractRef: requiredStringField({
+            record: row,
+            key: "resultEnvelopeContractRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "plugin_result_interface",
+            issues
+          }),
+          resultCarrierKind: requiredStringField({
+            record: row,
+            key: "resultCarrierKind",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "plugin_result_interface",
+            issues
+          }),
+          outputCarrierRefs: requiredStringArrayField({
+            record: row,
+            key: "outputCarrierRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "plugin_result_interface",
+            issues
+          }),
+          producedCarrierRefs: requiredStringArrayField({
+            record: row,
+            key: "producedCarrierRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "plugin_result_interface",
+            issues
+          }),
+          requiredIdentityFieldRefs: requiredStringArrayField({
+            record: row,
+            key: "requiredIdentityFieldRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "plugin_result_interface",
+            issues
+          }),
+          selectorAuthorityRefs: requiredStringArrayField({
+            record: row,
+            key: "selectorAuthorityRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "plugin_result_interface",
+            issues
+          }),
+          evidenceRefs: requiredStringArrayField({
+            record: row,
+            key: "evidenceRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "plugin_result_interface",
+            issues
+          }),
+          mayWriteLedgers: requiredBooleanField({
+            record: row,
+            key: "mayWriteLedgers",
+            expected: false,
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "plugin_result_interface",
+            issues
+          }),
+          mayEmitRuntimeEvents: requiredBooleanField({
+            record: row,
+            key: "mayEmitRuntimeEvents",
+            expected: false,
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "plugin_result_interface",
+            issues
+          }),
+          maySelectTraversal: requiredBooleanField({
+            record: row,
+            key: "maySelectTraversal",
+            expected: false,
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "plugin_result_interface",
+            issues
+          }),
+          mayCloseTraversal: requiredBooleanField({
+            record: row,
+            key: "mayCloseTraversal",
+            expected: false,
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "plugin_result_interface",
+            issues
+          }),
+          mayOwnIterationLoop: requiredBooleanField({
+            record: row,
+            key: "mayOwnIterationLoop",
+            expected: false,
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "plugin_result_interface",
+            issues
+          })
+        })
+      ];
+    })
+  );
+}
+
 function admitHookBoundaryRows(
   input: readonly unknown[],
   subjectRef: string,
@@ -3757,6 +3959,7 @@ export function admitGtlProgramConformanceInput(
       promptAssets: Object.freeze([]),
       pluginContracts: Object.freeze([]),
       sourceIdentitySurfaces: Object.freeze([]),
+      pluginResultInterfaces: Object.freeze([]),
       sameObjectProofs: Object.freeze([]),
       operatorDeclarations: Object.freeze([]),
       evaluatorDeclarations: Object.freeze([]),
@@ -3912,6 +4115,16 @@ export function admitGtlProgramConformanceInput(
       subjectRef,
       issues
     }),
+    pluginResultInterfaces: admitPluginResultInterfaceRows(
+      checkOptionalArrayField({
+        record: rawInput,
+        key: "pluginResultInterfaces",
+        subjectRef,
+        issues
+      }),
+      subjectRef,
+      issues
+    ),
     sourceIdentitySurfaces: admitSourceIdentityRows(
       checkOptionalArrayField({
         record: rawInput,
@@ -5841,6 +6054,188 @@ function checkComputeStageBindingRows(input: {
   }
 }
 
+const REQUIRED_PLUGIN_RESULT_IDENTITY_FIELD_REFS = Object.freeze([
+  "compositionRef",
+  "compositionDigest",
+  "compositionSelectionRef",
+  "stageRole",
+  "computeMeans",
+  "outputCarrierRefs",
+  "evidenceRefs"
+]);
+
+function selectorAuthorityLooksLikeLocalFileRef(ref: string): boolean {
+  return ref.startsWith("file://") || ref.includes("fp_evaluate_result.json");
+}
+
+function checkPluginResultInterfaceRows(input: {
+  readonly pluginResultInterfaces: readonly GtlProgramPluginResultInterfaceRow[];
+  readonly computeStageBindings: readonly GtlProgramComputeStageBindingRow[];
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  checkUniqueRows({
+    rows: input.pluginResultInterfaces.map((row) => ({
+      ref: row.resultInterfaceRef
+    })),
+    surfaceKind: "plugin_result_interface",
+    ruleRef: "abg://gtl-program/plugin-result-interface/unique-ref",
+    label: "plugin result interface",
+    issues: input.issues
+  });
+
+  const stagesByRef = new Map<string, GtlProgramComputeStageBindingRow>();
+  for (const row of input.computeStageBindings) {
+    stagesByRef.set(row.stageBindingRef, row);
+  }
+  const resultInterfacesByStage = new Map<string, number>();
+  for (const row of input.pluginResultInterfaces) {
+    resultInterfacesByStage.set(
+      row.stageBindingRef,
+      (resultInterfacesByStage.get(row.stageBindingRef) ?? 0) + 1
+    );
+  }
+  for (const stage of input.computeStageBindings) {
+    if ((resultInterfacesByStage.get(stage.stageBindingRef) ?? 0) === 0) {
+      pushRowIssue({
+        surfaceKind: "compute_stage_binding",
+        surfaceRef: stage.stageBindingRef,
+        ruleRef: "abg://gtl-program/plugin-result-interface/stage-binding-required",
+        message: `${stage.stageBindingRef} must declare an admitted plugin result interface row`,
+        issues: input.issues
+      });
+    }
+  }
+
+  for (const row of input.pluginResultInterfaces) {
+    const stage = stagesByRef.get(row.stageBindingRef);
+    if (stage === undefined) {
+      pushRowIssue({
+        surfaceKind: "plugin_result_interface",
+        surfaceRef: row.resultInterfaceRef,
+        ruleRef: "abg://gtl-program/plugin-result-interface/stage-binding-resolves",
+        message: `stageBindingRef ${JSON.stringify(row.stageBindingRef)} does not resolve to a supplied computeStageBindings row`,
+        issues: input.issues
+      });
+    } else {
+      if (row.compositionRef !== stage.compositionRef) {
+        pushRowIssue({
+          surfaceKind: "plugin_result_interface",
+          surfaceRef: row.resultInterfaceRef,
+          ruleRef: "abg://gtl-program/plugin-result-interface/composition-ref",
+          message: `compositionRef for ${row.resultInterfaceRef} must match ${stage.stageBindingRef}`,
+          issues: input.issues
+        });
+      }
+      if (row.compositionDigest !== stage.compositionDigest) {
+        pushRowIssue({
+          surfaceKind: "plugin_result_interface",
+          surfaceRef: row.resultInterfaceRef,
+          ruleRef: "abg://gtl-program/plugin-result-interface/composition-digest",
+          message: `compositionDigest for ${row.resultInterfaceRef} must match ${stage.stageBindingRef}`,
+          issues: input.issues
+        });
+      }
+      if (row.stageRole !== stage.stageRole) {
+        pushRowIssue({
+          surfaceKind: "plugin_result_interface",
+          surfaceRef: row.resultInterfaceRef,
+          ruleRef: "abg://gtl-program/plugin-result-interface/stage-role",
+          message: `stageRole for ${row.resultInterfaceRef} must match ${stage.stageBindingRef}`,
+          issues: input.issues
+        });
+      }
+      if (row.computeMeans !== stage.computeMeans) {
+        pushRowIssue({
+          surfaceKind: "plugin_result_interface",
+          surfaceRef: row.resultInterfaceRef,
+          ruleRef: "abg://gtl-program/plugin-result-interface/compute-means",
+          message: `computeMeans for ${row.resultInterfaceRef} must match ${stage.stageBindingRef}`,
+          issues: input.issues
+        });
+      }
+      for (const outputCarrierRef of stage.outputCarrierRefs) {
+        if (!row.outputCarrierRefs.includes(outputCarrierRef)) {
+          pushRowIssue({
+            surfaceKind: "plugin_result_interface",
+            surfaceRef: row.resultInterfaceRef,
+            ruleRef: "abg://gtl-program/plugin-result-interface/output-carrier-covers-stage",
+            message: `outputCarrierRefs for ${row.resultInterfaceRef} must include stage output ${JSON.stringify(outputCarrierRef)}`,
+            issues: input.issues
+          });
+        }
+      }
+      for (const outputCarrierRef of row.outputCarrierRefs) {
+        if (!stage.outputCarrierRefs.includes(outputCarrierRef)) {
+          pushRowIssue({
+            surfaceKind: "plugin_result_interface",
+            surfaceRef: row.resultInterfaceRef,
+            ruleRef: "abg://gtl-program/plugin-result-interface/output-carrier-stage-member",
+            message: `outputCarrierRef ${JSON.stringify(outputCarrierRef)} is not produced by ${stage.stageBindingRef}`,
+            issues: input.issues
+          });
+        }
+      }
+    }
+
+    checkNonEmptyArray({
+      surfaceKind: "plugin_result_interface",
+      surfaceRef: row.resultInterfaceRef,
+      ruleRef: "abg://gtl-program/plugin-result-interface/output-carriers",
+      fieldName: "outputCarrierRefs",
+      values: row.outputCarrierRefs,
+      issues: input.issues
+    });
+    checkNonEmptyArray({
+      surfaceKind: "plugin_result_interface",
+      surfaceRef: row.resultInterfaceRef,
+      ruleRef: "abg://gtl-program/plugin-result-interface/produced-carriers",
+      fieldName: "producedCarrierRefs",
+      values: row.producedCarrierRefs,
+      issues: input.issues
+    });
+    checkNonEmptyArray({
+      surfaceKind: "plugin_result_interface",
+      surfaceRef: row.resultInterfaceRef,
+      ruleRef: "abg://gtl-program/plugin-result-interface/selector-authority",
+      fieldName: "selectorAuthorityRefs",
+      values: row.selectorAuthorityRefs,
+      issues: input.issues
+    });
+    if (!row.outputCarrierRefs.includes(row.resultCarrierKind)) {
+      pushRowIssue({
+        surfaceKind: "plugin_result_interface",
+        surfaceRef: row.resultInterfaceRef,
+        ruleRef: "abg://gtl-program/plugin-result-interface/result-carrier-kind",
+        message: `resultCarrierKind ${JSON.stringify(row.resultCarrierKind)} must be one of outputCarrierRefs`,
+        issues: input.issues
+      });
+    }
+    const identityFields = new Set(row.requiredIdentityFieldRefs);
+    for (const requiredRef of REQUIRED_PLUGIN_RESULT_IDENTITY_FIELD_REFS) {
+      if (!identityFields.has(requiredRef)) {
+        pushRowIssue({
+          surfaceKind: "plugin_result_interface",
+          surfaceRef: row.resultInterfaceRef,
+          ruleRef: "abg://gtl-program/plugin-result-interface/required-identity-field",
+          message: `requiredIdentityFieldRefs must include ${requiredRef}`,
+          issues: input.issues
+        });
+      }
+    }
+    for (const selectorAuthorityRef of row.selectorAuthorityRefs) {
+      if (selectorAuthorityLooksLikeLocalFileRef(selectorAuthorityRef)) {
+        pushRowIssue({
+          surfaceKind: "plugin_result_interface",
+          surfaceRef: row.resultInterfaceRef,
+          ruleRef: "abg://gtl-program/plugin-result-interface/no-local-file-selector",
+          message: `selectorAuthorityRef ${JSON.stringify(selectorAuthorityRef)} must cite GTL/ABG result-interface authority, not a local result file`,
+          issues: input.issues
+        });
+      }
+    }
+  }
+}
+
 function checkHookBoundaryRows(input: {
   readonly hookBoundaries: readonly GtlProgramHookBoundaryRow[];
   readonly knownHostRefs: ReadonlySet<string>;
@@ -6894,6 +7289,7 @@ function computeInventoryDigests(input: {
   readonly publicStartTargets: readonly GtlProgramPublicStartRow[];
   readonly promptAssets: readonly GtlProgramPromptAssetRow[];
   readonly pluginContracts: readonly unknown[];
+  readonly pluginResultInterfaces: readonly GtlProgramPluginResultInterfaceRow[];
   readonly sourceIdentitySurfaces: readonly GtlProgramSourceIdentityRow[];
   readonly sameObjectProofs: readonly GtlProgramSameObjectRow[];
   readonly operatorDeclarations: readonly GtlProgramOperatorDeclarationRow[];
@@ -6921,6 +7317,7 @@ function computeInventoryDigests(input: {
     publicStartTargets: stableSha256Digest(input.publicStartTargets),
     promptAssets: stableSha256Digest(input.promptAssets),
     pluginContracts: stableSha256Digest(input.pluginContracts),
+    pluginResultInterfaces: stableSha256Digest(input.pluginResultInterfaces),
     sourceIdentitySurfaces: stableSha256Digest(
       sourceIdentityDigestRows(input.sourceIdentitySurfaces)
     ),
@@ -6980,6 +7377,9 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
   const publicStartTargets = Object.freeze([...(input.publicStartTargets ?? [])]);
   const promptAssets = Object.freeze([...(input.promptAssets ?? [])]);
   const pluginContracts = Object.freeze([...(input.pluginContracts ?? [])]);
+  const pluginResultInterfaces = Object.freeze([
+    ...(input.pluginResultInterfaces ?? [])
+  ]);
   const sourceIdentitySurfaces = Object.freeze([
     ...(input.sourceIdentitySurfaces ?? [])
   ]);
@@ -7063,6 +7463,11 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     computeCompositions,
     computeStageBindings,
     pluginContractRefs: suppliedPluginContractRefs,
+    issues
+  });
+  checkPluginResultInterfaceRows({
+    pluginResultInterfaces,
+    computeStageBindings,
     issues
   });
   checkHookBoundaryRows({
@@ -7184,6 +7589,7 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     publicStartTargets,
     promptAssets,
     pluginContracts,
+    pluginResultInterfaces,
     sourceIdentitySurfaces,
     sameObjectProofs,
     operatorDeclarations,

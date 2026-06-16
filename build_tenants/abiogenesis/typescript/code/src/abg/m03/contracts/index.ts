@@ -1046,6 +1046,7 @@ export type {
   GtlProgramJobBindingRow,
   GtlProgramOperatorDeclarationRow,
   GtlProgramOverlayRow,
+  GtlProgramPluginResultInterfaceRow,
   GtlProgramPromptAssetRow,
   GtlProgramPublicStartRow,
   GtlProgramRoleBindingRow,

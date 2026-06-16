@@ -578,6 +578,15 @@ function completeFeatureRows(input) {
     `stage-binding://t150/${programRef}/evaluate.C`,
     `stage-binding://t150/${programRef}/consequence.C`
   ];
+  const pluginResultIdentityFieldRefs = [
+    "compositionRef",
+    "compositionDigest",
+    "compositionSelectionRef",
+    "stageRole",
+    "computeMeans",
+    "outputCarrierRefs",
+    "evidenceRefs"
+  ];
   const stageRegimes = (activeRegime) => [
     {
       regime: "F_D",
@@ -755,6 +764,81 @@ function completeFeatureRows(input) {
         evidenceRefs: ["test://t150/consequence-stage"]
       }
     ],
+    pluginResultInterfaces: [
+      {
+        resultInterfaceRef: `result-interface://t150/${programRef}/transform.C`,
+        stageBindingRef: stageBindingRefs[0],
+        compositionRef,
+        compositionDigest,
+        stageRole: "transform",
+        computeMeans: "F_P",
+        resultEnvelopeContractRef: `result-envelope://t150/${programRef}/transform.C`,
+        resultCarrierKind: "FpDispatchOutcome",
+        outputCarrierRefs: ["FpDispatchOutcome"],
+        producedCarrierRefs: [
+          `carrier://t150/${programRef}/transform.C/fp-dispatch-outcome`
+        ],
+        requiredIdentityFieldRefs: pluginResultIdentityFieldRefs,
+        selectorAuthorityRefs: [
+          `gtl://plugin-result-interface/t150/${programRef}/transform.C`
+        ],
+        evidenceRefs: ["test://t150/transform-result-interface"],
+        mayWriteLedgers: false,
+        mayEmitRuntimeEvents: false,
+        maySelectTraversal: false,
+        mayCloseTraversal: false,
+        mayOwnIterationLoop: false
+      },
+      {
+        resultInterfaceRef: `result-interface://t150/${programRef}/evaluate.C`,
+        stageBindingRef: stageBindingRefs[1],
+        compositionRef,
+        compositionDigest,
+        stageRole: "evaluate",
+        computeMeans: "F_P",
+        resultEnvelopeContractRef: `result-envelope://t150/${programRef}/evaluate.C`,
+        resultCarrierKind: "FpEvaluationOutcome",
+        outputCarrierRefs: ["FpEvaluationOutcome", "EvaluationRuleOutcome"],
+        producedCarrierRefs: [
+          `carrier://t150/${programRef}/evaluate.C/fp-evaluation-outcome`,
+          `carrier://t150/${programRef}/evaluate.C/evaluation-rule-outcome`
+        ],
+        requiredIdentityFieldRefs: pluginResultIdentityFieldRefs,
+        selectorAuthorityRefs: [
+          `gtl://plugin-result-interface/t150/${programRef}/evaluate.C`
+        ],
+        evidenceRefs: ["test://t150/evaluate-result-interface"],
+        mayWriteLedgers: false,
+        mayEmitRuntimeEvents: false,
+        maySelectTraversal: false,
+        mayCloseTraversal: false,
+        mayOwnIterationLoop: false
+      },
+      {
+        resultInterfaceRef: `result-interface://t150/${programRef}/consequence.C`,
+        stageBindingRef: stageBindingRefs[2],
+        compositionRef,
+        compositionDigest,
+        stageRole: "consequence",
+        computeMeans: "F_D",
+        resultEnvelopeContractRef: `result-envelope://t150/${programRef}/consequence.C`,
+        resultCarrierKind: "ConsequenceProjectionOutcome",
+        outputCarrierRefs: ["ConsequenceProjectionOutcome"],
+        producedCarrierRefs: [
+          `carrier://t150/${programRef}/consequence.C/consequence-projection-outcome`
+        ],
+        requiredIdentityFieldRefs: pluginResultIdentityFieldRefs,
+        selectorAuthorityRefs: [
+          `gtl://plugin-result-interface/t150/${programRef}/consequence.C`
+        ],
+        evidenceRefs: ["test://t150/consequence-result-interface"],
+        mayWriteLedgers: false,
+        mayEmitRuntimeEvents: false,
+        maySelectTraversal: false,
+        mayCloseTraversal: false,
+        mayOwnIterationLoop: false
+      }
+    ],
     hookBoundaries: [
       {
         hookRef: `hook://t150/${programRef}/fp-dispatch`,
@@ -851,6 +935,7 @@ function mergeFeatureRows(...rowSets) {
     ruleDeclarations: rowSets.flatMap((rows) => rows.ruleDeclarations),
     computeCompositions: rowSets.flatMap((rows) => rows.computeCompositions),
     computeStageBindings: rowSets.flatMap((rows) => rows.computeStageBindings),
+    pluginResultInterfaces: rowSets.flatMap((rows) => rows.pluginResultInterfaces),
     hookBoundaries: rowSets.flatMap((rows) => rows.hookBoundaries),
     selectionBoundaries: rowSets.flatMap((rows) => rows.selectionBoundaries),
     jobBindings: rowSets.flatMap((rows) => rows.jobBindings),
@@ -1000,6 +1085,7 @@ test("T-150 GTL program typechecker admits a complete graph prompt plugin invent
   assert.equal(report.coverage.graphVectorCount, 1);
   assert.equal(report.coverage.promptAssetCount, 1);
   assert.equal(report.coverage.pluginContractCount, 1);
+  assert.match(report.inventoryDigests.pluginResultInterfaces, /^sha256:/u);
   assert.match(report.inventoryDigests.runtimeReentryRoutes, /^sha256:/u);
   assert.match(report.reportRef, /^abg:\/\/gtl-program-conformance-report\/sha256:/u);
 });
@@ -2114,6 +2200,65 @@ test("T-150 GTL program typechecker rejects current ABG engine authority flags o
   assert.equal(report.passed, false);
   assert.match(messages, /mayWriteLedgers/u);
   assert.match(messages, /maySelectTraversal/u);
+});
+
+test("T-158 GTL program typechecker rejects malformed plugin result interfaces", () => {
+  const base = compliantInput();
+  const resultInterface = base.pluginResultInterfaces[0];
+  assert.notEqual(resultInterface, undefined);
+
+  const report = typecheckGtlProgram(
+    compliantInput({
+      pluginResultInterfaces: [
+        {
+          ...resultInterface,
+          resultInterfaceRef: "result-interface://t158/malformed",
+          stageRole: "evaluate",
+          computeMeans: "F_D",
+          resultCarrierKind: "WrongCarrier",
+          outputCarrierRefs: ["WrongCarrier"],
+          requiredIdentityFieldRefs: ["compositionRef"],
+          selectorAuthorityRefs: [
+            "file://tmp/fp_evaluate_result.json"
+          ]
+        }
+      ]
+    })
+  );
+
+  const ruleRefs = new Set(report.issues.map((entry) => entry.ruleRef));
+  assert.equal(report.passed, false);
+  assert(
+    ruleRefs.has("abg://gtl-program/plugin-result-interface/stage-role")
+  );
+  assert(
+    ruleRefs.has("abg://gtl-program/plugin-result-interface/compute-means")
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/plugin-result-interface/output-carrier-covers-stage"
+    )
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/plugin-result-interface/output-carrier-stage-member"
+    )
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/plugin-result-interface/required-identity-field"
+    )
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/plugin-result-interface/no-local-file-selector"
+    )
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/plugin-result-interface/stage-binding-required"
+    )
+  );
 });
 
 test("T-150 GTL program typechecker rejects partial prompt asset rows", () => {
