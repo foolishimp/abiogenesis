@@ -165,6 +165,10 @@ law.
   commit `9bd7508b5c1e82b8c8568bfc2fa41e9493438ebb` with
   `sourceDirty: false`; rc.26 is superseded by the admitted-catalog
   consolidation in rc.27.
+- [x] 2026-06-16: Cut
+  `release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.27/` from source
+  commit `e7ae52c3364a3a27f69003b15cc6742e339a6819` with
+  `sourceDirty: false`; `latest` points at rc.27.
 - [ ] SDLC must consume the admitted runtime envelope once ABG publishes it and
   remove product-local result-shape probing.
 
@@ -201,11 +205,15 @@ law.
   `bfee8d060314bd7c20ebb5bc079e2cde7536ee40f61d38818da2bca56f6e3fb9` for
   `abiogenesis-typescript-tenant-4.0.0-rc.26.tgz`; the manifest records
   `sourceDirty: false`.
+- rc.27 snapshot checksum file records
+  `87093005a4b683a48bc082cb35b6b084fa7eedb6aaf0280fa57927b4238dec77` for
+  `abiogenesis-typescript-tenant-4.0.0-rc.27.tgz`; the manifest records
+  `sourceDirty: false`.
 
 ## Current Non-Closure
 
 The static compiler gate, admitted plugin result-interface catalog, runtime
 result-envelope admission API, and ABG runner replay-visible result-envelope
-ingress are implemented. This ticket cannot close until rc.27 is cut and
+ingress are implemented and published in rc.27. This ticket cannot close until
 downstream consumers use the admitted catalog/envelope events instead of local
 archive/result-file selectors.
