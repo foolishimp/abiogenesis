@@ -127,6 +127,13 @@ import {
   admitConstructionIntentCandidate
 } from "../contracts/construction_intent.js";
 import {
+  admitPluginResultEnvelope,
+  type AdmittedPluginResultEnvelope
+} from "../contracts/plugin_result_envelope.js";
+import type {
+  GtlProgramPluginResultInterfaceRow
+} from "../contracts/gtl_program_conformance.js";
+import {
   constructConstructionObservationSnapshot,
   constructConstructionRepairSurfaceTriageRow,
   constructObservationPressureRow
@@ -233,6 +240,9 @@ export interface EngineIterateRequest {
     | ConstructionPressurePackage
     | null
     | undefined;
+  readonly pluginResultInterfaces?:
+    | readonly GtlProgramPluginResultInterfaceRow[]
+    | undefined;
 }
 
 export interface EngineStartRequest extends ExecutionBasisAdmissionInput {
@@ -254,6 +264,9 @@ export interface EngineStartRequest extends ExecutionBasisAdmissionInput {
   readonly constructionPressurePackage?:
     | ConstructionPressurePackage
     | null
+    | undefined;
+  readonly pluginResultInterfaces?:
+    | readonly GtlProgramPluginResultInterfaceRow[]
     | undefined;
 }
 
@@ -966,21 +979,39 @@ function fdAuthorityTerminalTransition(input: {
 function fdAuthorityOutcomeEvent(input: {
   readonly basis: ExecutionBasis;
   readonly transition: Extract<AdvancementTransition, { readonly kind: "fd_advance" }>;
+  readonly pluginInput: EnginePluginInput;
   readonly outcome: FdEvaluationOutcome;
-}): RuntimeEvent {
-  return constructFdAuthorityOutcomeAdmittedEvent({
-    basis: input.basis,
-    vectorIndex: input.transition.vectorIndex,
-    status: input.outcome.status,
-    severityClass: input.outcome.severityClass,
-    routingDecision: input.outcome.routingDecision,
-    affectedFieldRefs: input.outcome.affectedFieldRefs,
-    consumedFieldRefs: input.outcome.consumedFieldRefs,
-    pressureRefs: input.outcome.pressureRefs,
-    diagnosticRefs: input.outcome.diagnosticRefs,
-    evidenceRefs: input.outcome.evidenceRefs,
-    causationEventRefs: Object.freeze([input.transition.edge])
-  });
+  readonly resultInterfaces: readonly GtlProgramPluginResultInterfaceRow[];
+}): readonly RuntimeEvent[] {
+  return Object.freeze([
+    constructFdAuthorityOutcomeAdmittedEvent({
+      basis: input.basis,
+      vectorIndex: input.transition.vectorIndex,
+      status: input.outcome.status,
+      severityClass: input.outcome.severityClass,
+      routingDecision: input.outcome.routingDecision,
+      affectedFieldRefs: input.outcome.affectedFieldRefs,
+      consumedFieldRefs: input.outcome.consumedFieldRefs,
+      pressureRefs: input.outcome.pressureRefs,
+      diagnosticRefs: input.outcome.diagnosticRefs,
+      evidenceRefs: input.outcome.evidenceRefs,
+      causationEventRefs: Object.freeze([input.transition.edge])
+    }),
+    ...pluginResultEnvelopeEvents({
+      basis: input.basis,
+      pluginInput: input.pluginInput,
+      envelope: admittedPluginResultEnvelopeForOutcome({
+        pluginInput: input.pluginInput,
+        resultInterfaces: input.resultInterfaces,
+        stageRole: "evaluate",
+        computeMeans: "F_D",
+        outputCarrierRefs: Object.freeze(["FdEvaluationOutcome"]),
+        evidenceRefs: input.outcome.evidenceRefs,
+        outcomeKind: input.outcome.kind,
+        outcomeStatus: input.outcome.status
+      })
+    })
+  ]);
 }
 
 function fpEvaluationDigest(input: unknown): string {
@@ -1024,6 +1055,181 @@ function pluginInputIdentity(input: EnginePluginInput): Readonly<Record<string, 
     computeStageBindingPredecessorRefs:
       input.computeStageBinding?.predecessorRefs ?? Object.freeze([])
   });
+}
+
+function resultInterfaceMatchesOutputCarriers(input: {
+  readonly row: GtlProgramPluginResultInterfaceRow;
+  readonly outputCarrierRefs: readonly string[];
+}): boolean {
+  if (input.outputCarrierRefs.length === 0) {
+    return true;
+  }
+  return input.outputCarrierRefs.every((ref) =>
+    input.row.outputCarrierRefs.includes(ref)
+  );
+}
+
+function selectPluginResultInterface(input: {
+  readonly pluginInput: EnginePluginInput;
+  readonly resultInterfaces: readonly GtlProgramPluginResultInterfaceRow[];
+  readonly stageRole: GtlProgramPluginResultInterfaceRow["stageRole"];
+  readonly computeMeans: GtlProgramPluginResultInterfaceRow["computeMeans"];
+  readonly outputCarrierRefs: readonly string[];
+}): GtlProgramPluginResultInterfaceRow | null {
+  if (input.resultInterfaces.length === 0) {
+    return null;
+  }
+  const matches = input.resultInterfaces.filter(
+    (row) =>
+      row.compositionRef === input.pluginInput.selectedCompositionRef &&
+      row.compositionDigest === input.pluginInput.selectedCompositionDigest &&
+      row.stageRole === input.stageRole &&
+      row.computeMeans === input.computeMeans &&
+      resultInterfaceMatchesOutputCarriers({
+        row,
+        outputCarrierRefs: input.outputCarrierRefs
+      })
+  );
+  const match = matches[0];
+  if (matches.length !== 1 || match === undefined) {
+    throw new TypeError(
+      [
+        "plugin result interface admission expected exactly one GTL row",
+        `stage=${input.computeMeans}.${input.stageRole}`,
+        `composition=${input.pluginInput.selectedCompositionRef}`,
+        `outputCarriers=${input.outputCarrierRefs.join(",") || "none"}`,
+        `matches=${matches.length}`
+      ].join(" ")
+    );
+  }
+  return match;
+}
+
+function admittedPluginResultEnvelopeForOutcome(input: {
+  readonly pluginInput: EnginePluginInput;
+  readonly resultInterfaces: readonly GtlProgramPluginResultInterfaceRow[];
+  readonly stageRole: GtlProgramPluginResultInterfaceRow["stageRole"];
+  readonly computeMeans: GtlProgramPluginResultInterfaceRow["computeMeans"];
+  readonly outputCarrierRefs: readonly string[];
+  readonly evidenceRefs: readonly string[];
+  readonly outcomeKind: string;
+  readonly outcomeStatus: string;
+  readonly resultRef?: string | null | undefined;
+}): AdmittedPluginResultEnvelope | null {
+  const resultInterface = selectPluginResultInterface({
+    pluginInput: input.pluginInput,
+    resultInterfaces: input.resultInterfaces,
+    stageRole: input.stageRole,
+    computeMeans: input.computeMeans,
+    outputCarrierRefs: input.outputCarrierRefs
+  });
+  if (resultInterface === null) {
+    return null;
+  }
+  const resultRef =
+    input.resultRef ??
+    `plugin-result:${stableSha256Digest({
+      basisId: input.pluginInput.basisId,
+      graphFunctionId: input.pluginInput.graphFunctionId,
+      vectorIndex: input.pluginInput.vectorIndex,
+      edge: input.pluginInput.edge,
+      outcomeKind: input.outcomeKind,
+      outcomeStatus: input.outcomeStatus,
+      resultInterfaceRef: resultInterface.resultInterfaceRef
+    })}`;
+  return admitPluginResultEnvelope({
+    resultInterface,
+    resultRef,
+    result: Object.freeze({
+      kind: "abg_plugin_result_envelope_source",
+      stage: `${input.computeMeans}.${input.stageRole}`,
+      computeNotationStage: `${input.stageRole}.C`,
+      outcomeKind: input.outcomeKind,
+      outcomeStatus: input.outcomeStatus,
+      compositionRef: input.pluginInput.selectedCompositionRef,
+      compositionDigest: input.pluginInput.selectedCompositionDigest,
+      compositionSelectionRef:
+        input.pluginInput.selectedCompositionSelectionRef,
+      selectedRegimeBindingRef: input.pluginInput.selectedRegimeBindingRef,
+      evidenceRefs: input.evidenceRefs
+    }),
+    label: "EnginePluginResultEnvelope"
+  });
+}
+
+function pluginResultEnvelopeEvents(input: {
+  readonly basis: ExecutionBasis;
+  readonly pluginInput: EnginePluginInput;
+  readonly envelope: AdmittedPluginResultEnvelope | null;
+}): readonly RuntimeEvent[] {
+  if (input.envelope === null) {
+    return Object.freeze([]);
+  }
+  const envelope = input.envelope;
+  const digest = `digest:plugin_result_envelope:${fpEvaluationDigest(envelope)}`;
+  const inputDigest = `input:plugin_result_envelope:${fpEvaluationDigest({
+    pluginInput: pluginInputIdentity(input.pluginInput),
+    resultInterfaceRef: envelope.resultInterfaceRef,
+    resultRef: envelope.resultRef
+  })}`;
+  const policyRefs = Object.freeze([
+    input.basis.resolvedPolicy.resolvedPolicyBundleRef
+  ]);
+  return Object.freeze([
+    constructPayloadObservedEvent({
+      basis: input.basis,
+      vectorIndex: input.pluginInput.vectorIndex,
+      payloadRef: envelope.envelopeRef,
+      payloadClass: "admitted_plugin_result_envelope",
+      schemaRef: "schema://abg/plugin-result-envelope",
+      contractRef: envelope.resultEnvelopeContractRef,
+      digest,
+      producerRef: input.pluginInput.contract.ref,
+      sourceEventRef: input.pluginInput.sourceProjectionRef,
+      actorInvocationId:
+        input.pluginInput.actorInvocationRef?.actorInvocationId ?? null,
+      authorityRef: envelope.resultInterfaceRef,
+      inputDigest,
+      policyRefs
+    }),
+    constructPayloadValidatedEvent({
+      basis: input.basis,
+      vectorIndex: input.pluginInput.vectorIndex,
+      payloadRef: envelope.envelopeRef,
+      schemaRef: "schema://abg/plugin-result-envelope",
+      contractRef: envelope.resultEnvelopeContractRef,
+      contractDigest: stableSha256Digest({
+        resultInterfaceRef: envelope.resultInterfaceRef,
+        stageBindingRef: envelope.stageBindingRef,
+        outputCarrierRefs: envelope.outputCarrierRefs,
+        producedCarrierRefs: envelope.producedCarrierRefs
+      }),
+      digest,
+      validationRef: `validation:plugin_result_envelope:${envelope.envelopeRef}`,
+      evidenceRef: envelope.evidenceRefs[0] ?? null,
+      policyRefs
+    }),
+    ...envelope.evidenceRefs.map((evidenceRef) =>
+      constructEvidenceAdmittedEvent({
+        basis: input.basis,
+        vectorIndex: input.pluginInput.vectorIndex,
+        evidenceRef,
+        payloadRef: envelope.envelopeRef,
+        authorityRef: envelope.resultInterfaceRef,
+        authorityDigest: `authority:plugin_result_envelope:${fpEvaluationDigest({
+          resultInterfaceRef: envelope.resultInterfaceRef,
+          selectorAuthorityRefs: envelope.selectorAuthorityRefs
+        })}`,
+        inputDigest,
+        providerRefs: [input.pluginInput.contract.ref],
+        policyRefs,
+        complete: true,
+        shallow: false,
+        contradictsAuthority: false,
+        deferred: false
+      })
+    )
+  ]);
 }
 
 interface PlannedEvaluationRule {
@@ -1245,6 +1451,8 @@ function composedStageTaskOutcomeCoreEvents(input: {
   readonly basis: ExecutionBasis;
   readonly pluginInput: EnginePluginInput;
   readonly outcome: ComposedStageTaskOutcome;
+  readonly outputCarrierRefs: readonly string[];
+  readonly resultInterfaces: readonly GtlProgramPluginResultInterfaceRow[];
 }): readonly RuntimeEvent[] {
   const payloadRef = composedStageTaskOutcomePayloadRef({
     basis: input.basis,
@@ -1280,6 +1488,20 @@ function composedStageTaskOutcomeCoreEvents(input: {
       validationRef: `validation:composed_stage_task:${payloadRef}`,
       evidenceRef: input.outcome.evidenceRefs[0] ?? null,
       policyRefs: [input.basis.resolvedPolicy.resolvedPolicyBundleRef]
+    }),
+    ...pluginResultEnvelopeEvents({
+      basis: input.basis,
+      pluginInput: input.pluginInput,
+      envelope: admittedPluginResultEnvelopeForOutcome({
+        pluginInput: input.pluginInput,
+        resultInterfaces: input.resultInterfaces,
+        stageRole: input.outcome.stageRole,
+        computeMeans: input.outcome.computeMeans,
+        outputCarrierRefs: input.outputCarrierRefs,
+        evidenceRefs: input.outcome.evidenceRefs,
+        outcomeKind: input.outcome.kind,
+        outcomeStatus: input.outcome.status
+      })
     })
   ]);
 }
@@ -1569,6 +1791,8 @@ function evaluationRuleOutcomeCoreEvents(input: {
   readonly basis: ExecutionBasis;
   readonly pluginInput: EnginePluginInput;
   readonly outcome: EvaluationRuleOutcome;
+  readonly outputCarrierRefs: readonly string[];
+  readonly resultInterfaces: readonly GtlProgramPluginResultInterfaceRow[];
 }): readonly RuntimeEvent[] {
   const payloadRef = evaluationRuleOutcomePayloadRef({
     basis: input.basis,
@@ -1603,6 +1827,20 @@ function evaluationRuleOutcomeCoreEvents(input: {
       validationRef: `validation:evaluation_rule:${payloadRef}`,
       evidenceRef: input.outcome.evidenceRefs[0] ?? null,
       policyRefs: [input.basis.resolvedPolicy.resolvedPolicyBundleRef]
+    }),
+    ...pluginResultEnvelopeEvents({
+      basis: input.basis,
+      pluginInput: input.pluginInput,
+      envelope: admittedPluginResultEnvelopeForOutcome({
+        pluginInput: input.pluginInput,
+        resultInterfaces: input.resultInterfaces,
+        stageRole: "evaluate",
+        computeMeans: input.outcome.computeMeans,
+        outputCarrierRefs: input.outputCarrierRefs,
+        evidenceRefs: input.outcome.evidenceRefs,
+        outcomeKind: input.outcome.kind,
+        outcomeStatus: input.outcome.status
+      })
     })
   ]);
 }
@@ -1861,6 +2099,7 @@ function fpEvaluationCoreEvents(input: {
   readonly basis: ExecutionBasis;
   readonly pluginInput: EnginePluginInput;
   readonly outcome: FpEvaluationOutcome;
+  readonly resultInterfaces: readonly GtlProgramPluginResultInterfaceRow[];
 }): readonly RuntimeEvent[] {
   const authorityRefs = uniqueStrings(
     input.outcome.findings.flatMap((finding) => finding.authorityRefs)
@@ -1984,6 +2223,26 @@ function fpEvaluationCoreEvents(input: {
       })
     );
   }
+
+  events.push(
+    ...pluginResultEnvelopeEvents({
+      basis: input.basis,
+      pluginInput: input.pluginInput,
+      envelope: admittedPluginResultEnvelopeForOutcome({
+        pluginInput: input.pluginInput,
+        resultInterfaces: input.resultInterfaces,
+        stageRole: "evaluate",
+        computeMeans: "F_P",
+        outputCarrierRefs: Object.freeze(["FpEvaluationOutcome"]),
+        evidenceRefs: uniqueStrings([
+          ...input.outcome.evidenceRefs,
+          ...input.outcome.findings.flatMap((finding) => finding.evidenceRefs)
+        ]),
+        outcomeKind: input.outcome.kind,
+        outcomeStatus: input.outcome.status
+      })
+    })
+  );
 
   return Object.freeze(events);
 }
@@ -3370,7 +3629,10 @@ function* runEngineIterateMachine(input: {
               evaluationRuleOutcomeCoreEvents({
                 basis: request.basis,
                 pluginInput: ruleInput,
-                outcome: ruleOutcome
+                outcome: ruleOutcome,
+                outputCarrierRefs: declaration.outputCarrierRefs,
+                resultInterfaces:
+                  request.pluginResultInterfaces ?? Object.freeze([])
               })
             );
           }
@@ -3477,7 +3739,10 @@ function* runEngineIterateMachine(input: {
           evaluationRuleOutcomeCoreEvents({
             basis: request.basis,
             pluginInput: scalarFdEvaluationInput,
-            outcome: fdEvaluationRuleOutcome
+            outcome: fdEvaluationRuleOutcome,
+            outputCarrierRefs: scalarFdRule.outputCarrierRefs,
+            resultInterfaces:
+              request.pluginResultInterfaces ?? Object.freeze([])
           })
         );
         const evaluationSetAdmission = constructEvaluationSetAdmission({
@@ -3496,6 +3761,9 @@ function* runEngineIterateMachine(input: {
           fdAuthorityOutcomeEvent({
             basis: request.basis,
             transition,
+            pluginInput: scalarFdEvaluationInput,
+            resultInterfaces:
+              request.pluginResultInterfaces ?? Object.freeze([]),
             outcome
           })
         );
@@ -3713,7 +3981,10 @@ function* runEngineIterateMachine(input: {
               composedStageTaskOutcomeCoreEvents({
                 basis: request.basis,
                 pluginInput: taskInput,
-                outcome: taskOutcome
+                outcome: taskOutcome,
+                outputCarrierRefs: declaration.outputCarrierRefs,
+                resultInterfaces:
+                  request.pluginResultInterfaces ?? Object.freeze([])
               })
             );
           }
@@ -3816,7 +4087,10 @@ function* runEngineIterateMachine(input: {
           composedStageTaskOutcomeCoreEvents({
             basis: request.basis,
             pluginInput: scalarConsequenceInput,
-            outcome: scalarConsequenceOutcome
+            outcome: scalarConsequenceOutcome,
+            outputCarrierRefs: scalarConsequenceTask.outputCarrierRefs,
+            resultInterfaces:
+              request.pluginResultInterfaces ?? Object.freeze([])
           })
         );
         const consequenceStageAdmission = constructComposedStageAdmission({
@@ -4061,7 +4335,10 @@ function* runEngineIterateMachine(input: {
               composedStageTaskOutcomeCoreEvents({
                 basis: request.basis,
                 pluginInput: taskInput,
-                outcome: taskOutcome
+                outcome: taskOutcome,
+                outputCarrierRefs: declaration.outputCarrierRefs,
+                resultInterfaces:
+                  request.pluginResultInterfaces ?? Object.freeze([])
               })
             );
           }
@@ -4153,7 +4430,10 @@ function* runEngineIterateMachine(input: {
           composedStageTaskOutcomeCoreEvents({
             basis: request.basis,
             pluginInput: scalarTransformInput,
-            outcome: scalarTransformOutcome
+            outcome: scalarTransformOutcome,
+            outputCarrierRefs: scalarTransformTask.outputCarrierRefs,
+            resultInterfaces:
+              request.pluginResultInterfaces ?? Object.freeze([])
           })
         );
         const transformStageAdmission = constructComposedStageAdmission({
@@ -4399,7 +4679,10 @@ function* runEngineIterateMachine(input: {
                   evaluationRuleOutcomeCoreEvents({
                     basis: request.basis,
                     pluginInput: ruleInput,
-                    outcome: ruleOutcome
+                    outcome: ruleOutcome,
+                    outputCarrierRefs: declaration.outputCarrierRefs,
+                    resultInterfaces:
+                      request.pluginResultInterfaces ?? Object.freeze([])
                   })
                 );
               }
@@ -4511,7 +4794,10 @@ function* runEngineIterateMachine(input: {
               evaluationRuleOutcomeCoreEvents({
                 basis: request.basis,
                 pluginInput: fpEvaluationInput,
-                outcome: fpEvaluationRuleOutcome
+                outcome: fpEvaluationRuleOutcome,
+                outputCarrierRefs: scalarFpRule.outputCarrierRefs,
+                resultInterfaces:
+                  request.pluginResultInterfaces ?? Object.freeze([])
               })
             );
             const evaluationSetAdmission = constructEvaluationSetAdmission({
@@ -4551,7 +4837,9 @@ function* runEngineIterateMachine(input: {
               fpEvaluationCoreEvents({
                 basis: request.basis,
                 pluginInput: fpEvaluationInput,
-                outcome: fpEvaluationOutcome
+                outcome: fpEvaluationOutcome,
+                resultInterfaces:
+                  request.pluginResultInterfaces ?? Object.freeze([])
               })
             );
             const evaluationProjection = deriveRuntimeAggregateProjection(
@@ -4863,7 +5151,10 @@ function* runEngineIterateMachine(input: {
                   composedStageTaskOutcomeCoreEvents({
                     basis: request.basis,
                     pluginInput: taskInput,
-                    outcome: taskOutcome
+                    outcome: taskOutcome,
+                    outputCarrierRefs: declaration.outputCarrierRefs,
+                    resultInterfaces:
+                      request.pluginResultInterfaces ?? Object.freeze([])
                   })
                 );
               }
@@ -4968,7 +5259,10 @@ function* runEngineIterateMachine(input: {
                 composedStageTaskOutcomeCoreEvents({
                   basis: request.basis,
                   pluginInput: scalarConsequenceInput,
-                  outcome: scalarConsequenceOutcome
+                  outcome: scalarConsequenceOutcome,
+                  outputCarrierRefs: scalarConsequenceTask.outputCarrierRefs,
+                  resultInterfaces:
+                    request.pluginResultInterfaces ?? Object.freeze([])
                 })
             );
             const consequenceStageAdmission = constructComposedStageAdmission({
@@ -5505,7 +5799,8 @@ export function runEngineStart(request: EngineStartRequest): EngineIterateResult
       request.pluginTraversalObserverFallbackEnabled,
     pluginTraversalObserverFallbackKinds:
       request.pluginTraversalObserverFallbackKinds,
-    constructionPressurePackage: request.constructionPressurePackage
+    constructionPressurePackage: request.constructionPressurePackage,
+    pluginResultInterfaces: request.pluginResultInterfaces
   });
 }
 
@@ -5526,6 +5821,7 @@ export async function runEngineStartAsync(
       request.pluginTraversalObserverFallbackEnabled,
     pluginTraversalObserverFallbackKinds:
       request.pluginTraversalObserverFallbackKinds,
-    constructionPressurePackage: request.constructionPressurePackage
+    constructionPressurePackage: request.constructionPressurePackage,
+    pluginResultInterfaces: request.pluginResultInterfaces
   });
 }

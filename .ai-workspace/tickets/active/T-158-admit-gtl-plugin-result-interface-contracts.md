@@ -135,10 +135,15 @@ law.
   `admitPluginResultEnvelope(...)` so downstream products can pass a raw plugin
   result plus its GTL result-interface row into ABG-owned admission instead of
   hand-validating plugin API shape locally.
-- [ ] Runner/result ingress still needs to emit or project the admitted plugin
-  result envelope as replay-visible runtime truth. The current admission API
-  removes downstream API validation ownership, but it does not by itself make
-  historical result files disappear as transport artifacts.
+- [x] 2026-06-16: Runner/result ingress accepts supplied GTL
+  `pluginResultInterfaces` rows as ABG runtime input, admits actual plugin
+  outcomes into `AdmittedPluginResultEnvelope`, emits replay-visible
+  `payload_observed` / `payload_validated` rows with
+  `payloadClass = admitted_plugin_result_envelope`, and emits
+  `evidence_admitted` rows for the envelope evidence refs. When result-interface
+  rows are supplied and no exact row matches the selected composition, stage,
+  compute means, and output carrier, the runner rejects the plugin output
+  instead of letting a downstream product infer it.
 - [ ] SDLC must consume the admitted runtime envelope once ABG publishes it and
   remove product-local result-shape probing.
 
@@ -162,11 +167,14 @@ law.
   test_env/tests/test_t158_plugin_result_envelope_admission.test.mjs
   test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs` passed 47/47
   on 2026-06-16 after adding runtime plugin result-envelope admission.
+- `cd build_tenants/abiogenesis/typescript && npm run build:semantic && node
+  --test test_env/tests/test_t158_plugin_result_envelope_admission.test.mjs`
+  passed 5/5 on 2026-06-16 after adding ABG runner replay-visible plugin
+  result-envelope ingress.
 
 ## Current Non-Closure
 
-The static compiler gate and the exported runtime result-envelope admission API
-are implemented. This ticket cannot close until the ABG runner/result-ingress
-path emits or projects the admitted envelope as replay-visible runtime truth and
-downstream consumers use that admitted envelope instead of local archive/result-
-file selectors.
+The static compiler gate, exported runtime result-envelope admission API, and
+ABG runner replay-visible result-envelope ingress are implemented. This ticket
+cannot close until downstream consumers use those admitted envelope events
+instead of local archive/result-file selectors.
