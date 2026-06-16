@@ -127,6 +127,10 @@ law.
   cite local result files such as `fp_evaluate_result.json` as selector law.
 - [x] 2026-06-16: Inventory digests include `pluginResultInterfaces`, so report
   identity changes when the typed result interface surface changes.
+- [x] 2026-06-16: Cut
+  `release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.24/` from source
+  commit `09d66a4985e23bff1edd46461f8811c5f911178c` with
+  `sourceDirty: false`; `latest` points at rc.24.
 - [ ] Runtime plugin result ingress still needs an admitted replay-visible
   result envelope. The compiler slice does not by itself replace downstream
   consumption of historical result files.
@@ -140,6 +144,11 @@ law.
 - `cd build_tenants/abiogenesis/typescript && node --test
   test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs` passed 44/44
   on 2026-06-16.
+- `cd build_tenants/abiogenesis/typescript && npm run test:semantic` passed
+  820/820 on 2026-06-16 before the clean rc.24 release snapshot was cut.
+- rc.24 snapshot checksum file records
+  `a9174e490fae567d258ea1c06798878009713293990a36670d2c1bf7f5177a20` for
+  `abiogenesis-typescript-tenant-4.0.0-rc.24.tgz`.
 - Focused negative proof: `T-158 GTL program typechecker rejects malformed
   plugin result interfaces` rejects mismatched stage role, mismatched compute
   means, undeclared output carrier, missing identity fields, and direct local
