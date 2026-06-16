@@ -118,15 +118,56 @@ function assertOptionalSelectedCompositionMatches(input: {
   }
 }
 
+function identityFieldValue(input: {
+  readonly field: string;
+  readonly resultInterface: AdmittedPluginResultInterfaceContract;
+  readonly envelope: AdmittedPluginResultEnvelope;
+}): unknown {
+  switch (input.field) {
+    case "compositionRef":
+      return input.envelope.compositionRef;
+    case "compositionDigest":
+      return input.envelope.compositionDigest;
+    case "compositionSelectionRef":
+      return input.envelope.compositionSelectionRef;
+    case "stageRole":
+      return input.resultInterface.stageRole;
+    case "computeMeans":
+      return input.resultInterface.computeMeans;
+    case "outputCarrierRefs":
+      return input.resultInterface.outputCarrierRefs;
+    case "evidenceRefs":
+      return input.envelope.evidenceRefs;
+    case "resultInterfaceRef":
+      return input.envelope.resultInterfaceRef;
+    case "resultInterfaceContractDigest":
+      return input.envelope.resultInterfaceContractDigest;
+    case "resultEnvelopeContractRef":
+      return input.envelope.resultEnvelopeContractRef;
+    case "stageBindingRef":
+      return input.resultInterface.stageBindingRef;
+    case "resultCarrierKind":
+      return input.resultInterface.resultCarrierKind;
+    case "producedCarrierRefs":
+      return input.resultInterface.producedCarrierRefs;
+    case "selectorAuthorityRefs":
+      return input.resultInterface.selectorAuthorityRefs;
+    default:
+      return undefined;
+  }
+}
+
 function assertRequiredEnvelopeIdentityFields(input: {
   readonly resultInterface: AdmittedPluginResultInterfaceContract;
   readonly envelope: AdmittedPluginResultEnvelope;
   readonly label: string;
 }): void {
   for (const field of input.resultInterface.requiredIdentityFieldRefs) {
-    const value =
-      Reflect.get(input.envelope, field) ??
-      Reflect.get(input.resultInterface, field);
+    const value = identityFieldValue({
+      field,
+      resultInterface: input.resultInterface,
+      envelope: input.envelope
+    });
     if (Array.isArray(value)) {
       if (value.length === 0) {
         throw new TypeError(`${input.label}.${field}: expected non-empty array`);

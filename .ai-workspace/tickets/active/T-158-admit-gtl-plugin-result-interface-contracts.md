@@ -169,8 +169,12 @@ law.
   `release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.27/` from source
   commit `e7ae52c3364a3a27f69003b15cc6742e339a6819` with
   `sourceDirty: false`; `latest` points at rc.27.
-- [ ] SDLC must consume the admitted runtime envelope once ABG publishes it and
-  remove product-local result-shape probing.
+- [x] 2026-06-16: `odd_sdlc.TS` consumes ABIogenesis `4.0.0-rc.27`, passes
+  `typecheckGtlProgram(...)`'s admitted `pluginResultInterfaceCatalog` to the
+  ABG runner, and accepts design-depth evaluator registers only when replay
+  exposes an `admitted_plugin_result_envelope` whose authority ref,
+  envelope-contract ref, and contract digest match the admitted interface
+  contract.
 
 ## Current Proof
 
@@ -209,11 +213,19 @@ law.
   `87093005a4b683a48bc082cb35b6b084fa7eedb6aaf0280fa57927b4238dec77` for
   `abiogenesis-typescript-tenant-4.0.0-rc.27.tgz`; the manifest records
   `sourceDirty: false`.
+- Downstream proof: `cd build_tenants/typescript && node --test
+  test_env/tests/test_t028_abiogenesis_substrate_binding.test.mjs
+  test_env/tests/test_t059_install_release_adapter.test.mjs
+  test_env/tests/test_t180_abg_4_current_staged_compute_boundary.test.mjs
+  test_env/tests/test_t181_fp_evaluator_design_register.test.mjs
+  test_env/tests/test_t197_product_gtl_gate.test.mjs` passed 72/72 in
+  `odd_sdlc` on 2026-06-16 against ABIogenesis rc.27.
 
 ## Current Non-Closure
 
 The static compiler gate, admitted plugin result-interface catalog, runtime
 result-envelope admission API, and ABG runner replay-visible result-envelope
-ingress are implemented and published in rc.27. This ticket cannot close until
-downstream consumers use the admitted catalog/envelope events instead of local
-archive/result-file selectors.
+ingress are implemented and published in rc.27. The downstream SDLC consumer
+now uses the admitted catalog/envelope events instead of local archive/result
+file selectors. No known T-158 non-closure remains after final semantic/lint
+verification.
