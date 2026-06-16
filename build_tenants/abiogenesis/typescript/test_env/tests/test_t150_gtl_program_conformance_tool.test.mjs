@@ -2261,6 +2261,57 @@ test("T-158 GTL program typechecker rejects malformed plugin result interfaces",
   );
 });
 
+test("T-158 GTL program typechecker rejects ambiguous plugin result interfaces", () => {
+  const base = compliantInput();
+  const resultInterface = base.pluginResultInterfaces[0];
+  assert.notEqual(resultInterface, undefined);
+
+  const report = typecheckGtlProgram(
+    compliantInput({
+      pluginResultInterfaces: [
+        resultInterface,
+        {
+          ...resultInterface,
+          resultInterfaceRef:
+            "result-interface://t158/ambiguous-same-output",
+          producedCarrierRefs: [
+            resultInterface.producedCarrierRefs[0] ??
+              "carrier://t158/ambiguous"
+          ]
+        }
+      ]
+    })
+  );
+
+  const ruleRefs = new Set(report.issues.map((entry) => entry.ruleRef));
+  assert.equal(report.passed, false);
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/plugin-result-interface/unique-runtime-selector"
+    )
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/plugin-result-interface/unique-produced-carriers"
+    )
+  );
+});
+
+test("T-158 GTL program typechecker publishes admitted plugin result interface catalog", () => {
+  const report = typecheckGtlProgram(compliantInput());
+
+  assert.equal(report.passed, true);
+  assert.equal(
+    report.pluginResultInterfaceCatalog.kind,
+    "admitted_plugin_result_interface_catalog"
+  );
+  assert.ok(report.pluginResultInterfaceCatalog.interfaces.length > 0);
+  assert.match(
+    report.pluginResultInterfaceCatalog.interfaces[0].resultInterfaceContractDigest,
+    /^sha256:/u
+  );
+});
+
 test("T-150 GTL program typechecker rejects partial prompt asset rows", () => {
   const report = typecheckGtlProgram(
     compliantInput({

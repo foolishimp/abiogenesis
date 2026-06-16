@@ -144,6 +144,27 @@ law.
   rows are supplied and no exact row matches the selected composition, stage,
   compute means, and output carrier, the runner rejects the plugin output
   instead of letting a downstream product infer it.
+- [x] 2026-06-16: Added singular design
+  `build_tenants/abiogenesis/typescript/design/M03_PLUGIN_RESULT_INTERFACE_CONTRACT_DERIVATION.md`
+  for the T-158 compiler/result-ingress boundary.
+- [x] 2026-06-16: Consolidated runtime consumption on
+  `AdmittedPluginResultInterfaceCatalog` and
+  `AdmittedPluginResultInterfaceContract`; raw
+  `GtlProgramPluginResultInterfaceRow` values remain compiler input only and
+  are rejected by runtime envelope admission.
+- [x] 2026-06-16: `typecheckGtlProgram(...)` now publishes
+  `pluginResultInterfaceCatalog` on the conformance report and rejects
+  overlapping runtime selector output carriers / duplicate produced carriers
+  before runner execution.
+- [x] 2026-06-16: Runner requests now consume the admitted interface catalog;
+  replay-visible `payload_validated.contractDigest` and
+  `evidence_admitted.authorityDigest` cite the compiler-admitted interface
+  digest rather than envelope-local copied fields.
+- [x] 2026-06-16: Cut
+  `release_snapshots/abiogenesis-typescript-tenant/4.0.0-rc.26/` from source
+  commit `9bd7508b5c1e82b8c8568bfc2fa41e9493438ebb` with
+  `sourceDirty: false`; rc.26 is superseded by the admitted-catalog
+  consolidation in rc.27.
 - [ ] SDLC must consume the admitted runtime envelope once ABG publishes it and
   remove product-local result-shape probing.
 
@@ -171,10 +192,20 @@ law.
   --test test_env/tests/test_t158_plugin_result_envelope_admission.test.mjs`
   passed 5/5 on 2026-06-16 after adding ABG runner replay-visible plugin
   result-envelope ingress.
+- `cd build_tenants/abiogenesis/typescript && npm run build:semantic && node
+  --test test_env/tests/test_t158_plugin_result_envelope_admission.test.mjs
+  test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs` passed 52/52
+  on 2026-06-16 after consolidating runtime ingress on the admitted compiler
+  catalog.
+- rc.26 snapshot checksum file records
+  `bfee8d060314bd7c20ebb5bc079e2cde7536ee40f61d38818da2bca56f6e3fb9` for
+  `abiogenesis-typescript-tenant-4.0.0-rc.26.tgz`; the manifest records
+  `sourceDirty: false`.
 
 ## Current Non-Closure
 
-The static compiler gate, exported runtime result-envelope admission API, and
-ABG runner replay-visible result-envelope ingress are implemented. This ticket
-cannot close until downstream consumers use those admitted envelope events
-instead of local archive/result-file selectors.
+The static compiler gate, admitted plugin result-interface catalog, runtime
+result-envelope admission API, and ABG runner replay-visible result-envelope
+ingress are implemented. This ticket cannot close until rc.27 is cut and
+downstream consumers use the admitted catalog/envelope events instead of local
+archive/result-file selectors.

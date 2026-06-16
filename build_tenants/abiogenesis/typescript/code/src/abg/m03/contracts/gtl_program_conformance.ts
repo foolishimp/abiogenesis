@@ -35,6 +35,10 @@ import {
   deriveAllowedConsequenceTraversalCatalogFromGtl
 } from "./allowed_consequence_traversal_catalog.js";
 import {
+  constructAdmittedPluginResultInterfaceCatalog,
+  type AdmittedPluginResultInterfaceCatalog
+} from "./plugin_result_interface_contract.js";
+import {
   stableJson,
   stableSha256Digest
 } from "../../../shared/runtime_identity.js";
@@ -562,6 +566,7 @@ export interface GtlProgramConformanceReport {
   readonly abiPackageVersion: string;
   readonly inventoryDigest: string;
   readonly inventoryDigests: GtlProgramInventoryDigests;
+  readonly pluginResultInterfaceCatalog: AdmittedPluginResultInterfaceCatalog;
   readonly passed: boolean;
   readonly issueCount: number;
   readonly issues: readonly GtlProgramConformanceIssue[];
@@ -6106,6 +6111,55 @@ function checkPluginResultInterfaceRows(input: {
     }
   }
 
+  const rowsByRuntimeSelector = new Map<
+    string,
+    readonly GtlProgramPluginResultInterfaceRow[]
+  >();
+  for (const row of input.pluginResultInterfaces) {
+    const selectorKey = JSON.stringify({
+      compositionRef: row.compositionRef,
+      compositionDigest: row.compositionDigest,
+      stageRole: row.stageRole,
+      computeMeans: row.computeMeans
+    });
+    rowsByRuntimeSelector.set(
+      selectorKey,
+      Object.freeze([...(rowsByRuntimeSelector.get(selectorKey) ?? []), row])
+    );
+  }
+  for (const rows of rowsByRuntimeSelector.values()) {
+    for (const [index, row] of rows.entries()) {
+      for (const sibling of rows.slice(index + 1)) {
+        const overlappingOutputCarrierRefs = row.outputCarrierRefs.filter(
+          (ref) => sibling.outputCarrierRefs.includes(ref)
+        );
+        if (overlappingOutputCarrierRefs.length > 0) {
+          pushRowIssue({
+            surfaceKind: "plugin_result_interface",
+            surfaceRef: row.resultInterfaceRef,
+            ruleRef:
+              "abg://gtl-program/plugin-result-interface/unique-runtime-selector",
+            message: `${row.resultInterfaceRef} and ${sibling.resultInterfaceRef} overlap runtime selector output carriers ${overlappingOutputCarrierRefs.join(", ")}`,
+            issues: input.issues
+          });
+        }
+        const overlappingProducedCarrierRefs = row.producedCarrierRefs.filter(
+          (ref) => sibling.producedCarrierRefs.includes(ref)
+        );
+        if (overlappingProducedCarrierRefs.length > 0) {
+          pushRowIssue({
+            surfaceKind: "plugin_result_interface",
+            surfaceRef: row.resultInterfaceRef,
+            ruleRef:
+              "abg://gtl-program/plugin-result-interface/unique-produced-carriers",
+            message: `${row.resultInterfaceRef} and ${sibling.resultInterfaceRef} overlap produced carrier refs ${overlappingProducedCarrierRefs.join(", ")}`,
+            issues: input.issues
+          });
+        }
+      }
+    }
+  }
+
   for (const row of input.pluginResultInterfaces) {
     const stage = stagesByRef.get(row.stageBindingRef);
     if (stage === undefined) {
@@ -7606,6 +7660,11 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     runtimeReentryRoutes
   });
   const inventoryDigest = stableSha256Digest(inventoryDigests);
+  const pluginResultInterfaceCatalog =
+    constructAdmittedPluginResultInterfaceCatalog({
+      subjectRef: input.subjectRef,
+      interfaces: pluginResultInterfaces
+    });
   const frozenIssues = Object.freeze([...issues]);
   const reportBasis = Object.freeze({
     subjectRef: input.subjectRef,
@@ -7614,6 +7673,8 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     coverage,
     inventoryDigest,
     inventoryDigests,
+    pluginResultInterfaceCatalogDigest:
+      pluginResultInterfaceCatalog.catalogDigest,
     issues: frozenIssues
   });
   return Object.freeze({
@@ -7623,6 +7684,7 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     abiPackageVersion: input.abiPackageVersion,
     inventoryDigest,
     inventoryDigests,
+    pluginResultInterfaceCatalog,
     passed: frozenIssues.length === 0,
     issueCount: frozenIssues.length,
     issues: frozenIssues,

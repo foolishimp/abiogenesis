@@ -131,8 +131,9 @@ import {
   type AdmittedPluginResultEnvelope
 } from "../contracts/plugin_result_envelope.js";
 import type {
-  GtlProgramPluginResultInterfaceRow
-} from "../contracts/gtl_program_conformance.js";
+  AdmittedPluginResultInterfaceCatalog,
+  AdmittedPluginResultInterfaceContract
+} from "../contracts/plugin_result_interface_contract.js";
 import {
   constructConstructionObservationSnapshot,
   constructConstructionRepairSurfaceTriageRow,
@@ -240,8 +241,8 @@ export interface EngineIterateRequest {
     | ConstructionPressurePackage
     | null
     | undefined;
-  readonly pluginResultInterfaces?:
-    | readonly GtlProgramPluginResultInterfaceRow[]
+  readonly pluginResultInterfaceCatalog?:
+    | AdmittedPluginResultInterfaceCatalog
     | undefined;
 }
 
@@ -265,8 +266,8 @@ export interface EngineStartRequest extends ExecutionBasisAdmissionInput {
     | ConstructionPressurePackage
     | null
     | undefined;
-  readonly pluginResultInterfaces?:
-    | readonly GtlProgramPluginResultInterfaceRow[]
+  readonly pluginResultInterfaceCatalog?:
+    | AdmittedPluginResultInterfaceCatalog
     | undefined;
 }
 
@@ -981,7 +982,7 @@ function fdAuthorityOutcomeEvent(input: {
   readonly transition: Extract<AdvancementTransition, { readonly kind: "fd_advance" }>;
   readonly pluginInput: EnginePluginInput;
   readonly outcome: FdEvaluationOutcome;
-  readonly resultInterfaces: readonly GtlProgramPluginResultInterfaceRow[];
+  readonly resultInterfaces: readonly AdmittedPluginResultInterfaceContract[];
 }): readonly RuntimeEvent[] {
   return Object.freeze([
     constructFdAuthorityOutcomeAdmittedEvent({
@@ -1058,7 +1059,7 @@ function pluginInputIdentity(input: EnginePluginInput): Readonly<Record<string, 
 }
 
 function resultInterfaceMatchesOutputCarriers(input: {
-  readonly row: GtlProgramPluginResultInterfaceRow;
+  readonly row: AdmittedPluginResultInterfaceContract;
   readonly outputCarrierRefs: readonly string[];
 }): boolean {
   if (input.outputCarrierRefs.length === 0) {
@@ -1071,11 +1072,11 @@ function resultInterfaceMatchesOutputCarriers(input: {
 
 function selectPluginResultInterface(input: {
   readonly pluginInput: EnginePluginInput;
-  readonly resultInterfaces: readonly GtlProgramPluginResultInterfaceRow[];
-  readonly stageRole: GtlProgramPluginResultInterfaceRow["stageRole"];
-  readonly computeMeans: GtlProgramPluginResultInterfaceRow["computeMeans"];
+  readonly resultInterfaces: readonly AdmittedPluginResultInterfaceContract[];
+  readonly stageRole: AdmittedPluginResultInterfaceContract["stageRole"];
+  readonly computeMeans: AdmittedPluginResultInterfaceContract["computeMeans"];
   readonly outputCarrierRefs: readonly string[];
-}): GtlProgramPluginResultInterfaceRow | null {
+}): AdmittedPluginResultInterfaceContract | null {
   if (input.resultInterfaces.length === 0) {
     return null;
   }
@@ -1094,7 +1095,7 @@ function selectPluginResultInterface(input: {
   if (matches.length !== 1 || match === undefined) {
     throw new TypeError(
       [
-        "plugin result interface admission expected exactly one GTL row",
+        "plugin result interface admission expected exactly one admitted GTL contract",
         `stage=${input.computeMeans}.${input.stageRole}`,
         `composition=${input.pluginInput.selectedCompositionRef}`,
         `outputCarriers=${input.outputCarrierRefs.join(",") || "none"}`,
@@ -1107,9 +1108,9 @@ function selectPluginResultInterface(input: {
 
 function admittedPluginResultEnvelopeForOutcome(input: {
   readonly pluginInput: EnginePluginInput;
-  readonly resultInterfaces: readonly GtlProgramPluginResultInterfaceRow[];
-  readonly stageRole: GtlProgramPluginResultInterfaceRow["stageRole"];
-  readonly computeMeans: GtlProgramPluginResultInterfaceRow["computeMeans"];
+  readonly resultInterfaces: readonly AdmittedPluginResultInterfaceContract[];
+  readonly stageRole: AdmittedPluginResultInterfaceContract["stageRole"];
+  readonly computeMeans: AdmittedPluginResultInterfaceContract["computeMeans"];
   readonly outputCarrierRefs: readonly string[];
   readonly evidenceRefs: readonly string[];
   readonly outcomeKind: string;
@@ -1170,6 +1171,7 @@ function pluginResultEnvelopeEvents(input: {
   const inputDigest = `input:plugin_result_envelope:${fpEvaluationDigest({
     pluginInput: pluginInputIdentity(input.pluginInput),
     resultInterfaceRef: envelope.resultInterfaceRef,
+    resultInterfaceContractDigest: envelope.resultInterfaceContractDigest,
     resultRef: envelope.resultRef
   })}`;
   const policyRefs = Object.freeze([
@@ -1198,12 +1200,7 @@ function pluginResultEnvelopeEvents(input: {
       payloadRef: envelope.envelopeRef,
       schemaRef: "schema://abg/plugin-result-envelope",
       contractRef: envelope.resultEnvelopeContractRef,
-      contractDigest: stableSha256Digest({
-        resultInterfaceRef: envelope.resultInterfaceRef,
-        stageBindingRef: envelope.stageBindingRef,
-        outputCarrierRefs: envelope.outputCarrierRefs,
-        producedCarrierRefs: envelope.producedCarrierRefs
-      }),
+      contractDigest: envelope.resultInterfaceContractDigest,
       digest,
       validationRef: `validation:plugin_result_envelope:${envelope.envelopeRef}`,
       evidenceRef: envelope.evidenceRefs[0] ?? null,
@@ -1216,10 +1213,7 @@ function pluginResultEnvelopeEvents(input: {
         evidenceRef,
         payloadRef: envelope.envelopeRef,
         authorityRef: envelope.resultInterfaceRef,
-        authorityDigest: `authority:plugin_result_envelope:${fpEvaluationDigest({
-          resultInterfaceRef: envelope.resultInterfaceRef,
-          selectorAuthorityRefs: envelope.selectorAuthorityRefs
-        })}`,
+        authorityDigest: envelope.resultInterfaceContractDigest,
         inputDigest,
         providerRefs: [input.pluginInput.contract.ref],
         policyRefs,
@@ -1452,7 +1446,7 @@ function composedStageTaskOutcomeCoreEvents(input: {
   readonly pluginInput: EnginePluginInput;
   readonly outcome: ComposedStageTaskOutcome;
   readonly outputCarrierRefs: readonly string[];
-  readonly resultInterfaces: readonly GtlProgramPluginResultInterfaceRow[];
+  readonly resultInterfaces: readonly AdmittedPluginResultInterfaceContract[];
 }): readonly RuntimeEvent[] {
   const payloadRef = composedStageTaskOutcomePayloadRef({
     basis: input.basis,
@@ -1792,7 +1786,7 @@ function evaluationRuleOutcomeCoreEvents(input: {
   readonly pluginInput: EnginePluginInput;
   readonly outcome: EvaluationRuleOutcome;
   readonly outputCarrierRefs: readonly string[];
-  readonly resultInterfaces: readonly GtlProgramPluginResultInterfaceRow[];
+  readonly resultInterfaces: readonly AdmittedPluginResultInterfaceContract[];
 }): readonly RuntimeEvent[] {
   const payloadRef = evaluationRuleOutcomePayloadRef({
     basis: input.basis,
@@ -2099,7 +2093,7 @@ function fpEvaluationCoreEvents(input: {
   readonly basis: ExecutionBasis;
   readonly pluginInput: EnginePluginInput;
   readonly outcome: FpEvaluationOutcome;
-  readonly resultInterfaces: readonly GtlProgramPluginResultInterfaceRow[];
+  readonly resultInterfaces: readonly AdmittedPluginResultInterfaceContract[];
 }): readonly RuntimeEvent[] {
   const authorityRefs = uniqueStrings(
     input.outcome.findings.flatMap((finding) => finding.authorityRefs)
@@ -3632,7 +3626,7 @@ function* runEngineIterateMachine(input: {
                 outcome: ruleOutcome,
                 outputCarrierRefs: declaration.outputCarrierRefs,
                 resultInterfaces:
-                  request.pluginResultInterfaces ?? Object.freeze([])
+                  request.pluginResultInterfaceCatalog?.interfaces ?? Object.freeze([])
               })
             );
           }
@@ -3742,7 +3736,7 @@ function* runEngineIterateMachine(input: {
             outcome: fdEvaluationRuleOutcome,
             outputCarrierRefs: scalarFdRule.outputCarrierRefs,
             resultInterfaces:
-              request.pluginResultInterfaces ?? Object.freeze([])
+              request.pluginResultInterfaceCatalog?.interfaces ?? Object.freeze([])
           })
         );
         const evaluationSetAdmission = constructEvaluationSetAdmission({
@@ -3763,7 +3757,7 @@ function* runEngineIterateMachine(input: {
             transition,
             pluginInput: scalarFdEvaluationInput,
             resultInterfaces:
-              request.pluginResultInterfaces ?? Object.freeze([]),
+              request.pluginResultInterfaceCatalog?.interfaces ?? Object.freeze([]),
             outcome
           })
         );
@@ -3984,7 +3978,7 @@ function* runEngineIterateMachine(input: {
                 outcome: taskOutcome,
                 outputCarrierRefs: declaration.outputCarrierRefs,
                 resultInterfaces:
-                  request.pluginResultInterfaces ?? Object.freeze([])
+                  request.pluginResultInterfaceCatalog?.interfaces ?? Object.freeze([])
               })
             );
           }
@@ -4090,7 +4084,7 @@ function* runEngineIterateMachine(input: {
             outcome: scalarConsequenceOutcome,
             outputCarrierRefs: scalarConsequenceTask.outputCarrierRefs,
             resultInterfaces:
-              request.pluginResultInterfaces ?? Object.freeze([])
+              request.pluginResultInterfaceCatalog?.interfaces ?? Object.freeze([])
           })
         );
         const consequenceStageAdmission = constructComposedStageAdmission({
@@ -4338,7 +4332,7 @@ function* runEngineIterateMachine(input: {
                 outcome: taskOutcome,
                 outputCarrierRefs: declaration.outputCarrierRefs,
                 resultInterfaces:
-                  request.pluginResultInterfaces ?? Object.freeze([])
+                  request.pluginResultInterfaceCatalog?.interfaces ?? Object.freeze([])
               })
             );
           }
@@ -4433,7 +4427,7 @@ function* runEngineIterateMachine(input: {
             outcome: scalarTransformOutcome,
             outputCarrierRefs: scalarTransformTask.outputCarrierRefs,
             resultInterfaces:
-              request.pluginResultInterfaces ?? Object.freeze([])
+              request.pluginResultInterfaceCatalog?.interfaces ?? Object.freeze([])
           })
         );
         const transformStageAdmission = constructComposedStageAdmission({
@@ -4682,7 +4676,7 @@ function* runEngineIterateMachine(input: {
                     outcome: ruleOutcome,
                     outputCarrierRefs: declaration.outputCarrierRefs,
                     resultInterfaces:
-                      request.pluginResultInterfaces ?? Object.freeze([])
+                      request.pluginResultInterfaceCatalog?.interfaces ?? Object.freeze([])
                   })
                 );
               }
@@ -4797,7 +4791,7 @@ function* runEngineIterateMachine(input: {
                 outcome: fpEvaluationRuleOutcome,
                 outputCarrierRefs: scalarFpRule.outputCarrierRefs,
                 resultInterfaces:
-                  request.pluginResultInterfaces ?? Object.freeze([])
+                  request.pluginResultInterfaceCatalog?.interfaces ?? Object.freeze([])
               })
             );
             const evaluationSetAdmission = constructEvaluationSetAdmission({
@@ -4839,7 +4833,7 @@ function* runEngineIterateMachine(input: {
                 pluginInput: fpEvaluationInput,
                 outcome: fpEvaluationOutcome,
                 resultInterfaces:
-                  request.pluginResultInterfaces ?? Object.freeze([])
+                  request.pluginResultInterfaceCatalog?.interfaces ?? Object.freeze([])
               })
             );
             const evaluationProjection = deriveRuntimeAggregateProjection(
@@ -5154,7 +5148,7 @@ function* runEngineIterateMachine(input: {
                     outcome: taskOutcome,
                     outputCarrierRefs: declaration.outputCarrierRefs,
                     resultInterfaces:
-                      request.pluginResultInterfaces ?? Object.freeze([])
+                      request.pluginResultInterfaceCatalog?.interfaces ?? Object.freeze([])
                   })
                 );
               }
@@ -5262,7 +5256,7 @@ function* runEngineIterateMachine(input: {
                   outcome: scalarConsequenceOutcome,
                   outputCarrierRefs: scalarConsequenceTask.outputCarrierRefs,
                   resultInterfaces:
-                    request.pluginResultInterfaces ?? Object.freeze([])
+                    request.pluginResultInterfaceCatalog?.interfaces ?? Object.freeze([])
                 })
             );
             const consequenceStageAdmission = constructComposedStageAdmission({
@@ -5800,7 +5794,7 @@ export function runEngineStart(request: EngineStartRequest): EngineIterateResult
     pluginTraversalObserverFallbackKinds:
       request.pluginTraversalObserverFallbackKinds,
     constructionPressurePackage: request.constructionPressurePackage,
-    pluginResultInterfaces: request.pluginResultInterfaces
+    pluginResultInterfaceCatalog: request.pluginResultInterfaceCatalog
   });
 }
 
@@ -5822,6 +5816,6 @@ export async function runEngineStartAsync(
     pluginTraversalObserverFallbackKinds:
       request.pluginTraversalObserverFallbackKinds,
     constructionPressurePackage: request.constructionPressurePackage,
-    pluginResultInterfaces: request.pluginResultInterfaces
+    pluginResultInterfaceCatalog: request.pluginResultInterfaceCatalog
   });
 }

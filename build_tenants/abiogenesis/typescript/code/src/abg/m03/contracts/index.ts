@@ -175,9 +175,17 @@ export type {
 } from "./carriers.js";
 export { admitPluginResultEnvelope } from "./plugin_result_envelope.js";
 export type {
-  AdmittedPluginResultEnvelope,
-  AdmittedPluginResultStageRole
+  AdmittedPluginResultEnvelope
 } from "./plugin_result_envelope.js";
+export {
+  constructAdmittedPluginResultInterfaceCatalog,
+  constructAdmittedPluginResultInterfaceContract,
+  pluginResultInterfaceSelectionKeyDigest
+} from "./plugin_result_interface_contract.js";
+export type {
+  AdmittedPluginResultInterfaceCatalog,
+  AdmittedPluginResultInterfaceContract
+} from "./plugin_result_interface_contract.js";
 
 export {
   RUNTIME_CONTINUATION_TRANSITION_DISPOSITION_VALUES,

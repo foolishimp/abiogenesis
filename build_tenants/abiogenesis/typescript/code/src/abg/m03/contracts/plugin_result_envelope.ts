@@ -7,31 +7,23 @@ import {
   parsePlainObject,
   parseStringArray
 } from "../../../shared/validation/primitives.js";
-import type { RuntimeRegime } from "./carriers.js";
-import type { GtlProgramPluginResultInterfaceRow } from "./gtl_program_conformance.js";
+import type {
+  AdmittedPluginResultInterfaceContract
+} from "./plugin_result_interface_contract.js";
 import { freezeStringArray } from "./runtime_support.js";
-
-export type AdmittedPluginResultStageRole =
-  GtlProgramPluginResultInterfaceRow["stageRole"];
 
 export interface AdmittedPluginResultEnvelope {
   readonly kind: "admitted_plugin_result_envelope";
   readonly envelopeRef: string;
   readonly resultRef: string | null;
   readonly resultInterfaceRef: string;
+  readonly resultInterfaceContractDigest: string;
   readonly resultEnvelopeContractRef: string;
-  readonly stageBindingRef: string;
-  readonly stageRole: AdmittedPluginResultStageRole;
-  readonly computeMeans: RuntimeRegime;
   readonly compositionRef: string;
   readonly compositionDigest: string;
   readonly compositionSelectionRef: string;
   readonly selectedRegimeBindingRef: string | null;
-  readonly resultCarrierKind: string;
-  readonly outputCarrierRefs: readonly string[];
-  readonly producedCarrierRefs: readonly string[];
   readonly evidenceRefs: readonly string[];
-  readonly selectorAuthorityRefs: readonly string[];
 }
 
 function uniqueStrings(values: readonly string[]): readonly string[] {
@@ -67,6 +59,25 @@ function assertFieldMatches(
       `${label}: expected ${JSON.stringify(expected)}, got ${JSON.stringify(actual)}`
     );
   }
+}
+
+function assertAdmittedResultInterfaceContract(
+  resultInterface: AdmittedPluginResultInterfaceContract,
+  label: string
+): void {
+  if (resultInterface.kind !== "admitted_plugin_result_interface_contract") {
+    throw new TypeError(
+      `${label}.resultInterface must be an admitted plugin result interface contract`
+    );
+  }
+  parseNonEmptyString(
+    resultInterface.resultInterfaceContractDigest,
+    `${label}.resultInterface.resultInterfaceContractDigest`
+  );
+  parseNonEmptyString(
+    resultInterface.selectionKeyDigest,
+    `${label}.resultInterface.selectionKeyDigest`
+  );
 }
 
 function assertOptionalSelectedCompositionMatches(input: {
@@ -108,12 +119,14 @@ function assertOptionalSelectedCompositionMatches(input: {
 }
 
 function assertRequiredEnvelopeIdentityFields(input: {
-  readonly resultInterface: GtlProgramPluginResultInterfaceRow;
+  readonly resultInterface: AdmittedPluginResultInterfaceContract;
   readonly envelope: AdmittedPluginResultEnvelope;
   readonly label: string;
 }): void {
   for (const field of input.resultInterface.requiredIdentityFieldRefs) {
-    const value = Reflect.get(input.envelope, field);
+    const value =
+      Reflect.get(input.envelope, field) ??
+      Reflect.get(input.resultInterface, field);
     if (Array.isArray(value)) {
       if (value.length === 0) {
         throw new TypeError(`${input.label}.${field}: expected non-empty array`);
@@ -127,13 +140,14 @@ function assertRequiredEnvelopeIdentityFields(input: {
 }
 
 export function admitPluginResultEnvelope(input: {
-  readonly resultInterface: GtlProgramPluginResultInterfaceRow;
+  readonly resultInterface: AdmittedPluginResultInterfaceContract;
   readonly result: unknown;
   readonly resultRef?: string | null | undefined;
   readonly label?: string | undefined;
 }): AdmittedPluginResultEnvelope {
   const label = input.label ?? "PluginResultEnvelope";
   const resultInterface = input.resultInterface;
+  assertAdmittedResultInterfaceContract(resultInterface, label);
   const record = parsePlainObject(input.result, `${label}.result`);
   assertNoEngineAuthorityFields(
     record,
@@ -190,13 +204,12 @@ export function admitPluginResultEnvelope(input: {
     kind: "admitted_plugin_result_envelope" as const,
     envelopeRef: `plugin-result-envelope:${stableSha256Digest({
       resultInterfaceRef: resultInterface.resultInterfaceRef,
+      resultInterfaceContractDigest:
+        resultInterface.resultInterfaceContractDigest,
       resultRef: input.resultRef ?? null,
       compositionRef,
       compositionDigest,
       compositionSelectionRef,
-      stageRole: resultInterface.stageRole,
-      computeMeans: resultInterface.computeMeans,
-      resultCarrierKind: resultInterface.resultCarrierKind,
       evidenceRefs
     })}`,
     resultRef:
@@ -204,21 +217,14 @@ export function admitPluginResultEnvelope(input: {
         ? null
         : parseNonEmptyString(input.resultRef, `${label}.resultRef`),
     resultInterfaceRef: resultInterface.resultInterfaceRef,
+    resultInterfaceContractDigest:
+      resultInterface.resultInterfaceContractDigest,
     resultEnvelopeContractRef: resultInterface.resultEnvelopeContractRef,
-    stageBindingRef: resultInterface.stageBindingRef,
-    stageRole: resultInterface.stageRole,
-    computeMeans: resultInterface.computeMeans,
     compositionRef,
     compositionDigest,
     compositionSelectionRef,
     selectedRegimeBindingRef,
-    resultCarrierKind: resultInterface.resultCarrierKind,
-    outputCarrierRefs: freezeStringArray(resultInterface.outputCarrierRefs),
-    producedCarrierRefs: freezeStringArray(resultInterface.producedCarrierRefs),
-    evidenceRefs: uniqueStrings(evidenceRefs),
-    selectorAuthorityRefs: freezeStringArray(
-      resultInterface.selectorAuthorityRefs
-    )
+    evidenceRefs: uniqueStrings(evidenceRefs)
   });
   assertRequiredEnvelopeIdentityFields({
     resultInterface,

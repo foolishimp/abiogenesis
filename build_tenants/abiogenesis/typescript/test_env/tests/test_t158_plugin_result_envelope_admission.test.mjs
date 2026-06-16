@@ -4,6 +4,8 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   admitPluginResultEnvelope,
+  constructAdmittedPluginResultInterfaceCatalog,
+  constructAdmittedPluginResultInterfaceContract,
   constructEnginePluginContract,
   constructFdEvaluationOutcome,
   resolveAbgFnCompositionSelection,
@@ -73,38 +75,33 @@ function pluginResult(overrides = {}) {
 }
 
 test("T-158 admits plugin result envelope from GTL interface and top-level identity", () => {
+  const resultInterfaceContract =
+    constructAdmittedPluginResultInterfaceContract(resultInterface());
   const envelope = admitPluginResultEnvelope({
-    resultInterface: resultInterface(),
+    resultInterface: resultInterfaceContract,
     result: pluginResult(),
     resultRef: "file:///tmp/t158/fp_evaluate_result.json"
   });
 
   assert.equal(envelope.kind, "admitted_plugin_result_envelope");
   assert.equal(envelope.resultInterfaceRef, "result-interface://t158/evaluate");
-  assert.equal(envelope.stageRole, "evaluate");
-  assert.equal(envelope.computeMeans, "F_P");
+  assert.equal(
+    envelope.resultInterfaceContractDigest,
+    resultInterfaceContract.resultInterfaceContractDigest
+  );
   assert.equal(
     envelope.compositionSelectionRef,
     "abg.fn_composition_selection://t158/evaluate"
   );
-  assert.deepEqual(envelope.outputCarrierRefs, [
-    "FpEvaluationOutcome",
-    "SdlcDesignDepthRegister"
-  ]);
-  assert.deepEqual(envelope.producedCarrierRefs, [
-    "carrier://t158/fp-evaluation",
-    "carrier://t158/design-depth-register"
-  ]);
-  assert.deepEqual(envelope.selectorAuthorityRefs, [
-    "gtl://plugin-result-interface/t158/evaluate"
-  ]);
 });
 
 test("T-158 rejects plugin result envelope with wrong composition", () => {
   assert.throws(
     () =>
       admitPluginResultEnvelope({
-        resultInterface: resultInterface(),
+        resultInterface: constructAdmittedPluginResultInterfaceContract(
+          resultInterface()
+        ),
         result: pluginResult({
           compositionRef: "abg.fn_composition://t158/other"
         })
@@ -113,11 +110,24 @@ test("T-158 rejects plugin result envelope with wrong composition", () => {
   );
 });
 
-test("T-158 rejects plugin result envelope with engine authority payload", () => {
+test("T-158 rejects raw plugin result interface rows at runtime ingress", () => {
   assert.throws(
     () =>
       admitPluginResultEnvelope({
         resultInterface: resultInterface(),
+        result: pluginResult()
+      }),
+    /must be an admitted plugin result interface contract/u
+  );
+});
+
+test("T-158 rejects plugin result envelope with engine authority payload", () => {
+  assert.throws(
+    () =>
+      admitPluginResultEnvelope({
+        resultInterface: constructAdmittedPluginResultInterfaceContract(
+          resultInterface()
+        ),
         result: pluginResult({
           runtimeEvents: []
         })
@@ -222,6 +232,10 @@ test("T-158 runner emits replay-visible admitted plugin result envelopes", () =>
       resultCarrierKind: "ConsequenceProjectionOutcome"
     })
   ]);
+  const resultInterfaceCatalog = constructAdmittedPluginResultInterfaceCatalog({
+    subjectRef: "subject://t158/runtime",
+    interfaces: resultInterfaces
+  });
   const events = [];
 
   const result = runEngineIterate({
@@ -230,7 +244,7 @@ test("T-158 runner emits replay-visible admitted plugin result envelopes", () =>
     plugins: {
       fdEvaluator: fdEvaluatorPlugin()
     },
-    pluginResultInterfaces: resultInterfaces
+    pluginResultInterfaceCatalog: resultInterfaceCatalog
   });
 
   assert.equal(result.transition.kind, "terminal");
@@ -254,7 +268,9 @@ test("T-158 runner emits replay-visible admitted plugin result envelopes", () =>
       (event) =>
         event.kind === "payload_validated" &&
         event.payloadRef === observedEnvelopes[0].payloadRef &&
-        event.contractRef === resultInterfaces[0].resultEnvelopeContractRef
+        event.contractRef === resultInterfaces[0].resultEnvelopeContractRef &&
+        event.contractDigest ===
+          resultInterfaceCatalog.interfaces[0].resultInterfaceContractDigest
     )
   );
   assert.ok(
@@ -284,6 +300,10 @@ test("T-158 runner rejects plugin output when no declared result interface match
     computeMeans: "F_D",
     resultCarrierKind: "FdEvaluationOutcome"
   });
+  const resultInterfaceCatalog = constructAdmittedPluginResultInterfaceCatalog({
+    subjectRef: "subject://t158/runtime-mismatch",
+    interfaces: Object.freeze([mismatchedInterface])
+  });
 
   assert.throws(
     () =>
@@ -293,8 +313,8 @@ test("T-158 runner rejects plugin output when no declared result interface match
         plugins: {
           fdEvaluator: fdEvaluatorPlugin()
         },
-        pluginResultInterfaces: Object.freeze([mismatchedInterface])
+        pluginResultInterfaceCatalog: resultInterfaceCatalog
       }),
-    /plugin result interface admission expected exactly one GTL row/u
+    /plugin result interface admission expected exactly one admitted GTL contract/u
   );
 });
