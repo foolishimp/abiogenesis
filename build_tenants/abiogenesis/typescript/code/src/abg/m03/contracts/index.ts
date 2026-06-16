@@ -173,6 +173,11 @@ export type {
   ScheduledSliceAssessedRuntimeEvent,
   ScheduledSliceDispatchedRuntimeEvent
 } from "./carriers.js";
+export { admitPluginResultEnvelope } from "./plugin_result_envelope.js";
+export type {
+  AdmittedPluginResultEnvelope,
+  AdmittedPluginResultStageRole
+} from "./plugin_result_envelope.js";
 
 export {
   RUNTIME_CONTINUATION_TRANSITION_DISPOSITION_VALUES,
