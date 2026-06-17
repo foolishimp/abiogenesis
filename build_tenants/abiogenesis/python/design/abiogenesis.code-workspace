@@ -43,7 +43,7 @@
 	"settings": {
 		"git.ignoreLimitWarning": true,
 		"files.watcherExclude": {
-			"**/target": true
+			"**/target/**": true
 		}
 	}
 }
