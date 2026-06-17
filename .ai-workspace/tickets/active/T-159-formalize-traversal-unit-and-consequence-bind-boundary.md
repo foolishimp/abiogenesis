@@ -970,3 +970,21 @@ Release non-closure:
   test_env/tests/test_t152_consequence_traversal_action_bridge.test.mjs`
   (6 tests), `npm run test:t156` (96 tests), `npm run lint:semantic`, and
   `git diff --check`.
+- [x] 2026-06-18: Committed the post-checkpoint cleanup as
+  `60b5f94 Tighten traversal unit ambiguity reporting`. Fresh review of the
+  committed T-159 compiler/report/API surface found no new blocking findings:
+  ambiguity candidates remain projected, missing and ambiguous closeability
+  failures are typed separately, runtime command authority no longer rejects
+  `sdlc` substrings inside ABG-owned graph-function refs, and the public API
+  still rejects a flat closure enum. Release snapshot preflight passed from a
+  clean temporary worktree at source commit
+  `60b5f94d065677d2b4455b20592bd133d1b81b68` using the release CLI with
+  `--package-source` pointed at the clean worktree and `--build false` after
+  semantic build. Snapshot evidence:
+  `/tmp/abg-t159-release-nGpkXG/snapshot/4.0.0-rc.29/`; package tarball
+  `abiogenesis-typescript-tenant-4.0.0-rc.29.tgz`, 415 files, sha256
+  `5ebda4b05d16438537d78b6b9f0ceb71274a1e4a6786a7302679c11373b50f8e`.
+  The primary workspace still has the unrelated dirty
+  `build_tenants/abiogenesis/python/design/abiogenesis.code-workspace` watcher
+  glob change, so the official release command should be run from a clean main
+  worktree or after that unrelated change is resolved.
