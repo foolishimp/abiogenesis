@@ -748,7 +748,7 @@ Release test bar:
 Current state:
 
 - `typecheckGtlProgram(...)` projects `traversalUnitProjection`.
-- T-159 now has thirty-six named tests across
+- T-159 now has thirty-nine named tests across
   `test_t150_gtl_program_conformance_tool.test.mjs`,
   `test_t152_consequence_traversal_action_bridge.test.mjs`, and
   `test_t156_consequence_allowed_traversal_catalog.test.mjs` covering
@@ -756,7 +756,8 @@ Current state:
   isolation, direct graph-function start without overlay, overlay-scoped
   candidate entry units, incompatible overlay rejection, empty/no-bind
   consequence catalog truth, runtime command authority, closeability
-  prerequisites, consequence proposal admission as data before replay,
+  prerequisites, ambiguous bind-candidate diagnostics, consequence proposal
+  admission as data before replay,
   ABG replay-visible re-entry, public API rejection of a flat traversal closure
   enum,
   engine-authority rejection, report digest, public declarations, CLI JSON
@@ -810,8 +811,12 @@ Required before release:
       graph function.
 - [x] Missing target-carrier truth is reported as an incomplete closeable
       traversal unit.
+- [x] Ambiguous target-carrier truth is reported as an ambiguous closeable
+      traversal-unit prerequisite, not collapsed into missing truth.
 - [x] Missing edge-closure truth is reported as an incomplete closeable
       traversal unit.
+- [x] Ambiguous edge-closure truth is reported as an ambiguous closeable
+      traversal-unit prerequisite, not collapsed into missing truth.
 - [x] Missing compute composition or selected stage binding is reported as an
       incomplete closeable traversal unit.
 - [x] Missing plugin result-interface truth is reported as an incomplete
@@ -829,10 +834,12 @@ Required before release:
 - [x] Closure, retry, re-entry, reprice, yield, block, and terminal names remain
       projections over existing carrier axes; the public contract surface does
       not publish a flat traversal closure enum.
-- [x] Runtime binding allowlist proves legitimate ABG command refs pass.
+- [x] Runtime binding allowlist proves legitimate ABG command refs pass,
+      including graph-function targets whose names contain `sdlc`.
 - [x] Runtime binding denylist is table-driven across SDLC/product-local router
       tokens such as `odd-sdlc`, `odd_sdlc`, `sdlc`, `overlay:`,
-      `--graph-overlay`, replay helpers, and observed-replay helpers.
+      `--graph-overlay`, replay helpers, and observed-replay helpers without
+      treating arbitrary substrings inside ABG-owned target refs as routers.
 - [x] CLI `typecheck-gtl-program --format json` emits
       `traversalUnitProjection`.
 - [x] Report digest changes when traversal-unit-significant inventory changes.
@@ -950,4 +957,16 @@ Release non-closure:
   `node --test
   test_env/tests/test_t152_consequence_traversal_action_bridge.test.mjs`
   (6 tests), `npm run test:t156` (93 tests), `npm run lint:semantic`, and
+  `git diff --check`.
+- [x] 2026-06-18: Continued post-checkpoint review cleanup by preserving
+  traversal-unit target-carrier and edge-closure candidate refs in the
+  projection, emitting typed ambiguous-bind prerequisite issues, and replacing
+  broad runtime command substring matching with token-aware product-local
+  router detection. Added regression tests for ambiguous target-carrier truth,
+  ambiguous edge-closure truth, and ABG-owned runtime targets whose refs
+  contain `sdlc`. Verification passed: `npm run build:semantic`, `node --test
+  test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs` (81 tests),
+  `node --test
+  test_env/tests/test_t152_consequence_traversal_action_bridge.test.mjs`
+  (6 tests), `npm run test:t156` (96 tests), `npm run lint:semantic`, and
   `git diff --check`.

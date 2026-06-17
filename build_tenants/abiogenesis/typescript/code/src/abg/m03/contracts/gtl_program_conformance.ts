@@ -576,7 +576,9 @@ export interface GtlProgramTraversalUnitProjectionRow {
   readonly sourceAssetTypes: readonly string[];
   readonly targetAssetType: string;
   readonly targetCarrierContractRef: string | null;
+  readonly targetCarrierContractRefs: readonly string[];
   readonly edgeClosureRef: string | null;
+  readonly edgeClosureRefs: readonly string[];
   readonly computeCompositionRefs: readonly string[];
   readonly computeStageBindingRefs: readonly string[];
   readonly pluginResultInterfaceRefs: readonly string[];
@@ -4897,14 +4899,6 @@ function graphVectorRowsByIdentity<
   );
 }
 
-function singleGraphVectorRow<T>(
-  rowsByIdentity: ReadonlyMap<string, readonly T[]>,
-  key: string
-): T | null {
-  const rows = rowsByIdentity.get(key) ?? [];
-  return rows.length === 1 ? rows[0]! : null;
-}
-
 function compositionHostsTraversalUnit(input: {
   readonly composition: GtlProgramComputeCompositionRow;
   readonly vector: GraphVectorProjection;
@@ -4984,11 +4978,14 @@ function constructTraversalUnitProjection(input: {
   const units = Object.freeze(
     input.vectors.map((vector) => {
       const vectorKey = graphVectorIdentityKey(vector);
-      const targetCarrier = singleGraphVectorRow(
-        targetCarrierByIdentity,
-        vectorKey
+      const targetCarriers = targetCarrierByIdentity.get(vectorKey) ?? [];
+      const edgeClosures = edgeClosureByIdentity.get(vectorKey) ?? [];
+      const targetCarrierContractRefs = Object.freeze(
+        targetCarriers.map((row) => row.targetCarrierContractRef)
       );
-      const edgeClosure = singleGraphVectorRow(edgeClosureByIdentity, vectorKey);
+      const edgeClosureRefs = Object.freeze(
+        edgeClosures.map((row) => row.edgeRef)
+      );
       const compositions = input.computeCompositions.filter((composition) =>
         compositionHostsTraversalUnit({ composition, vector })
       );
@@ -5027,8 +5024,13 @@ function constructTraversalUnitProjection(input: {
         sourceAssetTypes: vector.sourceAssetTypes,
         targetAssetType: vector.targetAssetType,
         targetCarrierContractRef:
-          targetCarrier?.targetCarrierContractRef ?? null,
-        edgeClosureRef: edgeClosure?.edgeRef ?? null,
+          targetCarriers.length === 1
+            ? targetCarriers[0]!.targetCarrierContractRef
+            : null,
+        targetCarrierContractRefs,
+        edgeClosureRef:
+          edgeClosures.length === 1 ? edgeClosures[0]!.edgeRef : null,
+        edgeClosureRefs,
         computeCompositionRefs: compositionRefs,
         computeStageBindingRefs: stageBindingRefs,
         pluginResultInterfaceRefs,
@@ -5117,7 +5119,7 @@ function checkTraversalUnitProjection(input: {
   readonly issues: GtlProgramConformanceIssue[];
 }): void {
   for (const unit of input.projection.units) {
-    if (unit.targetCarrierContractRef === null) {
+    if (unit.targetCarrierContractRefs.length === 0) {
       pushRowIssue({
         surfaceKind: "traversal_unit",
         surfaceRef: unit.unitRef,
@@ -5129,8 +5131,21 @@ function checkTraversalUnitProjection(input: {
         ],
         issues: input.issues
       });
+    } else if (unit.targetCarrierContractRefs.length > 1) {
+      pushRowIssue({
+        surfaceKind: "traversal_unit",
+        surfaceRef: unit.unitRef,
+        ruleRef: "abg://gtl-program/traversal-unit/target-carrier-ambiguous",
+        message: `TraversalUnit ${JSON.stringify(unit.unitRef)} has ${unit.targetCarrierContractRefs.length} target-carrier candidates for graph vector ${JSON.stringify(unit.graphVectorRef)}`,
+        evidenceRefs: [
+          unit.graphFunctionRef,
+          unit.graphVectorRef,
+          ...unit.targetCarrierContractRefs
+        ],
+        issues: input.issues
+      });
     }
-    if (unit.edgeClosureRef === null) {
+    if (unit.edgeClosureRefs.length === 0) {
       pushRowIssue({
         surfaceKind: "traversal_unit",
         surfaceRef: unit.unitRef,
@@ -5139,6 +5154,19 @@ function checkTraversalUnitProjection(input: {
         evidenceRefs: [
           unit.graphFunctionRef,
           unit.graphVectorRef
+        ],
+        issues: input.issues
+      });
+    } else if (unit.edgeClosureRefs.length > 1) {
+      pushRowIssue({
+        surfaceKind: "traversal_unit",
+        surfaceRef: unit.unitRef,
+        ruleRef: "abg://gtl-program/traversal-unit/edge-closure-ambiguous",
+        message: `TraversalUnit ${JSON.stringify(unit.unitRef)} has ${unit.edgeClosureRefs.length} edge-closure candidates for graph vector ${JSON.stringify(unit.graphVectorRef)}`,
+        evidenceRefs: [
+          unit.graphFunctionRef,
+          unit.graphVectorRef,
+          ...unit.edgeClosureRefs
         ],
         issues: input.issues
       });
@@ -6811,20 +6839,60 @@ function pluginRefsBoundByRuntime(
   return refs;
 }
 
+const PRODUCT_LOCAL_TRAVERSAL_ROUTER_TOKENS = new Set([
+  "odd-sdlc",
+  "odd-sdlc-ts",
+  "odd_sdlc",
+  "sdlc",
+  "--graph-overlay",
+  "graph-overlay",
+  "replay-next-action",
+  "startoutcomeforobservedreplay"
+]);
+
+function stripCommandTokenQuotes(token: string): string {
+  if (
+    (token.startsWith('"') && token.endsWith('"')) ||
+    (token.startsWith("'") && token.endsWith("'"))
+  ) {
+    return token.slice(1, -1);
+  }
+  return token;
+}
+
+function commandRefTokens(commandRef: string): readonly string[] {
+  return Object.freeze(
+    (commandRef.trim().toLowerCase().match(/"[^"]*"|'[^']*'|\S+/gu) ?? [])
+      .map((token) => stripCommandTokenQuotes(token))
+  );
+}
+
+function commandExecutableStem(token: string): string {
+  const executable = token.split(/[\\/]/u).pop() ?? token;
+  return executable.replace(/\.(?:cjs|mjs|js|ts|sh|bash|zsh|cmd|exe)$/u, "");
+}
+
+function commandTokenReferencesOverlayTarget(token: string): boolean {
+  return (
+    token.startsWith("overlay:") ||
+    token.includes("=overlay:") ||
+    token.startsWith("--graph-overlay=")
+  );
+}
+
 function commandRefLooksLikeProductLocalTraversalSubstitute(
   commandRef: string
 ): boolean {
-  const normalized = commandRef.trim().toLowerCase();
-  return [
-    "odd-sdlc",
-    "odd_sdlc",
-    "sdlc",
-    "--graph-overlay",
-    "graph-overlay",
-    "overlay:",
-    "replay-next-action",
-    "startoutcomeforobservedreplay"
-  ].some((token) => normalized.includes(token));
+  const tokens = commandRefTokens(commandRef);
+  const executable = commandExecutableStem(tokens[0] ?? "");
+  if (PRODUCT_LOCAL_TRAVERSAL_ROUTER_TOKENS.has(executable)) {
+    return true;
+  }
+  return tokens.some(
+    (token) =>
+      PRODUCT_LOCAL_TRAVERSAL_ROUTER_TOKENS.has(token) ||
+      commandTokenReferencesOverlayTarget(token)
+  );
 }
 
 function checkRuntimeBindingRows(input: {

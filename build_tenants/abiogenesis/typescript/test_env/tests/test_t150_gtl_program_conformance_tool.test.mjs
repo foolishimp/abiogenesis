@@ -1453,7 +1453,11 @@ test("T-159 GTL program typechecker projects traversal-unit law", () => {
     unit.targetCarrierContractRef,
     "gtl://target-carrier-contract/t150/prompt-invocation"
   );
+  assert.deepEqual(unit.targetCarrierContractRefs, [
+    "gtl://target-carrier-contract/t150/prompt-invocation"
+  ]);
   assert.equal(unit.edgeClosureRef, "construct_prompt_invocation");
+  assert.deepEqual(unit.edgeClosureRefs, ["construct_prompt_invocation"]);
   assert.equal(unit.computeCompositionRefs.length, 1);
   assert.equal(unit.computeStageBindingRefs.length, 3);
   assert.equal(unit.pluginResultInterfaceRefs.length, 3);
@@ -1944,6 +1948,33 @@ test("T-159 GTL program typechecker accepts ABG runtime command targeting graph-
   );
 });
 
+test("T-159 GTL program typechecker accepts ABG runtime command targeting sdlc-named graph-function refs", () => {
+  const base = compliantInput();
+  const runtimeBinding = base.runtimeBindings[0];
+  assert.notEqual(runtimeBinding, undefined);
+
+  for (const commandRef of [
+    "abiogenesis-ts start --target graph_function:odd_sdlc_bootstrap",
+    "abiogenesis-ts start --target=graph_function:odd-sdlc-bootstrap"
+  ]) {
+    const report = typecheckGtlProgram(
+      compliantInput({
+        runtimeBindings: [
+          {
+            ...runtimeBinding,
+            commandRef
+          }
+        ]
+      })
+    );
+    assert.equal(report.passed, true, formatGtlProgramConformanceIssues(report.issues));
+    assertNoRule(
+      report,
+      "abg://gtl-program/runtime-binding/no-product-local-command-router"
+    );
+  }
+});
+
 test("T-159 GTL program typechecker rejects product-local command routers by token", () => {
   const base = compliantInput();
   const runtimeBinding = base.runtimeBindings[0];
@@ -1990,6 +2021,44 @@ test("T-159 GTL program typechecker reports missing target carrier as incomplete
   assertRule(report, "abg://gtl-program/traversal-unit/target-carrier-required");
 });
 
+test("T-159 GTL program typechecker reports ambiguous target carrier as incomplete traversal unit", () => {
+  const base = compliantInput();
+  const graphFunction = base.modules[0]?.graphFunctions[0];
+  assert.notEqual(graphFunction, undefined);
+  const graph = materializeGraphFunction(graphFunction);
+  const vector = graph.vectors[0];
+  assert.notEqual(vector, undefined);
+  const duplicateTargetCarrier = targetCarrierContractRow({
+    edgeRef: "construct_prompt_invocation",
+    graphVectorRef: "construct_prompt_invocation",
+    graphFunction,
+    graph,
+    vector,
+    targetAssetType: "PromptInvocationAsset",
+    targetCarrierContractRef:
+      "gtl://target-carrier-contract/t159/ambiguous-prompt-invocation"
+  });
+  const report = typecheckGtlProgram({
+    ...base,
+    expectedCoverage: expectedCoverage({
+      targetCarrierContractCount: 2
+    }),
+    targetCarrierContracts: [
+      ...base.targetCarrierContracts,
+      duplicateTargetCarrier
+    ]
+  });
+  const unit = report.traversalUnitProjection.units[0];
+
+  assert.equal(report.passed, false);
+  assert.notEqual(unit, undefined);
+  assert.equal(unit.targetCarrierContractRef, null);
+  assert.equal(unit.targetCarrierContractRefs.length, 2);
+  assertRule(report, "abg://gtl-program/target-carrier/unique-vector-row");
+  assertRule(report, "abg://gtl-program/traversal-unit/target-carrier-ambiguous");
+  assertNoRule(report, "abg://gtl-program/traversal-unit/target-carrier-required");
+});
+
 test("T-159 GTL program typechecker reports missing edge closure as incomplete traversal unit", () => {
   const report = typecheckGtlProgram(
     compliantInput({
@@ -2002,6 +2071,34 @@ test("T-159 GTL program typechecker reports missing edge closure as incomplete t
 
   assert.equal(report.passed, false);
   assertRule(report, "abg://gtl-program/traversal-unit/edge-closure-required");
+});
+
+test("T-159 GTL program typechecker reports ambiguous edge closure as incomplete traversal unit", () => {
+  const base = compliantInput();
+  const edgeClosure = base.edgeClosureContracts[0];
+  assert.notEqual(edgeClosure, undefined);
+  const report = typecheckGtlProgram({
+    ...base,
+    expectedCoverage: expectedCoverage({
+      edgeClosureContractCount: 2
+    }),
+    edgeClosureContracts: [
+      ...base.edgeClosureContracts,
+      {
+        ...edgeClosure,
+        edgeRef: "construct_prompt_invocation_duplicate"
+      }
+    ]
+  });
+  const unit = report.traversalUnitProjection.units[0];
+
+  assert.equal(report.passed, false);
+  assert.notEqual(unit, undefined);
+  assert.equal(unit.edgeClosureRef, null);
+  assert.equal(unit.edgeClosureRefs.length, 2);
+  assertRule(report, "abg://gtl-program/edge-closure/unique-vector-row");
+  assertRule(report, "abg://gtl-program/traversal-unit/edge-closure-ambiguous");
+  assertNoRule(report, "abg://gtl-program/traversal-unit/edge-closure-required");
 });
 
 test("T-159 GTL program typechecker reports missing compute composition as incomplete traversal unit", () => {
@@ -3353,6 +3450,8 @@ test("T-159 GTL program typechecker exports traversal-unit report types in publi
     contractDeclarationSource,
     /GtlProgramTraversalUnitProjection/u
   );
+  assert.match(contractDeclarationSource, /targetCarrierContractRefs/u);
+  assert.match(contractDeclarationSource, /edgeClosureRefs/u);
   assert.match(
     contractBarrelSource,
     /GtlProgramTraversalUnitProjectionRow/u
