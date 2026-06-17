@@ -3,14 +3,15 @@ id: T-152
 title: Admit GTL program conformance gate for downstream graph assets
 type: feature
 ticket_category: ordinary
-status: active
-proof_status: pending
+status: completed
+proof_status: passed
 goal: provide one ABG-owned static GTL program admission/typecheck function that downstream products can call before ABG runtime execution to prove graph functions, graph vectors, target-carrier rows, closure rows, prompt assets, plugin contracts, public starts, overlays, and active ABG identity surfaces are lawful
 change_class: requirement_reprice
 change_intent: Make GTL program conformance a deterministic ABG API function with a thin CLI wrapper instead of downstream-local lint rules, MCP-shaped prompt schema, or agent-memory checks.
 re_entry_point: requirements
 created_at: 2026-06-08
-updated_at: 2026-06-13
+updated_at: 2026-06-17
+closed_at: 2026-06-17
 owning_repo: abiogenesis
 governance_scope: STDO Method
 priority: high
@@ -39,10 +40,13 @@ source_documents:
   - specification/requirements/abg/REQ-R-ABG3-ASSURANCE.md
   - .ai-workspace/tickets/completed/T-150-promote-prompt-assets-into-gtl-typed-asset-interface.md
 related_tickets:
-  - T-150
-  - T-151
-  - T-149
-  - T-155
+  - .ai-workspace/tickets/completed/T-149-simplify-abg-iteration-state-action-algebra.md
+  - .ai-workspace/tickets/completed/T-150-promote-prompt-assets-into-gtl-typed-asset-interface.md
+  - .ai-workspace/tickets/completed/T-151-declare-segment-scoped-evaluation-redispatch-substrate.md
+  - .ai-workspace/tickets/completed/T-155-define-first-class-gtl-graph-function-zoom-plan.md
+  - .ai-workspace/tickets/active/T-159-formalize-traversal-unit-and-consequence-bind-boundary.md
+review_status: closed
+closure_basis: completed baseline GTL/ABG conformance-gate law; residual traversal-unit vocabulary transferred to T-159
 affected_boundary:
   requirements:
     - specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md
@@ -105,6 +109,31 @@ review_gate: high-bar code review and downstream-shaped production-inventory pro
 ---
 
 # T-152: Admit GTL Program Conformance Gate For Downstream Graph Assets
+
+## Closure Note
+
+Closed as complete.
+
+T-152 is now baseline GTL/ABG release law: downstream programs are admitted
+through `admitGtlProgramConformanceInput(...)` and
+`typecheckGtlProgram(...)`, and the CLI remains a wrapper rather than a second
+rule surface. The conformance gate is not a traversal unit and not a registry
+replacement; it is the ABG-owned inventory admission surface that a conforming
+release provides before runtime execution.
+
+Historical "current non-closure" sections below are retained as implementation
+ledger. Their remaining concerns have been discharged or moved to their current
+owners: T-155 completed graph-function zoom, T-156 completed consequence
+catalog admission, T-157 completed runtime-start selection, T-158 completed
+plugin-result output admission, and T-159 owns the residual formal placement
+inside `TraversalUnit<A, B>`.
+
+Current proof on 2026-06-17:
+
+- ABIogenesis semantic build plus T-150/T-152/T-155 focused tests passed 62/62.
+- Downstream odd_sdlc T-194/T-197/T-202 conformance/product-gate/overlay tests
+  passed 37/37, proving current SDLC inventory consumes the ABG conformance
+  gate instead of product-local conformance law.
 
 ## Intake Triage
 

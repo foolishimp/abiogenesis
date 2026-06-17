@@ -71,3 +71,5 @@ identity is absent, stale, malformed, or mismatched.
 **REQ-R-ABG3-FN-COMP-020**: Required evaluation rules shall fail closed when absent, stale, malformed, contradictory, rejected, or admitted under a mismatched selected composition ref/digest or selected regime-binding contribution ref.
 
 **REQ-R-ABG3-FN-COMP-021**: ABG shall converge composed `transform.C`, `evaluate.C`, and `consequence.C` stages through one stage-set law: plan tasks, invoke task plugins, admit task results, derive ledgers/projections, and pass only admitted projections to the next system bind. Existing scalar stage hooks are one-task reductions of this law.
+
+**REQ-R-ABG3-FN-COMP-022**: ABG shall interpret `TraversalUnit<A, B>` as the monadic traversal atom advanced by the event-sourced bind chain under a selected graph-function execution. The consequence bind boundary shall compose admitted unit closure/projection truth with one admitted next disposition: next traversal unit, same-unit retry, graph-span or public-start re-entry, constitutional reprice, yielded continuation, block, gap stop, non-admit, or terminal projection.

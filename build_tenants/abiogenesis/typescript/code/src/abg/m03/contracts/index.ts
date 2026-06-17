@@ -1075,7 +1075,10 @@ export type {
   GtlProgramStageRegimeDisposition,
   GtlProgramStageRegimeDispositionRow,
   GtlProgramT153FeatureKind,
-  GtlProgramTargetCarrierRow
+  GtlProgramTargetCarrierRow,
+  GtlProgramTraversalEntryUnitProjectionRow,
+  GtlProgramTraversalUnitProjection,
+  GtlProgramTraversalUnitProjectionRow
 } from "./gtl_program_conformance.js";
 export {
   admitEvaluationRuleDeclaration,

@@ -347,3 +347,74 @@ test("T-156 runner blocks consequence traversal actions without a declared catal
     /no matching allowed consequence traversal catalog row was admitted/u
   );
 });
+
+test("T-159 empty consequence traversal catalog is lawful no-bind truth until a plugin proposes traversal", () => {
+  const basis = basisWithAllowedFamilies({});
+  const vector = basis.graph.vectors[1];
+  assert.ok(vector);
+  const catalog = deriveAllowedConsequenceTraversalCatalogFromGtl({
+    graphFunction: basis.graphFunction,
+    graphVector: vector,
+    vectorIndex: 1,
+    edgeRef: vector.name
+  });
+
+  assert.equal(catalog.rows.length, 0);
+  assert.throws(
+    () =>
+      admitConsequenceTraversalActionForAllowedCatalog({
+        catalog,
+        action: depthAction(basis, 1)
+      }),
+    /no matching allowed consequence traversal catalog row was admitted/u
+  );
+
+  const emittedEvents = [];
+  const runtimeBasis = buildThreeStageBasis({
+      defaultRegime: "F_D",
+      dispatchRef: null,
+      vectorRegimes: ["F_D", "F_D", "F_D"],
+      runId: "run://t159/empty-catalog/no-bind",
+      workKey: "work-key://t159/empty-catalog/no-bind"
+  });
+  const outcome = runEngineIterate({
+    basis: runtimeBasis,
+    eventSink: (event) => {
+      emittedEvents.push(event);
+    },
+    plugins: {
+      fdEvaluator: Object.freeze({
+        contract: fdEvaluatorContract("plugin://t159/empty-catalog/fd"),
+        evaluate: (input) =>
+          constructFdEvaluationOutcome({
+            status: "accepted",
+            evidenceRefs: [input.sourceProjectionRef]
+          })
+      }),
+      consequenceProjection: Object.freeze({
+        contract: consequenceContract("plugin://t159/empty-catalog/consequence"),
+        project: (input) => ({
+          kind: "consequence_projection",
+          status: "projected",
+          consequenceRef: "consequence://t159/empty-catalog",
+          domainReadModelRefs: [],
+          traversalAction:
+            input.vectorIndex === 2 ? depthAction(runtimeBasis, 1) : null,
+          evidenceRefs: ["evidence://t159/empty-catalog"],
+          reason: null
+        })
+      })
+    }
+  });
+
+  assert.equal(outcome.transition.kind, "terminal");
+  assert.equal(outcome.transition.terminalKind, "gap_stop");
+  assert.match(
+    outcome.transition.reason,
+    /no matching allowed consequence traversal catalog row was admitted/u
+  );
+  assert.equal(
+    emittedEvents.some((event) => event.kind === "graph_reentry_applied"),
+    false
+  );
+});

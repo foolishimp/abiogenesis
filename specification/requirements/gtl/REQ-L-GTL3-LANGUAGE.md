@@ -29,3 +29,5 @@ language with Python-native declarative syntax and a clear GTL/ABG boundary.
 **REQ-L-GTL3-LANGUAGE-007**: GTL shall remain graph-function-first, composition-first, recursion-capable, higher-order, engine-agnostic, and governance-visible without prescribing constructive tactics.
 
 **REQ-L-GTL3-LANGUAGE-008**: GTL shall not be a planner, business-priority engine, hidden strategy selector, runtime event model, concrete worker-identity store, backend-specific transport language, or step-by-step solution procedure for probabilistic workers.
+
+**REQ-L-GTL3-LANGUAGE-009**: GTL shall use strong typed axioms and compiler-visible contract law as its anti-drift mechanism for LLM-authored programs. Lawful graph, overlay, start, plugin, result-interface, catalog, carrier, traversal, and bind declarations shall compile into typed law or typed failure rather than depending on prompt memory, reviewer inference, or product-local controller convention.

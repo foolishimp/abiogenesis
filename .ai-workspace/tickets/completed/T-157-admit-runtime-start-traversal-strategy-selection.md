@@ -1,20 +1,37 @@
 ---
 id: T-157
 title: Admit runtime start traversal strategy selection
-status: active
+status: completed
 change_class: design_reframe
 re_entry_point: design
 owner: abiogenesis
 created: 2026-06-16
+updated_at: 2026-06-17
+closed_at: 2026-06-17
 source: odd_sdlc steel-thread dependency-slice correction
 related_tickets:
   - .ai-workspace/tickets/completed/T-107-define-abg-traversal-modulation-profiles-for-agentic-fp-attempts.md
   - .ai-workspace/tickets/completed/T-112-carry-per-edge-traversal-strategy-through-gtl-config.md
-  - .ai-workspace/tickets/active/T-156-admit-consequence-allowed-traversal-catalog.md
+  - .ai-workspace/tickets/completed/T-156-admit-consequence-allowed-traversal-catalog.md
+  - .ai-workspace/tickets/active/T-159-formalize-traversal-unit-and-consequence-bind-boundary.md
 governance_scope: STDO Method, ODD_METHOD, DESIGN_MODULE_METHOD
+review_status: closed
+proof_status: passed
+closure_basis: completed and interpreted under T-159 as TraversalUnit attempt-envelope start policy
 ---
 
 # T-157: Runtime Start Traversal Strategy Selection
+
+## Closure Note
+
+Closed as complete.
+
+T-157 is not absorbed as redundant. It is a completed constituent slice of
+T-159: runtime-start traversal selection is start/run-scoped policy that lowers
+into `TraversalStrategySelection -> TraversalModulationProfile ->
+TraversalAttemptEnvelope` for a selected `TraversalUnit<A, B>`. It remains
+distinct from T-156 consequence bind-selection catalog authority and does not
+authorize product-local scheduling loops.
 
 ## Intake
 

@@ -10,7 +10,8 @@
 - `specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md`
 - `specification/requirements/gtl/REQ-L-GTL3-GRAPHVECTOR.md`
 - `specification/requirements/gtl/REQ-L-GTL3-HOOKS.md`
-- `.ai-workspace/tickets/active/T-156-admit-consequence-allowed-traversal-catalog.md`
+- `.ai-workspace/tickets/completed/T-156-admit-consequence-allowed-traversal-catalog.md`
+- `.ai-workspace/tickets/active/T-159-formalize-traversal-unit-and-consequence-bind-boundary.md`
 
 This is the single T-156 design surface. Existing M03 conformance, runtime
 authorship, construction intent, and GTL zoom designs are dependency law for
@@ -20,14 +21,19 @@ this design; they are not parallel T-156 design owners.
 
 T-152 and T-155 provide the substrate for consequence-selected traversal
 actions and graph-function zoom. Downstream SDLC depth and ticket-workflow proof
-showed that consequence selection still needs one ABG-owned admission seam:
+showed that consequence selection still needs one ABG-owned admission boundary:
 the consequence plugin must choose from the traversal families declared for the
 current GTL edge, not from an implicit product-local switch.
+
+T-159 makes this catalog the post-unit bind-selection surface for
+`TraversalUnit<A, B>`. The catalog is not the unit, and catalog rows are not
+executable. They define the lawful family choices ABG may admit after a unit's
+consequence phase proposes a next disposition.
 
 The desired control shape is:
 
 ```text
-current graph traversal
+TraversalUnit<A, B>
   -> typecheckGtlProgram validates allowed traversal declarations
   -> evaluation set and assurance fold
   -> plugin.consequence.C proposes one traversal selection
@@ -45,6 +51,11 @@ Owner: ABG.
 Purpose: replay-visible admission surface that binds one graph function, one
 materialized graph vector, and one edge label to a finite set of allowed
 consequence traversal families.
+
+Under T-159, that tuple is the catalog surface for one selected traversal unit.
+Every conforming GTL/ABG release has an admitted or explicitly empty catalog
+surface for a unit. Missing rows are negative authority, not permission for a
+product controller to choose a substitute route.
 
 Inputs:
 
@@ -148,10 +159,11 @@ meaning.
 ```text
 GTL graph vector declarations
   + GTL graph function declarations
+  + selected traversal-unit identity
   -> typecheckGtlProgram validates declarations through catalog derivation
   -> deriveAllowedConsequenceTraversalCatalogFromGtl
   -> EnginePluginInput.allowedConsequenceTraversalCatalog
-  -> SDLC or product consequence plugin selects one family/action
+  -> product consequence plugin proposes one family/action
   -> admitConsequenceTraversalActionForAllowedCatalog
   -> constructConstructionActionRowFromConsequenceTraversalAction
   -> constructConstructionIntentCandidateFromConsequenceTraversalAction
@@ -171,6 +183,9 @@ GTL graph vector declarations
 - An annotation or declaration can permit, rank, or require a family. It cannot
   create tickets, invoke graph functions, move cursors, write ledgers, or close
   work by itself.
+- The catalog is consumed by consequence bind. It does not replace
+  `TraversalUnit<A, B>`, and it does not authorize overlay, CLI, or product
+  controller route selection outside ABG admission/replay.
 
 ## Decommission Register
 
@@ -179,6 +194,9 @@ Rejected paths:
 - product-local consequence switch that is not checked against GTL declaration
   truth
 - separate static compiler parser that can drift from runtime catalog admission
+- treating the allowed traversal catalog as the traversal unit itself
+- treating missing catalog rows as implicit same-edge retry or product-local
+  route authority
 - annotation-only ticket creation
 - downstream cursor movement or relative vector offsets
 - bare graph-vector starts

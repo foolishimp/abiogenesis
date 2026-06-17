@@ -51,3 +51,5 @@ record of GTL 3.
 **REQ-L-GTL3-GRAPHVECTOR-018**: A vector-local composition declaration shall be identity-bound to the hosting vector. It shall fail closed if its host graph-vector ref, source node ref, target node ref, target schema ref, target carrier contract ref, or edge assurance contract ref does not match the effective vector boundary.
 
 **REQ-L-GTL3-GRAPHVECTOR-019**: A graph-vector evaluation policy or edge assurance declaration may declare a generic evaluation-scope topology for segment, dimension-cell, fold, or relation checks inside that vector. Such scope topology remains subordinate to the graph vector and selected composition. It shall not make a segment, cell, fold, or relation a public execution target, semantic job target, or new GTL topology object.
+
+**REQ-L-GTL3-GRAPHVECTOR-020**: A `GraphVector<A, B>` shall be the structural boundary of a `TraversalUnit<A, B>` only under a selected parent `GraphFunction` execution and selected `abg.fn_composition`. `TraversalUnit<A, B>` is formal traversal notation over existing carriers; it shall not make bare graph vectors public-start targets, job targets, new topology objects, or runtime controllers.

@@ -136,3 +136,7 @@ contract identity for the owning boundary.
 **REQ-L-GTL3-COMPUTE-NOTATION-023**: A scalar `FpEvaluationOutcome` shall be treated as a lawful one-rule reduction of `evaluate.C`, not as a second public evaluation carrier or a product-local runtime loop.
 
 **REQ-L-GTL3-COMPUTE-NOTATION-024**: Any composed `.C` stage shall be representable as a stage-set phase under selected composition. Scalar `transform.C`, `evaluate.C`, and `consequence.C` plugin calls shall be one-task reductions of the stage-set law, not privileged alternate execution paths.
+
+**REQ-L-GTL3-COMPUTE-NOTATION-025**: `TraversalUnit<A, B>` shall be the GTL/ABG notation for one closeable traversal atom under selected graph-function execution, internal graph-vector boundary, selected composition, admitted attempt envelope, admitted stage outputs, assurance fold, consequence projection, traversal transition, and replay disposition. It shall not introduce a new GTL topology object, public callable carrier, plugin callback, overlay, registry, CLI command, or runtime controller.
+
+**REQ-L-GTL3-COMPUTE-NOTATION-026**: Consequence bind shall mean `plugin.consequence.C` plus ABG consequence admission, traversal transition, and replay continuation. `plugin.consequence.C` alone shall not be described as owning bind, traversal transition, replay, closure, or next-unit selection.

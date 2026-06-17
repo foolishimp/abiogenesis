@@ -9,6 +9,12 @@ ABG is the event-sourced monad over selected GTL composition. It is opinionated
 for probabilistic eventual consistency, while a fully deterministic `F_D` graph
 is a valid reduction of the same bind chain.
 
+T-159 names the monadic atom: `TraversalUnit<A, B>`. The chain below advances
+one closeable unit under a selected `GraphFunction`, internal `GraphVector`,
+and selected `abg.fn_composition`. `plugin.consequence.C` is not the bind by
+itself. The bind boundary is `plugin.consequence.C` plus ABG consequence
+admission, traversal transition, and replay continuation.
+
 The executable shape is:
 
 ```text
@@ -34,6 +40,7 @@ ABG.start(fn<A, B>.C)
 
 | Carrier | Owner | Purpose | Closure Authority |
 | --- | --- | --- | --- |
+| `TraversalUnit<A, B>` | GTL/ABG formal notation | closeable traversal atom over selected graph-function execution, internal graph vector, selected composition, admitted outputs, assurance fold, consequence projection, and replay disposition; not a prime runtime carrier | ABG only |
 | `GtlFunctionCompositionNotation` | GTL | typed notation over `GraphFunction`, `Job`, optional `GraphVector`, and selected composition | none |
 | `GtlComputePluginCategoryBinding` | GTL | category typing for transform, evaluate, consequence, and human-callout compute | none |
 | `EnginePluginContract` | ABG | admitted plugin contract with compute stage role, means, purpose, and denied engine authority flags | none |
@@ -60,6 +67,12 @@ Plugin stages compute values. ABG.system writes facts.
   ABG-admitted state.
 - No plugin may write ledgers, emit runtime events, select traversal, own replay,
   or close.
+
+Consequence bind composes admitted unit truth with one admitted next
+disposition: next unit, same-unit retry, graph-span or public-start re-entry,
+constitutional reprice, yielded continuation, block, gap stop, non-admit, or
+terminal projection. Product read models may interpret that truth; they do not
+own the bind.
 
 `F_H` is external to the system. ABG may emit or admit a human-callout boundary
 and later admit a response event/carrier. The human-facing work surface is not
@@ -102,6 +115,9 @@ not by wall-clock completion.
 
 The implementation must reject:
 
+- any carrier or plugin output claiming to be a standalone `TraversalUnit`
+  runtime controller;
+- treating `plugin.consequence.C` alone as traversal transition authority;
 - stage category contradictions against known plugin kinds;
 - `F_H` as an internal transform/evaluate/consequence compute regime;
 - plugin outcomes containing runtime events, ledger writes, transitions, vector

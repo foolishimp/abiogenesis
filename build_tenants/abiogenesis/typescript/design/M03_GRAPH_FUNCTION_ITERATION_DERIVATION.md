@@ -38,8 +38,8 @@ Full parity requires an internal kernel iteration boundary:
 - public `start` locates, admits, or resumes one graph-function execution
   boundary
 - `M03-engine-kernel` opens or resumes the corresponding runtime aggregates
-- the next internal graph vector is selected from replay-derived aggregate
-  truth
+- the next internal `TraversalUnit<A, B>` over an internal graph vector is
+  selected from replay-derived aggregate truth
 - vector-local dispatch, evaluation, proof, and closure facts are emitted as
   runtime truth
 - projection determines whether to advance, stop, yield, open a continuation,
@@ -51,6 +51,11 @@ Full parity requires an internal kernel iteration boundary:
 The app/control layer delegates complete start-to-iterate execution to M03.
 It may project operator-facing control truth from the returned public outcome,
 but it does not repeat public start as graph-function execution law.
+
+T-159 names the internal iteration atom. `GraphFunction` remains the callable
+carrier, `GraphVector` remains the internal boundary, and
+`TraversalUnit<A, B>` is the closeable unit M03 opens, attempts, closes, binds,
+retries, re-enters, yields, blocks, or terminates through replay truth.
 
 ## 3. Superseded TypeScript Shape
 
@@ -72,8 +77,8 @@ That shape remains valid as a first slice. It is insufficient as closure for
 
 ## 4. Target TypeScript Boundary
 
-The next `M03` boundary introduces a replay-derived iteration family beneath
-public start:
+The next `M03` boundary introduces a replay-derived traversal-unit iteration
+family beneath public start:
 
 1. graph-call lifecycle facts
 2. frame lifecycle facts
@@ -82,8 +87,8 @@ public start:
 5. invocation-local binding and carried-environment projection
 6. one closed `IterationAdvanceDecision` family
 
-The decision family is the only authority for choosing the next internal graph
-vector in TypeScript `M03`.
+The decision family is the only authority for choosing the next internal
+traversal unit or graph vector in TypeScript `M03`.
 
 Diagnostic exploration over that boundary is downstream read-model truth.
 `TraversalStructureProbe` may inspect an admitted basis, replay projection,
@@ -110,6 +115,7 @@ It must not read:
 - private controller memory as authority
 - a hardcoded `graph.vectors[0]` shortcut as graph-function execution truth
 - public `start` repetition as next-edge law
+- product-local CLI/replay route selection as consequence bind law
 
 ## 6. Decision Family
 
@@ -125,6 +131,7 @@ It must not read:
 - `terminal`
 
 Only `traverse_vector` may produce a vector-local traversal plan.
+Under T-159, that plan is the attempt of one `TraversalUnit<A, B>`.
 
 `terminal` is lawful only when replay-derived projection proves that no further
 internal vector, closure, continuation, or public stop remains.
@@ -146,6 +153,8 @@ Implementation must declare and then land proof lanes for:
 - a negative local-counter realization rejected as non-authoritative
 - binding/environment projection that fails closed when an internal target
   requires undeclared carried context
+- negative proof that overlay preselection, public-start replay helpers, or
+  product CLI loops cannot satisfy traversal-unit bind law
 
 ## 8. T-072 Realized Boundary
 

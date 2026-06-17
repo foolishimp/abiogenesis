@@ -37,6 +37,9 @@ It starts from the paused Python reference **design truths**:
   and delivery adapter may differ
 - after `T-072`, public start does not own one-transition advancement logic;
   it delegates to the ABG-owned `start -> iterate` runner
+- after `T-159`, public start ignites or resumes graph-function execution and
+  may identify an entry traversal unit, but it does not own consequence bind
+  or route selection after that unit closes
 
 ## 3. Preserved Boundary Truth
 
@@ -83,6 +86,12 @@ runner. M04 may parse and project public truth; it must not derive
 advancement, select vectors, emit traversal facts, or close a graph function
 through local public-start code.
 
+Public start also must not preselect product overlays or downstream workflow
+routes as an execution shortcut. Product overlays are policy/catalog inputs to
+the traversal-unit consequence bind. The route after an entry unit is admitted
+through ABG consequence admission, traversal transition, and replay
+continuation.
+
 ## 5. First TypeScript M04 Target
 
 The first TypeScript `M04` slice should realize only:
@@ -91,6 +100,7 @@ The first TypeScript `M04` slice should realize only:
 - one public start outcome family
 - one explicit runtime or worker identity projection path
 - one canonical route into completed `M03` `start -> iterate` engine carriers
+  that open or resume graph-function execution and its entry traversal unit
 
 This first slice should **not** widen into:
 
@@ -108,6 +118,7 @@ This first slice should **not** widen into:
 | controller and adapter layers are delivery bindings only | TypeScript `app/m04/**` stays below kernel meaning | package code parses, projects, and routes through `start(...)`; it does not define advancement law |
 | runtime identity and configured worker remain explicit | `M04` request/outcome boundary preserves runtime identity explicitly | helper-owned worker or build defaults are out of design |
 | canonical event truth stays kernel-owned | public start routes through completed `M03` engine runner and emit surfaces | no direct event append or event reconstruction from package/bootstrap code |
+| traversal-unit bind is ABG-owned | public start may ignite or resume the entry unit | package code does not choose the post-entry route by overlay, scenario, or replay helper |
 
 ## 7. Required Next Assets
 

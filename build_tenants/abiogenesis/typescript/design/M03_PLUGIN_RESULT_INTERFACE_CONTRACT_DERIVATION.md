@@ -12,6 +12,12 @@ plugin result envelopes may cite only that admitted catalog. Downstream products
 consume replay-visible envelope events and interpret admitted evidence; they do
 not parse local result files or construct plugin interface law.
 
+T-159 places this design inside `TraversalUnit<A, B>` as output admission.
+Plugin result interfaces do not own bind routing and are not traversal units.
+They are the typed admission surface that lets transform, evaluate, and
+consequence stage outputs become unit truth before assurance, closure,
+consequence projection, transition, or downstream read-model interpretation.
+
 ## IACS
 
 | Carrier | Owner | Admission | Writes | Consumers |
@@ -40,6 +46,11 @@ stage role, compute means, and output carrier set. The compiler rejects
 overlapping selector outputs for the same composition/stage/compute tuple so
 the runner never has to choose between ambiguous interface contracts.
 
+Inside a traversal unit, raw plugin outputs remain proposed values until
+admitted through this interface. A raw result file, archive layout, fallback
+alias, or product-local parser cannot advance, close, bind, or project unit
+truth.
+
 ## Non-Closure Signals
 
 - Runtime envelope admission accepts a raw `GtlProgramPluginResultInterfaceRow`.
@@ -50,6 +61,8 @@ the runner never has to choose between ambiguous interface contracts.
 - Downstream products select result carriers by scanning local result file
   shapes, fallback aliases, or archive layout.
 - Two interface rows can match the same runtime selector output carrier.
+- An admitted plugin result envelope is treated as a bind controller rather
+  than an output-admission surface.
 
 ## Decommissioned Paths
 
@@ -58,6 +71,8 @@ the runner never has to choose between ambiguous interface contracts.
 - Runner fallback from malformed interface declarations to local output carrier
   inference.
 - Runtime disambiguation of duplicate plugin result interfaces.
+- Any traversal-unit closure or consequence bind derived from raw result files
+  before ABG admission.
 
 ## Proof Expectations
 

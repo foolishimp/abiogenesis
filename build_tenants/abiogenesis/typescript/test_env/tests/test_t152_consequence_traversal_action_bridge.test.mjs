@@ -173,6 +173,188 @@ test("T-152 engine consumes consequence traversal action through construction re
   );
 });
 
+test("T-159 consequence bind admits plugin proposal only through ABG replay-visible re-entry", () => {
+  const basis = buildConsequenceCatalogBasis({
+    defaultRegime: "F_D",
+    dispatchRef: null,
+    vectorRegimes: ["F_D", "F_D", "F_D"],
+    runId: "run://t159/consequence-bind/replay",
+    workKey: "work-key://t159/consequence-bind/replay"
+  });
+  const targetVectorIndex = 1;
+  const emittedEvents = [];
+  const pluginProposalRefs = [];
+  let traversalActionIssued = false;
+  const outcome = runEngineIterate({
+    basis,
+    eventSink: (event) => {
+      emittedEvents.push(event);
+    },
+    plugins: {
+      fdEvaluator: Object.freeze({
+        contract: fdEvaluatorContract("plugin://t159/consequence-bind/fd"),
+        evaluate: (input) =>
+          constructFdEvaluationOutcome({
+            status: "accepted",
+            evidenceRefs: [input.sourceProjectionRef]
+          })
+      }),
+      consequenceProjection: Object.freeze({
+        contract: constructEnginePluginContract({
+          ref: "plugin://t159/consequence-bind/consequence",
+          pluginKind: "consequence_projection",
+          authority: "effect_plugin",
+          inputCarrier: "EnginePluginInput",
+          outputCarrier: "ConsequenceProjectionOutcome"
+        }),
+        project: (input) => {
+          const consequenceRef =
+            input.vectorIndex === 2
+              ? "consequence://t159/bind/reentry"
+              : `consequence://t159/bind/noop/${input.vectorIndex}`;
+          pluginProposalRefs.push(consequenceRef);
+          const shouldIssueTraversalAction =
+            input.vectorIndex === 2 && !traversalActionIssued;
+          if (shouldIssueTraversalAction) {
+            traversalActionIssued = true;
+          }
+          return {
+            kind: "consequence_projection",
+            status: "projected",
+            consequenceRef,
+            domainReadModelRefs: [`read-model://t159/bind/${input.vectorIndex}`],
+            traversalAction:
+              shouldIssueTraversalAction
+                ? rawTraversalAction(basis, targetVectorIndex, {
+                    consequenceRef
+                  })
+                : null,
+            evidenceRefs: [`evidence://t159/bind/${input.vectorIndex}`],
+            reason: null
+          };
+        }
+      })
+    }
+  });
+
+  assert.ok(pluginProposalRefs.includes("consequence://t159/bind/reentry"));
+  assert.equal(outcome.transition.kind, "terminal");
+  assert.equal(outcome.transition.terminalKind, "converged");
+  assert.ok(
+    emittedEvents.some((event) => event.kind === "construction_intent_selected")
+  );
+  assert.ok(
+    emittedEvents.some((event) => event.kind === "construction_graph_action_invoked")
+  );
+  assert.ok(
+    emittedEvents.some(
+      (event) =>
+        event.kind === "graph_reentry_applied" &&
+        event.targetVectorIndex === targetVectorIndex
+    )
+  );
+  assert.ok(
+    emittedEvents.some(
+      (event) =>
+        event.kind === "construction_delta_observed" &&
+        event.reentryMoved === true
+    )
+  );
+});
+
+test("T-159 consequence bind admits plugin traversal proposal as data before replay", () => {
+  const basis = buildConsequenceCatalogBasis({
+    defaultRegime: "F_D",
+    dispatchRef: null,
+    vectorRegimes: ["F_D", "F_D", "F_D"],
+    runId: "run://t159/consequence-bind/admit-data",
+    workKey: "work-key://t159/consequence-bind/admit-data"
+  });
+  const admitted = admitConsequenceProjectionOutcome({
+    kind: "consequence_projection",
+    status: "projected",
+    consequenceRef: "consequence://t159/admit-data",
+    domainReadModelRefs: ["read-model://t159/admit-data"],
+    traversalAction: rawTraversalAction(basis, 1, {
+      consequenceRef: "consequence://t159/admit-data"
+    }),
+    evidenceRefs: ["evidence://t159/admit-data"],
+    reason: null
+  });
+
+  assert.equal(admitted.kind, "consequence_projection");
+  assert.equal(admitted.status, "projected");
+  assert.equal(admitted.consequenceRef, "consequence://t159/admit-data");
+  assert.notEqual(admitted.traversalAction, null);
+  assert.equal(
+    admitted.traversalAction?.selectedGraphFunctionRef,
+    basis.graphFunction.id
+  );
+  assert.equal(
+    admitted.traversalAction?.selectedTraversalFamily,
+    "depth_traversal"
+  );
+  assert.deepEqual(admitted.traversalAction?.proportionalityBasisRefs, [
+    "proportionality://t152/simple-then-depth"
+  ]);
+});
+
+test("T-159 consequence bind rejects engine-authority plugin proposal before replay", () => {
+  const basis = buildConsequenceCatalogBasis({
+    defaultRegime: "F_D",
+    dispatchRef: null,
+    vectorRegimes: ["F_D", "F_D", "F_D"],
+    runId: "run://t159/consequence-bind/reject-authority",
+    workKey: "work-key://t159/consequence-bind/reject-authority"
+  });
+  const emittedEvents = [];
+
+  assert.throws(
+    () =>
+      runEngineIterate({
+        basis,
+        eventSink: (event) => {
+          emittedEvents.push(event);
+        },
+        plugins: {
+          fdEvaluator: Object.freeze({
+            contract: fdEvaluatorContract("plugin://t159/consequence-bind/reject/fd"),
+            evaluate: (input) =>
+              constructFdEvaluationOutcome({
+                status: "accepted",
+                evidenceRefs: [input.sourceProjectionRef]
+              })
+          }),
+          consequenceProjection: Object.freeze({
+            contract: constructEnginePluginContract({
+              ref: "plugin://t159/consequence-bind/reject/consequence",
+              pluginKind: "consequence_projection",
+              authority: "effect_plugin",
+              inputCarrier: "EnginePluginInput",
+              outputCarrier: "ConsequenceProjectionOutcome"
+            }),
+            project: () => ({
+              kind: "consequence_projection",
+              status: "projected",
+              consequenceRef: "consequence://t159/reject-authority",
+              domainReadModelRefs: ["read-model://t159/reject-authority"],
+              traversalAction: rawTraversalAction(basis, 1, {
+                mayEmitRuntimeEvents: true
+              }),
+              evidenceRefs: ["evidence://t159/reject-authority"],
+              reason: null
+            })
+          })
+        }
+      }),
+    /mayEmitRuntimeEvents: consequence traversal action cannot own engine authority/u
+  );
+  assert.equal(
+    emittedEvents.some((event) => event.kind === "graph_reentry_applied"),
+    false
+  );
+});
+
 test("T-152 consequence traversal action admission rejects engine-authority payloads", () => {
   const basis = buildConsequenceCatalogBasis({
     defaultRegime: "F_D",

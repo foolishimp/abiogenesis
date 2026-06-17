@@ -1,20 +1,37 @@
 ---
 id: T-158
 title: Admit GTL plugin result interface contracts
-status: active
+status: completed
 change_class: requirement_reprice
 re_entry_point: requirements
 owner: abiogenesis
 created: 2026-06-16
+updated_at: 2026-06-17
+closed_at: 2026-06-17
 source: odd_sdlc data-mapper steel-thread live run exposed downstream parsing of F_P/evaluator result files as de facto API truth
 related_tickets:
-  - .ai-workspace/tickets/active/T-152-admit-gtl-program-conformance-gate-for-downstream-graph-assets.md
-  - .ai-workspace/tickets/active/T-156-admit-consequence-allowed-traversal-catalog.md
-  - .ai-workspace/tickets/active/T-157-admit-runtime-start-traversal-strategy-selection.md
+  - .ai-workspace/tickets/completed/T-152-admit-gtl-program-conformance-gate-for-downstream-graph-assets.md
+  - .ai-workspace/tickets/completed/T-156-admit-consequence-allowed-traversal-catalog.md
+  - .ai-workspace/tickets/completed/T-157-admit-runtime-start-traversal-strategy-selection.md
+  - .ai-workspace/tickets/active/T-159-formalize-traversal-unit-and-consequence-bind-boundary.md
 governance_scope: STDO Method, ODD_METHOD, DESIGN_MODULE_METHOD
+review_status: closed
+proof_status: passed
+closure_basis: completed; remaining formal vocabulary transferred to T-159 traversal-unit output admission
 ---
 
 # T-158: GTL Plugin Result Interface Contracts
+
+## Closure Note
+
+Closed as complete.
+
+The compiler gate, admitted plugin result-interface catalog, runtime
+result-envelope admission API, runner replay-visible ingress, payload/evidence
+lineage, and downstream SDLC consumption proof are implemented. No known T-158
+non-closure remains. Any further terminology about where admitted plugin result
+envelopes sit inside the traversal monad belongs to T-159 as traversal-unit
+output-admission formalism.
 
 ## Intake
 
@@ -253,7 +270,7 @@ law.
   test_env/tests/test_t197_product_gtl_gate.test.mjs` passed 72/72 in
   `odd_sdlc` on 2026-06-16 against ABIogenesis rc.28.
 
-## Current Non-Closure
+## Closure Transfer
 
 The static compiler gate, admitted plugin result-interface catalog, runtime
 result-envelope admission API, and ABG runner replay-visible result-envelope
@@ -262,3 +279,7 @@ now uses the admitted catalog/envelope events instead of local archive/result
 file selectors, and ABG assurance preserves those interface events as lineage
 rather than orphaning them against the target-carrier closure authority. No
 known T-158 non-closure remains after final semantic/lint verification.
+
+T-159 owns the residual formal placement: admitted plugin result envelopes are
+the traversal unit's output-admission surface for transform/evaluate/
+consequence stage results, not a separate bind controller.

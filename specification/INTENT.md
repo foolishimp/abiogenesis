@@ -63,6 +63,12 @@ Robustness comes from admitted carriers, explicit regime law, graph-function
 publication, replayable provenance, and evaluator evidence. It does not come
 from trusting hidden LLM reasoning.
 
+GTL's anti-drift mechanism is strong typed contract law. The more graph,
+overlay, start, plugin, result-interface, catalog, carrier, traversal, and bind
+truth is expressed as compiler-visible law, the less an LLM or downstream
+product can replace substrate doctrine with context memory, prompt convention,
+or local controller code.
+
 ---
 
 ## GTL / ABG Control Boundary
@@ -70,7 +76,10 @@ from trusting hidden LLM reasoning.
 GTL and ABG define governance and control around probabilistic work, not the
 hidden internal execution strategy of the worker.
 
-The unit of probabilistic compute is one edge traversal.
+The unit of probabilistic compute is `TraversalUnit<A, B>`: one closeable edge
+traversal under a published `GraphFunction`, selected internal
+`GraphVector<A, B>`, selected composition, admitted attempt/output truth,
+assurance fold, consequence projection, and ABG replay disposition.
 
 A GTL edge declares the admissible external traversal space for that work:
 
@@ -85,6 +94,12 @@ ABG governs one invocation of that traversal. It binds the traversal to an
 eligible worker, tool, or agent; preserves runtime truth; emits events; projects
 state; classifies outcomes; and advances only through lawful next control
 steps.
+
+Consequence bind is the monadic composition boundary. `plugin.consequence.C`
+may propose a projection or next traversal action, but the bind is complete only
+after ABG admits the consequence, derives traversal transition, and replays the
+continuation. This removes the ambiguity between product-owned triage evidence
+and ABG-owned traversal authority.
 
 The worker, tool, agent, or domain implementation owns the internal HOW inside
 the declared traversal boundary.

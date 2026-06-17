@@ -111,6 +111,8 @@ This requirement indexes and depends on:
 
 **REQ-L-GTL3-CONTRACT-LAW-API-015**: `PRODUCT.md` and `requirements/gtl/README.md` shall identify this requirement as the fast reload surface for GTL contract-law API review.
 
+**REQ-L-GTL3-CONTRACT-LAW-API-016**: GTL compiler/validator surfaces shall project downstream program inventory into typed traversal law. A conforming validator shall report lawful graph-function entry surfaces, internal graph-vector traversal-unit boundaries, public-start entry units, overlay policy/catalog declarations, plugin-result output admission, consequence traversal catalog availability, and typed non-conformance rows for missing, ambiguous, or illegal traversal bind declarations. Manual downstream graph or overlay scanning shall not be the normal substrate-validation mechanism.
+
 ## Capability Router
 
 Use this table to reload the language configuration surface without treating
@@ -126,6 +128,7 @@ this requirement as a replacement for the detailed families.
 | Selection, refinement, synthesis, and sub-work | `RefinementBoundary`, `CandidateFamily`, selection boundaries, synthesis declarations, sub-work declarations | ABG may enumerate and admit; strategic selection remains externally supplied or policy-owned | `REQ-L-GTL3-SELECTION-BOUNDARY`, `REQ-L-GTL3-SYNTHESIS`, `REQ-L-GTL3-SUBWORK`, `REQ-R-ABG3-SELECTION-APPLICATION` | GTL carrier and ABG selection tests |
 | Prompt construction and typed assets | `AssetSurface`, prompt invocation asset rows, renderers, digest policy, authority slots, output contracts, proof refs | ABG conformance admits rows and rejects lossy prompt or asset inventory | `REQ-L-GTL3-ASSET-SURFACE`, `REQ-L-GTL3-COMPUTE-NOTATION`, `REQ-R-ABG3-PAYLOAD` | T-150/T-152 conformance tests |
 | Module, job, role, and public starts | `Module`, `Job`, `Role`, public callable graph-function binding | ABG public start and runtime binding admission | `REQ-L-GTL3-MODULE`, `REQ-L-GTL3-JOB`, `REQ-L-GTL3-ROLE`, `REQ-R-ABG3-BINDING`, `REQ-R-ABG3-RUN` | ABG public-start and downstream conformance tests |
+| Traversal unit and consequence bind | `GraphFunction`, internal `GraphVector`, selected `abg.fn_composition`, target-carrier rows, plugin result interfaces, allowed consequence traversal catalog declarations, public-start rows | ABG admits, advances, closes, transitions, and replays traversal units; `typecheckGtlProgram(...)` projects declared unit/bind law | `REQ-L-GTL3-GRAPHVECTOR`, `REQ-L-GTL3-COMPUTE-NOTATION`, `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-FN-COMPOSITION`, `REQ-R-ABG3-PAYLOAD` | T-159 compiler/report and traversal-bind tests |
 | External tool gates | GTL declarations plus ABG-admitted tool boundary refs | ABG gates tool payloads; external tool metadata is not language truth | `REQ-L-GTL3-HOOKS`, `REQ-L-GTL3-COMPUTE-NOTATION`, `REQ-R-ABG3-TRANSPORT`, `REQ-R-ABG3-PAYLOAD` | Tool-boundary and payload admission tests |
 
 ## ABG Runtime Operation Index

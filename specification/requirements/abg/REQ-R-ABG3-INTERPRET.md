@@ -32,7 +32,7 @@ event-authoritative aggregates.
 
 **REQ-R-ABG3-INTERPRET-009**: Public start/resume entry shall act as a safe ignition boundary over published `GraphFunction` work. It shall locate, admit, or resume the lawful graph-function execution boundary, but shall not replace the ABG internal iteration engine.
 
-**REQ-R-ABG3-INTERPRET-010**: ABG shall execute a published `GraphFunction` by repeatedly planning and advancing lawful internal `GraphVector` traversals from replay-derived runtime truth until convergence, failure, hold, continuation, yielded handoff, human gate, or another lawful public stop condition is reached.
+**REQ-R-ABG3-INTERPRET-010**: ABG shall execute a published `GraphFunction` by repeatedly planning and advancing lawful internal `TraversalUnit<A, B>` instances over selected `GraphVector<A, B>` boundaries from replay-derived runtime truth until convergence, failure, hold, continuation, yielded handoff, human gate, or another lawful public stop condition is reached.
 
 **REQ-R-ABG3-INTERPRET-011**: Next-edge selection shall be derived from graph-call, frame, vector-local traversal, evaluation, proof, and closure event truth. It shall not be inferred from private controller memory, package-local loop counters, or a fixed first-vector shortcut.
 
@@ -65,3 +65,7 @@ event-authoritative aggregates.
 **REQ-R-ABG3-INTERPRET-025**: Static GTL program conformance shall admit plugin contracts and GTL fulfillment bindings through the same ABG/GTL constructors and admitters used by runtime. Engine-authority flags shall be single-sourced by a shared vocabulary and rejected rather than silently stripped.
 
 **REQ-R-ABG3-INTERPRET-026**: Static GTL program conformance report identity shall be evidence-bound to the normalized audited inventory, including graph functions, modules, vectors, target-carrier rows, closure rows, overlays, prompt invocation assets, plugin contracts, public starts, and source identity digests.
+
+**REQ-R-ABG3-INTERPRET-027**: Static GTL program conformance shall project traversal-unit law from admitted inventory. The report shall be able to name or reject public graph-function entry surfaces, internal graph-vector unit boundaries, start-to-entry-unit bindings, overlay policy/catalog rows, plugin-result output-admission rows, consequence traversal catalog availability, and catalog-bound bind options.
+
+**REQ-R-ABG3-INTERPRET-028**: Static GTL program conformance shall fail closed when inventory attempts to use a bare graph vector as public authority, an overlay as an execution shortcut, runtime-start schedule selection as topology, plugin output files as result contract law, consequence traversal not present in the admitted catalog, product-local CLI/replay route selection as bind law, or ambiguous entry/bind candidates.

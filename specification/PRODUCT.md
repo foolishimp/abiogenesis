@@ -58,6 +58,12 @@ and proof obligations.
 Abiogenesis relies on LLMs to construct GTL programs under specification
 authority. It does not rely on hidden LLM reasoning as product truth.
 
+GTL reduces LLM drift by making lawful structure explicit, typed, and
+axiomatic. The compiler/validator is expected to report typed law or typed
+failure for graph, overlay, start, plugin, result-interface, catalog, and
+carrier declarations rather than leaving agents or reviewers to infer
+substrate legality from implementation files.
+
 The product split is:
 
 - GTL declares the program algebra
@@ -113,6 +119,13 @@ The programmatic ABG proof surface for downstream graph assets is
 endpoints, may be gated by GTL/ABG, but they are not the constitutional source
 of GTL contract law.
 
+`typecheckGtlProgram(...)` is also the normal inspection surface for traversal
+law. A conforming downstream program publishes inventory; the validator projects
+which graph functions, internal graph vectors, starts, overlays, plugin result
+interfaces, and consequence catalogs can instantiate lawful traversal units and
+typed bind options. Manual graph or overlay scanning is not the product's
+normal substrate-validation mechanism.
+
 This boundary derives from `REQ-L-GTL3-CONTRACT-LAW-API`,
 `REQ-L-GTL3-LANGUAGE`, `REQ-L-GTL3-LAWS`, `REQ-L-GTL3-GRAPHVECTOR`,
 `REQ-L-GTL3-GRAPHFUNCTION`, `REQ-L-GTL3-OPERATOR`,
@@ -166,6 +179,14 @@ such as a catalog, selector, or declaration file. That does not make the node a
 carriers bound by jobs. ABG executes the call by advancing the realized internal
 `GraphVector` boundaries beneath that carrier.
 
+`TraversalUnit<A, B>` names the closeable traversal atom over those existing
+carriers. It is formal notation for a selected `GraphFunction` execution,
+selected internal `GraphVector<A, B>`, selected `abg.fn_composition`, execution
+and frame identity, admitted attempt/output/assurance/consequence truth, and
+ABG replay disposition. It is not a new topology anchor, public callable
+carrier, graph-vector rival, overlay, registry, runtime controller, or CLI
+command.
+
 This boundary derives from `REQ-L-GTL3-GRAPH`, `REQ-L-GTL3-NODE`,
 `REQ-L-GTL3-GRAPHVECTOR`, `REQ-L-GTL3-GRAPHFUNCTION`,
 `REQ-L-GTL3-JOB`, `REQ-L-GTL3-MODULE`, `REQ-L-GTL3-CONTEXT`,
@@ -191,6 +212,10 @@ The ABG runtime ontology is the interpreter-owned truth surface: selected
 `ExecutionBasis`, `AdvancementTransition`, `IterationAdvanceDecision`,
 `Continuation`, payload admission, payload ledgers, assurance projection,
 closure fold, traversal transition, and replay projection.
+
+`TraversalUnit<A, B>` is the formal unit ABG opens, attempts, admits, closes,
+and binds inside that runtime truth. It is a notation over the GTL/ABG carriers
+above, not a separate runtime aggregate.
 
 Downstream product ontology remains product-owned. A product may define pressure
 maps, gain lenses, acceptance registers, lifecycle views, and domain read
@@ -227,6 +252,13 @@ ABG is the opinionated probabilistic eventual-consistency monad over selected
 GTL composition. A purely deterministic event-sourced `F_D` run is a lawful
 reduction of that model, not a separate execution surface.
 
+The monadic unit is `TraversalUnit<A, B>`. Consequence bind is not the plugin
+call alone. It is the combined boundary where `plugin.consequence.C` proposes
+projection/action, ABG admits or rejects that consequence, derives traversal
+transition, and replays continuation. That bind composes closed unit truth with
+the next lawful unit, same-unit retry, re-entry, reprice, yield, block, or
+terminal projection.
+
 Composed `.C` stages share one stage-set shape. `transform.C`, `evaluate.C`,
 and `consequence.C` may each plan ordered or parallel task sets under selected
 composition. A scalar stage plugin is the one-task reduction of that shape, not
@@ -257,8 +289,11 @@ This boundary derives from `REQ-L-GTL3-COMPUTE-NOTATION`,
 
 ## Probabilistic Compute Boundary
 
-Abiogenesis treats one GTL edge traversal as the bounded unit of probabilistic
-compute.
+Abiogenesis treats `TraversalUnit<A, B>` as the bounded unit of probabilistic
+compute: one closeable GTL edge traversal under a published graph-function
+execution, selected internal graph vector, selected composition, admitted
+attempt envelope, admitted outputs, assurance fold, consequence projection, and
+ABG replay disposition.
 
 The edge declares the admissible external traversal space:
 
@@ -295,6 +330,10 @@ ABG owns the governance and control truth around an invocation of that
 traversal. It binds the traversal to a worker, tool, or agent; records events
 and provenance; projects state; classifies outcomes; and advances only through
 lawful next steps.
+
+Traversal-unit states are replay-derived, not controller memory. A unit may
+close, retry, repair, re-enter, reprice, yield, block, or terminate only through
+ABG-admitted runtime truth and catalog-bound consequence bind.
 
 ABG is not the domain executor. The worker, tool, agent, or domain
 implementation owns the internal HOW inside the declared traversal boundary.

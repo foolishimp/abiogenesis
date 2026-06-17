@@ -68,7 +68,7 @@ source_documents:
   - specification/requirements/abg/REQ-R-ABG3-WORKER.md
   - specification/requirements/abg/REQ-R-ABG3-JOB-WORKER.md
   - specification/requirements/abg/REQ-R-ABG3-SAGA-FRONTIER.md
-  - .ai-workspace/tickets/active/T-152-admit-gtl-program-conformance-gate-for-downstream-graph-assets.md
+  - .ai-workspace/tickets/completed/T-152-admit-gtl-program-conformance-gate-for-downstream-graph-assets.md
   - /Users/jim/src/apps/odd_sdlc/.ai-workspace/tickets/active/T-184-partition-handoff-into-compute-stage-boundary-modules.md
   - /Users/jim/src/apps/odd_sdlc/.ai-workspace/tickets/completed/T-194-migrate-typescript-tenant-to-abg-4-0-0-rc-3.md
 affected_boundary:

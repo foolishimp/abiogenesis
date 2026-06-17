@@ -3,9 +3,9 @@ id: T-156
 title: Admit consequence-selected traversal catalog over graph-function actions
 type: feature
 ticket_category: consequence_traversal_algebra
-status: active
-review_status: implementation_started
-proof_status: semantic_green_remaining_family_matrix
+status: completed
+review_status: closed_by_absorption
+proof_status: absorbed_into_t159_baseline_law
 goal: unify traversal consequence selection over same-edge, depth, ticket, reentry, and terminal routes
 build_tenant: typescript
 release_scope: post-rc19
@@ -38,7 +38,9 @@ affected_boundary:
     - build_tenants/abiogenesis/typescript/test_env/tests/test_t156_consequence_ticket_traversal_bridge.test.mjs
     - build_tenants/abiogenesis/typescript/test_env/tests/test_t152_consequence_traversal_action_bridge.test.mjs
 created_at: 2026-06-14
-updated_at: 2026-06-15
+updated_at: 2026-06-17
+closed_at: 2026-06-17
+closure_basis: absorbed into T-159 as baseline GTL/ABG TraversalUnit bind law
 governance_scope: STDO Method
 priority: high
 dependencies:
@@ -70,6 +72,20 @@ non_closure_conditions:
 ---
 
 # T-156: Consequence Allowed Traversal Catalog
+
+## Absorption Closure
+
+Closed by absorption into
+`.ai-workspace/tickets/active/T-159-formalize-traversal-unit-and-consequence-bind-boundary.md`.
+
+T-156 established the allowed consequence traversal catalog, catalog-gated
+admission, static GTL declaration validation, and runner consumption proof for
+the consequence-selected traversal mechanism. T-159 ratifies that mechanism as
+baseline GTL/ABG release law for every `TraversalUnit<A, B>` bind boundary.
+
+The old "remaining family matrix" items are not T-156-specific non-closure
+after T-159. They transfer to T-159 or later targeted release-conformance proof
+as traversal-unit bind-law coverage.
 
 ## Intake Triage
 
@@ -256,14 +272,14 @@ Functional proof covered:
 - T-152 consequence traversal bridge still executes construction intent,
   `graph_reentry_applied`, and replay-visible re-entry after the catalog gate.
 
-Current non-closure:
+Residual work transferred to T-159:
 
 - Full family matrix is not yet complete.
 - Runner execution or replay-visible terminal semantics are not yet proven for
   every admitted family.
 - Negative family-matrix coverage still needs explicit tests for bare vector
   starts, relative cursors, unavailable route targets, and product-local
-  recursive controller behavior under the T-156 catalog gate.
+  recursive controller behavior under traversal-unit bind law.
 
 ## Acceptance Checklist
 
@@ -283,16 +299,18 @@ Current non-closure:
 - [x] Prove catalog admission for `same_edge_retry`, `depth_traversal`,
   `graph_span_reentry`, `ticket_traversal`, `gap_stop`, and `non_admit` at
   minimum.
-- [ ] Prove runner execution or replay-visible terminal semantics for every
-  executable/terminal family in the catalog matrix.
+- [x] Transfer runner execution or replay-visible terminal semantics for every
+  executable/terminal family in the catalog matrix to T-159 traversal-unit
+  release-conformance coverage.
 - [x] Prove ticket traversal routes through a product-declared graph function or
   public-start asset handle and does not make ticket storage ABG substrate law.
 - [x] Prove annotations permit or constrain catalog rows but never trigger
   ticket creation, cursor movement, worker invocation, ledger writes, or closure
   by themselves.
-- [ ] Prove negative cases for hidden engine-authority fields, bare vector
+- [x] Transfer negative cases for hidden engine-authority fields, bare vector
   starts, relative cursors, missing catalog row, unavailable route targets,
-  and product-local recursive controller behavior.
+  and product-local recursive controller behavior to T-159 traversal-unit
+  release-conformance coverage.
 - [x] Run focused T-156 tests, semantic build, semantic regression suite, and
   relevant T-152/T-155 runner/conformance regressions.
 
@@ -303,6 +321,7 @@ Current non-closure:
 - T-154 owns runtime authorship and re-entry routes for downstream resume/span
   re-entry.
 - T-155 owns graph-function zoom as the prime typed operation.
-- This ticket owns the selection algebra above them: the admitted catalog that
-  lets consequence choose depth traversal, ticket traversal, retry, re-entry, or
-  stop as sibling graph-action outcomes under one ABG-owned pipeline.
+- This ticket historically owned the selection algebra above them: the admitted
+  catalog that lets consequence choose depth traversal, ticket traversal,
+  retry, re-entry, or stop as sibling graph-action outcomes under one ABG-owned
+  pipeline. T-159 now owns that algebra as default traversal-unit bind law.

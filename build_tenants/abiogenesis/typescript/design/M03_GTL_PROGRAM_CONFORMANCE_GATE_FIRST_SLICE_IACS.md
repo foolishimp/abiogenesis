@@ -13,6 +13,12 @@ before runtime traversal and emits a deterministic report over the supplied
 graph, target-carrier, closure, prompt, plugin, public-start, feature-coverage,
 and source-identity surfaces.
 
+T-159 extends the report obligation: the gate is also the normal inspection
+surface for traversal-unit law. It should project the traversal shape implied
+by graph functions, internal graph vectors, starts, overlays, plugin result
+interfaces, and consequence traversal catalogs, then emit typed issues for
+missing, ambiguous, or illegal unit/bind declarations.
+
 The gate is not a graph traversal and does not replace GTL graph algebra. It is
 an ABG admission/typecheck boundary over a declared program inventory.
 
@@ -25,6 +31,7 @@ an ABG admission/typecheck boundary over a declared program inventory.
 | odd_sdlc T-194 needed one proof over production graph assets, target-carrier rows, closure rows, prompts, plugins, overlays, and active ABG identity. | `GtlProgramConformanceInput` admits those row families as one inventory boundary and binds report identity to normalized inventory digests. |
 | Prior scanner-style proof could infer hooks or F-star composition from unrelated rows. | Only first-class graph/algebra carriers or first-class inventory rows may drive deterministic observation; attestation-only families cannot be reconstructed from proxy carriers. |
 | Caller-owned manifests could label ownership as though it were ABG truth. | `GTL_PROGRAM_T153_FEATURE_OWNER_CLASSIFICATIONS` is the ABG-owned owner map; supplied rows must match it. |
+| T-159 makes traversal-unit and bind law compiler-visible. | `typecheckGtlProgram(...)` projects lawful entry units, unit boundaries, overlay policy/catalog rows, plugin-result output admission, catalog-bound bind options, and typed non-conformance rows. |
 
 ## Irreducible Architectural Carrier Set
 
@@ -64,6 +71,12 @@ diagnostic carrier with rule, surface, and severity identity.
 for the static gate. It may be rendered by the CLI, but the CLI cannot own a
 separate pass/fail truth.
 
+`TraversalUnit` is not an eighth prime carrier of this IACS. The conformance
+gate projects it as formal law over admitted inventory: graph-function entry,
+internal graph-vector boundary, selected composition, target/output admission,
+plugin result interfaces, overlay/catalog policy, public-start entry, and
+allowed consequence traversal rows.
+
 ## Subordinate Payload Register
 
 | Shape | Status | Why not prime |
@@ -77,6 +90,7 @@ separate pass/fail truth.
 | `GtlProgramPromptAssetRow` | subordinate under `GtlProgramConformanceInput` | prompt rows are typed asset-surface views, not prompt-authority law |
 | `GtlProgramSourceIdentityRow` | subordinate under `GtlProgramConformanceInput` | source text is scanned for identity drift but does not become source authority |
 | raw plugin contract rows | subordinate under `GtlProgramConformanceInput` | plugins are boundary inventory; engine authority remains denied by ABG plugin admission |
+| traversal-unit projection rows | report projection over `GtlProgramConformanceReport` | they name or reject lawful unit/bind shape but do not become runtime execution carriers |
 
 ## Runtime Re-Entry Inventory Boundary
 
@@ -113,6 +127,13 @@ projection.
 The gate may report that the route inventory is present. It must not infer that
 a product is allowed to issue private cursor moves, local retry loops, or
 product-owned re-entry events.
+
+Likewise, the gate may report that public starts, overlays, plugin result
+interfaces, and allowed traversal catalogs can instantiate a traversal-unit
+entry and bind surface. It must reject bare graph-vector public authority,
+overlay execution shortcuts, raw plugin-result file authority, runtime-start
+selection used as topology, catalog-missing consequence routes, and
+product-local CLI/replay bind law.
 
 ## Deterministic Observation Rule
 
@@ -157,3 +178,4 @@ ticket admits first-class inventory fields for that feature.
 | inventory identity | inventory digests | report ref changes when audited inventory changes |
 | target-carrier law | target row subordinate payload | lossy target-carrier rows fail closed |
 | source identity law | source identity row subordinate payload | stale active ABG identity forms fail closed |
+| traversal-unit projection | T-159 formalism over report inventory | lawful units, entry units, and catalog-bound bind options are named or rejected with typed issues |

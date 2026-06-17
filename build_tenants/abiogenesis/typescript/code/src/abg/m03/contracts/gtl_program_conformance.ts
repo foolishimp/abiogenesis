@@ -34,6 +34,10 @@ import {
 import {
   deriveAllowedConsequenceTraversalCatalogFromGtl
 } from "./allowed_consequence_traversal_catalog.js";
+import type {
+  AllowedConsequenceTraversalCatalog,
+  AllowedConsequenceTraversalFamily
+} from "./allowed_consequence_traversal_catalog.js";
 import {
   constructAdmittedPluginResultInterfaceCatalog,
   type AdmittedPluginResultInterfaceCatalog
@@ -57,6 +61,7 @@ export type GtlProgramConformanceSurfaceKind =
   | "edge_closure_contract"
   | "overlay"
   | "public_start"
+  | "traversal_unit"
   | "prompt_asset"
   | "plugin_contract"
   | "plugin_result_interface"
@@ -559,6 +564,44 @@ export interface GtlProgramInventoryDigests {
   readonly runtimeReentryRoutes: string;
 }
 
+export interface GtlProgramTraversalUnitProjectionRow {
+  readonly kind: "gtl_program_traversal_unit_projection_row";
+  readonly unitRef: string;
+  readonly graphFunctionRef: string;
+  readonly graphFunctionId: string;
+  readonly graphRef: string;
+  readonly graphId: string;
+  readonly graphVectorRef: string;
+  readonly graphVectorId: string;
+  readonly sourceAssetTypes: readonly string[];
+  readonly targetAssetType: string;
+  readonly targetCarrierContractRef: string | null;
+  readonly edgeClosureRef: string | null;
+  readonly computeCompositionRefs: readonly string[];
+  readonly computeStageBindingRefs: readonly string[];
+  readonly pluginResultInterfaceRefs: readonly string[];
+  readonly consequencePluginResultInterfaceRefs: readonly string[];
+  readonly allowedConsequenceTraversalCatalogRef: string | null;
+  readonly allowedConsequenceTraversalFamilies:
+    readonly AllowedConsequenceTraversalFamily[];
+  readonly allowedConsequenceTraversalRowRefs: readonly string[];
+}
+
+export interface GtlProgramTraversalEntryUnitProjectionRow {
+  readonly kind: "gtl_program_traversal_entry_unit_projection_row";
+  readonly publicStartRef: string;
+  readonly graphFunctionRef: string;
+  readonly overlayRefs: readonly string[];
+  readonly entryUnitRefs: readonly string[];
+}
+
+export interface GtlProgramTraversalUnitProjection {
+  readonly kind: "gtl_program_traversal_unit_projection";
+  readonly subjectRef: string;
+  readonly units: readonly GtlProgramTraversalUnitProjectionRow[];
+  readonly entryUnits: readonly GtlProgramTraversalEntryUnitProjectionRow[];
+}
+
 export interface GtlProgramConformanceReport {
   readonly kind: "gtl_program_conformance_report";
   readonly reportRef: string;
@@ -567,6 +610,7 @@ export interface GtlProgramConformanceReport {
   readonly inventoryDigest: string;
   readonly inventoryDigests: GtlProgramInventoryDigests;
   readonly pluginResultInterfaceCatalog: AdmittedPluginResultInterfaceCatalog;
+  readonly traversalUnitProjection: GtlProgramTraversalUnitProjection;
   readonly passed: boolean;
   readonly issueCount: number;
   readonly issues: readonly GtlProgramConformanceIssue[];
@@ -4825,6 +4869,353 @@ function checkAllowedConsequenceTraversalDeclarations(input: {
   }
 }
 
+function traversalUnitRef(vector: GraphVectorProjection): string {
+  return `abg://gtl-program/traversal-unit/${stableSha256Digest({
+    graphFunctionId: vector.graphFunctionId,
+    graphId: vector.graphId,
+    graphVectorId: vector.graphVectorId
+  })}`;
+}
+
+function graphVectorRowsByIdentity<
+  T extends {
+    readonly graphFunctionId: string;
+    readonly graphId: string;
+    readonly graphVectorId: string;
+  }
+>(rows: readonly T[]): ReadonlyMap<string, readonly T[]> {
+  const byIdentity = new Map<string, T[]>();
+  for (const row of rows) {
+    const key = graphVectorIdentityKey(row);
+    byIdentity.set(key, [...(byIdentity.get(key) ?? []), row]);
+  }
+  return new Map(
+    [...byIdentity.entries()].map(([key, value]) => [
+      key,
+      Object.freeze(value)
+    ])
+  );
+}
+
+function singleGraphVectorRow<T>(
+  rowsByIdentity: ReadonlyMap<string, readonly T[]>,
+  key: string
+): T | null {
+  const rows = rowsByIdentity.get(key) ?? [];
+  return rows.length === 1 ? rows[0]! : null;
+}
+
+function compositionHostsTraversalUnit(input: {
+  readonly composition: GtlProgramComputeCompositionRow;
+  readonly vector: GraphVectorProjection;
+}): boolean {
+  const { composition, vector } = input;
+  if (composition.hostKind === "graph_vector") {
+    return (
+      composition.hostRef === vector.vectorRef ||
+      composition.hostRef === vector.graphVectorId ||
+      composition.hostRef === graphVectorIdentityRef(vector)
+    );
+  }
+  if (composition.hostKind === "graph_function") {
+    return (
+      composition.hostRef === vector.graphFunctionRef ||
+      composition.hostRef === vector.graphFunctionId
+    );
+  }
+  return false;
+}
+
+function consequenceCatalogsByVectorIdentity(
+  graphFunctions: readonly GraphFunction[]
+): ReadonlyMap<string, AllowedConsequenceTraversalCatalog> {
+  const catalogs = new Map<string, AllowedConsequenceTraversalCatalog>();
+  for (const graphFunction of graphFunctions) {
+    let graph: Graph;
+    try {
+      graph = materializeGraphFunction(graphFunction);
+    } catch {
+      continue;
+    }
+    graph.vectors.forEach((vector, vectorIndex) => {
+      try {
+        catalogs.set(
+          graphVectorIdentityKey({
+            graphFunctionId: graphFunction.id,
+            graphId: graph.id,
+            graphVectorId: vector.id
+          }),
+          deriveAllowedConsequenceTraversalCatalogFromGtl({
+            graphFunction,
+            graphVector: vector,
+            vectorIndex,
+            edgeRef: vector.name
+          })
+        );
+      } catch {
+        // Declaration errors are reported by checkAllowedConsequenceTraversalDeclarations.
+      }
+    });
+  }
+  return catalogs;
+}
+
+function constructTraversalUnitProjection(input: {
+  readonly subjectRef: string;
+  readonly graphFunctions: readonly GraphFunction[];
+  readonly vectors: readonly GraphVectorProjection[];
+  readonly targetCarrierContracts: readonly GtlProgramTargetCarrierRow[];
+  readonly edgeClosureContracts: readonly GtlProgramEdgeClosureRow[];
+  readonly computeCompositions: readonly GtlProgramComputeCompositionRow[];
+  readonly computeStageBindings: readonly GtlProgramComputeStageBindingRow[];
+  readonly pluginResultInterfaces: readonly GtlProgramPluginResultInterfaceRow[];
+  readonly overlays: readonly GtlProgramOverlayRow[];
+  readonly publicStartTargets: readonly GtlProgramPublicStartRow[];
+}): GtlProgramTraversalUnitProjection {
+  const targetCarrierByIdentity = graphVectorRowsByIdentity(
+    input.targetCarrierContracts
+  );
+  const edgeClosureByIdentity = graphVectorRowsByIdentity(
+    input.edgeClosureContracts
+  );
+  const catalogsByIdentity = consequenceCatalogsByVectorIdentity(
+    input.graphFunctions
+  );
+  const units = Object.freeze(
+    input.vectors.map((vector) => {
+      const vectorKey = graphVectorIdentityKey(vector);
+      const targetCarrier = singleGraphVectorRow(
+        targetCarrierByIdentity,
+        vectorKey
+      );
+      const edgeClosure = singleGraphVectorRow(edgeClosureByIdentity, vectorKey);
+      const compositions = input.computeCompositions.filter((composition) =>
+        compositionHostsTraversalUnit({ composition, vector })
+      );
+      const compositionRefs = uniqueSorted(
+        compositions.map((composition) => composition.compositionRef)
+      );
+      const compositionRefSet = new Set(compositionRefs);
+      const stageBindings = input.computeStageBindings.filter((stageBinding) =>
+        compositionRefSet.has(stageBinding.compositionRef)
+      );
+      const stageBindingRefs = uniqueSorted(
+        stageBindings.map((stageBinding) => stageBinding.stageBindingRef)
+      );
+      const stageBindingRefSet = new Set(stageBindingRefs);
+      const pluginResultInterfaces = input.pluginResultInterfaces.filter((row) =>
+        stageBindingRefSet.has(row.stageBindingRef)
+      );
+      const pluginResultInterfaceRefs = uniqueSorted(
+        pluginResultInterfaces.map((row) => row.resultInterfaceRef)
+      );
+      const consequencePluginResultInterfaceRefs = uniqueSorted(
+        pluginResultInterfaces
+          .filter((row) => row.stageRole === "consequence")
+          .map((row) => row.resultInterfaceRef)
+      );
+      const catalog = catalogsByIdentity.get(vectorKey) ?? null;
+      return Object.freeze({
+        kind: "gtl_program_traversal_unit_projection_row" as const,
+        unitRef: traversalUnitRef(vector),
+        graphFunctionRef: vector.graphFunctionRef,
+        graphFunctionId: vector.graphFunctionId,
+        graphRef: vector.graphRef,
+        graphId: vector.graphId,
+        graphVectorRef: vector.vectorRef,
+        graphVectorId: vector.graphVectorId,
+        sourceAssetTypes: vector.sourceAssetTypes,
+        targetAssetType: vector.targetAssetType,
+        targetCarrierContractRef:
+          targetCarrier?.targetCarrierContractRef ?? null,
+        edgeClosureRef: edgeClosure?.edgeRef ?? null,
+        computeCompositionRefs: compositionRefs,
+        computeStageBindingRefs: stageBindingRefs,
+        pluginResultInterfaceRefs,
+        consequencePluginResultInterfaceRefs,
+        allowedConsequenceTraversalCatalogRef: catalog?.catalogRef ?? null,
+        allowedConsequenceTraversalFamilies: Object.freeze(
+          [
+            ...new Set(
+              (catalog?.rows ?? []).map((row) => row.traversalFamily)
+            )
+          ].sort()
+        ),
+        allowedConsequenceTraversalRowRefs: uniqueSorted(
+          (catalog?.rows ?? []).map((row) => row.rowRef)
+        )
+      });
+    })
+  );
+  const unitRefsByGraphFunction = new Map<string, string[]>();
+  for (const unit of units) {
+    for (const graphFunctionRef of [
+      unit.graphFunctionRef,
+      unit.graphFunctionId
+    ]) {
+      unitRefsByGraphFunction.set(graphFunctionRef, [
+        ...(unitRefsByGraphFunction.get(graphFunctionRef) ?? []),
+        unit.unitRef
+      ]);
+    }
+  }
+  const overlayByRef = new Map(
+    input.overlays.map((overlay) => [overlay.overlayRef, overlay])
+  );
+  const candidateEntryUnitRefs = (target: GtlProgramPublicStartRow) => {
+    const graphFunctionUnitRefs = unitRefsByGraphFunction.get(
+      target.graphFunctionRef
+    ) ?? [];
+    if (target.overlayRefs.length === 0) {
+      return uniqueSorted(graphFunctionUnitRefs);
+    }
+    const overlayGraphVectorRefs = new Set<string>();
+    for (const overlayRef of target.overlayRefs) {
+      const overlay = overlayByRef.get(overlayRef);
+      if (overlay === undefined) {
+        continue;
+      }
+      for (const graphVectorRef of overlay.graphVectorRefs) {
+        overlayGraphVectorRefs.add(graphVectorRef);
+      }
+    }
+    if (overlayGraphVectorRefs.size === 0) {
+      return uniqueSorted(graphFunctionUnitRefs);
+    }
+    return uniqueSorted(
+      units
+        .filter((unit) =>
+          (unit.graphFunctionRef === target.graphFunctionRef ||
+            unit.graphFunctionId === target.graphFunctionRef) &&
+          (overlayGraphVectorRefs.has(unit.graphVectorRef) ||
+            overlayGraphVectorRefs.has(unit.graphVectorId))
+        )
+        .map((unit) => unit.unitRef)
+    );
+  };
+  const entryUnits = Object.freeze(
+    input.publicStartTargets.map((target) =>
+      Object.freeze({
+        kind: "gtl_program_traversal_entry_unit_projection_row" as const,
+        publicStartRef: target.name,
+        graphFunctionRef: target.graphFunctionRef,
+        overlayRefs: target.overlayRefs,
+        entryUnitRefs: candidateEntryUnitRefs(target)
+      })
+    )
+  );
+  return Object.freeze({
+    kind: "gtl_program_traversal_unit_projection" as const,
+    subjectRef: input.subjectRef,
+    units,
+    entryUnits
+  });
+}
+
+function checkTraversalUnitProjection(input: {
+  readonly projection: GtlProgramTraversalUnitProjection;
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  for (const unit of input.projection.units) {
+    if (unit.targetCarrierContractRef === null) {
+      pushRowIssue({
+        surfaceKind: "traversal_unit",
+        surfaceRef: unit.unitRef,
+        ruleRef: "abg://gtl-program/traversal-unit/target-carrier-required",
+        message: `TraversalUnit ${JSON.stringify(unit.unitRef)} is not closeable without target-carrier truth for graph vector ${JSON.stringify(unit.graphVectorRef)}`,
+        evidenceRefs: [
+          unit.graphFunctionRef,
+          unit.graphVectorRef
+        ],
+        issues: input.issues
+      });
+    }
+    if (unit.edgeClosureRef === null) {
+      pushRowIssue({
+        surfaceKind: "traversal_unit",
+        surfaceRef: unit.unitRef,
+        ruleRef: "abg://gtl-program/traversal-unit/edge-closure-required",
+        message: `TraversalUnit ${JSON.stringify(unit.unitRef)} is not closeable without edge-closure truth for graph vector ${JSON.stringify(unit.graphVectorRef)}`,
+        evidenceRefs: [
+          unit.graphFunctionRef,
+          unit.graphVectorRef
+        ],
+        issues: input.issues
+      });
+    }
+    if (unit.computeCompositionRefs.length === 0) {
+      pushRowIssue({
+        surfaceKind: "traversal_unit",
+        surfaceRef: unit.unitRef,
+        ruleRef: "abg://gtl-program/traversal-unit/compute-composition-required",
+        message: `TraversalUnit ${JSON.stringify(unit.unitRef)} is not closeable without a selected compute composition`,
+        evidenceRefs: [
+          unit.graphFunctionRef,
+          unit.graphVectorRef
+        ],
+        issues: input.issues
+      });
+    }
+    if (unit.computeStageBindingRefs.length === 0) {
+      pushRowIssue({
+        surfaceKind: "traversal_unit",
+        surfaceRef: unit.unitRef,
+        ruleRef: "abg://gtl-program/traversal-unit/stage-binding-required",
+        message: `TraversalUnit ${JSON.stringify(unit.unitRef)} is not closeable without selected compute stage bindings`,
+        evidenceRefs: [
+          unit.graphFunctionRef,
+          unit.graphVectorRef,
+          ...unit.computeCompositionRefs
+        ],
+        issues: input.issues
+      });
+    }
+    if (unit.pluginResultInterfaceRefs.length === 0) {
+      pushRowIssue({
+        surfaceKind: "traversal_unit",
+        surfaceRef: unit.unitRef,
+        ruleRef: "abg://gtl-program/traversal-unit/plugin-result-interface-required",
+        message: `TraversalUnit ${JSON.stringify(unit.unitRef)} is not closeable without plugin result-interface truth`,
+        evidenceRefs: [
+          unit.graphFunctionRef,
+          unit.graphVectorRef,
+          ...unit.computeStageBindingRefs
+        ],
+        issues: input.issues
+      });
+    }
+    if (unit.consequencePluginResultInterfaceRefs.length === 0) {
+      pushRowIssue({
+        surfaceKind: "traversal_unit",
+        surfaceRef: unit.unitRef,
+        ruleRef: "abg://gtl-program/traversal-unit/consequence-result-interface-required",
+        message: `TraversalUnit ${JSON.stringify(unit.unitRef)} is not a bind boundary unless consequence.C output is declared as plugin result-interface truth`,
+        evidenceRefs: [
+          unit.graphFunctionRef,
+          unit.graphVectorRef,
+          ...unit.pluginResultInterfaceRefs
+        ],
+        issues: input.issues
+      });
+    }
+  }
+  for (const entry of input.projection.entryUnits) {
+    if (entry.entryUnitRefs.length === 0) {
+      pushRowIssue({
+        surfaceKind: "traversal_unit",
+        surfaceRef: entry.publicStartRef,
+        ruleRef: "abg://gtl-program/traversal-unit/public-start-entry",
+        message: `public start ${JSON.stringify(entry.publicStartRef)} does not resolve to any TraversalUnit for GraphFunction ${JSON.stringify(entry.graphFunctionRef)}`,
+        evidenceRefs: [
+          entry.graphFunctionRef,
+          ...entry.overlayRefs
+        ],
+        issues: input.issues
+      });
+    }
+  }
+}
+
 function checkVectorRows(input: {
   readonly vectors: readonly GraphVectorProjection[];
   readonly targetCarrierContracts: readonly GtlProgramTargetCarrierRow[];
@@ -4977,10 +5368,31 @@ function checkOverlays(input: {
   readonly overlays: readonly GtlProgramOverlayRow[];
   readonly publicStartTargets: readonly GtlProgramPublicStartRow[];
   readonly graphFunctionRefs: ReadonlySet<string>;
+  readonly graphFunctionEquivalentRefs: ReadonlyMap<string, ReadonlySet<string>>;
   readonly graphVectorRefs: ReadonlySet<string>;
   readonly issues: GtlProgramConformanceIssue[];
 }): void {
-  const overlayRefs = new Set(input.overlays.map((overlay) => overlay.overlayRef));
+  const overlayByRef = new Map(
+    input.overlays.map((overlay) => [overlay.overlayRef, overlay])
+  );
+  const refsMatch = (left: string, right: string) =>
+    left === right ||
+    (input.graphFunctionEquivalentRefs.get(left)?.has(right) ?? false);
+  const overlayRefsGraphFunction = (
+    overlay: GtlProgramOverlayRow,
+    graphFunctionRef: string
+  ) =>
+    overlay.graphFunctionRefs.some((overlayGraphFunctionRef) =>
+      refsMatch(overlayGraphFunctionRef, graphFunctionRef)
+    );
+  const overlayTargetsGraphFunction = (
+    overlay: GtlProgramOverlayRow,
+    graphFunctionRef: string
+  ) =>
+    overlay.publicStartTargets.length === 0 ||
+    overlay.publicStartTargets.some((publicStartTarget) =>
+      refsMatch(publicStartTarget, graphFunctionRef)
+    );
   for (const overlay of input.overlays) {
     for (const graphFunctionRef of overlay.graphFunctionRefs) {
       if (!input.graphFunctionRefs.has(graphFunctionRef)) {
@@ -5042,7 +5454,8 @@ function checkOverlays(input: {
       );
     }
     for (const overlayRef of target.overlayRefs) {
-      if (!overlayRefs.has(overlayRef)) {
+      const overlay = overlayByRef.get(overlayRef);
+      if (overlay === undefined) {
         input.issues.push(
           issue({
             surfaceKind: "public_start",
@@ -5051,16 +5464,44 @@ function checkOverlays(input: {
             message: `public start target names unpublished overlay ${JSON.stringify(overlayRef)}`
           })
         );
+        continue;
+      }
+      if (
+        !overlayRefsGraphFunction(overlay, target.graphFunctionRef) ||
+        !overlayTargetsGraphFunction(overlay, target.graphFunctionRef)
+      ) {
+        input.issues.push(
+          issue({
+            surfaceKind: "public_start",
+            surfaceRef: target.name,
+            ruleRef:
+              "abg://gtl-program/public-start/overlay-graph-function-compatible",
+            message: `public start ${JSON.stringify(target.name)} attaches overlay ${JSON.stringify(overlayRef)} that does not admit GraphFunction ${JSON.stringify(target.graphFunctionRef)}`
+          })
+        );
       }
     }
     for (const overlayRef of target.defaultForOverlayRefs) {
-      if (!overlayRefs.has(overlayRef)) {
+      const overlay = overlayByRef.get(overlayRef);
+      if (overlay === undefined) {
         input.issues.push(
           issue({
             surfaceKind: "public_start",
             surfaceRef: target.name,
             ruleRef: "abg://gtl-program/public-start/default-overlay-resolves",
             message: `public start target defaultFor names unpublished overlay ${JSON.stringify(overlayRef)}`
+          })
+        );
+        continue;
+      }
+      if (!refsMatch(overlay.defaultStartTarget, target.graphFunctionRef)) {
+        input.issues.push(
+          issue({
+            surfaceKind: "public_start",
+            surfaceRef: target.name,
+            ruleRef:
+              "abg://gtl-program/public-start/default-overlay-start-compatible",
+            message: `public start ${JSON.stringify(target.name)} claims default authority for overlay ${JSON.stringify(overlayRef)} whose default start is ${JSON.stringify(overlay.defaultStartTarget)}`
           })
         );
       }
@@ -6370,6 +6811,22 @@ function pluginRefsBoundByRuntime(
   return refs;
 }
 
+function commandRefLooksLikeProductLocalTraversalSubstitute(
+  commandRef: string
+): boolean {
+  const normalized = commandRef.trim().toLowerCase();
+  return [
+    "odd-sdlc",
+    "odd_sdlc",
+    "sdlc",
+    "--graph-overlay",
+    "graph-overlay",
+    "overlay:",
+    "replay-next-action",
+    "startoutcomeforobservedreplay"
+  ].some((token) => normalized.includes(token));
+}
+
 function checkRuntimeBindingRows(input: {
   readonly runtimeBindings: readonly GtlProgramRuntimeBindingRow[];
   readonly publicStartTargets: readonly GtlProgramPublicStartRow[];
@@ -6440,6 +6897,16 @@ function checkRuntimeBindingRows(input: {
           issues: input.issues
         });
       }
+    }
+    if (commandRefLooksLikeProductLocalTraversalSubstitute(row.commandRef)) {
+      pushRowIssue({
+        surfaceKind: "runtime_binding",
+        surfaceRef: row.bindingRef,
+        ruleRef: "abg://gtl-program/runtime-binding/no-product-local-command-router",
+        message: `commandRef ${JSON.stringify(row.commandRef)} looks like product-local traversal, overlay, or replay routing; public command control must stay on ABG runtime bindings`,
+        evidenceRefs: row.evidenceRefs,
+        issues: input.issues
+      });
     }
   }
 
@@ -6842,7 +7309,7 @@ function checkExpectedCoverage(input: {
       );
       continue;
     }
-    if (expected === 0) {
+    if (expected === 0 && key !== "overlayCount") {
       input.issues.push(
         issue({
           surfaceKind: "program_inventory",
@@ -7404,6 +7871,27 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
   const publishedGraphFunctionRefs = new Set(
     graphFunctions.map((graphFunction) => graphFunction.name)
   );
+  const publishedGraphFunctionLookupRefs = new Set(
+    graphFunctions.flatMap((graphFunction) => [
+      graphFunction.name,
+      graphFunction.id
+    ])
+  );
+  const publishedGraphFunctionEquivalentRefs = new Map<string, ReadonlySet<string>>();
+  for (const graphFunction of graphFunctions) {
+    const equivalentRefs = new Set([
+      graphFunction.name,
+      graphFunction.id
+    ]);
+    publishedGraphFunctionEquivalentRefs.set(
+      graphFunction.name,
+      equivalentRefs
+    );
+    publishedGraphFunctionEquivalentRefs.set(
+      graphFunction.id,
+      equivalentRefs
+    );
+  }
   const catalogGraphFunctionRefs = uniqueSorted(input.catalogGraphFunctionRefs ?? []);
   const modules = Object.freeze([...(input.modules ?? [])]);
 
@@ -7479,7 +7967,8 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
   checkOverlays({
     overlays,
     publicStartTargets,
-    graphFunctionRefs: publishedGraphFunctionRefs,
+    graphFunctionRefs: publishedGraphFunctionLookupRefs,
+    graphFunctionEquivalentRefs: publishedGraphFunctionEquivalentRefs,
     graphVectorRefs,
     issues
   });
@@ -7665,6 +8154,22 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
       subjectRef: input.subjectRef,
       interfaces: pluginResultInterfaces
     });
+  const traversalUnitProjection = constructTraversalUnitProjection({
+    subjectRef: input.subjectRef,
+    graphFunctions,
+    vectors,
+    targetCarrierContracts,
+    edgeClosureContracts,
+    computeCompositions,
+    computeStageBindings,
+    pluginResultInterfaces,
+    overlays,
+    publicStartTargets
+  });
+  checkTraversalUnitProjection({
+    projection: traversalUnitProjection,
+    issues
+  });
   const frozenIssues = Object.freeze([...issues]);
   const reportBasis = Object.freeze({
     subjectRef: input.subjectRef,
@@ -7675,6 +8180,8 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     inventoryDigests,
     pluginResultInterfaceCatalogDigest:
       pluginResultInterfaceCatalog.catalogDigest,
+    traversalUnitProjectionDigest:
+      stableSha256Digest(traversalUnitProjection),
     issues: frozenIssues
   });
   return Object.freeze({
@@ -7685,6 +8192,7 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     inventoryDigest,
     inventoryDigests,
     pluginResultInterfaceCatalog,
+    traversalUnitProjection,
     passed: frozenIssues.length === 0,
     issueCount: frozenIssues.length,
     issues: frozenIssues,
