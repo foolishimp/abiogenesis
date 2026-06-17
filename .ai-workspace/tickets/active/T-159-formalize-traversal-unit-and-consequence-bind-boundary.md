@@ -988,3 +988,17 @@ Release non-closure:
   `build_tenants/abiogenesis/python/design/abiogenesis.code-workspace` watcher
   glob change, so the official release command should be run from a clean main
   worktree or after that unrelated change is resolved.
+- [x] 2026-06-18: Cut ABIogenesis TypeScript `4.1.0-rc.1` from clean source
+  commit `d13444299211f405cf10243252943236c5727b2e`, carrying T-159 in an
+  immutable release snapshot. Verification before the cut passed:
+  `npm run build:semantic`, `node --test
+  test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs` (81 tests),
+  `node --test
+  test_env/tests/test_t152_consequence_traversal_action_bridge.test.mjs`
+  (6 tests), `npm run test:t156` (96 tests), `npm run lint:semantic`,
+  `npm run test:t142` (4 tests), and `git diff --check`. Snapshot:
+  `release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.1/`; package
+  tarball `abiogenesis-typescript-tenant-4.1.0-rc.1.tgz`, 415 files, sha256
+  `ac9a5523154deb1d0960e9ff7d99f11fb3e4816f88ab42b6eff02e09d9ed9cbd`.
+  Manifest records `sourceDirty: false`; `latest` now points at
+  `4.1.0-rc.1`.
