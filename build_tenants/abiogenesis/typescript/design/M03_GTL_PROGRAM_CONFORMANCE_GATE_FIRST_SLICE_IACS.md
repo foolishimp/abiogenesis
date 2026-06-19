@@ -19,6 +19,12 @@ by graph functions, internal graph vectors, starts, overlays, plugin result
 interfaces, and consequence traversal catalogs, then emit typed issues for
 missing, ambiguous, or illegal unit/bind declarations.
 
+The T-159 bind-conservation slice includes admission-strength compatibility.
+For materializing traversal units, stage pressure and materialization authority
+must be declared as one compatible bind boundary. The gate rejects a
+conservation row that carries staged authority refs and materialization refs
+without the materialization-stage-compatible admission-strength ref.
+
 The gate is not a graph traversal and does not replace GTL graph algebra. It is
 an ABG admission/typecheck boundary over a declared program inventory.
 
@@ -90,6 +96,7 @@ allowed consequence traversal rows.
 | `GtlProgramPromptAssetRow` | subordinate under `GtlProgramConformanceInput` | prompt rows are typed asset-surface views, not prompt-authority law |
 | `GtlProgramSourceIdentityRow` | subordinate under `GtlProgramConformanceInput` | source text is scanned for identity drift but does not become source authority |
 | raw plugin contract rows | subordinate under `GtlProgramConformanceInput` | plugins are boundary inventory; engine authority remains denied by ABG plugin admission |
+| `GtlProgramTraversalBindConservationRow` | subordinate under `GtlProgramConformanceInput` | one row declares the unit's intent-lineage, materialization, stage, pressure, obligation-delta, and admission-strength compatibility refs; it is not a runtime controller |
 | traversal-unit projection rows | report projection over `GtlProgramConformanceReport` | they name or reject lawful unit/bind shape but do not become runtime execution carriers |
 
 ## Runtime Re-Entry Inventory Boundary
@@ -179,3 +186,4 @@ ticket admits first-class inventory fields for that feature.
 | target-carrier law | target row subordinate payload | lossy target-carrier rows fail closed |
 | source identity law | source identity row subordinate payload | stale active ABG identity forms fail closed |
 | traversal-unit projection | T-159 formalism over report inventory | lawful units, entry units, and catalog-bound bind options are named or rejected with typed issues |
+| bind-conservation admission strength | T-159 bind boundary law | materializing units fail static conformance when stage pressure and materialization authority lack compatible admission strength |

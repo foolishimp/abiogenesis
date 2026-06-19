@@ -19,7 +19,7 @@ owner: abiogenesis
 priority: critical
 triaged_at: 2026-06-17
 created_at: 2026-06-17
-updated_at: 2026-06-18
+updated_at: 2026-06-19
 intake_source: odd_sdlc T-203/T-204 design pressure exposed that cold start, ticket re-entry, and CLI decommission need one GTL/ABG traversal atom instead of product-local routing doctrine
 evaluation_criteria: >-
   Specification, design, compiler projection, and tests prove traversal-unit
@@ -654,18 +654,35 @@ not reconstructing substrate validity by scanning implementation files.
 
 ### Realization
 
-No runtime engine code change is required to start T-159. Compiler/reporting
-proof is the realization path:
+T-159 is no longer report-only. The first compiler projection proved the
+formal atom, but the later intent-lineage review found a real lost-function
+gap: ABG could project scalar traversal close or materialization dispatch
+without a compiler-visible conservation basis for carried intent, obligations,
+pressure, target carriers, materialization refs, staged authority, and terminal
+pressure.
 
-- add exported type aliases or documentation carriers only if they prevent
-  drift;
+The realization path is therefore compiler plus runtime admission:
+
+- export typed traversal-unit / bind-conservation report rows only where they
+  prevent drift;
 - extend `typecheckGtlProgram(...)` with a traversal-unit projection over
   graph/function/vector/target/plugin/overlay/start/result/catalog inventory;
-- emit typed issues for missing, ambiguous, or illegal traversal-unit and bind
-  declarations;
+- require `traversalBindConservation` rows for closeable traversal units and
+  emit typed issues for missing, ambiguous, incomplete, or uncovered bind
+  conservation;
+- cross-check conservation rows against target-carrier refs,
+  materialization-policy refs, and selected compute-stage refs already present
+  in the ABI inventory;
+- preserve admitted construction intent lineage through
+  `AdmittedConstructionIntent`, construction pressure package basis, and
+  `construction_pressure_package_materialized` event truth;
+- reject constructive construction intent before dispatch when expected output,
+  obligation lineage, lawful basis, residual pressure, or action-output
+  preservation is insufficient;
 - add conformance/report text proving a downstream program declares enough
-  inventory to instantiate traversal units;
-- add negative tests that reject product-local traversal-unit substitutes.
+  inventory to instantiate and bind traversal units;
+- add negative tests that reject product-local traversal-unit substitutes and
+  missing/incomplete bind-conservation declarations.
 
 ## Downstream Adoption Notes For odd_sdlc
 
@@ -778,6 +795,7 @@ Feature coverage matrix required before release:
 | Consequence traversal catalog interaction with traversal units | 3 | 3 |
 | Runtime binding command authority and product-local router rejection | 3 | 3 |
 | CLI/report/export contract for `traversalUnitProjection` | 3 | 3 |
+| Intent-lineage bind conservation and materialization sufficiency | 3 | 3 |
 
 Release matrix audit evidence:
 
@@ -791,6 +809,7 @@ Release matrix audit evidence:
 | Consequence catalog interaction | Catalog declaration admission, sibling-family admission, empty/no-bind projection | Unknown or malformed declarations, missing route authority/proportionality-as-authority rejection, runner blocks undeclared catalog row |
 | Runtime command authority | ABG-owned command refs, bare ABG start command, graph-function id target command | Product-local command router, token table for SDLC/overlay/replay helpers, inherited product-local wrapper rejection |
 | CLI/report/export contract | CLI JSON projection, report digest sensitivity, public `.d.ts` exports | Typed traversal-unit issue rows, CLI invalid public-start projection, inherited malformed raw/invalid CLI report failure |
+| Intent-lineage bind conservation | Traversal-unit projection carries conservation refs, admitted construction intent preserves candidate lineage, pressure-package event carries intent/obligation/output refs | Missing conservation row, incomplete target/materialization/stage/disposition coverage, constructive intent without expected output or obligation lineage |
 
 Required before release:
 
@@ -845,6 +864,21 @@ Required before release:
 - [x] Report digest changes when traversal-unit-significant inventory changes.
 - [x] Public package `.d.ts` exports include the traversal-unit projection
       report types.
+- [x] Public package `.d.ts` exports include traversal bind-conservation report
+      row and obligation-delta family types.
+- [x] `typecheckGtlProgram(...)` rejects closeable traversal units without a
+      declared bind-conservation basis.
+- [x] `typecheckGtlProgram(...)` rejects incomplete bind-conservation rows that
+      do not cover target-carrier refs, materialization refs, compute-stage
+      authority, and the full obligation-delta disposition family.
+- [x] `AdmittedConstructionIntent` preserves candidate input assets, expected
+      outputs, gaps, carried obligations, lawful basis, and progress/stop
+      conditions.
+- [x] Construction pressure packages and materialized pressure-package events
+      carry intent-lineage, expected output, carried obligation, gap, and lawful
+      basis refs.
+- [x] Constructive intent admission rejects candidates that drop expected
+      outputs, obligations, or residual pressure before materializing work.
 - [x] A synthetic downstream-like fixture proves
       `traverse<bootstrap, conformant>` and `traverse<ticket, triage>` without
       depending on odd_sdlc implementation code.
@@ -863,6 +897,9 @@ Release non-closure:
   clean release cut.
 - A downstream product claims `traversalUnitProjection` release consumption
   before these boundary tests pass in the released ABI package.
+- A downstream product claims intent-lineage bind-conservation enforcement from
+  `4.1.0-rc.1`; these post-RC1 enforcement changes require a fresh release cut
+  before downstream consumption.
 
 ## Implementation Ledger
 
@@ -1002,3 +1039,101 @@ Release non-closure:
   `ac9a5523154deb1d0960e9ff7d99f11fb3e4816f88ab42b6eff02e09d9ed9cbd`.
   Manifest records `sourceDirty: false`; `latest` now points at
   `4.1.0-rc.1`.
+- [x] 2026-06-18: Returned intent preservation through lineage to the GTL/ABG
+  layer after the downstream SDLC live-run forensic review showed scalar close
+  and materialization dispatch could lose the obligation vector. Added
+  `GtlProgramTraversalBindConservationRow`, obligation-delta family projection,
+  conservation-basis digest/report fields, typed `traversal_unit` failures for
+  missing/incomplete target-carrier/materialization/stage/disposition coverage,
+  admitted construction-intent preservation of candidate assets/gaps/obligations
+  and lawful basis, and pressure-package/event lineage refs. Verification
+  passed: `npm run build:semantic`, `node --test
+  test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs` (83 tests),
+  `node --test test_env/tests/test_t127_fp_consciousness_loop_unit.test.mjs`
+  (30 tests), `node --test
+  test_env/tests/test_t139_construction_pressure_package.test.mjs` (2 tests),
+  `npm run lint:semantic`, `npm run test:semantic` (871 tests), and
+  `git diff --check`. This work is not in the already-cut `4.1.0-rc.1`
+  snapshot and requires a fresh release cut before odd_sdlc can consume it as
+  released ABI law.
+- [x] 2026-06-18: Replaced the rejected direct ABI hello-world proof with an
+  ABI-owned frozen odd_sdlc downstream compatibility lane. The copied fixture
+  was copied from `/Users/jim/src/apps/odd_sdlc/build_tenants/typescript` into
+  `build_tenants/abiogenesis/typescript/test_env/downstream/odd_sdlc_t132_frozen/`
+  and contains the odd_sdlc TypeScript T-132 sandbox source, excluding generated
+  dependency/build/archive artifacts. The ABI wrapper
+  `test_env/live/test_t159_odd_sdlc_t132_frozen_live.test.mjs` copies that
+  frozen source into a per-run working directory, rewrites the working copy's
+  `@abiogenesis/typescript-tenant` dependency to the current ABI TypeScript
+  package root, builds the frozen odd_sdlc copy, then imports its existing
+  `runScenarioSandbox(...)` and `t132HelloWorldJsLiveScenario(...)` surfaces.
+
+  This is the intended pre-RC proof shape: a real downstream ODD implementation
+  exercises the current GTL/ABG worktree before ABI cuts a release candidate.
+  The live lane installs GTL/ABG plus odd_sdlc into the sandbox, bootstraps the
+  T-132 JavaScript hello-world workspace, and runs the copied odd_sdlc live
+  `gaps -> start` loop against `process://claude`. Entry point:
+  `npm run test:t159:odd-sdlc-t132-live`.
+- [x] 2026-06-18: First execution of
+  `npm run test:t159:odd-sdlc-t132-live` correctly failed before any live LLM
+  call. The wrapper bound the frozen odd_sdlc working copy to the current ABI
+  TypeScript package root (`file:/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript`)
+  and then frozen odd_sdlc `npm run build:semantic` failed in its
+  `preflight:gtl` gate. The current T-159 compiler rejected the frozen
+  downstream graph program for missing traversal bind-conservation declarations:
+  missing intent-lineage refs, target-carrier binding refs, materialization
+  binding refs, carried obligation refs, residual pressure refs, staged
+  authority refs, downstream terminal pressure refs, and full obligation-delta
+  disposition coverage. Archive:
+  `build_tenants/abiogenesis/typescript/test_env/test_runs/t159_odd_sdlc_t132_frozen_live/20260618T133809233Z/`.
+  This is the intended pre-RC failure mode: the ABI compiler prevents a
+  downstream live run until the frozen odd_sdlc copy is updated to the new
+  GTL/ABG traversal-unit interface.
+- [x] 2026-06-19: Applied `DESIGN_MODULE_METHOD.md` to the traversal monad
+  boundary after the frozen odd_sdlc live lane exposed a second drift path:
+  staged pressure could expose a prior design-depth register while
+  materialization authority rejected the same register on a different
+  admission predicate. The consolidated correction keeps the invariant in the
+  existing `GtlProgramTraversalBindConservationRow` subordinate carrier by
+  adding admission-strength compatibility refs and compiler checks. Prompt
+  launch remains an effect-edge fail-fast guard; it no longer acts as the
+  semantic conformance source. The frozen odd_sdlc fixture now declares the
+  ABI admission-strength ref in its program inventory and derives construction
+  brief design-depth pressure from admitted design-depth evidence, not raw
+  predecessor register paths.
+- [x] 2026-06-19: Applied post-review hardening from the T-159 live-run review.
+  ABI now validates traversal bind-conservation rows before projection,
+  including unique conservation refs, resolved graph/vector identity, and
+  graph/vector ref coherence. The construction pressure package no longer mixes
+  pressure refs into `carriedObligationRefs`. The frozen odd_sdlc fixture now
+  fails closed on missing scoped review invocation scope, rejects downstream
+  pressure acceptance when the persisted assessment artifact is not passed,
+  applies materialization launch blocking across every required role, and binds
+  GTL traversal/conservation rows by graph/vector or host identity rather than
+  array position alone.
+- [x] 2026-06-19: Replaced full live convergence as the post-review gate with
+  targeted changed-path exercise after operator direction. Verification passed:
+  ABI `npm run build:semantic`; frozen odd_sdlc fixture
+  `npm run build:semantic`; ABI focused tests
+  `test_t127_fp_consciousness_loop_unit.test.mjs`,
+  `test_t139_construction_pressure_package.test.mjs`, and
+  `test_t150_gtl_program_conformance_tool.test.mjs` (118 tests); frozen
+  odd_sdlc changed-path tests
+  `test_t113_component_depth_register_admission.test.mjs`,
+  `test_t143_product_materialization_authority_targets.test.mjs`,
+  `test_t171_component_depth_target_carrier_envelope.test.mjs`,
+  `test_t192_evaluation_grid_prompt_contract.test.mjs`, and
+  `test_t194_gtl_program_conformance.test.mjs` (73 tests); targeted
+  design-depth admission subset from
+  `test_t181_fp_evaluator_design_register.test.mjs` (5 tests); and targeted
+  review-scope/status subset from
+  `test_t182_fp_review_grade_edge_fulfillment.test.mjs` (3 tests).
+- [x] 2026-06-19: Started the frozen odd_sdlc T-132 live lane after review
+  hardening and stopped it after the changed launch path was exercised. Archive:
+  `build_tenants/abiogenesis/typescript/test_env/test_runs/t159_odd_sdlc_t132_frozen_live/20260619T023242421Z`.
+  The run built the frozen fixture, bootstrapped the T-132 workspace, completed
+  Stage 1 `derive_lite_design_adr_surface` in 1:23.100 with a 13,833 byte worker
+  prompt, launched the design-depth F_P evaluator with a 26,192 byte prompt,
+  and was interrupted while postflight still reported the expected
+  `design_depth_fp_evaluator_pending` state. This is launch-path evidence, not
+  convergence evidence.

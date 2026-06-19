@@ -1,0 +1,20 @@
+{
+  "id": "a5af7e54-3bc4-4d73-9dc3-cc0ce2c83c88",
+  "workspaceRoot": "/Users/jim/src/apps/odd_sdlc/build_tenants/typescript/test_env/fixtures/data_mapper_induction",
+  "label": "sidecar shell",
+  "archived": false,
+  "status": "live",
+  "shell": "/bin/zsh -f -i",
+  "pid": 9809,
+  "backend": "python-pty-service",
+  "createdAt": "2026-05-05T00:16:29.446Z",
+  "lastOutputAt": "2026-05-05T00:16:31.966Z",
+  "attachedTrainId": "sidecar",
+  "attachedStationId": null,
+  "attachedEdgeId": null,
+  "conversationHistoryId": "oddterm_a5af7e54-3bc4-4d73-9dc3-cc0ce2c83c88",
+  "historyBytes": 1361,
+  "liveClientCount": 2,
+  "exitCode": null,
+  "signal": null
+}

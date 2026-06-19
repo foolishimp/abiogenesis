@@ -330,6 +330,23 @@ test("T-139 pressure package admits observed state, F_D outcome, overlay, and pr
   assert.deepEqual(pressurePackage.inputBasis.overlayFrameRefs, [
     "overlay-frame://t139/thread"
   ]);
+  assert.ok(
+    pressurePackage.inputBasis.intentLineageRefs.includes(
+      world.admission.admittedIntent.intentId
+    )
+  );
+  assert.deepEqual(pressurePackage.inputBasis.expectedOutputAssetRefs, [
+    "asset://t139/output"
+  ]);
+  assert.deepEqual(pressurePackage.inputBasis.carriedObligationRefs, [
+    "obligation://t139/source"
+  ]);
+  assert.deepEqual(pressurePackage.inputBasis.gapRefs, ["gap://t139/source"]);
+  assert.ok(
+    pressurePackage.inputBasis.lawfulBasisRefs.includes(
+      "authority://t139/source"
+    )
+  );
   assert.deepEqual(pressurePackage.pressureRefs.map((row) => row.pressureRef), [
     "pressure://t139/open-obligation"
   ]);
@@ -345,6 +362,18 @@ test("T-139 pressure package admits observed state, F_D outcome, overlay, and pr
     eventSequence: 3
   });
   assertRuntimeEvent(packageEvent);
+  assert.deepEqual(
+    packageEvent.intentLineageRefs,
+    pressurePackage.inputBasis.intentLineageRefs
+  );
+  assert.deepEqual(
+    packageEvent.carriedObligationRefs,
+    pressurePackage.inputBasis.carriedObligationRefs
+  );
+  assert.deepEqual(
+    packageEvent.expectedOutputAssetRefs,
+    pressurePackage.inputBasis.expectedOutputAssetRefs
+  );
   const invoked = constructConstructionGraphActionInvokedEvent({
     constructionEventRef: "construction-event://t139/invoked/0",
     admittedIntent: world.admission.admittedIntent,

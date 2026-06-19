@@ -76,6 +76,17 @@ classDiagram
     +promptAssets
     +pluginContracts
     +sourceIdentitySurfaces
+    +traversalBindConservation
+  }
+  class GtlProgramTraversalBindConservationRow {
+    <<subordinate row>>
+    +conservationRef
+    +intentLineageRefs
+    +targetCarrierBindingRefs
+    +materializationBindingRefs
+    +stagedAuthorityRefs
+    +admissionStrengthRefs
+    +allowedObligationDeltaFamilies
   }
   class GraphProgramSurfaces {
     <<GTL input surfaces>>
@@ -126,6 +137,7 @@ classDiagram
   FeatureOwnerClassifications --> GtlProgramFeatureCoverageRow : expected owner
   GtlProgramConformanceInput *-- GtlProgramCoverageCounts : expected counts
   GtlProgramConformanceInput *-- ProgramInventoryRows : supplied inventory
+  ProgramInventoryRows *-- GtlProgramTraversalBindConservationRow : rows
   GtlProgramConformanceInput *-- GraphProgramSurfaces : supplied GTL surfaces
   TypecheckGtlProgram --> GtlProgramConformanceInputAdmission : consumes
   TypecheckGtlProgram --> FeatureOwnerClassifications : consumes
@@ -137,4 +149,3 @@ classDiagram
   GtlProgramConformanceReport *-- GtlProgramConformanceIssue : reports
   CliWrapper --> TypecheckGtlProgram : delegates
 ```
-

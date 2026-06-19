@@ -1,0 +1,6 @@
+{
+  "kind": "odd_sdlc.data_mapper_reference_fixture",
+  "templateRoot": "test_env/fixtures/data_mapper_reference/data_mapper.template",
+  "internalFixtureOverride": "ODD_SDLC_DATA_MAPPER_TEMPLATE_ROOT",
+  "lane": "optional_reference_and_live_qualification_fixture"
+}

@@ -1,0 +1,20 @@
+project:
+  name: mindforge_ai_assistant_baseline_internal_assistant
+  kind: imported_workspace
+active_tenant: mindforge_ai_assistant
+selected_output_root: build_tenants/mindforge_ai_assistant
+ambiguity_risk_appetite: low
+runtime:
+  root: .ai-workspace/runtime/odd_sdlc
+  transform_asset_root: .ai-workspace/runtime/odd_sdlc/assets
+  operator_run_root: .ai-workspace/runtime/odd_sdlc/operator-runs
+  product_materialization_root_policy: selected_output_root
+build_tenants:
+  mindforge_ai_assistant:
+    output_dir: build_tenants/mindforge_ai_assistant
+    language: JavaScript
+    build_tool: node
+    test_runner: node
+    test_execution_contract: node src/index.js examples/use_case.json
+    module_structure:
+      - mindforge_ai_assistant

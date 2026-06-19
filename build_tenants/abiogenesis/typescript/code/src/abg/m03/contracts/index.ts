@@ -1029,6 +1029,8 @@ export {
 export {
   admitGtlProgramConformanceInput,
   formatGtlProgramConformanceIssues,
+  GTL_PROGRAM_BIND_ADMISSION_STRENGTH_COMPATIBILITY_REF,
+  GTL_PROGRAM_OBLIGATION_DELTA_FAMILY_VALUES,
   GTL_PROGRAM_T153_FEATURE_OWNER_CLASSIFICATIONS,
   GTL_PROGRAM_T153_FEATURE_KINDS,
   typecheckGtlProgram
@@ -1074,8 +1076,10 @@ export type {
   GtlProgramSourceIdentityRow,
   GtlProgramStageRegimeDisposition,
   GtlProgramStageRegimeDispositionRow,
+  GtlProgramObligationDeltaFamily,
   GtlProgramT153FeatureKind,
   GtlProgramTargetCarrierRow,
+  GtlProgramTraversalBindConservationRow,
   GtlProgramTraversalEntryUnitProjectionRow,
   GtlProgramTraversalUnitProjection,
   GtlProgramTraversalUnitProjectionRow

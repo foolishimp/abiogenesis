@@ -74,6 +74,13 @@ constitutional reprice, yielded continuation, block, gap stop, non-admit, or
 terminal projection. Product read models may interpret that truth; they do not
 own the bind.
 
+Bind conservation is also an admission-strength boundary. A materializing unit
+may not expose staged pressure through one admission predicate while allowing
+materialization authority to use another. The conservation basis must carry a
+compiler-visible admission-strength ref proving that staged authority and
+materialization binding are compatible for the same unit. Without that ref the
+unit fails static conformance before worker dispatch or prompt construction.
+
 `F_H` is external to the system. ABG may emit or admit a human-callout boundary
 and later admit a response event/carrier. The human-facing work surface is not
 an ABG plugin performing human work inside the runtime.
@@ -118,6 +125,8 @@ The implementation must reject:
 - any carrier or plugin output claiming to be a standalone `TraversalUnit`
   runtime controller;
 - treating `plugin.consequence.C` alone as traversal transition authority;
+- bind-conservation rows whose staged authority refs and materialization refs
+  are admitted through divergent or undeclared admission strength;
 - stage category contradictions against known plugin kinds;
 - `F_H` as an internal transform/evaluate/consequence compute regime;
 - plugin outcomes containing runtime events, ledger writes, transitions, vector

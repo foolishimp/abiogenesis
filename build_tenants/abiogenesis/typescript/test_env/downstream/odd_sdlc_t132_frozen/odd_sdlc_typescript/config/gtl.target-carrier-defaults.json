@@ -1,0 +1,41 @@
+{
+  "kind": "gtl_target_carrier_defaults_bundle",
+  "gtlDefaultsFamily": "gtl_defaults",
+  "version": 1,
+  "bundleRef": "defaults-bundle://gtl/reference/target-carriers",
+  "genericOutputTemplate": {
+    "templateRef": "gtl://target-carrier-template/generic-output",
+    "hookRefTemplate": "gtl-defaults:{templateRef}:{targetNodeRef}",
+    "contractRefTemplate": "gtl://target-carrier-contract/generic-output:{targetNodeRef}",
+    "outputSurfaceRefTemplate": "gtl://target-surface/{targetNodeRef}",
+    "outputCarrierFamilyRef": "gtl://target-carrier-family/generic",
+    "outputCarrierKindSource": "target_asset_surface_kind_or_name",
+    "envelopeContractRef": "gtl://target-carrier-envelope/generic",
+    "nestedPayloadPath": "payload",
+    "requiredFieldRefs": [
+      "kind",
+      "payload"
+    ],
+    "optionalFieldRefs": [],
+    "fixedProtocolFieldRefs": [
+      "kind"
+    ],
+    "workerFillableFieldRefs": [
+      "payload"
+    ],
+    "literalDomainRefTemplates": [
+      "kind:{outputCarrierKind}"
+    ],
+    "enumDomainRefs": [],
+    "schemaRefSource": "target_schema_ref",
+    "admissionRef": "gtl://target-carrier-admission/generic",
+    "payloadLedgerBindingRef": "abg://payload-ledger/target-carrier",
+    "edgeAssuranceBindingRef": "abg://edge-assurance/target-carrier",
+    "handoffProjectionRef": "gtl://target-carrier-handoff/generic",
+    "constructionTemplateRef": "gtl://target-carrier-template/generic-output",
+    "replayDigestPolicyRef": "abg://replay-digest/target-carrier",
+    "materializationPolicyRef": "gtl://materialization/target-carrier",
+    "closurePreconditionRef": "abg://closure-precondition/target-carrier-admitted",
+    "testCaseGenerationRef": "gtl://test-case-generation/target-carrier"
+  }
+}

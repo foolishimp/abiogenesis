@@ -1,50 +1,45 @@
-# abiogenesis 3.9.0-rc.8 Release Candidate Note
+# abiogenesis 4.1.0-rc.2 Release Candidate Note
 
-This checkpoint is the eighth TypeScript ABG `3.9.0` release candidate. It
-follows `3.9.0-rc.7` with owner-exit cleanup for PTY-supervised agent worker
-processes.
+This checkpoint is the second TypeScript ABG `4.1.0` release candidate. It
+follows `4.1.0-rc.1` with the T-159 traversal bind-boundary hardening needed by
+the ABI-owned frozen `odd_sdlc` T-132 hello-world proof lane.
 
-It is an RC candidate, not the final tapped `3.9.0` release.
+It is an RC candidate, not the final tapped `4.1.0` release.
 
 ## Release Claim
 
-The TypeScript tenant remains the package-first GTL/ABG RC candidate. RC6
-preserves the staged compute runtime law introduced in RC1, the proof-harness
-alignment from RC2, the evaluation-rule provenance fix from RC3, the runner/PTY
-corrections from RC4, and the canonical runtime event identity boundary from
-RC5. It then realizes the T-147 runtime-authority invariants inside ABG rather
-than leaving them as downstream adapter precedent. RC7 keeps that authority
-surface and hardens the worker process supervision path that executes those
-runtime plugin calls. RC8 closes the observed orphan class where the owning ABG
-runtime process exits while the detached PTY supervisor and local-spawned
-worker remain live.
+The TypeScript tenant remains the package-first GTL/ABG RC candidate. RC2 keeps
+the `4.1.0-rc.1` traversal-unit and consequence-boundary surface, then closes
+the observed gap where an SDLC edge could report semantic success while the
+next-edge target carrier was not admitted as a closed typed carrier.
 
-RC8 adds:
+RC2 adds:
 
-- PTY execution topology
-  `pty_terminal -> agent_supervisor -> local-spawn -> worker`, so the terminal
-  envelope no longer owns the worker directly;
-- supervisor-owned hard timeout, inactivity timeout, process-group cleanup, and
-  grace-period escalation for local-spawned workers;
-- trace-visible supervisor decisions:
-  `terminal_agent_supervisor_configured`,
-  `terminal_agent_supervisor_hard_timeout`, and
-  `terminal_agent_supervisor_inactivity_timeout`;
-- heartbeat/probe separation from progress lease reset: heartbeat can prove
-  liveness, but it no longer prevents inactivity from firing when no substantive
-  worker progress is observed;
-- propagated `inactivityTimeoutMs` through supervised process actor execution;
-- heartbeat-only silent worker proof that inactivity is exceeded;
-- PTY request archive hygiene: the generated supervisor request does not
-  serialize `env`, while the worker still inherits the supervisor process
-  environment normally;
-- owner PID projection into the PTY supervisor request;
-- supervisor-side owner-liveness polling, so a dead parent runtime causes the
-  supervisor to terminate the worker process group and escalate to `SIGKILL`
-  after the declared grace interval;
-- host-signal shutdown escalation for the same worker process group;
-- package version advancement to `3.9.0-rc.8` for downstream consumers that
-  need the corrected worker-supervision boundary and owner-exit cleanup.
+- fail-fast postflight blocking for design-depth evaluator target-carrier
+  pending or invalid states;
+- fail-fast postflight blocking for component-depth register target-carrier
+  admission failures;
+- UAT/component test prompt authority requiring `testClassId`, `relativePath`,
+  `shardId`, `testcaseIds`, `componentIds`, and `requirementIds` in
+  `componentTestRows`;
+- prompt-surface pruning so transform and retry prompts start from the smallest
+  governing authority packet instead of global SDLC reconstruction;
+- row-level traversal bind-conservation validation for unique conservation refs,
+  resolved graph/vector identity, and graph/vector ref coherence before
+  projection;
+- pressure-package lineage cleanup so `carriedObligationRefs` remains obligation
+  identity and pressure identity stays in `pressureRefs`;
+- frozen `odd_sdlc` review/evaluation hardening: scoped review prompts fail
+  closed without admitted invocation scope, downstream-pressure acceptance no
+  longer reports passed beside a blocked assessment artifact, product
+  materialization launch blocking covers every required role, and GTL adapter
+  wiring keys target carriers and composition rows by graph/vector or host
+  identity instead of array position alone;
+- an ABI-owned frozen `odd_sdlc` T-132 live fixture that exercises the current
+  ABG source package against a downstream hello-world application before RC
+  release;
+- package version advancement to `4.1.0-rc.2` for downstream consumers that
+  need the corrected bind-boundary and target-carrier admission behavior.
 
 ## Boundary
 
@@ -71,50 +66,70 @@ ABG.start(fn<A, B>.C)
   .bind(system.replayContinuation)
 ```
 
-RC6 does not introduce a new GTL ontology object, a public `ComputeUnit`
-aggregate, a public `Vector` execution target, or product-owned ABG system
-effects. The new surfaces are ABG runtime projections and admission/fold
-mechanics over existing retry frontier, payload ledger, and target-carrier
-authority law.
+RC2 does not introduce a new GTL ontology object or move downstream product
+meaning into ABG. The change is an ABG/GTL bind-boundary enforcement update:
+stage pressure, materialization authority, and target-carrier admission must
+agree before closure can advance.
 
 ## Versioned Artifacts
 
 - RC branch: `main`
-- RC identity: `3.9.0-rc.8`
-- Candidate package version: `3.9.0-rc.8`
-- Candidate tag: `v3.9.0-rc.8`
+- RC identity: `4.1.0-rc.2`
+- Candidate package version: `4.1.0-rc.2`
+- Candidate tag: `v4.1.0-rc.2`
 
 ## Verification
 
 Current qualification evidence for this cut:
 
 ```text
-npm run build:semantic
-passed
+ABI semantic build:
+  npm run build:semantic
+  passed
 
-npm run lint:semantic
-passed
+frozen odd_sdlc fixture semantic build:
+  npm run build:semantic
+  passed
 
-npm run lint:test-harness
-passed
+ABI changed-path tests:
+  node --test \
+    test_env/tests/test_t127_fp_consciousness_loop_unit.test.mjs \
+    test_env/tests/test_t139_construction_pressure_package.test.mjs \
+    test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs
+  passed, 118 tests, 0 failures
 
-npm run test:t147
-7 passed
+frozen odd_sdlc changed-path tests:
+  node --test \
+    test_t113_component_depth_register_admission.test.mjs \
+    test_t143_product_materialization_authority_targets.test.mjs \
+    test_t171_component_depth_target_carrier_envelope.test.mjs \
+    test_t192_evaluation_grid_prompt_contract.test.mjs \
+    test_t194_gtl_program_conformance.test.mjs
+  passed, 73 tests, 0 failures
 
-node --test test_env/tests/test_t111_pty_terminal_executor.test.mjs \
-  test_env/tests/test_t097_supervised_process_actor.test.mjs \
-  test_env/tests/test_t129_runtime_liveness_observer.test.mjs
-25 passed
+frozen odd_sdlc design-depth admission subset:
+  node --test --test-name-pattern \
+    'T-181 F_P evaluator register truth ...|T-203 component-code targets ...' \
+    test_t181_fp_evaluator_design_register.test.mjs
+  passed, 5 tests, 0 failures
 
-npm run test:semantic
-658 passed
-
-npm pack --dry-run
-passed, package `3.9.0-rc.8`, 388 entries
-
-git diff --check
-passed
+frozen odd_sdlc review-scope/status subset:
+  node --test --test-name-pattern \
+    'T-182 review-grade prompt ...|T-203 scoped review-grade prompt ...|T-200 compact review-grade prompt ...' \
+    test_t182_fp_review_grade_edge_fulfillment.test.mjs
+  passed, 3 tests, 0 failures
 ```
+
+The post-review live lane was started and then stopped after the changed launch
+path had been exercised, per operator direction to avoid a full live run. Run
+archive:
+`build_tenants/abiogenesis/typescript/test_env/test_runs/t159_odd_sdlc_t132_frozen_live/20260619T023242421Z`.
+It built the frozen fixture, bootstrapped the T-132 workspace, completed Stage 1
+`derive_lite_design_adr_surface` worker execution in 1:23.100 with a 13,833
+byte prompt, launched the design-depth F_P evaluator with a 26,192 byte prompt,
+and was interrupted while postflight still reported the expected
+`design_depth_fp_evaluator_pending` state. This archive is launch-path evidence,
+not convergence evidence.
 
 The release snapshot command rebuilds the semantic package, runs `npm pack`,
 copies this release note, and writes manifest plus checksum evidence into the
@@ -122,14 +137,9 @@ immutable local snapshot directory.
 
 ## RC Decision
 
-The release operator preserves `3.9.0-rc.1` as the first staged-compute runtime
-candidate, `3.9.0-rc.2` as the live-proof harness alignment candidate,
-`3.9.0-rc.3` as the ABG-owned actor invocation provenance candidate, RC4 as the
-downstream live-lane runner and PTY stability candidate, RC5 as the event-source
-identity and millisecond timestamp boundary candidate, and RC6 as the
-runtime-authority wiring candidate for retry freshness, output authority, and
-projection-output admission before closure. RC7 is the worker-supervision
-candidate for PTY/local-spawn topology, heartbeat/progress separation, and
-bounded process cleanup. RC8 is the owner-exit cleanup candidate that prevents
-detached PTY supervisors from leaving local-spawned workers behind after the
-owning runtime is interrupted.
+RC2 is the bind-boundary enforcement candidate. It treats a hello-world failure
+as a product bug at the ABG/GTL boundary, not as downstream tolerance. The root
+cause was under-bound target-carrier admission across deterministic and
+probabilistic phases: review/evaluation could pass while the next-edge carrier
+was not admitted strongly enough for traversal. Prompt overbreadth was a
+secondary latency bug and has been pruned where it affected this proof lane.

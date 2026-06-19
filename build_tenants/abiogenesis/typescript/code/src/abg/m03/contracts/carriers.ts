@@ -2176,8 +2176,13 @@ export interface ConstructionPressurePackageMaterializedEvent
   readonly pressureRefs: readonly string[];
   readonly fdOutcomeRefs: readonly string[];
   readonly overlayFrameRefs: readonly string[];
+  readonly intentLineageRefs: readonly string[];
+  readonly expectedOutputAssetRefs: readonly string[];
+  readonly carriedObligationRefs: readonly string[];
+  readonly gapRefs: readonly string[];
   readonly targetStateRefs: readonly string[];
   readonly priorEvidenceRefs: readonly string[];
+  readonly lawfulBasisRefs: readonly string[];
   readonly obligationPolicyRefs: readonly string[];
 }
 

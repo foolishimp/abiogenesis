@@ -101,6 +101,13 @@ after ABG admits the consequence, derives traversal transition, and replays the
 continuation. This removes the ambiguity between product-owned triage evidence
 and ABG-owned traversal authority.
 
+The traversal function preserves intent through lineage. A traversal unit is
+interpretable as `traverse<A, B>(intent_lineage, context, A) -> (B,
+obligation_delta)`, where the obligation delta accounts for each carried
+obligation as realized, refined, deferred, blocked, repriced, preserved as
+no-close pressure, or terminally projected. ABG bind must not collapse that
+lineage into scalar edge success before the next unit materializes work.
+
 The worker, tool, agent, or domain implementation owns the internal HOW inside
 the declared traversal boundary.
 

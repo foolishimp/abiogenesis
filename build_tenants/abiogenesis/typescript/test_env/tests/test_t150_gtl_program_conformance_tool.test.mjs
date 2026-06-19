@@ -31,6 +31,7 @@ import {
   fan_in,
   fan_out,
   gate,
+  GTL_PROGRAM_BIND_ADMISSION_STRENGTH_COMPATIBILITY_REF,
   GTL_PROGRAM_T153_FEATURE_OWNER_CLASSIFICATIONS,
   GTL_PROGRAM_T153_FEATURE_KINDS,
   identity,
@@ -46,6 +47,16 @@ import {
 } from "../../build/semantic/code/src/cli/command.js";
 
 const ABG_VERSION = "4.0.0-rc.3";
+const OBLIGATION_DELTA_FAMILIES = Object.freeze([
+  "realized",
+  "refined",
+  "downstream_deferred",
+  "blocked",
+  "reentered",
+  "repriced",
+  "no_close_preserved",
+  "terminal_projected"
+]);
 
 function assetSurface(overrides = {}) {
   return constructAssetSurface({
@@ -182,8 +193,8 @@ function graphFunctionFixture(options = {}) {
   const graphName = options.graphName ?? "PromptConstructionGraph";
   const inputName = options.inputName ?? "PromptAuthorityPacket";
   const outputName = options.outputName ?? "PromptInvocationAsset";
-  const input = node(inputName);
-  const output = node(outputName);
+  const input = node(inputName, options.inputSurface ?? assetSurface());
+  const output = node(outputName, options.outputSurface ?? assetSurface());
   const vector = constructGraphVector({
     name: vectorName,
     source: [input],
@@ -382,10 +393,90 @@ function targetCarrierContractRow(input) {
   };
 }
 
+function vectorProgramRef(graphFunction, vector) {
+  return vector.name === graphFunction.name
+    ? graphFunction.name
+    : `${graphFunction.name}/${vector.name}`;
+}
+
+function graphVectorIdentityHostRef(graphFunction, graph, vector) {
+  return [
+    graphFunction.name,
+    graph.name,
+    vector.name
+  ].join("/") + `#${graphFunction.id}:${graph.id}:${vector.id}`;
+}
+
+function stageBindingRefsFor(graphFunction, vector) {
+  const programRef = vectorProgramRef(graphFunction, vector);
+  return [
+    `stage-binding://t150/${programRef}/transform.C`,
+    `stage-binding://t150/${programRef}/evaluate.C`,
+    `stage-binding://t150/${programRef}/consequence.C`
+  ];
+}
+
+function traversalBindConservationRow(input) {
+  const programRef = vectorProgramRef(input.graphFunction, input.vector);
+  return {
+    conservationRef:
+      input.conservationRef ??
+      `bind-conservation://t159/${programRef}/intent-lineage`,
+    graphFunctionRef: input.graphFunction.name,
+    graphRef: input.graph.name,
+    graphVectorRef: input.vector.name,
+    graphFunctionId: input.graphFunction.id,
+    graphId: input.graph.id,
+    graphVectorId: input.vector.id,
+    intentLineageRefs: input.intentLineageRefs ?? [
+      `intent-lineage://t159/${programRef}/input`,
+      `lineage://t159/${programRef}/authority`
+    ],
+    targetCarrierBindingRefs: input.targetCarrierBindingRefs ?? [
+      input.targetCarrier.targetCarrierContractRef
+    ],
+    materializationBindingRefs: input.materializationBindingRefs ?? [
+      input.targetCarrier.materializationPolicyRef
+    ],
+    carriedObligationRefs: input.carriedObligationRefs ?? [
+      `obligation://t159/${programRef}/target-contract`
+    ],
+    residualPressureRefs: input.residualPressureRefs ?? [
+      `pressure://t159/${programRef}/open-obligation`
+    ],
+    stagedAuthorityRefs: input.stagedAuthorityRefs ?? stageBindingRefsFor(
+      input.graphFunction,
+      input.vector
+    ),
+    admissionStrengthRefs: input.admissionStrengthRefs ?? [
+      GTL_PROGRAM_BIND_ADMISSION_STRENGTH_COMPATIBILITY_REF
+    ],
+    downstreamTerminalPressureRefs: input.downstreamTerminalPressureRefs ?? [
+      `terminal-pressure://t159/${programRef}/terminal`
+    ],
+    allowedObligationDeltaFamilies:
+      input.allowedObligationDeltaFamilies ?? OBLIGATION_DELTA_FAMILIES,
+    evidenceRefs: input.evidenceRefs ?? [
+      `test://t159/${programRef}/bind-conservation`
+    ]
+  };
+}
+
+function traversalBindConservationRows(input) {
+  return input.vectors.map((vector, index) => {
+    const targetCarrier = input.targetCarrierContracts[index];
+    assert.notEqual(targetCarrier, undefined);
+    return traversalBindConservationRow({
+      graphFunction: input.graphFunction,
+      graph: input.graph,
+      vector,
+      targetCarrier
+    });
+  });
+}
+
 function runtimeReentryRouteRow(input) {
-  const programRef = input.vector.name === input.graphFunction.name
-    ? input.graphFunction.name
-    : `${input.graphFunction.name}/${input.vector.name}`;
+  const programRef = vectorProgramRef(input.graphFunction, input.vector);
   return {
     routeRef: `runtime-reentry://t150/${programRef}/upstream-reentry`,
     repairSurfaceDisposition: "upstream_reentry",
@@ -578,11 +669,8 @@ function completeFeatureRows(input) {
   assert.notEqual(candidateFamily, undefined);
   const compositionRef = `abg.fn_composition://t150/${programRef}/default`;
   const compositionDigest = "sha256:composition";
-  const stageBindingRefs = [
-    `stage-binding://t150/${programRef}/transform.C`,
-    `stage-binding://t150/${programRef}/evaluate.C`,
-    `stage-binding://t150/${programRef}/consequence.C`
-  ];
+  const stageBindingRefs = stageBindingRefsFor(graphFunction, vector);
+  const vectorHostRef = graphVectorIdentityHostRef(graphFunction, graph, vector);
   const pluginResultIdentityFieldRefs = [
     "compositionRef",
     "compositionDigest",
@@ -650,7 +738,7 @@ function completeFeatureRows(input) {
         regime: operatorEntry.regime,
         binding: operatorEntry.binding,
         hostKind: "graph_vector",
-        hostRef: vector.name,
+        hostRef: vectorHostRef,
         tagRefs: operatorEntry.tags,
         evidenceRefs: ["test://t150/operator"]
       }
@@ -664,7 +752,7 @@ function completeFeatureRows(input) {
         binding: evaluatorEntry.binding,
         consumedFieldRefs: evaluatorEntry.consumedFieldRefs,
         hostKind: "graph_vector",
-        hostRef: vector.name,
+        hostRef: vectorHostRef,
         tagRefs: evaluatorEntry.tags,
         evidenceRefs: ["test://t150/evaluator"]
       }
@@ -676,7 +764,7 @@ function completeFeatureRows(input) {
         ruleKind: ruleEntry.kind,
         configDigest: "sha256:rule-config",
         hostKind: "graph_vector",
-        hostRef: vector.name,
+        hostRef: vectorHostRef,
         tagRefs: ruleEntry.tags,
         evidenceRefs: ["test://t150/rule"]
       }
@@ -686,7 +774,7 @@ function completeFeatureRows(input) {
         compositionRef,
         compositionDigest,
         hostKind: "graph_vector",
-        hostRef: vector.name,
+        hostRef: vectorHostRef,
         declarationSourceKind: "visible_defaults",
         declarationSourceRef: `visible-defaults://t150/${programRef}/composition`,
         notationRefs: [
@@ -849,7 +937,7 @@ function completeFeatureRows(input) {
         hookRef: `hook://t150/${programRef}/fp-dispatch`,
         hookKey: "abg.fp_consciousness",
         hostKind: "graph_vector",
-        hostRef: vector.name,
+        hostRef: vectorHostRef,
         declarationSourceKind: "visible_defaults",
         declarationRef: `visible-defaults://t150/${programRef}/hook`,
         precedenceRank: 5,
@@ -958,13 +1046,26 @@ function compliantInput(overrides = {}, options = {}) {
   const outputName = options.outputName ?? "PromptInvocationAsset";
   const { graphFunction, graph, vector } = graphFunctionIdentity(options);
   const module = moduleFixture(graphFunction);
-  const promptSurface = assetSurface();
+  const promptSurface = options.promptSurface ?? options.outputSurface ?? assetSurface();
   const featureRows = completeFeatureRows({
     graphFunction,
     graph,
     vector,
     module
   });
+  const targetCarrierContracts = [
+    targetCarrierContractRow({
+      edgeRef: graphFunctionName,
+      graphVectorRef: vectorName,
+      graphFunction,
+      graph,
+      vector,
+      targetAssetType: outputName,
+      targetCarrierContractRef:
+        options.targetCarrierContractRef ??
+        "gtl://target-carrier-contract/t150/prompt-invocation"
+    })
+  ];
   return {
     subjectRef: "workspace://t150/program-conformance-tool",
     abiPackageVersion: ABG_VERSION,
@@ -972,17 +1073,7 @@ function compliantInput(overrides = {}, options = {}) {
     featureCoverageManifest: featureCoverageManifest(),
     catalogGraphFunctionRefs: [graphFunctionName],
     modules: [module],
-    targetCarrierContracts: [
-      targetCarrierContractRow({
-        edgeRef: graphFunctionName,
-        graphVectorRef: vectorName,
-        graphFunction,
-        graph,
-        vector,
-        targetAssetType: outputName,
-        targetCarrierContractRef: "gtl://target-carrier-contract/t150/prompt-invocation"
-      })
-    ],
+    targetCarrierContracts,
     edgeClosureContracts: [
       {
         edgeRef: graphFunctionName,
@@ -1022,6 +1113,12 @@ function compliantInput(overrides = {}, options = {}) {
       }
     ],
     pluginContracts: [pluginContract()],
+    traversalBindConservation: traversalBindConservationRows({
+      graphFunction,
+      graph,
+      vectors: [vector],
+      targetCarrierContracts
+    }),
     sourceIdentitySurfaces: [
       {
         surfaceRef: "workspace://code/current.ts",
@@ -1168,6 +1265,12 @@ function multiVectorCompliantInput(overrides = {}) {
     modules: [module],
     targetCarrierContracts,
     edgeClosureContracts,
+    traversalBindConservation: traversalBindConservationRows({
+      graphFunction,
+      graph,
+      vectors,
+      targetCarrierContracts
+    }),
     overlays: [
       {
         overlayRef: "overlay://t159/pipeline",
@@ -1275,6 +1378,19 @@ function syntheticDownstreamEntryUnitInput() {
     modules: [bootstrapModule, ticketModule],
     targetCarrierContracts,
     edgeClosureContracts,
+    traversalBindConservation: traversalBindConservationRows({
+      graphFunction: bootstrap.graphFunction,
+      graph: bootstrap.graph,
+      vectors: [bootstrap.vector],
+      targetCarrierContracts: [targetCarrierContracts[0]]
+    }).concat(
+      traversalBindConservationRows({
+        graphFunction: ticket.graphFunction,
+        graph: ticket.graph,
+        vectors: [ticket.vector],
+        targetCarrierContracts: [targetCarrierContracts[1]]
+      })
+    ),
     overlays: [
       {
         overlayRef: "overlay://t159/bootstrap",
@@ -1456,11 +1572,33 @@ test("T-159 GTL program typechecker projects traversal-unit law", () => {
   assert.deepEqual(unit.targetCarrierContractRefs, [
     "gtl://target-carrier-contract/t150/prompt-invocation"
   ]);
+  assert.deepEqual(unit.materializationPolicyRefs, [
+    "materialization://t150/target-carrier/PromptInvocationAsset"
+  ]);
   assert.equal(unit.edgeClosureRef, "construct_prompt_invocation");
   assert.deepEqual(unit.edgeClosureRefs, ["construct_prompt_invocation"]);
   assert.equal(unit.computeCompositionRefs.length, 1);
   assert.equal(unit.computeStageBindingRefs.length, 3);
   assert.equal(unit.pluginResultInterfaceRefs.length, 3);
+  assert.match(
+    unit.conservationBasisRef,
+    /^bind-conservation:\/\/t159\/construct_prompt_invocation\/intent-lineage/u
+  );
+  assert.deepEqual(unit.targetCarrierBindingRefs, [
+    "gtl://target-carrier-contract/t150/prompt-invocation"
+  ]);
+  assert.deepEqual(unit.materializationBindingRefs, [
+    "materialization://t150/target-carrier/PromptInvocationAsset"
+  ]);
+  assert.deepEqual(
+    unit.allowedObligationDeltaFamilies,
+    [...OBLIGATION_DELTA_FAMILIES].sort()
+  );
+  assert.equal(unit.intentLineageRefs.length, 2);
+  assert.equal(unit.carriedObligationRefs.length, 1);
+  assert.equal(unit.residualPressureRefs.length, 1);
+  assert.equal(unit.stagedAuthorityRefs.length, 3);
+  assert.equal(unit.downstreamTerminalPressureRefs.length, 1);
   assert.match(
     unit.allowedConsequenceTraversalCatalogRef,
     /^allowed-consequence-traversal-catalog:/u
@@ -1473,6 +1611,65 @@ test("T-159 GTL program typechecker projects traversal-unit law", () => {
   assert.deepEqual(
     report.traversalUnitProjection.entryUnits[0]?.entryUnitRefs,
     [unit.unitRef]
+  );
+});
+
+test("T-159 GTL program typechecker admits a JS hello-world materialization unit", () => {
+  const outputSurface = assetSurface({
+    kind: "javascript_program",
+    requiredContexts: ["workspace", "node_runtime"],
+    standardsRefs: ["standard://javascript/node/hello-world"],
+    outputContractRefs: ["contract://t159/hello-world-js/index-js"],
+    constructorRefs: ["constructor://t159/hello-world-js/materializer"],
+    constructorInputAssetKinds: ["hello_world_intent"],
+    proofObligationRefs: [
+      "proof://t159/hello-world-js/file-materialized",
+      "proof://t159/hello-world-js/node-stdout"
+    ]
+  });
+  const report = typecheckGtlProgram(
+    compliantInput(
+      {},
+      {
+        graphFunctionName: "construct_hello_world_js",
+        vectorName: "intent_to_hello_world_js",
+        graphName: "HelloWorldJsConstructionGraph",
+        inputName: "HelloWorldIntent",
+        outputName: "HelloWorldJsProgram",
+        inputSurface: assetSurface({
+          kind: "hello_world_intent",
+          outputContractRefs: ["contract://t159/hello-world-js/intent"]
+        }),
+        outputSurface,
+        promptSurface: outputSurface,
+        targetCarrierContractRef:
+          "gtl://target-carrier-contract/t159/hello-world-js/index-js"
+      }
+    )
+  );
+
+  assert.equal(report.passed, true, formatGtlProgramConformanceIssues(report.issues));
+  assert.equal(report.traversalUnitProjection.units.length, 1);
+  const unit = report.traversalUnitProjection.units[0];
+  assert.notEqual(unit, undefined);
+  assert.equal(unit?.graphFunctionRef, "construct_hello_world_js");
+  assert.equal(unit?.graphVectorRef, "intent_to_hello_world_js");
+  assert.deepEqual(unit?.sourceAssetTypes, ["HelloWorldIntent"]);
+  assert.equal(unit?.targetAssetType, "HelloWorldJsProgram");
+  assert.deepEqual(unit?.targetCarrierContractRefs, [
+    "gtl://target-carrier-contract/t159/hello-world-js/index-js"
+  ]);
+  assert.deepEqual(unit?.materializationPolicyRefs, [
+    "materialization://t150/target-carrier/HelloWorldJsProgram"
+  ]);
+  assert.deepEqual(
+    unit?.allowedObligationDeltaFamilies,
+    [...OBLIGATION_DELTA_FAMILIES].sort()
+  );
+  assert.equal(report.traversalUnitProjection.entryUnits.length, 1);
+  assert.deepEqual(
+    report.traversalUnitProjection.entryUnits[0]?.entryUnitRefs,
+    [unit?.unitRef]
   );
 });
 
@@ -3136,6 +3333,28 @@ test("T-150 GTL program typechecker uses opaque vector identity, not display lab
       module: secondModule
     })
   );
+  const targetCarrierContracts = [
+    targetCarrierContractRow({
+      edgeRef: first.graphFunction.name,
+      graphVectorRef: first.vector.name,
+      graphFunction: first.graphFunction,
+      graph: first.graph,
+      vector: first.vector,
+      targetAssetType: first.vector.target.name,
+      targetCarrierContractRef:
+        "gtl://target-carrier-contract/t150/prompt-invocation/one"
+    }),
+    targetCarrierContractRow({
+      edgeRef: second.graphFunction.name,
+      graphVectorRef: second.vector.name,
+      graphFunction: second.graphFunction,
+      graph: second.graph,
+      vector: second.vector,
+      targetAssetType: second.vector.target.name,
+      targetCarrierContractRef:
+        "gtl://target-carrier-contract/t150/prompt-invocation/two"
+    })
+  ];
   const report = typecheckGtlProgram(
     compliantInput({
       expectedCoverage: expectedCoverage({
@@ -3150,28 +3369,7 @@ test("T-150 GTL program typechecker uses opaque vector identity, not display lab
         second.graphFunction.name
       ],
       modules: [firstModule, secondModule],
-      targetCarrierContracts: [
-        targetCarrierContractRow({
-          edgeRef: first.graphFunction.name,
-          graphVectorRef: first.vector.name,
-          graphFunction: first.graphFunction,
-          graph: first.graph,
-          vector: first.vector,
-          targetAssetType: first.vector.target.name,
-          targetCarrierContractRef:
-            "gtl://target-carrier-contract/t150/prompt-invocation/one"
-        }),
-        targetCarrierContractRow({
-          edgeRef: second.graphFunction.name,
-          graphVectorRef: second.vector.name,
-          graphFunction: second.graphFunction,
-          graph: second.graph,
-          vector: second.vector,
-          targetAssetType: second.vector.target.name,
-          targetCarrierContractRef:
-            "gtl://target-carrier-contract/t150/prompt-invocation/two"
-        })
-      ],
+      targetCarrierContracts,
       edgeClosureContracts: [
         {
           edgeRef: first.graphFunction.name,
@@ -3188,6 +3386,19 @@ test("T-150 GTL program typechecker uses opaque vector identity, not display lab
           targetAssetType: second.vector.target.name
         }
       ],
+      traversalBindConservation: traversalBindConservationRows({
+        graphFunction: first.graphFunction,
+        graph: first.graph,
+        vectors: [first.vector],
+        targetCarrierContracts: [targetCarrierContracts[0]]
+      }).concat(
+        traversalBindConservationRows({
+          graphFunction: second.graphFunction,
+          graph: second.graph,
+          vectors: [second.vector],
+          targetCarrierContracts: [targetCarrierContracts[1]]
+        })
+      ),
       overlays: [
         {
           overlayRef: "overlay://t150/default",
@@ -3450,11 +3661,22 @@ test("T-159 GTL program typechecker exports traversal-unit report types in publi
     contractDeclarationSource,
     /GtlProgramTraversalUnitProjection/u
   );
+  assert.match(
+    contractDeclarationSource,
+    /GtlProgramTraversalBindConservationRow/u
+  );
+  assert.match(contractDeclarationSource, /GtlProgramObligationDeltaFamily/u);
   assert.match(contractDeclarationSource, /targetCarrierContractRefs/u);
+  assert.match(contractDeclarationSource, /conservationBasisRefs/u);
+  assert.match(contractDeclarationSource, /allowedObligationDeltaFamilies/u);
   assert.match(contractDeclarationSource, /edgeClosureRefs/u);
   assert.match(
     contractBarrelSource,
     /GtlProgramTraversalUnitProjectionRow/u
+  );
+  assert.match(
+    contractBarrelSource,
+    /GtlProgramTraversalBindConservationRow/u
   );
 });
 
@@ -3526,6 +3748,183 @@ test("T-159 GTL program typechecker reports traversal-unit issues as typed rows"
     /^abg:\/\/gtl-program\/traversal-unit\/sha256:/u
   );
   assert.equal(report.traversalUnitProjection.units.length, 1);
+});
+
+test("T-159 GTL program typechecker rejects traversal units without bind conservation", () => {
+  const report = typecheckGtlProgram(
+    compliantInput({
+      traversalBindConservation: []
+    })
+  );
+  const ruleRefs = issueRuleRefs(report);
+
+  assert.equal(report.passed, false);
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/traversal-unit/bind-conservation-required"
+    )
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/traversal-unit/bind-conservation-intent-lineage"
+    )
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/traversal-unit/bind-conservation-carried-obligation"
+    )
+  );
+});
+
+test("T-159 GTL program typechecker rejects incomplete bind conservation coverage", () => {
+  const base = compliantInput();
+  const targetCarrier = base.targetCarrierContracts[0];
+  const graphFunction = base.modules[0]?.graphFunctions[0];
+  assert.notEqual(targetCarrier, undefined);
+  assert.notEqual(graphFunction, undefined);
+  const graph = materializeGraphFunction(graphFunction);
+  const vector = graph.vectors[0];
+  assert.notEqual(vector, undefined);
+  const report = typecheckGtlProgram(
+    compliantInput({
+      traversalBindConservation: [
+        traversalBindConservationRow({
+          graphFunction,
+          graph,
+          vector,
+          targetCarrier,
+          targetCarrierBindingRefs: [],
+          materializationBindingRefs: [],
+          stagedAuthorityRefs: [],
+          admissionStrengthRefs: [],
+          allowedObligationDeltaFamilies: ["realized"]
+        })
+      ]
+    })
+  );
+  const ruleRefs = issueRuleRefs(report);
+
+  assert.equal(report.passed, false);
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/traversal-unit/bind-conservation-target-carrier-binding"
+    )
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/traversal-unit/bind-conservation-materialization-binding"
+    )
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/traversal-unit/bind-conservation-target-carrier-coverage"
+    )
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/traversal-unit/bind-conservation-materialization-coverage"
+    )
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/traversal-unit/bind-conservation-stage-coverage"
+    )
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/traversal-unit/bind-conservation-admission-strength"
+    )
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/traversal-unit/obligation-delta-disposition-coverage"
+    )
+  );
+});
+
+test("T-159 GTL program typechecker rejects divergent bind admission strength", () => {
+  const base = compliantInput();
+  const targetCarrier = base.targetCarrierContracts[0];
+  const graphFunction = base.modules[0]?.graphFunctions[0];
+  assert.notEqual(targetCarrier, undefined);
+  assert.notEqual(graphFunction, undefined);
+  const graph = materializeGraphFunction(graphFunction);
+  const vector = graph.vectors[0];
+  assert.notEqual(vector, undefined);
+  const report = typecheckGtlProgram(
+    compliantInput({
+      traversalBindConservation: [
+        traversalBindConservationRow({
+          graphFunction,
+          graph,
+          vector,
+          targetCarrier,
+          admissionStrengthRefs: [
+            "admission-strength://abg/stage-pressure-observed"
+          ]
+        })
+      ]
+    })
+  );
+  const ruleRefs = issueRuleRefs(report);
+
+  assert.equal(report.passed, false);
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/traversal-unit/bind-conservation-admission-strength"
+    )
+  );
+  assert.match(
+    formatGtlProgramConformanceIssues(report.issues),
+    /materialization-stage-compatible/u
+  );
+});
+
+test("T-159 GTL program typechecker rejects unattached bind conservation inventory rows", () => {
+  const base = multiVectorCompliantInput();
+  const first = base.traversalBindConservation[0];
+  const second = base.traversalBindConservation[1];
+  assert.notEqual(first, undefined);
+  assert.notEqual(second, undefined);
+  const report = typecheckGtlProgram({
+    ...base,
+    traversalBindConservation: [
+      ...base.traversalBindConservation,
+      {
+        ...first,
+        conservationRef: "bind-conservation://t159/dangling",
+        graphVectorRef: "missing_pipeline_vector",
+        graphVectorId: "graph-vector://t159/missing"
+      },
+      {
+        ...first,
+        conservationRef: "bind-conservation://t159/ref-mismatch",
+        graphVectorRef: "wrong_pipeline_vector_name"
+      },
+      {
+        ...second,
+        conservationRef: first.conservationRef
+      }
+    ]
+  });
+  const ruleRefs = issueRuleRefs(report);
+
+  assert.equal(report.passed, false);
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/traversal-bind-conservation/no-orphan-row"
+    )
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/traversal-bind-conservation/graph-vector-ref-match"
+    )
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/traversal-bind-conservation/unique-conservation-ref"
+    )
+  );
 });
 
 test("T-159 GTL program CLI emits traversal-unit issue projection for invalid public start", async () => {

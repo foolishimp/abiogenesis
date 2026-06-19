@@ -1,0 +1,97 @@
+{
+  "kind": "sdlc_tenant_technology_stack_description",
+  "language": "Scala",
+  "languageVersion": "2.13.12",
+  "runtime": "JVM 11+",
+  "buildTool": "sbt",
+  "sourceRoots": [
+    "cdme-core/src/main/scala",
+    "cdme-compiler/src/main/scala",
+    "cdme-assurance/src/main/scala",
+    "cdme-executor/src/main/scala",
+    "cdme-adjoint/src/main/scala",
+    "cdme-accounting/src/main/scala",
+    "cdme-fidelity/src/main/scala",
+    "cdme-engine/src/main/scala"
+  ],
+  "buildConfigTargets": [
+    "build.sbt",
+    "project/"
+  ],
+  "buildCommands": [
+    "sbt compile"
+  ],
+  "proofCommands": [
+    "sbt test"
+  ],
+  "evidenceFormat": "process-exit",
+  "cleanupRules": [
+    "target/",
+    "project/target/"
+  ],
+  "toolEnvironment": {
+    "disabledTools": [
+      "python",
+      "python3",
+      "pip",
+      "pip3"
+    ],
+    "workspaceLocalDirectories": [
+      ".ai-workspace/runtime/odd_sdlc/tool-cache/sbt-boot",
+      ".ai-workspace/runtime/odd_sdlc/tool-cache/sbt-global",
+      ".ai-workspace/runtime/odd_sdlc/tool-cache/ivy2",
+      ".ai-workspace/runtime/odd_sdlc/tool-cache/coursier"
+    ],
+    "environmentVariables": {
+      "COURSIER_CACHE": "${workspaceRoot}/.ai-workspace/runtime/odd_sdlc/tool-cache/coursier",
+      "IVY_HOME": "${workspaceRoot}/.ai-workspace/runtime/odd_sdlc/tool-cache/ivy2",
+      "SBT_OPTS": "-Dsbt.boot.directory=${workspaceRoot}/.ai-workspace/runtime/odd_sdlc/tool-cache/sbt-boot -Dsbt.global.base=${workspaceRoot}/.ai-workspace/runtime/odd_sdlc/tool-cache/sbt-global -Dsbt.ivy.home=${workspaceRoot}/.ai-workspace/runtime/odd_sdlc/tool-cache/ivy2 -Divy.home=${workspaceRoot}/.ai-workspace/runtime/odd_sdlc/tool-cache/ivy2"
+    },
+    "policy": "Scala/SBT tenant helper execution uses declared JVM/SBT tooling; Python is disabled for this tenant."
+  },
+  "testingTechStack": {
+    "testRunner": "sbt test",
+    "testRoots": [
+      "cdme-core/src/test/scala",
+      "cdme-compiler/src/test/scala",
+      "cdme-assurance/src/test/scala",
+      "cdme-executor/src/test/scala",
+      "cdme-adjoint/src/test/scala",
+      "cdme-accounting/src/test/scala",
+      "cdme-fidelity/src/test/scala",
+      "cdme-engine/src/test/scala"
+    ],
+    "testBuildConfigTargets": [
+      "build.sbt",
+      "project/"
+    ],
+    "proofCommands": [
+      "sbt test"
+    ],
+    "evidenceFormat": "process-exit",
+    "cleanupRules": [
+      "target/",
+      "project/target/"
+    ],
+    "toolEnvironment": {
+      "disabledTools": [
+        "python",
+        "python3",
+        "pip",
+        "pip3"
+      ],
+      "workspaceLocalDirectories": [
+        ".ai-workspace/runtime/odd_sdlc/tool-cache/sbt-boot",
+        ".ai-workspace/runtime/odd_sdlc/tool-cache/sbt-global",
+        ".ai-workspace/runtime/odd_sdlc/tool-cache/ivy2",
+        ".ai-workspace/runtime/odd_sdlc/tool-cache/coursier"
+      ],
+      "environmentVariables": {
+        "COURSIER_CACHE": "${workspaceRoot}/.ai-workspace/runtime/odd_sdlc/tool-cache/coursier",
+        "IVY_HOME": "${workspaceRoot}/.ai-workspace/runtime/odd_sdlc/tool-cache/ivy2",
+        "SBT_OPTS": "-Dsbt.boot.directory=${workspaceRoot}/.ai-workspace/runtime/odd_sdlc/tool-cache/sbt-boot -Dsbt.global.base=${workspaceRoot}/.ai-workspace/runtime/odd_sdlc/tool-cache/sbt-global -Dsbt.ivy.home=${workspaceRoot}/.ai-workspace/runtime/odd_sdlc/tool-cache/ivy2 -Divy.home=${workspaceRoot}/.ai-workspace/runtime/odd_sdlc/tool-cache/ivy2"
+      },
+      "policy": "Scala/SBT test execution uses declared JVM/SBT tooling; Python is disabled for this tenant."
+    }
+  }
+}

@@ -389,6 +389,23 @@ export type GtlProgramRepairSurfaceDisposition =
   | "downstream_deferred"
   | "external_blocked";
 
+export const GTL_PROGRAM_OBLIGATION_DELTA_FAMILY_VALUES = Object.freeze([
+  "realized",
+  "refined",
+  "downstream_deferred",
+  "blocked",
+  "reentered",
+  "repriced",
+  "no_close_preserved",
+  "terminal_projected"
+] as const);
+
+export type GtlProgramObligationDeltaFamily =
+  (typeof GTL_PROGRAM_OBLIGATION_DELTA_FAMILY_VALUES)[number];
+
+export const GTL_PROGRAM_BIND_ADMISSION_STRENGTH_COMPATIBILITY_REF =
+  "admission-strength://abg/bind-boundary/materialization-stage-compatible" as const;
+
 export interface GtlProgramRuntimeReentryRouteRow {
   readonly routeRef: string;
   readonly repairSurfaceDisposition: GtlProgramRepairSurfaceDisposition;
@@ -404,6 +421,27 @@ export interface GtlProgramRuntimeReentryRouteRow {
   readonly targetOutcomeRef: string;
   readonly observationBindingRef: string;
   readonly lawfulBasisRefs: readonly string[];
+  readonly evidenceRefs?: readonly string[] | undefined;
+}
+
+export interface GtlProgramTraversalBindConservationRow {
+  readonly conservationRef: string;
+  readonly graphFunctionRef: string;
+  readonly graphRef: string;
+  readonly graphVectorRef: string;
+  readonly graphFunctionId: string;
+  readonly graphId: string;
+  readonly graphVectorId: string;
+  readonly intentLineageRefs: readonly string[];
+  readonly targetCarrierBindingRefs: readonly string[];
+  readonly materializationBindingRefs: readonly string[];
+  readonly carriedObligationRefs: readonly string[];
+  readonly residualPressureRefs: readonly string[];
+  readonly stagedAuthorityRefs: readonly string[];
+  readonly admissionStrengthRefs: readonly string[];
+  readonly downstreamTerminalPressureRefs: readonly string[];
+  readonly allowedObligationDeltaFamilies:
+    readonly GtlProgramObligationDeltaFamily[];
   readonly evidenceRefs?: readonly string[] | undefined;
 }
 
@@ -531,6 +569,9 @@ export interface GtlProgramConformanceInput {
   readonly runtimeReentryRoutes?:
     | readonly GtlProgramRuntimeReentryRouteRow[]
     | undefined;
+  readonly traversalBindConservation?:
+    | readonly GtlProgramTraversalBindConservationRow[]
+    | undefined;
 }
 
 export type GtlProgramConformanceCoverage = GtlProgramCoverageCounts;
@@ -562,6 +603,7 @@ export interface GtlProgramInventoryDigests {
   readonly externalToolGates: string;
   readonly runtimeBindings: string;
   readonly runtimeReentryRoutes: string;
+  readonly traversalBindConservation: string;
 }
 
 export interface GtlProgramTraversalUnitProjectionRow {
@@ -577,12 +619,25 @@ export interface GtlProgramTraversalUnitProjectionRow {
   readonly targetAssetType: string;
   readonly targetCarrierContractRef: string | null;
   readonly targetCarrierContractRefs: readonly string[];
+  readonly materializationPolicyRefs: readonly string[];
   readonly edgeClosureRef: string | null;
   readonly edgeClosureRefs: readonly string[];
   readonly computeCompositionRefs: readonly string[];
   readonly computeStageBindingRefs: readonly string[];
   readonly pluginResultInterfaceRefs: readonly string[];
   readonly consequencePluginResultInterfaceRefs: readonly string[];
+  readonly conservationBasisRef: string | null;
+  readonly conservationBasisRefs: readonly string[];
+  readonly intentLineageRefs: readonly string[];
+  readonly targetCarrierBindingRefs: readonly string[];
+  readonly materializationBindingRefs: readonly string[];
+  readonly carriedObligationRefs: readonly string[];
+  readonly residualPressureRefs: readonly string[];
+  readonly stagedAuthorityRefs: readonly string[];
+  readonly admissionStrengthRefs: readonly string[];
+  readonly downstreamTerminalPressureRefs: readonly string[];
+  readonly allowedObligationDeltaFamilies:
+    readonly GtlProgramObligationDeltaFamily[];
   readonly allowedConsequenceTraversalCatalogRef: string | null;
   readonly allowedConsequenceTraversalFamilies:
     readonly AllowedConsequenceTraversalFamily[];
@@ -720,6 +775,10 @@ const GTL_PROGRAM_REPAIR_SURFACE_DISPOSITION_VALUES = new Set<string>([
   "external_blocked"
 ]);
 
+const GTL_PROGRAM_OBLIGATION_DELTA_FAMILY_SET = new Set<string>(
+  GTL_PROGRAM_OBLIGATION_DELTA_FAMILY_VALUES
+);
+
 const GTL_PROGRAM_GRAPH_REENTRY_POINT_VALUES = new Set<string>(
   GRAPH_REENTRY_POINT_VALUES
 );
@@ -844,6 +903,15 @@ function isGtlProgramRepairSurfaceDisposition(
   return (
     typeof value === "string" &&
     GTL_PROGRAM_REPAIR_SURFACE_DISPOSITION_VALUES.has(value)
+  );
+}
+
+function isGtlProgramObligationDeltaFamily(
+  value: unknown
+): value is GtlProgramObligationDeltaFamily {
+  return (
+    typeof value === "string" &&
+    GTL_PROGRAM_OBLIGATION_DELTA_FAMILY_SET.has(value)
   );
 }
 
@@ -3990,6 +4058,200 @@ function admitRuntimeReentryRouteRows(
   );
 }
 
+function admitObligationDeltaFamilies(input: {
+  readonly values: readonly string[];
+  readonly label: string;
+  readonly surfaceRef: string;
+  readonly issues: GtlProgramConformanceIssue[];
+}): readonly GtlProgramObligationDeltaFamily[] {
+  return Object.freeze(
+    input.values.flatMap((value) => {
+      if (isGtlProgramObligationDeltaFamily(value)) {
+        return [value];
+      }
+      input.issues.push(
+        issue({
+          surfaceKind: "traversal_unit",
+          surfaceRef: input.surfaceRef,
+          ruleRef: "abg://gtl-program/traversal-unit/obligation-delta-family",
+          message: `${input.label}.allowedObligationDeltaFamilies contains unsupported disposition ${JSON.stringify(value)}`
+        })
+      );
+      return [];
+    })
+  );
+}
+
+function admitTraversalBindConservationRows(
+  input: readonly unknown[],
+  subjectRef: string,
+  issues: GtlProgramConformanceIssue[]
+): readonly GtlProgramTraversalBindConservationRow[] {
+  return Object.freeze(
+    input.flatMap((row, index) => {
+      const surfaceRef = `traversalBindConservation[${index}]`;
+      if (!isRecord(row)) {
+        issues.push(
+          issue({
+            surfaceKind: "traversal_unit",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/traversal-bind-conservation-row",
+            message: `${surfaceRef} must be an object`
+          })
+        );
+        return [];
+      }
+      const allowedObligationDeltaFamilies =
+        admitObligationDeltaFamilies({
+          values: requiredStringArrayField({
+            record: row,
+            key: "allowedObligationDeltaFamilies",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "traversal_unit",
+            issues
+          }),
+          label: surfaceRef,
+          surfaceRef,
+          issues
+        });
+      return [
+        Object.freeze({
+          conservationRef: requiredStringField({
+            record: row,
+            key: "conservationRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "traversal_unit",
+            issues
+          }),
+          graphFunctionRef: requiredStringField({
+            record: row,
+            key: "graphFunctionRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "traversal_unit",
+            issues
+          }),
+          graphRef: requiredStringField({
+            record: row,
+            key: "graphRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "traversal_unit",
+            issues
+          }),
+          graphVectorRef: requiredStringField({
+            record: row,
+            key: "graphVectorRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "traversal_unit",
+            issues
+          }),
+          graphFunctionId: requiredStringField({
+            record: row,
+            key: "graphFunctionId",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "traversal_unit",
+            issues
+          }),
+          graphId: requiredStringField({
+            record: row,
+            key: "graphId",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "traversal_unit",
+            issues
+          }),
+          graphVectorId: requiredStringField({
+            record: row,
+            key: "graphVectorId",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "traversal_unit",
+            issues
+          }),
+          intentLineageRefs: requiredStringArrayField({
+            record: row,
+            key: "intentLineageRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "traversal_unit",
+            issues
+          }),
+          targetCarrierBindingRefs: requiredStringArrayField({
+            record: row,
+            key: "targetCarrierBindingRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "traversal_unit",
+            issues
+          }),
+          materializationBindingRefs: requiredStringArrayField({
+            record: row,
+            key: "materializationBindingRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "traversal_unit",
+            issues
+          }),
+          carriedObligationRefs: requiredStringArrayField({
+            record: row,
+            key: "carriedObligationRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "traversal_unit",
+            issues
+          }),
+          residualPressureRefs: requiredStringArrayField({
+            record: row,
+            key: "residualPressureRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "traversal_unit",
+            issues
+          }),
+          stagedAuthorityRefs: requiredStringArrayField({
+            record: row,
+            key: "stagedAuthorityRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "traversal_unit",
+            issues
+          }),
+          admissionStrengthRefs: requiredStringArrayField({
+            record: row,
+            key: "admissionStrengthRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "traversal_unit",
+            issues
+          }),
+          downstreamTerminalPressureRefs: requiredStringArrayField({
+            record: row,
+            key: "downstreamTerminalPressureRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "traversal_unit",
+            issues
+          }),
+          allowedObligationDeltaFamilies,
+          evidenceRefs: optionalStringArrayField({
+            record: row,
+            key: "evidenceRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "traversal_unit",
+            issues
+          })
+        })
+      ];
+    })
+  );
+}
+
 export function admitGtlProgramConformanceInput(
   rawInput: unknown
 ): GtlProgramConformanceInputAdmission {
@@ -4023,7 +4285,8 @@ export function admitGtlProgramConformanceInput(
       roleBindings: Object.freeze([]),
       externalToolGates: Object.freeze([]),
       runtimeBindings: Object.freeze([]),
-      runtimeReentryRoutes: Object.freeze([])
+      runtimeReentryRoutes: Object.freeze([]),
+      traversalBindConservation: Object.freeze([])
     });
     issues.push(
       issue({
@@ -4310,6 +4573,16 @@ export function admitGtlProgramConformanceInput(
       checkOptionalArrayField({
         record: rawInput,
         key: "runtimeReentryRoutes",
+        subjectRef,
+        issues
+      }),
+      subjectRef,
+      issues
+    ),
+    traversalBindConservation: admitTraversalBindConservationRows(
+      checkOptionalArrayField({
+        record: rawInput,
+        key: "traversalBindConservation",
         subjectRef,
         issues
       }),
@@ -4963,6 +5236,8 @@ function constructTraversalUnitProjection(input: {
   readonly computeCompositions: readonly GtlProgramComputeCompositionRow[];
   readonly computeStageBindings: readonly GtlProgramComputeStageBindingRow[];
   readonly pluginResultInterfaces: readonly GtlProgramPluginResultInterfaceRow[];
+  readonly traversalBindConservation:
+    readonly GtlProgramTraversalBindConservationRow[];
   readonly overlays: readonly GtlProgramOverlayRow[];
   readonly publicStartTargets: readonly GtlProgramPublicStartRow[];
 }): GtlProgramTraversalUnitProjection {
@@ -4972,6 +5247,9 @@ function constructTraversalUnitProjection(input: {
   const edgeClosureByIdentity = graphVectorRowsByIdentity(
     input.edgeClosureContracts
   );
+  const conservationByIdentity = graphVectorRowsByIdentity(
+    input.traversalBindConservation
+  );
   const catalogsByIdentity = consequenceCatalogsByVectorIdentity(
     input.graphFunctions
   );
@@ -4980,8 +5258,12 @@ function constructTraversalUnitProjection(input: {
       const vectorKey = graphVectorIdentityKey(vector);
       const targetCarriers = targetCarrierByIdentity.get(vectorKey) ?? [];
       const edgeClosures = edgeClosureByIdentity.get(vectorKey) ?? [];
+      const conservationRows = conservationByIdentity.get(vectorKey) ?? [];
       const targetCarrierContractRefs = Object.freeze(
         targetCarriers.map((row) => row.targetCarrierContractRef)
+      );
+      const materializationPolicyRefs = uniqueSorted(
+        targetCarriers.map((row) => row.materializationPolicyRef)
       );
       const edgeClosureRefs = Object.freeze(
         edgeClosures.map((row) => row.edgeRef)
@@ -5028,6 +5310,7 @@ function constructTraversalUnitProjection(input: {
             ? targetCarriers[0]!.targetCarrierContractRef
             : null,
         targetCarrierContractRefs,
+        materializationPolicyRefs,
         edgeClosureRef:
           edgeClosures.length === 1 ? edgeClosures[0]!.edgeRef : null,
         edgeClosureRefs,
@@ -5035,6 +5318,46 @@ function constructTraversalUnitProjection(input: {
         computeStageBindingRefs: stageBindingRefs,
         pluginResultInterfaceRefs,
         consequencePluginResultInterfaceRefs,
+        conservationBasisRef:
+          conservationRows.length === 1
+            ? conservationRows[0]!.conservationRef
+            : null,
+        conservationBasisRefs: uniqueSorted(
+          conservationRows.map((row) => row.conservationRef)
+        ),
+        intentLineageRefs: uniqueSorted(
+          conservationRows.flatMap((row) => row.intentLineageRefs)
+        ),
+        targetCarrierBindingRefs: uniqueSorted(
+          conservationRows.flatMap((row) => row.targetCarrierBindingRefs)
+        ),
+        materializationBindingRefs: uniqueSorted(
+          conservationRows.flatMap((row) => row.materializationBindingRefs)
+        ),
+        carriedObligationRefs: uniqueSorted(
+          conservationRows.flatMap((row) => row.carriedObligationRefs)
+        ),
+        residualPressureRefs: uniqueSorted(
+          conservationRows.flatMap((row) => row.residualPressureRefs)
+        ),
+        stagedAuthorityRefs: uniqueSorted(
+          conservationRows.flatMap((row) => row.stagedAuthorityRefs)
+        ),
+        admissionStrengthRefs: uniqueSorted(
+          conservationRows.flatMap((row) => row.admissionStrengthRefs)
+        ),
+        downstreamTerminalPressureRefs: uniqueSorted(
+          conservationRows.flatMap((row) => row.downstreamTerminalPressureRefs)
+        ),
+        allowedObligationDeltaFamilies: Object.freeze(
+          [
+            ...new Set(
+              conservationRows.flatMap((row) =>
+                row.allowedObligationDeltaFamilies
+              )
+            )
+          ].sort()
+        ),
         allowedConsequenceTraversalCatalogRef: catalog?.catalogRef ?? null,
         allowedConsequenceTraversalFamilies: Object.freeze(
           [
@@ -5112,6 +5435,20 @@ function constructTraversalUnitProjection(input: {
     units,
     entryUnits
   });
+}
+
+const REQUIRED_OBLIGATION_DELTA_FAMILIES:
+  readonly GtlProgramObligationDeltaFamily[] =
+    GTL_PROGRAM_OBLIGATION_DELTA_FAMILY_VALUES;
+
+function missingRefs(input: {
+  readonly actual: readonly string[];
+  readonly required: readonly string[];
+}): readonly string[] {
+  const actualSet = new Set(input.actual);
+  return Object.freeze(
+    input.required.filter((ref) => !actualSet.has(ref))
+  );
 }
 
 function checkTraversalUnitProjection(input: {
@@ -5222,6 +5559,192 @@ function checkTraversalUnitProjection(input: {
           unit.graphFunctionRef,
           unit.graphVectorRef,
           ...unit.pluginResultInterfaceRefs
+        ],
+        issues: input.issues
+      });
+    }
+    if (unit.conservationBasisRefs.length === 0) {
+      pushRowIssue({
+        surfaceKind: "traversal_unit",
+        surfaceRef: unit.unitRef,
+        ruleRef: "abg://gtl-program/traversal-unit/bind-conservation-required",
+        message: `TraversalUnit ${JSON.stringify(unit.unitRef)} cannot bind without declared intent-lineage and obligation conservation basis`,
+        evidenceRefs: [
+          unit.graphFunctionRef,
+          unit.graphVectorRef
+        ],
+        issues: input.issues
+      });
+    } else if (unit.conservationBasisRefs.length > 1) {
+      pushRowIssue({
+        surfaceKind: "traversal_unit",
+        surfaceRef: unit.unitRef,
+        ruleRef: "abg://gtl-program/traversal-unit/bind-conservation-ambiguous",
+        message: `TraversalUnit ${JSON.stringify(unit.unitRef)} has ${unit.conservationBasisRefs.length} conservation-basis candidates`,
+        evidenceRefs: [
+          unit.graphFunctionRef,
+          unit.graphVectorRef,
+          ...unit.conservationBasisRefs
+        ],
+        issues: input.issues
+      });
+    }
+    const requiredConservationFields = [
+      [
+        "intent-lineage",
+        unit.intentLineageRefs,
+        "intent-lineage refs"
+      ],
+      [
+        "target-carrier-binding",
+        unit.targetCarrierBindingRefs,
+        "target-carrier binding refs"
+      ],
+      [
+        "materialization-binding",
+        unit.materializationBindingRefs,
+        "materialization binding refs"
+      ],
+      [
+        "carried-obligation",
+        unit.carriedObligationRefs,
+        "carried obligation refs"
+      ],
+      [
+        "residual-pressure",
+        unit.residualPressureRefs,
+        "residual pressure refs"
+      ],
+      [
+        "staged-authority",
+        unit.stagedAuthorityRefs,
+        "staged authority refs"
+      ],
+      [
+        "admission-strength",
+        unit.admissionStrengthRefs,
+        "admission strength refs"
+      ],
+      [
+        "downstream-terminal-pressure",
+        unit.downstreamTerminalPressureRefs,
+        "downstream terminal pressure refs"
+      ]
+    ] as const;
+    for (const [fieldKey, refs, label] of requiredConservationFields) {
+      if (refs.length === 0) {
+        pushRowIssue({
+          surfaceKind: "traversal_unit",
+          surfaceRef: unit.unitRef,
+          ruleRef:
+            `abg://gtl-program/traversal-unit/bind-conservation-${fieldKey}`,
+          message: `TraversalUnit ${JSON.stringify(unit.unitRef)} conservation basis is missing ${label}`,
+          evidenceRefs: [
+            unit.graphFunctionRef,
+            unit.graphVectorRef,
+            ...unit.conservationBasisRefs
+          ],
+          issues: input.issues
+        });
+      }
+    }
+    const missingTargetCarrierBindings = missingRefs({
+      actual: unit.targetCarrierBindingRefs,
+      required: unit.targetCarrierContractRefs
+    });
+    if (missingTargetCarrierBindings.length > 0) {
+      pushRowIssue({
+        surfaceKind: "traversal_unit",
+        surfaceRef: unit.unitRef,
+        ruleRef:
+          "abg://gtl-program/traversal-unit/bind-conservation-target-carrier-coverage",
+        message: `TraversalUnit ${JSON.stringify(unit.unitRef)} conservation basis does not cover target-carrier refs ${missingTargetCarrierBindings.join(", ")}`,
+        evidenceRefs: [
+          unit.graphFunctionRef,
+          unit.graphVectorRef,
+          ...missingTargetCarrierBindings
+        ],
+        issues: input.issues
+      });
+    }
+    const missingMaterializationBindings = missingRefs({
+      actual: unit.materializationBindingRefs,
+      required: unit.materializationPolicyRefs
+    });
+    if (missingMaterializationBindings.length > 0) {
+      pushRowIssue({
+        surfaceKind: "traversal_unit",
+        surfaceRef: unit.unitRef,
+        ruleRef:
+          "abg://gtl-program/traversal-unit/bind-conservation-materialization-coverage",
+        message: `TraversalUnit ${JSON.stringify(unit.unitRef)} conservation basis does not cover materialization refs ${missingMaterializationBindings.join(", ")}`,
+        evidenceRefs: [
+          unit.graphFunctionRef,
+          unit.graphVectorRef,
+          ...missingMaterializationBindings
+        ],
+        issues: input.issues
+      });
+    }
+    const missingStageAuthorityRefs = missingRefs({
+      actual: unit.stagedAuthorityRefs,
+      required: unit.computeStageBindingRefs
+    });
+    if (missingStageAuthorityRefs.length > 0) {
+      pushRowIssue({
+        surfaceKind: "traversal_unit",
+        surfaceRef: unit.unitRef,
+        ruleRef:
+          "abg://gtl-program/traversal-unit/bind-conservation-stage-coverage",
+        message: `TraversalUnit ${JSON.stringify(unit.unitRef)} conservation basis does not cover compute stage refs ${missingStageAuthorityRefs.join(", ")}`,
+        evidenceRefs: [
+          unit.graphFunctionRef,
+          unit.graphVectorRef,
+          ...missingStageAuthorityRefs
+        ],
+        issues: input.issues
+      });
+    }
+    if (
+      unit.materializationPolicyRefs.length > 0 &&
+      unit.computeStageBindingRefs.length > 0 &&
+      unit.admissionStrengthRefs.length > 0 &&
+      !unit.admissionStrengthRefs.includes(
+        GTL_PROGRAM_BIND_ADMISSION_STRENGTH_COMPATIBILITY_REF
+      )
+    ) {
+      pushRowIssue({
+        surfaceKind: "traversal_unit",
+        surfaceRef: unit.unitRef,
+        ruleRef:
+          "abg://gtl-program/traversal-unit/bind-conservation-admission-strength",
+        message:
+          `TraversalUnit ${JSON.stringify(unit.unitRef)} cannot expose staged authority and materialization binding through divergent admission predicates; conservation basis must include ${GTL_PROGRAM_BIND_ADMISSION_STRENGTH_COMPATIBILITY_REF}`,
+        evidenceRefs: [
+          unit.graphFunctionRef,
+          unit.graphVectorRef,
+          ...unit.conservationBasisRefs,
+          ...unit.materializationPolicyRefs,
+          ...unit.computeStageBindingRefs
+        ],
+        issues: input.issues
+      });
+    }
+    const missingObligationDeltaFamilies = missingRefs({
+      actual: unit.allowedObligationDeltaFamilies,
+      required: REQUIRED_OBLIGATION_DELTA_FAMILIES
+    });
+    if (missingObligationDeltaFamilies.length > 0) {
+      pushRowIssue({
+        surfaceKind: "traversal_unit",
+        surfaceRef: unit.unitRef,
+        ruleRef:
+          "abg://gtl-program/traversal-unit/obligation-delta-disposition-coverage",
+        message: `TraversalUnit ${JSON.stringify(unit.unitRef)} conservation basis lacks obligation-delta dispositions ${missingObligationDeltaFamilies.join(", ")}`,
+        evidenceRefs: [
+          unit.graphFunctionRef,
+          unit.graphVectorRef,
+          ...unit.conservationBasisRefs
         ],
         issues: input.issues
       });
@@ -5386,6 +5909,113 @@ function checkVectorRows(input: {
           }),
           ruleRef: "abg://gtl-program/edge-closure/no-orphan-row",
           message: `edge closure row ${JSON.stringify(row.edgeRef)} has no published graph vector identity`
+        })
+      );
+    }
+  }
+}
+
+function traversalBindConservationIdentityRef(
+  row: GtlProgramTraversalBindConservationRow
+): string {
+  return graphVectorIdentityRef({
+    graphFunctionRef: row.graphFunctionRef,
+    graphRef: row.graphRef,
+    vectorRef: row.graphVectorRef,
+    graphFunctionId: row.graphFunctionId,
+    graphId: row.graphId,
+    graphVectorId: row.graphVectorId
+  });
+}
+
+function checkTraversalBindConservationRows(input: {
+  readonly vectors: readonly GraphVectorProjection[];
+  readonly traversalBindConservation:
+    readonly GtlProgramTraversalBindConservationRow[];
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  const vectorByIdentity = new Map(
+    input.vectors.map((vector) => [graphVectorIdentityKey(vector), vector])
+  );
+  const seenConservationRefs = new Map<
+    string,
+    GtlProgramTraversalBindConservationRow
+  >();
+  for (const row of input.traversalBindConservation) {
+    const prior = seenConservationRefs.get(row.conservationRef);
+    if (prior !== undefined) {
+      input.issues.push(
+        issue({
+          surfaceKind: "traversal_unit",
+          surfaceRef: row.conservationRef,
+          ruleRef:
+            "abg://gtl-program/traversal-bind-conservation/unique-conservation-ref",
+          message: `traversal bind conservation row ${JSON.stringify(row.conservationRef)} is declared more than once`,
+          evidenceRefs: [
+            traversalBindConservationIdentityRef(prior),
+            traversalBindConservationIdentityRef(row)
+          ]
+        })
+      );
+    } else {
+      seenConservationRefs.set(row.conservationRef, row);
+    }
+
+    const vector = vectorByIdentity.get(graphVectorIdentityKey(row));
+    if (vector === undefined) {
+      input.issues.push(
+        issue({
+          surfaceKind: "traversal_unit",
+          surfaceRef: row.conservationRef,
+          ruleRef:
+            "abg://gtl-program/traversal-bind-conservation/no-orphan-row",
+          message: `traversal bind conservation row ${JSON.stringify(row.conservationRef)} has no published graph vector identity ${JSON.stringify(traversalBindConservationIdentityRef(row))}`,
+          evidenceRefs: [
+            row.graphFunctionRef,
+            row.graphRef,
+            row.graphVectorRef,
+            row.graphFunctionId,
+            row.graphId,
+            row.graphVectorId
+          ]
+        })
+      );
+      continue;
+    }
+
+    if (row.graphFunctionRef !== vector.graphFunctionRef) {
+      input.issues.push(
+        issue({
+          surfaceKind: "traversal_unit",
+          surfaceRef: row.conservationRef,
+          ruleRef:
+            "abg://gtl-program/traversal-bind-conservation/graph-function-ref-match",
+          message: `traversal bind conservation graphFunctionRef ${JSON.stringify(row.graphFunctionRef)} does not match published graph function ${JSON.stringify(vector.graphFunctionRef)}`,
+          evidenceRefs: [row.graphFunctionId, vector.graphFunctionRef]
+        })
+      );
+    }
+    if (row.graphRef !== vector.graphRef) {
+      input.issues.push(
+        issue({
+          surfaceKind: "traversal_unit",
+          surfaceRef: row.conservationRef,
+          ruleRef:
+            "abg://gtl-program/traversal-bind-conservation/graph-ref-match",
+          message: `traversal bind conservation graphRef ${JSON.stringify(row.graphRef)} does not match published graph ${JSON.stringify(vector.graphRef)}`,
+          evidenceRefs: [row.graphId, vector.graphRef]
+        })
+      );
+    }
+    if (row.graphVectorRef !== vector.vectorRef) {
+      input.issues.push(
+        issue({
+          surfaceKind: "traversal_unit",
+          surfaceRef: row.conservationRef,
+          ruleRef:
+            "abg://gtl-program/traversal-bind-conservation/graph-vector-ref-match",
+          message: `traversal bind conservation graphVectorRef ${JSON.stringify(row.graphVectorRef)} does not match published graph vector ${JSON.stringify(vector.vectorRef)}`,
+          evidenceRefs: [row.graphVectorId, vector.vectorRef]
         })
       );
     }
@@ -7893,6 +8523,8 @@ function computeInventoryDigests(input: {
   readonly externalToolGates: readonly GtlProgramExternalToolGateRow[];
   readonly runtimeBindings: readonly GtlProgramRuntimeBindingRow[];
   readonly runtimeReentryRoutes: readonly GtlProgramRuntimeReentryRouteRow[];
+  readonly traversalBindConservation:
+    readonly GtlProgramTraversalBindConservationRow[];
 }): GtlProgramInventoryDigests {
   return Object.freeze({
     featureCoverageManifest: stableSha256Digest(input.featureCoverageManifest),
@@ -7922,7 +8554,10 @@ function computeInventoryDigests(input: {
     roleBindings: stableSha256Digest(input.roleBindings),
     externalToolGates: stableSha256Digest(input.externalToolGates),
     runtimeBindings: stableSha256Digest(input.runtimeBindings),
-    runtimeReentryRoutes: stableSha256Digest(input.runtimeReentryRoutes)
+    runtimeReentryRoutes: stableSha256Digest(input.runtimeReentryRoutes),
+    traversalBindConservation: stableSha256Digest(
+      input.traversalBindConservation
+    )
   });
 }
 
@@ -8020,6 +8655,9 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
   const runtimeReentryRoutes = Object.freeze([
     ...(input.runtimeReentryRoutes ?? [])
   ]);
+  const traversalBindConservation = Object.freeze([
+    ...(input.traversalBindConservation ?? [])
+  ]);
   const featureCoverageManifest = input.featureCoverageManifest;
   const knownHostRefs = hostRefs({ graphFunctions, modules, vectors });
   const suppliedPluginContractRefs = pluginContractRefs(pluginContracts);
@@ -8030,6 +8668,11 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     vectors,
     targetCarrierContracts,
     edgeClosureContracts,
+    issues
+  });
+  checkTraversalBindConservationRows({
+    vectors,
+    traversalBindConservation,
     issues
   });
   checkOverlays({
@@ -8214,7 +8857,8 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     roleBindings,
     externalToolGates,
     runtimeBindings,
-    runtimeReentryRoutes
+    runtimeReentryRoutes,
+    traversalBindConservation
   });
   const inventoryDigest = stableSha256Digest(inventoryDigests);
   const pluginResultInterfaceCatalog =
@@ -8231,6 +8875,7 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     computeCompositions,
     computeStageBindings,
     pluginResultInterfaces,
+    traversalBindConservation,
     overlays,
     publicStartTargets
   });

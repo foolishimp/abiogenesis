@@ -99,6 +99,15 @@ export interface AdmittedConstructionIntent {
   readonly selectedVectorRef: string | null;
   readonly selectedReentryRef: string | null;
   readonly runtimeInvocationPlanRef: string | null;
+  readonly inputAssetRefs: readonly string[];
+  readonly expectedOutputAssetRefs: readonly string[];
+  readonly gapRefs: readonly string[];
+  readonly obligationRefs: readonly string[];
+  readonly lawfulBasisRefs: readonly string[];
+  readonly expectedDelta: string;
+  readonly progressCondition: string;
+  readonly stopCondition: string;
+  readonly escalationCondition: string;
   readonly lineageRefs: readonly string[];
   readonly authorityRefs: readonly string[];
   readonly admissionDecisionRef: string;
@@ -309,8 +318,40 @@ const CONSTRUCTION_INTENT_ADMISSION_RULES: readonly ConstructionIntentAdmissionR
         candidate.targetVectorRef !== null &&
         action.graphVectorRef !== candidate.targetVectorRef
           ? "target_vector_contradicts_catalog"
-          : null
+          : null,
+        isConstructiveConstructionActionKind(action.actionKind) &&
+        candidate.expectedOutputAssetRefs.length === 0
+          ? "construction_intent_missing_expected_output"
+          : null,
+        isConstructiveConstructionActionKind(action.actionKind) &&
+        candidate.obligationRefs.length === 0
+          ? "construction_intent_missing_obligation"
+          : null,
+        isConstructiveConstructionActionKind(action.actionKind) &&
+        candidate.lawfulBasisRefs.length === 0 &&
+        action.requiredAuthorityRefs.length === 0
+          ? "construction_intent_missing_lawful_basis"
+          : null,
+        ...action.expectedOutputAssetRefs
+          .filter((assetRef) => !candidate.expectedOutputAssetRefs.includes(assetRef))
+          .map((assetRef) => `expected_output_not_preserved:${assetRef}`)
       ]);
+    },
+    ({ candidate, observation, action }) => {
+      if (
+        action === undefined ||
+        !isConstructiveConstructionActionKind(action.actionKind)
+      ) {
+        return Object.freeze([]);
+      }
+      const matchingPressureRows = observation.pressureRows.filter((row) =>
+        row.targetOutcomeRefs.includes(candidate.selectedOutcomeRef)
+      );
+      return constructionIntentAdmissionReason(
+        matchingPressureRows.length === 0
+          ? "construction_intent_missing_residual_pressure"
+          : null
+      );
     },
     ({ binding }) =>
       constructionIntentAdmissionReason(
@@ -467,6 +508,15 @@ export function admitConstructionIntentCandidate(input: {
       runtimeInvocationPlanRef: isConstructiveConstructionActionKind(action.actionKind)
         ? `runtime-invocation-plan:${candidate.episodeId}:${candidate.candidateId}`
         : null,
+      inputAssetRefs: freezeStringArray(candidate.inputAssetRefs),
+      expectedOutputAssetRefs: freezeStringArray(candidate.expectedOutputAssetRefs),
+      gapRefs: freezeStringArray(candidate.gapRefs),
+      obligationRefs: freezeStringArray(candidate.obligationRefs),
+      lawfulBasisRefs: freezeStringArray(candidate.lawfulBasisRefs),
+      expectedDelta: candidate.expectedDelta,
+      progressCondition: candidate.progressCondition,
+      stopCondition: candidate.stopCondition,
+      escalationCondition: candidate.escalationCondition,
       lineageRefs: freezeStringArray(lineageRefs),
       authorityRefs: freezeStringArray(authorityRefs),
       admissionDecisionRef: admissionRef,

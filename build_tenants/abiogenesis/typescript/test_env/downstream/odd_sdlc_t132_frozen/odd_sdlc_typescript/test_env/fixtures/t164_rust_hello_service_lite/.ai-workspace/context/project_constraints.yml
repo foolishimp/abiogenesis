@@ -1,0 +1,24 @@
+project:
+  name: t164_rust_hello_service_lite
+  kind: imported_workspace
+  overlay_strategy: thread
+  overlay_ref: overlay://odd-sdlc/lite-design-module-implementation
+active_tenant: hello_world_rust_service
+selected_output_root: build_tenants/hello_world_rust_service
+ambiguity_risk_appetite: low
+runtime:
+  root: .ai-workspace/runtime/odd_sdlc
+  transform_asset_root: .ai-workspace/runtime/odd_sdlc/assets
+  operator_run_root: .ai-workspace/runtime/odd_sdlc/operator-runs
+  product_materialization_root_policy: selected_output_root
+build_tenants:
+  hello_world_rust_service:
+    output_dir: build_tenants/hello_world_rust_service
+    language: Rust
+    build_tool: cargo
+    test_runner: curl
+    test_execution_contract: port=${HELLO_SERVICE_PORT:-18182}; log=target/hello-service-smoke.log; mkdir -p target; HELLO_SERVICE_PORT=$port cargo run --quiet >$log 2>&1 & pid=$!; for _ in $(seq 1 200); do body=$(curl --fail --silent http://127.0.0.1:$port/ 2>/dev/null || true); if [ x$body = xhelloworld ]; then printf '%s\n' $body; kill $pid 2>/dev/null || true; exit 0; fi; sleep 0.2; done; cat $log >&2; kill $pid 2>/dev/null || true; exit 1
+    capability_contracts:
+      trivial_product: true
+    module_structure:
+      - hello_world_rust_service

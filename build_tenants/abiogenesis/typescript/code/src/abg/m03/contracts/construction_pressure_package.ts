@@ -41,8 +41,13 @@ export interface ConstructionPressureInputBasis {
   readonly observedStateRefs: readonly string[];
   readonly fdOutcomeRefs: readonly string[];
   readonly overlayFrameRefs: readonly string[];
+  readonly intentLineageRefs: readonly string[];
+  readonly expectedOutputAssetRefs: readonly string[];
+  readonly carriedObligationRefs: readonly string[];
+  readonly gapRefs: readonly string[];
   readonly targetStateRefs: readonly string[];
   readonly priorEvidenceRefs: readonly string[];
+  readonly lawfulBasisRefs: readonly string[];
   readonly obligationPolicyRefs: readonly string[];
 }
 
@@ -231,13 +236,36 @@ export function deriveConstructionPressurePackage(input: {
   const overlayFrameRefs = freezeStringArray(
     input.runtimeProjection.overlayFrame.activeOverlayFrameRefs
   );
+  const expectedOutputAssetRefs = uniqueNonEmptyStrings(
+    [
+      ...action.expectedOutputAssetRefs,
+      ...input.admittedIntent.expectedOutputAssetRefs
+    ],
+    "ConstructionPressurePackage.expectedOutputAssetRefs"
+  );
   const targetStateRefs = uniqueNonEmptyStrings(
     [
       ...input.observation.linkedAssetRefs,
-      ...action.expectedOutputAssetRefs,
+      ...expectedOutputAssetRefs,
       ...input.runtimeProjection.overlayFrame.carriedPressureRefs
     ],
     "ConstructionPressurePackage.targetStateRefs"
+  );
+  const carriedObligationRefs = uniqueNonEmptyStrings(
+    input.admittedIntent.obligationRefs,
+    "ConstructionPressurePackage.carriedObligationRefs"
+  );
+  const intentLineageRefs = uniqueNonEmptyStrings(
+    [
+      input.admittedIntent.intentId,
+      input.admittedIntent.admissionDecisionRef,
+      ...input.admittedIntent.lineageRefs,
+      ...input.admittedIntent.inputAssetRefs,
+      ...input.admittedIntent.expectedOutputAssetRefs,
+      ...input.admittedIntent.obligationRefs,
+      ...input.admittedIntent.lawfulBasisRefs
+    ],
+    "ConstructionPressurePackage.intentLineageRefs"
   );
   const priorEvidenceRefs = uniqueNonEmptyStrings(
     [
@@ -248,10 +276,18 @@ export function deriveConstructionPressurePackage(input: {
     ],
     "ConstructionPressurePackage.priorEvidenceRefs"
   );
+  const lawfulBasisRefs = uniqueNonEmptyStrings(
+    [
+      ...input.admittedIntent.lawfulBasisRefs,
+      ...action.requiredAuthorityRefs,
+      ...pressures.flatMap((pressure) => pressure.authorityRefs)
+    ],
+    "ConstructionPressurePackage.lawfulBasisRefs"
+  );
   const obligationPolicyRefs = uniqueNonEmptyStrings(
     [
       input.basis.resolvedPolicy.resolvedPolicyBundleRef,
-      ...action.requiredAuthorityRefs,
+      ...lawfulBasisRefs,
       ...(input.obligationPolicyRefs ?? [])
     ],
     "ConstructionPressurePackage.obligationPolicyRefs"
@@ -276,8 +312,13 @@ export function deriveConstructionPressurePackage(input: {
     observedStateRefs,
     fdOutcomeRefs,
     overlayFrameRefs,
+    intentLineageRefs,
+    expectedOutputAssetRefs,
+    carriedObligationRefs,
+    gapRefs: freezeStringArray(input.admittedIntent.gapRefs),
     targetStateRefs,
     priorEvidenceRefs,
+    lawfulBasisRefs,
     obligationPolicyRefs
   } satisfies ConstructionPressureInputBasis);
   const clearanceEvidence: readonly ConstructionPressureClearanceEvidence[] =
@@ -314,6 +355,15 @@ export function admitConstructionPressurePackage(input: {
   }
   if (input.pressurePackage.pressureRefs.length === 0) {
     diagnosticRefs.push("construction_pressure_package_missing_pressure");
+  }
+  if (input.pressurePackage.inputBasis.intentLineageRefs.length === 0) {
+    diagnosticRefs.push("construction_pressure_package_missing_intent_lineage");
+  }
+  if (input.pressurePackage.inputBasis.carriedObligationRefs.length === 0) {
+    diagnosticRefs.push("construction_pressure_package_missing_carried_obligation");
+  }
+  if (input.pressurePackage.inputBasis.expectedOutputAssetRefs.length === 0) {
+    diagnosticRefs.push("construction_pressure_package_missing_expected_output");
   }
   return Object.freeze({
     kind: "construction_pressure_package_admission",
@@ -397,11 +447,26 @@ export function constructConstructionPressurePackageMaterializedEvent(input: {
     overlayFrameRefs: freezeStringArray(
       input.pressurePackage.inputBasis.overlayFrameRefs
     ),
+    intentLineageRefs: freezeStringArray(
+      input.pressurePackage.inputBasis.intentLineageRefs
+    ),
+    expectedOutputAssetRefs: freezeStringArray(
+      input.pressurePackage.inputBasis.expectedOutputAssetRefs
+    ),
+    carriedObligationRefs: freezeStringArray(
+      input.pressurePackage.inputBasis.carriedObligationRefs
+    ),
+    gapRefs: freezeStringArray(
+      input.pressurePackage.inputBasis.gapRefs
+    ),
     targetStateRefs: freezeStringArray(
       input.pressurePackage.inputBasis.targetStateRefs
     ),
     priorEvidenceRefs: freezeStringArray(
       input.pressurePackage.inputBasis.priorEvidenceRefs
+    ),
+    lawfulBasisRefs: freezeStringArray(
+      input.pressurePackage.inputBasis.lawfulBasisRefs
     ),
     obligationPolicyRefs: freezeStringArray(
       input.pressurePackage.inputBasis.obligationPolicyRefs

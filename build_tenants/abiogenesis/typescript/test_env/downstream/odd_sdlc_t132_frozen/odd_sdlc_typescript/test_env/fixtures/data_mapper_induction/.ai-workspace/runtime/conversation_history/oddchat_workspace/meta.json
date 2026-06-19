@@ -1,0 +1,11 @@
+{
+  "conversationHistoryId": "oddchat_workspace",
+  "workspaceRoot": "/Users/jim/src/apps/odd_sdlc/build_tenants/typescript/test_env/fixtures/data_mapper_induction",
+  "ownerKind": "oddchat_room",
+  "ownerRef": "workspace",
+  "metadata": {
+    "roomId": "workspace"
+  },
+  "createdAt": "2026-05-05T00:16:29.451Z",
+  "updatedAt": "2026-05-05T00:16:29.452Z"
+}

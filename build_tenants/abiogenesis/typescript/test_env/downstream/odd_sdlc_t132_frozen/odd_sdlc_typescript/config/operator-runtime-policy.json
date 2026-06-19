@@ -1,0 +1,31 @@
+{
+  "kind": "odd_sdlc_operator_runtime_policy",
+  "policyRef": "config://odd-sdlc/operator-runtime-policy/v1",
+  "version": 1,
+  "minimumOperatorTimeoutMs": 3600000,
+  "worker": {
+    "timeoutMs": 43200000,
+    "inactivityTimeoutMs": 3600000,
+    "heartbeatMs": 30000,
+    "terminationGraceMs": 10000
+  },
+  "designDepthFpEvaluator": {
+    "timeoutMs": 600000,
+    "stdoutBudgetBytes": 1048576
+  },
+  "reviewGradeEdgeFulfillmentEvaluator": {
+    "timeoutMs": 43200000,
+    "inactivityTimeoutMs": 1800000,
+    "stdoutBudgetBytes": 1048576
+  },
+  "executionShard": {
+    "timeoutMs": 3600000,
+    "inactivityTimeoutMs": 3600000
+  },
+  "liveHarness": {
+    "commandTimeoutMs": 3600000,
+    "fullCapabilityCommandTimeoutMs": 43200000,
+    "lifecycleCommandTimeoutMs": 21600000,
+    "dataMapperWorkerTransport": "process://claude?model=claude-sonnet-4-6&effort=max"
+  }
+}

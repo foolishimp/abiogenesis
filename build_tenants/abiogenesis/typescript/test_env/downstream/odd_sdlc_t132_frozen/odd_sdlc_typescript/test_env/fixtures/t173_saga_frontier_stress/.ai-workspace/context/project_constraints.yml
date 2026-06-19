@@ -1,0 +1,23 @@
+project:
+  name: t173_saga_frontier_stress
+  kind: imported_workspace
+  overlay_strategy: thread
+  overlay_ref: overlay://odd-sdlc/bootstrap-requirements
+active_tenant: saga_frontier_stress
+selected_output_root: build_tenants/saga_frontier_stress
+ambiguity_risk_appetite: low
+runtime:
+  root: .ai-workspace/runtime/odd_sdlc
+  transform_asset_root: .ai-workspace/runtime/odd_sdlc/assets
+  operator_run_root: .ai-workspace/runtime/odd_sdlc/operator-runs
+  product_materialization_root_policy: selected_output_root
+build_tenants:
+  saga_frontier_stress:
+    output_dir: build_tenants/saga_frontier_stress
+    language: JavaScript
+    build_tool: node
+    test_runner: node
+    test_execution_contract: node tools/run_t141_saga_frontier_stress.mjs
+    capability_contracts:
+      synthetic_saga_frontier_stress: true
+      requires_abg_evented_saga_frontier: true

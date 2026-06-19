@@ -388,6 +388,20 @@ test("T-127 binds obligation pressure to a lawful graph action and admits the se
     "basis-projection://t127/0"
   );
   assert.equal(admission.admittedIntent.correlationId, "correlation://t127/root");
+  assert.deepEqual(admission.admittedIntent.inputAssetRefs, [
+    "asset://requirements/site"
+  ]);
+  assert.deepEqual(admission.admittedIntent.expectedOutputAssetRefs, [
+    "asset://implementation/site"
+  ]);
+  assert.deepEqual(admission.admittedIntent.gapRefs, ["gap://t127/site"]);
+  assert.deepEqual(admission.admittedIntent.obligationRefs, [
+    "obligation://t127/site"
+  ]);
+  assert.deepEqual(admission.admittedIntent.lawfulBasisRefs, [
+    "law://t127/action"
+  ]);
+  assert.equal(admission.admittedIntent.expectedDelta, "delta_expected");
 
   const projection = deriveConstructionProjection({
     episodeId: EPISODE_ID,
@@ -401,6 +415,39 @@ test("T-127 binds obligation pressure to a lawful graph action and admits the se
     projection,
     summary: deriveConstructionProjectionSummary(projection)
   });
+});
+
+test("T-127 construction intent admission rejects constructive candidates without obligation lineage", () => {
+  const world = buildWorld();
+  const admission = admitConstructionIntentCandidate({
+    candidate: candidateFor(world, {
+      candidateId: "candidate://t127/missing-obligation-lineage",
+      expectedOutputAssetRefs: [],
+      obligationRefs: [],
+      lawfulBasisRefs: []
+    }),
+    observation: world.observation,
+    actionCatalog: world.catalog,
+    bindingProjection: world.binding,
+    priorityProjection: world.priority
+  });
+
+  assert.equal(admission.decision, "rejected");
+  assert.ok(
+    admission.rejectionReasonRefs.includes(
+      "construction_intent_missing_expected_output"
+    )
+  );
+  assert.ok(
+    admission.rejectionReasonRefs.includes(
+      "construction_intent_missing_obligation"
+    )
+  );
+  assert.ok(
+    admission.rejectionReasonRefs.includes(
+      "expected_output_not_preserved:asset://implementation/site"
+    )
+  );
 });
 
 test("T-152 upstream repair-surface triage binds only to graph-vector re-entry intent", () => {

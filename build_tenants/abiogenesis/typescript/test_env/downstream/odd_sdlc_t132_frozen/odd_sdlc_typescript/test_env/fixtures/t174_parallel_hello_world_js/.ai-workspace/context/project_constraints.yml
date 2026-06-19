@@ -1,0 +1,29 @@
+project:
+  name: t174_parallel_hello_world_js
+  kind: imported_workspace
+  overlay_strategy: thread
+  overlay_ref: overlay://odd-sdlc/current-full-traversal
+active_tenant: parallel_hello_world
+selected_output_root: build_tenants/parallel_hello_world
+ambiguity_risk_appetite: low
+runtime:
+  root: .ai-workspace/runtime/odd_sdlc
+  transform_asset_root: .ai-workspace/runtime/odd_sdlc/assets
+  operator_run_root: .ai-workspace/runtime/odd_sdlc/operator-runs
+  product_materialization_root_policy: selected_output_root
+build_tenants:
+  parallel_hello_world:
+    output_dir: build_tenants/parallel_hello_world
+    language: JavaScript
+    build_tool: node
+    test_runner: node
+    test_execution_contract: node --test test/hello.test.js test/world.test.js
+    capability_contracts:
+      trivial_product: false
+      parallel_frontier_probe: true
+    module_structure:
+      - hello_branch
+      - world_branch
+      - hello_branch_test
+      - world_branch_test
+      - composition

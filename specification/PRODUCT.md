@@ -259,6 +259,17 @@ transition, and replays continuation. That bind composes closed unit truth with
 the next lawful unit, same-unit retry, re-entry, reprice, yield, block, or
 terminal projection.
 
+The function over the monad is intent-lineage preserving:
+`traverse<A, B>(intent_lineage, context, A) -> (B, obligation_delta)`.
+`intent_lineage` is admitted truth over intent refs, lineage refs, target-carrier
+and materialization refs, carried obligations, residual pressure, staged
+authority, and lawful basis refs. `obligation_delta` accounts for each carried
+obligation as realized, refined, deferred to a named downstream traversal,
+blocked, repriced, preserved as no-close pressure, or terminally projected.
+ABG bind is therefore a conservation boundary: scalar edge close cannot erase
+the obligation vector, and materializing traversal cannot dispatch until a
+sufficient construction intent has been rehydrated from admitted lineage.
+
 Composed `.C` stages share one stage-set shape. `transform.C`, `evaluate.C`,
 and `consequence.C` may each plan ordered or parallel task sets under selected
 composition. A scalar stage plugin is the one-task reduction of that shape, not

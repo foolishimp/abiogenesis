@@ -1,0 +1,18 @@
+{
+  "kind": "sdlc_tenant_technology_stack_description",
+  "language": "JavaScript",
+  "runtime": {
+    "name": "Node.js",
+    "moduleSystem": "esm"
+  },
+  "buildTool": "node",
+  "packageManager": "npm",
+  "buildConfigTargets": [],
+  "testingTechStack": {
+    "testRunner": "node",
+    "testCommand": "node tools/run_t141_saga_frontier_stress.mjs",
+    "testBuildConfigTargets": [],
+    "evidenceFormat": "process-exit-plus-json-summary"
+  },
+  "dependencyPolicy": "installed_odd_sdlc_and_abg_packages_only"
+}

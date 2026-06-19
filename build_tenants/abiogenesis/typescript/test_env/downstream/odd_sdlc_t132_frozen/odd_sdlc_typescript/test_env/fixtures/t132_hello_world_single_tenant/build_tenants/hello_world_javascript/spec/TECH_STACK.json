@@ -1,0 +1,18 @@
+{
+  "kind": "sdlc_tenant_technology_stack_description",
+  "language": "JavaScript",
+  "runtime": {
+    "name": "Node.js",
+    "moduleSystem": "esm"
+  },
+  "buildTool": "node",
+  "packageManager": "npm",
+  "buildConfigTargets": [],
+  "testingTechStack": {
+    "testRunner": "node:test",
+    "testCommand": "node --test test/hello.test.js",
+    "testBuildConfigTargets": [],
+    "evidenceFormat": "process-exit-plus-stdout"
+  },
+  "dependencyPolicy": "no_external_runtime_packages"
+}

@@ -1,0 +1,18 @@
+{
+  "kind": "tenant_testing_tech_stack_definition",
+  "tenant": "data_mapper_lite_javascript",
+  "testRunner": "node --test",
+  "packageScript": "npm test",
+  "requiredTestFiles": [
+    "test/topology.test.js"
+  ],
+  "requiredBehavioralCoverage": [
+    "valid multigraph topology",
+    "identity morphism availability",
+    "cardinality validation rejection",
+    "valid symbolic dot path",
+    "missing morphism rejection",
+    "domain/codomain composition mismatch rejection"
+  ]
+}
+

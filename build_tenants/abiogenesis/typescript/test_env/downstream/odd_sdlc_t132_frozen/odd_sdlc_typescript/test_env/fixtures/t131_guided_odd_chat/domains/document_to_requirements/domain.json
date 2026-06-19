@@ -1,0 +1,150 @@
+{
+  "schemaVersion": "odd_gtl_abg_domain.v1",
+  "name": "document_to_requirements",
+  "kind": "odd_gtl_abg_domain",
+  "purpose": "Turn a supplied start document into a typed requirements set through a guided lawful-action flow.",
+  "provenance": {
+    "authoringContract": "t131.guided_odd_chat.bootstrap.v1",
+    "authoringPath": "bootstrap.md",
+    "authoringSection": "scenario_contract.defaultDomain"
+  },
+  "entryAsset": "asset:input_document",
+  "terminalAsset": "asset:requirements_set",
+  "nodes": [
+    {
+      "id": "asset:input_document",
+      "assetType": "document_surface",
+      "description": "User-supplied source document."
+    },
+    {
+      "id": "asset:document_observation",
+      "assetType": "document_observation_surface",
+      "description": "Observed claims, actors, constraints, and ambiguity from the source document."
+    },
+    {
+      "id": "asset:requirement_candidates",
+      "assetType": "requirement_candidate_surface",
+      "description": "Candidate requirements derived from observed document claims."
+    },
+    {
+      "id": "asset:requirements_set",
+      "assetType": "requirements_surface",
+      "description": "Accepted typed requirements set."
+    }
+  ],
+  "vectors": [
+    {
+      "id": "domain_vector:observe_document",
+      "name": "observe_document",
+      "source": ["asset:input_document"],
+      "target": "asset:document_observation"
+    },
+    {
+      "id": "domain_vector:derive_requirement_candidates",
+      "name": "derive_requirement_candidates",
+      "source": ["asset:document_observation"],
+      "target": "asset:requirement_candidates"
+    },
+    {
+      "id": "domain_vector:accept_requirements",
+      "name": "accept_requirements",
+      "source": ["asset:requirement_candidates"],
+      "target": "asset:requirements_set"
+    }
+  ],
+  "graphFunctions": [
+    {
+      "id": "document_to_requirements",
+      "kind": "aggregate",
+      "regime": "F_P",
+      "sourceAssetTypes": ["document_surface"],
+      "targetAssetType": "requirements_surface",
+      "carrierSchema": "schema://odd_chat/requirements_surface",
+      "composedOf": [
+        "observe_document",
+        "derive_requirement_candidates",
+        "accept_requirements"
+      ],
+      "description": "Aggregate domain entry point. Fans through observe_document → derive_requirement_candidates → accept_requirements. Selectable as the default graph function declared by the T-131 bootstrap contract."
+    },
+    {
+      "id": "observe_document",
+      "vector": "domain_vector:observe_document",
+      "regime": "F_P",
+      "sourceAssetTypes": ["document_surface"],
+      "targetAssetType": "document_observation_surface",
+      "carrierSchema": "schema://odd_chat/document_observation_surface"
+    },
+    {
+      "id": "derive_requirement_candidates",
+      "vector": "domain_vector:derive_requirement_candidates",
+      "regime": "F_P",
+      "sourceAssetTypes": ["document_observation_surface"],
+      "targetAssetType": "requirement_candidate_surface",
+      "carrierSchema": "schema://odd_chat/requirement_candidate_surface"
+    },
+    {
+      "id": "accept_requirements",
+      "vector": "domain_vector:accept_requirements",
+      "regime": "F_H",
+      "sourceAssetTypes": ["requirement_candidate_surface"],
+      "targetAssetType": "requirements_surface",
+      "carrierSchema": "schema://odd_chat/requirements_surface"
+    }
+  ],
+  "lawfulActions": [
+    {
+      "id": "domain_action:observe_document",
+      "vector": "domain_vector:observe_document",
+      "graphFunction": "observe_document",
+      "humanDecision": "continue",
+      "expectedCarrier": "schema://odd_chat/document_observation_surface",
+      "donePredicate": "document observations name claims, ambiguities, constraints, and missing context",
+      "retryAction": "domain_action:repair_document_observation"
+    },
+    {
+      "id": "domain_action:derive_requirement_candidates",
+      "vector": "domain_vector:derive_requirement_candidates",
+      "graphFunction": "derive_requirement_candidates",
+      "humanDecision": "continue",
+      "expectedCarrier": "schema://odd_chat/requirement_candidate_surface",
+      "donePredicate": "candidate requirements trace to document observations",
+      "retryAction": "domain_action:repair_requirement_candidates"
+    },
+    {
+      "id": "domain_action:accept_requirements",
+      "vector": "domain_vector:accept_requirements",
+      "graphFunction": "accept_requirements",
+      "humanDecision": "review",
+      "expectedCarrier": "schema://odd_chat/requirements_surface",
+      "donePredicate": "accepted requirements are typed, traceable, and reviewable",
+      "retryAction": "domain_action:repair_requirements"
+    }
+  ],
+  "carrierSchemas": [
+    {
+      "id": "schema://odd_chat/document_observation_surface",
+      "kind": "document_observation_surface",
+      "requiredFields": ["claims", "actors", "constraints", "ambiguities", "missingContext"]
+    },
+    {
+      "id": "schema://odd_chat/requirement_candidate_surface",
+      "kind": "requirement_candidate_surface",
+      "requiredFields": ["candidates"],
+      "perItemRequiredFields": ["id", "text", "sourceObservationRefs"]
+    },
+    {
+      "id": "schema://odd_chat/requirements_surface",
+      "kind": "requirements_surface",
+      "requiredFields": ["requirements"],
+      "perItemRequiredFields": ["id", "text", "candidateRefs", "accepted"]
+    }
+  ],
+  "humanDecisionVocabulary": ["continue", "retry", "review", "reprice"],
+  "nonClosureConditions": [
+    "no human evaluator decision recorded before graph-function invocation",
+    "graph function invoked with no source asset of the declared source asset type",
+    "target asset emitted without matching carrier schema fields",
+    "carrier schema URI not resolvable in this deployed domain"
+  ]
+}

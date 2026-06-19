@@ -1,0 +1,34 @@
+project:
+  name: data_mapper_lite_lifecycle
+  kind: data-pipeline
+  source_requirement_subset:
+    canonical_document: build_tenants/typescript/test_env/fixtures/data_mapper_reference/data_mapper.template/specification/REQUIREMENTS.md
+    selected_requirement_ids:
+      - REQ-LDM-01
+      - REQ-LDM-02
+      - REQ-LDM-03
+active_tenant: data_mapper_lite_javascript
+selected_output_root: build_tenants/data_mapper_lite_javascript
+ambiguity_risk_appetite: low
+runtime:
+  root: .ai-workspace/runtime/odd_sdlc
+  transform_asset_root: .ai-workspace/runtime/odd_sdlc/assets
+  operator_run_root: .ai-workspace/runtime/odd_sdlc/operator-runs
+  product_materialization_root_policy: selected_output_root
+build_tenants:
+  data_mapper_lite_javascript:
+    output_dir: build_tenants/data_mapper_lite_javascript
+    language: JavaScript
+    language_version: ES2022
+    runtime: Node.js 20+
+    build_tool: npm
+    test_runner: npm test
+    module_structure:
+      - src
+      - test
+    capability_contracts:
+      generated_tests_required: true
+      node_test_runner: true
+      package_json_required: true
+      no_external_runtime_dependencies: true
+

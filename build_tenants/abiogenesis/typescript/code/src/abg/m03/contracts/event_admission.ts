@@ -1902,8 +1902,13 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
       pressureRefs: "string_array",
       fdOutcomeRefs: "string_array",
       overlayFrameRefs: "string_array",
+      intentLineageRefs: "string_array",
+      expectedOutputAssetRefs: "string_array",
+      carriedObligationRefs: "string_array",
+      gapRefs: "string_array",
       targetStateRefs: "string_array",
       priorEvidenceRefs: "string_array",
+      lawfulBasisRefs: "string_array",
       obligationPolicyRefs: "string_array"
     }
   ),
