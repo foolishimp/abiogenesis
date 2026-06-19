@@ -13,7 +13,7 @@ related_tickets:
   - .ai-workspace/tickets/completed/T-107-define-abg-traversal-modulation-profiles-for-agentic-fp-attempts.md
   - .ai-workspace/tickets/completed/T-112-carry-per-edge-traversal-strategy-through-gtl-config.md
   - .ai-workspace/tickets/completed/T-156-admit-consequence-allowed-traversal-catalog.md
-  - .ai-workspace/tickets/active/T-159-formalize-traversal-unit-and-consequence-bind-boundary.md
+  - .ai-workspace/tickets/completed/T-159-formalize-traversal-unit-and-consequence-bind-boundary.md
 governance_scope: STDO Method, ODD_METHOD, DESIGN_MODULE_METHOD
 review_status: closed
 proof_status: passed

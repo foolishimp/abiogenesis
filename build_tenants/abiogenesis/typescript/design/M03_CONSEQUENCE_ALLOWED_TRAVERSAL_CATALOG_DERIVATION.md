@@ -11,7 +11,7 @@
 - `specification/requirements/gtl/REQ-L-GTL3-GRAPHVECTOR.md`
 - `specification/requirements/gtl/REQ-L-GTL3-HOOKS.md`
 - `.ai-workspace/tickets/completed/T-156-admit-consequence-allowed-traversal-catalog.md`
-- `.ai-workspace/tickets/active/T-159-formalize-traversal-unit-and-consequence-bind-boundary.md`
+- `.ai-workspace/tickets/completed/T-159-formalize-traversal-unit-and-consequence-bind-boundary.md`
 
 This is the single T-156 design surface. Existing M03 conformance, runtime
 authorship, construction intent, and GTL zoom designs are dependency law for

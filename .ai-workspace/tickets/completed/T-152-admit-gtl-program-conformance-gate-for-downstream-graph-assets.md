@@ -44,7 +44,7 @@ related_tickets:
   - .ai-workspace/tickets/completed/T-150-promote-prompt-assets-into-gtl-typed-asset-interface.md
   - .ai-workspace/tickets/completed/T-151-declare-segment-scoped-evaluation-redispatch-substrate.md
   - .ai-workspace/tickets/completed/T-155-define-first-class-gtl-graph-function-zoom-plan.md
-  - .ai-workspace/tickets/active/T-159-formalize-traversal-unit-and-consequence-bind-boundary.md
+  - .ai-workspace/tickets/completed/T-159-formalize-traversal-unit-and-consequence-bind-boundary.md
 review_status: closed
 closure_basis: completed baseline GTL/ABG conformance-gate law; residual traversal-unit vocabulary transferred to T-159
 affected_boundary:

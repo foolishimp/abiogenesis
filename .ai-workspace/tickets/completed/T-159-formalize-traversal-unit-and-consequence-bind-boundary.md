@@ -3,7 +3,7 @@ id: T-159
 title: Formalize TraversalUnit and consequence bind boundary
 type: feature
 ticket_category: ordinary
-status: active
+status: completed
 goal: >-
   Formalize `TraversalUnit<A, B>` as the GTL/ABG closeable traversal atom and
   ratify consequence as the bind boundary without creating a new carrier,
@@ -20,6 +20,7 @@ priority: critical
 triaged_at: 2026-06-17
 created_at: 2026-06-17
 updated_at: 2026-06-19
+closed_at: 2026-06-19
 intake_source: odd_sdlc T-203/T-204 design pressure exposed that cold start, ticket re-entry, and CLI decommission need one GTL/ABG traversal atom instead of product-local routing doctrine
 evaluation_criteria: >-
   Specification, design, compiler projection, and tests prove traversal-unit
@@ -50,9 +51,26 @@ related_tickets:
   - /Users/jim/src/apps/odd_sdlc/.ai-workspace/tickets/active/T-204-decommission-odd-sdlc-cli-orchestration-surface.md
   - /Users/jim/src/apps/odd_sdlc/.ai-workspace/comments/codex/20260617T113114Z_STRATEGY_traversal-unit-entry-triage.md
 governance_scope: STDO Method, GTL, ABG
+review_status: closed
+proof_status: passed
+closure_basis: >-
+  Completed in ABIogenesis TypeScript 4.1.0-rc.2. Source cut e22991e adds the
+  traversal-unit and bind-boundary hardening; release snapshot commit 560e0c6
+  publishes local snapshot artifacts; tag v4.1.0-rc.2 is pushed to origin.
 ---
 
 # T-159: Formalize TraversalUnit And Consequence Bind Boundary
+
+## Closure Note
+
+Closed as complete after the `4.1.0-rc.2` release cut.
+
+The compiler-visible traversal-unit law, consequence bind-boundary admission,
+bind-conservation row validation, target-carrier admission-strength checks, and
+frozen `odd_sdlc` changed-path proof lane are implemented and released. The
+post-review full live convergence run was intentionally replaced by targeted
+changed-path exercise plus partial live launch evidence per operator direction.
+No known T-159 non-closure remains.
 
 ## Intake
 

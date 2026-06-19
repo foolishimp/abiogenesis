@@ -76,7 +76,7 @@ non_closure_conditions:
 ## Absorption Closure
 
 Closed by absorption into
-`.ai-workspace/tickets/active/T-159-formalize-traversal-unit-and-consequence-bind-boundary.md`.
+`.ai-workspace/tickets/completed/T-159-formalize-traversal-unit-and-consequence-bind-boundary.md`.
 
 T-156 established the allowed consequence traversal catalog, catalog-gated
 admission, static GTL declaration validation, and runner consumption proof for
