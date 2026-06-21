@@ -31,12 +31,18 @@ type FieldRule =
   | "non_empty_string"
   | "nullable_string"
   | "non_negative_integer"
+  | "optional_non_negative_integer"
   | "nullable_non_negative_integer"
   | "boolean"
   | "string_array"
   | "number_array"
-  | { readonly oneOf: readonly string[]; readonly nullable?: boolean }
-  | { readonly equalsArray: readonly string[] };
+  | {
+      readonly oneOf: readonly string[];
+      readonly nullable?: boolean;
+      readonly optional?: boolean;
+    }
+  | { readonly equalsArray: readonly string[] }
+  | { readonly equalsOneOfArrays: readonly (readonly string[])[] };
 
 type RuntimeEventRecord = Record<string, unknown>;
 type RuntimeEventFieldRules = Readonly<Record<string, FieldRule>>;
@@ -367,6 +373,13 @@ function applyFieldRule(value: unknown, label: string, rule: FieldRule): void {
     assertNonNegativeInteger(value, label);
     return;
   }
+  if (rule === "optional_non_negative_integer") {
+    if (value === undefined) {
+      return;
+    }
+    assertNonNegativeInteger(value, label);
+    return;
+  }
   if (rule === "nullable_non_negative_integer") {
     assertNullableNonNegativeInteger(value, label);
     return;
@@ -397,6 +410,24 @@ function applyFieldRule(value: unknown, label: string, rule: FieldRule): void {
         `${label} must equal ${JSON.stringify(expected)}, got ${JSON.stringify(actual)}`
       );
     }
+    return;
+  }
+  if ("equalsOneOfArrays" in rule) {
+    assertStringArray(value, label);
+    const actual = value;
+    const matched = rule.equalsOneOfArrays.some(
+      (expected) =>
+        actual.length === expected.length &&
+        expected.every((entry, index) => actual[index] === entry)
+    );
+    if (!matched) {
+      throw new TypeError(
+        `${label} must equal one of ${JSON.stringify(rule.equalsOneOfArrays)}, got ${JSON.stringify(actual)}`
+      );
+    }
+    return;
+  }
+  if (rule.optional === true && value === undefined) {
     return;
   }
   if (rule.nullable === true && value === null) {
@@ -475,7 +506,25 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     untilSource: { oneOf: LEVER_OVERRIDE_RESOLUTION_SOURCE_VALUES },
     fhModeLeverKey: { oneOf: ["abg.m04.fh_mode"] },
     fhModeSource: { oneOf: LEVER_OVERRIDE_RESOLUTION_SOURCE_VALUES },
-    selectedLeverKeys: { equalsArray: ["abg.m04.until", "abg.m04.fh_mode"] },
+    runnerRetryMaxAttempts: "optional_non_negative_integer",
+    runnerRetryMaxAttemptsLeverKey: {
+      oneOf: ["abg.runner.retry.max_attempts"],
+      optional: true
+    },
+    runnerRetryMaxAttemptsSource: {
+      oneOf: LEVER_OVERRIDE_RESOLUTION_SOURCE_VALUES,
+      optional: true
+    },
+    selectedLeverKeys: {
+      equalsOneOfArrays: [
+        ["abg.m04.until", "abg.m04.fh_mode"],
+        [
+          "abg.m04.until",
+          "abg.m04.fh_mode",
+          "abg.runner.retry.max_attempts"
+        ]
+      ]
+    },
     causationEventRefs: "string_array",
     correlationId: "non_empty_string"
   }),

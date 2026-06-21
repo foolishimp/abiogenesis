@@ -105,10 +105,10 @@ const LEVERS: readonly LeverEntry[] = Object.freeze([
     value: 3,
     leverClass: "tunable",
     valueKind: "count",
-    wiring: "deferred",
+    wiring: "live",
     reason:
       "Attached F_P worker retry budget; gates live retry behavior.",
-    consumedAt: "abg/m03/runner/attached_fp_worker.ts:43"
+    consumedAt: "app/m04/start.ts:58"
   },
   {
     dottedKey: "abg.transport.executor.profile",

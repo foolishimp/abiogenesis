@@ -496,6 +496,9 @@ export interface LeverResolutionAdmittedEvent {
   readonly untilSource: LeverOverrideResolutionSource;
   readonly fhModeLeverKey: string;
   readonly fhModeSource: LeverOverrideResolutionSource;
+  readonly runnerRetryMaxAttempts?: number | undefined;
+  readonly runnerRetryMaxAttemptsLeverKey?: string | undefined;
+  readonly runnerRetryMaxAttemptsSource?: LeverOverrideResolutionSource | undefined;
   readonly selectedLeverKeys: readonly string[];
   readonly causationEventRefs: readonly string[];
   readonly correlationId: string;

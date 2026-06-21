@@ -8,7 +8,8 @@
     "bundleRef": "lever-overrides://abg/typescript",
     "overrides": {
       "abg.m04.until": "converged",
-      "abg.m04.fh_mode": "direct"
+      "abg.m04.fh_mode": "direct",
+      "abg.runner.retry.max_attempts": 10
     }
   },
   "fallbacks": {

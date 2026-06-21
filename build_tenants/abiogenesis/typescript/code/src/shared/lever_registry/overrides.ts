@@ -194,9 +194,15 @@ export function getLeverOverride(
 
 export const M04_UNTIL_KEY = "abg.m04.until";
 export const M04_FH_MODE_KEY = "abg.m04.fh_mode";
+export const RUNNER_RETRY_MAX_ATTEMPTS_KEY = "abg.runner.retry.max_attempts";
 export const M04_REQUEST_DEFAULT_LEVER_KEYS = Object.freeze([
   M04_UNTIL_KEY,
   M04_FH_MODE_KEY
+] as const);
+export const PUBLIC_START_CONSUMED_LEVER_KEYS = Object.freeze([
+  M04_UNTIL_KEY,
+  M04_FH_MODE_KEY,
+  RUNNER_RETRY_MAX_ATTEMPTS_KEY
 ] as const);
 
 export interface AbgLeverProvenance {
@@ -215,10 +221,31 @@ export interface M04RequestDefaultsResolution {
   readonly provenance: AbgLeverProvenance;
 }
 
+export interface AbgRunnerRetryResolution {
+  readonly maxAttempts: number;
+  readonly source: LeverOverrideSource;
+  readonly bundleRef: string | null;
+  readonly bundleDigest: string | null;
+  readonly bundlePath: string | null;
+}
+
 function registryDefaultString(dottedKey: string): string {
   const lever = getLever(dottedKey);
   if (lever === undefined || typeof lever.value !== "string") {
     throw new TypeError(`lever ${dottedKey} has no string registry default`);
+  }
+  return lever.value;
+}
+
+function registryDefaultNonNegativeInteger(dottedKey: string): number {
+  const lever = getLever(dottedKey);
+  if (
+    lever === undefined ||
+    typeof lever.value !== "number" ||
+    !Number.isInteger(lever.value) ||
+    lever.value < 0
+  ) {
+    throw new TypeError(`lever ${dottedKey} has no non-negative integer registry default`);
   }
   return lever.value;
 }
@@ -236,6 +263,23 @@ function resolveField(
     return { value: String(override), source: "override" };
   }
   return { value: registryDefaultString(dottedKey), source: "registry_default" };
+}
+
+function resolveCountField(
+  dottedKey: string,
+  bundle: AbgLeverOverridesBundle | null | undefined
+): { readonly value: number; readonly source: LeverOverrideSource } {
+  const override = getLeverOverride(bundle, dottedKey);
+  if (override !== undefined) {
+    if (typeof override !== "number" || !Number.isInteger(override) || override < 0) {
+      throw new TypeError(`lever ${dottedKey} override is not a non-negative integer`);
+    }
+    return { value: override, source: "override" };
+  }
+  return {
+    value: registryDefaultNonNegativeInteger(dottedKey),
+    source: "registry_default"
+  };
 }
 
 export function resolveM04RequestDefaults(input: {
@@ -258,5 +302,19 @@ export function resolveM04RequestDefaults(input: {
         fhMode: fhMode.source
       })
     })
+  });
+}
+
+export function resolveRunnerRetryMaxAttempts(input: {
+  readonly bundle?: AbgLeverOverridesBundle | null | undefined;
+}): AbgRunnerRetryResolution {
+  const bundle = input.bundle ?? null;
+  const maxAttempts = resolveCountField(RUNNER_RETRY_MAX_ATTEMPTS_KEY, bundle);
+  return Object.freeze({
+    maxAttempts: maxAttempts.value,
+    source: maxAttempts.source,
+    bundleRef: bundle?.bundleRef ?? null,
+    bundleDigest: bundle?.bundleDigest ?? null,
+    bundlePath: bundle?.bundlePath ?? null
   });
 }

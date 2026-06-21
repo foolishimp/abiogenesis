@@ -5,7 +5,6 @@
 
 import test from "node:test";
 import assert from "node:assert/strict";
-import { spawnSync } from "node:child_process";
 import {
   cpSync,
   existsSync,
@@ -17,6 +16,7 @@ import {
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { performance } from "node:perf_hooks";
+import { runTracedProcess } from "../../build/semantic/code/src/shared/traced_process/index.js";
 
 const LIVE_DIR = path.dirname(fileURLToPath(import.meta.url));
 const TEST_ENV_ROOT = path.dirname(LIVE_DIR);
@@ -63,7 +63,7 @@ function readJson(filePath) {
   return JSON.parse(readFileSync(filePath, "utf8"));
 }
 
-function assertSpawnOk(result, label) {
+function assertTracedProcessOk(result, label) {
   if (result.status !== 0) {
     throw new Error(
       `${label} failed status=${String(result.status)} signal=${String(
@@ -73,14 +73,18 @@ function assertSpawnOk(result, label) {
   }
 }
 
-function runLoggedCommand(input) {
+async function runLoggedCommand(input) {
   const started = performance.now();
-  const result = spawnSync(input.command, input.args, {
+  const traceArchiveRoot = path.join(input.archiveRoot, `${input.label}.trace`);
+  const result = await runTracedProcess({
+    command: input.command,
+    args: input.args,
     cwd: input.cwd,
     env: input.env ?? process.env,
-    encoding: "utf8",
-    timeout: input.timeoutMs ?? 300000,
-    maxBuffer: input.maxBuffer ?? 50 * 1024 * 1024
+    archiveRoot: traceArchiveRoot,
+    label: input.label,
+    timeoutMs: input.timeoutMs ?? 300000,
+    executorProfile: "local-spawn"
   });
   const elapsedMs = durationSince(started);
   const commandRecord = {
@@ -90,8 +94,9 @@ function runLoggedCommand(input) {
     cwd: input.cwd,
     status: result.status,
     signal: result.signal,
-    error: result.error === undefined ? null : String(result.error.message),
-    elapsedMs
+    error: result.error,
+    elapsedMs,
+    traceResultRef: pathToFileURL(result.paths.result).href
   };
   writeJson(path.join(input.archiveRoot, `${input.label}.process.json`), commandRecord);
   writeFileSync(
@@ -104,7 +109,7 @@ function runLoggedCommand(input) {
     result.stderr ?? "",
     "utf8"
   );
-  assertSpawnOk(result, input.label);
+  assertTracedProcessOk(result, input.label);
   return { result, elapsedMs };
 }
 
@@ -119,7 +124,7 @@ function patchFrozenPackageDependency(workingRoot) {
   return packageJson.dependencies["@abiogenesis/typescript-tenant"];
 }
 
-function prepareOddSdlcWorkingCopy(input) {
+async function prepareOddSdlcWorkingCopy(input) {
   if (!existsSync(FROZEN_ROOT)) {
     throw new Error(`frozen odd_sdlc source missing: ${FROZEN_ROOT}`);
   }
@@ -134,7 +139,7 @@ function prepareOddSdlcWorkingCopy(input) {
     currentAbiPackageRoot: PACKAGE_ROOT,
     abiDependency
   });
-  runLoggedCommand({
+  await runLoggedCommand({
     label: "frozen-odd-sdlc-npm-install",
     command: "npm",
     args: ["install", "--no-audit", "--no-fund"],
@@ -142,7 +147,7 @@ function prepareOddSdlcWorkingCopy(input) {
     archiveRoot: input.runRoot,
     timeoutMs: 300000
   });
-  runLoggedCommand({
+  await runLoggedCommand({
     label: "frozen-odd-sdlc-build-semantic",
     command: "npm",
     args: ["run", "build:semantic"],
@@ -210,7 +215,7 @@ test(
     mkdirSync(runRoot, { recursive: true });
 
     const prepareStart = performance.now();
-    const workingRoot = prepareOddSdlcWorkingCopy({ runRoot });
+    const workingRoot = await prepareOddSdlcWorkingCopy({ runRoot });
     const prepareMs = durationSince(prepareStart);
     const {
       runScenarioSandbox,

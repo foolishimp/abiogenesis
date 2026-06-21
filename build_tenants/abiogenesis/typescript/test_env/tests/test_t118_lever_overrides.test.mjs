@@ -10,7 +10,8 @@ import path from "node:path";
 import {
   admitAbgLeverOverridesBundle,
   loadAbgLeverOverridesBundleFromFile,
-  resolveM04RequestDefaults
+  resolveM04RequestDefaults,
+  resolveRunnerRetryMaxAttempts
 } from "../../build/semantic/code/src/shared/lever_registry/overrides.js";
 
 const validBundle = {
@@ -122,4 +123,29 @@ test("T-118 overrides: explicit request value beats bundle", () => {
   // fh_mode not in request or this bundle -> registry default
   assert.equal(r.fhMode, "direct");
   assert.equal(r.provenance.selections.fhMode, "registry_default");
+});
+
+test("T-118 overrides: runner retry max attempts is a live ABG control lever", () => {
+  const bundle = admitAbgLeverOverridesBundle({
+    ...validBundle,
+    overrides: { "abg.runner.retry.max_attempts": 10 }
+  });
+
+  const overridden = resolveRunnerRetryMaxAttempts({ bundle });
+  assert.equal(overridden.maxAttempts, 10);
+  assert.equal(overridden.source, "override");
+  assert.equal(overridden.bundleRef, bundle.bundleRef);
+
+  const baseline = resolveRunnerRetryMaxAttempts({ bundle: null });
+  assert.equal(baseline.maxAttempts, 3);
+  assert.equal(baseline.source, "registry_default");
+
+  assert.throws(
+    () =>
+      admitAbgLeverOverridesBundle({
+        ...validBundle,
+        overrides: { "abg.runner.retry.max_attempts": 1.5 }
+      }),
+    /non-negative integer/u
+  );
 });

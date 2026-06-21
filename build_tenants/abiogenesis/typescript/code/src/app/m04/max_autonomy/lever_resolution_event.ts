@@ -9,8 +9,10 @@ import {
 import type { PublicStartContext } from "../start_context.js";
 import {
   M04_FH_MODE_KEY,
-  M04_REQUEST_DEFAULT_LEVER_KEYS,
-  M04_UNTIL_KEY
+  M04_UNTIL_KEY,
+  PUBLIC_START_CONSUMED_LEVER_KEYS,
+  RUNNER_RETRY_MAX_ATTEMPTS_KEY,
+  resolveRunnerRetryMaxAttempts
 } from "../../../shared/lever_registry/overrides.js";
 import type { PublicCallableStartRequest } from "./carriers.js";
 
@@ -21,6 +23,9 @@ export function constructLeverResolutionEvent(
   const startIntent = request.startRequest.startIntent;
   const controlModes = request.startRequest.controlModes;
   const provenance = request.leverResolution.provenance;
+  const retryResolution = resolveRunnerRetryMaxAttempts({
+    bundle: context.leverOverridesBundle ?? null
+  });
   const correlationBase =
     context.runId ?? context.workKey ?? startIntent.target.handle;
   return Object.freeze({
@@ -43,7 +48,10 @@ export function constructLeverResolutionEvent(
     untilSource: provenance.selections.until,
     fhModeLeverKey: M04_FH_MODE_KEY,
     fhModeSource: provenance.selections.fhMode,
-    selectedLeverKeys: M04_REQUEST_DEFAULT_LEVER_KEYS,
+    runnerRetryMaxAttempts: retryResolution.maxAttempts,
+    runnerRetryMaxAttemptsLeverKey: RUNNER_RETRY_MAX_ATTEMPTS_KEY,
+    runnerRetryMaxAttemptsSource: retryResolution.source,
+    selectedLeverKeys: PUBLIC_START_CONSUMED_LEVER_KEYS,
     causationEventRefs: Object.freeze([]),
     correlationId: `lever-resolution:${correlationBase}`
   });

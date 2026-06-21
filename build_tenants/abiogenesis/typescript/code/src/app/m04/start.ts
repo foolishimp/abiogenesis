@@ -17,6 +17,7 @@ import {
   assertRuntimeEventSink,
   type PublicStartContext
 } from "./start_context.js";
+import { resolveRunnerRetryMaxAttempts } from "../../shared/lever_registry/overrides.js";
 
 function selectorMismatchReason(
   request: PublicStartRequest,
@@ -64,6 +65,9 @@ export function startFromRequest(
     resolvedPolicy: context.resolvedPolicy,
     runtimeEvents: context.runtimeEvents ?? Object.freeze([]),
     eventSink: sink,
+    maxAttachedFpAttempts: resolveRunnerRetryMaxAttempts({
+      bundle: context.leverOverridesBundle ?? null
+    }).maxAttempts,
     ...(plugins === undefined ? {} : { plugins }),
     ...(context.assuranceProvider === undefined
       ? {}
@@ -123,6 +127,9 @@ export async function startFromRequestAsync(
     resolvedPolicy: context.resolvedPolicy,
     runtimeEvents: context.runtimeEvents ?? Object.freeze([]),
     eventSink: sink,
+    maxAttachedFpAttempts: resolveRunnerRetryMaxAttempts({
+      bundle: context.leverOverridesBundle ?? null
+    }).maxAttempts,
     ...(plugins === undefined ? {} : { plugins }),
     ...(context.assuranceProvider === undefined
       ? {}
