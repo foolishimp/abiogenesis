@@ -147,6 +147,8 @@ function registerRulePlugin(input) {
           input.status === "blocked"
             ? []
             : [`evidence://t145/${input.ruleRef}`],
+        residualPressureRefs: input.residualPressureRefs ?? [],
+        continuationRefs: input.continuationRefs ?? [],
         diagnosticRefs: input.diagnosticRefs ?? [],
         selectedCompositionRef: pluginInput.selectedCompositionRef,
         selectedCompositionDigest: pluginInput.selectedCompositionDigest,
@@ -757,6 +759,105 @@ test("T-145 blocked required evaluation rule vetoes scalar F_D closure", () => {
   assert.match(
     result.transition.reason,
     /blocked:evaluation-rule:\/\/t145\/blocked-fd-required-register:required_register_failed/u
+  );
+});
+
+test("T-145 retry-capable required evaluation rule replays the same edge", () => {
+  const basis = firstFpBasis();
+  const events = [];
+  const ruleRef = "evaluation-rule://t145/retryable-fp-required-register";
+  let registerAttempts = 0;
+  let fpEvaluateCount = 0;
+  const retryableRule = Object.freeze({
+    contract: pluginContract(
+      "fp_evaluator",
+      "plugin://t145/retryable-fp-required-register",
+      "EvaluationRuleOutcome"
+    ),
+    ruleRef,
+    ruleRole: "semantic_judgment",
+    required: true,
+    parallelGroupRef: null,
+    dependencyRefs: [],
+    outputCarrierRefs: ["EvaluationRuleOutcome"],
+    evaluate(pluginInput) {
+      registerAttempts += 1;
+      if (registerAttempts === 1) {
+        return constructEvaluationRuleOutcome({
+          status: "blocked",
+          ruleRef,
+          ruleRole: "semantic_judgment",
+          computeMeans: "F_P",
+          residualPressureRefs: ["pressure://t145/retryable-evaluation-rule"],
+          continuationRefs: ["continuation://t145/retryable-evaluation-rule"],
+          diagnosticRefs: [pluginInput.sourceProjectionRef],
+          selectedCompositionRef: pluginInput.selectedCompositionRef,
+          selectedCompositionDigest: pluginInput.selectedCompositionDigest,
+          selectedCompositionSelectionRef:
+            pluginInput.selectedCompositionSelectionRef,
+          selectedRegimeBindingRef: pluginInput.selectedRegimeBindingRef,
+          compositionContributionRef:
+            pluginInput.selectedRegimeBindingRef ??
+            pluginInput.selectedCompositionRef,
+          reason: "worker_connection_failed"
+        });
+      }
+      return constructEvaluationRuleOutcome({
+        status: "accepted",
+        ruleRef,
+        ruleRole: "semantic_judgment",
+        computeMeans: "F_P",
+        findingRefs: [`finding://t145/${ruleRef}/${registerAttempts}`],
+        evidenceRefs: [pluginInput.sourceProjectionRef],
+        selectedCompositionRef: pluginInput.selectedCompositionRef,
+        selectedCompositionDigest: pluginInput.selectedCompositionDigest,
+        selectedCompositionSelectionRef:
+          pluginInput.selectedCompositionSelectionRef,
+        selectedRegimeBindingRef: pluginInput.selectedRegimeBindingRef,
+        compositionContributionRef:
+          pluginInput.selectedRegimeBindingRef ??
+          pluginInput.selectedCompositionRef
+      });
+    }
+  });
+  const result = runEngineIterate({
+    basis,
+    eventSink: (event) => events.push(event),
+    plugins: {
+      fpDispatch: fpDispatchPlugin(),
+      fdEvaluator: fdEvaluatorPlugin(),
+      fpEvaluator: fpEvaluatorPlugin(() => {
+        fpEvaluateCount += 1;
+      }),
+      evaluationRules: [retryableRule],
+      requiredEvaluationRuleRefs: [ruleRef]
+    }
+  });
+
+  assert.equal(result.transition.kind, "terminal");
+  assert.equal(result.transition.terminalKind, "converged");
+  assert.equal(fpEvaluateCount, 1);
+  assert.equal(
+    events.some((event) => event.kind === "retry_repair_planned"),
+    true
+  );
+  assert.equal(
+    events.some(
+      (event) =>
+        event.kind === "retry_progress_recorded" &&
+        event.progressSignalRefs.includes(
+          "continuation://t145/retryable-evaluation-rule"
+        )
+    ),
+    true
+  );
+  assert.equal(
+    events.some(
+      (event) =>
+        event.kind === "terminal_reached" &&
+        event.terminalKind === "gap_stop"
+    ),
+    false
   );
 });
 

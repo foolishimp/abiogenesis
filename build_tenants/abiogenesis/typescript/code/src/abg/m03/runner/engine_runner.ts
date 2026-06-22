@@ -762,6 +762,24 @@ function candidateAssuranceRetryManifestId(input: {
   })}`;
 }
 
+function candidateEvaluationSetRetryManifestId(input: {
+  readonly basis: ExecutionBasis;
+  readonly projection: RuntimeAggregateProjection;
+  readonly vectorIndex: number;
+  readonly outcomes: readonly EvaluationRuleOutcome[];
+}): string {
+  const attemptIndex =
+    input.projection.retryAttemptRefs.filter(
+      (attempt) => attempt.vectorIndex === input.vectorIndex
+    ).length + 1;
+  return `manifest:evaluation_set_retry:${JSON.stringify({
+    basisId: input.basis.id,
+    vectorIndex: input.vectorIndex,
+    attemptIndex,
+    ruleRefs: input.outcomes.map((outcome) => outcome.ruleRef)
+  })}`;
+}
+
 function noProgressContinuationRepair(input: {
   readonly basis: ExecutionBasis;
   readonly projection: RuntimeAggregateProjection;
@@ -786,6 +804,21 @@ function assuranceRetryContinuationRepair(input: {
     (attempt) => attempt.vectorIndex === input.vectorIndex
   ).length;
   const prefix = `continuation:${input.basis.id}:${input.vectorIndex}:assurance_retry`;
+  return Object.freeze({
+    terminatedContinuationId: `${prefix}:attempt:${observedAttemptCount}`,
+    reopenedContinuationId: `${prefix}:attempt:${observedAttemptCount + 1}`
+  });
+}
+
+function evaluationSetRetryContinuationRepair(input: {
+  readonly basis: ExecutionBasis;
+  readonly projection: RuntimeAggregateProjection;
+  readonly vectorIndex: number;
+}) {
+  const observedAttemptCount = input.projection.retryAttemptRefs.filter(
+    (attempt) => attempt.vectorIndex === input.vectorIndex
+  ).length;
+  const prefix = `continuation:${input.basis.id}:${input.vectorIndex}:evaluation_set_retry`;
   return Object.freeze({
     terminatedContinuationId: `${prefix}:attempt:${observedAttemptCount}`,
     reopenedContinuationId: `${prefix}:attempt:${observedAttemptCount + 1}`
@@ -1033,6 +1066,12 @@ function fpEvaluationFindingPayloadRef(input: {
 
 function uniqueStrings(values: readonly string[]): readonly string[] {
   return Object.freeze([...new Set(values)]);
+}
+
+function evaluationRuleOutcomeHasRetryContinuation(
+  outcome: EvaluationRuleOutcome
+): boolean {
+  return outcome.status === "blocked" && outcome.continuationRefs.length > 0;
 }
 
 function fpEvaluationContinuationRefs(
@@ -1983,6 +2022,35 @@ function evaluationRuleOutcomeFromFdEvaluation(input: {
   });
 }
 
+function evaluationSetRetryableBlockedRequiredOutcomes(input: {
+  readonly admission: ReturnType<typeof constructEvaluationSetAdmission>;
+  readonly requiredRuleRefs: readonly string[];
+  readonly ignoreMissingRuleRefs?: readonly string[] | undefined;
+}): readonly EvaluationRuleOutcome[] {
+  const ignoredMissing = new Set(input.ignoreMissingRuleRefs ?? Object.freeze([]));
+  const missingRequiredRuleRefs = input.admission.missingRequiredRuleRefs.filter(
+    (ruleRef) => !ignoredMissing.has(ruleRef)
+  );
+  if (missingRequiredRuleRefs.length > 0) {
+    return Object.freeze([]);
+  }
+  const requiredRuleRefs = new Set(input.requiredRuleRefs);
+  const rejectedRequired = input.admission.rejectedRuleOutcomes.filter(
+    (ruleOutcome) => requiredRuleRefs.has(ruleOutcome.ruleRef)
+  );
+  if (rejectedRequired.length === 0) {
+    return Object.freeze([]);
+  }
+  if (
+    rejectedRequired.some(
+      (ruleOutcome) => !evaluationRuleOutcomeHasRetryContinuation(ruleOutcome)
+    )
+  ) {
+    return Object.freeze([]);
+  }
+  return Object.freeze(rejectedRequired);
+}
+
 function evaluationSetBlockingReason(input: {
   readonly admission: ReturnType<typeof constructEvaluationSetAdmission>;
   readonly requiredRuleRefs: readonly string[];
@@ -2011,6 +2079,103 @@ function evaluationSetBlockingReason(input: {
     ...missingRequiredRuleRefs.map((ruleRef) => `missing:${ruleRef}`),
     ...rejectedRequiredRuleRefs
   ].join(" ");
+}
+
+function evaluationSetRetryPriorManifestId(input: {
+  readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
+  readonly outcomes: readonly EvaluationRuleOutcome[];
+}): string {
+  return `manifest:evaluation_set_block:${JSON.stringify({
+    basisId: input.basis.id,
+    vectorIndex: input.vectorIndex,
+    ruleRefs: input.outcomes.map((outcome) => outcome.ruleRef),
+    reasons: input.outcomes.map((outcome) => outcome.reason ?? "blocked")
+  })}`;
+}
+
+function evaluationSetRetryProgressSignalRefs(input: {
+  readonly outcomes: readonly EvaluationRuleOutcome[];
+}): readonly string[] {
+  return uniqueStrings(
+    input.outcomes.flatMap((outcome) => [
+      `blocking_reason:${outcome.reason ?? "evaluation_rule_blocked"}`,
+      `evaluation_rule:${outcome.ruleRef}`,
+      ...outcome.residualPressureRefs,
+      ...outcome.continuationRefs,
+      ...outcome.diagnosticRefs,
+      ...outcome.evidenceRefs
+    ])
+  );
+}
+
+function evaluationSetRetryEvents(input: {
+  readonly basis: ExecutionBasis;
+  readonly runtimeProjection: RuntimeAggregateProjection;
+  readonly replayEvents: readonly RuntimeEvent[];
+  readonly vectorIndex: number;
+  readonly outcomes: readonly EvaluationRuleOutcome[];
+  readonly maxAttempts: number;
+}): readonly RuntimeEvent[] | TerminalTransition {
+  const retryContext = deriveFreshRetryContextProjection({
+    basis: input.basis,
+    runtimeProjection: input.runtimeProjection,
+    events: input.replayEvents,
+    vectorIndex: input.vectorIndex
+  });
+  if (retryContext.status !== "fresh") {
+    throw new TypeError(
+      `Evaluation-set retry rejects ${retryContext.status}: ${retryContext.reason ?? "retry context is not fresh"}`
+    );
+  }
+  const retryDecision = deriveRetryRepairDecision({
+    basis: input.basis,
+    projection: input.runtimeProjection,
+    failedVectorIndex: input.vectorIndex,
+    priorManifestId: evaluationSetRetryPriorManifestId({
+      basis: input.basis,
+      vectorIndex: input.vectorIndex,
+      outcomes: input.outcomes
+    }),
+    candidateManifestId: candidateEvaluationSetRetryManifestId({
+      basis: input.basis,
+      projection: input.runtimeProjection,
+      vectorIndex: input.vectorIndex,
+      outcomes: input.outcomes
+    }),
+    maxAttempts: input.maxAttempts,
+    stationary: false,
+    escalationSubjectRef: input.basis.resolvedPolicy.approvalSubjectRef,
+    continuationRepair: evaluationSetRetryContinuationRepair({
+      basis: input.basis,
+      projection: input.runtimeProjection,
+      vectorIndex: input.vectorIndex
+    })
+  });
+  const retryEvents = runtimeEventsForRetryRepairDecision(retryDecision);
+  switch (retryDecision.kind) {
+    case "retry_planned":
+      return Object.freeze([
+        ...retryEvents,
+        constructRetryProgressRecordedEvent({
+          decision: retryDecision,
+          progressSignalRefs: evaluationSetRetryProgressSignalRefs({
+            outcomes: input.outcomes
+          }),
+          stationary: false
+        })
+      ]);
+    case "retry_escalated":
+      return terminalTransition(input.basis, "yielded", retryDecision.gateReason);
+    case "retry_stopped":
+      return terminalTransition(input.basis, "gap_stop", retryDecision.reason);
+    default: {
+      const exhaustive: never = retryDecision;
+      throw new TypeError(
+        `Unsupported evaluation-set retry decision ${JSON.stringify(exhaustive)}`
+      );
+    }
+  }
 }
 
 function fpEvaluationFindingAmbiguityStatus(input: {
@@ -3669,6 +3834,45 @@ function* runEngineIterateMachine(input: {
           ignoreMissingRuleRefs: [scalarFdRule.ruleRef]
         });
         if (preScalarBlockingReason !== null) {
+          const retryableOutcomes = evaluationSetRetryableBlockedRequiredOutcomes({
+            admission: preScalarAdmission,
+            requiredRuleRefs: evaluationSetPlan.requiredRuleRefs,
+            ignoreMissingRuleRefs: [scalarFdRule.ruleRef]
+          });
+          if (retryableOutcomes.length > 0) {
+            const retryEvents = evaluationSetRetryEvents({
+              basis: request.basis,
+              runtimeProjection: deriveRuntimeAggregateProjection(
+                request.basis,
+                eventState.replayEvents
+              ),
+              replayEvents: eventState.replayEvents,
+              vectorIndex: transition.vectorIndex,
+              outcomes: retryableOutcomes,
+              maxAttempts:
+                request.maxAttachedFpAttempts ??
+                DEFAULT_ATTACHED_FP_MAX_RETRY_ATTEMPTS
+            });
+            if (!("kind" in retryEvents)) {
+              eventState = emitRunnerEvents(eventState, retryEvents);
+              break;
+            }
+            eventState = emitRunnerEvents(
+              eventState,
+              constructTerminalReachedEvent(retryEvents)
+            );
+            return constructResult({
+              basis: request.basis,
+              transition: retryEvents,
+              projection: deriveRuntimeAggregateProjection(
+                request.basis,
+                eventState.replayEvents
+              ),
+              emittedEvents: eventState.emittedEvents,
+              replayEvents: eventState.replayEvents,
+              iterationCount
+            });
+          }
           const blocked = terminalTransition(
             request.basis,
             "gap_stop",
@@ -3813,6 +4017,38 @@ function* runEngineIterateMachine(input: {
           });
         }
         if (evaluationSetBlockReason !== null) {
+          const retryableOutcomes = evaluationSetRetryableBlockedRequiredOutcomes({
+            admission: evaluationSetAdmission,
+            requiredRuleRefs: evaluationSetPlan.requiredRuleRefs
+          });
+          if (retryableOutcomes.length > 0) {
+            const retryEvents = evaluationSetRetryEvents({
+              basis: request.basis,
+              runtimeProjection: deriveRuntimeAggregateProjection(
+                request.basis,
+                eventState.replayEvents
+              ),
+              replayEvents: eventState.replayEvents,
+              vectorIndex: transition.vectorIndex,
+              outcomes: retryableOutcomes,
+              maxAttempts:
+                request.maxAttachedFpAttempts ??
+                DEFAULT_ATTACHED_FP_MAX_RETRY_ATTEMPTS
+            });
+            if (!("kind" in retryEvents)) {
+              eventState = emitRunnerEvents(eventState, retryEvents);
+              break;
+            }
+            eventState = emitRunnerEvents(eventState, constructTerminalReachedEvent(retryEvents));
+            return constructResult({
+              basis: request.basis,
+              transition: retryEvents,
+              projection: deriveRuntimeAggregateProjection(request.basis, eventState.replayEvents),
+              emittedEvents: eventState.emittedEvents,
+              replayEvents: eventState.replayEvents,
+              iterationCount
+            });
+          }
           const blocked = terminalTransition(
             request.basis,
             "gap_stop",
@@ -4719,6 +4955,45 @@ function* runEngineIterateMachine(input: {
               ignoreMissingRuleRefs: [scalarFpRule.ruleRef]
             });
             if (preSemanticBlockingReason !== null) {
+              const retryableOutcomes = evaluationSetRetryableBlockedRequiredOutcomes({
+                admission: preSemanticAdmission,
+                requiredRuleRefs: evaluationSetPlan.requiredRuleRefs,
+                ignoreMissingRuleRefs: [scalarFpRule.ruleRef]
+              });
+              if (retryableOutcomes.length > 0) {
+                const retryEvents = evaluationSetRetryEvents({
+                  basis: request.basis,
+                  runtimeProjection: deriveRuntimeAggregateProjection(
+                    request.basis,
+                    eventState.replayEvents
+                  ),
+                  replayEvents: eventState.replayEvents,
+                  vectorIndex: transition.vectorIndex,
+                  outcomes: retryableOutcomes,
+                  maxAttempts:
+                    request.maxAttachedFpAttempts ??
+                    DEFAULT_ATTACHED_FP_MAX_RETRY_ATTEMPTS
+                });
+                if (!("kind" in retryEvents)) {
+                  eventState = emitRunnerEvents(eventState, retryEvents);
+                  break;
+                }
+                eventState = emitRunnerEvents(
+                  eventState,
+                  constructTerminalReachedEvent(retryEvents)
+                );
+                return constructResult({
+                  basis: request.basis,
+                  transition: retryEvents,
+                  projection: deriveRuntimeAggregateProjection(
+                    request.basis,
+                    eventState.replayEvents
+                  ),
+                  emittedEvents: eventState.emittedEvents,
+                  replayEvents: eventState.replayEvents,
+                  iterationCount
+                });
+              }
               const blocked = terminalTransition(
                 request.basis,
                 "gap_stop",
@@ -4835,6 +5110,38 @@ function* runEngineIterateMachine(input: {
               requiredRuleRefs: evaluationSetPlan.requiredRuleRefs
             });
             if (evaluationSetBlockReason !== null) {
+              const retryableOutcomes = evaluationSetRetryableBlockedRequiredOutcomes({
+                admission: evaluationSetAdmission,
+                requiredRuleRefs: evaluationSetPlan.requiredRuleRefs
+              });
+              if (retryableOutcomes.length > 0) {
+                const retryEvents = evaluationSetRetryEvents({
+                  basis: request.basis,
+                  runtimeProjection: deriveRuntimeAggregateProjection(
+                    request.basis,
+                    eventState.replayEvents
+                  ),
+                  replayEvents: eventState.replayEvents,
+                  vectorIndex: transition.vectorIndex,
+                  outcomes: retryableOutcomes,
+                  maxAttempts:
+                    request.maxAttachedFpAttempts ??
+                    DEFAULT_ATTACHED_FP_MAX_RETRY_ATTEMPTS
+                });
+                if (!("kind" in retryEvents)) {
+                  eventState = emitRunnerEvents(eventState, retryEvents);
+                  break;
+                }
+                eventState = emitRunnerEvents(eventState, constructTerminalReachedEvent(retryEvents));
+                return constructResult({
+                  basis: request.basis,
+                  transition: retryEvents,
+                  projection: deriveRuntimeAggregateProjection(request.basis, eventState.replayEvents),
+                  emittedEvents: eventState.emittedEvents,
+                  replayEvents: eventState.replayEvents,
+                  iterationCount
+                });
+              }
               const blocked = terminalTransition(
                 request.basis,
                 "gap_stop",

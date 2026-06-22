@@ -1,20 +1,20 @@
-# abiogenesis 4.1.0-rc.5 Release Candidate Note
+# abiogenesis 4.1.0-rc.6 Release Candidate Note
 
-This checkpoint is the fifth TypeScript ABG `4.1.0` release candidate. It
-follows `4.1.0-rc.4` and repairs the ABG-owned consequence-bind closure boundary
-exposed by odd_sdlc T-204/T-205 hello-world traversal.
+This checkpoint is the sixth TypeScript ABG `4.1.0` release candidate. It
+follows `4.1.0-rc.5` and repairs the ABG-owned evaluation-set retry boundary
+exposed by odd_sdlc T-204 hello-world traversal.
 
 It is an RC candidate, not the final tapped `4.1.0` release.
 
 ## Release Claim
 
-RC5 keeps the RC4 replay and graph-function identity repairs, then adds one
-runtime-law repair:
+RC6 keeps the RC5 consequence-bind closure repair, then adds one runtime-law
+repair:
 
-- ABG emits `vector_closed` only after consequence projection admits and any
-  consequence traversal action has been consumed. A blocked consequence bind or
-  traversal-action continuation can no longer leave a closed-vector fact beside
-  a terminal gap-stop result.
+- A blocked required `plugin.evaluate.C.rule[*]` result can drive ABG same-edge
+  retry when the admitted `EvaluationRuleOutcome` carries explicit
+  continuation refs. Missing required rules and blocked rules without
+  continuation refs still fail fast as `evaluation_set_incomplete`.
 
 These repairs preserve the governing split: ABG owns traversal, replay,
 continuation, runtime events, and consequence transition. Product tenants expose
@@ -45,16 +45,17 @@ ABG.start(fn<A, B>.C)
   .bind(system.replayContinuation)
 ```
 
-RC5 does not move downstream product meaning into ABG. The change is an ABG
-runtime-control repair for traversal-unit bind closure: vector closure is a
-post-consequence fact, not a pre-consequence optimistic fact.
+RC6 does not move downstream product meaning into ABG. The change is an ABG
+runtime-control repair for evaluation-set retry: retryable evaluator/runtime
+failures are consumed through ABG retry repair events instead of being reduced
+to terminal gap-stop truth before consequence or continuation can run.
 
 ## Versioned Artifacts
 
 - RC branch: `main`
-- RC identity: `4.1.0-rc.5`
-- Candidate package version: `4.1.0-rc.5`
-- Candidate tag: `v4.1.0-rc.5`
+- RC identity: `4.1.0-rc.6`
+- Candidate package version: `4.1.0-rc.6`
+- Candidate tag: `v4.1.0-rc.6`
 
 ## Verification
 
@@ -63,13 +64,11 @@ Required evidence for accepting this RC:
 ```text
 ABG semantic build and focused traversal/replay lane:
   npm run build:semantic
-  node --test test_env/tests/test_m03_engine_kernel_integration.test.mjs \
-    test_env/tests/test_t152_consequence_traversal_action_bridge.test.mjs \
+  node --test test_env/tests/test_t145_evaluation_set_phase.test.mjs \
     test_env/tests/test_t084_attached_fp_worker_loop.test.mjs \
-    test_env/tests/test_t156_consequence_allowed_traversal_catalog.test.mjs \
-    test_env/tests/test_t156_consequence_ticket_traversal_bridge.test.mjs
+    test_env/tests/test_t152_consequence_traversal_action_bridge.test.mjs
 
-odd_sdlc substrate proof over RC5:
+odd_sdlc substrate proof over RC6:
   npm run test:t132:hello-world-live
 
 odd_sdlc data-mapper target continuation:
