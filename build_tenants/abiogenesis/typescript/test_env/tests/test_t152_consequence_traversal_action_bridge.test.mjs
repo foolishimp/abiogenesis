@@ -299,6 +299,75 @@ test("T-159 consequence bind admits plugin traversal proposal as data before rep
   ]);
 });
 
+test("T-159 consequence bind accepts graph function name aliases at replay boundary", () => {
+  const basis = buildConsequenceCatalogBasis({
+    defaultRegime: "F_D",
+    dispatchRef: null,
+    vectorRegimes: ["F_D", "F_D", "F_D"],
+    runId: "run://t159/consequence-bind/graph-function-name",
+    workKey: "work-key://t159/consequence-bind/graph-function-name"
+  });
+  const targetVectorIndex = 1;
+  const emittedEvents = [];
+  let traversalActionIssued = false;
+  const outcome = runEngineIterate({
+    basis,
+    eventSink: (event) => {
+      emittedEvents.push(event);
+    },
+    plugins: {
+      fdEvaluator: Object.freeze({
+        contract: fdEvaluatorContract("plugin://t159/consequence-bind/name/fd"),
+        evaluate: (input) =>
+          constructFdEvaluationOutcome({
+            status: "accepted",
+            evidenceRefs: [input.sourceProjectionRef]
+          })
+      }),
+      consequenceProjection: Object.freeze({
+        contract: constructEnginePluginContract({
+          ref: "plugin://t159/consequence-bind/name/consequence",
+          pluginKind: "consequence_projection",
+          authority: "effect_plugin",
+          inputCarrier: "EnginePluginInput",
+          outputCarrier: "ConsequenceProjectionOutcome"
+        }),
+        project: (input) => {
+          const shouldIssueTraversalAction =
+            input.vectorIndex === 2 && !traversalActionIssued;
+          if (shouldIssueTraversalAction) {
+            traversalActionIssued = true;
+          }
+          return {
+            kind: "consequence_projection",
+            status: "projected",
+            consequenceRef: `consequence://t159/name-alias/${input.vectorIndex}`,
+            domainReadModelRefs: [`read-model://t159/name-alias/${input.vectorIndex}`],
+            traversalAction:
+              shouldIssueTraversalAction
+                ? rawTraversalAction(basis, targetVectorIndex, {
+                    selectedGraphFunctionRef: basis.graphFunction.name
+                  })
+                : null,
+            evidenceRefs: [`evidence://t159/name-alias/${input.vectorIndex}`],
+            reason: null
+          };
+        }
+      })
+    }
+  });
+
+  assert.equal(outcome.transition.kind, "terminal");
+  assert.equal(outcome.transition.terminalKind, "converged");
+  assert.ok(
+    emittedEvents.some(
+      (event) =>
+        event.kind === "graph_reentry_applied" &&
+        event.targetVectorIndex === targetVectorIndex
+    )
+  );
+});
+
 test("T-159 consequence bind rejects engine-authority plugin proposal before replay", () => {
   const basis = buildConsequenceCatalogBasis({
     defaultRegime: "F_D",

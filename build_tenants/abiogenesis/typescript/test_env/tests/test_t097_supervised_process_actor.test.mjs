@@ -136,15 +136,16 @@ test("T-097 supervised process actor streams stdout/stderr and records lifecycle
       "actor_process_exited"
     ]
   );
-  assert.ok(
+  assert.equal(
     observed.some((event) => event.kind === "actor_process_heartbeat"),
-    "long-running process should record heartbeat before exit"
+    false,
+    "supervisor liveness probes must not be recorded as worker heartbeat events"
   );
   const probeSources = runtimeProbeSources(observed);
   assert.equal(probeSources.has("actor_process_lifecycle"), true);
   assert.equal(probeSources.has("local_spawn_stdout"), true);
   assert.equal(probeSources.has("local_spawn_stderr"), true);
-  assert.equal(probeSources.has("actor_process_heartbeat"), true);
+  assert.equal(probeSources.has("scheduler_status"), true);
   assert.equal(result.probeContracts.length >= 4, true);
   for (const event of observed) {
     assertActorProcessIdentity(event);
@@ -254,6 +255,10 @@ test("T-188 supervised process actor terminates heartbeat-only inactivity", asyn
   assert.equal(result.signal, "SIGTERM");
   assert.equal(
     observed.some((event) => event.kind === "actor_process_heartbeat"),
+    false
+  );
+  assert.equal(
+    runtimeProbeSources(observed).has("scheduler_status"),
     true
   );
   assert.equal(

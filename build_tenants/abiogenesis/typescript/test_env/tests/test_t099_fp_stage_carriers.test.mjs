@@ -12,6 +12,7 @@ import {
   admitResultArtifact,
   admitFpTransformResult,
   constructAssuranceAuthoritySnapshot,
+  constructAssuranceEvidenceRow,
   constructEnginePluginContract,
   constructFpDispatchOutcome,
   constructPayloadObservedEvent,
@@ -71,7 +72,28 @@ function externalAuthorityProvider() {
   });
 }
 
-function targetCarrierFulfillmentEvents(basis) {
+function providerMaterialAuthority() {
+  return Object.freeze({
+    authoritySnapshot: () => null,
+    evidenceRows: ({ scope, authoritySnapshot }) =>
+      [
+        constructAssuranceEvidenceRow({
+          scope,
+          evidenceRef: `file://t099/current/${scope.vectorIndex}`,
+          authorityRef: authoritySnapshot.authorityRefs[0],
+          authorityDigest: authoritySnapshot.authorityDigest,
+          inputDigest: authoritySnapshot.inputDigest,
+          providerRefs: ["provider://t099/material-authority"],
+          policyRefs: ["policy://t099/assurance/material-current"]
+        })
+      ]
+  });
+}
+
+function targetCarrierFulfillmentEvents(
+  basis,
+  authorityRefFor = (vectorIndex) => `req://t099/external/${vectorIndex}`
+) {
   const defaults = loadGtlTargetCarrierDefaultsBundle();
   const events = [];
   for (let vectorIndex = 0; vectorIndex < basis.graph.vectors.length; vectorIndex += 1) {
@@ -88,7 +110,7 @@ function targetCarrierFulfillmentEvents(basis) {
         contractRef: binding.contractRef,
         digest,
         producerRef: "provider://t099/target-carrier",
-        authorityRef: `req://t099/external/${vectorIndex}`,
+        authorityRef: authorityRefFor(vectorIndex),
         inputDigest: "input-digest-t099-current",
         policyRefs: ["policy://t099/assurance"]
       }),
@@ -447,6 +469,45 @@ test("T-099 negative: worker fulfilled self-report cannot override assurance aut
     result.assuranceGate.reports.some((report) =>
       report.rowStatuses.includes("missing")
     ),
+    true
+  );
+});
+
+test("T-099 assurance gate admits provider current-material evidence rows", () => {
+  const basis = buildThreeStageBasis({
+    defaultRegime: "F_P",
+    dispatchRef: "dispatch://t099-material-provider"
+  });
+
+  const fpDispatch = Object.freeze({
+    contract: fpDispatchContract("plugin://test/t099-material-provider"),
+    dispatch: (input) =>
+      constructFpDispatchOutcome({
+        status: "dispatched",
+        attachedResultArtifact: fulfilledArtifact(input)
+      })
+  });
+
+  const result = runEngineIterate({
+    basis,
+    runtimeEvents: targetCarrierFulfillmentEvents(basis),
+    eventSink: () => {},
+    plugins: { fpDispatch, fpEvaluator: defaultFpEvaluatorPlugin },
+    assuranceProvider: providerMaterialAuthority()
+  });
+
+  assert.equal(result.transition.kind, "terminal");
+  assert.equal(result.transition.terminalKind, "converged");
+  assert.equal(result.assuranceGate.kind, "assurance_closed");
+  assert.deepEqual(result.assuranceGate.closureDecisions, ["close"]);
+  assert.equal(
+    result.assuranceGate.scopeResults
+      .filter((entry) => entry.kind === "evaluated")
+      .every((entry) =>
+        entry.projection.evidenceRows.some((row) =>
+          row.evidenceRef.startsWith("file://t099/current/")
+        )
+      ),
     true
   );
 });

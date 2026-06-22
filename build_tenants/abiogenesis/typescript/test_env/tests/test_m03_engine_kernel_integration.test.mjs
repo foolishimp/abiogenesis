@@ -19,7 +19,8 @@ import {
   dispatch,
   dispatchRequestsForTransition,
   emit,
-  runtimeEventsForTransition
+  runtimeEventsForTransition,
+  seedRuntimeEventAdmissionOrdinal
 } from "../../build/semantic/code/src/abg/m03/index.js";
 
 function designNode(overrides = {}) {
@@ -283,6 +284,61 @@ test("M03 integration: public ingress admits one request into one F_D execution 
 
   assert.equal(root.admitStartIntent, m03.admitStartIntent);
   assert.equal(root.emit, m03.emit);
+});
+
+test("M03 integration: emitted event ordinals continue after replay seeding", () => {
+  const profile = publishedProfile({
+    id: "graph-function-fd-seed",
+    name: "capture_requirements;synthesize_design"
+  });
+  const basis = admitExecutionBasis({
+    startIntent: startIntent(profile.name),
+    module: admitModule(
+      modulePayload({
+        moduleName: "abiogenesis.runtime_library",
+        graphFunctions: [profile],
+        jobs: [
+          jobPayload({
+            id: "job-fd-seed",
+            name: "fd_seed_job",
+            graphFunctionId: profile.id
+          })
+        ]
+      })
+    ),
+    runtimeIdentity: runtimeIdentity(),
+    resolvedPolicy: admitResolvedPolicyIdentity({
+      resolvedPolicyBundleRef: "policy://fd-default",
+      defaultRegime: "F_D"
+    }),
+    runId: "run://fd-seed",
+    workKey: "wk://fd-seed"
+  });
+  const first = emit(
+    runtimeEventsForTransition(basis, {
+      kind: "terminal",
+      basis,
+      terminalKind: "nothing_to_do",
+      reason: "seed fixture"
+    }),
+    () => {}
+  );
+  seedRuntimeEventAdmissionOrdinal(first);
+  const next = emit(
+    {
+      kind: "terminal_reached",
+      basisId: first[0].basisId,
+      terminalKind: "converged",
+      reason: "resumed start fixture"
+    },
+    () => {}
+  );
+
+  assert.equal(next.length, 1);
+  assert.equal(
+    next[0].eventAdmissionOrdinal,
+    Math.max(...first.map((event) => event.eventAdmissionOrdinal)) + 1
+  );
 });
 
 test("M03 integration: F_P runtime derives one closed dispatch transition and typed dispatch request", () => {

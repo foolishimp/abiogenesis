@@ -445,12 +445,24 @@ function assertSelectedIntent(input: {
   }
 }
 
+function selectedGraphFunctionRefMatchesBasis(input: {
+  readonly selectedGraphFunctionRef: string | null;
+  readonly basis: ExecutionBasis;
+}): boolean {
+  return (
+    input.selectedGraphFunctionRef === input.basis.graphFunction.id ||
+    input.selectedGraphFunctionRef === input.basis.graphFunction.name
+  );
+}
+
 export function deriveConstructionEffectPlan(
   request: ConstructionIntentRunnerRequest
 ): ConstructionRuntimeEffectPlanDerivation {
   if (
-    request.admittedIntent.selectedGraphFunctionRef !==
-    request.graphActionBasis.graphFunction.id
+    !selectedGraphFunctionRefMatchesBasis({
+      selectedGraphFunctionRef: request.admittedIntent.selectedGraphFunctionRef,
+      basis: request.graphActionBasis
+    })
   ) {
     throw new TypeError(
       "Construction runner graph action basis contradicts admitted construction intent"

@@ -16,7 +16,6 @@ import type {
 } from "../contracts/carriers.js";
 import {
   constructActorProcessExitedEvent,
-  constructActorProcessHeartbeatEvent,
   constructActorProcessSignalSentEvent,
   constructActorProcessStartFailedEvent,
   constructActorProcessStartedEvent,
@@ -288,7 +287,7 @@ export async function invokeSupervisedProcessActor(
   let errorMessage: string | null = null;
   let stdoutChunkIndex = 0;
   let stderrChunkIndex = 0;
-  let heartbeatIndex = 0;
+  let supervisorProbeIndex = 0;
   let closed = false;
   let processStartObserved = false;
   const executorProfile = executorProfileFor(request);
@@ -300,29 +299,22 @@ export async function invokeSupervisedProcessActor(
             return;
           }
           const elapsedMs = roundElapsedMs(startedAt);
-          const heartbeatEvent = constructActorProcessHeartbeatEvent({
-            invocation: request.invocation,
-            heartbeatIndex,
-            elapsedMs
-          });
           emit(
-            [
-              heartbeatEvent,
-              runtimeActivityProbe({
-                invocation: request.invocation,
-                probeSource: "actor_process_heartbeat",
-                activityRef:
-                  `actor-process-heartbeat:${request.invocation.actorInvocationId}:${heartbeatIndex}`,
-                elapsedMs,
-                evidenceRefs: [
-                  `event:${heartbeatEvent.kind}:${request.invocation.actorInvocationId}:${heartbeatIndex}`
-                ],
-                detail: "supervised actor heartbeat"
-              })
-            ],
+            runtimeActivityProbe({
+              invocation: request.invocation,
+              probeSource: "scheduler_status",
+              activityRef:
+                `supervisor-liveness-probe:${request.invocation.actorInvocationId}:${supervisorProbeIndex}`,
+              elapsedMs,
+              evidenceRefs: [
+                `supervisor-probe:${request.invocation.actorInvocationId}:${supervisorProbeIndex}`
+              ],
+              detail:
+                "supervisor liveness check requested; worker progress requires worker stream or result evidence"
+            }),
             eventSink
           );
-          heartbeatIndex += 1;
+          supervisorProbeIndex += 1;
         }, heartbeatMs)
       : null;
 

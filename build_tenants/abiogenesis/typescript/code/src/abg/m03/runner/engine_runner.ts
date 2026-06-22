@@ -1035,6 +1035,17 @@ function uniqueStrings(values: readonly string[]): readonly string[] {
   return Object.freeze([...new Set(values)]);
 }
 
+function fpEvaluationContinuationRefs(
+  outcome: FpEvaluationOutcome
+): readonly string[] {
+  if (outcome.status !== "evaluated") {
+    return Object.freeze([]);
+  }
+  return uniqueStrings(
+    outcome.findings.flatMap((finding) => finding.continuationRefs)
+  );
+}
+
 function pluginInputLedgerRefs(input: EnginePluginInput): readonly string[] {
   return uniqueStrings([
     input.sourceProjectionRef,
@@ -2587,6 +2598,16 @@ function parseConsequenceReentryTarget(input: {
   return Object.freeze({ graphReentryPoint, targetVectorIndex });
 }
 
+function selectedGraphFunctionRefMatchesBasis(input: {
+  readonly selectedGraphFunctionRef: string | null;
+  readonly basis: ExecutionBasis;
+}): boolean {
+  return (
+    input.selectedGraphFunctionRef === input.basis.graphFunction.id ||
+    input.selectedGraphFunctionRef === input.basis.graphFunction.name
+  );
+}
+
 function consequenceConstructionEventScope(input: {
   readonly basis: ExecutionBasis;
   readonly episodeId: string;
@@ -2754,7 +2775,12 @@ function buildConsequenceTraversalConstructionWorld(input: {
       reason: `consequence traversal action ${input.action.actionRef} was not admitted for execution`
     });
   }
-  if (input.action.selectedGraphFunctionRef !== input.request.basis.graphFunction.id) {
+  if (
+    !selectedGraphFunctionRefMatchesBasis({
+      selectedGraphFunctionRef: input.action.selectedGraphFunctionRef,
+      basis: input.request.basis
+    })
+  ) {
     return Object.freeze({
       status: "blocked",
       reason: "consequence traversal action targets a graph function outside the current engine basis"
@@ -2832,7 +2858,9 @@ function buildConsequenceTraversalConstructionWorld(input: {
           pressureRef: pressure.pressureRef,
           repairSurfaceDisposition: "upstream_reentry",
           graphReentryPoint: reentryTarget.graphReentryPoint,
-          repairGraphFunctionRef: input.request.basis.graphFunction.id,
+          repairGraphFunctionRef:
+            input.action.selectedGraphFunctionRef ??
+            input.request.basis.graphFunction.id,
           repairGraphVectorRef: reentryGraphVectorRef,
           reentryTargetVectorIndex: reentryTarget.targetVectorIndex,
           repairAssetRef: input.action.expectedOutputAssetRefs[0] ?? "",
@@ -4884,6 +4912,102 @@ function* runEngineIterateMachine(input: {
                   status: "blocked"
                 })
               );
+              if (
+                fpEvaluationContinuationRefs(fpEvaluationOutcome).length > 0 &&
+                plugins.consequenceTasks.length === 0 &&
+                plugins.requiredConsequenceTaskRefs.length === 0
+              ) {
+                const consequenceProjection = deriveRuntimeAggregateProjection(
+                  request.basis,
+                  eventState.replayEvents
+                );
+                const consequenceInput = constructEnginePluginInput({
+                  contract: plugins.consequenceProjection.contract,
+                  basis: request.basis,
+                  projection: consequenceProjection,
+                  replayEvents: eventState.replayEvents,
+                  vectorIndex: transition.vectorIndex,
+                  edge: transition.edge,
+                  regime: "F_D",
+                  abgFallbackBundle: request.abgFallbackBundle ?? null,
+                  edgeAssuranceDefaults: request.edgeAssuranceDefaults ?? null,
+                  constructionPressurePackage:
+                    request.constructionPressurePackage ?? null,
+                  targetCarrierDefaults,
+                  pluginTraversalObserverFallbackEnabled:
+                    request.pluginTraversalObserverFallbackEnabled ?? false,
+                  pluginTraversalObserverFallbackKinds:
+                    request.pluginTraversalObserverFallbackKinds ?? Object.freeze([]),
+                  priorStageProjectionRefs: stageProjectionRefs(evaluationSetProjection),
+                  priorStageFoldInputRefs:
+                    stageProjectionFoldInputRefs(evaluationSetProjection)
+                });
+                if (consequenceInput.pluginTraversalObserverBinding !== null) {
+                  eventState = emitRunnerEvents(eventState,
+                    constructPluginTraversalPromptMaterializedEvent({
+                      basis: request.basis,
+                      vectorIndex: transition.vectorIndex,
+                      selection: consequenceInput.pluginTraversalObserverBinding,
+                      invocation: actorInvocation,
+                      causationEventRefs: Object.freeze([
+                        consequenceInput.sourceProjectionRef
+                      ]),
+                      correlationId: [
+                        "plugin-traversal",
+                        request.basis.id,
+                        String(transition.vectorIndex),
+                        "consequence"
+                      ].join(":")
+                    })
+                  );
+                }
+                const consequenceOutcome = consequenceProjectionOutcomeFromEffectResult(
+                  yield Object.freeze({
+                    kind: "consequence_project",
+                    input: consequenceInput
+                  })
+                );
+                if (consequenceOutcome.status === "blocked") {
+                  const blocked = terminalTransition(
+                    request.basis,
+                    "gap_stop",
+                    consequenceOutcome.reason ??
+                      "consequence projection plugin blocked traversal"
+                  );
+                  eventState = emitRunnerEvents(
+                    eventState,
+                    constructTerminalReachedEvent(blocked)
+                  );
+                  return constructResult({
+                    basis: request.basis,
+                    transition: blocked,
+                    projection: deriveRuntimeAggregateProjection(
+                      request.basis,
+                      eventState.replayEvents
+                    ),
+                    emittedEvents: eventState.emittedEvents,
+                    replayEvents: eventState.replayEvents,
+                    iterationCount
+                  });
+                }
+                const consequenceTraversalConsumption =
+                  consumeConsequenceTraversalAction({
+                    request,
+                    eventState,
+                    runtimeProjection: deriveRuntimeAggregateProjection(
+                      request.basis,
+                      eventState.replayEvents
+                    ),
+                    outcome: consequenceOutcome,
+                    allowedTraversalCatalog:
+                      consequenceInput.allowedConsequenceTraversalCatalog,
+                    vectorIndex: transition.vectorIndex,
+                    iterationCount
+                  });
+                if (consequenceTraversalConsumption !== null) {
+                  return consequenceTraversalConsumption.result;
+                }
+              }
               const retryProjection = deriveRuntimeAggregateProjection(
                 request.basis,
                 eventState.replayEvents

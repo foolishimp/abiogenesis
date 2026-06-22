@@ -13,6 +13,7 @@ import type {
 import type {
   AffectPriorityPolicy,
   ConstructionPriorityScheme,
+  EngineAssuranceProvider,
   EngineRunnerPluginSet
 } from "../abg/m03/index.js";
 import {
@@ -55,6 +56,7 @@ import type {
 } from "../app/m04/contracts/carriers.js";
 import type { PublicCallableStartOutcome } from "../app/m04/max_autonomy/carriers.js";
 import type { PublicStartContext } from "../app/m04/public_start.js";
+import { seedRuntimeEventAdmissionOrdinal } from "../abg/m03/events/index.js";
 
 interface AbiogenesisCliIo {
   readonly cwd: () => string;
@@ -159,6 +161,7 @@ interface RuntimeBinding {
   readonly runtimeEvents?: readonly RuntimeEvent[];
   readonly constructionPriorityScheme?: ConstructionPriorityScheme;
   readonly constructionAffectPolicies?: readonly AffectPriorityPolicy[];
+  readonly assuranceProvider?: EngineAssuranceProvider;
   readonly resolvePolicy?: RuntimeBindingPolicyFactory;
   readonly plugins?: EngineRunnerPluginSet;
   readonly createPlugins?: RuntimeBindingPluginFactory;
@@ -795,6 +798,7 @@ function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
     runtimeEvents?: readonly RuntimeEvent[];
     constructionPriorityScheme?: ConstructionPriorityScheme;
     constructionAffectPolicies?: readonly AffectPriorityPolicy[];
+    assuranceProvider?: EngineAssuranceProvider;
     resolvePolicy?: RuntimeBindingPolicyFactory;
     plugins?: EngineRunnerPluginSet;
     createPlugins?: RuntimeBindingPluginFactory;
@@ -832,6 +836,42 @@ function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
       input["constructionAffectPolicies"],
       `${label}.constructionAffectPolicies`
     );
+  }
+  if (hasOwnField(input, "assuranceProvider")) {
+    if (!isRecord(input["assuranceProvider"])) {
+      throw new CliError(`${label}.assuranceProvider must be an object`);
+    }
+    if (typeof input["assuranceProvider"]["authoritySnapshot"] !== "function") {
+      throw new CliError(
+        `${label}.assuranceProvider.authoritySnapshot must be a function`
+      );
+    }
+    if (
+      hasOwnField(input["assuranceProvider"], "evidenceRows") &&
+      typeof input["assuranceProvider"]["evidenceRows"] !== "function"
+    ) {
+      throw new CliError(
+        `${label}.assuranceProvider.evidenceRows must be a function`
+      );
+    }
+    if (
+      hasOwnField(input["assuranceProvider"], "eventLedgerValid") &&
+      typeof input["assuranceProvider"]["eventLedgerValid"] !== "function"
+    ) {
+      throw new CliError(
+        `${label}.assuranceProvider.eventLedgerValid must be a function`
+      );
+    }
+    if (
+      hasOwnField(input["assuranceProvider"], "priorClosureSnapshot") &&
+      typeof input["assuranceProvider"]["priorClosureSnapshot"] !== "function"
+    ) {
+      throw new CliError(
+        `${label}.assuranceProvider.priorClosureSnapshot must be a function`
+      );
+    }
+    result.assuranceProvider =
+      input["assuranceProvider"] as unknown as EngineAssuranceProvider;
   }
   if (hasOwnField(input, "plugins")) {
     if (!isRecord(input["plugins"])) {
@@ -1137,6 +1177,9 @@ function startContext(
     ...(binding.constructionAffectPolicies === undefined
       ? {}
       : { constructionAffectPolicies: binding.constructionAffectPolicies }),
+    ...(binding.assuranceProvider === undefined
+      ? {}
+      : { assuranceProvider: binding.assuranceProvider }),
     ...(binding.pluginTraversalObserverFallbackEnabled === undefined
       ? {}
       : {
@@ -1249,6 +1292,7 @@ async function runStartCommand(
   const binding = await loadRuntimeBinding(workspaceRoot);
   const eventLogPath = eventsPath(workspaceRoot);
   const replayEvents = await readReplayEvents(eventLogPath);
+  seedRuntimeEventAdmissionOrdinal(replayEvents);
   const target = await resolveCliTarget(workspaceRoot, binding, command.target);
   const emitted: RuntimeEvent[] = [];
   const eventSink = (event: RuntimeEvent): void => {
@@ -1457,6 +1501,7 @@ async function runAssessResultCommand(
     ? resolve(command.result)
     : resolve(workspaceRoot, command.result);
   const payload = JSON.parse(await readFile(resultPath, "utf8")) as unknown;
+  seedRuntimeEventAdmissionOrdinal(await readReplayEvents(eventsPath(workspaceRoot)));
   const emitted: RuntimeEvent[] = [];
   const outcome = resultAssessment(payload, (event) => {
     emitted.push(event);

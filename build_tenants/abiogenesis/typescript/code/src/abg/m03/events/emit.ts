@@ -26,6 +26,27 @@ function nextRuntimeEventAdmissionOrdinal(): number {
   return ordinal;
 }
 
+export function seedRuntimeEventAdmissionOrdinal(
+  events: readonly RuntimeEvent[]
+): void {
+  const nextOrdinal =
+    events.reduce((max, event) => {
+      if (
+        "eventAdmissionOrdinal" in event &&
+        typeof event.eventAdmissionOrdinal === "number" &&
+        Number.isSafeInteger(event.eventAdmissionOrdinal) &&
+        event.eventAdmissionOrdinal >= 0
+      ) {
+        return Math.max(max, event.eventAdmissionOrdinal + 1);
+      }
+      return max;
+    }, 0);
+  runtimeEventAdmissionOrdinal = Math.max(
+    runtimeEventAdmissionOrdinal,
+    nextOrdinal
+  );
+}
+
 function hasCanonicalRuntimeEventEnvelope(event: RuntimeEvent): boolean {
   return (
     "eventId" in event ||

@@ -640,7 +640,7 @@ test("T-129 supervised actor emits generic probe facts for stdout stderr and hea
   );
   assert.equal(probeSources.has("local_spawn_stdout"), true);
   assert.equal(probeSources.has("local_spawn_stderr"), true);
-  assert.equal(probeSources.has("actor_process_heartbeat"), true);
+  assert.equal(probeSources.has("scheduler_status"), true);
 
   const latestElapsedMs = Math.max(
     ...result.events

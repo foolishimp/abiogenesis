@@ -247,12 +247,29 @@ function scopeResultForProvider(input: {
     ...input,
     authoritySnapshot
   });
-  const evidenceRows = ledgerHasAuthority
+  const ledgerEvidenceRows = ledgerHasAuthority
     ? deriveAssuranceEvidenceRowsFromPayloadLedger({
         assuranceScope: input.scope,
         ledger: payloadLedger
       })
     : Object.freeze([]);
+  const providerEvidenceRows =
+    input.provider.evidenceRows?.(scopedProviderInput) ?? Object.freeze([]);
+  for (const [index, row] of providerEvidenceRows.entries()) {
+    admitAssuranceProviderOutput(
+      row,
+      `EngineAssuranceProvider.evidenceRows[${String(index)}]`
+    );
+    if (!sameScope(row.scope, input.scope)) {
+      throw new TypeError(
+        "assurance provider returned evidence row for a different scope"
+      );
+    }
+  }
+  const evidenceRows = Object.freeze([
+    ...ledgerEvidenceRows,
+    ...providerEvidenceRows
+  ]);
   const priorClosureSnapshot =
     input.provider.priorClosureSnapshot?.(scopedProviderInput) ?? null;
   if (priorClosureSnapshot !== null) {

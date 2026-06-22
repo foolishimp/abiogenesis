@@ -930,8 +930,19 @@ export function deriveAdvancementTransition(
 ): AdvancementTransition {
   const projection = deriveRuntimeAggregateProjection(basis, events);
   const decision = deriveIterationAdvanceDecision(basis, projection);
+  const unconsumedGapStop = latestUnconsumedGapStopTerminal(events);
 
   if (decision.kind === "converged") {
+    if (unconsumedGapStop !== null) {
+      return Object.freeze({
+        kind: "terminal",
+        basis,
+        terminalKind: "gap_stop",
+        reason:
+          unconsumedGapStop.reason ??
+          "runtime replay contains an unconsumed gap_stop terminal"
+      } satisfies TerminalTransition);
+    }
     return Object.freeze({
       kind: "terminal",
       basis,
@@ -986,6 +997,30 @@ export function deriveAdvancementTransition(
       throw new TypeError(`Unsupported runtime regime ${JSON.stringify(exhaustive)}`);
     }
   }
+}
+
+function latestUnconsumedGapStopTerminal(
+  events: readonly RuntimeEvent[]
+): Extract<RuntimeEvent, { readonly kind: "terminal_reached" }> | null {
+  let terminal:
+    | Extract<RuntimeEvent, { readonly kind: "terminal_reached" }>
+    | null = null;
+  for (const event of events) {
+    switch (event.kind) {
+      case "terminal_reached":
+        if (event.terminalKind === "gap_stop") {
+          terminal = event;
+        }
+        break;
+      case "graph_reentry_applied":
+      case "vector_traversal_planned":
+        terminal = null;
+        break;
+      default:
+        break;
+    }
+  }
+  return terminal;
 }
 
 export function runtimeEventsForIterationDecision(

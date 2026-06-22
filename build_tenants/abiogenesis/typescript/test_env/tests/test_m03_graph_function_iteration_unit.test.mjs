@@ -8,6 +8,7 @@ import assert from "node:assert/strict";
 
 import {
   constructVectorClosedEvent,
+  deriveAdvancementTransition,
   deriveIterationAdvanceDecision,
   deriveRuntimeAggregateProjection
 } from "../../build/semantic/code/src/abg/m03/index.js";
@@ -139,4 +140,78 @@ test("M03 iteration unit: aggregate projection converges after all vectors close
   assert.equal(projection.nextVectorIndex, null);
   assert.equal(decision.kind, "converged");
   assert.equal(decision.terminalKind, "converged");
+});
+
+test("M03 iteration unit: unconsumed gap-stop terminal blocks replay convergence", () => {
+  const basis = buildThreeStageBasis();
+  const closedEvents = [
+    constructVectorClosedEvent({
+      basis,
+      vectorIndex: 0,
+      closureKind: "assessed"
+    }),
+    constructVectorClosedEvent({
+      basis,
+      vectorIndex: 1,
+      closureKind: "assessed"
+    }),
+    constructVectorClosedEvent({
+      basis,
+      vectorIndex: 2,
+      closureKind: "assessed"
+    })
+  ];
+  const gapStop = {
+    kind: "terminal_reached",
+    basisId: basis.id,
+    terminalKind: "gap_stop",
+    reason: "consequence_stage_set_incomplete"
+  };
+  const projection = deriveRuntimeAggregateProjection(basis, [
+    ...closedEvents,
+    gapStop
+  ]);
+  const rawDecision = deriveIterationAdvanceDecision(basis, projection);
+  const replayTransition = deriveAdvancementTransition(basis, [
+    ...closedEvents,
+    gapStop,
+    {
+      kind: "terminal_reached",
+      basisId: basis.id,
+      terminalKind: "converged",
+      reason: "all graph-function vectors are closed by replay"
+    }
+  ]);
+
+  assert.equal(rawDecision.kind, "converged");
+  assert.equal(replayTransition.kind, "terminal");
+  assert.equal(replayTransition.terminalKind, "gap_stop");
+
+  const reentryTransition = deriveAdvancementTransition(basis, [
+    ...closedEvents,
+    gapStop,
+    {
+      kind: "graph_reentry_applied",
+      basisId: basis.id,
+      graphCallId: "graph-call://m03/gap-stop-repair",
+      frameId: "frame://m03/gap-stop-repair",
+      frameLineageId: basis.frameLineageId,
+      graphFunctionId: basis.graphFunction.id,
+      runId: basis.runId,
+      workKey: basis.workKey,
+      planRef: "graph-reentry-plan://m03/gap-stop-repair",
+      targetVectorIndex: 1,
+      changeClass: "realization_refactor",
+      reEntryPoint: "realization",
+      routeContractRefs: ["route-contract://m03/gap-stop-repair"],
+      causingFrontierRowRefs: ["gap-stop://m03/consequence"],
+      shadowedVectorIndexes: [1, 2],
+      causationEventRefs: ["gap-stop://m03/consequence"],
+      correlationId: "graph-reentry-plan://m03/gap-stop-repair",
+      generation: 1
+    }
+  ]);
+
+  assert.equal(reentryTransition.kind, "fp_dispatch");
+  assert.equal(reentryTransition.vectorIndex, 1);
 });

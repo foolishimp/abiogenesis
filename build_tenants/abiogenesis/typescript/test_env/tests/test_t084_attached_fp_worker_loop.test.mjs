@@ -9,6 +9,7 @@ import assert from "node:assert/strict";
 
 import {
   admitFpDispatchOutcome,
+  constructConsequenceProjectionOutcome,
   constructEnginePluginContract,
   constructFpDispatchOutcome,
   constructFpEvaluationFinding,
@@ -343,6 +344,91 @@ test("T-084 engine runner: assurance retry over an accepted artifact redispatche
   assert.equal(
     events.filter((event) => event.kind === "terminal_reached").length,
     1
+  );
+});
+
+test("T-159 typed F_P continuation reaches consequence before assurance retry", () => {
+  const basis = buildThreeStageBasis({
+    defaultRegime: "F_P",
+    dispatchRef: "dispatch://typed-continuation-before-retry"
+  });
+  const events = [];
+  const consequenceInputs = [];
+  const fpDispatch = Object.freeze({
+    contract: fpDispatchContract("plugin://test/t159-continuation-dispatch"),
+    dispatch: (input) =>
+      constructFpDispatchOutcome({
+        status: "dispatched",
+        resultRef: `result://t159/${encodeURIComponent(input.edge)}`,
+        attachedResultArtifact: attachedArtifact(input),
+        evidenceRefs: [input.sourceProjectionRef]
+      })
+  });
+  const fpEvaluator = Object.freeze({
+    contract: defaultFpEvaluatorPlugin.contract,
+    evaluate: (input) =>
+      constructFpEvaluationOutcome({
+        status: "evaluated",
+        findings: [
+          constructFpEvaluationFinding({
+            findingRef: `finding://t159/typed-continuation/${input.vectorIndex}`,
+            evaluatorRef: input.contract.ref,
+            gainReportRef: `gain://t159/typed-continuation/${input.vectorIndex}`,
+            metricRefs: [`metric://t159/typed-continuation/${input.vectorIndex}`],
+            closeDisposition: "retry",
+            residualPressureRefs: [
+              `pressure://t159/typed-continuation/${input.vectorIndex}`
+            ],
+            continuationRefs: [
+              `continuation://t159/typed-reentry/${input.vectorIndex}`
+            ],
+            evidenceRefs: [input.sourceProjectionRef],
+            authorityRefs:
+              input.expectedAssessmentIds.length > 0
+                ? input.expectedAssessmentIds
+                : [`authority://t159/typed-continuation/${input.vectorIndex}`],
+            compositionContributionRef:
+              input.selectedRegimeBindingRef ?? input.selectedCompositionRef,
+            compositionRef: input.selectedCompositionRef,
+            compositionDigest: input.selectedCompositionDigest
+          })
+        ],
+        evidenceRefs: [input.sourceProjectionRef]
+      })
+  });
+  const consequenceProjection = Object.freeze({
+    contract: constructEnginePluginContract({
+      ref: "plugin://test/t159-consequence-before-retry",
+      pluginKind: "consequence_projection",
+      authority: "effect_plugin",
+      inputCarrier: "EnginePluginInput",
+      outputCarrier: "ConsequenceProjectionOutcome"
+    }),
+    project: (input) => {
+      consequenceInputs.push(input);
+      return constructConsequenceProjectionOutcome({
+        status: "blocked",
+        reason: "typed_continuation_consequence_seen",
+        evidenceRefs: [input.sourceProjectionRef]
+      });
+    }
+  });
+
+  const result = runEngineIterate({
+    basis,
+    eventSink: (event) => {
+      events.push(event);
+    },
+    plugins: { fpDispatch, fpEvaluator, consequenceProjection }
+  });
+
+  assert.equal(result.transition.kind, "terminal");
+  assert.equal(result.transition.terminalKind, "gap_stop");
+  assert.equal(result.transition.reason, "typed_continuation_consequence_seen");
+  assert.equal(consequenceInputs.length, 1);
+  assert.equal(
+    events.some((event) => event.kind === "retry_repair_planned"),
+    false
   );
 });
 
