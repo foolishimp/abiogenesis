@@ -1,21 +1,20 @@
-# abiogenesis 4.1.0-rc.4 Release Candidate Note
+# abiogenesis 4.1.0-rc.5 Release Candidate Note
 
-This checkpoint is the fourth TypeScript ABG `4.1.0` release candidate. It
-follows `4.1.0-rc.3` and repairs the ABG-owned traversal/replay boundary exposed
-by odd_sdlc T-204 live data-mapper continuation.
+This checkpoint is the fifth TypeScript ABG `4.1.0` release candidate. It
+follows `4.1.0-rc.4` and repairs the ABG-owned consequence-bind closure boundary
+exposed by odd_sdlc T-204/T-205 hello-world traversal.
 
 It is an RC candidate, not the final tapped `4.1.0` release.
 
 ## Release Claim
 
-RC4 keeps the RC3 lever and traced-process surface, then adds two runtime-law
-repairs:
+RC5 keeps the RC4 replay and graph-function identity repairs, then adds one
+runtime-law repair:
 
-- consequence traversal bind accepts graph-function name aliases when they
-  resolve to the current execution basis graph function identity;
-- resumed CLI starts seed canonical runtime-event admission ordinals from replay
-  before appending new events, so a continued workspace cannot append ordinal
-  zero into an existing event stream.
+- ABG emits `vector_closed` only after consequence projection admits and any
+  consequence traversal action has been consumed. A blocked consequence bind or
+  traversal-action continuation can no longer leave a closed-vector fact beside
+  a terminal gap-stop result.
 
 These repairs preserve the governing split: ABG owns traversal, replay,
 continuation, runtime events, and consequence transition. Product tenants expose
@@ -46,16 +45,16 @@ ABG.start(fn<A, B>.C)
   .bind(system.replayContinuation)
 ```
 
-RC4 does not move downstream product meaning into ABG. The change is an ABG
-runtime-control repair for replayed continuation and typed graph-function
-identity at bind boundaries.
+RC5 does not move downstream product meaning into ABG. The change is an ABG
+runtime-control repair for traversal-unit bind closure: vector closure is a
+post-consequence fact, not a pre-consequence optimistic fact.
 
 ## Versioned Artifacts
 
 - RC branch: `main`
-- RC identity: `4.1.0-rc.4`
-- Candidate package version: `4.1.0-rc.4`
-- Candidate tag: `v4.1.0-rc.4`
+- RC identity: `4.1.0-rc.5`
+- Candidate package version: `4.1.0-rc.5`
+- Candidate tag: `v4.1.0-rc.5`
 
 ## Verification
 
@@ -70,7 +69,7 @@ ABG semantic build and focused traversal/replay lane:
     test_env/tests/test_t156_consequence_allowed_traversal_catalog.test.mjs \
     test_env/tests/test_t156_consequence_ticket_traversal_bridge.test.mjs
 
-odd_sdlc substrate proof over RC4:
+odd_sdlc substrate proof over RC5:
   npm run test:t132:hello-world-live
 
 odd_sdlc data-mapper target continuation:
@@ -83,6 +82,6 @@ this RC is pushed as accepted.
 
 ## RC Decision
 
-RC4 is the traversal replay and graph-function identity repair candidate. It is
-releaseable only after the odd_sdlc hello-world and data-mapper proof lanes run
-against the RC4 tarball and converge without root-boundary regressions.
+RC5 is the consequence-bind closure repair candidate. It is releaseable only
+after the odd_sdlc hello-world and data-mapper proof lanes run against the RC5
+tarball and converge without root-boundary regressions.

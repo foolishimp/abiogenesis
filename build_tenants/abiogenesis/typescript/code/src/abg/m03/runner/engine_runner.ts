@@ -3828,14 +3828,6 @@ function* runEngineIterateMachine(input: {
             iterationCount
           });
         }
-        eventState = emitRunnerEvents(eventState, [
-          constructVectorClosedEvent({
-            basis: request.basis,
-            vectorIndex: transition.vectorIndex,
-            closureKind: "advanced"
-          }),
-          constructFdAdvanceReadyEvent(transition)
-        ]);
         const consequenceProjection = deriveRuntimeAggregateProjection(
           request.basis,
           eventState.replayEvents
@@ -4175,6 +4167,14 @@ function* runEngineIterateMachine(input: {
         if (consequenceTraversalConsumption !== null) {
           return consequenceTraversalConsumption.result;
         }
+        eventState = emitRunnerEvents(eventState, [
+          constructVectorClosedEvent({
+            basis: request.basis,
+            vectorIndex: transition.vectorIndex,
+            closureKind: "advanced"
+          }),
+          constructFdAdvanceReadyEvent(transition)
+        ]);
         continuationStageProjectionRefs = stageProjectionRefs(consequenceStageProjection);
         continuationStageFoldInputRefs =
           stageProjectionFoldInputRefs(consequenceStageProjection);
@@ -5090,13 +5090,6 @@ function* runEngineIterateMachine(input: {
                 status: "accepted"
               })
             );
-            eventState = emitRunnerEvents(eventState,
-              constructVectorClosedEvent({
-                basis: request.basis,
-                vectorIndex: transition.vectorIndex,
-                closureKind: "assessed"
-              })
-            );
             const consequenceProjection = deriveRuntimeAggregateProjection(
               request.basis,
               eventState.replayEvents
@@ -5443,6 +5436,13 @@ function* runEngineIterateMachine(input: {
             if (consequenceTraversalConsumption !== null) {
               return consequenceTraversalConsumption.result;
             }
+            eventState = emitRunnerEvents(eventState,
+              constructVectorClosedEvent({
+                basis: request.basis,
+                vectorIndex: transition.vectorIndex,
+                closureKind: "assessed"
+              })
+            );
             continuationStageProjectionRefs = stageProjectionRefs(
               consequenceStageProjection
             );

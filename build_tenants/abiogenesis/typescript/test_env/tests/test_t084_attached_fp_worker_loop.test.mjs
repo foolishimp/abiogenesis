@@ -203,8 +203,7 @@ test("T-084 engine runner: attached F_P worker retries from replay state, then c
     "evidence_admitted",
     "ambiguity_observation_admitted",
     "closure_input_published",
-    "vector_evaluated",
-    "vector_closed"
+    "vector_evaluated"
   ];
   const composedStageOutcomeEvents = ["payload_observed", "payload_validated"];
   assert.deepStrictEqual(
@@ -235,6 +234,7 @@ test("T-084 engine runner: attached F_P worker retries from replay state, then c
       "actor_invocation_closed",
       ...successfulFpClosureEvents,
       ...composedStageOutcomeEvents,
+      "vector_closed",
       "graph_call_opened",
       "frame_opened",
       "vector_traversal_planned",
@@ -245,6 +245,7 @@ test("T-084 engine runner: attached F_P worker retries from replay state, then c
       "actor_invocation_closed",
       ...successfulFpClosureEvents,
       ...composedStageOutcomeEvents,
+      "vector_closed",
       "graph_call_opened",
       "frame_opened",
       "vector_traversal_planned",
@@ -255,6 +256,7 @@ test("T-084 engine runner: attached F_P worker retries from replay state, then c
       "actor_invocation_closed",
       ...successfulFpClosureEvents,
       ...composedStageOutcomeEvents,
+      "vector_closed",
       "terminal_reached"
     ]
   );
@@ -428,6 +430,10 @@ test("T-159 typed F_P continuation reaches consequence before assurance retry", 
   assert.equal(consequenceInputs.length, 1);
   assert.equal(
     events.some((event) => event.kind === "retry_repair_planned"),
+    false
+  );
+  assert.equal(
+    events.some((event) => event.kind === "vector_closed"),
     false
   );
 });

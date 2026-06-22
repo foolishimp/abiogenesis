@@ -173,6 +173,59 @@ test("T-152 engine consumes consequence traversal action through construction re
   );
 });
 
+test("T-159 blocked consequence projection does not close the vector", () => {
+  const basis = buildConsequenceCatalogBasis({
+    defaultRegime: "F_D",
+    dispatchRef: null,
+    vectorRegimes: ["F_D", "F_D", "F_D"],
+    runId: "run://t159/consequence-bind/blocked-no-close",
+    workKey: "work-key://t159/consequence-bind/blocked-no-close"
+  });
+  const emittedEvents = [];
+  const outcome = runEngineIterate({
+    basis,
+    eventSink: (event) => {
+      emittedEvents.push(event);
+    },
+    plugins: {
+      fdEvaluator: Object.freeze({
+        contract: fdEvaluatorContract("plugin://t159/blocked-no-close/fd"),
+        evaluate: (input) =>
+          constructFdEvaluationOutcome({
+            status: "accepted",
+            evidenceRefs: [input.sourceProjectionRef]
+          })
+      }),
+      consequenceProjection: Object.freeze({
+        contract: constructEnginePluginContract({
+          ref: "plugin://t159/blocked-no-close/consequence",
+          pluginKind: "consequence_projection",
+          authority: "effect_plugin",
+          inputCarrier: "EnginePluginInput",
+          outputCarrier: "ConsequenceProjectionOutcome"
+        }),
+        project: () => ({
+          kind: "consequence_projection",
+          status: "blocked",
+          consequenceRef: "consequence://t159/blocked-no-close",
+          domainReadModelRefs: [],
+          traversalAction: null,
+          evidenceRefs: ["evidence://t159/blocked-no-close"],
+          reason: "consequence_bind_blocked"
+        })
+      })
+    }
+  });
+
+  assert.equal(outcome.transition.kind, "terminal");
+  assert.equal(outcome.transition.terminalKind, "gap_stop");
+  assert.match(outcome.transition.reason, /consequence_bind_blocked/u);
+  assert.equal(
+    emittedEvents.some((event) => event.kind === "vector_closed"),
+    false
+  );
+});
+
 test("T-159 consequence bind admits plugin proposal only through ABG replay-visible re-entry", () => {
   const basis = buildConsequenceCatalogBasis({
     defaultRegime: "F_D",
