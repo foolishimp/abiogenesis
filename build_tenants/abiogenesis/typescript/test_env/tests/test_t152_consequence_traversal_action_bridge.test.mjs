@@ -9,7 +9,11 @@ import {
   admitConsequenceProjectionOutcome,
   constructEnginePluginContract,
   constructFdEvaluationOutcome,
-  runEngineIterate
+  constructFpDispatchOutcome,
+  constructFpEvaluationFinding,
+  constructFpEvaluationOutcome,
+  runEngineIterate,
+  runEngineIterateAsync
 } from "../../build/semantic/code/src/index.js";
 import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
 
@@ -41,6 +45,30 @@ function fdEvaluatorContract(ref) {
     inputCarrier: "EnginePluginInput",
     outputCarrier: "FdEvaluationOutcome"
   });
+}
+
+function attachedFpArtifact(input) {
+  const assessmentIds =
+    input.expectedAssessmentIds.length > 0
+      ? input.expectedAssessmentIds
+      : ["runtime_fulfilled"];
+  return {
+    edge: input.expectedEdge ?? input.edge,
+    actor: "codex",
+    fulfillment_assessments: assessmentIds.map((assessmentId) => ({
+      id: assessmentId,
+      evaluator: assessmentId,
+      fulfillment_status: "fulfilled",
+      fulfillment_detail: "T-152 async re-entry dispatch output accepted",
+      blocking_reasons: [],
+      evidence_refs: [`proof://t152/async-reentry/${assessmentId}`]
+    })),
+    selected_worker_id: "worker://t152",
+    selected_backend: "backend://node",
+    role_id: "role://t152",
+    assignment_source: "policy_resolution",
+    resolved_runtime_ref: "runtime://typescript/node"
+  };
 }
 
 function rawTraversalAction(basis, targetVectorIndex, extra = {}) {
@@ -143,7 +171,11 @@ test("T-152 engine consumes consequence traversal action through construction re
   });
 
   assert.equal(outcome.transition.kind, "terminal");
-  assert.equal(outcome.transition.terminalKind, "converged");
+  assert.equal(
+    outcome.transition.terminalKind,
+    "converged",
+    JSON.stringify(outcome.transition)
+  );
   assert.deepEqual(fdEdges, [
     "input_set→requirements",
     "requirements→design",
@@ -169,6 +201,136 @@ test("T-152 engine consumes consequence traversal action through construction re
       (event) =>
         event.kind === "construction_delta_observed" &&
         event.reentryMoved === true
+    )
+  );
+});
+
+test("T-152 async engine consumes consequence re-entry into async F_P dispatch", async () => {
+  const basis = buildConsequenceCatalogBasis({
+    defaultRegime: "F_D",
+    dispatchRef: "dispatch://t152/async-reentry",
+    vectorRegimes: ["F_D", "F_P", "F_D"],
+    runId: "run://t152/consequence-bridge-async",
+    workKey: "work-key://t152/consequence-bridge-async"
+  });
+  const targetVectorIndex = 1;
+  const emittedEvents = [];
+  const fpDispatchEdges = [];
+  let traversalActionIssued = false;
+  const outcome = await runEngineIterateAsync({
+    basis,
+    eventSink: (event) => {
+      emittedEvents.push(event);
+    },
+    plugins: {
+      fdEvaluator: Object.freeze({
+        contract: fdEvaluatorContract("plugin://t152/async-reentry/fd"),
+        evaluate: (input) =>
+          constructFdEvaluationOutcome({
+            status: "accepted",
+            evidenceRefs: [input.sourceProjectionRef]
+          })
+      }),
+      fpDispatch: Object.freeze({
+        contract: constructEnginePluginContract({
+          ref: "plugin://t152/async-reentry/fp-dispatch",
+          pluginKind: "fp_dispatch",
+          authority: "effect_plugin",
+          inputCarrier: "EnginePluginInput",
+          outputCarrier: "FpDispatchOutcome"
+        }),
+        dispatch: async (input) => {
+          fpDispatchEdges.push(input.edge);
+          return constructFpDispatchOutcome({
+            status: "dispatched",
+            resultRef: `result://t152/async-reentry/${input.vectorIndex}`,
+            attachedResultArtifact: attachedFpArtifact(input),
+            evidenceRefs: [input.sourceProjectionRef]
+          });
+        }
+      }),
+      fpEvaluator: Object.freeze({
+        contract: constructEnginePluginContract({
+          ref: "plugin://t152/async-reentry/fp-evaluator",
+          pluginKind: "fp_evaluator",
+          authority: "effect_plugin",
+          inputCarrier: "EnginePluginInput",
+          outputCarrier: "FpEvaluationOutcome"
+        }),
+        evaluate: (input) =>
+          constructFpEvaluationOutcome({
+            status: "evaluated",
+            findings: [
+              constructFpEvaluationFinding({
+                findingRef: `finding://t152/async-reentry/${input.vectorIndex}`,
+                evaluatorRef: input.contract.ref,
+                gainReportRef: `gain://t152/async-reentry/${input.vectorIndex}`,
+                metricRefs: [`metric://t152/async-reentry/${input.vectorIndex}`],
+                closeDisposition: "close",
+                evidenceRefs: [input.sourceProjectionRef],
+                authorityRefs: [
+                  ...input.expectedAssessmentIds,
+                  `authority://t152/async-reentry/${input.vectorIndex}`
+                ],
+                compositionContributionRef:
+                  input.selectedRegimeBindingRef ?? input.selectedCompositionRef,
+                compositionRef: input.selectedCompositionRef,
+                compositionDigest: input.selectedCompositionDigest
+              })
+            ],
+            evidenceRefs: [input.sourceProjectionRef]
+          })
+      }),
+      consequenceProjection: Object.freeze({
+        contract: constructEnginePluginContract({
+          ref: "plugin://t152/async-reentry/consequence",
+          pluginKind: "consequence_projection",
+          authority: "effect_plugin",
+          inputCarrier: "EnginePluginInput",
+          outputCarrier: "ConsequenceProjectionOutcome"
+        }),
+        project: (input) => {
+          if (input.vectorIndex === 2 && !traversalActionIssued) {
+            traversalActionIssued = true;
+            return {
+              kind: "consequence_projection",
+              status: "projected",
+              consequenceRef: "consequence://t152/async-reentry",
+              domainReadModelRefs: ["read-model://t152/async-reentry"],
+              traversalAction: rawTraversalAction(basis, targetVectorIndex),
+              evidenceRefs: ["evidence://t152/async-reentry"],
+              reason: null
+            };
+          }
+          return {
+            kind: "consequence_projection",
+            status: "projected",
+            consequenceRef: `consequence://t152/async-reentry/no-op/${input.vectorIndex}`,
+            domainReadModelRefs: [],
+            traversalAction: null,
+            evidenceRefs: [`evidence://t152/async-reentry/no-op/${input.vectorIndex}`],
+            reason: null
+          };
+        }
+      })
+    }
+  });
+
+  assert.equal(outcome.transition.kind, "terminal");
+  assert.equal(
+    outcome.transition.terminalKind,
+    "converged",
+    JSON.stringify(outcome.transition)
+  );
+  assert.deepEqual(fpDispatchEdges, [
+    "requirements→design",
+    "requirements→design"
+  ]);
+  assert.ok(
+    emittedEvents.some(
+      (event) =>
+        event.kind === "graph_reentry_applied" &&
+        event.targetVectorIndex === targetVectorIndex
     )
   );
 });

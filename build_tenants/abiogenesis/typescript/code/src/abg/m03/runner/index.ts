@@ -18,6 +18,8 @@ export {
   deriveConstructionEffectPlan,
   materializeConstructionInvocationEvents,
   runConstructionEffectPlan,
+  runConstructionEffectPlanAsync,
+  runConstructionIntentStepAsync,
   runConstructionIntentStep
 } from "./construction_runner.js";
 export {

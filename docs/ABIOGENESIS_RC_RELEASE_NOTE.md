@@ -1,20 +1,26 @@
-# abiogenesis 4.1.0-rc.6 Release Candidate Note
+# abiogenesis 4.1.0-rc.7 Release Candidate Note
 
-This checkpoint is the sixth TypeScript ABG `4.1.0` release candidate. It
-follows `4.1.0-rc.5` and repairs the ABG-owned evaluation-set retry boundary
-exposed by odd_sdlc T-204 hello-world traversal.
+This checkpoint is the seventh TypeScript ABG `4.1.0` release candidate. It
+follows `4.1.0-rc.6` and promotes the source-authority and semantic-review
+compiler gates required by odd_sdlc T-204.
 
 It is an RC candidate, not the final tapped `4.1.0` release.
 
 ## Release Claim
 
-RC6 keeps the RC5 consequence-bind closure repair, then adds one runtime-law
-repair:
+RC7 keeps the RC6 evaluation-set retry repair, then adds two compiler/runtime
+boundary repairs:
 
-- A blocked required `plugin.evaluate.C.rule[*]` result can drive ABG same-edge
-  retry when the admitted `EvaluationRuleOutcome` carries explicit
-  continuation refs. Missing required rules and blocked rules without
-  continuation refs still fail fast as `evaluation_set_incomplete`.
+- `typecheckGtlProgram(...)` now admits source-authority policy rows and
+  rejects declared source-authority regressions such as product-local command
+  routing, raw archive authority, local retry/control ownership, read-model
+  truth substitution, and stale requirement-marker caching.
+- `typecheckGtlProgram(...)` now admits semantic review gates and fails closed
+  when a semantic compiler review is stale, failed, blocked, or bound to the
+  wrong subject.
+- Consequence traversal action handling has an async construction-runner path
+  so admitted construction re-entry can flow through async F_P dispatch without
+  reducing the re-entry proposal to local engine authority.
 
 These repairs preserve the governing split: ABG owns traversal, replay,
 continuation, runtime events, and consequence transition. Product tenants expose
@@ -45,42 +51,60 @@ ABG.start(fn<A, B>.C)
   .bind(system.replayContinuation)
 ```
 
-RC6 does not move downstream product meaning into ABG. The change is an ABG
-runtime-control repair for evaluation-set retry: retryable evaluator/runtime
-failures are consumed through ABG retry repair events instead of being reduced
-to terminal gap-stop truth before consequence or continuation can run.
+RC7 does not move downstream product meaning into ABG. The compiler rows are
+generic ABG inventory gates over source identity and review evidence; downstream
+products declare their own policies and reviews. The runner change keeps
+construction re-entry in ABG-owned traversal/replay machinery while preserving
+plugin proposals as data.
 
 ## Versioned Artifacts
 
 - RC branch: `main`
-- RC identity: `4.1.0-rc.6`
-- Candidate package version: `4.1.0-rc.6`
-- Candidate tag: `v4.1.0-rc.6`
+- RC identity: `4.1.0-rc.7`
+- Candidate package version: `4.1.0-rc.7`
+- Candidate tag: `v4.1.0-rc.7`
 
 ## Verification
 
 Required evidence for accepting this RC:
 
 ```text
-ABG semantic build and focused traversal/replay lane:
+ABG semantic build and focused conformance/traversal lane:
   npm run build:semantic
-  node --test test_env/tests/test_t145_evaluation_set_phase.test.mjs \
-    test_env/tests/test_t084_attached_fp_worker_loop.test.mjs \
-    test_env/tests/test_t152_consequence_traversal_action_bridge.test.mjs
+  npm run test:t156
 
-odd_sdlc substrate proof over RC6:
-  npm run test:t132:hello-world-live
+ABG release gate after the version bump:
+  npm run lint:semantic
+  npm run lint:test-harness
+  npm run test:semantic
+  npm run test:t141
+  git diff --check
+  npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run
 
-odd_sdlc data-mapper target continuation:
-  genesis-ts start --workspace . --scope workspace \
-    --target graph_function:lite_design_module_implementation --until converged
+odd_sdlc substrate proof over RC7:
+  npm run build:semantic
+  focused T-204/T-192/T-194/T-197 substrate gates
 ```
 
-The final release checkpoint must record the concrete passing archives before
-this RC is pushed as accepted.
+The release checkpoint recorded the ABI deterministic gates as passing before
+snapshot creation:
+
+- `npm run build:semantic && npm run test:t156`
+- `npm run lint:semantic && npm run lint:test-harness && npm run test:semantic`
+- `npm run test:t141`
+- `git diff --check`
+- `npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run`
+
+`npm run test:t141:live` was attempted as live-transport evidence, but the
+Claude PTY executor returned intermittent `transport_failure` outcomes with
+Claude API `500 Internal server error` responses. Those failures were isolated
+to the external live transport; the deterministic T-141 saga-frontier lane
+passed.
 
 ## RC Decision
 
-RC5 is the consequence-bind closure repair candidate. It is releaseable only
-after the odd_sdlc hello-world and data-mapper proof lanes run against the RC5
-tarball and converge without root-boundary regressions.
+RC7 is the source-authority and semantic-review compiler gate candidate. It is
+releaseable after the ABI deterministic release checks pass, the release
+snapshot is written from a clean source commit, and odd_sdlc consumes the RC7
+snapshot without substrate-binding regressions. The live Claude T-141 transport
+failure remains external evidence, not an ABI semantic failure.

@@ -66,6 +66,8 @@ export type GtlProgramConformanceSurfaceKind =
   | "plugin_contract"
   | "plugin_result_interface"
   | "source_identity"
+  | "source_authority_policy"
+  | "semantic_review_gate"
   | "same_object"
   | "operator_declaration"
   | "evaluator_declaration"
@@ -158,6 +160,37 @@ export interface GtlProgramPromptAssetRow {
 export interface GtlProgramSourceIdentityRow {
   readonly surfaceRef: string;
   readonly text: string;
+  readonly evidenceRefs?: readonly string[] | undefined;
+}
+
+export type GtlProgramSourceAuthorityTokenMatchMode = "any" | "all";
+
+export interface GtlProgramSourceAuthorityPolicyRow {
+  readonly policyRef: string;
+  readonly sourceSurfaceRefs: readonly string[];
+  readonly sourceSurfaceRefPrefixes: readonly string[];
+  readonly forbiddenTokens: readonly string[];
+  readonly forbiddenMatch: GtlProgramSourceAuthorityTokenMatchMode;
+  readonly requiredMitigationTokens: readonly string[];
+  readonly message: string;
+  readonly evidenceRefs?: readonly string[] | undefined;
+}
+
+export type GtlProgramSemanticReviewStatus =
+  | "passed"
+  | "failed"
+  | "blocked";
+
+export interface GtlProgramSemanticReviewGateRow {
+  readonly gateRef: string;
+  readonly subjectRef: string;
+  readonly deterministicReportDigest: string;
+  readonly reviewResultKind: "sdlc_semantic_compiler_fp_review_result";
+  readonly reviewVersion: string;
+  readonly status: GtlProgramSemanticReviewStatus;
+  readonly findingCount: number;
+  readonly reviewerProfileRef: string;
+  readonly reviewedAt: string;
   readonly evidenceRefs?: readonly string[] | undefined;
 }
 
@@ -540,6 +573,12 @@ export interface GtlProgramConformanceInput {
   readonly sourceIdentitySurfaces?:
     | readonly GtlProgramSourceIdentityRow[]
     | undefined;
+  readonly sourceAuthorityPolicies?:
+    | readonly GtlProgramSourceAuthorityPolicyRow[]
+    | undefined;
+  readonly semanticReviewGates?:
+    | readonly GtlProgramSemanticReviewGateRow[]
+    | undefined;
   readonly sameObjectProofs?: readonly GtlProgramSameObjectRow[] | undefined;
   readonly operatorDeclarations?:
     | readonly GtlProgramOperatorDeclarationRow[]
@@ -590,6 +629,8 @@ export interface GtlProgramInventoryDigests {
   readonly pluginContracts: string;
   readonly pluginResultInterfaces: string;
   readonly sourceIdentitySurfaces: string;
+  readonly sourceAuthorityPolicies: string;
+  readonly semanticReviewGates: string;
   readonly sameObjectProofs: string;
   readonly operatorDeclarations: string;
   readonly evaluatorDeclarations: string;
@@ -747,6 +788,17 @@ const GTL_PROGRAM_FEATURE_OWNER_VALUES = new Set<string>([
 ]);
 
 const GTL_PROGRAM_REGIME_VALUES = new Set<string>(["F_D", "F_P", "F_H"]);
+
+const GTL_PROGRAM_SOURCE_AUTHORITY_TOKEN_MATCH_MODES = new Set<string>([
+  "any",
+  "all"
+]);
+
+const GTL_PROGRAM_SEMANTIC_REVIEW_STATUS_VALUES = new Set<string>([
+  "passed",
+  "failed",
+  "blocked"
+]);
 
 const GTL_PROGRAM_STAGE_REGIME_DISPOSITION_VALUES = new Set<string>([
   "participates",
@@ -912,6 +964,24 @@ function isGtlProgramObligationDeltaFamily(
   return (
     typeof value === "string" &&
     GTL_PROGRAM_OBLIGATION_DELTA_FAMILY_SET.has(value)
+  );
+}
+
+function isGtlProgramSemanticReviewStatus(
+  value: unknown
+): value is GtlProgramSemanticReviewStatus {
+  return (
+    typeof value === "string" &&
+    GTL_PROGRAM_SEMANTIC_REVIEW_STATUS_VALUES.has(value)
+  );
+}
+
+function isGtlProgramSourceAuthorityTokenMatchMode(
+  value: unknown
+): value is GtlProgramSourceAuthorityTokenMatchMode {
+  return (
+    typeof value === "string" &&
+    GTL_PROGRAM_SOURCE_AUTHORITY_TOKEN_MATCH_MODES.has(value)
   );
 }
 
@@ -2456,6 +2526,273 @@ function admitSourceIdentityRows(
             label: surfaceRef,
             subjectRef,
             surfaceKind: "source_identity",
+            issues
+          })
+        })
+      ];
+    })
+  );
+}
+
+function requiredSourceAuthorityTokenMatchMode(input: {
+  readonly record: Record<string, unknown>;
+  readonly key: string;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly issues: GtlProgramConformanceIssue[];
+}): GtlProgramSourceAuthorityTokenMatchMode {
+  const value = requiredStringField({
+    record: input.record,
+    key: input.key,
+    label: input.label,
+    subjectRef: input.subjectRef,
+    surfaceKind: "source_authority_policy",
+    issues: input.issues
+  });
+  if (isGtlProgramSourceAuthorityTokenMatchMode(value)) {
+    return value;
+  }
+  input.issues.push(
+    issue({
+      surfaceKind: "source_authority_policy",
+      surfaceRef: input.label,
+      ruleRef: "abg://gtl-program/input/source-authority-token-match-mode",
+      message: `${input.label}.${input.key} must be one of any, all`
+    })
+  );
+  return "all";
+}
+
+function admitSourceAuthorityPolicyRows(
+  input: readonly unknown[],
+  subjectRef: string,
+  issues: GtlProgramConformanceIssue[]
+): readonly GtlProgramSourceAuthorityPolicyRow[] {
+  return Object.freeze(
+    input.flatMap((row, index) => {
+      const surfaceRef = `sourceAuthorityPolicies[${index}]`;
+      if (!isRecord(row)) {
+        issues.push(
+          issue({
+            surfaceKind: "source_authority_policy",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/source-authority-policy-row",
+            message: `${surfaceRef} must be an object`
+          })
+        );
+        return [];
+      }
+      return [
+        Object.freeze({
+          policyRef: requiredStringField({
+            record: row,
+            key: "policyRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "source_authority_policy",
+            issues
+          }),
+          sourceSurfaceRefs: optionalStringArrayField({
+            record: row,
+            key: "sourceSurfaceRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "source_authority_policy",
+            issues
+          }),
+          sourceSurfaceRefPrefixes: optionalStringArrayField({
+            record: row,
+            key: "sourceSurfaceRefPrefixes",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "source_authority_policy",
+            issues
+          }),
+          forbiddenTokens: requiredStringArrayField({
+            record: row,
+            key: "forbiddenTokens",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "source_authority_policy",
+            issues
+          }),
+          forbiddenMatch: requiredSourceAuthorityTokenMatchMode({
+            record: row,
+            key: "forbiddenMatch",
+            label: surfaceRef,
+            subjectRef,
+            issues
+          }),
+          requiredMitigationTokens: optionalStringArrayField({
+            record: row,
+            key: "requiredMitigationTokens",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "source_authority_policy",
+            issues
+          }),
+          message: requiredStringField({
+            record: row,
+            key: "message",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "source_authority_policy",
+            issues
+          }),
+          evidenceRefs: optionalStringArrayField({
+            record: row,
+            key: "evidenceRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "source_authority_policy",
+            issues
+          })
+        })
+      ];
+    })
+  );
+}
+
+function requiredSemanticReviewStatusField(input: {
+  readonly record: Record<string, unknown>;
+  readonly key: string;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly issues: GtlProgramConformanceIssue[];
+}): GtlProgramSemanticReviewStatus {
+  const value = requiredStringField({
+    record: input.record,
+    key: input.key,
+    label: input.label,
+    subjectRef: input.subjectRef,
+    surfaceKind: "semantic_review_gate",
+    issues: input.issues
+  });
+  if (isGtlProgramSemanticReviewStatus(value)) {
+    return value;
+  }
+  input.issues.push(
+    issue({
+      surfaceKind: "semantic_review_gate",
+      surfaceRef: input.label,
+      ruleRef: "abg://gtl-program/input/semantic-review-status",
+      message: `${input.label}.${input.key} must be passed, failed, or blocked`
+    })
+  );
+  return "blocked";
+}
+
+function admitSemanticReviewGateRows(
+  input: readonly unknown[],
+  subjectRef: string,
+  issues: GtlProgramConformanceIssue[]
+): readonly GtlProgramSemanticReviewGateRow[] {
+  return Object.freeze(
+    input.flatMap((row, index) => {
+      const surfaceRef = `semanticReviewGates[${index}]`;
+      if (!isRecord(row)) {
+        issues.push(
+          issue({
+            surfaceKind: "semantic_review_gate",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/semantic-review-gate-row",
+            message: `${surfaceRef} must be an object`
+          })
+        );
+        return [];
+      }
+      const reviewResultKind = requiredStringField({
+        record: row,
+        key: "reviewResultKind",
+        label: surfaceRef,
+        subjectRef,
+        surfaceKind: "semantic_review_gate",
+        issues
+      });
+      if (
+        reviewResultKind !== "sdlc_semantic_compiler_fp_review_result"
+      ) {
+        issues.push(
+          issue({
+            surfaceKind: "semantic_review_gate",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/semantic-review-gate/admitted-result-kind",
+            message: `${surfaceRef}.reviewResultKind must be sdlc_semantic_compiler_fp_review_result`
+          })
+        );
+      }
+      return [
+        Object.freeze({
+          gateRef: requiredStringField({
+            record: row,
+            key: "gateRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "semantic_review_gate",
+            issues
+          }),
+          subjectRef: requiredStringField({
+            record: row,
+            key: "subjectRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "semantic_review_gate",
+            issues
+          }),
+          deterministicReportDigest: requiredStringField({
+            record: row,
+            key: "deterministicReportDigest",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "semantic_review_gate",
+            issues
+          }),
+          reviewResultKind: "sdlc_semantic_compiler_fp_review_result",
+          reviewVersion: requiredStringField({
+            record: row,
+            key: "reviewVersion",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "semantic_review_gate",
+            issues
+          }),
+          status: requiredSemanticReviewStatusField({
+            record: row,
+            key: "status",
+            label: surfaceRef,
+            subjectRef,
+            issues
+          }),
+          findingCount: requiredNonNegativeIntegerField({
+            record: row,
+            key: "findingCount",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "semantic_review_gate",
+            issues
+          }),
+          reviewerProfileRef: requiredStringField({
+            record: row,
+            key: "reviewerProfileRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "semantic_review_gate",
+            issues
+          }),
+          reviewedAt: requiredStringField({
+            record: row,
+            key: "reviewedAt",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "semantic_review_gate",
+            issues
+          }),
+          evidenceRefs: optionalStringArrayField({
+            record: row,
+            key: "evidenceRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "semantic_review_gate",
             issues
           })
         })
@@ -4272,6 +4609,8 @@ export function admitGtlProgramConformanceInput(
       promptAssets: Object.freeze([]),
       pluginContracts: Object.freeze([]),
       sourceIdentitySurfaces: Object.freeze([]),
+      sourceAuthorityPolicies: Object.freeze([]),
+      semanticReviewGates: Object.freeze([]),
       pluginResultInterfaces: Object.freeze([]),
       sameObjectProofs: Object.freeze([]),
       operatorDeclarations: Object.freeze([]),
@@ -4443,6 +4782,26 @@ export function admitGtlProgramConformanceInput(
       checkOptionalArrayField({
         record: rawInput,
         key: "sourceIdentitySurfaces",
+        subjectRef,
+        issues
+      }),
+      subjectRef,
+      issues
+    ),
+    sourceAuthorityPolicies: admitSourceAuthorityPolicyRows(
+      checkOptionalArrayField({
+        record: rawInput,
+        key: "sourceAuthorityPolicies",
+        subjectRef,
+        issues
+      }),
+      subjectRef,
+      issues
+    ),
+    semanticReviewGates: admitSemanticReviewGateRows(
+      checkOptionalArrayField({
+        record: rawInput,
+        key: "semanticReviewGates",
         subjectRef,
         issues
       }),
@@ -6559,6 +6918,224 @@ function checkSourceIdentities(input: {
   }
 }
 
+function sourceAuthorityPolicyApplies(input: {
+  readonly policy: GtlProgramSourceAuthorityPolicyRow;
+  readonly surface: GtlProgramSourceIdentityRow;
+}): boolean {
+  if (
+    input.policy.sourceSurfaceRefs.length === 0 &&
+    input.policy.sourceSurfaceRefPrefixes.length === 0
+  ) {
+    return true;
+  }
+  if (input.policy.sourceSurfaceRefs.includes(input.surface.surfaceRef)) {
+    return true;
+  }
+  return input.policy.sourceSurfaceRefPrefixes.some((prefix) =>
+    input.surface.surfaceRef.startsWith(prefix)
+  );
+}
+
+function sourceAuthorityTokensMatch(input: {
+  readonly text: string;
+  readonly tokens: readonly string[];
+  readonly mode: GtlProgramSourceAuthorityTokenMatchMode;
+}): boolean {
+  if (input.tokens.length === 0) {
+    return false;
+  }
+  return input.mode === "all"
+    ? input.tokens.every((token) => input.text.includes(token))
+    : input.tokens.some((token) => input.text.includes(token));
+}
+
+function sourceAuthorityPolicyMitigated(input: {
+  readonly text: string;
+  readonly policy: GtlProgramSourceAuthorityPolicyRow;
+}): boolean {
+  return (
+    input.policy.requiredMitigationTokens.length > 0 &&
+    input.policy.requiredMitigationTokens.every((token) =>
+      input.text.includes(token)
+    )
+  );
+}
+
+function checkSourceAuthorityPolicies(input: {
+  readonly sourceIdentitySurfaces: readonly GtlProgramSourceIdentityRow[];
+  readonly sourceAuthorityPolicies:
+    readonly GtlProgramSourceAuthorityPolicyRow[];
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  const sourceRefs = new Set(
+    input.sourceIdentitySurfaces.map((surface) => surface.surfaceRef)
+  );
+  const policyRefs = new Set<string>();
+  for (const policy of input.sourceAuthorityPolicies) {
+    if (policyRefs.has(policy.policyRef)) {
+      input.issues.push(
+        issue({
+          surfaceKind: "source_authority_policy",
+          surfaceRef: policy.policyRef,
+          ruleRef: "abg://gtl-program/source-authority-policy/unique-ref",
+          message: `source authority policy ${JSON.stringify(policy.policyRef)} is declared more than once`,
+          evidenceRefs: freezeStrings(policy.evidenceRefs)
+        })
+      );
+    }
+    policyRefs.add(policy.policyRef);
+    if (policy.forbiddenTokens.length === 0) {
+      input.issues.push(
+        issue({
+          surfaceKind: "source_authority_policy",
+          surfaceRef: policy.policyRef,
+          ruleRef: "abg://gtl-program/source-authority-policy/forbidden-token-required",
+          message: `source authority policy ${JSON.stringify(policy.policyRef)} must declare at least one forbidden token`,
+          evidenceRefs: freezeStrings(policy.evidenceRefs)
+        })
+      );
+    }
+    for (const surfaceRef of policy.sourceSurfaceRefs) {
+      if (!sourceRefs.has(surfaceRef)) {
+        input.issues.push(
+          issue({
+            surfaceKind: "source_authority_policy",
+            surfaceRef: policy.policyRef,
+            ruleRef: "abg://gtl-program/source-authority-policy/source-surface-ref-resolves",
+            message: `source authority policy ${JSON.stringify(policy.policyRef)} targets unknown source surface ${JSON.stringify(surfaceRef)}`,
+            evidenceRefs: freezeStrings(policy.evidenceRefs)
+          })
+        );
+      }
+    }
+    for (const prefix of policy.sourceSurfaceRefPrefixes) {
+      if (
+        !input.sourceIdentitySurfaces.some((surface) =>
+          surface.surfaceRef.startsWith(prefix)
+        )
+      ) {
+        input.issues.push(
+          issue({
+            surfaceKind: "source_authority_policy",
+            surfaceRef: policy.policyRef,
+            ruleRef: "abg://gtl-program/source-authority-policy/source-surface-prefix-resolves",
+            message: `source authority policy ${JSON.stringify(policy.policyRef)} targets unknown source surface prefix ${JSON.stringify(prefix)}`,
+            evidenceRefs: freezeStrings(policy.evidenceRefs)
+          })
+        );
+      }
+    }
+    for (const surface of input.sourceIdentitySurfaces) {
+      if (!sourceAuthorityPolicyApplies({ policy, surface })) {
+        continue;
+      }
+      if (
+        !sourceAuthorityTokensMatch({
+          text: surface.text,
+          tokens: policy.forbiddenTokens,
+          mode: policy.forbiddenMatch
+        }) ||
+        sourceAuthorityPolicyMitigated({ text: surface.text, policy })
+      ) {
+        continue;
+      }
+      input.issues.push(
+        issue({
+          surfaceKind: "source_authority_policy",
+          surfaceRef: surface.surfaceRef,
+          ruleRef: policy.policyRef,
+          message: policy.message,
+          evidenceRefs: uniqueSorted([
+            surface.surfaceRef,
+            ...freezeStrings(surface.evidenceRefs),
+            ...freezeStrings(policy.evidenceRefs)
+          ])
+        })
+      );
+    }
+  }
+}
+
+function checkSemanticReviewGates(input: {
+  readonly subjectRef: string;
+  readonly semanticReviewGates: readonly GtlProgramSemanticReviewGateRow[];
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  const refs = new Set<string>();
+  for (const gate of input.semanticReviewGates) {
+    if (refs.has(gate.gateRef)) {
+      input.issues.push(
+        issue({
+          surfaceKind: "semantic_review_gate",
+          surfaceRef: gate.gateRef,
+          ruleRef: "abg://gtl-program/semantic-review-gate/unique-ref",
+          message: `semantic review gate ${JSON.stringify(gate.gateRef)} is declared more than once`,
+          evidenceRefs: gate.evidenceRefs
+        })
+      );
+    }
+    refs.add(gate.gateRef);
+    if (gate.subjectRef !== input.subjectRef) {
+      input.issues.push(
+        issue({
+          surfaceKind: "semantic_review_gate",
+          surfaceRef: gate.gateRef,
+          ruleRef: "abg://gtl-program/semantic-review-gate/subject-ref",
+          message: `semantic review gate subjectRef ${JSON.stringify(gate.subjectRef)} does not match program subjectRef ${JSON.stringify(input.subjectRef)}`,
+          evidenceRefs: gate.evidenceRefs
+        })
+      );
+    }
+    if (!gate.deterministicReportDigest.startsWith("sha256:")) {
+      input.issues.push(
+        issue({
+          surfaceKind: "semantic_review_gate",
+          surfaceRef: gate.gateRef,
+          ruleRef: "abg://gtl-program/semantic-review-gate/deterministic-report-digest",
+          message: "semantic review gate deterministicReportDigest must be a sha256: digest",
+          evidenceRefs: gate.evidenceRefs
+        })
+      );
+    }
+    if (
+      gate.reviewResultKind !== "sdlc_semantic_compiler_fp_review_result" ||
+      gate.reviewVersion !== "ts-semantic-compiler-fp-review-result-v1"
+    ) {
+      input.issues.push(
+        issue({
+          surfaceKind: "semantic_review_gate",
+          surfaceRef: gate.gateRef,
+          ruleRef: "abg://gtl-program/semantic-review-gate/admitted-result-kind",
+          message: "semantic review gate must carry an admitted sdlc_semantic_compiler_fp_review_result v1 result",
+          evidenceRefs: gate.evidenceRefs
+        })
+      );
+    }
+    if (gate.status !== "passed") {
+      input.issues.push(
+        issue({
+          surfaceKind: "semantic_review_gate",
+          surfaceRef: gate.gateRef,
+          ruleRef: "abg://gtl-program/semantic-review-gate/status-passed",
+          message: `semantic review gate status must be passed, got ${JSON.stringify(gate.status)}`,
+          evidenceRefs: gate.evidenceRefs
+        })
+      );
+    }
+    if (gate.findingCount !== 0) {
+      input.issues.push(
+        issue({
+          surfaceKind: "semantic_review_gate",
+          surfaceRef: gate.gateRef,
+          ruleRef: "abg://gtl-program/semantic-review-gate/no-open-findings",
+          message: `semantic review gate carries ${gate.findingCount} open finding(s)`,
+          evidenceRefs: gate.evidenceRefs
+        })
+      );
+    }
+  }
+}
+
 function pushRowIssue(input: {
   readonly surfaceKind: GtlProgramConformanceSurfaceKind;
   readonly surfaceRef: string;
@@ -8111,6 +8688,9 @@ function observedFeatureKinds(input: {
   readonly edgeClosureContracts: readonly GtlProgramEdgeClosureRow[];
   readonly promptAssets: readonly GtlProgramPromptAssetRow[];
   readonly sourceIdentitySurfaces: readonly GtlProgramSourceIdentityRow[];
+  readonly sourceAuthorityPolicies:
+    readonly GtlProgramSourceAuthorityPolicyRow[];
+  readonly semanticReviewGates: readonly GtlProgramSemanticReviewGateRow[];
   readonly sameObjectProofs: readonly GtlProgramSameObjectRow[];
   readonly operatorDeclarations: readonly GtlProgramOperatorDeclarationRow[];
   readonly evaluatorDeclarations: readonly GtlProgramEvaluatorDeclarationRow[];
@@ -8273,7 +8853,11 @@ function observedFeatureKinds(input: {
   if (input.externalToolGates.length > 0) {
     observed.add("external_tool_gates");
   }
-  if (input.sourceIdentitySurfaces.length > 0) {
+  if (
+    input.sourceIdentitySurfaces.length > 0 ||
+    input.sourceAuthorityPolicies.length > 0 ||
+    input.semanticReviewGates.length > 0
+  ) {
     observed.add("active_source_identity");
   }
   return observed;
@@ -8287,6 +8871,9 @@ function inventoryBackedFeatureKinds(input: {
   readonly edgeClosureContracts: readonly GtlProgramEdgeClosureRow[];
   readonly promptAssets: readonly GtlProgramPromptAssetRow[];
   readonly sourceIdentitySurfaces: readonly GtlProgramSourceIdentityRow[];
+  readonly sourceAuthorityPolicies:
+    readonly GtlProgramSourceAuthorityPolicyRow[];
+  readonly semanticReviewGates: readonly GtlProgramSemanticReviewGateRow[];
   readonly sameObjectProofs: readonly GtlProgramSameObjectRow[];
   readonly operatorDeclarations: readonly GtlProgramOperatorDeclarationRow[];
   readonly evaluatorDeclarations: readonly GtlProgramEvaluatorDeclarationRow[];
@@ -8370,7 +8957,11 @@ function inventoryBackedFeatureKinds(input: {
   if (input.externalToolGates.length > 0) {
     backed.add("external_tool_gates");
   }
-  if (input.sourceIdentitySurfaces.length > 0) {
+  if (
+    input.sourceIdentitySurfaces.length > 0 ||
+    input.sourceAuthorityPolicies.length > 0 ||
+    input.semanticReviewGates.length > 0
+  ) {
     backed.add("active_source_identity");
   }
   return backed;
@@ -8510,6 +9101,9 @@ function computeInventoryDigests(input: {
   readonly pluginContracts: readonly unknown[];
   readonly pluginResultInterfaces: readonly GtlProgramPluginResultInterfaceRow[];
   readonly sourceIdentitySurfaces: readonly GtlProgramSourceIdentityRow[];
+  readonly sourceAuthorityPolicies:
+    readonly GtlProgramSourceAuthorityPolicyRow[];
+  readonly semanticReviewGates: readonly GtlProgramSemanticReviewGateRow[];
   readonly sameObjectProofs: readonly GtlProgramSameObjectRow[];
   readonly operatorDeclarations: readonly GtlProgramOperatorDeclarationRow[];
   readonly evaluatorDeclarations: readonly GtlProgramEvaluatorDeclarationRow[];
@@ -8542,6 +9136,8 @@ function computeInventoryDigests(input: {
     sourceIdentitySurfaces: stableSha256Digest(
       sourceIdentityDigestRows(input.sourceIdentitySurfaces)
     ),
+    sourceAuthorityPolicies: stableSha256Digest(input.sourceAuthorityPolicies),
+    semanticReviewGates: stableSha256Digest(input.semanticReviewGates),
     sameObjectProofs: stableSha256Digest(input.sameObjectProofs),
     operatorDeclarations: stableSha256Digest(input.operatorDeclarations),
     evaluatorDeclarations: stableSha256Digest(input.evaluatorDeclarations),
@@ -8628,6 +9224,12 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
   const sourceIdentitySurfaces = Object.freeze([
     ...(input.sourceIdentitySurfaces ?? [])
   ]);
+  const sourceAuthorityPolicies = Object.freeze([
+    ...(input.sourceAuthorityPolicies ?? [])
+  ]);
+  const semanticReviewGates = Object.freeze([
+    ...(input.semanticReviewGates ?? [])
+  ]);
   const sameObjectProofs = Object.freeze([...(input.sameObjectProofs ?? [])]);
   const operatorDeclarations = Object.freeze([
     ...(input.operatorDeclarations ?? [])
@@ -8695,6 +9297,16 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
   checkSourceIdentities({
     sourceIdentitySurfaces,
     abiPackageVersion: input.abiPackageVersion,
+    issues
+  });
+  checkSourceAuthorityPolicies({
+    sourceIdentitySurfaces,
+    sourceAuthorityPolicies,
+    issues
+  });
+  checkSemanticReviewGates({
+    subjectRef: input.subjectRef,
+    semanticReviewGates,
     issues
   });
   checkSameObjectRows({
@@ -8772,6 +9384,8 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
       edgeClosureContracts,
       promptAssets,
       sourceIdentitySurfaces,
+      sourceAuthorityPolicies,
+      semanticReviewGates,
       sameObjectProofs,
       operatorDeclarations,
       evaluatorDeclarations,
@@ -8795,6 +9409,8 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
       edgeClosureContracts,
       promptAssets,
       sourceIdentitySurfaces,
+      sourceAuthorityPolicies,
+      semanticReviewGates,
       sameObjectProofs,
       operatorDeclarations,
       evaluatorDeclarations,
@@ -8845,6 +9461,8 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     pluginContracts,
     pluginResultInterfaces,
     sourceIdentitySurfaces,
+    sourceAuthorityPolicies,
+    semanticReviewGates,
     sameObjectProofs,
     operatorDeclarations,
     evaluatorDeclarations,

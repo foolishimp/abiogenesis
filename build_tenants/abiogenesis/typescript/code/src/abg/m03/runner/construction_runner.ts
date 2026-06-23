@@ -68,7 +68,10 @@ import type {
   EngineIterateRequest,
   EngineIterateResult
 } from "./engine_runner.js";
-import { runEngineIterate } from "./engine_runner.js";
+import {
+  runEngineIterate,
+  runEngineIterateAsync
+} from "./engine_runner.js";
 
 export type ConstructionRunnerStepStatus =
   | "progressed"
@@ -684,6 +687,72 @@ export function runConstructionEffectPlan(input: {
   });
 }
 
+export async function runConstructionEffectPlanAsync(input: {
+  readonly request: ConstructionIntentRunnerRequest;
+  readonly planDerivation: ConstructionRuntimeEffectPlanDerivation;
+  readonly invocationEvents: ConstructionInvocationEvents;
+}): Promise<ConstructionRuntimeEffectResult> {
+  const { request, planDerivation, invocationEvents } = input;
+  const initialEmittedEvents = emit(
+    [invocationEvents.pressurePackageEvent, invocationEvents.invokedEvent],
+    request.eventSink
+  );
+  const selectedReentry = applySelectedConstructionReentry({
+    request,
+    invocationEvents
+  });
+  const runtimeEventsForEngine =
+    selectedReentry.runtimeEvents.length === 0
+      ? undefined
+      : selectedReentry.runtimeEvents;
+  const graphActionResult = await runEngineIterateAsync({
+    basis: request.graphActionBasis,
+    ...(runtimeEventsForEngine === undefined
+      ? {}
+      : { runtimeEvents: runtimeEventsForEngine }),
+    eventSink: request.eventSink,
+    plugins: request.graphRunnerPlugins,
+    maxAttachedFpAttempts: request.maxAttachedFpAttempts,
+    assuranceProvider: request.graphAssuranceProvider,
+    targetCarrierDefaults: request.graphTargetCarrierDefaults,
+    abgFallbackBundle: request.graphAbgFallbackBundle,
+    edgeAssuranceDefaults: request.graphEdgeAssuranceDefaults,
+    pluginTraversalObserverFallbackEnabled:
+      request.graphPluginTraversalObserverFallbackEnabled,
+    pluginTraversalObserverFallbackKinds:
+      request.graphPluginTraversalObserverFallbackKinds,
+    constructionPressurePackage: planDerivation.plan.pressurePackage
+  });
+  const deltaEvent = deriveConstructionDeltaFromGraphResult({
+    plan: planDerivation.plan,
+    invokedEvent: invocationEvents.invokedEvent,
+    preRunEmittedEvents: selectedReentry.emittedEvents,
+    reentryMoved: selectedReentry.reentryAppliedEvent !== null,
+    graphActionResult,
+    cursor: invocationEvents.nextCursor
+  });
+  const deltaEmittedEvents = emit(deltaEvent, request.eventSink);
+  return Object.freeze({
+    kind: "construction_runtime_effect_result",
+    graphActionResult,
+    preRunRuntimeEvents: selectedReentry.runtimeEvents,
+    reentryAppliedEvent: selectedReentry.reentryAppliedEvent,
+    deltaEvent,
+    emittedEvents: Object.freeze([
+      ...initialEmittedEvents,
+      ...selectedReentry.emittedEvents,
+      ...graphActionResult.emittedEvents,
+      ...deltaEmittedEvents
+    ]),
+    constructionReplayEvents: Object.freeze([
+      ...planDerivation.constructionReplayEvents,
+      invocationEvents.pressurePackageEvent,
+      invocationEvents.invokedEvent,
+      deltaEvent
+    ])
+  });
+}
+
 export function composeConstructionRunnerOutcome(input: {
   readonly request: ConstructionIntentRunnerRequest;
   readonly planDerivation: ConstructionRuntimeEffectPlanDerivation;
@@ -742,6 +811,26 @@ export function runConstructionIntentStep(
     planDerivation.plan
   );
   const effectResult = runConstructionEffectPlan({
+    request,
+    planDerivation,
+    invocationEvents
+  });
+  return composeConstructionRunnerOutcome({
+    request,
+    planDerivation,
+    invocationEvents,
+    effectResult
+  });
+}
+
+export async function runConstructionIntentStepAsync(
+  request: ConstructionIntentRunnerRequest
+): Promise<ConstructionRunnerStepOutcome> {
+  const planDerivation = deriveConstructionEffectPlan(request);
+  const invocationEvents = materializeConstructionInvocationEvents(
+    planDerivation.plan
+  );
+  const effectResult = await runConstructionEffectPlanAsync({
     request,
     planDerivation,
     invocationEvents

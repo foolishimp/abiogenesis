@@ -3134,6 +3134,311 @@ test("T-150 GTL program typechecker catches graph row, prompt, plugin, and ident
   assert(ruleRefs.has("abg://gtl-program/source-identity/stale-stage-label"));
 });
 
+test("T-204 GTL program typechecker rejects declared source-authority regressions", () => {
+  const policies = [
+    {
+      policyRef:
+        "abg://gtl-program/source-authority/no-archive-status-as-acceptance",
+      sourceSurfaceRefs: ["workspace://operator/design_depth_register.ts"],
+      forbiddenTokens: ["sdlc_edge_closure_decision.json", "postflight.json"],
+      forbiddenMatch: "any",
+      message:
+        "design-depth predecessor acceptance must not be derived from archive status files"
+    },
+    {
+      policyRef:
+        "abg://gtl-program/source-authority/no-unfiltered-current-postflight-downgrade",
+      sourceSurfaceRefs: ["workspace://operator/installed_operator.ts"],
+      forbiddenTokens: [
+        "activePostflightBlockingReasonCarriers(input.currentPostflight)",
+        "currentPostflightBlockers"
+      ],
+      forbiddenMatch: "all",
+      requiredMitigationTokens: [
+        'lawfulReentryPoint !== "same_edge_retry"',
+        'lawfulReentryPoint !== "repair_worker_output"',
+        'lawfulReentryPoint !== "escalate_to_fp"'
+      ],
+      message:
+        "current-postflight review-grade shortcut must not downgrade retryable reentry to triage"
+    },
+    {
+      policyRef:
+        "abg://gtl-program/source-authority/read-model-does-not-author-runtime-truth",
+      sourceSurfaceRefs: ["workspace://workspace_api/entry.ts"],
+      forbiddenTokens: [
+        "sdlc_edge_closure_decision.json",
+        "writeSdlcSystemArtifact"
+      ],
+      forbiddenMatch: "all",
+      message:
+        "workspace gaps read model must not author closure or artifact truth"
+    },
+    {
+      policyRef:
+        "abg://gtl-program/source-authority/read-model-does-not-invoke-runtime-control",
+      sourceSurfaceRefs: ["workspace://workspace_api/entry.ts"],
+      forbiddenTokens: ["postflight.json", "publicStartOnce"],
+      forbiddenMatch: "all",
+      message:
+        "workspace gaps read model must not invoke traversal or start control"
+    },
+    {
+      policyRef:
+        "abg://gtl-program/source-authority/product-materialization-lineage-caches-requirement-markers",
+      sourceSurfaceRefs: ["workspace://operator/postflight_checks.ts"],
+      forbiddenTokens: [
+        "contentCarriesRequirementObligation({",
+        "REQUIREMENT_MARKER_EXPRESSION"
+      ],
+      forbiddenMatch: "all",
+      requiredMitigationTokens: [
+        "normalizedRequirementMarkersForContent",
+        "contentCarriesRequirementObligationWithMarkers"
+      ],
+      message:
+        "product-materialization lineage checks must not rescan requirement markers for every obligation/file pairing"
+    }
+  ];
+  const report = typecheckGtlProgram(
+    compliantInput({
+      sourceIdentitySurfaces: [
+        {
+          surfaceRef: "workspace://operator/design_depth_register.ts",
+          text: [
+            "function predecessorDesignRegisterArchiveIsAccepted() {",
+            "  return readFileSync('sdlc_edge_closure_decision.json', 'utf8');",
+            "}"
+          ].join("\n")
+        },
+        {
+          surfaceRef: "workspace://operator/installed_operator.ts",
+          text: [
+            "const currentPostflightBlockers =",
+            "  activePostflightBlockingReasonCarriers(input.currentPostflight);",
+            "if (currentPostflightBlockers.length > 0) {",
+            "  return 'triage_gap';",
+            "}"
+          ].join("\n")
+        },
+        {
+          surfaceRef: "workspace://workspace_api/entry.ts",
+          text: [
+            "const closure = 'sdlc_edge_closure_decision.json';",
+            "const postflight = 'postflight.json';",
+            "writeSdlcSystemArtifact({ relativePath: closure });",
+            "publicStartOnce({ target: postflight });"
+          ].join("\n")
+        },
+        {
+          surfaceRef: "workspace://operator/postflight_checks.ts",
+          text: [
+            "function evaluateMaterializedProductFiles() {",
+            "  contentCarriesRequirementObligation({ content, obligationId, displayId });",
+            "  content.match(REQUIREMENT_MARKER_EXPRESSION);",
+            "}"
+          ].join("\n")
+        }
+      ],
+      sourceAuthorityPolicies: policies
+    })
+  );
+  const ruleRefs = issueRuleRefs(report);
+
+  assert.equal(report.passed, false);
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/source-authority/no-archive-status-as-acceptance"
+    )
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/source-authority/no-unfiltered-current-postflight-downgrade"
+    )
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/source-authority/read-model-does-not-author-runtime-truth"
+    )
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/source-authority/read-model-does-not-invoke-runtime-control"
+    )
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/source-authority/product-materialization-lineage-caches-requirement-markers"
+    )
+  );
+
+  const mitigated = typecheckGtlProgram(
+    compliantInput({
+      sourceIdentitySurfaces: [
+        {
+          surfaceRef: "workspace://operator/installed_operator.ts",
+          text: [
+            "function currentPostflightBlocksReviewGradeEvaluator(reason) {",
+            '  return reason.lawfulReentryPoint !== "same_edge_retry" &&',
+            '    reason.lawfulReentryPoint !== "repair_worker_output" &&',
+            '    reason.lawfulReentryPoint !== "escalate_to_fp";',
+            "}",
+            "const currentPostflightBlockers =",
+            "  activePostflightBlockingReasonCarriers(input.currentPostflight).filter(currentPostflightBlocksReviewGradeEvaluator);"
+          ].join("\n")
+        }
+      ],
+      sourceAuthorityPolicies: [policies[1]]
+    })
+  );
+
+  assert.equal(
+    issueRuleRefs(mitigated).has(
+      "abg://gtl-program/source-authority/no-unfiltered-current-postflight-downgrade"
+    ),
+    false
+  );
+
+  const markerScanMitigated = typecheckGtlProgram(
+    compliantInput({
+      sourceIdentitySurfaces: [
+        {
+          surfaceRef: "workspace://operator/postflight_checks.ts",
+          text: [
+            "function normalizedRequirementMarkersForContent(content) {",
+            "  return content.match(REQUIREMENT_MARKER_EXPRESSION);",
+            "}",
+            "function evaluateMaterializedProductFiles() {",
+            "  contentCarriesRequirementObligationWithMarkers({ content, normalizedMarkers, obligationId, displayId });",
+            "}"
+          ].join("\n")
+        }
+      ],
+      sourceAuthorityPolicies: [policies[4]]
+    })
+  );
+
+  assert.equal(
+    issueRuleRefs(markerScanMitigated).has(
+      "abg://gtl-program/source-authority/product-materialization-lineage-caches-requirement-markers"
+    ),
+    false
+  );
+});
+
+test("T-204 GTL program typechecker rejects duplicate or unresolved source-authority rows", () => {
+  const report = typecheckGtlProgram(
+    compliantInput({
+      sourceIdentitySurfaces: [
+        {
+          surfaceRef: "workspace://operator/installed_operator.ts",
+          text: "const currentPostflightBlockers = [];"
+        }
+      ],
+      sourceAuthorityPolicies: [
+        {
+          policyRef:
+            "abg://gtl-program/source-authority/no-unresolved-policy",
+          sourceSurfaceRefs: ["workspace://operator/missing.ts"],
+          sourceSurfaceRefPrefixes: ["workspace://operator/missing/"],
+          forbiddenTokens: ["currentPostflightBlockers"],
+          forbiddenMatch: "all",
+          message: "unresolved policy should fail closed"
+        },
+        {
+          policyRef:
+            "abg://gtl-program/source-authority/no-unresolved-policy",
+          sourceSurfaceRefs: ["workspace://operator/installed_operator.ts"],
+          sourceSurfaceRefPrefixes: [],
+          forbiddenTokens: ["does_not_match"],
+          forbiddenMatch: "all",
+          message: "duplicate policy refs are ambiguous authority"
+        }
+      ]
+    })
+  );
+  const ruleRefs = issueRuleRefs(report);
+
+  assert.equal(report.passed, false);
+  assert(
+    ruleRefs.has("abg://gtl-program/source-authority-policy/unique-ref")
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/source-authority-policy/source-surface-ref-resolves"
+    )
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/source-authority-policy/source-surface-prefix-resolves"
+    )
+  );
+});
+
+test("T-204 GTL program typechecker admits fail-closed semantic F_P review gates", () => {
+  const validGate = {
+    gateRef: "semantic-review-gate://t150/prompt-materialization/fp",
+    subjectRef: "workspace://t150/program-conformance-tool",
+    deterministicReportDigest: "sha256:semantic-prompt-package",
+    reviewResultKind: "sdlc_semantic_compiler_fp_review_result",
+    reviewVersion: "ts-semantic-compiler-fp-review-result-v1",
+    status: "passed",
+    findingCount: 0,
+    reviewerProfileRef: "reviewer-profile://t150/fp-code-review",
+    reviewedAt: "2026-06-23T00:00:00.000Z",
+    evidenceRefs: ["test://t150/semantic-review"]
+  };
+
+  assert.equal(
+    typecheckGtlProgram(
+      compliantInput({ semanticReviewGates: [validGate] })
+    ).passed,
+    true
+  );
+
+  const report = typecheckGtlProgram(
+    compliantInput({
+      semanticReviewGates: [
+        validGate,
+        {
+          ...validGate,
+          gateRef: validGate.gateRef,
+          subjectRef: "workspace://t150/other",
+          deterministicReportDigest: "not-a-digest",
+          reviewResultKind: "unadmitted_review_result",
+          status: "failed",
+          findingCount: 2
+        }
+      ]
+    })
+  );
+  const ruleRefs = issueRuleRefs(report);
+
+  assert.equal(report.passed, false);
+  assert(
+    ruleRefs.has("abg://gtl-program/semantic-review-gate/unique-ref")
+  );
+  assert(
+    ruleRefs.has("abg://gtl-program/semantic-review-gate/subject-ref")
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/semantic-review-gate/deterministic-report-digest"
+    )
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/semantic-review-gate/admitted-result-kind"
+    )
+  );
+  assert(
+    ruleRefs.has("abg://gtl-program/semantic-review-gate/status-passed")
+  );
+  assert(
+    ruleRefs.has("abg://gtl-program/semantic-review-gate/no-open-findings")
+  );
+});
+
 test("T-152 GTL program typechecker rejects stale ABG URI and package identity forms", () => {
   const report = typecheckGtlProgram(
     compliantInput({

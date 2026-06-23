@@ -98,10 +98,10 @@ test("M04 complete-start integration: bare callable start advances through subst
       "payload_validated",
       "fd_authority_outcome_admitted",
       "vector_evaluated",
-      "vector_closed",
-      "fd_advance_ready",
       "payload_observed",
       "payload_validated",
+      "vector_closed",
+      "fd_advance_ready",
       "terminal_reached"
     ]
   );

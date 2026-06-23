@@ -71,10 +71,10 @@ test("M04 integration: publicStart routes through engine-owned M03 iteration for
     "payload_validated",
     "fd_authority_outcome_admitted",
     "vector_evaluated",
-    "vector_closed",
-    "fd_advance_ready",
     "payload_observed",
     "payload_validated",
+    "vector_closed",
+    "fd_advance_ready",
     "terminal_reached"
   ]);
   assert.equal(outcome.runtimeIdentity.resolvedRuntimeRef, "runtime://typescript/node");

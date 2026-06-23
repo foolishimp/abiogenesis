@@ -1006,18 +1006,15 @@ function latestUnconsumedGapStopTerminal(
     | Extract<RuntimeEvent, { readonly kind: "terminal_reached" }>
     | null = null;
   for (const event of events) {
-    switch (event.kind) {
-      case "terminal_reached":
-        if (event.terminalKind === "gap_stop") {
-          terminal = event;
-        }
-        break;
-      case "graph_reentry_applied":
-      case "vector_traversal_planned":
-        terminal = null;
-        break;
-      default:
-        break;
+    if (event.kind === "terminal_reached" && event.terminalKind === "gap_stop") {
+      terminal = event;
+      continue;
+    }
+    if (
+      event.kind === "graph_reentry_applied" ||
+      event.kind === "vector_traversal_planned"
+    ) {
+      terminal = null;
     }
   }
   return terminal;

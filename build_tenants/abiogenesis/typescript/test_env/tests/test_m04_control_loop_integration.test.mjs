@@ -68,14 +68,14 @@ test("M04 control integration: supervised control delegates to ABG-owned start-t
     "graph_call_opened",
     "frame_opened",
     "vector_traversal_planned",
-      "payload_observed",
-      "payload_validated",
-      "fd_authority_outcome_admitted",
-    "vector_evaluated",
-    "vector_closed",
-    "fd_advance_ready",
     "payload_observed",
     "payload_validated",
+    "fd_authority_outcome_admitted",
+    "vector_evaluated",
+    "payload_observed",
+    "payload_validated",
+    "vector_closed",
+    "fd_advance_ready",
     "terminal_reached"
   ]);
 

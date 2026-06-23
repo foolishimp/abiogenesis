@@ -217,7 +217,12 @@ import {
   type EngineAssuranceGateResult,
   type EngineAssuranceProvider
 } from "./assurance_gate.js";
-import { runConstructionIntentStep } from "./construction_runner.js";
+import {
+  runConstructionIntentStep,
+  runConstructionIntentStepAsync,
+  type ConstructionIntentRunnerRequest,
+  type ConstructionRunnerStepOutcome
+} from "./construction_runner.js";
 import { stableSha256Digest } from "../../../shared/runtime_identity.js";
 
 export interface EngineIterateRequest {
@@ -3166,6 +3171,13 @@ function consumeConsequenceTraversalAction(input: {
 }): {
   readonly eventState: EngineEventEmissionState;
   readonly result: EngineIterateResult;
+} | {
+  readonly eventState: EngineEventEmissionState;
+  readonly effect: {
+    readonly kind: "construction_intent_step";
+    readonly request: ConstructionIntentRunnerRequest;
+  };
+  readonly iterationCount: number;
 } | null {
   if (input.outcome.traversalAction === null) {
     return null;
@@ -3198,31 +3210,49 @@ function consumeConsequenceTraversalAction(input: {
   if (admittedIntent === null) {
     throw new TypeError("Consequence traversal construction world lost admitted intent");
   }
-  const constructionOutcome = runConstructionIntentStep({
-    basis: input.request.basis,
-    graphActionBasis: input.request.basis,
-    observation: build.world.observation,
-    admittedIntent,
-    admissions: [build.world.admission],
-    priorityProjection: build.world.priorityProjection,
-    actionCatalog: build.world.actionCatalog,
-    constructionEvents: build.world.constructionEvents,
-    graphRuntimeEvents: input.eventState.replayEvents,
-    eventSink: input.request.eventSink,
-    graphRunnerPlugins: input.request.plugins,
-    maxAttachedFpAttempts: input.request.maxAttachedFpAttempts,
-    graphAssuranceProvider: input.request.assuranceProvider,
-    graphTargetCarrierDefaults: input.request.targetCarrierDefaults,
-    graphAbgFallbackBundle: input.request.abgFallbackBundle,
-    graphEdgeAssuranceDefaults: input.request.edgeAssuranceDefaults,
-    graphPluginTraversalObserverFallbackEnabled:
-      input.request.pluginTraversalObserverFallbackEnabled,
-    graphPluginTraversalObserverFallbackKinds:
-      input.request.pluginTraversalObserverFallbackKinds
+  return Object.freeze({
+    eventState: preludeState,
+    effect: Object.freeze({
+      kind: "construction_intent_step" as const,
+      request: Object.freeze({
+        basis: input.request.basis,
+        graphActionBasis: input.request.basis,
+        observation: build.world.observation,
+        admittedIntent,
+        admissions: [build.world.admission],
+        priorityProjection: build.world.priorityProjection,
+        actionCatalog: build.world.actionCatalog,
+        constructionEvents: build.world.constructionEvents,
+        graphRuntimeEvents: input.eventState.replayEvents,
+        eventSink: input.request.eventSink,
+        graphRunnerPlugins: input.request.plugins,
+        maxAttachedFpAttempts: input.request.maxAttachedFpAttempts,
+        graphAssuranceProvider: input.request.assuranceProvider,
+        graphTargetCarrierDefaults: input.request.targetCarrierDefaults,
+        graphAbgFallbackBundle: input.request.abgFallbackBundle,
+        graphEdgeAssuranceDefaults: input.request.edgeAssuranceDefaults,
+        graphPluginTraversalObserverFallbackEnabled:
+          input.request.pluginTraversalObserverFallbackEnabled,
+        graphPluginTraversalObserverFallbackKinds:
+          input.request.pluginTraversalObserverFallbackKinds
+      } satisfies ConstructionIntentRunnerRequest)
+    }),
+    iterationCount: input.iterationCount
   });
+}
+
+function finishConsequenceTraversalActionConsumption(input: {
+  readonly request: EngineIterateRequest;
+  readonly preludeState: EngineEventEmissionState;
+  readonly constructionOutcome: ConstructionRunnerStepOutcome;
+  readonly iterationCount: number;
+}): {
+  readonly eventState: EngineEventEmissionState;
+  readonly result: EngineIterateResult;
+} {
   const eventState = appendAlreadyEmittedEngineRunnerEvents({
-    state: preludeState,
-    events: constructionOutcome.emittedEvents
+    state: input.preludeState,
+    events: input.constructionOutcome.emittedEvents
   });
   const projection = deriveRuntimeAggregateProjection(
     input.request.basis,
@@ -3232,15 +3262,15 @@ function consumeConsequenceTraversalAction(input: {
     eventState,
     result: constructResult({
       basis: input.request.basis,
-      transition: constructionOutcome.graphActionResult.transition,
+      transition: input.constructionOutcome.graphActionResult.transition,
       projection,
       emittedEvents: eventState.emittedEvents,
       replayEvents: eventState.replayEvents,
       iterationCount:
         input.iterationCount +
         1 +
-        constructionOutcome.graphActionResult.iterationCount,
-      assuranceGate: constructionOutcome.graphActionResult.assuranceGate
+        input.constructionOutcome.graphActionResult.iterationCount,
+      assuranceGate: input.constructionOutcome.graphActionResult.assuranceGate
     })
   });
 }
@@ -3285,6 +3315,10 @@ type EnginePluginEffect =
   | {
       readonly kind: "consequence_project";
       readonly input: EnginePluginInput;
+    }
+  | {
+      readonly kind: "construction_intent_step";
+      readonly request: ConstructionIntentRunnerRequest;
     };
 
 type EnginePluginEffectResult =
@@ -3326,6 +3360,10 @@ type EnginePluginEffectResult =
   | {
       readonly kind: "consequence_project";
       readonly outcome: ConsequenceProjectionOutcome;
+    }
+  | {
+      readonly kind: "construction_intent_step";
+      readonly outcome: ConstructionRunnerStepOutcome;
     };
 
 function assertEnginePluginEffectKind(
@@ -3358,6 +3396,7 @@ function fdEvaluationOutcomeFromEffectResult(
     case "fh_admit":
       throw new TypeError("Engine plugin effect expected fd_evaluate");
     case "consequence_project":
+    case "construction_intent_step":
       throw new TypeError("Engine plugin effect expected fd_evaluate");
   }
 }
@@ -3392,6 +3431,7 @@ function composedStageTaskBatchOutcomesFromEffectResult(input: {
     case "fp_dispatch":
     case "fh_admit":
     case "consequence_project":
+    case "construction_intent_step":
       throw new TypeError(
         "Engine plugin effect expected composed_stage_task_batch_run"
       );
@@ -3428,6 +3468,7 @@ function evaluationRuleBatchOutcomesFromEffectResult(input: {
     case "fp_dispatch":
     case "fh_admit":
     case "consequence_project":
+    case "construction_intent_step":
       throw new TypeError(
         "Engine plugin effect expected evaluation_rule_batch_evaluate"
       );
@@ -3448,6 +3489,7 @@ function fpEvaluationOutcomeFromEffectResult(
     case "fp_dispatch":
     case "fh_admit":
     case "consequence_project":
+    case "construction_intent_step":
       throw new TypeError("Engine plugin effect expected fp_evaluate");
   }
 }
@@ -3467,6 +3509,7 @@ function fpDispatchOutcomeFromEffectResult(
     case "fh_admit":
       throw new TypeError("Engine plugin effect expected fp_dispatch");
     case "consequence_project":
+    case "construction_intent_step":
       throw new TypeError("Engine plugin effect expected fp_dispatch");
   }
 }
@@ -3485,6 +3528,7 @@ function fhAdmissionOutcomeFromEffectResult(
     case "fp_evaluate":
     case "fp_dispatch":
     case "consequence_project":
+    case "construction_intent_step":
       throw new TypeError("Engine plugin effect expected fh_admit");
   }
 }
@@ -3503,7 +3547,27 @@ function consequenceProjectionOutcomeFromEffectResult(
     case "fp_evaluate":
     case "fp_dispatch":
     case "fh_admit":
+    case "construction_intent_step":
       throw new TypeError("Engine plugin effect expected consequence_project");
+  }
+}
+
+function constructionRunnerOutcomeFromEffectResult(
+  result: EnginePluginEffectResult
+): ConstructionRunnerStepOutcome {
+  assertEnginePluginEffectKind(result, "construction_intent_step");
+  switch (result.kind) {
+    case "construction_intent_step":
+      return result.outcome;
+    case "fd_evaluate":
+    case "composed_stage_task_batch_run":
+    case "evaluation_rule_evaluate":
+    case "evaluation_rule_batch_evaluate":
+    case "fp_evaluate":
+    case "fp_dispatch":
+    case "fh_admit":
+    case "consequence_project":
+      throw new TypeError("Engine plugin effect expected construction_intent_step");
   }
 }
 
@@ -4401,7 +4465,18 @@ function* runEngineIterateMachine(input: {
           iterationCount
         });
         if (consequenceTraversalConsumption !== null) {
-          return consequenceTraversalConsumption.result;
+          if ("result" in consequenceTraversalConsumption) {
+            return consequenceTraversalConsumption.result;
+          }
+          const constructionOutcome = constructionRunnerOutcomeFromEffectResult(
+            yield consequenceTraversalConsumption.effect
+          );
+          return finishConsequenceTraversalActionConsumption({
+            request,
+            preludeState: consequenceTraversalConsumption.eventState,
+            constructionOutcome,
+            iterationCount: consequenceTraversalConsumption.iterationCount
+          }).result;
         }
         eventState = emitRunnerEvents(eventState, [
           constructVectorClosedEvent({
@@ -5310,9 +5385,20 @@ function* runEngineIterateMachine(input: {
                       consequenceInput.allowedConsequenceTraversalCatalog,
                     vectorIndex: transition.vectorIndex,
                     iterationCount
-                  });
+                });
                 if (consequenceTraversalConsumption !== null) {
-                  return consequenceTraversalConsumption.result;
+                  if ("result" in consequenceTraversalConsumption) {
+                    return consequenceTraversalConsumption.result;
+                  }
+                  const constructionOutcome = constructionRunnerOutcomeFromEffectResult(
+                    yield consequenceTraversalConsumption.effect
+                  );
+                  return finishConsequenceTraversalActionConsumption({
+                    request,
+                    preludeState: consequenceTraversalConsumption.eventState,
+                    constructionOutcome,
+                    iterationCount: consequenceTraversalConsumption.iterationCount
+                  }).result;
                 }
               }
               const retryProjection = deriveRuntimeAggregateProjection(
@@ -5741,7 +5827,18 @@ function* runEngineIterateMachine(input: {
               iterationCount
             });
             if (consequenceTraversalConsumption !== null) {
-              return consequenceTraversalConsumption.result;
+              if ("result" in consequenceTraversalConsumption) {
+                return consequenceTraversalConsumption.result;
+              }
+              const constructionOutcome = constructionRunnerOutcomeFromEffectResult(
+                yield consequenceTraversalConsumption.effect
+              );
+              return finishConsequenceTraversalActionConsumption({
+                request,
+                preludeState: consequenceTraversalConsumption.eventState,
+                constructionOutcome,
+                iterationCount: consequenceTraversalConsumption.iterationCount
+              }).result;
             }
             eventState = emitRunnerEvents(eventState,
               constructVectorClosedEvent({
@@ -6074,6 +6171,11 @@ function resolveSyncEnginePluginEffect(
           )
         )
       });
+    case "construction_intent_step":
+      return Object.freeze({
+        kind: "construction_intent_step",
+        outcome: runConstructionIntentStep(effect.request)
+      });
   }
 }
 
@@ -6169,6 +6271,11 @@ async function resolveAsyncEnginePluginEffect(
         outcome: admitConsequenceProjectionOutcome(
           await plugins.consequenceProjection.project(effect.input)
         )
+      });
+    case "construction_intent_step":
+      return Object.freeze({
+        kind: "construction_intent_step",
+        outcome: await runConstructionIntentStepAsync(effect.request)
       });
   }
 }
