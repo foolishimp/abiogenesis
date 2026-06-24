@@ -181,16 +181,76 @@ export type GtlProgramSemanticReviewStatus =
   | "failed"
   | "blocked";
 
+export const ABG_SEMANTIC_COMPILER_FP_REVIEW_GRAPH_FUNCTION_REF =
+  "graph-function://abiogenesis/semantic-compiler-fp-review/v1" as const;
+export const ABG_SEMANTIC_COMPILER_FP_REVIEW_GRAPH_FUNCTION_ID =
+  "abg.semanticCompiler.fpReview" as const;
+export const ABG_SEMANTIC_COMPILER_FP_REVIEW_RUNTIME_REF =
+  "runtime://abiogenesis/semantic-compiler-fp-review/v1" as const;
+export const ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_REF =
+  "admission://abiogenesis/semantic-compiler-fp-review-result/v1" as const;
+export const ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_KIND =
+  "sdlc_semantic_compiler_fp_review_result" as const;
+export const ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_VERSION =
+  "ts-semantic-compiler-fp-review-result-v1" as const;
+export const ABG_SEMANTIC_COMPILER_FP_REVIEW_RUNTIME_KIND =
+  "abg_graph_function" as const;
+
+export interface AbgSemanticCompilerFpReviewPackageIdentity {
+  readonly kind: string;
+  readonly packageVersion: string;
+  readonly subjectRef: string;
+  readonly deterministicReportDigest: string;
+}
+
+export interface AbgSemanticCompilerFpReviewResult {
+  readonly kind: typeof ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_KIND;
+  readonly reviewVersion:
+    typeof ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_VERSION;
+  readonly subjectRef: string;
+  readonly deterministicReportDigest: string;
+  readonly sourcePackageKind: string;
+  readonly sourcePackageVersion: string;
+  readonly sourcePackageDigest: string;
+  readonly status: GtlProgramSemanticReviewStatus;
+  readonly findingCount: number;
+  readonly reviewerProfileRef: string;
+  readonly reviewedAt: string;
+  readonly producerGraphFunctionRef:
+    typeof ABG_SEMANTIC_COMPILER_FP_REVIEW_GRAPH_FUNCTION_REF;
+  readonly producerGraphFunctionDigest: string;
+  readonly producerRuntimeKind:
+    typeof ABG_SEMANTIC_COMPILER_FP_REVIEW_RUNTIME_KIND;
+  readonly producerRuntimeRef:
+    typeof ABG_SEMANTIC_COMPILER_FP_REVIEW_RUNTIME_REF;
+  readonly admissionRef: typeof ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_REF;
+  readonly evidenceRefs: readonly string[];
+}
+
+export interface AbgSemanticCompilerFpReviewResultAdmission {
+  readonly admitted: boolean;
+  readonly passed: boolean;
+  readonly reason: string;
+  readonly issues: readonly string[];
+  readonly result: AbgSemanticCompilerFpReviewResult | null;
+}
+
 export interface GtlProgramSemanticReviewGateRow {
   readonly gateRef: string;
   readonly subjectRef: string;
   readonly deterministicReportDigest: string;
   readonly reviewResultKind: "sdlc_semantic_compiler_fp_review_result";
   readonly reviewVersion: string;
+  readonly sourcePackageDigest: string;
   readonly status: GtlProgramSemanticReviewStatus;
   readonly findingCount: number;
   readonly reviewerProfileRef: string;
   readonly reviewedAt: string;
+  readonly producerGraphFunctionRef: string;
+  readonly producerGraphFunctionDigest: string;
+  readonly producerRuntimeKind: string;
+  readonly producerRuntimeRef: string;
+  readonly admissionRef: string;
   readonly evidenceRefs?: readonly string[] | undefined;
 }
 
@@ -1256,6 +1316,469 @@ function requiredNonNegativeIntegerField(input: {
     })
   );
   return 0;
+}
+
+function semanticCompilerFpReviewAssetSurface(kind: string): AssetSurface {
+  return Object.freeze({
+    kind,
+    requiredContexts: Object.freeze([
+      "context://abiogenesis/semantic-compiler-fp-review"
+    ]),
+    standardsRefs: Object.freeze([
+      "standard://abiogenesis/semantic-compiler-fp-review/v1"
+    ]),
+    outputContractRefs: Object.freeze([
+      "contract://abiogenesis/semantic-compiler-fp-review/v1"
+    ]),
+    constructorRefs: Object.freeze([]),
+    constructorInputAssetKinds: Object.freeze([]),
+    rendererRefs: Object.freeze([]),
+    renderedViewDigestPolicyRef: null,
+    sectionKindRefs: Object.freeze([]),
+    clauseKindRefs: Object.freeze([]),
+    authoritySlots: Object.freeze([]),
+    proofObligationRefs: Object.freeze([
+      "proof://abiogenesis/semantic-compiler-fp-review/abg-producer"
+    ])
+  });
+}
+
+function semanticCompilerFpReviewNode(input: {
+  readonly name: string;
+  readonly kind: string;
+  readonly id: string;
+}): Node {
+  return Object.freeze({
+    name: input.name,
+    schema: Object.freeze({
+      kind: "symbolic" as const,
+      ref: `schema://abiogenesis/semantic-compiler-fp-review/${input.kind}`
+    }),
+    markov: Object.freeze([]),
+    assetSurface: semanticCompilerFpReviewAssetSurface(input.kind),
+    tags: Object.freeze([
+      "abiogenesis",
+      "semantic-compiler",
+      "fp-review"
+    ]),
+    id: input.id
+  });
+}
+
+export function constructAbgSemanticCompilerFpReviewGraphFunction(): GraphFunction {
+  const sourceNode = semanticCompilerFpReviewNode({
+    name: "abgSemanticCompilerPromptReviewPackage",
+    kind: "prompt-review-package",
+    id: "node:abg.semanticCompiler.promptReviewPackage"
+  });
+  const resultNode = semanticCompilerFpReviewNode({
+    name: "abgSemanticCompilerFpReviewResult",
+    kind: "fp-review-result",
+    id: "node:abg.semanticCompiler.fpReviewResult"
+  });
+  const context = Object.freeze({
+    name: "abgSemanticCompilerFpReviewContract",
+    locator: "contract://abiogenesis/semantic-compiler-fp-review/v1",
+    digest: stableSha256Digest({
+      graphFunctionRef: ABG_SEMANTIC_COMPILER_FP_REVIEW_GRAPH_FUNCTION_REF,
+      resultKind: ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_KIND,
+      resultVersion: ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_VERSION
+    })
+  });
+  const rule = Object.freeze({
+    name: "abgSemanticCompilerFpReviewAdmission",
+    kind: "semantic_compiler_fp_review_admission",
+    config: Object.freeze({ entries: Object.freeze([]) }),
+    tags: Object.freeze([
+      "abiogenesis",
+      "admission",
+      "semantic-compiler"
+    ])
+  });
+  const vector: GraphVector = Object.freeze({
+    name: "abg.semanticCompiler.fpReview",
+    source: Object.freeze([sourceNode]),
+    target: resultNode,
+    operators: Object.freeze([
+      Object.freeze({
+        name: "abgSemanticCompilerFpReview",
+        regime: "F_P" as const,
+        binding:
+          "binding://abiogenesis/semantic-compiler-fp-review/producer",
+        tags: Object.freeze([
+          "abiogenesis",
+          "semantic-compiler",
+          "fp-review"
+        ])
+      })
+    ]),
+    evaluators: Object.freeze([
+      Object.freeze({
+        name: "abgSemanticCompilerFpReviewAdmission",
+        regime: "F_P" as const,
+        description:
+          "Admits semantic compiler prompt review results produced by the ABG F_P review graph function.",
+        binding: ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_REF,
+        consumedFieldRefs: Object.freeze([
+          "deterministicReportDigest",
+          "sourcePackageDigest",
+          "producerGraphFunctionRef",
+          "producerGraphFunctionDigest",
+          "producerRuntimeRef",
+          "admissionRef",
+          "status",
+          "findingCount"
+        ]),
+        tags: Object.freeze([
+          "abiogenesis",
+          "semantic-compiler",
+          "fp-review"
+        ])
+      })
+    ]),
+    contexts: Object.freeze([context]),
+    rule,
+    allowsSubwork: false,
+    declarations: Object.freeze({ entries: Object.freeze([]) }),
+    tags: Object.freeze([
+      "abiogenesis",
+      "semantic-compiler",
+      "fp-review"
+    ]),
+    id: "vector:abg.semanticCompiler.fpReview"
+  });
+  const graph: Graph = Object.freeze({
+    name: "abg.semanticCompiler.fpReview.graph",
+    inputs: Object.freeze([sourceNode]),
+    outputs: Object.freeze([resultNode]),
+    nodes: Object.freeze([sourceNode, resultNode]),
+    vectors: Object.freeze([vector]),
+    contexts: Object.freeze([context]),
+    rules: Object.freeze([rule]),
+    effects: Object.freeze([]),
+    tags: Object.freeze([
+      "abiogenesis",
+      "semantic-compiler",
+      "fp-review"
+    ]),
+    id: "graph:abg.semanticCompiler.fpReview"
+  });
+  return Object.freeze({
+    name: ABG_SEMANTIC_COMPILER_FP_REVIEW_GRAPH_FUNCTION_REF,
+    environment: Object.freeze({
+      requires: Object.freeze([sourceNode]),
+      provides: Object.freeze([resultNode]),
+      carries: Object.freeze([])
+    }),
+    inputs: Object.freeze([sourceNode]),
+    outputs: Object.freeze([resultNode]),
+    template: Object.freeze({
+      kind: "inline_graph" as const,
+      ref: "template://abiogenesis/semantic-compiler-fp-review/v1",
+      graph,
+      version: null
+    }),
+    effects: Object.freeze([]),
+    declarations: Object.freeze({ entries: Object.freeze([]) }),
+    tags: Object.freeze([
+      "abiogenesis",
+      "semantic-compiler",
+      "fp-review"
+    ]),
+    id: ABG_SEMANTIC_COMPILER_FP_REVIEW_GRAPH_FUNCTION_ID
+  });
+}
+
+export function abgSemanticCompilerFpReviewGraphFunctionDigest(): string {
+  return stableSha256Digest(
+    constructAbgSemanticCompilerFpReviewGraphFunction()
+  );
+}
+
+export function abgSemanticCompilerFpReviewPackageDigest(
+  input: AbgSemanticCompilerFpReviewPackageIdentity
+): string {
+  return stableSha256Digest({
+    kind: input.kind,
+    packageVersion: input.packageVersion,
+    subjectRef: input.subjectRef,
+    deterministicReportDigest: input.deterministicReportDigest
+  });
+}
+
+export function constructAbgSemanticCompilerFpReviewResult(
+  input: AbgSemanticCompilerFpReviewPackageIdentity & {
+    readonly status?: GtlProgramSemanticReviewStatus | undefined;
+    readonly findingCount?: number | undefined;
+    readonly deterministicIssueCount?: number | undefined;
+    readonly reviewerProfileRef: string;
+    readonly reviewedAt: string;
+    readonly evidenceRefs?: readonly string[] | undefined;
+  }
+): AbgSemanticCompilerFpReviewResult {
+  const status =
+    input.status ??
+    ((input.deterministicIssueCount ?? 0) === 0 ? "passed" : "failed");
+  const findingCount =
+    input.findingCount ??
+    (status === "passed" ? 0 : Math.max(input.deterministicIssueCount ?? 1, 1));
+  return Object.freeze({
+    kind: ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_KIND,
+    reviewVersion: ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_VERSION,
+    subjectRef: input.subjectRef,
+    deterministicReportDigest: input.deterministicReportDigest,
+    sourcePackageKind: input.kind,
+    sourcePackageVersion: input.packageVersion,
+    sourcePackageDigest: abgSemanticCompilerFpReviewPackageDigest(input),
+    status,
+    findingCount,
+    reviewerProfileRef: input.reviewerProfileRef,
+    reviewedAt: input.reviewedAt,
+    producerGraphFunctionRef:
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_GRAPH_FUNCTION_REF,
+    producerGraphFunctionDigest:
+      abgSemanticCompilerFpReviewGraphFunctionDigest(),
+    producerRuntimeKind: ABG_SEMANTIC_COMPILER_FP_REVIEW_RUNTIME_KIND,
+    producerRuntimeRef: ABG_SEMANTIC_COMPILER_FP_REVIEW_RUNTIME_REF,
+    admissionRef: ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_REF,
+    evidenceRefs: Object.freeze([...(input.evidenceRefs ?? [])])
+  });
+}
+
+function requiredAbgReviewString(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly issues: string[];
+}): string {
+  const value = input.record[input.key];
+  if (typeof value === "string" && value.length > 0) {
+    return value;
+  }
+  input.issues.push(`${input.key} must be a non-empty string`);
+  return "";
+}
+
+function requiredAbgReviewNonNegativeInteger(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly issues: string[];
+}): number {
+  const value = input.record[input.key];
+  if (typeof value === "number" && Number.isInteger(value) && value >= 0) {
+    return value;
+  }
+  input.issues.push(`${input.key} must be a non-negative integer`);
+  return 0;
+}
+
+export function admitAbgSemanticCompilerFpReviewResult(input: {
+  readonly value: unknown;
+  readonly expectedPackage: AbgSemanticCompilerFpReviewPackageIdentity;
+}): AbgSemanticCompilerFpReviewResultAdmission {
+  const issues: string[] = [];
+  if (!isRecord(input.value)) {
+    return Object.freeze({
+      admitted: false,
+      passed: false,
+      reason: "review result is not a JSON object",
+      issues: Object.freeze(["review result is not a JSON object"]),
+      result: null
+    });
+  }
+
+  const record = input.value;
+  const kind = requiredAbgReviewString({ record, key: "kind", issues });
+  const reviewVersion = requiredAbgReviewString({
+    record,
+    key: "reviewVersion",
+    issues
+  });
+  const subjectRef = requiredAbgReviewString({
+    record,
+    key: "subjectRef",
+    issues
+  });
+  const deterministicReportDigest = requiredAbgReviewString({
+    record,
+    key: "deterministicReportDigest",
+    issues
+  });
+  const sourcePackageKind = requiredAbgReviewString({
+    record,
+    key: "sourcePackageKind",
+    issues
+  });
+  const sourcePackageVersion = requiredAbgReviewString({
+    record,
+    key: "sourcePackageVersion",
+    issues
+  });
+  const sourcePackageDigest = requiredAbgReviewString({
+    record,
+    key: "sourcePackageDigest",
+    issues
+  });
+  const status = requiredAbgReviewString({
+    record,
+    key: "status",
+    issues
+  });
+  const findingCount = requiredAbgReviewNonNegativeInteger({
+    record,
+    key: "findingCount",
+    issues
+  });
+  const reviewerProfileRef = requiredAbgReviewString({
+    record,
+    key: "reviewerProfileRef",
+    issues
+  });
+  const reviewedAt = requiredAbgReviewString({
+    record,
+    key: "reviewedAt",
+    issues
+  });
+  const producerGraphFunctionRef = requiredAbgReviewString({
+    record,
+    key: "producerGraphFunctionRef",
+    issues
+  });
+  const producerGraphFunctionDigest = requiredAbgReviewString({
+    record,
+    key: "producerGraphFunctionDigest",
+    issues
+  });
+  const producerRuntimeKind = requiredAbgReviewString({
+    record,
+    key: "producerRuntimeKind",
+    issues
+  });
+  const producerRuntimeRef = requiredAbgReviewString({
+    record,
+    key: "producerRuntimeRef",
+    issues
+  });
+  const admissionRef = requiredAbgReviewString({
+    record,
+    key: "admissionRef",
+    issues
+  });
+  const evidenceRefs = stringArrayFromUnknown(record["evidenceRefs"]);
+  if (evidenceRefs === null) {
+    issues.push("evidenceRefs must be an array of strings");
+  }
+
+  const expectedPackageDigest =
+    abgSemanticCompilerFpReviewPackageDigest(input.expectedPackage);
+  const expectedGraphFunctionDigest =
+    abgSemanticCompilerFpReviewGraphFunctionDigest();
+  if (kind !== ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_KIND) {
+    issues.push("kind is not an admitted ABG semantic compiler review result");
+  }
+  if (reviewVersion !== ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_VERSION) {
+    issues.push("reviewVersion is not admitted");
+  }
+  if (subjectRef !== input.expectedPackage.subjectRef) {
+    issues.push("subjectRef does not match the reviewed package");
+  }
+  if (
+    deterministicReportDigest !==
+    input.expectedPackage.deterministicReportDigest
+  ) {
+    issues.push(
+      "deterministicReportDigest does not match the reviewed package"
+    );
+  }
+  if (sourcePackageKind !== input.expectedPackage.kind) {
+    issues.push("sourcePackageKind does not match the reviewed package");
+  }
+  if (sourcePackageVersion !== input.expectedPackage.packageVersion) {
+    issues.push("sourcePackageVersion does not match the reviewed package");
+  }
+  if (sourcePackageDigest !== expectedPackageDigest) {
+    issues.push("sourcePackageDigest does not match the reviewed package");
+  }
+  if (!isGtlProgramSemanticReviewStatus(status)) {
+    issues.push("status must be passed, failed, or blocked");
+  }
+  if (
+    producerGraphFunctionRef !==
+    ABG_SEMANTIC_COMPILER_FP_REVIEW_GRAPH_FUNCTION_REF
+  ) {
+    issues.push("producerGraphFunctionRef is not the ABG review graph function");
+  }
+  if (producerGraphFunctionDigest !== expectedGraphFunctionDigest) {
+    issues.push(
+      "producerGraphFunctionDigest does not match the ABG review graph function"
+    );
+  }
+  if (producerRuntimeKind !== ABG_SEMANTIC_COMPILER_FP_REVIEW_RUNTIME_KIND) {
+    issues.push("producerRuntimeKind is not abg_graph_function");
+  }
+  if (producerRuntimeRef !== ABG_SEMANTIC_COMPILER_FP_REVIEW_RUNTIME_REF) {
+    issues.push("producerRuntimeRef is not the ABG review runtime");
+  }
+  if (admissionRef !== ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_REF) {
+    issues.push("admissionRef is not the ABG review admission contract");
+  }
+
+  if (issues.length > 0) {
+    return Object.freeze({
+      admitted: false,
+      passed: false,
+      reason: issues[0] ?? "review result failed admission",
+      issues: Object.freeze([...issues]),
+      result: null
+    });
+  }
+
+  const admittedStatus: GtlProgramSemanticReviewStatus =
+    status === "passed" || status === "failed" ? status : "blocked";
+  const result = Object.freeze({
+    kind: ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_KIND,
+    reviewVersion: ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_VERSION,
+    subjectRef,
+    deterministicReportDigest,
+    sourcePackageKind,
+    sourcePackageVersion,
+    sourcePackageDigest,
+    status: admittedStatus,
+    findingCount,
+    reviewerProfileRef,
+    reviewedAt,
+    producerGraphFunctionRef:
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_GRAPH_FUNCTION_REF,
+    producerGraphFunctionDigest,
+    producerRuntimeKind: ABG_SEMANTIC_COMPILER_FP_REVIEW_RUNTIME_KIND,
+    producerRuntimeRef: ABG_SEMANTIC_COMPILER_FP_REVIEW_RUNTIME_REF,
+    admissionRef: ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_REF,
+    evidenceRefs: Object.freeze([...(evidenceRefs ?? [])])
+  });
+  if (result.status !== "passed") {
+    return Object.freeze({
+      admitted: true,
+      passed: false,
+      reason: "review result status is not passed",
+      issues: Object.freeze([]),
+      result
+    });
+  }
+  if (result.findingCount !== 0) {
+    return Object.freeze({
+      admitted: true,
+      passed: false,
+      reason: "review result carries open findings",
+      issues: Object.freeze([]),
+      result
+    });
+  }
+  return Object.freeze({
+    admitted: true,
+    passed: true,
+    reason: "ABG semantic compiler F_P review result admitted and passed",
+    issues: Object.freeze([]),
+    result
+  });
 }
 
 function requiredBooleanField(input: {
@@ -2756,6 +3279,14 @@ function admitSemanticReviewGateRows(
             surfaceKind: "semantic_review_gate",
             issues
           }),
+          sourcePackageDigest: requiredStringField({
+            record: row,
+            key: "sourcePackageDigest",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "semantic_review_gate",
+            issues
+          }),
           status: requiredSemanticReviewStatusField({
             record: row,
             key: "status",
@@ -2782,6 +3313,46 @@ function admitSemanticReviewGateRows(
           reviewedAt: requiredStringField({
             record: row,
             key: "reviewedAt",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "semantic_review_gate",
+            issues
+          }),
+          producerGraphFunctionRef: requiredStringField({
+            record: row,
+            key: "producerGraphFunctionRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "semantic_review_gate",
+            issues
+          }),
+          producerGraphFunctionDigest: requiredStringField({
+            record: row,
+            key: "producerGraphFunctionDigest",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "semantic_review_gate",
+            issues
+          }),
+          producerRuntimeKind: requiredStringField({
+            record: row,
+            key: "producerRuntimeKind",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "semantic_review_gate",
+            issues
+          }),
+          producerRuntimeRef: requiredStringField({
+            record: row,
+            key: "producerRuntimeRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "semantic_review_gate",
+            issues
+          }),
+          admissionRef: requiredStringField({
+            record: row,
+            key: "admissionRef",
             label: surfaceRef,
             subjectRef,
             surfaceKind: "semantic_review_gate",
@@ -7097,6 +7668,17 @@ function checkSemanticReviewGates(input: {
         })
       );
     }
+    if (!gate.sourcePackageDigest.startsWith("sha256:")) {
+      input.issues.push(
+        issue({
+          surfaceKind: "semantic_review_gate",
+          surfaceRef: gate.gateRef,
+          ruleRef: "abg://gtl-program/semantic-review-gate/source-package-digest",
+          message: "semantic review gate sourcePackageDigest must be a sha256: digest",
+          evidenceRefs: gate.evidenceRefs
+        })
+      );
+    }
     if (
       gate.reviewResultKind !== "sdlc_semantic_compiler_fp_review_result" ||
       gate.reviewVersion !== "ts-semantic-compiler-fp-review-result-v1"
@@ -7107,6 +7689,27 @@ function checkSemanticReviewGates(input: {
           surfaceRef: gate.gateRef,
           ruleRef: "abg://gtl-program/semantic-review-gate/admitted-result-kind",
           message: "semantic review gate must carry an admitted sdlc_semantic_compiler_fp_review_result v1 result",
+          evidenceRefs: gate.evidenceRefs
+        })
+      );
+    }
+    if (
+      gate.producerGraphFunctionRef !==
+        ABG_SEMANTIC_COMPILER_FP_REVIEW_GRAPH_FUNCTION_REF ||
+      gate.producerGraphFunctionDigest !==
+        abgSemanticCompilerFpReviewGraphFunctionDigest() ||
+      gate.producerRuntimeKind !==
+        ABG_SEMANTIC_COMPILER_FP_REVIEW_RUNTIME_KIND ||
+      gate.producerRuntimeRef !==
+        ABG_SEMANTIC_COMPILER_FP_REVIEW_RUNTIME_REF ||
+      gate.admissionRef !== ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_REF
+    ) {
+      input.issues.push(
+        issue({
+          surfaceKind: "semantic_review_gate",
+          surfaceRef: gate.gateRef,
+          ruleRef: "abg://gtl-program/semantic-review-gate/abg-producer-provenance",
+          message: "semantic review gate must be produced and admitted by the ABG semantic compiler F_P review graph function",
           evidenceRefs: gate.evidenceRefs
         })
       );

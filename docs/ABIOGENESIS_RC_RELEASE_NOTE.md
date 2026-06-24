@@ -1,29 +1,29 @@
-# abiogenesis 4.1.0-rc.8 Release Candidate Note
+# abiogenesis 4.1.0-rc.9 Release Candidate Note
 
-This checkpoint is the eighth TypeScript ABG `4.1.0` release candidate. It
-follows `4.1.0-rc.7` and adds a process-actor progress lease required by
-odd_sdlc T-204/Data Mapper design-depth evaluator proof.
+This checkpoint is the ninth TypeScript ABG `4.1.0` release candidate. It
+follows `4.1.0-rc.8` and adds the ABG-owned semantic compiler F_P review
+producer/admission contract required by odd_sdlc T-204.
 
 It is an RC candidate, not the final tapped `4.1.0` release.
 
 ## Release Claim
 
-RC8 keeps the RC7 source-authority and semantic-review compiler gates, then
-adds one runtime progress repair:
+RC9 keeps the RC8 process-actor progress lease repair, then adds one compiler
+gate repair:
 
-- `runTracedProcess(...)` and `invokeSupervisedProcessActor(...)` now accept an
-  external progress predicate with `externalProgressTimeoutMs`. Active stdout no
-  longer keeps a process alive when the declared artifact progress predicate
-  never becomes true.
-- The traced process outcome now distinguishes `external_progress_timeout` from
-  hard timeout and stdout inactivity timeout.
-- PTY execution uses the existing screen-session shutdown path for external
-  progress timeouts, so terminal-backed agent runs do not leave detached
-  sessions alive after a progress-lease breach.
+- `constructAbgSemanticCompilerFpReviewGraphFunction()` publishes the ABG-owned
+  semantic compiler F_P review graph-function carrier.
+- `constructAbgSemanticCompilerFpReviewResult(...)` and
+  `admitAbgSemanticCompilerFpReviewResult(...)` bind a review result to the
+  reviewed package digest, ABG review graph-function digest, runtime ref, and
+  admission ref.
+- GTL program conformance semantic review gates now reject passed/zero-finding
+  rows that do not carry the ABG producer/admission provenance.
 
 These repairs preserve the governing split: ABG owns traversal, replay,
 continuation, runtime events, and consequence transition. Product tenants expose
-domain graph functions, policies, prompt surfaces, and plugin outputs as data.
+domain graph functions, policies, prompt surfaces, prompt review packages, and
+plugin outputs as data.
 
 ## Boundary
 
@@ -57,18 +57,18 @@ runtime interruption event, and terminal-session shutdown.
 ## Versioned Artifacts
 
 - RC branch: `main`
-- RC identity: `4.1.0-rc.8`
-- Candidate package version: `4.1.0-rc.8`
-- Candidate tag: `v4.1.0-rc.8`
+- RC identity: `4.1.0-rc.9`
+- Candidate package version: `4.1.0-rc.9`
+- Candidate tag: `v4.1.0-rc.9`
 
 ## Verification
 
 Required evidence for accepting this RC:
 
 ```text
-ABG semantic build and focused process-actor lane:
+ABG semantic build and focused compiler gate lane:
   npm run build:semantic
-  node --test test_env/tests/test_t097_supervised_process_actor.test.mjs
+  node --test test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs
 
 ABG release gate after the version bump:
   npm run lint:semantic
@@ -78,7 +78,7 @@ ABG release gate after the version bump:
   git diff --check
   npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run
 
-odd_sdlc substrate proof over RC8:
+odd_sdlc substrate proof over RC9:
   npm run build:semantic
   focused T-204/T-192/T-194/T-197 substrate gates
 ```
@@ -87,21 +87,14 @@ The release checkpoint recorded the ABI deterministic gates as passing before
 snapshot creation:
 
 - `npm run build:semantic`
-- `node --test test_env/tests/test_t097_supervised_process_actor.test.mjs`
-- `npm run lint:semantic && npm run lint:test-harness && npm run test:semantic`
-- `npm run test:t141`
-- `git diff --check`
-- `npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run`
+- `node --test test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs`
 
-`npm run test:t141:live` was attempted as live-transport evidence, but the
-Claude PTY executor returned intermittent `transport_failure` outcomes with
-Claude API `500 Internal server error` responses. Those failures were isolated
-to the external live transport; the deterministic T-141 saga-frontier lane
-passed.
+The remaining release-gate commands must pass before the RC9 snapshot is
+accepted as a downstream substrate.
 
 ## RC Decision
 
-RC8 is the process-actor external progress timeout candidate. It is releaseable
-after the ABI deterministic release checks pass, the release snapshot is written
-from a clean source commit, and odd_sdlc consumes the RC8 snapshot without
-substrate-binding regressions.
+RC9 is the semantic compiler F_P review producer/admission candidate. It is
+releaseable after the ABI deterministic release checks pass, the release
+snapshot is written from the source commit, and odd_sdlc consumes the RC9
+snapshot without substrate-binding regressions.

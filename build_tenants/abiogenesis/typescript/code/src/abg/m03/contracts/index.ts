@@ -1027,7 +1027,19 @@ export {
   enginePluginInventory
 } from "./plugins.js";
 export {
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_REF,
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_GRAPH_FUNCTION_ID,
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_GRAPH_FUNCTION_REF,
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_KIND,
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_VERSION,
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_RUNTIME_KIND,
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_RUNTIME_REF,
+  abgSemanticCompilerFpReviewGraphFunctionDigest,
+  abgSemanticCompilerFpReviewPackageDigest,
+  admitAbgSemanticCompilerFpReviewResult,
   admitGtlProgramConformanceInput,
+  constructAbgSemanticCompilerFpReviewGraphFunction,
+  constructAbgSemanticCompilerFpReviewResult,
   formatGtlProgramConformanceIssues,
   GTL_PROGRAM_BIND_ADMISSION_STRENGTH_COMPATIBILITY_REF,
   GTL_PROGRAM_OBLIGATION_DELTA_FAMILY_VALUES,
@@ -1036,6 +1048,9 @@ export {
   typecheckGtlProgram
 } from "./gtl_program_conformance.js";
 export type {
+  AbgSemanticCompilerFpReviewPackageIdentity,
+  AbgSemanticCompilerFpReviewResult,
+  AbgSemanticCompilerFpReviewResultAdmission,
   GtlProgramCoverageCounts,
   GtlProgramFeatureCoverageManifest,
   GtlProgramFeatureCoverageRow,

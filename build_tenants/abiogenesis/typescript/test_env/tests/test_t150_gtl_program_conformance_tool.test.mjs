@@ -9,9 +9,15 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 
 import {
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_REF,
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_GRAPH_FUNCTION_REF,
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_RUNTIME_KIND,
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_RUNTIME_REF,
+  abgSemanticCompilerFpReviewGraphFunctionDigest,
   ABG_ALLOWED_CONSEQUENCE_TRAVERSAL_FAMILIES_DECLARATION_KEY,
   ABG_ALLOWED_CONSEQUENCE_TRAVERSAL_ROWS_DECLARATION_KEY,
   compose,
+  constructAbgSemanticCompilerFpReviewResult,
   constructAssetSurface,
   constructCandidateFamily,
   constructContractRef,
@@ -3376,17 +3382,36 @@ test("T-204 GTL program typechecker rejects duplicate or unresolved source-autho
 });
 
 test("T-204 GTL program typechecker admits fail-closed semantic F_P review gates", () => {
-  const validGate = {
-    gateRef: "semantic-review-gate://t150/prompt-materialization/fp",
+  const reviewPackage = {
+    kind: "sdlc_semantic_compiler_prompt_review_package",
+    packageVersion: "ts-semantic-compiler-prompt-review-v1",
     subjectRef: "workspace://t150/program-conformance-tool",
-    deterministicReportDigest: "sha256:semantic-prompt-package",
-    reviewResultKind: "sdlc_semantic_compiler_fp_review_result",
-    reviewVersion: "ts-semantic-compiler-fp-review-result-v1",
-    status: "passed",
-    findingCount: 0,
+    deterministicReportDigest: "sha256:semantic-prompt-package"
+  };
+  const validResult = constructAbgSemanticCompilerFpReviewResult({
+    ...reviewPackage,
     reviewerProfileRef: "reviewer-profile://t150/fp-code-review",
     reviewedAt: "2026-06-23T00:00:00.000Z",
     evidenceRefs: ["test://t150/semantic-review"]
+  });
+  const validGate = {
+    gateRef: "semantic-review-gate://t150/prompt-materialization/fp",
+    subjectRef: validResult.subjectRef,
+    deterministicReportDigest: validResult.deterministicReportDigest,
+    reviewResultKind: validResult.kind,
+    reviewVersion: validResult.reviewVersion,
+    sourcePackageDigest: validResult.sourcePackageDigest,
+    status: validResult.status,
+    findingCount: validResult.findingCount,
+    reviewerProfileRef: validResult.reviewerProfileRef,
+    reviewedAt: validResult.reviewedAt,
+    producerGraphFunctionRef: ABG_SEMANTIC_COMPILER_FP_REVIEW_GRAPH_FUNCTION_REF,
+    producerGraphFunctionDigest:
+      abgSemanticCompilerFpReviewGraphFunctionDigest(),
+    producerRuntimeKind: ABG_SEMANTIC_COMPILER_FP_REVIEW_RUNTIME_KIND,
+    producerRuntimeRef: ABG_SEMANTIC_COMPILER_FP_REVIEW_RUNTIME_REF,
+    admissionRef: ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_REF,
+    evidenceRefs: validResult.evidenceRefs
   };
 
   assert.equal(
@@ -3405,9 +3430,15 @@ test("T-204 GTL program typechecker admits fail-closed semantic F_P review gates
           gateRef: validGate.gateRef,
           subjectRef: "workspace://t150/other",
           deterministicReportDigest: "not-a-digest",
+          sourcePackageDigest: "not-a-digest",
           reviewResultKind: "unadmitted_review_result",
           status: "failed",
-          findingCount: 2
+          findingCount: 2,
+          producerGraphFunctionRef: "graph-function://t150/local-review",
+          producerGraphFunctionDigest: "sha256:local-review",
+          producerRuntimeKind: "local_script",
+          producerRuntimeRef: "runtime://t150/local-review",
+          admissionRef: "admission://t150/local-review"
         }
       ]
     })
@@ -3428,7 +3459,17 @@ test("T-204 GTL program typechecker admits fail-closed semantic F_P review gates
   );
   assert(
     ruleRefs.has(
+      "abg://gtl-program/semantic-review-gate/source-package-digest"
+    )
+  );
+  assert(
+    ruleRefs.has(
       "abg://gtl-program/semantic-review-gate/admitted-result-kind"
+    )
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/semantic-review-gate/abg-producer-provenance"
     )
   );
   assert(
