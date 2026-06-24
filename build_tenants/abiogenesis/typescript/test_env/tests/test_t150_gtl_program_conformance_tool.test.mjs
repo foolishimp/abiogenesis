@@ -17,7 +17,6 @@ import {
   ABG_ALLOWED_CONSEQUENCE_TRAVERSAL_FAMILIES_DECLARATION_KEY,
   ABG_ALLOWED_CONSEQUENCE_TRAVERSAL_ROWS_DECLARATION_KEY,
   compose,
-  constructAbgSemanticCompilerFpReviewResult,
   constructAssetSurface,
   constructCandidateFamily,
   constructContractRef,
@@ -44,6 +43,7 @@ import {
   materializeGraphFunction,
   promote,
   recurse,
+  runAbgSemanticCompilerFpReviewGraphFunction,
   substitute,
   typecheckGtlProgram,
   formatGtlProgramConformanceIssues
@@ -3382,18 +3382,45 @@ test("T-204 GTL program typechecker rejects duplicate or unresolved source-autho
 });
 
 test("T-204 GTL program typechecker admits fail-closed semantic F_P review gates", () => {
+  const selfRun = runAbgSemanticCompilerFpReviewGraphFunction({
+    kind: "abg_semantic_compiler_fp_review_graph_function_package",
+    packageVersion: "abg-semantic-compiler-fp-review-self-v1",
+    subjectRef: ABG_SEMANTIC_COMPILER_FP_REVIEW_GRAPH_FUNCTION_REF,
+    deterministicReportDigest:
+      abgSemanticCompilerFpReviewGraphFunctionDigest(),
+    reviewerProfileRef: "reviewer-profile://abiogenesis/compiler-self",
+    reviewedAt: "2026-06-25T00:00:00.000Z",
+    evidenceRefs: ["test://t150/semantic-review-self-run"]
+  });
+
+  assert.equal(
+    selfRun.kind,
+    "abg_semantic_compiler_fp_review_run_result"
+  );
+  assert.equal(
+    selfRun.graphFunctionRef,
+    ABG_SEMANTIC_COMPILER_FP_REVIEW_GRAPH_FUNCTION_REF
+  );
+  assert.equal(selfRun.vectorIndex, 0);
+  assert.equal(selfRun.edgeRef, "abg.semanticCompiler.fpReview");
+  assert.equal(selfRun.regime, "F_P");
+  assert.equal(selfRun.result.status, "passed");
+  assert.equal(selfRun.result.findingCount, 0);
+  assert.equal(selfRun.admission.passed, true);
+
   const reviewPackage = {
     kind: "sdlc_semantic_compiler_prompt_review_package",
     packageVersion: "ts-semantic-compiler-prompt-review-v1",
     subjectRef: "workspace://t150/program-conformance-tool",
     deterministicReportDigest: "sha256:semantic-prompt-package"
   };
-  const validResult = constructAbgSemanticCompilerFpReviewResult({
+  const validRun = runAbgSemanticCompilerFpReviewGraphFunction({
     ...reviewPackage,
     reviewerProfileRef: "reviewer-profile://t150/fp-code-review",
     reviewedAt: "2026-06-23T00:00:00.000Z",
     evidenceRefs: ["test://t150/semantic-review"]
   });
+  const validResult = validRun.result;
   const validGate = {
     gateRef: "semantic-review-gate://t150/prompt-materialization/fp",
     subjectRef: validResult.subjectRef,

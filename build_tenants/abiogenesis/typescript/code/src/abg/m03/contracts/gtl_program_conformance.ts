@@ -235,6 +235,21 @@ export interface AbgSemanticCompilerFpReviewResultAdmission {
   readonly result: AbgSemanticCompilerFpReviewResult | null;
 }
 
+export interface AbgSemanticCompilerFpReviewRunResult {
+  readonly kind: "abg_semantic_compiler_fp_review_run_result";
+  readonly graphFunctionRef:
+    typeof ABG_SEMANTIC_COMPILER_FP_REVIEW_GRAPH_FUNCTION_REF;
+  readonly graphFunctionDigest: string;
+  readonly graphId: string;
+  readonly vectorId: string;
+  readonly vectorIndex: 0;
+  readonly edgeRef: string;
+  readonly regime: "F_P";
+  readonly result: AbgSemanticCompilerFpReviewResult;
+  readonly admission: AbgSemanticCompilerFpReviewResultAdmission;
+  readonly evidenceRefs: readonly string[];
+}
+
 export interface GtlProgramSemanticReviewGateRow {
   readonly gateRef: string;
   readonly subjectRef: string;
@@ -1542,6 +1557,75 @@ export function constructAbgSemanticCompilerFpReviewResult(
     producerRuntimeRef: ABG_SEMANTIC_COMPILER_FP_REVIEW_RUNTIME_REF,
     admissionRef: ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_REF,
     evidenceRefs: Object.freeze([...(input.evidenceRefs ?? [])])
+  });
+}
+
+export function runAbgSemanticCompilerFpReviewGraphFunction(
+  input: AbgSemanticCompilerFpReviewPackageIdentity & {
+    readonly status?: GtlProgramSemanticReviewStatus | undefined;
+    readonly findingCount?: number | undefined;
+    readonly deterministicIssueCount?: number | undefined;
+    readonly reviewerProfileRef: string;
+    readonly reviewedAt: string;
+    readonly evidenceRefs?: readonly string[] | undefined;
+  }
+): AbgSemanticCompilerFpReviewRunResult {
+  const graphFunction = constructAbgSemanticCompilerFpReviewGraphFunction();
+  const graph = materializeGraphFunction(graphFunction);
+  if (graph.vectors.length !== 1) {
+    throw new TypeError(
+      "ABG semantic compiler F_P review graph function must have one vector"
+    );
+  }
+  const vector = graph.vectors[0];
+  if (vector === undefined) {
+    throw new TypeError(
+      "ABG semantic compiler F_P review graph function has no vector"
+    );
+  }
+  if (vector.operators.length !== 1 || vector.operators[0]?.regime !== "F_P") {
+    throw new TypeError(
+      "ABG semantic compiler F_P review graph function must have one F_P operator"
+    );
+  }
+  if (
+    vector.evaluators.length !== 1 ||
+    vector.evaluators[0]?.regime !== "F_P" ||
+    vector.evaluators[0]?.binding !==
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_REF
+  ) {
+    throw new TypeError(
+      "ABG semantic compiler F_P review graph function must have one F_P admission evaluator"
+    );
+  }
+  const result = constructAbgSemanticCompilerFpReviewResult(input);
+  const admission = admitAbgSemanticCompilerFpReviewResult({
+    value: result,
+    expectedPackage: input
+  });
+  const admittedResult = admission.result;
+  if (!admission.passed || admittedResult === null) {
+    throw new TypeError(
+      `ABG semantic compiler F_P review graph function failed admission: ${admission.reason}`
+    );
+  }
+  return Object.freeze({
+    kind: "abg_semantic_compiler_fp_review_run_result",
+    graphFunctionRef: ABG_SEMANTIC_COMPILER_FP_REVIEW_GRAPH_FUNCTION_REF,
+    graphFunctionDigest: abgSemanticCompilerFpReviewGraphFunctionDigest(),
+    graphId: graph.id,
+    vectorId: vector.id,
+    vectorIndex: 0,
+    edgeRef: vector.name,
+    regime: "F_P",
+    result: admittedResult,
+    admission,
+    evidenceRefs: Object.freeze([
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_GRAPH_FUNCTION_REF,
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_RUNTIME_REF,
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_REF,
+      ...admittedResult.evidenceRefs
+    ])
   });
 }
 

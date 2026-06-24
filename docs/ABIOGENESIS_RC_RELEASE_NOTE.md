@@ -1,18 +1,22 @@
-# abiogenesis 4.1.0-rc.9 Release Candidate Note
+# abiogenesis 4.1.0-rc.10 Release Candidate Note
 
-This checkpoint is the ninth TypeScript ABG `4.1.0` release candidate. It
-follows `4.1.0-rc.8` and adds the ABG-owned semantic compiler F_P review
-producer/admission contract required by odd_sdlc T-204.
+This checkpoint is the tenth TypeScript ABG `4.1.0` release candidate. It
+follows `4.1.0-rc.9` and adds the deterministic self-run proof for the
+ABG-owned semantic compiler F_P review graph function required by odd_sdlc
+T-204.
 
 It is an RC candidate, not the final tapped `4.1.0` release.
 
 ## Release Claim
 
-RC9 keeps the RC8 process-actor progress lease repair, then adds one compiler
-gate repair:
+RC10 keeps the RC9 semantic compiler producer/admission contract, then adds one
+compiler self-run repair:
 
 - `constructAbgSemanticCompilerFpReviewGraphFunction()` publishes the ABG-owned
   semantic compiler F_P review graph-function carrier.
+- `runAbgSemanticCompilerFpReviewGraphFunction(...)` materializes that carrier,
+  verifies the single `F_P` vector and admission evaluator, produces the review
+  result, and immediately re-admits it through ABG law.
 - `constructAbgSemanticCompilerFpReviewResult(...)` and
   `admitAbgSemanticCompilerFpReviewResult(...)` bind a review result to the
   reviewed package digest, ABG review graph-function digest, runtime ref, and
@@ -50,16 +54,16 @@ ABG.start(fn<A, B>.C)
   .bind(system.replayContinuation)
 ```
 
-RC8 does not move downstream product meaning into ABG. Downstream products still
+RC10 does not move downstream product meaning into ABG. Downstream products still
 own the artifact predicate. ABG owns the generic process lease, timeout outcome,
 runtime interruption event, and terminal-session shutdown.
 
 ## Versioned Artifacts
 
 - RC branch: `main`
-- RC identity: `4.1.0-rc.9`
-- Candidate package version: `4.1.0-rc.9`
-- Candidate tag: `v4.1.0-rc.9`
+- RC identity: `4.1.0-rc.10`
+- Candidate package version: `4.1.0-rc.10`
+- Candidate tag: `v4.1.0-rc.10`
 
 ## Verification
 
@@ -78,7 +82,7 @@ ABG release gate after the version bump:
   git diff --check
   npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run
 
-odd_sdlc substrate proof over RC9:
+odd_sdlc substrate proof over RC10:
   npm run build:semantic
   focused T-204/T-192/T-194/T-197 substrate gates
 ```
@@ -89,12 +93,12 @@ snapshot creation:
 - `npm run build:semantic`
 - `node --test test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs`
 
-The remaining release-gate commands must pass before the RC9 snapshot is
+The remaining release-gate commands must pass before the RC10 snapshot is
 accepted as a downstream substrate.
 
 ## RC Decision
 
-RC9 is the semantic compiler F_P review producer/admission candidate. It is
-releaseable after the ABI deterministic release checks pass, the release
-snapshot is written from the source commit, and odd_sdlc consumes the RC9
+RC10 is the semantic compiler F_P review self-run candidate. It is releaseable
+after the ABI deterministic release checks pass, the release snapshot is written
+from the source commit, and odd_sdlc consumes the RC10
 snapshot without substrate-binding regressions.
