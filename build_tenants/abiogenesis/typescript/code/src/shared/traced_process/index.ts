@@ -47,6 +47,12 @@ export type TracedProcessOutcome =
       readonly signal: string | null;
     }
   | {
+      readonly kind: "external_progress_timeout";
+      readonly externalProgressTimeoutMs: number | null;
+      readonly reason: string | null;
+      readonly signal: string | null;
+    }
+  | {
       readonly kind: "executor_unavailable";
       readonly reason: TracedProcessExecutorUnavailableReason;
       readonly detail: string;
@@ -87,6 +93,9 @@ export interface TracedProcessRequest {
   readonly timeoutMs?: number;
   readonly terminationGraceMs?: number;
   readonly inactivityTimeoutMs?: number;
+  readonly externalProgressTimeoutMs?: number;
+  readonly externalProgressCheck?: () => boolean;
+  readonly externalProgressTimeoutReason?: string;
   readonly onProcessStarted?: (event: {
     readonly pid: number | null;
     readonly terminalSessionId: string | null;
@@ -106,6 +115,10 @@ export interface TracedProcessRequest {
   readonly onInactivityTimeout?: (event: {
     readonly inactivityTimeoutMs: number | undefined;
     readonly elapsedSinceLastOutputMs: number;
+  }) => void;
+  readonly onExternalProgressTimeout?: (event: {
+    readonly externalProgressTimeoutMs: number | undefined;
+    readonly reason: string | undefined;
   }) => void;
   readonly onSignalSent?: (event: { readonly signal: "SIGTERM" | "SIGKILL" }) => void;
   readonly onProcessError?: (event: { readonly error: string }) => void;
@@ -324,6 +337,9 @@ function outcomeFromProcess(input: {
   readonly timeoutMs: number | undefined;
   readonly inactivityTimedOut: boolean;
   readonly inactivityTimeoutMs: number | undefined;
+  readonly externalProgressTimedOut: boolean;
+  readonly externalProgressTimeoutMs: number | undefined;
+  readonly externalProgressTimeoutReason: string | undefined;
   readonly error: string | null;
 }): TracedProcessOutcome {
   if (input.timedOut) {
@@ -337,6 +353,14 @@ function outcomeFromProcess(input: {
     return {
       kind: "inactivity_timeout",
       inactivityTimeoutMs: numberOrNull(input.inactivityTimeoutMs),
+      signal: input.signal
+    };
+  }
+  if (input.externalProgressTimedOut) {
+    return {
+      kind: "external_progress_timeout",
+      externalProgressTimeoutMs: numberOrNull(input.externalProgressTimeoutMs),
+      reason: input.externalProgressTimeoutReason ?? null,
       signal: input.signal
     };
   }
@@ -747,11 +771,13 @@ export async function runTracedProcess(
     command: request.command,
     args: request.args,
     cwd: request.cwd,
-    executorProfile,
-    timeoutMs: numberOrNull(request.timeoutMs),
-    terminationGraceMs: numberOrNull(request.terminationGraceMs),
-    inactivityTimeoutMs: numberOrNull(request.inactivityTimeoutMs)
-  });
+      executorProfile,
+      timeoutMs: numberOrNull(request.timeoutMs),
+      terminationGraceMs: numberOrNull(request.terminationGraceMs),
+      inactivityTimeoutMs: numberOrNull(request.inactivityTimeoutMs),
+      externalProgressTimeoutMs: numberOrNull(request.externalProgressTimeoutMs),
+      externalProgressTimeoutReason: request.externalProgressTimeoutReason ?? null
+    });
 
   if (executorProfile === "pty-terminal") {
     return runPtyTerminalExecutor(request, state);
@@ -776,16 +802,27 @@ export async function runTracedProcess(
     child.stdin.end();
     let timedOut = false;
     let inactivityTimedOut = false;
+    let externalProgressTimedOut = false;
+    let externalProgressObserved = false;
     let settled = false;
     let lastOutputAt = Date.now();
+    const startedAt = lastOutputAt;
     let killTimer: ReturnType<typeof setTimeout> | null = null;
     const inactivityTimeoutMs = request.inactivityTimeoutMs;
     const inactivityPollMs =
       inactivityTimeoutMs === undefined
         ? null
         : Math.min(Math.max(Math.floor(inactivityTimeoutMs / 3), 1000), 30_000);
+    const externalProgressTimeoutMs = request.externalProgressTimeoutMs;
+    const externalProgressPollMs =
+      externalProgressTimeoutMs === undefined ||
+      request.externalProgressCheck === undefined
+        ? null
+        : Math.min(Math.max(Math.floor(externalProgressTimeoutMs / 3), 1000), 30_000);
 
-    const sendTermination = (reason: "timeout" | "inactivity_timeout"): void => {
+    const sendTermination = (
+      reason: "timeout" | "inactivity_timeout" | "external_progress_timeout"
+    ): void => {
       child.kill("SIGTERM");
       writeEvent(state, "process_signal_sent", { signal: "SIGTERM", reason });
       request.onSignalSent?.({ signal: "SIGTERM" });
@@ -853,6 +890,57 @@ export async function runTracedProcess(
               sendTermination("inactivity_timeout");
             }
           }, inactivityPollMs);
+    let externalProgressTimer: ReturnType<typeof setInterval> | null = null;
+    if (
+      externalProgressTimeoutMs !== undefined &&
+      externalProgressPollMs !== null &&
+      request.externalProgressCheck !== undefined
+    ) {
+      externalProgressTimer = setInterval(() => {
+        if (settled || externalProgressObserved) {
+          return;
+        }
+        try {
+          if (request.externalProgressCheck?.() === true) {
+            externalProgressObserved = true;
+            writeEvent(state, "external_progress_observed", {
+              externalProgressTimeoutMs,
+              reason: request.externalProgressTimeoutReason ?? null,
+              elapsedMs: Date.now() - startedAt
+            });
+            if (externalProgressTimer !== null) {
+              clearInterval(externalProgressTimer);
+              externalProgressTimer = null;
+            }
+            return;
+          }
+        } catch (error) {
+          writeEvent(state, "external_progress_probe_error", {
+            externalProgressTimeoutMs,
+            reason: request.externalProgressTimeoutReason ?? null,
+            detail: error instanceof Error ? error.message : "unknown"
+          });
+        }
+        const elapsedMs = Date.now() - startedAt;
+        if (elapsedMs >= externalProgressTimeoutMs) {
+          externalProgressTimedOut = true;
+          writeEvent(state, "external_progress_timeout", {
+            externalProgressTimeoutMs,
+            reason: request.externalProgressTimeoutReason ?? null,
+            elapsedMs
+          });
+          request.onExternalProgressTimeout?.({
+            externalProgressTimeoutMs,
+            reason: request.externalProgressTimeoutReason
+          });
+          sendTermination("external_progress_timeout");
+          if (externalProgressTimer !== null) {
+            clearInterval(externalProgressTimer);
+            externalProgressTimer = null;
+          }
+        }
+      }, externalProgressPollMs);
+    }
 
     const cleanupTimers = (): void => {
       if (timeoutTimer !== null) {
@@ -860,6 +948,9 @@ export async function runTracedProcess(
       }
       if (inactivityTimer !== null) {
         clearInterval(inactivityTimer);
+      }
+      if (externalProgressTimer !== null) {
+        clearInterval(externalProgressTimer);
       }
       if (killTimer !== null) {
         clearTimeout(killTimer);
@@ -887,6 +978,9 @@ export async function runTracedProcess(
         timeoutMs: request.timeoutMs,
         inactivityTimedOut,
         inactivityTimeoutMs: request.inactivityTimeoutMs,
+        externalProgressTimedOut,
+        externalProgressTimeoutMs: request.externalProgressTimeoutMs,
+        externalProgressTimeoutReason: request.externalProgressTimeoutReason,
         error
       });
       writeFileSync(paths.finalOutput, finalOutput, "utf8");
@@ -908,7 +1002,7 @@ export async function runTracedProcess(
         pid,
         status,
         signal,
-        timedOut,
+        timedOut: timedOut || externalProgressTimedOut,
         timeoutMs: numberOrNull(request.timeoutMs),
         inactivityTimedOut,
         inactivityTimeoutMs: numberOrNull(request.inactivityTimeoutMs),
@@ -1177,6 +1271,8 @@ async function runPtyTerminalExecutor(
     let lastTranscriptLength = 0;
     let timedOut = false;
     let inactivityTimedOut = false;
+    let externalProgressTimedOut = false;
+    let externalProgressObserved = false;
     let settled = false;
     let finalStatus: number | null = null;
     let supervisorSignal: "SIGTERM" | null = null;
@@ -1206,6 +1302,9 @@ async function runPtyTerminalExecutor(
         timeoutMs: request.timeoutMs,
         inactivityTimedOut,
         inactivityTimeoutMs: request.inactivityTimeoutMs,
+        externalProgressTimedOut,
+        externalProgressTimeoutMs: request.externalProgressTimeoutMs,
+        externalProgressTimeoutReason: request.externalProgressTimeoutReason,
         error
       });
       writeFileSync(paths.finalOutput, finalOutput, "utf8");
@@ -1241,7 +1340,7 @@ async function runPtyTerminalExecutor(
         pid: null,
         status,
         signal,
-        timedOut,
+        timedOut: timedOut || externalProgressTimedOut,
         timeoutMs: numberOrNull(request.timeoutMs),
         inactivityTimedOut,
         inactivityTimeoutMs: numberOrNull(request.inactivityTimeoutMs),
@@ -1390,6 +1489,58 @@ async function runPtyTerminalExecutor(
           }
         }
         return;
+      }
+      if (
+        !externalProgressObserved &&
+        request.externalProgressTimeoutMs !== undefined &&
+        request.externalProgressCheck !== undefined
+      ) {
+        try {
+          if (request.externalProgressCheck() === true) {
+            externalProgressObserved = true;
+            writeEvent(state, "external_progress_observed", {
+              externalProgressTimeoutMs: request.externalProgressTimeoutMs,
+              reason: request.externalProgressTimeoutReason ?? null,
+              elapsedMs: now - startedAt,
+              terminalSessionId
+            });
+          }
+        } catch (error) {
+          writeEvent(state, "external_progress_probe_error", {
+            externalProgressTimeoutMs: request.externalProgressTimeoutMs,
+            reason: request.externalProgressTimeoutReason ?? null,
+            detail: error instanceof Error ? error.message : "unknown",
+            terminalSessionId
+          });
+        }
+        if (
+          !externalProgressObserved &&
+          now - startedAt >= request.externalProgressTimeoutMs
+        ) {
+          externalProgressTimedOut = true;
+          supervisorSignal = "SIGTERM";
+          writeEvent(state, "external_progress_timeout", {
+            externalProgressTimeoutMs: request.externalProgressTimeoutMs,
+            reason: request.externalProgressTimeoutReason ?? null,
+            elapsedMs: now - startedAt,
+            terminalSessionId
+          });
+          request.onExternalProgressTimeout?.({
+            externalProgressTimeoutMs: request.externalProgressTimeoutMs,
+            reason: request.externalProgressTimeoutReason
+          });
+          stopScreenSession(screenCommand, terminalSessionId);
+          request.onSignalSent?.({ signal: "SIGTERM" });
+          finish(null, "SIGTERM", null, {
+            kind: "external_progress_timeout",
+            externalProgressTimeoutMs: numberOrNull(
+              request.externalProgressTimeoutMs
+            ),
+            reason: request.externalProgressTimeoutReason ?? null,
+            signal: "SIGTERM"
+          });
+          return;
+        }
       }
       if (
         request.timeoutMs !== undefined &&

@@ -280,6 +280,71 @@ test("T-188 supervised process actor terminates heartbeat-only inactivity", asyn
   );
 });
 
+test("T-204 supervised process actor terminates active output without external progress", async () => {
+  const root = await tempWorkspace();
+  const script = path.join(root, "worker.mjs");
+  await writeFile(
+    script,
+    [
+      "let i = 0;",
+      "setInterval(() => {",
+      "  process.stdout.write(`still-active-${i++}\\n`);",
+      "}, 20);"
+    ].join("\n"),
+    "utf8"
+  );
+
+  const stdoutPath = path.join(root, "worker_stdout.log");
+  const stderrPath = path.join(root, "worker_stderr.log");
+  const observed = [];
+  const result = await invokeSupervisedProcessActor({
+    invocation: invocation(),
+    command: process.execPath,
+    args: [script],
+    cwd: root,
+    environment: process.env,
+    stdoutPath,
+    stderrPath,
+    stdoutRef: pathToFileURL(stdoutPath).href,
+    stderrRef: pathToFileURL(stderrPath).href,
+    timeoutMs: 5000,
+    externalProgressTimeoutMs: 80,
+    externalProgressTimeoutReason: "content_register_checkpoint_missing",
+    externalProgressCheck: () => false,
+    terminationGraceMs: 50,
+    heartbeatMs: 0,
+    eventSink: (event) => {
+      observed.push(event);
+    }
+  });
+
+  assert.equal(result.timedOut, true);
+  assert.equal(result.signal, "SIGTERM");
+  assert.equal(result.outcome.kind, "external_progress_timeout");
+  assert.equal(
+    result.outcome.reason,
+    "content_register_checkpoint_missing"
+  );
+  assert.equal(
+    observed.some((event) => event.kind === "actor_process_timeout"),
+    false
+  );
+  assert.equal(
+    observed.some((event) => event.kind === "actor_process_signal_sent"),
+    true
+  );
+  assert.equal(
+    runtimeInterruptionEvents(observed).some(
+      (event) =>
+        event.interruptionSource === "harness_safety_cap" &&
+        event.signal === null &&
+        event.detail?.includes("content_register_checkpoint_missing") === true
+    ),
+    true
+  );
+  assert.match(await readFile(stdoutPath, "utf8"), /still-active-/u);
+});
+
 test("T-097 supervised process actor records missing command as typed runtime failure evidence", async () => {
   const root = await tempWorkspace();
   const stdoutPath = path.join(root, "worker_stdout.log");

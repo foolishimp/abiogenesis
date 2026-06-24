@@ -1,26 +1,25 @@
-# abiogenesis 4.1.0-rc.7 Release Candidate Note
+# abiogenesis 4.1.0-rc.8 Release Candidate Note
 
-This checkpoint is the seventh TypeScript ABG `4.1.0` release candidate. It
-follows `4.1.0-rc.6` and promotes the source-authority and semantic-review
-compiler gates required by odd_sdlc T-204.
+This checkpoint is the eighth TypeScript ABG `4.1.0` release candidate. It
+follows `4.1.0-rc.7` and adds a process-actor progress lease required by
+odd_sdlc T-204/Data Mapper design-depth evaluator proof.
 
 It is an RC candidate, not the final tapped `4.1.0` release.
 
 ## Release Claim
 
-RC7 keeps the RC6 evaluation-set retry repair, then adds two compiler/runtime
-boundary repairs:
+RC8 keeps the RC7 source-authority and semantic-review compiler gates, then
+adds one runtime progress repair:
 
-- `typecheckGtlProgram(...)` now admits source-authority policy rows and
-  rejects declared source-authority regressions such as product-local command
-  routing, raw archive authority, local retry/control ownership, read-model
-  truth substitution, and stale requirement-marker caching.
-- `typecheckGtlProgram(...)` now admits semantic review gates and fails closed
-  when a semantic compiler review is stale, failed, blocked, or bound to the
-  wrong subject.
-- Consequence traversal action handling has an async construction-runner path
-  so admitted construction re-entry can flow through async F_P dispatch without
-  reducing the re-entry proposal to local engine authority.
+- `runTracedProcess(...)` and `invokeSupervisedProcessActor(...)` now accept an
+  external progress predicate with `externalProgressTimeoutMs`. Active stdout no
+  longer keeps a process alive when the declared artifact progress predicate
+  never becomes true.
+- The traced process outcome now distinguishes `external_progress_timeout` from
+  hard timeout and stdout inactivity timeout.
+- PTY execution uses the existing screen-session shutdown path for external
+  progress timeouts, so terminal-backed agent runs do not leave detached
+  sessions alive after a progress-lease breach.
 
 These repairs preserve the governing split: ABG owns traversal, replay,
 continuation, runtime events, and consequence transition. Product tenants expose
@@ -51,27 +50,25 @@ ABG.start(fn<A, B>.C)
   .bind(system.replayContinuation)
 ```
 
-RC7 does not move downstream product meaning into ABG. The compiler rows are
-generic ABG inventory gates over source identity and review evidence; downstream
-products declare their own policies and reviews. The runner change keeps
-construction re-entry in ABG-owned traversal/replay machinery while preserving
-plugin proposals as data.
+RC8 does not move downstream product meaning into ABG. Downstream products still
+own the artifact predicate. ABG owns the generic process lease, timeout outcome,
+runtime interruption event, and terminal-session shutdown.
 
 ## Versioned Artifacts
 
 - RC branch: `main`
-- RC identity: `4.1.0-rc.7`
-- Candidate package version: `4.1.0-rc.7`
-- Candidate tag: `v4.1.0-rc.7`
+- RC identity: `4.1.0-rc.8`
+- Candidate package version: `4.1.0-rc.8`
+- Candidate tag: `v4.1.0-rc.8`
 
 ## Verification
 
 Required evidence for accepting this RC:
 
 ```text
-ABG semantic build and focused conformance/traversal lane:
+ABG semantic build and focused process-actor lane:
   npm run build:semantic
-  npm run test:t156
+  node --test test_env/tests/test_t097_supervised_process_actor.test.mjs
 
 ABG release gate after the version bump:
   npm run lint:semantic
@@ -81,7 +78,7 @@ ABG release gate after the version bump:
   git diff --check
   npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run
 
-odd_sdlc substrate proof over RC7:
+odd_sdlc substrate proof over RC8:
   npm run build:semantic
   focused T-204/T-192/T-194/T-197 substrate gates
 ```
@@ -89,7 +86,8 @@ odd_sdlc substrate proof over RC7:
 The release checkpoint recorded the ABI deterministic gates as passing before
 snapshot creation:
 
-- `npm run build:semantic && npm run test:t156`
+- `npm run build:semantic`
+- `node --test test_env/tests/test_t097_supervised_process_actor.test.mjs`
 - `npm run lint:semantic && npm run lint:test-harness && npm run test:semantic`
 - `npm run test:t141`
 - `git diff --check`
@@ -103,8 +101,7 @@ passed.
 
 ## RC Decision
 
-RC7 is the source-authority and semantic-review compiler gate candidate. It is
-releaseable after the ABI deterministic release checks pass, the release
-snapshot is written from a clean source commit, and odd_sdlc consumes the RC7
-snapshot without substrate-binding regressions. The live Claude T-141 transport
-failure remains external evidence, not an ABI semantic failure.
+RC8 is the process-actor external progress timeout candidate. It is releaseable
+after the ABI deterministic release checks pass, the release snapshot is written
+from a clean source commit, and odd_sdlc consumes the RC8 snapshot without
+substrate-binding regressions.
