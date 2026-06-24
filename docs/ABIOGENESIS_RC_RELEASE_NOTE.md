@@ -1,28 +1,26 @@
-# abiogenesis 4.1.0-rc.10 Release Candidate Note
+# abiogenesis 4.1.0-rc.11 Release Candidate Note
 
-This checkpoint is the tenth TypeScript ABG `4.1.0` release candidate. It
-follows `4.1.0-rc.9` and adds the deterministic self-run proof for the
-ABG-owned semantic compiler F_P review graph function required by odd_sdlc
-T-204.
+This checkpoint is the eleventh TypeScript ABG `4.1.0` release candidate. It
+follows `4.1.0-rc.10` and adds ABG CLI `--target next` runtime-binding
+resolution for downstream products that publish product-specific start
+selection.
 
 It is an RC candidate, not the final tapped `4.1.0` release.
 
 ## Release Claim
 
-RC10 keeps the RC9 semantic compiler producer/admission contract, then adds one
-compiler self-run repair:
+RC11 keeps the RC10 semantic compiler producer/admission contract, then adds one
+runtime command/control repair:
 
-- `constructAbgSemanticCompilerFpReviewGraphFunction()` publishes the ABG-owned
-  semantic compiler F_P review graph-function carrier.
-- `runAbgSemanticCompilerFpReviewGraphFunction(...)` materializes that carrier,
-  verifies the single `F_P` vector and admission evaluator, produces the review
-  result, and immediately re-admits it through ABG law.
-- `constructAbgSemanticCompilerFpReviewResult(...)` and
-  `admitAbgSemanticCompilerFpReviewResult(...)` bind a review result to the
-  reviewed package digest, ABG review graph-function digest, runtime ref, and
-  admission ref.
-- GTL program conformance semantic review gates now reject passed/zero-finding
-  rows that do not carry the ABG producer/admission provenance.
+- `abiogenesis start --target next` may now delegate next-target selection to a
+  product-published `runtimeBinding.resolveNextTarget(...)` hook before the
+  generic single-semantic-job fallback.
+- The hook receives workspace root, parsed start command, and replay events, so
+  downstream bindings can select the first executable graph function from
+  product public-start law without creating a product-local command loop.
+- ABI validates the hook result against the published graph-function authority
+  and still fails closed when no hook exists and workspace scope has ambiguous
+  semantic jobs.
 
 These repairs preserve the governing split: ABG owns traversal, replay,
 continuation, runtime events, and consequence transition. Product tenants expose
@@ -54,25 +52,26 @@ ABG.start(fn<A, B>.C)
   .bind(system.replayContinuation)
 ```
 
-RC10 does not move downstream product meaning into ABG. Downstream products still
+RC11 does not move downstream product meaning into ABG. Downstream products still
 own the artifact predicate. ABG owns the generic process lease, timeout outcome,
 runtime interruption event, and terminal-session shutdown.
 
 ## Versioned Artifacts
 
 - RC branch: `main`
-- RC identity: `4.1.0-rc.10`
-- Candidate package version: `4.1.0-rc.10`
-- Candidate tag: `v4.1.0-rc.10`
+- RC identity: `4.1.0-rc.11`
+- Candidate package version: `4.1.0-rc.11`
+- Candidate tag: `v4.1.0-rc.11`
 
 ## Verification
 
 Required evidence for accepting this RC:
 
 ```text
-ABG semantic build and focused compiler gate lane:
+ABG semantic build and focused next-target lane:
   npm run build:semantic
-  node --test test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs
+  node --test test_env/tests/t057-m04-cli-binary-negative.test.mjs
+  node --test --test-name-pattern "target next lowers|asset target resolves|runtime binding plugin factory" test_env/tests/test_m04_cli_binary_integration.test.mjs
 
 ABG release gate after the version bump:
   npm run lint:semantic
@@ -82,23 +81,24 @@ ABG release gate after the version bump:
   git diff --check
   npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run
 
-odd_sdlc substrate proof over RC10:
+odd_sdlc substrate proof over RC11:
   npm run build:semantic
-  focused T-204/T-192/T-194/T-197 substrate gates
+  focused T-204/T-132/T-164/T-192 substrate gates and live JS/Rust proofs
 ```
 
 The release checkpoint recorded the ABI deterministic gates as passing before
 snapshot creation:
 
 - `npm run build:semantic`
-- `node --test test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs`
+- `node --test test_env/tests/t057-m04-cli-binary-negative.test.mjs`
+- `node --test --test-name-pattern "target next lowers|asset target resolves|runtime binding plugin factory" test_env/tests/test_m04_cli_binary_integration.test.mjs`
 
-The remaining release-gate commands must pass before the RC10 snapshot is
+The remaining release-gate commands must pass before the RC11 snapshot is
 accepted as a downstream substrate.
 
 ## RC Decision
 
-RC10 is the semantic compiler F_P review self-run candidate. It is releaseable
-after the ABI deterministic release checks pass, the release snapshot is written
-from the source commit, and odd_sdlc consumes the RC10
-snapshot without substrate-binding regressions.
+RC11 is the ABG CLI next-target binding candidate. It is releaseable after the
+ABI deterministic release checks pass, the release snapshot is written from the
+source commit, and odd_sdlc consumes the RC11 snapshot without
+substrate-binding regressions.

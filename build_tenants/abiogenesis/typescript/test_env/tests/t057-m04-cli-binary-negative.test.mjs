@@ -15,13 +15,14 @@ import {
   provisionInstalledRoot
 } from "./support/m05-installed-fixtures.mjs";
 
-function runtimeBindingSource({ ambiguousNext = false } = {}) {
+function runtimeBindingSource({ ambiguousNext = false, resolveNextTarget = false } = {}) {
   return `
     import {
       admitModule,
       admitNode,
       admitResolvedPolicyIdentity,
       admitResolvedRuntimeIdentity,
+      constructDefaultAbgFnCompositionDeclarations,
       edge,
       graphFunctionForVector
     } from "@abiogenesis/typescript-tenant";
@@ -55,7 +56,10 @@ function runtimeBindingSource({ ambiguousNext = false } = {}) {
             tags: ["fulfillment"]
           }
         ],
-        declarations: { entries: [] }
+        declarations: constructDefaultAbgFnCompositionDeclarations({
+          scopeRef: \`cli-binary/\${id}\`,
+          hostGraphVectorRef: \`graph-\${id}\`
+        })
       }).vectors[0];
       return graphFunctionForVector(vector, {
         id: \`graph-function-\${id}\`,
@@ -137,6 +141,7 @@ function runtimeBindingSource({ ambiguousNext = false } = {}) {
         defaultRegime: "F_P",
         dispatchRef: "dispatch://cli-binary"
       }),
+      ${resolveNextTarget ? `resolveNextTarget: () => "code_flow",` : ""}
       runId: "run://cli-binary",
       workKey: "wk://cli-binary"
     };
@@ -242,4 +247,29 @@ test("T-057 negative proof: target next fails closed when workspace scope has mu
 
   assert.equal(payload.status, "error");
   assert.match(payload.reason, /exactly one published semantic job/i);
+});
+
+test("T-057 runtime binding resolver can disambiguate target next before semantic-job fallback", async () => {
+  const { targetRoot, packageRoot } = await installCliPackage();
+  await writeRuntimeBinding(
+    targetRoot,
+    runtimeBindingSource({ ambiguousNext: true, resolveNextTarget: true })
+  );
+  const run = runCli(targetRoot, packageRoot, [
+    "start",
+    "--workspace",
+    ".",
+    "--scope",
+    "workspace",
+    "--target",
+    "next",
+    "--until",
+    "first_traversal"
+  ]);
+  assert.equal(run.status, 2, run.stderr);
+  const payload = parsePayload(run);
+
+  assert.equal(payload.status, "blocked");
+  assert.equal(payload.target, "next");
+  assert.equal(payload.resolved_target, "graph_function:code_flow");
 });

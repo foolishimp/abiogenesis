@@ -162,6 +162,7 @@ interface RuntimeBinding {
   readonly constructionPriorityScheme?: ConstructionPriorityScheme;
   readonly constructionAffectPolicies?: readonly AffectPriorityPolicy[];
   readonly assuranceProvider?: EngineAssuranceProvider;
+  readonly resolveNextTarget?: RuntimeBindingNextTargetResolver;
   readonly resolvePolicy?: RuntimeBindingPolicyFactory;
   readonly plugins?: EngineRunnerPluginSet;
   readonly createPlugins?: RuntimeBindingPluginFactory;
@@ -188,6 +189,20 @@ interface RuntimeBindingPolicyFactoryInput {
   readonly replayEvents: readonly RuntimeEvent[];
 }
 
+interface RuntimeBindingNextTargetResolverInput {
+  readonly workspaceRoot: string;
+  readonly command: ParsedStartCommand;
+  readonly replayEvents: readonly RuntimeEvent[];
+}
+
+type RuntimeBindingNextTargetResolution =
+  | string
+  | {
+      readonly graphFunctionHandle?: string;
+      readonly graphFunctionName?: string;
+      readonly handle?: string;
+    };
+
 type RuntimeBindingPluginFactory = (
   input: RuntimeBindingPluginFactoryInput
 ) => EngineRunnerPluginSet | Promise<EngineRunnerPluginSet>;
@@ -197,6 +212,12 @@ type RuntimeBindingPolicyFactory = (
 ) =>
   | PublicStartContext["resolvedPolicy"]
   | Promise<PublicStartContext["resolvedPolicy"]>;
+
+type RuntimeBindingNextTargetResolver = (
+  input: RuntimeBindingNextTargetResolverInput
+) =>
+  | RuntimeBindingNextTargetResolution
+  | Promise<RuntimeBindingNextTargetResolution>;
 
 interface ResolvedCliTarget {
   readonly inputRef: string;
@@ -799,6 +820,7 @@ function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
     constructionPriorityScheme?: ConstructionPriorityScheme;
     constructionAffectPolicies?: readonly AffectPriorityPolicy[];
     assuranceProvider?: EngineAssuranceProvider;
+    resolveNextTarget?: RuntimeBindingNextTargetResolver;
     resolvePolicy?: RuntimeBindingPolicyFactory;
     plugins?: EngineRunnerPluginSet;
     createPlugins?: RuntimeBindingPluginFactory;
@@ -884,6 +906,13 @@ function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
       throw new CliError(`${label}.resolvePolicy must be a function`);
     }
     result.resolvePolicy = input["resolvePolicy"] as RuntimeBindingPolicyFactory;
+  }
+  if (hasOwnField(input, "resolveNextTarget")) {
+    if (typeof input["resolveNextTarget"] !== "function") {
+      throw new CliError(`${label}.resolveNextTarget must be a function`);
+    }
+    result.resolveNextTarget =
+      input["resolveNextTarget"] as RuntimeBindingNextTargetResolver;
   }
   if (hasOwnField(input, "createPlugins")) {
     if (typeof input["createPlugins"] !== "function") {
@@ -1051,8 +1080,51 @@ function defaultOperatorAssetContract(): OperatorAssetQueryContract {
   });
 }
 
-function resolveNextTarget(module: Module): ResolvedCliTarget {
-  const authority = constructModuleLookupAuthority(module);
+function graphFunctionHandleFromNextResolution(
+  resolution: RuntimeBindingNextTargetResolution
+): string {
+  if (typeof resolution === "string") {
+    return resolution;
+  }
+  return (
+    resolution.graphFunctionHandle ??
+    resolution.graphFunctionName ??
+    resolution.handle ??
+    ""
+  );
+}
+
+async function resolveNextTarget(input: {
+  readonly workspaceRoot: string;
+  readonly binding: RuntimeBinding;
+  readonly command: ParsedStartCommand;
+  readonly replayEvents: readonly RuntimeEvent[];
+}): Promise<ResolvedCliTarget> {
+  const authority = constructModuleLookupAuthority(input.binding.module);
+  if (input.binding.resolveNextTarget !== undefined) {
+    const graphFunctionHandle = graphFunctionHandleFromNextResolution(
+      await input.binding.resolveNextTarget({
+        workspaceRoot: input.workspaceRoot,
+        command: input.command,
+        replayEvents: input.replayEvents
+      })
+    ).trim();
+    if (graphFunctionHandle.length === 0) {
+      throw new CliError(
+        "runtime binding resolveNextTarget must return a graph function handle"
+      );
+    }
+    const graphFunction = resolvePublishedGraphFunction(
+      authority,
+      graphFunctionHandle
+    );
+    return Object.freeze({
+      inputRef: "next",
+      graphFunctionHandle,
+      graphFunctionId: graphFunction.id,
+      assetId: null
+    });
+  }
   const active = authority.semanticJobs.filter(
     (binding) => binding.jobs.length > 0
   );
@@ -1067,7 +1139,7 @@ function resolveNextTarget(module: Module): ResolvedCliTarget {
       "target next requires exactly one published semantic job in the workspace scope"
     );
   }
-  const graphFunction = module.graphFunctions.find(
+  const graphFunction = input.binding.module.graphFunctions.find(
     (candidate) => candidate.id === binding.graphFunctionId
   );
   if (graphFunction === undefined) {
@@ -1138,11 +1210,18 @@ async function resolveAssetTarget(
 async function resolveCliTarget(
   workspaceRoot: string,
   binding: RuntimeBinding,
-  target: CliStartTarget
+  target: CliStartTarget,
+  command: ParsedStartCommand,
+  replayEvents: readonly RuntimeEvent[]
 ): Promise<ResolvedCliTarget> {
   switch (target.kind) {
     case "next":
-      return resolveNextTarget(binding.module);
+      return resolveNextTarget({
+        workspaceRoot,
+        binding,
+        command,
+        replayEvents
+      });
     case "graph_function":
       return resolveGraphFunctionTarget(binding.module, target);
     case "asset":
@@ -1293,7 +1372,13 @@ async function runStartCommand(
   const eventLogPath = eventsPath(workspaceRoot);
   const replayEvents = await readReplayEvents(eventLogPath);
   seedRuntimeEventAdmissionOrdinal(replayEvents);
-  const target = await resolveCliTarget(workspaceRoot, binding, command.target);
+  const target = await resolveCliTarget(
+    workspaceRoot,
+    binding,
+    command.target,
+    command,
+    replayEvents
+  );
   const emitted: RuntimeEvent[] = [];
   const eventSink = (event: RuntimeEvent): void => {
     emitted.push(event);
