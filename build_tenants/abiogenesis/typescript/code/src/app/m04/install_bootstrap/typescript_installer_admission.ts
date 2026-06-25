@@ -11,6 +11,7 @@ import {
 } from "../../../shared/validation/primitives.js";
 import { constructInstallTargetRoot } from "./constructors.js";
 import { constructAbgTypescriptInstallerRequest } from "./typescript_installer_constructors.js";
+import type { ToolchainMutableStateRootInput } from "../toolchain_binding/index.js";
 import type { AbgTypescriptInstallerRequest } from "./typescript_installer_carriers.js";
 
 function admitInstallerTargetRoot(input: unknown, label: string) {
@@ -39,6 +40,43 @@ function admitOptionalAbsoluteRoot(input: unknown, label: string): string | null
     throw new TypeError(`${label}: expected an absolute path`);
   }
   return rootPath;
+}
+
+function admitOptionalMutableStateRoots(
+  input: unknown,
+  label: string
+): ToolchainMutableStateRootInput | null {
+  if (input === undefined || input === null) {
+    return null;
+  }
+  const roots = parsePlainObject(input, label);
+  const admitted: {
+    observedWorkspaceRoot?: string | null;
+    observerStateRoot?: string | null;
+    executorStateRoot?: string | null;
+    eventRoot?: string | null;
+    eventLogPath?: string | null;
+    runtimeRoot?: string | null;
+    projectionRoot?: string | null;
+    archiveRoot?: string | null;
+  } = {};
+  for (const key of [
+    "observedWorkspaceRoot",
+    "observerStateRoot",
+    "executorStateRoot",
+    "eventRoot",
+    "eventLogPath",
+    "runtimeRoot",
+    "projectionRoot",
+    "archiveRoot"
+  ] as const) {
+    const value = roots[key];
+    if (value === undefined || value === null) {
+      continue;
+    }
+    admitted[key] = admitOptionalAbsoluteRoot(value, `${label}.${key}`);
+  }
+  return Object.freeze(admitted);
 }
 
 function admitCleanTargetPolicy(input: unknown, label: string): "no_scaffold" {
@@ -84,6 +122,14 @@ export function admitAbgTypescriptInstallerRequest(
     cleanTargetPolicy: admitCleanTargetPolicy(
       request["cleanTargetPolicy"],
       `${label}.cleanTargetPolicy`
+    ),
+    toolchainRoot: admitOptionalAbsoluteRoot(
+      request["toolchainRoot"],
+      `${label}.toolchainRoot`
+    ),
+    mutableStateRoots: admitOptionalMutableStateRoots(
+      request["mutableStateRoots"],
+      `${label}.mutableStateRoots`
     )
   });
 }

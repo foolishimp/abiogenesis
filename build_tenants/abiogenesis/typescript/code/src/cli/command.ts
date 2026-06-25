@@ -31,11 +31,13 @@ import {
 } from "../gtl/m02/contracts/lookup.js";
 import {
   admitOperatorAssetQueryContract,
+  admitToolchainWorkspaceBinding,
   installAbiogenesisTypescript,
   publicGaps,
   publicCallableStartAsync,
   resolvePublicAssetTarget,
-  resultAssessment
+  resultAssessment,
+  TOOLCHAIN_BINDING_RELATIVE_PATH
 } from "../app/m04/index.js";
 import {
   leverEntries,
@@ -57,6 +59,7 @@ import type {
 import type { PublicCallableStartOutcome } from "../app/m04/max_autonomy/carriers.js";
 import type { PublicStartContext } from "../app/m04/public_start.js";
 import { seedRuntimeEventAdmissionOrdinal } from "../abg/m03/events/index.js";
+import type { ToolchainWorkspaceBinding } from "../app/m04/index.js";
 
 interface AbiogenesisCliIo {
   readonly cwd: () => string;
@@ -83,6 +86,15 @@ interface ParsedInstallCommand {
   readonly target: string;
   readonly packageSource: string | null;
   readonly installedPackageName: string;
+  readonly toolchainRoot: string | null;
+  readonly observedWorkspaceRoot: string | null;
+  readonly observerStateRoot: string | null;
+  readonly executorStateRoot: string | null;
+  readonly eventRoot: string | null;
+  readonly eventLogPath: string | null;
+  readonly runtimeRoot: string | null;
+  readonly projectionRoot: string | null;
+  readonly archiveRoot: string | null;
 }
 
 interface ParsedStartCommand {
@@ -423,7 +435,16 @@ function parseInstallCommand(args: readonly string[]): ParsedInstallCommand {
   requireAllowedFlags(parsed, "install", [
     "target",
     "package-source",
-    "installed-package-name"
+    "installed-package-name",
+    "toolchain-root",
+    "observed-workspace-root",
+    "observer-state-root",
+    "executor-state-root",
+    "event-root",
+    "event-log-path",
+    "runtime-root",
+    "projection-root",
+    "archive-root"
   ]);
   return Object.freeze({
     kind: "install",
@@ -433,7 +454,16 @@ function parseInstallCommand(args: readonly string[]): ParsedInstallCommand {
       parsed,
       "installed-package-name",
       "abiogenesis-typescript-installed-runtime"
-    )
+    ),
+    toolchainRoot: optionalNullableFlag(parsed, "toolchain-root"),
+    observedWorkspaceRoot: optionalNullableFlag(parsed, "observed-workspace-root"),
+    observerStateRoot: optionalNullableFlag(parsed, "observer-state-root"),
+    executorStateRoot: optionalNullableFlag(parsed, "executor-state-root"),
+    eventRoot: optionalNullableFlag(parsed, "event-root"),
+    eventLogPath: optionalNullableFlag(parsed, "event-log-path"),
+    runtimeRoot: optionalNullableFlag(parsed, "runtime-root"),
+    projectionRoot: optionalNullableFlag(parsed, "projection-root"),
+    archiveRoot: optionalNullableFlag(parsed, "archive-root")
   });
 }
 
@@ -656,6 +686,32 @@ function gitSourceDirty(packageSourceRoot: string): boolean {
 
 function eventsPath(workspaceRoot: string): string {
   return join(workspaceRoot, ".ai-workspace", "events", "events.jsonl");
+}
+
+function toolchainBindingPath(workspaceRoot: string): string {
+  return join(workspaceRoot, TOOLCHAIN_BINDING_RELATIVE_PATH);
+}
+
+async function loadToolchainWorkspaceBinding(
+  workspaceRoot: string
+): Promise<ToolchainWorkspaceBinding | null> {
+  const bindingPath = toolchainBindingPath(workspaceRoot);
+  try {
+    const payload = JSON.parse(await readFile(bindingPath, "utf8")) as unknown;
+    return admitToolchainWorkspaceBinding(payload, bindingPath);
+  } catch (error: unknown) {
+    if (error instanceof Error && "code" in error && error["code"] === "ENOENT") {
+      return null;
+    }
+    throw error;
+  }
+}
+
+function runtimeEventLogPath(
+  workspaceRoot: string,
+  binding: ToolchainWorkspaceBinding | null
+): string {
+  return binding?.mutableStateRoots.eventLogPath ?? eventsPath(workspaceRoot);
 }
 
 function runtimeBindingCandidates(workspaceRoot: string): readonly string[] {
@@ -1368,8 +1424,9 @@ async function runStartCommand(
   io: AbiogenesisCliIo
 ): Promise<number> {
   const workspaceRoot = resolveWorkspace(io.cwd(), command.workspace);
+  const toolchainBinding = await loadToolchainWorkspaceBinding(workspaceRoot);
   const binding = await loadRuntimeBinding(workspaceRoot);
-  const eventLogPath = eventsPath(workspaceRoot);
+  const eventLogPath = runtimeEventLogPath(workspaceRoot, toolchainBinding);
   const replayEvents = await readReplayEvents(eventLogPath);
   seedRuntimeEventAdmissionOrdinal(replayEvents);
   const target = await resolveCliTarget(
@@ -1419,6 +1476,8 @@ async function runStartCommand(
     root_mode: outcome.request.startRequest.controlModes.rootMode,
     event_kinds: emitted.map((event) => event.kind),
     events_path: eventLogPath,
+    toolchain_binding_path: toolchainBinding?.bindingPath ?? null,
+    mutable_state_roots: toolchainBinding?.mutableStateRoots ?? null,
     stop_class: outcome.stopClass,
     control_outcome: outcome.controlOutcome,
     live_status: outcome.liveStatus
@@ -1504,7 +1563,9 @@ async function runGapsCommand(
   if (command.scope !== "workspace") {
     throw new CliError("TypeScript CLI currently supports --scope workspace only");
   }
+  const toolchainBinding = await loadToolchainWorkspaceBinding(workspaceRoot);
   const binding = await loadRuntimeBinding(workspaceRoot);
+  const eventLogPath = runtimeEventLogPath(workspaceRoot, toolchainBinding);
   const projection = publicGaps(
     {
       scope: {
@@ -1516,7 +1577,7 @@ async function runGapsCommand(
     startContext(
       workspaceRoot,
       binding,
-      await readReplayEvents(eventsPath(workspaceRoot)),
+      await readReplayEvents(eventLogPath),
       binding.resolvedPolicy
     )
   );
@@ -1582,22 +1643,25 @@ async function runAssessResultCommand(
   io: AbiogenesisCliIo
 ): Promise<number> {
   const workspaceRoot = resolveWorkspace(io.cwd(), command.workspace);
+  const toolchainBinding = await loadToolchainWorkspaceBinding(workspaceRoot);
+  const eventLogPath = runtimeEventLogPath(workspaceRoot, toolchainBinding);
   const resultPath = isAbsolute(command.result)
     ? resolve(command.result)
     : resolve(workspaceRoot, command.result);
   const payload = JSON.parse(await readFile(resultPath, "utf8")) as unknown;
-  seedRuntimeEventAdmissionOrdinal(await readReplayEvents(eventsPath(workspaceRoot)));
+  seedRuntimeEventAdmissionOrdinal(await readReplayEvents(eventLogPath));
   const emitted: RuntimeEvent[] = [];
   const outcome = resultAssessment(payload, (event) => {
     emitted.push(event);
   });
-  await appendRuntimeEvents(eventsPath(workspaceRoot), emitted);
+  await appendRuntimeEvents(eventLogPath, emitted);
   io.stdout(
     `${JSON.stringify({
       command: "assess-result",
       status: outcome.kind,
       result: resultPath,
       event_kinds: emitted.map((event) => event.kind),
+      events_path: eventLogPath,
       outcome
     })}\n`
   );
@@ -1643,12 +1707,31 @@ async function runInstallCommand(
     io.cwd(),
     command.packageSource
   );
+  const mutableStateRoots: Record<string, string> = {};
+  for (const [key, value] of [
+    ["observedWorkspaceRoot", command.observedWorkspaceRoot],
+    ["observerStateRoot", command.observerStateRoot],
+    ["executorStateRoot", command.executorStateRoot],
+    ["eventRoot", command.eventRoot],
+    ["eventLogPath", command.eventLogPath],
+    ["runtimeRoot", command.runtimeRoot],
+    ["projectionRoot", command.projectionRoot],
+    ["archiveRoot", command.archiveRoot]
+  ] as const) {
+    if (value !== null) {
+      mutableStateRoots[key] = resolveWorkspace(io.cwd(), value);
+    }
+  }
   const outcome = await installAbiogenesisTypescript({
     targetRoot: {
       rootPath: targetRoot
     },
     packageSourceRoot,
-    installedPackageName: command.installedPackageName
+    installedPackageName: command.installedPackageName,
+    toolchainRoot: resolveOptionalWorkspace(io.cwd(), command.toolchainRoot),
+    ...(Object.keys(mutableStateRoots).length === 0
+      ? {}
+      : { mutableStateRoots })
   });
   io.stdout(
     `${JSON.stringify({

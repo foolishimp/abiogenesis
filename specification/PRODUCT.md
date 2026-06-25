@@ -72,6 +72,15 @@ The product split is:
 - downstream domains own asset meaning, domain HOW, and acceptance
   interpretation
 
+Installed ABG also owns the shared toolchain contract for released GTL/ABG
+products. A target workspace may bind to immutable product payloads and command
+paths under a selected toolchain root while keeping observed workspace assets,
+observer/control state, executor state, events, projections, and archives as
+explicit mutable roots. The target `.abiogenesis/` surface remains the
+inspectable binding and provenance surface; it is not required to contain a
+full local copy of every product library when a shared toolchain binding is
+admitted.
+
 Graph functions are the primary published program form. A graph function is
 product-real only when it is discoverable through a module or job surface,
 materializable from declared inputs and policy-visible parameters, executable

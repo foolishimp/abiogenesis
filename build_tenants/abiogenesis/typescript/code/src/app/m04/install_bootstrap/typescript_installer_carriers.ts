@@ -7,6 +7,11 @@ import type {
   InstallTargetRoot,
   PublicInstallBootstrapInstalled
 } from "./carriers.js";
+import type {
+  ToolchainMutableStateRootInput,
+  ToolchainMutableStateRoots,
+  ToolchainWorkspaceBinding
+} from "../toolchain_binding/index.js";
 
 export interface AbgTypescriptInstallerRequest {
   readonly targetRoot: InstallTargetRoot;
@@ -15,6 +20,8 @@ export interface AbgTypescriptInstallerRequest {
   readonly docsSourceRoot: string | null;
   readonly installedPackageName: string;
   readonly cleanTargetPolicy: "no_scaffold";
+  readonly toolchainRoot: string | null;
+  readonly mutableStateRoots: ToolchainMutableStateRootInput | null;
 }
 
 export interface AbgTypescriptInstallerRuntimeIdentity {
@@ -50,12 +57,17 @@ export interface AbgTypescriptInstallerManifest {
   readonly abgConfigFile: AbgTypescriptInstallerFileEvidence;
   readonly runtimeIdentity: AbgTypescriptInstallerRuntimeIdentity;
   readonly runtimeBindingPath: string;
+  readonly toolchainBindingPath: string;
+  readonly toolchainBinding: ToolchainWorkspaceBinding;
   readonly installManifestPath: string;
   readonly installerManifestPath: string;
   readonly installProvenancePath: string;
   readonly bootstrapEntryPath: string;
   readonly eventsPath: string;
   readonly runtimeDirectory: string;
+  readonly projectionDirectory: string;
+  readonly archiveDirectory: string;
+  readonly mutableStateRoots: ToolchainMutableStateRoots;
 }
 
 export interface AbgTypescriptInstallerFileEvidence {
@@ -81,6 +93,7 @@ export interface AbgTypescriptInstallerTopologyVerification {
   readonly eventsPathPresent: boolean;
   readonly runtimeDirectoryPresent: boolean;
   readonly runtimeBindingPresent: boolean;
+  readonly toolchainBindingPresent: boolean;
   readonly abgConfigPresent: boolean;
   readonly standardsRootPresent: boolean;
   readonly standardsSmokeFilesPresent: boolean;
@@ -111,12 +124,17 @@ export interface AbgTypescriptInstallerInstalled {
   readonly abgConfigFile: AbgTypescriptInstallerFileEvidence;
   readonly runtimeIdentity: AbgTypescriptInstallerRuntimeIdentity;
   readonly runtimeBindingPath: string;
+  readonly toolchainBindingPath: string;
+  readonly toolchainBinding: ToolchainWorkspaceBinding;
   readonly installManifestPath: string;
   readonly installerManifestPath: string;
   readonly installProvenancePath: string;
   readonly bootstrapEntryPath: string;
   readonly eventsPath: string;
   readonly runtimeDirectory: string;
+  readonly projectionDirectory: string;
+  readonly archiveDirectory: string;
+  readonly mutableStateRoots: ToolchainMutableStateRoots;
   readonly installBootstrapOutcome: PublicInstallBootstrapInstalled;
   readonly topologyVerification: AbgTypescriptInstallerTopologyVerification;
   readonly manifest: AbgTypescriptInstallerManifest;

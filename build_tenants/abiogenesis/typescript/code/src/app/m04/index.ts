@@ -9,6 +9,7 @@ export * from "./install_bootstrap/index.js";
 export * from "./live_status/index.js";
 export * from "./max_autonomy/index.js";
 export * from "./result_assessment/index.js";
+export * from "./toolchain_binding/index.js";
 export {
   publicStart,
   publicStartAsync,

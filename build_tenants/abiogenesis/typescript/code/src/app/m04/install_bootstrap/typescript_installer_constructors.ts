@@ -18,6 +18,11 @@ import type {
   InstallTargetRoot,
   PublicInstallBootstrapInstalled
 } from "./carriers.js";
+import type {
+  ToolchainMutableStateRootInput,
+  ToolchainMutableStateRoots,
+  ToolchainWorkspaceBinding
+} from "../toolchain_binding/index.js";
 
 function freezeStringArray(values: readonly string[]): readonly string[] {
   return Object.freeze([...values]);
@@ -57,6 +62,7 @@ function freezeTopologyVerification(
     eventsPathPresent: value.eventsPathPresent,
     runtimeDirectoryPresent: value.runtimeDirectoryPresent,
     runtimeBindingPresent: value.runtimeBindingPresent,
+    toolchainBindingPresent: value.toolchainBindingPresent,
     abgConfigPresent: value.abgConfigPresent,
     standardsRootPresent: value.standardsRootPresent,
     standardsSmokeFilesPresent: value.standardsSmokeFilesPresent,
@@ -71,6 +77,8 @@ export function constructAbgTypescriptInstallerRequest(input: {
   readonly docsSourceRoot: string | null;
   readonly installedPackageName: string;
   readonly cleanTargetPolicy: "no_scaffold";
+  readonly toolchainRoot: string | null;
+  readonly mutableStateRoots: ToolchainMutableStateRootInput | null;
 }): AbgTypescriptInstallerRequest {
   return Object.freeze({
     targetRoot: input.targetRoot,
@@ -78,7 +86,9 @@ export function constructAbgTypescriptInstallerRequest(input: {
     standardsSourceRoot: input.standardsSourceRoot,
     docsSourceRoot: input.docsSourceRoot,
     installedPackageName: input.installedPackageName,
-    cleanTargetPolicy: input.cleanTargetPolicy
+    cleanTargetPolicy: input.cleanTargetPolicy,
+    toolchainRoot: input.toolchainRoot,
+    mutableStateRoots: input.mutableStateRoots
   });
 }
 
@@ -105,12 +115,17 @@ export function constructAbgTypescriptInstallerManifest(input: {
   readonly abgConfigFile: AbgTypescriptInstallerFileEvidence;
   readonly runtimeIdentity: AbgTypescriptInstallerRuntimeIdentity;
   readonly runtimeBindingPath: string;
+  readonly toolchainBindingPath: string;
+  readonly toolchainBinding: ToolchainWorkspaceBinding;
   readonly installManifestPath: string;
   readonly installerManifestPath: string;
   readonly installProvenancePath: string;
   readonly bootstrapEntryPath: string;
   readonly eventsPath: string;
   readonly runtimeDirectory: string;
+  readonly projectionDirectory: string;
+  readonly archiveDirectory: string;
+  readonly mutableStateRoots: ToolchainMutableStateRoots;
 }): AbgTypescriptInstallerManifest {
   return Object.freeze({
     kind: "abg_typescript_installer_manifest",
@@ -145,12 +160,17 @@ export function constructAbgTypescriptInstallerManifest(input: {
       resolvedRuntimeRef: input.runtimeIdentity.resolvedRuntimeRef
     }),
     runtimeBindingPath: input.runtimeBindingPath,
+    toolchainBindingPath: input.toolchainBindingPath,
+    toolchainBinding: input.toolchainBinding,
     installManifestPath: input.installManifestPath,
     installerManifestPath: input.installerManifestPath,
     installProvenancePath: input.installProvenancePath,
     bootstrapEntryPath: input.bootstrapEntryPath,
     eventsPath: input.eventsPath,
-    runtimeDirectory: input.runtimeDirectory
+    runtimeDirectory: input.runtimeDirectory,
+    projectionDirectory: input.projectionDirectory,
+    archiveDirectory: input.archiveDirectory,
+    mutableStateRoots: input.mutableStateRoots
   });
 }
 
@@ -177,12 +197,17 @@ export function constructInstalledAbgTypescriptInstallerOutcome(input: {
   readonly abgConfigFile: AbgTypescriptInstallerFileEvidence;
   readonly runtimeIdentity: AbgTypescriptInstallerRuntimeIdentity;
   readonly runtimeBindingPath: string;
+  readonly toolchainBindingPath: string;
+  readonly toolchainBinding: ToolchainWorkspaceBinding;
   readonly installManifestPath: string;
   readonly installerManifestPath: string;
   readonly installProvenancePath: string;
   readonly bootstrapEntryPath: string;
   readonly eventsPath: string;
   readonly runtimeDirectory: string;
+  readonly projectionDirectory: string;
+  readonly archiveDirectory: string;
+  readonly mutableStateRoots: ToolchainMutableStateRoots;
   readonly installBootstrapOutcome: PublicInstallBootstrapInstalled;
   readonly topologyVerification: AbgTypescriptInstallerTopologyVerification;
   readonly manifest: AbgTypescriptInstallerManifest;
@@ -220,12 +245,17 @@ export function constructInstalledAbgTypescriptInstallerOutcome(input: {
       resolvedRuntimeRef: input.runtimeIdentity.resolvedRuntimeRef
     }),
     runtimeBindingPath: input.runtimeBindingPath,
+    toolchainBindingPath: input.toolchainBindingPath,
+    toolchainBinding: input.toolchainBinding,
     installManifestPath: input.installManifestPath,
     installerManifestPath: input.installerManifestPath,
     installProvenancePath: input.installProvenancePath,
     bootstrapEntryPath: input.bootstrapEntryPath,
     eventsPath: input.eventsPath,
     runtimeDirectory: input.runtimeDirectory,
+    projectionDirectory: input.projectionDirectory,
+    archiveDirectory: input.archiveDirectory,
+    mutableStateRoots: input.mutableStateRoots,
     installBootstrapOutcome: input.installBootstrapOutcome,
     topologyVerification: freezeTopologyVerification(input.topologyVerification),
     manifest: input.manifest

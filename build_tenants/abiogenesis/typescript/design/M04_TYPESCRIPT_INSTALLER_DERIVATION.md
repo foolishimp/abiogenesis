@@ -39,19 +39,26 @@ command delivery concern into one public installer surface:
 - admit an explicit install request
 - create the bootstrap workspace through `PublicInstallBootstrapRequest`
 - pack and install the ABG TypeScript package into the target workspace
+  by default, or into an admitted shared toolchain root when `toolchainRoot` is
+  present
 - expose `abiogenesis-ts` and `genesis-ts` command bindings
+  from the target-local package by default, or from the selected shared
+  toolchain product `bin/` root when shared mode is used
 - install domain-neutral ABG docs under `.abiogenesis/docs/`
 - install the full method standards tree under `.abiogenesis/docs/standards/`
 - distinguish imported targets from clean targets and publish the selected
   clean-target policy
 - write one installer manifest with package, command, standards, docs,
-  provenance, runtime-identity, and runtime-root truth
+  provenance, runtime-identity, toolchain-binding, and runtime-root truth
 - classify installer execution as either `fresh` or `refresh`, and refresh
   same-package file dependency/manifests deterministically on admitted reruns
 - write one domain-neutral fallback CLI runtime binding under `.abiogenesis/`
   so installed `genesis-ts` and `abiogenesis-ts` can run direct ABG
   observation and advancement commands without private test fixtures
 - publish a public topology verifier over the installed substrate
+- publish a workspace toolchain binding that records selected immutable product
+  payloads plus observed, observer/control, executor, event, runtime,
+  projection, and archive roots
 - leave graph execution, domain HOW, and downstream acceptance interpretation
   outside the installer
 
@@ -60,9 +67,12 @@ command delivery concern into one public installer surface:
 The TypeScript installer preserves these truths from the Python line:
 
 - install proof is not the same as source-tree import proof
-- the target workspace contains the runtime substrate used by later sandbox
-  execution
+- the target workspace contains the runtime binding/provenance substrate used
+  by later sandbox execution; immutable product payloads may be target-local or
+  shared-toolchain-local by admitted binding
 - command binding is installer truth, not a private test fixture
+- mutable state roots are installer/runtime binding truth, not implicit
+  `.ai-workspace` assumptions
 - installed runtime identity is inspectable through manifest files
 - installed method standards are target-workspace reference copies, not hidden
   source-workspace assumptions
@@ -89,12 +99,29 @@ TypeScript delivery shape is package-first:
   truth used by archive and sandbox lanes
 - `.abiogenesis/cli-runtime.mjs` records the domain-neutral fallback runtime
   binding consumed by direct installed ABG CLI commands
+- `.abiogenesis/toolchain-binding.json` records the selected toolchain root,
+  selected product payloads, command paths, and mutable state roots
 - `.abiogenesis/docs/standards/` holds method reference copies for cold-agent
   workspace references
 - `.abiogenesis/docs/` holds domain-neutral ABG reference docs
 - `node_modules/@abiogenesis/typescript-tenant` is the installed package root
 - `node_modules/.bin/abiogenesis-ts` and `node_modules/.bin/genesis-ts` are the
   command bindings
+
+When `toolchainRoot` is admitted, the TypeScript delivery shape is shared:
+
+- `<toolchainRoot>/products/abiogenesis/<version>/product-toolchain-manifest.json`
+  records the immutable product payload
+- `<toolchainRoot>/products/abiogenesis/<version>/lib/node_modules/@abiogenesis/typescript-tenant`
+  is the installed package root
+- `<toolchainRoot>/products/abiogenesis/<version>/bin/abiogenesis-ts` and
+  `<toolchainRoot>/products/abiogenesis/<version>/bin/genesis-ts` are the
+  command bindings
+- the target workspace `.abiogenesis/toolchain-binding.json` records the
+  selected product root and mutable state roots
+- direct CLI replay reads the event log path from the workspace binding, so
+  observer/control state and executor state may be outside the observed
+  workspace
 
 The clean-target default is `no_scaffold`: the installer creates an ABG
 substrate without asserting project authority. Starter project scaffolding is a

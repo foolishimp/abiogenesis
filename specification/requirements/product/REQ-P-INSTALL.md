@@ -35,12 +35,40 @@ substrate root.
 Downstream products own domain meaning, graph catalogs, policy overlays,
 acceptance interpretation, and product-specific instruction sections.
 
+## Shared Toolchain Binding
+
+**REQ-P-INSTALL-005**: Abiogenesis shall publish a shared toolchain binding
+contract that separates immutable released product payloads from target
+workspace mutable runtime state.
+
+**REQ-P-INSTALL-006**: A target workspace `.abiogenesis/` root may act as the
+binding and provenance root for a selected shared toolchain. In that mode,
+package libraries and command binaries may resolve from the shared toolchain
+root instead of target-local `node_modules`.
+
+**REQ-P-INSTALL-007**: The shared toolchain resolver shall make product/version
+selection inspectable. Explicit command input outranks workspace binding truth,
+workspace binding truth outranks environment selection, and environment
+selection outranks configured defaults.
+
+**REQ-P-INSTALL-008**: A workspace binding shall record the observed workspace
+root, observer/control state root, executor state root, event log path, runtime
+state root, projection root, archive root, selected toolchain root, selected
+product payloads, package roots, command paths, and product manifest refs.
+
+**REQ-P-INSTALL-009**: The shared toolchain root shall not become the mutable
+event/projection/archive owner for a target workspace run unless explicitly
+bound as such. The default local binding may still use
+`<workspace>/.ai-workspace` for compatibility, but observer/control state and
+executor state must be separable from the observed workspace.
+
 ## Installed Runtime Truth
 
 **REQ-P-INSTALL-010**: The installer shall write inspectable install truth in
 the target workspace, including install manifest path, installer manifest path,
 package identity, package root, command binding paths, runtime identity, event
-root, projection or runtime state root, and bootstrap entry path.
+root, projection or runtime state root, bootstrap entry path, and any selected
+shared toolchain binding.
 
 **REQ-P-INSTALL-011**: Installed command bindings shall resolve to the installed
 ABG package, not to source-tree private paths or test harness helpers.
@@ -63,6 +91,12 @@ verification surface that can distinguish a complete installed substrate from
 an incomplete or stale substrate. If a build tenant replaces a command-line
 `verify` mode with manifest or archive verification, that replacement shall be
 public, typed, and documented as the verification surface.
+
+**REQ-P-INSTALL-015A**: Topology verification shall validate the selected
+toolchain binding and configured mutable state roots when a workspace is bound
+to a shared toolchain. Verification shall fail closed when the binding file,
+selected product root, command path, event log path, runtime root, projection
+root, or archive root is missing.
 
 ## Target Project Scaffold
 
@@ -146,7 +180,10 @@ workspace proves:
 
 - `.abiogenesis/` substrate root exists
 - installed package and command bindings resolve from target `node_modules`
+  or from an admitted shared toolchain product binding
 - install and installer manifests record runtime and package truth
+- the workspace toolchain binding records selected products and mutable state
+  roots when shared mode is used
 - `.abiogenesis/docs/standards/` contains the full installed standards tree
 - manifest proof records standards-copy evidence
 - install provenance/event truth records package, command, standards, and

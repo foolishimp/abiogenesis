@@ -20,6 +20,9 @@ The first TypeScript installer wave is:
 - one command-binding materialization effect boundary
 - one standards/docs materialization effect boundary
 - one CLI runtime binding materialization effect boundary
+- one shared toolchain product materialization effect boundary when a
+  `toolchainRoot` is admitted
+- one workspace toolchain binding materialization effect boundary
 - one installer manifest
 - one install provenance record
 - one topology verification read model
@@ -62,6 +65,10 @@ family.
 | `PackageTarballRef` | subordinate | effect output, not public authority by itself | derived from `npm pack` output |
 | `InstalledPackageRoot` | subordinate | target package location | derived from package identity |
 | `CommandBindingRef` | subordinate | nested delivery artifact | derived from installed package bin map |
+| `ToolchainRoot` | subordinate | selected immutable payload root, not product meaning | optional admitted absolute request root, environment-selected root, or target root default |
+| `ToolchainProductManifest` | subordinate | persisted read model over one immutable product payload | derived after package and command materialization when shared mode is used |
+| `ToolchainWorkspaceBinding` | subordinate | target binding/provenance pointer, not downstream domain authority | derived from admitted request, package identity, command paths, and mutable state-root binding |
+| `MutableStateRoots` | subordinate | runtime-state binding detail, not traversal semantics | explicit admitted roots or compatibility defaults under `<workspace>/.ai-workspace` |
 | `InstalledStandardsRoot` | subordinate | target reference-copy location | derived from target root as `.abiogenesis/docs/standards` |
 | `InstalledDocsRoot` | subordinate | target domain-neutral docs location | derived from target root as `.abiogenesis/docs` |
 | `InstalledFileEvidence` | subordinate | manifest proof detail | derived after copy from file byte counts and checksums |
@@ -74,11 +81,16 @@ family.
 - the installer must call the existing install/bootstrap carrier boundary
   rather than rewriting target workspace bootstrap rules.
 - package identity must come from the package manifest being installed.
-- the installer must install a package artifact into the target workspace, not
-  create a source-tree symlink as proof.
-- command bindings must be present in the target workspace.
+- the installer must install a package artifact into the target workspace by
+  default, or into the selected shared toolchain product root when
+  `toolchainRoot` is admitted; it must not create a source-tree symlink as
+  proof.
+- command bindings must be present either in the target workspace default bin
+  root or in the admitted shared toolchain product bin root.
 - installer proof must include both bootstrap manifest truth and package/command
   manifest truth.
+- installer proof must include workspace toolchain binding truth and mutable
+  state-root truth.
 - installer proof must include standards-copy, docs-copy, CLI runtime binding,
   install provenance, and topology verification truth.
 - the installer-owned CLI runtime binding must stay domain-neutral and may only
@@ -96,6 +108,11 @@ family.
 - rerunning the installer over the same admitted installed package must classify
   the run as `refresh` and update the package dependency, install manifest,
   installer manifest, provenance, package root, and command bindings coherently.
+- direct CLI commands must read the admitted workspace binding when present and
+  use its event log path for replay and append instead of assuming the observed
+  workspace `.ai-workspace`.
+- observer/control state and executor state must be separately bindable from
+  the observed workspace.
 - rerunning the installer over a mismatched installed package identity must
   remain an explicit rejection rather than an implicit takeover.
 - installer proof must preserve runtime identity and archive/postmortem evidence

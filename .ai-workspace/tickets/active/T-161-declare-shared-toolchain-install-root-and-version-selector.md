@@ -412,43 +412,98 @@ contract. odd_sdlc does not receive custom install semantics.
 
 ## Acceptance Criteria
 
-- [ ] Product law distinguishes shared immutable toolchain payload from target
+- [x] Product law distinguishes shared immutable toolchain payload from target
       workspace runtime/binding state.
-- [ ] Product law states that abiogenesis owns the generic toolchain
+- [x] Product law states that abiogenesis owns the generic toolchain
       install/resolution contract and downstream consumers reuse it.
-- [ ] Requirements define version selection by explicit command binding,
+- [x] Requirements define version selection by explicit command binding,
       project binding, environment variable, and configured default.
-- [ ] Requirements define a product stack binding and manifest schema that can
+- [x] Requirements define a product stack binding and manifest schema that can
       bind both abiogenesis and downstream products such as odd_sdlc.
-- [ ] Requirements define mutable-state-root bindings for observed workspace,
+- [x] Requirements define mutable-state-root bindings for observed workspace,
       observer/control state, executor state, event roots, projection roots, and
       archive roots.
-- [ ] The selected toolchain version, release identity, and install root are
+- [x] The selected toolchain version, release identity, and install root are
       admitted into runtime/provenance truth for each run.
-- [ ] The selected mutable state roots are admitted into runtime/provenance
+- [x] The selected mutable state roots are admitted into runtime/provenance
       truth for each run.
-- [ ] Target workspaces retain ownership of product assets and local
+- [x] Target workspaces retain ownership of product assets and local
       policy/config overlays without being forced to own executor or observer
       runtime state.
-- [ ] Executor state can be configured outside the observed workspace.
-- [ ] Observer/control state can be configured separately from executor state.
-- [ ] Public command binaries can run from the shared install root against clean
+- [x] Executor state can be configured outside the observed workspace.
+- [x] Observer/control state can be configured separately from executor state.
+- [x] Public command binaries can run from the shared install root against clean
       target workspaces that do not contain copied ABG libraries.
-- [ ] The model supports downstream product toolchains such as odd_sdlc without
+- [x] The model supports downstream product toolchains such as odd_sdlc without
       ABG hard-coding downstream semantics.
-- [ ] The odd_sdlc-shaped proof consumes the exported ABG toolchain
+- [x] The odd_sdlc-shaped proof consumes the exported ABG toolchain
       manifest/resolver/binding pattern, not a separate downstream installer.
-- [ ] The real odd_sdlc source workspace binds to the selected ABG toolchain
+- [x] The real odd_sdlc source workspace binds to the selected ABG toolchain
       version through the same resolver.
 - [ ] Exhaustive regression covers ABG installer/toolchain unit tests, ABG
       semantic tests, odd_sdlc JS hello world, odd_sdlc Rust hello service, and
       the Data Mapper proof lane through the shared ABG binding.
 - [ ] Clean sandbox tests prove two separate target projects can use the same
       shared install root and selected version.
-- [ ] Existing per-workspace install behavior either remains as a compatibility
+- [x] Existing per-workspace install behavior either remains as a compatibility
       mode or is deliberately repriced with migration guidance.
 - [ ] Focused `test:t161`, relevant installer regressions, full semantic suite,
       and diff checks pass.
+
+## Implementation Checkpoint — 2026-06-26
+
+Implemented:
+
+- Added ABG M04 `toolchain_binding` carriers, admission, constructors, and
+  resolver exports.
+- Extended the TypeScript ABG installer with optional `toolchainRoot` and
+  `mutableStateRoots` request fields.
+- Added shared-mode package materialization under
+  `<toolchainRoot>/products/abiogenesis/<version>/lib`, command bindings under
+  `<toolchainRoot>/products/abiogenesis/<version>/bin`, product manifest
+  writing, target `.abiogenesis/toolchain-binding.json`, and topology
+  verification for binding/event/runtime/projection/archive roots.
+- Updated ABG CLI `install`, `start`, `gaps`, and `assess-result` so install
+  can admit the shared/state-root binding and replay/append uses the admitted
+  event log path.
+- Preserved the old per-workspace install path as compatibility mode.
+- Migrated odd_sdlc installer to pass ABG `abgToolchainRoot` and
+  `abgMutableStateRoots`, write its runtime binding using the installed
+  odd_sdlc package file URL, and remove the redundant target-level direct ABG
+  dependency link when a shared ABG toolchain is selected.
+
+Validation passed:
+
+- `cd build_tenants/abiogenesis/typescript && npm run test:t161`
+- `cd build_tenants/abiogenesis/typescript && npm run test:t076`
+- `cd build_tenants/abiogenesis/typescript && npm run test:semantic`
+- `cd build_tenants/typescript && npm run test:t161:abg-toolchain`
+- `cd build_tenants/typescript && npm run test:t069`
+- `cd build_tenants/typescript && npm run test:t160:hello-world-js-lite`
+- `cd build_tenants/typescript && npm run test:t164:rust-service`
+- `cd build_tenants/typescript && npm run test:t188`
+- `cd build_tenants/typescript && node --test test_env/tests/test_t059_install_release_adapter.test.mjs`
+
+Validation not yet closed:
+
+- Full odd_sdlc semantic suite was rerun and stopped after
+  `test_t066_product_materialization_contract.test.mjs` reported six
+  product-materialization failures:
+  `T-204 tenant-stack role policy overrides matching design materialization
+  targets`, `T-171 current component-test materialization supersedes empty
+  predecessor replay`, `T-102 post-transform observation ignores
+  tenant-declared component-test build byproducts`, `T-184 component-test
+  observation classifies module src/test files as test materialization`,
+  `B-081 test execution preparation carries admitted schedule commands`, and
+  `T-100 component-test postflight admits materialized tests before execution
+  discoverability proof`.
+- Those failures are outside the T-161 installer/toolchain path but block a
+  clean full odd_sdlc semantic-suite claim and should remain associated with
+  the T-204 materialization/source-authority lane.
+- Data Mapper live proof through the shared ABG binding has not been run in
+  this checkpoint.
+- Formal ABG RC snapshot containing T-161 has not been cut; odd_sdlc validation
+  used a packed local ABG artifact built from the current source.
 
 ## Non-Goals
 
@@ -476,5 +531,6 @@ contract. odd_sdlc does not receive custom install semantics.
 
 ## Closure Note
 
-Open. This ticket declares the work item for shared, versioned toolchain
-installation. It does not implement the installer or CLI changes.
+Open. The ABG shared-toolchain implementation and odd_sdlc migration slice are
+implemented and focused proofs pass. Closure is blocked on clean downstream
+full-suite/Data Mapper proof and formal release snapshot/version propagation.
