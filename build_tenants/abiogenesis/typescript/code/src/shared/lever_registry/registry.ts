@@ -80,7 +80,7 @@ const LEVERS: readonly LeverEntry[] = Object.freeze([
     wiring: "deferred",
     reason:
       "Process actor wall-clock timeout; behavior verifiable only under the live actor harness.",
-    consumedAt: "abg/m03/transport/process_actor.ts:84"
+    consumedAt: "abg/m03/transport/process_actor.ts:86"
   },
   {
     dottedKey: "abg.transport.actor.termination_grace_ms",
@@ -89,7 +89,7 @@ const LEVERS: readonly LeverEntry[] = Object.freeze([
     valueKind: "ms",
     wiring: "deferred",
     reason: "Actor termination grace; live-lane.",
-    consumedAt: "abg/m03/transport/process_actor.ts:85"
+    consumedAt: "abg/m03/transport/process_actor.ts:87"
   },
   {
     dottedKey: "abg.transport.actor.heartbeat_ms",
@@ -98,7 +98,7 @@ const LEVERS: readonly LeverEntry[] = Object.freeze([
     valueKind: "ms",
     wiring: "deferred",
     reason: "Actor heartbeat interval; live-lane.",
-    consumedAt: "abg/m03/transport/process_actor.ts:86"
+    consumedAt: "abg/m03/transport/process_actor.ts:88"
   },
   {
     dottedKey: "abg.runner.retry.max_attempts",
