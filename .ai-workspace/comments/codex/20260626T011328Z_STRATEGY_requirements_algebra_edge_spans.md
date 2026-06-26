@@ -81,6 +81,39 @@ system, not a peer language beside GTL. GTL wrappers should expose the algebra
 to human-agent authoring; the ABG substrate should manage the durable
 requirement model, projection, fold, and replay mechanics.
 
+## KAOS Additive Rigor To Keep
+
+KAOS should be stripped for rigor, not adopted as a product shape.
+
+ODD already supplies product method. GTL already supplies the LLM-first
+algebraic language. ABG already supplies graph runtime, event truth, replay,
+and fold mechanics. KAOS adds rigor where it makes requirement pressure more
+typed, checkable, and queryable.
+
+The bounded import is:
+
+| KAOS element | Added rigor | ABG/GTL form |
+| --- | --- | --- |
+| Goal type | Separates achieve, maintain, avoid, cease, and soft-goal pressure instead of treating every requirement as a flat sentence. | GTL requirement wrapper over `RequirementGoal.goalType`. |
+| Goal refinement | Forces parent pressure to decompose through explicit AND/OR/case-split relations. | `RequirementRelation(kind: "refines")` plus coverage gates. |
+| Assumption split | Distinguishes software requirements from environment assumptions. | `RequirementAssumption` with monitor or accepted residual risk. |
+| Obstacle analysis | Represents plausible failure conditions before they appear as failed runs. | `RequirementObstacle`, mitigation/restoration relations, residual pressure. |
+| Conflict analysis | Makes incompatible goals explicit rather than hiding conflict in evaluator prose. | `RequirementConflict` and reprice/resolution residuals. |
+| Agent responsibility | Requires an accountable actor, tool, worker, or environment role. | `RequirementAgent` and assignment relations. |
+| Operationalization | Connects goals to operations that can actually realize or monitor them. | `RequirementOperation` bound to GTL graph functions and spans. |
+| Domain object reference | Grounds requirements in domain assets, events, states, and resources. | `RequirementDomainObject` references, not hidden prompt text. |
+| Soft-goal contribution | Preserves quality pressure that cannot honestly be closed as binary. | qualitative or quantitative contribution fold state. |
+| Completeness metrics | Turns missing refinement, assignment, obstacle handling, and operationalization into release-gate pressure. | deterministic model gates over admitted carriers. |
+
+The non-import is equally important:
+
+- do not import a GUI-first editor workflow as the center of GTL;
+- do not create a second requirements language beside GTL;
+- do not make DOT or diagrams authoritative;
+- do not force every ODD context fragment into a KAOS requirement atom;
+- do not make deterministic gates judge unknown product semantics;
+- do not replace ABG fold/replay/residual law with a separate KAOS lifecycle.
+
 ## External Lessons To Incorporate
 
 This strategy should reuse lessons from existing requirements, assurance, and
