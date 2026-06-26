@@ -71,6 +71,131 @@ The first ABG slice should prioritize stable ids, typed relations, span
 coverage, and fold semantics before rich UI, import/export, or product-specific
 materialization policy.
 
+## Reviewed KAOS And Goal-Model Implementations
+
+The implementation lesson is not "build Objectiver inside ABG." The lesson is
+to separate the semantic kernel from editors, imports, generated views, and
+analysis projections.
+
+### Objectiver / KAOS
+
+Objectiver-backed KAOS practice is the strongest source for the semantic model.
+The reusable pieces are:
+
+- four related submodels: goal, object/domain, agent, and operation;
+- goal types: Maintain, Avoid, Achieve, Cease, SoftGoal;
+- goal categories: satisfaction, information, accuracy, security, safety,
+  usability, and similar product-specific taxonomies;
+- attributes: name, definition, priority, owner, criticality, plausibility;
+- intra-model links: refinement, obstruction, conflict;
+- inter-model links: reference, operationalization, responsibility;
+- obstacle analysis by negating a goal and refining the negated condition until
+  feasible, plausible, observable obstruction preconditions are found;
+- resolution tactics: goal substitution, agent substitution, goal weakening,
+  goal restoration, obstacle prevention, obstacle mitigation, and runtime
+  monitoring;
+- responsibility links from goals to agents, including alternative agent
+  assignments;
+- operations that operationalize assigned goals.
+
+ABG should steal the model, not the graphical workflow. Objectiver is a
+requirements modeling tool. ABG should be the graph-runtime semantics that can
+admit, execute, fold, replay, and query the model.
+
+Source refs:
+
+- https://objectiver.com/fileadmin/download/documents/presentations/KaosCEE-AvL.pdf
+- https://posomas.isse.de/Practices/aose.practice.req.goal_driven_requirements_elicitation.base/guidances/supportingmaterials/goal_driven_re_with_kaos_47BC83D3.html
+
+### KAOS Modeling Editor
+
+The KAOS Modeling Editor line shows a useful authoring pattern: generate an
+initial goal model from natural-language requirements, let humans or agents edit
+the graph, and expose a graph/DOT surface.
+
+ABG consequence:
+
+- natural-language extraction can create candidate requirement graphs;
+- generated candidates are not constitutional truth until admitted;
+- DOT/diagram output is a read model;
+- graph editing should preserve stable ids and relation ids.
+
+Source ref:
+
+- https://ceur-ws.org/Vol-3618/pd_paper_6.pdf
+
+### OpenOME / i* / GRL / jUCMNav
+
+OpenOME and GRL/jUCMNav are useful for actor-oriented rationale and evaluation.
+OpenOME emphasizes a goal/agent-oriented model with knowledge-base-backed
+analysis and links from requirements to specification and architecture.
+GRL/jUCMNav adds strategies and qualitative/quantitative satisfaction
+propagation over intentional elements.
+
+ABG consequence:
+
+- actor/agent dependency should be a first-class requirement relation, not only
+  a worker assignment;
+- soft goals and contribution links need evaluation semantics;
+- a "strategy" is a projection/evaluation configuration, not product truth;
+- qualitative satisfaction, quantitative score, conflict, weak satisfaction,
+  and unknown can be ABG fold or assurance projection states.
+
+Source refs:
+
+- https://www.cs.toronto.edu/km/openome/
+- https://ceur-ws.org/Vol-978/paper_26.pdf
+- https://cairis.readthedocs.io/en/latest/grl.html
+
+### KAOS Completeness Metrics
+
+KAOS metrics work is directly useful as release-gate pressure. Useful metrics
+include:
+
+- leaf-goal agent assignment coverage;
+- obstacle resolution coverage;
+- goal-to-object association coverage;
+- goal operationalization coverage;
+- operation-to-agent assignment coverage;
+- model complexity and completeness measures.
+
+ABG consequence:
+
+- requirement algebra must project deterministic completeness metrics;
+- incompleteness is residual pressure, not prose debt;
+- release gates can fail closed on missing assignment, unresolved obstacles, or
+  unoperationalized requirements before any downstream source materialization.
+
+Source ref:
+
+- https://scispace.com/pdf/a-framework-to-evaluate-complexity-and-completeness-of-kaos-1c3thzg7q8.pdf
+
+### Modern Obstacle Analysis
+
+Recent obstacle-analysis work keeps the core KAOS argument:
+
+```text
+Requirements + Assumptions entail Goal
+R, A |- G
+```
+
+The useful modern framing is that leaf refinements split into software
+requirements and environment assumptions. Obstacles are not just failed tests;
+they are conditions that can invalidate the argument from requirements and
+assumptions to goal satisfaction.
+
+ABG consequence:
+
+- assumptions must be separate from requirements;
+- environment assumptions can span edges and may require monitoring rather than
+  construction;
+- obstacle residuals should preserve whether pressure is on software
+  requirement, environment assumption, runtime monitor, or product reprice.
+
+Source ref:
+
+- https://discovery.ucl.ac.uk/10204032/1/Obstacle-analysis-retrospective.pdf
+
 ## Two Categories Of Authority
 
 There are two different categories that should not be forced into one shape.
@@ -589,6 +714,363 @@ Evidence = admitted artifact/event/carrier
 Fold = requirement-state transition over evidence
 Residual = continuing pressure over the remaining span
 ```
+
+## Cohesive ABG Requirements Capability Design
+
+ABG should expose a requirements capability as a graph-function family over a
+single algebraic requirement kernel.
+
+The product shape:
+
+```text
+GTL declarations
+  -> requirement model carriers
+  -> requirement graph functions
+  -> edge requirement environment
+  -> obligation/materialization/evidence/assurance projections
+  -> ABG fold/replay/residual truth
+  -> downstream product read models
+```
+
+This is not a separate runtime. It is an ABG graph over requirement terms,
+spans, and admitted evidence.
+
+Design guardrails:
+
+- deterministic gates inspect admitted ABG requirement carriers, relations,
+  spans, provenance, and replay facts;
+- deterministic gates do not inspect unknown product syntax for semantic
+  satisfaction;
+- F_P maintains semantic pressure over design/source/test meaning;
+- F_H may admit product-owner decisions, reprices, or explicit residual risk;
+- ABG folds admitted envelope facts, F_P findings, and F_H decisions into
+  replayable requirement state.
+
+### Capability Modules
+
+```text
+abg.requirements.identity
+  stable ids, aliases, imports, source digests, relation ids
+
+abg.requirements.context
+  compressed authority fragments, promotion candidates, context coverage
+
+abg.requirements.model
+  goals, requirements, assumptions, soft goals, obstacles, conflicts,
+  agents, operations, domain objects, relations
+
+abg.requirements.span
+  traversal spans, frame/zoom span mapping, coverage predicates
+
+abg.requirements.projection
+  edge environments, obligation projection, target/evidence projection
+
+abg.requirements.fold
+  evidence bindings, admitted envelope facts, F_P findings, F_H decisions,
+  residual and attenuation projection
+
+abg.requirements.assurance
+  claim/strategy/evidence/context read model, GSN/SACM-compatible projection
+
+abg.requirements.metrics
+  completeness, complexity, coverage, conflict, obstacle, operationalization,
+  attenuation metrics
+
+abg.requirements.interop
+  candidate ReqIF/GRL/GSN/SACM import/export adapters as read/write adapters,
+  not native authority
+```
+
+### Core Domain Types
+
+The KAOS-derived kernel should be explicit:
+
+```ts
+type RequirementModelElement =
+  | RequirementGoal
+  | RequirementAtom
+  | RequirementAssumption
+  | RequirementSoftGoal
+  | RequirementObstacle
+  | RequirementConflict
+  | RequirementAgent
+  | RequirementOperation
+  | RequirementDomainObject
+  | RequirementRelation;
+
+interface RequirementGoal {
+  readonly kind: "requirement_goal";
+  readonly goalId: string;
+  readonly stableId: string;
+  readonly goalType: "maintain" | "avoid" | "achieve" | "cease" | "soft";
+  readonly category: string;
+  readonly statement: string;
+  readonly priority: "low" | "medium" | "high" | "critical";
+  readonly ownerRef: string | null;
+  readonly span: TraversalSpan;
+  readonly sourceRefs: readonly string[];
+}
+
+interface RequirementAssumption {
+  readonly kind: "requirement_assumption";
+  readonly assumptionId: string;
+  readonly statement: string;
+  readonly assumptionScope: "environment" | "operator" | "toolchain" | "runtime";
+  readonly monitorRef: string | null;
+  readonly span: TraversalSpan;
+  readonly sourceRefs: readonly string[];
+}
+
+interface RequirementSoftGoal {
+  readonly kind: "requirement_soft_goal";
+  readonly softGoalId: string;
+  readonly qualityRef: string;
+  readonly contributionScale: "qualitative" | "quantitative";
+  readonly targetSatisfaction: string;
+  readonly span: TraversalSpan;
+}
+
+interface RequirementAgent {
+  readonly kind: "requirement_agent";
+  readonly agentId: string;
+  readonly agentKind: "software" | "environment" | "human" | "tool" | "worker";
+  readonly roleRefs: readonly string[];
+  readonly monitors: readonly string[];
+  readonly controls: readonly string[];
+}
+
+interface RequirementOperation {
+  readonly kind: "requirement_operation";
+  readonly operationId: string;
+  readonly graphFunctionRef: string;
+  readonly edgeRefs: readonly string[];
+  readonly performedByAgentRefs: readonly string[];
+  readonly operationalizesRequirementRefs: readonly string[];
+}
+
+interface RequirementDomainObject {
+  readonly kind: "requirement_domain_object";
+  readonly objectId: string;
+  readonly objectKind: "asset" | "state" | "event" | "resource" | "data";
+  readonly sourceRefs: readonly string[];
+}
+
+type RequirementRelationKind =
+  | "refines"
+  | "depends_on"
+  | "conflicts_with"
+  | "obstructs"
+  | "mitigates"
+  | "references"
+  | "assigned_to"
+  | "operationalized_by"
+  | "performed_by"
+  | "monitored_by"
+  | "evidenced_by"
+  | "contributes_to"
+  | "weakens"
+  | "restores"
+  | "supersedes";
+
+interface RequirementGraph {
+  readonly kind: "requirement_graph";
+  readonly graphId: string;
+  readonly productRef: string;
+  readonly elements: readonly RequirementModelElement[];
+  readonly relations: readonly RequirementRelation[];
+  readonly spans: readonly TraversalSpan[];
+  readonly sourceRefs: readonly string[];
+}
+
+interface RequirementGraphState {
+  readonly kind: "requirement_graph_state";
+  readonly graphId: string;
+  readonly edgeRef: string;
+  readonly satisfiedRefs: readonly string[];
+  readonly partialRefs: readonly string[];
+  readonly residualRefs: readonly string[];
+  readonly obstacleRefs: readonly string[];
+  readonly conflictRefs: readonly string[];
+  readonly unknownRefs: readonly string[];
+}
+```
+
+This model sits on top of GTL/ABG. `RequirementOperation.graphFunctionRef` binds
+requirements to graph functions. `TraversalSpan` binds them to graph-vector
+coverage. Runtime events and evidence bindings then fold requirement state.
+`RequirementGraphState` is an edge-local projection. It is not a second
+requirements ledger.
+
+### Native Graph Functions
+
+The requirements capability should be a catalog of graph functions:
+
+```text
+abg.requirements.ingest_context_fragments
+  Input: source refs and compression policy
+  Output: admitted AuthorityContextFragment rows
+
+abg.requirements.promote_context_fragment
+  Input: fragment, reason, target span
+  Output: candidate RequirementGoal/RequirementAtom/Assumption
+
+abg.requirements.derive_requirement_graph
+  Input: product/context fragments and existing requirements
+  Output: candidate requirement model elements and relations
+
+abg.requirements.refine_goal
+  Input: parent goal, context, refinement policy
+  Output: AND/OR/case-split refinement relation and child terms
+
+abg.requirements.analyze_obstacles
+  Input: leaf goal or assumption, domain context
+  Output: obstacle graph plus prevention/mitigation/restoration candidates
+
+abg.requirements.analyze_conflicts
+  Input: active goal set and context
+  Output: conflict rows, boundary conditions, resolution candidates
+
+abg.requirements.assign_responsibility
+  Input: requirement/goal, candidate agents, boundary policy
+  Output: responsibility/assignment relations
+
+abg.requirements.operationalize_requirement
+  Input: requirement term, graph-function catalog, evidence policy
+  Output: RequirementOperation and TraversalSpan bindings
+
+abg.requirements.compile_edge_environment
+  Input: requirement ledger, edge, replay state
+  Output: EdgeRequirementEnvironment
+
+abg.requirements.project_edge_obligations
+  Input: EdgeRequirementEnvironment
+  Output: obligation, target, schedule, evidence expectations
+
+abg.requirements.bind_evidence
+  Input: environment, admitted artifacts/events/registers
+  Output: RequirementEvidenceBinding rows
+
+abg.requirements.fold_requirement_state
+  Input: environment, evidence bindings, evaluator findings
+  Output: RequirementFold and RequirementResidual rows
+
+abg.requirements.project_assurance_case
+  Input: folds and residuals
+  Output: claim/strategy/evidence/context read model
+
+abg.requirements.measure_model
+  Input: requirement ledger
+  Output: completeness, complexity, coverage, conflict, obstacle, and
+  operationalization metrics
+```
+
+Each function should be independently replayable. Product-specific domain
+meaning enters through context fragments, product requirement terms, and
+plugins; ABG owns the carrier grammar, event truth, fold law, and projection.
+
+### Capability Workflow
+
+#### 1. Intake And Identity
+
+1. Import or author raw requirement/context surfaces.
+2. Stamp stable ids, source refs, digests, and aliases.
+3. Classify each source item as compressed context, explicit requirement,
+   assumption, or candidate promotion.
+4. Preserve import source metadata for future ReqIF-style round trips.
+
+#### 2. Goal Model Construction
+
+1. Build or update a goal graph.
+2. Refine goals through AND/OR/case-split relations.
+3. Split leaves into software requirements and environment assumptions.
+4. Carry soft goals as qualitative/quantitative evaluation pressure.
+5. Preserve domain objects and resources as referenced terms, not as hidden
+   prompt text.
+
+#### 3. Analysis
+
+1. Run obstacle analysis on leaf goals, requirements, and assumptions.
+2. Run conflict analysis across active goals and constraints.
+3. Produce resolution candidates: substitution, weakening, restoration,
+   prevention, mitigation, monitoring, reprice.
+4. Record unresolved obstacles/conflicts as residual pressure.
+
+#### 4. Responsibility And Operationalization
+
+1. Assign requirements or operations to agents.
+2. Bind software requirements to graph functions and spans.
+3. Bind environment assumptions to monitors or explicit no-monitor residuals.
+4. Bind operations to GTL graph functions and evidence kinds.
+5. Fail closed when leaf goals have no agent, no operation, or unresolved
+   obstacle where the release gate requires completeness.
+
+#### 5. Runtime Projection
+
+1. For each traversal edge, compile the edge requirement environment.
+2. Project active edge obligations.
+3. Project materialization targets, schedule commands, and evidence
+   expectations.
+4. Provide F_P workers with context fragments and active obligations without
+   flattening the whole product constitution into the edge.
+
+#### 6. Evidence Binding And Fold
+
+1. Admit artifacts, target carriers, materialized files, execution evidence,
+   evaluator findings, and runtime events.
+2. Bind evidence to projected obligations.
+3. Fold each requirement projection.
+4. Emit partial folds where one projection closes but another remains open.
+5. Emit residuals with remaining spans and attenuation classification.
+
+#### 7. Assurance And Query
+
+1. Project claims, strategy, evidence, and context from folds and residuals.
+2. Surface unresolved claims as residual pressure.
+3. Query active requirements by edge, graph function, agent, obstacle,
+   operation, or span.
+4. Export later to ReqIF, GRL, GSN, or SACM as adapters, not authority.
+
+### Completeness Gates
+
+ABG should expose deterministic model gates before product code generation:
+
+```text
+goal_refinement_coverage
+  every close-required parent goal has an admitted refinement or residual
+
+leaf_assignment_coverage
+  every close-required leaf requirement has an assigned responsible agent
+
+assumption_monitoring_coverage
+  every close-required environment assumption is monitored, deferred, or
+  explicitly accepted as residual risk
+
+obstacle_resolution_coverage
+  every retained plausible obstacle is prevented, mitigated, restored,
+  monitored, repriced, or residualized
+
+conflict_resolution_coverage
+  every admitted conflict has a resolution or explicit reprice pressure
+
+operationalization_coverage
+  every close-required software requirement binds to an operation and graph span
+
+operation_agent_coverage
+  every close-required operation has a performing agent/worker/tool binding
+
+span_coverage
+  every active requirement projection maps to at least one graph-vector span
+
+evidence_policy_coverage
+  every active obligation declares admitted evidence kinds
+
+fold_attenuation_coverage
+  every retry attempt classifies residual transition
+```
+
+These gates are the practical answer to "do we have a concrete model of
+requirements and obligations?" The model is concrete when these gates can run
+without reading product prose by hand.
 
 ## Workflow 1: Author Requirement Pressure
 
