@@ -3,7 +3,7 @@ id: T-162
 title: Realize ABG requirements algebra strategy
 type: feature
 ticket_category: ordinary
-status: completed
+status: active
 goal: >-
   Implement the ABG-owned requirements algebra from the strategy post as one
   coherent substrate: requirement identity, traversal spans, staged context
@@ -35,7 +35,7 @@ priority: critical
 triaged_at: 2026-06-26
 created_at: 2026-06-26
 updated_at: 2026-06-26
-completed_at: 2026-06-26
+reopened_at: 2026-06-26
 governance_scope: STDO Method, GTL, ABG, Requirements, Assurance
 build_tenant: typescript
 single_ticket_rule: >-
@@ -233,6 +233,9 @@ non_closure_conditions:
   - Code implementation begins or closes before the GTL and ABG extension design assets pass design-module-method review.
   - The design lists many peer top-level types without IACS, authority/downstream classification, subordinate payload register, and promotion-test justification.
   - Module decomposition hides graph functions, traversal selection, closure, continuation, or semantic target movement inside deterministic service modules.
+  - Closure is claimed before a live or installed downstream proof exercises the
+    requirements-algebra substrate through an ABG graph-function,
+    edge-assurance, or semantic-compiler F_P review path.
 proof_commands:
   - cd build_tenants/abiogenesis/typescript && npm run build:semantic
   - cd build_tenants/abiogenesis/typescript && npm run lint:semantic
@@ -243,6 +246,9 @@ proof_commands:
   - cd build_tenants/abiogenesis/typescript && npm run test:t151
   - cd build_tenants/abiogenesis/typescript && npm run test:t159
   - cd build_tenants/abiogenesis/typescript && npm run test:semantic
+  - cd build_tenants/abiogenesis/typescript && npm run lint:test-harness
+  - cd build_tenants/abiogenesis/typescript && npm run test:t132:live
+  - cd build_tenants/abiogenesis/typescript && npm run test:t159:odd-sdlc-t132-live
 proof_surface:
   - specification/PRODUCT.md
   - specification/GOALS.md
@@ -1019,8 +1025,9 @@ closure. It must explicitly evaluate:
       residuals enter it, which obligations are active, which evidence was
       admitted, which folds closed or stayed partial/blocked/deferred/residual,
       and which residual pressure remains with its owning span.
-- [x] `build:semantic`, `lint:semantic`, `test:t162`, relevant regression
-      suites, full `test:semantic`, and diff checks pass.
+- [ ] `build:semantic`, `lint:semantic`, `test:t162`, relevant regression
+      suites, full `test:semantic`, `lint:test-harness`, the selected live or
+      installed downstream proof lane, and diff checks pass.
 
 ## Non-Goals
 
@@ -1040,11 +1047,19 @@ closure. It must explicitly evaluate:
 - Do not split this first implementation wave into additional tickets without
   explicit operator reprice.
 
-## Closure Note
+## Reopen Note
 
-Closed 2026-06-26.
+Reopened 2026-06-26.
 
-T-162 implemented the first ABG/GTL requirements-algebra slice:
+The first ABG/GTL requirements-algebra implementation slice landed, but ticket
+closure was premature. The completed proof set covered semantic build, focused
+unit/integration tests, related semantic regressions, full semantic suite, and
+diff checks. It did not update the semantic compiler/evaluator pipeline, and it
+did not include a T-162-owned live or installed downstream proof that exercised
+the new requirements-algebra substrate through an ABG graph-function,
+edge-assurance, or semantic-compiler F_P review path.
+
+Current implemented surfaces:
 
 - GOAL-009 and product law ratify requirements algebra as an event-sourced
   ABG/GTL substrate.
@@ -1057,6 +1072,8 @@ T-162 implemented the first ABG/GTL requirements-algebra slice:
   event payloads, replay-derived ledger projection, edge environments,
   materialization/execution/evidence projections, fold/residual projection,
   completeness gates, query read models, and retained-compatibility wrappers.
-- Proofs passed: `build:semantic`, `lint:semantic`, `test:t162`, `test:t145`,
-  `test:t146`, `test:t149`, `test:t151`, `test:t159`, and full
-  `test:semantic`.
+- Proofs already passed before reopen: `build:semantic`, `lint:semantic`,
+  `test:t162`, `test:t145`, `test:t146`, `test:t149`, `test:t151`,
+  `test:t159`, and full `test:semantic`.
+- Closure still requires compiler/live proof work, plus harness lint, to prove
+  this is not only a semantic carrier substrate.
