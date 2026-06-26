@@ -155,6 +155,65 @@ line item in a requirements document. It is the typed decomposition term that
 connects product meaning to asset construction, assurance construction, tests,
 folds, and residuals.
 
+### Requirements As Carrier / Functor
+
+Requirements act as the carrier between product-meaning categories and
+realization categories. When the mapping laws are explicit, they are
+functor-like.
+
+```text
+C_W = WHAT category
+  objects: gap, problem, intent, product meaning, domain assets, constraints,
+           requirement claims
+  morphisms: refinement, dependency, conflict, assumption, reprice,
+             decomposition
+
+C_H = HOW category
+  objects: destination topology, instruction set, graph function, asset
+           projection, materialization target, execution state
+  morphisms: traversal, operationalization, materialization, execution,
+             continuation
+
+C_A = Assurance category
+  objects: proof expectation, oracle, evidence, evaluator finding, fold,
+           residual
+  morphisms: bind, evaluate, fold, residualize, re-enter
+```
+
+The requirements carrier maps WHAT into HOW and assurance:
+
+```text
+Req : C_W -> (C_H x C_A)
+
+Req(W_i) =
+  <span_i, asset_projection_i, assurance_projection_i, evidence_policy_i>
+
+Req(f : W_i -> W_j) =
+  <projection_dependency_f, fold_dependency_f, residual_route_f>
+```
+
+The preservation laws are the reason this is more than traceability:
+
+```text
+identity:
+  Req(id_W) = id_Req(W)
+
+composition:
+  Req(g o f) = Req(g) o Req(f)
+
+decomposition:
+  Req(decompose_W(A_P)) composes back to A(P.asset, P.assurance)
+
+residual conservation:
+  if Req cannot preserve a morphism, it must emit residual or re-entry pressure
+  at the owning stage instead of silently dropping the signal
+```
+
+This is the theoretical role of requirements in multi-stage computation. They
+carry the `A -> Z` signal through finite graph-function steps. A requirement is
+lawful only when its mapping into HOW and assurance preserves, folds, or
+explicitly residualizes the relevant WHAT relation.
+
 ## Context And Constraint Staging
 
 Context is not one flat prompt. Constraints can enter at different stages and
@@ -174,11 +233,14 @@ The HOW chain is:
 HOW({ Destination Topology }.InstructionSet)
 ```
 
-`DestinationTopology` is the HOW framework topology. In this repo family it is
-represented by `build_tenants/`: the selected tenant family, variant, shared
-tenant law, source roots, test roots, package/runtime framework, materialization
-policy, and release posture. Different frameworks for HOW are different
-destination topologies over the same constitutional WHAT.
+`DestinationTopology` is the introduced constraint framework that the incoming
+WHAT signal must conform into during HOW. It can be a technology stack, runtime
+model, packaging model, work-surface topology, deployment topology, proof
+topology, regulatory framework, tenant framework, or any other realization
+frame. In this repo family, `build_tenants/` is the concrete representation for
+technology-stack destination topology: tenant family, variant, shared tenant
+law, roots, package/runtime framework, materialization policy, and release
+posture. The general concept is not limited to build tenants.
 
 Notation:
 
@@ -192,16 +254,18 @@ Req.what* = decompose_W(A_P, C_gap, C_problem, C_solution,
                         C_intent, C_product, C_requirement)
 
 DestinationTopology =
-  BuildTenantTopology(family, variant, shared_law, roots, framework,
-                      materialization_policy, release_posture)
+  ConstraintTopology(kind, framework, roots, policies, admissible_operations,
+                     materialization_rules, proof_rules, release_posture)
 
 H = DestinationTopology . InstructionSet
 P = W.H
 ```
 
-`DestinationTopology` declares the realization framework in which HOW is allowed
-to operate. It names the target shape of the work surface, source tree, runtime
-state, release cut, proof surface, and tenant-local realization policy.
+`DestinationTopology` declares the constraint framework in which HOW is allowed
+to operate. It names the target topology and conformance law for the work
+surface, source tree, runtime state, release cut, proof surface, deployment
+shape, regulatory frame, tenant-local realization policy, or other introduced
+HOW framework.
 `InstructionSet` is the GTL graph-function program that moves the current state
 toward that topology.
 
@@ -215,7 +279,7 @@ The stage matters:
 | Intent | Why this product exists and what direction it serves. | Reprice product definition or requirements. |
 | Product | What product shape, domain assets, and proof surfaces are in scope. | Reprice requirements and destination topology. |
 | Requirements | What decomposed WHAT pressure must be carried. | Add, refine, split, or residualize `Req.what`. |
-| Destination topology | Which build-tenant/framework topology HOW must construct within. | Reframe selected tenant, framework roots, graph-function target, and materialization policy. |
+| Destination topology | Which introduced constraint framework HOW must conform into. | Reframe selected topology, framework roots or surface boundaries, graph-function target, and materialization/proof policy. |
 | Instruction set | What operations are lawful for the traversal. | Change GTL graph functions, schedules, tools, or worker roles. |
 | Runtime/evidence | What happened during realization. | Fold, residualize, retry, or route re-entry to the owning stage. |
 
@@ -506,7 +570,7 @@ interface AuthorityContextFragment {
     | "narrows_solution_space"
     | "defines_product_meaning"
     | "decomposes_requirement_pressure"
-    | "selects_build_tenant_topology"
+    | "selects_destination_topology"
     | "constrains_destination_topology"
     | "constrains_instruction_set"
     | "constrains_evidence"
@@ -1468,9 +1532,10 @@ context_routing_coverage
   policy, span, and routing outcome before it can affect a fold
 
 destination_topology_coverage
-  every HOW projection declares selected build tenant/framework topology,
-  roots, materialization policy, release posture, and instruction set before
-  materialization or execution targets can be admitted
+  every HOW projection declares selected destination topology, framework,
+  roots or surface boundaries, materialization/proof policy, release posture,
+  and instruction set before materialization or execution targets can be
+  admitted
 
 fold_attenuation_coverage
   every retry attempt classifies residual transition
@@ -1974,8 +2039,8 @@ First slice should be small and ABG-owned.
      without scalar edge success erasing open assurance residuals;
    - a HOW instruction-set constraint can reframe instruction policy without
      silently changing WHAT;
-   - a destination-topology constraint selects or reframes the build tenant and
-     framework roots before materialization targets are projected;
+   - a destination-topology constraint selects or reframes the introduced HOW
+     constraint framework before materialization targets are projected;
    - a product-stage constraint that changes meaning routes to product reprice
      rather than local materialization compensation;
    - a runtime constraint routes to residual, obstacle, or owning-stage
