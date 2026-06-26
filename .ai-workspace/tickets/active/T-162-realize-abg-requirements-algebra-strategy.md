@@ -2,7 +2,7 @@
 id: T-162
 title: Realize ABG requirements algebra strategy
 type: feature
-ticket_category: requirements_algebra
+ticket_category: ordinary
 status: active
 goal: >-
   Implement the ABG-owned requirements algebra from the strategy post as one
@@ -12,8 +12,8 @@ goal: >-
   folds, residuals, attenuation, assurance-case read models, completeness
   gates, workflow graph functions, query functions, and migration bridges. The
   implementation must make obligation, materialization, evidence, fold,
-  residual, and re-entry ledgers projections from admitted requirement carriers
-  rather than peer local ledgers.
+  residual, and re-entry ledgers projections from an event-sourced requirement
+  ledger read model rather than peer local ledgers.
 change_intent: >-
   Ratify and realize requirements as the typed carrier that preserves WHAT
   pressure through finite GTL/ABG graph-function traversal. A requirement is
@@ -42,6 +42,20 @@ single_ticket_rule: >-
   described by the strategy post. Do not split the strategy into sibling
   implementation tickets unless the operator explicitly reprices the work. Use
   the internal coverage matrix and checklist in this ticket for sequencing.
+first_slice_scope: >-
+  T-162 closes only the additive ABG/GTL requirements-algebra substrate. It
+  does not require downstream products to delete existing local ledgers in this
+  slice. Existing obligation refs and residual-pressure refs may remain as
+  retained compatibility inputs only when they are wrapped into requirement
+  projection refs, do not own closure, and cannot outrank the event-sourced
+  requirements-algebra projection.
+re_entry_guard: >-
+  The initial re-entry is product_reprice because INTENT already places GTL/ABG
+  as the graph-native language/runtime and ABG as event/projection/fold owner.
+  Required Work item 1 must still review INTENT before editing product law; if
+  KAOS-derived goal semantics, destination-topology law, assurance-case
+  projection, or odd_glc boundary cannot be derived from INTENT, the ticket must
+  be repriced to intent_reprice before implementation work continues.
 intake_source: >-
   Operator asked for one ticket to implement the requirements algebra from
   `.ai-workspace/comments/codex/20260626T011328Z_STRATEGY_requirements_algebra_edge_spans.md`.
@@ -113,12 +127,16 @@ target_truth: >-
   represented by admitted carriers with stable identity, source provenance,
   typed relations, traversal spans, active edge environments, obligations,
   projections, evidence bindings, folds, residuals, attenuation, and assurance
-  read models. Existing obligation refs and residual pressure refs become
-  projections from the requirements ledger. Product-specific meaning enters
-  through context fragments, product-authored requirement terms, graph-function
-  refs, evidence refs, F_P findings, F_H decisions, and plugins; it does not
-  become ABG-local parsing of unknown product syntax. The implementation is
-  preceded by a design-module-method-complete design that names the GTL
+  read models. The requirements ledger is a replay-derived projection over
+  admitted requirement events; it is not an independent writable truth root.
+  Existing obligation refs and residual pressure refs become compatibility
+  inputs wrapped as requirement projection refs in this first slice, while any
+  later deletion or demotion of downstream local ledgers is successor migration
+  work. Product-specific meaning enters through context fragments,
+  product-authored requirement terms, graph-function refs, evidence refs, F_P
+  findings, F_H decisions, and plugins; it does not become ABG-local parsing of
+  unknown product syntax. The implementation is preceded by a
+  design-module-method-complete design that names the GTL
   extensions, ABG extensions, module decomposition, feature checklists,
   Irreducible Architectural Carrier Set, subordinate payload register,
   structural carrier diagram, and design-method review outcome.
@@ -150,7 +168,10 @@ closure_law: >-
   attenuation coverage; and query/read models expose active requirements,
   obligations, materialization targets, execution schedules, evidence, folds,
   residuals, attenuation, and assurance claims without downstream archive
-  parsing. F_D must be a total function over admitted requirements-algebra
+  parsing. Requirement folds, residuals, and re-entry pressure must be
+  projections over existing ABG event, assurance fold, continuation, and
+  evaluate-next truth, not rival closure or controller surfaces. F_D must be a
+  total function over admitted requirements-algebra
   states: malformed, incomplete, stale, contradictory, ambiguous,
   semantically-unassessed, F_P-rejected, F_P-inconclusive, and F_H-required
   states must all map to explicit typed outcomes rather than exceptions,
@@ -160,12 +181,37 @@ closure_law: >-
   before deterministic evaluation. Code closure is not admissible until the
   design passes `DESIGN_MODULE_METHOD.md` review for authority seam closure,
   essential carrier consolidation, enforcement after proof, ingress collapse,
-  Prime Law, IACS, subordinate payload discipline, promotion tests, and
-  module-bounded structural carrier diagrams.
+  Prime Law, IACS, subordinate payload discipline, promotion tests, ODD
+  execution-authority audit, and module-bounded structural carrier diagrams.
+evaluation_criteria:
+  - The ticket progresses when the GOALS/INTENT/PRODUCT re-entry decision is
+    recorded and product/requirements law establishes requirements algebra as
+    an event-sourced ABG/GTL substrate.
+  - The ticket progresses when the M03 design artifacts resolve ledger
+    event-sourcing, fold/residual status mapping to existing ABG assurance and
+    continuation truth, recursive/zoom span identity, IACS consolidation,
+    slice-1 blocking gaps, and retained compatibility boundaries.
+  - The ticket progresses when implementation is limited to the IACS-approved
+    first-slice carriers, admissions, projections, F_D totality outcomes, query
+    surfaces, and compatibility wrappers.
+  - The ticket progresses when tests prove the first-slice worked trace and
+    T-204-derived generic projection/fold fixtures without requiring odd_sdlc or
+    odd_glc migration.
+  - The ticket is complete only when all proof commands pass and the query
+    surface can answer the target-state edge questions from admitted events and
+    replay-derived requirement projections.
 non_closure_conditions:
   - The work only adds strategy prose, comments, or ticket text.
   - Requirements remain flat strings without stable ids, source refs, spans, and typed relations.
-  - Obligation/materialization/evidence/fold/residual ledgers remain peer ledgers rather than projections from requirement terms.
+  - Obligation/materialization/evidence/fold/residual ledgers remain
+    authoritative peer ledgers for new closure truth rather than retained
+    compatibility inputs or replay-derived projections from requirement events.
+  - The requirements ledger is implemented or designed as an independent
+    writable truth root rather than a projection over admitted requirement
+    events.
+  - RequirementFold, RequirementResidual, or re-entry pressure becomes a rival
+    closure, continuation, retry, or evaluate-next surface instead of a
+    projection over existing ABG truth.
   - F_D infers product semantic satisfaction from unknown syntax or path shape.
   - Unknown or unclassified state is admitted into F_D instead of rejected,
     structurally classified, or routed to typed F_P/F_H pressure.
@@ -196,6 +242,15 @@ proof_commands:
   - cd build_tenants/abiogenesis/typescript && npm run test:t151
   - cd build_tenants/abiogenesis/typescript && npm run test:t159
   - cd build_tenants/abiogenesis/typescript && npm run test:semantic
+proof_surface:
+  - specification/PRODUCT.md
+  - specification/GOALS.md
+  - specification/requirements/abg/REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md
+  - build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_DERIVATION.md
+  - build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_FIRST_SLICE_IACS.md
+  - build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md
+  - build_tenants/abiogenesis/typescript/design/M03_REQUIREMENTS_ALGEBRA_DESIGN_MODULE_REVIEW.md
+  - build_tenants/abiogenesis/typescript/test_env/tests/test_t162_requirements_algebra.test.mjs
 ---
 
 # T-162: Realize ABG Requirements Algebra Strategy
@@ -246,6 +301,12 @@ requirements ledger
   -> residual/re-entry projection
 ```
 
+`RequirementLedger` is a replay-derived projection over admitted requirement
+events. It is not a second writable event store, a side ledger, or a rival ABG
+runtime truth root. Folds, residuals, attenuation, and re-entry pressure are
+requirement-scoped projections over ABG event, assurance fold, continuation, and
+evaluate-next truth.
+
 Requirements are the carrier preserving finite computation from `A -> Z`:
 
 ```text
@@ -269,27 +330,27 @@ bridge, or explicit downstream boundary.
 
 | Strategy area | T-162 treatment |
 | --- | --- |
-| Claim and existing ABG direction | Implement requirements ledger as the owner of obligation, materialization, evidence, fold, residual, and re-entry projections. |
+| Claim and existing ABG direction | Implement requirements ledger as the event-sourced read model that projects obligation, materialization, evidence, fold, residual, and re-entry pressure. |
 | Layering | Keep ODD methodology, KAOS rigor, GTL wrapper language, and ABG algebra distinct. ABG/GTL owns the substrate; downstream frameworks consume it. |
 | Product composition | Model `P = W.H`, `P = W(W.H)`, and `A(P.asset, P.assurance)` decomposition through `Req.what`, spans, asset projection, assurance projection, fold, and residual. |
-| Requirements as carrier/functor | Preserve WHAT morphisms into HOW and assurance or emit residual/re-entry pressure when preservation fails. |
+| Requirements as carrier/lax mapping | Preserve WHAT morphisms into HOW and assurance or emit residual/re-entry pressure when preservation fails. |
 | Context and constraint staging | Admit homeostatic-gap, problem, solution-space, intent, product, requirements, destination-topology, instruction-set, runtime, and assurance fragments with stage-specific routing. |
 | Destination topology | Add first-class HOW constraint framework declarations rather than treating build tenants or technology stacks as ad hoc local convention. |
 | Graph functions replace SDLC flow | Treat graph-function traversal, edge environments, folds, residuals, and read models as the lifecycle carrier; phase documents are projections. |
-| KAOS additive rigor | Keep goal types, refinement, assumptions, obstacles, conflicts, agents, operations, domain objects, soft-goal contributions, and completeness metrics as typed ABG/GTL terms. |
+| KAOS additive rigor | Keep the semantic kernel available as typed relations or subordinate/deferred payloads; promote goal/refinement/assumption/obstacle/conflict/agent/operation/domain-object carriers only when IACS proves they are first-slice prime. |
 | External lessons | Incorporate stable ids and relations from requirements tools, assurance-case projection from GSN/SACM/CAE, step-wise supervision, compressed constitutional fragments, attempt history, and attenuation metrics. |
 | Reviewed KAOS implementations | Steal the semantic kernel, not the GUI/editor workflow; DOT/diagram output is read-model only. |
 | Two authority categories | Keep `AuthorityContextFragment` separate from closeable `RequirementTerm`. |
-| Algebraic requirements | Implement recursive requirement terms, relations, spans, projections, evidence bindings, folds, residuals, and attenuation. |
+| Algebraic requirements | Implement the first-slice algebraic terms, relations, spans, projections, evidence bindings, fold projections, residual projections, and attenuation needed by the worked trace. |
 | Edge requirement environment | Build edge-local environments from staged context, active spans, prior folds, carried residuals, and projected obligations. |
-| Requirement ledger domain model | Own durable identity, imports, context fragments, requirements, relations, projections, evidence bindings, folds, and residuals. |
+| Requirement ledger domain model | Project durable identity, imports, context fragments, requirements, relations, projections, evidence bindings, folds, and residuals from admitted requirement events. |
 | Requirement relationship to test | Preserve asset projection, test-source projection, test-execution projection, and test-interpretation projection as separate fold surfaces. |
-| Core functions | Implement the deterministic API set over admitted carriers. |
+| Core functions | Implement the deterministic API set required by the first-slice worked trace over admitted carriers. |
 | Cohesive capability modules | Cover identity, context, model, span, projection, fold, assurance, metrics, and interop boundaries. |
 | Native graph functions | Expose the requirements capability as replayable ABG graph functions over the algebraic kernel. |
-| Capability workflows | Cover intake/identity, goal construction, analysis, responsibility/operationalization, runtime projection, evidence fold, assurance, and query. |
-| Completeness gates | Add deterministic gates for refinement, assignment, assumption monitoring, obstacles, conflicts, operationalization, test relations, operation-agent coverage, span coverage, evidence policy, context routing, destination topology, and attenuation. |
-| Workflow 1-7 | Implement author pressure, build edge environment, project obligations, project materialization/execution targets, bind evidence, fold requirement state, and replay/retry/re-entry. |
+| Capability workflows | Cover first-slice intake/identity, runtime projection, evidence fold, assurance, and query; classify goal construction, analysis, responsibility, and operationalization as first-slice gates or deferred successor work. |
+| Completeness gates | Add first-slice deterministic gates for span, evidence-policy, context-routing, destination-topology, test-relation, and attenuation coverage; classify broader refinement/assignment/assumption/obstacle/conflict/operationalization/operation-agent gates before implementation. |
+| Workflow 1-7 | Implement the worked-trace workflow: author pressure, build edge environment, project obligations, bind evidence, project fold/residual/attenuation, and query; keep retry/re-entry authority projected from existing ABG truth. |
 | T-204 interpretation | Convert the six observed failure patterns into generic requirement-projection/fold regression fixtures, not downstream-specific closure work. |
 | F_D/F_P boundary | Keep deterministic checks on envelopes, ids, spans, policies, evidence, and replay; leave semantic source/design/test satisfaction to F_P and product-owner decisions to F_H. |
 | Product boundary | ABG/GTL owns carriers, spans, environments, folds, replay, residual law, query, and GTL typecheck support; products own domain terms and domain evidence interpretation. |
@@ -298,12 +359,45 @@ bridge, or explicit downstream boundary.
 | Minimal implementation slice | Implement first slice and define compatibility hooks for second/third/fourth slices without opening new sibling tickets. |
 | Target state | ABG can answer the strategy's edge questions from admitted carriers and replay truth. |
 
+## First-Slice Boundary
+
+T-162 is additive. It creates the ABG/GTL requirements-algebra substrate and
+retained-compatibility wrappers. It does not close downstream migration from
+local product ledgers to the new substrate.
+
+Slice-1 blocking decisions:
+
+- requirement ledger as event-sourced projection, not writable truth root;
+- `RequirementFold` and `RequirementResidual` as projections over existing ABG
+  assurance, continuation, and evaluate-next truth;
+- stable `TraversalSpan` identity across graph function, graph vector,
+  recursive frame, zoom, and foldback boundaries;
+- closed-world total F_D outcomes over admitted algebraic states;
+- compatibility wrapping of existing obligation and residual refs without
+  preserving them as closure authorities;
+- one worked trace from GTL requirement declaration through edge environment,
+  obligation projection, evidence binding, fold projection, residual/attenuation,
+  and query.
+
+Deferred beyond slice 1 unless the IACS gate promotes them:
+
+- full KAOS goal-model authoring UI or graph editor behavior;
+- ReqIF, GRL, GSN, SACM, CAE import/export;
+- product-specific materialization policy migration;
+- odd_glc lifecycle framework semantics;
+- downstream odd_sdlc ledger deletion or migration;
+- rich obstacle/conflict/agent/operation taxonomy beyond the first-slice
+  structural relation payloads required by tests.
+
 ## Embedded Detailed Design Requirement
 
 T-162 must embed a detailed design before implementation. The embedded design is
 not only a list of files to create; it is a closure gate. The design must be
 reviewable under `DESIGN_MODULE_METHOD.md` and must preserve ODD/GTL/ABG
 boundaries.
+
+This embedded section is a checklist for the required M03 design artifacts. It
+does not replace those artifacts as the normative design surface.
 
 ### GTL Extension Design
 
@@ -313,7 +407,7 @@ requirements language beside GTL.
 
 Required GTL extension surfaces:
 
-- `RequirementGraph` declaration surface inside a `Module`.
+- requirement declaration surfaces inside a GTL `Module`.
 - `RequirementTerm` declaration surface for goals, atoms, assumptions,
   soft-goals, obstacles, conflicts, agents, operations, domain objects, and
   requirement test relations.
@@ -367,6 +461,8 @@ ABG capability modules:
 
 - `abg.requirements.identity`: stable ids, aliases, import refs, source
   digests, versioning, supersession, relation ids.
+- `abg.requirements.events`: emitted requirement-event payloads that are the
+  only write path for requirement-algebra truth.
 - `abg.requirements.context`: staged authority fragments, compression refs,
   promotion policy, routing outcome, context coverage.
 - `abg.requirements.model`: goals, requirements, assumptions, soft goals,
@@ -378,7 +474,7 @@ ABG capability modules:
   projection, evidence expectations.
 - `abg.requirements.fold`: evidence binding, F_D envelope findings, F_P
   semantic findings, F_H decisions, folds, residuals, attenuation, replay
-  precedence.
+  precedence, and status mapping to existing ABG assurance/continuation truth.
 - `abg.requirements.assurance`: claim/strategy/evidence/context projection over
   folds and residuals.
 - `abg.requirements.metrics`: model completeness, complexity, coverage,
@@ -388,9 +484,12 @@ ABG capability modules:
 
 ABG feature checklist:
 
-- [ ] Admit requirement ledgers and fail closed on open objects, unknown fields,
-      duplicate ids, dangling relation refs, invalid spans, invalid stage
-      routing, and authority-smuggling fields.
+- [ ] Admit requirement-event payloads and requirement projection inputs, then
+      fail closed on open objects, unknown fields, duplicate ids, dangling
+      relation refs, invalid spans, invalid stage routing, and
+      authority-smuggling fields.
+- [ ] Derive `RequirementLedger` from emitted requirement events; no independent
+      writable requirement ledger is admitted.
 - [ ] Build `EdgeRequirementEnvironment` from staged context, active spans,
       prior folds, carried residuals, and edge obligations.
 - [ ] Project materialization targets from active obligations, not separate
@@ -401,6 +500,8 @@ ABG feature checklist:
       evidence binding into closure.
 - [ ] Fold requirement state into satisfied, partial, blocked, deferred,
       repriced, or no-close-preserved states.
+- [ ] Map every requirement fold/residual state to existing ABG assurance,
+      continuation, and evaluate-next truth before introducing a public carrier.
 - [ ] Preserve residual pressure with remaining span and pressure class.
 - [ ] Classify attenuation as unchanged, narrowed, transformed,
       moved-to-prerequisite, escalated, or cleared.
@@ -452,6 +553,27 @@ No F_D branch may return implicit success for an unrecognized state. Unknown
 content is managed by routing to `semantic_assessment_required`, not by
 deterministic semantic inference.
 
+### Fold And Residual Projection Mapping
+
+`RequirementFold` and `RequirementResidual` are requirement-scoped projection
+carriers. They do not own closure, retry, continuation, re-entry, or
+evaluate-next authority.
+
+The design must include a status mapping table before any fold/residual carrier
+is implemented. The minimum admissible mapping is:
+
+| Requirement projection state | Source ABG truth | Closure authority |
+| --- | --- | --- |
+| `satisfied` | Existing ABG assurance fold admits the scoped requirement projection as fulfilled under current authority. | May contribute to ABG close only through the existing assurance fold. |
+| `partial` | Existing ABG assurance/continuation truth shows at least one scoped projection satisfied and at least one scoped projection still open. | Non-closing; must carry residual or continuation refs. |
+| `blocked` | Existing ABG closure/evaluate-next truth selects block or blocked prerequisite pressure. | Non-closing; ABG block/evaluate-next remains authoritative. |
+| `deferred` | Existing ABG qualified-defer, yield, or continuation truth preserves pressure outside the current bounded step. | Non-closing; ABG continuation remains authoritative. |
+| `repriced` | Existing ABG or F_H-admitted reprice truth names the owning re-entry surface. | Non-closing; product/intent/requirement reprice remains authoritative. |
+| `no_close_preserved` | Existing ABG assurance fold rejects closure while preserving admitted evidence or context. | Non-closing; residual pressure remains queryable. |
+
+The table may be refined in design, but it may not introduce a second closure
+decision family or a second retry/re-entry controller.
+
 ### Module Decomposition
 
 The design module must decompose the work into module boundaries that are
@@ -460,6 +582,8 @@ deterministic controllers.
 
 Required module boundaries:
 
+- `abg.requirements.events`: requirement-event payload declarations that feed
+  ABG event emission and replay.
 - `gtl.requirements.declarations`: GTL declaration carriers and module
   publication integration.
 - `gtl.requirements.conformance`: GTL program typecheck/conformance rules for
@@ -500,30 +624,32 @@ register for both GTL and ABG.
 
 Candidate GTL IACS to validate or consolidate:
 
-- `RequirementGraphDeclaration`
 - `RequirementTermDeclaration`
 - `RequirementRelationDeclaration`
 - `TraversalSpanDeclaration`
 - `AuthorityContextFragmentDeclaration`
 - `DestinationTopologyDeclaration`
-- `RequirementOperationDeclaration`
 - `RequirementTestRelationDeclaration`
 
 Candidate ABG IACS to validate or consolidate:
 
-- `RequirementLedger`
-- `AuthorityContextFragment`
+- `RequirementEventPayload`
 - `RequirementTerm`
 - `RequirementRelation`
 - `TraversalSpan`
-- `DestinationTopology`
 - `EdgeRequirementEnvironment`
 - `RequirementProjection`
 - `RequirementEvidenceBinding`
-- `RequirementFold`
-- `RequirementResidual`
+- `RequirementFoldProjection`
+- `RequirementResidualProjection`
 - `RequirementAssuranceClaim`
-- `RequirementCompletenessReport`
+
+`RequirementLedger`, `RequirementGraph`, `RequirementGraphState`,
+`RequirementGoal`, `RequirementAssumption`, `RequirementSoftGoal`,
+`RequirementAgent`, `RequirementOperation`, `RequirementDomainObject`,
+`DestinationTopology`, and `RequirementCompletenessReport` must begin as
+projection, subordinate payload, or deferred families unless the IACS document
+promotes them with explicit Promotion Test justification.
 
 The design-method review must classify every other proposed shape as one of:
 
@@ -562,13 +688,20 @@ closure. It must explicitly evaluate:
 - ODD Alignment: module boundaries remain realization cuts beneath graph
   functions; they do not own traversal selection, target movement, closure,
   continuation, or semantic product meaning.
+- ODD Execution-Authority Audit: traversal selection, event emission, replay,
+  projection, assurance fold, retry, continuation, and re-entry remain ABG-owned
+  or are explicitly justified as ABG core changes under `ODD_METHOD.md` 11.5B.
 
 ## Required Work
 
 1. Product and requirements reprice
+   - Review `specification/INTENT.md` and record whether the work remains a
+     product reprice or must be repriced to intent reprice before implementation.
+   - Reprice `specification/GOALS.md` with a current requirements-algebra wave
+     or record why the active goal surface already authorizes the wave.
    - Ratify in `PRODUCT.md` that ABG/GTL core owns requirement algebra as the
-     substrate for obligation, evidence, fold, residual, and assurance
-     projections.
+     event-sourced substrate for obligation, evidence, fold, residual, and
+     assurance projections.
    - Ratify the `P = W.H`, `P = W(W.H)`, and `A(P.asset, P.assurance)` framing
      only to the degree needed to define requirements as the carrier between
      WHAT, HOW, and assurance.
@@ -605,6 +738,18 @@ closure. It must explicitly evaluate:
    - Define how existing edge assurance, evaluation-set, stage-set,
      continuation, payload, and traversal-unit law consume or project the new
      requirement carriers without replacing them abruptly.
+   - Define `RequirementLedger` as a replay-derived projection over emitted
+     requirement events, not as a writable truth root.
+   - Include a worked trace from GTL requirement declaration through edge
+     environment, obligation projection, evidence binding, fold projection,
+     residual/attenuation, and query.
+   - Include the fold/residual status mapping table to existing ABG assurance,
+     continuation, and evaluate-next truth before any fold carrier is
+     implemented.
+   - Resolve recursive and zoomed `TraversalSpan` identity across graph
+     functions, internal graph vectors, child frames, foldback, and aliases.
+   - Partition the fourteen strategy gaps into slice-1-blocking,
+     first-slice-gate, retained-compatibility, and deferred-successor work.
    - Address the fourteen strategy gaps: span identity, fragment compression
      policy, requirement identity/versioning, refinement semantics, projection
      ownership, replay precedence, residual attenuation, edge-assurance
@@ -613,20 +758,23 @@ closure. It must explicitly evaluate:
      operationalization boundary.
 
 3. Core carriers and admission
+   - Add requirement-event payloads that can be emitted through ABG event truth
+     and replayed into requirement projections.
    - Add `AuthorityContextFragment` staging fields: origin stage, constraint
      scope, promotion policy, applies-to refs, and routing outcome.
    - Add `TraversalSpan` and `covers(span, edge)`.
-   - Add `RequirementTerm` variants for atom, composition, refinement,
-     dependency, assumption, obstacle, conflict, mitigation, agent assignment,
-     operationalization, projection, test relation, evidence binding, fold, and
-     residual.
+   - Add first-slice `RequirementTerm` variants only for the IACS-approved
+     carrier set: atom/composition, relation refs, projection refs, test
+     relation refs, evidence binding refs, fold projection refs, and residual
+     projection refs.
    - Add `RequirementRelation`, `RequirementAttribute`, and
      `RequirementImportRef` for stable identity, source metadata, aliases, and
      typed relations.
-   - Add `RequirementGoal`, `RequirementAssumption`, `RequirementSoftGoal`,
+   - Keep `RequirementGoal`, `RequirementAssumption`, `RequirementSoftGoal`,
      `RequirementAgent`, `RequirementOperation`, `RequirementDomainObject`,
-     `RequirementGraph`, and `RequirementGraphState` or their admitted
-     first-slice equivalents.
+     `RequirementGraph`, `RequirementGraphState`, `DestinationTopology`, and
+     `RequirementCompletenessReport` subordinate or deferred unless the IACS
+     gate promotes them with explicit Promotion Test justification.
    - Add admission for all first-slice carriers. Unknown fields must fail
      closed.
    - Add total F_D outcome carriers for admitted-valid, rejected-malformed,
@@ -636,7 +784,8 @@ closure. It must explicitly evaluate:
      non-closing-preserved states.
 
 4. Edge environment and projection functions
-   - Add `RequirementLedger`.
+   - Add `RequirementLedger` as a replay-derived projection/read model over
+     admitted requirement events.
    - Add `EdgeRequirementEnvironment`.
    - Add `activeRequirements(ledger, edge)`.
    - Add `buildEdgeRequirementEnvironment(ledger, edge, priorEvents)`.
@@ -674,29 +823,33 @@ closure. It must explicitly evaluate:
      making ReqIF native authority.
 
 7. Completeness gates and metrics
-   - Add deterministic gates for `goal_refinement_coverage`.
-   - Add deterministic gates for `leaf_assignment_coverage`.
-   - Add deterministic gates for `assumption_monitoring_coverage`.
-   - Add deterministic gates for `obstacle_resolution_coverage`.
-   - Add deterministic gates for `conflict_resolution_coverage`.
-   - Add deterministic gates for `operationalization_coverage`.
-   - Add deterministic gates for `test_relation_coverage`.
-   - Add deterministic gates for `operation_agent_coverage`.
-   - Add deterministic gates for `span_coverage`.
-   - Add deterministic gates for `evidence_policy_coverage`.
-   - Add deterministic gates for `context_routing_coverage`.
-   - Add deterministic gates for `destination_topology_coverage`.
-   - Add deterministic gates for `fold_attenuation_coverage`.
+   - Classify deterministic gates as first-slice implementation, first-slice
+     design-only, or deferred-successor work before writing gate code.
+   - Add first-slice deterministic gates for `span_coverage`,
+     `evidence_policy_coverage`, `context_routing_coverage`,
+     `destination_topology_coverage`, `test_relation_coverage`, and
+     `fold_attenuation_coverage`.
+   - Keep `goal_refinement_coverage`, `leaf_assignment_coverage`,
+     `assumption_monitoring_coverage`, `obstacle_resolution_coverage`,
+     `conflict_resolution_coverage`, `operationalization_coverage`, and
+     `operation_agent_coverage` design-only or deferred unless the IACS and
+     first-slice tests promote them.
+   - Ensure obstacle and conflict gates are F_D-only over already-admitted
+     obstacles/conflicts; F_P owns plausibility/admission of ambiguous obstacles
+     and conflicts.
 
 8. Native ABG requirements graph functions
-   - Add or expose graph-function surfaces for context ingestion, context
-     promotion/routing, requirement graph derivation, goal refinement, obstacle
-     analysis, conflict analysis, responsibility assignment,
-     operationalization, test-relation derivation, edge-environment
-     compilation, edge-obligation projection, evidence binding,
-     requirement-state fold, assurance-case projection, and model measurement.
-   - Each function must be independently replayable and operate over admitted
-     carriers.
+   - Add or expose the first-slice graph-function surfaces required for the
+     worked trace: context ingestion/routing, requirement declaration admission,
+     edge-environment compilation, edge-obligation projection, evidence binding,
+     requirement fold projection, residual/attenuation projection, assurance
+     read-model projection, and query.
+   - Catalog broader goal refinement, obstacle analysis, conflict analysis,
+     responsibility assignment, operationalization, and model measurement as
+     deferred graph functions unless the IACS and first-slice tests promote
+     them.
+   - Each first-slice function must be independently replayable and operate over
+     admitted carriers.
 
 9. Strategy-derived materialization and postflight regression fixtures
    - Prove stronger active role policy wins when two authorities address the
@@ -719,6 +872,9 @@ closure. It must explicitly evaluate:
    - Define the migration path for product-local materialization/postflight
      joins onto requirement projections without making a downstream product a
      T-162 proof dependency.
+   - State that deleting or demoting downstream product-local peer ledgers is
+     successor migration work, not T-162 closure, unless the operator explicitly
+     reprices the ticket.
    - Define the gate by which odd_glc may later consume the admitted GTL/ABG
      requirements algebra, without implementing odd_glc in this ticket.
 
@@ -760,16 +916,22 @@ closure. It must explicitly evaluate:
      evaluation.
    - Prove read models expose folds, residuals, attenuation, and assurance
      claims without losing stable ids.
+   - Prove every new `REQ-R-ABG3-REQUIREMENTS-ALGEBRA` clause has a testcase
+     authority ref or an explicit deferred-successor rationale.
 
 ## Acceptance Criteria
 
 - [ ] Product law states that ABG/GTL core owns requirement algebra as the
-      substrate for obligation, evidence, fold, residual, and assurance
+      event-sourced substrate for obligation, evidence, fold, residual, and assurance
       projections.
+- [ ] INTENT and GOALS re-entry are resolved before implementation starts.
 - [ ] Requirements define stable requirement identity, source provenance,
       traversal spans, staged context fragments, KAOS-inspired typed relations,
       edge environments, evidence bindings, folds, residuals, attenuation, and
       query/read models.
+- [ ] Requirements state that `RequirementLedger` is a replay-derived projection
+      over admitted requirement events and not an independent writable truth
+      root.
 - [ ] Requirements define the context staging chain from homeostatic gap through
       runtime/evidence, and destination topology as a HOW constraint framework
       distinct from WHAT requirements.
@@ -784,37 +946,49 @@ closure. It must explicitly evaluate:
 - [ ] `M03_REQUIREMENTS_ALGEBRA_DESIGN_MODULE_REVIEW.md` applies
       `DESIGN_MODULE_METHOD.md` and passes authority seam closure, essential
       carrier consolidation, enforcement after proof, ingress collapse, Prime
-      Law, structural carrier diagram, and ODD alignment review.
-- [ ] Design addresses all fourteen strategy gaps with either first-slice
-      implementation, explicit deterministic gate, or deferred downstream
-      boundary.
-- [ ] TypeScript carriers and admission cover `TraversalSpan`,
+      Law, structural carrier diagram, ODD alignment review, and ODD
+      execution-authority audit.
+- [ ] Design addresses all fourteen strategy gaps by classifying each as
+      slice-1-blocking, first-slice-gate, retained-compatibility, or
+      deferred-successor work.
+- [ ] Design includes a worked trace from GTL requirement declaration through
+      edge environment, obligation projection, evidence binding, fold
+      projection, residual/attenuation, and query.
+- [ ] Design includes an explicit status-mapping table from requirement
+      fold/residual projection states to existing ABG assurance, continuation,
+      and evaluate-next truth.
+- [ ] TypeScript carriers and admission cover the IACS-approved first-slice
+      carrier set, including requirement-event payloads, `TraversalSpan`,
       `RequirementTerm`, `RequirementRelation`, `RequirementProjection`,
       `EdgeRequirementEnvironment`, `RequirementEvidenceBinding`,
-      `RequirementTestRelation`, `RequirementFold`, `RequirementResidual`, and
-      `RequirementAssuranceClaim`.
-- [ ] TypeScript carriers and admission cover goal types, assumptions,
-      soft-goal contributions, agents, operations, domain objects, requirement
-      graphs, graph states, context fragments, import refs, attributes, and
-      stable relation ids.
+      `RequirementTestRelation`, requirement fold projection, requirement
+      residual projection, and `RequirementAssuranceClaim` when promoted by
+      design.
+- [ ] Goal types, assumptions, soft-goal contributions, agents, operations,
+      domain objects, requirement graphs, graph states, destination topology,
+      import refs, attributes, and stable relation ids are either represented as
+      IACS-approved carriers, subordinate payloads, projections, or deferred
+      successor work before implementation closes.
 - [ ] `activeRequirements`, `buildEdgeRequirementEnvironment`,
       `projectRequirements`, `projectMaterializationTargets`,
       `routeContextConstraint`, `foldRequirementEvidence`,
       `residualizeRequirementFolds`, `classifyRequirementAttenuation`, and
       `projectAssuranceCase` are implemented as deterministic APIs over
       admitted carriers.
-- [ ] Native requirements graph-function surfaces exist for context ingestion,
-      context routing, requirement graph derivation, refinement, obstacle and
-      conflict analysis, responsibility, operationalization, test-relation
-      derivation, edge-environment compilation, evidence binding, fold,
-      assurance projection, and model measurement.
-- [ ] Completeness gates fail closed deterministically for missing refinement,
-      assignment, assumption monitoring, obstacle resolution, conflict
-      resolution, operationalization, test relation, operation-agent binding,
+- [ ] First-slice native requirements graph-function surfaces exist for the
+      worked trace: context ingestion/routing, requirement admission,
+      edge-environment compilation, edge-obligation projection, evidence
+      binding, requirement fold projection, residual/attenuation projection,
+      assurance read-model projection, and query.
+- [ ] First-slice completeness gates fail closed deterministically for missing
       span coverage, evidence policy, context routing, destination topology,
-      and retry attenuation coverage.
+      test relation, and retry attenuation coverage; broader refinement,
+      assignment, assumption monitoring, obstacle resolution, conflict
+      resolution, operationalization, and operation-agent gates are implemented
+      only if promoted by design or explicitly deferred with rationale.
 - [ ] Existing carried obligation refs and residual pressure refs can be
-      wrapped as requirement projections without changing downstream behavior.
+      wrapped as retained compatibility requirement projections without changing
+      downstream behavior or retaining closure authority.
 - [ ] Test-source materialization, execution evidence, and semantic
       requirement assurance are distinct projections and cannot close each
       other by path shape or pass status alone.
@@ -837,6 +1011,8 @@ closure. It must explicitly evaluate:
       active authority policy, current evidence over empty replay, byproduct
       non-closing evidence, declared test-root role projection, admitted
       schedule command precedence, and partial test-source fold.
+- [ ] Obstacle and conflict gates only check structural resolution of admitted
+      obstacles/conflicts; F_P owns ambiguous plausibility and admission.
 - [ ] Target-state query can answer, for an edge, which context fragments
       constrain it, which requirement terms span it, which prior folds and
       residuals enter it, which obligations are active, which evidence was
