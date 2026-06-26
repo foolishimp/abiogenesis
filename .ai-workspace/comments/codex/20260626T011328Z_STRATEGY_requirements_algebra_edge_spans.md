@@ -120,6 +120,41 @@ then governs, interprets, and evaluates that composition as a product. This
 keeps HOW from becoming an ungoverned implementation artifact and keeps WHAT
 from becoming inert prose.
 
+Spec method starts from `WHAT -> HOW`, but ABG needs a stronger decomposition
+because the product artifact is not just produced code. The product artifact is
+an asset/assurance pair:
+
+```text
+A_P = A(P.asset, P.assurance)
+```
+
+`P.asset` is the realized domain asset, source, build output, runtime behavior,
+or released install. `P.assurance` is the admitted proof surface that the asset
+realizes the WHAT under the governing method.
+
+`A_P` cannot usually be instantiated by one compute. It must be decomposed into
+requirement WHAT terms that preserve the product meaning while HOW realizes
+each part:
+
+```text
+decompose_W(A_P) -> Req.what*
+
+Req.what_i =
+  <meaning_i, span_i, asset_projection_i, assurance_projection_i,
+   evidence_policy_i>
+
+H(Req.what_i) ->
+  <P.asset_i, P.assurance_i, Fold_i, Residual_i>
+
+fold_i(P.asset_i, P.assurance_i, Residual_i) -> A_P state
+```
+
+`Req.what` is the carrier that lets an uninstantiable product asset/assurance
+pair become graph-function work without losing the WHAT. It is not merely a
+line item in a requirements document. It is the typed decomposition term that
+connects product meaning to asset construction, assurance construction, tests,
+folds, and residuals.
+
 ## Graph Functions Replace SDLC Phase Flow
 
 Traditional SDLC is largely a human-historical process model: requirements,
@@ -407,6 +442,7 @@ type RequirementTerm =
   | RequirementAgentAssignment
   | RequirementOperationalization
   | RequirementProjection
+  | RequirementTestRelation
   | RequirementEvidenceBinding
   | RequirementFold
   | RequirementResidual;
@@ -644,6 +680,8 @@ interface RequirementRelation {
     | "mitigated_by"
     | "assigned_to"
     | "operationalized_by"
+    | "tested_by"
+    | "assured_by"
     | "evidenced_by"
     | "supersedes";
   readonly sourceRequirementId: string;
@@ -756,6 +794,68 @@ interface RequirementAssuranceClaim {
 
 This mirrors GSN/SACM/CAE without making ABG an assurance-case editor. The
 claim/evidence projection is a read model over requirement folds.
+
+### Requirement Relationship To Test
+
+Tests are not separate peer artifacts that close requirements by existing or by
+passing. Tests are assurance operations over `Req.what` and product assets.
+
+The algebra is:
+
+```text
+Req.what_i
+  -> Project(i, asset)
+  -> Project(i, assurance)
+
+Project(i, assurance)
+  -> Project(i, test_source)
+  -> Project(i, test_execution)
+  -> Project(i, test_interpretation)
+  -> Fold(i)
+```
+
+The test relation witnesses a claim about the asset:
+
+```text
+Test_i : (Req.what_i, P.asset_i, oracle_i) -> Evidence_i
+Bind(Evidence_i, Project(i, assurance)) -> Fold_i
+```
+
+`test_source` is itself an asset projection: source material that encodes the
+intended observation. `test_execution` is runtime evidence. `test_interpretation`
+is the semantic claim that the observed behavior supports `Req.what_i`.
+
+This gives three distinct states that must not be collapsed:
+
+```text
+test source materialized
+test execution admitted
+requirement assurance folded
+```
+
+Materialized tests can satisfy the `test_source` projection while execution and
+semantic assurance remain residual. Passing execution can satisfy an evidence
+projection while F_P still rejects the semantic claim that the test proves the
+requirement. This preserves the earlier T-204 rule: tests are a relationship
+between requirement WHAT, realized asset behavior, and admitted assurance, not
+path-derived closure by themselves.
+
+Candidate carrier:
+
+```ts
+interface RequirementTestRelation {
+  readonly kind: "requirement_test_relation";
+  readonly relationId: string;
+  readonly requirementId: string;
+  readonly assetProjectionId: string;
+  readonly testSourceProjectionId: string;
+  readonly testExecutionProjectionId: string;
+  readonly testInterpretationProjectionId: string;
+  readonly oracleRef: string;
+  readonly evidencePolicyRef: string;
+  readonly sourceRefs: readonly string[];
+}
+```
 
 ### Fold
 
@@ -948,6 +1048,7 @@ type RequirementModelElement =
   | RequirementAgent
   | RequirementOperation
   | RequirementDomainObject
+  | RequirementTestRelation
   | RequirementRelation;
 
 interface RequirementGoal {
@@ -1018,6 +1119,8 @@ type RequirementRelationKind =
   | "operationalized_by"
   | "performed_by"
   | "monitored_by"
+  | "tested_by"
+  | "assured_by"
   | "evidenced_by"
   | "contributes_to"
   | "weakens"
@@ -1090,6 +1193,11 @@ abg.requirements.operationalize_requirement
   Input: requirement term, graph-function catalog, evidence policy
   Output: RequirementOperation and TraversalSpan bindings
 
+abg.requirements.derive_test_relation
+  Input: Req.what, asset projection, assurance projection, oracle policy
+  Output: RequirementTestRelation and test-source/execution/interpretation
+  projections
+
 abg.requirements.compile_edge_environment
   Input: requirement ledger, edge, replay state
   Output: EdgeRequirementEnvironment
@@ -1153,8 +1261,11 @@ plugins; ABG owns the carrier grammar, event truth, fold law, and projection.
 2. Bind software requirements to graph functions and spans.
 3. Bind environment assumptions to monitors or explicit no-monitor residuals.
 4. Bind operations to GTL graph functions and evidence kinds.
-5. Fail closed when leaf goals have no agent, no operation, or unresolved
-   obstacle where the release gate requires completeness.
+5. Bind assurance requirements to test relations where the evidence policy
+   requires test proof.
+6. Fail closed when leaf goals have no agent, no operation, missing required
+   test relation, or unresolved obstacle where the release gate requires
+   completeness.
 
 #### 5. Runtime Projection
 
@@ -1206,6 +1317,11 @@ conflict_resolution_coverage
 
 operationalization_coverage
   every close-required software requirement binds to an operation and graph span
+
+test_relation_coverage
+  every close-required requirement with test-proof policy binds requirement
+  WHAT, asset projection, test-source projection, execution projection,
+  interpretation projection, oracle, and evidence policy
 
 operation_agent_coverage
   every close-required operation has a performing agent/worker/tool binding
@@ -1686,8 +1802,8 @@ Open questions:
 First slice should be small and ABG-owned.
 
 1. Add `TraversalSpan`, `RequirementTerm`, `RequirementProjection`,
-   `RequirementEvidenceBinding`, `RequirementFold`, and `RequirementResidual`
-   carriers.
+   `RequirementTestRelation`, `RequirementEvidenceBinding`, `RequirementFold`,
+   and `RequirementResidual` carriers.
 2. Add `RequirementRelation`, `RequirementAttribute`, and `RequirementImportRef`
    carriers for stable identity, source metadata, and typed relations.
 3. Add KAOS-inspired relation terms for refinement, obstacle, mitigation,
@@ -1705,6 +1821,10 @@ First slice should be small and ABG-owned.
    - current evidence supersedes empty replay for the same projection;
    - partial fold can satisfy test-source projection while execution projection
      remains residual;
+   - admitted execution evidence can still leave semantic test interpretation
+     residual when F_P rejects the proof relationship to `Req.what`;
+   - `A(P.asset, P.assurance)` decomposes into `Req.what` terms and folds back
+     without scalar edge success erasing open assurance residuals;
    - compressed context fragments constrain the edge but are not all active
      obligations.
    - obstacle pressure blocks or redirects without pretending the requirement
