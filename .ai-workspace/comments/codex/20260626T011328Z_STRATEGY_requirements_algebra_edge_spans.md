@@ -66,8 +66,9 @@ KAOS-style requirements discipline
   supplies goal/refinement/assumption/obstacle/agent/operation semantics
 
 GTL
-  is the algebraic authoring language and wrapper surface for graph-native
-  product declarations
+  is the LLM-first algebraic authoring language and wrapper surface for
+  graph-native product declarations; a human interacts with an agentic coder to
+  define, refine, and admit GTL
 
 ABG requirements algebra
   is the underlying implementation substrate for requirement identity,
@@ -77,8 +78,8 @@ ABG requirements algebra
 
 Requirements algebra is therefore an extension of the GTL/ABG constructive
 system, not a peer language beside GTL. GTL wrappers should expose the algebra
-to product authors; the ABG substrate should manage the durable requirement
-model, projection, fold, and replay mechanics.
+to human-agent authoring; the ABG substrate should manage the durable
+requirement model, projection, fold, and replay mechanics.
 
 ## External Lessons To Incorporate
 
@@ -150,12 +151,19 @@ surfaces, and release pressure. The admitted constructive carrier should be
 GTL/ABG requirement terms and graph-function references. DOT is only a
 projection of that carrier, not the model authority.
 
+The difference from KAOS tooling is the primary interaction model. GTL is
+LLM-first: the expected authoring loop is a human working with an agentic coder
+to define and revise algebraic graph declarations, then admit the resulting
+terms under ODD method. A visual editor can be useful, but it is not the center
+of the product shape.
+
 ABG consequence:
 
 - natural-language extraction can create candidate requirement graphs;
 - ODD methodology governs admission, product meaning, proof role, and release
   pressure;
 - candidate graphs should compile or admit into GTL/ABG requirement carriers;
+- human-agent GTL authoring is the primary interaction loop;
 - generated candidates are not constitutional truth until admitted;
 - DOT/diagram output is a read model;
 - graph editing should preserve stable ids and relation ids.
