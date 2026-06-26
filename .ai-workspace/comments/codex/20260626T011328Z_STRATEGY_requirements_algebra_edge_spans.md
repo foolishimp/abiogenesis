@@ -81,6 +81,45 @@ system, not a peer language beside GTL. GTL wrappers should expose the algebra
 to human-agent authoring; the ABG substrate should manage the durable
 requirement model, projection, fold, and replay mechanics.
 
+## Product Composition
+
+There are two product layers:
+
+```text
+WHAT
+  product meaning, intent, requirements, domain assets, constraints,
+  proof expectations, release pressure
+
+HOW
+  GTL graph functions, operations, runtime events, evidence, folds,
+  residuals, continuations, release mechanics
+```
+
+The product is the composition:
+
+```text
+(WHAT).(HOW) = Product
+P = W.H
+```
+
+The product is recursive because products can build, evaluate, release, and
+install products, including later cuts of themselves:
+
+```text
+P = P(P)
+```
+
+The sharper ODD/GTL form is:
+
+```text
+P = W(W.H)
+```
+
+`W.H` is the constructive composition of product meaning and realization. `W`
+then governs, interprets, and evaluates that composition as a product. This
+keeps HOW from becoming an ungoverned implementation artifact and keeps WHAT
+from becoming inert prose.
+
 ## Graph Functions Replace SDLC Phase Flow
 
 Traditional SDLC is largely a human-historical process model: requirements,
@@ -832,14 +871,17 @@ single algebraic requirement kernel.
 The product shape:
 
 ```text
-ODD methodology
-  -> GTL requirement wrappers/declarations
-  -> ABG requirement algebra carriers
-  -> GTL graph functions
-  -> edge requirement environment
-  -> obligation/materialization/evidence/assurance projections
-  -> ABG fold/replay/residual truth
-  -> downstream product read models
+WHAT layer
+  ODD methodology
+  GTL requirement wrappers/declarations
+  ABG requirement algebra carriers
+
+HOW layer
+  GTL graph functions
+  edge requirement environment
+  obligation/materialization/evidence/assurance projections
+  ABG fold/replay/residual truth
+  downstream product read models
 ```
 
 This is not a separate runtime. It is an ABG graph over requirement terms,
