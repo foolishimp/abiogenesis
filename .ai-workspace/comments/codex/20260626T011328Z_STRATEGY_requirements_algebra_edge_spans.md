@@ -174,6 +174,12 @@ The HOW chain is:
 HOW({ Destination Topology }.InstructionSet)
 ```
 
+`DestinationTopology` is the HOW framework topology. In this repo family it is
+represented by `build_tenants/`: the selected tenant family, variant, shared
+tenant law, source roots, test roots, package/runtime framework, materialization
+policy, and release posture. Different frameworks for HOW are different
+destination topologies over the same constitutional WHAT.
+
 Notation:
 
 ```text
@@ -185,13 +191,19 @@ W = WHAT(Intent(S), Product(Intent), Requirements(Product))
 Req.what* = decompose_W(A_P, C_gap, C_problem, C_solution,
                         C_intent, C_product, C_requirement)
 
+DestinationTopology =
+  BuildTenantTopology(family, variant, shared_law, roots, framework,
+                      materialization_policy, release_posture)
+
 H = DestinationTopology . InstructionSet
 P = W.H
 ```
 
-`DestinationTopology` declares the target shape of the work surface, product
-asset, runtime state, release cut, or proof surface. `InstructionSet` is the
-GTL graph-function program that moves the current state toward that topology.
+`DestinationTopology` declares the realization framework in which HOW is allowed
+to operate. It names the target shape of the work surface, source tree, runtime
+state, release cut, proof surface, and tenant-local realization policy.
+`InstructionSet` is the GTL graph-function program that moves the current state
+toward that topology.
 
 The stage matters:
 
@@ -203,7 +215,7 @@ The stage matters:
 | Intent | Why this product exists and what direction it serves. | Reprice product definition or requirements. |
 | Product | What product shape, domain assets, and proof surfaces are in scope. | Reprice requirements and destination topology. |
 | Requirements | What decomposed WHAT pressure must be carried. | Add, refine, split, or residualize `Req.what`. |
-| Destination topology | What target topology HOW must construct. | Reframe graph-function target and materialization policy. |
+| Destination topology | Which build-tenant/framework topology HOW must construct within. | Reframe selected tenant, framework roots, graph-function target, and materialization policy. |
 | Instruction set | What operations are lawful for the traversal. | Change GTL graph functions, schedules, tools, or worker roles. |
 | Runtime/evidence | What happened during realization. | Fold, residualize, retry, or route re-entry to the owning stage. |
 
@@ -494,6 +506,7 @@ interface AuthorityContextFragment {
     | "narrows_solution_space"
     | "defines_product_meaning"
     | "decomposes_requirement_pressure"
+    | "selects_build_tenant_topology"
     | "constrains_destination_topology"
     | "constrains_instruction_set"
     | "constrains_evidence"
@@ -1454,6 +1467,11 @@ context_routing_coverage
   every admitted constraint fragment declares origin stage, scope, promotion
   policy, span, and routing outcome before it can affect a fold
 
+destination_topology_coverage
+  every HOW projection declares selected build tenant/framework topology,
+  roots, materialization policy, release posture, and instruction set before
+  materialization or execution targets can be admitted
+
 fold_attenuation_coverage
   every retry attempt classifies residual transition
 ```
@@ -1956,6 +1974,8 @@ First slice should be small and ABG-owned.
      without scalar edge success erasing open assurance residuals;
    - a HOW instruction-set constraint can reframe instruction policy without
      silently changing WHAT;
+   - a destination-topology constraint selects or reframes the build tenant and
+     framework roots before materialization targets are projected;
    - a product-stage constraint that changes meaning routes to product reprice
      rather than local materialization compensation;
    - a runtime constraint routes to residual, obstacle, or owning-stage
