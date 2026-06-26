@@ -154,16 +154,21 @@ closure_law: >-
   states: malformed, incomplete, stale, contradictory, ambiguous,
   semantically-unassessed, F_P-rejected, F_P-inconclusive, and F_H-required
   states must all map to explicit typed outcomes rather than exceptions,
-  fallback success, silent omission, or semantic guessing. Code closure is not
-  admissible until the design passes `DESIGN_MODULE_METHOD.md` review for
-  authority seam closure, essential carrier consolidation, enforcement after
-  proof, ingress collapse, Prime Law, IACS, subordinate payload discipline,
-  promotion tests, and module-bounded structural carrier diagrams.
+  fallback success, silent omission, or semantic guessing. F_D admission is
+  closed-world: unknown or unclassified states cannot be admitted into F_D and
+  must be rejected, structurally classified, or routed to typed F_P/F_H pressure
+  before deterministic evaluation. Code closure is not admissible until the
+  design passes `DESIGN_MODULE_METHOD.md` review for authority seam closure,
+  essential carrier consolidation, enforcement after proof, ingress collapse,
+  Prime Law, IACS, subordinate payload discipline, promotion tests, and
+  module-bounded structural carrier diagrams.
 non_closure_conditions:
   - The work only adds strategy prose, comments, or ticket text.
   - Requirements remain flat strings without stable ids, source refs, spans, and typed relations.
   - Obligation/materialization/evidence/fold/residual ledgers remain peer ledgers rather than projections from requirement terms.
   - F_D infers product semantic satisfaction from unknown syntax or path shape.
+  - Unknown or unclassified state is admitted into F_D instead of rejected,
+    structurally classified, or routed to typed F_P/F_H pressure.
   - F_D is partial over admitted requirements-algebra states, crashes, falls
     through, silently omits pressure, or treats an unhandled state as success.
   - Test source materialization or test execution is treated as requirement closure by itself.
@@ -415,9 +420,16 @@ F_D is lawful only as a total deterministic function over admitted
 requirements-algebra state. It may manage every state in the algebra, but it
 must not assess ambiguous content that has no admitted grammar.
 
+F_D totality is closed-world. Raw, unknown, or unclassified state is not an
+admitted F_D state. Ingress must collapse raw input into a known algebraic
+variant, reject it, or route it to typed F_P/F_H pressure before deterministic
+evaluation.
+
 Required F_D totality outcomes:
 
 - `admitted_valid`: structural state is complete enough for projection or fold.
+- `unknown_state_rejected`: raw, unknown, or unclassified state failed closed
+  before F_D evaluation.
 - `rejected_malformed`: carrier shape, unknown field, duplicate id, dangling
   ref, invalid span, invalid stage routing, or authority-smuggling field fails
   admission.
@@ -575,6 +587,9 @@ closure. It must explicitly evaluate:
    - State that F_D is total over admitted requirements-algebra states and must
      route ungrammatized or ambiguous content to typed F_P-required pressure
      rather than treating it as success, failure, or deterministic semantics.
+   - State that unknown or unclassified state is not admissible F_D input; it
+     must be rejected, structurally classified, or routed to typed F_P/F_H
+     pressure before deterministic evaluation.
    - State that F_P and F_H are the lawful semantic and owner-decision pressure
      surfaces.
 
@@ -615,9 +630,10 @@ closure. It must explicitly evaluate:
    - Add admission for all first-slice carriers. Unknown fields must fail
      closed.
    - Add total F_D outcome carriers for admitted-valid, rejected-malformed,
-     incomplete, stale/superseded, contradictory-authority,
-     semantic-assessment-required, semantic-residual-preserved,
-     human-decision-required, and non-closing-preserved states.
+     unknown-state-rejected, incomplete, stale/superseded,
+     contradictory-authority, semantic-assessment-required,
+     semantic-residual-preserved, human-decision-required, and
+     non-closing-preserved states.
 
 4. Edge environment and projection functions
    - Add `RequirementLedger`.
@@ -739,6 +755,9 @@ closure. It must explicitly evaluate:
    - Prove F_D is total over malformed, incomplete, stale, contradictory,
      ambiguous, semantically unassessed, F_P-rejected, F_P-inconclusive, and
      F_H-required states without implicit success or semantic guessing.
+   - Prove unknown or unclassified state cannot be admitted into F_D and instead
+     fails closed or routes to typed F_P/F_H pressure before deterministic
+     evaluation.
    - Prove read models expose folds, residuals, attenuation, and assurance
      claims without losing stable ids.
 
@@ -805,9 +824,12 @@ closure. It must explicitly evaluate:
       the semantic and owner-decision pressure surfaces.
 - [ ] F_D is implemented as a total function over admitted
       requirements-algebra state, with typed outcomes for valid, malformed,
-      incomplete, stale/superseded, contradictory, semantic-assessment-required,
-      semantic-residual-preserved, human-decision-required, and non-closing
-      states.
+      unknown-state-rejected, incomplete, stale/superseded, contradictory,
+      semantic-assessment-required, semantic-residual-preserved,
+      human-decision-required, and non-closing states.
+- [ ] Unknown or unclassified state is not admissible F_D input and is rejected,
+      structurally classified, or routed to typed F_P/F_H pressure before
+      deterministic evaluation.
 - [ ] Query/read models expose active requirements, obligations,
       materialization targets, evidence bindings, folds, residuals,
       attenuation, and assurance claims.
