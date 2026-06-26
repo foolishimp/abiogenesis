@@ -1812,6 +1812,59 @@ Downstream products should own:
 Downstream products should not own separate local ledgers that close or retry
 outside ABG requirement/fold truth.
 
+## odd_glc Product Split
+
+This framing is broad enough to justify a distinct downstream ODD framework:
+
+```text
+odd_glc = ODD General Life Cycle
+```
+
+`odd_glc` should not be the place where the core algebra lives. The core belongs
+in GTL/ABG first.
+
+ABG/GTL core should own:
+
+- staged context carriers: gap, problem, solution space, intent, product,
+  requirements, destination topology, instruction set, runtime, assurance;
+- requirement algebra carriers and relation law;
+- requirement-as-carrier/functor preservation laws;
+- traversal spans, edge environments, projection, evidence binding, folds,
+  residuals, replay, attenuation, and re-entry;
+- destination-topology declarations as introduced HOW constraint frameworks;
+- GTL wrappers and typecheck/admission support for those carriers.
+
+`odd_glc` should then use those primitives as an ODD framework for general
+life-cycle construction. It should own:
+
+- life-cycle vocabulary and read models over the core carriers;
+- graph functions for homeostatic gap, problem framing, solution-space
+  selection, WHAT decomposition, HOW topology selection, instruction-set
+  construction, assurance, release, and operational feedback;
+- default F_P prompts and F_H decision surfaces for life-cycle interpretation;
+- product-facing workflow policy, UI/operator affordances, and domain-specific
+  plugins where generic ABG projection is insufficient.
+
+The construction order is:
+
+```text
+extend GTL/ABG core algebra
+  -> expose GTL wrappers and admission/typecheck gates
+  -> build odd_glc over those primitives
+  -> let domain products, including odd_sdlc-style products, specialize odd_glc
+```
+
+The boundary rule:
+
+```text
+ABG/GTL preserves and executes the algebra.
+odd_glc interprets it as a general life-cycle framework.
+Domain products specialize odd_glc for concrete product families.
+```
+
+Do not put `odd_glc` domain policy into ABG as core runtime law. Do not make
+`odd_glc` reimplement GTL/ABG requirement folds with product-local ledgers.
+
 ## Gaps In Current Thinking
 
 ### 1. Span Identity
@@ -2064,11 +2117,23 @@ Third slice:
 1. Move odd_sdlc materialization/postflight joins onto requirement projections.
 2. Remove local peer-ledger closure rules that duplicate ABG fold authority.
 
+Fourth slice:
+
+1. Create `odd_glc` as a downstream ODD framework over the admitted GTL/ABG
+   requirements algebra.
+2. Add graph functions for gap/problem/solution-space framing, WHAT
+   decomposition, destination-topology selection, instruction-set construction,
+   assurance folding, and operational feedback.
+3. Use `odd_glc` as the general life-cycle substrate before specializing
+   domain frameworks such as odd_sdlc.
+
 ## Non-Goals
 
 - Do not itemize all compressed textual fragments into atomic requirements.
 - Do not make F_D judge semantic source/test/design content.
 - Do not create a product-local requirement compiler inside odd_sdlc.
+- Do not implement `odd_glc` core semantics before GTL/ABG owns the underlying
+  carriers, folds, residuals, and admission gates.
 - Do not treat materialized files, test success, or report shape as closure by
   themselves.
 - Do not allow scalar edge close to erase a vector of active requirement
