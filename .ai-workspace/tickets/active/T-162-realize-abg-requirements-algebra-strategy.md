@@ -25,7 +25,9 @@ change_intent: >-
   surface; GTL exposes wrapper declarations and graph-function bindings; F_P
   maintains semantic pressure; F_H may admit explicit product-owner reprices or
   residual risk; F_D is limited to admitted envelope, identity, relation,
-  provenance, span, and replay consistency checks.
+  provenance, span, and replay consistency checks, and must be total over the
+  admitted requirements-algebra state space by returning typed structural,
+  residual, F_P-required, or F_H-required states for every input state.
 change_class: product_reprice
 re_entry_point: product
 owner: abiogenesis
@@ -148,16 +150,22 @@ closure_law: >-
   attenuation coverage; and query/read models expose active requirements,
   obligations, materialization targets, execution schedules, evidence, folds,
   residuals, attenuation, and assurance claims without downstream archive
-  parsing. Code closure is not admissible until the design passes
-  `DESIGN_MODULE_METHOD.md` review for authority seam closure, essential
-  carrier consolidation, enforcement after proof, ingress collapse, Prime Law,
-  IACS, subordinate payload discipline, promotion tests, and module-bounded
-  structural carrier diagrams.
+  parsing. F_D must be a total function over admitted requirements-algebra
+  states: malformed, incomplete, stale, contradictory, ambiguous,
+  semantically-unassessed, F_P-rejected, F_P-inconclusive, and F_H-required
+  states must all map to explicit typed outcomes rather than exceptions,
+  fallback success, silent omission, or semantic guessing. Code closure is not
+  admissible until the design passes `DESIGN_MODULE_METHOD.md` review for
+  authority seam closure, essential carrier consolidation, enforcement after
+  proof, ingress collapse, Prime Law, IACS, subordinate payload discipline,
+  promotion tests, and module-bounded structural carrier diagrams.
 non_closure_conditions:
   - The work only adds strategy prose, comments, or ticket text.
   - Requirements remain flat strings without stable ids, source refs, spans, and typed relations.
   - Obligation/materialization/evidence/fold/residual ledgers remain peer ledgers rather than projections from requirement terms.
   - F_D infers product semantic satisfaction from unknown syntax or path shape.
+  - F_D is partial over admitted requirements-algebra states, crashes, falls
+    through, silently omits pressure, or treats an unhandled state as success.
   - Test source materialization or test execution is treated as requirement closure by itself.
   - F_P semantic rejection cannot preserve a residual over the requirement/test relationship.
   - Current admitted evidence cannot supersede empty or stale predecessor replay.
@@ -401,6 +409,37 @@ ABG feature checklist:
       requirement projections without changing downstream behavior in the first
       implementation wave.
 
+### F_D Totality Design
+
+F_D is lawful only as a total deterministic function over admitted
+requirements-algebra state. It may manage every state in the algebra, but it
+must not assess ambiguous content that has no admitted grammar.
+
+Required F_D totality outcomes:
+
+- `admitted_valid`: structural state is complete enough for projection or fold.
+- `rejected_malformed`: carrier shape, unknown field, duplicate id, dangling
+  ref, invalid span, invalid stage routing, or authority-smuggling field fails
+  admission.
+- `incomplete_structural_pressure`: required algebraic coverage is missing and
+  must remain open.
+- `stale_or_superseded`: replay evidence is invalidated or outranked by current
+  admitted evidence.
+- `contradictory_authority`: admitted algebra carries incompatible relations,
+  policies, stage routes, or evidence bindings.
+- `semantic_assessment_required`: content has no admitted grammar and must be
+  assessed by F_P before semantic closure.
+- `semantic_residual_preserved`: admitted F_P finding rejects or cannot confirm
+  the semantic relationship, so residual pressure remains.
+- `human_decision_required`: an owner decision, reprice, or explicit residual
+  risk admission is required from F_H.
+- `non_closing_preserved`: evidence exists but is byproduct, wrong role, wrong
+  span, wrong policy, or otherwise non-closing.
+
+No F_D branch may return implicit success for an unrecognized state. Unknown
+content is managed by routing to `semantic_assessment_required`, not by
+deterministic semantic inference.
+
 ### Module Decomposition
 
 The design module must decompose the work into module boundaries that are
@@ -533,6 +572,9 @@ closure. It must explicitly evaluate:
      surface.
    - State that F_D may validate carriers and replay consistency but must not
      infer product semantic satisfaction from unknown syntax.
+   - State that F_D is total over admitted requirements-algebra states and must
+     route ungrammatized or ambiguous content to typed F_P-required pressure
+     rather than treating it as success, failure, or deterministic semantics.
    - State that F_P and F_H are the lawful semantic and owner-decision pressure
      surfaces.
 
@@ -572,6 +614,10 @@ closure. It must explicitly evaluate:
      first-slice equivalents.
    - Add admission for all first-slice carriers. Unknown fields must fail
      closed.
+   - Add total F_D outcome carriers for admitted-valid, rejected-malformed,
+     incomplete, stale/superseded, contradictory-authority,
+     semantic-assessment-required, semantic-residual-preserved,
+     human-decision-required, and non-closing-preserved states.
 
 4. Edge environment and projection functions
    - Add `RequirementLedger`.
@@ -690,6 +736,9 @@ closure. It must explicitly evaluate:
      transformed, moved, escalated, or cleared.
    - Prove F_D rejects malformed carriers, duplicate ids, dangling relations,
      span drift, unknown fields, and authority-smuggling fields.
+   - Prove F_D is total over malformed, incomplete, stale, contradictory,
+     ambiguous, semantically unassessed, F_P-rejected, F_P-inconclusive, and
+     F_H-required states without implicit success or semantic guessing.
    - Prove read models expose folds, residuals, attenuation, and assurance
      claims without losing stable ids.
 
@@ -754,6 +803,11 @@ closure. It must explicitly evaluate:
       for the same projection.
 - [ ] F_D rejects malformed carriers and authority drift, while F_P/F_H remain
       the semantic and owner-decision pressure surfaces.
+- [ ] F_D is implemented as a total function over admitted
+      requirements-algebra state, with typed outcomes for valid, malformed,
+      incomplete, stale/superseded, contradictory, semantic-assessment-required,
+      semantic-residual-preserved, human-decision-required, and non-closing
+      states.
 - [ ] Query/read models expose active requirements, obligations,
       materialization targets, evidence bindings, folds, residuals,
       attenuation, and assurance claims.
