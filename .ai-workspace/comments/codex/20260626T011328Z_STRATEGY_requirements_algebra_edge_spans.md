@@ -155,6 +155,80 @@ line item in a requirements document. It is the typed decomposition term that
 connects product meaning to asset construction, assurance construction, tests,
 folds, and residuals.
 
+## Context And Constraint Staging
+
+Context is not one flat prompt. Constraints can enter at different stages and
+must retain their origin because the correct response differs by stage.
+
+The upstream framing chain is:
+
+```text
+{ Homeostatic Gap -> Problem -> Solution Space }
+  -> WHAT({ Intent } -> { Product } -> { Requirements })
+  => Requirements.decomposition
+```
+
+The HOW chain is:
+
+```text
+HOW({ Destination Topology }.InstructionSet)
+```
+
+Notation:
+
+```text
+G = HomeostaticGap
+Pr = Problem(G, C_gap)
+S = SolutionSpace(Pr, C_problem)
+
+W = WHAT(Intent(S), Product(Intent), Requirements(Product))
+Req.what* = decompose_W(A_P, C_gap, C_problem, C_solution,
+                        C_intent, C_product, C_requirement)
+
+H = DestinationTopology . InstructionSet
+P = W.H
+```
+
+`DestinationTopology` declares the target shape of the work surface, product
+asset, runtime state, release cut, or proof surface. `InstructionSet` is the
+GTL graph-function program that moves the current state toward that topology.
+
+The stage matters:
+
+| Stage | Constraint Meaning | Lawful Effect |
+| --- | --- | --- |
+| Homeostatic gap | Why equilibrium is broken or desired state is missing. | Reframe problem or preserve as framing context. |
+| Problem | What problem is being solved. | Reprice solution space or problem statement. |
+| Solution space | What kinds of solutions are admissible. | Narrow or expand candidate products and graph functions. |
+| Intent | Why this product exists and what direction it serves. | Reprice product definition or requirements. |
+| Product | What product shape, domain assets, and proof surfaces are in scope. | Reprice requirements and destination topology. |
+| Requirements | What decomposed WHAT pressure must be carried. | Add, refine, split, or residualize `Req.what`. |
+| Destination topology | What target topology HOW must construct. | Reframe graph-function target and materialization policy. |
+| Instruction set | What operations are lawful for the traversal. | Change GTL graph functions, schedules, tools, or worker roles. |
+| Runtime/evidence | What happened during realization. | Fold, residualize, retry, or route re-entry to the owning stage. |
+
+New constraints should therefore enter as staged context first:
+
+```text
+admit(C_new, stage, source, span)
+route(C_new) ->
+  preserve_context
+  | promote_to_Req.what
+  | refine_existing_Req.what
+  | reprice_problem
+  | reprice_solution_space
+  | reprice_product
+  | reframe_destination_topology
+  | reframe_instruction_set
+  | fold_runtime_residual
+```
+
+A HOW-stage constraint may change the instruction set or destination topology.
+It may not silently rewrite WHAT. If it changes product meaning, it must route
+back to WHAT through reprice or re-entry. A runtime/evidence constraint may
+create an obstacle or residual, but it must preserve the stage that owns the
+repair.
+
 ## Graph Functions Replace SDLC Phase Flow
 
 Traditional SDLC is largely a human-historical process model: requirements,
@@ -404,11 +478,49 @@ interface AuthorityContextFragment {
   readonly kind: "authority_context_fragment";
   readonly fragmentId: string;
   readonly fragmentKind: "axiom" | "constraint" | "policy" | "method";
+  readonly originStage:
+    | "homeostatic_gap"
+    | "problem"
+    | "solution_space"
+    | "intent"
+    | "product"
+    | "requirements"
+    | "destination_topology"
+    | "instruction_set"
+    | "runtime"
+    | "assurance";
+  readonly constraintScope:
+    | "frames_problem"
+    | "narrows_solution_space"
+    | "defines_product_meaning"
+    | "decomposes_requirement_pressure"
+    | "constrains_destination_topology"
+    | "constrains_instruction_set"
+    | "constrains_evidence"
+    | "routes_reentry";
   readonly sourceRef: string;
   readonly digest: string;
   readonly compressionRef: string | null;
   readonly text: string;
   readonly span: TraversalSpan | null;
+  readonly appliesToRefs: readonly string[];
+  readonly promotionPolicy:
+    | "context_only"
+    | "candidate_req_what"
+    | "must_promote_to_requirement"
+    | "requires_reprice"
+    | "requires_reentry";
+  readonly routingOutcome:
+    | "unrouted"
+    | "preserve_context"
+    | "promote_to_req_what"
+    | "refine_existing_req_what"
+    | "reprice_problem"
+    | "reprice_solution_space"
+    | "reprice_product"
+    | "reframe_destination_topology"
+    | "reframe_instruction_set"
+    | "fold_runtime_residual";
   readonly interpretationRole:
     | "constrains_interpretation"
     | "defines_language_law"
@@ -543,13 +655,14 @@ The right unit is not "the current edge has a flat obligation list."
 The right unit is a requirement environment over a traversal edge:
 
 ```text
-Gamma_context + Sigma_prior + R_span |- edge(D, E) : Delta_edge
+Gamma_stage_context + Sigma_prior + R_span |- edge(D, E) : Delta_edge
 ```
 
 Where:
 
-- `Gamma_context` is compressed authority context: axioms, constraints, method
-  law, product law.
+- `Gamma_stage_context` is compressed authority context partitioned by origin
+  stage: gap, problem, solution space, intent, product, requirements,
+  destination topology, instruction set, runtime, and assurance.
 - `Sigma_prior` is cumulative admitted state from prior edges: folds,
   residuals, materialized facts, admitted evidence, replayable events.
 - `R_span` is the set of requirement terms whose spans cover the edge.
@@ -1005,7 +1118,8 @@ abg.requirements.identity
   stable ids, aliases, imports, source digests, relation ids
 
 abg.requirements.context
-  compressed authority fragments, promotion candidates, context coverage
+  staged authority fragments, constraint routing, promotion candidates,
+  context coverage
 
 abg.requirements.model
   goals, requirements, assumptions, soft goals, obstacles, conflicts,
@@ -1168,6 +1282,10 @@ abg.requirements.ingest_context_fragments
 abg.requirements.promote_context_fragment
   Input: fragment, reason, target span
   Output: candidate RequirementGoal/RequirementAtom/Assumption
+
+abg.requirements.route_context_constraint
+  Input: staged AuthorityContextFragment, current product algebra state
+  Output: preserve, promote, refine, reprice, reframe, re-enter, or residualize
 
 abg.requirements.derive_requirement_graph
   Input: product/context fragments and existing requirements
@@ -1332,6 +1450,10 @@ span_coverage
 evidence_policy_coverage
   every active obligation declares admitted evidence kinds
 
+context_routing_coverage
+  every admitted constraint fragment declares origin stage, scope, promotion
+  policy, span, and routing outcome before it can affect a fold
+
 fold_attenuation_coverage
   every retry attempt classifies residual transition
 ```
@@ -1345,10 +1467,12 @@ without reading product prose by hand.
 1. Product or domain authority authors a requirement term.
 2. The term receives a span.
 3. Context fragments are attached as constraints but not exploded.
-4. Refinement expands parent requirements into children when needed.
-5. Dependencies are represented as requirement relations, not as hidden
+4. Each context fragment declares its origin stage, constraint scope, promotion
+   policy, and routing outcome.
+5. Refinement expands parent requirements into children when needed.
+6. Dependencies are represented as requirement relations, not as hidden
    evaluator conventions.
-6. Obstacles, conflicts, assumptions, agents, and operationalization are
+7. Obstacles, conflicts, assumptions, agents, and operationalization are
    represented explicitly when they affect closure or routing.
 
 Output:
@@ -1362,7 +1486,8 @@ RequirementLedger.contextFragments[]
 
 For a traversal edge `D -> E`:
 
-1. Load context fragments whose span covers the edge or graph function.
+1. Load context fragments whose span covers the edge or graph function,
+   partitioned by origin stage.
 2. Load requirement terms whose spans cover `D -> E`.
 3. Load prior folds from replay.
 4. Load carried residuals whose remaining span covers `D -> E`.
@@ -1565,6 +1690,7 @@ F_D owns deterministic algebra and envelope checks:
 - span identity
 - projection identity
 - evidence binding shape
+- context origin stage, constraint scope, promotion policy, and routing shape
 - digest/path/root/provenance checks
 - replay ancestry
 - role-policy compatibility
@@ -1806,16 +1932,19 @@ First slice should be small and ABG-owned.
    and `RequirementResidual` carriers.
 2. Add `RequirementRelation`, `RequirementAttribute`, and `RequirementImportRef`
    carriers for stable identity, source metadata, and typed relations.
-3. Add KAOS-inspired relation terms for refinement, obstacle, mitigation,
+3. Add staged `AuthorityContextFragment` fields for origin stage, constraint
+   scope, promotion policy, applies-to refs, and routing outcome.
+4. Add KAOS-inspired relation terms for refinement, obstacle, mitigation,
    conflict, assumption, agent assignment, and operationalization.
-4. Add admission for those carriers.
-5. Add `buildEdgeRequirementEnvironment(...)`.
-6. Add deterministic `activeRequirements(...)` and `projectRequirements(...)`.
-7. Add a read model that can wrap current carried obligation refs and residual
+5. Add admission for those carriers.
+6. Add `buildEdgeRequirementEnvironment(...)`.
+7. Add deterministic `activeRequirements(...)`, `projectRequirements(...)`,
+   and `routeContextConstraint(...)`.
+8. Add a read model that can wrap current carried obligation refs and residual
    pressure refs as requirement projections without changing downstream
    behavior.
-8. Add a minimal assurance-case projection over fold/residual truth.
-9. Add tests proving:
+9. Add a minimal assurance-case projection over fold/residual truth.
+10. Add tests proving:
    - broad `A -> X` requirement covers an interior edge;
    - narrow `F -> J` requirement does not cover earlier unrelated edges;
    - current evidence supersedes empty replay for the same projection;
@@ -1825,6 +1954,12 @@ First slice should be small and ABG-owned.
      residual when F_P rejects the proof relationship to `Req.what`;
    - `A(P.asset, P.assurance)` decomposes into `Req.what` terms and folds back
      without scalar edge success erasing open assurance residuals;
+   - a HOW instruction-set constraint can reframe instruction policy without
+     silently changing WHAT;
+   - a product-stage constraint that changes meaning routes to product reprice
+     rather than local materialization compensation;
+   - a runtime constraint routes to residual, obstacle, or owning-stage
+     re-entry with the origin stage preserved;
    - compressed context fragments constrain the edge but are not all active
      obligations.
    - obstacle pressure blocks or redirects without pretending the requirement
