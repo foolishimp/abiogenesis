@@ -50,6 +50,36 @@ The missing step is to make "carried obligation refs" and "residual pressure
 refs" be projections of explicit requirement terms with spans, rather than
 mostly string ids that each product interprets locally.
 
+## Layering
+
+ODD, KAOS, GTL, and requirements algebra should not be collapsed into one
+surface.
+
+The intended layering is:
+
+```text
+ODD methodology
+  governs product meaning, domain assets, proof surfaces, graph functions,
+  release pressure, and lawful re-entry
+
+KAOS-style requirements discipline
+  supplies goal/refinement/assumption/obstacle/agent/operation semantics
+
+GTL
+  is the algebraic authoring language and wrapper surface for graph-native
+  product declarations
+
+ABG requirements algebra
+  is the underlying implementation substrate for requirement identity,
+  relations, spans, projections, evidence bindings, folds, residuals, replay,
+  metrics, and query
+```
+
+Requirements algebra is therefore an extension of the GTL/ABG constructive
+system, not a peer language beside GTL. GTL wrappers should expose the algebra
+to product authors; the ABG substrate should manage the durable requirement
+model, projection, fold, and replay mechanics.
+
 ## External Lessons To Incorporate
 
 This strategy should reuse lessons from existing requirements, assurance, and
@@ -733,8 +763,9 @@ single algebraic requirement kernel.
 The product shape:
 
 ```text
-GTL declarations
-  -> requirement model carriers
+ODD methodology
+  -> GTL requirement wrappers/declarations
+  -> ABG requirement algebra carriers
   -> requirement graph functions
   -> edge requirement environment
   -> obligation/materialization/evidence/assurance projections
