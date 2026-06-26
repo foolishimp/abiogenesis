@@ -56,6 +56,7 @@ This requirement indexes and depends on:
 - `REQ-L-GTL3-JOB`
 - `REQ-L-GTL3-ROLE`
 - `REQ-L-GTL3-IDENTITY`
+- `REQ-L-GTL3-REQUIREMENTS-ALGEBRA`
 - `REQ-R-ABG3-INTERPRET`
 - `REQ-R-ABG3-FN-COMPOSITION`
 - `REQ-R-ABG3-SELECTION-APPLICATION`
@@ -69,6 +70,7 @@ This requirement indexes and depends on:
 - `REQ-R-ABG3-CORRECTION`
 - `REQ-R-ABG3-EVENTS`
 - `REQ-R-ABG3-PAYLOAD`
+- `REQ-R-ABG3-REQUIREMENTS-ALGEBRA`
 - `REQ-R-ABG3-ASSURANCE`
 - `REQ-R-ABG3-PROJECTION`
 - `REQ-R-ABG3-PROVENANCE`
@@ -115,6 +117,8 @@ This requirement indexes and depends on:
 
 **REQ-L-GTL3-CONTRACT-LAW-API-017**: GTL compiler/validator surfaces shall report the declared conservation basis for each traversal-unit bind. The projection shall expose the intent-lineage inputs, target-carrier and materialization bindings, carried obligation refs, downstream pressure refs, admission-strength refs, allowed bind dispositions, and the declared obligation-delta families for realization, refinement, downstream deferral, block, re-entry, reprice, no-close preservation, and terminal projection. A program inventory that declares materialization or close-capable traversal while omitting the conservation basis required to preserve those refs shall fail with typed non-conformance rows before runtime traversal. For materializing units, the validator shall reject conservation rows where staged pressure and materialization authority lack compiler-visible admission-strength compatibility.
 
+**REQ-L-GTL3-CONTRACT-LAW-API-018**: GTL shall expose requirement declaration wrappers for requirement identity, typed relations, traversal spans, staged context fragments, destination topology, test relations, and evidence policy through existing GTL publication and attachment law. These wrappers shall feed ABG requirement algebra admission and replay; they shall not emit runtime events, write ledgers, select traversal, close assurance scopes, or own continuation/re-entry.
+
 ## Capability Router
 
 Use this table to reload the language configuration surface without treating
@@ -131,6 +135,7 @@ this requirement as a replacement for the detailed families.
 | Prompt construction and typed assets | `AssetSurface`, prompt invocation asset rows, renderers, digest policy, authority slots, output contracts, proof refs | ABG conformance admits rows and rejects lossy prompt or asset inventory | `REQ-L-GTL3-ASSET-SURFACE`, `REQ-L-GTL3-COMPUTE-NOTATION`, `REQ-R-ABG3-PAYLOAD` | T-150/T-152 conformance tests |
 | Module, job, role, and public starts | `Module`, `Job`, `Role`, public callable graph-function binding | ABG public start and runtime binding admission | `REQ-L-GTL3-MODULE`, `REQ-L-GTL3-JOB`, `REQ-L-GTL3-ROLE`, `REQ-R-ABG3-BINDING`, `REQ-R-ABG3-RUN` | ABG public-start and downstream conformance tests |
 | Traversal unit and consequence bind | `GraphFunction`, internal `GraphVector`, selected `abg.fn_composition`, target-carrier rows, materialization policy refs, admission-strength refs, plugin result interfaces, allowed consequence traversal catalog declarations, public-start rows, obligation-delta families | ABG admits, advances, closes, transitions, replays, and conserves traversal units; `typecheckGtlProgram(...)` projects declared unit/bind law and rejects missing intent-lineage, obligation-conservation, or admission-strength compatibility basis | `REQ-L-GTL3-GRAPHVECTOR`, `REQ-L-GTL3-COMPUTE-NOTATION`, `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-FN-COMPOSITION`, `REQ-R-ABG3-PAYLOAD` | T-159 compiler/report and traversal-bind tests |
+| Requirement declaration wrappers | `Module`, `GraphFunction`, `GraphVector`, `Context`, hook refs, asset surfaces, requirement declarations, traversal-span declarations, destination-topology declarations, and test-relation declarations | ABG admits requirement event payloads, projects requirement ledgers, builds edge requirement environments, folds evidence over assurance truth, preserves residual pressure, and exposes query read models | `REQ-L-GTL3-REQUIREMENTS-ALGEBRA`, `REQ-R-ABG3-REQUIREMENTS-ALGEBRA`, `REQ-R-ABG3-PROJECTION`, `REQ-R-ABG3-ASSURANCE` | T-162 requirements algebra tests |
 | External tool gates | GTL declarations plus ABG-admitted tool boundary refs | ABG gates tool payloads; external tool metadata is not language truth | `REQ-L-GTL3-HOOKS`, `REQ-L-GTL3-COMPUTE-NOTATION`, `REQ-R-ABG3-TRANSPORT`, `REQ-R-ABG3-PAYLOAD` | Tool-boundary and payload admission tests |
 
 ## ABG Runtime Operation Index

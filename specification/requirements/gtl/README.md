@@ -36,10 +36,13 @@ ratified ontology, and the GTL/ABG boundary.
   findings, ABG admission, runtime ledgers/projections, and consequence
   projections without adding new topology objects or runtime carriers
 - semantic work declarations and module publication boundaries
+- requirement declaration wrappers over GTL publication, graph-function,
+  graph-vector, context, hook, and asset-surface law
 
 ## Families
 
 - `REQ-L-GTL3-CONTRACT-LAW-API.md`
+- `REQ-L-GTL3-REQUIREMENTS-ALGEBRA.md`
 - `REQ-L-GTL3-LANGUAGE.md`
 - `REQ-L-GTL3-ATTRS.md`
 - `REQ-L-GTL3-CONTEXT.md`

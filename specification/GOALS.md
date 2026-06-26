@@ -34,6 +34,7 @@ product-local loop/controller authority rather than rebuilding it.
 | `GOAL-006` | `Run` + `Convergence` + `Policy` + `Projection` | Make continuation-owned retry/repair/review outcomes project as yielded public truth instead of failure-shaped status whenever a lawful next step exists. | `gen-start`, runtime return payloads, run projection, and live-status agree on yielded continuation truth; downstream products no longer need semantic repair over ABG status. | `B-029`, `REQ-R-ABG3-RUN`, `REQ-R-ABG3-CONVERGENCE`, `REQ-R-ABG3-EVENTS`, `REQ-P-POLICY`, `test_abg3_runtime_envelope.py`, `test_cli_adapter_auto.py` | Completed | `B-029` |
 | `GOAL-007` | `Requirements` + `Projection` + `Convergence` | Make ABG closure derive from total assurance projection over current authority and admitted runtime events, so bounded compute cannot close by worker success, report shape, test success, or absent closure rows. | ABG has requirement authority for exhaustive ambiguity rows and event-sourced payload ledgers, GTL can declare assurance and payload hook refs without side-door runtime config, TS tenant proof owns the primary release gate, Python evidence is retained only as paused reference material, and ABG owns process actor truth, typed F_P stage carriers, and full retry frontier projection before downstream products consume them. | `T-088`, `T-089`, `T-090`, `T-091`, `T-092-TS`, `T-093-TS`, `T-094`, `T-095`, `T-096`, `T-097`, `T-098`, `T-099`, `REQ-R-ABG3-ASSURANCE`, `REQ-R-ABG3-PAYLOAD`, `REQ-L-GTL3-HOOKS` | Completed | `T-088`, `T-089`, `T-086`, `T-090`, `T-091`, `T-092-TS`, `T-093-TS`, `T-094`, `T-095`, `T-096`, `T-097`, `T-098`, `T-099` |
 | `GOAL-008` | `GTL` + `ABG Runtime` + `Construction` + `Projection` | Realize the generic mixed-regime construction substrate that replaces downstream product outer loops. | ABG owns an installed construction runner over admitted construction intent; vector-local regimes drive mixed F_P/F_D/F_H traversal; observed workspace/register state is admitted and replay-visible; overlay frames are GTL-bound runtime contracts; F_D outcomes route by authority placement; construction pressure packages reproduce the load-bearing test35 behavior; dependency-ready fan-out is an admitted traversal opportunity that ABG may realize serially or bounded-parallel without product-local loop control; system parallelism keeps immutable semantic carriers over the shared workspace effect boundary. | `T-134`, `T-128`, `T-135`, `T-136`, `T-137`, `T-138`, `T-139`, `T-141`, `REQ-R-ABG3-FP-CONSCIOUSNESS`, `REQ-R-ABG3-SAGA-FRONTIER`, `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-PROJECTION`, `REQ-L-GTL3-GRAPHVECTOR`, `REQ-L-GTL3-EVALUATOR` | Completed | `T-134`, `T-128`, `T-135`, `T-136`, `T-137`, `T-138`, `T-139`, `T-141` |
+| `GOAL-009` | `Product` + `Requirements` + `GTL` + `ABG Runtime` + `Projection` | Realize the first ABG/GTL requirements-algebra substrate that preserves WHAT pressure through graph-function traversal, evidence binding, assurance fold projection, residual pressure, and query. | Product and requirement law name requirements as replay-derived algebraic carriers; `RequirementLedger` is a projection over emitted requirement events, not a writable ledger; M03 design passes IACS and ODD execution-authority review; TypeScript first-slice carriers, admission, projection, fold/residual, completeness gates, query, and compatibility wrappers prove the T-204-derived materialization/postflight bug patterns without downstream migration. | `T-162`, `REQ-R-ABG3-REQUIREMENTS-ALGEBRA`, `REQ-L-GTL3-CONTRACT-LAW-API`, `REQ-R-ABG3-ASSURANCE`, `REQ-R-ABG3-PAYLOAD`, `REQ-R-ABG3-PROJECTION`, `M03_REQUIREMENTS_ALGEBRA_DERIVATION`, `M03_REQUIREMENTS_ALGEBRA_FIRST_SLICE_IACS` | Active | `T-162` |
 
 ## Wave Boundary
 
@@ -93,3 +94,18 @@ Immediate downstream consumer work is expected to consume ABG construction
 runner truth, vector-local regime truth, observed-state refs, overlay-frame
 truth, construction pressure packages, and dependency-frontier truth rather
 than rebuilding those surfaces in product-local controller code.
+
+The active requirements-algebra wave covers:
+
+1. `T-162` product/requirements reprice for ABG/GTL-owned requirements algebra.
+2. `T-162` first-slice M03 design pack, including IACS, structural carrier
+   diagram, worked trace, ODD execution-authority audit, and gap partition.
+3. `T-162` TypeScript first-slice realization for event-sourced requirement
+   payloads, replay-derived requirement ledger projection, edge requirement
+   environments, evidence binding, fold/residual projection, deterministic
+   completeness gates, query/read models, and retained-compatibility wrappers.
+
+This wave does not implement `odd_glc`, T-160 executive observation,
+downstream `odd_sdlc` ledger migration, or KAOS/ReqIF/GSN/GRL editor/import
+surfaces. Those surfaces may consume the admitted substrate after this wave
+proves.

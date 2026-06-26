@@ -1,3 +1,5 @@
+export * from "./requirements_algebra.js";
+
 export type {
   AdmittedLeafTaskPayload,
   AdvancementTransition,

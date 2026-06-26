@@ -46,6 +46,21 @@ export {
   targetCarrierContractDeclarationForTarget,
   validateTargetCarrierCandidate
 } from "./target_carrier_contract.js";
+export {
+  GTL_REQUIREMENTS_ALGEBRA_DECLARATION_KEY,
+  constructGtlRequirementDeclaration,
+  constructGtlRequirementsAlgebraDeclarationBundle,
+  constructGtlTraversalSpanDeclaration
+} from "./requirements_algebra.js";
+export type {
+  GtlAuthorityContextFragmentDeclaration,
+  GtlDestinationTopologyDeclaration,
+  GtlRequirementDeclaration,
+  GtlRequirementRelationDeclaration,
+  GtlRequirementTestRelationDeclaration,
+  GtlRequirementsAlgebraDeclarationBundle,
+  GtlTraversalSpanDeclaration
+} from "./requirements_algebra.js";
 export type {
   GenericTargetCarrierTemplate,
   GtlTargetCarrierDefaultsBundle,

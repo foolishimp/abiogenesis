@@ -279,6 +279,42 @@ ABG bind is therefore a conservation boundary: scalar edge close cannot erase
 the obligation vector, and materializing traversal cannot dispatch until a
 sufficient construction intent has been rehydrated from admitted lineage.
 
+Requirements are the product-level carrier for that conservation boundary.
+A requirement is not only a prose row or a downstream-local obligation id. It is
+an admitted algebraic term with stable identity, source provenance, typed
+relations, traversal-span coverage, staged context bindings, evidence policy,
+fold projection, residual pressure, and replay-visible query identity.
+
+ABG/GTL core owns the generic requirement substrate. GTL exposes requirement
+declarations through module, graph-function, graph-vector, context, role, job,
+hook, and asset-surface law. ABG admits requirement event payloads, replays them
+into `RequirementLedger` read models, builds edge-local requirement
+environments, projects obligations and materialization or execution
+expectations, binds evidence, maps requirement fold/residual states over the
+existing assurance fold and continuation truth, and exposes query/read models.
+
+`RequirementLedger` is a replay-derived projection over emitted requirement
+events. It is not a writable side ledger, not a second event store, not a
+product-local register, and not a rival closure surface. Product and downstream
+ledgers may render requirement pressure as read models or retained
+compatibility inputs, but they do not own ABG closure, retry, continuation,
+re-entry, or event truth.
+
+Destination topology is the HOW constraint framework through which a
+requirement may need to be realized. A destination topology may describe tenant
+family, technology stack, runtime model, packaging, deployment, proof topology,
+regulatory frame, or another conformance surface. It is distinct from WHAT
+requirement meaning and may constrain projection or materialization without
+becoming the requirement itself.
+
+The generic requirements algebra is intentionally closed-world for F_D. A
+deterministic evaluator may validate admitted carrier shape, identity,
+provenance, spans, relation refs, evidence policy, replay consistency, and
+coverage gates. It must not infer product semantic satisfaction from unknown
+syntax, file paths, worker prose, or local archive shape. Ambiguous or
+ungrammatized content is routed to typed F_P pressure, and owner decisions or
+explicit reprices are routed to F_H.
+
 Composed `.C` stages share one stage-set shape. `transform.C`, `evaluate.C`,
 and `consequence.C` may each plan ordered or parallel task sets under selected
 composition. A scalar stage plugin is the one-task reduction of that shape, not
