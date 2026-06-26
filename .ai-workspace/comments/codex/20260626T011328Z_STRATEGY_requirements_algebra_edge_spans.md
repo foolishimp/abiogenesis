@@ -81,14 +81,42 @@ system, not a peer language beside GTL. GTL wrappers should expose the algebra
 to human-agent authoring; the ABG substrate should manage the durable
 requirement model, projection, fold, and replay mechanics.
 
+## Graph Functions Replace SDLC Phase Flow
+
+Traditional SDLC is largely a human-historical process model: requirements,
+design, implementation, test, release, and maintenance are treated as phases,
+meetings, documents, handoffs, and audit history.
+
+In ODD/GTL/ABG, graph functions are the constructive lifecycle. The governing
+unit is not a phase gate. It is a typed graph transformation with declared
+inputs, domain assets, requirements, obligations, evidence expectations,
+runtime events, folds, residuals, and replayable continuation.
+
+The replacement is:
+
+```text
+historical SDLC phase flow
+  -> graph-function traversal
+  -> edge requirement environment
+  -> projected obligations and evidence
+  -> fold/residual/continuation
+  -> read-model projections for human audit
+```
+
+SDLC artifacts can still exist as projections for human review, governance,
+compliance, or downstream integration. They are not the primary constructive
+carrier. The constructive carrier is the admitted GTL graph function and the
+ABG event/fold truth produced by traversing it.
+
 ## KAOS Additive Rigor To Keep
 
 KAOS should be stripped for rigor, not adopted as a product shape.
 
 ODD already supplies product method. GTL already supplies the LLM-first
-algebraic language. ABG already supplies graph runtime, event truth, replay,
-and fold mechanics. KAOS adds rigor where it makes requirement pressure more
-typed, checkable, and queryable.
+algebraic language and graph-function carrier that replaces traditional SDLC
+phase flow. ABG already supplies graph runtime, event truth, replay, and fold
+mechanics. KAOS adds rigor where it makes requirement pressure more typed,
+checkable, and queryable.
 
 The bounded import is:
 
@@ -807,7 +835,7 @@ The product shape:
 ODD methodology
   -> GTL requirement wrappers/declarations
   -> ABG requirement algebra carriers
-  -> requirement graph functions
+  -> GTL graph functions
   -> edge requirement environment
   -> obligation/materialization/evidence/assurance projections
   -> ABG fold/replay/residual truth
