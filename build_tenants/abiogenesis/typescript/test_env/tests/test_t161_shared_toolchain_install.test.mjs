@@ -73,17 +73,7 @@ test("T-161 shared toolchain install separates immutable payload from observer a
   const repoRoot = await locateRepoRoot();
   const sourceRoot = tenantRoot(repoRoot);
   const parentRoot = await mkdtemp(path.join(tmpdir(), "abg-t161-"));
-  const observedRoot = path.join(parentRoot, "observed-workspace");
   const toolchainRoot = path.join(parentRoot, "toolchain");
-  const observerStateRoot = path.join(parentRoot, "observer-state", ".ai-workspace");
-  const executorStateRoot = path.join(parentRoot, "executor-state", ".ai-workspace");
-  const eventRoot = path.join(observerStateRoot, "events");
-  const eventLogPath = path.join(eventRoot, "events.jsonl");
-  const runtimeRoot = path.join(observerStateRoot, "runtime");
-  const projectionRoot = path.join(observerStateRoot, "projections");
-  const archiveRoot = path.join(observerStateRoot, "archives");
-  await mkdir(observedRoot, { recursive: true });
-
   const cliPath = path.join(
     sourceRoot,
     "build",
@@ -93,111 +83,155 @@ test("T-161 shared toolchain install separates immutable payload from observer a
     "bin",
     "abiogenesis.js"
   );
-  const installRun = runNode(
-    process.execPath,
-    [
-      cliPath,
-      "install",
-      "--target",
+
+  async function exerciseTarget(label) {
+    const observedRoot = path.join(parentRoot, `${label}-observed-workspace`);
+    const observerStateRoot = path.join(
+      parentRoot,
+      `${label}-observer-state`,
+      ".ai-workspace"
+    );
+    const executorStateRoot = path.join(
+      parentRoot,
+      `${label}-executor-state`,
+      ".ai-workspace"
+    );
+    const eventRoot = path.join(observerStateRoot, "events");
+    const eventLogPath = path.join(eventRoot, "events.jsonl");
+    const runtimeRoot = path.join(observerStateRoot, "runtime");
+    const projectionRoot = path.join(observerStateRoot, "projections");
+    const archiveRoot = path.join(observerStateRoot, "archives");
+    await mkdir(observedRoot, { recursive: true });
+
+    const installRun = runNode(
+      process.execPath,
+      [
+        cliPath,
+        "install",
+        "--target",
+        observedRoot,
+        "--package-source",
+        sourceRoot,
+        "--installed-package-name",
+        "abg-t161-shared",
+        "--toolchain-root",
+        toolchainRoot,
+        "--observer-state-root",
+        observerStateRoot,
+        "--executor-state-root",
+        executorStateRoot,
+        "--event-root",
+        eventRoot,
+        "--event-log-path",
+        eventLogPath,
+        "--runtime-root",
+        runtimeRoot,
+        "--projection-root",
+        projectionRoot,
+        "--archive-root",
+        archiveRoot
+      ],
+      sourceRoot
+    );
+    assert.equal(installRun.status, 0, installRun.stderr);
+    const installPayload = parsePayload(installRun);
+    assert.equal(installPayload.status, "installed");
+
+    const outcome = installPayload.outcome;
+    assert.equal(outcome.kind, "installed");
+    assert.equal(outcome.manifest.eventsPath, eventLogPath);
+    assert.equal(outcome.manifest.runtimeDirectory, runtimeRoot);
+    assert.equal(outcome.manifest.projectionDirectory, projectionRoot);
+    assert.equal(outcome.manifest.archiveDirectory, archiveRoot);
+    assert.equal(outcome.manifest.toolchainBinding.toolchainRoot, toolchainRoot);
+    assert.equal(outcome.manifest.toolchainBinding.selectionSource, "explicit");
+    assert.equal(
+      outcome.manifest.mutableStateRoots.executorStateRoot,
+      executorStateRoot
+    );
+    assert.equal(await isDirectory(outcome.packageRoot), true);
+    assert.equal(outcome.packageRoot.startsWith(toolchainRoot), true);
+    assert.equal(
+      await pathExists(
+        path.join(
+          observedRoot,
+          "node_modules",
+          "@abiogenesis",
+          "typescript-tenant"
+        )
+      ),
+      false
+    );
+
+    const binding = await readJson(
+      path.join(observedRoot, ".abiogenesis", "toolchain-binding.json")
+    );
+    assert.equal(binding.kind, "abg_toolchain_workspace_binding");
+    assert.equal(binding.mutableStateRoots.eventLogPath, eventLogPath);
+    assert.equal(binding.mutableStateRoots.observedWorkspaceRoot, observedRoot);
+    assert.equal(binding.mutableStateRoots.observerStateRoot, observerStateRoot);
+    assert.equal(binding.mutableStateRoots.executorStateRoot, executorStateRoot);
+    assert.equal(binding.products[0].productId, "abiogenesis");
+    assert.equal(binding.products[0].packageRoot, outcome.packageRoot);
+    assert.equal(await pathExists(binding.products[0].manifestPath), true);
+
+    const genesisCommand = outcome.commandPaths.find((candidate) =>
+      candidate.endsWith(`${path.sep}genesis-ts`)
+    );
+    assert.notEqual(genesisCommand, undefined);
+    assert.equal(genesisCommand.startsWith(toolchainRoot), true);
+
+    const startRun = runNode(
+      genesisCommand,
+      [
+        "start",
+        "--workspace",
+        observedRoot,
+        "--scope",
+        "workspace",
+        "--target",
+        "graph_function:installed_cli_runtime_binding_self_test",
+        "--until",
+        "converged"
+      ],
+      observedRoot
+    );
+    assert.equal(startRun.status, 0, startRun.stderr);
+    const startPayload = parsePayload(startRun);
+    assert.equal(startPayload.status, "converged");
+    assert.equal(startPayload.events_path, eventLogPath);
+    assert.equal(
+      startPayload.mutable_state_roots.executorStateRoot,
+      executorStateRoot
+    );
+
+    const eventLog = await readFile(eventLogPath, "utf8");
+    assert.match(eventLog, /"kind":"terminal_reached"/u);
+    const defaultObservedEventLog = path.join(
       observedRoot,
-      "--package-source",
-      sourceRoot,
-      "--installed-package-name",
-      "abg-t161-shared",
-      "--toolchain-root",
-      toolchainRoot,
-      "--observer-state-root",
-      observerStateRoot,
-      "--executor-state-root",
-      executorStateRoot,
-      "--event-root",
-      eventRoot,
-      "--event-log-path",
-      eventLogPath,
-      "--runtime-root",
-      runtimeRoot,
-      "--projection-root",
-      projectionRoot,
-      "--archive-root",
-      archiveRoot
-    ],
-    sourceRoot
-  );
-  assert.equal(installRun.status, 0, installRun.stderr);
-  const installPayload = parsePayload(installRun);
-  assert.equal(installPayload.status, "installed");
+      ".ai-workspace",
+      "events",
+      "events.jsonl"
+    );
+    const defaultObservedEvents = await readFile(
+      defaultObservedEventLog,
+      "utf8"
+    );
+    assert.equal(defaultObservedEvents, "");
 
-  const outcome = installPayload.outcome;
-  assert.equal(outcome.kind, "installed");
-  assert.equal(outcome.manifest.eventsPath, eventLogPath);
-  assert.equal(outcome.manifest.runtimeDirectory, runtimeRoot);
-  assert.equal(outcome.manifest.projectionDirectory, projectionRoot);
-  assert.equal(outcome.manifest.archiveDirectory, archiveRoot);
-  assert.equal(outcome.manifest.toolchainBinding.toolchainRoot, toolchainRoot);
-  assert.equal(outcome.manifest.toolchainBinding.selectionSource, "explicit");
+    return { binding, genesisCommand, outcome };
+  }
+
+  const first = await exerciseTarget("first");
+  const second = await exerciseTarget("second");
+  assert.equal(first.outcome.packageRoot, second.outcome.packageRoot);
   assert.equal(
-    outcome.manifest.mutableStateRoots.executorStateRoot,
-    executorStateRoot
+    first.binding.products[0].packageRoot,
+    second.binding.products[0].packageRoot
   );
-  assert.equal(await isDirectory(outcome.packageRoot), true);
-  assert.equal(outcome.packageRoot.startsWith(toolchainRoot), true);
   assert.equal(
-    await pathExists(
-      path.join(observedRoot, "node_modules", "@abiogenesis", "typescript-tenant")
-    ),
-    false
+    first.binding.products[0].manifestPath,
+    second.binding.products[0].manifestPath
   );
-
-  const binding = await readJson(
-    path.join(observedRoot, ".abiogenesis", "toolchain-binding.json")
-  );
-  assert.equal(binding.kind, "abg_toolchain_workspace_binding");
-  assert.equal(binding.mutableStateRoots.eventLogPath, eventLogPath);
-  assert.equal(binding.mutableStateRoots.observedWorkspaceRoot, observedRoot);
-  assert.equal(binding.mutableStateRoots.observerStateRoot, observerStateRoot);
-  assert.equal(binding.mutableStateRoots.executorStateRoot, executorStateRoot);
-  assert.equal(binding.products[0].productId, "abiogenesis");
-  assert.equal(binding.products[0].packageRoot, outcome.packageRoot);
-  assert.equal(await pathExists(binding.products[0].manifestPath), true);
-
-  const genesisCommand = outcome.commandPaths.find((candidate) =>
-    candidate.endsWith(`${path.sep}genesis-ts`)
-  );
-  assert.notEqual(genesisCommand, undefined);
-  assert.equal(genesisCommand.startsWith(toolchainRoot), true);
-
-  const startRun = runNode(
-    genesisCommand,
-    [
-      "start",
-      "--workspace",
-      observedRoot,
-      "--scope",
-      "workspace",
-      "--target",
-      "graph_function:installed_cli_runtime_binding_self_test",
-      "--until",
-      "converged"
-    ],
-    observedRoot
-  );
-  assert.equal(startRun.status, 0, startRun.stderr);
-  const startPayload = parsePayload(startRun);
-  assert.equal(startPayload.status, "converged");
-  assert.equal(startPayload.events_path, eventLogPath);
-  assert.equal(
-    startPayload.mutable_state_roots.executorStateRoot,
-    executorStateRoot
-  );
-
-  const eventLog = await readFile(eventLogPath, "utf8");
-  assert.match(eventLog, /"kind":"terminal_reached"/u);
-  const defaultObservedEventLog = path.join(
-    observedRoot,
-    ".ai-workspace",
-    "events",
-    "events.jsonl"
-  );
-  const defaultObservedEvents = await readFile(defaultObservedEventLog, "utf8");
-  assert.equal(defaultObservedEvents, "");
+  assert.equal(first.genesisCommand, second.genesisCommand);
 });

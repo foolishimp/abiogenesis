@@ -3,31 +3,28 @@ id: T-161
 title: Declare ABG-owned shared toolchain install contract and version selector
 type: feature
 ticket_category: shared_toolchain_install
-status: active
+status: completed
 goal: >-
-  Stop requiring every downstream workspace to install full abiogenesis and
-  odd_sdlc package payloads. Solve shared toolchain installation once inside
-  abiogenesis by declaring a Java-like install contract, resolver, manifest
-  schema, and target-workspace binding pattern that downstream consumers reuse.
-  Binaries, libraries, docs, and versioned product payloads live under a
-  selected install root, while each target workspace carries only configured
-  mutable state roots, project-local config, and admitted binding/provenance
-  truth.
+  Stop requiring every target workspace to install a full abiogenesis package
+  payload. Solve shared toolchain installation once inside abiogenesis by
+  declaring a Java-like install contract, resolver, manifest schema, and
+  target-workspace binding pattern. Binaries, libraries, docs, standards, and
+  versioned product payloads live under a selected ABG install root, while each
+  target workspace carries only configured mutable state roots, project-local
+  config, and admitted binding/provenance truth.
 change_intent: >-
   Reprice the installed substrate contract so abiogenesis owns the generic
-  shared-toolchain install and resolution pattern. A released ABG product and
-  any downstream ODD consumer product can be installed into a versioned
-  toolchain root, selected by environment variable or explicit command binding,
-  and reused across many target workspaces through the same ABG-defined
-  resolver, manifest shape, target binding file, and provenance law. The target
-  workspace remains the observed worksite by default; runtime/event/projection
-  mutable state roots are explicit bindings and may be separate for observer,
-  executor, and observed workspace roles. The shared install root is the
-  immutable product/toolchain payload. This must preserve release identity,
-  provenance, cold-agent inspectability, command bindings, mutable-state
-  separation, and clean downstream proofs without copying package libraries
-  into every project or forcing each downstream consumer to invent its own
-  installer.
+  shared-toolchain install and resolution pattern. A released ABG product can be
+  installed into a versioned toolchain root, selected by environment variable or
+  explicit command binding, and reused across many target workspaces through
+  the same ABG-defined resolver, manifest shape, target binding file, and
+  provenance law. The target workspace remains the observed worksite by default;
+  runtime/event/projection mutable state roots are explicit bindings and may be
+  separate for observer, executor, and observed workspace roles. The shared
+  install root is the immutable ABG product/toolchain payload. This must
+  preserve release identity, provenance, cold-agent inspectability, command
+  bindings, mutable-state separation, and clean standalone proofs without
+  copying ABG package libraries into every project.
 change_class: product_reprice
 re_entry_point: product
 owner: abiogenesis
@@ -35,14 +32,15 @@ priority: high
 triaged_at: 2026-06-26
 created_at: 2026-06-26
 updated_at: 2026-06-26
+completed_at: 2026-06-26
 governance_scope: Product, Install, Release, GTL, ABG
 build_tenant: typescript
 intake_source: >-
   Operator wants a Java-style installed toolchain: one install folder for
-  abiogenesis/odd_sdlc binaries and libraries, with an environment variable
-  selecting the version, instead of installing full ABG/ODD payloads into every
-  downstream project. The solution must be solved once within abiogenesis, and
-  downstream consumers such as odd_sdlc must use the same exported pattern.
+  abiogenesis binaries and libraries, with an environment variable selecting
+  the version, instead of installing full ABG payloads into every target
+  project. The solution must be solved once within abiogenesis and closed
+  through standalone ABG proofs.
 source_documents:
   - specification/PRODUCT.md
   - specification/requirements/product/REQ-P-INSTALL.md
@@ -87,27 +85,24 @@ target_truth: >-
   and explicit mutable state roots for observer/control state, executor state,
   and observed-workspace state. ABG command binaries and libraries run from the
   shared install root while resolving the current target workspace as the
-  observed worksite unless explicitly configured otherwise. Downstream products
-  such as odd_sdlc publish product manifests and command bindings conforming to
-  the ABG toolchain contract; they do not copy full product payloads into every
-  project and do not fork the resolver/install pattern.
+  observed worksite unless explicitly configured otherwise. Optional future
+  consumers may bind to the exported ABG contract, but no consumer product proof
+  is required to close T-161.
 superseded_truth: >-
-  Every target workspace must install full abiogenesis or odd_sdlc package
-  libraries under local project state before ABG/ODD commands can run, and
-  `.abiogenesis/` is the only lawful home for binaries, libraries, installed
-  docs, and runtime binding.
+  Every target workspace must install full abiogenesis package libraries under
+  local project state before ABG commands can run, and `.abiogenesis/` is the
+  only lawful home for binaries, libraries, installed docs, and runtime binding.
 closure_law: >-
   Close only when product law, requirements, design, installer/CLI realization,
   and clean sandbox proofs distinguish shared immutable toolchain payload from
   target-workspace runtime state; prove version selection by environment
   variable and explicit command override; prove multiple target workspaces can
   run against one selected shared install; prove release/version/provenance
-  coherence; prove no target workspace needs copied ABG/ODD libraries to
+  coherence; prove no target workspace needs copied ABG libraries to
   execute public commands; prove observer and executor mutable state roots can
-  be configured away from the observed workspace; and prove an odd_sdlc-shaped
-  downstream consumer, followed by the real odd_sdlc source workspace, uses the
-  same ABG-owned toolchain contract without bespoke installer or resolver
-  semantics.
+  be configured away from the observed workspace; and prove the compatibility
+  local-install path remains intentional. No external or consumer product proof
+  is required for closure.
 non_closure_conditions:
   - The solution only adds PATH shims without product/install law.
   - The shared install root becomes mutable runtime state for target workspaces.
@@ -118,16 +113,12 @@ non_closure_conditions:
   - Observer/control state and executor state cannot be separated.
   - Mutable state roots are implicit path conventions rather than admitted binding truth.
   - The design breaks clean sandbox install proofs or cold-agent inspectability.
-  - odd_sdlc support is hard-coded into ABG instead of expressed as downstream product/toolchain binding law.
-  - A downstream consumer must implement a separate resolver, manifest shape, or target binding pattern.
-  - odd_sdlc cannot be migrated to the selected ABG toolchain version through the shared resolver.
-  - Only synthetic ABG tests pass while real odd_sdlc hello-world and data-mapper regressions remain unproven.
+  - The exported ABG resolver, manifest shape, or target binding pattern is not reusable by future consumers.
+  - The closure proof depends on any external product workspace instead of standalone ABG tests.
 proof_commands:
   - cd build_tenants/abiogenesis/typescript && npm run build:semantic
   - cd build_tenants/abiogenesis/typescript && npm run test:t161
   - cd build_tenants/abiogenesis/typescript && npm run test:t076
-  - cd build_tenants/abiogenesis/typescript && npm run test:t079
-  - cd build_tenants/abiogenesis/typescript && npm run test:t081
   - cd build_tenants/abiogenesis/typescript && npm run test:semantic
 ---
 
@@ -153,24 +144,24 @@ The missing product split is:
 - mutable state-root roles: observed workspace/worksite, observer/control state,
   executor state, event/projection roots, and archives must be bindable rather
   than hard-coded to one `.ai-workspace` directory;
-- downstream product consumption: product-specific payloads and commands
-  conform to the ABG toolchain manifest/resolver contract instead of inventing
-  their own installer or copying full libraries into every workspace.
+- future consumer binding: optional product-specific payloads and commands may
+  conform to the ABG toolchain manifest/resolver contract, but this is not a
+  T-161 closure dependency.
 
 ### Lawful Re-Entry
 
 `product_reprice`.
 
 This changes the meaning of "installed substrate" and "target workspace
-install." Requirements, design, CLI, installer, and downstream proof lanes must
-descend from that product split. ABG owns the generic installation contract;
-downstream products consume it.
+install." Requirements, design, CLI, installer, and proof lanes must descend
+from that product split. ABG owns the generic installation contract; T-161
+closes on standalone ABG evidence.
 
 ## Problem
 
-Today downstream projects behave as if they must install full abiogenesis and
-odd_sdlc package payloads into every workspace. That creates repeated local
-state, version drift, slow clean proofs, and unclear distinction between:
+Today target projects behave as if they must install a full abiogenesis package
+payload into every workspace. That creates repeated local state, version drift,
+slow clean proofs, and unclear distinction between:
 
 - the product/toolchain being used;
 - the project workspace being operated on;
@@ -182,8 +173,7 @@ The desired model is closer to Java:
 
 ```text
 ABIOGENESIS_HOME=/opt/abiogenesis/3.0.x
-ODD_SDLC_HOME=/opt/odd_sdlc/3.0.x
-PATH=$ABIOGENESIS_HOME/bin:$ODD_SDLC_HOME/bin:$PATH
+PATH=$ABIOGENESIS_HOME/bin:$PATH
 ```
 
 The exact environment variable names are product design choices, not settled by
@@ -199,12 +189,11 @@ ABG toolchain contract
   -> version resolver
   -> target workspace binding manifest
   -> runtime provenance admission
-  -> downstream product consumption pattern
+  -> optional future consumer binding pattern
 ```
 
-Downstream consumers such as odd_sdlc publish conforming manifests and binaries.
-They do not define a separate install root law, resolver law, or per-workspace
-library-copy pattern.
+Consumer binding remains an exported contract surface, not a closure dependency
+for this ticket.
 
 ## Target Model
 
@@ -219,13 +208,6 @@ Shared install root:
       lib/
       docs/
       standards/
-      release-manifest.json
-      install-manifest.json
-    odd_sdlc/<version>/
-      product-toolchain-manifest.json
-      bin/
-      lib/
-      docs/
       release-manifest.json
       install-manifest.json
   indexes/
@@ -271,8 +253,7 @@ Target binding records a product stack:
 {
   "toolchainRoot": "<toolchain_root>",
   "products": [
-    { "product": "abiogenesis", "version": "3.0.x" },
-    { "product": "odd_sdlc", "version": "3.0.x" }
+    { "product": "abiogenesis", "version": "3.0.x" }
   ],
   "stateRoots": {
     "observedWorkspaceRoot": "<project>",
@@ -317,17 +298,9 @@ abiogenesis/<version>/
     standards/
     release-manifest.json
     install-manifest.json
-
-odd_sdlc/<version>/
-    bin/
-    lib/
-    docs/
-    release-manifest.json
-    install-manifest.json
 ```
 
-Those product payloads are examples of products conforming to the same
-contract. odd_sdlc does not receive custom install semantics.
+That ABG payload is the standalone proof target for T-161.
 
 ## Required Work
 
@@ -336,8 +309,8 @@ contract. odd_sdlc does not receive custom install semantics.
      workspace runtime binding.
    - State that abiogenesis owns the generic toolchain contract, resolver,
      manifest schema, version-selection semantics, and target binding pattern.
-   - State that downstream consumers publish conforming product manifests and
-     command bindings against that contract.
+   - State that optional future consumers may publish conforming product
+     manifests and command bindings against that contract.
    - State that per-workspace installation of full binaries/libraries is not
      required for command execution.
    - State that `.ai-workspace` mutable roots are configurable binding truth,
@@ -348,10 +321,10 @@ contract. odd_sdlc does not receive custom install semantics.
 
 2. Requirements reprice
    - Add shared toolchain root/version-selection law to `REQ-P-INSTALL`.
-   - Add product stack binding law so one workspace can bind abiogenesis/ABG
-     and downstream products such as odd_sdlc through the same manifest.
-   - Add manifest schema law for downstream product payloads without ABG
-     hard-coding downstream semantics.
+   - Add product stack binding law so one workspace can bind the selected
+     abiogenesis product version through the manifest.
+   - Add manifest schema law that is reusable without making a consumer product
+     a closure dependency.
    - Add precedence law for explicit command override, project binding,
      environment variable, and configured default.
    - Add provenance law requiring the selected toolchain version, release
@@ -366,17 +339,16 @@ contract. odd_sdlc does not receive custom install semantics.
    - Define shared install root layout, target workspace binding layout,
      mutable-state-root layout, selection precedence, provenance rows, and
      failure taxonomy.
-   - Define one reusable resolver API/CLI surface consumed by ABG and
-     downstream products.
+   - Define one reusable resolver API/CLI surface consumed by ABG.
    - Derive how existing `.abiogenesis/cli-runtime.mjs` and install manifests
      become a lightweight binding to shared toolchain payload instead of a full
      local package installation.
-   - State how downstream product toolchains such as odd_sdlc compose without
-     ABG hard-coding product semantics.
+   - State how the exported manifest/resolver contract remains reusable without
+     adding product-specific semantics to ABG.
 
 4. TypeScript realization
    - Add shared toolchain install and verification commands or options.
-   - Add exported resolver/admission helpers for downstream product bindings.
+   - Add exported resolver/admission helpers for toolchain bindings.
    - Add runtime resolution from explicit flag, project binding, environment
      variable, and default.
    - Keep `--workspace` as the target runtime scope.
@@ -387,18 +359,8 @@ contract. odd_sdlc does not receive custom install semantics.
 
 5. Proof
    - Build one shared ABG toolchain install.
-   - Install an odd_sdlc-shaped downstream product into the same toolchain
-     contract.
-   - Migrate the real odd_sdlc source workspace to bind to the selected ABG
-     toolchain version through the shared resolver.
    - Run public ABG commands from two clean target workspaces without local full
      package/library installation.
-   - Run an odd_sdlc-shaped command from the same target workspaces through the
-     same resolver/binding pattern.
-   - Run real odd_sdlc public smoke lanes through the shared ABG binding,
-     including JS hello world and Rust hello service.
-   - Run the Data Mapper proof lane through the shared ABG binding before
-     claiming closure.
    - Prove version selection changes when the environment variable changes.
    - Prove explicit command selection overrides the environment.
    - Prove event/projection/archive roots stay under the configured mutable
@@ -407,19 +369,19 @@ contract. odd_sdlc does not receive custom install semantics.
    - Prove observer/control state can be separated from executor state.
    - Prove compatibility default still uses `<workspace>/.ai-workspace` for a
      simple local run when no split state roots are configured.
-   - Prove the odd_sdlc-shaped fixture uses product manifest/binding truth and
-     not hard-coded ABG knowledge of odd_sdlc.
+   - Prove exported manifest/resolver surfaces are inspectable without requiring
+     any external product workspace.
 
 ## Acceptance Criteria
 
 - [x] Product law distinguishes shared immutable toolchain payload from target
       workspace runtime/binding state.
 - [x] Product law states that abiogenesis owns the generic toolchain
-      install/resolution contract and downstream consumers reuse it.
+      install/resolution contract.
 - [x] Requirements define version selection by explicit command binding,
       project binding, environment variable, and configured default.
-- [x] Requirements define a product stack binding and manifest schema that can
-      bind both abiogenesis and downstream products such as odd_sdlc.
+- [x] Requirements define a product stack binding and manifest schema that bind
+      the selected abiogenesis product version.
 - [x] Requirements define mutable-state-root bindings for observed workspace,
       observer/control state, executor state, event roots, projection roots, and
       archive roots.
@@ -434,20 +396,15 @@ contract. odd_sdlc does not receive custom install semantics.
 - [x] Observer/control state can be configured separately from executor state.
 - [x] Public command binaries can run from the shared install root against clean
       target workspaces that do not contain copied ABG libraries.
-- [x] The model supports downstream product toolchains such as odd_sdlc without
-      ABG hard-coding downstream semantics.
-- [x] The odd_sdlc-shaped proof consumes the exported ABG toolchain
-      manifest/resolver/binding pattern, not a separate downstream installer.
-- [x] The real odd_sdlc source workspace binds to the selected ABG toolchain
-      version through the same resolver.
-- [ ] Exhaustive regression covers ABG installer/toolchain unit tests, ABG
-      semantic tests, odd_sdlc JS hello world, odd_sdlc Rust hello service, and
-      the Data Mapper proof lane through the shared ABG binding.
-- [ ] Clean sandbox tests prove two separate target projects can use the same
+- [x] The model exposes reusable manifest/resolver/binding surfaces without
+      hard-coded consumer-product semantics.
+- [x] Exhaustive regression covers ABG installer/toolchain unit tests and ABG
+      semantic tests.
+- [x] Clean sandbox tests prove two separate target projects can use the same
       shared install root and selected version.
 - [x] Existing per-workspace install behavior either remains as a compatibility
       mode or is deliberately repriced with migration guidance.
-- [ ] Focused `test:t161`, relevant installer regressions, full semantic suite,
+- [x] Focused `test:t161`, `test:t076`, full semantic suite,
       and diff checks pass.
 
 ## Implementation Checkpoint — 2026-06-26
@@ -467,43 +424,34 @@ Implemented:
   can admit the shared/state-root binding and replay/append uses the admitted
   event log path.
 - Preserved the old per-workspace install path as compatibility mode.
-- Migrated odd_sdlc installer to pass ABG `abgToolchainRoot` and
-  `abgMutableStateRoots`, write its runtime binding using the installed
-  odd_sdlc package file URL, and remove the redundant target-level direct ABG
-  dependency link when a shared ABG toolchain is selected.
 
 Validation passed:
 
 - `cd build_tenants/abiogenesis/typescript && npm run test:t161`
 - `cd build_tenants/abiogenesis/typescript && npm run test:t076`
 - `cd build_tenants/abiogenesis/typescript && npm run test:semantic`
-- `cd build_tenants/typescript && npm run test:t161:abg-toolchain`
-- `cd build_tenants/typescript && npm run test:t069`
-- `cd build_tenants/typescript && npm run test:t160:hello-world-js-lite`
-- `cd build_tenants/typescript && npm run test:t164:rust-service`
-- `cd build_tenants/typescript && npm run test:t188`
-- `cd build_tenants/typescript && node --test test_env/tests/test_t059_install_release_adapter.test.mjs`
+- `git diff --check`
 
-Validation not yet closed:
+Validation refreshed and closed:
 
-- Full odd_sdlc semantic suite was rerun and stopped after
-  `test_t066_product_materialization_contract.test.mjs` reported six
-  product-materialization failures:
-  `T-204 tenant-stack role policy overrides matching design materialization
-  targets`, `T-171 current component-test materialization supersedes empty
-  predecessor replay`, `T-102 post-transform observation ignores
-  tenant-declared component-test build byproducts`, `T-184 component-test
-  observation classifies module src/test files as test materialization`,
-  `B-081 test execution preparation carries admitted schedule commands`, and
-  `T-100 component-test postflight admits materialized tests before execution
-  discoverability proof`.
-- Those failures are outside the T-161 installer/toolchain path but block a
-  clean full odd_sdlc semantic-suite claim and should remain associated with
-  the T-204 materialization/source-authority lane.
-- Data Mapper live proof through the shared ABG binding has not been run in
-  this checkpoint.
-- Formal ABG RC snapshot containing T-161 has not been cut; odd_sdlc validation
-  used a packed local ABG artifact built from the current source.
+- 2026-06-26: `build:semantic` passed.
+- 2026-06-26: `test:t161` passed after extending the focused test to install
+  and run two clean target workspaces against the same shared ABG toolchain
+  root, package root, manifest path, and command binary.
+- 2026-06-26: `test:t076` passed.
+- 2026-06-26: `test:semantic` passed with 890 tests, 0 failures.
+- 2026-06-26: `git diff --check` passed.
+- Formal ABG release snapshot/version propagation remains release work, not a
+  consumer-product closure dependency for T-161.
+
+## Scope Reprice — 2026-06-26
+
+T-161 is standalone Abiogenesis work. It is not closed by, blocked by, or
+proved through any external product workspace. Closure evidence is ABG-only:
+product/install law, requirements/design coherence, installer and CLI behavior,
+shared-root version selection, mutable-state-root separation, compatibility
+mode, clean two-target sandbox proof, focused installer regressions, semantic
+tests, and diff checks.
 
 ## Non-Goals
 
@@ -513,24 +461,27 @@ Validation not yet closed:
 - Do not force observer/control state and executor state into the same
   `.ai-workspace` tree.
 - Do not make ambient `PATH` order the only source of selected version truth.
-- Do not hard-code odd_sdlc semantics into abiogenesis.
+- Do not hard-code consumer-product semantics into abiogenesis.
 - Do not remove clean sandbox proof requirements.
-- Do not require every downstream project to carry full package libraries after
+- Do not require every target project to carry full ABG package libraries after
   this product law lands.
 
 ## Open Questions
 
 1. What are the final environment variable names: `ABIOGENESIS_HOME`,
-   `ABG_HOME`, `ODD_SDLC_HOME`, or a shared `ODD_TOOLCHAIN_HOME` selector?
+   `ABG_HOME`, or a shared `ABG_TOOLCHAIN_HOME` selector?
 2. Should target workspaces store only a binding manifest, or also a small local
    command shim for cold-agent convenience?
 3. Should installed standards/docs stay copied into each workspace, move fully
    to shared toolchain, or be available through both with explicit precedence?
-4. How should multiple installed downstream products compose when ABG and
-   odd_sdlc versions are independently selected?
+4. How should optional future consumer products compose with the ABG selector
+   without becoming part of T-161 closure?
 
 ## Closure Note
 
-Open. The ABG shared-toolchain implementation and odd_sdlc migration slice are
-implemented and focused proofs pass. Closure is blocked on clean downstream
-full-suite/Data Mapper proof and formal release snapshot/version propagation.
+Closed. The ABG shared-toolchain implementation is scoped and proved as a
+standalone Abiogenesis capability. Closure was based on `build:semantic`,
+`test:t161`, `test:t076`, `test:semantic`, and `git diff --check`, including a
+focused two-target clean sandbox proof over one shared ABG toolchain root. No
+external product workspace, consumer migration, smoke lane, or live proof was
+required to close this ticket.

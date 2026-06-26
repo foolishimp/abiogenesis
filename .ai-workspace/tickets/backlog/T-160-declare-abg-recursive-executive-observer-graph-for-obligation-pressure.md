@@ -3,7 +3,7 @@ id: T-160
 title: Declare ABG recursive executive observer graph for obligation pressure
 type: feature
 ticket_category: abg_recursive_observer_graph
-status: active
+status: backlog
 goal: >-
   Make ABG own a default recursive executive observer behavior over existing
   workspace overlay, observed-state, replay projection, and traversal-unit
@@ -13,7 +13,7 @@ goal: >-
   That graph function observes the target workspace, carries the workers,
   candidate assets, evidence, and pressure facts around it, maintains
   obligation pressure through admitted F_P evaluation findings, and lets ABG
-  continuation route the next lawful action without downstream product-local
+  continuation route the next lawful action without consumer product-local
   loops, new workspace carriers, or F_D semantic reconstruction.
 change_intent: >-
   Ratify at the product layer, then carry into requirements and design, an
@@ -29,18 +29,22 @@ change_intent: >-
 change_class: product_reprice
 re_entry_point: product
 owner: abiogenesis
-priority: critical
+priority: high
 triaged_at: 2026-06-26
 created_at: 2026-06-26
 updated_at: 2026-06-26
 governance_scope: STDO Method, GTL, ABG
 build_tenant: typescript
 intake_source: >-
-  odd_sdlc T-204/Data Mapper pressure failures showed that downstream products
-  need an executive F_P observer whose role is to maintain obligation pressure
-  across a layered manifold, but that role must be ABG-owned and recursive over
-  admitted graph state rather than product-local or deterministic F_D semantic
-  compilation.
+  Prior pressure failures showed that some graph executions need an executive
+  F_P observer whose role is to maintain obligation pressure across a layered
+  manifold, but that role must be ABG-owned and recursive over admitted graph
+  state rather than product-local or deterministic F_D semantic compilation.
+strategy_dependency: >-
+  Backlogged on 2026-06-26. Do not implement T-160 as a direct repair for any
+  one consumer project. Re-enter only after the requirements-algebra/general
+  lifecycle strategy has supplied the product and requirements shape that proves
+  this recursive executive observer is the next smallest ABG primitive.
 source_documents:
   - specification/PRODUCT.md
   - specification/INTENT.md
@@ -60,8 +64,7 @@ related_tickets:
   - .ai-workspace/tickets/completed/T-146-generalize-composed-c-stages-as-stage-set-phases.md
   - .ai-workspace/tickets/completed/T-148-realize-runtime-continuation-transition-projection.md
   - .ai-workspace/tickets/completed/T-159-formalize-traversal-unit-and-consequence-bind-boundary.md
-  - /Users/jim/src/apps/odd_sdlc/.ai-workspace/tickets/active/T-204-decommission-odd-sdlc-cli-orchestration-surface.md
-  - /Users/jim/src/apps/odd_sdlc/.ai-workspace/comments/codex/20260625T165449Z_STRATEGY_fp_pressure_obligation_ledgers_anti_fd_drift.md
+  - .ai-workspace/comments/codex/20260626T011328Z_STRATEGY_requirements_algebra_edge_spans.md
 affected_boundary:
   product:
     - specification/PRODUCT.md
@@ -91,10 +94,8 @@ target_truth: >-
   ABG can open an executive observer graph function whose declared environment
   specifies the observed workspace and target work through existing GTL
   surfaces: `GraphFunction.environment`, workspace `Context` locator/digest
-  truth, and asset-surface required contexts. For the motivating case this is
-  conceptually `abg.executive.GraphFunction(environment:
-  odd_sdlc.workspace -> data_mapper)`. The executive graph function carries
-  workers, attempts, candidate assets, evidence, payload ledgers,
+  truth, and asset-surface required contexts. The executive graph function
+  carries workers, attempts, candidate assets, evidence, payload ledgers,
   assurance/consequence/traversal projections, observed-state refs, and
   `TraversalUnit<A, B>` intent-lineage/obligation-delta refs about the declared
   target workspace. It invokes a default F_P executive evaluator when semantic
@@ -105,7 +106,7 @@ target_truth: >-
   do not own continuation, ledger/event writes, closure, or a separate
   observation/workspace ontology.
 superseded_truth: >-
-  Downstream products maintain obligation pressure through local control loops,
+  Consumer products maintain obligation pressure through local control loops,
   prompt recipes, deterministic semantic compilers, consequence-stage semantic
   judgment, retry prose, product-local replay/continuation adapters, or new
   carrier vocabularies introduced before existing graph-function environment,
@@ -119,7 +120,7 @@ closure_law: >-
   parallel observation/workspace ontology unless proven necessary, and without
   moving product semantic judgment into F_D.
 non_closure_conditions:
-  - The executive observer is implemented only in odd_sdlc or another downstream product.
+  - The executive observer is implemented only in a consumer product.
   - `consequence.C` becomes the F_P executive or owns semantic pressure judgment.
   - F_D derives product semantic rows, obligation maps, or bugfix meaning from unknown syntax.
   - The upper observer graph mutates lower graph call/frame/traversal state directly.
@@ -196,9 +197,9 @@ product shape.
 
 ## Problem
 
-Downstream ODD products need an executive worker whose role is to maintain
-obligation pressure. In current practice that role often appears as a human or
-agentic reviewer looking at an SDLC run:
+Some ODD-shaped graph executions need an executive worker whose role is to
+maintain obligation pressure. In current practice that role often appears as a
+human or agentic reviewer looking at a target run:
 
 ```text
 E.observer -> (SDLC): { E.bugfix }
@@ -209,8 +210,8 @@ state, preserves the obligation/gap/evidence mapping, identifies pressure
 collapse, proposes a repair or re-entry, and proves whether the next iteration
 attenuated the pressure.
 
-The defect is ownership. If this role lives in a downstream product, it becomes
-a second controller. If it is implemented by deterministic F_D parsing over
+The defect is ownership. If this role lives in a consumer product, it becomes a
+second controller. If it is implemented by deterministic F_D parsing over
 unknown product syntax, it becomes a hidden semantic compiler. If it is moved
 into `consequence.C`, semantic judgment happens after the evaluation admission
 boundary and destabilizes bind.
@@ -226,25 +227,11 @@ function's environment and context truth:
 target.workspace -> { target_work }
 ```
 
-For the motivating downstream proof this is:
-
-```text
-odd_sdlc.workspace -> { data_mapper }
-```
-
 The ABG executive role is a graph function over that declared workspace:
 
 ```text
 abg.executive.GraphFunction(
   environment: target.workspace -> target_work
-)
-```
-
-For the motivating downstream proof:
-
-```text
-abg.executive.GraphFunction(
-  environment: odd_sdlc.workspace -> data_mapper
 )
 ```
 
@@ -301,8 +288,7 @@ ABG ships a default executive observer behavior that is conservative:
    a nonlocal repair surface.
 7. Propose reprice/block when owner, authority layer, or admissible repair
    surface is ambiguous.
-8. Preserve all finding, payload, and projection refs for replay and downstream
-   explanation.
+8. Preserve all finding, payload, and projection refs for replay explanation.
 
 F_D in this primitive may validate envelope shape, identity, provenance,
 freshness, selected composition, payload contract, and declared pressure-delta
@@ -447,9 +433,9 @@ consequence the executive.
      ownership.
    - Prove consequence cannot own F_P executive semantics.
    - Prove F_D envelope checks cannot satisfy semantic pressure.
-   - Add an odd_sdlc-shaped fixture where `E.observer -> (SDLC): { E.bugfix }`
-     produces admitted executive pressure findings without importing odd_sdlc
-     code.
+   - Add a generic product-shaped fixture where
+     `E.observer -> (TargetGraph): { E.bugfix }` produces admitted executive
+     pressure findings without importing consumer product code.
 
 ## Acceptance Criteria
 
@@ -489,9 +475,9 @@ consequence the executive.
 - Do not make bare graph vectors public starts or job targets.
 - Do not replace `TraversalUnit<A, B>`.
 - Do not replace `plugin.evaluate.C` or `plugin.consequence.C`.
-- Do not move downstream product semantics into ABG.
-- Do not import odd_sdlc into abiogenesis.
-- Do not create a product-local executive loop in a downstream repo.
+- Do not move consumer product semantics into ABG.
+- Do not import a consumer product into abiogenesis.
+- Do not create a product-local executive loop in a consumer repo.
 - Do not use deterministic F_D syntax parsing as the pressure maintainer.
 
 ## Open Design Questions
@@ -511,6 +497,9 @@ consequence the executive.
 
 ## Closure Note
 
-Open. This ticket is not implemented. It records the STDO work item for ABG to
-own recursive executive observation and obligation-pressure preservation as a
-default substrate behavior with product tuning.
+Backlogged. This ticket is not implemented. It records a possible future STDO
+work item for ABG to own recursive executive observation and
+obligation-pressure preservation as a default substrate behavior with product
+tuning. It is downstream of the requirements-algebra/general lifecycle strategy
+and must not be treated as current active T-161 or consumer-project closure
+work.
