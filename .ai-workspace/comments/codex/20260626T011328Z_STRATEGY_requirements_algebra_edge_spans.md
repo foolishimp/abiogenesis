@@ -113,9 +113,19 @@ The KAOS Modeling Editor line shows a useful authoring pattern: generate an
 initial goal model from natural-language requirements, let humans or agents edit
 the graph, and expose a graph/DOT surface.
 
+In ABG terms, this is ODD-method-governed GTL authoring. The natural-language
+pass can propose a typed requirement graph, but ODD methodology decides how the
+requirements relate to product intent, domain assets, graph functions, proof
+surfaces, and release pressure. The admitted constructive carrier should be
+GTL/ABG requirement terms and graph-function references. DOT is only a
+projection of that carrier, not the model authority.
+
 ABG consequence:
 
 - natural-language extraction can create candidate requirement graphs;
+- ODD methodology governs admission, product meaning, proof role, and release
+  pressure;
+- candidate graphs should compile or admit into GTL/ABG requirement carriers;
 - generated candidates are not constitutional truth until admitted;
 - DOT/diagram output is a read model;
 - graph editing should preserve stable ids and relation ids.
