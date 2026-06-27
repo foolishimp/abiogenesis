@@ -4,7 +4,7 @@
 **Category**: Capability
 **Date**: 2026-04-27
 **Derives from**: [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/SPEC_METHOD.md), [ODD_METHOD.md](/Users/jim/src/apps/specification_methodology/specification/standards/ODD_METHOD.md)
-**Wave**: TypeScript installer contract reprice
+**Wave**: Shared product toolchain install-resolution reprice
 
 ---
 
@@ -22,9 +22,9 @@ scripts, source-tree imports, or ticket commentary.
 **REQ-P-INSTALL-001**: Abiogenesis shall publish a public installer surface for
 each released build tenant that claims installed substrate behavior.
 
-**REQ-P-INSTALL-002**: The installer shall create an installed ABG substrate
-inside the target workspace without treating the mutable abiogenesis source
-project as the installed product.
+**REQ-P-INSTALL-002**: The installer shall create a target workspace binding to
+an immutable released ABG product payload without treating the mutable
+abiogenesis source project or the target workspace as the installed product.
 
 **REQ-P-INSTALL-003**: The installed substrate root shall be `.abiogenesis/`.
 Downstream products may install product-owned payload beneath
@@ -37,30 +37,48 @@ acceptance interpretation, and product-specific instruction sections.
 
 ## Shared Toolchain Binding
 
-**REQ-P-INSTALL-005**: Abiogenesis shall publish a shared toolchain binding
-contract that separates immutable released product payloads from target
+**REQ-P-INSTALL-005**: Abiogenesis shall publish one shared product toolchain
+binding contract that separates immutable released product payloads from target
 workspace mutable runtime state.
 
-**REQ-P-INSTALL-006**: A target workspace `.abiogenesis/` root may act as the
-binding and provenance root for a selected shared toolchain. In that mode,
-package libraries and command binaries may resolve from the shared toolchain
-root instead of target-local `node_modules`.
+**REQ-P-INSTALL-006**: A target workspace `.abiogenesis/` root shall act as the
+binding, provenance, runtime binding, and configuration root for a selected
+shared product toolchain. Package libraries, command binaries, reference docs,
+and standards shall resolve through the selected versioned product manifest
+under the toolchain root, not through a target-local product package copy.
 
-**REQ-P-INSTALL-007**: The shared toolchain resolver shall make product/version
-selection inspectable. Explicit command input outranks workspace binding truth,
-workspace binding truth outranks environment selection, and environment
-selection outranks configured defaults.
+**REQ-P-INSTALL-007**: The shared product toolchain resolver shall make
+product/version selection inspectable. Explicit command input outranks
+workspace binding truth, and workspace binding truth outranks
+`ABG_TOOLCHAIN_ROOT` environment selection. If none of those selectors is
+present and valid, resolution shall fail closed. No configured default,
+target-root fallback, or legacy environment alias is a lawful selector.
 
 **REQ-P-INSTALL-008**: A workspace binding shall record the observed workspace
 root, observer/control state root, executor state root, event log path, runtime
 state root, projection root, archive root, selected toolchain root, selected
-product payloads, package roots, command paths, and product manifest refs.
+product payloads, product root, package root, command paths, product manifest
+path, and product manifest digest.
 
 **REQ-P-INSTALL-009**: The shared toolchain root shall not become the mutable
 event/projection/archive owner for a target workspace run unless explicitly
-bound as such. The default local binding may still use
-`<workspace>/.ai-workspace` for compatibility, but observer/control state and
-executor state must be separable from the observed workspace.
+bound as such. A workspace may bind mutable roots under
+`<workspace>/.ai-workspace`, but that placement is recorded binding truth, not
+an implicit product-payload fallback. Observer/control state and executor state
+must be separable from the observed workspace.
+
+**REQ-P-INSTALL-009A**: `ABG_TOOLCHAIN_ROOT` is the only lawful environment
+selector for shared product toolchain resolution. `ABIOGENESIS_HOME`,
+`ODD_SDLC_HOME`, and product-specific home aliases shall fail to select ABG
+toolchain payloads.
+
+**REQ-P-INSTALL-009B**: A selected product payload shall be versioned under the
+toolchain root. ABG's TypeScript product payload shall resolve below
+`<toolchainRoot>/products/abiogenesis/<packageVersion>/`.
+
+**REQ-P-INSTALL-009C**: The toolchain root shall not publish top-level command
+shims. Command paths are product-version-scoped payload paths recorded in the
+workspace binding and product manifest.
 
 ## Installed Runtime Truth
 
@@ -98,6 +116,12 @@ to a shared toolchain. Verification shall fail closed when the binding file,
 selected product root, command path, event log path, runtime root, projection
 root, or archive root is missing.
 
+**REQ-P-INSTALL-015B**: Runtime commands that require installed workspace
+context shall load an admitted workspace toolchain binding before selecting
+event, runtime, projection, or archive roots. Missing or malformed binding truth
+is a runtime-resolution error, not a reason to fall back to target-root
+defaults.
+
 ## Target Project Scaffold
 
 **REQ-P-INSTALL-016**: The installer shall distinguish an imported target from
@@ -117,14 +141,14 @@ installer request, manifest, and verification result.
 project surfaces shall remain project-owned starter surfaces. They shall not be
 treated as ABG substrate truth after installation.
 
-## Method Reference Copies
+## Method Reference Payloads
 
-**REQ-P-INSTALL-020**: The installer shall install method reference copies under
-`.abiogenesis/docs/standards/` so a cold agent can resolve
-`workspace://.abiogenesis/docs/standards/...` without knowing the source
-workspace layout.
+**REQ-P-INSTALL-020**: The installer shall materialize method reference
+payloads under the selected versioned product root so a cold agent can resolve
+method standards through the workspace binding and product manifest without
+knowing the source workspace layout.
 
-**REQ-P-INSTALL-021**: The installed standards copy shall include the full
+**REQ-P-INSTALL-021**: The product standards payload shall include the full
 standards tree from the source methodology distribution, including templates
 and secondary method surfaces. Tests may assert a representative minimum set
 such as `SPEC_METHOD.md`, `TICKET_METHOD.md`, `DESIGN_MODULE_METHOD.md`,
@@ -132,15 +156,16 @@ such as `SPEC_METHOD.md`, `TICKET_METHOD.md`, `DESIGN_MODULE_METHOD.md`,
 `GLOSSARY_GUIDE.md`, the standards `README.md`, and `templates/`.
 
 **REQ-P-INSTALL-022**: The installer manifest shall record the standards source
-root, installed standards root, and copied file inventory or checksums.
+root, product standards root, and copied file inventory or checksums.
 
-**REQ-P-INSTALL-023**: Installed standards are target-workspace reference
-copies. They do not outrank upstream `specification_methodology` when editing
-shared method law.
+**REQ-P-INSTALL-023**: Installed standards are product reference payloads. They
+do not outrank upstream `specification_methodology` when editing shared method
+law.
 
-**REQ-P-INSTALL-024**: The installer shall install domain-neutral ABG reference
-docs or bootstrap docs required for cold-agent operation. The docs surface shall
-be recorded in the manifest and shall not include downstream product HOW.
+**REQ-P-INSTALL-024**: The installer shall materialize domain-neutral ABG
+reference docs or bootstrap docs required for cold-agent operation under the
+selected product root. The docs surface shall be recorded in the product
+manifest and installer manifest and shall not include downstream product HOW.
 
 ## Cold-Agent Bootstrap
 
@@ -179,12 +204,17 @@ The TypeScript installer is not release-candidate complete until a clean target
 workspace proves:
 
 - `.abiogenesis/` substrate root exists
-- installed package and command bindings resolve from target `node_modules`
-  or from an admitted shared toolchain product binding
+- installed package, command bindings, reference docs, and standards resolve
+  from an admitted shared product toolchain binding
 - install and installer manifests record runtime and package truth
-- the workspace toolchain binding records selected products and mutable state
-  roots when shared mode is used
-- `.abiogenesis/docs/standards/` contains the full installed standards tree
+- the workspace toolchain binding records selected products, product manifest
+  refs and digests, and mutable state roots
+- the target workspace does not require a full local
+  `node_modules/@abiogenesis/typescript-tenant` product copy
+- legacy environment aliases and missing toolchain selectors fail closed
+- product-version command paths are recorded, and no top-level toolchain shim is
+  generated
+- the selected product root contains the full standards tree
 - manifest proof records standards-copy evidence
 - install provenance/event truth records package, command, standards, and
   runtime identity

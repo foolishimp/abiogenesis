@@ -31,6 +31,7 @@ import {
 import {
   installPackedTenantPackage,
   provisionInstalledRoot,
+  rewriteInstalledPackageImports,
   runInstalledNodeScript
 } from "./support/m05-installed-fixtures.mjs";
 
@@ -362,7 +363,7 @@ async function installGapsRuntime(source = twoStageRuntimeBindingSource()) {
   await mkdir(path.join(targetRoot, ".abiogenesis"), { recursive: true });
   await writeFile(
     path.join(targetRoot, ".abiogenesis", "typescript-runtime.mjs"),
-    source,
+    await rewriteInstalledPackageImports(targetRoot, source),
     "utf8"
   );
   return { targetRoot, packageRoot };

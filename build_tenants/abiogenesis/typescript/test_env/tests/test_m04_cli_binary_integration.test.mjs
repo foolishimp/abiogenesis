@@ -13,6 +13,7 @@ import { spawnSync } from "node:child_process";
 import {
   installPackedTenantPackage,
   provisionInstalledRoot,
+  rewriteInstalledPackageImports,
   runInstalledNodeScript
 } from "./support/m05-installed-fixtures.mjs";
 
@@ -258,7 +259,7 @@ async function installCliRuntime() {
   await mkdir(path.join(targetRoot, ".abiogenesis"), { recursive: true });
   await writeFile(
     path.join(targetRoot, ".abiogenesis", "typescript-runtime.mjs"),
-    runtimeBindingSource(),
+    await rewriteInstalledPackageImports(targetRoot, runtimeBindingSource()),
     "utf8"
   );
   return { targetRoot, packageRoot };
@@ -390,7 +391,10 @@ test("M04 CLI binary integration: runtime binding plugins execute through ABG CL
   const { targetRoot, packageRoot } = await installCliRuntime();
   await writeFile(
     path.join(targetRoot, ".abiogenesis", "typescript-runtime.mjs"),
-    runtimeBindingSource({ withPlugins: true }),
+    await rewriteInstalledPackageImports(
+      targetRoot,
+      runtimeBindingSource({ withPlugins: true })
+    ),
     "utf8"
   );
 
@@ -424,7 +428,10 @@ test("M04 CLI binary integration: runtime binding plugin factory receives ABG ev
   const { targetRoot, packageRoot } = await installCliRuntime();
   await writeFile(
     path.join(targetRoot, ".abiogenesis", "typescript-runtime.mjs"),
-    runtimeBindingSource({ withPluginFactory: true }),
+    await rewriteInstalledPackageImports(
+      targetRoot,
+      runtimeBindingSource({ withPluginFactory: true })
+    ),
     "utf8"
   );
 
@@ -459,7 +466,10 @@ test("M04 CLI binary integration: runtime binding policy factory selects target 
   const { targetRoot, packageRoot } = await installCliRuntime();
   await writeFile(
     path.join(targetRoot, ".abiogenesis", "typescript-runtime.mjs"),
-    runtimeBindingSource({ withPolicyFactory: true }),
+    await rewriteInstalledPackageImports(
+      targetRoot,
+      runtimeBindingSource({ withPolicyFactory: true })
+    ),
     "utf8"
   );
 

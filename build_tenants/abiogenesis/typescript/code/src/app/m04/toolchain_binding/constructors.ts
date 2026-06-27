@@ -26,6 +26,7 @@ function freezeProductBinding(
     docsRoot: value.docsRoot,
     standardsRoot: value.standardsRoot,
     manifestPath: value.manifestPath,
+    manifestDigest: value.manifestDigest,
     commandPaths: freezeStringArray(value.commandPaths)
   });
 }
@@ -61,7 +62,7 @@ export function constructToolchainWorkspaceBinding(input: {
 }): ToolchainWorkspaceBinding {
   return Object.freeze({
     kind: "abg_toolchain_workspace_binding",
-    schemaVersion: "1",
+    schemaVersion: "2",
     targetRoot: input.targetRoot,
     toolchainRoot: input.toolchainRoot,
     selectionSource: input.selectionSource,

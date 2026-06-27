@@ -327,6 +327,7 @@ async function resolveStandardsSourceRoot(
     return request.standardsSourceRoot;
   }
   const sourceRoot = await findUpwardDirectory(request.packageSourceRoot, [
+    join("docs", "standards"),
     join(".abiogenesis", "docs", "standards"),
     join("specification_methodology", "specification", "standards")
   ]);
@@ -353,6 +354,10 @@ async function resolveDocsSourceRoot(
 }
 
 function sha256(content: Uint8Array): string {
+  return createHash("sha256").update(content).digest("hex");
+}
+
+function sha256Text(content: string): string {
   return createHash("sha256").update(content).digest("hex");
 }
 
@@ -594,6 +599,7 @@ async function writeCommandBindings(
 function installedCliRuntimeBindingSource(input: {
   readonly runtimeIdentity: AbgTypescriptInstallerRuntimeIdentity;
   readonly packageImportSpecifier: string;
+  readonly standardsRoot: string;
 }): string {
   return `import {
   admitModule,
@@ -613,7 +619,7 @@ const installedSubstrate = admitNode({
   assetSurface: {
     kind: "installed_substrate",
     requiredContexts: ["workspace"],
-    standardsRefs: ["workspace://.abiogenesis/docs/standards/"],
+    standardsRefs: [${JSON.stringify(input.standardsRoot)}],
     outputContractRefs: ["installed_substrate_present"]
   },
   tags: ["abiogenesis", "installer", "substrate"]
@@ -627,7 +633,7 @@ const cliRuntimeBinding = admitNode({
   assetSurface: {
     kind: "cli_runtime_binding",
     requiredContexts: ["workspace"],
-    standardsRefs: ["workspace://.abiogenesis/docs/standards/ODD_METHOD.md"],
+    standardsRefs: [${JSON.stringify(join(input.standardsRoot, "ODD_METHOD.md"))}],
     outputContractRefs: ["cli_runtime_binding_present"]
   },
   tags: ["abiogenesis", "installer", "runtime_binding"]
@@ -709,6 +715,7 @@ async function writeCliRuntimeBinding(input: {
   readonly targetRoot: string;
   readonly runtimeIdentity: AbgTypescriptInstallerRuntimeIdentity;
   readonly packageRoot: string;
+  readonly standardsRoot: string;
 }): Promise<string> {
   const runtimeBindingPath = join(
     input.targetRoot,
@@ -720,6 +727,7 @@ async function writeCliRuntimeBinding(input: {
     runtimeBindingPath,
     installedCliRuntimeBindingSource({
       runtimeIdentity: input.runtimeIdentity,
+      standardsRoot: input.standardsRoot,
       packageImportSpecifier: pathToFileURL(
         join(input.packageRoot, "build", "semantic", "code", "src", "index.js")
       ).href
@@ -727,6 +735,29 @@ async function writeCliRuntimeBinding(input: {
     "utf8"
   );
   return runtimeBindingPath;
+}
+
+async function writeProductRootBootstrapEntry(input: {
+  readonly targetRoot: string;
+  readonly packageRoot: string;
+}): Promise<void> {
+  const appM04Specifier = pathToFileURL(
+    join(
+      input.packageRoot,
+      "build",
+      "semantic",
+      "code",
+      "src",
+      "app",
+      "m04",
+      "index.js"
+    )
+  ).href;
+  await writeFile(
+    join(input.targetRoot, "bootstrap", "index.mjs"),
+    `export * from ${JSON.stringify(appM04Specifier)};\n`,
+    "utf8"
+  );
 }
 
 function productRootForSharedToolchain(input: {
@@ -747,7 +778,6 @@ function installerLayout(input: {
 }): {
   readonly toolchainRoot: string;
   readonly toolchainSelectionSource: ToolchainSelectionSource;
-  readonly sharedToolchain: boolean;
   readonly productRoot: string;
   readonly packageInstallRoot: string;
   readonly packParent: string;
@@ -758,26 +788,16 @@ function installerLayout(input: {
     targetRoot: input.request.targetRoot.rootPath,
     explicitToolchainRoot: input.request.toolchainRoot
   });
-  const sharedToolchain = resolvedToolchain.source !== "default";
-  const productRoot = sharedToolchain
-    ? productRootForSharedToolchain({
-        toolchainRoot: resolvedToolchain.root,
-        packageVersion: input.identity.packageVersion
-      })
-    : input.request.targetRoot.rootPath;
-  const libRoot = sharedToolchain
-    ? join(productRoot, "lib")
-    : input.request.targetRoot.rootPath;
-  const binRoot = sharedToolchain
-    ? join(productRoot, "bin")
-    : join(input.request.targetRoot.rootPath, "node_modules", ".bin");
-  const packParent = sharedToolchain
-    ? join(productRoot, "package-pack")
-    : join(input.request.targetRoot.rootPath, ".abiogenesis", "package-pack");
+  const productRoot = productRootForSharedToolchain({
+    toolchainRoot: resolvedToolchain.root,
+    packageVersion: input.identity.packageVersion
+  });
+  const libRoot = join(productRoot, "lib");
+  const binRoot = join(productRoot, "bin");
+  const packParent = join(productRoot, "package-pack");
   return Object.freeze({
     toolchainRoot: resolvedToolchain.root,
     toolchainSelectionSource: resolvedToolchain.source,
-    sharedToolchain,
     productRoot,
     packageInstallRoot: libRoot,
     packParent,
@@ -808,31 +828,32 @@ async function writeProductToolchainManifest(input: {
   readonly binRoot: string;
   readonly libRoot: string;
   readonly commandPaths: readonly string[];
-  readonly docsRoot: string | null;
-  readonly standardsRoot: string | null;
+  readonly docsRoot: string;
+  readonly standardsRoot: string;
   readonly tarballPath: string;
-}): Promise<string> {
+}): Promise<{ readonly path: string; readonly digest: string }> {
   const manifestPath = join(input.productRoot, "product-toolchain-manifest.json");
   await mkdir(dirname(manifestPath), { recursive: true });
-  await writeFile(
-    manifestPath,
-    stringifyJson({
-      kind: "abg_product_toolchain_manifest",
-      productId: "abiogenesis",
-      packageName: input.packageName,
-      packageVersion: input.packageVersion,
-      productRoot: input.productRoot,
-      packageRoot: input.packageRoot,
-      binRoot: input.binRoot,
-      libRoot: input.libRoot,
-      commandPaths: input.commandPaths,
-      docsRoot: input.docsRoot,
-      standardsRoot: input.standardsRoot,
-      tarballPath: input.tarballPath
-    }),
-    "utf8"
-  );
-  return manifestPath;
+  const manifestContent = stringifyJson({
+    kind: "abg_product_toolchain_manifest",
+    productId: "abiogenesis",
+    packageName: input.packageName,
+    packageVersion: input.packageVersion,
+    productRoot: input.productRoot,
+    packageRoot: input.packageRoot,
+    binRoot: input.binRoot,
+    libRoot: input.libRoot,
+    commandPaths: input.commandPaths,
+    docsRoot: input.docsRoot,
+    standardsRoot: input.standardsRoot,
+    tarballPath: input.tarballPath,
+    requires: []
+  });
+  await writeFile(manifestPath, manifestContent, "utf8");
+  return Object.freeze({
+    path: manifestPath,
+    digest: sha256Text(manifestContent)
+  });
 }
 
 async function writeToolchainBinding(input: {
@@ -1068,16 +1089,19 @@ export async function installAbiogenesisTypescript(
       tarballPath,
       layout.packageInstallRoot
     );
+    await writeProductRootBootstrapEntry({
+      targetRoot: request.targetRoot.rootPath,
+      packageRoot
+    });
     const commandPaths = await writeCommandBindings(layout.binRoot, packageRoot);
+    const docsInstallRoot = join(layout.productRoot, "docs");
+    const standardsInstallRoot = join(docsInstallRoot, "standards");
     const runtimeBindingPath = await writeCliRuntimeBinding({
       targetRoot: request.targetRoot.rootPath,
       runtimeIdentity,
-      packageRoot
+      packageRoot,
+      standardsRoot: standardsInstallRoot
     });
-    const docsInstallRoot = layout.sharedToolchain
-      ? join(layout.productRoot, "docs")
-      : join(request.targetRoot.rootPath, ".abiogenesis", "docs");
-    const standardsInstallRoot = join(docsInstallRoot, "standards");
     const docsFiles = await copyDocsFiles(docsSourceRoot, docsInstallRoot);
     const abgConfig = await copyAbgConfig({
       packageSourceRoot: request.packageSourceRoot,
@@ -1087,20 +1111,18 @@ export async function installAbiogenesisTypescript(
       standardsSourceRoot,
       standardsInstallRoot
     );
-    const productManifestPath = layout.sharedToolchain
-      ? await writeProductToolchainManifest({
-          productRoot: layout.productRoot,
-          packageName: identity.packageName,
-          packageVersion: identity.packageVersion,
-          packageRoot,
-          binRoot: layout.binRoot,
-          libRoot: layout.libRoot,
-          commandPaths,
-          docsRoot: docsInstallRoot,
-          standardsRoot: standardsInstallRoot,
-          tarballPath
-        })
-      : null;
+    const productManifest = await writeProductToolchainManifest({
+      productRoot: layout.productRoot,
+      packageName: identity.packageName,
+      packageVersion: identity.packageVersion,
+      packageRoot,
+      binRoot: layout.binRoot,
+      libRoot: layout.libRoot,
+      commandPaths,
+      docsRoot: docsInstallRoot,
+      standardsRoot: standardsInstallRoot,
+      tarballPath
+    });
     const productBinding = constructAbiogenesisProductToolchainBinding({
       packageVersion: identity.packageVersion,
       productRoot: layout.productRoot,
@@ -1109,7 +1131,8 @@ export async function installAbiogenesisTypescript(
       libRoot: layout.libRoot,
       docsRoot: docsInstallRoot,
       standardsRoot: standardsInstallRoot,
-      manifestPath: productManifestPath,
+      manifestPath: productManifest.path,
+      manifestDigest: productManifest.digest,
       commandPaths
     });
     const toolchainBinding = constructWorkspaceToolchainBinding({

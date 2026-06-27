@@ -12,7 +12,8 @@ import { spawnSync } from "node:child_process";
 
 import {
   installPackedTenantPackage,
-  provisionInstalledRoot
+  provisionInstalledRoot,
+  rewriteInstalledPackageImports
 } from "./support/m05-installed-fixtures.mjs";
 
 function runtimeBindingSource({ ambiguousNext = false, resolveNextTarget = false } = {}) {
@@ -158,7 +159,7 @@ async function writeRuntimeBinding(targetRoot, source) {
   await mkdir(path.join(targetRoot, ".abiogenesis"), { recursive: true });
   await writeFile(
     path.join(targetRoot, ".abiogenesis", "typescript-runtime.mjs"),
-    source,
+    await rewriteInstalledPackageImports(targetRoot, source),
     "utf8"
   );
 }

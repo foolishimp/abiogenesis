@@ -45,7 +45,7 @@ test("M05 Python sandbox behavior portfolio integration: installed TypeScript pa
   );
   await mkdir(runRoot, { recursive: true });
 
-  const { targetRoot, writer, installOutcome, bootloaderOutcome } =
+  const { targetRoot, writer, installerOutcome, installOutcome, bootloaderOutcome } =
     await provisionInstalledRoot();
   const packageInstall = await installPackedTenantPackage(targetRoot);
 
@@ -55,9 +55,7 @@ test("M05 Python sandbox behavior portfolio integration: installed TypeScript pa
       installOutcome,
       bootloaderOutcome,
       rootPath: targetRoot,
-      packageBinding: await writer.isDirectory(
-        path.join(targetRoot, "node_modules/@abiogenesis")
-      ),
+      packageBinding: await writer.isDirectory(installerOutcome.packageRoot),
       bootstrapImportPassed: true,
       exportedSurface: [
         "deliverBootloader",

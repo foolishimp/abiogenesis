@@ -72,14 +72,17 @@ The product split is:
 - downstream domains own asset meaning, domain HOW, and acceptance
   interpretation
 
-Installed ABG also owns the shared toolchain contract for released GTL/ABG
-products. A target workspace may bind to immutable product payloads and command
-paths under a selected toolchain root while keeping observed workspace assets,
-observer/control state, executor state, events, projections, and archives as
-explicit mutable roots. The target `.abiogenesis/` surface remains the
-inspectable binding and provenance surface; it is not required to contain a
-full local copy of every product library when a shared toolchain binding is
-admitted.
+Installed ABG owns the shared product toolchain contract for released GTL/ABG
+products. A target workspace binds to immutable versioned product payloads,
+command paths, reference docs, and standards through a selected product
+manifest under the admitted toolchain root. The target workspace keeps observed
+workspace assets, observer/control state, executor state, events, projections,
+and archives as explicit mutable roots. The target `.abiogenesis/` surface is
+the inspectable binding, provenance, runtime binding, and configuration
+surface; it is not a product-library install root. `ABG_TOOLCHAIN_ROOT` is the
+only environment selector. Legacy aliases, target-local full package copies,
+top-level command shims, and implicit target-root product fallback are outside
+the product contract.
 
 Graph functions are the primary published program form. A graph function is
 product-real only when it is discoverable through a module or job surface,
@@ -574,13 +577,14 @@ publish:
 - install and installer manifests
 - installed package identity and command bindings
 - runtime identity, event roots, projection roots, and archive roots
-- local method reference copies under `.abiogenesis/docs/standards/`
+- selected product manifest refs for method standards and reference docs
 - a cold-agent-readable bootstrap surface
 
-Installed standards are a tactical reference copy for the target workspace.
-They make `workspace://.abiogenesis/docs/standards/...` references stable for
-cold agents. They do not become the upstream source of shared method law when
-the method itself is edited.
+Installed standards are product reference payloads resolved through the
+workspace binding and selected product manifest. They make cold-agent
+references stable without copying a full standards tree into every target
+workspace. They do not become the upstream source of shared method law when the
+method itself is edited.
 
 ## Public Operator Contract
 

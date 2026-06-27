@@ -3,8 +3,7 @@
 export type ToolchainSelectionSource =
   | "explicit"
   | "environment"
-  | "workspace_binding"
-  | "default";
+  | "workspace_binding";
 
 export interface ToolchainMutableStateRoots {
   readonly observedWorkspaceRoot: string;
@@ -26,15 +25,16 @@ export interface ToolchainProductBinding {
   readonly packageRoot: string;
   readonly binRoot: string;
   readonly libRoot: string;
-  readonly docsRoot: string | null;
-  readonly standardsRoot: string | null;
-  readonly manifestPath: string | null;
+  readonly docsRoot: string;
+  readonly standardsRoot: string;
+  readonly manifestPath: string;
+  readonly manifestDigest: string;
   readonly commandPaths: readonly string[];
 }
 
 export interface ToolchainWorkspaceBinding {
   readonly kind: "abg_toolchain_workspace_binding";
-  readonly schemaVersion: "1";
+  readonly schemaVersion: "2";
   readonly targetRoot: string;
   readonly toolchainRoot: string;
   readonly selectionSource: ToolchainSelectionSource;

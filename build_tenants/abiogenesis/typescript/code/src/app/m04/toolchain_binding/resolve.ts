@@ -15,8 +15,6 @@ import type {
 } from "./carriers.js";
 
 export const ABG_TOOLCHAIN_ROOT_ENV = "ABG_TOOLCHAIN_ROOT";
-export const ABIOGENESIS_HOME_ENV = "ABIOGENESIS_HOME";
-export const ODD_SDLC_HOME_ENV = "ODD_SDLC_HOME";
 
 export const TOOLCHAIN_BINDING_RELATIVE_PATH = join(
   ".abiogenesis",
@@ -71,8 +69,7 @@ export function resolveToolchainRoot(input: {
   }
 
   const environment = input.environment ?? process.env;
-  const envRoot =
-    environment[ABG_TOOLCHAIN_ROOT_ENV] ?? environment[ABIOGENESIS_HOME_ENV];
+  const envRoot = environment[ABG_TOOLCHAIN_ROOT_ENV];
   if (envRoot !== undefined && envRoot.trim().length > 0) {
     return Object.freeze({
       root: resolve(envRoot),
@@ -80,10 +77,9 @@ export function resolveToolchainRoot(input: {
     });
   }
 
-  return Object.freeze({
-    root: input.targetRoot,
-    source: "default"
-  });
+  throw new TypeError(
+    `toolchain root is required: pass --toolchain-root or set ${ABG_TOOLCHAIN_ROOT_ENV}`
+  );
 }
 
 export function constructAbiogenesisProductToolchainBinding(input: {
@@ -92,9 +88,10 @@ export function constructAbiogenesisProductToolchainBinding(input: {
   readonly packageRoot: string;
   readonly binRoot: string;
   readonly libRoot: string;
-  readonly docsRoot: string | null;
-  readonly standardsRoot: string | null;
-  readonly manifestPath: string | null;
+  readonly docsRoot: string;
+  readonly standardsRoot: string;
+  readonly manifestPath: string;
+  readonly manifestDigest: string;
   readonly commandPaths: readonly string[];
 }): ToolchainProductBinding {
   return constructToolchainProductBinding({
@@ -109,6 +106,7 @@ export function constructAbiogenesisProductToolchainBinding(input: {
     docsRoot: input.docsRoot,
     standardsRoot: input.standardsRoot,
     manifestPath: input.manifestPath,
+    manifestDigest: input.manifestDigest,
     commandPaths: input.commandPaths
   });
 }

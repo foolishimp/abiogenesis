@@ -145,12 +145,15 @@ test("T-161 shared toolchain install separates immutable payload from observer a
     assert.equal(outcome.manifest.archiveDirectory, archiveRoot);
     assert.equal(outcome.manifest.toolchainBinding.toolchainRoot, toolchainRoot);
     assert.equal(outcome.manifest.toolchainBinding.selectionSource, "explicit");
+    assert.equal(outcome.manifest.toolchainBinding.schemaVersion, "2");
     assert.equal(
       outcome.manifest.mutableStateRoots.executorStateRoot,
       executorStateRoot
     );
     assert.equal(await isDirectory(outcome.packageRoot), true);
     assert.equal(outcome.packageRoot.startsWith(toolchainRoot), true);
+    assert.equal(outcome.docsInstallRoot.startsWith(toolchainRoot), true);
+    assert.equal(outcome.standardsInstallRoot.startsWith(toolchainRoot), true);
     assert.equal(
       await pathExists(
         path.join(
@@ -162,11 +165,16 @@ test("T-161 shared toolchain install separates immutable payload from observer a
       ),
       false
     );
+    assert.equal(
+      await pathExists(path.join(observedRoot, ".abiogenesis", "docs")),
+      false
+    );
 
     const binding = await readJson(
       path.join(observedRoot, ".abiogenesis", "toolchain-binding.json")
     );
     assert.equal(binding.kind, "abg_toolchain_workspace_binding");
+    assert.equal(binding.schemaVersion, "2");
     assert.equal(binding.mutableStateRoots.eventLogPath, eventLogPath);
     assert.equal(binding.mutableStateRoots.observedWorkspaceRoot, observedRoot);
     assert.equal(binding.mutableStateRoots.observerStateRoot, observerStateRoot);
@@ -174,6 +182,7 @@ test("T-161 shared toolchain install separates immutable payload from observer a
     assert.equal(binding.products[0].productId, "abiogenesis");
     assert.equal(binding.products[0].packageRoot, outcome.packageRoot);
     assert.equal(await pathExists(binding.products[0].manifestPath), true);
+    assert.match(binding.products[0].manifestDigest, /^[a-f0-9]{64}$/u);
 
     const genesisCommand = outcome.commandPaths.find((candidate) =>
       candidate.endsWith(`${path.sep}genesis-ts`)
@@ -213,10 +222,9 @@ test("T-161 shared toolchain install separates immutable payload from observer a
       "events",
       "events.jsonl"
     );
-    const defaultObservedEvents = await readFile(
-      defaultObservedEventLog,
-      "utf8"
-    );
+    const defaultObservedEvents = (await pathExists(defaultObservedEventLog))
+      ? await readFile(defaultObservedEventLog, "utf8")
+      : "";
     assert.equal(defaultObservedEvents, "");
 
     return { binding, genesisCommand, outcome };

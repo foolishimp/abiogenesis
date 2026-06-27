@@ -3,8 +3,6 @@
 
 import test from "node:test";
 import assert from "node:assert/strict";
-import path from "node:path";
-
 import { qualifyInstalledSandbox } from "../../build/semantic/code/src/qualification/m05/index.js";
 import {
   bootstrapExportProbeSource,
@@ -15,7 +13,7 @@ import {
 } from "./support/m05-installed-fixtures.mjs";
 
 test("M05 installed-sandbox integration: completed delivery surfaces produce an importable installed runtime root", async () => {
-  const { targetRoot, writer, installOutcome, bootloaderOutcome } =
+  const { targetRoot, writer, installerOutcome, installOutcome, bootloaderOutcome } =
     await provisionInstalledRoot();
   await installPackedTenantPackage(targetRoot);
 
@@ -35,9 +33,7 @@ test("M05 installed-sandbox integration: completed delivery surfaces produce an 
       installOutcome,
       bootloaderOutcome,
       rootPath: targetRoot,
-      packageBinding: await writer.isDirectory(
-        path.join(targetRoot, "node_modules/@abiogenesis")
-      ),
+      packageBinding: await writer.isDirectory(installerOutcome.packageRoot),
       bootstrapImportPassed: true,
       exportedSurface: probe.exports,
       liveScenarioPassed: false

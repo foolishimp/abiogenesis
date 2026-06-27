@@ -1,6 +1,6 @@
 import { cp, mkdir, mkdtemp, readFile, rm, symlink, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { spawnSync } from "node:child_process";
 
 import {
@@ -93,6 +93,7 @@ function packedTarballName(stdout) {
 
 export async function provisionInstalledRoot() {
   const targetRoot = await makeInstallTargetRoot();
+  const toolchainRoot = await mkdtemp(path.join(path.dirname(targetRoot), "abg-toolchain-"));
   const writer = nodeInstallWriter();
   const repoRoot = await locateRepoRoot();
   const tenantRoot = tenantRootFromRepoRoot(repoRoot);
@@ -101,7 +102,8 @@ export async function provisionInstalledRoot() {
       rootPath: targetRoot
     },
     packageSourceRoot: tenantRoot,
-    installedPackageName: installedRuntimePayload(targetRoot).installedPackageName
+    installedPackageName: installedRuntimePayload(targetRoot).installedPackageName,
+    toolchainRoot
   });
   if (installerOutcome.kind !== "installed") {
     throw new Error(`ABG TypeScript installer failed: ${installerOutcome.reason}`);
@@ -117,6 +119,7 @@ export async function provisionInstalledRoot() {
   return {
     targetRoot,
     writer,
+    toolchainRoot,
     installerOutcome,
     installOutcome,
     bootloaderOutcome
@@ -228,14 +231,44 @@ export async function installPackedTenantPackage(targetRoot) {
   };
 }
 
-export function runInstalledNodeScript(targetRoot, source) {
-  const scriptPath = path.join(targetRoot, ".abiogenesis", "installed-proof.mjs");
-  return writeFile(scriptPath, source, "utf8").then(() =>
-    spawnSync("node", [scriptPath], {
-      cwd: targetRoot,
-      encoding: "utf8"
-    })
+async function installedPackageIndexUrl(targetRoot) {
+  const manifestPath = path.join(
+    targetRoot,
+    ".abiogenesis",
+    "typescript-installer-manifest.json"
   );
+  const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
+  return pathToFileURL(
+    path.join(
+      manifest.packageRoot,
+      "build",
+      "semantic",
+      "code",
+      "src",
+      "index.js"
+    )
+  ).href;
+}
+
+export async function rewriteInstalledPackageImports(targetRoot, source) {
+  const packageIndexUrl = await installedPackageIndexUrl(targetRoot);
+  return source.replaceAll(
+    'from "@abiogenesis/typescript-tenant"',
+    `from ${JSON.stringify(packageIndexUrl)}`
+  );
+}
+
+export async function runInstalledNodeScript(targetRoot, source) {
+  const scriptPath = path.join(targetRoot, ".abiogenesis", "installed-proof.mjs");
+  await writeFile(
+    scriptPath,
+    await rewriteInstalledPackageImports(targetRoot, source),
+    "utf8"
+  );
+  return spawnSync("node", [scriptPath], {
+    cwd: targetRoot,
+    encoding: "utf8"
+  });
 }
 
 export function bootstrapExportProbeSource() {

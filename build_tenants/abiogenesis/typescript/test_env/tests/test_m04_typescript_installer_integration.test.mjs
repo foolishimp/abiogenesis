@@ -6,6 +6,7 @@
 
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import {
   access,
   lstat,
@@ -17,7 +18,7 @@ import {
 } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { spawnSync } from "node:child_process";
 
 import {
@@ -196,8 +197,18 @@ async function writeInstallerArchive(input) {
 }
 
 function runInstalledCommand(targetRoot, commandName, args) {
+  const installerManifest = JSON.parse(
+    readFileSync(
+      path.join(targetRoot, ".abiogenesis", "typescript-installer-manifest.json"),
+      "utf8"
+    )
+  );
+  const commandPath = installerManifest.commandPaths.find((candidate) =>
+    candidate.endsWith(`${path.sep}${commandName}`)
+  );
+  assert.notEqual(commandPath, undefined);
   return spawnSync(
-    path.join(targetRoot, "node_modules", ".bin", commandName),
+    commandPath,
     args,
     {
       cwd: targetRoot,
@@ -217,14 +228,45 @@ async function readJson(filePath) {
 
 async function runInstalledProbe(targetRoot) {
   const probePath = path.join(targetRoot, ".abiogenesis", "public-installer-probe.mjs");
+  const installerManifest = JSON.parse(
+    await readFile(
+      path.join(targetRoot, ".abiogenesis", "typescript-installer-manifest.json"),
+      "utf8"
+    )
+  );
+  const appM04Index = pathToFileURL(
+    path.join(
+      installerManifest.packageRoot,
+      "build",
+      "semantic",
+      "code",
+      "src",
+      "app",
+      "m04",
+      "index.js"
+    )
+  ).href;
+  const installBootstrapIndex = pathToFileURL(
+    path.join(
+      installerManifest.packageRoot,
+      "build",
+      "semantic",
+      "code",
+      "src",
+      "app",
+      "m04",
+      "install_bootstrap",
+      "index.js"
+    )
+  ).href;
   await writeFile(
     probePath,
     `
-      import { start } from "@abiogenesis/typescript-tenant/app/m04";
+      import { start } from ${JSON.stringify(appM04Index)};
       import {
         installAbiogenesisTypescript,
         verifyAbiogenesisTypescriptInstallTopology
-      } from "@abiogenesis/typescript-tenant/app/m04/install-bootstrap";
+      } from ${JSON.stringify(installBootstrapIndex)};
 
       const topology = await verifyAbiogenesisTypescriptInstallTopology({
         targetRoot: process.cwd()
@@ -250,12 +292,14 @@ test("T-076 public TypeScript installer populates a package-backed ABG install a
   const repoRoot = await locateRepoRoot();
   const sourceRoot = tenantRoot(repoRoot);
   const targetRoot = await makeTargetRoot("public-installer");
+  const toolchainRoot = await makeTargetRoot("public-installer-toolchain");
 
   const outcome = await installAbiogenesisTypescript({
     targetRoot: {
       rootPath: targetRoot
     },
-    packageSourceRoot: sourceRoot
+    packageSourceRoot: sourceRoot,
+    toolchainRoot
   });
 
   assert.equal(outcome.kind, "installed");
@@ -275,15 +319,28 @@ test("T-076 public TypeScript installer populates a package-backed ABG install a
   );
   assert.equal(
     await pathExists(
-      path.join(targetRoot, "node_modules", ".bin", "genesis-ts")
+      outcome.commandPaths.find((candidate) =>
+        candidate.endsWith(`${path.sep}genesis-ts`)
+      )
     ),
     true
+  );
+  assert.equal(
+    await pathExists(
+      path.join(targetRoot, "node_modules", "@abiogenesis", "typescript-tenant")
+    ),
+    false
   );
   assert.equal((await lstat(outcome.packageRoot)).isSymbolicLink(), false);
 
   const manifest = JSON.parse(await readFile(outcome.installerManifestPath, "utf8"));
   assert.equal(manifest.kind, "abg_typescript_installer_manifest");
   assert.equal(manifest.packageRoot, outcome.packageRoot);
+  assert.equal(manifest.toolchainBinding.schemaVersion, "2");
+  assert.equal(manifest.toolchainBinding.toolchainRoot, toolchainRoot);
+  assert.equal(outcome.packageRoot.startsWith(toolchainRoot), true);
+  assert.equal(outcome.docsInstallRoot.startsWith(toolchainRoot), true);
+  assert.equal(outcome.standardsInstallRoot.startsWith(toolchainRoot), true);
   assert.equal(manifest.targetMode, "clean_no_project_authority");
   assert.equal(manifest.installMode, "fresh");
   assert.equal(manifest.cleanTargetPolicy, "no_scaffold");
@@ -501,13 +558,15 @@ test("T-078 public TypeScript installer refreshes repeated installs over admitte
   const repoRoot = await locateRepoRoot();
   const sourceRoot = tenantRoot(repoRoot);
   const targetRoot = await makeTargetRoot("repeat-installer");
+  const toolchainRoot = await makeTargetRoot("repeat-installer-toolchain");
 
   const first = await installAbiogenesisTypescript({
     targetRoot: {
       rootPath: targetRoot
     },
     packageSourceRoot: sourceRoot,
-    installedPackageName: "abiogenesis-t078-repeat"
+    installedPackageName: "abiogenesis-t078-repeat",
+    toolchainRoot
   });
   assert.equal(first.kind, "installed");
   assert.equal(first.installMode, "fresh");
@@ -536,7 +595,8 @@ test("T-078 public TypeScript installer refreshes repeated installs over admitte
       rootPath: targetRoot
     },
     packageSourceRoot: sourceRoot,
-    installedPackageName: "abiogenesis-t078-repeat"
+    installedPackageName: "abiogenesis-t078-repeat",
+    toolchainRoot
   });
   assert.equal(second.kind, "installed");
   assert.equal(second.installMode, "refresh");
@@ -595,20 +655,29 @@ test("T-076 installed genesis-ts install command can create a second ABG TypeScr
   const sourceRoot = tenantRoot(repoRoot);
   const firstTarget = await makeTargetRoot("cli-installer-source");
   const secondTarget = await makeTargetRoot("cli-installer-target");
+  const firstToolchainRoot = await makeTargetRoot("cli-installer-source-toolchain");
+  const secondToolchainRoot = await makeTargetRoot("cli-installer-target-toolchain");
   const first = await installAbiogenesisTypescript({
     targetRoot: {
       rootPath: firstTarget
     },
-    packageSourceRoot: sourceRoot
+    packageSourceRoot: sourceRoot,
+    toolchainRoot: firstToolchainRoot
   });
   assert.equal(first.kind, "installed");
+  const genesisCommand = first.commandPaths.find((candidate) =>
+    candidate.endsWith(`${path.sep}genesis-ts`)
+  );
+  assert.notEqual(genesisCommand, undefined);
 
   const run = spawnSync(
-    path.join(firstTarget, "node_modules", ".bin", "genesis-ts"),
+    genesisCommand,
     [
       "install",
       "--target",
-      secondTarget
+      secondTarget,
+      "--toolchain-root",
+      secondToolchainRoot
     ],
     {
       cwd: firstTarget,
@@ -636,8 +705,16 @@ test("T-076 installed genesis-ts install command can create a second ABG TypeScr
   assert.equal(topology.complete, true);
   assert.equal(topology.standardsSmokeFilesPresent, true);
   assert.equal(topology.abgConfigPresent, true);
+  const secondManifest = await readJson(
+    path.join(secondTarget, ".abiogenesis", "typescript-installer-manifest.json")
+  );
+  assert.equal(secondManifest.toolchainBinding.toolchainRoot, secondToolchainRoot);
   assert.equal(
-    await pathExists(path.join(secondTarget, "node_modules", ".bin", "abiogenesis-ts")),
+    await pathExists(
+      secondManifest.commandPaths.find((candidate) =>
+        candidate.endsWith(`${path.sep}abiogenesis-ts`)
+      )
+    ),
     true
   );
 });

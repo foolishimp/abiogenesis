@@ -3,8 +3,6 @@
 
 import test from "node:test";
 import assert from "node:assert/strict";
-import path from "node:path";
-
 import {
   M05_REFERENCE_LIVE_SCENARIO_OBLIGATIONS,
   qualifyInstalledLiveScenarioPortfolio,
@@ -24,7 +22,7 @@ const REQUIRED_SCENARIOS = M05_REFERENCE_LIVE_SCENARIO_OBLIGATIONS.map(
 );
 
 test("M05 installed live-portfolio integration: installed runtime executes the Python live scenario families at equivalent feature breadth", async () => {
-  const { targetRoot, writer, installOutcome, bootloaderOutcome } =
+  const { targetRoot, writer, installerOutcome, installOutcome, bootloaderOutcome } =
     await provisionInstalledRoot();
   await installPackedTenantPackage(targetRoot);
 
@@ -34,9 +32,7 @@ test("M05 installed live-portfolio integration: installed runtime executes the P
       installOutcome,
       bootloaderOutcome,
       rootPath: targetRoot,
-      packageBinding: await writer.isDirectory(
-        path.join(targetRoot, "node_modules/@abiogenesis")
-      ),
+      packageBinding: await writer.isDirectory(installerOutcome.packageRoot),
       bootstrapImportPassed: true,
       exportedSurface: ["deliverBootloader", "installBootstrap", "projectLiveStatus", "publicStart", "resultAssessment"],
       liveScenarioPassed: false

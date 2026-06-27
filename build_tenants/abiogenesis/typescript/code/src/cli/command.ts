@@ -684,10 +684,6 @@ function gitSourceDirty(packageSourceRoot: string): boolean {
   return output !== null && output.length > 0;
 }
 
-function eventsPath(workspaceRoot: string): string {
-  return join(workspaceRoot, ".ai-workspace", "events", "events.jsonl");
-}
-
 function toolchainBindingPath(workspaceRoot: string): string {
   return join(workspaceRoot, TOOLCHAIN_BINDING_RELATIVE_PATH);
 }
@@ -707,11 +703,22 @@ async function loadToolchainWorkspaceBinding(
   }
 }
 
+async function requireToolchainWorkspaceBinding(
+  workspaceRoot: string
+): Promise<ToolchainWorkspaceBinding> {
+  const binding = await loadToolchainWorkspaceBinding(workspaceRoot);
+  if (binding === null) {
+    throw new CliError(
+      `missing ABG workspace toolchain binding at ${toolchainBindingPath(workspaceRoot)}; run install with --toolchain-root or set ABG_TOOLCHAIN_ROOT`
+    );
+  }
+  return binding;
+}
+
 function runtimeEventLogPath(
-  workspaceRoot: string,
-  binding: ToolchainWorkspaceBinding | null
+  binding: ToolchainWorkspaceBinding
 ): string {
-  return binding?.mutableStateRoots.eventLogPath ?? eventsPath(workspaceRoot);
+  return binding.mutableStateRoots.eventLogPath;
 }
 
 function runtimeBindingCandidates(workspaceRoot: string): readonly string[] {
@@ -1424,9 +1431,9 @@ async function runStartCommand(
   io: AbiogenesisCliIo
 ): Promise<number> {
   const workspaceRoot = resolveWorkspace(io.cwd(), command.workspace);
-  const toolchainBinding = await loadToolchainWorkspaceBinding(workspaceRoot);
+  const toolchainBinding = await requireToolchainWorkspaceBinding(workspaceRoot);
   const binding = await loadRuntimeBinding(workspaceRoot);
-  const eventLogPath = runtimeEventLogPath(workspaceRoot, toolchainBinding);
+  const eventLogPath = runtimeEventLogPath(toolchainBinding);
   const replayEvents = await readReplayEvents(eventLogPath);
   seedRuntimeEventAdmissionOrdinal(replayEvents);
   const target = await resolveCliTarget(
@@ -1563,9 +1570,9 @@ async function runGapsCommand(
   if (command.scope !== "workspace") {
     throw new CliError("TypeScript CLI currently supports --scope workspace only");
   }
-  const toolchainBinding = await loadToolchainWorkspaceBinding(workspaceRoot);
+  const toolchainBinding = await requireToolchainWorkspaceBinding(workspaceRoot);
   const binding = await loadRuntimeBinding(workspaceRoot);
-  const eventLogPath = runtimeEventLogPath(workspaceRoot, toolchainBinding);
+  const eventLogPath = runtimeEventLogPath(toolchainBinding);
   const projection = publicGaps(
     {
       scope: {
@@ -1643,8 +1650,8 @@ async function runAssessResultCommand(
   io: AbiogenesisCliIo
 ): Promise<number> {
   const workspaceRoot = resolveWorkspace(io.cwd(), command.workspace);
-  const toolchainBinding = await loadToolchainWorkspaceBinding(workspaceRoot);
-  const eventLogPath = runtimeEventLogPath(workspaceRoot, toolchainBinding);
+  const toolchainBinding = await requireToolchainWorkspaceBinding(workspaceRoot);
+  const eventLogPath = runtimeEventLogPath(toolchainBinding);
   const resultPath = isAbsolute(command.result)
     ? resolve(command.result)
     : resolve(workspaceRoot, command.result);

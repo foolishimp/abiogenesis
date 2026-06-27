@@ -11,7 +11,7 @@ import {
 } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { spawnSync } from "node:child_process";
 
 import { installAbiogenesisTypescript } from "../../build/semantic/code/src/app/m04/install_bootstrap/index.js";
@@ -49,7 +49,19 @@ async function makeTargetRoot() {
   return mkdtemp(path.join(tmpdir(), "abiogenesis-ts-t077-public-m05-"));
 }
 
-function publicM05ProbeSource() {
+function publicM05ProbeSource(packageRoot) {
+  const qualificationIndex = pathToFileURL(
+    path.join(
+      packageRoot,
+      "build",
+      "semantic",
+      "code",
+      "src",
+      "qualification",
+      "m05",
+      "index.js"
+    )
+  ).href;
   return `
 import {
   access,
@@ -68,7 +80,7 @@ import {
   constructRunArchiveSummaryRef,
   finalizeRunArchive,
   qualifyRunArchive
-} from "@abiogenesis/typescript-tenant/qualification/m05";
+} from ${JSON.stringify(qualificationIndex)};
 
 async function pathExists(targetPath) {
   try {
@@ -242,19 +254,21 @@ test("T-077 public M05 sandbox/archive API is package-consumable from an install
   const repoRoot = await locateRepoRoot();
   const sourceRoot = tenantRoot(repoRoot);
   const targetRoot = await makeTargetRoot();
+  const toolchainRoot = await makeTargetRoot();
 
   const installOutcome = await installAbiogenesisTypescript({
     targetRoot: {
       rootPath: targetRoot
     },
     packageSourceRoot: sourceRoot,
-    installedPackageName: "abiogenesis-t077-public-m05"
+    installedPackageName: "abiogenesis-t077-public-m05",
+    toolchainRoot
   });
 
   assert.equal(installOutcome.kind, "installed");
 
   const probePath = path.join(targetRoot, ".abiogenesis", "t077-public-m05-probe.mjs");
-  await writeFile(probePath, publicM05ProbeSource(), "utf8");
+  await writeFile(probePath, publicM05ProbeSource(installOutcome.packageRoot), "utf8");
 
   const run = spawnSync("node", [probePath], {
     cwd: targetRoot,

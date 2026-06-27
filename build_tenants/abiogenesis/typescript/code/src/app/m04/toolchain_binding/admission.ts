@@ -27,16 +27,6 @@ function admitAbsolutePath(input: unknown, label: string): string {
   return path;
 }
 
-function admitNullableAbsolutePath(
-  input: unknown,
-  label: string
-): string | null {
-  if (input === null) {
-    return null;
-  }
-  return admitAbsolutePath(input, label);
-}
-
 function admitSelectionSource(
   input: unknown,
   label: string
@@ -45,13 +35,12 @@ function admitSelectionSource(
   if (
     value === "explicit" ||
     value === "environment" ||
-    value === "workspace_binding" ||
-    value === "default"
+    value === "workspace_binding"
   ) {
     return value;
   }
   throw new TypeError(
-    `${label}: expected explicit, environment, workspace_binding, or default`
+    `${label}: expected explicit, environment, or workspace_binding`
   );
 }
 
@@ -111,14 +100,18 @@ export function admitToolchainProductBinding(
     packageRoot: admitAbsolutePath(product["packageRoot"], `${label}.packageRoot`),
     binRoot: admitAbsolutePath(product["binRoot"], `${label}.binRoot`),
     libRoot: admitAbsolutePath(product["libRoot"], `${label}.libRoot`),
-    docsRoot: admitNullableAbsolutePath(product["docsRoot"], `${label}.docsRoot`),
-    standardsRoot: admitNullableAbsolutePath(
+    docsRoot: admitAbsolutePath(product["docsRoot"], `${label}.docsRoot`),
+    standardsRoot: admitAbsolutePath(
       product["standardsRoot"],
       `${label}.standardsRoot`
     ),
-    manifestPath: admitNullableAbsolutePath(
+    manifestPath: admitAbsolutePath(
       product["manifestPath"],
       `${label}.manifestPath`
+    ),
+    manifestDigest: parseNonEmptyString(
+      product["manifestDigest"],
+      `${label}.manifestDigest`
     ),
     commandPaths: parseStringArray(product["commandPaths"], `${label}.commandPaths`)
   });
@@ -137,8 +130,8 @@ export function admitToolchainWorkspaceBinding(
     binding["schemaVersion"],
     `${label}.schemaVersion`
   );
-  if (schemaVersion !== "1") {
-    throw new TypeError(`${label}.schemaVersion: expected 1`);
+  if (schemaVersion !== "2") {
+    throw new TypeError(`${label}.schemaVersion: expected 2`);
   }
   const productsInput = parseOptionalField(binding, "products");
   if (!Array.isArray(productsInput)) {

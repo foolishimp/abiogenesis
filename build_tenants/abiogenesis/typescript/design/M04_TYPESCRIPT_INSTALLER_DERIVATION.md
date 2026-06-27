@@ -38,14 +38,13 @@ command delivery concern into one public installer surface:
 
 - admit an explicit install request
 - create the bootstrap workspace through `PublicInstallBootstrapRequest`
-- pack and install the ABG TypeScript package into the target workspace
-  by default, or into an admitted shared toolchain root when `toolchainRoot` is
-  present
-- expose `abiogenesis-ts` and `genesis-ts` command bindings
-  from the target-local package by default, or from the selected shared
-  toolchain product `bin/` root when shared mode is used
-- install domain-neutral ABG docs under `.abiogenesis/docs/`
-- install the full method standards tree under `.abiogenesis/docs/standards/`
+- pack and install the ABG TypeScript package into the selected versioned
+  product root under the admitted shared product toolchain
+- expose `abiogenesis-ts` and `genesis-ts` command bindings from the selected
+  versioned product `bin/` root
+- install domain-neutral ABG docs under the selected versioned product root
+- install the full method standards tree under the selected versioned product
+  root
 - distinguish imported targets from clean targets and publish the selected
   clean-target policy
 - write one installer manifest with package, command, standards, docs,
@@ -68,14 +67,14 @@ The TypeScript installer preserves these truths from the Python line:
 
 - install proof is not the same as source-tree import proof
 - the target workspace contains the runtime binding/provenance substrate used
-  by later sandbox execution; immutable product payloads may be target-local or
-  shared-toolchain-local by admitted binding
+  by later sandbox execution; immutable product payloads are selected through a
+  shared product toolchain binding
 - command binding is installer truth, not a private test fixture
 - mutable state roots are installer/runtime binding truth, not implicit
   `.ai-workspace` assumptions
 - installed runtime identity is inspectable through manifest files
-- installed method standards are target-workspace reference copies, not hidden
-  source-workspace assumptions
+- installed method standards are product reference payloads, not hidden
+  source-workspace assumptions or target-local package dependencies
 - installed provenance and topology verification are installer truth, not later
   sandbox harness reconstruction
 - direct installed ABG CLI commands require installed runtime binding truth, not
@@ -90,7 +89,7 @@ The TypeScript installer preserves these truths from the Python line:
 ## Demoted Delivery Detail
 
 The TypeScript installer does not copy the Python `.genesis` layout. The
-TypeScript delivery shape is package-first:
+TypeScript delivery shape is shared-product-first:
 
 - `.abiogenesis/install-manifest.json` remains the bootstrap manifest
 - `.abiogenesis/typescript-installer-manifest.json` records package and command
@@ -100,16 +99,8 @@ TypeScript delivery shape is package-first:
 - `.abiogenesis/cli-runtime.mjs` records the domain-neutral fallback runtime
   binding consumed by direct installed ABG CLI commands
 - `.abiogenesis/toolchain-binding.json` records the selected toolchain root,
-  selected product payloads, command paths, and mutable state roots
-- `.abiogenesis/docs/standards/` holds method reference copies for cold-agent
-  workspace references
-- `.abiogenesis/docs/` holds domain-neutral ABG reference docs
-- `node_modules/@abiogenesis/typescript-tenant` is the installed package root
-- `node_modules/.bin/abiogenesis-ts` and `node_modules/.bin/genesis-ts` are the
-  command bindings
-
-When `toolchainRoot` is admitted, the TypeScript delivery shape is shared:
-
+  selected product payloads, product manifest refs and digests, command paths,
+  and mutable state roots
 - `<toolchainRoot>/products/abiogenesis/<version>/product-toolchain-manifest.json`
   records the immutable product payload
 - `<toolchainRoot>/products/abiogenesis/<version>/lib/node_modules/@abiogenesis/typescript-tenant`
@@ -117,6 +108,10 @@ When `toolchainRoot` is admitted, the TypeScript delivery shape is shared:
 - `<toolchainRoot>/products/abiogenesis/<version>/bin/abiogenesis-ts` and
   `<toolchainRoot>/products/abiogenesis/<version>/bin/genesis-ts` are the
   command bindings
+- `<toolchainRoot>/products/abiogenesis/<version>/docs/` holds domain-neutral
+  ABG reference docs
+- `<toolchainRoot>/products/abiogenesis/<version>/docs/standards/` holds method
+  reference payloads for cold-agent references through the product manifest
 - the target workspace `.abiogenesis/toolchain-binding.json` records the
   selected product root and mutable state roots
 - direct CLI replay reads the event log path from the workspace binding, so

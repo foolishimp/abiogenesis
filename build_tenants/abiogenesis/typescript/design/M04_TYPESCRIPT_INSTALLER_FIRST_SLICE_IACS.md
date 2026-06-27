@@ -16,12 +16,11 @@ The first TypeScript installer wave is:
 
 - one admitted installer request carrier
 - one public installer outcome family
-- one package materialization effect boundary
-- one command-binding materialization effect boundary
-- one standards/docs materialization effect boundary
+- one versioned product package materialization effect boundary
+- one versioned product command-binding materialization effect boundary
+- one versioned product standards/docs materialization effect boundary
 - one CLI runtime binding materialization effect boundary
-- one shared toolchain product materialization effect boundary when a
-  `toolchainRoot` is admitted
+- one shared product toolchain materialization effect boundary
 - one workspace toolchain binding materialization effect boundary
 - one installer manifest
 - one install provenance record
@@ -63,14 +62,14 @@ family.
 | `InstallMode` | subordinate | rerun observation over existing installed substrate, not a separate outcome family | derived before write effects from existing install manifests |
 | `CliRuntimeBindingPath` | subordinate | installed ABG CLI adapter artifact, not downstream program authority | derived from target root as `.abiogenesis/cli-runtime.mjs` |
 | `PackageTarballRef` | subordinate | effect output, not public authority by itself | derived from `npm pack` output |
-| `InstalledPackageRoot` | subordinate | target package location | derived from package identity |
+| `InstalledPackageRoot` | subordinate | selected product package location | derived from package identity and selected versioned product root |
 | `CommandBindingRef` | subordinate | nested delivery artifact | derived from installed package bin map |
-| `ToolchainRoot` | subordinate | selected immutable payload root, not product meaning | optional admitted absolute request root, environment-selected root, or target root default |
-| `ToolchainProductManifest` | subordinate | persisted read model over one immutable product payload | derived after package and command materialization when shared mode is used |
+| `ToolchainRoot` | subordinate | selected immutable payload root, not product meaning | admitted absolute request root, admitted workspace binding root, or `ABG_TOOLCHAIN_ROOT`; no target-root default or legacy env alias |
+| `ToolchainProductManifest` | subordinate | persisted read model over one immutable product payload | derived after package, command, docs, and standards materialization |
 | `ToolchainWorkspaceBinding` | subordinate | target binding/provenance pointer, not downstream domain authority | derived from admitted request, package identity, command paths, and mutable state-root binding |
-| `MutableStateRoots` | subordinate | runtime-state binding detail, not traversal semantics | explicit admitted roots or compatibility defaults under `<workspace>/.ai-workspace` |
-| `InstalledStandardsRoot` | subordinate | target reference-copy location | derived from target root as `.abiogenesis/docs/standards` |
-| `InstalledDocsRoot` | subordinate | target domain-neutral docs location | derived from target root as `.abiogenesis/docs` |
+| `MutableStateRoots` | subordinate | runtime-state binding detail, not traversal semantics | admitted binding roots recorded under workspace binding truth |
+| `InstalledStandardsRoot` | subordinate | selected product standards payload location | derived from product root as `docs/standards` |
+| `InstalledDocsRoot` | subordinate | selected product domain-neutral docs payload location | derived from product root as `docs` |
 | `InstalledFileEvidence` | subordinate | manifest proof detail | derived after copy from file byte counts and checksums |
 | `InstallerManifest` | subordinate | persisted read model over installer outcome | derived from installed outcome |
 | `InstallProvenance` | subordinate | persisted event/provenance truth over the install | derived from installed outcome |
@@ -81,18 +80,21 @@ family.
 - the installer must call the existing install/bootstrap carrier boundary
   rather than rewriting target workspace bootstrap rules.
 - package identity must come from the package manifest being installed.
-- the installer must install a package artifact into the target workspace by
-  default, or into the selected shared toolchain product root when
-  `toolchainRoot` is admitted; it must not create a source-tree symlink as
-  proof.
-- command bindings must be present either in the target workspace default bin
-  root or in the admitted shared toolchain product bin root.
+- the installer must install a package artifact into the selected versioned
+  product root; it must not create a source-tree symlink or target-local
+  product package copy as proof.
+- command bindings must be present in the selected versioned product bin root
+  and recorded in the workspace binding.
 - installer proof must include both bootstrap manifest truth and package/command
   manifest truth.
 - installer proof must include workspace toolchain binding truth and mutable
   state-root truth.
 - installer proof must include standards-copy, docs-copy, CLI runtime binding,
   install provenance, and topology verification truth.
+- installer proof must fail closed when no explicit toolchain root,
+  workspace binding, or `ABG_TOOLCHAIN_ROOT` selector is present.
+- `ABIOGENESIS_HOME`, `ODD_SDLC_HOME`, target-root fallback, and top-level
+  toolchain command shims are not compatible interfaces.
 - the installer-owned CLI runtime binding must stay domain-neutral and may only
   publish substrate self-test graph-function truth.
 - downstream products own any product-specific runtime binding that targets
@@ -108,9 +110,9 @@ family.
 - rerunning the installer over the same admitted installed package must classify
   the run as `refresh` and update the package dependency, install manifest,
   installer manifest, provenance, package root, and command bindings coherently.
-- direct CLI commands must read the admitted workspace binding when present and
-  use its event log path for replay and append instead of assuming the observed
-  workspace `.ai-workspace`.
+- direct CLI commands that require installed workspace context must read an
+  admitted workspace binding and use its event log path for replay and append
+  instead of assuming the observed workspace `.ai-workspace`.
 - observer/control state and executor state must be separately bindable from
   the observed workspace.
 - rerunning the installer over a mismatched installed package identity must
