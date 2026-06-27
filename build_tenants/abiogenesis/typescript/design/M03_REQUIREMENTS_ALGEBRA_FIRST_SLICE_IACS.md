@@ -17,12 +17,39 @@
 | `RequirementEvidenceBinding` | admitted/non-closing evidence binding | It separates evidence source, execution, and interpretation without closing by path shape. |
 | `RequirementFoldProjection` | requirement-scoped fold projection | It maps to existing ABG assurance truth without owning closure. |
 | `RequirementResidualProjection` | preserved pressure read model | It carries remaining span and owner surface without owning retry/re-entry. |
+| `RequirementTestRelation` | requirement-to-test evidence relation | It binds asset, test source, execution, and interpretation projections without letting path shape own evidence role. |
 | `RequirementAssuranceClaim` | assurance-case read model | It renders claim/evidence/context over existing fold/residual truth. |
 
-## Subordinate Or Deferred Families
+## Admitted Payload Carriers
 
 `RequirementLedger` is a replay-derived projection, not a prime writable
 carrier.
+
+The following are admitted event payload carriers in the first slice, but they
+remain subordinate to replay, environment construction, and projection:
+
+- `AuthorityContextFragment`
+- `DestinationTopology`
+- `RequirementEdgeRef`
+
+The ten `*AdmittedPayload`, `*BoundPayload`, and `*ProjectedPayload` wrappers
+are subordinate discriminated-union members of `RequirementEventPayload`. They
+are not independent prime carriers.
+
+## Downstream Projection And Read-Model Carriers
+
+The following are deterministic read models over admitted requirement carriers.
+They do not own closure, traversal, retry, or re-entry authority:
+
+- `RequirementQueryReadModel`
+- `RequirementContextRouteProjection`
+- `RequirementStructuralEvaluation`
+- `RequirementAttenuationProjection`
+- `RequirementExecutionScheduleProjection`
+- `RequirementCompletenessReport`
+- `RequirementCompletenessGateRow`
+
+## Subordinate Or Deferred Families
 
 The following begin subordinate or deferred unless a later promotion test proves
 they are prime:
@@ -35,9 +62,6 @@ they are prime:
 - `RequirementAgent`
 - `RequirementOperation`
 - `RequirementDomainObject`
-- `DestinationTopology`
-- `AuthorityContextFragment`
-- `RequirementCompletenessReport`
 
 `DestinationTopology` and `AuthorityContextFragment` are admitted payload
 families in the first slice, but they are not independent closure or traversal
@@ -65,4 +89,3 @@ A subordinate family may be promoted only when all are true:
   constructor.
 - Rich KAOS objects stay typed relation payloads or subordinate details in the
   first slice.
-

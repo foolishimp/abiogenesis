@@ -477,7 +477,7 @@ function tenantModuleSystemsFromUnknown(
     ...nestedKeys.flatMap((key) =>
       tenantModuleSystemsFromUnknown(record[key])
     )
-  ]) as readonly TenantModuleSystem[];
+  ]);
 }
 
 function declaredTenantModuleSystemAuthorityForManifest(
@@ -499,7 +499,7 @@ function declaredTenantModuleSystemAuthorityForManifest(
         return [];
       }
     })
-  ) as readonly TenantModuleSystem[];
+  );
   return Object.freeze({
     moduleSystems,
     evidenceRefs: Object.freeze(specFiles.map((filePath) => pathToFileURL(filePath).href))

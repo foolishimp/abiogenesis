@@ -8,7 +8,8 @@ import type {
   GraphFunction,
   GraphVector,
   Node,
-  Regime
+  Regime,
+  SerializedAttrs
 } from "../../../gtl/m01/contracts/carriers.js";
 import {
   interfaceContract,
@@ -18,6 +19,18 @@ import {
 import {
   admitAssetSurface
 } from "../../../gtl/m01/admission/carriers.js";
+import type {
+  GtlAuthorityContextFragmentDeclaration,
+  GtlDestinationTopologyDeclaration,
+  GtlRequirementDeclaration,
+  GtlRequirementRelationDeclaration,
+  GtlRequirementsAlgebraDeclarationBundle,
+  GtlRequirementTestRelationDeclaration,
+  GtlTraversalSpanDeclaration
+} from "../../../gtl/m01/contracts/requirements_algebra.js";
+import {
+  GTL_REQUIREMENTS_ALGEBRA_DECLARATION_KEY
+} from "../../../gtl/m01/contracts/requirements_algebra.js";
 import type {
   Module
 } from "../../../gtl/m02/contracts/carriers.js";
@@ -50,6 +63,11 @@ import {
   GRAPH_REENTRY_POINT_VALUES,
   type GraphReentryPoint
 } from "./carriers.js";
+import {
+  REQUIREMENT_EVENT_FORBIDDEN_RUNTIME_FIELDS,
+  REQUIREMENT_RELATION_KIND_VALUES,
+  REQUIREMENT_STAGE_VALUES
+} from "./requirements_algebra.js";
 
 export type GtlProgramConformanceSurfaceKind =
   | "graph_function"
@@ -81,6 +99,7 @@ export type GtlProgramConformanceSurfaceKind =
   | "external_tool_gate"
   | "runtime_binding"
   | "runtime_reentry_route"
+  | "requirement_declaration"
   | "feature_coverage";
 
 export interface GtlProgramConformanceIssue {
@@ -192,15 +211,106 @@ export const ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_REF =
 export const ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_KIND =
   "sdlc_semantic_compiler_fp_review_result" as const;
 export const ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_VERSION =
-  "ts-semantic-compiler-fp-review-result-v1" as const;
+  "ts-semantic-compiler-fp-review-result-t162-v1" as const;
 export const ABG_SEMANTIC_COMPILER_FP_REVIEW_RUNTIME_KIND =
   "abg_graph_function" as const;
+export const ABG_SEMANTIC_COMPILER_FP_REVIEW_WORKER_CONTROL_CONTRACT_REF =
+  "contract://abiogenesis/semantic-compiler-fp-worker-control/t162/v1" as const;
+export const ABG_SEMANTIC_COMPILER_FP_REVIEW_REQUIRED_ARTIFACT_DELTA_KIND =
+  "semantic_review_result_or_residual_pressure" as const;
+export const ABG_SEMANTIC_COMPILER_FP_REVIEW_PACKAGE_GRAMMAR_REF =
+  "grammar://abiogenesis/semantic-compiler-fp-review-package/t162/v1" as const;
+export const ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_GRAMMAR_REF =
+  "grammar://abiogenesis/semantic-compiler-fp-review-result/t162/v1" as const;
+export const ABG_SEMANTIC_COMPILER_FP_REVIEW_PROGRESS_TELEMETRY_GRAMMAR_REF =
+  "grammar://abiogenesis/semantic-compiler-fp-review-progress-telemetry/t162/v1" as const;
+export const ABG_SEMANTIC_COMPILER_FP_REVIEW_PROGRESS_METRIC_REF =
+  "metric://abiogenesis/semantic-compiler-fp-review-artifact-delta/t162/v1" as const;
+export const ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_FSM_REF =
+  "fsm://abiogenesis/semantic-compiler-fp-review-admission/t162/v1" as const;
+export const ABG_SEMANTIC_COMPILER_FP_REVIEW_OUTPUT_STATE_ENUM_REF =
+  "enum://abiogenesis/semantic-compiler-fp-review-output-state/t162/v1" as const;
+export const ABG_SEMANTIC_COMPILER_FP_REVIEW_DERIVATION_RULE_REF =
+  "derivation://abiogenesis/semantic-compiler-fp-review-fd-boundary/t162/v1" as const;
+export const ABG_SEMANTIC_COMPILER_FP_REVIEW_FD_FORBIDDEN_INTERPRETATION =
+  "F_D may validate review package/result/gate shape, digest/provenance, admitted status, artifact-delta telemetry, and finite output state only; it must not author semantic rows, choose decomposition, judge ambiguous satisfaction, infer worker plan quality, or treat non-progress as closure." as const;
 
 export interface AbgSemanticCompilerFpReviewPackageIdentity {
   readonly kind: string;
   readonly packageVersion: string;
   readonly subjectRef: string;
   readonly deterministicReportDigest: string;
+  readonly workerControlContractRef:
+    typeof ABG_SEMANTIC_COMPILER_FP_REVIEW_WORKER_CONTROL_CONTRACT_REF;
+  readonly authorityPacketRef: string;
+  readonly objectiveRef: string;
+  readonly targetArtifactRef: string;
+  readonly toolBoundaryRefs: readonly string[];
+  readonly requiredArtifactDeltaKind:
+    typeof ABG_SEMANTIC_COMPILER_FP_REVIEW_REQUIRED_ARTIFACT_DELTA_KIND;
+  readonly stopConditionRef: string;
+  readonly fdPackageGrammarRef:
+    typeof ABG_SEMANTIC_COMPILER_FP_REVIEW_PACKAGE_GRAMMAR_REF;
+  readonly fdResultGrammarRef:
+    typeof ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_GRAMMAR_REF;
+  readonly fdProgressTelemetryGrammarRef:
+    typeof ABG_SEMANTIC_COMPILER_FP_REVIEW_PROGRESS_TELEMETRY_GRAMMAR_REF;
+  readonly fdProgressMetricRef:
+    typeof ABG_SEMANTIC_COMPILER_FP_REVIEW_PROGRESS_METRIC_REF;
+  readonly fdAdmissionFsmRef:
+    typeof ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_FSM_REF;
+  readonly fdOutputStateEnumRef:
+    typeof ABG_SEMANTIC_COMPILER_FP_REVIEW_OUTPUT_STATE_ENUM_REF;
+  readonly fdDerivationRuleRef:
+    typeof ABG_SEMANTIC_COMPILER_FP_REVIEW_DERIVATION_RULE_REF;
+  readonly fdForbiddenInterpretation:
+    typeof ABG_SEMANTIC_COMPILER_FP_REVIEW_FD_FORBIDDEN_INTERPRETATION;
+}
+
+export interface AbgSemanticCompilerFpReviewPackageInput {
+  readonly kind: string;
+  readonly packageVersion: string;
+  readonly subjectRef: string;
+  readonly deterministicReportDigest: string;
+  readonly authorityPacketRef: string;
+  readonly objectiveRef: string;
+  readonly targetArtifactRef: string;
+  readonly toolBoundaryRefs: readonly string[];
+  readonly stopConditionRef: string;
+}
+
+export function constructAbgSemanticCompilerFpReviewPackageIdentity(
+  input: AbgSemanticCompilerFpReviewPackageInput
+): AbgSemanticCompilerFpReviewPackageIdentity {
+  return Object.freeze({
+    kind: input.kind,
+    packageVersion: input.packageVersion,
+    subjectRef: input.subjectRef,
+    deterministicReportDigest: input.deterministicReportDigest,
+    workerControlContractRef:
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_WORKER_CONTROL_CONTRACT_REF,
+    authorityPacketRef: input.authorityPacketRef,
+    objectiveRef: input.objectiveRef,
+    targetArtifactRef: input.targetArtifactRef,
+    toolBoundaryRefs: Object.freeze([...input.toolBoundaryRefs]),
+    requiredArtifactDeltaKind:
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_REQUIRED_ARTIFACT_DELTA_KIND,
+    stopConditionRef: input.stopConditionRef,
+    fdPackageGrammarRef:
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_PACKAGE_GRAMMAR_REF,
+    fdResultGrammarRef: ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_GRAMMAR_REF,
+    fdProgressTelemetryGrammarRef:
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_PROGRESS_TELEMETRY_GRAMMAR_REF,
+    fdProgressMetricRef:
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_PROGRESS_METRIC_REF,
+    fdAdmissionFsmRef: ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_FSM_REF,
+    fdOutputStateEnumRef:
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_OUTPUT_STATE_ENUM_REF,
+    fdDerivationRuleRef:
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_DERIVATION_RULE_REF,
+    fdForbiddenInterpretation:
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_FD_FORBIDDEN_INTERPRETATION
+  });
 }
 
 export interface AbgSemanticCompilerFpReviewResult {
@@ -212,6 +322,31 @@ export interface AbgSemanticCompilerFpReviewResult {
   readonly sourcePackageKind: string;
   readonly sourcePackageVersion: string;
   readonly sourcePackageDigest: string;
+  readonly workerControlContractRef:
+    typeof ABG_SEMANTIC_COMPILER_FP_REVIEW_WORKER_CONTROL_CONTRACT_REF;
+  readonly authorityPacketRef: string;
+  readonly objectiveRef: string;
+  readonly targetArtifactRef: string;
+  readonly toolBoundaryRefs: readonly string[];
+  readonly requiredArtifactDeltaKind:
+    typeof ABG_SEMANTIC_COMPILER_FP_REVIEW_REQUIRED_ARTIFACT_DELTA_KIND;
+  readonly stopConditionRef: string;
+  readonly fdPackageGrammarRef:
+    typeof ABG_SEMANTIC_COMPILER_FP_REVIEW_PACKAGE_GRAMMAR_REF;
+  readonly fdResultGrammarRef:
+    typeof ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_GRAMMAR_REF;
+  readonly fdProgressTelemetryGrammarRef:
+    typeof ABG_SEMANTIC_COMPILER_FP_REVIEW_PROGRESS_TELEMETRY_GRAMMAR_REF;
+  readonly fdProgressMetricRef:
+    typeof ABG_SEMANTIC_COMPILER_FP_REVIEW_PROGRESS_METRIC_REF;
+  readonly fdAdmissionFsmRef:
+    typeof ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_FSM_REF;
+  readonly fdOutputStateEnumRef:
+    typeof ABG_SEMANTIC_COMPILER_FP_REVIEW_OUTPUT_STATE_ENUM_REF;
+  readonly fdDerivationRuleRef:
+    typeof ABG_SEMANTIC_COMPILER_FP_REVIEW_DERIVATION_RULE_REF;
+  readonly fdForbiddenInterpretation:
+    typeof ABG_SEMANTIC_COMPILER_FP_REVIEW_FD_FORBIDDEN_INTERPRETATION;
   readonly status: GtlProgramSemanticReviewStatus;
   readonly findingCount: number;
   readonly reviewerProfileRef: string;
@@ -257,6 +392,21 @@ export interface GtlProgramSemanticReviewGateRow {
   readonly reviewResultKind: "sdlc_semantic_compiler_fp_review_result";
   readonly reviewVersion: string;
   readonly sourcePackageDigest: string;
+  readonly workerControlContractRef: string;
+  readonly authorityPacketRef: string;
+  readonly objectiveRef: string;
+  readonly targetArtifactRef: string;
+  readonly toolBoundaryRefs: readonly string[];
+  readonly requiredArtifactDeltaKind: string;
+  readonly stopConditionRef: string;
+  readonly fdPackageGrammarRef: string;
+  readonly fdResultGrammarRef: string;
+  readonly fdProgressTelemetryGrammarRef: string;
+  readonly fdProgressMetricRef: string;
+  readonly fdAdmissionFsmRef: string;
+  readonly fdOutputStateEnumRef: string;
+  readonly fdDerivationRuleRef: string;
+  readonly fdForbiddenInterpretation: string;
   readonly status: GtlProgramSemanticReviewStatus;
   readonly findingCount: number;
   readonly reviewerProfileRef: string;
@@ -686,6 +836,9 @@ export interface GtlProgramConformanceInput {
   readonly traversalBindConservation?:
     | readonly GtlProgramTraversalBindConservationRow[]
     | undefined;
+  readonly requirementsAlgebraDeclarations?:
+    | readonly GtlRequirementsAlgebraDeclarationBundle[]
+    | undefined;
 }
 
 export type GtlProgramConformanceCoverage = GtlProgramCoverageCounts;
@@ -720,6 +873,7 @@ export interface GtlProgramInventoryDigests {
   readonly runtimeBindings: string;
   readonly runtimeReentryRoutes: string;
   readonly traversalBindConservation: string;
+  readonly requirementsAlgebraDeclarations: string;
 }
 
 export interface GtlProgramTraversalUnitProjectionRow {
@@ -752,6 +906,10 @@ export interface GtlProgramTraversalUnitProjectionRow {
   readonly stagedAuthorityRefs: readonly string[];
   readonly admissionStrengthRefs: readonly string[];
   readonly downstreamTerminalPressureRefs: readonly string[];
+  readonly requirementRefs: readonly string[];
+  readonly requirementSpanRefs: readonly string[];
+  readonly requirementTestRelationRefs: readonly string[];
+  readonly requirementEvidencePolicyRefs: readonly string[];
   readonly allowedObligationDeltaFamilies:
     readonly GtlProgramObligationDeltaFamily[];
   readonly allowedConsequenceTraversalCatalogRef: string | null;
@@ -775,6 +933,35 @@ export interface GtlProgramTraversalUnitProjection {
   readonly entryUnits: readonly GtlProgramTraversalEntryUnitProjectionRow[];
 }
 
+export interface GtlProgramRequirementsAlgebraEdgeProjectionRow {
+  readonly kind: "gtl_program_requirements_algebra_edge_projection_row";
+  readonly unitRef: string;
+  readonly graphFunctionRef: string;
+  readonly graphFunctionId: string;
+  readonly graphVectorRef: string;
+  readonly graphVectorId: string;
+  readonly vectorIndex: number;
+  readonly requirementIds: readonly string[];
+  readonly spanRefs: readonly string[];
+  readonly contextFragmentRefs: readonly string[];
+  readonly destinationTopologyRefs: readonly string[];
+  readonly testRelationRefs: readonly string[];
+  readonly evidencePolicyRefs: readonly string[];
+}
+
+export interface GtlProgramRequirementsAlgebraProjection {
+  readonly kind: "gtl_program_requirements_algebra_projection";
+  readonly subjectRef: string;
+  readonly declarationBundleCount: number;
+  readonly requirementIds: readonly string[];
+  readonly relationRefs: readonly string[];
+  readonly spanRefs: readonly string[];
+  readonly contextFragmentRefs: readonly string[];
+  readonly destinationTopologyRefs: readonly string[];
+  readonly testRelationRefs: readonly string[];
+  readonly edgeRows: readonly GtlProgramRequirementsAlgebraEdgeProjectionRow[];
+}
+
 export interface GtlProgramConformanceReport {
   readonly kind: "gtl_program_conformance_report";
   readonly reportRef: string;
@@ -783,6 +970,7 @@ export interface GtlProgramConformanceReport {
   readonly inventoryDigest: string;
   readonly inventoryDigests: GtlProgramInventoryDigests;
   readonly pluginResultInterfaceCatalog: AdmittedPluginResultInterfaceCatalog;
+  readonly requirementsAlgebraProjection: GtlProgramRequirementsAlgebraProjection;
   readonly traversalUnitProjection: GtlProgramTraversalUnitProjection;
   readonly passed: boolean;
   readonly issueCount: number;
@@ -803,6 +991,7 @@ interface GraphVectorProjection {
   readonly graphId: string;
   readonly graphRef: string;
   readonly graphVectorId: string;
+  readonly vectorIndex: number;
   readonly vectorRef: string;
   readonly sourceAssetTypes: readonly string[];
   readonly sourceNodeContracts: readonly string[];
@@ -1333,6 +1522,55 @@ function requiredNonNegativeIntegerField(input: {
   return 0;
 }
 
+function requiredNonNegativeIntegerArrayField(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly surfaceKind: GtlProgramConformanceSurfaceKind;
+  readonly issues: GtlProgramConformanceIssue[];
+}): readonly number[] {
+  if (!Object.hasOwn(input.record, input.key)) {
+    input.issues.push(
+      issue({
+        surfaceKind: input.surfaceKind,
+        surfaceRef: input.subjectRef,
+        ruleRef: "abg://gtl-program/input/non-negative-integer-array",
+        message: `${input.label}.${input.key} is required and must be an array of non-negative integers`
+      })
+    );
+    return Object.freeze([]);
+  }
+  const values = unknownArray(input.record[input.key]);
+  if (values === null) {
+    input.issues.push(
+      issue({
+        surfaceKind: input.surfaceKind,
+        surfaceRef: input.subjectRef,
+        ruleRef: "abg://gtl-program/input/non-negative-integer-array",
+        message: `${input.label}.${input.key} must be an array of non-negative integers`
+      })
+    );
+    return Object.freeze([]);
+  }
+  const admitted: number[] = [];
+  values.forEach((value, index) => {
+    if (typeof value === "number" && Number.isInteger(value) && value >= 0) {
+      admitted.push(value);
+      return;
+    }
+    input.issues.push(
+      issue({
+        surfaceKind: input.surfaceKind,
+        surfaceRef: input.subjectRef,
+        ruleRef: "abg://gtl-program/input/non-negative-integer-array",
+        message: `${input.label}.${input.key}[${index}] must be a non-negative integer`
+      })
+    );
+  });
+  return Object.freeze(admitted);
+}
+
 function semanticCompilerFpReviewAssetSurface(kind: string): AssetSurface {
   return Object.freeze({
     kind,
@@ -1356,6 +1594,130 @@ function semanticCompilerFpReviewAssetSurface(kind: string): AssetSurface {
       "proof://abiogenesis/semantic-compiler-fp-review/abg-producer"
     ])
   });
+}
+
+function semanticCompilerFpReviewScalarAttr(
+  key: string,
+  value: string
+): SerializedAttrs["entries"][number] {
+  return Object.freeze({
+    key,
+    value: Object.freeze({
+      kind: "scalar" as const,
+      value
+    })
+  });
+}
+
+function semanticCompilerFpReviewStringListAttr(
+  key: string,
+  value: readonly string[]
+): SerializedAttrs["entries"][number] {
+  return Object.freeze({
+    key,
+    value: Object.freeze({
+      kind: "string_list" as const,
+      value: Object.freeze([...value])
+    })
+  });
+}
+
+function semanticCompilerFpReviewT162Declarations(): SerializedAttrs {
+  return Object.freeze({
+    entries: Object.freeze([
+      semanticCompilerFpReviewScalarAttr(
+        "t162.worker_control_contract_ref",
+        ABG_SEMANTIC_COMPILER_FP_REVIEW_WORKER_CONTROL_CONTRACT_REF
+      ),
+      semanticCompilerFpReviewScalarAttr(
+        "t162.required_artifact_delta_kind",
+        ABG_SEMANTIC_COMPILER_FP_REVIEW_REQUIRED_ARTIFACT_DELTA_KIND
+      ),
+      semanticCompilerFpReviewStringListAttr(
+        "t162.fd_finite_surface_refs",
+        [
+          ABG_SEMANTIC_COMPILER_FP_REVIEW_PACKAGE_GRAMMAR_REF,
+          ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_GRAMMAR_REF,
+          ABG_SEMANTIC_COMPILER_FP_REVIEW_PROGRESS_TELEMETRY_GRAMMAR_REF,
+          ABG_SEMANTIC_COMPILER_FP_REVIEW_PROGRESS_METRIC_REF,
+          ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_FSM_REF,
+          ABG_SEMANTIC_COMPILER_FP_REVIEW_OUTPUT_STATE_ENUM_REF,
+          ABG_SEMANTIC_COMPILER_FP_REVIEW_DERIVATION_RULE_REF
+        ]
+      ),
+      semanticCompilerFpReviewScalarAttr(
+        "t162.fd_forbidden_interpretation",
+        ABG_SEMANTIC_COMPILER_FP_REVIEW_FD_FORBIDDEN_INTERPRETATION
+      )
+    ])
+  });
+}
+
+function semanticCompilerFpReviewScalarDeclaration(
+  attrs: SerializedAttrs,
+  key: string
+): string | null {
+  const entry = attrs.entries.find((candidate) => candidate.key === key);
+  if (entry?.value.kind !== "scalar" || typeof entry.value.value !== "string") {
+    return null;
+  }
+  return entry.value.value;
+}
+
+function semanticCompilerFpReviewStringListDeclaration(
+  attrs: SerializedAttrs,
+  key: string
+): readonly string[] | null {
+  const entry = attrs.entries.find((candidate) => candidate.key === key);
+  if (entry?.value.kind !== "string_list") {
+    return null;
+  }
+  return entry.value.value;
+}
+
+function semanticCompilerFpReviewDeclaresT162Boundary(
+  attrs: SerializedAttrs
+): boolean {
+  const finiteSurfaceRefs = semanticCompilerFpReviewStringListDeclaration(
+    attrs,
+    "t162.fd_finite_surface_refs"
+  );
+  return (
+    semanticCompilerFpReviewScalarDeclaration(
+      attrs,
+      "t162.worker_control_contract_ref"
+    ) === ABG_SEMANTIC_COMPILER_FP_REVIEW_WORKER_CONTROL_CONTRACT_REF &&
+    semanticCompilerFpReviewScalarDeclaration(
+      attrs,
+      "t162.required_artifact_delta_kind"
+    ) === ABG_SEMANTIC_COMPILER_FP_REVIEW_REQUIRED_ARTIFACT_DELTA_KIND &&
+    finiteSurfaceRefs !== null &&
+    finiteSurfaceRefs.includes(
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_PACKAGE_GRAMMAR_REF
+    ) &&
+    finiteSurfaceRefs.includes(
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_GRAMMAR_REF
+    ) &&
+    finiteSurfaceRefs.includes(
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_PROGRESS_TELEMETRY_GRAMMAR_REF
+    ) &&
+    finiteSurfaceRefs.includes(
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_PROGRESS_METRIC_REF
+    ) &&
+    finiteSurfaceRefs.includes(
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_FSM_REF
+    ) &&
+    finiteSurfaceRefs.includes(
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_OUTPUT_STATE_ENUM_REF
+    ) &&
+    finiteSurfaceRefs.includes(
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_DERIVATION_RULE_REF
+    ) &&
+    semanticCompilerFpReviewScalarDeclaration(
+      attrs,
+      "t162.fd_forbidden_interpretation"
+    ) === ABG_SEMANTIC_COMPILER_FP_REVIEW_FD_FORBIDDEN_INTERPRETATION
+  );
 }
 
 function semanticCompilerFpReviewNode(input: {
@@ -1397,13 +1759,18 @@ export function constructAbgSemanticCompilerFpReviewGraphFunction(): GraphFuncti
     digest: stableSha256Digest({
       graphFunctionRef: ABG_SEMANTIC_COMPILER_FP_REVIEW_GRAPH_FUNCTION_REF,
       resultKind: ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_KIND,
-      resultVersion: ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_VERSION
+      resultVersion: ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_VERSION,
+      workerControlContractRef:
+        ABG_SEMANTIC_COMPILER_FP_REVIEW_WORKER_CONTROL_CONTRACT_REF,
+      fdPackageGrammarRef: ABG_SEMANTIC_COMPILER_FP_REVIEW_PACKAGE_GRAMMAR_REF,
+      fdResultGrammarRef: ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_GRAMMAR_REF,
+      fdAdmissionFsmRef: ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_FSM_REF
     })
   });
   const rule = Object.freeze({
     name: "abgSemanticCompilerFpReviewAdmission",
     kind: "semantic_compiler_fp_review_admission",
-    config: Object.freeze({ entries: Object.freeze([]) }),
+    config: semanticCompilerFpReviewT162Declarations(),
     tags: Object.freeze([
       "abiogenesis",
       "admission",
@@ -1437,6 +1804,21 @@ export function constructAbgSemanticCompilerFpReviewGraphFunction(): GraphFuncti
         consumedFieldRefs: Object.freeze([
           "deterministicReportDigest",
           "sourcePackageDigest",
+          "workerControlContractRef",
+          "authorityPacketRef",
+          "objectiveRef",
+          "targetArtifactRef",
+          "toolBoundaryRefs",
+          "requiredArtifactDeltaKind",
+          "stopConditionRef",
+          "fdPackageGrammarRef",
+          "fdResultGrammarRef",
+          "fdProgressTelemetryGrammarRef",
+          "fdProgressMetricRef",
+          "fdAdmissionFsmRef",
+          "fdOutputStateEnumRef",
+          "fdDerivationRuleRef",
+          "fdForbiddenInterpretation",
           "producerGraphFunctionRef",
           "producerGraphFunctionDigest",
           "producerRuntimeRef",
@@ -1454,7 +1836,7 @@ export function constructAbgSemanticCompilerFpReviewGraphFunction(): GraphFuncti
     contexts: Object.freeze([context]),
     rule,
     allowsSubwork: false,
-    declarations: Object.freeze({ entries: Object.freeze([]) }),
+    declarations: semanticCompilerFpReviewT162Declarations(),
     tags: Object.freeze([
       "abiogenesis",
       "semantic-compiler",
@@ -1494,7 +1876,7 @@ export function constructAbgSemanticCompilerFpReviewGraphFunction(): GraphFuncti
       version: null
     }),
     effects: Object.freeze([]),
-    declarations: Object.freeze({ entries: Object.freeze([]) }),
+    declarations: semanticCompilerFpReviewT162Declarations(),
     tags: Object.freeze([
       "abiogenesis",
       "semantic-compiler",
@@ -1517,7 +1899,22 @@ export function abgSemanticCompilerFpReviewPackageDigest(
     kind: input.kind,
     packageVersion: input.packageVersion,
     subjectRef: input.subjectRef,
-    deterministicReportDigest: input.deterministicReportDigest
+    deterministicReportDigest: input.deterministicReportDigest,
+    workerControlContractRef: input.workerControlContractRef,
+    authorityPacketRef: input.authorityPacketRef,
+    objectiveRef: input.objectiveRef,
+    targetArtifactRef: input.targetArtifactRef,
+    toolBoundaryRefs: input.toolBoundaryRefs,
+    requiredArtifactDeltaKind: input.requiredArtifactDeltaKind,
+    stopConditionRef: input.stopConditionRef,
+    fdPackageGrammarRef: input.fdPackageGrammarRef,
+    fdResultGrammarRef: input.fdResultGrammarRef,
+    fdProgressTelemetryGrammarRef: input.fdProgressTelemetryGrammarRef,
+    fdProgressMetricRef: input.fdProgressMetricRef,
+    fdAdmissionFsmRef: input.fdAdmissionFsmRef,
+    fdOutputStateEnumRef: input.fdOutputStateEnumRef,
+    fdDerivationRuleRef: input.fdDerivationRuleRef,
+    fdForbiddenInterpretation: input.fdForbiddenInterpretation
   });
 }
 
@@ -1545,6 +1942,21 @@ export function constructAbgSemanticCompilerFpReviewResult(
     sourcePackageKind: input.kind,
     sourcePackageVersion: input.packageVersion,
     sourcePackageDigest: abgSemanticCompilerFpReviewPackageDigest(input),
+    workerControlContractRef: input.workerControlContractRef,
+    authorityPacketRef: input.authorityPacketRef,
+    objectiveRef: input.objectiveRef,
+    targetArtifactRef: input.targetArtifactRef,
+    toolBoundaryRefs: Object.freeze([...input.toolBoundaryRefs]),
+    requiredArtifactDeltaKind: input.requiredArtifactDeltaKind,
+    stopConditionRef: input.stopConditionRef,
+    fdPackageGrammarRef: input.fdPackageGrammarRef,
+    fdResultGrammarRef: input.fdResultGrammarRef,
+    fdProgressTelemetryGrammarRef: input.fdProgressTelemetryGrammarRef,
+    fdProgressMetricRef: input.fdProgressMetricRef,
+    fdAdmissionFsmRef: input.fdAdmissionFsmRef,
+    fdOutputStateEnumRef: input.fdOutputStateEnumRef,
+    fdDerivationRuleRef: input.fdDerivationRuleRef,
+    fdForbiddenInterpretation: input.fdForbiddenInterpretation,
     status,
     findingCount,
     reviewerProfileRef: input.reviewerProfileRef,
@@ -1571,6 +1983,15 @@ export function runAbgSemanticCompilerFpReviewGraphFunction(
   }
 ): AbgSemanticCompilerFpReviewRunResult {
   const graphFunction = constructAbgSemanticCompilerFpReviewGraphFunction();
+  if (
+    !semanticCompilerFpReviewDeclaresT162Boundary(
+      graphFunction.declarations
+    )
+  ) {
+    throw new TypeError(
+      "ABG semantic compiler F_P review graph function must declare the T-162 worker-control and F_D finite-surface boundary"
+    );
+  }
   const graph = materializeGraphFunction(graphFunction);
   if (graph.vectors.length !== 1) {
     throw new TypeError(
@@ -1586,6 +2007,11 @@ export function runAbgSemanticCompilerFpReviewGraphFunction(
   if (vector.operators.length !== 1 || vector.operators[0]?.regime !== "F_P") {
     throw new TypeError(
       "ABG semantic compiler F_P review graph function must have one F_P operator"
+    );
+  }
+  if (!semanticCompilerFpReviewDeclaresT162Boundary(vector.declarations)) {
+    throw new TypeError(
+      "ABG semantic compiler F_P review vector must declare the T-162 worker-control and F_D finite-surface boundary"
     );
   }
   if (
@@ -1655,6 +2081,19 @@ function requiredAbgReviewNonNegativeInteger(input: {
   return 0;
 }
 
+function requiredAbgReviewStringArray(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly issues: string[];
+}): readonly string[] {
+  const values = stringArrayFromUnknown(input.record[input.key]);
+  if (values !== null) {
+    return values;
+  }
+  input.issues.push(`${input.key} must be an array of strings`);
+  return Object.freeze([]);
+}
+
 export function admitAbgSemanticCompilerFpReviewResult(input: {
   readonly value: unknown;
   readonly expectedPackage: AbgSemanticCompilerFpReviewPackageIdentity;
@@ -1700,6 +2139,81 @@ export function admitAbgSemanticCompilerFpReviewResult(input: {
   const sourcePackageDigest = requiredAbgReviewString({
     record,
     key: "sourcePackageDigest",
+    issues
+  });
+  const workerControlContractRef = requiredAbgReviewString({
+    record,
+    key: "workerControlContractRef",
+    issues
+  });
+  const authorityPacketRef = requiredAbgReviewString({
+    record,
+    key: "authorityPacketRef",
+    issues
+  });
+  const objectiveRef = requiredAbgReviewString({
+    record,
+    key: "objectiveRef",
+    issues
+  });
+  const targetArtifactRef = requiredAbgReviewString({
+    record,
+    key: "targetArtifactRef",
+    issues
+  });
+  const toolBoundaryRefs = requiredAbgReviewStringArray({
+    record,
+    key: "toolBoundaryRefs",
+    issues
+  });
+  const requiredArtifactDeltaKind = requiredAbgReviewString({
+    record,
+    key: "requiredArtifactDeltaKind",
+    issues
+  });
+  const stopConditionRef = requiredAbgReviewString({
+    record,
+    key: "stopConditionRef",
+    issues
+  });
+  const fdPackageGrammarRef = requiredAbgReviewString({
+    record,
+    key: "fdPackageGrammarRef",
+    issues
+  });
+  const fdResultGrammarRef = requiredAbgReviewString({
+    record,
+    key: "fdResultGrammarRef",
+    issues
+  });
+  const fdProgressTelemetryGrammarRef = requiredAbgReviewString({
+    record,
+    key: "fdProgressTelemetryGrammarRef",
+    issues
+  });
+  const fdProgressMetricRef = requiredAbgReviewString({
+    record,
+    key: "fdProgressMetricRef",
+    issues
+  });
+  const fdAdmissionFsmRef = requiredAbgReviewString({
+    record,
+    key: "fdAdmissionFsmRef",
+    issues
+  });
+  const fdOutputStateEnumRef = requiredAbgReviewString({
+    record,
+    key: "fdOutputStateEnumRef",
+    issues
+  });
+  const fdDerivationRuleRef = requiredAbgReviewString({
+    record,
+    key: "fdDerivationRuleRef",
+    issues
+  });
+  const fdForbiddenInterpretation = requiredAbgReviewString({
+    record,
+    key: "fdForbiddenInterpretation",
     issues
   });
   const status = requiredAbgReviewString({
@@ -1782,6 +2296,90 @@ export function admitAbgSemanticCompilerFpReviewResult(input: {
   if (sourcePackageDigest !== expectedPackageDigest) {
     issues.push("sourcePackageDigest does not match the reviewed package");
   }
+  if (
+    workerControlContractRef !==
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_WORKER_CONTROL_CONTRACT_REF ||
+    workerControlContractRef !== input.expectedPackage.workerControlContractRef
+  ) {
+    issues.push("workerControlContractRef is not admitted");
+  }
+  if (authorityPacketRef !== input.expectedPackage.authorityPacketRef) {
+    issues.push("authorityPacketRef does not match the reviewed package");
+  }
+  if (objectiveRef !== input.expectedPackage.objectiveRef) {
+    issues.push("objectiveRef does not match the reviewed package");
+  }
+  if (targetArtifactRef !== input.expectedPackage.targetArtifactRef) {
+    issues.push("targetArtifactRef does not match the reviewed package");
+  }
+  if (stableJson(toolBoundaryRefs) !== stableJson(input.expectedPackage.toolBoundaryRefs)) {
+    issues.push("toolBoundaryRefs do not match the reviewed package");
+  }
+  if (
+    requiredArtifactDeltaKind !==
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_REQUIRED_ARTIFACT_DELTA_KIND ||
+    requiredArtifactDeltaKind !== input.expectedPackage.requiredArtifactDeltaKind
+  ) {
+    issues.push("requiredArtifactDeltaKind is not admitted");
+  }
+  if (stopConditionRef !== input.expectedPackage.stopConditionRef) {
+    issues.push("stopConditionRef does not match the reviewed package");
+  }
+  if (
+    fdPackageGrammarRef !==
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_PACKAGE_GRAMMAR_REF ||
+    fdPackageGrammarRef !== input.expectedPackage.fdPackageGrammarRef
+  ) {
+    issues.push("fdPackageGrammarRef is not admitted");
+  }
+  if (
+    fdResultGrammarRef !== ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_GRAMMAR_REF ||
+    fdResultGrammarRef !== input.expectedPackage.fdResultGrammarRef
+  ) {
+    issues.push("fdResultGrammarRef is not admitted");
+  }
+  if (
+    fdProgressTelemetryGrammarRef !==
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_PROGRESS_TELEMETRY_GRAMMAR_REF ||
+    fdProgressTelemetryGrammarRef !==
+      input.expectedPackage.fdProgressTelemetryGrammarRef
+  ) {
+    issues.push("fdProgressTelemetryGrammarRef is not admitted");
+  }
+  if (
+    fdProgressMetricRef !==
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_PROGRESS_METRIC_REF ||
+    fdProgressMetricRef !== input.expectedPackage.fdProgressMetricRef
+  ) {
+    issues.push("fdProgressMetricRef is not admitted");
+  }
+  if (
+    fdAdmissionFsmRef !== ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_FSM_REF ||
+    fdAdmissionFsmRef !== input.expectedPackage.fdAdmissionFsmRef
+  ) {
+    issues.push("fdAdmissionFsmRef is not admitted");
+  }
+  if (
+    fdOutputStateEnumRef !==
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_OUTPUT_STATE_ENUM_REF ||
+    fdOutputStateEnumRef !== input.expectedPackage.fdOutputStateEnumRef
+  ) {
+    issues.push("fdOutputStateEnumRef is not admitted");
+  }
+  if (
+    fdDerivationRuleRef !==
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_DERIVATION_RULE_REF ||
+    fdDerivationRuleRef !== input.expectedPackage.fdDerivationRuleRef
+  ) {
+    issues.push("fdDerivationRuleRef is not admitted");
+  }
+  if (
+    fdForbiddenInterpretation !==
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_FD_FORBIDDEN_INTERPRETATION ||
+    fdForbiddenInterpretation !== input.expectedPackage.fdForbiddenInterpretation
+  ) {
+    issues.push("fdForbiddenInterpretation is not admitted");
+  }
   if (!isGtlProgramSemanticReviewStatus(status)) {
     issues.push("status must be passed, failed, or blocked");
   }
@@ -1826,6 +2424,27 @@ export function admitAbgSemanticCompilerFpReviewResult(input: {
     sourcePackageKind,
     sourcePackageVersion,
     sourcePackageDigest,
+    workerControlContractRef:
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_WORKER_CONTROL_CONTRACT_REF,
+    authorityPacketRef,
+    objectiveRef,
+    targetArtifactRef,
+    toolBoundaryRefs: Object.freeze([...toolBoundaryRefs]),
+    requiredArtifactDeltaKind:
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_REQUIRED_ARTIFACT_DELTA_KIND,
+    stopConditionRef,
+    fdPackageGrammarRef: ABG_SEMANTIC_COMPILER_FP_REVIEW_PACKAGE_GRAMMAR_REF,
+    fdResultGrammarRef: ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_GRAMMAR_REF,
+    fdProgressTelemetryGrammarRef:
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_PROGRESS_TELEMETRY_GRAMMAR_REF,
+    fdProgressMetricRef: ABG_SEMANTIC_COMPILER_FP_REVIEW_PROGRESS_METRIC_REF,
+    fdAdmissionFsmRef: ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_FSM_REF,
+    fdOutputStateEnumRef:
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_OUTPUT_STATE_ENUM_REF,
+    fdDerivationRuleRef:
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_DERIVATION_RULE_REF,
+    fdForbiddenInterpretation:
+      ABG_SEMANTIC_COMPILER_FP_REVIEW_FD_FORBIDDEN_INTERPRETATION,
     status: admittedStatus,
     findingCount,
     reviewerProfileRef,
@@ -3366,6 +3985,126 @@ function admitSemanticReviewGateRows(
           sourcePackageDigest: requiredStringField({
             record: row,
             key: "sourcePackageDigest",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "semantic_review_gate",
+            issues
+          }),
+          workerControlContractRef: requiredStringField({
+            record: row,
+            key: "workerControlContractRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "semantic_review_gate",
+            issues
+          }),
+          authorityPacketRef: requiredStringField({
+            record: row,
+            key: "authorityPacketRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "semantic_review_gate",
+            issues
+          }),
+          objectiveRef: requiredStringField({
+            record: row,
+            key: "objectiveRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "semantic_review_gate",
+            issues
+          }),
+          targetArtifactRef: requiredStringField({
+            record: row,
+            key: "targetArtifactRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "semantic_review_gate",
+            issues
+          }),
+          toolBoundaryRefs: requiredStringArrayField({
+            record: row,
+            key: "toolBoundaryRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "semantic_review_gate",
+            issues
+          }),
+          requiredArtifactDeltaKind: requiredStringField({
+            record: row,
+            key: "requiredArtifactDeltaKind",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "semantic_review_gate",
+            issues
+          }),
+          stopConditionRef: requiredStringField({
+            record: row,
+            key: "stopConditionRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "semantic_review_gate",
+            issues
+          }),
+          fdPackageGrammarRef: requiredStringField({
+            record: row,
+            key: "fdPackageGrammarRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "semantic_review_gate",
+            issues
+          }),
+          fdResultGrammarRef: requiredStringField({
+            record: row,
+            key: "fdResultGrammarRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "semantic_review_gate",
+            issues
+          }),
+          fdProgressTelemetryGrammarRef: requiredStringField({
+            record: row,
+            key: "fdProgressTelemetryGrammarRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "semantic_review_gate",
+            issues
+          }),
+          fdProgressMetricRef: requiredStringField({
+            record: row,
+            key: "fdProgressMetricRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "semantic_review_gate",
+            issues
+          }),
+          fdAdmissionFsmRef: requiredStringField({
+            record: row,
+            key: "fdAdmissionFsmRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "semantic_review_gate",
+            issues
+          }),
+          fdOutputStateEnumRef: requiredStringField({
+            record: row,
+            key: "fdOutputStateEnumRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "semantic_review_gate",
+            issues
+          }),
+          fdDerivationRuleRef: requiredStringField({
+            record: row,
+            key: "fdDerivationRuleRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "semantic_review_gate",
+            issues
+          }),
+          fdForbiddenInterpretation: requiredStringField({
+            record: row,
+            key: "fdForbiddenInterpretation",
             label: surfaceRef,
             subjectRef,
             surfaceKind: "semantic_review_gate",
@@ -5244,6 +5983,954 @@ function admitTraversalBindConservationRows(
   );
 }
 
+const REQUIREMENTS_ALGEBRA_AUTHORITY_SMUGGLING_KEYS: ReadonlySet<string> = new Set(
+  REQUIREMENT_EVENT_FORBIDDEN_RUNTIME_FIELDS
+);
+
+function rejectUnknownKeys(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly allowedKeys: ReadonlySet<string>;
+  readonly surfaceKind: GtlProgramConformanceSurfaceKind;
+  readonly surfaceRef: string;
+  readonly ruleRef: string;
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  for (const key of Object.keys(input.record)) {
+    if (!input.allowedKeys.has(key)) {
+      input.issues.push(
+        issue({
+          surfaceKind: input.surfaceKind,
+          surfaceRef: input.surfaceRef,
+          ruleRef: input.ruleRef,
+          message: `${input.surfaceRef}.${key} is not admitted by the closed GTL requirements-algebra declaration surface`
+        })
+      );
+    }
+  }
+}
+
+function rejectRequirementsAuthoritySmuggling(input: {
+  readonly value: unknown;
+  readonly surfaceRef: string;
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  const visit = (value: unknown, path: string): void => {
+    if (Array.isArray(value)) {
+      value.forEach((entry, index) => visit(entry, `${path}[${index}]`));
+      return;
+    }
+    if (!isRecord(value)) {
+      return;
+    }
+    for (const [key, child] of Object.entries(value)) {
+      const childPath = `${path}.${key}`;
+      if (REQUIREMENTS_ALGEBRA_AUTHORITY_SMUGGLING_KEYS.has(key)) {
+        input.issues.push(
+          issue({
+            surfaceKind: "requirement_declaration",
+            surfaceRef: input.surfaceRef,
+            ruleRef:
+              "abg://gtl-program/requirements-algebra/no-runtime-authority-fields",
+            message: `${childPath} attempts to carry ABG runtime, closure, ledger-write, traversal-selection, or continuation authority`
+          })
+        );
+      }
+      visit(child, childPath);
+    }
+  };
+  visit(input.value, input.surfaceRef);
+}
+
+function requiredUnknownArrayField(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly label: string;
+  readonly subjectRef: string;
+  readonly surfaceKind: GtlProgramConformanceSurfaceKind;
+  readonly issues: GtlProgramConformanceIssue[];
+}): readonly unknown[] {
+  if (!Object.hasOwn(input.record, input.key)) {
+    input.issues.push(
+      issue({
+        surfaceKind: input.surfaceKind,
+        surfaceRef: input.subjectRef,
+        ruleRef: "abg://gtl-program/input/array-field",
+        message: `${input.label}.${input.key} is required and must be an array`
+      })
+    );
+    return Object.freeze([]);
+  }
+  const values = unknownArray(input.record[input.key]);
+  if (values === null) {
+    input.issues.push(
+      issue({
+        surfaceKind: input.surfaceKind,
+        surfaceRef: input.subjectRef,
+        ruleRef: "abg://gtl-program/input/array-field",
+        message: `${input.label}.${input.key} must be an array`
+      })
+    );
+    return Object.freeze([]);
+  }
+  return values;
+}
+
+function exactKindField(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly expected: string;
+  readonly label: string;
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  if (input.record[input.key] !== input.expected) {
+    input.issues.push(
+      issue({
+        surfaceKind: "requirement_declaration",
+        surfaceRef: input.label,
+        ruleRef: "abg://gtl-program/requirements-algebra/kind",
+        message: `${input.label}.${input.key} must be ${input.expected}`
+      })
+    );
+  }
+}
+
+const GTL_REQUIREMENT_TERM_KIND_VALUES: ReadonlySet<
+  GtlRequirementDeclaration["termKind"]
+> = new Set(["atom", "composition"]);
+const GTL_REQUIREMENT_RELATION_KIND_VALUES: ReadonlySet<
+  GtlRequirementRelationDeclaration["relationKind"]
+> = new Set(REQUIREMENT_RELATION_KIND_VALUES);
+const GTL_AUTHORITY_CONTEXT_ORIGIN_STAGE_VALUES: ReadonlySet<
+  GtlAuthorityContextFragmentDeclaration["originStage"]
+> = new Set(REQUIREMENT_STAGE_VALUES);
+const GTL_REQUIREMENTS_CONTEXT_PROMOTION_POLICY_REFS: ReadonlySet<string> =
+  new Set([
+    "promotion-policy://abg/constraint-only",
+    "promotion-policy://abg/fp-required",
+    "promotion-policy://t162/constraint-only"
+  ]);
+const GTL_REQUIREMENTS_RELATION_KINDS_ALLOWING_SELF_REF: ReadonlySet<
+  GtlRequirementRelationDeclaration["relationKind"]
+> = new Set(["test", "assurance", "evidence"]);
+const GTL_REQUIREMENTS_DIRECTED_ACYCLIC_RELATION_KINDS: ReadonlySet<
+  GtlRequirementRelationDeclaration["relationKind"]
+> = new Set(["refinement", "dependency", "operationalization"]);
+const GTL_REQUIREMENTS_CONFLICT_CONTRADICTORY_RELATION_KINDS: ReadonlySet<
+  GtlRequirementRelationDeclaration["relationKind"]
+> = new Set([
+  "refinement",
+  "dependency",
+  "assignment",
+  "operationalization",
+  "test",
+  "assurance",
+  "evidence",
+  "contribution",
+  "restoration",
+  "supersession"
+]);
+
+function requiredEnumField<T extends string>(input: {
+  readonly record: Readonly<Record<string, unknown>>;
+  readonly key: string;
+  readonly label: string;
+  readonly values: ReadonlySet<T>;
+  readonly issues: GtlProgramConformanceIssue[];
+}): T {
+  const value = input.record[input.key];
+  if (typeof value === "string") {
+    for (const candidate of input.values) {
+      if (value === candidate) {
+        return candidate;
+      }
+    }
+  }
+  input.issues.push(
+    issue({
+      surfaceKind: "requirement_declaration",
+      surfaceRef: input.label,
+      ruleRef: "abg://gtl-program/requirements-algebra/enum-field",
+      message: `${input.label}.${input.key} must be one of ${[
+        ...input.values
+      ].join(", ")}`
+    })
+  );
+  return [...input.values][0]!;
+}
+
+function admitGtlRequirementDeclarationRows(
+  input: readonly unknown[],
+  subjectRef: string,
+  issues: GtlProgramConformanceIssue[],
+  label: string
+): readonly GtlRequirementDeclaration[] {
+  const allowedKeys = new Set([
+    "kind",
+    "requirementId",
+    "termKind",
+    "stableId",
+    "sourceRef",
+    "sourceDigest",
+    "relationRefs",
+    "spanRefs",
+    "contextRefs",
+    "evidencePolicyRefs"
+  ]);
+  return Object.freeze(
+    input.flatMap((row, index) => {
+      const surfaceRef = `${label}.requirements[${index}]`;
+      if (!isRecord(row)) {
+        issues.push(
+          issue({
+            surfaceKind: "requirement_declaration",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/requirement-declaration-row",
+            message: `${surfaceRef} must be an object`
+          })
+        );
+        return [];
+      }
+      rejectUnknownKeys({
+        record: row,
+        allowedKeys,
+        surfaceKind: "requirement_declaration",
+        surfaceRef,
+        ruleRef: "abg://gtl-program/requirements-algebra/open-payload",
+        issues
+      });
+      rejectRequirementsAuthoritySmuggling({ value: row, surfaceRef, issues });
+      exactKindField({
+        record: row,
+        key: "kind",
+        expected: "gtl_requirement_declaration",
+        label: surfaceRef,
+        issues
+      });
+      return [
+        Object.freeze({
+          kind: "gtl_requirement_declaration" as const,
+          requirementId: requiredStringField({
+            record: row,
+            key: "requirementId",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          termKind: requiredEnumField({
+            record: row,
+            key: "termKind",
+            label: surfaceRef,
+            values: GTL_REQUIREMENT_TERM_KIND_VALUES,
+            issues
+          }),
+          stableId: requiredStringField({
+            record: row,
+            key: "stableId",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          sourceRef: requiredStringField({
+            record: row,
+            key: "sourceRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          sourceDigest: requiredStringField({
+            record: row,
+            key: "sourceDigest",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          relationRefs: requiredStringArrayField({
+            record: row,
+            key: "relationRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          spanRefs: requiredStringArrayField({
+            record: row,
+            key: "spanRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          contextRefs: requiredStringArrayField({
+            record: row,
+            key: "contextRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          evidencePolicyRefs: requiredStringArrayField({
+            record: row,
+            key: "evidencePolicyRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          })
+        })
+      ];
+    })
+  );
+}
+
+function admitGtlRequirementRelationDeclarationRows(
+  input: readonly unknown[],
+  subjectRef: string,
+  issues: GtlProgramConformanceIssue[],
+  label: string
+): readonly GtlRequirementRelationDeclaration[] {
+  const allowedKeys = new Set([
+    "kind",
+    "relationId",
+    "relationKind",
+    "fromRequirementId",
+    "toRequirementId"
+  ]);
+  return Object.freeze(
+    input.flatMap((row, index) => {
+      const surfaceRef = `${label}.relations[${index}]`;
+      if (!isRecord(row)) {
+        issues.push(
+          issue({
+            surfaceKind: "requirement_declaration",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/requirement-relation-row",
+            message: `${surfaceRef} must be an object`
+          })
+        );
+        return [];
+      }
+      rejectUnknownKeys({
+        record: row,
+        allowedKeys,
+        surfaceKind: "requirement_declaration",
+        surfaceRef,
+        ruleRef: "abg://gtl-program/requirements-algebra/open-payload",
+        issues
+      });
+      rejectRequirementsAuthoritySmuggling({ value: row, surfaceRef, issues });
+      exactKindField({
+        record: row,
+        key: "kind",
+        expected: "gtl_requirement_relation_declaration",
+        label: surfaceRef,
+        issues
+      });
+      return [
+        Object.freeze({
+          kind: "gtl_requirement_relation_declaration" as const,
+          relationId: requiredStringField({
+            record: row,
+            key: "relationId",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          relationKind: requiredEnumField({
+            record: row,
+            key: "relationKind",
+            label: surfaceRef,
+            values: GTL_REQUIREMENT_RELATION_KIND_VALUES,
+            issues
+          }),
+          fromRequirementId: requiredStringField({
+            record: row,
+            key: "fromRequirementId",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          toRequirementId: requiredStringField({
+            record: row,
+            key: "toRequirementId",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          })
+        })
+      ];
+    })
+  );
+}
+
+function admitGtlTraversalSpanDeclarationRows(
+  input: readonly unknown[],
+  subjectRef: string,
+  issues: GtlProgramConformanceIssue[],
+  label: string
+): readonly GtlTraversalSpanDeclaration[] {
+  const allowedKeys = new Set([
+    "kind",
+    "spanId",
+    "graphFunctionRef",
+    "graphVectorRefs",
+    "vectorIndexes",
+    "sourceNodeRef",
+    "targetNodeRef"
+  ]);
+  return Object.freeze(
+    input.flatMap((row, index) => {
+      const surfaceRef = `${label}.spans[${index}]`;
+      if (!isRecord(row)) {
+        issues.push(
+          issue({
+            surfaceKind: "requirement_declaration",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/requirement-span-row",
+            message: `${surfaceRef} must be an object`
+          })
+        );
+        return [];
+      }
+      rejectUnknownKeys({
+        record: row,
+        allowedKeys,
+        surfaceKind: "requirement_declaration",
+        surfaceRef,
+        ruleRef: "abg://gtl-program/requirements-algebra/open-payload",
+        issues
+      });
+      rejectRequirementsAuthoritySmuggling({ value: row, surfaceRef, issues });
+      exactKindField({
+        record: row,
+        key: "kind",
+        expected: "gtl_traversal_span_declaration",
+        label: surfaceRef,
+        issues
+      });
+      return [
+        Object.freeze({
+          kind: "gtl_traversal_span_declaration" as const,
+          spanId: requiredStringField({
+            record: row,
+            key: "spanId",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          graphFunctionRef: requiredStringField({
+            record: row,
+            key: "graphFunctionRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          graphVectorRefs: requiredStringArrayField({
+            record: row,
+            key: "graphVectorRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          vectorIndexes: requiredNonNegativeIntegerArrayField({
+            record: row,
+            key: "vectorIndexes",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          sourceNodeRef: requiredStringField({
+            record: row,
+            key: "sourceNodeRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          targetNodeRef: requiredStringField({
+            record: row,
+            key: "targetNodeRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          })
+        })
+      ];
+    })
+  );
+}
+
+function admitGtlAuthorityContextFragmentRows(
+  input: readonly unknown[],
+  subjectRef: string,
+  issues: GtlProgramConformanceIssue[],
+  label: string
+): readonly GtlAuthorityContextFragmentDeclaration[] {
+  const allowedKeys = new Set([
+    "kind",
+    "fragmentRef",
+    "originStage",
+    "constraintScope",
+    "digest",
+    "promotionPolicyRef",
+    "appliesToRefs"
+  ]);
+  return Object.freeze(
+    input.flatMap((row, index) => {
+      const surfaceRef = `${label}.contextFragments[${index}]`;
+      if (!isRecord(row)) {
+        issues.push(
+          issue({
+            surfaceKind: "requirement_declaration",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/requirement-context-row",
+            message: `${surfaceRef} must be an object`
+          })
+        );
+        return [];
+      }
+      rejectUnknownKeys({
+        record: row,
+        allowedKeys,
+        surfaceKind: "requirement_declaration",
+        surfaceRef,
+        ruleRef: "abg://gtl-program/requirements-algebra/open-payload",
+        issues
+      });
+      rejectRequirementsAuthoritySmuggling({ value: row, surfaceRef, issues });
+      exactKindField({
+        record: row,
+        key: "kind",
+        expected: "gtl_authority_context_fragment_declaration",
+        label: surfaceRef,
+        issues
+      });
+      return [
+        Object.freeze({
+          kind: "gtl_authority_context_fragment_declaration" as const,
+          fragmentRef: requiredStringField({
+            record: row,
+            key: "fragmentRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          originStage: requiredEnumField({
+            record: row,
+            key: "originStage",
+            label: surfaceRef,
+            values: GTL_AUTHORITY_CONTEXT_ORIGIN_STAGE_VALUES,
+            issues
+          }),
+          constraintScope: requiredStringField({
+            record: row,
+            key: "constraintScope",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          digest: requiredStringField({
+            record: row,
+            key: "digest",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          promotionPolicyRef: requiredStringField({
+            record: row,
+            key: "promotionPolicyRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          appliesToRefs: requiredStringArrayField({
+            record: row,
+            key: "appliesToRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          })
+        })
+      ];
+    })
+  );
+}
+
+function admitGtlDestinationTopologyRows(
+  input: readonly unknown[],
+  subjectRef: string,
+  issues: GtlProgramConformanceIssue[],
+  label: string
+): readonly GtlDestinationTopologyDeclaration[] {
+  const allowedKeys = new Set([
+    "kind",
+    "topologyRef",
+    "frameworkRef",
+    "constraintRefs",
+    "appliesToRefs"
+  ]);
+  return Object.freeze(
+    input.flatMap((row, index) => {
+      const surfaceRef = `${label}.destinationTopologies[${index}]`;
+      if (!isRecord(row)) {
+        issues.push(
+          issue({
+            surfaceKind: "requirement_declaration",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/requirement-topology-row",
+            message: `${surfaceRef} must be an object`
+          })
+        );
+        return [];
+      }
+      rejectUnknownKeys({
+        record: row,
+        allowedKeys,
+        surfaceKind: "requirement_declaration",
+        surfaceRef,
+        ruleRef: "abg://gtl-program/requirements-algebra/open-payload",
+        issues
+      });
+      rejectRequirementsAuthoritySmuggling({ value: row, surfaceRef, issues });
+      exactKindField({
+        record: row,
+        key: "kind",
+        expected: "gtl_destination_topology_declaration",
+        label: surfaceRef,
+        issues
+      });
+      return [
+        Object.freeze({
+          kind: "gtl_destination_topology_declaration" as const,
+          topologyRef: requiredStringField({
+            record: row,
+            key: "topologyRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          frameworkRef: requiredStringField({
+            record: row,
+            key: "frameworkRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          constraintRefs: requiredStringArrayField({
+            record: row,
+            key: "constraintRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          appliesToRefs: requiredStringArrayField({
+            record: row,
+            key: "appliesToRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          })
+        })
+      ];
+    })
+  );
+}
+
+function admitGtlRequirementTestRelationRows(
+  input: readonly unknown[],
+  subjectRef: string,
+  issues: GtlProgramConformanceIssue[],
+  label: string
+): readonly GtlRequirementTestRelationDeclaration[] {
+  const allowedKeys = new Set([
+    "kind",
+    "relationRef",
+    "requirementId",
+    "assetProjectionRef",
+    "testSourceProjectionRef",
+    "testExecutionProjectionRef",
+    "interpretationProjectionRef",
+    "componentTestRootRefs",
+    "evidencePolicyRef"
+  ]);
+  return Object.freeze(
+    input.flatMap((row, index) => {
+      const surfaceRef = `${label}.testRelations[${index}]`;
+      if (!isRecord(row)) {
+        issues.push(
+          issue({
+            surfaceKind: "requirement_declaration",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/requirement-test-relation-row",
+            message: `${surfaceRef} must be an object`
+          })
+        );
+        return [];
+      }
+      rejectUnknownKeys({
+        record: row,
+        allowedKeys,
+        surfaceKind: "requirement_declaration",
+        surfaceRef,
+        ruleRef: "abg://gtl-program/requirements-algebra/open-payload",
+        issues
+      });
+      rejectRequirementsAuthoritySmuggling({ value: row, surfaceRef, issues });
+      exactKindField({
+        record: row,
+        key: "kind",
+        expected: "gtl_requirement_test_relation_declaration",
+        label: surfaceRef,
+        issues
+      });
+      return [
+        Object.freeze({
+          kind: "gtl_requirement_test_relation_declaration" as const,
+          relationRef: requiredStringField({
+            record: row,
+            key: "relationRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          requirementId: requiredStringField({
+            record: row,
+            key: "requirementId",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          assetProjectionRef: requiredStringField({
+            record: row,
+            key: "assetProjectionRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          testSourceProjectionRef: requiredStringField({
+            record: row,
+            key: "testSourceProjectionRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          testExecutionProjectionRef: requiredStringField({
+            record: row,
+            key: "testExecutionProjectionRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          interpretationProjectionRef: requiredStringField({
+            record: row,
+            key: "interpretationProjectionRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          componentTestRootRefs: requiredStringArrayField({
+            record: row,
+            key: "componentTestRootRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          evidencePolicyRef: requiredStringField({
+            record: row,
+            key: "evidencePolicyRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          })
+        })
+      ];
+    })
+  );
+}
+
+function admitRequirementsAlgebraDeclarationBundles(
+  input: readonly unknown[],
+  subjectRef: string,
+  issues: GtlProgramConformanceIssue[]
+): readonly GtlRequirementsAlgebraDeclarationBundle[] {
+  const allowedKeys = new Set([
+    "kind",
+    "declarationKey",
+    "requirements",
+    "relations",
+    "spans",
+    "contextFragments",
+    "destinationTopologies",
+    "testRelations"
+  ]);
+  return Object.freeze(
+    input.flatMap((bundle, index) => {
+      const surfaceRef = `requirementsAlgebraDeclarations[${index}]`;
+      if (!isRecord(bundle)) {
+        issues.push(
+          issue({
+            surfaceKind: "requirement_declaration",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/input/requirements-algebra-bundle",
+            message: `${surfaceRef} must be an object`
+          })
+        );
+        return [];
+      }
+      rejectUnknownKeys({
+        record: bundle,
+        allowedKeys,
+        surfaceKind: "requirement_declaration",
+        surfaceRef,
+        ruleRef: "abg://gtl-program/requirements-algebra/open-payload",
+        issues
+      });
+      rejectRequirementsAuthoritySmuggling({
+        value: bundle,
+        surfaceRef,
+        issues
+      });
+      exactKindField({
+        record: bundle,
+        key: "kind",
+        expected: "gtl_requirements_algebra_declaration_bundle",
+        label: surfaceRef,
+        issues
+      });
+      const declarationKey = requiredStringField({
+        record: bundle,
+        key: "declarationKey",
+        label: surfaceRef,
+        subjectRef,
+        surfaceKind: "requirement_declaration",
+        issues
+      });
+      if (declarationKey !== GTL_REQUIREMENTS_ALGEBRA_DECLARATION_KEY) {
+        issues.push(
+          issue({
+            surfaceKind: "requirement_declaration",
+            surfaceRef,
+            ruleRef: "abg://gtl-program/requirements-algebra/declaration-key",
+            message: `${surfaceRef}.declarationKey must be ${GTL_REQUIREMENTS_ALGEBRA_DECLARATION_KEY}`
+          })
+        );
+      }
+      return [
+        Object.freeze({
+          kind: "gtl_requirements_algebra_declaration_bundle" as const,
+          declarationKey: GTL_REQUIREMENTS_ALGEBRA_DECLARATION_KEY,
+          requirements: admitGtlRequirementDeclarationRows(
+            requiredUnknownArrayField({
+              record: bundle,
+              key: "requirements",
+              label: surfaceRef,
+              subjectRef,
+              surfaceKind: "requirement_declaration",
+              issues
+            }),
+            subjectRef,
+            issues,
+            surfaceRef
+          ),
+          relations: admitGtlRequirementRelationDeclarationRows(
+            requiredUnknownArrayField({
+              record: bundle,
+              key: "relations",
+              label: surfaceRef,
+              subjectRef,
+              surfaceKind: "requirement_declaration",
+              issues
+            }),
+            subjectRef,
+            issues,
+            surfaceRef
+          ),
+          spans: admitGtlTraversalSpanDeclarationRows(
+            requiredUnknownArrayField({
+              record: bundle,
+              key: "spans",
+              label: surfaceRef,
+              subjectRef,
+              surfaceKind: "requirement_declaration",
+              issues
+            }),
+            subjectRef,
+            issues,
+            surfaceRef
+          ),
+          contextFragments: admitGtlAuthorityContextFragmentRows(
+            requiredUnknownArrayField({
+              record: bundle,
+              key: "contextFragments",
+              label: surfaceRef,
+              subjectRef,
+              surfaceKind: "requirement_declaration",
+              issues
+            }),
+            subjectRef,
+            issues,
+            surfaceRef
+          ),
+          destinationTopologies: admitGtlDestinationTopologyRows(
+            requiredUnknownArrayField({
+              record: bundle,
+              key: "destinationTopologies",
+              label: surfaceRef,
+              subjectRef,
+              surfaceKind: "requirement_declaration",
+              issues
+            }),
+            subjectRef,
+            issues,
+            surfaceRef
+          ),
+          testRelations: admitGtlRequirementTestRelationRows(
+            requiredUnknownArrayField({
+              record: bundle,
+              key: "testRelations",
+              label: surfaceRef,
+              subjectRef,
+              surfaceKind: "requirement_declaration",
+              issues
+            }),
+            subjectRef,
+            issues,
+            surfaceRef
+          )
+        })
+      ];
+    })
+  );
+}
+
 export function admitGtlProgramConformanceInput(
   rawInput: unknown
 ): GtlProgramConformanceInputAdmission {
@@ -5280,7 +6967,8 @@ export function admitGtlProgramConformanceInput(
       externalToolGates: Object.freeze([]),
       runtimeBindings: Object.freeze([]),
       runtimeReentryRoutes: Object.freeze([]),
-      traversalBindConservation: Object.freeze([])
+      traversalBindConservation: Object.freeze([]),
+      requirementsAlgebraDeclarations: Object.freeze([])
     });
     issues.push(
       issue({
@@ -5597,6 +7285,16 @@ export function admitGtlProgramConformanceInput(
       checkOptionalArrayField({
         record: rawInput,
         key: "traversalBindConservation",
+        subjectRef,
+        issues
+      }),
+      subjectRef,
+      issues
+    ),
+    requirementsAlgebraDeclarations: admitRequirementsAlgebraDeclarationBundles(
+      checkOptionalArrayField({
+        record: rawInput,
+        key: "requirementsAlgebraDeclarations",
         subjectRef,
         issues
       }),
@@ -6081,7 +7779,7 @@ function materializeGraphVectors(
         vectorIdentityKeys,
         issues
       });
-      for (const vector of graph.vectors) {
+      graph.vectors.forEach((vector, vectorIndex) => {
         vectors.push(
           Object.freeze({
             graphFunctionId: graphFunction.id,
@@ -6089,6 +7787,7 @@ function materializeGraphVectors(
             graphId: graph.id,
             graphRef: graph.name,
             graphVectorId: vector.id,
+            vectorIndex,
             vectorRef: vector.name,
             sourceAssetTypes: Object.freeze(vector.source.map((source) => source.name)),
             sourceNodeContracts: interfaceContract(vector.source),
@@ -6104,7 +7803,7 @@ function materializeGraphVectors(
             )
           })
         );
-      }
+      });
     } catch (error: unknown) {
       issues.push(
         issue({
@@ -6241,6 +7940,828 @@ function consequenceCatalogsByVectorIdentity(
   return catalogs;
 }
 
+function allRequirementDeclarations(
+  bundles: readonly GtlRequirementsAlgebraDeclarationBundle[]
+): readonly GtlRequirementDeclaration[] {
+  return Object.freeze(bundles.flatMap((bundle) => bundle.requirements));
+}
+
+function allRequirementRelationDeclarations(
+  bundles: readonly GtlRequirementsAlgebraDeclarationBundle[]
+): readonly GtlRequirementRelationDeclaration[] {
+  return Object.freeze(bundles.flatMap((bundle) => bundle.relations));
+}
+
+function allTraversalSpanDeclarations(
+  bundles: readonly GtlRequirementsAlgebraDeclarationBundle[]
+): readonly GtlTraversalSpanDeclaration[] {
+  return Object.freeze(bundles.flatMap((bundle) => bundle.spans));
+}
+
+function allAuthorityContextFragmentDeclarations(
+  bundles: readonly GtlRequirementsAlgebraDeclarationBundle[]
+): readonly GtlAuthorityContextFragmentDeclaration[] {
+  return Object.freeze(bundles.flatMap((bundle) => bundle.contextFragments));
+}
+
+function allDestinationTopologyDeclarations(
+  bundles: readonly GtlRequirementsAlgebraDeclarationBundle[]
+): readonly GtlDestinationTopologyDeclaration[] {
+  return Object.freeze(bundles.flatMap((bundle) => bundle.destinationTopologies));
+}
+
+function allRequirementTestRelationDeclarations(
+  bundles: readonly GtlRequirementsAlgebraDeclarationBundle[]
+): readonly GtlRequirementTestRelationDeclaration[] {
+  return Object.freeze(bundles.flatMap((bundle) => bundle.testRelations));
+}
+
+function spanMatchesVector(
+  span: GtlTraversalSpanDeclaration,
+  vector: GraphVectorProjection
+): boolean {
+  return spanMatchesVectorIdentity(span, vector) || spanCoversVectorIndexRange(span, vector);
+}
+
+function spanMatchesVectorIdentity(
+  span: GtlTraversalSpanDeclaration,
+  vector: GraphVectorProjection
+): boolean {
+  const graphFunctionMatches =
+    span.graphFunctionRef === vector.graphFunctionRef ||
+    span.graphFunctionRef === vector.graphFunctionId;
+  if (!graphFunctionMatches) {
+    return false;
+  }
+  return (
+    span.graphVectorRefs.includes(vector.vectorRef) ||
+    span.graphVectorRefs.includes(vector.graphVectorId) ||
+    span.graphVectorRefs.includes(graphVectorIdentityRef(vector)) ||
+    span.vectorIndexes.includes(vector.vectorIndex)
+  );
+}
+
+function spanVectorIndexRange(
+  span: GtlTraversalSpanDeclaration
+): { readonly min: number; readonly max: number } | null {
+  if (span.vectorIndexes.length < 2) {
+    return null;
+  }
+  return Object.freeze({
+    min: Math.min(...span.vectorIndexes),
+    max: Math.max(...span.vectorIndexes)
+  });
+}
+
+function spanCoversVectorIndexRange(
+  span: GtlTraversalSpanDeclaration,
+  vector: GraphVectorProjection
+): boolean {
+  const graphFunctionMatches =
+    span.graphFunctionRef === vector.graphFunctionRef ||
+    span.graphFunctionRef === vector.graphFunctionId;
+  const range = spanVectorIndexRange(span);
+  return (
+    graphFunctionMatches &&
+    range !== null &&
+    vector.vectorIndex >= range.min &&
+    vector.vectorIndex <= range.max
+  );
+}
+
+function vectorSourceMatchesSpan(
+  span: GtlTraversalSpanDeclaration,
+  vector: GraphVectorProjection
+): boolean {
+  return (
+    vector.sourceAssetTypes.includes(span.sourceNodeRef) ||
+    vector.sourceNodeContracts.includes(span.sourceNodeRef)
+  );
+}
+
+function vectorTargetMatchesSpan(
+  span: GtlTraversalSpanDeclaration,
+  vector: GraphVectorProjection
+): boolean {
+  return (
+    span.targetNodeRef === vector.targetAssetType ||
+    span.targetNodeRef === vector.targetNodeContract
+  );
+}
+
+function requirementAppliesToSpan(
+  requirement: GtlRequirementDeclaration,
+  span: GtlTraversalSpanDeclaration
+): boolean {
+  return requirement.spanRefs.includes(span.spanId);
+}
+
+function constructRequirementsAlgebraProjection(input: {
+  readonly subjectRef: string;
+  readonly declarations: readonly GtlRequirementsAlgebraDeclarationBundle[];
+  readonly vectors: readonly GraphVectorProjection[];
+}): GtlProgramRequirementsAlgebraProjection {
+  const requirements = allRequirementDeclarations(input.declarations);
+  const relations = allRequirementRelationDeclarations(input.declarations);
+  const spans = allTraversalSpanDeclarations(input.declarations);
+  const contextFragments =
+    allAuthorityContextFragmentDeclarations(input.declarations);
+  const destinationTopologies =
+    allDestinationTopologyDeclarations(input.declarations);
+  const testRelations = allRequirementTestRelationDeclarations(
+    input.declarations
+  );
+  const contextFragmentsByRef = new Map(
+    contextFragments.map((fragment) => [fragment.fragmentRef, fragment])
+  );
+  const destinationTopologiesByApplyRef = new Map<
+    string,
+    GtlDestinationTopologyDeclaration[]
+  >();
+  for (const topology of destinationTopologies) {
+    for (const appliesToRef of topology.appliesToRefs) {
+      destinationTopologiesByApplyRef.set(appliesToRef, [
+        ...(destinationTopologiesByApplyRef.get(appliesToRef) ?? []),
+        topology
+      ]);
+    }
+  }
+  const testRelationsByRequirementId = new Map<
+    string,
+    GtlRequirementTestRelationDeclaration[]
+  >();
+  for (const testRelation of testRelations) {
+    testRelationsByRequirementId.set(testRelation.requirementId, [
+      ...(testRelationsByRequirementId.get(testRelation.requirementId) ?? []),
+      testRelation
+    ]);
+  }
+  const edgeRows = Object.freeze(
+    input.vectors.map((vector) => {
+      const vectorSpans = spans.filter((span) => spanMatchesVector(span, vector));
+      const vectorRequirements = requirements.filter((requirement) =>
+        vectorSpans.some((span) => requirementAppliesToSpan(requirement, span))
+      );
+      const requirementIds = uniqueSorted(
+        vectorRequirements.map((requirement) => requirement.requirementId)
+      );
+      const spanRefs = uniqueSorted(vectorSpans.map((span) => span.spanId));
+      const fragmentRefs = uniqueSorted(
+        vectorRequirements.flatMap((requirement) =>
+          requirement.contextRefs.filter((ref) => contextFragmentsByRef.has(ref))
+        )
+      );
+      const topologyRefs = uniqueSorted(
+        [
+          vector.graphFunctionRef,
+          vector.graphFunctionId,
+          vector.vectorRef,
+          vector.graphVectorId,
+          ...requirementIds,
+          ...spanRefs
+        ].flatMap((ref) =>
+          (destinationTopologiesByApplyRef.get(ref) ?? []).map(
+            (topology) => topology.topologyRef
+          )
+        )
+      );
+      const activeTestRelations = requirementIds.flatMap(
+        (requirementId) => testRelationsByRequirementId.get(requirementId) ?? []
+      );
+      return Object.freeze({
+        kind: "gtl_program_requirements_algebra_edge_projection_row" as const,
+        unitRef: traversalUnitRef(vector),
+        graphFunctionRef: vector.graphFunctionRef,
+        graphFunctionId: vector.graphFunctionId,
+        graphVectorRef: vector.vectorRef,
+        graphVectorId: vector.graphVectorId,
+        vectorIndex: vector.vectorIndex,
+        requirementIds,
+        spanRefs,
+        contextFragmentRefs: fragmentRefs,
+        destinationTopologyRefs: topologyRefs,
+        testRelationRefs: uniqueSorted(
+          activeTestRelations.map((relation) => relation.relationRef)
+        ),
+        evidencePolicyRefs: uniqueSorted([
+          ...vectorRequirements.flatMap((requirement) =>
+            requirement.evidencePolicyRefs
+          ),
+          ...activeTestRelations.map((relation) => relation.evidencePolicyRef)
+        ])
+      });
+    })
+  );
+  return Object.freeze({
+    kind: "gtl_program_requirements_algebra_projection" as const,
+    subjectRef: input.subjectRef,
+    declarationBundleCount: input.declarations.length,
+    requirementIds: uniqueSorted(
+      requirements.map((requirement) => requirement.requirementId)
+    ),
+    relationRefs: uniqueSorted(relations.map((relation) => relation.relationId)),
+    spanRefs: uniqueSorted(spans.map((span) => span.spanId)),
+    contextFragmentRefs: uniqueSorted(
+      contextFragments.map((fragment) => fragment.fragmentRef)
+    ),
+    destinationTopologyRefs: uniqueSorted(
+      destinationTopologies.map((topology) => topology.topologyRef)
+    ),
+    testRelationRefs: uniqueSorted(
+      testRelations.map((relation) => relation.relationRef)
+    ),
+    edgeRows
+  });
+}
+
+function refResolvesToRequirementSurface(input: {
+  readonly ref: string;
+  readonly requirementIds: ReadonlySet<string>;
+  readonly spanIds: ReadonlySet<string>;
+  readonly contextRefs: ReadonlySet<string>;
+  readonly topologyRefs?: ReadonlySet<string> | undefined;
+  readonly evidencePolicyRefs?: ReadonlySet<string> | undefined;
+  readonly graphFunctionRefs: ReadonlySet<string>;
+  readonly graphVectorRefs: ReadonlySet<string>;
+}): boolean {
+  return (
+    input.requirementIds.has(input.ref) ||
+    input.spanIds.has(input.ref) ||
+    input.contextRefs.has(input.ref) ||
+    input.topologyRefs?.has(input.ref) === true ||
+    input.evidencePolicyRefs?.has(input.ref) === true ||
+    input.graphFunctionRefs.has(input.ref) ||
+    input.graphVectorRefs.has(input.ref)
+  );
+}
+
+function relationPairKey(leftRequirementId: string, rightRequirementId: string): string {
+  return [leftRequirementId, rightRequirementId].sort().join("||");
+}
+
+function hasRequirementRelationPath(input: {
+  readonly adjacency: ReadonlyMap<string, readonly string[]>;
+  readonly start: string;
+  readonly target: string;
+  readonly visited?: ReadonlySet<string> | undefined;
+}): boolean {
+  if (input.start === input.target) {
+    return true;
+  }
+  const visited = new Set(input.visited ?? []);
+  if (visited.has(input.start)) {
+    return false;
+  }
+  visited.add(input.start);
+  for (const next of input.adjacency.get(input.start) ?? []) {
+    if (
+      hasRequirementRelationPath({
+        adjacency: input.adjacency,
+        start: next,
+        target: input.target,
+        visited
+      })
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function checkRequirementRelationGraph(input: {
+  readonly relations: readonly GtlRequirementRelationDeclaration[];
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  const directedAdjacency = new Map<string, string[]>();
+  const relationKindsByPair = new Map<
+    string,
+    Set<GtlRequirementRelationDeclaration["relationKind"]>
+  >();
+  for (const relation of input.relations) {
+    if (
+      relation.fromRequirementId === relation.toRequirementId &&
+      !GTL_REQUIREMENTS_RELATION_KINDS_ALLOWING_SELF_REF.has(relation.relationKind)
+    ) {
+      pushRowIssue({
+        surfaceKind: "requirement_declaration",
+        surfaceRef: relation.relationId,
+        ruleRef: "abg://gtl-program/requirements-algebra/relation-self-reference",
+        message: `${relation.relationKind} relation ${JSON.stringify(relation.relationId)} self-references ${JSON.stringify(relation.fromRequirementId)}`,
+        issues: input.issues
+      });
+    }
+    if (GTL_REQUIREMENTS_DIRECTED_ACYCLIC_RELATION_KINDS.has(relation.relationKind)) {
+      directedAdjacency.set(relation.fromRequirementId, [
+        ...(directedAdjacency.get(relation.fromRequirementId) ?? []),
+        relation.toRequirementId
+      ]);
+    }
+    const pairKey = relationPairKey(relation.fromRequirementId, relation.toRequirementId);
+    relationKindsByPair.set(pairKey, relationKindsByPair.get(pairKey) ?? new Set());
+    relationKindsByPair.get(pairKey)?.add(relation.relationKind);
+  }
+
+  const reportedCycles = new Set<string>();
+  for (const relation of input.relations) {
+    if (!GTL_REQUIREMENTS_DIRECTED_ACYCLIC_RELATION_KINDS.has(relation.relationKind)) {
+      continue;
+    }
+    if (
+      hasRequirementRelationPath({
+        adjacency: directedAdjacency,
+        start: relation.toRequirementId,
+        target: relation.fromRequirementId
+      })
+    ) {
+      const cycleKey = relationPairKey(relation.fromRequirementId, relation.toRequirementId);
+      if (!reportedCycles.has(cycleKey)) {
+        pushRowIssue({
+          surfaceKind: "requirement_declaration",
+          surfaceRef: relation.relationId,
+          ruleRef: "abg://gtl-program/requirements-algebra/relation-cycle",
+          message: `${relation.relationKind} relation ${JSON.stringify(relation.relationId)} participates in a directed cycle`,
+          issues: input.issues
+        });
+        reportedCycles.add(cycleKey);
+      }
+    }
+  }
+
+  for (const [pairKey, relationKinds] of relationKindsByPair) {
+    if (!relationKinds.has("conflict")) {
+      continue;
+    }
+    for (const relationKind of relationKinds) {
+      if (GTL_REQUIREMENTS_CONFLICT_CONTRADICTORY_RELATION_KINDS.has(relationKind)) {
+        pushRowIssue({
+          surfaceKind: "requirement_declaration",
+          surfaceRef: pairKey,
+          ruleRef: "abg://gtl-program/requirements-algebra/relation-contradiction",
+          message: `requirement pair ${JSON.stringify(pairKey)} carries both conflict and ${relationKind} relation kinds`,
+          issues: input.issues
+        });
+        break;
+      }
+    }
+  }
+}
+
+function checkRequirementProjectionRef(input: {
+  readonly surfaceRef: string;
+  readonly fieldName: string;
+  readonly value: string;
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  if (!input.value.startsWith("projection://")) {
+    pushRowIssue({
+      surfaceKind: "requirement_declaration",
+      surfaceRef: input.surfaceRef,
+      ruleRef: "abg://gtl-program/requirements-algebra/test-projection-ref-grammar",
+      message: `${input.fieldName} must be a projection:// ref`,
+      issues: input.issues
+    });
+  }
+}
+
+function checkRequirementsAlgebraDeclarations(input: {
+  readonly declarations: readonly GtlRequirementsAlgebraDeclarationBundle[];
+  readonly vectors: readonly GraphVectorProjection[];
+  readonly graphFunctionRefs: ReadonlySet<string>;
+  readonly graphVectorRefs: ReadonlySet<string>;
+  readonly issues: GtlProgramConformanceIssue[];
+}): void {
+  const requirements = allRequirementDeclarations(input.declarations);
+  const relations = allRequirementRelationDeclarations(input.declarations);
+  const spans = allTraversalSpanDeclarations(input.declarations);
+  const contextFragments =
+    allAuthorityContextFragmentDeclarations(input.declarations);
+  const destinationTopologies =
+    allDestinationTopologyDeclarations(input.declarations);
+  const testRelations = allRequirementTestRelationDeclarations(
+    input.declarations
+  );
+  const requirementIds = new Set(
+    requirements.map((requirement) => requirement.requirementId)
+  );
+  const relationIds = new Set(relations.map((relation) => relation.relationId));
+  const spanIds = new Set(spans.map((span) => span.spanId));
+  const contextRefs = new Set(
+    contextFragments.map((fragment) => fragment.fragmentRef)
+  );
+  const topologyRefs = new Set(
+    destinationTopologies.map((topology) => topology.topologyRef)
+  );
+  const evidencePolicyRefs = new Set(
+    requirements.flatMap((requirement) => requirement.evidencePolicyRefs)
+  );
+  const requirementById = new Map(
+    requirements.map((requirement) => [requirement.requirementId, requirement])
+  );
+  const graphVectorRefs = new Set([
+    ...input.graphVectorRefs,
+    ...input.vectors.map((vector) => vector.graphVectorId),
+    ...input.vectors.map((vector) => graphVectorIdentityRef(vector))
+  ]);
+  const vectorsByGraphFunctionRef = new Map<string, GraphVectorProjection[]>();
+  for (const vector of input.vectors) {
+    for (const graphFunctionRef of new Set([
+      vector.graphFunctionRef,
+      vector.graphFunctionId
+    ])) {
+      vectorsByGraphFunctionRef.set(graphFunctionRef, [
+        ...(vectorsByGraphFunctionRef.get(graphFunctionRef) ?? []),
+        vector
+      ]);
+    }
+  }
+
+  checkUniqueRows({
+    rows: requirements.map((row) => ({ ref: row.requirementId })),
+    surfaceKind: "requirement_declaration",
+    ruleRef: "abg://gtl-program/requirements-algebra/unique-requirement-id",
+    label: "requirement declaration",
+    issues: input.issues
+  });
+  checkUniqueRows({
+    rows: requirements.map((row) => ({ ref: row.stableId })),
+    surfaceKind: "requirement_declaration",
+    ruleRef: "abg://gtl-program/requirements-algebra/unique-stable-id",
+    label: "requirement stable id",
+    issues: input.issues
+  });
+  checkUniqueRows({
+    rows: relations.map((row) => ({ ref: row.relationId })),
+    surfaceKind: "requirement_declaration",
+    ruleRef: "abg://gtl-program/requirements-algebra/unique-relation-id",
+    label: "requirement relation",
+    issues: input.issues
+  });
+  checkUniqueRows({
+    rows: spans.map((row) => ({ ref: row.spanId })),
+    surfaceKind: "requirement_declaration",
+    ruleRef: "abg://gtl-program/requirements-algebra/unique-span-id",
+    label: "requirement traversal span",
+    issues: input.issues
+  });
+  checkUniqueRows({
+    rows: contextFragments.map((row) => ({ ref: row.fragmentRef })),
+    surfaceKind: "requirement_declaration",
+    ruleRef: "abg://gtl-program/requirements-algebra/unique-context-fragment-ref",
+    label: "requirement context fragment",
+    issues: input.issues
+  });
+  checkUniqueRows({
+    rows: destinationTopologies.map((row) => ({ ref: row.topologyRef })),
+    surfaceKind: "requirement_declaration",
+    ruleRef: "abg://gtl-program/requirements-algebra/unique-destination-topology-ref",
+    label: "requirement destination topology",
+    issues: input.issues
+  });
+  checkUniqueRows({
+    rows: testRelations.map((row) => ({ ref: row.relationRef })),
+    surfaceKind: "requirement_declaration",
+    ruleRef: "abg://gtl-program/requirements-algebra/unique-test-relation-ref",
+    label: "requirement test relation",
+    issues: input.issues
+  });
+
+  for (const requirement of requirements) {
+    checkDigestField({
+      surfaceKind: "requirement_declaration",
+      surfaceRef: requirement.requirementId,
+      ruleRef: "abg://gtl-program/requirements-algebra/source-digest",
+      fieldName: "sourceDigest",
+      value: requirement.sourceDigest,
+      issues: input.issues
+    });
+    for (const relationRef of requirement.relationRefs) {
+      if (!relationIds.has(relationRef)) {
+        pushRowIssue({
+          surfaceKind: "requirement_declaration",
+          surfaceRef: requirement.requirementId,
+          ruleRef: "abg://gtl-program/requirements-algebra/relation-ref-resolves",
+          message: `relationRef ${JSON.stringify(relationRef)} does not resolve to a supplied requirement relation declaration`,
+          issues: input.issues
+        });
+      }
+    }
+    for (const spanRef of requirement.spanRefs) {
+      if (!spanIds.has(spanRef)) {
+        pushRowIssue({
+          surfaceKind: "requirement_declaration",
+          surfaceRef: requirement.requirementId,
+          ruleRef: "abg://gtl-program/requirements-algebra/span-ref-resolves",
+          message: `spanRef ${JSON.stringify(spanRef)} does not resolve to a supplied traversal span declaration`,
+          issues: input.issues
+        });
+      }
+    }
+    for (const contextRef of requirement.contextRefs) {
+      if (!contextRefs.has(contextRef)) {
+        pushRowIssue({
+          surfaceKind: "requirement_declaration",
+          surfaceRef: requirement.requirementId,
+          ruleRef: "abg://gtl-program/requirements-algebra/context-ref-resolves",
+          message: `contextRef ${JSON.stringify(contextRef)} does not resolve to a supplied authority context fragment`,
+          issues: input.issues
+        });
+      }
+    }
+    checkNonEmptyArray({
+      surfaceKind: "requirement_declaration",
+      surfaceRef: requirement.requirementId,
+      ruleRef: "abg://gtl-program/requirements-algebra/evidence-policy-coverage",
+      fieldName: "evidencePolicyRefs",
+      values: requirement.evidencePolicyRefs,
+      issues: input.issues
+    });
+  }
+
+  for (const relation of relations) {
+    for (const [fieldName, requirementId] of [
+      ["fromRequirementId", relation.fromRequirementId],
+      ["toRequirementId", relation.toRequirementId]
+    ] as const) {
+      if (!requirementIds.has(requirementId)) {
+        pushRowIssue({
+          surfaceKind: "requirement_declaration",
+          surfaceRef: relation.relationId,
+          ruleRef:
+            "abg://gtl-program/requirements-algebra/relation-requirement-ref-resolves",
+          message: `${fieldName} ${JSON.stringify(requirementId)} does not resolve to a supplied requirement declaration`,
+          issues: input.issues
+        });
+      }
+    }
+  }
+  checkRequirementRelationGraph({
+    relations,
+    issues: input.issues
+  });
+
+  for (const span of spans) {
+    const vectorsForGraphFunction =
+      vectorsByGraphFunctionRef.get(span.graphFunctionRef) ?? [];
+    if (!input.graphFunctionRefs.has(span.graphFunctionRef)) {
+      pushRowIssue({
+        surfaceKind: "requirement_declaration",
+        surfaceRef: span.spanId,
+        ruleRef: "abg://gtl-program/requirements-algebra/graph-function-ref-resolves",
+        message: `graphFunctionRef ${JSON.stringify(span.graphFunctionRef)} does not resolve to a published GraphFunction`,
+        issues: input.issues
+      });
+    }
+    if (span.graphVectorRefs.length === 0 && span.vectorIndexes.length === 0) {
+      pushRowIssue({
+        surfaceKind: "requirement_declaration",
+        surfaceRef: span.spanId,
+        ruleRef: "abg://gtl-program/requirements-algebra/span-vector-identity-required",
+        message: "traversal span requires graphVectorRefs or vectorIndexes",
+        issues: input.issues
+      });
+    }
+    for (const graphVectorRef of span.graphVectorRefs) {
+      if (!graphVectorRefs.has(graphVectorRef)) {
+        pushRowIssue({
+          surfaceKind: "requirement_declaration",
+          surfaceRef: span.spanId,
+          ruleRef: "abg://gtl-program/requirements-algebra/graph-vector-ref-resolves",
+          message: `graphVectorRef ${JSON.stringify(graphVectorRef)} does not resolve to a supplied GraphVector`,
+          issues: input.issues
+        });
+      }
+    }
+    for (const vectorIndex of span.vectorIndexes) {
+      if (vectorsForGraphFunction[vectorIndex] === undefined) {
+        pushRowIssue({
+          surfaceKind: "requirement_declaration",
+          surfaceRef: span.spanId,
+          ruleRef: "abg://gtl-program/requirements-algebra/vector-index-resolves",
+          message: `vectorIndexes contains ${vectorIndex}, but graphFunctionRef ${JSON.stringify(span.graphFunctionRef)} does not have that vector index`,
+          issues: input.issues
+        });
+      }
+    }
+    const matchingVectors = input.vectors.filter((vector) =>
+      spanMatchesVector(span, vector)
+    );
+    if (matchingVectors.length === 0) {
+      pushRowIssue({
+        surfaceKind: "requirement_declaration",
+        surfaceRef: span.spanId,
+        ruleRef: "abg://gtl-program/requirements-algebra/span-matches-vector",
+        message: "traversal span does not match any supplied graph vector identity",
+        issues: input.issues
+      });
+    }
+    const rangeVectors = matchingVectors.filter((vector) =>
+      spanCoversVectorIndexRange(span, vector)
+    );
+    if (rangeVectors.length > 0) {
+      if (!rangeVectors.some((vector) => vectorSourceMatchesSpan(span, vector))) {
+        pushRowIssue({
+          surfaceKind: "requirement_declaration",
+          surfaceRef: span.spanId,
+          ruleRef: "abg://gtl-program/requirements-algebra/span-range-source-node-ref",
+          message: `sourceNodeRef ${JSON.stringify(span.sourceNodeRef)} does not match any source asset or contract in the declared vector index range`,
+          issues: input.issues
+        });
+      }
+      if (!rangeVectors.some((vector) => vectorTargetMatchesSpan(span, vector))) {
+        pushRowIssue({
+          surfaceKind: "requirement_declaration",
+          surfaceRef: span.spanId,
+          ruleRef: "abg://gtl-program/requirements-algebra/span-range-target-node-ref",
+          message: `targetNodeRef ${JSON.stringify(span.targetNodeRef)} does not match any target asset or contract in the declared vector index range`,
+          issues: input.issues
+        });
+      }
+    }
+    for (const vector of matchingVectors) {
+      if (rangeVectors.includes(vector)) {
+        continue;
+      }
+      if (!vectorSourceMatchesSpan(span, vector)) {
+        pushRowIssue({
+          surfaceKind: "requirement_declaration",
+          surfaceRef: span.spanId,
+          ruleRef: "abg://gtl-program/requirements-algebra/span-source-node-ref",
+          message: `sourceNodeRef ${JSON.stringify(span.sourceNodeRef)} does not match source assets or contracts for graph vector ${JSON.stringify(vector.vectorRef)}`,
+          issues: input.issues
+        });
+      }
+      if (!vectorTargetMatchesSpan(span, vector)) {
+        pushRowIssue({
+          surfaceKind: "requirement_declaration",
+          surfaceRef: span.spanId,
+          ruleRef: "abg://gtl-program/requirements-algebra/span-target-node-ref",
+          message: `targetNodeRef ${JSON.stringify(span.targetNodeRef)} does not match target asset or contract for graph vector ${JSON.stringify(vector.vectorRef)}`,
+          issues: input.issues
+        });
+      }
+    }
+  }
+
+  for (const fragment of contextFragments) {
+    checkDigestField({
+      surfaceKind: "requirement_declaration",
+      surfaceRef: fragment.fragmentRef,
+      ruleRef: "abg://gtl-program/requirements-algebra/context-fragment-digest",
+      fieldName: "digest",
+      value: fragment.digest,
+      issues: input.issues
+    });
+    checkNonEmptyArray({
+      surfaceKind: "requirement_declaration",
+      surfaceRef: fragment.fragmentRef,
+      ruleRef: "abg://gtl-program/requirements-algebra/context-applies-to",
+      fieldName: "appliesToRefs",
+      values: fragment.appliesToRefs,
+      issues: input.issues
+    });
+    if (!GTL_REQUIREMENTS_CONTEXT_PROMOTION_POLICY_REFS.has(fragment.promotionPolicyRef)) {
+      pushRowIssue({
+        surfaceKind: "requirement_declaration",
+        surfaceRef: fragment.fragmentRef,
+        ruleRef: "abg://gtl-program/requirements-algebra/context-promotion-policy-admitted",
+        message: `promotionPolicyRef ${JSON.stringify(fragment.promotionPolicyRef)} is not an admitted requirements-algebra promotion policy`,
+        issues: input.issues
+      });
+    }
+    for (const appliesToRef of fragment.appliesToRefs) {
+      if (
+        !refResolvesToRequirementSurface({
+          ref: appliesToRef,
+          requirementIds,
+          spanIds,
+          contextRefs,
+          topologyRefs,
+          evidencePolicyRefs,
+          graphFunctionRefs: input.graphFunctionRefs,
+          graphVectorRefs
+        })
+      ) {
+        pushRowIssue({
+          surfaceKind: "requirement_declaration",
+          surfaceRef: fragment.fragmentRef,
+          ruleRef: "abg://gtl-program/requirements-algebra/context-applies-to-resolves",
+          message: `appliesToRef ${JSON.stringify(appliesToRef)} does not resolve to a supplied requirement, span, context, topology, GraphFunction, GraphVector, or evidence policy`,
+          issues: input.issues
+        });
+      }
+    }
+  }
+
+  for (const topology of destinationTopologies) {
+    checkNonEmptyArray({
+      surfaceKind: "requirement_declaration",
+      surfaceRef: topology.topologyRef,
+      ruleRef: "abg://gtl-program/requirements-algebra/topology-constraints",
+      fieldName: "constraintRefs",
+      values: topology.constraintRefs,
+      issues: input.issues
+    });
+    for (const constraintRef of topology.constraintRefs) {
+      if (
+        !refResolvesToRequirementSurface({
+          ref: constraintRef,
+          requirementIds,
+          spanIds,
+          contextRefs,
+          topologyRefs,
+          evidencePolicyRefs,
+          graphFunctionRefs: input.graphFunctionRefs,
+          graphVectorRefs
+        })
+      ) {
+        pushRowIssue({
+          surfaceKind: "requirement_declaration",
+          surfaceRef: topology.topologyRef,
+          ruleRef: "abg://gtl-program/requirements-algebra/topology-constraint-ref-resolves",
+          message: `constraintRef ${JSON.stringify(constraintRef)} does not resolve to a supplied requirement, span, context, topology, GraphFunction, GraphVector, or evidence policy`,
+          issues: input.issues
+        });
+      }
+    }
+    checkNonEmptyArray({
+      surfaceKind: "requirement_declaration",
+      surfaceRef: topology.topologyRef,
+      ruleRef: "abg://gtl-program/requirements-algebra/topology-applies-to",
+      fieldName: "appliesToRefs",
+      values: topology.appliesToRefs,
+      issues: input.issues
+    });
+    for (const appliesToRef of topology.appliesToRefs) {
+      if (
+        !refResolvesToRequirementSurface({
+          ref: appliesToRef,
+          requirementIds,
+          spanIds,
+          contextRefs,
+          topologyRefs,
+          evidencePolicyRefs,
+          graphFunctionRefs: input.graphFunctionRefs,
+          graphVectorRefs
+        })
+      ) {
+        pushRowIssue({
+          surfaceKind: "requirement_declaration",
+          surfaceRef: topology.topologyRef,
+          ruleRef: "abg://gtl-program/requirements-algebra/topology-applies-to-resolves",
+          message: `appliesToRef ${JSON.stringify(appliesToRef)} does not resolve to a supplied requirement, span, context, GraphFunction, or GraphVector`,
+          issues: input.issues
+        });
+      }
+    }
+  }
+
+  for (const testRelation of testRelations) {
+    if (!requirementIds.has(testRelation.requirementId)) {
+      pushRowIssue({
+        surfaceKind: "requirement_declaration",
+        surfaceRef: testRelation.relationRef,
+        ruleRef: "abg://gtl-program/requirements-algebra/test-requirement-ref-resolves",
+        message: `requirementId ${JSON.stringify(testRelation.requirementId)} does not resolve to a supplied requirement declaration`,
+        issues: input.issues
+      });
+    }
+    const requirement = requirementById.get(testRelation.requirementId);
+    if (
+      requirement !== undefined &&
+      !requirement.evidencePolicyRefs.includes(testRelation.evidencePolicyRef)
+    ) {
+      pushRowIssue({
+        surfaceKind: "requirement_declaration",
+        surfaceRef: testRelation.relationRef,
+        ruleRef: "abg://gtl-program/requirements-algebra/test-evidence-policy-ref-resolves",
+        message: `evidencePolicyRef ${JSON.stringify(testRelation.evidencePolicyRef)} does not resolve to the owning requirement evidence policies`,
+        issues: input.issues
+      });
+    }
+    for (const [fieldName, value] of [
+      ["assetProjectionRef", testRelation.assetProjectionRef],
+      ["testSourceProjectionRef", testRelation.testSourceProjectionRef],
+      ["testExecutionProjectionRef", testRelation.testExecutionProjectionRef],
+      ["interpretationProjectionRef", testRelation.interpretationProjectionRef]
+    ] as const) {
+      checkRequirementProjectionRef({
+        surfaceRef: testRelation.relationRef,
+        fieldName,
+        value,
+        issues: input.issues
+      });
+    }
+    checkNonEmptyArray({
+      surfaceKind: "requirement_declaration",
+      surfaceRef: testRelation.relationRef,
+      ruleRef: "abg://gtl-program/requirements-algebra/test-root-coverage",
+      fieldName: "componentTestRootRefs",
+      values: testRelation.componentTestRootRefs,
+      issues: input.issues
+    });
+  }
+}
+
 function constructTraversalUnitProjection(input: {
   readonly subjectRef: string;
   readonly graphFunctions: readonly GraphFunction[];
@@ -6252,6 +8773,7 @@ function constructTraversalUnitProjection(input: {
   readonly pluginResultInterfaces: readonly GtlProgramPluginResultInterfaceRow[];
   readonly traversalBindConservation:
     readonly GtlProgramTraversalBindConservationRow[];
+  readonly requirementsAlgebraProjection: GtlProgramRequirementsAlgebraProjection;
   readonly overlays: readonly GtlProgramOverlayRow[];
   readonly publicStartTargets: readonly GtlProgramPublicStartRow[];
 }): GtlProgramTraversalUnitProjection {
@@ -6308,6 +8830,10 @@ function constructTraversalUnitProjection(input: {
           .map((row) => row.resultInterfaceRef)
       );
       const catalog = catalogsByIdentity.get(vectorKey) ?? null;
+      const requirementRows =
+        input.requirementsAlgebraProjection.edgeRows.filter(
+          (row) => row.unitRef === traversalUnitRef(vector)
+        );
       return Object.freeze({
         kind: "gtl_program_traversal_unit_projection_row" as const,
         unitRef: traversalUnitRef(vector),
@@ -6362,6 +8888,18 @@ function constructTraversalUnitProjection(input: {
         ),
         downstreamTerminalPressureRefs: uniqueSorted(
           conservationRows.flatMap((row) => row.downstreamTerminalPressureRefs)
+        ),
+        requirementRefs: uniqueSorted(
+          requirementRows.flatMap((row) => row.requirementIds)
+        ),
+        requirementSpanRefs: uniqueSorted(
+          requirementRows.flatMap((row) => row.spanRefs)
+        ),
+        requirementTestRelationRefs: uniqueSorted(
+          requirementRows.flatMap((row) => row.testRelationRefs)
+        ),
+        requirementEvidencePolicyRefs: uniqueSorted(
+          requirementRows.flatMap((row) => row.evidencePolicyRefs)
         ),
         allowedObligationDeltaFamilies: Object.freeze(
           [
@@ -7764,15 +10302,64 @@ function checkSemanticReviewGates(input: {
       );
     }
     if (
-      gate.reviewResultKind !== "sdlc_semantic_compiler_fp_review_result" ||
-      gate.reviewVersion !== "ts-semantic-compiler-fp-review-result-v1"
+      gate.reviewResultKind !== ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_KIND ||
+      gate.reviewVersion !== ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_VERSION
     ) {
       input.issues.push(
         issue({
           surfaceKind: "semantic_review_gate",
           surfaceRef: gate.gateRef,
           ruleRef: "abg://gtl-program/semantic-review-gate/admitted-result-kind",
-          message: "semantic review gate must carry an admitted sdlc_semantic_compiler_fp_review_result v1 result",
+          message: "semantic review gate must carry an admitted T-162 semantic compiler F_P review result",
+          evidenceRefs: gate.evidenceRefs
+        })
+      );
+    }
+    if (
+      gate.workerControlContractRef !==
+        ABG_SEMANTIC_COMPILER_FP_REVIEW_WORKER_CONTROL_CONTRACT_REF ||
+      gate.requiredArtifactDeltaKind !==
+        ABG_SEMANTIC_COMPILER_FP_REVIEW_REQUIRED_ARTIFACT_DELTA_KIND ||
+      gate.authorityPacketRef.length === 0 ||
+      gate.objectiveRef.length === 0 ||
+      gate.targetArtifactRef.length === 0 ||
+      gate.toolBoundaryRefs.length === 0 ||
+      gate.stopConditionRef.length === 0
+    ) {
+      input.issues.push(
+        issue({
+          surfaceKind: "semantic_review_gate",
+          surfaceRef: gate.gateRef,
+          ruleRef: "abg://gtl-program/semantic-review-gate/t162-worker-control",
+          message: "semantic review gate must carry the T-162 constrained F_P.worker control contract",
+          evidenceRefs: gate.evidenceRefs
+        })
+      );
+    }
+    if (
+      gate.fdPackageGrammarRef !==
+        ABG_SEMANTIC_COMPILER_FP_REVIEW_PACKAGE_GRAMMAR_REF ||
+      gate.fdResultGrammarRef !==
+        ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_GRAMMAR_REF ||
+      gate.fdProgressTelemetryGrammarRef !==
+        ABG_SEMANTIC_COMPILER_FP_REVIEW_PROGRESS_TELEMETRY_GRAMMAR_REF ||
+      gate.fdProgressMetricRef !==
+        ABG_SEMANTIC_COMPILER_FP_REVIEW_PROGRESS_METRIC_REF ||
+      gate.fdAdmissionFsmRef !==
+        ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_FSM_REF ||
+      gate.fdOutputStateEnumRef !==
+        ABG_SEMANTIC_COMPILER_FP_REVIEW_OUTPUT_STATE_ENUM_REF ||
+      gate.fdDerivationRuleRef !==
+        ABG_SEMANTIC_COMPILER_FP_REVIEW_DERIVATION_RULE_REF ||
+      gate.fdForbiddenInterpretation !==
+        ABG_SEMANTIC_COMPILER_FP_REVIEW_FD_FORBIDDEN_INTERPRETATION
+    ) {
+      input.issues.push(
+        issue({
+          surfaceKind: "semantic_review_gate",
+          surfaceRef: gate.gateRef,
+          ruleRef: "abg://gtl-program/semantic-review-gate/t162-fd-finite-surface",
+          message: "semantic review gate must carry declared F_D grammar, metric, FSM, output enum, derivation, and forbidden interpretation",
           evidenceRefs: gate.evidenceRefs
         })
       );
@@ -9806,6 +12393,8 @@ function computeInventoryDigests(input: {
   readonly runtimeReentryRoutes: readonly GtlProgramRuntimeReentryRouteRow[];
   readonly traversalBindConservation:
     readonly GtlProgramTraversalBindConservationRow[];
+  readonly requirementsAlgebraDeclarations:
+    readonly GtlRequirementsAlgebraDeclarationBundle[];
 }): GtlProgramInventoryDigests {
   return Object.freeze({
     featureCoverageManifest: stableSha256Digest(input.featureCoverageManifest),
@@ -9840,6 +12429,9 @@ function computeInventoryDigests(input: {
     runtimeReentryRoutes: stableSha256Digest(input.runtimeReentryRoutes),
     traversalBindConservation: stableSha256Digest(
       input.traversalBindConservation
+    ),
+    requirementsAlgebraDeclarations: stableSha256Digest(
+      input.requirementsAlgebraDeclarations
     )
   });
 }
@@ -9947,6 +12539,9 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
   const traversalBindConservation = Object.freeze([
     ...(input.traversalBindConservation ?? [])
   ]);
+  const requirementsAlgebraDeclarations = Object.freeze([
+    ...(input.requirementsAlgebraDeclarations ?? [])
+  ]);
   const featureCoverageManifest = input.featureCoverageManifest;
   const knownHostRefs = hostRefs({ graphFunctions, modules, vectors });
   const suppliedPluginContractRefs = pluginContractRefs(pluginContracts);
@@ -9962,6 +12557,13 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
   checkTraversalBindConservationRows({
     vectors,
     traversalBindConservation,
+    issues
+  });
+  checkRequirementsAlgebraDeclarations({
+    declarations: requirementsAlgebraDeclarations,
+    vectors,
+    graphFunctionRefs: publishedGraphFunctionLookupRefs,
+    graphVectorRefs,
     issues
   });
   checkOverlays({
@@ -10163,13 +12765,20 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     externalToolGates,
     runtimeBindings,
     runtimeReentryRoutes,
-    traversalBindConservation
+    traversalBindConservation,
+    requirementsAlgebraDeclarations
   });
   const inventoryDigest = stableSha256Digest(inventoryDigests);
   const pluginResultInterfaceCatalog =
     constructAdmittedPluginResultInterfaceCatalog({
       subjectRef: input.subjectRef,
       interfaces: pluginResultInterfaces
+    });
+  const requirementsAlgebraProjection =
+    constructRequirementsAlgebraProjection({
+      subjectRef: input.subjectRef,
+      declarations: requirementsAlgebraDeclarations,
+      vectors
     });
   const traversalUnitProjection = constructTraversalUnitProjection({
     subjectRef: input.subjectRef,
@@ -10181,6 +12790,7 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     computeStageBindings,
     pluginResultInterfaces,
     traversalBindConservation,
+    requirementsAlgebraProjection,
     overlays,
     publicStartTargets
   });
@@ -10198,6 +12808,8 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     inventoryDigests,
     pluginResultInterfaceCatalogDigest:
       pluginResultInterfaceCatalog.catalogDigest,
+    requirementsAlgebraProjectionDigest:
+      stableSha256Digest(requirementsAlgebraProjection),
     traversalUnitProjectionDigest:
       stableSha256Digest(traversalUnitProjection),
     issues: frozenIssues
@@ -10210,6 +12822,7 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     inventoryDigest,
     inventoryDigests,
     pluginResultInterfaceCatalog,
+    requirementsAlgebraProjection,
     traversalUnitProjection,
     passed: frozenIssues.length === 0,
     issueCount: frozenIssues.length,

@@ -1030,17 +1030,28 @@ export {
 } from "./plugins.js";
 export {
   ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_REF,
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_FSM_REF,
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_DERIVATION_RULE_REF,
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_FD_FORBIDDEN_INTERPRETATION,
   ABG_SEMANTIC_COMPILER_FP_REVIEW_GRAPH_FUNCTION_ID,
   ABG_SEMANTIC_COMPILER_FP_REVIEW_GRAPH_FUNCTION_REF,
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_OUTPUT_STATE_ENUM_REF,
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_PACKAGE_GRAMMAR_REF,
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_PROGRESS_METRIC_REF,
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_PROGRESS_TELEMETRY_GRAMMAR_REF,
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_REQUIRED_ARTIFACT_DELTA_KIND,
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_GRAMMAR_REF,
   ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_KIND,
   ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_VERSION,
   ABG_SEMANTIC_COMPILER_FP_REVIEW_RUNTIME_KIND,
   ABG_SEMANTIC_COMPILER_FP_REVIEW_RUNTIME_REF,
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_WORKER_CONTROL_CONTRACT_REF,
   abgSemanticCompilerFpReviewGraphFunctionDigest,
   abgSemanticCompilerFpReviewPackageDigest,
   admitAbgSemanticCompilerFpReviewResult,
   admitGtlProgramConformanceInput,
   constructAbgSemanticCompilerFpReviewGraphFunction,
+  constructAbgSemanticCompilerFpReviewPackageIdentity,
   constructAbgSemanticCompilerFpReviewResult,
   formatGtlProgramConformanceIssues,
   runAbgSemanticCompilerFpReviewGraphFunction,
@@ -1051,6 +1062,7 @@ export {
   typecheckGtlProgram
 } from "./gtl_program_conformance.js";
 export type {
+  AbgSemanticCompilerFpReviewPackageInput,
   AbgSemanticCompilerFpReviewPackageIdentity,
   AbgSemanticCompilerFpReviewResult,
   AbgSemanticCompilerFpReviewResultAdmission,

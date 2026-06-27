@@ -3,6 +3,15 @@
 // Implements: REQ-R-ABG3-ASSURANCE
 // Supports: REQ-L-GTL3-REQUIREMENTS-ALGEBRA
 
+import {
+  stableSha256Digest
+} from "../../../shared/runtime_identity.js";
+import {
+  ASSURANCE_CLOSURE_DECISION_KIND_VALUES,
+  type AssuranceClosureDecision,
+  type AssuranceClosureDecisionKind
+} from "./assurance.js";
+
 export const REQUIREMENT_STAGE_VALUES = Object.freeze([
   "homeostatic_gap",
   "problem",
@@ -110,6 +119,7 @@ export const REQUIREMENT_RESIDUAL_PRESSURE_CLASS_VALUES = Object.freeze([
   "missing_destination_topology",
   "missing_test_relation",
   "missing_execution_evidence",
+  "continuation_deferred",
   "semantic_assessment_required",
   "human_decision_required",
   "blocked_prerequisite",
@@ -391,6 +401,12 @@ export interface RequirementEdgeRef {
   readonly graphVectorRef: string;
   readonly vectorIndex: number;
   readonly edge: string;
+  readonly sourceNodeRef?: string | undefined;
+  readonly targetNodeRef?: string | undefined;
+  readonly frameRefs?: readonly string[] | undefined;
+  readonly zoomRefs?: readonly string[] | undefined;
+  readonly foldbackRefs?: readonly string[] | undefined;
+  readonly aliasRefs?: readonly string[] | undefined;
 }
 
 export interface EdgeRequirementEnvironment {
@@ -478,7 +494,7 @@ const AUTHORITY_ROLE_PRECEDENCE: Readonly<Record<RequirementAuthorityRole, numbe
     fallback: 10
   });
 
-const REQUIREMENT_EVENT_FORBIDDEN_RUNTIME_FIELDS = Object.freeze([
+export const REQUIREMENT_EVENT_FORBIDDEN_RUNTIME_FIELDS = Object.freeze([
   "runtimeEvents",
   "events",
   "ledger",
@@ -531,6 +547,25 @@ function freezeNumberArray(values: readonly number[], label: string): readonly n
     }
   }
   return freezeArray(values);
+}
+
+function requirementResidualRef(requirementId: string, state: RequirementFoldState): string {
+  return `requirement-residual:${requirementId}:${state}`;
+}
+
+function freezeRequirementEdgeRef(edge: RequirementEdgeRef): RequirementEdgeRef {
+  return Object.freeze({
+    graphFunctionRef: edge.graphFunctionRef,
+    graphVectorRef: edge.graphVectorRef,
+    vectorIndex: edge.vectorIndex,
+    edge: edge.edge,
+    ...(edge.sourceNodeRef === undefined ? {} : { sourceNodeRef: edge.sourceNodeRef }),
+    ...(edge.targetNodeRef === undefined ? {} : { targetNodeRef: edge.targetNodeRef }),
+    ...(edge.frameRefs === undefined ? {} : { frameRefs: freezeStringArray(edge.frameRefs, "RequirementEdgeRef.frameRefs") }),
+    ...(edge.zoomRefs === undefined ? {} : { zoomRefs: freezeStringArray(edge.zoomRefs, "RequirementEdgeRef.zoomRefs") }),
+    ...(edge.foldbackRefs === undefined ? {} : { foldbackRefs: freezeStringArray(edge.foldbackRefs, "RequirementEdgeRef.foldbackRefs") }),
+    ...(edge.aliasRefs === undefined ? {} : { aliasRefs: freezeStringArray(edge.aliasRefs, "RequirementEdgeRef.aliasRefs") })
+  });
 }
 
 function assertNonEmptyString(value: string, label: string): void {
@@ -615,6 +650,14 @@ function stringArrayField(input: PlainRecord, key: string, label: string): reado
     throw new TypeError(`${label}.${key} must be a string array`);
   }
   return freezeStringArray(value, `${label}.${key}`);
+}
+
+function numberArrayField(input: PlainRecord, key: string, label: string): readonly number[] {
+  const value = input[key];
+  if (!Array.isArray(value) || !value.every((item) => typeof item === "number")) {
+    throw new TypeError(`${label}.${key} must be a number array`);
+  }
+  return freezeNumberArray(value, `${label}.${key}`);
 }
 
 function assertAllowedFields(
@@ -738,6 +781,11 @@ export function constructRequirementTestRelation(
 ): RequirementTestRelation {
   assertNonEmptyString(input.relationRef, "RequirementTestRelation.relationRef");
   assertNonEmptyString(input.requirementId, "RequirementTestRelation.requirementId");
+  assertNonEmptyString(input.assetProjectionRef, "RequirementTestRelation.assetProjectionRef");
+  assertNonEmptyString(input.testSourceProjectionRef, "RequirementTestRelation.testSourceProjectionRef");
+  assertNonEmptyString(input.testExecutionProjectionRef, "RequirementTestRelation.testExecutionProjectionRef");
+  assertNonEmptyString(input.interpretationProjectionRef, "RequirementTestRelation.interpretationProjectionRef");
+  assertNonEmptyString(input.evidencePolicyRef, "RequirementTestRelation.evidencePolicyRef");
   return Object.freeze({
     kind: "requirement_test_relation",
     relationRef: input.relationRef,
@@ -899,6 +947,136 @@ function parseRequirementTerm(input: unknown): RequirementTerm {
   });
 }
 
+function parseRequirementRelation(input: unknown): RequirementRelation {
+  const record = plainRecord(input, "RequirementRelation");
+  assertAllowedFields(record, "RequirementRelation", [
+    "kind",
+    "relationId",
+    "relationKind",
+    "fromRequirementId",
+    "toRequirementId",
+    "sourceRef",
+    "evidenceRefs"
+  ]);
+  if (record["kind"] !== "requirement_relation") {
+    throw new TypeError("RequirementRelation.kind must be requirement_relation");
+  }
+  return constructRequirementRelation({
+    relationId: stringField(record, "relationId", "RequirementRelation"),
+    relationKind: parseEnumValue(REQUIREMENT_RELATION_KIND_VALUES, stringField(record, "relationKind", "RequirementRelation"), "RequirementRelation.relationKind"),
+    fromRequirementId: stringField(record, "fromRequirementId", "RequirementRelation"),
+    toRequirementId: stringField(record, "toRequirementId", "RequirementRelation"),
+    sourceRef: stringField(record, "sourceRef", "RequirementRelation"),
+    evidenceRefs: stringArrayField(record, "evidenceRefs", "RequirementRelation")
+  });
+}
+
+function parseTraversalSpan(input: unknown): TraversalSpan {
+  const record = plainRecord(input, "TraversalSpan");
+  assertAllowedFields(record, "TraversalSpan", [
+    "kind",
+    "spanId",
+    "graphFunctionRef",
+    "graphVectorRefs",
+    "vectorIndexes",
+    "sourceNodeRef",
+    "targetNodeRef",
+    "frameRefs",
+    "zoomRefs",
+    "foldbackRefs",
+    "aliasRefs"
+  ]);
+  if (record["kind"] !== "traversal_span") {
+    throw new TypeError("TraversalSpan.kind must be traversal_span");
+  }
+  return constructTraversalSpan({
+    spanId: stringField(record, "spanId", "TraversalSpan"),
+    graphFunctionRef: stringField(record, "graphFunctionRef", "TraversalSpan"),
+    graphVectorRefs: stringArrayField(record, "graphVectorRefs", "TraversalSpan"),
+    vectorIndexes: numberArrayField(record, "vectorIndexes", "TraversalSpan"),
+    sourceNodeRef: stringField(record, "sourceNodeRef", "TraversalSpan"),
+    targetNodeRef: stringField(record, "targetNodeRef", "TraversalSpan"),
+    frameRefs: stringArrayField(record, "frameRefs", "TraversalSpan"),
+    zoomRefs: stringArrayField(record, "zoomRefs", "TraversalSpan"),
+    foldbackRefs: stringArrayField(record, "foldbackRefs", "TraversalSpan"),
+    aliasRefs: stringArrayField(record, "aliasRefs", "TraversalSpan")
+  });
+}
+
+function parseAuthorityContextFragment(input: unknown): AuthorityContextFragment {
+  const record = plainRecord(input, "AuthorityContextFragment");
+  assertAllowedFields(record, "AuthorityContextFragment", [
+    "kind",
+    "fragmentRef",
+    "stage",
+    "constraintScope",
+    "digest",
+    "promotionPolicyRef",
+    "appliesToRefs",
+    "routingOutcome"
+  ]);
+  if (record["kind"] !== "authority_context_fragment") {
+    throw new TypeError("AuthorityContextFragment.kind must be authority_context_fragment");
+  }
+  return constructAuthorityContextFragment({
+    fragmentRef: stringField(record, "fragmentRef", "AuthorityContextFragment"),
+    stage: parseEnumValue(REQUIREMENT_STAGE_VALUES, stringField(record, "stage", "AuthorityContextFragment"), "AuthorityContextFragment.stage"),
+    constraintScope: stringField(record, "constraintScope", "AuthorityContextFragment"),
+    digest: stringField(record, "digest", "AuthorityContextFragment"),
+    promotionPolicyRef: stringField(record, "promotionPolicyRef", "AuthorityContextFragment"),
+    appliesToRefs: stringArrayField(record, "appliesToRefs", "AuthorityContextFragment"),
+    routingOutcome: parseEnumValue(["constraint_only", "promoted_requirement", "fp_required"] as const, stringField(record, "routingOutcome", "AuthorityContextFragment"), "AuthorityContextFragment.routingOutcome")
+  });
+}
+
+function parseDestinationTopology(input: unknown): DestinationTopology {
+  const record = plainRecord(input, "DestinationTopology");
+  assertAllowedFields(record, "DestinationTopology", [
+    "kind",
+    "topologyRef",
+    "frameworkRef",
+    "constraintRefs",
+    "appliesToRefs"
+  ]);
+  if (record["kind"] !== "destination_topology") {
+    throw new TypeError("DestinationTopology.kind must be destination_topology");
+  }
+  return constructDestinationTopology({
+    topologyRef: stringField(record, "topologyRef", "DestinationTopology"),
+    frameworkRef: stringField(record, "frameworkRef", "DestinationTopology"),
+    constraintRefs: stringArrayField(record, "constraintRefs", "DestinationTopology"),
+    appliesToRefs: stringArrayField(record, "appliesToRefs", "DestinationTopology")
+  });
+}
+
+function parseRequirementTestRelation(input: unknown): RequirementTestRelation {
+  const record = plainRecord(input, "RequirementTestRelation");
+  assertAllowedFields(record, "RequirementTestRelation", [
+    "kind",
+    "relationRef",
+    "requirementId",
+    "assetProjectionRef",
+    "testSourceProjectionRef",
+    "testExecutionProjectionRef",
+    "interpretationProjectionRef",
+    "componentTestRootRefs",
+    "evidencePolicyRef"
+  ]);
+  if (record["kind"] !== "requirement_test_relation") {
+    throw new TypeError("RequirementTestRelation.kind must be requirement_test_relation");
+  }
+  return constructRequirementTestRelation({
+    relationRef: stringField(record, "relationRef", "RequirementTestRelation"),
+    requirementId: stringField(record, "requirementId", "RequirementTestRelation"),
+    assetProjectionRef: stringField(record, "assetProjectionRef", "RequirementTestRelation"),
+    testSourceProjectionRef: stringField(record, "testSourceProjectionRef", "RequirementTestRelation"),
+    testExecutionProjectionRef: stringField(record, "testExecutionProjectionRef", "RequirementTestRelation"),
+    interpretationProjectionRef: stringField(record, "interpretationProjectionRef", "RequirementTestRelation"),
+    componentTestRootRefs: stringArrayField(record, "componentTestRootRefs", "RequirementTestRelation"),
+    evidencePolicyRef: stringField(record, "evidencePolicyRef", "RequirementTestRelation")
+  });
+}
+
 function parseRequirementProjection(input: unknown): RequirementProjection {
   const record = plainRecord(input, "RequirementProjection");
   assertAllowedFields(record, "RequirementProjection", [
@@ -970,6 +1148,64 @@ function parseRequirementEvidenceBinding(input: unknown): RequirementEvidenceBin
   });
 }
 
+function parseRequirementFoldProjection(input: unknown): RequirementFoldProjection {
+  const record = plainRecord(input, "RequirementFoldProjection");
+  assertAllowedFields(record, "RequirementFoldProjection", [
+    "kind",
+    "foldRef",
+    "requirementId",
+    "projectionRefs",
+    "state",
+    "sourceAbgTruthRefs",
+    "evidenceRefs",
+    "residualPressureRefs",
+    "reason"
+  ]);
+  if (record["kind"] !== "requirement_fold_projection") {
+    throw new TypeError("RequirementFoldProjection.kind must be requirement_fold_projection");
+  }
+  return constructRequirementFoldProjection({
+    foldRef: stringField(record, "foldRef", "RequirementFoldProjection"),
+    requirementId: stringField(record, "requirementId", "RequirementFoldProjection"),
+    projectionRefs: stringArrayField(record, "projectionRefs", "RequirementFoldProjection"),
+    state: parseEnumValue(REQUIREMENT_FOLD_STATE_VALUES, stringField(record, "state", "RequirementFoldProjection"), "RequirementFoldProjection.state"),
+    sourceAbgTruthRefs: stringArrayField(record, "sourceAbgTruthRefs", "RequirementFoldProjection"),
+    evidenceRefs: stringArrayField(record, "evidenceRefs", "RequirementFoldProjection"),
+    residualPressureRefs: stringArrayField(record, "residualPressureRefs", "RequirementFoldProjection"),
+    reason: stringField(record, "reason", "RequirementFoldProjection")
+  });
+}
+
+function parseRequirementResidualProjection(input: unknown): RequirementResidualProjection {
+  const record = plainRecord(input, "RequirementResidualProjection");
+  assertAllowedFields(record, "RequirementResidualProjection", [
+    "kind",
+    "residualRef",
+    "requirementId",
+    "spanId",
+    "pressureClass",
+    "ownerSurface",
+    "sourceFoldRefs",
+    "evidenceRefs",
+    "remainingProjectionRefs",
+    "reason"
+  ]);
+  if (record["kind"] !== "requirement_residual_projection") {
+    throw new TypeError("RequirementResidualProjection.kind must be requirement_residual_projection");
+  }
+  return constructRequirementResidualProjection({
+    residualRef: stringField(record, "residualRef", "RequirementResidualProjection"),
+    requirementId: stringField(record, "requirementId", "RequirementResidualProjection"),
+    spanId: stringField(record, "spanId", "RequirementResidualProjection"),
+    pressureClass: parseEnumValue(REQUIREMENT_RESIDUAL_PRESSURE_CLASS_VALUES, stringField(record, "pressureClass", "RequirementResidualProjection"), "RequirementResidualProjection.pressureClass"),
+    ownerSurface: parseEnumValue(REQUIREMENT_STAGE_VALUES, stringField(record, "ownerSurface", "RequirementResidualProjection"), "RequirementResidualProjection.ownerSurface"),
+    sourceFoldRefs: stringArrayField(record, "sourceFoldRefs", "RequirementResidualProjection"),
+    evidenceRefs: stringArrayField(record, "evidenceRefs", "RequirementResidualProjection"),
+    remainingProjectionRefs: stringArrayField(record, "remainingProjectionRefs", "RequirementResidualProjection"),
+    reason: stringField(record, "reason", "RequirementResidualProjection")
+  });
+}
+
 export function admitRequirementEventPayload(input: unknown): RequirementEventPayload {
   const record = plainRecord(input, "RequirementEventPayload");
   const kind = parseEnumValue(
@@ -983,6 +1219,26 @@ export function admitRequirementEventPayload(input: unknown): RequirementEventPa
     assertAllowedFields(record, "RequirementEventPayload", ["kind", "eventRef", "term"]);
     return Object.freeze({ kind, eventRef, term: parseRequirementTerm(record["term"]) });
   }
+  if (kind === "requirement_relation_admitted") {
+    assertAllowedFields(record, "RequirementEventPayload", ["kind", "eventRef", "relation"]);
+    return Object.freeze({ kind, eventRef, relation: parseRequirementRelation(record["relation"]) });
+  }
+  if (kind === "traversal_span_admitted") {
+    assertAllowedFields(record, "RequirementEventPayload", ["kind", "eventRef", "span"]);
+    return Object.freeze({ kind, eventRef, span: parseTraversalSpan(record["span"]) });
+  }
+  if (kind === "authority_context_fragment_admitted") {
+    assertAllowedFields(record, "RequirementEventPayload", ["kind", "eventRef", "fragment"]);
+    return Object.freeze({ kind, eventRef, fragment: parseAuthorityContextFragment(record["fragment"]) });
+  }
+  if (kind === "destination_topology_admitted") {
+    assertAllowedFields(record, "RequirementEventPayload", ["kind", "eventRef", "topology"]);
+    return Object.freeze({ kind, eventRef, topology: parseDestinationTopology(record["topology"]) });
+  }
+  if (kind === "requirement_test_relation_admitted") {
+    assertAllowedFields(record, "RequirementEventPayload", ["kind", "eventRef", "testRelation"]);
+    return Object.freeze({ kind, eventRef, testRelation: parseRequirementTestRelation(record["testRelation"]) });
+  }
   if (kind === "requirement_projection_admitted") {
     assertAllowedFields(record, "RequirementEventPayload", ["kind", "eventRef", "projection"]);
     return Object.freeze({ kind, eventRef, projection: parseRequirementProjection(record["projection"]) });
@@ -991,9 +1247,246 @@ export function admitRequirementEventPayload(input: unknown): RequirementEventPa
     assertAllowedFields(record, "RequirementEventPayload", ["kind", "eventRef", "binding"]);
     return Object.freeze({ kind, eventRef, binding: parseRequirementEvidenceBinding(record["binding"]) });
   }
-  throw new TypeError(
-    `RequirementEventPayload.kind ${kind} requires constructor admission in this first-slice API`
+  if (kind === "requirement_fold_projected") {
+    assertAllowedFields(record, "RequirementEventPayload", ["kind", "eventRef", "fold"]);
+    return Object.freeze({ kind, eventRef, fold: parseRequirementFoldProjection(record["fold"]) });
+  }
+  assertAllowedFields(record, "RequirementEventPayload", ["kind", "eventRef", "residual"]);
+  return Object.freeze({ kind, eventRef, residual: parseRequirementResidualProjection(record["residual"]) });
+}
+
+function duplicateValues(values: readonly string[]): readonly string[] {
+  const seen = new Set<string>();
+  const duplicates = new Set<string>();
+  for (const value of values) {
+    if (seen.has(value)) {
+      duplicates.add(value);
+    }
+    seen.add(value);
+  }
+  return freezeArray([...duplicates].sort());
+}
+
+function pushMissingRefs(input: {
+  readonly diagnostics: string[];
+  readonly ownerRef: string;
+  readonly fieldName: string;
+  readonly refs: readonly string[];
+  readonly allowedRefs: ReadonlySet<string>;
+}): void {
+  for (const ref of input.refs) {
+    if (!input.allowedRefs.has(ref)) {
+      input.diagnostics.push(`${input.ownerRef}.${input.fieldName} has dangling ref ${ref}`);
+    }
+  }
+}
+
+function diagnoseRequirementLedgerIntegrity(ledger: RequirementLedger): readonly string[] {
+  const diagnostics: string[] = [];
+  for (const eventRef of duplicateValues(ledger.eventRefs)) {
+    diagnostics.push(`RequirementLedger.eventRefs has duplicate ref ${eventRef}`);
+  }
+
+  const requirementIds = new Set(ledger.terms.map((term) => term.requirementId));
+  const relationIds = new Set(ledger.relations.map((relation) => relation.relationId));
+  const spanIds = new Set(ledger.spans.map((span) => span.spanId));
+  const contextRefs = new Set(
+    ledger.contextFragments.map((fragment) => fragment.fragmentRef)
   );
+  const projectionRefs = new Set(
+    ledger.projections.map((projection) => projection.projectionRef)
+  );
+  const evidenceRefs = new Set(
+    ledger.evidenceBindings.map((binding) => binding.evidenceRef)
+  );
+  const foldRefs = new Set(ledger.folds.map((fold) => fold.foldRef));
+  const residualRefs = new Set(
+    ledger.residuals.map((residual) => residual.residualRef)
+  );
+
+  for (const term of ledger.terms) {
+    pushMissingRefs({
+      diagnostics,
+      ownerRef: term.requirementId,
+      fieldName: "relationRefs",
+      refs: term.relationRefs,
+      allowedRefs: relationIds
+    });
+    pushMissingRefs({
+      diagnostics,
+      ownerRef: term.requirementId,
+      fieldName: "spanRefs",
+      refs: term.spanRefs,
+      allowedRefs: spanIds
+    });
+    pushMissingRefs({
+      diagnostics,
+      ownerRef: term.requirementId,
+      fieldName: "contextRefs",
+      refs: term.contextRefs,
+      allowedRefs: contextRefs
+    });
+    pushMissingRefs({
+      diagnostics,
+      ownerRef: term.requirementId,
+      fieldName: "projectionRefs",
+      refs: term.projectionRefs,
+      allowedRefs: projectionRefs
+    });
+  }
+
+  for (const relation of ledger.relations) {
+    pushMissingRefs({
+      diagnostics,
+      ownerRef: relation.relationId,
+      fieldName: "fromRequirementId",
+      refs: [relation.fromRequirementId],
+      allowedRefs: requirementIds
+    });
+    pushMissingRefs({
+      diagnostics,
+      ownerRef: relation.relationId,
+      fieldName: "toRequirementId",
+      refs: [relation.toRequirementId],
+      allowedRefs: requirementIds
+    });
+    pushMissingRefs({
+      diagnostics,
+      ownerRef: relation.relationId,
+      fieldName: "evidenceRefs",
+      refs: relation.evidenceRefs,
+      allowedRefs: evidenceRefs
+    });
+  }
+
+  for (const testRelation of ledger.testRelations) {
+    pushMissingRefs({
+      diagnostics,
+      ownerRef: testRelation.relationRef,
+      fieldName: "requirementId",
+      refs: [testRelation.requirementId],
+      allowedRefs: requirementIds
+    });
+  }
+
+  for (const projection of ledger.projections) {
+    pushMissingRefs({
+      diagnostics,
+      ownerRef: projection.projectionRef,
+      fieldName: "requirementId",
+      refs: [projection.requirementId],
+      allowedRefs: requirementIds
+    });
+    pushMissingRefs({
+      diagnostics,
+      ownerRef: projection.projectionRef,
+      fieldName: "spanId",
+      refs: [projection.spanId],
+      allowedRefs: spanIds
+    });
+    pushMissingRefs({
+      diagnostics,
+      ownerRef: projection.projectionRef,
+      fieldName: "supersedesProjectionRefs",
+      refs: projection.supersedesProjectionRefs,
+      allowedRefs: projectionRefs
+    });
+  }
+
+  for (const binding of ledger.evidenceBindings) {
+    pushMissingRefs({
+      diagnostics,
+      ownerRef: binding.evidenceRef,
+      fieldName: "requirementId",
+      refs: [binding.requirementId],
+      allowedRefs: requirementIds
+    });
+    pushMissingRefs({
+      diagnostics,
+      ownerRef: binding.evidenceRef,
+      fieldName: "projectionRef",
+      refs: [binding.projectionRef],
+      allowedRefs: projectionRefs
+    });
+    pushMissingRefs({
+      diagnostics,
+      ownerRef: binding.evidenceRef,
+      fieldName: "supersedesEvidenceRefs",
+      refs: binding.supersedesEvidenceRefs,
+      allowedRefs: evidenceRefs
+    });
+  }
+
+  for (const fold of ledger.folds) {
+    pushMissingRefs({
+      diagnostics,
+      ownerRef: fold.foldRef,
+      fieldName: "requirementId",
+      refs: [fold.requirementId],
+      allowedRefs: requirementIds
+    });
+    pushMissingRefs({
+      diagnostics,
+      ownerRef: fold.foldRef,
+      fieldName: "projectionRefs",
+      refs: fold.projectionRefs,
+      allowedRefs: projectionRefs
+    });
+    pushMissingRefs({
+      diagnostics,
+      ownerRef: fold.foldRef,
+      fieldName: "evidenceRefs",
+      refs: fold.evidenceRefs,
+      allowedRefs: evidenceRefs
+    });
+    pushMissingRefs({
+      diagnostics,
+      ownerRef: fold.foldRef,
+      fieldName: "residualPressureRefs",
+      refs: fold.residualPressureRefs,
+      allowedRefs: residualRefs
+    });
+  }
+
+  for (const residual of ledger.residuals) {
+    pushMissingRefs({
+      diagnostics,
+      ownerRef: residual.residualRef,
+      fieldName: "requirementId",
+      refs: [residual.requirementId],
+      allowedRefs: requirementIds
+    });
+    pushMissingRefs({
+      diagnostics,
+      ownerRef: residual.residualRef,
+      fieldName: "spanId",
+      refs: [residual.spanId],
+      allowedRefs: spanIds
+    });
+    pushMissingRefs({
+      diagnostics,
+      ownerRef: residual.residualRef,
+      fieldName: "sourceFoldRefs",
+      refs: residual.sourceFoldRefs,
+      allowedRefs: foldRefs
+    });
+    pushMissingRefs({
+      diagnostics,
+      ownerRef: residual.residualRef,
+      fieldName: "evidenceRefs",
+      refs: residual.evidenceRefs,
+      allowedRefs: evidenceRefs
+    });
+    pushMissingRefs({
+      diagnostics,
+      ownerRef: residual.residualRef,
+      fieldName: "remainingProjectionRefs",
+      refs: residual.remainingProjectionRefs,
+      allowedRefs: projectionRefs
+    });
+  }
+
+  return freezeArray(diagnostics);
 }
 
 export function projectRequirementLedger(
@@ -1047,9 +1540,9 @@ export function projectRequirementLedger(
     }
   }
 
-  return Object.freeze({
+  const ledger = Object.freeze({
     kind: "requirement_ledger_projection",
-    ledgerRef: `requirement-ledger:${eventRefs.join(",")}`,
+    ledgerRef: `requirement-ledger:${stableSha256Digest(eventRefs)}`,
     eventRefs: freezeStringArray(eventRefs, "RequirementLedger.eventRefs"),
     terms: freezeArray(terms),
     relations: freezeArray(relations),
@@ -1062,14 +1555,93 @@ export function projectRequirementLedger(
     folds: freezeArray(folds),
     residuals: freezeArray(residuals)
   });
+  const diagnostics = diagnoseRequirementLedgerIntegrity(ledger);
+  if (diagnostics.length > 0) {
+    throw new TypeError(
+      `RequirementLedger integrity failure: ${diagnostics.join("; ")}`
+    );
+  }
+  return ledger;
+}
+
+function overlaps(left: readonly string[] | undefined, right: readonly string[]): boolean {
+  if (left === undefined || left.length === 0) {
+    return true;
+  }
+  const rightSet = new Set(right);
+  return left.some((value) => rightSet.has(value));
+}
+
+function optionalStringMatches(
+  value: string | undefined,
+  allowed: readonly string[]
+): boolean {
+  return value === undefined || allowed.includes(value);
+}
+
+function vectorIndexRange(
+  vectorIndexes: readonly number[]
+): { readonly min: number; readonly max: number } | null {
+  if (vectorIndexes.length < 2) {
+    return null;
+  }
+  return Object.freeze({
+    min: Math.min(...vectorIndexes),
+    max: Math.max(...vectorIndexes)
+  });
+}
+
+function spanEndpointRefs(span: TraversalSpan): readonly string[] {
+  return Object.freeze([span.sourceNodeRef, span.targetNodeRef, ...span.aliasRefs]);
+}
+
+function edgeEndpointsFallWithinSpan(span: TraversalSpan, edge: RequirementEdgeRef): boolean {
+  if (edge.sourceNodeRef === undefined || edge.targetNodeRef === undefined) {
+    return false;
+  }
+  const endpointRefs = spanEndpointRefs(span);
+  return endpointRefs.includes(edge.sourceNodeRef) && endpointRefs.includes(edge.targetNodeRef);
 }
 
 function spanCoversEdge(span: TraversalSpan, edge: RequirementEdgeRef): boolean {
-  return (
-    span.graphFunctionRef === edge.graphFunctionRef &&
-    (span.graphVectorRefs.includes(edge.graphVectorRef) ||
-      span.vectorIndexes.includes(edge.vectorIndex))
-  );
+  if (span.graphFunctionRef !== edge.graphFunctionRef) {
+    return false;
+  }
+
+  const explicitVectorMatch = span.graphVectorRefs.includes(edge.graphVectorRef);
+  const boundaryVectorMatch = span.vectorIndexes.includes(edge.vectorIndex);
+  const range = vectorIndexRange(span.vectorIndexes);
+  const interiorIndexMatch =
+    range !== null && edge.vectorIndex > range.min && edge.vectorIndex < range.max;
+  const endpointRangeMatch = edgeEndpointsFallWithinSpan(span, edge);
+  const vectorMatches =
+    explicitVectorMatch ||
+    boundaryVectorMatch ||
+    interiorIndexMatch ||
+    endpointRangeMatch;
+  if (!vectorMatches) {
+    return false;
+  }
+
+  if (!interiorIndexMatch && !endpointRangeMatch) {
+    if (!optionalStringMatches(edge.sourceNodeRef, [span.sourceNodeRef, ...span.aliasRefs])) {
+      return false;
+    }
+    if (!optionalStringMatches(edge.targetNodeRef, [span.targetNodeRef, ...span.aliasRefs])) {
+      return false;
+    }
+  }
+
+  if (!overlaps(edge.frameRefs, span.frameRefs)) {
+    return false;
+  }
+  if (!overlaps(edge.zoomRefs, span.zoomRefs)) {
+    return false;
+  }
+  if (!overlaps(edge.foldbackRefs, span.foldbackRefs)) {
+    return false;
+  }
+  return overlaps(edge.aliasRefs, [edge.edge, ...span.aliasRefs]);
 }
 
 function termHasActiveSpan(
@@ -1097,9 +1669,23 @@ export function buildEdgeRequirementEnvironment(input: {
   const activeRefs = new Set<string>([
     ...activeSpanIds,
     ...activeRequirementIds,
+    ...activeSpans.flatMap((span) => [
+      span.sourceNodeRef,
+      span.targetNodeRef,
+      ...span.frameRefs,
+      ...span.zoomRefs,
+      ...span.foldbackRefs,
+      ...span.aliasRefs
+    ]),
     input.edge.graphFunctionRef,
     input.edge.graphVectorRef,
-    input.edge.edge
+    input.edge.edge,
+    ...(input.edge.sourceNodeRef === undefined ? [] : [input.edge.sourceNodeRef]),
+    ...(input.edge.targetNodeRef === undefined ? [] : [input.edge.targetNodeRef]),
+    ...(input.edge.frameRefs ?? []),
+    ...(input.edge.zoomRefs ?? []),
+    ...(input.edge.foldbackRefs ?? []),
+    ...(input.edge.aliasRefs ?? [])
   ]);
   const priorFolds = input.ledger.folds.filter((fold) => activeRequirementIds.has(fold.requirementId));
   const carriedResiduals = input.ledger.residuals.filter((residual) =>
@@ -1115,7 +1701,7 @@ export function buildEdgeRequirementEnvironment(input: {
       String(input.edge.vectorIndex),
       activeTerms.map((term) => term.requirementId).join(",")
     ].join(":"),
-    edge: Object.freeze({ ...input.edge }),
+    edge: freezeRequirementEdgeRef(input.edge),
     activeTerms: freezeArray(activeTerms),
     activeSpans: freezeArray(activeSpans),
     activeContextFragments: freezeArray(
@@ -1277,14 +1863,15 @@ export function bindRequirementEvidence(input: {
 }): RequirementEvidenceBinding {
   const evidenceRole = input.byproduct
     ? "byproduct"
-    : input.path === null
-      ? input.projection.evidenceRole ?? "asset"
-      : classifyRequirementEvidenceRole({
-        path: input.path,
-        environment: input.environment
-      });
+    : input.projection.evidenceRole ??
+      (input.path === null
+        ? "asset"
+        : classifyRequirementEvidenceRole({
+          path: input.path,
+          environment: input.environment
+        }));
   const bindingStatus: RequirementEvidenceBindingStatus =
-    input.admitted && !input.byproduct ? "admitted" : "non_closing";
+    input.byproduct ? "non_closing" : input.admitted ? "admitted" : "rejected";
   return constructRequirementEvidenceBinding({
     evidenceRef: input.evidenceRef,
     requirementId: input.projection.requirementId,
@@ -1297,6 +1884,8 @@ export function bindRequirementEvidence(input: {
     supersedesEvidenceRefs: input.supersedesEvidenceRefs ?? [],
     reason: bindingStatus === "admitted"
       ? "admitted requirement evidence"
+      : bindingStatus === "rejected"
+        ? "evidence rejected for the active requirement projection"
       : "evidence is non-closing for the active requirement projection"
   });
 }
@@ -1317,24 +1906,80 @@ export function currentEvidenceBindings(
   );
 }
 
-function foldStateFromEvidence(
-  bindings: readonly RequirementEvidenceBinding[]
+export const REQUIREMENT_ABG_ASSURANCE_CLOSURE_DECISION_REF_PREFIX =
+  "abg://assurance-closure-decision" as const;
+
+function parseAssuranceClosureDecisionKind(
+  value: string
+): AssuranceClosureDecisionKind | null {
+  for (const decision of ASSURANCE_CLOSURE_DECISION_KIND_VALUES) {
+    if (value === decision) {
+      return decision;
+    }
+  }
+  return null;
+}
+
+export function requirementAbgTruthRefFromAssuranceClosureDecision(
+  input: Pick<AssuranceClosureDecision, "kind" | "decision" | "projectionRef">
+): string {
+  if (input.kind !== "assurance_closure_decision") {
+    throw new TypeError("requirement fold source requires an AssuranceClosureDecision");
+  }
+  const decision = parseAssuranceClosureDecisionKind(input.decision);
+  if (decision === null) {
+    throw new TypeError(
+      `Unsupported assurance closure decision ${JSON.stringify(input.decision)}`
+    );
+  }
+  return [
+    REQUIREMENT_ABG_ASSURANCE_CLOSURE_DECISION_REF_PREFIX,
+    decision,
+    stableSha256Digest([input.projectionRef])
+  ].join("/");
+}
+
+function assuranceClosureDecisionKindFromTruthRef(
+  ref: string
+): AssuranceClosureDecisionKind | null {
+  const prefix = `${REQUIREMENT_ABG_ASSURANCE_CLOSURE_DECISION_REF_PREFIX}/`;
+  if (!ref.startsWith(prefix)) {
+    return null;
+  }
+  const parts = ref.slice(prefix.length).split("/");
+  if (parts.length !== 2 || !parts[1]?.startsWith("sha256:")) {
+    return null;
+  }
+  return parseAssuranceClosureDecisionKind(parts[0] ?? "");
+}
+
+function requirementFoldStateFromAssuranceDecision(
+  decision: AssuranceClosureDecisionKind
 ): RequirementFoldState {
-  const current = currentEvidenceBindings(bindings);
-  const admitted = current.filter((binding) => binding.bindingStatus === "admitted");
-  const nonClosing = current.filter((binding) => binding.bindingStatus === "non_closing");
-  const hasSemantic = admitted.some((binding) => binding.evidenceRole === "semantic_interpretation");
-  const hasExecution = admitted.some((binding) => binding.evidenceRole === "test_execution");
-  if (hasSemantic && hasExecution) {
-    return "satisfied";
+  switch (decision) {
+    case "close":
+      return "satisfied";
+    case "retry":
+      return "partial";
+    case "block":
+      return "blocked";
+    case "qualified_defer":
+      return "deferred";
+    case "reprice":
+      return "repriced";
   }
-  if (admitted.length > 0) {
-    return "partial";
+}
+
+function foldStateFromEvidence(
+  sourceAbgTruthRefs: readonly string[]
+): RequirementFoldState {
+  for (const sourceRef of sourceAbgTruthRefs) {
+    const decision = assuranceClosureDecisionKindFromTruthRef(sourceRef);
+    if (decision !== null) {
+      return requirementFoldStateFromAssuranceDecision(decision);
+    }
   }
-  if (nonClosing.length > 0) {
-    return "no_close_preserved";
-  }
-  return "partial";
+  return "no_close_preserved";
 }
 
 export function foldRequirementEvidence(input: {
@@ -1342,6 +1987,7 @@ export function foldRequirementEvidence(input: {
   readonly projections: readonly RequirementProjection[];
   readonly evidenceBindings: readonly RequirementEvidenceBinding[];
   readonly sourceAbgTruthRefs: readonly string[];
+  readonly sourceAbgTruthRefsByRequirementId?: Readonly<Record<string, readonly string[]>>;
 }): readonly RequirementFoldProjection[] {
   return freezeArray(
     input.environment.activeTerms.map((term) => {
@@ -1352,15 +1998,18 @@ export function foldRequirementEvidence(input: {
         (binding) => binding.requirementId === term.requirementId
       );
       const evidenceRefs = currentEvidenceBindings(bindings).map((binding) => binding.evidenceRef);
-      const state = foldStateFromEvidence(bindings);
+      const sourceAbgTruthRefs =
+        input.sourceAbgTruthRefsByRequirementId?.[term.requirementId] ??
+        (input.environment.activeTerms.length === 1 ? input.sourceAbgTruthRefs : []);
+      const state = foldStateFromEvidence(sourceAbgTruthRefs);
       return constructRequirementFoldProjection({
         foldRef: `requirement-fold:${term.requirementId}:${state}:${evidenceRefs.join(",")}`,
         requirementId: term.requirementId,
         projectionRefs,
         state,
-        sourceAbgTruthRefs: input.sourceAbgTruthRefs,
+        sourceAbgTruthRefs,
         evidenceRefs,
-        residualPressureRefs: state === "satisfied" ? [] : [`residual-pressure:${term.requirementId}:${state}`],
+        residualPressureRefs: state === "satisfied" ? [] : [requirementResidualRef(term.requirementId, state)],
         reason: `requirement fold projected from ${evidenceRefs.length} current evidence binding(s)`
       });
     })
@@ -1376,6 +2025,9 @@ function residualClassForFold(fold: RequirementFoldProjection): RequirementResid
   }
   if (fold.state === "no_close_preserved") {
     return "non_closing_evidence";
+  }
+  if (fold.state === "deferred") {
+    return "continuation_deferred";
   }
   return "missing_execution_evidence";
 }
@@ -1393,7 +2045,7 @@ export function residualizeRequirementFolds(input: {
         );
         const spanId = term?.spanRefs[0] ?? input.environment.activeSpans[0]?.spanId ?? "span:unknown";
         return constructRequirementResidualProjection({
-          residualRef: `requirement-residual:${fold.requirementId}:${fold.state}`,
+          residualRef: requirementResidualRef(fold.requirementId, fold.state),
           requirementId: fold.requirementId,
           spanId,
           pressureClass: residualClassForFold(fold),
@@ -1413,17 +2065,50 @@ export function classifyRequirementAttenuation(input: {
 }): RequirementAttenuationProjection {
   const priorRefs = input.priorResiduals.map((residual) => residual.residualRef);
   const residualRefs = input.residuals.map((residual) => residual.residualRef);
+  const residualKey = (residual: RequirementResidualProjection): string =>
+    `${residual.requirementId}:${residual.spanId}`;
+  const priorByKey = new Map(
+    input.priorResiduals.map((residual) => [residualKey(residual), residual])
+  );
+  const residualByKey = new Map(
+    input.residuals.map((residual) => [residualKey(residual), residual])
+  );
+  const newResiduals = input.residuals.filter(
+    (residual) => !priorByKey.has(residualKey(residual))
+  );
+  const movedToPrerequisite = input.residuals.some((residual) => {
+    const prior = priorByKey.get(residualKey(residual));
+    return (
+      residual.pressureClass === "blocked_prerequisite" &&
+      prior !== undefined &&
+      prior.pressureClass !== "blocked_prerequisite"
+    );
+  });
+  const escalated = newResiduals.length > 0 || input.residuals.some((residual) => {
+    const prior = priorByKey.get(residualKey(residual));
+    return (
+      residual.pressureClass === "human_decision_required" &&
+      prior !== undefined &&
+      prior.pressureClass !== "human_decision_required"
+    );
+  });
+  const transformed = input.residuals.some((residual) => {
+    const prior = priorByKey.get(residualKey(residual));
+    return prior !== undefined && prior.pressureClass !== residual.pressureClass;
+  });
+  const narrowed = input.priorResiduals.some(
+    (residual) => !residualByKey.has(residualKey(residual))
+  );
   let attenuation: RequirementAttenuationKind = "unchanged";
   if (input.priorResiduals.length > 0 && input.residuals.length === 0) {
     attenuation = "cleared";
-  } else if (input.residuals.length < input.priorResiduals.length) {
+  } else if (movedToPrerequisite) {
+    attenuation = "moved_to_prerequisite";
+  } else if (escalated) {
+    attenuation = "escalated";
+  } else if (narrowed) {
     attenuation = "narrowed";
-  } else if (
-    input.priorResiduals.some((prior, index) =>
-      input.residuals[index] !== undefined &&
-      input.residuals[index]?.pressureClass !== prior.pressureClass
-    )
-  ) {
+  } else if (transformed) {
     attenuation = "transformed";
   }
   return Object.freeze({
@@ -1444,11 +2129,11 @@ export function projectAssuranceCase(input: {
     input.environment.activeTerms.map((term) => {
       const folds = input.folds.filter((fold) => fold.requirementId === term.requirementId);
       const residuals = input.residuals.filter((residual) => residual.requirementId === term.requirementId);
-      const status = residuals.length > 0
-        ? "partial"
-        : folds.every((fold) => fold.state === "satisfied")
-          ? "supported"
-          : "blocked";
+      const status = folds.length === 0 || folds.some((fold) => fold.state === "blocked")
+        ? "blocked"
+        : residuals.length > 0 || folds.some((fold) => fold.state !== "satisfied")
+          ? "partial"
+          : "supported";
       return constructRequirementAssuranceClaim({
         claimRef: `requirement-assurance-claim:${term.requirementId}`,
         requirementId: term.requirementId,
@@ -1470,16 +2155,66 @@ export function evaluateRequirementCompleteness(input: {
 }): RequirementCompletenessReport {
   const rows: RequirementCompletenessGateRow[] = [];
   const activeRequirementIds = input.environment.activeTerms.map((term) => term.requirementId);
-  const projectionRequirementIds = new Set(input.projections.map((projection) => projection.requirementId));
-  const foldRequirementIds = new Set(input.folds.map((fold) => fold.requirementId));
-  const residualRefs = input.residuals.map((residual) => residual.residualRef);
+  const currentProjectionRefs = new Set(
+    input.projections
+      .filter((projection) => projection.current)
+      .map((projection) => projection.projectionRef)
+  );
+  const projectionRequirementIds = new Set(
+    input.projections
+      .filter((projection) => projection.current)
+      .map((projection) => projection.requirementId)
+  );
+  const foldRequirementIds = new Set(
+    input.folds
+      .filter((fold) =>
+        fold.projectionRefs.some((projectionRef) =>
+          currentProjectionRefs.has(projectionRef)
+        )
+      )
+      .map((fold) => fold.requirementId)
+  );
 
-  rows.push(gateRow("span_coverage", input.environment.activeSpans.length > 0, activeRequirementIds));
-  rows.push(gateRow("evidence_policy_coverage", input.environment.activeTerms.every((term) => term.evidencePolicyRefs.length > 0), activeRequirementIds));
-  rows.push(gateRow("context_routing_coverage", input.environment.activeContextFragments.length > 0, activeRequirementIds));
-  rows.push(gateRow("destination_topology_coverage", input.environment.activeDestinationTopologies.length > 0, activeRequirementIds));
-  rows.push(gateRow("test_relation_coverage", input.environment.activeTestRelations.length > 0, activeRequirementIds));
-  rows.push(gateRow("fold_attenuation_coverage", activeRequirementIds.every((id) => projectionRequirementIds.has(id) && foldRequirementIds.has(id)), residualRefs));
+  const refsForTerm = (term: RequirementTerm): ReadonlySet<string> =>
+    new Set([term.requirementId, ...term.spanRefs, ...term.contextRefs]);
+  const missingTermRefs = (
+    predicate: (term: RequirementTerm, refs: ReadonlySet<string>) => boolean
+  ): readonly string[] =>
+    input.environment.activeTerms
+      .filter((term) => !predicate(term, refsForTerm(term)))
+      .map((term) => term.requirementId);
+  const missingSpanCoverage =
+    input.environment.activeSpans.length === 0 ? activeRequirementIds : [];
+  const missingEvidencePolicy = missingTermRefs((candidate) =>
+    candidate.evidencePolicyRefs.length > 0
+  );
+  const missingContextRouting = missingTermRefs((term, refs) =>
+    term.contextRefs.length === 0 ||
+    input.environment.activeContextFragments.some((fragment) =>
+      appliesToAny(fragment.appliesToRefs, refs)
+    )
+  );
+  const missingDestinationTopology = missingTermRefs((term) =>
+    input.environment.activeDestinationTopologies.some((topology) =>
+      topology.appliesToRefs.includes(term.requirementId) ||
+      term.spanRefs.some((spanRef) => topology.appliesToRefs.includes(spanRef))
+    )
+  );
+  const missingTestRelation = missingTermRefs((term) =>
+    input.environment.activeTestRelations.some((relation) =>
+      relation.requirementId === term.requirementId
+    )
+  );
+  const missingFoldAttenuation = activeRequirementIds.filter(
+    (id) => !projectionRequirementIds.has(id) || !foldRequirementIds.has(id)
+  );
+
+  rows.push(gateRow("span_coverage", missingSpanCoverage.length === 0, missingSpanCoverage));
+  rows.push(gateRow("evidence_policy_coverage", missingEvidencePolicy.length === 0, missingEvidencePolicy));
+  rows.push(gateRow("context_routing_coverage", missingContextRouting.length === 0, missingContextRouting));
+  rows.push(gateRow("destination_topology_coverage", missingDestinationTopology.length === 0, missingDestinationTopology));
+  rows.push(gateRow("test_relation_coverage", missingTestRelation.length === 0, missingTestRelation));
+  rows.push(gateRow("fold_attenuation_coverage", missingFoldAttenuation.length === 0, missingFoldAttenuation));
 
   return Object.freeze({
     kind: "requirement_completeness_report",
@@ -1500,43 +2235,134 @@ function gateRow(
   });
 }
 
+const REQUIREMENT_CONFLICT_CONTRADICTORY_RELATION_KINDS: ReadonlySet<RequirementRelationKind> =
+  new Set([
+    "refinement",
+    "dependency",
+    "mitigation",
+    "assignment",
+    "operationalization",
+    "test",
+    "assurance",
+    "evidence",
+    "contribution",
+    "restoration",
+    "supersession"
+  ]);
+
+function requirementRelationPairKey(relation: RequirementRelation): string {
+  return [relation.fromRequirementId, relation.toRequirementId].sort().join("||");
+}
+
+function contradictoryRequirementRelationRefs(ledger: RequirementLedger): readonly string[] {
+  const relationsByPair = new Map<string, RequirementRelation[]>();
+  for (const relation of ledger.relations) {
+    const pairKey = requirementRelationPairKey(relation);
+    relationsByPair.set(pairKey, [
+      ...(relationsByPair.get(pairKey) ?? []),
+      relation
+    ]);
+  }
+
+  const contradictoryRefs = new Set<string>();
+  for (const relations of relationsByPair.values()) {
+    if (!relations.some((relation) => relation.relationKind === "conflict")) {
+      continue;
+    }
+    if (
+      !relations.some((relation) =>
+        REQUIREMENT_CONFLICT_CONTRADICTORY_RELATION_KINDS.has(
+          relation.relationKind
+        )
+      )
+    ) {
+      continue;
+    }
+    for (const relation of relations) {
+      contradictoryRefs.add(relation.relationId);
+    }
+  }
+  return freezeArray([...contradictoryRefs].sort());
+}
+
+function staleOrSupersededProjectionRefs(ledger: RequirementLedger): readonly string[] {
+  const projectionsByRef = new Map(
+    ledger.projections.map((projection) => [projection.projectionRef, projection])
+  );
+  const staleRefs = new Set<string>();
+  for (const term of ledger.terms) {
+    if (term.projectionRefs.length === 0) {
+      continue;
+    }
+    const projections = term.projectionRefs
+      .map((projectionRef) => projectionsByRef.get(projectionRef))
+      .filter((projection): projection is RequirementProjection => projection !== undefined);
+    if (
+      projections.length === term.projectionRefs.length &&
+      projections.every((projection) => !projection.current)
+    ) {
+      for (const projection of projections) {
+        staleRefs.add(projection.projectionRef);
+      }
+    }
+  }
+  return freezeArray([...staleRefs].sort());
+}
+
 export function evaluateRequirementStructuralState(input: {
   readonly ledger: RequirementLedger | null;
-  readonly unknownState?: boolean;
-  readonly malformed?: boolean;
-  readonly staleOrSuperseded?: boolean;
-  readonly contradictoryAuthority?: boolean;
-  readonly semanticAssessmentRequired?: boolean;
-  readonly semanticResidualPreserved?: boolean;
-  readonly humanDecisionRequired?: boolean;
-  readonly nonClosingPreserved?: boolean;
 }): RequirementStructuralEvaluation {
-  if (input.unknownState === true || input.ledger === null) {
+  if (input.ledger === null) {
     return structuralEvaluation("unknown_state_rejected", "unknown or unclassified state is not F_D input", []);
   }
-  if (input.malformed === true) {
-    return structuralEvaluation("rejected_malformed", "malformed requirement-algebra state", []);
-  }
-  if (input.staleOrSuperseded === true) {
-    return structuralEvaluation("stale_or_superseded", "stale or superseded replay evidence", []);
-  }
-  if (input.contradictoryAuthority === true) {
-    return structuralEvaluation("contradictory_authority", "contradictory admitted authority", []);
-  }
-  if (input.semanticAssessmentRequired === true) {
-    return structuralEvaluation("semantic_assessment_required", "semantic judgment belongs to F_P", []);
-  }
-  if (input.semanticResidualPreserved === true) {
-    return structuralEvaluation("semantic_residual_preserved", "F_P rejection preserves residual pressure", []);
-  }
-  if (input.humanDecisionRequired === true) {
-    return structuralEvaluation("human_decision_required", "owner decision or reprice required", []);
-  }
-  if (input.nonClosingPreserved === true) {
-    return structuralEvaluation("non_closing_preserved", "non-closing evidence remains queryable", []);
+  const diagnostics = diagnoseRequirementLedgerIntegrity(input.ledger);
+  if (diagnostics.length > 0) {
+    return structuralEvaluation("rejected_malformed", "malformed requirement-algebra state", diagnostics);
   }
   if (input.ledger.terms.length === 0 || input.ledger.spans.length === 0) {
     return structuralEvaluation("incomplete_structural_pressure", "ledger lacks required terms or spans", input.ledger.eventRefs);
+  }
+  const staleRefs = staleOrSupersededProjectionRefs(input.ledger);
+  if (staleRefs.length > 0) {
+    return structuralEvaluation("stale_or_superseded", "stale or superseded replay evidence", staleRefs);
+  }
+  const contradictoryRefs = contradictoryRequirementRelationRefs(input.ledger);
+  if (contradictoryRefs.length > 0) {
+    return structuralEvaluation("contradictory_authority", "contradictory admitted authority", contradictoryRefs);
+  }
+  const fpRequiredRefs = input.ledger.contextFragments
+    .filter((fragment) => fragment.routingOutcome === "fp_required")
+    .map((fragment) => fragment.fragmentRef);
+  if (fpRequiredRefs.length > 0) {
+    return structuralEvaluation("semantic_assessment_required", "semantic judgment belongs to F_P", fpRequiredRefs);
+  }
+  const semanticResidualRefs = input.ledger.residuals
+    .filter((residual) => residual.pressureClass === "semantic_assessment_required")
+    .map((residual) => residual.residualRef);
+  if (semanticResidualRefs.length > 0) {
+    return structuralEvaluation("semantic_residual_preserved", "F_P rejection preserves residual pressure", semanticResidualRefs);
+  }
+  const humanDecisionRefs = [
+    ...input.ledger.folds
+      .filter((fold) => fold.state === "repriced")
+      .map((fold) => fold.foldRef),
+    ...input.ledger.residuals
+      .filter((residual) => residual.pressureClass === "human_decision_required")
+      .map((residual) => residual.residualRef)
+  ];
+  if (humanDecisionRefs.length > 0) {
+    return structuralEvaluation("human_decision_required", "owner decision or reprice required", humanDecisionRefs);
+  }
+  const nonClosingRefs = [
+    ...input.ledger.folds
+      .filter((fold) => fold.state === "no_close_preserved")
+      .map((fold) => fold.foldRef),
+    ...input.ledger.residuals
+      .filter((residual) => residual.pressureClass === "non_closing_evidence")
+      .map((residual) => residual.residualRef)
+  ];
+  if (nonClosingRefs.length > 0) {
+    return structuralEvaluation("non_closing_preserved", "non-closing evidence remains queryable", nonClosingRefs);
   }
   return structuralEvaluation("admitted_valid", "admitted requirement-algebra state is structurally valid", input.ledger.eventRefs);
 }
@@ -1614,7 +2440,9 @@ export function queryRequirements(input: {
       "RequirementQueryReadModel.executionScheduleRefs"
     ),
     evidenceRefs: freezeStringArray(
-      input.evidenceBindings.map((binding) => binding.evidenceRef),
+      currentEvidenceBindings(input.evidenceBindings)
+        .filter((binding) => binding.bindingStatus !== "rejected")
+        .map((binding) => binding.evidenceRef),
       "RequirementQueryReadModel.evidenceRefs"
     ),
     foldRefs: freezeStringArray(
@@ -1635,27 +2463,27 @@ export function queryRequirements(input: {
 
 export const REQUIREMENT_FOLD_STATE_MAPPING = Object.freeze({
   satisfied: Object.freeze({
-    sourceAbgTruth: "assurance_fold_fulfilled",
+    sourceAbgTruth: "AssuranceClosureDecision.decision=close",
     closureAuthority: "existing_abg_assurance_fold"
   }),
   partial: Object.freeze({
-    sourceAbgTruth: "assurance_or_continuation_partial",
+    sourceAbgTruth: "AssuranceClosureDecision.decision=retry",
     closureAuthority: "non_closing_residual_required"
   }),
   blocked: Object.freeze({
-    sourceAbgTruth: "abg_block_or_blocked_prerequisite",
+    sourceAbgTruth: "AssuranceClosureDecision.decision=block",
     closureAuthority: "existing_abg_block_or_evaluate_next"
   }),
   deferred: Object.freeze({
-    sourceAbgTruth: "qualified_defer_or_continuation",
+    sourceAbgTruth: "AssuranceClosureDecision.decision=qualified_defer",
     closureAuthority: "existing_abg_continuation"
   }),
   repriced: Object.freeze({
-    sourceAbgTruth: "abg_or_fh_reprice_truth",
+    sourceAbgTruth: "AssuranceClosureDecision.decision=reprice",
     closureAuthority: "existing_reprice_surface"
   }),
   no_close_preserved: Object.freeze({
-    sourceAbgTruth: "assurance_fold_no_close",
+    sourceAbgTruth: "no admitted AssuranceClosureDecision",
     closureAuthority: "non_closing_residual_query"
   })
 } satisfies Record<RequirementFoldState, {

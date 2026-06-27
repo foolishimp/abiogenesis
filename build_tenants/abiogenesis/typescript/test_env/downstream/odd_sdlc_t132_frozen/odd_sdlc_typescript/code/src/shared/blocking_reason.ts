@@ -394,9 +394,9 @@ function metadataForCode(code: SdlcBlockingReasonCode): BlockingReasonMetadata {
   if (code === "design_depth_fp_evaluator_pending") {
     return Object.freeze({
       reasonClass: "assurance",
-      lawfulReentryPoint: "operator_blocked",
+      lawfulReentryPoint: "same_edge_retry",
       message:
-        "F_P design-depth evaluator must admit the design-depth target carrier before closure."
+        "F_P design-depth evaluator target carrier is still pending; preserve pressure by retrying the same edge."
     });
   }
   if (code === "design_depth_register_admission_invalid") {

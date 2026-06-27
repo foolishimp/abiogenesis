@@ -273,6 +273,42 @@ test("T-188 review-grade same-edge pressure remains redispatch, not structural b
   );
 });
 
+test("T-162 design-depth evaluator pending plus progress timeout redispatches", () => {
+  const transition = transitionFor({
+    blockingReasonCarriers: [
+      makeSdlcBlockingReason({
+        code: "design_depth_fp_evaluator_progress_timeout",
+        evidenceRefs: [
+          "file:///tmp/design_depth_fp_evaluator_progress_snapshot.json"
+        ]
+      }),
+      makeSdlcBlockingReason({
+        code: "design_depth_fp_evaluator_pending",
+        detail: "design_depth_fp_evaluator_rule_outcome_missing",
+        evidenceRefs: ["file:///tmp/design_depth_fp_evaluator_run.json"]
+      })
+    ],
+    residualPressureRefs: [
+      "pressure://odd-sdlc/design-depth/run/design_depth_fp_evaluator_progress_timeout"
+    ],
+    edgeAssuranceDisposition: "retry"
+  });
+
+  assert.equal(transition.disposition, "retry");
+  assert.equal(transition.explanationCode, "typed_retry");
+  assert.equal(
+    transition.abgIterationOutcomeProjection.outcome.kind,
+    "redispatch"
+  );
+  assert.equal(transition.blockReasonRefs.length, 0);
+  assert(
+    transition.retryReasonRefs.some((ref) =>
+      ref.includes("design_depth_fp_evaluator_pending")
+    ),
+    transition.retryReasonRefs.join("\n")
+  );
+});
+
 test("T-188 SDLC repair adapters are ABG redispatch rows", () => {
   const testExecutionFailureTransition = transitionFor({
     residualPressureRefs: [

@@ -13,6 +13,7 @@ export interface SdlcOperatorRuntimePolicy {
   readonly workerHeartbeatMs: number;
   readonly workerTerminationGraceMs: number;
   readonly designDepthFpEvaluatorTimeoutMs: number;
+  readonly designDepthFpEvaluatorFirstUpdateTimeoutMs: number;
   readonly designDepthFpEvaluatorStdoutBudgetBytes: number;
   readonly reviewGradeEdgeFulfillmentEvaluatorTimeoutMs: number;
   readonly reviewGradeEdgeFulfillmentEvaluatorInactivityTimeoutMs: number;
@@ -38,6 +39,7 @@ interface SdlcOperatorRuntimePolicyConfig {
   };
   readonly designDepthFpEvaluator: {
     readonly timeoutMs: number;
+    readonly firstUpdateTimeoutMs: number;
     readonly stdoutBudgetBytes: number;
   };
   readonly reviewGradeEdgeFulfillmentEvaluator: {
@@ -191,6 +193,11 @@ function readSdlcOperatorRuntimePolicyConfig(): SdlcOperatorRuntimePolicyConfig 
         "timeoutMs",
         "operator-runtime-policy.json.designDepthFpEvaluator"
       ),
+      firstUpdateTimeoutMs: positiveIntegerField(
+        designDepthFpEvaluator,
+        "firstUpdateTimeoutMs",
+        "operator-runtime-policy.json.designDepthFpEvaluator"
+      ),
       stdoutBudgetBytes: positiveIntegerField(
         designDepthFpEvaluator,
         "stdoutBudgetBytes",
@@ -282,6 +289,10 @@ export function sdlcOperatorRuntimePolicy(): SdlcOperatorRuntimePolicy {
     designDepthFpEvaluatorTimeoutMs: configuredPositiveInteger(
       "ODD_SDLC_DESIGN_DEPTH_FP_EVALUATOR_TIMEOUT_MS",
       config.designDepthFpEvaluator.timeoutMs
+    ),
+    designDepthFpEvaluatorFirstUpdateTimeoutMs: configuredPositiveInteger(
+      "ODD_SDLC_DESIGN_DEPTH_FP_EVALUATOR_FIRST_UPDATE_TIMEOUT_MS",
+      config.designDepthFpEvaluator.firstUpdateTimeoutMs
     ),
     designDepthFpEvaluatorStdoutBudgetBytes: configuredPositiveInteger(
       "ODD_SDLC_DESIGN_DEPTH_FP_EVALUATOR_STDOUT_BUDGET_BYTES",

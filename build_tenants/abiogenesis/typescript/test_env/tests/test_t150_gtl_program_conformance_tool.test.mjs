@@ -10,9 +10,19 @@ import path from "node:path";
 
 import {
   ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_REF,
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_FSM_REF,
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_DERIVATION_RULE_REF,
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_FD_FORBIDDEN_INTERPRETATION,
   ABG_SEMANTIC_COMPILER_FP_REVIEW_GRAPH_FUNCTION_REF,
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_OUTPUT_STATE_ENUM_REF,
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_PACKAGE_GRAMMAR_REF,
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_PROGRESS_METRIC_REF,
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_PROGRESS_TELEMETRY_GRAMMAR_REF,
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_REQUIRED_ARTIFACT_DELTA_KIND,
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_GRAMMAR_REF,
   ABG_SEMANTIC_COMPILER_FP_REVIEW_RUNTIME_KIND,
   ABG_SEMANTIC_COMPILER_FP_REVIEW_RUNTIME_REF,
+  ABG_SEMANTIC_COMPILER_FP_REVIEW_WORKER_CONTROL_CONTRACT_REF,
   abgSemanticCompilerFpReviewGraphFunctionDigest,
   ABG_ALLOWED_CONSEQUENCE_TRAVERSAL_FAMILIES_DECLARATION_KEY,
   ABG_ALLOWED_CONSEQUENCE_TRAVERSAL_ROWS_DECLARATION_KEY,
@@ -26,8 +36,13 @@ import {
   constructGraphFunction,
   constructGraphVector,
   constructJob,
+  constructGtlRequirementDeclaration,
+  constructGtlRequirementsAlgebraDeclarationBundle,
+  constructGtlTraversalSpanDeclaration,
   constructModule,
   constructNode,
+  constructAbgSemanticCompilerFpReviewGraphFunction,
+  constructAbgSemanticCompilerFpReviewPackageIdentity,
   constructRefinementBoundary,
   constructRole,
   constructTemplateRef,
@@ -419,6 +434,212 @@ function stageBindingRefsFor(graphFunction, vector) {
     `stage-binding://t150/${programRef}/transform.C`,
     `stage-binding://t150/${programRef}/evaluate.C`,
     `stage-binding://t150/${programRef}/consequence.C`
+  ];
+}
+
+const T162_HELLO_WORLD_REQUIREMENT_ID = "REQ-T162-HELLO-JS-001";
+const T162_HELLO_WORLD_SPAN_ID =
+  "span://t162/hello-world-js/intent-to-program";
+const T162_HELLO_WORLD_TEST_RELATION_REF =
+  "test-relation://t162/hello-world-js/component-test";
+const T162_HELLO_WORLD_EVIDENCE_POLICY_REF =
+  "evidence-policy://t162/hello-world-js/component-test";
+const T162_HELLO_WORLD_TOPOLOGY_REF =
+  "destination-topology://t162/hello-world-js/node";
+const T162_HELLO_WORLD_TOPOLOGY_CONSTRAINT_REF =
+  "constraint://t162/hello-world-js/node-runtime";
+const T162_DIGEST =
+  "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+
+function helloWorldRequirementsAlgebraDeclarations({ graphFunction, vector }) {
+  const requirement = constructGtlRequirementDeclaration({
+    requirementId: T162_HELLO_WORLD_REQUIREMENT_ID,
+    termKind: "atom",
+    stableId: T162_HELLO_WORLD_REQUIREMENT_ID,
+    sourceRef: "specification/requirements/hello-world-js.md#REQ-T162-HELLO-JS-001",
+    sourceDigest: T162_DIGEST,
+    relationRefs: ["relation://t162/hello-world-js/test"],
+    spanRefs: [T162_HELLO_WORLD_SPAN_ID],
+    contextRefs: ["context://t162/hello-world-js/product"],
+    evidencePolicyRefs: [T162_HELLO_WORLD_EVIDENCE_POLICY_REF]
+  });
+  const span = constructGtlTraversalSpanDeclaration({
+    spanId: T162_HELLO_WORLD_SPAN_ID,
+    graphFunctionRef: graphFunction.name,
+    graphVectorRefs: [vector.name],
+    vectorIndexes: [0],
+    sourceNodeRef: "HelloWorldIntent",
+    targetNodeRef: "HelloWorldJsProgram"
+  });
+  return [
+    constructGtlRequirementsAlgebraDeclarationBundle({
+      requirements: [requirement],
+      relations: [
+        {
+          kind: "gtl_requirement_relation_declaration",
+          relationId: "relation://t162/hello-world-js/test",
+          relationKind: "test",
+          fromRequirementId: T162_HELLO_WORLD_REQUIREMENT_ID,
+          toRequirementId: T162_HELLO_WORLD_REQUIREMENT_ID
+        }
+      ],
+      spans: [span],
+      contextFragments: [
+        {
+          kind: "gtl_authority_context_fragment_declaration",
+          fragmentRef: "context://t162/hello-world-js/product",
+          originStage: "requirements",
+          constraintScope:
+            "Hello-world JavaScript must materialize executable source and component test source.",
+          digest: T162_DIGEST,
+          promotionPolicyRef: "promotion-policy://t162/constraint-only",
+          appliesToRefs: [
+            T162_HELLO_WORLD_REQUIREMENT_ID,
+            T162_HELLO_WORLD_SPAN_ID
+          ]
+        },
+        {
+          kind: "gtl_authority_context_fragment_declaration",
+          fragmentRef: T162_HELLO_WORLD_TOPOLOGY_CONSTRAINT_REF,
+          originStage: "destination_topology",
+          constraintScope:
+            "Hello-world JavaScript must be executed by the declared Node.js runtime topology.",
+          digest: T162_DIGEST,
+          promotionPolicyRef: "promotion-policy://t162/constraint-only",
+          appliesToRefs: [
+            T162_HELLO_WORLD_TOPOLOGY_REF,
+            T162_HELLO_WORLD_EVIDENCE_POLICY_REF
+          ]
+        }
+      ],
+      destinationTopologies: [
+        {
+          kind: "gtl_destination_topology_declaration",
+          topologyRef: T162_HELLO_WORLD_TOPOLOGY_REF,
+          frameworkRef: "runtime://node/javascript",
+          constraintRefs: [T162_HELLO_WORLD_TOPOLOGY_CONSTRAINT_REF],
+          appliesToRefs: [
+            T162_HELLO_WORLD_REQUIREMENT_ID,
+            T162_HELLO_WORLD_SPAN_ID,
+            graphFunction.name,
+            vector.name
+          ]
+        }
+      ],
+      testRelations: [
+        {
+          kind: "gtl_requirement_test_relation_declaration",
+          relationRef: T162_HELLO_WORLD_TEST_RELATION_REF,
+          requirementId: T162_HELLO_WORLD_REQUIREMENT_ID,
+          assetProjectionRef: "projection://t162/hello-world-js/source",
+          testSourceProjectionRef:
+            "projection://t162/hello-world-js/component-test-source",
+          testExecutionProjectionRef:
+            "projection://t162/hello-world-js/component-test-execution",
+          interpretationProjectionRef:
+            "projection://t162/hello-world-js/semantic-interpretation",
+          componentTestRootRefs: [
+            "build_tenants/hello_world_javascript/test"
+          ],
+          evidencePolicyRef: T162_HELLO_WORLD_EVIDENCE_POLICY_REF
+        }
+      ]
+    })
+  ];
+}
+
+function helloWorldRequirementsAlgebraDeclarationsWithVectorId(input) {
+  const [bundle] = helloWorldRequirementsAlgebraDeclarations(input);
+  assert.notEqual(bundle, undefined);
+  const [span] = bundle.spans;
+  assert.notEqual(span, undefined);
+  return [
+    constructGtlRequirementsAlgebraDeclarationBundle({
+      requirements: bundle.requirements,
+      relations: bundle.relations,
+      spans: [
+        constructGtlTraversalSpanDeclaration({
+          spanId: span.spanId,
+          graphFunctionRef: span.graphFunctionRef,
+          graphVectorRefs: [input.vector.id],
+          vectorIndexes: span.vectorIndexes,
+          sourceNodeRef: span.sourceNodeRef,
+          targetNodeRef: span.targetNodeRef
+        })
+      ],
+      contextFragments: bundle.contextFragments,
+      destinationTopologies: bundle.destinationTopologies,
+      testRelations: bundle.testRelations
+    })
+  ];
+}
+
+function relationGraphRequirementsAlgebraDeclarations(input) {
+  const [bundle] = helloWorldRequirementsAlgebraDeclarations(input);
+  assert.notEqual(bundle, undefined);
+  const relationRequirementIds = [
+    "REQ-T162-REL-A",
+    "REQ-T162-REL-B"
+  ];
+  const relationRequirements = relationRequirementIds.map((requirementId) =>
+    constructGtlRequirementDeclaration({
+      requirementId,
+      termKind: "atom",
+      stableId: requirementId,
+      sourceRef: `specification/requirements/hello-world-js.md#${requirementId}`,
+      sourceDigest: T162_DIGEST,
+      relationRefs: [],
+      spanRefs: [T162_HELLO_WORLD_SPAN_ID],
+      contextRefs: ["context://t162/hello-world-js/product"],
+      evidencePolicyRefs: [T162_HELLO_WORLD_EVIDENCE_POLICY_REF]
+    })
+  );
+  return [
+    constructGtlRequirementsAlgebraDeclarationBundle({
+      requirements: [...bundle.requirements, ...relationRequirements],
+      relations: [
+        ...bundle.relations,
+        {
+          kind: "gtl_requirement_relation_declaration",
+          relationId: "relation://t162/relation-graph/self",
+          relationKind: "refinement",
+          fromRequirementId: "REQ-T162-REL-A",
+          toRequirementId: "REQ-T162-REL-A"
+        },
+        {
+          kind: "gtl_requirement_relation_declaration",
+          relationId: "relation://t162/relation-graph/a-to-b",
+          relationKind: "dependency",
+          fromRequirementId: "REQ-T162-REL-A",
+          toRequirementId: "REQ-T162-REL-B"
+        },
+        {
+          kind: "gtl_requirement_relation_declaration",
+          relationId: "relation://t162/relation-graph/b-to-a",
+          relationKind: "dependency",
+          fromRequirementId: "REQ-T162-REL-B",
+          toRequirementId: "REQ-T162-REL-A"
+        },
+        {
+          kind: "gtl_requirement_relation_declaration",
+          relationId: "relation://t162/relation-graph/conflict",
+          relationKind: "conflict",
+          fromRequirementId: "REQ-T162-REL-A",
+          toRequirementId: "REQ-T162-REL-B"
+        },
+        {
+          kind: "gtl_requirement_relation_declaration",
+          relationId: "relation://t162/relation-graph/contribution",
+          relationKind: "contribution",
+          fromRequirementId: "REQ-T162-REL-A",
+          toRequirementId: "REQ-T162-REL-B"
+        }
+      ],
+      spans: bundle.spans,
+      contextFragments: bundle.contextFragments,
+      destinationTopologies: bundle.destinationTopologies,
+      testRelations: bundle.testRelations
+    })
   ];
 }
 
@@ -1059,6 +1280,10 @@ function compliantInput(overrides = {}, options = {}) {
     vector,
     module
   });
+  const requirementsAlgebraDeclarations =
+    typeof options.requirementsAlgebraDeclarations === "function"
+      ? options.requirementsAlgebraDeclarations({ graphFunction, graph, vector })
+      : options.requirementsAlgebraDeclarations;
   const targetCarrierContracts = [
     targetCarrierContractRow({
       edgeRef: graphFunctionName,
@@ -1119,6 +1344,9 @@ function compliantInput(overrides = {}, options = {}) {
       }
     ],
     pluginContracts: [pluginContract()],
+    ...(requirementsAlgebraDeclarations === undefined
+      ? {}
+      : { requirementsAlgebraDeclarations }),
     traversalBindConservation: traversalBindConservationRows({
       graphFunction,
       graph,
@@ -1146,6 +1374,52 @@ function assertRule(report, ruleRef) {
 
 function assertNoRule(report, ruleRef) {
   assert.equal(issueRuleRefs(report).has(ruleRef), false, ruleRef);
+}
+
+function semanticCompilerReviewGateFromResult(result, gateRef) {
+  return {
+    gateRef,
+    subjectRef: result.subjectRef,
+    deterministicReportDigest: result.deterministicReportDigest,
+    reviewResultKind: result.kind,
+    reviewVersion: result.reviewVersion,
+    sourcePackageDigest: result.sourcePackageDigest,
+    workerControlContractRef: result.workerControlContractRef,
+    authorityPacketRef: result.authorityPacketRef,
+    objectiveRef: result.objectiveRef,
+    targetArtifactRef: result.targetArtifactRef,
+    toolBoundaryRefs: result.toolBoundaryRefs,
+    requiredArtifactDeltaKind: result.requiredArtifactDeltaKind,
+    stopConditionRef: result.stopConditionRef,
+    fdPackageGrammarRef: result.fdPackageGrammarRef,
+    fdResultGrammarRef: result.fdResultGrammarRef,
+    fdProgressTelemetryGrammarRef: result.fdProgressTelemetryGrammarRef,
+    fdProgressMetricRef: result.fdProgressMetricRef,
+    fdAdmissionFsmRef: result.fdAdmissionFsmRef,
+    fdOutputStateEnumRef: result.fdOutputStateEnumRef,
+    fdDerivationRuleRef: result.fdDerivationRuleRef,
+    fdForbiddenInterpretation: result.fdForbiddenInterpretation,
+    status: result.status,
+    findingCount: result.findingCount,
+    reviewerProfileRef: result.reviewerProfileRef,
+    reviewedAt: result.reviewedAt,
+    producerGraphFunctionRef: result.producerGraphFunctionRef,
+    producerGraphFunctionDigest: result.producerGraphFunctionDigest,
+    producerRuntimeKind: result.producerRuntimeKind,
+    producerRuntimeRef: result.producerRuntimeRef,
+    admissionRef: result.admissionRef,
+    evidenceRefs: result.evidenceRefs
+  };
+}
+
+function serializedScalar(attrs, key) {
+  const entry = attrs.entries.find((candidate) => candidate.key === key);
+  return entry?.value.kind === "scalar" ? entry.value.value : null;
+}
+
+function serializedStringList(attrs, key) {
+  const entry = attrs.entries.find((candidate) => candidate.key === key);
+  return entry?.value.kind === "string_list" ? entry.value.value : [];
 }
 
 function multiVectorGraphFunctionFixture() {
@@ -1649,7 +1923,9 @@ test("T-159 GTL program typechecker admits a JS hello-world materialization unit
         outputSurface,
         promptSurface: outputSurface,
         targetCarrierContractRef:
-          "gtl://target-carrier-contract/t159/hello-world-js/index-js"
+          "gtl://target-carrier-contract/t159/hello-world-js/index-js",
+        requirementsAlgebraDeclarations:
+          helloWorldRequirementsAlgebraDeclarations
       }
     )
   );
@@ -1668,6 +1944,34 @@ test("T-159 GTL program typechecker admits a JS hello-world materialization unit
   assert.deepEqual(unit?.materializationPolicyRefs, [
     "materialization://t150/target-carrier/HelloWorldJsProgram"
   ]);
+  assert.deepEqual(unit?.requirementRefs, [
+    T162_HELLO_WORLD_REQUIREMENT_ID
+  ]);
+  assert.deepEqual(unit?.requirementSpanRefs, [T162_HELLO_WORLD_SPAN_ID]);
+  assert.deepEqual(unit?.requirementTestRelationRefs, [
+    T162_HELLO_WORLD_TEST_RELATION_REF
+  ]);
+  assert.deepEqual(unit?.requirementEvidencePolicyRefs, [
+    T162_HELLO_WORLD_EVIDENCE_POLICY_REF
+  ]);
+  assert.equal(
+    report.requirementsAlgebraProjection.kind,
+    "gtl_program_requirements_algebra_projection"
+  );
+  assert.equal(report.requirementsAlgebraProjection.declarationBundleCount, 1);
+  assert.deepEqual(report.requirementsAlgebraProjection.requirementIds, [
+    T162_HELLO_WORLD_REQUIREMENT_ID
+  ]);
+  assert.deepEqual(report.requirementsAlgebraProjection.spanRefs, [
+    T162_HELLO_WORLD_SPAN_ID
+  ]);
+  assert.deepEqual(report.requirementsAlgebraProjection.testRelationRefs, [
+    T162_HELLO_WORLD_TEST_RELATION_REF
+  ]);
+  assert.match(
+    report.inventoryDigests.requirementsAlgebraDeclarations,
+    /^sha256:/u
+  );
   assert.deepEqual(
     unit?.allowedObligationDeltaFamilies,
     [...OBLIGATION_DELTA_FAMILIES].sort()
@@ -1676,6 +1980,231 @@ test("T-159 GTL program typechecker admits a JS hello-world materialization unit
   assert.deepEqual(
     report.traversalUnitProjection.entryUnits[0]?.entryUnitRefs,
     [unit?.unitRef]
+  );
+});
+
+test("T-162 GTL program typechecker admits requirement spans by graph-vector id", () => {
+  const report = typecheckGtlProgram(
+    compliantInput(
+      {},
+      {
+        graphFunctionName: "construct_hello_world_js",
+        vectorName: "intent_to_hello_world_js",
+        graphName: "HelloWorldJsConstructionGraph",
+        inputName: "HelloWorldIntent",
+        outputName: "HelloWorldJsProgram",
+        inputSurface: assetSurface({
+          kind: "hello_world_intent",
+          outputContractRefs: ["contract://t159/hello-world-js/intent"]
+        }),
+        outputSurface: assetSurface({
+          kind: "javascript_program",
+          requiredContexts: ["workspace", "node_runtime"],
+          standardsRefs: ["standard://javascript/node/hello-world"],
+          outputContractRefs: ["contract://t159/hello-world-js/index-js"],
+          constructorRefs: ["constructor://t159/hello-world-js/materializer"],
+          constructorInputAssetKinds: ["hello_world_intent"],
+          proofObligationRefs: [
+            "proof://t159/hello-world-js/file-materialized",
+            "proof://t159/hello-world-js/node-stdout"
+          ]
+        }),
+        requirementsAlgebraDeclarations:
+          helloWorldRequirementsAlgebraDeclarationsWithVectorId
+      }
+    )
+  );
+
+  assert.equal(report.passed, true, formatGtlProgramConformanceIssues(report.issues));
+  assert.deepEqual(report.requirementsAlgebraProjection.spanRefs, [
+    T162_HELLO_WORLD_SPAN_ID
+  ]);
+  assert.deepEqual(
+    report.traversalUnitProjection.units[0]?.requirementRefs,
+    [T162_HELLO_WORLD_REQUIREMENT_ID]
+  );
+});
+
+test("T-162 GTL program typechecker rejects malformed requirements algebra declarations", () => {
+  const report = typecheckGtlProgram(
+    compliantInput({
+      requirementsAlgebraDeclarations: [
+        {
+          kind: "gtl_requirements_algebra_declaration_bundle",
+          declarationKey: "gtl.requirements_algebra",
+          unexpectedPayload: true,
+          requirements: [
+            {
+              kind: "gtl_requirement_declaration",
+              requirementId: "REQ-T162-BAD-001",
+              termKind: "atom",
+              stableId: "REQ-T162-BAD-001",
+              sourceRef: "specification/requirements/bad.md#REQ-T162-BAD-001",
+              sourceDigest: "not-a-digest",
+              relationRefs: ["relation://t162/missing"],
+              spanRefs: ["span://t162/missing"],
+              contextRefs: ["context://t162/missing"],
+              evidencePolicyRefs: [],
+              closureDecision: "close"
+            }
+          ],
+          relations: [
+            {
+              kind: "gtl_requirement_relation_declaration",
+              relationId: "relation://t162/bad",
+              relationKind: "not-a-relation-kind",
+              fromRequirementId: "REQ-T162-BAD-001",
+              toRequirementId: "REQ-T162-MISSING"
+            }
+          ],
+          spans: [
+            {
+              kind: "gtl_traversal_span_declaration",
+              spanId: "span://t162/bad",
+              graphFunctionRef: "missing_graph_function",
+              graphVectorRefs: ["missing_graph_vector"],
+              vectorIndexes: [99],
+              sourceNodeRef: "WrongSource",
+              targetNodeRef: "WrongTarget"
+            }
+          ],
+          contextFragments: [
+            {
+              kind: "gtl_authority_context_fragment_declaration",
+              fragmentRef: "context://t162/bad",
+              originStage: "requirements",
+              constraintScope: "bad context fragment",
+              digest: "not-a-digest",
+              promotionPolicyRef: "promotion-policy://t162/bad",
+              appliesToRefs: []
+            }
+          ],
+          destinationTopologies: [
+            {
+              kind: "gtl_destination_topology_declaration",
+              topologyRef: "destination-topology://t162/bad",
+              frameworkRef: "runtime://bad",
+              constraintRefs: ["constraint://t162/missing"],
+              appliesToRefs: ["missing-ref"]
+            }
+          ],
+          testRelations: [
+            {
+              kind: "gtl_requirement_test_relation_declaration",
+              relationRef: "test-relation://t162/bad",
+              requirementId: "REQ-T162-MISSING",
+              assetProjectionRef: "projection://t162/bad/asset",
+              testSourceProjectionRef: "projection://t162/bad/test-source",
+              testExecutionProjectionRef:
+                "projection://t162/bad/test-execution",
+              interpretationProjectionRef:
+                "projection://t162/bad/interpretation",
+              componentTestRootRefs: [],
+              evidencePolicyRef: "evidence-policy://t162/bad"
+            },
+            {
+              kind: "gtl_requirement_test_relation_declaration",
+              relationRef: "test-relation://t162/bad/policy",
+              requirementId: "REQ-T162-BAD-001",
+              assetProjectionRef: "asset://t162/bad/not-a-projection",
+              testSourceProjectionRef:
+                "projection://t162/bad/policy/test-source",
+              testExecutionProjectionRef:
+                "projection://t162/bad/policy/test-execution",
+              interpretationProjectionRef:
+                "projection://t162/bad/policy/interpretation",
+              componentTestRootRefs: ["test_env/tests"],
+              evidencePolicyRef: "evidence-policy://t162/unowned"
+            }
+          ]
+        }
+      ]
+    })
+  );
+  const ruleRefs = issueRuleRefs(report);
+
+  assert.equal(report.passed, false);
+  assert(ruleRefs.has("abg://gtl-program/requirements-algebra/open-payload"));
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/requirements-algebra/no-runtime-authority-fields"
+    )
+  );
+  assert(ruleRefs.has("abg://gtl-program/requirements-algebra/source-digest"));
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/requirements-algebra/relation-ref-resolves"
+    )
+  );
+  assert(
+    ruleRefs.has("abg://gtl-program/requirements-algebra/span-ref-resolves")
+  );
+  assert(
+    ruleRefs.has("abg://gtl-program/requirements-algebra/context-ref-resolves")
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/requirements-algebra/graph-function-ref-resolves"
+    )
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/requirements-algebra/graph-vector-ref-resolves"
+    )
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/requirements-algebra/context-promotion-policy-admitted"
+    )
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/requirements-algebra/topology-constraint-ref-resolves"
+    )
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/requirements-algebra/test-evidence-policy-ref-resolves"
+    )
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/requirements-algebra/test-projection-ref-grammar"
+    )
+  );
+  assert(
+    ruleRefs.has("abg://gtl-program/requirements-algebra/test-root-coverage")
+  );
+});
+
+test("T-162 GTL program typechecker rejects malformed requirements relation graphs", () => {
+  const report = typecheckGtlProgram(
+    compliantInput(
+      {},
+      {
+        graphFunctionName: "construct_hello_world_js",
+        vectorName: "intent_to_hello_world_js",
+        graphName: "HelloWorldJsConstructionGraph",
+        inputName: "HelloWorldIntent",
+        outputName: "HelloWorldJsProgram",
+        requirementsAlgebraDeclarations:
+          relationGraphRequirementsAlgebraDeclarations
+      }
+    )
+  );
+
+  assert.equal(report.passed, false);
+  assertRule(
+    report,
+    "abg://gtl-program/requirements-algebra/relation-self-reference"
+  );
+  assertRule(
+    report,
+    "abg://gtl-program/requirements-algebra/relation-cycle"
+  );
+  assertRule(
+    report,
+    "abg://gtl-program/requirements-algebra/relation-contradiction"
   );
 });
 
@@ -3381,13 +3910,64 @@ test("T-204 GTL program typechecker rejects duplicate or unresolved source-autho
   );
 });
 
-test("T-204 GTL program typechecker admits fail-closed semantic F_P review gates", () => {
-  const selfRun = runAbgSemanticCompilerFpReviewGraphFunction({
+test("T-162 semantic compiler graph self-reviews with constrained F_P worker control", () => {
+  const semanticCompilerGraphFunction =
+    constructAbgSemanticCompilerFpReviewGraphFunction();
+  const semanticCompilerGraph = materializeGraphFunction(
+    semanticCompilerGraphFunction
+  );
+  const semanticCompilerVector = semanticCompilerGraph.vectors[0];
+  assert.notEqual(semanticCompilerVector, undefined);
+  const graphFiniteSurfaceRefs = serializedStringList(
+    semanticCompilerGraphFunction.declarations,
+    "t162.fd_finite_surface_refs"
+  );
+  const vectorFiniteSurfaceRefs = serializedStringList(
+    semanticCompilerVector.declarations,
+    "t162.fd_finite_surface_refs"
+  );
+  assert.equal(
+    serializedScalar(
+      semanticCompilerGraphFunction.declarations,
+      "t162.worker_control_contract_ref"
+    ),
+    ABG_SEMANTIC_COMPILER_FP_REVIEW_WORKER_CONTROL_CONTRACT_REF
+  );
+  assert.equal(
+    serializedScalar(
+      semanticCompilerVector.declarations,
+      "t162.required_artifact_delta_kind"
+    ),
+    ABG_SEMANTIC_COMPILER_FP_REVIEW_REQUIRED_ARTIFACT_DELTA_KIND
+  );
+  assert(graphFiniteSurfaceRefs.includes(
+    ABG_SEMANTIC_COMPILER_FP_REVIEW_PROGRESS_METRIC_REF
+  ));
+  assert(vectorFiniteSurfaceRefs.includes(
+    ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_FSM_REF
+  ));
+
+  const selfPackage = constructAbgSemanticCompilerFpReviewPackageIdentity({
     kind: "abg_semantic_compiler_fp_review_graph_function_package",
-    packageVersion: "abg-semantic-compiler-fp-review-self-v1",
+    packageVersion: "abg-semantic-compiler-fp-review-self-t162-v1",
     subjectRef: ABG_SEMANTIC_COMPILER_FP_REVIEW_GRAPH_FUNCTION_REF,
     deterministicReportDigest:
       abgSemanticCompilerFpReviewGraphFunctionDigest(),
+    authorityPacketRef:
+      "authority-packet://abiogenesis/semantic-compiler-self/t162",
+    objectiveRef:
+      "objective://abiogenesis/semantic-compiler-self-review/t162",
+    targetArtifactRef:
+      "artifact://abiogenesis/semantic-compiler-self-review/result",
+    toolBoundaryRefs: [
+      "tool-boundary://abiogenesis/semantic-compiler/read-graph",
+      "tool-boundary://abiogenesis/semantic-compiler/write-review-result"
+    ],
+    stopConditionRef:
+      "stop-condition://abiogenesis/semantic-compiler-self-review/result-or-residual"
+  });
+  const selfRun = runAbgSemanticCompilerFpReviewGraphFunction({
+    ...selfPackage,
     reviewerProfileRef: "reviewer-profile://abiogenesis/compiler-self",
     reviewedAt: "2026-06-25T00:00:00.000Z",
     evidenceRefs: ["test://t150/semantic-review-self-run"]
@@ -3407,13 +3987,64 @@ test("T-204 GTL program typechecker admits fail-closed semantic F_P review gates
   assert.equal(selfRun.result.status, "passed");
   assert.equal(selfRun.result.findingCount, 0);
   assert.equal(selfRun.admission.passed, true);
+  assert.equal(
+    selfRun.result.workerControlContractRef,
+    ABG_SEMANTIC_COMPILER_FP_REVIEW_WORKER_CONTROL_CONTRACT_REF
+  );
+  assert.equal(
+    selfRun.result.requiredArtifactDeltaKind,
+    ABG_SEMANTIC_COMPILER_FP_REVIEW_REQUIRED_ARTIFACT_DELTA_KIND
+  );
+  assert.equal(
+    selfRun.result.fdPackageGrammarRef,
+    ABG_SEMANTIC_COMPILER_FP_REVIEW_PACKAGE_GRAMMAR_REF
+  );
+  assert.equal(
+    selfRun.result.fdResultGrammarRef,
+    ABG_SEMANTIC_COMPILER_FP_REVIEW_RESULT_GRAMMAR_REF
+  );
+  assert.equal(
+    selfRun.result.fdProgressTelemetryGrammarRef,
+    ABG_SEMANTIC_COMPILER_FP_REVIEW_PROGRESS_TELEMETRY_GRAMMAR_REF
+  );
+  assert.equal(
+    selfRun.result.fdProgressMetricRef,
+    ABG_SEMANTIC_COMPILER_FP_REVIEW_PROGRESS_METRIC_REF
+  );
+  assert.equal(
+    selfRun.result.fdAdmissionFsmRef,
+    ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_FSM_REF
+  );
+  assert.equal(
+    selfRun.result.fdOutputStateEnumRef,
+    ABG_SEMANTIC_COMPILER_FP_REVIEW_OUTPUT_STATE_ENUM_REF
+  );
+  assert.equal(
+    selfRun.result.fdDerivationRuleRef,
+    ABG_SEMANTIC_COMPILER_FP_REVIEW_DERIVATION_RULE_REF
+  );
+  assert.equal(
+    selfRun.result.fdForbiddenInterpretation,
+    ABG_SEMANTIC_COMPILER_FP_REVIEW_FD_FORBIDDEN_INTERPRETATION
+  );
 
-  const reviewPackage = {
+  const reviewPackage = constructAbgSemanticCompilerFpReviewPackageIdentity({
     kind: "sdlc_semantic_compiler_prompt_review_package",
-    packageVersion: "ts-semantic-compiler-prompt-review-v1",
+    packageVersion: "ts-semantic-compiler-prompt-review-t162-v1",
     subjectRef: "workspace://t150/program-conformance-tool",
-    deterministicReportDigest: "sha256:semantic-prompt-package"
-  };
+    deterministicReportDigest: "sha256:semantic-prompt-package",
+    authorityPacketRef:
+      "authority-packet://t150/semantic-compiler-prompt-review",
+    objectiveRef: "objective://t150/semantic-compiler-prompt-review",
+    targetArtifactRef:
+      "artifact://t150/semantic-compiler-prompt-review/result",
+    toolBoundaryRefs: [
+      "tool-boundary://t150/read-conformance-package",
+      "tool-boundary://t150/write-semantic-review-result"
+    ],
+    stopConditionRef:
+      "stop-condition://t150/semantic-compiler-prompt-review/result-or-residual"
+  });
   const validRun = runAbgSemanticCompilerFpReviewGraphFunction({
     ...reviewPackage,
     reviewerProfileRef: "reviewer-profile://t150/fp-code-review",
@@ -3421,25 +4052,10 @@ test("T-204 GTL program typechecker admits fail-closed semantic F_P review gates
     evidenceRefs: ["test://t150/semantic-review"]
   });
   const validResult = validRun.result;
-  const validGate = {
-    gateRef: "semantic-review-gate://t150/prompt-materialization/fp",
-    subjectRef: validResult.subjectRef,
-    deterministicReportDigest: validResult.deterministicReportDigest,
-    reviewResultKind: validResult.kind,
-    reviewVersion: validResult.reviewVersion,
-    sourcePackageDigest: validResult.sourcePackageDigest,
-    status: validResult.status,
-    findingCount: validResult.findingCount,
-    reviewerProfileRef: validResult.reviewerProfileRef,
-    reviewedAt: validResult.reviewedAt,
-    producerGraphFunctionRef: ABG_SEMANTIC_COMPILER_FP_REVIEW_GRAPH_FUNCTION_REF,
-    producerGraphFunctionDigest:
-      abgSemanticCompilerFpReviewGraphFunctionDigest(),
-    producerRuntimeKind: ABG_SEMANTIC_COMPILER_FP_REVIEW_RUNTIME_KIND,
-    producerRuntimeRef: ABG_SEMANTIC_COMPILER_FP_REVIEW_RUNTIME_REF,
-    admissionRef: ABG_SEMANTIC_COMPILER_FP_REVIEW_ADMISSION_REF,
-    evidenceRefs: validResult.evidenceRefs
-  };
+  const validGate = semanticCompilerReviewGateFromResult(
+    validResult,
+    "semantic-review-gate://t150/prompt-materialization/fp"
+  );
 
   assert.equal(
     typecheckGtlProgram(
@@ -3461,6 +4077,18 @@ test("T-204 GTL program typechecker admits fail-closed semantic F_P review gates
           reviewResultKind: "unadmitted_review_result",
           status: "failed",
           findingCount: 2,
+          workerControlContractRef:
+            "contract://t150/local-semantic-worker-control",
+          requiredArtifactDeltaKind: "local_semantic_review",
+          toolBoundaryRefs: [],
+          fdPackageGrammarRef: "grammar://t150/local-package",
+          fdResultGrammarRef: "grammar://t150/local-result",
+          fdProgressTelemetryGrammarRef: "grammar://t150/local-progress",
+          fdProgressMetricRef: "metric://t150/local-progress",
+          fdAdmissionFsmRef: "fsm://t150/local-admission",
+          fdOutputStateEnumRef: "enum://t150/local-output",
+          fdDerivationRuleRef: "derivation://t150/local-fd",
+          fdForbiddenInterpretation: "local deterministic semantic judgment",
           producerGraphFunctionRef: "graph-function://t150/local-review",
           producerGraphFunctionDigest: "sha256:local-review",
           producerRuntimeKind: "local_script",
@@ -3492,6 +4120,16 @@ test("T-204 GTL program typechecker admits fail-closed semantic F_P review gates
   assert(
     ruleRefs.has(
       "abg://gtl-program/semantic-review-gate/admitted-result-kind"
+    )
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/semantic-review-gate/t162-worker-control"
+    )
+  );
+  assert(
+    ruleRefs.has(
+      "abg://gtl-program/semantic-review-gate/t162-fd-finite-surface"
     )
   );
   assert(

@@ -378,7 +378,7 @@ test("T-184 ABG terminal truth controls non-close traversal", () => {
   );
   assert.match(
     installedOperatorSource,
-    /if \(input\.terminalKind === "gap_stop"\) \{\s*return "blocked";\s*\}/u
+    /if \(input\.closureDisposition === "retry"\) \{\s*return "worker_invoked";\s*\}[\s\S]*?if \(input\.terminalKind === "gap_stop"\) \{\s*return "blocked";\s*\}/u
   );
   assert.doesNotMatch(
     installedOperatorSource,
@@ -541,6 +541,14 @@ test("T-184 operator timeout policy is tenant configuration, not handoff glue", 
     runtimePolicy.designDepthFpEvaluator.timeoutMs,
     600000
   );
+  assert.equal(
+    runtimePolicy.designDepthFpEvaluator.firstUpdateTimeoutMs,
+    120000
+  );
+  assert.ok(
+    runtimePolicy.designDepthFpEvaluator.firstUpdateTimeoutMs <
+      runtimePolicy.designDepthFpEvaluator.timeoutMs
+  );
   assert.ok(
     runtimePolicy.designDepthFpEvaluator.timeoutMs <
       runtimePolicy.minimumOperatorTimeoutMs
@@ -679,7 +687,7 @@ test("T-184 F_P evaluator prompt uses incremental content register writes", () =
   assert.doesNotMatch(evaluatorPromptSource, /node --input-type=module/u);
   assert.match(evaluatorPromptSource, /There is no framework-authored recipe/u);
   assert.match(evaluatorPromptSource, /F_D does not construct semantic register rows/u);
-  assert.match(installedOperatorSource, /writeDesignDepthFpEvaluatorDraftContentRegister/u);
+  assert.doesNotMatch(installedOperatorSource, /writeDesignDepthFpEvaluatorDraftContentRegister/u);
   assert.match(installedOperatorSource, /writeDesignDepthFirstUpdateObservation/u);
   assert.match(installedOperatorSource, /design_depth_fp_evaluator_first_update\.json/u);
   assert.match(contentRegisterSource, /observeDesignDepthContentRegisterFirstUpdate/u);
@@ -689,11 +697,43 @@ test("T-184 F_P evaluator prompt uses incremental content register writes", () =
   );
   assert.match(
     installedOperatorSource,
-    /reason:\s*workerProcessTextLooksRetryableProviderFailure\(evaluatorProcessText\)[\s\S]*\?\s*"worker_connection_failed"[\s\S]*:\s*processResult\.timedOut[\s\S]*\?\s*"design_depth_fp_evaluator_progress_timeout"[\s\S]*:\s*"design_depth_fp_evaluator_process_failed"/u
+    /reason:\s*workerProcessTextLooksRetryableProviderFailure\(evaluatorProcessText\)[\s\S]*\?\s*"worker_connection_failed"[\s\S]*processResult\.outcome\.kind === "external_progress_timeout"[\s\S]*"design_depth_fp_evaluator_first_update_timeout"[\s\S]*processResult\.timedOut[\s\S]*\?\s*"design_depth_fp_evaluator_progress_timeout"[\s\S]*:\s*"design_depth_fp_evaluator_process_failed"/u
   );
   assert.match(
     installedOperatorSource,
     /processResult\.timedOut && firstUpdateObservation\.status === "pending"[\s\S]*\?\s*"design_depth_fp_evaluator_first_update_timeout"/u
+  );
+  assert.match(
+    installedOperatorSource,
+    /externalProgressTimeoutMs: evaluatorFirstUpdateTimeoutMs/u
+  );
+  assert.match(
+    installedOperatorSource,
+    /externalProgressTimeoutMs: evaluatorProgressTimeoutMs/u
+  );
+  assert.match(
+    installedOperatorSource,
+    /externalProgressTimeoutReason:\s*"design_depth_fp_evaluator_first_update_timeout"/u
+  );
+  assert.match(
+    installedOperatorSource,
+    /observeDesignDepthContentRegisterProgressSnapshot/u
+  );
+  assert.match(
+    installedOperatorSource,
+    /designDepthContentRegisterProgressAdvanced/u
+  );
+  assert.match(
+    installedOperatorSource,
+    /lastContentRegisterProgressMetricKey/u
+  );
+  assert.match(
+    installedOperatorSource,
+    /design_depth_fp_evaluator_progress_surface\.json/u
+  );
+  assert.match(
+    installedOperatorSource,
+    /design_depth_fp_evaluator_progress_snapshot\.json/u
   );
   assert.match(
     installedOperatorSource,
@@ -716,12 +756,53 @@ test("T-184 F_P evaluator prompt uses incremental content register writes", () =
     /code === "design_depth_fp_evaluator_progress_timeout"[\s\S]*lawfulReentryPoint: "same_edge_retry"/u
   );
   assert.match(
+    blockingReasonSource,
+    /code === "design_depth_fp_evaluator_pending"[\s\S]*lawfulReentryPoint: "same_edge_retry"/u
+  );
+  assert.match(
     evaluatorPromptSource,
     /SDLC_DESIGN_DEPTH_REGISTER_FRAGMENT_DRAFT_CONTENT_KIND/u
   );
   assert.match(contentRegisterSource, /sdlc_design_depth_register_fragment_draft/u);
   assert.match(evaluatorPromptSource, /content-register-row-draft:\/\//u);
+  assert.match(evaluatorPromptSource, /durable evaluation artifact is not pre-created/u);
+  assert.match(
+    evaluatorPromptSource,
+    /Do not try to read the content register[\s\S]*before the first semantic update/u
+  );
+  assert.match(
+    evaluatorPromptSource,
+    /First action law: before any Read call, Write a minimal semantic pressure checkpoint/u
+  );
+  assert.match(
+    evaluatorPromptSource,
+    /The F_P worker chooses entity, attribute, and flow axis statuses/u
+  );
+  assert.match(
+    evaluatorPromptSource,
+    /ABG observes the artifact delta through the declared content-register progress metric/u
+  );
+  assert.match(
+    evaluatorPromptSource,
+    /Write \$\{input\.contentRegisterPath\} before any Read call|Write .* before any Read call/u
+  );
+  assert.match(
+    evaluatorPromptSource,
+    /First semantic update may be partial/u
+  );
+  assert.match(
+    evaluatorPromptSource,
+    /Do not preserve draft rows in the first semantic update/u
+  );
   assert.match(evaluatorPromptSource, /sdlc_design_depth_register_fragment/u);
+  assert.doesNotMatch(
+    installedOperatorSource,
+    /first F_P pressure checkpoint before bounded design-depth inspection/u
+  );
+  assert.doesNotMatch(
+    installedOperatorSource,
+    /The checkpoint is partial by construction/u
+  );
   assert.match(installedOperatorSource, /ODD_SDLC_EVALUATOR_INCREMENTAL_REGISTER/u);
   assert.doesNotMatch(installedOperatorSource, /ODD_SDLC_EVALUATOR_INCREMENTAL_LEDGER/u);
   assert.doesNotMatch(installedOperatorSource, /ODD_SDLC_EVALUATOR_CONTENT_LEDGER/u);

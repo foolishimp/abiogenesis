@@ -1,6 +1,6 @@
 // Implements: T-183
 
-import { existsSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import type {
@@ -313,9 +313,27 @@ function predecessorDesignRegisterArchiveRoots(
 ): readonly string[] {
   return uniqueSorted(
     [
+      ...siblingDesignRegisterArchiveRoots(manifest),
       ...manifest.traversalObligationContext.priorEdgeRefs,
       ...implementationDesignSourceAssetRefs(manifest)
     ].flatMap((ref) => operatorRunArchiveRootsFromRef(ref))
+  );
+}
+
+function siblingDesignRegisterArchiveRoots(
+  manifest: SdlcWorkerHandoffManifest
+): readonly string[] {
+  const operatorRunsRoot = dirname(manifest.archiveRoot);
+  if (!existsSync(operatorRunsRoot) || !statSync(operatorRunsRoot).isDirectory()) {
+    return Object.freeze([]);
+  }
+  const currentArchiveName = manifest.archiveRoot.split("/").at(-1) ?? "";
+  return Object.freeze(
+    readdirSync(operatorRunsRoot, { withFileTypes: true })
+      .filter((entry) => entry.isDirectory())
+      .map((entry) => entry.name)
+      .filter((name) => name < currentArchiveName)
+      .map((name) => pathToFileURL(join(operatorRunsRoot, name)).href)
   );
 }
 
@@ -361,6 +379,19 @@ export function predecessorDesignDepthFpEvaluatorRegisterPaths(
         predecessorDesignRegisterArchiveMatchesCurrent({ archiveRoot, manifest })
       )
       .map(designDepthFpEvaluatorRegisterPathForArchiveRoot)
+      .filter((filePath) => existsSync(filePath) && statSync(filePath).isFile())
+  );
+}
+
+export function predecessorDesignDepthFpEvaluatorContentRegisterPaths(
+  manifest: SdlcWorkerHandoffManifest
+): readonly string[] {
+  return uniqueSorted(
+    predecessorDesignRegisterArchiveRoots(manifest)
+      .filter((archiveRoot) =>
+        predecessorDesignRegisterArchiveMatchesCurrent({ archiveRoot, manifest })
+      )
+      .map(designDepthFpEvaluatorContentRegisterPathForArchiveRoot)
       .filter((filePath) => existsSync(filePath) && statSync(filePath).isFile())
   );
 }

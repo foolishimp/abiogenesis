@@ -473,6 +473,8 @@ function compactDesignDepthPromptLineGroups(input: {
   readonly selectedCompositionDigest: string;
   readonly selectedCompositionSelectionRef: string;
   readonly selectedRegimeBindingRef: string | null;
+  readonly sourceArtifactPreviewLines?: readonly string[] | undefined;
+  readonly contentRegisterTelemetryLines?: readonly string[] | undefined;
   readonly tenantToolEnvironment?: SdlcTenantToolEnvironmentProjection;
 }): EvaluatePromptLineGroups {
   return Object.freeze({
@@ -485,6 +487,15 @@ function compactDesignDepthPromptLineGroups(input: {
       "- Do not reconstruct global coverage, closure, continuation, or trace policy as a second SDLC. Coverage is a structural fold over refs; ABG owns close/block/redispatch.",
       "- This is evaluation work. Do not rewrite the ADR, source files, tests, package files, reports, ledgers, or product materialization outputs.",
       `- Durable evaluation artifact to create and validate: ${input.contentRegisterPath}`,
+      "- If the durable evaluation artifact does not exist, its first existence must be an F_P-authored semantic content register, not framework-authored draft rows. If it already exists from a checkpoint or carried-forward retry, continue from its visible rows.",
+      "- First progress law: before semantic inspection, publish the next visible F_P content-register row. The row is not closure; it is the visible F_P pressure point for later attenuation and repair.",
+      "- F_D telemetry below is only section-presence observation over the content-register grammar. It does not judge semantic adequacy.",
+      "- The F_P worker chooses entity, attribute, and flow axis statuses for designCompletenessVerdict and chooses all non-verdict section values from authority.",
+      ...(input.contentRegisterTelemetryLines ?? Object.freeze([
+        "- observedSections: unknown",
+        "- missingSections: unknown",
+        "- nextRepairSection: unknown"
+      ])),
       `- Optional observation-only subworkstream manifest: ${input.subworkstreamManifestPath}`,
       "",
       "Admitted edge packet:",
@@ -494,25 +505,53 @@ function compactDesignDepthPromptLineGroups(input: {
       ...tenantToolBoundaryPromptLines(input.tenantToolEnvironment),
       "- Tool-profile contract: obey the active tool list. If command execution is not exposed, inspect with bounded file reads/writes only. If command execution is exposed by the worker runtime, use it only for bounded workspace-relative read-only inspection or the named content-register update helper when this prompt permits it; do not run product, build, test, framework, traversal, or background commands.",
       "- Read boundary: use only workspace-relative paths or explicit workspace/run-archive paths named in this prompt; do not read/cite/copy sibling sandboxes, historical test_runs, home memory, /tmp, or outside-workspace absolute paths.",
-      "- Read cap: every Read tool call over JSON, Markdown, report, manifest, or source artifacts must set limit <=80; inspect only the lines needed for the current register section."
+      "- Read cap: every Read tool call over JSON, Markdown, report, manifest, or source artifacts must set limit <=80, except the content-register overwrite-preservation read named below may set limit <=160; inspect only the lines needed for the current register section."
     ]),
     postAuthorityLines: Object.freeze([
       "",
-      "Read in order:",
+      "First tool action:",
+      "Post-checkpoint repair contract: when the content register already exists and F_D telemetry names nextRepairSection, the bounded content-register read is the only permitted pre-write action; the immediately following tool call must be Write to the same content register adding or replacing that fragment row.",
+      "Do not emit analysis, planning text, or inspect governance, brief, ADR, worker report, or invocation package between that content-register read and the repair Write.",
+      "For nextRepairSection=stackProfileRows, the compressed Stack Profile preview in this prompt is sufficient authority for the F_P worker to choose stackRef, language, and buildTool when those facts are visible. If the worker judges the preview contradictory or insufficient, it must Write an explicitly partial or blocked row/reason instead of waiting for more reads.",
+      `1. Read only ${input.contentRegisterPath} with limit <=160. This read is overwrite mechanics and row preservation, not semantic authority gathering.`,
+      "2. If the read reports the file is missing, Write the required envelope with exactly one non-draft designCompletenessVerdict fragment row, reply repair=designCompletenessVerdict, and stop.",
+      "3. If the F_D telemetry says missingSections is none, perform only a bounded self-check and reply register=complete; do not rewrite it.",
+      "4. Otherwise, Write the same content register preserving existing semantic rows plus at least one added or replaced fragment row. The first required new row is nextRepairSection from the telemetry. Include additional missingSections rows in the same Write when they are grounded by the current authority packet. Stop after that write and reply repair=<comma-separated sections>.",
+      "5. Existing-checkpoint branch: if the file already exists with a non-draft designCompletenessVerdict checkpoint, do not apply a single-verdict checkpoint rule again. The first repair row must be nextRepairSection; when nextRepairSection is stackProfileRows, derive language and buildTool from the compressed Stack Profile preview.",
+      "6. Use the compressed ADR/output preview only to create the next grounded section row. Do not attempt a full-register row until every required fragment section is already present or the run is performing the final bounded self-check.",
+      "7. This register is a pressure surface. Do not claim closure unless all rows are grounded in admitted authority and the bounded self-check passes; do not add reviewedObligationIds/findings/status/summary, and do not use draft rowRefs.",
+      "",
+      "Compressed ADR/output preview:",
+      ...(input.sourceArtifactPreviewLines?.length
+        ? input.sourceArtifactPreviewLines.map((line) => `- ${line}`)
+        : Object.freeze([
+            "- unavailable; first write must be a blocked/partial designCompletenessVerdict checkpoint, then repair after bounded reads."
+          ])),
+      "",
+      "Then read and repair in order:",
       `1. compressed work-category governance (${input.governanceRef}): ${input.governancePath}`,
       `2. construction brief: ${input.constructionBriefPath}`,
-      `3. pre-created draft content register: ${input.contentRegisterPath}`,
-      "4. worker result summary below; inspect the worker report only for a named missing detail.",
-      `5. bounded inspection of the ADR/output artifact: ${input.manifest.outputFile}; the framework has already written the draft register, so this read is allowed before the first semantic update.`,
+      "3. worker result summary below; inspect the worker report only for a named missing detail.",
+      `4. bounded inspection of the ADR/output artifact: ${input.manifest.outputFile}; read only the bounded slices needed to repair concrete register sections.`,
       "",
       "Precomputed worker result report summary:",
       ...input.workerReportSummaryLines.map((line) => `- ${line}`),
       "",
       "Hard bounds:",
       `- Do not use the Read tool on the handoff manifest (${input.manifestPath}); selected edge facts are in this prompt.`,
+      `- Do not delete or replace an existing checkpoint in the content register (${input.contentRegisterPath}). If it exists, repair it by adding/replacing named section rows.`,
+      "- Do not read any semantic authority before the first repair write. The only pre-repair read is the content register itself to preserve existing rows.",
+      "- If the checkpoint exists when this prompt starts, reading only that content register to preserve its rows is allowed; the next tool action must publish nextRepairSection coverage, not another checkpoint-only register.",
+      "- The post-checkpoint repair contract overrides the read-order list below: publish nextRepairSection first, then perform any bounded follow-on read needed for later sections.",
+      "- Do not use the compressed preview to hide progress in planning text. First publish nextRepairSection coverage; include additional missing section rows in that same Write only when grounded.",
+      "- If the compressed preview grounds stackProfileRows, publish stackProfileRows before any deeper ADR or report read.",
       `- Do not inspect ${input.workerReportPath} or ${input.invocationPackagePath} before the first semantic update unless a named missing detail requires it.`,
-      "- The first evaluator update after reading the draft register and ADR must write semantic rows; do not spend the first pass gathering exhaustive context.",
-      "- Prefer one compact complete write for a small fused grid. If uncertain, write partial/blocked verdict axes with reasons instead of hidden synthesis.",
+      "- Do not announce, plan, or read before the first semantic Write succeeds unless an existing checkpoint has already satisfied that law.",
+      "- If no checkpoint exists, the first semantic update must create the content register with the required envelope and one non-draft designCompletenessVerdict fragment row.",
+      "- If a checkpoint exists, the next semantic update must increase content-register section coverage; a second checkpoint-only write is non-progress.",
+      "- First semantic update may be partial when the compressed authority packet is insufficient for an axis.",
+      "- The first semantic update is not required to be partial. Use partial/blocked designCompletenessVerdict axes for uncertainty; claim full section coverage only when the bounded authority supports it.",
+      "- After the first semantic update exists, reopen bounded slices and repair rows until the register contains every required design-depth section and validates.",
       "- Do not print full files, full JSON objects, full ADR tables, requirement tables, or source files to stdout.",
       "- Do not write EvaluationFinding rows into the content register. The grid's expected finding refs are prompt-sidecar and ABG-fold refs, not contentRows[].",
       "",
@@ -541,7 +580,9 @@ function compactDesignDepthPromptLineGroups(input: {
       "- payload.targetAssetType: \"implementation_design_surface\"",
       `- payload.section is one of ${SDLC_DESIGN_DEPTH_REGISTER_FRAGMENT_SECTIONS.join(", ")}`,
       "- payload.sequence is positive; payload.mergeMode is \"replace\"; payload.value is the section value.",
-      "- For the small fused grid, produce one semantic row for every listed section, or one full sdlc_design_depth_register row if the complete register is already available.",
+      "- For the completed small fused grid, produce one semantic fragment row for every listed section. A full sdlc_design_depth_register row is only a final projection once the fragment sections already exist.",
+      "- Do not preserve draft rows in the first semantic update. Replace contentRows with semantic rows whose rowRefs do not start with content-register-row-draft://.",
+      "- After the checkpoint, each bounded Read must be followed by a Write that adds or replaces at least one named section row. The runtime watches the content register for recurring progress.",
       "",
       "Design-depth register minimum:",
       "- registerVersion/modelVersion/sequenceVersion/verdictVersion: \"ts-design-depth-v1\" where applicable.",
@@ -770,6 +811,8 @@ function designDepthFpEvaluatorPromptLineGroups(input: {
   readonly selectedCompositionDigest: string;
   readonly selectedCompositionSelectionRef: string;
   readonly selectedRegimeBindingRef: string | null;
+  readonly sourceArtifactPreviewLines?: readonly string[] | undefined;
+  readonly contentRegisterTelemetryLines?: readonly string[] | undefined;
   readonly tenantToolEnvironment?: SdlcTenantToolEnvironmentProjection;
 }): EvaluatePromptLineGroups {
   if (useCompactFusedEvaluationPrompt(input.manifest)) {
@@ -792,22 +835,47 @@ function designDepthFpEvaluatorPromptLineGroups(input: {
       `- If you use evaluator subworkstreams, record them in ${input.subworkstreamManifestPath}. Rows must cite authority/dependency inputs, stay read-only over workspace/product files, and remain observation only.`,
       "- Evaluator subworkstreams do not emit ABG events, write ledgers, close edges, select traversal, publish consequence projections, or create ABG branch leases. The parent evaluate.C result owns the final content-register merge.",
       "- The content register path is the durable evaluation artifact; the task is not a single-shot JSON response.",
-      `- The system pre-creates that path as a non-admitted draft with selected composition identity and one "${SDLC_DESIGN_DEPTH_REGISTER_FRAGMENT_DRAFT_CONTENT_KIND}" row per register section. Your job is to convert draft rows into semantic "${SDLC_DESIGN_DEPTH_REGISTER_FRAGMENT_CONTENT_KIND}" rows incrementally.`,
+      `- If the system has not created that path, your first Write must create it as an F_P-authored semantic register with "${SDLC_DESIGN_DEPTH_REGISTER_FRAGMENT_CONTENT_KIND}" rows, never framework-authored draft rows. If the path already exists from a checkpoint or carried-forward retry, continue from its visible rows.`,
+      "- First progress law: before semantic inspection, publish the next visible F_P content-register row. The row is not closure; it is the visible F_P pressure point for later attenuation and repair.",
+      "- F_D telemetry below is only section-presence observation over the content-register grammar. It does not judge semantic adequacy.",
+      "- The F_P worker chooses entity, attribute, and flow axis statuses for designCompletenessVerdict and chooses all non-verdict section values from authority.",
+      ...(input.contentRegisterTelemetryLines ?? Object.freeze([
+        "- observedSections: unknown",
+        "- missingSections: unknown",
+        "- nextRepairSection: unknown"
+      ])),
+      "",
+      "Compressed ADR/output preview:",
+      ...(input.sourceArtifactPreviewLines?.length
+        ? input.sourceArtifactPreviewLines.map((line) => `- ${line}`)
+        : Object.freeze([
+            "- unavailable; first write must be a blocked/partial designCompletenessVerdict checkpoint, then repair after bounded reads."
+          ])),
       "",
       "Tenant tool boundary:",
       ...tenantToolBoundaryPromptLines(input.tenantToolEnvironment),
       "- Read boundary: use only workspace-relative paths or explicit workspace/run-archive paths named in this prompt; do not read/cite/copy sibling sandboxes, historical test_runs, home memory, /tmp, or outside-workspace absolute paths.",
       "- Tool-profile contract: obey the active tool list. If command execution is not exposed, inspect with bounded file reads/writes only. If command execution is exposed by the worker runtime, use it only for bounded workspace-relative read-only inspection or the named content-register update helper when this prompt permits it; do not run product, build, test, framework, traversal, or background commands.",
-      "- Read cap: every Read tool call over JSON, Markdown, report, manifest, or source artifacts must set limit <=80; use offset/limit for bounded inspection and inspect only the lines needed for the current section."
+      "- Read cap: every Read tool call over JSON, Markdown, report, manifest, or source artifacts must set limit <=80, except the content-register overwrite-preservation read named below may set limit <=160; use offset/limit for bounded inspection and inspect only the lines needed for the current section."
     ]),
     postAuthorityLines: Object.freeze([
       "",
-      "Read in order:",
+    "First tool action:",
+    "Post-checkpoint repair contract: when the content register already exists and F_D telemetry names nextRepairSection, the bounded content-register read is the only permitted pre-write action; the immediately following tool call must be Write to the same content register adding or replacing that fragment row.",
+    "Do not emit analysis, planning text, or inspect governance, brief, ADR, worker report, or invocation package between that content-register read and the repair Write.",
+    "For nextRepairSection=stackProfileRows, the compressed Stack Profile preview in this prompt is sufficient authority for the F_P worker to choose stackRef, language, and buildTool when those facts are visible. If the worker judges the preview contradictory or insufficient, it must Write an explicitly partial or blocked row/reason instead of waiting for more reads.",
+    `1. Read only ${input.contentRegisterPath} with limit <=160. This read is overwrite mechanics and row preservation, not semantic authority gathering.`,
+    "2. If the read reports the file is missing, Write the required envelope with exactly one non-draft designCompletenessVerdict fragment row, reply repair=designCompletenessVerdict, and stop.",
+    "3. If the F_D telemetry says missingSections is none, perform only a bounded self-check and reply register=complete; do not rewrite it.",
+    "4. Otherwise, Write the same content register preserving existing semantic rows plus at least one added or replaced fragment row. The first required new row is nextRepairSection from the telemetry. Include additional missingSections rows in the same Write when they are grounded by the current authority packet. Stop after that write and reply repair=<comma-separated sections>.",
+    "5. Existing-checkpoint branch: if the file already exists with a non-draft designCompletenessVerdict checkpoint, do not replay a checkpoint-only register. The first repair row must be nextRepairSection; when nextRepairSection is stackProfileRows, derive language and buildTool from the compressed Stack Profile preview.",
+    "6. The F_P worker chooses all section values from the compressed authority in this prompt. If authority is insufficient, encode the insufficiency as a worker-authored partial or blocked reason.",
+    "7. This checkpoint is a pressure surface only. Do not claim closure, do not add reviewedObligationIds/findings/status/summary, and do not use draft rowRefs.",
+    "",
+      "Then read and repair in order:",
     `1. compressed work-category governance (${input.governanceRef}): ${input.governancePath}`,
     `2. bounded inspection of construction brief: ${input.constructionBriefPath}`,
-    `3. bounded inspection of the pre-created draft content register at ${input.contentRegisterPath}; preserve its top-level selected composition identity from the embedded selected identity values in this prompt if the file is large.`,
-    `4. bounded inspection of the ADR/output artifact: ${input.manifest.outputFile}; the framework has already written the draft register, so this read is allowed before the first semantic update.`,
-    "5. convert each draft row into a semantic design-depth fragment row from the construction brief, admitted transform evidence, the ADR/output artifact, and selected authority refs.",
+    `3. bounded inspection of the ADR/output artifact: ${input.manifest.outputFile}; read only the bounded slices needed to repair concrete register sections.`,
     "",
     "Precomputed worker result report summary:",
     ...input.workerReportSummaryLines.map((line) => `- ${line}`),
@@ -816,19 +884,24 @@ function designDepthFpEvaluatorPromptLineGroups(input: {
     `- Do not use the Read tool on the handoff manifest (${input.manifestPath}). It is too large; selected manifest facts needed for this evaluation are projected into the prompt, construction brief, and worker summary.`,
     `- Do not inspect the worker result report (${input.workerReportPath}) before the first evaluator update. Its compact summary is already in this prompt.`,
     `- Do not use the Read tool on the worker invocation package (${input.invocationPackagePath}) before the first evaluator update. Selected invocation pressure is already in the construction brief and worker summary.`,
-    "- Before the first evaluator update, do not inspect extra authority files beyond the governance doc, construction brief, draft content register, and ADR/output artifact named above.",
-    "- The first evaluator content-register update must be your selected evaluate.C/F_P judgment from the draft register plus ADR/output artifact. Do not spend the first pass gathering exhaustive context.",
+    "- Before the first repair write, inspect no files except the content register itself. Preserve existing rows, then write nextRepairSection first; add additional grounded missing section rows in the same Write when ready.",
+    "- The first evaluator content-register repair must be a small selected evaluate.C/F_P pressure row. Do not spend the pass gathering exhaustive context.",
     "- Do not run a worker-result-report discovery script before the first evaluator update.",
-    "- Do not run any bounded-summary action before the first evaluator update. After reading the governance doc, construction brief, and draft content register, the next tool action must publish the content register update.",
+    "- Do not run any bounded-summary action before the first evaluator update. The first tool action must publish the content register update.",
+    "- If the checkpoint exists when this prompt starts, reading only that content register to preserve its rows is allowed; the next tool action must publish nextRepairSection coverage, not another checkpoint-only register.",
+    "- The post-checkpoint repair contract overrides the read-order list below: publish nextRepairSection first, then perform any bounded follow-on read needed for later sections.",
+    "- Do not use the compressed preview to hide progress in planning text. First publish nextRepairSection coverage; include additional missing section rows in that same Write only when grounded.",
+    "- If the compressed preview grounds stackProfileRows, publish stackProfileRows before any deeper ADR or report read.",
+    "- If a checkpoint exists, the next semantic update must increase content-register section coverage; a second checkpoint-only write is non-progress.",
     "- Do not say you are writing the register until that file write has succeeded.",
     `- First-update carrier helper contract: ${DESIGN_DEPTH_DRAFT_FRAGMENT_UPDATE_HELPER_CONTRACT_REF} (${DESIGN_DEPTH_DRAFT_FRAGMENT_UPDATE_HELPER_CONTRACT_PATH}).`,
     "- The helper contract is authority-neutral carrier mechanics: same-path temp-then-rename publication, selected composition preservation, non-draft fragment envelope construction, and compact row counts only. It emits no semantic section values.",
     "- Bounded local automation may support summarization, JSON validation, and that named carrier-helper contract only. Do not deterministically construct later semantic register rows from framework rules.",
     "",
     "First register materialization rule:",
-    "- After reading the governance doc and construction brief, update the pre-created content register file directly as the selected evaluate.C/F_P semantic pressure map.",
+    "- Before reading any semantic authority file, repair the content register directly as the selected evaluate.C/F_P semantic pressure map.",
     "- Use admitted upstream design surfaces, dependency pressure, product file targets, tenant stack authority, worker report summary, and specific authority refs as the basis.",
-    "- Do not copy a framework-generated register skeleton as semantic truth. If a section is uncertain, emit a partial or blocked axis with explicit reasons and evidence refs instead of inventing rows.",
+    "- The first register may be partial, but it must contain at least one non-draft semantic row. If a section is uncertain, emit a partial or blocked axis with explicit reasons and evidence refs instead of inventing rows.",
     `- The content register carries ProductAssetModel rows. Use contentKind "${SDLC_DESIGN_DEPTH_REGISTER_FRAGMENT_CONTENT_KIND}" rows for incremental section writes while you build the register.`,
     "- F_D assembles admitted fragment rows, sorted by payload.sequence, into the legacy register projection. A final full contentKind \"sdlc_design_depth_register\" row is also valid when the complete register is already available.",
     `- Do not write the legacy projection path directly: ${input.registerProjectionPath}`,
@@ -847,18 +920,21 @@ function designDepthFpEvaluatorPromptLineGroups(input: {
     "- Keep terminal output bounded and purposeful. Stdout is an agent work trace, not evaluation truth.",
     "- The content register file is the evaluation surface. Prefer file writes and bounded self-check reads over terminal narration.",
     "",
-    "Agentic F_P work loop:",
-    "- After the first evaluator update exists, write a short plan and checklist for the required register sections.",
-    "- Execute the plan incrementally: each iteration should complete one register section or one small cluster of related sections, then overwrite the same content register with accumulated rows.",
-    "- Do not announce, plan, or attempt a full semantic register write in one action after the first update. A hidden full-register synthesis pass violates the content-register visibility contract.",
-    "- After the first update, every exploratory read must be paired with the next tool action that writes at least one named non-empty or explicitly blocked register section back to the same content register file.",
-    "- The preferred order is stackProfileRows, implementationModuleRows, componentTopologyRows, fileTargetRows, componentRealizationRows, moduleSchemaFragments, moduleStateDiagramFragments, aggregateDomainModelRows, aggregateDomainModel, sunnyDaySequenceRows, aggregateSunnyDaySequence, designCompletenessVerdict.",
+      "Agentic F_P work loop:",
+      "- Only after the initial semantic update or post-checkpoint nextRepairSection repair Write succeeds, write a short plan and checklist for the remaining required register sections.",
+      "- Execute the plan incrementally as one bounded worker cell at a time: choose one missing or partial register section, inspect only the authority needed for that section, write that section as the next content-register artifact delta, then self-check the written JSON.",
+    "- ABG observes the artifact delta through the declared content-register progress metric and routes retry/residual pressure from admitted artifacts; do not hide reasoning in unobserved planning text.",
+      "- Do not hide broad semantic synthesis in unobserved planning text. After a checkpoint, the next visible artifact delta must include nextRepairSection as a named missing fragment row authored by the F_P worker.",
+      "- If an existing content register must be overwritten and the worker tool requires a prior read, read only that content register with a bounded limit before the repair write. This is overwrite mechanics, not permission to gather semantic authority before the pressure map exists.",
+      "- After the first update, every exploratory read must be paired with the next tool action that writes at least one named non-empty or explicitly blocked register section back to the same content register file.",
+    "- For broad artifacts, the preferred order is stackProfileRows, implementationModuleRows, componentTopologyRows, fileTargetRows, componentRealizationRows, moduleSchemaFragments, moduleStateDiagramFragments, aggregateDomainModelRows, aggregateDomainModel, sunnyDaySequenceRows, aggregateSunnyDaySequence, designCompletenessVerdict.",
+    "- For a degenerate profile or a tiny ADR with one module/component/source target, still publish nextRepairSection after the checkpoint before attempting any final full-register projection.",
     "- When reading the transform ADR after the first update, read only the authority a given section needs and do not print it; then write that section to the register file. How you inspect the authority is your choice; the framework prescribes the carrier schema and the visibility contract, not the extraction method.",
-    "- Time budget is part of correctness: update the draft content register before doing deep exploratory review.",
-    "- After the governance doc, construction brief, and draft content register are read, write the first evaluator update before any ADR summary, worker-report inspection, source-authority lookup, or deep exploratory action.",
-    `- First evaluator update: publish one semantic "${SDLC_DESIGN_DEPTH_REGISTER_FRAGMENT_CONTENT_KIND}" row for each pre-seeded draft section. The named carrier helper may build the envelope, but the row values are your evaluation and must be your selected evaluate.C/F_P judgment. Emit null or [] only for whole intentionally empty sections and partial/blocked verdict axes where authority is not yet sufficient; do not emit null inside required scalar fields.`,
+    "- Time budget is part of correctness: create a semantic content register checkpoint before doing deep exploratory review.",
+    "- After the governance doc, construction brief, and first ADR/output slice are read, write the first evaluator update before any ADR summary, worker-report inspection, source-authority lookup, or deep exploratory action.",
+    `- First evaluator update: publish at least one semantic "${SDLC_DESIGN_DEPTH_REGISTER_FRAGMENT_CONTENT_KIND}" row grounded in the bounded authority already read. The named carrier helper may build the envelope, but the row values are your evaluation and must be your selected evaluate.C/F_P judgment. Emit null or [] only for whole intentionally empty sections and partial/blocked verdict axes where authority is not yet sufficient; do not emit null inside required scalar fields.`,
     "- There is no framework-authored recipe for deriving register rows from authority: do not parse ADR tables by a fixed procedure, read the authority a section needs and decide that section content yourself.",
-    "- The first update must satisfy the named helper contract or an equivalent implementation. F_D seeds the draft scaffolding and admits/projects fragment rows; F_D does not construct semantic register rows for you.",
+    "- The first update must satisfy the named helper contract or an equivalent implementation. F_D admits/projects fragment rows; F_D does not construct semantic register rows; F_D also does not seed or repair semantic register rows for you.",
     "- Then iterate by editing the content register file in place: inspect only the authority needed for a specific missing/partial section, add or replace the corresponding section row, then validate the file.",
     "- The next tool action after any post-first-update ADR or authority inspection must write the corresponding section row. Do not collect multiple large sections before writing.",
     "- A valid progress write may be intentionally partial or blocked, but it must replace the target section row with explicit value, evidenceRefs, and reasons instead of leaving the run in hidden synthesis.",
@@ -1053,6 +1129,8 @@ export function designDepthFpEvaluatorPromptProjection(input: {
   readonly selectedCompositionDigest: string;
   readonly selectedCompositionSelectionRef: string;
   readonly selectedRegimeBindingRef: string | null;
+  readonly sourceArtifactPreviewLines?: readonly string[] | undefined;
+  readonly contentRegisterTelemetryLines?: readonly string[] | undefined;
   readonly tenantToolEnvironment?: SdlcTenantToolEnvironmentProjection;
 }): SdlcRenderedPromptProjection {
   const lineGroups = designDepthFpEvaluatorPromptLineGroups(input);
@@ -1166,6 +1244,7 @@ export function designDepthFpEvaluatorPrompt(input: {
   readonly selectedCompositionDigest: string;
   readonly selectedCompositionSelectionRef: string;
   readonly selectedRegimeBindingRef: string | null;
+  readonly sourceArtifactPreviewLines?: readonly string[] | undefined;
   readonly tenantToolEnvironment?: SdlcTenantToolEnvironmentProjection;
 }): string {
   return designDepthFpEvaluatorPromptProjection(input).promptText;

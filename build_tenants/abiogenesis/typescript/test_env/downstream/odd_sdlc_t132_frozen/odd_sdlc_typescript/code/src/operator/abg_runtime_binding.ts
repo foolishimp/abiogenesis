@@ -60,8 +60,16 @@ const SOURCE_DISCOVERY_IGNORED_DIRS = Object.freeze([
   ".abiogenesis",
   ".genesis",
   ".git",
+  ".npm-cache",
+  "build_tenants",
   "node_modules",
-  "build_tenants"
+  "package-extract"
+] as const);
+const SOURCE_DISCOVERY_IGNORED_PATH_PREFIXES = Object.freeze([
+  ".ai-workspace/archives",
+  ".ai-workspace/events",
+  ".ai-workspace/projections",
+  ".ai-workspace/runtime"
 ] as const);
 
 export interface OddSdlcAbgRuntimeBindingPluginFactoryInput {
@@ -114,8 +122,9 @@ function sourceFilePaths(workspaceRoot: string): readonly string[] {
       if (entry.isDirectory()) {
         if (
           !ignored.has(entry.name) &&
-          !relativePath.startsWith(".ai-workspace/runtime") &&
-          !relativePath.startsWith(".ai-workspace/events")
+          !SOURCE_DISCOVERY_IGNORED_PATH_PREFIXES.some(
+            (prefix) => relativePath === prefix || relativePath.startsWith(`${prefix}/`)
+          )
         ) {
           visit(absolutePath, relativePath);
         }

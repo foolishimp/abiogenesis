@@ -1579,9 +1579,20 @@ export function assertSdlcGtlProgramConformanceReportPassed(
   return report;
 }
 
+let defaultCurrentSdlcGtlProgramConformanceReport:
+  | GtlProgramConformanceReport
+  | null = null;
+
 export function assertCurrentSdlcGtlProgramConformance(
   input: SdlcGtlProgramConformanceInputOptions = {}
 ): GtlProgramConformanceReport {
+  if (Object.keys(input).length === 0) {
+    defaultCurrentSdlcGtlProgramConformanceReport ??=
+      assertSdlcGtlProgramConformanceReportPassed(
+        typecheckCurrentSdlcGtlProgram(input)
+      );
+    return defaultCurrentSdlcGtlProgramConformanceReport;
+  }
   return assertSdlcGtlProgramConformanceReportPassed(
     typecheckCurrentSdlcGtlProgram(input)
   );

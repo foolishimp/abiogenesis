@@ -646,6 +646,43 @@ test("T-058 Spec Method query-domain command projects admitted workspace sources
   );
 });
 
+test("T-058 Spec Method source discovery excludes generated install state", () => {
+  const workspace = makeConformantWorkspace();
+  const generatedSources = [
+    "package-extract/extract-1/package/README.md",
+    ".npm-cache/cache.txt",
+    ".ai-workspace/archives/archive.md",
+    ".ai-workspace/projections/view.md",
+    ".ai-workspace/runtime/generated.md",
+    "node_modules/pkg/README.md",
+    "build_tenants/typescript/generated.md"
+  ];
+  for (const rel of generatedSources) {
+    mkdirSync(path.dirname(path.join(workspace, rel)), { recursive: true });
+    writeFileSync(
+      path.join(workspace, rel),
+      `REQ-GENERATED-${rel.replace(/[^A-Za-z0-9]/gu, "-").toUpperCase()}: generated state is not source authority.\n`,
+      "utf8"
+    );
+  }
+  mkdirSync(path.join(workspace, ".ai-workspace/context"), { recursive: true });
+  writeFileSync(
+    path.join(workspace, ".ai-workspace/context/operator_context.md"),
+    "REQ-CONTEXT-001: Operator context remains admitted source authority.\n",
+    "utf8"
+  );
+
+  const result = invokeOddSdlcSpecMethodCommandSync(["query-domain", "--workspace", workspace]);
+  const projected = JSON.stringify(result.payload);
+
+  assert.equal(result.status, "ok");
+  assert(projected.includes(".ai-workspace/context/operator_context.md"));
+  for (const rel of generatedSources) {
+    assert.equal(projected.includes(rel), false);
+  }
+  assert.equal(projected.includes("REQ-GENERATED-"), false);
+});
+
 test("T-058 Spec Method gaps command emits read-only dossier without choosing traversal", () => {
   const workspace = makeConformantWorkspace();
   const result = invokeOddSdlcSpecMethodCommandSync(["gaps", "--workspace", workspace]);

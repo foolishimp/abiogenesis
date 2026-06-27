@@ -11,6 +11,7 @@
   },
   "designDepthFpEvaluator": {
     "timeoutMs": 600000,
+    "firstUpdateTimeoutMs": 120000,
     "stdoutBudgetBytes": 1048576
   },
   "reviewGradeEdgeFulfillmentEvaluator": {

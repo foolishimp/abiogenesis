@@ -18,6 +18,7 @@ import {
   readFileSync,
   statSync
 } from "node:fs";
+import { writeUtf8FileAtomically } from "../effects/archive_store.js";
 import { uniqueSorted } from "../shared/collections.js";
 import { sdlcWorkerTargetUsesShellToolProfile } from "./worker_tool_profile.js";
 import {
@@ -137,6 +138,8 @@ import type {
   SdlcWorkerResultReport,
   SdlcWorkerRunResult,
   SdlcDecompositionSummary,
+  SdlcDesignCompletenessAxisVerdict,
+  SdlcDesignCompletenessVerdict,
   SdlcRepairSurfaceTriageCarrier,
   SdlcReviewGradeEdgeFulfillmentAssessment,
   SdlcTraversalHopSelection,
@@ -220,12 +223,13 @@ import {
 } from "./plugins/plugin_set.js";
 import {
   SDLC_DESIGN_DEPTH_REGISTER_FRAGMENT_CONTENT_KIND,
-  SDLC_DESIGN_DEPTH_REGISTER_FRAGMENT_DRAFT_CONTENT_KIND,
-  SDLC_DESIGN_DEPTH_REGISTER_FRAGMENT_SECTIONS,
   admitSdlcEvaluateContentRegisterArtifact,
+  designDepthContentRegisterProgressAdvanced,
+  designDepthContentRegisterProgressSurface,
   designDepthFpEvaluatorContentRegisterPath,
   evaluateSdlcComputeStage,
   observeDesignDepthContentRegisterFirstUpdate,
+  observeDesignDepthContentRegisterProgressSnapshot,
   sdlcFpEvaluateOpenObligationPressureRefs,
   writeDesignDepthRegisterProjectionFromEvaluateContentRegister,
   writeSdlcFpEvaluateResult
@@ -236,7 +240,8 @@ import {
   admitImplementationDesignRegisterCandidateForManifest,
   admitImplementationDesignRegisterForManifest,
   admitImplementationDesignRegisterForRuntimeEvaluation,
-  designDepthFpEvaluatorRegisterPath
+  designDepthFpEvaluatorRegisterPath,
+  predecessorDesignDepthFpEvaluatorContentRegisterPaths
 } from "./plugins/evaluate/design_depth_register.js";
 import {
   designDepthFpEvaluatorPromptProjection,
@@ -522,6 +527,41 @@ function isSdlcFeatureScopeMode(
   );
 }
 
+function readWorkerInvocationPackageFeatureScope(
+  value: unknown
+): SdlcWorkerInvocationPackage["featureScope"] | null {
+  const featureScope = jsonRecord(value);
+  if (
+    featureScope === null ||
+    featureScope["kind"] !== "sdlc_feature_scope" ||
+    featureScope["scopeVersion"] !== "ts-scope-v1" ||
+    !isSdlcFeatureScopeMode(featureScope["mode"]) ||
+    typeof featureScope["scopeRef"] !== "string" ||
+    !isStringList(featureScope["basisRefs"]) ||
+    !isStringList(featureScope["includedRequirementRefs"]) ||
+    !isStringList(featureScope["includedModuleNames"]) ||
+    !isStringList(featureScope["includedEntityIds"]) ||
+    !isStringList(featureScope["includedOperationIds"]) ||
+    !isStringList(featureScope["deferredModuleNames"])
+  ) {
+    return null;
+  }
+  return Object.freeze({
+    kind: "sdlc_feature_scope",
+    scopeVersion: "ts-scope-v1",
+    mode: featureScope["mode"],
+    scopeRef: featureScope["scopeRef"],
+    basisRefs: Object.freeze([...featureScope["basisRefs"]]),
+    includedRequirementRefs: Object.freeze([
+      ...featureScope["includedRequirementRefs"]
+    ]),
+    includedModuleNames: Object.freeze([...featureScope["includedModuleNames"]]),
+    includedEntityIds: Object.freeze([...featureScope["includedEntityIds"]]),
+    includedOperationIds: Object.freeze([...featureScope["includedOperationIds"]]),
+    deferredModuleNames: Object.freeze([...featureScope["deferredModuleNames"]])
+  });
+}
+
 function readWorkerInvocationPackageScope(
   filePath: string
 ): Pick<
@@ -533,23 +573,21 @@ function readWorkerInvocationPackageScope(
   }
   try {
     const payload = jsonRecord(JSON.parse(readFileSync(filePath, "utf8")));
-    const featureScope = jsonRecord(payload?.["featureScope"]);
+    const featureScope = readWorkerInvocationPackageFeatureScope(
+      payload?.["featureScope"]
+    );
     if (
       payload === null ||
       featureScope === null ||
       payload["kind"] !== "sdlc_worker_invocation_package" ||
       payload["packageVersion"] !== "ts-invocation-v1" ||
-      !isSdlcFeatureScopeMode(featureScope["mode"]) ||
       !isStringList(payload["inlineObligationIds"])
     ) {
       return null;
     }
     return Object.freeze({
-      kind: "sdlc_worker_invocation_package" as const,
-      featureScope: Object.freeze({
-        ...featureScope,
-        mode: featureScope["mode"]
-      }) as SdlcWorkerInvocationPackage["featureScope"],
+      kind: "sdlc_worker_invocation_package",
+      featureScope,
       inlineObligationIds: Object.freeze([...payload["inlineObligationIds"]])
     });
   } catch {
@@ -2854,6 +2892,22 @@ function designDepthFpEvaluatorTimeoutMs(): number {
   return sdlcOperatorRuntimePolicy().designDepthFpEvaluatorTimeoutMs;
 }
 
+function designDepthFpEvaluatorFirstUpdateTimeoutMs(): number {
+  const policy = sdlcOperatorRuntimePolicy();
+  return Math.min(
+    policy.designDepthFpEvaluatorTimeoutMs,
+    policy.designDepthFpEvaluatorFirstUpdateTimeoutMs
+  );
+}
+
+function designDepthFpEvaluatorProgressTimeoutMs(): number {
+  const policy = sdlcOperatorRuntimePolicy();
+  return Math.min(
+    policy.designDepthFpEvaluatorTimeoutMs,
+    Math.max(policy.designDepthFpEvaluatorFirstUpdateTimeoutMs, 300000)
+  );
+}
+
 function designDepthFpEvaluatorStdoutBudgetBytes(): number {
   return sdlcOperatorRuntimePolicy().designDepthFpEvaluatorStdoutBudgetBytes;
 }
@@ -3973,63 +4027,240 @@ function workerResultReportSummaryForDesignDepthPrompt(
   }
 }
 
-function writeDesignDepthFpEvaluatorDraftContentRegister(input: {
-  readonly archiveRoot: string;
+function sourceArtifactPreviewLinesForDesignDepthPrompt(
+  sourceArtifactPath: string
+): readonly string[] {
+  try {
+    const text = readFileSync(sourceArtifactPath, "utf8");
+    return Object.freeze(
+      text
+        .split(/\r?\n/u)
+        .slice(0, 80)
+        .map((line, index) => `L${index + 1}: ${line.slice(0, 240)}`)
+    );
+  } catch (error) {
+    return Object.freeze([
+      `source artifact preview unavailable (${error instanceof Error ? error.message : "unknown error"})`
+    ]);
+  }
+}
+
+function designDepthFpEvaluatorCheckpointPrompt(input: {
   readonly contentRegisterPath: string;
+  readonly checkpointVerdictPath: string;
+  readonly sourceArtifactPath: string;
+  readonly sourceArtifactPreviewLines: readonly string[];
+  readonly selectedCompositionRef: string;
+  readonly selectedCompositionDigest: string;
+  readonly selectedCompositionSelectionRef: string;
+  readonly selectedRegimeBindingRef: string | null;
+}): string {
+  const compositionContributionRef =
+    input.selectedRegimeBindingRef ?? input.selectedCompositionRef;
+  const sourceArtifactRef = pathToFileURL(input.sourceArtifactPath).href;
+  return [
+    "odd_sdlc evaluate.C/F_P design-depth first checkpoint.",
+    "",
+    "This is a constrained F_P worker call. The framework supplies the carrier grammar, selected identity, and compressed authority packet; the worker chooses the semantic axis statuses, reasons, and evidence refs.",
+    "F_D observes/admit/projects the artifact after it is written. F_D does not author the verdict, choose a decomposition, infer satisfaction, or repair the row.",
+    "Do not read files. Do not plan. Do not inspect the content register first.",
+    "First-response contract: your first visible assistant message must be one Write tool call to the checkpoint verdict path below. Do not emit text, markdown, analysis, planning, or a 'Writing...' preamble before that Write tool call.",
+    "The Write tool input file_path must be exactly the checkpoint verdict path below. The content may be compact JSON; pretty printing is not required.",
+    "If the worker judges any axis uncertain, still make the Write call and encode that uncertainty as a partial or blocked axis reason.",
+    "",
+    "Authority packet:",
+    `- selectedCompositionRef: ${input.selectedCompositionRef}`,
+    `- selectedCompositionDigest: ${input.selectedCompositionDigest}`,
+    `- selectedCompositionSelectionRef: ${input.selectedCompositionSelectionRef}`,
+    `- selectedRegimeBindingRef: ${input.selectedRegimeBindingRef ?? "null"}`,
+    `- compositionContributionRef: ${compositionContributionRef}`,
+    `- source artifact ref: ${sourceArtifactRef}`,
+    "- compressed source artifact preview:",
+    ...(input.sourceArtifactPreviewLines.length === 0
+      ? ["  - unavailable"]
+      : input.sourceArtifactPreviewLines.map((line) => `  - ${line}`)),
+    "",
+    `First and only tool action: Write ${input.checkpointVerdictPath}.`,
+    `Do not write ${input.contentRegisterPath}; the framework wraps your admitted verdict payload into that carrier after this worker call.`,
+    "Write valid JSON with exactly one designCompletenessVerdict payload object.",
+    "Choose each axis status and reason from the authority packet. If the packet is insufficient, encode that as the worker's partial or blocked reason.",
+    "Do not use canned reasons, placeholder prose, reviewedObligationIds, findings, status, summary, or draft rowRefs.",
+    "After the Write succeeds, reply with: checkpoint=written",
+    "",
+    "Required payload shape:",
+    "- kind: \"sdlc_design_completeness_verdict\"",
+    "- verdictVersion: \"ts-design-depth-v1\"",
+    "- entity, attribute, and flow axis objects.",
+    "- Each axis object has exactly kind \"sdlc_design_completeness_axis_verdict\", axis, status, reasons, evidenceRefs.",
+    "- Axis status is one of satisfied, partial, blocked. Choose it as the F_P worker from the authority packet.",
+    `- Axis reasons are compact worker-authored semantic pressure. Cite ${sourceArtifactRef} in each axis evidenceRefs.`
+  ].join("\n");
+}
+
+function isDesignCompletenessStatus(
+  value: unknown
+): value is SdlcDesignCompletenessAxisVerdict["status"] {
+  return value === "satisfied" || value === "partial" || value === "blocked";
+}
+
+function readCheckpointAxisVerdict(
+  input: unknown,
+  axis: SdlcDesignCompletenessAxisVerdict["axis"]
+): SdlcDesignCompletenessAxisVerdict | null {
+  const record = jsonRecord(input);
+  if (
+    record === null ||
+    record["kind"] !== "sdlc_design_completeness_axis_verdict" ||
+    record["axis"] !== axis ||
+    !isDesignCompletenessStatus(record["status"]) ||
+    !isStringList(record["reasons"]) ||
+    !isStringList(record["evidenceRefs"])
+  ) {
+    return null;
+  }
+  return Object.freeze({
+    kind: "sdlc_design_completeness_axis_verdict" as const,
+    axis,
+    status: record["status"],
+    reasons: Object.freeze([...record["reasons"]]),
+    evidenceRefs: Object.freeze([...record["evidenceRefs"]])
+  });
+}
+
+function checkpointAxisInputFromVerdictRecord(
+  record: Readonly<Record<string, unknown>>,
+  axis: SdlcDesignCompletenessAxisVerdict["axis"]
+): unknown {
+  if (axis in record) {
+    return record[axis];
+  }
+  const axes = record["axes"];
+  if (!Array.isArray(axes)) {
+    return null;
+  }
+  return axes.find((entry) => jsonRecord(entry)?.["axis"] === axis) ?? null;
+}
+
+function readDesignDepthCheckpointVerdict(
+  checkpointVerdictPath: string
+): SdlcDesignCompletenessVerdict | null {
+  if (!existsSync(checkpointVerdictPath) || !statSync(checkpointVerdictPath).isFile()) {
+    return null;
+  }
+  try {
+    const rawRecord = jsonRecord(
+      JSON.parse(readFileSync(checkpointVerdictPath, "utf8"))
+    );
+    const record = jsonRecord(rawRecord?.["designCompletenessVerdict"]) ?? rawRecord;
+    if (
+      record === null ||
+      (!(("attribute" in record) && ("entity" in record) && ("flow" in record)) &&
+        !Array.isArray(record["axes"]))
+    ) {
+      return null;
+    }
+    if (
+      "kind" in record &&
+      record["kind"] !== "sdlc_design_completeness_verdict"
+    ) {
+      return null;
+    }
+    if (
+      "verdictVersion" in record &&
+      record["verdictVersion"] !== "ts-design-depth-v1"
+    ) {
+      return null;
+    }
+    const entity = readCheckpointAxisVerdict(
+      checkpointAxisInputFromVerdictRecord(record, "entity"),
+      "entity"
+    );
+    const attribute = readCheckpointAxisVerdict(
+      checkpointAxisInputFromVerdictRecord(record, "attribute"),
+      "attribute"
+    );
+    const flow = readCheckpointAxisVerdict(
+      checkpointAxisInputFromVerdictRecord(record, "flow"),
+      "flow"
+    );
+    if (entity === null || attribute === null || flow === null) {
+      return null;
+    }
+    return Object.freeze({
+      kind: "sdlc_design_completeness_verdict" as const,
+      verdictVersion: "ts-design-depth-v1" as const,
+      entity,
+      attribute,
+      flow
+    });
+  } catch {
+    return null;
+  }
+}
+
+function writeDesignDepthCheckpointContentRegister(input: {
+  readonly contentRegisterPath: string;
+  readonly checkpointVerdictPath: string;
   readonly sourceArtifactPath: string;
   readonly selectedCompositionRef: string;
   readonly selectedCompositionDigest: string;
   readonly selectedCompositionSelectionRef: string;
   readonly selectedRegimeBindingRef: string | null;
-}): void {
+}): string | null {
+  const verdict = readDesignDepthCheckpointVerdict(input.checkpointVerdictPath);
+  if (verdict === null) {
+    return null;
+  }
   const sourceArtifactRef = pathToFileURL(input.sourceArtifactPath).href;
-  const draftContentRows = Object.freeze(
-    SDLC_DESIGN_DEPTH_REGISTER_FRAGMENT_SECTIONS.map((section, index) =>
+  const compositionContributionRef =
+    input.selectedRegimeBindingRef ?? input.selectedCompositionRef;
+  const register = Object.freeze({
+    kind: "sdlc_evaluate_content_register" as const,
+    registerVersion: "ts-evaluate-content-register-v1" as const,
+    stage: "evaluate.C" as const,
+    ruleRef: DESIGN_DEPTH_FP_EVALUATOR_RULE_REF,
+    ruleRole: "semantic_judgment" as const,
+    computeMeans: "F_P" as const,
+    authorityFunction: "synthesize_model" as const,
+    selectedCompositionRef: input.selectedCompositionRef,
+    selectedCompositionDigest: input.selectedCompositionDigest,
+    selectedCompositionSelectionRef: input.selectedCompositionSelectionRef,
+    selectedRegimeBindingRef: input.selectedRegimeBindingRef,
+    compositionContributionRef,
+    sourceBasisRefs: Object.freeze([sourceArtifactRef]),
+    candidateArtifactRefs: Object.freeze([sourceArtifactRef]),
+    evidenceRefs: Object.freeze([
+      sourceArtifactRef,
+      pathToFileURL(input.checkpointVerdictPath).href
+    ]),
+    contentRows: Object.freeze([
       Object.freeze({
         kind: "sdlc_evaluate_content_register_row" as const,
-        rowRef: `content-register-row-draft://odd-sdlc/design-depth/${section}`,
+        rowRef:
+          "content-register-row://odd-sdlc/design-depth/checkpoint/designCompletenessVerdict",
         authorityFunction: "synthesize_model" as const,
         carrierFamily: "ProductAssetModel" as const,
-        contentKind: SDLC_DESIGN_DEPTH_REGISTER_FRAGMENT_DRAFT_CONTENT_KIND,
+        contentKind: SDLC_DESIGN_DEPTH_REGISTER_FRAGMENT_CONTENT_KIND,
         payload: Object.freeze({
           kind: "sdlc_design_depth_register_fragment" as const,
           fragmentVersion: "ts-design-depth-fragment-v1" as const,
           targetAssetType: "implementation_design_surface",
-          section,
-          sequence: index + 1,
+          section: "designCompletenessVerdict" as const,
+          sequence: 12,
           mergeMode: "replace" as const,
-          value: draftDesignDepthRegisterFragmentValue({
-            section,
-            sourceArtifactRef
-          })
+          value: verdict
         }),
         sourceBasisRefs: Object.freeze([sourceArtifactRef]),
-        evidenceRefs: Object.freeze([sourceArtifactRef])
+        evidenceRefs: Object.freeze([
+          sourceArtifactRef,
+          pathToFileURL(input.checkpointVerdictPath).href
+        ])
       })
-    )
-  );
-  writeSdlcSystemArtifact({
-    archiveRoot: input.archiveRoot,
-    absolutePath: input.contentRegisterPath,
-    payload: Object.freeze({
-      kind: "sdlc_evaluate_content_register" as const,
-      registerVersion: "ts-evaluate-content-register-v1" as const,
-      stage: "evaluate.C" as const,
-      ruleRef: DESIGN_DEPTH_FP_EVALUATOR_RULE_REF,
-      ruleRole: "semantic_judgment" as const,
-      computeMeans: "F_P" as const,
-      authorityFunction: "synthesize_model" as const,
-      selectedCompositionRef: input.selectedCompositionRef,
-      selectedCompositionDigest: input.selectedCompositionDigest,
-      selectedCompositionSelectionRef: input.selectedCompositionSelectionRef,
-      selectedRegimeBindingRef: input.selectedRegimeBindingRef,
-      compositionContributionRef:
-        input.selectedRegimeBindingRef ?? input.selectedCompositionRef,
-      sourceBasisRefs: Object.freeze([sourceArtifactRef]),
-      candidateArtifactRefs: Object.freeze([sourceArtifactRef]),
-      evidenceRefs: Object.freeze([sourceArtifactRef]),
-      contentRows: draftContentRows
-    })
+    ])
+  });
+  return writeUtf8FileAtomically({
+    targetPath: input.contentRegisterPath,
+    content: `${JSON.stringify(register, null, 2)}\n`
   });
 }
 
@@ -4044,40 +4275,171 @@ function writeDesignDepthFirstUpdateObservation(input: {
       registerPath: input.contentRegisterPath
     })
   });
+  writeSdlcSystemArtifact({
+    archiveRoot: input.archiveRoot,
+    relativePath: "design_depth_fp_evaluator_progress_snapshot.json",
+    payload: observeDesignDepthContentRegisterProgressSnapshot({
+      registerPath: input.contentRegisterPath
+    })
+  });
 }
 
-function draftDesignDepthRegisterFragmentValue(input: {
-  readonly section: (typeof SDLC_DESIGN_DEPTH_REGISTER_FRAGMENT_SECTIONS)[number];
-  readonly sourceArtifactRef: string;
-}): unknown {
+function designDepthContentRegisterTelemetryPromptLines(input: {
+  readonly observedSections: readonly string[];
+  readonly missingSections: readonly string[];
+}): readonly string[] {
+  const nextRepairSection = input.missingSections[0] ?? "none";
+  return Object.freeze([
+    `- observedSections: ${
+      input.observedSections.length === 0
+        ? "none"
+        : input.observedSections.join(", ")
+    }`,
+    `- missingSections: ${
+      input.missingSections.length === 0 ? "none" : input.missingSections.join(", ")
+    }`,
+    `- nextRepairSection: ${nextRepairSection}`
+  ]);
+}
+
+function carryForwardDesignDepthFpEvaluatorContentRegister(input: {
+  readonly manifest: SdlcWorkerHandoffManifest;
+  readonly pluginInput: EnginePluginInput;
+  readonly contentRegisterPath: string;
+}): boolean {
   if (
-    input.section === "aggregateDomainModel" ||
-    input.section === "aggregateSunnyDaySequence"
+    existsSync(input.contentRegisterPath) &&
+    statSync(input.contentRegisterPath).isFile()
+  ) {
+    return false;
+  }
+  const candidates = predecessorDesignDepthFpEvaluatorContentRegisterPaths(
+    input.manifest
+  ).filter((candidatePath) => candidatePath !== input.contentRegisterPath);
+  let best:
+    | {
+        readonly registerPath: string;
+        readonly register: unknown;
+        readonly observation: ReturnType<
+          typeof observeDesignDepthContentRegisterFirstUpdate
+        >;
+      }
+    | null = null;
+  for (const registerPath of candidates) {
+    const admission = admitSdlcEvaluateContentRegisterArtifact({
+      registerPath,
+      pluginInput: input.pluginInput,
+      ruleRef: DESIGN_DEPTH_FP_EVALUATOR_RULE_REF,
+      authorityFunction: "synthesize_model",
+      computeMeans: "F_P"
+    });
+    if (admission.status !== "admitted" || admission.register === null) {
+      continue;
+    }
+    const observation = observeDesignDepthContentRegisterFirstUpdate({
+      registerPath
+    });
+    if (observation.fragmentRowCount === 0 || observation.draftRowCount > 0) {
+      continue;
+    }
+    if (
+      best === null ||
+      observation.fragmentRowCount > best.observation.fragmentRowCount ||
+      (observation.fragmentRowCount === best.observation.fragmentRowCount &&
+        observation.rowCount > best.observation.rowCount)
+    ) {
+      best = Object.freeze({
+        registerPath,
+        register: admission.register,
+        observation
+      });
+    }
+  }
+  if (best === null) {
+    return false;
+  }
+  writeSdlcSystemArtifact({
+    archiveRoot: input.manifest.archiveRoot,
+    absolutePath: input.contentRegisterPath,
+    payload: best.register
+  });
+  writeSdlcSystemArtifact({
+    archiveRoot: input.manifest.archiveRoot,
+    relativePath: "design_depth_fp_evaluator_content_register_carry_forward.json",
+    payload: Object.freeze({
+      kind: "sdlc_design_depth_fp_evaluator_content_register_carry_forward",
+      sourceContentRegisterRef: pathToFileURL(best.registerPath).href,
+      targetContentRegisterRef: pathToFileURL(input.contentRegisterPath).href,
+      rowCount: best.observation.rowCount,
+      fragmentRowCount: best.observation.fragmentRowCount,
+      observedSections: best.observation.observedSections,
+      missingSections: best.observation.missingSections
+    })
+  });
+  return true;
+}
+
+function acceptedDesignDepthFpEvaluatorOutcomeFromCurrentRegister(input: {
+  readonly manifest: SdlcWorkerHandoffManifest;
+  readonly pluginInput: EnginePluginInput;
+  readonly contentRegisterPath: string;
+  readonly registerPath: string;
+  readonly evidenceRefs: readonly string[];
+}): EvaluationRuleOutcome | null {
+  const contentRegisterAdmission = admitSdlcEvaluateContentRegisterArtifact({
+    registerPath: input.contentRegisterPath,
+    pluginInput: input.pluginInput,
+    ruleRef: DESIGN_DEPTH_FP_EVALUATOR_RULE_REF,
+    authorityFunction: "synthesize_model",
+    computeMeans: "F_P"
+  });
+  if (
+    contentRegisterAdmission.status !== "admitted" ||
+    contentRegisterAdmission.register === null
   ) {
     return null;
   }
-  if (input.section === "designCompletenessVerdict") {
-    return Object.freeze({
-      kind: "sdlc_design_completeness_verdict" as const,
-      verdictVersion: "ts-design-depth-v1" as const,
-      entity: draftDesignCompletenessAxis("entity", input.sourceArtifactRef),
-      attribute: draftDesignCompletenessAxis("attribute", input.sourceArtifactRef),
-      flow: draftDesignCompletenessAxis("flow", input.sourceArtifactRef)
+  let registerProjectionRef: string;
+  try {
+    registerProjectionRef = writeDesignDepthRegisterProjectionFromEvaluateContentRegister({
+      register: contentRegisterAdmission.register,
+      archiveRoot: input.manifest.archiveRoot,
+      registerPath: input.registerPath
     });
+  } catch {
+    return null;
   }
-  return Object.freeze([]);
-}
-
-function draftDesignCompletenessAxis(
-  axis: "entity" | "attribute" | "flow",
-  sourceArtifactRef: string
-): unknown {
-  return Object.freeze({
-    kind: "sdlc_design_completeness_axis_verdict" as const,
-    axis,
-    status: "blocked" as const,
-    reasons: Object.freeze(["draft row awaiting evaluate.C/F_P section update"]),
-    evidenceRefs: Object.freeze([sourceArtifactRef])
+  const admission = admitImplementationDesignRegisterCandidateForManifest({
+    manifest: input.manifest
+  });
+  if (admission.status !== "admitted" || admission.register === null) {
+    return null;
+  }
+  return constructEvaluationRuleOutcome({
+    status: "accepted",
+    ruleRef: DESIGN_DEPTH_FP_EVALUATOR_RULE_REF,
+    ruleRole: "semantic_judgment",
+    computeMeans: "F_P",
+    producedRegisterRefs: Object.freeze([
+      pathToFileURL(input.contentRegisterPath).href,
+      registerProjectionRef
+    ]),
+    evidenceRefs: uniqueSorted([
+      ...input.evidenceRefs,
+      ...contentRegisterAdmission.evidenceRefs,
+      ...admission.evidenceRefs
+    ]),
+    findingRefs: Object.freeze([
+      `finding://odd-sdlc/${manifestRefSegment(input.manifest)}/evaluate/design-depth-register`
+    ]),
+    selectedCompositionRef: input.pluginInput.selectedCompositionRef,
+    selectedCompositionDigest: input.pluginInput.selectedCompositionDigest,
+    selectedCompositionSelectionRef:
+      input.pluginInput.selectedCompositionSelectionRef,
+    selectedRegimeBindingRef: input.pluginInput.selectedRegimeBindingRef,
+    compositionContributionRef:
+      input.pluginInput.selectedRegimeBindingRef ??
+      input.pluginInput.selectedCompositionRef
   });
 }
 
@@ -4106,6 +4468,12 @@ async function materializeDesignDepthRegisterWithFpEvaluator(input: {
   const contentRegisterPath = designDepthFpEvaluatorContentRegisterPath({
     archiveRoot: input.manifest.archiveRoot
   });
+  const carriedForwardContentRegister =
+    carryForwardDesignDepthFpEvaluatorContentRegister({
+      manifest: input.manifest,
+      pluginInput: input.pluginInput,
+      contentRegisterPath
+    });
   const subworkstreamManifestPath = join(
     input.manifest.archiveRoot,
     SDLC_EVALUATE_COMPUTE_SUBWORKSTREAM_MANIFEST_FILE
@@ -4115,16 +4483,6 @@ async function materializeDesignDepthRegisterWithFpEvaluator(input: {
     input.manifest.archiveRoot,
     "design_depth_fp_evaluator_prompt.md"
   );
-  writeDesignDepthFpEvaluatorDraftContentRegister({
-    archiveRoot: input.manifest.archiveRoot,
-    contentRegisterPath,
-    sourceArtifactPath: input.manifest.outputFile,
-    selectedCompositionRef: input.pluginInput.selectedCompositionRef,
-    selectedCompositionDigest: input.pluginInput.selectedCompositionDigest,
-    selectedCompositionSelectionRef:
-      input.pluginInput.selectedCompositionSelectionRef,
-    selectedRegimeBindingRef: input.pluginInput.selectedRegimeBindingRef ?? null
-  });
   writeDesignDepthFirstUpdateObservation({
     archiveRoot: input.manifest.archiveRoot,
     contentRegisterPath
@@ -4139,6 +4497,295 @@ async function materializeDesignDepthRegisterWithFpEvaluator(input: {
       parentResultRef: pathToFileURL(input.manifest.fpEvaluateResultFile).href
     })
   });
+  writeSdlcSystemArtifact({
+    archiveRoot: input.manifest.archiveRoot,
+    relativePath: "design_depth_fp_evaluator_progress_surface.json",
+    payload: designDepthContentRegisterProgressSurface()
+  });
+  const stdoutPath = join(
+    input.manifest.archiveRoot,
+    "design_depth_fp_evaluator_stdout.log"
+  );
+  const stderrPath = join(
+    input.manifest.archiveRoot,
+    "design_depth_fp_evaluator_stderr.log"
+  );
+  const checkpointPromptPath = join(
+    input.manifest.archiveRoot,
+    "design_depth_fp_evaluator_checkpoint_prompt.md"
+  );
+  const checkpointStdoutPath = join(
+    input.manifest.archiveRoot,
+    "design_depth_fp_evaluator_checkpoint_stdout.log"
+  );
+  const checkpointStderrPath = join(
+    input.manifest.archiveRoot,
+    "design_depth_fp_evaluator_checkpoint_stderr.log"
+  );
+  const checkpointVerdictPath = join(
+    input.manifest.archiveRoot,
+    "design_depth_fp_evaluator_checkpoint_verdict.json"
+  );
+  const checkpointProcessStartedPath = join(
+    input.manifest.archiveRoot,
+    "design_depth_fp_evaluator_checkpoint_process_started.json"
+  );
+  const checkpointProcessEventsPath = join(
+    input.manifest.archiveRoot,
+    "design_depth_fp_evaluator_checkpoint_process_events.jsonl"
+  );
+  const checkpointRunPath = join(
+    input.manifest.archiveRoot,
+    "design_depth_fp_evaluator_checkpoint_run.json"
+  );
+  const processStartedPath = join(
+    input.manifest.archiveRoot,
+    "design_depth_fp_evaluator_process_started.json"
+  );
+  const processEventsPath = join(
+    input.manifest.archiveRoot,
+    "design_depth_fp_evaluator_process_events.jsonl"
+  );
+  const outputLastMessagePath =
+    input.transport.agentKey === "codex"
+      ? join(input.manifest.archiveRoot, "design_depth_fp_evaluator_last_message.txt")
+      : "";
+  const executorProfile = selectedWorkerExecutorProfile();
+  const inactivityPolicy = workerInactivityPolicy();
+  const evaluatorTimeoutMs = designDepthFpEvaluatorTimeoutMs();
+  const evaluatorFirstUpdateTimeoutMs = designDepthFpEvaluatorFirstUpdateTimeoutMs();
+  const evaluatorProgressTimeoutMs = designDepthFpEvaluatorProgressTimeoutMs();
+  const stdoutBudgetBytes = designDepthFpEvaluatorStdoutBudgetBytes();
+  const traceRoot = `${processEventsPath}.trace`;
+  let lastContentRegisterProgressMetricKey: string | null = null;
+  const observeContentRegisterProgress = (): boolean => {
+    const current = observeDesignDepthContentRegisterProgressSnapshot({
+      registerPath: contentRegisterPath
+    });
+    if (
+      !designDepthContentRegisterProgressAdvanced({
+        previousMetricKey: lastContentRegisterProgressMetricKey,
+        current
+      })
+    ) {
+      return false;
+    }
+    lastContentRegisterProgressMetricKey = current.metricKey;
+    return true;
+  };
+  writeSdlcSystemArtifact({
+    archiveRoot: input.manifest.archiveRoot,
+    relativePath: "design_depth_fp_evaluator_checkpoint_prompt.md",
+    payload: designDepthFpEvaluatorCheckpointPrompt({
+      contentRegisterPath,
+      checkpointVerdictPath,
+      sourceArtifactPath: input.manifest.outputFile,
+      sourceArtifactPreviewLines: sourceArtifactPreviewLinesForDesignDepthPrompt(
+        input.manifest.outputFile
+      ),
+      selectedCompositionRef: input.pluginInput.selectedCompositionRef,
+      selectedCompositionDigest: input.pluginInput.selectedCompositionDigest,
+      selectedCompositionSelectionRef:
+        input.pluginInput.selectedCompositionSelectionRef,
+      selectedRegimeBindingRef: input.pluginInput.selectedRegimeBindingRef ?? null
+    })
+  });
+  const checkpointOutputLastMessagePath =
+    input.transport.agentKey === "codex"
+      ? join(
+          input.manifest.archiveRoot,
+          "design_depth_fp_evaluator_checkpoint_last_message.txt"
+        )
+      : "";
+  const checkpointProcessLaunch = constrainClaudeProcessLaunchTools({
+    transport: input.transport,
+    processLaunch: processLaunchForWorker({
+      transport: input.transport,
+      manifestPath,
+      manifest: input.manifest,
+      promptPath: checkpointPromptPath,
+      outputLastMessagePath: checkpointOutputLastMessagePath,
+      executorProfile
+    }),
+    allowedTools: "Read,Write"
+  });
+  if (carriedForwardContentRegister) {
+    writeSdlcSystemArtifact({
+      archiveRoot: input.manifest.archiveRoot,
+      absolutePath: checkpointRunPath,
+      payload: Object.freeze({
+        kind: "sdlc_design_depth_fp_evaluator_checkpoint_run",
+        lifecycleStatus: "completed" as const,
+        command: "carry_forward",
+        args: Object.freeze([]),
+        cwd: input.manifest.workspaceRoot,
+        status: 0,
+        signal: null,
+        elapsedMs: 0,
+        timedOut: false,
+        error: null,
+        timeoutMs: evaluatorFirstUpdateTimeoutMs,
+        stdoutRef: null,
+        stderrRef: null,
+        promptRef: pathToFileURL(checkpointPromptPath).href,
+        contentRegisterRef: pathToFileURL(contentRegisterPath).href,
+        processEventsRef: null,
+        traceRoot: null,
+        traceResultRef: null,
+        reason: "content_register_carried_forward"
+      })
+    });
+  } else {
+    const checkpointProcessResult = await invokeSupervisedProcessActor({
+      invocation: actorInvocationForPluginInput({
+        pluginInput: input.pluginInput,
+        transport: input.transport
+      }),
+      command: checkpointProcessLaunch.command,
+      args: checkpointProcessLaunch.args,
+      cwd: input.manifest.workspaceRoot,
+      environment: {
+        ...installedOperatorChildProcessEnvironment(),
+        ...sdlcWorkspaceLocalToolEnvironment(input.manifest.workspaceRoot),
+        ODD_SDLC_EVALUATE_STAGE: "design_depth_content_register_checkpoint",
+        ODD_SDLC_EVALUATOR_CONTENT_REGISTER: contentRegisterPath,
+        ODD_SDLC_EVALUATOR_CHECKPOINT_VERDICT: checkpointVerdictPath,
+        ODD_SDLC_EVALUATOR_PROMPT: checkpointPromptPath,
+        ODD_SDLC_EVALUATOR_SOURCE_ARTIFACT: input.manifest.outputFile,
+        ODD_SDLC_EVALUATOR_SELECTED_COMPOSITION_REF:
+          input.pluginInput.selectedCompositionRef,
+        ODD_SDLC_EVALUATOR_SELECTED_COMPOSITION_DIGEST:
+          input.pluginInput.selectedCompositionDigest,
+        ODD_SDLC_EVALUATOR_SELECTED_COMPOSITION_SELECTION_REF:
+          input.pluginInput.selectedCompositionSelectionRef,
+        ODD_SDLC_EVALUATOR_SELECTED_REGIME_BINDING_REF:
+          input.pluginInput.selectedRegimeBindingRef ?? "",
+        ODD_SDLC_EVALUATOR_COMPOSITION_CONTRIBUTION_REF:
+          input.pluginInput.selectedRegimeBindingRef ??
+          input.pluginInput.selectedCompositionRef
+      },
+      environmentPolicy: environmentPolicyForTransport(input.transport),
+      stdin: checkpointProcessLaunch.stdin,
+      stdoutPath: checkpointStdoutPath,
+      stderrPath: checkpointStderrPath,
+      stdoutRef: pathToFileURL(checkpointStdoutPath).href,
+      stderrRef: pathToFileURL(checkpointStderrPath).href,
+      processStartedPath: checkpointProcessStartedPath,
+      processEventsPath: checkpointProcessEventsPath,
+      parser: parserForWorkerTransport(input.transport),
+      executorProfile,
+      timeoutMs: evaluatorFirstUpdateTimeoutMs,
+      externalProgressTimeoutMs: evaluatorFirstUpdateTimeoutMs,
+      externalProgressCheck: observeContentRegisterProgress,
+      externalProgressTimeoutReason:
+        "design_depth_fp_evaluator_first_update_timeout",
+      inactivityTimeoutMs: inactivityPolicy.inactivityTimeoutMs,
+      terminationGraceMs: inactivityPolicy.terminationGraceMs,
+      heartbeatMs: inactivityPolicy.heartbeatMs,
+      eventSink: input.eventSink
+    });
+    writeSdlcSystemArtifact({
+      archiveRoot: input.manifest.archiveRoot,
+      absolutePath: checkpointRunPath,
+      payload: Object.freeze({
+        kind: "sdlc_design_depth_fp_evaluator_checkpoint_run",
+        lifecycleStatus: "completed" as const,
+        command: checkpointProcessResult.command,
+        args: checkpointProcessResult.args,
+        cwd: checkpointProcessResult.cwd,
+        status: checkpointProcessResult.status,
+        signal: checkpointProcessResult.signal,
+        elapsedMs: checkpointProcessResult.elapsedMs,
+        timedOut: checkpointProcessResult.timedOut,
+        error: checkpointProcessResult.error,
+        timeoutMs: evaluatorFirstUpdateTimeoutMs,
+        stdoutRef: pathToFileURL(checkpointStdoutPath).href,
+        stderrRef: pathToFileURL(checkpointStderrPath).href,
+        promptRef: pathToFileURL(checkpointPromptPath).href,
+        contentRegisterRef: pathToFileURL(contentRegisterPath).href,
+        processEventsRef: pathToFileURL(checkpointProcessEventsPath).href,
+        traceRoot: `${checkpointProcessEventsPath}.trace`,
+        traceResultRef: fileRef(
+          traceResultPath(`${checkpointProcessEventsPath}.trace`)
+        )
+      })
+    });
+    const checkpointCarrierWriteRef = writeDesignDepthCheckpointContentRegister({
+      contentRegisterPath,
+      checkpointVerdictPath,
+      sourceArtifactPath: input.manifest.outputFile,
+      selectedCompositionRef: input.pluginInput.selectedCompositionRef,
+      selectedCompositionDigest: input.pluginInput.selectedCompositionDigest,
+      selectedCompositionSelectionRef:
+        input.pluginInput.selectedCompositionSelectionRef,
+      selectedRegimeBindingRef: input.pluginInput.selectedRegimeBindingRef ?? null
+    });
+    writeSdlcSystemArtifact({
+      archiveRoot: input.manifest.archiveRoot,
+      relativePath: "design_depth_fp_evaluator_checkpoint_carrier_wrap.json",
+      payload: Object.freeze({
+        kind: "checkpoint_carrier_wrap_observation" as const,
+        checkpointVerdictPath,
+        contentRegisterPath,
+        checkpointVerdictExists: existsSync(checkpointVerdictPath),
+        contentRegisterExists: existsSync(contentRegisterPath),
+        checkpointCarrierWriteRef,
+        checkpointVerdictRef: pathToFileURL(checkpointVerdictPath).href,
+        contentRegisterRef: pathToFileURL(contentRegisterPath).href
+      })
+    });
+  }
+  writeDesignDepthFirstUpdateObservation({
+    archiveRoot: input.manifest.archiveRoot,
+    contentRegisterPath
+  });
+  const checkpointObservation = observeDesignDepthContentRegisterFirstUpdate({
+    registerPath: contentRegisterPath
+  });
+  const checkpointEvidenceRefs = uniqueSorted([
+    pathToFileURL(checkpointPromptPath).href,
+    pathToFileURL(checkpointStdoutPath).href,
+    pathToFileURL(checkpointStderrPath).href,
+    pathToFileURL(checkpointVerdictPath).href,
+    pathToFileURL(checkpointProcessEventsPath).href,
+    pathToFileURL(checkpointRunPath).href,
+    pathToFileURL(input.manifest.outputFile).href
+  ]);
+  if (
+    checkpointObservation.status !== "observable" &&
+    checkpointObservation.status !== "partial"
+  ) {
+    return constructEvaluationRuleOutcome({
+      status: "blocked",
+      ruleRef: DESIGN_DEPTH_FP_EVALUATOR_RULE_REF,
+      ruleRole: "semantic_judgment",
+      computeMeans: "F_P",
+      evidenceRefs: checkpointEvidenceRefs,
+      diagnosticRefs: checkpointEvidenceRefs,
+      selectedCompositionRef: input.pluginInput.selectedCompositionRef,
+      selectedCompositionDigest: input.pluginInput.selectedCompositionDigest,
+      selectedCompositionSelectionRef:
+        input.pluginInput.selectedCompositionSelectionRef,
+      selectedRegimeBindingRef: input.pluginInput.selectedRegimeBindingRef,
+      compositionContributionRef:
+        input.pluginInput.selectedRegimeBindingRef ??
+        input.pluginInput.selectedCompositionRef,
+      reason: "design_depth_fp_evaluator_first_update_timeout"
+    });
+  }
+  if (checkpointObservation.status === "observable") {
+    const acceptedCheckpointRegister =
+      acceptedDesignDepthFpEvaluatorOutcomeFromCurrentRegister({
+        manifest: input.manifest,
+        pluginInput: input.pluginInput,
+        contentRegisterPath,
+        registerPath,
+        evidenceRefs: checkpointEvidenceRefs
+      });
+    if (acceptedCheckpointRegister !== null) {
+      return acceptedCheckpointRegister;
+    }
+  }
   const designDepthPromptProjection = designDepthFpEvaluatorPromptProjection({
     manifest: input.manifest,
     manifestPath,
@@ -4157,6 +4804,14 @@ async function materializeDesignDepthRegisterWithFpEvaluator(input: {
     selectedCompositionSelectionRef:
       input.pluginInput.selectedCompositionSelectionRef,
     selectedRegimeBindingRef: input.pluginInput.selectedRegimeBindingRef ?? null,
+    sourceArtifactPreviewLines: sourceArtifactPreviewLinesForDesignDepthPrompt(
+      input.manifest.outputFile
+    ),
+    contentRegisterTelemetryLines:
+      designDepthContentRegisterTelemetryPromptLines({
+        observedSections: checkpointObservation.observedSections,
+        missingSections: checkpointObservation.missingSections
+      }),
     tenantToolEnvironment: tenantToolEnvironmentProjectionFor(input.manifest)
   });
   writeSdlcSystemArtifact({
@@ -4169,27 +4824,6 @@ async function materializeDesignDepthRegisterWithFpEvaluator(input: {
     relativePath: "design_depth_fp_evaluator_prompt_asset.json",
     payload: designDepthPromptProjection.invocationAsset
   });
-  const stdoutPath = join(
-    input.manifest.archiveRoot,
-    "design_depth_fp_evaluator_stdout.log"
-  );
-  const stderrPath = join(
-    input.manifest.archiveRoot,
-    "design_depth_fp_evaluator_stderr.log"
-  );
-  const processStartedPath = join(
-    input.manifest.archiveRoot,
-    "design_depth_fp_evaluator_process_started.json"
-  );
-  const processEventsPath = join(
-    input.manifest.archiveRoot,
-    "design_depth_fp_evaluator_process_events.jsonl"
-  );
-  const outputLastMessagePath =
-    input.transport.agentKey === "codex"
-      ? join(input.manifest.archiveRoot, "design_depth_fp_evaluator_last_message.txt")
-      : "";
-  const executorProfile = selectedWorkerExecutorProfile();
   const processLaunch = constrainClaudeProcessLaunchTools({
     transport: input.transport,
     processLaunch: processLaunchForWorker({
@@ -4202,10 +4836,7 @@ async function materializeDesignDepthRegisterWithFpEvaluator(input: {
     }),
     allowedTools: "Read,Write"
   });
-  const inactivityPolicy = workerInactivityPolicy();
-  const evaluatorTimeoutMs = designDepthFpEvaluatorTimeoutMs();
-  const stdoutBudgetBytes = designDepthFpEvaluatorStdoutBudgetBytes();
-  const traceRoot = `${processEventsPath}.trace`;
+  observeContentRegisterProgress();
   const designDepthRunStartedPayload = Object.freeze({
     kind: "sdlc_design_depth_fp_evaluator_run",
     lifecycleStatus: "started" as const,
@@ -4218,6 +4849,8 @@ async function materializeDesignDepthRegisterWithFpEvaluator(input: {
     timedOut: false,
     error: null,
     timeoutMs: evaluatorTimeoutMs,
+    firstUpdateTimeoutMs: evaluatorFirstUpdateTimeoutMs,
+    progressTimeoutMs: evaluatorProgressTimeoutMs,
     workerTimeoutMs: inactivityPolicy.timeoutMs,
     stdoutBudgetBytes,
     stdoutByteCount: 0,
@@ -4247,52 +4880,57 @@ async function materializeDesignDepthRegisterWithFpEvaluator(input: {
   let processResult: SupervisedProcessActorResult;
   try {
     processResult = await invokeSupervisedProcessActor({
-    invocation: actorInvocationForPluginInput({
-      pluginInput: input.pluginInput,
-      transport: input.transport
-    }),
-    command: processLaunch.command,
-    args: processLaunch.args,
-    cwd: input.manifest.workspaceRoot,
-	    environment: {
-	      ...installedOperatorChildProcessEnvironment(),
-	      ...sdlcWorkspaceLocalToolEnvironment(input.manifest.workspaceRoot),
-	      ODD_SDLC_EVALUATE_STAGE: "design_depth_content_register",
-      ODD_SDLC_EVALUATOR_CONTENT_REGISTER: contentRegisterPath,
-      ODD_SDLC_EVALUATOR_INCREMENTAL_REGISTER: "1",
-      ODD_SDLC_EVALUATOR_INCREMENTAL_FRAGMENT_KIND:
-        SDLC_DESIGN_DEPTH_REGISTER_FRAGMENT_CONTENT_KIND,
-      ODD_SDLC_EVALUATOR_REGISTER_PROJECTION: registerPath,
-      ODD_SDLC_EVALUATOR_PROMPT: promptPath,
-      ODD_SDLC_EVALUATOR_SOURCE_ARTIFACT: input.manifest.outputFile,
-      ODD_SDLC_EVALUATOR_SELECTED_COMPOSITION_REF:
-        input.pluginInput.selectedCompositionRef,
-      ODD_SDLC_EVALUATOR_SELECTED_COMPOSITION_DIGEST:
-        input.pluginInput.selectedCompositionDigest,
-      ODD_SDLC_EVALUATOR_SELECTED_COMPOSITION_SELECTION_REF:
-        input.pluginInput.selectedCompositionSelectionRef,
-      ODD_SDLC_EVALUATOR_SELECTED_REGIME_BINDING_REF:
-        input.pluginInput.selectedRegimeBindingRef ?? "",
-      ODD_SDLC_EVALUATOR_COMPOSITION_CONTRIBUTION_REF:
-        input.pluginInput.selectedRegimeBindingRef ??
-        input.pluginInput.selectedCompositionRef
-    },
-    environmentPolicy: environmentPolicyForTransport(input.transport),
-    stdin: processLaunch.stdin,
-    stdoutPath,
-    stderrPath,
-    stdoutRef: pathToFileURL(stdoutPath).href,
-    stderrRef: pathToFileURL(stderrPath).href,
-    processStartedPath,
-    processEventsPath,
-    parser: parserForWorkerTransport(input.transport),
-    executorProfile,
-    timeoutMs: evaluatorTimeoutMs,
-    inactivityTimeoutMs: inactivityPolicy.inactivityTimeoutMs,
-    terminationGraceMs: inactivityPolicy.terminationGraceMs,
-    heartbeatMs: inactivityPolicy.heartbeatMs,
-    eventSink: input.eventSink
-  });
+      invocation: actorInvocationForPluginInput({
+        pluginInput: input.pluginInput,
+        transport: input.transport
+      }),
+      command: processLaunch.command,
+      args: processLaunch.args,
+      cwd: input.manifest.workspaceRoot,
+      environment: {
+        ...installedOperatorChildProcessEnvironment(),
+        ...sdlcWorkspaceLocalToolEnvironment(input.manifest.workspaceRoot),
+        ODD_SDLC_EVALUATE_STAGE: "design_depth_content_register",
+        ODD_SDLC_EVALUATOR_CONTENT_REGISTER: contentRegisterPath,
+        ODD_SDLC_EVALUATOR_INCREMENTAL_REGISTER: "1",
+        ODD_SDLC_EVALUATOR_INCREMENTAL_FRAGMENT_KIND:
+          SDLC_DESIGN_DEPTH_REGISTER_FRAGMENT_CONTENT_KIND,
+        ODD_SDLC_EVALUATOR_REGISTER_PROJECTION: registerPath,
+        ODD_SDLC_EVALUATOR_PROMPT: promptPath,
+        ODD_SDLC_EVALUATOR_SOURCE_ARTIFACT: input.manifest.outputFile,
+        ODD_SDLC_EVALUATOR_SELECTED_COMPOSITION_REF:
+          input.pluginInput.selectedCompositionRef,
+        ODD_SDLC_EVALUATOR_SELECTED_COMPOSITION_DIGEST:
+          input.pluginInput.selectedCompositionDigest,
+        ODD_SDLC_EVALUATOR_SELECTED_COMPOSITION_SELECTION_REF:
+          input.pluginInput.selectedCompositionSelectionRef,
+        ODD_SDLC_EVALUATOR_SELECTED_REGIME_BINDING_REF:
+          input.pluginInput.selectedRegimeBindingRef ?? "",
+        ODD_SDLC_EVALUATOR_COMPOSITION_CONTRIBUTION_REF:
+          input.pluginInput.selectedRegimeBindingRef ??
+          input.pluginInput.selectedCompositionRef
+      },
+      environmentPolicy: environmentPolicyForTransport(input.transport),
+      stdin: processLaunch.stdin,
+      stdoutPath,
+      stderrPath,
+      stdoutRef: pathToFileURL(stdoutPath).href,
+      stderrRef: pathToFileURL(stderrPath).href,
+      processStartedPath,
+      processEventsPath,
+      parser: parserForWorkerTransport(input.transport),
+      executorProfile,
+      timeoutMs: evaluatorTimeoutMs,
+      externalProgressTimeoutMs: evaluatorProgressTimeoutMs,
+      externalProgressCheck: observeContentRegisterProgress,
+      externalProgressMode: "recurring",
+      externalProgressTimeoutReason:
+        "design_depth_fp_evaluator_progress_timeout",
+      inactivityTimeoutMs: inactivityPolicy.inactivityTimeoutMs,
+      terminationGraceMs: inactivityPolicy.terminationGraceMs,
+      heartbeatMs: inactivityPolicy.heartbeatMs,
+      eventSink: input.eventSink
+    });
   } finally {
     disposeDesignDepthInterruptionArtifact();
   }
@@ -4323,6 +4961,8 @@ async function materializeDesignDepthRegisterWithFpEvaluator(input: {
       timedOut: processResult.timedOut,
       error: processResult.error,
       timeoutMs: evaluatorTimeoutMs,
+      firstUpdateTimeoutMs: evaluatorFirstUpdateTimeoutMs,
+      progressTimeoutMs: evaluatorProgressTimeoutMs,
       workerTimeoutMs: inactivityPolicy.timeoutMs,
       stdoutBudgetBytes,
       stdoutByteCount,
@@ -4365,6 +5005,22 @@ async function materializeDesignDepthRegisterWithFpEvaluator(input: {
     ...evaluatorTraceEvidenceRefs
   ]);
   if (processResult.status !== 0) {
+    if (
+      processResult.outcome.kind === "external_progress_timeout" &&
+      firstUpdateObservation.status !== "pending"
+    ) {
+      const acceptedCurrentRegister =
+        acceptedDesignDepthFpEvaluatorOutcomeFromCurrentRegister({
+          manifest: input.manifest,
+          pluginInput: input.pluginInput,
+          contentRegisterPath,
+          registerPath,
+          evidenceRefs
+        });
+      if (acceptedCurrentRegister !== null) {
+        return acceptedCurrentRegister;
+      }
+    }
     return constructEvaluationRuleOutcome({
       status: "blocked",
       ruleRef: DESIGN_DEPTH_FP_EVALUATOR_RULE_REF,
@@ -4383,7 +5039,11 @@ async function materializeDesignDepthRegisterWithFpEvaluator(input: {
       reason:
         workerProcessTextLooksRetryableProviderFailure(evaluatorProcessText)
           ? "worker_connection_failed"
-          : processResult.timedOut && firstUpdateObservation.status === "pending"
+          : processResult.outcome.kind === "external_progress_timeout" &&
+              processResult.outcome.reason ===
+                "design_depth_fp_evaluator_first_update_timeout"
+            ? "design_depth_fp_evaluator_first_update_timeout"
+            : processResult.timedOut && firstUpdateObservation.status === "pending"
             ? "design_depth_fp_evaluator_first_update_timeout"
             : processResult.timedOut
               ? "design_depth_fp_evaluator_progress_timeout"
@@ -4449,6 +5109,40 @@ async function materializeDesignDepthRegisterWithFpEvaluator(input: {
       ...evidenceRefs,
       ...contentRegisterAdmission.evidenceRefs
     ]);
+    const incompleteRegisterObservation = observeDesignDepthContentRegisterFirstUpdate({
+      registerPath: contentRegisterPath
+    });
+    if (incompleteRegisterObservation.status === "partial") {
+      return constructEvaluationRuleOutcome({
+        status: "blocked",
+        ruleRef: DESIGN_DEPTH_FP_EVALUATOR_RULE_REF,
+        ruleRole: "semantic_judgment",
+        computeMeans: "F_P",
+        evidenceRefs: diagnosticRefs,
+        residualPressureRefs: Object.freeze([
+          `pressure://odd-sdlc/design-depth-fp-evaluator/partial-register/${encodeURIComponent(
+            incompleteRegisterObservation.reason ??
+              "incomplete_non_draft_fragment_sections"
+          )}`,
+          `pressure://odd-sdlc/design-depth-fp-evaluator/observed-sections/${encodeURIComponent(
+            incompleteRegisterObservation.observedSections.join(",") || "none"
+          )}`,
+          `pressure://odd-sdlc/design-depth-fp-evaluator/missing-sections/${encodeURIComponent(
+            incompleteRegisterObservation.missingSections.join(",") || "none"
+          )}`
+        ]),
+        diagnosticRefs,
+        selectedCompositionRef: input.pluginInput.selectedCompositionRef,
+        selectedCompositionDigest: input.pluginInput.selectedCompositionDigest,
+        selectedCompositionSelectionRef:
+          input.pluginInput.selectedCompositionSelectionRef,
+        selectedRegimeBindingRef: input.pluginInput.selectedRegimeBindingRef,
+        compositionContributionRef:
+          input.pluginInput.selectedRegimeBindingRef ??
+          input.pluginInput.selectedCompositionRef,
+        reason: "design_depth_fp_evaluator_partial_register"
+      });
+    }
     return constructEvaluationRuleOutcome({
       status: "blocked",
       ruleRef: DESIGN_DEPTH_FP_EVALUATOR_RULE_REF,
@@ -4576,6 +5270,9 @@ function designDepthFpEvaluatorBlockingReasonCode(
   }
   if (outcome.reason === "design_depth_fp_evaluator_progress_timeout") {
     return "design_depth_fp_evaluator_progress_timeout";
+  }
+  if (outcome.reason === "design_depth_fp_evaluator_partial_register") {
+    return "design_depth_fp_evaluator_pending";
   }
   return outcome.reason === "design_depth_fp_evaluator_process_failed"
     ? "design_depth_fp_evaluator_process_failed"
@@ -7861,6 +8558,9 @@ export function deriveSdlcInstalledOperatorStatusFromAbgTerminal(input: {
   if (abgTerminalAllowsInstalledConvergence(input)) {
     return "converged";
   }
+  if (input.closureDisposition === "retry") {
+    return "worker_invoked";
+  }
   if (input.terminalKind === "gap_stop") {
     return "blocked";
   }
@@ -7878,16 +8578,6 @@ function abgTraversalTransitionProjectionRef(input: {
   const terminalKind = input.terminal?.terminalKind ?? null;
   const terminalReason =
     typeof input.terminal?.reason === "string" ? input.terminal.reason : null;
-  if (terminalKind === "gap_stop") {
-    return deriveRuntimeContinuationTransitionProjectionFromDisposition({
-      basis: input.basis,
-      runtimeProjection: input.runtimeProjection,
-      vectorIndex: input.currentVectorIndex,
-      disposition: "block",
-      reason: "runtime_blocked",
-      reasonRefs: terminalReason === null ? Object.freeze([]) : [terminalReason]
-    }).projectionRef;
-  }
   if (terminalKind === "yielded") {
     return deriveRuntimeContinuationTransitionProjectionFromDisposition({
       basis: input.basis,
@@ -7895,6 +8585,26 @@ function abgTraversalTransitionProjectionRef(input: {
       vectorIndex: input.currentVectorIndex,
       disposition: "yield_continuation",
       reason: "traversal_yield",
+      reasonRefs: terminalReason === null ? Object.freeze([]) : [terminalReason]
+    }).projectionRef;
+  }
+  if (input.closureDisposition === "retry") {
+    return deriveRuntimeContinuationTransitionProjectionFromDisposition({
+      basis: input.basis,
+      runtimeProjection: input.runtimeProjection,
+      vectorIndex: input.currentVectorIndex,
+      disposition: "retry_same_edge",
+      reason: "typed_retry",
+      reasonRefs: Object.freeze(["edge-closure-decision:retry"])
+    }).projectionRef;
+  }
+  if (terminalKind === "gap_stop") {
+    return deriveRuntimeContinuationTransitionProjectionFromDisposition({
+      basis: input.basis,
+      runtimeProjection: input.runtimeProjection,
+      vectorIndex: input.currentVectorIndex,
+      disposition: "block",
+      reason: "runtime_blocked",
       reasonRefs: terminalReason === null ? Object.freeze([]) : [terminalReason]
     }).projectionRef;
   }
@@ -7926,16 +8636,6 @@ function abgTraversalTransitionProjectionRef(input: {
       disposition: "yield_continuation",
       reason: "typed_yield",
       reasonRefs: Object.freeze(["edge-closure-decision:yield"])
-    }).projectionRef;
-  }
-  if (input.closureDisposition === "retry") {
-    return deriveRuntimeContinuationTransitionProjectionFromDisposition({
-      basis: input.basis,
-      runtimeProjection: input.runtimeProjection,
-      vectorIndex: input.currentVectorIndex,
-      disposition: "retry_same_edge",
-      reason: "typed_retry",
-      reasonRefs: Object.freeze(["edge-closure-decision:retry"])
     }).projectionRef;
   }
   if (input.closureDisposition === "reprice") {

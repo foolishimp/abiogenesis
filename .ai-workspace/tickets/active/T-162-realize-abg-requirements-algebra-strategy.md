@@ -136,7 +136,13 @@ target_truth: >-
   work. Product-specific meaning enters through context fragments,
   product-authored requirement terms, graph-function refs, evidence refs, F_P
   findings, F_H decisions, and plugins; it does not become ABG-local parsing of
-  unknown product syntax. The implementation is preceded by a
+  unknown product syntax. Ambiguous product/design/test meaning is handled by
+  sophisticated constrained `F_P.workers` operating as coding-agent evaluators
+  under explicit prompt-control contracts: authority packet, objective, target
+  artifact, bounded tool/read surface, required artifact delta or residual
+  pressure, and stop condition. F_D observes, admits, rejects, projects, and
+  routes from those artifacts; it never performs the worker's semantic reasoning,
+  planning, decomposition, or objective pursuit. The implementation is preceded by a
   design-module-method-complete design that names the GTL
   extensions, ABG extensions, module decomposition, feature checklists,
   Irreducible Architectural Carrier Set, subordinate payload register,
@@ -179,7 +185,14 @@ closure_law: >-
   fallback success, silent omission, or semantic guessing. F_D admission is
   closed-world: unknown or unclassified states cannot be admitted into F_D and
   must be rejected, structurally classified, or routed to typed F_P/F_H pressure
-  before deterministic evaluation. Code closure is not admissible until the
+  before deterministic evaluation. The semantic-compiler or live-proof lane must
+  prove that semantic judgment is performed by constrained `F_P.workers` and that
+  F_D only enforces closed carrier shape, replay consistency, observable
+  progress, admission, projection, and typed routing over declared grammars,
+  metrics, or finite-state machines. No deterministic helper,
+  compiler lane, prompt scaffold, test harness, or adapter may author semantic
+  content, choose semantic decomposition, infer ambiguous satisfaction, or treat
+  non-progress as closure. Code closure is not admissible until the
   design passes `DESIGN_MODULE_METHOD.md` review for authority seam closure,
   essential carrier consolidation, enforcement after proof, ingress collapse,
   Prime Law, IACS, subordinate payload discipline, promotion tests, ODD
@@ -195,6 +208,11 @@ evaluation_criteria:
   - The ticket progresses when implementation is limited to the IACS-approved
     first-slice carriers, admissions, projections, F_D totality outcomes, query
     surfaces, and compatibility wrappers.
+  - The ticket progresses when the semantic-compiler/live proof lane uses an
+    advanced constrained `F_P.worker` harness rather than deterministic semantic
+    reconstruction: the prompt supplies bounded authority and objective, the
+    worker writes the target artifact or residual pressure, and ABG/F_D observes,
+    admits, projects, and routes the result.
   - The ticket progresses when tests prove the first-slice worked trace and
     T-204-derived generic projection/fold fixtures without requiring odd_sdlc or
     odd_glc migration.
@@ -213,7 +231,22 @@ non_closure_conditions:
   - RequirementFold, RequirementResidual, or re-entry pressure becomes a rival
     closure, continuation, retry, or evaluate-next surface instead of a
     projection over existing ABG truth.
+  - Requirement fold state is selected from synthetic source tags,
+    evidence-role heuristics, caller-authored labels, liveness, file existence,
+    test pass status, or artifact shape instead of exact existing ABG
+    `AssuranceClosureDecision` refs.
   - F_D infers product semantic satisfaction from unknown syntax or path shape.
+  - F_D, a compiler helper, a prompt scaffold, a fixture, or a deterministic
+    adapter performs semantic reasoning that belongs to the `F_P.worker`.
+  - Any F_D use lacks a declared input grammar, metric or finite-state machine,
+    output state enum, derivation rule, or forbidden-interpretation boundary.
+  - The semantic-compiler/live proof depends on framework-authored semantic rows,
+    deterministic section schedules, deterministic ADR/design parsing, or
+    hand-coded product meaning instead of F_P-authored artifact deltas admitted by
+    ABG.
+  - `F_P.worker` prompts are open-ended chat prompts without a bounded authority
+    packet, explicit objective, target artifact, allowed tool/read surface,
+    required artifact delta or residual-pressure write, and stop condition.
   - Unknown or unclassified state is admitted into F_D instead of rejected,
     structurally classified, or routed to typed F_P/F_H pressure.
   - F_D is partial over admitted requirements-algebra states, crashes, falls
@@ -223,6 +256,8 @@ non_closure_conditions:
   - Current admitted evidence cannot supersede empty or stale predecessor replay.
   - Context fragments are either all exploded into requirement atoms or all left as inert prose.
   - Traversal spans are local string conventions that do not survive graph-function/vector identity.
+  - A broad `A -> X` traversal span cannot deterministically cover an interior
+    edge from declared graph-function/vector identity or vector-index range.
   - The implementation starts odd_glc, T-160 executive observation, UI, or downstream product policy before ABG/GTL owns the core carriers and folds.
   - No query/read model exists for active requirements, obligations, evidence bindings, folds, residuals, attenuation, and assurance claims.
   - Destination topology is collapsed into requirements or treated as a build-tenant special case.
@@ -247,6 +282,7 @@ proof_commands:
   - cd build_tenants/abiogenesis/typescript && npm run test:t159
   - cd build_tenants/abiogenesis/typescript && npm run test:semantic
   - cd build_tenants/abiogenesis/typescript && npm run lint:test-harness
+  - cd build_tenants/abiogenesis/typescript && npm run test:t162:hello-world-live
   - cd build_tenants/abiogenesis/typescript && npm run test:t132:live
   - cd build_tenants/abiogenesis/typescript && npm run test:t159:odd-sdlc-t132-live
 proof_surface:
@@ -359,7 +395,7 @@ bridge, or explicit downstream boundary.
 | Completeness gates | Add first-slice deterministic gates for span, evidence-policy, context-routing, destination-topology, test-relation, and attenuation coverage; classify broader refinement/assignment/assumption/obstacle/conflict/operationalization/operation-agent gates before implementation. |
 | Workflow 1-7 | Implement the worked-trace workflow: author pressure, build edge environment, project obligations, bind evidence, project fold/residual/attenuation, and query; keep retry/re-entry authority projected from existing ABG truth. |
 | T-204 interpretation | Convert the six observed failure patterns into generic requirement-projection/fold regression fixtures, not downstream-specific closure work. |
-| F_D/F_P boundary | Keep deterministic checks on envelopes, ids, spans, policies, evidence, and replay; leave semantic source/design/test satisfaction to F_P and product-owner decisions to F_H. |
+| F_D/F_P boundary | Keep deterministic checks on envelopes, ids, spans, policies, evidence, replay, admission, projection, observable progress, and typed routing; leave semantic source/design/test satisfaction, planning, decomposition, and objective pursuit to constrained `F_P.workers`, with product-owner decisions to F_H. |
 | Product boundary | ABG/GTL owns carriers, spans, environments, folds, replay, residual law, query, and GTL typecheck support; products own domain terms and domain evidence interpretation. |
 | odd_glc split | T-162 delivers the ABG/GTL substrate that odd_glc may later consume; T-162 does not implement odd_glc policy. |
 | Gaps in current thinking | Turn all fourteen gaps into design decisions, explicit deferred non-goals, or deterministic first-slice gates. |
@@ -560,6 +596,68 @@ No F_D branch may return implicit success for an unrecognized state. Unknown
 content is managed by routing to `semantic_assessment_required`, not by
 deterministic semantic inference.
 
+### F_P Worker-Control Design
+
+T-162 relies on sophisticated `F_P.workers` for semantic reasoning over
+ambiguous product, design, test, and proof content. These workers are advanced
+coding-agent evaluators, not weak extractors. The framework must control their
+planning and execution with prompt contracts instead of replacing them with F_D
+semantic logic.
+
+Required `F_P.worker` prompt-control contract:
+
+- authority packet: exact graph/vector/objective, governing requirements,
+  admitted evidence refs, current pressure artifact, and target carrier contract;
+- objective: one bounded semantic advance over the current artifact, not a broad
+  open-ended chat task;
+- tool/read boundary: expose only the tools needed for the worker cell, and
+  bound reads to the relevant authority and artifact surfaces;
+- artifact obligation: every successful worker turn writes the target artifact
+  with a meaningful delta, or writes explicit residual pressure explaining why no
+  truthful advance is possible;
+- planning discipline: planning is permitted only as internal worker reasoning or
+  as an artifact delta/residual pressure row; it must not remain silent hidden
+  state;
+- stop condition: after one meaningful artifact delta or residual-pressure write,
+  the worker stops and ABG observes/admit/projects before the next iteration;
+- provenance: worker-authored semantic rows cite source/evidence refs and remain
+  candidates until ABG admission.
+
+F_D responsibilities around this harness are deliberately small and each one
+must declare the finite surface it operates over. No F_D function is useful or
+lawful unless its grammar, metric, or finite-state machine is explicit before
+implementation.
+
+Required F_D finite-surface declaration for every deterministic check:
+
+| F_D purpose | Required finite surface | Derived output | Forbidden interpretation |
+| --- | --- | --- | --- |
+| artifact observation | declared artifact ref/path grammar plus observed write event, content digest, byte count, and event watermark metrics | `missing`, `present`, `changed`, `unchanged`, `invalid` | semantic completeness, quality, or satisfaction |
+| progress classification | declared progress telemetry grammar for the target carrier, such as artifact digest change, admitted row/ref count, declared progress event watermark, or typed residual-pressure row count; if no metric is declared, only `missing/present` may be classified | `pending`, `first_observed`, `progressing`, `stationary`, `non_progress_timeout`, `observable_complete` | whether the worker chose the right plan, section, abstraction, or meaning |
+| admission/rejection | closed carrier grammar: exact key set, enum domains, identity refs, source/evidence refs, digest, target contract, and authority-smuggling denylist | `admitted`, `rejected_malformed`, `rejected_identity`, `rejected_authority`, `rejected_ref` | product truth, semantic adequacy, or closure |
+| projection | replay grammar over admitted events/registers plus deterministic projection function and total state enum | replay-derived read model or typed projection rejection | hidden controller state or inferred domain facts |
+| structural classification | admitted state grammar plus explicit finite-state table for malformed, incomplete, stale, contradictory, semantic-assessment-required, semantic-residual-preserved, F_H-required, and non-closing states | typed structural outcome | resolution of ambiguous prose or product intent |
+| routing | existing ABG continuation/evaluate-next FSM over admitted typed outcomes, retry frontier, and policy limits | `retry`, `continue`, `block`, `yield`, `reprice`, or `escalate` | selecting semantic target movement from raw product content |
+
+If an implementation cannot name the grammar, metric, or FSM for an F_D purpose,
+the state is not F_D input. It must be rejected, structurally classified as
+`semantic_assessment_required`, or routed to constrained `F_P.worker`/F_H
+pressure.
+
+F_D must not:
+
+- read ambiguous product/design prose and infer semantic satisfaction;
+- choose semantic decomposition or section order for the worker;
+- author semantic rows, checkpoint meanings, findings, folds, or residuals;
+- compensate for an underconstrained worker by hard-coding product meaning;
+- treat liveness, file existence, test pass, or artifact shape as closure.
+
+The semantic-compiler/live proof for this ticket must demonstrate this boundary:
+`ABG executive loop -> constrained F_P.worker -> artifact delta/residual pressure
+-> F_D admission/projection -> ABG retry/continue/block`. If the proof needs a
+deterministic semantic compiler over ungrammatized content, the ticket remains
+open.
+
 ### Fold And Residual Projection Mapping
 
 `RequirementFold` and `RequirementResidual` are requirement-scoped projection
@@ -753,6 +851,17 @@ closure. It must explicitly evaluate:
    - Include the fold/residual status mapping table to existing ABG assurance,
      continuation, and evaluate-next truth before any fold carrier is
      implemented.
+   - Include the `F_P.worker` prompt-control contract for semantic compiler/live
+     proof work: authority packet, bounded objective, target artifact, tool/read
+     boundary, artifact delta or residual-pressure write, provenance refs, and
+     stop condition.
+   - State explicitly that F_D may observe, admit, project, classify, and route
+     worker artifacts, but may not perform semantic reasoning, planning,
+     decomposition, or objective pursuit over ambiguous content.
+   - For every F_D role named in the semantic-compiler/live proof, define the
+     finite surface it operates over: input grammar, metric or finite-state
+     machine, output state enum, derivation rule, and forbidden semantic
+     interpretation. An F_D role without such a finite surface is non-closing.
    - Resolve recursive and zoomed `TraversalSpan` identity across graph
      functions, internal graph vectors, child frames, foldback, and aliases.
    - Partition the fourteen strategy gaps into slice-1-blocking,
@@ -857,6 +966,10 @@ closure. It must explicitly evaluate:
      them.
    - Each first-slice function must be independently replayable and operate over
      admitted carriers.
+   - Semantic-compiler or live-proof graph functions that need ambiguous content
+     judgment must invoke constrained `F_P.workers`; they must not embed
+     deterministic product/design parsers or hard-coded semantic decomposition in
+     ABG.
 
 9. Strategy-derived materialization and postflight regression fixtures
    - Prove stronger active role policy wins when two authorities address the
@@ -921,6 +1034,15 @@ closure. It must explicitly evaluate:
    - Prove unknown or unclassified state cannot be admitted into F_D and instead
      fails closed or routes to typed F_P/F_H pressure before deterministic
      evaluation.
+   - Prove the semantic-compiler/live proof uses a constrained `F_P.worker`
+     prompt-control contract and that F_D only observes progress, admits closed
+     carrier shape, projects admitted truth, and routes retry/continue/block.
+   - Prove every F_D role used by the semantic-compiler/live proof declares and
+     tests its grammar, metric or FSM, state/outcome enum, derivation rule, and
+     forbidden semantic interpretation.
+   - Prove a deterministic compiler/helper cannot author semantic rows, infer
+     ambiguous satisfaction, choose semantic section decomposition, or close from
+     liveness, file existence, pass status, or artifact shape.
    - Prove read models expose folds, residuals, attenuation, and assurance
      claims without losing stable ids.
    - Prove every new `REQ-R-ABG3-REQUIREMENTS-ALGEBRA` clause has a testcase
@@ -1011,6 +1133,18 @@ closure. It must explicitly evaluate:
 - [x] Unknown or unclassified state is not admissible F_D input and is rejected,
       structurally classified, or routed to typed F_P/F_H pressure before
       deterministic evaluation.
+- [x] Semantic-compiler/live proof work uses constrained `F_P.workers` as
+      sophisticated coding-agent evaluators with authority packets, bounded
+      objectives, target artifacts, tool/read boundaries, required artifact
+      deltas or residual-pressure writes, provenance refs, and stop conditions.
+- [x] No F_D path, compiler helper, prompt scaffold, fixture, or deterministic
+      adapter authors semantic rows, chooses semantic decomposition, infers
+      ambiguous product/design/test satisfaction, or closes from liveness, file
+      existence, pass status, artifact shape, or framework-authored checkpoint
+      content.
+- [x] Every F_D role used in the semantic-compiler/live proof declares and tests
+      its input grammar, metric or finite-state machine, output state enum,
+      derivation rule, and forbidden semantic interpretation boundary.
 - [x] Query/read models expose active requirements, obligations,
       materialization targets, evidence bindings, folds, residuals,
       attenuation, and assurance claims.
@@ -1039,6 +1173,11 @@ closure. It must explicitly evaluate:
 - Do not make DOT, diagrams, or visual editors authoritative.
 - Do not itemize every compressed authority fragment into atomic requirements.
 - Do not make ABG parse unknown product syntax to infer requirement meaning.
+- Do not move `F_P.worker` semantic reasoning, planning, decomposition, or
+  objective pursuit into F_D, compiler helpers, prompt scaffolds, fixtures, or
+  deterministic adapters.
+- Do not close T-162 using framework-authored semantic rows or deterministic
+  semantic reconstruction over ungrammatized product/design/test content.
 - Do not replace existing edge assurance contracts abruptly; bridge them
   through requirement projection refs.
 - Do not allow scalar edge close, materialized files, test success, or report
@@ -1077,3 +1216,328 @@ Current implemented surfaces:
   `test:t159`, and full `test:semantic`.
 - Closure still requires compiler/live proof work, plus harness lint, to prove
   this is not only a semantic carrier substrate.
+- The remaining compiler/live proof must prove the positive worker-control
+  boundary: constrained `F_P.workers` perform semantic reasoning and write
+  artifact deltas or residual pressure, while F_D only observes, admits,
+  projects, classifies, and routes typed outcomes. Any proof that depends on F_D
+  semantic reasoning, deterministic semantic sectioning, or hard-coded
+  product/design interpretation is non-closing.
+
+## 2026-06-27 Progress Note
+
+The reopened code-review findings have been repaired in the current working
+tree, but T-162 remains active until the selected live or installed downstream
+proof lane exercises the boundary.
+
+Implemented repairs:
+
+- Requirements-algebra admission now covers all first-slice event kinds rather
+  than only term/projection/evidence-bound payloads.
+- Traversal span coverage consumes source/target identity, frame/zoom/foldback
+  refs, aliases, and declared vector-index ranges when supplied instead of
+  treating a span as only an enumerated vector set.
+- Requirement fold projection now maps only from exact existing ABG
+  `AssuranceClosureDecision` refs; evidence-role heuristics and synthetic
+  source tags no longer create satisfied/partial fold state.
+- Residual attenuation compares residual identity rather than array position.
+- Completeness gates now check context routing, destination topology, and test
+  relation coverage per requirement instead of by any-row presence.
+- The frozen odd_sdlc design-depth evaluator no longer precreates
+  framework-authored semantic draft rows or a canned checkpoint verdict.
+- The design-depth checkpoint is a constrained `F_P.worker` call: F_D supplies
+  only carrier grammar, selected identity, and compressed authority preview;
+  the worker authors axis status/reasons/evidence refs.
+- The design-depth progress observer now has a declared F_D metric surface:
+  input grammar `sdlc_evaluate_content_register`, finite state enum, metric
+  fields, derivation rule, and forbidden semantic interpretation. It observes
+  pending/invalid/first-observed/progressing/stationary/complete states from
+  content-register artifact deltas only.
+
+Focused proof run after these repairs:
+
+- `npm run build:semantic`
+  in `build_tenants/abiogenesis/typescript` passed.
+- `npm run build:semantic`
+  in
+  `build_tenants/abiogenesis/typescript/test_env/downstream/odd_sdlc_t132_frozen/odd_sdlc_typescript`
+  passed.
+- `npm run test:t162`
+  in `build_tenants/abiogenesis/typescript` passed: 16/16.
+- Focused downstream evaluator regressions passed:
+  `T-162 design-depth progress observation is a declared F_D metric, not semantic judgment`,
+  `T-187 design-depth evaluator prompt carries no framework-authored semantic recipe`,
+  and `T-184 F_P evaluator prompt uses incremental content register writes`.
+
+Remaining non-closure from this note:
+
+- Run the broader downstream semantic regression suite and harness lint.
+- Only then evaluate the final three acceptance checkboxes for constrained
+  `F_P.worker` live proof, no deterministic semantic authoring, and complete
+  F_D finite-surface declarations in the proof lane.
+
+## 2026-06-27 Compiler Self-Test Progress Note
+
+The semantic compiler graph has now been updated to the T-162 boundary and can
+test itself through its own ABG graph function.
+
+Implemented:
+
+- `constructAbgSemanticCompilerFpReviewGraphFunction()` declares the T-162
+  constrained `F_P.worker` contract on the graph function and vector:
+  worker-control contract ref, required artifact-delta kind, and the finite F_D
+  surface refs for package grammar, result grammar, progress telemetry grammar,
+  progress metric, admission FSM, output-state enum, derivation rule, and
+  forbidden semantic interpretation.
+- `AbgSemanticCompilerFpReviewPackageIdentity`,
+  `AbgSemanticCompilerFpReviewResult`, and semantic review gates now carry the
+  same T-162 fields as admitted/digested truth. Stale v1 review results no
+  longer satisfy the semantic review gate.
+- Direct review-result admission rejects missing or mismatched worker-control
+  and F_D finite-surface fields.
+- `typecheckGtlProgram(...)` rejects semantic review gates that do not carry the
+  T-162 worker-control contract or declared F_D grammar/metric/FSM/state enum,
+  derivation, and forbidden-interpretation boundary.
+- The focused conformance test now runs the compiler review graph over the
+  compiler review graph itself and then admits that output through the
+  conformance gate.
+
+Initial focused proof run before the live environment was enabled:
+
+- `npm run build:semantic`
+  in `build_tenants/abiogenesis/typescript` passed.
+- `node --test test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs`
+  in `build_tenants/abiogenesis/typescript` passed: 90/90, including
+  `T-162 semantic compiler graph self-reviews with constrained F_P worker control`.
+- `npm run lint:semantic`
+  in `build_tenants/abiogenesis/typescript` passed after removing the remaining
+  T-162 unused-parameter lint defect in requirements-algebra completeness
+  predicates.
+- `npm run test:t162`
+  in `build_tenants/abiogenesis/typescript` passed: 16/16.
+
+Remaining non-closure after this progress:
+
+- The compiler self-test proves the semantic compiler graph boundary and
+  gate-level T-162 contract. It does not replace the selected installed/live
+  downstream proof lane.
+- The final semantic-compiler/live checkboxes remain open until the downstream
+  proof lane exercises the same boundary through live or installed ABG
+  execution and the broader proof/lint commands pass.
+
+## 2026-06-27 Hello-World ABG Test Progress Note
+
+The ABIogenesis hello-world live proof lane now applies the T-162 compiler
+boundary before launching the frozen odd_sdlc T-132 JavaScript hello-world
+sandbox. Its `abg-t162-compiler-hello-world-proof` preflight runs exactly these
+three focused conformance tests:
+
+- `T-159 GTL program typechecker admits a JS hello-world materialization unit`
+- `T-162 GTL program typechecker rejects malformed requirements algebra declarations`
+- `T-162 semantic compiler graph self-reviews with constrained F_P worker control`
+
+The live test command order was corrected so `--test-name-pattern` is applied
+before the test file path; otherwise Node executes the whole conformance file
+instead of the intended focused subset.
+
+Focused proof run:
+
+- `node --test --test-name-pattern "T-159 GTL program typechecker admits a JS hello-world materialization unit|T-162 GTL program typechecker rejects malformed requirements algebra declarations|T-162 semantic compiler graph self-reviews with constrained F_P worker control" test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs`
+  in `build_tenants/abiogenesis/typescript` passed: 3/3.
+- `npm run lint:test-harness`
+  in `build_tenants/abiogenesis/typescript` passed.
+- `node --test test_env/live/test_t159_odd_sdlc_t132_frozen_live.test.mjs`
+  in `build_tenants/abiogenesis/typescript` loaded and skipped as expected
+  without live env: set `ABG_TS_ODD_SDLC_T132_FROZEN_LIVE=1` or `CODEX_LIVE_FP=1`
+  to run the full live sandbox.
+
+## 2026-06-27 Re-review Repair And Live Proof Note
+
+The current working tree repairs the two high-risk T-162 re-review findings
+that remained after the compiler/live-proof reopen.
+
+Implemented:
+
+- Requirement fold state is now projected from exact ABG assurance closure
+  decisions. `requirementAbgTruthRefFromAssuranceClosureDecision(...)` accepts
+  an existing `AssuranceClosureDecision` and emits a deterministic source ref;
+  `foldRequirementEvidence(...)` maps only the admitted decision enum:
+  `close -> satisfied`, `retry -> partial`, `block -> blocked`,
+  `qualified_defer -> deferred`, and `reprice -> repriced`.
+- Synthetic truth tags such as `abg-truth://assurance_fold_fulfilled/current`
+  now preserve `no_close_preserved` rather than creating a satisfied fold.
+- Broad traversal spans now cover interior edges by declared vector-index
+  range. A span declared over indexes `[0, 4]` can carry a requirement over
+  interior edge index `2` without enumerating the interior vector identity.
+- The semantic compiler projection uses the same range rule, so compiler
+  projection and runtime requirements-algebra projection agree.
+- The hello-world live proof lane was run with the live environment enabled and
+  completed the frozen odd_sdlc T-132 JavaScript hello-world sandbox.
+
+Proofs:
+
+- `npm run build:semantic`
+  in `build_tenants/abiogenesis/typescript` passed.
+- `npm run lint:semantic`
+  in `build_tenants/abiogenesis/typescript` passed.
+- `node --test test_env/tests/test_t162_requirements_algebra.test.mjs`
+  in `build_tenants/abiogenesis/typescript` passed: 16/16.
+- `node --test --test-name-pattern "T-159 GTL program typechecker admits a JS hello-world materialization unit|T-162 GTL program typechecker rejects malformed requirements algebra declarations|T-162 semantic compiler graph self-reviews with constrained F_P worker control" test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs`
+  in `build_tenants/abiogenesis/typescript` passed: 3/3.
+- `node --test test_env/tests/test_t092_total_assurance_projection_unit.test.mjs`
+  in `build_tenants/abiogenesis/typescript` passed: 14/14.
+- `npm run test:t162:hello-world-live`
+  in `build_tenants/abiogenesis/typescript` passed:
+  run root
+  `test_env/test_runs/t159_odd_sdlc_t132_frozen_live/20260626T204046550Z`,
+  scenario root
+  `test_env/test_runs/t159_odd_sdlc_t132_frozen_live/20260626T204046550Z/scenario_runs/20260626T204054303Z_pid4161`.
+- Manual execution of the generated hello-world test passed:
+  `node --test test/hello.test.js` in the generated
+  `workspace/build_tenants/hello_world_javascript`.
+
+Remaining non-closure:
+
+- The live hello-world proof is green, but it is not by itself a formal T-162
+  closure claim.
+- Run the broader default semantic suite, downstream frozen odd_sdlc semantic
+  regression suite, harness lint, and final diff checks before moving the
+  remaining proof checklist to complete.
+
+## 2026-06-27 Current Hello-World Live Proof Update
+
+The current live proof exercised the repaired T-162 checkpoint and
+post-checkpoint iteration path end to end.
+
+Additional implemented repair:
+
+- The design-depth checkpoint worker now writes only a small F_P semantic
+  verdict payload. The framework admits that payload against a closed grammar
+  and wraps it into the `sdlc_evaluate_content_register` carrier. This is
+  deterministic carrier materialization, not semantic judgment: F_P still owns
+  axis status, reasons, and evidence refs.
+- The post-checkpoint progress observer projects only artifact telemetry from
+  the admitted content register: observed sections, missing sections, row
+  counts, and the next missing section. The full F_P worker then writes the
+  semantic rows; F_D does not author row content or infer satisfaction.
+- The full evaluator iteration started from the checkpoint row and produced all
+  twelve required design-depth sections, including `stackProfileRows`, without
+  framework-authored semantic rows.
+
+Proofs:
+
+- `npm run test:t162:hello-world-live`
+  in `build_tenants/abiogenesis/typescript` passed:
+  run root
+  `test_env/test_runs/t159_odd_sdlc_t132_frozen_live/20260626T230129053Z`,
+  scenario root
+  `test_env/test_runs/t159_odd_sdlc_t132_frozen_live/20260626T230129053Z/scenario_runs/20260626T230136940Z_pid94109`;
+  timings:
+  `{"compilerProofMs":26.57,"prepareMs":7649.356,"scenarioMs":2040388.834,"totalMs":2048334.09}`.
+- The live design-depth evaluator reached
+  `fragmentRowCount: 12`, `draftRowCount: 0`, `missingSections: []`, and
+  `design_depth_fp_evaluator_run.status: 0`.
+- The frozen odd_sdlc graph advanced through design ADR, component code,
+  test design, component test surface, and UAT test source surfaces with
+  review-grade assessments passing on each reviewed edge.
+- Manual execution of the generated tenant passed:
+  `node --test test/hello.test.js` in
+  `test_env/test_runs/t159_odd_sdlc_t132_frozen_live/20260626T230129053Z/scenario_runs/20260626T230136940Z_pid94109/workspace/build_tenants/hello_world_javascript`.
+- Manual source execution printed the required stdout:
+  `node src/hello.js` -> `Hello, world!`.
+- Post-live ABI verification passed on the current tree:
+  `npm run build:semantic`, `npm run lint:semantic`,
+  `npm run lint:test-harness`, `npm run test:t162`,
+  `node --test test_env/tests/test_t118_lever_registry.test.mjs`,
+  `npm run test:semantic` (909/909), and `git diff --check`.
+- The full ABI semantic suite initially exposed a lever-registry drift guard:
+  `abg.transport.actor.termination_grace_ms` pointed at a comment after
+  `process_actor.ts` shifted. The registry anchors now point at the live
+  exported timeout, termination-grace, and heartbeat constants.
+- The focused frozen odd_sdlc downstream prompt/control regressions passed:
+  `T-162 design-depth progress observation is a declared F_D metric`,
+  `T-183 evaluator sidecar admission is structural and does not replace F_P
+  semantic judgment`, `T-181 framework-smoke component-code prompt preserves
+  downstream test execution`, and `T-187 design-depth evaluator prompt carries
+  no framework-authored semantic recipe` (4/4).
+- The full frozen odd_sdlc downstream `npm run test:semantic` was attempted and
+  failed broadly across stale/source-root-sensitive fixture expectations,
+  including tests that read files outside the frozen downstream subtree. This is
+  not a passing closure signal for T-162 and remains a separate downstream
+  suite reconciliation item.
+
+Remaining non-closure:
+
+- This update completes the semantic-compiler/live F_P-boundary acceptance
+  items, but T-162 is not formally closed until the broader default semantic
+  suite contract is resolved for the frozen downstream odd_sdlc fixture or that
+  downstream full-suite requirement is explicitly repriced to a focused
+  downstream proof lane.
+
+## 2026-06-27 Requirements-Algebra Re-Review Repair Note
+
+The current working tree repairs the verified requirements-algebra and
+semantic-compiler findings from the follow-up DESIGN_MODULE_METHOD code review.
+
+Implemented:
+
+- Evidence binding now prefers an admitted `RequirementProjection.evidenceRole`
+  over path shape. Path-root classification is only a fallback when no role was
+  declared, so test execution and semantic interpretation evidence are not made
+  unreachable by `src/test/...` paths.
+- Requirement fold residual pointers now resolve by construction:
+  `foldRequirementEvidence(...)` and `residualizeRequirementFolds(...)` share
+  the same `requirement-residual:<requirementId>:<state>` ref builder.
+- Requirement fold source truth is scoped per requirement on multi-term edges.
+  A global `sourceAbgTruthRefs` input is retained only for single-term
+  compatibility; multi-term folds must use
+  `sourceAbgTruthRefsByRequirementId`, preventing one ABG assurance decision
+  from collapsing every active requirement to the same fold state.
+- `evaluateRequirementStructuralState(...)` no longer accepts caller-supplied
+  semantic/outcome booleans. It derives deterministic F_D outcomes from ledger
+  shape, duplicate/dangling refs, stale current flags, admitted relation
+  contradictions, `fp_required` context routing, fold states, and residual
+  pressure classes.
+- `projectRequirementLedger(...)` now fails closed on duplicate event refs and
+  dangling cross-carrier refs for terms, relations, projections, evidence
+  bindings, folds, and residuals.
+- The GTL conformance gate now imports the requirements-algebra runtime
+  authority denylist, relation-kind values, and stage values from the ABG
+  requirements-algebra module instead of maintaining divergent duplicate law.
+- Requirement spans declared by stable `graphVectorId` now resolve in the
+  compiler, matching the existing span matcher and removing the false
+  `graph-vector-ref-resolves` rejection.
+- `RequirementTestRelation` construction now enforces all required projection
+  and policy refs as non-empty carrier fields.
+- Assurance claim projection no longer reports vacuous support when no fold is
+  present, blocked folds are not masked by residual-first partial precedence,
+  deferred folds preserve continuation pressure, completeness fold coverage
+  ignores superseded projections, and query read models expose only current
+  non-rejected evidence.
+- `M03_REQUIREMENTS_ALGEBRA_FIRST_SLICE_IACS.md` now classifies
+  `RequirementTestRelation`, `RequirementEdgeRef`, the admitted payload
+  carriers, and the downstream projection/read-model carriers.
+
+Proofs:
+
+- `npm run build:semantic`
+  in `build_tenants/abiogenesis/typescript` passed.
+- `npm run lint:semantic`
+  in `build_tenants/abiogenesis/typescript` passed.
+- `npm run lint:test-harness`
+  in `build_tenants/abiogenesis/typescript` passed.
+- `npm run test:t162`
+  in `build_tenants/abiogenesis/typescript` passed: 18/18.
+- `node --test --test-name-pattern "T-162 GTL program typechecker admits requirement spans by graph-vector id|T-162 GTL program typechecker rejects malformed requirements algebra declarations|T-162 GTL program typechecker rejects malformed requirements relation graphs" test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs`
+  in `build_tenants/abiogenesis/typescript` passed: 3/3.
+- `npm run test:semantic`
+  in `build_tenants/abiogenesis/typescript` passed: 912/912.
+- `git diff --check`
+  in `build_tenants/abiogenesis/typescript` passed.
+
+Remaining non-closure:
+
+- This repair closes the verified requirements-algebra/code-review defects
+  above. It does not by itself resolve the earlier frozen downstream
+  odd_sdlc full-suite reconciliation item. Formal T-162 closure still requires
+  either resolving that suite contract or explicitly repricing closure to the
+  focused downstream proof lane already recorded above.

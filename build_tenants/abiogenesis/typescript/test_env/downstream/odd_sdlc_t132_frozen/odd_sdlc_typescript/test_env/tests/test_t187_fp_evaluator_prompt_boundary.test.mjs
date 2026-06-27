@@ -1247,9 +1247,28 @@ test("T-187 design-depth evaluator prompt carries no framework-authored semantic
   assert.doesNotMatch(evaluatorPromptSource, /node --input-type=module/u);
   assert.doesNotMatch(evaluatorPromptSource, /Exact (first|second) update command pattern/u);
   assert.doesNotMatch(evaluatorPromptSource, /tableRows|sectionText/u);
+  assert.doesNotMatch(
+    installedOperatorSource,
+    /first F_P pressure checkpoint before bounded design-depth inspection/u
+  );
+  assert.doesNotMatch(
+    installedOperatorSource,
+    /The checkpoint is partial by construction/u
+  );
   assert.match(evaluatorPromptSource, /There is no framework-authored recipe/u);
   assert.match(evaluatorPromptSource, /F_D does not construct semantic register rows/u);
+  assert.match(
+    evaluatorPromptSource,
+    /The F_P worker chooses entity, attribute, and flow axis statuses/u
+  );
+  assert.match(
+    evaluatorPromptSource,
+    /ABG observes the artifact delta through the declared content-register progress metric/u
+  );
   assert.match(evaluatorPromptSource, /First-update carrier helper contract/u);
+  assert.match(evaluatorPromptSource, /Existing-checkpoint branch/u);
+  assert.match(evaluatorPromptSource, /do not replay a checkpoint-only register/u);
+  assert.match(evaluatorPromptSource, /checkpoint-only write is non-progress/u);
   assert.match(
     evaluatorPromptSource,
     /DESIGN_DEPTH_DRAFT_FRAGMENT_UPDATE_HELPER_CONTRACT_REF/u

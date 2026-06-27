@@ -5,6 +5,7 @@ import {
   readFileSync,
   statSync
 } from "node:fs";
+import { createHash } from "node:crypto";
 import { join } from "node:path";
 import { pathToFileURL } from "node:url";
 import type { EnginePluginInput, RuntimeRegime } from "@abiogenesis/typescript-tenant";
@@ -83,8 +84,48 @@ export interface SdlcDesignDepthContentRegisterFirstUpdateObservation {
   readonly fragmentRowCount: number;
   readonly observedSections: readonly string[];
   readonly missingSections: readonly string[];
+  readonly nextRepairSection: string | null;
   readonly observedAt: string;
   readonly reason: string | null;
+}
+
+export const SDLC_DESIGN_DEPTH_CONTENT_REGISTER_PROGRESS_SURFACE_REF =
+  "metric://odd-sdlc/design-depth-content-register-progress/v1" as const;
+
+export const SDLC_DESIGN_DEPTH_CONTENT_REGISTER_PROGRESS_STATES = Object.freeze([
+  "pending",
+  "first_observed",
+  "progressing",
+  "stationary",
+  "observable_complete",
+  "invalid"
+] as const);
+
+export type SdlcDesignDepthContentRegisterProgressState =
+  (typeof SDLC_DESIGN_DEPTH_CONTENT_REGISTER_PROGRESS_STATES)[number];
+
+export interface SdlcDesignDepthContentRegisterProgressSnapshot {
+  readonly kind: "sdlc_design_depth_content_register_progress_snapshot";
+  readonly metricGrammarRef: typeof SDLC_DESIGN_DEPTH_CONTENT_REGISTER_PROGRESS_SURFACE_REF;
+  readonly inputGrammar: "sdlc_evaluate_content_register";
+  readonly outputState: SdlcDesignDepthContentRegisterProgressState;
+  readonly outputStateEnum: readonly SdlcDesignDepthContentRegisterProgressState[];
+  readonly derivationRule: string;
+  readonly forbiddenInterpretation: string;
+  readonly contentRegisterRef: string;
+  readonly firstUpdateStatus: SdlcDesignDepthContentRegisterFirstUpdateObservation["status"];
+  readonly rowCount: number;
+  readonly draftRowCount: number;
+  readonly fragmentRowCount: number;
+  readonly observedSections: readonly string[];
+  readonly missingSections: readonly string[];
+  readonly nextRepairSection: string | null;
+  readonly registerExists: boolean;
+  readonly byteCount: number | null;
+  readonly mtimeMs: number | null;
+  readonly contentDigest: string | null;
+  readonly metricKey: string;
+  readonly observedAt: string;
 }
 
 export interface SdlcEvaluateContentRegisterSelectedIdentity {
@@ -154,6 +195,62 @@ function stableJson(input: unknown): string {
       .join(",")}}`;
   }
   return JSON.stringify(input);
+}
+
+function sha256Text(input: string): string {
+  return createHash("sha256").update(input).digest("hex");
+}
+
+function contentRegisterProgressState(
+  observation: SdlcDesignDepthContentRegisterFirstUpdateObservation
+): SdlcDesignDepthContentRegisterProgressState {
+  if (observation.status === "invalid") {
+    return "invalid";
+  }
+  if (observation.status === "observable") {
+    return "observable_complete";
+  }
+  if (observation.status === "partial" && observation.fragmentRowCount > 0) {
+    return "first_observed";
+  }
+  return "pending";
+}
+
+export function designDepthContentRegisterProgressSurface(): Readonly<{
+  readonly kind: "sdlc_design_depth_content_register_progress_surface";
+  readonly metricGrammarRef: typeof SDLC_DESIGN_DEPTH_CONTENT_REGISTER_PROGRESS_SURFACE_REF;
+  readonly inputGrammar: "sdlc_evaluate_content_register";
+  readonly stateEnum: readonly SdlcDesignDepthContentRegisterProgressState[];
+  readonly metricFields: readonly string[];
+  readonly derivationRule: string;
+  readonly forbiddenInterpretation: string;
+}> {
+  return Object.freeze({
+    kind: "sdlc_design_depth_content_register_progress_surface" as const,
+    metricGrammarRef: SDLC_DESIGN_DEPTH_CONTENT_REGISTER_PROGRESS_SURFACE_REF,
+    inputGrammar: "sdlc_evaluate_content_register" as const,
+    stateEnum: SDLC_DESIGN_DEPTH_CONTENT_REGISTER_PROGRESS_STATES,
+    metricFields: Object.freeze([
+      "firstUpdateStatus",
+      "rowCount",
+      "draftRowCount",
+      "fragmentRowCount",
+      "observedSections",
+      "missingSections",
+      "nextRepairSection",
+      "contentDigest"
+    ]),
+    derivationRule:
+      "Parse the content register with the evaluate content-register grammar; derive section counts and the canonical content digest from admitted JSON shape; compare the metric key between observations.",
+    forbiddenInterpretation:
+      "This F_D metric does not judge semantic completeness, design quality, requirement satisfaction, decomposition correctness, or closure."
+  });
+}
+
+function nextRepairSectionFromMissing(
+  missingSections: readonly string[]
+): string | null {
+  return missingSections[0] ?? null;
 }
 
 function prettyStableJson(input: unknown): string {
@@ -596,6 +693,9 @@ export function observeDesignDepthContentRegisterFirstUpdate(input: {
       fragmentRowCount: 0,
       observedSections: Object.freeze([]),
       missingSections: SDLC_DESIGN_DEPTH_REGISTER_FRAGMENT_SECTIONS,
+      nextRepairSection: nextRepairSectionFromMissing(
+        SDLC_DESIGN_DEPTH_REGISTER_FRAGMENT_SECTIONS
+      ),
       observedAt: new Date().toISOString(),
       reason: "content_register_missing"
     });
@@ -637,6 +737,7 @@ export function observeDesignDepthContentRegisterFirstUpdate(input: {
       fragmentRowCount,
       observedSections,
       missingSections: Object.freeze([...missingSections]),
+      nextRepairSection: nextRepairSectionFromMissing(missingSections),
       observedAt: new Date().toISOString(),
       reason:
         missingSections.length === 0 && draftRowCount === 0
@@ -655,10 +756,91 @@ export function observeDesignDepthContentRegisterFirstUpdate(input: {
       fragmentRowCount: 0,
       observedSections: Object.freeze([]),
       missingSections: SDLC_DESIGN_DEPTH_REGISTER_FRAGMENT_SECTIONS,
+      nextRepairSection: nextRepairSectionFromMissing(
+        SDLC_DESIGN_DEPTH_REGISTER_FRAGMENT_SECTIONS
+      ),
       observedAt: new Date().toISOString(),
       reason: error instanceof Error ? error.message : "content_register_invalid"
     });
   }
+}
+
+export function observeDesignDepthContentRegisterProgressSnapshot(input: {
+  readonly registerPath: string;
+}): SdlcDesignDepthContentRegisterProgressSnapshot {
+  const firstUpdate = observeDesignDepthContentRegisterFirstUpdate(input);
+  const surface = designDepthContentRegisterProgressSurface();
+  let registerExists = false;
+  let byteCount: number | null = null;
+  let mtimeMs: number | null = null;
+  let contentDigest: string | null = null;
+  try {
+    const stat = statSync(input.registerPath);
+    registerExists = stat.isFile();
+    if (registerExists) {
+      const text = readFileSync(input.registerPath, "utf8");
+      byteCount = Buffer.byteLength(text, "utf8");
+      mtimeMs = stat.mtimeMs;
+      try {
+        contentDigest = `sha256:${sha256Text(
+          stableJson(parseRegister(JSON.parse(text)))
+        )}`;
+      } catch {
+        contentDigest = `sha256:${sha256Text(text)}`;
+      }
+    }
+  } catch {
+    registerExists = false;
+  }
+  const outputState = contentRegisterProgressState(firstUpdate);
+  const metricKey = [
+    firstUpdate.status,
+    String(firstUpdate.rowCount),
+    String(firstUpdate.draftRowCount),
+    String(firstUpdate.fragmentRowCount),
+    firstUpdate.observedSections.join(","),
+    firstUpdate.missingSections.join(","),
+    firstUpdate.nextRepairSection ?? "none",
+    contentDigest ?? "no-content"
+  ].join("|");
+  return Object.freeze({
+    kind: "sdlc_design_depth_content_register_progress_snapshot" as const,
+    metricGrammarRef: SDLC_DESIGN_DEPTH_CONTENT_REGISTER_PROGRESS_SURFACE_REF,
+    inputGrammar: "sdlc_evaluate_content_register" as const,
+    outputState,
+    outputStateEnum: SDLC_DESIGN_DEPTH_CONTENT_REGISTER_PROGRESS_STATES,
+    derivationRule: surface.derivationRule,
+    forbiddenInterpretation: surface.forbiddenInterpretation,
+    contentRegisterRef: firstUpdate.contentRegisterRef,
+    firstUpdateStatus: firstUpdate.status,
+    rowCount: firstUpdate.rowCount,
+    draftRowCount: firstUpdate.draftRowCount,
+    fragmentRowCount: firstUpdate.fragmentRowCount,
+    observedSections: firstUpdate.observedSections,
+    missingSections: firstUpdate.missingSections,
+    nextRepairSection: firstUpdate.nextRepairSection,
+    registerExists,
+    byteCount,
+    mtimeMs,
+    contentDigest,
+    metricKey,
+    observedAt: new Date().toISOString()
+  });
+}
+
+export function designDepthContentRegisterProgressAdvanced(input: {
+  readonly previousMetricKey: string | null;
+  readonly current: SdlcDesignDepthContentRegisterProgressSnapshot;
+}): boolean {
+  if (
+    input.current.outputState === "pending" ||
+    input.current.outputState === "invalid" ||
+    input.current.outputState === "stationary"
+  ) {
+    return false;
+  }
+  return input.previousMetricKey === null ||
+    input.current.metricKey !== input.previousMetricKey;
 }
 
 export function admitSdlcEvaluateContentRegisterArtifact(input: {
@@ -847,8 +1029,9 @@ function normalizeFileTargetRows(input: Record<string, unknown>): Record<string,
   if (!Array.isArray(rows)) {
     return input;
   }
+  const sourceRows: readonly unknown[] = rows;
   let changed = false;
-  const normalizedRows = rows.map((row) => {
+  const normalizedRows = sourceRows.map((row): unknown => {
     const record = objectRecord(row);
     const role = record?.["role"];
     if (record === null || typeof role !== "string") {

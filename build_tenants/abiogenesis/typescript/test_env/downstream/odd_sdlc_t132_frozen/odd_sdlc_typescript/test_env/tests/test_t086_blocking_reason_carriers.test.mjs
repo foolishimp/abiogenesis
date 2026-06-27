@@ -164,6 +164,17 @@ test("T-188 evaluator process failures do not route to product F_P repair", () =
   assert.equal(semanticFinding.lawfulReentryPoint, "same_edge_retry");
 });
 
+test("T-162 design-depth pending evaluator preserves same-edge pressure", () => {
+  const reason = makeSdlcBlockingReason({
+    code: "design_depth_fp_evaluator_pending",
+    evidenceRefs: ["file:///tmp/design_depth_fp_evaluator_run.json"]
+  });
+
+  assert.equal(reason.reasonClass, "assurance");
+  assert.equal(reason.lawfulReentryPoint, "same_edge_retry");
+  assert.match(reason.message, /pending/u);
+});
+
 test("T-170 F_D failure severity separates protocol context diagnostics and content", () => {
   const carrierMissing = makeSdlcBlockingReason({
     code: "target_carrier_admission_missing",

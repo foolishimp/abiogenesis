@@ -11,15 +11,23 @@ import {
   bindRequirementEvidence,
   buildEdgeRequirementEnvironment,
   classifyRequirementAttenuation,
+  constructAssuranceAuthoritySnapshot,
+  constructAssuranceEvidenceRow,
   constructAuthorityContextFragment,
   constructDestinationTopology,
   constructRequirementEvidenceBinding,
+  constructRequirementFoldProjection,
   constructRequirementProjection,
   constructRequirementRelation,
+  constructRequirementResidualProjection,
   constructRequirementTestRelation,
   constructRequirementTerm,
   constructTraversalSpan,
   currentEvidenceBindings,
+  deriveAssuranceClosureDecision,
+  deriveAssuranceProjection,
+  deriveAssuranceScopeRef,
+  deriveRuntimeAggregateProjection,
   evaluateRequirementCompleteness,
   evaluateRequirementStructuralState,
   foldRequirementEvidence,
@@ -29,6 +37,7 @@ import {
   projectRequirementLedger,
   projectRequirements,
   queryRequirements,
+  requirementAbgTruthRefFromAssuranceClosureDecision,
   residualizeRequirementFolds,
   REQUIREMENT_FOLD_STATE_MAPPING,
   routeContextConstraint,
@@ -39,6 +48,7 @@ import {
   constructGtlRequirementsAlgebraDeclarationBundle,
   constructGtlTraversalSpanDeclaration
 } from "../../build/semantic/code/src/index.js";
+import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
 
 const edge = Object.freeze({
   graphFunctionRef: "graph-function://data-mapper/build",
@@ -177,7 +187,7 @@ function payloads() {
       eventRef: `event://projection/${index}`,
       projection
     }))
-  ];
+  ].map((payload) => admitRequirementEventPayload(payload));
 }
 
 function environment() {
@@ -185,6 +195,56 @@ function environment() {
   const env = buildEdgeRequirementEnvironment({ ledger, edge });
   const projections = projectRequirements({ ledger, environment: env });
   return { ledger, env, projections };
+}
+
+function assuranceTruthRefForDecision(expectedDecision, input = {}) {
+  const basis = buildThreeStageBasis();
+  const runtimeProjection = deriveRuntimeAggregateProjection(basis, []);
+  const scope = deriveAssuranceScopeRef({
+    basis,
+    projection: runtimeProjection,
+    vectorIndex: 0
+  });
+  const authoritySnapshot = constructAssuranceAuthoritySnapshot({
+    scope,
+    authorityRefs: input.authorityRefs ?? ["req://t162/assurance"],
+    inputRefs: ["input://t162/current"],
+    authorityDigest: "authority-digest-t162",
+    inputDigest: "input-digest-t162",
+    contradictoryAuthority: input.contradictoryAuthority,
+    deferredAuthorityRefs: input.deferredAuthorityRefs,
+    providerRefs: ["provider://t162/authority"],
+    policyRefs: ["policy://t162/assurance"]
+  });
+  const evidenceRows = input.noEvidence === true
+    ? []
+    : [
+        constructAssuranceEvidenceRow({
+          scope,
+          evidenceRef: input.evidenceRef ?? "evidence://t162/current",
+          authorityRef: Object.hasOwn(input, "authorityRef")
+            ? input.authorityRef
+            : "req://t162/assurance",
+          authorityDigest: "authority-digest-t162",
+          inputDigest: "input-digest-t162",
+          eventRefs: ["event://t162/evidence"],
+          providerRefs: ["provider://t162/evidence"],
+          policyRefs: ["policy://t162/assurance"],
+          shallow: input.shallow,
+          contradictsAuthority: input.contradictsAuthority
+        })
+      ];
+  const projection = deriveAssuranceProjection({
+    basis,
+    runtimeProjection,
+    authoritySnapshot,
+    evidenceRows,
+    eventLedgerValid: input.eventLedgerValid
+  });
+  const decision = deriveAssuranceClosureDecision(projection);
+
+  assert.equal(decision.decision, expectedDecision);
+  return requirementAbgTruthRefFromAssuranceClosureDecision(decision);
 }
 
 test("T-162 worked trace projects requirements from replay-derived ledger", () => {
@@ -200,6 +260,155 @@ test("T-162 worked trace projects requirements from replay-derived ledger", () =
     context.projections.some((projection) => projection.projectionRole === "obligation"),
     true
   );
+  assert.match(context.ledger.ledgerRef, /^requirement-ledger:sha256:/u);
+});
+
+test("T-162 raw admission covers every first-slice requirement event kind", () => {
+  const fold = constructRequirementFoldProjection({
+    foldRef: "fold://req-dm-001/partial",
+    requirementId: "REQ-DM-001",
+    projectionRefs: ["projection://req-dm-001/obligation"],
+    state: "partial",
+    sourceAbgTruthRefs: ["abg-truth://assurance_or_continuation_partial/current"],
+    evidenceRefs: [],
+    residualPressureRefs: ["requirement-residual:REQ-DM-001:partial"],
+    reason: "partial assurance fold"
+  });
+  const residual = constructRequirementResidualProjection({
+    residualRef: "requirement-residual:REQ-DM-001:partial",
+    requirementId: "REQ-DM-001",
+    spanId: "span://data-mapper/derive-validation",
+    pressureClass: "missing_execution_evidence",
+    ownerSurface: "runtime",
+    sourceFoldRefs: [fold.foldRef],
+    evidenceRefs: [],
+    remainingProjectionRefs: ["projection://req-dm-001/obligation"],
+    reason: "remaining execution pressure"
+  });
+  const admitted = [
+    ...payloads(),
+    admitRequirementEventPayload({
+      kind: "requirement_fold_projected",
+      eventRef: "event://fold",
+      fold
+    }),
+    admitRequirementEventPayload({
+      kind: "requirement_residual_projected",
+      eventRef: "event://residual",
+      residual
+    })
+  ];
+  assert.deepEqual(
+    admitted.map((payload) => payload.kind),
+    [
+      "requirement_term_admitted",
+      "traversal_span_admitted",
+      "authority_context_fragment_admitted",
+      "destination_topology_admitted",
+      "requirement_relation_admitted",
+      "requirement_test_relation_admitted",
+      "requirement_projection_admitted",
+      "requirement_projection_admitted",
+      "requirement_projection_admitted",
+      "requirement_projection_admitted",
+      "requirement_fold_projected",
+      "requirement_residual_projected"
+    ]
+  );
+});
+
+test("T-162 traversal spans consume source and target identity when supplied", () => {
+  const ledger = projectRequirementLedger(payloads());
+  const matching = buildEdgeRequirementEnvironment({
+    ledger,
+    edge: {
+      ...edge,
+      sourceNodeRef: "node://design",
+      targetNodeRef: "node://validation",
+      frameRefs: ["frame-lineage://root"],
+      zoomRefs: ["zoom://data-mapper/validation"],
+      foldbackRefs: ["foldback://data-mapper/validation"],
+      aliasRefs: ["alias://derive-validation"]
+    }
+  });
+  const mismatched = buildEdgeRequirementEnvironment({
+    ledger,
+    edge: {
+      ...edge,
+      sourceNodeRef: "node://wrong",
+      targetNodeRef: "node://validation"
+    }
+  });
+
+  assert.equal(matching.activeSpans.length, 1);
+  assert.equal(matching.activeTerms.length, 1);
+  assert.equal(mismatched.activeSpans.length, 0);
+  assert.equal(mismatched.activeTerms.length, 0);
+});
+
+test("T-162 broad traversal spans cover interior edges by declared vector index range", () => {
+  const broadSpan = constructTraversalSpan({
+    spanId: "span://data-mapper/broad-a-x",
+    graphFunctionRef: edge.graphFunctionRef,
+    graphVectorRefs: [],
+    vectorIndexes: [0, 4],
+    sourceNodeRef: "node://A",
+    targetNodeRef: "node://X",
+    frameRefs: [],
+    zoomRefs: [],
+    foldbackRefs: [],
+    aliasRefs: []
+  });
+  const broadTerm = constructRequirementTerm({
+    requirementId: "REQ-DM-BROAD",
+    termKind: "atom",
+    stableId: "REQ-DM-BROAD",
+    sourceRef: "specification/requirements/data-mapper.md#REQ-DM-BROAD",
+    sourceDigest: "sha256:req-dm-broad",
+    text: "Broad A to X requirement shall carry across interior edges.",
+    relationRefs: [],
+    spanRefs: [broadSpan.spanId],
+    contextRefs: [],
+    evidencePolicyRefs: ["evidence-policy://broad"],
+    projectionRefs: []
+  });
+  const ledger = projectRequirementLedger([
+    admitRequirementEventPayload({
+      kind: "requirement_term_admitted",
+      eventRef: "event://broad-term",
+      term: broadTerm
+    }),
+    admitRequirementEventPayload({
+      kind: "traversal_span_admitted",
+      eventRef: "event://broad-span",
+      span: broadSpan
+    })
+  ]);
+  const interior = buildEdgeRequirementEnvironment({
+    ledger,
+    edge: {
+      ...edge,
+      graphVectorRef: "graph-vector://data-mapper/interior-b-c",
+      vectorIndex: 2,
+      sourceNodeRef: "node://B",
+      targetNodeRef: "node://C"
+    }
+  });
+  const outside = buildEdgeRequirementEnvironment({
+    ledger,
+    edge: {
+      ...edge,
+      graphVectorRef: "graph-vector://data-mapper/outside",
+      vectorIndex: 6,
+      sourceNodeRef: "node://Y",
+      targetNodeRef: "node://Z"
+    }
+  });
+
+  assert.equal(interior.activeSpans.length, 1);
+  assert.equal(interior.activeTerms.length, 1);
+  assert.equal(outside.activeSpans.length, 0);
+  assert.equal(outside.activeTerms.length, 0);
 });
 
 test("T-162 context routing stays structural and routes F_P-required fragments", () => {
@@ -272,12 +481,26 @@ test("T-162 execution prep carries admitted schedule command, not fallback", () 
 test("T-162 evidence binding separates byproducts and component-test materialization", () => {
   const { env, projections } = environment();
   const materialization = projectMaterializationTargets(projections)[0];
+  const execution = projections.find((projection) =>
+    projection.projectionRole === "execution_schedule"
+  );
+  assert.notEqual(execution, undefined);
   const testSource = bindRequirementEvidence({
     environment: env,
     projection: materialization,
     evidenceRef: "evidence://src/test/field_validation",
     path: "src/test/field_validation.test.ts",
     digest: "sha256:test-source",
+    admitted: true,
+    byproduct: false,
+    current: true
+  });
+  const executionEvidence = bindRequirementEvidence({
+    environment: env,
+    projection: execution,
+    evidenceRef: "evidence://src/test/field_validation-execution",
+    path: "src/test/field_validation.test.ts",
+    digest: "sha256:test-execution",
     admitted: true,
     byproduct: false,
     current: true
@@ -295,6 +518,7 @@ test("T-162 evidence binding separates byproducts and component-test materializa
 
   assert.equal(testSource.evidenceRole, "test_source");
   assert.equal(testSource.bindingStatus, "admitted");
+  assert.equal(executionEvidence.evidenceRole, "test_execution");
   assert.equal(byproduct.evidenceRole, "byproduct");
   assert.equal(byproduct.bindingStatus, "non_closing");
 });
@@ -348,7 +572,7 @@ test("T-162 component-test postflight admits materialized tests before execution
     environment: env,
     projections,
     evidenceBindings: [testSource],
-    sourceAbgTruthRefs: ["assurance://current"]
+    sourceAbgTruthRefs: [assuranceTruthRefForDecision("retry", { shallow: true })]
   });
   const residuals = residualizeRequirementFolds({ environment: env, folds });
   const attenuation = classifyRequirementAttenuation({
@@ -368,22 +592,194 @@ test("T-162 component-test postflight admits materialized tests before execution
 
   assert.equal(folds[0].state, "partial");
   assert.equal(residuals.length, 1);
+  assert.deepEqual(folds[0].residualPressureRefs, residuals.map((residual) => residual.residualRef));
   assert.equal(query.evidenceRefs.includes("evidence://src/test/field_validation"), true);
   assert.equal(query.residualRefs.length, 1);
 });
 
 test("T-162 F_D is total and closed-world over admitted requirement states", () => {
   const { ledger } = environment();
+  const staleLedger = {
+    ...ledger,
+    projections: ledger.projections.map((projection) =>
+      projection.projectionRef === ledger.terms[0].projectionRefs[0]
+        ? { ...projection, current: false }
+        : projection
+    )
+  };
+  const contradictoryLedger = {
+    ...ledger,
+    relations: [
+      ...ledger.relations,
+      constructRequirementRelation({
+        relationId: "relation://req-dm-001/conflict",
+        relationKind: "conflict",
+        fromRequirementId: "REQ-DM-001",
+        toRequirementId: "REQ-DM-001",
+        sourceRef: "specification/requirements/data-mapper.md#conflict",
+        evidenceRefs: []
+      }),
+      constructRequirementRelation({
+        relationId: "relation://req-dm-001/contribution",
+        relationKind: "contribution",
+        fromRequirementId: "REQ-DM-001",
+        toRequirementId: "REQ-DM-001",
+        sourceRef: "specification/requirements/data-mapper.md#contribution",
+        evidenceRefs: []
+      })
+    ]
+  };
+  const fpRequiredLedger = {
+    ...ledger,
+    contextFragments: [
+      ...ledger.contextFragments,
+      constructAuthorityContextFragment({
+        fragmentRef: "context://semantic-assessment-required",
+        stage: "requirements",
+        constraintScope: "ambiguous requirement text",
+        digest: "sha256:semantic-assessment",
+        promotionPolicyRef: "promotion://fp-required",
+        appliesToRefs: ["REQ-DM-001"],
+        routingOutcome: "fp_required"
+      })
+    ]
+  };
+  const ledgerWithFoldResidual = (state, pressureClass) => {
+    const residualRef = `requirement-residual:REQ-DM-001:${state}`;
+    const fold = constructRequirementFoldProjection({
+      foldRef: `fold://req-dm-001/${state}`,
+      requirementId: "REQ-DM-001",
+      projectionRefs: [ledger.terms[0].projectionRefs[0]],
+      state,
+      sourceAbgTruthRefs: [],
+      evidenceRefs: [],
+      residualPressureRefs: [residualRef],
+      reason: `${state} fold`
+    });
+    const residual = constructRequirementResidualProjection({
+      residualRef,
+      requirementId: "REQ-DM-001",
+      spanId: ledger.spans[0].spanId,
+      pressureClass,
+      ownerSurface: state === "repriced" ? "requirements" : "runtime",
+      sourceFoldRefs: [fold.foldRef],
+      evidenceRefs: [],
+      remainingProjectionRefs: fold.projectionRefs,
+      reason: `${pressureClass} residual`
+    });
+    return {
+      ...ledger,
+      folds: [fold],
+      residuals: [residual]
+    };
+  };
+  const malformedLedger = {
+    ...ledger,
+    terms: [
+      {
+        ...ledger.terms[0],
+        spanRefs: ["span://missing"]
+      }
+    ]
+  };
 
   assert.equal(evaluateRequirementStructuralState({ ledger }).outcome, "admitted_valid");
   assert.equal(evaluateRequirementStructuralState({ ledger: null }).outcome, "unknown_state_rejected");
-  assert.equal(evaluateRequirementStructuralState({ ledger, malformed: true }).outcome, "rejected_malformed");
-  assert.equal(evaluateRequirementStructuralState({ ledger, staleOrSuperseded: true }).outcome, "stale_or_superseded");
-  assert.equal(evaluateRequirementStructuralState({ ledger, contradictoryAuthority: true }).outcome, "contradictory_authority");
-  assert.equal(evaluateRequirementStructuralState({ ledger, semanticAssessmentRequired: true }).outcome, "semantic_assessment_required");
-  assert.equal(evaluateRequirementStructuralState({ ledger, semanticResidualPreserved: true }).outcome, "semantic_residual_preserved");
-  assert.equal(evaluateRequirementStructuralState({ ledger, humanDecisionRequired: true }).outcome, "human_decision_required");
-  assert.equal(evaluateRequirementStructuralState({ ledger, nonClosingPreserved: true }).outcome, "non_closing_preserved");
+  assert.equal(evaluateRequirementStructuralState({ ledger: projectRequirementLedger([]) }).outcome, "incomplete_structural_pressure");
+  assert.equal(evaluateRequirementStructuralState({ ledger: malformedLedger }).outcome, "rejected_malformed");
+  assert.equal(evaluateRequirementStructuralState({ ledger: staleLedger }).outcome, "stale_or_superseded");
+  assert.equal(evaluateRequirementStructuralState({ ledger: contradictoryLedger }).outcome, "contradictory_authority");
+  assert.equal(evaluateRequirementStructuralState({ ledger: fpRequiredLedger }).outcome, "semantic_assessment_required");
+  assert.equal(
+    evaluateRequirementStructuralState({
+      ledger: ledgerWithFoldResidual("partial", "semantic_assessment_required")
+    }).outcome,
+    "semantic_residual_preserved"
+  );
+  assert.equal(
+    evaluateRequirementStructuralState({
+      ledger: ledgerWithFoldResidual("repriced", "human_decision_required")
+    }).outcome,
+    "human_decision_required"
+  );
+  assert.equal(
+    evaluateRequirementStructuralState({
+      ledger: ledgerWithFoldResidual("no_close_preserved", "non_closing_evidence")
+    }).outcome,
+    "non_closing_preserved"
+  );
+});
+
+test("T-162 replay-derived ledger fails closed on duplicate and dangling structural refs", () => {
+  const events = payloads();
+  assert.throws(
+    () => projectRequirementLedger([...events, events[0]]),
+    /duplicate ref event:\/\/term/u
+  );
+  assert.throws(
+    () => projectRequirementLedger([
+      admitRequirementEventPayload({
+        kind: "requirement_term_admitted",
+        eventRef: "event://dangling-term",
+        term: constructRequirementTerm({
+          requirementId: "REQ-DANGLING",
+          termKind: "atom",
+          stableId: "REQ-DANGLING",
+          sourceRef: "specification/requirements/dangling.md#REQ-DANGLING",
+          sourceDigest: "sha256:dangling",
+          text: "Dangling term shall fail closed.",
+          relationRefs: [],
+          spanRefs: ["span://missing"],
+          contextRefs: [],
+          evidencePolicyRefs: [],
+          projectionRefs: []
+        })
+      })
+    ]),
+    /dangling ref span:\/\/missing/u
+  );
+});
+
+test("T-162 attenuation classifies by residual identity, not row position", () => {
+  const residualA = {
+    kind: "requirement_residual_projection",
+    residualRef: "requirement-residual:REQ-A:partial",
+    requirementId: "REQ-A",
+    spanId: "span://a",
+    pressureClass: "missing_execution_evidence",
+    ownerSurface: "runtime",
+    sourceFoldRefs: ["fold://a"],
+    evidenceRefs: [],
+    remainingProjectionRefs: ["projection://a"],
+    reason: "a"
+  };
+  const residualB = {
+    kind: "requirement_residual_projection",
+    residualRef: "requirement-residual:REQ-B:partial",
+    requirementId: "REQ-B",
+    spanId: "span://b",
+    pressureClass: "semantic_assessment_required",
+    ownerSurface: "runtime",
+    sourceFoldRefs: ["fold://b"],
+    evidenceRefs: [],
+    remainingProjectionRefs: ["projection://b"],
+    reason: "b"
+  };
+  const reordered = classifyRequirementAttenuation({
+    priorResiduals: [residualA, residualB],
+    residuals: [residualB, residualA]
+  });
+  const moved = classifyRequirementAttenuation({
+    priorResiduals: [residualA],
+    residuals: [{
+      ...residualA,
+      residualRef: "requirement-residual:REQ-A:blocked",
+      pressureClass: "blocked_prerequisite"
+    }]
+  });
+
+  assert.equal(reordered.attenuation, "unchanged");
+  assert.equal(moved.attenuation, "moved_to_prerequisite");
 });
 
 test("T-162 admission rejects unknown fields and side-door runtime authority", () => {
@@ -426,7 +822,7 @@ test("T-162 completeness gates fail closed and compatibility refs do not own clo
     environment: env,
     projections,
     evidenceBindings: [],
-    sourceAbgTruthRefs: ["assurance://current"]
+    sourceAbgTruthRefs: [assuranceTruthRefForDecision("retry", { shallow: true })]
   });
   const residuals = residualizeRequirementFolds({ environment: env, folds });
   const report = evaluateRequirementCompleteness({
@@ -444,19 +840,177 @@ test("T-162 completeness gates fail closed and compatibility refs do not own clo
   assert.equal(report.status, "passed");
   assert.equal(compat.authorityRole, "fallback");
   assert.equal(compat.projectionRole, "obligation");
+
+  const missingTopologyReport = evaluateRequirementCompleteness({
+    environment: {
+      ...env,
+      activeDestinationTopologies: []
+    },
+    projections,
+    folds,
+    residuals
+  });
+  const topologyGate = missingTopologyReport.rows.find((row) =>
+    row.gate === "destination_topology_coverage"
+  );
+  assert.equal(missingTopologyReport.status, "failed");
+  assert.deepEqual(topologyGate?.missingRefs, ["REQ-DM-001"]);
 });
 
-test("T-162 fold-state mapping is projection-only over existing ABG truth", () => {
+test("T-162 fold state is projected from existing ABG assurance closure decisions", () => {
+  const { env, projections } = environment();
+  const matrix = [
+    {
+      expectedDecision: "close",
+      expectedState: "satisfied",
+      input: {}
+    },
+    {
+      expectedDecision: "retry",
+      expectedState: "partial",
+      input: { shallow: true }
+    },
+    {
+      expectedDecision: "block",
+      expectedState: "blocked",
+      input: { authorityRef: null }
+    },
+    {
+      expectedDecision: "qualified_defer",
+      expectedState: "deferred",
+      input: {
+        noEvidence: true,
+        deferredAuthorityRefs: ["req://t162/assurance"]
+      }
+    },
+    {
+      expectedDecision: "reprice",
+      expectedState: "repriced",
+      input: {
+        noEvidence: true,
+        contradictoryAuthority: true
+      }
+    }
+  ];
+
+  for (const row of matrix) {
+    const folds = foldRequirementEvidence({
+      environment: env,
+      projections,
+      evidenceBindings: [],
+      sourceAbgTruthRefs: [
+        assuranceTruthRefForDecision(row.expectedDecision, row.input)
+      ]
+    });
+    assert.equal(folds[0].state, row.expectedState);
+    assert.match(folds[0].sourceAbgTruthRefs[0], /^abg:\/\/assurance-closure-decision\//u);
+  }
+
+  const synthetic = foldRequirementEvidence({
+    environment: env,
+    projections,
+    evidenceBindings: [],
+    sourceAbgTruthRefs: ["abg-truth://assurance_fold_fulfilled/current"]
+  });
+
+  assert.equal(synthetic[0].state, "no_close_preserved");
   assert.equal(
-    REQUIREMENT_FOLD_STATE_MAPPING.satisfied.closureAuthority,
-    "existing_abg_assurance_fold"
+    REQUIREMENT_FOLD_STATE_MAPPING.satisfied.sourceAbgTruth,
+    "AssuranceClosureDecision.decision=close"
   );
-  assert.equal(
-    REQUIREMENT_FOLD_STATE_MAPPING.partial.closureAuthority,
-    "non_closing_residual_required"
+});
+
+test("T-162 fold source truth is scoped per requirement on multi-term edges", () => {
+  const secondSpan = constructTraversalSpan({
+    spanId: "span://data-mapper/derive-validation-second",
+    graphFunctionRef: edge.graphFunctionRef,
+    graphVectorRefs: [edge.graphVectorRef],
+    vectorIndexes: [edge.vectorIndex],
+    sourceNodeRef: "node://design",
+    targetNodeRef: "node://validation",
+    frameRefs: [],
+    zoomRefs: [],
+    foldbackRefs: [],
+    aliasRefs: []
+  });
+  const secondTerm = constructRequirementTerm({
+    requirementId: "REQ-DM-002",
+    termKind: "atom",
+    stableId: "REQ-DM-002",
+    sourceRef: "specification/requirements/data-mapper.md#REQ-DM-002",
+    sourceDigest: "sha256:req-dm-002",
+    text: "Data Mapper shall carry independent closure pressure for a second term.",
+    relationRefs: [],
+    spanRefs: [secondSpan.spanId],
+    contextRefs: [],
+    evidencePolicyRefs: ["evidence-policy://component-test"],
+    projectionRefs: ["projection://req-dm-002/obligation"]
+  });
+  const secondProjection = constructRequirementProjection({
+    projectionRef: "projection://req-dm-002/obligation",
+    requirementId: "REQ-DM-002",
+    spanId: secondSpan.spanId,
+    projectionRole: "obligation",
+    authorityRole: "requirement",
+    targetPath: null,
+    command: null,
+    fallbackCommand: null,
+    evidenceRole: null,
+    current: true,
+    sourceRefs: [secondTerm.sourceRef],
+    supersedesProjectionRefs: []
+  });
+  const ledger = projectRequirementLedger([
+    ...payloads(),
+    admitRequirementEventPayload({
+      kind: "traversal_span_admitted",
+      eventRef: "event://span/second",
+      span: secondSpan
+    }),
+    admitRequirementEventPayload({
+      kind: "requirement_term_admitted",
+      eventRef: "event://term/second",
+      term: secondTerm
+    }),
+    admitRequirementEventPayload({
+      kind: "requirement_projection_admitted",
+      eventRef: "event://projection/second",
+      projection: secondProjection
+    })
+  ]);
+  const env = buildEdgeRequirementEnvironment({ ledger, edge });
+  const projections = projectRequirements({ ledger, environment: env });
+  const closeRef = assuranceTruthRefForDecision("close");
+  const retryRef = assuranceTruthRefForDecision("retry", { shallow: true });
+  const scoped = foldRequirementEvidence({
+    environment: env,
+    projections,
+    evidenceBindings: [],
+    sourceAbgTruthRefs: [],
+    sourceAbgTruthRefsByRequirementId: {
+      "REQ-DM-001": [closeRef],
+      "REQ-DM-002": [retryRef]
+    }
+  });
+  const unscoped = foldRequirementEvidence({
+    environment: env,
+    projections,
+    evidenceBindings: [],
+    sourceAbgTruthRefs: [closeRef]
+  });
+
+  assert.deepEqual(
+    scoped.map((fold) => [fold.requirementId, fold.state]),
+    [
+      ["REQ-DM-001", "satisfied"],
+      ["REQ-DM-002", "partial"]
+    ]
   );
-  assert.equal(
-    REQUIREMENT_FOLD_STATE_MAPPING.deferred.closureAuthority,
-    "existing_abg_continuation"
+  assert.deepEqual(
+    unscoped.map((fold) => [fold.requirementId, fold.state]),
+    [
+      ["REQ-DM-001", "no_close_preserved"],
+      ["REQ-DM-002", "no_close_preserved"]
+    ]
   );
 });

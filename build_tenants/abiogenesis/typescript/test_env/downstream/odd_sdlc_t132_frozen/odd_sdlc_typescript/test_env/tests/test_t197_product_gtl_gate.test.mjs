@@ -26,7 +26,25 @@ const PACKAGE_ROOT = process.cwd();
 const REPO_ROOT = path.resolve(PACKAGE_ROOT, "../..");
 
 function repoFile(relativePath) {
-  return readFileSync(path.join(REPO_ROOT, relativePath), "utf8");
+  const absolutePath = path.join(REPO_ROOT, relativePath);
+  if (statSync(absolutePath, { throwIfNoEntry: false })?.isFile() === true) {
+    return readFileSync(absolutePath, "utf8");
+  }
+  const tenantPrefix = "build_tenants/typescript/";
+  if (relativePath.startsWith(tenantPrefix)) {
+    const packageLocalPath = path.join(
+      PACKAGE_ROOT,
+      relativePath.slice(tenantPrefix.length)
+    );
+    if (statSync(packageLocalPath, { throwIfNoEntry: false })?.isFile() === true) {
+      return readFileSync(packageLocalPath, "utf8");
+    }
+  }
+  const packageLocalPath = path.join(PACKAGE_ROOT, relativePath);
+  if (statSync(packageLocalPath, { throwIfNoEntry: false })?.isFile() === true) {
+    return readFileSync(packageLocalPath, "utf8");
+  }
+  return readFileSync(absolutePath, "utf8");
 }
 
 function repoFileFromFirstExisting(relativePaths) {
@@ -430,6 +448,14 @@ test("T-197 A5 gates installed convergence on ABG terminal convergence", () => {
     deriveSdlcInstalledOperatorStatusFromAbgTerminal({
       stateStatus: "worker_invoked",
       closureDisposition: "retry",
+      terminalKind: "gap_stop"
+    }),
+    "worker_invoked"
+  );
+  assert.equal(
+    deriveSdlcInstalledOperatorStatusFromAbgTerminal({
+      stateStatus: "worker_invoked",
+      closureDisposition: "retry",
       terminalKind: "converged"
     }),
     "worker_invoked"
@@ -452,8 +478,8 @@ test("T-197 A5 gates installed convergence on ABG terminal convergence", () => {
     /input\.terminalKind === "converged"/u
   );
   assert.match(
-    source,
-    /input\.terminalKind === "gap_stop"[\s\S]*?return "blocked";/u
+    sourceFunction(source, "deriveSdlcInstalledOperatorStatusFromAbgTerminal"),
+    /input\.closureDisposition === "retry"[\s\S]*?return "worker_invoked";[\s\S]*?input\.terminalKind === "gap_stop"[\s\S]*?return "blocked";/u
   );
   assert.match(
     source,
@@ -488,6 +514,9 @@ test("T-197 A5 gates installed convergence on ABG terminal convergence", () => {
   const gapStopTransitionIndex = transitionRefBody.indexOf(
     'terminalKind === "gap_stop"'
   );
+  const retryDispositionIndex = transitionRefBody.indexOf(
+    'input.closureDisposition === "retry"'
+  );
   const yieldedTransitionIndex = transitionRefBody.indexOf(
     'terminalKind === "yielded"'
   );
@@ -495,11 +524,20 @@ test("T-197 A5 gates installed convergence on ABG terminal convergence", () => {
     'input.closureDisposition === "close"'
   );
   assert.ok(gapStopTransitionIndex >= 0);
+  assert.ok(retryDispositionIndex >= 0);
   assert.ok(yieldedTransitionIndex >= 0);
   assert.ok(closeDispositionIndex >= 0);
   assert.ok(
+    retryDispositionIndex < gapStopTransitionIndex,
+    "typed SDLC retry must outrank retryable ABG gap_stop when deriving traversal transition refs"
+  );
+  assert.ok(
     gapStopTransitionIndex < closeDispositionIndex,
     "ABG gap_stop must outrank SDLC close when deriving traversal transition refs"
+  );
+  assert.match(
+    transitionRefBody,
+    /input\.closureDisposition === "retry"[\s\S]*?disposition:\s*"retry_same_edge"[\s\S]*?reason:\s*"typed_retry"/u
   );
   assert.ok(
     yieldedTransitionIndex < closeDispositionIndex,

@@ -90,11 +90,19 @@ const IMPORT_SOURCE_EXTENSION_SET: ReadonlySet<string> = new Set(
   IMPORT_SOURCE_EXTENSIONS
 );
 const IMPORT_SOURCE_IGNORED_DIRS = Object.freeze([
+  ".npm-cache",
   ".abiogenesis",
   ".genesis",
   ".git",
   "build_tenants",
-  "node_modules"
+  "node_modules",
+  "package-extract"
+] as const);
+const IMPORT_SOURCE_IGNORED_PATH_PREFIXES = Object.freeze([
+  ".ai-workspace/archives",
+  ".ai-workspace/events",
+  ".ai-workspace/projections",
+  ".ai-workspace/runtime"
 ] as const);
 const DEFAULT_AMBIGUITY_RISK_APPETITE = "medium" as const;
 const UNDECLARED_EXECUTION_CONTRACT = "undeclared" as const;
@@ -893,17 +901,17 @@ function canonicalProjectConstraints(profile: SdlcConformProjectProfile): string
 function importedSourceRelativePaths(workspaceRoot: string): readonly string[] {
   const ignored = new Set<string>(IMPORT_SOURCE_IGNORED_DIRS);
   const paths: string[] = [];
+  const isIgnoredPrefix = (relativePath: string): boolean =>
+    IMPORT_SOURCE_IGNORED_PATH_PREFIXES.some(
+      (prefix) => relativePath === prefix || relativePath.startsWith(`${prefix}/`)
+    );
   const visit = (absoluteDir: string, relativeDir: string): void => {
     for (const entry of readdirSync(absoluteDir, { withFileTypes: true })) {
       const relativePath =
         relativeDir.length === 0 ? entry.name : `${relativeDir}/${entry.name}`;
       const absolutePath = path.join(absoluteDir, entry.name);
       if (entry.isDirectory()) {
-        if (
-          !ignored.has(entry.name) &&
-          !relativePath.startsWith(".ai-workspace/runtime") &&
-          !relativePath.startsWith(".ai-workspace/events")
-        ) {
+        if (!ignored.has(entry.name) && !isIgnoredPrefix(relativePath)) {
           visit(absolutePath, relativePath);
         }
       } else if (

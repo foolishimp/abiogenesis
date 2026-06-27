@@ -23,6 +23,7 @@ export type TracedProcessParser = "generic-text" | "claude-stream-json";
 export type AgentActorWorkerCalloutKind = "agent_actor" | "agent_worker";
 export type TracedProcessExecutorProfile = "local-spawn" | "pty-terminal";
 export type TracedProcessStreamModel = "stdio" | "terminal-transcript";
+export type TracedProcessExternalProgressMode = "once" | "recurring";
 export type TracedProcessExecutorUnavailableReason =
   | "screen_missing"
   | "screen_shell_unavailable";
@@ -95,6 +96,7 @@ export interface TracedProcessRequest {
   readonly inactivityTimeoutMs?: number;
   readonly externalProgressTimeoutMs?: number;
   readonly externalProgressCheck?: () => boolean;
+  readonly externalProgressMode?: TracedProcessExternalProgressMode;
   readonly externalProgressTimeoutReason?: string;
   readonly onProcessStarted?: (event: {
     readonly pid: number | null;
@@ -807,6 +809,8 @@ export async function runTracedProcess(
     let settled = false;
     let lastOutputAt = Date.now();
     const startedAt = lastOutputAt;
+    let lastExternalProgressAt = startedAt;
+    const externalProgressMode = request.externalProgressMode ?? "once";
     let killTimer: ReturnType<typeof setTimeout> | null = null;
     const inactivityTimeoutMs = request.inactivityTimeoutMs;
     const inactivityPollMs =
@@ -897,18 +901,21 @@ export async function runTracedProcess(
       request.externalProgressCheck !== undefined
     ) {
       externalProgressTimer = setInterval(() => {
-        if (settled || externalProgressObserved) {
+        if (settled || (externalProgressObserved && externalProgressMode === "once")) {
           return;
         }
+        const now = Date.now();
         try {
           if (request.externalProgressCheck?.() === true) {
             externalProgressObserved = true;
+            lastExternalProgressAt = now;
             writeEvent(state, "external_progress_observed", {
               externalProgressTimeoutMs,
               reason: request.externalProgressTimeoutReason ?? null,
-              elapsedMs: Date.now() - startedAt
+              elapsedMs: now - startedAt,
+              externalProgressMode
             });
-            if (externalProgressTimer !== null) {
+            if (externalProgressMode === "once" && externalProgressTimer !== null) {
               clearInterval(externalProgressTimer);
               externalProgressTimer = null;
             }
@@ -918,16 +925,18 @@ export async function runTracedProcess(
           writeEvent(state, "external_progress_probe_error", {
             externalProgressTimeoutMs,
             reason: request.externalProgressTimeoutReason ?? null,
+            externalProgressMode,
             detail: error instanceof Error ? error.message : "unknown"
           });
         }
-        const elapsedMs = Date.now() - startedAt;
+        const elapsedMs = now - lastExternalProgressAt;
         if (elapsedMs >= externalProgressTimeoutMs) {
           externalProgressTimedOut = true;
           writeEvent(state, "external_progress_timeout", {
             externalProgressTimeoutMs,
             reason: request.externalProgressTimeoutReason ?? null,
-            elapsedMs
+            elapsedMs,
+            externalProgressMode
           });
           request.onExternalProgressTimeout?.({
             externalProgressTimeoutMs,
@@ -1273,6 +1282,8 @@ async function runPtyTerminalExecutor(
     let inactivityTimedOut = false;
     let externalProgressTimedOut = false;
     let externalProgressObserved = false;
+    let lastExternalProgressAt = startedAt;
+    const externalProgressMode = request.externalProgressMode ?? "once";
     let settled = false;
     let finalStatus: number | null = null;
     let supervisorSignal: "SIGTERM" | null = null;
@@ -1491,17 +1502,19 @@ async function runPtyTerminalExecutor(
         return;
       }
       if (
-        !externalProgressObserved &&
+        (!externalProgressObserved || externalProgressMode === "recurring") &&
         request.externalProgressTimeoutMs !== undefined &&
         request.externalProgressCheck !== undefined
       ) {
         try {
           if (request.externalProgressCheck() === true) {
             externalProgressObserved = true;
+            lastExternalProgressAt = now;
             writeEvent(state, "external_progress_observed", {
               externalProgressTimeoutMs: request.externalProgressTimeoutMs,
               reason: request.externalProgressTimeoutReason ?? null,
               elapsedMs: now - startedAt,
+              externalProgressMode,
               terminalSessionId
             });
           }
@@ -1509,20 +1522,22 @@ async function runPtyTerminalExecutor(
           writeEvent(state, "external_progress_probe_error", {
             externalProgressTimeoutMs: request.externalProgressTimeoutMs,
             reason: request.externalProgressTimeoutReason ?? null,
+            externalProgressMode,
             detail: error instanceof Error ? error.message : "unknown",
             terminalSessionId
           });
         }
         if (
-          !externalProgressObserved &&
-          now - startedAt >= request.externalProgressTimeoutMs
+          (!externalProgressObserved || externalProgressMode === "recurring") &&
+          now - lastExternalProgressAt >= request.externalProgressTimeoutMs
         ) {
           externalProgressTimedOut = true;
           supervisorSignal = "SIGTERM";
           writeEvent(state, "external_progress_timeout", {
             externalProgressTimeoutMs: request.externalProgressTimeoutMs,
             reason: request.externalProgressTimeoutReason ?? null,
-            elapsedMs: now - startedAt,
+            elapsedMs: now - lastExternalProgressAt,
+            externalProgressMode,
             terminalSessionId
           });
           request.onExternalProgressTimeout?.({

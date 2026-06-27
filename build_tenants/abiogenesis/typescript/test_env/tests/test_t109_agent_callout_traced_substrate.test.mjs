@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { mkdir, readFile } from "node:fs/promises";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -186,6 +187,52 @@ test("T-109 parser fixture: Claude stream-json retry and tool-call observations 
   const traceEvents = await readFile(result.paths.events, "utf8");
   assert.match(traceEvents, /api_retry_observed/u);
   assert.match(traceEvents, /tool_call_observed/u);
+});
+
+test("T-109 progress fixture: recurring external progress times out after an unchanged checkpoint", async () => {
+  const archiveRoot = await runRoot("recurring-progress-timeout");
+  const progressPath = path.join(archiveRoot, "progress.txt");
+  let lastProgress = "";
+  const result = await runAgentActorWorkerCallout({
+    agentCalloutKind: "agent_worker",
+    workerRef: "worker://fixture-progress",
+    command: process.execPath,
+    args: [
+      "-e",
+      [
+        "const fs = require('node:fs');",
+        `fs.writeFileSync(${JSON.stringify(progressPath)}, 'checkpoint-1');`,
+        "setTimeout(() => {}, 5000);"
+      ].join("")
+    ],
+    cwd: archiveRoot,
+    env: {},
+    archiveRoot,
+    label: "fixture-recurring-progress-timeout",
+    parser: "generic-text",
+    timeoutMs: 10000,
+    externalProgressTimeoutMs: 600,
+    externalProgressMode: "recurring",
+    externalProgressTimeoutReason: "fixture_progress_stalled",
+    externalProgressCheck: () => {
+      if (!existsSync(progressPath)) {
+        return false;
+      }
+      const current = readFileSync(progressPath, "utf8");
+      if (current === lastProgress) {
+        return false;
+      }
+      lastProgress = current;
+      return true;
+    }
+  });
+
+  assert.equal(result.outcome.kind, "external_progress_timeout");
+  assert.equal(result.outcome.reason, "fixture_progress_stalled");
+
+  const traceEvents = await readFile(result.paths.events, "utf8");
+  assert.match(traceEvents, /external_progress_observed/u);
+  assert.match(traceEvents, /external_progress_timeout/u);
 });
 
 test("T-109 failure fixture: pre-init nonzero agent exit is a transport failure", async () => {

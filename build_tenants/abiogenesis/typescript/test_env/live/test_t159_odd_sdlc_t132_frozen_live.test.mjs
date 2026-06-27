@@ -1,7 +1,10 @@
 // Validates: T-159
+// Validates: T-162
 // Validates: REQ-L-GTL3-COMPUTE-NOTATION
 // Validates: REQ-R-ABG3-FN-COMPOSITION
 // Validates: REQ-R-ABG3-PAYLOAD
+// Validates: REQ-R-ABG3-REQUIREMENTS-ALGEBRA
+// Validates: REQ-L-GTL3-REQUIREMENTS-ALGEBRA
 
 import test from "node:test";
 import assert from "node:assert/strict";
@@ -214,6 +217,22 @@ test(
     const runRoot = path.join(TEST_RUNS_ROOT, timestampId());
     mkdirSync(runRoot, { recursive: true });
 
+    const compilerProofStart = performance.now();
+    await runLoggedCommand({
+      label: "abg-t162-compiler-hello-world-proof",
+      command: "node",
+      args: [
+        "--test",
+        "--test-name-pattern",
+        "T-159 GTL program typechecker admits a JS hello-world materialization unit|T-162 GTL program typechecker rejects malformed requirements algebra declarations|T-162 semantic compiler graph self-reviews with constrained F_P worker control",
+        "test_env/tests/test_t150_gtl_program_conformance_tool.test.mjs"
+      ],
+      cwd: PACKAGE_ROOT,
+      archiveRoot: runRoot,
+      timeoutMs: 300000
+    });
+    const compilerProofMs = durationSince(compilerProofStart);
+
     const prepareStart = performance.now();
     const workingRoot = await prepareOddSdlcWorkingCopy({ runRoot });
     const prepareMs = durationSince(prepareStart);
@@ -256,6 +275,7 @@ test(
       noProgressReason: result.noProgressReason,
       advances: result.advances.length,
       timings: {
+        compilerProofMs,
         prepareMs,
         scenarioMs,
         totalMs

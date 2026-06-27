@@ -314,6 +314,18 @@ export const SDLC_OPERATOR_RUN_ARTIFACT_CATALOG = Object.freeze([
     admissionRef: "admission://odd-sdlc/operator-run/design-depth-fp-evaluator-run"
   }),
   row({
+    artifactRef: "operator-run-artifact://design-depth-fp-evaluator-checkpoint-run",
+    relativePath: "design_depth_fp_evaluator_checkpoint_run.json",
+    carrierKind: "sdlc_design_depth_fp_evaluator_checkpoint_run",
+    role: "runtime_fact",
+    sourceOwner: "installed_operator",
+    requiredForPresentEdge: false,
+    requiredWhen: "implementation_design_surface_present",
+    malformedGapTracked: true,
+    admissionRef:
+      "admission://odd-sdlc/operator-run/design-depth-fp-evaluator-checkpoint-run"
+  }),
+  row({
     artifactRef: "operator-run-artifact://design-depth-fp-evaluator-first-update",
     relativePath: "design_depth_fp_evaluator_first_update.json",
     carrierKind: "sdlc_design_depth_fp_evaluator_first_update_observation",
@@ -326,6 +338,18 @@ export const SDLC_OPERATOR_RUN_ARTIFACT_CATALOG = Object.freeze([
       "admission://odd-sdlc/operator-run/design-depth-fp-evaluator-first-update"
   }),
   row({
+    artifactRef: "operator-run-artifact://design-depth-fp-evaluator-progress-snapshot",
+    relativePath: "design_depth_fp_evaluator_progress_snapshot.json",
+    carrierKind: "sdlc_design_depth_content_register_progress_snapshot",
+    role: "runtime_fact",
+    sourceOwner: "installed_operator",
+    requiredForPresentEdge: false,
+    requiredWhen: "implementation_design_surface_present",
+    malformedGapTracked: true,
+    admissionRef:
+      "admission://odd-sdlc/operator-run/design-depth-fp-evaluator-progress-snapshot"
+  }),
+  row({
     artifactRef: "operator-run-artifact://design-depth-fp-evaluator-content-register",
     relativePath: "design_depth_fp_evaluator_content_register.json",
     carrierKind: "sdlc_evaluate_content_register",
@@ -335,6 +359,20 @@ export const SDLC_OPERATOR_RUN_ARTIFACT_CATALOG = Object.freeze([
     requiredWhen: "implementation_design_surface_present",
     malformedGapTracked: true,
     admissionRef: "admission://odd-sdlc/operator-run/design-depth-fp-evaluator-content-register"
+  }),
+  row({
+    artifactRef:
+      "operator-run-artifact://design-depth-fp-evaluator-content-register-carry-forward",
+    relativePath: "design_depth_fp_evaluator_content_register_carry_forward.json",
+    carrierKind:
+      "sdlc_design_depth_fp_evaluator_content_register_carry_forward",
+    role: "runtime_fact",
+    sourceOwner: "installed_operator",
+    requiredForPresentEdge: false,
+    requiredWhen: "implementation_design_surface_present",
+    malformedGapTracked: true,
+    admissionRef:
+      "admission://odd-sdlc/operator-run/design-depth-fp-evaluator-content-register-carry-forward"
   }),
   row({
     artifactRef: "operator-run-artifact://design-depth-fp-evaluator-rule-outcome",
@@ -378,6 +416,18 @@ export const SDLC_OPERATOR_RUN_ARTIFACT_CATALOG = Object.freeze([
     malformedGapTracked: true,
     admissionRef:
       "admission://odd-sdlc/operator-run/design-depth-fp-evaluator-prompt-asset"
+  }),
+  row({
+    artifactRef: "operator-run-artifact://design-depth-fp-evaluator-progress-surface",
+    relativePath: "design_depth_fp_evaluator_progress_surface.json",
+    carrierKind: "sdlc_design_depth_content_register_progress_surface",
+    role: "read_model",
+    sourceOwner: "installed_operator",
+    requiredForPresentEdge: false,
+    requiredWhen: "implementation_design_surface_present",
+    malformedGapTracked: true,
+    admissionRef:
+      "admission://odd-sdlc/operator-run/design-depth-fp-evaluator-progress-surface"
   }),
   row({
     artifactRef: "operator-run-artifact://design-depth-fp-evaluator-stdout",

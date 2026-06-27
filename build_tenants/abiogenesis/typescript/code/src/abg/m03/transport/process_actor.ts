@@ -3,6 +3,7 @@ import { dirname } from "node:path";
 import { performance } from "node:perf_hooks";
 import {
   runAgentActorWorkerCallout,
+  type TracedProcessExternalProgressMode,
   type TracedProcessExecutorProfile,
   type TracedProcessParser,
   type TracedProcessResult
@@ -57,6 +58,7 @@ export interface SupervisedProcessActorRequest {
   readonly inactivityTimeoutMs?: number | undefined;
   readonly externalProgressTimeoutMs?: number | undefined;
   readonly externalProgressCheck?: (() => boolean) | undefined;
+  readonly externalProgressMode?: TracedProcessExternalProgressMode | undefined;
   readonly externalProgressTimeoutReason?: string | undefined;
   readonly terminationGraceMs?: number | undefined;
   readonly heartbeatMs?: number | undefined;
@@ -359,6 +361,9 @@ export async function invokeSupervisedProcessActor(
       ...(request.externalProgressCheck === undefined
         ? {}
         : { externalProgressCheck: request.externalProgressCheck }),
+      ...(request.externalProgressMode === undefined
+        ? {}
+        : { externalProgressMode: request.externalProgressMode }),
       ...(request.externalProgressTimeoutReason === undefined
         ? {}
         : { externalProgressTimeoutReason: request.externalProgressTimeoutReason }),

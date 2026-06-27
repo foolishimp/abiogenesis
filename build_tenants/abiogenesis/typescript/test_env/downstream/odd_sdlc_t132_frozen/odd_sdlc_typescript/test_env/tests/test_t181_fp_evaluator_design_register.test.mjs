@@ -32,6 +32,9 @@ import {
   SDLC_OPERATOR_RUN_ARTIFACT_CATALOG,
   sha256Text,
   selectSdlcWorkCategoryGovernance,
+  designDepthContentRegisterProgressAdvanced,
+  designDepthContentRegisterProgressSurface,
+  observeDesignDepthContentRegisterProgressSnapshot,
   writeDesignDepthRegisterProjectionFromEvaluateContentRegister,
   writeHandoffFiles
 } from "../../build/semantic/code/src/index.js";
@@ -163,6 +166,14 @@ test("T-181 common config carries one compressed governance doc per work categor
   assert.equal(
     runtimePolicy.designDepthFpEvaluator.timeoutMs,
     600000
+  );
+  assert.equal(
+    runtimePolicy.designDepthFpEvaluator.firstUpdateTimeoutMs,
+    120000
+  );
+  assert.ok(
+    runtimePolicy.designDepthFpEvaluator.firstUpdateTimeoutMs <
+      runtimePolicy.designDepthFpEvaluator.timeoutMs
   );
   assert.ok(
     runtimePolicy.designDepthFpEvaluator.timeoutMs <
@@ -895,6 +906,164 @@ test("T-181 design-depth content register supports incremental fragment projecti
   }
 });
 
+test("T-162 design-depth progress observation is a declared F_D metric, not semantic judgment", () => {
+  const workspaceRoot = makeWorkspace();
+  try {
+    const manifest = manifestForImplementationDesign(
+      workspaceRoot,
+      "t162-progress-metric"
+    );
+    const contentRegisterPath = designDepthFpEvaluatorContentRegisterPath({
+      archiveRoot: manifest.archiveRoot
+    });
+    const surface = designDepthContentRegisterProgressSurface();
+    assert.equal(
+      surface.metricGrammarRef,
+      "metric://odd-sdlc/design-depth-content-register-progress/v1"
+    );
+    assert.match(surface.forbiddenInterpretation, /does not judge semantic completeness/u);
+    const missing = observeDesignDepthContentRegisterProgressSnapshot({
+      registerPath: contentRegisterPath
+    });
+    assert.equal(missing.outputState, "pending");
+    assert.equal(missing.nextRepairSection, "stackProfileRows");
+    assert.equal(
+      designDepthContentRegisterProgressAdvanced({
+        previousMetricKey: null,
+        current: missing
+      }),
+      false
+    );
+
+    mkdirSync(path.dirname(contentRegisterPath), { recursive: true });
+    writeFileSync(contentRegisterPath, "{not-json", "utf8");
+    const invalid = observeDesignDepthContentRegisterProgressSnapshot({
+      registerPath: contentRegisterPath
+    });
+    assert.equal(invalid.outputState, "invalid");
+    assert.equal(invalid.nextRepairSection, "stackProfileRows");
+    assert.equal(
+      designDepthContentRegisterProgressAdvanced({
+        previousMetricKey: null,
+        current: invalid
+      }),
+      false
+    );
+
+    const composition = designDepthGtlSelectedComposition();
+    const evidenceRef = pathToFileURL(manifest.outputFile).href;
+    const checkpointRegister = (reason) => ({
+      kind: "sdlc_evaluate_content_register",
+      registerVersion: "ts-evaluate-content-register-v1",
+      stage: "evaluate.C",
+      ruleRef: "evaluation-rule://odd-sdlc/design-depth-register/fp",
+      ruleRole: "semantic_judgment",
+      computeMeans: "F_P",
+      authorityFunction: "synthesize_model",
+      selectedCompositionRef: composition.compositionRef,
+      selectedCompositionDigest: composition.compositionDigest,
+      selectedCompositionSelectionRef: composition.compositionSelectionRef,
+      selectedRegimeBindingRef: composition.selectedRegimeBindingRef,
+      compositionContributionRef: composition.selectedRegimeBindingRef,
+      sourceBasisRefs: [evidenceRef],
+      candidateArtifactRefs: [evidenceRef],
+      evidenceRefs: [evidenceRef],
+      contentRows: [
+        {
+          kind: "sdlc_evaluate_content_register_row",
+          rowRef:
+            "content-register-row://t162/progress/designCompletenessVerdict",
+          authorityFunction: "synthesize_model",
+          carrierFamily: "ProductAssetModel",
+          contentKind: "sdlc_design_depth_register_fragment",
+          payload: {
+            kind: "sdlc_design_depth_register_fragment",
+            fragmentVersion: "ts-design-depth-fragment-v1",
+            targetAssetType: "implementation_design_surface",
+            section: "designCompletenessVerdict",
+            sequence: 12,
+            mergeMode: "replace",
+            value: {
+              kind: "sdlc_design_completeness_verdict",
+              verdictVersion: "ts-design-depth-v1",
+              entity: {
+                kind: "sdlc_design_completeness_axis_verdict",
+                axis: "entity",
+                status: "partial",
+                reasons: [reason],
+                evidenceRefs: [evidenceRef]
+              },
+              attribute: {
+                kind: "sdlc_design_completeness_axis_verdict",
+                axis: "attribute",
+                status: "partial",
+                reasons: [reason],
+                evidenceRefs: [evidenceRef]
+              },
+              flow: {
+                kind: "sdlc_design_completeness_axis_verdict",
+                axis: "flow",
+                status: "partial",
+                reasons: [reason],
+                evidenceRefs: [evidenceRef]
+              }
+            }
+          },
+          sourceBasisRefs: [evidenceRef],
+          evidenceRefs: [evidenceRef]
+        }
+      ]
+    });
+
+    writeFileSync(
+      contentRegisterPath,
+      `${JSON.stringify(checkpointRegister("worker-authored first pressure"), null, 2)}\n`,
+      "utf8"
+    );
+    const first = observeDesignDepthContentRegisterProgressSnapshot({
+      registerPath: contentRegisterPath
+    });
+    assert.equal(first.outputState, "first_observed");
+    assert.equal(first.fragmentRowCount, 1);
+    assert.equal(first.missingSections.includes("stackProfileRows"), true);
+    assert.equal(first.nextRepairSection, "stackProfileRows");
+    assert.equal(
+      designDepthContentRegisterProgressAdvanced({
+        previousMetricKey: null,
+        current: first
+      }),
+      true
+    );
+    assert.equal(
+      designDepthContentRegisterProgressAdvanced({
+        previousMetricKey: first.metricKey,
+        current: first
+      }),
+      false
+    );
+
+    writeFileSync(
+      contentRegisterPath,
+      `${JSON.stringify(checkpointRegister("worker-authored revised pressure"), null, 2)}\n`,
+      "utf8"
+    );
+    const changed = observeDesignDepthContentRegisterProgressSnapshot({
+      registerPath: contentRegisterPath
+    });
+    assert.equal(changed.outputState, "first_observed");
+    assert.notEqual(changed.metricKey, first.metricKey);
+    assert.equal(
+      designDepthContentRegisterProgressAdvanced({
+        previousMetricKey: first.metricKey,
+        current: changed
+      }),
+      true
+    );
+  } finally {
+    rmSync(workspaceRoot, { recursive: true, force: true });
+  }
+});
+
 test("T-181 design-depth content register canonicalizes numeric tranche ids", () => {
   const workspaceRoot = makeWorkspace();
   try {
@@ -1462,10 +1631,10 @@ test("T-183 evaluator sidecar admission is structural and does not replace F_P s
       admitImplementationDesignRegisterCandidateForManifest({
         manifest
       });
-    assert.equal(missingSourceTargetAdmission.status, "admitted");
-    assert.deepEqual(
-      missingSourceTargetAdmission.register.fileTargetRows.map((row) => row.role),
-      ["build_config"]
+    assert.equal(missingSourceTargetAdmission.status, "rejected");
+    assert.match(
+      missingSourceTargetAdmission.blockingReasons.join("\n"),
+      /design_depth_register_source_file_target_missing/u
     );
 
     const emptyTopologyRegister = implementationDesignRegister(
@@ -1490,8 +1659,15 @@ test("T-183 evaluator sidecar admission is structural and does not replace F_P s
       admitImplementationDesignRegisterCandidateForManifest({
         manifest
       });
-    assert.equal(emptyTopologyAdmission.status, "admitted");
-    assert.deepEqual(emptyTopologyAdmission.register.componentTopologyRows, []);
+    assert.equal(emptyTopologyAdmission.status, "rejected");
+    assert.match(
+      emptyTopologyAdmission.blockingReasons.join("\n"),
+      /design_depth_register_component_topology_source_rows_missing/u
+    );
+    assert.match(
+      emptyTopologyAdmission.blockingReasons.join("\n"),
+      /design_depth_register_component_realization_source_rows_missing/u
+    );
   } finally {
     rmSync(workspaceRoot, { recursive: true, force: true });
   }
@@ -1996,6 +2172,45 @@ test("T-203 component-code targets admit predecessor evaluator register from per
 test("T-181 framework-smoke component-code prompt preserves downstream test execution", () => {
   const workspaceRoot = makeWorkspace();
   try {
+    const prior = manifestForEdge({
+      workspaceRoot,
+      runId: "20260523T000000001Z_pid18103",
+      graphFunctionName: FG_FRAMEWORK_SMOKE_MIN_FP_EXECUTIVE,
+      edgeName: "derive_lite_design_adr_surface"
+    });
+    writeHandoffFiles(prior);
+    mkdirSync(path.dirname(prior.outputFile), { recursive: true });
+    const priorContent = implementationDesignAdr("framework-smoke");
+    writeFileSync(prior.outputFile, priorContent, "utf8");
+    const priorRegisterPath = designDepthFpEvaluatorRegisterPath(prior);
+    mkdirSync(path.dirname(priorRegisterPath), { recursive: true });
+    writeFileSync(
+      priorRegisterPath,
+      `${JSON.stringify(
+        implementationDesignRegister(
+          "framework-smoke",
+          pathToFileURL(prior.outputFile).href
+        ),
+        null,
+        2
+      )}\n`,
+      "utf8"
+    );
+    writeDesignDepthFpEvaluatorContentRegister({
+      manifest: prior,
+      registerPath: priorRegisterPath
+    });
+    writeDesignDepthFpEvaluatorRuleOutcomeProof({
+      manifest: prior,
+      registerPath: priorRegisterPath
+    });
+    writeFileSync(
+      path.join(prior.archiveRoot, "fp_evaluate_result.json"),
+      `${JSON.stringify(fpEvaluateResultPayloadForRegister(priorRegisterPath), null, 2)}\n`,
+      "utf8"
+    );
+    writePriorWorkerResultReport({ manifest: prior, content: priorContent });
+
     const current = manifestForEdge({
       workspaceRoot,
       runId: "20260523T000000002Z_pid18104",
@@ -2243,11 +2458,14 @@ test("T-181 installed operator declares an F_P evaluation rule for register popu
   assert.match(evaluatorPromptSource, /Do not use command helpers to display the five primary inputs/u);
   assert.match(evaluatorPromptSource, /use Read offset\/limit and inspect only bounded line ranges/u);
   assert.match(evaluatorPromptSource, /The content register path is the durable evaluation artifact/u);
-  assert.match(evaluatorPromptSource, /system pre-creates that path as a non-admitted draft/u);
+  assert.match(evaluatorPromptSource, /system does not pre-create that path/u);
   assert.match(evaluatorPromptSource, /not a single-shot JSON response/u);
   assert.match(evaluatorPromptSource, /Agentic F_P work loop/u);
-  assert.match(evaluatorPromptSource, /After the first evaluator update exists, write a short plan and checklist/u);
-  assert.match(evaluatorPromptSource, /update the draft content register before doing deep exploratory review/u);
+  assert.match(
+    evaluatorPromptSource,
+    /Only after the initial semantic update or post-checkpoint nextRepairSection repair Write succeeds/u
+  );
+  assert.match(evaluatorPromptSource, /create the content register file directly/u);
   assert.match(evaluatorPromptSource, /Do not use the Read tool on the handoff manifest/u);
   assert.match(evaluatorPromptSource, /Precomputed worker result report summary/u);
   assert.match(evaluatorPromptSource, /Do not inspect the worker result report/u);
@@ -2280,8 +2498,90 @@ test("T-181 installed operator declares an F_P evaluation rule for register popu
   assert.match(evaluatorPromptSource, /mandatory bounded target-path reconciliation pass/u);
   assert.match(evaluatorPromptSource, /If those sources name exact product paths, the final register must preserve those exact paths/u);
   assert.match(evaluatorPromptSource, /Do not deterministically construct later semantic register rows/u);
+  assert.match(evaluatorPromptSource, /Existing-checkpoint branch/u);
+  assert.match(evaluatorPromptSource, /do not apply a single-verdict checkpoint rule again/u);
+  assert.match(evaluatorPromptSource, /Post-checkpoint repair contract/u);
+  assert.match(evaluatorPromptSource, /bounded content-register read is the only permitted pre-write action/u);
+  assert.match(evaluatorPromptSource, /content-register overwrite-preservation read named below may set limit <=160/u);
+  assert.match(evaluatorPromptSource, /Read only \$\{input\.contentRegisterPath\} with limit <=160/u);
+  assert.match(evaluatorPromptSource, /immediately following tool call must be Write/u);
+  assert.match(
+    evaluatorPromptSource,
+    /Do not emit analysis, planning text, or inspect governance, brief, ADR, worker report, or invocation package/u
+  );
+  assert.match(
+    evaluatorPromptSource,
+    /compressed Stack Profile preview in this prompt is sufficient authority for the F_P worker/u
+  );
+  assert.match(evaluatorPromptSource, /post-checkpoint repair contract overrides the read-order list/u);
+  assert.match(evaluatorPromptSource, /the next tool action must publish nextRepairSection coverage/u);
+  assert.match(evaluatorPromptSource, /first required new row is nextRepairSection/u);
+  assert.match(evaluatorPromptSource, /additional missingSections rows in the same Write/u);
+  assert.doesNotMatch(evaluatorPromptSource, /one complete bounded register write/u);
+  assert.doesNotMatch(evaluatorPromptSource, /F_P worker authors the visible ProductAssetModel rows directly/u);
+  assert.match(evaluatorPromptSource, /read-before-overwrite guard/u);
+  assert.match(evaluatorPromptSource, /tool mechanics, not semantic context gathering/u);
+  assert.match(evaluatorPromptSource, /first semantic update is not required to be partial/u);
+  assert.match(evaluatorPromptSource, /add additional grounded missing section rows in the same Write/u);
+  assert.doesNotMatch(evaluatorPromptSource, /The first semantic update is expected to be partial/u);
+  assert.match(evaluatorPromptSource, /checkpoint-only write is non-progress/u);
+  assert.match(evaluatorPromptSource, /If the compressed preview grounds stackProfileRows/u);
   assert.match(evaluatorPromptSource, /Do not spend the run enumerating every requirement id before writing the register/u);
   assert.match(evaluatorPromptSource, /Draft-row timeout is worse than an admitted pressure map/u);
+  assert.match(evaluatorPromptSource, /The F_P worker chooses entity, attribute, and flow axis statuses/u);
+  assert.match(evaluatorPromptSource, /ABG observes the artifact delta through the declared content-register progress metric/u);
+  assert.match(source, /design_depth_fp_evaluator_progress_surface\.json/u);
+  assert.match(source, /design_depth_fp_evaluator_progress_snapshot\.json/u);
+  assert.match(source, /row\.sourceBasisRefs: array containing/u);
+  assert.match(source, /row\.evidenceRefs: array containing/u);
+  assert.match(source, /sourceBasisRefs: array containing/u);
+  assert.match(source, /candidateArtifactRefs: array containing/u);
+  assert.match(source, /evidenceRefs: array containing/u);
+  assert.match(source, /First-response contract/u);
+  assert.match(source, /first visible assistant message must be one Write tool call/u);
+  assert.match(source, /Do not emit text, markdown, analysis, planning, or a 'Writing\.\.\.'/u);
+  assert.match(source, /file_path must be exactly the checkpoint verdict path/u);
+  assert.match(source, /framework wraps your admitted verdict payload into that carrier/u);
+  assert.match(source, /readDesignDepthCheckpointVerdict/u);
+  assert.match(source, /checkpointAxisInputFromVerdictRecord/u);
+  assert.match(source, /Array\.isArray\(record\["axes"\]\)/u);
+  assert.match(source, /writeDesignDepthCheckpointContentRegister/u);
+  assert.match(source, /rawRecord\?\.\["designCompletenessVerdict"\]/u);
+  assert.match(source, /content-register-row:\/\/odd-sdlc\/design-depth\/checkpoint\/designCompletenessVerdict/u);
+  assert.match(source, /Write valid JSON with exactly one designCompletenessVerdict payload object/u);
+  assert.match(source, /checkpointObservation\.status === "observable"/u);
+  assert.match(source, /function designDepthFpEvaluatorProgressTimeoutMs/u);
+  assert.match(source, /const evaluatorProgressTimeoutMs = designDepthFpEvaluatorProgressTimeoutMs\(\)/u);
+  assert.match(source, /externalProgressTimeoutMs: evaluatorProgressTimeoutMs/u);
+  assert.match(source, /progressTimeoutMs: evaluatorProgressTimeoutMs/u);
+  assert.match(source, /acceptedDesignDepthFpEvaluatorOutcomeFromCurrentRegister/u);
+  assert.match(source, /carryForwardDesignDepthFpEvaluatorContentRegister/u);
+  assert.match(source, /content_register_carried_forward/u);
+  assert.match(source, /predecessorDesignDepthFpEvaluatorContentRegisterPaths/u);
+  assert.match(source, /siblingDesignRegisterArchiveRoots/u);
+  assert.match(source, /readdirSync\(operatorRunsRoot, \{ withFileTypes: true \}\)/u);
+  assert.match(
+    source,
+    /processResult\.outcome\.kind === "external_progress_timeout"[\s\S]*acceptedDesignDepthFpEvaluatorOutcomeFromCurrentRegister/u
+  );
+  assert.match(source, /designDepthContentRegisterProgressAdvanced/u);
+  assert.match(
+    source,
+    /incompleteRegisterObservation\.status === "partial"[\s\S]*reason: "design_depth_fp_evaluator_partial_register"/u
+  );
+  assert.match(
+    source,
+    /outcome\.reason === "design_depth_fp_evaluator_partial_register"[\s\S]*return "design_depth_fp_evaluator_pending"/u
+  );
+  assert.match(source, /missing-sections/u);
+  assert.match(contentRegisterSource, /sdlc_design_depth_content_register_progress_surface/u);
+  assert.match(contentRegisterSource, /forbiddenInterpretation/u);
+  assert.match(contentRegisterSource, /does not judge semantic completeness/u);
+  assert.doesNotMatch(source, /The checkpoint is partial by construction/u);
+  assert.doesNotMatch(
+    source,
+    /first F_P pressure checkpoint before bounded design-depth inspection/u
+  );
   assert.match(
     evaluatorPromptSource,
     /Command-helper output budget before first evaluator update: if the active tool profile exposes command helpers/u
@@ -2399,13 +2699,18 @@ test("T-181 evaluator artifacts are cataloged operator-run truth", () => {
   );
   const expected = [
     "design_depth_fp_evaluator_run.json",
+    "design_depth_fp_evaluator_checkpoint_run.json",
+    "design_depth_fp_evaluator_first_update.json",
+    "design_depth_fp_evaluator_progress_snapshot.json",
     "design_depth_fp_evaluator_content_register.json",
+    "design_depth_fp_evaluator_content_register_carry_forward.json",
     "design_depth_fp_evaluator_rule_outcome.json",
     "design_depth_fp_evaluator_register.json",
     "design_depth_fp_evaluator_prompt.md",
     "design_depth_fp_evaluator_stdout.log",
     "design_depth_fp_evaluator_stderr.log",
     "design_depth_fp_evaluator_last_message.txt",
+    "design_depth_fp_evaluator_progress_surface.json",
     "design_depth_fp_evaluator_process_started.json",
     "design_depth_fp_evaluator_process_events.jsonl",
     "fp_evaluator_postflight.json"
@@ -2422,6 +2727,32 @@ test("T-181 evaluator artifacts are cataloged operator-run truth", () => {
   assert.equal(
     rowsByPath.get("design_depth_fp_evaluator_content_register.json").sourceOwner,
     "fp_evaluator"
+  );
+  assert.equal(
+    rowsByPath.get("design_depth_fp_evaluator_content_register_carry_forward.json")
+      .carrierKind,
+    "sdlc_design_depth_fp_evaluator_content_register_carry_forward"
+  );
+  assert.equal(
+    rowsByPath.get("design_depth_fp_evaluator_content_register_carry_forward.json")
+      .sourceOwner,
+    "installed_operator"
+  );
+  assert.equal(
+    rowsByPath.get("design_depth_fp_evaluator_progress_snapshot.json").carrierKind,
+    "sdlc_design_depth_content_register_progress_snapshot"
+  );
+  assert.equal(
+    rowsByPath.get("design_depth_fp_evaluator_progress_snapshot.json").sourceOwner,
+    "installed_operator"
+  );
+  assert.equal(
+    rowsByPath.get("design_depth_fp_evaluator_progress_surface.json").carrierKind,
+    "sdlc_design_depth_content_register_progress_surface"
+  );
+  assert.equal(
+    rowsByPath.get("design_depth_fp_evaluator_progress_surface.json").sourceOwner,
+    "installed_operator"
   );
   assert.equal(
     rowsByPath.get("design_depth_fp_evaluator_rule_outcome.json").carrierKind,
