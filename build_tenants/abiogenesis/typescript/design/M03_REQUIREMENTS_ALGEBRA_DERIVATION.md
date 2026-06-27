@@ -16,7 +16,7 @@
 - `specification/requirements/abg/REQ-R-ABG3-PAYLOAD.md`
 - `specification/requirements/abg/REQ-R-ABG3-ASSURANCE.md`
 - `specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md`
-- `.ai-workspace/tickets/active/T-162-realize-abg-requirements-algebra-strategy.md`
+- `.ai-workspace/tickets/completed/T-162-realize-abg-requirements-algebra-strategy.md`
 
 ## Re-Entry Decision
 
@@ -194,4 +194,3 @@ The first-slice proof is `test_t162_requirements_algebra.test.mjs`.
 It must validate the worked trace, F_D totality, closed-world admission,
 fold/residual mapping, query output, and the six T-204-derived regression
 patterns.
-

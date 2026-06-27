@@ -3,7 +3,7 @@ id: T-162
 title: Realize ABG requirements algebra strategy
 type: feature
 ticket_category: ordinary
-status: active
+status: completed
 goal: >-
   Implement the ABG-owned requirements algebra from the strategy post as one
   coherent substrate: requirement identity, traversal spans, staged context
@@ -34,7 +34,8 @@ owner: abiogenesis
 priority: critical
 triaged_at: 2026-06-26
 created_at: 2026-06-26
-updated_at: 2026-06-26
+updated_at: 2026-06-28
+completed_at: 2026-06-28
 reopened_at: 2026-06-26
 governance_scope: STDO Method, GTL, ABG, Requirements, Assurance
 build_tenant: typescript
@@ -268,8 +269,8 @@ non_closure_conditions:
   - Code implementation begins or closes before the GTL and ABG extension design assets pass design-module-method review.
   - The design lists many peer top-level types without IACS, authority/downstream classification, subordinate payload register, and promotion-test justification.
   - Module decomposition hides graph functions, traversal selection, closure, continuation, or semantic target movement inside deterministic service modules.
-  - Closure is claimed before a live or installed downstream proof exercises the
-    requirements-algebra substrate through an ABG graph-function,
+  - Closure is claimed before an ABI-owned synthetic and live proof exercises
+    the requirements-algebra substrate through an ABG graph-function,
     edge-assurance, or semantic-compiler F_P review path.
 proof_commands:
   - cd build_tenants/abiogenesis/typescript && npm run build:semantic
@@ -282,9 +283,7 @@ proof_commands:
   - cd build_tenants/abiogenesis/typescript && npm run test:t159
   - cd build_tenants/abiogenesis/typescript && npm run test:semantic
   - cd build_tenants/abiogenesis/typescript && npm run lint:test-harness
-  - cd build_tenants/abiogenesis/typescript && npm run test:t162:hello-world-live
-  - cd build_tenants/abiogenesis/typescript && npm run test:t132:live
-  - cd build_tenants/abiogenesis/typescript && npm run test:t159:odd-sdlc-t132-live
+  - cd build_tenants/abiogenesis/typescript && npm run test:t162:live
 proof_surface:
   - specification/PRODUCT.md
   - specification/GOALS.md
@@ -1159,9 +1158,9 @@ closure. It must explicitly evaluate:
       residuals enter it, which obligations are active, which evidence was
       admitted, which folds closed or stayed partial/blocked/deferred/residual,
       and which residual pressure remains with its owning span.
-- [ ] `build:semantic`, `lint:semantic`, `test:t162`, relevant regression
-      suites, full `test:semantic`, `lint:test-harness`, the selected live or
-      installed downstream proof lane, and diff checks pass.
+- [x] `build:semantic`, `lint:semantic`, `test:t162`, relevant regression
+      suites, full `test:semantic`, `lint:test-harness`, the selected
+      ABI-owned live or installed proof lane, and diff checks pass.
 
 ## Non-Goals
 
@@ -1541,3 +1540,125 @@ Remaining non-closure:
   odd_sdlc full-suite reconciliation item. Formal T-162 closure still requires
   either resolving that suite contract or explicitly repricing closure to the
   focused downstream proof lane already recorded above.
+
+## 2026-06-27 Follow-Up Review Repair Note
+
+The follow-up Claude/Codex review feedback was rechecked against the live tree.
+The following findings were confirmed and repaired without adding F_D semantic
+reasoning:
+
+- `projectRequirementLedger(...)` now fails closed on duplicate carrier
+  identities, not only duplicate event refs. Duplicate requirement ids,
+  requirement stable ids, relation ids, span ids, context fragment refs,
+  destination topology refs, test-relation refs, projection refs, evidence refs,
+  fold refs, and residual refs all produce deterministic integrity failures.
+- Carried residual pressure can keep a requirement active on a later edge when
+  the residual's remaining span covers that edge. `activeRequirements(...)` now
+  delegates to the same edge-environment projection so it cannot drift from
+  `buildEdgeRequirementEnvironment(...)`.
+- Derived obligation projections and residual projections choose the active
+  span for multi-span requirements instead of defaulting to `term.spanRefs[0]`.
+- Path-bearing `test_source` evidence must match an admitted component test
+  root. Declared projection roles still prevent path shape from collapsing test
+  execution or semantic-interpretation evidence into `test_source`, but a
+  declared `test_source` role no longer admits a source path outside the
+  declared test-root grammar.
+- Requirement fold source refs are self-verifying. The emitted
+  `abg://assurance-closure-decision/...` ref now carries the encoded ABG
+  assurance projection ref and a digest over that exact ref; parsing rejects
+  legacy/synthetic tags and any digest that does not match the encoded source
+  projection ref.
+
+Findings evaluated as stale or slice-scoped:
+
+- The fold-to-residual prefix mismatch was already repaired in the prior
+  review pass; the regression now remains covered by the component-test
+  postflight assertion that fold residual refs equal projected residual refs.
+- The "keystone is unwired" observation is accurate as a runtime-integration
+  inventory statement: non-test runtime code does not yet call
+  `foldRequirementEvidence(...)`. This pass did not add a product-runtime
+  caller because T-162's first slice is the ABG requirements-algebra substrate
+  over admitted requirement events, and wiring engine-runner consumption should
+  enter through a named graph-function/runtime design point rather than an ad
+  hoc service call. The public ABG API and semantic compiler proof remain the
+  current slice boundary; a later wiring requirement should name the emitted
+  requirement-event source and the graph/runtime consumer.
+
+Proofs:
+
+- The new regressions failed before the implementation patch:
+  `node --test test_env/tests/test_t162_requirements_algebra.test.mjs` reported
+  16 passing and 5 failing tests for the confirmed issues.
+- `npm run build:semantic`
+  in `build_tenants/abiogenesis/typescript` passed.
+- `npm run lint:semantic`
+  in `build_tenants/abiogenesis/typescript` passed.
+- `npm run lint:test-harness`
+  in `build_tenants/abiogenesis/typescript` passed.
+- `node --test test_env/tests/test_t162_requirements_algebra.test.mjs`
+  in `build_tenants/abiogenesis/typescript` passed: 21/21.
+- `npm run test:t162`
+  in `build_tenants/abiogenesis/typescript` passed: 21/21.
+- `npm run test:semantic`
+  in `build_tenants/abiogenesis/typescript` passed: 916/916.
+- `git diff --check`
+  in `/Users/jim/src/apps/abiogenesis` passed.
+
+## 2026-06-27 ABI-Only Closure Scope Correction
+
+The operator clarified that T-162 is not dependent on `odd_sdlc` closure.
+Downstream product suites may remain useful evidence, but they are not a
+closure gate for this ABI substrate ticket.
+
+Current closure scope:
+
+- Synthetic proof must cover the T-162 requirements-algebra carrier,
+  admission, projection, F_D totality, fold/residual, query/read-model, and
+  semantic-compiler boundary within `abiogenesis`.
+- Live proof must exercise the same ABI-owned substrate through an ABG
+  graph-function, edge-assurance, or semantic-compiler F_P review path.
+- Downstream `odd_sdlc` full-suite reconciliation is successor consumer work
+  unless explicitly repriced into a separate ticket.
+
+Implementation update:
+
+- Added `test:t162:live` as an ABI-owned live proof lane.
+- Retargeted the ticket proof contract from downstream `odd_sdlc` proof to
+  `test:t162:live`.
+- `test:t162:live` admits a constrained live F_P semantic-compiler review
+  result, derives ABI assurance closure, folds the result through T-162
+  requirements algebra, and proves no residual remains for the live ABI proof
+  requirement.
+
+## 2026-06-28 Closure Evidence
+
+T-162 is closed under the ABI-only scope correction above.
+
+Closure basis:
+
+- `odd_sdlc` is not a T-162 closure dependency.
+- The ticket closes over the additive ABG/GTL requirements-algebra substrate
+  inside `abiogenesis`.
+- Synthetic proof covers requirements-algebra admission, replay projection,
+  edge environments, evidence binding, F_D totality, fold/residual projection,
+  read models, semantic compiler conformance, and regression interaction with
+  evaluation/stage/iteration/scoped-evaluation/traversal-unit law.
+- Live proof covers the ABI semantic-compiler F_P review graph path, admits
+  the live F_P review result through closed T-162 carrier fields, derives ABI
+  assurance closure, folds that closure into T-162 requirement truth, and
+  projects a supported assurance read model with no residual pressure.
+
+Proof commands:
+
+- `npm run build:semantic` passed.
+- `npm run lint:semantic` passed.
+- `npm run lint:test-harness` passed.
+- `npm run test:t162` passed: 21/21.
+- `npm run test:t145` passed: 17/17.
+- `npm run test:t146` passed: 14/14.
+- `npm run test:t149` passed: 17/17.
+- `npm run test:t151` passed: 10/10.
+- `npm run test:t159` passed: 92/92.
+- `npm run test:t162:live` passed: 1/1.
+- `npm run test:semantic` passed: 916/916.
+- `git diff --check` passed.

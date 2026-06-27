@@ -1267,6 +1267,16 @@ function duplicateValues(values: readonly string[]): readonly string[] {
   return freezeArray([...duplicates].sort());
 }
 
+function pushDuplicateRefs(
+  diagnostics: string[],
+  label: string,
+  values: readonly string[]
+): void {
+  for (const duplicate of duplicateValues(values)) {
+    diagnostics.push(`${label} has duplicate ref ${duplicate}`);
+  }
+}
+
 function pushMissingRefs(input: {
   readonly diagnostics: string[];
   readonly ownerRef: string;
@@ -1283,9 +1293,62 @@ function pushMissingRefs(input: {
 
 function diagnoseRequirementLedgerIntegrity(ledger: RequirementLedger): readonly string[] {
   const diagnostics: string[] = [];
-  for (const eventRef of duplicateValues(ledger.eventRefs)) {
-    diagnostics.push(`RequirementLedger.eventRefs has duplicate ref ${eventRef}`);
-  }
+  pushDuplicateRefs(diagnostics, "RequirementLedger.eventRefs", ledger.eventRefs);
+  pushDuplicateRefs(
+    diagnostics,
+    "RequirementLedger.terms.requirementId",
+    ledger.terms.map((term) => term.requirementId)
+  );
+  pushDuplicateRefs(
+    diagnostics,
+    "RequirementLedger.terms.stableId",
+    ledger.terms.map((term) => term.stableId)
+  );
+  pushDuplicateRefs(
+    diagnostics,
+    "RequirementLedger.relations.relationId",
+    ledger.relations.map((relation) => relation.relationId)
+  );
+  pushDuplicateRefs(
+    diagnostics,
+    "RequirementLedger.spans.spanId",
+    ledger.spans.map((span) => span.spanId)
+  );
+  pushDuplicateRefs(
+    diagnostics,
+    "RequirementLedger.contextFragments.fragmentRef",
+    ledger.contextFragments.map((fragment) => fragment.fragmentRef)
+  );
+  pushDuplicateRefs(
+    diagnostics,
+    "RequirementLedger.destinationTopologies.topologyRef",
+    ledger.destinationTopologies.map((topology) => topology.topologyRef)
+  );
+  pushDuplicateRefs(
+    diagnostics,
+    "RequirementLedger.testRelations.relationRef",
+    ledger.testRelations.map((relation) => relation.relationRef)
+  );
+  pushDuplicateRefs(
+    diagnostics,
+    "RequirementLedger.projections.projectionRef",
+    ledger.projections.map((projection) => projection.projectionRef)
+  );
+  pushDuplicateRefs(
+    diagnostics,
+    "RequirementLedger.evidenceBindings.evidenceRef",
+    ledger.evidenceBindings.map((binding) => binding.evidenceRef)
+  );
+  pushDuplicateRefs(
+    diagnostics,
+    "RequirementLedger.folds.foldRef",
+    ledger.folds.map((fold) => fold.foldRef)
+  );
+  pushDuplicateRefs(
+    diagnostics,
+    "RequirementLedger.residuals.residualRef",
+    ledger.residuals.map((residual) => residual.residualRef)
+  );
 
   const requirementIds = new Set(ledger.terms.map((term) => term.requirementId));
   const relationIds = new Set(ledger.relations.map((relation) => relation.relationId));
@@ -1664,8 +1727,21 @@ export function buildEdgeRequirementEnvironment(input: {
 }): EdgeRequirementEnvironment {
   const activeSpans = input.ledger.spans.filter((span) => spanCoversEdge(span, input.edge));
   const activeSpanIds = new Set(activeSpans.map((span) => span.spanId));
-  const activeTerms = input.ledger.terms.filter((term) => termHasActiveSpan(term, activeSpanIds));
+  const residualsOnActiveSpans = input.ledger.residuals.filter((residual) =>
+    activeSpanIds.has(residual.spanId)
+  );
+  const residualRequirementIds = new Set(
+    residualsOnActiveSpans.map((residual) => residual.requirementId)
+  );
+  const activeTerms = input.ledger.terms.filter((term) =>
+    termHasActiveSpan(term, activeSpanIds) ||
+    residualRequirementIds.has(term.requirementId)
+  );
   const activeRequirementIds = new Set(activeTerms.map((term) => term.requirementId));
+  const priorFolds = input.ledger.folds.filter((fold) => activeRequirementIds.has(fold.requirementId));
+  const carriedResiduals = input.ledger.residuals.filter((residual) =>
+    activeRequirementIds.has(residual.requirementId)
+  );
   const activeRefs = new Set<string>([
     ...activeSpanIds,
     ...activeRequirementIds,
@@ -1685,12 +1761,14 @@ export function buildEdgeRequirementEnvironment(input: {
     ...(input.edge.frameRefs ?? []),
     ...(input.edge.zoomRefs ?? []),
     ...(input.edge.foldbackRefs ?? []),
-    ...(input.edge.aliasRefs ?? [])
+    ...(input.edge.aliasRefs ?? []),
+    ...priorFolds.map((fold) => fold.foldRef),
+    ...carriedResiduals.flatMap((residual) => [
+      residual.residualRef,
+      ...residual.sourceFoldRefs,
+      ...residual.remainingProjectionRefs
+    ])
   ]);
-  const priorFolds = input.ledger.folds.filter((fold) => activeRequirementIds.has(fold.requirementId));
-  const carriedResiduals = input.ledger.residuals.filter((residual) =>
-    activeRequirementIds.has(residual.requirementId)
-  );
 
   return Object.freeze({
     kind: "edge_requirement_environment",
@@ -1722,11 +1800,7 @@ export function activeRequirements(input: {
   readonly ledger: RequirementLedger;
   readonly edge: RequirementEdgeRef;
 }): readonly RequirementTerm[] {
-  const activeSpans = input.ledger.spans.filter((span) => spanCoversEdge(span, input.edge));
-  const activeSpanIds = new Set(activeSpans.map((span) => span.spanId));
-  return freezeArray(
-    input.ledger.terms.filter((term) => termHasActiveSpan(term, activeSpanIds))
-  );
+  return buildEdgeRequirementEnvironment(input).activeTerms;
 }
 
 export function routeContextConstraint(input: {
@@ -1776,7 +1850,7 @@ export function projectRequirements(input: {
       constructRequirementProjection({
         projectionRef: `projection:${term.requirementId}:obligation`,
         requirementId: term.requirementId,
-        spanId: term.spanRefs[0] ?? "span:unknown",
+        spanId: activeSpanIdForTerm(term, input.environment) ?? "span:unknown",
         projectionRole: "obligation",
         authorityRole: "requirement",
         targetPath: null,
@@ -1861,17 +1935,28 @@ export function bindRequirementEvidence(input: {
   readonly current: boolean;
   readonly supersedesEvidenceRefs?: readonly string[];
 }): RequirementEvidenceBinding {
+  const pathEvidenceRole = input.path === null
+    ? null
+    : classifyRequirementEvidenceRole({
+      path: input.path,
+      environment: input.environment
+    });
   const evidenceRole = input.byproduct
     ? "byproduct"
     : input.projection.evidenceRole ??
-      (input.path === null
-        ? "asset"
-        : classifyRequirementEvidenceRole({
-          path: input.path,
-          environment: input.environment
-        }));
+      pathEvidenceRole ??
+      "asset";
+  const testSourceOutsideAdmittedRoots =
+    !input.byproduct &&
+    input.projection.evidenceRole === "test_source" &&
+    input.path !== null &&
+    pathEvidenceRole !== "test_source";
   const bindingStatus: RequirementEvidenceBindingStatus =
-    input.byproduct ? "non_closing" : input.admitted ? "admitted" : "rejected";
+    input.byproduct
+      ? "non_closing"
+      : testSourceOutsideAdmittedRoots || !input.admitted
+        ? "rejected"
+        : "admitted";
   return constructRequirementEvidenceBinding({
     evidenceRef: input.evidenceRef,
     requirementId: input.projection.requirementId,
@@ -1885,7 +1970,9 @@ export function bindRequirementEvidence(input: {
     reason: bindingStatus === "admitted"
       ? "admitted requirement evidence"
       : bindingStatus === "rejected"
-        ? "evidence rejected for the active requirement projection"
+        ? testSourceOutsideAdmittedRoots
+          ? "test_source evidence path is outside admitted test roots"
+          : "evidence rejected for the active requirement projection"
       : "evidence is non-closing for the active requirement projection"
   });
 }
@@ -1935,22 +2022,39 @@ export function requirementAbgTruthRefFromAssuranceClosureDecision(
   return [
     REQUIREMENT_ABG_ASSURANCE_CLOSURE_DECISION_REF_PREFIX,
     decision,
-    stableSha256Digest([input.projectionRef])
+    stableSha256Digest([input.projectionRef]),
+    encodeURIComponent(input.projectionRef)
   ].join("/");
 }
 
-function assuranceClosureDecisionKindFromTruthRef(
+function assuranceClosureDecisionFromTruthRef(
   ref: string
-): AssuranceClosureDecisionKind | null {
+): {
+  readonly decision: AssuranceClosureDecisionKind;
+  readonly projectionRef: string;
+} | null {
   const prefix = `${REQUIREMENT_ABG_ASSURANCE_CLOSURE_DECISION_REF_PREFIX}/`;
   if (!ref.startsWith(prefix)) {
     return null;
   }
   const parts = ref.slice(prefix.length).split("/");
-  if (parts.length !== 2 || !parts[1]?.startsWith("sha256:")) {
+  if (parts.length !== 3 || !parts[1]?.startsWith("sha256:") || parts[2] === undefined) {
     return null;
   }
-  return parseAssuranceClosureDecisionKind(parts[0] ?? "");
+  const decision = parseAssuranceClosureDecisionKind(parts[0] ?? "");
+  if (decision === null) {
+    return null;
+  }
+  let projectionRef: string;
+  try {
+    projectionRef = decodeURIComponent(parts[2]);
+  } catch {
+    return null;
+  }
+  if (projectionRef.length === 0 || stableSha256Digest([projectionRef]) !== parts[1]) {
+    return null;
+  }
+  return Object.freeze({ decision, projectionRef });
 }
 
 function requirementFoldStateFromAssuranceDecision(
@@ -1974,12 +2078,27 @@ function foldStateFromEvidence(
   sourceAbgTruthRefs: readonly string[]
 ): RequirementFoldState {
   for (const sourceRef of sourceAbgTruthRefs) {
-    const decision = assuranceClosureDecisionKindFromTruthRef(sourceRef);
+    const decision = assuranceClosureDecisionFromTruthRef(sourceRef);
     if (decision !== null) {
-      return requirementFoldStateFromAssuranceDecision(decision);
+      return requirementFoldStateFromAssuranceDecision(decision.decision);
     }
   }
   return "no_close_preserved";
+}
+
+function activeSpanIdForTerm(
+  term: RequirementTerm,
+  environment: EdgeRequirementEnvironment
+): string | null {
+  const activeSpanIds = new Set(environment.activeSpans.map((span) => span.spanId));
+  const direct = term.spanRefs.find((spanRef) => activeSpanIds.has(spanRef));
+  if (direct !== undefined) {
+    return direct;
+  }
+  return environment.carriedResiduals.find((residual) =>
+    residual.requirementId === term.requirementId &&
+    activeSpanIds.has(residual.spanId)
+  )?.spanId ?? null;
 }
 
 export function foldRequirementEvidence(input: {
@@ -2043,7 +2162,10 @@ export function residualizeRequirementFolds(input: {
         const term = input.environment.activeTerms.find((candidate) =>
           candidate.requirementId === fold.requirementId
         );
-        const spanId = term?.spanRefs[0] ?? input.environment.activeSpans[0]?.spanId ?? "span:unknown";
+        const spanId =
+          term === undefined
+            ? input.environment.activeSpans[0]?.spanId ?? "span:unknown"
+            : activeSpanIdForTerm(term, input.environment) ?? "span:unknown";
         return constructRequirementResidualProjection({
           residualRef: requirementResidualRef(fold.requirementId, fold.state),
           requirementId: fold.requirementId,

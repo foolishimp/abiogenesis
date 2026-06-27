@@ -523,6 +523,25 @@ test("T-162 evidence binding separates byproducts and component-test materializa
   assert.equal(byproduct.bindingStatus, "non_closing");
 });
 
+test("T-162 path-bearing test-source evidence must match admitted test roots", () => {
+  const { env, projections } = environment();
+  const materialization = projectMaterializationTargets(projections)[0];
+  const forgedTestSource = bindRequirementEvidence({
+    environment: env,
+    projection: materialization,
+    evidenceRef: "evidence://src/main/field_validation",
+    path: "src/main/field_validation.ts",
+    digest: "sha256:main-source",
+    admitted: true,
+    byproduct: false,
+    current: true
+  });
+
+  assert.equal(forgedTestSource.evidenceRole, "test_source");
+  assert.equal(forgedTestSource.bindingStatus, "rejected");
+  assert.match(forgedTestSource.reason, /test_source evidence path is outside admitted test roots/u);
+});
+
 test("T-162 current admitted evidence supersedes empty predecessor replay", () => {
   const oldEmpty = constructRequirementEvidenceBinding({
     evidenceRef: "evidence://empty-predecessor",
@@ -712,9 +731,33 @@ test("T-162 F_D is total and closed-world over admitted requirement states", () 
 
 test("T-162 replay-derived ledger fails closed on duplicate and dangling structural refs", () => {
   const events = payloads();
+  const duplicateStableTerm = constructRequirementTerm({
+    requirementId: "REQ-DM-DUP-STABLE",
+    termKind: "atom",
+    stableId: "REQ-DM-001",
+    sourceRef: "specification/requirements/duplicate.md#REQ-DM-DUP-STABLE",
+    sourceDigest: "sha256:dup-stable",
+    text: "Duplicate stable ids shall fail closed.",
+    relationRefs: [],
+    spanRefs: ["span://data-mapper/derive-validation"],
+    contextRefs: [],
+    evidencePolicyRefs: [],
+    projectionRefs: []
+  });
   assert.throws(
     () => projectRequirementLedger([...events, events[0]]),
     /duplicate ref event:\/\/term/u
+  );
+  assert.throws(
+    () => projectRequirementLedger([
+      ...events,
+      admitRequirementEventPayload({
+        kind: "requirement_term_admitted",
+        eventRef: "event://term/duplicate-stable",
+        term: duplicateStableTerm
+      })
+    ]),
+    /stableId has duplicate ref REQ-DM-001/u
   );
   assert.throws(
     () => projectRequirementLedger([
@@ -738,6 +781,141 @@ test("T-162 replay-derived ledger fails closed on duplicate and dangling structu
     ]),
     /dangling ref span:\/\/missing/u
   );
+});
+
+test("T-162 carried residuals keep requirements active on their remaining span", () => {
+  const remainingSpan = constructTraversalSpan({
+    spanId: "span://data-mapper/residual-validation",
+    graphFunctionRef: edge.graphFunctionRef,
+    graphVectorRefs: ["graph-vector://data-mapper/residual-validation"],
+    vectorIndexes: [3],
+    sourceNodeRef: "node://validation",
+    targetNodeRef: "node://repair",
+    frameRefs: [],
+    zoomRefs: [],
+    foldbackRefs: [],
+    aliasRefs: []
+  });
+  const residualRef = "requirement-residual:REQ-DM-001:partial";
+  const fold = constructRequirementFoldProjection({
+    foldRef: "fold://req-dm-001/partial-residual",
+    requirementId: "REQ-DM-001",
+    projectionRefs: ["projection://req-dm-001/obligation"],
+    state: "partial",
+    sourceAbgTruthRefs: [],
+    evidenceRefs: [],
+    residualPressureRefs: [residualRef],
+    reason: "partial fold carries remaining residual pressure"
+  });
+  const residual = constructRequirementResidualProjection({
+    residualRef,
+    requirementId: "REQ-DM-001",
+    spanId: remainingSpan.spanId,
+    pressureClass: "missing_execution_evidence",
+    ownerSurface: "runtime",
+    sourceFoldRefs: [fold.foldRef],
+    evidenceRefs: [],
+    remainingProjectionRefs: ["projection://req-dm-001/obligation"],
+    reason: "remaining pressure moves to residual validation"
+  });
+  const ledger = projectRequirementLedger([
+    ...payloads(),
+    admitRequirementEventPayload({
+      kind: "traversal_span_admitted",
+      eventRef: "event://span/residual-validation",
+      span: remainingSpan
+    }),
+    admitRequirementEventPayload({
+      kind: "requirement_fold_projected",
+      eventRef: "event://fold/partial-residual",
+      fold
+    }),
+    admitRequirementEventPayload({
+      kind: "requirement_residual_projected",
+      eventRef: "event://residual/partial-residual",
+      residual
+    })
+  ]);
+  const residualEdge = {
+    graphFunctionRef: edge.graphFunctionRef,
+    graphVectorRef: "graph-vector://data-mapper/residual-validation",
+    vectorIndex: 3,
+    edge: "residual_validation"
+  };
+  const env = buildEdgeRequirementEnvironment({ ledger, edge: residualEdge });
+
+  assert.deepEqual(env.activeTerms.map((term) => term.requirementId), ["REQ-DM-001"]);
+  assert.deepEqual(activeRequirements({ ledger, edge: residualEdge }).map((term) => term.requirementId), ["REQ-DM-001"]);
+  assert.deepEqual(env.carriedResiduals.map((row) => row.residualRef), [residualRef]);
+});
+
+test("T-162 multi-span requirements project and residualize against the active span", () => {
+  const inactiveSpan = constructTraversalSpan({
+    spanId: "span://data-mapper/inactive",
+    graphFunctionRef: edge.graphFunctionRef,
+    graphVectorRefs: ["graph-vector://data-mapper/inactive"],
+    vectorIndexes: [1],
+    sourceNodeRef: "node://A",
+    targetNodeRef: "node://B",
+    frameRefs: [],
+    zoomRefs: [],
+    foldbackRefs: [],
+    aliasRefs: []
+  });
+  const activeSpan = constructTraversalSpan({
+    spanId: "span://data-mapper/active-second",
+    graphFunctionRef: edge.graphFunctionRef,
+    graphVectorRefs: [edge.graphVectorRef],
+    vectorIndexes: [edge.vectorIndex],
+    sourceNodeRef: "node://design",
+    targetNodeRef: "node://validation",
+    frameRefs: [],
+    zoomRefs: [],
+    foldbackRefs: [],
+    aliasRefs: []
+  });
+  const term = constructRequirementTerm({
+    requirementId: "REQ-DM-MULTI",
+    termKind: "atom",
+    stableId: "REQ-DM-MULTI",
+    sourceRef: "specification/requirements/data-mapper.md#REQ-DM-MULTI",
+    sourceDigest: "sha256:req-dm-multi",
+    text: "Multi-span requirements shall preserve the active span.",
+    relationRefs: [],
+    spanRefs: [inactiveSpan.spanId, activeSpan.spanId],
+    contextRefs: [],
+    evidencePolicyRefs: [],
+    projectionRefs: []
+  });
+  const ledger = projectRequirementLedger([
+    admitRequirementEventPayload({
+      kind: "traversal_span_admitted",
+      eventRef: "event://span/inactive",
+      span: inactiveSpan
+    }),
+    admitRequirementEventPayload({
+      kind: "traversal_span_admitted",
+      eventRef: "event://span/active-second",
+      span: activeSpan
+    }),
+    admitRequirementEventPayload({
+      kind: "requirement_term_admitted",
+      eventRef: "event://term/multi-span",
+      term
+    })
+  ]);
+  const env = buildEdgeRequirementEnvironment({ ledger, edge });
+  const projections = projectRequirements({ ledger, environment: env });
+  const folds = foldRequirementEvidence({
+    environment: env,
+    projections,
+    evidenceBindings: [],
+    sourceAbgTruthRefs: []
+  });
+  const residuals = residualizeRequirementFolds({ environment: env, folds });
+
+  assert.equal(projections[0].spanId, activeSpan.spanId);
+  assert.equal(residuals[0].spanId, activeSpan.spanId);
 });
 
 test("T-162 attenuation classifies by residual identity, not row position", () => {
@@ -912,8 +1090,15 @@ test("T-162 fold state is projected from existing ABG assurance closure decision
     evidenceBindings: [],
     sourceAbgTruthRefs: ["abg-truth://assurance_fold_fulfilled/current"]
   });
+  const forged = foldRequirementEvidence({
+    environment: env,
+    projections,
+    evidenceBindings: [],
+    sourceAbgTruthRefs: ["abg://assurance-closure-decision/close/sha256:anything"]
+  });
 
   assert.equal(synthetic[0].state, "no_close_preserved");
+  assert.equal(forged[0].state, "no_close_preserved");
   assert.equal(
     REQUIREMENT_FOLD_STATE_MAPPING.satisfied.sourceAbgTruth,
     "AssuranceClosureDecision.decision=close"

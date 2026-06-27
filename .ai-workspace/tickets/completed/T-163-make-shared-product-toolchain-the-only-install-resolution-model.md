@@ -34,7 +34,7 @@ source_ticket: .ai-workspace/tickets/completed/T-161-declare-shared-toolchain-in
 dependencies:
   - .ai-workspace/tickets/completed/T-161-declare-shared-toolchain-install-root-and-version-selector.md
 related_tickets:
-  - .ai-workspace/tickets/active/T-162-realize-abg-requirements-algebra-strategy.md
+  - .ai-workspace/tickets/completed/T-162-realize-abg-requirements-algebra-strategy.md
   - .ai-workspace/tickets/completed/T-057-realize-typescript-cli-binary-binding-over-shared-product-command-grammar.md
   - .ai-workspace/tickets/completed/T-076-realize-typescript-abg-installer-for-downstream-sandbox-population.md
   - .ai-workspace/tickets/completed/T-142-create-versioned-release-snapshot-bundle-for-package-first-abg.md
