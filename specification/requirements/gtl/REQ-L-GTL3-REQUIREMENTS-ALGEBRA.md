@@ -50,3 +50,5 @@ residual, continuation, closure, and query truth.
 **REQ-L-GTL3-REQUIREMENTS-ALGEBRA-015**: GTL requirement graph conformance shall fail closed for duplicate requirement ids, duplicate relation ids, duplicate traversal span ids, dangling term relation refs, dangling term span refs, dangling relation endpoints, dangling test-relation requirement ids, and unknown relation kinds.
 
 **REQ-L-GTL3-REQUIREMENTS-ALGEBRA-016**: GTL requirement graph declarations shall remain declaration-only. Parent/child or refinement structure may name published ABG route refs, but it shall not import ABG runtime modules, mint admitted refs, emit runtime events, project folds, residualize pressure, select continuation, or route re-entry.
+
+**REQ-L-GTL3-REQUIREMENTS-ALGEBRA-017**: GTL traversal-span declarations used by requirements algebra shall be able to declare existing frame refs, zoom refs, foldback refs, and alias refs as inert lineage refs over graph-function and graph-vector identity. They shall not introduce a rival graph topology anchor, graph-vector carrier, frame carrier, zoom carrier, foldback carrier, continuation carrier, or re-entry carrier.

@@ -505,6 +505,23 @@ export interface RequirementAggregateStateProjection {
   readonly reason: string;
 }
 
+export interface RequirementSpanLineageProjection {
+  readonly kind: "requirement_span_lineage_projection";
+  readonly lineageRef: string;
+  readonly spanId: string;
+  readonly graphFunctionRef: string;
+  readonly graphVectorRefs: readonly string[];
+  readonly vectorIndexes: readonly number[];
+  readonly sourceNodeRef: string;
+  readonly targetNodeRef: string;
+  readonly frameRefs: readonly string[];
+  readonly zoomRefs: readonly string[];
+  readonly foldbackRefs: readonly string[];
+  readonly aliasRefs: readonly string[];
+  readonly active: boolean;
+  readonly sourceRefs: readonly string[];
+}
+
 export interface RequirementQueryReadModel {
   readonly kind: "requirement_query_read_model";
   readonly edge: RequirementEdgeRef;
@@ -1934,6 +1951,55 @@ export function projectRequirementGraph(input: {
     parentChildPairs: freezeArray(parentChildPairs),
     sourceRefs: freezeStringArray(sourceRefs, "RequirementGraphProjection.sourceRefs")
   });
+}
+
+export function projectRequirementSpanLineage(input: {
+  readonly ledger: RequirementLedger;
+  readonly environment?: EdgeRequirementEnvironment | undefined;
+}): readonly RequirementSpanLineageProjection[] {
+  const activeSpanIds = new Set(
+    input.environment?.activeSpans.map((span) => span.spanId) ?? []
+  );
+  const sourceRefsBySpan = new Map<string, string[]>();
+  for (const term of input.ledger.terms) {
+    for (const spanRef of term.spanRefs) {
+      sourceRefsBySpan.set(spanRef, [
+        ...(sourceRefsBySpan.get(spanRef) ?? []),
+        term.sourceRef
+      ]);
+    }
+  }
+  return freezeArray(
+    input.ledger.spans.map((span) => Object.freeze({
+      kind: "requirement_span_lineage_projection" as const,
+      lineageRef: `requirement-span-lineage:${stableSha256Digest({
+        spanId: span.spanId,
+        graphFunctionRef: span.graphFunctionRef,
+        graphVectorRefs: span.graphVectorRefs,
+        vectorIndexes: span.vectorIndexes,
+        frameRefs: span.frameRefs,
+        zoomRefs: span.zoomRefs,
+        foldbackRefs: span.foldbackRefs,
+        aliasRefs: span.aliasRefs,
+        active: activeSpanIds.has(span.spanId)
+      })}`,
+      spanId: span.spanId,
+      graphFunctionRef: span.graphFunctionRef,
+      graphVectorRefs: freezeStringArray(span.graphVectorRefs, "RequirementSpanLineageProjection.graphVectorRefs"),
+      vectorIndexes: freezeNumberArray(span.vectorIndexes, "RequirementSpanLineageProjection.vectorIndexes"),
+      sourceNodeRef: span.sourceNodeRef,
+      targetNodeRef: span.targetNodeRef,
+      frameRefs: freezeStringArray(span.frameRefs, "RequirementSpanLineageProjection.frameRefs"),
+      zoomRefs: freezeStringArray(span.zoomRefs, "RequirementSpanLineageProjection.zoomRefs"),
+      foldbackRefs: freezeStringArray(span.foldbackRefs, "RequirementSpanLineageProjection.foldbackRefs"),
+      aliasRefs: freezeStringArray(span.aliasRefs, "RequirementSpanLineageProjection.aliasRefs"),
+      active: activeSpanIds.has(span.spanId),
+      sourceRefs: freezeStringArray(
+        sourceRefsBySpan.get(span.spanId) ?? [],
+        "RequirementSpanLineageProjection.sourceRefs"
+      )
+    }))
+  );
 }
 
 function hasActiveRefinementChildren(

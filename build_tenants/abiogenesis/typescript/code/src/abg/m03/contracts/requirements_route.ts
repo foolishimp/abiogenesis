@@ -1223,10 +1223,10 @@ function declarationBundleToRequirementEvents(
       vectorIndexes: declaration.vectorIndexes,
       sourceNodeRef: declaration.sourceNodeRef,
       targetNodeRef: declaration.targetNodeRef,
-      frameRefs: [],
-      zoomRefs: [],
-      foldbackRefs: [],
-      aliasRefs: []
+      frameRefs: declaration.frameRefs,
+      zoomRefs: declaration.zoomRefs,
+      foldbackRefs: declaration.foldbackRefs,
+      aliasRefs: declaration.aliasRefs
     });
     payloads.push(spanPayload(span));
   }

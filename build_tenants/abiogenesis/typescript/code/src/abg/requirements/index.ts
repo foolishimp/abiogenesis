@@ -13,6 +13,7 @@ export {
   projectExecutionSchedules as projectExecutionSchedules,
   projectRequirementAggregateStates as projectAggregateStates,
   projectRequirementGraph as projectRequirementGraph,
+  projectRequirementSpanLineage as projectSpanLineage,
   projectMaterializationTargets as projectMaterializationTargets,
   projectRequirements as projectEdgeObligations,
   queryRequirements as queryRequirementReadModel,
@@ -43,6 +44,7 @@ export type {
   RequirementRelation,
   RequirementQueryReadModel,
   RequirementResidualProjection,
+  RequirementSpanLineageProjection,
   RequirementStructuralEvaluation,
   RequirementTerm,
   TraversalSpan

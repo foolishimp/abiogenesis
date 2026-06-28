@@ -6382,7 +6382,11 @@ function admitGtlTraversalSpanDeclarationRows(
     "graphVectorRefs",
     "vectorIndexes",
     "sourceNodeRef",
-    "targetNodeRef"
+    "targetNodeRef",
+    "frameRefs",
+    "zoomRefs",
+    "foldbackRefs",
+    "aliasRefs"
   ]);
   return Object.freeze(
     input.flatMap((row, index) => {
@@ -6460,6 +6464,38 @@ function admitGtlTraversalSpanDeclarationRows(
           targetNodeRef: requiredStringField({
             record: row,
             key: "targetNodeRef",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          frameRefs: optionalStringArrayField({
+            record: row,
+            key: "frameRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          zoomRefs: optionalStringArrayField({
+            record: row,
+            key: "zoomRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          foldbackRefs: optionalStringArrayField({
+            record: row,
+            key: "foldbackRefs",
+            label: surfaceRef,
+            subjectRef,
+            surfaceKind: "requirement_declaration",
+            issues
+          }),
+          aliasRefs: optionalStringArrayField({
+            record: row,
+            key: "aliasRefs",
             label: surfaceRef,
             subjectRef,
             surfaceKind: "requirement_declaration",

@@ -179,3 +179,29 @@ downstream products interpret admitted read models.
 - [ ] `npm run test:t169:live` passes with a live F_P worker process and
       digest-pinned replay artifact.
 - [ ] `git diff --check` passes.
+
+## Progress Record
+
+2026-06-29 first slice completed, not closure:
+
+- Added GTL requirement traversal-span lineage declaration law for frame refs,
+  zoom refs, foldback refs, and alias refs.
+- Added ABG span-lineage read-model law over admitted `TraversalSpan` truth.
+- Authored first-slice derivation, IACS, and structural carrier diagram.
+- Realized GTL declaration fields and ABG route admission preservation into the
+  existing `TraversalSpan` carrier.
+- Added read-only `projectSpanLineage` query.
+- Added `npm run test:t169` synthetic first-slice proof.
+
+Proof completed for first slice:
+
+- `npm run test:t169` passed.
+- `npm run lint:semantic` passed.
+- `npm run lint:test-harness` passed.
+- `git diff --check` passed.
+
+Not yet closed:
+
+- Live F_P worker proof is not implemented or run.
+- Recursive child-frame or sibling-call foldback and re-entry path is not yet
+  proven.

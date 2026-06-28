@@ -55,6 +55,10 @@ export interface GtlTraversalSpanDeclaration {
   readonly vectorIndexes: readonly number[];
   readonly sourceNodeRef: string;
   readonly targetNodeRef: string;
+  readonly frameRefs: readonly string[];
+  readonly zoomRefs: readonly string[];
+  readonly foldbackRefs: readonly string[];
+  readonly aliasRefs: readonly string[];
 }
 
 export interface GtlAuthorityContextFragmentDeclaration {
@@ -234,9 +238,18 @@ export function constructGtlRequirementRelationDeclaration(
   });
 }
 
-export function constructGtlTraversalSpanDeclaration(
-  input: Omit<GtlTraversalSpanDeclaration, "kind">
-): GtlTraversalSpanDeclaration {
+export function constructGtlTraversalSpanDeclaration(input: {
+  readonly spanId: string;
+  readonly graphFunctionRef: string;
+  readonly graphVectorRefs: readonly string[];
+  readonly vectorIndexes: readonly number[];
+  readonly sourceNodeRef: string;
+  readonly targetNodeRef: string;
+  readonly frameRefs?: readonly string[] | undefined;
+  readonly zoomRefs?: readonly string[] | undefined;
+  readonly foldbackRefs?: readonly string[] | undefined;
+  readonly aliasRefs?: readonly string[] | undefined;
+}): GtlTraversalSpanDeclaration {
   assertNonEmptyString(input.spanId, "GtlTraversalSpanDeclaration.spanId");
   assertNonEmptyString(input.graphFunctionRef, "GtlTraversalSpanDeclaration.graphFunctionRef");
   assertNonEmptyString(input.sourceNodeRef, "GtlTraversalSpanDeclaration.sourceNodeRef");
@@ -251,7 +264,11 @@ export function constructGtlTraversalSpanDeclaration(
     graphVectorRefs: freezeStrings(input.graphVectorRefs, "GtlTraversalSpanDeclaration.graphVectorRefs"),
     vectorIndexes: freezeNumbers(input.vectorIndexes, "GtlTraversalSpanDeclaration.vectorIndexes"),
     sourceNodeRef: input.sourceNodeRef,
-    targetNodeRef: input.targetNodeRef
+    targetNodeRef: input.targetNodeRef,
+    frameRefs: freezeStrings(input.frameRefs ?? [], "GtlTraversalSpanDeclaration.frameRefs"),
+    zoomRefs: freezeStrings(input.zoomRefs ?? [], "GtlTraversalSpanDeclaration.zoomRefs"),
+    foldbackRefs: freezeStrings(input.foldbackRefs ?? [], "GtlTraversalSpanDeclaration.foldbackRefs"),
+    aliasRefs: freezeStrings(input.aliasRefs ?? [], "GtlTraversalSpanDeclaration.aliasRefs")
   });
 }
 
