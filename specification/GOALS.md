@@ -39,7 +39,7 @@ product-local loop/controller authority rather than rebuilding it.
 | `GOAL-011` | `Requirements` + `GTL` + `ABG Runtime` + `Projection` + `Interface` | Wire and pin the downstream-consumable requirements-algebra route without turning T-162 symbols into a new carrier/function catalog. | Existing T-162 symbols are exposed through stable GTL/ABG route interfaces; GTL declaration/composition refs do not import ABG runtime code; downstream-public surfaces are declarations and read-only queries; ABG-runtime-internal admission/projection commands emit declaration, projection, evidence, fold, residual, and disposition truth on the traversal path; admitted refs are nominal and replay-verified; F_D cannot infer F_P/F_H semantic meaning; route proof rejects forged refs, boolean evidence, manual truth refs, query-lazy fold/residual/disposition, downstream-public emitters, and caller-supplied route truth. | `T-164`, `REQ-L-GTL3-REQUIREMENTS-ALGEBRA`, `REQ-R-ABG3-REQUIREMENTS-ALGEBRA`, `M03_REQUIREMENTS_ALGEBRA_ROUTE_INTERFACE_DESIGN`, `test:t164` | Completed | `T-164` |
 | `GOAL-012` | `Live Proof` + `Requirements` + `GTL` + `ABG Runtime` | Prove the completed T-164 requirements route through a Hello World live F_P steel thread. | A gated live test starts from GTL requirement declarations for a Hello World program, invokes a real F_P transport worker, executes the produced Hello World artifact, emits ABG requirement route facts through the runtime event stream, joins disposition over ABG continuation truth, and replays the lifecycle state without product-local ledgers, caller-supplied route truth, or prompt-side preconstruction of the Hello World source. | `T-165`, `test:t165:hello-world-live` | Completed | `T-165` |
 | `GOAL-013` | `Proof` + `Projection` + `Downstream Consumption` | Publish the requirements-route replay proof as a downstream-consumable artifact without exposing ABG runtime-internal emitters. | A T-165 or successor proof run writes a digest-pinned route replay artifact and manifest containing serialized `requirement_route_fact_projected` events and replay-derived lifecycle state; downstream consumers can prove read-only consumption from that artifact while ABG keeps emission, admission, fold, residual, and disposition authority internal. | `T-166`, `test:t166`, `test:t166:live` | Completed | `T-166` |
-| `GOAL-014` | `GTL` + `ABG Runtime` + `Requirements` + `Projection` | Close the ABI substrate gaps needed for odd_glc beyond route-1 closed-path consumption. | ABI publishes a non-closed requirements-route replay artifact with residual and continuation/re-entry truth; GTL ratifies requirement graph/refinement declarations; ABG admits/projects/folds/residualizes multi-requirement structure; recursive executive observation preserves obligation pressure without downstream product-local controllers. | `T-167`, `T-168`, `T-160` | Active | `T-167`, `T-168`, `T-160` |
+| `GOAL-014` | `GTL` + `ABG Runtime` + `Requirements` + `Projection` | Close the ABI substrate gaps needed for odd_glc beyond route-1 closed-path consumption. | ABI publishes a non-closed requirements-route replay artifact with residual and continuation/re-entry truth; GTL ratifies requirement graph/refinement declarations; ABG admits/projects/folds/residualizes multi-requirement structure; span identity is stable across frame, zoom, recursion, foldback, and re-entry boundaries; recursive executive observation preserves obligation pressure without downstream product-local controllers. | `T-167`, `T-168`, `T-169`, `T-160` | Active | `T-167`, `T-168`, `T-169`, `T-160` |
 
 ## Wave Boundary
 
@@ -171,7 +171,9 @@ The active ABI closure wave for downstream lifecycle scale covers:
    and continuation or re-entry disposition emitted by ABG.
 2. `T-168` GTL requirement graph/refinement declaration law plus ABG
    admission/projection/fold/residual/query over multi-requirement structure.
-3. `T-160` recursive executive observer pressure preservation over existing
+3. `T-169` requirement span identity across frame, zoom, recursion, foldback,
+   and re-entry boundaries so any-scale lifecycle pressure remains traceable.
+4. `T-160` recursive executive observer pressure preservation over existing
    GTL/ABG carriers, now active because the requirements-algebra and odd_glc
    lifecycle strategy have made it the next substrate gap.
 
@@ -179,3 +181,6 @@ This wave explicitly includes GTL. Requirement graph/refinement and lifecycle
 composition structure must be declared through GTL contract-law surfaces; ABG
 interprets and admits those declarations. Downstream products must not supply
 that structure through local requirement compilers or local controller loops.
+Span identity across recursion is also GTL/ABG work: GTL declares the stable
+span and lineage refs; ABG admits, projects, folds, residualizes, and re-enters
+over those refs without product-local span maps.

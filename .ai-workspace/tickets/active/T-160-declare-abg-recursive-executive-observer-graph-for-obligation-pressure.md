@@ -70,6 +70,7 @@ related_tickets:
   - .ai-workspace/tickets/completed/T-164-realize-gtl-abg-requirements-algebra-route-for-downstream-lifecycle-consumers.md
   - .ai-workspace/tickets/completed/T-165-prove-hello-world-live-requirements-route.md
   - .ai-workspace/tickets/completed/T-166-publish-requirements-route-replay-proof-artifact.md
+  - .ai-workspace/tickets/active/T-169-ratify-requirement-span-identity-across-recursion.md
   - /Users/jim/src/apps/odd_glc/.ai-workspace/tickets/active/T-001-govern-minimal-odd-glc-requirements-and-graph-design.md
   - /Users/jim/src/apps/odd_glc/.ai-workspace/tickets/active/T-007-interpret-assurance-fold-and-residual-pressure.md
 affected_boundary:
@@ -136,6 +137,10 @@ non_closure_conditions:
   - The work introduces new workspace or observation carrier vocabulary before product and requirements prove an existing-surface gap.
   - The default behavior exists only as prompt prose and not as admitted evaluation findings plus replay-visible pressure facts.
   - Non-attenuating same-pressure retry is not detectable as typed pressure.
+  - The observer claims recursive or any-scale pressure preservation across
+    frame, zoom, child-frame, sibling graph-call, foldback, or re-entry
+    boundaries before span identity across those boundaries is ratified and
+    proven by T-169 or explicitly deferred from this slice.
 proof_commands:
   - cd build_tenants/abiogenesis/typescript && npm run build:semantic
   - cd build_tenants/abiogenesis/typescript && npm run test:t160
@@ -501,12 +506,16 @@ consequence the executive.
 4. Should non-attenuation be purely deterministic over refs/deltas when possible,
    with F_P only for ambiguous pressure interpretation, or always part of the
    executive F_P finding?
+5. How does the observer preserve requirement span identity across frame,
+   zoom, child-frame, sibling graph-call, foldback, and re-entry boundaries?
+   T-169 owns the first-class closure for this question; T-160 may close only
+   after consuming that answer or deferring recursive span claims.
 
 ## Closure Note
 
-Backlogged. This ticket is not implemented. It records a possible future STDO
-work item for ABG to own recursive executive observation and
-obligation-pressure preservation as a default substrate behavior with product
-tuning. It is downstream of the requirements-algebra/general lifecycle strategy
-and must not be treated as current active T-161 or consumer-project closure
-work.
+Active as of 2026-06-29 under GOAL-014. This ticket is still product-first and
+design-gated: it authorizes product, requirement, and design closure work for
+ABG-owned recursive executive observation, not immediate implementation. It
+must not be used as consumer-project closure authority, and recursive or
+any-scale claims remain blocked until span identity across recursion is closed
+by T-169 or explicitly deferred from the first slice.

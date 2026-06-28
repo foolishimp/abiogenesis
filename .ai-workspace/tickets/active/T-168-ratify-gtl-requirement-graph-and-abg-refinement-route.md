@@ -41,6 +41,7 @@ source_documents:
   - specification/requirements/gtl/REQ-L-GTL3-GRAPHVECTOR.md
   - specification/requirements/abg/REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md
   - .ai-workspace/tickets/completed/T-164-realize-gtl-abg-requirements-algebra-route-for-downstream-lifecycle-consumers.md
+  - .ai-workspace/tickets/active/T-169-ratify-requirement-span-identity-across-recursion.md
   - /Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260628T170821Z_T002_rc12_readiness_refresh.md
 affected_boundary:
   requirements:
@@ -84,9 +85,17 @@ non_closure_conditions:
   - GTL declarations import or instantiate ABG runtime modules.
   - Downstream products must translate local requirement ledgers into ABG terms
     through a product-local compiler.
+  - Requirement graph or refinement law re-mints KAOS, goal, decomposition,
+    obstacle, or requirement-graph kernel carriers instead of reusing
+    `RequirementTerm` and `RequirementRelation`, unless the design IACS proves
+    a new essential carrier by the DESIGN_MODULE_METHOD promotion test.
   - Parent requirement closure is inferred from command success or child count
     rather than admitted fold/residual truth.
+  - Parent or aggregate fold/residual truth is emitted by a second fold writer
+    instead of projected from admitted child/leaf requirement truth.
   - Residual pressure loses the parent/child requirement graph position.
+  - Cross-frame, zoomed, or recursive span identity is needed for closure but
+    is neither closed by T-169 nor explicitly deferred from this slice.
   - Public queries expose emitter/admission/fold/residual commands.
 required_work:
   - Add GTL acceptance criteria for requirement graph/refinement declarations,
@@ -94,6 +103,13 @@ required_work:
   - Add ABG acceptance criteria for admission, replay, projection, fold,
     residual, attenuation, and public query over requirement graph structure.
   - Author M03 refinement design, IACS, and structural carrier diagram.
+  - In the IACS, prove the requirement graph reuses existing
+    `RequirementTerm` and `RequirementRelation` carriers, with any derived graph
+    view modeled as a replay projection rather than a re-minted carrier kernel.
+  - In the IACS, apply the DESIGN_MODULE_METHOD promotion test to every
+    proposed new carrier before adding it to GTL or ABG.
+  - Define aggregate parent fold/residual as projection over admitted leaf or
+    child requirement truth, not as a second fold-emission authority.
   - Realize TypeScript GTL constructors and ABG admission/projection/query
     support without GTL-to-ABG runtime imports.
   - Add synthetic proof for multi-requirement refinement and residual
@@ -133,10 +149,16 @@ downstream products interpret.
       refs.
 - [ ] GTL requirements facade remains declaration-only and imports no ABG
       runtime modules.
+- [ ] Design proves requirement graph/refinement structure reuses existing
+      `RequirementTerm` and `RequirementRelation` carriers unless a new carrier
+      passes the DESIGN_MODULE_METHOD promotion test.
 - [ ] ABG admission preserves graph/refinement structure as replay truth.
 - [ ] ABG edge environment projection carries active parent/child requirement
       pressure.
-- [ ] ABG fold/residual propagation preserves requirement graph position.
+- [ ] ABG aggregate fold/residual propagation is projected from admitted
+      child/leaf requirement truth and preserves requirement graph position.
+- [ ] Cross-frame, zoomed, or recursive span identity needed by this slice is
+      either proven by T-169 or explicitly deferred.
 - [ ] Public queries expose read-only multi-requirement route state.
 - [ ] Negative proof rejects downstream-public emitters and product-local
       requirement compiler shapes.
