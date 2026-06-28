@@ -17,6 +17,15 @@ export const REQUIRED_REQUIREMENT_ROUTE_PAYLOAD_KINDS = Object.freeze([
   "requirement_lifecycle_disposition"
 ]);
 
+export const REQUIRED_NON_CLOSED_REQUIREMENT_ROUTE_PAYLOAD_KINDS = Object.freeze([
+  "requirement_term_admitted",
+  "requirement_projection_admitted",
+  "requirement_evidence_bound",
+  "requirement_fold_projected",
+  "requirement_residual_projected",
+  "requirement_lifecycle_disposition"
+]);
+
 export function sha256Text(value) {
   return `sha256:${createHash("sha256").update(value, "utf8").digest("hex")}`;
 }
@@ -45,13 +54,13 @@ export function requirementRouteEvents(runtimeEvents) {
   );
 }
 
-function routePayloadKinds(routeEvents) {
+function routePayloadKinds(routeEvents, requiredPayloadKinds) {
   const kinds = new Set(routeEvents.map((event) => event.routePayloadKind));
-  const requiredKinds = REQUIRED_REQUIREMENT_ROUTE_PAYLOAD_KINDS.filter((kind) =>
+  const requiredKinds = requiredPayloadKinds.filter((kind) =>
     kinds.has(kind)
   );
   const additionalKinds = [...kinds]
-    .filter((kind) => !REQUIRED_REQUIREMENT_ROUTE_PAYLOAD_KINDS.includes(kind))
+    .filter((kind) => !requiredPayloadKinds.includes(kind))
     .sort();
   return [...requiredKinds, ...additionalKinds];
 }
@@ -63,9 +72,12 @@ function routePayloadRefs(routeEvents) {
     .sort();
 }
 
-function assertRequiredRoutePayloadKinds(routeEvents) {
+function assertRequiredRoutePayloadKinds(
+  routeEvents,
+  requiredPayloadKinds = REQUIRED_REQUIREMENT_ROUTE_PAYLOAD_KINDS
+) {
   const kinds = new Set(routeEvents.map((event) => event.routePayloadKind));
-  for (const kind of REQUIRED_REQUIREMENT_ROUTE_PAYLOAD_KINDS) {
+  for (const kind of requiredPayloadKinds) {
     assert.equal(
       kinds.has(kind),
       true,
@@ -74,7 +86,12 @@ function assertRequiredRoutePayloadKinds(routeEvents) {
   }
 }
 
-export function assertRequirementRouteReplayArtifact(artifact) {
+export function assertRequirementRouteReplayArtifact(
+  artifact,
+  options = {}
+) {
+  const requiredPayloadKinds =
+    options.requiredPayloadKinds ?? REQUIRED_REQUIREMENT_ROUTE_PAYLOAD_KINDS;
   assert.equal(artifact.kind, REQUIREMENT_ROUTE_REPLAY_ARTIFACT_KIND);
   assert.equal(artifact.artifactVersion, REQUIREMENT_ROUTE_REPLAY_ARTIFACT_VERSION);
   assert.equal(Array.isArray(artifact.replayEvents), true);
@@ -83,7 +100,7 @@ export function assertRequirementRouteReplayArtifact(artifact) {
   assert.equal(Array.isArray(artifact.routeEvents), true);
   assert.equal(typeof artifact.lifecycleState, "object");
   assert.equal(artifact.replay.routeEventCount, artifact.routeEvents.length);
-  assertRequiredRoutePayloadKinds(artifact.routeEvents);
+  assertRequiredRoutePayloadKinds(artifact.routeEvents, requiredPayloadKinds);
 }
 
 export async function writeRequirementRouteReplayArtifact(input) {
@@ -93,12 +110,15 @@ export async function writeRequirementRouteReplayArtifact(input) {
   const emittedEvents = Array.from(input.emittedEvents ?? []);
   const sinkEvents = Array.from(input.sinkEvents ?? []);
   const routeEvents = requirementRouteEvents(replayEvents);
-  assertRequiredRoutePayloadKinds(routeEvents);
+  const requiredPayloadKinds =
+    input.requiredPayloadKinds ?? REQUIRED_REQUIREMENT_ROUTE_PAYLOAD_KINDS;
+  assertRequiredRoutePayloadKinds(routeEvents, requiredPayloadKinds);
+  const ticket = input.ticket ?? "T-166";
 
   const artifact = Object.freeze({
     kind: REQUIREMENT_ROUTE_REPLAY_ARTIFACT_KIND,
     artifactVersion: REQUIREMENT_ROUTE_REPLAY_ARTIFACT_VERSION,
-    ticket: "T-166",
+    ticket,
     createdAt: input.createdAt ?? new Date().toISOString(),
     source: Object.freeze(input.source ?? {}),
     replay: Object.freeze({
@@ -106,7 +126,7 @@ export async function writeRequirementRouteReplayArtifact(input) {
       emittedEventCount: emittedEvents.length,
       sinkEventCount: sinkEvents.length,
       routeEventCount: routeEvents.length,
-      routePayloadKinds: routePayloadKinds(routeEvents),
+      routePayloadKinds: routePayloadKinds(routeEvents, requiredPayloadKinds),
       routePayloadRefs: routePayloadRefs(routeEvents)
     }),
     replayEvents,
@@ -115,7 +135,7 @@ export async function writeRequirementRouteReplayArtifact(input) {
     routeEvents,
     lifecycleState: input.lifecycleState
   });
-  assertRequirementRouteReplayArtifact(artifact);
+  assertRequirementRouteReplayArtifact(artifact, { requiredPayloadKinds });
 
   const artifactPath = path.join(
     input.runRoot,
@@ -132,12 +152,12 @@ export async function writeRequirementRouteReplayArtifact(input) {
   const manifest = Object.freeze({
     kind: REQUIREMENT_ROUTE_REPLAY_MANIFEST_KIND,
     artifactVersion: REQUIREMENT_ROUTE_REPLAY_ARTIFACT_VERSION,
-    ticket: "T-166",
+    ticket,
     source: artifact.source,
     artifact: Object.freeze({
       path: artifactPath,
       sha256: artifactDigest,
-      requiredPayloadKinds: REQUIRED_REQUIREMENT_ROUTE_PAYLOAD_KINDS,
+      requiredPayloadKinds,
       requiredPayloadKindsSatisfied: true,
       routeEventCount: routeEvents.length,
       routePayloadKinds: artifact.replay.routePayloadKinds,

@@ -3,7 +3,7 @@ id: T-167
 title: Publish non-closed requirements-route replay artifact
 type: proof
 ticket_category: downstream_proof_artifact
-status: active
+status: completed
 goal: >-
   Publish a downstream-consumable requirements-route replay artifact for a
   non-closed route. The proof shall start from GTL requirement declarations,
@@ -41,8 +41,10 @@ source_documents:
   - .ai-workspace/tickets/completed/T-166-publish-requirements-route-replay-proof-artifact.md
 affected_boundary:
   proof:
-    - build_tenants/abiogenesis/typescript/test_env/live/
+    - build_tenants/abiogenesis/typescript/test_env/tests/test_t167_non_closed_requirements_route_replay_artifact.test.mjs
     - build_tenants/abiogenesis/typescript/test_env/tests/support/requirements-route-replay-artifact.mjs
+  runtime:
+    - build_tenants/abiogenesis/typescript/code/src/abg/m03/runner/engine_runner.ts
   package_scripts:
     - build_tenants/abiogenesis/typescript/package.json
 target_truth: >-
@@ -87,7 +89,8 @@ required_work:
   - Add negative proof that closed-only artifacts cannot satisfy this ticket.
 proof_commands:
   - cd build_tenants/abiogenesis/typescript && npm run test:t167
-  - cd build_tenants/abiogenesis/typescript && npm run test:t167:live
+  - cd build_tenants/abiogenesis/typescript && npm run test:t166
+  - cd build_tenants/abiogenesis/typescript && npm run lint:semantic
   - cd build_tenants/abiogenesis/typescript && npm run lint:test-harness
   - git diff --check
 ---
@@ -121,14 +124,66 @@ inventing a local test-only GTL shape.
 
 ## Acceptance Checklist
 
-- [ ] T-167 proof scenario starts from GTL requirement declarations.
-- [ ] Proof does not pass caller-supplied `RequirementRouteRuntimeContext`.
-- [ ] ABG emits a non-closed requirement fold.
-- [ ] ABG emits requirement residual projection.
-- [ ] ABG emits lifecycle disposition joined over continuation or re-entry
+- [x] T-167 proof scenario starts from GTL requirement declarations.
+- [x] Proof does not pass caller-supplied `RequirementRouteRuntimeContext`.
+- [x] ABG emits a non-closed requirement fold.
+- [x] ABG emits requirement residual projection.
+- [x] ABG emits lifecycle disposition joined over continuation or re-entry
       truth.
-- [ ] Replay artifact and manifest are digest-pinned.
-- [ ] Negative proof rejects closed-only artifact as T-167 closure.
-- [ ] `npm run test:t167` passes.
-- [ ] Live or installed proof command produces a concrete artifact path.
-- [ ] `git diff --check` passes.
+- [x] Replay artifact and manifest are digest-pinned.
+- [x] Negative proof rejects closed-only artifact as T-167 closure.
+- [x] `npm run test:t167` passes.
+- [x] Installed proof command produces a concrete artifact path.
+- [x] `git diff --check` passes.
+
+## Closure Evidence
+
+Closed on 2026-06-29.
+
+Implementation note:
+
+- The route already emitted requirement facts for closed assurance decisions.
+  T-167 exposed that non-close assurance branches returned through retry or
+  terminal handling before route emission. The fix routes retry/block/reprice/
+  defer assurance decisions through the same `emitRequirementRouteForEdgeClose`
+  path before ABG records retry or terminal continuation.
+
+Concrete artifact:
+
+- artifact:
+  `/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/t167_non_closed_requirements_route_replay_artifact/20260628T192010906Z_pid82713/requirements-route-replay-artifact.json`
+- manifest:
+  `/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/t167_non_closed_requirements_route_replay_artifact/20260628T192010906Z_pid82713/requirements-route-replay-manifest.json`
+- artifact digest:
+  `sha256:de29305cf46ed0fca3d8d2661b62d24cb8a0f88b4af32c5252b82d8ee62f5df5`
+- replay event count: `163`
+- route event count: `46`
+- lifecycle disposition count: `4`
+- residual ref count: `4`
+- route payload kinds:
+  `requirement_term_admitted`,
+  `requirement_projection_admitted`,
+  `requirement_evidence_bound`,
+  `requirement_fold_projected`,
+  `requirement_residual_projected`,
+  `requirement_lifecycle_disposition`,
+  `authority_context_fragment_admitted`,
+  `traversal_span_admitted`
+
+Proof commands:
+
+```bash
+cd build_tenants/abiogenesis/typescript && npm run test:t167
+cd build_tenants/abiogenesis/typescript && npm run test:t166
+cd build_tenants/abiogenesis/typescript && npm run lint:semantic
+cd build_tenants/abiogenesis/typescript && npm run lint:test-harness
+git diff --check
+```
+
+The installed proof starts from GTL requirement declarations, passes only the
+declaration bundle into `runEngineIterateAsync`, and does not pass a
+caller-supplied `RequirementRouteRuntimeContext`. The proof produces a partial
+requirement fold, residual projection, and lifecycle disposition over admitted
+ABG continuation truth. The artifact is generated run state under
+`test_env/test_runs/` and remains gitignored; this ticket records its identity
+for downstream consumption.

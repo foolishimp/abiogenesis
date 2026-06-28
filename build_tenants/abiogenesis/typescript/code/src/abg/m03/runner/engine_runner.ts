@@ -5577,6 +5577,23 @@ function* runEngineIterateMachine(input: {
                 request.basis,
                 eventState.replayEvents
               );
+              const requirementRouteContinuationTransition =
+                deriveRuntimeContinuationTransitionProjection({
+                  basis: request.basis,
+                  runtimeProjection: retryProjection,
+                  vectorIndex: transition.vectorIndex,
+                  assuranceClosureDecision: assuranceFold.closureDecision
+                });
+              eventState = emitRequirementRouteForEdgeClose({
+                state: eventState,
+                request,
+                context: requirementRouteContext,
+                vectorIndex: transition.vectorIndex,
+                closureDecision: assuranceFold.closureDecision,
+                continuationTransitions: Object.freeze([
+                  requirementRouteContinuationTransition
+                ])
+              });
               const assuranceRetry = assuranceRetryEvents({
                 basis: request.basis,
                 runtimeProjection: retryProjection,
@@ -5635,6 +5652,27 @@ function* runEngineIterateMachine(input: {
                   status: "blocked"
                 })
               );
+              const requirementRouteProjection = deriveRuntimeAggregateProjection(
+                request.basis,
+                eventState.replayEvents
+              );
+              const requirementRouteContinuationTransition =
+                deriveRuntimeContinuationTransitionProjection({
+                  basis: request.basis,
+                  runtimeProjection: requirementRouteProjection,
+                  vectorIndex: transition.vectorIndex,
+                  assuranceClosureDecision: assuranceFold.closureDecision
+                });
+              eventState = emitRequirementRouteForEdgeClose({
+                state: eventState,
+                request,
+                context: requirementRouteContext,
+                vectorIndex: transition.vectorIndex,
+                closureDecision: assuranceFold.closureDecision,
+                continuationTransitions: Object.freeze([
+                  requirementRouteContinuationTransition
+                ])
+              });
               eventState = emitRunnerEvents(
                 eventState,
                 constructTerminalReachedEvent(assuranceTerminal)
