@@ -10,6 +10,7 @@ import type {
   ActorInvocation,
   ActorInvocationRef,
   ExecutionBasis,
+  EvidenceAdmittedRuntimeEvent,
   GraphReentryPoint,
   PayloadAmbiguityStatus,
   PayloadClosureDecisionKind,
@@ -59,7 +60,8 @@ import {
 import {
   frameIdForBasis,
   graphCallIdForBasis,
-  runtimeEventsForBasis
+  runtimeEventsForBasis,
+  vectorEdge
 } from "../contracts/runtime_support.js";
 import {
   admitFdEvaluationOutcome,
@@ -155,7 +157,10 @@ import type {
 import type { AbgFallbackBundle } from "../contracts/plugin_traversal_observer.js";
 import type { EdgeAssuranceDefaultContract } from "../contracts/edge_assurance_contract.js";
 import type { ConstructionPressurePackage } from "../contracts/construction_pressure_package.js";
-import type { GtlTargetCarrierDefaultsBundle } from "../../../gtl/m01/contracts/index.js";
+import type {
+  GtlRequirementsAlgebraDeclarationBundle,
+  GtlTargetCarrierDefaultsBundle
+} from "../../../gtl/m01/contracts/index.js";
 import { loadGtlTargetCarrierDefaultsBundle } from "../../../gtl/m01/contracts/index.js";
 import {
   constructAssuranceAuthoritySnapshot,
@@ -170,6 +175,16 @@ import {
   deriveAssuranceEvidenceRowsFromPayloadLedger,
   derivePayloadLedgerProjection
 } from "../contracts/payload_ledger.js";
+import {
+  buildRequirementRouteRuntimeContextFromDeclarations,
+  emitRequirementRouteFactsForEdgeClose,
+  mintRuntimeScopeRef,
+  type RequirementRouteRuntimeContext,
+  type RouteReplayFact
+} from "../contracts/requirements_route.js";
+import type {
+  RequirementEdgeRef
+} from "../contracts/requirements_algebra.js";
 import {
   constructRetryProgressRecordedEvent,
   deriveRetryRepairDecision,
@@ -249,6 +264,9 @@ export interface EngineIterateRequest {
   readonly pluginResultInterfaceCatalog?:
     | AdmittedPluginResultInterfaceCatalog
     | undefined;
+  readonly requirementRouteDeclarationBundle?:
+    | GtlRequirementsAlgebraDeclarationBundle
+    | undefined;
 }
 
 export interface EngineStartRequest extends ExecutionBasisAdmissionInput {
@@ -273,6 +291,9 @@ export interface EngineStartRequest extends ExecutionBasisAdmissionInput {
     | undefined;
   readonly pluginResultInterfaceCatalog?:
     | AdmittedPluginResultInterfaceCatalog
+    | undefined;
+  readonly requirementRouteDeclarationBundle?:
+    | GtlRequirementsAlgebraDeclarationBundle
     | undefined;
 }
 
@@ -2648,6 +2669,7 @@ function constructResult(input: {
 interface EngineEventEmissionState {
   readonly emittedEvents: readonly RuntimeEvent[];
   readonly replayEvents: readonly RuntimeEvent[];
+  readonly requirementRouteReplayFacts: readonly RouteReplayFact[];
 }
 
 function appendEngineRunnerEvents(input: {
@@ -2658,7 +2680,8 @@ function appendEngineRunnerEvents(input: {
   const emitted = emit(input.events, input.sink);
   return Object.freeze({
     emittedEvents: Object.freeze([...input.state.emittedEvents, ...emitted]),
-    replayEvents: Object.freeze([...input.state.replayEvents, ...emitted])
+    replayEvents: Object.freeze([...input.state.replayEvents, ...emitted]),
+    requirementRouteReplayFacts: input.state.requirementRouteReplayFacts
   });
 }
 
@@ -2668,7 +2691,142 @@ function appendAlreadyEmittedEngineRunnerEvents(input: {
 }): EngineEventEmissionState {
   return Object.freeze({
     emittedEvents: Object.freeze([...input.state.emittedEvents, ...input.events]),
-    replayEvents: Object.freeze([...input.state.replayEvents, ...input.events])
+    replayEvents: Object.freeze([...input.state.replayEvents, ...input.events]),
+    requirementRouteReplayFacts: input.state.requirementRouteReplayFacts
+  });
+}
+
+function appendRequirementRouteEvents(input: {
+  readonly state: EngineEventEmissionState;
+  readonly runtimeEvents: readonly RuntimeEvent[];
+  readonly replayFacts: readonly RouteReplayFact[];
+  readonly sink: RuntimeEventSink;
+}): EngineEventEmissionState {
+  const emitted = emit(input.runtimeEvents, input.sink);
+  return Object.freeze({
+    emittedEvents: Object.freeze([...input.state.emittedEvents, ...emitted]),
+    replayEvents: Object.freeze([...input.state.replayEvents, ...emitted]),
+    requirementRouteReplayFacts: input.replayFacts
+  });
+}
+
+function requirementRouteEdgeRef(input: {
+  readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
+}): RequirementEdgeRef {
+  const vector = input.basis.graph.vectors[input.vectorIndex];
+  if (vector === undefined) {
+    throw new TypeError(`Requirement route vector ${input.vectorIndex} is outside graph range`);
+  }
+  return Object.freeze({
+    graphFunctionRef: input.basis.graphFunction.id,
+    graphVectorRef: vector.id,
+    vectorIndex: input.vectorIndex,
+    edge: vectorEdge(input.basis, input.vectorIndex)
+  });
+}
+
+function requirementRouteScopeRef(input: {
+  readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
+}): ReturnType<typeof mintRuntimeScopeRef> {
+  const vector = input.basis.graph.vectors[input.vectorIndex];
+  if (vector === undefined) {
+    throw new TypeError(`Requirement route scope vector ${input.vectorIndex} is outside graph range`);
+  }
+  return mintRuntimeScopeRef({
+    runRef: input.basis.id,
+    graphCallRef: graphCallIdForBasis(input.basis),
+    frameRef: frameIdForBasis(input.basis),
+    continuationRef: null,
+    graphFunctionRef: input.basis.graphFunction.id,
+    graphVectorRef: vector.id,
+    spanRef: vector.id
+  });
+}
+
+function requirementRouteContextForRequest(
+  request: EngineIterateRequest
+): RequirementRouteRuntimeContext | undefined {
+  if (request.requirementRouteDeclarationBundle === undefined) {
+    return undefined;
+  }
+  if (request.basis.graph.vectors.length === 0) {
+    return undefined;
+  }
+  const edges: RequirementEdgeRef[] = [];
+  for (const [vectorIndex] of request.basis.graph.vectors.entries()) {
+    edges.push(
+      requirementRouteEdgeRef({
+        basis: request.basis,
+        vectorIndex
+      })
+    );
+  }
+  const context = buildRequirementRouteRuntimeContextFromDeclarations({
+    bundle: request.requirementRouteDeclarationBundle,
+    runtimeScope: requirementRouteScopeRef({
+      basis: request.basis,
+      vectorIndex: 0
+    }),
+    edges
+  });
+  if (context.status === "rejected") {
+    throw new TypeError(
+      `Requirement route declaration admission rejected: ${context.reason}: ${context.diagnostics.join("; ")}`
+    );
+  }
+  return context.value;
+}
+
+function isEvidenceAdmittedRuntimeEvent(
+  event: RuntimeEvent
+): event is EvidenceAdmittedRuntimeEvent {
+  return event.kind === "evidence_admitted";
+}
+
+function emitRequirementRouteForEdgeClose(input: {
+  readonly state: EngineEventEmissionState;
+  readonly request: EngineIterateRequest;
+  readonly context: RequirementRouteRuntimeContext | undefined;
+  readonly vectorIndex: number;
+  readonly closureDecision: AssuranceClosureDecision;
+  readonly continuationTransitions?:
+    | readonly RuntimeContinuationTransitionProjection[]
+    | undefined;
+}): EngineEventEmissionState {
+  if (input.context === undefined) {
+    return input.state;
+  }
+  const route = emitRequirementRouteFactsForEdgeClose({
+    runtimeScope: requirementRouteScopeRef({
+      basis: input.request.basis,
+      vectorIndex: input.vectorIndex
+    }),
+    context: Object.freeze({
+      ledger: input.context.ledger,
+      replayFacts: input.state.requirementRouteReplayFacts,
+      requirementProjectionRefsByVectorIndex:
+        input.context.requirementProjectionRefsByVectorIndex
+    }),
+    edge: requirementRouteEdgeRef({
+      basis: input.request.basis,
+      vectorIndex: input.vectorIndex
+    }),
+    runtimeEvents: input.state.replayEvents.filter(isEvidenceAdmittedRuntimeEvent),
+    closureDecision: input.closureDecision,
+    continuationTransitions: input.continuationTransitions ?? Object.freeze([])
+  });
+  if (route.status === "rejected") {
+    throw new TypeError(
+      `Requirement route edge-close emission rejected: ${route.reason}: ${route.diagnostics.join("; ")}`
+    );
+  }
+  return appendRequirementRouteEvents({
+    state: input.state,
+    runtimeEvents: route.value.emittedRuntimeEvents,
+    replayFacts: route.value.replayFacts,
+    sink: input.request.eventSink
   });
 }
 
@@ -3577,12 +3735,26 @@ function* runEngineIterateMachine(input: {
   readonly targetCarrierDefaults: GtlTargetCarrierDefaultsBundle;
 }): Generator<EnginePluginEffect, EngineIterateResult, EnginePluginEffectResult> {
   const { request, plugins, targetCarrierDefaults } = input;
+  const requirementRouteContext = requirementRouteContextForRequest(request);
   let eventState: EngineEventEmissionState = Object.freeze({
     emittedEvents: Object.freeze([]),
     replayEvents: canonicalReplayEvents(
       runtimeEventsForBasis(request.basis, request.runtimeEvents ?? Object.freeze([]))
-    )
+    ),
+    requirementRouteReplayFacts:
+      requirementRouteContext?.replayFacts ?? Object.freeze([])
   });
+  if (
+    requirementRouteContext?.admissionRuntimeEvents !== undefined &&
+    requirementRouteContext.admissionRuntimeEvents.length > 0
+  ) {
+    eventState = appendRequirementRouteEvents({
+      state: eventState,
+      runtimeEvents: requirementRouteContext.admissionRuntimeEvents,
+      replayFacts: requirementRouteContext.replayFacts,
+      sink: request.eventSink
+    });
+  }
   let iterationCount = 0;
   let continuationStageProjectionRefs: readonly string[] = Object.freeze([]);
   let continuationStageFoldInputRefs: readonly string[] = Object.freeze([]);
@@ -5840,6 +6012,27 @@ function* runEngineIterateMachine(input: {
                 iterationCount: consequenceTraversalConsumption.iterationCount
               }).result;
             }
+            const requirementRouteProjection = deriveRuntimeAggregateProjection(
+              request.basis,
+              eventState.replayEvents
+            );
+            const requirementRouteContinuationTransition =
+              deriveRuntimeContinuationTransitionProjection({
+                basis: request.basis,
+                runtimeProjection: requirementRouteProjection,
+                vectorIndex: transition.vectorIndex,
+                assuranceClosureDecision: assuranceFold.closureDecision
+              });
+            eventState = emitRequirementRouteForEdgeClose({
+              state: eventState,
+              request,
+              context: requirementRouteContext,
+              vectorIndex: transition.vectorIndex,
+              closureDecision: assuranceFold.closureDecision,
+              continuationTransitions: Object.freeze([
+                requirementRouteContinuationTransition
+              ])
+            });
             eventState = emitRunnerEvents(eventState,
               constructVectorClosedEvent({
                 basis: request.basis,

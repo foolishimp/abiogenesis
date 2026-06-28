@@ -37,3 +37,10 @@ residual, continuation, closure, and query truth.
 
 **REQ-L-GTL3-REQUIREMENTS-ALGEBRA-009**: GTL declarations may reference ABG requirement algebra hooks or projection refs, but they shall not emit runtime events, write ledgers, select traversal, close assurance scopes, or own continuation/re-entry.
 
+**REQ-L-GTL3-REQUIREMENTS-ALGEBRA-010**: A GTL requirements facade shall expose declaration carriers and constructor surfaces only. It shall not admit events, write ledgers, project runtime truth, bind evidence, fold assurance, residualize pressure, select continuation, or route re-entry.
+
+**REQ-L-GTL3-REQUIREMENTS-ALGEBRA-011**: A GTL requirements lifecycle composition declaration shall carry published route refs, contract refs, symbolic bindings, and source digests. It shall not import, instantiate, or depend on ABG runtime implementation modules.
+
+**REQ-L-GTL3-REQUIREMENTS-ALGEBRA-012**: GTL requirement route refs shall be inert declaration truth until ABG interprets and resolves them against admitted route/publication authority. A GTL route ref shall not become runtime authority merely because it names an ABG route.
+
+**REQ-L-GTL3-REQUIREMENTS-ALGEBRA-013**: GTL conformance for requirement route declarations shall fail closed for unknown route refs, missing contract refs, malformed source digests, duplicate lifecycle composition refs, and any field that attempts to smuggle ABG runtime state or event authority into GTL.

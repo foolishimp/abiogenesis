@@ -305,7 +305,7 @@ export interface RequirementAssuranceClaim {
   readonly evidenceRefs: readonly string[];
   readonly foldRefs: readonly string[];
   readonly residualRefs: readonly string[];
-  readonly status: "supported" | "partial" | "blocked";
+  readonly status: "supported" | "partial" | "blocked" | "no_evidence";
 }
 
 export interface RequirementTermAdmittedPayload {
@@ -900,7 +900,7 @@ export function constructRequirementAssuranceClaim(
     evidenceRefs: freezeStringArray(input.evidenceRefs, "RequirementAssuranceClaim.evidenceRefs"),
     foldRefs: freezeStringArray(input.foldRefs, "RequirementAssuranceClaim.foldRefs"),
     residualRefs: freezeStringArray(input.residualRefs, "RequirementAssuranceClaim.residualRefs"),
-    status: enumValue(["supported", "partial", "blocked"] as const, input.status, "RequirementAssuranceClaim.status")
+    status: enumValue(["supported", "partial", "blocked", "no_evidence"] as const, input.status, "RequirementAssuranceClaim.status")
   });
 }
 
@@ -2251,9 +2251,11 @@ export function projectAssuranceCase(input: {
     input.environment.activeTerms.map((term) => {
       const folds = input.folds.filter((fold) => fold.requirementId === term.requirementId);
       const residuals = input.residuals.filter((residual) => residual.requirementId === term.requirementId);
-      const status = folds.length === 0 || folds.some((fold) => fold.state === "blocked")
-        ? "blocked"
-        : residuals.length > 0 || folds.some((fold) => fold.state !== "satisfied")
+      const status = folds.length === 0
+        ? "no_evidence"
+        : folds.some((fold) => fold.state === "blocked")
+          ? "blocked"
+          : residuals.length > 0 || folds.some((fold) => fold.state !== "satisfied")
           ? "partial"
           : "supported";
       return constructRequirementAssuranceClaim({

@@ -36,6 +36,8 @@ product-local loop/controller authority rather than rebuilding it.
 | `GOAL-008` | `GTL` + `ABG Runtime` + `Construction` + `Projection` | Realize the generic mixed-regime construction substrate that replaces downstream product outer loops. | ABG owns an installed construction runner over admitted construction intent; vector-local regimes drive mixed F_P/F_D/F_H traversal; observed workspace/register state is admitted and replay-visible; overlay frames are GTL-bound runtime contracts; F_D outcomes route by authority placement; construction pressure packages reproduce the load-bearing test35 behavior; dependency-ready fan-out is an admitted traversal opportunity that ABG may realize serially or bounded-parallel without product-local loop control; system parallelism keeps immutable semantic carriers over the shared workspace effect boundary. | `T-134`, `T-128`, `T-135`, `T-136`, `T-137`, `T-138`, `T-139`, `T-141`, `REQ-R-ABG3-FP-CONSCIOUSNESS`, `REQ-R-ABG3-SAGA-FRONTIER`, `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-PROJECTION`, `REQ-L-GTL3-GRAPHVECTOR`, `REQ-L-GTL3-EVALUATOR` | Completed | `T-134`, `T-128`, `T-135`, `T-136`, `T-137`, `T-138`, `T-139`, `T-141` |
 | `GOAL-009` | `Product` + `Requirements` + `GTL` + `ABG Runtime` + `Projection` | Realize the first ABG/GTL requirements-algebra substrate that preserves WHAT pressure through graph-function traversal, evidence binding, assurance fold projection, residual pressure, and query. | Product and requirement law name requirements as replay-derived algebraic carriers; `RequirementLedger` is a projection over emitted requirement events, not a writable ledger; M03 design passes IACS and ODD execution-authority review; TypeScript first-slice carriers, admission, projection, fold/residual, completeness gates, query, and compatibility wrappers prove the T-204-derived materialization/postflight bug patterns without downstream migration. | `T-162`, `REQ-R-ABG3-REQUIREMENTS-ALGEBRA`, `REQ-L-GTL3-CONTRACT-LAW-API`, `REQ-R-ABG3-ASSURANCE`, `REQ-R-ABG3-PAYLOAD`, `REQ-R-ABG3-PROJECTION`, `M03_REQUIREMENTS_ALGEBRA_DERIVATION`, `M03_REQUIREMENTS_ALGEBRA_FIRST_SLICE_IACS` | Completed | `T-162` |
 | `GOAL-010` | `Product` + `Install` + `Release` + `Runtime` | Make the shared product toolchain the only install and runtime resolution model for ABG and downstream ODD products. | Product, requirements, design, installer, resolver, runtime commands, and tests agree on one canonical selector: `ABG_TOOLCHAIN_ROOT` plus workspace binding truth. Target workspaces carry binding/provenance/config and mutable roots only; immutable package, command, docs, and standards payloads resolve through the selected versioned product manifest. Legacy aliases, target-local package copies, top-level command shims, and implicit target-root defaults fail closed. | `T-163`, `REQ-P-INSTALL`, `M04_SHARED_PRODUCT_TOOLCHAIN_DERIVATION`, `M04_SHARED_PRODUCT_TOOLCHAIN_FIRST_SLICE_IACS`, `M04_SHARED_PRODUCT_TOOLCHAIN_DESIGN_MODULE_REVIEW`, `test:t163` | Completed | `T-163` |
+| `GOAL-011` | `Requirements` + `GTL` + `ABG Runtime` + `Projection` + `Interface` | Wire and pin the downstream-consumable requirements-algebra route without turning T-162 symbols into a new carrier/function catalog. | Existing T-162 symbols are exposed through stable GTL/ABG route interfaces; GTL declaration/composition refs do not import ABG runtime code; downstream-public surfaces are declarations and read-only queries; ABG-runtime-internal admission/projection commands emit declaration, projection, evidence, fold, residual, and disposition truth on the traversal path; admitted refs are nominal and replay-verified; F_D cannot infer F_P/F_H semantic meaning; route proof rejects forged refs, boolean evidence, manual truth refs, query-lazy fold/residual/disposition, downstream-public emitters, and caller-supplied route truth. | `T-164`, `REQ-L-GTL3-REQUIREMENTS-ALGEBRA`, `REQ-R-ABG3-REQUIREMENTS-ALGEBRA`, `M03_REQUIREMENTS_ALGEBRA_ROUTE_INTERFACE_DESIGN`, `test:t164` | Completed | `T-164` |
+| `GOAL-012` | `Live Proof` + `Requirements` + `GTL` + `ABG Runtime` | Prove the completed T-164 requirements route through a Hello World live F_P steel thread. | A gated live test starts from GTL requirement declarations for a Hello World program, invokes a real F_P transport worker, executes the produced Hello World artifact, emits ABG requirement route facts through the runtime event stream, joins disposition over ABG continuation truth, and replays the lifecycle state without product-local ledgers, caller-supplied route truth, or prompt-side preconstruction of the Hello World source. | `T-165`, `test:t165:hello-world-live` | Completed | `T-165` |
 
 ## Wave Boundary
 
@@ -120,3 +122,33 @@ The completed shared product toolchain wave covers:
 4. `T-163` regression proof that legacy env aliases, target-local product
    payload fallback, top-level command shims, and missing workspace bindings
    fail closed.
+
+The completed requirements-algebra downstream-readiness wave covers:
+
+1. `T-164` requirements audit and route-interface law for the downstream
+   requirements-algebra route.
+2. `T-164` public `gtl.requirements` and `abg.requirements` facade design over
+   existing T-162 symbols, with no GTL-to-ABG runtime dependency.
+3. `T-164` ABG-runtime-internal declaration admission, evidence binding,
+   assurance-fold bridge, residual projection, disposition projection, and
+   joined lifecycle read model.
+4. `T-164` proof that downstream consumers can only declare/query and cannot
+   emit fold, residual, or disposition truth.
+5. `T-164` installed non-live runner proof that starts from GTL requirement
+   declarations, emits requirement route facts through the ABG runtime event
+   stream, joins disposition over ABG continuation truth, and projects
+   lifecycle state from replayed events.
+
+The completed Hello World requirements-route live-proof wave covers:
+
+1. `T-165` a gated live F_P proof over the completed T-164 route.
+2. `T-165` a minimal Hello World program artifact as steel-thread evidence,
+   not as the product scope.
+3. `T-165` proof that GTL declarations activate the route without a
+   caller-supplied `RequirementRouteRuntimeContext`.
+4. `T-165` proof that the live worker artifact, local Hello World execution,
+   ABG evidence admission, requirement fold/residual/disposition emission, and
+   replay query all agree.
+5. `T-165` proof that the prompt carries admitted requirement source refs,
+   source digests, and active requirement context into F_P without supplying
+   the exact program source or prefilled fulfillment answer.

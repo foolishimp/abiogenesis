@@ -714,6 +714,7 @@ export function deriveRuntimeAggregateProjection(
       case "construction_pressure_package_materialized":
       case "construction_delta_observed":
       case "construction_terminal_disposition_projected":
+      case "requirement_route_fact_projected":
       case "workspace_installation_admitted":
       case "observed_state_admitted":
       case "overlay_frame_declared":

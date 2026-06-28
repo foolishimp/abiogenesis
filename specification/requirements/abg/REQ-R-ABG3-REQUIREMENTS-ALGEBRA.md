@@ -103,3 +103,30 @@ semantic judgment.
 
 **REQ-R-ABG3-REQUIREMENTS-ALGEBRA-030**: The first-slice realization shall be proven by a worked trace from GTL requirement declaration through edge environment, obligation projection, evidence binding, fold projection, residual/attenuation, and query.
 
+**REQ-R-ABG3-REQUIREMENTS-ALGEBRA-031**: The downstream requirements route shall preserve a visibility split. Downstream-public surfaces may declare GTL requirement inputs and query replay-derived ABG requirement truth. Admission commands and projection commands that emit requirement event, fold, residual, or disposition truth shall remain ABG-runtime-internal.
+
+**REQ-R-ABG3-REQUIREMENTS-ALGEBRA-032**: Public requirements route facades shall reconcile one-to-one with existing requirements-algebra symbols or with explicitly ratified route gaps. A facade shall not rename or redeclare existing carriers as a second function catalog, carrier catalog, ledger, or closure surface.
+
+**REQ-R-ABG3-REQUIREMENTS-ALGEBRA-033**: Admitted requirement refs, evidence refs, fold refs, residual refs, disposition refs, and runtime scope refs shall be nominal route inputs that downstream callers cannot structurally forge. ABG command boundaries shall resolve each admitted ref against replay-visible event or projection truth and recompute the payload digest before use.
+
+**REQ-R-ABG3-REQUIREMENTS-ALGEBRA-034**: Ref resolution shall fail closed with typed rejection for unknown refs, dangling refs, stale or superseded refs, and digest mismatches. Carried `ref`, `sourceEventRef`, or `digest` fields shall not confer admission unless replay resolution verifies them.
+
+**REQ-R-ABG3-REQUIREMENTS-ALGEBRA-035**: Requirement evidence binding shall consume admitted runtime evidence event refs and explicit requirement projection refs. It shall reject boolean-only admission, filesystem path-shape evidence authority, pass/fail status as semantic closure, and arbitrary source truth strings.
+
+**REQ-R-ABG3-REQUIREMENTS-ALGEBRA-036**: Requirement fold projection shall consume admitted requirement evidence binding refs and admitted ABG assurance closure decision refs. It shall not accept manually supplied truth refs, local strings, downstream closure decisions, or query-produced semantic closure as fold authority.
+
+**REQ-R-ABG3-REQUIREMENTS-ALGEBRA-037**: Requirement fold, residual, and disposition truth shall be emitted by ABG runtime/admission/projection code on the real traversal path, including edge-close handling where applicable. Query surfaces may replay and join those facts; they shall not be the first place that fold, residual, or disposition truth is invented.
+
+**REQ-R-ABG3-REQUIREMENTS-ALGEBRA-038**: Requirement lifecycle disposition shall be a named read-only projection over admitted requirement residual/fold truth and existing ABG continuation or graph re-entry truth. It shall not be a writable carrier, closure enum, next-action controller, retry loop, or re-entry authority.
+
+**REQ-R-ABG3-REQUIREMENTS-ALGEBRA-039**: Disposition-affecting policy inputs shall be admitted runtime-policy refs or admitted F_H decision refs. Free string policy refs may appear only as inert labels in diagnostics or read models and shall not influence disposition.
+
+**REQ-R-ABG3-REQUIREMENTS-ALGEBRA-040**: F_D route code shall validate, admit, reject, project, replay, join, and guard over admitted carriers. F_D shall not author requirement meaning, infer missing requirements, infer semantic satisfaction, infer residual acceptability, select semantic next action, or treat command success as requirement closure.
+
+**REQ-R-ABG3-REQUIREMENTS-ALGEBRA-041**: F_P semantic findings and F_H decisions shall enter the requirements route only as admitted refs with provenance and digest truth. ABG F_D projections may consume those admitted refs but shall not replace their semantic authority with deterministic reconstruction.
+
+**REQ-R-ABG3-REQUIREMENTS-ALGEBRA-042**: Requirement assurance-case projection shall distinguish an empty fold set as `no_evidence`. It shall not collapse no-evidence, blocked, partial, satisfied, deferred, repriced, and no-close-preserved states into one blocked status.
+
+**REQ-R-ABG3-REQUIREMENTS-ALGEBRA-043**: The joined lifecycle-state query shall be read-only and replay-derived. It may return edge environment, obligations, materialization targets, execution schedules, evidence bindings, folds, assurance claims, residuals, attenuation, dispositions, and source refs, but it shall not emit admission or projection events.
+
+**REQ-R-ABG3-REQUIREMENTS-ALGEBRA-044**: Negative proof shall cover downstream attempts to emit fold, residual, or disposition truth; structurally forged admitted refs; digest mismatches; boolean evidence admission; manual assurance truth refs; query-lazy fold/residual/disposition; and F_D semantic inference.

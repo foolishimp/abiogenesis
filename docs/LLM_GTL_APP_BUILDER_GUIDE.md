@@ -185,6 +185,15 @@ lenses, acceptance registers, lifecycle views, and domain read models. Those
 surfaces are projections over ABG-admitted facts. They do not become GTL
 language ontology or ABG runtime authority.
 
+Use the genericity test for requirements-algebra work: if odd_sdlc, a
+world-model product, and a trading-evaluation product would need the same
+function or carrier identically, it is a GTL/ABG system route. Downstream
+products author requirements through `gtl.requirements` declarations and
+consume `abg.requirements` read-only queries. Do not republish generic route
+functions under `glc.*`, `sdlc.*`, or another product namespace, and do not
+mint product-local requirement ledgers for evidence, folds, residuals,
+dispositions, or next action.
+
 ### Epistemology Boundary
 
 Ontology names what exists. Epistemology names how facts become known and
@@ -380,7 +389,9 @@ When building or modifying a GTL/ABG app:
 8. Read ABG events, payload ledgers, assurance projections, traversal
    transitions, and replay projections for truth.
 9. Put product meaning in product read models over ABG-admitted facts.
-10. Reprice the declaration or design when authority is ambiguous.
+10. Use `gtl.requirements` for requirement declarations and
+   `abg.requirements` for read-only requirement route queries.
+11. Reprice the declaration or design when authority is ambiguous.
 
 Fail closed when any of these are true:
 
@@ -388,6 +399,8 @@ Fail closed when any of these are true:
 - `C` is treated as a new carrier or execution API
 - a plugin writes events, ledgers, traversal, replay, or closure truth
 - a product service owns a second runtime loop
+- a product-local requirement compiler, closure ledger, residual ledger, or
+  next-action router shadows the GTL/ABG requirements route
 - `evaluate.C` collapses to one scalar callback when declared register rules
   are needed
 - transform/evaluate/consequence use different authority sources for the same

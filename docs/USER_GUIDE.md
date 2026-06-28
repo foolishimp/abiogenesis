@@ -211,6 +211,14 @@ Product ontology is downstream-owned. Pressure maps, gain lenses, acceptance
 registers, lifecycle views, and domain read models are product projections over
 ABG-admitted facts.
 
+Requirements-algebra construction is a GTL/ABG system route when multiple ODD
+domains would need the same function or carrier. Downstream products author
+requirements through `gtl.requirements` declarations and consume
+`abg.requirements` read-only queries. They must not republish generic
+requirements functions under product namespaces, mint peer ledgers for
+requirement evidence, folds, residuals, dispositions, or treat lifecycle views
+as writable closure authority.
+
 `C` is selected-composition notation. It is shorthand over selected
 `abg.fn_composition`, not a new public object or runtime carrier.
 
@@ -453,6 +461,8 @@ Use GTL well by following these rules:
 - keep semantic work contracts at the job layer
 - let ABG own runtime fact truth
 - let ABG own typed advancement and regime-binding truth
+- use `gtl.requirements` for requirement declarations and
+  `abg.requirements` for read-only requirement route queries
 
 Avoid these mistakes:
 
@@ -462,6 +472,8 @@ Avoid these mistakes:
 - mixing semantic roles with runtime worker identity
 - treating GTL declarations as imperative control code
 - rebuilding advancement, policy, or regime meaning from open dictionaries
+- creating product-local requirement compilers, closure ledgers, residual
+  ledgers, or next-action routers that shadow the GTL/ABG route
 
 ## ABG 3.7.0 RC Runtime Boundary
 

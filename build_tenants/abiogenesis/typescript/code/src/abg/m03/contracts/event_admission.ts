@@ -26,6 +26,12 @@ import {
   TERMINAL_KIND_VALUES
 } from "./carriers.js";
 import { PLUGIN_TRAVERSAL_KIND_VALUES } from "./plugin_traversal_observer.js";
+import {
+  REQUIREMENT_EVENT_PAYLOAD_KIND_VALUES
+} from "./requirements_algebra.js";
+import {
+  stableSha256Digest
+} from "../../../shared/runtime_identity.js";
 
 type FieldRule =
   | "non_empty_string"
@@ -476,6 +482,57 @@ const constructionTerminalPublicStateValues = Object.freeze([
   "ticket_created",
   "reprice_required"
 ] as const);
+
+const REQUIREMENT_ROUTE_PAYLOAD_KIND_VALUES = Object.freeze([
+  ...REQUIREMENT_EVENT_PAYLOAD_KIND_VALUES,
+  "requirement_lifecycle_disposition"
+] as const);
+
+function assertRequirementRoutePayload(event: RuntimeEventRecord): void {
+  applyFieldRules("RequirementRouteFactProjectedRuntimeEvent", {
+    basisId: "non_empty_string",
+    graphFunctionId: "non_empty_string",
+    runId: "nullable_string",
+    workKey: "nullable_string",
+    graphCallId: "non_empty_string",
+    frameId: "non_empty_string",
+    vectorIndex: "non_negative_integer",
+    edge: "non_empty_string",
+    routeEventRef: "non_empty_string",
+    routePayloadKind: { oneOf: REQUIREMENT_ROUTE_PAYLOAD_KIND_VALUES },
+    routePayloadRef: "non_empty_string",
+    routePayloadDigest: "non_empty_string",
+    sourceEventRefs: "string_array",
+    sourceProjectionRefs: "string_array",
+    causationEventRefs: "string_array",
+    correlationId: "non_empty_string"
+  })(event);
+  const payload = event["requirementPayload"];
+  if (!isPlainObject(payload)) {
+    throw new TypeError(
+      "RequirementRouteFactProjectedRuntimeEvent.requirementPayload must be a plain object"
+    );
+  }
+  if (payload["kind"] !== event["routePayloadKind"]) {
+    throw new TypeError(
+      "RequirementRouteFactProjectedRuntimeEvent.requirementPayload.kind must match routePayloadKind"
+    );
+  }
+  const payloadRef =
+    event["routePayloadKind"] === "requirement_lifecycle_disposition"
+      ? payload["dispositionRef"]
+      : payload["eventRef"];
+  if (payloadRef !== event["routePayloadRef"]) {
+    throw new TypeError(
+      "RequirementRouteFactProjectedRuntimeEvent requirement payload ref must match routePayloadRef"
+    );
+  }
+  if (stableSha256Digest(payload) !== event["routePayloadDigest"]) {
+    throw new TypeError(
+      "RequirementRouteFactProjectedRuntimeEvent.routePayloadDigest must match requirementPayload"
+    );
+  }
+}
 
 const RUNTIME_EVENT_ADMITTERS = Object.freeze({
   basis_admitted: applyFieldRules("BasisAdmittedEvent", {
@@ -2098,6 +2155,7 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     causationEventRefs: "string_array",
     correlationId: "non_empty_string"
   }),
+  requirement_route_fact_projected: assertRequirementRoutePayload,
   workspace_installation_admitted: applyFieldRules(
     "WorkspaceInstallationAdmittedRuntimeEvent",
     {

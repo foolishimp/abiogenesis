@@ -99,6 +99,20 @@ export interface GtlRequirementsAlgebraDeclarationBundle {
   readonly testRelations: readonly GtlRequirementTestRelationDeclaration[];
 }
 
+export interface PublishedRequirementRouteRef {
+  readonly namespace: "abg.requirements";
+  readonly routeName: string;
+  readonly routeVersion: string;
+  readonly contractRef: string;
+}
+
+export interface GtlRequirementsLifecycleComposition {
+  readonly kind: "gtl_requirements_lifecycle_composition";
+  readonly compositionRef: string;
+  readonly routeRefs: readonly PublishedRequirementRouteRef[];
+  readonly sourceDigest: string;
+}
+
 function assertNonEmptyString(value: string, label: string): void {
   if (value.length === 0) {
     throw new TypeError(`${label} must be non-empty`);
@@ -119,6 +133,28 @@ function freezeNumbers(values: readonly number[], label: string): readonly numbe
     }
   }
   return Object.freeze([...values]);
+}
+
+function freezePublishedRouteRefs(
+  values: readonly PublishedRequirementRouteRef[],
+  label: string
+): readonly PublishedRequirementRouteRef[] {
+  return Object.freeze(
+    values.map((value, index) => {
+      if (value.namespace !== "abg.requirements") {
+        throw new TypeError(`${label}[${index}].namespace must be abg.requirements`);
+      }
+      assertNonEmptyString(value.routeName, `${label}[${index}].routeName`);
+      assertNonEmptyString(value.routeVersion, `${label}[${index}].routeVersion`);
+      assertNonEmptyString(value.contractRef, `${label}[${index}].contractRef`);
+      return Object.freeze({
+        namespace: value.namespace,
+        routeName: value.routeName,
+        routeVersion: value.routeVersion,
+        contractRef: value.contractRef
+      });
+    })
+  );
 }
 
 export function constructGtlRequirementDeclaration(
@@ -181,3 +217,18 @@ export function constructGtlRequirementsAlgebraDeclarationBundle(input: {
   });
 }
 
+export function constructGtlRequirementsLifecycleComposition(
+  input: Omit<GtlRequirementsLifecycleComposition, "kind">
+): GtlRequirementsLifecycleComposition {
+  assertNonEmptyString(input.compositionRef, "GtlRequirementsLifecycleComposition.compositionRef");
+  assertNonEmptyString(input.sourceDigest, "GtlRequirementsLifecycleComposition.sourceDigest");
+  if (input.routeRefs.length === 0) {
+    throw new TypeError("GtlRequirementsLifecycleComposition.routeRefs must be non-empty");
+  }
+  return Object.freeze({
+    kind: "gtl_requirements_lifecycle_composition",
+    compositionRef: input.compositionRef,
+    routeRefs: freezePublishedRouteRefs(input.routeRefs, "GtlRequirementsLifecycleComposition.routeRefs"),
+    sourceDigest: input.sourceDigest
+  });
+}

@@ -50,16 +50,19 @@ export {
   GTL_REQUIREMENTS_ALGEBRA_DECLARATION_KEY,
   constructGtlRequirementDeclaration,
   constructGtlRequirementsAlgebraDeclarationBundle,
+  constructGtlRequirementsLifecycleComposition,
   constructGtlTraversalSpanDeclaration
 } from "./requirements_algebra.js";
 export type {
   GtlAuthorityContextFragmentDeclaration,
   GtlDestinationTopologyDeclaration,
+  GtlRequirementsLifecycleComposition,
   GtlRequirementDeclaration,
   GtlRequirementRelationDeclaration,
   GtlRequirementTestRelationDeclaration,
   GtlRequirementsAlgebraDeclarationBundle,
-  GtlTraversalSpanDeclaration
+  GtlTraversalSpanDeclaration,
+  PublishedRequirementRouteRef
 } from "./requirements_algebra.js";
 export type {
   GenericTargetCarrierTemplate,

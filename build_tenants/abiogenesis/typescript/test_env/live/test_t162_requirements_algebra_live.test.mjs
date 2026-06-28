@@ -29,28 +29,30 @@ import {
   abgSemanticCompilerFpReviewGraphFunctionDigest,
   abgSemanticCompilerFpReviewPackageDigest,
   admitAbgSemanticCompilerFpReviewResult,
+  constructAssuranceAuthoritySnapshot,
+  constructAssuranceEvidenceRow,
+  constructAbgSemanticCompilerFpReviewGraphFunction,
+  constructAbgSemanticCompilerFpReviewPackageIdentity,
+  deriveAssuranceClosureDecision,
+  deriveAssuranceProjection,
+  deriveAssuranceScopeRef,
+  deriveRuntimeAggregateProjection,
+  materializeGraphFunction,
+} from "../../build/semantic/code/src/index.js";
+import {
   admitRequirementEventPayload,
   bindRequirementEvidence,
   buildEdgeRequirementEnvironment,
   classifyRequirementAttenuation,
-  constructAssuranceAuthoritySnapshot,
-  constructAssuranceEvidenceRow,
   constructAuthorityContextFragment,
-  constructAbgSemanticCompilerFpReviewGraphFunction,
-  constructAbgSemanticCompilerFpReviewPackageIdentity,
   constructDestinationTopology,
   constructRequirementProjection,
   constructRequirementRelation,
   constructRequirementTerm,
   constructRequirementTestRelation,
   constructTraversalSpan,
-  deriveAssuranceClosureDecision,
-  deriveAssuranceProjection,
-  deriveAssuranceScopeRef,
-  deriveRuntimeAggregateProjection,
   evaluateRequirementCompleteness,
   foldRequirementEvidence,
-  materializeGraphFunction,
   projectAssuranceCase,
   projectRequirementLedger,
   projectRequirements,
@@ -58,7 +60,7 @@ import {
   requirementAbgTruthRefFromAssuranceClosureDecision,
   residualizeRequirementFolds,
   routeContextConstraint
-} from "../../build/semantic/code/src/index.js";
+} from "../../build/semantic/code/src/abg/m03/contracts/requirements_algebra.js";
 import {
   contractForKnownAgent,
   runAgentTransport

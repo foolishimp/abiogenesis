@@ -2254,6 +2254,27 @@ export interface WorkspaceInstallationAdmittedRuntimeEvent {
   readonly correlationId: string;
 }
 
+export interface RequirementRouteFactProjectedRuntimeEvent {
+  readonly kind: "requirement_route_fact_projected";
+  readonly basisId: string;
+  readonly graphFunctionId: string;
+  readonly runId: string | null;
+  readonly workKey: string | null;
+  readonly graphCallId: string;
+  readonly frameId: string;
+  readonly vectorIndex: number;
+  readonly edge: string;
+  readonly routeEventRef: string;
+  readonly routePayloadKind: string;
+  readonly routePayloadRef: string;
+  readonly routePayloadDigest: string;
+  readonly requirementPayload: unknown;
+  readonly sourceEventRefs: readonly string[];
+  readonly sourceProjectionRefs: readonly string[];
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
 export type RuntimeEvent =
   | BasisAdmittedEvent
   | LeverResolutionAdmittedEvent
@@ -2349,6 +2370,7 @@ export type RuntimeEvent =
   | ConstructionPressurePackageMaterializedEvent
   | ConstructionDeltaObservedEvent
   | ConstructionTerminalDispositionProjectedEvent
+  | RequirementRouteFactProjectedRuntimeEvent
   | WorkspaceInstallationAdmittedRuntimeEvent;
 
 export interface CanonicalRuntimeEventEnvelope {
@@ -2455,6 +2477,7 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "construction_pressure_package_materialized",
   "construction_delta_observed",
   "construction_terminal_disposition_projected",
+  "requirement_route_fact_projected",
   "workspace_installation_admitted"
 ] as const satisfies readonly RuntimeEvent["kind"][]);
 

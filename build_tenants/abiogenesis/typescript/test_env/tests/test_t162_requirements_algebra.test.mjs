@@ -6,13 +6,19 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import {
+  constructAssuranceAuthoritySnapshot,
+  constructAssuranceEvidenceRow,
+  deriveAssuranceClosureDecision,
+  deriveAssuranceProjection,
+  deriveAssuranceScopeRef,
+  deriveRuntimeAggregateProjection,
+} from "../../build/semantic/code/src/abg/m03/index.js";
+import {
   admitRequirementEventPayload,
   activeRequirements,
   bindRequirementEvidence,
   buildEdgeRequirementEnvironment,
   classifyRequirementAttenuation,
-  constructAssuranceAuthoritySnapshot,
-  constructAssuranceEvidenceRow,
   constructAuthorityContextFragment,
   constructDestinationTopology,
   constructRequirementEvidenceBinding,
@@ -24,10 +30,6 @@ import {
   constructRequirementTerm,
   constructTraversalSpan,
   currentEvidenceBindings,
-  deriveAssuranceClosureDecision,
-  deriveAssuranceProjection,
-  deriveAssuranceScopeRef,
-  deriveRuntimeAggregateProjection,
   evaluateRequirementCompleteness,
   evaluateRequirementStructuralState,
   foldRequirementEvidence,
@@ -42,7 +44,7 @@ import {
   REQUIREMENT_FOLD_STATE_MAPPING,
   routeContextConstraint,
   wrapCompatibilityObligationRef
-} from "../../build/semantic/code/src/abg/m03/index.js";
+} from "../../build/semantic/code/src/abg/m03/contracts/requirements_algebra.js";
 import {
   constructGtlRequirementDeclaration,
   constructGtlRequirementsAlgebraDeclarationBundle,
