@@ -130,3 +130,11 @@ semantic judgment.
 **REQ-R-ABG3-REQUIREMENTS-ALGEBRA-043**: The joined lifecycle-state query shall be read-only and replay-derived. It may return edge environment, obligations, materialization targets, execution schedules, evidence bindings, folds, assurance claims, residuals, attenuation, dispositions, and source refs, but it shall not emit admission or projection events.
 
 **REQ-R-ABG3-REQUIREMENTS-ALGEBRA-044**: Negative proof shall cover downstream attempts to emit fold, residual, or disposition truth; structurally forged admitted refs; digest mismatches; boolean evidence admission; manual assurance truth refs; query-lazy fold/residual/disposition; and F_D semantic inference.
+
+**REQ-R-ABG3-REQUIREMENTS-ALGEBRA-045**: ABG requirement graph projection shall reuse admitted `RequirementTerm` and `RequirementRelation` truth. Any graph view shall be replay-derived over those carriers and shall not mint a second KAOS, goal, decomposition, obstacle, requirement-graph kernel, or writable refinement ledger.
+
+**REQ-R-ABG3-REQUIREMENTS-ALGEBRA-046**: Edge requirement environments shall preserve active parent/child relation pressure for the edge by projecting active relations alongside active terms and spans. This relation pressure is query input and shall not become traversal selection, continuation, or re-entry authority.
+
+**REQ-R-ABG3-REQUIREMENTS-ALGEBRA-047**: Aggregate parent requirement fold and residual state shall be read-only projection over admitted child or leaf requirement folds and residuals. ABG shall not emit a second parent fold or parent residual writer merely because child requirements have been counted or because a command succeeded.
+
+**REQ-R-ABG3-REQUIREMENTS-ALGEBRA-048**: Multi-requirement public queries shall expose replay-derived graph structure, active parent/child pressure, leaf fold state, aggregate parent state, residual refs, and source refs without exposing admission, evidence-binding, fold, residual, disposition, or event-emission commands to downstream consumers.

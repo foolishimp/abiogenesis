@@ -414,6 +414,7 @@ export interface EdgeRequirementEnvironment {
   readonly environmentRef: string;
   readonly edge: RequirementEdgeRef;
   readonly activeTerms: readonly RequirementTerm[];
+  readonly activeRelations: readonly RequirementRelation[];
   readonly activeSpans: readonly TraversalSpan[];
   readonly activeContextFragments: readonly AuthorityContextFragment[];
   readonly activeDestinationTopologies: readonly DestinationTopology[];
@@ -466,6 +467,41 @@ export interface RequirementAttenuationProjection {
   readonly attenuation: RequirementAttenuationKind;
   readonly priorResidualRefs: readonly string[];
   readonly residualRefs: readonly string[];
+  readonly reason: string;
+}
+
+export interface RequirementGraphPairProjection {
+  readonly kind: "requirement_graph_pair_projection";
+  readonly relationRef: string;
+  readonly relationKind: RequirementRelationKind;
+  readonly parentRequirementId: string;
+  readonly childRequirementId: string;
+  readonly sourceRef: string;
+}
+
+export interface RequirementGraphProjection {
+  readonly kind: "requirement_graph_projection";
+  readonly graphRef: string;
+  readonly requirementIds: readonly string[];
+  readonly relationRefs: readonly string[];
+  readonly activeRequirementIds: readonly string[];
+  readonly activeRelationRefs: readonly string[];
+  readonly rootRequirementIds: readonly string[];
+  readonly leafRequirementIds: readonly string[];
+  readonly parentChildPairs: readonly RequirementGraphPairProjection[];
+  readonly sourceRefs: readonly string[];
+}
+
+export interface RequirementAggregateStateProjection {
+  readonly kind: "requirement_aggregate_state_projection";
+  readonly aggregateRef: string;
+  readonly requirementId: string;
+  readonly childRequirementIds: readonly string[];
+  readonly state: RequirementFoldState | "no_evidence";
+  readonly childFoldRefs: readonly string[];
+  readonly residualRefs: readonly string[];
+  readonly sourceRelationRefs: readonly string[];
+  readonly sourceRequirementRefs: readonly string[];
   readonly reason: string;
 }
 
@@ -1733,9 +1769,30 @@ export function buildEdgeRequirementEnvironment(input: {
   const residualRequirementIds = new Set(
     residualsOnActiveSpans.map((residual) => residual.requirementId)
   );
-  const activeTerms = input.ledger.terms.filter((term) =>
+  const directlyActiveTerms = input.ledger.terms.filter((term) =>
     termHasActiveSpan(term, activeSpanIds) ||
     residualRequirementIds.has(term.requirementId)
+  );
+  const directlyActiveRequirementIds = new Set(
+    directlyActiveTerms.map((term) => term.requirementId)
+  );
+  const directlyReferencedRelationRefs = new Set(
+    directlyActiveTerms.flatMap((term) => term.relationRefs)
+  );
+  const activeRelations = input.ledger.relations.filter((relation) =>
+    directlyReferencedRelationRefs.has(relation.relationId) ||
+    directlyActiveRequirementIds.has(relation.fromRequirementId) ||
+    directlyActiveRequirementIds.has(relation.toRequirementId)
+  );
+  const relatedRequirementIds = new Set([
+    ...directlyActiveRequirementIds,
+    ...activeRelations.flatMap((relation) => [
+      relation.fromRequirementId,
+      relation.toRequirementId
+    ])
+  ]);
+  const activeTerms = input.ledger.terms.filter((term) =>
+    relatedRequirementIds.has(term.requirementId)
   );
   const activeRequirementIds = new Set(activeTerms.map((term) => term.requirementId));
   const priorFolds = input.ledger.folds.filter((fold) => activeRequirementIds.has(fold.requirementId));
@@ -1745,6 +1802,12 @@ export function buildEdgeRequirementEnvironment(input: {
   const activeRefs = new Set<string>([
     ...activeSpanIds,
     ...activeRequirementIds,
+    ...activeRelations.flatMap((relation) => [
+      relation.relationId,
+      relation.sourceRef,
+      relation.fromRequirementId,
+      relation.toRequirementId
+    ]),
     ...activeSpans.flatMap((span) => [
       span.sourceNodeRef,
       span.targetNodeRef,
@@ -1781,6 +1844,7 @@ export function buildEdgeRequirementEnvironment(input: {
     ].join(":"),
     edge: freezeRequirementEdgeRef(input.edge),
     activeTerms: freezeArray(activeTerms),
+    activeRelations: freezeArray(activeRelations),
     activeSpans: freezeArray(activeSpans),
     activeContextFragments: freezeArray(
       input.ledger.contextFragments.filter((fragment) => appliesToAny(fragment.appliesToRefs, activeRefs))
@@ -1801,6 +1865,97 @@ export function activeRequirements(input: {
   readonly edge: RequirementEdgeRef;
 }): readonly RequirementTerm[] {
   return buildEdgeRequirementEnvironment(input).activeTerms;
+}
+
+export function projectRequirementGraph(input: {
+  readonly ledger: RequirementLedger;
+  readonly environment?: EdgeRequirementEnvironment | undefined;
+}): RequirementGraphProjection {
+  const requirementIds = input.ledger.terms.map((term) => term.requirementId);
+  const relationRefs = input.ledger.relations.map((relation) => relation.relationId);
+  const activeRequirementIds =
+    input.environment?.activeTerms.map((term) => term.requirementId) ??
+    requirementIds;
+  const activeRequirementIdSet = new Set(activeRequirementIds);
+  const activeRelations =
+    input.environment?.activeRelations ??
+    input.ledger.relations.filter((relation) =>
+      activeRequirementIdSet.has(relation.fromRequirementId) ||
+      activeRequirementIdSet.has(relation.toRequirementId)
+    );
+  const activeRelationRefs = activeRelations.map((relation) => relation.relationId);
+  const parentChildRelations = activeRelations.filter((relation) =>
+    relation.relationKind === "refinement" &&
+    activeRequirementIdSet.has(relation.fromRequirementId) &&
+    activeRequirementIdSet.has(relation.toRequirementId)
+  );
+  const parentIds = new Set(
+    parentChildRelations.map((relation) => relation.fromRequirementId)
+  );
+  const childIds = new Set(
+    parentChildRelations.map((relation) => relation.toRequirementId)
+  );
+  const rootRequirementIds = activeRequirementIds.filter((requirementId) =>
+    !childIds.has(requirementId)
+  );
+  const leafRequirementIds = activeRequirementIds.filter((requirementId) =>
+    !parentIds.has(requirementId)
+  );
+  const parentChildPairs = parentChildRelations.map((relation) =>
+    Object.freeze({
+      kind: "requirement_graph_pair_projection" as const,
+      relationRef: relation.relationId,
+      relationKind: relation.relationKind,
+      parentRequirementId: relation.fromRequirementId,
+      childRequirementId: relation.toRequirementId,
+      sourceRef: relation.sourceRef
+    })
+  );
+  const sourceRefs = [
+    ...input.ledger.terms
+      .filter((term) => activeRequirementIdSet.has(term.requirementId))
+      .map((term) => term.sourceRef),
+    ...activeRelations.map((relation) => relation.sourceRef)
+  ];
+  return Object.freeze({
+    kind: "requirement_graph_projection",
+    graphRef: `requirement-graph:${stableSha256Digest({
+      requirementIds,
+      relationRefs,
+      activeRequirementIds,
+      activeRelationRefs
+    })}`,
+    requirementIds: freezeStringArray(requirementIds, "RequirementGraphProjection.requirementIds"),
+    relationRefs: freezeStringArray(relationRefs, "RequirementGraphProjection.relationRefs"),
+    activeRequirementIds: freezeStringArray(activeRequirementIds, "RequirementGraphProjection.activeRequirementIds"),
+    activeRelationRefs: freezeStringArray(activeRelationRefs, "RequirementGraphProjection.activeRelationRefs"),
+    rootRequirementIds: freezeStringArray(rootRequirementIds, "RequirementGraphProjection.rootRequirementIds"),
+    leafRequirementIds: freezeStringArray(leafRequirementIds, "RequirementGraphProjection.leafRequirementIds"),
+    parentChildPairs: freezeArray(parentChildPairs),
+    sourceRefs: freezeStringArray(sourceRefs, "RequirementGraphProjection.sourceRefs")
+  });
+}
+
+function hasActiveRefinementChildren(
+  term: RequirementTerm,
+  environment: EdgeRequirementEnvironment
+): boolean {
+  const activeRequirementIds = new Set(
+    environment.activeTerms.map((activeTerm) => activeTerm.requirementId)
+  );
+  return environment.activeRelations.some((relation) =>
+    relation.relationKind === "refinement" &&
+    relation.fromRequirementId === term.requirementId &&
+    activeRequirementIds.has(relation.toRequirementId)
+  );
+}
+
+function shouldDeriveLeafRequirementProjection(
+  term: RequirementTerm,
+  environment: EdgeRequirementEnvironment
+): boolean {
+  return term.termKind !== "composition" ||
+    !hasActiveRefinementChildren(term, environment);
 }
 
 export function routeContextConstraint(input: {
@@ -1845,7 +2000,10 @@ export function projectRequirements(input: {
       .map((projection) => projection.requirementId)
   );
   const derived = input.environment.activeTerms
-    .filter((term) => !explicitObligationIds.has(term.requirementId))
+    .filter((term) =>
+      !explicitObligationIds.has(term.requirementId) &&
+      shouldDeriveLeafRequirementProjection(term, input.environment)
+    )
     .map((term) =>
       constructRequirementProjection({
         projectionRef: `projection:${term.requirementId}:obligation`,
@@ -2109,10 +2267,16 @@ export function foldRequirementEvidence(input: {
   readonly sourceAbgTruthRefsByRequirementId?: Readonly<Record<string, readonly string[]>>;
 }): readonly RequirementFoldProjection[] {
   return freezeArray(
-    input.environment.activeTerms.map((term) => {
+    input.environment.activeTerms.flatMap((term) => {
       const projectionRefs = input.projections
         .filter((projection) => projection.requirementId === term.requirementId)
         .map((projection) => projection.projectionRef);
+      if (
+        projectionRefs.length === 0 &&
+        !shouldDeriveLeafRequirementProjection(term, input.environment)
+      ) {
+        return [];
+      }
       const bindings = input.evidenceBindings.filter(
         (binding) => binding.requirementId === term.requirementId
       );
@@ -2121,7 +2285,7 @@ export function foldRequirementEvidence(input: {
         input.sourceAbgTruthRefsByRequirementId?.[term.requirementId] ??
         (input.environment.activeTerms.length === 1 ? input.sourceAbgTruthRefs : []);
       const state = foldStateFromEvidence(sourceAbgTruthRefs);
-      return constructRequirementFoldProjection({
+      return [constructRequirementFoldProjection({
         foldRef: `requirement-fold:${term.requirementId}:${state}:${evidenceRefs.join(",")}`,
         requirementId: term.requirementId,
         projectionRefs,
@@ -2130,7 +2294,7 @@ export function foldRequirementEvidence(input: {
         evidenceRefs,
         residualPressureRefs: state === "satisfied" ? [] : [requirementResidualRef(term.requirementId, state)],
         reason: `requirement fold projected from ${evidenceRefs.length} current evidence binding(s)`
-      });
+      })];
     })
   );
 }
@@ -2266,6 +2430,95 @@ export function projectAssuranceCase(input: {
         foldRefs: folds.map((fold) => fold.foldRef),
         residualRefs: residuals.map((residual) => residual.residualRef),
         status
+      });
+    })
+  );
+}
+
+const AGGREGATE_FOLD_STATE_PRECEDENCE: readonly (RequirementFoldState | "no_evidence")[] =
+  Object.freeze([
+    "blocked",
+    "repriced",
+    "partial",
+    "deferred",
+    "no_close_preserved",
+    "satisfied",
+    "no_evidence"
+  ]);
+
+function aggregateFoldState(
+  folds: readonly RequirementFoldProjection[]
+): RequirementFoldState | "no_evidence" {
+  if (folds.length === 0) {
+    return "no_evidence";
+  }
+  const states = new Set(folds.map((fold) => fold.state));
+  for (const state of AGGREGATE_FOLD_STATE_PRECEDENCE) {
+    if (state !== "no_evidence" && states.has(state)) {
+      return state;
+    }
+  }
+  return "no_evidence";
+}
+
+export function projectRequirementAggregateStates(input: {
+  readonly ledger: RequirementLedger;
+  readonly environment: EdgeRequirementEnvironment;
+  readonly folds: readonly RequirementFoldProjection[];
+  readonly residuals: readonly RequirementResidualProjection[];
+}): readonly RequirementAggregateStateProjection[] {
+  const graph = projectRequirementGraph({
+    ledger: input.ledger,
+    environment: input.environment
+  });
+  const childrenByParent = new Map<string, string[]>();
+  const relationRefsByParent = new Map<string, string[]>();
+  for (const pair of graph.parentChildPairs) {
+    childrenByParent.set(pair.parentRequirementId, [
+      ...(childrenByParent.get(pair.parentRequirementId) ?? []),
+      pair.childRequirementId
+    ]);
+    relationRefsByParent.set(pair.parentRequirementId, [
+      ...(relationRefsByParent.get(pair.parentRequirementId) ?? []),
+      pair.relationRef
+    ]);
+  }
+
+  return freezeArray(
+    [...childrenByParent.entries()].map(([parentRequirementId, childRequirementIds]) => {
+      const childIdSet = new Set(childRequirementIds);
+      const childFolds = input.folds.filter((fold) =>
+        childIdSet.has(fold.requirementId)
+      );
+      const residuals = input.residuals.filter((residual) =>
+        childIdSet.has(residual.requirementId)
+      );
+      const state = aggregateFoldState(childFolds);
+      const childFoldRefs = childFolds.map((fold) => fold.foldRef);
+      const residualRefs = residuals.map((residual) => residual.residualRef);
+      const sourceRelationRefs = relationRefsByParent.get(parentRequirementId) ?? [];
+      return Object.freeze({
+        kind: "requirement_aggregate_state_projection" as const,
+        aggregateRef: `requirement-aggregate:${stableSha256Digest({
+          parentRequirementId,
+          childRequirementIds,
+          childFoldRefs,
+          residualRefs,
+          state
+        })}`,
+        requirementId: parentRequirementId,
+        childRequirementIds: freezeStringArray(childRequirementIds, "RequirementAggregateStateProjection.childRequirementIds"),
+        state,
+        childFoldRefs: freezeStringArray(childFoldRefs, "RequirementAggregateStateProjection.childFoldRefs"),
+        residualRefs: freezeStringArray(residualRefs, "RequirementAggregateStateProjection.residualRefs"),
+        sourceRelationRefs: freezeStringArray(sourceRelationRefs, "RequirementAggregateStateProjection.sourceRelationRefs"),
+        sourceRequirementRefs: freezeStringArray(
+          [parentRequirementId, ...childRequirementIds],
+          "RequirementAggregateStateProjection.sourceRequirementRefs"
+        ),
+        reason: state === "no_evidence"
+          ? "aggregate parent has no admitted child fold truth"
+          : `aggregate parent projected from ${childFolds.length} child fold(s) and ${residuals.length} child residual(s)`
       });
     })
   );

@@ -4,7 +4,9 @@
 
 export {
   GTL_REQUIREMENTS_ALGEBRA_DECLARATION_KEY,
+  GTL_REQUIREMENT_RELATION_KIND_VALUES,
   constructGtlRequirementDeclaration as declareRequirement,
+  constructGtlRequirementRelationDeclaration as declareRequirementRelation,
   constructGtlRequirementsAlgebraDeclarationBundle as declareBundle,
   constructGtlRequirementsLifecycleComposition as declareLifecycleComposition,
   constructGtlTraversalSpanDeclaration as declareTraversalSpan
@@ -15,6 +17,7 @@ export type {
   GtlDestinationTopologyDeclaration,
   GtlRequirementDeclaration,
   GtlRequirementRelationDeclaration,
+  GtlRequirementRelationKind,
   GtlRequirementsAlgebraDeclarationBundle,
   GtlRequirementsLifecycleComposition,
   GtlRequirementTestRelationDeclaration,

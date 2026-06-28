@@ -126,7 +126,10 @@ closure_law: >-
   surfaces that maintains obligation pressure without mutating the observed
   graph, without making `consequence.C` the F_P executive, without inventing a
   parallel observation/workspace ontology unless proven necessary, and without
-  moving product semantic judgment into F_D.
+  moving product semantic judgment into F_D. The final closure proof must
+  include a live F_P worker run that invokes a live LLM through the governed
+  worker process; synthetic or installed replay-only proof is necessary for
+  regression but is not sufficient for closure.
 non_closure_conditions:
   - The executive observer is implemented only in a consumer product.
   - `consequence.C` becomes the F_P executive or owns semantic pressure judgment.
@@ -141,9 +144,13 @@ non_closure_conditions:
     frame, zoom, child-frame, sibling graph-call, foldback, or re-entry
     boundaries before span identity across those boundaries is ratified and
     proven by T-169 or explicitly deferred from this slice.
+  - The proof does not include a live F_P worker run with replayed observer
+    pressure facts, admitted evaluation findings, continuation truth, and a
+    digest-pinned artifact.
 proof_commands:
   - cd build_tenants/abiogenesis/typescript && npm run build:semantic
   - cd build_tenants/abiogenesis/typescript && npm run test:t160
+  - cd build_tenants/abiogenesis/typescript && npm run test:t160:live
   - cd build_tenants/abiogenesis/typescript && npm run test:t145
   - cd build_tenants/abiogenesis/typescript && npm run test:t146
   - cd build_tenants/abiogenesis/typescript && npm run test:t148

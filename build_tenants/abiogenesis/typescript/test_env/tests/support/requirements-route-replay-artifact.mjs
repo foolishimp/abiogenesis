@@ -26,6 +26,17 @@ export const REQUIRED_NON_CLOSED_REQUIREMENT_ROUTE_PAYLOAD_KINDS = Object.freeze
   "requirement_lifecycle_disposition"
 ]);
 
+export const REQUIRED_REFINEMENT_REQUIREMENT_ROUTE_PAYLOAD_KINDS = Object.freeze([
+  "requirement_term_admitted",
+  "requirement_relation_admitted",
+  "traversal_span_admitted",
+  "requirement_projection_admitted",
+  "requirement_evidence_bound",
+  "requirement_fold_projected",
+  "requirement_residual_projected",
+  "requirement_lifecycle_disposition"
+]);
+
 export function sha256Text(value) {
   return `sha256:${createHash("sha256").update(value, "utf8").digest("hex")}`;
 }

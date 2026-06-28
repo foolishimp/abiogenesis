@@ -48,7 +48,9 @@ export {
 } from "./target_carrier_contract.js";
 export {
   GTL_REQUIREMENTS_ALGEBRA_DECLARATION_KEY,
+  GTL_REQUIREMENT_RELATION_KIND_VALUES,
   constructGtlRequirementDeclaration,
+  constructGtlRequirementRelationDeclaration,
   constructGtlRequirementsAlgebraDeclarationBundle,
   constructGtlRequirementsLifecycleComposition,
   constructGtlTraversalSpanDeclaration
@@ -59,6 +61,7 @@ export type {
   GtlRequirementsLifecycleComposition,
   GtlRequirementDeclaration,
   GtlRequirementRelationDeclaration,
+  GtlRequirementRelationKind,
   GtlRequirementTestRelationDeclaration,
   GtlRequirementsAlgebraDeclarationBundle,
   GtlTraversalSpanDeclaration,

@@ -44,3 +44,9 @@ residual, continuation, closure, and query truth.
 **REQ-L-GTL3-REQUIREMENTS-ALGEBRA-012**: GTL requirement route refs shall be inert declaration truth until ABG interprets and resolves them against admitted route/publication authority. A GTL route ref shall not become runtime authority merely because it names an ABG route.
 
 **REQ-L-GTL3-REQUIREMENTS-ALGEBRA-013**: GTL conformance for requirement route declarations shall fail closed for unknown route refs, missing contract refs, malformed source digests, duplicate lifecycle composition refs, and any field that attempts to smuggle ABG runtime state or event authority into GTL.
+
+**REQ-L-GTL3-REQUIREMENTS-ALGEBRA-014**: GTL requirement graph declarations shall express parent/child, refinement, dependency, obstruction, mitigation, satisfaction, evidence, assurance, and test structure through existing `RequirementTerm` declarations and typed requirement relation declarations. They shall not introduce a second KAOS, goal, decomposition, obstacle, or requirement-graph carrier kernel.
+
+**REQ-L-GTL3-REQUIREMENTS-ALGEBRA-015**: GTL requirement graph conformance shall fail closed for duplicate requirement ids, duplicate relation ids, duplicate traversal span ids, dangling term relation refs, dangling term span refs, dangling relation endpoints, dangling test-relation requirement ids, and unknown relation kinds.
+
+**REQ-L-GTL3-REQUIREMENTS-ALGEBRA-016**: GTL requirement graph declarations shall remain declaration-only. Parent/child or refinement structure may name published ABG route refs, but it shall not import ABG runtime modules, mint admitted refs, emit runtime events, project folds, residualize pressure, select continuation, or route re-entry.

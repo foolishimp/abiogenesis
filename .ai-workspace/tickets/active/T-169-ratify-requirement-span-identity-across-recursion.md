@@ -88,7 +88,10 @@ closure_law: >-
   carrier is introduced without DESIGN_MODULE_METHOD promotion; TypeScript
   realization preserves span refs through requirement fold/residual/disposition;
   and proof demonstrates parent span -> child frame or sibling call -> foldback
-  -> re-entry projection without product-local span mapping.
+  -> re-entry projection without product-local span mapping. The final closure
+  proof must include a live F_P worker run that invokes a live LLM through the
+  governed worker process; synthetic or installed replay-only proof is
+  necessary for regression but is not sufficient for closure.
 non_closure_conditions:
   - The solution relies only on `spanCoversEdge`, vector-set membership, vector
     index, source/target node equality, or string matching.
@@ -103,6 +106,9 @@ non_closure_conditions:
     lifecycle pressure.
   - T-160 claims recursive or any-scale pressure preservation before consuming
     this span identity law or explicitly deferring affected recursive claims.
+  - The proof does not include a live F_P worker run with replayed span-lineage
+    route events, emitted fold/residual/disposition truth, and a digest-pinned
+    artifact.
 required_work:
   - Add GTL acceptance criteria for stable requirement span declaration refs,
     lineage refs, source digests, graph-function refs, graph-vector refs,
@@ -122,8 +128,10 @@ required_work:
     sibling graph call, foldback, residual preservation, and re-entry.
   - Add negative proof that product-local span maps, query-invented span joins,
     and vector-index-only identity fail closure.
+  - Add live F_P worker proof artifact suitable for downstream consumers.
 proof_commands:
   - cd build_tenants/abiogenesis/typescript && npm run test:t169
+  - cd build_tenants/abiogenesis/typescript && npm run test:t169:live
   - cd build_tenants/abiogenesis/typescript && npm run lint:semantic
   - cd build_tenants/abiogenesis/typescript && npm run lint:test-harness
   - git diff --check
@@ -168,4 +176,6 @@ downstream products interpret admitted read models.
 - [ ] Negative proof rejects vector-index-only identity, query-invented span
       joins, and product-local span maps.
 - [ ] `npm run test:t169` passes.
+- [ ] `npm run test:t169:live` passes with a live F_P worker process and
+      digest-pinned replay artifact.
 - [ ] `git diff --check` passes.

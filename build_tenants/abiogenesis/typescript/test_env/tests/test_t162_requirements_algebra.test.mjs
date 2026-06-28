@@ -47,6 +47,7 @@ import {
 } from "../../build/semantic/code/src/abg/m03/contracts/requirements_algebra.js";
 import {
   constructGtlRequirementDeclaration,
+  constructGtlRequirementRelationDeclaration,
   constructGtlRequirementsAlgebraDeclarationBundle,
   constructGtlTraversalSpanDeclaration
 } from "../../build/semantic/code/src/index.js";
@@ -454,6 +455,14 @@ test("T-162 GTL declarations are wrapper declarations, not runtime truth", () =>
   });
   const bundle = constructGtlRequirementsAlgebraDeclarationBundle({
     requirements: [requirement],
+    relations: [
+      constructGtlRequirementRelationDeclaration({
+        relationId: "relation://req-dm-001/test",
+        relationKind: "test",
+        fromRequirementId: "REQ-DM-001",
+        toRequirementId: "REQ-DM-001"
+      })
+    ],
     spans: [span]
   });
 
