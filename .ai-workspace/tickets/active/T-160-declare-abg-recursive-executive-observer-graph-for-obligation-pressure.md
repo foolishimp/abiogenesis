@@ -3,7 +3,7 @@ id: T-160
 title: Declare ABG recursive executive observer graph for obligation pressure
 type: feature
 ticket_category: abg_recursive_observer_graph
-status: backlog
+status: active
 goal: >-
   Make ABG own a default recursive executive observer behavior over existing
   workspace overlay, observed-state, replay projection, and traversal-unit
@@ -32,7 +32,7 @@ owner: abiogenesis
 priority: high
 triaged_at: 2026-06-26
 created_at: 2026-06-26
-updated_at: 2026-06-26
+updated_at: 2026-06-29
 governance_scope: STDO Method, GTL, ABG
 build_tenant: typescript
 intake_source: >-
@@ -41,10 +41,12 @@ intake_source: >-
   manifold, but that role must be ABG-owned and recursive over admitted graph
   state rather than product-local or deterministic F_D semantic compilation.
 strategy_dependency: >-
-  Backlogged on 2026-06-26. Do not implement T-160 as a direct repair for any
-  one consumer project. Re-enter only after the requirements-algebra/general
-  lifecycle strategy has supplied the product and requirements shape that proves
-  this recursive executive observer is the next smallest ABG primitive.
+  Originally backlogged on 2026-06-26 to avoid implementing the observer as a
+  direct repair for one consumer project. The requirements-algebra/general
+  lifecycle strategy is now concrete through T-164, T-165, T-166, and odd_glc
+  T-001 through T-007. The next ABI closure gap is recursive pressure
+  preservation over residual, continuation, re-entry, and reprice truth without
+  downstream product-local controllers.
 source_documents:
   - specification/PRODUCT.md
   - specification/INTENT.md
@@ -65,6 +67,11 @@ related_tickets:
   - .ai-workspace/tickets/completed/T-148-realize-runtime-continuation-transition-projection.md
   - .ai-workspace/tickets/completed/T-159-formalize-traversal-unit-and-consequence-bind-boundary.md
   - .ai-workspace/comments/codex/20260626T011328Z_STRATEGY_requirements_algebra_edge_spans.md
+  - .ai-workspace/tickets/completed/T-164-realize-gtl-abg-requirements-algebra-route-for-downstream-lifecycle-consumers.md
+  - .ai-workspace/tickets/completed/T-165-prove-hello-world-live-requirements-route.md
+  - .ai-workspace/tickets/completed/T-166-publish-requirements-route-replay-proof-artifact.md
+  - /Users/jim/src/apps/odd_glc/.ai-workspace/tickets/active/T-001-govern-minimal-odd-glc-requirements-and-graph-design.md
+  - /Users/jim/src/apps/odd_glc/.ai-workspace/tickets/active/T-007-interpret-assurance-fold-and-residual-pressure.md
 affected_boundary:
   product:
     - specification/PRODUCT.md
