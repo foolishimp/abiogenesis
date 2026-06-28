@@ -38,6 +38,7 @@ product-local loop/controller authority rather than rebuilding it.
 | `GOAL-010` | `Product` + `Install` + `Release` + `Runtime` | Make the shared product toolchain the only install and runtime resolution model for ABG and downstream ODD products. | Product, requirements, design, installer, resolver, runtime commands, and tests agree on one canonical selector: `ABG_TOOLCHAIN_ROOT` plus workspace binding truth. Target workspaces carry binding/provenance/config and mutable roots only; immutable package, command, docs, and standards payloads resolve through the selected versioned product manifest. Legacy aliases, target-local package copies, top-level command shims, and implicit target-root defaults fail closed. | `T-163`, `REQ-P-INSTALL`, `M04_SHARED_PRODUCT_TOOLCHAIN_DERIVATION`, `M04_SHARED_PRODUCT_TOOLCHAIN_FIRST_SLICE_IACS`, `M04_SHARED_PRODUCT_TOOLCHAIN_DESIGN_MODULE_REVIEW`, `test:t163` | Completed | `T-163` |
 | `GOAL-011` | `Requirements` + `GTL` + `ABG Runtime` + `Projection` + `Interface` | Wire and pin the downstream-consumable requirements-algebra route without turning T-162 symbols into a new carrier/function catalog. | Existing T-162 symbols are exposed through stable GTL/ABG route interfaces; GTL declaration/composition refs do not import ABG runtime code; downstream-public surfaces are declarations and read-only queries; ABG-runtime-internal admission/projection commands emit declaration, projection, evidence, fold, residual, and disposition truth on the traversal path; admitted refs are nominal and replay-verified; F_D cannot infer F_P/F_H semantic meaning; route proof rejects forged refs, boolean evidence, manual truth refs, query-lazy fold/residual/disposition, downstream-public emitters, and caller-supplied route truth. | `T-164`, `REQ-L-GTL3-REQUIREMENTS-ALGEBRA`, `REQ-R-ABG3-REQUIREMENTS-ALGEBRA`, `M03_REQUIREMENTS_ALGEBRA_ROUTE_INTERFACE_DESIGN`, `test:t164` | Completed | `T-164` |
 | `GOAL-012` | `Live Proof` + `Requirements` + `GTL` + `ABG Runtime` | Prove the completed T-164 requirements route through a Hello World live F_P steel thread. | A gated live test starts from GTL requirement declarations for a Hello World program, invokes a real F_P transport worker, executes the produced Hello World artifact, emits ABG requirement route facts through the runtime event stream, joins disposition over ABG continuation truth, and replays the lifecycle state without product-local ledgers, caller-supplied route truth, or prompt-side preconstruction of the Hello World source. | `T-165`, `test:t165:hello-world-live` | Completed | `T-165` |
+| `GOAL-013` | `Proof` + `Projection` + `Downstream Consumption` | Publish the requirements-route replay proof as a downstream-consumable artifact without exposing ABG runtime-internal emitters. | A T-165 or successor proof run writes a digest-pinned route replay artifact and manifest containing serialized `requirement_route_fact_projected` events and replay-derived lifecycle state; downstream consumers can prove read-only consumption from that artifact while ABG keeps emission, admission, fold, residual, and disposition authority internal. | `T-166`, `test:t166`, `test:t166:live` | Completed | `T-166` |
 
 ## Wave Boundary
 
@@ -152,3 +153,13 @@ The completed Hello World requirements-route live-proof wave covers:
 5. `T-165` proof that the prompt carries admitted requirement source refs,
    source digests, and active requirement context into F_P without supplying
    the exact program source or prefilled fulfillment answer.
+
+The completed downstream requirements-route proof-publication wave covers:
+
+1. `T-166` a non-live schema and digest contract for serialized
+   requirements-route replay artifacts.
+2. `T-166` live T-165 artifact publication that records route replay events,
+   route payload refs, lifecycle state, source metadata, and manifest digest.
+3. `T-166` downstream consumption support for odd_glc Phase 5 without exposing
+   ABG runtime-internal route emitters or requiring downstream caller-supplied
+   route truth.

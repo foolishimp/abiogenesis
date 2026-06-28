@@ -110,6 +110,8 @@
     "test:t162:hello-world-live": "npm run test:t162:live",
     "test:t164": "npm run build:semantic && node --test test_env/tests/test_t162_requirements_algebra.test.mjs test_env/tests/test_t164_requirements_route_facade.test.mjs",
     "test:t165:hello-world-live": "npm run build:semantic && ABG_TS_T165_HELLO_WORLD_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t165_hello_world_requirements_route_live.test.mjs",
+    "test:t166": "npm run build:semantic && node --test test_env/tests/test_t166_requirements_route_replay_artifact.test.mjs",
+    "test:t166:live": "npm run test:t165:hello-world-live",
     "test:t159:odd-sdlc-t132-live": "npm run build:semantic && ABG_TS_ODD_SDLC_T132_FROZEN_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t159_odd_sdlc_t132_frozen_live.test.mjs",
     "test:t161": "npm run build:semantic && node --test test_env/tests/test_t161_shared_toolchain_install.test.mjs",
     "test:t163": "npm run build:semantic && node --test test_env/tests/test_t161_shared_toolchain_install.test.mjs test_env/tests/test_t163_shared_product_toolchain_resolution.test.mjs",

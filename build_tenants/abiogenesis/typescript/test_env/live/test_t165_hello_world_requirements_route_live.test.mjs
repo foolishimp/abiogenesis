@@ -24,6 +24,9 @@ import {
   runTracedProcess
 } from "../../build/semantic/code/src/shared/traced_process/index.js";
 import { buildThreeStageBasis } from "../tests/support/m03-iteration-fixtures.mjs";
+import {
+  writeRequirementRouteReplayArtifact
+} from "../tests/support/requirements-route-replay-artifact.mjs";
 import { executorProfileFields } from "./support/executor_profile.mjs";
 
 const LIVE_DIR = path.dirname(fileURLToPath(import.meta.url));
@@ -551,4 +554,26 @@ test("T-165 live Hello World proof closes through the GTL/ABG requirements route
   assert.deepEqual(lifecycleState.value.dispositionRefs, [
     dispositionEvent.routePayloadRef
   ]);
+
+  const replayArtifact = await writeRequirementRouteReplayArtifact({
+    runRoot,
+    source: Object.freeze({
+      proofTicket: "T-165",
+      publicationTicket: "T-166",
+      proofCommand: "npm run test:t165:hello-world-live",
+      sourceRunKind: "live_fp_hello_world_requirements_route",
+      proofRunRoot: runRoot,
+      liveAgent: agentKey,
+      requirementSourceRef: requirementSource.sourceRef,
+      requirementSourceDigest: requirementSource.sourceDigest
+    }),
+    replayEvents: result.replayEvents,
+    emittedEvents: result.emittedEvents,
+    sinkEvents,
+    lifecycleState: lifecycleState.value
+  });
+  assert.equal(
+    replayArtifact.manifest.artifact.requiredPayloadKindsSatisfied,
+    true
+  );
 });
