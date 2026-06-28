@@ -7,6 +7,12 @@ the same substrate as schematics — the engine cross-section, its rotation
 cycle, and the wiring/publication surface that connects GTL declarations into
 the running engine.
 
+For the current 4.1 line, read every requirements-route surface through that
+same split: GTL publishes requirement declarations and lifecycle-composition
+refs; ABG admits requirement events, binds evidence, projects folds and
+residuals, emits lifecycle disposition, and exposes read-only
+`abg.requirements` query facades for downstream consumers.
+
 Read the guide for the law. Read this file when you need to see where the
 plugs and connectors sit.
 

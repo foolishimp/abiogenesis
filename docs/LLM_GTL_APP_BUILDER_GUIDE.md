@@ -1,6 +1,6 @@
 # LLM GTL App Builder Guide
 
-**Status**: Current compressed technical guide for GTL 3 / ABG 3 over the TypeScript 4.0.0-rc.4 release line
+**Status**: Current compressed technical guide for GTL 3 / ABG 3 over the TypeScript 4.1.0-rc.12 release line
 **Audience**: LLM agentic coders and agent bootstraps building GTL/ABG domain apps
 **Purpose**: Compress the human GTL/ABG guide into the ontology, operating rules, fail-closed constraints, and language-specific syntax needed by LLM agents
 
@@ -67,7 +67,7 @@ Use this section as the one-surface ABG/GTL ontology and epistemology handoff.
 Current source package identity:
 
 ```text
-@abiogenesis/typescript-tenant@3.9.0-rc.3
+@abiogenesis/typescript-tenant@4.1.0-rc.12
 ```
 
 Current model shape:
@@ -89,6 +89,8 @@ The governing recent changes are:
 | `T-144` | ABG is the event-sourced monad over selected GTL composition. Product plugins compute stage values; ABG.system admits values, writes events and ledgers, folds assurance, derives traversal, and replays continuation. |
 | `T-145` | `evaluate.C` is an evaluation-set phase over read-only admitted facts. Scalar `FpEvaluationOutcome` is one `evaluate.C.F_P` semantic judgment rule, not a separate evaluator authority. |
 | `T-146` | Every composed `.C` stage is a stage-set phase. Scalar transform, evaluate, and consequence plugin hooks are one-task reductions of the shared stage-set law. |
+| `T-164` | The downstream requirements route is GTL/ABG-owned substrate. Downstream-public surfaces may declare GTL requirement inputs and query replay-derived ABG requirement truth; ABG-runtime-internal paths admit declaration events, bind evidence, project folds/residuals, and emit lifecycle disposition. |
+| `T-165` | The requirements route is live-proven by a Hello World steel thread that carries admitted requirement source refs and digests into F_P work without preconstructing the program source. |
 
 ### Current Architecture Spine
 
@@ -193,6 +195,23 @@ consume `abg.requirements` read-only queries. Do not republish generic route
 functions under `glc.*`, `sdlc.*`, or another product namespace, and do not
 mint product-local requirement ledgers for evidence, folds, residuals,
 dispositions, or next action.
+
+The 4.1 requirements route keeps a strict visibility split:
+
+- downstream-public authoring uses GTL requirement declaration and lifecycle
+  composition refs;
+- downstream-public observation uses read-only `abg.requirements` query
+  facades over replay truth;
+- ABG-runtime-internal paths admit requirement events, bind requirement
+  evidence, project folds and residuals, and emit lifecycle disposition;
+- F_D validates, admits, rejects, projects, replays, joins, and guards over
+  admitted carriers;
+- F_P owns semantic requirement interpretation and semantic evidence
+  satisfaction;
+- F_H owns admitted product-owner, reprice, and risk decisions.
+
+Queries may join and render admitted facts. Queries must not create fold,
+residual, disposition, closure, retry, continuation, or re-entry truth.
 
 ### Epistemology Boundary
 
@@ -1127,7 +1146,7 @@ Do not design workflows that depend on implicit merging of overlapping writers.
 The builder authors these surfaces:
 
 - outcome and transition declarations
-- graph-function catalog
+- published graph-function surfaces
 - semantic jobs and roles
 - hook refs and replay-safe config
 - contexts
@@ -1175,7 +1194,7 @@ Initialization should:
 
 - read domain configuration
 - resolve GTL module or module set
-- resolve the graph-function catalog
+- resolve the published graph-function surface
 - resolve hook refs to executable implementations
 - bind contexts
 - bind runtime contract and policy defaults
@@ -1202,7 +1221,7 @@ It should include:
 - domain identity
 - module import roots
 - active GTL module or modules
-- graph-function catalog publication points
+- graph-function publication points
 - default policy bundle refs
 - context locators
 - proof and closure defaults
@@ -2469,7 +2488,7 @@ A GTL/ABG app produces more than application behavior.
 It produces:
 
 - a declared app model
-- a graph-function catalog
+- a published graph-function surface
 - semantic jobs and roles
 - evented runtime truth
 - admitted payload and assurance facts
@@ -2571,36 +2590,26 @@ The UX should expose lawful next moves from runtime facts.
 
 The live kernel in this repo is `abiogenesis`.
 
-The current TypeScript source package version is `4.0.0-rc.4`.
+The current TypeScript source package version is `4.1.0-rc.12`.
 
 ### Run from source
 
 See the appendices for source-run commands in Python and TypeScript.
 
-Operator commands fall into a tenant-invariant core and a Python-tenant
-extension surface.
+The TypeScript 4.1 binary exposes these public commands:
 
-Tenant-invariant core, implemented by every tenant:
-
+- `install`
 - `start`
 - `gaps`
+- `gen-config`
 - `assess-result`
-- `install`
-
-Python-tenant extension commands, not yet present in the TypeScript tenant:
-
-- `emit-event`
-- `check-tags`
-- `check-req-coverage`
-- `check-impl-coverage`
-- `check-validates-coverage`
-- `check-bootloader-consistency`
+- `typecheck-gtl-program`
+- `release-snapshot`
 
 The command grammar is tenant-invariant for the core surface. Python,
 TypeScript, or another tenant may use different executable prefixes, but the
-subcommand and flags after the binary stay the same. Extension commands are
-authored in Python and are not part of the TypeScript CLI surface in this
-release line.
+subcommand and flags after the binary stay the same for shared public
+contracts.
 
 ```bash
 <runtime-binary> start --workspace . --scope workspace --target next --until first_traversal
@@ -3688,7 +3697,7 @@ cd /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript
 npm run build:semantic
 npm pack
 cd /path/to/project
-npm install /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/abiogenesis-typescript-tenant-3.9.0-rc.3.tgz
+npm install /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/abiogenesis-typescript-tenant-4.1.0-rc.12.tgz
 ```
 
 For product-owned bootstrap, use the package API:
@@ -3702,8 +3711,8 @@ const installOutcome = await installBootstrap(
     installedPackageName: "@example/delivery-app",
     runtimePackage: {
       packageName: "@abiogenesis/typescript-tenant",
-      packageVersion: "3.9.0-rc.3",
-      dependencyRef: "file:./abiogenesis-typescript-tenant-3.9.0-rc.3.tgz",
+      packageVersion: "4.1.0-rc.12",
+      dependencyRef: "file:./abiogenesis-typescript-tenant-4.1.0-rc.12.tgz",
       appExportSubpath: "./app/m04",
       requiredExports: [".", "./app/m04"]
     }

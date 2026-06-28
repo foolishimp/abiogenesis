@@ -1,6 +1,6 @@
 # GTL/ABG User Guide
 
-**Status**: Current single human guide for GTL 3 / ABG 3 over the TypeScript 4.0.0-rc.4 release line
+**Status**: Current single human guide for GTL 3 / ABG 3 over the TypeScript 4.1.0-rc.12 release line
 **Audience**: People building, operating, or reviewing GTL/ABG applications
 **Purpose**: Explain what GTL/ABG is for, what it builds, the technical GTL/ABG model, how the build loop works, what the runtime gives you, and how to run the current kernel
 
@@ -58,7 +58,7 @@ GTL/ABG is a poor fit for:
 You are building:
 
 - a declared outcome or workflow model
-- a graph-function catalog
+- a published graph-function surface
 - semantic work contracts over those graph functions
 - runtime policy surfaces
 - evented runtime truth
@@ -218,6 +218,18 @@ requirements through `gtl.requirements` declarations and consume
 requirements functions under product namespaces, mint peer ledgers for
 requirement evidence, folds, residuals, dispositions, or treat lifecycle views
 as writable closure authority.
+
+In the 4.1 line, this route is a downstream-consumable GTL/ABG substrate:
+
+- GTL declares requirement terms, relations, traversal spans, staged context,
+  destination topology, test relations, and lifecycle-composition refs without
+  importing ABG runtime modules.
+- Downstream-public `abg.requirements` surfaces are read/query facades over
+  replay-derived truth.
+- ABG-runtime-internal paths admit declaration events, bind evidence, project
+  folds and residuals, emit lifecycle disposition, and join lifecycle state.
+- Query surfaces may render and join admitted facts; they must not invent fold,
+  residual, disposition, closure, retry, or re-entry truth.
 
 `C` is selected-composition notation. It is shorthand over selected
 `abg.fn_composition`, not a new public object or runtime carrier.
@@ -475,11 +487,12 @@ Avoid these mistakes:
 - creating product-local requirement compilers, closure ledgers, residual
   ledgers, or next-action routers that shadow the GTL/ABG route
 
-## ABG 3.7.0 RC Runtime Boundary
+## ABG 4.1.0-rc.12 Runtime Boundary
 
-ABG 3.7.0 RC keeps runtime law carrier and event owned, and adds the
-read-only F_P construction evaluator/gaps projection as one ranking surface
-over replay-derived runtime truth.
+The ABG 4.1.0-rc.12 TypeScript line keeps runtime law carrier and event owned.
+It carries the read-only F_P construction evaluator/gaps projection and the
+downstream-consumable requirements route as query surfaces over replay-derived
+runtime truth.
 
 Public work still starts from a semantic `Job` bound to a published
 `GraphFunction`, but advancement truth is no longer reconstructed from service
@@ -743,7 +756,7 @@ You get more than application code.
 You get:
 
 - a declared graph-native application model
-- a graph-function catalog
+- a published graph-function surface
 - semantic jobs and roles
 - runtime fact truth
 - replayable projections over runs, graph calls, frames, and continuations
@@ -805,15 +818,13 @@ node build/semantic/code/src/bin/abiogenesis.js --help
 
 Current commands:
 
+- `install`
 - `start`
 - `gaps`
-- `emit-event`
+- `gen-config`
 - `assess-result`
-- `check-tags`
-- `check-req-coverage`
-- `check-impl-coverage`
-- `check-validates-coverage`
-- `check-bootloader-consistency`
+- `typecheck-gtl-program`
+- `release-snapshot`
 
 Common commands:
 
