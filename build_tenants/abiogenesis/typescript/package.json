@@ -119,6 +119,8 @@
     "test:t167": "npm run build:semantic && node --test test_env/tests/test_t167_non_closed_requirements_route_replay_artifact.test.mjs",
     "test:t171": "npm run build:semantic && node --test test_env/live/test_t171_non_js_toolchain_execution_live.test.mjs",
     "test:t171:live": "npm run build:semantic && ABG_TS_T171_NON_JS_TOOLCHAIN_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t171_non_js_toolchain_execution_live.test.mjs",
+    "test:t172": "npm run build:semantic && node --test test_env/live/test_t172_service_process_request_live.test.mjs",
+    "test:t172:live": "npm run build:semantic && ABG_TS_T172_SERVICE_REQUEST_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t172_service_process_request_live.test.mjs",
     "test:t168": "npm run build:semantic && node --test test_env/tests/test_t168_requirement_graph_refinement.test.mjs",
     "test:t168:live": "npm run build:semantic && ABG_TS_T168_REFINEMENT_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t168_requirement_graph_refinement_live.test.mjs",
     "test:t169": "npm run build:semantic && node --test test_env/tests/test_t169_requirement_span_identity_recursion.test.mjs",

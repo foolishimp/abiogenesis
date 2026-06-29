@@ -41,7 +41,7 @@ product-local loop/controller authority rather than rebuilding it.
 | `GOAL-013` | `Proof` + `Projection` + `Downstream Consumption` | Publish the requirements-route replay proof as a downstream-consumable artifact without exposing ABG runtime-internal emitters. | A T-165 or successor proof run writes a digest-pinned route replay artifact and manifest containing serialized `requirement_route_fact_projected` events and replay-derived lifecycle state; downstream consumers can prove read-only consumption from that artifact while ABG keeps emission, admission, fold, residual, and disposition authority internal. | `T-166`, `test:t166`, `test:t166:live` | Completed | `T-166` |
 | `GOAL-014` | `GTL` + `ABG Runtime` + `Requirements` + `Projection` | Close the ABI substrate gaps needed for odd_glc beyond route-1 closed-path consumption. | ABI publishes a non-closed requirements-route replay artifact with residual and continuation/re-entry truth; GTL ratifies requirement graph/refinement declarations; ABG admits/projects/folds/residualizes multi-requirement structure; span identity is stable across frame, zoom, recursion, foldback, and re-entry boundaries; recursive executive observation preserves obligation pressure without downstream product-local controllers. | `T-167`, `T-168`, `T-169`, `T-160`, `T-170` | Completed | `T-170` |
 | `GOAL-015` | `GTL` + `ABG Runtime` + `Requirements` + `Projection` + `Release` | Earn the corrected full odd_glc ABI substrate closure under STDO/DMM. | T-167 proves every retained non-closed disposition branch through real emitted route events; T-169 proves recursive span identity across a nested traversal rather than first-traversal declaration projection; T-160 is invoked on a runtime path, admits live F_P findings through ABG, emits executive pressure facts through the event stream, and feeds ABG continuation without prompt-carried or fixture-injected answers; a corrected RC is cut and odd_glc is retargeted only after focused, live, semantic, install, and downstream smoke tests pass. | `T-170`, `T-169`, `T-160` | Completed | `T-170` |
-| `GOAL-016` | `GTL` + `ABG Runtime` + `Actor/Operator` + `Proof` | Prove the remaining generic ABI runtime mechanics required by odd_glc Hello World ladder rungs that are not covered by rc16: multi-role proof evidence, non-default command execution, and long-running process/request execution. | ABI publishes live, event-sourced, replay-consumable proof artifacts for generic subject-artifact, verifier-artifact, and verifier-execution evidence roles; for declared command/cwd/env execution; and for declared process start, endpoint/env binding, request, response evidence, cleanup, fold, residual, and disposition truth. JavaScript, Cargo, and service bindings are proof scenarios only; ABI owns no language, test, service, release, or acceptability policy. | `T-171`, `T-172`, `T-173` | Active | `T-171`, `T-172`, `T-173` |
+| `GOAL-016` | `GTL` + `ABG Runtime` + `Actor/Operator` + `Proof` | Prove the remaining generic ABI runtime mechanics required by odd_glc Hello World ladder rungs that are not covered by rc16: multi-role proof evidence, non-default command execution, and long-running process/request execution. | ABI publishes live, event-sourced, replay-consumable proof artifacts for generic subject-artifact, verifier-artifact, and verifier-execution evidence roles; for declared command/cwd/env execution; and for declared process start, endpoint/env binding, request, response evidence, cleanup, fold, residual, and disposition truth. JavaScript, Rust/rustc, and service/request bindings are proof scenarios only; ABI owns no language, test, service, release, protocol, or acceptability policy. | `T-171`, `T-172`, `T-173` | Completed | `T-171`, `T-172`, `T-173` |
 
 ## Wave Boundary
 
@@ -224,7 +224,7 @@ rc16 is the first release cut in this wave that aligns source, snapshot,
 install, live proof artifacts, and downstream provenance against the same
 corrected recursive substrate.
 
-The active odd_glc ladder prerequisite wave covers:
+The completed odd_glc ladder prerequisite wave covers:
 
 1. `T-173` generic multi-role proof evidence, with a live JavaScript binding
    that records separate subject-artifact, verifier-artifact,
@@ -250,5 +250,5 @@ disposition authority for its JavaScript tenant/test, Rust CLI, and Rust
 service Hello World ladder rungs. ABI owns only generic actor/operator,
 admission, evidence-role, replay, fold, residual, and disposition mechanics.
 Plugins and downstream declarations own language/toolchain/test/service
-semantics and policy content. Those rungs remain upstream-blocked or partially
-blocked until this ABI wave publishes digest-pinned proof artifacts.
+semantics and policy content. Those rungs are no longer upstream-blocked on
+these three ABI mechanics after this wave's digest-pinned live proof artifacts.
