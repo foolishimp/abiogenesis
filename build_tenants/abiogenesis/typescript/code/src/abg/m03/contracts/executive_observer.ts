@@ -30,13 +30,6 @@ const FORBIDDEN_EXECUTIVE_AUTHORITY_FIELDS = Object.freeze([
   "frameMutation"
 ]);
 
-const EXECUTIVE_DISPOSITION_NONLOCAL_REENTRY_REF =
-  "abg.executive.disposition://nonlocal_reentry";
-const EXECUTIVE_DISPOSITION_REPRICE_REF =
-  "abg.executive.disposition://reprice";
-const EXECUTIVE_DISPOSITION_BLOCK_REF =
-  "abg.executive.disposition://block";
-
 export type ExecutivePressureDisposition =
   | "attenuated"
   | "non_attenuating_retry"
@@ -294,6 +287,9 @@ function pressureDisposition(input: {
   readonly finding: FpEvaluationFinding;
   readonly attenuation: ExecutivePressureAttenuation;
 }): ExecutivePressureDisposition {
+  if (input.finding.executiveDisposition !== null) {
+    return input.finding.executiveDisposition;
+  }
   if (
     input.finding.closeDisposition !== "no_close" &&
     input.finding.residualPressureRefs.length === 0
@@ -302,19 +298,6 @@ function pressureDisposition(input: {
   }
   if (input.finding.closeDisposition === "human_required") {
     return "reprice";
-  }
-  if (input.finding.diagnosticRefs.includes(EXECUTIVE_DISPOSITION_REPRICE_REF)) {
-    return "reprice";
-  }
-  if (input.finding.diagnosticRefs.includes(EXECUTIVE_DISPOSITION_BLOCK_REF)) {
-    return "block";
-  }
-  if (
-    input.finding.diagnosticRefs.includes(
-      EXECUTIVE_DISPOSITION_NONLOCAL_REENTRY_REF
-    )
-  ) {
-    return "nonlocal_reentry";
   }
   if (input.attenuation === "unchanged") {
     return "non_attenuating_retry";

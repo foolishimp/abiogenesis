@@ -230,14 +230,15 @@ function buildGraphSpanReentryProof(basis) {
     publicRoot.constructGraphReentryPlannedEvent({ basis, plan }),
     publicRoot.constructGraphReentryAppliedEvent({ basis, plan })
   ]);
-  const childFrameEvent = Object.freeze({
-    ...publicRoot.constructFrameOpenedEvent(basis),
-    frameId: "frame://t169/live/child",
-    frameLineageId: "frame-lineage://t169/live/child"
+  const childFrameBasis = Object.freeze({
+    ...basis,
+    frameId: `frame:${basis.id}:child`,
+    frameLineageId: `frame-lineage:${basis.id}:child`
   });
+  const childFrameEvent = publicRoot.constructFrameOpenedEvent(childFrameBasis);
   const zoomFrame = Object.freeze({
     kind: "zoom_frame",
-    zoomFrameId: "zoom://t169/live/child-detail",
+    zoomFrameId: `zoom:${basis.id}:child-detail`,
     basisId: basis.id,
     graphFunctionId: basis.graphFunction.id,
     vectorIndex: 0,
@@ -272,7 +273,9 @@ function buildGraphSpanReentryProof(basis) {
     foldback,
     events,
     runtimeEvents,
-    frontier
+    frontier,
+    childFrameEvent,
+    zoomFrameEvent
   });
 }
 
@@ -281,6 +284,11 @@ function t169LiveBundle(input) {
   const vectors = input.basis.graph.vectors;
   const firstVector = vectors[0];
   const terminalVector = vectors[2];
+  const emittedEdgeLineage = routeEdgeForBasisVector(
+    input.basis,
+    0,
+    input.graphSpanRuntimeEvents
+  );
   const requirement = publicGtlRequirements.declareRequirement({
     requirementId: REQUIREMENT_ID,
     termKind: "atom",
@@ -299,15 +307,11 @@ function t169LiveBundle(input) {
     vectorIndexes: [0, 1, 2],
     sourceNodeRef: firstVector.source[0].id,
     targetNodeRef: terminalVector.target.id,
-    frameRefs: [
-      input.basis.frameId ?? `frame:${input.basis.id}:root`,
-      "frame://t169/live/child"
-    ],
-    zoomRefs: ["zoom://t169/live/child-detail"],
-    foldbackRefs: [input.graphSpanProof.foldback.foldbackRef],
+    frameRefs: emittedEdgeLineage.frameRefs,
+    zoomRefs: emittedEdgeLineage.zoomRefs,
+    foldbackRefs: emittedEdgeLineage.foldbackRefs,
     aliasRefs: [
-      routeEdgeForBasisVector(input.basis, 0).edge,
-      "graph-call://t169/live/child",
+      emittedEdgeLineage.edge,
       ...vectors.flatMap((vector) => [
         ...vector.source.map((node) => node.id),
         vector.target.id
@@ -532,7 +536,8 @@ test("T-169 live F_P worker preserves recursive span lineage into replay artifac
   const bundle = t169LiveBundle({
     basis,
     requirementSource,
-    graphSpanProof
+    graphSpanProof,
+    graphSpanRuntimeEvents
   });
   const routeContext = routeContextForBundle(
     basis,
@@ -579,8 +584,14 @@ test("T-169 live F_P worker preserves recursive span lineage into replay artifac
     traversalSpan.foldbackRefs.includes(graphSpanProof.foldback.foldbackRef),
     true
   );
-  assert.equal(traversalSpan.frameRefs.includes("frame://t169/live/child"), true);
-  assert.equal(traversalSpan.zoomRefs.includes("zoom://t169/live/child-detail"), true);
+  assert.equal(
+    traversalSpan.frameRefs.includes(graphSpanProof.childFrameEvent.frameId),
+    true
+  );
+  assert.equal(
+    traversalSpan.zoomRefs.includes(graphSpanProof.zoomFrameEvent.zoomFrameId),
+    true
+  );
 
   const edge = routeEdgeForBasisVector(basis, 0, graphSpanRuntimeEvents);
   const environment = publicAbgRequirements.compileEdgeRequirementEnvironment({

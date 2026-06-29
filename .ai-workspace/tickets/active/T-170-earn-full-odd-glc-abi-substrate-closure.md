@@ -41,7 +41,8 @@ source_documents:
   - .ai-workspace/tickets/completed/T-168-ratify-gtl-requirement-graph-and-abg-refinement-route.md
   - .ai-workspace/tickets/active/T-169-ratify-requirement-span-identity-across-recursion.md
   - .ai-workspace/tickets/active/T-160-declare-abg-recursive-executive-observer-graph-for-obligation-pressure.md
-  - release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.14/release-snapshot-manifest.json
+  - .ai-workspace/comments/codex/20260629T060841Z_REVIEW_t170-root-cause-algebraic-violations.md
+  - release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.15/release-snapshot-manifest.json
   - /Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/substrate.provenance.json
 affected_boundary:
   goals:
@@ -139,7 +140,7 @@ in GTL/ABG.
       as raw objects.
 - [x] T-160 live proof does not carry or inject the expected disposition answer.
 - [ ] A corrected release candidate is cut and odd_glc is retargeted to it.
-- [x] Focused, live, semantic, install, and odd_glc substrate tests pass.
+- [ ] Focused, live, semantic, install, and odd_glc substrate tests pass.
 
 ## Refuted Closure Evidence
 
@@ -187,6 +188,12 @@ These root causes are part of the closure surface. A corrected RC must prove
 that the framework makes each class visible at the algebra/API/proof boundary,
 not merely that the specific live tests turn green.
 
+The detailed root-cause review is recorded in
+`.ai-workspace/comments/codex/20260629T060841Z_REVIEW_t170-root-cause-algebraic-violations.md`.
+It classifies the failures as design, compiler/API, runtime algebra
+integration, authority encoding, proof-oracle, activation-boundary, and
+release/provenance failures.
+
 ## Corrected Implementation Evidence
 
 2026-06-29 remediation after the rc.14 refutation:
@@ -225,4 +232,49 @@ Verified commands on the corrected source:
 - `npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run --json` produced
   `abiogenesis-typescript-tenant-4.1.0-rc.15.tgz`.
 
-RC cut and downstream retarget are still pending in this source checkpoint.
+## Refuted rc15 Attempt
+
+2026-06-29 rc15 review refuted full closure after the corrected source and
+release cut:
+
+- Corrected source commit:
+  `1af67e4dfe52297d4ba9513ddd6b54829debb2f6`
+  (`Earn corrected odd_glc ABI substrate source`).
+- Corrected release snapshot commit:
+  `6c8a799383729b80bcaf1cce8bc709e16adc1a7c`
+  (`Cut abiogenesis TypeScript rc15 snapshot`).
+- Release snapshot:
+  `release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.15/`.
+- `latest` pointer:
+  `release_snapshots/abiogenesis-typescript-tenant/latest -> 4.1.0-rc.15`.
+- Tarball sha256:
+  `8313b6a82fb6852ebb52bce70ac84a74df8dce57f866aa236b25602a6cff6242`.
+- Release snapshot manifest sha256:
+  `1a07eed0a845f086a4b82fcbc63984f9c7cb1c63bd8e733606dcffd97ea7e8ad`.
+- Checksum verification:
+  `sha256sum -c checksums.sha256` passed in the rc15 snapshot.
+- odd_glc retarget commit:
+  `0997109` (`Retarget odd_glc to abiogenesis rc15 substrate`).
+- odd_glc substrate smoke:
+  `/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript`
+  `npm test` passed, 17/17.
+
+rc15 remains a useful intermediate release candidate, but it does not close
+T-170. T-169 still proves matching over proof-authored lineage refs rather than
+ABG-emitted child-frame lineage identity. T-160 still classifies load-bearing
+executive dispositions through a diagnostic marker planted by the live harness,
+and its activation/proof path does not yet demonstrate a normal production
+runtime source for the observer.
+
+## Remaining Closure Work
+
+- T-169 must drive a traversal where ABG emits the child-frame, zoom, foldback,
+  and re-entry lineage facts, then derive the span declaration/projection from
+  those emitted facts. The live proof must not supply the same literal lineage
+  refs on both sides as the proof oracle.
+- T-160 must populate executive-observer input from normal runtime state on
+  the iterate path and classify executive pressure from an admitted worker
+  disposition field, not from `diagnosticRefs` carrying
+  `abg.executive.disposition://*` marker refs.
+- A successor corrected RC and odd_glc retarget may happen only after those
+  proofs pass live and replay-derived.

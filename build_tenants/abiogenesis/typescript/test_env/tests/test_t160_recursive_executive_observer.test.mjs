@@ -45,9 +45,6 @@ const OBSERVATION_INPUT = Object.freeze({
   policyRefs: ["policy://t160/executive-default"],
   hookRefs: ["hook://abg/fp-consciousness/default"]
 });
-const EXECUTIVE_DISPOSITION_NONLOCAL_REENTRY_REF =
-  "abg.executive.disposition://nonlocal_reentry";
-
 function finding(input = {}) {
   return publicRoot.constructFpEvaluationFinding({
     findingRef: input.findingRef ?? "finding://t160/pressure",
@@ -64,7 +61,8 @@ function finding(input = {}) {
     compositionContributionRef: "abg.fn-regime://t160/fp",
     compositionRef: OBSERVATION_INPUT.selectedCompositionRef,
     compositionDigest: OBSERVATION_INPUT.selectedCompositionDigest,
-    diagnosticRefs: input.diagnosticRefs ?? []
+    diagnosticRefs: input.diagnosticRefs ?? [],
+    executiveDisposition: input.executiveDisposition ?? null
   });
 }
 
@@ -191,7 +189,8 @@ function runnerEvaluatorPlugin() {
               input.selectedRegimeBindingRef ?? input.selectedCompositionRef,
             compositionRef: input.selectedCompositionRef,
             compositionDigest: input.selectedCompositionDigest,
-            diagnosticRefs: [EXECUTIVE_DISPOSITION_NONLOCAL_REENTRY_REF]
+            diagnosticRefs: ["diagnostic://t160/runner/nonlocal-reentry"],
+            executiveDisposition: "nonlocal_reentry"
           })
         ],
         evidenceRefs: [input.sourceProjectionRef],
@@ -266,7 +265,8 @@ test("T-160 routes nonlocal executive pressure to reentry projection input", () 
         findingRef: "finding://t160/reentry",
         residualPressureRefs: ["pressure://t160/nonlocal"],
         continuationRefs: ["continuation://t160/reentry/requirements"],
-        diagnosticRefs: [EXECUTIVE_DISPOSITION_NONLOCAL_REENTRY_REF]
+        diagnosticRefs: ["diagnostic://t160/nonlocal-reentry"],
+        executiveDisposition: "nonlocal_reentry"
       })
     ])
   });
@@ -279,6 +279,23 @@ test("T-160 routes nonlocal executive pressure to reentry projection input", () 
   assert.deepEqual(continuationInput.reentryRefs, [facts[0].pressureFactRef]);
 });
 
+test("T-160 diagnostic disposition markers do not carry executive authority", () => {
+  const observation = publicExecutive.projectExecutiveObservationView(
+    OBSERVATION_INPUT
+  );
+  const facts = publicExecutive.projectExecutivePressureFacts({
+    observation,
+    outcome: outcome([
+      finding({
+        findingRef: "finding://t160/diagnostic-marker-only",
+        diagnosticRefs: ["abg.executive.disposition://nonlocal_reentry"]
+      })
+    ])
+  });
+  assert.equal(facts.length, 1);
+  assert.equal(facts[0].disposition, "non_attenuating_retry");
+});
+
 test("T-160 runner wrapper composes observation, pressure, and continuation projections", () => {
   const result = publicRoot.runExecutiveObserverProjection({
     observation: OBSERVATION_INPUT,
@@ -287,7 +304,8 @@ test("T-160 runner wrapper composes observation, pressure, and continuation proj
         findingRef: "finding://t160/runner-reentry",
         residualPressureRefs: ["pressure://t160/nonlocal"],
         continuationRefs: ["continuation://t160/reentry/requirements"],
-        diagnosticRefs: [EXECUTIVE_DISPOSITION_NONLOCAL_REENTRY_REF]
+        diagnosticRefs: ["diagnostic://t160/runner-reentry"],
+        executiveDisposition: "nonlocal_reentry"
       })
     ])
   });

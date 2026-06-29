@@ -26,11 +26,6 @@ const TEST_RUNS_ROOT = path.join(
   "t160_recursive_executive_observer_live"
 );
 const REQUIREMENT_ID = "REQ-T160-LIVE-PRESSURE";
-const EXECUTIVE_DISPOSITION_REFS = Object.freeze({
-  nonlocal_reentry: "abg.executive.disposition://nonlocal_reentry",
-  reprice: "abg.executive.disposition://reprice",
-  block: "abg.executive.disposition://block"
-});
 
 function liveEnabled() {
   return process.env["ABG_TS_T160_EXECUTIVE_OBSERVER_LIVE"] === "1" ||
@@ -256,11 +251,6 @@ function evaluatorPlugin(input) {
       const diagnosticRefs = Array.isArray(assessment.diagnosticRefs)
         ? assessment.diagnosticRefs
         : [];
-      const dispositionRef = EXECUTIVE_DISPOSITION_REFS[assessment.disposition];
-      const translatedDiagnosticRefs =
-        dispositionRef === undefined
-          ? diagnosticRefs
-          : [...diagnosticRefs, dispositionRef];
       const evidenceRefs =
         Array.isArray(assessment.evidenceRefs) &&
         assessment.evidenceRefs.length > 0
@@ -287,7 +277,8 @@ function evaluatorPlugin(input) {
               evaluationInput.selectedCompositionRef,
             compositionRef: evaluationInput.selectedCompositionRef,
             compositionDigest: evaluationInput.selectedCompositionDigest,
-            diagnosticRefs: translatedDiagnosticRefs
+            diagnosticRefs,
+            executiveDisposition: assessment.disposition
           })
         ],
         evidenceRefs: [evaluationInput.sourceProjectionRef],

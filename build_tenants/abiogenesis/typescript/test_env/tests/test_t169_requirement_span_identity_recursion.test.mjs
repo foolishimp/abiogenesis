@@ -7,6 +7,7 @@ import assert from "node:assert/strict";
 
 import * as publicAbgRequirements from "../../build/semantic/code/src/abg/requirements/index.js";
 import * as publicGtlRequirements from "../../build/semantic/code/src/gtl/requirements/index.js";
+import * as publicRoot from "../../build/semantic/code/src/index.js";
 import {
   buildRequirementRouteRuntimeContextFromDeclarations,
   mintRuntimeScopeRef
@@ -15,6 +16,15 @@ import {
   constructRequirementFoldProjection,
   residualizeRequirementFolds
 } from "../../build/semantic/code/src/abg/m03/contracts/requirements_algebra.js";
+import {
+  assessmentFor,
+  buildSchedule,
+  constitutionalGapRow,
+  constitutionalReentry,
+  fulfilledRow,
+  materializeEvents,
+  spanBySource
+} from "./support/t103-graph-span-fixtures.mjs";
 
 const REQUIREMENT_ID = "REQ-T169-SPAN-LINEAGE";
 const SPAN_ID = "span://t169/parent-to-child";
@@ -122,6 +132,185 @@ function emptyLineageRouteContext(edge = EDGE) {
   assert.equal(context.status, "accepted");
   return context.value;
 }
+
+function routeEdgeForBasisVector(basis, vectorIndex, runtimeEvents = []) {
+  const vector = basis.graph.vectors[vectorIndex];
+  const edge = vector.name;
+  return Object.freeze({
+    graphFunctionRef: basis.graphFunction.id,
+    graphVectorRef: vector.id,
+    vectorIndex,
+    edge,
+    sourceNodeRef: vector.source[0].id,
+    targetNodeRef: vector.target.id,
+    frameRefs: [
+      basis.frameId ?? `frame:${basis.id}:root`,
+      ...runtimeEvents
+        .filter((event) => event.kind === "frame_opened" && event.basisId === basis.id)
+        .map((event) => event.frameId)
+    ],
+    zoomRefs: runtimeEvents.flatMap((event) =>
+      event.basisId === basis.id &&
+      event.kind === "zoom_frame_opened" &&
+      event.vectorIndex === vectorIndex
+        ? [event.zoomFrameId]
+        : []
+    ),
+    foldbackRefs: runtimeEvents.flatMap((event) =>
+      event.basisId === basis.id &&
+      event.kind === "graph_span_foldback_evaluated" &&
+      event.terminalVectorIndex >= vectorIndex
+        ? [event.foldbackRef, ...event.edgeFoldbackRefs, ...event.causingEdgeFoldbackRefs]
+        : []
+    ),
+    aliasRefs: [edge]
+  });
+}
+
+function eventDerivedBundle(input) {
+  const spanId = "span://t169/event-derived";
+  const vectors = input.basis.graph.vectors;
+  const edge = routeEdgeForBasisVector(input.basis, 0, input.runtimeEvents);
+  const requirement = publicGtlRequirements.declareRequirement({
+    requirementId: "REQ-T169-EVENT-DERIVED",
+    termKind: "atom",
+    stableId: "REQ-T169-EVENT-DERIVED",
+    sourceRef: "specification/requirements/abg/REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md#049",
+    sourceDigest: "sha256:t169-event-derived",
+    relationRefs: [],
+    spanRefs: [spanId],
+    contextRefs: [],
+    evidencePolicyRefs: ["policy://t169/event-derived"]
+  });
+  const span = publicGtlRequirements.declareTraversalSpan({
+    spanId,
+    graphFunctionRef: input.basis.graphFunction.id,
+    graphVectorRefs: vectors.map((vector) => vector.id),
+    vectorIndexes: [0, 1, 2],
+    sourceNodeRef: vectors[0].source[0].id,
+    targetNodeRef: vectors[2].target.id,
+    frameRefs: edge.frameRefs,
+    zoomRefs: edge.zoomRefs,
+    foldbackRefs: edge.foldbackRefs,
+    aliasRefs: [
+      edge.edge,
+      ...vectors.flatMap((vector) => [
+        ...vector.source.map((node) => node.id),
+        vector.target.id
+      ])
+    ]
+  });
+  return publicGtlRequirements.declareBundle({
+    requirements: [requirement],
+    spans: [span]
+  });
+}
+
+test("T-169 activates recursive span identity from ABG-emitted lineage events", () => {
+  const { basis, schedule } = buildSchedule({
+    runId: "run://t169/event-derived",
+    defaultRegime: "F_P",
+    dispatchRef: "dispatch://t169/event-derived",
+    frameId: "frame://t169/event-derived/parent",
+    frameLineageId: "frame-lineage://t169/event-derived/parent"
+  });
+  const childFrameEvent = publicRoot.constructFrameOpenedEvent(
+    Object.freeze({
+      ...basis,
+      frameId: "frame://t169/event-derived/child",
+      frameLineageId: "frame-lineage://t169/event-derived/child"
+    })
+  );
+  const zoomFrame = Object.freeze({
+    kind: "zoom_frame",
+    zoomFrameId: "zoom://t169/event-derived/child-detail",
+    basisId: basis.id,
+    graphFunctionId: basis.graphFunction.id,
+    vectorIndex: 0,
+    edge: routeEdgeForBasisVector(basis, 0).edge,
+    inputAssetRef: "asset://t169/event-derived/parent",
+    outputAssetRef: "asset://t169/event-derived/child",
+    ledgerRef: "ledger://t169/event-derived/zoom",
+    scheduleRef: "schedule://t169/event-derived/zoom"
+  });
+  const zoomFrameEvent = publicRoot.constructZoomFrameOpenedEvent({
+    basis,
+    zoomFrame
+  });
+  const reentry = constitutionalReentry({
+    changeClass: "requirement_reprice",
+    reEntryPoint: "requirements",
+    routeContractRefs: ["route-contract://t169/event-derived"],
+    authorityRefs: ["ticket://T-169", "REQ-T169-EVENT-DERIVED"],
+    rationale: "event-derived child lineage keeps the parent span active"
+  });
+  const assessments = [
+    assessmentFor({
+      basis,
+      span: spanBySource(schedule, 2),
+      assessmentId: "assessment://t169/event-derived/terminal",
+      rows: [fulfilledRow("T169-EVENT-DERIVED-TERMINAL")]
+    }),
+    assessmentFor({
+      basis,
+      span: spanBySource(schedule, 1),
+      assessmentId: "assessment://t169/event-derived/child",
+      rows: [fulfilledRow("T169-EVENT-DERIVED-CHILD")]
+    }),
+    assessmentFor({
+      basis,
+      span: spanBySource(schedule, 0),
+      assessmentId: "assessment://t169/event-derived/parent",
+      rows: [constitutionalGapRow("REQ-T169-EVENT-DERIVED")],
+      constitutionalReentry: reentry
+    })
+  ];
+  const foldback = publicRoot.foldGraphSpanAssessments({
+    basis,
+    terminalVectorIndex: 2,
+    schedule,
+    assessments
+  });
+  const runtimeEvents = Object.freeze([
+    childFrameEvent,
+    zoomFrameEvent,
+    ...materializeEvents(basis, schedule, assessments, foldback)
+  ]);
+  const bundle = eventDerivedBundle({ basis, runtimeEvents });
+  const context = buildRequirementRouteRuntimeContextFromDeclarations({
+    bundle,
+    runtimeScope: mintRuntimeScopeRef({
+      runRef: basis.id,
+      graphCallRef: `graph-call:${basis.id}`,
+      frameRef: basis.frameId,
+      continuationRef: null,
+      graphFunctionRef: basis.graphFunction.id,
+      graphVectorRef: basis.graph.vectors[0].id,
+      spanRef: "span://t169/event-derived"
+    }),
+    edges: basis.graph.vectors.map((_, vectorIndex) =>
+      routeEdgeForBasisVector(basis, vectorIndex, runtimeEvents)
+    )
+  });
+  assert.equal(context.status, "accepted");
+  const edgeWithRuntimeLineage = routeEdgeForBasisVector(basis, 0, runtimeEvents);
+  const activeEnvironment =
+    publicAbgRequirements.compileEdgeRequirementEnvironment({
+      ledger: context.value.ledger,
+      edge: edgeWithRuntimeLineage
+    });
+  assert.equal(activeEnvironment.activeSpans.length, 1);
+  assert.equal(activeEnvironment.activeTerms.length, 1);
+
+  const edgeWithoutRuntimeLineage = routeEdgeForBasisVector(basis, 0, []);
+  const inactiveEnvironment =
+    publicAbgRequirements.compileEdgeRequirementEnvironment({
+      ledger: context.value.ledger,
+      edge: edgeWithoutRuntimeLineage
+    });
+  assert.equal(inactiveEnvironment.activeSpans.length, 0);
+  assert.equal(inactiveEnvironment.activeTerms.length, 0);
+});
 
 test("T-169 admits GTL span lineage refs into ABG TraversalSpan truth", () => {
   const context = routeContext();

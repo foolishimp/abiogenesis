@@ -231,3 +231,19 @@ Proof completed for first slice:
 - This ticket remains active until span identity is traversal-derived from
   emitted frame/zoom/foldback truth and vector-membership-only activation fails
   even for empty declared lineage on recursive-span claims.
+
+2026-06-29 rc15 refuted closure record:
+
+- Recursive span activation now distinguishes ordinary vector-local route spans
+  from true recursive/cross-frame lineage claims, and lineaged edges with empty
+  declared lineage fail closed.
+- That guard is necessary but not sufficient. The realized matcher is still
+  ref-array membership, and the live proof still feeds matching frame/zoom/
+  foldback refs as literals on both the edge and span declaration.
+- `CODEX_LIVE_FP=1 npm run test:t169:live` passed in about 104.8s, but this is
+  not closure because it does not prove ABG-opened child-frame lineage identity.
+
+This ticket remains active until the live proof derives the child-frame, zoom,
+foldback, and re-entry refs from ABG-emitted traversal/runtime events and proves
+the parent span covers the child edge through that emitted lineage, not through
+proof-authored matching constants.

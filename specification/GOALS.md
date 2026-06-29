@@ -173,12 +173,16 @@ as:
    and continuation or re-entry disposition emitted by ABG.
 2. `T-168` earned GTL requirement graph/refinement declaration law plus ABG
    admission/projection/fold/residual/query over multi-requirement structure.
-3. `T-169` active, not earned: requirement span identity across frame, zoom,
-   recursion, foldback, and re-entry boundaries must be traversal-derived and
-   must fail closed when recursive lineage is absent.
+3. `T-169` active, not earned: requirement span identity must be
+   traversal-derived from ABG-emitted frame/zoom/foldback truth, not from
+   hand-authored literal lineage refs that the proof supplies on both sides.
 4. `T-160` active, not earned: recursive executive observer pressure
-   preservation must run on a production ABG path, admit live F_P assessment
-   truth, and feed ABG continuation/routing.
+   preservation must activate from a production runtime source and classify
+   disposition from admitted worker judgment, not from a harness-planted
+   diagnostic marker.
+5. `T-170` records the root-cause taxonomy for the late-stage algebraic
+   violations and remains active until the corrected implementation, live
+   proofs, release cut, and odd_glc retarget all name an earned substrate.
 
 This wave explicitly includes GTL. Requirement graph/refinement and lifecycle
 composition structure must be declared through GTL contract-law surfaces; ABG
@@ -187,3 +191,19 @@ that structure through local requirement compilers or local controller loops.
 Span identity across recursion is also GTL/ABG work: GTL declares the stable
 span and lineage refs; ABG admits, projects, folds, residualizes, and re-enters
 over those refs without product-local span maps.
+
+The refuted corrected-closure attempt is ABI TypeScript rc15:
+
+- source commit `1af67e4dfe52297d4ba9513ddd6b54829debb2f6`;
+- release snapshot commit `6c8a799383729b80bcaf1cce8bc709e16adc1a7c`;
+- release snapshot `release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.15/`;
+- `latest -> 4.1.0-rc.15`;
+- tarball sha256
+  `8313b6a82fb6852ebb52bce70ac84a74df8dce57f866aa236b25602a6cff6242`;
+- odd_glc retarget commit `0997109`.
+
+rc15 is cleaner than rc14, but it is not full odd_glc ABI substrate closure:
+T-169 still proves matching over proof-authored lineage refs, and T-160 still
+uses a marker-driven disposition path. A successor corrected RC must replace
+that proof shape before odd_glc parity may treat the recursive substrate as
+complete.

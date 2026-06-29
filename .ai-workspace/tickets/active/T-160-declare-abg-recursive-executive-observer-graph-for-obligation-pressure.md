@@ -552,3 +552,20 @@ The refuted closure artifact was:
 Closure depends on active T-169 span identity across recursion and does not
 authorize downstream products to create local executive loops, local span maps,
 or local continuation controllers.
+
+2026-06-29 rc15 refuted closure under T-170:
+
+- Continuation input is now consumed by ABG continuation/routing, and pressure
+  facts are event-sourced with digest admission.
+- That wiring is necessary but not sufficient. The production trigger and proof
+  remain weak because the load-bearing dispositions are still selected by
+  diagnostic marker refs, and the live proof translates the worker's
+  `assessment.disposition` into those marker refs.
+- `CODEX_LIVE_FP=1 npm run test:t160:live` passed in about 16.8s, but this is
+  not closure because the disposition authority is marker-driven rather than
+  worker-disposition-driven.
+
+This ticket remains active until the normal iterate path opens the observer
+from runtime state and executive pressure classification consumes an admitted
+worker disposition field directly, without harness-planted
+`abg.executive.disposition://*` marker refs.

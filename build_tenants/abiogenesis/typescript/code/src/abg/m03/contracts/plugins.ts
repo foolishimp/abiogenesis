@@ -303,6 +303,13 @@ export type FpEvaluationCloseDisposition =
   | "no_close"
   | "human_required";
 
+export type FpExecutiveDisposition =
+  | "local_repair"
+  | "nonlocal_reentry"
+  | "reprice"
+  | "block"
+  | "close_candidate";
+
 export interface FpEvaluationFinding {
   readonly kind: "fp_evaluation_finding";
   readonly findingRef: string;
@@ -320,6 +327,7 @@ export interface FpEvaluationFinding {
   readonly compositionDigest: string;
   readonly diagnosticRefs: readonly string[];
   readonly evaluationScopeRef: GtlEvaluationScopeRef | null;
+  readonly executiveDisposition: FpExecutiveDisposition | null;
 }
 
 export interface FpEvaluationOutcome extends EnginePluginOutcomeBase {
@@ -734,6 +742,24 @@ function assertFpEvaluationCloseDisposition(
     return input;
   }
   return assertPayloadClosureDecisionKind(input, label);
+}
+
+function assertFpExecutiveDisposition(
+  input: string,
+  label: string
+): FpExecutiveDisposition {
+  if (
+    input === "local_repair" ||
+    input === "nonlocal_reentry" ||
+    input === "reprice" ||
+    input === "block" ||
+    input === "close_candidate"
+  ) {
+    return input;
+  }
+  throw new TypeError(
+    `${label}: unsupported executive disposition ${JSON.stringify(input)}`
+  );
 }
 
 function fieldRefsIntersect(
@@ -1515,6 +1541,7 @@ export function constructFpEvaluationFinding(input: {
   readonly compositionDigest: string;
   readonly diagnosticRefs?: readonly string[] | undefined;
   readonly evaluationScopeRef?: GtlEvaluationScopeRef | null | undefined;
+  readonly executiveDisposition?: FpExecutiveDisposition | null | undefined;
 }): FpEvaluationFinding {
   const evidenceRefs = freezeStringArray(input.evidenceRefs);
   const authorityRefs = freezeStringArray(input.authorityRefs);
@@ -1571,7 +1598,15 @@ export function constructFpEvaluationFinding(input: {
     evaluationScopeRef:
       input.evaluationScopeRef === undefined || input.evaluationScopeRef === null
         ? null
-        : constructGtlEvaluationScopeRef(input.evaluationScopeRef)
+        : constructGtlEvaluationScopeRef(input.evaluationScopeRef),
+    executiveDisposition:
+      input.executiveDisposition === undefined ||
+      input.executiveDisposition === null
+        ? null
+        : assertFpExecutiveDisposition(
+            input.executiveDisposition,
+            "FpEvaluationFinding.executiveDisposition"
+          )
   });
 }
 
@@ -1767,6 +1802,10 @@ function admitFpEvaluationFinding(
   const hookActionRef = parseOptionalField(finding, "hookActionRef");
   const gainReportRef = parseOptionalField(finding, "gainReportRef");
   const evaluationScopeRef = parseOptionalField(finding, "evaluationScopeRef");
+  const executiveDisposition = parseOptionalField(
+    finding,
+    "executiveDisposition"
+  );
   return constructFpEvaluationFinding({
     findingRef: parseNonEmptyString(finding["findingRef"], `${label}.findingRef`),
     evaluatorRef: parseNonEmptyString(
@@ -1827,6 +1866,13 @@ function admitFpEvaluationFinding(
         : admitGtlEvaluationScopeRef(
             evaluationScopeRef,
             `${label}.evaluationScopeRef`
+          ),
+    executiveDisposition:
+      executiveDisposition === undefined || executiveDisposition === null
+        ? null
+        : assertFpExecutiveDisposition(
+            parseString(executiveDisposition, `${label}.executiveDisposition`),
+            `${label}.executiveDisposition`
           )
   });
 }
