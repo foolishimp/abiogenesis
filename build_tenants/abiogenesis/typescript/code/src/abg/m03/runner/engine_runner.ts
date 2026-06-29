@@ -184,6 +184,7 @@ import {
 } from "../contracts/requirements_route.js";
 import {
   constructExecutivePressureFactProjectedEvent,
+  type ExecutiveContinuationInputProjection,
   type ProjectExecutiveObservationViewInput
 } from "../contracts/executive_observer.js";
 import { runExecutiveObserverProjection } from "./executive_observer_runner.js";
@@ -198,6 +199,7 @@ import {
 import { deriveFreshRetryContextProjection } from "../contracts/retry_frontier.js";
 import {
   deriveRuntimeContinuationTransitionProjection,
+  deriveRuntimeContinuationTransitionProjectionFromDisposition,
   terminalTransitionForRuntimeContinuationProjection,
   type RuntimeContinuationTransitionProjection
 } from "../contracts/continuation_transition.js";
@@ -2587,12 +2589,17 @@ function assuranceRetryEvents(input: {
   readonly priorManifestId: string;
   readonly assuranceFold: ReturnType<typeof assuranceDecisionForCurrentVector>;
   readonly maxAttempts: number;
+  readonly executiveContinuationInput?:
+    | ExecutiveContinuationInputProjection
+    | null
+    | undefined;
 }): readonly RuntimeEvent[] | TerminalTransition {
   const transitionProjection = deriveRuntimeContinuationTransitionProjection({
     basis: input.basis,
     runtimeProjection: input.runtimeProjection,
     vectorIndex: input.vectorIndex,
-    assuranceClosureDecision: input.assuranceFold.closureDecision
+    assuranceClosureDecision: input.assuranceFold.closureDecision,
+    ...continuationTypedRefsFromExecutive(input.executiveContinuationInput)
   });
   if (transitionProjection.disposition !== "retry_same_edge") {
     const transition = terminalTransitionForRuntimeContinuationProjection({
@@ -2849,20 +2856,15 @@ function requirementRouteContextForRequest(
   return context.value;
 }
 
-function executiveObserverRuntimeEventsForFpEvaluation(input: {
+function executiveObserverRuntimeEventsForProjection(input: {
   readonly request: EngineIterateRequest;
-  readonly fpEvaluationOutcome: FpEvaluationOutcome;
   readonly vectorIndex: number;
+  readonly projection: ReturnType<typeof runExecutiveObserverProjection> | null;
 }): readonly RuntimeEvent[] {
-  const executiveObserver = input.request.executiveObserver;
-  if (executiveObserver === undefined) {
+  if (input.projection === null) {
     return Object.freeze([]);
   }
-  const projection = runExecutiveObserverProjection({
-    observation: executiveObserver.observation,
-    fpEvaluationOutcome: input.fpEvaluationOutcome,
-    priorResidualPressureRefs: executiveObserver.priorResidualPressureRefs
-  });
+  const projection = input.projection;
   return Object.freeze(
     projection.pressureFacts.map((pressureFact) =>
       constructExecutivePressureFactProjectedEvent({
@@ -2876,6 +2878,235 @@ function executiveObserverRuntimeEventsForFpEvaluation(input: {
       })
     )
   );
+}
+
+function runtimeEventProjectionRef(event: RuntimeEvent): string {
+  const eventRef = "eventRef" in event ? event.eventRef : undefined;
+  const routeEventRef = "routeEventRef" in event ? event.routeEventRef : undefined;
+  const correlationId = "correlationId" in event ? event.correlationId : undefined;
+  return (
+    eventRef ??
+    routeEventRef ??
+    correlationId ??
+    `runtime-event:${stableSha256Digest(event)}`
+  );
+}
+
+function defaultExecutiveObserverObservation(input: {
+  readonly request: EngineIterateRequest;
+  readonly fpEvaluationOutcome: FpEvaluationOutcome;
+  readonly vectorIndex: number;
+  readonly replayEvents: readonly RuntimeEvent[];
+}): ProjectExecutiveObservationViewInput | null {
+  if (
+    input.fpEvaluationOutcome.status !== "evaluated" ||
+    input.fpEvaluationOutcome.findings.length === 0
+  ) {
+    return null;
+  }
+  const vector = input.request.basis.graph.vectors[input.vectorIndex];
+  if (vector === undefined) {
+    return null;
+  }
+  const firstFinding = input.fpEvaluationOutcome.findings[0];
+  if (firstFinding === undefined) {
+    return null;
+  }
+  const runtimeProjection = deriveRuntimeAggregateProjection(
+    input.request.basis,
+    input.replayEvents
+  );
+  return Object.freeze({
+    observerGraphFunctionRef: "graph-function://abg/executive/default-observer",
+    targetWorkspaceContextRef: [
+      "context://abg/executive/default",
+      encodeURIComponent(input.request.basis.id)
+    ].join("/"),
+    targetWorkspaceLocator: `workspace://${encodeURIComponent(input.request.basis.workspaceRoot)}`,
+    targetWorkspaceDigest: `sha256:${stableSha256Digest({
+      basisId: input.request.basis.id,
+      workspaceRoot: input.request.basis.workspaceRoot,
+      workKey: input.request.basis.workKey
+    })}`,
+    targetWorkRef:
+      input.request.basis.workKey ??
+      input.request.basis.startIntent.target.handle ??
+      vectorEdge(input.request.basis, input.vectorIndex) ??
+      input.request.basis.graphFunction.id,
+    selectedCompositionRef: firstFinding.compositionRef,
+    selectedCompositionDigest: firstFinding.compositionDigest,
+    graphFunctionRef: input.request.basis.graphFunction.id,
+    graphVectorRef: vector.id,
+    frameRefs: [frameIdForBasis(input.request.basis)],
+    replayEventRefs: uniqueStrings(input.replayEvents.map(runtimeEventProjectionRef)),
+    payloadLedgerRefs: [sourceProjectionRef(runtimeProjection)],
+    evidenceRefs: uniqueStrings(
+      input.fpEvaluationOutcome.findings.flatMap((finding) => finding.evidenceRefs)
+    ),
+    residualPressureRefs: uniqueStrings(
+      input.fpEvaluationOutcome.findings.flatMap(
+        (finding) => finding.residualPressureRefs
+      )
+    ),
+    continuationRefs: uniqueStrings(
+      input.fpEvaluationOutcome.findings.flatMap(
+        (finding) => finding.continuationRefs
+      )
+    ),
+    requirementIds: uniqueStrings(
+      input.fpEvaluationOutcome.findings.flatMap((finding) =>
+        finding.authorityRefs.filter((ref) => ref.startsWith("REQ-"))
+      )
+    ),
+    spanLineage: [],
+    policyRefs: ["policy://abg/executive/default-observer"],
+    hookRefs: ["hook://abg/fp-consciousness/default"]
+  });
+}
+
+function executiveObserverProjectionForFpEvaluation(input: {
+  readonly request: EngineIterateRequest;
+  readonly fpEvaluationOutcome: FpEvaluationOutcome;
+  readonly vectorIndex: number;
+  readonly replayEvents: readonly RuntimeEvent[];
+}): ReturnType<typeof runExecutiveObserverProjection> | null {
+  const executiveObserver = input.request.executiveObserver;
+  const observation =
+    executiveObserver?.observation ??
+    defaultExecutiveObserverObservation(input);
+  if (observation === null) {
+    return null;
+  }
+  return runExecutiveObserverProjection({
+    observation,
+    fpEvaluationOutcome: input.fpEvaluationOutcome,
+    priorResidualPressureRefs: executiveObserver?.priorResidualPressureRefs
+  });
+}
+
+function continuationTypedRefsFromExecutive(
+  input: ExecutiveContinuationInputProjection | null | undefined
+): {
+  readonly typedBlockRefs?: readonly string[] | undefined;
+  readonly typedRepriceRefs?: readonly string[] | undefined;
+  readonly typedYieldRefs?: readonly string[] | undefined;
+  readonly typedRetryRefs?: readonly string[] | undefined;
+} {
+  if (input === null || input === undefined) {
+    return {};
+  }
+  switch (input.decision) {
+    case "yield_reentry":
+      return { typedYieldRefs: input.reentryRefs };
+    case "reprice":
+      return { typedRepriceRefs: input.repriceRefs };
+    case "block":
+      return { typedBlockRefs: input.blockedRefs };
+    case "retry_or_repair":
+      return { typedRetryRefs: input.continuationRefs };
+    case "close_candidate":
+      return {};
+    default: {
+      const exhaustive: never = input.decision;
+      throw new TypeError(
+        `Unsupported executive continuation decision ${JSON.stringify(exhaustive)}`
+      );
+    }
+  }
+}
+
+function runtimeContinuationTransitionFromExecutive(input: {
+  readonly basis: ExecutionBasis;
+  readonly runtimeProjection: RuntimeAggregateProjection;
+  readonly vectorIndex: number;
+  readonly executiveContinuationInput:
+    | ExecutiveContinuationInputProjection
+    | null
+    | undefined;
+}): RuntimeContinuationTransitionProjection | null {
+  const executiveInput = input.executiveContinuationInput;
+  if (executiveInput === null || executiveInput === undefined) {
+    return null;
+  }
+  switch (executiveInput.decision) {
+    case "yield_reentry":
+      return deriveRuntimeContinuationTransitionProjectionFromDisposition({
+        basis: input.basis,
+        runtimeProjection: input.runtimeProjection,
+        vectorIndex: input.vectorIndex,
+        disposition: "yield_continuation",
+        reason: "typed_yield",
+        reasonRefs: executiveInput.reentryRefs,
+        evidenceRefs: executiveInput.pressureFactRefs,
+        sourceProjectionRefs: [executiveInput.continuationInputRef]
+      });
+    case "reprice":
+      return deriveRuntimeContinuationTransitionProjectionFromDisposition({
+        basis: input.basis,
+        runtimeProjection: input.runtimeProjection,
+        vectorIndex: input.vectorIndex,
+        disposition: "reprice",
+        reason: "typed_reprice",
+        reasonRefs: executiveInput.repriceRefs,
+        evidenceRefs: executiveInput.pressureFactRefs,
+        sourceProjectionRefs: [executiveInput.continuationInputRef]
+      });
+    case "block":
+      return deriveRuntimeContinuationTransitionProjectionFromDisposition({
+        basis: input.basis,
+        runtimeProjection: input.runtimeProjection,
+        vectorIndex: input.vectorIndex,
+        disposition: "block",
+        reason: "typed_block",
+        reasonRefs: executiveInput.blockedRefs,
+        evidenceRefs: executiveInput.pressureFactRefs,
+        sourceProjectionRefs: [executiveInput.continuationInputRef]
+      });
+    case "retry_or_repair":
+    case "close_candidate":
+      return null;
+    default: {
+      const exhaustive: never = executiveInput.decision;
+      throw new TypeError(
+        `Unsupported executive continuation decision ${JSON.stringify(exhaustive)}`
+      );
+    }
+  }
+}
+
+function runtimeContinuationTransitionFromFpEvaluation(input: {
+  readonly basis: ExecutionBasis;
+  readonly runtimeProjection: RuntimeAggregateProjection;
+  readonly vectorIndex: number;
+  readonly fpEvaluationOutcome: FpEvaluationOutcome;
+}): RuntimeContinuationTransitionProjection | null {
+  const continuationRefs = fpEvaluationContinuationRefs(input.fpEvaluationOutcome);
+  if (continuationRefs.length === 0) {
+    return null;
+  }
+  const activeFindings = input.fpEvaluationOutcome.findings.filter(
+    (finding) =>
+      (finding.closeDisposition === "retry" ||
+        finding.closeDisposition === "no_close") &&
+      finding.continuationRefs.length > 0
+  );
+  if (activeFindings.length === 0) {
+    return null;
+  }
+  return deriveRuntimeContinuationTransitionProjectionFromDisposition({
+    basis: input.basis,
+    runtimeProjection: input.runtimeProjection,
+    vectorIndex: input.vectorIndex,
+    disposition: "retry_same_edge",
+    reason: "typed_retry",
+    reasonRefs: continuationRefs,
+    evidenceRefs: uniqueStrings(
+      activeFindings.flatMap((finding) => finding.evidenceRefs)
+    ),
+    sourceProjectionRefs: uniqueStrings(
+      activeFindings.map((finding) => finding.findingRef)
+    )
+  });
 }
 
 function isEvidenceAdmittedRuntimeEvent(
@@ -5171,6 +5402,7 @@ function* runEngineIterateMachine(input: {
               edge: transition.edge,
               regime: "F_P",
               actorInvocationRef: actorInvocationRef(actorInvocation),
+              attachedResultArtifact: outcome.attachedResultArtifact,
               traversalStrategySelection: modulatedAttempt?.selection ?? null,
               traversalAttemptEnvelope: modulatedAttempt?.envelope ?? null,
               abgFallbackBundle: request.abgFallbackBundle ?? null,
@@ -5393,6 +5625,7 @@ function* runEngineIterateMachine(input: {
               edge: transition.edge,
               regime: "F_P",
               actorInvocationRef: actorInvocationRef(actorInvocation),
+              attachedResultArtifact: outcome.attachedResultArtifact,
               traversalStrategySelection: modulatedAttempt?.selection ?? null,
               traversalAttemptEnvelope: modulatedAttempt?.envelope ?? null,
               abgFallbackBundle: request.abgFallbackBundle ?? null,
@@ -5531,14 +5764,22 @@ function* runEngineIterateMachine(input: {
                   request.pluginResultInterfaceCatalog?.interfaces ?? Object.freeze([])
               })
             );
+            const executiveProjection = executiveObserverProjectionForFpEvaluation({
+              request,
+              fpEvaluationOutcome,
+              vectorIndex: transition.vectorIndex,
+              replayEvents: eventState.replayEvents
+            });
             eventState = emitRunnerEvents(
               eventState,
-              executiveObserverRuntimeEventsForFpEvaluation({
+              executiveObserverRuntimeEventsForProjection({
                 request,
-                fpEvaluationOutcome,
-                vectorIndex: transition.vectorIndex
+                vectorIndex: transition.vectorIndex,
+                projection: executiveProjection
               })
             );
+            const executiveContinuationInput =
+              executiveProjection?.continuationInput ?? null;
             const evaluationProjection = deriveRuntimeAggregateProjection(
               request.basis,
               eventState.replayEvents
@@ -5698,12 +5939,29 @@ function* runEngineIterateMachine(input: {
                 request.basis,
                 eventState.replayEvents
               );
+              const executiveRetryTransition =
+                runtimeContinuationTransitionFromExecutive({
+                  basis: request.basis,
+                  runtimeProjection: retryProjection,
+                  vectorIndex: transition.vectorIndex,
+                  executiveContinuationInput
+                });
+              const fpEvaluationRetryTransition =
+                runtimeContinuationTransitionFromFpEvaluation({
+                  basis: request.basis,
+                  runtimeProjection: retryProjection,
+                  vectorIndex: transition.vectorIndex,
+                  fpEvaluationOutcome
+                });
               const requirementRouteContinuationTransition =
+                executiveRetryTransition ??
+                fpEvaluationRetryTransition ??
                 deriveRuntimeContinuationTransitionProjection({
                   basis: request.basis,
                   runtimeProjection: retryProjection,
                   vectorIndex: transition.vectorIndex,
-                  assuranceClosureDecision: assuranceFold.closureDecision
+                  assuranceClosureDecision: assuranceFold.closureDecision,
+                  ...continuationTypedRefsFromExecutive(executiveContinuationInput)
                 });
               eventState = emitRequirementRouteForEdgeClose({
                 state: eventState,
@@ -5715,17 +5973,36 @@ function* runEngineIterateMachine(input: {
                   requirementRouteContinuationTransition
                 ])
               });
-              const assuranceRetry = assuranceRetryEvents({
-                basis: request.basis,
-                runtimeProjection: retryProjection,
-                replayEvents: eventState.replayEvents,
-                vectorIndex: transition.vectorIndex,
-                priorManifestId: resultRef,
-                assuranceFold,
-                maxAttempts:
-                  request.maxAttachedFpAttempts ??
-                  DEFAULT_ATTACHED_FP_MAX_RETRY_ATTEMPTS
-              });
+              const assuranceRetry =
+                executiveRetryTransition === null
+                  ? assuranceRetryEvents({
+                      basis: request.basis,
+                      runtimeProjection: retryProjection,
+                      replayEvents: eventState.replayEvents,
+                      vectorIndex: transition.vectorIndex,
+                      priorManifestId: resultRef,
+                      assuranceFold,
+                      maxAttempts:
+                        request.maxAttachedFpAttempts ??
+                        DEFAULT_ATTACHED_FP_MAX_RETRY_ATTEMPTS,
+                      executiveContinuationInput
+                    })
+                  : terminalTransitionForRuntimeContinuationProjection({
+                      basis: request.basis,
+                      projection: executiveRetryTransition
+                    }) ??
+                    assuranceRetryEvents({
+                      basis: request.basis,
+                      runtimeProjection: retryProjection,
+                      replayEvents: eventState.replayEvents,
+                      vectorIndex: transition.vectorIndex,
+                      priorManifestId: resultRef,
+                      assuranceFold,
+                      maxAttempts:
+                        request.maxAttachedFpAttempts ??
+                        DEFAULT_ATTACHED_FP_MAX_RETRY_ATTEMPTS,
+                      executiveContinuationInput
+                    });
               if (!("kind" in assuranceRetry)) {
                 if (mustExitAfterBoundedAttempt(modulatedAttempt)) {
                   const bounded = boundedAttemptExitTransition({
@@ -5777,12 +6054,29 @@ function* runEngineIterateMachine(input: {
                 request.basis,
                 eventState.replayEvents
               );
+              const executiveTerminalTransition =
+                runtimeContinuationTransitionFromExecutive({
+                  basis: request.basis,
+                  runtimeProjection: requirementRouteProjection,
+                  vectorIndex: transition.vectorIndex,
+                  executiveContinuationInput
+                });
+              const fpEvaluationTerminalTransition =
+                runtimeContinuationTransitionFromFpEvaluation({
+                  basis: request.basis,
+                  runtimeProjection: requirementRouteProjection,
+                  vectorIndex: transition.vectorIndex,
+                  fpEvaluationOutcome
+                });
               const requirementRouteContinuationTransition =
+                executiveTerminalTransition ??
+                fpEvaluationTerminalTransition ??
                 deriveRuntimeContinuationTransitionProjection({
                   basis: request.basis,
                   runtimeProjection: requirementRouteProjection,
                   vectorIndex: transition.vectorIndex,
-                  assuranceClosureDecision: assuranceFold.closureDecision
+                  assuranceClosureDecision: assuranceFold.closureDecision,
+                  ...continuationTypedRefsFromExecutive(executiveContinuationInput)
                 });
               eventState = emitRequirementRouteForEdgeClose({
                 state: eventState,
@@ -5794,13 +6088,20 @@ function* runEngineIterateMachine(input: {
                   requirementRouteContinuationTransition
                 ])
               });
+              const continuationTerminal =
+                terminalTransitionForRuntimeContinuationProjection({
+                  basis: request.basis,
+                  projection: requirementRouteContinuationTransition
+                });
+              const terminalTransitionToEmit =
+                continuationTerminal ?? assuranceTerminal;
               eventState = emitRunnerEvents(
                 eventState,
-                constructTerminalReachedEvent(assuranceTerminal)
+                constructTerminalReachedEvent(terminalTransitionToEmit)
               );
               return constructResult({
                 basis: request.basis,
-                transition: assuranceTerminal,
+                transition: terminalTransitionToEmit,
                 projection: deriveRuntimeAggregateProjection(request.basis, eventState.replayEvents),
                 emittedEvents: eventState.emittedEvents,
                 replayEvents: eventState.replayEvents,
@@ -6175,12 +6476,29 @@ function* runEngineIterateMachine(input: {
               request.basis,
               eventState.replayEvents
             );
+            const executiveCloseTransition =
+              runtimeContinuationTransitionFromExecutive({
+                basis: request.basis,
+                runtimeProjection: requirementRouteProjection,
+                vectorIndex: transition.vectorIndex,
+                executiveContinuationInput
+              });
+            const fpEvaluationCloseTransition =
+              runtimeContinuationTransitionFromFpEvaluation({
+                basis: request.basis,
+                runtimeProjection: requirementRouteProjection,
+                vectorIndex: transition.vectorIndex,
+                fpEvaluationOutcome
+              });
             const requirementRouteContinuationTransition =
+              executiveCloseTransition ??
+              fpEvaluationCloseTransition ??
               deriveRuntimeContinuationTransitionProjection({
                 basis: request.basis,
                 runtimeProjection: requirementRouteProjection,
                 vectorIndex: transition.vectorIndex,
-                assuranceClosureDecision: assuranceFold.closureDecision
+                assuranceClosureDecision: assuranceFold.closureDecision,
+                ...continuationTypedRefsFromExecutive(executiveContinuationInput)
               });
             eventState = emitRequirementRouteForEdgeClose({
               state: eventState,

@@ -73,9 +73,49 @@ function t169Bundle() {
   });
 }
 
+function t169BundleWithEmptyRecursiveLineage() {
+  const requirement = publicGtlRequirements.declareRequirement({
+    requirementId: REQUIREMENT_ID,
+    termKind: "atom",
+    stableId: REQUIREMENT_ID,
+    sourceRef: "specification/requirements/abg/REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md#049",
+    sourceDigest: "sha256:t169-empty-recursive-lineage",
+    relationRefs: [],
+    spanRefs: [SPAN_ID],
+    contextRefs: [],
+    evidencePolicyRefs: ["policy://t169/span-lineage"]
+  });
+  const span = publicGtlRequirements.declareTraversalSpan({
+    spanId: SPAN_ID,
+    graphFunctionRef: EDGE.graphFunctionRef,
+    graphVectorRefs: [EDGE.graphVectorRef],
+    vectorIndexes: [EDGE.vectorIndex],
+    sourceNodeRef: EDGE.sourceNodeRef,
+    targetNodeRef: EDGE.targetNodeRef,
+    frameRefs: [],
+    zoomRefs: [],
+    foldbackRefs: [],
+    aliasRefs: []
+  });
+  return publicGtlRequirements.declareBundle({
+    requirements: [requirement],
+    spans: [span]
+  });
+}
+
 function routeContext(edge = EDGE) {
   const context = buildRequirementRouteRuntimeContextFromDeclarations({
     bundle: t169Bundle(),
+    runtimeScope: runtimeScope(),
+    edges: [edge]
+  });
+  assert.equal(context.status, "accepted");
+  return context.value;
+}
+
+function emptyLineageRouteContext(edge = EDGE) {
+  const context = buildRequirementRouteRuntimeContextFromDeclarations({
+    bundle: t169BundleWithEmptyRecursiveLineage(),
     runtimeScope: runtimeScope(),
     edges: [edge]
   });
@@ -143,6 +183,21 @@ test("T-169 rejects vector-index-only activation when declared lineage refs are 
   const environment = publicAbgRequirements.compileEdgeRequirementEnvironment({
     ledger: context.ledger,
     edge: vectorOnlyEdge
+  });
+  assert.equal(environment.activeSpans.length, 0);
+  assert.equal(environment.activeTerms.length, 0);
+  const lineage = publicAbgRequirements.projectSpanLineage({
+    ledger: context.ledger,
+    environment
+  });
+  assert.equal(lineage[0].active, false);
+});
+
+test("T-169 rejects recursive span activation when declared lineage is empty", () => {
+  const context = emptyLineageRouteContext();
+  const environment = publicAbgRequirements.compileEdgeRequirementEnvironment({
+    ledger: context.ledger,
+    edge: EDGE
   });
   assert.equal(environment.activeSpans.length, 0);
   assert.equal(environment.activeTerms.length, 0);

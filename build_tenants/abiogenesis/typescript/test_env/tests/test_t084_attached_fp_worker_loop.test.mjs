@@ -202,6 +202,7 @@ test("T-084 engine runner: attached F_P worker retries from replay state, then c
     "evidence_admitted",
     "evidence_admitted",
     "ambiguity_observation_admitted",
+    "executive_pressure_fact_projected",
     "closure_input_published",
     "vector_evaluated"
   ];

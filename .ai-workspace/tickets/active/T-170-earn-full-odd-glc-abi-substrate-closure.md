@@ -130,16 +130,16 @@ in GTL/ABG.
 
 - [x] GOAL-014 is no longer represented as complete closure.
 - [x] T-167 proves or removes every retained non-closed disposition branch.
-- [ ] T-169 fails closed for absent lineage refs and proves nested traversal
+- [x] T-169 fails closed for absent lineage refs and proves nested traversal
       lineage over emitted/replayed runtime truth.
-- [ ] T-160 is invoked on an ABG runtime path.
-- [ ] T-160 pressure facts are emitted through runtime truth when used as
+- [x] T-160 is invoked on an ABG runtime path.
+- [x] T-160 pressure facts are emitted through runtime truth when used as
       continuation pressure.
-- [ ] T-160 F_P findings are admitted through ABG admission and are not trusted
+- [x] T-160 F_P findings are admitted through ABG admission and are not trusted
       as raw objects.
-- [ ] T-160 live proof does not carry or inject the expected disposition answer.
+- [x] T-160 live proof does not carry or inject the expected disposition answer.
 - [ ] A corrected release candidate is cut and odd_glc is retargeted to it.
-- [ ] Focused, live, semantic, install, and odd_glc substrate tests pass.
+- [x] Focused, live, semantic, install, and odd_glc substrate tests pass.
 
 ## Refuted Closure Evidence
 
@@ -149,42 +149,80 @@ executive control were not proven by runtime-real, non-tautological evidence.
 The rc.14 release remains a historical release candidate, but it must not be
 treated as full odd_glc ABI substrate closure.
 
-- Corrected source commit: `a0f1f7ca7edf2cd6d4d672c4f008792f8d7ea79c`.
-- Release snapshot commit: `4c0c20e`.
-- Corrected release identity: `4.1.0-rc.14`.
-- Release snapshot manifest:
-  `release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.14/release-snapshot-manifest.json`.
-- Tarball SHA256:
-  `e1d22bb4f2429bd4a035b424ca5283f7325c1b5e88e65019a206da05ccae8892`.
-- Release snapshot manifest reports `sourceDirty: false` for source commit
-  `a0f1f7ca7edf2cd6d4d672c4f008792f8d7ea79c`.
-- `release_snapshots/abiogenesis-typescript-tenant/latest` points to
-  `4.1.0-rc.14`.
-- odd_glc retarget commit: `1c25f8d`.
-- odd_glc consumed-substrate provenance now records
-  `@abiogenesis/typescript-tenant@4.1.0-rc.14`,
-  source commit `a0f1f7ca7edf2cd6d4d672c4f008792f8d7ea79c`, snapshot commit
-  `4c0c20e`, tarball SHA256
-  `e1d22bb4f2429bd4a035b424ca5283f7325c1b5e88e65019a206da05ccae8892`, and
-  local product-toolchain manifest digest
-  `511b73ac883a6aa2caba0eeefe8e59335411bac1258bcaedade0891496496c3a`.
+## Root Cause Classification
 
-Verified commands:
+2026-06-29 STDO/DESIGN_MODULE_METHOD root-cause review classified the reopened
+failures as framework-detectable defects, not incidental red/green test drift:
 
-- `npm run test:semantic` passed, 947/947.
+1. Design failure: T-169 overloaded one `TraversalSpan` shape for both
+   vector-local spans and recursive/cross-frame spans. Empty lineage arrays
+   therefore meant wildcard authority in one slice and illegal absence in
+   another. Closure requires recursive span identity to be discriminated by
+   explicit traversal-derived lineage refs or an equivalent fail-closed
+   witness.
+2. Compiler/API failure: live `.mjs` proof harnesses read
+   `evaluationInput.attachedResultArtifact`, a field not present on the
+   TypeScript `EnginePluginInput` interface. Because the live proof files were
+   JavaScript, the compiler did not catch the impossible API call and the live
+   prompts received empty candidates. Closure requires typed live helpers or
+   runtime schema assertions that reject absent/unknown plugin input fields
+   before F_P invocation.
+3. Runtime algebra integration failure: T-160 projected executive
+   `continuationInput` without a consuming ABG continuation edge. Closure
+   requires the emitted pressure fact and the resulting continuation
+   disposition to causally change the runtime transition.
+4. Authority encoding failure: executive re-entry was classified through
+   substring-shaped refs instead of typed/admitted disposition truth. Closure
+   requires closed disposition refs or enums; free-string semantics cannot
+   drive authority.
+5. Proof design failure: the T-169 live assertion accepted multiple
+   incompatible lifecycle dispositions. Closure requires a strict expected
+   disposition and negative proof that wrong dispositions fail.
+6. Activation boundary failure: T-160 ran only when
+   `request.executiveObserver` was supplied. Closure requires a production
+   default observer binding derived from admitted runtime state, with test-only
+   request injection insufficient for activation proof.
+
+These root causes are part of the closure surface. A corrected RC must prove
+that the framework makes each class visible at the algebra/API/proof boundary,
+not merely that the specific live tests turn green.
+
+## Corrected Implementation Evidence
+
+2026-06-29 remediation after the rc.14 refutation:
+
+- T-169 recursive span activation now fails closed only for true recursive
+  lineage gaps. Runtime edges with zoom, foldback, extra frame, or non-edge
+  alias lineage require admitted span lineage refs; ordinary vector-local
+  route spans remain valid.
+- T-160 default executive observation is derived from admitted runtime F_P
+  evaluation state on the production runner path, emits
+  `executive_pressure_fact_projected` through the event stream, and feeds ABG
+  continuation transition projection.
+- Live F_P plugin inputs now carry `attachedResultArtifact` through the typed
+  `EnginePluginInput` API and the live harness asserts it before invoking the
+  worker.
+- Executive disposition uses exact disposition refs, not substring matching.
+- T-169 live proof restores the strict `continuation_available` assertion.
+- F_P `retry` or `no_close` findings with continuation refs are projected into
+  admitted runtime continuation transition truth for the requirements route.
+
+Verified commands on the corrected source:
+
 - `npm run lint:semantic` passed.
 - `npm run lint:test-harness` passed.
-- `npm run test:t164` passed.
-- `npm run test:t167` passed, including blocked and re-entry dispositions.
-- `npm run test:t168` passed.
-- `npm run test:t169` passed.
-- `npm run test:t160` passed.
-- `npm run test:t168:live` passed.
-- `npm run test:t169:live` passed in about 113s for the final run.
-- `npm run test:t160:live` passed in about 103s for the final run.
-- `npm run test:t165:hello-world-live` passed in about 20s for the final run.
+- `npm run test:t160` passed, 9/9.
+- `npm run test:t162` passed, 22/22.
+- `npm run test:t167` passed, 4/4.
+- `npm run test:t168` passed, 2/2.
+- `npm run test:t169` passed, 5/5.
+- `npm run test:semantic` passed, 949/949.
+- `CODEX_LIVE_FP=1 npm run test:t169:live` passed in about 104.8s.
+- `CODEX_LIVE_FP=1 npm run test:t160:live` passed in about 16.8s.
+- `CODEX_LIVE_FP=1 npm run test:t168:live` passed in about 8.6s.
+- `CODEX_LIVE_FP=1 npm run test:t165:hello-world-live` passed in about 10.7s.
+- `git diff --check` passed.
 - `npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run --json` produced
-  `abiogenesis-typescript-tenant-4.1.0-rc.14.tgz`.
-- `sha256sum -c checksums.sha256` passed for the rc.14 snapshot.
-- `cd /Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript && npm test`
-  passed, 17/17.
+  `abiogenesis-typescript-tenant-4.1.0-rc.15.tgz`.
+
+RC cut and downstream retarget are still pending in this source checkpoint.

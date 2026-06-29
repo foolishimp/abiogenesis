@@ -530,6 +530,7 @@ test("T-128 construction runner consumes admitted intent and closes mixed F_P/F_
       "evidence_admitted",
       "evidence_admitted",
       "ambiguity_observation_admitted",
+      "executive_pressure_fact_projected",
       "closure_input_published",
       "vector_evaluated",
       ...composedStageOutcomeEvents,

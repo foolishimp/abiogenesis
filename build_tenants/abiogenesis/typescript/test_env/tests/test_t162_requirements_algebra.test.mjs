@@ -361,9 +361,9 @@ test("T-162 broad traversal spans cover interior edges by declared vector index 
     vectorIndexes: [0, 4],
     sourceNodeRef: "node://A",
     targetNodeRef: "node://X",
-    frameRefs: [],
-    zoomRefs: [],
-    foldbackRefs: [],
+    frameRefs: edge.frameRefs,
+    zoomRefs: edge.zoomRefs,
+    foldbackRefs: edge.foldbackRefs,
     aliasRefs: []
   });
   const broadTerm = constructRequirementTerm({
@@ -929,9 +929,9 @@ test("T-162 multi-span requirements project and residualize against the active s
     vectorIndexes: [edge.vectorIndex],
     sourceNodeRef: "node://design",
     targetNodeRef: "node://validation",
-    frameRefs: [],
-    zoomRefs: [],
-    foldbackRefs: [],
+    frameRefs: edge.frameRefs,
+    zoomRefs: edge.zoomRefs,
+    foldbackRefs: edge.foldbackRefs,
     aliasRefs: []
   });
   const term = constructRequirementTerm({
@@ -1173,9 +1173,9 @@ test("T-162 fold source truth is scoped per requirement on multi-term edges", ()
     vectorIndexes: [edge.vectorIndex],
     sourceNodeRef: "node://design",
     targetNodeRef: "node://validation",
-    frameRefs: [],
-    zoomRefs: [],
-    foldbackRefs: [],
+    frameRefs: edge.frameRefs,
+    zoomRefs: edge.zoomRefs,
+    foldbackRefs: edge.foldbackRefs,
     aliasRefs: []
   });
   const secondTerm = constructRequirementTerm({

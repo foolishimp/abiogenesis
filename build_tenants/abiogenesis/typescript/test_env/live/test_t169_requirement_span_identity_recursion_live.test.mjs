@@ -430,6 +430,11 @@ function liveEvaluatorPlugin(input) {
     contract: fpEvaluatorContract("plugin://t169/live/fp-evaluator"),
     async evaluate(evaluationInput) {
       const candidate = evaluationInput.attachedResultArtifact;
+      assert.notEqual(
+        candidate,
+        null,
+        "T-169 live proof requires an admitted dispatch candidate artifact"
+      );
       const transport = await runAgentTransport({
         contract: contractForKnownAgent(input.agentKey),
         prompt: evaluatorPrompt({
@@ -604,10 +609,8 @@ test("T-169 live F_P worker preserves recursive span lineage into replay artifac
   )[0];
   assert.equal(dispositionEvent.requirementPayload.residualRefs.length > 0, true);
   assert.equal(
-    ["continuation_available", "reentry_available", "blocked"].includes(
-      dispositionEvent.requirementPayload.disposition
-    ),
-    true
+    dispositionEvent.requirementPayload.disposition,
+    "continuation_available"
   );
 
   const contextEvents = routeEventsByPayloadKind(

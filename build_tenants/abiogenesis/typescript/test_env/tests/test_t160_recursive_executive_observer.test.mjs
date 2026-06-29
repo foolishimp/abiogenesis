@@ -45,6 +45,8 @@ const OBSERVATION_INPUT = Object.freeze({
   policyRefs: ["policy://t160/executive-default"],
   hookRefs: ["hook://abg/fp-consciousness/default"]
 });
+const EXECUTIVE_DISPOSITION_NONLOCAL_REENTRY_REF =
+  "abg.executive.disposition://nonlocal_reentry";
 
 function finding(input = {}) {
   return publicRoot.constructFpEvaluationFinding({
@@ -189,7 +191,7 @@ function runnerEvaluatorPlugin() {
               input.selectedRegimeBindingRef ?? input.selectedCompositionRef,
             compositionRef: input.selectedCompositionRef,
             compositionDigest: input.selectedCompositionDigest,
-            diagnosticRefs: ["diagnostic://t160/runner/reentry-required"]
+            diagnosticRefs: [EXECUTIVE_DISPOSITION_NONLOCAL_REENTRY_REF]
           })
         ],
         evidenceRefs: [input.sourceProjectionRef],
@@ -264,7 +266,7 @@ test("T-160 routes nonlocal executive pressure to reentry projection input", () 
         findingRef: "finding://t160/reentry",
         residualPressureRefs: ["pressure://t160/nonlocal"],
         continuationRefs: ["continuation://t160/reentry/requirements"],
-        diagnosticRefs: ["diagnostic://t160/reentry-required"]
+        diagnosticRefs: [EXECUTIVE_DISPOSITION_NONLOCAL_REENTRY_REF]
       })
     ])
   });
@@ -285,7 +287,7 @@ test("T-160 runner wrapper composes observation, pressure, and continuation proj
         findingRef: "finding://t160/runner-reentry",
         residualPressureRefs: ["pressure://t160/nonlocal"],
         continuationRefs: ["continuation://t160/reentry/requirements"],
-        diagnosticRefs: ["diagnostic://t160/reentry-required"]
+        diagnosticRefs: [EXECUTIVE_DISPOSITION_NONLOCAL_REENTRY_REF]
       })
     ])
   });
@@ -341,6 +343,49 @@ test("T-160 engine runner emits executive pressure facts into replay events", as
     sinkEvents.some((event) => event.kind === "executive_pressure_fact_projected"),
     true
   );
+  assert.equal(result.transition.kind, "terminal");
+  assert.equal(result.transition.terminalKind, "yielded");
+  assert.match(result.transition.reason, /typed_yield/u);
+});
+
+test("T-160 production runner opens default executive observer without request injection", async () => {
+  const basis = firstTraversalBasis(
+    buildThreeStageBasis({
+      defaultRegime: "F_P",
+      dispatchRef: "dispatch://t160/default-runner",
+      runId: "run://t160/default-runner"
+    })
+  );
+  const sinkEvents = [];
+  const result = await publicRoot.runEngineIterateAsync({
+    basis,
+    eventSink: (event) => {
+      sinkEvents.push(event);
+    },
+    plugins: {
+      fpDispatch: runnerDispatchPlugin(),
+      fpEvaluator: runnerEvaluatorPlugin()
+    }
+  });
+  const pressureEvents = result.replayEvents.filter((event) =>
+    event.kind === "executive_pressure_fact_projected"
+  );
+  assert.equal(
+    pressureEvents.length,
+    1,
+    result.replayEvents.map((event) => event.kind).join(", ")
+  );
+  assert.equal(
+    pressureEvents[0].executivePressureFact.disposition,
+    "nonlocal_reentry"
+  );
+  assert.equal(
+    sinkEvents.some((event) => event.kind === "executive_pressure_fact_projected"),
+    true
+  );
+  assert.equal(result.transition.kind, "terminal");
+  assert.equal(result.transition.terminalKind, "yielded");
+  assert.match(result.transition.reason, /typed_yield/u);
 });
 
 test("T-160 rejects executive findings carrying runtime authority fields", () => {

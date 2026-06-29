@@ -273,6 +273,7 @@ export interface EnginePluginInput {
   readonly retryFrontier: RetryFrontierProjection;
   readonly outputAuthorityProjections: readonly AdmittedOutputAuthorityProjection[];
   readonly actorInvocationRef: ActorInvocationRef | null;
+  readonly attachedResultArtifact: Readonly<Record<string, unknown>> | null;
   readonly fpTransformRequest: FpTransformRequest | null;
   readonly pluginTraversalObserverBinding: PluginTraversalObserverBindingSelection | null;
   readonly edgeAssuranceResolution: EdgeAssuranceResolution;
@@ -1196,6 +1197,10 @@ export function constructEnginePluginInput(input: {
   readonly edge: string;
   readonly regime: RuntimeRegime;
   readonly actorInvocationRef?: ActorInvocationRef | null | undefined;
+  readonly attachedResultArtifact?:
+    | Readonly<Record<string, unknown>>
+    | null
+    | undefined;
   readonly traversalStrategySelection?:
     | TraversalStrategySelection
     | null
@@ -1423,6 +1428,14 @@ export function constructEnginePluginInput(input: {
     retryFrontier,
     outputAuthorityProjections,
     actorInvocationRef: normalizedActorInvocationRef,
+    attachedResultArtifact:
+      input.attachedResultArtifact === undefined ||
+      input.attachedResultArtifact === null
+        ? null
+        : parsePlainObject(
+            input.attachedResultArtifact,
+            "EnginePluginInput.attachedResultArtifact"
+          ),
     fpTransformRequest,
     pluginTraversalObserverBinding,
     edgeAssuranceResolution,

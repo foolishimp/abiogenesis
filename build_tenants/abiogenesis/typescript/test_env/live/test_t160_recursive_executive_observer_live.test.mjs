@@ -26,6 +26,11 @@ const TEST_RUNS_ROOT = path.join(
   "t160_recursive_executive_observer_live"
 );
 const REQUIREMENT_ID = "REQ-T160-LIVE-PRESSURE";
+const EXECUTIVE_DISPOSITION_REFS = Object.freeze({
+  nonlocal_reentry: "abg.executive.disposition://nonlocal_reentry",
+  reprice: "abg.executive.disposition://reprice",
+  block: "abg.executive.disposition://block"
+});
 
 function liveEnabled() {
   return process.env["ABG_TS_T160_EXECUTIVE_OBSERVER_LIVE"] === "1" ||
@@ -150,7 +155,7 @@ function dispatchPlugin() {
           candidate: Object.freeze({
             kind: "executive_observer_live_candidate",
             unresolvedPressure: "pressure://t160/live/original-gap",
-            repairSurface: "requirements boundary may need nonlocal re-entry",
+            repairSurface: "the needed repair is outside the current edge",
             localEdgeEvidence: "current edge did not clear the requirement pressure"
           }),
           fulfillment_assessments: assessmentIds.map((id) =>
@@ -209,6 +214,11 @@ function evaluatorPlugin(input) {
   return Object.freeze({
     contract: fpEvaluatorContract("plugin://t160/live/fp-evaluator"),
     async evaluate(evaluationInput) {
+      assert.notEqual(
+        evaluationInput.attachedResultArtifact,
+        null,
+        "T-160 live proof requires an admitted dispatch candidate artifact"
+      );
       const transport = await runAgentTransport({
         contract: contractForKnownAgent(input.agentKey),
         prompt: executivePrompt({
@@ -246,11 +256,11 @@ function evaluatorPlugin(input) {
       const diagnosticRefs = Array.isArray(assessment.diagnosticRefs)
         ? assessment.diagnosticRefs
         : [];
+      const dispositionRef = EXECUTIVE_DISPOSITION_REFS[assessment.disposition];
       const translatedDiagnosticRefs =
-        assessment.disposition === "nonlocal_reentry" &&
-        !diagnosticRefs.some((ref) => ref.includes("reentry"))
-          ? [...diagnosticRefs, "diagnostic://t160/live/llm-nonlocal-reentry"]
-          : diagnosticRefs;
+        dispositionRef === undefined
+          ? diagnosticRefs
+          : [...diagnosticRefs, dispositionRef];
       const evidenceRefs =
         Array.isArray(assessment.evidenceRefs) &&
         assessment.evidenceRefs.length > 0
@@ -355,9 +365,6 @@ test("T-160 live F_P executive observer emits pressure through engine replay", a
         observation
       })
     },
-    executiveObserver: {
-      observation
-    }
   });
 
   assert.equal(result.transition.kind, "terminal");
@@ -377,6 +384,12 @@ test("T-160 live F_P executive observer emits pressure through engine replay", a
     pressureEvents[0].pressureFactRef,
     pressureEvents[0].executivePressureFact.pressureFactRef
   );
+  assert.equal(
+    pressureEvents[0].executivePressureFact.disposition,
+    "nonlocal_reentry"
+  );
+  assert.equal(result.transition.terminalKind, "yielded");
+  assert.match(result.transition.reason, /typed_yield/u);
 
   const proof = await writeExecutiveObserverArtifact({
     runRoot,

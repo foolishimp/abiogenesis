@@ -1680,7 +1680,7 @@ export function projectRequirementLedger(
   return ledger;
 }
 
-function overlaps(left: readonly string[] | undefined, right: readonly string[]): boolean {
+function declaredRefsMatch(left: readonly string[] | undefined, right: readonly string[]): boolean {
   if (right.length === 0) {
     return true;
   }
@@ -1689,6 +1689,25 @@ function overlaps(left: readonly string[] | undefined, right: readonly string[])
   }
   const rightSet = new Set(right);
   return left.some((value) => rightSet.has(value));
+}
+
+function hasRuntimeLineage(edge: RequirementEdgeRef): boolean {
+  const aliasRefs = edge.aliasRefs ?? Object.freeze([]);
+  return (
+    (edge.frameRefs?.length ?? 0) > 1 ||
+    (edge.zoomRefs?.length ?? 0) > 0 ||
+    (edge.foldbackRefs?.length ?? 0) > 0 ||
+    aliasRefs.some((ref) => ref !== edge.edge)
+  );
+}
+
+function hasDeclaredLineage(span: TraversalSpan): boolean {
+  return (
+    span.frameRefs.length > 0 ||
+    span.zoomRefs.length > 0 ||
+    span.foldbackRefs.length > 0 ||
+    span.aliasRefs.length > 0
+  );
 }
 
 function optionalStringMatches(
@@ -1751,19 +1770,23 @@ function spanCoversEdge(span: TraversalSpan, edge: RequirementEdgeRef): boolean 
     }
   }
 
-  if (!overlaps(edge.frameRefs, span.frameRefs)) {
+  if (hasRuntimeLineage(edge) && !hasDeclaredLineage(span)) {
     return false;
   }
-  if (!overlaps(edge.zoomRefs, span.zoomRefs)) {
+
+  if (!declaredRefsMatch(edge.frameRefs, span.frameRefs)) {
     return false;
   }
-  if (!overlaps(edge.foldbackRefs, span.foldbackRefs)) {
+  if (!declaredRefsMatch(edge.zoomRefs, span.zoomRefs)) {
+    return false;
+  }
+  if (!declaredRefsMatch(edge.foldbackRefs, span.foldbackRefs)) {
     return false;
   }
   if (span.aliasRefs.length === 0) {
     return true;
   }
-  return overlaps(edge.aliasRefs, [edge.edge, ...span.aliasRefs]);
+  return declaredRefsMatch(edge.aliasRefs, [edge.edge, ...span.aliasRefs]);
 }
 
 function termHasActiveSpan(

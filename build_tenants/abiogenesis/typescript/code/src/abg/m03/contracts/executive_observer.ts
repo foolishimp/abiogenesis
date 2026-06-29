@@ -30,6 +30,13 @@ const FORBIDDEN_EXECUTIVE_AUTHORITY_FIELDS = Object.freeze([
   "frameMutation"
 ]);
 
+const EXECUTIVE_DISPOSITION_NONLOCAL_REENTRY_REF =
+  "abg.executive.disposition://nonlocal_reentry";
+const EXECUTIVE_DISPOSITION_REPRICE_REF =
+  "abg.executive.disposition://reprice";
+const EXECUTIVE_DISPOSITION_BLOCK_REF =
+  "abg.executive.disposition://block";
+
 export type ExecutivePressureDisposition =
   | "attenuated"
   | "non_attenuating_retry"
@@ -296,9 +303,16 @@ function pressureDisposition(input: {
   if (input.finding.closeDisposition === "human_required") {
     return "reprice";
   }
+  if (input.finding.diagnosticRefs.includes(EXECUTIVE_DISPOSITION_REPRICE_REF)) {
+    return "reprice";
+  }
+  if (input.finding.diagnosticRefs.includes(EXECUTIVE_DISPOSITION_BLOCK_REF)) {
+    return "block";
+  }
   if (
-    input.finding.diagnosticRefs.some((ref) => ref.includes("reentry")) ||
-    input.finding.continuationRefs.some((ref) => ref.includes("reentry"))
+    input.finding.diagnosticRefs.includes(
+      EXECUTIVE_DISPOSITION_NONLOCAL_REENTRY_REF
+    )
   ) {
     return "nonlocal_reentry";
   }
