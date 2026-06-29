@@ -41,7 +41,7 @@ product-local loop/controller authority rather than rebuilding it.
 | `GOAL-013` | `Proof` + `Projection` + `Downstream Consumption` | Publish the requirements-route replay proof as a downstream-consumable artifact without exposing ABG runtime-internal emitters. | A T-165 or successor proof run writes a digest-pinned route replay artifact and manifest containing serialized `requirement_route_fact_projected` events and replay-derived lifecycle state; downstream consumers can prove read-only consumption from that artifact while ABG keeps emission, admission, fold, residual, and disposition authority internal. | `T-166`, `test:t166`, `test:t166:live` | Completed | `T-166` |
 | `GOAL-014` | `GTL` + `ABG Runtime` + `Requirements` + `Projection` | Close the ABI substrate gaps needed for odd_glc beyond route-1 closed-path consumption. | ABI publishes a non-closed requirements-route replay artifact with residual and continuation/re-entry truth; GTL ratifies requirement graph/refinement declarations; ABG admits/projects/folds/residualizes multi-requirement structure; span identity is stable across frame, zoom, recursion, foldback, and re-entry boundaries; recursive executive observation preserves obligation pressure without downstream product-local controllers. | `T-167`, `T-168`, `T-169`, `T-160`, `T-170` | Completed | `T-170` |
 | `GOAL-015` | `GTL` + `ABG Runtime` + `Requirements` + `Projection` + `Release` | Earn the corrected full odd_glc ABI substrate closure under STDO/DMM. | T-167 proves every retained non-closed disposition branch through real emitted route events; T-169 proves recursive span identity across a nested traversal rather than first-traversal declaration projection; T-160 is invoked on a runtime path, admits live F_P findings through ABG, emits executive pressure facts through the event stream, and feeds ABG continuation without prompt-carried or fixture-injected answers; a corrected RC is cut and odd_glc is retargeted only after focused, live, semantic, install, and downstream smoke tests pass. | `T-170`, `T-169`, `T-160` | Completed | `T-170` |
-| `GOAL-016` | `GTL` + `ABG Runtime` + `Actor/Operator` + `Proof` | Prove the remaining ABI runtime capabilities required by odd_glc Hello World ladder rungs that are not covered by rc16: artifact-plus-test evidence, non-JS toolchain execution, and service process/client-request execution. | ABI publishes live, event-sourced, replay-consumable proof artifacts for JS subject artifact plus independent test evidence, for Cargo/cwd/env execution, and for service process start, port/env binding, client request, response evidence, cleanup, fold, residual, and disposition truth. | `T-171`, `T-172`, `T-173` | Active | `T-171`, `T-172`, `T-173` |
+| `GOAL-016` | `GTL` + `ABG Runtime` + `Actor/Operator` + `Proof` | Prove the remaining generic ABI runtime mechanics required by odd_glc Hello World ladder rungs that are not covered by rc16: multi-role proof evidence, non-default command execution, and long-running process/request execution. | ABI publishes live, event-sourced, replay-consumable proof artifacts for generic subject-artifact, verifier-artifact, and verifier-execution evidence roles; for declared command/cwd/env execution; and for declared process start, endpoint/env binding, request, response evidence, cleanup, fold, residual, and disposition truth. JavaScript, Cargo, and service bindings are proof scenarios only; ABI owns no language, test, service, release, or acceptability policy. | `T-171`, `T-172`, `T-173` | Active | `T-171`, `T-172`, `T-173` |
 
 ## Wave Boundary
 
@@ -226,21 +226,28 @@ corrected recursive substrate.
 
 The active odd_glc ladder prerequisite wave covers:
 
-1. `T-173` artifact-plus-test evidence, with a live JavaScript tenant proof
-   that records separate subject artifact, proof artifact, test execution,
-   admitted evidence, requirement evidence binding, fold, residual, and
-   disposition through ABG runtime truth.
-2. `T-171` non-JS toolchain execution, with a live Cargo proof that records cwd,
-   env, command invocation, stdout/stderr/exit status, admitted evidence,
-   requirement evidence binding, fold, residual, and disposition through ABG
-   runtime truth.
-3. `T-172` service process/client-request execution, with a live proof that
-   records process start, port/env binding, client request, response evidence,
-   cleanup/termination, admitted evidence, requirement evidence binding, fold,
-   residual, and disposition through ABG runtime truth.
+1. `T-173` generic multi-role proof evidence, with a live JavaScript binding
+   that records separate subject-artifact, verifier-artifact,
+   verifier-execution, admitted evidence, requirement evidence binding, fold,
+   residual, and disposition through ABG runtime truth. JavaScript test meaning
+   is plugin/downstream policy, not ABI policy.
+2. `T-171` generic non-default command execution, with a live Cargo binding that
+   records cwd, env, command invocation, stdout/stderr/exit status, admitted
+   evidence, requirement evidence binding, fold, residual, and disposition
+   through ABG runtime truth. Cargo/Rust meaning is a proof scenario binding,
+   not ABI policy.
+3. `T-172` generic long-running process/request execution, with a live service
+   binding that records process start, endpoint/env binding, client request,
+   response evidence, cleanup/termination, admitted evidence, requirement
+   evidence binding, fold, residual, and disposition through ABG runtime truth.
+   Service readiness and request acceptability are plugin/downstream policy, not
+   ABI policy.
 
 This wave exists because odd_glc shall not invent local execution, service
 supervision, request admission, evidence binding, fold, residual, or
 disposition authority for its JavaScript tenant/test, Rust CLI, and Rust
-service Hello World ladder rungs. Those rungs remain upstream-blocked or
-partially blocked until this ABI wave publishes digest-pinned proof artifacts.
+service Hello World ladder rungs. ABI owns only generic actor/operator,
+admission, evidence-role, replay, fold, residual, and disposition mechanics.
+Plugins and downstream declarations own language/toolchain/test/service
+semantics and policy content. Those rungs remain upstream-blocked or partially
+blocked until this ABI wave publishes digest-pinned proof artifacts.

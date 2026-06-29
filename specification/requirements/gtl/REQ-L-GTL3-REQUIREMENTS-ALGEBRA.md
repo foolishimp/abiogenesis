@@ -11,7 +11,7 @@
 
 Define the GTL-facing declaration wrappers that let human-agent authors express
 requirement identity, relations, spans, staged context, destination topology,
-test relations, and evidence policy without creating a second requirements
+proof-evidence relations, and evidence policy without creating a second requirements
 language beside GTL.
 
 GTL exposes declarations. ABG owns admission, replay, projection, fold,
@@ -29,7 +29,7 @@ residual, continuation, closure, and query truth.
 
 **REQ-L-GTL3-REQUIREMENTS-ALGEBRA-005**: Destination topology declarations shall describe HOW constraint frameworks such as tenant, technology, runtime, package, deployment, proof, or regulatory topology without becoming WHAT requirement meaning.
 
-**REQ-L-GTL3-REQUIREMENTS-ALGEBRA-006**: Requirement test relations shall keep asset projection, test-source projection, test-execution projection, and semantic interpretation projection distinct.
+**REQ-L-GTL3-REQUIREMENTS-ALGEBRA-006**: Requirement proof-evidence relations shall keep subject-artifact projection, verifier-artifact projection, verifier-execution projection, and semantic interpretation projection distinct. Compatibility names such as test relation, test-source, or test-execution are generic proof-role spellings only; GTL shall not define product test policy.
 
 **REQ-L-GTL3-REQUIREMENTS-ALGEBRA-007**: GTL conformance gates shall fail closed for malformed requirement declarations, duplicate stable ids, dangling refs, invalid spans, unresolved graph-function/vector refs, unknown relation kinds, open payloads, and authority-smuggling fields.
 
@@ -45,9 +45,9 @@ residual, continuation, closure, and query truth.
 
 **REQ-L-GTL3-REQUIREMENTS-ALGEBRA-013**: GTL conformance for requirement route declarations shall fail closed for unknown route refs, missing contract refs, malformed source digests, duplicate lifecycle composition refs, and any field that attempts to smuggle ABG runtime state or event authority into GTL.
 
-**REQ-L-GTL3-REQUIREMENTS-ALGEBRA-014**: GTL requirement graph declarations shall express parent/child, refinement, dependency, obstruction, mitigation, satisfaction, evidence, assurance, and test structure through existing `RequirementTerm` declarations and typed requirement relation declarations. They shall not introduce a second KAOS, goal, decomposition, obstacle, or requirement-graph carrier kernel.
+**REQ-L-GTL3-REQUIREMENTS-ALGEBRA-014**: GTL requirement graph declarations shall express parent/child, refinement, dependency, obstruction, mitigation, satisfaction, evidence, assurance, and proof-evidence structure through existing `RequirementTerm` declarations and typed requirement relation declarations. They shall not introduce a second KAOS, goal, decomposition, obstacle, or requirement-graph carrier kernel, and they shall not turn proof-role labels into product test policy.
 
-**REQ-L-GTL3-REQUIREMENTS-ALGEBRA-015**: GTL requirement graph conformance shall fail closed for duplicate requirement ids, duplicate relation ids, duplicate traversal span ids, dangling term relation refs, dangling term span refs, dangling relation endpoints, dangling test-relation requirement ids, and unknown relation kinds.
+**REQ-L-GTL3-REQUIREMENTS-ALGEBRA-015**: GTL requirement graph conformance shall fail closed for duplicate requirement ids, duplicate relation ids, duplicate traversal span ids, dangling term relation refs, dangling term span refs, dangling relation endpoints, dangling proof-relation requirement ids, and unknown relation kinds.
 
 **REQ-L-GTL3-REQUIREMENTS-ALGEBRA-016**: GTL requirement graph declarations shall remain declaration-only. Parent/child or refinement structure may name published ABG route refs, but it shall not import ABG runtime modules, mint admitted refs, emit runtime events, project folds, residualize pressure, select continuation, or route re-entry.
 

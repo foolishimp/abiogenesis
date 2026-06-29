@@ -69,15 +69,15 @@ semantic judgment.
 
 **REQ-R-ABG3-REQUIREMENTS-ALGEBRA-013**: Execution schedule projection shall prefer admitted schedule commands over fallback commands when both address the same requirement projection.
 
-**REQ-R-ABG3-REQUIREMENTS-ALGEBRA-014**: Evidence binding shall distinguish asset projection, test-source projection, test-execution projection, and semantic interpretation projection. One evidence kind shall not close another by path shape or pass status alone.
+**REQ-R-ABG3-REQUIREMENTS-ALGEBRA-014**: Evidence binding shall distinguish subject-artifact projection, verifier-artifact projection, verifier-execution projection, and semantic interpretation projection. Current compatibility spellings such as `asset`, `test_source`, and `test_execution` name these generic proof-evidence roles; they shall not define software-test policy. One evidence kind shall not close another by path shape, tool name, or pass status alone.
 
 **REQ-R-ABG3-REQUIREMENTS-ALGEBRA-015**: Current admitted evidence for a requirement projection shall supersede empty or stale predecessor replay for the same projection without erasing event history.
 
 **REQ-R-ABG3-REQUIREMENTS-ALGEBRA-016**: Declared build byproducts shall bind as non-closing evidence unless explicitly admitted under the active requirement projection.
 
-**REQ-R-ABG3-REQUIREMENTS-ALGEBRA-017**: A materialized file under a declared test root shall classify as test-source evidence only when an active requirement test relation admits that test root and projection role.
+**REQ-R-ABG3-REQUIREMENTS-ALGEBRA-017**: A materialized file under a declared verifier-artifact root shall classify as verifier-artifact evidence only when an active requirement proof relation admits that root and projection role. Filesystem path shape shall not let ABI infer product test meaning.
 
-**REQ-R-ABG3-REQUIREMENTS-ALGEBRA-018**: Component-test execution discoverability shall not be required before admitted test-source materialization can be represented as partial non-closing evidence.
+**REQ-R-ABG3-REQUIREMENTS-ALGEBRA-018**: Verifier-execution discoverability shall not be required before admitted verifier-artifact materialization can be represented as partial non-closing evidence.
 
 **REQ-R-ABG3-REQUIREMENTS-ALGEBRA-019**: Requirement fold projection states shall be mapped over existing ABG assurance fold, continuation, and evaluate-next truth. Requirement folds shall not introduce a second closure decision family.
 
@@ -91,7 +91,7 @@ semantic judgment.
 
 **REQ-R-ABG3-REQUIREMENTS-ALGEBRA-024**: Unknown or unclassified state shall not be admitted into F_D. It shall be rejected, structurally classified, or routed to typed F_P/F_H pressure before deterministic evaluation.
 
-**REQ-R-ABG3-REQUIREMENTS-ALGEBRA-025**: Deterministic completeness gates shall fail closed for missing span coverage, evidence-policy coverage, context routing, destination-topology coverage, test-relation coverage, or fold-attenuation coverage.
+**REQ-R-ABG3-REQUIREMENTS-ALGEBRA-025**: Deterministic completeness gates shall fail closed for missing span coverage, evidence-policy coverage, context routing, destination-topology coverage, proof-relation coverage, or fold-attenuation coverage.
 
 **REQ-R-ABG3-REQUIREMENTS-ALGEBRA-026**: Obstacle and conflict gates shall check only structural resolution of already-admitted obstacles and conflicts. F_P owns ambiguous obstacle or conflict plausibility and admission.
 

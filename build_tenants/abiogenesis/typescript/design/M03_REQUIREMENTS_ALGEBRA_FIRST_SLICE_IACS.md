@@ -17,7 +17,7 @@
 | `RequirementEvidenceBinding` | admitted/non-closing evidence binding | It separates evidence source, execution, and interpretation without closing by path shape. |
 | `RequirementFoldProjection` | requirement-scoped fold projection | It maps to existing ABG assurance truth without owning closure. |
 | `RequirementResidualProjection` | preserved pressure read model | It carries remaining span and owner surface without owning retry/re-entry. |
-| `RequirementTestRelation` | requirement-to-test evidence relation | It binds asset, test source, execution, and interpretation projections without letting path shape own evidence role. |
+| `RequirementTestRelation` | compatibility-named requirement-to-proof evidence relation | It binds subject-artifact, verifier-artifact, verifier-execution, and interpretation projections without letting path shape, tool name, or pass status own evidence role or product policy. |
 | `RequirementAssuranceClaim` | assurance-case read model | It renders claim/evidence/context over existing fold/residual truth. |
 
 ## Admitted Payload Carriers

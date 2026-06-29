@@ -9,7 +9,9 @@ goal: >-
   truth, issue a client request, admit response and cleanup evidence, and route
   requirement evidence binding, fold, residual, and disposition through ABI
   runtime truth. This unblocks the odd_glc Rust service ladder rung without
-  allowing odd_glc to own a service supervisor or HTTP proof admission.
+  allowing odd_glc to own a service supervisor or HTTP proof admission. The
+  service/HTTP shape is the live proof binding for generic process/request
+  execution, not ABI-owned service or protocol policy.
 change_class: requirement_reprice
 re_entry_point: design_reframe
 owner: abiogenesis
@@ -44,7 +46,9 @@ target_truth: >-
   ABI can prove a declared service capability through process-start,
   client-request, response-evidence, cleanup, requirement binding, fold,
   residual, disposition, and replay truth without downstream supervision or
-  request-admission authority.
+  request-admission authority. ABI records process/request/response/cleanup
+  truth; it does not define service readiness, protocol correctness, or
+  response acceptability policy.
 superseded_truth: >-
   A liveness observer, local service fixture, or local HTTP smoke test is enough
   to claim service process readiness for odd_glc.
@@ -54,6 +58,8 @@ closure_law: >-
   authority, admits port/env/process truth, performs a client request through
   ABG-owned execution/admission truth, records response and cleanup evidence,
   emits requirement route truth, and publishes a digest-pinned replay artifact.
+  Service readiness and response acceptability shall enter through admitted
+  declarations, plugin outputs, or policy refs, not ABI inference.
 non_closure_conditions:
   - The service is started or supervised by the test harness outside ABG
     actor/operator authority.
@@ -64,6 +70,8 @@ non_closure_conditions:
     outside the ABI requirements route.
   - Failed start, failed probe, or cleanup failure cannot produce residual,
     blocked, continuation, or re-entry truth through ABI.
+  - ABI hard-codes service readiness, HTTP semantics, response acceptability, or
+    cleanup policy instead of consuming admitted declarations or policy refs.
   - No live proof is run before closure.
 required_work:
   - Audit current process, actor/operator, and client-request capability
@@ -71,7 +79,9 @@ required_work:
   - Ratify any missing GTL declaration or ABG runtime contract for service
     process lifecycle, port/env binding, client request, response evidence, and
     cleanup.
-  - Implement a live service proof path without product-local supervision.
+  - Implement a live service proof path as a scenario binding over generic
+    process/request execution without product-local supervision or ABI-owned
+    service/protocol policy.
   - Publish a digest-pinned replay artifact equivalent in role to T-166.
   - Prove downstream query/read-only consumption can identify service
     capability, request/response evidence, fold, residual, disposition, and
@@ -95,7 +105,9 @@ GTL/ABG runtime proof.
 odd_glc has a Rust service scenario, but ABI rc16 does not contain a service
 process-start plus client-request proof. The missing capability belongs
 upstream because process lifecycle, request admission, evidence admission,
-fold, residual, continuation, and disposition are ABG authority.
+fold, residual, continuation, and disposition are ABG authority. Service
+readiness, protocol semantics, and response acceptability remain plugin or
+downstream policy.
 
 ### Lawful Re-Entry
 

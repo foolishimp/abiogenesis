@@ -9,7 +9,9 @@ goal: >-
   Rust Cargo or rustc Hello World command, with cwd/env binding, admitted
   runtime evidence, requirement evidence binding, fold, residual, disposition,
   and replay-consumable proof truth. This unblocks the odd_glc Rust CLI ladder
-  rung without allowing odd_glc to shell out locally.
+  rung without allowing odd_glc to shell out locally. Cargo/Rust is the live
+  proof binding for generic command execution, not ABI-owned language or
+  toolchain policy.
 change_class: requirement_reprice
 re_entry_point: design_reframe
 owner: abiogenesis
@@ -44,7 +46,8 @@ target_truth: >-
   ABI can run a declared non-JS toolchain capability through ABG actor/operator
   authority and publish replay-consumable proof that a downstream product can
   read without owning execution, admission, evidence binding, fold, residual,
-  or disposition authority.
+  or disposition authority. ABI records command/cwd/env/runtime evidence; it
+  does not define Rust correctness or Cargo acceptability policy.
 superseded_truth: >-
   Existing Node/JavaScript execution proof or frozen odd_sdlc Rust fixtures are
   enough to claim non-JS toolchain execution readiness for odd_glc.
@@ -53,7 +56,9 @@ closure_law: >-
   World CLI capability, executes Cargo or rustc through ABG actor/operator
   authority with declared cwd/env, admits runtime evidence, emits requirement
   route truth through the event stream, folds/residualizes/disposes through ABI,
-  and publishes a digest-pinned replay artifact.
+  and publishes a digest-pinned replay artifact. The proof shall consume
+  declared plugin/downstream policy refs for toolchain meaning where needed; ABI
+  shall not infer language semantics from command names.
 non_closure_conditions:
   - The proof uses JavaScript/Node execution as a stand-in for Cargo or rustc.
   - The proof reads frozen odd_sdlc fixtures or local logs instead of ABG
@@ -66,13 +71,16 @@ non_closure_conditions:
     outside the ABI requirements route.
   - Missing Rust tooling is skipped as success instead of failing closed,
     deferring, or documenting an explicit non-closure.
+  - ABI hard-codes Rust, Cargo, compiler, language, or acceptability policy
+    instead of consuming admitted declarations or policy refs.
   - No live proof is run before closure.
 required_work:
   - Audit current actor/operator execution surfaces for non-JS command support.
   - Ratify any missing GTL declaration or ABG runtime contract needed for
     command, cwd, env, and toolchain identity.
-  - Implement the Rust CLI proof path without introducing a product-local
-    executor.
+  - Implement the Rust CLI proof path as a scenario binding over generic command
+    execution without introducing a product-local executor or ABI-owned
+    Rust/Cargo policy.
   - Publish a digest-pinned replay artifact equivalent in role to T-166.
   - Prove downstream query/read-only consumption can identify target artifact,
     capability, evidence binding, fold, residual, and disposition refs.
@@ -95,7 +103,8 @@ GTL/ABG runtime proof.
 odd_glc has a Rust CLI scenario, but ABI rc16 does not contain a live Cargo or
 rustc execution proof. The missing capability belongs upstream because command
 execution, cwd/env binding, evidence admission, fold, residual, and disposition
-are ABG authority.
+are ABG authority. Rust/Cargo semantics and acceptability remain plugin or
+downstream policy.
 
 ### Lawful Re-Entry
 

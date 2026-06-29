@@ -35,7 +35,7 @@ Do not promote a carrier merely because the route needs an API shape.
 | `RequirementEvidenceBinding` | retained; route input must be admitted evidence event refs |
 | `RequirementFoldProjection` | retained; emitted on traversal path from assurance closure truth |
 | `RequirementResidualProjection` | retained; emitted on traversal path from fold truth |
-| `RequirementTestRelation` | retained |
+| `RequirementTestRelation` | retained as a compatibility-named generic proof-evidence relation, not as software-test policy |
 | `RequirementAssuranceClaim` | retained; empty source is `no_evidence` |
 
 ## Route-1 Additions
