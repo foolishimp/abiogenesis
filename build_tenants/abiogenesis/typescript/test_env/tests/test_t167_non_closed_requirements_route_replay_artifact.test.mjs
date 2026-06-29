@@ -181,9 +181,16 @@ function fpDispatchPlugin() {
   });
 }
 
-function partialFpEvaluatorPlugin() {
+function partialFpEvaluatorPlugin(options = {}) {
+  const scenario = options.scenario ?? "continuation";
+  const closeDisposition = options.closeDisposition ?? "no_close";
+  const continuationRefs =
+    options.continuationRefs ??
+    [`continuation://t167/non-closed/${scenario}`];
+  const diagnosticRefs =
+    options.diagnosticRefs ?? [`diagnostic://t167/non-closed/${scenario}`];
   return Object.freeze({
-    contract: fpEvaluatorContract("plugin://t167/non-closed/fp-evaluator"),
+    contract: fpEvaluatorContract(`plugin://t167/non-closed/fp-evaluator/${scenario}`),
     evaluate(input) {
       return publicRoot.constructFpEvaluationOutcome({
         status: "evaluated",
@@ -194,27 +201,25 @@ function partialFpEvaluatorPlugin() {
             evaluatorRef: input.contract.ref,
             gainReportRef: `gain://t167/non-closed/${input.vectorIndex}`,
             metricRefs: [`metric://t167/non-closed/${input.vectorIndex}`],
-            closeDisposition: "no_close",
+            closeDisposition,
             residualPressureRefs: [
-              `pressure://t167/non-closed/${input.vectorIndex}`
+              `pressure://t167/non-closed/${scenario}/${input.vectorIndex}`
             ],
-            continuationRefs: [
-              `continuation://t167/non-closed/${input.vectorIndex}`
-            ],
+            continuationRefs,
             evidenceRefs: [
-              `evidence://t167/non-closed/fp-evaluation/${input.vectorIndex}`
+              `evidence://t167/non-closed/${scenario}/fp-evaluation/${input.vectorIndex}`
             ],
             authorityRefs: Object.freeze([
               ...new Set([
                 ...input.expectedAssessmentIds,
-                `authority://t167/non-closed/${input.vectorIndex}`
+                `authority://t167/non-closed/${scenario}/${input.vectorIndex}`
               ])
             ]),
             compositionContributionRef:
               input.selectedRegimeBindingRef ?? input.selectedCompositionRef,
             compositionRef: input.selectedCompositionRef,
             compositionDigest: input.selectedCompositionDigest,
-            diagnosticRefs: ["diagnostic://t167/non-closed/partial"]
+            diagnosticRefs
           })
         ],
         evidenceRefs: [input.sourceProjectionRef],
@@ -232,6 +237,72 @@ function routeRuntimeEvents(result) {
 
 function routeEventsByPayloadKind(routeEvents, kind) {
   return routeEvents.filter((event) => event.routePayloadKind === kind);
+}
+
+function firstDispositionEvent(routeEvents) {
+  const dispositionEvent = routeEventsByPayloadKind(
+    routeEvents,
+    "requirement_lifecycle_disposition"
+  )[0];
+  assert.equal(typeof dispositionEvent, "object");
+  return dispositionEvent;
+}
+
+async function runT167DispositionScenario(input) {
+  const runRoot = path.join(TEST_RUNS_ROOT, `${input.scenario}_${timestampId()}`);
+  await mkdir(runRoot, { recursive: true });
+  const requirementSource = await writeRequirementSource(runRoot);
+  const basis = firstTraversalBasis(
+    buildThreeStageBasis({
+      defaultRegime: "F_P",
+      dispatchRef: `dispatch://t167/non-closed/${input.scenario}`,
+      runId: `run://t167/non-closed/${input.scenario}`
+    })
+  );
+  const requirementRouteDeclarationBundle = t167RouteBundleForBasis(
+    basis,
+    0,
+    requirementSource
+  );
+  const sinkEvents = [];
+  const result = await publicRoot.runEngineIterateAsync({
+    basis,
+    eventSink: (event) => {
+      sinkEvents.push(event);
+    },
+    plugins: {
+      fpDispatch: fpDispatchPlugin(),
+      fpEvaluator: partialFpEvaluatorPlugin({
+        scenario: input.scenario,
+        closeDisposition: input.closeDisposition,
+        continuationRefs: input.continuationRefs ?? Object.freeze([]),
+        diagnosticRefs: input.diagnosticRefs
+      })
+    },
+    requirementRouteDeclarationBundle
+  });
+  const routeEvents = routeRuntimeEvents(result);
+  const dispositionEvent = firstDispositionEvent(routeEvents);
+  assert.equal(
+    dispositionEvent.requirementPayload.disposition,
+    input.expectedDisposition
+  );
+  assert.equal(
+    sinkEvents.some((event) =>
+      event.kind === "requirement_route_fact_projected" &&
+      event.routePayloadKind === "requirement_lifecycle_disposition"
+    ),
+    true
+  );
+  return Object.freeze({
+    runRoot,
+    requirementSource,
+    basis,
+    sinkEvents,
+    result,
+    routeEvents,
+    dispositionEvent
+  });
 }
 
 function lifecycleStateFromRouteEvents(result, routeEvents, edgeRef) {
@@ -546,6 +617,34 @@ test("T-167 installed proof publishes non-closed route replay artifact", async (
     ),
     true
   );
+});
+
+test("T-167 runner emits blocked requirement disposition from terminal block truth", async () => {
+  const { result, dispositionEvent } = await runT167DispositionScenario({
+    scenario: "blocked",
+    closeDisposition: "block",
+    expectedDisposition: "blocked"
+  });
+  assert.equal(result.transition.kind, "terminal");
+  assert.equal(result.transition.terminalKind, "gap_stop");
+  assert.deepEqual(dispositionEvent.requirementPayload.continuationRefs, []);
+  assert.deepEqual(dispositionEvent.requirementPayload.reentryRefs, []);
+  assert.equal(dispositionEvent.requirementPayload.residualRefs.length, 1);
+});
+
+test("T-167 runner emits reentry_available from admitted requirements reprice truth", async () => {
+  const { result, dispositionEvent } = await runT167DispositionScenario({
+    scenario: "reentry",
+    closeDisposition: "reprice",
+    expectedDisposition: "reentry_available"
+  });
+  assert.equal(result.transition.kind, "terminal");
+  assert.equal(result.transition.terminalKind, "gap_stop");
+  assert.deepEqual(dispositionEvent.requirementPayload.continuationRefs, []);
+  assert.deepEqual(dispositionEvent.requirementPayload.reentryRefs, [
+    "graph-reentry-point:requirements"
+  ]);
+  assert.equal(dispositionEvent.requirementPayload.residualRefs.length, 1);
 });
 
 test("T-167 rejects closed-only route artifacts as non-closed proof", async () => {

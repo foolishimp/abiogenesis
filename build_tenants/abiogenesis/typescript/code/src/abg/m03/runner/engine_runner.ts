@@ -182,6 +182,11 @@ import {
   type RequirementRouteRuntimeContext,
   type RouteReplayFact
 } from "../contracts/requirements_route.js";
+import {
+  constructExecutivePressureFactProjectedEvent,
+  type ProjectExecutiveObservationViewInput
+} from "../contracts/executive_observer.js";
+import { runExecutiveObserverProjection } from "./executive_observer_runner.js";
 import type {
   RequirementEdgeRef
 } from "../contracts/requirements_algebra.js";
@@ -267,6 +272,12 @@ export interface EngineIterateRequest {
   readonly requirementRouteDeclarationBundle?:
     | GtlRequirementsAlgebraDeclarationBundle
     | undefined;
+  readonly executiveObserver?:
+    | {
+        readonly observation: ProjectExecutiveObservationViewInput;
+        readonly priorResidualPressureRefs?: readonly string[] | undefined;
+      }
+    | undefined;
 }
 
 export interface EngineStartRequest extends ExecutionBasisAdmissionInput {
@@ -294,6 +305,12 @@ export interface EngineStartRequest extends ExecutionBasisAdmissionInput {
     | undefined;
   readonly requirementRouteDeclarationBundle?:
     | GtlRequirementsAlgebraDeclarationBundle
+    | undefined;
+  readonly executiveObserver?:
+    | {
+        readonly observation: ProjectExecutiveObservationViewInput;
+        readonly priorResidualPressureRefs?: readonly string[] | undefined;
+      }
     | undefined;
 }
 
@@ -2308,6 +2325,9 @@ function fpEvaluationCoreEvents(input: {
       )
       .flatMap((finding) => finding.authorityRefs)
   );
+  const contradictoryAuthority = input.outcome.findings.some(
+    (finding) => finding.closeDisposition === "reprice"
+  );
   const policyRefs = Object.freeze([
     input.basis.resolvedPolicy.resolvedPolicyBundleRef
   ]);
@@ -2332,6 +2352,7 @@ function fpEvaluationCoreEvents(input: {
       inputRefs: pluginInputLedgerRefs(input.pluginInput),
       authorityDigest,
       inputDigest,
+      contradictoryAuthority,
       deferredAuthorityRefs,
       providerRefs: [input.pluginInput.contract.ref],
       policyRefs
@@ -2713,16 +2734,64 @@ function appendRequirementRouteEvents(input: {
 function requirementRouteEdgeRef(input: {
   readonly basis: ExecutionBasis;
   readonly vectorIndex: number;
+  readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
 }): RequirementEdgeRef {
   const vector = input.basis.graph.vectors[input.vectorIndex];
   if (vector === undefined) {
     throw new TypeError(`Requirement route vector ${input.vectorIndex} is outside graph range`);
   }
+  const edge = vectorEdge(input.basis, input.vectorIndex);
+  const scopedRuntimeEvents = runtimeEventsForBasis(
+    input.basis,
+    input.runtimeEvents ?? Object.freeze([])
+  );
+  const frameRefs = uniqueStrings([
+    frameIdForBasis(input.basis),
+    ...scopedRuntimeEvents
+      .filter((event) => event.kind === "frame_opened")
+      .map((event) => event.frameId)
+  ]);
+  const zoomRefs = uniqueStrings(
+    scopedRuntimeEvents.flatMap((event) =>
+      (event.kind === "zoom_frame_opened" ||
+        event.kind === "zoom_foldback_evaluated") &&
+      event.vectorIndex === input.vectorIndex
+        ? [event.zoomFrameId]
+        : []
+    )
+  );
+  const foldbackRefs = uniqueStrings(
+    scopedRuntimeEvents.flatMap((event) => {
+      if (
+        event.kind === "zoom_foldback_evaluated" &&
+        event.vectorIndex === input.vectorIndex
+      ) {
+        return [event.foldbackRef];
+      }
+      if (
+        event.kind === "graph_span_foldback_evaluated" &&
+        event.terminalVectorIndex >= input.vectorIndex
+      ) {
+        return [
+          event.foldbackRef,
+          ...event.edgeFoldbackRefs,
+          ...event.causingEdgeFoldbackRefs
+        ];
+      }
+      return [];
+    })
+  );
   return Object.freeze({
     graphFunctionRef: input.basis.graphFunction.id,
     graphVectorRef: vector.id,
     vectorIndex: input.vectorIndex,
-    edge: vectorEdge(input.basis, input.vectorIndex)
+    edge,
+    sourceNodeRef: vector.source[0]?.id,
+    targetNodeRef: vector.target.id,
+    frameRefs,
+    ...(zoomRefs.length === 0 ? {} : { zoomRefs }),
+    ...(foldbackRefs.length === 0 ? {} : { foldbackRefs }),
+    aliasRefs: Object.freeze([edge])
   });
 }
 
@@ -2759,7 +2828,8 @@ function requirementRouteContextForRequest(
     edges.push(
       requirementRouteEdgeRef({
         basis: request.basis,
-        vectorIndex
+        vectorIndex,
+        runtimeEvents: request.runtimeEvents
       })
     );
   }
@@ -2777,6 +2847,35 @@ function requirementRouteContextForRequest(
     );
   }
   return context.value;
+}
+
+function executiveObserverRuntimeEventsForFpEvaluation(input: {
+  readonly request: EngineIterateRequest;
+  readonly fpEvaluationOutcome: FpEvaluationOutcome;
+  readonly vectorIndex: number;
+}): readonly RuntimeEvent[] {
+  const executiveObserver = input.request.executiveObserver;
+  if (executiveObserver === undefined) {
+    return Object.freeze([]);
+  }
+  const projection = runExecutiveObserverProjection({
+    observation: executiveObserver.observation,
+    fpEvaluationOutcome: input.fpEvaluationOutcome,
+    priorResidualPressureRefs: executiveObserver.priorResidualPressureRefs
+  });
+  return Object.freeze(
+    projection.pressureFacts.map((pressureFact) =>
+      constructExecutivePressureFactProjectedEvent({
+        basis: input.request.basis,
+        vectorIndex: input.vectorIndex,
+        observation: projection.observation,
+        pressureFact,
+        sourceEventRefs: projection.observation.replayEventRefs,
+        sourceProjectionRefs: projection.observation.payloadLedgerRefs,
+        causationEventRefs: projection.observation.replayEventRefs
+      })
+    )
+  );
 }
 
 function isEvidenceAdmittedRuntimeEvent(
@@ -2815,7 +2914,8 @@ function emitRequirementRouteForEdgeClose(input: {
     }),
     edge: requirementRouteEdgeRef({
       basis: input.request.basis,
-      vectorIndex: input.vectorIndex
+      vectorIndex: input.vectorIndex,
+      runtimeEvents: input.state.replayEvents
     }),
     runtimeEvents: input.state.replayEvents.filter(isEvidenceAdmittedRuntimeEvent),
     closureDecision: input.closureDecision,
@@ -5431,6 +5531,14 @@ function* runEngineIterateMachine(input: {
                   request.pluginResultInterfaceCatalog?.interfaces ?? Object.freeze([])
               })
             );
+            eventState = emitRunnerEvents(
+              eventState,
+              executiveObserverRuntimeEventsForFpEvaluation({
+                request,
+                fpEvaluationOutcome,
+                vectorIndex: transition.vectorIndex
+              })
+            );
             const evaluationProjection = deriveRuntimeAggregateProjection(
               request.basis,
               eventState.replayEvents
@@ -6576,7 +6684,9 @@ export function runEngineStart(request: EngineStartRequest): EngineIterateResult
     pluginTraversalObserverFallbackKinds:
       request.pluginTraversalObserverFallbackKinds,
     constructionPressurePackage: request.constructionPressurePackage,
-    pluginResultInterfaceCatalog: request.pluginResultInterfaceCatalog
+    pluginResultInterfaceCatalog: request.pluginResultInterfaceCatalog,
+    requirementRouteDeclarationBundle: request.requirementRouteDeclarationBundle,
+    executiveObserver: request.executiveObserver
   });
 }
 
@@ -6598,6 +6708,8 @@ export async function runEngineStartAsync(
     pluginTraversalObserverFallbackKinds:
       request.pluginTraversalObserverFallbackKinds,
     constructionPressurePackage: request.constructionPressurePackage,
-    pluginResultInterfaceCatalog: request.pluginResultInterfaceCatalog
+    pluginResultInterfaceCatalog: request.pluginResultInterfaceCatalog,
+    requirementRouteDeclarationBundle: request.requirementRouteDeclarationBundle,
+    executiveObserver: request.executiveObserver
   });
 }

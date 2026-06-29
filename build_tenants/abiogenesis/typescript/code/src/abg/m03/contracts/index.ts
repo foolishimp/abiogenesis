@@ -1190,6 +1190,7 @@ export type {
 } from "./fn_composition.js";
 export {
   assertExecutiveFindingHasNoRuntimeAuthority,
+  constructExecutivePressureFactProjectedEvent,
   projectExecutiveContinuationInput,
   projectExecutiveObservationView,
   projectExecutivePressureFacts

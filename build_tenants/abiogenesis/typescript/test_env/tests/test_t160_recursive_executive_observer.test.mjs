@@ -5,6 +5,7 @@ import assert from "node:assert/strict";
 
 import * as publicRoot from "../../build/semantic/code/src/index.js";
 import * as publicExecutive from "../../build/semantic/code/src/abg/executive/index.js";
+import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
 
 const OBSERVATION_INPUT = Object.freeze({
   observerGraphFunctionRef: "graph-function://abg/executive/default-observer",
@@ -72,6 +73,129 @@ function outcome(findings) {
     findings,
     evidenceRefs: ["evidence://t160/evaluation-outcome"],
     reason: "executive observer pressure projection"
+  });
+}
+
+function firstTraversalBasis(basis) {
+  return Object.freeze({
+    ...basis,
+    startIntent: Object.freeze({
+      ...basis.startIntent,
+      until: "first_traversal"
+    })
+  });
+}
+
+function fpDispatchContract(ref) {
+  return publicRoot.constructEnginePluginContract({
+    ref,
+    pluginKind: "fp_dispatch",
+    authority: "effect_plugin",
+    inputCarrier: "EnginePluginInput",
+    outputCarrier: "FpDispatchOutcome"
+  });
+}
+
+function fpEvaluatorContract(ref) {
+  return publicRoot.constructEnginePluginContract({
+    ref,
+    pluginKind: "fp_evaluator",
+    authority: "effect_plugin",
+    inputCarrier: "EnginePluginInput",
+    outputCarrier: "FpEvaluationOutcome"
+  });
+}
+
+function runnerObservationForBasis(basis) {
+  const vector = basis.graph.vectors[0];
+  return Object.freeze({
+    ...OBSERVATION_INPUT,
+    observerGraphFunctionRef: "graph-function://abg/executive/runner-observer",
+    targetWorkspaceContextRef: "context://t160/runner/workspace",
+    targetWorkspaceLocator: "workspace://t160/runner-target",
+    targetWorkspaceDigest: "sha256:t160-runner-workspace",
+    targetWorkRef: "work://t160/runner-target-gap",
+    graphFunctionRef: basis.graphFunction.id,
+    graphVectorRef: vector.id,
+    frameRefs: [basis.frameId ?? `frame:${basis.id}:root`],
+    replayEventRefs: ["runtime-event://t160/runner/fp-evaluation"],
+    payloadLedgerRefs: ["payload-ledger://t160/runner"],
+    residualPressureRefs: ["pressure://t160/runner/original-gap"],
+    continuationRefs: ["continuation://t160/runner/original-gap"],
+    requirementIds: ["REQ-T160-RUNNER-PRESSURE"],
+    spanLineage: []
+  });
+}
+
+function runnerDispatchPlugin() {
+  return Object.freeze({
+    contract: fpDispatchContract("plugin://t160/runner/fp-dispatch"),
+    dispatch(input) {
+      const assessmentIds =
+        input.expectedAssessmentIds.length > 0
+          ? input.expectedAssessmentIds
+          : ["t160_runner_candidate"];
+      return publicRoot.constructFpDispatchOutcome({
+        status: "dispatched",
+        resultRef: `result://t160/runner/${encodeURIComponent(input.edge)}`,
+        attachedResultArtifact: Object.freeze({
+          edge: input.edge,
+          actor: "installed-proof",
+          candidate: Object.freeze({
+            kind: "executive_observer_candidate",
+            summary: "candidate admitted for executive observer runtime proof"
+          }),
+          fulfillment_assessments: assessmentIds.map((id) =>
+            Object.freeze({
+              id,
+              evaluator: id,
+              fulfillment_status: "fulfilled",
+              fulfillment_detail: "candidate admitted for executive observer proof",
+              blocking_reasons: [],
+              evidence_refs: [`proof://t160/runner/${id}`]
+            })
+          ),
+          selected_worker_id: "worker://t160/runner",
+          selected_backend: "backend://node",
+          role_id: "role://t160/runner",
+          assignment_source: "installed_proof",
+          resolved_runtime_ref: "runtime://typescript/node"
+        }),
+        evidenceRefs: [input.sourceProjectionRef]
+      });
+    }
+  });
+}
+
+function runnerEvaluatorPlugin() {
+  return Object.freeze({
+    contract: fpEvaluatorContract("plugin://t160/runner/fp-evaluator"),
+    evaluate(input) {
+      return publicRoot.constructFpEvaluationOutcome({
+        status: "evaluated",
+        ambiguityStatus: "partial",
+        findings: [
+          publicRoot.constructFpEvaluationFinding({
+            findingRef: `finding://t160/runner/${input.vectorIndex}`,
+            evaluatorRef: input.contract.ref,
+            gainReportRef: `gain://t160/runner/${input.vectorIndex}`,
+            metricRefs: [`metric://t160/runner/${input.vectorIndex}`],
+            closeDisposition: "no_close",
+            residualPressureRefs: ["pressure://t160/runner/original-gap"],
+            continuationRefs: ["continuation://t160/runner/reentry/requirements"],
+            evidenceRefs: [`evidence://t160/runner/${input.vectorIndex}`],
+            authorityRefs: ["REQ-T160-RUNNER-PRESSURE"],
+            compositionContributionRef:
+              input.selectedRegimeBindingRef ?? input.selectedCompositionRef,
+            compositionRef: input.selectedCompositionRef,
+            compositionDigest: input.selectedCompositionDigest,
+            diagnosticRefs: ["diagnostic://t160/runner/reentry-required"]
+          })
+        ],
+        evidenceRefs: [input.sourceProjectionRef],
+        reason: "runner-level executive observer proof"
+      });
+    }
   });
 }
 
@@ -171,6 +295,52 @@ test("T-160 runner wrapper composes observation, pressure, and continuation proj
   assert.equal(result.pressureFacts[0].disposition, "nonlocal_reentry");
   assert.equal(result.continuationInput.decision, "yield_reentry");
   assert.equal(result.continuationInput.reentryRefs.length, 1);
+});
+
+test("T-160 engine runner emits executive pressure facts into replay events", async () => {
+  const basis = firstTraversalBasis(
+    buildThreeStageBasis({
+      defaultRegime: "F_P",
+      dispatchRef: "dispatch://t160/runner",
+      runId: "run://t160/runner"
+    })
+  );
+  const observation = runnerObservationForBasis(basis);
+  const sinkEvents = [];
+  const result = await publicRoot.runEngineIterateAsync({
+    basis,
+    eventSink: (event) => {
+      sinkEvents.push(event);
+    },
+    plugins: {
+      fpDispatch: runnerDispatchPlugin(),
+      fpEvaluator: runnerEvaluatorPlugin()
+    },
+    executiveObserver: {
+      observation
+    }
+  });
+  assert.equal(result.transition.kind, "terminal");
+  const pressureEvents = result.replayEvents.filter((event) =>
+    event.kind === "executive_pressure_fact_projected"
+  );
+  assert.equal(
+    pressureEvents.length,
+    1,
+    result.replayEvents.map((event) => event.kind).join(", ")
+  );
+  assert.equal(
+    pressureEvents[0].executivePressureFact.disposition,
+    "nonlocal_reentry"
+  );
+  assert.equal(
+    pressureEvents[0].executivePressureFact.attenuation,
+    "unchanged"
+  );
+  assert.equal(
+    sinkEvents.some((event) => event.kind === "executive_pressure_fact_projected"),
+    true
+  );
 });
 
 test("T-160 rejects executive findings carrying runtime authority fields", () => {

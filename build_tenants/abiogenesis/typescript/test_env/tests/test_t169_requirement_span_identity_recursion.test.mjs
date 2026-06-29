@@ -130,6 +130,29 @@ test("T-169 rejects vector-index-only activation when lineage refs mismatch", ()
   assert.equal(lineage[0].active, false);
 });
 
+test("T-169 rejects vector-index-only activation when declared lineage refs are missing", () => {
+  const context = routeContext();
+  const vectorOnlyEdge = Object.freeze({
+    graphFunctionRef: EDGE.graphFunctionRef,
+    graphVectorRef: EDGE.graphVectorRef,
+    vectorIndex: EDGE.vectorIndex,
+    edge: EDGE.edge,
+    sourceNodeRef: EDGE.sourceNodeRef,
+    targetNodeRef: EDGE.targetNodeRef
+  });
+  const environment = publicAbgRequirements.compileEdgeRequirementEnvironment({
+    ledger: context.ledger,
+    edge: vectorOnlyEdge
+  });
+  assert.equal(environment.activeSpans.length, 0);
+  assert.equal(environment.activeTerms.length, 0);
+  const lineage = publicAbgRequirements.projectSpanLineage({
+    ledger: context.ledger,
+    environment
+  });
+  assert.equal(lineage[0].active, false);
+});
+
 test("T-169 residual projection preserves admitted span identity", () => {
   const context = routeContext();
   const environment = publicAbgRequirements.compileEdgeRequirementEnvironment({

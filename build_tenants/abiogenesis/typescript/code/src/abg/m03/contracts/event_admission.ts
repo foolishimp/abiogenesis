@@ -534,6 +534,53 @@ function assertRequirementRoutePayload(event: RuntimeEventRecord): void {
   }
 }
 
+function assertExecutivePressureFactPayload(event: RuntimeEventRecord): void {
+  applyFieldRules("ExecutivePressureFactProjectedRuntimeEvent", {
+    basisId: "non_empty_string",
+    graphFunctionId: "non_empty_string",
+    runId: "nullable_string",
+    workKey: "nullable_string",
+    graphCallId: "non_empty_string",
+    frameId: "non_empty_string",
+    vectorIndex: "non_negative_integer",
+    edge: "non_empty_string",
+    eventRef: "non_empty_string",
+    observationRef: "non_empty_string",
+    pressureFactRef: "non_empty_string",
+    pressureFactDigest: "non_empty_string",
+    sourceEventRefs: "string_array",
+    sourceProjectionRefs: "string_array",
+    causationEventRefs: "string_array",
+    correlationId: "non_empty_string"
+  })(event);
+  const payload = event["executivePressureFact"];
+  if (!isPlainObject(payload)) {
+    throw new TypeError(
+      "ExecutivePressureFactProjectedRuntimeEvent.executivePressureFact must be a plain object"
+    );
+  }
+  if (payload["kind"] !== "abg_executive_pressure_fact_projection") {
+    throw new TypeError(
+      "ExecutivePressureFactProjectedRuntimeEvent.executivePressureFact.kind must be abg_executive_pressure_fact_projection"
+    );
+  }
+  if (payload["pressureFactRef"] !== event["pressureFactRef"]) {
+    throw new TypeError(
+      "ExecutivePressureFactProjectedRuntimeEvent pressure fact ref must match pressureFactRef"
+    );
+  }
+  if (payload["observationRef"] !== event["observationRef"]) {
+    throw new TypeError(
+      "ExecutivePressureFactProjectedRuntimeEvent observation ref must match observationRef"
+    );
+  }
+  if (stableSha256Digest(payload) !== event["pressureFactDigest"]) {
+    throw new TypeError(
+      "ExecutivePressureFactProjectedRuntimeEvent.pressureFactDigest must match executivePressureFact"
+    );
+  }
+}
+
 const RUNTIME_EVENT_ADMITTERS = Object.freeze({
   basis_admitted: applyFieldRules("BasisAdmittedEvent", {
     basisId: "non_empty_string",
@@ -2156,6 +2203,7 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     correlationId: "non_empty_string"
   }),
   requirement_route_fact_projected: assertRequirementRoutePayload,
+  executive_pressure_fact_projected: assertExecutivePressureFactPayload,
   workspace_installation_admitted: applyFieldRules(
     "WorkspaceInstallationAdmittedRuntimeEvent",
     {

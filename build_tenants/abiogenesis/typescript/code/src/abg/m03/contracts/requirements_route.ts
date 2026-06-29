@@ -283,6 +283,9 @@ export interface ResolveRequirementLifecycleDispositionInput {
   readonly runtimeScope: RuntimeScopeRef;
   readonly residualRefs: readonly AdmittedRef<"requirement_residual_projection">[];
   readonly continuationRefs: readonly AdmittedRef<"continuation_transition">[];
+  readonly activeContinuationRefs?:
+    | readonly AdmittedRef<"continuation_transition">[]
+    | undefined;
   readonly reentryRefs: readonly AdmittedRef<"graph_reentry_point">[];
   readonly policyRefs: readonly AdmittedRef<"runtime_policy">[];
   readonly replayFacts: readonly RouteReplayFact[];
@@ -1061,31 +1064,12 @@ export function emitRequirementRouteFactsForEdgeClose(
   emittedRequirementEvents.push(...residual.value.emittedRequirementEvents);
 
   const continuationRefs: AdmittedRef<"continuation_transition">[] = [];
-  for (const transition of input.continuationTransitions ?? Object.freeze([])) {
-    if (!continuationTransitionMatchesRoute(input.runtimeScope, input.edge, transition)) {
-      return rejected(
-        "dangling_ref",
-        [`Continuation transition ${transition.projectionRef} does not belong to requirement route edge ${input.edge.edge}`],
-        [transition.projectionRef]
-      );
-    }
-    const sourceEventRef = continuationTransitionSourceEventRef(transition);
-    replayFacts = Object.freeze([
-      ...replayFacts,
-      fact("continuation_transition", transition.projectionRef, sourceEventRef, transition)
-    ]);
-    continuationRefs.push(
-      mintAdmittedRef({
-        kind: "continuation_transition" as const,
-        ref: transition.projectionRef,
-        sourceEventRef,
-        payload: transition
-      })
-    );
-  }
-
+  const activeContinuationRefs: AdmittedRef<"continuation_transition">[] = [];
   const reentryRefs: AdmittedRef<"graph_reentry_point">[] = [];
-  for (const point of input.reentryPoints ?? Object.freeze([])) {
+  const admitReentryPoint = (point: GraphReentryPoint) => {
+    if (reentryRefs.some((ref) => ref.ref === `graph-reentry-point:${point}`)) {
+      return;
+    }
     const payload = Object.freeze({
       kind: "graph_reentry_point",
       reEntryPoint: point,
@@ -1106,6 +1090,47 @@ export function emitRequirementRouteFactsForEdgeClose(
         payload
       })
     );
+  };
+  for (const transition of input.continuationTransitions ?? Object.freeze([])) {
+    if (!continuationTransitionMatchesRoute(input.runtimeScope, input.edge, transition)) {
+      return rejected(
+        "dangling_ref",
+        [`Continuation transition ${transition.projectionRef} does not belong to requirement route edge ${input.edge.edge}`],
+        [transition.projectionRef]
+      );
+    }
+    const sourceEventRef = continuationTransitionSourceEventRef(transition);
+    replayFacts = Object.freeze([
+      ...replayFacts,
+      fact("continuation_transition", transition.projectionRef, sourceEventRef, transition)
+    ]);
+    if (
+      transition.disposition === "advance_vector" ||
+      transition.disposition === "close" ||
+      transition.disposition === "retry_same_edge" ||
+      transition.disposition === "yield_continuation"
+    ) {
+      const admittedTransitionRef = mintAdmittedRef({
+        kind: "continuation_transition" as const,
+        ref: transition.projectionRef,
+        sourceEventRef,
+        payload: transition
+      });
+      continuationRefs.push(admittedTransitionRef);
+      if (
+        transition.disposition === "retry_same_edge" ||
+        transition.disposition === "yield_continuation"
+      ) {
+        activeContinuationRefs.push(admittedTransitionRef);
+      }
+    }
+    if (transition.disposition === "reprice") {
+      admitReentryPoint("requirements");
+    }
+  }
+
+  for (const point of input.reentryPoints ?? Object.freeze([])) {
+    admitReentryPoint(point);
   }
 
   const policyRefs: AdmittedRef<"runtime_policy">[] = [];
@@ -1134,6 +1159,7 @@ export function emitRequirementRouteFactsForEdgeClose(
     runtimeScope: input.runtimeScope,
     residualRefs: residual.value.residualRefs,
     continuationRefs,
+    activeContinuationRefs,
     reentryRefs,
     policyRefs,
     replayFacts
@@ -1202,6 +1228,16 @@ export function resolveRequirementLifecycleDisposition(
       return resolution;
     }
   }
+  for (const ref of input.activeContinuationRefs ?? input.continuationRefs) {
+    const resolution = resolveAdmittedRef({
+      admittedRef: ref,
+      replayFacts: input.replayFacts,
+      expectedKind: "continuation_transition"
+    });
+    if (resolution.status === "rejected") {
+      return resolution;
+    }
+  }
   for (const ref of input.reentryRefs) {
     const resolution = resolveAdmittedRef({
       admittedRef: ref,
@@ -1225,11 +1261,15 @@ export function resolveRequirementLifecycleDisposition(
 
   const residualRefs = residualResolution.value.map((residual) => residual.residualRef);
   const continuationRefs = input.continuationRefs.map((ref) => ref.ref);
+  const activeContinuationRefs =
+    input.activeContinuationRefs === undefined
+      ? continuationRefs
+      : input.activeContinuationRefs.map((ref) => ref.ref);
   const reentryRefs = input.reentryRefs.map((ref) => ref.ref);
   const policyRefs = input.policyRefs.map((ref) => ref.ref);
   const disposition = lifecycleDispositionKind({
     residualRefs,
-    continuationRefs,
+    continuationRefs: activeContinuationRefs,
     reentryRefs
   });
   const payload: RequirementLifecycleDisposition = Object.freeze({

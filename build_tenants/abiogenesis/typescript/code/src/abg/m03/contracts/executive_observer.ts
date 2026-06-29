@@ -4,8 +4,17 @@ import type {
   FpEvaluationOutcome
 } from "./plugins.js";
 import type {
+  ExecutionBasis,
+  ExecutivePressureFactProjectedRuntimeEvent
+} from "./carriers.js";
+import type {
   RequirementSpanLineageProjection
 } from "./requirements_algebra.js";
+import {
+  frameIdForBasis,
+  graphCallIdForBasis,
+  vectorEdge
+} from "./runtime_support.js";
 
 const FORBIDDEN_EXECUTIVE_AUTHORITY_FIELDS = Object.freeze([
   "emit",
@@ -409,5 +418,53 @@ export function projectExecutiveContinuationInput(input: {
     kind: "abg_executive_continuation_input_projection" as const,
     continuationInputRef: `abg-executive-continuation-input:${stableSha256Digest(payload)}`,
     ...payload
+  });
+}
+
+export function constructExecutivePressureFactProjectedEvent(input: {
+  readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
+  readonly observation: ExecutiveObservationView;
+  readonly pressureFact: ExecutivePressureFactProjection;
+  readonly sourceEventRefs?: readonly string[] | undefined;
+  readonly sourceProjectionRefs?: readonly string[] | undefined;
+  readonly causationEventRefs?: readonly string[] | undefined;
+}): ExecutivePressureFactProjectedRuntimeEvent {
+  const edge = vectorEdge(input.basis, input.vectorIndex);
+  const pressureFactDigest = stableSha256Digest(input.pressureFact);
+  const eventRef = [
+    "executive-pressure-fact",
+    encodeURIComponent(input.basis.id),
+    String(input.vectorIndex),
+    encodeURIComponent(input.pressureFact.pressureFactRef),
+    pressureFactDigest
+  ].join(":");
+  return Object.freeze({
+    kind: "executive_pressure_fact_projected" as const,
+    basisId: input.basis.id,
+    graphFunctionId: input.basis.graphFunction.id,
+    runId: input.basis.runId,
+    workKey: input.basis.workKey,
+    graphCallId: graphCallIdForBasis(input.basis),
+    frameId: frameIdForBasis(input.basis),
+    vectorIndex: input.vectorIndex,
+    edge,
+    eventRef,
+    observationRef: input.observation.observationRef,
+    pressureFactRef: input.pressureFact.pressureFactRef,
+    pressureFactDigest,
+    executivePressureFact: input.pressureFact,
+    sourceEventRefs: Object.freeze([...(input.sourceEventRefs ?? Object.freeze([]))]),
+    sourceProjectionRefs: Object.freeze([
+      input.observation.observationRef,
+      ...(input.sourceProjectionRefs ?? Object.freeze([]))
+    ]),
+    causationEventRefs: Object.freeze([...(input.causationEventRefs ?? Object.freeze([]))]),
+    correlationId: [
+      "correlation://executive-pressure",
+      encodeURIComponent(input.basis.id),
+      String(input.vectorIndex),
+      pressureFactDigest
+    ].join("/")
   });
 }

@@ -738,6 +738,7 @@ export function deriveRetryFrontierProjection(input: {
       case "construction_delta_observed":
       case "construction_terminal_disposition_projected":
       case "requirement_route_fact_projected":
+      case "executive_pressure_fact_projected":
       case "workspace_installation_admitted":
       case "observed_state_admitted":
       case "overlay_frame_declared":

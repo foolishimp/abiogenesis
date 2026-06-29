@@ -57,7 +57,11 @@ const edge = Object.freeze({
   graphFunctionRef: "graph-function://data-mapper/build",
   graphVectorRef: "graph-vector://data-mapper/derive-validation",
   vectorIndex: 2,
-  edge: "derive_validation"
+  edge: "derive_validation",
+  frameRefs: ["frame-lineage://root"],
+  zoomRefs: ["zoom://data-mapper/validation"],
+  foldbackRefs: ["foldback://data-mapper/validation"],
+  aliasRefs: ["derive_validation", "alias://derive-validation"]
 });
 
 function payloads() {

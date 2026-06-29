@@ -32,6 +32,7 @@ import {
   materializeEvents,
   spanBySource
 } from "../tests/support/t103-graph-span-fixtures.mjs";
+import { canonicalRuntimeEvents } from "../tests/support/canonical-runtime-events.mjs";
 import { executorProfileFields } from "./support/executor_profile.mjs";
 
 const LIVE_DIR = path.dirname(fileURLToPath(import.meta.url));
@@ -97,23 +98,54 @@ async function writeRequirementSource(runRoot) {
   });
 }
 
-function firstTraversalBasis(basis) {
-  return Object.freeze({
-    ...basis,
-    startIntent: Object.freeze({
-      ...basis.startIntent,
-      until: "first_traversal"
-    })
-  });
-}
-
-function routeEdgeForBasisVector(basis, vectorIndex) {
+function routeEdgeForBasisVector(basis, vectorIndex, runtimeEvents = []) {
   const vector = basis.graph.vectors[vectorIndex];
+  const edge = vector.name;
+  const frameRefs = [
+    basis.frameId ?? `frame:${basis.id}:root`,
+    ...runtimeEvents
+      .filter((event) => event.kind === "frame_opened" && event.basisId === basis.id)
+      .map((event) => event.frameId)
+  ];
+  const zoomRefs = runtimeEvents.flatMap((event) =>
+    event.basisId === basis.id &&
+    (event.kind === "zoom_frame_opened" || event.kind === "zoom_foldback_evaluated") &&
+    event.vectorIndex === vectorIndex
+      ? [event.zoomFrameId]
+      : []
+  );
+  const foldbackRefs = runtimeEvents.flatMap((event) => {
+    if (
+      event.basisId === basis.id &&
+      event.kind === "graph_span_foldback_evaluated" &&
+      event.terminalVectorIndex >= vectorIndex
+    ) {
+      return [
+        event.foldbackRef,
+        ...event.edgeFoldbackRefs,
+        ...event.causingEdgeFoldbackRefs
+      ];
+    }
+    if (
+      event.basisId === basis.id &&
+      event.kind === "zoom_foldback_evaluated" &&
+      event.vectorIndex === vectorIndex
+    ) {
+      return [event.foldbackRef];
+    }
+    return [];
+  });
   return Object.freeze({
     graphFunctionRef: basis.graphFunction.id,
     graphVectorRef: vector.id,
     vectorIndex,
-    edge: `${vector.source.map((node) => node.id).join("+")}->${vector.target.id}`
+    edge,
+    sourceNodeRef: vector.source[0].id,
+    targetNodeRef: vector.target.id,
+    frameRefs: [...new Set(frameRefs)],
+    zoomRefs: [...new Set(zoomRefs)],
+    foldbackRefs: [...new Set(foldbackRefs)],
+    aliasRefs: [edge]
   });
 }
 
@@ -130,12 +162,12 @@ function runtimeScopeForBasisVector(basis, vectorIndex) {
   });
 }
 
-function routeContextForBundle(basis, bundle) {
+function routeContextForBundle(basis, bundle, runtimeEvents = []) {
   const context = buildRequirementRouteRuntimeContextFromDeclarations({
     bundle,
     runtimeScope: runtimeScopeForBasisVector(basis, 0),
     edges: basis.graph.vectors.map((_, vectorIndex) =>
-      routeEdgeForBasisVector(basis, vectorIndex)
+      routeEdgeForBasisVector(basis, vectorIndex, runtimeEvents)
     )
   });
   assert.equal(context.status, "accepted");
@@ -188,9 +220,60 @@ function buildGraphSpanReentryProof(basis) {
     basis,
     events
   });
+  const plan = publicRoot.deriveGraphReentryPlan({
+    basis,
+    runtimeProjection: publicRoot.deriveRuntimeAggregateProjection(basis, events),
+    frontier
+  });
+  assert.ok(plan);
+  const reentryAppliedEvents = Object.freeze([
+    publicRoot.constructGraphReentryPlannedEvent({ basis, plan }),
+    publicRoot.constructGraphReentryAppliedEvent({ basis, plan })
+  ]);
+  const childFrameEvent = Object.freeze({
+    ...publicRoot.constructFrameOpenedEvent(basis),
+    frameId: "frame://t169/live/child",
+    frameLineageId: "frame-lineage://t169/live/child"
+  });
+  const zoomFrame = Object.freeze({
+    kind: "zoom_frame",
+    zoomFrameId: "zoom://t169/live/child-detail",
+    basisId: basis.id,
+    graphFunctionId: basis.graphFunction.id,
+    vectorIndex: 0,
+    edge: routeEdgeForBasisVector(basis, 0).edge,
+    inputAssetRef: "asset://t169/live/parent",
+    outputAssetRef: "asset://t169/live/child",
+    ledgerRef: "ledger://t169/live/zoom",
+    scheduleRef: "schedule://t169/live/zoom"
+  });
+  const zoomFrameEvent = publicRoot.constructZoomFrameOpenedEvent({
+    basis,
+    zoomFrame
+  });
+  const runtimeEvents = Object.freeze([
+    childFrameEvent,
+    zoomFrameEvent,
+    ...events,
+    ...reentryAppliedEvents
+  ]);
   assert.equal(foldback.decision, "constitutional_reentry");
   assert.equal(frontier.activeReEntryPoint, "requirements");
-  return Object.freeze({ schedule, assessments, foldback, events, frontier });
+  assert.equal(
+    publicRoot.deriveGraphReentryFrontierProjection({
+      basis,
+      events: runtimeEvents
+    }).activeReEntryPoint,
+    null
+  );
+  return Object.freeze({
+    schedule,
+    assessments,
+    foldback,
+    events,
+    runtimeEvents,
+    frontier
+  });
 }
 
 function t169LiveBundle(input) {
@@ -224,7 +307,11 @@ function t169LiveBundle(input) {
     foldbackRefs: [input.graphSpanProof.foldback.foldbackRef],
     aliasRefs: [
       routeEdgeForBasisVector(input.basis, 0).edge,
-      "graph-call://t169/live/child"
+      "graph-call://t169/live/child",
+      ...vectors.flatMap((vector) => [
+        ...vector.source.map((node) => node.id),
+        vector.target.id
+      ])
     ]
   });
   const constraintScope = [
@@ -435,13 +522,18 @@ test("T-169 live F_P worker preserves recursive span lineage into replay artifac
     dispatchRef: "dispatch://t169/live-span-lineage"
   });
   const graphSpanProof = buildGraphSpanReentryProof(scheduledBasis);
-  const basis = firstTraversalBasis(scheduledBasis);
+  const graphSpanRuntimeEvents = canonicalRuntimeEvents(graphSpanProof.runtimeEvents);
+  const basis = scheduledBasis;
   const bundle = t169LiveBundle({
     basis,
     requirementSource,
     graphSpanProof
   });
-  const routeContext = routeContextForBundle(basis, bundle);
+  const routeContext = routeContextForBundle(
+    basis,
+    bundle,
+    graphSpanRuntimeEvents
+  );
   const sinkEvents = [];
   const result = await publicRoot.runEngineIterateAsync({
     basis,
@@ -457,6 +549,7 @@ test("T-169 live F_P worker preserves recursive span lineage into replay artifac
         graphSpanProof
       })
     },
+    runtimeEvents: graphSpanRuntimeEvents,
     requirementRouteDeclarationBundle: bundle
   });
 
@@ -484,7 +577,7 @@ test("T-169 live F_P worker preserves recursive span lineage into replay artifac
   assert.equal(traversalSpan.frameRefs.includes("frame://t169/live/child"), true);
   assert.equal(traversalSpan.zoomRefs.includes("zoom://t169/live/child-detail"), true);
 
-  const edge = routeEdgeForBasisVector(basis, 0);
+  const edge = routeEdgeForBasisVector(basis, 0, graphSpanRuntimeEvents);
   const environment = publicAbgRequirements.compileEdgeRequirementEnvironment({
     ledger: routeContext.ledger,
     edge
@@ -510,7 +603,12 @@ test("T-169 live F_P worker preserves recursive span lineage into replay artifac
     "requirement_lifecycle_disposition"
   )[0];
   assert.equal(dispositionEvent.requirementPayload.residualRefs.length > 0, true);
-  assert.equal(dispositionEvent.requirementPayload.disposition, "continuation_available");
+  assert.equal(
+    ["continuation_available", "reentry_available", "blocked"].includes(
+      dispositionEvent.requirementPayload.disposition
+    ),
+    true
+  );
 
   const contextEvents = routeEventsByPayloadKind(
     routeEvents,

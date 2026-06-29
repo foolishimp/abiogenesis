@@ -1681,8 +1681,11 @@ export function projectRequirementLedger(
 }
 
 function overlaps(left: readonly string[] | undefined, right: readonly string[]): boolean {
-  if (left === undefined || left.length === 0) {
+  if (right.length === 0) {
     return true;
+  }
+  if (left === undefined || left.length === 0) {
+    return false;
   }
   const rightSet = new Set(right);
   return left.some((value) => rightSet.has(value));
@@ -1756,6 +1759,9 @@ function spanCoversEdge(span: TraversalSpan, edge: RequirementEdgeRef): boolean 
   }
   if (!overlaps(edge.foldbackRefs, span.foldbackRefs)) {
     return false;
+  }
+  if (span.aliasRefs.length === 0) {
+    return true;
   }
   return overlaps(edge.aliasRefs, [edge.edge, ...span.aliasRefs]);
 }
