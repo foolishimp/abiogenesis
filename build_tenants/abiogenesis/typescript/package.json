@@ -124,6 +124,7 @@
     "test:t160": "npm run build:semantic && node --test test_env/tests/test_t160_recursive_executive_observer.test.mjs",
     "test:t160:live": "npm run build:semantic && ABG_TS_T160_EXECUTIVE_OBSERVER_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t160_recursive_executive_observer_live.test.mjs",
     "test:t173": "npm run build:semantic && node --test test_env/tests/test_t173_generic_proof_evidence_projection.test.mjs",
+    "test:t173:live": "npm run build:semantic && ABG_TS_T173_GENERIC_PROOF_EVIDENCE_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t173_generic_proof_evidence_live.test.mjs",
     "test:t159:odd-sdlc-t132-live": "npm run build:semantic && ABG_TS_ODD_SDLC_T132_FROZEN_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t159_odd_sdlc_t132_frozen_live.test.mjs",
     "test:t161": "npm run build:semantic && node --test test_env/tests/test_t161_shared_toolchain_install.test.mjs",
     "test:t163": "npm run build:semantic && node --test test_env/tests/test_t161_shared_toolchain_install.test.mjs test_env/tests/test_t163_shared_product_toolchain_resolution.test.mjs",

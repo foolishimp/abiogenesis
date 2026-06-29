@@ -3,7 +3,7 @@ id: T-173
 title: Publish generic proof-evidence replay proof
 type: implementation
 ticket_category: odd_glc_ladder_prerequisite
-status: active
+status: completed
 goal: >-
   Prove and publish a downstream-consumable ABI requirements-route replay
   artifact for the odd_glc ladder using generic proof-evidence roles. The proof
@@ -72,7 +72,8 @@ non_closure_conditions:
     acceptability policy instead of consuming admitted plugin/downstream
     declarations or policy refs.
   - The published replay artifact does not preserve subject-artifact,
-    verifier-artifact, verifier-execution, fold, residual, and disposition refs.
+    verifier-artifact, verifier-execution, fold, and disposition refs, or does
+    not explicitly record residual absence for a closed route.
   - No live proof is run before closure.
 required_work:
   - Resolve the declaration-to-projection gap for generic proof-evidence roles:
@@ -125,23 +126,61 @@ language/toolchain/test/release policy outside ABI.
 
 ## Acceptance Checklist
 
-- [ ] T-173 live proof lane exists.
+- [x] T-173 live proof lane exists.
 - [x] Declaration-to-projection gap is resolved without caller-supplied route
       projection refs.
-- [ ] Live proof produces subject artifact and independent verifier artifact.
-- [ ] Verifier execution runs through ABI actor/operator evidence truth.
-- [ ] Replay artifact includes distinct subject-artifact, verifier-artifact,
+- [x] Live proof produces subject artifact and independent verifier artifact.
+- [x] Verifier execution runs through ABI actor/operator evidence truth.
+- [x] Replay artifact includes distinct subject-artifact, verifier-artifact,
       and verifier-execution evidence bindings.
-- [ ] If compatibility evidence-role spellings are used, the artifact or
+- [x] If compatibility evidence-role spellings are used, the artifact or
       manifest maps them to generic proof-evidence roles.
 - [x] ABI does not define JavaScript, test, release, or acceptability policy.
-- [ ] Replay artifact includes fold, residual, and disposition route truth.
-- [ ] Manifest digest pins the artifact.
-- [ ] Proof commands pass, including live.
+- [x] Replay artifact includes fold and disposition route truth, and records
+      closed-route residual absence.
+- [x] Manifest digest pins the artifact.
+- [x] Proof commands pass, including live.
 
 ## Closure Evidence
 
-Open.
+Completed 2026-06-29.
+
+- Added `test:t173:live` and
+  `test_env/live/test_t173_generic_proof_evidence_live.test.mjs`.
+- Final live command:
+  `cd build_tenants/abiogenesis/typescript && npm run test:t173:live`.
+- Final live result: 2/2 passing in 130109.561792 ms.
+- Final proof run root:
+  `build_tenants/abiogenesis/typescript/test_env/test_runs/t173_generic_proof_evidence_live/20260629T131855445Z_pid76289`.
+- Replay artifact:
+  `generic-proof-evidence-replay-artifact.json`.
+- Manifest:
+  `generic-proof-evidence-replay-manifest.json`.
+- Manifest artifact digest:
+  `sha256:4c825ba13dd250d114f33f1d417d2d7470a5d62b3c3e917478e55c7e79d43206`.
+- Route event count: 19.
+- Preserved route payload kinds:
+  `requirement_term_admitted`,
+  `requirement_projection_admitted`,
+  `requirement_evidence_bound`,
+  `requirement_fold_projected`,
+  `requirement_lifecycle_disposition`,
+  `authority_context_fragment_admitted`,
+  `requirement_test_relation_admitted`,
+  `traversal_span_admitted`.
+- Distinct admitted evidence bindings were present for:
+  `projection://t173/live/subject-artifact` as `asset`,
+  `projection://t173/live/verifier-artifact` as `test_source`,
+  `projection://t173/live/verifier-execution` as `test_execution`, and
+  `projection://t173/live/interpretation` as `semantic_interpretation`.
+- Artifact source metadata maps compatibility role spellings to generic roles:
+  `asset -> subject_artifact`,
+  `test_source -> verifier_artifact`,
+  `test_execution -> verifier_execution`,
+  `semantic_interpretation -> semantic_interpretation`.
+- Closed-route residual handling is explicit: no
+  `requirement_residual_projected` event is expected for this closed proof;
+  disposition `residualRefs` is empty.
 
 ## Execution Start Note
 
@@ -177,6 +216,18 @@ for generic proof-evidence roles:
 - `test:t173` proves replay-visible projection facts for all generic roles.
 - `test:t162` and `test:t164` pass after the projection bridge change.
 
-Remaining open work: live proof lane, verifier execution through ABG
-actor/operator evidence truth, digest-pinned replay artifact publication, and
-odd_glc downstream consumption.
+At that point, the remaining work was the live proof lane, verifier execution
+through ABG actor/operator evidence truth, digest-pinned replay artifact
+publication, and odd_glc downstream consumption. The ABI-side items are
+resolved by the completion update below; downstream consumption remains odd_glc
+work.
+
+## Completion Update
+
+2026-06-29 completion pass added and ran the live proof lane. The live F_P
+worker produced a subject artifact and independent verifier artifact. The
+verifier was executed through the traced process path, its result was admitted
+through ABI runtime evidence, and the requirements route emitted replay-visible
+bindings/fold/disposition facts. JavaScript and CommonJS proof-root details
+remain proof-harness bindings; ABI core owns no JavaScript, test, release, or
+acceptability policy.
