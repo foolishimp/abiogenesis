@@ -3,7 +3,7 @@ id: T-169
 title: Ratify requirement span identity across recursion and foldback
 type: feature
 ticket_category: gtl_abg_span_identity
-status: active
+status: completed
 goal: >-
   Ratify and realize the GTL/ABG substrate for stable requirement span identity
   across graph frames, zoom, child frames, sibling graph calls, recursion,
@@ -161,24 +161,24 @@ downstream products interpret admitted read models.
 
 ## Acceptance Checklist
 
-- [ ] GTL span identity and lineage declaration law is ratified.
-- [ ] GTL conformance rejects dangling graph-function, graph-vector, frame,
+- [x] GTL span identity and lineage declaration law is ratified.
+- [x] GTL conformance rejects dangling graph-function, graph-vector, frame,
       zoom, foldback, continuation, re-entry, parent-span, and child-span refs.
-- [ ] GTL declarations remain inert and import no ABG runtime modules.
-- [ ] Design proves existing GTL topology anchors and ABG traversal/projection
+- [x] GTL declarations remain inert and import no ABG runtime modules.
+- [x] Design proves existing GTL topology anchors and ABG traversal/projection
       carriers are reused unless a new carrier passes the DESIGN_MODULE_METHOD
       promotion test.
-- [ ] ABG projection preserves span identity through frame, zoom, child-frame
+- [x] ABG projection preserves span identity through frame, zoom, child-frame
       or sibling-call, recursion, foldback, continuation, and re-entry.
-- [ ] Requirement fold/residual/disposition views preserve original span refs
+- [x] Requirement fold/residual/disposition views preserve original span refs
       and parent/child lineage.
-- [ ] Public queries expose read-only span-lineage projection state.
-- [ ] Negative proof rejects vector-index-only identity, query-invented span
+- [x] Public queries expose read-only span-lineage projection state.
+- [x] Negative proof rejects vector-index-only identity, query-invented span
       joins, and product-local span maps.
-- [ ] `npm run test:t169` passes.
-- [ ] `npm run test:t169:live` passes with a live F_P worker process and
+- [x] `npm run test:t169` passes.
+- [x] `npm run test:t169:live` passes with a live F_P worker process and
       digest-pinned replay artifact.
-- [ ] `git diff --check` passes.
+- [x] `git diff --check` passes.
 
 ## Progress Record
 
@@ -200,8 +200,21 @@ Proof completed for first slice:
 - `npm run lint:test-harness` passed.
 - `git diff --check` passed.
 
-Not yet closed:
+2026-06-29 closure:
 
-- Live F_P worker proof is not implemented or run.
-- Recursive child-frame or sibling-call foldback and re-entry path is not yet
-  proven.
+- Added `npm run test:t169:live` and
+  `test_env/live/test_t169_requirement_span_identity_recursion_live.test.mjs`.
+- The live proof invokes a governed live F_P worker, emits requirements-route
+  term, traversal-span, projection, evidence, fold, residual, and disposition
+  facts, and writes a digest-pinned replay artifact.
+- The live artifact carries replay-derived graph-span foldback and
+  constitutional re-entry frontier truth alongside the requirements-route
+  lifecycle state, proving parent span -> child frame -> foldback -> re-entry
+  projection without a product-local span map.
+- Closure proof:
+  `build_tenants/abiogenesis/typescript/test_env/test_runs/t169_requirement_span_identity_recursion_live/20260629T023239528Z_pid34610/requirements-route-replay-manifest.json`
+  with artifact digest
+  `sha256:6ff9adc15c54944e540c139f343de7898d1e0722cf50285a18819f7d0283d62d`.
+- Proof commands passed:
+  `npm run test:t169`, `npm run test:t169:live`,
+  `npm run lint:test-harness`.
