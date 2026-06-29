@@ -38,6 +38,7 @@ Leaf route
 
 Read-only graph queries
   -> RequirementGraphProjection
+       parentChildPairs[*] -> RequirementGraphPairProjection[*] <<subordinate row>>
   -> RequirementAggregateStateProjection[*]
 ```
 
@@ -49,6 +50,7 @@ Read-only graph queries
 | `RequirementRelation` | admitted ABG relation truth |
 | `EdgeRequirementEnvironment.activeRelations` | active query pressure |
 | `RequirementGraphProjection` | replay-derived graph view |
+| `RequirementGraphPairProjection` | subordinate row inside the graph view |
 | `RequirementAggregateStateProjection` | aggregate read model over child truth |
 
 ## Forbidden Shapes

@@ -1,15 +1,18 @@
 import { createHash } from "node:crypto";
 
 export function stableJson(input: unknown): string {
+  if (input === undefined) {
+    return "null";
+  }
   if (input === null || typeof input !== "object") {
     return JSON.stringify(input);
   }
   if (Array.isArray(input)) {
     return `[${input.map((entry) => stableJson(entry)).join(",")}]`;
   }
-  const entries = Object.entries(input).sort(([left], [right]) =>
-    left.localeCompare(right)
-  );
+  const entries = Object.entries(input)
+    .filter(([, value]) => value !== undefined)
+    .sort(([left], [right]) => left < right ? -1 : left > right ? 1 : 0);
   return `{${entries
     .map(([key, value]) => `${JSON.stringify(key)}:${stableJson(value)}`)
     .join(",")}}`;

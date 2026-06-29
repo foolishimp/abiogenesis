@@ -47,13 +47,16 @@ Do not promote a carrier merely because the route needs an API shape.
 | `AdmittedRef<Kind>` | route interface ref | It is nominal and resolved against replay before command use. It prevents structural forged refs. |
 | `RuntimeScopeRef` | route interface ref | It is nominal runtime context provided by ABG, not caller-assembled strings. |
 | `RequirementLifecycleDisposition` | named query projection | It joins residual/fold truth with existing continuation/re-entry truth. It is not writable. |
-| `ProjectLifecycleStateOutput` | joined read model | It is the downstream-public query result over replay-derived route truth. |
+| `RequirementLifecycleStateReadModel` | joined read model | It is the downstream-public query result over replay-derived route truth. |
 | `RouteResult<T>` | command/query result union | It makes typed rejection explicit and prevents implicit success. |
 
 ## Subordinate Or Non-Prime Interfaces
 
 | Interface | Disposition |
 | --- | --- |
+| `RouteReplayFact` | subordinate replay fixture row; it is proof/query input and not an event store |
+| `RequirementRouteRuntimeContext` | ABG-runtime-internal activation context; downstream callers do not supply it |
+| `RequirementLifecycleStateReadModel` | downstream query output over replay; it does not emit or admit truth |
 | `FpFindingRef` | subordinate admitted semantic ref; F_P owns meaning |
 | `FhDecisionRef` | subordinate admitted decision ref; F_H owns decision |
 | `FdProjectionContext` | subordinate context for deterministic projection |

@@ -90,3 +90,22 @@ Pass.
 - If implementation classifies unknown syntax semantically in F_D, closure
   fails.
 
+## Post-Route Surface Addendum
+
+T-164, T-168, and T-169 add downstream route/read-model surfaces without
+changing the T-162 prime carrier set.
+
+The following realized public or package-visible shapes are subordinate query,
+proof, or activation rows and are not prime carrier promotions:
+
+| Shape | Classification |
+| --- | --- |
+| `RequirementLifecycleStateReadModel` | downstream read-only query output over replay-derived route truth |
+| `RouteReplayFact` | proof/query replay row, not an event store |
+| `RequirementRouteRuntimeContext` | ABG-runtime-internal activation context, not downstream input truth |
+| `RequirementGraphPairProjection` | nested row inside `RequirementGraphProjection`, not a standalone graph carrier |
+| `RequirementSpanLineageProjection` | read-only projection over `TraversalSpan` lineage refs |
+
+Any future implementation that exposes these as writable ledgers, event
+emitters, runtime controllers, or GTL-owned ABG runtime imports reopens the
+design review.

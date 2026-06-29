@@ -2156,6 +2156,7 @@ export function bindRequirementEvidence(input: {
   readonly digest: string | null;
   readonly admitted: boolean;
   readonly byproduct: boolean;
+  readonly nonClosing?: boolean;
   readonly current: boolean;
   readonly supersedesEvidenceRefs?: readonly string[];
 }): RequirementEvidenceBinding {
@@ -2175,8 +2176,13 @@ export function bindRequirementEvidence(input: {
     input.projection.evidenceRole === "test_source" &&
     input.path !== null &&
     pathEvidenceRole !== "test_source";
+  const nonClosing =
+    !input.byproduct &&
+    !input.admitted &&
+    input.nonClosing === true &&
+    !testSourceOutsideAdmittedRoots;
   const bindingStatus: RequirementEvidenceBindingStatus =
-    input.byproduct
+    input.byproduct || nonClosing
       ? "non_closing"
       : testSourceOutsideAdmittedRoots || !input.admitted
         ? "rejected"
@@ -2213,7 +2219,11 @@ export function currentEvidenceBindings(
     }
   }
   return freezeArray(
-    bindings.filter((binding) => binding.current && !superseded.has(binding.evidenceRef))
+    bindings.filter((binding) =>
+      binding.current &&
+      binding.bindingStatus === "admitted" &&
+      !superseded.has(binding.evidenceRef)
+    )
   );
 }
 

@@ -584,6 +584,51 @@ test("T-162 current admitted evidence supersedes empty predecessor replay", () =
   assert.deepEqual(active.map((binding) => binding.evidenceRef), ["evidence://current-valid"]);
 });
 
+test("T-162 current evidence excludes rejected and non-closing bindings", () => {
+  const rejected = constructRequirementEvidenceBinding({
+    evidenceRef: "evidence://rejected-current",
+    requirementId: "REQ-DM-001",
+    projectionRef: "projection://req-dm-001/materialize/tenant-stack",
+    evidenceRole: "asset",
+    bindingStatus: "rejected",
+    path: null,
+    digest: null,
+    current: true,
+    supersedesEvidenceRefs: [],
+    reason: "rejected evidence must not support a fold"
+  });
+  const nonClosing = constructRequirementEvidenceBinding({
+    evidenceRef: "evidence://non-closing-current",
+    requirementId: "REQ-DM-001",
+    projectionRef: "projection://req-dm-001/materialize/tenant-stack",
+    evidenceRole: "asset",
+    bindingStatus: "non_closing",
+    path: null,
+    digest: null,
+    current: true,
+    supersedesEvidenceRefs: [],
+    reason: "non-closing evidence preserves pressure but does not support closure"
+  });
+  const admitted = constructRequirementEvidenceBinding({
+    evidenceRef: "evidence://admitted-current",
+    requirementId: "REQ-DM-001",
+    projectionRef: "projection://req-dm-001/materialize/tenant-stack",
+    evidenceRole: "asset",
+    bindingStatus: "admitted",
+    path: null,
+    digest: "sha256:admitted",
+    current: true,
+    supersedesEvidenceRefs: [],
+    reason: "admitted evidence supports a fold"
+  });
+
+  const active = currentEvidenceBindings([rejected, nonClosing, admitted]);
+
+  assert.deepEqual(active.map((binding) => binding.evidenceRef), [
+    "evidence://admitted-current"
+  ]);
+});
+
 test("T-162 component-test postflight admits materialized tests before execution proof", () => {
   const { env, projections } = environment();
   const materialization = projectMaterializationTargets(projections)[0];

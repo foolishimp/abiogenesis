@@ -15,6 +15,7 @@ import {
 } from "./assurance.js";
 import {
   type EvidenceAdmittedRuntimeEvent,
+  type GraphReentryPoint,
   type RequirementRouteFactProjectedRuntimeEvent,
   type RuntimeEvent
 } from "./carriers.js";
@@ -191,6 +192,9 @@ export interface ProjectRequirementFoldFromAssuranceClosureInput {
   readonly requirementProjectionRefs: readonly AdmittedRef<"requirement_projection">[];
   readonly evidenceBindingRefs: readonly AdmittedRef<"requirement_evidence_binding">[];
   readonly assuranceClosureDecisionRef: AdmittedRef<"assurance_closure_decision">;
+  readonly requirementClosureDecisionRefsByRequirementId?:
+    | Readonly<Record<string, AdmittedRef<"assurance_closure_decision">>>
+    | undefined;
   readonly replayFacts: readonly RouteReplayFact[];
 }
 
@@ -239,6 +243,11 @@ export interface EmitRequirementRouteFactsForEdgeCloseInput {
   readonly closureDecision: AssuranceClosureDecision;
   readonly continuationTransitions?:
     | readonly RuntimeContinuationTransitionProjection[]
+    | undefined;
+  readonly reentryPoints?: readonly GraphReentryPoint[] | undefined;
+  readonly policyRefs?: readonly string[] | undefined;
+  readonly requirementClosureDecisionRefsByRequirementId?:
+    | Readonly<Record<string, AdmittedRef<"assurance_closure_decision">>>
     | undefined;
 }
 
@@ -457,36 +466,33 @@ export function buildRequirementRouteRuntimeContextFromDeclarations(
   }
 
   const projectionEvents = Object.freeze([...projectionEventsByRef.values()]);
-  const firstEdge = input.edges[0];
+  const requirementEvents = Object.freeze([
+    ...admitted.value.admittedRequirementEvents,
+    ...projectionEvents
+  ]);
+  const ledger = projectRequirementLedger(requirementEvents);
+  const replayFacts = replayFactsForRequirementEvents(requirementEvents, ledger);
   const admissionRuntimeEvents = Object.freeze(
-    firstEdge === undefined
-      ? []
-      : [
-          ...admitted.value.admittedRequirementEvents,
-          ...projectionEvents
-        ].map((event) =>
+    input.edges.flatMap((edge) => {
+      const environment = buildEdgeRequirementEnvironment({ ledger, edge });
+      return requirementEvents
+        .filter((event) => requirementEventAppliesToEnvironment(event, environment))
+        .map((event) =>
           constructRequirementRouteFactProjectedEvent({
             runtimeScope: input.runtimeScope,
-            edge: firstEdge,
+            edge,
             payload: event,
             sourceEventRefs: [event.eventRef],
             sourceProjectionRefs: routePayloadProjectionRefs(event),
             causationEventRefs: [event.eventRef]
           })
-        )
+        );
+    })
   );
   return accepted(
     Object.freeze({
-      ledger: projectRequirementLedger([
-        ...admitted.value.admittedRequirementEvents,
-        ...projectionEvents
-      ]),
-      replayFacts: Object.freeze([
-        ...admitted.value.replayFacts,
-        ...projectionEvents.flatMap((event) =>
-          replayFactForRequirementEvent(event)
-        )
-      ]),
+      ledger,
+      replayFacts,
       requirementProjectionRefsByVectorIndex: Object.freeze(
         Object.fromEntries(
           Object.entries(requirementProjectionRefsByVectorIndex).map(
@@ -499,6 +505,52 @@ export function buildRequirementRouteRuntimeContextFromDeclarations(
     admissionRuntimeEvents.map((event) => event.routeEventRef),
     [input.bundle.declarationKey, ...input.edges.map((edge) => edge.edge)]
   );
+}
+
+function requirementEventAppliesToEnvironment(
+  event: RequirementEventPayload,
+  environment: EdgeRequirementEnvironment
+): boolean {
+  const activeRequirementIds = new Set(
+    environment.activeTerms.map((term) => term.requirementId)
+  );
+  const activeRelationRefs = new Set(
+    environment.activeRelations.map((relation) => relation.relationId)
+  );
+  const activeSpanIds = new Set(
+    environment.activeSpans.map((span) => span.spanId)
+  );
+  switch (event.kind) {
+    case "requirement_term_admitted":
+      return activeRequirementIds.has(event.term.requirementId);
+    case "requirement_relation_admitted":
+      return activeRelationRefs.has(event.relation.relationId);
+    case "traversal_span_admitted":
+      return activeSpanIds.has(event.span.spanId);
+    case "authority_context_fragment_admitted":
+      return environment.activeContextFragments.some((fragment) =>
+        fragment.fragmentRef === event.fragment.fragmentRef
+      );
+    case "destination_topology_admitted":
+      return environment.activeDestinationTopologies.some((topology) =>
+        topology.topologyRef === event.topology.topologyRef
+      );
+    case "requirement_test_relation_admitted":
+      return environment.activeTestRelations.some((relation) =>
+        relation.relationRef === event.testRelation.relationRef
+      );
+    case "requirement_projection_admitted":
+      return (
+        activeRequirementIds.has(event.projection.requirementId) &&
+        activeSpanIds.has(event.projection.spanId)
+      );
+    case "requirement_evidence_bound":
+      return activeRequirementIds.has(event.binding.requirementId);
+    case "requirement_fold_projected":
+      return activeRequirementIds.has(event.fold.requirementId);
+    case "requirement_residual_projected":
+      return activeRequirementIds.has(event.residual.requirementId);
+  }
 }
 
 export function bindExecutionEvidence(
@@ -541,7 +593,11 @@ export function bindExecutionEvidence(
     return projectionResolution;
   }
 
-  const evidenceBindings = projectionResolution.value.map((projection) =>
+  const matchingProjections = projectionsMatchingRuntimeEvidence(
+    runtimeEvidence,
+    projectionResolution.value
+  );
+  const evidenceBindings = matchingProjections.map((projection) =>
     bindRequirementEvidence({
       environment: input.environment,
       projection,
@@ -552,6 +608,11 @@ export function bindExecutionEvidence(
         stableSha256Digest(runtimeEvidence),
       admitted:
         runtimeEvidence.complete &&
+        !runtimeEvidence.contradictsAuthority &&
+        !runtimeEvidence.deferred,
+      nonClosing:
+        runtimeEvidence.shallow &&
+        !runtimeEvidence.complete &&
         !runtimeEvidence.contradictsAuthority &&
         !runtimeEvidence.deferred,
       byproduct: input.byproduct ?? false,
@@ -604,6 +665,134 @@ export function bindExecutionEvidence(
   );
 }
 
+function runtimeEvidenceAppliesToProjection(
+  evidence: EvidenceAdmittedRuntimeEvent,
+  projection: RequirementProjection
+): boolean {
+  if (evidence.authorityRef === null) {
+    return false;
+  }
+  return (
+    evidence.authorityRef === projection.requirementId ||
+    evidence.authorityRef === projection.projectionRef ||
+    projection.sourceRefs.includes(evidence.authorityRef)
+  );
+}
+
+function projectionsMatchingRuntimeEvidence(
+  evidence: EvidenceAdmittedRuntimeEvent,
+  projections: readonly RequirementProjection[]
+): readonly RequirementProjection[] {
+  const matching = projections.filter((projection) =>
+    runtimeEvidenceAppliesToProjection(evidence, projection)
+  );
+  if (matching.length > 0) {
+    return Object.freeze(matching);
+  }
+  return projections.length === 1 ? Object.freeze([...projections]) : Object.freeze([]);
+}
+
+function scopedClosureTruthRef(
+  closureDecision: AssuranceClosureDecision,
+  requirementId: string,
+  decision: AssuranceClosureDecision["decision"]
+): string {
+  return requirementAbgTruthRefFromAssuranceClosureDecision(Object.freeze({
+    ...closureDecision,
+    decision,
+    projectionRef: [
+      closureDecision.projectionRef,
+      "requirement",
+      encodeURIComponent(requirementId)
+    ].join(":")
+  }));
+}
+
+function scopedClosureDecisionForRequirement(input: {
+  readonly closureDecision: AssuranceClosureDecision;
+  readonly requirementId: string;
+  readonly evidenceBindings: readonly RequirementEvidenceBinding[];
+}): AssuranceClosureDecision["decision"] {
+  const bindings = input.evidenceBindings.filter((binding) =>
+    binding.requirementId === input.requirementId
+  );
+  if (bindings.some((binding) => binding.bindingStatus === "non_closing")) {
+    return "retry";
+  }
+  if (bindings.some((binding) => binding.bindingStatus === "admitted")) {
+    return input.closureDecision.decision === "close"
+      ? "close"
+      : input.closureDecision.decision;
+  }
+  return input.closureDecision.decision;
+}
+
+function sourceTruthRefsByRequirementId(input: {
+  readonly runtimeScope: RuntimeScopeRef;
+  readonly closureDecision: AssuranceClosureDecision;
+  readonly requirementClosureDecisionRefsByRequirementId?:
+    | Readonly<Record<string, AdmittedRef<"assurance_closure_decision">>>
+    | undefined;
+  readonly projections: readonly RequirementProjection[];
+  readonly evidenceBindings: readonly RequirementEvidenceBinding[];
+  readonly replayFacts: readonly RouteReplayFact[];
+}): RouteResult<Readonly<Record<string, readonly string[]>>> {
+  const projectedRequirementIds = Object.freeze([
+    ...new Set(input.projections.map((projection) => projection.requirementId))
+  ]);
+  const boundRequirementIds = new Set(
+    input.evidenceBindings.map((binding) => binding.requirementId)
+  );
+  const output: Record<string, readonly string[]> = {};
+  const explicitRefs = input.requirementClosureDecisionRefsByRequirementId;
+  for (const requirementId of projectedRequirementIds) {
+    const explicitRef = explicitRefs?.[requirementId];
+    if (explicitRef !== undefined) {
+      const resolution = resolveAdmittedRef({
+        admittedRef: explicitRef,
+        replayFacts: input.replayFacts,
+        expectedKind: "assurance_closure_decision"
+      });
+      if (resolution.status === "rejected") {
+        return resolution;
+      }
+      const decision = assuranceClosureDecisionPayload(resolution.value.payload);
+      if (decision === null) {
+        return rejected(
+          "malformed_input",
+          [`Resolved ${explicitRef.ref} is not an AssuranceClosureDecision`],
+          [explicitRef.ref]
+        );
+      }
+      if (!assuranceDecisionMatchesScope(input.runtimeScope, decision)) {
+        return rejected(
+          "dangling_ref",
+          [`Assurance closure decision ${decision.projectionRef} does not belong to runtime scope ${input.runtimeScope.runRef}`],
+          [decision.projectionRef]
+        );
+      }
+      output[requirementId] = Object.freeze([
+        requirementAbgTruthRefFromAssuranceClosureDecision(decision)
+      ]);
+      continue;
+    }
+    if (projectedRequirementIds.length === 1 || boundRequirementIds.has(requirementId)) {
+      output[requirementId] = Object.freeze([
+        scopedClosureTruthRef(
+          input.closureDecision,
+          requirementId,
+          scopedClosureDecisionForRequirement({
+            closureDecision: input.closureDecision,
+            requirementId,
+            evidenceBindings: input.evidenceBindings
+          })
+        )
+      ]);
+    }
+  }
+  return accepted(Object.freeze(output), [], projectedRequirementIds);
+}
+
 export function projectRequirementFoldFromAssuranceClosure(
   input: ProjectRequirementFoldFromAssuranceClosureInput
 ): RouteResult<ProjectRequirementFoldFromAssuranceClosureOutput> {
@@ -651,21 +840,24 @@ export function projectRequirementFoldFromAssuranceClosure(
     return bindingResolution;
   }
 
-  const sourceTruthRef = requirementAbgTruthRefFromAssuranceClosureDecision(
-    closureDecision
-  );
-  const sourceAbgTruthRefsByRequirementId: Record<string, readonly string[]> = {};
-  for (const term of input.environment.activeTerms) {
-    sourceAbgTruthRefsByRequirementId[term.requirementId] = Object.freeze([
-      sourceTruthRef
-    ]);
+  const sourceTruthResolution = sourceTruthRefsByRequirementId({
+    runtimeScope: input.runtimeScope,
+    closureDecision,
+    requirementClosureDecisionRefsByRequirementId:
+      input.requirementClosureDecisionRefsByRequirementId,
+    projections: projectionResolution.value,
+    evidenceBindings: bindingResolution.value,
+    replayFacts: input.replayFacts
+  });
+  if (sourceTruthResolution.status === "rejected") {
+    return sourceTruthResolution;
   }
   const folds = foldRequirementEvidence({
     environment: input.environment,
     projections: projectionResolution.value,
     evidenceBindings: bindingResolution.value,
-    sourceAbgTruthRefs: Object.freeze([sourceTruthRef]),
-    sourceAbgTruthRefsByRequirementId: Object.freeze(sourceAbgTruthRefsByRequirementId)
+    sourceAbgTruthRefs: Object.freeze([]),
+    sourceAbgTruthRefsByRequirementId: sourceTruthResolution.value
   });
   const emittedRequirementEvents = folds.map((fold) =>
     admitRequirementEventPayload({
@@ -843,6 +1035,8 @@ export function emitRequirementRouteFactsForEdgeClose(
     requirementProjectionRefs: projectionRefs,
     evidenceBindingRefs,
     assuranceClosureDecisionRef: closureRef,
+    requirementClosureDecisionRefsByRequirementId:
+      input.requirementClosureDecisionRefsByRequirementId,
     replayFacts: Object.freeze([
       ...replayFacts,
       fact("assurance_closure_decision", input.closureDecision.projectionRef, assuranceEventRef, input.closureDecision)
@@ -890,12 +1084,58 @@ export function emitRequirementRouteFactsForEdgeClose(
     );
   }
 
+  const reentryRefs: AdmittedRef<"graph_reentry_point">[] = [];
+  for (const point of input.reentryPoints ?? Object.freeze([])) {
+    const payload = Object.freeze({
+      kind: "graph_reentry_point",
+      reEntryPoint: point,
+      runtimeScope: input.runtimeScope.runRef,
+      edge: input.edge.edge
+    });
+    const ref = `graph-reentry-point:${point}`;
+    const sourceEventRef = `runtime-projection:graph_reentry_point:${encodeURIComponent(point)}:${stableSha256Digest(payload)}`;
+    replayFacts = Object.freeze([
+      ...replayFacts,
+      fact("graph_reentry_point", ref, sourceEventRef, payload)
+    ]);
+    reentryRefs.push(
+      mintAdmittedRef({
+        kind: "graph_reentry_point" as const,
+        ref,
+        sourceEventRef,
+        payload
+      })
+    );
+  }
+
+  const policyRefs: AdmittedRef<"runtime_policy">[] = [];
+  for (const policyRef of input.policyRefs ?? Object.freeze([])) {
+    const payload = Object.freeze({
+      kind: "runtime_policy",
+      policyRef,
+      runtimeScope: input.runtimeScope.runRef
+    });
+    const sourceEventRef = `runtime-projection:runtime_policy:${encodeURIComponent(policyRef)}:${stableSha256Digest(payload)}`;
+    replayFacts = Object.freeze([
+      ...replayFacts,
+      fact("runtime_policy", policyRef, sourceEventRef, payload)
+    ]);
+    policyRefs.push(
+      mintAdmittedRef({
+        kind: "runtime_policy" as const,
+        ref: policyRef,
+        sourceEventRef,
+        payload
+      })
+    );
+  }
+
   const disposition = resolveRequirementLifecycleDisposition({
     runtimeScope: input.runtimeScope,
     residualRefs: residual.value.residualRefs,
     continuationRefs,
-    reentryRefs: [],
-    policyRefs: [],
+    reentryRefs,
+    policyRefs,
     replayFacts
   });
   if (disposition.status === "rejected") {
@@ -952,15 +1192,31 @@ export function resolveRequirementLifecycleDisposition(
   if (residualResolution.status === "rejected") {
     return residualResolution;
   }
-  for (const ref of [
-    ...input.continuationRefs,
-    ...input.reentryRefs,
-    ...input.policyRefs
-  ]) {
+  for (const ref of input.continuationRefs) {
     const resolution = resolveAdmittedRef({
       admittedRef: ref,
       replayFacts: input.replayFacts,
-      expectedKind: ref.kind
+      expectedKind: "continuation_transition"
+    });
+    if (resolution.status === "rejected") {
+      return resolution;
+    }
+  }
+  for (const ref of input.reentryRefs) {
+    const resolution = resolveAdmittedRef({
+      admittedRef: ref,
+      replayFacts: input.replayFacts,
+      expectedKind: "graph_reentry_point"
+    });
+    if (resolution.status === "rejected") {
+      return resolution;
+    }
+  }
+  for (const ref of input.policyRefs) {
+    const resolution = resolveAdmittedRef({
+      admittedRef: ref,
+      replayFacts: input.replayFacts,
+      expectedKind: "runtime_policy"
     });
     if (resolution.status === "rejected") {
       return resolution;
@@ -1117,7 +1373,14 @@ function constructRequirementRouteFactProjectedEvent(input: {
     throw new TypeError("Requirement route runtime event requires frameRef");
   }
   const routePayloadRef = requirementRoutePayloadRef(input.payload);
-  const routeEventRef = input.sourceEventRefs[0] ?? routePayloadRef;
+  const routeEventRef = [
+    "requirement-route-fact",
+    encodeURIComponent(input.runtimeScope.runRef),
+    String(input.edge.vectorIndex),
+    encodeURIComponent(input.edge.edge),
+    encodeURIComponent(routePayloadRef),
+    stableSha256Digest(input.sourceEventRefs)
+  ].join(":");
   return Object.freeze({
     kind: "requirement_route_fact_projected",
     basisId: input.runtimeScope.runRef,

@@ -32,6 +32,9 @@ import {
   constructRequirementProjection,
   projectRequirementLedger
 } from "../../build/semantic/code/src/abg/m03/contracts/requirements_algebra.js";
+import {
+  stableJson
+} from "../../build/semantic/code/src/shared/runtime_identity.js";
 import { buildThreeStageBasis } from "./support/m03-iteration-fixtures.mjs";
 
 const FORBIDDEN_PUBLIC_EMITTERS = Object.freeze([
@@ -301,6 +304,17 @@ function attachedArtifact(input) {
     resolved_runtime_ref: "runtime://typescript/node"
   });
 }
+
+test("T-164 admitted ref digest canonicalization is environment invariant", () => {
+  assert.equal(
+    stableJson({ b: 2, a: undefined, Z: 1 }),
+    "{\"Z\":1,\"b\":2}"
+  );
+  assert.equal(
+    stableJson({ nested: { keep: true, drop: undefined } }),
+    "{\"nested\":{\"keep\":true}}"
+  );
+});
 
 function fpDispatchContract(ref) {
   return publicRoot.constructEnginePluginContract({
@@ -699,6 +713,23 @@ test("T-164 lifecycle state is a read-only replay query over admitted dispositio
   assert.equal(rejected.status, "rejected");
   assert.equal(rejected.reason, "malformed_input");
 
+  const wrongSlotRef = mintAdmittedRef({
+    kind: "requirement_fold_projection",
+    ref: fold.value.folds[0].foldRef,
+    sourceEventRef: fold.value.foldRefs[0].sourceEventRef,
+    payload: fold.value.folds[0]
+  });
+  const wrongSlotDisposition = resolveRequirementLifecycleDisposition({
+    runtimeScope: scope,
+    residualRefs: residual.value.residualRefs,
+    continuationRefs: [],
+    reentryRefs: [wrongSlotRef],
+    policyRefs: [],
+    replayFacts: fold.value.replayFacts
+  });
+  assert.equal(wrongSlotDisposition.status, "rejected");
+  assert.equal(wrongSlotDisposition.reason, "unknown_ref");
+
   const attenuation = publicAbgRequirements.classifyAttenuation({
     priorResiduals: [],
     residuals: residual.value.residuals
@@ -865,4 +896,42 @@ test("T-164 runner emits requirement route facts on the traversal path", () => {
   assert.deepEqual(lifecycleState.value.dispositionRefs, [
     dispositionEvent.routePayloadRef
   ]);
+});
+
+test("T-164 runner no-ops uncovered route edges instead of crashing", () => {
+  const basis = buildThreeStageBasis({
+    defaultRegime: "F_P",
+    dispatchRef: "dispatch://t164/runner-uncovered-edge"
+  });
+  const requirementRouteDeclarationBundle = t164RouteBundleForBasis(basis, 0);
+  const fpDispatch = Object.freeze({
+    contract: fpDispatchContract("plugin://t164/runner-uncovered/fp-dispatch"),
+    dispatch: (input) =>
+      publicRoot.constructFpDispatchOutcome({
+        status: "dispatched",
+        resultRef: `result://t164/runner-uncovered/${encodeURIComponent(input.edge)}`,
+        attachedResultArtifact: attachedArtifact(input),
+        evidenceRefs: [input.sourceProjectionRef]
+      })
+  });
+
+  const result = publicRoot.runEngineIterate({
+    basis,
+    eventSink: () => {},
+    plugins: {
+      fpDispatch,
+      fpEvaluator: publicRoot.defaultFpEvaluatorPlugin
+    },
+    requirementRouteDeclarationBundle
+  });
+
+  assert.equal(result.transition.kind, "terminal");
+  assert.equal(result.transition.terminalKind, "converged");
+  const routeRuntimeEvents = result.replayEvents.filter((event) =>
+    event.kind === "requirement_route_fact_projected"
+  );
+  assert.equal(
+    routeRuntimeEvents.every((event) => event.vectorIndex === 0),
+    true
+  );
 });

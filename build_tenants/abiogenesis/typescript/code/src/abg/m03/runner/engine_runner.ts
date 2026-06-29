@@ -2798,6 +2798,10 @@ function emitRequirementRouteForEdgeClose(input: {
   if (input.context === undefined) {
     return input.state;
   }
+  const reentryFrontier = deriveGraphReentryFrontierProjection({
+    basis: input.request.basis,
+    events: input.state.replayEvents
+  });
   const route = emitRequirementRouteFactsForEdgeClose({
     runtimeScope: requirementRouteScopeRef({
       basis: input.request.basis,
@@ -2815,9 +2819,18 @@ function emitRequirementRouteForEdgeClose(input: {
     }),
     runtimeEvents: input.state.replayEvents.filter(isEvidenceAdmittedRuntimeEvent),
     closureDecision: input.closureDecision,
-    continuationTransitions: input.continuationTransitions ?? Object.freeze([])
+    continuationTransitions: input.continuationTransitions ?? Object.freeze([]),
+    reentryPoints: reentryFrontier.activeReEntryPoint === null
+      ? Object.freeze([])
+      : Object.freeze([reentryFrontier.activeReEntryPoint]),
+    policyRefs: Object.freeze([
+      input.request.basis.resolvedPolicy.resolvedPolicyBundleRef
+    ])
   });
   if (route.status === "rejected") {
+    if (route.reason === "not_ready") {
+      return input.state;
+    }
     throw new TypeError(
       `Requirement route edge-close emission rejected: ${route.reason}: ${route.diagnostics.join("; ")}`
     );

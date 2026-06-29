@@ -41,3 +41,5 @@ No new prime carrier is promoted.
 `RequirementSpanLineageProjection` is a read-only projection over
 `TraversalSpan`; it does not pass the carrier promotion test as authority
 because all identity truth remains in admitted span/runtime carriers.
+It is a subordinate query output, not a standalone runtime carrier or
+frame/zoom/foldback ledger.

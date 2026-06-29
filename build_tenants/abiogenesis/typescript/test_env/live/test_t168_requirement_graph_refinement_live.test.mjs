@@ -360,33 +360,36 @@ function liveEvaluatorPlugin(input) {
         assessment.evidenceRefs.length > 0
           ? assessment.evidenceRefs
           : [`evidence://t168/live/${evaluationInput.vectorIndex}`];
+      const findingForRequirement = (requirementId) =>
+        publicRoot.constructFpEvaluationFinding({
+          findingRef: `finding://t168/live/${evaluationInput.vectorIndex}/${requirementId}`,
+          evaluatorRef: evaluationInput.contract.ref,
+          gainReportRef: `gain://t168/live/${evaluationInput.vectorIndex}/${requirementId}`,
+          metricRefs: [`metric://t168/live/${evaluationInput.vectorIndex}/${requirementId}`],
+          closeDisposition: "no_close",
+          residualPressureRefs: assessment.residualPressureRefs.map((ref) =>
+            `${ref}/${requirementId}`
+          ),
+          continuationRefs: assessment.continuationRefs.map((ref) =>
+            `${ref}/${requirementId}`
+          ),
+          evidenceRefs: evidenceRefs.map((ref) => `${ref}/${requirementId}`),
+          authorityRefs: Object.freeze([requirementId]),
+          compositionContributionRef:
+            evaluationInput.selectedRegimeBindingRef ??
+            evaluationInput.selectedCompositionRef,
+          compositionRef: evaluationInput.selectedCompositionRef,
+          compositionDigest: evaluationInput.selectedCompositionDigest,
+          diagnosticRefs: [
+            `diagnostic://t168/live/proof-child-missing/${requirementId}`
+          ]
+        });
       return publicRoot.constructFpEvaluationOutcome({
         status: "evaluated",
         ambiguityStatus: "partial",
         findings: [
-          publicRoot.constructFpEvaluationFinding({
-            findingRef: `finding://t168/live/${evaluationInput.vectorIndex}`,
-            evaluatorRef: evaluationInput.contract.ref,
-            gainReportRef: `gain://t168/live/${evaluationInput.vectorIndex}`,
-            metricRefs: [`metric://t168/live/${evaluationInput.vectorIndex}`],
-            closeDisposition: "no_close",
-            residualPressureRefs: assessment.residualPressureRefs,
-            continuationRefs: assessment.continuationRefs,
-            evidenceRefs,
-            authorityRefs: Object.freeze([
-              ...new Set([
-                ...evaluationInput.expectedAssessmentIds,
-                CHILD_TWO_REQUIREMENT_ID,
-                `authority://t168/live/${evaluationInput.vectorIndex}`
-              ])
-            ]),
-            compositionContributionRef:
-              evaluationInput.selectedRegimeBindingRef ??
-              evaluationInput.selectedCompositionRef,
-            compositionRef: evaluationInput.selectedCompositionRef,
-            compositionDigest: evaluationInput.selectedCompositionDigest,
-            diagnosticRefs: ["diagnostic://t168/live/proof-child-missing"]
-          })
+          findingForRequirement(CHILD_ONE_REQUIREMENT_ID),
+          findingForRequirement(CHILD_TWO_REQUIREMENT_ID)
         ],
         evidenceRefs: [evaluationInput.sourceProjectionRef],
         reason: assessment.reason

@@ -63,6 +63,11 @@ derived read models. They fail the promotion test as carrier authority because
 they do not own admission, event truth, closure truth, continuation truth, or
 runtime selection. Their role is query shape only.
 
+`RequirementGraphPairProjection` is a subordinate row inside
+`RequirementGraphProjection`. It is not a public peer carrier and has no
+standalone producer. It exists only to render active parent/child relation
+rows from existing `RequirementRelation` truth.
+
 Any future carrier for recursive span identity is out of scope for this slice
 and belongs to T-169.
 

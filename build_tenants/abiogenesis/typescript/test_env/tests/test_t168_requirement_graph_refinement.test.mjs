@@ -268,31 +268,29 @@ function partialFpEvaluatorPlugin() {
   return Object.freeze({
     contract: fpEvaluatorContract("plugin://t168/refinement/fp-evaluator"),
     evaluate(input) {
+      const findingForRequirement = (requirementId) =>
+        publicRoot.constructFpEvaluationFinding({
+          findingRef: `finding://t168/refinement/${input.vectorIndex}/${requirementId}`,
+          evaluatorRef: input.contract.ref,
+          gainReportRef: `gain://t168/refinement/${input.vectorIndex}/${requirementId}`,
+          metricRefs: [`metric://t168/refinement/${input.vectorIndex}/${requirementId}`],
+          closeDisposition: "no_close",
+          residualPressureRefs: [`pressure://t168/refinement/${input.vectorIndex}/${requirementId}`],
+          continuationRefs: [`continuation://t168/refinement/${input.vectorIndex}/${requirementId}`],
+          evidenceRefs: [`evidence://t168/refinement/${input.vectorIndex}/${requirementId}`],
+          authorityRefs: Object.freeze([requirementId]),
+          compositionContributionRef:
+            input.selectedRegimeBindingRef ?? input.selectedCompositionRef,
+          compositionRef: input.selectedCompositionRef,
+          compositionDigest: input.selectedCompositionDigest,
+          diagnosticRefs: [`diagnostic://t168/refinement/partial/${requirementId}`]
+        });
       return publicRoot.constructFpEvaluationOutcome({
         status: "evaluated",
         ambiguityStatus: "partial",
         findings: [
-          publicRoot.constructFpEvaluationFinding({
-            findingRef: `finding://t168/refinement/${input.vectorIndex}`,
-            evaluatorRef: input.contract.ref,
-            gainReportRef: `gain://t168/refinement/${input.vectorIndex}`,
-            metricRefs: [`metric://t168/refinement/${input.vectorIndex}`],
-            closeDisposition: "no_close",
-            residualPressureRefs: [`pressure://t168/refinement/${input.vectorIndex}`],
-            continuationRefs: [`continuation://t168/refinement/${input.vectorIndex}`],
-            evidenceRefs: [`evidence://t168/refinement/${input.vectorIndex}`],
-            authorityRefs: Object.freeze([
-              ...new Set([
-                ...input.expectedAssessmentIds,
-                `authority://t168/refinement/${input.vectorIndex}`
-              ])
-            ]),
-            compositionContributionRef:
-              input.selectedRegimeBindingRef ?? input.selectedCompositionRef,
-            compositionRef: input.selectedCompositionRef,
-            compositionDigest: input.selectedCompositionDigest,
-            diagnosticRefs: ["diagnostic://t168/refinement/partial"]
-          })
+          findingForRequirement(CHILD_ONE_REQUIREMENT_ID),
+          findingForRequirement(CHILD_TWO_REQUIREMENT_ID)
         ],
         evidenceRefs: [input.sourceProjectionRef],
         reason: "installed proof preserves child residual pressure for aggregate parent"
