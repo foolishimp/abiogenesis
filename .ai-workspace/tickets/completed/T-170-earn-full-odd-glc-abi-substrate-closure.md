@@ -3,7 +3,7 @@ id: T-170
 title: Earn full odd_glc ABI substrate closure after DMM refutation
 type: defect
 ticket_category: abi_substrate_closure_correction
-status: active
+status: completed
 goal: >-
   Correct the overclosed GOAL-014 substrate claim before odd_glc parity work
   depends on it. T-167 must prove every retained non-closed disposition branch;
@@ -26,6 +26,7 @@ priority: critical
 triaged_at: 2026-06-29
 created_at: 2026-06-29
 updated_at: 2026-06-29
+completed_at: 2026-06-29
 governance_scope: STDO Method, DESIGN_MODULE_METHOD, GTL, ABG, Requirements Algebra, Recursive Runtime, Release
 build_tenant: typescript
 downstream_consumers:
@@ -40,6 +41,8 @@ source_documents:
   - .ai-workspace/tickets/completed/T-168-ratify-gtl-requirement-graph-and-abg-refinement-route.md
   - .ai-workspace/tickets/completed/T-169-ratify-requirement-span-identity-across-recursion.md
   - .ai-workspace/tickets/completed/T-160-declare-abg-recursive-executive-observer-graph-for-obligation-pressure.md
+  - release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.14/release-snapshot-manifest.json
+  - /Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/substrate.provenance.json
 affected_boundary:
   goals:
     - specification/GOALS.md
@@ -97,6 +100,10 @@ proof_commands:
   - cd build_tenants/abiogenesis/typescript && npm run test:t160
   - cd build_tenants/abiogenesis/typescript && CODEX_LIVE_FP=1 npm run test:t160:live
   - cd build_tenants/abiogenesis/typescript && npm run test:semantic
+  - cd build_tenants/abiogenesis/typescript && npm run test:t168:live
+  - cd build_tenants/abiogenesis/typescript && npm run test:t165:hello-world-live
+  - cd build_tenants/abiogenesis/typescript && npm run snapshot:release
+  - cd /Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript && npm test
   - git diff --check
 ---
 
@@ -121,15 +128,57 @@ in GTL/ABG.
 
 ## Acceptance Checklist
 
-- [ ] GOAL-014 is no longer represented as complete closure.
-- [ ] T-167 proves or removes every retained non-closed disposition branch.
-- [ ] T-169 fails closed for absent lineage refs and proves nested traversal
+- [x] GOAL-014 is no longer represented as complete closure.
+- [x] T-167 proves or removes every retained non-closed disposition branch.
+- [x] T-169 fails closed for absent lineage refs and proves nested traversal
       lineage over emitted/replayed runtime truth.
-- [ ] T-160 is invoked on an ABG runtime path.
-- [ ] T-160 pressure facts are emitted through runtime truth when used as
+- [x] T-160 is invoked on an ABG runtime path.
+- [x] T-160 pressure facts are emitted through runtime truth when used as
       continuation pressure.
-- [ ] T-160 F_P findings are admitted through ABG admission and are not trusted
+- [x] T-160 F_P findings are admitted through ABG admission and are not trusted
       as raw objects.
-- [ ] T-160 live proof does not carry or inject the expected disposition answer.
-- [ ] A corrected release candidate is cut and odd_glc is retargeted to it.
-- [ ] Focused, live, semantic, install, and odd_glc substrate tests pass.
+- [x] T-160 live proof does not carry or inject the expected disposition answer.
+- [x] A corrected release candidate is cut and odd_glc is retargeted to it.
+- [x] Focused, live, semantic, install, and odd_glc substrate tests pass.
+
+## Closure Evidence
+
+- Corrected source commit: `a0f1f7ca7edf2cd6d4d672c4f008792f8d7ea79c`.
+- Release snapshot commit: `4c0c20e`.
+- Corrected release identity: `4.1.0-rc.14`.
+- Release snapshot manifest:
+  `release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.14/release-snapshot-manifest.json`.
+- Tarball SHA256:
+  `e1d22bb4f2429bd4a035b424ca5283f7325c1b5e88e65019a206da05ccae8892`.
+- Release snapshot manifest reports `sourceDirty: false` for source commit
+  `a0f1f7ca7edf2cd6d4d672c4f008792f8d7ea79c`.
+- `release_snapshots/abiogenesis-typescript-tenant/latest` points to
+  `4.1.0-rc.14`.
+- odd_glc retarget commit: `1c25f8d`.
+- odd_glc consumed-substrate provenance now records
+  `@abiogenesis/typescript-tenant@4.1.0-rc.14`,
+  source commit `a0f1f7ca7edf2cd6d4d672c4f008792f8d7ea79c`, snapshot commit
+  `4c0c20e`, tarball SHA256
+  `e1d22bb4f2429bd4a035b424ca5283f7325c1b5e88e65019a206da05ccae8892`, and
+  local product-toolchain manifest digest
+  `511b73ac883a6aa2caba0eeefe8e59335411bac1258bcaedade0891496496c3a`.
+
+Verified commands:
+
+- `npm run test:semantic` passed, 947/947.
+- `npm run lint:semantic` passed.
+- `npm run lint:test-harness` passed.
+- `npm run test:t164` passed.
+- `npm run test:t167` passed, including blocked and re-entry dispositions.
+- `npm run test:t168` passed.
+- `npm run test:t169` passed.
+- `npm run test:t160` passed.
+- `npm run test:t168:live` passed.
+- `npm run test:t169:live` passed in about 113s for the final run.
+- `npm run test:t160:live` passed in about 103s for the final run.
+- `npm run test:t165:hello-world-live` passed in about 20s for the final run.
+- `npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run --json` produced
+  `abiogenesis-typescript-tenant-4.1.0-rc.14.tgz`.
+- `sha256sum -c checksums.sha256` passed for the rc.14 snapshot.
+- `cd /Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript && npm test`
+  passed, 17/17.
