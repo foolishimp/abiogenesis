@@ -42,6 +42,7 @@ product-local loop/controller authority rather than rebuilding it.
 | `GOAL-014` | `GTL` + `ABG Runtime` + `Requirements` + `Projection` | Close the ABI substrate gaps needed for odd_glc beyond route-1 closed-path consumption. | ABI publishes a non-closed requirements-route replay artifact with residual and continuation/re-entry truth; GTL ratifies requirement graph/refinement declarations; ABG admits/projects/folds/residualizes multi-requirement structure; span identity is stable across frame, zoom, recursion, foldback, and re-entry boundaries; recursive executive observation preserves obligation pressure without downstream product-local controllers. | `T-167`, `T-168`, `T-169`, `T-160`, `T-170` | Completed | `T-170` |
 | `GOAL-015` | `GTL` + `ABG Runtime` + `Requirements` + `Projection` + `Release` | Earn the corrected full odd_glc ABI substrate closure under STDO/DMM. | T-167 proves every retained non-closed disposition branch through real emitted route events; T-169 proves recursive span identity across a nested traversal rather than first-traversal declaration projection; T-160 is invoked on a runtime path, admits live F_P findings through ABG, emits executive pressure facts through the event stream, and feeds ABG continuation without prompt-carried or fixture-injected answers; a corrected RC is cut and odd_glc is retargeted only after focused, live, semantic, install, and downstream smoke tests pass. | `T-170`, `T-169`, `T-160` | Completed | `T-170` |
 | `GOAL-016` | `GTL` + `ABG Runtime` + `Actor/Operator` + `Proof` | Prove the remaining generic ABI runtime mechanics required by odd_glc Hello World ladder rungs that are not covered by rc16: multi-role proof evidence, non-default command execution, and long-running process/request execution. | ABI publishes live, event-sourced, replay-consumable proof artifacts for generic subject-artifact, verifier-artifact, and verifier-execution evidence roles; for declared command/cwd/env execution; and for declared process start, endpoint/env binding, request, response evidence, cleanup, fold, residual, and disposition truth. JavaScript, Rust/rustc, and service/request bindings are proof scenarios only; ABI owns no language, test, service, release, protocol, or acceptability policy. | `T-171`, `T-172`, `T-173` | Completed | `T-171`, `T-172`, `T-173` |
+| `GOAL-017` | `GTL` + `ABG Runtime` + `Saga Frontier` + `Requirements` + `Proof` | Publish the upstream replay artifact required by the odd_glc parallel Hello World ladder rung without letting odd_glc synthesize branch, fan-in, evidence, fold, or lifecycle truth. | ABI publishes a live, digest-pinned, replay-consumable artifact that joins dependency-frontier branch/fan-in events with GTL requirement graph/refinement declarations, admitted branch and fan-in evidence, requirement fold/residual/disposition, and replay-derived lifecycle state. JavaScript branch artifacts and Hello World composition are proof bindings only; ABI owns no JavaScript, test, fan-in acceptability, scheduling, release, or downstream lifecycle policy. | `T-174` | Completed | `T-174` |
 
 ## Wave Boundary
 
@@ -270,3 +271,18 @@ rc17 is the release cut for GOAL-016. It keeps rc16 as the recursive
 requirements substrate and adds the generic actor/operator proof mechanics for
 the odd_glc Hello World ladder prerequisites without assigning policy ownership
 for JavaScript, Rust, services, HTTP, tests, or release readiness to ABI.
+
+The completed parallel ladder-prerequisite wave covers:
+
+1. `T-174` generic dependency-frontier plus requirements-route proof, with a
+   live parallel Hello World binding that records branch runtime events,
+   fan-in projection, branch/fan-in evidence, requirement graph/refinement,
+   fold, residual, disposition, and replay-derived lifecycle state through ABI
+   truth.
+
+This wave exists because odd_glc shall not invent local branch scheduling,
+fan-in, execution evidence, aggregate fold, residual, or disposition authority
+for its parallel Hello World ladder rung. ABI owns only generic
+dependency-frontier, admission, evidence, replay, fold, residual, and
+disposition mechanics. Plugins and downstream declarations own branch content,
+fan-in acceptability, JavaScript meaning, and lifecycle interpretation.
