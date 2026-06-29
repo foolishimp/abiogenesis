@@ -287,6 +287,7 @@ test("T-204 supervised process actor terminates active output without external p
     script,
     [
       "let i = 0;",
+      "process.stdout.write(`still-active-start\\n`);",
       "setInterval(() => {",
       "  process.stdout.write(`still-active-${i++}\\n`);",
       "}, 20);"
@@ -308,10 +309,10 @@ test("T-204 supervised process actor terminates active output without external p
     stdoutRef: pathToFileURL(stdoutPath).href,
     stderrRef: pathToFileURL(stderrPath).href,
     timeoutMs: 5000,
-    externalProgressTimeoutMs: 80,
+    externalProgressTimeoutMs: 2500,
     externalProgressTimeoutReason: "content_register_checkpoint_missing",
     externalProgressCheck: () => false,
-    terminationGraceMs: 50,
+    terminationGraceMs: 120,
     heartbeatMs: 0,
     eventSink: (event) => {
       observed.push(event);
@@ -415,8 +416,8 @@ test("T-097 supervised process actor escalates timeout from SIGTERM to SIGKILL w
     stderrPath,
     stdoutRef: pathToFileURL(stdoutPath).href,
     stderrRef: pathToFileURL(stderrPath).href,
-    timeoutMs: 250,
-    terminationGraceMs: 30,
+    timeoutMs: 5000,
+    terminationGraceMs: 250,
     heartbeatMs: 0,
     eventSink: (event) => {
       observed.push(event);

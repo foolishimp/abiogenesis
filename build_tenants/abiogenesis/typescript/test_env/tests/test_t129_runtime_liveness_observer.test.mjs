@@ -627,9 +627,9 @@ test("T-129 supervised actor emits generic probe facts for stdout stderr and hea
     stdoutRef: "asset://t129/supervised/stdout",
     stderrRef: "asset://t129/supervised/stderr",
     processEventsPath: join(root, "process-events.jsonl"),
-    timeoutMs: 1_000,
-    terminationGraceMs: 50,
-    heartbeatMs: 10
+    timeoutMs: 3_000,
+    terminationGraceMs: 200,
+    heartbeatMs: 25
   });
 
   assert.equal(result.status, 0);

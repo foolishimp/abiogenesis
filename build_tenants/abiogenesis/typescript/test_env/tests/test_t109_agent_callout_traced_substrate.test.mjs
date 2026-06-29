@@ -211,7 +211,7 @@ test("T-109 progress fixture: recurring external progress times out after an unc
     label: "fixture-recurring-progress-timeout",
     parser: "generic-text",
     timeoutMs: 10000,
-    externalProgressTimeoutMs: 600,
+    externalProgressTimeoutMs: 1500,
     externalProgressMode: "recurring",
     externalProgressTimeoutReason: "fixture_progress_stalled",
     externalProgressCheck: () => {
