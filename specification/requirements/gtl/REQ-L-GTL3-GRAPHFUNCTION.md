@@ -54,3 +54,10 @@ contract boundary for lawful workflow reuse.
 the materialized `Graph` it produces and from any ABG graph-call execution
 instance over that graph. It is the reusable program carrier, not the runtime
 attempt or the downstream domain asset created by an attempt.
+
+**REQ-L-GTL3-GRAPHFUNCTION-020**: An ABG executive observer shall be published
+as a graph function over an existing declared target workspace and target work.
+The target shall be expressed through `GraphFunction.environment`, `Context`
+locator/digest truth, and asset-surface required-context truth; GTL shall not
+introduce a new observer-specific workspace, graph, frame, replay, or
+continuation topology object for that role.

@@ -55,3 +55,10 @@ selects the outcome.
 **REQ-R-ABG3-ITERATION-017**: A failed scoped row may redispatch only that admitted scope when the scope binding is current and sibling scoped evidence remains current. ABG shall preserve sibling scoped rows unless authority, input, correction, or re-entry lineage makes them stale, superseded, orphan-bound, or contradictory.
 
 **REQ-R-ABG3-ITERATION-018**: Malformed, stale, mismatched, or topology-unbound evaluation scope refs shall fail closed as admission, binding-guard, stale-input, orphan, block, or re-entry truth. ABG shall not infer evaluation scope identity from prompt text, diagnostic strings, filenames, wall-clock completion order, or downstream product naming convention.
+
+**REQ-R-ABG3-ITERATION-019**: The iteration outcome algebra shall recognize
+executive-observer pressure facts as typed projection inputs for attenuation,
+non-attenuating retry, local repair, nonlocal re-entry, reprice, block, or
+close-candidate state. Exact same-pressure retry shall remain detectable as
+`non_attenuating_retry` unless admitted evidence, scope narrowing, route
+change, re-entry, reprice, block, or closure truth changes the pressure basis.

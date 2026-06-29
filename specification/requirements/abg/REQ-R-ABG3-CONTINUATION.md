@@ -31,3 +31,9 @@ events.
 **REQ-R-ABG3-CONTINUATION-008**: Retry exhaustion, blocked modulation, and forced review for a modulated attempt shall be replay-visible runtime truth. They shall not be implemented as a private loop inside a downstream product, runner adapter, or worker prompt.
 
 **REQ-R-ABG3-CONTINUATION-009**: Liveness-yield, retry, block, or escalation for supervised runtime work shall consume ABG runtime liveness observer disposition. Continuation projection shall not derive a separate stop or retry action from elapsed time, process state, or transcript text.
+
+**REQ-R-ABG3-CONTINUATION-010**: Recursive executive-observer pressure may feed
+continuation, retry, re-entry, reprice, block, or close-candidate projection
+only after ABG admits the observer's `evaluate.C` findings and projects typed
+pressure facts. Worker prose, product plugin tuning, or downstream lifecycle
+read models shall not directly select continuation action.

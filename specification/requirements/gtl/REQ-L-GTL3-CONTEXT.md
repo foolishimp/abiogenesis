@@ -25,3 +25,9 @@ GTL 3.
 **REQ-L-GTL3-CONTEXT-005**: GTL publication and interpretation surfaces shall preserve context locator and digest truth without semantic loss.
 
 **REQ-L-GTL3-CONTEXT-006**: Engines may load, validate, or project declared contexts, but they shall not invent or mutate the declared context contract.
+
+**REQ-L-GTL3-CONTEXT-007**: A workspace observed by an ABG executive observer
+shall be declared as context locator and digest truth. The observer may consume
+that declared context through ABG projection, but it shall not replace it with
+a product-local workspace handle, prompt-only locator, or mutable controller
+state.

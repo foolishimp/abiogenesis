@@ -1,38 +1,35 @@
-# abiogenesis 4.1.0-rc.12 Release Candidate Note
+# abiogenesis 4.1.0-rc.13 Release Candidate Note
 
-This checkpoint is the twelfth TypeScript ABG `4.1.0` release candidate. It
-follows `4.1.0-rc.11` and adds the downstream-consumable GTL/ABG
-requirements-algebra route needed by lifecycle consumers such as `odd_glc`.
+This checkpoint is the thirteenth TypeScript ABG `4.1.0` release candidate. It
+follows `4.1.0-rc.12` and closes the GOAL-014 ABI/GTL substrate gap for
+downstream lifecycle consumers such as `odd_glc`.
 
 It is an RC candidate, not the final tapped `4.1.0` release.
 
 ## Release Claim
 
-RC12 keeps the RC11 start-target runtime-binding repair, then adds one
-requirements-route substrate:
+RC13 keeps the RC12 downstream-consumable requirements route, then adds the
+remaining substrate needed before `odd_glc` can proceed toward generic
+lifecycle parity without returning mid-flight for ABI support:
 
-- GTL publishes a `gtl.requirements` declaration facade for requirement terms,
-  traversal spans, and lifecycle-composition refs without importing ABG runtime
-  modules.
-- ABG publishes an `abg.requirements` read/query facade while keeping
-  declaration admission, evidence binding, assurance-fold projection, residual
-  projection, and lifecycle-disposition emission internal to the runtime path.
-- The runner can start from a GTL requirement declaration bundle, admit
-  requirement truth, emit requirement route facts through `emit()`, replay fold,
-  residual, and disposition truth, and project lifecycle state without
-  downstream local ledgers.
-- The public export side door is closed: downstream package surfaces cannot
-  construct requirement fold, residual, or disposition truth.
-- A gated live Hello World F_P proof now carries admitted requirement source
-  refs, source digests, and active requirement context into the worker prompt
-  without supplying the exact program source or a prefilled success answer.
+- ABI publishes a non-closed requirements-route replay proof with residual
+  pressure and continuation/re-entry truth.
+- GTL ratifies requirement graph and refinement declarations without importing
+  ABG runtime code or introducing a local requirement compiler.
+- ABG admits, projects, folds, residualizes, and queries multi-requirement
+  structure over existing `RequirementTerm` and `RequirementRelation` truth.
+- Requirement span identity is stable across frame, zoom, recursion, foldback,
+  continuation, and re-entry boundaries.
+- ABG publishes the recursive executive observer projection surface for
+  preserving obligation pressure without downstream product-local controllers.
+- The public `abg/executive` facade exposes projection helpers only. It does
+  not expose runtime event emission, workspace mutation, continuation control,
+  closure authority, or product semantic compilers.
 
-These repairs preserve the governing split: ABG owns traversal, replay,
-continuation, runtime events, and consequence transition. Product tenants expose
-domain graph functions, policies, prompt surfaces, prompt review packages, and
-plugin outputs as data. Downstream lifecycle frameworks may interpret admitted
-requirements-route truth, but must not republish generic ABG requirement
-functions under product-local namespaces or mint peer ledgers.
+These repairs preserve the governing split: GTL declares inert graph,
+requirement, span, and composition truth; ABG admits, runs, emits, replays,
+folds, residualizes, projects, and routes continuation; downstream lifecycle
+frameworks interpret admitted read models and policy overlays only.
 
 ## Boundary
 
@@ -59,61 +56,71 @@ ABG.start(fn<A, B>.C)
   .bind(system.replayContinuation)
 ```
 
-RC12 does not move downstream product meaning into ABG. Downstream products
-still own the artifact predicate and product interpretation. ABG owns the
-generic requirement declaration admission, evidence binding, assurance fold,
-residual, disposition, replay, and query mechanics.
+RC13 does not move downstream product meaning into ABG. Downstream products own
+domain interpretation, policy overlays, prompts, and product-specific proof
+reading. ABG owns generic requirements-route truth, multi-requirement
+projection, span lineage, recursive executive observation, runtime events,
+replay, continuation, and query mechanics.
 
 ## Versioned Artifacts
 
 - RC branch: `main`
-- RC identity: `4.1.0-rc.12`
-- Candidate package version: `4.1.0-rc.12`
-- Candidate tag: `v4.1.0-rc.12`
+- RC identity: `4.1.0-rc.13`
+- Candidate package version: `4.1.0-rc.13`
+- Candidate tag: `v4.1.0-rc.13`
 
 ## Verification
 
 Required evidence for accepting this RC:
 
 ```text
-ABG semantic build and requirements-route lane:
+ABG semantic build and focused GOAL-014 gates:
   npm run build:semantic
-  npm run test:t164
-  npm run test:t165:hello-world-live
-
-ABG release gate after the version bump:
   npm run lint:semantic
   npm run lint:test-harness
+  npm run test:t160
+  npm run test:t167
+  npm run test:t168
+  npm run test:t169
+
+Inherited substrate regression gates:
+  npm run test:t145
+  npm run test:t146
+  npm run test:t148
+  npm run test:t159
+  npm run test:t162
+  npm run test:t164
   npm run test:semantic
+
+Live F_P proof gates:
+  npm run test:t160:live
+  npm run test:t162:live
+  npm run test:t165:hello-world-live
+  npm run test:t168:live
+  npm run test:t169:live
+
+Release packaging gate:
   git diff --check
   npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run
-
-Downstream substrate readiness:
-  odd_glc may consume `gtl.requirements` declarations and `abg.requirements`
-  read/query surfaces for route-1 lifecycle proof. Requirement graph derivation
-  and goal refinement remain deferred and are not claimed by this RC.
 ```
 
-The release checkpoint recorded the ABI requirements-route gates as passing
-before snapshot preparation:
+The release checkpoint recorded these gates as passing before snapshot
+preparation. The live T-160 artifact for recursive executive observation is:
 
-- `npm run build:semantic`
-- `npm run test:t164`
-- `npm run test:t165:hello-world-live`
-- `npm run lint:semantic`
-- `npm run lint:test-harness`
-- `npm run test:semantic`
-- `git diff --check`
-- `npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run`
+```text
+build_tenants/abiogenesis/typescript/test_env/test_runs/t160_recursive_executive_observer_live/20260629T025541939Z_pid48947/executive-observer-manifest.json
+sha256:892fa34495f9477ab98338fe13f387a9212bd59c34e2578e596156bbfd2731f5
+```
 
-The live proof artifact for the requirements-carrying Hello World run is under
-`build_tenants/abiogenesis/typescript/test_env/test_runs/t165_hello_world_requirements_route_live/`.
-The RC12 snapshot is accepted only when written from the clean source commit
-that produced those gates.
+The live route artifacts for T-165, T-168, and T-169 are under
+`build_tenants/abiogenesis/typescript/test_env/test_runs/` and are generated by
+their governed live proof commands.
 
 ## RC Decision
 
-RC12 is the ABG requirements-route downstream substrate candidate. It is
-releaseable after the ABI release checks pass, the release snapshot is written
-from the source commit, and downstream lifecycle consumers treat the route as
-GTL/ABG-owned substrate rather than rebuilding requirement ledgers locally.
+RC13 is the ABI/GTL completion candidate for downstream generic lifecycle work.
+It is releaseable after the release packaging checks pass, the release snapshot
+is written from the source commit, and downstream lifecycle consumers pin this
+RC as GTL/ABG-owned substrate rather than rebuilding requirement graphs, span
+lineage, residual pressure, executive observation, or continuation controllers
+locally.

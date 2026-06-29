@@ -1188,3 +1188,18 @@ export type {
   AbgFnRegimeRole,
   DefaultAbgFnCompositionDeclarationInit
 } from "./fn_composition.js";
+export {
+  assertExecutiveFindingHasNoRuntimeAuthority,
+  projectExecutiveContinuationInput,
+  projectExecutiveObservationView,
+  projectExecutivePressureFacts
+} from "./executive_observer.js";
+export type {
+  ExecutiveContinuationInputProjection,
+  ExecutiveObservationView,
+  ExecutivePressureAttenuation,
+  ExecutivePressureDisposition,
+  ExecutivePressureFactProjection,
+  ProjectExecutiveObservationViewInput,
+  ProjectExecutivePressureFactsInput
+} from "./executive_observer.js";

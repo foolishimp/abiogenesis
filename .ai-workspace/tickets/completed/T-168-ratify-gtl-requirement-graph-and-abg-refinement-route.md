@@ -41,7 +41,7 @@ source_documents:
   - specification/requirements/gtl/REQ-L-GTL3-GRAPHVECTOR.md
   - specification/requirements/abg/REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md
   - .ai-workspace/tickets/completed/T-164-realize-gtl-abg-requirements-algebra-route-for-downstream-lifecycle-consumers.md
-  - .ai-workspace/tickets/active/T-169-ratify-requirement-span-identity-across-recursion.md
+  - .ai-workspace/tickets/completed/T-169-ratify-requirement-span-identity-across-recursion.md
   - /Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260628T170821Z_T002_rc12_readiness_refresh.md
 affected_boundary:
   requirements:

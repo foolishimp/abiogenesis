@@ -80,3 +80,10 @@ meaning, product-specific gain functions, or downstream release interpretation.
 **REQ-R-ABG3-PAYLOAD-025**: Payload admission for traversal-unit stages shall preserve intent-lineage and obligation-delta refs when the payload can affect closure, bind, materialization, replay, or downstream read-model truth. Admission shall reject or classify as non-closing any payload that drops carried obligation refs, target-carrier refs, materialization/output-allocation refs, residual pressure refs, staged-authority refs, or downstream terminal pressure without an admitted obligation-delta disposition.
 
 **REQ-R-ABG3-PAYLOAD-026**: A materialization-required payload or dispatch basis whose declared target set is empty, role policy cannot be satisfied, or write roots cannot reach the declared target carrier shall not be normalized into a worker prompt or closure attempt when admitted lineage requires product or artifact materialization. ABG shall surface the insufficiency as typed traversal-unit non-conformance or runtime block before the materializing worker is invoked.
+
+**REQ-R-ABG3-PAYLOAD-027**: Executive-observer findings that participate in
+pressure preservation shall enter ABG as admitted `evaluate.C` payload/finding
+truth under the selected composition identity. Admission or projection shall
+reject side-door runtime-authority fields, including event emission, ledger
+writes, graph/frame mutation, traversal transition selection, continuation
+decision, and closure authority.

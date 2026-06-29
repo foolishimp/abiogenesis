@@ -89,6 +89,17 @@ product-real only when it is discoverable through a module or job surface,
 materializable from declared inputs and policy-visible parameters, executable
 through ABG, and replayable through event and provenance truth.
 
+ABG also owns the default recursive executive observer role for preserving
+obligation pressure over admitted graph work. The observer is a graph function
+over a declared target workspace and target work, expressed through existing
+`GraphFunction.environment`, `Context` locator/digest, and asset-surface
+required-context truth. It observes replay-derived ABG projections about the
+target graph, admits `evaluate.C` findings as pressure facts, and feeds those
+facts to ABG continuation, re-entry, reprice, block, or close-candidate
+projection. It does not mutate the observed workspace, emit runtime events
+directly, own closure, replace `consequence.C`, or create a second workspace,
+observation, replay, continuation, or lifecycle ontology.
+
 ---
 
 ## GTL Contract-Law API Reload Anchor

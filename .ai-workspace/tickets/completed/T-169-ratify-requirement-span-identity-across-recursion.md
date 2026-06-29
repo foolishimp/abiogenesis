@@ -47,8 +47,8 @@ source_documents:
   - specification/requirements/abg/REQ-R-ABG3-PROJECTION.md
   - specification/requirements/abg/REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md
   - .ai-workspace/comments/codex/20260626T011328Z_STRATEGY_requirements_algebra_edge_spans.md
-  - .ai-workspace/tickets/active/T-160-declare-abg-recursive-executive-observer-graph-for-obligation-pressure.md
-  - .ai-workspace/tickets/active/T-168-ratify-gtl-requirement-graph-and-abg-refinement-route.md
+  - .ai-workspace/tickets/completed/T-160-declare-abg-recursive-executive-observer-graph-for-obligation-pressure.md
+  - .ai-workspace/tickets/completed/T-168-ratify-gtl-requirement-graph-and-abg-refinement-route.md
 affected_boundary:
   requirements:
     - specification/requirements/gtl/REQ-L-GTL3-GRAPHVECTOR.md

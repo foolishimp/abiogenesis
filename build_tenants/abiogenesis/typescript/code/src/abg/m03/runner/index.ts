@@ -30,6 +30,9 @@ export {
   applyExplicitGraphVectorResumeCursor,
   applyGraphSpanReentryRoute
 } from "./runtime_authoring_routes.js";
+export {
+  runExecutiveObserverProjection
+} from "./executive_observer_runner.js";
 export type { AttachedFpResultDecision } from "./attached_fp_worker.js";
 export type {
   ConstructionIntentRunnerRequest,
@@ -69,3 +72,7 @@ export type {
   GraphSpanReentryApplicationRequest,
   GraphSpanReentryApplicationResult
 } from "./runtime_authoring_routes.js";
+export type {
+  ExecutiveObserverRunnerRequest,
+  ExecutiveObserverRunnerResult
+} from "./executive_observer_runner.js";

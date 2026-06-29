@@ -37,3 +37,9 @@ published GTL boundary without becoming a new public work carrier.
 **REQ-L-GTL3-ASSET-SURFACE-010**: Deterministic interpreters may validate declared asset-surface metadata, schema, refs, digest policy, authority-slot shape, and fallback-policy shape. They shall not infer semantic meaning from rendered text to classify prompt clauses, asset obligations, or product behavior.
 
 **REQ-L-GTL3-ASSET-SURFACE-011**: GTL publication and interpretation surfaces shall preserve the full `AssetSurface` interface without semantic loss across constructor, admission, serialization, module publication, and graph-function chain composition.
+
+**REQ-L-GTL3-ASSET-SURFACE-012**: Asset surfaces used by the ABG executive
+observer shall bind target workspace availability through existing
+`requiredContexts` and proof-obligation refs. They shall not create a separate
+observer asset ontology or make rendered workspace summaries authoritative
+over typed context, payload, evidence, span-lineage, and projection refs.

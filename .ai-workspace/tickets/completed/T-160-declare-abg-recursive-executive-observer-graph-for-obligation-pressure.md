@@ -3,7 +3,7 @@ id: T-160
 title: Declare ABG recursive executive observer graph for obligation pressure
 type: feature
 ticket_category: abg_recursive_observer_graph
-status: active
+status: completed
 goal: >-
   Make ABG own a default recursive executive observer behavior over existing
   workspace overlay, observed-state, replay projection, and traversal-unit
@@ -70,7 +70,7 @@ related_tickets:
   - .ai-workspace/tickets/completed/T-164-realize-gtl-abg-requirements-algebra-route-for-downstream-lifecycle-consumers.md
   - .ai-workspace/tickets/completed/T-165-prove-hello-world-live-requirements-route.md
   - .ai-workspace/tickets/completed/T-166-publish-requirements-route-replay-proof-artifact.md
-  - .ai-workspace/tickets/active/T-169-ratify-requirement-span-identity-across-recursion.md
+  - .ai-workspace/tickets/completed/T-169-ratify-requirement-span-identity-across-recursion.md
   - /Users/jim/src/apps/odd_glc/.ai-workspace/tickets/active/T-001-govern-minimal-odd-glc-requirements-and-graph-design.md
   - /Users/jim/src/apps/odd_glc/.ai-workspace/tickets/active/T-007-interpret-assurance-fold-and-residual-pressure.md
 affected_boundary:
@@ -91,13 +91,13 @@ affected_boundary:
     - build_tenants/abiogenesis/typescript/design/M03_RECURSIVE_EXECUTIVE_OBSERVER_FIRST_SLICE_IACS.md
     - build_tenants/abiogenesis/typescript/design/M03_RECURSIVE_EXECUTIVE_OBSERVER_STRUCTURAL_CARRIER_DIAGRAM.md
   realization:
+    - build_tenants/abiogenesis/typescript/code/src/abg/executive/
     - build_tenants/abiogenesis/typescript/code/src/abg/m03/contracts/
     - build_tenants/abiogenesis/typescript/code/src/abg/m03/runner/
-    - build_tenants/abiogenesis/typescript/code/src/abg/m03/projection/
-    - build_tenants/abiogenesis/typescript/code/src/gtl/
+    - build_tenants/abiogenesis/typescript/package.json
   proof:
     - build_tenants/abiogenesis/typescript/test_env/tests/test_t160_recursive_executive_observer.test.mjs
-    - build_tenants/abiogenesis/typescript/test_env/sandbox/
+    - build_tenants/abiogenesis/typescript/test_env/live/test_t160_recursive_executive_observer_live.test.mjs
 target_truth: >-
   ABG can open an executive observer graph function whose declared environment
   specifies the observed workspace and target work through existing GTL
@@ -149,6 +149,8 @@ non_closure_conditions:
     digest-pinned artifact.
 proof_commands:
   - cd build_tenants/abiogenesis/typescript && npm run build:semantic
+  - cd build_tenants/abiogenesis/typescript && npm run lint:semantic
+  - cd build_tenants/abiogenesis/typescript && npm run lint:test-harness
   - cd build_tenants/abiogenesis/typescript && npm run test:t160
   - cd build_tenants/abiogenesis/typescript && npm run test:t160:live
   - cd build_tenants/abiogenesis/typescript && npm run test:t145
@@ -156,6 +158,7 @@ proof_commands:
   - cd build_tenants/abiogenesis/typescript && npm run test:t148
   - cd build_tenants/abiogenesis/typescript && npm run test:t159
   - cd build_tenants/abiogenesis/typescript && npm run test:semantic
+  - git diff --check
 ---
 
 # T-160: Declare ABG Recursive Executive Observer Graph For Obligation Pressure
@@ -458,34 +461,34 @@ consequence the executive.
 
 ## Acceptance Criteria
 
-- [ ] Product law describes the minimal graph-function workspace model:
+- [x] Product law describes the minimal graph-function workspace model:
       `abg.executive.GraphFunction(environment: target.workspace ->
       target_work)`.
-- [ ] Requirements define only the recursive executive observer law needed to
+- [x] Requirements define only the recursive executive observer law needed to
       preserve the product model and GTL/ABG ownership boundaries.
-- [ ] The design proves existing `GraphFunction.environment`, `Context`, and
+- [x] The design proves existing `GraphFunction.environment`, `Context`, and
       `AssetSurface.requiredContexts` law is either sufficient or identifies the
       smallest missing expressiveness gap.
-- [ ] The executive observation view is replay-derived, immutable to the
+- [x] The executive observation view is replay-derived, immutable to the
       executive observer, and bound to selected graph/function/vector/
       composition, workspace context, worker, attempt, asset, evidence,
       payload, continuation, and obligation-delta truth.
-- [ ] Executive output uses existing F_P/evaluate result admission where
+- [x] Executive output uses existing F_P/evaluate result admission where
       possible, is replayable, and is denied direct runtime authority fields.
-- [ ] Product tuning reuses existing hook/config/result-interface surfaces where
+- [x] Product tuning reuses existing hook/config/result-interface surfaces where
       possible and has visible default behavior.
-- [ ] Default behavior preserves pressure, detects exact same-pressure retry,
+- [x] Default behavior preserves pressure, detects exact same-pressure retry,
       and classifies attenuation, non-attenuation, local repair, nonlocal
       re-entry/yield, reprice, and block.
-- [ ] The runner can open the executive layer over the declared workspace
+- [x] The runner can open the executive layer over the declared workspace
       environment without circular mutation or hidden controller state.
-- [ ] ABG continuation consumes only admitted executive findings and remains the
+- [x] ABG continuation consumes only admitted executive findings and remains the
       owner of retry/yield/re-entry/reprice/block/terminal routing.
-- [ ] `consequence.C` remains projection over admitted state and does not become
+- [x] `consequence.C` remains projection over admitted state and does not become
       the F_P executive.
-- [ ] F_D is limited to envelope/admission/delta consistency checks and cannot
+- [x] F_D is limited to envelope/admission/delta consistency checks and cannot
       synthesize product semantic pressure.
-- [ ] Focused `test:t160`, relevant regression tests, full semantic suite, and
+- [x] Focused `test:t160`, relevant regression tests, full semantic suite, and
       diff checks pass.
 
 ## Non-Goals
@@ -499,30 +502,36 @@ consequence the executive.
 - Do not create a product-local executive loop in a consumer repo.
 - Do not use deterministic F_D syntax parsing as the pressure maintainer.
 
-## Open Design Questions
+## Resolved Design Questions
 
-1. Should the default observer graph be published as a named ABG graph function,
-   a built-in system graph function, or both?
-2. Is the executive proposed disposition simply an existing
-   `evaluate.C` finding field consumed by runtime continuation transition, or
-   should it be split into pressure findings plus a separate `evaluate_next`
-   rule result?
-3. Should the observer graph open as a child frame under the target graph call
-   or as a sibling graph call linked by existing graph-function
-   environment/context and replay/projection refs?
-4. Should non-attenuation be purely deterministic over refs/deltas when possible,
-   with F_P only for ambiguous pressure interpretation, or always part of the
-   executive F_P finding?
-5. How does the observer preserve requirement span identity across frame,
-   zoom, child-frame, sibling graph-call, foldback, and re-entry boundaries?
-   T-169 owns the first-class closure for this question; T-160 may close only
-   after consuming that answer or deferring recursive span claims.
+1. The default observer is a named ABG system graph function with a visible
+   built-in default binding. It does not introduce a new GTL topology object.
+2. Executive disposition is projected from admitted `evaluate.C` findings into
+   pressure facts and continuation input. It does not introduce a separate
+   `evaluate_next` authority carrier.
+3. The first slice opens the observer as a stratified graph/function projection
+   linked by existing graph-function environment, context, replay, and
+   projection refs. It does not mutate or own a child workspace frame.
+4. Non-attenuation is deterministic over residual-pressure refs and admitted
+   deltas when possible. F_P is used for semantic ambiguity and admitted as
+   ordinary evaluation findings.
+5. Recursive span identity is consumed from completed T-169 span-lineage law and
+   proof. T-160 preserves those refs in its observation and pressure facts
+   instead of maintaining a product-local span map.
 
 ## Closure Note
 
-Active as of 2026-06-29 under GOAL-014. This ticket is still product-first and
-design-gated: it authorizes product, requirement, and design closure work for
-ABG-owned recursive executive observation, not immediate implementation. It
-must not be used as consumer-project closure authority, and recursive or
-any-scale claims remain blocked until span identity across recursion is closed
-by T-169 or explicitly deferred from the first slice.
+Completed on 2026-06-29 under GOAL-014. The product, requirement, design,
+TypeScript projection, public `abg/executive` facade, runner wrapper, synthetic
+proof, full semantic regression suite, and live F_P closure proof are complete.
+The live proof invoked the governed live worker process and wrote the
+digest-pinned artifact:
+
+- `build_tenants/abiogenesis/typescript/test_env/test_runs/t160_recursive_executive_observer_live/20260629T025541939Z_pid48947/executive-observer-manifest.json`
+- artifact digest:
+  `sha256:892fa34495f9477ab98338fe13f387a9212bd59c34e2578e596156bbfd2731f5`
+- live result: `yield_reentry`
+
+Closure depends on completed T-169 span identity across recursion and does not
+authorize downstream products to create local executive loops, local span maps,
+or local continuation controllers.

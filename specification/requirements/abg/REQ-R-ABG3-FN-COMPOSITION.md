@@ -77,3 +77,11 @@ identity is absent, stale, malformed, or mismatched.
 **REQ-R-ABG3-FN-COMP-023**: ABG shall conserve intent-lineage across the event-sourced bind chain. A bind from `TraversalUnit<A, B>` to any next disposition shall carry or account for admitted intent refs, lineage refs, carried obligation refs, target-carrier refs, materialization/output-allocation refs, residual pressure refs, staged-authority refs, admission-strength refs, and downstream terminal pressure. Unit close may clear a pressure or obligation ref only through admitted realization evidence, refinement, named downstream deferral, block, re-entry, reprice, no-close preservation, or terminal projection; scalar unit close shall not erase an obligation vector. A materializing unit is non-conformant when staged pressure and materialization authority are exposed through divergent or undeclared admission predicates.
 
 **REQ-R-ABG3-FN-COMP-024**: When a next traversal unit requires product or artifact materialization, ABG shall derive or validate a sufficient construction intent from admitted lineage before dispatch. The materialization basis is insufficient when required target-carrier rows, declared file or output targets, role requirements, allowed write roots, source authority, execution/test proof expectations, or downstream pressure refs are absent or structurally mismatched while the carried lineage requires them. Insufficient construction intent fails closed before worker, tool, or plugin dispatch.
+
+**REQ-R-ABG3-FN-COMP-025**: The ABG executive observer shall participate as an
+`evaluate.C`/F_P pressure-evaluation role over a declared target workspace and
+target work. Its findings may diagnose pressure, attenuation, non-attenuation,
+local repair, nonlocal re-entry, reprice, block, or close-candidate state, but
+they shall remain admitted findings and projection inputs. They shall not
+become `consequence.C`, a graph mutation authority, a closure fold authority,
+or a second continuation controller.

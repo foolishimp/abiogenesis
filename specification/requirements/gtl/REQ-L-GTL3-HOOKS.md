@@ -49,3 +49,10 @@ semantic language.
 **REQ-L-GTL3-HOOKS-017**: `abg.fn_composition` hook/config truth shall be declared and replayable for closure-capable, mixed-regime, optimized, or construction-substrate traversal boundaries. The default precedence is `GraphVector.declarations["abg.fn_composition"]` > `GraphFunction.declarations["abg.fn_composition"]` > `Job.policy_hooks["abg.fn_composition"]` > `Role.policy_hooks["abg.fn_composition"]` > `Module.policy_hooks["abg.fn_composition"]` > visible defaults config or published template. Malformed present declarations fail closed.
 
 **REQ-L-GTL3-HOOKS-018**: An `abg.fn_composition` hook/config declaration may carry refs and opaque config for host binding, ordered regime bindings, standards context, policy context, carrier context, assurance context, deterministic closure, and optimization. GTL shall not define product-specific strategy semantics inside the hook config; ABG shall admit and interpret the selected contract under `REQ-R-ABG3-FN-COMPOSITION`.
+
+**REQ-L-GTL3-HOOKS-019**: Executive-observer tuning shall reuse existing
+`abg.fp_consciousness`, `abg.fn_composition`, `evaluate.C`, policy-hook, and
+result-interface surfaces unless a later product and requirement reprice proves
+a specific expressiveness gap. A product-specific executive-observer hook may
+provide policy or prompt refs only; it shall not provide replay truth, event
+authorship, continuation authority, closure authority, or a product-local loop.

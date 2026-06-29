@@ -53,3 +53,11 @@ surface over ABG runtime truth.
 **REQ-R-ABG3-PROJECTION-019**: ABG shall provide one replay-derived continuation-transition projection for the active traversal boundary when continuation, retry, liveness, assurance, or terminal fallback facts may affect the next runtime action. Typed admitted runtime facts and assurance fold outcomes outrank terminal retry fallback refs. Terminal retry refs are evidence and may select retry only when no higher-priority typed transition fact exists. Unknown or unsupported mixed states shall fail closed with provenance refs rather than dispatching a new worker attempt.
 
 **REQ-R-ABG3-PROJECTION-020**: Evaluation scope refs used by evaluation, assurance, iteration, or progress read models shall be replay-derived or admitted facts bound to the current graph call, frame, graph function, graph vector, vector index, selected composition, and declared scope topology. Projection shall not synthesize scoped current-state truth from rendered prompts, diagnostic text, filenames, or product-local controller memory.
+
+**REQ-R-ABG3-PROJECTION-021**: ABG shall provide a replay-derived executive
+observation projection over existing graph-function environment, workspace
+context, replay event refs, payload ledger refs, evidence refs, requirement
+refs, residual pressure refs, continuation refs, and span-lineage refs. This
+projection is a read model for the executive evaluator; it shall not emit
+runtime events, write ledgers, mutate the observed graph/workspace, or create a
+parallel observation/workspace ontology.

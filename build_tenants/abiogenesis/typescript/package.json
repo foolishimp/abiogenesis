@@ -1,6 +1,6 @@
 {
   "name": "@abiogenesis/typescript-tenant",
-  "version": "4.1.0-rc.12",
+  "version": "4.1.0-rc.13",
   "private": true,
   "type": "module",
   "types": "./build/semantic/code/src/index.d.ts",
@@ -28,6 +28,10 @@
     "./abg/requirements": {
       "types": "./build/semantic/code/src/abg/requirements/index.d.ts",
       "import": "./build/semantic/code/src/abg/requirements/index.js"
+    },
+    "./abg/executive": {
+      "types": "./build/semantic/code/src/abg/executive/index.d.ts",
+      "import": "./build/semantic/code/src/abg/executive/index.js"
     },
     "./abg/m03": {
       "types": "./build/semantic/code/src/abg/m03/index.d.ts",
@@ -99,7 +103,7 @@
   },
   "scripts": {
     "build:semantic": "tsc -p tsconfig.semantic-strict.json",
-    "lint:semantic": "eslint --max-warnings=0 \"code/src/gtl/m01/contracts/**/*.ts\" \"code/src/gtl/m01/admission/**/*.ts\" \"code/src/gtl/m01/algebra/**/*.ts\" \"code/src/gtl/m01/serialization/**/*.ts\" \"code/src/gtl/m02/contracts/**/*.ts\" \"code/src/gtl/m02/admission/**/*.ts\" \"code/src/gtl/m02/serialization/**/*.ts\" \"code/src/gtl/requirements/**/*.ts\" \"code/src/abg/m03/contracts/**/*.ts\" \"code/src/abg/m03/admission/**/*.ts\" \"code/src/abg/m03/events/**/*.ts\" \"code/src/abg/m03/runner/**/*.ts\" \"code/src/abg/m03/transport/**/*.ts\" \"code/src/abg/requirements/**/*.ts\" \"code/src/app/m04/**/*.ts\" \"code/src/qualification/m05/**/*.ts\" \"code/src/shared/validation/**/*.ts\" \"code/src/shared/abg_library/**/*.ts\" \"code/src/shared/abg_delivery_library/**/*.ts\" \"code/src/shared/traced_process/**/*.ts\"",
+    "lint:semantic": "eslint --max-warnings=0 \"code/src/gtl/m01/contracts/**/*.ts\" \"code/src/gtl/m01/admission/**/*.ts\" \"code/src/gtl/m01/algebra/**/*.ts\" \"code/src/gtl/m01/serialization/**/*.ts\" \"code/src/gtl/m02/contracts/**/*.ts\" \"code/src/gtl/m02/admission/**/*.ts\" \"code/src/gtl/m02/serialization/**/*.ts\" \"code/src/gtl/requirements/**/*.ts\" \"code/src/abg/m03/contracts/**/*.ts\" \"code/src/abg/m03/admission/**/*.ts\" \"code/src/abg/m03/events/**/*.ts\" \"code/src/abg/m03/runner/**/*.ts\" \"code/src/abg/m03/transport/**/*.ts\" \"code/src/abg/requirements/**/*.ts\" \"code/src/abg/executive/**/*.ts\" \"code/src/app/m04/**/*.ts\" \"code/src/qualification/m05/**/*.ts\" \"code/src/shared/validation/**/*.ts\" \"code/src/shared/abg_library/**/*.ts\" \"code/src/shared/abg_delivery_library/**/*.ts\" \"code/src/shared/traced_process/**/*.ts\"",
     "lint:test-harness": "eslint --max-warnings=0 \"test_env/live/**/*.mjs\" \"test_env/sandbox/**/*.mjs\" \"test_env/tests/support/**/*.mjs\"",
     "lint:t087": "npm run lint:semantic && eslint --max-warnings=0 \"test_env/live/test_t087_supervised_actor_invocation_live.test.mjs\"",
     "test:semantic": "npm run build:semantic && node --test test_env/tests/*.test.mjs",
@@ -117,6 +121,8 @@
     "test:t168:live": "npm run build:semantic && ABG_TS_T168_REFINEMENT_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t168_requirement_graph_refinement_live.test.mjs",
     "test:t169": "npm run build:semantic && node --test test_env/tests/test_t169_requirement_span_identity_recursion.test.mjs",
     "test:t169:live": "npm run build:semantic && ABG_TS_T169_SPAN_LINEAGE_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t169_requirement_span_identity_recursion_live.test.mjs",
+    "test:t160": "npm run build:semantic && node --test test_env/tests/test_t160_recursive_executive_observer.test.mjs",
+    "test:t160:live": "npm run build:semantic && ABG_TS_T160_EXECUTIVE_OBSERVER_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t160_recursive_executive_observer_live.test.mjs",
     "test:t159:odd-sdlc-t132-live": "npm run build:semantic && ABG_TS_ODD_SDLC_T132_FROZEN_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t159_odd_sdlc_t132_frozen_live.test.mjs",
     "test:t161": "npm run build:semantic && node --test test_env/tests/test_t161_shared_toolchain_install.test.mjs",
     "test:t163": "npm run build:semantic && node --test test_env/tests/test_t161_shared_toolchain_install.test.mjs test_env/tests/test_t163_shared_product_toolchain_resolution.test.mjs",
