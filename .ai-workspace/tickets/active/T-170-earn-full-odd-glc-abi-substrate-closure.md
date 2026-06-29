@@ -3,7 +3,7 @@ id: T-170
 title: Earn full odd_glc ABI substrate closure after DMM refutation
 type: defect
 ticket_category: abi_substrate_closure_correction
-status: completed
+status: active
 goal: >-
   Correct the overclosed GOAL-014 substrate claim before odd_glc parity work
   depends on it. T-167 must prove every retained non-closed disposition branch;
@@ -26,7 +26,7 @@ priority: critical
 triaged_at: 2026-06-29
 created_at: 2026-06-29
 updated_at: 2026-06-29
-completed_at: 2026-06-29
+reopened_at: 2026-06-29
 governance_scope: STDO Method, DESIGN_MODULE_METHOD, GTL, ABG, Requirements Algebra, Recursive Runtime, Release
 build_tenant: typescript
 downstream_consumers:
@@ -39,8 +39,8 @@ source_documents:
   - build_tenants/abiogenesis/typescript/design/M03_RECURSIVE_EXECUTIVE_OBSERVER_DERIVATION.md
   - .ai-workspace/tickets/completed/T-167-publish-non-closed-requirements-route-replay-artifact.md
   - .ai-workspace/tickets/completed/T-168-ratify-gtl-requirement-graph-and-abg-refinement-route.md
-  - .ai-workspace/tickets/completed/T-169-ratify-requirement-span-identity-across-recursion.md
-  - .ai-workspace/tickets/completed/T-160-declare-abg-recursive-executive-observer-graph-for-obligation-pressure.md
+  - .ai-workspace/tickets/active/T-169-ratify-requirement-span-identity-across-recursion.md
+  - .ai-workspace/tickets/active/T-160-declare-abg-recursive-executive-observer-graph-for-obligation-pressure.md
   - release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.14/release-snapshot-manifest.json
   - /Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/substrate.provenance.json
 affected_boundary:
@@ -130,18 +130,24 @@ in GTL/ABG.
 
 - [x] GOAL-014 is no longer represented as complete closure.
 - [x] T-167 proves or removes every retained non-closed disposition branch.
-- [x] T-169 fails closed for absent lineage refs and proves nested traversal
+- [ ] T-169 fails closed for absent lineage refs and proves nested traversal
       lineage over emitted/replayed runtime truth.
-- [x] T-160 is invoked on an ABG runtime path.
-- [x] T-160 pressure facts are emitted through runtime truth when used as
+- [ ] T-160 is invoked on an ABG runtime path.
+- [ ] T-160 pressure facts are emitted through runtime truth when used as
       continuation pressure.
-- [x] T-160 F_P findings are admitted through ABG admission and are not trusted
+- [ ] T-160 F_P findings are admitted through ABG admission and are not trusted
       as raw objects.
-- [x] T-160 live proof does not carry or inject the expected disposition answer.
-- [x] A corrected release candidate is cut and odd_glc is retargeted to it.
-- [x] Focused, live, semantic, install, and odd_glc substrate tests pass.
+- [ ] T-160 live proof does not carry or inject the expected disposition answer.
+- [ ] A corrected release candidate is cut and odd_glc is retargeted to it.
+- [ ] Focused, live, semantic, install, and odd_glc substrate tests pass.
 
-## Closure Evidence
+## Refuted Closure Evidence
+
+2026-06-29 rc.14 review refuted full closure. T-167 and T-168 stand as earned.
+T-169 and T-160 remain active because recursive span identity and recursive
+executive control were not proven by runtime-real, non-tautological evidence.
+The rc.14 release remains a historical release candidate, but it must not be
+treated as full odd_glc ABI substrate closure.
 
 - Corrected source commit: `a0f1f7ca7edf2cd6d4d672c4f008792f8d7ea79c`.
 - Release snapshot commit: `4c0c20e`.

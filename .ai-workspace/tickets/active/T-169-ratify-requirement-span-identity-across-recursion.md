@@ -3,7 +3,7 @@ id: T-169
 title: Ratify requirement span identity across recursion and foldback
 type: feature
 ticket_category: gtl_abg_span_identity
-status: completed
+status: active
 goal: >-
   Ratify and realize the GTL/ABG substrate for stable requirement span identity
   across graph frames, zoom, child frames, sibling graph calls, recursion,
@@ -47,7 +47,7 @@ source_documents:
   - specification/requirements/abg/REQ-R-ABG3-PROJECTION.md
   - specification/requirements/abg/REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md
   - .ai-workspace/comments/codex/20260626T011328Z_STRATEGY_requirements_algebra_edge_spans.md
-  - .ai-workspace/tickets/completed/T-160-declare-abg-recursive-executive-observer-graph-for-obligation-pressure.md
+  - .ai-workspace/tickets/active/T-160-declare-abg-recursive-executive-observer-graph-for-obligation-pressure.md
   - .ai-workspace/tickets/completed/T-168-ratify-gtl-requirement-graph-and-abg-refinement-route.md
 affected_boundary:
   requirements:
@@ -168,15 +168,15 @@ downstream products interpret admitted read models.
 - [x] Design proves existing GTL topology anchors and ABG traversal/projection
       carriers are reused unless a new carrier passes the DESIGN_MODULE_METHOD
       promotion test.
-- [x] ABG projection preserves span identity through frame, zoom, child-frame
+- [ ] ABG projection preserves span identity through frame, zoom, child-frame
       or sibling-call, recursion, foldback, continuation, and re-entry.
-- [x] Requirement fold/residual/disposition views preserve original span refs
+- [ ] Requirement fold/residual/disposition views preserve original span refs
       and parent/child lineage.
 - [x] Public queries expose read-only span-lineage projection state.
-- [x] Negative proof rejects vector-index-only identity, query-invented span
+- [ ] Negative proof rejects vector-index-only identity, query-invented span
       joins, and product-local span maps.
 - [x] `npm run test:t169` passes.
-- [x] `npm run test:t169:live` passes with a live F_P worker process and
+- [ ] `npm run test:t169:live` passes with a live F_P worker process and
       digest-pinned replay artifact.
 - [x] `git diff --check` passes.
 
@@ -200,7 +200,7 @@ Proof completed for first slice:
 - `npm run lint:test-harness` passed.
 - `git diff --check` passed.
 
-2026-06-29 closure:
+2026-06-29 refuted closure record:
 
 - Added `npm run test:t169:live` and
   `test_env/live/test_t169_requirement_span_identity_recursion_live.test.mjs`.
@@ -215,6 +215,19 @@ Proof completed for first slice:
   `build_tenants/abiogenesis/typescript/test_env/test_runs/t169_requirement_span_identity_recursion_live/20260629T023239528Z_pid34610/requirements-route-replay-manifest.json`
   with artifact digest
   `sha256:6ff9adc15c54944e540c139f343de7898d1e0722cf50285a18819f7d0283d62d`.
-- Proof commands passed:
+- Refuted proof commands had passed:
   `npm run test:t169`, `npm run test:t169:live`,
   `npm run lint:test-harness`.
+
+2026-06-29 reopened after STDO/DESIGN_MODULE_METHOD review:
+
+- The prior closure is not earned. The realized span matcher still allows
+  declared lineage to collapse to graph-function/vector/source-target matching
+  when lineage refs are empty, and the live proof hand-injects frame/zoom/
+  foldback events instead of proving an ABG-opened child frame lineage.
+- The live proof assertion was loosened to accept any non-closed disposition.
+  Closure requires a strict disposition expectation appropriate to the route
+  being proved.
+- This ticket remains active until span identity is traversal-derived from
+  emitted frame/zoom/foldback truth and vector-membership-only activation fails
+  even for empty declared lineage on recursive-span claims.

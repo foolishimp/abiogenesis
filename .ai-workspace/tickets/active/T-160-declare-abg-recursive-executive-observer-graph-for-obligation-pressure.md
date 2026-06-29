@@ -3,7 +3,7 @@ id: T-160
 title: Declare ABG recursive executive observer graph for obligation pressure
 type: feature
 ticket_category: abg_recursive_observer_graph
-status: completed
+status: active
 goal: >-
   Make ABG own a default recursive executive observer behavior over existing
   workspace overlay, observed-state, replay projection, and traversal-unit
@@ -70,7 +70,7 @@ related_tickets:
   - .ai-workspace/tickets/completed/T-164-realize-gtl-abg-requirements-algebra-route-for-downstream-lifecycle-consumers.md
   - .ai-workspace/tickets/completed/T-165-prove-hello-world-live-requirements-route.md
   - .ai-workspace/tickets/completed/T-166-publish-requirements-route-replay-proof-artifact.md
-  - .ai-workspace/tickets/completed/T-169-ratify-requirement-span-identity-across-recursion.md
+  - .ai-workspace/tickets/active/T-169-ratify-requirement-span-identity-across-recursion.md
   - /Users/jim/src/apps/odd_glc/.ai-workspace/tickets/active/T-001-govern-minimal-odd-glc-requirements-and-graph-design.md
   - /Users/jim/src/apps/odd_glc/.ai-workspace/tickets/active/T-007-interpret-assurance-fold-and-residual-pressure.md
 affected_boundary:
@@ -480,15 +480,15 @@ consequence the executive.
 - [x] Default behavior preserves pressure, detects exact same-pressure retry,
       and classifies attenuation, non-attenuation, local repair, nonlocal
       re-entry/yield, reprice, and block.
-- [x] The runner can open the executive layer over the declared workspace
+- [ ] The runner can open the executive layer over the declared workspace
       environment without circular mutation or hidden controller state.
-- [x] ABG continuation consumes only admitted executive findings and remains the
+- [ ] ABG continuation consumes only admitted executive findings and remains the
       owner of retry/yield/re-entry/reprice/block/terminal routing.
 - [x] `consequence.C` remains projection over admitted state and does not become
       the F_P executive.
 - [x] F_D is limited to envelope/admission/delta consistency checks and cannot
       synthesize product semantic pressure.
-- [x] Focused `test:t160`, relevant regression tests, full semantic suite, and
+- [ ] Focused `test:t160`, relevant regression tests, full semantic suite, and
       diff checks pass.
 
 ## Non-Goals
@@ -521,17 +521,34 @@ consequence the executive.
 
 ## Closure Note
 
-Completed on 2026-06-29 under GOAL-014. The product, requirement, design,
-TypeScript projection, public `abg/executive` facade, runner wrapper, synthetic
-proof, full semantic regression suite, and live F_P closure proof are complete.
-The live proof invoked the governed live worker process and wrote the
-digest-pinned artifact:
+2026-06-29 reopened after STDO/DESIGN_MODULE_METHOD review.
+
+The prior closure is not earned. The product, requirements, and design surfaces
+remain useful, and pressure facts are emitted when a caller supplies
+`request.executiveObserver`, but the production `start -> iterate` path does
+not supply that observer by default. The runtime therefore has no production
+executive observer caller.
+
+The prior live proof also injected disposition-driving refs from test code and
+classified pressure from substring-shaped refs rather than admitted F_P
+assessment disposition truth. The projected `continuationInput` did not feed
+ABG continuation/routing, so recursive control was inert.
+
+This ticket remains active until:
+
+- the observer is invoked on a production ABG runtime path without a
+  test-only request field being the sole activation mechanism;
+- admitted live F_P assessment disposition drives pressure classification;
+- emitted executive pressure facts remain replay-visible runtime truth; and
+- the resulting continuation input affects ABG continuation/routing.
+
+The refuted closure artifact was:
 
 - `build_tenants/abiogenesis/typescript/test_env/test_runs/t160_recursive_executive_observer_live/20260629T025541939Z_pid48947/executive-observer-manifest.json`
 - artifact digest:
   `sha256:892fa34495f9477ab98338fe13f387a9212bd59c34e2578e596156bbfd2731f5`
 - live result: `yield_reentry`
 
-Closure depends on completed T-169 span identity across recursion and does not
+Closure depends on active T-169 span identity across recursion and does not
 authorize downstream products to create local executive loops, local span maps,
 or local continuation controllers.
