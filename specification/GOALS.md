@@ -252,3 +252,21 @@ admission, evidence-role, replay, fold, residual, and disposition mechanics.
 Plugins and downstream declarations own language/toolchain/test/service
 semantics and policy content. Those rungs are no longer upstream-blocked on
 these three ABI mechanics after this wave's digest-pinned live proof artifacts.
+
+The earned ladder-prerequisite release is ABI TypeScript rc17:
+
+- source commit `682d0de2f154740e358a95be7e39cce4c40f5239`;
+- release snapshot commit `59f15b33de417c0f7cf161d689d7ada6a68a4b0f`;
+- release snapshot `release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.17/`;
+- `latest -> 4.1.0-rc.17`;
+- tarball sha256
+  `d07e8d6fa6d27de4ca959f5cf10af1ab922216df94d212521e0e144ce89283d9`;
+- release snapshot manifest sha256
+  `5f3d1706609c02f82b54218d74425a79da516a6a14378a659a9fbaf34b97165f`;
+- release note sha256
+  `7f2c1ade561834326aac57a20b9d278a88dba0537400ab3a954a6ad8902b777c`.
+
+rc17 is the release cut for GOAL-016. It keeps rc16 as the recursive
+requirements substrate and adds the generic actor/operator proof mechanics for
+the odd_glc Hello World ladder prerequisites without assigning policy ownership
+for JavaScript, Rust, services, HTTP, tests, or release readiness to ABI.
