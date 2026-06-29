@@ -3,7 +3,7 @@ id: T-160
 title: Declare ABG recursive executive observer graph for obligation pressure
 type: feature
 ticket_category: abg_recursive_observer_graph
-status: active
+status: completed
 goal: >-
   Make ABG own a default recursive executive observer behavior over existing
   workspace overlay, observed-state, replay projection, and traversal-unit
@@ -33,6 +33,7 @@ priority: high
 triaged_at: 2026-06-26
 created_at: 2026-06-26
 updated_at: 2026-06-29
+completed_at: 2026-06-29
 governance_scope: STDO Method, GTL, ABG
 build_tenant: typescript
 intake_source: >-
@@ -70,7 +71,7 @@ related_tickets:
   - .ai-workspace/tickets/completed/T-164-realize-gtl-abg-requirements-algebra-route-for-downstream-lifecycle-consumers.md
   - .ai-workspace/tickets/completed/T-165-prove-hello-world-live-requirements-route.md
   - .ai-workspace/tickets/completed/T-166-publish-requirements-route-replay-proof-artifact.md
-  - .ai-workspace/tickets/active/T-169-ratify-requirement-span-identity-across-recursion.md
+  - .ai-workspace/tickets/completed/T-169-ratify-requirement-span-identity-across-recursion.md
   - /Users/jim/src/apps/odd_glc/.ai-workspace/tickets/active/T-001-govern-minimal-odd-glc-requirements-and-graph-design.md
   - /Users/jim/src/apps/odd_glc/.ai-workspace/tickets/active/T-007-interpret-assurance-fold-and-residual-pressure.md
 affected_boundary:
@@ -480,15 +481,15 @@ consequence the executive.
 - [x] Default behavior preserves pressure, detects exact same-pressure retry,
       and classifies attenuation, non-attenuation, local repair, nonlocal
       re-entry/yield, reprice, and block.
-- [ ] The runner can open the executive layer over the declared workspace
+- [x] The runner can open the executive layer over the declared workspace
       environment without circular mutation or hidden controller state.
-- [ ] ABG continuation consumes only admitted executive findings and remains the
+- [x] ABG continuation consumes only admitted executive findings and remains the
       owner of retry/yield/re-entry/reprice/block/terminal routing.
 - [x] `consequence.C` remains projection over admitted state and does not become
       the F_P executive.
 - [x] F_D is limited to envelope/admission/delta consistency checks and cannot
       synthesize product semantic pressure.
-- [ ] Focused `test:t160`, relevant regression tests, full semantic suite, and
+- [x] Focused `test:t160`, relevant regression tests, full semantic suite, and
       diff checks pass.
 
 ## Non-Goals
@@ -534,7 +535,7 @@ classified pressure from substring-shaped refs rather than admitted F_P
 assessment disposition truth. The projected `continuationInput` did not feed
 ABG continuation/routing, so recursive control was inert.
 
-This ticket remains active until:
+At reopening, closure was blocked until:
 
 - the observer is invoked on a production ABG runtime path without a
   test-only request field being the sole activation mechanism;
@@ -549,9 +550,9 @@ The refuted closure artifact was:
   `sha256:892fa34495f9477ab98338fe13f387a9212bd59c34e2578e596156bbfd2731f5`
 - live result: `yield_reentry`
 
-Closure depends on active T-169 span identity across recursion and does not
-authorize downstream products to create local executive loops, local span maps,
-or local continuation controllers.
+Closure also depended on completed T-169 span identity across recursion and did
+not authorize downstream products to create local executive loops, local span
+maps, or local continuation controllers.
 
 2026-06-29 rc15 refuted closure under T-170:
 
@@ -565,7 +566,21 @@ or local continuation controllers.
   not closure because the disposition authority is marker-driven rather than
   worker-disposition-driven.
 
-This ticket remains active until the normal iterate path opens the observer
-from runtime state and executive pressure classification consumes an admitted
-worker disposition field directly, without harness-planted
-`abg.executive.disposition://*` marker refs.
+2026-06-29 rc16 closure under T-170:
+
+- The normal runner path invokes the executive observer from runtime state and
+  no longer depends on test-only request injection as the sole activation
+  mechanism.
+- F_P executive disposition is carried as a typed admitted finding field,
+  `executiveDisposition`; diagnostic refs are inert and cannot select
+  nonlocal re-entry, reprice, block, or close-candidate authority.
+- Executive pressure facts remain event-sourced and replay-visible.
+- Executive `continuationInput` is consumed by ABG continuation/routing.
+- Live proof:
+  `build_tenants/abiogenesis/typescript/test_env/test_runs/t160_recursive_executive_observer_live/20260629T061901030Z_pid25879/executive-observer-manifest.json`.
+- `CODEX_LIVE_FP=1 npm run test:t160:live` passed in about 86.2s.
+- `npm run test:t160` passed, 10/10.
+
+This ticket is complete. It does not authorize downstream products to create
+local executive loops, local span maps, local continuation controllers, or
+marker-driven disposition authority.

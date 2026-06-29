@@ -3,7 +3,7 @@ id: T-169
 title: Ratify requirement span identity across recursion and foldback
 type: feature
 ticket_category: gtl_abg_span_identity
-status: active
+status: completed
 goal: >-
   Ratify and realize the GTL/ABG substrate for stable requirement span identity
   across graph frames, zoom, child frames, sibling graph calls, recursion,
@@ -30,6 +30,7 @@ priority: critical
 triaged_at: 2026-06-29
 created_at: 2026-06-29
 updated_at: 2026-06-29
+completed_at: 2026-06-29
 governance_scope: STDO Method, GTL, ABG, Requirements Algebra, Span Identity, Recursive Traversal, Foldback, Re-Entry
 build_tenant: typescript
 downstream_consumers:
@@ -47,7 +48,7 @@ source_documents:
   - specification/requirements/abg/REQ-R-ABG3-PROJECTION.md
   - specification/requirements/abg/REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md
   - .ai-workspace/comments/codex/20260626T011328Z_STRATEGY_requirements_algebra_edge_spans.md
-  - .ai-workspace/tickets/active/T-160-declare-abg-recursive-executive-observer-graph-for-obligation-pressure.md
+  - .ai-workspace/tickets/completed/T-160-declare-abg-recursive-executive-observer-graph-for-obligation-pressure.md
   - .ai-workspace/tickets/completed/T-168-ratify-gtl-requirement-graph-and-abg-refinement-route.md
 affected_boundary:
   requirements:
@@ -168,15 +169,15 @@ downstream products interpret admitted read models.
 - [x] Design proves existing GTL topology anchors and ABG traversal/projection
       carriers are reused unless a new carrier passes the DESIGN_MODULE_METHOD
       promotion test.
-- [ ] ABG projection preserves span identity through frame, zoom, child-frame
+- [x] ABG projection preserves span identity through frame, zoom, child-frame
       or sibling-call, recursion, foldback, continuation, and re-entry.
-- [ ] Requirement fold/residual/disposition views preserve original span refs
+- [x] Requirement fold/residual/disposition views preserve original span refs
       and parent/child lineage.
 - [x] Public queries expose read-only span-lineage projection state.
-- [ ] Negative proof rejects vector-index-only identity, query-invented span
+- [x] Negative proof rejects vector-index-only identity, query-invented span
       joins, and product-local span maps.
 - [x] `npm run test:t169` passes.
-- [ ] `npm run test:t169:live` passes with a live F_P worker process and
+- [x] `npm run test:t169:live` passes with a live F_P worker process and
       digest-pinned replay artifact.
 - [x] `git diff --check` passes.
 
@@ -228,7 +229,7 @@ Proof completed for first slice:
 - The live proof assertion was loosened to accept any non-closed disposition.
   Closure requires a strict disposition expectation appropriate to the route
   being proved.
-- This ticket remains active until span identity is traversal-derived from
+- At reopening, closure was blocked until span identity was traversal-derived from
   emitted frame/zoom/foldback truth and vector-membership-only activation fails
   even for empty declared lineage on recursive-span claims.
 
@@ -243,7 +244,19 @@ Proof completed for first slice:
 - `CODEX_LIVE_FP=1 npm run test:t169:live` passed in about 104.8s, but this is
   not closure because it does not prove ABG-opened child-frame lineage identity.
 
-This ticket remains active until the live proof derives the child-frame, zoom,
-foldback, and re-entry refs from ABG-emitted traversal/runtime events and proves
-the parent span covers the child edge through that emitted lineage, not through
-proof-authored matching constants.
+2026-06-29 rc16 closure under T-170:
+
+- Focused proof derives child-frame, zoom, and foldback refs from ABG-emitted
+  runtime lineage events rather than proof-authored matching constants.
+- The parent span activates over the child edge only through emitted lineage;
+  removing those lineage events prevents activation.
+- Requirement route fold/residual/disposition views preserve span and lineage
+  refs for read-only downstream interpretation.
+- Live proof:
+  `build_tenants/abiogenesis/typescript/test_env/test_runs/t169_requirement_span_identity_recursion_live/20260629T061901029Z_pid25878/requirements-route-replay-manifest.json`.
+- `CODEX_LIVE_FP=1 npm run test:t169:live` passed in about 109.2s.
+- `npm run test:t169` passed, 6/6.
+
+This ticket is complete. It does not authorize vector-index-only recursive
+identity, query-invented span joins, product-local span maps, or
+proof-authored lineage constants.

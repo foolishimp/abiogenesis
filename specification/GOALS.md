@@ -39,8 +39,8 @@ product-local loop/controller authority rather than rebuilding it.
 | `GOAL-011` | `Requirements` + `GTL` + `ABG Runtime` + `Projection` + `Interface` | Wire and pin the downstream-consumable requirements-algebra route without turning T-162 symbols into a new carrier/function catalog. | Existing T-162 symbols are exposed through stable GTL/ABG route interfaces; GTL declaration/composition refs do not import ABG runtime code; downstream-public surfaces are declarations and read-only queries; ABG-runtime-internal admission/projection commands emit declaration, projection, evidence, fold, residual, and disposition truth on the traversal path; admitted refs are nominal and replay-verified; F_D cannot infer F_P/F_H semantic meaning; route proof rejects forged refs, boolean evidence, manual truth refs, query-lazy fold/residual/disposition, downstream-public emitters, and caller-supplied route truth. | `T-164`, `REQ-L-GTL3-REQUIREMENTS-ALGEBRA`, `REQ-R-ABG3-REQUIREMENTS-ALGEBRA`, `M03_REQUIREMENTS_ALGEBRA_ROUTE_INTERFACE_DESIGN`, `test:t164` | Completed | `T-164` |
 | `GOAL-012` | `Live Proof` + `Requirements` + `GTL` + `ABG Runtime` | Prove the completed T-164 requirements route through a Hello World live F_P steel thread. | A gated live test starts from GTL requirement declarations for a Hello World program, invokes a real F_P transport worker, executes the produced Hello World artifact, emits ABG requirement route facts through the runtime event stream, joins disposition over ABG continuation truth, and replays the lifecycle state without product-local ledgers, caller-supplied route truth, or prompt-side preconstruction of the Hello World source. | `T-165`, `test:t165:hello-world-live` | Completed | `T-165` |
 | `GOAL-013` | `Proof` + `Projection` + `Downstream Consumption` | Publish the requirements-route replay proof as a downstream-consumable artifact without exposing ABG runtime-internal emitters. | A T-165 or successor proof run writes a digest-pinned route replay artifact and manifest containing serialized `requirement_route_fact_projected` events and replay-derived lifecycle state; downstream consumers can prove read-only consumption from that artifact while ABG keeps emission, admission, fold, residual, and disposition authority internal. | `T-166`, `test:t166`, `test:t166:live` | Completed | `T-166` |
-| `GOAL-014` | `GTL` + `ABG Runtime` + `Requirements` + `Projection` | Close the ABI substrate gaps needed for odd_glc beyond route-1 closed-path consumption. | ABI publishes a non-closed requirements-route replay artifact with residual and continuation/re-entry truth; GTL ratifies requirement graph/refinement declarations; ABG admits/projects/folds/residualizes multi-requirement structure; span identity is stable across frame, zoom, recursion, foldback, and re-entry boundaries; recursive executive observation preserves obligation pressure without downstream product-local controllers. | `T-167`, `T-168`, `T-169`, `T-160`, `T-170` | Reopened | `T-170` |
-| `GOAL-015` | `GTL` + `ABG Runtime` + `Requirements` + `Projection` + `Release` | Earn the corrected full odd_glc ABI substrate closure under STDO/DMM. | T-167 proves every retained non-closed disposition branch through real emitted route events; T-169 proves recursive span identity across a nested traversal rather than first-traversal declaration projection; T-160 is invoked on a runtime path, admits live F_P findings through ABG, emits executive pressure facts through the event stream, and feeds ABG continuation without prompt-carried or fixture-injected answers; a corrected RC is cut and odd_glc is retargeted only after focused, live, semantic, install, and downstream smoke tests pass. | `T-170`, active `T-169`, active `T-160` | Active | `T-170` |
+| `GOAL-014` | `GTL` + `ABG Runtime` + `Requirements` + `Projection` | Close the ABI substrate gaps needed for odd_glc beyond route-1 closed-path consumption. | ABI publishes a non-closed requirements-route replay artifact with residual and continuation/re-entry truth; GTL ratifies requirement graph/refinement declarations; ABG admits/projects/folds/residualizes multi-requirement structure; span identity is stable across frame, zoom, recursion, foldback, and re-entry boundaries; recursive executive observation preserves obligation pressure without downstream product-local controllers. | `T-167`, `T-168`, `T-169`, `T-160`, `T-170` | Completed | `T-170` |
+| `GOAL-015` | `GTL` + `ABG Runtime` + `Requirements` + `Projection` + `Release` | Earn the corrected full odd_glc ABI substrate closure under STDO/DMM. | T-167 proves every retained non-closed disposition branch through real emitted route events; T-169 proves recursive span identity across a nested traversal rather than first-traversal declaration projection; T-160 is invoked on a runtime path, admits live F_P findings through ABG, emits executive pressure facts through the event stream, and feeds ABG continuation without prompt-carried or fixture-injected answers; a corrected RC is cut and odd_glc is retargeted only after focused, live, semantic, install, and downstream smoke tests pass. | `T-170`, `T-169`, `T-160` | Completed | `T-170` |
 
 ## Wave Boundary
 
@@ -166,23 +166,22 @@ The completed downstream requirements-route proof-publication wave covers:
    ABG runtime-internal route emitters or requiring downstream caller-supplied
    route truth.
 
-The reopened ABI closure wave for downstream lifecycle scale currently stands
-as:
+The completed ABI closure wave for downstream lifecycle scale covers:
 
 1. `T-167` earned non-closed requirements-route replay proof with residual pressure
    and continuation or re-entry disposition emitted by ABG.
 2. `T-168` earned GTL requirement graph/refinement declaration law plus ABG
    admission/projection/fold/residual/query over multi-requirement structure.
-3. `T-169` active, not earned: requirement span identity must be
-   traversal-derived from ABG-emitted frame/zoom/foldback truth, not from
-   hand-authored literal lineage refs that the proof supplies on both sides.
-4. `T-160` active, not earned: recursive executive observer pressure
-   preservation must activate from a production runtime source and classify
-   disposition from admitted worker judgment, not from a harness-planted
-   diagnostic marker.
+3. `T-169` earned requirement span identity through traversal-derived
+   ABG-emitted frame/zoom/foldback truth rather than hand-authored matching
+   constants.
+4. `T-160` earned recursive executive observer pressure preservation through a
+   runtime path that consumes admitted worker disposition truth instead of
+   marker-driven diagnostic refs.
 5. `T-170` records the root-cause taxonomy for the late-stage algebraic
-   violations and remains active until the corrected implementation, live
-   proofs, release cut, and odd_glc retarget all name an earned substrate.
+   violations and closes only after the corrected implementation, live proofs,
+   release cut, install, and odd_glc retarget all name the same earned
+   substrate.
 
 This wave explicitly includes GTL. Requirement graph/refinement and lifecycle
 composition structure must be declared through GTL contract-law surfaces; ABG
@@ -207,3 +206,19 @@ T-169 still proves matching over proof-authored lineage refs, and T-160 still
 uses a marker-driven disposition path. A successor corrected RC must replace
 that proof shape before odd_glc parity may treat the recursive substrate as
 complete.
+
+The earned corrected release is ABI TypeScript rc16:
+
+- source commit `eec4090f64f5c95562732d6a67c7a52659feb3d4`;
+- release snapshot commit `534dd3a5488b1603c45e1461d73ced7e0aea5653`;
+- release snapshot `release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.16/`;
+- `latest -> 4.1.0-rc.16`;
+- tarball sha256
+  `2e692cece027fcd43eae82042d4a12729dbd5a92c3077efb92c32cc0ccc8c1bc`;
+- release snapshot manifest sha256
+  `7d13aabee419f6ca8ca76442dbdd1b1e85eabb2b4c2a10c78cb6030807491085`;
+- odd_glc retarget commit `8854735`.
+
+rc16 is the first release cut in this wave that aligns source, snapshot,
+install, live proof artifacts, and downstream provenance against the same
+corrected recursive substrate.

@@ -3,7 +3,7 @@ id: T-170
 title: Earn full odd_glc ABI substrate closure after DMM refutation
 type: defect
 ticket_category: abi_substrate_closure_correction
-status: active
+status: completed
 goal: >-
   Correct the overclosed GOAL-014 substrate claim before odd_glc parity work
   depends on it. T-167 must prove every retained non-closed disposition branch;
@@ -26,6 +26,7 @@ priority: critical
 triaged_at: 2026-06-29
 created_at: 2026-06-29
 updated_at: 2026-06-29
+completed_at: 2026-06-29
 reopened_at: 2026-06-29
 governance_scope: STDO Method, DESIGN_MODULE_METHOD, GTL, ABG, Requirements Algebra, Recursive Runtime, Release
 build_tenant: typescript
@@ -39,10 +40,10 @@ source_documents:
   - build_tenants/abiogenesis/typescript/design/M03_RECURSIVE_EXECUTIVE_OBSERVER_DERIVATION.md
   - .ai-workspace/tickets/completed/T-167-publish-non-closed-requirements-route-replay-artifact.md
   - .ai-workspace/tickets/completed/T-168-ratify-gtl-requirement-graph-and-abg-refinement-route.md
-  - .ai-workspace/tickets/active/T-169-ratify-requirement-span-identity-across-recursion.md
-  - .ai-workspace/tickets/active/T-160-declare-abg-recursive-executive-observer-graph-for-obligation-pressure.md
+  - .ai-workspace/tickets/completed/T-169-ratify-requirement-span-identity-across-recursion.md
+  - .ai-workspace/tickets/completed/T-160-declare-abg-recursive-executive-observer-graph-for-obligation-pressure.md
   - .ai-workspace/comments/codex/20260629T060841Z_REVIEW_t170-root-cause-algebraic-violations.md
-  - release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.15/release-snapshot-manifest.json
+  - release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.16/release-snapshot-manifest.json
   - /Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/substrate.provenance.json
 affected_boundary:
   goals:
@@ -139,8 +140,8 @@ in GTL/ABG.
 - [x] T-160 F_P findings are admitted through ABG admission and are not trusted
       as raw objects.
 - [x] T-160 live proof does not carry or inject the expected disposition answer.
-- [ ] A corrected release candidate is cut and odd_glc is retargeted to it.
-- [ ] Focused, live, semantic, install, and odd_glc substrate tests pass.
+- [x] A corrected release candidate is cut and odd_glc is retargeted to it.
+- [x] Focused, live, semantic, install, and odd_glc substrate tests pass.
 
 ## Refuted Closure Evidence
 
@@ -258,6 +259,82 @@ release cut:
 - odd_glc substrate smoke:
   `/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript`
   `npm test` passed, 17/17.
+
+## Corrected rc16 Closure
+
+2026-06-29 rc16 earns full odd_glc ABI substrate closure under this ticket.
+
+Corrected source and release:
+
+- Source commit:
+  `eec4090f64f5c95562732d6a67c7a52659feb3d4`
+  (`Earn corrected odd_glc ABI substrate rc16 source`).
+- Release snapshot commit:
+  `534dd3a5488b1603c45e1461d73ced7e0aea5653`
+  (`Cut abiogenesis TypeScript rc16 snapshot`).
+- Release snapshot:
+  `release_snapshots/abiogenesis-typescript-tenant/4.1.0-rc.16/`.
+- `latest` pointer:
+  `release_snapshots/abiogenesis-typescript-tenant/latest -> 4.1.0-rc.16`.
+- Tarball sha256:
+  `2e692cece027fcd43eae82042d4a12729dbd5a92c3077efb92c32cc0ccc8c1bc`.
+- Release snapshot manifest sha256:
+  `7d13aabee419f6ca8ca76442dbdd1b1e85eabb2b4c2a10c78cb6030807491085`.
+- Checksum verification:
+  `sha256sum -c checksums.sha256` passed in the rc16 snapshot.
+- Installed product manifest digest:
+  `6ebe7314243388f3553d256c2df1306a95e0d18cf59c6ab47c125cdb0dccd3de`.
+- odd_glc retarget commit:
+  `8854735` (`Retarget odd_glc to abiogenesis rc16 substrate`).
+
+Corrected proof evidence:
+
+- T-169 no longer proves recursive span identity by matching proof-authored
+  constants. Its focused proof derives child-frame, zoom, and foldback refs
+  from ABG-emitted runtime lineage events and proves non-activation when those
+  lineage events are absent.
+- T-160 no longer derives executive disposition from diagnostic marker refs.
+  The admitted F_P finding carries a typed `executiveDisposition`, diagnostic
+  refs are inert, pressure facts are emitted through runtime truth, and the
+  resulting continuation input feeds ABG continuation.
+- T-167 and T-168 remain earned from the prior corrected work: non-closed
+  disposition branches are differential-proven through replay events, and
+  multi-requirement fold uses per-requirement evidence bindings rather than
+  broadcasting one closure decision to every term.
+
+Verified commands on rc16 source:
+
+- `npm run build:semantic` passed.
+- `npm run lint:semantic` passed.
+- `npm run lint:test-harness` passed.
+- `npm run test:t160` passed, 10/10.
+- `npm run test:t162` passed, 22/22.
+- `npm run test:t167` passed, 4/4.
+- `npm run test:t168` passed, 2/2.
+- `npm run test:t169` passed, 6/6.
+- `npm run test:semantic` passed, 951/951.
+- `CODEX_LIVE_FP=1 npm run test:t160:live` passed in about 86.2s.
+- `CODEX_LIVE_FP=1 npm run test:t169:live` passed in about 109.2s.
+- `CODEX_LIVE_FP=1 npm run test:t168:live` passed in about 7.8s.
+- `CODEX_LIVE_FP=1 npm run test:t165:hello-world-live` passed in about
+  88.3s.
+- `npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run --json` produced
+  `abiogenesis-typescript-tenant-4.1.0-rc.16.tgz`.
+- `npm run snapshot:release` created the rc16 release snapshot with
+  `sourceDirty:false`.
+- ABI install into `/Users/jim/src/apps/odd_glc` refreshed the shared
+  toolchain product to rc16 and verified install topology.
+- `/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript` `npm test`
+  passed, 17/17.
+- `git diff --check` passed.
+
+Closure judgment:
+
+The late-stage algebraic violations are now classified and guarded at the
+design/API/runtime/proof/release boundaries named by the root-cause review.
+odd_glc may treat ABIogenesis rc16 as the completed substrate for the planned
+parity waves, while retaining the rule that downstream products consume GTL/ABG
+truth read-only and do not rebuild these surfaces locally.
 
 rc15 remains a useful intermediate release candidate, but it does not close
 T-170. T-169 still proves matching over proof-authored lineage refs rather than
