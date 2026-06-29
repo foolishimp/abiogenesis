@@ -38,6 +38,9 @@
 		},
 		{
 			"path": "../../../../../movie_catalog"
+		},
+		{
+			"path": "../../../../../odd_glc"
 		}
 	],
 	"settings": {
