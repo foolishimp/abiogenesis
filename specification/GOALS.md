@@ -231,10 +231,11 @@ The active odd_glc ladder prerequisite wave covers:
    verifier-execution, admitted evidence, requirement evidence binding, fold,
    residual, and disposition through ABG runtime truth. JavaScript test meaning
    is plugin/downstream policy, not ABI policy.
-2. `T-171` generic non-default command execution, with a live Cargo binding that
+2. `T-171` generic non-default command execution, with a live rustc command
+   binding that
    records cwd, env, command invocation, stdout/stderr/exit status, admitted
    evidence, requirement evidence binding, fold, residual, and disposition
-   through ABG runtime truth. Cargo/Rust meaning is a proof scenario binding,
+   through ABG runtime truth. Rust/rustc meaning is a proof scenario binding,
    not ABI policy.
 3. `T-172` generic long-running process/request execution, with a live service
    binding that records process start, endpoint/env binding, client request,
