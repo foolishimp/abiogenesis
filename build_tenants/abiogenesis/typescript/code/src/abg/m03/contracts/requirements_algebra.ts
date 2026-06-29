@@ -2053,6 +2053,64 @@ function shouldDeriveLeafRequirementProjection(
     !hasActiveRefinementChildren(term, environment);
 }
 
+function proofEvidenceProjectionRows(input: {
+  readonly relation: RequirementTestRelation;
+  readonly term: RequirementTerm;
+  readonly environment: EdgeRequirementEnvironment;
+  readonly admittedProjectionRefs: Set<string>;
+}): readonly RequirementProjection[] {
+  const spanId = activeSpanIdForTerm(input.term, input.environment) ?? "span:unknown";
+  const sourceRefs = [input.relation.relationRef, input.relation.evidencePolicyRef];
+  const rows: readonly {
+    readonly projectionRef: string;
+    readonly projectionRole: RequirementProjectionRole;
+    readonly evidenceRole: RequirementEvidenceRole;
+  }[] = Object.freeze([
+    Object.freeze({
+      projectionRef: input.relation.assetProjectionRef,
+      projectionRole: "materialization_target" as const,
+      evidenceRole: "asset" as const
+    }),
+    Object.freeze({
+      projectionRef: input.relation.testSourceProjectionRef,
+      projectionRole: "materialization_target" as const,
+      evidenceRole: "test_source" as const
+    }),
+    Object.freeze({
+      projectionRef: input.relation.testExecutionProjectionRef,
+      projectionRole: "evidence_expectation" as const,
+      evidenceRole: "test_execution" as const
+    }),
+    Object.freeze({
+      projectionRef: input.relation.interpretationProjectionRef,
+      projectionRole: "evidence_expectation" as const,
+      evidenceRole: "semantic_interpretation" as const
+    })
+  ]);
+  const projections: RequirementProjection[] = [];
+  for (const row of rows) {
+    if (input.admittedProjectionRefs.has(row.projectionRef)) {
+      continue;
+    }
+    input.admittedProjectionRefs.add(row.projectionRef);
+    projections.push(constructRequirementProjection({
+      projectionRef: row.projectionRef,
+      requirementId: input.relation.requirementId,
+      spanId,
+      projectionRole: row.projectionRole,
+      authorityRole: "requirement",
+      targetPath: null,
+      command: null,
+      fallbackCommand: null,
+      evidenceRole: row.evidenceRole,
+      current: true,
+      sourceRefs,
+      supersedesProjectionRefs: []
+    }));
+  }
+  return freezeArray(projections);
+}
+
 export function routeContextConstraint(input: {
   readonly fragment: AuthorityContextFragment;
   readonly activeRefs: readonly string[];
@@ -2094,6 +2152,24 @@ export function projectRequirements(input: {
       .filter((projection) => projection.projectionRole === "obligation")
       .map((projection) => projection.requirementId)
   );
+  const activeTermsByRequirementId = new Map(
+    input.environment.activeTerms.map((term) => [term.requirementId, term])
+  );
+  const admittedProjectionRefs = new Set(
+    explicit.map((projection) => projection.projectionRef)
+  );
+  const proofEvidence = input.environment.activeTestRelations.flatMap((relation) => {
+    const term = activeTermsByRequirementId.get(relation.requirementId);
+    if (term === undefined) {
+      return [];
+    }
+    return proofEvidenceProjectionRows({
+      relation,
+      term,
+      environment: input.environment,
+      admittedProjectionRefs
+    });
+  });
   const derived = input.environment.activeTerms
     .filter((term) =>
       !explicitObligationIds.has(term.requirementId) &&
@@ -2115,7 +2191,7 @@ export function projectRequirements(input: {
         supersedesProjectionRefs: []
       })
     );
-  return freezeArray([...explicit, ...derived]);
+  return freezeArray([...explicit, ...proofEvidence, ...derived]);
 }
 
 export function projectMaterializationTargets(

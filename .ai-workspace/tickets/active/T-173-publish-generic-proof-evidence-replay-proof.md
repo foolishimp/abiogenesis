@@ -126,7 +126,7 @@ language/toolchain/test/release policy outside ABI.
 ## Acceptance Checklist
 
 - [ ] T-173 live proof lane exists.
-- [ ] Declaration-to-projection gap is resolved without caller-supplied route
+- [x] Declaration-to-projection gap is resolved without caller-supplied route
       projection refs.
 - [ ] Live proof produces subject artifact and independent verifier artifact.
 - [ ] Verifier execution runs through ABI actor/operator evidence truth.
@@ -134,7 +134,7 @@ language/toolchain/test/release policy outside ABI.
       and verifier-execution evidence bindings.
 - [ ] If compatibility evidence-role spellings are used, the artifact or
       manifest maps them to generic proof-evidence roles.
-- [ ] ABI does not define JavaScript, test, release, or acceptability policy.
+- [x] ABI does not define JavaScript, test, release, or acceptability policy.
 - [ ] Replay artifact includes fold, residual, and disposition route truth.
 - [ ] Manifest digest pins the artifact.
 - [ ] Proof commands pass, including live.
@@ -161,3 +161,22 @@ Open.
 This is upstream ABI work. odd_glc shall not compensate by classifying generic
 subject-artifact bindings as verifier evidence. ABI shall not compensate by
 hard-coding product test policy.
+
+## Execution Update
+
+2026-06-29 implementation pass resolved the declaration-to-projection bridge
+for generic proof-evidence roles:
+
+- `projectRequirements(...)` derives subject-artifact, verifier-artifact,
+  verifier-execution, and semantic-interpretation projection slots from admitted
+  proof relation declarations.
+- Derived verifier-execution slots are `evidence_expectation`, not
+  `execution_schedule`, unless a separate admitted projection declares a
+  command. ABI therefore does not invent command, toolchain, test, or pass/fail
+  policy from the relation.
+- `test:t173` proves replay-visible projection facts for all generic roles.
+- `test:t162` and `test:t164` pass after the projection bridge change.
+
+Remaining open work: live proof lane, verifier execution through ABG
+actor/operator evidence truth, digest-pinned replay artifact publication, and
+odd_glc downstream consumption.
