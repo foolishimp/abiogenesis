@@ -4,6 +4,7 @@ title: Earn full odd_glc ABI substrate closure after DMM refutation
 type: defect
 ticket_category: abi_substrate_closure_correction
 status: completed
+qualified_by: T-175
 goal: >-
   Correct the overclosed GOAL-014 substrate claim before odd_glc parity work
   depends on it. T-167 must prove every retained non-closed disposition branch;
@@ -110,6 +111,13 @@ proof_commands:
 ---
 
 # T-170: Full odd_glc ABI Substrate Closure Correction
+
+2026-06-30 qualification: downstream review found that the T-167 artifact
+accepted by this ticket is installed engine-mechanics proof, not live
+execution-grounded proof-of-record. T-170 remains useful for the corrected
+T-169 recursive span and T-160 executive observer closure, and for T-167 route
+mechanics, but no longer closes the live non-closed route proof required by
+odd_glc T-014. T-175 is the active successor for that proof class.
 
 ## STDO Triage
 
@@ -262,7 +270,10 @@ release cut:
 
 ## Corrected rc16 Closure
 
-2026-06-29 rc16 earns full odd_glc ABI substrate closure under this ticket.
+2026-06-29 rc16 was recorded as full odd_glc ABI substrate closure under this
+ticket. 2026-06-30 review qualifies that closure: T-167 still needs live
+execution-grounded replacement under T-175 before downstream non-closed
+lifecycle parity may close.
 
 Corrected source and release:
 
@@ -297,10 +308,11 @@ Corrected proof evidence:
   The admitted F_P finding carries a typed `executiveDisposition`, diagnostic
   refs are inert, pressure facts are emitted through runtime truth, and the
   resulting continuation input feeds ABG continuation.
-- T-167 and T-168 remain earned from the prior corrected work: non-closed
-  disposition branches are differential-proven through replay events, and
+- T-168 remains earned from the prior corrected work:
   multi-requirement fold uses per-requirement evidence bindings rather than
   broadcasting one closure decision to every term.
+- T-167 remains earned as installed route mechanics only. It is not live
+  execution-grounded proof-of-record until T-175 replaces its artifact.
 
 Verified commands on rc16 source:
 
@@ -331,10 +343,12 @@ Verified commands on rc16 source:
 Closure judgment:
 
 The late-stage algebraic violations are now classified and guarded at the
-design/API/runtime/proof/release boundaries named by the root-cause review.
-odd_glc may treat ABIogenesis rc16 as the completed substrate for the planned
-parity waves, while retaining the rule that downstream products consume GTL/ABG
-truth read-only and do not rebuild these surfaces locally.
+design/API/runtime/proof/release boundaries named by the root-cause review,
+except the T-167 proof class. odd_glc may treat ABIogenesis rc16/rc17 as earned
+for closed route, requirement graph, recursive span, executive pressure, and
+Hello World ladder substrate, but shall not treat non-closed lifecycle parity
+as complete until T-175 publishes a live artifact. Downstream products still
+consume GTL/ABG truth read-only and do not rebuild these surfaces locally.
 
 rc15 remains a useful intermediate release candidate, but it does not close
 T-170. T-169 still proves matching over proof-authored lineage refs rather than
