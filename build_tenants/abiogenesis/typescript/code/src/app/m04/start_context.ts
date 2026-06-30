@@ -6,6 +6,7 @@ import type {
   ConstructionPriorityScheme,
   ExecutionBasisAdmissionInput,
   EngineAssuranceProvider,
+  EngineStartRequest,
   PluginTraversalKind,
   RuntimeEvent,
   RuntimeEventSink
@@ -26,6 +27,7 @@ export interface PublicStartContext {
   readonly frameId?: string | null;
   readonly frameLineageId?: string | null;
   readonly assuranceProvider?: EngineAssuranceProvider;
+  readonly runtimeRegistryStartup?: EngineStartRequest["runtimeRegistryStartup"];
   readonly abgFallbackBundle?: AbgFallbackBundle | null;
   readonly leverOverridesBundle?: AbgLeverOverridesBundle | null;
   readonly pluginTraversalObserverFallbackEnabled?: boolean;

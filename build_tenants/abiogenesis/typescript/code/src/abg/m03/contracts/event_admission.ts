@@ -2204,6 +2204,120 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
   }),
   requirement_route_fact_projected: assertRequirementRoutePayload,
   executive_pressure_fact_projected: assertExecutivePressureFactPayload,
+  registry_entry_admitted: applyFieldRules(
+    "RegistryEntryAdmittedRuntimeEvent",
+    {
+      entryRef: "non_empty_string",
+      declarationRef: "non_empty_string",
+      declarationDigest: "non_empty_string",
+      libraryScope: { oneOf: ["system", "product"] },
+      entryKind: {
+        oneOf: [
+          "graph_function",
+          "overlay",
+          "candidate_family",
+          "public_start",
+          "plugin"
+        ]
+      },
+      namespace: "non_empty_string",
+      ownerRef: "non_empty_string",
+      version: "non_empty_string",
+      graphFunctionRef: "non_empty_string",
+      interfaceRef: "non_empty_string",
+      sourceContractRef: "non_empty_string",
+      targetContractRef: "non_empty_string",
+      contextRefs: "string_array",
+      authorityRefs: "string_array",
+      overlayRefs: "string_array",
+      provenanceRefs: "string_array",
+      readinessRefs: "string_array",
+      proofRefs: "string_array",
+      policyRefs: "string_array",
+      refinementOfEntryRef: "nullable_string",
+      overrideOfEntryRef: "nullable_string",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string"
+    }
+  ),
+  registry_entry_rejected: applyFieldRules(
+    "RegistryEntryRejectedRuntimeEvent",
+    {
+      declarationRef: "non_empty_string",
+      declarationDigest: "non_empty_string",
+      libraryScope: { oneOf: ["system", "product"] },
+      entryKind: {
+        oneOf: [
+          "graph_function",
+          "overlay",
+          "candidate_family",
+          "public_start",
+          "plugin"
+        ]
+      },
+      namespace: "non_empty_string",
+      ownerRef: "non_empty_string",
+      rejectionReason: "non_empty_string",
+      conflictingEntryRefs: "string_array",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string"
+    }
+  ),
+  registry_plugin_advice_admitted: applyFieldRules(
+    "RegistryPluginAdviceAdmittedRuntimeEvent",
+    {
+      adviceRef: "non_empty_string",
+      adviceDigest: "non_empty_string",
+      pluginRef: "non_empty_string",
+      lookupResultRef: "non_empty_string",
+      preferredCandidateRef: "nullable_string",
+      rankedCandidateRefs: "string_array",
+      constraintRefs: "string_array",
+      rationaleRef: "non_empty_string",
+      policyRefs: "string_array",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string"
+    }
+  ),
+  registry_plugin_advice_rejected: applyFieldRules(
+    "RegistryPluginAdviceRejectedRuntimeEvent",
+    {
+      pluginRef: "non_empty_string",
+      lookupResultRef: "non_empty_string",
+      rejectionReason: "non_empty_string",
+      invalidCandidateRefs: "string_array",
+      authorityViolationRefs: "string_array",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string"
+    }
+  ),
+  graph_function_selected: applyFieldRules(
+    "GraphFunctionSelectedRuntimeEvent",
+    {
+      selectionRef: "non_empty_string",
+      selectedEntryRef: "non_empty_string",
+      selectedGraphFunctionRef: "non_empty_string",
+      lookupResultRef: "non_empty_string",
+      eligibilityDecisionRefs: "string_array",
+      adviceRefs: "string_array",
+      fhResponseRefs: "string_array",
+      rationaleRef: "non_empty_string",
+      runtimeBasisRef: "non_empty_string",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string"
+    }
+  ),
+  graph_function_selection_rejected: applyFieldRules(
+    "GraphFunctionSelectionRejectedRuntimeEvent",
+    {
+      lookupResultRef: "non_empty_string",
+      rejectionReason: "non_empty_string",
+      rejectedCandidateRefs: "string_array",
+      pressureDispositionRef: "nullable_string",
+      causationEventRefs: "string_array",
+      correlationId: "non_empty_string"
+    }
+  ),
   workspace_installation_admitted: applyFieldRules(
     "WorkspaceInstallationAdmittedRuntimeEvent",
     {

@@ -2296,6 +2296,108 @@ export interface ExecutivePressureFactProjectedRuntimeEvent {
   readonly correlationId: string;
 }
 
+export interface RegistryEntryAdmittedRuntimeEvent {
+  readonly kind: "registry_entry_admitted";
+  readonly entryRef: string;
+  readonly declarationRef: string;
+  readonly declarationDigest: string;
+  readonly libraryScope: "system" | "product";
+  readonly entryKind:
+    | "graph_function"
+    | "overlay"
+    | "candidate_family"
+    | "public_start"
+    | "plugin";
+  readonly namespace: string;
+  readonly ownerRef: string;
+  readonly version: string;
+  readonly graphFunctionRef: string;
+  readonly interfaceRef: string;
+  readonly sourceContractRef: string;
+  readonly targetContractRef: string;
+  readonly contextRefs: readonly string[];
+  readonly authorityRefs: readonly string[];
+  readonly overlayRefs: readonly string[];
+  readonly provenanceRefs: readonly string[];
+  readonly readinessRefs: readonly string[];
+  readonly proofRefs: readonly string[];
+  readonly policyRefs: readonly string[];
+  readonly refinementOfEntryRef: string | null;
+  readonly overrideOfEntryRef: string | null;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
+export interface RegistryEntryRejectedRuntimeEvent {
+  readonly kind: "registry_entry_rejected";
+  readonly declarationRef: string;
+  readonly declarationDigest: string;
+  readonly libraryScope: "system" | "product";
+  readonly entryKind:
+    | "graph_function"
+    | "overlay"
+    | "candidate_family"
+    | "public_start"
+    | "plugin";
+  readonly namespace: string;
+  readonly ownerRef: string;
+  readonly rejectionReason: string;
+  readonly conflictingEntryRefs: readonly string[];
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
+export interface RegistryPluginAdviceAdmittedRuntimeEvent {
+  readonly kind: "registry_plugin_advice_admitted";
+  readonly adviceRef: string;
+  readonly adviceDigest: string;
+  readonly pluginRef: string;
+  readonly lookupResultRef: string;
+  readonly preferredCandidateRef: string | null;
+  readonly rankedCandidateRefs: readonly string[];
+  readonly constraintRefs: readonly string[];
+  readonly rationaleRef: string;
+  readonly policyRefs: readonly string[];
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
+export interface RegistryPluginAdviceRejectedRuntimeEvent {
+  readonly kind: "registry_plugin_advice_rejected";
+  readonly pluginRef: string;
+  readonly lookupResultRef: string;
+  readonly rejectionReason: string;
+  readonly invalidCandidateRefs: readonly string[];
+  readonly authorityViolationRefs: readonly string[];
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
+export interface GraphFunctionSelectedRuntimeEvent {
+  readonly kind: "graph_function_selected";
+  readonly selectionRef: string;
+  readonly selectedEntryRef: string;
+  readonly selectedGraphFunctionRef: string;
+  readonly lookupResultRef: string;
+  readonly eligibilityDecisionRefs: readonly string[];
+  readonly adviceRefs: readonly string[];
+  readonly fhResponseRefs: readonly string[];
+  readonly rationaleRef: string;
+  readonly runtimeBasisRef: string;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
+export interface GraphFunctionSelectionRejectedRuntimeEvent {
+  readonly kind: "graph_function_selection_rejected";
+  readonly lookupResultRef: string;
+  readonly rejectionReason: string;
+  readonly rejectedCandidateRefs: readonly string[];
+  readonly pressureDispositionRef: string | null;
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
 export type RuntimeEvent =
   | BasisAdmittedEvent
   | LeverResolutionAdmittedEvent
@@ -2393,6 +2495,12 @@ export type RuntimeEvent =
   | ConstructionTerminalDispositionProjectedEvent
   | RequirementRouteFactProjectedRuntimeEvent
   | ExecutivePressureFactProjectedRuntimeEvent
+  | RegistryEntryAdmittedRuntimeEvent
+  | RegistryEntryRejectedRuntimeEvent
+  | RegistryPluginAdviceAdmittedRuntimeEvent
+  | RegistryPluginAdviceRejectedRuntimeEvent
+  | GraphFunctionSelectedRuntimeEvent
+  | GraphFunctionSelectionRejectedRuntimeEvent
   | WorkspaceInstallationAdmittedRuntimeEvent;
 
 export interface CanonicalRuntimeEventEnvelope {
@@ -2501,6 +2609,12 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "construction_terminal_disposition_projected",
   "requirement_route_fact_projected",
   "executive_pressure_fact_projected",
+  "registry_entry_admitted",
+  "registry_entry_rejected",
+  "registry_plugin_advice_admitted",
+  "registry_plugin_advice_rejected",
+  "graph_function_selected",
+  "graph_function_selection_rejected",
   "workspace_installation_admitted"
 ] as const satisfies readonly RuntimeEvent["kind"][]);
 

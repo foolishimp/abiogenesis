@@ -132,6 +132,8 @@
     "test:t174": "npm run build:semantic && node --test test_env/live/test_t174_parallel_hello_world_live.test.mjs",
     "test:t174:live": "npm run build:semantic && ABG_TS_T174_PARALLEL_HELLO_WORLD_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t174_parallel_hello_world_live.test.mjs",
     "test:t175:live": "npm run build:semantic && ABG_TS_T175_NON_CLOSED_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t175_live_non_closed_requirements_route.test.mjs",
+    "test:t177": "npm run build:semantic && node --test test_env/tests/test_t177_runtime_graph_function_registry.test.mjs",
+    "test:t177:live": "npm run build:semantic && ABG_TS_T165_HELLO_WORLD_LIVE=1 ABG_TS_T177_REGISTRY_HELLO_WORLD_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t165_hello_world_requirements_route_live.test.mjs",
     "test:t159:odd-sdlc-t132-live": "npm run build:semantic && ABG_TS_ODD_SDLC_T132_FROZEN_LIVE=1 CODEX_LIVE_FP=1 node --test test_env/live/test_t159_odd_sdlc_t132_frozen_live.test.mjs",
     "test:t161": "npm run build:semantic && node --test test_env/tests/test_t161_shared_toolchain_install.test.mjs",
     "test:t163": "npm run build:semantic && node --test test_env/tests/test_t161_shared_toolchain_install.test.mjs test_env/tests/test_t163_shared_product_toolchain_resolution.test.mjs",

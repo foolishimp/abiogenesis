@@ -56,6 +56,20 @@ export {
   constructRole
 } from "./constructors.js";
 export {
+  constructGtlLibraryEntryDeclaration,
+  constructProductPluginSelectionAdvice,
+  constructProductRegistryStartupConfig,
+  GTL_REGISTRY_ENTRY_KIND_VALUES,
+  GTL_REGISTRY_LIBRARY_SCOPE_VALUES
+} from "./runtime_registry.js";
+export type {
+  GtlLibraryEntryDeclaration,
+  GtlRegistryEntryKind,
+  GtlRegistryLibraryScope,
+  ProductPluginSelectionAdvice,
+  ProductRegistryStartupConfig
+} from "./runtime_registry.js";
+export {
   admitGtlContractFulfillmentBinding,
   admitGtlEvaluationScopeRef,
   constructGtlContractFulfillmentBinding,

@@ -72,6 +72,9 @@ export function startFromRequest(
     ...(context.assuranceProvider === undefined
       ? {}
       : { assuranceProvider: context.assuranceProvider }),
+    ...(context.runtimeRegistryStartup === undefined
+      ? {}
+      : { runtimeRegistryStartup: context.runtimeRegistryStartup }),
     ...(context.abgFallbackBundle === undefined
       ? {}
       : { abgFallbackBundle: context.abgFallbackBundle }),
@@ -134,6 +137,9 @@ export async function startFromRequestAsync(
     ...(context.assuranceProvider === undefined
       ? {}
       : { assuranceProvider: context.assuranceProvider }),
+    ...(context.runtimeRegistryStartup === undefined
+      ? {}
+      : { runtimeRegistryStartup: context.runtimeRegistryStartup }),
     ...(context.abgFallbackBundle === undefined
       ? {}
       : { abgFallbackBundle: context.abgFallbackBundle }),

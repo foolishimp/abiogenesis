@@ -183,6 +183,17 @@ import {
   type RouteReplayFact
 } from "../contracts/requirements_route.js";
 import {
+  admitRuntimeGraphFunctionRegistryStartup,
+  assertGraphFunctionInvocationSelected,
+  constructRegistryLookupRequest,
+  lookupRuntimeGraphFunctionRegistry,
+  projectRuntimeGraphFunctionRegistry,
+  selectGraphFunctionFromRegistry,
+  type GraphFunctionSelectionEvent,
+  type RuntimeRegistryEntryProjection,
+  type RuntimeRegistryStartupInput
+} from "../contracts/runtime_graph_function_registry.js";
+import {
   constructExecutivePressureFactProjectedEvent,
   type ExecutiveContinuationInputProjection,
   type ProjectExecutiveObservationViewInput
@@ -251,6 +262,7 @@ export interface EngineIterateRequest {
   readonly basis: ExecutionBasis;
   readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
   readonly eventSink: RuntimeEventSink;
+  readonly runtimeRegistryStartup?: RuntimeRegistryStartupInput | undefined;
   readonly plugins?: EngineRunnerPluginSet | undefined;
   readonly maxAttachedFpAttempts?: number | undefined;
   readonly assuranceProvider?: EngineAssuranceProvider | undefined;
@@ -285,6 +297,7 @@ export interface EngineIterateRequest {
 export interface EngineStartRequest extends ExecutionBasisAdmissionInput {
   readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
   readonly eventSink: RuntimeEventSink;
+  readonly runtimeRegistryStartup?: RuntimeRegistryStartupInput | undefined;
   readonly plugins?: EngineRunnerPluginSet | undefined;
   readonly maxAttachedFpAttempts?: number | undefined;
   readonly assuranceProvider?: EngineAssuranceProvider | undefined;
@@ -3280,6 +3293,106 @@ function selectedGraphFunctionRefMatchesBasis(input: {
   );
 }
 
+function runtimeRegistrySelectionBasisRef(input: {
+  readonly basis: ExecutionBasis;
+  readonly vectorIndex: number;
+}): string {
+  return [
+    "runtime-registry-selection",
+    input.basis.id,
+    String(input.vectorIndex)
+  ].join(":");
+}
+
+function registryEntryForExecutionBasis(input: {
+  readonly entries: readonly RuntimeRegistryEntryProjection[];
+  readonly basis: ExecutionBasis;
+}): RuntimeRegistryEntryProjection | null {
+  return (
+    input.entries.find(
+      (entry) =>
+        entry.entryKind === "graph_function" &&
+        selectedGraphFunctionRefMatchesBasis({
+          selectedGraphFunctionRef: entry.graphFunctionRef,
+          basis: input.basis
+        })
+    ) ?? null
+  );
+}
+
+function runtimeRegistrySelectionForTransition(input: {
+  readonly basis: ExecutionBasis;
+  readonly transition: AdvancementTransition;
+  readonly replayEvents: readonly RuntimeEvent[];
+}): GraphFunctionSelectionEvent {
+  if (input.transition.kind === "terminal") {
+    throw new TypeError("Runtime registry selection requires a traversal transition");
+  }
+  const projection = projectRuntimeGraphFunctionRegistry(input.replayEvents);
+  const selectedEntry = registryEntryForExecutionBasis({
+    entries: projection.entries,
+    basis: input.basis
+  });
+  if (selectedEntry === null) {
+    throw new TypeError(
+      `Runtime registry startup requires a registered graph_function entry for ${input.basis.graphFunction.id}`
+    );
+  }
+
+  const runtimeBasisRef = runtimeRegistrySelectionBasisRef({
+    basis: input.basis,
+    vectorIndex: input.transition.vectorIndex
+  });
+  const digest = stableSha256Digest({
+    basisId: input.basis.id,
+    graphFunctionId: input.basis.graphFunction.id,
+    vectorIndex: input.transition.vectorIndex,
+    edge: input.transition.edge,
+    selectedEntryRef: selectedEntry.entryRef,
+    registryProjectionRef: projection.projectionRef
+  });
+  const lookupRequest = constructRegistryLookupRequest({
+    lookupRef: `registry-lookup:runner:${digest}`,
+    entryKinds: ["graph_function"],
+    candidateIdentityRefs: [selectedEntry.entryRef],
+    interfaceRef: selectedEntry.interfaceRef,
+    sourceContractRef: selectedEntry.sourceContractRef,
+    targetContractRef: selectedEntry.targetContractRef,
+    contextRefs: selectedEntry.contextRefs,
+    authorityRefs: selectedEntry.authorityRefs,
+    overlayRefs: selectedEntry.overlayRefs,
+    namespaceRefs: [selectedEntry.namespace],
+    acceptedVersions: [selectedEntry.version],
+    provenanceRefs: selectedEntry.provenanceRefs,
+    readinessRefs: selectedEntry.readinessRefs,
+    proofRefs: selectedEntry.proofRefs,
+    policyRefs: selectedEntry.policyRefs
+  });
+  const lookupResult = lookupRuntimeGraphFunctionRegistry({
+    projection,
+    request: lookupRequest
+  });
+  const selection = selectGraphFunctionFromRegistry({
+    lookupResult,
+    projection,
+    selectionRef: `graph-function-selection:runner:${digest}`,
+    runtimeBasisRef,
+    rationaleRef: "rationale://abg/runtime-registry/current-basis",
+    abgSelectedCandidateRef: selectedEntry.entryRef,
+    causationEventRefs: projection.sourceEventRefs,
+    correlationId: `correlation://runtime-registry-selection/${digest}`
+  });
+  if (selection.kind === "graph_function_selected") {
+    assertGraphFunctionInvocationSelected({
+      events: [...input.replayEvents, selection],
+      runtimeBasisRef,
+      graphFunctionRef: selectedEntry.graphFunctionRef,
+      selectionRef: selection.selectionRef
+    });
+  }
+  return selection;
+}
+
 function consequenceConstructionEventScope(input: {
   readonly basis: ExecutionBasis;
   readonly episodeId: string;
@@ -4119,6 +4232,14 @@ function* runEngineIterateMachine(input: {
       constructBasisAdmittedEvent(request.basis)
     );
   }
+  if (request.runtimeRegistryStartup !== undefined) {
+    const registryStartup = admitRuntimeGraphFunctionRegistryStartup(
+      request.runtimeRegistryStartup
+    );
+    if (registryStartup.admissionEvents.length > 0) {
+      eventState = emitRunnerEvents(eventState, registryStartup.admissionEvents);
+    }
+  }
 
   while (true) {
     if (iterationCount > request.basis.graph.vectors.length) {
@@ -4231,6 +4352,37 @@ function* runEngineIterateMachine(input: {
         iterationCount,
         assuranceGate
       });
+    }
+
+    if (request.runtimeRegistryStartup !== undefined && transition.kind !== "terminal") {
+      const registrySelection = runtimeRegistrySelectionForTransition({
+        basis: request.basis,
+        transition,
+        replayEvents: eventState.replayEvents
+      });
+      eventState = emitRunnerEvents(eventState, registrySelection);
+      if (registrySelection.kind === "graph_function_selection_rejected") {
+        const blocked = terminalTransition(
+          request.basis,
+          "gap_stop",
+          `runtime registry selection rejected: ${registrySelection.rejectionReason}`
+        );
+        eventState = emitRunnerEvents(
+          eventState,
+          constructTerminalReachedEvent(blocked)
+        );
+        return constructResult({
+          basis: request.basis,
+          transition: blocked,
+          projection: deriveRuntimeAggregateProjection(
+            request.basis,
+            eventState.replayEvents
+          ),
+          emittedEvents: eventState.emittedEvents,
+          replayEvents: eventState.replayEvents,
+          iterationCount
+        });
+      }
     }
 
     eventState = emitRunnerEvents(eventState, runtimeEventsForIterationDecision(decision));
@@ -6992,6 +7144,7 @@ export function runEngineStart(request: EngineStartRequest): EngineIterateResult
     basis,
     runtimeEvents: request.runtimeEvents,
     eventSink: request.eventSink,
+    runtimeRegistryStartup: request.runtimeRegistryStartup,
     plugins: request.plugins,
     maxAttachedFpAttempts: request.maxAttachedFpAttempts,
     assuranceProvider: request.assuranceProvider,
@@ -7016,6 +7169,7 @@ export async function runEngineStartAsync(
     basis,
     runtimeEvents: request.runtimeEvents,
     eventSink: request.eventSink,
+    runtimeRegistryStartup: request.runtimeRegistryStartup,
     plugins: request.plugins,
     maxAttachedFpAttempts: request.maxAttachedFpAttempts,
     assuranceProvider: request.assuranceProvider,

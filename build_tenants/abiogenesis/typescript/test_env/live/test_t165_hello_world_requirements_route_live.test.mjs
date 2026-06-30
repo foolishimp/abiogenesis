@@ -23,7 +23,10 @@ import {
 import {
   runTracedProcess
 } from "../../build/semantic/code/src/shared/traced_process/index.js";
-import { buildThreeStageBasis } from "../tests/support/m03-iteration-fixtures.mjs";
+import {
+  buildThreeStageBasis,
+  buildThreeStageStartContext
+} from "../tests/support/m03-iteration-fixtures.mjs";
 import {
   writeRequirementRouteReplayArtifact
 } from "../tests/support/requirements-route-replay-artifact.mjs";
@@ -47,6 +50,7 @@ const T165_REQUIREMENT_SOURCE_TEXT = [
 
 function liveEnabled() {
   return process.env["ABG_TS_T165_HELLO_WORLD_LIVE"] === "1" ||
+    process.env["ABG_TS_T177_REGISTRY_HELLO_WORLD_LIVE"] === "1" ||
     process.env["CODEX_LIVE_FP"] === "1";
 }
 
@@ -69,6 +73,10 @@ function timestampId() {
 
 function sha256(value) {
   return `sha256:${createHash("sha256").update(value, "utf8").digest("hex")}`;
+}
+
+function shortDigest(value) {
+  return createHash("sha256").update(value, "utf8").digest("hex").slice(0, 16);
 }
 
 async function writeRequirementSource(runRoot) {
@@ -166,6 +174,78 @@ function t165RouteBundleForBasis(basis, vectorIndex, requirementSource) {
         appliesToRefs: [T165_REQUIREMENT_ID, spanId]
       })
     ]
+  });
+}
+
+function t177RuntimeRegistryStartupForBasis(basis) {
+  const slug = shortDigest(`${basis.id}:${basis.graphFunction.id}`);
+  const version = "4.1.0-rc.17";
+  const productNamespace = "abiogenesis.live_hello_world";
+  const ownerRef = "owner://abiogenesis/t177-live";
+  const systemDeclaration = publicRoot.constructGtlLibraryEntryDeclaration({
+    declarationRef: `gtl-declaration://t177/live/system/${slug}`,
+    entryRef: `registry-entry://t177/live/system/${slug}`,
+    libraryScope: "system",
+    entryKind: "graph_function",
+    namespace: "abg.system",
+    ownerRef: "owner://abg",
+    version,
+    graphFunctionRef: "graph-function://abg/generic-live-requirements-route",
+    interfaceRef: "interface://t177/live/hello-world-route",
+    sourceContractRef: "contract://t177/live/hello-world/source",
+    targetContractRef: "contract://t177/live/hello-world/target",
+    contextRefs: ["context://t177/live-hello-world"],
+    authorityRefs: ["authority://abg/runtime-registry"],
+    overlayRefs: ["overlay://t177/live-default"],
+    provenanceRefs: ["provenance://t177/system-library"],
+    readinessRefs: ["readiness://t177/live-ready"],
+    proofRefs: ["proof://t177/live-registry-selection"],
+    policyRefs: ["policy://t177/live-selection"],
+    declarationSourceRefs: ["gtl://module/t177/system-live-registry"]
+  });
+  const productDeclaration = publicRoot.constructGtlLibraryEntryDeclaration({
+    declarationRef: `gtl-declaration://t177/live/product/${slug}`,
+    entryRef: `registry-entry://t177/live/product/${slug}`,
+    libraryScope: "product",
+    entryKind: "graph_function",
+    namespace: productNamespace,
+    ownerRef,
+    version,
+    graphFunctionRef: basis.graphFunction.id,
+    interfaceRef: "interface://t177/live/hello-world-route",
+    sourceContractRef: "contract://t177/live/hello-world/source",
+    targetContractRef: "contract://t177/live/hello-world/target",
+    contextRefs: ["context://t177/live-hello-world"],
+    authorityRefs: ["authority://abg/runtime-registry"],
+    overlayRefs: ["overlay://t177/live-default"],
+    provenanceRefs: ["provenance://t177/product-library"],
+    readinessRefs: ["readiness://t177/live-ready"],
+    proofRefs: ["proof://t177/live-registry-selection"],
+    policyRefs: ["policy://t177/live-selection"],
+    declarationSourceRefs: ["gtl://module/t177/live-hello-world-product"]
+  });
+  const productStartupConfig = publicRoot.constructProductRegistryStartupConfig({
+    configRef: `product-registry-startup://t177/live/${slug}`,
+    productNamespace,
+    ownerRef,
+    version,
+    enabledLibraryRefs: [
+      productDeclaration.entryRef,
+      productDeclaration.declarationRef,
+      "gtl://module/t177/live-hello-world-product"
+    ],
+    overlayRefs: ["overlay://t177/live-default"],
+    pluginRefs: ["plugin://t165/hello-world-live/fp-dispatch"],
+    readinessRefs: ["readiness://t177/live-ready"],
+    proofRefs: ["proof://t177/live-registry-selection"],
+    policyRefs: ["policy://t177/live-selection"],
+    configSourceRefs: ["config://t177/live-hello-world-registry-startup"]
+  });
+  return Object.freeze({
+    systemDeclarations: [systemDeclaration],
+    productStartupConfig,
+    productDeclarations: [productDeclaration],
+    correlationId: `correlation://t177/live-registry/${slug}`
   });
 }
 
@@ -387,17 +467,25 @@ test("T-165 live Hello World proof closes through the GTL/ABG requirements route
   await mkdir(runRoot, { recursive: true });
   const requirementSource = await writeRequirementSource(runRoot);
 
-  const baseBasis = buildThreeStageBasis({
+  const {
+    input: startIntent,
+    context
+  } = buildThreeStageStartContext({
     defaultRegime: "F_P",
     dispatchRef: "dispatch://t165/hello-world-live",
-    runId: "run://t165/hello-world-live"
+    runId: "run://t165/hello-world-live",
+    until: "first_traversal"
   });
-  const basis = firstTraversalBasis(baseBasis);
+  const basis = publicRoot.admitExecutionBasis({
+    startIntent,
+    ...context
+  });
   const requirementRouteDeclarationBundle = t165RouteBundleForBasis(
     basis,
     0,
     requirementSource
   );
+  const runtimeRegistryStartup = t177RuntimeRegistryStartupForBasis(basis);
   const expectedRouteContext = expectedRouteContextForBasis(
     basis,
     0,
@@ -454,8 +542,9 @@ test("T-165 live Hello World proof closes through the GTL/ABG requirements route
     }
   });
 
-  const result = await publicRoot.runEngineIterateAsync({
-    basis,
+  const result = await publicRoot.runEngineStartAsync({
+    startIntent,
+    ...context,
     eventSink: (event) => {
       sinkEvents.push(event);
     },
@@ -463,7 +552,8 @@ test("T-165 live Hello World proof closes through the GTL/ABG requirements route
       fpDispatch,
       fpEvaluator: publicRoot.defaultFpEvaluatorPlugin
     },
-    requirementRouteDeclarationBundle
+    requirementRouteDeclarationBundle,
+    runtimeRegistryStartup
   });
 
   assert.equal(liveArtifacts.length, 1);
@@ -473,6 +563,32 @@ test("T-165 live Hello World proof closes through the GTL/ABG requirements route
   );
   assert.equal(result.transition.kind, "terminal");
   assert.equal(result.transition.terminalKind, "traversal_applied");
+
+  const registryAdmissionIndexes = result.replayEvents
+    .map((event, index) => ({ event, index }))
+    .filter(({ event }) => event.kind === "registry_entry_admitted")
+    .map(({ index }) => index);
+  const selectionIndex = result.replayEvents.findIndex((event) =>
+    event.kind === "graph_function_selected"
+  );
+  const graphCallIndex = result.replayEvents.findIndex((event) =>
+    event.kind === "graph_call_opened"
+  );
+  assert.equal(registryAdmissionIndexes.length, 2);
+  assert.notEqual(selectionIndex, -1);
+  assert.notEqual(graphCallIndex, -1);
+  assert.ok(Math.max(...registryAdmissionIndexes) < selectionIndex);
+  assert.ok(selectionIndex < graphCallIndex);
+  const selectionEvent = result.replayEvents[selectionIndex];
+  assert.equal(selectionEvent.selectedGraphFunctionRef, basis.graphFunction.id);
+  assert.equal(
+    selectionEvent.selectedEntryRef,
+    runtimeRegistryStartup.productDeclarations[0].entryRef
+  );
+  assert.equal(
+    sinkEvents.some((event) => event.kind === "graph_function_selected"),
+    true
+  );
 
   const events = routeRuntimeEvents(result);
   assert.equal(
@@ -565,7 +681,10 @@ test("T-165 live Hello World proof closes through the GTL/ABG requirements route
       proofRunRoot: runRoot,
       liveAgent: agentKey,
       requirementSourceRef: requirementSource.sourceRef,
-      requirementSourceDigest: requirementSource.sourceDigest
+      requirementSourceDigest: requirementSource.sourceDigest,
+      registrySelectionRef: selectionEvent.selectionRef,
+      registryEntryRef: selectionEvent.selectedEntryRef,
+      registryProofTicket: "T-177"
     }),
     replayEvents: result.replayEvents,
     emittedEvents: result.emittedEvents,

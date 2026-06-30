@@ -716,6 +716,12 @@ export function deriveRuntimeAggregateProjection(
       case "construction_terminal_disposition_projected":
       case "requirement_route_fact_projected":
       case "executive_pressure_fact_projected":
+      case "registry_entry_admitted":
+      case "registry_entry_rejected":
+      case "registry_plugin_advice_admitted":
+      case "registry_plugin_advice_rejected":
+      case "graph_function_selected":
+      case "graph_function_selection_rejected":
       case "workspace_installation_admitted":
       case "observed_state_admitted":
       case "overlay_frame_declared":

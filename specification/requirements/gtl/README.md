@@ -42,6 +42,7 @@ ratified ontology, and the GTL/ABG boundary.
 ## Families
 
 - `REQ-L-GTL3-CONTRACT-LAW-API.md`
+- `REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL.md`
 - `REQ-L-GTL3-REQUIREMENTS-ALGEBRA.md`
 - `REQ-L-GTL3-LANGUAGE.md`
 - `REQ-L-GTL3-ATTRS.md`
