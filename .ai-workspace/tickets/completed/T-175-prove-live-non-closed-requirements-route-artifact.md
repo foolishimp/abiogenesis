@@ -3,7 +3,7 @@ id: T-175
 title: Prove live non-closed requirements-route replay artifact
 type: proof
 ticket_category: downstream_proof_artifact
-status: active
+status: completed
 goal: >-
   Publish a live, execution-grounded non-closed requirements-route replay
   artifact that downstream lifecycle consumers can use as proof-of-record for
@@ -21,6 +21,7 @@ priority: critical
 triaged_at: 2026-06-30
 created_at: 2026-06-30
 updated_at: 2026-06-30
+completed_at: 2026-06-30
 governance_scope: STDO Method, GTL, ABG, Requirements Algebra, Live Proof, Downstream ODD Consumers
 build_tenant: typescript
 downstream_consumers:
@@ -122,15 +123,65 @@ Downstream products own interpretation.
 
 ## Acceptance Checklist
 
-- [ ] Live proof script exists and is gated by `CODEX_LIVE_FP=1`.
-- [ ] Non-closed scenario uses live worker or executable-subject evidence.
-- [ ] Closeable control scenario proves discriminating output.
-- [ ] Requirement source and prompt do not carry the desired non-closure answer.
-- [ ] Run directory records live worker/process capture.
-- [ ] ABI emits requirement fold, residual, and lifecycle disposition through
+- [x] Live proof script exists and is gated by `CODEX_LIVE_FP=1`.
+- [x] Non-closed scenario uses live worker or executable-subject evidence.
+- [x] Closeable control scenario proves discriminating output.
+- [x] Requirement source and prompt do not carry the desired non-closure answer.
+- [x] Run directory records live worker/process capture.
+- [x] ABI emits requirement fold, residual, and lifecycle disposition through
       the runtime event stream.
-- [ ] Manifest records a live source run kind.
-- [ ] Digest-pinned artifact is ready for odd_glc T-014 consumption.
-- [ ] `npm run test:t175:live` passes.
-- [ ] `npm run test:t167` remains as engine-mechanics regression.
-- [ ] `git diff --check` passes.
+- [x] Manifest records a live source run kind.
+- [x] Digest-pinned artifact is ready for odd_glc T-014 consumption.
+- [x] `npm run test:t175:live` passes.
+- [x] `npm run test:t167` remains as engine-mechanics regression.
+- [x] `git diff --check` passes.
+
+## Closure Evidence
+
+Closed on 2026-06-30.
+
+The live proof command ran for approximately 90 seconds:
+
+```bash
+cd build_tenants/abiogenesis/typescript && npm run test:t175:live
+```
+
+It executed two live F_P branches over the same GTL requirement source:
+
+- `closeable_20260630T010754187Z_pid31652`: the live worker returned
+  `closeDisposition: close` and `ambiguityStatus: fulfilled` for a packet
+  containing an implementation artifact plus independent verification evidence.
+- `missing_verification_20260630T010854879Z_pid31652`: the live worker returned
+  `closeDisposition: no_close` and `ambiguityStatus: partial` because
+  verification evidence was null.
+
+The non-closed branch wrote the downstream replay artifact:
+
+- artifact:
+  `/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/t175_live_non_closed_requirements_route/missing_verification_20260630T010854879Z_pid31652/requirements-route-replay-artifact.json`
+- manifest:
+  `/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/t175_live_non_closed_requirements_route/missing_verification_20260630T010854879Z_pid31652/requirements-route-replay-manifest.json`
+- artifact digest:
+  `sha256:fd4596f6c481ae957461cb7bc0222d6242052336d3d9bac2841ca10e2b0e501e`
+- route event count: `9`
+- runtime/replay event count: `36`
+- live source run kind: `live_fp_non_closed_requirements_route`
+- lifecycle disposition: `continuation_available`
+- fold ref:
+  `requirement-fold:REQ-T175-LIVE-NON-CLOSED-ROUTE:partial:proof://t175/missing_verification/requirements_ready#requirement-projection=projection%3AREQ-T175-LIVE-NON-CLOSED-ROUTE%3Aobligation`
+- residual ref:
+  `requirement-residual:REQ-T175-LIVE-NON-CLOSED-ROUTE:partial`
+
+The run directories contain serialized live worker prompts, stdout/stderr,
+transport JSON, and trace files for both control and non-closed branches.
+
+Regression commands:
+
+```bash
+cd build_tenants/abiogenesis/typescript && npm run test:t167
+cd build_tenants/abiogenesis/typescript && npm run test:semantic
+git diff --check
+```
+
+`test:t167` remains installed engine-mechanics regression coverage. T-175 is
+the live proof-of-record for downstream non-closed lifecycle consumption.

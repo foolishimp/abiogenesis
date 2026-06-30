@@ -5,6 +5,7 @@ type: defect
 ticket_category: abi_substrate_closure_correction
 status: completed
 qualified_by: T-175
+qualification_resolved_by: T-175
 goal: >-
   Correct the overclosed GOAL-014 substrate claim before odd_glc parity work
   depends on it. T-167 must prove every retained non-closed disposition branch;
@@ -118,6 +119,10 @@ execution-grounded proof-of-record. T-170 remains useful for the corrected
 T-169 recursive span and T-160 executive observer closure, and for T-167 route
 mechanics, but no longer closes the live non-closed route proof required by
 odd_glc T-014. T-175 is the active successor for that proof class.
+
+2026-06-30 resolution: T-175 replaces the T-167 installed artifact as the live
+non-closed proof-of-record. T-170 is restored as full odd_glc ABI substrate
+closure when read together with T-175's live artifact and manifest.
 
 ## STDO Triage
 

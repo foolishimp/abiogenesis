@@ -5,6 +5,7 @@ type: proof
 ticket_category: downstream_proof_artifact
 status: completed
 qualified_by: T-175
+qualification_resolved_by: T-175
 goal: >-
   Publish a downstream-consumable requirements-route replay artifact for a
   non-closed route. The proof shall start from GTL requirement declarations,
@@ -146,6 +147,11 @@ only. It is not valid as live execution-grounded proof-of-record for downstream
 non-closed lifecycle parity. The producing test uses an in-test evaluator stub
 that defaults `closeDisposition` to `no_close`, and the requirement source
 carries the intended non-closure answer. T-175 replaces this proof class.
+
+2026-06-30 resolution: T-175 published the live proof-of-record for downstream
+non-closed lifecycle consumption. T-167 remains valid as installed
+engine-mechanics regression coverage and is no longer the proof artifact that
+downstream consumers should pin for live non-closed parity.
 
 Implementation note:
 
