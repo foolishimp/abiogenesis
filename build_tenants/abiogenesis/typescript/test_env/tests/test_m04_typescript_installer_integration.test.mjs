@@ -217,6 +217,18 @@ function runInstalledCommand(targetRoot, commandName, args) {
   );
 }
 
+function sourceCliPath(sourceRoot) {
+  return path.join(
+    sourceRoot,
+    "build",
+    "semantic",
+    "code",
+    "src",
+    "bin",
+    "abiogenesis.js"
+  );
+}
+
 function parseCommandPayload(run) {
   assert.notEqual(run.stdout.trim(), "", run.stderr);
   return JSON.parse(run.stdout);
@@ -648,6 +660,81 @@ test("T-078 public TypeScript installer refreshes repeated installs over admitte
   ]);
   assert.equal(openGaps.status, 0, openGaps.stderr);
   assert.equal(parseCommandPayload(openGaps).status, "open");
+});
+
+test("T-181 CLI install refresh preserves existing installed package identity when name flag is omitted", async () => {
+  const repoRoot = await locateRepoRoot();
+  const sourceRoot = tenantRoot(repoRoot);
+  const targetRoot = await makeTargetRoot("upgrade-installer");
+  const toolchainRoot = await makeTargetRoot("upgrade-installer-toolchain");
+
+  const first = await installAbiogenesisTypescript({
+    targetRoot: {
+      rootPath: targetRoot
+    },
+    packageSourceRoot: sourceRoot,
+    installedPackageName: "abiogenesis-t181-upgrade",
+    toolchainRoot
+  });
+  assert.equal(first.kind, "installed");
+  assert.equal(first.installMode, "fresh");
+
+  const refresh = spawnSync(
+    process.execPath,
+    [
+      sourceCliPath(sourceRoot),
+      "install",
+      "--target",
+      targetRoot,
+      "--package-source",
+      sourceRoot,
+      "--toolchain-root",
+      toolchainRoot
+    ],
+    {
+      cwd: sourceRoot,
+      encoding: "utf8"
+    }
+  );
+  assert.equal(refresh.status, 0, refresh.stderr);
+  const refreshPayload = parseCommandPayload(refresh);
+  assert.equal(refreshPayload.status, "installed");
+  assert.equal(refreshPayload.outcome.installMode, "refresh");
+  assert.equal(refreshPayload.outcome.manifest.installedPackageName, "abiogenesis-t181-upgrade");
+
+  const refreshedPackageJson = await readJson(path.join(targetRoot, "package.json"));
+  assert.equal(refreshedPackageJson.name, "abiogenesis-t181-upgrade");
+  const refreshedInstallManifest = await readJson(
+    path.join(targetRoot, ".abiogenesis", "install-manifest.json")
+  );
+  assert.equal(refreshedInstallManifest.installedPackageName, "abiogenesis-t181-upgrade");
+
+  const conflicting = spawnSync(
+    process.execPath,
+    [
+      sourceCliPath(sourceRoot),
+      "install",
+      "--target",
+      targetRoot,
+      "--package-source",
+      sourceRoot,
+      "--installed-package-name",
+      "abiogenesis-t181-wrong",
+      "--toolchain-root",
+      toolchainRoot
+    ],
+    {
+      cwd: sourceRoot,
+      encoding: "utf8"
+    }
+  );
+  assert.notEqual(conflicting.status, 0);
+  const conflictingPayload = parseCommandPayload(conflicting);
+  assert.equal(conflictingPayload.status, "rejected");
+  assert.equal(
+    conflictingPayload.outcome.reason,
+    "existing package.json name does not match installedPackageName"
+  );
 });
 
 test("T-076 installed genesis-ts install command can create a second ABG TypeScript install", async () => {

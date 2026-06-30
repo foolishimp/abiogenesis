@@ -85,7 +85,7 @@ interface ParsedInstallCommand {
   readonly kind: "install";
   readonly target: string;
   readonly packageSource: string | null;
-  readonly installedPackageName: string;
+  readonly installedPackageName: string | null;
   readonly toolchainRoot: string | null;
   readonly observedWorkspaceRoot: string | null;
   readonly observerStateRoot: string | null;
@@ -334,6 +334,56 @@ function optionalNullableFlag(parsed: ParsedFlags, name: string): string | null 
   return value === undefined ? null : value;
 }
 
+async function readOptionalJsonObject(
+  filePath: string
+): Promise<Record<string, unknown> | null> {
+  try {
+    const parsed = JSON.parse(await readFile(filePath, "utf8")) as unknown;
+    if (parsed === null || typeof parsed !== "object" || Array.isArray(parsed)) {
+      throw new CliError(`${filePath}: expected JSON object`);
+    }
+    return parsed as Record<string, unknown>;
+  } catch (error) {
+    if (
+      typeof error === "object" &&
+      error !== null &&
+      "code" in error &&
+      error.code === "ENOENT"
+    ) {
+      return null;
+    }
+    throw error;
+  }
+}
+
+async function resolveInstallPackageName(
+  targetRoot: string,
+  explicitInstalledPackageName: string | null
+): Promise<string> {
+  if (explicitInstalledPackageName !== null) {
+    return explicitInstalledPackageName;
+  }
+
+  const packageJson = await readOptionalJsonObject(join(targetRoot, "package.json"));
+  const packageName = packageJson?.["name"];
+  if (typeof packageName === "string" && packageName.trim().length > 0) {
+    return packageName;
+  }
+
+  const installManifest = await readOptionalJsonObject(
+    join(targetRoot, ".abiogenesis", "install-manifest.json")
+  );
+  const manifestInstalledPackageName = installManifest?.["installedPackageName"];
+  if (
+    typeof manifestInstalledPackageName === "string" &&
+    manifestInstalledPackageName.trim().length > 0
+  ) {
+    return manifestInstalledPackageName;
+  }
+
+  return "abiogenesis-typescript-installed-runtime";
+}
+
 function parseBooleanFlag(input: string, name: string): boolean {
   if (input === "true") {
     return true;
@@ -451,11 +501,7 @@ function parseInstallCommand(args: readonly string[]): ParsedInstallCommand {
     kind: "install",
     target: requiredFlag(parsed, "target"),
     packageSource: optionalNullableFlag(parsed, "package-source"),
-    installedPackageName: optionalFlag(
-      parsed,
-      "installed-package-name",
-      "abiogenesis-typescript-installed-runtime"
-    ),
+    installedPackageName: optionalNullableFlag(parsed, "installed-package-name"),
     toolchainRoot: optionalNullableFlag(parsed, "toolchain-root"),
     observedWorkspaceRoot: optionalNullableFlag(parsed, "observed-workspace-root"),
     observerStateRoot: optionalNullableFlag(parsed, "observer-state-root"),
@@ -1746,7 +1792,10 @@ async function runInstallCommand(
       rootPath: targetRoot
     },
     packageSourceRoot,
-    installedPackageName: command.installedPackageName,
+    installedPackageName: await resolveInstallPackageName(
+      targetRoot,
+      command.installedPackageName
+    ),
     toolchainRoot: resolveOptionalWorkspace(io.cwd(), command.toolchainRoot),
     ...(Object.keys(mutableStateRoots).length === 0
       ? {}

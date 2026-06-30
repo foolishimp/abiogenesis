@@ -27,7 +27,10 @@ The release includes:
   functions even when caller-supplied data attempts to smuggle them in;
 - installed startup binding for product registry declarations/config so a
   downstream product can publish graph functions, overlays, node types, and GTL
-  bindings through canonical ABG startup rather than product-local shells.
+  bindings through canonical ABG startup rather than product-local shells;
+- installer refresh upgrade handling that preserves an existing target package
+  identity when `--installed-package-name` is omitted, while still rejecting an
+  explicitly conflicting installed package name.
 
 The steel-thread proof uses an `odd_glc`-style GLC Hello World bootstrap graph
 only as a downstream proof binding. ABI/GTL owns the generic node-type,
@@ -84,6 +87,7 @@ Live F_P proof gate:
 
 Boundary and packaging gates:
   node --test test_env/tests/test_t109_agent_callout_guard.test.mjs
+  node --test test_env/tests/test_m04_typescript_installer_integration.test.mjs
   git diff --check
   npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run
 ```
