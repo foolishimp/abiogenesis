@@ -46,6 +46,7 @@ product-local loop/controller authority rather than rebuilding it.
 | `GOAL-018` | `GTL` + `ABG Runtime` + `Requirements` + `Live Proof` | Replace the T-167 installed non-closed artifact with a live execution-grounded non-closed requirements-route artifact for downstream consumers. | ABI publishes a digest-pinned live artifact where residual pressure and non-closed lifecycle disposition are caused by admitted evidence and live worker or executable-subject judgment, not by an in-test evaluator stub or answer-carrying requirement source. A closeable control scenario proves discriminating output, and odd_glc can consume the artifact read-only for T-014. | `T-175` | Completed | `T-175` |
 | `GOAL-019` | `GTL` + `ABG Runtime` + `Registry` + `Design` | Define the GTL language capability model, current TypeScript HOW account, and spec-vs-implementation gap map. | Requirements define GTL language capabilities first, with publication inventory, runtime registry, system library, product library, ledger, projection, overlay, and selection terms as subordinate vocabulary; the current TypeScript carrier/API, semantic compiler, conformance, overlay, compute-notation, and proof capabilities are documented as HOW bindings; gaps are itemized before the live runtime registry lookup design proceeds under T-177. | `T-176` | Completed | `T-176` |
 | `GOAL-020` | `GTL` + `ABG Runtime` + `Registry` + `Plugin` + `Design` | Design the live ABG runtime graph-function registry and lookup capability over GTL system and product libraries. | The TypeScript design pack and realization define registry admission, replay-derived projection, public read-only lookup, deterministic eligibility filtering, product-plugin-assisted candidate advice, ABG-emitted selection truth, system/product shadow prevention, ABG-owned startup pickup from product GTL declarations/config, runner-integrated registry selection before traversal effects, a live Hello World proof over the T-165 route with T-177 registry startup and selection ordering, and negative proofs that plugins or downstream startup shells cannot call graph functions, mutate registry state, bypass eligibility, select traversal, or create parallel registry truth. | `T-177` | Completed | `T-177` |
+| `GOAL-021` | `GTL` + `ABG Runtime` + `Node Types` + `Composition` + `Release` | Publish reusable GTL node types and type-sensitive graph-function composition before odd_glc build-out. | GTL publishes reusable node types as non-callable identity `GraphFunction` entries with `Node.typeRef` carrier truth; composed types preserve or strengthen constituent obligations; explicit typed wiring composes differently named ports; ABG admits/projects node-type satisfaction and rejects node types at callable, selection, graph-call, and invocation boundaries; canonical ABG startup consumes product GTL node-type/library declarations and registry startup config; an installed GLC Hello World bootstrap proof runs through the live LLM worker from a snapshot-installed sandbox instance. | `T-180`, `test:t180`, `test:t177`, `test:t180:live`, `test:semantic` | Completed | `T-180` |
 
 ## Wave Boundary
 
@@ -305,3 +306,48 @@ for its parallel Hello World ladder rung. ABI owns only generic
 dependency-frontier, admission, evidence, replay, fold, residual, and
 disposition mechanics. Plugins and downstream declarations own branch content,
 fan-in acceptability, JavaScript meaning, and lifecycle interpretation.
+
+The completed reusable node-type and type-composition wave covers:
+
+1. `T-180` reusable node types as non-callable identity `GraphFunction`
+   publications with `Node.typeRef` carrier truth.
+2. `T-180` composed node types that preserve constituent obligations and
+   explicit `composeWithTypeWiring` for differently named typed ports.
+3. `T-180` ABG registry, conformance, graph-call, invocation, and
+   traversal-close guards that admit/project node types while rejecting them as
+   callable traversal work.
+4. `T-180` canonical installed startup pickup of product GTL declarations and
+   product registry startup config, preventing downstream product-local shells
+   from creating parallel registry or invocation truth.
+5. `T-180` odd_glc readiness publication for downstream consumption:
+   `.ai-workspace/comments/codex/20260630T161837Z_READINESS_odd-glc-node-types-and-bootstrap-registry.md`.
+
+This wave exists because odd_glc should be able to define lifecycle node types,
+overlays, product graph functions, and GTL bindings once and reuse them through
+GTL/ABG rather than repeating inline node declarations or rebuilding local type
+registries. ABI/GTL owns generic type, composition, registry admission,
+selection, invocation, startup, and satisfaction mechanics. odd_glc and other
+downstream products own domain names, overlays, prompt/policy content, plugin
+behavior, and lifecycle interpretation.
+
+The earned reusable node-type release is ABI TypeScript `4.2.0-rc.1`:
+
+- source commit `0ccadad727a32611c4c60ae9fea994800b2ed030`;
+- release snapshot commit `de28b90bb692bc793ad944a7b20af5c5a431bebc`;
+- release snapshot `release_snapshots/abiogenesis-typescript-tenant/4.2.0-rc.1/`;
+- `latest -> 4.2.0-rc.1`;
+- tarball sha256
+  `b558c437a508b1467ba02e0af2117b07587ddf19533425b1bd9ad809fffad68e`;
+- release snapshot manifest sha256
+  `54a7f159af1bcbb5f2aaf5a232f8823c0aaef4bb55d939d5c4e13ec970e9ffde`;
+- release note sha256
+  `95ff136b5819e13836055cd152ce93beac41da63a2d6acbb3dedca6544e25ab4`;
+- installed sandbox/bootstrap live proof artifact:
+  `build_tenants/abiogenesis/typescript/test_env/test_runs/t180_glc_hello_world_bootstrap_live/20260630T161623713Z_pid55795/t180-glc-hello-world-bootstrap-live-proof.json`.
+
+The live proof artifact was generated against package metadata source commit
+`fba9d990c1702355a94374165c6deeb0edf6bf48` with `sourceDirty: false`; the
+release snapshot tarball sha256 matches that proof artifact's snapshot tarball
+sha256. The final source commit for the release snapshot,
+`0ccadad727a32611c4c60ae9fea994800b2ed030`, only adds the T-180 closure record
+and downstream readiness note after that proof.
