@@ -833,6 +833,17 @@ export function selectGraphFunctionFromRegistry(input: {
       correlationId: input.correlationId
     });
   }
+  if (entry.entryKind !== "graph_function") {
+    return Object.freeze({
+      kind: "graph_function_selection_rejected",
+      lookupResultRef: input.lookupResult.lookupResultRef,
+      rejectionReason: "selected_candidate_not_graph_function",
+      rejectedCandidateRefs: Object.freeze([candidateRef]),
+      pressureDispositionRef: null,
+      causationEventRefs: Object.freeze([...(input.causationEventRefs ?? [])]),
+      correlationId: input.correlationId
+    });
+  }
   const eligibilityDecision = input.lookupResult.candidateDecisions.find(
     (decision) => decision.candidateRef === candidateRef
   );
@@ -851,6 +862,7 @@ export function selectGraphFunctionFromRegistry(input: {
     kind: "graph_function_selected",
     selectionRef: input.selectionRef,
     selectedEntryRef: entry.entryRef,
+    selectedEntryKind: "graph_function",
     selectedGraphFunctionRef: entry.graphFunctionRef,
     lookupResultRef: input.lookupResult.lookupResultRef,
     eligibilityDecisionRefs: Object.freeze([eligibilityDecision.decisionRef]),
@@ -884,6 +896,7 @@ export function assertGraphFunctionInvocationSelected(input: {
     assertRuntimeEvent(event);
     if (
       event.kind === "graph_function_selected" &&
+      event.selectedEntryKind === "graph_function" &&
       event.runtimeBasisRef === input.runtimeBasisRef &&
       event.selectedGraphFunctionRef === input.graphFunctionRef &&
       (input.selectionRef === undefined || event.selectionRef === input.selectionRef)

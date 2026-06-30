@@ -37,3 +37,17 @@ asset-surface declaration in GTL 3.
 **REQ-L-GTL3-NODE-011**: Any lawful GTL interpretation, serialization surface, or GTL to ABG bridge shall preserve declared `asset_surface` contract without semantic loss.
 
 **REQ-L-GTL3-NODE-012**: When a node declares a renderer-backed, prompt-like, or otherwise policy-rich `asset_surface`, the detailed asset interface shall be governed by `REQ-L-GTL3-ASSET-SURFACE`. The node remains the typed locus; the asset surface remains subordinate declaration truth.
+
+**REQ-L-GTL3-NODE-013**: A node may bind to a reusable node type through an
+explicit compiler-visible type reference. Type meaning shall not depend only
+on `Node.schema`, tags, prompt prose, file names, or downstream convention.
+
+**REQ-L-GTL3-NODE-014**: A node type reference shall be optional for migration,
+but when present it shall be preserved by GTL construction, admission,
+serialization, conformance, and GTL-to-ABG bridge surfaces without semantic
+loss.
+
+**REQ-L-GTL3-NODE-015**: A node with inline schema, markov, and asset-surface
+law plus a type reference shall satisfy the referenced type only when the
+inline declaration preserves or strengthens the referenced type contract.
+Unknown type refs or weakened local declarations shall fail closed.

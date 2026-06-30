@@ -12,6 +12,7 @@ export type GtlRegistryLibraryScope =
 
 export const GTL_REGISTRY_ENTRY_KIND_VALUES = Object.freeze([
   "graph_function",
+  "node_type",
   "overlay",
   "candidate_family",
   "public_start",

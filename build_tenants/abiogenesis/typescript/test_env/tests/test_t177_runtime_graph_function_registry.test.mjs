@@ -410,6 +410,48 @@ test("T-177 entry-kind filtering separates graph functions from overlays", () =>
   ]);
 });
 
+test("T-177 selection rejects non-graph entries even when lookup marks them eligible", () => {
+  const graphEvent = admitAndEmit(libraryDeclaration());
+  const overlayEvent = admitAndEmit(
+    libraryDeclaration({
+      declarationRef: "gtl-declaration://t177/system/overlay-selection",
+      entryRef: "registry-entry://t177/system/overlay-selection",
+      entryKind: "overlay",
+      graphFunctionRef: "graph-function://abg/overlay-carrier",
+      declarationSourceRefs: ["gtl://module/t177/overlay-selection"]
+    }),
+    projectRuntimeGraphFunctionRegistry([graphEvent])
+  );
+  const projection = projectRuntimeGraphFunctionRegistry([graphEvent, overlayEvent]);
+  const lookup = lookupRuntimeGraphFunctionRegistry({
+    projection,
+    request: baseLookupRequest({
+      lookupRef: "registry-lookup://t177/overlay-selection",
+      entryKinds: ["overlay"],
+      proofRefs: ["proof://t177/system"]
+    })
+  });
+  assert.deepEqual(lookup.eligibleCandidateRefs, [
+    "registry-entry://t177/system/overlay-selection"
+  ]);
+
+  const selection = selectGraphFunctionFromRegistry({
+    projection,
+    lookupResult: lookup,
+    selectionRef: "selection://t177/overlay-selection",
+    runtimeBasisRef: "runtime-basis://t177/overlay-selection",
+    rationaleRef: "rationale://t177/reject-overlay-selection",
+    abgSelectedCandidateRef: "registry-entry://t177/system/overlay-selection",
+    correlationId: "correlation://t177/overlay-selection"
+  });
+
+  assert.equal(selection.kind, "graph_function_selection_rejected");
+  assert.equal(selection.rejectionReason, "selected_candidate_not_graph_function");
+  assert.deepEqual(selection.rejectedCandidateRefs, [
+    "registry-entry://t177/system/overlay-selection"
+  ]);
+});
+
 test("T-177 product plugin advice is admitted before ABG emits graph_function_selected", () => {
   const projection = registryWithSystemAndProductEntries();
   const lookup = lookupRuntimeGraphFunctionRegistry({

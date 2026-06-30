@@ -2296,6 +2296,24 @@ export interface ExecutivePressureFactProjectedRuntimeEvent {
   readonly correlationId: string;
 }
 
+export interface NodeTypeSatisfactionProjectedRuntimeEvent {
+  readonly kind: "node_type_satisfaction_projected";
+  readonly satisfactionRef: string;
+  readonly nodeRef: string;
+  readonly targetTypeRef: string;
+  readonly sourceNodeTypeRef: string | null;
+  readonly satisfied: boolean;
+  readonly rejectionReason: string | null;
+  readonly typeNodeRef: string | null;
+  readonly nodeTypeGraphFunctionRefs: readonly string[];
+  readonly satisfactionDigest: string;
+  readonly satisfactionPayload: unknown;
+  readonly sourceEventRefs: readonly string[];
+  readonly sourceProjectionRefs: readonly string[];
+  readonly causationEventRefs: readonly string[];
+  readonly correlationId: string;
+}
+
 export interface RegistryEntryAdmittedRuntimeEvent {
   readonly kind: "registry_entry_admitted";
   readonly entryRef: string;
@@ -2306,6 +2324,7 @@ export interface RegistryEntryAdmittedRuntimeEvent {
     | "graph_function"
     | "overlay"
     | "candidate_family"
+    | "node_type"
     | "public_start"
     | "plugin";
   readonly namespace: string;
@@ -2337,6 +2356,7 @@ export interface RegistryEntryRejectedRuntimeEvent {
     | "graph_function"
     | "overlay"
     | "candidate_family"
+    | "node_type"
     | "public_start"
     | "plugin";
   readonly namespace: string;
@@ -2377,6 +2397,7 @@ export interface GraphFunctionSelectedRuntimeEvent {
   readonly kind: "graph_function_selected";
   readonly selectionRef: string;
   readonly selectedEntryRef: string;
+  readonly selectedEntryKind: "graph_function";
   readonly selectedGraphFunctionRef: string;
   readonly lookupResultRef: string;
   readonly eligibilityDecisionRefs: readonly string[];
@@ -2495,6 +2516,7 @@ export type RuntimeEvent =
   | ConstructionTerminalDispositionProjectedEvent
   | RequirementRouteFactProjectedRuntimeEvent
   | ExecutivePressureFactProjectedRuntimeEvent
+  | NodeTypeSatisfactionProjectedRuntimeEvent
   | RegistryEntryAdmittedRuntimeEvent
   | RegistryEntryRejectedRuntimeEvent
   | RegistryPluginAdviceAdmittedRuntimeEvent
@@ -2609,6 +2631,7 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "construction_terminal_disposition_projected",
   "requirement_route_fact_projected",
   "executive_pressure_fact_projected",
+  "node_type_satisfaction_projected",
   "registry_entry_admitted",
   "registry_entry_rejected",
   "registry_plugin_advice_admitted",

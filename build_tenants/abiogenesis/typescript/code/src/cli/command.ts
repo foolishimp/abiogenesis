@@ -163,6 +163,7 @@ interface RuntimeBinding {
   readonly module: Module;
   readonly runtimeIdentity: PublicStartContext["runtimeIdentity"];
   readonly resolvedPolicy: PublicStartContext["resolvedPolicy"];
+  readonly runtimeRegistryStartup?: PublicStartContext["runtimeRegistryStartup"];
   // Scoped to plugin-observer FALLBACK resolution only (installed-workspace
   // path for the abg.config.json `fallbacks` section). It is NOT global config
   // authority: the lever and target-carrier sections resolve via
@@ -883,6 +884,7 @@ function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
     constructionPriorityScheme?: ConstructionPriorityScheme;
     constructionAffectPolicies?: readonly AffectPriorityPolicy[];
     assuranceProvider?: EngineAssuranceProvider;
+    runtimeRegistryStartup?: PublicStartContext["runtimeRegistryStartup"];
     resolveNextTarget?: RuntimeBindingNextTargetResolver;
     resolvePolicy?: RuntimeBindingPolicyFactory;
     plugins?: EngineRunnerPluginSet;
@@ -957,6 +959,13 @@ function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
     }
     result.assuranceProvider =
       input["assuranceProvider"] as unknown as EngineAssuranceProvider;
+  }
+  if (hasOwnField(input, "runtimeRegistryStartup")) {
+    if (!isRecord(input["runtimeRegistryStartup"])) {
+      throw new CliError(`${label}.runtimeRegistryStartup must be an object`);
+    }
+    result.runtimeRegistryStartup =
+      input["runtimeRegistryStartup"] as unknown as PublicStartContext["runtimeRegistryStartup"];
   }
   if (hasOwnField(input, "plugins")) {
     if (!isRecord(input["plugins"])) {
@@ -1322,6 +1331,9 @@ function startContext(
     ...(binding.assuranceProvider === undefined
       ? {}
       : { assuranceProvider: binding.assuranceProvider }),
+    ...(binding.runtimeRegistryStartup === undefined
+      ? {}
+      : { runtimeRegistryStartup: binding.runtimeRegistryStartup }),
     ...(binding.pluginTraversalObserverFallbackEnabled === undefined
       ? {}
       : {

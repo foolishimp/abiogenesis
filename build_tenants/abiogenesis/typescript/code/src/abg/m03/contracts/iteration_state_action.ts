@@ -4,6 +4,9 @@
 import type {
   GtlEvaluationScopeRef
 } from "../../../gtl/m02/contracts/compute_notation.js";
+import {
+  GTL_NODE_TYPE_GRAPH_FUNCTION_TAG
+} from "../../../gtl/m01/contracts/carriers.js";
 import type {
   AdvancementTransition,
   ExecutionBasis,
@@ -1032,6 +1035,11 @@ export function runtimeEventsForIterationDecision(
         reason: decision.reason
       })
     ]);
+  }
+  if (decision.basis.graphFunction.tags.includes(GTL_NODE_TYPE_GRAPH_FUNCTION_TAG)) {
+    throw new TypeError(
+      `GraphCall.open rejects non-callable node-type GraphFunction ${JSON.stringify(decision.basis.graphFunction.name)}`
+    );
   }
   return Object.freeze([
     constructGraphCallOpenedEvent(decision.basis),

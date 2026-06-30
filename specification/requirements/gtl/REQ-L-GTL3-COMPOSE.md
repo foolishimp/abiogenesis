@@ -30,3 +30,17 @@ Define lawful graph-function composition in GTL 3.
 **REQ-L-GTL3-COMPOSE-008**: Composition shall fail closed when downstream required bindings are absent from the carried environment or structurally mismatch the available carried contracts.
 
 **REQ-L-GTL3-COMPOSE-009**: Composition shall fail closed on conflicting carried output bindings rather than silently overwriting prior environment truth.
+
+**REQ-L-GTL3-COMPOSE-010**: Composition shall distinguish endpoint port
+identity from endpoint type contract. Exact name-and-contract composition
+shall remain lawful, but it shall not be the only lawful form once explicit
+type wiring is declared.
+
+**REQ-L-GTL3-COMPOSE-011**: Type-sensitive composition shall permit
+differently named endpoints to compose only when the provided endpoint type
+satisfies the required endpoint type through declared GTL type law.
+
+**REQ-L-GTL3-COMPOSE-012**: Type-sensitive composition shall fail closed when
+type refs are unknown, composed type obligations are weakened, or explicit
+wiring is ambiguous. It shall not infer semantic equivalence from similar
+names, tags, schema strings, or prompt prose.

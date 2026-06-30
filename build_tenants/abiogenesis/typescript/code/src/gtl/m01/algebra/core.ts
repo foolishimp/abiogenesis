@@ -11,6 +11,7 @@ import {
   constructGraph,
   constructGraphFunction,
   constructGraphVector,
+  constructNode,
   constructTemplateRef,
   emptySerializedAttrs
 } from "../contracts/constructors.js";
@@ -29,6 +30,7 @@ import {
   type SerializedJsonValue
 } from "../contracts/carriers.js";
 import {
+  GTL_NODE_TYPE_GRAPH_FUNCTION_TAG,
   interfaceContract,
   materializeGraphFunction,
   nodeContractKey
@@ -40,6 +42,44 @@ export const GRAPH_FUNCTION_ZOOM_CANDIDATE_FAMILY_DECLARATION_KEY =
   "gtl.zoom.candidate_family_ref";
 export const GRAPH_FUNCTION_ZOOM_PUBLISHED_TRAVERSAL_TARGET_DECLARATION_KEY =
   "gtl.zoom.published_traversal_target_ref";
+
+export type NodeTypeSatisfactionRejectionReason =
+  | "unknown_type"
+  | "node_type_not_identity_graph_function"
+  | "node_type_ref_mismatch"
+  | "schema_weakened"
+  | "markov_weakened"
+  | "asset_surface_weakened";
+
+export interface NodeTypeSatisfactionResult {
+  readonly kind: "node_type_satisfaction";
+  readonly nodeRef: string;
+  readonly typeRef: string;
+  readonly satisfied: boolean;
+  readonly rejectionReason: NodeTypeSatisfactionRejectionReason | null;
+  readonly typeNode: Node | null;
+}
+
+export type NodeTypeCompositionRejectionReason =
+  | NodeTypeSatisfactionRejectionReason
+  | "empty_composition"
+  | "schema_conflict"
+  | "asset_surface_conflict";
+
+export interface NodeTypeCompositionResult {
+  readonly kind: "node_type_composition";
+  readonly typeRef: string;
+  readonly constituentTypeRefs: readonly string[];
+  readonly satisfied: boolean;
+  readonly rejectionReason: NodeTypeCompositionRejectionReason | null;
+  readonly graphFunction: GraphFunction | null;
+}
+
+export interface GraphFunctionTypeWiring {
+  readonly providedNodeName: string;
+  readonly requiredNodeName: string;
+  readonly typeRef: string;
+}
 
 export interface GraphFunctionZoomAuthority {
   readonly refinementBoundaryRef?: string | null | undefined;
@@ -104,6 +144,472 @@ function stableUnion(values: readonly (readonly string[])[]): readonly string[] 
     }
   }
   return Object.freeze(merged);
+}
+
+function includesAll(
+  actual: readonly string[],
+  required: readonly string[]
+): boolean {
+  const actualSet = new Set(actual);
+  return required.every((value) => actualSet.has(value));
+}
+
+function serializedAuthoritySlot(slot: Node["assetSurface"]["authoritySlots"][number]): string {
+  return JSON.stringify({
+    authorityKindRef: slot.authorityKindRef,
+    disposition: slot.disposition,
+    fallbackPreconditionRefs: [...slot.fallbackPreconditionRefs]
+  });
+}
+
+function assetSurfacePreserves(local: Node, required: Node): boolean {
+  const localSurface = local.assetSurface;
+  const requiredSurface = required.assetSurface;
+  if (localSurface.kind !== requiredSurface.kind) {
+    return false;
+  }
+  if (!includesAll(localSurface.requiredContexts, requiredSurface.requiredContexts)) {
+    return false;
+  }
+  if (!includesAll(localSurface.standardsRefs, requiredSurface.standardsRefs)) {
+    return false;
+  }
+  if (!includesAll(localSurface.outputContractRefs, requiredSurface.outputContractRefs)) {
+    return false;
+  }
+  if (!includesAll(localSurface.constructorRefs, requiredSurface.constructorRefs)) {
+    return false;
+  }
+  if (
+    !includesAll(
+      localSurface.constructorInputAssetKinds,
+      requiredSurface.constructorInputAssetKinds
+    )
+  ) {
+    return false;
+  }
+  if (!includesAll(localSurface.rendererRefs, requiredSurface.rendererRefs)) {
+    return false;
+  }
+  if (
+    requiredSurface.renderedViewDigestPolicyRef !== null &&
+    localSurface.renderedViewDigestPolicyRef !==
+      requiredSurface.renderedViewDigestPolicyRef
+  ) {
+    return false;
+  }
+  if (!includesAll(localSurface.sectionKindRefs, requiredSurface.sectionKindRefs)) {
+    return false;
+  }
+  if (!includesAll(localSurface.clauseKindRefs, requiredSurface.clauseKindRefs)) {
+    return false;
+  }
+  const localAuthoritySlots = new Set(
+    localSurface.authoritySlots.map(serializedAuthoritySlot)
+  );
+  for (const slot of requiredSurface.authoritySlots) {
+    if (!localAuthoritySlots.has(serializedAuthoritySlot(slot))) {
+      return false;
+    }
+  }
+  return includesAll(
+    localSurface.proofObligationRefs,
+    requiredSurface.proofObligationRefs
+  );
+}
+
+function mergeNullableRef(
+  left: string | null,
+  right: string | null
+): string | null | "conflict" {
+  if (left === null) {
+    return right;
+  }
+  if (right === null || left === right) {
+    return left;
+  }
+  return "conflict";
+}
+
+function mergeAuthoritySlots(
+  values: readonly Node["assetSurface"]["authoritySlots"][]
+): readonly Node["assetSurface"]["authoritySlots"][number][] {
+  const byKey = new Map<string, Node["assetSurface"]["authoritySlots"][number]>();
+  for (const slots of values) {
+    for (const slot of slots) {
+      byKey.set(serializedAuthoritySlot(slot), slot);
+    }
+  }
+  return Object.freeze([...byKey.values()]);
+}
+
+function mergeAssetSurfaces(
+  nodes: readonly Node[]
+): Node["assetSurface"] | "conflict" {
+  const [first] = nodes;
+  if (first === undefined) {
+    return "conflict";
+  }
+  let renderedViewDigestPolicyRef = first.assetSurface.renderedViewDigestPolicyRef;
+  for (const node of nodes.slice(1)) {
+    if (node.assetSurface.kind !== first.assetSurface.kind) {
+      return "conflict";
+    }
+    const mergedDigest = mergeNullableRef(
+      renderedViewDigestPolicyRef,
+      node.assetSurface.renderedViewDigestPolicyRef
+    );
+    if (mergedDigest === "conflict") {
+      return "conflict";
+    }
+    renderedViewDigestPolicyRef = mergedDigest;
+  }
+  return Object.freeze({
+    kind: first.assetSurface.kind,
+    requiredContexts: stableUnion(nodes.map((node) => node.assetSurface.requiredContexts)),
+    standardsRefs: stableUnion(nodes.map((node) => node.assetSurface.standardsRefs)),
+    outputContractRefs: stableUnion(
+      nodes.map((node) => node.assetSurface.outputContractRefs)
+    ),
+    constructorRefs: stableUnion(nodes.map((node) => node.assetSurface.constructorRefs)),
+    constructorInputAssetKinds: stableUnion(
+      nodes.map((node) => node.assetSurface.constructorInputAssetKinds)
+    ),
+    rendererRefs: stableUnion(nodes.map((node) => node.assetSurface.rendererRefs)),
+    renderedViewDigestPolicyRef,
+    sectionKindRefs: stableUnion(nodes.map((node) => node.assetSurface.sectionKindRefs)),
+    clauseKindRefs: stableUnion(nodes.map((node) => node.assetSurface.clauseKindRefs)),
+    authoritySlots: mergeAuthoritySlots(
+      nodes.map((node) => node.assetSurface.authoritySlots)
+    ),
+    proofObligationRefs: stableUnion(
+      nodes.map((node) => node.assetSurface.proofObligationRefs)
+    )
+  });
+}
+
+function nodeTypeIdentityRejection(
+  graphFunction: GraphFunction,
+  typeRef: string
+): NodeTypeSatisfactionRejectionReason | null {
+  if (!graphFunction.tags.includes(GTL_NODE_TYPE_GRAPH_FUNCTION_TAG)) {
+    return "node_type_not_identity_graph_function";
+  }
+  if (graphFunction.name !== typeRef) {
+    return "unknown_type";
+  }
+  if (graphFunction.effects.length > 0) {
+    return "node_type_not_identity_graph_function";
+  }
+  if (
+    graphFunction.inputs.length !== 1 ||
+    graphFunction.outputs.length !== 1 ||
+    graphFunction.environment.requires.length !== 1 ||
+    graphFunction.environment.provides.length !== 1 ||
+    graphFunction.environment.carries.length !== 1
+  ) {
+    return "node_type_not_identity_graph_function";
+  }
+  const [inputNode] = graphFunction.inputs;
+  const [outputNode] = graphFunction.outputs;
+  const [requiredNode] = graphFunction.environment.requires;
+  const [providedNode] = graphFunction.environment.provides;
+  const [carriedNode] = graphFunction.environment.carries;
+  if (
+    inputNode === undefined ||
+    outputNode === undefined ||
+    requiredNode === undefined ||
+    providedNode === undefined ||
+    carriedNode === undefined
+  ) {
+    return "node_type_not_identity_graph_function";
+  }
+  const contract = nodeContractKey(inputNode);
+  if (
+    nodeContractKey(outputNode) !== contract ||
+    nodeContractKey(requiredNode) !== contract ||
+    nodeContractKey(providedNode) !== contract ||
+    nodeContractKey(carriedNode) !== contract
+  ) {
+    return "node_type_not_identity_graph_function";
+  }
+  return null;
+}
+
+export function constructNodeTypeGraphFunction(
+  node: Node,
+  options?: {
+    readonly typeRef?: string | undefined;
+    readonly declarations?: SerializedAttrs | undefined;
+    readonly tags?: readonly string[] | undefined;
+  }
+): GraphFunction {
+  const typeRef = options?.typeRef ?? node.typeRef;
+  if (typeRef === null || typeRef === undefined || typeRef.length === 0) {
+    throw new TypeError("NodeType.typeRef: expected non-empty type ref");
+  }
+  const typedNode = node.typeRef === typeRef
+    ? node
+    : constructNode({
+        name: node.name,
+        schema: node.schema,
+        typeRef,
+        markov: node.markov,
+        assetSurface: node.assetSurface,
+        tags: node.tags
+      });
+  const identityOptions: {
+    readonly name: string;
+    readonly declarations?: SerializedAttrs;
+    readonly tags: readonly string[];
+  } = {
+    name: typeRef,
+    tags: stableUnion([
+      [GTL_NODE_TYPE_GRAPH_FUNCTION_TAG],
+      options?.tags ?? []
+    ])
+  };
+  return identity(
+    [typedNode],
+    options?.declarations === undefined
+      ? identityOptions
+      : {
+          ...identityOptions,
+          declarations: options.declarations
+        }
+  );
+}
+
+export function materializeNodeType(input: {
+  readonly typeRef: string;
+  readonly graphFunctions: readonly GraphFunction[];
+}): NodeTypeSatisfactionResult {
+  const graphFunction = input.graphFunctions.find(
+    (candidate) => candidate.name === input.typeRef
+  );
+  if (graphFunction === undefined) {
+    return Object.freeze({
+      kind: "node_type_satisfaction",
+      nodeRef: "",
+      typeRef: input.typeRef,
+      satisfied: false,
+      rejectionReason: "unknown_type",
+      typeNode: null
+    });
+  }
+  const identityRejection = nodeTypeIdentityRejection(graphFunction, input.typeRef);
+  if (identityRejection !== null) {
+    return Object.freeze({
+      kind: "node_type_satisfaction",
+      nodeRef: "",
+      typeRef: input.typeRef,
+      satisfied: false,
+      rejectionReason: identityRejection,
+      typeNode: null
+    });
+  }
+  const [typeNode] = graphFunction.inputs;
+  if (typeNode === undefined) {
+    return Object.freeze({
+      kind: "node_type_satisfaction",
+      nodeRef: "",
+      typeRef: input.typeRef,
+      satisfied: false,
+      rejectionReason: "node_type_not_identity_graph_function",
+      typeNode: null
+    });
+  }
+  return Object.freeze({
+    kind: "node_type_satisfaction",
+    nodeRef: typeNode.name,
+    typeRef: input.typeRef,
+    satisfied: true,
+    rejectionReason: null,
+    typeNode
+  });
+}
+
+export function satisfiesNodeType(input: {
+  readonly node: Node;
+  readonly typeRef: string;
+  readonly graphFunctions: readonly GraphFunction[];
+}): NodeTypeSatisfactionResult {
+  const materialized = materializeNodeType({
+    typeRef: input.typeRef,
+    graphFunctions: input.graphFunctions
+  });
+  if (!materialized.satisfied || materialized.typeNode === null) {
+    return Object.freeze({
+      ...materialized,
+      nodeRef: input.node.name
+    });
+  }
+  const typeNode = materialized.typeNode;
+  if (input.node.typeRef !== input.typeRef) {
+    if (input.node.typeRef === null) {
+      return Object.freeze({
+        kind: "node_type_satisfaction",
+        nodeRef: input.node.name,
+        typeRef: input.typeRef,
+        satisfied: false,
+        rejectionReason: "node_type_ref_mismatch",
+        typeNode
+      });
+    }
+    const declaredType = materializeNodeType({
+      typeRef: input.node.typeRef,
+      graphFunctions: input.graphFunctions
+    });
+    if (!declaredType.satisfied || declaredType.typeNode === null) {
+      return Object.freeze({
+        kind: "node_type_satisfaction",
+        nodeRef: input.node.name,
+        typeRef: input.typeRef,
+        satisfied: false,
+        rejectionReason: "node_type_ref_mismatch",
+        typeNode
+      });
+    }
+  }
+  if (JSON.stringify(input.node.schema) !== JSON.stringify(typeNode.schema)) {
+    return Object.freeze({
+      kind: "node_type_satisfaction",
+      nodeRef: input.node.name,
+      typeRef: input.typeRef,
+      satisfied: false,
+      rejectionReason: "schema_weakened",
+      typeNode
+    });
+  }
+  if (!includesAll(input.node.markov, typeNode.markov)) {
+    return Object.freeze({
+      kind: "node_type_satisfaction",
+      nodeRef: input.node.name,
+      typeRef: input.typeRef,
+      satisfied: false,
+      rejectionReason: "markov_weakened",
+      typeNode
+    });
+  }
+  if (!assetSurfacePreserves(input.node, typeNode)) {
+    return Object.freeze({
+      kind: "node_type_satisfaction",
+      nodeRef: input.node.name,
+      typeRef: input.typeRef,
+      satisfied: false,
+      rejectionReason: "asset_surface_weakened",
+      typeNode
+    });
+  }
+  return Object.freeze({
+    kind: "node_type_satisfaction",
+    nodeRef: input.node.name,
+    typeRef: input.typeRef,
+    satisfied: true,
+    rejectionReason: null,
+    typeNode
+  });
+}
+
+export function composeNodeTypes(input: {
+  readonly typeRef: string;
+  readonly constituentTypeRefs: readonly string[];
+  readonly graphFunctions: readonly GraphFunction[];
+  readonly name?: string | undefined;
+  readonly tags?: readonly string[] | undefined;
+}): NodeTypeCompositionResult {
+  if (input.constituentTypeRefs.length === 0) {
+    return Object.freeze({
+      kind: "node_type_composition",
+      typeRef: input.typeRef,
+      constituentTypeRefs: Object.freeze([]),
+      satisfied: false,
+      rejectionReason: "empty_composition",
+      graphFunction: null
+    });
+  }
+
+  const typeNodes: Node[] = [];
+  for (const typeRef of input.constituentTypeRefs) {
+    const materialized = materializeNodeType({
+      typeRef,
+      graphFunctions: input.graphFunctions
+    });
+    if (!materialized.satisfied || materialized.typeNode === null) {
+      return Object.freeze({
+        kind: "node_type_composition",
+        typeRef: input.typeRef,
+        constituentTypeRefs: Object.freeze([...input.constituentTypeRefs]),
+        satisfied: false,
+        rejectionReason: materialized.rejectionReason ?? "unknown_type",
+        graphFunction: null
+      });
+    }
+    typeNodes.push(materialized.typeNode);
+  }
+
+  const [first] = typeNodes;
+  if (first === undefined) {
+    return Object.freeze({
+      kind: "node_type_composition",
+      typeRef: input.typeRef,
+      constituentTypeRefs: Object.freeze([...input.constituentTypeRefs]),
+      satisfied: false,
+      rejectionReason: "empty_composition",
+      graphFunction: null
+    });
+  }
+  for (const node of typeNodes.slice(1)) {
+    if (JSON.stringify(node.schema) !== JSON.stringify(first.schema)) {
+      return Object.freeze({
+        kind: "node_type_composition",
+        typeRef: input.typeRef,
+        constituentTypeRefs: Object.freeze([...input.constituentTypeRefs]),
+        satisfied: false,
+        rejectionReason: "schema_conflict",
+        graphFunction: null
+      });
+    }
+  }
+
+  const assetSurface = mergeAssetSurfaces(typeNodes);
+  if (assetSurface === "conflict") {
+    return Object.freeze({
+      kind: "node_type_composition",
+      typeRef: input.typeRef,
+      constituentTypeRefs: Object.freeze([...input.constituentTypeRefs]),
+      satisfied: false,
+      rejectionReason: "asset_surface_conflict",
+      graphFunction: null
+    });
+  }
+
+  const node = constructNode({
+    name: input.name ?? first.name,
+    schema: first.schema,
+    typeRef: input.typeRef,
+    markov: stableUnion(typeNodes.map((typeNode) => typeNode.markov)),
+    assetSurface,
+    tags: stableUnion([
+      ["gtl:composed_node_type"],
+      input.tags ?? []
+    ])
+  });
+
+  return Object.freeze({
+    kind: "node_type_composition",
+    typeRef: input.typeRef,
+    constituentTypeRefs: Object.freeze([...input.constituentTypeRefs]),
+    satisfied: true,
+    rejectionReason: null,
+    graphFunction: constructNodeTypeGraphFunction(node, {
+      typeRef: input.typeRef,
+      tags: stableUnion([
+        ["gtl:composed_node_type"],
+        input.tags ?? []
+      ])
+    })
+  });
 }
 
 function entriesEqual(left: SerializedAttrEntry, right: SerializedAttrEntry): boolean {
@@ -552,6 +1058,159 @@ function rejectConflictingProvidedBindings(
       `${label}: duplicate output names in carried environment: ${duplicates.join(", ")}`
     );
   }
+}
+
+interface RequiredNodeReplacement {
+  readonly requiredName: string;
+  readonly requiredContract: string;
+  readonly providedNode: Node;
+}
+
+function replaceRequiredNode(
+  node: Node,
+  replacements: readonly RequiredNodeReplacement[]
+): Node {
+  const contract = nodeContractKey(node);
+  const replacement = replacements.find((candidate) =>
+    candidate.requiredName === node.name &&
+    candidate.requiredContract === contract
+  );
+  return replacement?.providedNode ?? node;
+}
+
+function replaceRequiredNodes(
+  nodes: readonly Node[],
+  replacements: readonly RequiredNodeReplacement[]
+): readonly Node[] {
+  return Object.freeze(
+    nodes.map((node) => replaceRequiredNode(node, replacements))
+  );
+}
+
+function adaptGraphFunctionRequiredNodes(
+  graphFunction: GraphFunction,
+  replacements: readonly RequiredNodeReplacement[]
+): GraphFunction {
+  const template = graphFunction.template.kind === "inline_graph"
+    ? constructTemplateRef({
+        kind: "inline_graph",
+        ref: graphFunction.template.ref,
+        version: null,
+        graph: constructGraph({
+          name: graphFunction.template.graph.name,
+          inputs: replaceRequiredNodes(
+            graphFunction.template.graph.inputs,
+            replacements
+          ),
+          outputs: replaceRequiredNodes(
+            graphFunction.template.graph.outputs,
+            replacements
+          ),
+          nodes: stableNodes([
+            replaceRequiredNodes(graphFunction.template.graph.nodes, replacements)
+          ]),
+          vectors: Object.freeze(
+            graphFunction.template.graph.vectors.map((vector) =>
+              constructGraphVector({
+                id: vector.id,
+                name: vector.name,
+                source: replaceRequiredNodes(vector.source, replacements),
+                target: replaceRequiredNode(vector.target, replacements),
+                operators: vector.operators,
+                evaluators: vector.evaluators,
+                contexts: vector.contexts,
+                rule: vector.rule,
+                allowsSubwork: vector.allowsSubwork,
+                declarations: vector.declarations,
+                tags: vector.tags
+              })
+            )
+          ),
+          contexts: graphFunction.template.graph.contexts,
+          rules: graphFunction.template.graph.rules,
+          effects: graphFunction.template.graph.effects,
+          tags: graphFunction.template.graph.tags,
+          id: graphFunction.template.graph.id
+        })
+      })
+    : graphFunction.template;
+
+  return constructGraphFunction({
+    name: graphFunction.name,
+    environment: constructEnvRef({
+      requires: replaceRequiredNodes(
+        graphFunction.environment.requires,
+        replacements
+      ),
+      provides: replaceRequiredNodes(
+        graphFunction.environment.provides,
+        replacements
+      ),
+      carries: replaceRequiredNodes(
+        graphFunction.environment.carries,
+        replacements
+      )
+    }),
+    inputs: replaceRequiredNodes(graphFunction.inputs, replacements),
+    outputs: replaceRequiredNodes(graphFunction.outputs, replacements),
+    template,
+    effects: graphFunction.effects,
+    declarations: graphFunction.declarations,
+    tags: graphFunction.tags
+  });
+}
+
+function buildRequiredNodeReplacements(input: {
+  readonly left: GraphFunction;
+  readonly right: GraphFunction;
+  readonly wiring: readonly GraphFunctionTypeWiring[];
+  readonly nodeTypeGraphFunctions: readonly GraphFunction[];
+}): readonly RequiredNodeReplacement[] {
+  const replacements: RequiredNodeReplacement[] = [];
+  for (const wiring of input.wiring) {
+    const provided = input.left.environment.carries.find((node) =>
+      node.name === wiring.providedNodeName
+    );
+    const required = input.right.environment.requires.find((node) =>
+      node.name === wiring.requiredNodeName
+    );
+    if (provided === undefined) {
+      throw new TypeError(
+        `composeWithTypeWiring: provided node ${JSON.stringify(wiring.providedNodeName)} is absent from left carries`
+      );
+    }
+    if (required === undefined) {
+      throw new TypeError(
+        `composeWithTypeWiring: required node ${JSON.stringify(wiring.requiredNodeName)} is absent from right requirements`
+      );
+    }
+    const providedSatisfaction = satisfiesNodeType({
+      node: provided,
+      typeRef: wiring.typeRef,
+      graphFunctions: input.nodeTypeGraphFunctions
+    });
+    if (!providedSatisfaction.satisfied) {
+      throw new TypeError(
+        `composeWithTypeWiring: provided node ${JSON.stringify(provided.name)} does not satisfy ${JSON.stringify(wiring.typeRef)}: ${providedSatisfaction.rejectionReason}`
+      );
+    }
+    const requiredSatisfaction = satisfiesNodeType({
+      node: required,
+      typeRef: wiring.typeRef,
+      graphFunctions: input.nodeTypeGraphFunctions
+    });
+    if (!requiredSatisfaction.satisfied) {
+      throw new TypeError(
+        `composeWithTypeWiring: required node ${JSON.stringify(required.name)} does not satisfy ${JSON.stringify(wiring.typeRef)}: ${requiredSatisfaction.rejectionReason}`
+      );
+    }
+    replacements.push({
+      requiredName: required.name,
+      requiredContract: nodeContractKey(required),
+      providedNode: provided
+    });
+  }
+  return Object.freeze(replacements);
 }
 
 function materializeTemplateGraph(graphFunction: GraphFunction): Graph | null {
@@ -1177,4 +1836,24 @@ export function compose(
     composed = composePair(composed, next);
   }
   return composed;
+}
+
+export function composeWithTypeWiring(
+  left: GraphFunction,
+  right: GraphFunction,
+  options: {
+    readonly wiring: readonly GraphFunctionTypeWiring[];
+    readonly nodeTypeGraphFunctions: readonly GraphFunction[];
+  }
+): GraphFunction {
+  if (options.wiring.length === 0) {
+    throw new TypeError("composeWithTypeWiring: expected at least one typed wiring");
+  }
+  const replacements = buildRequiredNodeReplacements({
+    left,
+    right,
+    wiring: options.wiring,
+    nodeTypeGraphFunctions: options.nodeTypeGraphFunctions
+  });
+  return composePair(left, adaptGraphFunctionRequiredNodes(right, replacements));
 }

@@ -153,6 +153,7 @@ export function serializeNode(node: Node): Node {
   return Object.freeze({
     name: node.name,
     schema: serializeSchemaRef(node.schema),
+    typeRef: node.typeRef,
     markov: Object.freeze([...node.markov]),
     assetSurface: serializeAssetSurface(node.assetSurface),
     tags: Object.freeze([...node.tags]),

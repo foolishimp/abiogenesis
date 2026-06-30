@@ -12,6 +12,7 @@ import type {
   SerializedAttrs
 } from "../../../gtl/m01/contracts/carriers.js";
 import {
+  GTL_NODE_TYPE_GRAPH_FUNCTION_TAG,
   interfaceContract,
   nodeContractKey,
   materializeGraphFunction
@@ -1731,6 +1732,7 @@ function semanticCompilerFpReviewNode(input: {
       kind: "symbolic" as const,
       ref: `schema://abiogenesis/semantic-compiler-fp-review/${input.kind}`
     }),
+    typeRef: null,
     markov: Object.freeze([]),
     assetSurface: semanticCompilerFpReviewAssetSurface(input.kind),
     tags: Object.freeze([
@@ -7767,6 +7769,18 @@ function collectPublishedGraphFunctions(
   return Object.freeze([...byName.values()]);
 }
 
+function nodeTypeGraphFunctionRefs(
+  graphFunctions: readonly GraphFunction[]
+): ReadonlySet<string> {
+  return new Set(
+    graphFunctions.flatMap((graphFunction) =>
+      graphFunction.tags.includes(GTL_NODE_TYPE_GRAPH_FUNCTION_TAG)
+        ? [graphFunction.name, graphFunction.id]
+        : []
+    )
+  );
+}
+
 function checkCatalogPublication(input: {
   readonly catalogGraphFunctionRefs: readonly string[];
   readonly publishedGraphFunctionRefs: ReadonlySet<string>;
@@ -9615,6 +9629,7 @@ function checkOverlays(input: {
   readonly publicStartTargets: readonly GtlProgramPublicStartRow[];
   readonly graphFunctionRefs: ReadonlySet<string>;
   readonly graphFunctionEquivalentRefs: ReadonlyMap<string, ReadonlySet<string>>;
+  readonly nodeTypeGraphFunctionRefs: ReadonlySet<string>;
   readonly graphVectorRefs: ReadonlySet<string>;
   readonly issues: GtlProgramConformanceIssue[];
 }): void {
@@ -9696,6 +9711,16 @@ function checkOverlays(input: {
           surfaceRef: target.name,
           ruleRef: "abg://gtl-program/public-start/graph-function-resolves",
           message: `public start target names unpublished GraphFunction ${JSON.stringify(target.graphFunctionRef)}`
+        })
+      );
+    }
+    if (input.nodeTypeGraphFunctionRefs.has(target.graphFunctionRef)) {
+      input.issues.push(
+        issue({
+          surfaceKind: "public_start",
+          surfaceRef: target.name,
+          ruleRef: "abg://gtl-program/public-start/node-type-not-callable",
+          message: `public start target shall not bind node-type GraphFunction ${JSON.stringify(target.graphFunctionRef)} as callable work`
         })
       );
     }
@@ -11661,6 +11686,7 @@ function checkWorkBindingRows(input: {
   readonly jobBindings: readonly GtlProgramJobBindingRow[];
   readonly roleBindings: readonly GtlProgramRoleBindingRow[];
   readonly graphFunctionRefs: ReadonlySet<string>;
+  readonly nodeTypeGraphFunctionRefs: ReadonlySet<string>;
   readonly modules: readonly Module[];
   readonly issues: GtlProgramConformanceIssue[];
 }): void {
@@ -11704,6 +11730,15 @@ function checkWorkBindingRows(input: {
           surfaceRef: row.jobRef,
           ruleRef: "abg://gtl-program/job-binding/graph-function-resolves",
           message: `graph function ref ${JSON.stringify(graphFunctionRef)} does not resolve to a published GraphFunction`,
+          issues: input.issues
+        });
+      }
+      if (input.nodeTypeGraphFunctionRefs.has(graphFunctionRef)) {
+        pushRowIssue({
+          surfaceKind: "job_binding",
+          surfaceRef: row.jobRef,
+          ruleRef: "abg://gtl-program/job-binding/node-type-not-callable",
+          message: `job binding shall not expose node-type GraphFunction ${JSON.stringify(graphFunctionRef)} as callable work`,
           issues: input.issues
         });
       }
@@ -12506,6 +12541,8 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
       equivalentRefs
     );
   }
+  const publishedNodeTypeGraphFunctionRefs =
+    nodeTypeGraphFunctionRefs(graphFunctions);
   const catalogGraphFunctionRefs = uniqueSorted(input.catalogGraphFunctionRefs ?? []);
   const modules = Object.freeze([...(input.modules ?? [])]);
 
@@ -12607,6 +12644,7 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     publicStartTargets,
     graphFunctionRefs: publishedGraphFunctionLookupRefs,
     graphFunctionEquivalentRefs: publishedGraphFunctionEquivalentRefs,
+    nodeTypeGraphFunctionRefs: publishedNodeTypeGraphFunctionRefs,
     graphVectorRefs,
     issues
   });
@@ -12677,6 +12715,7 @@ export function typecheckGtlProgram(inputCandidate: unknown): GtlProgramConforma
     jobBindings,
     roleBindings,
     graphFunctionRefs: publishedGraphFunctionRefs,
+    nodeTypeGraphFunctionRefs: publishedNodeTypeGraphFunctionRefs,
     modules,
     issues
   });

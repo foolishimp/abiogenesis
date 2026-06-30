@@ -581,6 +581,50 @@ function assertExecutivePressureFactPayload(event: RuntimeEventRecord): void {
   }
 }
 
+function assertNodeTypeSatisfactionPayload(event: RuntimeEventRecord): void {
+  applyFieldRules("NodeTypeSatisfactionProjectedRuntimeEvent", {
+    satisfactionRef: "non_empty_string",
+    nodeRef: "non_empty_string",
+    targetTypeRef: "non_empty_string",
+    sourceNodeTypeRef: "nullable_string",
+    satisfied: "boolean",
+    rejectionReason: "nullable_string",
+    typeNodeRef: "nullable_string",
+    nodeTypeGraphFunctionRefs: "string_array",
+    satisfactionDigest: "non_empty_string",
+    sourceEventRefs: "string_array",
+    sourceProjectionRefs: "string_array",
+    causationEventRefs: "string_array",
+    correlationId: "non_empty_string"
+  })(event);
+  const payload = event["satisfactionPayload"];
+  if (!isPlainObject(payload)) {
+    throw new TypeError(
+      "NodeTypeSatisfactionProjectedRuntimeEvent.satisfactionPayload must be a plain object"
+    );
+  }
+  if (payload["kind"] !== "node_type_satisfaction") {
+    throw new TypeError(
+      "NodeTypeSatisfactionProjectedRuntimeEvent.satisfactionPayload.kind must be node_type_satisfaction"
+    );
+  }
+  if (payload["nodeRef"] !== event["nodeRef"]) {
+    throw new TypeError(
+      "NodeTypeSatisfactionProjectedRuntimeEvent.satisfactionPayload.nodeRef must match nodeRef"
+    );
+  }
+  if (payload["targetTypeRef"] !== event["targetTypeRef"]) {
+    throw new TypeError(
+      "NodeTypeSatisfactionProjectedRuntimeEvent.satisfactionPayload.targetTypeRef must match targetTypeRef"
+    );
+  }
+  if (stableSha256Digest(payload) !== event["satisfactionDigest"]) {
+    throw new TypeError(
+      "NodeTypeSatisfactionProjectedRuntimeEvent.satisfactionDigest must match satisfactionPayload"
+    );
+  }
+}
+
 const RUNTIME_EVENT_ADMITTERS = Object.freeze({
   basis_admitted: applyFieldRules("BasisAdmittedEvent", {
     basisId: "non_empty_string",
@@ -2204,6 +2248,7 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
   }),
   requirement_route_fact_projected: assertRequirementRoutePayload,
   executive_pressure_fact_projected: assertExecutivePressureFactPayload,
+  node_type_satisfaction_projected: assertNodeTypeSatisfactionPayload,
   registry_entry_admitted: applyFieldRules(
     "RegistryEntryAdmittedRuntimeEvent",
     {
@@ -2216,6 +2261,7 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
           "graph_function",
           "overlay",
           "candidate_family",
+          "node_type",
           "public_start",
           "plugin"
         ]
@@ -2251,6 +2297,7 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
           "graph_function",
           "overlay",
           "candidate_family",
+          "node_type",
           "public_start",
           "plugin"
         ]
@@ -2296,6 +2343,7 @@ const RUNTIME_EVENT_ADMITTERS = Object.freeze({
     {
       selectionRef: "non_empty_string",
       selectedEntryRef: "non_empty_string",
+      selectedEntryKind: { oneOf: ["graph_function"] },
       selectedGraphFunctionRef: "non_empty_string",
       lookupResultRef: "non_empty_string",
       eligibilityDecisionRefs: "string_array",

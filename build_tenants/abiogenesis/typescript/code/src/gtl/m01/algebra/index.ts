@@ -1,7 +1,10 @@
 export {
   applyGraphFunctionZoomPlan,
   compose,
+  composeWithTypeWiring,
   constructGraphFunctionZoomPlan,
+  constructNodeTypeGraphFunction,
+  composeNodeTypes,
   edge,
   fan_in,
   fan_out,
@@ -11,9 +14,11 @@ export {
   GRAPH_FUNCTION_ZOOM_REFINEMENT_BOUNDARY_DECLARATION_KEY,
   graphFunctionForVector,
   identity,
+  materializeNodeType,
   promote,
   recurse,
   sameObject,
+  satisfiesNodeType,
   substitute,
   zoomGraphFunction
 } from "./core.js";
@@ -23,5 +28,10 @@ export type {
   GraphFunctionZoomInput,
   GraphFunctionZoomPlan,
   GraphFunctionZoomPlanInput,
-  GraphFunctionZoomResult
+  GraphFunctionZoomResult,
+  GraphFunctionTypeWiring,
+  NodeTypeCompositionRejectionReason,
+  NodeTypeCompositionResult,
+  NodeTypeSatisfactionRejectionReason,
+  NodeTypeSatisfactionResult
 } from "./core.js";

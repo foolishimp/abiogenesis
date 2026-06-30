@@ -739,6 +739,7 @@ export function deriveRetryFrontierProjection(input: {
       case "construction_terminal_disposition_projected":
       case "requirement_route_fact_projected":
       case "executive_pressure_fact_projected":
+      case "node_type_satisfaction_projected":
       case "registry_entry_admitted":
       case "registry_entry_rejected":
       case "registry_plugin_advice_admitted":

@@ -23,6 +23,7 @@ export type {
 } from "./carriers.js";
 export {
   ASSET_SURFACE_AUTHORITY_SLOT_DISPOSITIONS,
+  GTL_NODE_TYPE_GRAPH_FUNCTION_TAG,
   interfaceContract,
   materializeGraphFunction,
   materializeTemplateRef,

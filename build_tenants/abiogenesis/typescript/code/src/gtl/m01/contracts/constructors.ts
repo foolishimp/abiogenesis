@@ -41,6 +41,7 @@ export interface AssetSurfaceInit {
 export interface NodeInit {
   readonly name: string;
   readonly schema: Node["schema"];
+  readonly typeRef?: string | null | undefined;
   readonly markov: readonly string[];
   readonly assetSurface: AssetSurfaceInit;
   readonly tags: readonly string[];
@@ -287,7 +288,14 @@ function canonicalContext(context: Context): unknown {
 
 function canonicalNodeCore(node: NodeInit) {
   const assetSurface = constructAssetSurface(node.assetSurface);
-  return {
+  const core: {
+    readonly name: string;
+    readonly schema: Node["schema"];
+    readonly typeRef?: string;
+    readonly markov: readonly string[];
+    readonly assetSurface: unknown;
+    readonly tags: readonly string[];
+  } = {
     name: node.name,
     schema: {
       kind: node.schema.kind,
@@ -297,6 +305,12 @@ function canonicalNodeCore(node: NodeInit) {
     assetSurface: canonicalAssetSurface(assetSurface),
     tags: [...node.tags]
   };
+  return node.typeRef === undefined || node.typeRef === null
+    ? core
+    : {
+        ...core,
+        typeRef: node.typeRef
+      };
 }
 
 function canonicalAssetSurface(assetSurfaceInput: AssetSurface | AssetSurfaceInit): unknown {
@@ -322,7 +336,7 @@ function canonicalAssetSurface(assetSurfaceInput: AssetSurface | AssetSurfaceIni
 }
 
 function canonicalNode(node: Node): unknown {
-  return {
+  const core = {
     name: node.name,
     schema: {
       kind: node.schema.kind,
@@ -333,6 +347,12 @@ function canonicalNode(node: Node): unknown {
     tags: [...node.tags],
     id: node.id
   };
+  return node.typeRef === null
+    ? core
+    : {
+        ...core,
+        typeRef: node.typeRef
+      };
 }
 
 function canonicalGraphVector(vector: GraphVector): unknown {
@@ -418,12 +438,16 @@ export function emptySerializedAttrs(): SerializedAttrs {
 
 export function constructNode(input: NodeInit): Node {
   const assetSurface = constructAssetSurface(input.assetSurface);
+  if (input.typeRef !== undefined && input.typeRef !== null && input.typeRef.length === 0) {
+    throw new TypeError("Node.typeRef: expected null or non-empty ref");
+  }
   const node = Object.freeze({
     name: input.name,
     schema: Object.freeze({
       kind: input.schema.kind,
       ref: input.schema.ref
     }),
+    typeRef: input.typeRef ?? null,
     markov: freezeStrings(input.markov),
     assetSurface,
     tags: freezeStrings(input.tags),

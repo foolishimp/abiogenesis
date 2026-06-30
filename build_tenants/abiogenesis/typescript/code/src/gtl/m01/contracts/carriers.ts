@@ -10,6 +10,8 @@
 // Implements: REQ-L-GTL3-RULE
 // Implements: REQ-L-GTL3-IDENTITY
 
+export const GTL_NODE_TYPE_GRAPH_FUNCTION_TAG = "gtl:node_type";
+
 export type SerializedScalar = string | number | boolean | null;
 
 export type SerializedJsonValue =
@@ -107,6 +109,7 @@ export interface AssetSurfaceAuthoritySlot {
 export interface Node {
   readonly name: string;
   readonly schema: SchemaRef;
+  readonly typeRef: string | null;
   readonly markov: readonly string[];
   readonly assetSurface: AssetSurface;
   readonly tags: readonly string[];
@@ -198,12 +201,26 @@ export interface GraphFunction {
 }
 
 export function nodeContractKey(node: Node): string {
-  return JSON.stringify({
+  const contract: {
+    readonly name: string;
+    readonly schema: SchemaRef;
+    readonly typeRef?: string;
+    readonly markov: readonly string[];
+    readonly assetSurface: AssetSurface;
+  } = {
     name: node.name,
     schema: node.schema,
     markov: node.markov,
     assetSurface: node.assetSurface
-  });
+  };
+  return JSON.stringify(
+    node.typeRef === null
+      ? contract
+      : {
+          ...contract,
+          typeRef: node.typeRef
+        }
+  );
 }
 
 export function interfaceContract(nodes: readonly Node[]): readonly string[] {

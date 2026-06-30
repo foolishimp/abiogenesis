@@ -59,6 +59,10 @@ fan-out, fan-in, gate, promote, and same-object identity.
 program carrier. A graph function shall expose an outer interface and shall be
 materializable or referenceable without becoming a runtime controller.
 
+**reusable node types**: GTL shall publish reusable node-type declarations for
+node contract reuse, type refs, composed types, and type-sensitive graph
+composition. Node types are language/conformance truth, not runtime work.
+
 **publication and work surfaces**: GTL shall declare modules, jobs, roles,
 contract refs, public starts, candidate families, refinement boundaries, and
 library membership.
@@ -301,3 +305,35 @@ differences between WHAT and implementation as terminology gaps,
 requirement gaps, design gaps, implementation gaps, proof gaps,
 documentation gaps, or deferred runtime-registry gaps. Gap analysis shall not
 replace live requirement truth.
+
+**REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL-026**: GTL shall provide one reusable
+node-type capability for declaring named node contracts, binding nodes to
+type refs, composing node types, checking type satisfaction, and composing
+graph functions by endpoint type satisfaction.
+
+**REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL-027**: A node type shall be published
+through the GTL library path as a non-callable identity graph-function
+declaration or a ratified equivalent that uses the same `GraphFunction`
+carrier, the same non-callable identity realization, the same `node_type`
+registry kind, and no parallel type publication path.
+
+**REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL-028**: A `node_type` library entry may
+be admitted, projected, imported, queried, and used by compiler/conformance
+surfaces. It shall not become runtime traversal work, public-start authority,
+graph-call authority, or `graph_function_selected` truth.
+
+**REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL-029**: Type conformance shall be pure,
+deterministic, replayable, and fail-closed. Unknown type refs, digest drift,
+weakened schema, markov, context, asset-surface, authority, proof, or output
+obligations shall reject rather than infer compatibility.
+
+**REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL-030**: Composed node types shall
+preserve or strengthen every constituent node-type obligation. Composition
+shall not weaken required schema, markov, asset-surface, authority, proof,
+output, context, or provenance obligations.
+
+**REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL-031**: Type-sensitive graph-function
+composition shall distinguish port identity from endpoint type contract. It
+may connect differently named ports only when an explicit wiring or ratified
+unambiguous auto-wiring proves the provided endpoint type satisfies the
+required endpoint type.

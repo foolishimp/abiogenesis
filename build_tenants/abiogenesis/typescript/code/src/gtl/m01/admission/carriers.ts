@@ -326,6 +326,10 @@ export function admitNode(input: unknown, label = "Node"): Node {
   return constructNode({
     name: parseNonEmptyString(nodeObject["name"], `${label}.name`),
     schema: admitSchemaRef(nodeObject["schema"], `${label}.schema`),
+    typeRef: parseNullableString(
+      parseOptionalField(nodeObject, "typeRef") ?? null,
+      `${label}.typeRef`
+    ),
     markov: parseStringArray(parseOptionalField(nodeObject, "markov") ?? [], `${label}.markov`),
     assetSurface: admitAssetSurface(nodeObject["assetSurface"], `${label}.assetSurface`),
     tags: parseStringArray(parseOptionalField(nodeObject, "tags") ?? [], `${label}.tags`),

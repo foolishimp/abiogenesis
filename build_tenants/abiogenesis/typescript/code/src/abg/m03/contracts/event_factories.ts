@@ -65,10 +65,16 @@ import {
   sha256DigestForText,
   stableJson
 } from "../../../shared/runtime_identity.js";
+import {
+  GTL_NODE_TYPE_GRAPH_FUNCTION_TAG
+} from "../../../gtl/m01/contracts/carriers.js";
 
 export function constructGraphCallOpenedEvent(
   basis: ExecutionBasis
 ): GraphCallOpenedEvent {
+  if (basis.graphFunction.tags.includes(GTL_NODE_TYPE_GRAPH_FUNCTION_TAG)) {
+    throw new TypeError("GraphCall.open rejects non-callable node-type GraphFunction");
+  }
   return Object.freeze({
     kind: "graph_call_opened",
     basisId: basis.id,

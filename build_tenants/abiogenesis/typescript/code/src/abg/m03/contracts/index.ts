@@ -85,6 +85,7 @@ export type {
   LeafTaskEnvelope,
   LeafTaskFailedEvent,
   LeafTaskOpenedEvent,
+  NodeTypeSatisfactionProjectedRuntimeEvent,
   ObservedStateAdmissionOutcome,
   ObservedStateAdmittedRuntimeEvent,
   ObservedStateDerivationBasis,
@@ -582,6 +583,13 @@ export {
   constructVectorTraversalPlannedEvent,
   runtimeEventsForTransition
 } from "./event_factories.js";
+export {
+  assertTraversalCloseNodeTypeSatisfied,
+  projectNodeTypeSatisfaction
+} from "./node_type_satisfaction.js";
+export type {
+  ProjectNodeTypeSatisfactionInput
+} from "./node_type_satisfaction.js";
 export {
   RUNTIME_INVOCATION_DISPOSITION_ACTION_VALUES,
   constructRuntimeSystemProbeContract,

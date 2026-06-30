@@ -61,3 +61,16 @@ The target shall be expressed through `GraphFunction.environment`, `Context`
 locator/digest truth, and asset-surface required-context truth; GTL shall not
 introduce a new observer-specific workspace, graph, frame, replay, or
 continuation topology object for that role.
+
+**REQ-L-GTL3-GRAPHFUNCTION-021**: A reusable node type shall use the
+`GraphFunction` carrier only as a non-callable identity realization of a node
+contract. It shall not be eligible as public traversal work.
+
+**REQ-L-GTL3-GRAPHFUNCTION-022**: A node-type graph function shall have no
+runtime effects and shall preserve its declared node contract through identity
+materialization. Any implementation binding that uses a different realization
+shall prove the same identity, non-callability, and publication semantics.
+
+**REQ-L-GTL3-GRAPHFUNCTION-023**: Job binding, public start binding,
+runtime-registry graph-function selection, graph-call opening, and invocation
+assertion shall reject node-type entries as callable graph functions.
