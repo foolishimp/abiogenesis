@@ -3,7 +3,7 @@ id: T-180
 title: Ratify reusable GTL node types and type composition for downstream graph-function reuse
 type: requirements_design_realization
 ticket_category: gtl_node_type_composition
-status: active
+status: completed
 goal: >-
   Make reusable GTL node types available before odd_glc build-out so downstream
   products can declare lifecycle and domain node contracts once, bind nodes by
@@ -26,6 +26,8 @@ owner: abiogenesis
 priority: high
 triaged_at: 2026-06-30
 created_at: 2026-06-30
+updated_at: 2026-06-30
+closed_at: 2026-06-30
 governance_scope: STDO Method, SPEC_METHOD, DESIGN_MODULE_METHOD, GTL, ABG Runtime, Registry, Conformance
 build_tenant: typescript
 depends_on:
@@ -46,6 +48,15 @@ source_documents:
   - specification/requirements/gtl/REQ-L-GTL3-MODULE.md
   - specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md
   - specification/requirements/abg/REQ-R-ABG3-INTERPRET.md
+review_status: closed
+proof_status: passed
+closure_basis: >-
+  Closed after the 4.2.0-rc.1 metadata commit
+  fba9d990c1702355a94374165c6deeb0edf6bf48 passed the focused T-180/T-177
+  gates, the full semantic suite, packaging dry-run, and an installed
+  sandbox/bootstrap live LLM proof from canonical ABG startup. The odd_glc
+  readiness note is
+  .ai-workspace/comments/codex/20260630T161837Z_READINESS_odd-glc-node-types-and-bootstrap-registry.md.
 target_truth: >-
   GTL has one reusable node-type mechanism. A node type is published through
   GTL as a non-callable identity graph function. Any ratified equivalent must
@@ -845,7 +856,7 @@ Closure note:
 
 ### Slice 9 - Live Proof And Readiness Publication
 
-Status: live proof implemented; readiness publication not closed.
+Status: completed.
 
 Change:
 - Added `test:t180:live` package script.
@@ -861,6 +872,8 @@ Change:
 - Added CLI runtime binding support for `runtimeRegistryStartup` so installed
   product bootstrap config can flow into ABG start instead of a downstream
   shell.
+- Published the odd_glc readiness note:
+  `.ai-workspace/comments/codex/20260630T161837Z_READINESS_odd-glc-node-types-and-bootstrap-registry.md`.
 
 Verification completed:
 - Direct diagnostic lane:
@@ -887,13 +900,22 @@ Verification completed:
     `terminal_reached`, start status `converged`
   - live proof artifact:
     `build_tenants/abiogenesis/typescript/test_env/test_runs/t180_glc_hello_world_bootstrap_live/20260630T155826332Z_pid20388/t180-glc-hello-world-bootstrap-live-proof.json`
-
-Remaining before closure:
-- Publish odd_glc readiness note naming the exact ABI/GTL commit or release,
-  installed bootstrap proof artifact, and the reusable node-type/type-
-  composition capabilities available to downstream work.
-- The tree is currently an uncommitted working tree over `c640814`; readiness
-  publication must wait for a stable commit or release identity.
+- Stable release-metadata closure lane:
+  `ABG_TS_LIVE_AGENT=claude CODEX_LIVE_FP=1 ABG_TS_T180_GLC_BOOTSTRAP_LIVE=1 npm run test:t180:live`
+  - node test duration: 112549.853917ms
+  - artifact durationMs: 111101
+  - sourceCommit: `fba9d990c1702355a94374165c6deeb0edf6bf48`
+  - sourceDirty: false
+  - package version: `4.2.0-rc.1`
+  - snapshotTarballSha256:
+    `b558c437a508b1467ba02e0af2117b07587ddf19533425b1bd9ad809fffad68e`
+  - admitted registry entries: 5 `node_type`, 1 `graph_function`
+  - selected graph functions: 2 `graph_function_selected`, zero
+    `node_type` selections
+  - traversal proof: 2 `graph_call_opened`, 2 `vector_closed`,
+    `terminal_reached`, start status `converged`
+  - live proof artifact:
+    `build_tenants/abiogenesis/typescript/test_env/test_runs/t180_glc_hello_world_bootstrap_live/20260630T161623713Z_pid55795/t180-glc-hello-world-bootstrap-live-proof.json`
 
 ### Current Verification Summary
 
@@ -905,7 +927,11 @@ Completed in this pass:
   1 skipped test without live environment.
 - `ABG_TS_LIVE_AGENT=claude CODEX_LIVE_FP=1 ABG_TS_T180_GLC_BOOTSTRAP_LIVE=1 npm run test:t180:live` -
   1 passing installed sandbox/bootstrap live LLM test.
+- `node --test test_env/tests/test_t109_agent_callout_guard.test.mjs` -
+  1 passing boundary guard.
+- `npm_config_cache=/tmp/abg-npm-cache npm pack --dry-run` - passing package
+  dry-run for `@abiogenesis/typescript-tenant@4.2.0-rc.1`.
 - `git diff --check`.
 
 Not completed in this pass:
-- Standalone odd_glc readiness publication.
+- None.
