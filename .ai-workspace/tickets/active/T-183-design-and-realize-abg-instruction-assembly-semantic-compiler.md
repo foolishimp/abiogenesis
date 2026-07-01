@@ -20,8 +20,8 @@ change_intent: >-
   admission, runtime binding, renderer boundary, and proof gates needed to
   make prompts typed, compressed, relevant, proportional, replayable, and
   assurable without duplicating existing carrier truth.
-change_class: design_reframe
-re_entry_point: abg_instruction_assembly_design
+change_class: requirement_reprice
+re_entry_point: abg_instruction_assembly_requirement
 owner: abiogenesis
 priority: high
 triaged_at: 2026-07-01
@@ -49,6 +49,7 @@ source_documents:
   - specification/requirements/abg/REQ-R-ABG3-PAYLOAD.md
   - specification/requirements/abg/REQ-R-ABG3-TRANSPORT.md
   - specification/requirements/abg/REQ-R-ABG3-INTERPRET.md
+  - specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md
 design_surfaces:
   - build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md
 review_status: open
@@ -105,9 +106,21 @@ non_closure_conditions:
     instead of a typed gap, block, or pre-dispatch rejection.
   - Runtime binding accepts stale, forged, unadmitted, or digest-mismatched
     payload/evidence refs.
+  - Instruction assembly rules, compiled prompt plans, renderer bindings,
+    prompt policies, or runtime binding policies are selected through a
+    parallel prompt-loader, product-local shell, local registry, file scan, or
+    duplicate selection path instead of the canonical ABG startup and
+    registry/admission path.
   - The live proof uses hand-built prompt fixtures instead of ABG startup
     admission and runtime-bound instruction envelopes.
 required_work:
+  - >-
+    Phase -1 - Requirement anchor: Ratify the ABG instruction assembly
+    requirement family before realization. The requirement shall define
+    dispatch-assurance obligations for compiled prompt plans, F_D compiler
+    checks, runtime-bound instruction envelopes, prompt manifests, P0
+    no-dispatch, renderer authority, non-tautology, response admission, and
+    canonical startup/registry pickup.
   - >-
     Phase 0 - Re-entry and carrier cut: Ratify the field-cut decision in the
     design pack before code. Existing `GraphFunction`, `GraphVector`,
@@ -215,10 +228,14 @@ acceptance_criteria:
     classifier and observing proof failure.
   - The live framework-smoke proof uses ABG startup admission and runtime-bound
     instruction envelopes, not hand-built prompt fixtures.
+  - Instruction assembly, renderer, prompt policy, and runtime binding
+    selections use the same admitted registry/startup truth as graph-function
+    selection and do not create a second selection surface.
   - Focused `test:t183` and live `test:t183:live` commands exist or the ticket
     records their exact ratified equivalent.
 proof_commands:
   - git diff --check
+  - rg -n "REQ-R-ABG3-INSTRUCTION-ASSEMBLY-(005|007|011|012|014)" specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md
   - rg -n "InstructionAssemblyRule|CompiledPromptPlan|RuntimeBindingSlot|PromptManifest|non-tautology|P0" specification build_tenants/abiogenesis/typescript/design
   - "! rg -n \"InstructionComposition|PromptPlan|sourceNodeTypeRefs|targetNodeTypeRefs|responseContractRef|requiredCarrierClasses\" build_tenants/abiogenesis/typescript/code/src"
   - cd build_tenants/abiogenesis/typescript && npm run build:semantic
@@ -260,6 +277,9 @@ Initial design decisions recorded:
 
 - The new assembly law is an ABG runtime/design surface over existing GTL/ABG
   carriers, not a broad GTL prompt carrier.
+- Added `REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md` as the constitutional anchor for
+  the semantic compiler and dispatch-assurance obligations before locking the
+  design further.
 - `InstructionAssemblyRule` is narrow: it binds graph-function/vector refs to
   section rules, relevance rules, compression policy, proportionality policy,
   and runtime binding slot classes only.
@@ -271,5 +291,9 @@ Initial design decisions recorded:
 - Renderer execution is ABG-owned or delegated only to an authority-denied
   governed renderer over immutable envelopes.
 - P0 deterministic edges are no-dispatch edges.
+- Instruction assembly, renderer, prompt policy, and runtime binding selection
+  must use the same canonical ABG startup and registry/admission path as
+  graph-function selection. A parallel prompt-loader or product-local
+  instruction-selection path is non-closure.
 
 No realization code is started in this activation step.

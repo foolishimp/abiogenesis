@@ -3,7 +3,7 @@
 **Ticket**: T-183
 **Status**: Active design
 **Date**: 2026-07-01
-**Change class**: design_reframe
+**Change class**: requirement_reprice -> design_reframe
 
 ## Source Authority
 
@@ -20,6 +20,7 @@
 - `specification/requirements/abg/REQ-R-ABG3-PAYLOAD.md`
 - `specification/requirements/abg/REQ-R-ABG3-TRANSPORT.md`
 - `specification/requirements/abg/REQ-R-ABG3-INTERPRET.md`
+- `specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md`
 - `.ai-workspace/tickets/active/T-183-design-and-realize-abg-instruction-assembly-semantic-compiler.md`
 
 ## Problem
@@ -43,6 +44,10 @@ It is not a broad GTL prompt carrier. GTL already owns graph structure, node
 types, asset surfaces, graph vectors, graph functions, compute notation, hooks,
 and policy refs. ABG owns runtime binding, admission, projection, event truth,
 transport, response admission, and replay.
+
+`REQ-R-ABG3-INSTRUCTION-ASSEMBLY` is the requirement anchor for this design.
+The design may refine how the TypeScript tenant realizes the law, but it shall
+not weaken the dispatch-assurance obligations in that requirement.
 
 The new assembly surface is narrow:
 
@@ -119,6 +124,8 @@ The semantic compiler is deterministic. It shall prove:
 
 ```text
 GTL graph/module/product declarations
+  -> canonical ABG startup consumes library, overlay, node-type, policy, and assembly declarations
+  -> ABG admits registry/startup truth
   -> semantic compiler resolves existing carrier truth
   -> ABG admits CompiledPromptPlan at startup
   -> ABG start/iterate selects graph function and vector
@@ -128,6 +135,11 @@ GTL graph/module/product declarations
   -> F_P dispatch occurs only when proportionality is not P0
   -> ABG admits or rejects response against derived response contract
 ```
+
+Instruction assembly, renderer, prompt policy, runtime binding policy, and
+compiled prompt plan selection use the same admitted registry/startup truth as
+graph-function selection. There is no product-local prompt-loader, file scan,
+local registry, or parallel selection path.
 
 ## Candidate Design Surfaces
 
@@ -177,7 +189,7 @@ fixtures and marker-driven dispositions.
 | Phase | T-183 answer |
 | --- | --- |
 | intent | Answer: make F_P instruction construction typed, relevant, compressed, proportional, replayable, and non-tautological without product-local prompt shells. |
-| requirement | Answer: T-183 is a design_reframe over existing GTL/ABG requirement law. Any reusable law discovered here must be ratified in requirements before code. |
+| requirement | Answer: `REQ-R-ABG3-INSTRUCTION-ASSEMBLY` is the constitutional anchor. This design refines the TypeScript HOW after that requirement reprice. |
 | build | Answer: TypeScript M03 design and realization are the first build tenant. No code starts before IACS and structural carrier diagram resolve prime/subordinate status. |
 | assurance | Answer: `test:t183`, `test:semantic`, negative differential tests, prompt-manifest replay, and `test:t183:live`. |
 | release | Answer: release eligibility requires T-183 closure plus the existing TS release gate. No RC may claim instruction assembly readiness from T-182 alone. |
@@ -188,22 +200,18 @@ fixtures and marker-driven dispositions.
 
 ## Open Design Gaps
 
-1. Requirement home: decide whether the narrow assembly rule belongs in an
-   existing ABG requirement family or a new `REQ-R-ABG3-INSTRUCTION-ASSEMBLY`
-   family.
-2. Carrier status: prove which candidate surfaces are prime, subordinate, or
+1. Carrier status: prove which candidate surfaces are prime, subordinate, or
    reducible.
-3. Renderer execution: decide whether the first slice uses an ABG-owned
+2. Renderer execution: decide whether the first slice uses an ABG-owned
    renderer only or admits an authority-denied governed renderer plugin.
-4. Prompt-plan retirement: define supersession/retirement semantics before
+3. Prompt-plan retirement: define supersession/retirement semantics before
    claiming long-lived prompt-plan registry behavior.
-5. Full-content body storage: T-182 supports bounded excerpts; full-content
+4. Full-content body storage: T-182 supports bounded excerpts; full-content
    rendering requires a storage/admission policy before use.
 
 ## Immediate Next Work
 
 1. Create the T-183 IACS.
 2. Create the T-183 structural carrier diagram.
-3. Decide the requirement home before adding code.
-4. Then implement only the smallest compiler slice that can prove the field cut
+3. Then implement only the smallest compiler slice that can prove the field cut
    and prompt-manifest replay.

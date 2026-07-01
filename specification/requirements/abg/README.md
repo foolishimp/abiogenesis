@@ -20,6 +20,9 @@ related engine behavior.
 - event-sourced payload envelope, admission, and ledger projection law
 - event-sourced requirement algebra, replay-derived requirement ledgers, and
   requirement pressure query law
+- instruction assembly and dispatch assurance over compiled prompt plans,
+  runtime-bound instruction envelopes, prompt manifests, and semantic compiler
+  checks
 - replay-stable ABG.Fn regime composition grammar
 - correction, supersession, and self-hosting behavior
 - one replay-derived active-iteration outcome algebra
@@ -44,6 +47,7 @@ related engine behavior.
 - `REQ-R-ABG3-FN-COMPOSITION.md`
 - `REQ-R-ABG3-PAYLOAD.md`
 - `REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md`
+- `REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md`
 - `REQ-R-ABG3-POLICY.md`
 - `REQ-R-ABG3-SELECTION-APPLICATION.md`
 - `REQ-R-ABG3-LEAFTASK.md`
