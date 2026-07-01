@@ -10,9 +10,9 @@
 ## Purpose
 
 Define ABG instruction assembly as deterministic dispatch-assurance law over
-existing GTL/ABG carriers, so F_P worker instructions are compiled, relevant,
-compressed, proportional, replayable, and non-tautological without creating a
-product-local prompt shell or duplicate prompt carrier.
+known GTL/ABG carrier algebras, so F_P worker instructions are compiled,
+relevant, compressed, proportional, replayable, and non-tautological without
+creating a product-local prompt shell or duplicate prompt carrier.
 
 ## Acceptance Criteria
 
@@ -23,6 +23,8 @@ product-local prompt shell or duplicate prompt carrier.
 **REQ-R-ABG3-INSTRUCTION-ASSEMBLY-003**: The semantic compiler shall derive source and target node-type truth, response-contract truth, proof-obligation truth, authority-slot truth, renderer truth, active-regime truth, and required carrier classes from existing admitted GTL/ABG carriers before runtime dispatch.
 
 **REQ-R-ABG3-INSTRUCTION-ASSEMBLY-004**: The semantic compiler shall be F_D-owned for source trace, type coverage, response-contract derivation, proof/authority/renderer derivation, relevance, compression, proportionality, runtime-slot bindability, non-duplication, and non-tautology. F_P may propose wording, rubric clarity, or policy critique only as admitted evidence for F_D validation.
+
+**REQ-R-ABG3-INSTRUCTION-ASSEMBLY-004A**: Any instruction-assembly decision claimed as F_D shall be a total function over a known algebra and admitted inputs. The known algebra shall declare carrier types, operators, predicates, ordering, output domain, and typed rejection or gap cases before execution. The total function shall map every valid input state to exactly one valid output or one typed rejection or gap, without implicit fallback, runtime invention, or F_P judgment.
 
 **REQ-R-ABG3-INSTRUCTION-ASSEMBLY-005**: An F_P dispatch governed by instruction assembly law shall not occur without an admitted compiled prompt plan, an immutable runtime-bound instruction envelope, and a replayable prompt manifest or equivalent projection that preserves the compiled plan ref, bound runtime refs, renderer identity, response contract, and rendered prompt digest.
 

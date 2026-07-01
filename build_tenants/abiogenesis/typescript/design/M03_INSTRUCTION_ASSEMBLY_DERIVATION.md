@@ -91,7 +91,7 @@ duplicate authority.
 | --- | --- | --- |
 | Graph topology, node types, asset surfaces, graph functions, graph vectors | GTL | Declared and typechecked before ABG runtime use. |
 | Instruction assembly rules | ABG design over GTL refs and policy refs | Narrow edge-bound rule surface, not duplicate carrier truth. |
-| Semantic compiler | ABG F_D | Resolves existing carriers, validates rules, emits compiled plan diagnostics, and admits or rejects F_P validation evidence. |
+| Semantic compiler | ABG F_D | Resolves existing carriers, validates rules as total functions over known algebras and admitted inputs, emits compiled plan diagnostics, and admits or rejects F_P validation evidence. |
 | F_P compiler validation/review traversal | ABG admitted evidence only | May propose wording, clarity, rubric critique, or semantic sanity-check findings; cannot approve a plan, own relevance, own compression, own proportionality, render final prompts, close, or admit runtime truth. |
 | Compiled prompt plan | ABG startup admission/projection | Digest-pinned plan over existing carrier truth plus narrow rule refs. |
 | Runtime binding slots | ABG runtime | Bind only admitted or replay-derived refs at dispatch time. |
@@ -100,7 +100,13 @@ duplicate authority.
 
 ## Compiler Responsibilities
 
-The semantic compiler is deterministic. It shall prove:
+The semantic compiler is deterministic only where the decision is a total
+function over a known algebra and admitted inputs. A deterministic-looking
+implementation is not sufficient. The relevant algebra must declare carrier
+types, operators, predicates, ordering, output domain, and typed rejection or
+gap cases before execution.
+
+The compiler shall prove:
 
 1. source trace from rule refs to graph function, vector, node, asset surface,
    selected composition, and policy refs;
@@ -121,6 +127,10 @@ The semantic compiler is deterministic. It shall prove:
 12. renderer refs resolve to ABG-owned or authority-denied governed rendering;
 13. F_P validation/review traversal output, when present, is evidence only and
     is rejected or admitted before F_D accepts the compiled plan.
+
+Each proof above must either name the known algebra it uses or record a named
+gap. The first implementation shall not claim F_D authority for a check whose
+algebra is implicit, partial, or open-ended.
 
 ## F_P Validation Traversal
 
@@ -143,7 +153,7 @@ GTL graph/module/product declarations
   -> ABG admits registry/startup truth
   -> semantic compiler resolves existing carrier truth
   -> optional F_P validation/review traversal produces admitted evidence
-  -> F_D compiler accepts or rejects the candidate plan
+  -> F_D compiler accepts or rejects the candidate plan through total functions over known algebras
   -> ABG admits CompiledPromptPlan at startup
   -> ABG start/iterate selects graph function and vector
   -> ABG derives runtime binding slots from replay truth
