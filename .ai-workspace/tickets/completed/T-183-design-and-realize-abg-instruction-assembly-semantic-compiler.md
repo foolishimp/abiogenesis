@@ -3,7 +3,7 @@ id: T-183
 title: Design and realize ABG instruction assembly law with semantic compiler assurance
 type: requirements_design_realization
 ticket_category: instruction_assembly_semantic_compiler
-status: active
+status: completed
 goal: >-
   Define and realize the ABG/GTL instruction assembly surface that compiles
   edge-bound prompt plans from existing GTL/ABG carriers, deterministically
@@ -54,8 +54,8 @@ design_surfaces:
   - build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md
   - build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md
   - build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md
-review_status: open
-proof_status: pending
+review_status: closed
+proof_status: passed
 target_truth: >-
   ABG instruction assembly law is a narrow edge-bound surface over existing
   GTL/ABG carriers. It binds graph-function/vector refs to section rules,
@@ -496,3 +496,58 @@ Remaining before closure:
 
 - Add the `test:t183:live` proof lane and run the live framework-smoke proof
   with an actual F_P worker.
+
+### 2026-07-01 Prompt Manifest Dispatch And Live Closure
+
+Closed the last live-dispatch gap by making the ABG-projected prompt manifest
+part of the `EnginePluginInput` delivered to the F_P dispatch plugin:
+
+- `EnginePluginInput.instructionPromptManifest` carries the exact manifest
+  emitted as `instruction_prompt_manifest_projected`.
+- The F_P dispatch path now emits the manifest first, then passes the same
+  immutable manifest object to the plugin input before `fp_dispatch_requested`.
+- The synthetic response-admission proof now asserts that the custom dispatch
+  plugin receives the compiled manifest, its plan ref, and its rendered prompt.
+- Added `test:t183:live`, a sandbox live proof that calls the configured LLM
+  through `runAgentTransport` using only
+  `pluginInput.instructionPromptManifest.renderedPrompt` as the worker prompt.
+- The live worker response is admitted through
+  `instruction_response_contract_admitted` after
+  `actor_result_artifact_observed`, preserving prompt digest, manifest ref,
+  plan ref, output contract refs, and artifact digest in replay.
+
+Clean-source live proof:
+
+- Command:
+  `cd build_tenants/abiogenesis/typescript && npm run test:t183:live`
+- Result: passed, 1/1.
+- Duration: 49,049 ms.
+- Agent: `claude`.
+- API retries: 0.
+- Source commit: `50b48831b66499d061cb096e3f251a15f8f61302`.
+- Source dirty status: empty.
+- Artifact manifest:
+  `build_tenants/abiogenesis/typescript/test_env/test_runs/t183_instruction_assembly_live/20260701T131007771Z_pid48730/instruction-assembly-live-manifest.json`
+- Artifact digest:
+  `sha256:a35a23700fe5856f1ce27df606c33c599c3adf87f7baf105f2975058edf725c8`
+- Replay evidence: 1 `instruction_prompt_manifest_projected` event and 1
+  `instruction_response_contract_admitted` event.
+
+Final verification:
+
+- `git diff --check` passed.
+- Duplicate-surface code grep passed:
+  `! rg -n "InstructionComposition|\bPromptPlan\b|sourceNodeTypeRefs|targetNodeTypeRefs|responseContractRef|requiredCarrierClasses" build_tenants/abiogenesis/typescript/code/src`
+- `npm run test:t177` passed: 16/16.
+- `npm run test:t183` passed: 11/11.
+- `npm run test:semantic` passed: 997/997.
+- `npm run test:t183:live` passed: 1/1.
+
+Closure decision:
+
+T-183 is closed. ABG instruction assembly now has requirement authority,
+design-module evidence, compiler realization, startup admission, runtime
+binding, replay-visible prompt manifests, response admission, synthetic
+negative proof, full semantic regression, and a clean-source live LLM proof
+that the F_P worker received the ABG-compiled instruction envelope rather than
+a product-local prompt shell.
