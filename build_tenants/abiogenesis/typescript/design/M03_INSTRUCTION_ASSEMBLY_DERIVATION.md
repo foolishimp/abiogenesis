@@ -91,8 +91,8 @@ duplicate authority.
 | --- | --- | --- |
 | Graph topology, node types, asset surfaces, graph functions, graph vectors | GTL | Declared and typechecked before ABG runtime use. |
 | Instruction assembly rules | ABG design over GTL refs and policy refs | Narrow edge-bound rule surface, not duplicate carrier truth. |
-| Semantic compiler | ABG F_D | Resolves existing carriers, validates rules, emits compiled plan diagnostics. |
-| F_P compiler/review traversal | ABG admitted evidence only | May propose wording, clarity, or policy critique; cannot own relevance, compression, closure, or admission. |
+| Semantic compiler | ABG F_D | Resolves existing carriers, validates rules, emits compiled plan diagnostics, and admits or rejects F_P validation evidence. |
+| F_P compiler validation/review traversal | ABG admitted evidence only | May propose wording, clarity, rubric critique, or semantic sanity-check findings; cannot approve a plan, own relevance, own compression, own proportionality, render final prompts, close, or admit runtime truth. |
 | Compiled prompt plan | ABG startup admission/projection | Digest-pinned plan over existing carrier truth plus narrow rule refs. |
 | Runtime binding slots | ABG runtime | Bind only admitted or replay-derived refs at dispatch time. |
 | Renderer execution | ABG or authority-denied governed renderer plugin | Product templates are data. Product code cannot own final prompt text. |
@@ -118,7 +118,22 @@ The semantic compiler is deterministic. It shall prove:
 10. no answer-shaped or classifier-shaped prompt content;
 11. runtime slot classes are bindable only from admitted or replay-derived
     ABG truth;
-12. renderer refs resolve to ABG-owned or authority-denied governed rendering.
+12. renderer refs resolve to ABG-owned or authority-denied governed rendering;
+13. F_P validation/review traversal output, when present, is evidence only and
+    is rejected or admitted before F_D accepts the compiled plan.
+
+## F_P Validation Traversal
+
+The semantic compiler may use an F_P validation/review traversal to sanity
+check wording, rubric clarity, ambiguity, proportionality rationale, and
+domain-language fit for a candidate compiled prompt plan.
+
+That traversal is not the compiler authority. Its output is an evidence
+candidate. ABG admits or rejects that evidence, and F_D validation remains the
+authority that accepts or rejects the compiled prompt plan. A plan cannot pass
+because the F_P reviewer says it is good; it can pass only when the F_D compiler
+proves the requirement obligations and admits any F_P review output as
+supporting evidence.
 
 ## Runtime Shape
 
@@ -127,6 +142,8 @@ GTL graph/module/product declarations
   -> canonical ABG startup consumes library, overlay, node-type, policy, and assembly declarations
   -> ABG admits registry/startup truth
   -> semantic compiler resolves existing carrier truth
+  -> optional F_P validation/review traversal produces admitted evidence
+  -> F_D compiler accepts or rejects the candidate plan
   -> ABG admits CompiledPromptPlan at startup
   -> ABG start/iterate selects graph function and vector
   -> ABG derives runtime binding slots from replay truth

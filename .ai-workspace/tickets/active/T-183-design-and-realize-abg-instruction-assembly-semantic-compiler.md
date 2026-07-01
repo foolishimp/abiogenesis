@@ -118,9 +118,10 @@ required_work:
     Phase -1 - Requirement anchor: Ratify the ABG instruction assembly
     requirement family before realization. The requirement shall define
     dispatch-assurance obligations for compiled prompt plans, F_D compiler
-    checks, runtime-bound instruction envelopes, prompt manifests, P0
-    no-dispatch, renderer authority, non-tautology, response admission, and
-    canonical startup/registry pickup.
+    checks, F_P validation traversal as evidence-only review, runtime-bound
+    instruction envelopes, prompt manifests, P0 no-dispatch, renderer
+    authority, non-tautology, response admission, and canonical
+    startup/registry pickup.
   - >-
     Phase 0 - Re-entry and carrier cut: Ratify the field-cut decision in the
     design pack before code. Existing `GraphFunction`, `GraphVector`,
@@ -149,9 +150,11 @@ required_work:
     digest-pinned `CompiledPromptPlan`. The compiler must F_D-prove source
     trace, type coverage, response-contract derivation, proof/authority/renderer
     derivation, relevance, compression, proportionality, no future-stage bleed,
-    no duplicate carrier truth, and no prompt-carried answer. F_P may only
-    propose or review wording/rubric/policy clarity; its output remains
-    evidence until F_D validates the plan.
+    no duplicate carrier truth, and no prompt-carried answer. The compiler
+    slice shall include the F_P validation/review traversal over a candidate
+    plan when policy requires semantic sanity checking; F_P may only propose
+    or review wording/rubric/policy clarity, and its output remains admitted
+    evidence until F_D validates or rejects the plan.
   - >-
     Phase 4 - Startup admission: Admit compiled prompt plans through the same
     canonical startup path used for product GTL declarations, registry/library
@@ -216,6 +219,8 @@ acceptance_criteria:
   - The semantic compiler deterministically validates relevance, compression,
     proportionality, type coverage, authority coverage, source trace, and
     response-contract derivation.
+  - Any F_P validation traversal in the compiler path is admitted as evidence
+    only and cannot approve a compiled prompt plan without F_D validation.
   - F_P is never authoritative for relevance, compression, proportionality,
     runtime truth, selection, admission, closure, or response admission.
   - Renderer execution is ABG-owned or delegated only to an authority-denied
@@ -235,7 +240,7 @@ acceptance_criteria:
     records their exact ratified equivalent.
 proof_commands:
   - git diff --check
-  - rg -n "REQ-R-ABG3-INSTRUCTION-ASSEMBLY-(005|007|011|012|014)" specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md
+  - rg -n "REQ-R-ABG3-INSTRUCTION-ASSEMBLY-(005|007|011|012|014|015)" specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md
   - rg -n "InstructionAssemblyRule|CompiledPromptPlan|RuntimeBindingSlot|PromptManifest|non-tautology|P0" specification build_tenants/abiogenesis/typescript/design
   - "! rg -n \"InstructionComposition|PromptPlan|sourceNodeTypeRefs|targetNodeTypeRefs|responseContractRef|requiredCarrierClasses\" build_tenants/abiogenesis/typescript/code/src"
   - cd build_tenants/abiogenesis/typescript && npm run build:semantic
@@ -288,6 +293,9 @@ Initial design decisions recorded:
   carriers.
 - Relevance and compression are F_D compiler decisions; F_P may propose
   wording or clarity but cannot own inclusion/minimality.
+- The compiler slice includes an F_P validation/review traversal as semantic
+  sanity-check evidence. That traversal cannot approve the plan without F_D
+  validation and admission.
 - Renderer execution is ABG-owned or delegated only to an authority-denied
   governed renderer over immutable envelopes.
 - P0 deterministic edges are no-dispatch edges.
