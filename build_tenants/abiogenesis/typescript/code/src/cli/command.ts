@@ -164,6 +164,7 @@ interface RuntimeBinding {
   readonly runtimeIdentity: PublicStartContext["runtimeIdentity"];
   readonly resolvedPolicy: PublicStartContext["resolvedPolicy"];
   readonly runtimeRegistryStartup?: PublicStartContext["runtimeRegistryStartup"];
+  readonly instructionAssemblyStartup?: PublicStartContext["instructionAssemblyStartup"];
   // Scoped to plugin-observer FALLBACK resolution only (installed-workspace
   // path for the abg.config.json `fallbacks` section). It is NOT global config
   // authority: the lever and target-carrier sections resolve via
@@ -931,6 +932,7 @@ function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
     constructionAffectPolicies?: readonly AffectPriorityPolicy[];
     assuranceProvider?: EngineAssuranceProvider;
     runtimeRegistryStartup?: PublicStartContext["runtimeRegistryStartup"];
+    instructionAssemblyStartup?: PublicStartContext["instructionAssemblyStartup"];
     resolveNextTarget?: RuntimeBindingNextTargetResolver;
     resolvePolicy?: RuntimeBindingPolicyFactory;
     plugins?: EngineRunnerPluginSet;
@@ -1012,6 +1014,15 @@ function coerceRuntimeBinding(input: unknown, label: string): RuntimeBinding {
     }
     result.runtimeRegistryStartup =
       input["runtimeRegistryStartup"] as unknown as PublicStartContext["runtimeRegistryStartup"];
+  }
+  if (hasOwnField(input, "instructionAssemblyStartup")) {
+    if (!isRecord(input["instructionAssemblyStartup"])) {
+      throw new CliError(
+        `${label}.instructionAssemblyStartup must be an object`
+      );
+    }
+    result.instructionAssemblyStartup =
+      input["instructionAssemblyStartup"] as unknown as PublicStartContext["instructionAssemblyStartup"];
   }
   if (hasOwnField(input, "plugins")) {
     if (!isRecord(input["plugins"])) {
@@ -1380,6 +1391,9 @@ function startContext(
     ...(binding.runtimeRegistryStartup === undefined
       ? {}
       : { runtimeRegistryStartup: binding.runtimeRegistryStartup }),
+    ...(binding.instructionAssemblyStartup === undefined
+      ? {}
+      : { instructionAssemblyStartup: binding.instructionAssemblyStartup }),
     ...(binding.pluginTraversalObserverFallbackEnabled === undefined
       ? {}
       : {

@@ -255,6 +255,10 @@ export interface RuntimeBindingFact {
   readonly digest: string;
   readonly sourceEventRefs: readonly string[];
   readonly admitted: boolean;
+  readonly payloadDigest?: string | null;
+  readonly contentRef?: string | null;
+  readonly contentDigest?: string | null;
+  readonly contentExcerpt?: string | null;
 }
 
 export interface InstructionEnvelope {
@@ -400,7 +404,7 @@ function renderedPromptFor(input: {
   const sections = input.plan.sectionDecisions.filter(
     (section) => section.disposition === "include"
   );
-  return sections
+  const sectionText = sections
     .map((section) => {
       const carrierLine = `carriers: ${stableJson(section.carrierRefs)}`;
       const dependencyLine = `dependencies: ${stableJson(section.dependencyRefs)}`;
@@ -414,6 +418,28 @@ function renderedPromptFor(input: {
       ].join("\n");
     })
     .join("\n\n");
+  const runtimeBindingText =
+    input.envelope.boundRuntimeRefs.length === 0
+      ? "none"
+      : input.envelope.boundRuntimeRefs
+          .map((fact) =>
+            [
+              `- slot: ${fact.slotClass}`,
+              `  ref: ${fact.ref}`,
+              `  digest: ${fact.digest}`,
+              `  payloadDigest: ${fact.payloadDigest ?? "none"}`,
+              `  contentRef: ${fact.contentRef ?? "none"}`,
+              `  contentDigest: ${fact.contentDigest ?? "none"}`,
+              `  contentExcerpt: ${stableJson(fact.contentExcerpt ?? null)}`,
+              `  sourceEventRefs: ${stableJson(fact.sourceEventRefs)}`
+            ].join("\n")
+          )
+          .join("\n");
+  return [
+    sectionText,
+    "## abg.runtime.bound_refs",
+    runtimeBindingText
+  ].join("\n\n");
 }
 
 function manifestDigest(input: Omit<PromptManifest, "manifestDigest">): string {

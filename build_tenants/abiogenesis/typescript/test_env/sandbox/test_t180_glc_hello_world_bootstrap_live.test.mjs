@@ -1,5 +1,7 @@
 // Validates: T-180
 // Validates: T-182
+// Validates: T-183
+// Validates: T-184
 // Validates: T-177
 // Validates: REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL
 // Validates: REQ-L-GTL3-NODE
@@ -10,7 +12,6 @@ import { createHash } from "node:crypto";
 import {
   mkdir,
   readFile,
-  rm,
   symlink,
   writeFile
 } from "node:fs/promises";
@@ -40,12 +41,15 @@ const DOCS_ROOT = path.join(REPO_ROOT, "docs");
 const TEST_RUNS_ROOT = path.join(
   TEST_ENV_ROOT,
   "test_runs",
-  "t180_glc_hello_world_bootstrap_live"
+  "canonical_hello_world_full_stack_live"
 );
 
 function liveEnabled() {
-  return process.env["ABG_TS_T180_GLC_BOOTSTRAP_LIVE"] === "1" ||
+  return process.env["ABG_TS_HELLO_WORLD_FULL_STACK_LIVE"] === "1" ||
+    process.env["ABG_TS_T184_CANONICAL_HELLO_WORLD_LIVE"] === "1" ||
     process.env["ABG_TS_T182_CAUSAL_CARRY_LIVE"] === "1" ||
+    process.env["ABG_TS_T180_GLC_BOOTSTRAP_LIVE"] === "1" ||
+    process.env["ABG_TS_T183_INSTRUCTION_ASSEMBLY_LIVE"] === "1" ||
     process.env["CODEX_LIVE_FP"] === "1";
 }
 
@@ -126,17 +130,22 @@ function runtimeBindingSource(input) {
   admitResolvedRuntimeIdentity,
   composeWithTypeWiring,
   composeNodeTypes,
+  compileInstructionAssemblyPlan,
   constructDefaultAbgFnCompositionDeclarations,
   constructFpDispatchOutcome,
   constructGtlLibraryEntryDeclaration,
+  constructInstructionAssemblyRule,
+  constructInstructionSectionDecision,
   constructNode,
   constructNodeTypeGraphFunction,
   constructProductRegistryStartupConfig,
+  constructRuntimeBindingSlot,
   contractForKnownAgent,
   defaultFpDispatchPlugin,
   defaultFpEvaluatorPlugin,
   edge,
   graphFunctionForVector,
+  INSTRUCTION_ASSEMBLY_KNOWN_ALGEBRAS,
   runAgentTransport,
   satisfiesNodeType
 } from ${JSON.stringify(packageImport)};
@@ -563,6 +572,186 @@ const runtimeRegistryStartup = Object.freeze({
   correlationId: "correlation://odd_glc/glc-hello-world-bootstrap/startup"
 });
 
+function instructionRuleForVector(input) {
+  return constructInstructionAssemblyRule({
+    ruleRef: \`instruction-rule://odd_glc/glc-bootstrap/vector-\${input.vectorIndex}\`,
+    appliesToGraphFunctionRefs: [glcHelloWorldGraphFunction.id],
+    appliesToVectorRefs: [input.vector.name],
+    sectionRules: [
+      {
+        sectionRef: \`section://odd_glc/glc-bootstrap/vector-\${input.vectorIndex}/task\`,
+        required: true,
+        policyRefs: ["policy://odd_glc/glc-bootstrap/instruction"]
+      }
+    ],
+    relevanceRules: [
+      {
+        ruleRef: \`relevance://odd_glc/glc-bootstrap/vector-\${input.vectorIndex}\`,
+        requiredInputRefs: input.requiredInputRefs,
+        allowFutureStageRefs: []
+      }
+    ],
+    compressionPolicyRef: "compression://odd_glc/glc-bootstrap/runtime-bound-excerpts",
+    proportionalityPolicyRef: "proportionality://odd_glc/glc-bootstrap/live-worker",
+    runtimeBindingSlotClasses: input.requiresPriorArtifact
+      ? [
+          "graph_call",
+          "frame",
+          "vector",
+          "selected_graph_function",
+          "source_node",
+          "target_node",
+          "event_log",
+          "worker_invocation",
+          "prior_artifact"
+        ]
+      : [
+          "graph_call",
+          "frame",
+          "vector",
+          "selected_graph_function",
+          "source_node",
+          "target_node",
+          "event_log",
+          "worker_invocation"
+        ],
+    policyRefs: ["policy://odd_glc/glc-bootstrap/live"],
+    evidenceRefs: ["evidence://odd_glc/glc-bootstrap/instruction-rule"]
+  });
+}
+
+function instructionSectionForVector(input) {
+  const stage = input.vectorIndex === 0 ? "program" : "execution_evidence";
+  return constructInstructionSectionDecision({
+    sectionRef: \`section://odd_glc/glc-bootstrap/vector-\${input.vectorIndex}/task\`,
+    disposition: "include",
+    dependencyRefs: [input.vector.name],
+    carrierRefs: input.vector.source.map((node) => node.id).concat(input.vector.target.id),
+    compressionMode: input.vectorIndex === 0 ? "digest" : "excerpt",
+    text: [
+      "Return only one JSON object. Do not include markdown or commentary.",
+      "You are the live F_P worker for an odd_glc generic lifecycle Hello World bootstrap.",
+      "ABG owns registry startup, graph-function selection, traversal, instruction rendering, event truth, response admission, and closure.",
+      "odd_glc supplies product GTL declarations, node types, graph overlay refs, and policy refs as data.",
+      \`Current stage: \${stage}\`,
+      "",
+      "Use the ABG-rendered runtime bound refs section below. Do not claim to emit ABG events, select graph functions, admit responses, or close traversal.",
+      "",
+      "Required JSON:",
+      "{",
+      "  \\"stage\\": \\"program\\" | \\"execution_evidence\\",",
+      "  \\"source\\": string,",
+      "  \\"expectedStdout\\": \\"Hello, world!\\\\n\\",",
+      "  \\"nodeTypesUsed\\": string[],",
+      "  \\"causalInputPayloadRefsSeen\\": string[],",
+      "  \\"causalInputContentDigestSeen\\": string | null,",
+      "  \\"causalInputContentSummary\\": string | null,",
+      "  \\"reason\\": string",
+      "}",
+      "",
+      "For stage program, provide a minimal JavaScript ESM program in source.",
+      \`For stage program, nodeTypesUsed must include exactly \${TYPE_REFS.bootstrapContext} and \${TYPE_REFS.helloWorldProgram}.\`,
+      "For stage program, causalInputPayloadRefsSeen must be an empty list.",
+      "For stage program, causalInputContentDigestSeen must be null.",
+      "For stage program, causalInputContentSummary must be null.",
+      "For stage execution_evidence, inspect only the ABG runtime bound_refs prior_artifact row.",
+      "For stage execution_evidence, causalInputPayloadRefsSeen must echo exactly the prior_artifact ref values from bound_refs.",
+      "For stage execution_evidence, causalInputContentDigestSeen must echo exactly the first prior_artifact contentDigest value.",
+      "For stage execution_evidence, causalInputContentSummary must summarize the first prior_artifact contentExcerpt value and mention Hello, world.",
+      \`For stage execution_evidence, nodeTypesUsed must include exactly \${TYPE_REFS.helloWorldProgram} and \${TYPE_REFS.executionEvidence}.\`
+    ].join("\\n"),
+    digestRef: \`sha256:odd-glc-glc-bootstrap-vector-\${input.vectorIndex}\`,
+    excerptDigest: input.vectorIndex === 0
+      ? null
+      : \`sha256:odd-glc-glc-bootstrap-vector-\${input.vectorIndex}-excerpt\`,
+    fullContentAdmitted: false,
+    stageRef: \`stage://odd_glc/glc-bootstrap/\${stage}\`,
+    gapRefs: []
+  });
+}
+
+function instructionBindingSlots(requiresPriorArtifact) {
+  const slots = [
+    ["graph_call", "replay_event"],
+    ["frame", "replay_event"],
+    ["vector", "projection"],
+    ["selected_graph_function", "replay_event"],
+    ["source_node", "projection"],
+    ["target_node", "projection"],
+    ["event_log", "projection"],
+    ["worker_invocation", "replay_event"]
+  ];
+  if (requiresPriorArtifact) {
+    slots.push(["prior_artifact", "admitted_ref"]);
+  }
+  return slots.map(([slotClass, sourceTruthKind]) =>
+    constructRuntimeBindingSlot({
+      slotRef: \`slot://odd_glc/glc-bootstrap/\${slotClass}\${requiresPriorArtifact ? "/with-prior" : ""}\`,
+      slotClass,
+      required: true,
+      sourceTruthKind,
+      evidenceRefs: [\`evidence://odd_glc/glc-bootstrap/slot/\${slotClass}\`]
+    })
+  );
+}
+
+function compiledPromptPlanForVector(vectorIndex) {
+  const vector = glcHelloWorldGraphFunction.template.graph.vectors[vectorIndex];
+  if (vector === undefined) {
+    throw new Error(\`Missing GLC bootstrap vector \${vectorIndex}\`);
+  }
+  const requiresPriorArtifact = vectorIndex > 0;
+  const requiredInputRefs = requiresPriorArtifact
+    ? ["asset_kind=glc_lifecycle_artifact"]
+    : [];
+  const result = compileInstructionAssemblyPlan({
+    planRef: \`compiled-prompt-plan://odd_glc/glc-bootstrap/vector-\${vectorIndex}\`,
+    rule: instructionRuleForVector({
+      vector,
+      vectorIndex,
+      requiresPriorArtifact,
+      requiredInputRefs
+    }),
+    graphFunctionRef: glcHelloWorldGraphFunction.id,
+    vectorRef: vector.name,
+    registryEntryRefs: ["registry-entry://odd_glc/glc-bootstrap/graph-function/glc-hello-world-bootstrap"],
+    sourceNodeRefs: vector.source.map((node) => node.id),
+    targetNodeRef: vector.target.id,
+    derivedTruth: {
+      kind: "derived_instruction_carrier_truth",
+      sourceTypeRefs: vector.source.map((node) => node.typeRef ?? node.schema.ref),
+      targetTypeRefs: [vector.target.typeRef ?? vector.target.schema.ref],
+      outputContractRefs: [\`contract://odd_glc/glc-bootstrap/vector-\${vectorIndex}/output\`],
+      proofRefs: [\`proof://odd_glc/glc-bootstrap/vector-\${vectorIndex}\`],
+      authorityRefs: ["authority://abg/runtime", "authority://abg/instruction-assembly"],
+      rendererRefs: ["renderer://abg/instruction-envelope/default"],
+      activeRegime: "F_P",
+      carrierClassRefs: vector.source.map((node) => node.id).concat(vector.target.id)
+    },
+    knownAlgebraRefs: [...INSTRUCTION_ASSEMBLY_KNOWN_ALGEBRAS],
+    requiredInputRefs,
+    availableInputRefs: requiredInputRefs,
+    sectionDecisions: [instructionSectionForVector({ vector, vectorIndex })],
+    bindingSlots: instructionBindingSlots(requiresPriorArtifact),
+    proportionalityClass: "P1",
+    expectedAnswerMarkers: ["closed", "release_ready", "blocked"],
+    fpValidationEvidenceRefs: ["semantic-review-gate://odd_glc/glc-bootstrap/instruction-plan"],
+    compilerEvidenceRefs: ["evidence://odd_glc/glc-bootstrap/compiler"]
+  });
+  if (!result.accepted || result.plan === null) {
+    throw new Error(\`GLC compiled prompt plan rejected: \${JSON.stringify(result.issues)}\`);
+  }
+  return result.plan;
+}
+
+const instructionAssemblyStartup = Object.freeze({
+  compiledPromptPlans: Object.freeze([
+    compiledPromptPlanForVector(0),
+    compiledPromptPlanForVector(1)
+  ]),
+  rendererRef: "renderer://abg/instruction-envelope/default"
+});
+
 function extractJsonObject(text) {
   const trimmed = text.trim();
   const fenced = trimmed.match(new RegExp("\`\`\`(?:json)?\\\\s*([\\\\s\\\\S]*?)\\\\s*\`\`\`", "iu"));
@@ -593,60 +782,6 @@ async function runNodeProgram(programPath) {
   });
 }
 
-function promptFor(input) {
-  const request = input.fpTransformRequest;
-  return [
-    "Return only one JSON object. Do not include markdown or commentary.",
-    "You are the live F_P worker for an odd_glc generic lifecycle Hello World bootstrap.",
-    "ABG owns registry startup, graph-function selection, traversal, event truth, and closure.",
-    "odd_glc supplies GTL declarations, product-library node types, and policy/overlay refs only.",
-    "",
-    \`Current edge: \${input.edge}\`,
-    \`Vector index: \${input.vectorIndex}\`,
-    "",
-    "ABG causal-carry context for this edge:",
-    \`- instructionCausalStatus: \${request.instructionCausalStatus}\`,
-    \`- causalInputPayloadRefs: \${JSON.stringify(request.causalInputPayloadRefs)}\`,
-    \`- causalInputPayloadDigests: \${JSON.stringify(request.causalInputPayloadDigests)}\`,
-    \`- causalInputContentRefs: \${JSON.stringify(request.causalInputContentRefs)}\`,
-    \`- causalInputContentDigests: \${JSON.stringify(request.causalInputContentDigests)}\`,
-    \`- causalInputContentExcerpts: \${JSON.stringify(request.causalInputContentExcerpts)}\`,
-    \`- causalRequiredInputRefs: \${JSON.stringify(request.causalRequiredInputRefs)}\`,
-    \`- causalMissingInputRefs: \${JSON.stringify(request.causalMissingInputRefs)}\`,
-    "",
-    "Declared GTL node type refs:",
-    \`- bootstrap context: \${TYPE_REFS.bootstrapContext}\`,
-    \`- lifecycle artifact: \${TYPE_REFS.lifecycleArtifact}\`,
-    \`- executable artifact: \${TYPE_REFS.executableArtifact}\`,
-    \`- composed Hello World program artifact: \${TYPE_REFS.helloWorldProgram}\`,
-    \`- execution evidence: \${TYPE_REFS.executionEvidence}\`,
-    "",
-    "Required JSON:",
-    "{",
-    "  \\"stage\\": \\"program\\" | \\"execution_evidence\\",",
-    "  \\"source\\": string,",
-    "  \\"expectedStdout\\": \\"Hello, world!\\\\n\\",",
-    "  \\"nodeTypesUsed\\": string[],",
-    "  \\"causalInputPayloadRefsSeen\\": string[],",
-    "  \\"causalInputContentDigestSeen\\": string | null,",
-    "  \\"causalInputContentSummary\\": string | null,",
-    "  \\"reason\\": string",
-    "}",
-    "",
-    "For stage program, provide a minimal JavaScript ESM program in source.",
-    \`For stage program, nodeTypesUsed must include exactly \${TYPE_REFS.bootstrapContext} and \${TYPE_REFS.helloWorldProgram}.\`,
-    "For stage program, causalInputPayloadRefsSeen must be an empty list.",
-    "For stage program, causalInputContentDigestSeen must be null.",
-    "For stage program, causalInputContentSummary must be null.",
-    "For stage execution_evidence, inspect the ABG causal-carry context and return a short evidence summary in source.",
-    "For stage execution_evidence, causalInputPayloadRefsSeen must echo exactly the listed causalInputPayloadRefs.",
-    "For stage execution_evidence, causalInputContentDigestSeen must echo exactly the first listed causalInputContentDigests value.",
-    "For stage execution_evidence, causalInputContentSummary must summarize the first listed causalInputContentExcerpts value and mention Hello, world.",
-    \`For stage execution_evidence, nodeTypesUsed must include exactly \${TYPE_REFS.helloWorldProgram} and \${TYPE_REFS.executionEvidence}.\`,
-    "Do not claim to emit ABG events, select graph functions, or close traversal."
-  ].join("\\n");
-}
-
 export const runtimeBinding = {
   module,
   runtimeIdentity: admitResolvedRuntimeIdentity({
@@ -662,6 +797,7 @@ export const runtimeBinding = {
     approvalSubjectRef: null
   }),
   runtimeRegistryStartup,
+  instructionAssemblyStartup,
   runId: "run://odd_glc/glc-bootstrap-live",
   workKey: "wk://odd_glc/glc-bootstrap-live",
   createPlugins: ({ workspaceRoot }) => {
@@ -671,9 +807,21 @@ export const runtimeBinding = {
         const liveRoot = path.join(workspaceRoot, ".ai-workspace", "glc-hello-world-live");
         await mkdir(liveRoot, { recursive: true });
         const label = \`t180-glc-bootstrap-vector-\${pluginInput.vectorIndex}\`;
+        if (pluginInput.instructionPromptManifest === null) {
+          throw new Error("GLC live dispatch did not receive ABG instruction prompt manifest");
+        }
+        if (!pluginInput.instructionPromptManifest.renderedPrompt.includes("## abg.runtime.bound_refs")) {
+          throw new Error("GLC live prompt is missing ABG-rendered runtime bound refs");
+        }
+        if (
+          pluginInput.vectorIndex === 1 &&
+          !pluginInput.instructionPromptManifest.renderedPrompt.includes("slot: prior_artifact")
+        ) {
+          throw new Error("GLC vector 1 prompt is missing ABG-rendered prior artifact truth");
+        }
         const transport = await runAgentTransport({
           contract: contractForKnownAgent(process.env.ABG_TS_LIVE_AGENT ?? "claude"),
-          prompt: promptFor(pluginInput),
+          prompt: pluginInput.instructionPromptManifest.renderedPrompt,
           cwd: workspaceRoot,
           archiveRoot: liveRoot,
           label,
@@ -869,7 +1017,7 @@ function parseJsonLines(text) {
 
 test("T-180 GLC Hello World live bootstrap runs from a snapshot-installed sandbox instance", async (t) => {
   if (!liveEnabled()) {
-    t.skip("set ABG_TS_T180_GLC_BOOTSTRAP_LIVE=1 or CODEX_LIVE_FP=1 to run the GLC bootstrap live proof");
+    t.skip("set ABG_TS_HELLO_WORLD_FULL_STACK_LIVE=1 or CODEX_LIVE_FP=1 to run the canonical Hello World live proof");
     return;
   }
 
@@ -959,7 +1107,7 @@ test("T-180 GLC Hello World live bootstrap runs from a snapshot-installed sandbo
       env: {
         ...process.env,
         CODEX_LIVE_FP: "1",
-        ABG_TS_T180_GLC_BOOTSTRAP_LIVE: "1",
+        ABG_TS_HELLO_WORLD_FULL_STACK_LIVE: "1",
         ABG_TS_LIVE_AGENT: process.env["ABG_TS_LIVE_AGENT"] ?? "claude",
         ABG_TS_LIVE_TIMEOUT_MS: process.env["ABG_TS_LIVE_TIMEOUT_MS"] ?? "180000"
       }
@@ -972,6 +1120,8 @@ test("T-180 GLC Hello World live bootstrap runs from a snapshot-installed sandbo
   assert.equal(startOutput.resolved_target.includes("odd_glc"), true);
   assert.equal(startOutput.event_kinds.includes("graph_function_selected"), true);
   assert.equal(startOutput.event_kinds.includes("graph_call_opened"), true);
+  assert.equal(startOutput.event_kinds.includes("instruction_prompt_manifest_projected"), true);
+  assert.equal(startOutput.event_kinds.includes("instruction_response_contract_admitted"), true);
 
   const events = parseJsonLines(await readFile(startOutput.events_path, "utf8"));
   const registryEvents = events.filter((event) =>
@@ -1012,6 +1162,28 @@ test("T-180 GLC Hello World live bootstrap runs from a snapshot-installed sandbo
   );
   assert.ok(firstSelectionIndex >= 0);
   assert.ok(firstGraphCallIndex > firstSelectionIndex);
+  const promptManifestEvents = events.filter((event) =>
+    event.kind === "instruction_prompt_manifest_projected"
+  );
+  const responseAdmissionEvents = events.filter((event) =>
+    event.kind === "instruction_response_contract_admitted"
+  );
+  const actorArtifactEvents = events.filter((event) =>
+    event.kind === "actor_result_artifact_observed"
+  );
+  assert.equal(promptManifestEvents.length, 2);
+  assert.equal(responseAdmissionEvents.length, 2);
+  assert.equal(actorArtifactEvents.length, 2);
+  for (const responseEvent of responseAdmissionEvents) {
+    const manifestIndex = events.findIndex((event) =>
+      event.kind === "instruction_prompt_manifest_projected" &&
+      event.manifestRef === responseEvent.manifestRef
+    );
+    const responseIndex = events.findIndex((event) => event === responseEvent);
+    assert.ok(manifestIndex >= 0);
+    assert.ok(responseIndex > manifestIndex);
+    assert.equal(responseEvent.outputContractRefs.length, 1);
+  }
   const causalEvents = events.filter((event) =>
     event.kind === "instruction_causal_context_bound"
   );
@@ -1071,11 +1243,20 @@ test("T-180 GLC Hello World live bootstrap runs from a snapshot-installed sandbo
     secondVectorCausalEvent.payloadRefs
   );
 
+  const eventCounts = events.reduce((accumulator, event) => {
+    accumulator[event.kind] = (accumulator[event.kind] ?? 0) + 1;
+    return accumulator;
+  }, {});
   const proof = {
-    kind: "t180_t182_glc_hello_world_bootstrap_causal_carry_live_proof",
+    kind: "canonical_hello_world_full_stack_live_proof",
     sourceCommit,
     sourceDirty,
     durationMs,
+    installedPackage: {
+      packageName: packageJson.name,
+      packageVersion: packageJson.version,
+      packageRoot: install.packageRoot
+    },
     snapshotRoot,
     snapshotTarball: snapshot.manifest.tarball.path,
     snapshotTarballSha256: snapshot.manifest.tarball.sha256,
@@ -1086,6 +1267,12 @@ test("T-180 GLC Hello World live bootstrap runs from a snapshot-installed sandbo
     genesisCommand,
     startOutput,
     eventDigest: sha256Text(JSON.stringify(events)),
+    eventCounts,
+    promptManifestCount: promptManifestEvents.length,
+    responseAdmissionCount: responseAdmissionEvents.length,
+    actorResultArtifactCount: actorArtifactEvents.length,
+    registryAdmissionCount: registryEvents.length,
+    graphFunctionSelectionCount: selections.length,
     causalCarry: {
       contextRef: secondVectorCausalEvent.contextRef,
       payloadRefs: secondVectorCausalEvent.payloadRefs,
@@ -1097,10 +1284,11 @@ test("T-180 GLC Hello World live bootstrap runs from a snapshot-installed sandbo
     liveArtifacts: [
       firstArtifact.transport.outputPath,
       secondArtifact.transport.outputPath
-    ]
+    ],
+    executionStdout: secondArtifact.execution.stdout
   };
   await writeText(
-    path.join(runRoot, "t180-glc-hello-world-bootstrap-live-proof.json"),
+    path.join(runRoot, "canonical-hello-world-full-stack-live-proof.json"),
     `${JSON.stringify(proof, null, 2)}\n`
   );
 });

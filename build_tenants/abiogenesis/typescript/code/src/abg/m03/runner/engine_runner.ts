@@ -620,6 +620,10 @@ function runtimeBindingFact(input: {
   readonly slotClass: RuntimeBindingFact["slotClass"];
   readonly ref: string;
   readonly sourceEventRefs: readonly string[];
+  readonly payloadDigest?: string | null | undefined;
+  readonly contentRef?: string | null | undefined;
+  readonly contentDigest?: string | null | undefined;
+  readonly contentExcerpt?: string | null | undefined;
 }): RuntimeBindingFact {
   return Object.freeze({
     kind: "runtime_binding_fact",
@@ -628,10 +632,18 @@ function runtimeBindingFact(input: {
     digest: stableSha256Digest({
       slotClass: input.slotClass,
       ref: input.ref,
-      sourceEventRefs: input.sourceEventRefs
+      sourceEventRefs: input.sourceEventRefs,
+      payloadDigest: input.payloadDigest ?? null,
+      contentRef: input.contentRef ?? null,
+      contentDigest: input.contentDigest ?? null,
+      contentExcerpt: input.contentExcerpt ?? null
     }),
     sourceEventRefs: Object.freeze([...input.sourceEventRefs]),
-    admitted: true
+    admitted: true,
+    payloadDigest: input.payloadDigest ?? null,
+    contentRef: input.contentRef ?? null,
+    contentDigest: input.contentDigest ?? null,
+    contentExcerpt: input.contentExcerpt ?? null
   });
 }
 
@@ -722,7 +734,7 @@ function runtimeBindingFactsForInstructionAssembly(input: {
   }
   const context = input.pluginInput.instructionCausalContext;
   if (context !== null) {
-    for (const payloadRef of context.payloadRefs) {
+    for (const [index, payloadRef] of context.payloadRefs.entries()) {
       facts.push(
         runtimeBindingFact({
           slotClass: "prior_artifact",
@@ -730,7 +742,11 @@ function runtimeBindingFactsForInstructionAssembly(input: {
           sourceEventRefs: [
             ...context.sourceProjectionRefs,
             ...context.evidenceRefs
-          ]
+          ],
+          payloadDigest: context.payloadDigests[index] ?? null,
+          contentRef: context.contentRefs[index] ?? null,
+          contentDigest: context.contentDigests[index] ?? null,
+          contentExcerpt: context.contentExcerpts[index] ?? null
         })
       );
     }
