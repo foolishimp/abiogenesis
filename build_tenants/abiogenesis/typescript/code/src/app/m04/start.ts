@@ -75,6 +75,9 @@ export function startFromRequest(
     ...(context.runtimeRegistryStartup === undefined
       ? {}
       : { runtimeRegistryStartup: context.runtimeRegistryStartup }),
+    ...(context.instructionAssemblyStartup === undefined
+      ? {}
+      : { instructionAssemblyStartup: context.instructionAssemblyStartup }),
     ...(context.abgFallbackBundle === undefined
       ? {}
       : { abgFallbackBundle: context.abgFallbackBundle }),
@@ -140,6 +143,9 @@ export async function startFromRequestAsync(
     ...(context.runtimeRegistryStartup === undefined
       ? {}
       : { runtimeRegistryStartup: context.runtimeRegistryStartup }),
+    ...(context.instructionAssemblyStartup === undefined
+      ? {}
+      : { instructionAssemblyStartup: context.instructionAssemblyStartup }),
     ...(context.abgFallbackBundle === undefined
       ? {}
       : { abgFallbackBundle: context.abgFallbackBundle }),

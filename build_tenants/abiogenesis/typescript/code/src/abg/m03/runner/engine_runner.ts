@@ -34,6 +34,7 @@ import {
   constructFhEscalatedEvent,
   constructFpDispatchRequestedEvent,
   constructInstructionCausalContextBoundEvent,
+  constructInstructionPromptManifestProjectedEvent,
   constructPayloadObservedEvent,
   constructPayloadValidatedEvent,
   constructPluginTraversalPromptMaterializedEvent,
@@ -192,8 +193,18 @@ import {
   selectGraphFunctionFromRegistry,
   type GraphFunctionSelectionEvent,
   type RuntimeRegistryEntryProjection,
+  type RuntimeRegistryStartupAdmissionResult,
   type RuntimeRegistryStartupInput
 } from "../contracts/runtime_graph_function_registry.js";
+import {
+  admitCompiledPromptPlanAtStartup,
+  bindInstructionEnvelope,
+  renderPromptManifest,
+  type CompiledPromptPlan,
+  type CompiledPromptPlanStartupAdmission,
+  type PromptManifest,
+  type RuntimeBindingFact
+} from "../contracts/instruction_assembly.js";
 import {
   constructExecutivePressureFactProjectedEvent,
   type ExecutiveContinuationInputProjection,
@@ -264,6 +275,9 @@ export interface EngineIterateRequest {
   readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
   readonly eventSink: RuntimeEventSink;
   readonly runtimeRegistryStartup?: RuntimeRegistryStartupInput | undefined;
+  readonly instructionAssemblyStartup?:
+    | EngineInstructionAssemblyStartupInput
+    | undefined;
   readonly plugins?: EngineRunnerPluginSet | undefined;
   readonly maxAttachedFpAttempts?: number | undefined;
   readonly assuranceProvider?: EngineAssuranceProvider | undefined;
@@ -299,6 +313,9 @@ export interface EngineStartRequest extends ExecutionBasisAdmissionInput {
   readonly runtimeEvents?: readonly RuntimeEvent[] | undefined;
   readonly eventSink: RuntimeEventSink;
   readonly runtimeRegistryStartup?: RuntimeRegistryStartupInput | undefined;
+  readonly instructionAssemblyStartup?:
+    | EngineInstructionAssemblyStartupInput
+    | undefined;
   readonly plugins?: EngineRunnerPluginSet | undefined;
   readonly maxAttachedFpAttempts?: number | undefined;
   readonly assuranceProvider?: EngineAssuranceProvider | undefined;
@@ -339,6 +356,22 @@ export interface EngineIterateResult {
   readonly replayEvents: readonly RuntimeEvent[];
   readonly iterationCount: number;
   readonly assuranceGate: EngineAssuranceGateResult;
+}
+
+export interface EngineInstructionAssemblyStartupInput {
+  readonly compiledPromptPlans: readonly CompiledPromptPlan[];
+  readonly rendererRef: string;
+}
+
+interface EngineInstructionAssemblyPlanAdmission {
+  readonly plan: CompiledPromptPlan;
+  readonly admission: CompiledPromptPlanStartupAdmission;
+}
+
+interface EngineInstructionAssemblyRuntime {
+  readonly rendererRef: string;
+  readonly plans: readonly EngineInstructionAssemblyPlanAdmission[];
+  readonly startupRejectedPlanRefs: readonly string[];
 }
 
 interface ResolvedRunnerPlugins {
@@ -519,6 +552,296 @@ function actorInvocationRef(invocation: ActorInvocation): ActorInvocationRef {
     attemptIndex: invocation.attemptIndex,
     dispatchRef: invocation.dispatchRef,
     resultRef: invocation.resultRef
+  });
+}
+
+function instructionAssemblyRuntimeForStartup(input: {
+  readonly startup: EngineInstructionAssemblyStartupInput | undefined;
+  readonly registryStartup: RuntimeRegistryStartupAdmissionResult | null;
+}): EngineInstructionAssemblyRuntime | null {
+  if (input.startup === undefined) {
+    return null;
+  }
+  const startupEventRefs = Object.freeze(
+    input.registryStartup?.admissionEvents.map((event) =>
+      event.kind === "registry_entry_admitted"
+        ? event.entryRef
+        : event.declarationRef
+    ) ?? []
+  );
+  const registryEntryRefs =
+    input.registryStartup?.admittedEntryRefs ?? Object.freeze([]);
+  const plans = Object.freeze(
+    input.startup.compiledPromptPlans.map((plan) =>
+      Object.freeze({
+        plan,
+        admission: admitCompiledPromptPlanAtStartup({
+          plan,
+          registryEntryRefs,
+          startupEventRefs
+        })
+      })
+    )
+  );
+  return Object.freeze({
+    rendererRef: input.startup.rendererRef,
+    plans: Object.freeze(
+      plans.filter((row) => row.admission.admitted)
+    ),
+    startupRejectedPlanRefs: Object.freeze(
+      plans
+        .filter((row) => !row.admission.admitted)
+        .map((row) => row.plan.planRef)
+    )
+  });
+}
+
+function instructionAssemblyPlanForTransition(input: {
+  readonly runtime: EngineInstructionAssemblyRuntime | null;
+  readonly basis: ExecutionBasis;
+  readonly transition: FpDispatchTransition;
+}): EngineInstructionAssemblyPlanAdmission | null {
+  if (input.runtime === null) {
+    return null;
+  }
+  return (
+    input.runtime.plans.find(
+      (row) =>
+        selectedGraphFunctionRefMatchesBasis({
+          selectedGraphFunctionRef: row.plan.graphFunctionRef,
+          basis: input.basis
+        }) && row.plan.vectorRef === input.transition.edge
+    ) ?? null
+  );
+}
+
+function runtimeBindingFact(input: {
+  readonly slotClass: RuntimeBindingFact["slotClass"];
+  readonly ref: string;
+  readonly sourceEventRefs: readonly string[];
+}): RuntimeBindingFact {
+  return Object.freeze({
+    kind: "runtime_binding_fact",
+    slotClass: input.slotClass,
+    ref: input.ref,
+    digest: stableSha256Digest({
+      slotClass: input.slotClass,
+      ref: input.ref,
+      sourceEventRefs: input.sourceEventRefs
+    }),
+    sourceEventRefs: Object.freeze([...input.sourceEventRefs]),
+    admitted: true
+  });
+}
+
+function latestSelectedGraphFunctionEvent(input: {
+  readonly basis: ExecutionBasis;
+  readonly replayEvents: readonly RuntimeEvent[];
+}): Extract<RuntimeEvent, { readonly kind: "graph_function_selected" }> | null {
+  for (const event of [...input.replayEvents].reverse()) {
+    if (
+      event.kind === "graph_function_selected" &&
+      selectedGraphFunctionRefMatchesBasis({
+        selectedGraphFunctionRef: event.selectedGraphFunctionRef,
+        basis: input.basis
+      })
+    ) {
+      return event;
+    }
+  }
+  return null;
+}
+
+function runtimeBindingFactsForInstructionAssembly(input: {
+  readonly basis: ExecutionBasis;
+  readonly transition: FpDispatchTransition;
+  readonly actorInvocation: ActorInvocation;
+  readonly pluginInput: EnginePluginInput;
+  readonly projection: RuntimeAggregateProjection;
+  readonly replayEvents: readonly RuntimeEvent[];
+}): readonly RuntimeBindingFact[] {
+  const facts: RuntimeBindingFact[] = [
+    runtimeBindingFact({
+      slotClass: "graph_call",
+      ref: graphCallIdForBasis(input.basis),
+      sourceEventRefs: [input.pluginInput.sourceProjectionRef]
+    }),
+    runtimeBindingFact({
+      slotClass: "frame",
+      ref: frameIdForBasis(input.basis),
+      sourceEventRefs: [input.pluginInput.sourceProjectionRef]
+    }),
+    runtimeBindingFact({
+      slotClass: "vector",
+      ref: input.transition.edge,
+      sourceEventRefs: [input.transition.dispatchRef]
+    }),
+    runtimeBindingFact({
+      slotClass: "event_log",
+      ref: input.pluginInput.sourceProjectionRef,
+      sourceEventRefs: [input.pluginInput.sourceProjectionRef]
+    }),
+    runtimeBindingFact({
+      slotClass: "worker_invocation",
+      ref: input.actorInvocation.actorInvocationId,
+      sourceEventRefs: [input.transition.dispatchRef]
+    })
+  ];
+  const selection = latestSelectedGraphFunctionEvent({
+    basis: input.basis,
+    replayEvents: input.replayEvents
+  });
+  if (selection !== null) {
+    facts.push(
+      runtimeBindingFact({
+        slotClass: "selected_graph_function",
+        ref: selection.selectedGraphFunctionRef,
+        sourceEventRefs: [selection.selectionRef, selection.lookupResultRef]
+      })
+    );
+  }
+  const vector = input.basis.graph.vectors[input.transition.vectorIndex];
+  if (vector !== undefined) {
+    for (const source of vector.source) {
+      facts.push(
+        runtimeBindingFact({
+          slotClass: "source_node",
+          ref: source.id,
+          sourceEventRefs: [input.pluginInput.sourceProjectionRef]
+        })
+      );
+    }
+    facts.push(
+      runtimeBindingFact({
+        slotClass: "target_node",
+        ref: vector.target.id,
+        sourceEventRefs: [input.pluginInput.sourceProjectionRef]
+      })
+    );
+  }
+  const context = input.pluginInput.instructionCausalContext;
+  if (context !== null) {
+    for (const payloadRef of context.payloadRefs) {
+      facts.push(
+        runtimeBindingFact({
+          slotClass: "prior_artifact",
+          ref: payloadRef,
+          sourceEventRefs: [
+            ...context.sourceProjectionRefs,
+            ...context.evidenceRefs
+          ]
+        })
+      );
+    }
+    for (const evidenceRef of context.evidenceRefs) {
+      facts.push(
+        runtimeBindingFact({
+          slotClass: "evidence",
+          ref: evidenceRef,
+          sourceEventRefs: context.sourceProjectionRefs
+        })
+      );
+    }
+  }
+  for (const projectionRow of input.pluginInput.outputAuthorityProjections) {
+    facts.push(
+      runtimeBindingFact({
+        slotClass: "policy",
+        ref: projectionRow.projectionRef,
+        sourceEventRefs: [input.pluginInput.sourceProjectionRef]
+      })
+    );
+  }
+  return Object.freeze(facts);
+}
+
+type InstructionAssemblyDispatchBinding =
+  | {
+      readonly kind: "not_configured";
+    }
+  | {
+      readonly kind: "blocked";
+      readonly reason: string;
+    }
+  | {
+      readonly kind: "manifest_projected";
+      readonly event: RuntimeEvent;
+      readonly manifest: PromptManifest;
+    };
+
+function bindInstructionAssemblyForFpDispatch(input: {
+  readonly runtime: EngineInstructionAssemblyRuntime | null;
+  readonly basis: ExecutionBasis;
+  readonly transition: FpDispatchTransition;
+  readonly actorInvocation: ActorInvocation;
+  readonly pluginInput: EnginePluginInput;
+  readonly projection: RuntimeAggregateProjection;
+  readonly replayEvents: readonly RuntimeEvent[];
+}): InstructionAssemblyDispatchBinding {
+  const row = instructionAssemblyPlanForTransition({
+    runtime: input.runtime,
+    basis: input.basis,
+    transition: input.transition
+  });
+  if (row === null) {
+    return input.runtime === null
+      ? Object.freeze({ kind: "not_configured" })
+      : Object.freeze({
+          kind: "blocked",
+          reason: `instruction assembly startup has no admitted plan for ${input.transition.edge}`
+        });
+  }
+  const bindResult = bindInstructionEnvelope({
+    envelopeRef: [
+      "instruction-envelope",
+      input.basis.id,
+      String(input.transition.vectorIndex),
+      input.actorInvocation.actorInvocationId
+    ].join(":"),
+    plan: row.plan,
+    startupAdmission: row.admission,
+    runtimeFacts: runtimeBindingFactsForInstructionAssembly(input)
+  });
+  if (!bindResult.accepted) {
+    return Object.freeze({
+      kind: "blocked",
+      reason: `instruction envelope binding failed: ${bindResult.issues.map((issue) => issue.issueKind).join(",")}`
+    });
+  }
+  const renderResult = renderPromptManifest({
+    manifestRef: [
+      "prompt-manifest",
+      input.basis.id,
+      String(input.transition.vectorIndex),
+      input.actorInvocation.actorInvocationId
+    ].join(":"),
+    plan: row.plan,
+    envelope: bindResult.envelope,
+    rendererRef: input.runtime?.rendererRef ?? "renderer://abg/instruction-assembly/default"
+  });
+  if (!renderResult.accepted) {
+    return Object.freeze({
+      kind: "blocked",
+      reason: `prompt manifest render blocked: ${renderResult.issues.map((issue) => issue.issueKind).join(",")}`
+    });
+  }
+  return Object.freeze({
+    kind: "manifest_projected",
+    manifest: renderResult.manifest,
+    event: constructInstructionPromptManifestProjectedEvent({
+      invocation: input.actorInvocation,
+      manifest: renderResult.manifest,
+      causationEventRefs: Object.freeze([
+        input.transition.dispatchRef,
+        row.admission.planRef
+      ]),
+      correlationId: [
+        "instruction-prompt-manifest",
+        input.basis.id,
+        String(input.transition.vectorIndex),
+        input.actorInvocation.actorInvocationId
+      ].join(":")
+    })
   });
 }
 
@@ -4258,14 +4581,19 @@ function* runEngineIterateMachine(input: {
       constructBasisAdmittedEvent(request.basis)
     );
   }
+  let registryStartup: RuntimeRegistryStartupAdmissionResult | null = null;
   if (request.runtimeRegistryStartup !== undefined) {
-    const registryStartup = admitRuntimeGraphFunctionRegistryStartup(
+    registryStartup = admitRuntimeGraphFunctionRegistryStartup(
       request.runtimeRegistryStartup
     );
     if (registryStartup.admissionEvents.length > 0) {
       eventState = emitRunnerEvents(eventState, registryStartup.admissionEvents);
     }
   }
+  const instructionAssemblyRuntime = instructionAssemblyRuntimeForStartup({
+    startup: request.instructionAssemblyStartup,
+    registryStartup
+  });
 
   while (true) {
     if (iterationCount > request.basis.graph.vectors.length) {
@@ -5430,6 +5758,40 @@ function* runEngineIterateMachine(input: {
             preDispatchTransformProjection
           )
         });
+        const instructionBinding = bindInstructionAssemblyForFpDispatch({
+          runtime: instructionAssemblyRuntime,
+          basis: request.basis,
+          transition,
+          actorInvocation,
+          pluginInput: scalarTransformInput,
+          projection: scalarTransformProjection,
+          replayEvents: eventState.replayEvents
+        });
+        if (instructionBinding.kind === "blocked") {
+          const blocked = terminalTransition(
+            request.basis,
+            "gap_stop",
+            instructionBinding.reason
+          );
+          eventState = emitRunnerEvents(
+            eventState,
+            constructTerminalReachedEvent(blocked)
+          );
+          return constructResult({
+            basis: request.basis,
+            transition: blocked,
+            projection: deriveRuntimeAggregateProjection(
+              request.basis,
+              eventState.replayEvents
+            ),
+            emittedEvents: eventState.emittedEvents,
+            replayEvents: eventState.replayEvents,
+            iterationCount
+          });
+        }
+        if (instructionBinding.kind === "manifest_projected") {
+          eventState = emitRunnerEvents(eventState, instructionBinding.event);
+        }
         eventState = emitRunnerEvents(eventState,
           fpDispatchAttemptStartedEvents({
             basis: request.basis,
@@ -7195,6 +7557,7 @@ export function runEngineStart(request: EngineStartRequest): EngineIterateResult
     runtimeEvents: request.runtimeEvents,
     eventSink: request.eventSink,
     runtimeRegistryStartup: request.runtimeRegistryStartup,
+    instructionAssemblyStartup: request.instructionAssemblyStartup,
     plugins: request.plugins,
     maxAttachedFpAttempts: request.maxAttachedFpAttempts,
     assuranceProvider: request.assuranceProvider,
@@ -7220,6 +7583,7 @@ export async function runEngineStartAsync(
     runtimeEvents: request.runtimeEvents,
     eventSink: request.eventSink,
     runtimeRegistryStartup: request.runtimeRegistryStartup,
+    instructionAssemblyStartup: request.instructionAssemblyStartup,
     plugins: request.plugins,
     maxAttachedFpAttempts: request.maxAttachedFpAttempts,
     assuranceProvider: request.assuranceProvider,

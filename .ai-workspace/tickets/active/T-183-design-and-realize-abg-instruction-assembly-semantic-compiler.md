@@ -405,3 +405,51 @@ Remaining before closure:
   transport.
 - Add the `test:t183:live` proof lane and run the live framework-smoke proof
   with an actual F_P worker.
+
+### 2026-07-01 Startup And Dispatch Integration Slice
+
+Implemented the first runtime integration slice over the canonical ABG start
+path:
+
+- Added replay-visible runtime event
+  `instruction_prompt_manifest_projected`.
+- Added event admission and `RuntimeAggregateProjection` rows for prompt
+  manifests.
+- Wired `instructionAssemblyStartup` through `runEngineStart`,
+  `runEngineStartAsync`, and the public M04 `start` context.
+- Startup admits compiled prompt plans only against the registry entries
+  admitted through `runtimeRegistryStartup`.
+- The F_P dispatch path binds an `InstructionEnvelope` from current replay and
+  projection truth before dispatch.
+- If instruction assembly is active and no admitted plan matches the current
+  graph-function/vector edge, the runner emits `terminal_reached` with
+  `gap_stop` before `fp_dispatch_requested`.
+- If binding succeeds, the runner emits
+  `instruction_prompt_manifest_projected` before `fp_dispatch_requested`.
+- Existing plugin-observer prompt materialization remains separate; the new
+  manifest event is the generic instruction assembly projection.
+
+Focused proof additions:
+
+- Public ABG `start` with registry startup plus compiled plan startup emits
+  `instruction_prompt_manifest_projected` before `fp_dispatch_requested`.
+- Public ABG `start` with instruction assembly active and no matching admitted
+  plan blocks before F_P dispatch.
+- The manifest projection is replay-derived from emitted events, not a side
+  channel.
+
+Verification:
+
+- `git diff --check` passed.
+- Duplicate-surface code grep passed:
+  `! rg -n "InstructionComposition|\bPromptPlan\b|sourceNodeTypeRefs|targetNodeTypeRefs|responseContractRef|requiredCarrierClasses" build_tenants/abiogenesis/typescript/code/src`
+- `npm run test:t177` passed: 16/16.
+- `npm run test:t183` passed: 10/10.
+- `npm run test:semantic` passed: 996/996.
+
+Remaining before closure:
+
+- Integrate response admission against the derived output contract after worker
+  transport.
+- Add the `test:t183:live` proof lane and run the live framework-smoke proof
+  with an actual F_P worker.

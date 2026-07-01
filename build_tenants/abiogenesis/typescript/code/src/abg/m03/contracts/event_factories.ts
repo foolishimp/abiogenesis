@@ -31,6 +31,7 @@ import type {
   GraphCallOpenedEvent,
   GraphVectorResumeCursorAppliedEvent,
   InstructionCausalContextBoundEvent,
+  InstructionPromptManifestProjectedEvent,
   ObservedStateAdmittedRuntimeEvent,
   ObservedStateSourceKind,
   PayloadObservedRuntimeEvent,
@@ -55,6 +56,7 @@ import {
   OBSERVED_STATE_SOURCE_KIND_VALUES
 } from "./carriers.js";
 import type { PluginTraversalObserverBindingSelection } from "./plugin_traversal_observer.js";
+import type { PromptManifest } from "./instruction_assembly.js";
 import { deriveEffectiveVectorRegime } from "./regime_resolution.js";
 import {
   assertNonEmptyString,
@@ -616,6 +618,45 @@ export function constructPluginTraversalPromptMaterializedEvent(input: {
     defaultKey: input.selection.defaultKey,
     causationEventRefs,
     correlationId: input.correlationId
+  });
+}
+
+export function constructInstructionPromptManifestProjectedEvent(input: {
+  readonly invocation: ActorInvocation;
+  readonly manifest: PromptManifest;
+  readonly causationEventRefs?: readonly string[];
+  readonly correlationId: string;
+}): InstructionPromptManifestProjectedEvent {
+  return Object.freeze({
+    kind: "instruction_prompt_manifest_projected",
+    basisId: input.invocation.basisId,
+    graphFunctionId: input.invocation.graphFunctionId,
+    runId: input.invocation.runId,
+    workKey: input.invocation.workKey,
+    graphCallId: input.invocation.graphCallId,
+    frameId: input.invocation.frameId,
+    frameLineageId: null,
+    vectorIndex: input.invocation.vectorIndex,
+    edge: input.invocation.edge,
+    actorInvocationId: input.invocation.actorInvocationId,
+    workerId: input.invocation.workerId,
+    backendId: input.invocation.backendId,
+    causationEventRefs: freezeStringArray(input.causationEventRefs ?? []),
+    correlationId: input.correlationId,
+    manifestRef: input.manifest.manifestRef,
+    manifestDigest: input.manifest.manifestDigest,
+    planRef: input.manifest.planRef,
+    planDigest: input.manifest.planDigest,
+    envelopeRef: input.manifest.envelopeRef,
+    envelopeDigest: input.manifest.envelopeDigest,
+    rendererRef: input.manifest.rendererRef,
+    promptDigest: input.manifest.promptDigest,
+    includedCarrierRefs: freezeStringArray(input.manifest.includedCarrierRefs),
+    omittedCarrierRefs: freezeStringArray(input.manifest.omittedCarrierRefs),
+    refOnlyCarrierRefs: freezeStringArray(input.manifest.refOnlyCarrierRefs),
+    gapRefs: freezeStringArray(input.manifest.gapRefs),
+    forbiddenCarrierRefs: freezeStringArray(input.manifest.forbiddenCarrierRefs),
+    outputContractRefs: freezeStringArray(input.manifest.outputContractRefs)
   });
 }
 

@@ -214,6 +214,7 @@ export function deriveRuntimeAggregateProjection(
   >();
   const actorProcessStreamRefs: RuntimeAggregateProjection["actorProcessStreamRefs"][number][] = [];
   const pluginTraversalPromptMaterializationRefs: RuntimeAggregateProjection["pluginTraversalPromptMaterializationRefs"][number][] = [];
+  const instructionPromptManifestRefs: RuntimeAggregateProjection["instructionPromptManifestRefs"][number][] = [];
   const leafTaskIds = new Set<string>();
   const completedLeafTaskIds = new Set<string>();
   const failedLeafTaskIds = new Set<string>();
@@ -514,6 +515,36 @@ export function deriveRuntimeAggregateProjection(
             defaultsBundleDigest: event.defaultsBundleDigest,
             defaultsPath: event.defaultsPath,
             defaultKey: event.defaultKey,
+            causationEventRefs: freezeStringArray(event.causationEventRefs),
+            correlationId: event.correlationId
+          })
+        );
+        graphCallId = event.graphCallId;
+        frameId = event.frameId;
+        break;
+      case "instruction_prompt_manifest_projected":
+        assertVectorIndexInRange(basis, event.vectorIndex);
+        instructionPromptManifestRefs.push(
+          Object.freeze({
+            vectorIndex: event.vectorIndex,
+            edge: event.edge,
+            actorInvocationId: event.actorInvocationId,
+            workerId: event.workerId,
+            backendId: event.backendId,
+            manifestRef: event.manifestRef,
+            manifestDigest: event.manifestDigest,
+            planRef: event.planRef,
+            planDigest: event.planDigest,
+            envelopeRef: event.envelopeRef,
+            envelopeDigest: event.envelopeDigest,
+            rendererRef: event.rendererRef,
+            promptDigest: event.promptDigest,
+            includedCarrierRefs: freezeStringArray(event.includedCarrierRefs),
+            omittedCarrierRefs: freezeStringArray(event.omittedCarrierRefs),
+            refOnlyCarrierRefs: freezeStringArray(event.refOnlyCarrierRefs),
+            gapRefs: freezeStringArray(event.gapRefs),
+            forbiddenCarrierRefs: freezeStringArray(event.forbiddenCarrierRefs),
+            outputContractRefs: freezeStringArray(event.outputContractRefs),
             causationEventRefs: freezeStringArray(event.causationEventRefs),
             correlationId: event.correlationId
           })
@@ -880,6 +911,15 @@ export function deriveRuntimeAggregateProjection(
       return left.materializationRef.localeCompare(right.materializationRef);
     })
   );
+  const frozenInstructionPromptManifestRefs = Object.freeze(
+    [...instructionPromptManifestRefs].sort((left, right) => {
+      const vectorDelta = left.vectorIndex - right.vectorIndex;
+      if (vectorDelta !== 0) {
+        return vectorDelta;
+      }
+      return left.manifestRef.localeCompare(right.manifestRef);
+    })
+  );
   const frozenLeafTaskIds = freezeStringArray([...leafTaskIds].sort());
   const frozenCompletedLeafTaskIds = freezeStringArray([...completedLeafTaskIds].sort());
   const frozenFailedLeafTaskIds = freezeStringArray([...failedLeafTaskIds].sort());
@@ -951,6 +991,7 @@ export function deriveRuntimeAggregateProjection(
     actorProcessStreamRefs: frozenActorProcessStreamRefs,
     pluginTraversalPromptMaterializationRefs:
       frozenPluginTraversalPromptMaterializationRefs,
+    instructionPromptManifestRefs: frozenInstructionPromptManifestRefs,
     leafTaskIds: frozenLeafTaskIds,
     completedLeafTaskIds: frozenCompletedLeafTaskIds,
     failedLeafTaskIds: frozenFailedLeafTaskIds,

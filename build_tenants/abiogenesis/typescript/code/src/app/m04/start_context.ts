@@ -28,6 +28,7 @@ export interface PublicStartContext {
   readonly frameLineageId?: string | null;
   readonly assuranceProvider?: EngineAssuranceProvider;
   readonly runtimeRegistryStartup?: EngineStartRequest["runtimeRegistryStartup"];
+  readonly instructionAssemblyStartup?: EngineStartRequest["instructionAssemblyStartup"];
   readonly abgFallbackBundle?: AbgFallbackBundle | null;
   readonly leverOverridesBundle?: AbgLeverOverridesBundle | null;
   readonly pluginTraversalObserverFallbackEnabled?: boolean;

@@ -760,6 +760,24 @@ export interface InstructionCausalContextBoundEvent {
   readonly correlationId: string;
 }
 
+export interface InstructionPromptManifestProjectedEvent extends ActorRuntimeScope {
+  readonly kind: "instruction_prompt_manifest_projected";
+  readonly manifestRef: string;
+  readonly manifestDigest: string;
+  readonly planRef: string;
+  readonly planDigest: string;
+  readonly envelopeRef: string;
+  readonly envelopeDigest: string;
+  readonly rendererRef: string;
+  readonly promptDigest: string;
+  readonly includedCarrierRefs: readonly string[];
+  readonly omittedCarrierRefs: readonly string[];
+  readonly refOnlyCarrierRefs: readonly string[];
+  readonly gapRefs: readonly string[];
+  readonly forbiddenCarrierRefs: readonly string[];
+  readonly outputContractRefs: readonly string[];
+}
+
 export interface FhEscalatedEvent {
   readonly kind: "fh_escalated";
   readonly basisId: string;
@@ -2470,6 +2488,7 @@ export type RuntimeEvent =
   | RuntimeExternalInterruptionObservedEvent
   | PluginTraversalPromptMaterializedEvent
   | InstructionCausalContextBoundEvent
+  | InstructionPromptManifestProjectedEvent
   | FhEscalatedEvent
   | TerminalReachedEvent
   | GraphCallOpenedEvent
@@ -2586,6 +2605,7 @@ export const RUNTIME_EVENT_KIND_VALUES = Object.freeze([
   "runtime_external_interruption_observed",
   "plugin_traversal_prompt_materialized",
   "instruction_causal_context_bound",
+  "instruction_prompt_manifest_projected",
   "fh_escalated",
   "terminal_reached",
   "graph_call_opened",
@@ -2865,6 +2885,29 @@ export interface RuntimeAggregateProjection {
     readonly defaultsBundleDigest: string | null;
     readonly defaultsPath: string | null;
     readonly defaultKey: string | null;
+    readonly causationEventRefs: readonly string[];
+    readonly correlationId: string;
+  }[];
+  readonly instructionPromptManifestRefs: readonly {
+    readonly vectorIndex: number;
+    readonly edge: string;
+    readonly actorInvocationId: string | null;
+    readonly workerId: string | null;
+    readonly backendId: string | null;
+    readonly manifestRef: string;
+    readonly manifestDigest: string;
+    readonly planRef: string;
+    readonly planDigest: string;
+    readonly envelopeRef: string;
+    readonly envelopeDigest: string;
+    readonly rendererRef: string;
+    readonly promptDigest: string;
+    readonly includedCarrierRefs: readonly string[];
+    readonly omittedCarrierRefs: readonly string[];
+    readonly refOnlyCarrierRefs: readonly string[];
+    readonly gapRefs: readonly string[];
+    readonly forbiddenCarrierRefs: readonly string[];
+    readonly outputContractRefs: readonly string[];
     readonly causationEventRefs: readonly string[];
     readonly correlationId: string;
   }[];

@@ -15,6 +15,12 @@ import {
   renderPromptManifest,
   replayPromptManifest
 } from "../../build/semantic/code/src/abg/m03/contracts/index.js";
+import {
+  constructGtlLibraryEntryDeclaration,
+  constructProductRegistryStartupConfig,
+  start as publicStart
+} from "../../build/semantic/code/src/index.js";
+import { buildThreeStageStartContext } from "./support/m03-iteration-fixtures.mjs";
 
 function rule(overrides = {}) {
   return constructInstructionAssemblyRule({
@@ -135,6 +141,151 @@ function acceptedPlan(overrides = {}) {
   assert.equal(result.accepted, true);
   assert.ok(result.plan);
   return result.plan;
+}
+
+function publicStartSlots() {
+  return [
+    constructRuntimeBindingSlot({
+      slotRef: "slot://t183/start/graph-call",
+      slotClass: "graph_call",
+      required: true,
+      sourceTruthKind: "replay_event",
+      evidenceRefs: ["evidence://t183/start/slot/graph-call"]
+    }),
+    constructRuntimeBindingSlot({
+      slotRef: "slot://t183/start/frame",
+      slotClass: "frame",
+      required: true,
+      sourceTruthKind: "replay_event",
+      evidenceRefs: ["evidence://t183/start/slot/frame"]
+    }),
+    constructRuntimeBindingSlot({
+      slotRef: "slot://t183/start/vector",
+      slotClass: "vector",
+      required: true,
+      sourceTruthKind: "projection",
+      evidenceRefs: ["evidence://t183/start/slot/vector"]
+    }),
+    constructRuntimeBindingSlot({
+      slotRef: "slot://t183/start/selected-graph-function",
+      slotClass: "selected_graph_function",
+      required: true,
+      sourceTruthKind: "replay_event",
+      evidenceRefs: ["evidence://t183/start/slot/selection"]
+    }),
+    constructRuntimeBindingSlot({
+      slotRef: "slot://t183/start/event-log",
+      slotClass: "event_log",
+      required: true,
+      sourceTruthKind: "projection",
+      evidenceRefs: ["evidence://t183/start/slot/event-log"]
+    }),
+    constructRuntimeBindingSlot({
+      slotRef: "slot://t183/start/worker",
+      slotClass: "worker_invocation",
+      required: true,
+      sourceTruthKind: "replay_event",
+      evidenceRefs: ["evidence://t183/start/slot/worker"]
+    })
+  ];
+}
+
+function graphFunctionDeclaration(graphFunctionRef) {
+  return constructGtlLibraryEntryDeclaration({
+    declarationRef: "gtl-declaration://t183/start/framework-smoke",
+    entryRef: "registry-entry://t183/start/framework-smoke",
+    libraryScope: "product",
+    entryKind: "graph_function",
+    namespace: "t183.start",
+    ownerRef: "owner://abg/t183",
+    version: "4.2.0-rc.1",
+    graphFunctionRef,
+    interfaceRef: "interface://t183/start/framework-smoke",
+    sourceContractRef: "contract://t183/start/source",
+    targetContractRef: "contract://t183/start/target",
+    contextRefs: ["context://t183/start"],
+    authorityRefs: ["authority://t183/start/abg-runtime"],
+    overlayRefs: ["overlay://t183/start/framework-smoke"],
+    provenanceRefs: ["provenance://t183/start"],
+    readinessRefs: ["readiness://t183/start"],
+    proofRefs: ["proof://t183/start"],
+    policyRefs: ["policy://t183/start"],
+    declarationSourceRefs: ["gtl://module/t183/start"]
+  });
+}
+
+function productStartupConfig() {
+  return constructProductRegistryStartupConfig({
+    configRef: "product-registry-startup://t183/start",
+    productNamespace: "t183.start",
+    ownerRef: "owner://abg/t183",
+    version: "4.2.0-rc.1",
+    enabledLibraryRefs: [
+      "registry-entry://t183/start/framework-smoke",
+      "gtl-declaration://t183/start/framework-smoke",
+      "gtl://module/t183/start"
+    ],
+    overlayRefs: ["overlay://t183/start/framework-smoke"],
+    pluginRefs: ["plugin://t183/start/fp-worker"],
+    readinessRefs: ["readiness://t183/start"],
+    proofRefs: ["proof://t183/start"],
+    policyRefs: ["policy://t183/start"],
+    configSourceRefs: ["config://t183/start"]
+  });
+}
+
+function startPlanForFirstVector(executive) {
+  const vector = executive.template.graph.vectors[0];
+  assert.ok(vector);
+  return acceptedPlan({
+    planRef: "compiled-prompt-plan://t183/start/vector-0",
+    rule: rule({
+      ruleRef: "instruction-rule://t183/start/vector-0",
+      appliesToGraphFunctionRefs: [executive.id],
+      appliesToVectorRefs: [vector.name],
+      runtimeBindingSlotClasses: [
+        "graph_call",
+        "frame",
+        "vector",
+        "selected_graph_function",
+        "event_log",
+        "worker_invocation"
+      ],
+      policyRefs: ["policy://t183/start"]
+    }),
+    graphFunctionRef: executive.id,
+    vectorRef: vector.name,
+    registryEntryRefs: ["registry-entry://t183/start/framework-smoke"],
+    sourceNodeRefs: vector.source.map((node) => node.id),
+    targetNodeRef: vector.target.id,
+    derivedTruth: derivedTruth({
+      sourceTypeRefs: vector.source.map((node) => node.schema.ref),
+      targetTypeRefs: [vector.target.schema.ref],
+      outputContractRefs: ["contract://t183/start/vector-0/output"],
+      proofRefs: ["proof://t183/start/vector-0"],
+      authorityRefs: ["authority://t183/start/abg-runtime"],
+      rendererRefs: ["renderer://abg/instruction-envelope/default"],
+      carrierClassRefs: [
+        "carrier://t183/start/source",
+        "carrier://t183/start/target"
+      ]
+    }),
+    requiredInputRefs: [],
+    availableInputRefs: [],
+    sectionDecisions: [
+      section({
+        sectionRef: "section://t183/start/current-vector",
+        dependencyRefs: [vector.name],
+        carrierRefs: [vector.source[0]?.id ?? vector.name, vector.target.id],
+        compressionMode: "digest",
+        text: "Transform the current source node into the declared target node.",
+        digestRef: "sha256:t183-start-current-vector",
+        excerptDigest: null
+      })
+    ],
+    bindingSlots: publicStartSlots(),
+    expectedAnswerMarkers: ["gap_stop_without_dispatch"]
+  });
 }
 
 function admitted(plan) {
@@ -349,3 +500,90 @@ test("T-183 prompt manifest replay catches digest drift", () => {
   );
 });
 
+test("T-183 public ABG start emits replay-visible instruction prompt manifest before F_P dispatch", () => {
+  const { input, context, executive } = buildThreeStageStartContext({
+    defaultRegime: "F_P"
+  });
+  const plan = startPlanForFirstVector(executive);
+  const declaration = graphFunctionDeclaration(executive.id);
+  const events = [];
+  const outcome = publicStart(
+    input,
+    {
+      ...context,
+      runtimeRegistryStartup: {
+        systemDeclarations: [],
+        productStartupConfig: productStartupConfig(),
+        productDeclarations: [declaration],
+        correlationId: "correlation://t183/start/registry"
+      },
+      instructionAssemblyStartup: {
+        compiledPromptPlans: [plan],
+        rendererRef: "renderer://abg/instruction-envelope/default"
+      }
+    },
+    (event) => {
+      events.push(event);
+    }
+  );
+  assert.equal(outcome.kind, "blocked");
+  assert.equal(outcome.stopPredicate, "dispatch_required");
+  assert.equal(outcome.stopDetail.dispatchRef, "dispatch://m03-iteration");
+  const manifestEvents = events.filter(
+    (event) => event.kind === "instruction_prompt_manifest_projected"
+  );
+  assert.equal(manifestEvents.length, 1);
+  assert.equal(manifestEvents[0].planRef, plan.planRef);
+  assert.equal(manifestEvents[0].planDigest, plan.planDigest);
+  assert.equal(
+    manifestEvents[0].includedCarrierRefs.includes("node-m03-input-set"),
+    true
+  );
+  assert.equal(
+    events.findIndex((event) => event.kind === "instruction_prompt_manifest_projected") <
+      events.findIndex((event) => event.kind === "fp_dispatch_requested"),
+    true
+  );
+  assert.deepEqual(outcome.trace.eventKinds, events.map((event) => event.kind));
+});
+
+test("T-183 active instruction assembly blocks F_P dispatch when startup admits no matching plan", () => {
+  const { input, context, executive } = buildThreeStageStartContext({
+    defaultRegime: "F_P"
+  });
+  const declaration = graphFunctionDeclaration(executive.id);
+  const events = [];
+  const outcome = publicStart(
+    input,
+    {
+      ...context,
+      runtimeRegistryStartup: {
+        systemDeclarations: [],
+        productStartupConfig: productStartupConfig(),
+        productDeclarations: [declaration],
+        correlationId: "correlation://t183/start/registry/no-plan"
+      },
+      instructionAssemblyStartup: {
+        compiledPromptPlans: [],
+        rendererRef: "renderer://abg/instruction-envelope/default"
+      }
+    },
+    (event) => {
+      events.push(event);
+    }
+  );
+  assert.equal(outcome.kind, "blocked");
+  assert.equal(outcome.stopPredicate, "gap_stop");
+  assert.match(
+    events.find((event) => event.kind === "terminal_reached")?.reason ?? "",
+    /no admitted plan/u
+  );
+  assert.equal(
+    events.some((event) => event.kind === "instruction_prompt_manifest_projected"),
+    false
+  );
+  assert.equal(
+    events.some((event) => event.kind === "fp_dispatch_requested"),
+    false
+  );
+});
