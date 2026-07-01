@@ -254,7 +254,7 @@ proof_commands:
   - rg -n "Existing Compiler Reuse And Gaps|constructAbgSemanticCompilerFpReviewGraphFunction|semanticReviewGates|promptAssets|CompiledPromptPlan" build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md
   - rg -n "Known Algebra Register|CompiledPromptPlan|InstructionEnvelope|PromptManifest|SemanticReviewGate|PromptAssetRow" build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md
   - rg -n "InstructionAssemblyRule|CompiledPromptPlan|RuntimeBindingSlot|PromptManifest|non-tautology|P0" specification build_tenants/abiogenesis/typescript/design
-  - "! rg -n \"InstructionComposition|PromptPlan|sourceNodeTypeRefs|targetNodeTypeRefs|responseContractRef|requiredCarrierClasses\" build_tenants/abiogenesis/typescript/code/src"
+  - "! rg -n \"InstructionComposition|\\bPromptPlan\\b|sourceNodeTypeRefs|targetNodeTypeRefs|responseContractRef|requiredCarrierClasses\" build_tenants/abiogenesis/typescript/code/src"
   - cd build_tenants/abiogenesis/typescript && npm run build:semantic
   - cd build_tenants/abiogenesis/typescript && npm run test:semantic
   - cd build_tenants/abiogenesis/typescript && npm run test:t183
@@ -363,3 +363,45 @@ Added the first-slice IACS and Mermaid structural carrier diagram:
 - The structural diagram shows source GTL/ABG truth, startup registry
   selection, compiler admission, runtime binding, renderer ownership, manifest
   replay, P0 no-dispatch, and response-admission handoff.
+
+### 2026-07-01 First Compiler Slice
+
+Implemented the first executable instruction assembly slice in
+`abg/m03/contracts/instruction_assembly.ts`:
+
+- `InstructionAssemblyRule` construction rejects duplicate carrier-truth fields
+  without exposing those fields as a code surface.
+- `compileInstructionAssemblyPlan` produces a digest-pinned
+  `CompiledPromptPlan` only when field-cut, source trace, type coverage,
+  output-contract derivation, authority/proof/renderer derivation, relevance,
+  compression, proportionality, non-tautology, and runtime-binding checks are
+  backed by the known algebra register.
+- F_P validation evidence can be carried as admitted evidence refs but cannot
+  approve a plan without F_D algebra checks.
+- `admitCompiledPromptPlanAtStartup` requires admitted registry/startup refs.
+- `bindInstructionEnvelope` rejects missing, stale, unadmitted, or non-digest
+  runtime binding facts before renderer/dispatch.
+- `renderPromptManifest` produces replayable prompt digest/manifests for
+  non-P0 plans and rejects P0 prompt rendering.
+- `replayPromptManifest` detects prompt or manifest digest drift.
+- Added `test:t183` with eight focused negative/positive proofs.
+
+Verification:
+
+- `git diff --check` passed.
+- Duplicate-surface code grep passed:
+  `! rg -n "InstructionComposition|\bPromptPlan\b|sourceNodeTypeRefs|targetNodeTypeRefs|responseContractRef|requiredCarrierClasses" build_tenants/abiogenesis/typescript/code/src`
+- `npm run build:semantic` passed.
+- `npm run test:t183` passed: 8/8.
+- `npm run test:semantic` passed: 994/994.
+
+Remaining before closure:
+
+- Wire compiled prompt plans through real `runEngineStart` startup admission and
+  iterate-time selection rather than only the contract helper.
+- Bind instruction envelopes on the real F_P dispatch path before transport.
+- Emit or project prompt manifests as replay-visible runtime/projection truth.
+- Integrate response admission against the derived output contract after worker
+  transport.
+- Add the `test:t183:live` proof lane and run the live framework-smoke proof
+  with an actual F_P worker.

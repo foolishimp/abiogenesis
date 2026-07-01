@@ -1127,6 +1127,52 @@ export type {
   GtlProgramTraversalUnitProjectionRow
 } from "./gtl_program_conformance.js";
 export {
+  admitCompiledPromptPlanAtStartup,
+  bindInstructionEnvelope,
+  compileInstructionAssemblyPlan,
+  constructInstructionAssemblyRule,
+  constructInstructionSectionDecision,
+  constructRuntimeBindingSlot,
+  INSTRUCTION_ASSEMBLY_FORBIDDEN_RULE_FIELDS,
+  INSTRUCTION_ASSEMBLY_KNOWN_ALGEBRAS,
+  renderPromptManifest,
+  replayPromptManifest
+} from "./instruction_assembly.js";
+export type {
+  CompiledPromptPlan,
+  CompiledPromptPlanStartupAdmission,
+  CompileInstructionAssemblyPlanInput,
+  DerivedInstructionCarrierTruth,
+  InstructionAssemblyCompileAccepted,
+  InstructionAssemblyCompileRejected,
+  InstructionAssemblyCompileResult,
+  InstructionAssemblyForbiddenRuleField,
+  InstructionAssemblyIssue,
+  InstructionAssemblyIssueKind,
+  InstructionAssemblyKnownAlgebra,
+  InstructionAssemblyRelevanceRule,
+  InstructionAssemblyRule,
+  InstructionAssemblyRuleInput,
+  InstructionAssemblySectionRule,
+  InstructionCompressionMode,
+  InstructionEnvelope,
+  InstructionEnvelopeBindAccepted,
+  InstructionEnvelopeBindRejected,
+  InstructionEnvelopeBindResult,
+  InstructionProportionalityClass,
+  InstructionSectionDecision,
+  InstructionSectionDisposition,
+  PromptManifest,
+  PromptManifestRenderAccepted,
+  PromptManifestRenderRejected,
+  PromptManifestRenderResult,
+  PromptManifestReplayResult,
+  RuntimeBindingFact,
+  RuntimeBindingSlot,
+  RuntimeBindingSlotClass,
+  RuntimeBindingSourceTruthKind
+} from "./instruction_assembly.js";
+export {
   admitEvaluationRuleDeclaration,
   admitEvaluationRuleOutcome,
   admitEvaluationSetPlan,
